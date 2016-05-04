@@ -3,6 +3,7 @@
 
 *.xml
 *.cfg
+*.lnk
 Data/
 
 # User-specific files
