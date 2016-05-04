@@ -1,6 +1,8 @@
 #@ SimpleGraphic
 
 SetWindowTitle("PathOfBuilding")
+ConExecute("vid_mode 1")
+ConExecute("vid_resizable 3")
 
 LoadModule("Common")
 
