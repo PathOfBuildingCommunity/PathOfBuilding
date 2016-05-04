@@ -16,7 +16,7 @@ function launch:LoadMain()
 	self.main = nil
 	collectgarbage("collect")
 	local errMsg
-	errMsg, self.main = PLoadModule("main", launch)
+	errMsg, self.main = PLoadModule("Modules/main", launch)
 	if errMsg then
 		self:ShowErrMsg("Error loading main script: %s", errMsg)
 	elseif not self.main then

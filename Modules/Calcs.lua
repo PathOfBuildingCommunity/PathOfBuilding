@@ -529,7 +529,7 @@ end
 function calcs:LoadControl()
 	grid:Clear()
 	local errMsg
-	errMsg, self.control = PLoadModule("CalcsControl", grid)
+	errMsg, self.control = PLoadModule("Modules/CalcsControl", grid)
 	if errMsg then
 		launch:ShowErrMsg("Error loading control script: %s", errMsg)
 	elseif not self.control then

@@ -15,7 +15,7 @@ local mod_dbUnmerge = mod.dbUnmerge
 local mod_dbMergeList = mod.dbMergeList
 local mod_dbUnmergeList = mod.dbUnmergeList
 
-local setViewMode = LoadModule("CalcsView", grid)
+local setViewMode = LoadModule("Modules/CalcsView", grid)
 
 local isElemental = { fire = true, cold = true, lightning = true }
 

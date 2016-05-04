@@ -154,9 +154,9 @@ function buildMode:Init(dbFileName)
 
 	self.abortSave = true
 
-	self.items = LoadModule("Items", launch, cfg, main)
+	self.items = LoadModule("Modules/Items", launch, cfg, main)
 	self.items:Init(self)
-	self.calcs = LoadModule("Calcs", launch, cfg, main)
+	self.calcs = LoadModule("Modules/Calcs", launch, cfg, main)
 	self.calcs:Init(self)
 	self.tree = main.tree
 	self.spec = main.SpecClass.NewSpec(main.tree)

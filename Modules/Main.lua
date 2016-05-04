@@ -75,16 +75,16 @@ function main:DrawTooltip(x, y, w, h, viewPort, col, center)
 	end
 end
 
-LoadModule("Data")
-LoadModule("ModTools")
+LoadModule("Modules/Data")
+LoadModule("Modules/ModTools")
 
-main.TreeClass = LoadModule("Tree", launch, cfg, main)
-main.SpecClass = LoadModule("Spec", launch, cfg, main)
-main.TreeViewClass = LoadModule("TreeView", launch, cfg, main)
+main.TreeClass = LoadModule("Modules/Tree", launch, cfg, main)
+main.SpecClass = LoadModule("Modules/Spec", launch, cfg, main)
+main.TreeViewClass = LoadModule("Modules/TreeView", launch, cfg, main)
 
 main.modes = { }
-main.modes["LIST"] = LoadModule("List", launch, cfg, main)
-main.modes["BUILD"] = LoadModule("Build", launch, cfg, main)
+main.modes["LIST"] = LoadModule("Modules/List", launch, cfg, main)
+main.modes["BUILD"] = LoadModule("Modules/Build", launch, cfg, main)
 
 function main:SetMode(newMode, ...)
 	self.newMode = newMode

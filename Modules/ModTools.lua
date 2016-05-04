@@ -3,7 +3,7 @@ local t_insert = table.insert
 
 mod = { }
 
-mod.parseMod = LoadModule("ModParser")
+mod.parseMod = LoadModule("Modules/ModParser")
 
 -- Break modifier name into namespace and mod name
 local spaceLookup = { }
