@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}"
+	ProjectSection(SolutionItems) = preProject
+		_gemparse.lua = _gemparse.lua
+		Build.lua = Build.lua
+		Calcs.lua = Calcs.lua
+		CalcsControl.lua = CalcsControl.lua
+		CalcsView.lua = CalcsView.lua
+		Common.lua = Common.lua
+		Data.lua = Data.lua
+		Items.lua = Items.lua
+		Launch.lua = Launch.lua
+		List.lua = List.lua
+		Main.lua = Main.lua
+		ModParser.lua = ModParser.lua
+		ModTools.lua = ModTools.lua
+		Spec.lua = Spec.lua
+		Tree.lua = Tree.lua
+		TreeView.lua = TreeView.lua
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gem DB", "Gem DB", "{EE9D06F5-7310-4567-AB18-6923BCF0A2A1}"
+	ProjectSection(SolutionItems) = preProject
+		gems\act_dex.lua = gems\act_dex.lua
+		gems\act_int.lua = gems\act_int.lua
+		gems\act_str.lua = gems\act_str.lua
+		gems\sup_dex.lua = gems\sup_dex.lua
+		gems\sup_int.lua = gems\sup_int.lua
+		gems\sup_str.lua = gems\sup_str.lua
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Item DB", "Item DB", "{5BCB69A7-EFE8-4C72-B5E3-DF2C1E227290}"
+	ProjectSection(SolutionItems) = preProject
+		Items\axe.lua = Items\axe.lua
+		Items\body.lua = Items\body.lua
+		Items\boots.lua = Items\boots.lua
+		Items\bow.lua = Items\bow.lua
+		Items\claw.lua = Items\claw.lua
+		Items\dagger.lua = Items\dagger.lua
+		Items\glove.lua = Items\glove.lua
+		Items\helm.lua = Items\helm.lua
+		Items\mace.lua = Items\mace.lua
+		Items\misc.lua = Items\misc.lua
+		Items\shield.lua = Items\shield.lua
+		Items\staff.lua = Items\staff.lua
+		Items\sword.lua = Items\sword.lua
+		Items\wand.lua = Items\wand.lua
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE9D06F5-7310-4567-AB18-6923BCF0A2A1} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
+		{5BCB69A7-EFE8-4C72-B5E3-DF2C1E227290} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
+	EndGlobalSection
+EndGlobal
