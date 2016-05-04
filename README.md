@@ -1,4 +1,4 @@
 # PathOfBuilding
 Offline build planner for Path of Exile.
 
-Installer/runtime not yet available.
+Not released yet, installer/runtime not yet available.
