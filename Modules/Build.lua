@@ -1,3 +1,8 @@
+-- Path of Building
+--
+-- Module: Build
+-- Loads and manages the active build.
+--
 local launch, cfg, main = ...
 
 local ipairs = ipairs

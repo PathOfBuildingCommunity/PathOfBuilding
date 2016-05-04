@@ -1,3 +1,8 @@
+-- Path of Building
+--
+-- Module: CalcsControl
+-- Control script for calculations
+--
 local grid = ...
 
 local m_abs = math.abs

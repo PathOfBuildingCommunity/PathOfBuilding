@@ -40,12 +40,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{35D8BE82-CD83-4C2D-AD31-47026E724F46}"
 	ProjectSection(SolutionItems) = preProject
 		Modules\Build.lua = Modules\Build.lua
+		Modules\BuildList.lua = Modules\BuildList.lua
 		Modules\Calcs.lua = Modules\Calcs.lua
 		Modules\CalcsControl.lua = Modules\CalcsControl.lua
 		Modules\CalcsView.lua = Modules\CalcsView.lua
 		Modules\Data.lua = Modules\Data.lua
 		Modules\Items.lua = Modules\Items.lua
-		Modules\List.lua = Modules\List.lua
 		Modules\Main.lua = Modules\Main.lua
 		Modules\ModParser.lua = Modules\ModParser.lua
 		Modules\ModTools.lua = Modules\ModTools.lua

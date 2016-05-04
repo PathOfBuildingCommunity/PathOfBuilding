@@ -1,3 +1,9 @@
+-- Path of Building
+--
+-- Module: ModParser
+-- Parser function for modifier names
+--
+
 -- List of modifier forms
 local formList = {
 	["^(%d+)%% increased"] = "INC",

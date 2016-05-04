@@ -1,3 +1,8 @@
+-- Path of Building
+--
+-- Module: Items
+-- Items view for the active build
+--
 local launch, cfg, main = ...
 
 local t_insert = table.insert

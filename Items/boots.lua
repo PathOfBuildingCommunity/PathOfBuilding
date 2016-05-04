@@ -1,3 +1,4 @@
+-- Item data (c) Grinding Gear Games
 local itemBases = ...
 
 itemBases["Iron Greaves"] = {

@@ -1,3 +1,8 @@
+-- Path of Building
+--
+-- Module: ModTools
+-- Various functions for dealing with modifier lists and databases
+--
 
 local t_insert = table.insert
 

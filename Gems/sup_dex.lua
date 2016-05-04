@@ -1,3 +1,8 @@
+-- Path of Building
+--
+-- Dexterity support gems
+-- Skill gem data (c) Grinding Gear Games
+--
 local gems = ...
 
 gems["Added Cold Damage"] = {

@@ -1,4 +1,9 @@
 #@ SimpleGraphic
+-- Path of Building
+--
+-- Module: Launch
+-- Program entry point; runs the Main module within a protected environment
+--
 
 SetWindowTitle("PathOfBuilding")
 ConExecute("vid_mode 1")

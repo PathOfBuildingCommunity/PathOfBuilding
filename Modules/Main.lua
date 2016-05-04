@@ -1,3 +1,8 @@
+-- Path of Building
+--
+-- Module: Main
+-- Main module of program.
+--
 local launch = ...
 
 local ipairs = ipairs
@@ -83,7 +88,7 @@ main.SpecClass = LoadModule("Modules/Spec", launch, cfg, main)
 main.TreeViewClass = LoadModule("Modules/TreeView", launch, cfg, main)
 
 main.modes = { }
-main.modes["LIST"] = LoadModule("Modules/List", launch, cfg, main)
+main.modes["LIST"] = LoadModule("Modules/BuildList", launch, cfg, main)
 main.modes["BUILD"] = LoadModule("Modules/Build", launch, cfg, main)
 
 function main:SetMode(newMode, ...)

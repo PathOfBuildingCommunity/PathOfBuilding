@@ -1,3 +1,8 @@
+-- Path of Building
+--
+-- Module: Spec
+-- Passive tree spec class.
+--
 local launch, cfg, main = ...
 
 local pairs = pairs

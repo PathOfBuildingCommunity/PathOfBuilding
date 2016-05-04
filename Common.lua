@@ -1,3 +1,9 @@
+-- Path of Building
+--
+-- Module: Common
+-- Libaries, functions and classes used by various modules.
+--
+
 common = { }
 
 common.curl = require("lcurl")

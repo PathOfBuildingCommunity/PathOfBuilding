@@ -1,3 +1,8 @@
+-- Path of Building
+--
+-- Module: BuildList
+-- Displays the list of builds.
+--
 local launch, cfg, main = ...
 
 local vfs = require("vfs")

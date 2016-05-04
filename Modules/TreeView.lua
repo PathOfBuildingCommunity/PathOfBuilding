@@ -1,3 +1,8 @@
+-- Path of Building
+--
+-- Module: TreeView
+-- Passive skill tree view for the active build
+--
 local launch, cfg, main = ...
 
 local pairs = pairs

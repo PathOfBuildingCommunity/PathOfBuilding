@@ -1,3 +1,8 @@
+-- Path of Building
+--
+-- Module: CalcsView
+-- Configures the grid display in the calculations view
+--
 local grid = ...
 
 local s_format = string.format

@@ -1,3 +1,8 @@
+-- Path of Building
+--
+-- Module: Tree
+-- Passive skill tree class.
+--
 local launch, cfg, main = ...
 
 local pairs = pairs

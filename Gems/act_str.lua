@@ -1,3 +1,8 @@
+-- Path of Building
+--
+-- Active Strength skills
+-- Skill gem data (c) Grinding Gear Games
+--
 local gems = ...
 
 gems["Abyssal Cry"] = {

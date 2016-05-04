@@ -1,3 +1,8 @@
+-- Path of Building
+--
+-- Strength support gems
+-- Skill gem data (c) Grinding Gear Games
+--
 local gems = ...
 
 gems["Added Fire Damage"] = {

@@ -1,3 +1,8 @@
+-- Path of Building
+--
+-- Module: Calcs
+-- Calculations view for the active build
+--
 local launch, cfg, main = ...
 
 cfg.gridHeight = 18
