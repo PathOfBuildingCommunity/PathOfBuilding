@@ -10,20 +10,20 @@ local vfs = require("vfs")
 local listMode = { }
 
 listMode.controls = { 
-	common.newButton(2, 2, 60, 20, "New", function()
+	common.New("ButtonControl", 2, 2, 60, 20, "New", function()
 		listMode:New()
 	end),
-	common.newButton(66, 2, 60, 20, "Copy", function()
+	common.New("ButtonControl", 66, 2, 60, 20, "Copy", function()
 		listMode:CopySel()
 	end, function()
 		return listMode.sel ~= nil
 	end),
-	common.newButton(130, 2, 60, 20, "Rename", function()
+	common.New("ButtonControl", 130, 2, 60, 20, "Rename", function()
 		listMode:RenameSel()
 	end, function()
 		return listMode.sel ~= nil
 	end),
-	common.newButton(194, 2, 60, 20, "Delete", function()
+	common.New("ButtonControl", 194, 2, 60, 20, "Delete", function()
 		listMode:DeleteSel()
 	end, function()
 		return listMode.sel ~= nil

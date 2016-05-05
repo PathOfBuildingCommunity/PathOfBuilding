@@ -1,9 +1,9 @@
 -- Path of Building
 --
--- Module: TreeView
--- Passive skill tree view for the active build
+-- Class: Passive Tree View
+-- Passive skill tree viewer.
 --
-local launch, cfg, main = ...
+local launch = ...
 
 local pairs = pairs
 local ipairs = ipairs
@@ -12,143 +12,84 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local function drawAsset(data, x, y, scale, isHalf)
-	local width = data.width * scale * 1.33
-	local height = data.height * scale * 1.33
-	if isHalf then
-		DrawImage(data.handle, x - width, y - height * 2, width * 2, height * 2)
-		DrawImage(data.handle, x - width, y, width * 2, height * 2, 0, 1, 1, 0)
-	else
-		DrawImage(data.handle, x - width, y - height, width * 2, height * 2, unpack(data))
-	end
-end
+local TreeViewClass = common.NewClass("PassiveTreeView", function(self, main)
+	self.main = main
 
-local TreeViewClass = { }
-TreeViewClass.__index = TreeViewClass
+	self.ring = NewImageHandle()
+	self.ring:Load("Art/ring.png")
 
-function TreeViewClass:Zoom(level, viewPort)
-	self.zoomLevel = m_max(0, m_min(12, self.zoomLevel + level))
-	local oldZoom = self.zoom
+	self.zoomLevel = 3
 	self.zoom = 1.2 ^ self.zoomLevel
-	local factor = self.zoom / oldZoom
-	local cursorX, cursorY = GetCursorPos()
-	local relX = cursorX - viewPort.x - viewPort.width/2
-	local relY = cursorY - viewPort.y - viewPort.height/2
-	self.zoomX = relX + (self.zoomX - relX) * factor
-	self.zoomY = relY + (self.zoomY - relY) * factor
+	self.zoomX = 0
+	self.zoomY = 0
+
+	self.searchStr = ""
+
+	self.controls = { }
+	t_insert(self.controls, common.New("ButtonControl", function() return self.viewPort.x + 4 end, function() return self.viewPort.y + self.viewPort.height + 8 end, 60, 20, "Reset", function()
+		launch:ShowPrompt(1, 0, 0, "Are you sure to want to reset your tree?\nPress Y to continue.", function(key)
+			if key == "y" then
+				self.build.spec:ResetNodes()
+				self.build.spec:AddUndoState()
+			end
+			return true
+		end)
+	end))
+	t_insert(self.controls, common.New("ButtonControl", function() return self.viewPort.x + 4 + 68*1 end, function() return self.viewPort.y + self.viewPort.height + 8 end, 60, 20, "Import", function()
+		launch:ShowPrompt(0, 0, 0, "Press Ctrl+V to import passive tree link.", function(key)
+			if key == "v" and IsKeyDown("CTRL") then
+				local url = Paste()
+				if url and #url > 0 then
+					self.build.spec:DecodeURL(url)
+					self.build.spec:AddUndoState()
+				end
+				return true
+			elseif key == "ESCAPE" then
+				return true
+			end
+		end)
+	end))
+	t_insert(self.controls, common.New("ButtonControl", function() return self.viewPort.x + 4 + 68*2 end, function() return self.viewPort.y + self.viewPort.height + 8 end, 60, 20, "Export", function()
+		launch:ShowPrompt(0, 0, 0, "Press Ctrl+C to copy passive tree link.", function(key)
+			if key == "c" and IsKeyDown("CTRL") then
+				Copy(self.build.spec:EncodeURL("https://www.pathofexile.com/passive-skill-tree/"))
+				return true
+			elseif key == "ESCAPE" then
+				return true
+			end
+		end)
+	end))
+	self.controls.treeSearch = common.New("EditControl", function() return self.viewPort.x + 4 + 68*3 end, function() return self.viewPort.y + self.viewPort.height + 8 end, 400, 20, "", "Search", "[^%c%(%)]", 100, nil, function(buf)
+		self.searchStr = buf
+	end)
+end)
+
+function TreeViewClass:Load(xml, fileName)
+	if xml.attrib.zoomLevel then
+		self.zoomLevel = tonumber(xml.attrib.zoomLevel)
+		self.zoom = 1.2 ^ self.zoomLevel
+	end
+	if xml.attrib.zoomX and xml.attrib.zoomY then
+		self.zoomX = tonumber(xml.attrib.zoomX)
+		self.zoomY = tonumber(xml.attrib.zoomY)
+	end
+	if xml.attrib.searchStr then
+		self.searchStr = xml.attrib.searchStr
+		self.controls.treeSearch:SetText(self.searchStr)
+	end
+	if xml.attrib.showHeatMap then
+		self.showHeatMap = xml.attrib.showHeatMap == "true"
+	end
 end
 
-function TreeViewClass:AddNodeTooltip(node, build)
-	-- Special case for sockets
-	if node.type == "socket" and node.alloc then
-		local socket, jewel = build.items:GetSocketJewel(node.id)
-		if jewel then
-			build.items:AddItemTooltip(jewel, build)
-		else
-			main:AddTooltipLine(24, "^7"..node.dn..(IsKeyDown("ALT") and " ["..node.id.."]" or ""))
-		end
-		main:AddTooltipSeperator(14)
-		main:AddTooltipLine(14, "^x80A080Tip: Right click this socket to go to the items page and choose the jewel for this socket.")
-		return
-	end
-	
-	-- Node name
-	main:AddTooltipLine(24, "^7"..node.dn..(IsKeyDown("ALT") and " ["..node.id.."]" or ""))
-	if IsKeyDown("ALT") and node.power and node.power.dps then
-		main:AddTooltipLine(16, string.format("DPS power: %g   Defence power: %g", node.power.dps, node.power.def))
-	end
-
-	-- Node description
-	if node.sd[1] then
-		main:AddTooltipLine(16, "")
-		for i, line in ipairs(node.sd) do
-			if node.mods[i].list then
-				if IsKeyDown("ALT") then
-					local modStr
-					for k, v in pairs(node.mods[i].list) do
-						modStr = (modStr and modStr..", " or "^2") .. string.format("%s = %s", k, tostring(v))
-					end
-					if node.mods[i].extra then
-						modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
-					end
-					if modStr then
-						line = line .. "  " .. modStr
-					end
-				end
-			end
-			main:AddTooltipLine(16, "^7"..line)
-		end
-	end
-
-	-- Reminder text
-	if node.reminderText then
-		main:AddTooltipSeperator(14)
-		for _, line in ipairs(node.reminderText) do
-			main:AddTooltipLine(14, "^xA0A080"..line)
-		end
-	end
-
-	-- Mod differences
-	local calcFunc, calcBase = build.calcs:GetNodeCalculator(build)
-	if calcFunc then
-		main:AddTooltipSeperator(14)
-		local count
-		local nodeOutput, pathOutput
-		if node.alloc then
-			count = #node.depends
-			nodeOutput = calcFunc({node}, true)
-			pathOutput = calcFunc(node.depends, true)
-		else
-			local path = self.tracePath or node.path or { }
-			count = #path
-			nodeOutput = calcFunc({node})
-			pathOutput = calcFunc(path)
-		end
-		local none = true
-		local header = false
-		for _, data in ipairs(build.displayStats) do
-			if data.mod then
-				local diff = (nodeOutput[data.mod] or 0) - (calcBase[data.mod] or 0)
-				if diff > 0.001 or diff < -0.001 then
-					none = false
-					if not header then
-						main:AddTooltipLine(14, string.format("^7%s this node will give you:", node.alloc and "Unallocating" or "Allocating"))
-						header = true
-					end
-					main:AddTooltipLine(14, string.format("%s%+"..data.fmt.." %s", diff > 0 and "^x00FF44" or "^xFF3300", diff * (data.pc and 100 or 1), data.label))
-				end
-			end
-		end
-		if count > 1 then
-			header = false
-			for _, data in ipairs(build.displayStats) do
-				if data.mod then
-					local diff = (pathOutput[data.mod] or 0) - (calcBase[data.mod] or 0)
-					if diff > 0.001 or diff < -0.001 then
-						none = false
-						if not header then
-							main:AddTooltipLine(14, string.format("^7%s this node and all nodes %s will give you:", node.alloc and "Unallocating" or "Allocating", node.alloc and "depending on it" or "leading to it"))
-							header = true
-						end
-						main:AddTooltipLine(14, string.format("%s%+"..data.fmt.." %s", diff > 0 and "^x00FF44" or "^xFF3300", diff * (data.pc and 100 or 1), data.label))
-					end
-				end
-			end
-		end
-		if none then
-			main:AddTooltipLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", count > 1 and " or the nodes leading to it" or ""))
-		end
-	end
-
-	-- Pathing distance
-	if node.path and #node.path > 0 then
-		main:AddTooltipSeperator(14)
-		main:AddTooltipLine(14, "^7"..#node.path .. " points to node")
-		if #node.path > 1 then
-			main:AddTooltipLine(14, "^x80A080")
-			main:AddTooltipLine(14, "Tip: To reach this node by a different path, hold Shift, then trace the path and click this node")
-		end
-	end
+function TreeViewClass:Save(xml)
+	xml.attrib = {
+		zoomLevel = tostring(self.zoomLevel),
+		zoomX = tostring(self.zoomX),
+		zoomY = tostring(self.zoomY),
+		searchStr = self.searchStr,
+		showHeatMap = tostring(self.showHeatMap),
+	}
 end
 
 function TreeViewClass:DrawTree(build, viewPort, inputEvents)
@@ -308,15 +249,15 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 				if group.ascendancyName ~= curAscendName then
 					SetDrawColor(1, 1, 1, 0.25)
 				end
-				drawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
+				self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
 				SetDrawColor(1, 1, 1)
 			end
 		elseif group.oo["3"] then
-			drawAsset(tree.assets.PSGroupBackground3, scrX, scrY, scale, true)
+			self:DrawAsset(tree.assets.PSGroupBackground3, scrX, scrY, scale, true)
 		elseif group.oo["2"] then
-			drawAsset(tree.assets.PSGroupBackground2, scrX, scrY, scale)
+			self:DrawAsset(tree.assets.PSGroupBackground2, scrX, scrY, scale)
 		elseif group.oo["1"] then
-			drawAsset(tree.assets.PSGroupBackground1, scrX, scrY, scale)
+			self:DrawAsset(tree.assets.PSGroupBackground1, scrX, scrY, scale)
 		end
 	end
 
@@ -406,7 +347,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 			end
 		end
 		if base then
-			drawAsset(base, scrX, scrY, scale)
+			self:DrawAsset(base, scrX, scrY, scale)
 		end
 		if overlay then
 			if node.type ~= "class" and node.type ~= "ascendClass" then
@@ -449,7 +390,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 					end
 				end
 			end
-			drawAsset(tree.assets[overlay], scrX, scrY, scale)
+			self:DrawAsset(tree.assets[overlay], scrX, scrY, scale)
 			SetDrawColor(1, 1, 1)
 		end
 	end
@@ -479,7 +420,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 		self:AddNodeTooltip(hoverNode, build)
 		local scrX, scrY = treeToScreen(hoverNode.x, hoverNode.y)
 		local size = m_floor(hoverNode.size * scale)
-		main:DrawTooltip(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
+		self.main:DrawTooltip(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
 	end
 
 	SetDrawColor(0.05, 0.05, 0.05)
@@ -489,85 +430,138 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 	common.controlsDraw(self, viewPort)
 end
 
-function TreeViewClass:Load(xml, fileName)
-	if xml.attrib.zoomLevel then
-		self.zoomLevel = tonumber(xml.attrib.zoomLevel)
-		self.zoom = 1.2 ^ self.zoomLevel
-	end
-	if xml.attrib.zoomX and xml.attrib.zoomY then
-		self.zoomX = tonumber(xml.attrib.zoomX)
-		self.zoomY = tonumber(xml.attrib.zoomY)
-	end
-	if xml.attrib.searchStr then
-		self.searchStr = xml.attrib.searchStr
-		self.controls.treeSearch:SetText(self.searchStr)
-	end
-	if xml.attrib.showHeatMap then
-		self.showHeatMap = xml.attrib.showHeatMap == "true"
+function TreeViewClass:DrawAsset(data, x, y, scale, isHalf)
+	local width = data.width * scale * 1.33
+	local height = data.height * scale * 1.33
+	if isHalf then
+		DrawImage(data.handle, x - width, y - height * 2, width * 2, height * 2)
+		DrawImage(data.handle, x - width, y, width * 2, height * 2, 0, 1, 1, 0)
+	else
+		DrawImage(data.handle, x - width, y - height, width * 2, height * 2, unpack(data))
 	end
 end
-function TreeViewClass:Save(xml)
-	xml.attrib = {
-		zoomLevel = tostring(self.zoomLevel),
-		zoomX = tostring(self.zoomX),
-		zoomY = tostring(self.zoomY),
-		searchStr = self.searchStr,
-		showHeatMap = tostring(self.showHeatMap),
-	}
-end
 
-function TreeViewClass.NewTreeView()
-	local self = setmetatable({}, TreeViewClass)
-
-	self.ring = NewImageHandle()
-	self.ring:Load("ring.png")
-
-	self.zoomLevel = 3
+function TreeViewClass:Zoom(level, viewPort)
+	self.zoomLevel = m_max(0, m_min(12, self.zoomLevel + level))
+	local oldZoom = self.zoom
 	self.zoom = 1.2 ^ self.zoomLevel
-	self.zoomX = 0
-	self.zoomY = 0
-
-	self.searchStr = ""
-
-	self.controls = { }
-	t_insert(self.controls, common.newButton(function() return self.viewPort.x + 4 end, function() return self.viewPort.y + self.viewPort.height + 8 end, 60, 20, "Reset", function()
-		launch:ShowPrompt(1, 0, 0, "Are you sure to want to reset your tree?\nPress Y to continue.", function(key)
-			if key == "y" then
-				self.build.spec:ResetNodes()
-				self.build.spec:AddUndoState()
-			end
-			return true
-		end)
-	end))
-	t_insert(self.controls, common.newButton(function() return self.viewPort.x + 4 + 68*1 end, function() return self.viewPort.y + self.viewPort.height + 8 end, 60, 20, "Import", function()
-		launch:ShowPrompt(0, 0, 0, "Press Ctrl+V to import passive tree link.", function(key)
-			if key == "v" and IsKeyDown("CTRL") then
-				local url = Paste()
-				if url and #url > 0 then
-					self.build.spec:DecodeURL(url)
-					self.build.spec:AddUndoState()
-				end
-				return true
-			elseif key == "ESCAPE" then
-				return true
-			end
-		end)
-	end))
-	t_insert(self.controls, common.newButton(function() return self.viewPort.x + 4 + 68*2 end, function() return self.viewPort.y + self.viewPort.height + 8 end, 60, 20, "Export", function()
-		launch:ShowPrompt(0, 0, 0, "Press Ctrl+C to copy passive tree link.", function(key)
-			if key == "c" and IsKeyDown("CTRL") then
-				Copy(self.build.spec:EncodeURL("https://www.pathofexile.com/passive-skill-tree/"))
-				return true
-			elseif key == "ESCAPE" then
-				return true
-			end
-		end)
-	end))
-	self.controls.treeSearch = common.newEditControl(function() return self.viewPort.x + 4 + 68*3 end, function() return self.viewPort.y + self.viewPort.height + 8 end, 400, 20, "", "Search", "[^%c%(%)]", 100, nil, function(buf)
-		self.searchStr = buf
-	end)
-
-	return self
+	local factor = self.zoom / oldZoom
+	local cursorX, cursorY = GetCursorPos()
+	local relX = cursorX - viewPort.x - viewPort.width/2
+	local relY = cursorY - viewPort.y - viewPort.height/2
+	self.zoomX = relX + (self.zoomX - relX) * factor
+	self.zoomY = relY + (self.zoomY - relY) * factor
 end
 
-return TreeViewClass
+function TreeViewClass:AddNodeTooltip(node, build)
+	-- Special case for sockets
+	if node.type == "socket" and node.alloc then
+		local socket, jewel = build.items:GetSocketJewel(node.id)
+		if jewel then
+			build.items:AddItemTooltip(jewel, build)
+		else
+			self.main:AddTooltipLine(24, "^7"..node.dn..(IsKeyDown("ALT") and " ["..node.id.."]" or ""))
+		end
+		self.main:AddTooltipSeperator(14)
+		self.main:AddTooltipLine(14, "^x80A080Tip: Right click this socket to go to the items page and choose the jewel for this socket.")
+		return
+	end
+	
+	-- Node name
+	self.main:AddTooltipLine(24, "^7"..node.dn..(IsKeyDown("ALT") and " ["..node.id.."]" or ""))
+	if IsKeyDown("ALT") and node.power and node.power.dps then
+		self.main:AddTooltipLine(16, string.format("DPS power: %g   Defence power: %g", node.power.dps, node.power.def))
+	end
+
+	-- Node description
+	if node.sd[1] then
+		self.main:AddTooltipLine(16, "")
+		for i, line in ipairs(node.sd) do
+			if node.mods[i].list then
+				if IsKeyDown("ALT") then
+					local modStr
+					for k, v in pairs(node.mods[i].list) do
+						modStr = (modStr and modStr..", " or "^2") .. string.format("%s = %s", k, tostring(v))
+					end
+					if node.mods[i].extra then
+						modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
+					end
+					if modStr then
+						line = line .. "  " .. modStr
+					end
+				end
+			end
+			self.main:AddTooltipLine(16, "^7"..line)
+		end
+	end
+
+	-- Reminder text
+	if node.reminderText then
+		self.main:AddTooltipSeperator(14)
+		for _, line in ipairs(node.reminderText) do
+			self.main:AddTooltipLine(14, "^xA0A080"..line)
+		end
+	end
+
+	-- Mod differences
+	local calcFunc, calcBase = build.calcs:GetNodeCalculator(build)
+	if calcFunc then
+		self.main:AddTooltipSeperator(14)
+		local count
+		local nodeOutput, pathOutput
+		if node.alloc then
+			count = #node.depends
+			nodeOutput = calcFunc({node}, true)
+			pathOutput = calcFunc(node.depends, true)
+		else
+			local path = self.tracePath or node.path or { }
+			count = #path
+			nodeOutput = calcFunc({node})
+			pathOutput = calcFunc(path)
+		end
+		local none = true
+		local header = false
+		for _, data in ipairs(build.displayStats) do
+			if data.mod then
+				local diff = (nodeOutput[data.mod] or 0) - (calcBase[data.mod] or 0)
+				if diff > 0.001 or diff < -0.001 then
+					none = false
+					if not header then
+						self.main:AddTooltipLine(14, string.format("^7%s this node will give you:", node.alloc and "Unallocating" or "Allocating"))
+						header = true
+					end
+					self.main:AddTooltipLine(14, string.format("%s%+"..data.fmt.." %s", diff > 0 and "^x00FF44" or "^xFF3300", diff * (data.pc and 100 or 1), data.label))
+				end
+			end
+		end
+		if count > 1 then
+			header = false
+			for _, data in ipairs(build.displayStats) do
+				if data.mod then
+					local diff = (pathOutput[data.mod] or 0) - (calcBase[data.mod] or 0)
+					if diff > 0.001 or diff < -0.001 then
+						none = false
+						if not header then
+							self.main:AddTooltipLine(14, string.format("^7%s this node and all nodes %s will give you:", node.alloc and "Unallocating" or "Allocating", node.alloc and "depending on it" or "leading to it"))
+							header = true
+						end
+						self.main:AddTooltipLine(14, string.format("%s%+"..data.fmt.." %s", diff > 0 and "^x00FF44" or "^xFF3300", diff * (data.pc and 100 or 1), data.label))
+					end
+				end
+			end
+		end
+		if none then
+			self.main:AddTooltipLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", count > 1 and " or the nodes leading to it" or ""))
+		end
+	end
+
+	-- Pathing distance
+	if node.path and #node.path > 0 then
+		self.main:AddTooltipSeperator(14)
+		self.main:AddTooltipLine(14, "^7"..#node.path .. " points to node")
+		if #node.path > 1 then
+			self.main:AddTooltipLine(14, "^x80A080")
+			self.main:AddTooltipLine(14, "Tip: To reach this node by a different path, hold Shift, then trace the path and click this node")
+		end
+	end
+end

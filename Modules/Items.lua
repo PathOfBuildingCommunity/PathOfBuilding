@@ -19,7 +19,7 @@ end
 items.slots = { }
 items.controls = { }
 
-items.controls.addDisplayItem = common.newButton(0, 0, 60, 20, "Add", function()
+items.controls.addDisplayItem = common.New("ButtonControl", 0, 0, 60, 20, "Add", function()
 	items:AddDisplayItem()
 end)
 
@@ -33,7 +33,7 @@ local function mkItemSlot(x, y, slotName, slotLabel)
 	slot.height = 20
 	slot.slotName = slotName
 	slot.label = slotLabel or slotName
-	slot.dropDown = common.newDropDown(x, y, slot.width, slot.height, slot.list, function(sel)
+	slot.dropDown = common.New("DropDownControl", x, y, slot.width, slot.height, slot.list, function(sel)
 		if slot.items[sel] ~= slot.selItem then
 			slot.selItem = slot.items[sel]
 			items:PopulateSlots()

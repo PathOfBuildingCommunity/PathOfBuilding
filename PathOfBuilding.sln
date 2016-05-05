@@ -49,9 +49,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{35D8
 		Modules\Main.lua = Modules\Main.lua
 		Modules\ModParser.lua = Modules\ModParser.lua
 		Modules\ModTools.lua = Modules\ModTools.lua
-		Modules\Spec.lua = Modules\Spec.lua
-		Modules\Tree.lua = Modules\Tree.lua
-		Modules\TreeView.lua = Modules\TreeView.lua
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4DE67-DABD-4A3C-8772-37D4A9DB6D59}"
+	ProjectSection(SolutionItems) = preProject
+		Classes\ButtonControl.lua = Classes\ButtonControl.lua
+		Classes\DropDownControl.lua = Classes\DropDownControl.lua
+		Classes\EditControl.lua = Classes\EditControl.lua
+		Classes\PassiveSpec.lua = Classes\PassiveSpec.lua
+		Classes\PassiveTree.lua = Classes\PassiveTree.lua
+		Classes\PassiveTreeView.lua = Classes\PassiveTreeView.lua
 	EndProjectSection
 EndProject
 Global
@@ -62,5 +69,6 @@ Global
 		{EE9D06F5-7310-4567-AB18-6923BCF0A2A1} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
 		{5BCB69A7-EFE8-4C72-B5E3-DF2C1E227290} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
 		{35D8BE82-CD83-4C2D-AD31-47026E724F46} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
+		{7EE4DE67-DABD-4A3C-8772-37D4A9DB6D59} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
 	EndGlobalSection
 EndGlobal

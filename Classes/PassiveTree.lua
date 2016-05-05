@@ -1,9 +1,9 @@
 -- Path of Building
 --
--- Module: Tree
+-- Class: Passive Tree
 -- Passive skill tree class.
 --
-local launch, cfg, main = ...
+local launch = ...
 
 local pairs = pairs
 local ipairs = ipairs
@@ -16,83 +16,7 @@ local m_tan = math.tan
 local m_sqrt = math.sqrt
 local t_insert = table.insert
 
-local function cacheImage(imgName, url)
-	local imgFile = io.open(imgName, "r")
-	if imgFile then
-		imgFile:close()
-	else
-		ConPrintf("Downloading '%s'...", imgName)
-		imgFile = io.open(imgName, "wb")
-		local easy = common.curl.easy()
-		easy:setopt_url(url)
-		easy:setopt_writefunction(imgFile)
-		easy:perform()
-		easy:close()
-		imgFile:close()
-	end
-end
-
-local TreeClass = { }
-TreeClass.__index = TreeClass
-
-function TreeClass:BuildConnector(node1, node2)
-	local conn = {
-		ascendancyName = node1.ascendancyName,
-		nodeId1 = node1.id,
-		nodeId2 = node2.id,
-		c = { }
-	}
-	if node1.g == node2.g and node1.o == node2.o then
-		conn.type = "Orbit" .. node1.o
-		if node1.angle > node2.angle then
-			node1, node2 = node2, node1
-		end
-		local span = node2.angle - node1.angle
-		if span > m_pi then
-			node1, node2 = node2, node1
-			span = m_pi * 2 - span
-		end
-		local clipAngle = m_pi / 4 - span / 2
-		local p = 1 - m_max(m_tan(clipAngle), 0)
-		local angle = node1.angle - clipAngle
-		local norm, act = { }, { }
-		for tbl, state in pairs({[norm] = "Normal", [act] = "Active"}) do
-			local art = self.assets[conn.type..state]
-			local size = art.width * 2 * 1.33
-			local oX, oY = size * m_sqrt(2) * m_sin(angle + m_pi/4), size * m_sqrt(2) * -m_cos(angle + m_pi/4)
-			local cX, cY = node1.group.x + oX, node1.group.y + oY
-			tbl[1], tbl[2] = node1.group.x, node1.group.y
-			tbl[3], tbl[4] = cX + (size * m_sin(angle) - oX) * p, cY + (size * -m_cos(angle) - oY) * p
-			tbl[5], tbl[6] = cX, cY
-			tbl[7], tbl[8] = cX + (size * m_cos(angle) - oX) * p, cY + (size * m_sin(angle) - oY) * p
-		end
-		conn.vert = { Normal = norm, Intermediate = norm, Active = act }
-		conn.c[9], conn.c[10] = 1, 1
-		conn.c[11], conn.c[12] = 0, p
-		conn.c[13], conn.c[14] = 0, 0
-		conn.c[15], conn.c[16] = p, 0
-	else
-		conn.type = "LineConnector"
-		local art = self.assets.LineConnectorNormal
-		local vX, vY = node2.x - node1.x, node2.y - node1.y
-		local dist = m_sqrt(vX * vX + vY * vY)
-		local scale = art.height * 1.33 / dist
-		local nX, nY = vX * scale, vY * scale
-		local endS = dist / (art.width * 1.33)
-		conn[1], conn[2] = node1.x - nY, node1.y + nX
-		conn[3], conn[4] = node1.x + nY, node1.y - nX
-		conn[5], conn[6] = node2.x + nY, node2.y - nX
-		conn[7], conn[8] = node2.x - nY, node2.y + nX
-		conn.vert = { Normal = conn, Intermediate = conn, Active = conn }
-		conn.c[9], conn.c[10] = 0, 1
-		conn.c[11], conn.c[12] = 0, 0
-		conn.c[13], conn.c[14] = endS, 0
-		conn.c[15], conn.c[16] = endS, 1
-	end
-	return conn
-end
-
-function TreeClass.NewTree()
+local TreeClass = common.NewClass("PassiveTree", function(self)
 	os.execute("mkdir Data")
 
 	ConPrintf("Loading JSON...")
@@ -129,20 +53,21 @@ function TreeClass.NewTree()
 		classFile:write(classText)
 		classFile:close()
 	end
-	local self = common.json.decode(treeText)
+	for k, v in pairs(common.json.decode(treeText)) do
+		self[k] = v
+	end
 	self.classes = { }
 	for id, data in pairs(common.json.decode(classText)) do
 		self.classes[tonumber(id)] = data
 		data.classes["0"] = { name = "None "}
 	end
-	setmetatable(self, TreeClass)
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
 
 	ConPrintf("Loading assets...")
 	for name, data in pairs(self.assets) do
 		local imgName = "Data/"..name..".png"
-		cacheImage(imgName, data["0.3835"] or data["1"])
+		self:CacheImage(imgName, data["0.3835"] or data["1"])
 		data.handle = NewImageHandle()
 		data.handle:Load(imgName)
 		data.width, data.height = data.handle:ImageSize()
@@ -156,7 +81,7 @@ function TreeClass.NewTree()
 		if not sheet then
 			sheet = { }
 			local imgName = "Data/"..maxZoom.filename
-			cacheImage(imgName, self.imageRoot.."build-gen/passive-skill-sprite/"..maxZoom.filename)
+			self:CacheImage(imgName, self.imageRoot.."build-gen/passive-skill-sprite/"..maxZoom.filename)
 			sheet.handle = NewImageHandle()
 			sheet.handle:Load(imgName, "CLAMP")
 			sheet.width, sheet.height = sheet.handle:ImageSize()
@@ -336,8 +261,77 @@ function TreeClass.NewTree()
 			end
 		end
 	end
+end)
 
-	return self
+function TreeClass:CacheImage(imgName, url)
+	local imgFile = io.open(imgName, "r")
+	if imgFile then
+		imgFile:close()
+	else
+		ConPrintf("Downloading '%s'...", imgName)
+		imgFile = io.open(imgName, "wb")
+		local easy = common.curl.easy()
+		easy:setopt_url(url)
+		easy:setopt_writefunction(imgFile)
+		easy:perform()
+		easy:close()
+		imgFile:close()
+	end
 end
 
-return TreeClass
+function TreeClass:BuildConnector(node1, node2)
+	local conn = {
+		ascendancyName = node1.ascendancyName,
+		nodeId1 = node1.id,
+		nodeId2 = node2.id,
+		c = { }
+	}
+	if node1.g == node2.g and node1.o == node2.o then
+		conn.type = "Orbit" .. node1.o
+		if node1.angle > node2.angle then
+			node1, node2 = node2, node1
+		end
+		local span = node2.angle - node1.angle
+		if span > m_pi then
+			node1, node2 = node2, node1
+			span = m_pi * 2 - span
+		end
+		local clipAngle = m_pi / 4 - span / 2
+		local p = 1 - m_max(m_tan(clipAngle), 0)
+		local angle = node1.angle - clipAngle
+		local norm, act = { }, { }
+		for tbl, state in pairs({[norm] = "Normal", [act] = "Active"}) do
+			local art = self.assets[conn.type..state]
+			local size = art.width * 2 * 1.33
+			local oX, oY = size * m_sqrt(2) * m_sin(angle + m_pi/4), size * m_sqrt(2) * -m_cos(angle + m_pi/4)
+			local cX, cY = node1.group.x + oX, node1.group.y + oY
+			tbl[1], tbl[2] = node1.group.x, node1.group.y
+			tbl[3], tbl[4] = cX + (size * m_sin(angle) - oX) * p, cY + (size * -m_cos(angle) - oY) * p
+			tbl[5], tbl[6] = cX, cY
+			tbl[7], tbl[8] = cX + (size * m_cos(angle) - oX) * p, cY + (size * m_sin(angle) - oY) * p
+		end
+		conn.vert = { Normal = norm, Intermediate = norm, Active = act }
+		conn.c[9], conn.c[10] = 1, 1
+		conn.c[11], conn.c[12] = 0, p
+		conn.c[13], conn.c[14] = 0, 0
+		conn.c[15], conn.c[16] = p, 0
+	else
+		conn.type = "LineConnector"
+		local art = self.assets.LineConnectorNormal
+		local vX, vY = node2.x - node1.x, node2.y - node1.y
+		local dist = m_sqrt(vX * vX + vY * vY)
+		local scale = art.height * 1.33 / dist
+		local nX, nY = vX * scale, vY * scale
+		local endS = dist / (art.width * 1.33)
+		conn[1], conn[2] = node1.x - nY, node1.y + nX
+		conn[3], conn[4] = node1.x + nY, node1.y - nX
+		conn[5], conn[6] = node2.x + nY, node2.y - nX
+		conn[7], conn[8] = node2.x - nY, node2.y + nX
+		conn.vert = { Normal = conn, Intermediate = conn, Active = conn }
+		conn.c[9], conn.c[10] = 0, 1
+		conn.c[11], conn.c[12] = 0, 0
+		conn.c[13], conn.c[14] = endS, 0
+		conn.c[15], conn.c[16] = endS, 1
+	end
+	return conn
+end

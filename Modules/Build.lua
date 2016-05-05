@@ -12,23 +12,23 @@ local buildMode = { }
 
 buildMode.controls = { }
 
-t_insert(buildMode.controls, common.newButton(4, 4, 60, 20, "<< Back", function()
+t_insert(buildMode.controls, common.New("ButtonControl", 4, 4, 60, 20, "<< Back", function()
 	main:SetMode("LIST", buildMode.dbFileName)
 end))
 
-t_insert(buildMode.controls, common.newButton(4 + 68, 4, 60, 20, "Tree", function()
+t_insert(buildMode.controls, common.New("ButtonControl", 4 + 68, 4, 60, 20, "Tree", function()
 	buildMode.viewMode = "TREE"
 end, function()
 	return buildMode.viewMode ~= "TREE"
 end))
 	
-t_insert(buildMode.controls, common.newButton(4 + 68*2, 4, 60, 20, "Items", function()
+t_insert(buildMode.controls, common.New("ButtonControl", 4 + 68*2, 4, 60, 20, "Items", function()
 	buildMode.viewMode = "ITEMS"
 end, function()
 	return buildMode.viewMode ~= "ITEMS"
 end))
 
-t_insert(buildMode.controls, common.newButton(4 + 68*3, 4, 60, 20, "Calcs", function()
+t_insert(buildMode.controls, common.New("ButtonControl", 4 + 68*3, 4, 60, 20, "Calcs", function()
 	buildMode.viewMode = "CALCS"
 end, function()
 	return buildMode.viewMode ~= "CALCS"
@@ -67,7 +67,7 @@ buildMode.controls.pointDisplay = {
 	end,
 }
 
-buildMode.controls.classDrop = common.newDropDown(0, 4, 100, 20, nil, function(index, val)
+buildMode.controls.classDrop = common.New("DropDownControl", 0, 4, 100, 20, nil, function(index, val)
 	local classId = main.tree.classNameMap[val]
 	if classId ~= buildMode.spec.curClassId then
 		if buildMode.spec:IsClassConnected(classId) or buildMode.spec:CountAllocNodes() == 0 then
@@ -87,7 +87,7 @@ end, function()
 	return buildMode.viewMode == "TREE"
 end)
 
-buildMode.controls.ascendDrop = common.newDropDown(0, 4, 100, 20, nil, function(index, val)
+buildMode.controls.ascendDrop = common.New("DropDownControl", 0, 4, 100, 20, nil, function(index, val)
 	local ascendClassId = main.tree.ascendNameMap[val].ascendClassId
 	buildMode.spec:SelectAscendClass(ascendClassId)
 	buildMode.spec:AddUndoState()
@@ -164,8 +164,8 @@ function buildMode:Init(dbFileName)
 	self.calcs = LoadModule("Modules/Calcs", launch, cfg, main)
 	self.calcs:Init(self)
 	self.tree = main.tree
-	self.spec = main.SpecClass.NewSpec(main.tree)
-	self.treeView = main.TreeViewClass.NewTreeView()
+	self.spec = common.New("PassiveSpec", main.tree)
+	self.treeView = common.New("PassiveTreeView")
 
 	wipeTable(self.controls.classDrop.list)
 	for classId, class in pairs(self.tree.classes) do

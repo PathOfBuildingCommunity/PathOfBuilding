@@ -48,7 +48,7 @@ elem.input.cellCol = { 0.1, 0.1, 0.4 }
 function elem.input:Init()
 	local grid = self.grid
 	if self.format == "choice" then
-		self.dropDown = common.newDropDown(0, 0, 0, 0, self.list, function(index, val)
+		self.dropDown = common.New("DropDownControl", 0, 0, 0, 0, self.list, function(index, val)
 			if val ~= grid.input[self.name] then
 				grid.input[self.name] = val
 				grid.changeFlag = true

@@ -10,6 +10,13 @@ local m_floor = math.floor
 local m_max = math.max
 local t_insert = table.insert
 
+LoadModule("Modules/Data")
+LoadModule("Modules/ModTools")
+
+LoadModule("Classes/PassiveTree", launch)
+LoadModule("Classes/PassiveSpec", launch)
+LoadModule("Classes/PassiveTreeView", launch)
+
 local cfg = { }
 
 local main = { }
@@ -79,13 +86,6 @@ function main:DrawTooltip(x, y, w, h, viewPort, col, center)
 		self.tooltipLines[i] = nil
 	end
 end
-
-LoadModule("Modules/Data")
-LoadModule("Modules/ModTools")
-
-main.TreeClass = LoadModule("Modules/Tree", launch, cfg, main)
-main.SpecClass = LoadModule("Modules/Spec", launch, cfg, main)
-main.TreeViewClass = LoadModule("Modules/TreeView", launch, cfg, main)
 
 main.modes = { }
 main.modes["LIST"] = LoadModule("Modules/BuildList", launch, cfg, main)
@@ -192,7 +192,7 @@ end
 function main:Init()
 	self.inputEvents = { }
 
-	self.tree = self.TreeClass.NewTree()
+	self.tree = common.New("PassiveTree")
 
 	self:SetMode("LIST")
 

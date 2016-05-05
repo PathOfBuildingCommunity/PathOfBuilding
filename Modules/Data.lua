@@ -10,6 +10,8 @@ data.gems = { }
 data.gems["_default"] = {
 	attack = true,
 	melee = true,
+	bow = true,
+	projectile = true,
 	base = {
 	},
 	quality = {
@@ -95,5 +97,5 @@ local itemTypes = {
 	"misc"
 }
 for _, type in pairs(itemTypes) do
-	LoadModule("items/"..type, data.itemBases)
+	LoadModule("Items/"..type, data.itemBases)
 end
