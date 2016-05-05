@@ -1043,8 +1043,9 @@ local function calcPrimary(env, output)
 	-- Calculate skill duration
 	if startWatch(env, "duration") then
 		local durationBase = getMiscVal(modDB, "skill", "durationBase", 0)
+		output.total_durationMod = (1 + sumMods(modDB, false, "durationInc") / 100) * sumMods(modDB, true, "durationMore")
 		if durationBase > 0 then
-			output.total_duration = durationBase * (1 + sumMods(modDB, false, "durationInc") / 100) * sumMods(modDB, true, "durationMore")
+			output.total_duration = durationBase * output.total_durationMod
 		end
 		endWatch(env, "duration")
 	end
@@ -1094,26 +1095,23 @@ local function calcPrimary(env, output)
 	-- Calculate bleeding chance and damage
 	if startWatch(env, "bleed", "physical", "dps_crit") then
 		output.bleed_chance = m_min(100, sumMods(modDB, false, "bleedChance")) / 100
-		if output.total_physicalAvg > 0 then
-			env.skillFlags.canBleed = true
-			if output.bleed_chance > 0 then
-				env.skillFlags.dot = true
-				env.skillFlags.bleed = true
-				env.skillFlags.duration = true
-				buildSpaceTable(modDB, {
-					dot = true,
-					degen = true,
-					bleed = true,
-					projectile = env.skillSpaceFlags.projectile,
-					aoe = env.skillSpaceFlags.aoe,
-					totem = env.skillSpaceFlags.totem,
-					trap = env.skillSpaceFlags.trap,
-					mine = env.skillSpaceFlags.mine,
-				})
-				local baseVal = output.total_physicalAvg * output.total_critEffect * 0.1
-				output.bleed_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "physicalInc") / 100) * sumMods(modDB, true, "damageMore", "physicalMore")
-				output.bleed_duration = 5 * (1 + sumMods(modDB, false, "durationInc") / 100) * sumMods(modDB, true, "durationMore")
-			end
+		if output.bleed_chance > 0 and output.total_physicalAvg > 0 then
+			env.skillFlags.dot = true
+			env.skillFlags.bleed = true
+			env.skillFlags.duration = true
+			buildSpaceTable(modDB, {
+				dot = true,
+				degen = true,
+				bleed = true,
+				projectile = env.skillSpaceFlags.projectile,
+				aoe = env.skillSpaceFlags.aoe,
+				totem = env.skillSpaceFlags.totem,
+				trap = env.skillSpaceFlags.trap,
+				mine = env.skillSpaceFlags.mine,
+			})
+			local baseVal = output.total_physicalAvg * output.total_critEffect * 0.1
+			output.bleed_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "physicalInc") / 100) * sumMods(modDB, true, "damageMore", "physicalMore")
+			output.bleed_duration = 5 * (1 + sumMods(modDB, false, "durationInc") / 100) * sumMods(modDB, true, "durationMore")
 		end	
 		endWatch(env, "bleed")
 	end
@@ -1121,26 +1119,23 @@ local function calcPrimary(env, output)
 	-- Calculate poison chance and damage
 	if startWatch(env, "poison", "physical", "chaos", "dps_crit") then
 		output.poison_chance = m_min(100, sumMods(modDB, false, "poisonChance")) / 100
-		if output.total_physicalAvg > 0 or output.total_chaosAvg > 0 then
-			env.skillFlags.canPoison = true
-			if output.poison_chance > 0 then
-				env.skillFlags.dot = true
-				env.skillFlags.poison = true
-				env.skillFlags.duration = true
-				buildSpaceTable(modDB, {
-					dot = true,
-					degen = true,
-					poison = true,
-					projectile = env.skillSpaceFlags.projectile,
-					aoe = env.skillSpaceFlags.aoe,
-					totem = env.skillSpaceFlags.totem,
-					trap = env.skillSpaceFlags.trap,
-					mine = env.skillSpaceFlags.mine,
-				})
-				local baseVal = (output.total_physicalAvg + output.total_chaosAvg) * output.total_critEffect * 0.1
-				output.poison_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "chaosInc") / 100) * sumMods(modDB, true, "damageMore", "chaosMore")
-				output.poison_duration = 2 * (1 + sumMods(modDB, false, "durationInc") / 100) * sumMods(modDB, true, "durationMore")
-			end
+		if output.poison_chance > 0 and (output.total_physicalAvg > 0 or output.total_chaosAvg > 0) then
+			env.skillFlags.dot = true
+			env.skillFlags.poison = true
+			env.skillFlags.duration = true
+			buildSpaceTable(modDB, {
+				dot = true,
+				degen = true,
+				poison = true,
+				projectile = env.skillSpaceFlags.projectile,
+				aoe = env.skillSpaceFlags.aoe,
+				totem = env.skillSpaceFlags.totem,
+				trap = env.skillSpaceFlags.trap,
+				mine = env.skillSpaceFlags.mine,
+			})
+			local baseVal = (output.total_physicalAvg + output.total_chaosAvg) * output.total_critEffect * 0.1
+			output.poison_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "chaosInc") / 100) * sumMods(modDB, true, "damageMore", "chaosMore")
+			output.poison_duration = 2 * (1 + sumMods(modDB, false, "durationInc") / 100) * sumMods(modDB, true, "durationMore")
 		end	
 		endWatch(env, "poison")
 	end
@@ -1148,27 +1143,40 @@ local function calcPrimary(env, output)
 	-- Calculate ignite chance and damage
 	if startWatch(env, "ignite", "fire", "dps_crit") then
 		output.ignite_chance = m_min(100, sumMods(modDB, false, "igniteChance")) / 100
-		if output.total_fireAvg > 0 then
-			env.skillFlags.canIgnite = true
-			if output.ignite_chance > 0 then
-				env.skillFlags.dot = true
-				env.skillFlags.ignite = true
-				buildSpaceTable(modDB, {
-					dot = true,
-					degen = true,
-					ignite = true,
-					projectile = env.skillSpaceFlags.projectile,
-					aoe = env.skillSpaceFlags.aoe,
-					totem = env.skillSpaceFlags.totem,
-					trap = env.skillSpaceFlags.trap,
-					mine = env.skillSpaceFlags.mine,
-				})
-				local baseVal = output.total_fireAvg * output.total_critEffect * 0.2
-				output.ignite_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "fireInc", "elemInc") / 100) * sumMods(modDB, true, "damageMore", "fireMore", "elemMore")
-				output.ignite_duration = 4 * (1 + getMiscVal(modDB, "ignite", "durationInc", 0) / 100)
-			end
+		if output.ignite_chance > 0 and output.total_fireAvg > 0 then
+			env.skillFlags.dot = true
+			env.skillFlags.ignite = true
+			buildSpaceTable(modDB, {
+				dot = true,
+				degen = true,
+				ignite = true,
+				projectile = env.skillSpaceFlags.projectile,
+				aoe = env.skillSpaceFlags.aoe,
+				totem = env.skillSpaceFlags.totem,
+				trap = env.skillSpaceFlags.trap,
+				mine = env.skillSpaceFlags.mine,
+			})
+			local baseVal = output.total_fireAvg * output.total_critEffect * 0.2
+			output.ignite_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "fireInc", "elemInc") / 100) * sumMods(modDB, true, "damageMore", "fireMore", "elemMore")
+			output.ignite_duration = 4 * (1 + getMiscVal(modDB, "ignite", "durationInc", 0) / 100)
 		end
 		endWatch(env, "ignite")
+	end
+
+	-- Calculate shock and freeze chance + duration modifier
+	if startWatch(env, "shock", "lightning") then
+		output.shock_chance = m_min(100, sumMods(modDB, false, "shockChance")) / 100
+		if output.shock_chance > 0 and output.total_lightningAvg > 0 then
+			env.skillFlags.shock = true
+			output.shock_durationMod = 1 + getMiscVal(modDB, "shock", "durationInc", 0) / 100
+ 		end
+	end
+	if startWatch(env, "freeze", "cold") then
+		output.freeze_chance = m_min(100, sumMods(modDB, false, "freezeChance")) / 100
+		if output.freeze_chance > 0 and output.total_coldAvg > 0 then
+			env.skillFlags.freeze = true
+			output.freeze_durationMod = 1 + getMiscVal(modDB, "freeze", "durationInc", 0) / 100
+		end
 	end
 end
 

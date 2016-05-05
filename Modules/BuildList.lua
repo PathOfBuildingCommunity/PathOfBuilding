@@ -3,32 +3,156 @@
 -- Module: BuildList
 -- Displays the list of builds.
 --
-local launch, cfg, main = ...
+local launch, main = ...
+
+local t_insert = table.insert
 
 local vfs = require("vfs")
 
 local listMode = { }
 
-listMode.controls = { 
-	common.New("ButtonControl", 2, 2, 60, 20, "New", function()
+function listMode:Init(selFileName)
+	self:BuildList()
+	self:SelFileByName(selFileName)
+
+	self.controls = { }
+	t_insert(self.controls, common.New("ButtonControl", 2, 2, 60, 20, "New", function()
 		listMode:New()
-	end),
-	common.New("ButtonControl", 66, 2, 60, 20, "Copy", function()
+	end))
+	t_insert(self.controls, common.New("ButtonControl", 66, 2, 60, 20, "Copy", function()
 		listMode:CopySel()
 	end, function()
 		return listMode.sel ~= nil
-	end),
-	common.New("ButtonControl", 130, 2, 60, 20, "Rename", function()
+	end))
+	t_insert(self.controls, common.New("ButtonControl", 130, 2, 60, 20, "Rename", function()
 		listMode:RenameSel()
 	end, function()
 		return listMode.sel ~= nil
-	end),
-	common.New("ButtonControl", 194, 2, 60, 20, "Delete", function()
+	end))
+	t_insert(self.controls, common.New("ButtonControl", 194, 2, 60, 20, "Delete", function()
 		listMode:DeleteSel()
 	end, function()
 		return listMode.sel ~= nil
-	end),
-}
+	end))
+end
+
+function listMode:Shutdown()
+	if self.edit then
+		self:EditCancel()
+	end
+end
+
+function listMode:OnFrame(inputEvents)
+	for id, event in ipairs(inputEvents) do
+		if event.type == "KeyDown" then
+			self:OnKeyDown(event.key, event.doubleClick)
+		elseif event.type == "KeyUp" then
+			self:OnKeyUp(event.key)
+		elseif event.type == "Char" then
+			self:OnChar(event.key)
+		end
+	end
+	common.controlsDraw(self)
+	for index, build in ipairs(self.list) do
+		local y = 4 + index * 20
+		if self.sel == index then
+			SetDrawColor(1, 1, 1)
+		else
+			SetDrawColor(0.5, 0.5, 0.5)
+		end
+		DrawImage(nil, 0, y, main.screenW, 20)
+		if self.sel == index then
+			SetDrawColor(0.33, 0.33, 0.33)
+		else
+			SetDrawColor(0, 0, 0)
+		end
+		DrawImage(nil, 0, y + 1, main.screenW, 18)
+		if self.edit == index then
+			self.editField:Draw(2, y + 2, 16)
+		else
+			if self.sel == index then
+				SetDrawColor(1, 1, 1)
+			else
+				SetDrawColor(0.8, 0.8, 0.8)
+			end
+			DrawString(4, y + 2, "LEFT", 16, "VAR", build.fileName:gsub(".xml",""))
+			DrawString(304, y + 2, "LEFT", 16, "VAR", string.format("Level %d %s", build.level, build.ascendClassName or build.className or "?"))
+		end
+	end
+end
+
+function listMode:OnKeyDown(key, doubleClick)
+	if self.edit then
+		if key == "RETURN" then
+			self:EditFinish()
+		elseif key == "ESCAPE" then
+			self:EditCancel()
+		else
+			self.editField:OnKeyDown(key)
+		end
+	elseif key == "LEFTBUTTON" then
+		self.selControl = nil
+		local cx, cy = GetCursorPos()
+		for _, control in pairs(self.controls) do
+			if control.IsMouseOver and control:IsMouseOver() then
+				control:OnKeyDown(key)
+				self.selControl = control
+				return
+			end
+		end
+		self.sel = nil
+		for index, fileName in ipairs(self.list) do
+			local y = 4 + index * 20
+			if cy >= y and cy < y + 20 then
+				if doubleClick then
+					main:SetMode("BUILD", self.list[index].fileName)
+				else
+					self.sel = index
+				end
+				return
+			end
+		end
+	elseif key == "RETURN" then
+		if self.sel then
+			main:SetMode("BUILD", self.list[self.sel].fileName)
+		end
+	elseif key == "UP" then
+		if not self.sel then
+			self.sel = #self.list
+		else
+			self.sel = (self.sel - 2) % #self.list + 1
+		end
+	elseif key == "DOWN" then
+		if not self.sel then
+			self.sel = 1
+		else
+			self.sel = self.sel % #self.list + 1
+		end
+	elseif key == "F2" then
+		if self.sel then
+			self:RenameSel()
+		end
+	elseif key == "DELETE" then
+		if self.sel then
+			self:DeleteSel()
+		end
+	end
+end
+
+function listMode:OnKeyUp(key)
+	if self.edit then
+		self.editField:OnKeyUp(key)
+	elseif self.selControl then
+		self.selControl:OnKeyUp(key)
+		self.selControl = nil
+	end
+end
+
+function listMode:OnChar(key)
+	if self.edit then
+		self.editField:OnChar(key)
+	end
+end
 
 function listMode:BuildList()
 	self.list = { }
@@ -61,13 +185,23 @@ function listMode:SortList()
 	end
 end
 
+function listMode:SelFileByName(selFileName)
+	self.sel = nil
+	for index, build in ipairs(self.list) do
+		if build.fileName == selFileName then
+			self.sel = index
+			break
+		end
+	end
+end
+
 function listMode:EditInit(finFunc)
 	self.edit = self.sel
 	self.editFinFunc = finFunc
 	self.editField = common.newEditField(self.list[self.sel].fileName:gsub(".xml$",""), nil, "[%w _+.()]")
 	self.editField.x = 2
 	self.editField.y = 6 + self.sel * 20
-	self.editField.width = cfg.screenW
+	self.editField.width = main.screenW
 	self.editField.height = 16
 end
 
@@ -178,139 +312,6 @@ function listMode:DeleteSel()
 		end
 		return true
 	end)
-end
-
-function listMode:SelFileByName(selFileName)
-	self.sel = nil
-	for index, build in ipairs(self.list) do
-		if build.fileName == selFileName then
-			self.sel = index
-			break
-		end
-	end
-end
-
-function listMode:Init(selFileName)
-	self:BuildList()
-	self:SelFileByName(selFileName)
-end
-
-function listMode:Shutdown()
-	if self.edit then
-		self:EditCancel()
-	end
-end
-
-function listMode:OnFrame(inputEvents)
-	for id, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" then
-			self:OnKeyDown(event.key, event.doubleClick)
-		elseif event.type == "KeyUp" then
-			self:OnKeyUp(event.key)
-		elseif event.type == "Char" then
-			self:OnChar(event.key)
-		end
-	end
-	common.controlsDraw(self)
-	for index, build in ipairs(self.list) do
-		local y = 4 + index * 20
-		if self.sel == index then
-			SetDrawColor(1, 1, 1)
-		else
-			SetDrawColor(0.5, 0.5, 0.5)
-		end
-		DrawImage(nil, 0, y, cfg.screenW, 20)
-		if self.sel == index then
-			SetDrawColor(0.33, 0.33, 0.33)
-		else
-			SetDrawColor(0, 0, 0)
-		end
-		DrawImage(nil, 0, y + 1, cfg.screenW, 18)
-		if self.edit == index then
-			self.editField:Draw(2, y + 2, 16)
-		else
-			if self.sel == index then
-				SetDrawColor(1, 1, 1)
-			else
-				SetDrawColor(0.8, 0.8, 0.8)
-			end
-			DrawString(4, y + 2, "LEFT", 16, "VAR", build.fileName:gsub(".xml",""))
-			DrawString(304, y + 2, "LEFT", 16, "VAR", string.format("Level %d %s", build.level, build.ascendClassName or build.className or "?"))
-		end
-	end
-end
-
-function listMode:OnKeyDown(key, doubleClick)
-	if self.edit then
-		if key == "RETURN" then
-			self:EditFinish()
-		elseif key == "ESCAPE" then
-			self:EditCancel()
-		else
-			self.editField:OnKeyDown(key)
-		end
-	elseif key == "LEFTBUTTON" then
-		self.selControl = nil
-		local cx, cy = GetCursorPos()
-		for _, control in pairs(self.controls) do
-			if control.IsMouseOver and control:IsMouseOver() then
-				control:OnKeyDown(key)
-				self.selControl = control
-				return
-			end
-		end
-		self.sel = nil
-		for index, fileName in ipairs(self.list) do
-			local y = 4 + index * 20
-			if cy >= y and cy < y + 20 then
-				if doubleClick then
-					main:SetMode("BUILD", self.list[index].fileName)
-				else
-					self.sel = index
-				end
-				return
-			end
-		end
-	elseif key == "RETURN" then
-		if self.sel then
-			main:SetMode("BUILD", self.list[self.sel].fileName)
-		end
-	elseif key == "UP" then
-		if not self.sel then
-			self.sel = #self.list
-		else
-			self.sel = (self.sel - 2) % #self.list + 1
-		end
-	elseif key == "DOWN" then
-		if not self.sel then
-			self.sel = 1
-		else
-			self.sel = self.sel % #self.list + 1
-		end
-	elseif key == "F2" then
-		if self.sel then
-			self:RenameSel()
-		end
-	elseif key == "DELETE" then
-		if self.sel then
-			self:DeleteSel()
-		end
-	end
-end
-
-function listMode:OnKeyUp(key)
-	if self.edit then
-		self.editField:OnKeyUp(key)
-	elseif self.selControl then
-		self.selControl:OnKeyUp(key)
-		self.selControl = nil
-	end
-end
-
-function listMode:OnChar(key)
-	if self.edit then
-		self.editField:OnChar(key)
-	end
 end
 
 return listMode

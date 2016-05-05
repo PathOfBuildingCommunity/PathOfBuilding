@@ -300,16 +300,12 @@ function SpecClass:Undo()
 		t_insert(self.redo, 1, table.remove(self.undo, 1))
 		self:DecodeURL(table.remove(self.undo, 1))
 		self:AddUndoState(true)
-		self.modFlag = true
-		self.buildFlag = true
 	end
 end
 
 function SpecClass:Redo()
 	if self.redo[1] then
-		self:DecodeURL(table.remove(self. redo, 1))
+		self:DecodeURL(table.remove(self.redo, 1))
 		self:AddUndoState(true)
-		self.modFlag = true
-		self.buildFlag = true
 	end
 end

@@ -1,7 +1,7 @@
 -- Path of Building
 --
 -- Module: CalcsView
--- Configures the grid display in the calculations view
+-- Configures the display grid in the calculations breakdown view
 --
 local grid = ...
 
@@ -429,6 +429,7 @@ columns[7] = {
 	}, {
 		flag = "duration",
 		{ "output", "Spec Duration %:", "spec_durationInc" },
+		{ "output", "Skill Duration Mod:", "total_durationMod", formatPercent },
 		{ "output", "Skill Duration:", "total_duration", formatSec },
 	}, {
 		flag = "trap",
@@ -439,36 +440,39 @@ columns[7] = {
 		{ "output", "Gear DoT Dmg %:", fieldNames("gear_dot", "Inc", "pfa") },
 		{ "output", "DoT:", fieldNames("total", "Dot", "plcfh"), getFormatRound(1) },
 	}, {
-		flag = "canBleed",
+		flag = "bleed",
 		{ "output", "Spec Bleed Chance %:", "spec_bleedChance" },
 		{ "output", "Gear Bleed Chance %:", "gear_bleedChance" },
-		{ "input", "Other Bleed Chance %:", "other_bleedChance" },
-	}, {
-		flag = "bleed",
 		{ "output", "Bleed Chance:", "bleed_chance", formatPercent },
 		{ "output", "Bleed DPS:", "bleed_dps", getFormatRound(1) },
 		{ "output", "Bleed Duration:", "bleed_duration", formatSec },
 	}, {
-		flag = "canPoison",
+		flag = "poison",
 		{ "output", "Spec Poison Chance %:", "spec_poisonChance" },
 		{ "output", "Gear Poison Chance %:", "gear_poisonChance" },
-		{ "input", "Other Poison Chance %:", "other_poisonChance" },
-	}, {
-		flag = "poison",
 		{ "output", "Spec Poison Dmg %:", "spec_poison_damageInc" },
 		{ "output", "Poison Chance:", "poison_chance", formatPercent },
 		{ "output", "Poison DPS:", "poison_dps", getFormatRound(1) },
 		{ "output", "Poison Duration:", "poison_duration", formatSec },
 	}, {
-		flag = "canIgnite",
+		flag = "ignite",
 		{ "output", "Spec Ignite Chance %:", "spec_igniteChance" },
 		{ "output", "Gear Ignite Chance %:", "gear_igniteChance" },
-		{ "input", "Other Ignite Chance %:", "other_igniteChance" },
-	}, {
-		flag = "ignite",
 		{ "output", "Ignite Chance:", "ignite_chance", formatPercent },
 		{ "output", "Ignite DPS:", "ignite_dps", getFormatRound(1) },
 		{ "output", "Ignite Duration:", "ignite_duration", formatSec },
+	}, {
+		flag = "shock",
+		{ "output", "Spec Shock Chance %:", "spec_shockChance" },
+		{ "output", "Gear Shock Chance %:", "gear_shockChance" },
+		{ "output", "Shock Chance:", "shock_chance", formatPercent },
+		{ "output", "Shock Duration Mod:", "shock_durationMod", formatPercent },
+	}, {
+		flag = "freeze",
+		{ "output", "Spec Freeze Chance %:", "spec_freezeChance" },
+		{ "output", "Gear Freeze Chance %:", "gear_freezeChance" },
+		{ "output", "Freeze Chance:", "freeze_chance", formatPercent },
+		{ "output", "Freeze Duration Mod:", "freeze_durationMod", formatPercent },
 	}
 }
 

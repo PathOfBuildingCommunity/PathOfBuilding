@@ -7,10 +7,10 @@ local launch = ...
 
 local pairs = pairs
 local ipairs = ipairs
-local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local t_insert = table.insert
 
 local TreeViewClass = common.NewClass("PassiveTreeView", function(self, main)
 	self.main = main

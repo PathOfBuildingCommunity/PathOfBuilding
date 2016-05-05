@@ -3,113 +3,139 @@
 -- Module: Items
 -- Items view for the active build
 --
-local launch, cfg, main = ...
+local launch, main = ...
 
 local t_insert = table.insert
 local m_floor = math.floor
 local s_format = string.format
 
-local items = { }
-
-local function applyRange(line, range)
-	return line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", function(minMin, maxMin, minMax, maxMax) return string.format("%d-%d", tonumber(minMin) + range * (tonumber(minMax) - tonumber(minMin)), tonumber(maxMin) + range * (tonumber(maxMax) - tonumber(maxMin))) end)
-		:gsub("%((%d+) to (%d+)%)", function(min, max) return tostring(tonumber(min) + range * (tonumber(max) - tonumber(min))) end)
-end
-
-items.slots = { }
-items.controls = { }
-
-items.controls.addDisplayItem = common.New("ButtonControl", 0, 0, 60, 20, "Add", function()
-	items:AddDisplayItem()
-end)
-
-local function mkItemSlot(x, y, slotName, slotLabel)
-	local slot = { }
-	slot.items = { }
-	slot.list = { }
-	slot.x = x
-	slot.y = y
-	slot.width = 320
-	slot.height = 20
-	slot.slotName = slotName
-	slot.label = slotLabel or slotName
-	slot.dropDown = common.New("DropDownControl", x, y, slot.width, slot.height, slot.list, function(sel)
-		if slot.items[sel] ~= slot.selItem then
-			slot.selItem = slot.items[sel]
-			items:PopulateSlots()
-			items.buildFlag = true
-			items.modFlag = true
-		end
-	end)
-	function slot:Populate()
-		wipeTable(self.items)
-		wipeTable(self.list)
-		self.items[1] = 0
-		self.list[1] = "None"
-		self.dropDown.sel = 1
-		for _, item in ipairs(items.list) do
-			if items:IsItemValidForSlot(item, slotName) then
-				t_insert(self.items, item.id)
-				t_insert(self.list, data.colorCodes[item.rarity]..item.name)
-				if item.id == self.selItem then
-					self.dropDown.sel = #self.list
-				end
-			end
-		end
-		if not self.selItem or not items.list[self.selItem] or not items:IsItemValidForSlot(items.list[self.selItem], slotName) then
-			self.selItem = 0
-		end
-	end
-	function slot:Draw(viewPort)
-		self.dropDown.x = viewPort.x + self.x
-		self.dropDown.y = viewPort.y + self.y
-		DrawString(self.dropDown.x - 2, self.dropDown.y + 2, "RIGHT_X", self.height - 4, "VAR", "^7"..slot.label..":")
-		self.dropDown:Draw()
-		if self.dropDown:IsMouseOver() then
-			local ttItem
-			if self.dropDown.dropped then
-				if self.dropDown.hoverSel then
-					ttItem = items.list[self.items[self.dropDown.hoverSel]]
-				end
-			elseif self.selItem and not items.selControl then
-				ttItem = items.list[self.selItem]
-			end
-			if ttItem then
-				items:AddItemTooltip(ttItem)
-				main:DrawTooltip(self.dropDown.x, self.dropDown.y, self.width, self.height, viewPort, data.colorCodes[ttItem.rarity], true)
-			end
-		end
-	end
-	function slot:IsMouseOver()
-		return self.dropDown:IsMouseOver()
-	end
-	function slot:OnKeyDown(key)
-		return self.dropDown:OnKeyDown(key)
-	end
-	function slot:OnKeyUp(key)
-		return self.dropDown:OnKeyUp(key)
-	end
-	items.slots[slotName] = slot
-	return slot
-end
+LoadModule("Classes/ItemSlot", launch, main)
 
 local baseSlots = { "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Weapon 1", "Weapon 2" }
-for index, slotName in pairs(baseSlots) do
-	t_insert(items.controls, mkItemSlot(400, (index - 1) * 20, slotName))
+
+local items = { }
+
+function items:Init(build)
+	self.build = build
+
+	self.list = { }
+	self.orderList = { }
+
+	self.slots = { }
+
+	self.controls = { }
+	self.controls.addDisplayItem = common.New("ButtonControl", 0, 0, 60, 20, "Add", function()
+		self:AddDisplayItem()
+	end)
+	for index, slotName in pairs(baseSlots) do
+		t_insert(self.controls, common.New("ItemSlot", self, 400, (index - 1) * 20, slotName))
+	end
+
+	self.sockets = { }
+	for _, node in pairs(main.tree.nodes) do
+		if node.type == "socket" then
+			self.sockets[node.id] = common.New("ItemSlot", self, 400, 0, "Jewel "..node.id, "Socket")
+		end
+	end
 end
 
-function items:IsItemValidForSlot(item, slotName)
-	if item.type == slotName:gsub(" %d+","") then
-		return true
-	elseif slotName == "Weapon 1" or slotName == "Weapon" then
-		return data.itemBases[item.baseName].weapon ~= nil
-	elseif slotName == "Weapon 2" then
-		local weapon1Sel = self.slots["Weapon 1"].selItem
-		local weapon1Type = weapon1Sel > 0 and data.itemBases[self.list[weapon1Sel].baseName].type or "None"
-		if weapon1Type == "Bow" then
-			return item.type == "Quiver"
-		elseif data.weaponTypeInfo[weapon1Type].oneHand then
-			return item.type == "Shield" or (data.weaponTypeInfo[item.type] and data.weaponTypeInfo[item.type].oneHand and (weapon1Type == "None" or (weapon1Type == "Wand" and item.type == "Wand") or (weapon1Type ~= "Wand" and item.type ~= "Wand")))
+function items:Shutdown()
+end
+
+function items:Load(xml, dbFileName)
+	for _, node in ipairs(xml) do
+		if node.elem == "Item" then
+			local item = { }
+			item.raw = ""
+			item.id = tonumber(node.attrib.id)
+			self:ParseItemRaw(item)
+			for _, child in ipairs(node) do
+				if type(child) == "string" then
+					item.raw = child
+					self:ParseItemRaw(item)
+				elseif child.elem == "ModRange" then
+					local id = tonumber(child.attrib.id) or 0
+					local range = tonumber(child.attrib.range) or 1
+					if item.modLines[id] then
+						item.modLines[id].range = range
+					end
+				end
+			end
+			self:BuildItemModList(item)
+			self.list[item.id] = item
+			t_insert(self.orderList, item.id)
+		elseif node.elem == "Slot" then
+			if self.slots[node.attrib.name or ""] then
+				self.slots[node.attrib.name].selItem = tonumber(node.attrib.itemId)
+			end
+		end
+	end
+	self:PopulateSlots()
+end
+
+function items:Save(xml)
+	self.modFlag = false
+	for _, id in ipairs(self.orderList) do
+		local item = self.list[id]
+		local child = { elem = "Item", attrib = { id = tostring(id) } }
+		t_insert(child, item.raw)
+		for id, modLine in ipairs(item.modLines) do
+			if modLine.range then
+				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
+			end
+		end
+		t_insert(xml, child)
+	end
+	for name, slot in pairs(self.slots) do
+		t_insert(xml, { elem = "Slot", attrib = { name = name, itemId = tostring(slot.selItem) }})
+	end
+end
+
+function items:DrawItems(viewPort, inputEvents)
+	common.controlsInput(self, inputEvents)
+	for id, event in ipairs(inputEvents) do
+		if event.type == "KeyDown" then	
+			if event.key == "v" and IsKeyDown("CTRL") then
+				local newItem = Paste()
+				if newItem then
+					self.displayItem = {
+						raw = newItem:gsub("^%s+",""):gsub("%s+$",""):gsub("–","-"):gsub("%b<>",""):gsub("ö","o")
+					}
+					self:ParseItemRaw(self.displayItem)
+					if not self.displayItem.baseName then
+						self.displayItem = nil
+					end
+				end
+			end
+		end
+	end
+
+	if self.displayItem then
+		self.controls.addDisplayItem.x = viewPort.x + viewPort.width - 530
+		self.controls.addDisplayItem.y = viewPort.y + 4
+		self.controls.addDisplayItem.hidden = false
+		self.controls.addDisplayItem.label = self.list[self.displayItem.id] and "Save" or "Add"
+		self:AddItemTooltip(self.displayItem)
+		main:DrawTooltip(viewPort.x + viewPort.width - 500, viewPort.y + 28, nil, nil, viewPort, data.colorCodes[self.displayItem.rarity], true)
+	else
+		self.controls.addDisplayItem.hidden = true
+	end
+
+	self:UpdateJewels()
+
+	common.controlsDraw(self, viewPort)
+
+	for index, id in pairs(self.orderList) do
+		local item = self.list[id]
+		local rarityCode = data.colorCodes[item.rarity]
+		SetDrawColor(rarityCode)
+		local x = viewPort.x + 2
+		local y = viewPort.y + 2 + 16 * (index - 1)
+		DrawString(x, y, "LEFT", 16, "VAR", item.name)
+		local cx, cy = GetCursorPos()
+		if cx >= x and cx < x + 250 and cy >= y and cy < y + 16 then
+			self:AddItemTooltip(item)
+			main:DrawTooltip(x, y, 250, 16, viewPort, rarityCode, true)
 		end
 	end
 end
@@ -145,6 +171,42 @@ end
 
 function items:GetSocketJewel(nodeId)
 	return self.sockets[nodeId], self.list[self.sockets[nodeId].selItem]
+end
+
+function items:AddDisplayItem()
+	for _, item in pairs(self.list) do
+		if item.raw == self.displayItem.raw then
+			self.displayItem = nil
+			return
+		end
+	end
+	if not self.list[self.displayItem.id] then
+		t_insert(self.orderList, self.displayItem.id)
+	end
+	self.list[self.displayItem.id] = self.displayItem
+	self.displayItem = nil
+	self:PopulateSlots()
+end
+
+function items:ApplyRange(line, range)
+	return line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", function(minMin, maxMin, minMax, maxMax) return string.format("%d-%d", tonumber(minMin) + range * (tonumber(minMax) - tonumber(minMin)), tonumber(maxMin) + range * (tonumber(maxMax) - tonumber(maxMin))) end)
+		:gsub("%((%d+) to (%d+)%)", function(min, max) return tostring(tonumber(min) + range * (tonumber(max) - tonumber(min))) end)
+end
+
+function items:IsItemValidForSlot(item, slotName)
+	if item.type == slotName:gsub(" %d+","") then
+		return true
+	elseif slotName == "Weapon 1" or slotName == "Weapon" then
+		return data.itemBases[item.baseName].weapon ~= nil
+	elseif slotName == "Weapon 2" then
+		local weapon1Sel = self.slots["Weapon 1"].selItem
+		local weapon1Type = weapon1Sel > 0 and data.itemBases[self.list[weapon1Sel].baseName].type or "None"
+		if weapon1Type == "Bow" then
+			return item.type == "Quiver"
+		elseif data.weaponTypeInfo[weapon1Type].oneHand then
+			return item.type == "Shield" or (data.weaponTypeInfo[item.type] and data.weaponTypeInfo[item.type].oneHand and (weapon1Type == "None" or (weapon1Type == "Wand" and item.type == "Wand") or (weapon1Type ~= "Wand" and item.type ~= "Wand")))
+		end
+	end
 end
 
 function items:ParseItemRaw(item)
@@ -213,7 +275,7 @@ function items:ParseItemRaw(item)
 			else
 				local rangedLine
 				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%d+ to %d+%)") then
-					rangedLine = applyRange(line, 1)
+					rangedLine = self:ApplyRange(line, 1)
 				end
 				local modList, extra = mod.parseMod(rangedLine or line)
 				if modList then
@@ -232,7 +294,7 @@ function items:BuildItemModList(item)
 	for _, modLine in ipairs(item.modLines) do
 		if not modLine.extra then
 			if modLine.range then
-				local line = applyRange(modLine.line, modLine.range)
+				local line = self:ApplyRange(modLine.line, modLine.range)
 				local list, extra = mod.parseMod(line)
 				if list and not extra then
 					mod.mods = list
@@ -360,7 +422,7 @@ function items:AddItemTooltip(item)
 	if item.modLines[1] then
 		main:AddTooltipSeperator(10)
 		for index, modLine in pairs(item.modLines) do
-			local line = modLine.range and applyRange(modLine.line, modLine.range) or modLine.line
+			local line = modLine.range and self:ApplyRange(modLine.line, modLine.range) or modLine.line
 			main:AddTooltipLine(16, (modLine.extra and data.colorCodes.NORMAL or data.colorCodes.MAGIC)..line)
 			if index == 1 and base.implicit and item.modLines[2] then
 				main:AddTooltipSeperator(10)
@@ -404,133 +466,6 @@ function items:AddItemTooltip(item)
 		table.sort(nameList)
 		for _, name in ipairs(nameList) do
 			main:AddTooltipLine(16, "^7"..name.." = "..tostring(modList[name]))
-		end
-	end
-end
-
-function items:AddDisplayItem()
-	for _, item in pairs(self.list) do
-		if item.raw == self.displayItem.raw then
-			self.displayItem = nil
-			return
-		end
-	end
-	if not self.list[self.displayItem.id] then
-		t_insert(self.orderList, self.displayItem.id)
-	end
-	self.list[self.displayItem.id] = self.displayItem
-	self.displayItem = nil
-	self:PopulateSlots()
-end
-
-function items:Init(build)
-	self.build = build
-	self.list = { }
-	self.sockets = { }
-	for _, node in pairs(main.tree.nodes) do
-		if node.type == "socket" then
-			self.sockets[node.id] = mkItemSlot(400, 0, "Jewel "..node.id, "Socket")
-		end
-	end
-	self.orderList = { }
-end
-function items:Shutdown()
-
-end
-
-function items:Load(xml, dbFileName)
-	for _, node in ipairs(xml) do
-		if node.elem == "Item" then
-			local item = { }
-			item.raw = ""
-			item.id = tonumber(node.attrib.id)
-			self:ParseItemRaw(item)
-			for _, child in ipairs(node) do
-				if type(child) == "string" then
-					item.raw = child
-					self:ParseItemRaw(item)
-				elseif child.elem == "ModRange" then
-					local id = tonumber(child.attrib.id) or 0
-					local range = tonumber(child.attrib.range) or 1
-					if item.modLines[id] then
-						item.modLines[id].range = range
-					end
-				end
-			end
-			self:BuildItemModList(item)
-			self.list[item.id] = item
-			t_insert(self.orderList, item.id)
-		elseif node.elem == "Slot" then
-			if self.slots[node.attrib.name or ""] then
-				self.slots[node.attrib.name].selItem = tonumber(node.attrib.itemId)
-			end
-		end
-	end
-	self:PopulateSlots()
-end
-function items:Save(xml)
-	self.modFlag = false
-	for _, id in ipairs(self.orderList) do
-		local item = self.list[id]
-		local child = { elem = "Item", attrib = { id = tostring(id) } }
-		t_insert(child, item.raw)
-		for id, modLine in ipairs(item.modLines) do
-			if modLine.range then
-				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
-			end
-		end
-		t_insert(xml, child)
-	end
-	for name, slot in pairs(self.slots) do
-		t_insert(xml, { elem = "Slot", attrib = { name = name, itemId = tostring(slot.selItem) }})
-	end
-end
-
-function items:DrawItems(viewPort, inputEvents)
-	common.controlsInput(self, inputEvents)
-	for id, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" then	
-			if event.key == "v" and IsKeyDown("CTRL") then
-				local newItem = Paste()
-				if newItem then
-					self.displayItem = {
-						raw = newItem:gsub("^%s+",""):gsub("%s+$",""):gsub("–","-"):gsub("%b<>",""):gsub("ö","o")
-					}
-					self:ParseItemRaw(self.displayItem)
-					if not self.displayItem.baseName then
-						self.displayItem = nil
-					end
-				end
-			end
-		end
-	end
-
-	if self.displayItem then
-		self.controls.addDisplayItem.x = viewPort.x + viewPort.width - 530
-		self.controls.addDisplayItem.y = viewPort.y + 4
-		self.controls.addDisplayItem.hidden = false
-		self.controls.addDisplayItem.label = self.list[self.displayItem.id] and "Save" or "Add"
-		self:AddItemTooltip(self.displayItem)
-		main:DrawTooltip(viewPort.x + viewPort.width - 500, viewPort.y + 28, nil, nil, viewPort, data.colorCodes[self.displayItem.rarity], true)
-	else
-		self.controls.addDisplayItem.hidden = true
-	end
-
-	self:UpdateJewels()
-
-	common.controlsDraw(self, viewPort)
-
-	for index, id in pairs(self.orderList) do
-		local item = self.list[id]
-		local rarityCode = data.colorCodes[item.rarity]
-		SetDrawColor(rarityCode)
-		local x = viewPort.x + 2
-		local y = viewPort.y + 2 + 16 * (index - 1)
-		DrawString(x, y, "LEFT", 16, "VAR", item.name)
-		local cx, cy = GetCursorPos()
-		if cx >= x and cx < x + 250 and cy >= y and cy < y + 16 then
-			self:AddItemTooltip(item)
-			main:DrawTooltip(x, y, 250, 16, viewPort, rarityCode, true)
 		end
 	end
 end

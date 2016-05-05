@@ -6,12 +6,11 @@
 
 common = { }
 
+-- External libraries
 common.curl = require("lcurl")
 common.xml = require("xml")
 common.json = require("dkjson")
 common.base64 = require("base64")
-
--- Basic edit field
 common.newEditField = require("simplegraphic/editfield")
 
 -- Class library

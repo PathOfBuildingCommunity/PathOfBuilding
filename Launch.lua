@@ -2,7 +2,7 @@
 -- Path of Building
 --
 -- Module: Launch
--- Program entry point; runs the Main module within a protected environment
+-- Program entry point; loads and runs the Main module within a protected environment
 --
 
 SetWindowTitle("PathOfBuilding")
@@ -12,16 +12,12 @@ ConExecute("vid_resizable 3")
 LoadModule("Common")
 
 local launch = { }
+SetMainObject(launch)
 
-function launch:LoadMain()
+function launch:OnInit()
 	ConPrintf("Loading main script...")
-	if self.main and self.main.Shutdown then
-		PCall(self.main.Shutdown, self.main)
-	end
-	self.main = nil
-	collectgarbage("collect")
 	local errMsg
-	errMsg, self.main = PLoadModule("Modules/main", launch)
+	errMsg, self.main = PLoadModule("Modules/main", self)
 	if errMsg then
 		self:ShowErrMsg("Error loading main script: %s", errMsg)
 	elseif not self.main then
@@ -30,6 +26,84 @@ function launch:LoadMain()
 		errMsg = PCall(self.main.Init, self.main)
 		if errMsg then
 			self:ShowErrMsg("In 'Init': %s", errMsg)
+		end
+	end
+end
+
+function launch:OnExit()
+	if self.main and self.main.Shutdown then
+		PCall(self.main.Shutdown, self.main)
+	end
+end
+
+function launch:OnFrame()
+	if self.main then
+		if self.main.OnFrame then
+			local errMsg = PCall(self.main.OnFrame, self.main)
+			if errMsg then
+				self:ShowErrMsg("In 'OnFrame': %s", errMsg)
+			end
+		end
+	end
+	if self.promptMsg then
+		local r, g, b = unpack(self.promptCol)
+		common.drawPopup(r, g, b, "^0%s", self.promptMsg)
+	end
+	if self.doReload then
+		local screenW, screenH = GetScreenSize()
+		SetDrawColor(0, 0, 0, 0.75)
+		DrawImage(nil, 0, 0, screenW, screenH)
+		SetDrawColor(1, 1, 1)
+		DrawString(0, screenH/2, "CENTER", 24, "FIXED", "Reloading...")
+		Restart()
+	end
+end
+
+function launch:OnKeyDown(key, doubleClick)
+	if key == "F5" then
+		self.doReload = true
+	elseif self.promptMsg then
+		local errMsg, ret = PCall(self.promptFunc, key)
+		if errMsg then
+			self:ShowErrMsg("In prompt func: %s", errMsg)
+		elseif ret then
+			self.promptMsg = nil
+		end
+	else
+		if self.main and self.main.OnKeyDown then
+			local errMsg = PCall(self.main.OnKeyDown, self.main, key, doubleClick)
+			if errMsg then
+				self:ShowErrMsg("In 'OnKeyDown': %s", errMsg)
+			end
+		end
+	end
+end
+
+function launch:OnKeyUp(key)
+	if not self.promptMsg then
+		if self.main and self.main.OnKeyUp then
+			local errMsg = PCall(self.main.OnKeyUp, self.main, key)
+			if errMsg then
+				self:ShowErrMsg("In 'OnKeyUp': %s", errMsg)
+			end
+		end
+	end
+end
+
+function launch:OnChar(key)
+	if self.promptMsg then
+		local errMsg, ret = PCall(self.promptFunc, key)
+		if errMsg then
+			self:ShowErrMsg("In prompt func: %s", errMsg)
+		elseif ret then
+			self.promptMsg = nil
+		end
+	else
+		if self.main and self.main.OnChar then
+			local errMsg = PCall(self.main.OnChar, self.main, key)
+			if errMsg then
+				self:ShowErrMsg("In 'OnChar': %s", errMsg)
+			end
 		end
 	end
 end
@@ -54,83 +128,3 @@ function launch:ShowErrMsg(fmt, ...)
 		end
 	end)
 end
-
-launch:LoadMain()
-
-SetCallback("OnFrame", function()
-	if launch.main then
-		if launch.main.OnFrame then
-			local errMsg = PCall(launch.main.OnFrame, launch.main)
-			if errMsg then
-				launch:ShowErrMsg("In 'OnFrame': %s", errMsg)
-			end
-		end
-	end
-	if launch.promptMsg then
-		local r, g, b = unpack(launch.promptCol)
-		common.drawPopup(r, g, b, "^0%s", launch.promptMsg)
-	end
-	if launch.doReload then
-		local screenW, screenH = GetScreenSize()
-		SetDrawColor(0, 0, 0, 0.75)
-		DrawImage(nil, 0, 0, screenW, screenH)
-		SetDrawColor(1, 1, 1)
-		DrawString(0, screenH/2, "CENTER", 24, "FIXED", "Reloading...")
-		Restart()
-	end
-end)
-
-SetCallback("OnKeyDown", function(key, doubleClick)
-	if key == "F5" then
-		launch.doReload = true
-	elseif launch.promptMsg then
-		local errMsg, ret = PCall(launch.promptFunc, key)
-		if errMsg then
-			launch:ShowErrMsg("In prompt func: %s", errMsg)
-		elseif ret then
-			launch.promptMsg = nil
-		end
-	else
-		if launch.main and launch.main.OnKeyDown then
-			local errMsg = PCall(launch.main.OnKeyDown, launch.main, key, doubleClick)
-			if errMsg then
-				launch:ShowErrMsg("In 'OnKeyDown': %s", errMsg)
-			end
-		end
-	end
-end)
-
-SetCallback("OnKeyUp", function(key)
-	if not launch.promptMsg then
-		if launch.main and launch.main.OnKeyUp then
-			local errMsg = PCall(launch.main.OnKeyUp, launch.main, key)
-			if errMsg then
-				launch:ShowErrMsg("In 'OnKeyUp': %s", errMsg)
-			end
-		end
-	end
-end)
-
-SetCallback("OnChar", function(key)
-	if launch.promptMsg then
-		local errMsg, ret = PCall(launch.promptFunc, key)
-		if errMsg then
-			launch:ShowErrMsg("In prompt func: %s", errMsg)
-		elseif ret then
-			launch.promptMsg = nil
-		end
-	else
-		if launch.main and launch.main.OnChar then
-			local errMsg = PCall(launch.main.OnChar, launch.main, key)
-			if errMsg then
-				launch:ShowErrMsg("In 'OnChar': %s", errMsg)
-			end
-		end
-	end
-end)
-
-SetCallback("OnExit", function()
-	if launch.main and launch.main.Shutdown then
-		PCall(launch.main.Shutdown, launch.main)
-	end
-end)
