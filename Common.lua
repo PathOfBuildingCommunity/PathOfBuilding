@@ -15,11 +15,41 @@ common.newEditField = require("simplegraphic/editfield")
 
 -- Class library
 common.classes = { }
-function common.NewClass(className, initFunc)
+-- NewClass("<className>"[, "<parentClassName>"[, "<parentClassName>" ...]], constructorFunc)
+function common.NewClass(className, ...)
 	local class = { }
-	class.__index = class
-	class._init = initFunc
 	common.classes[className] = class
+	class.__index = class
+	class._className = className
+	local numVarArg = select("#", ...)
+	class._constructor = select(numVarArg, ...)
+	if numVarArg > 1 then
+		-- Build list of parent classes
+		class._parents = { }
+		for i = 1, numVarArg - 1 do
+			local parentName = select(i, ...)
+			if not common.classes[parentName] then
+				error("Parent class '"..className.."' not defined")
+			end
+			class._parents[i] = common.classes[parentName]
+		end
+		if #class._parents == 1 then
+			-- Single inheritance
+			setmetatable(class, class._parents[1]) 
+		else
+			-- Multiple inheritance
+			setmetatable(class, {
+				__index = function(self, key)
+					for _, parent in ipairs(class._parents) do
+						local val = class._parents[key]
+						if val ~= nil then
+							return val
+						end
+					end
+				end,
+			})
+		end
+	end
 	return class
 end
 function common.New(className, ...)
@@ -27,8 +57,33 @@ function common.New(className, ...)
 	if not class then
 		error("Class '"..className.."' not defined")
 	end
+	if not class._constructor then
+		error("Class '"..className.."' has no constructor")
+	end
 	local object = setmetatable({ }, class)
-	class._init(object, ...)
+	if class._parents then
+		-- Add parent class proxies
+		for _, parent in pairs(class._parents) do
+			object[parent._className] = setmetatable({ }, {
+				__index = function(self, key)
+					local v = rawget(object, key)
+					if v ~= nil then
+						return v
+					else
+						return parent[key]
+					end
+				end,
+				__newindex = object,
+				__call = function(...)
+					if not parent._constructor then
+						error("Parent class '"..parent._className.."' of class '"..className.."' has no constructor")
+					end
+					parent._constructor(...)
+				end,
+			})
+		end
+	end
+	class._constructor(object, ...)
 	return object
 end
 
@@ -60,7 +115,7 @@ function common.controlsInput(host, inputEvents)
 			end
 		elseif event.type == "KeyUp" then
 			if host.selControl then
-				if host.selControl:OnKeyUp(event.key) then
+				if host.selControl.OnKeyUp and host.selControl:OnKeyUp(event.key) then
 					host.selControl = nil
 				end
 				inputEvents[id] = nil

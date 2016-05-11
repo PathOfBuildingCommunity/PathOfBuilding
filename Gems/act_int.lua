@@ -1186,6 +1186,7 @@ gems["Lightning Warp"] = {
 	lightning = true,
 	movement = true,
 	duration = true,
+	showAverage = true,
 	base = {
 		skill_castTime = 1,
 		skill_damageEff = 0.6,

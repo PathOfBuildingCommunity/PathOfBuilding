@@ -7,25 +7,13 @@
 data = { }
 
 data.gems = { }
-data.gems["_default"] = {
-	attack = true,
-	melee = true,
-	bow = true,
-	projectile = true,
-	base = {
-	},
-	quality = {
-	},
-	levels = {
-		[1] = { }
-	},
-}
 LoadModule("Gems/act_str", data.gems)
 LoadModule("Gems/act_dex", data.gems)
 LoadModule("Gems/act_int", data.gems)
 LoadModule("Gems/sup_str", data.gems)
 LoadModule("Gems/sup_dex", data.gems)
 LoadModule("Gems/sup_int", data.gems)
+LoadModule("Gems/other", data.gems)
 
 data.colorCodes = {
 	NORMAL = "^xC8C8C8",
@@ -34,7 +22,7 @@ data.colorCodes = {
 	UNIQUE = "^xAF6025",
 	FIRE = "^x960000",
 	COLD = "^x366492",
-	LIGHT = "^xFFD700",
+	LIGHTNING = "^xFFD700",
 	CHAOS = "^xD02090",
 }
 

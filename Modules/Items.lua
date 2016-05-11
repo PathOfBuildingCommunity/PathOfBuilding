@@ -9,8 +9,6 @@ local t_insert = table.insert
 local m_floor = math.floor
 local s_format = string.format
 
-LoadModule("Classes/ItemSlot", launch, main)
-
 local baseSlots = { "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Weapon 1", "Weapon 2" }
 
 local items = { }
@@ -40,6 +38,9 @@ function items:Init(build)
 end
 
 function items:Shutdown()
+	self.controls = nil
+	self.slots = nil
+	self.list = nil
 end
 
 function items:Load(xml, dbFileName)
@@ -165,7 +166,7 @@ function items:UpdateJewels()
 		local slot = self.sockets[nodeId]
 		self.controls["socket"..nodeId] = slot
 		slot.inactive = false
-		slot.y = (#baseSlots + index - 1) * 20
+		slot.baseY = (#baseSlots + index - 1) * 20
 	end
 end
 
@@ -254,9 +255,23 @@ function items:ParseItemRaw(item)
 		item.type = data.itemBases[item.baseName].type
 	end
 	item.modLines = { }
+	item.implicitLines = 0
+	local gameModeStage = "FINDIMPLICIT"
+	local gameModeSection = 1
+	local foundExplicit
 	while item.rawLines[l] do
 		local line = item.rawLines[l]
-		if data.weaponTypeInfo[line] then
+		if line == "--------" then
+			gameModeSection = gameModeSection + 1
+			if gameModeStage == "IMPLICIT" then
+				item.implicitLines = #item.modLines
+				gameModeStage = "FINDEXPLICIT"
+			elseif gameModeStage == "EXPLICIT" then
+				gameModeStage = "DONE"
+			end
+		elseif line == "Corrupted" then
+			item.corrupted = true
+		elseif data.weaponTypeInfo[line] then
 			item.weaponType = line
 		else
 			local specName, specVal = line:match("^([%a ]+): %+?([%d%-%.]+)")
@@ -280,10 +295,32 @@ function items:ParseItemRaw(item)
 				local modList, extra = mod.parseMod(rangedLine or line)
 				if modList then
 					t_insert(item.modLines, { line = line, extra = extra, mods = modList, range = rangedLine and 1 })
+					if mode == "GAME" then
+						if gameModeStage == "FINDIMPLICIT" then
+							gameModeStage = "IMPLICIT"
+						elseif gameModeStage == "FINDEXPLICIT" then
+							foundExplicit = true
+							gameModeStage = "EXPLICIT"
+						end
+					end
+				elseif mode == "GAME" then
+					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" then
+						t_insert(item.modLines, { line = line, extra = line, mods = { } })
+					elseif gameModeStage == "FINDEXPLICIT" then
+						gameModeStage = "DONE"
+					end
 				end
 			end
 		end
 		l = l + 1
+	end
+	local base = data.itemBases[item.baseName]
+	if base and base.implicit then
+		if item.implicitLines == 0 then
+			item.implicitLines = 1
+		end
+	elseif mode == "GAME" and not foundExplicit then
+		item.implicitLines = 0
 	end
 	self:BuildItemModList(item)
 end
@@ -385,21 +422,39 @@ function items:AddItemTooltip(item)
 		main:AddTooltipSeperator(10)
 		main:AddTooltipLine(16, s_format("^x7F7F7F%s", base.type))
 		main:AddTooltipLine(16, "^x7F7F7FQuality: "..data.colorCodes.MAGIC.."+20%")
+		local totalDamage = 0
+		local totalDamageTypes = 0
 		if modList.weaponX_physicalMin then
-			main:AddTooltipLine(16, s_format("^x7F7F7FPhysical Damage: "..data.colorCodes.MAGIC.."%d-%d", modList.weaponX_physicalMin, modList.weaponX_physicalMax))
+			totalDamage = totalDamage + (modList.weaponX_physicalMin + modList.weaponX_physicalMax) / 2
+			local physicalDPS = (modList.weaponX_physicalMin + modList.weaponX_physicalMax) / 2 * modList.weaponX_attackRate
+			main:AddTooltipLine(16, s_format("^x7F7F7FPhysical Damage: "..data.colorCodes.MAGIC.."%d-%d (%.1f DPS)", modList.weaponX_physicalMin, modList.weaponX_physicalMax, physicalDPS))
+			totalDamageTypes = totalDamageTypes + 1
 		end
 		local elemLine
+		local elemTotal = 0
 		for _, var in ipairs({"fire","cold","lightning"}) do
-			if modList["weaponX_"..var.."Min"] then
+			local min = modList["weaponX_"..var.."Min"]
+			local max = modList["weaponX_"..var.."Max"]
+			if min and max then
 				elemLine = elemLine and elemLine.."^x7F7F7F, " or "^x7F7F7FElemental Damage: "
-				elemLine = elemLine..s_format("%s%d-%d", data.colorCodes[var:upper()], modList["weaponX_"..var.."Min"], modList["weaponX_"..var.."Max"])
+				elemLine = elemLine..s_format("%s%d-%d", data.colorCodes[var:upper()], min, max)
+				elemTotal = elemTotal + (min + max) / 2
 			end
 		end
+		totalDamage = totalDamage + elemTotal
 		if elemLine then
 			main:AddTooltipLine(16, elemLine)
+			main:AddTooltipLine(16, s_format("^x7F7F7FElemental DPS: "..data.colorCodes.MAGIC.."%.1f", elemTotal * modList.weaponX_attackRate))
+			totalDamageTypes = totalDamageTypes + 1	
 		end
 		if modList.weaponX_chaosMin then
-			main:AddTooltipLine(16, s_format("^x7F7F7FChaos Damage: "..data.colorCodes.CHAOS.."%d-%d", modList.weaponX_chaosMin, modList.weaponX_chaosMax))
+			totalDamage = totalDamage + (modList.weaponX_chaosMin + modList.weaponX_chaosMax) / 2
+			local chaosDPS = (modList.weaponX_chaosMin + modList.weaponX_chaosMax) / 2 * modList.weaponX_attackRate
+			main:AddTooltipLine(16, s_format("^x7F7F7FChaos Damage: "..data.colorCodes.CHAOS.."%d-%d "..data.colorCodes.MAGIC.."(%.1f DPS)", modList.weaponX_chaosMin, modList.weaponX_chaosMax, chaosDPS))
+			totalDamageTypes = totalDamageTypes + 1
+		end
+		if totalDamageTypes > 1 then
+			main:AddTooltipLine(16, s_format("^x7F7F7FTotal DPS: "..data.colorCodes.MAGIC.."%.1f", totalDamage * modList.weaponX_attackRate))
 		end
 		main:AddTooltipLine(16, s_format("^x7F7F7FCritical Strike Chance: %s%.2f%%", modList.weaponX_critChanceBase ~= base.weapon.critChanceBase and data.colorCodes.MAGIC or "^7", modList.weaponX_critChanceBase))
 		main:AddTooltipLine(16, s_format("^x7F7F7FAttacks per Second: %s%.2f", modList.weaponX_attackRate ~= base.weapon.attackRateBase and data.colorCodes.MAGIC or "^7", modList.weaponX_attackRate))
@@ -424,10 +479,16 @@ function items:AddItemTooltip(item)
 		for index, modLine in pairs(item.modLines) do
 			local line = modLine.range and self:ApplyRange(modLine.line, modLine.range) or modLine.line
 			main:AddTooltipLine(16, (modLine.extra and data.colorCodes.NORMAL or data.colorCodes.MAGIC)..line)
-			if index == 1 and base.implicit and item.modLines[2] then
+			if index == item.implicitLines and item.modLines[index + 1] then
 				main:AddTooltipSeperator(10)
 			end
 		end
+	end
+	if item.corrupted then
+		if #item.modLines == item.implicitLines then
+			main:AddTooltipSeperator(10)
+		end
+		main:AddTooltipLine(16, "^1Corrupted")
 	end
 	self:UpdateJewels()
 	for slotName, slot in pairs(self.slots) do

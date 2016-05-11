@@ -13,11 +13,13 @@ local t_insert = table.insert
 LoadModule("Modules/Data")
 LoadModule("Modules/ModTools")
 
-LoadModule("Classes/PassiveTree", launch)
-LoadModule("Classes/PassiveSpec", launch)
-LoadModule("Classes/PassiveTreeView", launch)
-
 local main = { }
+
+LoadModule("Classes/PassiveTree", launch, main)
+LoadModule("Classes/PassiveSpec", launch, main)
+LoadModule("Classes/PassiveTreeView", launch, main)
+LoadModule("Classes/Grid", launch, main)
+LoadModule("Classes/ItemSlot", launch, main)
 
 function main:Init()
 	self.modes = { }

@@ -11,8 +11,6 @@ local m_floor = math.floor
 local t_insert = table.insert
 local t_remove = table.remove
 
-LoadModule("Classes/Grid", launch)
-
 local calcs = { }
 
 function calcs:Init(build)
@@ -33,30 +31,6 @@ function calcs:Shutdown()
 	self.grid = nil
 	self.redo = nil
 	self.undo = nil
-end
-
-function calcs:DrawGrid(viewPort, inputEvents)
-	self.grid.offX = viewPort.x + m_floor((viewPort.width - self.grid.realWidth) / 2)
-	self.grid.offY = viewPort.y + 2
-	for id, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" then
-			if event.key == "r" and IsKeyDown("CTRL") then
-				self:LoadControl()
-				self.buildFlag = true
-			elseif event.key == "z" and IsKeyDown("CTRL") then
-				self:Undo()
-			elseif event.key == "y" and IsKeyDown("CTRL") then
-				self:Redo()
-			else
-				self.grid:OnKeyDown(event.key, event.doubleClick)
-			end
-		elseif event.type == "KeyUp" then
-			self.grid:OnKeyUp(event.key)
-		elseif event.type == "Char" then
-			self.grid:OnChar(event.key)
-		end
-	end
-	self.grid:Draw()
 end
 
 function calcs:Load(xml, dbFileName)
@@ -98,6 +72,30 @@ function calcs:Save(xml)
 		end
 		t_insert(xml, child)
 	end
+end
+
+function calcs:DrawGrid(viewPort, inputEvents)
+	self.grid.offX = viewPort.x + m_floor((viewPort.width - self.grid.realWidth) / 2)
+	self.grid.offY = viewPort.y + 2
+	for id, event in ipairs(inputEvents) do
+		if event.type == "KeyDown" then
+			if event.key == "r" and IsKeyDown("CTRL") then
+				self:LoadControl()
+				self.buildFlag = true
+			elseif event.key == "z" and IsKeyDown("CTRL") then
+				self:Undo()
+			elseif event.key == "y" and IsKeyDown("CTRL") then
+				self:Redo()
+			else
+				self.grid:OnKeyDown(event.key, event.doubleClick)
+			end
+		elseif event.type == "KeyUp" then
+			self.grid:OnKeyUp(event.key)
+		elseif event.type == "Char" then
+			self.grid:OnChar(event.key)
+		end
+	end
+	self.grid:Draw()
 end
 
 function calcs:LoadControl()

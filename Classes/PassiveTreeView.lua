@@ -3,7 +3,7 @@
 -- Class: Passive Tree View
 -- Passive skill tree viewer.
 --
-local launch = ...
+local launch, main = ...
 
 local pairs = pairs
 local ipairs = ipairs
@@ -12,9 +12,7 @@ local m_max = math.max
 local m_floor = math.floor
 local t_insert = table.insert
 
-local TreeViewClass = common.NewClass("PassiveTreeView", function(self, main)
-	self.main = main
-
+local TreeViewClass = common.NewClass("PassiveTreeView", function(self)
 	self.ring = NewImageHandle()
 	self.ring:Load("Art/ring.png")
 
@@ -420,7 +418,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 		self:AddNodeTooltip(hoverNode, build)
 		local scrX, scrY = treeToScreen(hoverNode.x, hoverNode.y)
 		local size = m_floor(hoverNode.size * scale)
-		self.main:DrawTooltip(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
+		main:DrawTooltip(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
 	end
 
 	SetDrawColor(0.05, 0.05, 0.05)
@@ -460,22 +458,22 @@ function TreeViewClass:AddNodeTooltip(node, build)
 		if jewel then
 			build.items:AddItemTooltip(jewel, build)
 		else
-			self.main:AddTooltipLine(24, "^7"..node.dn..(IsKeyDown("ALT") and " ["..node.id.."]" or ""))
+			main:AddTooltipLine(24, "^7"..node.dn..(IsKeyDown("ALT") and " ["..node.id.."]" or ""))
 		end
-		self.main:AddTooltipSeperator(14)
-		self.main:AddTooltipLine(14, "^x80A080Tip: Right click this socket to go to the items page and choose the jewel for this socket.")
+		main:AddTooltipSeperator(14)
+		main:AddTooltipLine(14, "^x80A080Tip: Right click this socket to go to the items page and choose the jewel for this socket.")
 		return
 	end
 	
 	-- Node name
-	self.main:AddTooltipLine(24, "^7"..node.dn..(IsKeyDown("ALT") and " ["..node.id.."]" or ""))
+	main:AddTooltipLine(24, "^7"..node.dn..(IsKeyDown("ALT") and " ["..node.id.."]" or ""))
 	if IsKeyDown("ALT") and node.power and node.power.dps then
-		self.main:AddTooltipLine(16, string.format("DPS power: %g   Defence power: %g", node.power.dps, node.power.def))
+		main:AddTooltipLine(16, string.format("DPS power: %g   Defence power: %g", node.power.dps, node.power.def))
 	end
 
 	-- Node description
 	if node.sd[1] then
-		self.main:AddTooltipLine(16, "")
+		main:AddTooltipLine(16, "")
 		for i, line in ipairs(node.sd) do
 			if node.mods[i].list then
 				if IsKeyDown("ALT") then
@@ -491,22 +489,22 @@ function TreeViewClass:AddNodeTooltip(node, build)
 					end
 				end
 			end
-			self.main:AddTooltipLine(16, "^7"..line)
+			main:AddTooltipLine(16, "^7"..line)
 		end
 	end
 
 	-- Reminder text
 	if node.reminderText then
-		self.main:AddTooltipSeperator(14)
+		main:AddTooltipSeperator(14)
 		for _, line in ipairs(node.reminderText) do
-			self.main:AddTooltipLine(14, "^xA0A080"..line)
+			main:AddTooltipLine(14, "^xA0A080"..line)
 		end
 	end
 
 	-- Mod differences
 	local calcFunc, calcBase = build.calcs:GetNodeCalculator(build)
 	if calcFunc then
-		self.main:AddTooltipSeperator(14)
+		main:AddTooltipSeperator(14)
 		local count
 		local nodeOutput, pathOutput
 		if node.alloc then
@@ -527,10 +525,10 @@ function TreeViewClass:AddNodeTooltip(node, build)
 				if diff > 0.001 or diff < -0.001 then
 					none = false
 					if not header then
-						self.main:AddTooltipLine(14, string.format("^7%s this node will give you:", node.alloc and "Unallocating" or "Allocating"))
+						main:AddTooltipLine(14, string.format("^7%s this node will give you:", node.alloc and "Unallocating" or "Allocating"))
 						header = true
 					end
-					self.main:AddTooltipLine(14, string.format("%s%+"..data.fmt.." %s", diff > 0 and "^x00FF44" or "^xFF3300", diff * (data.pc and 100 or 1), data.label))
+					main:AddTooltipLine(14, string.format("%s%+"..data.fmt.." %s", diff > 0 and "^x00FF44" or "^xFF3300", diff * (data.pc and 100 or 1), data.label))
 				end
 			end
 		end
@@ -542,26 +540,26 @@ function TreeViewClass:AddNodeTooltip(node, build)
 					if diff > 0.001 or diff < -0.001 then
 						none = false
 						if not header then
-							self.main:AddTooltipLine(14, string.format("^7%s this node and all nodes %s will give you:", node.alloc and "Unallocating" or "Allocating", node.alloc and "depending on it" or "leading to it"))
+							main:AddTooltipLine(14, string.format("^7%s this node and all nodes %s will give you:", node.alloc and "Unallocating" or "Allocating", node.alloc and "depending on it" or "leading to it"))
 							header = true
 						end
-						self.main:AddTooltipLine(14, string.format("%s%+"..data.fmt.." %s", diff > 0 and "^x00FF44" or "^xFF3300", diff * (data.pc and 100 or 1), data.label))
+						main:AddTooltipLine(14, string.format("%s%+"..data.fmt.." %s", diff > 0 and "^x00FF44" or "^xFF3300", diff * (data.pc and 100 or 1), data.label))
 					end
 				end
 			end
 		end
 		if none then
-			self.main:AddTooltipLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", count > 1 and " or the nodes leading to it" or ""))
+			main:AddTooltipLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", count > 1 and " or the nodes leading to it" or ""))
 		end
 	end
 
 	-- Pathing distance
 	if node.path and #node.path > 0 then
-		self.main:AddTooltipSeperator(14)
-		self.main:AddTooltipLine(14, "^7"..#node.path .. " points to node")
+		main:AddTooltipSeperator(14)
+		main:AddTooltipLine(14, "^7"..#node.path .. " points to node")
 		if #node.path > 1 then
-			self.main:AddTooltipLine(14, "^x80A080")
-			self.main:AddTooltipLine(14, "Tip: To reach this node by a different path, hold Shift, then trace the path and click this node")
+			main:AddTooltipLine(14, "^x80A080")
+			main:AddTooltipLine(14, "Tip: To reach this node by a different path, hold Shift, then trace the path and click this node")
 		end
 	end
 end

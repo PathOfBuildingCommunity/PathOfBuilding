@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gem DB", "Gem DB", "{EE9D06
 		Gems\act_dex.lua = Gems\act_dex.lua
 		Gems\act_int.lua = Gems\act_int.lua
 		Gems\act_str.lua = Gems\act_str.lua
+		Gems\other.lua = Gems\other.lua
 		Gems\sup_dex.lua = Gems\sup_dex.lua
 		Gems\sup_int.lua = Gems\sup_int.lua
 		Gems\sup_str.lua = Gems\sup_str.lua
