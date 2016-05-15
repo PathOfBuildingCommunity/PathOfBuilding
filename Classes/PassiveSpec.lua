@@ -103,6 +103,7 @@ function SpecClass:SelectClass(classId)
 	end
 	self.curClassId = classId
 	local class = self.tree.classes[classId]
+	self.curClassName = class.name
 	local startNode = self.nodes[class.startNodeId]
 	startNode.alloc = true
 	self.allocNodes[startNode.id] = startNode
@@ -112,6 +113,7 @@ end
 function SpecClass:SelectAscendClass(ascendClassId)
 	self.curAscendClassId = ascendClassId
 	local ascendClass = self.tree.classes[self.curClassId].classes[tostring(ascendClassId)] or { name = "" }
+	self.curAscendClassName = ascendClass.name
 	for id, node in pairs(self.allocNodes) do
 		if node.ascendancyName and node.ascendancyName ~= ascendClass.name then
 			node.alloc = false

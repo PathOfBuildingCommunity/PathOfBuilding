@@ -5,34 +5,38 @@
 --
 local launch, main = ...
 
+local ipairs = ipairs
 local t_insert = table.insert
-
-local vfs = require("vfs")
 
 local listMode = { }
 
-function listMode:Init(selFileName)
+function listMode:Init(selBuildName)
 	self:BuildList()
-	self:SelFileByName(selFileName)
+	self:SelByFileName(selBuildName..".xml")
 
 	self.controls = { }
-	t_insert(self.controls, common.New("ButtonControl", 2, 2, 60, 20, "New", function()
-		listMode:New()
-	end))
-	t_insert(self.controls, common.New("ButtonControl", 66, 2, 60, 20, "Copy", function()
-		listMode:CopySel()
+	t_insert(self.controls, common.New("ButtonControl", 4, 4, 60, 20, "Open", function()
+		self:LoadSel()
 	end, function()
-		return listMode.sel ~= nil
+		return self.sel ~= nil
 	end))
-	t_insert(self.controls, common.New("ButtonControl", 130, 2, 60, 20, "Rename", function()
-		listMode:RenameSel()
-	end, function()
-		return listMode.sel ~= nil
+	t_insert(self.controls, common.New("ButtonControl", 4 + 68, 4, 60, 20, "New", function()
+		self:New()
 	end))
-	t_insert(self.controls, common.New("ButtonControl", 194, 2, 60, 20, "Delete", function()
-		listMode:DeleteSel()
+	t_insert(self.controls, common.New("ButtonControl", 4 + 68*2, 4, 60, 20, "Copy", function()
+		self:CopySel()
 	end, function()
-		return listMode.sel ~= nil
+		return self.sel ~= nil
+	end))
+	t_insert(self.controls, common.New("ButtonControl", 4 + 68*3, 4, 60, 20, "Rename", function()
+		self:RenameSel()
+	end, function()
+		return self.sel ~= nil
+	end))
+	t_insert(self.controls, common.New("ButtonControl", 4 + 68*4, 4, 60, 20, "Delete", function()
+		self:DeleteSel()
+	end, function()
+		return self.sel ~= nil
 	end))
 end
 
@@ -54,7 +58,7 @@ function listMode:OnFrame(inputEvents)
 	end
 	common.controlsDraw(self)
 	for index, build in ipairs(self.list) do
-		local y = 4 + index * 20
+		local y = 8 + index * 20
 		if self.sel == index then
 			SetDrawColor(1, 1, 1)
 		else
@@ -75,8 +79,8 @@ function listMode:OnFrame(inputEvents)
 			else
 				SetDrawColor(0.8, 0.8, 0.8)
 			end
-			DrawString(4, y + 2, "LEFT", 16, "VAR", build.fileName:gsub(".xml",""))
-			DrawString(304, y + 2, "LEFT", 16, "VAR", string.format("Level %d %s", build.level, build.ascendClassName or build.className or "?"))
+			DrawString(4, y + 2, "LEFT", 16, "VAR", build.fileName:gsub("%.xml$",""))
+			DrawString(304, y + 2, "LEFT", 16, "VAR", string.format("Level %d %s", build.level, (build.ascendClassName ~= "None" and build.ascendClassName) or build.className or "?"))
 		end
 	end
 end
@@ -102,19 +106,18 @@ function listMode:OnKeyDown(key, doubleClick)
 		end
 		self.sel = nil
 		for index, fileName in ipairs(self.list) do
-			local y = 4 + index * 20
+			local y = 8 + index * 20
 			if cy >= y and cy < y + 20 then
+				self.sel = index
 				if doubleClick then
-					main:SetMode("BUILD", self.list[index].fileName)
-				else
-					self.sel = index
+					self:LoadSel()
 				end
 				return
 			end
 		end
 	elseif key == "RETURN" then
 		if self.sel then
-			main:SetMode("BUILD", self.list[self.sel].fileName)
+			self:LoadSel()
 		end
 	elseif key == "UP" then
 		if not self.sel then
@@ -155,23 +158,28 @@ function listMode:OnChar(key)
 end
 
 function listMode:BuildList()
-	self.list = { }
-	vfs.scan(true)
-	for _, file in ipairs(vfs.root.files) do
-		if file.name:lower():match("%.xml$") and file.name:lower() ~= "settings.xml" then
-			local build = { }
-			build.fileName = file.name
-			local dbXML, errMsg = common.xml.LoadXMLFile(file.name)
-			if dbXML and dbXML[1].elem == "PathOfBuilding" then
-				for _, node in ipairs(dbXML[1]) do
-					if type(node) == "table" and node.elem == "Build" then
-						build.className = node.attrib.className
-						build.ascendClassName = node.attrib.ascendClassName
-						build.level = tonumber(node.attrib.level) or 1
-					end
-				end	
+	self.list = wipeTable(self.list)
+	local handle = NewFileSearch(main.buildPath.."*.xml")
+	if not handle then
+		return
+	end
+	while true do
+		local fileName = handle:GetFileName()
+		local build = { }
+		build.fileName = fileName
+		local dbXML = common.xml.LoadXMLFile(main.buildPath..fileName)
+		if dbXML and dbXML[1].elem == "PathOfBuilding" then
+			for _, node in ipairs(dbXML[1]) do
+				if type(node) == "table" and node.elem == "Build" then
+					build.level = tonumber(node.attrib.level) or 1
+					build.className = node.attrib.className
+					build.ascendClassName = node.attrib.ascendClassName
+				end
 			end
-			table.insert(self.list, build)
+		end
+		table.insert(self.list, build)
+		if not handle:NextFile() then
+			break
 		end
 	end
 	self:SortList()
@@ -181,11 +189,11 @@ function listMode:SortList()
 	local oldSelFileName = self.sel and self.list[self.sel].fileName
 	table.sort(self.list, function(a, b) return a.fileName:upper() < b.fileName:upper() end)
 	if oldSelFileName then
-		self:SelFileByName(oldSelFileName)
+		self:SelByFileName(oldSelFileName)
 	end
 end
 
-function listMode:SelFileByName(selFileName)
+function listMode:SelByFileName(selFileName)
 	self.sel = nil
 	for index, build in ipairs(self.list) do
 		if build.fileName == selFileName then
@@ -198,7 +206,7 @@ end
 function listMode:EditInit(finFunc)
 	self.edit = self.sel
 	self.editFinFunc = finFunc
-	self.editField = common.newEditField(self.list[self.sel].fileName:gsub(".xml$",""), nil, "[%w _+.()]")
+	self.editField = common.newEditField(self.list[self.sel].fileName:gsub("%.xml$",""), nil, "[%w _+.()]")
 	self.editField.x = 2
 	self.editField.y = 6 + self.sel * 20
 	self.editField.width = main.screenW
@@ -246,11 +254,15 @@ function listMode:New()
 	end)
 end
 
+function listMode:LoadSel()
+	main:SetMode("BUILD", main.buildPath..self.list[self.sel].fileName, self.list[self.sel].fileName:gsub("%.xml$",""))
+end
+
 function listMode:CopySel()
 	local srcName = self.list[self.sel].fileName
 	table.insert(self.list, self.sel + 1, copyTable(self.list[self.sel]))
 	self.sel = self.sel + 1
-	self.list[self.sel].fileName = srcName:gsub(".xml$","") .. " (copy)"
+	self.list[self.sel].fileName = srcName:gsub("%.xml$","") .. " (copy)"
 	self:EditInit(function(buf)
 		if #buf < 1 then
 			return "No name entered"

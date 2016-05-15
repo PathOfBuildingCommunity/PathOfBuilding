@@ -1,6 +1,6 @@
 -- Path of Building
 --
--- Other skills
+-- Other active skills
 -- Skill gem data (c) Grinding Gear Games
 --
 local gems = ...
@@ -42,7 +42,7 @@ gems["Detonate Mines"] = {
 gems["Portal"] = {
 	spell = true,
 	base = {
-		spell_castTine = 2.5,
+		spell_castTime = 2.5,
 	},
 	quality = {
 		castSpeedInc = 3,

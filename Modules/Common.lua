@@ -144,25 +144,6 @@ function common.controlsDraw(host, ...)
 
 end
 
--- Draw simple popup message box
-function common.drawPopup(r, g, b, fmt, ...)
-	local screenW, screenH = GetScreenSize()
-	SetDrawColor(0, 0, 0, 0.5)
-	DrawImage(nil, 0, 0, screenW, screenH)
-	local txt = string.format(fmt, ...)
-	local w = DrawStringWidth(20, "VAR", txt) + 20
-	local h = (#txt:gsub("[^\n]","") + 2) * 20
-	local ox = (screenW - w) / 2
-	local oy = (screenH - h) / 2
-	SetDrawColor(1, 1, 1)
-	DrawImage(nil, ox, oy, w, h)
-	SetDrawColor(r, g, b)
-	DrawImage(nil, ox + 2, oy + 2, w - 4, h - 4)
-	SetDrawColor(1, 1, 1)
-	DrawImage(nil, ox + 4, oy + 4, w - 8, h - 8)
-	DrawString(0, oy + 10, "CENTER", 20, "VAR", txt)
-end
-
 -- Make a copy of a table and all subtables
 function copyTable(tbl)
 	local out = {}

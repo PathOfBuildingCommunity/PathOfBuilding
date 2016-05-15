@@ -9,8 +9,6 @@ SetWindowTitle("PathOfBuilding")
 ConExecute("vid_mode 1")
 ConExecute("vid_resizable 3")
 
-LoadModule("Common")
-
 local launch = { }
 SetMainObject(launch)
 
@@ -47,7 +45,7 @@ function launch:OnFrame()
 	end
 	if self.promptMsg then
 		local r, g, b = unpack(self.promptCol)
-		common.drawPopup(r, g, b, "^0%s", self.promptMsg)
+		self:DrawPopup(r, g, b, "^0%s", self.promptMsg)
 	end
 	if self.doReload then
 		local screenW, screenH = GetScreenSize()
@@ -127,4 +125,22 @@ function launch:ShowErrMsg(fmt, ...)
 			return true
 		end
 	end)
+end
+
+function launch:DrawPopup(r, g, b, fmt, ...)
+	local screenW, screenH = GetScreenSize()
+	SetDrawColor(0, 0, 0, 0.5)
+	DrawImage(nil, 0, 0, screenW, screenH)
+	local txt = string.format(fmt, ...)
+	local w = DrawStringWidth(20, "VAR", txt) + 20
+	local h = (#txt:gsub("[^\n]","") + 2) * 20
+	local ox = (screenW - w) / 2
+	local oy = (screenH - h) / 2
+	SetDrawColor(1, 1, 1)
+	DrawImage(nil, ox, oy, w, h)
+	SetDrawColor(r, g, b)
+	DrawImage(nil, ox + 2, oy + 2, w - 4, h - 4)
+	SetDrawColor(1, 1, 1)
+	DrawImage(nil, ox + 4, oy + 4, w - 8, h - 8)
+	DrawString(0, oy + 10, "CENTER", 20, "VAR", txt)
 end

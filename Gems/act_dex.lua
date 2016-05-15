@@ -414,7 +414,49 @@ gems["Cyclone"] = {
 	}
 }
 gems["Desecrate"] = {
-	unsupported = true,
+	spell = true,
+	aoe = true,
+	duration = true,
+	chaos = true,
+	base = {
+		skill_castTime = 1,
+		skill_durationBase = 5,
+	},
+	quality = {
+		castSpeedInc = 1,
+	},
+	levels = {
+		[1] = { skill_manaCostBase = 8, skill_chaosDotBase = 8.2, },
+		[2] = { skill_manaCostBase = 8, skill_chaosDotBase = 11.3, },
+		[3] = { skill_manaCostBase = 9, skill_chaosDotBase = 15.4, },
+		[4] = { skill_manaCostBase = 9, skill_chaosDotBase = 20.6, },
+		[5] = { skill_manaCostBase = 10, skill_chaosDotBase = 25.5, },
+		[6] = { skill_manaCostBase = 11, skill_chaosDotBase = 31.4, },
+		[7] = { skill_manaCostBase = 12, skill_chaosDotBase = 38.5, },
+		[8] = { skill_manaCostBase = 12, skill_chaosDotBase = 46.9, },
+		[9] = { skill_manaCostBase = 13, skill_chaosDotBase = 57, },
+		[10] = { skill_manaCostBase = 14, skill_chaosDotBase = 69, },
+		[11] = { skill_manaCostBase = 15, skill_chaosDotBase = 83.4, },
+		[12] = { skill_manaCostBase = 16, skill_chaosDotBase = 100.5, },
+		[13] = { skill_manaCostBase = 17, skill_chaosDotBase = 120.7, },
+		[14] = { skill_manaCostBase = 18, skill_chaosDotBase = 144.8, },
+		[15] = { skill_manaCostBase = 18, skill_chaosDotBase = 163.2, },
+		[16] = { skill_manaCostBase = 18, skill_chaosDotBase = 183.9, },
+		[17] = { skill_manaCostBase = 19, skill_chaosDotBase = 207, },
+		[18] = { skill_manaCostBase = 19, skill_chaosDotBase = 232.8, },
+		[19] = { skill_manaCostBase = 20, skill_chaosDotBase = 261.7, },
+		[20] = { skill_manaCostBase = 20, skill_chaosDotBase = 294, },
+		[21] = { skill_manaCostBase = 21, skill_chaosDotBase = 330.1, },
+		[22] = { skill_manaCostBase = 22, skill_chaosDotBase = 370.3, },
+		[23] = { skill_manaCostBase = 22, skill_chaosDotBase = 415.2, },
+		[24] = { skill_manaCostBase = 22, skill_chaosDotBase = 465.3, },
+		[25] = { skill_manaCostBase = 23, skill_chaosDotBase = 521.2, },
+		[26] = { skill_manaCostBase = 23, skill_chaosDotBase = 583.5, },
+		[27] = { skill_manaCostBase = 24, skill_chaosDotBase = 653, },
+		[28] = { skill_manaCostBase = 25, skill_chaosDotBase = 730.4, },
+		[29] = { skill_manaCostBase = 25, skill_chaosDotBase = 816.6, },
+		[30] = { skill_manaCostBase = 26, skill_chaosDotBase = 912.6, },
+	}
 }
 gems["Detonate Dead"] = {
 	unsupported = true,

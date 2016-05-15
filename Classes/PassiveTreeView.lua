@@ -14,7 +14,7 @@ local t_insert = table.insert
 
 local TreeViewClass = common.NewClass("PassiveTreeView", function(self)
 	self.ring = NewImageHandle()
-	self.ring:Load("Art/ring.png")
+	self.ring:Load("Assets/ring.png")
 
 	self.zoomLevel = 3
 	self.zoom = 1.2 ^ self.zoomLevel
@@ -238,13 +238,11 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 	SetDrawColor(1, 1, 1)
 	DrawImage(bg.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, (self.zoomX + viewPort.width/2) / -bgSize, (self.zoomY + viewPort.height/2) / -bgSize, (viewPort.width/2 - self.zoomX) / bgSize, (viewPort.height/2 - self.zoomY) / bgSize)
 
-	local curAscendName = tree.classes[spec.curClassId].classes[tostring(spec.curAscendClassId)].name
-
 	for _, group in pairs(tree.groups) do
 		local scrX, scrY = treeToScreen(group.x, group.y)
 		if group.ascendancyName then
 			if group.isAscendancyStart then
-				if group.ascendancyName ~= curAscendName then
+				if group.ascendancyName ~= spec.curAscendClassName then
 					SetDrawColor(1, 1, 1, 0.25)
 				end
 				self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
@@ -276,7 +274,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 		conn.c[7], conn.c[8] = treeToScreen(vert[7], vert[8])
 		if hoverDep and hoverDep[node1] and hoverDep[node2] then
 			SetDrawColor(1, 0, 0)
-		elseif conn.ascendancyName and conn.ascendancyName ~= curAscendName then
+		elseif conn.ascendancyName and conn.ascendancyName ~= spec.curAscendClassName then
 			SetDrawColor(0.75, 0.75, 0.75)
 		end
 		DrawImageQuad(tree.assets[conn.type..state].handle, unpack(conn.c))
@@ -318,7 +316,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 			end
 		end
 		local scrX, scrY = treeToScreen(node.x, node.y)
-		if node.ascendancyName and node.ascendancyName ~= curAscendName then
+		if node.ascendancyName and node.ascendancyName ~= spec.curAscendClassName then
 			SetDrawColor(0.5, 0.5, 0.5)
 		end
 		if IsKeyDown("ALT") then

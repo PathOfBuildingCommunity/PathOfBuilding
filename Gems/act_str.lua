@@ -541,7 +541,48 @@ gems["Infernal Blow"] = {
 	}
 }
 gems["Leap Slam"] = {
-	unsupported = true,
+	attack = true,
+	melee = true,
+	aoe = true,
+	movement = true,
+	base = {
+		skill_attackTime = 1.4,
+		skill_manaCostBase = 15,
+	},
+	quality = {
+	},
+	levels = {
+		[1] = { attack_damageMore = 1, },
+		[2] = { attack_damageMore = 1.012, },
+		[3] = { attack_damageMore = 1.024, },
+		[4] = { attack_damageMore = 1.036, },
+		[5] = { attack_damageMore = 1.048, },
+		[6] = { attack_damageMore = 1.06, },
+		[7] = { attack_damageMore = 1.072, },
+		[8] = { attack_damageMore = 1.084, },
+		[9] = { attack_damageMore = 1.096, },
+		[10] = { attack_damageMore = 1.108, },
+		[11] = { attack_damageMore = 1.12, },
+		[12] = { attack_damageMore = 1.132, },
+		[13] = { attack_damageMore = 1.144, },
+		[14] = { attack_damageMore = 1.156, },
+		[15] = { attack_damageMore = 1.168, },
+		[16] = { attack_damageMore = 1.18, },
+		[17] = { attack_damageMore = 1.192, },
+		[18] = { attack_damageMore = 1.204, },
+		[19] = { attack_damageMore = 1.216, },
+		[20] = { attack_damageMore = 1.228, },
+		[21] = { attack_damageMore = 1.24, },
+		[22] = { attack_damageMore = 1.252, },
+		[23] = { attack_damageMore = 1.264, },
+		[24] = { attack_damageMore = 1.276, },
+		[25] = { attack_damageMore = 1.288, },
+		[26] = { attack_damageMore = 1.3, },
+		[27] = { attack_damageMore = 1.312, },
+		[28] = { attack_damageMore = 1.324, },
+		[29] = { attack_damageMore = 1.336, },
+		[30] = { attack_damageMore = 1.348, },
+	}
 }
 gems["Molten Shell"] = {
 	unsupported = true,

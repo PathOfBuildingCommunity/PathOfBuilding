@@ -10,7 +10,7 @@ local t_insert = table.insert
 
 local buildMode = { }
 
-function buildMode:Init(dbFileName)
+function buildMode:Init(dbFileName, buildName)
 	self.abortSave = true
 
 	self.items = LoadModule("Modules/Items", launch, main)
@@ -23,7 +23,7 @@ function buildMode:Init(dbFileName)
 
 	self.controls = { }
 	t_insert(self.controls, common.New("ButtonControl", 4, 4, 60, 20, "<< Back", function()
-		main:SetMode("LIST", self.dbFileName)
+		main:SetMode("LIST", self.buildName)
 	end))
 	t_insert(self.controls, common.New("ButtonControl", 4 + 68, 4, 60, 20, "Tree", function()
 		self.viewMode = "TREE"
@@ -44,14 +44,13 @@ function buildMode:Init(dbFileName)
 		x = 4 + 68*4,
 		y = 4,
 		Draw = function(control)
-			local buildName = self.dbFileName:gsub(".xml","")
-			local bnw = DrawStringWidth(16, "VAR", buildName)
+			local bnw = DrawStringWidth(16, "VAR", self.buildName)
 			SetDrawColor(0.5, 0.5, 0.5)
 			DrawImage(nil, control.x + 91, control.y, bnw + 6, 20)
 			SetDrawColor(0, 0, 0)
 			DrawImage(nil, control.x + 92, control.y + 1, bnw + 4, 18)
 			SetDrawColor(1, 1, 1)
-			DrawString(control.x, control.y + 2, "LEFT", 16, "VAR", "Current build:  "..buildName.."   "..((self.calcs.modFlag or self.spec.modFlag or self.items.modFlag) and "(Unsaved)" or ""))
+			DrawString(control.x, control.y + 2, "LEFT", 16, "VAR", "Current build:  "..self.buildName.."   "..((self.calcs.modFlag or self.spec.modFlag or self.items.modFlag) and "(Unsaved)" or ""))
 		end,
 	})
 	self.controls.pointDisplay = {
@@ -123,6 +122,8 @@ function buildMode:Init(dbFileName)
 		{ mod = "total_evasion", label = "Evasion rating", fmt = "d" },
 		{ mod = "total_armour", label = "Armour", fmt = "d" },
 		{ mod = "total_blockChance", label = "Block Chance", fmt = "d%%" },
+		{ mod = "total_dodgeAttacks", label = "Attack Dodge Chance", fmt = "d%%" },
+		{ mod = "total_dodgeSpells", label = "Spell Dodge Chance", fmt = "d%%" },
 		{ },
 		{ mod = "total_fireResist", label = "Fire Resistance", fmt = "d%%" },
 		{ mod = "total_coldResist", label = "Cold Resistance", fmt = "d%%" },
@@ -133,6 +134,7 @@ function buildMode:Init(dbFileName)
 	self.viewMode = "TREE"
 
 	self.dbFileName = dbFileName
+	self.buildName = buildName
 	ConPrintf("Loading '%s'...", dbFileName)
 
 	self.savers = {
@@ -187,16 +189,14 @@ function buildMode:OnFrame(inputEvents)
 		end
 	end
 
-	local class = main.tree.classes[self.spec.curClassId]
-	local ascendClass = class.classes[tostring(self.spec.curAscendClassId)]
 	wipeTable(self.controls.ascendDrop.list)
 	for _, ascendClass in pairs(main.tree.classes[self.spec.curClassId].classes) do
 		t_insert(self.controls.ascendDrop.list, ascendClass.name)
 	end
 	table.sort(self.controls.ascendDrop.list)
 
-	self.controls.classDrop:SelByValue(class.name)
-	self.controls.ascendDrop:SelByValue(ascendClass and ascendClass.name or "None")
+	self.controls.classDrop:SelByValue(self.spec.curClassName)
+	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassName)
 
 	self.controls.pointDisplay.x = main.screenW / 2 + 6
 	self.controls.classDrop.x = self.controls.pointDisplay.x + 154
@@ -276,6 +276,7 @@ function buildMode:LoadDB()
 		end
 	end
 end
+
 function buildMode:SaveDB()
 	local dbXML = { elem = "PathOfBuilding" }
 	for elem, saver in pairs(self.savers) do
@@ -295,12 +296,13 @@ function buildMode:Load(xml, fileName)
 		self.viewMode = xml.attrib.viewMode
 	end
 end
+
 function buildMode:Save(xml)
 	xml.attrib = {
 		viewMode = self.viewMode,
-		className = self.tree.classes[self.spec.curClassId].name,
-		ascendClassName = self.spec.curAscendClassId > 0 and self.tree.classes[self.spec.curClassId].classes[tostring(self.spec.curAscendClassId)].name,
-		level = tostring(self.calcs.input.player_level or 1)
+		level = tostring(self.calcs.input.player_level or 1),
+		className = self.spec.curClassName,
+		ascendClassName = self.spec.curAscendClassName,
 	}
 end
 

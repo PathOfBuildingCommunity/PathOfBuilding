@@ -59,7 +59,7 @@ local TreeClass = common.NewClass("PassiveTree", function(self)
 	self.classes = { }
 	for id, data in pairs(common.json.decode(classText)) do
 		self.classes[tonumber(id)] = data
-		data.classes["0"] = { name = "None "}
+		data.classes["0"] = { name = "None" }
 	end
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
@@ -180,7 +180,7 @@ local TreeClass = common.NewClass("PassiveTree", function(self)
 			local line = node.sd[i]
 			local list, extra
 			if line:match("\n") then
-				list, extra = mod.parseMod(line:gsub("\n", " "))
+				list, extra = modLib.parseMod(line:gsub("\n", " "))
 				if list and not extra then
 					node.sd[i] = line:gsub("\n", " ")
 				else
@@ -190,10 +190,10 @@ local TreeClass = common.NewClass("PassiveTree", function(self)
 						table.insert(node.sd, si, subLine)
 						si = si + 1
 					end
-					list, extra = mod.parseMod(node.sd[i])
+					list, extra = modLib.parseMod(node.sd[i])
 				end
 			else
-				list, extra = mod.parseMod(line)
+				list, extra = modLib.parseMod(line)
 			end
 			if not list then
 				node.unknown = true
@@ -229,7 +229,7 @@ local TreeClass = common.NewClass("PassiveTree", function(self)
 		for ascendClassId, ascendClass in pairs(class.classes) do
 			self.ascendNameMap[ascendClass.name] = {
 				classId = classId,
-				ascendClassId = ascendClassId
+				ascendClassId = tonumber(ascendClassId)
 			}
 		end
 	end

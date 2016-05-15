@@ -1,18 +1,18 @@
 -- Path of Building
 --
--- Module: ModTools
+-- Module: Mod Tools
 -- Various functions for dealing with modifier lists and databases
 --
 
 local t_insert = table.insert
 
-mod = { }
+modLib = { }
 
-mod.parseMod = LoadModule("Modules/ModParser")
+modLib.parseMod = LoadModule("Modules/ModParser")
 
 -- Break modifier name into namespace and mod name
 local spaceLookup = { }
-function mod.getSpaceName(modName)
+function modLib.getSpaceName(modName)
 	if not spaceLookup[modName] then
 		local space, mod = modName:match("^([^_]+)_(.+)$")
 		if not space then
@@ -27,7 +27,7 @@ end
 
 -- Extract condition name from modifier name
 local condLookup = { }
-function mod.getCondName(modName)
+function modLib.getCondName(modName)
 	if not condLookup[modName] then
 		local isNot, condName, mod = modName:match("^(n?o?t?)(%w+)_(.+)$")
 		isNot = (isNot == "not")
@@ -38,23 +38,23 @@ function mod.getCondName(modName)
 end
 
 -- Magic table to check if a modifier is multiplicative (contains 'More' in the modifier name)
-mod.isModMult = { }
-mod.isModMult.__index = function(t, modName)
+modLib.isModMult = { }
+modLib.isModMult.__index = function(t, modName)
 	local val = (modName:match("More") ~= nil)
 	t[modName] = val
 	return val
 end
-setmetatable(mod.isModMult, mod.isModMult)
+setmetatable(modLib.isModMult, modLib.isModMult)
 
 -- Merge modifier with existing mod list, respecting additivity/multiplicativity
-function mod.listMerge(modList, modName, modVal)
+function modLib.listMerge(modList, modName, modVal)
 	if modList[modName] then
 		if type(modVal) == "boolean" then
 			modList[modName] = modList[modName] or modVal
 		elseif type(modVal) == "function" then
 			local orig = modList[modName]
 			modList[modName] = function(...) orig(...) modVal(...) end
-		elseif mod.isModMult[modName] then
+		elseif modLib.isModMult[modName] then
 			modList[modName] = modList[modName] * modVal
 		else
 			modList[modName] = modList[modName] + modVal
@@ -65,14 +65,14 @@ function mod.listMerge(modList, modName, modVal)
 end
 
 -- Unmerge modifier from existing mod list, respecting additivity/multiplicativity
-function mod.listUnmerge(modList, modName, modVal)
+function modLib.listUnmerge(modList, modName, modVal)
 	if type(modVal) == "boolean" then
 		if modVal == true then
 			modList[modName] = false
 		end
 	elseif type(modVal) == "string" then
 		modList[modName] = nil
-	elseif mod.isModMult[modName] then
+	elseif modLib.isModMult[modName] then
 		if modVal == 0 then
 			modList[modName] = 1
 		else
@@ -84,55 +84,55 @@ function mod.listUnmerge(modList, modName, modVal)
 end
 
 -- Merge modifier with mod database
-function mod.dbMerge(modDB, spaceName, modName, modVal)
+function modLib.dbMerge(modDB, spaceName, modName, modVal)
 	if not spaceName then
-		spaceName, modName = mod.getSpaceName(modName)
+		spaceName, modName = modLib.getSpaceName(modName)
 	elseif spaceName == "" then
 		spaceName = "global"
 	end
 	if not modDB[spaceName] then
 		modDB[spaceName] = { }
 	end
-	mod.listMerge(modDB[spaceName], modName, modVal)
+	modLib.listMerge(modDB[spaceName], modName, modVal)
 end
 
 -- Unmerge modifier from mod database
-function mod.dbUnmerge(modDB, spaceName, modName, modVal)
+function modLib.dbUnmerge(modDB, spaceName, modName, modVal)
 	if not spaceName then
-		spaceName, modName = mod.getSpaceName(modName)
+		spaceName, modName = modLib.getSpaceName(modName)
 	elseif spaceName == "" then
 		spaceName = "global"
 	end
 	if not modDB[spaceName] then
 		modDB[spaceName] = { }
 	end
-	mod.listUnmerge(modDB[spaceName], modName, modVal)
+	modLib.listUnmerge(modDB[spaceName], modName, modVal)
 end
 
 -- Merge modifier list with mod database
-function mod.dbMergeList(modDB, modList)
+function modLib.dbMergeList(modDB, modList)
 	for k, modVal in pairs(modList) do
-		local spaceName, modName = mod.getSpaceName(k)
+		local spaceName, modName = modLib.getSpaceName(k)
 		if not modDB[spaceName] then
 			modDB[spaceName] = { }
 		end
-		mod.listMerge(modDB[spaceName], modName, modVal)
+		modLib.listMerge(modDB[spaceName], modName, modVal)
 	end
 end
 
 -- Unmerge modifier list from mod database
-function mod.dbUnmergeList(modDB, modList)
+function modLib.dbUnmergeList(modDB, modList)
 	for k, modVal in pairs(modList) do
-		local spaceName, modName = mod.getSpaceName(k)
+		local spaceName, modName = modLib.getSpaceName(k)
 		if not modDB[spaceName] then
 			modDB[spaceName] = { }
 		end
-		mod.listUnmerge(modDB[spaceName], modName, modVal)
+		modLib.listUnmerge(modDB[spaceName], modName, modVal)
 	end
 end
 
 -- Print modifier list to the console
-function mod.listPrint(modList, tab)
+function modLib.listPrint(modList, tab)
 	local names = { }
 	for k in pairs(modList) do
 		if type(k) == "string" then
@@ -146,7 +146,7 @@ function mod.listPrint(modList, tab)
 end
 
 -- Print modifier database to the console
-function mod.dbPrint(modDB)
+function modLib.dbPrint(modDB)
 	local spaceNames = { }
 	for k in pairs(modDB) do
 		t_insert(spaceNames, k)
@@ -154,7 +154,7 @@ function mod.dbPrint(modDB)
 	table.sort(spaceNames)
 	for _, spaceName in pairs(spaceNames) do
 		ConPrintf("%s = {", spaceName)
-		mod.listPrint(modDB[spaceName], 1)
+		modLib.listPrint(modDB[spaceName], 1)
 		ConPrintf("},")
 	end
 end

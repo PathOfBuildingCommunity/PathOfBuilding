@@ -10,8 +10,10 @@ local m_floor = math.floor
 local m_max = math.max
 local t_insert = table.insert
 
+LoadModule("Modules/Common")
 LoadModule("Modules/Data")
 LoadModule("Modules/ModTools")
+LoadModule("Modules/ItemTools")
 
 local main = { }
 
@@ -25,6 +27,8 @@ function main:Init()
 	self.modes = { }
 	self.modes["LIST"] = LoadModule("Modules/BuildList", launch, self)
 	self.modes["BUILD"] = LoadModule("Modules/Build", launch, self)
+
+	self.buildPath = "Builds/"
 	
 	self.tree = common.New("PassiveTree")
 
@@ -114,6 +118,14 @@ function main:LoadSettings()
 					end
 				end
 				self:SetMode(node.attrib.mode, unpack(args))
+			elseif node.elem == "BuildPath" then
+				if not node.attrib.path then
+					launch:ShowErrMsg("^1Error parsing 'Settings.xml': 'BuildPath' element missing 'path' attribute")
+					return true
+				end
+				self.buildPath = node.attrib.path
+			elseif node.elem == "DevMode" then
+				self.devMode = node.attrib.enable == "true"
 			end
 		end
 	end
@@ -134,6 +146,8 @@ function main:SaveSettings()
 		t_insert(mode, child)
 	end
 	t_insert(setXML, mode)
+	t_insert(setXML, { elem = "BuildPath", attrib = { path = self.buildPath } })
+	t_insert(setXML, { elem = "DevMode", attrib = { enable = self.devMode and "true" or "false" } })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, "Settings.xml")
 	if not res then
 		launch:ShowErrMsg("Error saving 'Settings.xml': %s", errMsg)

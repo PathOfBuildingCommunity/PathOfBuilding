@@ -12,6 +12,7 @@ local formList = {
 	["^(%d+)%% less"] = "LESS",
 	["^([%+%-][%d%.]+)%%?"] = "BASE",
 	["^([%+%-][%d%.]+)%%? to"] = "BASE",
+	["^([%+%-][%d%.]+)%%? base"] = "BASE",
 	["^you gain ([%d%.]+)"] = "BASE",
 	["^([%+%-]?%d+)%% chance"] = "CHANCE",
 	["^([%+%-]?%d+)%% additional chance"] = "CHANCE",
@@ -21,6 +22,9 @@ local formList = {
 	["penetrates (%d+)%% of enemy"] = "PEN",
 	["^([%d%.]+)%% of (.+) regenerated per second"] = "REGENPERCENT",
 	["^([%d%.]+) (.+) regenerated per second"] = "REGENFLAT",
+	["adds (%d+)%-(%d+) (%a+) damage"] = "DMGATTACKS",
+	["adds (%d+)%-(%d+) (%a+) damage to attacks"] = "DMGATTACKS",
+	["adds (%d+)%-(%d+) (%a+) damage to spells"] = "DMGSPELLS",
 }
 
 -- Map of modifier names
@@ -48,7 +52,6 @@ local modNameList = {
 	["energy shield recharge rate"] = "energyShieldRecharge{suf}",
 	["armour"] = "armour{suf}",
 	["evasion rating"] = "evasion{suf}",
-	["global evasion rating"] = "global_evasion{suf}",
 	["energy shield"] = "energyShield{suf}",
 	["armour and evasion"] = "armourAndEvasion{suf}",
 	["armour and evasion rating"] = "armourAndEvasion{suf}",
@@ -56,7 +59,6 @@ local modNameList = {
 	["armour and energy shield"] = "armourAndEnergyShield{suf}",
 	["evasion and energy shield"] = "evasionAndEnergyShield{suf}",
 	["defences"] = "defences{suf}",
-	["global defences"] = "defences{suf}",
 	-- Resistances
 	["fire resistance"] = "fireResist",
 	["maximum fire resistance"] = "fireResistMax",
@@ -72,9 +74,9 @@ local modNameList = {
 	["all maximum resistances"] = { "fireResistMax", "coldResistMax", "lightningResistMax", "chaosResistMax" },
 	["chaos resistance"] = "chaosResist",
 	-- Other defences
-	["to dodge attacks"] = "dodgeAttack",
-	["to dodge spells"] = "dodgeSpell",
-	["to dodge spell damage"] = "dodgeSpell",
+	["to dodge attacks"] = "dodgeAttacks",
+	["to dodge spells"] = "dodgeSpells",
+	["to dodge spell damage"] = "dodgeSpells",
 	["to block"] = "blockChance",
 	["to block spells"] = "spellBlockChance",
 	["maximum block chance"] = "blockChanceMax",
@@ -163,9 +165,7 @@ local modNameList = {
 	["burning damage"] = "degen_fire{suf}",
 	-- Crit/accuracy/speed modifiers
 	["critical strike chance"] = "critChance{suf}",
-	["global critical strike chance"] = "global_critChance{suf}",
 	["critical strike multiplier"] = "critMultiplier",
-	["global critical strike multiplier"] = "critMultiplier",
 	["accuracy rating"] = "accuracy{suf}",
 	["attack speed"] = "attackSpeed{suf}",
 	["cast speed"] = "castSpeed{suf}",
@@ -233,6 +233,7 @@ local namespaceList = {
 	["with fire skills"] = "fire_",
 	["with chaos skills"] = "chaos_",
 	-- Other
+	["global"] = "global_",
 	["from equipped shield"] = "Shield_",
 }
 
@@ -269,6 +270,8 @@ local specialSpaceList = {
 	["while phasing"] = "condMod_Phasing_",
 	["while using a flask"] = "condMod_UsingFlask_",
 	["while on consecrated ground"] = "condMod_OnConsecratedGround_",
+	["if you've killed recently"] = "condMod_KilledRecently_",
+	["if you haven't killed recently"] = "condMod_notKilledRecently_",
 	["if you've attacked recently"] = "condMod_AttackedRecently_",
 	["if you've cast a spell recently"] = "condMod_CastSpellRecently_",
 	["if you've summoned a totem recently"] = "condMod_SummonedTotemRecently_",
@@ -281,6 +284,8 @@ local specialSpaceList = {
 	["against poisoned enemies"] = "condMod_EnemyPoisoned_",
 	["against burning enemies"] = "condMod_EnemyBurning_",
 	["against ignited enemies"] = "condMod_EnemyIgnited_",
+	["against shocked enemies"] = "condMod_EnemyShocked_",
+	["against frozen enemies"] = "condMod_EnemyFrozen_",
 	["enemies which are chilled"] = "condMod_EnemyChilled_",
 	["against frozen, shocked or ignited enemies"] = "condMod_EnemyFrozenShockedIgnited_",
 	["against enemies that are affected by elemental status ailments"] = "condMod_EnemyElementalStatus_",
@@ -295,7 +300,7 @@ local specialModList = {
 	["no critical strike multiplier"] = { noCritMult = true },
 	["the increase to physical damage from strength applies to projectile attacks as well as melee attacks"] = { ironGrip = true },
 	["converts all evasion rating to armour%. dexterity provides no bonus to evasion rating"] = { ironReflexes = true },
-	["30%% chance to dodge attacks%. 50%% less armour and energy shield, 30%% less chance to block spells and attacks"] = { dodgeAttack = 30, armourMore = 0.5, energyShieldMore = 0.5 },
+	["30%% chance to dodge attacks%. 50%% less armour and energy shield, 30%% less chance to block spells and attacks"] = { dodgeAttacks = 30, armourMore = 0.5, energyShieldMore = 0.5 },
 	["maximum life becomes 1, immune to chaos damage"] = { chaosInoculation = true },
 	["deal no non%-fire damage"] = { physicalFinalMore = 0, lightningFinalMore = 0, coldFinalMore = 0, chaosFinalMore = 0 },
 	-- Ascendancy notables
@@ -313,9 +318,9 @@ local specialModList = {
 	["(%d+)%% faster start of energy shield recharge"] = function(num) return { energyShieldRechargeFaster = num } end,
 	["(%d+)%% additional block chance while dual wielding or holding a shield"] = function(num) return { condMod_DualWielding_blockChance = num, condMod_UsingShield_blockChance = num } end,
 	-- Other modifiers
-	["adds (%d+)%-(%d+) (%a+) damage ?t?o? ?a?t?t?a?c?k?s?"] = function(_, min, max, type) local pre = "attack_"..type return { [pre.."Min"] = tonumber(min), [pre.."Max"] = tonumber(max) } end,
-	["adds (%d+)%-(%d+) (%a+) damage to attacks with bows"] = function(_, min, max, type) local pre = "bow_"..type return { [pre.."Min"] = tonumber(min), [pre.."Max"] = tonumber(max) } end,
-	["adds (%d+)%-(%d+) (%a+) damage to spells"] = function(_, min, max, type) local pre = "spell_"..type return { [pre.."Min"] = tonumber(min), [pre.."Max"] = tonumber(max) } end,
+--	["adds (%d+)%-(%d+) (%a+) damage ?t?o? ?a?t?t?a?c?k?s?"] = function(_, min, max, type) local pre = "attack_"..type return { [pre.."Min"] = tonumber(min), [pre.."Max"] = tonumber(max) } end,
+--	["adds (%d+)%-(%d+) (%a+) damage to attacks with bows"] = function(_, min, max, type) local pre = "bow_"..type return { [pre.."Min"] = tonumber(min), [pre.."Max"] = tonumber(max) } end,
+--	["adds (%d+)%-(%d+) (%a+) damage to spells"] = function(_, min, max, type) local pre = "spell_"..type return { [pre.."Min"] = tonumber(min), [pre.."Max"] = tonumber(max) } end,
 	["cannot be shocked"] = { avoidShock = 100 },
 	["cannot be frozen"] = { avoidFreeze = 100 },
 	["cannot be chilled"] = { avoidChill = 100 },
@@ -383,7 +388,7 @@ end
 local function getSimpleConv(src, dst, factor)
 	return function(mods, allMods, data)
 		if mods and mods[src] then 
-			mod.listMerge(allMods, dst, mods[src] * factor)
+			modLib.listMerge(allMods, dst, mods[src] * factor)
 			mods[src] = nil
 		end
 	end
@@ -394,7 +399,7 @@ local function getMatchConv(others, dst)
 			for k, v in pairs(mods) do
 				for _, other in pairs(others) do
 					if k:match(other) then
-						mod.listMerge(allMods, k:gsub(other, dst), v)
+						modLib.listMerge(allMods, k:gsub(other, dst), v)
 						mods[k] = nil
 					end
 				end
@@ -407,7 +412,7 @@ local function getPerStat(dst, stat, factor)
 		if mods then
 			data[stat] = (data[stat] or 0) + (mods[stat] or 0)
 		else
-			mod.listMerge(allMods, dst, math.floor(data[stat] * factor + 0.5))
+			modLib.listMerge(allMods, dst, math.floor(data[stat] * factor + 0.5))
 		end
 	end
 end
@@ -438,7 +443,7 @@ local jewelFuncs = {
 			data.dexBase = (data.dexBase or 0) + (mods.dexBase or 0)
 			data.intBase = (data.intBase or 0) + (mods.intBase or 0)
 		else
-			mod.listMerge(allMods, "dexIntToMeleeBonus", data.dexBase + data.intBase)
+			modLib.listMerge(allMods, "dexIntToMeleeBonus", data.dexBase + data.intBase)
 		end
 	end,
 }
@@ -492,9 +497,6 @@ return function(line)
 	-- Scan for modifier name
 	local modName
 	modName, line = scan(line, modNameList, true)
-	if not modName and line:match("%S") then
-		return { }, line
-	end
 
 	-- Scan for skill name
 	local skillSpace
@@ -539,24 +541,32 @@ return function(line)
 	elseif modForm == "REGENPERCENT" then
 		val = num
 		suffix = "Percent"
-		modName = regenTypes[formCap[2]:lower()]
+		modName = regenTypes[formCap[2]]
 		if not modName then
 			return { }, line
 		end
 	elseif modForm == "REGENFLAT" then
 		val = num
 		suffix = "Base"
-		modName = regenTypes[formCap[2]:lower()]
+		modName = regenTypes[formCap[2]]
 		if not modName then
 			return { }, line
 		end
+	elseif modForm == "DMGATTACKS" then
+		val = { tonumber(formCap[1]), tonumber(formCap[2]) }
+		modName = { formCap[3].."Min", formCap[3].."Max" }
+		space = space or "attack_"
+	elseif modForm == "DMGSPELLS" then
+		val = { tonumber(formCap[1]), tonumber(formCap[2]) }		
+		modName = { formCap[3].."Min", formCap[3].."Max" }
+		space = "spell_"
 	end
 
 	-- Generate modifier list
 	local nameList = modName or ""
 	local modList = { }
 	for i, name in ipairs(type(nameList) == "table" and nameList or { nameList }) do
-		modList[(skillSpace or "") .. (specialSpace or "") .. (space or "") .. name:gsub("{suf}", suffix or "")] = val
+		modList[(skillSpace or "") .. (specialSpace or "") .. (space or "") .. name:gsub("{suf}", suffix or "")] = type(val) == "table" and val[i] or val
 	end
 	return modList, line:match("%S") and line
 end

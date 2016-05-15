@@ -5,20 +5,20 @@
 --
 local grid = ...
 
+local pairs = pairs
+local ipairs = ipairs
 local m_abs = math.abs
 local m_ceil = math.ceil
 local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
-local pairs = pairs
-local ipairs = ipairs
 local t_insert = table.insert
 
-local mod_listMerge = mod.listMerge
-local mod_dbMerge = mod.dbMerge
-local mod_dbUnmerge = mod.dbUnmerge
-local mod_dbMergeList = mod.dbMergeList
-local mod_dbUnmergeList = mod.dbUnmergeList
+local mod_listMerge = modLib.listMerge
+local mod_dbMerge = modLib.dbMerge
+local mod_dbUnmerge = modLib.dbUnmerge
+local mod_dbMergeList = modLib.dbMergeList
+local mod_dbUnmergeList = modLib.dbUnmergeList
 
 local setViewMode = LoadModule("Modules/CalcsView", grid)
 
@@ -31,14 +31,15 @@ local function parseGemSpec(spec, out)
 	for nameSpec, numSpec in spec:gmatch("(%a[%a ]*)%s+([%d/\\]+)") do
 		-- Search for gem name using increasingly broad search patterns
 		local patternList = {
-			"^"..nameSpec.."$", -- Exact match
-			"^"..nameSpec:gsub("%l", "%l*%0"), -- Abbreviated words ("CldFr" -> "Cold to Fire")
+			"^ "..nameSpec.."$", -- Exact match
+			"^"..nameSpec:gsub("%a", " %0%%l+").."$", -- Simple abbreviation ("CtF" -> "Cold to Fire")
+			"^"..nameSpec:gsub("%l", "%%l*%0").."%l+$", -- Abbreviated words ("CldFr" -> "Cold to Fire")
 			"^"..nameSpec:gsub("%a", ".*%0") -- Global abbreviation ("CtoF" -> "Cold to Fire")
 		}
 		local gemName, gemData
-		for _, pattern in ipairs(patternList) do
+		for i, pattern in ipairs(patternList) do
 			for name, data in pairs(data.gems) do
-				if name:match(pattern) then
+				if (" "..name):match(pattern) then
 					if gemName then
 						return "Ambiguous gem name '"..nameSpec.."'\nMatches '"..gemName.."', '"..name.."'"
 					end
@@ -793,7 +794,7 @@ local function calcSetup(env, output)
 	env.condModList = condModList
 	if modDB.condMod then
 		for k, v in pairs(modDB.condMod) do
-			local isNot, condName, modName = mod.getCondName(k)
+			local isNot, condName, modName = modLib.getCondName(k)
 			if (isNot and not condList[condName]) or (not isNot and condList[condName]) then
 				mod_listMerge(condModList, modName, v)
 			end
@@ -854,7 +855,7 @@ local function calcSetup(env, output)
 	local auraEffectMod = 1 + getMiscVal(modDB, nil, "auraEffectInc", 0) / 100
 	for k, v in pairs(env.auraSkillModList) do
 		if not k:match("skill_") then
-			if mod.isModMult[k] then
+			if modLib.isModMult[k] then
 				mod_dbMerge(modDB, nil, k, m_floor(v * auraEffectMod * 100) / 100)
 			elseif k:match("Inc$") then
 				mod_dbMerge(modDB, nil, k, m_floor(v * auraEffectMod))
@@ -928,6 +929,8 @@ local function calcPrimary(env, output)
 			end
 		end
 		output.total_blockChance = sumMods(modDB, false, "blockChance")
+		output.total_dodgeAttacks = sumMods(modDB, false, "dodgeAttacks")
+		output.total_dodgeSpells = sumMods(modDB, false, "dodgeSpells")
 		buildSpaceTable(modDB)
 		endWatch(env, "otherDef")
 	end
@@ -1010,7 +1013,14 @@ local function calcPrimary(env, output)
 	if startWatch(env, "dps_speed") then
 		-- Calculate skill speed
 		if isAttack then
-			local baseSpeed = getMiscVal(modDB, "weapon1", "attackRate", 0)
+			local baseSpeed
+			local attackTime = getMiscVal(modDB, "skill", "attackTime", 0)
+			if attackTime > 0 then
+				-- Skill is overriding weapon attack speed
+				baseSpeed = 1 / attackTime * (1 + getMiscVal(modDB, "weapon1", "attackSpeedInc", 0) / 100)
+			else
+				baseSpeed = getMiscVal(modDB, "weapon1", "attackRate", 0)
+			end
 			output.total_speed = baseSpeed * (1 + sumMods(modDB, false, "speedInc", "attackSpeedInc") / 100) * sumMods(modDB, true, "speedMore", "attackSpeedMore")
 		else
 			local baseSpeed = 1 / getMiscVal(modDB, "skill", "castTime", 0)
@@ -1235,7 +1245,7 @@ local function getCalculator(input, build, fullInit, modFunc)
 	for _, watchList in pairs(env.watchers) do
 		for k, default in pairs(watchList) do
 			-- Add this watcher to the mod's watcher list
-			local spaceName, modName = mod.getSpaceName(k)
+			local spaceName, modName = modLib.getSpaceName(k)
 			if not env.watchedModList[spaceName] then
 				env.watchedModList[spaceName] = { }
 			end
@@ -1392,20 +1402,20 @@ function control.buildOutput(input, output, build)
 		end
 	end
 	ConPrintf("== Namespaces ==")
-	mod.listPrint(env.skillSpaceFlags)
+	modLib.listPrint(env.skillSpaceFlags)
 	ConPrintf("== Skill Mods ==")
-	mod.listPrint(env.skillModList)
+	modLib.listPrint(env.skillModList)
 	ConPrintf("== Spec Mods ==")
-	mod.listPrint(env.specModList)
+	modLib.listPrint(env.specModList)
 	ConPrintf("== Item Mods ==")
-	mod.listPrint(env.itemModList)
+	modLib.listPrint(env.itemModList)
 	ConPrintf("== Conditions ==")
-	mod.listPrint(env.condList)
+	modLib.listPrint(env.condList)
 	ConPrintf("== Conditional Modifiers ==")
-	mod.listPrint(env.condModList)
+	modLib.listPrint(env.condModList)
 	if env.buffModList then
 		ConPrintf("== Buff Mods ==")
-		mod.listPrint(env.buffModList)
+		modLib.listPrint(env.buffModList)
 	end
 end
 
