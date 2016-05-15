@@ -228,7 +228,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 		if hoverNode and hoverNode.alloc and hoverNode.type == "socket" then
 			build.viewMode = "ITEMS"
 			local slot = build.items.sockets[hoverNode.id]
-			slot.dropDown.dropped = true
+			slot.dropped = true
 			build.items.selControl = slot
 		end
 	end
