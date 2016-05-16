@@ -6,8 +6,8 @@
 --
 
 SetWindowTitle("PathOfBuilding")
-ConExecute("vid_mode 1")
-ConExecute("vid_resizable 3")
+ConExecute("set vid_mode 1")
+ConExecute("set vid_resizable 3")
 
 local launch = { }
 SetMainObject(launch)

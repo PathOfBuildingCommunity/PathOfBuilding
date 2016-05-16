@@ -17,12 +17,12 @@ local m_sqrt = math.sqrt
 local t_insert = table.insert
 
 local TreeClass = common.NewClass("PassiveTree", function(self)
-	os.execute("mkdir Data")
+	MakeDir("TreeData")
 
 	ConPrintf("Loading JSON...")
 	local treeText, classText
-	local treeFile = io.open("Data/tree.json", "r")
-	local classFile = io.open("Data/classes.json", "r")
+	local treeFile = io.open("TreeData/tree.json", "r")
+	local classFile = io.open("TreeData/classes.json", "r")
 	if treeFile and classFile then
 		treeText = treeFile:read("*a")
 		treeFile:close()
@@ -45,11 +45,11 @@ local TreeClass = common.NewClass("PassiveTree", function(self)
 		easy:perform()
 		easy:close()
 		treeText = page:match("var passiveSkillTreeData = (%b{})")
-		treeFile = io.open("Data/tree.json", "w")
+		treeFile = io.open("TreeData/tree.json", "w")
 		treeFile:write(treeText)
 		treeFile:close()
 		classText = page:match("ascClasses: (%b{})")
-		classFile = io.open("Data/classes.json", "w")
+		classFile = io.open("TreeData/classes.json", "w")
 		classFile:write(classText)
 		classFile:close()
 	end
@@ -66,7 +66,7 @@ local TreeClass = common.NewClass("PassiveTree", function(self)
 
 	ConPrintf("Loading assets...")
 	for name, data in pairs(self.assets) do
-		local imgName = "Data/"..name..".png"
+		local imgName = "TreeData/"..name..".png"
 		self:CacheImage(imgName, data["0.3835"] or data["1"])
 		data.handle = NewImageHandle()
 		data.handle:Load(imgName)
@@ -80,7 +80,7 @@ local TreeClass = common.NewClass("PassiveTree", function(self)
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
-			local imgName = "Data/"..maxZoom.filename
+			local imgName = "TreeData/"..maxZoom.filename
 			self:CacheImage(imgName, self.imageRoot.."build-gen/passive-skill-sprite/"..maxZoom.filename)
 			sheet.handle = NewImageHandle()
 			sheet.handle:Load(imgName, "CLAMP")

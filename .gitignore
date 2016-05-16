@@ -3,7 +3,7 @@
 
 Settings.xml
 *.cfg
-Data/
+TreeData/
 Builds/
 
 # User-specific files

@@ -1,47 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
 	<Version number="0.1.0"/>
-	<File sha1="8ddc29d98262f537f2285f36a582bfb9fae4d982" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Launch.lua" name="Launch.lua"/>
-	<File sha1="434890f159cb67a73b0489e07471a101582e7168" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Classes/ButtonControl.lua" name="Classes/ButtonControl.lua"/>
-	<File sha1="991b3deecb4ae60eee54e5b81d4e10a67da80dc7" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Classes/DropDownControl.lua" name="Classes/DropDownControl.lua"/>
-	<File sha1="1571a47a5549a9ae38407b88012fda39f7ad1ce0" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Classes/EditControl.lua" name="Classes/EditControl.lua"/>
-	<File sha1="586f56a915d711d7804b0168db8d994aaca19b6d" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Classes/Grid.lua" name="Classes/Grid.lua"/>
-	<File sha1="1ab906e8f0c24bd930e9c1cd6d079f4304e3d277" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Classes/ItemSlot.lua" name="Classes/ItemSlot.lua"/>
-	<File sha1="ff2c50b66fc2805a30c2967f247ed5c2913a3412" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Classes/PassiveSpec.lua" name="Classes/PassiveSpec.lua"/>
-	<File sha1="0178c217ad13cbe3ee9c88a901375fec28cb2048" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Classes/PassiveTree.lua" name="Classes/PassiveTree.lua"/>
-	<File sha1="5059850f3c6a7f6d5932ba6b6d55a0d652dad234" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Classes/PassiveTreeView.lua" name="Classes/PassiveTreeView.lua"/>
-	<File sha1="aa07a6eeb69c767471a340ed341068d940879c0f" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Modules/Build.lua" name="Modules/Build.lua"/>
-	<File sha1="107b8c5173931ddbcd739b5261a4816063df02a9" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Modules/BuildList.lua" name="Modules/BuildList.lua"/>
-	<File sha1="784a723e92de656044f9b88dadf64811a9e8fb6d" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Modules/Calcs.lua" name="Modules/Calcs.lua"/>
-	<File sha1="38eabf8c6012372393cf30411489e1bfb363826b" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Modules/CalcsControl.lua" name="Modules/CalcsControl.lua"/>
-	<File sha1="5f0b00ae2efcf03c8b82ce62fdf7fe90134da0ab" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Modules/CalcsView.lua" name="Modules/CalcsView.lua"/>
-	<File sha1="cf3b4d40ddc30dba0230bcda4e9aeb5056673b4c" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Modules/Common.lua" name="Modules/Common.lua"/>
-	<File sha1="708ee4686c95b00d78823e1872c47a13123f7d06" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Modules/Data.lua" name="Modules/Data.lua"/>
-	<File sha1="f936142ba367e7cc895663fc7f0c45f315572e40" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Modules/Items.lua" name="Modules/Items.lua"/>
-	<File sha1="44febf05f971e01fd9999f420822e3c09b8b2662" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Modules/ItemTools.lua" name="Modules/ItemTools.lua"/>
-	<File sha1="93f9e7f33b54990b8b9e7075595c89ce5dda18d6" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Modules/Main.lua" name="Modules/Main.lua"/>
-	<File sha1="9a2e8a8ce4b31c9402ef1f7bd861f2bd76b11328" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Modules/ModParser.lua" name="Modules/ModParser.lua"/>
-	<File sha1="f7969bfa98360e358166e42bbfd9062ac0c9445f" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Modules/ModTools.lua" name="Modules/ModTools.lua"/>
-	<File sha1="284687ef19bb15b9a49017667730ec49aa63fd9d" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Items/axe.lua" name="Items/axe.lua"/>
-	<File sha1="9d78e5f1764a1a89f7543891f2f35108a30fd85c" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Items/body.lua" name="Items/body.lua"/>
-	<File sha1="5c7f386a0a64c908f863f1334dcd8fdef069cf84" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Items/boots.lua" name="Items/boots.lua"/>
-	<File sha1="9b149f6ca6ed6a2a132c1c04bc1f31bc06d54309" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Items/bow.lua" name="Items/bow.lua"/>
-	<File sha1="4518758d930697449130d16299b2620243d848c7" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Items/claw.lua" name="Items/claw.lua"/>
-	<File sha1="c434bf33b37d4d17210ecb9f56db8efc66eb8359" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Items/dagger.lua" name="Items/dagger.lua"/>
-	<File sha1="2712c1b1eb532e9ae0be9996f4e3f7a8426ff770" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Items/glove.lua" name="Items/glove.lua"/>
-	<File sha1="47c313bf97091d1e2b3bfc15612e0a784a383b17" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Items/helm.lua" name="Items/helm.lua"/>
-	<File sha1="19a97b11337124aa1d67903008aac816ba9270ae" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Items/mace.lua" name="Items/mace.lua"/>
-	<File sha1="7835792dc0fbba302b33d93cb8ddf4f6bbfa83bf" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Items/misc.lua" name="Items/misc.lua"/>
-	<File sha1="0e8a530e2d0e45729b7f0404487de11f2e8dfc1d" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Items/shield.lua" name="Items/shield.lua"/>
-	<File sha1="ff034fe42b62a7ab55bb619d5cd358b4c7d3a274" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Items/staff.lua" name="Items/staff.lua"/>
-	<File sha1="2dcf60c634646074bcb9794c110d7083ab74034c" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Items/sword.lua" name="Items/sword.lua"/>
-	<File sha1="23db9109ec01ec9358863de987108ca5bd63439c" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Items/wand.lua" name="Items/wand.lua"/>
-	<File sha1="4ac46a6205b363f622a34268733ba4b4b4a90f64" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Gems/act_dex.lua" name="Gems/act_dex.lua"/>
-	<File sha1="175c4c9a0187e18c96f86494cb525afdf9cbda96" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Gems/act_int.lua" name="Gems/act_int.lua"/>
-	<File sha1="105045dd0eba69d72e67996b9ec374c2fb9e9732" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Gems/act_str.lua" name="Gems/act_str.lua"/>
-	<File sha1="03ebebcc7d780fc1443e5c7f38cf153563f0ea70" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Gems/other.lua" name="Gems/other.lua"/>
-	<File sha1="8b49e057fcf802e27250bc24122e3fc71f4c415c" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Gems/sup_dex.lua" name="Gems/sup_dex.lua"/>
-	<File sha1="4c38722e014ce3472cbf8d7bfcdf748b36f807cb" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Gems/sup_int.lua" name="Gems/sup_int.lua"/>
-	<File sha1="553f9cd7c51710a41144f393890ace22f2dbdd24" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Gems/sup_str.lua" name="Gems/sup_str.lua"/>
-	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/Assets/ring.png" name="Assets/ring.png"/>
+	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/"/>
+	<Source url="" part="runtime" platform="win32"/>
+	<File sha1="9ec3158f522f0b679c7b544f0fca3f9643169b5d" name="Launch.lua" part="program"/>
+	<File sha1="434890f159cb67a73b0489e07471a101582e7168" name="Classes/ButtonControl.lua" part="program"/>
+	<File sha1="991b3deecb4ae60eee54e5b81d4e10a67da80dc7" name="Classes/DropDownControl.lua" part="program"/>
+	<File sha1="1571a47a5549a9ae38407b88012fda39f7ad1ce0" name="Classes/EditControl.lua" part="program"/>
+	<File sha1="586f56a915d711d7804b0168db8d994aaca19b6d" name="Classes/Grid.lua" part="program"/>
+	<File sha1="1ab906e8f0c24bd930e9c1cd6d079f4304e3d277" name="Classes/ItemSlot.lua" part="program"/>
+	<File sha1="ff2c50b66fc2805a30c2967f247ed5c2913a3412" name="Classes/PassiveSpec.lua" part="program"/>
+	<File sha1="5596212c676dc4ca2994a312ca491b6c96a0179f" name="Classes/PassiveTree.lua" part="program"/>
+	<File sha1="2c4d949ef00875233150d0d71e57f056b0b6f803" name="Classes/PassiveTreeView.lua" part="program"/>
+	<File sha1="aa07a6eeb69c767471a340ed341068d940879c0f" name="Modules/Build.lua" part="program"/>
+	<File sha1="8eb0d9572492ea37f2f81e911692880e56ed1ef0" name="Modules/BuildList.lua" part="program"/>
+	<File sha1="784a723e92de656044f9b88dadf64811a9e8fb6d" name="Modules/Calcs.lua" part="program"/>
+	<File sha1="38eabf8c6012372393cf30411489e1bfb363826b" name="Modules/CalcsControl.lua" part="program"/>
+	<File sha1="5f0b00ae2efcf03c8b82ce62fdf7fe90134da0ab" name="Modules/CalcsView.lua" part="program"/>
+	<File sha1="cf3b4d40ddc30dba0230bcda4e9aeb5056673b4c" name="Modules/Common.lua" part="program"/>
+	<File sha1="708ee4686c95b00d78823e1872c47a13123f7d06" name="Modules/Data.lua" part="program"/>
+	<File sha1="f936142ba367e7cc895663fc7f0c45f315572e40" name="Modules/Items.lua" part="program"/>
+	<File sha1="44febf05f971e01fd9999f420822e3c09b8b2662" name="Modules/ItemTools.lua" part="program"/>
+	<File sha1="e5d901a2f491d8f8977f35573111bb832f839434" name="Modules/Main.lua" part="program"/>
+	<File sha1="9a2e8a8ce4b31c9402ef1f7bd861f2bd76b11328" name="Modules/ModParser.lua" part="program"/>
+	<File sha1="f7969bfa98360e358166e42bbfd9062ac0c9445f" name="Modules/ModTools.lua" part="program"/>
+	<File sha1="284687ef19bb15b9a49017667730ec49aa63fd9d" name="Items/axe.lua" part="program"/>
+	<File sha1="9d78e5f1764a1a89f7543891f2f35108a30fd85c" name="Items/body.lua" part="program"/>
+	<File sha1="5c7f386a0a64c908f863f1334dcd8fdef069cf84" name="Items/boots.lua" part="program"/>
+	<File sha1="9b149f6ca6ed6a2a132c1c04bc1f31bc06d54309" name="Items/bow.lua" part="program"/>
+	<File sha1="4518758d930697449130d16299b2620243d848c7" name="Items/claw.lua" part="program"/>
+	<File sha1="c434bf33b37d4d17210ecb9f56db8efc66eb8359" name="Items/dagger.lua" part="program"/>
+	<File sha1="2712c1b1eb532e9ae0be9996f4e3f7a8426ff770" name="Items/glove.lua" part="program"/>
+	<File sha1="47c313bf97091d1e2b3bfc15612e0a784a383b17" name="Items/helm.lua" part="program"/>
+	<File sha1="19a97b11337124aa1d67903008aac816ba9270ae" name="Items/mace.lua" part="program"/>
+	<File sha1="7835792dc0fbba302b33d93cb8ddf4f6bbfa83bf" name="Items/misc.lua" part="program"/>
+	<File sha1="0e8a530e2d0e45729b7f0404487de11f2e8dfc1d" name="Items/shield.lua" part="program"/>
+	<File sha1="ff034fe42b62a7ab55bb619d5cd358b4c7d3a274" name="Items/staff.lua" part="program"/>
+	<File sha1="2dcf60c634646074bcb9794c110d7083ab74034c" name="Items/sword.lua" part="program"/>
+	<File sha1="23db9109ec01ec9358863de987108ca5bd63439c" name="Items/wand.lua" part="program"/>
+	<File sha1="4ac46a6205b363f622a34268733ba4b4b4a90f64" name="Gems/act_dex.lua" part="program"/>
+	<File sha1="175c4c9a0187e18c96f86494cb525afdf9cbda96" name="Gems/act_int.lua" part="program"/>
+	<File sha1="105045dd0eba69d72e67996b9ec374c2fb9e9732" name="Gems/act_str.lua" part="program"/>
+	<File sha1="03ebebcc7d780fc1443e5c7f38cf153563f0ea70" name="Gems/other.lua" part="program"/>
+	<File sha1="8b49e057fcf802e27250bc24122e3fc71f4c415c" name="Gems/sup_dex.lua" part="program"/>
+	<File sha1="4c38722e014ce3472cbf8d7bfcdf748b36f807cb" name="Gems/sup_int.lua" part="program"/>
+	<File sha1="553f9cd7c51710a41144f393890ace22f2dbdd24" name="Gems/sup_str.lua" part="program"/>
+	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
+	<File platform="win32" sha1="f545caeb86d355698eaff4d665b3af7f17154fb9" name="PathOfBuilding.exe" part="runtime"/>
+	<File platform="win32" sha1="914d42ca1836c5152a5f60aad23020a86bcb46d9" name="lua51.dll" part="runtime"/>
+	<File platform="win32" sha1="273c678ccc57ad229f173c5a9e607467a0204e85" name="SimpleGraphic.dll" part="runtime"/>
+	<File platform="win32" sha1="887fd08cb3c2989a9d88adc9717d3ec00ab97462" name="libcurl.dll" part="runtime"/>
+	<File platform="win32" sha1="607918daf9cbaecee0090e9cec8d0e221338678e" name="lcurl.dll" part="runtime"/>
+	<File platform="win32" sha1="13dee45c24c936aa83ca7d9c66833108841c1c04" name="lzip.dll" part="runtime"/>
+	<File sha1="74cc6c47e7cda18211e57b9e062368eab3c26bab" name="DLSG/Fonts/Bitstream Vera Sans Mono.10.tga" part="runtime"/>
+	<File sha1="1977206f0efc5035834ecbf93ca7d046010d8aab" name="DLSG/Fonts/Bitstream Vera Sans Mono.12.tga" part="runtime"/>
+	<File sha1="93a4309dc814914be7d2dee708e3821494f145a2" name="DLSG/Fonts/Bitstream Vera Sans Mono.14.tga" part="runtime"/>
+	<File sha1="274665d752f1637c7e2be215c5ca7ea43df7d5e0" name="DLSG/Fonts/Bitstream Vera Sans Mono.16.tga" part="runtime"/>
+	<File sha1="3cd1d874cf6f75b4fd2d67e3060f9a7dbd89c9d1" name="DLSG/Fonts/Bitstream Vera Sans Mono.18.tga" part="runtime"/>
+	<File sha1="2411cf67aa67efede08830d350b1b08c94d6ea7b" name="DLSG/Fonts/Bitstream Vera Sans Mono.20.tga" part="runtime"/>
+	<File sha1="730fbfe488f47c0da6711f0e20c23e0c005148b0" name="DLSG/Fonts/Bitstream Vera Sans Mono.24.tga" part="runtime"/>
+	<File sha1="b6d5cc14c7336366b2b6036f781ca1c2ae00b638" name="DLSG/Fonts/Bitstream Vera Sans Mono.28.tga" part="runtime"/>
+	<File sha1="8c339846aac3a4c739750efe722816d86c56571a" name="DLSG/Fonts/Bitstream Vera Sans Mono.32.tga" part="runtime"/>
+	<File sha1="3a92b9f013871dc92211c7bba78a1c9669b443d4" name="DLSG/Fonts/Bitstream Vera Sans Mono.tgf" part="runtime"/>
+	<File sha1="88809ae34ea7d14500e1ad9bb17e74f6bd50f72e" name="DLSG/Fonts/Liberation Sans Bold.10.tga" part="runtime"/>
+	<File sha1="a42436255ca10b47934ad428c60d209da2c77f41" name="DLSG/Fonts/Liberation Sans Bold.12.tga" part="runtime"/>
+	<File sha1="d720f0c0c3c6d2bea38d52edb7ba73bff71eb501" name="DLSG/Fonts/Liberation Sans Bold.14.tga" part="runtime"/>
+	<File sha1="68ea1a3846198aae66f63a70abcf9b023b3c469f" name="DLSG/Fonts/Liberation Sans Bold.16.tga" part="runtime"/>
+	<File sha1="d9abed6557034288442ba1f6ee557ab8ac616a85" name="DLSG/Fonts/Liberation Sans Bold.18.tga" part="runtime"/>
+	<File sha1="cd39f6277e61c3e6bae24ffca3db64ade0cdb385" name="DLSG/Fonts/Liberation Sans Bold.20.tga" part="runtime"/>
+	<File sha1="909ed51261062dcc236a5d8f098d0b27defa9c48" name="DLSG/Fonts/Liberation Sans Bold.24.tga" part="runtime"/>
+	<File sha1="9c492dab86435d5afc634485d7ed3a7989cd4c08" name="DLSG/Fonts/Liberation Sans Bold.28.tga" part="runtime"/>
+	<File sha1="e8927530dc94099ce5d5f92568d29b1e3dc1dc7f" name="DLSG/Fonts/Liberation Sans Bold.32.tga" part="runtime"/>
+	<File sha1="704c68c7f87906e7b2159a0f0e0cb7160861178e" name="DLSG/Fonts/Liberation Sans Bold.tgf" part="runtime"/>
+	<File sha1="24b476e990fe5804df7264f225b6db63ad956907" name="DLSG/Fonts/Liberation Sans.10.tga" part="runtime"/>
+	<File sha1="ec96b2a3d13ea40ac5a9cdcb1a1bf9702461a2df" name="DLSG/Fonts/Liberation Sans.12.tga" part="runtime"/>
+	<File sha1="8e698d7b5701d0fff9594394eb789526ba65547e" name="DLSG/Fonts/Liberation Sans.14.tga" part="runtime"/>
+	<File sha1="37e84115416caeb52e6e65b37e0f378bcfe14447" name="DLSG/Fonts/Liberation Sans.16.tga" part="runtime"/>
+	<File sha1="3db0c18bc2333570598381aff2a103fc786d27db" name="DLSG/Fonts/Liberation Sans.18.tga" part="runtime"/>
+	<File sha1="f2f757885b1359164c78b11108a7d2f1beb0a706" name="DLSG/Fonts/Liberation Sans.20.tga" part="runtime"/>
+	<File sha1="6a5e5a131dd6ec31304d3889c1dacb326ccf0a03" name="DLSG/Fonts/Liberation Sans.24.tga" part="runtime"/>
+	<File sha1="3175f25ff2ba00f95f10078bea790ff591943c46" name="DLSG/Fonts/Liberation Sans.28.tga" part="runtime"/>
+	<File sha1="526edb97597a06ed0d9689107a4e130a22faf810" name="DLSG/Fonts/Liberation Sans.32.tga" part="runtime"/>
+	<File sha1="31fdef9c0e2ad46df47123e7d81f5e8d4fe399ed" name="DLSG/Fonts/Liberation Sans.tgf" part="runtime"/>
+	<File sha1="18629865eb351e483178b6524fb3935cbc9b8297" name="lua/base64.lua" part="runtime"/>
+	<File sha1="16cbc26080996d9da827df42cb0844a25518eeb3" name="lua/dkjson.lua" part="runtime"/>
+	<File sha1="31e325cd40a9c0234c6265689cf70b97ef676f20" name="lua/sha1.lua" part="runtime"/>
+	<File sha1="859e09104842f91a4aaa9a4d9fadf667535877e2" name="lua/xml.lua" part="runtime"/>
 </PoBVersion>

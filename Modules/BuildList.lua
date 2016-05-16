@@ -12,7 +12,7 @@ local listMode = { }
 
 function listMode:Init(selBuildName)
 	self:BuildList()
-	self:SelByFileName(selBuildName..".xml")
+	self:SelByFileName(selBuildName and selBuildName..".xml")
 
 	self.controls = { }
 	t_insert(self.controls, common.New("ButtonControl", 4, 4, 60, 20, "Open", function()
@@ -80,7 +80,7 @@ function listMode:OnFrame(inputEvents)
 				SetDrawColor(0.8, 0.8, 0.8)
 			end
 			DrawString(4, y + 2, "LEFT", 16, "VAR", build.fileName:gsub("%.xml$",""))
-			DrawString(304, y + 2, "LEFT", 16, "VAR", string.format("Level %d %s", build.level, (build.ascendClassName ~= "None" and build.ascendClassName) or build.className or "?"))
+			DrawString(304, y + 2, "LEFT", 16, "VAR", string.format("Level %d %s", build.level or 1, (build.ascendClassName ~= "None" and build.ascendClassName) or build.className or "?"))
 		end
 	end
 end
@@ -171,7 +171,7 @@ function listMode:BuildList()
 		if dbXML and dbXML[1].elem == "PathOfBuilding" then
 			for _, node in ipairs(dbXML[1]) do
 				if type(node) == "table" and node.elem == "Build" then
-					build.level = tonumber(node.attrib.level) or 1
+					build.level = tonumber(node.attrib.level)
 					build.className = node.attrib.className
 					build.ascendClassName = node.attrib.ascendClassName
 				end
@@ -238,12 +238,12 @@ function listMode:New()
 			return "No name entered"
 		end
 		local fileName = buf .. ".xml"
-		local outFile, msg = io.open(fileName, "r")
+		local outFile, msg = io.open(main.buildPath..fileName, "r")
 		if outFile then
 			outFile:close()
 			return "'"..fileName.."' already exists"
 		end
-		outFile, msg = io.open(fileName, "w")
+		outFile, msg = io.open(main.buildPath..fileName, "w")
 		if not outFile then
 			return "Couldn't create '"..fileName.."': "..msg
 		end
@@ -255,7 +255,7 @@ function listMode:New()
 end
 
 function listMode:LoadSel()
-	main:SetMode("BUILD", main.buildPath..self.list[self.sel].fileName, self.list[self.sel].fileName:gsub("%.xml$",""))
+	main:SetMode("BUILD", main.buildPath..self.list[self.sel].fileName, (self.list[self.sel].fileName:gsub("%.xml$","")))
 end
 
 function listMode:CopySel()
@@ -267,17 +267,17 @@ function listMode:CopySel()
 		if #buf < 1 then
 			return "No name entered"
 		end
-		local inFile, msg = io.open(srcName, "r")
+		local inFile, msg = io.open(main.buildPath..srcName, "r")
 		if not inFile then
 			return "Couldn't copy '"..srcName.."': "..msg
 		end
 		local dstName = buf .. ".xml"
-		local outFile, msg = io.open(dstName, "r")
+		local outFile, msg = io.open(main.buildPath..dstName, "r")
 		if outFile then
 			outFile:close()
 			return "'"..dstName.."' already exists"
 		end
-		outFile, msg = io.open(dstName, "w")
+		outFile, msg = io.open(main.buildPath..dstName, "w")
 		if not outFile then
 			return "Couldn't create '"..dstName.."': "..msg
 		end
@@ -300,13 +300,13 @@ function listMode:RenameSel()
 			return
 		end
 		if newName:lower() ~= oldName:lower() then
-			local newFile = io.open(newName, "r")
+			local newFile = io.open(main.buildPath..newName, "r")
 			if newFile then
 				newFile:close()
 				return "'"..newName.."' already exists"
 			end
 		end
-		local res, msg = os.rename(oldName, newName)
+		local res, msg = os.rename(main.buildPath..oldName, main.buildPath..newName)
 		if not res then
 			return "Couldn't rename '"..oldName.."' to '"..newName.."': "..msg
 		end
@@ -318,7 +318,7 @@ end
 function listMode:DeleteSel()
 	launch:ShowPrompt(1, 0, 0, "Are you sure you want to delete\n'"..self.list[self.sel].fileName.."' ? (y/n)", function(key)
 		if key == "y" then
-			os.remove(self.list[self.sel].fileName)
+			os.remove(main.buildPath..self.list[self.sel].fileName)
 			self:BuildList()
 			self.sel = nil
 		end

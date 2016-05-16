@@ -38,6 +38,8 @@ function main:Init()
 	self:SetMode("LIST")
 
 	self:LoadSettings()
+
+	MakeDir(self.buildPath)
 end
 
 function main:Shutdown()
