@@ -14,8 +14,19 @@ SetMainObject(launch)
 
 function launch:OnInit()
 	ConPrintf("Loading main script...")
+	local mainFile = io.open("Modules/Main.lua")
+	if mainFile then
+		mainFile:close()
+	else
+		if LoadModule("Update", "CHECK") then
+			Exit("Failed to install.")
+		else
+			Restart()
+		end
+		return
+	end
 	local errMsg
-	errMsg, self.main = PLoadModule("Modules/main", self)
+	errMsg, self.main = PLoadModule("Modules/Main", self)
 	if errMsg then
 		self:ShowErrMsg("Error loading main script: %s", errMsg)
 	elseif not self.main then

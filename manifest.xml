@@ -3,7 +3,8 @@
 	<Version number="0.1.0"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/"/>
 	<Source url="" part="runtime" platform="win32"/>
-	<File sha1="9ec3158f522f0b679c7b544f0fca3f9643169b5d" name="Launch.lua" part="program"/>
+	<File sha1="9076ebeba45897415ec7218227dfe755a9f46772" name="Launch.lua" part="program"/>
+	<File sha1="bc07808d147b2e79f9424e23a74f9b80c12c037a" name="Update.lua" part="program"/>
 	<File sha1="434890f159cb67a73b0489e07471a101582e7168" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="991b3deecb4ae60eee54e5b81d4e10a67da80dc7" name="Classes/DropDownControl.lua" part="program"/>
 	<File sha1="1571a47a5549a9ae38407b88012fda39f7ad1ce0" name="Classes/EditControl.lua" part="program"/>
@@ -48,10 +49,10 @@
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
 	<File platform="win32" sha1="f545caeb86d355698eaff4d665b3af7f17154fb9" name="PathOfBuilding.exe" part="runtime"/>
 	<File platform="win32" sha1="914d42ca1836c5152a5f60aad23020a86bcb46d9" name="lua51.dll" part="runtime"/>
-	<File platform="win32" sha1="273c678ccc57ad229f173c5a9e607467a0204e85" name="SimpleGraphic.dll" part="runtime"/>
+	<File platform="win32" sha1="02a3faa603efa313e17397257be29de0762b2779" name="SimpleGraphic.dll" part="runtime"/>
 	<File platform="win32" sha1="887fd08cb3c2989a9d88adc9717d3ec00ab97462" name="libcurl.dll" part="runtime"/>
 	<File platform="win32" sha1="607918daf9cbaecee0090e9cec8d0e221338678e" name="lcurl.dll" part="runtime"/>
-	<File platform="win32" sha1="13dee45c24c936aa83ca7d9c66833108841c1c04" name="lzip.dll" part="runtime"/>
+	<File platform="win32" sha1="abd8665bff90094fea7d9f116f2a084430410d94" name="lzip.dll" part="runtime"/>
 	<File sha1="74cc6c47e7cda18211e57b9e062368eab3c26bab" name="DLSG/Fonts/Bitstream Vera Sans Mono.10.tga" part="runtime"/>
 	<File sha1="1977206f0efc5035834ecbf93ca7d046010d8aab" name="DLSG/Fonts/Bitstream Vera Sans Mono.12.tga" part="runtime"/>
 	<File sha1="93a4309dc814914be7d2dee708e3821494f145a2" name="DLSG/Fonts/Bitstream Vera Sans Mono.14.tga" part="runtime"/>
@@ -86,4 +87,5 @@
 	<File sha1="16cbc26080996d9da827df42cb0844a25518eeb3" name="lua/dkjson.lua" part="runtime"/>
 	<File sha1="31e325cd40a9c0234c6265689cf70b97ef676f20" name="lua/sha1.lua" part="runtime"/>
 	<File sha1="859e09104842f91a4aaa9a4d9fadf667535877e2" name="lua/xml.lua" part="runtime"/>
+	<File sha1="694ba648276e1308c7bc769389352a6c5e5e6408" name="lua/simplegraphic/editfield.lua" part="runtime"/>
 </PoBVersion>
