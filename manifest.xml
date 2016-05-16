@@ -3,8 +3,8 @@
 	<Version number="0.1.0"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/"/>
 	<Source url="" part="runtime" platform="win32"/>
-	<File sha1="9076ebeba45897415ec7218227dfe755a9f46772" name="Launch.lua" part="program"/>
-	<File sha1="bc07808d147b2e79f9424e23a74f9b80c12c037a" name="Update.lua" part="program"/>
+	<File sha1="420991b8e4453455cf5e4276ae137c15f837f3e6" name="Launch.lua" part="program"/>
+	<File sha1="a7efc40e8e5338d0f0c01d1e57987e502403d73f" name="Update.lua" part="program"/>
 	<File sha1="434890f159cb67a73b0489e07471a101582e7168" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="991b3deecb4ae60eee54e5b81d4e10a67da80dc7" name="Classes/DropDownControl.lua" part="program"/>
 	<File sha1="1571a47a5549a9ae38407b88012fda39f7ad1ce0" name="Classes/EditControl.lua" part="program"/>

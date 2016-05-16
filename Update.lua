@@ -6,12 +6,7 @@
 --
 local mode = ...
 
-local xml = require("xml")
-local sha1 = require("sha1")
-local curl = require("lcurl")
-local lzip = require("lzip")
-
-local function downloadFile(url, outName)
+local function downloadFile(curl, url, outName)
 	local outFile = io.open(outName, "wb")
 	local easy = curl.easy()
 	easy:setopt_url(url)
@@ -29,6 +24,11 @@ end
 
 if mode == "CHECK" then
 	ConPrintf("Checking for update...")
+
+	local xml = require("xml")
+	local sha1 = require("sha1")
+	local curl = require("lcurl")
+	local lzip = require("lzip")
 
 	-- Load and process local manifest
 	local localVer
@@ -54,7 +54,7 @@ if mode == "CHECK" then
 	end
 	if not localVer or not localSource or not next(localFiles) then
 		ConPrintf("Update failed: invalid local manifest")
-		return true
+		return
 	end
 
 	-- Download and process remote manifest
@@ -91,7 +91,7 @@ if mode == "CHECK" then
 	end
 	if not remoteVer or not next(remoteSources) or not next(remoteFiles) then
 		ConPrintf("Update failed: invalid remote manifest")
-		return true
+		return
 	end
 
 	-- Build lists of files to be updated or deleted
@@ -124,8 +124,8 @@ if mode == "CHECK" then
 	end
 	
 	if #updateFiles == 0 and #deleteFiles == 0 then
-		ConPrintf("Update failed: nothing to update")
-		return
+		ConPrintf("No update available.")
+		return "none"
 	end
 
 	MakeDir("Update")
@@ -144,7 +144,7 @@ if mode == "CHECK" then
 			if not zipFiles[zipName] then
 				ConPrintf("Downloading %s...", zipName)
 				local zipFileName = "Update/"..zipName
-				downloadFile(source, zipFileName)
+				downloadFile(curl, source, zipFileName)
 				zipFiles[zipName] = lzip.open(zipFileName)
 			end
 			local zip = zipFiles[zipName]
@@ -168,7 +168,7 @@ if mode == "CHECK" then
 			failedFile = true
 		else
 			ConPrintf("Downloading %s...", data.name)
-			if downloadFile(source..data.name, fileName) then
+			if downloadFile(curl, source..data.name, fileName) then
 				failedFile = true
 			end
 		end
@@ -179,7 +179,7 @@ if mode == "CHECK" then
 	end
 	if failedFile then
 		ConPrintf("Update failed: failed to get all required files")
-		return true
+		return
 	end
 
 	-- Create new manifest
@@ -196,7 +196,16 @@ if mode == "CHECK" then
 	xml.SaveXMLFile(localManXML, "Update/manifest.xml")
 
 	-- Build list of operations to apply the update
+	local coreUpdate = false
 	local ops = { }
+	for _, data in pairs(updateFiles) do
+		if data.platform then
+			-- Core platform file, will need to update from the basic environment
+			coreUpdate = true
+			-- Tell update code to pause until this file is writable
+			table.insert(ops, 'wait "'..data.name..'"')
+		end
+	end
 	for _, data in pairs(updateFiles) do
 		local dirStr = ""
 		for dir in data.name:gmatch("([^/]+/)") do
@@ -211,13 +220,16 @@ if mode == "CHECK" then
 	end
 	table.insert(ops, 'copy "Update/manifest.xml" "manifest.xml"')
 	table.insert(ops, 'delete "Update/manifest.xml"')
+	if coreUpdate then
+		table.insert(ops, 'launch')
+	end
 
 	-- Write operations file
 	local opFile = io.open("Update/opFile.txt", "w")
 	opFile:write(table.concat(ops, "\n"))
 	opFile:close()
 
-	return
+	return coreUpdate and "basic" or "normal"
 end
 
 print("Applying update...")
@@ -225,9 +237,17 @@ local opFile = io.open("Update/opFile.txt", "r")
 if not opFile then
 	return
 end
+local launch = false
 for line in opFile:lines() do
 	local op, args = line:match("(%a+) ?(.+)")
-	if op == "copy" then
+	if op == "wait" then
+		local name = args:match('"(.*)"')
+		local file
+		while not file do
+			file = io.open(name, "r+")
+		end
+		file:close()
+	elseif op == "copy" then
 		local src, dst = args:match('"(.*)" "(.*)"')
 		local srcFile = io.open(src, "rb")
 		if srcFile then
@@ -241,9 +261,13 @@ for line in opFile:lines() do
 	elseif op == "delete" then
 		local file = args:match('"(.*)"')
 		os.remove(file)
+	elseif op == "launch" then
+		launch = true
 	end
 end
 opFile:close()
 os.remove("Update/opFile.txt")
-
+if launch then
+	os.execute("PathOfBuilding")
+end
 

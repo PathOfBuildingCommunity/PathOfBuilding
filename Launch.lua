@@ -11,6 +11,7 @@ ConExecute("set vid_resizable 3")
 
 local opFile = io.open("Update/opFile.txt", "r")
 if opFile then
+	-- Update is pending, apply it
 	opFile:close()
 	LoadModule("Update")
 end
@@ -18,16 +19,28 @@ end
 local launch = { }
 SetMainObject(launch)
 
+function launch:ApplyUpdate(mode)
+	if mode == "basic" then
+		-- Need to revert to the basic environment to apply the update
+		os.execute("PathOfBuilding Update.lua")
+		Exit()
+	elseif mode == "normal" then
+		-- Update can be applied while normal environment is running
+		Restart()
+	end
+end
+
 function launch:OnInit()
 	ConPrintf("Loading main script...")
 	local mainFile = io.open("Modules/Main.lua")
 	if mainFile then
 		mainFile:close()
 	else
-		if LoadModule("Update", "CHECK") then
+		local updateMode = LoadModule("Update", "CHECK")
+		if not updateMode or updateMode == "none" then
 			Exit("Failed to install.")
 		else
-			Restart()
+			self:ApplyUpdate(updateMode)
 		end
 		return
 	end
