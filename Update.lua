@@ -198,6 +198,11 @@ if mode == "CHECK" then
 	-- Build list of operations to apply the update
 	local ops = { }
 	for _, data in pairs(updateFiles) do
+		local dirStr = ""
+		for dir in data.name:gmatch("([^/]+/)") do
+			dirStr = dirStr .. dir
+			MakeDir(dirStr)
+		end
 		table.insert(ops, 'copy "'..data.updateFileName..'" "'..data.name..'"')
 		table.insert(ops, 'delete "'..data.updateFileName..'"')
 	end
@@ -205,14 +210,40 @@ if mode == "CHECK" then
 		table.insert(ops, 'delete "'..data.name..'"')
 	end
 	table.insert(ops, 'copy "Update/manifest.xml" "manifest.xml"')
-	table.insert(ops, 'delete "manifest.xml"')
+	table.insert(ops, 'delete "Update/manifest.xml"')
 
 	-- Write operations file
 	local opFile = io.open("Update/opFile.txt", "w")
 	opFile:write(table.concat(ops, "\n"))
 	opFile:close()
+
+	return
 end
 
-
+print("Applying update...")
+local opFile = io.open("Update/opFile.txt", "r")
+if not opFile then
+	return
+end
+for line in opFile:lines() do
+	local op, args = line:match("(%a+) ?(.+)")
+	if op == "copy" then
+		local src, dst = args:match('"(.*)" "(.*)"')
+		local srcFile = io.open(src, "rb")
+		if srcFile then
+			local dstFile = io.open(dst, "wb")
+			if dstFile then
+				dstFile:write(srcFile:read("*a"))
+				dstFile:close()
+			end
+			srcFile:close()
+		end
+	elseif op == "delete" then
+		local file = args:match('"(.*)"')
+		os.remove(file)
+	end
+end
+opFile:close()
+os.remove("Update/opFile.txt")
 
 

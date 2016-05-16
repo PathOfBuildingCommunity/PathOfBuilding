@@ -9,6 +9,12 @@ SetWindowTitle("PathOfBuilding")
 ConExecute("set vid_mode 1")
 ConExecute("set vid_resizable 3")
 
+local opFile = io.open("Update/opFile.txt", "r")
+if opFile then
+	opFile:close()
+	LoadModule("Update")
+end
+
 local launch = { }
 SetMainObject(launch)
 
