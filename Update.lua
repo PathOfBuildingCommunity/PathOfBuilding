@@ -122,7 +122,7 @@ if mode == "CHECK" then
 			else
 				local content = file:read("*a")
 				file:close()
-				if data.sha1 ~= sha1(content) then
+				if data.sha1 ~= sha1(content) and data.sha1 ~= sha1(content:gsub("\n","\r\n")) then
 					ConPrintf("Warning: Integrity check on '%s' failed, it will be replaced", data.name)
 					table.insert(updateFiles, data)
 				end
