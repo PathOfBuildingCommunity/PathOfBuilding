@@ -4,7 +4,7 @@
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/"/>
 	<Source url="file://localhost/E:/Documents/Path%20of%20Exile/Calcs/win32.zip" part="runtime" platform="win32"/>
 	<File sha1="ab26bd775bea9fe99389bf501a81595e4d032d35" name="Launch.lua" part="program"/>
-	<File sha1="f84b71bf8b9d610caed2517b6b7ce5fde352c354" name="Update.lua" part="program"/>
+	<File sha1="821f33f413e313792b7d9f96ab6f63c4f1f416b6" name="Update.lua" part="program"/>
 	<File sha1="434890f159cb67a73b0489e07471a101582e7168" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="991b3deecb4ae60eee54e5b81d4e10a67da80dc7" name="Classes/DropDownControl.lua" part="program"/>
 	<File sha1="1571a47a5549a9ae38407b88012fda39f7ad1ce0" name="Classes/EditControl.lua" part="program"/>
