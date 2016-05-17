@@ -32,6 +32,11 @@ function main:Init()
 	
 	self.tree = common.New("PassiveTree")
 
+	self.controls = { }
+	self.controls.applyUpdate = common.New("ButtonControl", 0, 4, 100, 20, "^x50E050Apply Update", function()
+		launch:ApplyUpdate(launch.updateAvailable)
+	end)
+
 	self.inputEvents = { }
 	self.tooltipLines = { }
 
@@ -59,9 +64,16 @@ function main:OnFrame()
 		self.modeArgs = self.newModeArgs
 		self.newMode = nil
 		self:CallMode("Init", unpack(self.modeArgs))
-	end		
+	end
+
+	self.controls.applyUpdate.x = self.screenW - 104
+	self.controls.applyUpdate.hidden = not launch.updateAvailable or launch.updateAvailable == "none"
+
+	common.controlsInput(self, self.inputEvents)
 
 	self:CallMode("OnFrame", self.inputEvents)
+
+	common.controlsDraw(self)
 
 	wipeTable(self.inputEvents)
 end

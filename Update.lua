@@ -12,14 +12,32 @@ local function downloadFile(curl, url, outName)
 	easy:setopt_url(url)
 	easy:setopt_writefunction(outFile)
 	easy:perform()
-	local code = easy:getinfo(curl.INFO_RESPONSE_CODE)
+	local size = easy:getinfo(curl.INFO_SIZE_DOWNLOAD)
 	easy:close()
 	outFile:close()
-	if code ~= 200 then
-		ConPrintf("Download failed (code %d)", code)
+	if size == 0 then
+		ConPrintf("Download failed")
 		os.remove(outName)
 		return true
 	end
+end
+
+local function downloadFileText(curl, url)
+	local text = ""
+	local easy = curl.easy()
+	easy:setopt_url(url)
+	easy:setopt_writefunction(function(data)
+		text = text..data 
+		return true 
+	end)
+	easy:perform()
+	local size = easy:getinfo(curl.INFO_SIZE_DOWNLOAD)
+	easy:close()
+	if size == 0 then
+		ConPrintf("Download failed")
+		return nil
+	end
+	return text
 end
 
 if mode == "CHECK" then
@@ -53,23 +71,19 @@ if mode == "CHECK" then
 		end
 	end
 	if not localVer or not localSource or not next(localFiles) then
-		ConPrintf("Update failed: invalid local manifest")
+		ConPrintf("Update check failed: invalid local manifest")
 		return
 	end
 
 	-- Download and process remote manifest
 	local remoteVer
 	local remoteFiles = { }
-	local remoteManText = ""
 	local remoteSources = { }
-	local easy = curl.easy()
-	easy:setopt_url(localSource.."manifest.xml")
-	easy:setopt_writefunction(function(data)
-		remoteManText = remoteManText..data 
-		return true 
-	end)
-	easy:perform()
-	easy:close()
+	local remoteManText = downloadFileText(curl, localSource.."manifest.xml")
+	if not remoteManText then
+		ConPrintf("Update check failed: couldn't download version manifest")
+		return
+	end
 	local remoteManXML = xml.ParseXML(remoteManText)
 	if remoteManXML and remoteManXML[1].elem == "PoBVersion" then
 		for _, node in ipairs(remoteManXML[1]) do
@@ -90,7 +104,7 @@ if mode == "CHECK" then
 		end
 	end
 	if not remoteVer or not next(remoteSources) or not next(remoteFiles) then
-		ConPrintf("Update failed: invalid remote manifest")
+		ConPrintf("Update check failed: invalid remote manifest")
 		return
 	end
 
@@ -154,7 +168,7 @@ if mode == "CHECK" then
 					local file = io.open(fileName, "wb")
 					file:write(zippedFile:Read("*a"))
 					file:close()
-					zippedFile:close()
+					zippedFile:Close()
 				else
 					ConPrintf("Couldn't extract '%s' from '%s' (extract failed)", data.name, zipName)
 					failedFile = true
@@ -175,10 +189,10 @@ if mode == "CHECK" then
 	end
 	for name, zip in pairs(zipFiles) do
 		zip:Close()
-		os.remove(name)
+		os.remove("Update/"..name)
 	end
 	if failedFile then
-		ConPrintf("Update failed: failed to get all required files")
+		ConPrintf("Update failed: one or more files couldn't be downloaded")
 		return
 	end
 
@@ -229,6 +243,7 @@ if mode == "CHECK" then
 	opFile:write(table.concat(ops, "\n"))
 	opFile:close()
 
+	ConPrintf("Update is ready.")
 	return coreUpdate and "basic" or "normal"
 end
 
@@ -239,7 +254,7 @@ if not opFile then
 end
 local launch = false
 for line in opFile:lines() do
-	local op, args = line:match("(%a+) ?(.+)")
+	local op, args = line:match("(%a+) ?(.*)")
 	if op == "wait" then
 		local name = args:match('"(.*)"')
 		local file
@@ -268,6 +283,5 @@ end
 opFile:close()
 os.remove("Update/opFile.txt")
 if launch then
-	os.execute("PathOfBuilding")
+	os.execute("start PathOfBuilding")
 end
-

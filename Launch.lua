@@ -9,26 +9,8 @@ SetWindowTitle("PathOfBuilding")
 ConExecute("set vid_mode 1")
 ConExecute("set vid_resizable 3")
 
-local opFile = io.open("Update/opFile.txt", "r")
-if opFile then
-	-- Update is pending, apply it
-	opFile:close()
-	LoadModule("Update")
-end
-
 local launch = { }
 SetMainObject(launch)
-
-function launch:ApplyUpdate(mode)
-	if mode == "basic" then
-		-- Need to revert to the basic environment to apply the update
-		os.execute("PathOfBuilding Update.lua")
-		Exit()
-	elseif mode == "normal" then
-		-- Update can be applied while normal environment is running
-		Restart()
-	end
-end
 
 function launch:OnInit()
 	ConPrintf("Loading main script...")
@@ -36,6 +18,8 @@ function launch:OnInit()
 	if mainFile then
 		mainFile:close()
 	else
+		ConClear()
+		ConPrintf("Please wait while we complete installation...\n")
 		local updateMode = LoadModule("Update", "CHECK")
 		if not updateMode or updateMode == "none" then
 			Exit("Failed to install.")
@@ -56,6 +40,7 @@ function launch:OnInit()
 			self:ShowErrMsg("In 'Init': %s", errMsg)
 		end
 	end
+	self:CheckForUpdate(true)
 end
 
 function launch:OnExit()
@@ -76,20 +61,24 @@ function launch:OnFrame()
 	if self.promptMsg then
 		local r, g, b = unpack(self.promptCol)
 		self:DrawPopup(r, g, b, "^0%s", self.promptMsg)
+	elseif self.updateChecking then
+		self:DrawPopup(0, 0.5, 0, "^0%s", self.updateMsg)
 	end
-	if self.doReload then
+	if self.doRestart then
 		local screenW, screenH = GetScreenSize()
 		SetDrawColor(0, 0, 0, 0.75)
 		DrawImage(nil, 0, 0, screenW, screenH)
 		SetDrawColor(1, 1, 1)
-		DrawString(0, screenH/2, "CENTER", 24, "FIXED", "Reloading...")
+		DrawString(0, screenH/2, "CENTER", 24, "FIXED", "Restarting...")
 		Restart()
 	end
 end
 
 function launch:OnKeyDown(key, doubleClick)
 	if key == "F5" then
-		self.doReload = true
+		self.doRestart = true
+	elseif key == "u" and IsKeyDown("CTRL") then
+		self:CheckForUpdate()
 	elseif self.promptMsg then
 		local errMsg, ret = PCall(self.promptFunc, key)
 		if errMsg then
@@ -97,7 +86,7 @@ function launch:OnKeyDown(key, doubleClick)
 		elseif ret then
 			self.promptMsg = nil
 		end
-	else
+	elseif not self.updateChecking then
 		if self.main and self.main.OnKeyDown then
 			local errMsg = PCall(self.main.OnKeyDown, self.main, key, doubleClick)
 			if errMsg then
@@ -108,7 +97,7 @@ function launch:OnKeyDown(key, doubleClick)
 end
 
 function launch:OnKeyUp(key)
-	if not self.promptMsg then
+	if not self.promptMsg and not self.updateChecking then
 		if self.main and self.main.OnKeyUp then
 			local errMsg = PCall(self.main.OnKeyUp, self.main, key)
 			if errMsg then
@@ -126,13 +115,59 @@ function launch:OnChar(key)
 		elseif ret then
 			self.promptMsg = nil
 		end
-	else
+	elseif not self.updateChecking then
 		if self.main and self.main.OnChar then
 			local errMsg = PCall(self.main.OnChar, self.main, key)
 			if errMsg then
 				self:ShowErrMsg("In 'OnChar': %s", errMsg)
 			end
 		end
+	end
+end
+
+function launch:OnSubCall(func, ...)
+	if func == "ConPrintf" then
+		self.updateMsg = string.format(...)
+	end
+	if _G[func] then
+		return _G[func](...)
+	end
+end
+
+function launch:OnSubFinished(ret)
+	self.updateAvailable = ret	
+	if not ret then
+		self:ShowPrompt(1, 0, 0, self.updateMsg .. "\n\nEnter/Escape to dismiss")
+	elseif self.updateChecking then
+		if ret == "none" then		
+			self:ShowPrompt(0, 0, 0, "No update available.", function(key) return true end)
+		else
+			self:ShowPrompt(0.2, 0.8, 0.2, "An update has been downloaded.\n\nClick 'Apply Update' at the top right when you are ready.", function(key) return true end)
+		end
+		self.updateChecking = false
+	end
+end
+
+function launch:ApplyUpdate(mode)
+	if mode == "basic" then
+		-- Need to revert to the basic environment to apply the update
+		os.execute("start PathOfBuilding Update.lua")
+		Exit()
+	elseif mode == "normal" then
+		-- Update can be applied while normal environment is running
+		LoadModule("Update")
+		Restart()
+		self.doRestart = true -- Will show "Restarting" message if main window is showing
+	end
+end
+
+function launch:CheckForUpdate(inBackground)
+	if not IsSubScriptRunning() then
+		self.updateChecking = not inBackground
+		self.updateMsg = ""
+		local update = io.open("Update.lua", "r")
+		LaunchSubScript(update:read("*a"), "MakeDir", "ConPrintf", "CHECK")
+		update:close()
 	end
 end
 
@@ -150,11 +185,7 @@ function launch:ShowPrompt(r, g, b, str, func)
 end
 
 function launch:ShowErrMsg(fmt, ...)
-	self:ShowPrompt(1, 0, 0, "^1Error:\n\n^0" .. string.format(fmt, ...) .. "\n\nEnter/Escape to Dismiss, F5 to reload scripts", function(key)
-		if key == "RETURN" or key == "ESCAPE" then
-			return true
-		end
-	end)
+	self:ShowPrompt(1, 0, 0, "^1Error:\n\n^0" .. string.format(fmt, ...) .. "\n\nEnter/Escape to Dismiss, F5 to reload scripts")
 end
 
 function launch:DrawPopup(r, g, b, fmt, ...)
