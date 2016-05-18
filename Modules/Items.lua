@@ -318,7 +318,7 @@ function items:AddItemTooltip(item)
 			end
 		end
 	end
-	if IsKeyDown("ALT") then
+	if launch.devMode and IsKeyDown("ALT") then
 		main:AddTooltipSeperator(10)
 		local nameList = { }
 		for k in pairs(modList) do

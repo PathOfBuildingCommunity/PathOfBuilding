@@ -319,7 +319,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 		if node.ascendancyName and node.ascendancyName ~= spec.curAscendClassName then
 			SetDrawColor(0.5, 0.5, 0.5)
 		end
-		if IsKeyDown("ALT") then
+		if launch.devMode and IsKeyDown("ALT") then
 			if node.extra then
 				SetDrawColor(1, 0, 0)
 			elseif node.unknown then
@@ -456,7 +456,7 @@ function TreeViewClass:AddNodeTooltip(node, build)
 		if jewel then
 			build.items:AddItemTooltip(jewel, build)
 		else
-			main:AddTooltipLine(24, "^7"..node.dn..(IsKeyDown("ALT") and " ["..node.id.."]" or ""))
+			main:AddTooltipLine(24, "^7"..node.dn..(launch.devMode and IsKeyDown("ALT") and " ["..node.id.."]" or ""))
 		end
 		main:AddTooltipSeperator(14)
 		main:AddTooltipLine(14, "^x80A080Tip: Right click this socket to go to the items page and choose the jewel for this socket.")
@@ -464,8 +464,8 @@ function TreeViewClass:AddNodeTooltip(node, build)
 	end
 	
 	-- Node name
-	main:AddTooltipLine(24, "^7"..node.dn..(IsKeyDown("ALT") and " ["..node.id.."]" or ""))
-	if IsKeyDown("ALT") and node.power and node.power.dps then
+	main:AddTooltipLine(24, "^7"..node.dn..(launch.devMode and IsKeyDown("ALT") and " ["..node.id.."]" or ""))
+	if launch.devMode and IsKeyDown("ALT") and node.power and node.power.dps then
 		main:AddTooltipLine(16, string.format("DPS power: %g   Defence power: %g", node.power.dps, node.power.def))
 	end
 
@@ -474,7 +474,7 @@ function TreeViewClass:AddNodeTooltip(node, build)
 		main:AddTooltipLine(16, "")
 		for i, line in ipairs(node.sd) do
 			if node.mods[i].list then
-				if IsKeyDown("ALT") then
+				if launch.devMode and IsKeyDown("ALT") then
 					local modStr
 					for k, v in pairs(node.mods[i].list) do
 						modStr = (modStr and modStr..", " or "^2") .. string.format("%s = %s", k, tostring(v))

@@ -13,6 +13,11 @@ local launch = { }
 SetMainObject(launch)
 
 function launch:OnInit()
+	if GetScriptPath() ~= GetRuntimePath() then
+		-- We are running from an external runtime
+		-- Force developer mode to disable update checks
+		self.devMode = true
+	end
 	ConPrintf("Loading main script...")
 	local mainFile = io.open("Modules/Main.lua")
 	if mainFile then
@@ -40,7 +45,10 @@ function launch:OnInit()
 			self:ShowErrMsg("In 'Init': %s", errMsg)
 		end
 	end
-	self:CheckForUpdate(true)
+	if not self.devMode then
+		-- Run a background update check if developer mode is off
+		self:CheckForUpdate(true)
+	end
 end
 
 function launch:OnExit()
@@ -78,7 +86,9 @@ function launch:OnKeyDown(key, doubleClick)
 	if key == "F5" then
 		self.doRestart = true
 	elseif key == "u" and IsKeyDown("CTRL") then
-		self:CheckForUpdate()
+		if not self.devMode then
+			self:CheckForUpdate()
+		end
 	elseif self.promptMsg then
 		local errMsg, ret = PCall(self.promptFunc, key)
 		if errMsg then
@@ -157,7 +167,7 @@ function launch:ApplyUpdate(mode)
 		-- Update can be applied while normal environment is running
 		LoadModule("Update")
 		Restart()
-		self.doRestart = true -- Will show "Restarting" message if main window is showing
+		self.doRestart = true -- Will show "Restarting" message if main window is open
 	end
 end
 
@@ -166,7 +176,7 @@ function launch:CheckForUpdate(inBackground)
 		self.updateChecking = not inBackground
 		self.updateMsg = ""
 		local update = io.open("Update.lua", "r")
-		LaunchSubScript(update:read("*a"), "MakeDir", "ConPrintf", "CHECK")
+		LaunchSubScript(update:read("*a"), "GetWorkDir,MakeDir", "ConPrintf", "CHECK")
 		update:close()
 	end
 end
