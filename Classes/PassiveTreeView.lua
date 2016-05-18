@@ -412,7 +412,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 		end
 	end
 
-	if hoverNode then
+	if hoverNode and (hoverNode.type ~= "socket" or not IsKeyDown("SHIFT")) then
 		self:AddNodeTooltip(hoverNode, build)
 		local scrX, scrY = treeToScreen(hoverNode.x, hoverNode.y)
 		local size = m_floor(hoverNode.size * scale)
@@ -517,31 +517,31 @@ function TreeViewClass:AddNodeTooltip(node, build)
 		end
 		local none = true
 		local header = false
-		for _, data in ipairs(build.displayStats) do
-			if data.mod then
-				local diff = (nodeOutput[data.mod] or 0) - (calcBase[data.mod] or 0)
+		for _, stat in ipairs(build.displayStats) do
+			if stat.mod then
+				local diff = (nodeOutput[stat.mod] or 0) - (calcBase[stat.mod] or 0)
 				if diff > 0.001 or diff < -0.001 then
 					none = false
 					if not header then
 						main:AddTooltipLine(14, string.format("^7%s this node will give you:", node.alloc and "Unallocating" or "Allocating"))
 						header = true
 					end
-					main:AddTooltipLine(14, string.format("%s%+"..data.fmt.." %s", diff > 0 and "^x00FF44" or "^xFF3300", diff * (data.pc and 100 or 1), data.label))
+					main:AddTooltipLine(14, string.format("%s%+"..stat.fmt.." %s", diff > 0 and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE, diff * (stat.pc and 100 or 1), stat.label))
 				end
 			end
 		end
 		if count > 1 then
 			header = false
-			for _, data in ipairs(build.displayStats) do
-				if data.mod then
-					local diff = (pathOutput[data.mod] or 0) - (calcBase[data.mod] or 0)
+			for _, stat in ipairs(build.displayStats) do
+				if stat.mod then
+					local diff = (pathOutput[stat.mod] or 0) - (calcBase[stat.mod] or 0)
 					if diff > 0.001 or diff < -0.001 then
 						none = false
 						if not header then
 							main:AddTooltipLine(14, string.format("^7%s this node and all nodes %s will give you:", node.alloc and "Unallocating" or "Allocating", node.alloc and "depending on it" or "leading to it"))
 							header = true
 						end
-						main:AddTooltipLine(14, string.format("%s%+"..data.fmt.." %s", diff > 0 and "^x00FF44" or "^xFF3300", diff * (data.pc and 100 or 1), data.label))
+						main:AddTooltipLine(14, string.format("%s%+"..stat.fmt.." %s", diff > 0 and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE, diff * (stat.pc and 100 or 1), stat.label))
 					end
 				end
 			end

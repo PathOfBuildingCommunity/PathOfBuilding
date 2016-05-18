@@ -50,7 +50,7 @@ if mode == "CHECK" then
 
 	-- Load and process local manifest
 	local localVer
-	local localPlatform
+	local localPlatform, localBranch
 	local localFiles = { }
 	local localManXML = xml.LoadXMLFile("manifest.xml")
 	local localSource
@@ -60,6 +60,7 @@ if mode == "CHECK" then
 				if node.elem == "Version" then
 					localVer = node.attrib.number
 					localPlatform = node.attrib.platform
+					localBranch = node.attrib.branch
 				elseif node.elem == "Source" then
 					if node.attrib.part == "program" then
 						localSource = node.attrib.url
@@ -74,6 +75,7 @@ if mode == "CHECK" then
 		ConPrintf("Update check failed: invalid local manifest")
 		return
 	end
+	localSource = localSource:gsub("{branch}", localBranch)
 
 	-- Download and process remote manifest
 	local remoteVer
@@ -151,6 +153,7 @@ if mode == "CHECK" then
 	for _, data in ipairs(updateFiles) do
 		local partSources = remoteSources[data.part]
 		local source = partSources[localPlatform] or partSources["any"]
+		source = source:gsub("{branch}", localBranch)
 		local fileName = "Update/"..data.name:gsub("[\\/]","{slash}")
 		data.updateFileName = fileName
 		local zipName = source:match("/([^/]+%.zip)$")
@@ -177,9 +180,6 @@ if mode == "CHECK" then
 				ConPrintf("Couldn't extract '%s' from '%s' (zip open failed)", data.name, zipName)
 				failedFile = true
 			end
-		elseif source == "" then
-			ConPrintf("File '%s' has no source", data.name)
-			failedFile = true
 		else
 			ConPrintf("Downloading %s...", data.name)
 			if downloadFile(curl, source..data.name, fileName) then
@@ -198,7 +198,7 @@ if mode == "CHECK" then
 
 	-- Create new manifest
 	localManXML = { elem = "PoBVersion" }
-	table.insert(localManXML, { elem = "Version", attrib = { number = remoteVer, platform = localPlatform } })
+	table.insert(localManXML, { elem = "Version", attrib = { number = remoteVer, platform = localPlatform, branch = localBranch } })
 	for part, platforms in pairs(remoteSources) do
 		for platform, url in pairs(platforms) do
 			table.insert(localManXML, { elem = "Source", attrib = { part = part, platform = platform ~= "any" and platform, url = url } })
