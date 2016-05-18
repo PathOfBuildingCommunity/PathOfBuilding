@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
 	<Version number="0.1.0"/>
-	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/"/>
-	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/master/runtime-win32.zip" part="runtime" platform="win32"/>
+	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/dev/"/>
+	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/dev/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="e95fac891f87e79401f3158bf4baf4545c32dbc0" name="Launch.lua" part="program"/>
 	<File sha1="e33daa13951d2002db2d273fe139301c8bee5efb" name="Update.lua" part="program"/>
 	<File sha1="434890f159cb67a73b0489e07471a101582e7168" name="Classes/ButtonControl.lua" part="program"/>

@@ -210,21 +210,20 @@ if mode == "CHECK" then
 	xml.SaveXMLFile(localManXML, "Update/manifest.xml")
 
 	-- Build list of operations to apply the update
-	local coreUpdate = false
+	local updateMode = "normal"
 	local ops = { }
 	for _, data in pairs(updateFiles) do
-		if data.platform then
-			-- Core platform file, will need to update from the basic environment
-			coreUpdate = true
-			-- Tell update code to pause until this file is writable
-			table.insert(ops, 'wait "'..data.name..'"')
-		end
-	end
-	for _, data in pairs(updateFiles) do
+		-- Ensure that the destination path of this file exists
 		local dirStr = ""
 		for dir in data.name:gmatch("([^/]+/)") do
 			dirStr = dirStr .. dir
 			MakeDir(dirStr)
+		end
+		if data.platform then
+			-- Core platform file, will need to update from the basic environment
+			updateMode = "basic"
+			-- Tell update code to pause until this file is writable
+			table.insert(ops, 'wait "'..data.name..'"')
 		end
 		table.insert(ops, 'copy "'..data.updateFileName..'" "'..data.name..'"')
 		table.insert(ops, 'delete "'..data.updateFileName..'"')
@@ -234,7 +233,8 @@ if mode == "CHECK" then
 	end
 	table.insert(ops, 'copy "Update/manifest.xml" "manifest.xml"')
 	table.insert(ops, 'delete "Update/manifest.xml"')
-	if coreUpdate then
+	if updateMode == "basic" then
+		-- Update script will need to relaunch the normal environment after updating
 		table.insert(ops, 'launch')
 	end
 
@@ -244,7 +244,7 @@ if mode == "CHECK" then
 	opFile:close()
 
 	ConPrintf("Update is ready.")
-	return coreUpdate and "basic" or "normal"
+	return updateMode
 end
 
 print("Applying update...")

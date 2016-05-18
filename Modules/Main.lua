@@ -75,6 +75,10 @@ function main:OnFrame()
 
 	common.controlsDraw(self)
 
+	if launch.devMode then
+		DrawString(4, 4, "RIGHT", 18, "VAR", "^1Dev Mode")
+	end
+
 	wipeTable(self.inputEvents)
 end
 
@@ -139,7 +143,7 @@ function main:LoadSettings()
 				end
 				self.buildPath = node.attrib.path
 			elseif node.elem == "DevMode" then
-				self.devMode = node.attrib.enable == "true"
+				launch.devMode = node.attrib.enable == "true"
 			end
 		end
 	end
@@ -161,7 +165,7 @@ function main:SaveSettings()
 	end
 	t_insert(setXML, mode)
 	t_insert(setXML, { elem = "BuildPath", attrib = { path = self.buildPath } })
-	t_insert(setXML, { elem = "DevMode", attrib = { enable = self.devMode and "true" or "false" } })
+	t_insert(setXML, { elem = "DevMode", attrib = { enable = launch.devMode and "true" or "false" } })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, "Settings.xml")
 	if not res then
 		launch:ShowErrMsg("Error saving 'Settings.xml': %s", errMsg)
