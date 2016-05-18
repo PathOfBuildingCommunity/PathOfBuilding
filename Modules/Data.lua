@@ -24,12 +24,14 @@ data.colorCodes = {
 	COLD = "^x366492",
 	LIGHTNING = "^xFFD700",
 	CHAOS = "^xD02090",
+	POSITIVE = "^x33FF77",
+	NEGATIVE = "^xDD0022",
 }
 
 data.jewelRadius = {
-	{ rad = 800, col = "^xFFBB33", label = "Small" },
-	{ rad = 1200, col = "^x33FF66", label = "Medium" },
-	{ rad = 1500, col = "^x3333FF", label = "Large" }
+	{ rad = 800, col = "^xBB6600", label = "Small" },
+	{ rad = 1200, col = "^x66FFCC", label = "Medium" },
+	{ rad = 1500, col = "^x2222CC", label = "Large" }
 }
 
 data.evasionTable = {    36,   42,   49,   56,   64,   72,   80,   89,   98,  108,

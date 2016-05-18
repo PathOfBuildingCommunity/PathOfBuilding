@@ -149,7 +149,7 @@ function launch:OnSubFinished(ret)
 	if not ret then
 		self:ShowPrompt(1, 0, 0, self.updateMsg .. "\n\nEnter/Escape to dismiss")
 	elseif self.updateChecking then
-		if ret == "none" then		
+		if ret == "none" then
 			self:ShowPrompt(0, 0, 0, "No update available.", function(key) return true end)
 		else
 			self:ShowPrompt(0.2, 0.8, 0.2, "An update has been downloaded.\n\nClick 'Apply Update' at the top right when you are ready.", function(key) return true end)

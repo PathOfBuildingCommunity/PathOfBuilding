@@ -311,7 +311,7 @@ function items:AddItemTooltip(item)
 								end
 								header = true
 							end
-							main:AddTooltipLine(14, string.format("%s%+"..statData.fmt.." %s", diff > 0 and "^x00FF44" or "^xFF3300", diff * (statData.pc and 100 or 1), statData.label))
+							main:AddTooltipLine(14, string.format("%s%+"..statData.fmt.." %s", diff > 0 and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE, diff * (statData.pc and 100 or 1), statData.label))
 						end
 					end
 				end
