@@ -74,7 +74,7 @@ function buildMode:Init(dbFileName, buildName)
 		local classId = self.tree.classNameMap[val]
 		if classId ~= self.spec.curClassId then
 			if self.spec:IsClassConnected(classId) or self.spec:CountAllocNodes() == 0 then
-				self:SelectClass(classId)
+				self.spec:SelectClass(classId)
 				self.spec:AddUndoState()
 			else
 				launch:ShowPrompt(0, 0, 0, "Changing class to "..val.." will reset your tree.\nThis can be avoided by connecting one of the "..val.." starting nodes to your tree.\n\nPress Y to continue.", function(key)

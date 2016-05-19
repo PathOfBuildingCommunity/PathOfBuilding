@@ -26,6 +26,13 @@ data.colorCodes = {
 	CHAOS = "^xD02090",
 	POSITIVE = "^x33FF77",
 	NEGATIVE = "^xDD0022",
+	SCION = "^xFFF0F0",
+	MARAUDER = "^xE05030",
+	RANGER = "^x70FF70",
+	WITCH = "^x7070FF",
+	DUELIST = "^xE0E070",
+	TEMPLAR = "^xC040FF",
+	SHADOW = "^x30C0D0",
 }
 
 data.jewelRadius = {

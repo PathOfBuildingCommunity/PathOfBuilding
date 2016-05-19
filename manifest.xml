@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="0.1.1"/>
+	<Version number="0.1.2"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="4a805f9ced3587237123c082d057a9c50f711023" name="Launch.lua" part="program"/>
@@ -13,13 +13,13 @@
 	<File sha1="ff2c50b66fc2805a30c2967f247ed5c2913a3412" name="Classes/PassiveSpec.lua" part="program"/>
 	<File sha1="5596212c676dc4ca2994a312ca491b6c96a0179f" name="Classes/PassiveTree.lua" part="program"/>
 	<File sha1="169af3ed2b9a2600c82e599432980795c9e190dd" name="Classes/PassiveTreeView.lua" part="program"/>
-	<File sha1="aa07a6eeb69c767471a340ed341068d940879c0f" name="Modules/Build.lua" part="program"/>
-	<File sha1="8eb0d9572492ea37f2f81e911692880e56ed1ef0" name="Modules/BuildList.lua" part="program"/>
+	<File sha1="4a21bdf084c0e7785c2fda508de3cb94b7727f35" name="Modules/Build.lua" part="program"/>
+	<File sha1="1506291a69e8af3d388ab8008d3dc82d0453e32a" name="Modules/BuildList.lua" part="program"/>
 	<File sha1="784a723e92de656044f9b88dadf64811a9e8fb6d" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="38eabf8c6012372393cf30411489e1bfb363826b" name="Modules/CalcsControl.lua" part="program"/>
 	<File sha1="5f0b00ae2efcf03c8b82ce62fdf7fe90134da0ab" name="Modules/CalcsView.lua" part="program"/>
 	<File sha1="cf3b4d40ddc30dba0230bcda4e9aeb5056673b4c" name="Modules/Common.lua" part="program"/>
-	<File sha1="78d300382ebcb532a80551c400f33b639c454989" name="Modules/Data.lua" part="program"/>
+	<File sha1="f81b486a27bd94ae757ced571a36b5cb4d839cac" name="Modules/Data.lua" part="program"/>
 	<File sha1="9e46da96c639b066a9532de87b2ed4f7c8aef697" name="Modules/Items.lua" part="program"/>
 	<File sha1="44febf05f971e01fd9999f420822e3c09b8b2662" name="Modules/ItemTools.lua" part="program"/>
 	<File sha1="0fed968aa81a9732b54941f8f3a8d9f5a959d223" name="Modules/Main.lua" part="program"/>
@@ -47,42 +47,42 @@
 	<File sha1="4c38722e014ce3472cbf8d7bfcdf748b36f807cb" name="Gems/sup_int.lua" part="program"/>
 	<File sha1="553f9cd7c51710a41144f393890ace22f2dbdd24" name="Gems/sup_str.lua" part="program"/>
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
-	<File platform="win32" sha1="f545caeb86d355698eaff4d665b3af7f17154fb9" name="PathOfBuilding.exe" part="runtime"/>
+	<File platform="win32" sha1="273e71232abe8540635417aa69bdf58804ef2eec" name="PathOfBuilding.exe" part="runtime"/>
 	<File platform="win32" sha1="914d42ca1836c5152a5f60aad23020a86bcb46d9" name="lua51.dll" part="runtime"/>
-	<File platform="win32" sha1="0bda66c21bebd7423baa3b4e97a83b461d76bd21" name="SimpleGraphic.dll" part="runtime"/>
+	<File platform="win32" sha1="5c31182e21e00961d948ceffe5a5e98f4620e72e" name="SimpleGraphic.dll" part="runtime"/>
 	<File platform="win32" sha1="887fd08cb3c2989a9d88adc9717d3ec00ab97462" name="libcurl.dll" part="runtime"/>
 	<File platform="win32" sha1="607918daf9cbaecee0090e9cec8d0e221338678e" name="lcurl.dll" part="runtime"/>
 	<File platform="win32" sha1="48a265c54cff51b88468085c52e8f711e0a92035" name="lzip.dll" part="runtime"/>
-	<File sha1="74cc6c47e7cda18211e57b9e062368eab3c26bab" name="DLSG/Fonts/Bitstream Vera Sans Mono.10.tga" part="runtime"/>
-	<File sha1="1977206f0efc5035834ecbf93ca7d046010d8aab" name="DLSG/Fonts/Bitstream Vera Sans Mono.12.tga" part="runtime"/>
-	<File sha1="93a4309dc814914be7d2dee708e3821494f145a2" name="DLSG/Fonts/Bitstream Vera Sans Mono.14.tga" part="runtime"/>
-	<File sha1="274665d752f1637c7e2be215c5ca7ea43df7d5e0" name="DLSG/Fonts/Bitstream Vera Sans Mono.16.tga" part="runtime"/>
-	<File sha1="3cd1d874cf6f75b4fd2d67e3060f9a7dbd89c9d1" name="DLSG/Fonts/Bitstream Vera Sans Mono.18.tga" part="runtime"/>
-	<File sha1="2411cf67aa67efede08830d350b1b08c94d6ea7b" name="DLSG/Fonts/Bitstream Vera Sans Mono.20.tga" part="runtime"/>
-	<File sha1="730fbfe488f47c0da6711f0e20c23e0c005148b0" name="DLSG/Fonts/Bitstream Vera Sans Mono.24.tga" part="runtime"/>
-	<File sha1="b6d5cc14c7336366b2b6036f781ca1c2ae00b638" name="DLSG/Fonts/Bitstream Vera Sans Mono.28.tga" part="runtime"/>
-	<File sha1="8c339846aac3a4c739750efe722816d86c56571a" name="DLSG/Fonts/Bitstream Vera Sans Mono.32.tga" part="runtime"/>
-	<File sha1="3a92b9f013871dc92211c7bba78a1c9669b443d4" name="DLSG/Fonts/Bitstream Vera Sans Mono.tgf" part="runtime"/>
-	<File sha1="88809ae34ea7d14500e1ad9bb17e74f6bd50f72e" name="DLSG/Fonts/Liberation Sans Bold.10.tga" part="runtime"/>
-	<File sha1="a42436255ca10b47934ad428c60d209da2c77f41" name="DLSG/Fonts/Liberation Sans Bold.12.tga" part="runtime"/>
-	<File sha1="d720f0c0c3c6d2bea38d52edb7ba73bff71eb501" name="DLSG/Fonts/Liberation Sans Bold.14.tga" part="runtime"/>
-	<File sha1="68ea1a3846198aae66f63a70abcf9b023b3c469f" name="DLSG/Fonts/Liberation Sans Bold.16.tga" part="runtime"/>
-	<File sha1="d9abed6557034288442ba1f6ee557ab8ac616a85" name="DLSG/Fonts/Liberation Sans Bold.18.tga" part="runtime"/>
-	<File sha1="cd39f6277e61c3e6bae24ffca3db64ade0cdb385" name="DLSG/Fonts/Liberation Sans Bold.20.tga" part="runtime"/>
-	<File sha1="909ed51261062dcc236a5d8f098d0b27defa9c48" name="DLSG/Fonts/Liberation Sans Bold.24.tga" part="runtime"/>
-	<File sha1="9c492dab86435d5afc634485d7ed3a7989cd4c08" name="DLSG/Fonts/Liberation Sans Bold.28.tga" part="runtime"/>
-	<File sha1="e8927530dc94099ce5d5f92568d29b1e3dc1dc7f" name="DLSG/Fonts/Liberation Sans Bold.32.tga" part="runtime"/>
-	<File sha1="704c68c7f87906e7b2159a0f0e0cb7160861178e" name="DLSG/Fonts/Liberation Sans Bold.tgf" part="runtime"/>
-	<File sha1="24b476e990fe5804df7264f225b6db63ad956907" name="DLSG/Fonts/Liberation Sans.10.tga" part="runtime"/>
-	<File sha1="ec96b2a3d13ea40ac5a9cdcb1a1bf9702461a2df" name="DLSG/Fonts/Liberation Sans.12.tga" part="runtime"/>
-	<File sha1="8e698d7b5701d0fff9594394eb789526ba65547e" name="DLSG/Fonts/Liberation Sans.14.tga" part="runtime"/>
-	<File sha1="37e84115416caeb52e6e65b37e0f378bcfe14447" name="DLSG/Fonts/Liberation Sans.16.tga" part="runtime"/>
-	<File sha1="3db0c18bc2333570598381aff2a103fc786d27db" name="DLSG/Fonts/Liberation Sans.18.tga" part="runtime"/>
-	<File sha1="f2f757885b1359164c78b11108a7d2f1beb0a706" name="DLSG/Fonts/Liberation Sans.20.tga" part="runtime"/>
-	<File sha1="6a5e5a131dd6ec31304d3889c1dacb326ccf0a03" name="DLSG/Fonts/Liberation Sans.24.tga" part="runtime"/>
-	<File sha1="3175f25ff2ba00f95f10078bea790ff591943c46" name="DLSG/Fonts/Liberation Sans.28.tga" part="runtime"/>
-	<File sha1="526edb97597a06ed0d9689107a4e130a22faf810" name="DLSG/Fonts/Liberation Sans.32.tga" part="runtime"/>
-	<File sha1="31fdef9c0e2ad46df47123e7d81f5e8d4fe399ed" name="DLSG/Fonts/Liberation Sans.tgf" part="runtime"/>
+	<File sha1="74cc6c47e7cda18211e57b9e062368eab3c26bab" name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.10.tga" part="runtime"/>
+	<File sha1="1977206f0efc5035834ecbf93ca7d046010d8aab" name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.12.tga" part="runtime"/>
+	<File sha1="93a4309dc814914be7d2dee708e3821494f145a2" name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.14.tga" part="runtime"/>
+	<File sha1="274665d752f1637c7e2be215c5ca7ea43df7d5e0" name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.16.tga" part="runtime"/>
+	<File sha1="3cd1d874cf6f75b4fd2d67e3060f9a7dbd89c9d1" name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.18.tga" part="runtime"/>
+	<File sha1="2411cf67aa67efede08830d350b1b08c94d6ea7b" name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.20.tga" part="runtime"/>
+	<File sha1="730fbfe488f47c0da6711f0e20c23e0c005148b0" name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.24.tga" part="runtime"/>
+	<File sha1="b6d5cc14c7336366b2b6036f781ca1c2ae00b638" name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.28.tga" part="runtime"/>
+	<File sha1="8c339846aac3a4c739750efe722816d86c56571a" name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.32.tga" part="runtime"/>
+	<File sha1="3a92b9f013871dc92211c7bba78a1c9669b443d4" name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.tgf" part="runtime"/>
+	<File sha1="88809ae34ea7d14500e1ad9bb17e74f6bd50f72e" name="SimpleGraphic/Fonts/Liberation Sans Bold.10.tga" part="runtime"/>
+	<File sha1="a42436255ca10b47934ad428c60d209da2c77f41" name="SimpleGraphic/Fonts/Liberation Sans Bold.12.tga" part="runtime"/>
+	<File sha1="d720f0c0c3c6d2bea38d52edb7ba73bff71eb501" name="SimpleGraphic/Fonts/Liberation Sans Bold.14.tga" part="runtime"/>
+	<File sha1="68ea1a3846198aae66f63a70abcf9b023b3c469f" name="SimpleGraphic/Fonts/Liberation Sans Bold.16.tga" part="runtime"/>
+	<File sha1="d9abed6557034288442ba1f6ee557ab8ac616a85" name="SimpleGraphic/Fonts/Liberation Sans Bold.18.tga" part="runtime"/>
+	<File sha1="cd39f6277e61c3e6bae24ffca3db64ade0cdb385" name="SimpleGraphic/Fonts/Liberation Sans Bold.20.tga" part="runtime"/>
+	<File sha1="909ed51261062dcc236a5d8f098d0b27defa9c48" name="SimpleGraphic/Fonts/Liberation Sans Bold.24.tga" part="runtime"/>
+	<File sha1="9c492dab86435d5afc634485d7ed3a7989cd4c08" name="SimpleGraphic/Fonts/Liberation Sans Bold.28.tga" part="runtime"/>
+	<File sha1="e8927530dc94099ce5d5f92568d29b1e3dc1dc7f" name="SimpleGraphic/Fonts/Liberation Sans Bold.32.tga" part="runtime"/>
+	<File sha1="704c68c7f87906e7b2159a0f0e0cb7160861178e" name="SimpleGraphic/Fonts/Liberation Sans Bold.tgf" part="runtime"/>
+	<File sha1="24b476e990fe5804df7264f225b6db63ad956907" name="SimpleGraphic/Fonts/Liberation Sans.10.tga" part="runtime"/>
+	<File sha1="ec96b2a3d13ea40ac5a9cdcb1a1bf9702461a2df" name="SimpleGraphic/Fonts/Liberation Sans.12.tga" part="runtime"/>
+	<File sha1="8e698d7b5701d0fff9594394eb789526ba65547e" name="SimpleGraphic/Fonts/Liberation Sans.14.tga" part="runtime"/>
+	<File sha1="37e84115416caeb52e6e65b37e0f378bcfe14447" name="SimpleGraphic/Fonts/Liberation Sans.16.tga" part="runtime"/>
+	<File sha1="3db0c18bc2333570598381aff2a103fc786d27db" name="SimpleGraphic/Fonts/Liberation Sans.18.tga" part="runtime"/>
+	<File sha1="f2f757885b1359164c78b11108a7d2f1beb0a706" name="SimpleGraphic/Fonts/Liberation Sans.20.tga" part="runtime"/>
+	<File sha1="6a5e5a131dd6ec31304d3889c1dacb326ccf0a03" name="SimpleGraphic/Fonts/Liberation Sans.24.tga" part="runtime"/>
+	<File sha1="3175f25ff2ba00f95f10078bea790ff591943c46" name="SimpleGraphic/Fonts/Liberation Sans.28.tga" part="runtime"/>
+	<File sha1="526edb97597a06ed0d9689107a4e130a22faf810" name="SimpleGraphic/Fonts/Liberation Sans.32.tga" part="runtime"/>
+	<File sha1="31fdef9c0e2ad46df47123e7d81f5e8d4fe399ed" name="SimpleGraphic/Fonts/Liberation Sans.tgf" part="runtime"/>
 	<File sha1="18629865eb351e483178b6524fb3935cbc9b8297" name="lua/base64.lua" part="runtime"/>
 	<File sha1="16cbc26080996d9da827df42cb0844a25518eeb3" name="lua/dkjson.lua" part="runtime"/>
 	<File sha1="31e325cd40a9c0234c6265689cf70b97ef676f20" name="lua/sha1.lua" part="runtime"/>

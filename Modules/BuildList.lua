@@ -15,25 +15,25 @@ function listMode:Init(selBuildName)
 	self:SelByFileName(selBuildName and selBuildName..".xml")
 
 	self.controls = { }
-	t_insert(self.controls, common.New("ButtonControl", 4, 4, 60, 20, "Open", function()
+	t_insert(self.controls, common.New("ButtonControl", function() return main.screenW/2 - 30 - 68*2 end, 4, 60, 20, "Open", function()
 		self:LoadSel()
 	end, function()
 		return self.sel ~= nil
 	end))
-	t_insert(self.controls, common.New("ButtonControl", 4 + 68, 4, 60, 20, "New", function()
+	t_insert(self.controls, common.New("ButtonControl", function() return main.screenW/2 - 30 - 68*1 end, 4, 60, 20, "New", function()
 		self:New()
 	end))
-	t_insert(self.controls, common.New("ButtonControl", 4 + 68*2, 4, 60, 20, "Copy", function()
+	t_insert(self.controls, common.New("ButtonControl", function() return main.screenW/2 - 30 end, 4, 60, 20, "Copy", function()
 		self:CopySel()
 	end, function()
 		return self.sel ~= nil
 	end))
-	t_insert(self.controls, common.New("ButtonControl", 4 + 68*3, 4, 60, 20, "Rename", function()
+	t_insert(self.controls, common.New("ButtonControl", function() return main.screenW/2 + 38 end, 4, 60, 20, "Rename", function()
 		self:RenameSel()
 	end, function()
 		return self.sel ~= nil
 	end))
-	t_insert(self.controls, common.New("ButtonControl", 4 + 68*4, 4, 60, 20, "Delete", function()
+	t_insert(self.controls, common.New("ButtonControl", function() return main.screenW/2 + 38 + 68*1 end, 4, 60, 20, "Delete", function()
 		self:DeleteSel()
 	end, function()
 		return self.sel ~= nil
@@ -59,28 +59,27 @@ function listMode:OnFrame(inputEvents)
 	common.controlsDraw(self)
 	for index, build in ipairs(self.list) do
 		local y = 8 + index * 20
+		local x = main.screenW/2 - 250
 		if self.sel == index then
 			SetDrawColor(1, 1, 1)
 		else
 			SetDrawColor(0.5, 0.5, 0.5)
 		end
-		DrawImage(nil, 0, y, main.screenW, 20)
+		DrawImage(nil, x, y, 500, 20)
 		if self.sel == index then
 			SetDrawColor(0.33, 0.33, 0.33)
+		elseif index % 2 == 0 then
+			SetDrawColor(0.05, 0.05, 0.05)
 		else
 			SetDrawColor(0, 0, 0)
 		end
-		DrawImage(nil, 0, y + 1, main.screenW, 18)
+		DrawImage(nil, x + 1, y + 1, 498, 18)
 		if self.edit == index then
-			self.editField:Draw(2, y + 2, 16)
+			self.editField:Draw(x + 2, y + 2, 16)
 		else
-			if self.sel == index then
-				SetDrawColor(1, 1, 1)
-			else
-				SetDrawColor(0.8, 0.8, 0.8)
-			end
-			DrawString(4, y + 2, "LEFT", 16, "VAR", build.fileName:gsub("%.xml$",""))
-			DrawString(304, y + 2, "LEFT", 16, "VAR", string.format("Level %d %s", build.level or 1, (build.ascendClassName ~= "None" and build.ascendClassName) or build.className or "?"))
+			DrawString(x + 4, y + 2, "LEFT", 16, "VAR", "^7"..build.fileName:gsub("%.xml$",""))
+			SetDrawColor(build.className and data.colorCodes[build.className:upper()] or "^7")
+			DrawString(x + 350, y + 2, "LEFT", 16, "VAR", string.format("Level %d %s", build.level or 1, (build.ascendClassName ~= "None" and build.ascendClassName) or build.className or "?"))
 		end
 	end
 end
@@ -105,14 +104,16 @@ function listMode:OnKeyDown(key, doubleClick)
 			end
 		end
 		self.sel = nil
-		for index, fileName in ipairs(self.list) do
-			local y = 8 + index * 20
-			if cy >= y and cy < y + 20 then
-				self.sel = index
-				if doubleClick then
-					self:LoadSel()
+		if cx >= main.screenW/2 - 250 and cx < main.screenW/2 + 250 then
+			for index, fileName in ipairs(self.list) do
+				local y = 8 + index * 20
+				if cy >= y and cy < y + 20 then
+					self.sel = index
+					if doubleClick then
+						self:LoadSel()
+					end
+					return
 				end
-				return
 			end
 		end
 	elseif key == "RETURN" then
