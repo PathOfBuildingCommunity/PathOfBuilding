@@ -149,7 +149,7 @@ function calcs:BuildPower()
 				cache[node.modKey] = calcFunc({node})
 			end
 			local output = cache[node.modKey]
-			local dpsKey = base.mode_average and "total_avg" or "total_dps"
+			local dpsKey = (base.total_dot > 0 and "total_dot") or (base.mode_average and "total_avg") or "total_dps"
 			node.power.dps = (output[dpsKey] - base[dpsKey]) / base[dpsKey]
 			node.power.def = (output.total_life - base.total_life) / m_max(2000, base.total_life) * 0.5 + 
 							 (output.total_armour - base.total_armour) / m_max(10000, base.total_armour) + 

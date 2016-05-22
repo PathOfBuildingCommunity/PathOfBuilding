@@ -169,7 +169,7 @@ function items:UpdateJewels()
 	end
 end
 
-function items:GetSocketJewel(nodeId)
+function items:GetSocketAndJewel(nodeId)
 	return self.sockets[nodeId], self.list[self.sockets[nodeId].selItem]
 end
 

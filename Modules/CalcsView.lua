@@ -202,6 +202,7 @@ columns[3] = {
 		{ "output", "Total:", "total_energyShield", formatRound },
 		{ "output", "Recharge rate:", "total_energyShieldRecharge", getFormatRound(1) },
 		{ "output", "Recharge delay:", "total_energyShieldRechargeDelay", formatSec },
+		{ "output", "Regen:", "total_energyShieldRegen", getFormatRound(1) },
 		{ },
 		{ "Evasion:" },
 		{ "output", "Spec +:", "spec_evasionBase" },
@@ -209,6 +210,8 @@ columns[3] = {
 		{ "output", "Gear +:", "total_gear_evasionBase" },
 		{ "output", "Gear %:", "gear_evasionInc" },
 		{ "output", "Total:", "total_evasion", formatRound },
+		{ "input", "Use Monster Level?", "misc_evadeMonsterLevel", "check" },
+		{ "output", "Evade Chance:", "total_evadeChance", formatPercent },
 		{ },
 		{ "Armour:" },
 		{ "output", "Spec +:", "spec_armourBase" },
@@ -245,6 +248,7 @@ columns[5] = {
 		{ "output", "Max Endurance:", "enduranceMax" },
 	}, {
 		{ "input", "Onslaught?", "condBuff_Onslaught", "check" },
+		{ "input", "Phasing?", "condBuff_Phasing", "check" },
 		{ "input", "Fortify?", "condBuff_Fortify", "check" },
 		{ "input", "Using a Flask?", "condBuff_UsingFlask", "check" },
 	}, {
@@ -426,6 +430,10 @@ columns[7] = {
 		{ "output", "Spec Pierce Chance %:", "spec_pierceChance" },
 		{ "output", "Gear Pierce Chance %:", "gear_pierceChance" },
 		{ "output", "Pierce Chance:", "total_pierce", formatPercent },
+		{ "output", "Projectile Speed Mod:", "total_projectileSpeedMod", formatPercent },
+	}, {
+		flag = "aoe",
+		{ "output", "AoE Radius Mod:", "total_aoeRadiusMod", formatPercent },
 	}, {
 		flag = "duration",
 		{ "output", "Spec Duration %:", "spec_durationInc" },

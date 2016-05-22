@@ -82,7 +82,7 @@ local function parseGemSpec(spec, out)
 end
 
 -- Combine specified modifiers from all current namespaces
-function sumMods(modDB, mult, ...)
+local function sumMods(modDB, mult, ...)
 	local activeWatchers = modDB._activeWatchers
 	local val = mult and 1 or 0
 	for i = 1, select('#', ...) do
@@ -106,7 +106,7 @@ function sumMods(modDB, mult, ...)
 end
 
 -- Get value of misc modifier
-function getMiscVal(modDB, spaceName, modName, default)
+local function getMiscVal(modDB, spaceName, modName, default)
 	local space = modDB[spaceName or "global"]
 	local val = default
 	if space and space[modName] ~= nil then
@@ -125,9 +125,15 @@ function getMiscVal(modDB, spaceName, modName, default)
 end
 
 -- Calculate value, optionally adding additional base or increased
-function calcVal(modDB, name, base, inc)
+local function calcVal(modDB, name, base, inc)
 	local baseVal = sumMods(modDB, false, name.."Base") + (base or 0)
 	return baseVal * (1 + (sumMods(modDB, false, name.."Inc") + (inc or 0)) / 100) * sumMods(modDB, true, name.."More")
+end
+
+-- Calculate hit chance
+local function calcHitChance(evasion, accuracy)
+	local rawChance = accuracy / (accuracy + (evasion / 4) ^ 0.8) * 100
+	return m_max(m_min(m_floor(rawChance + 0.5) / 100, 0.95), 0.05)	
 end
 
 -- Merge gem modifiers
@@ -175,7 +181,7 @@ local function mergeItemMods(env, build, repSlot, repItem)
 	env.radList = wipeTable(env.radList)
 	for nodeId, node in pairs(build.spec.allocNodes) do
 		if node.type == "socket" then
-			local socket, jewel = build.items:GetSocketJewel(nodeId)
+			local socket, jewel = build.items:GetSocketAndJewel(nodeId)
 			if socket.slotName == repSlot then
 				jewel = repItem
 			end
@@ -247,7 +253,7 @@ local function buildSpaceTable(modDB, spaceFlags)
 		for spaceName, val in pairs(spaceFlags) do
 			if val then
 				modDB[spaceName] = modDB[spaceName] or { }
-				if next(modDB[spaceName]) then
+				if modDB._activeWatchers or next(modDB[spaceName]) then
 					modDB._spaces[modDB[spaceName]] = spaceName
 				end
 			end
@@ -562,6 +568,10 @@ local function initEnv(input, build)
 		-- Merge active skill part mods
 		mod_dbMergeList(modDB, modDB["part"..input.skill_part])
 	end
+	if modDB.buff then
+		-- Merge buff modifers for this skill
+		mod_dbMergeList(modDB, modDB.buff)
+	end
 
 	-- Merge buff skill modifiers (auras are added later)
 	for k, v in pairs(buffSkillModList) do
@@ -871,21 +881,12 @@ local function calcPrimary(env, output)
 	local modDB = env.modDB
 
 	-- Calculate defences
-	if startWatch(env, "life") then
+	if startWatch(env, "lifeES") then
 		if getMiscVal(modDB, nil, "chaosInoculation", false) then
 			output.total_life = 1
 		else
 			output.total_life = calcVal(modDB, "life")
 		end
-		output.total_lifeRegen = sumMods(modDB, false, "lifeRegenBase") + sumMods(modDB, false, "lifeRegenPercent") / 100 * output.total_life
-		endWatch(env, "life")
-	end
-	if startWatch(env, "mana") then
-		output.total_mana = calcVal(modDB, "mana")
-		output.total_manaRegen = calcVal(modDB, "manaRegen", output.total_mana * 0.0175)
-		endWatch(env, "mana")
-	end
-	if startWatch(env, "energyShield") then
 		output.total_energyShield = sumMods(modDB, false, "manaBase") * (1 + sumMods(modDB, false, "energyShieldInc", "defencesInc", "manaInc") / 100) * sumMods(modDB, true, "energyShieldMore", "defencesMore", "manaMore") * getMiscVal(modDB, nil, "manaGainAsES", 0) / 100
 		output.total_gear_energyShieldBase = env.itemModList.energyShieldBase or 0
 		for _, slot in pairs({"global","Helmet","Body Armour","Gloves","Boots","Shield"}) do
@@ -899,7 +900,24 @@ local function calcPrimary(env, output)
 			end
 		end
 		buildSpaceTable(modDB)
-		endWatch(env, "energyShield")
+		output.total_energyShieldRecharge = calcVal(modDB, "energyShieldRecharge", output.total_energyShield * 0.2)
+		output.total_energyShieldRechargeDelay = 2 / (1 + getMiscVal(modDB, nil, "energyShieldRechargeFaster", 0) / 100)
+		if getMiscVal(modDB, nil, "vaalPact", false) then
+			output.total_lifeRegen = 0
+		elseif getMiscVal(modDB, nil, "zealotsOath", false) then
+			output.total_lifeRegen = 0
+			mod_dbMerge(modDB, "", "energyShieldRegenBase", sumMods(modDB, false, "lifeRegenBase"))
+			mod_dbMerge(modDB, "", "energyShieldRegenPercent", sumMods(modDB, false, "lifeRegenPercent"))
+		else
+			output.total_lifeRegen = sumMods(modDB, false, "lifeRegenBase") + sumMods(modDB, false, "lifeRegenPercent") / 100 * output.total_life
+		end
+		output.total_energyShieldRegen = sumMods(modDB, false, "energyShieldRegenBase") + sumMods(modDB, false, "energyShieldRegenPercent") / 100 * output.total_energyShield
+		endWatch(env, "lifeES")
+	end
+	if startWatch(env, "mana") then
+		output.total_mana = calcVal(modDB, "mana")
+		output.total_manaRegen = calcVal(modDB, "manaRegen", output.total_mana * 0.0175)
+		endWatch(env, "mana")
 	end
 	if startWatch(env, "otherDef") then
 		output.total_evasion = 0
@@ -928,6 +946,12 @@ local function calcPrimary(env, output)
 				output.total_gear_armourBase = output.total_gear_armourBase + armourBase
 			end
 		end
+		if getMiscVal(modDB, nil, "cannotEvade", false) then
+			output.total_evadeChance = 0
+		else
+			local attackerLevel = getMiscVal(modDB, "misc", "evadeMonsterLevel", false) and m_min(getMiscVal(modDB, "monster", "level", 1), #data.enemyAccuracyTable) or m_min(getMiscVal(modDB, "player", "level", 1), 80)
+			output.total_evadeChance = 1 - calcHitChance(output.total_evasion, data.enemyAccuracyTable[attackerLevel])
+		end
 		output.total_blockChance = sumMods(modDB, false, "blockChance")
 		output.total_dodgeAttacks = sumMods(modDB, false, "dodgeAttacks")
 		output.total_dodgeSpells = sumMods(modDB, false, "dodgeSpells")
@@ -949,13 +973,16 @@ local function calcPrimary(env, output)
 	-- Enable skill namespaces
 	buildSpaceTable(modDB, env.skillSpaceFlags)
 
-	-- Calculate pierce chance
-	if startWatch(env, "pierce") then
-		output.total_pierce = m_min(100, sumMods(modDB, false, "pierceChance")) / 100
-		endWatch(env, "pierce")
-	end
-	if getMiscVal(modDB, nil, "drillneck", false) then
-		mod_dbMerge(modDB, "projectile", "damageInc", output.total_pierce * 100)
+	-- Calculate projectile stats
+	if env.skillFlags.projectile then
+		if startWatch(env, "pierce") then
+			output.total_pierce = m_min(100, sumMods(modDB, false, "pierceChance")) / 100
+			endWatch(env, "pierce")
+		end
+		if getMiscVal(modDB, nil, "drillneck", false) then
+			mod_dbMerge(modDB, "projectile", "damageInc", output.total_pierce * 100)
+		end
+		output.total_projectileSpeedMod = (1 + sumMods(modDB, false, "projectileSpeedInc") / 100) * sumMods(modDB, true, "projectileSpeedMore")
 	end
 
 	-- Run skill setup function
@@ -986,8 +1013,8 @@ local function calcPrimary(env, output)
 	output.total_combMin = combMin
 	output.total_combMax = combMax
 
+	-- Calculate crit chance, crit multiplier, and their combined effect
 	if startWatch(env, "dps_crit") then
-		-- Calculate crit chance, crit multiplier, and their combined effect
 		if getMiscVal(modDB, nil, "noCrit", false) then
 			output.total_critChance = 0
 			output.total_critMultiplier = 0
@@ -1010,8 +1037,8 @@ local function calcPrimary(env, output)
 		endWatch(env, "dps_crit")
 	end
 
+	-- Calculate skill speed
 	if startWatch(env, "dps_speed") then
-		-- Calculate skill speed
 		if isAttack then
 			local baseSpeed
 			local attackTime = getMiscVal(modDB, "skill", "attackTime", 0)
@@ -1030,15 +1057,14 @@ local function calcPrimary(env, output)
 		endWatch(env, "dps_speed")
 	end
 
+	-- Calculate hit chance
 	if startWatch(env, "dps_hitChance") then
-		-- Calculate hit chance
-		if not isAttack or getMiscVal(modDB, "skill", "noEvade", false) or getMiscVal(modDB, nil, "noEvade", false) or getMiscVal(modDB, "weapon1", "noEvade", false) then
+		if not isAttack or getMiscVal(modDB, "skill", "cannotBeEvaded", false) or getMiscVal(modDB, nil, "cannotBeEvaded", false) or getMiscVal(modDB, "weapon1", "cannotBeEvaded", false) then
 			output.total_hitChance = 1
 		else
 			output.total_accuracy = calcVal(modDB, "accuracy")
-			local targetLevel = getMiscVal(modDB, "misc", "hitMonsterLevel", false) and m_min(getMiscVal(modDB, "monster", "level", 1), #data.evasionTable) or m_min(getMiscVal(modDB, "player", "level", 1), 79)
-			local rawChance = output.total_accuracy / (output.total_accuracy + (data.evasionTable[targetLevel] / 4) ^ 0.8) * 100
-			output.total_hitChance = m_max(m_min(m_floor(rawChance + 0.5) / 100, 0.95), 0.05)
+			local targetLevel = getMiscVal(modDB, "misc", "hitMonsterLevel", false) and m_min(getMiscVal(modDB, "monster", "level", 1), #data.enemyEvasionTable) or m_min(getMiscVal(modDB, "player", "level", 1), 79)
+			output.total_hitChance = calcHitChance(data.enemyEvasionTable[targetLevel], output.total_accuracy)
 		end
 		endWatch(env, "dps_hitChance")
 	end
@@ -1050,6 +1076,11 @@ local function calcPrimary(env, output)
 	-- Calculate mana cost (may be slightly off due to rounding differences)
 	output.total_manaCost = m_max(0, getMiscVal(modDB, "skill", "manaCostBase", 0) * (1 + sumMods(modDB, false, "manaCostInc") / 100) * sumMods(modDB, true, "manaCostMore") - sumMods(modDB, false, "manaCostBase"))
 
+	-- Calculate AoE stats
+	if env.skillFlags.aoe then
+		output.total_aoeRadiusMod = (1 + sumMods(modDB, false, "aoeRadiusInc") / 100) * sumMods(modDB, true, "aoeRadiusMore")
+	end
+
 	-- Calculate skill duration
 	if startWatch(env, "duration") then
 		local durationBase = getMiscVal(modDB, "skill", "durationBase", 0)
@@ -1060,6 +1091,7 @@ local function calcPrimary(env, output)
 		endWatch(env, "duration")
 	end
 
+	-- Calculate trap stats
 	if env.skillFlags.trap then
 		output.total_trapCooldown = 3 / (1 + getMiscVal(modDB, nil, "trapCooldownRecoveryInc", 0) / 100)
 	end
@@ -1084,22 +1116,27 @@ local function calcPrimary(env, output)
 	end
 
 	-- Calculate skill DOT components
+	output.total_dot = 0
 	for _, damageType in pairs(dmgTypeList) do
-		local baseVal = getMiscVal(modDB, "skill", damageType.."DotBase", 0)
-		if baseVal > 0 then
-			env.skillFlags.dot = true
-			buildSpaceTable(modDB, {
-				dot = not getMiscVal(modDB, "skill", "dotIsDegen", false),
-				degen = true,
-				spell = getMiscVal(modDB, "skill", "dotIsSpell", false),
-				projectile = env.skillSpaceFlags.projectile,
-				aoe = env.skillSpaceFlags.aoe,
-				totem = env.skillSpaceFlags.totem,
-				trap = env.skillSpaceFlags.trap,
-				mine = env.skillSpaceFlags.mine,
-			})
-			output["total_"..damageType.."Dot"] = baseVal * (1 + sumMods(modDB, false, "damageInc", damageType.."Inc", isElemental[damageType] and "elemInc" or nil) / 100) * sumMods(modDB, true, "damageMore", damageType.."More", isElemental[damageType] and "elemMore" or nil)
+		if startWatch(env, damageType.."Dot") then
+			local baseVal = getMiscVal(modDB, "skill", damageType.."DotBase", 0)
+			if baseVal > 0 then
+				env.skillFlags.dot = true
+				buildSpaceTable(modDB, {
+					dot = not getMiscVal(modDB, "skill", "dotIsDegen", false),
+					degen = true,
+					spell = getMiscVal(modDB, "skill", "dotIsSpell", false),
+					projectile = env.skillSpaceFlags.projectile,
+					aoe = env.skillSpaceFlags.aoe,
+					totem = env.skillSpaceFlags.totem,
+					trap = env.skillSpaceFlags.trap,
+					mine = env.skillSpaceFlags.mine,
+				})
+				output["total_"..damageType.."Dot"] = baseVal * (1 + sumMods(modDB, false, "damageInc", damageType.."Inc", isElemental[damageType] and "elemInc" or nil) / 100) * sumMods(modDB, true, "damageMore", damageType.."More", isElemental[damageType] and "elemMore" or nil)
+			end
+			endWatch(env, damageType.."Dot")
 		end
+		output.total_dot = output.total_dot + (output["total_"..damageType.."Dot"] or 0)
 	end
 
 	-- Calculate bleeding chance and damage

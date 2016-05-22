@@ -171,34 +171,36 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 				local vX = curTreeX - node.x
 				local vY = curTreeY - node.y
 				if vX * vX + vY * vY <= node.rsq then
-					if self.traceMode then
-						if not node.path then
-							break
-						elseif not self.tracePath[1] then
-							for _, pathNode in ipairs(node.path) do
-								t_insert(self.tracePath, 1, pathNode)
-							end
-						else
-							local lastPathNode = self.tracePath[#self.tracePath]
-							if node ~= lastPathNode then
-								if isValueInArray(self.tracePath, node) then
-									break
-								end
-								if not isValueInArray(node.linked, lastPathNode) then
-									break
-								end
-								t_insert(self.tracePath, node)
-							end
-						end
-					end
 					hoverNode = node
 					break
 				end
 			end
 		end
 	end
+
 	local hoverPath, hoverDep
 	if self.traceMode then
+		if hoverNode then
+			if not hoverNode.path then
+				-- Don't highlight the node if it can't be pathed to
+				hoverNode = nil
+			elseif not self.tracePath[1] then
+				-- Initialise the trace path using this node's path
+				for _, pathNode in ipairs(hoverNode.path) do
+					t_insert(self.tracePath, 1, pathNode)
+				end
+			else
+				local lastPathNode = self.tracePath[#self.tracePath]
+				if hoverNode ~= lastPathNode then
+					-- If node is not in the trace path, but is directly linked to the last node in the path, then add it
+					if not isValueInArray(hoverNode, self.tracePath) and isValueInArray(hoverNode.linked, lastPathNode) then
+						t_insert(self.tracePath, hoverNode)	
+					else
+						hoverNode = nil
+					end
+				end
+			end
+		end
 		hoverPath = { }
 		for _, pathNode in pairs(self.tracePath) do
 			hoverPath[pathNode] = true
@@ -401,7 +403,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 				DrawImage(self.ring, scrX - size, scrY - size, size * 2, size * 2)
 			end
 		elseif node.alloc then
-			local socket, jewel = build.items:GetSocketJewel(nodeId)
+			local socket, jewel = build.items:GetSocketAndJewel(nodeId)
 			if jewel and jewel.radius then
 				local scrX, scrY = treeToScreen(node.x, node.y)
 				local radData = data.jewelRadius[jewel.radius]
@@ -452,7 +454,7 @@ end
 function TreeViewClass:AddNodeTooltip(node, build)
 	-- Special case for sockets
 	if node.type == "socket" and node.alloc then
-		local socket, jewel = build.items:GetSocketJewel(node.id)
+		local socket, jewel = build.items:GetSocketAndJewel(node.id)
 		if jewel then
 			build.items:AddItemTooltip(jewel, build)
 		else

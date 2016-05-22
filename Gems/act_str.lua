@@ -585,7 +585,52 @@ gems["Leap Slam"] = {
 	}
 }
 gems["Molten Shell"] = {
-	unsupported = true,
+	spell = true,
+	aoe = true,
+	duration = true,
+	fire = true,
+	showAverage = true,
+	base = {
+		skill_castTime = 0.5,
+		skill_damageEff = 2,
+		skill_critChanceBase = 5,
+		skill_durationBase = 10,
+	},
+	quality = {
+		igniteChance = 1,
+	},
+	levels = {
+		[1] = { skill_manaCostBase = 8, skill_fireMin = 14, skill_fireMax = 20, buff_armourBase = 17, },
+		[2] = { skill_manaCostBase = 9, skill_fireMin = 17, skill_fireMax = 26, buff_armourBase = 20, },
+		[3] = { skill_manaCostBase = 9, skill_fireMin = 24, skill_fireMax = 35, buff_armourBase = 26, },
+		[4] = { skill_manaCostBase = 10, skill_fireMin = 32, skill_fireMax = 47, buff_armourBase = 33, },
+		[5] = { skill_manaCostBase = 11, skill_fireMin = 45, skill_fireMax = 68, buff_armourBase = 44, },
+		[6] = { skill_manaCostBase = 12, skill_fireMin = 64, skill_fireMax = 96, buff_armourBase = 58, },
+		[7] = { skill_manaCostBase = 13, skill_fireMin = 88, skill_fireMax = 132, buff_armourBase = 75, },
+		[8] = { skill_manaCostBase = 14, skill_fireMin = 120, skill_fireMax = 180, buff_armourBase = 97, },
+		[9] = { skill_manaCostBase = 16, skill_fireMin = 161, skill_fireMax = 241, buff_armourBase = 123, },
+		[10] = { skill_manaCostBase = 17, skill_fireMin = 214, skill_fireMax = 321, buff_armourBase = 156, },
+		[11] = { skill_manaCostBase = 19, skill_fireMin = 283, skill_fireMax = 425, buff_armourBase = 196, },
+		[12] = { skill_manaCostBase = 20, skill_fireMin = 372, skill_fireMax = 558, buff_armourBase = 245, },
+		[13] = { skill_manaCostBase = 22, skill_fireMin = 486, skill_fireMax = 729, buff_armourBase = 304, },
+		[14] = { skill_manaCostBase = 23, skill_fireMin = 631, skill_fireMax = 947, buff_armourBase = 376, },
+		[15] = { skill_manaCostBase = 25, skill_fireMin = 766, skill_fireMax = 1149, buff_armourBase = 440, },
+		[16] = { skill_manaCostBase = 25, skill_fireMin = 928, skill_fireMax = 1392, buff_armourBase = 515, },
+		[17] = { skill_manaCostBase = 26, skill_fireMin = 1122, skill_fireMax = 1683, buff_armourBase = 600, },
+		[18] = { skill_manaCostBase = 27, skill_fireMin = 1354, skill_fireMax = 2031, buff_armourBase = 698, },
+		[19] = { skill_manaCostBase = 27, skill_fireMin = 1631, skill_fireMax = 2447, buff_armourBase = 812, },
+		[20] = { skill_manaCostBase = 28, skill_fireMin = 1962, skill_fireMax = 2943, buff_armourBase = 943, },
+		[21] = { skill_manaCostBase = 29, skill_fireMin = 2217, skill_fireMax = 3326, buff_armourBase = 1040, },
+		[22] = { skill_manaCostBase = 29, skill_fireMin = 2504, skill_fireMax = 3756, buff_armourBase = 1148, },
+		[23] = { skill_manaCostBase = 29, skill_fireMin = 2827, skill_fireMax = 4240, buff_armourBase = 1265, },
+		[24] = { skill_manaCostBase = 30, skill_fireMin = 3189, skill_fireMax = 4784, buff_armourBase = 1394, },
+		[25] = { skill_manaCostBase = 30, skill_fireMin = 3596, skill_fireMax = 5394, buff_armourBase = 1536, },
+		[26] = { skill_manaCostBase = 31, skill_fireMin = 4053, skill_fireMax = 6080, buff_armourBase = 1691, },
+		[27] = { skill_manaCostBase = 31, skill_fireMin = 4566, skill_fireMax = 6849, buff_armourBase = 1861, },
+		[28] = { skill_manaCostBase = 31, skill_fireMin = 5141, skill_fireMax = 7712, buff_armourBase = 2047, },
+		[29] = { skill_manaCostBase = 32, skill_fireMin = 5787, skill_fireMax = 8680, buff_armourBase = 2251, },
+		[30] = { skill_manaCostBase = 32, skill_fireMin = 6510, skill_fireMax = 9766, buff_armourBase = 2474, },
+	}
 }
 gems["Molten Strike"] = {
 	attack = true,
@@ -1092,7 +1137,7 @@ gems["Vigilant Strike"] = {
 	melee = true,
 	base = {
 		skill_manaCostBase = 6,
-		skill_noEvade = true,
+		skill_cannotBeEvaded = true,
 		cond_Fortify = true,
 	},
 	quality = {
