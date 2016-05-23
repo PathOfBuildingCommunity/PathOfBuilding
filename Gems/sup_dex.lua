@@ -1134,7 +1134,7 @@ gems["Void Manipulation"] = {
 	chaos = true,
 	base = {
 		manaCostMore = 1.2,
-		elemInc = -25,
+		elementalInc = -25,
 	},
 	quality = {
 		chaosInc = 0.5,

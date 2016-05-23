@@ -62,7 +62,7 @@ end
 function calcs:Save(xml)
 	self.modFlag = false
 	for k, v in pairs(self.input) do
-		local child = {elem = "Input", attrib = {name = k}}
+		local child = { elem = "Input", attrib = {name = k} }
 		if type(v) == "number" then
 			child.attrib.number = tostring(v)
 		elseif type(v) == "boolean" then

@@ -250,11 +250,11 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 				self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
 				SetDrawColor(1, 1, 1)
 			end
-		elseif group.oo["3"] then
+		elseif group.oo[3] then
 			self:DrawAsset(tree.assets.PSGroupBackground3, scrX, scrY, scale, true)
-		elseif group.oo["2"] then
+		elseif group.oo[2] then
 			self:DrawAsset(tree.assets.PSGroupBackground2, scrX, scrY, scale)
-		elseif group.oo["1"] then
+		elseif group.oo[1] then
 			self:DrawAsset(tree.assets.PSGroupBackground1, scrX, scrY, scale)
 		end
 	end

@@ -16,13 +16,17 @@ local m_tan = math.tan
 local m_sqrt = math.sqrt
 local t_insert = table.insert
 
+local function jsonToLua(json)
+	return "return "..json:gsub("%[","{"):gsub("%]","}"):gsub('"(%d[%d%.]*)":','[%1]='):gsub('"([^"]+)":','["%1"]='):gsub("\\/","/")
+end
+
 local TreeClass = common.NewClass("PassiveTree", function(self)
 	MakeDir("TreeData")
 
 	ConPrintf("Loading JSON...")
 	local treeText, classText
-	local treeFile = io.open("TreeData/tree.json", "r")
-	local classFile = io.open("TreeData/classes.json", "r")
+	local treeFile = io.open("TreeData/tree.lua", "r")
+	local classFile = io.open("TreeData/classes.lua", "r")
 	if treeFile and classFile then
 		treeText = treeFile:read("*a")
 		treeFile:close()
@@ -44,22 +48,21 @@ local TreeClass = common.NewClass("PassiveTree", function(self)
 		end)
 		easy:perform()
 		easy:close()
-		treeText = page:match("var passiveSkillTreeData = (%b{})")
-		treeFile = io.open("TreeData/tree.json", "w")
+		treeText = jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
+		treeFile = io.open("TreeData/tree.lua", "w")
 		treeFile:write(treeText)
 		treeFile:close()
-		classText = page:match("ascClasses: (%b{})")
-		classFile = io.open("TreeData/classes.json", "w")
+		classText = jsonToLua(page:match("ascClasses: (%b{})"))
+		classFile = io.open("TreeData/classes.lua", "w")
 		classFile:write(classText)
 		classFile:close()
 	end
-	for k, v in pairs(common.json.decode(treeText)) do
+	for k, v in pairs(assert(loadstring(treeText))()) do
 		self[k] = v
 	end
-	self.classes = { }
-	for id, data in pairs(common.json.decode(classText)) do
-		self.classes[tonumber(id)] = data
-		data.classes["0"] = { name = "None" }
+	self.classes = assert(loadstring(classText))()
+	for classId, class in pairs(self.classes) do
+		class.classes[0] = { name = "None" }
 	end
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
@@ -141,7 +144,7 @@ local TreeClass = common.NewClass("PassiveTree", function(self)
 	local nodeMap = { }
 	local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6, m_pi / 20 }
 	local orbitDist = { [0] = 0, 82, 162, 335, 493 }
-	for _, node in ipairs(self.nodes) do
+	for _, node in pairs(self.nodes) do
 		nodeMap[node.id] = node
 		if node.spc[1] then
 			node.type = "class"
@@ -162,7 +165,7 @@ local TreeClass = common.NewClass("PassiveTree", function(self)
 		node.overlay = nodeOverlay[node.type]
 		node.linkedId = { }
 
-		local group = self.groups[tostring(node.g)]
+		local group = self.groups[node.g]
 		group.ascendancyName = node.ascendancyName
 		if node.isAscendancyStart then
 			group.isAscendancyStart = true
@@ -229,7 +232,7 @@ local TreeClass = common.NewClass("PassiveTree", function(self)
 		for ascendClassId, ascendClass in pairs(class.classes) do
 			self.ascendNameMap[ascendClass.name] = {
 				classId = classId,
-				ascendClassId = tonumber(ascendClassId)
+				ascendClassId = ascendClassId
 			}
 		end
 	end

@@ -286,26 +286,30 @@ local function endWatch(env, key)
 	end
 end
 
--- Calculate damage for the given damage type at the given limit ('Min'/'Max')
-local function calcDamage(env, output, damageType, limit, ...)
+-- Calculate min/max damage of a hit for the given damage type
+local function calcHitDamage(env, output, damageType, ...)
 	local modDB = env.modDB
 	local isAttack = (env.mode == "ATTACK")
 
-	local damageTypeLimit = damageType..limit
+	local damageTypeMin = damageType.."Min"
+	local damageTypeMax = damageType.."Max"
 
-	-- Calculate base value
-	local baseVal
+	-- Calculate base values
+	local baseMin, baseMax
 	if isAttack then
-		baseVal = getMiscVal(modDB, "weapon1", damageTypeLimit, 0) + sumMods(modDB, false, damageTypeLimit)	
+		baseMin = getMiscVal(modDB, "weapon1", damageTypeMin, 0) + sumMods(modDB, false, damageTypeMin)	
+		baseMax = getMiscVal(modDB, "weapon1", damageTypeMax, 0) + sumMods(modDB, false, damageTypeMax)	
 	else
-		baseVal = getMiscVal(modDB, "skill", damageTypeLimit, 0) + sumMods(modDB, false, damageTypeLimit) * getMiscVal(modDB, "skill", "damageEff", 1)
+		local damageEffectiveness = getMiscVal(modDB, "skill", "damageEffectiveness", 1)
+		baseMin = getMiscVal(modDB, "skill", damageTypeMin, 0) + sumMods(modDB, false, damageTypeMin) * damageEffectiveness
+		baseMax = getMiscVal(modDB, "skill", damageTypeMax, 0) + sumMods(modDB, false, damageTypeMax) * damageEffectiveness
 	end
 
 	-- Build lists of applicable modifier names
 	local addElemental = isElemental[damageType]
 	local inc = { damageType.."Inc", "damageInc" }
 	local more = { damageType.."More", "damageMore" }
-	local damageTypeStr = "total_"..damageTypeLimit
+	local damageTypeStr = "total_"..damageType
 	for i = 1, select('#', ...) do
 		local dstElem = select(i, ...)
 		damageTypeStr = damageTypeStr..dstElem
@@ -316,8 +320,8 @@ local function calcDamage(env, output, damageType, limit, ...)
 	end
 	if addElemental then
 		-- Damage is elemental or is being converted to elemental damage, add global elemental modifiers
-		t_insert(inc, "elemInc")
-		t_insert(more, "elemMore")
+		t_insert(inc, "elementalInc")
+		t_insert(more, "elementalMore")
 	end
 
 	-- Combine modifiers
@@ -331,22 +335,24 @@ local function calcDamage(env, output, damageType, limit, ...)
 		output[damageTypeStrMore] = sumMods(modDB, true, unpack(more))
 		endWatch(env, damageTypeStrMore)
 	end
+	local modMult = (1 + output[damageTypeStrInc] / 100) * output[damageTypeStrMore]
 
-	-- Apply modifiers
-	local val = baseVal * (1 + output[damageTypeStrInc] / 100) * output[damageTypeStrMore]
-
-	-- Apply conversions
+	-- Calculate conversions
 	if startWatch(env, damageTypeStr.."Conv") then
-		local add = 0
+		local addMin, addMax = 0, 0
 		local mult = 1
 		for _, otherType in pairs(dmgTypeList) do
 			if otherType ~= damageType then
-				-- Damage added or converted from the other damage type
-				local gain = sumMods(modDB, false, otherType.."GainAs"..damageType, otherType.."ConvertTo"..damageType) / 100
-				if gain > 0 then
-					add = add + calcDamage(env, output, otherType, limit, damageType, ...) * gain
+				if damageType ~= "physical" then
+					-- Damage added or converted from the other damage type
+					local gain = sumMods(modDB, false, otherType.."GainAs"..damageType, otherType.."ConvertTo"..damageType) / 100
+					if gain > 0 then
+						local min, max = calcHitDamage(env, output, otherType, damageType, ...)
+						addMin = addMin + min * gain
+						addMax = addMax + max * gain
+					end
 				end
-				if not (...) then
+				if damageType ~= "chaos" and not (...) then
 					-- Some of this damage type is being converted to the other type
 					-- Not applied to damage being calculated for conversion
 					local convTo = sumMods(modDB, false, damageType.."ConvertTo"..otherType) / 100
@@ -356,7 +362,8 @@ local function calcDamage(env, output, damageType, limit, ...)
 				end
 			end
 		end
-		output[damageTypeStr.."ConvAdd"] = add
+		output[damageTypeStr.."ConvAddMin"] = addMin
+		output[damageTypeStr.."ConvAddMax"] = addMax
 		output[damageTypeStr.."ConvMult"] = mult
 		endWatch(env, damageTypeStr.."Conv")
 	end
@@ -364,14 +371,16 @@ local function calcDamage(env, output, damageType, limit, ...)
 	-- Apply resistances
 	if not (...) and startWatch(env, damageTypeStr.."Resist") then
 		if addElemental and env.mode_effective then
-			output[damageTypeStr.."EffMult"] = 1 - m_min(getMiscVal(modDB, "effective", "elemResist", 0), 75) / 100 + sumMods(modDB, false, damageType.."Pen", "elemPen") / 100
+			output[damageTypeStr.."EffMult"] = 1 - m_min(getMiscVal(modDB, "effective", "elementalResist", 0), 75) / 100 + sumMods(modDB, false, damageType.."Pen", "elementalPen") / 100
 		else
 			output[damageTypeStr.."EffMult"] = 1
 		end
 		endWatch(env, damageTypeStr.."Resist")
 	end
 	
-	return (val + output[damageTypeStr.."ConvAdd"]) * output[damageTypeStr.."ConvMult"] * ((...) and 1 or sumMods(modDB, true, damageType.."FinalMore") * output[damageTypeStr.."EffMult"])
+	local finalMult = (...) and 1 or (output[damageTypeStr.."ConvMult"] * sumMods(modDB, true, damageType.."FinalMore") * output[damageTypeStr.."EffMult"])
+	return  (baseMin * modMult + output[damageTypeStr.."ConvAddMin"]) * finalMult,
+			(baseMax * modMult + output[damageTypeStr.."ConvAddMax"]) * finalMult
 end
 
 -- Initialise environment with skill, input and spec data
@@ -512,7 +521,7 @@ local function initEnv(input, build)
 	local modDB = { }
 	env.modDB = modDB
 	env.classId = build.spec.curClassId
-	local classStats = build.tree.characterData[tostring(env.classId)]
+	local classStats = build.tree.characterData[env.classId]
 	for _, stat in pairs({"str","dex","int"}) do
 		mod_dbMerge(modDB, "", stat.."Base", classStats["base_"..stat])
 	end
@@ -521,6 +530,10 @@ local function initEnv(input, build)
 	mod_dbMerge(modDB, "", "manaBase", 34 + level * 6)
 	mod_dbMerge(modDB, "", "evasionBase", 53 + level * 3)
 	mod_dbMerge(modDB, "", "accuracyBase", (level - 1) * 2) 
+	mod_dbMerge(modDB, "", "fireResistMax", 75)
+	mod_dbMerge(modDB, "", "coldResistMax", 75)
+	mod_dbMerge(modDB, "", "lightningResistMax", 75)
+	mod_dbMerge(modDB, "", "chaosResistMax", 75)
 	mod_dbMerge(modDB, "", "blockChanceMax", 75)
 	mod_dbMerge(modDB, "", "powerMax", 3)
 	mod_dbMerge(modDB, "power", "critChanceInc", 50)
@@ -959,13 +972,16 @@ local function calcPrimary(env, output)
 		endWatch(env, "otherDef")
 	end
 	if startWatch(env, "resist") then
-		output.total_fireResist = sumMods(modDB, false, "fireResist", "elemResist") - 60
-		output.total_coldResist = sumMods(modDB, false, "coldResist", "elemResist") - 60
-		output.total_lightningResist = sumMods(modDB, false, "lightningResist", "elemResist") - 60
+		for _, elem in pairs({"fire", "cold", "lightning"}) do
+			output["total_"..elem.."Resist"] = sumMods(modDB, false, elem.."Resist", "elementalResist") - 60
+			output["total_"..elem.."ResistMax"] = sumMods(modDB, false, elem.."ResistMax")
+		end
 		if getMiscVal(modDB, nil, "chaosInoculation", false) then
 			output.total_chaosResist = 100
+			output.total_chaosResistMax = 100
 		else
 			output.total_chaosResist = sumMods(modDB, false, "chaosResist") - 60
+			output.total_chaosResistMax = sumMods(modDB, false, "chaosResistMax") - 60
 		end
 		endWatch(env, "resist")
 	end
@@ -997,8 +1013,7 @@ local function calcPrimary(env, output)
 	for _, damageType in pairs(dmgTypeList) do
 		local min, max
 		if startWatch(env, damageType) then
-			min = calcDamage(env, output, damageType, "Min")
-			max = calcDamage(env, output, damageType, "Max")
+			min, max = calcHitDamage(env, output, damageType)
 			output["total_"..damageType.."Min"] = min
 			output["total_"..damageType.."Max"] = max
 			output["total_"..damageType.."Avg"] = (min + max) / 2
@@ -1132,7 +1147,7 @@ local function calcPrimary(env, output)
 					trap = env.skillSpaceFlags.trap,
 					mine = env.skillSpaceFlags.mine,
 				})
-				output["total_"..damageType.."Dot"] = baseVal * (1 + sumMods(modDB, false, "damageInc", damageType.."Inc", isElemental[damageType] and "elemInc" or nil) / 100) * sumMods(modDB, true, "damageMore", damageType.."More", isElemental[damageType] and "elemMore" or nil)
+				output["total_"..damageType.."Dot"] = baseVal * (1 + sumMods(modDB, false, "damageInc", damageType.."Inc", isElemental[damageType] and "elementalInc" or nil) / 100) * sumMods(modDB, true, "damageMore", damageType.."More", isElemental[damageType] and "elementalMore" or nil)
 			end
 			endWatch(env, damageType.."Dot")
 		end
@@ -1204,7 +1219,7 @@ local function calcPrimary(env, output)
 				mine = env.skillSpaceFlags.mine,
 			})
 			local baseVal = output.total_fireAvg * output.total_critEffect * 0.2
-			output.ignite_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "fireInc", "elemInc") / 100) * sumMods(modDB, true, "damageMore", "fireMore", "elemMore")
+			output.ignite_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "fireInc", "elementalInc") / 100) * sumMods(modDB, true, "damageMore", "fireMore", "elementalMore")
 			output.ignite_duration = 4 * (1 + getMiscVal(modDB, "ignite", "durationInc", 0) / 100)
 		end
 		endWatch(env, "ignite")
@@ -1409,7 +1424,7 @@ function control.buildOutput(input, output, build)
 			local weaponDPS = (getMiscVal(env.modDB, weapon, damageType.."Min", 0) + getMiscVal(env.modDB, weapon, damageType.."Max",  0)) / 2 * getMiscVal(env.modDB, weapon, "attackRate", 1)
 			output[weapon.."_damageDPS"] = (output[weapon.."damageDPS"] or 0) + weaponDPS
 			if isElemental[damageType] then
-				output[weapon.."_elemDPS"] = (output[weapon.."_elemDPS"] or 0) + weaponDPS
+				output[weapon.."_elementalDPS"] = (output[weapon.."_elementalDPS"] or 0) + weaponDPS
 			end
 			output[weapon.."_"..damageType.."DPS"] = weaponDPS
 		end

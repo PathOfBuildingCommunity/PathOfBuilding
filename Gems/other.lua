@@ -67,7 +67,7 @@ gems["Vaal Arc"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.8,
-		skill_damageEff = 0.8,
+		skill_damageEffectiveness = 0.8,
 		skill_critChanceBase = 5,
 		shockChance = 100,
 	},
@@ -210,7 +210,7 @@ gems["Vaal Cold Snap"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.85,
-		skill_damageEff = 1.4,
+		skill_damageEffectiveness = 1.4,
 		skill_critChanceBase = 5,
 		skill_durationBase = 10,
 	},
@@ -398,7 +398,7 @@ gems["Vaal Fireball"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.85,
-		skill_damageEff = 1.25,
+		skill_damageEffectiveness = 1.25,
 		skill_critChanceBase = 6,
 		aoeRadiusInc = 50,
 	},
@@ -446,7 +446,7 @@ gems["Vaal Flameblast"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 1,
-		skill_damageEff = 0.6,
+		skill_damageEffectiveness = 0.6,
 		skill_critChanceBase = 5,
 		spell_damageMore = 12,
 	},
@@ -680,7 +680,7 @@ gems["Vaal Ice Nova"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.9,
-		skill_damageEff = 0.7,
+		skill_damageEffectiveness = 0.7,
 		skill_critChanceBase = 6,
 	},
 	quality = {
@@ -787,7 +787,7 @@ gems["Vaal Lightning Trap"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 1,
-		skill_damageEff = 0.9,
+		skill_damageEffectiveness = 0.9,
 		skill_critChanceBase = 5,
 		skill_durationBase = 4,
 		pierceChance = 100,
@@ -837,7 +837,7 @@ gems["Vaal Lightning Warp"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 1,
-		skill_damageEff = 0.5,
+		skill_damageEffectiveness = 0.5,
 		skill_critChanceBase = 5,
 	},
 	quality = {
@@ -885,7 +885,7 @@ gems["Vaal Molten Shell"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.5,
-		skill_damageEff = 2,
+		skill_damageEffectiveness = 2,
 		skill_critChanceBase = 5,
 		skill_durationBase = 10,
 	},
@@ -1117,7 +1117,7 @@ gems["Vaal Spark"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.65,
-		skill_damageEff = 0.4,
+		skill_damageEffectiveness = 0.4,
 		skill_critChanceBase = 5,
 		skill_durationBase = 2,
 	},
@@ -1209,7 +1209,7 @@ gems["Vaal Storm Call"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.5,
-		skill_damageEff = 0.8,
+		skill_damageEffectiveness = 0.8,
 		skill_critChanceBase = 6,
 		skill_durationBase = 3,
 	},

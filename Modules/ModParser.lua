@@ -69,8 +69,8 @@ local modNameList = {
 	["fire and cold resistances"] = { "fireResist", "coldResist" },
 	["fire and lightning resistances"] = { "fireResist", "lightningResist" },
 	["cold and lightning resistances"] = { "coldResist", "lightningResist" },
-	["elemental resistances"] = "elemResist",
-	["all elemental resistances"] = "elemResist",
+	["elemental resistances"] = "elementalResist",
+	["all elemental resistances"] = "elementalResist",
 	["all maximum resistances"] = { "fireResistMax", "coldResistMax", "lightningResistMax", "chaosResistMax" },
 	["chaos resistance"] = "chaosResist",
 	-- Other defences
@@ -150,7 +150,7 @@ local modNameList = {
 	["cold damage"] = "cold{suf}",
 	["fire damage"] = "fire{suf}",
 	["chaos damage"] = "chaos{suf}",
-	["elemental damage"] = "elem{suf}",
+	["elemental damage"] = "elemental{suf}",
 	-- Other damage forms
 	["attack damage"] = "attack_damage{suf}",
 	["physical attack damage"] = "attack_physical{suf}",
@@ -369,8 +369,8 @@ local penTypes = {
 	["lightning resistance"] = "lightningPen",
 	["cold resistance"] = "coldPen",
 	["fire resistance"] = "firePen",
-	["elemental resistance"] = "elemPen",
-	["elemental resistances"] = "elemPen",
+	["elemental resistance"] = "elementalPen",
+	["elemental resistances"] = "elementalPen",
 }
 local regenTypes = {
 	["life"] = "lifeRegen{suf}",
