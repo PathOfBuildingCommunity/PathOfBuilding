@@ -165,7 +165,7 @@ function main:SaveSettings()
 	end
 	t_insert(setXML, mode)
 	t_insert(setXML, { elem = "BuildPath", attrib = { path = self.buildPath } })
-	t_insert(setXML, { elem = "DevMode", attrib = { enable = launch.devMode and "true" or "false" } })
+	t_insert(setXML, { elem = "DevMode", attrib = { enable = tostring(launch.devMode) } })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, "Settings.xml")
 	if not res then
 		launch:ShowErrMsg("Error saving 'Settings.xml': %s", errMsg)

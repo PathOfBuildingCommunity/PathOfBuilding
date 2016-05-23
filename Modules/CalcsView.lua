@@ -5,121 +5,6 @@
 --
 local grid = ...
 
-local s_format = string.format
-local m_abs = math.abs
-local m_floor = math.floor
-local m_min = math.min
-local m_max = math.max
-local pairs = pairs
-local ipairs = ipairs
-
-function formatNumSep(val, dec)
-	dec = dec or 0
-	val = val or 0
-	local neg = val < 0
-	val = m_floor(m_abs(val * 10 ^ dec))
-	local str = string.reverse(s_format("%.0f", val))
-	if #str < (dec + 1) then
-		str = str .. string.rep("0", dec + 1 - #str)
-	end
-	local ret = ""
-	local pDec, pThou = dec, 3
-	for ci = 1, #str do
-		local c = str:sub(ci, ci)
-		ret = c .. ret
-		if pDec > 0 then
-			pDec = pDec - 1
-			if pDec == 0 then
-				ret = "." .. ret
-			end
-		else
-			pThou = pThou - 1
-			if pThou == 0 and ci < #str then
-				ret = "," .. ret
-				pThou = 3
-			end
-		end
-	end
-	return (neg and "-" or "") .. ret
-end
-function getFormatNumSep(dec)
-	return function(val)
-		return formatNumSep(val, dec)
-	end
-end
-
-function formatRound(val, dec)
-	dec = dec or 0
-	return m_floor(val * 10 ^ dec + 0.5) / 10 ^ dec
-end
-function getFormatRound(dec)
-	return function(val)
-		return formatRound(val, dec)
-	end
-end
-
-function formatPercent(val, dec)
-	dec = dec or 0
-	return m_floor((val or 0) * 100 * 10 ^ dec) / 10 ^ dec .. "%"
-end
-function getFormatPercent(dec)
-	return function(val)
-		return formatPercent(val, dec)
-	end
-end
-
-function formatSec(val)
-	if val == 0 then
-		return "0s"
-	else
-		return s_format("%.2fs", val)
-	end
-end
-
-local function mkField(x, y, fieldType, name, format, width, list)
-	local isFunc = type(format) == "function"
-	grid:SetElem(x, y, { 
-		type = fieldType,
-		name = name,
-		format = (isFunc or not format) and "number" or format,
-		formatFunc = isFunc and format,
-		align = (format == "string" or format == "choice") and "LEFT" or "RIGHT",
-		width = width,
-		list = list,
-	})
-end
-local function mkFieldWithLabel(x, y, fieldType, label, name, format, width, list)
-	grid:SetElem(x, y, {
-		type = "label",
-		text = label,
-		align = "RIGHT"
-	})
-	if type(name) == "table" then
-		for i, n in ipairs(name) do
-			if n then
-				mkField(x + i, y, fieldType, n, format)
-			end
-		end
-	else
-		mkField(x + 1, y, fieldType, name, format, width, list)
-	end
-end
-local function mkFieldTable(x, y, tbl)
-	for i, v in ipairs(tbl) do
-		if #v == 1 then
-			if type(v[1]) == "table" then
-				for c, l in ipairs(v[1]) do
-					grid:SetElem(x + c - 1, y + i - 1, { type = "label", text = l, align = c == 1 and "RIGHT" or "CENTER" })
-				end
-			else
-				grid:SetElem(x, y + i - 1, { type = "label", text = v[1], align = "RIGHT" })
-			end
-		elseif #v > 1 then
-			mkFieldWithLabel(x, y + i - 1, unpack(v))
-		end
-	end
-end
-
 local function fieldNames(pre, suf, spec)
 	return { 
 		spec:match("p") and (pre.."_physical"..suf) or false, 
@@ -128,7 +13,7 @@ local function fieldNames(pre, suf, spec)
 		spec:match("f") and (pre.."_fire"..suf) or false, 
 		spec:match("h") and (pre.."_chaos"..suf) or false, 
 		spec:match("a") and (pre.."_damage"..suf) or false,
-		spec:match("e") and (pre.."_elem"..suf) or false
+		spec:match("e") and (pre.."_elemental"..suf) or false
 	}
 end
 
@@ -201,7 +86,8 @@ columns[3] = {
 		{ "output", "Gear %:", "gear_energyShieldInc" },
 		{ "output", "Total:", "total_energyShield", formatRound },
 		{ "output", "Recharge rate:", "total_energyShieldRecharge", getFormatRound(1) },
-		{ "output", "Recharge delay:", "total_energyShieldRechargeDelay", formatSec },
+		{ "output", "Recharge delay:", "total_energyShieldRechargeDelay", getFormatSec(2) },
+		{ "output", "Regen:", "total_energyShieldRegen", getFormatRound(1) },
 		{ },
 		{ "Evasion:" },
 		{ "output", "Spec +:", "spec_evasionBase" },
@@ -209,6 +95,8 @@ columns[3] = {
 		{ "output", "Gear +:", "total_gear_evasionBase" },
 		{ "output", "Gear %:", "gear_evasionInc" },
 		{ "output", "Total:", "total_evasion", formatRound },
+		{ "input", "Use Monster Level?", "misc_evadeMonsterLevel", "check" },
+		{ "output", "Evade Chance:", "total_evadeChance", formatPercent },
 		{ },
 		{ "Armour:" },
 		{ "output", "Spec +:", "spec_armourBase" },
@@ -245,6 +133,7 @@ columns[5] = {
 		{ "output", "Max Endurance:", "enduranceMax" },
 	}, {
 		{ "input", "Onslaught?", "condBuff_Onslaught", "check" },
+		{ "input", "Phasing?", "condBuff_Phasing", "check" },
 		{ "input", "Fortify?", "condBuff_Fortify", "check" },
 		{ "input", "Using a Flask?", "condBuff_UsingFlask", "check" },
 	}, {
@@ -257,7 +146,7 @@ columns[5] = {
 		{ "input", "Enemy is Chilled?", "condEff_EnemyChilled", "check" },
 		{ "input", "Enemy is Frozen?", "condEff_EnemyFrozen", "check" },
 		{ "input", "Enemy is Shocked?", "condEff_EnemyShocked", "check" },
-		{ "input", "Enemy Elem. Resist:", "effective_elemResist" },
+		{ "input", "Enemy Elem. Resist:", "effective_elementalResist" },
 		{ },
 		{ "Crit Chance:" },
 	}, {
@@ -317,9 +206,9 @@ columns[5] = {
 	}, {
 		{ },
 		{ "Stun:" },
-		{ "output", "Stun Duration on You:", "stun_duration", formatSec },
-		{ "output", "Block Duration on You:", "stun_blockDuration", formatSec },
-		{ "output", "Duration on Enemies:", "stun_enemyDuration", formatSec },
+		{ "output", "Stun Duration on You:", "stun_duration", getFormatSec(2) },
+		{ "output", "Block Duration on You:", "stun_blockDuration", getFormatSec(2) },
+		{ "output", "Duration on Enemies:", "stun_enemyDuration", getFormatSec(2) },
 		{ "output", "Enemy Threshold Mod:", "stun_enemyThresholdMod", formatPercent },
 	}
 }
@@ -351,7 +240,7 @@ columns[7] = {
 		{ "output", "Weapon Min:", fieldNames("gear_weapon2", "Min", "plcfh") },
 		{ "output", "Weapon Max:", fieldNames("gear_weapon2", "Max", "plcfh") },
 		{ "output", "Weapon APS:", "gear_weapon2_attackRate" },
-		{ "output", "Weapon DPS:", fieldNames("weaponon2", "DPS", "plcfhae"), getFormatRound(2) },
+		{ "output", "Weapon DPS:", fieldNames("weapon2", "DPS", "plcfhae"), getFormatRound(2) },
 	}, {
 		flag = "attack",
 		{ "output", "Spec Attack Dmg %:", fieldNames("spec_attack", "Inc", "pa") },
@@ -402,7 +291,7 @@ columns[7] = {
 		{ "output", "Attack Damage:", fieldNames("total", "", "plcfha") },
 		{ "output", "Average Damage:", "total_avg", getFormatRound(1) },
 		{ "output", "Attack Speed:", "total_speed", getFormatRound(2) },
-		{ "output", "Attack Time:", "total_time", getFormatRound(2) },
+		{ "output", "Attack Time:", "total_time", getFormatSec(2) },
 		{ "output", "Attack DPS:", "total_dps", getFormatRound(1) },
 	}, {
 		flag = "spell",
@@ -413,7 +302,7 @@ columns[7] = {
 		{ "output", "Spell Damage:", fieldNames("total", "", "plcfha") },
 		{ "output", "Average Damage:", "total_avg", getFormatRound(1) },
 		{ "output", "Cast Rate:", "total_speed", getFormatRound(2) },
-		{ "output", "Cast Time:", "total_time", getFormatRound(2) },
+		{ "output", "Cast Time:", "total_time", getFormatSec(2) },
 		{ "output", "Spell DPS:", "total_dps", getFormatRound(1) },
 	}, {
 		flag = "cast",
@@ -426,14 +315,18 @@ columns[7] = {
 		{ "output", "Spec Pierce Chance %:", "spec_pierceChance" },
 		{ "output", "Gear Pierce Chance %:", "gear_pierceChance" },
 		{ "output", "Pierce Chance:", "total_pierce", formatPercent },
+		{ "output", "Projectile Speed Mod:", "total_projectileSpeedMod", formatPercent },
+	}, {
+		flag = "aoe",
+		{ "output", "AoE Radius Mod:", "total_aoeRadiusMod", formatPercent },
 	}, {
 		flag = "duration",
 		{ "output", "Spec Duration %:", "spec_durationInc" },
 		{ "output", "Skill Duration Mod:", "total_durationMod", formatPercent },
-		{ "output", "Skill Duration:", "total_duration", formatSec },
+		{ "output", "Skill Duration:", "total_duration", getFormatSec(2) },
 	}, {
 		flag = "trap",
-		{ "output", "Trap Cooldown:", "total_trapCooldown", formatSec },
+		{ "output", "Trap Cooldown:", "total_trapCooldown", getFormatSec(2) },
 	}, {
 		flag = "dot",
 		{ "output", "Spec DoT Dmg %:", fieldNames("spec_dot", "Inc", "pfa") },
@@ -445,7 +338,7 @@ columns[7] = {
 		{ "output", "Gear Bleed Chance %:", "gear_bleedChance" },
 		{ "output", "Bleed Chance:", "bleed_chance", formatPercent },
 		{ "output", "Bleed DPS:", "bleed_dps", getFormatRound(1) },
-		{ "output", "Bleed Duration:", "bleed_duration", formatSec },
+		{ "output", "Bleed Duration:", "bleed_duration", getFormatSec(2) },
 	}, {
 		flag = "poison",
 		{ "output", "Spec Poison Chance %:", "spec_poisonChance" },
@@ -453,14 +346,14 @@ columns[7] = {
 		{ "output", "Spec Poison Dmg %:", "spec_poison_damageInc" },
 		{ "output", "Poison Chance:", "poison_chance", formatPercent },
 		{ "output", "Poison DPS:", "poison_dps", getFormatRound(1) },
-		{ "output", "Poison Duration:", "poison_duration", formatSec },
+		{ "output", "Poison Duration:", "poison_duration", getFormatSec(2) },
 	}, {
 		flag = "ignite",
 		{ "output", "Spec Ignite Chance %:", "spec_igniteChance" },
 		{ "output", "Gear Ignite Chance %:", "gear_igniteChance" },
 		{ "output", "Ignite Chance:", "ignite_chance", formatPercent },
 		{ "output", "Ignite DPS:", "ignite_dps", getFormatRound(1) },
-		{ "output", "Ignite Duration:", "ignite_duration", formatSec },
+		{ "output", "Ignite Duration:", "ignite_duration", getFormatSec(2) },
 	}, {
 		flag = "shock",
 		{ "output", "Spec Shock Chance %:", "spec_shockChance" },
@@ -475,6 +368,52 @@ columns[7] = {
 		{ "output", "Freeze Duration Mod:", "freeze_durationMod", formatPercent },
 	}
 }
+
+local function mkField(x, y, fieldType, name, format, width, list)
+	local isFunc = type(format) == "function"
+	grid:SetElem(x, y, { 
+		type = fieldType,
+		name = name,
+		format = (isFunc or not format) and "number" or format,
+		formatFunc = isFunc and format,
+		align = (format == "string" or format == "choice") and "LEFT" or "RIGHT",
+		width = width,
+		list = list,
+	})
+end
+
+local function mkFieldWithLabel(x, y, fieldType, label, name, format, width, list)
+	grid:SetElem(x, y, {
+		type = "label",
+		text = label,
+		align = "RIGHT"
+	})
+	if type(name) == "table" then
+		for i, n in ipairs(name) do
+			if n then
+				mkField(x + i, y, fieldType, n, format)
+			end
+		end
+	else
+		mkField(x + 1, y, fieldType, name, format, width, list)
+	end
+end
+
+local function mkFieldTable(x, y, tbl)
+	for i, v in ipairs(tbl) do
+		if #v == 1 then
+			if type(v[1]) == "table" then
+				for c, l in ipairs(v[1]) do
+					grid:SetElem(x + c - 1, y + i - 1, { type = "label", text = l, align = c == 1 and "RIGHT" or "CENTER" })
+				end
+			else
+				grid:SetElem(x, y + i - 1, { type = "label", text = v[1], align = "RIGHT" })
+			end
+		elseif #v > 1 then
+			mkFieldWithLabel(x, y + i - 1, unpack(v))
+		end
+	end
+end
 
 local curFlags
 

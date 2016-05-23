@@ -112,7 +112,7 @@ end
 
 function SpecClass:SelectAscendClass(ascendClassId)
 	self.curAscendClassId = ascendClassId
-	local ascendClass = self.tree.classes[self.curClassId].classes[tostring(ascendClassId)] or { name = "" }
+	local ascendClass = self.tree.classes[self.curClassId].classes[ascendClassId] or { name = "" }
 	self.curAscendClassName = ascendClass.name
 	for id, node in pairs(self.allocNodes) do
 		if node.ascendancyName and node.ascendancyName ~= ascendClass.name then

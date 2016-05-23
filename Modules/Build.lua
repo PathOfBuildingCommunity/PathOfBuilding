@@ -74,7 +74,7 @@ function buildMode:Init(dbFileName, buildName)
 		local classId = self.tree.classNameMap[val]
 		if classId ~= self.spec.curClassId then
 			if self.spec:IsClassConnected(classId) or self.spec:CountAllocNodes() == 0 then
-				self:SelectClass(classId)
+				self.spec:SelectClass(classId)
 				self.spec:AddUndoState()
 			else
 				launch:ShowPrompt(0, 0, 0, "Changing class to "..val.." will reset your tree.\nThis can be avoided by connecting one of the "..val.." starting nodes to your tree.\n\nPress Y to continue.", function(key)
@@ -109,6 +109,8 @@ function buildMode:Init(dbFileName, buildName)
 		{ mod = "total_critMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true },
 		{ mod = "total_hitChance", label = "Hit Chance", fmt = "d%%", pc = true },
 		{ mod = "total_dps", label = "Total DPS", fmt = ".1f" },
+		{ mod = "total_dot", label = "DoT DPS", fmt = ".1f" },
+		{ mod = "bleed_dps", label = "Bleed DPS", fmt = ".1f" },
 		{ mod = "ignite_dps", label = "Ignite DPS", fmt = ".1f" },
 		{ mod = "poison_dps", label = "Poison DPS", fmt = ".1f" },
 		{ },

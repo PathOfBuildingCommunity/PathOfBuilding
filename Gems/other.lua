@@ -67,7 +67,7 @@ gems["Vaal Arc"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.8,
-		skill_damageEff = 0.8,
+		skill_damageEffectiveness = 0.8,
 		skill_critChanceBase = 5,
 		shockChance = 100,
 	},
@@ -210,7 +210,7 @@ gems["Vaal Cold Snap"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.85,
-		skill_damageEff = 1.4,
+		skill_damageEffectiveness = 1.4,
 		skill_critChanceBase = 5,
 		skill_durationBase = 10,
 	},
@@ -398,7 +398,7 @@ gems["Vaal Fireball"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.85,
-		skill_damageEff = 1.25,
+		skill_damageEffectiveness = 1.25,
 		skill_critChanceBase = 6,
 		aoeRadiusInc = 50,
 	},
@@ -446,7 +446,7 @@ gems["Vaal Flameblast"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 1,
-		skill_damageEff = 0.6,
+		skill_damageEffectiveness = 0.6,
 		skill_critChanceBase = 5,
 		spell_damageMore = 12,
 	},
@@ -680,7 +680,7 @@ gems["Vaal Ice Nova"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.9,
-		skill_damageEff = 0.7,
+		skill_damageEffectiveness = 0.7,
 		skill_critChanceBase = 6,
 	},
 	quality = {
@@ -787,7 +787,7 @@ gems["Vaal Lightning Trap"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 1,
-		skill_damageEff = 0.9,
+		skill_damageEffectiveness = 0.9,
 		skill_critChanceBase = 5,
 		skill_durationBase = 4,
 		pierceChance = 100,
@@ -837,7 +837,7 @@ gems["Vaal Lightning Warp"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 1,
-		skill_damageEff = 0.5,
+		skill_damageEffectiveness = 0.5,
 		skill_critChanceBase = 5,
 	},
 	quality = {
@@ -877,7 +877,53 @@ gems["Vaal Lightning Warp"] = {
 	}
 }
 gems["Vaal Molten Shell"] = {
-	unsupported = true
+	spell = true,
+	aoe = true,
+	duration = true,
+	fire = true,
+	vaal = true,
+	showAverage = true,
+	base = {
+		skill_castTime = 0.5,
+		skill_damageEffectiveness = 2,
+		skill_critChanceBase = 5,
+		skill_durationBase = 10,
+	},
+	quality = {
+		igniteChance = 1,
+	},
+	levels = {
+		[1] = { skill_fireMin = 9, skill_fireMax = 14, buff_armourBase = 17, },
+		[2] = { skill_fireMin = 12, skill_fireMax = 18, buff_armourBase = 20, },
+		[3] = { skill_fireMin = 16, skill_fireMax = 25, buff_armourBase = 26, },
+		[4] = { skill_fireMin = 22, skill_fireMax = 33, buff_armourBase = 33, },
+		[5] = { skill_fireMin = 32, skill_fireMax = 48, buff_armourBase = 44, },
+		[6] = { skill_fireMin = 45, skill_fireMax = 67, buff_armourBase = 58, },
+		[7] = { skill_fireMin = 62, skill_fireMax = 92, buff_armourBase = 75, },
+		[8] = { skill_fireMin = 84, skill_fireMax = 126, buff_armourBase = 97, },
+		[9] = { skill_fireMin = 113, skill_fireMax = 169, buff_armourBase = 123, },
+		[10] = { skill_fireMin = 150, skill_fireMax = 225, buff_armourBase = 156, },
+		[11] = { skill_fireMin = 198, skill_fireMax = 297, buff_armourBase = 196, },
+		[12] = { skill_fireMin = 260, skill_fireMax = 391, buff_armourBase = 245, },
+		[13] = { skill_fireMin = 340, skill_fireMax = 510, buff_armourBase = 304, },
+		[14] = { skill_fireMin = 442, skill_fireMax = 663, buff_armourBase = 376, },
+		[15] = { skill_fireMin = 536, skill_fireMax = 805, buff_armourBase = 440, },
+		[16] = { skill_fireMin = 650, skill_fireMax = 975, buff_armourBase = 515, },
+		[17] = { skill_fireMin = 785, skill_fireMax = 1178, buff_armourBase = 600, },
+		[18] = { skill_fireMin = 948, skill_fireMax = 1422, buff_armourBase = 698, },
+		[19] = { skill_fireMin = 1142, skill_fireMax = 1713, buff_armourBase = 812, },
+		[20] = { skill_fireMin = 1373, skill_fireMax = 2060, buff_armourBase = 943, },
+		[21] = { skill_fireMin = 1552, skill_fireMax = 2328, buff_armourBase = 1040, },
+		[22] = { skill_fireMin = 1753, skill_fireMax = 2629, buff_armourBase = 1148, },
+		[23] = { skill_fireMin = 1979, skill_fireMax = 2968, buff_armourBase = 1265, },
+		[24] = { skill_fireMin = 2232, skill_fireMax = 3349, buff_armourBase = 1394, },
+		[25] = { skill_fireMin = 2517, skill_fireMax = 3776, buff_armourBase = 1536, },
+		[26] = { skill_fireMin = 2837, skill_fireMax = 4256, buff_armourBase = 1691, },
+		[27] = { skill_fireMin = 3196, skill_fireMax = 4794, buff_armourBase = 1861, },
+		[28] = { skill_fireMin = 3599, skill_fireMax = 5398, buff_armourBase = 2047, },
+		[29] = { skill_fireMin = 4051, skill_fireMax = 6076, buff_armourBase = 2251, },
+		[30] = { skill_fireMin = 4557, skill_fireMax = 6836, buff_armourBase = 2474, },
+	}
 }
 gems["Vaal Power Siphon"] = {
 	attack = true,
@@ -1071,7 +1117,7 @@ gems["Vaal Spark"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.65,
-		skill_damageEff = 0.4,
+		skill_damageEffectiveness = 0.4,
 		skill_critChanceBase = 5,
 		skill_durationBase = 2,
 	},
@@ -1163,7 +1209,7 @@ gems["Vaal Storm Call"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.5,
-		skill_damageEff = 0.8,
+		skill_damageEffectiveness = 0.8,
 		skill_critChanceBase = 6,
 		skill_durationBase = 3,
 	},

@@ -4,12 +4,19 @@
 -- Libaries, functions and classes used by various modules.
 --
 
+local s_format = string.format
+local m_abs = math.abs
+local m_floor = math.floor
+local m_min = math.min
+local m_max = math.max
+local pairs = pairs
+local ipairs = ipairs
+
 common = { }
 
 -- External libraries
 common.curl = require("lcurl")
 common.xml = require("xml")
-common.json = require("dkjson")
 common.base64 = require("base64")
 common.newEditField = require("simplegraphic/editfield")
 
@@ -185,3 +192,77 @@ function isValueInArray(tbl, val)
 		end
 	end
 end
+
+-- Formats 1234.56 -> "1,234.5" [dec=1]
+function formatNumSep(val, dec)
+	dec = dec or 0
+	val = val or 0
+	local neg = val < 0
+	val = m_floor(m_abs(val * 10 ^ dec))
+	local str = string.reverse(s_format("%.0f", val))
+	if #str < (dec + 1) then
+		str = str .. string.rep("0", dec + 1 - #str)
+	end
+	local ret = ""
+	local pDec, pThou = dec, 3
+	for ci = 1, #str do
+		local c = str:sub(ci, ci)
+		ret = c .. ret
+		if pDec > 0 then
+			pDec = pDec - 1
+			if pDec == 0 then
+				ret = "." .. ret
+			end
+		else
+			pThou = pThou - 1
+			if pThou == 0 and ci < #str then
+				ret = "," .. ret
+				pThou = 3
+			end
+		end
+	end
+	return (neg and "-" or "") .. ret
+end
+function getFormatNumSep(dec)
+	return function(val)
+		return formatNumSep(val, dec)
+	end
+end
+
+-- Formats 1234.56 -> "1234.6" [dec=1]
+function formatRound(val, dec)
+	dec = dec or 0
+	return m_floor(val * 10 ^ dec + 0.5) / 10 ^ dec
+end
+function getFormatRound(dec)
+	return function(val)
+		return formatRound(val, dec)
+	end
+end
+
+-- Formats 12.3456 -> "1234.5%" [dec=1]
+function formatPercent(val, dec)
+	dec = dec or 0
+	return m_floor((val or 0) * 100 * 10 ^ dec) / 10 ^ dec .. "%"
+end
+function getFormatPercent(dec)
+	return function(val)
+		return formatPercent(val, dec)
+	end
+end
+
+-- Formats 1234.56 -> "1234.5s" [dec=1]
+function formatSec(val, dec)
+	dec = dec or 0
+	if val == 0 then
+		return "0s"
+	else
+		return s_format("%."..dec.."fs", val)
+	end
+end
+function getFormatSec(dec)
+	return function(val)
+		return formatSec(val, dec)
+	end
+end
+

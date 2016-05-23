@@ -1,6 +1,6 @@
 -- Path of Building
 --
--- Module: ModParser
+-- Module: Mod Parser
 -- Parser function for modifier names
 --
 
@@ -69,8 +69,8 @@ local modNameList = {
 	["fire and cold resistances"] = { "fireResist", "coldResist" },
 	["fire and lightning resistances"] = { "fireResist", "lightningResist" },
 	["cold and lightning resistances"] = { "coldResist", "lightningResist" },
-	["elemental resistances"] = "elemResist",
-	["all elemental resistances"] = "elemResist",
+	["elemental resistances"] = "elementalResist",
+	["all elemental resistances"] = "elementalResist",
 	["all maximum resistances"] = { "fireResistMax", "coldResistMax", "lightningResistMax", "chaosResistMax" },
 	["chaos resistance"] = "chaosResist",
 	-- Other defences
@@ -150,7 +150,7 @@ local modNameList = {
 	["cold damage"] = "cold{suf}",
 	["fire damage"] = "fire{suf}",
 	["chaos damage"] = "chaos{suf}",
-	["elemental damage"] = "elem{suf}",
+	["elemental damage"] = "elemental{suf}",
 	-- Other damage forms
 	["attack damage"] = "attack_damage{suf}",
 	["physical attack damage"] = "attack_physical{suf}",
@@ -295,13 +295,15 @@ local specialSpaceList = {
 -- List of special modifiers
 local specialModList = {
 	-- Keystones
-	["your hits can't be evaded"] = { noEvade = true },
+	["your hits can't be evaded"] = { cannotBeEvaded = true },
 	["never deal critical strikes"] = { noCrit = true },
 	["no critical strike multiplier"] = { noCritMult = true },
 	["the increase to physical damage from strength applies to projectile attacks as well as melee attacks"] = { ironGrip = true },
 	["converts all evasion rating to armour%. dexterity provides no bonus to evasion rating"] = { ironReflexes = true },
 	["30%% chance to dodge attacks%. 50%% less armour and energy shield, 30%% less chance to block spells and attacks"] = { dodgeAttacks = 30, armourMore = 0.5, energyShieldMore = 0.5 },
 	["maximum life becomes 1, immune to chaos damage"] = { chaosInoculation = true },
+	["life regeneration is applied to energy shield instead"] = { zealotsOath = true },
+	["life leech applies instantly%. life regeneration has no effect%."] = { vaalPact = true },
 	["deal no non%-fire damage"] = { physicalFinalMore = 0, lightningFinalMore = 0, coldFinalMore = 0, chaosFinalMore = 0 },
 	-- Ascendancy notables
 	["movement skills cost no mana"] = { movement_manaCostMore = 0 },
@@ -318,21 +320,21 @@ local specialModList = {
 	["(%d+)%% faster start of energy shield recharge"] = function(num) return { energyShieldRechargeFaster = num } end,
 	["(%d+)%% additional block chance while dual wielding or holding a shield"] = function(num) return { condMod_DualWielding_blockChance = num, condMod_UsingShield_blockChance = num } end,
 	-- Other modifiers
---	["adds (%d+)%-(%d+) (%a+) damage ?t?o? ?a?t?t?a?c?k?s?"] = function(_, min, max, type) local pre = "attack_"..type return { [pre.."Min"] = tonumber(min), [pre.."Max"] = tonumber(max) } end,
---	["adds (%d+)%-(%d+) (%a+) damage to attacks with bows"] = function(_, min, max, type) local pre = "bow_"..type return { [pre.."Min"] = tonumber(min), [pre.."Max"] = tonumber(max) } end,
---	["adds (%d+)%-(%d+) (%a+) damage to spells"] = function(_, min, max, type) local pre = "spell_"..type return { [pre.."Min"] = tonumber(min), [pre.."Max"] = tonumber(max) } end,
 	["cannot be shocked"] = { avoidShock = 100 },
 	["cannot be frozen"] = { avoidFreeze = 100 },
 	["cannot be chilled"] = { avoidChill = 100 },
 	["cannot be ignited"] = { avoidIgnite = 100 },
 	["cannot be stunned"] = { stunImmunity = true },
+	["cannot evade enemy attacks"] = { cannotEvade = true },
 	["deal no physical damage"] = { physicalFinalMore = 0 },
 	["your critical strikes do not deal extra damage"] = { noCritMult = true },
 	["iron will"] = { ironWill = true },
+	["zealot's oath"] = { zealotsOath = true },
+	["pain attunement"] = { condMod_LowLife_spell_damageMore = 1.3 },
 	-- Special item local modifiers
 	["no physical damage"] = { weaponNoPhysical = true },
 	["all attacks with this weapon are critical strikes"] = { weaponAlwaysCrit = true },
-	["hits can't be evaded"] = { weaponX_noEvade = true },
+	["hits can't be evaded"] = { weaponX_cannotBeEvaded = true },
 	["no block chance"] = { shieldNoBlock = true },
 	["causes bleeding on hit"] = { bleedChance = 100 },
 	["poisonous hit"] = { poisonChance = 100 },
@@ -367,14 +369,14 @@ local penTypes = {
 	["lightning resistance"] = "lightningPen",
 	["cold resistance"] = "coldPen",
 	["fire resistance"] = "firePen",
-	["elemental resistance"] = "elemPen",
-	["elemental resistances"] = "elemPen",
+	["elemental resistance"] = "elementalPen",
+	["elemental resistances"] = "elementalPen",
 }
 local regenTypes = {
 	["life"] = "lifeRegen{suf}",
 	["maximum life"] = "lifeRegen{suf}",
 	["mana"] = "manaRegen{suf}",
-	["energyShield"] = "energyShieldRegen{suf}",
+	["energy shield"] = "energyShieldRegen{suf}",
 }
 
 -- Build active skill name lookup
@@ -449,7 +451,7 @@ local jewelFuncs = {
 }
 
 -- Scan a line for the earliest and longest match from the pattern list
--- If a match is found, returns the corresponding value from the pattern table, plus the remainder of the line and a table of captures
+-- If a match is found, returns the corresponding value from the pattern list, plus the remainder of the line and a table of captures
 local function scan(line, patternList, plain)
 	local bestIndex, bestEndIndex
 	local bestMatch = { nil, line, nil }

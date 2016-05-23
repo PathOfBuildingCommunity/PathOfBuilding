@@ -59,7 +59,7 @@ gems["Bear Trap"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 1,
-		skill_damageEff = 2,
+		skill_damageEffectiveness = 2,
 		skill_critChanceBase = 5,
 	},
 	quality = {
@@ -105,7 +105,7 @@ gems["Blade Vortex"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.5,
-		skill_damageEff = 0.3,
+		skill_damageEffectiveness = 0.3,
 		skill_critChanceBase = 6,
 		skill_durationBase = 5,
 	},
@@ -150,7 +150,7 @@ gems["Bladefall"] = {
 	aoe = true,
 	base = {
 		skill_castTime = 0.8,
-		skill_damageEff = 0.9,
+		skill_damageEffectiveness = 0.9,
 		skill_critChanceBase = 5,
 	},
 	quality = {
@@ -531,7 +531,7 @@ gems["Elemental Hit"] = {
 		igniteChance = 10,
 	},
 	quality = {
-		elemInc = 1,
+		elementalInc = 1,
 	},
 	levels = {
 		[1] = { skill_manaCostBase = 6, part1_attack_fireMin = 4, part1_attack_fireMax = 8, part2_attack_coldMin = 3, part2_attack_coldMax = 6, part3_attack_lightningMin = 1, part3_attack_lightningMax = 13, },
@@ -571,7 +571,7 @@ gems["Ethereal Knives"] = {
 	projectile = true,
 	base = {
 		skill_castTime = 0.6,
-		skill_damageEff = 1,
+		skill_damageEffectiveness = 1,
 		skill_critChanceBase = 6,
 	},
 	quality = {
@@ -679,7 +679,7 @@ gems["Fire Trap"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 1,
-		skill_damageEff = 1,
+		skill_damageEffectiveness = 1,
 		skill_critChanceBase = 6,
 		skill_durationBase = 8,
 	},
@@ -730,7 +730,7 @@ gems["Freeze Mine"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 0.5,
-		skill_damageEff = 0.5,
+		skill_damageEffectiveness = 0.5,
 	},
 	quality = {
 		aoeRadiusInc = 0.5,
@@ -1007,7 +1007,7 @@ gems["Herald of Ice"] = {
 	cold = true,
 	base = {
 		skill_manaReservedPercent = 25,
-		skill_damageEff = 0.8,
+		skill_damageEffectiveness = 0.8,
 	},
 	quality = {
 		buff_coldInc = 0.75,
@@ -1111,7 +1111,7 @@ gems["Ice Trap"] = {
 	showAverage = true,
 	base = {
 		skill_castTime = 1,
-		skill_damageEff = 1.1,
+		skill_damageEffectiveness = 1.1,
 		skill_critChanceBase = 5,
 	},
 	quality = {
@@ -1328,36 +1328,36 @@ gems["Purity of Ice"] = {
 		auraRadiusInc = 1,
 	},
 	levels = {
-		[1] = { auraRadiusInc = 0, coldResistBase = 22, coldResistMaxBase = 0, },
-		[2] = { auraRadiusInc = 3, coldResistBase = 23, coldResistMaxBase = 0, },
-		[3] = { auraRadiusInc = 6, coldResistBase = 24, coldResistMaxBase = 0, },
-		[4] = { auraRadiusInc = 9, coldResistBase = 25, coldResistMaxBase = 0, },
-		[5] = { auraRadiusInc = 12, coldResistBase = 26, coldResistMaxBase = 1, },
-		[6] = { auraRadiusInc = 15, coldResistBase = 27, coldResistMaxBase = 1, },
-		[7] = { auraRadiusInc = 18, coldResistBase = 28, coldResistMaxBase = 1, },
-		[8] = { auraRadiusInc = 21, coldResistBase = 29, coldResistMaxBase = 1, },
-		[9] = { auraRadiusInc = 23, coldResistBase = 30, coldResistMaxBase = 1, },
-		[10] = { auraRadiusInc = 25, coldResistBase = 31, coldResistMaxBase = 1, },
-		[11] = { auraRadiusInc = 27, coldResistBase = 32, coldResistMaxBase = 2, },
-		[12] = { auraRadiusInc = 29, coldResistBase = 33, coldResistMaxBase = 2, },
-		[13] = { auraRadiusInc = 31, coldResistBase = 34, coldResistMaxBase = 2, },
-		[14] = { auraRadiusInc = 33, coldResistBase = 35, coldResistMaxBase = 2, },
-		[15] = { auraRadiusInc = 35, coldResistBase = 36, coldResistMaxBase = 2, },
-		[16] = { auraRadiusInc = 36, coldResistBase = 37, coldResistMaxBase = 2, },
-		[17] = { auraRadiusInc = 37, coldResistBase = 38, coldResistMaxBase = 3, },
-		[18] = { auraRadiusInc = 38, coldResistBase = 39, coldResistMaxBase = 3, },
-		[19] = { auraRadiusInc = 39, coldResistBase = 40, coldResistMaxBase = 3, },
-		[20] = { auraRadiusInc = 40, coldResistBase = 41, coldResistMaxBase = 4, },
-		[21] = { auraRadiusInc = 41, coldResistBase = 42, coldResistMaxBase = 4, },
-		[22] = { auraRadiusInc = 42, coldResistBase = 43, coldResistMaxBase = 4, },
-		[23] = { auraRadiusInc = 43, coldResistBase = 44, coldResistMaxBase = 5, },
-		[24] = { auraRadiusInc = 44, coldResistBase = 45, coldResistMaxBase = 5, },
-		[25] = { auraRadiusInc = 45, coldResistBase = 46, coldResistMaxBase = 5, },
-		[26] = { auraRadiusInc = 46, coldResistBase = 47, coldResistMaxBase = 5, },
-		[27] = { auraRadiusInc = 47, coldResistBase = 48, coldResistMaxBase = 5, },
-		[28] = { auraRadiusInc = 48, coldResistBase = 49, coldResistMaxBase = 5, },
-		[29] = { auraRadiusInc = 49, coldResistBase = 50, coldResistMaxBase = 5, },
-		[30] = { auraRadiusInc = 50, coldResistBase = 51, coldResistMaxBase = 5, },
+		[1] = { auraRadiusInc = 0, coldResist = 22, coldResistMax = 0, },
+		[2] = { auraRadiusInc = 3, coldResist = 23, coldResistMax = 0, },
+		[3] = { auraRadiusInc = 6, coldResist = 24, coldResistMax = 0, },
+		[4] = { auraRadiusInc = 9, coldResist = 25, coldResistMax = 0, },
+		[5] = { auraRadiusInc = 12, coldResist = 26, coldResistMax = 1, },
+		[6] = { auraRadiusInc = 15, coldResist = 27, coldResistMax = 1, },
+		[7] = { auraRadiusInc = 18, coldResist = 28, coldResistMax = 1, },
+		[8] = { auraRadiusInc = 21, coldResist = 29, coldResistMax = 1, },
+		[9] = { auraRadiusInc = 23, coldResist = 30, coldResistMax = 1, },
+		[10] = { auraRadiusInc = 25, coldResist = 31, coldResistMax = 1, },
+		[11] = { auraRadiusInc = 27, coldResist = 32, coldResistMax = 2, },
+		[12] = { auraRadiusInc = 29, coldResist = 33, coldResistMax = 2, },
+		[13] = { auraRadiusInc = 31, coldResist = 34, coldResistMax = 2, },
+		[14] = { auraRadiusInc = 33, coldResist = 35, coldResistMax = 2, },
+		[15] = { auraRadiusInc = 35, coldResist = 36, coldResistMax = 2, },
+		[16] = { auraRadiusInc = 36, coldResist = 37, coldResistMax = 2, },
+		[17] = { auraRadiusInc = 37, coldResist = 38, coldResistMax = 3, },
+		[18] = { auraRadiusInc = 38, coldResist = 39, coldResistMax = 3, },
+		[19] = { auraRadiusInc = 39, coldResist = 40, coldResistMax = 3, },
+		[20] = { auraRadiusInc = 40, coldResist = 41, coldResistMax = 4, },
+		[21] = { auraRadiusInc = 41, coldResist = 42, coldResistMax = 4, },
+		[22] = { auraRadiusInc = 42, coldResist = 43, coldResistMax = 4, },
+		[23] = { auraRadiusInc = 43, coldResist = 44, coldResistMax = 5, },
+		[24] = { auraRadiusInc = 44, coldResist = 45, coldResistMax = 5, },
+		[25] = { auraRadiusInc = 45, coldResist = 46, coldResistMax = 5, },
+		[26] = { auraRadiusInc = 46, coldResist = 47, coldResistMax = 5, },
+		[27] = { auraRadiusInc = 47, coldResist = 48, coldResistMax = 5, },
+		[28] = { auraRadiusInc = 48, coldResist = 49, coldResistMax = 5, },
+		[29] = { auraRadiusInc = 49, coldResist = 50, coldResistMax = 5, },
+		[30] = { auraRadiusInc = 50, coldResist = 51, coldResistMax = 5, },
 	}
 }
 gems["Rain of Arrows"] = {
@@ -1835,7 +1835,7 @@ gems["Wild Strike"] = {
 		part6_physicalGainAscold = 60,
 	},
 	quality = {
-		elemInc = 1,
+		elementalInc = 1,
 	},
 	levels = {
 		[1] = { attack_damageMore = 1.2, },
