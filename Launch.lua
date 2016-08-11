@@ -66,6 +66,7 @@ function launch:OnFrame()
 			end
 		end
 	end
+	SetDrawLayer(1000)
 	if self.promptMsg then
 		local r, g, b = unpack(self.promptCol)
 		self:DrawPopup(r, g, b, "^0%s", self.promptMsg)

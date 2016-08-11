@@ -20,6 +20,8 @@ function calcs:Init(build)
 	self.output = { }
 	self.grid = common.New("Grid", self.input, self.output)
 
+	self.buildFlag = true
+
 	self.undo = { }
 	self.redo = { }
 
@@ -54,7 +56,7 @@ function calcs:Load(xml, dbFileName)
 			end
 		end
 	end
-	self.undo = { copyTable(self.input) }
+	self.undo = { self:CreateUndoState() }
 	self.redo = { }
 	self.buildFlag = true
 end
@@ -118,18 +120,40 @@ function calcs:RunControl()
 		self.buildFlag = false
 		self.build.spec.buildFlag = false
 		self.build.items.buildFlag = false
+		self.nodeCalculator = nil
+		self.itemCalculator = nil
 		wipeTable(self.output)
-		if self.control and self.control.buildOutput then
-			local errMsg, otherMsg = PCall(self.control.buildOutput, self.input, self.output, self.build)
-			if errMsg then
-				launch:ShowErrMsg("Error building output: %s", errMsg)
-			elseif otherMsg then
-				launch:ShowPrompt(1, 0.5, 0, otherMsg.."\n\nEnter/Escape to Dismiss", function(key)
-					if key == "RETURN" or key == "ESCAPE" then
-						return true
-					end
-				end)
+		if self.control then
+			if self.control.buildOutput then
+				local errMsg, otherMsg = PCall(self.control.buildOutput, self.input, self.output, self.build)
+				if errMsg then
+					launch:ShowErrMsg("Error building output: %s", errMsg)
+				elseif otherMsg then
+					launch:ShowPrompt(1, 0.5, 0, otherMsg.."\n\nEnter/Escape to Dismiss", function(key)
+						if key == "RETURN" or key == "ESCAPE" then
+							return true
+						end
+					end)
+				end
 			end
+			if self.control.getNodeCalculator then
+				local errMsg, calcFunc, calcBase = PCall(self.control.getNodeCalculator, self.input, self.build)
+				if errMsg then
+					launch:ShowErrMsg("Error creating node calculator: %s", errMsg)
+				elseif otherMsg then
+					launch:ShowPrompt(1, 0.5, 0, otherMsg.."\n\nEnter/Escape to Dismiss")
+				end
+				self.nodeCalculator = { calcFunc, calcBase }
+			end	
+			if self.control.getItemCalculator then
+				local errMsg, calcFunc, calcBase = PCall(self.control.getItemCalculator, self.input, self.build)
+				if errMsg then
+					launch:ShowErrMsg("Error creating item calculator: %s", errMsg)
+				elseif otherMsg then
+					launch:ShowPrompt(1, 0.5, 0, otherMsg.."\n\nEnter/Escape to Dismiss")
+				end
+				self.itemCalculator = { calcFunc, calcBase }
+			end	
 		end
 		self.powerBuildFlag = true
 	end
@@ -155,7 +179,8 @@ function calcs:BuildPower()
 							 (output.total_armour - base.total_armour) / m_max(10000, base.total_armour) + 
 							 (output.total_energyShield - base.total_energyShield) / m_max(2000, base.total_energyShield) + 
 							 (output.total_evasion - base.total_evasion) / m_max(10000, base.total_evasion) +
-							 (output.total_lifeRegen - base.total_lifeRegen) / 500
+							 (output.total_lifeRegen - base.total_lifeRegen) / 500 +
+							 (output.total_energyShieldRegen - base.total_energyShieldRegen) / 1000
 			if node.path then
 				self.powerMax.dps = m_max(self.powerMax.dps or 0, node.power.dps)
 				self.powerMax.def = m_max(self.powerMax.def or 0, node.power.def)
@@ -166,31 +191,30 @@ function calcs:BuildPower()
 end
 
 function calcs:GetNodeCalculator()
-	if self.control and self.control.getNodeCalculator then
-		local errMsg, calcFunc, calcBase = PCall(self.control.getNodeCalculator, self.input, self.build)
-		if errMsg then
-			launch:ShowErrMsg("Error creating calculator: %s", errMsg)
-		elseif otherMsg then
-			launch:ShowPrompt(1, 0.5, 0, otherMsg.."\n\nEnter/Escape to Dismiss")
-		end
-		return calcFunc, calcBase
-	end	
+	if self.nodeCalculator then
+		return unpack(self.nodeCalculator)
+	end
 end
 
 function calcs:GetItemCalculator()
-	if self.control and self.control.getItemCalculator then
-		local errMsg, calcFunc, calcBase = PCall(self.control.getItemCalculator, self.input, self.build)
-		if errMsg then
-			launch:ShowErrMsg("Error creating calculator: %s", errMsg)
-		elseif otherMsg then
-			launch:ShowPrompt(1, 0.5, 0, otherMsg.."\n\nEnter/Escape to Dismiss")
-		end
-		return calcFunc, calcBase
-	end	
+	if self.itemCalculator then
+		return unpack(self.itemCalculator)
+	end
+end
+
+function calcs:CreateUndoState()
+	return copyTable(self.input)
+end
+
+function calcs:RestoreUndoState(state)
+	wipeTable(self.input)
+	for k, v in pairs(state) do
+		self.input[k] = v
+	end
 end
 
 function calcs:AddUndoState(noClearRedo)
-	t_insert(self.undo, 1, copyTable(self.input))
+	t_insert(self.undo, 1, self:CreateUndoState())
 	self.undo[102] = nil
 	self.modFlag = true
 	self.buildFlag = true
@@ -202,20 +226,14 @@ end
 function calcs:Undo()
 	if self.undo[2] then
 		t_insert(self.redo, 1, t_remove(self.undo, 1))
-		wipeTable(self.input)
-		for k, v in pairs(t_remove(self.undo, 1)) do
-			self.input[k] = v
-		end
+		self:RestoreUndoState(t_remove(self.undo, 1))
 		self:AddUndoState(true)
 	end
 end
 
 function calcs:Redo()
 	if self.redo[1] then
-		wipeTable(self.input)
-		for k, v in pairs(t_remove(self.redo, 1)) do
-			self.input[k] = v
-		end
+		self:RestoreUndoState(t_remove(self.redo, 1))
 		self:AddUndoState(true)
 	end
 end

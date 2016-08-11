@@ -56,6 +56,8 @@ function listMode:OnFrame(inputEvents)
 			self:OnChar(event.key)
 		end
 	end
+	SetDrawColor(0.5, 0.5, 0.5)
+	DrawImage(main.tree.assets.Background1.handle, 0, 0, main.screenW, main.screenH, 0, 0, main.screenW / 100, main.screenH / 100)
 	common.controlsDraw(self)
 	for index, build in ipairs(self.list) do
 		local y = 8 + index * 20

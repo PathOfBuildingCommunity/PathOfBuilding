@@ -15,6 +15,11 @@ local DropDownClass = common.NewClass("DropDownControl", function(self, x, y, wi
 	self.enableFunc = enableFunc
 end)
 
+function DropDownClass:GetPos()
+	return type(self.x) == "function" and self:x() or self.x,
+		   type(self.y) == "function" and self:y() or self.y
+end
+
 function DropDownClass:SelByValue(val)
 	for index, listVal in ipairs(self.list) do
 		if listVal == val then
@@ -28,21 +33,28 @@ function DropDownClass:IsMouseOver()
 	if self.hidden then
 		return false
 	end
-	local x = type(self.x) == "function" and self:x() or self.x
-	local y = type(self.y) == "function" and self:y() or self.y
-	local cx, cy = GetCursorPos()
+	local x, y = self:GetPos()
+	local cursorX, cursorY = GetCursorPos()
 	local dropExtra = self.dropped and (self.height - 4) * #self.list + 2 or 0
-	return cx >= x and cy >= y and cx < x + self.width and cy < y + self.height + dropExtra, cy < y + self.height
+	local mOver = cursorX >= x and cursorY >= y and cursorX < x + self.width and cursorY < y + self.height + dropExtra
+	local mOverComp
+	if mOver then
+		if cursorY < y + self.height then
+			mOverComp = "BODY"
+		else
+			mOverComp = "DROP"
+		end
+	end
+	return mOver, mOverComp
 end
 
 function DropDownClass:Draw()
 	if self.hidden then
-		return false
+		return
 	end
-	local x = type(self.x) == "function" and self:x() or self.x
-	local y = type(self.y) == "function" and self:y() or self.y
+	local x, y = self:GetPos()
 	local enabled = not self.enableFunc or self.enableFunc()
-	local mOver, mOverBody = self:IsMouseOver()
+	local mOver, mOverComp = self:IsMouseOver()
 	local dropExtra = (self.height - 4) * #self.list + 4
 	if not enabled then
 		SetDrawColor(0.33, 0.33, 0.33)
@@ -53,7 +65,9 @@ function DropDownClass:Draw()
 	end
 	DrawImage(nil, x, y, self.width, self.height)
 	if self.dropped then
+		SetDrawLayer(nil, 5)
 		DrawImage(nil, x, y + self.height, self.width, dropExtra)
+		SetDrawLayer(nil, 0)
 	end
 	if not enabled then
 		SetDrawColor(0, 0, 0)
@@ -78,8 +92,10 @@ function DropDownClass:Draw()
 	local y2 = y1 + self.height / 2
 	DrawImageQuad(nil, x1, y1, x2, y1, (x1+x2)/2, y2, (x1+x2)/2, y2)
 	if self.dropped then
+		SetDrawLayer(nil, 5)
 		SetDrawColor(0, 0, 0)
 		DrawImage(nil, x + 1, y + self.height + 1, self.width - 2, dropExtra - 2)
+		SetDrawLayer(nil, 0)
 	end
 	if enabled then
 		SetDrawColor(1, 1, 1)
@@ -88,7 +104,9 @@ function DropDownClass:Draw()
 	end
 	DrawString(x + 2, y + 2, "LEFT", self.height - 4, "VAR", self.list[self.sel] or "")
 	if self.dropped then
-		self.hoverSel = mOver and math.floor((select(2,GetCursorPos()) - y - self.height) / (self.height - 4)) + 1
+		SetDrawLayer(nil, 5)
+		local cursorX, cursorY = GetCursorPos()
+		self.hoverSel = mOver and math.floor((cursorY - y - self.height) / (self.height - 4)) + 1
 		if self.hoverSel and self.hoverSel < 1 then
 			self.hoverSel = nil
 		end
@@ -105,47 +123,45 @@ function DropDownClass:Draw()
 			end
 			DrawString(x + 2, y, "LEFT", self.height - 4, "VAR", StripEscapes(val))
 		end
+		SetDrawLayer(nil, 0)
 	end
 end
 
 function DropDownClass:OnKeyDown(key)
 	if self.enableFunc and not self.enableFunc() then
-		return true
+		return
 	end
-	if key == "LEFTBUTTON" then
-		local all, body = self:IsMouseOver()
-		if not all or (self.dropped and body) then
+	if key == "LEFTBUTTON" or key == "RIGHTBUTTON" then
+		local mOver, mOverComp = self:IsMouseOver()
+		if not mOver or (self.dropped and mOverComp == "BODY") then
 			self.dropped = false
-			return true
+			return self
 		end
 		self.dropped = true
-		return false
 	elseif key == "ESCAPE" then
 		self.dropped = false
-		return true
 	end
-	return false
+	return self.dropped and self
 end
 
 function DropDownClass:OnKeyUp(key)
 	if self.enableFunc and not self.enableFunc() then
-		return true
+		return
 	end
-	if key == "LEFTBUTTON" then
-		local all, body = self:IsMouseOver()
-		if not all then
+	if key == "LEFTBUTTON" or key == "RIGHTBUTTON" then
+		local mOver, mOverComp = self:IsMouseOver()
+		if not mOver then
 			self.dropped = false
-			return true
-		elseif not body then
-			local y = type(self.y) == "function" and self:y() or self.y
-			local sel = math.max(1, math.floor((select(2,GetCursorPos()) - y - self.height) / (self.height - 4)) + 1)
+		elseif mOverComp == "DROP" then
+			local x, y = self:GetPos()
+			local cursorX, cursorY = GetCursorPos()
+			local sel = math.max(1, math.floor((cursorY - y - self.height) / (self.height - 4)) + 1)
 			self.sel = sel
 			if self.selFunc then
 				self.selFunc(sel, self.list[sel])
 			end
 			self.dropped = false
-			return true
 		end
 	end
-	return false
+	return self.dropped and self
 end

@@ -529,6 +529,6 @@ itemBases["Carnal Armour"] = {
 
 itemBases["Sacrificial Garb"] = {
 	type = "Body Armour",
-	armour = { armourBase = 234, evasionNase = 234, energyShieldBase = 69, },
+	armour = { armourBase = 234, evasionBase = 234, energyShieldBase = 69, },
 	req = { level = 72, str = 66, dex = 66, int = 66, },
 }

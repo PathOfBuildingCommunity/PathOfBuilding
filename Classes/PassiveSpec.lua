@@ -19,10 +19,8 @@ local SpecClass = common.NewClass("PassiveSpec", function(self, tree)
 	self.nodes = { }
 	for _, treeNode in ipairs(tree.nodes) do
 		self.nodes[treeNode.id] = setmetatable({ 
-			rsq = treeNode.overlay and treeNode.overlay.rsq,
-			size = treeNode.overlay and treeNode.overlay.size,
 			linked = { }
-		}, { __index = treeNode })
+		}, treeNode.meta)
 	end
 	for id, node in pairs(self.nodes) do
 		for _, otherId in ipairs(node.linkedId) do
@@ -47,12 +45,11 @@ function SpecClass:Load(xml, dbFileName)
 					return true
 				end
 				self:DecodeURL(node[1])
-				self.undo = { node[1] }
-				self.redo = { }
 			end
 		end
 	end
-	self.modFlag = false
+	self.undo = { self:CreateUndoState() }
+	self.redo = { }
 end
 
 function SpecClass:Save(xml)
@@ -87,7 +84,7 @@ end
 function SpecClass:EncodeURL(prefix)
 	local a = { 0, 0, 0, 4, self.curClassId, self.curAscendClassId, 0 }
 	for id, node in pairs(self.allocNodes) do
-		if node.type ~= "class" and node.type ~= "ascendClass" then
+		if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
 			t_insert(a, m_floor(id / 256))
 			t_insert(a, id % 256)
 		end
@@ -134,7 +131,7 @@ function SpecClass:IsClassConnected(classId)
 		if other.alloc then
 			other.visited = true
 			local visited = { }
-			local found = findStart(other, visited, true)
+			local found = self:FindStartFromNode(other, visited, true)
 			for i, n in ipairs(visited) do
 				n.visited = false
 			end
@@ -149,7 +146,7 @@ end
 
 function SpecClass:ResetNodes()
 	for id, node in pairs(self.nodes) do
-		if node.type ~= "class" and node.type ~= "ascendClass" then
+		if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
 			node.alloc = false
 			self.allocNodes[id] = nil
 		end
@@ -190,7 +187,7 @@ end
 function SpecClass:CountAllocNodes()
 	local used, ascUsed = 0, 0
 	for _, node in pairs(self.allocNodes) do
-		if node.type ~= "class" and node.type ~= "ascendClass" then
+		if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
 			if node.ascendancyName then
 				if not node.isMultipleChoiceOption then
 					ascUsed = ascUsed + 1
@@ -213,7 +210,7 @@ function SpecClass:BuildPathFromNode(root)
 		o = o + 1
 		local curDist = node.pathDist + 1
 		for _, other in ipairs(node.linked) do
-			if other.type ~= "class" and other.type ~= "ascendClass" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
+			if other.type ~= "classStart" and other.type ~= "ascendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
 				other.pathDist = curDist
 				other.path = wipeTable(other.path)
 				other.path[1] = other
@@ -241,8 +238,8 @@ function SpecClass:FindStartFromNode(node, visited, noAscend)
 	node.visited = true
 	t_insert(visited, node)
 	for _, other in ipairs(node.linked) do
-		if other.alloc and (other.type == "class" or other.type == "ascendClass" or (not other.visited and self:FindStartFromNode(other, visited, noAscend))) then
-			if not noAscend or other.type ~= "ascendClass" then
+		if other.alloc and (other.type == "classStart" or other.type == "ascendClassStart" or (not other.visited and self:FindStartFromNode(other, visited, noAscend))) then
+			if not noAscend or other.type ~= "ascendClassStart" then
 				return true
 			end
 		end
@@ -256,10 +253,10 @@ function SpecClass:BuildAllDepends()
 		if node.alloc then
 			node.depends[1] = node
 			node.visited = true
-			local anyStartFound = (node.type == "class" or node.type == "ascendClass")
+			local anyStartFound = (node.type == "classStart" or node.type == "ascendClassStart")
 			for _, other in ipairs(node.linked) do
 				if other.alloc then
-					if other.type == "class" or other.type == "ascendClass" then
+					if other.type == "classStart" or other.type == "ascendClassStart" then
 						anyStartFound = true
 					elseif self:FindStartFromNode(other, visited) then
 						anyStartFound = true
@@ -287,8 +284,16 @@ function SpecClass:BuildAllDepends()
 	end
 end
 
+function SpecClass:CreateUndoState()
+	return self:EncodeURL()
+end
+
+function SpecClass:RestoreUndoState(state)
+	self:DecodeURL(state)
+end
+
 function SpecClass:AddUndoState(noClearRedo)
-	t_insert(self.undo, 1, self:EncodeURL())
+	t_insert(self.undo, 1, self:CreateUndoState())
 	self.undo[102] = nil
 	self.modFlag = true
 	self.buildFlag = true
@@ -300,14 +305,14 @@ end
 function SpecClass:Undo()
 	if self.undo[2] then
 		t_insert(self.redo, 1, table.remove(self.undo, 1))
-		self:DecodeURL(table.remove(self.undo, 1))
+		self:RestoreUndoState(table.remove(self.undo, 1))
 		self:AddUndoState(true)
 	end
 end
 
 function SpecClass:Redo()
 	if self.redo[1] then
-		self:DecodeURL(table.remove(self.redo, 1))
+		self:RestoreUndoState(table.remove(self.redo, 1))
 		self:AddUndoState(true)
 	end
 end

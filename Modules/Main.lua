@@ -22,6 +22,8 @@ LoadModule("Classes/PassiveSpec", launch, main)
 LoadModule("Classes/PassiveTreeView", launch, main)
 LoadModule("Classes/Grid", launch, main)
 LoadModule("Classes/ItemSlot", launch, main)
+LoadModule("Classes/ItemList", launch, main)
+LoadModule("Classes/ItemDB", launch, main)
 
 function main:Init()
 	self.modes = { }
@@ -31,6 +33,19 @@ function main:Init()
 	self.buildPath = "Builds/"
 	
 	self.tree = common.New("PassiveTree")
+
+	ConPrintf("Loading unique item database...")
+	self.uniqueDB = { list = { } }
+	for type, typeList in pairs(data.uniques) do
+		for _, raw in pairs(typeList) do
+			local newItem = itemLib.makeItemFromRaw(raw)
+			if newItem then
+				self.uniqueDB.list[newItem.name] = newItem
+			else
+				ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
+			end
+		end
+	end
 
 	self.controls = { }
 	self.controls.applyUpdate = common.New("ButtonControl", 0, 4, 100, 20, "^x50E050Apply Update", function()
@@ -185,8 +200,10 @@ end
 
 function main:DrawTooltip(x, y, w, h, viewPort, col, center)
 	local ttW, ttH = 0, 0
-	for _, data in ipairs(self.tooltipLines) do
-		ttH = ttH + data.size + 2
+	for i, data in ipairs(self.tooltipLines) do
+		if data.text or (self.tooltipLines[i - 1] and self.tooltipLines[i + 1] and self.tooltipLines[i + 1].text) then
+			ttH = ttH + data.size + 2
+		end
 		if data.text then
 			ttW = m_max(ttW, DrawStringWidth(data.size, "VAR", data.text))
 		end
@@ -227,17 +244,18 @@ function main:DrawTooltip(x, y, w, h, viewPort, col, center)
 			else
 				DrawString(ttX + 6, y, "LEFT", data.size, "VAR", data.text)
 			end
-		else
+			y = y + data.size + 2
+		elseif self.tooltipLines[i + 1] and self.tooltipLines[i - 1] and self.tooltipLines[i - 1].text then
 			if type(col) == "string" then
 				SetDrawColor(col) 
 			else
 				SetDrawColor(unpack(col))
 			end
 			DrawImage(nil, ttX + 3, y - 1 + data.size / 2, ttW - 6, 2)
+			y = y + data.size + 2
 		end
-		y = y + data.size + 2
-		self.tooltipLines[i] = nil
 	end
+	self.tooltipLines = wipeTable(self.tooltipLines)
 end
 
 return main

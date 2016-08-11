@@ -14,22 +14,25 @@ local ButtonClass = common.NewClass("ButtonControl", function(self, x, y, width,
 	self.enableFunc = enableFunc
 end)
 
+function ButtonClass:GetPos()
+	return type(self.x) == "function" and self:x() or self.x,
+		   type(self.y) == "function" and self:y() or self.y	
+end
+
 function ButtonClass:IsMouseOver()
 	if self.hidden then
 		return false
 	end
-	local x = type(self.x) == "function" and self:x() or self.x
-	local y = type(self.y) == "function" and self:y() or self.y
-	local cx, cy = GetCursorPos()
-	return cx >= x and cy >= y and cx < x + self.width and cy < y + self.height
+	local x, y = self:GetPos()
+	local cursorX, cursorY = GetCursorPos()
+	return cursorX >= x and cursorY >= y and cursorX < x + self.width and cursorY < y + self.height
 end
 
 function ButtonClass:Draw()
 	if self.hidden then
 		return
 	end
-	local x = type(self.x) == "function" and self:x() or self.x
-	local y = type(self.y) == "function" and self:y() or self.y
+	local x, y = self:GetPos()
 	local enabled = not self.enableFunc or self.enableFunc()
 	local mOver = self:IsMouseOver()
 	if not enabled then
@@ -60,17 +63,17 @@ end
 
 function ButtonClass:OnKeyDown(key)
 	if self.enableFunc and not self.enableFunc() then
-		return true
+		return
 	end
 	if key == "LEFTBUTTON" then
 		self.clicked = true
 	end
-	return false
+	return self
 end
 
 function ButtonClass:OnKeyUp(key)
 	if self.enableFunc and not self.enableFunc() then
-		return true
+		return
 	end
 	if key == "LEFTBUTTON" then
 		if self:IsMouseOver() then
@@ -78,5 +81,4 @@ function ButtonClass:OnKeyUp(key)
 		end
 	end
 	self.clicked = false
-	return true
 end

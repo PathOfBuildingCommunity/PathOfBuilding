@@ -93,7 +93,7 @@ function elemTypes.input:OnKeyDown(key, doubleClick)
 		elseif self.edit then
 			self.edit:OnKeyDown(key)
 		elseif self.dropDown then
-			if self.dropDown:OnKeyDown(key) then
+			if not self.dropDown:OnKeyDown(key) then
 				grid:SetFocus()
 			end
 		end
@@ -140,7 +140,7 @@ function elemTypes.input:OnKeyUp(key)
 	local grid = self.grid
 	if grid.focus == self then
 		if self.dropDown then
-			if self.dropDown:OnKeyUp(key) then
+			if not self.dropDown:OnKeyUp(key) then
 				grid:SetFocus()
 			end
 		else
@@ -288,13 +288,14 @@ function GridClass:OnKeyDown(key, doubleClick)
 		end
 	elseif key == "LEFTBUTTON" or key == "RIGHTBUTTON" then
 		self.sel = nil
-		local cx, cy = GetCursorPos()
-		local gcx, gcy = cx - self.offX, cy - self.offY
-		local gy = math.floor(gcy / cfg.gridHeight) + 1
-		if gcx >= 0 and gcy >= 0 and gcx < self.realWidth and gcy < self.realHeight then
+		local cursorX, cursorY = GetCursorPos()
+		local relX = cursorX - self.offX
+		local relY = cursorY - self.offY
+		if relX >= 0 and relY >= 0 and relX < self.realWidth and relY < self.realHeight then
+			local gy = math.floor(relY / cfg.gridHeight) + 1
 			local x = 0
 			for gx = 1, self.width do
-				if gcx >= x and gcx < x + self[gx].width then
+				if relX >= x and relX < x + self[gx].width then
 					if self[gx][gy] then
 						local elem = self[gx][gy]
 						self.sel = elem

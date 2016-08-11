@@ -109,7 +109,7 @@ itemBases["Ezomyte Staff"] = {
 	weapon = { physicalMin = 46, physicalMax = 138, critChanceBase = 7, attackRateBase = 1.2, },
 	req = { level = 62, str = 113, int = 113, },
 }
-itemBases["Maelström Staff"] = {
+itemBases["Maelstrom Staff"] = {
 	type = "Staff",
 	implicit = "18% Chance to Block",
 	weapon = { physicalMin = 57, physicalMax = 119, critChanceBase = 6.4, attackRateBase = 1.2, },
