@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}"
 	ProjectSection(SolutionItems) = preProject
@@ -10,33 +10,37 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Update.lua = Update.lua
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gem DB", "Gem DB", "{EE9D06F5-7310-4567-AB18-6923BCF0A2A1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gems", "Gems", "{EE9D06F5-7310-4567-AB18-6923BCF0A2A1}"
 	ProjectSection(SolutionItems) = preProject
-		Gems\act_dex.lua = Gems\act_dex.lua
-		Gems\act_int.lua = Gems\act_int.lua
-		Gems\act_str.lua = Gems\act_str.lua
-		Gems\other.lua = Gems\other.lua
-		Gems\sup_dex.lua = Gems\sup_dex.lua
-		Gems\sup_int.lua = Gems\sup_int.lua
-		Gems\sup_str.lua = Gems\sup_str.lua
+		Data\Gems\act_dex.lua = Data\Gems\act_dex.lua
+		Data\Gems\act_int.lua = Data\Gems\act_int.lua
+		Data\Gems\act_str.lua = Data\Gems\act_str.lua
+		Data\Gems\other.lua = Data\Gems\other.lua
+		Data\Gems\sup_dex.lua = Data\Gems\sup_dex.lua
+		Data\Gems\sup_int.lua = Data\Gems\sup_int.lua
+		Data\Gems\sup_str.lua = Data\Gems\sup_str.lua
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Item DB", "Item DB", "{5BCB69A7-EFE8-4C72-B5E3-DF2C1E227290}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Item bases", "Item bases", "{5BCB69A7-EFE8-4C72-B5E3-DF2C1E227290}"
 	ProjectSection(SolutionItems) = preProject
-		Items\axe.lua = Items\axe.lua
-		Items\body.lua = Items\body.lua
-		Items\boots.lua = Items\boots.lua
-		Items\bow.lua = Items\bow.lua
-		Items\claw.lua = Items\claw.lua
-		Items\dagger.lua = Items\dagger.lua
-		Items\glove.lua = Items\glove.lua
-		Items\helm.lua = Items\helm.lua
-		Items\mace.lua = Items\mace.lua
-		Items\misc.lua = Items\misc.lua
-		Items\shield.lua = Items\shield.lua
-		Items\staff.lua = Items\staff.lua
-		Items\sword.lua = Items\sword.lua
-		Items\wand.lua = Items\wand.lua
+		Data\Bases\amulet.lua = Data\Bases\amulet.lua
+		Data\Bases\axe.lua = Data\Bases\axe.lua
+		Data\Bases\belt.lua = Data\Bases\belt.lua
+		Data\Bases\body.lua = Data\Bases\body.lua
+		Data\Bases\boots.lua = Data\Bases\boots.lua
+		Data\Bases\bow.lua = Data\Bases\bow.lua
+		Data\Bases\claw.lua = Data\Bases\claw.lua
+		Data\Bases\dagger.lua = Data\Bases\dagger.lua
+		Data\Bases\gloves.lua = Data\Bases\gloves.lua
+		Data\Bases\helmet.lua = Data\Bases\helmet.lua
+		Data\Bases\jewel.lua = Data\Bases\jewel.lua
+		Data\Bases\mace.lua = Data\Bases\mace.lua
+		Data\Bases\quiver.lua = Data\Bases\quiver.lua
+		Data\Bases\ring.lua = Data\Bases\ring.lua
+		Data\Bases\shield.lua = Data\Bases\shield.lua
+		Data\Bases\staff.lua = Data\Bases\staff.lua
+		Data\Bases\sword.lua = Data\Bases\sword.lua
+		Data\Bases\wand.lua = Data\Bases\wand.lua
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{35D8BE82-CD83-4C2D-AD31-47026E724F46}"
@@ -61,10 +65,39 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4
 		Classes\DropDownControl.lua = Classes\DropDownControl.lua
 		Classes\EditControl.lua = Classes\EditControl.lua
 		Classes\Grid.lua = Classes\Grid.lua
+		Classes\ItemDB.lua = Classes\ItemDB.lua
+		Classes\ItemList.lua = Classes\ItemList.lua
 		Classes\ItemSlot.lua = Classes\ItemSlot.lua
 		Classes\PassiveSpec.lua = Classes\PassiveSpec.lua
 		Classes\PassiveTree.lua = Classes\PassiveTree.lua
 		Classes\PassiveTreeView.lua = Classes\PassiveTreeView.lua
+		Classes\ScrollBarControl.lua = Classes\ScrollBarControl.lua
+		Classes\SliderControl.lua = Classes\SliderControl.lua
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unique items", "Unique items", "{D9D8B9D1-F114-40CB-8EFA-B0F753009183}"
+	ProjectSection(SolutionItems) = preProject
+		Data\Uniques\amulet.lua = Data\Uniques\amulet.lua
+		Data\Uniques\axe.lua = Data\Uniques\axe.lua
+		Data\Uniques\belt.lua = Data\Uniques\belt.lua
+		Data\Uniques\body.lua = Data\Uniques\body.lua
+		Data\Uniques\boots.lua = Data\Uniques\boots.lua
+		Data\Uniques\bow.lua = Data\Uniques\bow.lua
+		Data\Uniques\claw.lua = Data\Uniques\claw.lua
+		Data\Uniques\dagger.lua = Data\Uniques\dagger.lua
+		Data\Uniques\gloves.lua = Data\Uniques\gloves.lua
+		Data\Uniques\helmet.lua = Data\Uniques\helmet.lua
+		Data\Uniques\jewel.lua = Data\Uniques\jewel.lua
+		Data\Uniques\mace.lua = Data\Uniques\mace.lua
+		Data\Uniques\misc.lua = Data\Uniques\misc.lua
+		Data\Uniques\quiver.lua = Data\Uniques\quiver.lua
+		Data\Uniques\ring.lua = Data\Uniques\ring.lua
+		Data\Uniques\shield.lua = Data\Uniques\shield.lua
+		Data\Uniques\staff.lua = Data\Uniques\staff.lua
+		Data\Uniques\sword.lua = Data\Uniques\sword.lua
+		Data\Uniques\wand.lua = Data\Uniques\wand.lua
 	EndProjectSection
 EndProject
 Global
@@ -72,9 +105,11 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EE9D06F5-7310-4567-AB18-6923BCF0A2A1} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
-		{5BCB69A7-EFE8-4C72-B5E3-DF2C1E227290} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
+		{EE9D06F5-7310-4567-AB18-6923BCF0A2A1} = {F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}
+		{5BCB69A7-EFE8-4C72-B5E3-DF2C1E227290} = {F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}
 		{35D8BE82-CD83-4C2D-AD31-47026E724F46} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
 		{7EE4DE67-DABD-4A3C-8772-37D4A9DB6D59} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
+		{F2327651-CAA5-4DA0-91DB-EFA5E0E07A51} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
+		{D9D8B9D1-F114-40CB-8EFA-B0F753009183} = {F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}
 	EndGlobalSection
 EndGlobal

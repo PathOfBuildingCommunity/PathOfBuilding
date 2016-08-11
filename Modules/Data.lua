@@ -7,13 +7,18 @@
 data = { }
 
 data.gems = { }
-LoadModule("Gems/act_str", data.gems)
-LoadModule("Gems/act_dex", data.gems)
-LoadModule("Gems/act_int", data.gems)
-LoadModule("Gems/sup_str", data.gems)
-LoadModule("Gems/sup_dex", data.gems)
-LoadModule("Gems/sup_int", data.gems)
-LoadModule("Gems/other", data.gems)
+local gemTypes = {
+	"act_str",
+	"act_dex",
+	"act_int",
+	"other",
+	"sup_str",
+	"sup_dex",
+	"sup_int",
+}
+for _, type in pairs(gemTypes) do
+	LoadModule("Data/Gems/"..type, data.gems)
+end
 
 data.colorCodes = {
 	NORMAL = "^xC8C8C8",
@@ -86,6 +91,7 @@ data.unarmedWeap = {
 }
 
 data.itemBases = { }
+data.uniques = { }
 local itemTypes = {
 	"axe",
 	"bow",
@@ -95,13 +101,18 @@ local itemTypes = {
 	"staff",
 	"sword",
 	"wand",
-	"helm",
+	"helmet",
 	"body",
-	"glove",
+	"gloves",
 	"boots",
 	"shield",
-	"misc"
+	"quiver",
+	"amulet",
+	"ring",
+	"belt",
+	"jewel",
 }
 for _, type in pairs(itemTypes) do
-	LoadModule("Items/"..type, data.itemBases)
+	LoadModule("Data/Bases/"..type, data.itemBases)
+	data.uniques[type] = LoadModule("Data/Uniques/"..type)
 end

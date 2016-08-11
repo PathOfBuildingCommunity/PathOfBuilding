@@ -21,7 +21,7 @@ local columnWidths = {
 	120, 60,
 	150, 60,
 	150, 60,
-	160, 90, 90, 90, 90, 90, 90, 70
+	160, 95, 95, 95, 95, 95, 95, 70
 }
 
 local columns = { }
@@ -109,8 +109,8 @@ columns[3] = {
 		{ "input", "Normal Bandit:", "misc_banditNormal", "choice", 1, { "None", "Alira", "Kraityn", "Oak" } },
 		{ "input", "Cruel Bandit:", "misc_banditCruel", "choice", 1, { "None", "Alira", "Kraityn", "Oak" } },
 		{ "input", "Merciless Bandit:", "misc_banditMerc", "choice", 1, { "None", "Alira", "Kraityn", "Oak" } },
-		{ "input", "Always on Low Life?", "cond_LowLife", "check" },
-		{ "input", "Always on Full Life?", "cond_FullLife", "check" },
+		{ "input", "Always on Low Life?", "Cond_LowLife", "check" },
+		{ "input", "Always on Full Life?", "Cond_FullLife", "check" },
 	}
 }
 
@@ -132,26 +132,33 @@ columns[5] = {
 		flag = "haveEndurance",
 		{ "output", "Max Endurance:", "enduranceMax" },
 	}, {
-		{ "input", "Onslaught?", "condBuff_Onslaught", "check" },
-		{ "input", "Phasing?", "condBuff_Phasing", "check" },
-		{ "input", "Fortify?", "condBuff_Fortify", "check" },
-		{ "input", "Using a Flask?", "condBuff_UsingFlask", "check" },
+		{ "input", "Onslaught?", "CondBuff_Onslaught", "check" },
+		{ "input", "Phasing?", "CondBuff_Phasing", "check" },
+		{ "input", "Fortify?", "CondBuff_Fortify", "check" },
+		{ "input", "Using a Flask?", "CondBuff_UsingFlask", "check" },
+		{ "input", "Pendulum of Dest.?", "buff_pendulum", "check" },
 	}, {
 		{ },
 		{ "For Effective DPS:" },
-		{ "input", "Enemy is Bleeding?", "condEff_EnemyBleeding", "check" },
-		{ "input", "Enemy is Poisoned?", "condEff_EnemyPoisoned", "check" },
-		{ "input", "Enemy is Burning?", "condEff_EnemyBurning", "check" },
-		{ "input", "Enemy is Ignited?", "condEff_EnemyIgnited", "check" },
-		{ "input", "Enemy is Chilled?", "condEff_EnemyChilled", "check" },
-		{ "input", "Enemy is Frozen?", "condEff_EnemyFrozen", "check" },
-		{ "input", "Enemy is Shocked?", "condEff_EnemyShocked", "check" },
-		{ "input", "Enemy Elem. Resist:", "effective_elementalResist" },
+		{ "input", "Enemy is Cursed?", "CondEff_EnemyCursed", "check" },
+		{ "input", "Enemy is Bleeding?", "CondEff_EnemyBleeding", "check" },
+		{ "input", "Enemy is Poisoned?", "CondEff_EnemyPoisoned", "check" },
+		{ "input", "Enemy is Burning?", "CondEff_EnemyBurning", "check" },
+		{ "input", "Enemy is Ignited?", "CondEff_EnemyIgnited", "check" },
+		{ "input", "Enemy is Chilled?", "CondEff_EnemyChilled", "check" },
+		{ "input", "Enemy is Frozen?", "CondEff_EnemyFrozen", "check" },
+		{ "input", "Enemy is Shocked?", "CondEff_EnemyShocked", "check" },
+		{ "input", "Enemy Phys. Red. %:", "effective_physicalRed" },
+		{ "input", "Enemy Fire Resist:", "effective_fireResist" },
+		{ "input", "Enemy Cold Resist:", "effective_coldResist" },
+		{ "input", "Enemy Light. Resist:", "effective_lightResist" },
+		{ "input", "Enemy Chaos Resist:", "effective_chaosResist" },
+		{ "input", "Enemy is a Boss?", "effective_enemyIsBoss", "check" },
 		{ },
 		{ "Crit Chance:" },
 	}, {
 		flag = "attack",
-		{ "output", "Weapon Crit %:", "gear_weap1_critChanceBase" },
+		{ "output", "Weapon Crit %:", "gear_weapon1_critChanceBase" },
 	}, {
 		{ "output", "Spec Global Crit %:", "spec_critChanceInc" },
 		{ "output", "Gear Global Crit %:", "gear_global_critChanceInc" },
@@ -288,6 +295,7 @@ columns[7] = {
 		{ "output", "Gear Attack Speed %:", "gear_attackSpeedInc" },
 		{ "output", "Spec Attack&Cast Sp. %:", "spec_speedInc" },
 		{ "output", "Gear Attack&Cast Sp. %:", "gear_speedInc" },
+		{ "output", "Enemy Resists:", fieldNames("enemy", "Resist", "lcfh") },
 		{ "output", "Attack Damage:", fieldNames("total", "", "plcfha") },
 		{ "output", "Average Damage:", "total_avg", getFormatRound(1) },
 		{ "output", "Attack Speed:", "total_speed", getFormatRound(2) },
@@ -299,6 +307,7 @@ columns[7] = {
 		{ "output", "Gear Cast Speed %:", "gear_castSpeedInc" },
 		{ "output", "Spec Attack&Cast Sp. %:", "spec_speedInc" },
 		{ "output", "Gear Attack&Cast Sp. %:", "gear_speedInc" },
+		{ "output", "Enemy Resists:", fieldNames("enemy", "Resist", "lcfh") },
 		{ "output", "Spell Damage:", fieldNames("total", "", "plcfha") },
 		{ "output", "Average Damage:", "total_avg", getFormatRound(1) },
 		{ "output", "Cast Rate:", "total_speed", getFormatRound(2) },

@@ -248,3 +248,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+*.lnk

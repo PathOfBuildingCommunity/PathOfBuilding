@@ -19,7 +19,7 @@ function buildMode:Init(dbFileName, buildName)
 	self.calcs:Init(self)
 	self.tree = main.tree
 	self.spec = common.New("PassiveSpec", self.tree)
-	self.treeView = common.New("PassiveTreeView", main)
+	self.treeView = common.New("PassiveTreeView")
 
 	self.controls = { }
 	t_insert(self.controls, common.New("ButtonControl", 4, 4, 60, 20, "<< Back", function()
@@ -59,7 +59,7 @@ function buildMode:Init(dbFileName, buildName)
 		Draw = function(control)
 			local used, ascUsed = self.spec:CountAllocNodes()
 			local usedMax = 120 + (self.calcs.output.total_extraPoints or 0)
-			local ascMax = 6
+			local ascMax = 8
 			local str = string.format("%s%3d / %3d   %s%d / %d", used > usedMax and "^1" or "^7", used, usedMax, ascUsed > ascMax and "^1" or "^7", ascUsed, ascMax)
 			local strW = DrawStringWidth(16, "FIXED", str) + 6
 			SetDrawColor(1, 1, 1)
@@ -89,7 +89,7 @@ function buildMode:Init(dbFileName, buildName)
 	end, function()
 		return self.viewMode == "TREE"
 	end)
-	self.controls.ascendDrop = common.New("DropDownControl", 0, 4, 100, 20, nil, function(index, val)
+	self.controls.ascendDrop = common.New("DropDownControl", 0, 4, 120, 20, nil, function(index, val)
 		local ascendClassId = self.tree.ascendNameMap[val].ascendClassId
 		self.spec:SelectAscendClass(ascendClassId)
 		self.spec:AddUndoState()
@@ -104,7 +104,7 @@ function buildMode:Init(dbFileName, buildName)
 
 	self.displayStats = {
 		{ mod = "total_avg", label = "Average Hit", fmt = ".1f" },
-		{ mod = "total_speed", label = "Speed", fmt = ".2f" },
+		{ mod = "total_speed", label = "Attack/Cast Rate", fmt = ".2f" },
 		{ mod = "total_critChance", label = "Crit Chance", fmt = ".2f%%", pc = true },
 		{ mod = "total_critMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true },
 		{ mod = "total_hitChance", label = "Hit Chance", fmt = "d%%", pc = true },
@@ -114,16 +114,18 @@ function buildMode:Init(dbFileName, buildName)
 		{ mod = "ignite_dps", label = "Ignite DPS", fmt = ".1f" },
 		{ mod = "poison_dps", label = "Poison DPS", fmt = ".1f" },
 		{ },
-		{ mod = "spec_lifeInc", label = "Life %", fmt = "d" },
 		{ mod = "total_life", label = "Total Life", fmt = "d" },
+		{ mod = "total_lifeRegen", label = "Life Regen", fmt = ".1f" },
 		{ },
 		{ mod = "total_mana", label = "Total Mana", fmt = "d" },
 		{ mod = "total_manaRegen", label = "Mana Regen", fmt = ".1f" },
 		{ },
 		{ mod = "total_energyShield", label = "Energy Shield", fmt = "d" },
+		{ mod = "total_energyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
 		{ mod = "total_evasion", label = "Evasion rating", fmt = "d" },
 		{ mod = "total_armour", label = "Armour", fmt = "d" },
 		{ mod = "total_blockChance", label = "Block Chance", fmt = "d%%" },
+		{ mod = "total_spellBlockChance", label = "Spell Block Chance", fmt = "d%%" },
 		{ mod = "total_dodgeAttacks", label = "Attack Dodge Chance", fmt = "d%%" },
 		{ mod = "total_dodgeSpells", label = "Spell Dodge Chance", fmt = "d%%" },
 		{ },
@@ -306,6 +308,23 @@ function buildMode:Save(xml)
 		className = self.spec.curClassName,
 		ascendClassName = self.spec.curAscendClassName,
 	}
+end
+
+function buildMode:AddStatComparesToTooltip(base, compare, header)
+	local count = 0
+	for _, statData in ipairs(self.displayStats) do
+		if statData.mod then
+			local diff = (compare[statData.mod] or 0) - (base[statData.mod] or 0)
+			if diff > 0.001 or diff < -0.001 then
+				if count == 0 then
+					main:AddTooltipLine(14, header)
+				end
+				main:AddTooltipLine(14, string.format("%s%+"..statData.fmt.." %s", diff > 0 and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE, diff * (statData.pc and 100 or 1), statData.label))
+				count = count + 1
+			end
+		end
+	end
+	return count
 end
 
 return buildMode

@@ -5,6 +5,7 @@
 --
 
 local t_insert = table.insert
+local m_floor = math.floor
 
 modLib = { }
 
@@ -37,14 +38,23 @@ function modLib.getCondName(modName)
 	return unpack(condLookup[modName])
 end
 
--- Magic table to check if a modifier is multiplicative (contains 'More' in the modifier name)
-modLib.isModMult = { }
-modLib.isModMult.__index = function(t, modName)
-	local val = (modName:match("More") ~= nil)
+-- Magic table to check modifier type: 
+-- "MORE" = multiplicative (contains 'More' in the modifier name)
+-- "INC" = additive (contains 'Inc' in the modifier name)
+modLib.getModType = { }
+modLib.getModType.__index = function(t, modName)
+	local val
+	if modName:match("More$") then
+		val = "MORE"
+	elseif modName:match("Inc$") then
+		val = "INC"
+	else
+		val = "BASE"
+	end
 	t[modName] = val
 	return val
 end
-setmetatable(modLib.isModMult, modLib.isModMult)
+setmetatable(modLib.getModType, modLib.getModType)
 
 -- Merge modifier with existing mod list, respecting additivity/multiplicativity
 function modLib.listMerge(modList, modName, modVal)
@@ -54,7 +64,7 @@ function modLib.listMerge(modList, modName, modVal)
 		elseif type(modVal) == "function" then
 			local orig = modList[modName]
 			modList[modName] = function(...) orig(...) modVal(...) end
-		elseif modLib.isModMult[modName] then
+		elseif modLib.getModType[modName] == "MORE" then
 			modList[modName] = modList[modName] * modVal
 		else
 			modList[modName] = modList[modName] + modVal
@@ -64,6 +74,19 @@ function modLib.listMerge(modList, modName, modVal)
 	end
 end
 
+-- Scale and merge modifier with existing mod list
+function modLib.listScaleMerge(modList, k, v, scale)
+	local type = modLib.getModType[k]
+	if type == "MORE" then
+		modLib.listMerge(modList, k, 1 + m_floor((v - 1) * scale * 100) / 100)
+	elseif type == "INC" then
+		modLib.listMerge(modList, k, m_floor(v * scale))
+	else
+		modLib.listMerge(modList, k, v * scale)
+	end
+end
+
+
 -- Unmerge modifier from existing mod list, respecting additivity/multiplicativity
 function modLib.listUnmerge(modList, modName, modVal)
 	if type(modVal) == "boolean" then
@@ -72,7 +95,7 @@ function modLib.listUnmerge(modList, modName, modVal)
 		end
 	elseif type(modVal) == "string" then
 		modList[modName] = nil
-	elseif modLib.isModMult[modName] then
+	elseif modLib.getModType[modName] == "MORE" then
 		if modVal == 0 then
 			modList[modName] = 1
 		else
@@ -94,6 +117,19 @@ function modLib.dbMerge(modDB, spaceName, modName, modVal)
 		modDB[spaceName] = { }
 	end
 	modLib.listMerge(modDB[spaceName], modName, modVal)
+end
+
+-- Scale and merge modifier with mod database
+function modLib.dbScaleMerge(modDB, spaceName, modName, modVal, scale)
+	if not spaceName then
+		spaceName, modName = modLib.getSpaceName(modName)
+	elseif spaceName == "" then
+		spaceName = "global"
+	end
+	if not modDB[spaceName] then
+		modDB[spaceName] = { }
+	end
+	modLib.listScaleMerge(modDB[spaceName], modName, modVal, scale)
 end
 
 -- Unmerge modifier from mod database
@@ -153,8 +189,12 @@ function modLib.dbPrint(modDB)
 	end
 	table.sort(spaceNames)
 	for _, spaceName in pairs(spaceNames) do
-		ConPrintf("%s = {", spaceName)
-		modLib.listPrint(modDB[spaceName], 1)
-		ConPrintf("},")
+		if next(modDB[spaceName]) then
+			ConPrintf("%s = {", spaceName)
+			modLib.listPrint(modDB[spaceName], 1)
+			ConPrintf("},")
+		else
+			ConPrintf("%s = { },", spaceName)
+		end
 	end
 end

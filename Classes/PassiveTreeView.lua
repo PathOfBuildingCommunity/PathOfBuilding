@@ -90,20 +90,26 @@ function TreeViewClass:Save(xml)
 	}
 end
 
-function TreeViewClass:DrawTree(build, viewPort, inputEvents)
+function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 	local tree = build.tree
 	local spec = build.spec
 
 	self.build = build
 	self.viewPort = viewPort
-	viewPort.height = viewPort.height - 32
+	if not noControls then
+		viewPort.height = viewPort.height - 32
+	end
+
+	local cursorX, cursorY = GetCursorPos()
 
 	local treeClick
 	common.controlsInput(self, inputEvents)
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "LEFTBUTTON" then
-				self.dragX, self.dragY = GetCursorPos()
+				if cursorX >= viewPort.x and cursorX < viewPort.x + viewPort.width and cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height then
+					self.dragX, self.dragY = cursorX, cursorY
+				end
 			elseif event.key == "z" and IsKeyDown("CTRL") then
 				spec:Undo()
 			elseif event.key == "y" and IsKeyDown("CTRL") then
@@ -125,8 +131,6 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 			end	
 		end
 	end
-
-	local cursorX, cursorY = GetCursorPos()
 
 	if not IsKeyDown("LEFTBUTTON") then
 		self.dragging = false
@@ -164,9 +168,9 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 	end
 
 	local hoverNode
-	if cursorX >= viewPort.x and cursorX < viewPort.x + viewPort.width and cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height then
+	if not noControls and cursorX >= viewPort.x and cursorX < viewPort.x + viewPort.width and cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height then
 		local curTreeX, curTreeY = screenToTree(cursorX, cursorY)
-		for id, node in pairs(spec.nodes) do
+		for nodeId, node in pairs(spec.nodes) do
 			if node.rsq then
 				local vX = curTreeX - node.x
 				local vY = curTreeY - node.y
@@ -259,9 +263,9 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 		end
 	end
 
-	for _, conn in pairs(tree.conn) do
+	for _, connector in pairs(tree.connectors) do
 		local state = "Normal"
-		local node1, node2 = spec.nodes[conn.nodeId1], spec.nodes[conn.nodeId2]
+		local node1, node2 = spec.nodes[connector.nodeId1], spec.nodes[connector.nodeId2]
 		if node1.alloc and node2.alloc then	
 			state = "Active"
 		elseif hoverPath then
@@ -269,25 +273,25 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 				state = "Intermediate"
 			end
 		end
-		local vert = conn.vert[state]
-		conn.c[1], conn.c[2] = treeToScreen(vert[1], vert[2])
-		conn.c[3], conn.c[4] = treeToScreen(vert[3], vert[4])
-		conn.c[5], conn.c[6] = treeToScreen(vert[5], vert[6])
-		conn.c[7], conn.c[8] = treeToScreen(vert[7], vert[8])
+		local vert = connector.vert[state]
+		connector.c[1], connector.c[2] = treeToScreen(vert[1], vert[2])
+		connector.c[3], connector.c[4] = treeToScreen(vert[3], vert[4])
+		connector.c[5], connector.c[6] = treeToScreen(vert[5], vert[6])
+		connector.c[7], connector.c[8] = treeToScreen(vert[7], vert[8])
 		if hoverDep and hoverDep[node1] and hoverDep[node2] then
 			SetDrawColor(1, 0, 0)
-		elseif conn.ascendancyName and conn.ascendancyName ~= spec.curAscendClassName then
+		elseif connector.ascendancyName and connector.ascendancyName ~= spec.curAscendClassName then
 			SetDrawColor(0.75, 0.75, 0.75)
 		end
-		DrawImageQuad(tree.assets[conn.type..state].handle, unpack(conn.c))
+		DrawImageQuad(tree.assets[connector.type..state].handle, unpack(connector.c))
 		SetDrawColor(1, 1, 1)
 	end
 
-	for id, node in pairs(spec.nodes) do
+	for nodeId, node in pairs(spec.nodes) do
 		local base, overlay
-		if node.type == "class" then
+		if node.type == "classStart" then
 			overlay = node.alloc and node.startArt or "PSStartNodeBackgroundInactive"
-		elseif node.type == "ascendClass" then
+		elseif node.type == "ascendClassStart" then
 			overlay = "PassiveSkillScreenAscendancyMiddle"
 		elseif node.type == "mastery" then
 			base = node.sprites.mastery
@@ -302,8 +306,8 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 			end
 			if node.type == "socket" then
 				base = tree.assets[node.overlay[state .. (node.ascendancyName and "Ascend" or "")]]
-				local jewel = node.alloc and build.items.list[build.items.sockets[id].selItem]
-				if jewel then
+				local socket, jewel = build.items:GetSocketAndJewelForNodeID(nodeId)
+				if node.alloc and jewel then
 					if jewel.baseName == "Crimson Jewel" then
 						overlay = "JewelSocketActiveRed"
 					elseif jewel.baseName == "Viridian Jewel" then
@@ -334,7 +338,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 			if build.calcs.powerBuildFlag then
 				build.calcs:BuildPower()
 			end
-			if not node.alloc and node.type ~= "class" and node.type ~= "ascendClass" then
+			if not node.alloc and node.type ~= "classStart" and node.type ~= "ascendClassStart" then
 				local dps = m_max(node.power.dps or 0, 0)
 				local def = m_max(node.power.def or 0, 0)
 				local dpsCol = (dps / build.calcs.powerMax.dps * 1.5) ^ 0.5
@@ -348,7 +352,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 			self:DrawAsset(base, scrX, scrY, scale)
 		end
 		if overlay then
-			if node.type ~= "class" and node.type ~= "ascendClass" then
+			if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
 				if #self.searchStr > 0 then
 					local errMsg, match = PCall(string.match, node.dn:lower(), self.searchStr:lower())
 					if not match then
@@ -403,7 +407,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 				DrawImage(self.ring, scrX - size, scrY - size, size * 2, size * 2)
 			end
 		elseif node.alloc then
-			local socket, jewel = build.items:GetSocketAndJewel(nodeId)
+			local socket, jewel = build.items:GetSocketAndJewelForNodeID(nodeId)
 			if jewel and jewel.radius then
 				local scrX, scrY = treeToScreen(node.x, node.y)
 				local radData = data.jewelRadius[jewel.radius]
@@ -421,11 +425,13 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents)
 		main:DrawTooltip(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
 	end
 
-	SetDrawColor(0.05, 0.05, 0.05)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height + 4, viewPort.width, 28)
-	SetDrawColor(0.85, 0.85, 0.85)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height, viewPort.width, 4)
-	common.controlsDraw(self, viewPort)
+	if not noControls then
+		SetDrawColor(0.05, 0.05, 0.05)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height + 4, viewPort.width, 28)
+		SetDrawColor(0.85, 0.85, 0.85)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height, viewPort.width, 4)
+		common.controlsDraw(self, viewPort)
+	end
 end
 
 function TreeViewClass:DrawAsset(data, x, y, scale, isHalf)
@@ -454,7 +460,7 @@ end
 function TreeViewClass:AddNodeTooltip(node, build)
 	-- Special case for sockets
 	if node.type == "socket" and node.alloc then
-		local socket, jewel = build.items:GetSocketAndJewel(node.id)
+		local socket, jewel = build.items:GetSocketAndJewelForNodeID(node.id)
 		if jewel then
 			build.items:AddItemTooltip(jewel, build)
 		else
@@ -468,6 +474,7 @@ function TreeViewClass:AddNodeTooltip(node, build)
 	-- Node name
 	main:AddTooltipLine(24, "^7"..node.dn..(launch.devMode and IsKeyDown("ALT") and " ["..node.id.."]" or ""))
 	if launch.devMode and IsKeyDown("ALT") and node.power and node.power.dps then
+		-- Power debugging info
 		main:AddTooltipLine(16, string.format("DPS power: %g   Defence power: %g", node.power.dps, node.power.def))
 	end
 
@@ -477,6 +484,7 @@ function TreeViewClass:AddNodeTooltip(node, build)
 		for i, line in ipairs(node.sd) do
 			if node.mods[i].list then
 				if launch.devMode and IsKeyDown("ALT") then
+					-- Modifier debugging info
 					local modStr
 					for k, v in pairs(node.mods[i].list) do
 						modStr = (modStr and modStr..", " or "^2") .. string.format("%s = %s", k, tostring(v))
@@ -489,7 +497,7 @@ function TreeViewClass:AddNodeTooltip(node, build)
 					end
 				end
 			end
-			main:AddTooltipLine(16, "^7"..line)
+			main:AddTooltipLine(16, ((node.mods[i].extra or not node.mods[i].list) and data.colorCodes.NORMAL or data.colorCodes.MAGIC)..line)
 		end
 	end
 
@@ -505,51 +513,28 @@ function TreeViewClass:AddNodeTooltip(node, build)
 	local calcFunc, calcBase = build.calcs:GetNodeCalculator(build)
 	if calcFunc then
 		main:AddTooltipSeperator(14)
-		local count
+		local pathLength
 		local nodeOutput, pathOutput
 		if node.alloc then
-			count = #node.depends
+			pathLength = #node.depends
 			nodeOutput = calcFunc({node}, true)
-			pathOutput = calcFunc(node.depends, true)
+			if pathLength > 1 then
+				pathOutput = calcFunc(node.depends, true)
+			end
 		else
 			local path = self.tracePath or node.path or { }
-			count = #path
+			pathLength = #path
 			nodeOutput = calcFunc({node})
-			pathOutput = calcFunc(path)
-		end
-		local none = true
-		local header = false
-		for _, stat in ipairs(build.displayStats) do
-			if stat.mod then
-				local diff = (nodeOutput[stat.mod] or 0) - (calcBase[stat.mod] or 0)
-				if diff > 0.001 or diff < -0.001 then
-					none = false
-					if not header then
-						main:AddTooltipLine(14, string.format("^7%s this node will give you:", node.alloc and "Unallocating" or "Allocating"))
-						header = true
-					end
-					main:AddTooltipLine(14, string.format("%s%+"..stat.fmt.." %s", diff > 0 and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE, diff * (stat.pc and 100 or 1), stat.label))
-				end
+			if pathLength > 1 then
+				pathOutput = calcFunc(path)
 			end
 		end
-		if count > 1 then
-			header = false
-			for _, stat in ipairs(build.displayStats) do
-				if stat.mod then
-					local diff = (pathOutput[stat.mod] or 0) - (calcBase[stat.mod] or 0)
-					if diff > 0.001 or diff < -0.001 then
-						none = false
-						if not header then
-							main:AddTooltipLine(14, string.format("^7%s this node and all nodes %s will give you:", node.alloc and "Unallocating" or "Allocating", node.alloc and "depending on it" or "leading to it"))
-							header = true
-						end
-						main:AddTooltipLine(14, string.format("%s%+"..stat.fmt.." %s", diff > 0 and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE, diff * (stat.pc and 100 or 1), stat.label))
-					end
-				end
-			end
+		local count = self.build:AddStatComparesToTooltip(calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
+		if pathLength > 1 then
+			count = count + self.build:AddStatComparesToTooltip(calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:")
 		end
-		if none then
-			main:AddTooltipLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", count > 1 and " or the nodes leading to it" or ""))
+		if count == 0 then
+			main:AddTooltipLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
 		end
 	end
 

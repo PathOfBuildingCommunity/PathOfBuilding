@@ -64,17 +64,17 @@ end
 function EditClass:OnKeyDown(key, doubleClick)
 	self:UpdatePosition()
 	self.active = not self.edit:OnKeyDown(key, doubleClick)
-	return not self.active
+	return self.active and self
 end
 
 function EditClass:OnKeyUp(key)
 	self:UpdatePosition()
 	self.active = not self.edit:OnKeyUp(key)
-	return not self.active
+	return self.active and self
 end
 
 function EditClass:OnChar(key)
 	self:UpdatePosition()
 	self.active = not self.edit:OnChar(key)
-	return not self.active
+	return self.active and self
 end

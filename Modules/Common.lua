@@ -98,23 +98,22 @@ end
 LoadModule("Classes/EditControl")
 LoadModule("Classes/ButtonControl")
 LoadModule("Classes/DropDownControl")
+LoadModule("Classes/ScrollBarControl")
+LoadModule("Classes/SliderControl")
 
 -- Process input events for a host object with a list of controls
 function common.controlsInput(host, inputEvents)
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if host.selControl then
-				if host.selControl:OnKeyDown(event.key, event.doubleClick) then
-					host.selControl = nil
-				end
+				host.selControl = host.selControl:OnKeyDown(event.key, event.doubleClick)
 				inputEvents[id] = nil
-			elseif event.key == "LEFTBUTTON" then
-				local cx, cy = GetCursorPos()
+			end
+			if not host.selControl and event.key:match("BUTTON") then
+				host.selControl = nil
 				for _, control in pairs(host.controls) do
 					if control.IsMouseOver and control:IsMouseOver() and control.OnKeyDown then
-						if not control:OnKeyDown(event.key, event.doubleClick) then
-							host.selControl = control
-						end
+						host.selControl = control:OnKeyDown(event.key, event.doubleClick)
 						inputEvents[id] = nil
 						break
 					end
@@ -122,15 +121,23 @@ function common.controlsInput(host, inputEvents)
 			end
 		elseif event.type == "KeyUp" then
 			if host.selControl then
-				if host.selControl.OnKeyUp and host.selControl:OnKeyUp(event.key) then
-					host.selControl = nil
+				if host.selControl.OnKeyUp then
+					host.selControl = host.selControl:OnKeyUp(event.key)
 				end
 				inputEvents[id] = nil
+			else
+				for _, control in pairs(host.controls) do
+					if control.IsMouseOver and control:IsMouseOver() and control.OnKeyUp then
+						control:OnKeyUp(event.key)
+						inputEvents[id] = nil
+						break
+					end
+				end
 			end
 		elseif event.type == "Char" then
 			if host.selControl then
-				if host.selControl.OnChar and host.selControl:OnChar(event.key) then
-					host.selControl = nil
+				if host.selControl.OnChar then
+					host.selControl = host.selControl:OnChar(event.key)
 				end
 				inputEvents[id] = nil
 			end
@@ -141,14 +148,8 @@ end
 -- Draw host object's controls
 function common.controlsDraw(host, ...)
 	for _, control in pairs(host.controls) do
-		if control ~= host.selControl then
-			control:Draw(...)
-		end
+		control:Draw(...)
 	end
-	if host.selControl then
-		host.selControl:Draw(...)
-	end
-
 end
 
 -- Make a copy of a table and all subtables
