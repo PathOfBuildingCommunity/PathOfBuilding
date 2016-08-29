@@ -1,36 +1,29 @@
 -- Path of Building
 --
 -- Class: Slider Control
--- Basic slider control
+-- Basic slider control.
 --
+local launch, main = ...
 
 local m_min = math.min
 local m_max = math.max
 
-local SliderClass = common.NewClass("SliderControl", function(self, x, y, width, height, changeFunc, enableFunc)
-	self.x = x
-	self.y = y
-	self.width = width
-	self.height = height
+local SliderClass = common.NewClass("SliderControl", "Control", function(self, anchor, x, y, width, height, changeFunc)
+	self.Control(anchor, x, y, width, height)
 	self.knobSize = height - 2
 	self.knobTravel = width - self.knobSize - 2
 	self.val = 0
 	self.changeFunc = changeFunc
-	self.enableFunc = enableFunc
 end)
 
-function SliderClass:GetPos()
-	return type(self.x) == "function" and self:x() or self.x,
-		   type(self.y) == "function" and self:y() or self.y
-end
-
 function SliderClass:IsMouseOver()
-	if self.hidden then
+	if not self:IsShown() then
 		return false
 	end
 	local x, y = self:GetPos()
+	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
-	local mOver = cursorX >= x and cursorY >= y and cursorX < x + self.width and cursorY < y + self.height
+	local mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 	local mOverComp
 	if mOver then
 		local relX = cursorX - x - 2
@@ -56,12 +49,9 @@ function SliderClass:GetKnobXForVal()
 end
 
 function SliderClass:Draw()
-	if self.hidden then
-		return
-	end
 	local x, y = self:GetPos()
-	local width, height = self.width, self.height
-	local enabled = not self.enableFunc or self.enableFunc()
+	local width, height = self:GetSize()
+	local enabled = self:IsEnabled()
 	if self.dragging then
 		local cursorX, cursorY = GetCursorPos()
 		self:SetValFromKnobX((cursorX - self.dragCX) + self.dragKnobX)
@@ -89,7 +79,7 @@ function SliderClass:Draw()
 end
 
 function SliderClass:OnKeyDown(key)
-	if self.hidden or (self.enableFunc and not self.enableFunc()) then
+	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
 	if key == "LEFTBUTTON" then
@@ -112,7 +102,7 @@ function SliderClass:OnKeyDown(key)
 end
 
 function SliderClass:OnKeyUp(key)
-	if self.hidden or (self.enableFunc and not self.enableFunc()) then
+	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
 	if key == "LEFTBUTTON" then

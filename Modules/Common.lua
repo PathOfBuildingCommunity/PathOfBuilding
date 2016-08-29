@@ -4,13 +4,13 @@
 -- Libaries, functions and classes used by various modules.
 --
 
-local s_format = string.format
+local pairs = pairs
+local ipairs = ipairs
 local m_abs = math.abs
 local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
-local pairs = pairs
-local ipairs = ipairs
+local s_format = string.format
 
 common = { }
 
@@ -22,6 +22,14 @@ common.newEditField = require("simplegraphic/editfield")
 
 -- Class library
 common.classes = { }
+local function addSuperParents(class, parent)
+	for _, superParent in pairs(parent._parents) do
+		class._superParents[superParent] = true
+		if superParent._parents then
+			addSuperParents(class, superParent)
+		end
+	end
+end
 -- NewClass("<className>"[, "<parentClassName>"[, "<parentClassName>" ...]], constructorFunc)
 function common.NewClass(className, ...)
 	local class = { }
@@ -36,10 +44,14 @@ function common.NewClass(className, ...)
 		for i = 1, numVarArg - 1 do
 			local parentName = select(i, ...)
 			if not common.classes[parentName] then
-				error("Parent class '"..className.."' not defined")
+				error("Parent class '"..parentName.."' of class '"..className.."' not defined")
 			end
 			class._parents[i] = common.classes[parentName]
 		end
+		-- Build list of all classes directly or indirectly inherited by this class
+		class._superParents = { }
+		addSuperParents(class, class)
+		-- Set up inheritance
 		if #class._parents == 1 then
 			-- Single inheritance
 			setmetatable(class, class._parents[1]) 
@@ -48,7 +60,7 @@ function common.NewClass(className, ...)
 			setmetatable(class, {
 				__index = function(self, key)
 					for _, parent in ipairs(class._parents) do
-						local val = class._parents[key]
+						local val = parent[key]
 						if val ~= nil then
 							return val
 						end
@@ -69,8 +81,9 @@ function common.New(className, ...)
 	end
 	local object = setmetatable({ }, class)
 	if class._parents then
-		-- Add parent class proxies
-		for _, parent in pairs(class._parents) do
+		-- Add parent and superparent class proxies
+		object._parentInit = { }
+		for parent in pairs(class._superParents) do
 			object[parent._className] = setmetatable({ }, {
 				__index = function(self, key)
 					local v = rawget(object, key)
@@ -83,73 +96,32 @@ function common.New(className, ...)
 				__newindex = object,
 				__call = function(...)
 					if not parent._constructor then
-						error("Parent class '"..parent._className.."' of class '"..className.."' has no constructor")
+						error("Parent class '"..parent._className.."' of class '"..class._className.."' has no constructor")
+					end
+					if object._parentInit[parent] then
+						error("Parent class '"..parent._className.."' of class '"..class._className.."' has already been initialised")
 					end
 					parent._constructor(...)
+					object._parentInit[parent] = true
 				end,
 			})
 		end
 	end
 	class._constructor(object, ...)
+	if class._parents then
+		-- Check that the contructors for all parent and superparent classes have been called
+		for parent in pairs(class._superParents) do
+			if parent._constructor and not object._parentInit[parent] then
+				error("Parent class '"..parent._className.."' of class '"..className.."' must be initialised")
+			end
+		end
+	end
 	return object
 end
 
--- UI Controls
-LoadModule("Classes/EditControl")
-LoadModule("Classes/ButtonControl")
-LoadModule("Classes/DropDownControl")
-LoadModule("Classes/ScrollBarControl")
-LoadModule("Classes/SliderControl")
-
--- Process input events for a host object with a list of controls
-function common.controlsInput(host, inputEvents)
-	for id, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" then
-			if host.selControl then
-				host.selControl = host.selControl:OnKeyDown(event.key, event.doubleClick)
-				inputEvents[id] = nil
-			end
-			if not host.selControl and event.key:match("BUTTON") then
-				host.selControl = nil
-				for _, control in pairs(host.controls) do
-					if control.IsMouseOver and control:IsMouseOver() and control.OnKeyDown then
-						host.selControl = control:OnKeyDown(event.key, event.doubleClick)
-						inputEvents[id] = nil
-						break
-					end
-				end
-			end
-		elseif event.type == "KeyUp" then
-			if host.selControl then
-				if host.selControl.OnKeyUp then
-					host.selControl = host.selControl:OnKeyUp(event.key)
-				end
-				inputEvents[id] = nil
-			else
-				for _, control in pairs(host.controls) do
-					if control.IsMouseOver and control:IsMouseOver() and control.OnKeyUp then
-						control:OnKeyUp(event.key)
-						inputEvents[id] = nil
-						break
-					end
-				end
-			end
-		elseif event.type == "Char" then
-			if host.selControl then
-				if host.selControl.OnChar then
-					host.selControl = host.selControl:OnChar(event.key)
-				end
-				inputEvents[id] = nil
-			end
-		end
-	end	
-end
-
--- Draw host object's controls
-function common.controlsDraw(host, ...)
-	for _, control in pairs(host.controls) do
-		control:Draw(...)
-	end
+-- Quick hack to convert JSON to valid lua
+function jsonToLua(json)
+	return json:gsub("%[","{"):gsub("%]","}"):gsub('"(%d[%d%.]*)":','[%1]='):gsub('"([^"]+)":','["%1"]='):gsub("\\/","/"):gsub("{(%w+)}","{[0]=%1}")
 end
 
 -- Make a copy of a table and all subtables
@@ -241,10 +213,10 @@ function getFormatRound(dec)
 	end
 end
 
--- Formats 12.3456 -> "1234.5%" [dec=1]
+-- Formats 12.3456 -> "1234.6%" [dec=1]
 function formatPercent(val, dec)
 	dec = dec or 0
-	return m_floor((val or 0) * 100 * 10 ^ dec) / 10 ^ dec .. "%"
+	return m_floor((val or 0) * 100 * 10 ^ dec + 0.5) / 10 ^ dec .. "%"
 end
 function getFormatPercent(dec)
 	return function(val)

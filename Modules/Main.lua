@@ -6,24 +6,56 @@
 local launch = ...
 
 local ipairs = ipairs
+local t_insert = table.insert
+local t_remove = table.remove
 local m_floor = math.floor
 local m_max = math.max
-local t_insert = table.insert
+local m_min = math.min
 
 LoadModule("Modules/Common")
 LoadModule("Modules/Data")
 LoadModule("Modules/ModTools")
 LoadModule("Modules/ItemTools")
 
-local main = { }
+LoadModule("Classes/ControlHost")
 
-LoadModule("Classes/PassiveTree", launch, main)
-LoadModule("Classes/PassiveSpec", launch, main)
-LoadModule("Classes/PassiveTreeView", launch, main)
-LoadModule("Classes/Grid", launch, main)
-LoadModule("Classes/ItemSlot", launch, main)
-LoadModule("Classes/ItemList", launch, main)
-LoadModule("Classes/ItemDB", launch, main)
+local main = common.New("ControlHost")
+
+local classList = {
+	-- Basic controls
+	"Control",
+	"LabelControl",
+	"SectionControl",
+	"ButtonControl",
+	"CheckBoxControl",
+	"EditControl",
+	"DropDownControl",
+	"ScrollBarControl",
+	"SliderControl",
+	-- Misc
+	"PopupDialog",
+	"UndoHandler",
+	-- Mode: Build list
+	"BuildListControl",
+	-- Mode: Build
+	"ImportTab",
+	"TreeTab",
+	"PassiveTree",
+	"PassiveSpec",
+	"PassiveTreeView",
+	"SkillsTab",
+	"SkillListControl",
+	"SlotSelectControl",
+	"ItemsTab",
+	"ItemSlotControl",
+	"ItemListControl",
+	"ItemDBControl",
+	"CalcsTab",
+	"Grid",
+}
+for _, className in pairs(classList) do
+	LoadModule("Classes/"..className, launch, main)
+end
 
 function main:Init()
 	self.modes = { }
@@ -34,7 +66,7 @@ function main:Init()
 	
 	self.tree = common.New("PassiveTree")
 
-	ConPrintf("Loading unique item database...")
+	ConPrintf("Loading item databases...")
 	self.uniqueDB = { list = { } }
 	for type, typeList in pairs(data.uniques) do
 		for _, raw in pairs(typeList) do
@@ -46,14 +78,35 @@ function main:Init()
 			end
 		end
 	end
+	self.rareDB = { list = { } }
+	for _, raw in pairs(data.rares) do
+		local newItem = itemLib.makeItemFromRaw(raw)
+		if newItem then
+			self.rareDB.list[newItem.name] = newItem
+		else
+			ConPrintf("Rare DB unrecognised item:\n%s", raw)
+		end
+	end
 
-	self.controls = { }
-	self.controls.applyUpdate = common.New("ButtonControl", 0, 4, 100, 20, "^x50E050Apply Update", function()
+	self.controls.applyUpdate = common.New("ButtonControl", nil, 0, 4, 100, 20, "^x50E050Apply Update", function()
 		launch:ApplyUpdate(launch.updateAvailable)
 	end)
+	self.controls.applyUpdate.x = function()
+		return self.screenW - 104
+	end
+	self.controls.applyUpdate.shown = function()
+		return launch.updateAvailable and launch.updateAvailable ~= "none"
+	end
+	self.controls.updateChecking = common.New("LabelControl", {"RIGHT",self.controls.applyUpdate,"RIGHT"}, 0, 0, 0, 18, "Checking for updates...")
+	self.controls.updateChecking.shown = function()
+		return launch.subScriptType == "UPDATE"
+	end
 
 	self.inputEvents = { }
+	self.popups = { }
 	self.tooltipLines = { }
+
+	self.accountSessionIDs = { }
 
 	self:SetMode("LIST")
 
@@ -81,17 +134,27 @@ function main:OnFrame()
 		self:CallMode("Init", unpack(self.modeArgs))
 	end
 
-	self.controls.applyUpdate.x = self.screenW - 104
-	self.controls.applyUpdate.hidden = not launch.updateAvailable or launch.updateAvailable == "none"
-
-	common.controlsInput(self, self.inputEvents)
+	if self.popups[1] then
+		self.popups[1]:ProcessInput(self.inputEvents)
+		wipeTable(self.inputEvents)
+	else
+		self:ProcessControlsInput(self.inputEvents)
+	end
 
 	self:CallMode("OnFrame", self.inputEvents)
 
-	common.controlsDraw(self)
+	self:DrawControls()
 
 	if launch.devMode then
 		DrawString(4, 4, "RIGHT", 18, "VAR", "^1Dev Mode")
+	end
+
+	if self.popups[1] then
+		SetDrawLayer(10)
+		SetDrawColor(0, 0, 0, 0.5)
+		DrawImage(nil, 0, 0, self.screenW, self.screenH)
+		self.popups[1]:Draw()
+		SetDrawLayer(0)
 	end
 
 	wipeTable(self.inputEvents)
@@ -159,6 +222,13 @@ function main:LoadSettings()
 				self.buildPath = node.attrib.path
 			elseif node.elem == "DevMode" then
 				launch.devMode = node.attrib.enable == "true"
+			elseif node.elem == "Accounts" then
+				self.lastAccountName = node.attrib.lastAccountName
+				for _, child in ipairs(node) do
+					if child.elem == "Account" then
+						self.accountSessionIDs[child.attrib.accountName] = child.attrib.sessionID
+					end
+				end
 			end
 		end
 	end
@@ -168,7 +238,7 @@ function main:SaveSettings()
 	local setXML = { elem = "PathOfBuilding" }
 	local mode = { elem = "Mode", attrib = { mode = self.mode } }
 	for _, val in ipairs(self.modeArgs) do
-		local child = { elem = "Arg", attrib = {} }
+		local child = { elem = "Arg", attrib = { } }
 		if type(val) == "number" then
 			child.attrib.number = tostring(val)
 		elseif type(val) == "boolean" then
@@ -181,11 +251,81 @@ function main:SaveSettings()
 	t_insert(setXML, mode)
 	t_insert(setXML, { elem = "BuildPath", attrib = { path = self.buildPath } })
 	t_insert(setXML, { elem = "DevMode", attrib = { enable = tostring(launch.devMode) } })
+	local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName } }
+	for accountName, sessionID in pairs(self.accountSessionIDs) do
+		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = sessionID } })
+	end
+	t_insert(setXML, accounts)
 	local res, errMsg = common.xml.SaveXMLFile(setXML, "Settings.xml")
 	if not res then
 		launch:ShowErrMsg("Error saving 'Settings.xml': %s", errMsg)
 		return true
 	end
+end
+
+function main:DrawBackground(viewPort)
+	SetDrawLayer(nil, -100)
+	SetDrawColor(0.5, 0.5, 0.5)
+	DrawImage(self.tree.assets.Background1.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
+	SetDrawLayer(nil, 0)
+end
+
+function main:DrawArrow(x, y, size, dir)
+	local x1 = x - size / 2
+	local x2 = x + size / 2
+	local xMid = (x1 + x2) / 2
+	local y1 = y - size / 2
+	local y2 = y + size / 2
+	local yMid = (y1 + y2) / 2
+	if dir == "UP" then
+		DrawImageQuad(nil, xMid, y1, xMid, y1, x2, y2, x1, y2)
+	elseif dir == "RIGHT" then
+		DrawImageQuad(nil, x1, y1, x2, yMid, x2, yMid, x1, y2)
+	elseif dir == "DOWN" then
+		DrawImageQuad(nil, x1, y1, x2, y1, xMid, y2, xMid, y2)
+	elseif dir == "LEFT" then
+		DrawImageQuad(nil, x1, yMid, x2, y1, x2, y2, x1, yMid)
+	end
+end
+
+function main:OpenPopup(width, height, title, controls)
+	local popup = common.New("PopupDialog", width, height, title, controls)
+	t_insert(self.popups, popup)
+	return popup
+end
+
+function main:ClosePopup()
+	t_remove(self.popups, 1)
+end
+
+function main:OpenMessagePopup(title, msg)
+	local controls = { }
+	local numMsgLines = 0
+	for line in string.gmatch(msg .. "\n", "([^\n]*)\n") do
+		t_insert(controls, common.New("LabelControl", nil, 0, 20 + numMsgLines * 16, 0, 16, line))
+		numMsgLines = numMsgLines + 1
+	end
+	t_insert(controls, common.New("ButtonControl", nil, 0, 40 + numMsgLines * 16, 80, 20, "Ok", function()
+		main:ClosePopup()
+	end))
+	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls)
+end
+
+function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm)
+	local controls = { }
+	local numMsgLines = 0
+	for line in string.gmatch(msg .. "\n", "([^\n]*)\n") do
+		t_insert(controls, common.New("LabelControl", nil, 0, 20 + numMsgLines * 16, 0, 16, line))
+		numMsgLines = numMsgLines + 1
+	end
+	t_insert(controls, common.New("ButtonControl", nil, -45, 40 + numMsgLines * 16, 80, 20, confirmLabel, function()
+		onConfirm()
+		main:ClosePopup()
+	end))
+	t_insert(controls, common.New("ButtonControl", nil, 45, 40 + numMsgLines * 16, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end))
+	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls)
 end
 
 function main:AddTooltipLine(size, text)

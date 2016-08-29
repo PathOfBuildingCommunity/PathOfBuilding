@@ -6,7 +6,9 @@
 local gems = ...
 
 gems["Arc"] = {
+	intelligence = true,
 	spell = true,
+	chaining = true,
 	lightning = true,
 	base = {
 		skill_castTime = 0.8,
@@ -18,39 +20,40 @@ gems["Arc"] = {
 		shockChance = 0.5,
 	},
 	levels = {
-		[1] = { skill_manaCostBase = 9, skill_lightningMin = 2, skill_lightningMax = 35, },
-		[2] = { skill_manaCostBase = 10, skill_lightningMin = 2, skill_lightningMax = 44, },
-		[3] = { skill_manaCostBase = 11, skill_lightningMin = 3, skill_lightningMax = 58, },
-		[4] = { skill_manaCostBase = 12, skill_lightningMin = 4, skill_lightningMax = 76, },
-		[5] = { skill_manaCostBase = 13, skill_lightningMin = 5, skill_lightningMax = 97, },
-		[6] = { skill_manaCostBase = 14, skill_lightningMin = 6, skill_lightningMax = 123, },
-		[7] = { skill_manaCostBase = 16, skill_lightningMin = 8, skill_lightningMax = 154, },
-		[8] = { skill_manaCostBase = 16, skill_lightningMin = 10, skill_lightningMax = 182, },
-		[9] = { skill_manaCostBase = 17, skill_lightningMin = 11, skill_lightningMax = 214, },
-		[10] = { skill_manaCostBase = 18, skill_lightningMin = 13, skill_lightningMax = 250, },
-		[11] = { skill_manaCostBase = 19, skill_lightningMin = 15, skill_lightningMax = 292, },
-		[12] = { skill_manaCostBase = 20, skill_lightningMin = 18, skill_lightningMax = 340, },
-		[13] = { skill_manaCostBase = 21, skill_lightningMin = 21, skill_lightningMax = 395, },
-		[14] = { skill_manaCostBase = 22, skill_lightningMin = 24, skill_lightningMax = 458, },
-		[15] = { skill_manaCostBase = 23, skill_lightningMin = 28, skill_lightningMax = 529, },
-		[16] = { skill_manaCostBase = 24, skill_lightningMin = 32, skill_lightningMax = 610, },
-		[17] = { skill_manaCostBase = 24, skill_lightningMin = 35, skill_lightningMax = 671, },
-		[18] = { skill_manaCostBase = 25, skill_lightningMin = 39, skill_lightningMax = 736, },
-		[19] = { skill_manaCostBase = 25, skill_lightningMin = 43, skill_lightningMax = 808, },
-		[20] = { skill_manaCostBase = 26, skill_lightningMin = 47, skill_lightningMax = 886, },
-		[21] = { skill_manaCostBase = 26, skill_lightningMin = 51, skill_lightningMax = 971, },
-		[22] = { skill_manaCostBase = 26, skill_lightningMin = 56, skill_lightningMax = 1064, },
-		[23] = { skill_manaCostBase = 27, skill_lightningMin = 61, skill_lightningMax = 1164, },
-		[24] = { skill_manaCostBase = 28, skill_lightningMin = 67, skill_lightningMax = 1274, },
-		[25] = { skill_manaCostBase = 29, skill_lightningMin = 73, skill_lightningMax = 1393, },
-		[26] = { skill_manaCostBase = 30, skill_lightningMin = 80, skill_lightningMax = 1523, },
-		[27] = { skill_manaCostBase = 30, skill_lightningMin = 88, skill_lightningMax = 1663, },
-		[28] = { skill_manaCostBase = 30, skill_lightningMin = 96, skill_lightningMax = 1816, },
-		[29] = { skill_manaCostBase = 31, skill_lightningMin = 104, skill_lightningMax = 1983, },
-		[30] = { skill_manaCostBase = 32, skill_lightningMin = 114, skill_lightningMax = 2163, },
+		[1] = { skill_manaCostBase = 9, skill_lightningMin = 2, skill_lightningMax = 35, chainCount = 2, },
+		[2] = { skill_manaCostBase = 10, skill_lightningMin = 2, skill_lightningMax = 44, chainCount = 2, },
+		[3] = { skill_manaCostBase = 11, skill_lightningMin = 3, skill_lightningMax = 58, chainCount = 2, },
+		[4] = { skill_manaCostBase = 12, skill_lightningMin = 4, skill_lightningMax = 76, chainCount = 3, },
+		[5] = { skill_manaCostBase = 13, skill_lightningMin = 5, skill_lightningMax = 97, chainCount = 3, },
+		[6] = { skill_manaCostBase = 14, skill_lightningMin = 6, skill_lightningMax = 123, chainCount = 3, },
+		[7] = { skill_manaCostBase = 16, skill_lightningMin = 8, skill_lightningMax = 154, chainCount = 3, },
+		[8] = { skill_manaCostBase = 16, skill_lightningMin = 10, skill_lightningMax = 182, chainCount = 4, },
+		[9] = { skill_manaCostBase = 17, skill_lightningMin = 11, skill_lightningMax = 214, chainCount = 4, },
+		[10] = { skill_manaCostBase = 18, skill_lightningMin = 13, skill_lightningMax = 250, chainCount = 4, },
+		[11] = { skill_manaCostBase = 19, skill_lightningMin = 15, skill_lightningMax = 292, chainCount = 4, },
+		[12] = { skill_manaCostBase = 20, skill_lightningMin = 18, skill_lightningMax = 340, chainCount = 5, },
+		[13] = { skill_manaCostBase = 21, skill_lightningMin = 21, skill_lightningMax = 395, chainCount = 5, },
+		[14] = { skill_manaCostBase = 22, skill_lightningMin = 24, skill_lightningMax = 458, chainCount = 5, },
+		[15] = { skill_manaCostBase = 23, skill_lightningMin = 28, skill_lightningMax = 529, chainCount = 5, },
+		[16] = { skill_manaCostBase = 24, skill_lightningMin = 32, skill_lightningMax = 610, chainCount = 6, },
+		[17] = { skill_manaCostBase = 24, skill_lightningMin = 35, skill_lightningMax = 671, chainCount = 6, },
+		[18] = { skill_manaCostBase = 25, skill_lightningMin = 39, skill_lightningMax = 736, chainCount = 6, },
+		[19] = { skill_manaCostBase = 25, skill_lightningMin = 43, skill_lightningMax = 808, chainCount = 6, },
+		[20] = { skill_manaCostBase = 26, skill_lightningMin = 47, skill_lightningMax = 886, chainCount = 7, },
+		[21] = { skill_manaCostBase = 26, skill_lightningMin = 51, skill_lightningMax = 971, chainCount = 7, },
+		[22] = { skill_manaCostBase = 26, skill_lightningMin = 56, skill_lightningMax = 1064, chainCount = 7, },
+		[23] = { skill_manaCostBase = 27, skill_lightningMin = 61, skill_lightningMax = 1164, chainCount = 7, },
+		[24] = { skill_manaCostBase = 28, skill_lightningMin = 67, skill_lightningMax = 1274, chainCount = 8, },
+		[25] = { skill_manaCostBase = 29, skill_lightningMin = 73, skill_lightningMax = 1393, chainCount = 8, },
+		[26] = { skill_manaCostBase = 30, skill_lightningMin = 80, skill_lightningMax = 1523, chainCount = 8, },
+		[27] = { skill_manaCostBase = 30, skill_lightningMin = 88, skill_lightningMax = 1663, chainCount = 8, },
+		[28] = { skill_manaCostBase = 30, skill_lightningMin = 96, skill_lightningMax = 1816, chainCount = 9, },
+		[29] = { skill_manaCostBase = 31, skill_lightningMin = 104, skill_lightningMax = 1983, chainCount = 9, },
+		[30] = { skill_manaCostBase = 32, skill_lightningMin = 114, skill_lightningMax = 2163, chainCount = 9, },
 	}
 }
 gems["Arctic Breath"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	projectile = true,
@@ -142,6 +145,7 @@ gems["Assassin's Mark"] = {
 	}
 }
 gems["Ball Lightning"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	projectile = true,
@@ -193,13 +197,16 @@ gems["Ball Lightning"] = {
 	}
 }
 gems["Bone Offering"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Clarity"] = {
+	intelligence = true,
 	aura = true,
 	spell = true,
 	aoe = true,
 	base = {
+		skill_castTime = 1.2,
 	},
 	quality = {
 		aura_aoeRadiusInc = 1,
@@ -238,6 +245,7 @@ gems["Clarity"] = {
 	}
 }
 gems["Cold Snap"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	cold = true,
@@ -286,6 +294,7 @@ gems["Cold Snap"] = {
 	}
 }
 gems["Conductivity"] = {
+	intelligence = true,
 	curse = true,
 	spell = true,
 	aoe = true,
@@ -332,6 +341,7 @@ gems["Conductivity"] = {
 	}
 }
 gems["Contagion"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	duration = true,
@@ -379,12 +389,15 @@ gems["Contagion"] = {
 	}
 }
 gems["Conversion Trap"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Convocation"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Discharge"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	lightning = true,
@@ -432,10 +445,12 @@ gems["Discharge"] = {
 	}
 }
 gems["Discipline"] = {
+	intelligence = true,
 	aura = true,
 	spell = true,
 	aoe = true,
 	base = {
+		skill_castTime = 1.2,
 		skill_manaReservedPercent = 35,
 	},
 	quality = {
@@ -475,6 +490,7 @@ gems["Discipline"] = {
 	}
 }
 gems["Elemental Weakness"] = {
+	intelligence = true,
 	curse = true,
 	spell = true,
 	aoe = true,
@@ -520,6 +536,7 @@ gems["Elemental Weakness"] = {
 	}
 }
 gems["Enfeeble"] = {
+	intelligence = true,
 	curse = true,
 	spell = true,
 	aoe = true,
@@ -564,6 +581,7 @@ gems["Enfeeble"] = {
 	}
 }
 gems["Essence Drain"] = {
+	intelligence = true,
 	spell = true,
 	projectile = true,
 	duration = true,
@@ -613,6 +631,7 @@ gems["Essence Drain"] = {
 	}
 }
 gems["Fire Nova Mine"] = {
+	intelligence = true,
 	spell = true,
 	mine = true,
 	aoe = true,
@@ -659,6 +678,7 @@ gems["Fire Nova Mine"] = {
 	}
 }
 gems["Fireball"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	projectile = true,
@@ -705,6 +725,7 @@ gems["Fireball"] = {
 	}
 }
 gems["Firestorm"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	duration = true,
@@ -752,6 +773,7 @@ gems["Firestorm"] = {
 	}
 }
 gems["Flame Dash"] = {
+	intelligence = true,
 	spell = true,
 	fire = true,
 	movement = true,
@@ -799,6 +821,7 @@ gems["Flame Dash"] = {
 	}
 }
 gems["Flame Surge"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	fire = true,
@@ -845,6 +868,7 @@ gems["Flame Surge"] = {
 	}
 }
 gems["Flameblast"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	fire = true,
@@ -860,8 +884,8 @@ gems["Flameblast"] = {
 		skill_castTime = 0.2,
 		skill_damageEffectiveness = 0.5,
 		skill_critChanceBase = 5,
-		part2_spell_damageMore = 10.9,
-		part2_castSpeedMore = 0.1,
+		SkillPart2_spell_damageMore = 10.9,
+		SkillPart2_castSpeedMore = 0.1,
 	},
 	quality = {
 		damageInc = 1,
@@ -900,6 +924,7 @@ gems["Flameblast"] = {
 	}
 }
 gems["Flammability"] = {
+	intelligence = true,
 	curse = true,
 	spell = true,
 	aoe = true,
@@ -946,9 +971,11 @@ gems["Flammability"] = {
 	}
 }
 gems["Flesh Offering"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Freezing Pulse"] = {
+	intelligence = true,
 	spell = true,
 	projectile = true,
 	spell = true,
@@ -996,6 +1023,7 @@ gems["Freezing Pulse"] = {
 	}
 }
 gems["Frost Bomb"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	duration = true,
@@ -1045,6 +1073,7 @@ gems["Frost Bomb"] = {
 	}
 }
 gems["Frost Wall"] = {
+	intelligence = true,
 	spell = true,
 	duration = true,
 	cold = true,
@@ -1088,6 +1117,7 @@ gems["Frost Wall"] = {
 	}
 }
 gems["Frostbite"] = {
+	intelligence = true,
 	curse = true,
 	spell = true,
 	aoe = true,
@@ -1134,6 +1164,7 @@ gems["Frostbite"] = {
 	}
 }
 gems["Frostbolt"] = {
+	intelligence = true,
 	spell = true,
 	projectile = true,
 	cold = true,
@@ -1179,6 +1210,7 @@ gems["Frostbolt"] = {
 	}
 }
 gems["Glacial Cascade"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	cold = true,
@@ -1224,11 +1256,19 @@ gems["Glacial Cascade"] = {
 	}
 }
 gems["Herald of Thunder"] = {
+	intelligence = true,
 	cast = true,
 	aoe = true,
 	duration = true,
 	lightning = true,
+	parts = {
+		{
+			aoe = false,
+		},
+	},
 	base = {
+		skill_castTime = 1,
+		skill_damageEffectiveness = 1.2,
 		skill_manaReservedPercent = 25,
 		skill_durationBase = 6,
 	},
@@ -1269,6 +1309,7 @@ gems["Herald of Thunder"] = {
 	}
 }
 gems["Ice Nova"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	cold = true,
@@ -1314,6 +1355,7 @@ gems["Ice Nova"] = {
 	}
 }
 gems["Ice Spear"] = {
+	intelligence = true,
 	spell = true,
 	projectile = true,
 	cold = true,
@@ -1329,8 +1371,8 @@ gems["Ice Spear"] = {
 		skill_castTime = 0.85,
 		skill_damageEffectiveness = 0.8,
 		skill_critChanceBase = 7,
-		part1_pierceChance = 100,
-		part2_critChanceInc = 600,
+		SkillPart1_pierceChance = 100,
+		SkillPart2_critChanceInc = 600,
 	},
 	quality = {
 		projectileSpeedInc = 2,
@@ -1369,6 +1411,7 @@ gems["Ice Spear"] = {
 	}
 }
 gems["Incinerate"] = {
+	intelligence = true,
 	spell = true,
 	projectile = true,
 	fire = true,
@@ -1385,7 +1428,7 @@ gems["Incinerate"] = {
 		skill_damageEffectiveness = 0.3,
 		skill_baseCrit = 0,
 		pierceChance = 100,
-		part2_spell_damageMore = 2.5,
+		SkillPart2_spell_damageMore = 2.5,
 	},
 	quality = {
 		projectileSpeedInc = 2,
@@ -1424,6 +1467,7 @@ gems["Incinerate"] = {
 	}
 }
 gems["Kinetic Blast"] = {
+	intelligence = true,
 	attack = true,
 	projectile = true,
 	aoe = true,
@@ -1477,6 +1521,7 @@ gems["Kinetic Blast"] = {
 	}
 }
 gems["Lightning Tendrils"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	lightning = true,
@@ -1522,6 +1567,7 @@ gems["Lightning Tendrils"] = {
 	}
 }
 gems["Lightning Trap"] = {
+	intelligence = true,
 	spell = true,
 	trap = true,
 	projectile = true,
@@ -1531,6 +1577,7 @@ gems["Lightning Trap"] = {
 		skill_damageEffectiveness = 0.9,
 		skill_critChanceBase = 5,
 		skill_trapCooldown = 2,
+		projectileCount = 8,
 	},
 	quality = {
 		trapThrowingSpeedInc = 0.5,
@@ -1569,6 +1616,7 @@ gems["Lightning Trap"] = {
 	}
 }
 gems["Lightning Warp"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	lightning = true,
@@ -1617,8 +1665,10 @@ gems["Lightning Warp"] = {
 	}
 }
 gems["Magma Orb"] = {
+	intelligence = true,
 	spell = true,
 	projectile = true,
+	chaining = true,
 	aoe = true,
 	fire = true,
 	base = {
@@ -1630,41 +1680,43 @@ gems["Magma Orb"] = {
 		damageInc = 1,
 	},
 	levels = {
-		[1] = { skill_manaCostBase = 5, skill_fireMin = 6, skill_fireMax = 9, },
-		[2] = { skill_manaCostBase = 6, skill_fireMin = 7, skill_fireMax = 10, },
-		[3] = { skill_manaCostBase = 6, skill_fireMin = 8, skill_fireMax = 12, },
-		[4] = { skill_manaCostBase = 7, skill_fireMin = 11, skill_fireMax = 17, },
-		[5] = { skill_manaCostBase = 7, skill_fireMin = 16, skill_fireMax = 24, },
-		[6] = { skill_manaCostBase = 8, skill_fireMin = 25, skill_fireMax = 37, },
-		[7] = { skill_manaCostBase = 9, skill_fireMin = 33, skill_fireMax = 50, },
-		[8] = { skill_manaCostBase = 10, skill_fireMin = 44, skill_fireMax = 66, },
-		[9] = { skill_manaCostBase = 11, skill_fireMin = 58, skill_fireMax = 87, },
-		[10] = { skill_manaCostBase = 12, skill_fireMin = 75, skill_fireMax = 112, },
-		[11] = { skill_manaCostBase = 13, skill_fireMin = 96, skill_fireMax = 144, },
-		[12] = { skill_manaCostBase = 14, skill_fireMin = 122, skill_fireMax = 183, },
-		[13] = { skill_manaCostBase = 15, skill_fireMin = 154, skill_fireMax = 232, },
-		[14] = { skill_manaCostBase = 16, skill_fireMin = 194, skill_fireMax = 291, },
-		[15] = { skill_manaCostBase = 18, skill_fireMin = 243, skill_fireMax = 365, },
-		[16] = { skill_manaCostBase = 19, skill_fireMin = 303, skill_fireMax = 454, },
-		[17] = { skill_manaCostBase = 20, skill_fireMin = 376, skill_fireMax = 564, },
-		[18] = { skill_manaCostBase = 21, skill_fireMin = 466, skill_fireMax = 698, },
-		[19] = { skill_manaCostBase = 21, skill_fireMin = 545, skill_fireMax = 818, },
-		[20] = { skill_manaCostBase = 22, skill_fireMin = 637, skill_fireMax = 956, },
-		[21] = { skill_manaCostBase = 23, skill_fireMin = 707, skill_fireMax = 1060, },
-		[22] = { skill_manaCostBase = 23, skill_fireMin = 784, skill_fireMax = 1175, },
-		[23] = { skill_manaCostBase = 24, skill_fireMin = 868, skill_fireMax = 1302, },
-		[24] = { skill_manaCostBase = 24, skill_fireMin = 961, skill_fireMax = 1442, },
-		[25] = { skill_manaCostBase = 25, skill_fireMin = 1063, skill_fireMax = 1595, },
-		[26] = { skill_manaCostBase = 26, skill_fireMin = 1176, skill_fireMax = 1764, },
-		[27] = { skill_manaCostBase = 26, skill_fireMin = 1300, skill_fireMax = 1950, },
-		[28] = { skill_manaCostBase = 27, skill_fireMin = 1437, skill_fireMax = 2155, },
-		[29] = { skill_manaCostBase = 27, skill_fireMin = 1587, skill_fireMax = 2380, },
-		[30] = { skill_manaCostBase = 28, skill_fireMin = 1752, skill_fireMax = 2628, },
+		[1] = { skill_manaCostBase = 5, skill_fireMin = 6, skill_fireMax = 9, chainCount = 1, },
+		[2] = { skill_manaCostBase = 6, skill_fireMin = 7, skill_fireMax = 10, chainCount = 1, },
+		[3] = { skill_manaCostBase = 6, skill_fireMin = 8, skill_fireMax = 12, chainCount = 1, },
+		[4] = { skill_manaCostBase = 7, skill_fireMin = 11, skill_fireMax = 17, chainCount = 1, },
+		[5] = { skill_manaCostBase = 7, skill_fireMin = 16, skill_fireMax = 24, chainCount = 1, },
+		[6] = { skill_manaCostBase = 8, skill_fireMin = 25, skill_fireMax = 37, chainCount = 1, },
+		[7] = { skill_manaCostBase = 9, skill_fireMin = 33, skill_fireMax = 50, chainCount = 1, },
+		[8] = { skill_manaCostBase = 10, skill_fireMin = 44, skill_fireMax = 66, chainCount = 1, },
+		[9] = { skill_manaCostBase = 11, skill_fireMin = 58, skill_fireMax = 87, chainCount = 1, },
+		[10] = { skill_manaCostBase = 12, skill_fireMin = 75, skill_fireMax = 112, chainCount = 2, },
+		[11] = { skill_manaCostBase = 13, skill_fireMin = 96, skill_fireMax = 144, chainCount = 2, },
+		[12] = { skill_manaCostBase = 14, skill_fireMin = 122, skill_fireMax = 183, chainCount = 2, },
+		[13] = { skill_manaCostBase = 15, skill_fireMin = 154, skill_fireMax = 232, chainCount = 2, },
+		[14] = { skill_manaCostBase = 16, skill_fireMin = 194, skill_fireMax = 291, chainCount = 2, },
+		[15] = { skill_manaCostBase = 18, skill_fireMin = 243, skill_fireMax = 365, chainCount = 2, },
+		[16] = { skill_manaCostBase = 19, skill_fireMin = 303, skill_fireMax = 454, chainCount = 2, },
+		[17] = { skill_manaCostBase = 20, skill_fireMin = 376, skill_fireMax = 564, chainCount = 2, },
+		[18] = { skill_manaCostBase = 21, skill_fireMin = 466, skill_fireMax = 698, chainCount = 2, },
+		[19] = { skill_manaCostBase = 21, skill_fireMin = 545, skill_fireMax = 818, chainCount = 2, },
+		[20] = { skill_manaCostBase = 22, skill_fireMin = 637, skill_fireMax = 956, chainCount = 2, },
+		[21] = { skill_manaCostBase = 23, skill_fireMin = 707, skill_fireMax = 1060, chainCount = 3, },
+		[22] = { skill_manaCostBase = 23, skill_fireMin = 784, skill_fireMax = 1175, chainCount = 3, },
+		[23] = { skill_manaCostBase = 24, skill_fireMin = 868, skill_fireMax = 1302, chainCount = 3, },
+		[24] = { skill_manaCostBase = 24, skill_fireMin = 961, skill_fireMax = 1442, chainCount = 3, },
+		[25] = { skill_manaCostBase = 25, skill_fireMin = 1063, skill_fireMax = 1595, chainCount = 3, },
+		[26] = { skill_manaCostBase = 26, skill_fireMin = 1176, skill_fireMax = 1764, chainCount = 3, },
+		[27] = { skill_manaCostBase = 26, skill_fireMin = 1300, skill_fireMax = 1950, chainCount = 3, },
+		[28] = { skill_manaCostBase = 27, skill_fireMin = 1437, skill_fireMax = 2155, chainCount = 3, },
+		[29] = { skill_manaCostBase = 27, skill_fireMin = 1587, skill_fireMax = 2380, chainCount = 3, },
+		[30] = { skill_manaCostBase = 28, skill_fireMin = 1752, skill_fireMax = 2628, chainCount = 3, },
 	}
 }
 gems["Orb of Storms"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
+	chaining = true,
 	duration = true,
 	lightning = true,
 	base = {
@@ -1710,6 +1762,7 @@ gems["Orb of Storms"] = {
 	}
 }
 gems["Power Siphon"] = {
+	intelligence = true,
 	attack = true,
 	projectile = true,
 	base = {
@@ -1751,10 +1804,12 @@ gems["Power Siphon"] = {
 	}
 }
 gems["Purity of Elements"] = {
+	intelligence = true,
 	aura = true,
 	spell = true,
 	aoe = true,
 	base = {
+		skill_castTime = 1.2,
 		skill_manaReservedPercent = 35,
 	},
 	quality = {
@@ -1794,11 +1849,13 @@ gems["Purity of Elements"] = {
 	}
 }
 gems["Purity of Lightning"] = {
+	intelligence = true,
 	aura = true,
 	spell = true,
 	aoe = true,
 	lightning = true,
 	base = {
+		skill_castTime = 1.2,
 		skill_manaReservedPercent = 35,
 	},
 	quality = {
@@ -1838,12 +1895,15 @@ gems["Purity of Lightning"] = {
 	}
 }
 gems["Raise Spectre"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Raise Zombie"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Righteous Fire"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	fire = true,
@@ -1890,6 +1950,7 @@ gems["Righteous Fire"] = {
 	}
 }
 gems["Shock Nova"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	lightning = true,
@@ -1905,7 +1966,7 @@ gems["Shock Nova"] = {
 		skill_castTime = 0.75,
 		skill_damageEffectiveness = 0.6,
 		skill_critChanceBase = 6,
-		part1_spell_damageMore = 0.5,
+		SkillPart1_spell_damageMore = 0.5,
 		shockChance = 20,
 	},
 	quality = {
@@ -1945,6 +2006,7 @@ gems["Shock Nova"] = {
 	}
 }
 gems["Spark"] = {
+	intelligence = true,
 	spell = true,
 	projectile = true,
 	duration = true,
@@ -1959,42 +2021,44 @@ gems["Spark"] = {
 		projectileSpeedInc = 1,
 	},
 	levels = {
-		[1] = { skill_manaCostBase = 5, skill_lightningMin = 1, skill_lightningMax = 20, },
-		[2] = { skill_manaCostBase = 6, skill_lightningMin = 1, skill_lightningMax = 22, },
-		[3] = { skill_manaCostBase = 7, skill_lightningMin = 1, skill_lightningMax = 27, },
-		[4] = { skill_manaCostBase = 8, skill_lightningMin = 2, skill_lightningMax = 36, },
-		[5] = { skill_manaCostBase = 9, skill_lightningMin = 3, skill_lightningMax = 49, },
-		[6] = { skill_manaCostBase = 10, skill_lightningMin = 4, skill_lightningMax = 69, },
-		[7] = { skill_manaCostBase = 11, skill_lightningMin = 5, skill_lightningMax = 88, },
-		[8] = { skill_manaCostBase = 12, skill_lightningMin = 6, skill_lightningMax = 110, },
-		[9] = { skill_manaCostBase = 14, skill_lightningMin = 7, skill_lightningMax = 136, },
-		[10] = { skill_manaCostBase = 16, skill_lightningMin = 9, skill_lightningMax = 167, },
-		[11] = { skill_manaCostBase = 17, skill_lightningMin = 11, skill_lightningMax = 202, },
-		[12] = { skill_manaCostBase = 18, skill_lightningMin = 13, skill_lightningMax = 243, },
-		[13] = { skill_manaCostBase = 19, skill_lightningMin = 15, skill_lightningMax = 291, },
-		[14] = { skill_manaCostBase = 20, skill_lightningMin = 18, skill_lightningMax = 345, },
-		[15] = { skill_manaCostBase = 21, skill_lightningMin = 22, skill_lightningMax = 409, },
-		[16] = { skill_manaCostBase = 22, skill_lightningMin = 25, skill_lightningMax = 481, },
-		[17] = { skill_manaCostBase = 22, skill_lightningMin = 30, skill_lightningMax = 565, },
-		[18] = { skill_manaCostBase = 22, skill_lightningMin = 35, skill_lightningMax = 661, },
-		[19] = { skill_manaCostBase = 22, skill_lightningMin = 39, skill_lightningMax = 742, },
-		[20] = { skill_manaCostBase = 23, skill_lightningMin = 44, skill_lightningMax = 832, },
-		[21] = { skill_manaCostBase = 23, skill_lightningMin = 47, skill_lightningMax = 897, },
-		[22] = { skill_manaCostBase = 24, skill_lightningMin = 51, skill_lightningMax = 967, },
-		[23] = { skill_manaCostBase = 24, skill_lightningMin = 55, skill_lightningMax = 1041, },
-		[24] = { skill_manaCostBase = 25, skill_lightningMin = 59, skill_lightningMax = 1120, },
-		[25] = { skill_manaCostBase = 25, skill_lightningMin = 63, skill_lightningMax = 1205, },
-		[26] = { skill_manaCostBase = 26, skill_lightningMin = 68, skill_lightningMax = 1296, },
-		[27] = { skill_manaCostBase = 26, skill_lightningMin = 73, skill_lightningMax = 1393, },
-		[28] = { skill_manaCostBase = 26, skill_lightningMin = 79, skill_lightningMax = 1496, },
-		[29] = { skill_manaCostBase = 26, skill_lightningMin = 85, skill_lightningMax = 1607, },
-		[30] = { skill_manaCostBase = 27, skill_lightningMin = 91, skill_lightningMax = 1725, },
+		[1] = { skill_manaCostBase = 5, skill_lightningMin = 1, skill_lightningMax = 20, projectileCount = 4, },
+		[2] = { skill_manaCostBase = 6, skill_lightningMin = 1, skill_lightningMax = 22, projectileCount = 4, },
+		[3] = { skill_manaCostBase = 7, skill_lightningMin = 1, skill_lightningMax = 27, projectileCount = 4, },
+		[4] = { skill_manaCostBase = 8, skill_lightningMin = 2, skill_lightningMax = 36, projectileCount = 4, },
+		[5] = { skill_manaCostBase = 9, skill_lightningMin = 3, skill_lightningMax = 49, projectileCount = 4, },
+		[6] = { skill_manaCostBase = 10, skill_lightningMin = 4, skill_lightningMax = 69, projectileCount = 4, },
+		[7] = { skill_manaCostBase = 11, skill_lightningMin = 5, skill_lightningMax = 88, projectileCount = 4, },
+		[8] = { skill_manaCostBase = 12, skill_lightningMin = 6, skill_lightningMax = 110, projectileCount = 4, },
+		[9] = { skill_manaCostBase = 14, skill_lightningMin = 7, skill_lightningMax = 136, projectileCount = 5, },
+		[10] = { skill_manaCostBase = 16, skill_lightningMin = 9, skill_lightningMax = 167, projectileCount = 5, },
+		[11] = { skill_manaCostBase = 17, skill_lightningMin = 11, skill_lightningMax = 202, projectileCount = 5, },
+		[12] = { skill_manaCostBase = 18, skill_lightningMin = 13, skill_lightningMax = 243, projectileCount = 5, },
+		[13] = { skill_manaCostBase = 19, skill_lightningMin = 15, skill_lightningMax = 291, projectileCount = 5, },
+		[14] = { skill_manaCostBase = 20, skill_lightningMin = 18, skill_lightningMax = 345, projectileCount = 5, },
+		[15] = { skill_manaCostBase = 21, skill_lightningMin = 22, skill_lightningMax = 409, projectileCount = 5, },
+		[16] = { skill_manaCostBase = 22, skill_lightningMin = 25, skill_lightningMax = 481, projectileCount = 5, },
+		[17] = { skill_manaCostBase = 22, skill_lightningMin = 30, skill_lightningMax = 565, projectileCount = 6, },
+		[18] = { skill_manaCostBase = 22, skill_lightningMin = 35, skill_lightningMax = 661, projectileCount = 6, },
+		[19] = { skill_manaCostBase = 22, skill_lightningMin = 39, skill_lightningMax = 742, projectileCount = 6, },
+		[20] = { skill_manaCostBase = 23, skill_lightningMin = 44, skill_lightningMax = 832, projectileCount = 6, },
+		[21] = { skill_manaCostBase = 23, skill_lightningMin = 47, skill_lightningMax = 897, projectileCount = 6, },
+		[22] = { skill_manaCostBase = 24, skill_lightningMin = 51, skill_lightningMax = 967, projectileCount = 6, },
+		[23] = { skill_manaCostBase = 24, skill_lightningMin = 55, skill_lightningMax = 1041, projectileCount = 6, },
+		[24] = { skill_manaCostBase = 25, skill_lightningMin = 59, skill_lightningMax = 1120, projectileCount = 6, },
+		[25] = { skill_manaCostBase = 25, skill_lightningMin = 63, skill_lightningMax = 1205, projectileCount = 7, },
+		[26] = { skill_manaCostBase = 26, skill_lightningMin = 68, skill_lightningMax = 1296, projectileCount = 7, },
+		[27] = { skill_manaCostBase = 26, skill_lightningMin = 73, skill_lightningMax = 1393, projectileCount = 7, },
+		[28] = { skill_manaCostBase = 26, skill_lightningMin = 79, skill_lightningMax = 1496, projectileCount = 7, },
+		[29] = { skill_manaCostBase = 26, skill_lightningMin = 85, skill_lightningMax = 1607, projectileCount = 7, },
+		[30] = { skill_manaCostBase = 27, skill_lightningMin = 91, skill_lightningMax = 1725, projectileCount = 7, },
 	}
 }
 gems["Spirit Offering"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Storm Call"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	duration = true,
@@ -2042,13 +2106,14 @@ gems["Storm Call"] = {
 	}
 }
 gems["Summon Chaos Golem"] = {
+	intelligence = true,
 	spell = true,
 	minion = true,
 	golem = true,
 	chaos = true,
 	base = {
 		skill_castTime = 1,
-		BuffEffect_CondMod_LiegeOfThePrimordial_chaosInc = 40,
+		BuffEffect_Cond_HaveChaosGolem = true,
 	},
 	quality = {
 		minionLifeInc = 1,
@@ -2088,13 +2153,14 @@ gems["Summon Chaos Golem"] = {
 	}
 }
 gems["Summon Lightning Golem"] = {
+	intelligence = true,
 	spell = true,
 	minion = true,
 	golem = true,
 	lightning = true,
 	base = {
 		skill_castTime = 1,
-		BuffEffect_CondMod_LiegeOfThePrimordial_lightningInc = 40,
+		BuffEffect_Cond_HaveLightningGolem = true,
 	},
 	quality = {
 		minionLifeInc = 1,
@@ -2134,13 +2200,17 @@ gems["Summon Lightning Golem"] = {
 	}
 }
 gems["Summon Raging Spirit"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Summon Skeletons"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Tempest Shield"] = {
+	intelligence = true,
 	spell = true,
+	chaining = true,
 	duration = true,
 	lightning = true,
 	base = {
@@ -2149,6 +2219,7 @@ gems["Tempest Shield"] = {
 		skill_critChanceBase = 6,
 		skill_durationBase = 12,
 		BuffEffect_CondMod_UsingShield_blockChance = 3,
+		chainCount = 1,
 	},
 	quality = {
 		lightningInc = 1,
@@ -2187,6 +2258,7 @@ gems["Tempest Shield"] = {
 	}
 }
 gems["Vortex"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	duration = true,
@@ -2234,6 +2306,7 @@ gems["Vortex"] = {
 	}
 }
 gems["Vulnerability"] = {
+	intelligence = true,
 	curse = true,
 	spell = true,
 	aoe = true,
@@ -2280,14 +2353,17 @@ gems["Vulnerability"] = {
 	}
 }
 gems["Wither"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Wrath"] = {
+	intelligence = true,
 	aura = true,
 	spell = true,
 	aoe = true,
 	lightning = true,
 	base = {
+		skill_castTime = 1.2,
 		skill_manaReservedPercent = 50,
 	},
 	quality = {

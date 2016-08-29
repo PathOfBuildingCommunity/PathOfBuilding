@@ -6,9 +6,11 @@
 local gems = ...
 
 gems["Animate Weapon"] = {
+	dexterity = true,
 	unsupported = true,
 }
-gems["Arctic Armor"] = {
+gems["Arctic Armour"] = {
+	dexterity = true,
 	spell = true,
 	duration = true,
 	cold = true,
@@ -53,10 +55,12 @@ gems["Arctic Armor"] = {
 	}
 }
 gems["Barrage"] = {
+	dexterity = true,
 	attack = true,
 	bow = true,
 	projectile = true,
 	base = {
+		projectileCount = 3,
 	},
 	quality = {
 		projectile_damageInc = 0.5,
@@ -95,6 +99,7 @@ gems["Barrage"] = {
 	}
 }
 gems["Bear Trap"] = {
+	dexterity = true,
 	cast = true,
 	trap = true,
 	showAverage = true,
@@ -141,6 +146,7 @@ gems["Bear Trap"] = {
 	}
 }
 gems["Blade Vortex"] = {
+	dexterity = true,
 	spell = true,
 	aoe = true,
 	duration = true,
@@ -188,6 +194,7 @@ gems["Blade Vortex"] = {
 	}
 }
 gems["Bladefall"] = {
+	dexterity = true,
 	spell = true,
 	aoe = true,
 	base = {
@@ -232,13 +239,14 @@ gems["Bladefall"] = {
 	}
 }
 gems["Blast Rain"] = {
+	dexterity = true,
 	attack = true,
 	bow = true,
 	projectile = true,
 	aoe = true,
 	fire = true,
 	base = {
-		physicalConvertTofire = 50,
+		skill_physicalConvertTofire = 50,
 	},
 	quality = {
 		aoeRadiusInc = 0.5,
@@ -277,9 +285,11 @@ gems["Blast Rain"] = {
 	}
 }
 gems["Blink Arrow"] = {
+	dexterity = true,
 	unsupported = true,
 }
 gems["Blood Rage"] = {
+	dexterity = true,
 	spell = true,
 	duration = true,
 	base = {
@@ -321,12 +331,13 @@ gems["Blood Rage"] = {
 	}
 }
 gems["Burning Arrow"] = {
+	dexterity = true,
 	attack = true,
 	bow = true,
 	projectile = true,
 	fire = true,
 	base = {
-		physicalConvertTofire = 50,
+		skill_physicalConvertTofire = 50,
 		igniteChance = 20,
 	},
 	quality = {
@@ -366,6 +377,7 @@ gems["Burning Arrow"] = {
 	}
 }
 gems["Caustic Arrow"] = {
+	dexterity = true,
 	attack = true,
 	bow = true,
 	projectile = true,
@@ -411,6 +423,7 @@ gems["Caustic Arrow"] = {
 	}
 }
 gems["Cyclone"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -456,6 +469,7 @@ gems["Cyclone"] = {
 	}
 }
 gems["Desecrate"] = {
+	dexterity = true,
 	spell = true,
 	aoe = true,
 	duration = true,
@@ -501,9 +515,11 @@ gems["Desecrate"] = {
 	}
 }
 gems["Detonate Dead"] = {
+	dexterity = true,
 	unsupported = true,
 }
 gems["Double Strike"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	base = {
@@ -546,9 +562,11 @@ gems["Double Strike"] = {
 	}
 }
 gems["Dual Strike"] = {
+	dexterity = true,
 	unsupported = true,
 }
 gems["Elemental Hit"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	bow = true,
@@ -576,45 +594,47 @@ gems["Elemental Hit"] = {
 		elementalInc = 1,
 	},
 	levels = {
-		[1] = { skill_manaCostBase = 6, part1_attack_fireMin = 4, part1_attack_fireMax = 8, part2_attack_coldMin = 3, part2_attack_coldMax = 6, part3_attack_lightningMin = 1, part3_attack_lightningMax = 13, },
-		[2] = { skill_manaCostBase = 6, part1_attack_fireMin = 5, part1_attack_fireMax = 9, part2_attack_coldMin = 4, part2_attack_coldMax = 7, part3_attack_lightningMin = 1, part3_attack_lightningMax = 14, },
-		[3] = { skill_manaCostBase = 6, part1_attack_fireMin = 6, part1_attack_fireMax = 11, part2_attack_coldMin = 5, part2_attack_coldMax = 9, part3_attack_lightningMin = 1, part3_attack_lightningMax = 17, },
-		[4] = { skill_manaCostBase = 7, part1_attack_fireMin = 7, part1_attack_fireMax = 14, part2_attack_coldMin = 6, part2_attack_coldMax = 11, part3_attack_lightningMin = 1, part3_attack_lightningMax = 23, },
-		[5] = { skill_manaCostBase = 7, part1_attack_fireMin = 10, part1_attack_fireMax = 19, part2_attack_coldMin = 8, part2_attack_coldMax = 16, part3_attack_lightningMin = 2, part3_attack_lightningMax = 31, },
-		[6] = { skill_manaCostBase = 7, part1_attack_fireMin = 14, part1_attack_fireMax = 27, part2_attack_coldMin = 12, part2_attack_coldMax = 22, part3_attack_lightningMin = 2, part3_attack_lightningMax = 44, },
-		[7] = { skill_manaCostBase = 8, part1_attack_fireMin = 18, part1_attack_fireMax = 34, part2_attack_coldMin = 15, part2_attack_coldMax = 28, part3_attack_lightningMin = 3, part3_attack_lightningMax = 56, },
-		[8] = { skill_manaCostBase = 8, part1_attack_fireMin = 23, part1_attack_fireMax = 43, part2_attack_coldMin = 19, part2_attack_coldMax = 35, part3_attack_lightningMin = 4, part3_attack_lightningMax = 70, },
-		[9] = { skill_manaCostBase = 8, part1_attack_fireMin = 28, part1_attack_fireMax = 53, part2_attack_coldMin = 23, part2_attack_coldMax = 43, part3_attack_lightningMin = 5, part3_attack_lightningMax = 87, },
-		[10] = { skill_manaCostBase = 9, part1_attack_fireMin = 35, part1_attack_fireMax = 64, part2_attack_coldMin = 28, part2_attack_coldMax = 53, part3_attack_lightningMin = 6, part3_attack_lightningMax = 106, },
-		[11] = { skill_manaCostBase = 9, part1_attack_fireMin = 42, part1_attack_fireMax = 78, part2_attack_coldMin = 34, part2_attack_coldMax = 64, part3_attack_lightningMin = 7, part3_attack_lightningMax = 128, },
-		[12] = { skill_manaCostBase = 9, part1_attack_fireMin = 50, part1_attack_fireMax = 93, part2_attack_coldMin = 41, part2_attack_coldMax = 76, part3_attack_lightningMin = 8, part3_attack_lightningMax = 153, },
-		[13] = { skill_manaCostBase = 10, part1_attack_fireMin = 60, part1_attack_fireMax = 111, part2_attack_coldMin = 49, part2_attack_coldMax = 91, part3_attack_lightningMin = 10, part3_attack_lightningMax = 183, },
-		[14] = { skill_manaCostBase = 10, part1_attack_fireMin = 71, part1_attack_fireMax = 132, part2_attack_coldMin = 58, part2_attack_coldMax = 108, part3_attack_lightningMin = 11, part3_attack_lightningMax = 217, },
-		[15] = { skill_manaCostBase = 10, part1_attack_fireMin = 84, part1_attack_fireMax = 156, part2_attack_coldMin = 69, part2_attack_coldMax = 127, part3_attack_lightningMin = 13, part3_attack_lightningMax = 256, },
-		[16] = { skill_manaCostBase = 11, part1_attack_fireMin = 99, part1_attack_fireMax = 183, part2_attack_coldMin = 81, part2_attack_coldMax = 150, part3_attack_lightningMin = 16, part3_attack_lightningMax = 301, },
-		[17] = { skill_manaCostBase = 11, part1_attack_fireMin = 115, part1_attack_fireMax = 214, part2_attack_coldMin = 94, part2_attack_coldMax = 175, part3_attack_lightningMin = 19, part3_attack_lightningMax = 352, },
-		[18] = { skill_manaCostBase = 11, part1_attack_fireMin = 135, part1_attack_fireMax = 250, part2_attack_coldMin = 110, part2_attack_coldMax = 205, part3_attack_lightningMin = 22, part3_attack_lightningMax = 411, },
-		[19] = { skill_manaCostBase = 11, part1_attack_fireMin = 151, part1_attack_fireMax = 280, part2_attack_coldMin = 123, part2_attack_coldMax = 229, part3_attack_lightningMin = 24, part3_attack_lightningMax = 461, },
-		[20] = { skill_manaCostBase = 12, part1_attack_fireMin = 169, part1_attack_fireMax = 314, part2_attack_coldMin = 138, part2_attack_coldMax = 257, part3_attack_lightningMin = 27, part3_attack_lightningMax = 516, },
-		[21] = { skill_manaCostBase = 12, part1_attack_fireMin = 182, part1_attack_fireMax = 338, part2_attack_coldMin = 149, part2_attack_coldMax = 276, part3_attack_lightningMin = 29, part3_attack_lightningMax = 555, },
-		[22] = { skill_manaCostBase = 12, part1_attack_fireMin = 196, part1_attack_fireMax = 364, part2_attack_coldMin = 160, part2_attack_coldMax = 297, part3_attack_lightningMin = 31, part3_attack_lightningMax = 598, },
-		[23] = { skill_manaCostBase = 12, part1_attack_fireMin = 211, part1_attack_fireMax = 391, part2_attack_coldMin = 172, part2_attack_coldMax = 320, part3_attack_lightningMin = 34, part3_attack_lightningMax = 643, },
-		[24] = { skill_manaCostBase = 13, part1_attack_fireMin = 226, part1_attack_fireMax = 420, part2_attack_coldMin = 185, part2_attack_coldMax = 344, part3_attack_lightningMin = 36, part3_attack_lightningMax = 691, },
-		[25] = { skill_manaCostBase = 13, part1_attack_fireMin = 243, part1_attack_fireMax = 452, part2_attack_coldMin = 199, part2_attack_coldMax = 370, part3_attack_lightningMin = 39, part3_attack_lightningMax = 743, },
-		[26] = { skill_manaCostBase = 13, part1_attack_fireMin = 261, part1_attack_fireMax = 485, part2_attack_coldMin = 214, part2_attack_coldMax = 397, part3_attack_lightningMin = 42, part3_attack_lightningMax = 798, },
-		[27] = { skill_manaCostBase = 13, part1_attack_fireMin = 281, part1_attack_fireMax = 521, part2_attack_coldMin = 230, part2_attack_coldMax = 426, part3_attack_lightningMin = 45, part3_attack_lightningMax = 857, },
-		[28] = { skill_manaCostBase = 14, part1_attack_fireMin = 301, part1_attack_fireMax = 559, part2_attack_coldMin = 246, part2_attack_coldMax = 457, part3_attack_lightningMin = 48, part3_attack_lightningMax = 919, },
-		[29] = { skill_manaCostBase = 14, part1_attack_fireMin = 323, part1_attack_fireMax = 600, part2_attack_coldMin = 264, part2_attack_coldMax = 491, part3_attack_lightningMin = 52, part3_attack_lightningMax = 986, },
-		[30] = { skill_manaCostBase = 14, part1_attack_fireMin = 346, part1_attack_fireMax = 643, part2_attack_coldMin = 283, part2_attack_coldMax = 526, part3_attack_lightningMin = 56, part3_attack_lightningMax = 1057, },
+		[1] = { skill_manaCostBase = 6, SkillPart1_attack_fireMin = 4, SkillPart1_attack_fireMax = 8, SkillPart2_attack_coldMin = 3, SkillPart2_attack_coldMax = 6, SkillPart3_attack_lightningMin = 1, SkillPart3_attack_lightningMax = 13, },
+		[2] = { skill_manaCostBase = 6, SkillPart1_attack_fireMin = 5, SkillPart1_attack_fireMax = 9, SkillPart2_attack_coldMin = 4, SkillPart2_attack_coldMax = 7, SkillPart3_attack_lightningMin = 1, SkillPart3_attack_lightningMax = 14, },
+		[3] = { skill_manaCostBase = 6, SkillPart1_attack_fireMin = 6, SkillPart1_attack_fireMax = 11, SkillPart2_attack_coldMin = 5, SkillPart2_attack_coldMax = 9, SkillPart3_attack_lightningMin = 1, SkillPart3_attack_lightningMax = 17, },
+		[4] = { skill_manaCostBase = 7, SkillPart1_attack_fireMin = 7, SkillPart1_attack_fireMax = 14, SkillPart2_attack_coldMin = 6, SkillPart2_attack_coldMax = 11, SkillPart3_attack_lightningMin = 1, SkillPart3_attack_lightningMax = 23, },
+		[5] = { skill_manaCostBase = 7, SkillPart1_attack_fireMin = 10, SkillPart1_attack_fireMax = 19, SkillPart2_attack_coldMin = 8, SkillPart2_attack_coldMax = 16, SkillPart3_attack_lightningMin = 2, SkillPart3_attack_lightningMax = 31, },
+		[6] = { skill_manaCostBase = 7, SkillPart1_attack_fireMin = 14, SkillPart1_attack_fireMax = 27, SkillPart2_attack_coldMin = 12, SkillPart2_attack_coldMax = 22, SkillPart3_attack_lightningMin = 2, SkillPart3_attack_lightningMax = 44, },
+		[7] = { skill_manaCostBase = 8, SkillPart1_attack_fireMin = 18, SkillPart1_attack_fireMax = 34, SkillPart2_attack_coldMin = 15, SkillPart2_attack_coldMax = 28, SkillPart3_attack_lightningMin = 3, SkillPart3_attack_lightningMax = 56, },
+		[8] = { skill_manaCostBase = 8, SkillPart1_attack_fireMin = 23, SkillPart1_attack_fireMax = 43, SkillPart2_attack_coldMin = 19, SkillPart2_attack_coldMax = 35, SkillPart3_attack_lightningMin = 4, SkillPart3_attack_lightningMax = 70, },
+		[9] = { skill_manaCostBase = 8, SkillPart1_attack_fireMin = 28, SkillPart1_attack_fireMax = 53, SkillPart2_attack_coldMin = 23, SkillPart2_attack_coldMax = 43, SkillPart3_attack_lightningMin = 5, SkillPart3_attack_lightningMax = 87, },
+		[10] = { skill_manaCostBase = 9, SkillPart1_attack_fireMin = 35, SkillPart1_attack_fireMax = 64, SkillPart2_attack_coldMin = 28, SkillPart2_attack_coldMax = 53, SkillPart3_attack_lightningMin = 6, SkillPart3_attack_lightningMax = 106, },
+		[11] = { skill_manaCostBase = 9, SkillPart1_attack_fireMin = 42, SkillPart1_attack_fireMax = 78, SkillPart2_attack_coldMin = 34, SkillPart2_attack_coldMax = 64, SkillPart3_attack_lightningMin = 7, SkillPart3_attack_lightningMax = 128, },
+		[12] = { skill_manaCostBase = 9, SkillPart1_attack_fireMin = 50, SkillPart1_attack_fireMax = 93, SkillPart2_attack_coldMin = 41, SkillPart2_attack_coldMax = 76, SkillPart3_attack_lightningMin = 8, SkillPart3_attack_lightningMax = 153, },
+		[13] = { skill_manaCostBase = 10, SkillPart1_attack_fireMin = 60, SkillPart1_attack_fireMax = 111, SkillPart2_attack_coldMin = 49, SkillPart2_attack_coldMax = 91, SkillPart3_attack_lightningMin = 10, SkillPart3_attack_lightningMax = 183, },
+		[14] = { skill_manaCostBase = 10, SkillPart1_attack_fireMin = 71, SkillPart1_attack_fireMax = 132, SkillPart2_attack_coldMin = 58, SkillPart2_attack_coldMax = 108, SkillPart3_attack_lightningMin = 11, SkillPart3_attack_lightningMax = 217, },
+		[15] = { skill_manaCostBase = 10, SkillPart1_attack_fireMin = 84, SkillPart1_attack_fireMax = 156, SkillPart2_attack_coldMin = 69, SkillPart2_attack_coldMax = 127, SkillPart3_attack_lightningMin = 13, SkillPart3_attack_lightningMax = 256, },
+		[16] = { skill_manaCostBase = 11, SkillPart1_attack_fireMin = 99, SkillPart1_attack_fireMax = 183, SkillPart2_attack_coldMin = 81, SkillPart2_attack_coldMax = 150, SkillPart3_attack_lightningMin = 16, SkillPart3_attack_lightningMax = 301, },
+		[17] = { skill_manaCostBase = 11, SkillPart1_attack_fireMin = 115, SkillPart1_attack_fireMax = 214, SkillPart2_attack_coldMin = 94, SkillPart2_attack_coldMax = 175, SkillPart3_attack_lightningMin = 19, SkillPart3_attack_lightningMax = 352, },
+		[18] = { skill_manaCostBase = 11, SkillPart1_attack_fireMin = 135, SkillPart1_attack_fireMax = 250, SkillPart2_attack_coldMin = 110, SkillPart2_attack_coldMax = 205, SkillPart3_attack_lightningMin = 22, SkillPart3_attack_lightningMax = 411, },
+		[19] = { skill_manaCostBase = 11, SkillPart1_attack_fireMin = 151, SkillPart1_attack_fireMax = 280, SkillPart2_attack_coldMin = 123, SkillPart2_attack_coldMax = 229, SkillPart3_attack_lightningMin = 24, SkillPart3_attack_lightningMax = 461, },
+		[20] = { skill_manaCostBase = 12, SkillPart1_attack_fireMin = 169, SkillPart1_attack_fireMax = 314, SkillPart2_attack_coldMin = 138, SkillPart2_attack_coldMax = 257, SkillPart3_attack_lightningMin = 27, SkillPart3_attack_lightningMax = 516, },
+		[21] = { skill_manaCostBase = 12, SkillPart1_attack_fireMin = 182, SkillPart1_attack_fireMax = 338, SkillPart2_attack_coldMin = 149, SkillPart2_attack_coldMax = 276, SkillPart3_attack_lightningMin = 29, SkillPart3_attack_lightningMax = 555, },
+		[22] = { skill_manaCostBase = 12, SkillPart1_attack_fireMin = 196, SkillPart1_attack_fireMax = 364, SkillPart2_attack_coldMin = 160, SkillPart2_attack_coldMax = 297, SkillPart3_attack_lightningMin = 31, SkillPart3_attack_lightningMax = 598, },
+		[23] = { skill_manaCostBase = 12, SkillPart1_attack_fireMin = 211, SkillPart1_attack_fireMax = 391, SkillPart2_attack_coldMin = 172, SkillPart2_attack_coldMax = 320, SkillPart3_attack_lightningMin = 34, SkillPart3_attack_lightningMax = 643, },
+		[24] = { skill_manaCostBase = 13, SkillPart1_attack_fireMin = 226, SkillPart1_attack_fireMax = 420, SkillPart2_attack_coldMin = 185, SkillPart2_attack_coldMax = 344, SkillPart3_attack_lightningMin = 36, SkillPart3_attack_lightningMax = 691, },
+		[25] = { skill_manaCostBase = 13, SkillPart1_attack_fireMin = 243, SkillPart1_attack_fireMax = 452, SkillPart2_attack_coldMin = 199, SkillPart2_attack_coldMax = 370, SkillPart3_attack_lightningMin = 39, SkillPart3_attack_lightningMax = 743, },
+		[26] = { skill_manaCostBase = 13, SkillPart1_attack_fireMin = 261, SkillPart1_attack_fireMax = 485, SkillPart2_attack_coldMin = 214, SkillPart2_attack_coldMax = 397, SkillPart3_attack_lightningMin = 42, SkillPart3_attack_lightningMax = 798, },
+		[27] = { skill_manaCostBase = 13, SkillPart1_attack_fireMin = 281, SkillPart1_attack_fireMax = 521, SkillPart2_attack_coldMin = 230, SkillPart2_attack_coldMax = 426, SkillPart3_attack_lightningMin = 45, SkillPart3_attack_lightningMax = 857, },
+		[28] = { skill_manaCostBase = 14, SkillPart1_attack_fireMin = 301, SkillPart1_attack_fireMax = 559, SkillPart2_attack_coldMin = 246, SkillPart2_attack_coldMax = 457, SkillPart3_attack_lightningMin = 48, SkillPart3_attack_lightningMax = 919, },
+		[29] = { skill_manaCostBase = 14, SkillPart1_attack_fireMin = 323, SkillPart1_attack_fireMax = 600, SkillPart2_attack_coldMin = 264, SkillPart2_attack_coldMax = 491, SkillPart3_attack_lightningMin = 52, SkillPart3_attack_lightningMax = 986, },
+		[30] = { skill_manaCostBase = 14, SkillPart1_attack_fireMin = 346, SkillPart1_attack_fireMax = 643, SkillPart2_attack_coldMin = 283, SkillPart2_attack_coldMax = 526, SkillPart3_attack_lightningMin = 56, SkillPart3_attack_lightningMax = 1057, },
 	}
 }
 gems["Ethereal Knives"] = {
+	dexterity = true,
 	spell = true,
 	projectile = true,
 	base = {
 		skill_castTime = 0.6,
 		skill_damageEffectiveness = 1,
 		skill_critChanceBase = 6,
+		projectileCount = 9,
 	},
 	quality = {
 		projectileSpeedInc = 1,
@@ -653,6 +673,7 @@ gems["Ethereal Knives"] = {
 	}
 }
 gems["Explosive Arrow"] = {
+	dexterity = true,
 	attack = true,
 	bow = true,
 	projectile = true,
@@ -713,6 +734,7 @@ gems["Explosive Arrow"] = {
 	}
 }
 gems["Fire Trap"] = {
+	dexterity = true,
 	spell = true,
 	trap = true,
 	aoe = true,
@@ -763,6 +785,7 @@ gems["Fire Trap"] = {
 	}
 }
 gems["Flicker Strike"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	movement = true,
@@ -809,6 +832,7 @@ gems["Flicker Strike"] = {
 	}
 }
 gems["Freeze Mine"] = {
+	dexterity = true,
 	spell = true,
 	mine = true,
 	aoe = true,
@@ -855,6 +879,7 @@ gems["Freeze Mine"] = {
 	}
 }
 gems["Frenzy"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	bow = true,
@@ -901,6 +926,7 @@ gems["Frenzy"] = {
 	}
 }
 gems["Frost Blades"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	projectile = true,
@@ -925,43 +951,45 @@ gems["Frost Blades"] = {
 		projectile_damageInc = 1,
 	},
 	levels = {
-		[1] = { attack_damageMore = 1, },
-		[2] = { attack_damageMore = 1.012, },
-		[3] = { attack_damageMore = 1.024, },
-		[4] = { attack_damageMore = 1.036, },
-		[5] = { attack_damageMore = 1.048, },
-		[6] = { attack_damageMore = 1.06, },
-		[7] = { attack_damageMore = 1.072, },
-		[8] = { attack_damageMore = 1.084, },
-		[9] = { attack_damageMore = 1.096, },
-		[10] = { attack_damageMore = 1.108, },
-		[11] = { attack_damageMore = 1.12, },
-		[12] = { attack_damageMore = 1.132, },
-		[13] = { attack_damageMore = 1.144, },
-		[14] = { attack_damageMore = 1.156, },
-		[15] = { attack_damageMore = 1.168, },
-		[16] = { attack_damageMore = 1.18, },
-		[17] = { attack_damageMore = 1.192, },
-		[18] = { attack_damageMore = 1.204, },
-		[19] = { attack_damageMore = 1.216, },
-		[20] = { attack_damageMore = 1.228, },
-		[21] = { attack_damageMore = 1.24, },
-		[22] = { attack_damageMore = 1.252, },
-		[23] = { attack_damageMore = 1.264, },
-		[24] = { attack_damageMore = 1.276, },
-		[25] = { attack_damageMore = 1.288, },
-		[26] = { attack_damageMore = 1.3, },
-		[27] = { attack_damageMore = 1.312, },
-		[28] = { attack_damageMore = 1.324, },
-		[29] = { attack_damageMore = 1.336, },
-		[30] = { attack_damageMore = 1.348, },
+		[1] = { attack_damageMore = 1, projectileCount = 4, projectileSpeedInc = 0, },
+		[2] = { attack_damageMore = 1.012, projectileCount = 4, projectileSpeedInc = 1, },
+		[3] = { attack_damageMore = 1.024, projectileCount = 4, projectileSpeedInc = 2, },
+		[4] = { attack_damageMore = 1.036, projectileCount = 4, projectileSpeedInc = 3, },
+		[5] = { attack_damageMore = 1.048, projectileCount = 4, projectileSpeedInc = 4, },
+		[6] = { attack_damageMore = 1.06, projectileCount = 5, projectileSpeedInc = 5, },
+		[7] = { attack_damageMore = 1.072, projectileCount = 5, projectileSpeedInc = 6, },
+		[8] = { attack_damageMore = 1.084, projectileCount = 5, projectileSpeedInc = 7, },
+		[9] = { attack_damageMore = 1.096, projectileCount = 5, projectileSpeedInc = 8, },
+		[10] = { attack_damageMore = 1.108, projectileCount = 5, projectileSpeedInc = 9, },
+		[11] = { attack_damageMore = 1.12, projectileCount = 6, projectileSpeedInc = 10, },
+		[12] = { attack_damageMore = 1.132, projectileCount = 6, projectileSpeedInc = 11, },
+		[13] = { attack_damageMore = 1.144, projectileCount = 6, projectileSpeedInc = 12, },
+		[14] = { attack_damageMore = 1.156, projectileCount = 6, projectileSpeedInc = 13, },
+		[15] = { attack_damageMore = 1.168, projectileCount = 6, projectileSpeedInc = 14, },
+		[16] = { attack_damageMore = 1.18, projectileCount = 7, projectileSpeedInc = 15, },
+		[17] = { attack_damageMore = 1.192, projectileCount = 7, projectileSpeedInc = 16, },
+		[18] = { attack_damageMore = 1.204, projectileCount = 7, projectileSpeedInc = 17, },
+		[19] = { attack_damageMore = 1.216, projectileCount = 7, projectileSpeedInc = 18, },
+		[20] = { attack_damageMore = 1.228, projectileCount = 7, projectileSpeedInc = 19, },
+		[21] = { attack_damageMore = 1.24, projectileCount = 8, projectileSpeedInc = 20, },
+		[22] = { attack_damageMore = 1.252, projectileCount = 8, projectileSpeedInc = 21, },
+		[23] = { attack_damageMore = 1.264, projectileCount = 8, projectileSpeedInc = 22, },
+		[24] = { attack_damageMore = 1.276, projectileCount = 8, projectileSpeedInc = 23, },
+		[25] = { attack_damageMore = 1.288, projectileCount = 8, projectileSpeedInc = 24, },
+		[26] = { attack_damageMore = 1.3, projectileCount = 9, projectileSpeedInc = 25, },
+		[27] = { attack_damageMore = 1.312, projectileCount = 9, projectileSpeedInc = 26, },
+		[28] = { attack_damageMore = 1.324, projectileCount = 9, projectileSpeedInc = 27, },
+		[29] = { attack_damageMore = 1.336, projectileCount = 9, projectileSpeedInc = 28, },
+		[30] = { attack_damageMore = 1.348, projectileCount = 9, projectileSpeedInc = 29, },
 	}
 }
 gems["Grace"] = {
+	dexterity = true,
 	aura = true,
 	spell = true,
 	aoe = true,
 	base = {
+		skill_castTime = 1.2,
 		skill_manaReservedPercent = 50,
 	},
 	quality = {
@@ -1001,10 +1029,12 @@ gems["Grace"] = {
 	}
 }
 gems["Haste"] = {
+	dexterity = true,
 	aura = true,
 	spell = true,
 	aoe = true,
 	base = {
+		skill_castTime = 1.2,
 		skill_manaReservedPercent = 50,
 	},
 	quality = {
@@ -1044,11 +1074,13 @@ gems["Haste"] = {
 	}
 }
 gems["Hatred"] = {
+	dexterity = true,
 	aura = true,
 	spell = true,
 	aoe = true,
 	cold = true,
 	base = {
+		skill_castTime = 1.2,
 		skill_manaReservedPercent = 50,
 	},
 	quality = {
@@ -1088,12 +1120,14 @@ gems["Hatred"] = {
 	}
 }
 gems["Herald of Ice"] = {
+	dexterity = true,
 	cast = true,
 	aoe = true,
 	cold = true,
 	base = {
-		skill_manaReservedPercent = 25,
+		skill_castTime = 1,
 		skill_damageEffectiveness = 0.8,
+		skill_manaReservedPercent = 25,
 	},
 	quality = {
 		BuffEffect_coldInc = 0.75,
@@ -1132,6 +1166,7 @@ gems["Herald of Ice"] = {
 	}
 }
 gems["Ice Shot"] = {
+	dexterity = true,
 	attack = true,
 	bow = true,
 	projectile = true,
@@ -1150,8 +1185,8 @@ gems["Ice Shot"] = {
 	},
 	base = {
 		skill_durationBase = 1.5,
-		part1_physicalGainAscold = 40,
-		part2_physicalGainAscold = 100,
+		SkillPart1_physicalGainAscold = 40,
+		SkillPart2_physicalGainAscold = 100,
 	},
 	quality = {
 		coldInc = 1,
@@ -1190,6 +1225,7 @@ gems["Ice Shot"] = {
 	}
 }
 gems["Ice Trap"] = {
+	dexterity = true,
 	spell = true,
 	trap = true,
 	aoe = true,
@@ -1238,6 +1274,7 @@ gems["Ice Trap"] = {
 	}
 }
 gems["Lacerate"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -1282,6 +1319,7 @@ gems["Lacerate"] = {
 	}
 }
 gems["Lightning Arrow"] = {
+	dexterity = true,
 	attack = true,
 	bow = true,
 	projectile = true,
@@ -1293,7 +1331,7 @@ gems["Lightning Arrow"] = {
 		},
 	},
 	base = {
-		physicalConvertTolightning = 50,
+		skill_physicalConvertTolightning = 50,
 	},
 	quality = {
 		shockChance = 0.5,
@@ -1332,6 +1370,7 @@ gems["Lightning Arrow"] = {
 	}
 }
 gems["Lightning Strike"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	projectile = true,
@@ -1350,49 +1389,51 @@ gems["Lightning Strike"] = {
 	},
 	base = {
 		skill_manaCostBase = 6,
-		physicalConvertTolightning = 50,
-		part2_damageMore = 0.75,
+		skill_physicalConvertTolightning = 50,
+		projectile_damageMore = 0.75,
 	},
 	quality = {
 		pierceChance = 2,
 	},
 	levels = {
-		[1] = { attack_damageMore = 1.3, },
-		[2] = { attack_damageMore = 1.316, },
-		[3] = { attack_damageMore = 1.332, },
-		[4] = { attack_damageMore = 1.348, },
-		[5] = { attack_damageMore = 1.364, },
-		[6] = { attack_damageMore = 1.38, },
-		[7] = { attack_damageMore = 1.396, },
-		[8] = { attack_damageMore = 1.412, },
-		[9] = { attack_damageMore = 1.428, },
-		[10] = { attack_damageMore = 1.444, },
-		[11] = { attack_damageMore = 1.46, },
-		[12] = { attack_damageMore = 1.476, },
-		[13] = { attack_damageMore = 1.492, },
-		[14] = { attack_damageMore = 1.508, },
-		[15] = { attack_damageMore = 1.524, },
-		[16] = { attack_damageMore = 1.54, },
-		[17] = { attack_damageMore = 1.556, },
-		[18] = { attack_damageMore = 1.572, },
-		[19] = { attack_damageMore = 1.588, },
-		[20] = { attack_damageMore = 1.604, },
-		[21] = { attack_damageMore = 1.62, },
-		[22] = { attack_damageMore = 1.636, },
-		[23] = { attack_damageMore = 1.652, },
-		[24] = { attack_damageMore = 1.668, },
-		[25] = { attack_damageMore = 1.684, },
-		[26] = { attack_damageMore = 1.7, },
-		[27] = { attack_damageMore = 1.716, },
-		[28] = { attack_damageMore = 1.732, },
-		[29] = { attack_damageMore = 1.748, },
-		[30] = { attack_damageMore = 1.764, },
+		[1] = { attack_damageMore = 1.3, projectileCount = 4, },
+		[2] = { attack_damageMore = 1.316, projectileCount = 4, },
+		[3] = { attack_damageMore = 1.332, projectileCount = 4, },
+		[4] = { attack_damageMore = 1.348, projectileCount = 4, },
+		[5] = { attack_damageMore = 1.364, projectileCount = 4, },
+		[6] = { attack_damageMore = 1.38, projectileCount = 5, },
+		[7] = { attack_damageMore = 1.396, projectileCount = 5, },
+		[8] = { attack_damageMore = 1.412, projectileCount = 5, },
+		[9] = { attack_damageMore = 1.428, projectileCount = 5, },
+		[10] = { attack_damageMore = 1.444, projectileCount = 5, },
+		[11] = { attack_damageMore = 1.46, projectileCount = 6, },
+		[12] = { attack_damageMore = 1.476, projectileCount = 6, },
+		[13] = { attack_damageMore = 1.492, projectileCount = 6, },
+		[14] = { attack_damageMore = 1.508, projectileCount = 6, },
+		[15] = { attack_damageMore = 1.524, projectileCount = 6, },
+		[16] = { attack_damageMore = 1.54, projectileCount = 7, },
+		[17] = { attack_damageMore = 1.556, projectileCount = 7, },
+		[18] = { attack_damageMore = 1.572, projectileCount = 7, },
+		[19] = { attack_damageMore = 1.588, projectileCount = 7, },
+		[20] = { attack_damageMore = 1.604, projectileCount = 7, },
+		[21] = { attack_damageMore = 1.62, projectileCount = 8, },
+		[22] = { attack_damageMore = 1.636, projectileCount = 8, },
+		[23] = { attack_damageMore = 1.652, projectileCount = 8, },
+		[24] = { attack_damageMore = 1.668, projectileCount = 8, },
+		[25] = { attack_damageMore = 1.684, projectileCount = 8, },
+		[26] = { attack_damageMore = 1.7, projectileCount = 9, },
+		[27] = { attack_damageMore = 1.716, projectileCount = 9, },
+		[28] = { attack_damageMore = 1.732, projectileCount = 9, },
+		[29] = { attack_damageMore = 1.748, projectileCount = 9, },
+		[30] = { attack_damageMore = 1.764, projectileCount = 9, },
 	}
 }
 gems["Mirror Arrow"] = {
+	dexterity = true,
 	unsupported = true,
 }
 gems["Phase Run"] = {
+	dexterity = true,
 	spell = true,
 	duration = true,
 	movement = true,
@@ -1482,6 +1523,7 @@ gems["Poacher's Mark"] = {
 	}
 }
 gems["Projectile Weakness"] = {
+	dexterity = true,
 	curse = true,
 	spell = true,
 	aoe = true,
@@ -1528,6 +1570,7 @@ gems["Projectile Weakness"] = {
 	}
 }
 gems["Puncture"] = {
+	dexterity = true,
 	attack = true,
 	bow = true,
 	projectile = true,
@@ -1574,11 +1617,13 @@ gems["Puncture"] = {
 	}
 }
 gems["Purity of Ice"] = {
+	dexterity = true,
 	aura = true,
 	spell = true,
 	aoe = true,
 	fire = true,
 	base = {
+		skill_castTime = 1.2,
 		skill_manaReservedPercent = 35,
 	},
 	quality = {
@@ -1618,6 +1663,7 @@ gems["Purity of Ice"] = {
 	}
 }
 gems["Rain of Arrows"] = {
+	dexterity = true,
 	attack = true,
 	bow = true,
 	projectile = true,
@@ -1661,6 +1707,7 @@ gems["Rain of Arrows"] = {
 	}
 }
 gems["Reave"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -1704,6 +1751,7 @@ gems["Reave"] = {
 	}
 }
 gems["Riposte"] = {
+	dexterity = true,
 	trigger = true,
 	attack = true,
 	melee = true,
@@ -1747,6 +1795,7 @@ gems["Riposte"] = {
 	}
 }
 gems["Shrapnel Shot"] = {
+	dexterity = true,
 	attack = true,
 	bow = true,
 	projectile = true,
@@ -1764,7 +1813,7 @@ gems["Shrapnel Shot"] = {
 	},
 	base = {
 		pierceChance = 100,
-		physicalConvertTolightning = 40,
+		skill_physicalConvertTolightning = 40,
 	},
 	quality = {
 		aoeRadiusInc = 0.5,
@@ -1803,6 +1852,7 @@ gems["Shrapnel Shot"] = {
 	}
 }
 gems["Siege Ballista"] = {
+	dexterity = true,
 	attack = true,
 	totem = true,
 	bow = true,
@@ -1896,6 +1946,7 @@ gems["Smoke Mine"] = {
 	}
 }
 gems["Spectral Throw"] = {
+	dexterity = true,
 	attack = true,
 	projectile = true,
 	base = {
@@ -1938,6 +1989,7 @@ gems["Spectral Throw"] = {
 	}
 }
 gems["Split Arrow"] = {
+	dexterity = true,
 	attack = true,
 	bow = true,
 	projectile = true,
@@ -1947,46 +1999,47 @@ gems["Split Arrow"] = {
 		attackSpeedInc = 0.5,
 	},
 	levels = {
-		[1] = { skill_manaCostBase = 6, attack_damageMore = 0.9, },
-		[2] = { skill_manaCostBase = 6, attack_damageMore = 0.91, },
-		[3] = { skill_manaCostBase = 6, attack_damageMore = 0.92, },
-		[4] = { skill_manaCostBase = 7, attack_damageMore = 0.93, },
-		[5] = { skill_manaCostBase = 7, attack_damageMore = 0.94, },
-		[6] = { skill_manaCostBase = 7, attack_damageMore = 0.95, },
-		[7] = { skill_manaCostBase = 7, attack_damageMore = 0.96, },
-		[8] = { skill_manaCostBase = 8, attack_damageMore = 0.97, },
-		[9] = { skill_manaCostBase = 8, attack_damageMore = 0.98, },
-		[10] = { skill_manaCostBase = 8, attack_damageMore = 0.99, },
-		[11] = { skill_manaCostBase = 8, attack_damageMore = 1, },
-		[12] = { skill_manaCostBase = 8, attack_damageMore = 1.01, },
-		[13] = { skill_manaCostBase = 9, attack_damageMore = 1.02, },
-		[14] = { skill_manaCostBase = 9, attack_damageMore = 1.03, },
-		[15] = { skill_manaCostBase = 9, attack_damageMore = 1.04, },
-		[16] = { skill_manaCostBase = 9, attack_damageMore = 1.05, },
-		[17] = { skill_manaCostBase = 9, attack_damageMore = 1.06, },
-		[18] = { skill_manaCostBase = 10, attack_damageMore = 1.07, },
-		[19] = { skill_manaCostBase = 10, attack_damageMore = 1.08, },
-		[20] = { skill_manaCostBase = 10, attack_damageMore = 1.09, },
-		[21] = { skill_manaCostBase = 10, attack_damageMore = 1.1, },
-		[22] = { skill_manaCostBase = 10, attack_damageMore = 1.11, },
-		[23] = { skill_manaCostBase = 11, attack_damageMore = 1.12, },
-		[24] = { skill_manaCostBase = 11, attack_damageMore = 1.13, },
-		[25] = { skill_manaCostBase = 11, attack_damageMore = 1.14, },
-		[26] = { skill_manaCostBase = 11, attack_damageMore = 1.15, },
-		[27] = { skill_manaCostBase = 11, attack_damageMore = 1.16, },
-		[28] = { skill_manaCostBase = 12, attack_damageMore = 1.17, },
-		[29] = { skill_manaCostBase = 12, attack_damageMore = 1.18, },
-		[30] = { skill_manaCostBase = 12, attack_damageMore = 1.19, },
+		[1] = { skill_manaCostBase = 6, attack_damageMore = 0.9, projectileCount = 4, },
+		[2] = { skill_manaCostBase = 6, attack_damageMore = 0.91, projectileCount = 4, },
+		[3] = { skill_manaCostBase = 6, attack_damageMore = 0.92, projectileCount = 4, },
+		[4] = { skill_manaCostBase = 7, attack_damageMore = 0.93, projectileCount = 4, },
+		[5] = { skill_manaCostBase = 7, attack_damageMore = 0.94, projectileCount = 4, },
+		[6] = { skill_manaCostBase = 7, attack_damageMore = 0.95, projectileCount = 4, },
+		[7] = { skill_manaCostBase = 7, attack_damageMore = 0.96, projectileCount = 4, },
+		[8] = { skill_manaCostBase = 8, attack_damageMore = 0.97, projectileCount = 5, },
+		[9] = { skill_manaCostBase = 8, attack_damageMore = 0.98, projectileCount = 5, },
+		[10] = { skill_manaCostBase = 8, attack_damageMore = 0.99, projectileCount = 5, },
+		[11] = { skill_manaCostBase = 8, attack_damageMore = 1, projectileCount = 5, },
+		[12] = { skill_manaCostBase = 8, attack_damageMore = 1.01, projectileCount = 5, },
+		[13] = { skill_manaCostBase = 9, attack_damageMore = 1.02, projectileCount = 5, },
+		[14] = { skill_manaCostBase = 9, attack_damageMore = 1.03, projectileCount = 5, },
+		[15] = { skill_manaCostBase = 9, attack_damageMore = 1.04, projectileCount = 6, },
+		[16] = { skill_manaCostBase = 9, attack_damageMore = 1.05, projectileCount = 6, },
+		[17] = { skill_manaCostBase = 9, attack_damageMore = 1.06, projectileCount = 6, },
+		[18] = { skill_manaCostBase = 10, attack_damageMore = 1.07, projectileCount = 6, },
+		[19] = { skill_manaCostBase = 10, attack_damageMore = 1.08, projectileCount = 6, },
+		[20] = { skill_manaCostBase = 10, attack_damageMore = 1.09, projectileCount = 6, },
+		[21] = { skill_manaCostBase = 10, attack_damageMore = 1.1, projectileCount = 6, },
+		[22] = { skill_manaCostBase = 10, attack_damageMore = 1.11, projectileCount = 7, },
+		[23] = { skill_manaCostBase = 11, attack_damageMore = 1.12, projectileCount = 7, },
+		[24] = { skill_manaCostBase = 11, attack_damageMore = 1.13, projectileCount = 7, },
+		[25] = { skill_manaCostBase = 11, attack_damageMore = 1.14, projectileCount = 7, },
+		[26] = { skill_manaCostBase = 11, attack_damageMore = 1.15, projectileCount = 7, },
+		[27] = { skill_manaCostBase = 11, attack_damageMore = 1.16, projectileCount = 7, },
+		[28] = { skill_manaCostBase = 12, attack_damageMore = 1.17, projectileCount = 7, },
+		[29] = { skill_manaCostBase = 12, attack_damageMore = 1.18, projectileCount = 8, },
+		[30] = { skill_manaCostBase = 12, attack_damageMore = 1.19, projectileCount = 8, },
 	}
 }
 gems["Summon Ice Golem"] = {
+	dexterity = true,
 	spell = true,
 	minion = true,
 	golem = true,
 	cold = true,
 	base = {
 		skill_castTime = 1,
-		BuffEffect_CondMod_LiegeOfThePrimordial_coldInc = 40,
+		BuffEffect_Cond_HaveColdGolem = true,
 	},
 	quality = {
 		minionLifeInc = 1,
@@ -2026,6 +2079,7 @@ gems["Summon Ice Golem"] = {
 	}
 }
 gems["Temporal Chains"] = {
+	dexterity = true,
 	curse = true,
 	spell = true,
 	aoe = true,
@@ -2070,6 +2124,7 @@ gems["Temporal Chains"] = {
 	}
 }
 gems["Tornado Shot"] = {
+	dexterity = true,
 	attack = true,
 	bow = true,
 	projectile = true,
@@ -2112,13 +2167,14 @@ gems["Tornado Shot"] = {
 	}
 }
 gems["Viper Strike"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	duration = true,
 	chaos = true,
 	base = {
 		skill_manaCostBase = 5,
-		physicalConvertTochaos = 25,
+		skill_physicalConvertTochaos = 25,
 		poisonChance = 100,
 		poison_durationMore = 4,
 	},
@@ -2159,6 +2215,7 @@ gems["Viper Strike"] = {
 	}
 }
 gems["Whirling Blades"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	movement = true,
@@ -2203,9 +2260,11 @@ gems["Whirling Blades"] = {
 	}
 }
 gems["Wild Strike"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	projectile = true,
+	chaining = true,
 	aoe = true,
 	lightning = true,
 	cold = true,
@@ -2215,82 +2274,89 @@ gems["Wild Strike"] = {
 			name = "Fire hit",
 			melee = true,
 			projectile = false,
+			chaining = false,
 			aoe = false,
 		},
 		{
 			name = "Fire explosion",
 			melee = false,
 			projectile = false,
+			chaining = false,
 			aoe = true,
 		},
 		{
 			name = "Lightning hit",
 			melee = true,
 			projectile = false,
+			chaining = false,
 			aoe = false,
 		},
 		{
 			name = "Lightning bolt",
 			melee = false,
 			projectile = false,
+			chaining = true,
 			aoe = false,
 		},
 		{
 			name = "Cold hit",
 			melee = true,
 			projectile = false,
+			chaining = false,
 			aoe = false,
 		},
 		{
 			name = "Icy wave",
 			melee = false,
 			projectile = true,
+			chaining = false,
 			aoe = false,
 		},
 	},
 	base = {
 		skill_manaCostBase = 6,
-		part1_physicalConvertTofire = 60,
-		part2_physicalConvertTofire = 60,
-		part3_physicalConvertTolightning = 60,
-		part4_physicalConvertTolightning = 60,
-		part5_physicalGainAscold = 60,
-		part6_physicalGainAscold = 60,
+		projectileCount = 2,
+		SkillPart1_skill_physicalConvertTofire = 60,
+		SkillPart2_skill_physicalConvertTofire = 60,
+		SkillPart3_skill_physicalConvertTolightning = 60,
+		SkillPart4_skill_physicalConvertTolightning = 60,
+		SkillPart5_skill_physicalGainAscold = 60,
+		SkillPart6_skill_physicalGainAscold = 60,
 	},
 	quality = {
 		elementalInc = 1,
 	},
 	levels = {
-		[1] = { attack_damageMore = 1.2, },
-		[2] = { attack_damageMore = 1.214, },
-		[3] = { attack_damageMore = 1.228, },
-		[4] = { attack_damageMore = 1.242, },
-		[5] = { attack_damageMore = 1.256, },
-		[6] = { attack_damageMore = 1.27, },
-		[7] = { attack_damageMore = 1.284, },
-		[8] = { attack_damageMore = 1.298, },
-		[9] = { attack_damageMore = 1.312, },
-		[10] = { attack_damageMore = 1.326, },
-		[11] = { attack_damageMore = 1.34, },
-		[12] = { attack_damageMore = 1.354, },
-		[13] = { attack_damageMore = 1.368, },
-		[14] = { attack_damageMore = 1.382, },
-		[15] = { attack_damageMore = 1.396, },
-		[16] = { attack_damageMore = 1.41, },
-		[17] = { attack_damageMore = 1.424, },
-		[18] = { attack_damageMore = 1.438, },
-		[19] = { attack_damageMore = 1.452, },
-		[20] = { attack_damageMore = 1.466, },
-		[21] = { attack_damageMore = 1.48, },
-		[22] = { attack_damageMore = 1.494, },
-		[23] = { attack_damageMore = 1.508, },
-		[24] = { attack_damageMore = 1.522, },
-		[25] = { attack_damageMore = 1.536, },
-		[26] = { attack_damageMore = 1.55, },
-		[27] = { attack_damageMore = 1.564, },
-		[28] = { attack_damageMore = 1.578, },
-		[29] = { attack_damageMore = 1.592, },
-		[30] = { attack_damageMore = 1.606, },
+		[1] = { attack_damageMore = 1.2, chainCount = 4, },
+		[2] = { attack_damageMore = 1.214, chainCount = 4, },
+		[3] = { attack_damageMore = 1.228, chainCount = 4, },
+		[4] = { attack_damageMore = 1.242, chainCount = 4, },
+		[5] = { attack_damageMore = 1.256, chainCount = 4, },
+		[6] = { attack_damageMore = 1.27, chainCount = 4, },
+		[7] = { attack_damageMore = 1.284, chainCount = 5, },
+		[8] = { attack_damageMore = 1.298, chainCount = 5, },
+		[9] = { attack_damageMore = 1.312, chainCount = 5, },
+		[10] = { attack_damageMore = 1.326, chainCount = 5, },
+		[11] = { attack_damageMore = 1.34, chainCount = 5, },
+		[12] = { attack_damageMore = 1.354, chainCount = 5, },
+		[13] = { attack_damageMore = 1.368, chainCount = 6, },
+		[14] = { attack_damageMore = 1.382, chainCount = 6, },
+		[15] = { attack_damageMore = 1.396, chainCount = 6, },
+		[16] = { attack_damageMore = 1.41, chainCount = 6, },
+		[17] = { attack_damageMore = 1.424, chainCount = 6, },
+		[18] = { attack_damageMore = 1.438, chainCount = 6, },
+		[19] = { attack_damageMore = 1.452, chainCount = 7, },
+		[20] = { attack_damageMore = 1.466, chainCount = 7, },
+		[21] = { attack_damageMore = 1.48, chainCount = 7, },
+		[22] = { attack_damageMore = 1.494, chainCount = 7, },
+		[23] = { attack_damageMore = 1.508, chainCount = 7, },
+		[24] = { attack_damageMore = 1.522, chainCount = 7, },
+		[25] = { attack_damageMore = 1.536, chainCount = 8, },
+		[26] = { attack_damageMore = 1.55, chainCount = 8, },
+		[27] = { attack_damageMore = 1.564, chainCount = 8, },
+		[28] = { attack_damageMore = 1.578, chainCount = 8, },
+		[29] = { attack_damageMore = 1.592, chainCount = 8, },
+		[30] = { attack_damageMore = 1.606, chainCount = 8, },
 	}
 }
 

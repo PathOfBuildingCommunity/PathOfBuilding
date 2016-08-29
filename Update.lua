@@ -2,7 +2,7 @@
 -- Path of Building
 --
 -- Module: Update
--- Checks for and applies updates
+-- Checks for and applies updates.
 --
 local mode = ...
 

@@ -1,7 +1,7 @@
 -- Path of Building
 --
--- Module: CalcsView
--- Configures the display grid in the calculations breakdown view
+-- Module: Calcs View
+-- Configures the display grid in the calculations breakdown tab
 --
 local grid = ...
 
@@ -18,24 +18,27 @@ local function fieldNames(pre, suf, spec)
 end
 
 local columnWidths = {
-	120, 60,
-	150, 60,
-	150, 60,
+	140, 60,
+	160, 60,
+	160, 60,
 	160, 95, 95, 95, 95, 95, 95, 70
 }
 
 local columns = { }
 
+local skillList = { }
+local skillPartList = { }
+local auxSkillList = { }
+
 columns[1] = {
 	{
-		{ "Player:" },
-		{ "input", "Level:", "player_level" },
+		{ "Attributes:" },
 		{ "output", "Gear Strength:", "gear_strBase" },
 		{ "output", "Gear Dexterity:", "gear_dexBase" },
 		{ "output", "Gear Intelligence:", "gear_intBase" },
-		{ "output", "^xFF7700Strength^7:", "total_str" },
-		{ "output", "^x33FF33Dexterity^7:", "total_dex" },
-		{ "output", "^x7777FFIntelligence^7:", "total_int" },
+		{ "output", data.colorCodes.STRENGTH.."Strength^7:", "total_str" },
+		{ "output", data.colorCodes.DEXTERITY.."Dexterity^7:", "total_dex" },
+		{ "output", data.colorCodes.INTELLIGENCE.."Intelligence^7:", "total_int" },
 		{ },
 		{ "Monsters:" },
 		{ "input", "Monster level:", "monster_level" },
@@ -47,6 +50,9 @@ columns[1] = {
 		{ "output", "Gear +:", "gear_lifeBase" },
 		{ "output", "Gear %:", "gear_lifeInc" },
 		{ "output", "Total:", "total_life", formatRound },
+		{ "output", "Reserved:", "total_lifeReserved", formatRound },
+		{ "output", "Unreserved:", "total_lifeUnreserved", formatRound },
+		{ "output", "Unreserved %:", "total_lifeUnreservedPercent", formatPercent },
 		{ "output", "Spec Regen %:", "spec_lifeRegenPercent" },
 		{ "output", "Gear Regen +:", "gear_lifeRegenBase" },
 		{ "output", "Gear Regen %:", "gear_lifeRegenPercent" },
@@ -58,23 +64,17 @@ columns[1] = {
 		{ "output", "Gear +:", "gear_manaBase" },
 		{ "output", "Gear %:", "gear_manaInc" },
 		{ "output", "Total:", "total_mana", formatRound },
+		{ "output", "Reserved:", "total_manaReserved", formatRound },
+		{ "output", "Unreserved:", "total_manaUnreserved", formatRound },
+		{ "output", "Unreserved %:", "total_manaUnreservedPercent", formatPercent },
 		{ "output", "Spec Regen %:", "spec_manaRegenInc" },
 		{ "output", "Gear Regen +:", "gear_manaRegenBase" },
 		{ "output", "Gear Regen %:", "gear_manaRegenInc" },
 		{ "output", "Total Regen:", "total_manaRegen", getFormatRound(1) },
 		{ },
-		{ "Auras and Buffs:" },
-		{ "input", "Skill 1:", "buff_spec1", "string", 2 },
-		{ "input", "Skill 2:", "buff_spec2", "string", 2 },
-		{ "input", "Skill 3:", "buff_spec3", "string", 2 },
-		{ "input", "Skill 4:", "buff_spec4", "string", 2 },
-		{ "input", "Skill 5:", "buff_spec5", "string", 2 },
-		{ "input", "Skill 6:", "buff_spec6", "string", 2 },
-		{ "input", "Skill 7:", "buff_spec7", "string", 2 },
-		{ "input", "Skill 8:", "buff_spec8", "string", 2 },
-		{ "input", "Skill 9:", "buff_spec9", "string", 2 },
-		{ "input", "Skill 10:", "buff_spec10", "string", 2 },
-	}
+		{ "Supporting Skills:" },
+	}, 
+	auxSkillList
 }
 
 columns[3] = {
@@ -105,17 +105,23 @@ columns[3] = {
 		{ "output", "Gear %:", "gear_armourInc" },
 		{ "output", "Total:", "total_armour", formatRound },
 		{ },
-		{ "Misc:" },
-		{ "input", "Normal Bandit:", "misc_banditNormal", "choice", 1, { "None", "Alira", "Kraityn", "Oak" } },
-		{ "input", "Cruel Bandit:", "misc_banditCruel", "choice", 1, { "None", "Alira", "Kraityn", "Oak" } },
-		{ "input", "Merciless Bandit:", "misc_banditMerc", "choice", 1, { "None", "Alira", "Kraityn", "Oak" } },
-		{ "input", "Always on Low Life?", "Cond_LowLife", "check" },
-		{ "input", "Always on Full Life?", "Cond_FullLife", "check" },
+		{ "Block and Stun:" },
+		{ "output", "Attack Block Chance:", "total_blockChance", formatPercent },
+		{ "output", "Spell Block Chance:", "total_spellBlockChance", formatPercent },
+		{ "output", "Chance to Avoid Stun:", "stun_avoidChance", formatPercent },
+		{ "output", "Stun Duration on You:", "stun_duration", getFormatSec(2) },
+		{ "output", "Block Duration on You:", "stun_blockDuration", getFormatSec(2) },
+		{ "output", "Duration on Enemies:", "stun_enemyDuration", getFormatSec(2) },
+		{ "output", "Enemy Threshold Mod:", "stun_enemyThresholdMod", formatPercent },
 	}
 }
 
 columns[5] = {
 	{
+		{ "Conditions:" },
+		{ "input", "Always on Low Life?", "Cond_LowLife", "check" },
+		{ "input", "Always on Full Life?", "Cond_FullLife", "check" },
+		{ },
 		{ "Buffs:" },
 		{ "input", "Power Charges?", "buff_power", "check" },
 	}, {
@@ -151,7 +157,7 @@ columns[5] = {
 		{ "input", "Enemy Phys. Red. %:", "effective_physicalRed" },
 		{ "input", "Enemy Fire Resist:", "effective_fireResist" },
 		{ "input", "Enemy Cold Resist:", "effective_coldResist" },
-		{ "input", "Enemy Light. Resist:", "effective_lightResist" },
+		{ "input", "Enemy Lightning Resist:", "effective_lightningResist" },
 		{ "input", "Enemy Chaos Resist:", "effective_chaosResist" },
 		{ "input", "Enemy is a Boss?", "effective_enemyIsBoss", "check" },
 		{ },
@@ -210,26 +216,18 @@ columns[5] = {
 		{ "output", "Total Accuracy:", "total_accuracy", formatRound },
 		{ "input", "Use Monster Level?", "misc_hitMonsterLevel", "check" },
 		{ "output", "Chance to Hit:", "total_hitChance", formatPercent },
-	}, {
-		{ },
-		{ "Stun:" },
-		{ "output", "Stun Duration on You:", "stun_duration", getFormatSec(2) },
-		{ "output", "Block Duration on You:", "stun_blockDuration", getFormatSec(2) },
-		{ "output", "Duration on Enemies:", "stun_enemyDuration", getFormatSec(2) },
-		{ "output", "Enemy Threshold Mod:", "stun_enemyThresholdMod", formatPercent },
 	}
 }
 
 columns[7] = {
 	{
-		{ "input", "Skill:", "skill_spec", "string", 7 },
+		{ "input", "View Skill Details:", "skill_number", "choice", 4, skillList },
 	}, {
 		flag = "multiPart",
-		{ "input", "Skill Part #:", "skill_part" },
-		{ "output", "Part:", "skill_partName", "string", 2 },
+		{ "input", "Skill Part:", "skill_part", "choice", 2, skillPartList },
 	}, {
 		{ },
-		{ "input", "Mode:", "misc_buffMode", "choice", 2, { "Unbuffed", "With buffs", "Effective DPS with buffs" } },
+		{ "input", "Mode:", "misc_buffMode", "choice", 2, { {label="Unbuffed",val="UNBUFFED"}, {label="With buffs",val="BUFFED"}, {label="Effective DPS with buffs",val="EFFECTIVE"} } },
 		{ },
 	}, {
 		flag = "attack",
@@ -240,14 +238,14 @@ columns[7] = {
 		{ "output", "Weapon Min:", fieldNames("gear_weapon1", "Min", "plcfh") },
 		{ "output", "Weapon Max:", fieldNames("gear_weapon1", "Max", "plcfh") },
 		{ "output", "Weapon APS:", "gear_weapon1_attackRate" },
-		{ "output", "Weapon DPS:", fieldNames("weapon1", "DPS", "plcfhae"), getFormatRound(2) },
+		{ "output", "Weapon DPS:", fieldNames("gear_weapon1", "DPS", "plcfhae"), getFormatRound(2) },
 	}, {
 		flag = "weapon2Attack",
 		{ "output", "Off Hand:", "gear_weapon2_name", "string", 3 },
 		{ "output", "Weapon Min:", fieldNames("gear_weapon2", "Min", "plcfh") },
 		{ "output", "Weapon Max:", fieldNames("gear_weapon2", "Max", "plcfh") },
 		{ "output", "Weapon APS:", "gear_weapon2_attackRate" },
-		{ "output", "Weapon DPS:", fieldNames("weapon2", "DPS", "plcfhae"), getFormatRound(2) },
+		{ "output", "Weapon DPS:", fieldNames("gear_weapon2", "DPS", "plcfhae"), getFormatRound(2) },
 	}, {
 		flag = "attack",
 		{ "output", "Spec Attack Dmg %:", fieldNames("spec_attack", "Inc", "pa") },
@@ -297,7 +295,7 @@ columns[7] = {
 		{ "output", "Gear Attack&Cast Sp. %:", "gear_speedInc" },
 		{ "output", "Enemy Resists:", fieldNames("enemy", "Resist", "lcfh") },
 		{ "output", "Attack Damage:", fieldNames("total", "", "plcfha") },
-		{ "output", "Average Damage:", "total_avg", getFormatRound(1) },
+		{ "output", "Average Hit:", "total_averageHit", getFormatRound(1) },
 		{ "output", "Attack Speed:", "total_speed", getFormatRound(2) },
 		{ "output", "Attack Time:", "total_time", getFormatSec(2) },
 		{ "output", "Attack DPS:", "total_dps", getFormatRound(1) },
@@ -309,18 +307,26 @@ columns[7] = {
 		{ "output", "Gear Attack&Cast Sp. %:", "gear_speedInc" },
 		{ "output", "Enemy Resists:", fieldNames("enemy", "Resist", "lcfh") },
 		{ "output", "Spell Damage:", fieldNames("total", "", "plcfha") },
-		{ "output", "Average Damage:", "total_avg", getFormatRound(1) },
+		{ "output", "Average Hit:", "total_averageHit", getFormatRound(1) },
 		{ "output", "Cast Rate:", "total_speed", getFormatRound(2) },
 		{ "output", "Cast Time:", "total_time", getFormatSec(2) },
 		{ "output", "Spell DPS:", "total_dps", getFormatRound(1) },
 	}, {
 		flag = "cast",
+		{ "output", "Spec Cast Speed %:", "spec_castSpeedInc" },
+		{ "output", "Gear Cast Speed %:", "gear_castSpeedInc" },
+		{ "output", "Spec Attack&Cast Sp. %:", "spec_speedInc" },
+		{ "output", "Gear Attack&Cast Sp. %:", "gear_speedInc" },
+		{ "output", "Enemy Resists:", fieldNames("enemy", "Resist", "lcfh") },
 		{ "output", "Secondary Damage:", fieldNames("total", "", "plcfha") },
-		{ "output", "Average Damage:", "total_avg", getFormatRound(1) },
+		{ "output", "Average Hit:", "total_averageHit", getFormatRound(1) },
+		{ "output", "Cast Rate:", "total_speed", getFormatRound(2) },
+		{ "output", "Cast Time:", "total_time", getFormatSec(2) },
 	}, {
 		{ "output", "Mana Cost:", "total_manaCost", formatRound }
 	}, {
 		flag = "projectile",
+		{ "output", "Projectile Count:", "total_projectileCount" },
 		{ "output", "Spec Pierce Chance %:", "spec_pierceChance" },
 		{ "output", "Gear Pierce Chance %:", "gear_pierceChance" },
 		{ "output", "Pierce Chance:", "total_pierce", formatPercent },
@@ -335,12 +341,16 @@ columns[7] = {
 		{ "output", "Skill Duration:", "total_duration", getFormatSec(2) },
 	}, {
 		flag = "trap",
+		{ "output", "Active Trap Limit:", "total_activeTrapLimit" },
 		{ "output", "Trap Cooldown:", "total_trapCooldown", getFormatSec(2) },
+	}, {
+		flag = "mine",
+		{ "output", "Active Mine Limit:", "total_activeMineLimit" },
 	}, {
 		flag = "dot",
 		{ "output", "Spec DoT Dmg %:", fieldNames("spec_dot", "Inc", "pfa") },
 		{ "output", "Gear DoT Dmg %:", fieldNames("gear_dot", "Inc", "pfa") },
-		{ "output", "DoT:", fieldNames("total", "Dot", "plcfh"), getFormatRound(1) },
+		{ "output", "DoT:", fieldNames("total", "Dot", "plcfha"), getFormatRound(1) },
 	}, {
 		flag = "bleed",
 		{ "output", "Spec Bleed Chance %:", "spec_bleedChance" },
@@ -426,11 +436,27 @@ end
 
 local curFlags
 
-return function(newFlags)
+return function(env, skills)
+	wipeTable(skillList)
+	if #skills > 0 then
+		for i, skill in pairs(skills) do
+			skillList[i] = { val = i, label = skill.displayLabel }
+		end
+	else
+		skillList[1] = { val = 1, label = "No skills found. Go to the Skills page and create a skill." }
+	end
+	wipeTable(skillPartList)
+	for i, partName in pairs(env.skillParts) do
+		skillPartList[i] = { val = i, label = partName }
+	end
+	wipeTable(auxSkillList)
+	for i in pairs(env.auxSkills) do
+		auxSkillList[i] = { "output", "Skill "..i..":", "buff_label"..i, "string", 3 }
+	end
 	if curFlags then
 		local noNewFlags = true
 		local sub = copyTable(curFlags)
-		for flag in pairs(newFlags) do
+		for flag in pairs(env.skillFlags) do
 			if curFlags[flag] then
 				sub[flag] = nil
 			else
@@ -442,7 +468,7 @@ return function(newFlags)
 			return
 		end
 	end
-	curFlags = copyTable(newFlags)
+	curFlags = copyTable(env.skillFlags)
 
 	grid:Clear()
 

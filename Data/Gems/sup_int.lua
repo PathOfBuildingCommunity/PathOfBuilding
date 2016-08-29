@@ -6,6 +6,7 @@
 local gems = ...
 
 gems["Added Chaos Damage"] = {
+	intelligence = true,
 	support = true,
 	chaos = true,
 	base = {
@@ -48,6 +49,7 @@ gems["Added Chaos Damage"] = {
 	}
 }
 gems["Added Lightning Damage"] = {
+	intelligence = true,
 	support = true,
 	lightning = true,
 	base = {
@@ -90,6 +92,7 @@ gems["Added Lightning Damage"] = {
 	}
 }
 gems["Blasphemy"] = {
+	intelligence = true,
 	support = true,
 	curse = true,
 	aura = true,
@@ -133,9 +136,11 @@ gems["Blasphemy"] = {
 	}
 }
 gems["Cast When Stunned"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Chance to Ignite"] = {
+	intelligence = true,
 	support = true,
 	fire = true,
 	base = {
@@ -178,6 +183,7 @@ gems["Chance to Ignite"] = {
 	}
 }
 gems["Concentrated Effect"] = {
+	intelligence = true,
 	support = true,
 	aoe = true,
 	base = {
@@ -221,6 +227,7 @@ gems["Concentrated Effect"] = {
 	}
 }
 gems["Controlled Destruction"] = {
+	intelligence = true,
 	support = true,
 	spell = true,
 	base = {
@@ -264,9 +271,50 @@ gems["Controlled Destruction"] = {
 	}
 }
 gems["Curse on Hit"] = {
-	unsupported = true,
+	intelligence = true,
+	support = true,
+	trigger = true,
+	curse = true,
+	base = {
+	},
+	quality = {
+		curseEffectInc = 0.5,
+	},
+	levels = {
+		[1] = { curse_durationInc = -50, },
+		[2] = { curse_durationInc = -48, },
+		[3] = { curse_durationInc = -46, },
+		[4] = { curse_durationInc = -44, },
+		[5] = { curse_durationInc = -42, },
+		[6] = { curse_durationInc = -40, },
+		[7] = { curse_durationInc = -38, },
+		[8] = { curse_durationInc = -36, },
+		[9] = { curse_durationInc = -34, },
+		[10] = { curse_durationInc = -32, },
+		[11] = { curse_durationInc = -30, },
+		[12] = { curse_durationInc = -28, },
+		[13] = { curse_durationInc = -26, },
+		[14] = { curse_durationInc = -24, },
+		[15] = { curse_durationInc = -22, },
+		[16] = { curse_durationInc = -20, },
+		[17] = { curse_durationInc = -18, },
+		[18] = { curse_durationInc = -16, },
+		[19] = { curse_durationInc = -14, },
+		[20] = { curse_durationInc = -12, },
+		[21] = { curse_durationInc = -10, },
+		[22] = { curse_durationInc = -8, },
+		[23] = { curse_durationInc = -6, },
+		[24] = { curse_durationInc = -4, },
+		[25] = { curse_durationInc = -2, },
+		[26] = { curse_durationInc = -0, },
+		[27] = { curse_durationInc = -2, },
+		[28] = { curse_durationInc = -4, },
+		[29] = { curse_durationInc = -6, },
+		[30] = { curse_durationInc = -8, },
+	}
 }
 gems["Elemental Focus"] = {
+	intelligence = true,
 	support = true,
 	base = {
 		manaCostMore = 1.3,
@@ -308,6 +356,7 @@ gems["Elemental Focus"] = {
 	}
 }
 gems["Elemental Proliferation"] = {
+	intelligence = true,
 	support = true,
 	aoe = true,
 	fire = true,
@@ -356,6 +405,7 @@ gems["Elemental Proliferation"] = {
 	}
 }
 gems["Enlighten"] = {
+	intelligence = true,
 	support = true,
 	base = {
 	},
@@ -375,6 +425,7 @@ gems["Enlighten"] = {
 	}
 }
 gems["Faster Casting"] = {
+	intelligence = true,
 	support = true,
 	spell = true,
 	base = {
@@ -417,6 +468,7 @@ gems["Faster Casting"] = {
 	}
 }
 gems["Increased Area of Effect"] = {
+	intelligence = true,
 	support = true,
 	aoe = true,
 	base = {
@@ -459,6 +511,7 @@ gems["Increased Area of Effect"] = {
 	}
 }
 gems["Increased Critical Damage"] = {
+	intelligence = true,
 	support = true,
 	base = {
 		manaCostMore = 1.3,
@@ -500,6 +553,7 @@ gems["Increased Critical Damage"] = {
 	}
 }
 gems["Increased Critical Strikes"] = {
+	intelligence = true,
 	support = true,
 	base = {
 		manaCostMore = 1.15,
@@ -541,6 +595,7 @@ gems["Increased Critical Strikes"] = {
 	}
 }
 gems["Innervate"] = {
+	intelligence = true,
 	support = true,
 	lightning = true,
 	base = {
@@ -584,6 +639,7 @@ gems["Innervate"] = {
 	}
 }
 gems["Item Rarity"] = {
+	intelligence = true,
 	support = true,
 	base = {
 	},
@@ -624,6 +680,7 @@ gems["Item Rarity"] = {
 	}
 }
 gems["Lightning Penetration"] = {
+	intelligence = true,
 	support = true,
 	lightning = true,
 	base = {
@@ -666,10 +723,12 @@ gems["Lightning Penetration"] = {
 	}
 }
 gems["Minefield"] = {
+	intelligence = true,
 	support = true,
 	mine = true,
 	base = {
 		manaCostMore = 1.6,
+		activeMineLimit = 2,
 	},
 	quality = {
 		mineDetonationRadiusInc = 1,
@@ -708,18 +767,23 @@ gems["Minefield"] = {
 	}
 }
 gems["Minion and Totem Elemental Resistance"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Minion Damage"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Minion Life"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Minion Speed"] = {
+	intelligence = true,
 	unsupported = true,
 }
 gems["Physical to Lightning"] = {
+	intelligence = true,
 	support = true,
 	lightning = true,
 	base = {
@@ -764,6 +828,7 @@ gems["Physical to Lightning"] = {
 	}
 }
 gems["Power Charge On Critical"] = {
+	intelligence = true,
 	support = true,
 	base = {
 		manaCostMore = 1.1,
@@ -805,6 +870,7 @@ gems["Power Charge On Critical"] = {
 	}
 }
 gems["Remote Mine"] = {
+	intelligence = true,
 	support = true,
 	mine = true,
 	addFlags = {
@@ -851,6 +917,7 @@ gems["Remote Mine"] = {
 	}
 }
 gems["Spell Echo"] = {
+	intelligence = true,
 	support = true,
 	spell = true,
 	base = {

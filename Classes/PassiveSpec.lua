@@ -2,17 +2,20 @@
 --
 -- Class: Passive Spec
 -- Passive tree spec class.
+-- Manages node allocation and pathing for a given passive spec
 --
-local launch = ...
+local launch, main = ...
 
 local pairs = pairs
 local ipairs = ipairs
+local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
-local t_insert = table.insert
 
-local SpecClass = common.NewClass("PassiveSpec", function(self, tree)
+local PassiveSpecClass = common.NewClass("PassiveSpec", "UndoHandler", function(self, tree)
+	self.UndoHandler()
+
 	self.tree = tree
 
 	-- Make a local copy of the passive tree that we can modify
@@ -28,15 +31,14 @@ local SpecClass = common.NewClass("PassiveSpec", function(self, tree)
 		end
 	end
 
+	-- List of currently allocated nodes
+	-- Keys are node IDs, values are nodes
 	self.allocNodes = { }
-
-	self.undo = { }
-	self.redo = { }
 
 	self:SelectClass(0)
 end)
 
-function SpecClass:Load(xml, dbFileName)
+function PassiveSpecClass:Load(xml, dbFileName)
 	for _, node in pairs(xml) do
 		if type(node) == "table" then
 			if node.elem == "URL" then
@@ -48,11 +50,10 @@ function SpecClass:Load(xml, dbFileName)
 			end
 		end
 	end
-	self.undo = { self:CreateUndoState() }
-	self.redo = { }
+	self:ResetUndo()
 end
 
-function SpecClass:Save(xml)
+function PassiveSpecClass:Save(xml)
 	t_insert(xml, {
 		elem = "URL", 
 		[1] = self:EncodeURL("https://www.pathofexile.com/passive-skill-tree/")
@@ -60,20 +61,60 @@ function SpecClass:Save(xml)
 	self.modFlag = false
 end
 
-function SpecClass:DecodeURL(url)
+-- Import passive spec from the provided class IDs and node hash list
+function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
 	self:ResetNodes()
-	local b = common.base64.decode(url:gsub("^.+/",""):gsub("-","+"):gsub("_","/"))
-	local ver = b:byte(4)
-	local classId = b:byte(5)
-	local ascendClassId = (ver >= 4) and b:byte(6) or 0
 	self:SelectClass(classId)
-	for i = (ver >= 4) and 8 or 7, #b-1, 2 do
-		local id = b:byte(i) * 256 + b:byte(i + 1)
+	for _, id in pairs(hashList) do
+		local node = self.nodes[id]
+		if node then
+			node.alloc = true
+			self.allocNodes[id] = node
+		end
+	end
+	self:SelectAscendClass(ascendClassId)
+end
+
+-- Decode the given passive tree URL
+-- Supports both the official skill tree links as well as PoE Planner links
+function PassiveSpecClass:DecodeURL(url)
+	local b = common.base64.decode(url:gsub("^.+/",""):gsub("-","+"):gsub("_","/"))
+	if not b or #b < 6 then
+		return "Invalid tree link (unrecognised format)"
+	end
+	local classId, ascendClassId, nodes
+	if b:byte(1) == 0 and b:byte(2) == 2 then
+		-- Hold on to your headgear, it looks like a PoE Planner link
+		-- Let's grab a scalpel and start peeling back the 50 layers of base 64 encoding
+		local treeLinkLen = b:byte(4) * 256 + b:byte(5)
+		local treeLink = b:sub(6, 6 + treeLinkLen - 1)
+		b = common.base64.decode(treeLink:gsub("^.+/",""):gsub("-","+"):gsub("_","/"))
+		classId = b:byte(3)
+		ascendClassId = b:byte(4)
+		nodes = b:sub(8, -1)
+	else
+		local ver = b:byte(1) * 16777216 + b:byte(2) * 65536 + b:byte(3) * 256 + b:byte(4)
+		if ver > 4 then
+			return "Invalid tree link (unknown version number '"..ver.."')"
+		end
+		classId = b:byte(5)	
+		ascendClassId = 0--(ver >= 4) and b:byte(6) or 0   -- This value would be reliable if the developer of a certain online skill tree planner *cough* PoE Planner *cough* hadn't bollocked up
+														   -- the generation of the official tree URL. The user would most likely import the PoE Planner URL instead but that can't be relied upon.
+		nodes = b:sub(ver >= 4 and 8 or 7, -1)
+	end	
+	if not self.tree.classes[classId] then
+		return "Invalid tree link (bad class ID '"..classId.."')"
+	end
+	self:ResetNodes()
+	self:SelectClass(classId)
+	for i = 1, #nodes - 1, 2 do
+		local id = nodes:byte(i) * 256 + nodes:byte(i + 1)
 		local node = self.nodes[id]
 		if node then
 			node.alloc = true
 			self.allocNodes[id] = node
 			if ascendClassId == 0 and node.ascendancyName then
+				-- Just guess the ascendancy class based on the allocated nodes
 				ascendClassId = self.tree.ascendNameMap[node.ascendancyName].ascendClassId
 			end
 		end
@@ -81,7 +122,9 @@ function SpecClass:DecodeURL(url)
 	self:SelectAscendClass(ascendClassId)
 end
 
-function SpecClass:EncodeURL(prefix)
+-- Encodes the current spec into a URL, using the official skill tree's format
+-- Prepends the URL with an optional prefix
+function PassiveSpecClass:EncodeURL(prefix)
 	local a = { 0, 0, 0, 4, self.curClassId, self.curAscendClassId, 0 }
 	for id, node in pairs(self.allocNodes) do
 		if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
@@ -92,43 +135,63 @@ function SpecClass:EncodeURL(prefix)
 	return (prefix or "")..common.base64.encode(string.char(unpack(a))):gsub("+","-"):gsub("/","_")
 end
 
-function SpecClass:SelectClass(classId)
+-- Change the current class, preserving currently allocated nodes if they connect to the new class's starting node
+function PassiveSpecClass:SelectClass(classId)
 	if self.curClassId then
-		local oldStartNodeId = self.tree.classes[self.curClassId].startNodeId
+		-- Deallocate the current class's starting node
+		local oldStartNodeId = self.curClass.startNodeId
 		self.nodes[oldStartNodeId].alloc = false
 		self.allocNodes[oldStartNodeId] = nil
 	end
+
 	self.curClassId = classId
 	local class = self.tree.classes[classId]
+	self.curClass = class 
 	self.curClassName = class.name
+
+	-- Allocate the new class's starting node
 	local startNode = self.nodes[class.startNodeId]
 	startNode.alloc = true
 	self.allocNodes[startNode.id] = startNode
+
+	-- Reset the ascendancy class
+	-- This will also rebuild the node paths and dependancies
 	self:SelectAscendClass(0)
 end
 
-function SpecClass:SelectAscendClass(ascendClassId)
+function PassiveSpecClass:SelectAscendClass(ascendClassId)
 	self.curAscendClassId = ascendClassId
-	local ascendClass = self.tree.classes[self.curClassId].classes[ascendClassId] or { name = "" }
+	local ascendClass = self.curClass.classes[ascendClassId] or self.curClass.classes[0]
+	self.curAscendClass = ascendClass
 	self.curAscendClassName = ascendClass.name
+
+	-- Deallocate any allocated ascendancy nodes that don't belong to the new ascendancy class
 	for id, node in pairs(self.allocNodes) do
 		if node.ascendancyName and node.ascendancyName ~= ascendClass.name then
 			node.alloc = false
 			self.allocNodes[id] = nil
 		end
 	end
+
 	if ascendClass.startNodeId then
+		-- Allocate the new ascendancy class's start node
 		local startNode = self.nodes[ascendClass.startNodeId]
 		startNode.alloc = true
 		self.allocNodes[startNode.id] = startNode
 	end
+
+	-- Rebuild all the node paths and dependancies
 	self:BuildAllDepends()
 	self:BuildAllPaths()
 end
 
-function SpecClass:IsClassConnected(classId)
+-- Determines if the given class's start node is connected to the current class's start node
+-- Attempts to find a path between the nodes which doesn't pass through any ascendancy nodes (i.e Ascendant)
+function PassiveSpecClass:IsClassConnected(classId)
 	for _, other in ipairs(self.nodes[self.tree.classes[classId].startNodeId].linked) do
+		-- For each of the nodes to which the given class's start node connects...
 		if other.alloc then
+			-- If the node is allocated, try to find a path back to the current class's starting node
 			other.visited = true
 			local visited = { }
 			local found = self:FindStartFromNode(other, visited, true)
@@ -137,6 +200,9 @@ function SpecClass:IsClassConnected(classId)
 			end
 			other.visited = false
 			if found then
+				-- Found a path, so the given class's start node is definately connected to the current class's start node
+				-- There might still be nodes which are connected to the current tree by an entirely different path though
+				-- E.g via Ascendant or by connecting to another "first passive node"
 				return true
 			end
 		end
@@ -144,7 +210,8 @@ function SpecClass:IsClassConnected(classId)
 	return false
 end
 
-function SpecClass:ResetNodes()
+-- Clear the allocated status of all non-class-start nodes
+function PassiveSpecClass:ResetNodes()
 	for id, node in pairs(self.nodes) do
 		if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
 			node.alloc = false
@@ -153,16 +220,26 @@ function SpecClass:ResetNodes()
 	end
 end
 
-function SpecClass:AllocNode(node, altPath)
+-- Allocate the given node, if possible, and all nodes along the path to the node
+-- An alternate path to the node may be provided, otherwise the default path will be used
+-- The path must always contain the given node, as will be the case for the default path
+function PassiveSpecClass:AllocNode(node, altPath)
 	if not node.path then
+		-- Node cannot be connected to the tree as there is no possible path
 		return
 	end
+
+	-- Allocate all nodes along the path
 	for _, pathNode in ipairs(altPath or node.path) do
 		pathNode.alloc = true
 		self.allocNodes[pathNode.id] = pathNode
+
+		-- Build paths from this node in the likely case that some nearby nodes will have a shorter path through this node
 		self:BuildPathFromNode(pathNode)
 	end
+
 	if node.isMultipleChoiceOption then
+		-- For multiple choice passives, make sure no other choices are allocated
 		local parent = node.linked[1]
 		for _, optNode in ipairs(parent.linked) do
 			if optNode.isMultipleChoiceOption and optNode.alloc and optNode ~= node then
@@ -172,19 +249,25 @@ function SpecClass:AllocNode(node, altPath)
 			end
 		end
 	end
+
+	-- Rebuild dependancies for all allocated nodes
 	self:BuildAllDepends()
 end
 
-function SpecClass:DeallocNode(node)
+-- Deallocate the given node, and all nodes which depend on it (i.e which are only connected to the tree through this node)
+function PassiveSpecClass:DeallocNode(node)
 	for _, depNode in ipairs(node.depends) do
 		depNode.alloc = false
 		self.allocNodes[depNode.id] = nil
 	end
+
+	-- Rebuild all paths and dependancies for all allocated nodes
 	self:BuildAllDepends()
 	self:BuildAllPaths()
 end
 
-function SpecClass:CountAllocNodes()
+-- Count the number of allocated nodes and allocated ascendancy nodes
+function PassiveSpecClass:CountAllocNodes()
 	local used, ascUsed = 0, 0
 	for _, node in pairs(self.allocNodes) do
 		if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
@@ -200,23 +283,34 @@ function SpecClass:CountAllocNodes()
 	return used, ascUsed
 end
 
-function SpecClass:BuildPathFromNode(root)
+-- Perform a breadth-first search of the tree, starting from this node, and determine if it is the closest node to any other nodes
+function PassiveSpecClass:BuildPathFromNode(root)
 	root.pathDist = 0
 	root.path = { }
 	local queue = { root }
-	local o, i = 1, 2
+	local o, i = 1, 2 -- Out, in
 	while o < i do
+		-- Nodes are processed in a queue, until there are no nodes left
+		-- All nodes that are 1 node away from the root will be processed first, then all nodes that are 2 nodes away, etc
 		local node = queue[o]
 		o = o + 1
 		local curDist = node.pathDist + 1
+		-- Iterate through all nodes that are connected to this one
 		for _, other in ipairs(node.linked) do
+			-- Paths must obey two rules:
+			-- 1. They must not pass through class or ascendancy class start nodes (but they can start from such nodes)
+			-- 2. They cannot pass between different ascendancy classes or between an ascendancy class and the main tree
+			--    The one exception to that rule is that a path may start from an ascendancy node and pass into the main tree
+			--    This permits pathing from the Ascendant 'Path of the X' nodes into the respective class start areas
 			if other.type ~= "classStart" and other.type ~= "ascendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
+				-- The shortest path to the other node is through the current node
 				other.pathDist = curDist
 				other.path = wipeTable(other.path)
 				other.path[1] = other
 				for i, n in ipairs(node.path) do
 					other.path[i+1] = n
 				end
+				-- Add the other node to the end of the queue
 				queue[i] = other
 				i = i + 1
 			end
@@ -224,7 +318,9 @@ function SpecClass:BuildPathFromNode(root)
 	end
 end
 
-function SpecClass:BuildAllPaths()
+-- Reset and rebuild all node paths
+-- This must be done if any nodes are deallocated
+function PassiveSpecClass:BuildAllPaths()
 	for id, node in pairs(self.nodes) do
 		node.pathDist = node.alloc and 0 or 1000
 		node.path = nil
@@ -234,10 +330,18 @@ function SpecClass:BuildAllPaths()
 	end
 end
 
-function SpecClass:FindStartFromNode(node, visited, noAscend)
+-- Attempt to find a class start node starting from the given node
+-- Unless noAscent == true it will also look for an ascendancy class start node 
+function PassiveSpecClass:FindStartFromNode(node, visited, noAscend)
+	-- Mark the current node as visited so we don't go around in circles
 	node.visited = true
 	t_insert(visited, node)
+
+	-- For each node which is connected to this one, check if...
 	for _, other in ipairs(node.linked) do
+		-- Either:
+		--  - the other node is a start node, or
+		--  - there is a path to a start node through the other node which didn't pass through any nodes which have already been visited
 		if other.alloc and (other.type == "classStart" or other.type == "ascendClassStart" or (not other.visited and self:FindStartFromNode(other, visited, noAscend))) then
 			if not noAscend or other.type ~= "ascendClassStart" then
 				return true
@@ -246,25 +350,33 @@ function SpecClass:FindStartFromNode(node, visited, noAscend)
 	end
 end
 
-function SpecClass:BuildAllDepends()
+-- Check all nodes for other nodes which depend on them (i.e are only connected to the tree through that node)
+function PassiveSpecClass:BuildAllDepends()
+	-- This table will keep track of which nodes have been visited during each path-finding attempt
 	local visited = { }
+
 	for id, node in pairs(self.nodes) do
 		node.depends = wipeTable(node.depends)
 		if node.alloc then
-			node.depends[1] = node
+			node.depends[1] = node -- All nodes depend on themselves
 			node.visited = true
+
 			local anyStartFound = (node.type == "classStart" or node.type == "ascendClassStart")
 			for _, other in ipairs(node.linked) do
-				if other.alloc then
+				if other.alloc and not isValueInArray(node.depends, other) then
+					-- The other node is allocated and isn't already dependant on this node, so try and find a path to a start node through it
 					if other.type == "classStart" or other.type == "ascendClassStart" then
+						-- Well that was easy!
 						anyStartFound = true
 					elseif self:FindStartFromNode(other, visited) then
+						-- We found a path through the other node, therefore the other node cannot be dependant on this node
 						anyStartFound = true
 						for i, n in ipairs(visited) do
 							n.visited = false
 							visited[i] = nil
 						end
 					else
+						-- No path was found, so all the nodes visited while trying to find the path must be dependant on this node
 						for i, n in ipairs(visited) do
 							t_insert(node.depends, n)
 							n.visited = false
@@ -275,6 +387,9 @@ function SpecClass:BuildAllDepends()
 			end
 			node.visited = false
 			if not anyStartFound then
+				-- No start nodes were found through ANY nodes
+				-- Therefore this node and all nodes depending on it are orphans and should be pruned
+				-- Of course Intuitive Leap will break this if support for it is ever added
 				for _, depNode in ipairs(node.depends) do
 					depNode.alloc = false
 					self.allocNodes[depNode.id] = nil
@@ -284,35 +399,10 @@ function SpecClass:BuildAllDepends()
 	end
 end
 
-function SpecClass:CreateUndoState()
+function PassiveSpecClass:CreateUndoState()
 	return self:EncodeURL()
 end
 
-function SpecClass:RestoreUndoState(state)
+function PassiveSpecClass:RestoreUndoState(state)
 	self:DecodeURL(state)
-end
-
-function SpecClass:AddUndoState(noClearRedo)
-	t_insert(self.undo, 1, self:CreateUndoState())
-	self.undo[102] = nil
-	self.modFlag = true
-	self.buildFlag = true
-	if not noClearRedo then
-		self.redo = { }
-	end
-end
-
-function SpecClass:Undo()
-	if self.undo[2] then
-		t_insert(self.redo, 1, table.remove(self.undo, 1))
-		self:RestoreUndoState(table.remove(self.undo, 1))
-		self:AddUndoState(true)
-	end
-end
-
-function SpecClass:Redo()
-	if self.redo[1] then
-		self:RestoreUndoState(table.remove(self.redo, 1))
-		self:AddUndoState(true)
-	end
 end

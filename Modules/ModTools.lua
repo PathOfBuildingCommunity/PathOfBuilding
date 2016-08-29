@@ -1,11 +1,12 @@
 -- Path of Building
 --
 -- Module: Mod Tools
--- Various functions for dealing with modifier lists and databases
+-- Various functions for dealing with modifier lists and databases.
 --
 
 local t_insert = table.insert
 local m_floor = math.floor
+local m_abs = math.abs
 
 modLib = { }
 
@@ -15,13 +16,13 @@ modLib.parseMod = LoadModule("Modules/ModParser")
 local spaceLookup = { }
 function modLib.getSpaceName(modName)
 	if not spaceLookup[modName] then
-		local space, mod = modName:match("^([^_]+)_(.+)$")
-		if not space then
-			space = "global"
+		local spaceName, mod = modName:match("^([^_]+)_(.+)$")
+		if not spaceName then
+			spaceName = "global"
 			mod = modName
 		end
-		spaceLookup[modName] = { space, mod }
-		return space, mod
+		spaceLookup[modName] = { spaceName, mod }
+		return spaceName, mod
 	end
 	return unpack(spaceLookup[modName])
 end
@@ -75,14 +76,18 @@ function modLib.listMerge(modList, modName, modVal)
 end
 
 -- Scale and merge modifier with existing mod list
-function modLib.listScaleMerge(modList, k, v, scale)
-	local type = modLib.getModType[k]
-	if type == "MORE" then
-		modLib.listMerge(modList, k, 1 + m_floor((v - 1) * scale * 100) / 100)
-	elseif type == "INC" then
-		modLib.listMerge(modList, k, m_floor(v * scale))
+function modLib.listScaleMerge(modList, modName, modVal, scale)
+	if type(modVal) == "number" then
+		local type = modLib.getModType[modName]
+		if type == "MORE" then
+			modLib.listMerge(modList, modName, 1 + m_floor((modVal - 1) * scale * 100) / 100)
+		elseif type == "INC" or m_abs(modVal) == modVal then -- Yes, there's a nasty hack there, move along
+			modLib.listMerge(modList, modName, m_floor(modVal * scale))
+		else
+			modLib.listMerge(modList, modName, modVal * scale)
+		end
 	else
-		modLib.listMerge(modList, k, v * scale)
+		modLib.listMerge(modList, modName, modVal)
 	end
 end
 
@@ -130,6 +135,21 @@ function modLib.dbScaleMerge(modDB, spaceName, modName, modVal, scale)
 		modDB[spaceName] = { }
 	end
 	modLib.listScaleMerge(modDB[spaceName], modName, modVal, scale)
+end
+
+-- Scale and merge modifier list with mod database
+function modLib.dbScaleMergeList(modDB, modList, scale)
+	if scale and scale ~= 1 then
+		for k, modVal in pairs(modList) do
+			local spaceName, modName = modLib.getSpaceName(k)
+			if not modDB[spaceName] then
+				modDB[spaceName] = { }
+			end
+			modLib.listScaleMerge(modDB[spaceName], modName, modVal, scale)
+		end
+	else
+		modLib.dbMergeList(modDB, modList)
+	end
 end
 
 -- Unmerge modifier from mod database
@@ -189,7 +209,9 @@ function modLib.dbPrint(modDB)
 	end
 	table.sort(spaceNames)
 	for _, spaceName in pairs(spaceNames) do
-		if next(modDB[spaceName]) then
+		if type(modDB[spaceName]) ~= "table" then
+			ConPrintf("%s = %s", spaceName, modDB[spaceName])
+		elseif next(modDB[spaceName]) then
 			ConPrintf("%s = {", spaceName)
 			modLib.listPrint(modDB[spaceName], 1)
 			ConPrintf("},")

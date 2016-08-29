@@ -48,11 +48,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{35D8
 		Modules\Build.lua = Modules\Build.lua
 		Modules\BuildList.lua = Modules\BuildList.lua
 		Modules\Calcs.lua = Modules\Calcs.lua
-		Modules\CalcsControl.lua = Modules\CalcsControl.lua
 		Modules\CalcsView.lua = Modules\CalcsView.lua
 		Modules\Common.lua = Modules\Common.lua
 		Modules\Data.lua = Modules\Data.lua
-		Modules\Items.lua = Modules\Items.lua
 		Modules\ItemTools.lua = Modules\ItemTools.lua
 		Modules\Main.lua = Modules\Main.lua
 		Modules\ModParser.lua = Modules\ModParser.lua
@@ -61,21 +59,40 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{35D8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4DE67-DABD-4A3C-8772-37D4A9DB6D59}"
 	ProjectSection(SolutionItems) = preProject
+		Classes\BuildListControl.lua = Classes\BuildListControl.lua
 		Classes\ButtonControl.lua = Classes\ButtonControl.lua
+		Classes\CalcsTab.lua = Classes\CalcsTab.lua
+		Classes\CheckBoxControl.lua = Classes\CheckBoxControl.lua
+		Classes\Control.lua = Classes\Control.lua
+		Classes\ControlHost.lua = Classes\ControlHost.lua
 		Classes\DropDownControl.lua = Classes\DropDownControl.lua
 		Classes\EditControl.lua = Classes\EditControl.lua
 		Classes\Grid.lua = Classes\Grid.lua
-		Classes\ItemDB.lua = Classes\ItemDB.lua
-		Classes\ItemList.lua = Classes\ItemList.lua
-		Classes\ItemSlot.lua = Classes\ItemSlot.lua
+		Classes\ImportTab.lua = Classes\ImportTab.lua
+		Classes\ItemDBControl.lua = Classes\ItemDBControl.lua
+		Classes\ItemListControl.lua = Classes\ItemListControl.lua
+		Classes\ItemSlotControl.lua = Classes\ItemSlotControl.lua
+		Classes\ItemsTab.lua = Classes\ItemsTab.lua
+		Classes\LabelControl.lua = Classes\LabelControl.lua
 		Classes\PassiveSpec.lua = Classes\PassiveSpec.lua
 		Classes\PassiveTree.lua = Classes\PassiveTree.lua
 		Classes\PassiveTreeView.lua = Classes\PassiveTreeView.lua
+		Classes\PopupDialog.lua = Classes\PopupDialog.lua
 		Classes\ScrollBarControl.lua = Classes\ScrollBarControl.lua
+		Classes\SectionControl.lua = Classes\SectionControl.lua
+		Classes\SkillListControl.lua = Classes\SkillListControl.lua
+		Classes\SkillsTab.lua = Classes\SkillsTab.lua
 		Classes\SliderControl.lua = Classes\SliderControl.lua
+		Classes\SlotSelectControl.lua = Classes\SlotSelectControl.lua
+		Classes\TreeTab.lua = Classes\TreeTab.lua
+		Classes\UndoHandler.lua = Classes\UndoHandler.lua
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}"
+	ProjectSection(SolutionItems) = preProject
+		Data\New.lua = Data\New.lua
+		Data\Rares.lua = Data\Rares.lua
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unique items", "Unique items", "{D9D8B9D1-F114-40CB-8EFA-B0F753009183}"
 	ProjectSection(SolutionItems) = preProject

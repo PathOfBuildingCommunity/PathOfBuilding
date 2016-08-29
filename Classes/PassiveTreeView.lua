@@ -2,17 +2,18 @@
 --
 -- Class: Passive Tree View
 -- Passive skill tree viewer.
+-- Draws the passive skill tree, and also maintains the current view settings (zoom level, position, etc)
 --
 local launch, main = ...
 
 local pairs = pairs
 local ipairs = ipairs
+local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
-local t_insert = table.insert
 
-local TreeViewClass = common.NewClass("PassiveTreeView", function(self)
+local PassiveTreeViewClass = common.NewClass("PassiveTreeView", function(self)
 	self.ring = NewImageHandle()
 	self.ring:Load("Assets/ring.png")
 
@@ -22,47 +23,9 @@ local TreeViewClass = common.NewClass("PassiveTreeView", function(self)
 	self.zoomY = 0
 
 	self.searchStr = ""
-
-	self.controls = { }
-	t_insert(self.controls, common.New("ButtonControl", function() return self.viewPort.x + 4 end, function() return self.viewPort.y + self.viewPort.height + 8 end, 60, 20, "Reset", function()
-		launch:ShowPrompt(1, 0, 0, "Are you sure to want to reset your tree?\nPress Y to continue.", function(key)
-			if key == "y" then
-				self.build.spec:ResetNodes()
-				self.build.spec:AddUndoState()
-			end
-			return true
-		end)
-	end))
-	t_insert(self.controls, common.New("ButtonControl", function() return self.viewPort.x + 4 + 68*1 end, function() return self.viewPort.y + self.viewPort.height + 8 end, 60, 20, "Import", function()
-		launch:ShowPrompt(0, 0, 0, "Press Ctrl+V to import passive tree link.", function(key)
-			if key == "v" and IsKeyDown("CTRL") then
-				local url = Paste()
-				if url and #url > 0 then
-					self.build.spec:DecodeURL(url)
-					self.build.spec:AddUndoState()
-				end
-				return true
-			elseif key == "ESCAPE" then
-				return true
-			end
-		end)
-	end))
-	t_insert(self.controls, common.New("ButtonControl", function() return self.viewPort.x + 4 + 68*2 end, function() return self.viewPort.y + self.viewPort.height + 8 end, 60, 20, "Export", function()
-		launch:ShowPrompt(0, 0, 0, "Press Ctrl+C to copy passive tree link.", function(key)
-			if key == "c" and IsKeyDown("CTRL") then
-				Copy(self.build.spec:EncodeURL("https://www.pathofexile.com/passive-skill-tree/"))
-				return true
-			elseif key == "ESCAPE" then
-				return true
-			end
-		end)
-	end))
-	self.controls.treeSearch = common.New("EditControl", function() return self.viewPort.x + 4 + 68*3 end, function() return self.viewPort.y + self.viewPort.height + 8 end, 400, 20, "", "Search", "[^%c%(%)]", 100, nil, function(buf)
-		self.searchStr = buf
-	end)
 end)
 
-function TreeViewClass:Load(xml, fileName)
+function PassiveTreeViewClass:Load(xml, fileName)
 	if xml.attrib.zoomLevel then
 		self.zoomLevel = tonumber(xml.attrib.zoomLevel)
 		self.zoom = 1.2 ^ self.zoomLevel
@@ -73,14 +36,13 @@ function TreeViewClass:Load(xml, fileName)
 	end
 	if xml.attrib.searchStr then
 		self.searchStr = xml.attrib.searchStr
-		self.controls.treeSearch:SetText(self.searchStr)
 	end
 	if xml.attrib.showHeatMap then
 		self.showHeatMap = xml.attrib.showHeatMap == "true"
 	end
 end
 
-function TreeViewClass:Save(xml)
+function PassiveTreeViewClass:Save(xml)
 	xml.attrib = {
 		zoomLevel = tostring(self.zoomLevel),
 		zoomX = tostring(self.zoomX),
@@ -90,36 +52,29 @@ function TreeViewClass:Save(xml)
 	}
 end
 
-function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
+function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	local tree = build.tree
 	local spec = build.spec
 
-	self.build = build
-	self.viewPort = viewPort
-	if not noControls then
-		viewPort.height = viewPort.height - 32
-	end
-
 	local cursorX, cursorY = GetCursorPos()
-
+	
+	-- Process input events
 	local treeClick
-	common.controlsInput(self, inputEvents)
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "LEFTBUTTON" then
 				if cursorX >= viewPort.x and cursorX < viewPort.x + viewPort.width and cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height then
+					-- Record starting coords of mouse drag
+					-- Dragging won't actually commence unless the cursor moves far enough
 					self.dragX, self.dragY = cursorX, cursorY
 				end
-			elseif event.key == "z" and IsKeyDown("CTRL") then
-				spec:Undo()
-			elseif event.key == "y" and IsKeyDown("CTRL") then
-				spec:Redo()
-			elseif event.key == "h" then
+			elseif event.key == "p" then
 				self.showHeatMap = not self.showHeatMap
 			end
 		elseif event.type == "KeyUp" then
 			if event.key == "LEFTBUTTON" then
 				if self.dragX and not self.dragging then
+					-- Mouse button went down, but didn't move far enough to trigger drag, so register a normal click
 					treeClick = "LEFT"
 				end
 			elseif event.key == "RIGHTBUTTON" then
@@ -133,11 +88,14 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 	end
 
 	if not IsKeyDown("LEFTBUTTON") then
+		-- Left mouse button isn't down, stop dragging if dragging was in progress
 		self.dragging = false
 		self.dragX, self.dragY = nil, nil
 	end
 	if self.dragX then
+		-- Left mouse is down
 		if not self.dragging then
+			-- Check if mouse has moved more than a few pixels, and if so, initiate dragging
 			if math.abs(cursorX - self.dragX) > 5 or math.abs(cursorY - self.dragY) > 5 then
 				self.dragging = true
 			end
@@ -149,6 +107,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 		end
 	end
 
+	-- Create functions that will convert coordinates between the screen and tree coordinate spaces
 	local scale = m_min(viewPort.width, viewPort.height) / tree.size * self.zoom
 	local function treeToScreen(x, y)
 		return x * scale + self.zoomX + viewPort.x + viewPort.width/2, 
@@ -160,6 +119,7 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 	end
 
 	if IsKeyDown("SHIFT") then
+		-- Enable path tracing mode
 		self.traceMode = true
 		self.tracePath = self.tracePath or { }
 	else
@@ -168,10 +128,12 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 	end
 
 	local hoverNode
-	if not noControls and cursorX >= viewPort.x and cursorX < viewPort.x + viewPort.width and cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height then
+	if cursorX >= viewPort.x and cursorX < viewPort.x + viewPort.width and cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height then
+		-- Cursor is over the tree, check if it is over a node
 		local curTreeX, curTreeY = screenToTree(cursorX, cursorY)
 		for nodeId, node in pairs(spec.nodes) do
 			if node.rsq then
+				-- Node has a defined size (i.e has artwork)
 				local vX = curTreeX - node.x
 				local vY = curTreeY - node.y
 				if vX * vX + vY * vY <= node.rsq then
@@ -182,8 +144,10 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 		end
 	end
 
+	-- If hovering over a node, find the path to it (if unallocated) or the list of dependant nodes (if allocated)
 	local hoverPath, hoverDep
 	if self.traceMode then
+		-- Path tracing mode is enabled
 		if hoverNode then
 			if not hoverNode.path then
 				-- Don't highlight the node if it can't be pathed to
@@ -205,11 +169,13 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 				end
 			end
 		end
+		-- Use the trace path as the path 
 		hoverPath = { }
 		for _, pathNode in pairs(self.tracePath) do
 			hoverPath[pathNode] = true
 		end
 	elseif hoverNode and hoverNode.path then
+		-- Use the node's own path and dependance list
 		hoverPath = { }
 		for _, pathNode in pairs(hoverNode.path) do
 			hoverPath[pathNode] = true
@@ -222,28 +188,36 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 
 	if treeClick == "LEFT" then
 		if hoverNode then
+			-- User left-clicked on a node
 			if hoverNode.alloc then
+				-- Node is allocated, so deallocate it
 				spec:DeallocNode(hoverNode)
 				spec:AddUndoState()
+				build.buildFlag = true
 			elseif hoverNode.path then
+				-- Node is unallocated and can be allocated, so allocate it
 				spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
 				spec:AddUndoState()
+				build.buildFlag = true
 			end
 		end
 	elseif treeClick == "RIGHT" then
 		if hoverNode and hoverNode.alloc and hoverNode.type == "socket" then
+			-- User right-clicked a jewel socket, jump to the item page and focus the corresponding item slot control
 			build.viewMode = "ITEMS"
-			local slot = build.items.sockets[hoverNode.id]
+			local slot = build.itemsTab.sockets[hoverNode.id]
 			slot.dropped = true
-			build.items.selControl = slot
+			build.itemsTab:SelectControl(slot)
 		end
 	end
 
+	-- Draw the background artwork
 	local bg = tree.assets.Background1
 	local bgSize = bg.width * scale * 1.33 * 2.5
 	SetDrawColor(1, 1, 1)
 	DrawImage(bg.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, (self.zoomX + viewPort.width/2) / -bgSize, (self.zoomY + viewPort.height/2) / -bgSize, (viewPort.width/2 - self.zoomX) / bgSize, (viewPort.height/2 - self.zoomY) / bgSize)
 
+	-- Draw the group backgrounds
 	for _, group in pairs(tree.groups) do
 		local scrX, scrY = treeToScreen(group.x, group.y)
 		if group.ascendancyName then
@@ -263,9 +237,12 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 		end
 	end
 
+	-- Draw the connecting lines between nodes
 	for _, connector in pairs(tree.connectors) do
-		local state = "Normal"
 		local node1, node2 = spec.nodes[connector.nodeId1], spec.nodes[connector.nodeId2]
+
+		-- Determine the connector state
+		local state = "Normal"
 		if node1.alloc and node2.alloc then	
 			state = "Active"
 		elseif hoverPath then
@@ -273,31 +250,41 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 				state = "Intermediate"
 			end
 		end
+
+		-- Convert vertex coordinates to screen-space and add them to the coordinate array
 		local vert = connector.vert[state]
 		connector.c[1], connector.c[2] = treeToScreen(vert[1], vert[2])
 		connector.c[3], connector.c[4] = treeToScreen(vert[3], vert[4])
 		connector.c[5], connector.c[6] = treeToScreen(vert[5], vert[6])
 		connector.c[7], connector.c[8] = treeToScreen(vert[7], vert[8])
+
 		if hoverDep and hoverDep[node1] and hoverDep[node2] then
+			-- Both nodes depend on the node currently being hovered over, so color the line red
 			SetDrawColor(1, 0, 0)
 		elseif connector.ascendancyName and connector.ascendancyName ~= spec.curAscendClassName then
+			-- Fade out lines in ascendancy classes other than the current one
 			SetDrawColor(0.75, 0.75, 0.75)
 		end
 		DrawImageQuad(tree.assets[connector.type..state].handle, unpack(connector.c))
 		SetDrawColor(1, 1, 1)
 	end
 
+	-- Draw the nodes
 	for nodeId, node in pairs(spec.nodes) do
+		-- Determine the base and overlay images for this node based on type and state
 		local base, overlay
 		if node.type == "classStart" then
 			overlay = node.alloc and node.startArt or "PSStartNodeBackgroundInactive"
 		elseif node.type == "ascendClassStart" then
 			overlay = "PassiveSkillScreenAscendancyMiddle"
 		elseif node.type == "mastery" then
+			-- This is the icon that appears in the center of many groups
 			base = node.sprites.mastery
 		else
 			local state
 			if self.showHeatMap or node.alloc or node == hoverNode or (self.traceMode and node == self.tracePath[#self.tracePath])then
+				-- Show node as allocated if it is being hovered over
+				-- Also if the heat map is turned on (makes the nodes more visible)
 				state = "alloc"
 			elseif hoverPath and hoverPath[node] then
 				state = "path"
@@ -305,8 +292,9 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 				state = "unalloc"
 			end
 			if node.type == "socket" then
-				base = tree.assets[node.overlay[state .. (node.ascendancyName and "Ascend" or "")]]
-				local socket, jewel = build.items:GetSocketAndJewelForNodeID(nodeId)
+				-- Node is a jewel socket, retrieve the socketed jewel (if present) so we can display the correct art
+				base = tree.assets[node.overlay[state]]
+				local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
 				if node.alloc and jewel then
 					if jewel.baseName == "Crimson Jewel" then
 						overlay = "JewelSocketActiveRed"
@@ -317,15 +305,22 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 					end
 				end
 			else
+				-- Normal node (includes keystones and notables)
 				base = node.sprites[node.type..(node.alloc and "Active" or "Inactive")] 
 				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "")]
 			end
 		end
+
+		-- Convert node position to screen-space
 		local scrX, scrY = treeToScreen(node.x, node.y)
+	
+		-- Determine color for the base artwork
 		if node.ascendancyName and node.ascendancyName ~= spec.curAscendClassName then
+			-- By default, fade out nodes from ascendancy classes other than the current one
 			SetDrawColor(0.5, 0.5, 0.5)
 		end
 		if launch.devMode and IsKeyDown("ALT") then
+			-- Debug display
 			if node.extra then
 				SetDrawColor(1, 0, 0)
 			elseif node.unknown then
@@ -335,52 +330,46 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 			end
 		end
 		if self.showHeatMap then
-			if build.calcs.powerBuildFlag then
-				build.calcs:BuildPower()
+			if build.calcsTab.powerBuildFlag then
+				-- Build the power numbers if needed
+				build.calcsTab:BuildPower()
 			end
 			if not node.alloc and node.type ~= "classStart" and node.type ~= "ascendClassStart" then
+				-- Calculate color based on DPS and defensive powers
 				local dps = m_max(node.power.dps or 0, 0)
 				local def = m_max(node.power.def or 0, 0)
-				local dpsCol = (dps / build.calcs.powerMax.dps * 1.5) ^ 0.5
-				local defCol = (def / build.calcs.powerMax.def * 1.5) ^ 0.5
+				local dpsCol = (dps / build.calcsTab.powerMax.dps * 1.5) ^ 0.5
+				local defCol = (def / build.calcsTab.powerMax.def * 1.5) ^ 0.5
 				SetDrawColor(dpsCol, (dpsCol + defCol) / 4, defCol)
 			else
 				SetDrawColor(1, 1, 1)
 			end
 		end
+		
+		-- Draw base artwork
 		if base then
 			self:DrawAsset(base, scrX, scrY, scale)
 		end
+
 		if overlay then
+			-- Draw overlay
 			if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
+				-- Determine overlay color
 				if #self.searchStr > 0 then
-					local errMsg, match = PCall(string.match, node.dn:lower(), self.searchStr:lower())
-					if not match then
-						for index, line in ipairs(node.sd) do
-							errMsg, match = PCall(string.match, line:lower(), self.searchStr:lower())
-							if not match and node.mods[index].list then
-								for k in pairs(node.mods[index].list) do
-									errMsg, match = PCall(string.match, k, self.searchStr)
-									if match then
-										break
-									end
-								end
-							end
-							if match then
-								break
-							end
-						end
-					end
-					if match then
+					if self:DoesNodeMatchSearchStr(node) then
+						-- Node matches search terms, make it pulse
 						local col = math.sin((GetTime() / 100) % 360) / 2 + 0.5
 						SetDrawColor(col, col, col)
 					end
 				end
 				if hoverNode and hoverNode ~= node then
+					-- Mouse is hovering over a different node
 					if hoverDep and hoverDep[node] then
+						-- This node depends on the hover node, turn it red
 						SetDrawColor(1, 0, 0)
 					end
 					if hoverNode.type == "socket" then
+						-- Hover node is a socket, check if this node falls within its radius and color it accordingly
 						local vX, vY = node.x - hoverNode.x, node.y - hoverNode.y
 						local dSq = vX * vX + vY * vY
 						for _, data in ipairs(data.jewelRadius) do
@@ -397,9 +386,11 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 		end
 	end
 
-	for nodeId, slot in pairs(build.items.sockets) do
+	-- Draw ring overlays for jewel sockets
+	for nodeId, slot in pairs(build.itemsTab.sockets) do
 		local node = spec.nodes[nodeId]
 		if node == hoverNode then
+			-- Mouse is over this socket, show all radius rings
 			local scrX, scrY = treeToScreen(node.x, node.y)
 			for _, radData in ipairs(data.jewelRadius) do
 				local size = radData.rad * scale
@@ -407,10 +398,11 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 				DrawImage(self.ring, scrX - size, scrY - size, size * 2, size * 2)
 			end
 		elseif node.alloc then
-			local socket, jewel = build.items:GetSocketAndJewelForNodeID(nodeId)
-			if jewel and jewel.radius then
+			local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
+			if jewel and jewel.jewelRadiusIndex then
+				-- Socket is allocated and there's a jewel socketed into it which has a radius, so show it
 				local scrX, scrY = treeToScreen(node.x, node.y)
-				local radData = data.jewelRadius[jewel.radius]
+				local radData = data.jewelRadius[jewel.jewelRadiusIndex]
 				local size = radData.rad * scale
 				SetDrawColor(radData.col)
 				DrawImage(self.ring, scrX - size, scrY - size, size * 2, size * 2)				
@@ -418,23 +410,20 @@ function TreeViewClass:DrawTree(build, viewPort, inputEvents, noControls)
 		end
 	end
 
+	-- Draw tooltip of the node under the mouse
 	if hoverNode and (hoverNode.type ~= "socket" or not IsKeyDown("SHIFT")) then
-		self:AddNodeTooltip(hoverNode, build)
+		-- Calculate position and size of hover node in screen coordinates so the tooltip can be anchored to it
 		local scrX, scrY = treeToScreen(hoverNode.x, hoverNode.y)
 		local size = m_floor(hoverNode.size * scale)
-		main:DrawTooltip(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
-	end
 
-	if not noControls then
-		SetDrawColor(0.05, 0.05, 0.05)
-		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height + 4, viewPort.width, 28)
-		SetDrawColor(0.85, 0.85, 0.85)
-		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height, viewPort.width, 4)
-		common.controlsDraw(self, viewPort)
+		-- Draw the tooltip
+		self:AddNodeTooltip(hoverNode, build)
+		main:DrawTooltip(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
 	end
 end
 
-function TreeViewClass:DrawAsset(data, x, y, scale, isHalf)
+-- Draws the given asset at the given position
+function PassiveTreeViewClass:DrawAsset(data, x, y, scale, isHalf)
 	local width = data.width * scale * 1.33
 	local height = data.height * scale * 1.33
 	if isHalf then
@@ -445,10 +434,14 @@ function TreeViewClass:DrawAsset(data, x, y, scale, isHalf)
 	end
 end
 
-function TreeViewClass:Zoom(level, viewPort)
+-- Zoom the tree in or out
+function PassiveTreeViewClass:Zoom(level, viewPort)
+	-- Calculate new zoom level and zoom factor
 	self.zoomLevel = m_max(0, m_min(12, self.zoomLevel + level))
 	local oldZoom = self.zoom
 	self.zoom = 1.2 ^ self.zoomLevel
+
+	-- Adjust zoom center position so that the point on the tree that is currently under the mouse will remain under it
 	local factor = self.zoom / oldZoom
 	local cursorX, cursorY = GetCursorPos()
 	local relX = cursorX - viewPort.x - viewPort.width/2
@@ -457,12 +450,35 @@ function TreeViewClass:Zoom(level, viewPort)
 	self.zoomY = relY + (self.zoomY - relY) * factor
 end
 
-function TreeViewClass:AddNodeTooltip(node, build)
+function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
+	-- Check node name
+	local errMsg, match = PCall(string.match, node.dn:lower(), self.searchStr:lower())
+	if match then
+		return true
+	end
+
+	-- Check node description
+	for index, line in ipairs(node.sd) do
+		-- Check display text first
+		errMsg, match = PCall(string.match, line:lower(), self.searchStr:lower())
+		if not match and node.mods[index].list then
+			-- Then check modifiers
+			for k in pairs(node.mods[index].list) do
+				errMsg, match = PCall(string.match, k, self.searchStr)
+				if match then
+					return true
+				end
+			end
+		end
+	end
+end
+
+function PassiveTreeViewClass:AddNodeTooltip(node, build)
 	-- Special case for sockets
 	if node.type == "socket" and node.alloc then
-		local socket, jewel = build.items:GetSocketAndJewelForNodeID(node.id)
+		local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(node.id)
 		if jewel then
-			build.items:AddItemTooltip(jewel, build)
+			build.itemsTab:AddItemTooltip(jewel)
 		else
 			main:AddTooltipLine(24, "^7"..node.dn..(launch.devMode and IsKeyDown("ALT") and " ["..node.id.."]" or ""))
 		end
@@ -510,18 +526,20 @@ function TreeViewClass:AddNodeTooltip(node, build)
 	end
 
 	-- Mod differences
-	local calcFunc, calcBase = build.calcs:GetNodeCalculator(build)
+	local calcFunc, calcBase = build.calcsTab:GetNodeCalculator(build)
 	if calcFunc then
 		main:AddTooltipSeperator(14)
 		local pathLength
 		local nodeOutput, pathOutput
 		if node.alloc then
+			-- Calculate the differences caused by deallocating this node and its dependants
 			pathLength = #node.depends
 			nodeOutput = calcFunc({node}, true)
 			if pathLength > 1 then
 				pathOutput = calcFunc(node.depends, true)
 			end
 		else
+			-- Calculated the differences caused by allocting this node and all nodes along the path to it
 			local path = self.tracePath or node.path or { }
 			pathLength = #path
 			nodeOutput = calcFunc({node})
@@ -529,9 +547,9 @@ function TreeViewClass:AddNodeTooltip(node, build)
 				pathOutput = calcFunc(path)
 			end
 		end
-		local count = self.build:AddStatComparesToTooltip(calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
+		local count = build:AddStatComparesToTooltip(calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
 		if pathLength > 1 then
-			count = count + self.build:AddStatComparesToTooltip(calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:")
+			count = count + build:AddStatComparesToTooltip(calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:")
 		end
 		if count == 0 then
 			main:AddTooltipLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
@@ -543,6 +561,7 @@ function TreeViewClass:AddNodeTooltip(node, build)
 		main:AddTooltipSeperator(14)
 		main:AddTooltipLine(14, "^7"..#node.path .. " points to node")
 		if #node.path > 1 then
+			-- Handy hint!
 			main:AddTooltipLine(14, "^x80A080")
 			main:AddTooltipLine(14, "Tip: To reach this node by a different path, hold Shift, then trace the path and click this node")
 		end

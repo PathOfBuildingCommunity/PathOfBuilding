@@ -241,6 +241,6 @@ itemBases["Void Axe"] = {
 itemBases["Fleshripper"] = {
 	type = "Two Handed Axe",
 	implicit = "40% increased Critical Strike Chance",
-	weapon = { physicalMin = 80, physicalMax = 125, critChanceBase = 7, attackRateBase = 1.2, },
+	weapon = { physicalMin = 80, physicalMax = 125, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 70, str = 156, dex = 84, },
 }

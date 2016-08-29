@@ -6,6 +6,7 @@
 local gems = ...
 
 gems["Added Fire Damage"] = {
+	strength = true,
 	support = true,
 	fire = true,
 	base = {
@@ -48,8 +49,10 @@ gems["Added Fire Damage"] = {
 	}
 }
 gems["Blood Magic"] = {
+	strength = true,
 	support = true,
 	base = {
+		skill_bloodMagic = true,
 	},
 	quality = {
 		skill_costInc = -0.5,
@@ -88,6 +91,7 @@ gems["Blood Magic"] = {
 	}
 }
 gems["Bloodlust"] = {
+	strength = true,
 	support = true,
 	attack = true,
 	melee = true,
@@ -131,12 +135,15 @@ gems["Bloodlust"] = {
 	}
 }
 gems["Cast on Melee Kill"] = {
+	strength = true,
 	unsupported = true,
 }
 gems["Cast when Damage Taken"] = {
+	strength = true,
 	unsupported = true,
 }
 gems["Cold to Fire"] = {
+	strength = true,
 	support = true,
 	fire = true,
 	cold = true,
@@ -182,6 +189,7 @@ gems["Cold to Fire"] = {
 	}
 }
 gems["Empower"] = {
+	strength = true,
 	support = true,
 	base = {
 		manaCostMore = 1.25,
@@ -189,19 +197,20 @@ gems["Empower"] = {
 	quality = {
 	},
 	levels = {
-		[1] = { },
-		[2] = { },
-		[3] = { },
-		[4] = { },
-		[5] = { },
-		[6] = { },
-		[7] = { },
-		[8] = { },
-		[9] = { },
-		[10] = { },
+		[1] = { gemLevel_active = 0, },
+		[2] = { gemLevel_active = 1, },
+		[3] = { gemLevel_active = 2, },
+		[4] = { gemLevel_active = 3, },
+		[5] = { gemLevel_active = 4, },
+		[6] = { gemLevel_active = 5, },
+		[7] = { gemLevel_active = 6, },
+		[8] = { gemLevel_active = 7, },
+		[9] = { gemLevel_active = 8, },
+		[10] = { gemLevel_active = 9, },
 	}
 }
 gems["Endurance Charge on Melee Stun"] = {
+	strength = true,
 	support = true,
 	attack = true,
 	melee = true,
@@ -245,6 +254,7 @@ gems["Endurance Charge on Melee Stun"] = {
 	}
 }
 gems["Fire Penetration"] = {
+	strength = true,
 	support = true,
 	fire = true,
 	base = {
@@ -287,6 +297,7 @@ gems["Fire Penetration"] = {
 	}
 }
 gems["Fortify"] = {
+	strength = true,
 	support = true,
 	attack = true,
 	melee = true,
@@ -331,9 +342,11 @@ gems["Fortify"] = {
 	}
 }
 gems["Generosity"] = {
+	strength = true,
 	unsupported = true,
 }
 gems["Increased Burning Damage"] = {
+	strength = true,
 	support = true,
 	fire = true,
 	base = {
@@ -376,6 +389,7 @@ gems["Increased Burning Damage"] = {
 	}
 }
 gems["Increased Duration"] = {
+	strength = true,
 	support = true,
 	base = {
 		manaCostMore = 1.4,
@@ -417,6 +431,7 @@ gems["Increased Duration"] = {
 	}
 }
 gems["Iron Grip"] = {
+	strength = true,
 	support = true,
 	projectile = true,
 	base = {
@@ -459,6 +474,7 @@ gems["Iron Grip"] = {
 	}
 }
 gems["Iron Will"] = {
+	strength = true,
 	support = true,
 	spell = true,
 	base = {
@@ -501,6 +517,7 @@ gems["Iron Will"] = {
 	}
 }
 gems["Item Quantity"] = {
+	strength = true,
 	support = true,
 	base = {
 	},
@@ -541,6 +558,7 @@ gems["Item Quantity"] = {
 	}
 }
 gems["Knockback"] = {
+	strength = true,
 	support = true,
 	base = {
 	},
@@ -580,6 +598,7 @@ gems["Knockback"] = {
 	}
 }
 gems["Less Duration"] = {
+	strength = true,
 	support = true,
 	duration = true,
 	base = {
@@ -622,6 +641,7 @@ gems["Less Duration"] = {
 	}
 }
 gems["Life Gain on Hit"] = {
+	strength = true,
 	support = true,
 	attack = true,
 	base = {
@@ -664,6 +684,7 @@ gems["Life Gain on Hit"] = {
 	}
 }
 gems["Life Leech"] = {
+	strength = true,
 	support = true,
 	base = {
 		manaCostMore = 1.3,
@@ -704,6 +725,7 @@ gems["Life Leech"] = {
 	}
 }
 gems["Melee Damage on Full Life"] = {
+	strength = true,
 	support = true,
 	melee = true,
 	base = {
@@ -746,6 +768,7 @@ gems["Melee Damage on Full Life"] = {
 	}
 }
 gems["Melee Physical Damage"] = {
+	strength = true,
 	support = true,
 	melee = true,
 	base = {
@@ -788,6 +811,7 @@ gems["Melee Physical Damage"] = {
 	}
 }
 gems["Melee Splash"] = {
+	strength = true,
 	support = true,
 	attack = true,
 	melee = true,
@@ -831,6 +855,7 @@ gems["Melee Splash"] = {
 	}
 }
 gems["Multistrike"] = {
+	strength = true,
 	support = true,
 	attack = true,
 	melee = true,
@@ -875,6 +900,7 @@ gems["Multistrike"] = {
 	}
 }
 gems["Ranged Attack Totem"] = {
+	strength = true,
 	support = true,
 	totem = true,
 	projectile = true,
@@ -922,6 +948,7 @@ gems["Ranged Attack Totem"] = {
 	}
 }
 gems["Reduced Mana"] = {
+	strength = true,
 	support = true,
 	base = {
 	},
@@ -962,6 +989,7 @@ gems["Reduced Mana"] = {
 	}
 }
 gems["Spell Totem"] = {
+	strength = true,
 	support = true,
 	totem = true,
 	addFlags = {
@@ -1008,6 +1036,7 @@ gems["Spell Totem"] = {
 	}
 }
 gems["Stun"] = {
+	strength = true,
 	support = true,
 	base = {
 	},
@@ -1048,6 +1077,7 @@ gems["Stun"] = {
 	}
 }
 gems["Weapon Elemental Damage"] = {
+	strength = true,
 	support = true,
 	attack = true,
 	base = {
