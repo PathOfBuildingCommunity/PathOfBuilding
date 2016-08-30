@@ -46,7 +46,6 @@
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
 	<File sha1="056de4fc6178320cc019ad1bacba09d689a87a56" name="Data/New.lua" part="program"/>
 	<File sha1="dd7bf24b3218fda807d5f39d14fd051e6f7ed5d8" name="Data/Rares.lua" part="program"/>
-	<File sha1="bafad3af343f8b86418de5022d0f3da89e7b700e" name="Data/SourceStat3.lnk" part="program"/>
 	<File sha1="d4ac9d8d1087d23bea1952c88dfdb9aa2b35ec96" name="Data/Gems/act_dex.lua" part="program"/>
 	<File sha1="b4eb1fa744d1ed52463f08348e269e8f7aa8b9f1" name="Data/Gems/act_int.lua" part="program"/>
 	<File sha1="d4aa0f0ac6370b00ad56af28c8a313ae9ea82253" name="Data/Gems/act_str.lua" part="program"/>
