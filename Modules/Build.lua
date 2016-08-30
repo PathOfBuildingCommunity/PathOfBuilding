@@ -16,7 +16,7 @@ function buildMode:Init(dbFileName, buildName)
 
 	self.tree = main.tree
 	self.importTab = common.New("ImportTab", self)
-	self.spec = common.New("PassiveSpec", self.tree)
+	self.spec = common.New("PassiveSpec", self)
 	self.treeTab = common.New("TreeTab", self)
 	self.skillsTab = common.New("SkillsTab", self)
 	self.itemsTab = common.New("ItemsTab", self)
@@ -125,21 +125,21 @@ function buildMode:Init(dbFileName, buildName)
 	end)
 	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
 	self.controls.banditNormal = common.New("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 100, 16, 
-		{{val="None",label="Passive"},{val="Oak",label="Oak (Life)"},{val="Kraityn",label="Kraityn (Resists)"},{val="Alira",label="Alira (Mana)"}}, function(sel,val)
+		{{val="None",label="Passive point"},{val="Oak",label="Oak (Life)"},{val="Kraityn",label="Kraityn (Resists)"},{val="Alira",label="Alira (Mana)"}}, function(sel,val)
 		self.banditNormal = val.val
 		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.banditNormalLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditNormal,"TOPLEFT"}, 0, 0, 0, 14, "Normal Bandit:")
 	self.controls.banditCruel = common.New("DropDownControl", {"LEFT",self.controls.banditNormal,"RIGHT"}, 0, 0, 100, 16, 
-		{{val="None",label="Passive"},{val="Oak",label="Oak (Phys Dmg)"},{val="Kraityn",label="Kraityn (Att. Speed)"},{val="Alira",label="Alira (Cast Speed)"}}, function(sel,val)
+		{{val="None",label="Passive point"},{val="Oak",label="Oak (Phys Dmg)"},{val="Kraityn",label="Kraityn (Att. Speed)"},{val="Alira",label="Alira (Cast Speed)"}}, function(sel,val)
 		self.banditCruel = val.val
 		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.banditCruelLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditCruel,"TOPLEFT"}, 0, 0, 0, 14, "Cruel Bandit:")
 	self.controls.banditMerciless = common.New("DropDownControl", {"LEFT",self.controls.banditCruel,"RIGHT"}, 0, 0, 100, 16, 
-		{{val="None",label="Passive"},{val="Oak",label="Oak (Endurance)"},{val="Kraityn",label="Kraityn (Frenzy)"},{val="Alira",label="Alira (Power)"}}, function(sel,val)
+		{{val="None",label="Passive point"},{val="Oak",label="Oak (Endurance)"},{val="Kraityn",label="Kraityn (Frenzy)"},{val="Alira",label="Alira (Power)"}}, function(sel,val)
 		self.banditMerciless = val.val
 		self.modFlag = true
 		self.buildFlag = true
@@ -263,7 +263,6 @@ function buildMode:Load(xml, fileName)
 	self.characterLevel = tonumber(xml.attrib.level) or 1
 	for _, diff in pairs({"banditNormal","banditCruel","banditMerciless"}) do
 		self[diff] = xml.attrib[diff] or "None"
-		self.controls[diff]:SelByValue(self[diff])
 	end
 	self.controls.characterLevel:SetText(tostring(self.characterLevel))
 end
@@ -302,6 +301,10 @@ function buildMode:OnFrame(inputEvents)
 
 	self.controls.classDrop:SelByValue(self.spec.curClassName)
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassName)
+
+	for _, diff in pairs({"banditNormal","banditCruel","banditMerciless"}) do
+		self.controls[diff]:SelByValue(self[diff])
+	end
 
 	if self.buildFlag then
 		-- Rebuild calculation output tables

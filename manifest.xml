@@ -21,8 +21,8 @@
 	<File sha1="3f0db9229007f0a6552d64632db20621077ecc7d" name="Classes/ItemSlotControl.lua" part="program"/>
 	<File sha1="495561c42ed0f874bf1663cb9ad2b826cd923c48" name="Classes/ItemsTab.lua" part="program"/>
 	<File sha1="e577edeea7685cb2b0cd0d00b901a458ae45add0" name="Classes/LabelControl.lua" part="program"/>
-	<File sha1="3d9c57ff143b18b52232d80412e63afb9a16962f" name="Classes/PassiveSpec.lua" part="program"/>
-	<File sha1="98de0665f88ec450b8eae5fa587e8d04629f9d3d" name="Classes/PassiveTree.lua" part="program"/>
+	<File sha1="6f8f98d6ee505af53441c1fe9ad74fbff86d56ad" name="Classes/PassiveSpec.lua" part="program"/>
+	<File sha1="b10a31abaa3254e8d65df3622286fa2824fe93c9" name="Classes/PassiveTree.lua" part="program"/>
 	<File sha1="aa2038462e769ac4d976774791e18b5137f251d3" name="Classes/PassiveTreeView.lua" part="program"/>
 	<File sha1="27a1c5220b28045278d79054e688a956f48e98e7" name="Classes/PopupDialog.lua" part="program"/>
 	<File sha1="b2a6624d2574690561788455d19fff20ddb257d7" name="Classes/ScrollBarControl.lua" part="program"/>
@@ -33,7 +33,7 @@
 	<File sha1="80527e0e05c986355ce7af2ba026538aec99a63a" name="Classes/SlotSelectControl.lua" part="program"/>
 	<File sha1="5f28e18b2867769b6141109332f263e12c74b2f9" name="Classes/TreeTab.lua" part="program"/>
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
-	<File sha1="4ad837c7f9fdeab079160f120f7bd1cdcb68eff0" name="Modules/Build.lua" part="program"/>
+	<File sha1="5002676f4d7b6ee38bf7d18feca5798123315af4" name="Modules/Build.lua" part="program"/>
 	<File sha1="6e94bd1923414b7bbd5f02b3206214e997aa4825" name="Modules/BuildList.lua" part="program"/>
 	<File sha1="a2dd234f717f006b6e7420021aeabdc2b18caf58" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="7721650215b51d7c472da2e81389b81c91c6b498" name="Modules/CalcsView.lua" part="program"/>

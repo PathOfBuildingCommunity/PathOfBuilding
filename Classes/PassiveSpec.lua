@@ -13,14 +13,15 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local PassiveSpecClass = common.NewClass("PassiveSpec", "UndoHandler", function(self, tree)
+local PassiveSpecClass = common.NewClass("PassiveSpec", "UndoHandler", function(self, build)
 	self.UndoHandler()
 
-	self.tree = tree
+	self.build = build
+	self.tree = build.tree
 
 	-- Make a local copy of the passive tree that we can modify
 	self.nodes = { }
-	for _, treeNode in ipairs(tree.nodes) do
+	for _, treeNode in ipairs(self.tree.nodes) do
 		self.nodes[treeNode.id] = setmetatable({ 
 			linked = { }
 		}, treeNode.meta)
@@ -82,7 +83,7 @@ function PassiveSpecClass:DecodeURL(url)
 	if not b or #b < 6 then
 		return "Invalid tree link (unrecognised format)"
 	end
-	local classId, ascendClassId, nodes
+	local classId, ascendClassId, bandits, nodes
 	if b:byte(1) == 0 and b:byte(2) == 2 then
 		-- Hold on to your headgear, it looks like a PoE Planner link
 		-- Let's grab a scalpel and start peeling back the 50 layers of base 64 encoding
@@ -91,6 +92,7 @@ function PassiveSpecClass:DecodeURL(url)
 		b = common.base64.decode(treeLink:gsub("^.+/",""):gsub("-","+"):gsub("_","/"))
 		classId = b:byte(3)
 		ascendClassId = b:byte(4)
+		bandits = b:byte(5)
 		nodes = b:sub(8, -1)
 	else
 		local ver = b:byte(1) * 16777216 + b:byte(2) * 65536 + b:byte(3) * 256 + b:byte(4)
@@ -120,6 +122,13 @@ function PassiveSpecClass:DecodeURL(url)
 		end
 	end
 	self:SelectAscendClass(ascendClassId)
+	if bandits then
+		-- Decode bandits from PoEPlanner
+		local lookup = { [0] = "None", "Alira", "Kraityn", "Oak" }
+		self.build.banditNormal = lookup[bandits % 4]
+		self.build.banditCruel = lookup[m_floor(bandits / 4) % 4]
+		self.build.banditMerciless = lookup[m_floor(bandits / 16) % 4]
+	end
 end
 
 -- Encodes the current spec into a URL, using the official skill tree's format

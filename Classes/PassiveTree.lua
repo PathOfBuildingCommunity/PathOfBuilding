@@ -35,20 +35,6 @@ end
 local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 	MakeDir("TreeData")
 
-	-- Test
-	--[[local test = getFile("https://www.pathofexile.com/character-window/get-characters?accountName=Openarl")
-	if test then
-		ConPrintf("=== Characters ===")
-		local l = jsonToLua("return "..test)
-		ConPrintTable(assert(loadstring(l))())
-	end
-	test = getFile("https://www.pathofexile.com/character-window/get-passive-skills?accountName=Openarl&character=Natiala")
-	if test then
-		ConPrintf("=== Passive Skills ===")
-		local l = jsonToLua("return "..test)
-		ConPrintTable(assert(loadstring(l))())
-	end]]
-
 	ConPrintf("Loading passive tree data...")
 	local treeText
 	local treeFile = io.open("TreeData/tree.lua", "r")
