@@ -111,10 +111,8 @@ function launch:OnFrame()
 end
 
 function launch:OnKeyDown(key, doubleClick)
-	if key == "F5" then
-		if self.devMode then
-			self.doRestart = "Restarting..."
-		end
+	if key == "F5" and self.devMode then
+		self.doRestart = "Restarting..."
 	elseif key == "u" and IsKeyDown("CTRL") then
 		if not self.devMode then
 			self:CheckForUpdate()
