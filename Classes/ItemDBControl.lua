@@ -60,7 +60,9 @@ local ItemDBClass = common.NewClass("ItemDB", "Control", "ControlHost", function
 	self.controls.league.shown = function()
 		return #self.leagueList > 2
 	end
-	self.controls.search = common.New("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -2, 258, 18, "", "Search", "[%C]")
+	self.controls.search = common.New("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -2, 258, 18, "", "Search", "[%C]", 100, function()
+		self:BuildOrderList()
+	end)
 	self.controls.searchMode = common.New("DropDownControl", {"LEFT",self.controls.search,"RIGHT"}, 2, 0, 100, 18, { "Anywhere", "Names", "Modifiers" }, function()
 		self:BuildOrderList()
 	end)

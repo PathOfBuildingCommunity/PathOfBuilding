@@ -106,11 +106,14 @@ function main:Init()
 	self.controls.applyUpdate.shown = function()
 		return launch.updateAvailable and launch.updateAvailable ~= "none"
 	end
-	self.controls.checkUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 110, 18, "Check for Update", function()
+	self.controls.checkUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 110, 18, "", function()
 		launch:CheckForUpdate()
 	end)
 	self.controls.checkUpdate.shown = function()
 		return not launch.devMode and (not launch.updateAvailable or launch.updateAvailable == "none")
+	end
+	self.controls.checkUpdate.label = function()
+		return launch.subScriptType == "UPDATE" and "Checking..." or "Check for Update"
 	end
 	self.controls.checkUpdate.enabled = function()
 		return not IsSubScriptRunning()
