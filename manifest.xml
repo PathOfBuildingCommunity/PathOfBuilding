@@ -3,8 +3,8 @@
 	<Version number="1.0.0"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
-	<File sha1="089eec9a536a77586ac4e3e9570fcc99129fe418" name="Launch.lua" part="program"/>
-	<File sha1="5e11baa563b81701ecba58e840b6a3e8ee884066" name="UpdateCheck.lua" part="program"/>
+	<File sha1="3b829b912c1a86e71a473e977c70785ed3661ccf" name="Launch.lua" part="program"/>
+	<File sha1="769b039de92cbad79837d7522991afd8801f4d2a" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
 	<File sha1="e224aa616614ec9c1e82bf1de31cf03332237fba" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="07632f822bac7fc65dadc0133153d5c39d762ba7" name="Classes/ButtonControl.lua" part="program"/>
@@ -40,7 +40,7 @@
 	<File sha1="d594ac3a7c8fd823664891db1874b29666bf1915" name="Modules/Common.lua" part="program"/>
 	<File sha1="cb25bd581587ba5b35f77ca7b245334be1e5186a" name="Modules/Data.lua" part="program"/>
 	<File sha1="08fe9f68d83d35f3d4b3ce88d294ca673bc6b7e2" name="Modules/ItemTools.lua" part="program"/>
-	<File sha1="0425ef15428e9ce62454c80f165caa5bc7119732" name="Modules/Main.lua" part="program"/>
+	<File sha1="14eba8c1cc66cd5c5e8257382df695a14c58d969" name="Modules/Main.lua" part="program"/>
 	<File sha1="e600cee89ec17a491d185897e86826e44d64d2b4" name="Modules/ModParser.lua" part="program"/>
 	<File sha1="bc49ce1b5e15da40476a9c99c4c690b323c0e7ad" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>

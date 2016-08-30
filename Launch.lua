@@ -6,7 +6,7 @@
 --
 
 SetWindowTitle("Path of Building")
-ConExecute("set vid_mode 1")
+ConExecute("set vid_mode 8")
 ConExecute("set vid_resizable 3")
 
 local launch = { }
@@ -48,6 +48,11 @@ function launch:OnInit()
 			end
 		end
 	end
+	if localManXML and not self.versionBranch and not self.versionPlatform then
+		-- Looks like a remote manifest, so we're probably running from a repository
+		-- Enable dev mode to disable updates and set user path to be the script path
+		self.devMode = true
+	end
 	local errMsg
 	errMsg, self.main = PLoadModule("Modules/Main", self)
 	if errMsg then
@@ -85,7 +90,7 @@ function launch:OnFrame()
 	SetDrawLayer(1000)
 	SetViewport()
 	local screenW, screenH = GetScreenSize()
-	DrawString(0, screenH - 16, "LEFT", 16, "VAR", "^8Version: "..self.versionNumber..(self.versionBranch == "dev" and " (Dev Branch)" or ""))
+	DrawString(116, screenH - 16, "LEFT", 14, "VAR", "^8Version: "..self.versionNumber..(self.versionBranch == "dev" and " (Dev Branch)" or ""))
 	if self.promptMsg then
 		local r, g, b = unpack(self.promptCol)
 		self:DrawPopup(r, g, b, "^0%s", self.promptMsg)
@@ -174,13 +179,13 @@ function launch:OnSubFinished(...)
 	if self.subScriptType == "UPDATE" then
 		local ret = (...)
 		self.updateAvailable = ret
-		if not ret then
-			self:ShowPrompt(1, 0, 0, self.updateMsg .. "\n\nPress Enter/Escape to dismiss")
-		elseif self.updateChecking then
-			if ret == "none" then
+		if self.updateChecking then
+			if not ret then
+				self:ShowPrompt(1, 0, 0, self.updateMsg .. "\n\nPress Enter/Escape to dismiss")
+			elseif ret == "none" then
 				self:ShowPrompt(0, 0, 0, "No update available.", function(key) return true end)
 			else
-				self:ShowPrompt(0.2, 0.8, 0.2, "An update has been downloaded.\n\nClick 'Apply Update' at the top right when you are ready.", function(key) return true end)
+				self:ShowPrompt(0.2, 0.8, 0.2, "An update has been downloaded.\n\nClick 'Apply Update' at bottom left when you are ready.", function(key) return true end)
 			end
 			self.updateChecking = false
 		end
@@ -252,7 +257,7 @@ end
 function launch:CheckForUpdate(inBackground)
 	if not IsSubScriptRunning() then
 		self.updateChecking = not inBackground
-		self.updateMsg = ""
+		self.updateMsg = "Initialising..."
 		self.lastUpdateCheck = GetTime()
 		local update = io.open("UpdateCheck.lua", "r")
 		self.subScriptType = "UPDATE"
