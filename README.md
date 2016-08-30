@@ -37,6 +37,9 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
   * Automatic updating; most updates will only take a couple of seconds to apply
   * Somewhat more open source than usual (look in %ProgramData%\Path of Building if you're interested)
   * More to be added later if I'm not busy playing Atlas of Worlds ;)
+  
+## Download
+Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) page to download the installer.
 
 ## Screenshots
 ![ss1](https://cloud.githubusercontent.com/assets/19189971/18089779/f0fe23fa-6f04-11e6-8ed7-ff7d5b9f867a.png)
