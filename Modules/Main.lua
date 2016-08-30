@@ -62,9 +62,15 @@ function main:Init()
 	self.modes["LIST"] = LoadModule("Modules/BuildList", launch, self)
 	self.modes["BUILD"] = LoadModule("Modules/Build", launch, self)
 
-	self.userPath = GetUserPath().."/Path of Building/"
-	MakeDir(self.userPath)
+	if launch.devMode or GetScriptPath() == GetRuntimePath() then
+		-- If running in dev mode or standalone mode, put user data in the script path
+		self.userPath = GetScriptPath().."/"
+	else
+		self.userPath = GetUserPath().."/Path of Building/"
+		MakeDir(self.userPath)
+	end
 	self.buildPath = self.userPath.."Builds/"
+	MakeDir(self.buildPath)
 	
 	self.tree = common.New("PassiveTree")
 
@@ -90,18 +96,28 @@ function main:Init()
 		end
 	end
 
-	self.controls.applyUpdate = common.New("ButtonControl", nil, 0, 4, 100, 20, "^x50E050Apply Update", function()
+	self.anchorUpdate = common.New("Control", nil, 2, 0, 0, 0)
+	self.anchorUpdate.y = function()
+		return self.screenH - 2
+	end
+	self.controls.applyUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 110, 20, "^x50E050Apply Update", function()
 		launch:ApplyUpdate(launch.updateAvailable)
 	end)
-	self.controls.applyUpdate.x = function()
-		return self.screenW - 104
-	end
 	self.controls.applyUpdate.shown = function()
 		return launch.updateAvailable and launch.updateAvailable ~= "none"
 	end
-	self.controls.updateChecking = common.New("LabelControl", {"RIGHT",self.controls.applyUpdate,"RIGHT"}, 0, 0, 0, 18, "Checking for updates...")
-	self.controls.updateChecking.shown = function()
-		return launch.subScriptType == "UPDATE"
+	self.controls.checkUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 110, 18, "Check for Update", function()
+		launch:CheckForUpdate()
+	end)
+	self.controls.checkUpdate.shown = function()
+		return not launch.devMode and (not launch.updateAvailable or launch.updateAvailable == "none")
+	end
+	self.controls.checkUpdate.enabled = function()
+		return not IsSubScriptRunning()
+	end
+	self.controls.devMode = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 0, 18, "^1Dev Mode")
+	self.controls.devMode.shown = function()
+		return launch.devMode
 	end
 
 	self.inputEvents = { }
@@ -113,8 +129,6 @@ function main:Init()
 	self:SetMode("LIST")
 
 	self:LoadSettings()
-
-	MakeDir(self.buildPath)
 end
 
 function main:Shutdown()
@@ -146,10 +160,6 @@ function main:OnFrame()
 	self:CallMode("OnFrame", self.inputEvents)
 
 	self:DrawControls()
-
-	if launch.devMode then
-		DrawString(4, 4, "RIGHT", 18, "VAR", "^1Dev Mode")
-	end
 
 	if self.popups[1] then
 		SetDrawLayer(10)
@@ -216,14 +226,6 @@ function main:LoadSettings()
 					end
 				end
 				self:SetMode(node.attrib.mode, unpack(args))
-			elseif node.elem == "BuildPath" then
-				if not node.attrib.path then
-					launch:ShowErrMsg("^1Error parsing 'Settings.xml': 'BuildPath' element missing 'path' attribute")
-					return true
-				end
-				self.buildPath = node.attrib.path
-			elseif node.elem == "DevMode" then
-				launch.devMode = node.attrib.enable == "true"
 			elseif node.elem == "Accounts" then
 				self.lastAccountName = node.attrib.lastAccountName
 				for _, child in ipairs(node) do
@@ -251,8 +253,6 @@ function main:SaveSettings()
 		t_insert(mode, child)
 	end
 	t_insert(setXML, mode)
-	t_insert(setXML, { elem = "BuildPath", attrib = { path = self.buildPath } })
-	t_insert(setXML, { elem = "DevMode", attrib = { enable = tostring(launch.devMode) } })
 	local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName } }
 	for accountName, sessionID in pairs(self.accountSessionIDs) do
 		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = sessionID } })

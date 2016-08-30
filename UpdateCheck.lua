@@ -82,7 +82,7 @@ if localManXML and localManXML[1].elem == "PoBVersion" then
 		end
 	end
 end
-if not localVer or not localSource or not next(localFiles) then
+if not localVer or not localSource or not localBranch or not next(localFiles) then
 	ConPrintf("Update check failed: invalid local manifest")
 	return
 end
