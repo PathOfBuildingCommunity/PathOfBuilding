@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
 	<Version number="1.0.0"/>
-	<Source part="program" url="file://localhost/E:/Lua/PathOfBuilding/dev/"/>
-	<Source url="file://localhost/E:/Lua/PathOfBuilding/dev/runtime-win32.zip" part="runtime" platform="win32"/>
+	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
+	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="61015c55ce37b065d24a70cf3f35ed3f66f5cb7b" name="Launch.lua" part="program"/>
 	<File sha1="769b039de92cbad79837d7522991afd8801f4d2a" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
@@ -33,7 +33,7 @@
 	<File sha1="80527e0e05c986355ce7af2ba026538aec99a63a" name="Classes/SlotSelectControl.lua" part="program"/>
 	<File sha1="5f28e18b2867769b6141109332f263e12c74b2f9" name="Classes/TreeTab.lua" part="program"/>
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
-	<File sha1="6db8d2453ff44a905e09dd6f2d59c9270f80c04d" name="Modules/Build.lua" part="program"/>
+	<File sha1="4ad837c7f9fdeab079160f120f7bd1cdcb68eff0" name="Modules/Build.lua" part="program"/>
 	<File sha1="6e94bd1923414b7bbd5f02b3206214e997aa4825" name="Modules/BuildList.lua" part="program"/>
 	<File sha1="a2dd234f717f006b6e7420021aeabdc2b18caf58" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="7721650215b51d7c472da2e81389b81c91c6b498" name="Modules/CalcsView.lua" part="program"/>
@@ -41,7 +41,7 @@
 	<File sha1="cb25bd581587ba5b35f77ca7b245334be1e5186a" name="Modules/Data.lua" part="program"/>
 	<File sha1="08fe9f68d83d35f3d4b3ce88d294ca673bc6b7e2" name="Modules/ItemTools.lua" part="program"/>
 	<File sha1="3366e2e4f95db6254bcfb413d5a58b8d307dae17" name="Modules/Main.lua" part="program"/>
-	<File sha1="e600cee89ec17a491d185897e86826e44d64d2b4" name="Modules/ModParser.lua" part="program"/>
+	<File sha1="123eb9c7e0abf2d321e236489e55e3a24eda8e4b" name="Modules/ModParser.lua" part="program"/>
 	<File sha1="bc49ce1b5e15da40476a9c99c4c690b323c0e7ad" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
 	<File sha1="056de4fc6178320cc019ad1bacba09d689a87a56" name="Data/New.lua" part="program"/>

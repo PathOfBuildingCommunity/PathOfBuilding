@@ -394,7 +394,6 @@ local specialModList = {
 	["poisonous hit"] = { poisonChance = 100 },
 	["has no sockets"] = { },
 	["has 1 socket"] = { },
-	["grants level (%d+) (.+) skill"] = { },
 	["%+(%d+) to level of socketed gems"] = function(num) return { ["SocketedIn:X_gemLevel_all"] = num } end,
 	["%+(%d+) to level of socketed (%a+) gems"] = function(num, _, type) return { ["SocketedIn:X_gemLevel_"..type] = num } end,
 	["%+(%d+)%% to quality of socketed (%a+) gems"] = function(num, _, type) return { ["SocketedIn:X_gemQuality_"..type] = num } end,
