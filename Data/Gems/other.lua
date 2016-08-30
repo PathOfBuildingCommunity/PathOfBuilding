@@ -61,6 +61,7 @@ gems["Portal"] = {
 	}
 }
 gems["Vaal Arc"] = {
+	intelligence = true,
 	spell = true,
 	lightning = true,
 	vaal = true,
@@ -70,6 +71,7 @@ gems["Vaal Arc"] = {
 		skill_damageEffectiveness = 0.8,
 		skill_critChanceBase = 5,
 		shockChance = 100,
+		chainCount = 40,
 	},
 	quality = {
 		shock_durationInc = 1.5,
@@ -108,6 +110,7 @@ gems["Vaal Arc"] = {
 	}
 }
 gems["Vaal Burning Arrow"] = {
+	dexterity = true,
 	attack = true,
 	bow = true,
 	projectile = true,
@@ -156,6 +159,7 @@ gems["Vaal Burning Arrow"] = {
 	}
 }
 gems["Vaal Clarity"] = {
+	intelligence = true,
 	aura = true,
 	spell = true,
 	aoe = true,
@@ -202,6 +206,7 @@ gems["Vaal Clarity"] = {
 	}
 }
 gems["Vaal Cold Snap"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	duration = true,
@@ -251,6 +256,7 @@ gems["Vaal Cold Snap"] = {
 	}
 }
 gems["Vaal Cyclone"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -298,6 +304,7 @@ gems["Vaal Cyclone"] = {
 	}
 }
 gems["Vaal Discipline"] = {
+	intelligence = true,
 	aura = true,
 	spell = true,
 	aoe = true,
@@ -344,9 +351,11 @@ gems["Vaal Discipline"] = {
 	}
 }
 gems["Vaal Detonate Dead"] = {
+	dexterity = true,
 	unsupported = true,
 }
 gems["Vaal Double Strike"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	duration = true,
@@ -390,6 +399,7 @@ gems["Vaal Double Strike"] = {
 	}
 }
 gems["Vaal Fireball"] = {
+	intelligence = true,
 	spell = true,
 	projectile = true,
 	aoe = true,
@@ -439,6 +449,7 @@ gems["Vaal Fireball"] = {
 	}
 }
 gems["Vaal Flameblast"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	fire = true,
@@ -487,6 +498,7 @@ gems["Vaal Flameblast"] = {
 	}
 }
 gems["Vaal Glacial Hammer"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -536,6 +548,7 @@ gems["Vaal Glacial Hammer"] = {
 	}
 }
 gems["Vaal Grace"] = {
+	dexterity = true,
 	aura = true,
 	spell = true,
 	aoe = true,
@@ -582,6 +595,7 @@ gems["Vaal Grace"] = {
 	}
 }
 gems["Vaal Ground Slam"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -627,6 +641,7 @@ gems["Vaal Ground Slam"] = {
 	}
 }
 gems["Vaal Haste"] = {
+	dexterity = true,
 	aura = true,
 	spell = true,
 	aoe = true,
@@ -673,6 +688,7 @@ gems["Vaal Haste"] = {
 	}
 }
 gems["Vaal Ice Nova"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	cold = true,
@@ -720,6 +736,7 @@ gems["Vaal Ice Nova"] = {
 	}
 }
 gems["Vaal Immortal Call"] = {
+	strength = true,
 	spell = true,
 	duration = true,
 	vaal = true,
@@ -764,6 +781,7 @@ gems["Vaal Immortal Call"] = {
 	}
 }
 gems["Vaal Lightning Strike"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	duration = true,
@@ -819,6 +837,7 @@ gems["Vaal Lightning Strike"] = {
 	}
 }
 gems["Vaal Lightning Trap"] = {
+	intelligence = true,
 	spell = true,
 	trap = true,
 	projectile = true,
@@ -870,6 +889,7 @@ gems["Vaal Lightning Trap"] = {
 	}
 }
 gems["Vaal Lightning Warp"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	duration = true,
@@ -918,6 +938,7 @@ gems["Vaal Lightning Warp"] = {
 	}
 }
 gems["Vaal Molten Shell"] = {
+	strength = true,
 	spell = true,
 	aoe = true,
 	duration = true,
@@ -967,6 +988,7 @@ gems["Vaal Molten Shell"] = {
 	}
 }
 gems["Vaal Power Siphon"] = {
+	intelligence = true,
 	attack = true,
 	projectile = true,
 	vaal = true,
@@ -1010,6 +1032,7 @@ gems["Vaal Power Siphon"] = {
 	}
 }
 gems["Vaal Rain of Arrows"] = {
+	dexterity = true,
 	attack = true,
 	bow = true,
 	projectile = true,
@@ -1056,6 +1079,7 @@ gems["Vaal Rain of Arrows"] = {
 	}
 }
 gems["Vaal Reave"] = {
+	dexterity = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -1100,6 +1124,7 @@ gems["Vaal Reave"] = {
 	}
 }
 gems["Vaal Righteous Fire"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	fire = true,
@@ -1150,6 +1175,7 @@ gems["Vaal Righteous Fire"] = {
 	}
 }
 gems["Vaal Spark"] = {
+	intelligence = true,
 	spell = true,
 	projectile = true,
 	duration = true,
@@ -1199,6 +1225,7 @@ gems["Vaal Spark"] = {
 	}
 }
 gems["Vaal Spectral Throw"] = {
+	dexterity = true,
 	attack = true,
 	projectile = true,
 	vaal = true,
@@ -1242,6 +1269,7 @@ gems["Vaal Spectral Throw"] = {
 	}
 }
 gems["Vaal Storm Call"] = {
+	intelligence = true,
 	spell = true,
 	aoe = true,
 	duration = true,
@@ -1291,5 +1319,6 @@ gems["Vaal Storm Call"] = {
 	}
 }
 gems["Vaal Summon Skeletons"] = {
+	intelligence = true,
 	unsupported = true,
 }

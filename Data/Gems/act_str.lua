@@ -6,6 +6,7 @@
 local gems = ...
 
 gems["Abyssal Cry"] = {
+	strength = true,
 	warcry = true,
 	aoe = true,
 	duration = true,
@@ -51,6 +52,7 @@ gems["Abyssal Cry"] = {
 	}
 }
 gems["Ancestral Protector"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	totem = true,
@@ -97,6 +99,7 @@ gems["Ancestral Protector"] = {
 	}
 }
 gems["Ancestral Warchief"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	totem = true,
@@ -146,11 +149,13 @@ gems["Ancestral Warchief"] = {
 	}
 }
 gems["Anger"] = {
+	strength = true,
 	aura = true,
 	spell = true,
 	aoe = true,
 	fire = true,
 	base = {
+		skill_castTime = 1.2,
 		skill_manaReservedPercent = 50,
 	},
 	quality = {
@@ -190,9 +195,11 @@ gems["Anger"] = {
 	}
 }
 gems["Animate Guardian"] = {
+	strength = true,
 	unsupported = true,
 }
 gems["Cleave"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -236,6 +243,7 @@ gems["Cleave"] = {
 	}
 }
 gems["Decoy Totem"] = {
+	strength = true,
 	spell = true,
 	totem = true,
 	aoe = true,
@@ -281,10 +289,12 @@ gems["Decoy Totem"] = {
 	}
 }
 gems["Determination"] = {
+	strength = true,
 	aura = true,
 	spell = true,
 	aoe = true,
 	base = {
+		skill_castTime = 1.2,
 		skill_manaReservedPercent = 50,
 	},
 	quality = {
@@ -324,9 +334,11 @@ gems["Determination"] = {
 	}
 }
 gems["Devouring Totem"] = {
+	strength = true,
 	unsupported = true,
 }
 gems["Dominating Blow"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	minion = true,
@@ -372,6 +384,7 @@ gems["Dominating Blow"] = {
 	}
 }
 gems["Earthquake"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -392,39 +405,40 @@ gems["Earthquake"] = {
 		physicalInc = 1,
 	},
 	levels = {
-		[1] = { attack_damageMore = 0.9, part2_attack_damageMore = 1.6, },
-		[2] = { attack_damageMore = 0.91, part2_attack_damageMore = 1.61, },
-		[3] = { attack_damageMore = 0.92, part2_attack_damageMore = 1.62, },
-		[4] = { attack_damageMore = 0.93, part2_attack_damageMore = 1.63, },
-		[5] = { attack_damageMore = 0.94, part2_attack_damageMore = 1.64, },
-		[6] = { attack_damageMore = 0.95, part2_attack_damageMore = 1.65, },
-		[7] = { attack_damageMore = 0.96, part2_attack_damageMore = 1.66, },
-		[8] = { attack_damageMore = 0.97, part2_attack_damageMore = 1.67, },
-		[9] = { attack_damageMore = 0.98, part2_attack_damageMore = 1.68, },
-		[10] = { attack_damageMore = 0.99, part2_attack_damageMore = 1.69, },
-		[11] = { attack_damageMore = 1, part2_attack_damageMore = 1.7, },
-		[12] = { attack_damageMore = 1.01, part2_attack_damageMore = 1.71, },
-		[13] = { attack_damageMore = 1.02, part2_attack_damageMore = 1.72, },
-		[14] = { attack_damageMore = 1.03, part2_attack_damageMore = 1.73, },
-		[15] = { attack_damageMore = 1.04, part2_attack_damageMore = 1.74, },
-		[16] = { attack_damageMore = 1.05, part2_attack_damageMore = 1.75, },
-		[17] = { attack_damageMore = 1.06, part2_attack_damageMore = 1.76, },
-		[18] = { attack_damageMore = 1.07, part2_attack_damageMore = 1.77, },
-		[19] = { attack_damageMore = 1.08, part2_attack_damageMore = 1.78, },
-		[20] = { attack_damageMore = 1.09, part2_attack_damageMore = 1.79, },
-		[21] = { attack_damageMore = 1.1, part2_attack_damageMore = 1.8, },
-		[22] = { attack_damageMore = 1.11, part2_attack_damageMore = 1.81, },
-		[23] = { attack_damageMore = 1.12, part2_attack_damageMore = 1.82, },
-		[24] = { attack_damageMore = 1.13, part2_attack_damageMore = 1.83, },
-		[25] = { attack_damageMore = 1.14, part2_attack_damageMore = 1.84, },
-		[26] = { attack_damageMore = 1.15, part2_attack_damageMore = 1.85, },
-		[27] = { attack_damageMore = 1.16, part2_attack_damageMore = 1.86, },
-		[28] = { attack_damageMore = 1.17, part2_attack_damageMore = 1.87, },
-		[29] = { attack_damageMore = 1.18, part2_attack_damageMore = 1.88, },
-		[30] = { attack_damageMore = 1.19, part2_attack_damageMore = 1.89, },
+		[1] = { attack_damageMore = 0.9, SkillPart2_attack_damageMore = 1.6, },
+		[2] = { attack_damageMore = 0.91, SkillPart2_attack_damageMore = 1.61, },
+		[3] = { attack_damageMore = 0.92, SkillPart2_attack_damageMore = 1.62, },
+		[4] = { attack_damageMore = 0.93, SkillPart2_attack_damageMore = 1.63, },
+		[5] = { attack_damageMore = 0.94, SkillPart2_attack_damageMore = 1.64, },
+		[6] = { attack_damageMore = 0.95, SkillPart2_attack_damageMore = 1.65, },
+		[7] = { attack_damageMore = 0.96, SkillPart2_attack_damageMore = 1.66, },
+		[8] = { attack_damageMore = 0.97, SkillPart2_attack_damageMore = 1.67, },
+		[9] = { attack_damageMore = 0.98, SkillPart2_attack_damageMore = 1.68, },
+		[10] = { attack_damageMore = 0.99, SkillPart2_attack_damageMore = 1.69, },
+		[11] = { attack_damageMore = 1, SkillPart2_attack_damageMore = 1.7, },
+		[12] = { attack_damageMore = 1.01, SkillPart2_attack_damageMore = 1.71, },
+		[13] = { attack_damageMore = 1.02, SkillPart2_attack_damageMore = 1.72, },
+		[14] = { attack_damageMore = 1.03, SkillPart2_attack_damageMore = 1.73, },
+		[15] = { attack_damageMore = 1.04, SkillPart2_attack_damageMore = 1.74, },
+		[16] = { attack_damageMore = 1.05, SkillPart2_attack_damageMore = 1.75, },
+		[17] = { attack_damageMore = 1.06, SkillPart2_attack_damageMore = 1.76, },
+		[18] = { attack_damageMore = 1.07, SkillPart2_attack_damageMore = 1.77, },
+		[19] = { attack_damageMore = 1.08, SkillPart2_attack_damageMore = 1.78, },
+		[20] = { attack_damageMore = 1.09, SkillPart2_attack_damageMore = 1.79, },
+		[21] = { attack_damageMore = 1.1, SkillPart2_attack_damageMore = 1.8, },
+		[22] = { attack_damageMore = 1.11, SkillPart2_attack_damageMore = 1.81, },
+		[23] = { attack_damageMore = 1.12, SkillPart2_attack_damageMore = 1.82, },
+		[24] = { attack_damageMore = 1.13, SkillPart2_attack_damageMore = 1.83, },
+		[25] = { attack_damageMore = 1.14, SkillPart2_attack_damageMore = 1.84, },
+		[26] = { attack_damageMore = 1.15, SkillPart2_attack_damageMore = 1.85, },
+		[27] = { attack_damageMore = 1.16, SkillPart2_attack_damageMore = 1.86, },
+		[28] = { attack_damageMore = 1.17, SkillPart2_attack_damageMore = 1.87, },
+		[29] = { attack_damageMore = 1.18, SkillPart2_attack_damageMore = 1.88, },
+		[30] = { attack_damageMore = 1.19, SkillPart2_attack_damageMore = 1.89, },
 	}
 }
 gems["Enduring Cry"] = {
+	strength = true,
 	warcry = true,
 	aoe = true,
 	duration = true,
@@ -469,6 +483,7 @@ gems["Enduring Cry"] = {
 	}
 }
 gems["Flame Totem"] = {
+	strength = true,
 	spell = true,
 	totem = true,
 	projectile = true,
@@ -484,45 +499,46 @@ gems["Flame Totem"] = {
 		totemLifeInc = 1,
 	},
 	levels = {
-		[1] = { skill_manaCostBase = 12, skill_fireMin = 1, skill_fireMax = 2, },
-		[2] = { skill_manaCostBase = 14, skill_fireMin = 1, skill_fireMax = 3, },
-		[3] = { skill_manaCostBase = 16, skill_fireMin = 2, skill_fireMax = 4, },
-		[4] = { skill_manaCostBase = 17, skill_fireMin = 3, skill_fireMax = 5, },
-		[5] = { skill_manaCostBase = 19, skill_fireMin = 4, skill_fireMax = 7, },
-		[6] = { skill_manaCostBase = 21, skill_fireMin = 6, skill_fireMax = 10, },
-		[7] = { skill_manaCostBase = 23, skill_fireMin = 9, skill_fireMax = 13, },
-		[8] = { skill_manaCostBase = 24, skill_fireMin = 11, skill_fireMax = 17, },
-		[9] = { skill_manaCostBase = 26, skill_fireMin = 14, skill_fireMax = 22, },
-		[10] = { skill_manaCostBase = 29, skill_fireMin = 18, skill_fireMax = 28, },
-		[11] = { skill_manaCostBase = 31, skill_fireMin = 24, skill_fireMax = 35, },
-		[12] = { skill_manaCostBase = 32, skill_fireMin = 30, skill_fireMax = 45, },
-		[13] = { skill_manaCostBase = 33, skill_fireMin = 37, skill_fireMax = 56, },
-		[14] = { skill_manaCostBase = 34, skill_fireMin = 47, skill_fireMax = 70, },
-		[15] = { skill_manaCostBase = 36, skill_fireMin = 55, skill_fireMax = 83, },
-		[16] = { skill_manaCostBase = 37, skill_fireMin = 65, skill_fireMax = 97, },
-		[17] = { skill_manaCostBase = 39, skill_fireMin = 76, skill_fireMax = 114, },
-		[18] = { skill_manaCostBase = 40, skill_fireMin = 89, skill_fireMax = 134, },
-		[19] = { skill_manaCostBase = 41, skill_fireMin = 105, skill_fireMax = 157, },
-		[20] = { skill_manaCostBase = 42, skill_fireMin = 122, skill_fireMax = 183, },
-		[21] = { skill_manaCostBase = 43, skill_fireMin = 136, skill_fireMax = 203, },
-		[22] = { skill_manaCostBase = 44, skill_fireMin = 150, skill_fireMax = 225, },
-		[23] = { skill_manaCostBase = 45, skill_fireMin = 166, skill_fireMax = 249, },
-		[24] = { skill_manaCostBase = 46, skill_fireMin = 184, skill_fireMax = 276, },
-		[25] = { skill_manaCostBase = 47, skill_fireMin = 204, skill_fireMax = 305, },
-		[26] = { skill_manaCostBase = 48, skill_fireMin = 225, skill_fireMax = 338, },
-		[27] = { skill_manaCostBase = 49, skill_fireMin = 249, skill_fireMax = 373, },
-		[28] = { skill_manaCostBase = 50, skill_fireMin = 275, skill_fireMax = 412, },
-		[29] = { skill_manaCostBase = 51, skill_fireMin = 303, skill_fireMax = 455, },
-		[30] = { skill_manaCostBase = 52, skill_fireMin = 335, skill_fireMax = 502, },
+		[1] = { skill_manaCostBase = 12, skill_fireMin = 1, skill_fireMax = 2, projectileCount = 0, },
+		[2] = { skill_manaCostBase = 14, skill_fireMin = 1, skill_fireMax = 3, projectileCount = 0, },
+		[3] = { skill_manaCostBase = 16, skill_fireMin = 2, skill_fireMax = 4, projectileCount = 0, },
+		[4] = { skill_manaCostBase = 17, skill_fireMin = 3, skill_fireMax = 5, projectileCount = 0, },
+		[5] = { skill_manaCostBase = 19, skill_fireMin = 4, skill_fireMax = 7, projectileCount = 1, },
+		[6] = { skill_manaCostBase = 21, skill_fireMin = 6, skill_fireMax = 10, projectileCount = 1, },
+		[7] = { skill_manaCostBase = 23, skill_fireMin = 9, skill_fireMax = 13, projectileCount = 1, },
+		[8] = { skill_manaCostBase = 24, skill_fireMin = 11, skill_fireMax = 17, projectileCount = 1, },
+		[9] = { skill_manaCostBase = 26, skill_fireMin = 14, skill_fireMax = 22, projectileCount = 2, },
+		[10] = { skill_manaCostBase = 29, skill_fireMin = 18, skill_fireMax = 28, projectileCount = 2, },
+		[11] = { skill_manaCostBase = 31, skill_fireMin = 24, skill_fireMax = 35, projectileCount = 2, },
+		[12] = { skill_manaCostBase = 32, skill_fireMin = 30, skill_fireMax = 45, projectileCount = 2, },
+		[13] = { skill_manaCostBase = 33, skill_fireMin = 37, skill_fireMax = 56, projectileCount = 2, },
+		[14] = { skill_manaCostBase = 34, skill_fireMin = 47, skill_fireMax = 70, projectileCount = 2, },
+		[15] = { skill_manaCostBase = 36, skill_fireMin = 55, skill_fireMax = 83, projectileCount = 2, },
+		[16] = { skill_manaCostBase = 37, skill_fireMin = 65, skill_fireMax = 97, projectileCount = 2, },
+		[17] = { skill_manaCostBase = 39, skill_fireMin = 76, skill_fireMax = 114, projectileCount = 2, },
+		[18] = { skill_manaCostBase = 40, skill_fireMin = 89, skill_fireMax = 134, projectileCount = 2, },
+		[19] = { skill_manaCostBase = 41, skill_fireMin = 105, skill_fireMax = 157, projectileCount = 2, },
+		[20] = { skill_manaCostBase = 42, skill_fireMin = 122, skill_fireMax = 183, projectileCount = 2, },
+		[21] = { skill_manaCostBase = 43, skill_fireMin = 136, skill_fireMax = 203, projectileCount = 2, },
+		[22] = { skill_manaCostBase = 44, skill_fireMin = 150, skill_fireMax = 225, projectileCount = 2, },
+		[23] = { skill_manaCostBase = 45, skill_fireMin = 166, skill_fireMax = 249, projectileCount = 2, },
+		[24] = { skill_manaCostBase = 46, skill_fireMin = 184, skill_fireMax = 276, projectileCount = 2, },
+		[25] = { skill_manaCostBase = 47, skill_fireMin = 204, skill_fireMax = 305, projectileCount = 2, },
+		[26] = { skill_manaCostBase = 48, skill_fireMin = 225, skill_fireMax = 338, projectileCount = 2, },
+		[27] = { skill_manaCostBase = 49, skill_fireMin = 249, skill_fireMax = 373, projectileCount = 2, },
+		[28] = { skill_manaCostBase = 50, skill_fireMin = 275, skill_fireMax = 412, projectileCount = 2, },
+		[29] = { skill_manaCostBase = 51, skill_fireMin = 303, skill_fireMax = 455, projectileCount = 2, },
+		[30] = { skill_manaCostBase = 52, skill_fireMin = 335, skill_fireMax = 502, projectileCount = 2, },
 	}
 }
 gems["Glacial Hammer"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	cold = true,
 	base = {
 		skill_manaCostBase = 5,
-		physicalConvertTocold = 50,
+		skill_physicalConvertTocold = 50,
 	},
 	quality = {
 		chill_durationInc = 2,
@@ -562,6 +578,7 @@ gems["Glacial Hammer"] = {
 	}
 }
 gems["Ground Slam"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -606,6 +623,7 @@ gems["Ground Slam"] = {
 	}
 }
 gems["Heavy Strike"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	base = {
@@ -649,10 +667,12 @@ gems["Heavy Strike"] = {
 	}
 }
 gems["Herald of Ash"] = {
+	strength = true,
 	spell = true,
 	aoe = true,
 	fire = true,
 	base = {
+		skill_castTime = 1,
 		skill_manaReservedPercent = 25,
 		BuffEffect_physicalGainAsfire = 15,
 	},
@@ -693,6 +713,7 @@ gems["Herald of Ash"] = {
 	}
 }
 gems["Ice Crash"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -710,10 +731,10 @@ gems["Ice Crash"] = {
 	},
 	base = {
 		skill_manaCostBase = 8,
-		physicalConvertTocold = 50,
+		skill_physicalConvertTocold = 50,
 		attackSpeedMore = 0.75,
-		part2_attack_damageMore = 0.8,
-		part3_attack_damageMore = 0.6,
+		SkillPart2_attack_damageMore = 0.8,
+		SkillPart3_attack_damageMore = 0.6,
 	},
 	quality = {
 		coldInc = 1,
@@ -752,6 +773,7 @@ gems["Ice Crash"] = {
 	}
 }
 gems["Immortal Call"] = {
+	strength = true,
 	spell = true,
 	duration = true,
 	base = {
@@ -795,13 +817,14 @@ gems["Immortal Call"] = {
 	}
 }
 gems["Infernal Blow"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	aoe = true,
 	fire = true,
 	base = {
 		skill_manaCostBase = 6,
-		physicalConvertTofire = 50,
+		skill_physicalConvertTofire = 50,
 	},
 	quality = {
 		aoeRadiusInc = 0.5,
@@ -840,6 +863,7 @@ gems["Infernal Blow"] = {
 	}
 }
 gems["Leap Slam"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -884,6 +908,7 @@ gems["Leap Slam"] = {
 	}
 }
 gems["Molten Shell"] = {
+	strength = true,
 	spell = true,
 	aoe = true,
 	duration = true,
@@ -932,6 +957,7 @@ gems["Molten Shell"] = {
 	}
 }
 gems["Molten Strike"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	projectile = true,
@@ -953,8 +979,9 @@ gems["Molten Strike"] = {
 	},
 	base = {
 		skill_manaCostBase = 6,
-		physicalConvertTofire = 60,
-		part2_damageMore = 0.6,
+		skill_physicalConvertTofire = 60,
+		projectileCount = 2,
+		projectile_damageMore = 0.6,
 	},
 	quality = {
 		fireInc = 1,
@@ -993,14 +1020,17 @@ gems["Molten Strike"] = {
 	}
 }
 gems["Punishment"] = {
+	strength = true,
 	unsupported = true,
 }
 gems["Purity of Fire"] = {
+	strength = true,
 	aura = true,
 	spell = true,
 	aoe = true,
 	fire = true,
 	base = {
+		skill_castTime = 1.2,
 		skill_manaReservedPercent = 35,
 	},
 	quality = {
@@ -1040,6 +1070,7 @@ gems["Purity of Fire"] = {
 	}
 }
 gems["Rallying Cry"] = {
+	strength = true,
 	warcry = true,
 	aoe = true,
 	duration = true,
@@ -1084,6 +1115,7 @@ gems["Rallying Cry"] = {
 	}
 }
 gems["Reckoning"] = {
+	strength = true,
 	trigger = true,
 	attack = true,
 	melee = true,
@@ -1128,6 +1160,7 @@ gems["Reckoning"] = {
 	}
 }
 gems["Rejuvenation Totem"] = {
+	strength = true,
 	aura = true,
 	spell = true,
 	totem = true,
@@ -1174,6 +1207,7 @@ gems["Rejuvenation Totem"] = {
 	}
 }
 gems["Searing Bond"] = {
+	strength = true,
 	spell = true,
 	totem = true,
 	duration = true,
@@ -1219,6 +1253,7 @@ gems["Searing Bond"] = {
 	}
 }
 gems["Shield Charge"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -1312,6 +1347,7 @@ gems["Shockwave Totem"] = {
 	}
 }
 gems["Static Strike"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -1330,8 +1366,8 @@ gems["Static Strike"] = {
 	base = {
 		skill_manaCostBase = 6,
 		skill_durationBase = 0.75,
-		physicalConvertTolightning = 60,
-		part2_damageMore = 0.6,
+		skill_physicalConvertTolightning = 60,
+		SkillPart2_damageMore = 0.6,
 	},
 	quality = {
 		aoeRadiusInc = 0.5,
@@ -1370,13 +1406,14 @@ gems["Static Strike"] = {
 	}
 }
 gems["Summon Flame Golem"] = {
+	strength = true,
 	spell = true,
 	minion = true,
 	golem = true,
 	fire = true,
 	base = {
 		skill_castTime = 1,
-		BuffEffect_CondMod_LiegeOfThePrimordial_fireInc = 40,
+		BuffEffect_Cond_HaveFireGolem = true,
 	},
 	quality = {
 		minionLifeInc = 1,
@@ -1416,12 +1453,13 @@ gems["Summon Flame Golem"] = {
 	}
 }
 gems["Summon Stone Golem"] = {
+	strength = true,
 	spell = true,
 	minion = true,
 	golem = true,
 	base = {
 		skill_castTime = 1,
-		BuffEffect_CondMod_LiegeOfThePrimordial_physicalInc = 40,
+		BuffEffect_Cond_HavePhysicalGolem = true,
 	},
 	quality = {
 		minionLifeInc = 1,
@@ -1461,6 +1499,7 @@ gems["Summon Stone Golem"] = {
 	}
 }
 gems["Sunder"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -1475,7 +1514,7 @@ gems["Sunder"] = {
 	base = {
 		skill_manaCostBase = 8,
 		attackSpeedMore = 0.85,
-		part2_damageMore = 0.7,
+		SkillPart2_attack_damageMore = 0.7,
 	},
 	quality = {
 		aoeRadiusInc = 0.5,
@@ -1514,6 +1553,7 @@ gems["Sunder"] = {
 	}
 }
 gems["Sweep"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	aoe = true,
@@ -1558,6 +1598,7 @@ gems["Sweep"] = {
 	}
 }
 gems["Vengeance"] = {
+	strength = true,
 	trigger = true,
 	attack = true,
 	melee = true,
@@ -1601,6 +1642,7 @@ gems["Vengeance"] = {
 	}
 }
 gems["Vigilant Strike"] = {
+	strength = true,
 	attack = true,
 	melee = true,
 	base = {
@@ -1645,10 +1687,12 @@ gems["Vigilant Strike"] = {
 	}
 }
 gems["Vitality"] = {
+	strength = true,
 	aura = true,
 	spell = true,
 	aoe = true,
 	base = {
+		skill_castTime = 1.2,
 		skill_manaReservedPercent = 35,
 	},
 	quality = {

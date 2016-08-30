@@ -6,6 +6,7 @@
 local gems = ...
 
 gems["Added Cold Damage"] = {
+	dexterity = true,
 	support = true,
 	cold = true,
 	base = {
@@ -48,6 +49,7 @@ gems["Added Cold Damage"] = {
 	}
 }
 gems["Additional Accuracy"] = {
+	dexterity = true,
 	support = true,
 	attack = true,
 	base = {
@@ -89,6 +91,7 @@ gems["Additional Accuracy"] = {
 	}
 }
 gems["Blind"] = {
+	dexterity = true,
 	support = true,
 	base = {
 	},
@@ -128,19 +131,25 @@ gems["Blind"] = {
 	}
 }
 gems["Block Chance Reduction"] = {
+	dexterity = true,
 	unsupported = true,
 }
 gems["Cast on Critical Strike"] = {
+	dexterity = true,
 	unsupported = true,
 }
 gems["Cast on Death"] = {
+	dexterity = true,
 	unsupported = true,
 }
 gems["Chain"] = {
+	dexterity = true,
 	support = true,
 	projectile = true,
+	chaining = true,
 	base = {
 		manaCostMore = 1.5,
+		chainCount = 2,
 	},
 	quality = {
 		projectileSpeedInc = 1,
@@ -179,6 +188,7 @@ gems["Chain"] = {
 	}
 }
 gems["Chance to Flee"] = {
+	dexterity = true,
 	support = true,
 	base = {
 	},
@@ -218,10 +228,12 @@ gems["Chance to Flee"] = {
 	}
 }
 gems["Cluster Traps"] = {
+	dexterity = true,
 	support = true,
 	trap = true,
 	base = {
 		manaCostMore = 1.5,
+		activeTrapLimit = 5,
 	},
 	quality = {
 		trap_damageInc = 0.5,
@@ -260,6 +272,7 @@ gems["Cluster Traps"] = {
 	}
 }
 gems["Cold Penetration"] = {
+	dexterity = true,
 	support = true,
 	cold = true,
 	base = {
@@ -302,6 +315,7 @@ gems["Cold Penetration"] = {
 	}
 }
 gems["Culling Strike"] = {
+	dexterity = true,
 	support = true,
 	base = {
 		manaCostMore = 1.1,
@@ -343,6 +357,7 @@ gems["Culling Strike"] = {
 	}
 }
 gems["Enhance"] = {
+	dexterity = true,
 	support = true,
 	base = {
 		manaCostMore = 1.15,
@@ -350,19 +365,20 @@ gems["Enhance"] = {
 	quality = {
 	},
 	levels = {
-		[1] = { },
-		[2] = { },
-		[3] = { },
-		[4] = { },
-		[5] = { },
-		[6] = { },
-		[7] = { },
-		[8] = { },
-		[9] = { },
-		[10] = { },
+		[1] = { gemQuality_active = 0, },
+		[2] = { gemQuality_active = 8, },
+		[3] = { gemQuality_active = 16, },
+		[4] = { gemQuality_active = 24, },
+		[5] = { gemQuality_active = 32, },
+		[6] = { gemQuality_active = 40, },
+		[7] = { gemQuality_active = 48, },
+		[8] = { gemQuality_active = 56, },
+		[9] = { gemQuality_active = 64, },
+		[10] = { gemQuality_active = 72, },
 	}
 }
 gems["Faster Attacks"] = {
+	dexterity = true,
 	support = true,
 	attack = true,
 	base = {
@@ -405,6 +421,7 @@ gems["Faster Attacks"] = {
 	}
 }
 gems["Faster Projectiles"] = {
+	dexterity = true,
 	support = true,
 	projectile = true,
 	base = {
@@ -447,6 +464,7 @@ gems["Faster Projectiles"] = {
 	}
 }
 gems["Fork"] = {
+	dexterity = true,
 	support = true,
 	projectile = true,
 	base = {
@@ -489,10 +507,12 @@ gems["Fork"] = {
 	}
 }
 gems["Greater Multiple Projectiles"] = {
+	dexterity = true,
 	support = true,
 	projectile = true,
 	base = {
 		manaCostMore = 1.65,
+		projectileCount = 4,
 	},
 	quality = {
 		speedInc = 0.5,
@@ -531,6 +551,7 @@ gems["Greater Multiple Projectiles"] = {
 	}
 }
 gems["Hypothermia"] = {
+	dexterity = true,
 	support = true,
 	cold = true,
 	base = {
@@ -574,6 +595,7 @@ gems["Hypothermia"] = {
 	}
 }
 gems["Ice Bite"] = {
+	dexterity = true,
 	support = true,
 	cold = true,
 	base = {
@@ -617,10 +639,12 @@ gems["Ice Bite"] = {
 	}
 }
 gems["Lesser Multiple Projectiles"] = {
+	dexterity = true,
 	support = true,
 	projectile = true,
 	base = {
 		manaCostMore = 1.4,
+		projectileCount = 2,
 	},
 	quality = {
 		speedInc = 0.5,
@@ -659,6 +683,7 @@ gems["Lesser Multiple Projectiles"] = {
 	}
 }
 gems["Mana Leech"] = {
+	dexterity = true,
 	support = true,
 	base = {
 	},
@@ -698,10 +723,12 @@ gems["Mana Leech"] = {
 	}
 }
 gems["Multiple Traps"] = {
+	dexterity = true,
 	support = true,
 	trap = true,
 	base = {
 		manaCostMore = 1.6,
+		activeTrapLimit = 3,
 	},
 	quality = {
 		trapTriggerRadiusInc = 1,
@@ -740,6 +767,7 @@ gems["Multiple Traps"] = {
 	}
 }
 gems["Physical Projectile Attack Damage"] = {
+	dexterity = true,
 	support = true,
 	attack = true,
 	projectile = true,
@@ -784,6 +812,7 @@ gems["Physical Projectile Attack Damage"] = {
 	}
 }
 gems["Pierce"] = {
+	dexterity = true,
 	support = true,
 	projectile = true,
 	base = {
@@ -827,6 +856,7 @@ gems["Pierce"] = {
 	}
 }
 gems["Point Blank"] = {
+	dexterity = true,
 	support = true,
 	attack = true,
 	projectile = true,
@@ -870,6 +900,7 @@ gems["Point Blank"] = {
 	}
 }
 gems["Poison"] = {
+	dexterity = true,
 	support = true,
 	chaos = true,
 	base = {
@@ -913,6 +944,7 @@ gems["Poison"] = {
 	}
 }
 gems["Rapid Decay"] = {
+	dexterity = true,
 	support = true,
 	duration = true,
 	base = {
@@ -956,6 +988,7 @@ gems["Rapid Decay"] = {
 	}
 }
 gems["Slower Projectiles"] = {
+	dexterity = true,
 	support = true,
 	projectile = true,
 	base = {
@@ -998,6 +1031,7 @@ gems["Slower Projectiles"] = {
 	}
 }
 gems["Trap"] = {
+	dexterity = true,
 	support = true,
 	trap = true,
 	addFlags = {
@@ -1045,6 +1079,7 @@ gems["Trap"] = {
 	}
 }
 gems["Trap Cooldown"] = {
+	dexterity = true,
 	support = true,
 	trap = true,
 	base = {
@@ -1087,6 +1122,7 @@ gems["Trap Cooldown"] = {
 	}
 }
 gems["Trap and Mine Damage"] = {
+	dexterity = true,
 	support = true,
 	trap = true,
 	mine = true,
@@ -1132,6 +1168,7 @@ gems["Trap and Mine Damage"] = {
 	}
 }
 gems["Void Manipulation"] = {
+	dexterity = true,
 	support = true,
 	chaos = true,
 	base = {

@@ -1,12 +1,12 @@
 -- Path of Building
 --
 -- Module: Item Tools
--- Various functions for dealing with items
+-- Various functions for dealing with items.
 --
 
+local t_insert = table.insert
 local m_min = math.min
 local m_floor = math.floor
-local t_insert = table.insert
 
 itemLib = { }
 
@@ -32,6 +32,7 @@ end
 -- Make an item from raw data
 function itemLib.makeItemFromRaw(raw)
 	local newItem = {
+		-- Something something unicode support something grumble
 		raw = raw:gsub("^%s+",""):gsub("%s+$",""):gsub("\r\n","\n"):gsub("%b<>",""):gsub("–","-"):gsub("\226\128\147","-"):gsub("\226\136\146","-"):gsub("ö","o"):gsub("\195\182","o")
 	}
 	itemLib.parseItemRaw(newItem)
@@ -101,9 +102,9 @@ function itemLib.parseItemRaw(item)
 		elseif data.weaponTypeInfo[line] then
 			item.weaponType = line
 		else
-			local specName, specVal = line:match("^(%a+): %+?([%d%-%.]+)")
+			local specName, specVal = line:match("^([%a ]+): %+?([%d%-%.]+)")
 			if not specName then
-				specName, specVal = line:match("^(%a+): (.+)")
+				specName, specVal = line:match("^([%a ]+): (.+)")
 			end
 			if specName then
 				if specName == "Radius" and item.type == "Jewel" then
@@ -113,6 +114,8 @@ function itemLib.parseItemRaw(item)
 							break
 						end
 					end
+				elseif specName == "Limited to" and item.type == "Jewel" then
+					item.limit = tonumber(specVal)
 				elseif specName == "Quality" then
 					item.quality = tonumber(specVal)
 				elseif specName == "Variant" then
@@ -124,8 +127,15 @@ function itemLib.parseItemRaw(item)
 					item.league = specVal
 				elseif specName == "Implicits" then
 					item.implicitLines = tonumber(specVal)
+				elseif specName == "Unreleased" then
+					item.unreleased = (specVal == "true")
 				end
-			else
+			end
+			if line == "Prefixes:" then
+				foundExplicit = true
+				gameModeStage = "EXPLICIT"
+			end
+			if not specName or foundExplicit then
 				local varSpec = line:match("^{variant:([%d,]+)}")
 				local variantList
 				if varSpec then
@@ -134,6 +144,7 @@ function itemLib.parseItemRaw(item)
 						variantList[tonumber(varId)] = true
 					end
 				end
+				local rangeSpec = line:match("^{range:([%d.]+)}")
 				line = line:gsub("%b{}", "")
 				local rangedLine
 				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?%d+ to %-?%d+%)") then
@@ -141,7 +152,7 @@ function itemLib.parseItemRaw(item)
 				end
 				local modList, extra = modLib.parseMod(rangedLine or line)
 				if modList then
-					t_insert(item.modLines, { line = line, extra = extra, mods = modList, variantList = variantList, range = rangedLine and 0.5 })
+					t_insert(item.modLines, { line = line, extra = extra, mods = modList, variantList = variantList, range = rangedLine and (tonumber(rangeSpec) or 0.5) })
 					if mode == "GAME" then
 						if gameModeStage == "FINDIMPLICIT" then
 							gameModeStage = "IMPLICIT"
@@ -181,13 +192,126 @@ function itemLib.parseItemRaw(item)
 	itemLib.buildItemModList(item)
 end
 
--- Build list of modifiers for an item while applying local modifers and adding quality
+-- Return the name of the slot this item is equipped in
+function itemLib.getPrimarySlotForItem(item)
+	if item.base.weapon then
+		return "Weapon 1"
+	elseif item.type == "Quiver" or item.type == "Shield" then
+		return "Weapon 2"
+	elseif item.type == "Ring" then
+		return "Ring 1"
+	else
+		return item.type
+	end
+end
+
+-- Build list of modifiers for an item in a given slot number (1 or 2) while applying local modifers and adding quality
+function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
+	local modList = { }
+	-- Process slot-specific modifiers
+	for k, v in pairs(baseList) do
+		if k:match("SocketedIn:X") then
+			local slotName = itemLib.getPrimarySlotForItem(item)
+			if slotNum then
+				slotName = slotName:gsub("1", slotNum)
+			end
+			k = k:gsub("SocketedIn:X","SocketedIn:"..slotName)
+		end
+		local slot = tonumber(k:match("IfSlot:(%d)_"))
+		if slot then
+			if slot == slotNum then
+				k = k:gsub("IfSlot:%d_","")
+				modLib.listMerge(modList, k, v)
+			end
+		else
+			if slotNum then
+				k = k:gsub("weaponX_","weapon"..slotNum.."_")
+			end
+			modLib.listMerge(modList, k, v)
+		end
+	end
+	if item.base.weapon then
+		local weaponPrefix = "weapon"..slotNum.."_"
+		modList[weaponPrefix.."type"] = item.base.type
+		modList[weaponPrefix.."name"] = item.name
+		modList[weaponPrefix.."attackRate"] = m_floor(item.base.weapon.attackRateBase * (1 + (modList.attackSpeedInc or 0) / 100) * 100 + 0.5) / 100
+		modList[weaponPrefix.."attackSpeedInc"] = modList.attackSpeedInc
+		modList.attackSpeedInc = nil
+		for _, dmgType in pairs({"physical","lightning","cold","fire","chaos"}) do
+			local min = (item.base.weapon[dmgType.."Min"] or 0) + (modList["attack_"..dmgType.."Min"] or 0)
+			local max = (item.base.weapon[dmgType.."Max"] or 0) + (modList["attack_"..dmgType.."Max"] or 0)
+			if dmgType == "physical" then
+				if modList.weaponLocal_noPhysical then
+					min, max = 0, 0
+				else
+					min = m_floor(min * (1 + ((modList["physicalInc"] or 0) + item.quality) / 100) + 0.5)
+					max = m_floor(max * (1 + ((modList["physicalInc"] or 0) + item.quality) / 100) + 0.5)
+				end
+				modList["physicalInc"] = nil
+			end
+			if min > 0 and max > 0 then
+				modList[weaponPrefix..dmgType.."Min"] = min
+				modList[weaponPrefix..dmgType.."Max"] = max
+				local dps = (min + max) / 2 * modList[weaponPrefix.."attackRate"]
+				modList[weaponPrefix..dmgType.."DPS"] = dps
+				modList[weaponPrefix.."damageDPS"] = (modList[weaponPrefix.."damageDPS"] or 0) + dps
+				if dmgType ~= "physical" and dmgType ~= "chaos" then
+					modList[weaponPrefix.."elementalDPS"] = (modList[weaponPrefix.."elementalDPS"] or 0) + dps
+				end
+			end
+			modList["attack_"..dmgType.."Min"] = nil
+			modList["attack_"..dmgType.."Max"] = nil
+		end
+		if modList.weaponLocal_alwaysCrit then
+			modList[weaponPrefix.."critChanceBase"] = 100
+		else
+			modList[weaponPrefix.."critChanceBase"] = m_floor(item.base.weapon.critChanceBase * (1 + (modList.critChanceInc or 0) / 100) * 100 + 0.5) / 100
+		end
+		modList.critChanceInc = nil
+	elseif item.base.armour then
+		if item.base.type == "Shield" then
+			modList.weapon2_type = "Shield"
+		end
+		local basePrefix = "slot:"..item.base.type.."_"
+		if item.base.armour.armourBase then
+			modList[basePrefix.."armourBase"] = m_floor((item.base.armour.armourBase + (modList.armourBase or 0)) * (1 + ((modList.armourInc or 0) + (modList.armourAndEvasionInc or 0) + (modList.armourAndEnergyShieldInc or 0) + (modList.defencesInc or 0) + item.quality) / 100) + 0.5)
+		end
+		if item.base.armour.evasionBase then
+			modList[basePrefix.."evasionBase"] = m_floor((item.base.armour.evasionBase + (modList.evasionBase or 0)) * (1 + ((modList.evasionInc or 0) + (modList.armourAndEvasionInc or 0) + (modList.evasionAndEnergyShieldInc or 0) + (modList.defencesInc or 0) + item.quality) / 100) + 0.5)
+		end
+		if item.base.armour.energyShieldBase then
+			modList[basePrefix.."energyShieldBase"] = m_floor((item.base.armour.energyShieldBase + (modList.energyShieldBase or 0)) * (1 + ((modList.energyShieldInc or 0) + (modList.armourAndEnergyShieldInc or 0) + (modList.evasionAndEnergyShieldInc or 0) + (modList.defencesInc or 0) + item.quality) / 100) + 0.5)
+		end
+		if item.base.armour.blockChance then
+			if modList.shieldLocal_noBlock then
+				modList.blockChance = 0
+			else
+				modList.blockChance = item.base.armour.blockChance + (modList.blockChance or 0)
+			end
+		end
+		modList.armourBase = nil
+		modList.armourInc = nil
+		modList.evasionBase = nil
+		modList.evasionInc = nil
+		modList.energyShieldBase = nil
+		modList.energyShieldInc = nil
+		modList.armourAndEvasionInc = nil
+		modList.armourAndEnergyShieldInc = nil
+		modList.evasionAndEnergyShieldInc = nil
+		modList.defencesInc = nil
+	elseif item.type == "Jewel" then
+		item.jewelFunc = modList.jewelFunc
+		modList.jewelFunc = nil
+	end	
+	return modList
+end
+
+-- Build lists of modifiers for each slot an item can occupy
 function itemLib.buildItemModList(item)
 	if not item.base then
 		return
 	end
-	local modList = { }
-	item.modList = modList
+	local baseList = { }
 	item.rangeLineList = { }
 	for _, modLine in ipairs(item.modLines) do
 		if not modLine.extra and (not modLine.variantList or modLine.variantList[item.variant]) then
@@ -200,71 +324,18 @@ function itemLib.buildItemModList(item)
 				end
 			end
 			for k, v in pairs(modLine.mods) do
-				modLib.listMerge(modList, k, v)
+				modLib.listMerge(baseList, k, v)
 			end
 		end
 	end
-	if item.base.weapon then
-		modList.weaponX_type = item.base.type
-		modList.weaponX_name = item.name
-		for _, dmgType in pairs({"physical","lightning","cold","fire","chaos"}) do
-			local min = (item.base.weapon[dmgType.."Min"] or 0) + (modList["attack_"..dmgType.."Min"] or 0)
-			local max = (item.base.weapon[dmgType.."Max"] or 0) + (modList["attack_"..dmgType.."Max"] or 0)
-			if dmgType == "physical" then
-				if modList.weaponNoPhysical then
-					min, max = 0, 0
-				else
-					min = m_floor(min * (1 + ((modList["physicalInc"] or 0) + item.quality) / 100) + 0.5)
-					max = m_floor(max * (1 + ((modList["physicalInc"] or 0) + item.quality) / 100) + 0.5)
-				end
-				modList["physicalInc"] = nil
-			end
-			if min > 0 and max > 0 then
-				modList["weaponX_"..dmgType.."Min"] = min
-				modList["weaponX_"..dmgType.."Max"] = max
-			end
-			modList["attack_"..dmgType.."Min"] = nil
-			modList["attack_"..dmgType.."Max"] = nil
+	item.baseModList = baseList
+	if item.base.weapon or item.type == "Ring" then
+		item.slotModList = { }
+		for i = 1, 2 do
+			item.slotModList[i] = itemLib.buildItemModListForSlotNum(item, baseList, i)
 		end
-		modList.weaponX_attackRate = m_floor(item.base.weapon.attackRateBase * (1 + (modList.attackSpeedInc or 0) / 100) * 100 + 0.5) / 100
-		modList.weaponX_attackSpeedInc = modList.attackSpeedInc
-		modList.attackSpeedInc = nil
-		if modList.weaponAlwaysCrit then
-			modList.weaponX_critChanceBase = 100
-		else
-			modList.weaponX_critChanceBase = m_floor(item.base.weapon.critChanceBase * (1 + (modList.critChanceInc or 0) / 100) * 100 + 0.5) / 100
-		end
-		modList.critChanceInc = nil
-	elseif item.base.armour then
-		if item.base.type == "Shield" then
-			modList.weaponX_type = "Shield"
-		end
-		if item.base.armour.armourBase then
-			modList.armourBase = m_floor((item.base.armour.armourBase + (modList.armourBase or 0)) * (1 + ((modList.armourInc or 0) + (modList.armourAndEvasionInc or 0) + (modList.armourAndEnergyShieldInc or 0) + (modList.defencesInc or 0) + item.quality) / 100) + 0.5)
-		end
-		if item.base.armour.evasionBase then
-			modList.evasionBase = m_floor((item.base.armour.evasionBase + (modList.evasionBase or 0)) * (1 + ((modList.evasionInc or 0) + (modList.armourAndEvasionInc or 0) + (modList.evasionAndEnergyShieldInc or 0) + (modList.defencesInc or 0) + item.quality) / 100) + 0.5)
-		end
-		if item.base.armour.energyShieldBase then
-			modList.energyShieldBase = m_floor((item.base.armour.energyShieldBase + (modList.energyShieldBase or 0)) * (1 + ((modList.energyShieldInc or 0) + (modList.armourAndEnergyShieldInc or 0) + (modList.evasionAndEnergyShieldInc or 0) + (modList.defencesInc or 0) + item.quality) / 100) + 0.5)
-		end
-		if item.base.armour.blockChance then
-			if modList.shieldNoBlock then
-				modList.blockChance = 0
-			else
-				modList.blockChance = item.base.armour.blockChance + (modList.blockChance or 0)
-			end
-		end
-		modList.armourInc = nil
-		modList.evasionInc = nil
-		modList.energyShieldInc = nil
-		modList.armourAndEvasionInc = nil
-		modList.armourAndEnergyShieldInc = nil
-		modList.evasionAndEnergyShieldInc = nil
-		modList.defencesInc = nil
-	elseif item.type == "Jewel" then
-		item.jewelFunc = modList.jewelFunc
-		modList.jewelFunc = nil
+	else
+		item.modList = itemLib.buildItemModListForSlotNum(item, baseList)
 	end
 end
 

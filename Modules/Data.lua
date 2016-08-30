@@ -1,7 +1,7 @@
 -- Path of Building
 --
 -- Module: Data
--- Contains static data used by other modules
+-- Contains static data used by other modules.
 --
 
 data = { }
@@ -39,6 +39,9 @@ data.colorCodes = {
 	TEMPLAR = "^xC040FF",
 	SHADOW = "^x30C0D0",
 }
+data.colorCodes.STRENGTH = data.colorCodes.MARAUDER
+data.colorCodes.DEXTERITY = data.colorCodes.RANGER
+data.colorCodes.INTELLIGENCE = data.colorCodes.WITCH
 
 data.jewelRadius = {
 	{ rad = 800, col = "^xBB6600", label = "Small" },
@@ -80,7 +83,7 @@ data.weaponTypeInfo = {
 	["Two Handed Sword"] = { oneHand = false, melee = true, space = "sword" },
 }
 
-data.unarmedWeap = {
+data.unarmedWeapon = {
 	[0] = { attackRate = 1.2, critChanceBase = 0, physicalMin = 2, physicalMax = 6 }, -- Scion
 	[1] = { attackRate = 1.2, critChanceBase = 0, physicalMin = 2, physicalMax = 8 }, -- Marauder
 	[2] = { attackRate = 1.2, critChanceBase = 0, physicalMin = 2, physicalMax = 5 }, -- Ranger
@@ -92,6 +95,7 @@ data.unarmedWeap = {
 
 data.itemBases = { }
 data.uniques = { }
+data.rares = LoadModule("Data/Rares")
 local itemTypes = {
 	"axe",
 	"bow",
@@ -116,3 +120,5 @@ for _, type in pairs(itemTypes) do
 	LoadModule("Data/Bases/"..type, data.itemBases)
 	data.uniques[type] = LoadModule("Data/Uniques/"..type)
 end
+
+LoadModule("Data/New")

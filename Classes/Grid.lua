@@ -49,20 +49,26 @@ elemTypes.input.cellCol = { 0.1, 0.1, 0.4 }
 function elemTypes.input:Init()
 	local grid = self.grid
 	if self.format == "choice" then
-		self.dropDown = common.New("DropDownControl", 0, 0, 0, 0, self.list, function(index, val)
+		self.dropDown = common.New("DropDownControl", nil, 0, 0, 0, 0, self.list, function(index, val)
+			if type(val) == "table" then
+				val = val.val
+			end
 			if val ~= grid.input[self.name] then
 				grid.input[self.name] = val
 				grid.changeFlag = true
 			end
 		end)
 		self.dropDown.sel = 1
+		if not grid.input[self.name] then
+			self.dropDown.selFunc(1, self.list[1])
+		end
 	end
 end
 function elemTypes.input:Draw()
 	local grid = self.grid
 	if self.format == "check" then
 		local x, align = alignCellText(self)
-		DrawString(x, grid.offY + self.y + 2, align, cfg.gridHeight - 4, "FIXED", grid.input[self.name] and "^x33FF33Yes" or "^xFF3333No")
+		DrawString(x, grid.offY + self.y + 2, align, cfg.gridHeight - 4, "VAR", grid.input[self.name] and "^x33FF33Yes" or "^xFF3333No")
 	elseif grid.focus == self then
 		if self.edit then
 			self.edit:Draw()
@@ -71,7 +77,12 @@ function elemTypes.input:Draw()
 		end
 	elseif grid.input[self.name] then
 		local x, align = alignCellText(self)
-		DrawString(x, grid.offY + self.y + 2, align, cfg.gridHeight - 4, "VAR", "^7"..formatCellText(self.formatFunc, grid.input[self.name]))
+		local val = grid.input[self.name]
+		if self.format == "choice" and type(self.dropDown.list[self.dropDown.sel]) == "table" then
+			self.dropDown:SelByValue(val)
+			val = self.dropDown.list[self.dropDown.sel].label
+		end
+		DrawString(x, grid.offY + self.y + 2, align, cfg.gridHeight - 4, "VAR", "^7"..formatCellText(self.formatFunc, val))
 	end
 end
 function elemTypes.input:OnKeyDown(key, doubleClick)
@@ -91,7 +102,9 @@ function elemTypes.input:OnKeyDown(key, doubleClick)
 			grid:SetFocus()
 			grid:MoveSel(key == "TAB" and "RIGHT" or "DOWN", true)
 		elseif self.edit then
-			self.edit:OnKeyDown(key)
+			if not self.edit:OnKeyDown(key) then
+				grid:SetFocus()
+			end
 		elseif self.dropDown then
 			if not self.dropDown:OnKeyDown(key) then
 				grid:SetFocus()
@@ -189,11 +202,12 @@ function elemTypes.input:OnFocusGained()
 		self.dropDown:OnKeyDown("LEFTBUTTON")
 	else
 		local fmtFilter = { number = "[-%d%.e,*]", string = "." }
-		self.edit = common.newEditField(nil, nil, fmtFilter[self.format])
-		self.edit.x = grid.offX + self.x + 2
-		self.edit.y = grid.offY + self.y + 2
+		self.edit = common.New("EditControl", nil, 0, 0, 0, 0, "", nil, fmtFilter[self.format])
+		self.edit.x = grid.offX + self.x
+		self.edit.y = grid.offY + self.y
 		self.edit.width = grid:GetElemWidth(self)
-		self.edit.height = cfg.gridHeight - 4
+		self.edit.height = cfg.gridHeight
+		self.edit.hasFocus = true
 	end
 end
 function elemTypes.input:OnFocusLost()
@@ -281,7 +295,19 @@ function GridClass:Draw()
 	end
 end
 
-function GridClass:OnKeyDown(key, doubleClick)
+function GridClass:ProcessInput(inputEvents, viewPort)
+	for id, event in pairs(inputEvents) do
+		if event.type == "KeyDown" then
+			self:OnKeyDown(event.key, event.doubleClick, viewPort)
+		elseif event.type == "KeyUp" then
+			self:OnKeyUp(event.key)
+		elseif event.type == "Char" then
+			self:OnChar(event.key)
+		end
+	end
+end
+
+function GridClass:OnKeyDown(key, doubleClick, viewPort)
 	if self.focus then
 		if self.focus.OnKeyDown then
 			self.focus:OnKeyDown(key, doubleClick)
@@ -291,7 +317,7 @@ function GridClass:OnKeyDown(key, doubleClick)
 		local cursorX, cursorY = GetCursorPos()
 		local relX = cursorX - self.offX
 		local relY = cursorY - self.offY
-		if relX >= 0 and relY >= 0 and relX < self.realWidth and relY < self.realHeight then
+		if cursorX >= viewPort.x and cursorY >= viewPort.y and cursorX < viewPort.x + viewPort.width and cursorY < viewPort.y + viewPort.height and relX < self.realWidth and relY < self.realHeight then
 			local gy = math.floor(relY / cfg.gridHeight) + 1
 			local x = 0
 			for gx = 1, self.width do

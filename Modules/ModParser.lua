@@ -15,6 +15,7 @@ local formList = {
 	["^([%+%-][%d%.]+)%%?"] = "BASE",
 	["^([%+%-][%d%.]+)%%? to"] = "BASE",
 	["^([%+%-][%d%.]+)%%? base"] = "BASE",
+	["^([%+%-]?[%d%.]+)%% additional"] = "BASE",
 	["^you gain ([%d%.]+)"] = "BASE",
 	["^([%+%-]?%d+)%% chance"] = "CHANCE",
 	["^([%+%-]?%d+)%% additional chance"] = "CHANCE",
@@ -25,8 +26,11 @@ local formList = {
 	["^([%d%.]+)%% of (.+) regenerated per second"] = "REGENPERCENT",
 	["^([%d%.]+) (.+) regenerated per second"] = "REGENFLAT",
 	["adds (%d+)%-(%d+) (%a+) damage"] = "DMGATTACKS",
+	["adds (%d+) to (%d+) (%a+) damage"] = "DMGATTACKS",
 	["adds (%d+)%-(%d+) (%a+) damage to attacks"] = "DMGATTACKS",
+	["adds (%d+) to (%d+) (%a+) damage to attacks"] = "DMGATTACKS",
 	["adds (%d+)%-(%d+) (%a+) damage to spells"] = "DMGSPELLS",
+	["adds (%d+) to (%d+) (%a+) damage to spells"] = "DMGSPELLS",
 }
 
 -- Map of modifier names
@@ -83,9 +87,11 @@ local modNameList = {
 	["to dodge spells"] = "dodgeSpells",
 	["to dodge spell damage"] = "dodgeSpells",
 	["to block"] = "blockChance",
+	["block chance"] = "blockChance",
 	["to block spells"] = "spellBlockChance",
 	["chance to block attacks and spells"] = { "blockChance{suf}", "spellBlockChance{suf}" },
 	["maximum block chance"] = "blockChanceMax",
+	["to avoid being stunned"] = "avoidStun",
 	["to avoid being shocked"] = "avoidShock",
 	["to avoid being frozen"] = "avoidFrozen",
 	["to avoid being chilled"] = "avoidChilled",
@@ -103,6 +109,7 @@ local modNameList = {
 	["effect of your curses"] = "curseEffect{suf}",
 	["curse effect"] = "curseEffect{suf}",
 	["curse duration"] = "curse_duration{suf}",
+	["radius of auras"] = "aura_aoeRadius{suf}",
 	["radius of curses"] = "curse_aoeRadius{suf}",
 	-- Charges
 	["maximum power charge"] = "powerMax",
@@ -130,7 +137,7 @@ local modNameList = {
 	-- Projectile modifiers
 	["pierce chance"] = "pierceChance",
 	["of projectiles piercing"] = "pierceChance",
-	["of arrows piercing"] = "pierceChance",
+	["of arrows piercing"] = "bow_pierceChance",
 	["projectile speed"] = "projectileSpeed{suf}",
 	["arrow speed"] = "bow_projectileSpeed{suf}",
 	-- Totem/trap/mine modifiers
@@ -266,6 +273,7 @@ local preSpaceList = {
 	["^melee attacks have "] = "melee_",
 	["^left ring slot: "] = "IfSlot:1_",
 	["^right ring slot: "] = "IfSlot:2_",
+	["^socketed gems have "] = "SocketedIn:X_",
 }
 
 -- List of special namespaces
@@ -299,6 +307,7 @@ local specialSpaceList = {
 	["while not on low life"] = "CondMod_notLowLife_",
 	["when on full life"] = "CondMod_FullLife_",
 	["when not on full life"] = "CondMod_notFullLife_",
+	["while no mana is reserved"] = "CondMod_NoManaReserved_",
 	["while you have fortify"] = "CondMod_Fortify_",
 	["during onslaught"] = "CondMod_Onslaught_",
 	["while you have onslaught"] = "CondMod_Onslaught_",
@@ -339,68 +348,100 @@ local specialModList = {
 	["30%% chance to dodge attacks%. 50%% less armour and energy shield, 30%% less chance to block spells and attacks"] = { dodgeAttacks = 30, armourMore = 0.5, energyShieldMore = 0.5, blockChanceMore = 0.7, spellBlockChanceMore = 0.7 },
 	["maximum life becomes 1, immune to chaos damage"] = { chaosInoculation = true },
 	["life regeneration is applied to energy shield instead"] = { zealotsOath = true },
-	["life leech applies instantly%. life regeneration has no effect%."] = { vaalPact = true },
-	["deal no non%-fire damage"] = { physicalFinalMore = 0, lightningFinalMore = 0, coldFinalMore = 0, chaosFinalMore = 0 },
+	["life leech applies instantly%. life regeneration has no effect%."] = { vaalPact = true, noLifeRegen = true },
+	["deal no non%-fire damage"] = { dealNophysical = true, dealNolightning = true, dealNocold = true, dealNochaos = true },
+	["removes all mana%. spend life instead of mana for skills"] = { manaMore = 0, bloodMagic = true },
 	-- Ascendancy notables
 	["movement skills cost no mana"] = { movementSkills_manaCostMore = 0 },
 	["projectiles have 100%% additional chance to pierce targets at the start of their movement, losing this chance as the projectile travels farther"] = { pierceChance = 100 },
 	["projectile critical strike chance increased by arrow pierce chance"] = { projectile_critChanceInc = 100 },
 	["always poison on hit while using a flask"] = { CondMod_UsingFlask_poisonChance = 100 },
-	["armour received from body armour is doubled"] = { ["slot:Body Armour_armourMore"] = 2 },
+	["armour received from body armour is doubled"] = { unbreakable = true },
 	["gain (%d+)%% of maximum mana as extra maximum energy shield"] = function(num) return { manaGainAsEnergyShield = num } end,
 	["you have fortify"] = { Cond_Fortify = true },
-	["nearby enemies have %-20%% to chaos resistance"] = { effective_chaosResist = -20 },
-	["40%% increased damage of each damage type for which you have a matching golem"] = { Cond_LiegeOfThePrimordial = true },
-	["enemies you curse take 10%% increased damage"] = { CondMod_EnemyCursed_effective_damageTakenInc = 10 },
+	["nearby enemies have (%-%d+)%% to chaos resistance"] = function(num) return { effective_chaosResist = num } end,
+	["(%d+)%% increased damage of each damage type for which you have a matching golem"] = function(num) return { CondMod_HavePhysicalGolem_physicalInc = num, CondMod_HaveLightningGolem_lightningInc = num, CondMod_HaveColdGolem_coldInc = num, CondMod_HaveFireGolem_fireInc = num, CondMod_HaveChaosGolem_chaosInc = num } end,
+	["100%% increased effect of buffs granted by your elemental golems"] = { Cond_LiegeOfThePrimordial = true },
+	["enemies you curse take (%d+)%% increased damage"] = function(num) return { CondMod_EnemyCursed_effective_damageTakenInc = num } end,
 	-- Special node types
 	["(%d+)%% of block chance applied to spells"] = function(num) return { blockChanceConv = num } end,
-	["(%d+)%% additional block chance"] = function(num) return { blockChance = num } end,
 	["(%d+)%% additional block chance with staves"] = function(num) return { CondMod_UsingStaff_blockChance = num } end,
-	["(%d+)%% additional block chance with shields"] = function(num) return { CondMod_UsingShield_blockChance = num } end,
-	["(%d+)%% additional block chance while dual wielding"] = function(num) return { CondMod_DualWielding_blockChance = num } end,
 	["(%d+)%% additional block chance while dual wielding or holding a shield"] = function(num) return { CondMod_DualWielding_blockChance = num, CondMod_UsingShield_blockChance = num } end,
+	["can have up to (%d+) additional trap placed at a time"] = function(num) return { activeTrapLimit = num } end,
+	["can have up to (%d+) additional remote mine placed at a time"] = function(num) return { activeMineLimit = num } end,
 	-- Other modifiers
+	["cannot be stunned"] = { avoidStun = 100 },
 	["cannot be shocked"] = { avoidShock = 100 },
 	["cannot be frozen"] = { avoidFreeze = 100 },
 	["cannot be chilled"] = { avoidChill = 100 },
 	["cannot be ignited"] = { avoidIgnite = 100 },
-	["cannot be stunned"] = { stunImmunity = true },
 	["cannot evade enemy attacks"] = { cannotEvade = true },
-	["deal no physical damage"] = { physicalFinalMore = 0 },
+	["deal no physical damage"] = { dealNophysical = true },
 	["your critical strikes do not deal extra damage"] = { noCritMult = true },
 	["iron will"] = { ironWill = true },
-	["zealot's oath"] = { zealotsOath = true },
-	["pain attunement"] = { CondMod_LowLife_spell_damageMore = 1.3 },
+	["adds an additional arrow"] = { attack_projectileCount = 1 },
+	["(%d+) additional arrows"] = function(num) return { attack_projectileCount = num } end,
+	["skills fire an additional projectile"] = { projectileCount = 1 },
+	["spells have an additional projectile"] = { spell_projectileCount = 1 },
+	["skills chain %+(%d) times"] = function(num) return { chainCount = num } end,
+	["reflects (%d+) physical damage to melee attackers"] = { },
 	-- Special item local modifiers
-	["no physical damage"] = { weaponNoPhysical = true },
-	["all attacks with this weapon are critical strikes"] = { weaponAlwaysCrit = true },
+	["no physical damage"] = { weaponLocal_noPhysical = true },
+	["all attacks with this weapon are critical strikes"] = { weaponLocal_alwaysCrit = true },
 	["hits can't be evaded"] = { weaponX_cannotBeEvaded = true },
-	["no block chance"] = { shieldNoBlock = true },
+	["no block chance"] = { shieldLocal_noBlock = true },
 	["causes bleeding on hit"] = { bleedChance = 100 },
 	["poisonous hit"] = { poisonChance = 100 },
-	["your chaos damage poisons enemies"] = { poisonChance = 100 },
 	["has no sockets"] = { },
 	["has 1 socket"] = { },
-	["socketed gems have (.+)"] = { },
-	["socketed gems are supported by (.+)"] = { },
-	["+(%d) to level of socketed gems"] = { },
-	["+(%d) to level of socketed (%a+) gems"] = { },
 	["grants level (%d+) (.+) skill"] = { },
+	["%+(%d+) to level of socketed gems"] = function(num) return { ["SocketedIn:X_gemLevel_all"] = num } end,
+	["%+(%d+) to level of socketed (%a+) gems"] = function(num, _, type) return { ["SocketedIn:X_gemLevel_"..type] = num } end,
+	["%+(%d+)%% to quality of socketed (%a+) gems"] = function(num, _, type) return { ["SocketedIn:X_gemQuality_"..type] = num } end,
+	["%+(%d+) to level of active socketed skill gems"] = function(num) return { ["SocketedIn:X_gemLevel_active"] = num } end,
+	["socketed gems fire an additional projectile"] = { ["SocketedIn:X_projectileCount"] = 1 },
+	["socketed gems fire (%d+) additional projectiles"] = function(num) return { ["SocketedIn:X_projectileCount"] = num } end,
+	["socketed gems reserve no mana"] = { ["SocketedIn:X_manaReservedMore"] = 0 },
+	["socketed gems have blood magic"]  = { ["SocketedIn:X_bloodMagic"] = true },
 	-- Unique item modifiers
-	["projectile damage increased by arrow pierce chance"] = { drillneck = true },
 	["your cold damage can ignite"] = { coldCanIgnite = true },
 	["your fire damage can shock but not ignite"] = { fireCanShock = true, fireCannotIgnite = true },
 	["your cold damage can ignite but not freeze or chill"] = { coldCanIgnite = true, coldCannotFreeze = true, coldCannotChill = true },
 	["your lightning damage can freeze but not shock"] = { lightningCanFreeze = true, lightningCannotShock = true },
 	["your chaos damage can shock"] = { chaosCanShock = true },
 	["your physical damage can chill"] = { physicalCanChill = true },
+	["your chaos damage poisons enemies"] = { poisonChance = 100 },
+	["melee attacks cause bleeding"] = { melee_bleedChance = 100 },
+	["melee attacks poison on hit"] = { melee_poisonChance = 100 },	
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { trap_physicalMin = tonumber(min), trap_physicalMax = tonumber(max), mine_physicalMin = tonumber(min), mine_physicalMax = tonumber(max) } end,
+	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { trap_physicalMin = tonumber(min), trap_physicalMax = tonumber(max), mine_physicalMin = tonumber(min), mine_physicalMax = tonumber(max) } end,
 	["traps and mines have a (%d+)%% chance to poison on hit"] = function(num) return { trap_poisonChance = num, mine_poisonChance = num } end,
 	["poison cursed enemies on hit"] = { CondMod_EnemyCursed_poisonChance = 100 },
+	["projectile damage increased by arrow pierce chance"] = { drillneck = true },
 	["gain (%d+) armour per grand spectrum"] = function(num) return { PerGrandSpectrum_armourBase = num, gear_GrandSpectrumCount = 1 } end,
 	["gain (%d+) mana per grand spectrum"] = function(num) return { PerGrandSpectrum_manaBase = num, gear_GrandSpectrumCount = 1 } end,
 	["(%d+)%% increased elemental damage per grand spectrum"] = function(num) return { PerGrandSpectrum_elementalInc = num, gear_GrandSpectrumCount = 1 } end,
+	["counts as dual wielding"] = { Cond_DualWielding = true },
+	["counts as all one handed melee weapon types"] = { weaponX_varunastra = true },
+	["gain (%d+)%% of bow physical damage as extra damage of each element"] = function(num) return { bow_physicalGainAslightning = num, bow_physicalGainAscold = num, bow_physicalGainAsfire = num } end,
+	["totems fire (%d+) additional projectiles"] = function(num) return { totem_projectileCount = num } end,
+	["you have no life regeneration"] = { noLifeRegen = true },
+	["cannot block attacks"] = { cannotBlockAttacks = true },
 }
+local keystoneList = {
+	-- List of keystones that can be found on uniques
+	"Zealot's Oath",
+	"Pain Attunement",
+	"Blood Magic",
+	"Unwavering Stance",
+	"Ghost Reaver",
+	"Conduit",
+	"Mind Over Matter",
+	"Acrobatics",
+}
+for _, name in pairs(keystoneList) do
+	specialModList[name:lower()] = { ["gear_keystone:"..name] = true }
+end
 
 -- Special lookups used for various modifier forms
 local convTypes = {
@@ -440,33 +481,33 @@ for skillName, data in pairs(data.gems) do
 end
 
 local function getSimpleConv(src, dst, factor)
-	return function(mods, allMods, data)
-		if mods and mods[src] then 
-			modLib.listMerge(allMods, dst, mods[src] * factor)
-			mods[src] = nil
+	return function(nodeMods, out, data)
+		if nodeMods and nodeMods[src] then 
+			modLib.listMerge(out, dst, nodeMods[src] * factor)
+			modLib.listUnmerge(out, src, nodeMods[src])
 		end
 	end
 end
 local function getMatchConv(others, dst)
-	return function(mods, allMods, data)
-		if mods then
-			for k, v in pairs(mods) do
+	return function(nodeMods, out, data)
+		if nodeMods then
+			for k, v in pairs(nodeMods) do
 				for _, other in pairs(others) do
 					if k:match(other) then
-						modLib.listMerge(allMods, k:gsub(other, dst), v)
-						mods[k] = nil
+						modLib.listMerge(out, k:gsub(other, dst), v)
+						modLib.listUnmerge(out, k, v)
 					end
 				end
-			end			
+			end
 		end
 	end
 end
 local function getPerStat(dst, stat, factor)
-	return function(mods, allMods, data)
-		if mods then
-			data[stat] = (data[stat] or 0) + (mods[stat] or 0)
+	return function(nodeMods, out, data)
+		if nodeMods then
+			data[stat] = (data[stat] or 0) + (nodeMods[stat] or 0)
 		else
-			modLib.listMerge(allMods, dst, math.floor(data[stat] * factor + 0.5))
+			modLib.listMerge(out, dst, math.floor(data[stat] * factor + 0.5))
 		end
 	end
 end
@@ -492,12 +533,12 @@ local jewelFuncs = {
 	["3% increased Totem Life per 10 Strength in Radius"] = getPerStat("totemLifeInc", "strBase", 3 / 10),
 	["Adds 1 maximum Lightning Damage to Attacks per 1 Dexterity Allocated in Radius"] = getPerStat("attack_lightningMax", "dexBase", 1),
 	["5% increased Chaos damage per 10 Intelligence from Allocated Passives in Radius"] = getPerStat("chaosInc", "intBase", 5 / 10),
-	["Dexterity and Intelligence from passives in Radius count towards Strength Melee Damage bonus"] = function(mods, allMods, data)
-		if mods then
-			data.dexBase = (data.dexBase or 0) + (mods.dexBase or 0)
-			data.intBase = (data.intBase or 0) + (mods.intBase or 0)
+	["Dexterity and Intelligence from passives in Radius count towards Strength Melee Damage bonus"] = function(nodeMods, out, data)
+		if nodeMods then
+			data.dexBase = (data.dexBase or 0) + (nodeMods.dexBase or 0)
+			data.intBase = (data.intBase or 0) + (nodeMods.intBase or 0)
 		else
-			modLib.listMerge(allMods, "dexIntToMeleeBonus", data.dexBase + data.intBase)
+			modLib.listMerge(out, "dexIntToMeleeBonus", data.dexBase + data.intBase)
 		end
 	end,
 }

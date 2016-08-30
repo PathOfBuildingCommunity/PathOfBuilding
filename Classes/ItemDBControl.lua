@@ -1,7 +1,7 @@
 -- Path of Building
 --
 -- Class: Item DB
--- Item DB control
+-- Item DB control.
 --
 local launch, main = ...
 
@@ -9,19 +9,21 @@ local t_insert = table.insert
 local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
+local m_floor = math.floor
 
-local ItemDBClass = common.NewClass("ItemDB", function(self, x, y, width, height, itemsMain, db)
-	self.x = x
-	self.y = y
-	self.width = width
-	self.height = height
-	self.itemsMain = itemsMain
+local ItemDBClass = common.NewClass("ItemDB", "Control", "ControlHost", function(self, anchor, x, y, width, height, itemsTab, db)
+	self.Control(anchor, x, y, width, height)
+	self.ControlHost()
+	self.itemsTab = itemsTab
 	self.db = db
 	self.sortControl = { 
 		NAME = { key = "name", order = 1, dir = "ASCEND", func = function(a,b) return a:gsub("^The ","") < b:gsub("^The ","") end }
 	}
-	self.scrollBar = common.New("ScrollBarControl", 0, 0, 16, height - 2, 32)
-	self.controls = { }
+	self.controls.scrollBar = common.New("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -1, 0, 16, 0, 32)
+	self.controls.scrollBar.height = function()
+		local width, height = self:GetSize()
+		return height - 2
+	end
 	local leagueFlag = { }
 	local typeFlag = { }
 	for _, item in pairs(db.list) do
@@ -46,31 +48,29 @@ local ItemDBClass = common.NewClass("ItemDB", function(self, x, y, width, height
 	table.sort(self.typeList)
 	t_insert(self.typeList, 1, "Any type")
 	self.slotList = { "Any slot", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Ring", "Belt", "Jewel" }
-	self.controls.slot = common.New("DropDownControl", function()local x,y=self:GetPos()return x end, function()local x,y=self:GetPos()return y-40 end, 95, 18, self.slotList, function()
+	self.controls.slot = common.New("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -22, 95, 18, self.slotList, function()
 		self:BuildOrderList()
 	end)
-	self.controls.type = common.New("DropDownControl", function()local x,y=self:GetPos()return x+97 end, function()local x,y=self:GetPos()return y-40 end, 135, 18, self.typeList, function()
+	self.controls.type = common.New("DropDownControl", {"LEFT",self.controls.slot,"RIGHT"}, 2, 0, 135, 18, self.typeList, function()
 		self:BuildOrderList()
 	end)
-	self.controls.league = common.New("DropDownControl", function()local x,y=self:GetPos()return x+97+137 end, function()local x,y=self:GetPos()return y-40 end, 126, 18, self.leagueList, function()
+	self.controls.league = common.New("DropDownControl", {"LEFT",self.controls.type,"RIGHT"}, 2, 0, 126, 18, self.leagueList, function()
 		self:BuildOrderList()
 	end)
-	self.controls.search = common.New("EditControl", function()local x,y=self:GetPos()return x end, function()local x,y=self:GetPos()return y-20 end, 258, 18, "", "Search", "[ %w+]")
-	self.controls.searchMode = common.New("DropDownControl", function()local x,y=self:GetPos()return x+width-100 end, function()local x,y=self:GetPos()return y-20 end, 100, 18, { "Anywhere", "Names", "Modifiers" }, function()
+	self.controls.league.shown = function()
+		return #self.leagueList > 2
+	end
+	self.controls.search = common.New("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -2, 258, 18, "", "Search", "[%C]")
+	self.controls.searchMode = common.New("DropDownControl", {"LEFT",self.controls.search,"RIGHT"}, 2, 0, 100, 18, { "Anywhere", "Names", "Modifiers" }, function()
 		self:BuildOrderList()
 	end)
 	self:BuildSortOrder()
 	self:BuildOrderList()
 end)
 
-function ItemDBClass:GetPos()
-	return type(self.x) == "function" and self:x() or self.x,
-		   type(self.y) == "function" and self:y() or self.y
-end
-
 function ItemDBClass:DoesItemMatchFilters(item)
 	if self.controls.slot.sel > 1 then
-		if self.itemsMain:GetPrimarySlotForItem(item) ~= self.slotList[self.controls.slot.sel] then
+		if itemLib.getPrimarySlotForItem(item) ~= self.slotList[self.controls.slot.sel] then
 			return false
 		end
 	end
@@ -84,7 +84,7 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			return false
 		end
 	end
-	local searchStr = self.controls.search.edit.buf:lower()
+	local searchStr = self.controls.search.buf:lower()
 	if searchStr:match("%S") then
 		local found = false
 		local mode = self.controls.searchMode.sel
@@ -98,6 +98,15 @@ function ItemDBClass:DoesItemMatchFilters(item)
 				if line.line:lower():match(searchStr) then
 					found = true
 					break
+				end
+			end
+			if not found then
+				searchStr = searchStr:gsub(" ","")
+				for modName in pairs(item.baseModList) do
+					if modName:lower():gsub("_",""):match(searchStr) then
+						found = true
+						break
+					end
 				end
 			end
 		end
@@ -149,67 +158,68 @@ function ItemDBClass:BuildOrderList()
 end
 
 function ItemDBClass:IsMouseOver()
-	for _, control in pairs(self.controls) do
-		if control:IsMouseOver() then
-			return true
-		end
+	if not self:IsShown() then
+		return
+	end
+	if self:GetMouseOverControl() then
+		return true
 	end
 	local x, y = self:GetPos()
+	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
-	return cursorX >= x and cursorY >= y and cursorX < x + self.width and cursorY < y + self.height
+	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 end
 
 function ItemDBClass:Draw(viewPort)
-	for _, control in pairs(self.controls) do
-		control:Draw(viewPort)
-	end
-	local list = self.db.list
-	self:BuildOrderList()
-	local orderList = self.orderList
 	local x, y = self:GetPos()
-	if self.itemsMain.selControl == self then
+	local width, height = self:GetSize()
+	local list = self.db.list
+	local orderList = self.orderList
+	local scrollBar = self.controls.scrollBar
+	scrollBar:SetContentDimension(#orderList * 16, height - 4)
+	if self.hasFocus then
 		SetDrawColor(1, 1, 1)
 	else
 		SetDrawColor(0.5, 0.5, 0.5)
 	end
-	DrawImage(nil, x, y, self.width, self.height)
+	DrawImage(nil, x, y, width, height)
 	SetDrawColor(0, 0, 0)
-	DrawImage(nil, x + 1, y + 1, self.width - 2, self.height - 2)
-	self.scrollBar.x = x + self.width - 17
-	self.scrollBar.y = y + 1
-	self.scrollBar:SetContentHeight(#orderList * 16, self.height - 4)
-	self.scrollBar:Draw()
-	SetViewport(x + 2, y + 2, self.width - 18, self.height - 4)
+	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
+	self:DrawControls(viewPort)
+	SetViewport(x + 2, y + 2, width - 20, height - 4)
 	local ttItem, ttY, ttWidth
-	for index, item in pairs(orderList) do
-		local itemY = 16 * (index - 1) - self.scrollBar.offset
+	local minIndex = m_floor(scrollBar.offset / 16 + 1)
+	local maxIndex = m_min(m_floor((scrollBar.offset + height) / 16 + 1), #orderList)
+	for index = minIndex, maxIndex do
+		local item = orderList[index]
+		local itemY = 16 * (index - 1) - scrollBar.offset
 		local nameWidth = DrawStringWidth(16, "VAR", item.name)
-		if not self.scrollBar.dragging and (not self.itemsMain.selControl or self.itemsMain.selControl == self or self.itemsMain.selControl == self.controls.search) then
+		if not scrollBar.dragging and (not self.itemsTab.selControl or self.hasFocus or self.controls.search.hasFocus) then
 			local cursorX, cursorY = GetCursorPos()
 			local relX = cursorX - (x + 2)
 			local relY = cursorY - (y + 2)
-			if relX >= 0 and relX < self.width - 17 and relY >= 0 and relY >= itemY and relY < self.height - 2 and relY < itemY + 16 then
+			if relX >= 0 and relX < width - 17 and relY >= 0 and relY >= itemY and relY < height - 2 and relY < itemY + 16 then
 				ttItem = item
 				ttWidth = m_max(nameWidth + 8, relX)
 				ttY = itemY + y + 2
 			end
 		end
 		if item == ttItem or item == self.selItem then
-			if self.itemsMain.selControl == self then
+			if self.hasFocus then
 				SetDrawColor(1, 1, 1)
 			else
 				SetDrawColor(0.5, 0.5, 0.5)
 			end
-			DrawImage(nil, 0, itemY, self.width - 20, 16)
+			DrawImage(nil, 0, itemY, width - 20, 16)
 			SetDrawColor(0.15, 0.15, 0.15)
-			DrawImage(nil, 0, itemY + 1, self.width - 20, 14)		
+			DrawImage(nil, 0, itemY + 1, width - 20, 14)		
 		end
 		SetDrawColor(data.colorCodes[item.rarity])
 		DrawString(0, itemY, "LEFT", 16, "VAR", item.name)
 	end
 	SetViewport()
 	if ttItem then
-		self.itemsMain:AddItemTooltip(ttItem, true)
+		self.itemsTab:AddItemTooltip(ttItem, nil, true)
 		SetDrawLayer(nil, 100)
 		main:DrawTooltip(x + 2, ttY, ttWidth, 16, viewPort, data.colorCodes[ttItem.rarity], true)
 		SetDrawLayer(nil, 0)
@@ -217,51 +227,48 @@ function ItemDBClass:Draw(viewPort)
 end
 
 function ItemDBClass:OnKeyDown(key, doubleClick)
-	if self.scrollBar:IsMouseOver() then
-		return self.scrollBar:OnKeyDown(key)
+	if not self:IsShown() or not self:IsEnabled() then
+		return
 	end
-	for _, control in pairs(self.controls) do
-		if control:IsMouseOver() then
-			return control:OnKeyDown(key)
-		end
+	local mOverControl = self:GetMouseOverControl()
+	if mOverControl and mOverControl.OnKeyDown then
+		return mOverControl:OnKeyDown(key)
 	end
-	if not self:IsMouseOver() then
+	if not self:IsMouseOver() and key:match("BUTTON") then
 		return
 	end
 	if key == "LEFTBUTTON" then
 		self.selItem = nil
 		local x, y = self:GetPos()
+		local width, height = self:GetSize()
 		local cursorX, cursorY = GetCursorPos()
-		if cursorX >= x + 2 and cursorY >= y + 2 and cursorX < x + self.width - 18 and cursorY < y + self.height - 2 then
-			local index = math.floor((cursorY - y - 2 + self.scrollBar.offset) / 16) + 1
+		if cursorX >= x + 2 and cursorY >= y + 2 and cursorX < x + width - 18 and cursorY < y + height - 2 then
+			local index = m_floor((cursorY - y - 2 + self.controls.scrollBar.offset) / 16) + 1
 			local selItem = self.orderList[index]
 			if selItem then
 				self.selItem = selItem
 				self.selIndex = index
 				if doubleClick then
-					self.itemsMain:CreateDisplayItemFromRaw(selItem.raw)
+					self.itemsTab:CreateDisplayItemFromRaw(selItem.raw)
 				end
 			end
+		end
+	elseif key == "c" and IsKeyDown("CTRL") then
+		if self.selItem then
+			Copy(self.selItem.raw)
 		end
 	end
 	return self
 end
 
 function ItemDBClass:OnKeyUp(key)
+	if not self:IsShown() or not self:IsEnabled() then
+		return
+	end
 	if key == "WHEELDOWN" then
-		self.scrollBar:Scroll(1)
+		self.controls.scrollBar:Scroll(1)
 	elseif key == "WHEELUP" then
-		self.scrollBar:Scroll(-1)
-	elseif self.selItem then
-		--[[if key == "BACK" or key == "DELETE" then
-			launch:ShowPrompt(0, 0, 0, "Are you sure you want to delete:\n"..self.selItem.name.."\n\nPress Y to confirm.", function(key)
-				if key == "y" then
-					self.db.list[self.selItem.id] = nil
-					self.selItem = nil
-				end
-				return true
-			end)
-		end]]
+		self.controls.scrollBar:Scroll(-1)
 	end
 	return self
 end

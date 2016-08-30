@@ -3,66 +3,58 @@
 -- Class: Button Control
 -- Basic button control.
 --
+local launch, main = ...
 
-local ButtonClass = common.NewClass("ButtonControl", function(self, x, y, width, height, label, onClick, enableFunc)
-	self.x = x
-	self.y = y
-	self.width = width
-	self.height = height
+local ButtonClass = common.NewClass("ButtonControl", "Control", function(self, anchor, x, y, width, height, label, onClick)
+	self.Control(anchor, x, y, width, height)
 	self.label = label
 	self.onClick = onClick
-	self.enableFunc = enableFunc
 end)
 
-function ButtonClass:GetPos()
-	return type(self.x) == "function" and self:x() or self.x,
-		   type(self.y) == "function" and self:y() or self.y	
-end
-
 function ButtonClass:IsMouseOver()
-	if self.hidden then
+	if not self:IsShown() then
 		return false
 	end
 	local x, y = self:GetPos()
+	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
-	return cursorX >= x and cursorY >= y and cursorX < x + self.width and cursorY < y + self.height
+	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 end
 
 function ButtonClass:Draw()
-	if self.hidden then
-		return
-	end
 	local x, y = self:GetPos()
-	local enabled = not self.enableFunc or self.enableFunc()
+	local width, height = self:GetSize()
+	local enabled = self:IsEnabled()
 	local mOver = self:IsMouseOver()
+	local locked = self:GetProperty("locked")
 	if not enabled then
 		SetDrawColor(0.33, 0.33, 0.33)
-	elseif mOver then
+	elseif mOver or locked then
 		SetDrawColor(1, 1, 1)
 	else
 		SetDrawColor(0.5, 0.5, 0.5)
 	end
-	DrawImage(nil, x, y, self.width, self.height)
+	DrawImage(nil, x, y, width, height)
 	if not enabled then
 		SetDrawColor(0, 0, 0)
 	elseif self.clicked and mOver then
 		SetDrawColor(0.5, 0.5, 0.5)
-	elseif mOver then
+	elseif mOver or locked then
 		SetDrawColor(0.33, 0.33, 0.33)
 	else
 		SetDrawColor(0, 0, 0)
 	end
-	DrawImage(nil, x + 1, y + 1, self.width - 2, self.height - 2)
+	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 	if enabled then
 		SetDrawColor(1, 1, 1)
 	else
 		SetDrawColor(0.33, 0.33, 0.33)
 	end
-	DrawString(x + self.width / 2, y + 2, "CENTER_X", self.height - 4, "VAR", self.label)
+	DrawString(x + width / 2, y + 2, "CENTER_X", height - 4, "VAR", self:GetProperty("label"))
 end
 
 function ButtonClass:OnKeyDown(key)
-	if self.enableFunc and not self.enableFunc() then
+	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
 	if key == "LEFTBUTTON" then
@@ -72,7 +64,7 @@ function ButtonClass:OnKeyDown(key)
 end
 
 function ButtonClass:OnKeyUp(key)
-	if self.enableFunc and not self.enableFunc() then
+	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
 	if key == "LEFTBUTTON" then
