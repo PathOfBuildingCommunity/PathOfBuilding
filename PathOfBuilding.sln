@@ -7,7 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Launch.lua = Launch.lua
 		LaunchInstall.lua = LaunchInstall.lua
-		Update.lua = Update.lua
+		UpdateApply.lua = UpdateApply.lua
+		UpdateCheck.lua = UpdateCheck.lua
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gems", "Gems", "{EE9D06F5-7310-4567-AB18-6923BCF0A2A1}"

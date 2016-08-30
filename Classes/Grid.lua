@@ -102,7 +102,9 @@ function elemTypes.input:OnKeyDown(key, doubleClick)
 			grid:SetFocus()
 			grid:MoveSel(key == "TAB" and "RIGHT" or "DOWN", true)
 		elseif self.edit then
-			self.edit:OnKeyDown(key)
+			if not self.edit:OnKeyDown(key) then
+				grid:SetFocus()
+			end
 		elseif self.dropDown then
 			if not self.dropDown:OnKeyDown(key) then
 				grid:SetFocus()
@@ -200,11 +202,12 @@ function elemTypes.input:OnFocusGained()
 		self.dropDown:OnKeyDown("LEFTBUTTON")
 	else
 		local fmtFilter = { number = "[-%d%.e,*]", string = "." }
-		self.edit = common.newEditField(nil, nil, fmtFilter[self.format])
-		self.edit.x = grid.offX + self.x + 2
-		self.edit.y = grid.offY + self.y + 2
+		self.edit = common.New("EditControl", nil, 0, 0, 0, 0, "", nil, fmtFilter[self.format])
+		self.edit.x = grid.offX + self.x
+		self.edit.y = grid.offY + self.y
 		self.edit.width = grid:GetElemWidth(self)
-		self.edit.height = cfg.gridHeight - 4
+		self.edit.height = cfg.gridHeight
+		self.edit.hasFocus = true
 	end
 end
 function elemTypes.input:OnFocusLost()

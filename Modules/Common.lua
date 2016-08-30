@@ -18,7 +18,6 @@ common = { }
 common.curl = require("lcurl")
 common.xml = require("xml")
 common.base64 = require("base64")
-common.newEditField = require("simplegraphic/editfield")
 
 -- Class library
 common.classes = { }

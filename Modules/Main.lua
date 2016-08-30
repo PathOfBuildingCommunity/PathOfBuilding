@@ -62,7 +62,9 @@ function main:Init()
 	self.modes["LIST"] = LoadModule("Modules/BuildList", launch, self)
 	self.modes["BUILD"] = LoadModule("Modules/Build", launch, self)
 
-	self.buildPath = "Builds/"
+	self.userPath = GetUserPath().."/Path of Building/"
+	MakeDir(self.userPath)
+	self.buildPath = self.userPath.."Builds/"
 	
 	self.tree = common.New("PassiveTree")
 
@@ -185,7 +187,7 @@ function main:CallMode(func, ...)
 end
 
 function main:LoadSettings()
-	local setXML, errMsg = common.xml.LoadXMLFile("Settings.xml")
+	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
 	if not setXML then
 		return true
 	elseif setXML[1].elem ~= "PathOfBuilding" then
@@ -256,7 +258,7 @@ function main:SaveSettings()
 		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = sessionID } })
 	end
 	t_insert(setXML, accounts)
-	local res, errMsg = common.xml.SaveXMLFile(setXML, "Settings.xml")
+	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
 		launch:ShowErrMsg("Error saving 'Settings.xml': %s", errMsg)
 		return true

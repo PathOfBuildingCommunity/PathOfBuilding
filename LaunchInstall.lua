@@ -5,7 +5,7 @@
 -- Installation bootstrap
 --
 
-local basicFiles = { "Launch.lua", "Update.lua" }
+local basicFiles = { "Launch.lua", "UpdateCheck.lua", "UpdateApply.lua" }
 
 local xml = require("xml")
 local curl = require("lcurl")

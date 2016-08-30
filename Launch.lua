@@ -5,7 +5,7 @@
 -- Program entry point; loads and runs the Main module within a protected environment
 --
 
-SetWindowTitle("Path Of Building")
+SetWindowTitle("Path of Building")
 ConExecute("set vid_mode 1")
 ConExecute("set vid_resizable 3")
 
@@ -13,12 +13,11 @@ local launch = { }
 SetMainObject(launch)
 
 function launch:OnInit()
-	if GetScriptPath() ~= GetRuntimePath() then
-		-- We are running from an external runtime
-		-- Force developer mode to disable update checks
-		self.devMode = true
-	end
-
+	self.devMode = false
+	self.versionNumber = "?"
+	self.versionBranch = "?"
+	self.versionPlatform = "?"
+	self.lastUpdateCheck = GetTime()
 	ConPrintf("Loading main script...")
 	local mainFile = io.open("Modules/Main.lua")
 	if mainFile then
@@ -28,13 +27,26 @@ function launch:OnInit()
 		-- Perform an immediate update to download the remaining files
 		ConClear()
 		ConPrintf("Please wait while we complete installation...\n")
-		local updateMode = LoadModule("Update", "CHECK")
+		local updateMode = LoadModule("UpdateCheck")
 		if not updateMode or updateMode == "none" then
 			Exit("Failed to install.")
 		else
 			self:ApplyUpdate(updateMode)
 		end
 		return
+	end
+	local xml = require("xml")
+	local localManXML = xml.LoadXMLFile("manifest.xml")
+	if localManXML and localManXML[1].elem == "PoBVersion" then
+		for _, node in ipairs(localManXML[1]) do
+			if type(node) == "table" then
+				if node.elem == "Version" then
+					self.versionNumber = node.attrib.number
+					self.versionBranch = node.attrib.branch
+					self.versionPlatform = node.attrib.platform
+				end
+			end
+		end
 	end
 	local errMsg
 	errMsg, self.main = PLoadModule("Modules/Main", self)
@@ -72,6 +84,8 @@ function launch:OnFrame()
 	end
 	SetDrawLayer(1000)
 	SetViewport()
+	local screenW, screenH = GetScreenSize()
+	DrawString(0, screenH - 16, "LEFT", 16, "VAR", "^8Version: "..self.versionNumber..(self.versionBranch == "dev" and " (Dev Branch)" or ""))
 	if self.promptMsg then
 		local r, g, b = unpack(self.promptCol)
 		self:DrawPopup(r, g, b, "^0%s", self.promptMsg)
@@ -79,7 +93,6 @@ function launch:OnFrame()
 		self:DrawPopup(0, 0.5, 0, "^0%s", self.updateMsg)
 	end
 	if self.doRestart then
-		local screenW, screenH = GetScreenSize()
 		SetDrawColor(0, 0, 0, 0.75)
 		DrawImage(nil, 0, 0, screenW, screenH)
 		SetDrawColor(1, 1, 1)
@@ -138,7 +151,7 @@ function launch:OnChar(key)
 end
 
 function launch:OnSubCall(func, ...)
-	if func == "ConPrintf" and self.subScriptType == "UPDATE" then
+	if func == "ConPrintf" and self.subScriptType == "UPDATE" and self.updateChecking then
 		self.updateMsg = string.format(...)
 		return
 	end
@@ -224,12 +237,13 @@ end
 
 function launch:ApplyUpdate(mode)
 	if mode == "basic" then
-		-- Need to revert to the basic environment to apply the update
-		os.execute("start PathOfBuilding Update.lua")
+		-- Need to revert to the basic environment to fully apply the update
+		LoadModule("UpdateApply", "Update/opFile.txt")
+		SpawnProcess(GetRuntimePath()..'/Update', 'UpdateApply.lua Update/opFileRuntime.txt')
 		Exit()
 	elseif mode == "normal" then
 		-- Update can be applied while normal environment is running
-		LoadModule("Update")
+		LoadModule("UpdateApply", "Update/opFile.txt")
 		Restart()
 		self.doRestart = "Updating..."
 	end
@@ -240,9 +254,9 @@ function launch:CheckForUpdate(inBackground)
 		self.updateChecking = not inBackground
 		self.updateMsg = ""
 		self.lastUpdateCheck = GetTime()
-		local update = io.open("Update.lua", "r")
+		local update = io.open("UpdateCheck.lua", "r")
 		self.subScriptType = "UPDATE"
-		LaunchSubScript(update:read("*a"), "GetWorkDir,MakeDir", "ConPrintf", "CHECK")
+		LaunchSubScript(update:read("*a"), "GetScriptPath,GetRuntimePath,GetWorkDir,MakeDir", "ConPrintf", "CHECK")
 		update:close()
 	end
 end
