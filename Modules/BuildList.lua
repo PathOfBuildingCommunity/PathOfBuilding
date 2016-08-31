@@ -121,10 +121,11 @@ function listMode:SelByFileName(selFileName)
 	end
 end
 
-function listMode:EditInit(finFunc)
+function listMode:EditInit(prompt, finFunc)
 	self.edit = self.sel
 	self.editFinFunc = finFunc
 	self.controls.buildList:ScrollSelIntoView()
+	self.controls.buildList.controls.nameEdit.prompt = prompt
 	self.controls.buildList.controls.nameEdit:SetText(self.list[self.sel].buildName or "")
 end
 
@@ -151,7 +152,7 @@ end
 function listMode:New()
 	table.insert(self.list, 1, { fileName = "", level = 1 })
 	self.sel = 1
-	self:EditInit(function(buf)
+	self:EditInit("New build name", function(buf)
 		if #buf < 1 then
 			return "No name entered"
 		end
@@ -188,7 +189,7 @@ function listMode:CopySel()
 	table.insert(self.list, self.sel + 1, copyTable(self.list[self.sel]))
 	self.sel = self.sel + 1
 	self.list[self.sel].fileName = srcName:gsub("%.xml$","") .. " (copy)"
-	self:EditInit(function(buf)
+	self:EditInit("Enter new name", function(buf)
 		if #buf < 1 then
 			return "No name entered"
 		end
@@ -220,7 +221,7 @@ function listMode:RenameSel()
 		return
 	end
 	local oldName = self.list[self.sel].fileName
-	self:EditInit(function(buf)
+	self:EditInit("Enter new name", function(buf)
 		if #buf < 1 then
 			return "No name entered"
 		end

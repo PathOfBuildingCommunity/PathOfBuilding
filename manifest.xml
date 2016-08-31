@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.0.8"/>
+	<Version number="1.0.9"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="568c9f6c399a6d2d025774e1b60afbf4ca6f18c6" name="Launch.lua" part="program"/>
 	<File sha1="769b039de92cbad79837d7522991afd8801f4d2a" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="e224aa616614ec9c1e82bf1de31cf03332237fba" name="Classes/BuildListControl.lua" part="program"/>
+	<File sha1="eb9258fd00748a2cc0f38fe6feb3e08c5b316bc9" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="07632f822bac7fc65dadc0133153d5c39d762ba7" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="0d68321bd5845d4ce6d22c7b0459cb041c67a6d1" name="Classes/CalcsTab.lua" part="program"/>
 	<File sha1="02d11638a2ada37b8521cb946512009c468028a1" name="Classes/CheckBoxControl.lua" part="program"/>
@@ -34,7 +34,7 @@
 	<File sha1="5f28e18b2867769b6141109332f263e12c74b2f9" name="Classes/TreeTab.lua" part="program"/>
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
 	<File sha1="64233ed8a3cfe7664467d2c9676609c2bacc9d3c" name="Modules/Build.lua" part="program"/>
-	<File sha1="becdc9504f01dfcfee2c03dc8f5886f31a52d790" name="Modules/BuildList.lua" part="program"/>
+	<File sha1="38d7adb580d995f3aae8837153c374139fbddc6e" name="Modules/BuildList.lua" part="program"/>
 	<File sha1="e3bf122c9f98693639428848c72adb20147cf3bb" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="7721650215b51d7c472da2e81389b81c91c6b498" name="Modules/CalcsView.lua" part="program"/>
 	<File sha1="d594ac3a7c8fd823664891db1874b29666bf1915" name="Modules/Common.lua" part="program"/>
@@ -91,7 +91,7 @@
 	<File sha1="f30c7cd2537f1b53335612c47ebf68682fdc33cd" name="Data/Uniques/wand.lua" part="program"/>
 	<File platform="win32" sha1="e8581e70cefa0b68583be298483418c004c8152f" name="Path of Building.exe" part="runtime"/>
 	<File platform="win32" sha1="914d42ca1836c5152a5f60aad23020a86bcb46d9" name="lua51.dll" part="runtime"/>
-	<File platform="win32" sha1="12dbc54abbf9470c4f3347b7bc45233b637584a7" name="SimpleGraphic.dll" part="runtime"/>
+	<File platform="win32" sha1="3d8c16f687e444ae713108b5730e96452b6bb924" name="SimpleGraphic.dll" part="runtime"/>
 	<File platform="win32" sha1="887fd08cb3c2989a9d88adc9717d3ec00ab97462" name="libcurl.dll" part="runtime"/>
 	<File platform="win32" sha1="607918daf9cbaecee0090e9cec8d0e221338678e" name="lcurl.dll" part="runtime"/>
 	<File platform="win32" sha1="229feec79a1269be868bb32a11f141258481170f" name="lzip.dll" part="runtime"/>
