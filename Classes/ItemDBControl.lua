@@ -72,7 +72,8 @@ end)
 
 function ItemDBClass:DoesItemMatchFilters(item)
 	if self.controls.slot.sel > 1 then
-		if itemLib.getPrimarySlotForItem(item) ~= self.slotList[self.controls.slot.sel] then
+		local primarySlot = itemLib.getPrimarySlotForItem(item)
+		if primarySlot ~= self.slotList[self.controls.slot.sel] and primarySlot:gsub(" %d","") ~= self.slotList[self.controls.slot.sel] then
 			return false
 		end
 	end
