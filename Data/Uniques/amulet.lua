@@ -21,8 +21,8 @@ Requires Level 45
 +3% to maximum Block Chance
 {variant:1}10% Chance to Block
 {variant:2}8% Chance to Block
-{variant:1}Reflects 200–250 Physical Damage to Attackers on Block
-{variant:2}Reflects 240–300 Physical Damage to Attackers on Block
+{variant:1}Reflects 200 to 250 Physical Damage to Attackers on Block
+{variant:2}Reflects 240 to 300 Physical Damage to Attackers on Block
 ]],[[
 Araku Tiki
 Coral Amulet
@@ -85,7 +85,7 @@ Amber Amulet
 Requires Level 20
 +(20 to 30) to Strength
 Grants level 10 Gluttony of Elements Skill
-Adds 19–43 Chaos Damage to Attacks
+Adds 19 to 43 Chaos Damage to Attacks
 −(10 to 5)% to all Elemental Resistances
 +(17 to 29)% to Chaos Resistance
 Corrupted
@@ -94,7 +94,7 @@ Bloodgrip
 Coral Amulet
 Requires Level 55
 (2 to 4) Life Regenerated per second
-Adds 10–20 Physical Damage to Attacks
+Adds 10 to 20 Physical Damage to Attacks
 +(60 to 70) to maximum Life
 (8 to 12) Life Regenerated per second
 100% increased Life Recovery from Flasks
@@ -157,7 +157,7 @@ Gold Amulet
 Requires Level 8
 (12 to 20)% increased Rarity of Items found
 +10 to Dexterity
-Adds 12–24 Fire Damage to Attacks
+Adds 12 to 24 Fire Damage to Attacks
 +(100 to 150) to Accuracy Rating
 +(100 to 150) to Evasion Rating
 +20% to Fire Resistance

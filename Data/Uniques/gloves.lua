@@ -20,8 +20,8 @@ Energy Shield: 30
 Requires Level 63, 100 Str
 +30 to maximum Energy Shield
 10% chance to Shock
-Adds (225–785 to 335–900) Lightning Damage to Attacks while Unarmed
-Adds (60–210 to 90–240) Lightning Damage to Spells while Unarmed
+Adds (225-335 to 785-900) Lightning Damage to Attacks while Unarmed
+Adds (60-90 to 210-240) Lightning Damage to Spells while Unarmed
 +30 Energy Shield gained on Killing a Shocked Enemy
 ]],[[
 Empire's Grasp
@@ -148,8 +148,8 @@ Variant: Pre 1.1.0
 Variant: Current
 Energy Shield: 22
 Requires Level 11
-Adds 4–8 Fire Damage to Attacks
-Adds 1–13 Lightning Damage to Attacks
+Adds 4 to 8 Fire Damage to Attacks
+Adds 1 to 13 Lightning Damage to Attacks
 +18 to maximum Energy Shield
 {variant:1}(18 to 24)% increased Quantity of Items found
 {variant:2}(12 to 16)% increased Quantity of Items found
@@ -284,7 +284,7 @@ Soldier Gloves
 Armour: 80
 Energy Shield: 24
 Requires Level 51, 40 Str, 40 Int
-Adds (30–44 to 36–50) Cold Damage to Attacks
+Adds (30-36 to 44-50) Cold Damage to Attacks
 (12 to 16)% increased maximum Life
 (40 to 50)% to Cold Resistance
 25% increased Freeze Duration on Enemies
@@ -316,7 +316,7 @@ Energy Shield: 3
 Requires Level 5
 {variant:1}20% increased Attack Speed when on Full Life
 {variant:2}30% increased Attack Speed when on Full Life
-Adds 1–13 Lightning Damage to Attacks
+Adds 1 to 13 Lightning Damage to Attacks
 +(50 to 80) to Accuracy Rating
 {variant:1}(10-15)% increased Movement Speed when on Low Life
 {variant:2}20% increased Movement Speed when on Low Life
@@ -358,8 +358,8 @@ Evasion: 105
 Energy Shield: (56 to 61)
 Requires Level 67, 51 Dex, 51 Int
 Socketed Gems are Supported by level 18 Added Lightning Damage
-{variant:1}Adds 1–100 Lightning Damage to Attacks
-{variant:2}Adds 1–40 Lightning Damage to Attacks
+{variant:1}Adds 1 to 100 Lightning Damage to Attacks
+{variant:2}Adds 1 to 40 Lightning Damage to Attacks
 10% increased Attack Speed
 +(25 to 30) to maximum Energy Shield
 100% increased Shock Duration on Enemies

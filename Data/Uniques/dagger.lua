@@ -8,13 +8,13 @@ Slaughter Knife
 Variant: Pre 2.2.0
 Variant: Current
 Dagger
-Physical Damage: (59–198 to 69–218)
+Physical Damage: (59-69 to 198-218)
 Critical Strike Chance: (9.24 to 9.90)%
 Attacks per Second: 1.40
 Requires Level 65, 81 Dex, 117 Int
 40% increased Global Critical Strike Chance
 30% increased Damage over Time
-Adds (50–120 to 60–140) Physical Damage
+Adds (50-60 to 120-140) Physical Damage
 (40 to 50)% increased Critical Strike Chance
 {variant:1}+(10 to 15)% to Global Critical Strike Multiplier
 {variant:2}+(15 to 25)% to Global Critical Strike Multiplier
@@ -25,14 +25,14 @@ and nearby Allies Regenerate 200 Life per second
 Bloodplay
 Stiletto
 Dagger
-Physical Damage: (11–35 to 21–50)
+Physical Damage: (11-21 to 35-50)
 Critical Strike Chance: 6.3%
 Attacks per Second: 1.55
 Requires Level 15, 30 Dex, 30 Int
 40% increased Global Critical Strike Chance
 +20 to Dexterity
 (20 to 40)% increased Physical Damage
-Adds (3–9 to 6–13) Physical Damage
+Adds (3-6 to 9-13) Physical Damage
 10% increased Attack Speed
 Extra Gore
 10% chance to cause Bleeding on Hit
@@ -71,14 +71,14 @@ Requires Level 66, 95 Dex, 131 Int
 Goredrill
 Skinning Knife
 Dagger
-Physical Damage: (8–27 to 12–36)
+Physical Damage: (8-12 to 27-36)
 Critical Strike Chance: 7.8%
 Attacks per Second: 1.30
 Requires Level 5, 16 Dex
 40% increased Global Critical Strike Chance
 +(10 to 15) to Dexterity
 (50 to 70)% increased Physical Damage
-Adds (1–3 to 2–5) Physical Damage
+Adds (1-2 to 3-5) Physical Damage
 30% increased Critical Strike Chance
 Melee Critical Strikes cause Bleeding
 40% increased Attack Damage against Bleeding Enemies
@@ -102,7 +102,7 @@ Platinum Kris
 Variant: Pre 2.0.0
 Variant: Current
 Dagger
-Physical Damage: (62–251 to 68–275)
+Physical Damage: (62-68 to 251-275)
 Critical Strike Chance: 7%
 Attacks per Second: 1.08
 Requires Level 64, 76 Dex, 149 Int
@@ -118,13 +118,13 @@ Melee Critical Strikes have 25% chance to Poison the Enemy
 Mightflay
 Flaying Knife
 Dagger
-Physical Damage: (47–144 to 52–160)
+Physical Damage: (47-52 to 144-160)
 Critical Strike Chance: 6%
 Attacks per Second: 1.20
 Requires Level 35, 73 Dex, 51 Int
 40% increased Global Critical Strike Chance
 (80 to 100)% increased Physical Damage
-Adds 12–24 Physical Damage
+Adds 12 to 24 Physical Damage
 +25 to Strength
 +10 Life gained for each Enemy hit by your Attacks
 ]],[[
@@ -134,7 +134,7 @@ Variant: Pre 1.1.0
 Variant: Pre 1.3.0
 Variant: Current
 Dagger
-Physical Damage: (14–54 to 16–60)
+Physical Damage: (14-16 to 54-60)
 Elemental Damage: 3–30
 Critical Strike Chance: 6.6%
 Attacks per Second: 1.54
@@ -144,19 +144,19 @@ Requires Level 20, 31 Dex, 45 Int
 {variant:1,3}12% additional Chance to Block while Dual Wielding
 (80 to 100)% increased Physical Damage
 +(10 to 20) to Dexterity
-Adds 3–30 Lightning Damage
+Adds 3 to 30 Lightning Damage
 10% increased Attack Speed
 50% increased Global Critical Strike Chance
 ]],[[
 Widowmaker
 Boot Blade
 Dagger
-Physical Damage: (29–90 to 39–100)
+Physical Damage: (29-39 to 90-100)
 Critical Strike Chance: (8.05 to 8.58)%
 Attacks per Second: 1.40
 Requires Level 44, 63 Dex, 90 Int
 40% increased Global Critical Strike Chance
-Adds (15–35 to 25–45) Physical Damage
+Adds (15-25 to 35-45) Physical Damage
 (22 to 30)% increased Critical Strike Chance
 +(30 to 40)% to Global Critical Strike Multiplier
 100% increased Critical Strike Chance against Enemies on Full Life

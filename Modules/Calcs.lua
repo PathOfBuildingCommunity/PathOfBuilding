@@ -796,10 +796,10 @@ local function finaliseMods(env, output)
 				mod_dbMergeList(modDB, skillModList)
 			end
 			mod_dbMergeList(modDB, skill.buffModList)
-			local auraEffect = 1 + (getMiscVal(modDB, nil, "auraEffectInc", 0) + (skillModList.auraEffectInc or 0)) / 100
+			local auraEffect = (1 + (getMiscVal(modDB, nil, "auraEffectInc", 0) + (skillModList.auraEffectInc or 0)) / 100) * getMiscVal(modDB, nil, "auraEffectMore", 1) * (skillModList.auraEffectMore or 1)
 			mod_dbScaleMergeList(modDB, skill.auraModList, auraEffect)
 			if env.mode_effective then
-				local curseEffect = 1 + (getMiscVal(modDB, nil, "curseEffectInc", 0) + (skillModList.curseEffectInc or 0)) / 100
+				local curseEffect = (1 + (getMiscVal(modDB, nil, "curseEffectInc", 0) + (skillModList.curseEffectInc or 0)) / 100) * getMiscVal(modDB, nil, "curseEffectMore", 1) * (skillModList.curseEffectMore or 1)
 				mod_dbScaleMergeList(modDB, skill.curseModList, curseEffect)
 			end
 
@@ -930,7 +930,8 @@ local function finaliseMods(env, output)
 
 	-- Add boss modifiers
 	if getMiscVal(modDB, "effective", "enemyIsBoss", false) then
-		mod_dbMerge(modDB, "", "curseEffectInc", -60)
+		--mod_dbMerge(modDB, "", "curseEffectInc", -60)
+		mod_dbMerge(modDB, "", "curseEffectMore", 0.4) -- FIXME: Need to confirm actual value
 		mod_dbMerge(modDB, "effective", "elementalResist", 30)
 		mod_dbMerge(modDB, "effective", "chaosResist", 15)
 	end
@@ -1507,7 +1508,7 @@ local function performCalcs(env, output)
 				trap = env.skillSpaceFlags.trap,
 				mine = env.skillSpaceFlags.mine,
 			})
-			local baseVal = (output.total_physicalAvg + output.total_chaosAvg) * output.total_critEffect * 0.1
+			local baseVal = (output.total_physicalAvg + output.total_chaosAvg) * output.total_critEffect * 0.08
 			local effMult = 1
 			if env.mode_effective then
 				local taken = getMiscVal(modDB, "effective", "chaosTakenInc", 0) + getMiscVal(modDB, "effective", "damageTakenInc", 0) + getMiscVal(modDB, "effective", "dotTakenInc", 0)

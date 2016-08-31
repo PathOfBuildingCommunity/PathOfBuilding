@@ -10,7 +10,7 @@ Variant: Current
 Chance to Block: 25%
 Armour: (788 to 895)
 Requires Level 61, 159 Str
-{variant:2}Adds (7–15 to 10–25) Fire Damage to Attacks
+{variant:2}Adds (7-10 to 15-25) Fire Damage to Attacks
 (120 to 150)% increased Armour
 +(35 to 50)% to Fire Resistance
 25% of Physical Damage Converted to Fire Damage
@@ -108,7 +108,7 @@ Corrugated Buckler
 Chance to Block: 27%
 Evasion: 164
 Requires Level 46, 112 Dex
-Adds (8–15 to 12–20) Physical Damage to Attacks
+Adds (8-12 to 15-20) Physical Damage to Attacks
 (6 to 10)% increased Attack Speed
 +(50 to 70) to maximum Life
 (8 to 12)% Chance to Block Spells
@@ -174,7 +174,7 @@ Requires Level 63, 159 Dex
 +(70 to 90) to maximum Life
 0.4% of Physical Attack Damage Leeched as Life
 +5% Chance to Block
-Reflects 1–1000 Physical Damage to Attackers on Block
+Reflects 1 to 1000 Physical Damage to Attackers on Block
 ]],
 -- Shield: Energy Shield
 [[
@@ -277,8 +277,8 @@ Armour: (76 to 92)
 Evasion: (76 to 92)
 Requires Level 20, 28 Str, 28 Dex
 60% increased Block Recovery
-Adds 4–8 Physical Damage to Attacks
-Adds 4–8 Cold Damage to Attacks
+Adds 4 to 8 Physical Damage to Attacks
+Adds 4 to 8 Cold Damage to Attacks
 (90 to 130)% increased Armour and Evasion
 +(30 to 50)% to Fire Resistance
 Curse Enemies with level 5 Vulnerability on Block

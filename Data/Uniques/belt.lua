@@ -96,7 +96,7 @@ Rustic Sash
 League: Talisman Standard, Talisman Hardcore
 Requires Level 11
 (12 to 24)% increased Physical Damage
-Adds 5–10 Physical Damage to Attacks
+Adds 5 to 10 Physical Damage to Attacks
 +(20 to 40) to maximum Life
 0.2% of Physical Attack Damage Leeched as Life
 50% increased Flask Charges gained while using a Flask
@@ -136,7 +136,7 @@ Maligaro's Restraint
 Chain Belt
 Requires Level 44
 +(9 to 20) to maximum Energy Shield
-Adds (1–30 to 1–50) Lightning Damage to Attacks
+Adds (1-1 to 30-50) Lightning Damage to Attacks
 100% increased Shock Duration on You
 Shocks you cause are reflected back to you
 60% increased Damage while Shocked
@@ -148,8 +148,8 @@ Variant: Pre 2.0.0
 Variant: Current
 Requires Level 8
 +(25 to 35) to Strength
-{variant:1}Adds 10–20 Physical Damage to Attacks
-{variant:2}Adds 5–15 Physical Damage to Attacks
+{variant:1}Adds 10 to 20 Physical Damage to Attacks
+{variant:2}Adds 5 to 15 Physical Damage to Attacks
 +25 to Strength
 10% increased maximum Life
 +(10 to 20)% to Cold Resistance
@@ -173,9 +173,9 @@ Rustic Sash
 Requires Level 25
 (12 to 24)% increased Physical Damage
 10% increased Elemental Damage with Weapons
-Adds (3–7 to 4–8) Fire Damage to Attacks
-Adds (2–5 to 3–7) Cold Damage to Attacks
-Adds (1–13 to 1–17) Lightning Damage to Attacks
+Adds (3-4 to 7-8) Fire Damage to Attacks
+Adds (2-3 to 5-7) Cold Damage to Attacks
+Adds (1-1 to 13-17) Lightning Damage to Attacks
 +(6 to 8)% to all Elemental Resistances
 30% increased Elemental Damage with Weapons while using a Flask
 ]],[[

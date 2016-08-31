@@ -38,7 +38,7 @@ Prefixes:
 {range:0}+(0 to 89) to maximum Life
 {range:0}+(0 to 73) to maximum Mana
 {range:0}+(0 to 51) to maximum Energy Shield
-{range:0}Adds (0-0 to 15-26) Physical Damage to Attacks
+{range:0}Adds (0-15 to 0-26) Physical Damage to Attacks
 {range:0}(0 to 22)% increased Armour
 {range:0}(0 to 22)% increased Evasion Rating
 {range:0}(0 to 22)% increased Energy Shield
@@ -65,7 +65,7 @@ Prefixes:
 {range:0}+(0 to 73) to maximum Mana
 {range:0}+(0 to 47) to maximum Energy Shield
 {range:0}+(0 to 170) to Evasion Rating
-{range:0}Adds (0-0 to 9-15) Physical Damage to Attacks
+{range:0}Adds (0-9 to 0-15) Physical Damage to Attacks
 {range:0}(0 to 42)% increased Elemental Damage with Weapons
 Suffixes:
 {str}
@@ -94,23 +94,23 @@ Suffixes:
 Prefixes:
 {range:.5}(0 to 179)% increased Physical Damage
 {range:.5}(0 to 79)% increased Physical Damage
-{range:.5}Adds (0-0 to 25-45) Physical Damage]],
+{range:.5}Adds (0-25 to 0-45) Physical Damage]],
 	["phys 2h pre"] = [[
 Prefixes:
 {range:.5}(0 to 179)% increased Physical Damage
 {range:.5}(0 to 79)% increased Physical Damage
-{range:.5}Adds (0-0 to 38-68) Physical Damage]],
+{range:.5}Adds (0-38 to 0-68) Physical Damage]],
 	["elem 1h pre"] = [[
 Prefixes:
-{range:0}Adds (0-0 to 61-106) Fire Damage
-{range:0}Adds (0-0 to 50-87) Cold Damage
-{range:0}Adds (0-0 to 13-166) Lightning Damage
+{range:0}Adds (0-61 to 0-106) Fire Damage
+{range:0}Adds (0-50 to 0-87) Cold Damage
+{range:0}Adds (0-13 to 0-166) Lightning Damage
 {range:.5}(0 to 42)% increased Elemental Damage with Weapons]],
 	["elem 2h pre"] = [[
 Prefixes:
-{range:0}Adds (0-0 to 91-160) Fire Damage
-{range:0}Adds (0-0 to 75-131) Cold Damage
-{range:0}Adds (0-0 to 19-250) Lightning Damage
+{range:0}Adds (0-91 to 0-160) Fire Damage
+{range:0}Adds (0-75 to 0-131) Cold Damage
+{range:0}Adds (0-19 to 0-250) Lightning Damage
 {range:.5}(0 to 42)% increased Elemental Damage with Weapons]],
 	["melee suf"] = [[
 Suffixes:
@@ -150,17 +150,17 @@ Suffixes:
 Prefixes:
 {range:.5}(0 to 79)% increased Spell Damage
 {range:.5}(0 to 39)% increased Spell Damage
-{range:0}Adds (0-0 to 49-85) Fire Damage to Spells
-{range:0}Adds (0-0 to 40-69) Cold Damage to Spells
-{range:0}Adds (0-0 to 10-133) Lightning Damage to Spells
+{range:0}Adds (0-49 to 0-85) Fire Damage to Spells
+{range:0}Adds (0-40 to 0-69) Cold Damage to Spells
+{range:0}Adds (0-10 to 0-133) Lightning Damage to Spells
 {spell suf}]],
 	["spell 2h"] = [[
 Prefixes:
 {range:.5}(0 to 115)% increased Spell Damage
 {range:.5}(0 to 55)% increased Spell Damage
-{range:0}Adds (0-0 to 65-115) Fire Damage to Spells
-{range:0}Adds (0-0 to 60-104) Cold Damage to Spells
-{range:0}Adds (0-0 to 15-200) Lightning Damage to Spells
+{range:0}Adds (0-65 to 0-115) Fire Damage to Spells
+{range:0}Adds (0-60 to 0-104) Cold Damage to Spells
+{range:0}Adds (0-15 to 0-200) Lightning Damage to Spells
 {spell suf}]],
 }
 
@@ -244,7 +244,7 @@ Prefixes:
 {inc Ar}
 {range:.75}+(0 to 80) to Armour
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-0 to 6-10) Physical Damage to Attacks
+{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
 Suffixes:
 {range:0}(0 to 16)% increased Attack Speed
 {str}
@@ -257,7 +257,7 @@ Prefixes:
 {inc Ev}
 {range:.75}+(0 to 80) to Evasion Rating
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-0 to 6-10) Physical Damage to Attacks
+{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
 Suffixes:
 {range:0}(0 to 16)% increased Attack Speed
 {dex}
@@ -269,7 +269,7 @@ Prefixes:
 {inc ES}
 {range:.75}+(0 to 48) to maximum Energy Shield
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-0 to 6-10) Physical Damage to Attacks
+{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
 Suffixes:
 {range:0}(0 to 16)% increased Attack Speed
 {dex}
@@ -283,7 +283,7 @@ Prefixes:
 {range:0}+(0 to 80) to Armour
 {range:0}+(0 to 80) to Evasion Rating
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-0 to 6-10) Physical Damage to Attacks
+{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
 Suffixes:
 {range:0}(0 to 16)% increased Attack Speed
 {str}
@@ -297,7 +297,7 @@ Prefixes:
 {range:0}+(0 to 80) to Armour
 {range:0}+(0 to 48) to maximum Energy Shield
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-0 to 6-10) Physical Damage to Attacks
+{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
 Suffixes:
 {range:0}(0 to 16)% increased Attack Speed
 {str}
@@ -312,7 +312,7 @@ Prefixes:
 {range:0}+(0 to 80) to Evasion Rating
 {range:0}+(0 to 48) to maximum Energy Shield
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-0 to 6-10) Physical Damage to Attacks
+{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
 Suffixes:
 {range:0}(0 to 16)% increased Attack Speed
 {dex}
@@ -659,7 +659,7 @@ Spike-Point Arrow Quiver
 (20 to 30)% increased Global Critical Strike Chance
 Prefixes:
 {range:.75}+(0 to 99) to maximum Life
-{range:.5}Adds (0-0 to 6-10) Physical Damage to Attacks
+{range:.5}Adds (0-6 to 0-10) Physical Damage to Attacks
 {range:.5}(0 to 42)% increased Elemental Damage with Weapons
 Suffixes:
 {range:.5}(0 to 12)% increased Attack Speed
@@ -736,9 +736,9 @@ Royal Skean
 40% increased Global Critical Strike Chance
 Prefixes:
 Hits can't be Evaded
-{range:0}Adds (0-0 to 61-106) Fire Damage
-{range:0}Adds (0-0 to 50-87) Cold Damage
-{range:0}Adds (0-0 to 13-166) Lightning Damage
+{range:0}Adds (0-61 to 0-106) Fire Damage
+{range:0}Adds (0-50 to 0-87) Cold Damage
+{range:0}Adds (0-13 to 0-166) Lightning Damage
 {range:.5}(0 to 79)% increased Spell Damage
 Suffixes:
 {range:.5}(0 to 16)% increased Attack Speed
@@ -791,9 +791,9 @@ Prefixes:
 {range:1}+(0 to 1) to Level of Socketed Gems
 {range:1}+(0 to 2) to Level of Socketed Fire Gems
 {range:.5}(0 to 115)% increased Spell Damage
-{range:0}Adds (0-0 to 65-115) Fire Damage to Spells
-{range:0}Adds (0-0 to 60-104) Cold Damage to Spells
-{range:0}Adds (0-0 to 15-200) Lightning Damage to Spells
+{range:0}Adds (0-65 to 0-115) Fire Damage to Spells
+{range:0}Adds (0-60 to 0-104) Cold Damage to Spells
+{range:0}Adds (0-15 to 0-200) Lightning Damage to Spells
 {spell suf}
 ]],[[
 +3 Cold Staff
@@ -803,9 +803,9 @@ Prefixes:
 {range:1}+(0 to 1) to Level of Socketed Gems
 {range:1}+(0 to 2) to Level of Socketed Cold Gems
 {range:.5}(0 to 115)% increased Spell Damage
-{range:0}Adds (0-0 to 65-115) Fire Damage to Spells
-{range:0}Adds (0-0 to 60-104) Cold Damage to Spells
-{range:0}Adds (0-0 to 15-200) Lightning Damage to Spells
+{range:0}Adds (0-65 to 0-115) Fire Damage to Spells
+{range:0}Adds (0-60 to 0-104) Cold Damage to Spells
+{range:0}Adds (0-15 to 0-200) Lightning Damage to Spells
 {spell suf}
 ]],[[
 +3 Lightning Staff
@@ -815,9 +815,9 @@ Prefixes:
 {range:1}+(0 to 1) to Level of Socketed Gems
 {range:1}+(0 to 2) to Level of Socketed Lightning Gems
 {range:.5}(0 to 115)% increased Spell Damage
-{range:0}Adds (0-0 to 65-115) Fire Damage to Spells
-{range:0}Adds (0-0 to 60-104) Cold Damage to Spells
-{range:0}Adds (0-0 to 15-200) Lightning Damage to Spells
+{range:0}Adds (0-65 to 0-115) Fire Damage to Spells
+{range:0}Adds (0-60 to 0-104) Cold Damage to Spells
+{range:0}Adds (0-15 to 0-200) Lightning Damage to Spells
 {spell suf}
 ]],[[
 +2 Chaos Staff
@@ -827,9 +827,9 @@ Prefixes:
 {range:1}+(0 to 1) to Level of Socketed Gems
 {range:1}+(0 to 1) to Level of Socketed Chaos Gems
 {range:.5}(0 to 115)% increased Spell Damage
-{range:0}Adds (0-0 to 65-115) Fire Damage to Spells
-{range:0}Adds (0-0 to 60-104) Cold Damage to Spells
-{range:0}Adds (0-0 to 15-200) Lightning Damage to Spells
+{range:0}Adds (0-65 to 0-115) Fire Damage to Spells
+{range:0}Adds (0-60 to 0-104) Cold Damage to Spells
+{range:0}Adds (0-15 to 0-200) Lightning Damage to Spells
 {spell suf}
 ]],[[
 Physical 1H Sword

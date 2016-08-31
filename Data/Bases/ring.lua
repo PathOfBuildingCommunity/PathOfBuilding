@@ -3,7 +3,7 @@ local itemBases = ...
 
 itemBases["Iron Ring"] = {
 	type = "Ring",
-	implicit = "Adds 1-4 Physical Damage to Attacks",
+	implicit = "Adds 1 to 4 Physical Damage to Attacks",
 	req = { },
 }
 itemBases["Coral Ring"] = {

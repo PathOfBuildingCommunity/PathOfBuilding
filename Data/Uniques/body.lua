@@ -6,7 +6,7 @@ return {
 Bramblejack
 Plate Vest
 Armour: 14
-Adds 2–4 Physical Damage to Attacks
+Adds 2 to 4 Physical Damage to Attacks
 +(12 to 20) to maximum Life
 −2 Physical Damage taken from Attacks
 40% of Melee Physical Damage taken reflected to Attacker
@@ -76,7 +76,7 @@ Plate Vest
 League: Prophecy
 Armour: 2014
 Requires Level 30
-Adds 2–4 Physical Damage to Attacks
+Adds 2 to 4 Physical Damage to Attacks
 +2000 to Armour
 +(12 to 20) to maximum Life
 −2 Physical Damage taken from Attacks
@@ -135,7 +135,7 @@ Foxshade
 Wild Leather
 Evasion: (273 to 309)
 Requires Level 25, 73 Dex
-Adds 5–12 Physical Damage to Attacks
+Adds 5 to 12 Physical Damage to Attacks
 +(20 to 30) to Dexterity
 You gain 150 Evasion Rating when on Full Life
 (50 to 70)% increased Evasion Rating
@@ -149,7 +149,7 @@ Variant: Current
 Evasion: (1462 to 1949)
 Requires Level 65, 197 Dex
 +(20 to 30) to Dexterity
-Adds 13–24 Cold Damage to Attacks
+Adds 13 to 24 Cold Damage to Attacks
 {variant:1}(80 to 120)% increased Evasion Rating
 {variant:2,3}(140 to 220)% increased Evasion Rating
 25% increased Chill Duration on Enemies
@@ -277,7 +277,7 @@ Requires Level 62, 180 Int
 {variant:2}(140 to 200)% increased Energy Shield
 10% faster start of Energy Shield Recharge
 +(30 to 40)% to Lightning Resistance
-Reflects 1–250 Lightning Damage to Melee Attackers
+Reflects 1 to 250 Lightning Damage to Melee Attackers
 Chaos Damage does not bypass Energy Shield
 ]],[[
 Soul Mantle
@@ -315,8 +315,8 @@ Variant: Pre 1.3.0
 Variant: Current
 Energy Shield: (138 to 158)
 Requires Level 37, 104 Int
-{variant:1}Adds 1–25 Lightning Damage
-{variant:2,3}Adds 1–40 Lightning Damage to Attacks
+{variant:1}Adds 1 to 25 Lightning Damage
+{variant:2,3}Adds 1 to 40 Lightning Damage to Attacks
 (75 to 100)% increased Energy Shield
 {variant:1}+(20 to 25)% to Chaos Resistance
 {variant:2,3}+(40 to 50)% to Chaos Resistance
@@ -371,7 +371,7 @@ Variant: Current
 Armour: (509 to 590)
 Evasion: (509 to 590)
 Requires Level 60, 96 Str, 96 Dex
-Adds (1–20 to 1–30) Lightning Damage to Attacks
+Adds (1-1 to 20-30) Lightning Damage to Attacks
 (90 to 120)% increased Armour and Evasion
 +(60 to 80) to maximum Life
 −60% to Lightning Resistance
@@ -535,9 +535,9 @@ Evasion: (10 to 20)
 Energy Shield: (21 to 31)
 Requires 17 Intelligence
 Socketed Gems are Supported by level 5 Elemental Proliferation
-Adds 2–3 Fire Damage to Attacks
-Adds 2–3 Cold Damage to Attacks
-Adds 1–4 Lightning Damage to Attacks
+Adds 2 to 3 Fire Damage to Attacks
+Adds 2 to 3 Cold Damage to Attacks
+Adds 1 to 4 Lightning Damage to Attacks
 10% reduced Cast Speed
 +(10 to 20) to Evasion Rating
 +6 to maximum Life

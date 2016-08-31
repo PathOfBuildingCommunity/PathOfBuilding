@@ -9,7 +9,7 @@ Variant: Pre 2.2.0
 Variant: Current
 Armour: (602 to 662)
 Requires Level 60, 138 Str
-Adds 40–60 Physical Damage to Attacks
+Adds 40 to 60 Physical Damage to Attacks
 +(20 to 25) to all Attributes
 {variant:1}+(100 to 150)% to Melee Critical Strike Multiplier
 {variant:2}+(150 to 225)% to Melee Critical Strike Multiplier
@@ -66,7 +66,7 @@ Fairgraves' Tricorne
 Tricorne
 Evasion: 78
 Requires Level 12, 27 Dex
-Adds 6–12 Cold Damage to Attacks
+Adds 6 to 12 Cold Damage to Attacks
 70% increased Evasion Rating
 +(15 to 30) to maximum Mana
 +(20 to 30)% to Lightning Resistance
@@ -204,7 +204,7 @@ Hubris Circlet
 League: Tempest
 Energy Shield: (230 to 270)
 Requires Level 69, 154 Int
-Adds (1–60 to 1–80) Lightning Damage to Spells and Attacks
+Adds (1-1 to 60-80) Lightning Damage to Spells and Attacks
 (130 to 170)% increased Energy Shield
 +(25 to 35)% to Lightning Resistance
 10% chance to Curse Enemies with a random Curse on Hit
@@ -237,7 +237,7 @@ Socketed Gems are Supported by level 18 Melee Physical Damage
 {variant:2,3}Socketed Gems are Supported by level 12 Faster Attacks
 {variant:1}Socketed Gems are Supported by level 18 Blind
 {variant:2,3}Socketed Gems are Supported by level 6 Blind
-Adds 20–30 Physical Damage to Attacks
+Adds 20 to 30 Physical Damage to Attacks
 (200 to 300)% increased Armour and Evasion
 {variant:1}+(200 to 220) to maximum Life
 {variant:2,3}+(120 to 160) to maximum Life
@@ -342,7 +342,7 @@ Soldier Helmet
 Armour: (42 to 45)
 Energy Shield: (14 to 15)
 Requires Level 12, 16 Str, 16 Int
-Adds 1–13 Lightning Damage to Attacks
+Adds 1 to 13 Lightning Damage to Attacks
 (40 to 50)% increased Armour and Energy Shield
 +(10 to 20)% to all Elemental Resistances
 20% increased Elemental Resistances while on Low Life
@@ -367,7 +367,7 @@ Energy Shield: 16
 Requires Level 22, 27 Str, 27 Int
 (20 to 22)% increased Stun Recovery
 40% reduced Light Radius
-Reflects (1–180 to 1–220) Lightning Damage to Attackers on Block
+Reflects (1-1 to 180-220) Lightning Damage to Attackers on Block
 (18 to 22)% increased Global Defences
 Elemental Resistances are Zero
 ]],
@@ -381,7 +381,7 @@ Energy Shield: (90 to 108)
 Requires Level 52, 58 Dex, 58 Int
 (150 to 200)% increased Evasion and Energy Shield
 (0.4 to 0.8)% of Physical Attack Damage Leeched as Life
-Reflects 100–150 Physical Damage to Melee Attackers
+Reflects 100 to 150 Physical Damage to Melee Attackers
 30% of Damage you Reflect to enemies is gained as Life
 ]],[[
 The Gull

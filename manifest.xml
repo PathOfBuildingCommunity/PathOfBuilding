@@ -35,24 +35,24 @@
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
 	<File sha1="5002676f4d7b6ee38bf7d18feca5798123315af4" name="Modules/Build.lua" part="program"/>
 	<File sha1="6e94bd1923414b7bbd5f02b3206214e997aa4825" name="Modules/BuildList.lua" part="program"/>
-	<File sha1="a2dd234f717f006b6e7420021aeabdc2b18caf58" name="Modules/Calcs.lua" part="program"/>
+	<File sha1="9c018be9d2558e66107ddadcb3b08ebc36f3f9e9" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="7721650215b51d7c472da2e81389b81c91c6b498" name="Modules/CalcsView.lua" part="program"/>
 	<File sha1="d594ac3a7c8fd823664891db1874b29666bf1915" name="Modules/Common.lua" part="program"/>
 	<File sha1="cb25bd581587ba5b35f77ca7b245334be1e5186a" name="Modules/Data.lua" part="program"/>
-	<File sha1="08fe9f68d83d35f3d4b3ce88d294ca673bc6b7e2" name="Modules/ItemTools.lua" part="program"/>
+	<File sha1="e04edbadc8eda47583b80f49a3c0a6b844d00dc5" name="Modules/ItemTools.lua" part="program"/>
 	<File sha1="3366e2e4f95db6254bcfb413d5a58b8d307dae17" name="Modules/Main.lua" part="program"/>
-	<File sha1="123eb9c7e0abf2d321e236489e55e3a24eda8e4b" name="Modules/ModParser.lua" part="program"/>
+	<File sha1="d4dc00795c80a8a0831f9e126df2f586ef50978c" name="Modules/ModParser.lua" part="program"/>
 	<File sha1="bc49ce1b5e15da40476a9c99c4c690b323c0e7ad" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
 	<File sha1="056de4fc6178320cc019ad1bacba09d689a87a56" name="Data/New.lua" part="program"/>
-	<File sha1="dd7bf24b3218fda807d5f39d14fd051e6f7ed5d8" name="Data/Rares.lua" part="program"/>
-	<File sha1="d4ac9d8d1087d23bea1952c88dfdb9aa2b35ec96" name="Data/Gems/act_dex.lua" part="program"/>
-	<File sha1="b4eb1fa744d1ed52463f08348e269e8f7aa8b9f1" name="Data/Gems/act_int.lua" part="program"/>
-	<File sha1="d4aa0f0ac6370b00ad56af28c8a313ae9ea82253" name="Data/Gems/act_str.lua" part="program"/>
+	<File sha1="13cae4c488043a90c8cbf7522e6d175ceb7378f7" name="Data/Rares.lua" part="program"/>
+	<File sha1="ce2d294cf8e25a8ea400bdf50e19bb09f52dc430" name="Data/Gems/act_dex.lua" part="program"/>
+	<File sha1="c183b45c75b67c9e63e83b00dc98fab76f182d7c" name="Data/Gems/act_int.lua" part="program"/>
+	<File sha1="8a5ff23a64947650b4837368dea2ac9a78be83dc" name="Data/Gems/act_str.lua" part="program"/>
 	<File sha1="997177289512d8d107f45b440cddcd8ccea890fd" name="Data/Gems/other.lua" part="program"/>
-	<File sha1="88b4d19c1e9ae10ddfd047cf2bdca67e61de8c79" name="Data/Gems/sup_dex.lua" part="program"/>
+	<File sha1="09ed24c1e7f429254a3687ec3a40c7b68fe954f7" name="Data/Gems/sup_dex.lua" part="program"/>
 	<File sha1="5a865ed7c442a51fed4deaf1469098c6ff396a8a" name="Data/Gems/sup_int.lua" part="program"/>
-	<File sha1="0d7c0174cc68f4ddb217a661cf6be7cb659e2844" name="Data/Gems/sup_str.lua" part="program"/>
+	<File sha1="2a837e98ca6d4895bbfdaa5ffd28707788b5a3df" name="Data/Gems/sup_str.lua" part="program"/>
 	<File sha1="e2bfaf8d42553867fff91aa7267dbae4e3ca460e" name="Data/Bases/amulet.lua" part="program"/>
 	<File sha1="4fcd6a8fcd07137dc641b3d690f1d7f10cced81a" name="Data/Bases/axe.lua" part="program"/>
 	<File sha1="326f1060f490c7b48f56c25721eaf43bd2772835" name="Data/Bases/belt.lua" part="program"/>
@@ -65,30 +65,30 @@
 	<File sha1="47c313bf97091d1e2b3bfc15612e0a784a383b17" name="Data/Bases/helmet.lua" part="program"/>
 	<File sha1="f9ffa4d0906ab93703542a6dd7161cbdf50e1f65" name="Data/Bases/jewel.lua" part="program"/>
 	<File sha1="19a97b11337124aa1d67903008aac816ba9270ae" name="Data/Bases/mace.lua" part="program"/>
-	<File sha1="fc13a01ec7b184c9eeca75a89cdb82076b8b534b" name="Data/Bases/quiver.lua" part="program"/>
-	<File sha1="703d3fba95fb2d68ee347a81c8ec8ced1549e873" name="Data/Bases/ring.lua" part="program"/>
+	<File sha1="72a175ac939fdc9f176c87649b20f1dddf417475" name="Data/Bases/quiver.lua" part="program"/>
+	<File sha1="98a369dc9b737d2bf996de8275aca3b30f9a40a4" name="Data/Bases/ring.lua" part="program"/>
 	<File sha1="0e8a530e2d0e45729b7f0404487de11f2e8dfc1d" name="Data/Bases/shield.lua" part="program"/>
 	<File sha1="5e891ba850d0a0137c7533b9e2848f67ceb64a34" name="Data/Bases/staff.lua" part="program"/>
 	<File sha1="2dcf60c634646074bcb9794c110d7083ab74034c" name="Data/Bases/sword.lua" part="program"/>
 	<File sha1="23db9109ec01ec9358863de987108ca5bd63439c" name="Data/Bases/wand.lua" part="program"/>
-	<File sha1="6ebdf1762c533a83f3c9b4fd480c87a74509ee2a" name="Data/Uniques/amulet.lua" part="program"/>
-	<File sha1="4fa592ea256e42fd2c6e29ef93db5c0457c4f336" name="Data/Uniques/axe.lua" part="program"/>
-	<File sha1="63d4f2eef4a8006922f27338d38f816002c11a95" name="Data/Uniques/belt.lua" part="program"/>
-	<File sha1="7ea07c2dcc3513f9401600f64ae1902e990e46a6" name="Data/Uniques/body.lua" part="program"/>
-	<File sha1="ae9c91300bb8873767bf7c297ea73c999c642d87" name="Data/Uniques/boots.lua" part="program"/>
-	<File sha1="4ff59442512146a07617d89b035b1c9a38b5a4d1" name="Data/Uniques/bow.lua" part="program"/>
-	<File sha1="0961e303f68af5713e42d89d51879a0ef70332e2" name="Data/Uniques/claw.lua" part="program"/>
-	<File sha1="8ae7d38b610965e96f83c65435c40b61be67ddf7" name="Data/Uniques/dagger.lua" part="program"/>
-	<File sha1="d1712beb0c1301d8a5ac2b53fc431833512d02db" name="Data/Uniques/gloves.lua" part="program"/>
-	<File sha1="604f61ebb8b22df7707beecf7bbf843276bfe72a" name="Data/Uniques/helmet.lua" part="program"/>
-	<File sha1="2d74bb4df2512594d4ee7f39e271b316675e9cfc" name="Data/Uniques/jewel.lua" part="program"/>
-	<File sha1="911e791c54a0f6b33ce72e98e1b90f4a06027022" name="Data/Uniques/mace.lua" part="program"/>
-	<File sha1="b5487b257d78308d8630c242e5f6545f092c4ce7" name="Data/Uniques/quiver.lua" part="program"/>
-	<File sha1="156606d0a60cde80bad3381adecfe17a717dc413" name="Data/Uniques/ring.lua" part="program"/>
-	<File sha1="dad2e191631fa48d0821548e597f116c3a137cfa" name="Data/Uniques/shield.lua" part="program"/>
-	<File sha1="2f17c2d98d7dc90e5bc6f72d0ceadab58654cd4f" name="Data/Uniques/staff.lua" part="program"/>
-	<File sha1="0d4b75feae7973a95825e7931052a705feb6cf75" name="Data/Uniques/sword.lua" part="program"/>
-	<File sha1="46701e31e8d7b3bf66306f11d034753da7f43d90" name="Data/Uniques/wand.lua" part="program"/>
+	<File sha1="91edb2f78aa7c47c9c024a7273fe4d22bad3ff05" name="Data/Uniques/amulet.lua" part="program"/>
+	<File sha1="bb591adc1f31e181f3e4cbfe61d36e0094b8b591" name="Data/Uniques/axe.lua" part="program"/>
+	<File sha1="a310778e3f40ad33633646eeaa1be8f4e797ad27" name="Data/Uniques/belt.lua" part="program"/>
+	<File sha1="4b972cbe39c404b42992c2e7c4fde028224d96a9" name="Data/Uniques/body.lua" part="program"/>
+	<File sha1="2175f4c98ea51c13b8781e0f44ea65f0229c1cfd" name="Data/Uniques/boots.lua" part="program"/>
+	<File sha1="4914d473a53877123e4ea60355053e3a06d4c2ba" name="Data/Uniques/bow.lua" part="program"/>
+	<File sha1="156b55263c58a93e0d100dc57a19aa81eea78326" name="Data/Uniques/claw.lua" part="program"/>
+	<File sha1="e37c3fe13513a8a9917e0ed2eb9cdecbcea79566" name="Data/Uniques/dagger.lua" part="program"/>
+	<File sha1="951837f4067a00f47fb85dd0c704918fc9c9f7d4" name="Data/Uniques/gloves.lua" part="program"/>
+	<File sha1="16f75fd8070a546bea17757872cf735884b51580" name="Data/Uniques/helmet.lua" part="program"/>
+	<File sha1="9afd2f7b3b83e7433bbee56a71779e36e42644f7" name="Data/Uniques/jewel.lua" part="program"/>
+	<File sha1="15532dfba160b7aefad71b451becc34ed4a35071" name="Data/Uniques/mace.lua" part="program"/>
+	<File sha1="437e307db21ff13e639b95195e451ed2b9b45005" name="Data/Uniques/quiver.lua" part="program"/>
+	<File sha1="50a0ec48f5b9a99acbecb4ca3c7036be4218293f" name="Data/Uniques/ring.lua" part="program"/>
+	<File sha1="1ddfc7eb2d5852a397b1f488d5860953c201ab72" name="Data/Uniques/shield.lua" part="program"/>
+	<File sha1="1baa948abcea507f6493ac0679c1553429f10a38" name="Data/Uniques/staff.lua" part="program"/>
+	<File sha1="6e3ecd4b8c2cceb57be999ba4626dfb279fd99b2" name="Data/Uniques/sword.lua" part="program"/>
+	<File sha1="f30c7cd2537f1b53335612c47ebf68682fdc33cd" name="Data/Uniques/wand.lua" part="program"/>
 	<File platform="win32" sha1="4ca4bc94efd3a88a87684813f013c42806e364e8" name="Path of Building.exe" part="runtime"/>
 	<File platform="win32" sha1="914d42ca1836c5152a5f60aad23020a86bcb46d9" name="lua51.dll" part="runtime"/>
 	<File platform="win32" sha1="512b874daa563f2d0eb9b79fa6d0e57157f8fb30" name="SimpleGraphic.dll" part="runtime"/>

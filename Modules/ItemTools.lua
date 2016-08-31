@@ -13,8 +13,8 @@ itemLib = { }
 -- Apply range value (0 to 1) to a modifier that has a range: (x to x) or (x-x to x-x)
 function itemLib.applyRange(line, range)
 	return line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", 
-		function(minMin, maxMin, minMax, maxMax) 
-			return string.format("%d-%d", m_floor(tonumber(minMin) + range * (tonumber(minMax) - tonumber(minMin)) + 0.5), m_floor(tonumber(maxMin) + range * (tonumber(maxMax) - tonumber(maxMin)) + 0.5)) 
+		function(lowMin, lowMax, highMin, highMax) 
+			return string.format("%d to %d", m_floor(tonumber(lowMin) + range * (tonumber(lowMax) - tonumber(lowMin)) + 0.5), m_floor(tonumber(highMin) + range * (tonumber(highMax) - tonumber(highMin)) + 0.5)) 
 		end)
 		:gsub("(+?)%((%-?%d+) to (%-?%d+)%)", 
 		function(plus, min, max) 

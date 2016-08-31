@@ -59,7 +59,7 @@ Requires Level 66, 158 Str, 113 Int
 +1 to Level of Socketed Lightning Gems
 +(80 to 120) to Intelligence
 (30 to 50)% increased Lightning Damage
-Adds (5–100 to 15–140) Lightning Damage to Spells
+Adds (5-15 to 100-140) Lightning Damage to Spells
 40% increased Strength Requirement
 Damage Penetrates 20% Lightning Resistance
 ]],[[
@@ -121,13 +121,13 @@ Socketed Gems are Supported by level 8 Trap
 Hegemony's Era
 Judgement Staff
 Staff
-Physical Damage: (245–311 to 255–341)
+Physical Damage: (245-255 to 311-341)
 Critical Strike Chance: (7.92 to 8.58)%
 Attacks per Second: (1.4 to 1.45)
 Requires Level 68, 113 Str, 113 Int
 12% Chance to Block
 6% Chance to Block
-Adds (180–190 to 190–220) Physical Damage
+Adds (180-190 to 190-220) Physical Damage
 (12 to 16)% increased Attack Speed
 (20 to 30)% increased Critical Strike Chance
 +1 maximum Power Charge
@@ -162,7 +162,7 @@ Iron Staff
 League: Prophecy
 Staff
 Physical Damage: 16–47
-Elemental Damage: (10–20 to 15–25), (10–20 to 15–25)
+Elemental Damage: (10-15 to 20-25), (10-15 to 20-25)
 Critical Strike Chance: 7.00%
 Attacks per Second: 1.20
 Requires Level 40, 35 Str, 35 Int
@@ -171,15 +171,15 @@ Requires Level 40, 35 Str, 35 Int
 +1 to Level of Socketed Cold Gems
 +2 to Level of Socketed Elemental Gems
 Socketed Gems are Supported by level 5 Cold to Fire
-Adds (10–20 to 15–25) Fire Damage
-Adds (10–20 to 15–25) Cold Damage
+Adds (10-15 to 20-25) Fire Damage
+Adds (10-15 to 20-25) Cold Damage
 (30 to 50)% increased Elemental Damage
 ]],[[
 Realmshaper
 Iron Staff
 Staff
 Physical Damage: 16–47
-Elemental Damage: (10–20 to 15–25), (10–20 to 15–25)
+Elemental Damage: (10-15 to 20-25), (10-15 to 20-25)
 Critical Strike Chance: 7.00%
 Attacks per Second: 1.20
 Requires Level 18, 35 Str, 35 Int
@@ -187,8 +187,8 @@ Requires Level 18, 35 Str, 35 Int
 +1 to Level of Socketed Fire Gems
 +1 to Level of Socketed Cold Gems
 Socketed Gems are Supported by level 5 Cold to Fire
-Adds (10–20 to 15–25) Fire Damage
-Adds (10–20 to 15–25) Cold Damage
+Adds (10-15 to 20-25) Fire Damage
+Adds (10-15 to 20-25) Cold Damage
 (30 to 50)% increased Elemental Damage
 ]],[[
 The Searing Touch
@@ -239,15 +239,15 @@ Socketed Gems fire Projectiles in a Nova
 The Stormheart
 Royal Staff
 Staff
-Physical Damage: (41–126 to 46–140)
-Elemental Damage: (25–45 to 35–60), (1–70 to 10–90)
+Physical Damage: (41-46 to 126-140)
+Elemental Damage: (25-35 to 45-60), (1-10 to 70-90)
 Critical Strike Chance: (8.64 to 9.72)%
 Attacks per Second: 1.15
 Requires Level 28, 51 Str, 51 Int
 12% Chance to Block
 (80 to 100)% increased Physical Damage
-Adds (25–45 to 35–60) Cold Damage
-Adds (1–70 to 10–90) Lightning Damage
+Adds (25-35 to 45-60) Cold Damage
+Adds (1-10 to 70-90) Lightning Damage
 (20 to 35)% increased Critical Strike Chance
 You Cannot Be Shocked While Frozen
 ]],[[
@@ -310,7 +310,7 @@ Requires Level 28, 43 Str, 43 Int
 15% Chance to Block
 (60 to 80)% increased Spell Damage
 +(70 to 100) to Maximum Energy Shield
-Reflects 1–150 Lightning Damage to Melee Attackers
+Reflects 1 to 150 Lightning Damage to Melee Attackers
 20% Chance for Energy Shield Recharge to Start when you Block
 ]],
 }
