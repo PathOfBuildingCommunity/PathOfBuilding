@@ -156,7 +156,6 @@ end
 function launch:OnSubCall(func, ...)
 	if func == "ConPrintf" and self.subScriptType == "UPDATE" and self.updateChecking then
 		self.updateMsg = string.format(...)
-		return
 	end
 	if _G[func] then
 		return _G[func](...)

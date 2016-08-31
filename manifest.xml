@@ -3,7 +3,7 @@
 	<Version number="1.0.6"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
-	<File sha1="61015c55ce37b065d24a70cf3f35ed3f66f5cb7b" name="Launch.lua" part="program"/>
+	<File sha1="568c9f6c399a6d2d025774e1b60afbf4ca6f18c6" name="Launch.lua" part="program"/>
 	<File sha1="769b039de92cbad79837d7522991afd8801f4d2a" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
 	<File sha1="e224aa616614ec9c1e82bf1de31cf03332237fba" name="Classes/BuildListControl.lua" part="program"/>
