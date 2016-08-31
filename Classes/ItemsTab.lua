@@ -269,6 +269,7 @@ function ItemsTabClass:AddDisplayItem()
 
 	self:PopulateSlots()
 	self:AddUndoState()
+	self.build.buildFlag = true
 end
 
 function ItemsTabClass:DeleteItem(item)
