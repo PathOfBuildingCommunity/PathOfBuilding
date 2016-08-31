@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.0.2"/>
+	<Version number="1.0.3"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="61015c55ce37b065d24a70cf3f35ed3f66f5cb7b" name="Launch.lua" part="program"/>
@@ -34,7 +34,7 @@
 	<File sha1="5f28e18b2867769b6141109332f263e12c74b2f9" name="Classes/TreeTab.lua" part="program"/>
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
 	<File sha1="5002676f4d7b6ee38bf7d18feca5798123315af4" name="Modules/Build.lua" part="program"/>
-	<File sha1="ccd4efb6233b86e408459cf8cda67a60b2759e8a" name="Modules/BuildList.lua" part="program"/>
+	<File sha1="becdc9504f01dfcfee2c03dc8f5886f31a52d790" name="Modules/BuildList.lua" part="program"/>
 	<File sha1="e3bf122c9f98693639428848c72adb20147cf3bb" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="7721650215b51d7c472da2e81389b81c91c6b498" name="Modules/CalcsView.lua" part="program"/>
 	<File sha1="d594ac3a7c8fd823664891db1874b29666bf1915" name="Modules/Common.lua" part="program"/>

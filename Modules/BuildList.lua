@@ -129,6 +129,9 @@ function listMode:EditInit(finFunc)
 end
 
 function listMode:EditFinish()
+	if not self.edit then
+		return
+	end
 	local msg = self.editFinFunc(self.controls.buildList.controls.nameEdit.buf)
 	if msg then
 		main:OpenMessagePopup("Message", msg)
@@ -164,22 +167,21 @@ function listMode:New()
 		end
 		outFile:write('<?xml version="1.0" encoding="UTF-8"?>\n<PathOfBuilding>\n</PathOfBuilding>')
 		outFile:close()
-		self.sel = 1
-		self.list[self.sel].fileName = fileName
-		self.list[self.sel].buildName = buf
+		self.list[self.edit].fileName = fileName
+		self.list[self.edit].buildName = buf
 		self:SortList()
 	end)
 end
 
 function listMode:LoadSel()
-	if not self.sel or not self.list[self.sel] then
+	if self.edit or not self.sel or not self.list[self.sel] then
 		return
 	end
 	main:SetMode("BUILD", main.buildPath..self.list[self.sel].fileName, self.list[self.sel].buildName)
 end
 
 function listMode:CopySel()
-	if not self.sel or not self.list[self.sel] then
+	if self.edit or not self.sel or not self.list[self.sel] then
 		return
 	end
 	local srcName = self.list[self.sel].fileName
@@ -207,14 +209,14 @@ function listMode:CopySel()
 		outFile:write(inFile:read("*a"))
 		inFile:close()
 		outFile:close()
-		self.list[self.sel].fileName = dstName
-		self.list[self.sel].buildName = buf
+		self.list[self.edit].fileName = dstName
+		self.list[self.edit].buildName = buf
 		self:SortList()
 	end)
 end
 
 function listMode:RenameSel()
-	if not self.sel or not self.list[self.sel] then
+	if self.edit or not self.sel or not self.list[self.sel] then
 		return
 	end
 	local oldName = self.list[self.sel].fileName
@@ -237,14 +239,14 @@ function listMode:RenameSel()
 		if not res then
 			return "Couldn't rename '"..oldName.."' to '"..newName.."': "..msg
 		end
-		self.list[self.sel].fileName = newName
-		self.list[self.sel].buildName = buf
+		self.list[self.edit].fileName = newName
+		self.list[self.edit].buildName = buf
 		self:SortList()
 	end)
 end
 
 function listMode:DeleteSel()
-	if not self.sel or not self.list[self.sel] then
+	if self.edit or not self.sel or not self.list[self.sel] then
 		return
 	end
 	main:OpenConfirmPopup("Confirm Delete", "Are you sure you want to delete build:\n"..self.list[self.sel].buildName.."\nThis cannot be undone.", "Delete", function()
