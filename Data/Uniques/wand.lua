@@ -16,7 +16,7 @@ Implicits: 2
 {variant:1}(9 to 12)% increased Spell Damage
 {variant:2}(10 to 14)% increased Spell Damage
 (20 to 30)% increased Fire Damage
-Adds (4–8 to 6–12) Fire Damage to Spells
+Adds (4-6 to 8-12) Fire Damage to Spells
 (40 to 60)% increased Global Critical Strike Chance
 +10 Life Gained on Killing Ignited Enemies
 25% reduced Ignite Duration on Enemies
@@ -48,7 +48,7 @@ Requires Level 62, 212 Int
 Implicits: 2
 {variant:1}(17 to 20)% increased Spell Damage
 {variant:2}(38 to 42)% increased Spell Damage
-Adds (50–90 to 65–105) Chaos Damage to Spells
+Adds (50-65 to 90-105) Chaos Damage to Spells
 (25 to 30)% increased Cast Speed
 +(5 to 10)% to Chaos Resistance
 40% increased Mana Cost of Skills
@@ -57,13 +57,13 @@ Ashcaller
 Quartz Wand
 Wand
 Physical Damage: 9–17
-Elemental Damage: (10–18 to 14–22)
+Elemental Damage: (10-14 to 18-22)
 Critical Strike Chance: 8.00%
 Attacks per Second: 1.30
 Requires Level 18, 65 Int
 (18 to 22)% increased Spell Damage
-Adds (10–18 to 14–22) Fire Damage
-Adds (4–7 to 6–9) Fire Damage to Spells
+Adds (10-14 to 18-22) Fire Damage
+Adds (4-6 to 7-9) Fire Damage to Spells
 (40 to 50)% increased Burning Damage
 (16 to 22)% chance to Ignite
 10% chance to Cast Level 8 Summon Raging Spirit on Kill
@@ -74,14 +74,14 @@ Variant: Pre 2.2.0
 Variant: Pre 2.3.0
 Variant: Current
 Wand
-Physical Damage: (37–71 to 41–79)
+Physical Damage: (37-41 to 71-79)
 Critical Strike Chance: 8.00%
 Attacks per Second: 1.30
 Requires Level 45, 146 Int
 Implicits: 2
 {variant:1,2}(14 to 18)% increased Spell Damage
 {variant:3}(29 to 33)% increased Spell Damage
-Adds (18–36 to 22–44) Physical Damage
+Adds (18-22 to 36-44) Physical Damage
 {variant:1}+(18 to 30)% to Global Critical Strike Multiplier
 {variant:2,3}+(27 to 33)% to Global Critical Strike Multiplier
 20% increased Light Radius
@@ -150,14 +150,14 @@ Demon's Horn
 Variant: Pre 2.3.0
 Variant: Current
 Wand
-Physical Damage:  (50–128 to 56–140)
+Physical Damage:  (50-56 to 128-140)
 Critical Strike Chance: (10.08 to 10.56)%
 Attacks per Second: 1.20
 Requires Level 56, 179 Int
 Implicits: 2
 {variant:1}(15 to 18)% increased Spell Damage
 {variant:2}(31 to 35)% increased Spell Damage
-Adds (24–80 to 30–92) Physical Damage
+Adds (24-30 to 80-92) Physical Damage
 (26 to 32)% increased Critical Strike Chance
 Gain (13 to 15)% of Physical Damage as Extra Chaos Damage
 Enemies you Kill have a 20% chance to Explode, dealing a quarter
@@ -201,8 +201,8 @@ Carved Wand
 Variant: Pre 2.3.0
 Variant: Current
 Wand
-Physical Damage: (8–15 to 10–18)
-Elemental Damage: (1–35 to 1–45)
+Physical Damage: (8-10 to 15-18)
+Elemental Damage: (1-1 to 35-45)
 Critical Strike Chance: 8%
 Attacks per Second: 1.50
 Requires Level 12, 47 Int
@@ -210,7 +210,7 @@ Implicits: 2
 {variant:1}(9 to 13)% increased Spell Damage
 {variant:2}(11 to 15)% increased Spell Damage
 (40 to 60)% increased Physical Damage
-Adds (1–35 to 1–45) Lightning Damage
+Adds (1-1 to 35-45) Lightning Damage
 (15 to 25)% increased Mana Regeneration Rate
 +1 Maximum Power Charge
 (25 to 35)% chance to gain a Power Charge on Kill
@@ -228,7 +228,7 @@ Implicits: 2
 {variant:1}(11 to 14)% increased Spell Damage
 {variant:2}(17 to 21)% increased Spell Damage
 (80 to 120)% increased Physical Damage
-Adds (5–13 to 8–17) Physical Damage
+Adds (5-8 to 13-17) Physical Damage
 (5 to 10)% increased Attack Speed
 (10 to 20)% increased Critical Strike Chance
 Socketed Gems fire an additional Projectile

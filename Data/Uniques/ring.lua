@@ -17,7 +17,7 @@ League: Domination, Nemesis
 Requires Level 20
 +(12 to 16)% to Cold and Lightning Resistances
 (10 to 15)% increased Cold Damage
-Adds (1–1 to 1–50) Lightning Damage to Attacks
+Adds (1-1 to 1-50) Lightning Damage to Attacks
 +(30 to 40) to maximum Life
 1% of Damage against Frozen Enemies Leeched as Life
 1% of Damage against Shocked Enemies Leeched as Mana
@@ -28,7 +28,7 @@ League: Domination, Nemesis
 Requires Level 20
 +(12 to 16)% to Fire and Cold Resistances
 (10 to 15)% increased Fire Damage
-Adds (1–10 to 1–30) Cold Damage to Attacks
+Adds (1-1 to 10-30) Cold Damage to Attacks
 +(30 to 40) to maximum Energy Shield
 30% increased Damage while Ignited
 +5000 to Armour while Frozen
@@ -38,7 +38,7 @@ Two-Stone Ring
 League: Domination, Nemesis
 Requires Level 20
 +(12 to 16)% to Fire and Lightning Resistances
-Adds (1–10 to 1–30) Fire Damage to Attacks
+Adds (1-1 to 10-30) Fire Damage to Attacks
 (10 to 15)% increased Lightning Damage
 +(30 to 40) to maximum Mana
 Shock a nearby Enemy for 2 seconds on Killing a Shocked Enemy
@@ -46,9 +46,9 @@ Ignite a nearby Enemy on Killing an Ignited Enemy
 ]],[[
 Blackheart
 Iron Ring
-Adds 1–4 Physical Damage to Attacks
+Adds 1 to 4 Physical Damage to Attacks
 5% increased Physical Damage
-Adds 1–3 Chaos Damage to Attacks
+Adds 1 to 3 Chaos Damage to Attacks
 +(20 to 30) to maximum Life
 (2 to 4) Life Regenerated per second
 10% chance to Cause Monsters to Flee
@@ -57,7 +57,7 @@ Bloodboil
 Coral Ring
 Requires Level 24
 +(20 to 30) to maximum Life
-Adds (7–15 to 10–20) Fire Damage to Attacks
+Adds (7-10 to 15-20) Fire Damage to Attacks
 +(20 to 40) to maximum Life
 +(10 to 15)% to Cold Resistance
 45% reduced Effect of Chill on You
@@ -183,7 +183,7 @@ Requires Level 20
 Le Heup of All
 Iron Ring
 Requires Level 24
-Adds 1–4 Physical Damage to Attacks
+Adds 1 to 4 Physical Damage to Attacks
 (10 to 20)% increased Damage
 +(10 to 20) to all Attributes
 (10 to 20)% increased Rarity of Items found
@@ -242,7 +242,7 @@ Requires Level 45
 Has 1 Socket
 +2 to Level of Socketed Golem Gems
 Socketed Gems are Supported by level 13 Faster Attacks
-Adds (5–11 to 10–15) Physical Damage to Attacks
+Adds (5-10 to 11-15) Physical Damage to Attacks
 (5 to 10)% increased Attack Speed
 (1 to 2)% chance to Dodge Attacks
 Socketed Gems are Supported by level 16 Increased Minion Speed
@@ -253,7 +253,7 @@ League: Bloodlines
 Requires Level 29
 +(20 to 30)% to Fire Resistance
 +(15 to 25) to Strength
-Adds (8–12 to 10–14) Fire Damage to Attacks
+Adds (8-10 to 12-14) Fire Damage to Attacks
 +(4 to 5) Life gained for each Ignited Enemy hit by your Attacks
 15% increased Ignite Duration on Enemies
 5% chance to Ignite
@@ -300,7 +300,7 @@ Requires Level 45
 Has 1 Socket
 +2 to Level of Socketed Golem Gems
 +(30 to 40) to Strength
-Adds (8–20 to 12–30) Fire Damage to Attacks
+Adds (8-12 to 20-30) Fire Damage to Attacks
 (20 to 30)% increased Fire Damage
 Socketed Gems are Supported by level 12 Lesser Multiple Projectiles
 Socketed Gems are Supported by level 17 Increased Minion Damage
@@ -352,7 +352,7 @@ Variant: Current
 Requires Level 45
 +(20 to 30) to maximum Life
 (20 to 30)% increased Elemental Damage with Weapons
-Adds (8–20 to 15–28) Fire Damage to Attacks
+Adds (8-15 to 20-28) Fire Damage to Attacks
 {variant:1}(20 to 40)% reduced Rarity of Items found
 {variant:2}(10 to 20)% reduced Rarity of Items found
 Left ring slot: 30% reduced Reflected Elemental Damage taken
@@ -374,8 +374,8 @@ Sapphire Ring
 League: Bloodlines
 Requires Level 20
 +(20 to 30)% to Cold Resistance
-Adds 10–15 Physical Damage to Attacks against Frozen Enemies
-Adds (5–7 to 6–9) Cold Damage to Attacks
+Adds 10 to 15 Physical Damage to Attacks against Frozen Enemies
+Adds (5-6 to 7-9) Cold Damage to Attacks
 +(200 to 300) to Evasion Rating
 20% reduced Chill Duration on You
 5% chance to Freeze
@@ -438,15 +438,18 @@ Has 1 Socket
 ]],[[
 Voidheart
 Iron Ring
-League: Prophecy
+Variant: Pre 2.4.0
+Variant: Current
 Requires Level 48
-Adds 1–4 Physical Damage to Attacks
+Adds 1 to 4 Physical Damage to Attacks
 5% increased Physical Damage
-Adds 1-3 Chaos Damage to Attacks
+Adds 1 to 3 Chaos Damage to Attacks
 +(20 to 30) to maximum Life
 (2 to 4) Life Regenerated per second
 10% chance to Cause Monsters to Flee
-Melee Attacks cause Bleeding
-Melee Attacks Poison on Hit
+{variant:1}Melee Attacks cause Bleeding
+{variant:2}(30 to 50)% chance to cause Bleeding on Hit with Melee Attacks
+{variant:1}Melee Attacks Poison on Hit
+{variant:2}(20 to 40)% chance to Poison on Hit with Melee Attacks
 ]],
 }

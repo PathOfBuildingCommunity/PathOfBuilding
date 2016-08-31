@@ -51,7 +51,7 @@ Limited to: 1
 ]],[[
 Coated Shrapnel
 Crimson Jewel
-Traps and Mines deal (3–10 to 5–15) additional Physical Damage
+Traps and Mines deal (3-5 to 10-15) additional Physical Damage
 Traps and Mines have a 25% chance to Poison on Hit
 ]],[[
 Cold Steel
@@ -194,8 +194,8 @@ Cobalt Jewel
 Mantra of Flames
 Crimson Jewel
 Limited to: 1
-Adds (3–5 to 8–12) Fire Damage to Attacks per Buff on You
-Adds (2–3 to 5–8) Fire Damage to Spells per Buff on You
+Adds (3-8 to 5-12) Fire Damage to Attacks per Buff on You
+Adds (2-5 to 3-8) Fire Damage to Spells per Buff on You
 ]],[[
 Martial Artistry
 Crimson Jewel
@@ -273,7 +273,7 @@ Static Electricity
 Viridian Jewel
 Radius: Large
 Adds 1 maximum Lightning Damage to Attacks per 1 Dexterity Allocated in Radius
-Adds 1–2 Lightning Damage to Attacks
+Adds 1 to 2 Lightning Damage to Attacks
 ]],[[
 Steel Spirit
 Viridian Jewel

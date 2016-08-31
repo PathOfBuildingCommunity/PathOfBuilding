@@ -3,7 +3,7 @@ local itemBases = ...
 
 itemBases["Serrated Arrow Quiver"] = {
 	type = "Quiver",
-	implicit = "Adds 1-4 Physical Damage to Attacks with Bows",
+	implicit = "Adds 1 to 4 Physical Damage to Attacks with Bows",
 	req = { level = 5, },
 }
 itemBases["Two-Point Arrow Quiver"] = {
@@ -23,12 +23,12 @@ itemBases["Blunt Arrow Quiver"] = {
 }
 itemBases["Fire Arrow Quiver"] = {
 	type = "Quiver",
-	implicit = "Adds 4-8 Fire Damage to Attacks with Bows",
+	implicit = "Adds 4 to 8 Fire Damage to Attacks with Bows",
 	req = { level = 22, },
 }
 itemBases["Broadhead Arrow Quiver"] = {
 	type = "Quiver",
-	implicit = "Adds 6-12 Physical Damage to Attacks with Bows",
+	implicit = "Adds 6 to 12 Physical Damage to Attacks with Bows",
 	req = { level = 28, },
 }
 itemBases["Penetrating Arrow Quiver"] = {

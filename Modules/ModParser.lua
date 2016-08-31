@@ -238,6 +238,7 @@ local namespaceList = {
 	["weapon"] = "weapon_",
 	["with poison"] = "poison_",
 	["with attacks"] = "attack_",
+	["with melee attacks"] = "melee_",
 	["projectile"] = "projectile_",
 	["area"] = "aoe_",
 	["mine"] = "mine_",

@@ -20,33 +20,33 @@ Fire Arrow Quiver
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 22
-Adds 4–8 Fire Damage to Attacks with Bows
+Adds 4 to 8 Fire Damage to Attacks with Bows
 10% increased Attack Speed
 +(80 to 100) to Evasion Rating
 +(10 to 30) to maximum Mana
 {variant:1}(30 to 50)% of Physical Damage Converted to Fire Damage
 {variant:2}50% of Physical Damage Converted to Fire Damage
-Adds 5–10 Fire Damage to Attacks with Bows
+Adds 5 to 10 Fire Damage to Attacks with Bows
 ]],[[
 Cragfall
 Serrated Arrow Quiver
 League: Prophecy
 Requires Level 5
-Adds 1–4 Physical Damage to Attacks with Bows
+Adds 1 to 4 Physical Damage to Attacks with Bows
 (20 to 25)% reduced Enemy Stun Threshold
 25% reduced Projectile Speed
 (60 to 80)% increased Stun Duration on Enemies
-Adds 6–10 Physical Damage to Attacks with Bows
+Adds 6 to 10 Physical Damage to Attacks with Bows
 50% chance to double Stun Duration
 ]],[[
 Craghead
 Serrated Arrow Quiver
 Requires Level 5
-Adds 1–4 Physical Damage to Attacks with Bows
+Adds 1 to 4 Physical Damage to Attacks with Bows
 (20 to 25)% reduced Enemy Stun Threshold
 25% reduced Projectile Speed
 (60 to 80)% increased Stun Duration on Enemies
-Adds 6–10 Physical Damage to Attacks with Bows
+Adds 6 to 10 Physical Damage to Attacks with Bows
 ]],[[
 Drillneck
 Penetrating Arrow Quiver
@@ -55,7 +55,7 @@ Requires Level 36
 (8 to 12)% increased Attack Speed
 +350 to Evasion Rating
 +(40 to 50) to maximum Life
-Adds (10–19 to 14–24) Physical Damage to Attacks with Bows
+Adds (10-14 to 19-24) Physical Damage to Attacks with Bows
 Projectile Damage increased by Arrow Pierce Chance
 ]],[[
 Hyrri's Bite
@@ -76,14 +76,14 @@ Requires Level 55
 (8 to 10)% increased Attack Speed
 +(50 to 70) to maximum Life
 +(12 to 16)% to Chaos Resistance
-Adds (5–8 to 7–10) Physical Damage to Attacks with Bows
+Adds (5-7 to 8-10) Physical Damage to Attacks with Bows
 10% chance to create a Smoke Cloud when Hit
 (20 to 40)% increased Damage against Blinded Enemies
 ]],[[
 Rearguard
 Broadhead Arrow Quiver
 Requires Level 28
-Adds 6–12 Physical Damage to Attacks with Bows
+Adds 6 to 12 Physical Damage to Attacks with Bows
 +(400 to 450) to Armour
 (20 to 30)% increased Projectile Speed
 50% increased Stun Recovery
@@ -118,13 +118,13 @@ The Signal Fire
 Fire Arrow Quiver
 League: Prophecy
 Requires Level 24
-Adds 4–8 Fire Damage to Attacks with Bows
+Adds 4 to 8 Fire Damage to Attacks with Bows
 10% increased Attack Speed
 +(80 to 100) to Evasion Rating
 +(10 to 30) to maximum Mana
 Gain (25 to 35)% of Physical Damage as Extra Fire Damage
 50% of Physical Damage Converted to Fire Damage
-Adds 5–10 Fire Damage to Attacks with Bows
+Adds 5 to 10 Fire Damage to Attacks with Bows
 ]],[[
 Skirmish
 Two-Point Arrow Quiver
@@ -141,7 +141,7 @@ Spike-Point Arrow Quiver
 Requires Level 64
 (20 to 30)% increased Global Critical Strike Chance
 +30 to Dexterity
-Adds (13–26 to 18–32) Chaos Damage to Attacks
+Adds (13-18 to 26-32) Chaos Damage to Attacks
 (8 to 12)% increased Attack Speed
 +(100 to 120) to maximum Energy Shield
 40% reduced Energy Shield Recharge Rate

@@ -17,7 +17,7 @@ Ancient Greaves
 League: Warbands
 Armour: (330 to 396)
 Requires Level 46, 82 Str
-Adds (2–7 to 5–10) Physical Damage to Attacks
+Adds (2-5 to 7-10) Physical Damage to Attacks
 (5 to 10)% reduced Enemy Stun Threshold
 (150 to 200)% increased Armour
 +(20 to 30)% to Fire Resistance
@@ -263,7 +263,7 @@ Evasion: 48
 Requires Level 30, 30 Str, 30 Dex
 +(40 to 60) to Strength
 +(40 to 60) to Dexterity
-Adds 12–24 Fire Damage to Attacks
+Adds 12 to 24 Fire Damage to Attacks
 20% increased Movement Speed
 40% reduced Movement Speed when on Low Life
 20% increased Stun Recovery
@@ -275,7 +275,7 @@ League: Warbands
 Armour: 66
 Evasion: (132 to 165)
 Requires Level 42, 40 Str, 40 Dex
-Adds (15–28 to 19–35) Cold Damage to Spells
+Adds (15-19 to 28-35) Cold Damage to Spells
 (20 to 40)% increased Critical Strike Chance for Spells
 (100 to 150)% increased Evasion Rating
 +(20 to 30)% to Cold Resistance
@@ -289,7 +289,7 @@ Soldier Boots
 Armour: (257 to 297)
 Energy Shield: 23
 Requires Level 49, 47 Str, 47 Int
-Adds 1–80 Chaos Damage to Attacks
+Adds 1 to 80 Chaos Damage to Attacks
 +(180 to 220) to Armour
 +(9 to 12)% to Chaos Resistance
 20% increased Movement Speed
@@ -325,7 +325,7 @@ Mesh Boots
 Armour: (54 to 72)
 Energy Shield: (16 to 21)
 Requires Level 28, 28 Str, 28 Int
-Adds 1–120 Lightning Damage to Attacks
+Adds 1 to 120 Lightning Damage to Attacks
 +(10 to 20) Life gained on Kill
 (20 to 60)% increased Armour and Energy Shield
 10% Chance to Cause Monsters to Flee
