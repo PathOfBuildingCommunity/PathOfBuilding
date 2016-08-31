@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.0.6"/>
+	<Version number="1.0.7"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="568c9f6c399a6d2d025774e1b60afbf4ca6f18c6" name="Launch.lua" part="program"/>
@@ -17,7 +17,7 @@
 	<File sha1="c8774a6e9a39fe8f2d434889abe2533aee78fc47" name="Classes/Grid.lua" part="program"/>
 	<File sha1="be10e8399cb4851c2a45495698d701824f8a981d" name="Classes/ImportTab.lua" part="program"/>
 	<File sha1="97c093da38864c1ffafab30bb5537133bef03641" name="Classes/ItemDBControl.lua" part="program"/>
-	<File sha1="ec0343ef35c65b0d17d39ec2271ba3dc5863b79c" name="Classes/ItemListControl.lua" part="program"/>
+	<File sha1="0cb467a1a8643e5297d8e1cdc1a3808686ffc9ef" name="Classes/ItemListControl.lua" part="program"/>
 	<File sha1="3f0db9229007f0a6552d64632db20621077ecc7d" name="Classes/ItemSlotControl.lua" part="program"/>
 	<File sha1="e03618c67a18d2af659cece822aee4858ff3cb8e" name="Classes/ItemsTab.lua" part="program"/>
 	<File sha1="e577edeea7685cb2b0cd0d00b901a458ae45add0" name="Classes/LabelControl.lua" part="program"/>
