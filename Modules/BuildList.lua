@@ -102,7 +102,7 @@ function listMode:BuildList()
 end
 
 function listMode:SortList()
-	local oldSelFileName = self.sel and self.list[self.sel].fileName
+	local oldSelFileName = self.sel and self.list[self.sel] and self.list[self.sel].fileName
 	table.sort(self.list, function(a, b) return a.fileName:upper() < b.fileName:upper() end)
 	if oldSelFileName then
 		self:SelByFileName(oldSelFileName)
@@ -164,6 +164,7 @@ function listMode:New()
 		end
 		outFile:write('<?xml version="1.0" encoding="UTF-8"?>\n<PathOfBuilding>\n</PathOfBuilding>')
 		outFile:close()
+		self.sel = 1
 		self.list[self.sel].fileName = fileName
 		self.list[self.sel].buildName = buf
 		self:SortList()
@@ -171,10 +172,16 @@ function listMode:New()
 end
 
 function listMode:LoadSel()
+	if not self.sel or not self.list[self.sel] then
+		return
+	end
 	main:SetMode("BUILD", main.buildPath..self.list[self.sel].fileName, self.list[self.sel].buildName)
 end
 
 function listMode:CopySel()
+	if not self.sel or not self.list[self.sel] then
+		return
+	end
 	local srcName = self.list[self.sel].fileName
 	table.insert(self.list, self.sel + 1, copyTable(self.list[self.sel]))
 	self.sel = self.sel + 1
@@ -207,6 +214,9 @@ function listMode:CopySel()
 end
 
 function listMode:RenameSel()
+	if not self.sel or not self.list[self.sel] then
+		return
+	end
 	local oldName = self.list[self.sel].fileName
 	self:EditInit(function(buf)
 		if #buf < 1 then
@@ -234,6 +244,9 @@ function listMode:RenameSel()
 end
 
 function listMode:DeleteSel()
+	if not self.sel or not self.list[self.sel] then
+		return
+	end
 	main:OpenConfirmPopup("Confirm Delete", "Are you sure you want to delete build:\n"..self.list[self.sel].buildName.."\nThis cannot be undone.", "Delete", function()
 		os.remove(main.buildPath..self.list[self.sel].fileName)
 		self:BuildList()
