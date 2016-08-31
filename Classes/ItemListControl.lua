@@ -177,10 +177,8 @@ function ItemListClass:OnKeyUp(key)
 			local equipSlot = self.itemsTab:GetEquippedSlotForItem(self.selItem)
 			if equipSlot then
 				main:OpenConfirmPopup("Delete Item", self.selItem.name.." is currently equipped in "..equipSlot.label..".\nAre you sure you want to delete it?", "Delete", function()
-					if key == "y" then
-						self.itemsTab:DeleteItem(self.selItem)
-						self.selItem = nil
-					end
+					self.itemsTab:DeleteItem(self.selItem)
+					self.selItem = nil
 				end)
 			else
 				self.itemsTab:DeleteItem(self.selItem)
