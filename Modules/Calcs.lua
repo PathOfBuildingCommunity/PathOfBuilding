@@ -457,7 +457,7 @@ local function initEnv(build, input, mode)
 	if mode == "GRID" then
 		input.skill_number = m_min(#env.skills, input.skill_number or 1)
 		env.mainSkillIndex = input.skill_number
-		env.skillPart = input.skill_part
+		env.skillPart = input.skill_part or 1
 		env.buffMode = input.misc_buffMode
 	else
 		build.mainSkillIndex = m_min(#env.skills, build.mainSkillIndex or 1)
