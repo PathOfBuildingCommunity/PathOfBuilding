@@ -29,7 +29,7 @@ local BuildListClass = common.NewClass("BuildList", "Control", "ControlHost", fu
 	end
 	self.controls.nameEdit.width = function()
 		local width, height = self:GetSize()
-		return width - 160
+		return width - 20
 	end
 end)
 
@@ -101,9 +101,11 @@ function BuildListClass:Draw(viewPort)
 			SetDrawColor(0, 0, 0)
 		end
 		DrawImage(nil, 0, lineY + 1, width - 22, 18)
-		DrawString(0, lineY + 2, "LEFT", 16, "VAR", "^7"..(build.buildName or "?"))
-		SetDrawColor(build.className and data.colorCodes[build.className:upper()] or "^7")
-		DrawString(width - 160, lineY + 2, "LEFT", 16, "VAR", string.format("Level %d %s", build.level or 1, (build.ascendClassName ~= "None" and build.ascendClassName) or build.className or "?"))
+		if self.listMode.edit ~= index then
+			DrawString(0, lineY + 2, "LEFT", 16, "VAR", "^7"..(build.buildName or "?"))
+			SetDrawColor(build.className and data.colorCodes[build.className:upper()] or "^7")
+			DrawString(width - 160, lineY + 2, "LEFT", 16, "VAR", string.format("Level %d %s", build.level or 1, (build.ascendClassName ~= "None" and build.ascendClassName) or build.className or "?"))
+		end
 	end
 	SetViewport()
 	if self.listMode.edit then
