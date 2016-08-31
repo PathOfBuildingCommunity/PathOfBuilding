@@ -173,6 +173,7 @@ Prefixes:
 {inc Ar}
 {range:.75}+(0 to 138) to Armour
 {range:.75}+(0 to 99) to maximum Life
+{range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
 {str}
 {int}
@@ -184,6 +185,7 @@ Prefixes:
 {inc Ev}
 {range:.75}+(0 to 138) to Evasion Rating
 {range:.75}+(0 to 99) to maximum Life
+{range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
 {dex}
 {int}
@@ -195,6 +197,7 @@ Prefixes:
 {inc ES}
 {range:.75}+(0 to 72) to maximum Energy Shield
 {range:.75}+(0 to 99) to maximum Life
+{range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
 {int}
 {res}
@@ -206,6 +209,7 @@ Prefixes:
 {range:0}+(0 to 138) to Armour
 {range:0}+(0 to 138) to Evasion Rating
 {range:.75}+(0 to 99) to maximum Life
+{range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
 {str}
 {dex}
@@ -219,6 +223,7 @@ Prefixes:
 {range:0}+(0 to 138) to Armour
 {range:0}+(0 to 72) to maximum Energy Shield
 {range:.75}+(0 to 99) to maximum Life
+{range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
 {str}
 {int}
@@ -231,6 +236,7 @@ Prefixes:
 {range:0}+(0 to 138) to Evasion Rating
 {range:0}+(0 to 72) to maximum Energy Shield
 {range:.75}+(0 to 99) to maximum Life
+{range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
 {dex}
 {int}

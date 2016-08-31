@@ -271,6 +271,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	-- Draw the nodes
 	for nodeId, node in pairs(spec.nodes) do
+		local matchesSearchStr = #self.searchStr > 0 and self:DoesNodeMatchSearchStr(node)
+		
 		-- Determine the base and overlay images for this node based on type and state
 		local base, overlay
 		if node.type == "classStart" then
@@ -344,6 +346,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			else
 				SetDrawColor(1, 1, 1)
 			end
+		elseif matchesSearchStr then
+			-- Node matches search terms, make it pulse
+			local col = math.sin((GetTime() / 100) % 360) / 2 + 0.5
+			SetDrawColor(col, col, col)
+		else
+			SetDrawColor(1, 1, 1)
 		end
 		
 		-- Draw base artwork
@@ -355,12 +363,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			-- Draw overlay
 			if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
 				-- Determine overlay color
-				if #self.searchStr > 0 then
-					if self:DoesNodeMatchSearchStr(node) then
-						-- Node matches search terms, make it pulse
-						local col = math.sin((GetTime() / 100) % 360) / 2 + 0.5
-						SetDrawColor(col, col, col)
-					end
+				if matchesSearchStr then
+					-- Node matches search terms, make it pulse
+					local col = math.sin((GetTime() / 100) % 360) / 2 + 0.5
+					SetDrawColor(col, col, col)
 				end
 				if hoverNode and hoverNode ~= node then
 					-- Mouse is hovering over a different node
@@ -461,6 +467,9 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 	for index, line in ipairs(node.sd) do
 		-- Check display text first
 		errMsg, match = PCall(string.match, line:lower(), self.searchStr:lower())
+		if match then
+			return true
+		end
 		if not match and node.mods[index].list then
 			-- Then check modifiers
 			for k in pairs(node.mods[index].list) do

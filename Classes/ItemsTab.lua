@@ -210,6 +210,7 @@ function ItemsTabClass:UpdateSockets()
 
 	-- Update the position of the active socket controls
 	for index, nodeId in pairs(activeSocketList) do
+		self.sockets[nodeId].label = "Socket #"..index
 		self.sockets[nodeId].y = (#baseSlots + index - 1) * 20 + 24
 	end
 end
