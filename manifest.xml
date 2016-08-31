@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.0.3"/>
+	<Version number="1.0.4"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="61015c55ce37b065d24a70cf3f35ed3f66f5cb7b" name="Launch.lua" part="program"/>
@@ -91,7 +91,7 @@
 	<File sha1="f30c7cd2537f1b53335612c47ebf68682fdc33cd" name="Data/Uniques/wand.lua" part="program"/>
 	<File platform="win32" sha1="4ca4bc94efd3a88a87684813f013c42806e364e8" name="Path of Building.exe" part="runtime"/>
 	<File platform="win32" sha1="914d42ca1836c5152a5f60aad23020a86bcb46d9" name="lua51.dll" part="runtime"/>
-	<File platform="win32" sha1="512b874daa563f2d0eb9b79fa6d0e57157f8fb30" name="SimpleGraphic.dll" part="runtime"/>
+	<File platform="win32" sha1="12dbc54abbf9470c4f3347b7bc45233b637584a7" name="SimpleGraphic.dll" part="runtime"/>
 	<File platform="win32" sha1="887fd08cb3c2989a9d88adc9717d3ec00ab97462" name="libcurl.dll" part="runtime"/>
 	<File platform="win32" sha1="607918daf9cbaecee0090e9cec8d0e221338678e" name="lcurl.dll" part="runtime"/>
 	<File platform="win32" sha1="229feec79a1269be868bb32a11f141258481170f" name="lzip.dll" part="runtime"/>
