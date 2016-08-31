@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.0.4"/>
+	<Version number="1.0.5"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="61015c55ce37b065d24a70cf3f35ed3f66f5cb7b" name="Launch.lua" part="program"/>
@@ -19,7 +19,7 @@
 	<File sha1="a704592153b0c34f0c9b9f29470245ea9a06ffc2" name="Classes/ItemDBControl.lua" part="program"/>
 	<File sha1="ec0343ef35c65b0d17d39ec2271ba3dc5863b79c" name="Classes/ItemListControl.lua" part="program"/>
 	<File sha1="3f0db9229007f0a6552d64632db20621077ecc7d" name="Classes/ItemSlotControl.lua" part="program"/>
-	<File sha1="2703eac2e1a2cd0b07a91832b5115e65f4dfad66" name="Classes/ItemsTab.lua" part="program"/>
+	<File sha1="e03618c67a18d2af659cece822aee4858ff3cb8e" name="Classes/ItemsTab.lua" part="program"/>
 	<File sha1="e577edeea7685cb2b0cd0d00b901a458ae45add0" name="Classes/LabelControl.lua" part="program"/>
 	<File sha1="6f8f98d6ee505af53441c1fe9ad74fbff86d56ad" name="Classes/PassiveSpec.lua" part="program"/>
 	<File sha1="b10a31abaa3254e8d65df3622286fa2824fe93c9" name="Classes/PassiveTree.lua" part="program"/>
@@ -33,7 +33,7 @@
 	<File sha1="80527e0e05c986355ce7af2ba026538aec99a63a" name="Classes/SlotSelectControl.lua" part="program"/>
 	<File sha1="5f28e18b2867769b6141109332f263e12c74b2f9" name="Classes/TreeTab.lua" part="program"/>
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
-	<File sha1="5002676f4d7b6ee38bf7d18feca5798123315af4" name="Modules/Build.lua" part="program"/>
+	<File sha1="64233ed8a3cfe7664467d2c9676609c2bacc9d3c" name="Modules/Build.lua" part="program"/>
 	<File sha1="becdc9504f01dfcfee2c03dc8f5886f31a52d790" name="Modules/BuildList.lua" part="program"/>
 	<File sha1="e3bf122c9f98693639428848c72adb20147cf3bb" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="7721650215b51d7c472da2e81389b81c91c6b498" name="Modules/CalcsView.lua" part="program"/>

@@ -49,12 +49,19 @@ function buildMode:Init(dbFileName, buildName)
 	self.controls.buildName.Draw = function(control)
 		local x, y = control:GetPos()
 		local bnw = DrawStringWidth(16, "VAR", self.buildName)
+		control.width = bnw + 98
 		SetDrawColor(0.5, 0.5, 0.5)
 		DrawImage(nil, x + 91, y, bnw + 6, 20)
 		SetDrawColor(0, 0, 0)
 		DrawImage(nil, x + 92, y + 1, bnw + 4, 18)
 		SetDrawColor(1, 1, 1)
-		DrawString(x, y + 2, "LEFT", 16, "VAR", "Current build:  "..self.buildName.."   "..(self.unsaved and "(Unsaved)" or ""))
+		DrawString(x, y + 2, "LEFT", 16, "VAR", "Current build:  "..self.buildName)
+	end
+	self.controls.save = common.New("ButtonControl", {"LEFT",self.controls.buildName,"RIGHT"}, 8, 0, 80, 20, "Save", function()
+		self:SaveDBFile()
+	end)
+	self.controls.save.shown = function()
+		return self.unsaved
 	end
 
 	-- Controls: top bar, right side
