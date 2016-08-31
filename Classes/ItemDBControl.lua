@@ -47,7 +47,7 @@ local ItemDBClass = common.NewClass("ItemDB", "Control", "ControlHost", function
 	end
 	table.sort(self.typeList)
 	t_insert(self.typeList, 1, "Any type")
-	self.slotList = { "Any slot", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Ring", "Belt", "Jewel" }
+	self.slotList = { "Any slot", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring", "Belt", "Jewel" }
 	self.controls.slot = common.New("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -22, 95, 18, self.slotList, function()
 		self:BuildOrderList()
 	end)
