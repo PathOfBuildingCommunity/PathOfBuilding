@@ -91,7 +91,7 @@
 	<File sha1="f30c7cd2537f1b53335612c47ebf68682fdc33cd" name="Data/Uniques/wand.lua" part="program"/>
 	<File platform="win32" sha1="e8581e70cefa0b68583be298483418c004c8152f" name="Path of Building.exe" part="runtime"/>
 	<File platform="win32" sha1="914d42ca1836c5152a5f60aad23020a86bcb46d9" name="lua51.dll" part="runtime"/>
-	<File platform="win32" sha1="a79f2c74586a3949d0439ef610eee96c957dad5f" name="SimpleGraphic.dll" part="runtime"/>
+	<File platform="win32" sha1="512b874daa563f2d0eb9b79fa6d0e57157f8fb30" name="SimpleGraphic.dll" part="runtime"/>
 	<File platform="win32" sha1="887fd08cb3c2989a9d88adc9717d3ec00ab97462" name="libcurl.dll" part="runtime"/>
 	<File platform="win32" sha1="607918daf9cbaecee0090e9cec8d0e221338678e" name="lcurl.dll" part="runtime"/>
 	<File platform="win32" sha1="229feec79a1269be868bb32a11f141258481170f" name="lzip.dll" part="runtime"/>
