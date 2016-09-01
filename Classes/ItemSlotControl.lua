@@ -10,7 +10,7 @@ local t_insert = table.insert
 local m_min = math.min
 
 local ItemSlotClass = common.NewClass("ItemSlot", "DropDownControl", function(self, anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
-	self.DropDownControl(anchor, x, y, 320, 20, { }, function(sel)
+	self.DropDownControl(anchor, x, y, 310, 20, { }, function(sel)
 		if self.items[sel] ~= self.selItemId then
 			self.selItemId = self.items[sel]
 			itemsTab:PopulateSlots()

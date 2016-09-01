@@ -166,7 +166,7 @@ function ImportTabClass:Draw(viewPort, inputEvents)
 	self.width = viewPort.width
 	self.height = viewPort.height
 
-	self:ProcessControlsInput(inputEvents)
+	self:ProcessControlsInput(inputEvents, viewPort)
 
 	main:DrawBackground(viewPort)
 

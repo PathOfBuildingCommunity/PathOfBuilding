@@ -123,6 +123,12 @@ function jsonToLua(json)
 	return json:gsub("%[","{"):gsub("%]","}"):gsub('"(%d[%d%.]*)":','[%1]='):gsub('"([^"]+)":','["%1"]='):gsub("\\/","/"):gsub("{(%w+)}","{[0]=%1}")
 end
 
+-- Check if mouse is currently inside area defined by region.x, region.y, region.width, region.height
+function isMouseInRegion(region)
+	local cursorX, cursorY = GetCursorPos()
+	return cursorX >= region.x and cursorX < region.x + region.width and cursorY >= region.y and cursorY < region.y + region.height
+end
+
 -- Make a copy of a table and all subtables
 function copyTable(tbl)
 	local out = {}

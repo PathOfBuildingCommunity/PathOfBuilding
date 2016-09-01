@@ -29,7 +29,7 @@ function ControlHostClass:GetMouseOverControl()
 	end
 end
 
-function ControlHostClass:ProcessControlsInput(inputEvents)
+function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if self.selControl then
@@ -38,10 +38,12 @@ function ControlHostClass:ProcessControlsInput(inputEvents)
 			end
 			if not self.selControl and event.key:match("BUTTON") then
 				self:SelectControl()
-				local mOverControl = self:GetMouseOverControl()
-				if mOverControl and mOverControl.OnKeyDown then
-					self:SelectControl(mOverControl:OnKeyDown(event.key, event.doubleClick))
-					inputEvents[id] = nil
+				if isMouseInRegion(viewPort) then
+					local mOverControl = self:GetMouseOverControl()
+					if mOverControl and mOverControl.OnKeyDown then
+						self:SelectControl(mOverControl:OnKeyDown(event.key, event.doubleClick))
+						inputEvents[id] = nil
+					end
 				end
 			end
 		elseif event.type == "KeyUp" then
@@ -50,8 +52,8 @@ function ControlHostClass:ProcessControlsInput(inputEvents)
 					self:SelectControl(self.selControl:OnKeyUp(event.key))
 				end
 				inputEvents[id] = nil
-			else
-				local mOverControl = self:GetMouseOverControl()
+			elseif isMouseInRegion(viewPort) then
+				local mOverControl = self:GetMouseOverControl(viewPort)
 				if mOverControl and mOverControl.OnKeyUp then
 					mOverControl:OnKeyUp(event.key)
 					inputEvents[id] = nil
@@ -68,10 +70,10 @@ function ControlHostClass:ProcessControlsInput(inputEvents)
 	end	
 end
 
-function ControlHostClass:DrawControls(...)
+function ControlHostClass:DrawControls(viewPort)
 	for _, control in pairs(self.controls) do
 		if control:IsShown() then
-			control:Draw(...)
+			control:Draw(viewPort)
 		end
 	end
 end

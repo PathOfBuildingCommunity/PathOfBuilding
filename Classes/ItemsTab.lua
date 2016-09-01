@@ -28,12 +28,12 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	-- Item slots
 	self.slots = { }
 	for index, slotName in pairs(baseSlots) do
-		t_insert(self.controls, common.New("ItemSlot", {"TOPLEFT",self,"TOPLEFT"}, 100, (index - 1) * 20 + 24, self, slotName))
+		t_insert(self.controls, common.New("ItemSlot", {"TOPLEFT",self,"TOPLEFT"}, 96, (index - 1) * 20 + 24, self, slotName))
 	end
 	self.sockets = { }
 	for _, node in pairs(main.tree.nodes) do
 		if node.type == "socket" then
-			local socketControl = common.New("ItemSlot", {"TOPLEFT",self,"TOPLEFT"}, 100, 0, self, "Jewel "..node.id, "Socket", node.id)
+			local socketControl = common.New("ItemSlot", {"TOPLEFT",self,"TOPLEFT"}, 96, 0, self, "Jewel "..node.id, "Socket", node.id)
 			self.controls["socket"..node.id] = socketControl
 			self.sockets[node.id] = socketControl
 		end
@@ -43,17 +43,17 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	-- Build item list
 	self.controls.itemList = common.New("ItemList", {"TOPLEFT",self.slots[baseSlots[1]],"TOPRIGHT"}, 20, 0, 360, 308, self)
 
-	self.controls.selectDBLabel = common.New("LabelControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 16, 0, 16, "^7Import from:")
+	self.controls.selectDBLabel = common.New("LabelControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 14, 0, 16, "^7Import from:")
 	self.controls.selectDB = common.New("DropDownControl", {"LEFT",self.controls.selectDBLabel,"RIGHT"}, 4, 0, 150, 18, { "Uniques", "Rare Templates" })
 
 	-- Unique database
-	self.controls.uniqueDB = common.New("ItemDB", {"TOPLEFT",self.controls.selectDBLabel,"BOTTOMLEFT"}, 0, 48, 360, 276, self, main.uniqueDB)
+	self.controls.uniqueDB = common.New("ItemDB", {"TOPLEFT",self.controls.selectDBLabel,"BOTTOMLEFT"}, 0, 46, 360, 260, self, main.uniqueDB)
 	self.controls.uniqueDB.shown = function()
 		return self.controls.selectDB.sel == 1
 	end
 
 	-- Rare template database
-	self.controls.rareDB = common.New("ItemDB", {"TOPLEFT",self.controls.selectDBLabel,"BOTTOMLEFT"}, 0, 48, 360, 276, self, main.rareDB)
+	self.controls.rareDB = common.New("ItemDB", {"TOPLEFT",self.controls.selectDBLabel,"BOTTOMLEFT"}, 0, 46, 360, 260, self, main.rareDB)
 	self.controls.rareDB.shown = function()
 		return self.controls.selectDB.sel == 2
 	end
@@ -84,7 +84,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.controls.displayItemVariant.shown = function()
 		return self.displayItem.variantList and #self.displayItem.variantList > 1
 	end
-	self.controls.displayItemRangeLine = common.New("DropDownControl", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 400, 18, nil, function(sel)
+	self.controls.displayItemRangeLine = common.New("DropDownControl", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 350, 18, nil, function(sel)
 		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[sel].range
 	end)
 	self.controls.displayItemRangeLine.shown = function()
@@ -94,6 +94,9 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 		self.displayItem.rangeLineList[self.controls.displayItemRangeLine.sel].range = val
 		itemLib.buildItemModList(self.displayItem)
 	end)
+
+	-- Scroll bar
+	self.controls.scrollBarH = common.New("ScrollBarControl", nil, 0, 0, 0, 18, 80, "HORIZONTAL", true)
 end)
 
 function ItemsTabClass:Load(xml, dbFileName)
@@ -154,6 +157,11 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 	self.y = viewPort.y
 	self.width = viewPort.width
 	self.height = viewPort.height
+	self.controls.scrollBarH.width = viewPort.width
+	self.controls.scrollBarH.x = viewPort.x
+	self.controls.scrollBarH.y = viewPort.y + viewPort.height - 18
+	self.controls.scrollBarH:SetContentDimension(self.controls.displayItemRangeSlider:GetPos() + self.controls.displayItemRangeSlider:GetSize() - self.x, viewPort.width)
+	self.x = self.x - self.controls.scrollBarH.offset
 	
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then	
@@ -171,7 +179,7 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 			end
 		end
 	end
-	self:ProcessControlsInput(inputEvents)
+	self:ProcessControlsInput(inputEvents, viewPort)
 
 	main:DrawBackground(viewPort)
 
@@ -236,6 +244,9 @@ function ItemsTabClass:SetDisplayItem(item)
 		self.controls.displayItemVariant.list = item.variantList
 		self.controls.displayItemVariant.sel = item.variant
 		self:UpdateDisplayItemRangeLines()
+		self.controls.scrollBarH:SetOffset(self.controls.scrollBarH.offsetMax)
+	else
+		self.controls.scrollBarH:SetOffset(0)
 	end
 end
 
