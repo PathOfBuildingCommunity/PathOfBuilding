@@ -407,7 +407,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		end
 		for _, def in ipairs({{var="armour",label="Armour"},{var="evasion",label="Evasion Rating"},{var="energyShield",label="Energy Shield"}}) do
 			local itemVal = modList["slot:"..base.type.."_"..def.var.."Base"]
-			if itemVal then
+			if itemVal and itemVal > 0 then
 				main:AddTooltipLine(16, s_format("^x7F7F7F%s: %s%d", def.label, itemVal ~= base.armour[def.var.."Base"] and data.colorCodes.MAGIC or "^7", itemVal))
 			end
 		end

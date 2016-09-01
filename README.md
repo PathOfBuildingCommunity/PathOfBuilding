@@ -48,6 +48,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.0.14 - 2016/09/01
+ * Fixed tags on certain multipart skills not correctly applying
+ * Fixed energy shield not showing up on Sin Trek
+ * Dual Wielding modifiers will now apply
+   * Skills that can use both weapons still only use the main hand at the moment; that requires a bit more work to implement
 ### 1.0.13 - 2016/09/01
  * Added a scroll bar to the Items tab to fix the issue with low screen resolutions
    * The scroll bar will automatically jump to the right when you start editing an item, then jump back when you save it

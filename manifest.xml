@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.0.13"/>
+	<Version number="1.0.14"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
@@ -20,7 +20,7 @@
 	<File sha1="2a3001d92c8f788a7d487643fbfcc4fa93419f4a" name="Classes/ItemDBControl.lua" part="program"/>
 	<File sha1="0cb467a1a8643e5297d8e1cdc1a3808686ffc9ef" name="Classes/ItemListControl.lua" part="program"/>
 	<File sha1="b78b8fd05d201aff7e0da1b3a70acdedef9bf60d" name="Classes/ItemSlotControl.lua" part="program"/>
-	<File sha1="c54a8dd3f9bc379dd296c48442e36e9da98d8f66" name="Classes/ItemsTab.lua" part="program"/>
+	<File sha1="f57bc78b0b8fa9268191b65aa9788bacc9bc04b4" name="Classes/ItemsTab.lua" part="program"/>
 	<File sha1="e577edeea7685cb2b0cd0d00b901a458ae45add0" name="Classes/LabelControl.lua" part="program"/>
 	<File sha1="6f8f98d6ee505af53441c1fe9ad74fbff86d56ad" name="Classes/PassiveSpec.lua" part="program"/>
 	<File sha1="03dde914f7ad75d26f2ba0845b11986d198b6e94" name="Classes/PassiveTree.lua" part="program"/>
@@ -36,11 +36,11 @@
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
 	<File sha1="329ba38548953be8101a83e4c410ebe6f0d0607c" name="Modules/Build.lua" part="program"/>
 	<File sha1="c03a7796aea3e9aa832fbb92c1f674ef5af690ca" name="Modules/BuildList.lua" part="program"/>
-	<File sha1="00197d6bdb1bd2f855233397e39948342eaadae1" name="Modules/Calcs.lua" part="program"/>
+	<File sha1="b9bf5febe19d2bca001f8afa5778b38e9c9cfcda" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="7721650215b51d7c472da2e81389b81c91c6b498" name="Modules/CalcsView.lua" part="program"/>
 	<File sha1="3fd280d8abfa60264495daad42f8ccaa92cdcd46" name="Modules/Common.lua" part="program"/>
 	<File sha1="cb25bd581587ba5b35f77ca7b245334be1e5186a" name="Modules/Data.lua" part="program"/>
-	<File sha1="e04edbadc8eda47583b80f49a3c0a6b844d00dc5" name="Modules/ItemTools.lua" part="program"/>
+	<File sha1="73e1c9410aba9b218cd9d0ff6b13062e9b8de915" name="Modules/ItemTools.lua" part="program"/>
 	<File sha1="bb80b7fe33286e94ca0a52fcd4b1ac403a3d09b9" name="Modules/Main.lua" part="program"/>
 	<File sha1="d4dc00795c80a8a0831f9e126df2f586ef50978c" name="Modules/ModParser.lua" part="program"/>
 	<File sha1="bc49ce1b5e15da40476a9c99c4c690b323c0e7ad" name="Modules/ModTools.lua" part="program"/>
