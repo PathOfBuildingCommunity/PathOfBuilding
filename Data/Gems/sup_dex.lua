@@ -140,7 +140,46 @@ gems["Cast on Critical Strike"] = {
 }
 gems["Cast on Death"] = {
 	dexterity = true,
-	unsupported = true,
+	support = true,
+	spell = true,
+	trigger = true,
+	base = {
+	},
+	quality = {
+		aoeRadiusInc = 3,
+	},
+	levels = {
+		[1] = { damageMore = 1, },
+		[2] = { damageMore = 1.16, },
+		[3] = { damageMore = 1.32, },
+		[4] = { damageMore = 1.48, },
+		[5] = { damageMore = 1.64, },
+		[6] = { damageMore = 1.8, },
+		[7] = { damageMore = 1.96, },
+		[8] = { damageMore = 2.12, },
+		[9] = { damageMore = 2.28, },
+		[10] = { damageMore = 2.44, },
+		[11] = { damageMore = 2.6, },
+		[12] = { damageMore = 2.76, },
+		[13] = { damageMore = 2.92, },
+		[14] = { damageMore = 3.08, },
+		[15] = { damageMore = 3.24, },
+		[16] = { damageMore = 3.4, },
+		[17] = { damageMore = 3.56, },
+		[18] = { damageMore = 3.72, },
+		[19] = { damageMore = 3.88, },
+		[20] = { damageMore = 4.04, },
+		[21] = { damageMore = 4.2, },
+		[22] = { damageMore = 4.36, },
+		[23] = { damageMore = 4.52, },
+		[24] = { damageMore = 4.68, },
+		[25] = { damageMore = 4.84, },
+		[26] = { damageMore = 5, },
+		[27] = { damageMore = 5.16, },
+		[28] = { damageMore = 5.32, },
+		[29] = { damageMore = 5.48, },
+		[30] = { damageMore = 5.64, },
+	}
 }
 gems["Chain"] = {
 	dexterity = true,

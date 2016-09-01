@@ -135,9 +135,48 @@ gems["Blasphemy"] = {
 		[30] = { curse_aoeRadiusInc = 58, },
 	}
 }
-gems["Cast When Stunned"] = {
+gems["Cast when Stunned"] = {
 	intelligence = true,
-	unsupported = true,
+	support = true,
+	spell = true,
+	trigger = true,
+	base = {
+	},
+	quality = {
+		damageInc = 0.5,
+	},
+	levels = {
+		[1] = { },
+		[2] = { },
+		[3] = { },
+		[4] = { },
+		[5] = { },
+		[6] = { },
+		[7] = { },
+		[8] = { },
+		[9] = { },
+		[10] = { },
+		[11] = { },
+		[12] = { },
+		[13] = { },
+		[14] = { },
+		[15] = { },
+		[16] = { },
+		[17] = { },
+		[18] = { },
+		[19] = { },
+		[20] = { },
+		[21] = { },
+		[22] = { },
+		[23] = { },
+		[24] = { },
+		[25] = { },
+		[26] = { },
+		[27] = { },
+		[28] = { },
+		[29] = { },
+		[30] = { },
+	}
 }
 gems["Chance to Ignite"] = {
 	intelligence = true,

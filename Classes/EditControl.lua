@@ -5,7 +5,10 @@
 --
 local launch, main = ...
 
-local EditClass = common.NewClass("EditControl", "Control", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, style)
+local m_floor = math.floor
+
+local EditClass = common.NewClass("EditControl", "ControlHost", "Control", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, style)
+	self.ControlHost()
 	self.Control(anchor, x, y, width, height)
 	self:SetText(init or "")
 	self.prompt = prompt
@@ -18,17 +21,38 @@ local EditClass = common.NewClass("EditControl", "Control", function(self, ancho
 	self.selCol = (style and style.selCol) or "^0"
 	self.selBGCol = (style and style.selBGCol) or "^xBBBBBB"
 	self.blinkStart = GetTime()
+	if self.filter == "[%d]" then
+		-- Add +/- buttons for integer number edits
+		local function buttonSize()
+			local width, height = self:GetSize()
+			return height - 4
+		end
+		self.controls.buttonDown = common.New("ButtonControl", {"RIGHT",self,"RIGHT"}, -2, 0, buttonSize, buttonSize, "-", function()
+			self:OnKeyUp("DOWN")
+		end)
+		self.controls.buttonDown.overSizeText = 6
+		self.controls.buttonUp = common.New("ButtonControl", {"RIGHT",self.controls.buttonDown,"LEFT"}, 0, 0, buttonSize, buttonSize, "+", function()
+			self:OnKeyUp("UP")
+		end)
+		self.controls.buttonUp.overSizeText = 6
+	end
 end)
 
-function EditClass:SetText(text)
+function EditClass:SetText(text, notify)
 	self.buf = tostring(text)
 	self.caret = #self.buf + 1
 	self.sel = nil
+	if notify and self.changeFunc then
+		self.changeFunc(self.buf)
+	end
 end
 
 function EditClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
+	end
+	if self:GetMouseOverControl() then
+		return true
 	end
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -76,7 +100,7 @@ function EditClass:Insert(text)
 	end
 end
 
-function EditClass:Draw()
+function EditClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -111,6 +135,9 @@ function EditClass:Draw()
 	if not enabled then
 		return
 	end
+	SetDrawLayer(nil, 5)
+	self:DrawControls(viewPort)
+	SetDrawLayer(nil, 0)
 	SetViewport(textX, textY, width - 2 - (textX - x), textHeight)
 	if not self.hasFocus then
 		DrawString(0, 0, "LEFT", textHeight, "VAR", self.inactiveCol..self.buf)
@@ -161,6 +188,10 @@ end
 function EditClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
+	end
+	local mOverControl = self:GetMouseOverControl()
+	if mOverControl and mOverControl.OnKeyDown then
+		return mOverControl:OnKeyDown(key)
 	end
 	local shift = IsKeyDown("SHIFT")
 	if key == "LEFTBUTTON" then
@@ -267,7 +298,22 @@ function EditClass:OnKeyUp(key)
 		if self.drag then
 			self.drag = false
 		end
-	end		
+	elseif self.filter == "[%d]" then
+		local cur = tonumber(self.buf)
+		if key == "WHEELUP" or key == "UP" then
+			if cur then
+				self:SetText(tostring(cur + 1), true)
+			else
+				self:SetText("1", true)
+			end
+		elseif key == "WHEELDOWN" or key == "DOWN" then
+			if cur and cur > 0 then
+				self:SetText(tostring(cur - 1), true)
+			else
+				self:SetText("0", true)
+			end
+		end
+	end
 	return self.hasFocus and self
 end
 

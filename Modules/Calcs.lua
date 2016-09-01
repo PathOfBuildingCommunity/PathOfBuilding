@@ -788,10 +788,6 @@ local function finaliseMods(env, output)
 	buildSpaceTable(modDB)
 	
 	-- Merge skill modifiers and calculate life and mana reservations
-	output.lifeReservedBase = 0
-	output.lifeReservedPercent = 0
-	output.manaReservedBase = 0
-	output.manaReservedPercent = 0
 	for _, skill in pairs(env.skills) do
 		if skill == env.mainSkill or skill.active then
 			local skillModList = skill.skillModList
@@ -824,9 +820,9 @@ local function finaliseMods(env, output)
 				cost = m_ceil(cost * sumMods(modDB, true, "manaReservedMore") * (skillModList.manaReservedMore or 1))
 				cost = m_ceil(cost * (1 + sumMods(modDB, false, "manaReservedInc") / 100 + (skillModList.manaReservedInc or 0) / 100))
 				if getMiscVal(modDB, nil, "bloodMagic", false) or skillModList.skill_bloodMagic then
-					output["lifeReserved"..suffix] = output["lifeReserved"..suffix] + cost
+					mod_dbMerge(modDB, "reserved", "life"..suffix, cost)
 				else
-					output["manaReserved"..suffix] = output["manaReserved"..suffix] + cost
+					mod_dbMerge(modDB, "reserved", "mana"..suffix, cost)
 				end
 			end
 		end
@@ -1032,19 +1028,46 @@ end
 local function performCalcs(env, output)
 	local modDB = env.modDB
 
-	-- Calculate life/mana pools and defences
-
-	if startWatch(env, "lifeES") then
+	-- Calculate life/mana pools
+	if startWatch(env, "life") then
 		if getMiscVal(modDB, nil, "chaosInoculation", false) then
 			output.total_life = 1
 		else
 			output.total_life = calcVal(modDB, "life")
 		end
+		endWatch(env, "life")
+	end
+	if startWatch(env, "mana") then
+		output.total_mana = calcVal(modDB, "mana")
+		mod_dbMerge(modDB, "", "manaRegenBase", output.total_mana * 0.0175)
+		output.total_manaRegen = sumMods(modDB, false, "manaRegenBase") * (1 + sumMods(modDB, false, "manaRegenInc", "manaRecoveryInc") / 100) * sumMods(modDB, true, "manaRegenMore", "manaRecoveryMore")
+		endWatch(env, "mana")
+	end
+
+	-- Calculate life/mana reservation
+	for _, pool in pairs({"life", "mana"}) do
+		if startWatch(env, pool.."Reservation", pool) then
+			local max = output["total_"..pool]
+			local reserved = getMiscVal(modDB, "reserved", pool.."Base", 0) + m_floor(max * getMiscVal(modDB, "reserved", pool.."Percent", 0) / 100 + 0.5)
+			output["total_"..pool.."Reserved"] = reserved
+			output["total_"..pool.."ReservedPercent"] = reserved / max
+			output["total_"..pool.."Unreserved"] = max - reserved
+			output["total_"..pool.."UnreservedPercent"] = (max - reserved) / max
+			endWatch(env, pool.."Reservation")
+		end
+	end
+
+	-- Calculate primary defences
+	if startWatch(env, "energyShield", "mana") then
 		local convManaToES = getMiscVal(modDB, nil, "manaGainAsEnergyShield", 0)
 		if convManaToES > 0 then
 			output.total_energyShield = sumMods(modDB, false, "manaBase") * (1 + sumMods(modDB, false, "energyShieldInc", "defencesInc", "manaInc") / 100) * sumMods(modDB, true, "energyShieldMore", "defencesMore", "manaMore") * convManaToES / 100
 		else
 			output.total_energyShield = 0
+		end
+		local energyShieldFromReservedMana = getMiscVal(modDB, nil, "energyShieldFromReservedMana", 0)
+		if energyShieldFromReservedMana > 0 then
+			output.total_energyShield = output.total_energyShield + output.total_manaReserved * (1 + sumMods(modDB, false, "energyShieldInc", "defencesInc") / 100) * sumMods(modDB, true, "energyShieldMore", "defencesMore") * energyShieldFromReservedMana / 100
 		end
 		output.total_gear_energyShieldBase = env.itemModList.energyShieldBase or 0
 		for _, slot in pairs({"global","slot:Helmet","slot:Body Armour","slot:Gloves","slot:Boots","slot:Shield"}) do
@@ -1060,31 +1083,16 @@ local function performCalcs(env, output)
 		buildSpaceTable(modDB)
 		output.total_energyShieldRecharge = output.total_energyShield * 0.2 * (1 + sumMods(modDB, false, "energyShieldRechargeInc", "energyShieldRecoveryInc") / 100) * sumMods(modDB, true, "energyShieldRechargeMore", "energyShieldRecoveryMore")
 		output.total_energyShieldRechargeDelay = 2 / (1 + getMiscVal(modDB, nil, "energyShieldRechargeFaster", 0) / 100)
-		if getMiscVal(modDB, nil, "noLifeRegen", false) then
-			output.total_lifeRegen = 0
-		elseif getMiscVal(modDB, nil, "zealotsOath", false) then
-			output.total_lifeRegen = 0
-			mod_dbMerge(modDB, "", "energyShieldRegenBase", sumMods(modDB, false, "lifeRegenBase"))
-			mod_dbMerge(modDB, "", "energyShieldRegenPercent", sumMods(modDB, false, "lifeRegenPercent"))
-		else
-			mod_dbMerge(modDB, "", "lifeRegenBase", output.total_life * sumMods(modDB, false, "lifeRegenPercent") / 100)
-			output.total_lifeRegen = sumMods(modDB, false, "lifeRegenBase") * (1 + sumMods(modDB, false, "lifeRecoveryInc") / 100) * sumMods(modDB, true, "lifeRecoveryMore")
-		end
-		mod_dbMerge(modDB, "", "energyShieldRegenBase", output.total_energyShield * sumMods(modDB, false, "energyShieldRegenPercent") / 100)
-		output.total_energyShieldRegen = sumMods(modDB, false, "energyShieldRegenBase") * (1 + sumMods(modDB, false, "energyShieldRecoveryInc") / 100) * sumMods(modDB, true, "energyShieldRecoveryMore")
-		endWatch(env, "lifeES")
+		endWatch(env, "energyShield")
 	end
-
-	if startWatch(env, "mana") then
-		output.total_mana = calcVal(modDB, "mana")
-		mod_dbMerge(modDB, "", "manaRegenBase", output.total_mana * 0.0175)
-		output.total_manaRegen = sumMods(modDB, false, "manaRegenBase") * (1 + sumMods(modDB, false, "manaRegenInc", "manaRecoveryInc") / 100) * sumMods(modDB, true, "manaRegenMore", "manaRecoveryMore")
-		endWatch(env, "mana")
-	end
-
-	if startWatch(env, "armourEvasion") then
+	if startWatch(env, "armourEvasion", "life") then
 		output.total_evasion = 0
-		output.total_armour = 0
+		local armourFromReservedLife = getMiscVal(modDB, nil, "armourFromReservedLife", 0)
+		if armourFromReservedLife > 0 then
+			output.total_armour = output.total_lifeReserved * (1 + sumMods(modDB, false, "armourInc", "armourAndEvasionInc", "defencesInc") / 100) * sumMods(modDB, true, "armourMore", "defencesMore") * armourFromReservedLife / 100
+		else
+			output.total_armour = 0
+		end
 		output.total_gear_evasionBase = env.itemModList.evasionBase or 0
 		output.total_gear_armourBase = env.itemModList.armourBase or 0
 		local ironReflexes = getMiscVal(modDB, nil, "ironReflexes", false)
@@ -1123,17 +1131,36 @@ local function performCalcs(env, output)
 		endWatch(env, "armourEvasion")
 	end
 
+	if startWatch(env, "lifeEnergyShieldRegen", "life", "energyShield") then
+		if getMiscVal(modDB, nil, "noLifeRegen", false) then
+			output.total_lifeRegen = 0
+		elseif getMiscVal(modDB, nil, "zealotsOath", false) then
+			output.total_lifeRegen = 0
+			mod_dbMerge(modDB, "", "energyShieldRegenBase", sumMods(modDB, false, "lifeRegenBase"))
+			mod_dbMerge(modDB, "", "energyShieldRegenPercent", sumMods(modDB, false, "lifeRegenPercent"))
+		else
+			mod_dbMerge(modDB, "", "lifeRegenBase", output.total_life * sumMods(modDB, false, "lifeRegenPercent") / 100)
+			output.total_lifeRegen = sumMods(modDB, false, "lifeRegenBase") * (1 + sumMods(modDB, false, "lifeRecoveryInc") / 100) * sumMods(modDB, true, "lifeRecoveryMore")
+		end
+		mod_dbMerge(modDB, "", "energyShieldRegenBase", output.total_energyShield * sumMods(modDB, false, "energyShieldRegenPercent") / 100)
+		output.total_energyShieldRegen = sumMods(modDB, false, "energyShieldRegenBase") * (1 + sumMods(modDB, false, "energyShieldRecoveryInc") / 100) * sumMods(modDB, true, "energyShieldRecoveryMore")
+		endWatch(env, "lifeEnergyShieldRegen")
+	end
+
 	if startWatch(env, "resist") then
 		for _, elem in pairs({"fire", "cold", "lightning"}) do
 			output["total_"..elem.."ResistMax"] = sumMods(modDB, false, elem.."ResistMax")
-			output["total_"..elem.."Resist"] = m_min(sumMods(modDB, false, elem.."Resist", "elementalResist") - 60, output["total_"..elem.."ResistMax"])
+			output["total_"..elem.."ResistTotal"] = sumMods(modDB, false, elem.."Resist", "elementalResist") - 60
+			output["total_"..elem.."Resist"] = m_min(output["total_"..elem.."ResistTotal"], output["total_"..elem.."ResistMax"])
 		end
 		if getMiscVal(modDB, nil, "chaosInoculation", false) then
 			output.total_chaosResistMax = 100
+			output.total_chaosResistTotal = 100
 			output.total_chaosResist = 100
 		else
 			output.total_chaosResistMax = sumMods(modDB, false, "chaosResistMax")
-			output.total_chaosResist = sumMods(modDB, false, "chaosResist") - 60
+			output.total_chaosResistTotal = sumMods(modDB, false, "chaosResist") - 60
+			output.total_chaosResist = m_min(output.total_chaosResistTotal, output.total_chaosResistMax)
 		end
 		endWatch(env, "resist")
 	end
@@ -1160,16 +1187,6 @@ local function performCalcs(env, output)
 			output.stun_blockDuration = 0.35 / (1 + sumMods(modDB, false, "stunRecoveryInc", "blockRecoveryInc") / 100)
 		end
 		endWatch(env, "otherDef")
-	end
-
-	-- Calculate life/mana reservation
-	for _, pool in pairs({"life", "mana"}) do
-		local max = output["total_"..pool]
-		local reserved = output[pool.."ReservedBase"] + m_floor(max * output[pool.."ReservedPercent"] / 100 + 0.5)
-		output["total_"..pool.."Reserved"] = reserved
-		output["total_"..pool.."ReservedPercent"] = reserved / max
-		output["total_"..pool.."Unreserved"] = max - reserved
-		output["total_"..pool.."UnreservedPercent"] = (max - reserved) / max
 	end
 
 	-- Enable skill namespaces
@@ -1815,14 +1832,15 @@ function calcs.buildOutput(build, input, output, mode)
 
 	output.total_extraPoints = getMiscVal(env.modDB, nil, "extraPoints", 0)
 
+	-- Add extra display-only stats
+	for k, v in pairs(env.specModList) do
+		output["spec_"..k] = v
+	end
+	for k, v in pairs(env.itemModList) do
+		output["gear_"..k] = v
+	end
+
 	if mode == "GRID" then
-		-- Add extra display-only stats
-		for k, v in pairs(env.specModList) do
-			output["spec_"..k] = v
-		end
-		for k, v in pairs(env.itemModList) do
-			output["gear_"..k] = v
-		end
 		for i, aux in pairs(env.auxSkills) do
 			output["buff_label"..i] = aux.displayLabel
 		end

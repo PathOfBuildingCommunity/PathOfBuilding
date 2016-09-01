@@ -50,7 +50,8 @@ function ButtonClass:Draw()
 	else
 		SetDrawColor(0.33, 0.33, 0.33)
 	end
-	DrawString(x + width / 2, y + 2, "CENTER_X", height - 4, "VAR", self:GetProperty("label"))
+	local overSize = self.overSizeText or 0
+	DrawString(x + width / 2, y + 2 - overSize, "CENTER_X", height - 4 + overSize * 2, "VAR", self:GetProperty("label"))
 end
 
 function ButtonClass:OnKeyDown(key)
