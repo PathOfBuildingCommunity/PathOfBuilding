@@ -156,7 +156,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlotName"..index] = slot.nameSpec
 
 	-- Gem level
-	slot.level = common.New("EditControl", {"LEFT",slot.nameSpec,"RIGHT"}, 2, 0, 50, 20, nil, nil, "[%d]", 2, function(buf)
+	slot.level = common.New("EditControl", {"LEFT",slot.nameSpec,"RIGHT"}, 2, 0, 60, 20, nil, nil, "[%d]", 2, function(buf)
 		if not self.displaySkill.gemList[index] then
 			self.displaySkill.gemList[index] = { nameSpec = "", level = 1, quality = 0 }
 		end
@@ -169,7 +169,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlotLevel"..index] = slot.level
 
 	-- Gem quality
-	slot.quality = common.New("EditControl", {"LEFT",slot.level,"RIGHT"}, 2, 0, 50, 20, nil, nil, "[%d]", 2, function(buf)
+	slot.quality = common.New("EditControl", {"LEFT",slot.level,"RIGHT"}, 2, 0, 60, 20, nil, nil, "[%d]", 2, function(buf)
 		if not self.displaySkill.gemList[index] then
 			self.displaySkill.gemList[index] = { nameSpec = "", level = 1, quality = 0 }
 		end

@@ -364,6 +364,8 @@ local specialModList = {
 	["(%d+)%% increased damage of each damage type for which you have a matching golem"] = function(num) return { CondMod_HavePhysicalGolem_physicalInc = num, CondMod_HaveLightningGolem_lightningInc = num, CondMod_HaveColdGolem_coldInc = num, CondMod_HaveFireGolem_fireInc = num, CondMod_HaveChaosGolem_chaosInc = num } end,
 	["100%% increased effect of buffs granted by your elemental golems"] = { Cond_LiegeOfThePrimordial = true },
 	["enemies you curse take (%d+)%% increased damage"] = function(num) return { CondMod_EnemyCursed_effective_damageTakenInc = num } end,
+	["grants armour equal to (%d+)%% of your reserved life to you and nearby allies"] = function(num) return { armourFromReservedLife = num } end,
+	["grants maximum energy shield equal to (%d+)%% of your reserved mana to you and nearby allies"] = function(num) return { energyShieldFromReservedMana = num } end,
 	-- Special node types
 	["(%d+)%% of block chance applied to spells"] = function(num) return { blockChanceConv = num } end,
 	["(%d+)%% additional block chance with staves"] = function(num) return { CondMod_UsingStaff_blockChance = num } end,

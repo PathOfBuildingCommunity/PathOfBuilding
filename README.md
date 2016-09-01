@@ -48,16 +48,25 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.0.15 - 2016/09/02
+ * Added support for Cast when Damage Taken, Cast when Stunned and Cast on Death (yes, really!)
+ * Added support for Radiant Faith
+ * Enabled mousewheel support on number edits, and added +/- buttons (character level, gem level etc)
+ * Clarified many of the field labels in the Calcs tab
+ * Added some tree %inc stats to the side bar
+ 
 ### 1.0.14 - 2016/09/01
  * Fixed tags on certain multipart skills not correctly applying
  * Fixed energy shield not showing up on Sin Trek
  * Dual Wielding modifiers will now apply
    * Skills that can use both weapons still only use the main hand at the moment; that requires a bit more work to implement
+
 ### 1.0.13 - 2016/09/01
  * Added a scroll bar to the Items tab to fix the issue with low screen resolutions
    * The scroll bar will automatically jump to the right when you start editing an item, then jump back when you save it
    * This might be a little disorienting; need feedback on this
  * Also fixed some minor issues with scroll bars (mouse wheel should now work on all of them)
+
 ### 1.0.12 - 2016/09/01
  * Updated tree to 2.4.0
  * Added latest patch note changes

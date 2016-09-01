@@ -140,7 +140,46 @@ gems["Cast on Melee Kill"] = {
 }
 gems["Cast when Damage Taken"] = {
 	strength = true,
-	unsupported = true,
+	support = true,
+	spell = true,
+	trigger = true,
+	base = {
+	},
+	quality = {
+		damageInc = 0.5,
+	},
+	levels = {
+		[1] = { damageMore = 0.3, },
+		[2] = { damageMore = 0.34, },
+		[3] = { damageMore = 0.38, },
+		[4] = { damageMore = 0.42, },
+		[5] = { damageMore = 0.46, },
+		[6] = { damageMore = 0.5, },
+		[7] = { damageMore = 0.54, },
+		[8] = { damageMore = 0.58, },
+		[9] = { damageMore = 0.62, },
+		[10] = { damageMore = 0.66, },
+		[11] = { damageMore = 0.7, },
+		[12] = { damageMore = 0.74, },
+		[13] = { damageMore = 0.78, },
+		[14] = { damageMore = 0.82, },
+		[15] = { damageMore = 0.86, },
+		[16] = { damageMore = 0.9, },
+		[17] = { damageMore = 0.94, },
+		[18] = { damageMore = 0.98, },
+		[19] = { damageMore = 1.02, },
+		[20] = { damageMore = 1.06, },
+		[21] = { damageMore = 1.1, },
+		[22] = { damageMore = 1.14, },
+		[23] = { damageMore = 1.18, },
+		[24] = { damageMore = 1.22, },
+		[25] = { damageMore = 1.26, },
+		[26] = { damageMore = 1.3, },
+		[27] = { damageMore = 1.34, },
+		[28] = { damageMore = 1.38, },
+		[29] = { damageMore = 1.42, },
+		[30] = { damageMore = 1.46, },
+	}
 }
 gems["Cold to Fire"] = {
 	strength = true,

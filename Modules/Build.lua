@@ -82,7 +82,7 @@ function buildMode:Init(dbFileName, buildName)
 		SetDrawColor(1, 1, 1)
 		DrawString(x + 4, y + 2, "LEFT", 16, "FIXED", str)
 	end
-	self.controls.characterLevel = common.New("EditControl", {"LEFT",self.anchorTopBarRight,"RIGHT"}, 0, 0, 75, 20, "", "Level", "[%d]", 3, function(buf)
+	self.controls.characterLevel = common.New("EditControl", {"LEFT",self.anchorTopBarRight,"RIGHT"}, 0, 0, 106, 20, "", "Level", "[%d]", 3, function(buf)
 		self.characterLevel = tonumber(buf) or 1
 		self.buildFlag = true
 	end)
@@ -186,19 +186,24 @@ function buildMode:Init(dbFileName, buildName)
 		{ mod = "poison_dps", label = "Poison DPS", fmt = ".1f" },
 		{ },
 		{ mod = "total_life", label = "Total Life", fmt = "d" },
+		{ mod = "spec_lifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.total_life > 1 end },
 		{ mod = "total_lifeUnreserved", label = "Unreserved Life", fmt = "d", condFunc = function(v,o) return v < o.total_life end },
 		{ mod = "total_lifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", pc = true, condFunc = function(v,o) return v < 1 end },
 		{ mod = "total_lifeRegen", label = "Life Regen", fmt = ".1f" },
 		{ },
 		{ mod = "total_mana", label = "Total Mana", fmt = "d" },
+		{ mod = "spec_manaInc", label = "%Inc Mana from Tree", fmt = "d%%" },
 		{ mod = "total_manaUnreserved", label = "Unreserved Mana", fmt = "d", condFunc = function(v,o) return v < o.total_mana end },
 		{ mod = "total_manaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", pc = true, condFunc = function(v,o) return v < 1 end },
 		{ mod = "total_manaRegen", label = "Mana Regen", fmt = ".1f" },
 		{ },
 		{ mod = "total_energyShield", label = "Energy Shield", fmt = "d" },
+		{ mod = "spec_energyShieldInc", label = "%Inc ES from Tree", fmt = "d%%" },
 		{ mod = "total_energyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
 		{ mod = "total_evasion", label = "Evasion rating", fmt = "d" },
+		{ mod = "spec_evasionInc", label = "%Inc Evasion from Tree", fmt = "d%%" },
 		{ mod = "total_armour", label = "Armour", fmt = "d" },
+		{ mod = "spec_armourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
 		{ mod = "total_blockChance", label = "Block Chance", fmt = "d%%", pc = true },
 		{ mod = "total_spellBlockChance", label = "Spell Block Chance", fmt = "d%%", pc = true },
 		{ mod = "total_dodgeAttacks", label = "Attack Dodge Chance", fmt = "d%%", pc = true },
