@@ -43,7 +43,14 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 		treeFile:close()
 	else
 		ConPrintf("Downloading passive tree data...")
-		local page = getFile("https://www.pathofexile.com/passive-skill-tree/")
+		local page
+		local pageFile = io.open("TreeData/tree.txt", "r")
+		if pageFile then
+			page = pageFile:read("*a")
+			pageFile:close()
+		else
+			page = getFile("https://www.pathofexile.com/passive-skill-tree/")
+		end
 		treeText = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
 		treeText = treeText .. "tree.classes=" .. jsonToLua(page:match("ascClasses: (%b{})"))
 		treeText = treeText .. "return tree"
