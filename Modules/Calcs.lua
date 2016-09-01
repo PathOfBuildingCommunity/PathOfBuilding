@@ -515,6 +515,9 @@ local function initEnv(build, input, mode)
 	mod_dbMerge(modDB, "", "activeTrapLimit", 3)
 	mod_dbMerge(modDB, "", "activeMineLimit", 5)
 	mod_dbMerge(modDB, "", "projectileCount", 1)
+	mod_dbMerge(modDB, "CondMod", "DualWielding_attackSpeedMore", 1.1)
+	mod_dbMerge(modDB, "CondMod", "DualWielding_attack_physicalMore", 1.2)
+	mod_dbMerge(modDB, "CondMod", "DualWielding_blockChance", 15)
 
 	-- Add bandit mods
 	if build.banditNormal == "Alira" then
@@ -650,10 +653,10 @@ local function finaliseMods(env, output)
 			end
 			if skillFlags.attack then
 				skillFlags.weapon1Attack = true
-				if weapon1Info.melee then
+				if weapon1Info.melee and skillFlags.melee then
 					skillFlags.bow = nil
 					skillFlags.projectile = nil
-				else
+				elseif not weapon1Info.melee and skillFlags.bow then
 					skillFlags.melee = nil
 				end
 			end
@@ -850,10 +853,11 @@ local function finaliseMods(env, output)
 	if weapon1Type == "Staff" then
 		condList["UsingStaff"] = true
 	end
-	if env.skillFlags.mainIs1H then
-		if weapon2Type == "Shield" then
-			condList["UsingShield"] = true
-		end
+	if env.skillFlags.mainIs1H and weapon2Type == "Shield" then
+		condList["UsingShield"] = true
+	end
+	if data.weaponTypeInfo[weapon1Type] and data.weaponTypeInfo[weapon2Type] then
+		condList["DualWielding"] = true
 	end
 	if getMiscVal(modDB, "gear", "NormalCount", 0) > 0 then
 		condList["UsingNormalItem"] = true
@@ -1846,7 +1850,7 @@ function calcs.buildOutput(build, input, output, mode)
 		-- Configure view mode
 		setViewMode(env, build.skillsTab.list)
 
-		--infoDump(env, output)
+		infoDump(env, output)
 	end
 end
 

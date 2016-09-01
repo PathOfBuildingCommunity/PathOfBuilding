@@ -273,15 +273,9 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 			modList.weapon2_type = "Shield"
 		end
 		local basePrefix = "slot:"..item.base.type.."_"
-		if item.base.armour.armourBase then
-			modList[basePrefix.."armourBase"] = m_floor((item.base.armour.armourBase + (modList.armourBase or 0)) * (1 + ((modList.armourInc or 0) + (modList.armourAndEvasionInc or 0) + (modList.armourAndEnergyShieldInc or 0) + (modList.defencesInc or 0) + item.quality) / 100) + 0.5)
-		end
-		if item.base.armour.evasionBase then
-			modList[basePrefix.."evasionBase"] = m_floor((item.base.armour.evasionBase + (modList.evasionBase or 0)) * (1 + ((modList.evasionInc or 0) + (modList.armourAndEvasionInc or 0) + (modList.evasionAndEnergyShieldInc or 0) + (modList.defencesInc or 0) + item.quality) / 100) + 0.5)
-		end
-		if item.base.armour.energyShieldBase then
-			modList[basePrefix.."energyShieldBase"] = m_floor((item.base.armour.energyShieldBase + (modList.energyShieldBase or 0)) * (1 + ((modList.energyShieldInc or 0) + (modList.armourAndEnergyShieldInc or 0) + (modList.evasionAndEnergyShieldInc or 0) + (modList.defencesInc or 0) + item.quality) / 100) + 0.5)
-		end
+		modList[basePrefix.."armourBase"] = m_floor(((item.base.armour.armourBase or 0) + (modList.armourBase or 0)) * (1 + ((modList.armourInc or 0) + (modList.armourAndEvasionInc or 0) + (modList.armourAndEnergyShieldInc or 0) + (modList.defencesInc or 0) + item.quality) / 100) + 0.5)
+		modList[basePrefix.."evasionBase"] = m_floor(((item.base.armour.evasionBase or 0) + (modList.evasionBase or 0)) * (1 + ((modList.evasionInc or 0) + (modList.armourAndEvasionInc or 0) + (modList.evasionAndEnergyShieldInc or 0) + (modList.defencesInc or 0) + item.quality) / 100) + 0.5)
+		modList[basePrefix.."energyShieldBase"] = m_floor(((item.base.armour.energyShieldBase or 0) + (modList.energyShieldBase or 0)) * (1 + ((modList.energyShieldInc or 0) + (modList.armourAndEnergyShieldInc or 0) + (modList.evasionAndEnergyShieldInc or 0) + (modList.defencesInc or 0) + item.quality) / 100) + 0.5)
 		if item.base.armour.blockChance then
 			if modList.shieldLocal_noBlock then
 				modList.blockChance = 0
