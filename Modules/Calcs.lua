@@ -714,8 +714,10 @@ local function finaliseMods(env, output)
 			skillSpaceFlags["totem"] = true
 		elseif skillFlags.trap then
 			skillSpaceFlags["trap"] = true
+			skillSpaceFlags["trapHit"] = true
 		elseif skillFlags.mine then
 			skillSpaceFlags["mine"] = true
+			skillSpaceFlags["mineHit"] = true
 		end
 		if skillFlags.aoe then
 			skillSpaceFlags["aoe"] = true

@@ -124,6 +124,7 @@ Requires Level 20, 71 Str
 Mjölner
 Gavel
 Variant: Pre 2.0.0
+Variant: Pre 2.4.0
 Variant: Current
 One Handed Mace
 Physical Damage: (81-99 to 151-185)
@@ -138,6 +139,7 @@ Skills Chain +1 times
 +300 Intelligence Requirement
 {variant:1}50% chance to Cast Socketed Lightning Spells on Hit
 {variant:2}30% chance to Cast Socketed Lightning Spells on Hit
+{variant:3}100% chance to Cast Socketed Lightning Spells on Hit
 ]],
 -- Weapon: Sceptre
 [[
