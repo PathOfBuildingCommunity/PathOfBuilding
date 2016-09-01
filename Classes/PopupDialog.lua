@@ -29,7 +29,7 @@ local PopupDialogClass = common.NewClass("PopupDialog", "ControlHost", "Control"
 	end
 end)
 
-function PopupDialogClass:Draw()
+function PopupDialogClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	-- Draw dialog background
@@ -48,10 +48,10 @@ function PopupDialogClass:Draw()
 	SetDrawColor(1, 1, 1)
 	DrawString(titleX + 4, y - 7, "LEFT", 16, "VAR", title)
 	-- Draw controls
-	self:DrawControls()
+	self:DrawControls(viewPort)
 end
 
-function PopupDialogClass:ProcessInput(inputEvents)
+function PopupDialogClass:ProcessInput(inputEvents, viewPort)
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "ESCAPE" then
@@ -60,5 +60,5 @@ function PopupDialogClass:ProcessInput(inputEvents)
 			end
 		end
 	end
-	self:ProcessControlsInput(inputEvents)
+	self:ProcessControlsInput(inputEvents, viewPort)
 end

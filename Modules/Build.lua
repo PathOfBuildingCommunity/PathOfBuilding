@@ -289,7 +289,6 @@ function buildMode:Save(xml)
 end
 
 function buildMode:OnFrame(inputEvents)
-	self:ProcessControlsInput(inputEvents)
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "s" and IsKeyDown("CTRL") then
@@ -298,6 +297,7 @@ function buildMode:OnFrame(inputEvents)
 			end
 		end
 	end
+	self:ProcessControlsInput(inputEvents, main.viewPort)
 
 	-- Update contents of ascendancy class dropdown
 	wipeTable(self.controls.ascendDrop.list)
@@ -343,25 +343,24 @@ function buildMode:OnFrame(inputEvents)
 	end
 	self.controls.mainSkillDrop.sel = self.mainSkillIndex
 
-
 	-- Draw contents of current tab
 	local sideBarWidth = 312
-	local viewPort = {
+	local tabViewPort = {
 		x = sideBarWidth,
 		y = 32,
 		width = main.screenW - sideBarWidth,
 		height = main.screenH - 32
 	}
 	if self.viewMode == "IMPORT" then
-		self.importTab:Draw(viewPort, inputEvents)
+		self.importTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "TREE" then
-		self.treeTab:Draw(viewPort, inputEvents)
+		self.treeTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "SKILLS" then
-		self.skillsTab:Draw(viewPort, inputEvents)
+		self.skillsTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "ITEMS" then
-		self.itemsTab:Draw(viewPort, inputEvents)
+		self.itemsTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "CALCS" then
-		self.calcsTab:Draw(viewPort, inputEvents)
+		self.calcsTab:Draw(tabViewPort, inputEvents)
 	end
 
 	-- Draw top bar background

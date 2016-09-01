@@ -89,7 +89,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 			end
 		end
 	end
-	self:ProcessControlsInput(inputEvents)
+	self:ProcessControlsInput(inputEvents, viewPort)
 
 	self.viewer:Draw(self.build, viewPort, inputEvents)
 

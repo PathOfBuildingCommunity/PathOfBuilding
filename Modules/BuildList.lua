@@ -64,12 +64,11 @@ function listMode:OnFrame(inputEvents)
 			end
 		end
 	end
-	self:ProcessControlsInput(inputEvents)
+	self:ProcessControlsInput(inputEvents, main.viewPort)
 
-	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(main.tree.assets.Background1.handle, 0, 0, main.screenW, main.screenH, 0, 0, main.screenW / 100, main.screenH / 100)
+	main:DrawBackground(main.viewPort)
 
-	self:DrawControls()
+	self:DrawControls(main.viewPort)
 end
 
 function listMode:BuildList()

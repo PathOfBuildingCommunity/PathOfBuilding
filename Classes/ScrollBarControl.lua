@@ -10,12 +10,17 @@ local m_max = math.max
 local m_ceil = math.ceil
 local m_floor = math.floor
 
-local ScrollBarClass = common.NewClass("ScrollBarControl", "Control", function(self, anchor, x, y, width, height, step, dir)
+local ScrollBarClass = common.NewClass("ScrollBarControl", "Control", function(self, anchor, x, y, width, height, step, dir, autoHide)
 	self.Control(anchor, x, y, width, height)
 	self.step = step or width * 2
 	self.dir = dir or "VERTICAL"
 	self.offset = 0
 	self.enabled = false
+	if autoHide then
+		self.shown = function()
+			return self.enabled
+		end
+	end
 end)
 
 function ScrollBarClass:SetContentDimension(conDim, viewDim)
@@ -109,6 +114,9 @@ function ScrollBarClass:Draw()
 	local enabled = self:IsEnabled()
 	local mOver, mOverComp = self:IsMouseOver()
 	local dir = self.dir
+	if not IsKeyDown("LEFTBUTTON") then
+		self.dragging = false
+	end
 	if self.dragging then
 		local cursorX, cursorY = GetCursorPos()
 		if self.dir == "HORIZONTAL" then
@@ -283,7 +291,7 @@ function ScrollBarClass:OnKeyDown(key)
 end
 
 function ScrollBarClass:OnKeyUp(key)
-	if not self:IsShown() or not self:IsEnabled() or self:GetProperty("locked")  then
+	if not self:IsShown() or not self:IsEnabled() or self:GetProperty("locked") then
 		return
 	end
 	if key == "LEFTBUTTON" then
@@ -300,5 +308,9 @@ function ScrollBarClass:OnKeyUp(key)
 			self.holdRepeating = nil
 			self.holdPauseTime = nil
 		end
+	elseif key == "WHEELDOWN" then
+		self:Scroll(1)
+	elseif key == "WHEELUP" then
+		self:Scroll(-1)
 	end
 end

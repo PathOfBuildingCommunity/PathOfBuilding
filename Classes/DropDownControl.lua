@@ -114,7 +114,7 @@ function DropDownClass:Draw()
 	if type(selLabel) == "table" then
 		selLabel = selLabel.label
 	end
-	SetViewport(x + 2, y + 2, width - 16, height - 4)
+	SetViewport(x + 2, y + 2, width - height, height - 4)
 	DrawString(0, 0, "LEFT", height - 4, "VAR", selLabel or "")
 	SetViewport()
 	if self.dropped then

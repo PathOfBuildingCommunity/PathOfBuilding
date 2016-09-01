@@ -26,8 +26,8 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 
 	self.calcs = LoadModule("Modules/Calcs", self.grid)
 
-	self.controls.scrollBarH = common.New("ScrollBarControl", nil, 0, 0, 0, 18, 80, "HORIZONTAL")
-	self.controls.scrollBarV = common.New("ScrollBarControl", nil, 0, 0, 18, 0, 80, "VERTICAL")
+	self.controls.scrollBarH = common.New("ScrollBarControl", nil, 0, 0, 0, 18, 80, "HORIZONTAL", true)
+	self.controls.scrollBarV = common.New("ScrollBarControl", nil, 0, 0, 18, 0, 80, "VERTICAL", true)
 end)
 
 function CalcsTabClass:Load(xml, dbFileName)
@@ -70,19 +70,24 @@ function CalcsTabClass:Save(xml)
 end
 
 function CalcsTabClass:Draw(viewPort, inputEvents)
+	local gridViewPort = { x = viewPort.x, y = viewPort.y }
 	if self.grid.realWidth > viewPort.width then
-		viewPort.height = viewPort.height - 18
+		gridViewPort.height = viewPort.height - 18
+	else
+		gridViewPort.height = viewPort.height
 	end
 	if self.grid.realHeight > viewPort.height then
-		viewPort.width = viewPort.width - 18
+		gridViewPort.width = viewPort.width - 18
+	else
+		gridViewPort.width = viewPort.width
 	end
-	self.controls.scrollBarH.x = viewPort.x
-	self.controls.scrollBarH.y = viewPort.y + viewPort.height
-	self.controls.scrollBarH.width = viewPort.width
+	self.controls.scrollBarH.x = gridViewPort.x
+	self.controls.scrollBarH.y = gridViewPort.y + gridViewPort.height
+	self.controls.scrollBarH.width = gridViewPort.width
 	self.controls.scrollBarH:SetContentDimension(self.grid.realWidth, viewPort.width)
-	self.controls.scrollBarV.x = viewPort.x + viewPort.width
-	self.controls.scrollBarV.y = viewPort.y
-	self.controls.scrollBarV.height = viewPort.height
+	self.controls.scrollBarV.x = gridViewPort.x + gridViewPort.width
+	self.controls.scrollBarV.y = gridViewPort.y
+	self.controls.scrollBarV.height = gridViewPort.height
 	self.controls.scrollBarV:SetContentDimension(self.grid.realHeight, viewPort.height)
 
 	self.grid.offX = viewPort.x - self.controls.scrollBarH.offset
@@ -99,8 +104,8 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 			end
 		end
 	end
-	self.grid:ProcessInput(inputEvents, viewPort)
-	self:ProcessControlsInput(inputEvents)
+	self.grid:ProcessInput(inputEvents, gridViewPort)
+	self:ProcessControlsInput(inputEvents, viewPort)
 
 	if self.grid.changeFlag then
 		self.grid.changeFlag = false

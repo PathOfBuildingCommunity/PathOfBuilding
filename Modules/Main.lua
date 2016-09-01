@@ -153,16 +153,18 @@ function main:OnFrame()
 		self:CallMode("Init", unpack(self.modeArgs))
 	end
 
+	self.viewPort = { x = 0, y = 0, width = self.screenW, height = self.screenH }
+
 	if self.popups[1] then
-		self.popups[1]:ProcessInput(self.inputEvents)
+		self.popups[1]:ProcessInput(self.inputEvents, self.viewPort)
 		wipeTable(self.inputEvents)
 	else
-		self:ProcessControlsInput(self.inputEvents)
+		self:ProcessControlsInput(self.inputEvents, self.viewPort)
 	end
 
-	self:CallMode("OnFrame", self.inputEvents)
+	self:CallMode("OnFrame", self.inputEvents, self.viewPort)
 
-	self:DrawControls()
+	self:DrawControls(self.viewPort)
 
 	if self.popups[1] then
 		SetDrawLayer(10)

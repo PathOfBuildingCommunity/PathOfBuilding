@@ -46,3 +46,13 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss1](https://cloud.githubusercontent.com/assets/19189971/18089779/f0fe23fa-6f04-11e6-8ed7-ff7d5b9f867a.png)
 ![ss2](https://cloud.githubusercontent.com/assets/19189971/18089778/f0f923f0-6f04-11e6-89c2-b2c1410d3583.png)
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
+
+## Changelog
+### 1.0.13 - 2016/09/01
+ * Added a scroll bar to the Items tab to fix the issue with low screen resolutions
+   * The scroll bar will automatically jump to the right when you start editing an item, then jump back when you save it
+   * This might be a little disorienting; need feedback on this
+ * Also fixed some minor issues with scroll bars (mouse wheel should now work on all of them)
+### 1.0.12 - 2016/09/01
+ * Updated tree to 2.4.0
+ * Added latest patch note changes
