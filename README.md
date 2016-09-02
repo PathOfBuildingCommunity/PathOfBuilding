@@ -48,8 +48,13 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.0.18 - 2016/09/02
+ * Items now automatically equip when added to the build if there is an empty slot which the item can go in
+ * Automatically focus the edit control in the tree import/export popups
+ * Added attack speed to the spell dagger template. Whirling Blades yo!
+
 ### 1.0.17 - 2016/09/02
- * Added support for skill DPS multipliers; current only Lightning Tendrils uses it (it has a 4x mutliplier)
+ * Added support for skill DPS multipliers; currently only Lightning Tendrils uses it (it has a 4x mutliplier)
  * Fixed Lioneye's Fall not converting One Handed Melee and Two Handed Melee modifiers
  * Added Accuracy Rating to helm and glove templates
  * Side bar now shows you how far over the resistance caps you are

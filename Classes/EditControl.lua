@@ -60,6 +60,11 @@ function EditClass:IsMouseOver()
 	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 end
 
+function EditClass:SelectAll()
+	self.caret = 1
+	self.sel = #self.buf + 1
+end
+
 function EditClass:ReplaceSel(text)
 	for i = 1, #text do
 		if not text:sub(i,i):match(self.filter) then
@@ -219,8 +224,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 		return
 	elseif IsKeyDown("CTRL") then
 		if key == "a" then
-			self.caret = 1
-			self.sel = #self.buf + 1
+			self:SelectAll()
 		elseif key == "c" or key == "x" then
 			if self.sel and self.sel ~= self.caret then
 				local left = math.min(self.caret, self.sel)

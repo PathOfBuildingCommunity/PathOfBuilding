@@ -273,6 +273,14 @@ function ItemsTabClass:AddDisplayItem()
 
 		-- Add it to the end of the display order list
 		t_insert(self.orderList, self.displayItem.id)
+
+		-- Autoequip it
+		for _, slotName in ipairs(baseSlots) do
+			if self.slots[slotName].selItemId == 0 and self:IsItemValidForSlot(self.displayItem, slotName) then
+				self.slots[slotName].selItemId = self.displayItem.id
+				break
+			end
+		end
 	end
 	
 	-- Add it to the list and clear the current display item

@@ -25,9 +25,9 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 	self.controls.import = common.New("ButtonControl", {"LEFT",self.controls.reset,"RIGHT"}, 8, 0, 90, 20, "Import Tree", function()
 		local treeLink = ""
 		local showMsg
-		main:OpenPopup(280, 110, "Import Tree", {
+		local popup = main:OpenPopup(280, 110, "Import Tree", {
 			common.New("LabelControl", nil, 0, 20, 0, 16, "Enter passive tree link:"),
-			common.New("EditControl", nil, 0, 40, 250, 18, "", nil, nil, nil, function(buf)
+			edit = common.New("EditControl", nil, 0, 40, 250, 18, "", nil, nil, nil, function(buf)
 				treeLink = buf 
 				showMsg = nil
 			end),
@@ -48,12 +48,13 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 				main:ClosePopup()
 			end),
 		})
+		popup:SelectControl(popup.controls.edit)
 	end)
 	self.controls.export = common.New("ButtonControl", {"LEFT",self.controls.import,"RIGHT"}, 8, 0, 90, 20, "Export Tree", function()
 		local treeLink = self.build.spec:EncodeURL("https://www.pathofexile.com/passive-skill-tree/")
-		main:OpenPopup(280, 100, "Export Tree", {
+		local popup = main:OpenPopup(280, 100, "Export Tree", {
 			common.New("LabelControl", nil, 0, 20, 0, 16, "Passive tree link:"),
-			common.New("EditControl", nil, 0, 40, 250, 18, treeLink, nil, "[%z]"),
+			edit = common.New("EditControl", nil, 0, 40, 250, 18, treeLink, nil, "[%z]"),
 			common.New("ButtonControl", nil, -45, 70, 80, 20, "Copy", function()
 				Copy(treeLink)
 			end),
@@ -61,6 +62,8 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 				main:ClosePopup()
 			end),
 		})
+		popup:SelectControl(popup.controls.edit)
+		popup.controls.edit:SelectAll()
 	end)
 	self.controls.treeSearch = common.New("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 400, 20, "", "Search", "[^%c%(%)]", 100, function(buf)
 		self.viewer.searchStr = buf
