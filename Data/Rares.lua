@@ -175,6 +175,7 @@ Prefixes:
 {range:.75}+(0 to 99) to maximum Life
 {range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
+{range:0}+(0 to 400) to Accuracy Rating
 {str}
 {int}
 {res}
@@ -187,6 +188,7 @@ Prefixes:
 {range:.75}+(0 to 99) to maximum Life
 {range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
+{range:0}+(0 to 400) to Accuracy Rating
 {dex}
 {int}
 {res}
@@ -199,6 +201,7 @@ Prefixes:
 {range:.75}+(0 to 99) to maximum Life
 {range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
+{range:0}+(0 to 400) to Accuracy Rating
 {int}
 {res}
 ]],[[
@@ -211,6 +214,7 @@ Prefixes:
 {range:.75}+(0 to 99) to maximum Life
 {range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
+{range:0}+(0 to 400) to Accuracy Rating
 {str}
 {dex}
 {int}
@@ -225,6 +229,7 @@ Prefixes:
 {range:.75}+(0 to 99) to maximum Life
 {range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
+{range:0}+(0 to 400) to Accuracy Rating
 {str}
 {int}
 {res}
@@ -238,6 +243,7 @@ Prefixes:
 {range:.75}+(0 to 99) to maximum Life
 {range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
+{range:0}+(0 to 400) to Accuracy Rating
 {dex}
 {int}
 {res}
@@ -253,6 +259,7 @@ Prefixes:
 {range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
 Suffixes:
 {range:0}(0 to 16)% increased Attack Speed
+{range:0}+(0 to 400) to Accuracy Rating
 {str}
 {dex}
 {res}
@@ -266,6 +273,7 @@ Prefixes:
 {range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
 Suffixes:
 {range:0}(0 to 16)% increased Attack Speed
+{range:0}+(0 to 400) to Accuracy Rating
 {dex}
 {res}
 ]],[[
@@ -278,6 +286,7 @@ Prefixes:
 {range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
 Suffixes:
 {range:0}(0 to 16)% increased Attack Speed
+{range:0}+(0 to 400) to Accuracy Rating
 {dex}
 {int}
 {res}
@@ -292,6 +301,7 @@ Prefixes:
 {range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
 Suffixes:
 {range:0}(0 to 16)% increased Attack Speed
+{range:0}+(0 to 400) to Accuracy Rating
 {str}
 {dex}
 {res}
@@ -306,6 +316,7 @@ Prefixes:
 {range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
 Suffixes:
 {range:0}(0 to 16)% increased Attack Speed
+{range:0}+(0 to 400) to Accuracy Rating
 {str}
 {dex}
 {int}
@@ -321,6 +332,7 @@ Prefixes:
 {range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
 Suffixes:
 {range:0}(0 to 16)% increased Attack Speed
+{range:0}+(0 to 400) to Accuracy Rating
 {dex}
 {int}
 {res}

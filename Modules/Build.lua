@@ -213,6 +213,10 @@ function buildMode:Init(dbFileName, buildName)
 		{ mod = "total_coldResist", label = "Cold Resistance", fmt = "d%%" },
 		{ mod = "total_lightningResist", label = "Lightning Resistance", fmt = "d%%" },
 		{ mod = "total_chaosResist", label = "Chaos Resistance", fmt = "d%%" },
+		{ mod = "total_fireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%" },
+		{ mod = "total_coldResistOverCap", label = "Cold Res. Over Max", fmt = "d%%" },
+		{ mod = "total_lightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%" },
+		{ mod = "total_chaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%" },
 	}
 
 	self.viewMode = "TREE"

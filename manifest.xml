@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.0.16"/>
+	<Version number="1.0.17"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="568c9f6c399a6d2d025774e1b60afbf4ca6f18c6" name="Launch.lua" part="program"/>
 	<File sha1="769b039de92cbad79837d7522991afd8801f4d2a" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="eb9258fd00748a2cc0f38fe6feb3e08c5b316bc9" name="Classes/BuildListControl.lua" part="program"/>
+	<File sha1="aef7145f378d0a1d5dc6f5f2d3c08d2a1b6ef264" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="5e8acfcb3b199a39e93d0be9373e42f56b94d74d" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="ffe8c54a8006cb7acc34ba5c6e50772081a0a694" name="Classes/CalcsTab.lua" part="program"/>
 	<File sha1="02d11638a2ada37b8521cb946512009c468028a1" name="Classes/CheckBoxControl.lua" part="program"/>
@@ -34,21 +34,21 @@
 	<File sha1="80527e0e05c986355ce7af2ba026538aec99a63a" name="Classes/SlotSelectControl.lua" part="program"/>
 	<File sha1="2d8d441178a6dc2dda2942b678481e7bade7e4b7" name="Classes/TreeTab.lua" part="program"/>
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
-	<File sha1="41e0aee5a968365a32b12a5659a3799c4044448c" name="Modules/Build.lua" part="program"/>
+	<File sha1="26526eb610e68fa710c3fc7ed2658808b1fad9a1" name="Modules/Build.lua" part="program"/>
 	<File sha1="c03a7796aea3e9aa832fbb92c1f674ef5af690ca" name="Modules/BuildList.lua" part="program"/>
-	<File sha1="1188c6f2a5ecfc16053bdfec56ac9a61dffeb6dc" name="Modules/Calcs.lua" part="program"/>
+	<File sha1="2e0c73ba1560db5ef20bb548b8122be265860097" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="d4439a94dda4c3d3aa23ac123ba378a35174e425" name="Modules/CalcsView.lua" part="program"/>
 	<File sha1="3fd280d8abfa60264495daad42f8ccaa92cdcd46" name="Modules/Common.lua" part="program"/>
 	<File sha1="cb25bd581587ba5b35f77ca7b245334be1e5186a" name="Modules/Data.lua" part="program"/>
 	<File sha1="73e1c9410aba9b218cd9d0ff6b13062e9b8de915" name="Modules/ItemTools.lua" part="program"/>
 	<File sha1="51b4fca862b219d1e953a73a362cd48147aafdff" name="Modules/Main.lua" part="program"/>
-	<File sha1="e772ad282f23d0c6e1925b84986498e9ea5cccc8" name="Modules/ModParser.lua" part="program"/>
+	<File sha1="929737ca821edb42974dcb39b4490d8a55cd3ac9" name="Modules/ModParser.lua" part="program"/>
 	<File sha1="bc49ce1b5e15da40476a9c99c4c690b323c0e7ad" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
 	<File sha1="056de4fc6178320cc019ad1bacba09d689a87a56" name="Data/New.lua" part="program"/>
-	<File sha1="14133dd59e9f713a41de0de9d07c0993f11a24c1" name="Data/Rares.lua" part="program"/>
+	<File sha1="19c79b0e2bd56c3d2d14278effdea47a73932b71" name="Data/Rares.lua" part="program"/>
 	<File sha1="ce2d294cf8e25a8ea400bdf50e19bb09f52dc430" name="Data/Gems/act_dex.lua" part="program"/>
-	<File sha1="c183b45c75b67c9e63e83b00dc98fab76f182d7c" name="Data/Gems/act_int.lua" part="program"/>
+	<File sha1="2f6080ca40b03e01eac184021b51a1ab5cab1ca1" name="Data/Gems/act_int.lua" part="program"/>
 	<File sha1="8a5ff23a64947650b4837368dea2ac9a78be83dc" name="Data/Gems/act_str.lua" part="program"/>
 	<File sha1="997177289512d8d107f45b440cddcd8ccea890fd" name="Data/Gems/other.lua" part="program"/>
 	<File sha1="e8dd082a5267da9c616ae7a2cdd129595c063bd4" name="Data/Gems/sup_dex.lua" part="program"/>

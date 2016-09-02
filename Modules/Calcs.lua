@@ -1151,16 +1151,19 @@ local function performCalcs(env, output)
 		for _, elem in pairs({"fire", "cold", "lightning"}) do
 			output["total_"..elem.."ResistMax"] = sumMods(modDB, false, elem.."ResistMax")
 			output["total_"..elem.."ResistTotal"] = sumMods(modDB, false, elem.."Resist", "elementalResist") - 60
-			output["total_"..elem.."Resist"] = m_min(output["total_"..elem.."ResistTotal"], output["total_"..elem.."ResistMax"])
 		end
 		if getMiscVal(modDB, nil, "chaosInoculation", false) then
 			output.total_chaosResistMax = 100
 			output.total_chaosResistTotal = 100
-			output.total_chaosResist = 100
 		else
 			output.total_chaosResistMax = sumMods(modDB, false, "chaosResistMax")
 			output.total_chaosResistTotal = sumMods(modDB, false, "chaosResist") - 60
-			output.total_chaosResist = m_min(output.total_chaosResistTotal, output.total_chaosResistMax)
+		end
+		for _, elem in pairs({"fire", "cold", "lightning", "chaos"}) do
+			local total = output["total_"..elem.."ResistTotal"]
+			local cap = output["total_"..elem.."ResistMax"]
+			output["total_"..elem.."Resist"] = m_min(total, cap)
+			output["total_"..elem.."ResistOverCap"] = m_max(0, total - cap)
 		end
 		endWatch(env, "resist")
 	end
@@ -1389,7 +1392,7 @@ local function performCalcs(env, output)
 	-- Calculate average damage and final DPS
 	output.total_averageHit = (combMin + combMax) / 2 * output.total_critEffect
 	output.total_averageDamage = output.total_averageHit * output.total_hitChance
-	output.total_dps = output.total_averageDamage * output.total_speed 
+	output.total_dps = output.total_averageDamage * output.total_speed * getMiscVal(modDB, "skill", "dpsMultiplier", 1)
 
 	-- Calculate mana cost (may be slightly off due to rounding differences)
 	output.total_manaCost = m_floor(m_max(0, getMiscVal(modDB, "skill", "manaCostBase", 0) * (1 + sumMods(modDB, false, "manaCostInc") / 100) * sumMods(modDB, true, "manaCostMore") - sumMods(modDB, false, "manaCostBase")))
