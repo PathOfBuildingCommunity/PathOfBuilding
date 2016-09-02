@@ -180,6 +180,12 @@ function ItemDBClass:Draw(viewPort)
 	local orderList = self.orderList
 	local scrollBar = self.controls.scrollBar
 	scrollBar:SetContentDimension(#orderList * 16, height - 4)
+	if self.selItem and self.selDragging then
+		local cursorX, cursorY = GetCursorPos()
+		if not self.selDragActive and (cursorX-self.selCX)*(cursorX-self.selCX)+(cursorY-self.selCY)*(cursorY-self.selCY) > 100 then
+			self.selDragActive = true
+		end
+	end
 	if self.hasFocus then
 		SetDrawColor(1, 1, 1)
 	else
@@ -251,10 +257,36 @@ function ItemDBClass:OnKeyDown(key, doubleClick)
 			if selItem then
 				self.selItem = selItem
 				self.selIndex = index
-				if doubleClick then
+				if IsKeyDown("CTRL") then
+					-- Immediately add and equip it
+					self.itemsTab:CreateDisplayItemFromRaw(selItem.raw)
+					local newItem = self.itemsTab.displayItem
+					self.itemsTab:AddDisplayItem(true)
+					local slotName = itemLib.getPrimarySlotForItem(newItem)
+					if slotName and self.itemsTab.slots[slotName] then
+						if IsKeyDown("SHIFT") then
+							local altSlot = slotName:gsub("1","2")
+							if self.itemsTab:IsItemValidForSlot(newItem, altSlot) then
+								slotName = altSlot
+							end
+						end
+						if self.itemsTab.slots[slotName].selItemId ~= newItem.id then
+							self.itemsTab.slots[slotName].selItemId = newItem.id
+							self.itemsTab:PopulateSlots()
+							self.itemsTab:AddUndoState()
+							self.itemsTab.build.buildFlag = true
+						end
+					end
+				elseif doubleClick then
 					self.itemsTab:CreateDisplayItemFromRaw(selItem.raw)
 				end
 			end
+		end
+		if self.selItem then
+			self.selCX = cursorX
+			self.selCY = cursorY
+			self.selDragging = true
+			self.selDragActive = false
 		end
 	elseif key == "c" and IsKeyDown("CTRL") then
 		if self.selItem then
@@ -272,6 +304,36 @@ function ItemDBClass:OnKeyUp(key)
 		self.controls.scrollBar:Scroll(1)
 	elseif key == "WHEELUP" then
 		self.controls.scrollBar:Scroll(-1)
+	elseif self.selItem then
+		if key == "LEFTBUTTON" then
+			self.selDragging = false
+			if self.selDragActive then
+				self.selDragActive = false
+				if self.itemsTab.controls.itemList:IsMouseOver() and self.itemsTab.controls.itemList.selDragIndex then
+					self.itemsTab:CreateDisplayItemFromRaw(self.selItem.raw)
+					local newItem = self.itemsTab.displayItem
+					self.itemsTab:AddDisplayItem()
+					t_remove(self.itemsTab.orderList, #self.itemsTab.orderList)
+					t_insert(self.itemsTab.orderList, self.itemsTab.controls.itemList.selDragIndex, newItem.id)
+				else
+					for slotName, slot in pairs(self.itemsTab.slots) do
+						if not slot.inactive and slot:IsMouseOver() then
+							if self.itemsTab:IsItemValidForSlot(self.selItem, slotName) then
+								self.itemsTab:CreateDisplayItemFromRaw(self.selItem.raw)
+								local newItem = self.itemsTab.displayItem
+								self.itemsTab:AddDisplayItem(true)
+								slot.selItemId = newItem.id
+								self.itemsTab:PopulateSlots()
+								self.itemsTab:AddUndoState()
+								self.itemsTab.build.buildFlag = true
+							end
+							self.selItem = nil
+							return
+						end
+					end
+				end
+			end
+		end
 	end
 	return self
 end

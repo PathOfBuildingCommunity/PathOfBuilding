@@ -33,6 +33,7 @@ local SkillListClass = common.NewClass("SkillList", "Control", "ControlHost", fu
 		self.selIndex = #self.skillsTab.list
 		self.skillsTab:SetDisplaySkill(newSkill)
 		self.skillsTab:AddUndoState()
+		return self.skillsTab.gemSlots[1].nameSpec
 	end)
 end)
 

@@ -32,6 +32,7 @@ local classList = {
 	"DropDownControl",
 	"ScrollBarControl",
 	"SliderControl",
+	"TextListControl",
 	-- Misc
 	"PopupDialog",
 	"UndoHandler",

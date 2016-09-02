@@ -69,8 +69,9 @@ function ButtonClass:OnKeyUp(key)
 		return
 	end
 	if key == "LEFTBUTTON" and self.clicked then
+		self.clicked = false
 		if self:IsMouseOver() then
-			self.onClick()
+			return self.onClick()
 		end
 	end
 	self.clicked = false

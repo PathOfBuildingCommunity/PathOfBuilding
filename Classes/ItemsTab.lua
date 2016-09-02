@@ -59,7 +59,8 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	end
 
 	-- Display item
-	self.controls.displayItemTip = common.New("LabelControl", {"TOPLEFT",self.controls.itemList,"TOPRIGHT"}, 20, 0, 100, 16, "^7Double-click an item from one of the lists,\nor copy and paste an item from in game\nto view/edit the item and add it to your build.")
+	self.controls.displayItemTip = common.New("LabelControl", {"TOPLEFT",self.controls.itemList,"TOPRIGHT"}, 20, 0, 100, 16, 
+		"^7Double-click an item from one of the lists,\nor copy and paste an item from in game\nto view/edit the item and add it to your build.\nYou can Control + Click an item to equip it, or drag it onto the slot.\nThis will also add it to your build if it's from the unique/template list.\nIf there's 2 slots an item can go in, holding Shift will put it in the second.")
 	self.controls.displayItemTip.shown = function()
 		return self.displayItem == nil
 	end
@@ -263,7 +264,7 @@ function ItemsTabClass:UpdateDisplayItemRangeLines()
 end
 
 -- Adds the current display item to the build's item list
-function ItemsTabClass:AddDisplayItem()
+function ItemsTabClass:AddDisplayItem(noAutoEquip)
 	if not self.displayItem.id then
 		-- Find an unused item ID
 		self.displayItem.id = 1
@@ -274,11 +275,13 @@ function ItemsTabClass:AddDisplayItem()
 		-- Add it to the end of the display order list
 		t_insert(self.orderList, self.displayItem.id)
 
-		-- Autoequip it
-		for _, slotName in ipairs(baseSlots) do
-			if self.slots[slotName].selItemId == 0 and self:IsItemValidForSlot(self.displayItem, slotName) then
-				self.slots[slotName].selItemId = self.displayItem.id
-				break
+		if not noAutoEquip then
+			-- Autoequip it
+			for _, slotName in ipairs(baseSlots) do
+				if self.slots[slotName].selItemId == 0 and self:IsItemValidForSlot(self.displayItem, slotName) then
+					self.slots[slotName].selItemId = self.displayItem.id
+					break
+				end
 			end
 		end
 	end
@@ -463,7 +466,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		local compareSlots = { }
 		for slotName, slot in pairs(self.slots) do
 			local selItem = self.list[slot.selItemId]
-			if self:IsItemValidForSlot(item, slotName) and not slot.inactive and (item ~= selItem or item.type == "Jewel") then
+			if self:IsItemValidForSlot(item, slotName) and not slot.inactive then
 				t_insert(compareSlots, slot)
 			end
 		end
@@ -490,7 +493,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 			local output = calcFunc(slot.slotName, item ~= selItem and item)
 			local header
 			if item == selItem then
-				header = "^7Removing this jewel will give you:"
+				header = "^7Removing this item will give you:"
 			else
 				header = string.format("^7Equipping this item in %s%s will give you:", slot.label, selItem and " (replacing "..data.colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
 			end

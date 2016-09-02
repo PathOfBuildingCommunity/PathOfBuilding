@@ -198,10 +198,22 @@ function SkillsTabClass:UpdateGemSlots(viewPort)
 			self:CreateGemSlot(slotIndex)
 		end
 		local slot = self.gemSlots[slotIndex]
+		slot.nameSpec.inactiveCol = "^8"
 		if slotIndex == #self.displaySkill.gemList + 1 then
 			slot.nameSpec:SetText("")
 			slot.level:SetText("")
 			slot.quality:SetText("")
+		else
+			local gemData = self.displaySkill.gemList[slotIndex].data
+			if gemData then
+				if gemData.strength then
+					slot.nameSpec.inactiveCol = data.colorCodes.STRENGTH
+				elseif gemData.dexterity then
+					slot.nameSpec.inactiveCol = data.colorCodes.DEXTERITY
+				elseif gemData.intelligence then
+					slot.nameSpec.inactiveCol = data.colorCodes.INTELLIGENCE
+				end
+			end
 		end
 	end
 end
