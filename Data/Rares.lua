@@ -748,6 +748,7 @@ Spell Dagger
 Platinum Kris
 80% increased Global Critical Strike Chance
 {spell 1h}
+{range:.0}(0 to 27)% increased Attack Speed
 ]],[[
 Vagan Dagger
 Royal Skean
