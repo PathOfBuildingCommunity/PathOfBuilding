@@ -170,7 +170,7 @@ function main:OnFrame()
 		SetDrawLayer(10)
 		SetDrawColor(0, 0, 0, 0.5)
 		DrawImage(nil, 0, 0, self.screenW, self.screenH)
-		self.popups[1]:Draw()
+		self.popups[1]:Draw(self.viewPort)
 		SetDrawLayer(0)
 	end
 

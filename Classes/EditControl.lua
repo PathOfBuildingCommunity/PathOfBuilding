@@ -135,13 +135,11 @@ function EditClass:Draw(viewPort)
 	if not enabled then
 		return
 	end
-	SetDrawLayer(nil, 5)
-	self:DrawControls(viewPort)
-	SetDrawLayer(nil, 0)
 	SetViewport(textX, textY, width - 2 - (textX - x), textHeight)
 	if not self.hasFocus then
 		DrawString(0, 0, "LEFT", textHeight, "VAR", self.inactiveCol..self.buf)
 		SetViewport()
+		self:DrawControls(viewPort)
 		return
 	end
 	if self.drag then
@@ -179,6 +177,7 @@ function EditClass:Draw(viewPort)
 		end
 	end
 	SetViewport()
+	self:DrawControls(viewPort)
 end
 
 function EditClass:OnFocusGained()

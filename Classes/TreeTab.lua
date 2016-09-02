@@ -72,9 +72,8 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 end)
 
 function TreeTabClass:Draw(viewPort, inputEvents)
-	viewPort.height = viewPort.height - 32
 	self.anchorControls.x = viewPort.x + 4
-	self.anchorControls.y = viewPort.y + viewPort.height + 8
+	self.anchorControls.y = viewPort.y + viewPort.height - 24
 
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
@@ -91,7 +90,8 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
 
-	self.viewer:Draw(self.build, viewPort, inputEvents)
+	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - 32 }
+	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
 	if not self.controls.treeSearch.hasFocus then
 		self.controls.treeSearch:SetText(self.viewer.searchStr)
@@ -99,9 +99,9 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
 
 	SetDrawColor(0.05, 0.05, 0.05)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height + 4, viewPort.width, 28)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 28, viewPort.width, 28)
 	SetDrawColor(0.85, 0.85, 0.85)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height, viewPort.width, 4)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 32, viewPort.width, 4)
 
 	self:DrawControls(viewPort)
 end
