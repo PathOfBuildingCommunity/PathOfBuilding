@@ -371,6 +371,8 @@ local specialModList = {
 	["grants maximum energy shield equal to (%d+)%% of your reserved mana to you and nearby allies"] = function(num) return { energyShieldFromReservedMana = num } end,
 	["you and nearby allies deal (%d+)%% increased damage"] = function(num) return { damageInc = num } end,
 	["you and nearby allies have (%d+)%% increased movement speed"] = function(num) return {  movementSpeedInc = num } end,
+	["skills from your helmet penetrate (%d+)%% elemental resistances"] = function(num) return { ["SocketedIn:Helmet_elementalPen"] = num } end,
+	["skills from your gloves have (%d+)%% increased area of effect"] = function(num) return { ["SocketedIn:Gloves_aoeRadiusInc"] = num } end,
 	-- Special node types
 	["(%d+)%% of block chance applied to spells"] = function(num) return { blockChanceConv = num } end,
 	["(%d+)%% additional block chance with staves"] = function(num) return { CondMod_UsingStaff_blockChance = num } end,

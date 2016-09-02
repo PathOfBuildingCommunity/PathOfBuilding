@@ -48,6 +48,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.0.22 - 2016/09/03
+ * You can now copy and paste skills
+ * Added support for Illuminated Devotion (only Helmet/Gloves at the moment)
+ * Added Leo's ES recharge prefix to the Ring templates
+
 ### 1.0.21 - 2016/09/02
  * Added support for the reservation mod on Heretic's Veil
  * Added the missing Strength tag to Warlord's Mark

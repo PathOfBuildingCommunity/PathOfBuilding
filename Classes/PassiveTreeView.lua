@@ -321,16 +321,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			-- By default, fade out nodes from ascendancy classes other than the current one
 			SetDrawColor(0.5, 0.5, 0.5)
 		end
-		if launch.devMode and IsKeyDown("ALT") then
-			-- Debug display
-			if node.extra then
-				SetDrawColor(1, 0, 0)
-			elseif node.unknown then
-				SetDrawColor(0, 1, 1)
-			else
-				SetDrawColor(0, 0, 0)
-			end
-		end
 		if self.showHeatMap then
 			if build.calcsTab.powerBuildFlag then
 				-- Build the power numbers if needed
@@ -350,6 +340,15 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			-- Node matches search terms, make it pulse
 			local col = math.sin((GetTime() / 100) % 360) / 2 + 0.5
 			SetDrawColor(col, col, col)
+		elseif launch.devMode and IsKeyDown("ALT") then
+			-- Debug display
+			if node.extra then
+				SetDrawColor(1, 0, 0)
+			elseif node.unknown then
+				SetDrawColor(0, 1, 1)
+			else
+				SetDrawColor(0, 0, 0)
+			end
 		else
 			SetDrawColor(1, 1, 1)
 		end
@@ -390,6 +389,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			self:DrawAsset(tree.assets[overlay], scrX, scrY, scale)
 			SetDrawColor(1, 1, 1)
 		end
+		--[[if matchesSearchStr then
+			SetDrawLayer(nil, 5)
+			SetDrawColor(1, 0, 0)
+			local size = 200 * scale
+			DrawImage(self.ring, scrX - size, scrY - size, size * 2, size * 2)
+			SetDrawLayer(nil, 0)
+		end]]
 	end
 
 	-- Draw ring overlays for jewel sockets

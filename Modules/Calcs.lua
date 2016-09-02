@@ -1704,7 +1704,7 @@ end
 -- Generate a function for calculating the effect of some modification to the environment
 local function getCalculator(build, input, fullInit, modFunc)
 	-- Initialise environment
-	local env = initEnv(build, input, "MAIN")
+	local env = initEnv(build, input, "CALCULATOR")
 
 	-- Save a copy of the initial mod database
 	if fullInit then
@@ -1850,7 +1850,11 @@ function calcs.buildOutput(build, input, output, mode)
 		output["gear_"..k] = v
 	end
 
-	if mode == "GRID" then
+	if mode == "MAIN" then
+		for _, skill in pairs(env.skills) do
+			skill.tooltipGemList = copyTable(skill.validGemList)
+		end		
+	elseif mode == "GRID" then
 		for i, aux in pairs(env.auxSkills) do
 			output["buff_label"..i] = aux.displayLabel
 		end
