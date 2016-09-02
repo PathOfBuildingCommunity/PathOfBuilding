@@ -855,6 +855,9 @@ local function finaliseMods(env, output)
 	if data.weaponTypeInfo[weapon1Type] and data.weaponTypeInfo[weapon2Type] then
 		condList["DualWielding"] = true
 	end
+	if weapon1Type == "None" and not data.weaponTypeInfo[weapon2Type] then
+		condList["Unarmed"] = true
+	end
 	if getMiscVal(modDB, "gear", "NormalCount", 0) > 0 then
 		condList["UsingNormalItem"] = true
 	end
@@ -1124,7 +1127,7 @@ local function performCalcs(env, output)
 		if getMiscVal(modDB, nil, "cannotEvade", false) then
 			output.total_evadeChance = 0
 		else
-			local attackerLevel = getMiscVal(modDB, "misc", "evadeMonsterLevel", false) and m_min(getMiscVal(modDB, "monster", "level", 1), #data.enemyAccuracyTable) or m_min(env.build.characterLevel, 80)
+			local attackerLevel = getMiscVal(modDB, "misc", "evadeMonsterLevel", false) and m_min(getMiscVal(modDB, "monster", "level", 1), #data.enemyAccuracyTable) or m_max(m_min(env.build.characterLevel, 80), 1)
 			output.total_evadeChance = 1 - calcHitChance(output.total_evasion, data.enemyAccuracyTable[attackerLevel])
 		end
 		buildSpaceTable(modDB)
@@ -1379,7 +1382,7 @@ local function performCalcs(env, output)
 			output.total_hitChance = 1
 		else
 			output.total_accuracy = calcVal(modDB, "accuracy")
-			local targetLevel = getMiscVal(modDB, "misc", "hitMonsterLevel", false) and m_min(getMiscVal(modDB, "monster", "level", 1), #data.enemyEvasionTable) or m_min(env.build.characterLevel, 79)
+			local targetLevel = getMiscVal(modDB, "misc", "hitMonsterLevel", false) and m_min(getMiscVal(modDB, "monster", "level", 1), #data.enemyEvasionTable) or m_max(m_min(env.build.characterLevel, 79), 1)
 			local targetEvasion = data.enemyEvasionTable[targetLevel]
 			if env.mode_effective then
 				targetEvasion = targetEvasion * getMiscVal(modDB, "effective", "evasionMore", 1)

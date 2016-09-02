@@ -154,6 +154,7 @@ local modNameList = {
 	-- Other skill modifiers
 	["radius"] = "aoeRadius{suf}",
 	["radius of area skills"] = "aoeRadius{suf}",
+	["area of effect"] = "aoeRadius{suf}",
 	["duration"] = "duration{suf}",
 	["skill effect duration"] = "duration{suf}",
 	["chaos skill effect duration"] = "chaos_duration{suf}",
@@ -293,6 +294,7 @@ local specialSpaceList = {
 	["with shields"] = "CondMod_UsingShield_",
 	["while dual wielding"] = "CondMod_DualWielding_",
 	["while wielding a staff"] = "CondMod_UsingStaff_",
+	["while unarmed"] = "CondMod_Unarmed_",
 	["with a normal item equipped"] = "CondMod_UsingNormalItem_",
 	["with a magic item equipped"] = "CondMod_UsingMagicItem_",
 	["with a rare item equipped"] = "CondMod_UsingRareItem_",

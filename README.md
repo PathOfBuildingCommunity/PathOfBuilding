@@ -48,6 +48,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.0.19 - 2016/09/02
+ * Fixed error that would occur if you set your character level to 0
+ * Added support for "while Unarmed" modifiers
+ * Added latest patch changes
+ * Gem name input is a bit more lenient (it's somewhat case-insensitive now)
+
 ### 1.0.18 - 2016/09/02
  * Items now automatically equip when added to the build if there is an empty slot which the item can go in
  * Automatically focus the edit control in the tree import/export popups
