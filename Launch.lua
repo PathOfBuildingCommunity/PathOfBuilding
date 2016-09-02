@@ -89,8 +89,6 @@ function launch:OnFrame()
 	end
 	SetDrawLayer(1000)
 	SetViewport()
-	local screenW, screenH = GetScreenSize()
-	DrawString(116, screenH - 16, "LEFT", 14, "VAR", "^8Version: "..self.versionNumber..(self.versionBranch == "dev" and " (Dev Branch)" or ""))
 	if self.promptMsg then
 		local r, g, b = unpack(self.promptCol)
 		self:DrawPopup(r, g, b, "^0%s", self.promptMsg)
@@ -98,6 +96,7 @@ function launch:OnFrame()
 		self:DrawPopup(0, 0.5, 0, "^0%s", self.updateMsg)
 	end
 	if self.doRestart then
+		local screenW, screenH = GetScreenSize()
 		SetDrawColor(0, 0, 0, 0.75)
 		DrawImage(nil, 0, 0, screenW, screenH)
 		SetDrawColor(1, 1, 1)
@@ -182,7 +181,7 @@ function launch:OnSubFinished(...)
 			elseif ret == "none" then
 				self:ShowPrompt(0, 0, 0, "No update available.", function(key) return true end)
 			else
-				self:ShowPrompt(0.2, 0.8, 0.2, "An update has been downloaded.\n\nClick 'Apply Update' at bottom left when you are ready.", function(key) return true end)
+				self:ShowPrompt(0.2, 0.8, 0.2, "An update has been downloaded.\n\nClick 'Update Ready' at bottom left when you are ready to update.", function(key) return true end)
 			end
 			self.updateChecking = false
 		end

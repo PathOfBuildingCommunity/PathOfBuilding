@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.0.20"/>
+	<Version number="1.0.21"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
-	<File sha1="568c9f6c399a6d2d025774e1b60afbf4ca6f18c6" name="Launch.lua" part="program"/>
-	<File sha1="769b039de92cbad79837d7522991afd8801f4d2a" name="UpdateCheck.lua" part="program"/>
+	<File sha1="7ebf2b5d0d580e334023fa2ae23cc36b8d4c6f9c" name="Launch.lua" part="program"/>
+	<File sha1="cb07c8d4819eb81df9e98ab9039e0c9adf74c150" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
+	<File sha1="dbb05ccc8212f8180c43680f65e5455edf938125" name="changelog.txt" part="program"/>
 	<File sha1="aef7145f378d0a1d5dc6f5f2d3c08d2a1b6ef264" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="34fdf53db3b3231ce446749227e178847b982771" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="ffe8c54a8006cb7acc34ba5c6e50772081a0a694" name="Classes/CalcsTab.lua" part="program"/>
@@ -37,20 +38,20 @@
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
 	<File sha1="e7964ce5353a63baf04f4c38e7a1c0e9e82cc7dc" name="Modules/Build.lua" part="program"/>
 	<File sha1="c03a7796aea3e9aa832fbb92c1f674ef5af690ca" name="Modules/BuildList.lua" part="program"/>
-	<File sha1="e89ce0e2e347e2a75f7b9646ef0b4bab5056170f" name="Modules/Calcs.lua" part="program"/>
+	<File sha1="f2bc0779e7b59e95f6f5a511e6650ebc456b148f" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="d4439a94dda4c3d3aa23ac123ba378a35174e425" name="Modules/CalcsView.lua" part="program"/>
 	<File sha1="3fd280d8abfa60264495daad42f8ccaa92cdcd46" name="Modules/Common.lua" part="program"/>
 	<File sha1="cb25bd581587ba5b35f77ca7b245334be1e5186a" name="Modules/Data.lua" part="program"/>
 	<File sha1="73e1c9410aba9b218cd9d0ff6b13062e9b8de915" name="Modules/ItemTools.lua" part="program"/>
-	<File sha1="b8d2ad481e20f73b6e34bc50c7cd482f41c85d8f" name="Modules/Main.lua" part="program"/>
-	<File sha1="37cdd0c2588fe0ff1164a69592f97f6d58dba781" name="Modules/ModParser.lua" part="program"/>
+	<File sha1="a465ad94e34ec555f549e7addfb4a9771ec58f3c" name="Modules/Main.lua" part="program"/>
+	<File sha1="c70832bd92d54cba5db64be4cd6ed3f809efeb2a" name="Modules/ModParser.lua" part="program"/>
 	<File sha1="bc49ce1b5e15da40476a9c99c4c690b323c0e7ad" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
 	<File sha1="056de4fc6178320cc019ad1bacba09d689a87a56" name="Data/New.lua" part="program"/>
 	<File sha1="ca00823369d6cbe0007b316443481eac14e26bca" name="Data/Rares.lua" part="program"/>
 	<File sha1="ce2d294cf8e25a8ea400bdf50e19bb09f52dc430" name="Data/Gems/act_dex.lua" part="program"/>
 	<File sha1="2f6080ca40b03e01eac184021b51a1ab5cab1ca1" name="Data/Gems/act_int.lua" part="program"/>
-	<File sha1="8a5ff23a64947650b4837368dea2ac9a78be83dc" name="Data/Gems/act_str.lua" part="program"/>
+	<File sha1="a4543e78ef0dba1f1a6ffe396a1432e2473bd2c0" name="Data/Gems/act_str.lua" part="program"/>
 	<File sha1="997177289512d8d107f45b440cddcd8ccea890fd" name="Data/Gems/other.lua" part="program"/>
 	<File sha1="00bc6c49f33707e5a02bec0b463da2e632d2d478" name="Data/Gems/sup_dex.lua" part="program"/>
 	<File sha1="a7684a043d5b448a50d87fcbc4339cc290777515" name="Data/Gems/sup_int.lua" part="program"/>
@@ -93,7 +94,7 @@
 	<File sha1="f30c7cd2537f1b53335612c47ebf68682fdc33cd" name="Data/Uniques/wand.lua" part="program"/>
 	<File platform="win32" sha1="e8581e70cefa0b68583be298483418c004c8152f" name="Path of Building.exe" part="runtime"/>
 	<File platform="win32" sha1="914d42ca1836c5152a5f60aad23020a86bcb46d9" name="lua51.dll" part="runtime"/>
-	<File platform="win32" sha1="512b874daa563f2d0eb9b79fa6d0e57157f8fb30" name="SimpleGraphic.dll" part="runtime"/>
+	<File platform="win32" sha1="d80db7cc56859541ac2e10db51da44cfc5709cb2" name="SimpleGraphic.dll" part="runtime"/>
 	<File platform="win32" sha1="887fd08cb3c2989a9d88adc9717d3ec00ab97462" name="libcurl.dll" part="runtime"/>
 	<File platform="win32" sha1="607918daf9cbaecee0090e9cec8d0e221338678e" name="lcurl.dll" part="runtime"/>
 	<File platform="win32" sha1="229feec79a1269be868bb32a11f141258481170f" name="lzip.dll" part="runtime"/>

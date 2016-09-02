@@ -101,8 +101,32 @@ function main:Init()
 	self.anchorUpdate.y = function()
 		return self.screenH - 2
 	end
-	self.controls.applyUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 110, 20, "^x50E050Apply Update", function()
-		launch:ApplyUpdate(launch.updateAvailable)
+	self.controls.applyUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 110, 20, "^x50E050Update Ready", function()
+		local changeList = { }
+		for line in io.lines("changelog.txt") do
+			local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
+			if ver then
+				if ver == launch.versionNumber then
+					break
+				end
+				if #changeList > 0 then
+					t_insert(changeList, { height = 12 })
+				end
+				t_insert(changeList, { height = 20, "^7Version "..ver.." ("..date..")" })
+			else
+				t_insert(changeList, { height = 14, "^7"..line })
+			end
+		end
+		self:OpenPopup(800, 250, "Update Available", {
+			common.New("TextListControl", nil, 0, 20, 780, 190, nil, changeList),
+			common.New("ButtonControl", nil, -45, 220, 80, 20, "Update", function()
+				launch:ApplyUpdate(launch.updateAvailable)
+				main:ClosePopup()
+			end),
+			common.New("ButtonControl", nil, 45, 220, 80, 20, "Cancel", function()
+				main:ClosePopup()
+			end),
+		})
 	end)
 	self.controls.applyUpdate.shown = function()
 		return launch.updateAvailable and launch.updateAvailable ~= "none"
@@ -119,6 +143,42 @@ function main:Init()
 	self.controls.checkUpdate.enabled = function()
 		return not IsSubScriptRunning()
 	end
+	self.controls.versionLabel = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 114, 0, 0, 14, "")
+	self.controls.versionLabel.label = function()
+		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or "")
+	end
+	self.controls.about = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 240, 0, 60, 20, "About", function()
+		local changeList = { }
+		for line in io.lines("changelog.txt") do
+			local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
+			if ver then
+				if #changeList > 0 then
+					t_insert(changeList, { height = 10 })
+				end
+				t_insert(changeList, { height = 18, "^7Version "..ver.." ("..date..")" })
+			else
+				t_insert(changeList, { height = 12, "^7"..line })
+			end
+		end
+		self:OpenPopup(650, 400, "About", {
+			common.New("ButtonControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -10, 10, 50, 20, "Close", function()
+				main:ClosePopup()
+			end),
+			common.New("LabelControl", nil, 0, 18, 0, 18, "Path of Building v"..launch.versionNumber.." by Openarl"),
+			common.New("ButtonControl", nil, 0, 42, 420, 18, "Forum Thread: ^x4040FFhttps://www.pathofexile.com/forum/view-thread/1716360", function(control)
+				if OpenURL then
+					OpenURL("https://www.pathofexile.com/forum/view-thread/1716360")
+				end
+			end),
+			common.New("ButtonControl", nil, 0, 64, 340, 18, "GitHub page: ^x4040FFhttps://github.com/Openarl/PathOfBuilding", function(control)
+				if OpenURL then
+					OpenURL("https://github.com/Openarl/PathOfBuilding")
+				end
+			end),
+			common.New("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 82, 0, 18, "^7Version history:"),
+			common.New("TextListControl", nil, 0, 100, 630, 290, nil, changeList),
+		})
+	end)
 	self.controls.devMode = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 0, 18, "^1Dev Mode")
 	self.controls.devMode.shown = function()
 		return launch.devMode

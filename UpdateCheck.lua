@@ -164,6 +164,9 @@ end
 MakeDir("Update")
 ConPrintf("Downloading update...")
 
+-- Download changelog
+downloadFile(localSource.."changelog.txt", scriptPath.."/changelog.txt")
+
 -- Download files that need updating
 local failedFile = false
 local zipFiles = { }

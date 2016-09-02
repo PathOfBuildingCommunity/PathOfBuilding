@@ -1,0 +1,50 @@
+VERSION[1.0.21][2016/09/02]
+ * Added support for the reservation mod on Heretic's Veil
+ * Added the missing Strength tag to Warlord's Mark
+ * You can now view the changelog before applying an update
+ * Also added an about screen. Hi!
+VERSION[1.0.20][2016/09/02]
+ * Added Str/Dex/Int to side bar stat list (which also now has a scroll bar for users running low resolutions)
+ * Skill gems list in the skills tab now colours the gem name according to the gem's colour
+ * Now shows "Removing this item will give you" section for all items, not just jewels
+ * You can now equip items from both the "All Items" list and the uniques/templates list by Control+Clicking the item
+   * If there's two slots the item can go in, holding Shift as well will equip it in the second slot instead
+   * Jewels cannot be equipped in this way (since it'll probably put them in the wrong socket) but they will 
+     still be added to your build if you Ctrl-Click them in the uniques or templates lists
+   * You can also now drag items from the databases straight into item slots to add and equip them in one go!
+   * And also drag items from the databases into the main items list
+VERSION[1.0.19][2016/09/02]
+ * Fixed error that would occur if you set your character level to 0
+ * Added support for "while Unarmed" modifiers
+ * Added latest patch changes
+ * Gem name input is a bit more lenient (it's somewhat case-insensitive now)
+VERSION[1.0.18][2016/09/02]
+ * Items now automatically equip when added to the build if there is an empty slot which the item can go in
+ * Automatically focus the edit control in the tree import/export popups
+ * Added attack speed to the spell dagger template. Whirling Blades yo!
+VERSION[1.0.17][2016/09/02]
+ * Added support for skill DPS multipliers; currently only Lightning Tendrils uses it (it has a 4x mutliplier)
+ * Fixed Lioneye's Fall not converting One Handed Melee and Two Handed Melee modifiers
+ * Added Accuracy Rating to helm and glove templates
+ * Side bar now shows you how far over the resistance caps you are
+VERSION[1.0.16][2016/09/02]
+ * Emergency fix for the passive tree controls
+VERSION[1.0.15][2016/09/02]
+ * Added support for Cast when Damage Taken, Cast when Stunned and Cast on Death (yes, really!)
+ * Added support for Radiant Faith
+ * Enabled mousewheel support on number edits, and added +/- buttons (character level, gem level etc)
+ * Clarified many of the field labels in the Calcs tab
+ * Added some tree %inc stats to the side bar
+VERSION[1.0.14][2016/09/01]
+ * Fixed tags on certain multipart skills not correctly applying
+ * Fixed energy shield not showing up on Sin Trek
+ * Dual Wielding modifiers will now apply
+   * Skills that can use both weapons still only use the main hand at the moment; that requires a bit more work to implement
+VERSION[1.0.13][2016/09/01]
+ * Added a scroll bar to the Items tab to fix the issue with low screen resolutions
+   * The scroll bar will automatically jump to the right when you start editing an item, then jump back when you save it
+   * This might be a little disorienting; need feedback on this
+ * Also fixed some minor issues with scroll bars (mouse wheel should now work on all of them)
+VERSION[1.0.12][2016/09/01]
+ * Updated tree to 2.4.0
+ * Added latest patch note changes
