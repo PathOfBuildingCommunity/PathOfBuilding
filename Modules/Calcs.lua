@@ -816,9 +816,13 @@ local function finaliseMods(env, output)
 				end
 			end
 			if baseVal then
-				local cost = m_floor(baseVal * (skillModList.manaCostMore or 1))
-				cost = m_ceil(cost * sumMods(modDB, true, "manaReservedMore") * (skillModList.manaReservedMore or 1))
-				cost = m_ceil(cost * (1 + sumMods(modDB, false, "manaReservedInc") / 100 + (skillModList.manaReservedInc or 0) / 100))
+				local more = sumMods(modDB, true, "manaReservedMore") * (skillModList.manaReservedMore or 1)
+				local inc = sumMods(modDB, false, "manaReservedInc") + (skillModList.manaReservedInc or 0)
+				if skill.baseFlags.curse then
+					-- Special case for Heretic's Veil, needs a general solution though
+					inc = inc + (skillModList.curse_manaReservedInc or 0)
+				end
+				local cost = m_ceil(m_ceil(m_floor(baseVal * (skillModList.manaCostMore or 1)) * more) * (1 + inc / 100))
 				if getMiscVal(modDB, nil, "bloodMagic", false) or skillModList.skill_bloodMagic then
 					mod_dbMerge(modDB, "reserved", "life"..suffix, cost)
 				else

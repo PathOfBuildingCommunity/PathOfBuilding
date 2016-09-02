@@ -1733,6 +1733,7 @@ gems["Vitality"] = {
 	}
 }
 gems["Warlord's Mark"] = {
+	strength = true,
 	curse = true,
 	spell = true,
 	aoe = true,

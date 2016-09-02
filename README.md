@@ -48,13 +48,20 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.0.21 - 2016/09/02
+ * Added support for the reservation mod on Heretic's Veil
+ * Added the missing Strength tag to Warlord's Mark
+ * You can now view the changelog before applying an update
+ * Also added an about screen. Hi!
+
 ### 1.0.20 - 2016/09/02
  * Added Str/Dex/Int to side bar stat list (which also now has a scroll bar for users running low resolutions)
  * Skill gems list in the skills tab now colours the gem name according to the gem's colour
  * Now shows "Removing this item will give you" section for all items, not just jewels
  * You can now equip items from both the "All Items" list and the uniques/templates list by Control+Clicking the item
    * If there's two slots the item can go in, holding Shift as well will equip it in the second slot instead
-   * Jewels cannot be equipped in this way (since it'll probably put them in the wrong socket) but they will still be added to your build if you Ctrl-Click them in the uniques or templates lists
+   * Jewels cannot be equipped in this way (since it'll probably put them in the wrong socket) but they will 
+     still be added to your build if you Ctrl-Click them in the uniques or templates lists
    * You can also now drag items from the databases straight into item slots to add and equip them in one go!
    * And also drag items from the databases into the main items list
 

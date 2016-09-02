@@ -276,6 +276,7 @@ local preSpaceList = {
 	["^left ring slot: "] = "IfSlot:1_",
 	["^right ring slot: "] = "IfSlot:2_",
 	["^socketed gems have "] = "SocketedIn:X_",
+	["^socketed curse gems have "] = "SocketedIn:X_curse_",
 }
 
 -- List of special namespaces
