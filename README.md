@@ -48,6 +48,9 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.0.16 - 2016/09/02
+ * Emergency fix for the passive tree controls
+
 ### 1.0.15 - 2016/09/02
  * Added support for Cast when Damage Taken, Cast when Stunned and Cast on Death (yes, really!)
  * Added support for Radiant Faith
