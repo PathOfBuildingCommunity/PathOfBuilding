@@ -130,7 +130,7 @@ function SkillListClass:Draw(viewPort)
 	SetViewport()
 	if ttSkill then
 		local count = 0
-		for _, gem in ipairs(ttSkill.validGemList or { }) do
+		for _, gem in ipairs(ttSkill.tooltipGemList or { }) do
 			if gem.name then
 				local color = (gem.data.strength and "STRENGTH") or (gem.data.dexterity and "DEXTERITY") or (gem.data.intelligence and "INTELLIGENCE") or "NORMAL"
 				main:AddTooltipLine(20, string.format("%s%s ^7%d%s/%d%s", 
@@ -183,6 +183,20 @@ function SkillListClass:OnKeyDown(key, doubleClick)
 			self.selCY = cursorY
 			self.selDragging = true
 			self.selDragActive = false
+		end
+	elseif key == "c" and IsKeyDown("CTRL") then
+		if self.selSkill then
+			local skillText = ""
+			if self.selSkill.label:match("%S") then
+				skillText = skillText .. "Label: "..self.selSkill.label.."\r\n"
+			end
+			if self.selSkill.slot then
+				skillText = skillText .. "Slot: "..self.selSkill.slot.."\r\n"
+			end
+			for _, gem in ipairs(self.selSkill.gemList) do
+				skillText = skillText .. string.format("%s %d/%d\r\n", gem.nameSpec, gem.level, gem.quality)
+			end
+			Copy(skillText)
 		end
 	elseif #self.skillsTab.list > 0 then
 		if key == "UP" then

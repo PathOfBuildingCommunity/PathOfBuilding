@@ -67,6 +67,7 @@ Prefixes:
 {range:0}+(0 to 170) to Evasion Rating
 {range:0}Adds (0-9 to 0-15) Physical Damage to Attacks
 {range:0}(0 to 42)% increased Elemental Damage with Weapons
+{range:0}(10 to 20)% faster start of Energy Shield Recharge
 Suffixes:
 {str}
 {dex}

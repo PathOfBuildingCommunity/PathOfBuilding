@@ -117,6 +117,30 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 			elseif event.key == "y" and IsKeyDown("CTRL") then
 				self:Redo()
 				self.build.buildFlag = true
+			elseif event.key == "v" and IsKeyDown("CTRL") then
+				local skillText = Paste()
+				if skillText then
+					local newSkill = { label = "", active = true, gemList = { } }
+					local label = skillText:match("Label: (%C+)")
+					if label then
+						newSkill.label = label
+					end
+					local slot = skillText:match("Slot: (%C+)")
+					if slot then
+						newSkill.slot = slot
+					end
+					for nameSpec, level, quality in skillText:gmatch("([ %a']+) (%d+)/(%d+)") do
+						t_insert(newSkill.gemList, { nameSpec = nameSpec, level = tonumber(level) or 1, quality = tonumber(quality) or 0 })
+					end
+					if #newSkill.gemList > 0 then
+						t_insert(self.list, newSkill)
+						self.controls.skillList.selSkill = newSkill
+						self.controls.skillList.selIndex = #self.list
+						self:SetDisplaySkill(newSkill)
+						self:AddUndoState()
+						self.build.buildFlag = true
+					end
+				end
 			end
 		end
 	end
