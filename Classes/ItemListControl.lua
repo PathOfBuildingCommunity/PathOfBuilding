@@ -48,18 +48,22 @@ function ItemListClass:Draw(viewPort)
 	local orderList = self.itemsTab.orderList
 	local scrollBar = self.controls.scrollBar
 	scrollBar:SetContentDimension(#orderList * 16, height - 4)
+	local cursorX, cursorY = GetCursorPos()
 	self.selDragIndex = nil
 	if self.selItem and self.selDragging then
-		local cursorX, cursorY = GetCursorPos()
 		if not self.selDragActive and (cursorX-self.selCX)*(cursorX-self.selCX)+(cursorY-self.selCY)*(cursorY-self.selCY) > 100 then
 			self.selDragActive = true
 		end
-		if self.selDragActive then
-			if cursorX >= x + 2 and cursorY >= y + 2 and cursorX < x + width - 18 and cursorY < y + height - 2 then
-				local index = math.floor((cursorY - y - 2 + scrollBar.offset) / 16 + 0.5) + 1
-				if index < self.selIndex or index > self.selIndex + 1 then
-					self.selDragIndex = m_min(index, #orderList + 1)
-				end
+	elseif (self.itemsTab.controls.uniqueDB:IsShown() and self.itemsTab.controls.uniqueDB.selDragActive) or (self.itemsTab.controls.rareDB:IsShown() and self.itemsTab.controls.rareDB.selDragActive) then
+		self.selDragActive = true
+	else
+		self.selDragActive = false
+	end
+	if self.selDragActive then
+		if cursorX >= x + 2 and cursorY >= y + 2 and cursorX < x + width - 18 and cursorY < y + height - 2 then
+			local index = math.floor((cursorY - y - 2 + scrollBar.offset) / 16 + 0.5) + 1
+			if not self.selDragging or index < self.selIndex or index > self.selIndex + 1 then
+				self.selDragIndex = m_min(index, #orderList + 1)
 			end
 		end
 	end
@@ -145,7 +149,26 @@ function ItemListClass:OnKeyDown(key, doubleClick)
 			if selItemId then
 				self.selItem = self.itemsTab.list[selItemId]
 				self.selIndex = index
-				if doubleClick then
+				if IsKeyDown("CTRL") then
+					-- Equip it
+					local slotName = itemLib.getPrimarySlotForItem(self.selItem)
+					if slotName and self.itemsTab.slots[slotName] then
+						if IsKeyDown("SHIFT") then
+							local altSlot = slotName:gsub("1","2")
+							if self.itemsTab:IsItemValidForSlot(self.selItem, altSlot) then
+								slotName = altSlot
+							end
+						end
+						if self.itemsTab.slots[slotName].selItemId == selItemId then
+							self.itemsTab.slots[slotName].selItemId = 0
+						else
+							self.itemsTab.slots[slotName].selItemId = selItemId
+						end
+						self.itemsTab:PopulateSlots()
+						self.itemsTab:AddUndoState()
+						self.itemsTab.build.buildFlag = true
+					end
+				elseif doubleClick then
 					self.itemsTab:SetDisplayItem(copyTable(self.selItem))
 				end
 			end

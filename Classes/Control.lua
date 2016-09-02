@@ -55,12 +55,18 @@ function ControlClass:GetPos()
 	local y = self:GetProperty("y")
 	if self.anchor.other then
 		local otherX, otherY = self.anchor.other:GetPos()
-		local otherW, otherH = self.anchor.other:GetSize()
-		local width, height = self:GetSize()
+		local otherW, otherH = 0, 0
+		local width, height = 0, 0
 		local otherPos = anchorPos[self.anchor.otherPoint]
 		assert(otherPos, "invalid anchor position '"..tostring(self.anchor.otherPoint).."'")
+		if self.anchor.otherPoint ~= "TOPLEFT" then
+			otherW, otherH = self.anchor.other:GetSize()
+		end
 		local pos = anchorPos[self.anchor.point]
 		assert(pos, "invalid anchor position '"..tostring(self.anchor.point).."'")
+		if self.anchor.point ~= "TOPLEFT" then
+			width, height = self:GetSize()
+		end
 		x = m_floor(otherX + otherW * otherPos[1] + x - width * pos[1])
 		y = m_floor(otherY + otherH * otherPos[2] + y - height * pos[2])
 	end

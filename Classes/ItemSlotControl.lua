@@ -55,9 +55,12 @@ function ItemSlotClass:Draw(viewPort)
 	local width, height = self:GetSize()
 	DrawString(x - 2, y + 2, "RIGHT_X", height - 4, "VAR", "^7"..self.label..":")
 	self.DropDownControl:Draw()
-	if self.itemsTab.controls.itemList.selDragActive and self.itemsTab:IsItemValidForSlot(self.itemsTab.controls.itemList.selItem, self.slotName) then
-		SetDrawColor(0, 1, 0, 0.25)
-		DrawImage(nil, x, y, width, height)
+	for _, control in pairs({self.itemsTab.controls.itemList, self.itemsTab.controls.uniqueDB, self.itemsTab.controls.rareDB}) do
+		if control:IsShown() and control.selDragging and control.selDragActive and self.itemsTab:IsItemValidForSlot(control.selItem, self.slotName) then
+			SetDrawColor(0, 1, 0, 0.25)
+			DrawImage(nil, x, y, width, height)
+			break
+		end
 	end
 	if self.nodeId and (self.dropped or (self:IsMouseOver() and not self.itemsTab.selControl)) then
 		SetDrawLayer(nil, 10)

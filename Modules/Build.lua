@@ -8,6 +8,7 @@ local launch, main = ...
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
+local m_min = math.min
 
 local buildMode = common.New("ControlHost")
 
@@ -137,21 +138,21 @@ function buildMode:Init(dbFileName, buildName)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.banditNormalLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditNormal,"TOPLEFT"}, 0, 0, 0, 14, "Normal Bandit:")
+	self.controls.banditNormalLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditNormal,"TOPLEFT"}, 0, 0, 0, 14, "^7Normal Bandit:")
 	self.controls.banditCruel = common.New("DropDownControl", {"LEFT",self.controls.banditNormal,"RIGHT"}, 0, 0, 100, 16, 
 		{{val="None",label="Passive point"},{val="Oak",label="Oak (Phys Dmg)"},{val="Kraityn",label="Kraityn (Att. Speed)"},{val="Alira",label="Alira (Cast Speed)"}}, function(sel,val)
 		self.banditCruel = val.val
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.banditCruelLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditCruel,"TOPLEFT"}, 0, 0, 0, 14, "Cruel Bandit:")
+	self.controls.banditCruelLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditCruel,"TOPLEFT"}, 0, 0, 0, 14, "^7Cruel Bandit:")
 	self.controls.banditMerciless = common.New("DropDownControl", {"LEFT",self.controls.banditCruel,"RIGHT"}, 0, 0, 100, 16, 
 		{{val="None",label="Passive point"},{val="Oak",label="Oak (Endurance)"},{val="Kraityn",label="Kraityn (Frenzy)"},{val="Alira",label="Alira (Power)"}}, function(sel,val)
 		self.banditMerciless = val.val
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.banditMercilessLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditMerciless,"TOPLEFT"}, 0, 0, 0, 14, "Merciless Bandit:")
+	self.controls.banditMercilessLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditMerciless,"TOPLEFT"}, 0, 0, 0, 14, "^7Merciless Bandit:")
 	self.controls.mainSkillLabel = common.New("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 95, 300, 16, "^7Main Skill:")
 	self.controls.mainSkillDrop = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index)
 		self.mainSkillIndex = index
@@ -163,6 +164,11 @@ function buildMode:Init(dbFileName, buildName)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
+	self.controls.statBox = common.New("TextListControl", {"TOPLEFT",self.controls.mainSkillDrop,"BOTTOMLEFT"}, 0, 20, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
+	self.controls.statBox.height = function(control)
+		local x, y = control:GetPos()
+		return main.screenH - 30 - y
+	end
 
 	-- Initialise class dropdown
 	for classId, class in pairs(self.tree.classes) do
@@ -184,6 +190,11 @@ function buildMode:Init(dbFileName, buildName)
 		{ mod = "bleed_dps", label = "Bleed DPS", fmt = ".1f" },
 		{ mod = "ignite_dps", label = "Ignite DPS", fmt = ".1f" },
 		{ mod = "poison_dps", label = "Poison DPS", fmt = ".1f" },
+		{ mod = "total_manaCost", label = "Mana Cost", fmt = "d" },
+		{ },
+		{ mod = "total_str", label = "Strength", fmt = "d" },
+		{ mod = "total_dex", label = "Dexterity", fmt = "d" },
+		{ mod = "total_int", label = "Intelligence", fmt = "d" },
 		{ },
 		{ mod = "total_life", label = "Total Life", fmt = "d" },
 		{ mod = "spec_lifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.total_life > 1 end },
@@ -248,6 +259,7 @@ function buildMode:Init(dbFileName, buildName)
 
 	-- Build calculation output tables
 	self.calcsTab:BuildOutput()
+	self:RefreshStatList()
 
 	--[[
 	local start = GetTime()
@@ -326,6 +338,7 @@ function buildMode:OnFrame(inputEvents)
 		-- Rebuild calculation output tables
 		self.buildFlag = false
 		self.calcsTab:BuildOutput()
+		self:RefreshStatList()
 	end
 
 	-- Update contents of main skill dropdown
@@ -372,6 +385,8 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:Draw(tabViewPort, inputEvents)
 	end
 
+	self.unsaved = self.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+
 	-- Draw top bar background
 	SetDrawColor(0.2, 0.2, 0.2)
 	DrawImage(nil, 0, 0, main.screenW, 28)
@@ -385,23 +400,20 @@ function buildMode:OnFrame(inputEvents)
 	SetDrawColor(0.85, 0.85, 0.85)
 	DrawImage(nil, sideBarWidth - 4, 32, 4, main.screenH - 32)
 
-	self.unsaved = self.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
-
 	self:DrawControls(viewPort)
+end
 
-	-- Draw side bar stats
-	local x = 170
-	local y = select(2, self.controls.mainSkillDrop:GetPos()) + 40
+function buildMode:RefreshStatList()
+	-- Build list of side bar stats
+	wipeTable(self.controls.statBox.list)
 	for index, statData in ipairs(self.displayStats) do
 		if statData.mod then
 			local modVal = self.calcsTab.mainOutput[statData.mod]
 			if modVal and ((statData.condFunc and statData.condFunc(modVal,self.calcsTab.mainOutput)) or (not statData.condFunc and modVal ~= 0)) then
-				DrawString(x, y, "RIGHT_X", 16, "VAR", "^7"..statData.label..":")
-				DrawString(x + 4, y, "LEFT", 16, "VAR", string.format("%s%"..statData.fmt, modVal > 0 and "^7" or data.colorCodes.NEGATIVE, modVal * (statData.pc and 100 or 1)))
-				y = y + 16
+				t_insert(self.controls.statBox.list, { height = 16,  "^7"..statData.label..":", string.format("%s%"..statData.fmt, modVal > 0 and "^7" or data.colorCodes.NEGATIVE, modVal * (statData.pc and 100 or 1)) })
 			end
 		else
-			y = y + 12
+			t_insert(self.controls.statBox.list, { height = 10 })
 		end
 	end
 end
