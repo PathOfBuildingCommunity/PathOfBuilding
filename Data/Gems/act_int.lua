@@ -1529,6 +1529,7 @@ gems["Lightning Tendrils"] = {
 		skill_castTime = 0.8,
 		skill_damageEffectiveness = 0.35,
 		skill_critChanceBase = 6,
+		skill_dpsMultiplier = 4,
 	},
 	quality = {
 		lightningInc = 1,
