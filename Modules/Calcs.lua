@@ -1112,14 +1112,14 @@ local function performCalcs(env, output)
 			local bothBase = getMiscVal(modDB, slot, "armourAndEvasionBase", 0)
 			local armourBase = getMiscVal(modDB, slot, "armourBase", 0)
 			if ironReflexes then
-				if evasionBase > 0 or armourBase > 0 then
+				if evasionBase > 0 or armourBase > 0 or bothBase > 0 then
 					output.total_armour = output.total_armour + (evasionBase + armourBase + bothBase) * (1 + sumMods(modDB, false, "armourInc", "evasionInc", "armourAndEvasionInc", "defencesInc") / 100) * sumMods(modDB, true, "armourMore", "evasionMore", "defencesMore")
 				end
 			else
-				if evasionBase > 0 then
+				if evasionBase > 0 or bothBase > 0 then
 					output.total_evasion = output.total_evasion + (evasionBase + bothBase) * (1 + sumMods(modDB, false, "evasionInc", "armourAndEvasionInc", "defencesInc") / 100) * sumMods(modDB, true, "evasionMore", "defencesMore")
 				end
-				if armourBase > 0 then
+				if armourBase > 0 or bothBase > 0 then
 					output.total_armour = output.total_armour + (armourBase + bothBase) * (1 + sumMods(modDB, false, "armourInc", "armourAndEvasionInc", "defencesInc") / 100) * sumMods(modDB, true, "armourMore", "defencesMore")
 				end
 			end
