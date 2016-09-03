@@ -235,6 +235,21 @@ Suffixes:
 {int}
 {res}
 ]],[[
+Armour/Energy Shield Helmet
+Bone Helmet
+Minions deal (30 to 40)% increased Damage
+Prefixes:
+{inc Ar/ES}
+{range:0}+(0 to 138) to Armour
+{range:0}+(0 to 72) to maximum Energy Shield
+{range:.75}+(0 to 99) to maximum Life
+{range:0}+(0 to 2) to Level of Socketed Minion Gems
+Suffixes:
+{range:0}+(0 to 400) to Accuracy Rating
+{str}
+{int}
+{res}
+]],[[
 Evasion/Energy Shield Helmet
 Deicide Mask
 Prefixes:
@@ -265,6 +280,21 @@ Suffixes:
 {dex}
 {res}
 ]],[[
+Armour Gloves
+Spiked Gloves
+(16-20)% increased Melee Damage
+Prefixes:
+{inc Ar}
+{range:.75}+(0 to 80) to Armour
+{range:.75}+(0 to 89) to maximum Life
+{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
+Suffixes:
+{range:0}(0 to 16)% increased Attack Speed
+{range:0}+(0 to 400) to Accuracy Rating
+{str}
+{dex}
+{res}
+]],[[
 Evasion Gloves
 Slink Gloves
 Prefixes:
@@ -278,8 +308,37 @@ Suffixes:
 {dex}
 {res}
 ]],[[
+Evasion Gloves
+Gripped Gloves
+(14-18)% increased Projectile Attack Damage
+Prefixes:
+{inc Ev}
+{range:.75}+(0 to 80) to Evasion Rating
+{range:.75}+(0 to 89) to maximum Life
+{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
+Suffixes:
+{range:0}(0 to 16)% increased Attack Speed
+{range:0}+(0 to 400) to Accuracy Rating
+{dex}
+{res}
+]],[[
 Energy Shield Gloves
 Sorcerer Gloves
+Prefixes:
+{inc ES}
+{range:.75}+(0 to 48) to maximum Energy Shield
+{range:.75}+(0 to 89) to maximum Life
+{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
+Suffixes:
+{range:0}(0 to 16)% increased Attack Speed
+{range:0}+(0 to 400) to Accuracy Rating
+{dex}
+{int}
+{res}
+]],[[
+Energy Shield Gloves
+Fingerless Silk Gloves
+(12-16)% increased Spell Damage
 Prefixes:
 {inc ES}
 {range:.75}+(0 to 48) to maximum Energy Shield
@@ -595,6 +654,16 @@ Amulet
 Paua Amulet
 (20 to 30)% increased Mana Regeneration Rate
 {amulet}
+]],[[
+Amulet
+Marble Amulet
+(1.2-1.6)% of Life Regenerated per second
+{amulet}
+]],[[
+Amulet
+Blue Pearl Amulet
+(48-56)% increased Mana Regeneration Rate
+{amulet}
 ]],
 -- Rings
 [[
@@ -648,6 +717,16 @@ Implicits: 3
 {variant:2}+(12 to 16)% to Cold and Lightning Resistances
 {variant:3}+(12 to 16)% to Fire and Lightning Resistances
 {ring}
+]],[[
+Ring
+Steel Ring
+Adds (3-4) to (10-14) Physical Damage to Attacks
+{ring}
+]],[[
+Ring
+Opal Ring
+(15-25)% increased Elemental Damage
+{ring}
 ]],
 -- Belts
 [[
@@ -669,6 +748,16 @@ Leather Belt
 Belt
 Heavy Belt
 +(25 to 35) to Strength
+{belt}
+]],[[
+Belt
+Crystal Belt
++(60-80) to maximum Energy Shield
+{belt}
+]],[[
+Belt
+Vanguard Belt
++(260-320) to Armour and Evasion Rating
 {belt}
 ]],
 -- Quivers

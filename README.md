@@ -48,6 +48,10 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.0.23 - 2016/09/03
+ * Added templates for all of the new item bases (except Two-Toned Boots, because they break things)
+ * Added a few more 2.4.0 uniques and added modifier ranges to some of the existing ones
+
 ### 1.0.22 - 2016/09/03
  * You can now copy and paste skills
  * Added support for Illuminated Devotion (only Helmet/Gloves at the moment)

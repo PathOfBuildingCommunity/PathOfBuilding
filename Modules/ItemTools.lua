@@ -12,11 +12,9 @@ itemLib = { }
 
 -- Apply range value (0 to 1) to a modifier that has a range: (x to x) or (x-x to x-x)
 function itemLib.applyRange(line, range)
-	return line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", 
-		function(lowMin, lowMax, highMin, highMax) 
-			return string.format("%d to %d", m_floor(tonumber(lowMin) + range * (tonumber(lowMax) - tonumber(lowMin)) + 0.5), m_floor(tonumber(highMin) + range * (tonumber(highMax) - tonumber(highMin)) + 0.5)) 
-		end)
-		:gsub("(+?)%((%-?%d+) to (%-?%d+)%)", 
+	return line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
+		:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
+		:gsub("(%+?)%((%-?%d+)%-(%d+)%)", 
 		function(plus, min, max) 
 			local numVal = m_floor(tonumber(min) + range * (tonumber(max) - tonumber(min)) + 0.5)
 			if numVal < 0 then
@@ -24,7 +22,12 @@ function itemLib.applyRange(line, range)
 					plus = ""
 				end
 			end
-			return plus .. tostring(numVal) 
+			return plus .. tostring(numVal)
+		end)
+		:gsub("%((%d+%.?%d*)%-(%d+%.?%d*)%)",
+		function(min, max) 
+			local numVal = m_floor((tonumber(min) + range * (tonumber(max) - tonumber(min))) * 10 + 0.5) / 10
+			return tostring(numVal) 
 		end)
 		:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
 end
@@ -147,7 +150,7 @@ function itemLib.parseItemRaw(item)
 				local rangeSpec = line:match("^{range:([%d.]+)}")
 				line = line:gsub("%b{}", "")
 				local rangedLine
-				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?%d+ to %-?%d+%)") then
+				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
 					rangedLine = itemLib.applyRange(line, 1)
 				end
 				local modList, extra = modLib.parseMod(rangedLine or line)

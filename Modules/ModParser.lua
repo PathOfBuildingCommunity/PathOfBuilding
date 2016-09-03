@@ -335,6 +335,7 @@ local specialSpaceList = {
 	["against ignited enemies"] = "CondMod_EnemyIgnited_",
 	["against shocked enemies"] = "CondMod_EnemyShocked_",
 	["against frozen enemies"] = "CondMod_EnemyFrozen_",
+	["against chilled enemies"] = "CondMod_EnemyChilled_",
 	["enemies which are chilled"] = "CondMod_EnemyChilled_",
 	["against frozen, shocked or ignited enemies"] = "CondMod_EnemyFrozenShockedIgnited_",
 	["against enemies that are affected by elemental status ailments"] = "CondMod_EnemyElementalStatus_",
@@ -436,6 +437,7 @@ local specialModList = {
 	["totems fire (%d+) additional projectiles"] = function(num) return { totem_projectileCount = num } end,
 	["you have no life regeneration"] = { noLifeRegen = true },
 	["cannot block attacks"] = { cannotBlockAttacks = true },
+	["projectiles pierce while phasing"] = { CondMod_Phasing_pierceChance = 100 },
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques
