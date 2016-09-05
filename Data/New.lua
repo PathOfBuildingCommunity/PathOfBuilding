@@ -91,19 +91,26 @@ Requires Level 69, 82 Dex, 42 Int
 You have Phasing if you've Killed Recently
 Projectiles Pierce while Phasing
 ]],[[
-Kitava's Thirst
+Kitava's Thirst 
 Zealot Helmet
+Armour: (177–187)
+Energy Shield: (53–56)
 Requires Level 44, 50 Str, 50 Int
 15% reduced Cast Speed
-72% increased Armour and Energy Shield
-+34 to maximum Mana
-30% chance to Cast Socketed Skills when you use a Skill that costs at least 100 Mana
+(70–80)% increased Armour and Energy Shield
++(30–50) to maximum Mana
+30% chance to Cast Socketed Spells when 
+you Spend at least 100 Mana to Use a Skill
 ]],[[
-Kondo's Pride
+Kondo's Pride 
 Ezomyte Blade
+Two Handed Sword
+Physical Damage: (226–418 to 256–475)
+Critical Strike Chance: 5.00%
+Attacks per Second: 1.25
 Requires Level 61, 113 Str, 113 Dex
 18% increased Accuracy Rating
-308% increased Physical Damage
+(270–320)% increased Physical Damage
 0.6% of Physical Attack Damage Leeched as Life
 50% increased Melee Damage against Bleeding Enemies
 Cannot Leech Life from Critical Strikes
@@ -139,9 +146,12 @@ Spells have an additional Projectile
 Brain Rattler 
 Meatgrinder
 Two Handed Mace
+Physical Damage: (143–437 to 163–487)
+Critical Strike Chance: 5.00%
+Attacks per Second: 1.25
 Requires Level 63, 212 Str
 20% increased Stun Duration on Enemies
-Adds 99 to 327 Physical Damage
+Adds (80–100) to (320–370) Physical Damage
 50% of Physical Damage Converted to Lightning Damage
 15% chance to Shock
 10% chance to Cause Monsters to Flee
@@ -170,15 +180,15 @@ Take 100 Fire Damage when you Ignite an Enemy
 Cospri's Malice 
 Jewelled Foil
 One Handed Sword
-Elemental Damage: (81–191)
+Elemental Damage: (80–160 to 100–200)
 Critical Strike Chance: 5.50%
-Attacks per Second: (1.75)
-Requires Level 68, 212 Dex, (257) Int
+Attacks per Second: (1.73–1.82)
+Requires Level 68, 212 Dex, 257 Int
 +30% to Global Critical Strike Multiplier
 No Physical Damage
-Adds 81 to 191 Cold Damage
-Adds 58 to 95 Cold Damage to Spells
-9% increased Attack Speed
+Adds (80–100) to (160–200) Cold Damage
+Adds (40–60) to (90–110) Cold Damage to Spells
+(8–14)% increased Attack Speed
 +257 Intelligence Requirement
 60% increased Critical Strike Chance against Chilled Enemies
 Cast a Socketed Cold Skill on Melee Critical Strike
@@ -186,21 +196,21 @@ Cast a Socketed Cold Skill on Melee Critical Strike
 The Scourge 
 Terror Claw
 Claw
-Physical Damage: (53–172)
+Physical Damage: (50–165 to 59–180)
 Critical Strike Chance: 6.30%
-Attacks per Second: 1.72
+Attacks per Second: (1.65–1.73)
 Requires Level 70, 113 Dex, 113 Int
 2% of Physical Attack Damage Leeched as Life
-Adds 38 to 118 Physical Damage
-15% increased Attack Speed
-Minions have 10% increased Attack Speed
+Adds (35–44) to (105–120) Physical Damage
+(10–15)% increased Attack Speed
+Minions have (10-15)% increased Attack Speed
 10% Chance to Summon a Spectral Wolf on Kill
 Increases and Reductions to Minion Damage also affects You
-70% increased Minion Damage you have Hit Recently
+70% increased Minion Damage if you have Hit Recently
 ]],[[
 Unending Hunger 
 Cobalt Jewel
-Minions have 8% increased Radius of Area Skills
+Minions have (5-8)% increased Radius of Area Skills
 20% chance for Spectres to gain Soul Eater on Kill for 30 seconds
 with 50 Intelligence from Allocated Passives in Radius
 ]],[[
@@ -208,7 +218,7 @@ The Warden's Brand
 Iron Ring
 Requires Level 30
 Adds 1 to 4 Physical Damage to Attacks
-Adds (8–15 to 31–45) Physical Damage to Attacks
+Adds (5–15) to (25–50) Physical Damage to Attacks
 30% reduced Attack Speed
 15% chance to gain a Frenzy Charge when you Stun an Enemy
 ]],[[
@@ -230,5 +240,33 @@ Requires Level 38
 +(20 to 30)% to Fire Resistance
 -40% to Cold Resistance
 Stun Threshold is based on Energy Shield instead of Life
+]],[[
+Shaper's Touch 
+Crusader Gloves
+Armour: (194)
+Energy Shield: (57)
+Requires Level 66, 51 Str, 51 Int
+(85)% increased Armour and Energy Shield
++2 Accuracy Rating per 2 Intelligence
++1 Life per 4 Dexterity
++1 Mana per 4 Strength
+1% increased Energy Shield per 10 Strength
+1% increased Evasion Rating per 10 Intelligence
+1% increased Melee Physical Damage per 10 Dexterity
+]],[[
+Starforge 
+Infernal Sword
+Two Handed Sword
+Physical Damage: (285–590 to 342–708)
+Critical Strike Chance: 5.00%
+Attacks per Second: (1.31–1.35)
+Requires Level 67, 113 Str, 113 Dex
+30% increased Accuracy Rating
+(400–500)% increased Physical Damage
+(5–8)% increased Attack Speed
++(90–100) to maximum Life
+20% increased Area of Effect for Attacks
+Deal no Elemental Damage
+Your Physical Damage can Shock
 ]]
 }

@@ -557,8 +557,8 @@ end
 -- This function:
 -- 1. Merges modifiers for all items, optionally replacing one item
 -- 2. Builds a list of jewels with radius functions
--- 3. Builds modifier lists for all active skills
--- 4. Merges modifiers for all allocated passive nodes
+-- 3. Merges modifiers for all allocated passive nodes
+-- 4. Builds modifier lists for all active skills
 local function mergeMainMods(env, repSlotName, repItem)
 	local build = env.build
 
@@ -611,6 +611,10 @@ local function mergeMainMods(env, repSlotName, repItem)
 	end
 	mod_dbMergeList(env.modDB, env.itemModList)
 
+	-- Build and merge modifiers for allocated passives
+	env.specModList = buildNodeModList(env, build.spec.allocNodes, true)
+	mod_dbMergeList(env.modDB, env.specModList)
+
 	-- Build skill modifier lists
 	env.auxSkills = { }
 	for _, skill in pairs(env.skills) do
@@ -618,10 +622,6 @@ local function mergeMainMods(env, repSlotName, repItem)
 			buildSkillModList(env, skill)
 		end
 	end
-
-	-- Build and merge modifiers for allocated passives
-	env.specModList = buildNodeModList(env, build.spec.allocNodes, true)
-	mod_dbMergeList(env.modDB, env.specModList)
 end
 
 -- Prepare environment for calculations
@@ -1598,6 +1598,9 @@ local function performCalcs(env, output)
 		local sourceDmg = 0
 		if canDeal.lightning and not getMiscVal(modDB, nil, "lightningCannotShock", false) then
 			sourceDmg = sourceDmg + output.total_lightningAvg
+		end
+		if canDeal.physical and getMiscVal(modDB, nil, "physicalCanShock", false) then
+			sourceDmg = sourceDmg + output.total_physicalAvg
 		end
 		if canDeal.fire and getMiscVal(modDB, nil, "fireCanShock", false) then
 			sourceDmg = sourceDmg + output.total_fireAvg
