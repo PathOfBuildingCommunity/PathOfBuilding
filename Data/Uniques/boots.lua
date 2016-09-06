@@ -143,7 +143,6 @@ Requires Level 53, 94 Int
 ]],[[
 Shavronne's Gambit
 Scholar Boots
-League: Prophecy
 Energy Shield: (56 to 67)
 Requires Level 32, 54 Int
 +10 to Dexterity

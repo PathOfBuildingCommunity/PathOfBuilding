@@ -18,7 +18,6 @@ Adds 40 to 60 Physical Damage to Attacks
 ]],[[
 Ezomyte Hold
 Iron Hat
-League: Prophecy
 Armour: (23 to 33)
 20% increased Physical Damage
 +(15 to 25) to Armour
@@ -171,7 +170,6 @@ Requires Level 39, 83 Int
 ]],[[
 Martyr's Crown
 Vine Circlet
-League: Prophecy
 Energy Shield: (267 to 307)
 Requires Level 52
 +(260 to 300) to maximum Energy Shield
@@ -261,7 +259,6 @@ Cannot Leech when on Low Life
 ]],[[
 Deidbellow
 Gilded Sallet
-League: Prophecy
 Armour: (278 to 378)
 Evasion: 78
 Requires Level 33, 38 Str, 38 Dex
@@ -437,7 +434,6 @@ Blood Magic
 ]],[[
 Mind of the Council
 Harlequin Mask
-League: Prophecy
 Evasion: (452 to 493)
 Energy Shield: (132 to 144)
 Requires Level 57, 64 Dex, 64 Int

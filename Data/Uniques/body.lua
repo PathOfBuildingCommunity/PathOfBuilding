@@ -73,7 +73,6 @@ Chaos Damage does not bypass Energy Shield
 ]],[[
 Wall of Brambles
 Plate Vest
-League: Prophecy
 Armour: 2014
 Requires Level 30
 Adds 2 to 4 Physical Damage to Attacks
@@ -159,7 +158,6 @@ Adds 13 to 24 Cold Damage to Attacks
 ]],[[
 Kintsugi
 Exquisite Leather
-League: Prophecy
 Evasion: (1004 to 1104)
 Requires Level 62, 170 Dex
 (100 to 120)% increased Evasion Rating

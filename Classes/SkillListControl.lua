@@ -26,7 +26,16 @@ local SkillListClass = common.NewClass("SkillList", "Control", "ControlHost", fu
 	self.controls.delete.enabled = function()
 		return self.selSkill ~= nil
 	end
-	self.controls.new = common.New("ButtonControl", {"RIGHT",self.controls.delete,"LEFT"}, -4, 0, 60, 18, "New", function()
+	self.controls.paste = common.New("ButtonControl", {"RIGHT",self.controls.delete,"LEFT"}, -4, 0, 60, 18, "Paste", function()
+		self.skillsTab:PasteSkill()
+	end)
+	self.controls.copy = common.New("ButtonControl", {"RIGHT",self.controls.paste,"LEFT"}, -4, 0, 60, 18, "Copy", function()
+		self.skillsTab:CopySkill(self.selSkill)
+	end)
+	self.controls.copy.enabled = function()
+		return self.selSkill ~= nil
+	end
+	self.controls.new = common.New("ButtonControl", {"RIGHT",self.controls.copy,"LEFT"}, -4, 0, 60, 18, "New", function()
 		local newSkill = { label = "", active = true, gemList = { } }
 		t_insert(self.skillsTab.list, newSkill)
 		self.selSkill = newSkill
@@ -185,18 +194,8 @@ function SkillListClass:OnKeyDown(key, doubleClick)
 			self.selDragActive = false
 		end
 	elseif key == "c" and IsKeyDown("CTRL") then
-		if self.selSkill then
-			local skillText = ""
-			if self.selSkill.label:match("%S") then
-				skillText = skillText .. "Label: "..self.selSkill.label.."\r\n"
-			end
-			if self.selSkill.slot then
-				skillText = skillText .. "Slot: "..self.selSkill.slot.."\r\n"
-			end
-			for _, gem in ipairs(self.selSkill.gemList) do
-				skillText = skillText .. string.format("%s %d/%d\r\n", gem.nameSpec, gem.level, gem.quality)
-			end
-			Copy(skillText)
+		if self.selSkill then	
+			self.skillsTab:CopySkill(self.selSkill)
 		end
 	elseif #self.skillsTab.list > 0 then
 		if key == "UP" then

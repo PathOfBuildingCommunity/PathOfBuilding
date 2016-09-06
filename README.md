@@ -48,6 +48,13 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.0.25 - 2016/09/06
+ * More updates to 2.4.0 uniques
+ * Removed Prophecy league tag from all uniques
+ * Updated Voidheart to account for the non-nerf (poison chance is still 100%)
+ * Fixed resistances disappearing from the sidebar when the values are exactly 0
+ * Elemental Focus now correctly disables ignite/shock/freeze
+
 ### 1.0.24 - 2016/09/05
  * Added/updated more 2.4.0 uniques
 

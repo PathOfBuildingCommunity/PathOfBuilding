@@ -34,7 +34,6 @@ You gain 100 Evasion Rating when on Low Life
 ]],[[
 The Ascetic
 Gold Amulet
-League: Prophecy
 Requires Level 8
 (12 to 20)% increased Rarity of Items found
 (80 to 100)% increased Rarity of Items found with a Normal Item equipped
@@ -144,7 +143,6 @@ Cannot be Stunned
 ]],[[
 Hinekora's Sight
 Onyx Amulet
-League: Prophecy
 Requires Level 20
 +(10 to 16) to all Attributes
 +1000 to Accuracy Rating
@@ -164,7 +162,6 @@ Adds 12 to 24 Fire Damage to Attacks
 ]],[[
 Karui Charge
 Jade Amulet
-League: Prophecy
 Requires Level 24
 +(20 to 30) to Dexterity
 +(20 to 30) to Strength
@@ -217,7 +214,6 @@ Corrupted
 ]],[[
 Ngamahu Tiki
 Coral Amulet
-League: Prophecy
 Requires Level 36
 (2 to 4) Life Regenerated per second
 (50 to 70)% increased Fire Damage

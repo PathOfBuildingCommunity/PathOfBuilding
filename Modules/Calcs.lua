@@ -1557,75 +1557,89 @@ local function performCalcs(env, output)
 	-- Calculate ignite chance and damage
 	env.skillFlags.ignite = false
 	if startWatch(env, "ignite", "canDeal", "fire", "cold", "dps_crit", "enemyResist") then
-		output.ignite_chance = m_min(100, sumMods(modDB, false, "igniteChance")) / 100
-		local sourceDmg = 0
-		if canDeal.fire and not getMiscVal(modDB, nil, "fireCannotIgnite", false) then
-			sourceDmg = sourceDmg + output.total_fireAvg
-		end
-		if canDeal.cold and getMiscVal(modDB, nil, "coldCanIgnite", false) then
-			sourceDmg = sourceDmg + output.total_coldAvg
-		end
-		if canDeal.fire and output.ignite_chance > 0 and sourceDmg > 0 then
-			env.skillFlags.dot = true
-			env.skillFlags.ignite = true
-			buildSpaceTable(modDB, {
-				dot = true,
-				debuff = true,
-				spell = getMiscVal(modDB, "skill", "dotIsSpell", false),
-				ignite = true,
-				projectile = env.skillSpaceFlags.projectile,
-				aoe = env.skillSpaceFlags.aoe,
-				totem = env.skillSpaceFlags.totem,
-				trap = env.skillSpaceFlags.trap,
-				mine = env.skillSpaceFlags.mine,
-			})
-			local baseVal = sourceDmg * output.total_critEffect * 0.2
-			local effMult = 1
-			if env.mode_effective then
-				local taken = getMiscVal(modDB, "effective", "fireTakenInc", 0) + getMiscVal(modDB, "effective", "elementalTakenInc", 0) + getMiscVal(modDB, "effective", "damageTakenInc", 0) + getMiscVal(modDB, "effective", "dotTakenInc", 0)
-				effMult = (1 - output["enemy_fireResist"] / 100) * (1 + taken / 100)
+		if getMiscVal(modDB, nil, "cannotIgnite", false) then
+			output.ignite_chance = 0
+		else
+			output.ignite_chance = m_min(100, sumMods(modDB, false, "igniteChance")) / 100
+			local sourceDmg = 0
+			if canDeal.fire and not getMiscVal(modDB, nil, "fireCannotIgnite", false) then
+				sourceDmg = sourceDmg + output.total_fireAvg
 			end
-			output.ignite_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "fireInc", "elementalInc") / 100) * sumMods(modDB, true, "damageMore", "fireMore", "elementalMore") * effMult
-			output.ignite_duration = 4 * (1 + getMiscVal(modDB, "ignite", "durationInc", 0) / 100)
-			buildSpaceTable(modDB, env.skillSpaceFlags)
+			if canDeal.cold and getMiscVal(modDB, nil, "coldCanIgnite", false) then
+				sourceDmg = sourceDmg + output.total_coldAvg
+			end
+			if canDeal.fire and output.ignite_chance > 0 and sourceDmg > 0 then
+				env.skillFlags.dot = true
+				env.skillFlags.ignite = true
+				buildSpaceTable(modDB, {
+					dot = true,
+					debuff = true,
+					spell = getMiscVal(modDB, "skill", "dotIsSpell", false),
+					ignite = true,
+					projectile = env.skillSpaceFlags.projectile,
+					aoe = env.skillSpaceFlags.aoe,
+					totem = env.skillSpaceFlags.totem,
+					trap = env.skillSpaceFlags.trap,
+					mine = env.skillSpaceFlags.mine,
+				})
+				local baseVal = sourceDmg * output.total_critEffect * 0.2
+				local effMult = 1
+				if env.mode_effective then
+					local taken = getMiscVal(modDB, "effective", "fireTakenInc", 0) + getMiscVal(modDB, "effective", "elementalTakenInc", 0) + getMiscVal(modDB, "effective", "damageTakenInc", 0) + getMiscVal(modDB, "effective", "dotTakenInc", 0)
+					effMult = (1 - output["enemy_fireResist"] / 100) * (1 + taken / 100)
+				end
+				output.ignite_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "fireInc", "elementalInc") / 100) * sumMods(modDB, true, "damageMore", "fireMore", "elementalMore") * effMult
+				output.ignite_duration = 4 * (1 + getMiscVal(modDB, "ignite", "durationInc", 0) / 100)
+				buildSpaceTable(modDB, env.skillSpaceFlags)
+			end
 		end
 		endWatch(env, "ignite")
 	end
 
 	-- Calculate shock and freeze chance + duration modifier
 	if startWatch(env, "shock", "canDeal", "lightning", "fire", "chaos") then
-		output.shock_chance = m_min(100, sumMods(modDB, false, "shockChance")) / 100
-		local sourceDmg = 0
-		if canDeal.lightning and not getMiscVal(modDB, nil, "lightningCannotShock", false) then
-			sourceDmg = sourceDmg + output.total_lightningAvg
+		if getMiscVal(modDB, nil, "cannotShock", false) then
+			output.shock_chance = 0
+		else
+			output.shock_chance = m_min(100, sumMods(modDB, false, "shockChance")) / 100
+			local sourceDmg = 0
+			if canDeal.lightning and not getMiscVal(modDB, nil, "lightningCannotShock", false) then
+				sourceDmg = sourceDmg + output.total_lightningAvg
+			end
+			if canDeal.physical and getMiscVal(modDB, nil, "physicalCanShock", false) then
+				sourceDmg = sourceDmg + output.total_physicalAvg
+			end
+			if canDeal.fire and getMiscVal(modDB, nil, "fireCanShock", false) then
+				sourceDmg = sourceDmg + output.total_fireAvg
+			end
+			if canDeal.chaos and getMiscVal(modDB, nil, "chaosCanShock", false) then
+				sourceDmg = sourceDmg + output.total_chaosAvg
+			end
+			if output.shock_chance > 0 and sourceDmg > 0 then
+				env.skillFlags.shock = true
+				output.shock_durationMod = 1 + getMiscVal(modDB, "shock", "durationInc", 0) / 100
+ 			end
 		end
-		if canDeal.physical and getMiscVal(modDB, nil, "physicalCanShock", false) then
-			sourceDmg = sourceDmg + output.total_physicalAvg
-		end
-		if canDeal.fire and getMiscVal(modDB, nil, "fireCanShock", false) then
-			sourceDmg = sourceDmg + output.total_fireAvg
-		end
-		if canDeal.chaos and getMiscVal(modDB, nil, "chaosCanShock", false) then
-			sourceDmg = sourceDmg + output.total_chaosAvg
-		end
-		if output.shock_chance > 0 and sourceDmg > 0 then
-			env.skillFlags.shock = true
-			output.shock_durationMod = 1 + getMiscVal(modDB, "shock", "durationInc", 0) / 100
- 		end
+		endWatch(env, "shock")
 	end
 	if startWatch(env, "freeze", "canDeal", "cold", "lightning") then
-		output.freeze_chance = m_min(100, sumMods(modDB, false, "freezeChance")) / 100
-		local sourceDmg = 0
-		if canDeal.cold and not getMiscVal(modDB, nil, "coldCannotFreeze", false) then
-			sourceDmg = sourceDmg + output.total_coldAvg
+		if getMiscVal(modDB, nil, "cannotFreeze", false) then
+			output.freeze_chance = 0
+		else
+			output.freeze_chance = m_min(100, sumMods(modDB, false, "freezeChance")) / 100
+			local sourceDmg = 0
+			if canDeal.cold and not getMiscVal(modDB, nil, "coldCannotFreeze", false) then
+				sourceDmg = sourceDmg + output.total_coldAvg
+			end
+			if canDeal.lightning and getMiscVal(modDB, nil, "lightningCanFreeze", false) then
+				sourceDmg = sourceDmg + output.total_lightningAvg
+			end
+			if output.freeze_chance > 0 and sourceDmg > 0 then
+				env.skillFlags.freeze = true
+				output.freeze_durationMod = 1 + getMiscVal(modDB, "freeze", "durationInc", 0) / 100
+			end
 		end
-		if canDeal.lightning and getMiscVal(modDB, nil, "lightningCanFreeze", false) then
-			sourceDmg = sourceDmg + output.total_lightningAvg
-		end
-		if output.freeze_chance > 0 and sourceDmg > 0 then
-			env.skillFlags.freeze = true
-			output.freeze_durationMod = 1 + getMiscVal(modDB, "freeze", "durationInc", 0) / 100
-		end
+		endWatch(env, "freeze")
 	end
 
 	-- Calculate combined DPS estimate, including DoTs

@@ -30,7 +30,6 @@ Adds 5 to 10 Fire Damage to Attacks with Bows
 ]],[[
 Cragfall
 Serrated Arrow Quiver
-League: Prophecy
 Requires Level 5
 Adds 1 to 4 Physical Damage to Attacks with Bows
 (20 to 25)% reduced Enemy Stun Threshold
@@ -116,7 +115,6 @@ Requires Level 45
 ]],[[
 The Signal Fire
 Fire Arrow Quiver
-League: Prophecy
 Requires Level 24
 Adds 4 to 8 Fire Damage to Attacks with Bows
 10% increased Attack Speed

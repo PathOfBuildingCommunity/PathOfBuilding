@@ -74,7 +74,7 @@ The Brass Dome
 Gladiator Plate
 Requires Level 65, 177 Str
 30% reduced Chance to Block Attacks and Spells
-647% increased Armour
+(600-650)% increased Armour
 10% reduced Movement Speed
 50% increased Shock Duration on You
 Take no Extra Damage from Critical Strikes
@@ -226,19 +226,18 @@ Praxis
 Paua Ring
 Requires Level 22
 +(20–25) to maximum Mana
-+(44–48) to maximum Mana
-(4.3–5.3) Mana Regenerated per second
-−(4–7) to Mana Cost of Skills
++(30–60) to maximum Mana
+(3–6) Mana Regenerated per second
+−(4–8) to Mana Cost of Skills
 8% of Damage taken gained as Mana when Hit
 ]],[[
 Valyrium 
 Moonstone Ring
-Unreleased: true
 Requires Level 38
-+(15 to 25) to maximum Energy Shield
-+(10 to 20) to maximum Energy Shield
-+(20 to 30)% to Fire Resistance
--40% to Cold Resistance
++(15–25) to maximum Energy Shield
++(10–20) to maximum Energy Shield
++(20–30)% to Fire Resistance
+−40% to Cold Resistance
 Stun Threshold is based on Energy Shield instead of Life
 ]],[[
 Shaper's Touch 

@@ -163,7 +163,6 @@ Variant: Current
 ]],[[
 Kaom's Way
 Coral Ring
-League: Prophecy
 Requires Level 32
 +(20 to 30) to maximum Life
 +(10 to 20) to Strength
@@ -449,7 +448,6 @@ Adds 1 to 3 Chaos Damage to Attacks
 10% chance to Cause Monsters to Flee
 {variant:1}Melee Attacks cause Bleeding
 {variant:2}(30 to 50)% chance to cause Bleeding on Hit with Melee Attacks
-{variant:1}Melee Attacks Poison on Hit
-{variant:2}(20 to 40)% chance to Poison on Hit with Melee Attacks
+Melee Attacks Poison on Hit
 ]],
 }

@@ -77,7 +77,6 @@ Requires Level 47, 68 Str
 [[
 Hrimburn
 Goathide Gloves
-League: Prophecy
 Evasion: 42
 Requires Level 24, 17 Dex
 +(20 to 30) to Strength
@@ -132,7 +131,6 @@ Requires Level 12, 21 Int
 ]],[[
 Grip of the Council
 Arcanist Gloves
-League: Prophecy
 Energy Shield: 56
 Requires Level 60, 95 Int
 +30 to Strength

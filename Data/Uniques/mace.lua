@@ -182,7 +182,6 @@ Socketed Gems are Supported by level 1 Reduced Mana
 ]],[[
 Breath of the Council
 Carnal Sceptre
-League: Prophecy
 One Handed Mace
 Physical Damage: (122-139 to 281-320)
 Critical Strike Chance: 6.00%
@@ -423,7 +422,6 @@ Never deal Critical Strikes
 ]],[[
 Hrimnor's Dirge
 Sledgehammer
-League: Prophecy
 Two Handed Mace
 Physical Damage: (74-123 to 148-216)
 Critical Strike Chance: 5.00%

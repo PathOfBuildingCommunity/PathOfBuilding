@@ -1,3 +1,9 @@
+VERSION[1.0.25][2016/09/06]
+ * More updates to 2.4.0 uniques
+ * Removed Prophecy league tag from all uniques
+ * Updated Voidheart to account for the non-nerf (poison chance is still 100%)
+ * Fixed resistances disappearing from the sidebar when the values are exactly 0
+ * Elemental Focus now correctly disables ignite/shock/freeze
 VERSION[1.0.24][2016/09/05]
  * Added/updated more 2.4.0 uniques
 VERSION[1.0.23][2016/09/03]
