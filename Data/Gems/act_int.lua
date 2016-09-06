@@ -830,7 +830,7 @@ gems["Flame Surge"] = {
 		skill_damageEffectiveness = 1,
 		skill_critChanceBase = 6,
 		CondMod_EnemyBurning_spell_damageMore = 1.5,
-		fireCannotIgnite = true,
+		cannotIgnite = true,
 	},
 	quality = {
 		castSpeedInc = 0.5,

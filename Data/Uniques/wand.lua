@@ -23,7 +23,6 @@ Adds (4-6 to 8-12) Fire Damage to Spells
 ]],[[
 Amplification Rod
 Spiraled Wand
-League: Prophecy
 Wand
 Physical Damage: 8–24
 Critical Strike Chance: 8.00%

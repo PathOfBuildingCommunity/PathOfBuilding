@@ -118,29 +118,7 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 				self:Redo()
 				self.build.buildFlag = true
 			elseif event.key == "v" and IsKeyDown("CTRL") then
-				local skillText = Paste()
-				if skillText then
-					local newSkill = { label = "", active = true, gemList = { } }
-					local label = skillText:match("Label: (%C+)")
-					if label then
-						newSkill.label = label
-					end
-					local slot = skillText:match("Slot: (%C+)")
-					if slot then
-						newSkill.slot = slot
-					end
-					for nameSpec, level, quality in skillText:gmatch("([ %a']+) (%d+)/(%d+)") do
-						t_insert(newSkill.gemList, { nameSpec = nameSpec, level = tonumber(level) or 1, quality = tonumber(quality) or 0 })
-					end
-					if #newSkill.gemList > 0 then
-						t_insert(self.list, newSkill)
-						self.controls.skillList.selSkill = newSkill
-						self.controls.skillList.selIndex = #self.list
-						self:SetDisplaySkill(newSkill)
-						self:AddUndoState()
-						self.build.buildFlag = true
-					end
-				end
+				self:PasteSkill()
 			end
 		end
 	end
@@ -151,6 +129,46 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 	self:UpdateGemSlots(viewPort)
 
 	self:DrawControls(viewPort)
+end
+
+function SkillsTabClass:CopySkill(skill)
+	local skillText = ""
+	if skill.label:match("%S") then
+		skillText = skillText .. "Label: "..skill.label.."\r\n"
+	end
+	if skill.slot then
+		skillText = skillText .. "Slot: "..skill.slot.."\r\n"
+	end
+	for _, gem in ipairs(skill.gemList) do
+		skillText = skillText .. string.format("%s %d/%d\r\n", gem.nameSpec, gem.level, gem.quality)
+	end
+	Copy(skillText)
+end
+
+function SkillsTabClass:PasteSkill()
+	local skillText = Paste()
+	if skillText then
+		local newSkill = { label = "", active = true, gemList = { } }
+		local label = skillText:match("Label: (%C+)")
+		if label then
+			newSkill.label = label
+		end
+		local slot = skillText:match("Slot: (%C+)")
+		if slot then
+			newSkill.slot = slot
+		end
+		for nameSpec, level, quality in skillText:gmatch("([ %a']+) (%d+)/(%d+)") do
+			t_insert(newSkill.gemList, { nameSpec = nameSpec, level = tonumber(level) or 1, quality = tonumber(quality) or 0 })
+		end
+		if #newSkill.gemList > 0 then
+			t_insert(self.list, newSkill)
+			self.controls.skillList.selSkill = newSkill
+			self.controls.skillList.selIndex = #self.list
+			self:SetDisplaySkill(newSkill)
+			self:AddUndoState()
+			self.build.buildFlag = true
+		end
+	end
 end
 
 -- Create the controls for editing the gem at a given index

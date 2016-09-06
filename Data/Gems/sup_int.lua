@@ -357,6 +357,10 @@ gems["Elemental Focus"] = {
 	support = true,
 	base = {
 		manaCostMore = 1.3,
+		cannotShock = true,
+		cannotChill = true,
+		cannotFreeze = true,
+		cannotIgnite = true,
 	},
 	quality = {
 		elementalInc = 0.5,

@@ -5,7 +5,6 @@ return {
 [[
 Ascent From Flesh
 Chain Belt
-League: Prophecy
 Requires Level 44
 +(9 to 20) to maximum Energy Shield
 +300 to Evasion Rating

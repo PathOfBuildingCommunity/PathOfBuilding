@@ -159,7 +159,6 @@ Socketed Gems are Supported by level 30 Spell Echo
 ]],[[
 Realm Ender
 Iron Staff
-League: Prophecy
 Staff
 Physical Damage: 16–47
 Elemental Damage: (10-15 to 20-25), (10-15 to 20-25)

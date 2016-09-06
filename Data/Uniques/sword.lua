@@ -464,7 +464,6 @@ Minions deal (10 to 15)% increased Damage
 ]],[[
 Queen's Escape
 Ornate Sword
-League: Prophecy
 Two Handed Sword
 Physical Damage: 31–52
 Critical Strike Chance: 5.00%

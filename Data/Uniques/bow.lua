@@ -61,7 +61,6 @@ Adds an additional Arrow
 ]],[[
 Death's Opus
 Death Bow
-League: Prophecy
 Bow
 Physical Damage: (60-90 to 166-198)
 Critical Strike Chance: (6.50 to 7.50)%
@@ -92,7 +91,6 @@ Gain 110% of Bow Physical Damage as Extra Damage of an Element
 ]],[[
 Doomfletch's Prism
 Royal Bow
-League: Prophecy
 Bow
 Physical Damage: (18-22 to 57-61)
 Critical Strike Chance: (6.50 to 7.00)%
@@ -229,7 +227,6 @@ Skills Chain +1 times
 ]],[[
 Silverbough
 Crude Bow
-League: Prophecy
 Bow
 Physical Damage: (36-60 to 113-146)
 Critical Strike Chance: 5.00%
@@ -274,7 +271,6 @@ No Physical Damage
 ]],[[
 The Tempest
 Long Bow
-League: Prophecy
 Bow
 Elemental Damage: 1–85
 Critical Strike Chance: 6.00%

@@ -35,7 +35,6 @@ Enemies Chilled by you take 40% increased Burning Damage
 ]],[[
 The Gryphon
 Jade Hatchet
-League: Prophecy
 One Handed Axe
 Physical Damage: (49-67 to 103-125)
 Critical Strike Chance: 5.00%
@@ -169,7 +168,6 @@ Causes Bleeding on Hit
 ]],[[
 The Cauteriser
 Woodsplitter
-League: Prophecy
 Two Handed Axe
 Physical Damage: (94-118 to 207-250)
 Critical Strike Chance: 5%

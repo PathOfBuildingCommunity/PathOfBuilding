@@ -129,7 +129,6 @@ Requires Level 16, 44 Dex
 ]],[[
 Kaltensoul
 Painted Buckler
-League: Prophecy
 Chance to Block: 29%
 Evasion: (152 to 190)
 Requires Level 16, 44 Dex
@@ -154,7 +153,6 @@ You gain Onslaught for 2 seconds on Killing Taunted Enemies
 ]],[[
 Thirst for Horrors
 War Buckler
-League: Prophecy
 Chance to Block: 31%
 Evasion: (164 to 189)
 Requires Level 32, 74 Dex
@@ -330,7 +328,6 @@ Gain (5 to 10)% of Physical Damage as Extra Chaos Damage
 ]],[[
 The Oak
 Plank Kite Shield
-League: Prophecy
 Chance to Block: 22%
 Armour: (27 to 33)
 Energy Shield: (9 to 11)
@@ -368,6 +365,7 @@ Chance to Block: 24%
 Armour: (229 to 254)
 Energy Shield: (67 to 74)
 Requires Level 65, 85 Str, 85 Int
+Implicits: 2
 {variant:1}+16% to all Elemental Resistances
 {variant:2}+8% to all Elemental Resistances
 (80 to 100)% increased Armour and Energy Shield
