@@ -27,6 +27,14 @@ local modSets = {
 {range:0}+(0 to 48)% to Cold Resistance
 {range:0}+(0 to 48)% to Lightning Resistance
 {range:0}+(0 to 35)% to Chaos Resistance]],
+	["gloves"] = [[
+{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
+{range:0}Adds (0-10 to 0-18) Fire Damage to Attacks
+{range:0}Adds (0-9 to 0-16) Cold Damage to Attacks
+{range:0}Adds (0-2 to 0-28) Lightning Damage to Attacks
+Suffixes:
+{range:0}(0 to 16)% increased Attack Speed
+{range:0}+(0 to 400) to Accuracy Rating]],
 	["shield"] = [[
 {res}
 {range:0}+(0 to 16)% to all Elemental Resistances
@@ -39,6 +47,9 @@ Prefixes:
 {range:0}+(0 to 73) to maximum Mana
 {range:0}+(0 to 51) to maximum Energy Shield
 {range:0}Adds (0-15 to 0-26) Physical Damage to Attacks
+{range:0}Adds (0-25 to 0-45) Fire Damage to Attacks
+{range:0}Adds (0-22 to 0-40) Cold Damage to Attacks
+{range:0}Adds (0-7 to 0-72) Lightning Damage to Attacks
 {range:0}(0 to 22)% increased Armour
 {range:0}(0 to 22)% increased Evasion Rating
 {range:0}(0 to 22)% increased Energy Shield
@@ -66,6 +77,9 @@ Prefixes:
 {range:0}+(0 to 47) to maximum Energy Shield
 {range:0}+(0 to 170) to Evasion Rating
 {range:0}Adds (0-9 to 0-15) Physical Damage to Attacks
+{range:0}Adds (0-25 to 0-45) Fire Damage to Attacks
+{range:0}Adds (0-22 to 0-40) Cold Damage to Attacks
+{range:0}Adds (0-7 to 0-72) Lightning Damage to Attacks
 {range:0}(0 to 42)% increased Elemental Damage with Weapons
 {range:0}(10 to 20)% faster start of Energy Shield Recharge
 Suffixes:
@@ -272,10 +286,7 @@ Prefixes:
 {inc Ar}
 {range:.75}+(0 to 80) to Armour
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
-Suffixes:
-{range:0}(0 to 16)% increased Attack Speed
-{range:0}+(0 to 400) to Accuracy Rating
+{gloves}
 {str}
 {dex}
 {res}
@@ -287,10 +298,7 @@ Prefixes:
 {inc Ar}
 {range:.75}+(0 to 80) to Armour
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
-Suffixes:
-{range:0}(0 to 16)% increased Attack Speed
-{range:0}+(0 to 400) to Accuracy Rating
+{gloves}
 {str}
 {dex}
 {res}
@@ -301,10 +309,7 @@ Prefixes:
 {inc Ev}
 {range:.75}+(0 to 80) to Evasion Rating
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
-Suffixes:
-{range:0}(0 to 16)% increased Attack Speed
-{range:0}+(0 to 400) to Accuracy Rating
+{gloves}
 {dex}
 {res}
 ]],[[
@@ -315,10 +320,7 @@ Prefixes:
 {inc Ev}
 {range:.75}+(0 to 80) to Evasion Rating
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
-Suffixes:
-{range:0}(0 to 16)% increased Attack Speed
-{range:0}+(0 to 400) to Accuracy Rating
+{gloves}
 {dex}
 {res}
 ]],[[
@@ -328,10 +330,7 @@ Prefixes:
 {inc ES}
 {range:.75}+(0 to 48) to maximum Energy Shield
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
-Suffixes:
-{range:0}(0 to 16)% increased Attack Speed
-{range:0}+(0 to 400) to Accuracy Rating
+{gloves}
 {dex}
 {int}
 {res}
@@ -343,10 +342,7 @@ Prefixes:
 {inc ES}
 {range:.75}+(0 to 48) to maximum Energy Shield
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
-Suffixes:
-{range:0}(0 to 16)% increased Attack Speed
-{range:0}+(0 to 400) to Accuracy Rating
+{gloves}
 {dex}
 {int}
 {res}
@@ -358,10 +354,7 @@ Prefixes:
 {range:0}+(0 to 80) to Armour
 {range:0}+(0 to 80) to Evasion Rating
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
-Suffixes:
-{range:0}(0 to 16)% increased Attack Speed
-{range:0}+(0 to 400) to Accuracy Rating
+{gloves}
 {str}
 {dex}
 {res}
@@ -373,10 +366,7 @@ Prefixes:
 {range:0}+(0 to 80) to Armour
 {range:0}+(0 to 48) to maximum Energy Shield
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
-Suffixes:
-{range:0}(0 to 16)% increased Attack Speed
-{range:0}+(0 to 400) to Accuracy Rating
+{gloves}
 {str}
 {dex}
 {int}
@@ -389,10 +379,7 @@ Prefixes:
 {range:0}+(0 to 80) to Evasion Rating
 {range:0}+(0 to 48) to maximum Energy Shield
 {range:.75}+(0 to 89) to maximum Life
-{range:0}Adds (0-6 to 0-10) Physical Damage to Attacks
-Suffixes:
-{range:0}(0 to 16)% increased Attack Speed
-{range:0}+(0 to 400) to Accuracy Rating
+{gloves}
 {dex}
 {int}
 {res}
@@ -550,7 +537,7 @@ Prefixes:
 {range:.75}+(0 to 400) to Armour
 {range:.75}+(0 to 109) to maximum Life
 Suffixes:
-{range:0}+(0 to 55) to Strength
+{str}
 {shield}
 ]],[[
 Evasion Shield
@@ -560,7 +547,7 @@ Prefixes:
 {range:.75}+(0 to 400) to Evasion Rating
 {range:.75}+(0 to 109) to maximum Life
 Suffixes:
-{range:0}+(0 to 55) to Dexterity
+{dex}
 {shield}
 ]],[[
 Energy Shield Shield
@@ -571,7 +558,7 @@ Prefixes:
 {range:.75}+(0 to 109) to maximum Life
 {range:0}(0 to 79)% increased Spell Damage
 Suffixes:
-{range:0}+(0 to 55) to Intelligence
+{int}
 {shield}
 ]],[[
 Armour/Evasion Shield
@@ -583,8 +570,8 @@ Prefixes:
 {range:0}+(0 to 400) to Evasion Rating
 {range:.75}+(0 to 109) to maximum Life
 Suffixes:
-{range:0}+(0 to 55) to Strength
-{range:0}+(0 to 55) to Dexterity
+{str}
+{dex}
 {shield}
 ]],[[
 Armour/Energy Shield Shield
@@ -596,8 +583,8 @@ Prefixes:
 {range:0}+(0 to 135) to maximum Energy Shield
 {range:.75}+(0 to 109) to maximum Life
 Suffixes:
-{range:0}+(0 to 55) to Strength
-{range:0}+(0 to 55) to Intelligence
+{str}
+{int}
 {shield}
 ]],[[
 Evasion/Energy Shield Shield
@@ -609,8 +596,8 @@ Prefixes:
 {range:0}+(0 to 135) to maximum Energy Shield
 {range:.75}+(0 to 109) to maximum Life
 Suffixes:
-{range:0}+(0 to 55) to Dexterity
-{range:0}+(0 to 55) to Intelligence
+{dex}
+{int}
 {shield}
 ]],
 -- Amulets

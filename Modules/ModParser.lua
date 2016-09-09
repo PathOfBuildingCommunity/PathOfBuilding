@@ -203,6 +203,7 @@ local modNameList = {
 	["ignite duration on enemies"] = "ignite_duration{suf}",
 	["duration of elemental status ailments on enemies"] = { "shock_duration{suf}", "freeze_duration{suf}", "chill_duration{suf}", "ignite_duration{suf}" },
 	-- Other debuffs
+	["to poison"] = "poisonChance",
 	["to poison on hit"] = "poisonChance",
 	["poison duration"] = "poison_duration{suf}",
 	["to cause bleeding"] = "bleedChance",
@@ -240,6 +241,7 @@ local namespaceList = {
 	["with weapons"] = "weapon_",
 	["melee"] = "melee_",
 	["with melee attacks"] = "melee_",
+	["on melee hit"] = "melee_",
 	["with poison"] = "poison_",
 	["projectile"] = "projectile_",
 	["area"] = "aoe_",

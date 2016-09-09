@@ -48,6 +48,13 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.0.26 - 2016/09/09
+ * More updates to 2.4.0 uniques
+ * Re-nerfed Voidheart
+ * Hypothermia now correctly affects hits only and not damage over time
+ * Fixed gems sometimes appearing to be deleted when another gem in the same skill was removed
+ * Added flat elemental damage to ring, amulet and glove templates
+
 ### 1.0.25 - 2016/09/06
  * More updates to 2.4.0 uniques
  * Removed Prophecy league tag from all uniques

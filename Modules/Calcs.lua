@@ -671,6 +671,7 @@ local function finaliseMods(env, output)
 		-- Build list of namespaces to search for mods
 		local skillSpaceFlags = wipeTable(env.skillSpaceFlags)
 		env.skillSpaceFlags = skillSpaceFlags
+		skillSpaceFlags["hit"] = true
 		if skillFlags.spell then
 			skillSpaceFlags["spell"] = true
 		elseif skillFlags.attack then

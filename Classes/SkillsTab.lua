@@ -316,6 +316,17 @@ function SkillsTabClass:ProcessSkill(skill)
 		else
 			-- Empty gem, remove it
 			t_remove(skill.gemList, index)
+
+			-- Update the other gem slot controls
+			for index2 = index, #skill.gemList do
+				local gem = skill.gemList[index2]
+				if not self.gemSlots[index2] then
+					self:CreateGemSlot(index2)
+				end
+				self.gemSlots[index2].nameSpec:SetText(gem.nameSpec)
+				self.gemSlots[index2].level:SetText(gem.level)
+				self.gemSlots[index2].quality:SetText(gem.quality)
+			end
 		end
 	end
 
