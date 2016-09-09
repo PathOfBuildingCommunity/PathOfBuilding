@@ -447,7 +447,8 @@ Adds 1 to 3 Chaos Damage to Attacks
 (2 to 4) Life Regenerated per second
 10% chance to Cause Monsters to Flee
 {variant:1}Melee Attacks cause Bleeding
-{variant:2}(30 to 50)% chance to cause Bleeding on Hit with Melee Attacks
-Melee Attacks Poison on Hit
+{variant:2}(30 to 50)% chance to cause Bleeding on Melee Hit
+{variant:1}Melee Attacks Poison on Hit
+{variant:2}(20 to 40)% chance to Poison on Melee Hit
 ]],
 }

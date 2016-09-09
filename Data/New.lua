@@ -193,19 +193,19 @@ Adds (40–60) to (90–110) Cold Damage to Spells
 60% increased Critical Strike Chance against Chilled Enemies
 Cast a Socketed Cold Skill on Melee Critical Strike
 ]],[[
-The Scourge 
+The Scourge
 Terror Claw
-Claw
-Physical Damage: (50–165 to 59–180)
+Claws
+Physical Damage: 15–60
 Critical Strike Chance: 6.30%
-Attacks per Second: (1.65–1.73)
+Attacks per Second: 1.50
 Requires Level 70, 113 Dex, 113 Int
 2% of Physical Attack Damage Leeched as Life
-Adds (35–44) to (105–120) Physical Damage
-(10–15)% increased Attack Speed
+Adds (35-50) to (100-125) Physical Damage
+(10-15)% increased Attack Speed
 Minions have (10-15)% increased Attack Speed
-10% Chance to Summon a Spectral Wolf on Kill
-Increases and Reductions to Minion Damage also affects You
+10% Chance to summon a Spectral Wolf on Kill
+Increases and reductions to Minion Damage also affects you
 70% increased Minion Damage if you have Hit Recently
 ]],[[
 Unending Hunger 
