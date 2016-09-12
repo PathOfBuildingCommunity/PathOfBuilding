@@ -94,6 +94,7 @@ local function mergeGemMods(modList, gem)
 	for k, v in pairs(gem.data.quality) do
 		mod_listMerge(modList, k, m_floor(v * gem.effectiveQuality))
 	end
+	gem.effectiveLevel = m_min(gem.effectiveLevel, #gem.data.levels)
 	for k, v in pairs(gem.data.levels[gem.effectiveLevel]) do
 		mod_listMerge(modList, k, v)
 	end
@@ -176,6 +177,7 @@ local function validateSkillSupports(skill)
 			name = "Default Attack",
 			level = 1,
 			quality = 0,
+			enabled = true,
 			data = data.gems._default
 		}
 		gemList = { skill.activeGem }
@@ -217,7 +219,9 @@ local function validateSkillSupports(skill)
 			gem.calcsErrMsg = "You can only specify one active gem per skill, so this one will be ignored"
 		else
 			gem.calcsErrMsg = nil
-			t_insert(skill.validGemList, gem)
+			if gem.enabled then
+				t_insert(skill.validGemList, gem)
+			end
 		end
 	end
 end
@@ -226,8 +230,8 @@ end
 local function buildSkillModList(env, skill)
 	-- Initialise effective gem level and quality
 	for _, gem in pairs(skill.validGemList) do
-		gem.effectiveLevel = gem.level
-		gem.effectiveQuality = gem.quality
+		gem.effectiveLevel = m_max(1, m_min(#gem.data.levels, gem.level))
+		gem.effectiveQuality = m_max(0, m_min(23, gem.quality))
 	end
 
 	local skillModList = { }
@@ -1900,7 +1904,7 @@ function calcs.buildOutput(build, input, output, mode)
 		-- Configure view mode
 		setViewMode(env, build.skillsTab.list)
 
-		infoDump(env, output)
+		--infoDump(env, output)
 	end
 end
 

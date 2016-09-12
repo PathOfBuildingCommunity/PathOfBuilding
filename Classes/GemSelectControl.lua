@@ -20,18 +20,19 @@ local GemSelectClass = common.NewClass("GemSelectControl", "EditControl", functi
 		return height + 1
 	end
 	self.controls.scrollBar.height = function()
-		return (height - 4) * m_min(#self.list, 10) + 2
+		return (height - 4) * m_min(#self.list, 15) + 2
 	end
 	self.controls.scrollBar.shown = function()
 		return self.dropped and self.controls.scrollBar.enabled
 	end
 	self.list = { }
 	self.gemChangeFunc = changeFunc
+	self.filter = "[ %a']"
 	self.changeFunc = function()
 		self.dropped = true
 		self.selIndex = 0
 		self:BuildList(self.buf)
-		self.gemChangeFunc(self.buf)
+		self:UpdateGem()
 	end
 end)
 
@@ -42,20 +43,23 @@ function GemSelectClass:BuildList(buf)
 	if self.searchStr:match("%S") then
 		-- Search for gem name using increasingly broad search patterns
 		local patternList = {
-			"^ "..self.searchStr:gsub("%a", function(a) return "["..a:upper()..a:lower().."]" end).."$", -- Exact match (case-insensitive)
-			"^"..self.searchStr:gsub("%a", " %0%%l+").."$", -- Simple abbreviation ("CtF" -> "Cold to Fire")
-			"^"..self.searchStr:gsub(" ",""):gsub("%l", "%%l*%0").."%l+$", -- Abbreviated words ("CldFr" -> "Cold to Fire")
-			"^"..self.searchStr:gsub(" ",""):gsub("%a", ".*%0"), -- Global abbreviation ("CtoF" -> "Cold to Fire")
-			"^"..self.searchStr:gsub(" ",""):gsub("%a", function(a) return ".*".."["..a:upper()..a:lower().."]" end), -- Case insensitive global abbreviation ("ctof" -> "Cold to Fire")
+			"^ "..self.searchStr:lower().."$", -- Exact match
+			"^"..self.searchStr:lower():gsub("%a", " %0%%l+").."$", -- Simple abbreviation ("CtF" -> "Cold to Fire")
+			"^ "..self.searchStr:lower(), -- Starts with
+			self.searchStr:lower(), -- Contains
 		}
+		local added = { }
 		for i, pattern in ipairs(patternList) do
+			local matchList = { }
 			for name in pairs(data.gems) do
-				if name ~= "_default" and (" "..name):match(pattern) then
-					t_insert(self.list, name)
+				if name ~= "_default" and not added[name] and (" "..name:lower()):match(pattern) then
+					t_insert(matchList, name)
+					added[name] = true
 				end
 			end
-			if self.list[1] then
-				break
+			t_sort(matchList)
+			for _, name in ipairs(matchList) do
+				t_insert(self.list, name)
 			end
 		end
 	else
@@ -63,12 +67,33 @@ function GemSelectClass:BuildList(buf)
 			if name ~= "_default" then
 				t_insert(self.list, name)
 			end
+			t_sort(self.list)
 		end
 	end
 	if not self.list[1] then
 		self.list[1] = "<No matches>"
+		self.noMatches = true
+	else
+		self.noMatches = false
 	end
-	t_sort(self.list)
+end
+
+function GemSelectClass:UpdateGem()
+	local gemName = self.list[m_max(self.selIndex, 1)]
+	if self.buf:match("%S") and data.gems[gemName] then
+		self.gemName = gemName
+	else
+		self.gemName = ""
+	end
+	self.gemChangeFunc(self.gemName)
+end
+
+function GemSelectClass:ScrollSelIntoView()
+	local width, height = self:GetSize()
+	local scrollBar = self.controls.scrollBar
+	local dropHeight = (height - 4) * m_min(#self.list, 15)
+	scrollBar:SetContentDimension((height - 4) * #self.list, dropHeight)
+	scrollBar:ScrollIntoView((self.selIndex - 2) * (height - 4), 3 * (height - 4))
 end
 
 function GemSelectClass:IsMouseOver()
@@ -81,7 +106,7 @@ function GemSelectClass:IsMouseOver()
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
-	local dropExtra = self.dropped and (height - 4) * m_min(#self.list, 10) + 2 or 0
+	local dropExtra = self.dropped and (height - 4) * m_min(#self.list, 15) + 2 or 0
 	local mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height + dropExtra
 	local mOverComp
 	if mOver then
@@ -100,7 +125,7 @@ function GemSelectClass:Draw(viewPort)
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
 	local mOver, mOverComp = self:IsMouseOver()
-	local dropHeight = (height - 4) * m_min(#self.list, 10)
+	local dropHeight = (height - 4) * m_min(#self.list, 15)
 	local scrollBar = self.controls.scrollBar
 	scrollBar:SetContentDimension((height - 4) * #self.list, dropHeight)
 	if self.dropped then
@@ -114,7 +139,7 @@ function GemSelectClass:Draw(viewPort)
 	if self.dropped then
 		SetDrawLayer(nil, 5)
 		local cursorX, cursorY = GetCursorPos()
-		self.hoverSel = mOver and math.floor((cursorY - y - height + scrollBar.offset) / (height - 4)) + 1
+		self.hoverSel = mOverComp == "DROP" and math.floor((cursorY - y - height + scrollBar.offset) / (height - 4)) + 1
 		if self.hoverSel and self.hoverSel < 1 then
 			self.hoverSel = nil
 		end
@@ -123,7 +148,7 @@ function GemSelectClass:Draw(viewPort)
 		local maxIndex = m_min(m_floor((scrollBar.offset + dropHeight) / 16 + 1), #self.list)
 		for index = minIndex, maxIndex do
 			local y = (index - 1) * (height - 4) - scrollBar.offset
-			if index == self.hoverSel or index == self.selIndex then
+			if index == self.hoverSel or index == self.selIndex or (index == 1 and self.selIndex == 0) then
 				SetDrawColor(0.33, 0.33, 0.33)
 				DrawImage(nil, 0, y, width - 4, height - 4)
 			end
@@ -154,18 +179,21 @@ function GemSelectClass:OnFocusGained()
 	for index, name in pairs(self.list) do
 		if name == self.buf then
 			self.selIndex = index
-			local width, height = self:GetSize()
-			local scrollBar = self.controls.scrollBar
-			local dropHeight = (height - 4) * m_min(#self.list, 10)
-			scrollBar:SetContentDimension((height - 4) * #self.list, dropHeight)
-			scrollBar:ScrollIntoView((index - 2) * (height - 4), 3 * (height - 4))
+			self:ScrollSelIntoView()
+			break
 		end
 	end
-	self:SelectAll()
 end
 
 function GemSelectClass:OnFocusLost()
-	self.dropped = false
+	if self.dropped then
+		self.dropped = false
+		if self.noMatches then
+			self:SetText("")
+		end
+		self:UpdateGem()
+		self:SetText(self.gemName)
+	end
 end
 
 function GemSelectClass:OnKeyDown(key, doubleClick)
@@ -181,44 +209,58 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 	end
 	if self.dropped then
 		if key:match("BUTTON") and not self:IsMouseOver() then
-			self.dropped = false
 			return
 		end
 		if key == "LEFTBUTTON" then
 			if self.hoverSel and data.gems[self.list[self.hoverSel]] then
 				self.dropped = false
-				self:SetText(self.list[self.hoverSel])
-				self.gemChangeFunc(self.buf)
+				self.selIndex = self.hoverSel
+				self:SetText(self.list[self.selIndex])
+				self:UpdateGem()
 				return self
 			end
 		elseif key == "RETURN" then
 			self.dropped = false
+			if self.noMatches then
+				self:SetText("")
+			end
+			self.selIndex = m_max(self.selIndex, 1)
+			self:UpdateGem()
+			self:SetText(self.gemName)
 			return self
+		elseif key == "ESCAPE" then
+			self.dropped = false
+			if self.selIndex == 0 then
+				self:SetText("")
+			end
+			self:UpdateGem()
+			return
 		elseif key == "WHEELUP" then
 			self.controls.scrollBar:Scroll(-1)
 		elseif key == "WHEELDOWN" then
 			self.controls.scrollBar:Scroll(1)
 		elseif key == "DOWN" then
-			if self.selIndex < #self.list then
+			if self.selIndex < #self.list and not self.noMatches then
 				self.selIndex = self.selIndex + 1
 				self:SetText(self.list[self.selIndex])
-				local width, height = self:GetSize()
-				self.controls.scrollBar:ScrollIntoView((self.selIndex - 2) * (height - 4), 3 * (height - 4))
-				self.gemChangeFunc(self.buf)
+				self:UpdateGem()
+				self:ScrollSelIntoView()
 			end
 		elseif key == "UP" then
-			if self.selIndex > 0 then
+			if self.selIndex > 0 and not self.noMatches then
 				self.selIndex = self.selIndex - 1
 				if self.selIndex == 0 then
 					self:SetText(self.searchStr)
 				else
 					self:SetText(self.list[self.selIndex])
 				end
-				local width, height = self:GetSize()
-				self.controls.scrollBar:ScrollIntoView((self.selIndex - 2) * (height - 4), 3 * (height - 4))
-				self.gemChangeFunc(self.buf)
+				self:UpdateGem()
+				self:ScrollSelIntoView()
 			end
 		end
+	elseif key == "RETURN" then
+		self.dropped = true
+		return self
 	end
 	local newSel = self.EditControl:OnKeyDown(key, doubleClick)
 	return newSel == self.EditControl and self or newSel

@@ -57,6 +57,7 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 	self.controls.gemNameHeader = common.New("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].nameSpec,"TOPLEFT"}, 0, -2, 0, 16, "^7Gem name:")
 	self.controls.gemLevelHeader = common.New("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].level,"TOPLEFT"}, 0, -2, 0, 16, "^7Level:")
 	self.controls.gemQualityHeader = common.New("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].quality,"TOPLEFT"}, 0, -2, 0, 16, "^7Quality:")
+	self.controls.gemEnableHeader = common.New("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].enabled,"TOPLEFT"}, -16, -2, 0, 16, "^7Enabled:")
 end)
 
 function SkillsTabClass:Load(xml, fileName)
@@ -73,6 +74,7 @@ function SkillsTabClass:Load(xml, fileName)
 				gem.nameSpec = child.attrib.nameSpec
 				gem.level = tonumber(child.attrib.level)
 				gem.quality = tonumber(child.attrib.quality)
+				gem.enabled = not child.attrib.enabled and true or child.attrib.enabled == "true"
 				t_insert(skill.gemList, gem)
 			end
 			self:ProcessSkill(skill)
@@ -89,13 +91,14 @@ function SkillsTabClass:Save(xml)
 			active = tostring(skill.active),
 			label = skill.label,
 			slot = skill.slot,
-			skillPart = tostring(skill.skillPart)
+			skillPart = skill.skillPart and tostring(skill.skillPart)
 		} }
 		for _, gem in ipairs(skill.gemList) do
 			t_insert(node, { elem = "Gem", attrib = {
 				nameSpec = gem.nameSpec,
 				level = tostring(gem.level),
 				quality = tostring(gem.quality),
+				enabled = tostring(gem.enabled),
 			} })
 		end
 		t_insert(xml, node)
@@ -126,7 +129,7 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 
 	main:DrawBackground(viewPort)
 
-	self:UpdateGemSlots(viewPort)
+	self:UpdateGemSlots()
 
 	self:DrawControls(viewPort)
 end
@@ -158,7 +161,7 @@ function SkillsTabClass:PasteSkill()
 			newSkill.slot = slot
 		end
 		for nameSpec, level, quality in skillText:gmatch("([ %a']+) (%d+)/(%d+)") do
-			t_insert(newSkill.gemList, { nameSpec = nameSpec, level = tonumber(level) or 1, quality = tonumber(quality) or 0 })
+			t_insert(newSkill.gemList, { nameSpec = nameSpec, level = tonumber(level) or 20, quality = tonumber(quality) or 0 })
 		end
 		if #newSkill.gemList > 0 then
 			t_insert(self.list, newSkill)
@@ -179,7 +182,10 @@ function SkillsTabClass:CreateGemSlot(index)
 	-- Gem name specification
 	slot.nameSpec = common.New("GemSelectControl", nil, 0, 0, 300, 20, function(buf)
 		if not self.displaySkill.gemList[index] then
-			self.displaySkill.gemList[index] = { nameSpec = "", level = 1, quality = 0 }
+			self.displaySkill.gemList[index] = { nameSpec = "", level = 20, quality = 0, enabled = true }
+			slot.level:SetText("20")
+			slot.quality:SetText("0")
+			slot.enabled.state = true
 		end
 		self.displaySkill.gemList[index].nameSpec = buf
 		self:ProcessSkill(self.displaySkill)
@@ -200,9 +206,11 @@ function SkillsTabClass:CreateGemSlot(index)
 	-- Gem level
 	slot.level = common.New("EditControl", {"LEFT",slot.nameSpec,"RIGHT"}, 2, 0, 60, 20, nil, nil, "[%d]", 2, function(buf)
 		if not self.displaySkill.gemList[index] then
-			self.displaySkill.gemList[index] = { nameSpec = "", level = 1, quality = 0 }
+			self.displaySkill.gemList[index] = { nameSpec = "", level = 20, quality = 0, enabled = true }
+			slot.quality:SetText("0")
+			slot.enabled.state = true
 		end
-		self.displaySkill.gemList[index].level = tonumber(buf) or 1
+		self.displaySkill.gemList[index].level = tonumber(buf) or 20
 		self:ProcessSkill(self.displaySkill)
 		self:AddUndoState()
 		self.build.buildFlag = true
@@ -213,7 +221,9 @@ function SkillsTabClass:CreateGemSlot(index)
 	-- Gem quality
 	slot.quality = common.New("EditControl", {"LEFT",slot.level,"RIGHT"}, 2, 0, 60, 20, nil, nil, "[%d]", 2, function(buf)
 		if not self.displaySkill.gemList[index] then
-			self.displaySkill.gemList[index] = { nameSpec = "", level = 1, quality = 0 }
+			self.displaySkill.gemList[index] = { nameSpec = "", level = 20, quality = 0, enabled = true }
+			slot.level:SetText("20")
+			slot.enabled.state = true
 		end
 		self.displaySkill.gemList[index].quality = tonumber(buf) or 0
 		self:ProcessSkill(self.displaySkill)
@@ -223,15 +233,29 @@ function SkillsTabClass:CreateGemSlot(index)
 	slot.quality:AddToTabGroup(self.controls.skillLabel)
 	self.controls["gemSlotQuality"..index] = slot.quality
 
+	-- Enable gem
+	slot.enabled = common.New("CheckBoxControl", {"LEFT",slot.quality,"RIGHT"}, 18, 0, 20, nil, function(state)
+		if not self.displaySkill.gemList[index] then
+			self.displaySkill.gemList[index] = { nameSpec = "", level = 20, quality = 0, enabled = true }
+			slot.level:SetText("20")
+			slot.quality:SetText("0")
+		end
+		self.displaySkill.gemList[index].enabled = state
+		self:ProcessSkill(self.displaySkill)
+		self:AddUndoState()
+		self.build.buildFlag = true
+	end)
+	self.controls["gemSlotEnable"..index] = slot.enabled
+
 	-- Parser/calculator error message
-	slot.errMsg = common.New("LabelControl", {"LEFT",slot.quality,"RIGHT"}, 2, 2, 0, 16, function()
+	slot.errMsg = common.New("LabelControl", {"LEFT",slot.enabled,"RIGHT"}, 2, 2, 0, 16, function()
 		return "^1"..(self.displaySkill.gemList[index] and (self.displaySkill.gemList[index].errMsg or self.displaySkill.gemList[index].calcsErrMsg) or "")
 	end)
 	self.controls["gemSlotErrMsg"..index] = slot.errMsg
 end
 
 -- Update the gem slot controls to reflect the currently displayed skill
-function SkillsTabClass:UpdateGemSlots(viewPort)
+function SkillsTabClass:UpdateGemSlots()
 	if not self.displaySkill then
 		return
 	end
@@ -245,6 +269,7 @@ function SkillsTabClass:UpdateGemSlots(viewPort)
 			slot.nameSpec:SetText("")
 			slot.level:SetText("")
 			slot.quality:SetText("")
+			slot.enabled.state = true
 		else
 			local gemData = self.displaySkill.gemList[slotIndex].data
 			if gemData then
@@ -266,7 +291,7 @@ function SkillsTabClass:FindSkillGem(nameSpec)
 	local patternList = {
 		"^ "..nameSpec:gsub("%a", function(a) return "["..a:upper()..a:lower().."]" end).."$", -- Exact match (case-insensitive)
 		"^"..nameSpec:gsub("%a", " %0%%l+").."$", -- Simple abbreviation ("CtF" -> "Cold to Fire")
-		"^"..nameSpec:gsub(" ",""):gsub("%l", "%%l*%0").."%l+$", -- Abbreviated words ("CldFr" -> "Cold to Fire")
+		"^ "..nameSpec:gsub(" ",""):gsub("%l", "%%l*%0").."%l+$", -- Abbreviated words ("CldFr" -> "Cold to Fire")
 		"^"..nameSpec:gsub(" ",""):gsub("%a", ".*%0"), -- Global abbreviation ("CtoF" -> "Cold to Fire")
 		"^"..nameSpec:gsub(" ",""):gsub("%a", function(a) return ".*".."["..a:upper()..a:lower().."]" end), -- Case insensitive global abbreviation ("ctof" -> "Cold to Fire")
 	}
@@ -305,13 +330,12 @@ function SkillsTabClass:ProcessSkill(skill)
 			-- Gem name has been specified, try to find the matching skill gem
 			gem.errMsg, gem.name, gem.data = self:FindSkillGem(gem.nameSpec)
 			if gem.name then
-				gem.level = m_max(1, m_min(#gem.data.levels, gem.level))
-				gem.quality = m_max(0, m_min(23, gem.quality))
+				gem.nameSpec = gem.name
 			end
 		else
-			gem.errMsg, gem.name, gem.data = nil
+			gem.errMsg, gem.calcsErrMsg, gem.name, gem.data = nil
 		end
-		if gem.nameSpec:match("%S") or gem.level ~= 1 or gem.quality ~= 0 then
+		if gem.nameSpec:match("%S") or gem.level ~= 20 or gem.quality ~= 0 or gem.enabled ~= true or (skill == self.displaySkill and self.gemSlots[index] and self.gemSlots[index].nameSpec.buf:match("%S")) then
 			index = index + 1
 		else
 			-- Empty gem, remove it
@@ -326,6 +350,7 @@ function SkillsTabClass:ProcessSkill(skill)
 				self.gemSlots[index2].nameSpec:SetText(gem.nameSpec)
 				self.gemSlots[index2].level:SetText(gem.level)
 				self.gemSlots[index2].quality:SetText(gem.quality)
+				self.gemSlots[index2].enabled.state = gem.enabled
 			end
 		end
 	end
@@ -349,14 +374,14 @@ function SkillsTabClass:SetDisplaySkill(skill)
 		self.controls.skillActive.state = skill.active
 
 		-- Update the gem slot controls
+		self:UpdateGemSlots()
 		for index, gem in pairs(skill.gemList) do
-			if not self.gemSlots[index] then
-				self:CreateGemSlot(index)
-			end
 			self.gemSlots[index].nameSpec:SetText(gem.nameSpec)
 			self.gemSlots[index].level:SetText(gem.level)
 			self.gemSlots[index].quality:SetText(gem.quality)
+			self.gemSlots[index].enabled.state = gem.enabled
 		end
+
 	end
 end
 

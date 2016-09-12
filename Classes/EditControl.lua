@@ -187,7 +187,9 @@ end
 
 function EditClass:OnFocusGained()
 	self.blinkStart = GetTime()
-	self:SelectAll()
+	if not self.drag then
+		self:SelectAll()
+	end
 end
 
 function EditClass:OnKeyDown(key, doubleClick)
@@ -289,8 +291,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 			end
 		end
 	elseif key == "TAB" then
-		local newSel = self.Object:TabAdvance(shift and -1 or 1)
-		return newSel
+		return self.Object:TabAdvance(shift and -1 or 1)
 	end
 	return self
 end

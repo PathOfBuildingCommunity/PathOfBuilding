@@ -443,6 +443,7 @@ local specialModList = {
 	["you have no life regeneration"] = { noLifeRegen = true },
 	["cannot block attacks"] = { cannotBlockAttacks = true },
 	["projectiles pierce while phasing"] = { CondMod_Phasing_pierceChance = 100 },
+	["reserves (%d+)%% of life"] = function(num) return { reserved_lifePercent = num } end,
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques
