@@ -15,8 +15,8 @@
 	<File sha1="e71f8367d62de41b0b80b764ddced8fb80f50ce7" name="Classes/Control.lua" part="program"/>
 	<File sha1="1d35e3a3d8427d30254e7d8983562d0d4d8dc733" name="Classes/ControlHost.lua" part="program"/>
 	<File sha1="7c23b2ae9eb3b9b02a5da8afce64e2cb191b36b3" name="Classes/DropDownControl.lua" part="program"/>
-	<File sha1="6bcd33ef200e2029dbed26598f1c66a3e4dbd3d6" name="Classes/EditControl.lua" part="program"/>
-	<File sha1="7b013926ba9582ac09d09410b1358575fcbb3f80" name="Classes/GemSelectControl.lua" part="program"/>
+	<File sha1="759ea55ee1c773b43c2434bb10d4a6aae3d3c180" name="Classes/EditControl.lua" part="program"/>
+	<File sha1="e0523bf901a83f37be120d3bd3bc346b2757ab85" name="Classes/GemSelectControl.lua" part="program"/>
 	<File sha1="c8774a6e9a39fe8f2d434889abe2533aee78fc47" name="Classes/Grid.lua" part="program"/>
 	<File sha1="85aae0489332ca754538757560ec1adaf3383fc2" name="Classes/ImportTab.lua" part="program"/>
 	<File sha1="b0b313cca6ba333c0c98b73ed0c0d3a640e28c20" name="Classes/ItemDBControl.lua" part="program"/>

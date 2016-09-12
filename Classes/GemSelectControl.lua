@@ -30,15 +30,15 @@ local GemSelectClass = common.NewClass("GemSelectControl", "EditControl", functi
 	self.changeFunc = function()
 		self.dropped = true
 		self.selIndex = 0
-		self:BuildList()
+		self:BuildList(self.buf)
 		self.gemChangeFunc(self.buf)
 	end
 end)
 
-function GemSelectClass:BuildList()
+function GemSelectClass:BuildList(buf)
 	self.controls.scrollBar.offset = 0
 	wipeTable(self.list)
-	self.searchStr = self.buf
+	self.searchStr = buf
 	if self.searchStr:match("%S") then
 		-- Search for gem name using increasingly broad search patterns
 		local patternList = {
@@ -148,11 +148,10 @@ end
 
 function GemSelectClass:OnFocusGained()
 	self.EditControl:OnFocusGained()
-	if not self.dropped then
-		self.dropped = true
-		self.selIndex = 0
-		self:BuildList()
-	end
+	self.dropped = true
+	self.selIndex = 0
+	self:BuildList("")
+	self:SelectAll()
 end
 
 function GemSelectClass:OnFocusLost()

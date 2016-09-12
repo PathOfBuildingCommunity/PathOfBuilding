@@ -187,6 +187,7 @@ end
 
 function EditClass:OnFocusGained()
 	self.blinkStart = GetTime()
+	self:SelectAll()
 end
 
 function EditClass:OnKeyDown(key, doubleClick)
