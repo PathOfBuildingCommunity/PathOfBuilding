@@ -16,7 +16,7 @@
 	<File sha1="1d35e3a3d8427d30254e7d8983562d0d4d8dc733" name="Classes/ControlHost.lua" part="program"/>
 	<File sha1="7c23b2ae9eb3b9b02a5da8afce64e2cb191b36b3" name="Classes/DropDownControl.lua" part="program"/>
 	<File sha1="759ea55ee1c773b43c2434bb10d4a6aae3d3c180" name="Classes/EditControl.lua" part="program"/>
-	<File sha1="e0523bf901a83f37be120d3bd3bc346b2757ab85" name="Classes/GemSelectControl.lua" part="program"/>
+	<File sha1="cfff5376cd8a67c66325f020ed19909908e6e6e1" name="Classes/GemSelectControl.lua" part="program"/>
 	<File sha1="c8774a6e9a39fe8f2d434889abe2533aee78fc47" name="Classes/Grid.lua" part="program"/>
 	<File sha1="85aae0489332ca754538757560ec1adaf3383fc2" name="Classes/ImportTab.lua" part="program"/>
 	<File sha1="b0b313cca6ba333c0c98b73ed0c0d3a640e28c20" name="Classes/ItemDBControl.lua" part="program"/>
@@ -31,7 +31,7 @@
 	<File sha1="f2f2bda4a5a26e54cce51614e3ad48b6f7182671" name="Classes/ScrollBarControl.lua" part="program"/>
 	<File sha1="261dcf54a4542e6160fd7024d8edf4fc095d9c71" name="Classes/SectionControl.lua" part="program"/>
 	<File sha1="4903e6dedf251e1cef5aba47229b1d6d02e5b806" name="Classes/SkillListControl.lua" part="program"/>
-	<File sha1="b2b3a3c4d9fad1462fb047ffd1d0e9c92f4b9638" name="Classes/SkillsTab.lua" part="program"/>
+	<File sha1="d4e9ebcb3fb3cb3b5433f5333dea05cfff69af05" name="Classes/SkillsTab.lua" part="program"/>
 	<File sha1="6317bd9ba391832dccafcb62409a5ce2988d1928" name="Classes/SliderControl.lua" part="program"/>
 	<File sha1="80527e0e05c986355ce7af2ba026538aec99a63a" name="Classes/SlotSelectControl.lua" part="program"/>
 	<File sha1="844b8915ca0f2e6af82f2d15978af131a33ad50e" name="Classes/TextListControl.lua" part="program"/>

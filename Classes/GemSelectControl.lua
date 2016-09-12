@@ -151,6 +151,16 @@ function GemSelectClass:OnFocusGained()
 	self.dropped = true
 	self.selIndex = 0
 	self:BuildList("")
+	for index, name in pairs(self.list) do
+		if name == self.buf then
+			self.selIndex = index
+			local width, height = self:GetSize()
+			local scrollBar = self.controls.scrollBar
+			local dropHeight = (height - 4) * m_min(#self.list, 10)
+			scrollBar:SetContentDimension((height - 4) * #self.list, dropHeight)
+			scrollBar:ScrollIntoView((index - 2) * (height - 4), 3 * (height - 4))
+		end
+	end
 	self:SelectAll()
 end
 
@@ -192,6 +202,8 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 			if self.selIndex < #self.list then
 				self.selIndex = self.selIndex + 1
 				self:SetText(self.list[self.selIndex])
+				local width, height = self:GetSize()
+				self.controls.scrollBar:ScrollIntoView((self.selIndex - 2) * (height - 4), 3 * (height - 4))
 				self.gemChangeFunc(self.buf)
 			end
 		elseif key == "UP" then
@@ -202,6 +214,8 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 				else
 					self:SetText(self.list[self.selIndex])
 				end
+				local width, height = self:GetSize()
+				self.controls.scrollBar:ScrollIntoView((self.selIndex - 2) * (height - 4), 3 * (height - 4))
 				self.gemChangeFunc(self.buf)
 			end
 		end
