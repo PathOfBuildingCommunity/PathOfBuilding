@@ -47,6 +47,7 @@ local classList = {
 	"SkillsTab",
 	"SkillListControl",
 	"SlotSelectControl",
+	"GemSelectControl",
 	"ItemsTab",
 	"ItemSlotControl",
 	"ItemListControl",
@@ -99,7 +100,7 @@ function main:Init()
 
 	self.anchorUpdate = common.New("Control", nil, 2, 0, 0, 0)
 	self.anchorUpdate.y = function()
-		return self.screenH - 2
+		return self.screenH - 4
 	end
 	self.controls.applyUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 110, 20, "^x50E050Update Ready", function()
 		local changeList = { }

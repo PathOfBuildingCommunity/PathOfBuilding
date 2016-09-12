@@ -81,7 +81,7 @@ Prefixes:
 {range:0}Adds (0-22 to 0-40) Cold Damage to Attacks
 {range:0}Adds (0-7 to 0-72) Lightning Damage to Attacks
 {range:0}(0 to 42)% increased Elemental Damage with Weapons
-{range:0}(10 to 20)% faster start of Energy Shield Recharge
+{range:0}(0 to 20)% faster start of Energy Shield Recharge
 Suffixes:
 {str}
 {dex}

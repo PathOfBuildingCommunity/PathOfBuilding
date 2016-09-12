@@ -60,7 +60,10 @@ function CheckBoxClass:Draw(viewPort)
 	else
 		SetDrawColor(0.33, 0.33, 0.33)
 	end
-	DrawString(x - 5, y + 2, "RIGHT_X", size - 4, "VAR", self.label)
+	local label = self:GetProperty("label")
+	if label then
+		DrawString(x - 5, y + 2, "RIGHT_X", size - 4, "VAR", label)
+	end
 	if mOver and self.tooltip then
 		main:AddTooltipLine(16, self:GetProperty("tooltip"))
 		SetDrawLayer(nil, 100)
