@@ -101,6 +101,7 @@ gems["Arctic Breath"] = {
 	}
 }
 gems["Assassin's Mark"] = {
+	intelligence = true,
 	curse = true,
 	spell = true,
 	aoe = true,

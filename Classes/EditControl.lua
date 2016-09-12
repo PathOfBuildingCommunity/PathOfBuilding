@@ -199,7 +199,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 	end
 	local shift = IsKeyDown("SHIFT")
 	if key == "LEFTBUTTON" then
-		if not self:IsMouseOver() then
+		if not self.Object:IsMouseOver() then
 			return
 		end
 		if doubleClick then
@@ -288,7 +288,8 @@ function EditClass:OnKeyDown(key, doubleClick)
 			end
 		end
 	elseif key == "TAB" then
-		return self:TabAdvance(shift and -1 or 1)
+		local newSel = self.Object:TabAdvance(shift and -1 or 1)
+		return newSel
 	end
 	return self
 end

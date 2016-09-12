@@ -1479,6 +1479,7 @@ gems["Phase Run"] = {
 	}
 }
 gems["Poacher's Mark"] = {
+	dexterity = true,
 	curse = true,
 	spell = true,
 	aoe = true,
@@ -1900,6 +1901,7 @@ gems["Siege Ballista"] = {
 	}
 }
 gems["Smoke Mine"] = {	
+	dexterity = true,
 	spell = true,
 	mine = true,
 	aoe = true,

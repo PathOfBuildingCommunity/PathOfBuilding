@@ -69,6 +69,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4
 		Classes\ControlHost.lua = Classes\ControlHost.lua
 		Classes\DropDownControl.lua = Classes\DropDownControl.lua
 		Classes\EditControl.lua = Classes\EditControl.lua
+		Classes\GemSelectControl.lua = Classes\GemSelectControl.lua
 		Classes\Grid.lua = Classes\Grid.lua
 		Classes\ImportTab.lua = Classes\ImportTab.lua
 		Classes\ItemDBControl.lua = Classes\ItemDBControl.lua

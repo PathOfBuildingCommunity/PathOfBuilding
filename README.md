@@ -48,6 +48,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.0.27 - 2016/09/12
+ * More updates to 2.4.0 uniques; most of them should have the correct roll ranges now
+ * Added a dropdown to the skill gem name field
+ * Now shows Evade Chance in side bar
+ * Node/item stat comparisons now show percentage increase/decrease for many stats (DPS, life, etc)
+
 ### 1.0.26 - 2016/09/09
  * More updates to 2.4.0 uniques
  * Re-nerfed Voidheart

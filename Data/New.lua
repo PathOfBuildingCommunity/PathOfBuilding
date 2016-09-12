@@ -79,13 +79,13 @@ Requires Level 65, 177 Str
 50% increased Shock Duration on You
 Take no Extra Damage from Critical Strikes
 ]],[[
-Voidwalker 
+Voidwalker
 Murder Boots
-Evasion: (398)
-Energy Shield: (54)
+Evasion: (386 to 450)
+Energy Shield: (52 to 61)
 Requires Level 69, 82 Dex, 42 Int
-+41 to Dexterity
-147% increased Evasion and Energy Shield
++(30-50) to Dexterity
+(140-180)% increased Evasion and Energy Shield
 30% increased Movement Speed
 20% chance to Avoid Projectiles while Phasing
 You have Phasing if you've Killed Recently
@@ -120,9 +120,9 @@ Causes Bleeding on Melee Critical Strike
 Obscurantis 
 Lion Pelt
 Requires Level 70, 150 Dex
-+495 to Accuracy Rating
-112% increased Evasion Rating
-+51 to maximum Life
++(300-500) to Accuracy Rating
+(100-120)% increased Evasion Rating
++(50-80) to maximum Life
 1% increased Projectile Attack Damage per 200 Accuracy Rating
 ]],[[
 Slivertongue 
@@ -130,7 +130,7 @@ Harbinger Bow
 Bow
 Requires Level 68, 212 Dex
 (30 to 50)% increased Critical Strike Chance
-Adds 70 to 200 Physical Damage
+Adds (60-75) to (170-220) Physical Damage
 100% increased Critical Strike Chance with arrows that Fork
 Arrows that Pierce cause Bleeding
 Arrows always Pierce after Chaining
@@ -139,8 +139,8 @@ Snakepit
 Sapphire Ring
 Requires Level 68
 +(20 to 30)% to Cold Resistance
-33% increased Cold Damage
-7% increased Cast Speed
+(20-40)% increased Cold Damage
+(5-10)% increased Cast Speed
 Spells have an additional Projectile
 ]],[[
 Brain Rattler 
@@ -163,7 +163,7 @@ Midnight Blade
 One Handed Sword
 Requires Level 68, 113 Str, 113 Dex
 18% increased Accuracy Rating
-Adds 72 to 127 Physical Damage
+Adds (65-75) to (110-130) Physical Damage
 100% increased Burning Damage if you've Ignited an Enemy Recently
 Recovery 1% of Maximum Life when you Ignite an Enemy
 100% increased Melee Physical Damage against Ignited Enemies
@@ -173,7 +173,7 @@ Citrine Amulet
 Requires Level 68
 +(16 to 24) to Strength and Dexterity
 10% chance to Ignite
-53% increased Damage while Ignited
+(50-70)% increased Damage while Ignited
 Take 100 Fire Damage when you Ignite an Enemy
 2% of Fire Damage Leeched as Life while Ignited
 ]],[[
@@ -245,7 +245,7 @@ Crusader Gloves
 Armour: (194)
 Energy Shield: (57)
 Requires Level 66, 51 Str, 51 Int
-(85)% increased Armour and Energy Shield
+(80-120)% increased Armour and Energy Shield
 +2 Accuracy Rating per 2 Intelligence
 +1 Life per 4 Dexterity
 +1 Mana per 4 Strength

@@ -177,7 +177,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.gemSlots[index] = slot
 
 	-- Gem name specification
-	slot.nameSpec = common.New("EditControl", nil, 0, 0, 200, 20, nil, nil, "[ %a']", 30, function(buf)
+	slot.nameSpec = common.New("GemSelectControl", nil, 0, 0, 250, 20, function(buf)
 		if not self.displaySkill.gemList[index] then
 			self.displaySkill.gemList[index] = { nameSpec = "", level = 1, quality = 0 }
 		end

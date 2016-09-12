@@ -1301,6 +1301,7 @@ gems["Shield Charge"] = {
 	}
 }
 gems["Shockwave Totem"] = {	
+	strength = true,
 	spell = true,
 	totem = true,
 	aoe = true,

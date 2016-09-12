@@ -180,40 +180,41 @@ function buildMode:Init(dbFileName, buildName)
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
 	-- This may be user-customisable in the future
 	self.displayStats = {
-		{ mod = "total_averageHit", label = "Average Hit", fmt = ".1f" },
-		{ mod = "total_speed", label = "Attack/Cast Rate", fmt = ".2f" },
+		{ mod = "total_averageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
+		{ mod = "total_speed", label = "Attack/Cast Rate", fmt = ".2f", compPercent = true },
 		{ mod = "total_critChance", label = "Crit Chance", fmt = ".2f%%", pc = true },
 		{ mod = "total_critMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true },
 		{ mod = "total_hitChance", label = "Hit Chance", fmt = "d%%", pc = true, condFunc = function(v,o) return v < 1 end },
-		{ mod = "total_dps", label = "Total DPS", fmt = ".1f" },
-		{ mod = "total_damageDot", label = "DoT DPS", fmt = ".1f" },
-		{ mod = "bleed_dps", label = "Bleed DPS", fmt = ".1f" },
-		{ mod = "ignite_dps", label = "Ignite DPS", fmt = ".1f" },
-		{ mod = "poison_dps", label = "Poison DPS", fmt = ".1f" },
-		{ mod = "total_manaCost", label = "Mana Cost", fmt = "d" },
+		{ mod = "total_dps", label = "Total DPS", fmt = ".1f", compPercent = true },
+		{ mod = "total_damageDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
+		{ mod = "bleed_dps", label = "Bleed DPS", fmt = ".1f", compPercent = true },
+		{ mod = "ignite_dps", label = "Ignite DPS", fmt = ".1f", compPercent = true },
+		{ mod = "poison_dps", label = "Poison DPS", fmt = ".1f", compPercent = true },
+		{ mod = "total_manaCost", label = "Mana Cost", fmt = "d", compPercent = true },
 		{ },
 		{ mod = "total_str", label = "Strength", fmt = "d" },
 		{ mod = "total_dex", label = "Dexterity", fmt = "d" },
 		{ mod = "total_int", label = "Intelligence", fmt = "d" },
 		{ },
-		{ mod = "total_life", label = "Total Life", fmt = "d" },
+		{ mod = "total_life", label = "Total Life", fmt = "d", compPercent = true },
 		{ mod = "spec_lifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.total_life > 1 end },
-		{ mod = "total_lifeUnreserved", label = "Unreserved Life", fmt = "d", condFunc = function(v,o) return v < o.total_life end },
+		{ mod = "total_lifeUnreserved", label = "Unreserved Life", fmt = "d", condFunc = function(v,o) return v < o.total_life end, compPercent = true },
 		{ mod = "total_lifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", pc = true, condFunc = function(v,o) return v < 1 end },
 		{ mod = "total_lifeRegen", label = "Life Regen", fmt = ".1f" },
 		{ },
-		{ mod = "total_mana", label = "Total Mana", fmt = "d" },
+		{ mod = "total_mana", label = "Total Mana", fmt = "d", compPercent = true },
 		{ mod = "spec_manaInc", label = "%Inc Mana from Tree", fmt = "d%%" },
-		{ mod = "total_manaUnreserved", label = "Unreserved Mana", fmt = "d", condFunc = function(v,o) return v < o.total_mana end },
+		{ mod = "total_manaUnreserved", label = "Unreserved Mana", fmt = "d", condFunc = function(v,o) return v < o.total_mana end, compPercent = true },
 		{ mod = "total_manaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", pc = true, condFunc = function(v,o) return v < 1 end },
 		{ mod = "total_manaRegen", label = "Mana Regen", fmt = ".1f" },
 		{ },
-		{ mod = "total_energyShield", label = "Energy Shield", fmt = "d" },
+		{ mod = "total_energyShield", label = "Energy Shield", fmt = "d", compPercent = true },
 		{ mod = "spec_energyShieldInc", label = "%Inc ES from Tree", fmt = "d%%" },
 		{ mod = "total_energyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
-		{ mod = "total_evasion", label = "Evasion rating", fmt = "d" },
+		{ mod = "total_evasion", label = "Evasion rating", fmt = "d", compPercent = true },
 		{ mod = "spec_evasionInc", label = "%Inc Evasion from Tree", fmt = "d%%" },
-		{ mod = "total_armour", label = "Armour", fmt = "d" },
+		{ mod = "total_evadeChance", label = "Evade Chance", fmt = "d%%", pc = true },
+		{ mod = "total_armour", label = "Armour", fmt = "d", compPercent = true },
 		{ mod = "spec_armourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
 		{ mod = "total_blockChance", label = "Block Chance", fmt = "d%%", pc = true },
 		{ mod = "total_spellBlockChance", label = "Spell Block Chance", fmt = "d%%", pc = true },
@@ -497,7 +498,11 @@ function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header)
 				if count == 0 then
 					main:AddTooltipLine(14, header)
 				end
-				main:AddTooltipLine(14, string.format("%s%+"..statData.fmt.." %s", diff > 0 and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE, diff * (statData.pc and 100 or 1), statData.label))
+				local line = string.format("%s%+"..statData.fmt.." %s", diff > 0 and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE, diff * (statData.pc and 100 or 1), statData.label)
+				if statData.compPercent then
+					line = line .. string.format(" (%+.1f%%)", (compareOutput[statData.mod] or 0) / (baseOutput[statData.mod] or 0) * 100 - 100)
+				end
+				main:AddTooltipLine(14, line)
 				count = count + 1
 			end
 		end
