@@ -416,7 +416,7 @@ local specialModList = {
 	["socketed gems fire an additional projectile"] = { ["SocketedIn:X_projectileCount"] = 1 },
 	["socketed gems fire (%d+) additional projectiles"] = function(num) return { ["SocketedIn:X_projectileCount"] = num } end,
 	["socketed gems reserve no mana"] = { ["SocketedIn:X_manaReservedMore"] = 0 },
-	["socketed gems have blood magic"]  = { ["SocketedIn:X_bloodMagic"] = true },
+	["socketed gems have blood magic"]  = { ["SocketedIn:X_skill_bloodMagic"] = true },
 	-- Unique item modifiers
 	["your cold damage can ignite"] = { coldCanIgnite = true },
 	["your fire damage can shock but not ignite"] = { fireCanShock = true, fireCannotIgnite = true },

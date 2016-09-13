@@ -791,6 +791,13 @@ local function finaliseMods(env, output)
 	
 	-- Reset namespaces
 	buildSpaceTable(modDB)
+
+	-- Add boss modifiers
+	if getMiscVal(modDB, "effective", "enemyIsBoss", false) then
+		mod_dbMerge(modDB, "", "curseEffectMore", 0.4) -- FIXME: Need to confirm actual value
+		mod_dbMerge(modDB, "effective", "elementalResist", 30)
+		mod_dbMerge(modDB, "effective", "chaosResist", 15)
+	end
 	
 	-- Merge skill modifiers and calculate life and mana reservations
 	for _, skill in pairs(env.skills) do
@@ -941,14 +948,6 @@ local function finaliseMods(env, output)
 		end
 	end
 	mod_dbMergeList(modDB, env.condModList)
-
-	-- Add boss modifiers
-	if getMiscVal(modDB, "effective", "enemyIsBoss", false) then
-		--mod_dbMerge(modDB, "", "curseEffectInc", -60)
-		mod_dbMerge(modDB, "", "curseEffectMore", 0.4) -- FIXME: Need to confirm actual value
-		mod_dbMerge(modDB, "effective", "elementalResist", 30)
-		mod_dbMerge(modDB, "effective", "chaosResist", 15)
-	end
 
 	-- Add per-item-type mods
 	for spaceName, countName in pairs({["PerNormal"]="NormalCount",["PerMagic"]="MagicCount",["PerRare"]="RareCount",["PerUnique"]="UniqueCount",["PerGrandSpectrum"]="GrandSpectrumCount"}) do
@@ -1904,7 +1903,7 @@ function calcs.buildOutput(build, input, output, mode)
 		-- Configure view mode
 		setViewMode(env, build.skillsTab.list)
 
-		--infoDump(env, output)
+		infoDump(env, output)
 	end
 end
 
