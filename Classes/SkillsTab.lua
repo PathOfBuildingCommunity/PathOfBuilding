@@ -143,7 +143,7 @@ function SkillsTabClass:CopySkill(skill)
 		skillText = skillText .. "Slot: "..skill.slot.."\r\n"
 	end
 	for _, gem in ipairs(skill.gemList) do
-		skillText = skillText .. string.format("%s %d/%d\r\n", gem.nameSpec, gem.level, gem.quality)
+		skillText = skillText .. string.format("%s %d/%d %s\r\n", gem.nameSpec, gem.level, gem.quality, gem.enabled and "" or "DISABLED")
 	end
 	Copy(skillText)
 end
@@ -160,8 +160,8 @@ function SkillsTabClass:PasteSkill()
 		if slot then
 			newSkill.slot = slot
 		end
-		for nameSpec, level, quality in skillText:gmatch("([ %a']+) (%d+)/(%d+)") do
-			t_insert(newSkill.gemList, { nameSpec = nameSpec, level = tonumber(level) or 20, quality = tonumber(quality) or 0 })
+		for nameSpec, level, quality, state in skillText:gmatch("([ %a']+) (%d+)/(%d+) ?(%a*)") do
+			t_insert(newSkill.gemList, { nameSpec = nameSpec, level = tonumber(level) or 20, quality = tonumber(quality) or 0, enabled = state ~= "DISABLED" })
 		end
 		if #newSkill.gemList > 0 then
 			t_insert(self.list, newSkill)
