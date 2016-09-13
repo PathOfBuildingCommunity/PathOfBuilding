@@ -48,6 +48,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.0.29 - 2016/09/14
+ * You can now import passive tree links that have been shrunk with PoEURL.com
+ * You can choose to shrink passive tree links with PoEURL when exporting the passive tree
+ * Vaal auras actually work now!
+ * Fixed gem enabled state not being preserved when copying/pasting skills
+
 ### 1.0.28 - 2016/09/13
  * Fixed boss curse effectiveness modifier not applying
  * Fixed issue relating to Prism Guardian's Blood Magic mod

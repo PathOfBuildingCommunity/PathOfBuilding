@@ -1,3 +1,8 @@
+VERSION[1.0.29][2016/09/14]
+ * You can now import passive tree links that have been shrunk with PoEURL.com
+ * You can choose to shrink passive tree links with PoEURL when exporting the passive tree
+ * Vaal auras actually work now!
+ * Fixed gem enabled state not being preserved when copying/pasting skills
 VERSION[1.0.28][2016/09/13]
  * Fixed boss curse effectiveness modifier not applying
  * Fixed issue relating to Prism Guardian's Blood Magic mod

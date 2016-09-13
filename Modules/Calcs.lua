@@ -172,7 +172,7 @@ local function validateSkillSupports(skill)
 	end
 
 	-- Default attack if no active gem provided
-	if not skill.activeGem then
+	if not skill.activeGem or not skill.activeGem.enabled then
 		skill.activeGem = {
 			name = "Default Attack",
 			level = 1,
@@ -242,15 +242,15 @@ local function buildSkillModList(env, skill)
 		local slotSpace = env.modDB["SocketedIn:"..skill.slot]
 		if slotSpace then
 			for k, v in pairs(slotSpace) do
-				local factor, type = k:match("gem(%a+)_(%a+)")
-				if factor then
+				local property, type = k:match("gem(%a+)_(%a+)")
+				if property then
 					-- Gem level/quality modifier, apply it now
 					for _, gem in pairs(skill.validGemList) do
 						if type == "all" or (type == "active" and not gem.data.support) or gem.data[type] then
 							-- This modifier applies to this type of gem
-							if factor == "Level" then
+							if property == "Level" then
 								gem.effectiveLevel = gem.effectiveLevel + v
-							elseif factor == "Quality" then
+							elseif property == "Quality" then
 								gem.effectiveQuality = gem.effectiveQuality + v
 							end
 						end

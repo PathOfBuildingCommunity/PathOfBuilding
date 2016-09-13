@@ -25,15 +25,31 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 	self.controls.import = common.New("ButtonControl", {"LEFT",self.controls.reset,"RIGHT"}, 8, 0, 90, 20, "Import Tree", function()
 		local treeLink = ""
 		local showMsg
-		local popup = main:OpenPopup(280, 110, "Import Tree", {
+		local popup = main:OpenPopup(380, 110, "Import Tree", {
 			common.New("LabelControl", nil, 0, 20, 0, 16, "Enter passive tree link:"),
-			edit = common.New("EditControl", nil, 0, 40, 250, 18, "", nil, nil, nil, function(buf)
+			edit = common.New("EditControl", nil, 0, 40, 350, 18, "", nil, nil, nil, function(buf)
 				treeLink = buf 
 				showMsg = nil
 			end),
 			common.New("LabelControl", nil, 0, 58, 0, 16, function() return showMsg or "" end),
 			common.New("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
 				if #treeLink > 0 then
+					if treeLink:match("poeurl%.com/") then
+						local curl = require("lcurl")
+						local easy = curl.easy()
+						easy:setopt_url(treeLink)
+						easy:setopt_writefunction(function(data)
+							return true
+						end)
+						easy:perform()
+						local redirect = easy:getinfo(curl.INFO_REDIRECT_URL)
+						easy:close()
+						if not redirect or redirect == treeLink then
+							showMsg = "^1Failed to resolve PoEURL link"
+							return
+						end
+						treeLink = redirect
+					end
 					local errMsg = self.build.spec:DecodeURL(treeLink)
 					if errMsg then
 						showMsg = "^1"..errMsg
@@ -52,18 +68,32 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 	end)
 	self.controls.export = common.New("ButtonControl", {"LEFT",self.controls.import,"RIGHT"}, 8, 0, 90, 20, "Export Tree", function()
 		local treeLink = self.build.spec:EncodeURL("https://www.pathofexile.com/passive-skill-tree/")
-		local popup = main:OpenPopup(280, 100, "Export Tree", {
+		local popup
+		popup = main:OpenPopup(380, 100, "Export Tree", {
 			common.New("LabelControl", nil, 0, 20, 0, 16, "Passive tree link:"),
-			edit = common.New("EditControl", nil, 0, 40, 250, 18, treeLink, nil, "[%z]"),
-			common.New("ButtonControl", nil, -45, 70, 80, 20, "Copy", function()
+			edit = common.New("EditControl", nil, 0, 40, 350, 18, treeLink, nil, "[%z]"),
+			shrink = common.New("ButtonControl", nil, -90, 70, 140, 20, "Shrink with PoEURL", function()
+				popup.controls.shrink.enabled = false
+				popup.controls.shrink.label = "Shrinking..."
+				launch:DownloadPage("http://poeurl.com/shrink.php?url="..treeLink, function(page, errMsg)
+					popup.controls.shrink.label = "Done"
+					if errMsg or not page:match("%S") then
+						main:OpenConfirmPopup("PoEURL Shortener", "Failed to get PoEURL link. Try again later.")
+					else
+						treeLink = "http://poeurl.com/"..page
+						popup.controls.edit:SetText(treeLink)
+						popup:SelectControl(popup.controls.edit)
+					end
+				end)
+			end),
+			common.New("ButtonControl", nil, 30, 70, 80, 20, "Copy", function()
 				Copy(treeLink)
 			end),
-			common.New("ButtonControl", nil, 45, 70, 80, 20, "Done", function()
+			common.New("ButtonControl", nil, 120, 70, 80, 20, "Done", function()
 				main:ClosePopup()
 			end),
 		})
 		popup:SelectControl(popup.controls.edit)
-		popup.controls.edit:SelectAll()
 	end)
 	self.controls.treeSearch = common.New("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 400, 20, "", "Search", "[^%c%(%)]", 100, function(buf)
 		self.viewer.searchStr = buf
