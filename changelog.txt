@@ -10,10 +10,11 @@ VERSION[1.1.0][2016/09/19]
 	        so you'll need to delete the old items after the import
 	   * Skills will be added if no existing skill matches the new one ('match' meaning the same gems in the same order)
     * The only data that cannot be imported is the bandit choices, as these aren't available from the API
- * Several improvements have been made to the Skills page:
+ * Several improvements have been made to the Skills system:
     * You can now specify multiple active gems in a single skill setup (now referred to as a socket group)
     * Hovering over an active gem will highlight the support gems which are applying to it,
 	  and hovering over a support gem will highlight the active gems that it applies to
+	* The skills system should now be much more accurate at determining which supports can apply to active skill gems
     * Support gems granted by an item are now automatically applied to any skills socketed in that item
        * Any such supports that you've added manually will be ignored due to the next change:
     * Multiple copies of support gems are now handled correctly (only the gem with the highest level is used)

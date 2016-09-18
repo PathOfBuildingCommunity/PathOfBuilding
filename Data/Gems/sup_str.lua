@@ -9,6 +9,7 @@ gems["Added Fire Damage"] = {
 	strength = true,
 	support = true,
 	fire = true,
+	require = "hit",
 	base = {
 		manaCostMore = 1.2,
 	},
@@ -188,6 +189,7 @@ gems["Cold to Fire"] = {
 	support = true,
 	fire = true,
 	cold = true,
+	require = "hit",
 	base = {
 		manaCostMore = 1.1,
 		coldConvertTofire = 50,
@@ -299,6 +301,7 @@ gems["Fire Penetration"] = {
 	strength = true,
 	support = true,
 	fire = true,
+	require = "hit",
 	base = {
 		manaCostMore = 1.4,
 	},
@@ -606,6 +609,7 @@ gems["Item Quantity"] = {
 gems["Knockback"] = {
 	strength = true,
 	support = true,
+	require = "hit",
 	base = {
 	},
 	quality = {
@@ -734,6 +738,7 @@ gems["Life Gain on Hit"] = {
 gems["Life Leech"] = {
 	strength = true,
 	support = true,
+	require = "hit",
 	base = {
 		manaCostMore = 1.3,
 	},
@@ -1092,6 +1097,7 @@ gems["Spell Totem"] = {
 gems["Stun"] = {
 	strength = true,
 	support = true,
+	require = "hit",
 	base = {
 	},
 	quality = {

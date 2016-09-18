@@ -315,7 +315,7 @@ function SkillsTabClass:FindSkillGem(nameSpec)
 		end
 		if gemName then
 			if gemData.unsupported then
-				return "Gem '"..gemName.."' is unsupported"
+				return gemName.." is unsupported"
 			else
 				return nil, gemName, gemData
 			end
@@ -382,7 +382,6 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 			self.gemSlots[index].quality:SetText(gem.quality)
 			self.gemSlots[index].enabled.state = gem.enabled
 		end
-
 	end
 end
 

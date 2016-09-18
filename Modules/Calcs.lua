@@ -181,6 +181,12 @@ local function createActiveSkill(activeGem, supportList)
 			baseFlags[k] = true
 		end
 	end
+	if baseFlags.hit then
+		baseFlags.damage = true
+	end
+	if baseFlags.bow then
+		baseFlags.projectile = true
+	end
 	for _, gem in ipairs(supportList) do
 		if gem.data.addFlags and gemCanSupport(gem, activeSkill.baseFlags) then
 			-- Support gem adds flags to supported skills (eg. Remote Mine adds 'mine')
