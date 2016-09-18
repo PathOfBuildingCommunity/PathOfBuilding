@@ -152,7 +152,7 @@ function itemLib.parseItemRaw(item)
 					item.league = specVal
 				elseif specName == "Implicits" then
 					item.implicitLines = tonumber(specVal)
-					gameModeStage = "FINDEXPLICIT"
+					gameModeStage = "EXPLICIT"
 				elseif specName == "Unreleased" then
 					item.unreleased = (specVal == "true")
 				end
@@ -186,6 +186,8 @@ function itemLib.parseItemRaw(item)
 						elseif gameModeStage == "FINDEXPLICIT" then
 							foundExplicit = true
 							gameModeStage = "EXPLICIT"
+						elseif gameModeStage == "EXPLICIT" then
+							foundExplicit = true
 						end
 					else
 						foundExplicit = true
