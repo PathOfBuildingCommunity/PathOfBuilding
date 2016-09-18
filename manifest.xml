@@ -18,7 +18,7 @@
 	<File sha1="cb81fa0b9bfa88a80885b1d5356057205f77541a" name="Classes/EditControl.lua" part="program"/>
 	<File sha1="e3d544e82aafa64f1e8ebf824c7f7bc5729062ff" name="Classes/GemSelectControl.lua" part="program"/>
 	<File sha1="c8774a6e9a39fe8f2d434889abe2533aee78fc47" name="Classes/Grid.lua" part="program"/>
-	<File sha1="1628a05f61bd23d8c6848cc92a2c3635c724e57b" name="Classes/ImportTab.lua" part="program"/>
+	<File sha1="672d5c8e8e8294d2cdb02b5eab08dfd5925f2a70" name="Classes/ImportTab.lua" part="program"/>
 	<File sha1="f850636099479449de2e888a2b66846ccc912376" name="Classes/ItemDBControl.lua" part="program"/>
 	<File sha1="84ddcc1358c4c6a9c7f047cc882031d0696533d7" name="Classes/ItemListControl.lua" part="program"/>
 	<File sha1="f2416d1613f3318acbd85f776213fe62f488342d" name="Classes/ItemSlotControl.lua" part="program"/>
@@ -56,7 +56,7 @@
 	<File sha1="5cfc64e98c40eec8c4067528f4ad18502e9cfdc1" name="Data/Gems/act_str.lua" part="program"/>
 	<File sha1="41a976f5158e6be42b793d877b7d8755c767c988" name="Data/Gems/other.lua" part="program"/>
 	<File sha1="f3db9a8546d1aa96eba0655a6d52bebac8c92012" name="Data/Gems/sup_dex.lua" part="program"/>
-	<File sha1="39d6470d89b311bdb6dd997be686f504e59a2ed8" name="Data/Gems/sup_int.lua" part="program"/>
+	<File sha1="3319413c58fc99290005af94955644248059a32a" name="Data/Gems/sup_int.lua" part="program"/>
 	<File sha1="ebe9efea469e1d4919ccd5afed24a175f2f2cb53" name="Data/Gems/sup_str.lua" part="program"/>
 	<File sha1="e2bfaf8d42553867fff91aa7267dbae4e3ca460e" name="Data/Bases/amulet.lua" part="program"/>
 	<File sha1="4fcd6a8fcd07137dc641b3d690f1d7f10cced81a" name="Data/Bases/axe.lua" part="program"/>

@@ -321,7 +321,7 @@ gems["Curse on Hit"] = {
 	support = true,
 	trigger = true,
 	curse = true,
-	require = "curse or attack",
+	require = "curse or hit",
 	base = {
 	},
 	quality = {
