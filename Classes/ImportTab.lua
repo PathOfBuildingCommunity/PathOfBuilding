@@ -431,7 +431,7 @@ function ImportTabClass:ImportSocketedSkills(item, socketedItems, slotName)
 		for _, property in pairs(socketedItem.properties) do
 			if property.name == "Level" then
 				gem.level = tonumber(property.values[1][1]:match("%d+"))
-			elseif property.quality == "Quality" then
+			elseif property.name == "Quality" then
 				gem.quality = tonumber(property.values[1][1]:match("%d+"))
 			end
 		end
