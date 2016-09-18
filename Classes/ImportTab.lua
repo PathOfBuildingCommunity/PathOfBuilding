@@ -422,7 +422,7 @@ end
 
 function ImportTabClass:ImportSocketedSkills(item, socketedItems, slotName)
 	-- Build socket group list
-	local socketGroups = { }
+	local itemSocketGroupList = { }
 	for _, socketedItem in ipairs(socketedItems) do
 		local gem = { level = 20, quality = 0, enabled = true}
 		gem.nameSpec = socketedItem.typeLine:gsub(" Support","")
@@ -435,10 +435,10 @@ function ImportTabClass:ImportSocketedSkills(item, socketedItems, slotName)
 			end
 		end
 		local groupID = item.sockets[socketedItem.socket + 1].group
-		if not socketGroups[groupID] then
-			socketGroups[groupID] = { label = "", enabled = true, gemList = { }, slot = slotName }
+		if not itemSocketGroupList[groupID] then
+			itemSocketGroupList[groupID] = { label = "", enabled = true, gemList = { }, slot = slotName }
 		end
-		local socketGroup = socketGroups[groupID]
+		local socketGroup = itemSocketGroupList[groupID]
 		if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support then
 			-- If the first gem is a support gem, put the first active gem before it
 			t_insert(socketGroup.gemList, 1, gem)
@@ -447,31 +447,34 @@ function ImportTabClass:ImportSocketedSkills(item, socketedItems, slotName)
 		end
 	end
 
-	-- Import the skills
-	for _, socketGroup in pairs(socketGroups) do
+	-- Import the socket groups
+	for _, itemSocketGroup in pairs(itemSocketGroupList) do
 		-- Check if this socket group matches an existing one
 		local repIndex
 		for index, socketGroup in pairs(self.build.skillsTab.socketGroupList) do
-			local match = true
-			for gemIndex, gem in pairs(socketGroup.gemList) do
-				if gem.nameSpec ~= socketGroup.gemList[gemIndex].nameSpec then
-					match = false
+			if #socketGroup.gemList == #itemSocketGroup.gemList then
+				local match = true
+				for gemIndex, gem in pairs(socketGroup.gemList) do
+					if gem.nameSpec ~= itemSocketGroup.gemList[gemIndex].nameSpec then
+						match = false
+						break
+					end
+				end
+				if match then
+					repIndex = index
 					break
 				end
 			end
-			if match then
-				repIndex = index
-				break
-			end
 		end
 		if repIndex then
-			socketGroup.label = self.build.skillsTab.socketGroupList[repIndex].label
-			socketGroup.enabled = self.build.skillsTab.socketGroupList[repIndex].enabled
-			self.build.skillsTab.socketGroupList[repIndex] = socketGroup
+			-- Replace the existing one
+			itemSocketGroup.label = self.build.skillsTab.socketGroupList[repIndex].label
+			itemSocketGroup.enabled = self.build.skillsTab.socketGroupList[repIndex].enabled
+			self.build.skillsTab.socketGroupList[repIndex] = itemSocketGroup
 		else
-			t_insert(self.build.skillsTab.socketGroupList, socketGroup)
+			t_insert(self.build.skillsTab.socketGroupList, itemSocketGroup)
 		end
-		self.build.skillsTab:ProcessSocketGroup(socketGroup)
+		self.build.skillsTab:ProcessSocketGroup(itemSocketGroup)
 	end	
 end
 

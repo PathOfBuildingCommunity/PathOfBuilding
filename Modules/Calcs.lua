@@ -1987,7 +1987,7 @@ function calcs.buildOutput(build, input, output, mode)
 		-- Configure view mode
 		setViewMode(env, build.skillsTab.socketGroupList, env.mainSkillGroupActiveSkillList or { })
 
-		infoDump(env, output)
+		--infoDump(env, output)
 	end
 end
 

@@ -1,4 +1,4 @@
-VERSION[1.1.0][2016/09/16]
+VERSION[1.1.0][2016/09/19]
  * You can now import all character data: passive tree, jewels, skills and items!
     * Character import now has two options:
        * Passive Tree and Jewels: imports the passive skill tree and any jewels socketed into it

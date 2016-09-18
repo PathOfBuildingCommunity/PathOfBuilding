@@ -234,6 +234,7 @@ function SkillListClass:OnKeyUp(key)
 					self.skillsTab.displayGroup = nil
 				end
 				self.skillsTab:AddUndoState()
+				self.skillsTab.build.buildFlag = true
 				self.selGroup = nil
 			else
 				main:OpenConfirmPopup("Delete Socket Group", "Are you sure you want to delete '"..self.selGroup.displayLabel.."'?", "Delete", function()
@@ -257,6 +258,7 @@ function SkillListClass:OnKeyUp(key)
 					end
 					t_insert(self.skillsTab.socketGroupList, self.selDragIndex, self.selGroup)
 					self.skillsTab:AddUndoState()
+					self.skillsTab.build.buildFlag = true
 					self.selGroup = nil
 				end
 			end

@@ -48,7 +48,7 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
-### 1.1.0 - 2016/09/16
+### 1.1.0 - 2016/09/19
  * You can now import all character data: passive tree, jewels, skills and items!
     * Character import now has two options:
        * Passive Tree and Jewels: imports the passive skill tree and any jewels socketed into it
