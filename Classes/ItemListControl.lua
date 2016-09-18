@@ -181,7 +181,7 @@ function ItemListClass:OnKeyDown(key, doubleClick)
 		end
 	elseif key == "c" and IsKeyDown("CTRL") then
 		if self.selItem then
-			Copy(self.selItem.raw)
+			Copy(self.selItem.raw:gsub("\n","\r\n"))
 		end
 	end
 	return self

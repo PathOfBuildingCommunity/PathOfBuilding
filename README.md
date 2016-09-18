@@ -16,8 +16,7 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
   * Support for jewels including most radius/conversion jewels
   * Features alternate path tracing (mouse over a sequence of nodes while holding shift, then click to allocate them all)
   * Fully intergrated with the offence/defence calculations; see exactly how each node will affect your character!
-  * Can import PathOfExile.com and PoEPlanner.com passive tree links
-  * You can also import the passive tree from one of your characters!
+  * Can import PathOfExile.com and PoEPlanner.com passive tree links; links shortened with PoEURL.com also work
 * Skill planner:
   * Add any number of main or supporting skills to your build
   * Supporting skills (auras, curses, buffs) can be toggled on and off
@@ -34,6 +33,7 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
     * Choose which modifiers appear on each item, and the rolls for each modifier, to suit your needs
     * Has templates that should cover the majority of builds (inb4 'why is there no coral amulet?')
 * Other features:
+  * You can import passive tree, items, and skills from existing characters
   * Share builds with other users by generating a share code
   * Automatic updating; most updates will only take a couple of seconds to apply
   * Somewhat more open source than usual (look in %ProgramData%\Path of Building if you're interested)
@@ -48,6 +48,28 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.1.0 - 2016/09/16
+ * You can now import all character data: passive tree, jewels, skills and items!
+    * Character import now has two options:
+       * Passive Tree and Jewels: imports the passive skill tree and any jewels socketed into it
+	   * Items and Skills: imports all other equipped items, and any skills socketed into them
+    * When importing to an existing build:
+       * The passive tree will be replaced with the imported one
+       * Items (including jewels) will be added to the build, unless the item was added by a previous character import
+	      * If you've previously added an item by copying it from ingame, the character import will still add it,
+	        so you'll need to delete the old items after the import
+	   * Skills will be added if no existing skill matches the new one ('match' meaning the same gems in the same order)
+    * The only data that cannot be imported is the bandit choices, as these aren't available from the API
+ * Several improvements have been made to the Skills page:
+    * You can now specify multiple active gems in a single skill setup (now referred to as a socket group)
+    * Hovering over an active gem will highlight the support gems which are applying to it,
+	  and hovering over a support gem will highlight the active gems that it applies to
+    * Support gems granted by an item are now automatically applied to any skills socketed in that item
+       * Any such supports that you've added manually will be ignored due to the next change:
+    * Multiple copies of support gems are now handled correctly (only the gem with the highest level is used)
+ * Modifiers that depend on the absence of enemy status effects should now only apply in effective DPS mode
+ * Passive tree search now highlights using a red circle instead of flashing
+
 ### 1.0.29 - 2016/09/14
  * You can now import passive tree links that have been shrunk with PoEURL.com
  * You can choose to shrink passive tree links with PoEURL when exporting the passive tree
@@ -70,7 +92,7 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
  * More updates to 2.4.0 uniques
  * Re-nerfed Voidheart
  * Hypothermia now correctly affects hits only and not damage over time
- * Fixed gems sometimes appearing to be deleted when another gem in the same skill was removed
+ * Fixed gems sometimes appearing to be deleted when another gem in the same socketGroup was removed
  * Added flat elemental damage to ring, amulet and glove templates
 
 ### 1.0.25 - 2016/09/06
@@ -103,11 +125,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
  * Skill gems list in the skills tab now colours the gem name according to the gem's colour
  * Now shows "Removing this item will give you" section for all items, not just jewels
  * You can now equip items from both the "All Items" list and the uniques/templates list by Control+Clicking the item
-   * If there's two slots the item can go in, holding Shift as well will equip it in the second slot instead
-   * Jewels cannot be equipped in this way (since it'll probably put them in the wrong socket) but they will 
-     still be added to your build if you Ctrl-Click them in the uniques or templates lists
-   * You can also now drag items from the databases straight into item slots to add and equip them in one go!
-   * And also drag items from the databases into the main items list
+    * If there's two slots the item can go in, holding Shift as well will equip it in the second slot instead
+    * Jewels cannot be equipped in this way (since it'll probably put them in the wrong socket) but they will 
+      still be added to your build if you Ctrl-Click them in the uniques or templates lists
+    * You can also now drag items from the databases straight into item slots to add and equip them in one go!
+    * And also drag items from the databases into the main items list
 
 ### 1.0.19 - 2016/09/02
  * Fixed error that would occur if you set your character level to 0
@@ -140,12 +162,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
  * Fixed tags on certain multipart skills not correctly applying
  * Fixed energy shield not showing up on Sin Trek
  * Dual Wielding modifiers will now apply
-   * Skills that can use both weapons still only use the main hand at the moment; that requires a bit more work to implement
+    * Skills that can use both weapons still only use the main hand at the moment; that requires a bit more work to implement
 
 ### 1.0.13 - 2016/09/01
  * Added a scroll bar to the Items tab to fix the issue with low screen resolutions
-   * The scroll bar will automatically jump to the right when you start editing an item, then jump back when you save it
-   * This might be a little disorienting; need feedback on this
+    * The scroll bar will automatically jump to the right when you start editing an item, then jump back when you save it
+    * This might be a little disorienting; need feedback on this
  * Also fixed some minor issues with scroll bars (mouse wheel should now work on all of them)
 
 ### 1.0.12 - 2016/09/01

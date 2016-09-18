@@ -95,6 +95,7 @@ gems["Bloodlust"] = {
 	support = true,
 	attack = true,
 	melee = true,
+	require = "melee",
 	base = {
 		manaCostMore = 1.25,
 	},
@@ -143,6 +144,7 @@ gems["Cast when Damage Taken"] = {
 	support = true,
 	spell = true,
 	trigger = true,
+	require = "spell",
 	base = {
 	},
 	quality = {
@@ -253,6 +255,7 @@ gems["Endurance Charge on Melee Stun"] = {
 	support = true,
 	attack = true,
 	melee = true,
+	require = "melee",
 	base = {
 		manaCostMore = 1.1,
 	},
@@ -340,6 +343,7 @@ gems["Fortify"] = {
 	support = true,
 	attack = true,
 	melee = true,
+	require = "melee",
 	base = {
 		manaCostMore = 1.1,
 		CondBuff_Fortify = true,
@@ -430,6 +434,7 @@ gems["Increased Burning Damage"] = {
 gems["Increased Duration"] = {
 	strength = true,
 	support = true,
+	require = "duration",
 	base = {
 		manaCostMore = 1.4,
 	},
@@ -473,6 +478,7 @@ gems["Iron Grip"] = {
 	strength = true,
 	support = true,
 	projectile = true,
+	require = "projectile",
 	base = {
 		ironGrip = true,
 	},
@@ -516,6 +522,7 @@ gems["Iron Will"] = {
 	strength = true,
 	support = true,
 	spell = true,
+	require = "spell",
 	base = {
 		ironWill = true,
 	},
@@ -640,6 +647,7 @@ gems["Less Duration"] = {
 	strength = true,
 	support = true,
 	duration = true,
+	require = "duration",
 	base = {
 		manaCostMore = 1.2,
 	},
@@ -683,6 +691,7 @@ gems["Life Gain on Hit"] = {
 	strength = true,
 	support = true,
 	attack = true,
+	require = "attack",
 	base = {
 		manaCostMore = 1.5,
 	},
@@ -767,6 +776,7 @@ gems["Melee Damage on Full Life"] = {
 	strength = true,
 	support = true,
 	melee = true,
+	require = "melee",
 	base = {
 		manaCostMore = 1.3,
 	},
@@ -810,6 +820,7 @@ gems["Melee Physical Damage"] = {
 	strength = true,
 	support = true,
 	melee = true,
+	require = "melee",
 	base = {
 		manaCostMore = 1.4,
 	},
@@ -854,6 +865,7 @@ gems["Melee Splash"] = {
 	support = true,
 	attack = true,
 	melee = true,
+	require = "melee",
 	base = {
 		manaCostMore = 1.6,
 	},
@@ -898,6 +910,7 @@ gems["Multistrike"] = {
 	support = true,
 	attack = true,
 	melee = true,
+	require = "melee",
 	base = {
 		manaCostMore = 1.8,
 		attack_damageMore = 0.7,
@@ -943,6 +956,7 @@ gems["Ranged Attack Totem"] = {
 	support = true,
 	totem = true,
 	projectile = true,
+	require = "attack and projectile",
 	addFlags = {
 		totem = true,
 	},
@@ -1031,6 +1045,7 @@ gems["Spell Totem"] = {
 	strength = true,
 	support = true,
 	totem = true,
+	require = "spell",
 	addFlags = {
 		totem = true,
 	},
@@ -1119,6 +1134,7 @@ gems["Weapon Elemental Damage"] = {
 	strength = true,
 	support = true,
 	attack = true,
+	require = "attack",
 	base = {
 		manaCostMore = 1.4,
 	},

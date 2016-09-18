@@ -26,6 +26,7 @@ local columnWidths = {
 
 local columns = { }
 
+local skillGroupList = { }
 local skillList = { }
 local skillPartList = { }
 local auxSkillList = { }
@@ -221,7 +222,9 @@ columns[5] = {
 
 columns[7] = {
 	{
-		{ "input", "View Skill Details:", "skill_number", "choice", 4, skillList },
+		{ "View Skill Details:" },
+		{ "input", "Socket Group:", "skill_number", "choice", 4, skillGroupList },
+		{ "input", "Active Skill:", "skill_activeNumber", "choice", 4, skillList },
 	}, {
 		flag = "multiPart",
 		{ "input", "Skill Part:", "skill_part", "choice", 2, skillPartList },
@@ -436,21 +439,29 @@ end
 
 local curFlags
 
-return function(env, skills)
-	wipeTable(skillList)
-	if #skills > 0 then
-		for i, skill in pairs(skills) do
-			skillList[i] = { val = i, label = skill.displayLabel }
+return function(env, skillGroups, activeSkillList)
+	wipeTable(skillGroupList)
+	if #skillGroups > 0 then
+		for i, skillGroup in pairs(skillGroups) do
+			skillGroupList[i] = { val = i, label = skillGroup.displayLabel }
 		end
 	else
-		skillList[1] = { val = 1, label = "No skills found. Go to the Skills page and create a skill." }
+		skillGroupList[1] = { val = 1, label = "No skills found. Go to the Skills page and create a skill." }
+	end
+	wipeTable(skillList)
+	if #activeSkillList > 0 then
+		for i, activeSkill in pairs(activeSkillList) do
+			skillList[i] = { val = i, label = activeSkill.activeGem.name }
+		end
+	else
+		skillList[1] = { val = 1, label = "" }
 	end
 	wipeTable(skillPartList)
-	for i, partName in pairs(env.skillParts) do
+	for i, partName in pairs(env.mainSkill.skillPartList) do
 		skillPartList[i] = { val = i, label = partName }
 	end
 	wipeTable(auxSkillList)
-	for i in pairs(env.auxSkills) do
+	for i in pairs(env.auxSkillList) do
 		auxSkillList[i] = { "output", "Skill "..i..":", "buff_label"..i, "string", 3 }
 	end
 	if curFlags then

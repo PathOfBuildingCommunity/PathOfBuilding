@@ -16,6 +16,8 @@ local m_floor = math.floor
 local PassiveTreeViewClass = common.NewClass("PassiveTreeView", function(self)
 	self.ring = NewImageHandle()
 	self.ring:Load("Assets/ring.png")
+	self.highlightRing = NewImageHandle()
+	self.highlightRing:Load("Assets/small_ring.png")
 
 	self.zoomLevel = 3
 	self.zoom = 1.2 ^ self.zoomLevel
@@ -336,10 +338,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			else
 				SetDrawColor(1, 1, 1)
 			end
-		elseif matchesSearchStr then
+		--[[elseif matchesSearchStr then
 			-- Node matches search terms, make it pulse
 			local col = math.sin((GetTime() / 100) % 360) / 2 + 0.5
-			SetDrawColor(col, col, col)
+			SetDrawColor(col, col, col)]]
 		elseif launch.devMode and IsKeyDown("ALT") then
 			-- Debug display
 			if node.extra then
@@ -362,11 +364,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			-- Draw overlay
 			if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
 				-- Determine overlay color
-				if matchesSearchStr then
+				--[[if matchesSearchStr then
 					-- Node matches search terms, make it pulse
 					local col = math.sin((GetTime() / 100) % 360) / 2 + 0.5
 					SetDrawColor(col, col, col)
-				end
+				end]]
 				if hoverNode and hoverNode ~= node then
 					-- Mouse is hovering over a different node
 					if hoverDep and hoverDep[node] then
@@ -389,13 +391,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			self:DrawAsset(tree.assets[overlay], scrX, scrY, scale)
 			SetDrawColor(1, 1, 1)
 		end
-		--[[if matchesSearchStr then
+		if matchesSearchStr then
 			SetDrawLayer(nil, 5)
 			SetDrawColor(1, 0, 0)
-			local size = 200 * scale
-			DrawImage(self.ring, scrX - size, scrY - size, size * 2, size * 2)
+			local size = 175 * scale / self.zoom ^ 0.4
+			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
 			SetDrawLayer(nil, 0)
-		end]]
+		end
 	end
 
 	-- Draw ring overlays for jewel sockets
@@ -463,6 +465,10 @@ function PassiveTreeViewClass:Zoom(level, viewPort)
 end
 
 function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
+	if node.type == "mastery" then
+		return
+	end
+
 	-- Check node name
 	local errMsg, match = PCall(string.match, node.dn:lower(), self.searchStr:lower())
 	if match then

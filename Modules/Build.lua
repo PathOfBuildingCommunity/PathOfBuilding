@@ -154,17 +154,24 @@ function buildMode:Init(dbFileName, buildName)
 	end)
 	self.controls.banditMercilessLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditMerciless,"TOPLEFT"}, 0, 0, 0, 14, "^7Merciless Bandit:")
 	self.controls.mainSkillLabel = common.New("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 95, 300, 16, "^7Main Skill:")
-	self.controls.mainSkillDrop = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index)
-		self.mainSkillIndex = index
+	self.controls.mainSocketGroup = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index)
+		self.mainSocketGroup = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillPart = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillDrop,"BOTTOMLEFT"}, 0, 2, 100, 18, nil, function(index)
-		self.skillsTab.list[self.mainSkillIndex].skillPart = index
+	self.controls.mainSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index)
+		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		mainSocketGroup.mainActiveSkill = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.statBox = common.New("TextListControl", {"TOPLEFT",self.controls.mainSkillDrop,"BOTTOMLEFT"}, 0, 20, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
+	self.controls.mainSkillPart = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 100, 18, nil, function(index)
+		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillPart = index
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.statBox = common.New("TextListControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 42, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
 	self.controls.statBox.height = function(control)
 		local x, y = control:GetPos()
 		return main.screenH - 30 - y
@@ -288,24 +295,24 @@ function buildMode:Load(xml, fileName)
 	if xml.attrib.viewMode then
 		self.viewMode = xml.attrib.viewMode
 	end
-	self.mainSkillIndex = tonumber(xml.attrib.mainSkillIndex) or 1
 	self.characterLevel = tonumber(xml.attrib.level) or 1
+	self.controls.characterLevel:SetText(tostring(self.characterLevel))
 	for _, diff in pairs({"banditNormal","banditCruel","banditMerciless"}) do
 		self[diff] = xml.attrib[diff] or "None"
 	end
-	self.controls.characterLevel:SetText(tostring(self.characterLevel))
+	self.mainSocketGroup = tonumber(xml.attrib.mainSkillIndex) or tonumber(xml.attrib.mainSocketGroup) or 1
 end
 
 function buildMode:Save(xml)
 	xml.attrib = {
 		viewMode = self.viewMode,
-		mainSkillIndex = tostring(self.mainSkillIndex),
 		level = tostring(self.characterLevel),
 		className = self.spec.curClassName,
 		ascendClassName = self.spec.curAscendClassName,
 		banditNormal = self.banditNormal,
 		banditCruel = self.banditCruel,
-		banditMerciless = self.banditMerciless
+		banditMerciless = self.banditMerciless,
+		mainSocketGroup = tostring(self.mainSocketGroup),
 	}
 	self.modFlag = false
 end
@@ -313,9 +320,19 @@ end
 function buildMode:OnFrame(inputEvents)
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
-			if event.key == "s" and IsKeyDown("CTRL") then
-				self:SaveDBFile()
-				inputEvents[id] = nil
+			if IsKeyDown("CTRL") then
+				if event.key == "s" then
+					self:SaveDBFile()
+					inputEvents[id] = nil
+				elseif event.key == "1" then
+					self.viewMode = "TREE"
+				elseif event.key == "2" then
+					self.viewMode = "SKILLS"
+				elseif event.key == "3" then
+					self.viewMode = "ITEMS"
+				elseif event.key == "4" then
+					self.viewMode = "CALCS"
+				end
 			end
 		end
 	end
@@ -343,28 +360,35 @@ function buildMode:OnFrame(inputEvents)
 	end
 
 	-- Update contents of main skill dropdown
-	wipeTable(self.controls.mainSkillDrop.list)
-	for i, skill in pairs(self.skillsTab.list) do
-		self.controls.mainSkillDrop.list[i] = { val = i, label = skill.displayLabel }
+	wipeTable(self.controls.mainSocketGroup.list)
+	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
+		self.controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
 	end
-	if #self.controls.mainSkillDrop.list == 0 then
-		self.controls.mainSkillDrop.list[1] = { val = 1, label = "No skills added yet." }
+	if #self.controls.mainSocketGroup.list == 0 then
+		self.controls.mainSocketGroup.list[1] = { val = 1, label = "No skills added yet." }
+		self.controls.mainSkill.shown = false
 		self.controls.mainSkillPart.shown = false
 	else
-		local mainSkill = self.skillsTab.list[self.mainSkillIndex]
-		local activeGem = mainSkill.activeGem
-		if activeGem and activeGem.data.parts and #activeGem.data.parts > 1 then
-			self.controls.mainSkillPart.shown = true
-			wipeTable(self.controls.mainSkillPart.list)
-			for i, part in pairs(activeGem.data.parts) do
-				t_insert(self.controls.mainSkillPart.list, { val = i, label = part.name })
+		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		wipeTable(self.controls.mainSkill.list)
+		for i, activeSkill in ipairs(mainSocketGroup.displaySkillList) do
+			t_insert(self.controls.mainSkill.list, { val = i, label = activeSkill.activeGem.name })
+		end
+		self.controls.mainSkill.enabled = #mainSocketGroup.displaySkillList > 1
+		self.controls.mainSkillPart.shown = false
+		if mainSocketGroup.displaySkillList[1] then
+			local activeGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem
+			if activeGem and activeGem.data.parts and #activeGem.data.parts > 1 then
+				self.controls.mainSkillPart.shown = true
+				wipeTable(self.controls.mainSkillPart.list)
+				for i, part in ipairs(activeGem.data.parts) do
+					t_insert(self.controls.mainSkillPart.list, { val = i, label = part.name })
+				end
+				self.controls.mainSkillPart.sel = activeGem.srcGem.skillPart or 1
 			end
-			self.controls.mainSkillPart.sel = mainSkill.skillPart or 1
-		else
-			self.controls.mainSkillPart.shown = false
 		end
 	end
-	self.controls.mainSkillDrop.sel = self.mainSkillIndex
+	self.controls.mainSocketGroup.sel = self.mainSocketGroup
 
 	-- Draw contents of current tab
 	local sideBarWidth = 312
@@ -387,6 +411,8 @@ function buildMode:OnFrame(inputEvents)
 	end
 
 	self.unsaved = self.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+
+	SetDrawLayer(5)
 
 	-- Draw top bar background
 	SetDrawColor(0.2, 0.2, 0.2)

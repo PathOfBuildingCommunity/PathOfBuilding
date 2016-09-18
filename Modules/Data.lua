@@ -19,12 +19,19 @@ local gemTypes = {
 for _, type in pairs(gemTypes) do
 	LoadModule("Data/Gems/"..type, data.gems)
 end
+for _, gemData in pairs(data.gems) do
+	-- Compile requirement functions for support gems
+	if gemData.require then
+		gemData.requireFunc = assert(loadstring("return "..gemData.require))
+	end
+end
 
 data.colorCodes = {
 	NORMAL = "^xC8C8C8",
 	MAGIC = "^x8888FF",
 	RARE = "^xFFFF77",
 	UNIQUE = "^xAF6025",
+	CRAFTED = "^xB8DAF1",
 	FIRE = "^x960000",
 	COLD = "^x366492",
 	LIGHTNING = "^xFFD700",

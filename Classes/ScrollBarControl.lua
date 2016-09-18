@@ -46,7 +46,7 @@ function ScrollBarClass:SetContentDimension(conDim, viewDim)
 end
 
 function ScrollBarClass:SetOffset(offset)
-	self.offset = m_floor(m_max(0, m_min(self.offsetMax, offset)))
+	self.offset = m_floor(m_max(0, m_min(self.offsetMax or 0, offset)))
 end
 
 function ScrollBarClass:Scroll(mult)
