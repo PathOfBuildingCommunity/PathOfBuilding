@@ -273,8 +273,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	-- Draw the nodes
 	for nodeId, node in pairs(spec.nodes) do
-		local matchesSearchStr = #self.searchStr > 0 and self:DoesNodeMatchSearchStr(node)
-		
 		-- Determine the base and overlay images for this node based on type and state
 		local base, overlay
 		if node.type == "classStart" then
@@ -338,10 +336,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			else
 				SetDrawColor(1, 1, 1)
 			end
-		--[[elseif matchesSearchStr then
-			-- Node matches search terms, make it pulse
-			local col = math.sin((GetTime() / 100) % 360) / 2 + 0.5
-			SetDrawColor(col, col, col)]]
 		elseif launch.devMode and IsKeyDown("ALT") then
 			-- Debug display
 			if node.extra then
@@ -363,12 +357,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if overlay then
 			-- Draw overlay
 			if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
-				-- Determine overlay color
-				--[[if matchesSearchStr then
-					-- Node matches search terms, make it pulse
-					local col = math.sin((GetTime() / 100) % 360) / 2 + 0.5
-					SetDrawColor(col, col, col)
-				end]]
 				if hoverNode and hoverNode ~= node then
 					-- Mouse is hovering over a different node
 					if hoverDep and hoverDep[node] then
@@ -391,11 +379,20 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			self:DrawAsset(tree.assets[overlay], scrX, scrY, scale)
 			SetDrawColor(1, 1, 1)
 		end
-		if matchesSearchStr then
+		if #self.searchStr > 0 and self:DoesNodeMatchSearchStr(node) then
+			-- Node matches the search string, show the highlight circle
 			SetDrawLayer(nil, 5)
 			SetDrawColor(1, 0, 0)
 			local size = 175 * scale / self.zoom ^ 0.4
 			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
+			SetDrawLayer(nil, 0)
+		end
+		if node == hoverNode and (node.type ~= "socket" or not IsKeyDown("SHIFT")) then
+			-- Draw tooltip
+			SetDrawLayer(nil, 10)
+			local size = m_floor(hoverNode.size * scale)
+			self:AddNodeTooltip(hoverNode, build)
+			main:DrawTooltip(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
 			SetDrawLayer(nil, 0)
 		end
 	end
@@ -422,17 +419,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				DrawImage(self.ring, scrX - size, scrY - size, size * 2, size * 2)				
 			end
 		end
-	end
-
-	-- Draw tooltip of the node under the mouse
-	if hoverNode and (hoverNode.type ~= "socket" or not IsKeyDown("SHIFT")) then
-		-- Calculate position and size of hover node in screen coordinates so the tooltip can be anchored to it
-		local scrX, scrY = treeToScreen(hoverNode.x, hoverNode.y)
-		local size = m_floor(hoverNode.size * scale)
-
-		-- Draw the tooltip
-		self:AddNodeTooltip(hoverNode, build)
-		main:DrawTooltip(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
 	end
 end
 
