@@ -18,7 +18,7 @@
 	<File sha1="cb81fa0b9bfa88a80885b1d5356057205f77541a" name="Classes/EditControl.lua" part="program"/>
 	<File sha1="e3d544e82aafa64f1e8ebf824c7f7bc5729062ff" name="Classes/GemSelectControl.lua" part="program"/>
 	<File sha1="c8774a6e9a39fe8f2d434889abe2533aee78fc47" name="Classes/Grid.lua" part="program"/>
-	<File sha1="6de995a4830e8505fa4e2ae89348bb10a0a14caf" name="Classes/ImportTab.lua" part="program"/>
+	<File sha1="ed320048e6dc77b2de2015d3b0344ed3ae90dea7" name="Classes/ImportTab.lua" part="program"/>
 	<File sha1="f850636099479449de2e888a2b66846ccc912376" name="Classes/ItemDBControl.lua" part="program"/>
 	<File sha1="84ddcc1358c4c6a9c7f047cc882031d0696533d7" name="Classes/ItemListControl.lua" part="program"/>
 	<File sha1="f2416d1613f3318acbd85f776213fe62f488342d" name="Classes/ItemSlotControl.lua" part="program"/>

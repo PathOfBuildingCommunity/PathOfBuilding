@@ -254,6 +254,7 @@ function ImportTabClass:DownloadPassiveTree()
 		self.build.itemsTab:PopulateSlots()
 		self.build.itemsTab:AddUndoState()
 		self.build.characterLevel = charData.level
+		self.build.controls.characterLevel:SetText(charData.level)
 		self.build.buildFlag = true
 	end, sessionID and "POESESSID="..sessionID)
 end
