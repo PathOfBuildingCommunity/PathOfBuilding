@@ -43,8 +43,8 @@
 	<File sha1="670eae7a380a2d494aadf65c0677d3a32b8df866" name="Modules/CalcsView.lua" part="program"/>
 	<File sha1="f8a0dc45e26374329ab6f7029831fdded248f8e7" name="Modules/Common.lua" part="program"/>
 	<File sha1="2ffd6b80329ac005726e8e1123d89529c6680eb9" name="Modules/Data.lua" part="program"/>
-	<File sha1="779f8d267575dd1450821d9a907c9a8b00970d00" name="Modules/ItemTools.lua" part="program"/>
-	<File sha1="2559a1318044beb53eb232f04c130149dfe8562e" name="Modules/Main.lua" part="program"/>
+	<File sha1="c4e87504da94d176b2c20e8b61b1c09dc5d1c09b" name="Modules/ItemTools.lua" part="program"/>
+	<File sha1="3d5b025a56ab808c3dddf049cff0c9c4cebc9ad5" name="Modules/Main.lua" part="program"/>
 	<File sha1="a4f1b1bc5a0e1a5bfab862c1bc1705dc43628135" name="Modules/ModParser.lua" part="program"/>
 	<File sha1="bc49ce1b5e15da40476a9c99c4c690b323c0e7ad" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
@@ -86,7 +86,7 @@
 	<File sha1="e37c3fe13513a8a9917e0ed2eb9cdecbcea79566" name="Data/Uniques/dagger.lua" part="program"/>
 	<File sha1="be037e9c7dd77bd040f6da18c3d6d69224990448" name="Data/Uniques/gloves.lua" part="program"/>
 	<File sha1="eb2c474419dc7dafd1392d2e384780c0f11f593d" name="Data/Uniques/helmet.lua" part="program"/>
-	<File sha1="c28b635bd77990c6dd8dcd26141663c8720dd869" name="Data/Uniques/jewel.lua" part="program"/>
+	<File sha1="1137f36fef51b580f065a740487a8b650874cc81" name="Data/Uniques/jewel.lua" part="program"/>
 	<File sha1="32faba71bd84caca6c63a83ad9166d880658a1d9" name="Data/Uniques/mace.lua" part="program"/>
 	<File sha1="23a8cd22b1d20b6af442978c57eb800c88f2006d" name="Data/Uniques/quiver.lua" part="program"/>
 	<File sha1="8e17c51863c26c2dfebfee8d4b77cb09696712f8" name="Data/Uniques/ring.lua" part="program"/>

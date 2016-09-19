@@ -167,12 +167,14 @@ Dexterity from Passives in Radius is Transformed to Strength
 Inspired Learning
 Crimson Jewel
 Radius: Small
+Implicits: 0
 If 4 Notables are Allocated in Radius, When you Kill a Rare monster, you gain 1
 of its mods for 20 seconds
 ]],[[
 Intuitive Leap
 Viridian Jewel
 Radius: Small
+Implicits: 0
 Passives in Radius can be Allocated without being connected to your tree
 ]],[[
 Izaro's Turmoil
@@ -253,7 +255,8 @@ With at least 50 Strength Allocated in Radius, 20% increased Rarity of Items dro
 ]],[[
 Spire of Stone
 Crimson Jewel
-Limited to: 1Radius: Large
+Limited to: 1
+Radius: Large
 3% increased Totem Life per 10 Strength Allocated in Radius
 Totems cannot be Stunned
 ]],[[
@@ -349,6 +352,7 @@ Corrupted
 ]],[[
 Corrupted Energy
 Cobalt Jewel
+Implicits: 0
 With 5 Corrupted Items Equipped: 50% of Chaos Damage does not bypass Energy Shield and 50% of Physical Damage bypasses Energy Shield
 Corrupted
 ]],[[
@@ -366,11 +370,14 @@ Corrupted
 Hungry Abyss
 Viridian Jewel
 Limited to: 1
+Implicits: 0
 With 5 Corrupted Items Equipped: Life Leech recovers based on your Chaos Damage instead
+Corrupted
 ]],[[
 Mutated Growth
 Cobalt Jewel
 Limited to: 1
+Implicits: 0
 10% increased Experience Gain of Corrupted Gems
 Corrupted
 ]],[[
@@ -392,6 +399,7 @@ Corrupted
 Self-Flagellation
 Viridian Jewel
 Limited to: 1
+Implicits: 0
 You can have one additional Curse
 (10 to 20)% increased Damage per Curse on you
 Corrupted

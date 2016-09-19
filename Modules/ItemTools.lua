@@ -268,9 +268,7 @@ function itemLib.createItemRaw(item)
 	if item.limit then
 		t_insert(item.rawLines, "Limited to: "..item.limit)
 	end
-	if item.implicitLines > 0 then
-		t_insert(item.rawLines, "Implicits: "..item.implicitLines)
-	end
+	t_insert(item.rawLines, "Implicits: "..item.implicitLines)
 	for _, modLine in ipairs(item.modLines) do
 		local line = modLine.line
 		if modLine.range then
