@@ -526,6 +526,7 @@ local function getPerStat(dst, stat, factor)
 		if nodeMods then
 			data[stat] = (data[stat] or 0) + (nodeMods[stat] or 0)
 		else
+			ConPrintf("%s %d %f", dst, data[stat], math.floor(data[stat] * factor + 0.5))
 			modLib.listMerge(out, dst, math.floor(data[stat] * factor + 0.5))
 		end
 	end
@@ -544,12 +545,14 @@ local jewelFuncs = {
 	["Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage"] = getMatchConv({"physicalInc"}, "coldInc"),
 	["Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage"] = getMatchConv({"coldInc"}, "physicalInc"),
 	["Increases and Reductions to other Damage Types in Radius are Transformed to apply to Fire Damage"] = getMatchConv({"physicalInc","coldInc","lightningInc","chaosInc"}, "fireInc"),
-	["Melee and Melee Weapon Type Modifiers in Radius are Transformed to Bow Modifiers"] = getMatchConv({"melee_","weapon1hMelee_","weapon2hMelee_","axe_","claw_","dagger_","mace_","staff_","sword_"}, "bow_"),
+	["Melee and Melee Weapon Type modifiers in Radius are Transformed to Bow Modifiers"] = getMatchConv({"melee_","weapon1hMelee_","weapon2hMelee_","axe_","claw_","dagger_","mace_","staff_","sword_"}, "bow_"),
 	["Adds 1 to maximum Life per 3 Intelligence in Radius"] = getPerStat("lifeBase", "intBase", 1 / 3),
+	["Adds 1 to Maximum Life per 3 Intelligence Allocated in Radius"] = getPerStat("lifeBase", "intBase", 1 / 3),
 	["1% increased Evasion Rating per 3 Dexterity Allocated in Radius"] = getPerStat("evasionInc", "dexBase", 1 / 3),
 	["1% increased Claw Physical Damage per 3 Dexterity Allocated in Radius"] = getPerStat("claw_physicalInc", "dexBase", 1 / 3),
 	["1% increased Melee Physical Damage while Unarmed per 3 Dexterity Allocated in Radius"] = getPerStat("unarmed_physicalInc", "dexBase", 1 / 3),
 	["3% increased Totem Life per 10 Strength in Radius"] = getPerStat("totemLifeInc", "strBase", 3 / 10),
+	["3% increased Totem Life per 10 Strength Allocated in Radius"] = getPerStat("totemLifeInc", "strBase", 3 / 10),
 	["Adds 1 maximum Lightning Damage to Attacks per 1 Dexterity Allocated in Radius"] = getPerStat("attack_lightningMax", "dexBase", 1),
 	["5% increased Chaos damage per 10 Intelligence from Allocated Passives in Radius"] = getPerStat("chaosInc", "intBase", 5 / 10),
 	["Dexterity and Intelligence from passives in Radius count towards Strength Melee Damage bonus"] = function(nodeMods, out, data)
@@ -588,8 +591,10 @@ return function(line)
 			return copyTable(specialMod)
 		end
 	end
-	if jewelFuncs[line] then
-		return { jewelFunc = jewelFuncs[line] }
+	for desc, func in pairs(jewelFuncs) do
+		if desc:lower() == line:lower() then
+			return { jewelFunc = func }
+		end
 	end
 
 	-- Check for a namespace at the start of the line

@@ -7,7 +7,7 @@ Anatomical Knowledge
 Cobalt Jewel
 Radius: Large
 (6 to 8)% increased maximum Life
-Adds 1 to maximum Life per 3 Intelligence in Radius
+Adds 1 to Maximum Life per 3 Intelligence Allocated in Radius
 ]],[[
 Apparitions
 Viridian Jewel
@@ -185,7 +185,7 @@ Crimson Jewel
 Lioneye's Fall
 Viridian Jewel
 Radius: Medium
-Melee and Melee Weapon Type Modifiers in Radius are Transformed to Bow Modifiers
+Melee and Melee Weapon Type modifiers in Radius are Transformed to Bow Modifiers
 ]],[[
 Malicious Intent
 Cobalt Jewel
@@ -254,7 +254,7 @@ With at least 50 Strength Allocated in Radius, 20% increased Rarity of Items dro
 Spire of Stone
 Crimson Jewel
 Limited to: 1Radius: Large
-3% increased Totem Life per 10 Strength in Radius
+3% increased Totem Life per 10 Strength Allocated in Radius
 Totems cannot be Stunned
 ]],[[
 Spirit Guards
