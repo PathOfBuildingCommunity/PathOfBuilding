@@ -369,6 +369,7 @@ columns[7] = {
 		{ "output", "Poison Chance:", "poison_chance", formatPercent },
 		{ "output", "Poison DPS:", "poison_dps", getFormatRound(1) },
 		{ "output", "Poison Duration:", "poison_duration", getFormatSec(2) },
+		{ "output", "Damage per Poison:", "poison_damage", getFormatRound(1) },
 	}, {
 		flag = "ignite",
 		{ "output", "Tree Ignite Chance %:", "spec_igniteChance" },

@@ -1645,6 +1645,7 @@ local function performCalcs(env, output)
 			end
 			output.poison_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "chaosInc") / 100) * sumMods(modDB, true, "damageMore", "chaosMore") * effMult
 			output.poison_duration = 2 * (1 + sumMods(modDB, false, "durationInc") / 100) * sumMods(modDB, true, "durationMore")
+			output.poison_damage = output.poison_dps * output.poison_duration
 			buildSpaceTable(modDB, env.skillSpaceFlags)
 		end	
 		endWatch(env, "poison")
