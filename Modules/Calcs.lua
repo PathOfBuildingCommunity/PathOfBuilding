@@ -898,19 +898,16 @@ local function finaliseMods(env, output)
 
 	-- Add boss modifiers
 	if getMiscVal(modDB, "effective", "enemyIsBoss", false) then
-		mod_dbMerge(modDB, "", "curseEffectMore", 0.4) -- FIXME: Need to confirm actual value
+		mod_dbMerge(modDB, "", "curseEffectMore", 0.4)
 		mod_dbMerge(modDB, "effective", "elementalResist", 30)
 		mod_dbMerge(modDB, "effective", "chaosResist", 15)
 	end
 	
-	-- Merge skill modifiers and calculate life and mana reservations
+	-- Merge auxillary skill modifiers and calculate skill life and mana reservations
 	for _, activeSkill in pairs(env.activeSkillList) do
 		local skillModList = activeSkill.skillModList
 	
-		-- Merge skill modifiers
-		if activeSkill == env.mainSkill then
-			mod_dbMergeList(modDB, skillModList)
-		end
+		-- Merge auxillary modifiers
 		mod_dbMergeList(modDB, activeSkill.buffModList)
 		local auraEffect = (1 + (getMiscVal(modDB, nil, "auraEffectInc", 0) + (skillModList.auraEffectInc or 0)) / 100) * getMiscVal(modDB, nil, "auraEffectMore", 1) * (skillModList.auraEffectMore or 1)
 		mod_dbScaleMergeList(modDB, activeSkill.auraModList, auraEffect)
@@ -942,7 +939,8 @@ local function finaliseMods(env, output)
 		end
 	end
 
-	-- Merge active skill part mods
+	-- Merge main skill mods
+	mod_dbMergeList(modDB, env.mainSkill.skillModList)
 	if env.mainSkill.baseFlags.multiPart and modDB["SkillPart"..env.mainSkill.skillPart] then
 		mod_dbMergeList(modDB, modDB["SkillPart"..env.mainSkill.skillPart])
 	end
