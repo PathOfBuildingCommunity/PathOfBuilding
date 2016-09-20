@@ -216,12 +216,12 @@ Reflects 15 Fire Damage to Melee Attackers
 ]],[[
 Cloak of Tawm'r Isley
 Savant's Robe
-Energy Shield: (421 to 468)
+Energy Shield: (409 to 468)
 Requires Level 56, 152 Int
-(250 to 300)% increased Energy Shield
+(250-300)% increased Energy Shield
 Minions cannot be Blinded
-Minions have 15% chance to Blind Enemies on Hit
-Socketed Minion Gems are support by Level 16 Life Leech
+Minions have 15% chance to Blind Enemies on hit
+Socketed Minion Gems are Supported by Level 16 Life Leech
 Found Magic Items drop Identified
 ]],[[
 The Covenant

@@ -25,6 +25,7 @@ local formList = {
 	["penetrates (%d+)%% of enemy"] = "PEN",
 	["^([%d%.]+)%% of (.+) regenerated per second"] = "REGENPERCENT",
 	["^([%d%.]+) (.+) regenerated per second"] = "REGENFLAT",
+	["(%d+) to (%d+) additional (%a+) damage"] = "DMG",
 	["adds (%d+)%-(%d+) (%a+) damage"] = "DMGATTACKS",
 	["adds (%d+) to (%d+) (%a+) damage"] = "DMGATTACKS",
 	["adds (%d+)%-(%d+) (%a+) damage to attacks"] = "DMGATTACKS",
@@ -154,6 +155,7 @@ local modNameList = {
 	-- Other skill modifiers
 	["radius"] = "aoeRadius{suf}",
 	["radius of area skills"] = "aoeRadius{suf}",
+	["area of effect radius"] = "aoeRadius{suf}",
 	["area of effect"] = "aoeRadius{suf}",
 	["duration"] = "duration{suf}",
 	["skill effect duration"] = "duration{suf}",
@@ -278,8 +280,10 @@ local preSpaceList = {
 	["^melee attacks have "] = "melee_",
 	["^left ring slot: "] = "IfSlot:1_",
 	["^right ring slot: "] = "IfSlot:2_",
-	["^socketed gems have "] = "SocketedIn:X_",
+	["^socketed gems have "] = "SocketedIn:X_all_",
+	["^socketed gems deal "] = "SocketedIn:X_all_",
 	["^socketed curse gems have "] = "SocketedIn:X_curse_",
+	["^socketed melee gems have "] = "SocketedIn:X_melee_",
 }
 
 -- List of special namespaces
@@ -375,8 +379,8 @@ local specialModList = {
 	["grants maximum energy shield equal to (%d+)%% of your reserved mana to you and nearby allies"] = function(num) return { energyShieldFromReservedMana = num } end,
 	["you and nearby allies deal (%d+)%% increased damage"] = function(num) return { damageInc = num } end,
 	["you and nearby allies have (%d+)%% increased movement speed"] = function(num) return {  movementSpeedInc = num } end,
-	["skills from your helmet penetrate (%d+)%% elemental resistances"] = function(num) return { ["SocketedIn:Helmet_elementalPen"] = num } end,
-	["skills from your gloves have (%d+)%% increased area of effect"] = function(num) return { ["SocketedIn:Gloves_aoeRadiusInc"] = num } end,
+	["skills from your helmet penetrate (%d+)%% elemental resistances"] = function(num) return { ["SocketedIn:Helmet_all_elementalPen"] = num } end,
+	["skills from your gloves have (%d+)%% increased area of effect"] = function(num) return { ["SocketedIn:Gloves_all_aoeRadiusInc"] = num } end,
 	-- Special node types
 	["(%d+)%% of block chance applied to spells"] = function(num) return { blockChanceConv = num } end,
 	["(%d+)%% additional block chance with staves"] = function(num) return { CondMod_UsingStaff_blockChance = num } end,
@@ -413,12 +417,14 @@ local specialModList = {
 	["%+(%d+) to level of socketed (%a+) gems"] = function(num, _, type) return { ["SocketedIn:X_gemLevel_"..type] = num } end,
 	["%+(%d+)%% to quality of socketed (%a+) gems"] = function(num, _, type) return { ["SocketedIn:X_gemQuality_"..type] = num } end,
 	["%+(%d+) to level of active socketed skill gems"] = function(num) return { ["SocketedIn:X_gemLevel_active"] = num } end,
-	["socketed gems are supported by level (%d+) (.+)"] = function(num, _, support) return { ["SocketedIn:X_supportedBy_"..num..":"..support] = true } end,
+	["socketed .*gems are supported by level (%d+) (.+)"] = function(num, _, support) return { ["SocketedIn:X_supportedBy_"..num..":"..support] = true } end,
 	["socketed curse gems supported by level (%d+) (.+)"] = function(num, _, support) return { ["SocketedIn:X_supportedBy_"..num..":"..support] = true } end,
-	["socketed gems fire an additional projectile"] = { ["SocketedIn:X_projectileCount"] = 1 },
-	["socketed gems fire (%d+) additional projectiles"] = function(num) return { ["SocketedIn:X_projectileCount"] = num } end,
-	["socketed gems reserve no mana"] = { ["SocketedIn:X_manaReservedMore"] = 0 },
-	["socketed gems have blood magic"]  = { ["SocketedIn:X_skill_bloodMagic"] = true },
+	["socketed gems fire an additional projectile"] = { ["SocketedIn:X_all_projectileCount"] = 1 },
+	["socketed gems fire (%d+) additional projectiles"] = function(num) return { ["SocketedIn:X_all_projectileCount"] = num } end,
+	["socketed gems reserve no mana"] = { ["SocketedIn:X_all_manaReservedMore"] = 0 },
+	["socketed gems have blood magic"] = { ["SocketedIn:X_all_skill_bloodMagic"] = true },
+	["socketed gems gain (%d+)%% of physical damage as extra lightning damage"] = function(num) return { ["SocketedIn:X_all_physicalGainAslightning"] = num } end,
+	["socketed red gems get (%d+)%% physical damage as extra fire damage"] = function(num) return { ["SocketedIn:X_strength_physicalGainAsfire"] = num } end,
 	-- Unique item modifiers
 	["your cold damage can ignite"] = { coldCanIgnite = true },
 	["your fire damage can shock but not ignite"] = { fireCanShock = true, fireCannotIgnite = true },
@@ -671,6 +677,9 @@ return function(line)
 		if not modName then
 			return { }, line
 		end
+	elseif modForm == "DMG" then
+		val = { tonumber(formCap[1]), tonumber(formCap[2]) }
+		modName = { formCap[3].."Min", formCap[3].."Max" }
 	elseif modForm == "DMGATTACKS" then
 		val = { tonumber(formCap[1]), tonumber(formCap[2]) }
 		modName = { formCap[3].."Min", formCap[3].."Max" }
