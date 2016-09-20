@@ -138,7 +138,7 @@ function SkillListClass:Draw(viewPort)
 		DrawImage(nil, 0, lineY, width - 20, 1)
 	end
 	SetViewport()
-	if ttGroup then
+	if ttGroup and ttGroup.displaySkillList then
 		local count = 0
 		for index, activeSkill in ipairs(ttGroup.displaySkillList) do
 			if #ttGroup.displaySkillList > 1 then

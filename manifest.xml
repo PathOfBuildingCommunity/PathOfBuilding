@@ -30,7 +30,7 @@
 	<File sha1="b5d4e4e7cedcabefa029cdefc74db5ac0a82d87f" name="Classes/PopupDialog.lua" part="program"/>
 	<File sha1="86fee3127d9520144fc741f6fccc3c1d9f1aa532" name="Classes/ScrollBarControl.lua" part="program"/>
 	<File sha1="261dcf54a4542e6160fd7024d8edf4fc095d9c71" name="Classes/SectionControl.lua" part="program"/>
-	<File sha1="738a4037c52d32e9ee626735753bd8a96bb9bda1" name="Classes/SkillListControl.lua" part="program"/>
+	<File sha1="271e40761b18f0e64ef35f71944fc63af2645ca6" name="Classes/SkillListControl.lua" part="program"/>
 	<File sha1="b49325e60061abd7b815a1aefd0ec0757446af54" name="Classes/SkillsTab.lua" part="program"/>
 	<File sha1="6317bd9ba391832dccafcb62409a5ce2988d1928" name="Classes/SliderControl.lua" part="program"/>
 	<File sha1="80527e0e05c986355ce7af2ba026538aec99a63a" name="Classes/SlotSelectControl.lua" part="program"/>
@@ -39,7 +39,7 @@
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
 	<File sha1="4708cceaf8a777defd85fcd9ad7323bac79431dd" name="Modules/Build.lua" part="program"/>
 	<File sha1="c03a7796aea3e9aa832fbb92c1f674ef5af690ca" name="Modules/BuildList.lua" part="program"/>
-	<File sha1="5a4ca85eabb6ee7d43495e427c70a78ce52fd05a" name="Modules/Calcs.lua" part="program"/>
+	<File sha1="42e9c6423b8e2d388a575751d6bff22ecb6d58e9" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="7245920853a007b4ffd22b3e3a10f9d38593c065" name="Modules/CalcsView.lua" part="program"/>
 	<File sha1="f8a0dc45e26374329ab6f7029831fdded248f8e7" name="Modules/Common.lua" part="program"/>
 	<File sha1="2ffd6b80329ac005726e8e1123d89529c6680eb9" name="Modules/Data.lua" part="program"/>

@@ -627,7 +627,12 @@ local function mergeMainMods(env, repSlotName, repItem)
 		if socketGroup.enabled or index == env.mainSocketGroup then
 			-- Build list of supports for this socket group
 			local socketBonuses = socketGroup.slot and slotSocketBonuses[socketGroup.slot]
-			local supportList = copyTable(socketBonuses and socketBonuses.supports or { })
+			local supportList = { }
+			if socketBonuses then
+				for _, gem in ipairs(socketBonuses.supports) do
+					t_insert(supportList, gem)
+				end
+			end
 			for _, gem in ipairs(socketGroup.gemList) do
 				if gem.enabled and gem.data and gem.data.support then
 					local add = true
