@@ -366,7 +366,7 @@ function buildMode:OnFrame(inputEvents)
 		self.controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
 	end
 	if #self.controls.mainSocketGroup.list == 0 then
-		self.controls.mainSocketGroup.list[1] = { val = 1, label = "No skills added yet." }
+		self.controls.mainSocketGroup.list[1] = { val = 1, label = "<No skills added yet>" }
 		self.controls.mainSkill.shown = false
 		self.controls.mainSkillPart.shown = false
 	else

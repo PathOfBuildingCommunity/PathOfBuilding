@@ -52,8 +52,7 @@ function CheckBoxClass:Draw(viewPort)
 		else
 			SetDrawColor(0.75, 0.75, 0.75)
 		end
-		DrawImageQuad(nil, x + size * 0.15, y + size * 0.50, x + size * 0.30, y + size * 0.45, x + size * 0.50, y + size * 0.80, x + size * 0.40, y + size * 0.90)
-		DrawImageQuad(nil, x + size * 0.40, y + size * 0.90, x + size * 0.35, y + size * 0.75, x + size * 0.80, y + size * 0.10, x + size * 0.90, y + size * 0.20)
+		main:DrawCheckMark(x + size/2, y + size/2, size * 0.8)
 	end
 	if enabled then
 		SetDrawColor(1, 1, 1)

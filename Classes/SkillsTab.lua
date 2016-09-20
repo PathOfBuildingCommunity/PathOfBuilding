@@ -342,7 +342,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 		else
 			gem.errMsg, gem.name, gem.data = nil
 		end
-		if gem.nameSpec:match("%S") or gem.level ~= 20 or gem.quality ~= 0 or gem.enabled ~= true or (socketGroup == self.displayGroup and self.gemSlots[index] and self.gemSlots[index].nameSpec.buf:match("%S")) then
+		if gem.nameSpec:match("%S") or gem.level ~= 20 or gem.quality ~= 0 or gem.enabled ~= true or (socketGroup == self.displayGroup and self.gemSlots[index] and self.gemSlots[index].nameSpec.dropped) then
 			index = index + 1
 		else
 			-- Empty gem, remove it

@@ -1097,6 +1097,7 @@ gems["Trap"] = {
 	dexterity = true,
 	support = true,
 	trap = true,
+	require = "spell or projectile",
 	addFlags = {
 		trap = true,
 		showAverage = true,

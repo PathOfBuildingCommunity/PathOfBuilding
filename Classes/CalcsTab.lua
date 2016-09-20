@@ -124,10 +124,10 @@ end
 function CalcsTabClass:BuildOutput()
 	self.powerBuildFlag = true
 
-	wipeTable(self.gridOutput)
-	self.calcs.buildOutput(self.build, self.input, self.gridOutput, "GRID")
 	wipeTable(self.mainOutput)
 	self.calcs.buildOutput(self.build, self.input, self.mainOutput, "MAIN")
+	wipeTable(self.gridOutput)
+	self.calcs.buildOutput(self.build, self.input, self.gridOutput, "GRID")
 
 	-- Retrieve calculator functions
 	self.nodeCalculator = { self.calcs.getNodeCalculator(self.build, self.input) }

@@ -481,7 +481,7 @@ gems["Iron Grip"] = {
 	strength = true,
 	support = true,
 	projectile = true,
-	require = "projectile",
+	require = "attack and projectile",
 	base = {
 		ironGrip = true,
 	},

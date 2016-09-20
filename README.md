@@ -48,6 +48,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.1.2 - 2016/09/20
+ * In the gem name dropdown list, support gems are now marked with a tick if they can apply to any of the
+   active skills in the current socket group
+ * Fixed issue causing the spell damage modifier on Clear Mind to fail to apply when no mana is reserved
+
 ### 1.1.1 - 2016/09/20
  * Added support for more "socketed gem" modifiers, particularly those from essences
  * Fixed a few minor issues
@@ -179,3 +184,37 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ### 1.0.12 - 2016/09/01
  * Updated tree to 2.4.0
  * Added latest patch note changes
+
+### 1.0.11 - 2016/09/01
+ * Fixed node description searching
+ * Added + to Level of Socketed Minion Gems to helmet templates
+
+### 1.0.10 - 2016/08/31
+ * Fixed crash bug affecting some users
+
+### 1.0.9 - 2016/08/31
+ * Attempted fix for a crash bug some users have been experiencing
+
+### 1.0.8 - 2016/08/31
+ * Fixed issue preventing the standalone version from updating correctly
+
+### 1.0.7 - 2016/08/31
+ * Fixed items not being deleted after confirmation
+
+### 1.0.6 - 2016/08/31
+ * Added the missing Amulet slot to the item databases' slot dropdown
+
+### 1.0.5 - 2016/08/31
+ * Added "Save" button as an alternative to Ctrl+S
+
+### 1.0.4 - 2016/08/31
+ * Attempt to fix bug causing the top of the UI to be hidden under the title bar
+
+### 1.0.3 - 2016/08/31
+ * Made some tweaks to the build list screen to ward off some possible errors
+
+### 1.0.2 - 2016/08/31
+ * Fixed an error relating to multipart skills
+
+### 1.0.1 - 2016/08/31
+ * Fixed an error in the build list screen
