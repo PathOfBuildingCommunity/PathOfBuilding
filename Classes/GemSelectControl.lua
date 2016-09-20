@@ -14,7 +14,7 @@ local m_floor = math.floor
 
 local GemSelectClass = common.NewClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc)
 	self.EditControl(anchor, x, y, width, height)
-	self.controls.scrollBar = common.New("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 16, 0, (height - 4) * 4)
+	self.controls.scrollBar = common.New("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
 	self.controls.scrollBar.y = function()
 		local width, height = self:GetSize()
 		return height + 1
@@ -80,12 +80,15 @@ function GemSelectClass:BuildList(buf)
 	end
 end
 
-function GemSelectClass:UpdateGem(addUndo)
+function GemSelectClass:UpdateGem(setText, addUndo)
 	local gemName = self.list[m_max(self.selIndex, 1)]
 	if self.buf:match("%S") and data.gems[gemName] then
 		self.gemName = gemName
 	else
 		self.gemName = ""
+	end
+	if setText then	
+		self:SetText(self.gemName)
 	end
 	self.gemChangeFunc(self.gemName, addUndo and self.gemName ~= self.initialBuf)
 end
@@ -166,6 +169,16 @@ function GemSelectClass:Draw(viewPort)
 				end
 			end
 			DrawString(0, y, "LEFT", height - 4, "VAR", self.list[index])
+			if gemData and gemData.support and self.skillsTab.displayGroup.displaySkillList then
+				local gem = { data = gemData }
+				for _, activeSkill in ipairs(self.skillsTab.displayGroup.displaySkillList) do
+					if gemCanSupport(gem, activeSkill) then
+						SetDrawColor(0.33, 1, 0.33)
+						main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
+						break
+					end
+				end
+			end
 		end
 		SetViewport()
 		self:DrawControls(viewPort)
@@ -212,8 +225,7 @@ function GemSelectClass:OnFocusLost()
 		if self.noMatches then
 			self:SetText("")
 		end
-		self:UpdateGem(true)
-		self:SetText(self.gemName)
+		self:UpdateGem(true, true)
 	end
 end
 
@@ -237,7 +249,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 				self.dropped = false
 				self.selIndex = self.hoverSel
 				self:SetText(self.list[self.selIndex])
-				self:UpdateGem(true)
+				self:UpdateGem(false, true)
 				return self
 			end
 		elseif key == "RETURN" then
@@ -246,15 +258,14 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 				self:SetText("")
 			end
 			self.selIndex = m_max(self.selIndex, 1)
-			self:UpdateGem(true)
-			self:SetText(self.gemName)
+			self:UpdateGem(true, true)
 			return self
 		elseif key == "ESCAPE" then
 			self.dropped = false
 			self:BuildList("")
 			self.buf = self.initialBuf
 			self.selIndex = self.initialIndex
-			self:UpdateGem(true)
+			self:UpdateGem(false, true)
 			return
 		elseif key == "WHEELUP" then
 			self.controls.scrollBar:Scroll(-1)
@@ -279,7 +290,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 				self:ScrollSelIntoView()
 			end
 		end
-	elseif key == "RETURN" then
+	elseif key == "RETURN" or key == "RIGHTBUTTON" then
 		self.dropped = true
 		self.initialIndex = self.selIndex
 		self.initialBuf = self.buf

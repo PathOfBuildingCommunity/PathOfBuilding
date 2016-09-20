@@ -357,6 +357,14 @@ function main:DrawArrow(x, y, size, dir)
 	end
 end
 
+function main:DrawCheckMark(x, y, size)
+	size = size / 0.8
+	x = x - size / 2
+	y = y - size / 2
+	DrawImageQuad(nil, x + size * 0.15, y + size * 0.50, x + size * 0.30, y + size * 0.45, x + size * 0.50, y + size * 0.80, x + size * 0.40, y + size * 0.90)
+	DrawImageQuad(nil, x + size * 0.40, y + size * 0.90, x + size * 0.35, y + size * 0.75, x + size * 0.80, y + size * 0.10, x + size * 0.90, y + size * 0.20)
+end
+
 function main:OpenPopup(width, height, title, controls)
 	local popup = common.New("PopupDialog", width, height, title, controls)
 	t_insert(self.popups, popup)

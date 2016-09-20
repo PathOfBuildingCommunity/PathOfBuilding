@@ -150,10 +150,11 @@ local function endWatch(env, key)
 	end
 end
 
--- Check if given support gem can support a skill with the given flags
-local function gemCanSupport(gem, flags)
+-- Check if given support gem can support the given active skill
+-- Global function, as GemSelectControl needs to use it too
+function gemCanSupport(gem, activeSkill)
 	if gem.data.requireFunc then
-		setfenv(gem.data.requireFunc, flags)
+		setfenv(gem.data.requireFunc, activeSkill.baseFlags)
 		return gem.data.requireFunc() == true
 	else
 		return true
@@ -193,7 +194,7 @@ local function createActiveSkill(activeGem, supportList)
 		baseFlags.projectile = true
 	end
 	for _, gem in ipairs(supportList) do
-		if gem.data.addFlags and gemCanSupport(gem, activeSkill.baseFlags) then
+		if gem.data.addFlags and gemCanSupport(gem, activeSkill) then
 			-- Support gem adds flags to supported skills (eg. Remote Mine adds 'mine')
 			for k in pairs(gem.data.addFlags) do
 				baseFlags[k] = true
@@ -203,7 +204,7 @@ local function createActiveSkill(activeGem, supportList)
 
 	-- Process support gems
 	for _, gem in ipairs(supportList) do
-		if gemCanSupport(gem, activeSkill.baseFlags) then
+		if gemCanSupport(gem, activeSkill) then
 			t_insert(activeSkill.gemList, {
 				name = gem.name,
 				data = gem.data,
@@ -982,7 +983,7 @@ local function finaliseMods(env, output)
 	if getMiscVal(modDB, "gear", "UniqueCount", 0) > 0 then
 		condList["UsingUniqueItem"] = true
 	end
-	if output.manaReservedBase == 0 and output.manaReservedPercent == 0 then
+	if getMiscVal(modDB, "reserved", "manaBase", 0) == 0 and getMiscVal(modDB, "reserved", "manaPercent", 0) == 0 then
 		condList["NoManaReserved"] = true
 	end
 	if modDB.Cond then
