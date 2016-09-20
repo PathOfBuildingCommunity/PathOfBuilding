@@ -80,7 +80,7 @@ function main:Init()
 	self.uniqueDB = { list = { } }
 	for type, typeList in pairs(data.uniques) do
 		for _, raw in pairs(typeList) do
-			local newItem = itemLib.makeItemFromRaw(raw)
+			local newItem = itemLib.makeItemFromRaw("Rarity: Unique\n"..raw)
 			if newItem then
 				self.uniqueDB.list[newItem.name] = newItem
 			else

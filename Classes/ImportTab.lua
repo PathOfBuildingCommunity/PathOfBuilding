@@ -77,7 +77,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 		return self.charImportMode == "SELECTCHAR"
 	end
 	self.controls.charImportHeader = common.New("LabelControl", {"TOPLEFT",self.controls.charSelect,"BOTTOMLEFT"}, 0, 16, 200, 16, "Import:")
-	self.controls.charImport = common.New("ButtonControl", {"LEFT",self.controls.charImportHeader, "RIGHT"}, 8, 0, 100, 20, "Passive Tree", function()
+	self.controls.charImportTree = common.New("ButtonControl", {"LEFT",self.controls.charImportHeader, "RIGHT"}, 8, 0, 170, 20, "Passive Tree and Jewels", function()
 		if self.build.spec:CountAllocNodes() > 0 then
 			main:OpenConfirmPopup("Character Import", "Importing the passive tree will overwrite your current tree.", "Import", function()
 				self:DownloadPassiveTree()
@@ -86,7 +86,13 @@ You can get this from your web browser's cookies while logged into the Path of E
 			self:DownloadPassiveTree()
 		end
 	end)
-	self.controls.charImport.enabled = function()
+	self.controls.charImportTree.enabled = function()
+		return self.charImportMode == "SELECTCHAR"
+	end
+	self.controls.charImportItems = common.New("ButtonControl", {"LEFT",self.controls.charImportTree, "RIGHT"}, 8, 0, 110, 20, "Items and Skills", function()
+		self:DownloadItems()
+	end)
+	self.controls.charImportItems.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
 	self.controls.charDone = common.New("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 30, 60, 20, "Done", function()
@@ -180,7 +186,7 @@ function ImportTabClass:DownloadCharacterList()
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or main.accountSessionIDs[accountName]
 	launch:DownloadPage("https://www.pathofexile.com/character-window/get-characters?accountName="..accountName, function(page, errMsg)
 		if errMsg then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."Unknown error retrieving character list, try again ("..errMsg")"
+			self.charImportStatus = data.colorCodes.NEGATIVE.."Unknown error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
 			self.charImportMode = "GETACCOUNTNAME"
 			return
 		elseif page == "false" then
@@ -223,24 +229,263 @@ function ImportTabClass:DownloadPassiveTree()
 	launch:DownloadPage("https://www.pathofexile.com/character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name, function(page, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."Unknown error importing character data, try again ("..errMsg")"
+			self.charImportStatus = data.colorCodes.NEGATIVE.."Unknown error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
 			return
 		elseif page == "false" then
 			self.charImportStatus = data.colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
 			return
 		end
-		local passiveData, errMsg = self:ProcessJSON(page)
+		local charPassiveData, errMsg = self:ProcessJSON(page)
 		if errMsg then
 			self.charImportStatus = data.colorCodes.NEGATIVE.."Error processing character data, try again later."
 			return
 		end
-		self.charImportStatus = data.colorCodes.POSITIVE.."Passive tree successfully imported."
-		self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, passiveData.hashes)
+		self.charImportStatus = data.colorCodes.POSITIVE.."Passive tree and jewels successfully imported."
+		--ConPrintTable(charPassiveData)
+		self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes)
 		self.build.spec:AddUndoState()
+		local sockets = { }
+		for i, slot in pairs(charPassiveData.jewel_slots) do
+			sockets[i] = tonumber(slot.passiveSkill.hash)
+		end
+		for _, itemData in pairs(charPassiveData.items) do
+			self:ImportItem(itemData, sockets)
+		end
+		self.build.itemsTab:PopulateSlots()
+		self.build.itemsTab:AddUndoState()
 		self.build.characterLevel = charData.level
+		self.build.controls.characterLevel:SetText(charData.level)
 		self.build.buildFlag = true
-		ConPrintTable(passiveData)
 	end, sessionID and "POESESSID="..sessionID)
+end
+
+function ImportTabClass:DownloadItems()
+	self.charImportMode = "IMPORTING"
+	self.charImportStatus = "Retrieving character items..."
+	local accountName = self.controls.accountName.buf
+	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or main.accountSessionIDs[accountName]
+	local charSelect = self.controls.charSelect
+	local charData = charSelect.list[charSelect.sel].val
+	launch:DownloadPage("https://www.pathofexile.com/character-window/get-items?accountName="..accountName.."&character="..charData.name, function(page, errMsg)
+		self.charImportMode = "SELECTCHAR"
+		if errMsg then
+			self.charImportStatus = data.colorCodes.NEGATIVE.."Unknown error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
+			return
+		elseif page == "false" then
+			self.charImportStatus = data.colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
+			return
+		end
+		local charItemData, errMsg = self:ProcessJSON(page)
+		if errMsg then
+			self.charImportStatus = data.colorCodes.NEGATIVE.."Error processing character data, try again later."
+			return
+		end
+		self.charImportStatus = data.colorCodes.POSITIVE.."Items and skills successfully imported."
+		--ConPrintTable(charItemData)
+		for _, itemData in pairs(charItemData.items) do
+			self:ImportItem(itemData)
+		end
+		self.build.itemsTab:PopulateSlots()
+		self.build.itemsTab:AddUndoState()
+		self.build.skillsTab:AddUndoState()
+		self.build.buildFlag = true
+	end, sessionID and "POESESSID="..sessionID)
+end
+
+local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE" }
+local colorMap = { S = "R", D = "G", I = "B", G = "W" }
+local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Belt"] = "Belt" }
+
+function ImportTabClass:ImportItem(itemData, sockets)
+	local slotName
+	if itemData.inventoryId == "PassiveJewels" and sockets then
+		slotName = "Jewel "..sockets[itemData.x + 1]
+	else
+		slotName = slotMap[itemData.inventoryId]
+	end
+	if not slotName then
+		-- Ignore any items that won't go into known slots
+		return
+	end
+
+	local item = { }
+
+	-- Determine rarity, display name and base type of the item
+	item.rarity = rarityMap[itemData.frameType]
+	if #itemData.name > 0 then
+		item.title = itemLib.sanitiseItemText(itemData.name)
+		item.baseName = itemLib.sanitiseItemText(itemData.typeLine)
+		item.name = item.title .. ", " .. item.baseName
+		item.base = data.itemBases[item.baseName]
+		if item.base then
+			item.type = item.base.type
+		else
+			ConPrintf("Unrecognised base in imported item: %s", item.baseName)
+		end
+	else
+		item.name = itemLib.sanitiseItemText(itemData.name)
+		for baseName, baseData in pairs(data.itemBases) do
+			if item.name:find(baseName, 1, true) then
+				item.baseName = baseName
+				item.base = data.itemBases[item.baseName]
+				item.type = baseData.type
+				break
+			end
+		end
+	end
+	if not item.base or not item.rarity then
+		return
+	end
+
+	-- Import item data
+	item.uniqueID = itemData.id
+	if itemData.ilvl > 0 then
+		item.itemLevel = itemData.ilvl
+	end
+	item.quality = 0
+	if itemData.properties then
+		for _, property in pairs(itemData.properties) do
+			if property.name == "Quality" then
+				item.quality = tonumber(property.values[1][1]:match("%d+"))
+			elseif property.name == "Radius" then
+				for index, data in pairs(data.jewelRadius) do
+					if property.values[1][1] == data.label then
+						item.jewelRadiusIndex = index
+						break
+					end
+				end
+			elseif property.name == "Limited to" then
+				item.limit = tonumber(property.values[1][1])
+			end
+		end
+	end
+	if itemData.corrupted then
+		item.corrupted = true
+	elseif item.base.weapon or item.base.armour then
+		item.quality = 20
+	end
+	if itemData.sockets[1] then
+		item.sockets = { }
+		for i, socket in pairs(itemData.sockets) do
+			item.sockets[i] = { group = socket.group, color = colorMap[socket.attr] }
+		end
+	end
+	if itemData.socketedItems then
+		self:ImportSocketedSkills(item, itemData.socketedItems, slotName)
+	end
+	item.modLines = { }
+	item.implicitLines = 0
+	if itemData.implicitMods then
+		item.implicitLines = item.implicitLines + #itemData.implicitMods
+		for _, line in ipairs(itemData.implicitMods) do
+			line = line:gsub("\n"," ")
+			local modList, extra = modLib.parseMod(line)
+			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { } })
+		end
+	end
+	if itemData.enchantMods then
+		item.implicitLines = item.implicitLines + #itemData.enchantMods
+		for _, line in ipairs(itemData.enchantMods) do
+			line = line:gsub("\n"," ")
+			local modList, extra = modLib.parseMod(line)
+			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+		end
+	end
+	if itemData.explicitMods then
+		for _, line in ipairs(itemData.explicitMods) do
+			line = line:gsub("\n"," ")
+			local modList, extra = modLib.parseMod(line)
+			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { } })
+		end
+	end
+	if itemData.craftedMods then
+		for _, line in ipairs(itemData.craftedMods) do
+			line = line:gsub("\n"," ")
+			local modList, extra = modLib.parseMod(line)
+			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+		end
+	end
+
+	-- Add and equip the new item
+	itemLib.createItemRaw(item)
+--	ConPrintf("%s", item.raw)
+	local newItem = itemLib.makeItemFromRaw(item.raw)
+	if newItem then
+		local repIndex, repItem
+		for index, item in pairs(self.build.itemsTab.list) do
+			if item.uniqueID == itemData.id then
+				repIndex = index
+				repItem = item
+				break
+			end
+		end
+		if repIndex then
+			-- Item already exists in the build, overwrite it
+			newItem.id = repItem.id
+			self.build.itemsTab.list[newItem.id] = newItem
+		else
+			self.build.itemsTab:AddItem(newItem, true)
+		end
+		self.build.itemsTab.slots[slotName].selItemId = newItem.id
+	end
+end
+
+function ImportTabClass:ImportSocketedSkills(item, socketedItems, slotName)
+	-- Build socket group list
+	local itemSocketGroupList = { }
+	for _, socketedItem in ipairs(socketedItems) do
+		local gem = { level = 20, quality = 0, enabled = true}
+		gem.nameSpec = socketedItem.typeLine:gsub(" Support","")
+		gem.support = socketedItem.support
+		for _, property in pairs(socketedItem.properties) do
+			if property.name == "Level" then
+				gem.level = tonumber(property.values[1][1]:match("%d+"))
+			elseif property.name == "Quality" then
+				gem.quality = tonumber(property.values[1][1]:match("%d+"))
+			end
+		end
+		local groupID = item.sockets[socketedItem.socket + 1].group
+		if not itemSocketGroupList[groupID] then
+			itemSocketGroupList[groupID] = { label = "", enabled = true, gemList = { }, slot = slotName }
+		end
+		local socketGroup = itemSocketGroupList[groupID]
+		if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support then
+			-- If the first gem is a support gem, put the first active gem before it
+			t_insert(socketGroup.gemList, 1, gem)
+		else
+			t_insert(socketGroup.gemList, gem)
+		end
+	end
+
+	-- Import the socket groups
+	for _, itemSocketGroup in pairs(itemSocketGroupList) do
+		-- Check if this socket group matches an existing one
+		local repIndex
+		for index, socketGroup in pairs(self.build.skillsTab.socketGroupList) do
+			if #socketGroup.gemList == #itemSocketGroup.gemList then
+				local match = true
+				for gemIndex, gem in pairs(socketGroup.gemList) do
+					if gem.nameSpec ~= itemSocketGroup.gemList[gemIndex].nameSpec then
+						match = false
+						break
+					end
+				end
+				if match then
+					repIndex = index
+					break
+				end
+			end
+		end
+		if repIndex then
+			-- Replace the existing one
+			itemSocketGroup.label = self.build.skillsTab.socketGroupList[repIndex].label
+			itemSocketGroup.enabled = self.build.skillsTab.socketGroupList[repIndex].enabled
+			self.build.skillsTab.socketGroupList[repIndex] = itemSocketGroup
+		else
+			t_insert(self.build.skillsTab.socketGroupList, itemSocketGroup)
+		end
+		self.build.skillsTab:ProcessSocketGroup(itemSocketGroup)
+	end	
 end
 
 function ImportTabClass:ProcessJSON(json)

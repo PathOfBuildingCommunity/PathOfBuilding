@@ -177,6 +177,11 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 			elseif event.key == "y" and IsKeyDown("CTRL") then
 				self:Redo()
 				self.build.buildFlag = true
+			elseif launch.devMode and event.key == "DELETE" and IsKeyDown("CTRL") then
+				while self.orderList[1] do
+					self:DeleteItem(self.list[self.orderList[1]])
+				end
+				self.build.buildFlag = true
 			end
 		end
 	end
@@ -263,23 +268,23 @@ function ItemsTabClass:UpdateDisplayItemRangeLines()
 	end
 end
 
--- Adds the current display item to the build's item list
-function ItemsTabClass:AddDisplayItem(noAutoEquip)
-	if not self.displayItem.id then
+-- Adds the given item to the build's item list
+function ItemsTabClass:AddItem(item, noAutoEquip)
+	if not item.id then
 		-- Find an unused item ID
-		self.displayItem.id = 1
-		while self.list[self.displayItem.id] do
-			self.displayItem.id = self.displayItem.id + 1
+		item.id = 1
+		while self.list[item.id] do
+			item.id = item.id + 1
 		end
 
 		-- Add it to the end of the display order list
-		t_insert(self.orderList, self.displayItem.id)
+		t_insert(self.orderList, item.id)
 
 		if not noAutoEquip then
 			-- Autoequip it
 			for _, slotName in ipairs(baseSlots) do
-				if self.slots[slotName].selItemId == 0 and self:IsItemValidForSlot(self.displayItem, slotName) then
-					self.slots[slotName].selItemId = self.displayItem.id
+				if self.slots[slotName].selItemId == 0 and self:IsItemValidForSlot(item, slotName) then
+					self.slots[slotName].selItemId = item.id
 					break
 				end
 			end
@@ -287,7 +292,13 @@ function ItemsTabClass:AddDisplayItem(noAutoEquip)
 	end
 	
 	-- Add it to the list and clear the current display item
-	self.list[self.displayItem.id] = self.displayItem
+	self.list[item.id] = item
+end
+
+-- Adds the current display item to the build's item list
+function ItemsTabClass:AddDisplayItem(noAutoEquip)
+	-- Add it to the list and clear the current display item
+	self:AddItem(self.displayItem, noAutoEquip)
 	self:SetDisplayItem()
 
 	self:PopulateSlots()
@@ -439,7 +450,13 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 			if not modLine.variantList or modLine.variantList[item.variant] then
 				local line = (not dbMode and modLine.range and itemLib.applyRange(modLine.line, modLine.range)) or modLine.line
 				if not line:match("^%+?0[^%.]") and not line:match(" 0%-0 ") and not line:match(" 0 to 0 ") then -- Hack to hide 0-value modifiers
-					main:AddTooltipLine(16, (modLine.extra and data.colorCodes.NORMAL or data.colorCodes.MAGIC)..line)
+					local colorCode
+					if modLine.extra then
+						colorCode = data.colorCodes.NORMAL
+					else
+						colorCode = modLine.crafted and data.colorCodes.CRAFTED or data.colorCodes.MAGIC
+					end
+					main:AddTooltipLine(16, colorCode..line)
 				end
 			end
 			if index == item.implicitLines and item.modLines[index + 1] then

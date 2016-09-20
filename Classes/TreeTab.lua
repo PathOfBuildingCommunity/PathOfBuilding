@@ -131,6 +131,8 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
 
+	SetDrawLayer(1)
+
 	SetDrawColor(0.05, 0.05, 0.05)
 	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 28, viewPort.width, 28)
 	SetDrawColor(0.85, 0.85, 0.85)

@@ -332,17 +332,17 @@ local specialSpaceList = {
 	["if you've crit in the past 8 seconds"] = "CondMod_CritInPast8Sec_",
 	["if energy shield recharge has started recently"] = "CondMod_EnergyShieldRechargeRecently_",
 	-- Enemy status conditions
-	["against bleeding enemies"] = "CondMod_EnemyBleeding_",
-	["against poisoned enemies"] = "CondMod_EnemyPoisoned_",
-	["against burning enemies"] = "CondMod_EnemyBurning_",
-	["against ignited enemies"] = "CondMod_EnemyIgnited_",
-	["against shocked enemies"] = "CondMod_EnemyShocked_",
-	["against frozen enemies"] = "CondMod_EnemyFrozen_",
-	["against chilled enemies"] = "CondMod_EnemyChilled_",
-	["enemies which are chilled"] = "CondMod_EnemyChilled_",
-	["against frozen, shocked or ignited enemies"] = "CondMod_EnemyFrozenShockedIgnited_",
-	["against enemies that are affected by elemental status ailments"] = "CondMod_EnemyElementalStatus_",
-	["against enemies that are affected by no elemental status ailments"] = "CondMod_notEnemyElementalStatus_",
+	["against bleeding enemies"] = "CondEffMod_EnemyBleeding_",
+	["against poisoned enemies"] = "CondEffMod_EnemyPoisoned_",
+	["against burning enemies"] = "CondEffMod_EnemyBurning_",
+	["against ignited enemies"] = "CondEffMod_EnemyIgnited_",
+	["against shocked enemies"] = "CondEffMod_EnemyShocked_",
+	["against frozen enemies"] = "CondEffMod_EnemyFrozen_",
+	["against chilled enemies"] = "CondEffMod_EnemyChilled_",
+	["enemies which are chilled"] = "CondEffMod_EnemyChilled_",
+	["against frozen, shocked or ignited enemies"] = "CondEffMod_EnemyFrozenShockedIgnited_",
+	["against enemies that are affected by elemental status ailments"] = "CondEffMod_EnemyElementalStatus_",
+	["against enemies that are affected by no elemental status ailments"] = "CondEffMod_notEnemyElementalStatus_",
 }
 
 -- List of special modifiers
@@ -413,6 +413,8 @@ local specialModList = {
 	["%+(%d+) to level of socketed (%a+) gems"] = function(num, _, type) return { ["SocketedIn:X_gemLevel_"..type] = num } end,
 	["%+(%d+)%% to quality of socketed (%a+) gems"] = function(num, _, type) return { ["SocketedIn:X_gemQuality_"..type] = num } end,
 	["%+(%d+) to level of active socketed skill gems"] = function(num) return { ["SocketedIn:X_gemLevel_active"] = num } end,
+	["socketed gems are supported by level (%d+) (.+)"] = function(num, _, support) return { ["SocketedIn:X_supportedBy_"..num..":"..support] = true } end,
+	["socketed curse gems supported by level (%d+) (.+)"] = function(num, _, support) return { ["SocketedIn:X_supportedBy_"..num..":"..support] = true } end,
 	["socketed gems fire an additional projectile"] = { ["SocketedIn:X_projectileCount"] = 1 },
 	["socketed gems fire (%d+) additional projectiles"] = function(num) return { ["SocketedIn:X_projectileCount"] = num } end,
 	["socketed gems reserve no mana"] = { ["SocketedIn:X_manaReservedMore"] = 0 },
@@ -524,6 +526,7 @@ local function getPerStat(dst, stat, factor)
 		if nodeMods then
 			data[stat] = (data[stat] or 0) + (nodeMods[stat] or 0)
 		else
+			ConPrintf("%s %d %f", dst, data[stat], math.floor(data[stat] * factor + 0.5))
 			modLib.listMerge(out, dst, math.floor(data[stat] * factor + 0.5))
 		end
 	end
@@ -542,12 +545,14 @@ local jewelFuncs = {
 	["Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage"] = getMatchConv({"physicalInc"}, "coldInc"),
 	["Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage"] = getMatchConv({"coldInc"}, "physicalInc"),
 	["Increases and Reductions to other Damage Types in Radius are Transformed to apply to Fire Damage"] = getMatchConv({"physicalInc","coldInc","lightningInc","chaosInc"}, "fireInc"),
-	["Melee and Melee Weapon Type Modifiers in Radius are Transformed to Bow Modifiers"] = getMatchConv({"melee_","weapon1hMelee_","weapon2hMelee_","axe_","claw_","dagger_","mace_","staff_","sword_"}, "bow_"),
+	["Melee and Melee Weapon Type modifiers in Radius are Transformed to Bow Modifiers"] = getMatchConv({"melee_","weapon1hMelee_","weapon2hMelee_","axe_","claw_","dagger_","mace_","staff_","sword_"}, "bow_"),
 	["Adds 1 to maximum Life per 3 Intelligence in Radius"] = getPerStat("lifeBase", "intBase", 1 / 3),
+	["Adds 1 to Maximum Life per 3 Intelligence Allocated in Radius"] = getPerStat("lifeBase", "intBase", 1 / 3),
 	["1% increased Evasion Rating per 3 Dexterity Allocated in Radius"] = getPerStat("evasionInc", "dexBase", 1 / 3),
 	["1% increased Claw Physical Damage per 3 Dexterity Allocated in Radius"] = getPerStat("claw_physicalInc", "dexBase", 1 / 3),
 	["1% increased Melee Physical Damage while Unarmed per 3 Dexterity Allocated in Radius"] = getPerStat("unarmed_physicalInc", "dexBase", 1 / 3),
 	["3% increased Totem Life per 10 Strength in Radius"] = getPerStat("totemLifeInc", "strBase", 3 / 10),
+	["3% increased Totem Life per 10 Strength Allocated in Radius"] = getPerStat("totemLifeInc", "strBase", 3 / 10),
 	["Adds 1 maximum Lightning Damage to Attacks per 1 Dexterity Allocated in Radius"] = getPerStat("attack_lightningMax", "dexBase", 1),
 	["5% increased Chaos damage per 10 Intelligence from Allocated Passives in Radius"] = getPerStat("chaosInc", "intBase", 5 / 10),
 	["Dexterity and Intelligence from passives in Radius count towards Strength Melee Damage bonus"] = function(nodeMods, out, data)
@@ -586,8 +591,10 @@ return function(line)
 			return copyTable(specialMod)
 		end
 	end
-	if jewelFuncs[line] then
-		return { jewelFunc = jewelFuncs[line] }
+	for desc, func in pairs(jewelFuncs) do
+		if desc:lower() == line:lower() then
+			return { jewelFunc = func }
+		end
 	end
 
 	-- Check for a namespace at the start of the line

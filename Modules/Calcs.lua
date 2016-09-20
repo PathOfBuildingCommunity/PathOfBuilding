@@ -92,10 +92,10 @@ local function mergeGemMods(modList, gem)
 		mod_listMerge(modList, k, v)
 	end
 	for k, v in pairs(gem.data.quality) do
-		mod_listMerge(modList, k, m_floor(v * gem.effectiveQuality))
+		mod_listMerge(modList, k, m_floor(v * gem.quality))
 	end
-	gem.effectiveLevel = m_min(gem.effectiveLevel, #gem.data.levels)
-	for k, v in pairs(gem.data.levels[gem.effectiveLevel]) do
+	gem.level = m_min(gem.level, #gem.data.levels)
+	for k, v in pairs(gem.data.levels[gem.level]) do
 		mod_listMerge(modList, k, v)
 	end
 end
@@ -150,49 +150,45 @@ local function endWatch(env, key)
 	end
 end
 
-
--- Performs some preliminary processing of the given skill
--- It will find the active skill gem, determines the base flag set, and check that the support gems can support this skill
-local function validateSkillSupports(skill)
-	-- Build gem list
-	local gemList = { }
-	for _, gem in pairs(skill.gemList) do
-		if gem.name then
-			t_insert(gemList, gem)
-		end
+-- Check if given support gem can support a skill with the given flags
+local function gemCanSupport(gem, flags)
+	if gem.data.requireFunc then
+		setfenv(gem.data.requireFunc, flags)
+		return gem.data.requireFunc() == true
+	else
+		return true
 	end
+end
 
-	-- Find active skill
-	skill.activeGem = nil
-	for _, gem in ipairs(gemList) do
-		if not gem.data.support then
-			skill.activeGem = gem
-			break
-		end
-	end
-
-	-- Default attack if no active gem provided
-	if not skill.activeGem or not skill.activeGem.enabled then
-		skill.activeGem = {
-			name = "Default Attack",
-			level = 1,
-			quality = 0,
-			enabled = true,
-			data = data.gems._default
-		}
-		gemList = { skill.activeGem }
-	end
+-- Create an active skill using the given active gem and list of support gems
+-- It will determine the base flag set, and check which of the support gems can support this skill
+local function createActiveSkill(activeGem, supportList)
+	local activeSkill = { }
+	activeSkill.activeGem = {
+		name = activeGem.name,
+		data = activeGem.data,
+		level = activeGem.level,
+		quality = activeGem.quality,
+		srcGem = activeGem,
+	}
+	activeSkill.gemList = { activeSkill.activeGem }
 
 	-- Build base skill flag set ('attack', 'projectile', etc)
 	local baseFlags = { }
-	skill.baseFlags = baseFlags
-	for k, v in pairs(skill.activeGem.data) do
+	activeSkill.baseFlags = baseFlags
+	for k, v in pairs(activeSkill.activeGem.data) do
 		if v == true then
 			baseFlags[k] = true
 		end
 	end
-	for _, gem in ipairs(gemList) do
-		if gem.data.support and gem.data.addFlags then
+	if baseFlags.hit then
+		baseFlags.damage = true
+	end
+	if baseFlags.bow then
+		baseFlags.projectile = true
+	end
+	for _, gem in ipairs(supportList) do
+		if gem.data.addFlags and gemCanSupport(gem, activeSkill.baseFlags) then
 			-- Support gem adds flags to supported skills (eg. Remote Mine adds 'mine')
 			for k in pairs(gem.data.addFlags) do
 				baseFlags[k] = true
@@ -201,70 +197,53 @@ local function validateSkillSupports(skill)
 	end
 
 	-- Process support gems
-	skill.validGemList = { }
-	for _, gem in ipairs(gemList) do
-		if gem.data.support and (
-			(gem.data.attack and not baseFlags.attack) or
-			(gem.data.spell and not baseFlags.spell) or
-			(gem.data.melee and not baseFlags.melee) or
-			(gem.data.projectile and not baseFlags.projectile) or
-			(gem.data.chaining and not (baseFlags.chaining or baseFlags.projectile) and not (gem.data.projectile and baseFlags.projectile)) or
-			(gem.data.duration and not baseFlags.duration) or
-			(gem.data.totem and not baseFlags.totem) or
-			(gem.data.trap and not baseFlags.trap and not (gem.data.mine and baseFlags.mine)) or
-			(gem.data.mine and not baseFlags.mine and not (gem.data.trap and baseFlags.trap)) ) then
-			-- This support doesn't apply
-			gem.calcsErrMsg = skill.activeGem.name.." cannot be supported by "..gem.name
-		elseif not gem.data.support and gem ~= skill.activeGem then
-			gem.calcsErrMsg = "You can only specify one active gem per skill, so this one will be ignored"
-		else
-			gem.calcsErrMsg = nil
-			if gem.enabled then
-				t_insert(skill.validGemList, gem)
+	for _, gem in ipairs(supportList) do
+		if gemCanSupport(gem, activeSkill.baseFlags) then
+			t_insert(activeSkill.gemList, {
+				name = gem.name,
+				data = gem.data,
+				level = gem.level,
+				quality = gem.quality,
+				fromItem = gem.fromItem,
+				srcGem = gem,
+			})
+			if gem.isSupporting then
+				gem.isSupporting[activeGem.name] = true
 			end
 		end
 	end
+
+	return activeSkill
 end
 
--- Build list of modifiers for given skill
-local function buildSkillModList(env, skill)
-	-- Initialise effective gem level and quality
-	for _, gem in pairs(skill.validGemList) do
-		gem.effectiveLevel = m_max(1, m_min(#gem.data.levels, gem.level))
-		gem.effectiveQuality = m_max(0, m_min(23, gem.quality))
-	end
-
+-- Build list of modifiers for given active skill
+local function buildActiveSkillModList(env, activeSkill)
 	local skillModList = { }
-	skill.skillModList = skillModList
+	activeSkill.skillModList = skillModList
 
-	if skill.slot then
-		-- Check for local skill modifiers from the item this skill is socketed into
-		local slotSpace = env.modDB["SocketedIn:"..skill.slot]
-		if slotSpace then
-			for k, v in pairs(slotSpace) do
-				local property, type = k:match("gem(%a+)_(%a+)")
-				if property then
-					-- Gem level/quality modifier, apply it now
-					for _, gem in pairs(skill.validGemList) do
-						if type == "all" or (type == "active" and not gem.data.support) or gem.data[type] then
-							-- This modifier applies to this type of gem
-							if property == "Level" then
-								gem.effectiveLevel = gem.effectiveLevel + v
-							elseif property == "Quality" then
-								gem.effectiveQuality = gem.effectiveQuality + v
-							end
-						end
-					end
-				else
-					-- Merge with the skill modifier list
-					mod_listMerge(skillModList, k, v)
+	if activeSkill.socketBonuses then
+		-- Apply local skill modifiers from the item this skill is socketed into
+		for type, val in pairs(activeSkill.socketBonuses.gemLevel) do
+			for _, gem in pairs(activeSkill.gemList) do
+				if not gem.fromItem and (type == "all" or (type == "active" and not gem.data.support) or gem.data[type]) then
+					gem.level = gem.level + val
 				end
 			end
+		end
+		for type, val in pairs(activeSkill.socketBonuses.gemQuality) do
+			for _, gem in pairs(activeSkill.gemList) do
+				if not gem.fromItem and (type == "all" or (type == "active" and not gem.data.support) or gem.data[type]) then
+					gem.quality = gem.quality + val
+				end
+			end
+		end
+		for k, v in pairs(activeSkill.socketBonuses.modList) do
+			mod_listMerge(skillModList, k, v)
 		end
 	end
 
 	-- Merge skill-specific modifiers
-	local skillSpace = env.modDB["Skill:"..skill.activeGem.name]
+	local skillSpace = env.modDB["Skill:"..activeSkill.activeGem.name]
 	if skillSpace then
 		for k, v in pairs(skillSpace) do
 			mod_listMerge(skillModList, k, v)
@@ -272,37 +251,60 @@ local function buildSkillModList(env, skill)
 	end
 
 	-- Add support gem modifiers to skill mod list
-	for _, gem in pairs(skill.validGemList) do
+	for _, gem in pairs(activeSkill.gemList) do
 		if gem.data.support then
 			mergeGemMods(skillModList, gem)
 		end
 	end
 
 	-- Apply gem/quality modifiers from support gems
-	skill.activeGem.effectiveLevel = skill.activeGem.effectiveLevel + (skillModList.gemLevel_active or 0)
-	skill.activeGem.effectiveQuality = skill.activeGem.effectiveQuality + (skillModList.gemQuality_active or 0)
+	activeSkill.activeGem.level = activeSkill.activeGem.level + (skillModList.gemLevel_active or 0)
+	activeSkill.activeGem.quality = activeSkill.activeGem.quality + (skillModList.gemQuality_active or 0)
 
 	-- Add active gem modifiers
-	mergeGemMods(skillModList, skill.activeGem)
+	mergeGemMods(skillModList, activeSkill.activeGem)
 
 	-- Separate auxillary modifiers (mods that can affect defensive stats or other skills)
-	skill.buffModList = { }
-	skill.auraModList = { }
-	skill.curseModList = { }
+	activeSkill.buffModList = { }
+	activeSkill.auraModList = { }
+	activeSkill.curseModList = { }
 	for k, v in pairs(skillModList) do
 		local spaceName, modName = modLib.getSpaceName(k)
 		if spaceName == "BuffEffect" then
-			mod_listMerge(skill.buffModList, modName, v)
+			mod_listMerge(activeSkill.buffModList, modName, v)
 		elseif spaceName == "AuraEffect" then
-			mod_listMerge(skill.auraModList, modName, v)
+			mod_listMerge(activeSkill.auraModList, modName, v)
 		elseif spaceName == "CurseEffect" then
-			mod_listMerge(skill.curseModList, modName, v)
+			mod_listMerge(activeSkill.curseModList, modName, v)
 		end
 	end
 
-	if skill ~= env.mainSkill then
+	if activeSkill ~= env.mainSkill then
 		-- Add to auxillary skill list
-		t_insert(env.auxSkills, skill)
+		t_insert(env.auxSkillList, activeSkill)
+	end
+
+	-- Handle multipart skills
+	activeSkill.skillPartList = { }
+	local activeGemParts = activeSkill.activeGem.data.parts
+	if activeGemParts then
+		for i, part in pairs(activeGemParts) do
+			activeSkill.skillPartList[i] = part.name or ""
+		end
+		if activeSkill == env.mainSkill then
+			activeSkill.skillPart = m_min(#activeGemParts, env.skillPart or activeSkill.activeGem.srcGem.skillPart or 1)
+		else
+			activeSkill.skillPart = m_min(#activeGemParts, activeSkill.activeGem.srcGem.skillPart or 1)
+		end
+		local part = activeGemParts[activeSkill.skillPart]
+		for k, v in pairs(part) do
+			if v == true then
+				activeSkill.baseFlags[k] = true
+			elseif v == false then
+				activeSkill.baseFlags[k] = nil
+			end
+		end
+		activeSkill.baseFlags.multiPart = #activeGemParts > 1
 	end
 end
 
@@ -437,64 +439,17 @@ end
 --
 
 -- Initialise environment
--- This will initialise the skill list and the modifier database
+-- This will initialise the modifier database
 local function initEnv(build, input, mode)
 	local env = { }
 	env.build = build
-
-	-- Make a local copy of the skill list
-	env.skills = { }
-	for _, skill in pairs(build.skillsTab.list) do
-		t_insert(env.skills, skill)
-	end
-	if #env.skills == 0 then
-		-- No skills found, so add dummy skill to stop everything exploding
-		t_insert(env.skills, { gemList = { } })
-	end
-
-	-- Process the skills
-	for _, skill in pairs(env.skills) do
-		validateSkillSupports(skill)
-	end
-
-	-- Select main skill
-	if mode == "GRID" then
-		input.skill_number = m_min(#env.skills, input.skill_number or 1)
-		env.mainSkillIndex = input.skill_number
-		env.skillPart = input.skill_part or 1
-		env.buffMode = input.misc_buffMode
-	else
-		build.mainSkillIndex = m_min(#env.skills, build.mainSkillIndex or 1)
-		env.mainSkillIndex = build.mainSkillIndex
-		env.skillPart = env.skills[env.mainSkillIndex].skillPart or 1
-		env.buffMode = "EFFECTIVE"
-	end
-	env.mainSkill = env.skills[env.mainSkillIndex]
-	env.setupFunc = env.mainSkill.activeGem.data.setupFunc
-
-	-- Handle multipart skills
-	env.skillParts = { }
-	local activeGemParts = env.mainSkill.activeGem.data.parts
-	if activeGemParts then
-		for i, part in pairs(activeGemParts) do
-			env.skillParts[i] = part.name or ""
-		end
-		env.skillPart = m_min(#activeGemParts, env.skillPart)
-		local part = activeGemParts[env.skillPart]
-		for k, v in pairs(part) do
-			if v == true then
-				env.mainSkill.baseFlags[k] = true
-			elseif v == false then
-				env.mainSkill.baseFlags[k] = nil
-			end
-		end
-		env.mainSkill.baseFlags.multiPart = #activeGemParts > 1
-	end
+	env.input = input
+	env.mode = mode
+	env.classId = build.spec.curClassId
 
 	-- Initialise modifier database with base values
 	local modDB = { }
 	env.modDB = modDB
-	env.classId = build.spec.curClassId
 	local classStats = build.tree.characterData[env.classId]
 	for _, stat in pairs({"str","dex","int"}) do
 		mod_dbMerge(modDB, "", stat.."Base", classStats["base_"..stat])
@@ -562,7 +517,8 @@ end
 -- 1. Merges modifiers for all items, optionally replacing one item
 -- 2. Builds a list of jewels with radius functions
 -- 3. Merges modifiers for all allocated passive nodes
--- 4. Builds modifier lists for all active skills
+-- 4. Builds a list of active skills and their supports
+-- 5. Builds modifier lists for all active skills
 local function mergeMainMods(env, repSlotName, repItem)
 	local build = env.build
 
@@ -619,12 +575,147 @@ local function mergeMainMods(env, repSlotName, repItem)
 	env.specModList = buildNodeModList(env, build.spec.allocNodes, true)
 	mod_dbMergeList(env.modDB, env.specModList)
 
-	-- Build skill modifier lists
-	env.auxSkills = { }
-	for _, skill in pairs(env.skills) do
-		if skill == env.mainSkill or skill.active then
-			buildSkillModList(env, skill)
+	-- Determine main skill group
+	if env.mode == "GRID" then
+		env.input.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.input.skill_number or 1)
+		env.mainSocketGroup = env.input.skill_number
+		env.skillPart = env.input.skill_part or 1
+		env.buffMode = env.input.misc_buffMode
+	else
+		build.mainSocketGroup = m_min(m_max(#build.skillsTab.socketGroupList, 1), build.mainSocketGroup or 1)
+		env.mainSocketGroup = build.mainSocketGroup
+		env.buffMode = "EFFECTIVE"
+	end
+
+	-- Build list of bonuses to socketed gems
+	local slotSocketBonuses = { }
+	for slotName in pairs(build.itemsTab.slots) do
+		if env.modDB["SocketedIn:"..slotName] then
+			slotSocketBonuses[slotName] = {
+				supports = { },
+				gemLevel = { },
+				gemQuality = { },
+				modList = { }
+			}
+			for k, v in pairs(env.modDB["SocketedIn:"..slotName]) do
+				local spaceName, modName = modLib.getSpaceName(k)
+				if spaceName == "supportedBy" then
+					local level, support = modName:match("(%d+):(.+)")
+					if level then
+						for gemName, gemData in pairs(data.gems) do
+							if support == gemName:lower() then
+								t_insert(slotSocketBonuses[slotName].supports, { name = gemName, data = gemData, level = tonumber(level), quality = 0, enabled = true, fromItem = true })
+								break
+							end
+						end
+					end
+				elseif spaceName == "gemLevel" then
+					slotSocketBonuses[slotName].gemLevel[modName] = v
+				elseif spaceName == "gemQuality" then
+					slotSocketBonuses[slotName].gemQuality[modName] = v
+				else
+					mod_listMerge(slotSocketBonuses[slotName].modList, k, v)
+				end
+			end
 		end
+	end
+
+	-- Build list of active skills
+	env.activeSkillList = { }
+	for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
+		local socketGroupSkillList = { }
+		if socketGroup.enabled or index == env.mainSocketGroup then
+			-- Build list of supports for this socket group
+			local socketBonuses = socketGroup.slot and slotSocketBonuses[socketGroup.slot]
+			local supportList = { }
+			if socketBonuses then
+				for _, gem in ipairs(socketBonuses.supports) do
+					t_insert(supportList, gem)
+				end
+			end
+			for _, gem in ipairs(socketGroup.gemList) do
+				if gem.enabled and gem.data and gem.data.support then
+					local add = true
+					for _, otherGem in pairs(supportList) do
+						if gem.data == otherGem.data then
+							add = false
+							if gem.level > otherGem.level then
+								otherGem.level = gem.level
+								otherGem.quality = gem.quality
+							elseif gem.level == otherGem.level then
+								otherGem.quality = m_max(gem.quality, otherGem.quality)
+							end
+							break
+						end
+					end
+					if add then
+						gem.isSupporting = { }
+						t_insert(supportList, gem)
+					end
+				end
+			end
+
+			-- Create active skills
+			for _, gem in ipairs(socketGroup.gemList) do
+				if gem.enabled and gem.data and not gem.data.support then
+					local activeSkill = createActiveSkill(gem, supportList)
+					activeSkill.socketBonuses = socketBonuses
+					t_insert(socketGroupSkillList, activeSkill)
+					t_insert(env.activeSkillList, activeSkill)
+				end
+			end
+
+			if index == env.mainSocketGroup and #socketGroupSkillList > 0 then
+				-- Select the main skill from this socket group
+				local activeSkillIndex
+				if env.mode == "GRID" then
+					env.input.skill_activeNumber = m_min(#socketGroupSkillList, env.input.skill_activeNumber or 1)
+					activeSkillIndex = env.input.skill_activeNumber
+				else
+					socketGroup.mainActiveSkill = m_min(#socketGroupSkillList, socketGroup.mainActiveSkill or 1)
+					activeSkillIndex = socketGroup.mainActiveSkill
+				end
+				env.mainSkill = socketGroupSkillList[activeSkillIndex]
+				env.mainSkillGroupActiveSkillList = socketGroupSkillList
+			end
+		end
+
+		-- Create display label for the socket group if the user didn't specify one
+		if socketGroup.label and socketGroup.label:match("%S") then
+			socketGroup.displayLabel = socketGroup.label
+		else
+			socketGroup.displayLabel = nil
+			for _, gem in ipairs(socketGroup.gemList) do
+				if gem.enabled and gem.data and not gem.data.support then
+					socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. gem.name
+				end
+			end
+			socketGroup.displayLabel = socketGroup.displayLabel or "<No active skills>"
+		end
+
+		if env.mode == "MAIN" then
+			socketGroup.displaySkillList = socketGroupSkillList
+		end
+	end
+
+	if not env.mainSkill then
+		-- Add a default main skill if none are specified
+		local defaultGem = {
+			name = "Default Attack",
+			level = 1,
+			quality = 0,
+			enabled = true,
+			data = data.gems._default
+		}
+		env.mainSkill = createActiveSkill(defaultGem, { })
+		t_insert(env.activeSkillList, env.mainSkill)
+	end
+	env.setupFunc = env.mainSkill.activeGem.data.setupFunc
+
+	-- Build skill modifier lists
+	env.auxSkillList = { }
+	for _, activeSkill in pairs(env.activeSkillList) do
+		buildActiveSkillModList(env, activeSkill)
 	end
 end
 
@@ -800,53 +891,51 @@ local function finaliseMods(env, output)
 	end
 	
 	-- Merge skill modifiers and calculate life and mana reservations
-	for _, skill in pairs(env.skills) do
-		if skill == env.mainSkill or skill.active then
-			local skillModList = skill.skillModList
+	for _, activeSkill in pairs(env.activeSkillList) do
+		local skillModList = activeSkill.skillModList
 	
-			-- Merge skill modifiers
-			if skill == env.mainSkill then
-				mod_dbMergeList(modDB, skillModList)
-			end
-			mod_dbMergeList(modDB, skill.buffModList)
-			local auraEffect = (1 + (getMiscVal(modDB, nil, "auraEffectInc", 0) + (skillModList.auraEffectInc or 0)) / 100) * getMiscVal(modDB, nil, "auraEffectMore", 1) * (skillModList.auraEffectMore or 1)
-			mod_dbScaleMergeList(modDB, skill.auraModList, auraEffect)
-			if env.mode_effective then
-				local curseEffect = (1 + (getMiscVal(modDB, nil, "curseEffectInc", 0) + (skillModList.curseEffectInc or 0)) / 100) * getMiscVal(modDB, nil, "curseEffectMore", 1) * (skillModList.curseEffectMore or 1)
-				mod_dbScaleMergeList(modDB, skill.curseModList, curseEffect)
-			end
+		-- Merge skill modifiers
+		if activeSkill == env.mainSkill then
+			mod_dbMergeList(modDB, skillModList)
+		end
+		mod_dbMergeList(modDB, activeSkill.buffModList)
+		local auraEffect = (1 + (getMiscVal(modDB, nil, "auraEffectInc", 0) + (skillModList.auraEffectInc or 0)) / 100) * getMiscVal(modDB, nil, "auraEffectMore", 1) * (skillModList.auraEffectMore or 1)
+		mod_dbScaleMergeList(modDB, activeSkill.auraModList, auraEffect)
+		if env.mode_effective then
+			local curseEffect = (1 + (getMiscVal(modDB, nil, "curseEffectInc", 0) + (skillModList.curseEffectInc or 0)) / 100) * getMiscVal(modDB, nil, "curseEffectMore", 1) * (skillModList.curseEffectMore or 1)
+			mod_dbScaleMergeList(modDB, activeSkill.curseModList, curseEffect)
+		end
 
-			-- Calculate reservations
-			local baseVal, suffix
-			baseVal = skillModList.skill_manaReservedBase
+		-- Calculate reservations
+		local baseVal, suffix
+		baseVal = skillModList.skill_manaReservedBase
+		if baseVal then
+			suffix = "Base"
+		else
+			baseVal = skillModList.skill_manaReservedPercent
 			if baseVal then
-				suffix = "Base"
-			else
-				baseVal = skillModList.skill_manaReservedPercent
-				if baseVal then
-					suffix = "Percent"
-				end
+				suffix = "Percent"
 			end
-			if baseVal then
-				local more = sumMods(modDB, true, "manaReservedMore") * (skillModList.manaReservedMore or 1)
-				local inc = sumMods(modDB, false, "manaReservedInc") + (skillModList.manaReservedInc or 0)
-				if skill.baseFlags.curse then
-					-- Special case for Heretic's Veil, needs a general solution though
-					inc = inc + (skillModList.curse_manaReservedInc or 0)
-				end
-				local cost = m_ceil(m_ceil(m_floor(baseVal * (skillModList.manaCostMore or 1)) * more) * (1 + inc / 100))
-				if getMiscVal(modDB, nil, "bloodMagic", false) or skillModList.skill_bloodMagic then
-					mod_dbMerge(modDB, "reserved", "life"..suffix, cost)
-				else
-					mod_dbMerge(modDB, "reserved", "mana"..suffix, cost)
-				end
+		end
+		if baseVal then
+			local more = sumMods(modDB, true, "manaReservedMore") * (skillModList.manaReservedMore or 1)
+			local inc = sumMods(modDB, false, "manaReservedInc") + (skillModList.manaReservedInc or 0)
+			if activeSkill.baseFlags.curse then
+				-- Special case for Heretic's Veil, needs a general solution though
+				inc = inc + (skillModList.curse_manaReservedInc or 0)
+			end
+			local cost = m_ceil(m_ceil(m_floor(baseVal * (skillModList.manaCostMore or 1)) * more) * (1 + inc / 100))
+			if getMiscVal(modDB, nil, "bloodMagic", false) or skillModList.skill_bloodMagic then
+				mod_dbMerge(modDB, "reserved", "life"..suffix, cost)
+			else
+				mod_dbMerge(modDB, "reserved", "mana"..suffix, cost)
 			end
 		end
 	end
 
 	-- Merge active skill part mods
-	if env.mainSkill.baseFlags.multiPart and modDB["SkillPart"..env.skillPart] then
-		mod_dbMergeList(modDB, modDB["SkillPart"..env.skillPart])
+	if env.mainSkill.baseFlags.multiPart and modDB["SkillPart"..env.mainSkill.skillPart] then
+		mod_dbMergeList(modDB, modDB["SkillPart"..env.mainSkill.skillPart])
 	end
 	
 	-- Merge gear-sourced keystone modifiers
@@ -941,6 +1030,14 @@ local function finaliseMods(env, output)
 	env.condModList = condModList
 	if modDB.CondMod then
 		for k, v in pairs(modDB.CondMod) do
+			local isNot, condName, modName = modLib.getCondName(k)
+			if (isNot and not condList[condName]) or (not isNot and condList[condName]) then
+				mod_listMerge(condModList, modName, v)
+			end
+		end
+	end
+	if modDB.CondEffMod and env.mode_effective then
+		for k, v in pairs(modDB.CondEffMod) do
 			local isNot, condName, modName = modLib.getCondName(k)
 			if (isNot and not condList[condName]) or (not isNot and condList[condName]) then
 				mod_listMerge(condModList, modName, v)
@@ -1553,6 +1650,7 @@ local function performCalcs(env, output)
 			end
 			output.poison_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "chaosInc") / 100) * sumMods(modDB, true, "damageMore", "chaosMore") * effMult
 			output.poison_duration = 2 * (1 + sumMods(modDB, false, "durationInc") / 100) * sumMods(modDB, true, "durationMore")
+			output.poison_damage = output.poison_dps * output.poison_duration
 			buildSpaceTable(modDB, env.skillSpaceFlags)
 		end	
 		endWatch(env, "poison")
@@ -1684,8 +1782,8 @@ local function infoDump(env, output)
 	ConPrintf("== Modifier Database ==")
 	modLib.dbPrint(env.modDB)
 	ConPrintf("== Main Skill ==")
-	for _, gem in ipairs(env.mainSkill.validGemList) do
-		ConPrintf("%s %d/%d", gem.name, gem.effectiveLevel, gem.effectiveQuality)
+	for _, gem in ipairs(env.mainSkill.gemList) do
+		ConPrintf("%s %d/%d", gem.name, gem.level, gem.quality)
 	end
 	ConPrintf("== Main Skill Mods ==")
 	modLib.listPrint(env.mainSkill.skillModList)
@@ -1694,10 +1792,10 @@ local function infoDump(env, output)
 	ConPrintf("== Namespaces ==")
 	modLib.listPrint(env.skillSpaceFlags)
 	ConPrintf("== Aux Skills ==")
-	for i, aux in ipairs(env.auxSkills) do
+	for i, aux in ipairs(env.auxSkillList) do
 		ConPrintf("Skill #%d:", i)
 		for _, gem in ipairs(aux.gemList) do
-			ConPrintf("  %s %d/%d", gem.name, gem.effectiveLevel or gem.level, gem.effectiveQuality or gem.quality)
+			ConPrintf("  %s %d/%d", gem.name, gem.level, gem.quality)
 		end
 	end
 	--[[ConPrintf("== Buff Skill Mods ==")
@@ -1872,12 +1970,10 @@ function calcs.buildOutput(build, input, output, mode)
 	end
 
 	if mode == "MAIN" then
-		for _, skill in pairs(env.skills) do
-			skill.tooltipGemList = copyTable(skill.validGemList)
-		end		
+		
 	elseif mode == "GRID" then
-		for i, aux in pairs(env.auxSkills) do
-			output["buff_label"..i] = aux.displayLabel
+		for i, aux in pairs(env.auxSkillList) do
+			output["buff_label"..i] = aux.activeGem.name
 		end
 		for _, damageType in pairs(dmgTypeList) do
 			-- Add damage ranges
@@ -1901,9 +1997,9 @@ function calcs.buildOutput(build, input, output, mode)
 		end
 
 		-- Configure view mode
-		setViewMode(env, build.skillsTab.list)
+		setViewMode(env, build.skillsTab.socketGroupList, env.mainSkillGroupActiveSkillList or { })
 
-		infoDump(env, output)
+		--infoDump(env, output)
 	end
 end
 

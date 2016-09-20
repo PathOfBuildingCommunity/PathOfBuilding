@@ -32,11 +32,16 @@ function itemLib.applyRange(line, range)
 		:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
 end
 
+-- Clean item text by removing or replacing unsupported or redundant characters or sequences
+function itemLib.sanitiseItemText(text)
+	-- Something something unicode support something grumble
+	return text:gsub("^%s+",""):gsub("%s+$",""):gsub("\r\n","\n"):gsub("%b<>",""):gsub("–","-"):gsub("\226\128\147","-"):gsub("\226\136\146","-"):gsub("ö","o"):gsub("\195\182","o"):gsub("[\128-\255]","?")
+end
+
 -- Make an item from raw data
 function itemLib.makeItemFromRaw(raw)
 	local newItem = {
-		-- Something something unicode support something grumble
-		raw = raw:gsub("^%s+",""):gsub("%s+$",""):gsub("\r\n","\n"):gsub("%b<>",""):gsub("–","-"):gsub("\226\128\147","-"):gsub("\226\136\146","-"):gsub("ö","o"):gsub("\195\182","o")
+		raw = itemLib.sanitiseItemText(raw)
 	}
 	itemLib.parseItemRaw(newItem)
 	if newItem.baseName then
@@ -102,15 +107,32 @@ function itemLib.parseItemRaw(item)
 			end
 		elseif line == "Corrupted" then
 			item.corrupted = true
-		elseif data.weaponTypeInfo[line] then
-			item.weaponType = line
 		else
-			local specName, specVal = line:match("^([%a ]+): %+?([%d%-%.]+)")
+			local specName, specVal = line:match("^([%a ]+): (%x+)$")
 			if not specName then
-				specName, specVal = line:match("^([%a ]+): (.+)")
+				specName, specVal = line:match("^([%a ]+): %+?([%d%-%.]+)")
+			end
+			if not specName then
+				specName, specVal = line:match("^([%a ]+): (.+)$")
 			end
 			if specName then
-				if specName == "Radius" and item.type == "Jewel" then
+				if specName == "Unique ID" then
+					item.uniqueID = specVal
+				elseif specName == "Item Level" then
+					item.itemLevel = tonumber(specVal)
+				elseif specName == "Quality" then
+					item.quality = tonumber(specVal)
+				elseif specName == "Sockets" then
+					local group = 0
+					item.sockets = { }
+					for c in specVal:gmatch(".") do
+						if c:match("[RGBW]") then
+							t_insert(item.sockets, { color = c, group = group })
+						elseif c == " " then
+							group = group + 1
+						end
+					end
+				elseif specName == "Radius" and item.type == "Jewel" then
 					for index, data in pairs(data.jewelRadius) do
 						if specVal == data.label then
 							item.jewelRadiusIndex = index
@@ -119,17 +141,18 @@ function itemLib.parseItemRaw(item)
 					end
 				elseif specName == "Limited to" and item.type == "Jewel" then
 					item.limit = tonumber(specVal)
-				elseif specName == "Quality" then
-					item.quality = tonumber(specVal)
 				elseif specName == "Variant" then
 					if not item.variantList then
 						item.variantList = { }
 					end
 					t_insert(item.variantList, specVal)
+				elseif specName == "Selected Variant" then
+					item.variant = tonumber(specVal)
 				elseif specName == "League" then
 					item.league = specVal
 				elseif specName == "Implicits" then
 					item.implicitLines = tonumber(specVal)
+					gameModeStage = "EXPLICIT"
 				elseif specName == "Unreleased" then
 					item.unreleased = (specVal == "true")
 				end
@@ -139,7 +162,7 @@ function itemLib.parseItemRaw(item)
 				gameModeStage = "EXPLICIT"
 			end
 			if not specName or foundExplicit then
-				local varSpec = line:match("^{variant:([%d,]+)}")
+				local varSpec = line:match("{variant:([%d,]+)}")
 				local variantList
 				if varSpec then
 					variantList = { }
@@ -147,7 +170,8 @@ function itemLib.parseItemRaw(item)
 						variantList[tonumber(varId)] = true
 					end
 				end
-				local rangeSpec = line:match("^{range:([%d.]+)}")
+				local rangeSpec = line:match("{range:([%d.]+)}")
+				local crafted = line:match("{crafted}")
 				line = line:gsub("%b{}", "")
 				local rangedLine
 				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
@@ -155,25 +179,27 @@ function itemLib.parseItemRaw(item)
 				end
 				local modList, extra = modLib.parseMod(rangedLine or line)
 				if modList then
-					t_insert(item.modLines, { line = line, extra = extra, mods = modList, variantList = variantList, range = rangedLine and (tonumber(rangeSpec) or 0.5) })
+					t_insert(item.modLines, { line = line, extra = extra, mods = modList, variantList = variantList, crafted = crafted, range = rangedLine and (tonumber(rangeSpec) or 0.5) })
 					if mode == "GAME" then
 						if gameModeStage == "FINDIMPLICIT" then
 							gameModeStage = "IMPLICIT"
 						elseif gameModeStage == "FINDEXPLICIT" then
 							foundExplicit = true
 							gameModeStage = "EXPLICIT"
+						elseif gameModeStage == "EXPLICIT" then
+							foundExplicit = true
 						end
 					else
 						foundExplicit = true
 					end
 				elseif mode == "GAME" then
 					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" then
-						t_insert(item.modLines, { line = line, extra = line, mods = { }, variantList = variantList })
+						t_insert(item.modLines, { line = line, extra = line, mods = { }, variantList = variantList, crafted = crafted })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
 					end
 				elseif foundExplicit then
-					t_insert(item.modLines, { line = line, extra = line, mods = { }, variantList = variantList })
+					t_insert(item.modLines, { line = line, extra = line, mods = { }, variantList = variantList, crafted = crafted })
 				end
 			end
 		end
@@ -186,13 +212,84 @@ function itemLib.parseItemRaw(item)
 	elseif mode == "GAME" and not foundExplicit then
 		item.implicitLines = 0
 	end
-	if not item.corrupted then
+	if not item.corrupted and item.base and (item.base.armour or item.base.weapon) then
 		item.quality = 20
 	end
 	if item.variantList then
 		item.variant = m_min(#item.variantList, item.variant or #item.variantList)
 	end
 	itemLib.buildItemModList(item)
+end
+
+-- Create raw item data for given item
+function itemLib.createItemRaw(item)
+	item.rawLines = { }
+	t_insert(item.rawLines, "Rarity: "..item.rarity)
+	if item.title then
+		t_insert(item.rawLines, item.title)
+		t_insert(item.rawLines, item.baseName)
+	else
+		t_insert(item.rawLines, item.name)
+	end
+	if item.uniqueID then
+		t_insert(item.rawLines, "Unique ID: "..item.uniqueID)
+	end
+	if item.league then
+		t_insert(item.rawLines, "League: "..item.league)
+	end
+	if item.unreleased then
+		t_insert(item.rawLines, "Unreleased: true")
+	end
+	if item.itemLevel then
+		t_insert(item.rawLines, "Item Level: "..item.itemLevel)
+	end
+	if item.variantList then
+		for _, variantName in ipairs(item.variantList) do
+			t_insert(item.rawLines, "Variant: "..variantName)
+		end
+		t_insert(item.rawLines, "Selected Variant: "..item.variant)
+	end
+	if item.quality > 0 then
+		t_insert(item.rawLines, "Quality: "..item.quality)
+	end
+	if item.sockets then
+		local line = "Sockets: "
+		for i, socket in pairs(item.sockets) do
+			line = line .. socket.color
+			if item.sockets[i+1] then
+				line = line .. (socket.group == item.sockets[i+1].group and "-" or " ")
+			end
+		end
+		t_insert(item.rawLines, line)
+	end
+	if item.jewelRadiusIndex then
+		t_insert(item.rawLines, "Radius: "..data.jewelRadius[item.jewelRadiusIndex].label)
+	end
+	if item.limit then
+		t_insert(item.rawLines, "Limited to: "..item.limit)
+	end
+	t_insert(item.rawLines, "Implicits: "..item.implicitLines)
+	for _, modLine in ipairs(item.modLines) do
+		local line = modLine.line
+		if modLine.range then
+			line = "{range:"..modLine.range.."}" .. line
+		end
+		if modLine.crafted then
+			line = "{crafted}" .. line
+		end
+		if modLine.variantList then
+			local varSpec
+			for varId in pairs(modLine.variantList) do
+				varSpec = (varSpec and varSpec.."," or "") .. varId
+			end
+			line = "{variant:"..varSpec.."}"..line
+		end
+		t_insert(item.rawLines, line)
+	end
+	if item.corrupted then
+		t_insert(item.rawLines, "Corrupted")
+	end
+	item.raw = table.concat(item.rawLines, "\n")
 end
 
 -- Return the name of the slot this item is equipped in

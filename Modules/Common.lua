@@ -119,9 +119,22 @@ function common.New(className, ...)
 	return object
 end
 
+function codePointToUTF8(codePoint)
+	if codePoint <= 0x7F then
+		return string.char(codePoint)
+	elseif codePoint <= 0x07FF then
+		return string.char(0xC0 + bit.rshift(codePoint, 6), 0x80 + bit.band(codePoint, 0x3F))
+	elseif codePoint <= 0xFFFF then
+		return string.char(0xE0 + bit.rshift(codePoint, 12), 0x80 + bit.band(bit.rshift(codePoint, 6), 0x3F), 0x80 + bit.band(codePoint, 0x3f))
+	else
+		return "?"
+	end
+end
+
 -- Quick hack to convert JSON to valid lua
 function jsonToLua(json)
 	return json:gsub("%[","{"):gsub("%]","}"):gsub('"(%d[%d%.]*)":','[%1]='):gsub('"([^"]+)":','["%1"]='):gsub("\\/","/"):gsub("{(%w+)}","{[0]=%1}")
+		:gsub("\\u(%x%x%x%x)",function(hex) return codePointToUTF8(tonumber(hex,16)) end)
 end
 
 -- Check if mouse is currently inside area defined by region.x, region.y, region.width, region.height

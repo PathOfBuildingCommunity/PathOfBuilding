@@ -165,7 +165,10 @@ function launch:OnSubError(errMsg)
 	if self.subScriptType == "UPDATE" then
 		self:ShowErrMsg("In update thread: %s", errMsg)
 	elseif self.subScriptType == "DOWNLOAD" then
-		self.downloadCallback(nil, errMsg)
+		local errMsg = PCall(self.downloadCallback, nil, errMsg)
+		if errMsg then
+			self:ShowErrMsg("In download callback: %s", errMsg)
+		end
 		self.downloadCallback = nil
 	end
 	self.subScriptType = nil
