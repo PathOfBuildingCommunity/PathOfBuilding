@@ -65,11 +65,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
     * Hovering over an active gem will highlight the support gems which are applying to it,
 	  and hovering over a support gem will highlight the active gems that it applies to
 	* The skills system should now be much more accurate at determining which supports can apply to active skill gems
-    * Support gems granted by an item are now automatically applied to any skills socketed in that item
+    * Supports granted by an item are now automatically applied to any skills socketed in that item
        * Any such supports that you've added manually will be ignored due to the next change:
     * Multiple copies of support gems are now handled correctly (only the gem with the highest level is used)
  * Modifiers that depend on the absence of enemy status effects should now only apply in effective DPS mode
  * Passive tree search now highlights using a red circle instead of flashing
+ * Updated the passive skill tree data
 
 ### 1.0.29 - 2016/09/14
  * You can now import passive tree links that have been shrunk with PoEURL.com
