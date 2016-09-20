@@ -1,4 +1,7 @@
-VERSION[1.1.0][2016/09/19]
+VERSION[1.1.1][2016/09/20]
+ * Added support for more "socketed gem" modifiers, particularly those from essences
+ * Fixed a few minor issues
+VERSION[1.1.0][2016/09/20]
  * You can now import all character data: passive tree, jewels, skills and items!
     * Character import now has two options:
        * Passive Tree and Jewels: imports the passive skill tree and any jewels socketed into it

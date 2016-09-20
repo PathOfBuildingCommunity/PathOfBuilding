@@ -94,7 +94,7 @@ local function mergeGemMods(modList, gem)
 	for k, v in pairs(gem.data.quality) do
 		mod_listMerge(modList, k, m_floor(v * gem.quality))
 	end
-	gem.level = m_min(gem.level, #gem.data.levels)
+	gem.level = m_min(m_max(gem.level, 1), #gem.data.levels)
 	for k, v in pairs(gem.data.levels[gem.level]) do
 		mod_listMerge(modList, k, v)
 	end
@@ -158,6 +158,11 @@ local function gemCanSupport(gem, flags)
 	else
 		return true
 	end
+end
+
+-- Check if given gem is of the given type ("all", "strength", "melee", etc)
+local function gemIsType(gem, type)
+	return type == "all" or (type == "active" and not gem.data.support) or (type == "elemental" and (gem.data.fire or gem.data.cold or gem.data.lightning)) or gem.data[type]
 end
 
 -- Create an active skill using the given active gem and list of support gems
@@ -225,20 +230,24 @@ local function buildActiveSkillModList(env, activeSkill)
 		-- Apply local skill modifiers from the item this skill is socketed into
 		for type, val in pairs(activeSkill.socketBonuses.gemLevel) do
 			for _, gem in pairs(activeSkill.gemList) do
-				if not gem.fromItem and (type == "all" or (type == "active" and not gem.data.support) or gem.data[type]) then
+				if not gem.fromItem and gemIsType(gem, type) then
 					gem.level = gem.level + val
 				end
 			end
 		end
 		for type, val in pairs(activeSkill.socketBonuses.gemQuality) do
 			for _, gem in pairs(activeSkill.gemList) do
-				if not gem.fromItem and (type == "all" or (type == "active" and not gem.data.support) or gem.data[type]) then
+				if not gem.fromItem and gemIsType(gem, type) then
 					gem.quality = gem.quality + val
 				end
 			end
 		end
-		for k, v in pairs(activeSkill.socketBonuses.modList) do
-			mod_listMerge(skillModList, k, v)
+		for type, modList in pairs(activeSkill.socketBonuses.modList) do
+			if gemIsType(activeSkill.activeGem, type) then
+				for k, v in pairs(modList) do
+					mod_listMerge(skillModList, k, v)
+				end
+			end
 		end
 	end
 
@@ -614,7 +623,10 @@ local function mergeMainMods(env, repSlotName, repItem)
 				elseif spaceName == "gemQuality" then
 					slotSocketBonuses[slotName].gemQuality[modName] = v
 				else
-					mod_listMerge(slotSocketBonuses[slotName].modList, k, v)
+					if not slotSocketBonuses[slotName].modList[spaceName] then
+						slotSocketBonuses[slotName].modList[spaceName] = { }
+					end
+					mod_listMerge(slotSocketBonuses[slotName].modList[spaceName], modName, v)
 				end
 			end
 		end
@@ -680,20 +692,21 @@ local function mergeMainMods(env, repSlotName, repItem)
 			end
 		end
 
-		-- Create display label for the socket group if the user didn't specify one
-		if socketGroup.label and socketGroup.label:match("%S") then
-			socketGroup.displayLabel = socketGroup.label
-		else
-			socketGroup.displayLabel = nil
-			for _, gem in ipairs(socketGroup.gemList) do
-				if gem.enabled and gem.data and not gem.data.support then
-					socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. gem.name
-				end
-			end
-			socketGroup.displayLabel = socketGroup.displayLabel or "<No active skills>"
-		end
-
 		if env.mode == "MAIN" then
+			-- Create display label for the socket group if the user didn't specify one
+			if socketGroup.label and socketGroup.label:match("%S") then
+				socketGroup.displayLabel = socketGroup.label
+			else
+				socketGroup.displayLabel = nil
+				for _, gem in ipairs(socketGroup.gemList) do
+					if gem.enabled and gem.data and not gem.data.support then
+						socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. gem.name
+					end
+				end
+				socketGroup.displayLabel = socketGroup.displayLabel or "<No active skills>"
+			end
+
+			-- Save the active skill list for display in the socket group tooltip
 			socketGroup.displaySkillList = socketGroupSkillList
 		end
 	end
@@ -920,10 +933,6 @@ local function finaliseMods(env, output)
 		if baseVal then
 			local more = sumMods(modDB, true, "manaReservedMore") * (skillModList.manaReservedMore or 1)
 			local inc = sumMods(modDB, false, "manaReservedInc") + (skillModList.manaReservedInc or 0)
-			if activeSkill.baseFlags.curse then
-				-- Special case for Heretic's Veil, needs a general solution though
-				inc = inc + (skillModList.curse_manaReservedInc or 0)
-			end
 			local cost = m_ceil(m_ceil(m_floor(baseVal * (skillModList.manaCostMore or 1)) * more) * (1 + inc / 100))
 			if getMiscVal(modDB, nil, "bloodMagic", false) or skillModList.skill_bloodMagic then
 				mod_dbMerge(modDB, "reserved", "life"..suffix, cost)
