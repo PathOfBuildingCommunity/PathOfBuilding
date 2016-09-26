@@ -350,6 +350,9 @@ columns[7] = {
 		flag = "mine",
 		{ "output", "Active Mine Limit:", "total_activeMineLimit" },
 	}, {
+		flag = "totem",
+		{ "output", "Totem Life Mod:", "totem_lifeMod", formatPercent },
+	}, {
 		flag = "dot",
 		{ "output", "Tree DoT Dmg %:", fieldNames("spec_dot", "Inc", "pfa") },
 		{ "output", "Gear DoT Dmg %:", fieldNames("gear_dot", "Inc", "pfa") },

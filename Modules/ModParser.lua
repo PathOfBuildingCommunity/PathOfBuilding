@@ -532,7 +532,6 @@ local function getPerStat(dst, stat, factor)
 		if nodeMods then
 			data[stat] = (data[stat] or 0) + (nodeMods[stat] or 0)
 		else
-			ConPrintf("%s %d %f", dst, data[stat], math.floor(data[stat] * factor + 0.5))
 			modLib.listMerge(out, dst, math.floor(data[stat] * factor + 0.5))
 		end
 	end

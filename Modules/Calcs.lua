@@ -1528,8 +1528,8 @@ local function performCalcs(env, output)
 		endWatch(env, "duration")
 	end
 
-	-- Calculate trap and mine stats stats
-	if startWatch(env, "trapMine") then
+	-- Calculate trap, mine and totem stats
+	if startWatch(env, "trapMineTotem") then
 		if env.skillFlags.trap then
 			output.total_trapCooldown = getMiscVal(modDB, "skill", "trapCooldown", 4) / (1 + getMiscVal(modDB, nil, "trapCooldownRecoveryInc", 0) / 100)
 			output.total_activeTrapLimit = sumMods(modDB, false, "activeTrapLimit")
@@ -1537,7 +1537,10 @@ local function performCalcs(env, output)
 		if env.skillFlags.mine then
 			output.total_activeMineLimit = sumMods(modDB, false, "activeMineLimit")
 		end
-		endWatch(env, "trapMine")
+		if env.skillFlags.totem then
+			output.totem_lifeMod = (1 + sumMods(modDB, false, "totemLifeInc") / 100) * sumMods(modDB, true, "totemLifeMore")
+		end
+		endWatch(env, "trapMineTotem")
 	end
 
 	-- Calculate enemy stun modifiers

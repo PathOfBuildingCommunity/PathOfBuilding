@@ -55,17 +55,19 @@ function ItemSlotClass:Draw(viewPort)
 	local width, height = self:GetSize()
 	DrawString(x - 2, y + 2, "RIGHT_X", height - 4, "VAR", "^7"..self.label..":")
 	self.DropDownControl:Draw()
+	local highlight = false
 	for _, control in pairs({self.itemsTab.controls.itemList, self.itemsTab.controls.uniqueDB, self.itemsTab.controls.rareDB}) do
 		if control:IsShown() and control.selDragging and control.selDragActive and self.itemsTab:IsItemValidForSlot(control.selItem, self.slotName) then
+			highlight = true
 			SetDrawColor(0, 1, 0, 0.25)
 			DrawImage(nil, x, y, width, height)
 			break
 		end
 	end
-	if self.nodeId and (self.dropped or (self:IsMouseOver() and not self.itemsTab.selControl)) then
+	if self.nodeId and (self.dropped or (self:IsMouseOver() and (highlight or not self.itemsTab.selControl))) then
 		SetDrawLayer(nil, 10)
 		local viewerX = x + width + 5
-		local viewerY = m_min(y, viewPort.y + viewPort.height - 300)
+		local viewerY = m_min(y, viewPort.y + viewPort.height - 304)
 		SetDrawColor(1, 1, 1)
 		DrawImage(nil, viewerX, viewerY, 304, 304)
 		local viewer = self.itemsTab.socketViewer
@@ -74,7 +76,7 @@ function ItemSlotClass:Draw(viewPort)
 		viewer.zoomX = -node.x / 11.85
 		viewer.zoomY = -node.y / 11.85
 		SetViewport(viewerX + 2, viewerY + 2, 300, 300)
-		viewer:Draw(self.itemsTab.build, { x = 0, y = 0, width = 300, height = 300}, { })
+		viewer:Draw(self.itemsTab.build, { x = 0, y = 0, width = 300, height = 300 }, { })
 		SetDrawColor(1, 1, 1, 0.1)
 		DrawImage(nil, 149, 0, 2, 300)
 		DrawImage(nil, 0, 149, 300, 2)

@@ -48,6 +48,10 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.1.3 - 2016/09/26
+ * Fixed issue causing certain skill setups to always be added when importing even if that skill is already in the build 
+ * Re-importing a skill no longer resets gem's enabled states
+
 ### 1.1.2 - 2016/09/20
  * In the gem name dropdown list, support gems are now marked with a tick if they can apply to any of the
    active skills in the current socket group

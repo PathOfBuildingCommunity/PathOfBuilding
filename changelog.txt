@@ -1,3 +1,6 @@
+VERSION[1.1.3][2016/09/26]
+ * Fixed issue causing certain skill setups to always be added when importing even if that skill is already in the build 
+ * Re-importing a skill no longer resets gem's enabled states
 VERSION[1.1.2][2016/09/20]
  * In the gem name dropdown list, support gems are now marked with a tick if they can apply to any of the
    active skills in the current socket group
