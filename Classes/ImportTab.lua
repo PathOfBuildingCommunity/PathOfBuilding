@@ -460,27 +460,29 @@ function ImportTabClass:ImportSocketedSkills(item, socketedItems, slotName)
 	-- Import the socket groups
 	for _, itemSocketGroup in pairs(itemSocketGroupList) do
 		-- Check if this socket group matches an existing one
-		local repIndex
+		local repGroup
 		for index, socketGroup in pairs(self.build.skillsTab.socketGroupList) do
 			if #socketGroup.gemList == #itemSocketGroup.gemList then
 				local match = true
 				for gemIndex, gem in pairs(socketGroup.gemList) do
-					if gem.nameSpec ~= itemSocketGroup.gemList[gemIndex].nameSpec then
+					if gem.nameSpec:lower() ~= itemSocketGroup.gemList[gemIndex].nameSpec:lower() then
 						match = false
 						break
 					end
 				end
 				if match then
-					repIndex = index
+					repGroup = socketGroup
 					break
 				end
 			end
 		end
-		if repIndex then
-			-- Replace the existing one
-			itemSocketGroup.label = self.build.skillsTab.socketGroupList[repIndex].label
-			itemSocketGroup.enabled = self.build.skillsTab.socketGroupList[repIndex].enabled
-			self.build.skillsTab.socketGroupList[repIndex] = itemSocketGroup
+		if repGroup then
+			-- Update the existing one
+			for gemIndex, gem in pairs(repGroup.gemList) do
+				local itemGem = itemSocketGroup.gemList[gemIndex]
+				gem.level = itemGem.level
+				gem.quality = itemGem.quality
+			end
 		else
 			t_insert(self.build.skillsTab.socketGroupList, itemSocketGroup)
 		end

@@ -316,7 +316,7 @@ gems["Controlled Destruction"] = {
 		[30] = { spell_damageMore = 1.54, },
 	}
 }
-gems["Curse on Hit"] = {
+gems["Curse On Hit"] = {
 	intelligence = true,
 	support = true,
 	trigger = true,
