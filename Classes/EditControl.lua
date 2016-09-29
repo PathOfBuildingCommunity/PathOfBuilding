@@ -147,6 +147,9 @@ function EditClass:Draw(viewPort)
 		self:DrawControls(viewPort)
 		return
 	end
+	if not IsKeyDown("LEFTBUTTON") then
+		self.drag = false
+	end
 	if self.drag then
 		local cursorX, cursorY = GetCursorPos()
 		self.caret = DrawStringCursorIndex(textHeight, "VAR", self.buf, cursorX - textX, cursorY - textY)

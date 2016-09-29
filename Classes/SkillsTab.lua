@@ -276,7 +276,7 @@ function SkillsTabClass:UpdateGemSlots()
 			slot.nameSpec:SetText("")
 			slot.level:SetText("")
 			slot.quality:SetText("")
-			slot.enabled.state = true
+			slot.enabled.state = false
 		else
 			local gemData = self.displayGroup.gemList[slotIndex].data
 			if gemData then

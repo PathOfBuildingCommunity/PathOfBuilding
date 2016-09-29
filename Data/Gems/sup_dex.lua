@@ -1100,6 +1100,7 @@ gems["Trap"] = {
 	require = "spell or projectile",
 	addFlags = {
 		trap = true,
+		duration = true,
 		showAverage = true,
 	},
 	base = {

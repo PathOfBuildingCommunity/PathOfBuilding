@@ -396,15 +396,14 @@ local function calcHitDamage(env, output, damageType, ...)
 	-- Combine modifiers
 	local damageTypeStrInc = damageTypeStr.."Inc"
 	if startWatch(env, damageTypeStrInc) then
-		output[damageTypeStrInc] = sumMods(modDB, false, unpack(inc))
+		output[damageTypeStrInc] = 1 + sumMods(modDB, false, unpack(inc)) / 100
 		endWatch(env, damageTypeStrInc)
 	end
 	local damageTypeStrMore = damageTypeStr.."More"
 	if startWatch(env, damageTypeStrMore) then
-		output[damageTypeStrMore] = sumMods(modDB, true, unpack(more))
+		output[damageTypeStrMore] = m_floor(sumMods(modDB, true, unpack(more)) * 100 + 0.50000001) / 100
 		endWatch(env, damageTypeStrMore)
 	end
-	local modMult = (1 + output[damageTypeStrInc] / 100) * output[damageTypeStrMore]
 
 	-- Calculate conversions
 	if startWatch(env, damageTypeStr.."Conv", "conversionTable") then
@@ -428,8 +427,9 @@ local function calcHitDamage(env, output, damageType, ...)
 		endWatch(env, damageTypeStr.."Conv")
 	end
 
-	return  (baseMin * modMult + output[damageTypeStr.."ConvAddMin"]),
-			(baseMax * modMult + output[damageTypeStr.."ConvAddMax"])
+	local modMult = output[damageTypeStrInc] * output[damageTypeStrMore]
+	return (m_floor(baseMin * modMult + 0.5) + output[damageTypeStr.."ConvAddMin"]),
+		   (m_floor(baseMax * modMult + 0.5) + output[damageTypeStr.."ConvAddMax"])
 end
 
 --
@@ -1136,7 +1136,7 @@ local function finaliseMods(env, output)
 	if not getMiscVal(modDB, nil, "ironReflexes", false) then
 		mod_dbMerge(modDB, "", "evasionInc", m_floor(output.total_dex / 5 + 0.5))
 	end
-	mod_dbMerge(modDB, "", "manaBase", m_ceil(output.total_int / 2))
+	mod_dbMerge(modDB, "", "manaBase", m_floor(output.total_int / 2 + 0.5))
 	mod_dbMerge(modDB, "", "energyShieldInc", m_floor(output.total_int / 5 + 0.5))
 end
 
@@ -1511,7 +1511,7 @@ local function performCalcs(env, output)
 	output.total_dps = output.total_averageDamage * output.total_speed * getMiscVal(modDB, "skill", "dpsMultiplier", 1)
 
 	-- Calculate mana cost (may be slightly off due to rounding differences)
-	output.total_manaCost = m_floor(m_max(0, getMiscVal(modDB, "skill", "manaCostBase", 0) * (1 + sumMods(modDB, false, "manaCostInc") / 100) * sumMods(modDB, true, "manaCostMore") - sumMods(modDB, false, "manaCostBase")))
+	output.total_manaCost = m_floor(m_max(0, getMiscVal(modDB, "skill", "manaCostBase", 0) * (1 + m_floor((sumMods(modDB, true, "manaCostMore") - 1) * 100 + 0.0001) / 100) * (1 + sumMods(modDB, false, "manaCostInc") / 100) - sumMods(modDB, false, "manaCostBase")))
 
 	-- Calculate AoE stats
 	if env.skillFlags.aoe then
