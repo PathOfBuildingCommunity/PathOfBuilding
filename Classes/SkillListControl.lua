@@ -140,13 +140,12 @@ function SkillListClass:Draw(viewPort)
 	SetViewport()
 	if ttGroup and ttGroup.displaySkillList then
 		local count = 0
+		local gemShown = { }
 		for index, activeSkill in ipairs(ttGroup.displaySkillList) do
-			if #ttGroup.displaySkillList > 1 then
-				if index > 1 then
-					main:AddTooltipSeperator(10)
-				end
-				main:AddTooltipLine(16, "^7Active Skill #"..index..":")
+			if index > 1 then
+				main:AddTooltipSeperator(10)
 			end
+			main:AddTooltipLine(16, "^7Active Skill #"..index..":")
 			for _, gem in ipairs(activeSkill.gemList) do
 				local color = (gem.data.strength and "STRENGTH") or (gem.data.dexterity and "DEXTERITY") or (gem.data.intelligence and "INTELLIGENCE") or "NORMAL"
 				main:AddTooltipLine(20, string.format("%s%s ^7%d%s/%d%s", 
@@ -156,6 +155,34 @@ function SkillListClass:Draw(viewPort)
 					(gem.srcGem and gem.level > gem.srcGem.level) and data.colorCodes.MAGIC.."+"..(gem.level - gem.srcGem.level).."^7" or "",
 					gem.quality,
 					(gem.srcGem and gem.quality > gem.srcGem.quality) and data.colorCodes.MAGIC.."+"..(gem.quality - gem.srcGem.quality).."^7" or ""
+				))
+				gemShown[gem.srcGem] = true
+				count = count + 1
+			end
+		end
+		local showOtherHeader = (count > 0)
+		for _, gem in ipairs(ttGroup.gemList) do
+			if not gemShown[gem] then
+				if showOtherHeader then
+					showOtherHeader = false
+					main:AddTooltipSeperator(10)
+					main:AddTooltipLine(16, "^7Other Gems:")
+				end
+				local reason = ""
+				if not gem.data then
+					reason = "(Unsupported)"
+				elseif not gem.enabled then
+					reason = "(Disabled)"
+				elseif gem.data.support and gem.isSupporting and not next(gem.isSupporting) then
+					reason = "(Cannot apply to any of the active skills)"
+				end
+				local color = gem.data and ((gem.data.strength and "STRENGTH") or (gem.data.dexterity and "DEXTERITY") or (gem.data.intelligence and "INTELLIGENCE")) or "NORMAL"
+				main:AddTooltipLine(20, string.format("%s%s ^7%d/%d %s", 
+					data.colorCodes[color], 
+					gem.name or gem.nameSpec, 
+					gem.level, 
+					gem.quality,
+					reason
 				))
 				count = count + 1
 			end

@@ -939,6 +939,7 @@ gems["Remote Mine"] = {
 	require = "spell or projectile",
 	addFlags = {
 		mine = true,
+		duration = true,
 		showAverage = true,
 	},
 	base = {
