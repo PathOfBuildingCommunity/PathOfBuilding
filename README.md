@@ -48,6 +48,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.1.5 - 2016/10/01
+ * Jewel tooltips now show totals for any relevant attributes (Str, Dex, Int) allocated within their radius
+    * For example, Eldritch Knowledge shows Intelligence, and Spire of Stone shows Strength
+    * For unsupported radius jewels (particularly threshold jewels) all attributes are shown by default
+ * Fixed crit chance with Trypanon deviating from 100% under some conditions
+ 
 ### 1.1.4 - 2016/09/30
  * The tooltip for socket groups now includes gems which aren't part of any of the group's active skills
     * This includes gems which aren't supported, or are disabled, and any support gems which can't apply to the active skills

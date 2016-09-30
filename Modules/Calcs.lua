@@ -346,6 +346,9 @@ local function buildNodeModList(env, nodeList, finishJewels)
 		-- Finalise radius jewels
 		for _, rad in pairs(env.radiusJewelList) do
 			rad.func(nil, modList, rad.data)
+			if env.mode == "MAIN" then
+				rad.item.jewelRadiusData = rad.data
+			end
 		end
 	end
 
@@ -546,15 +549,24 @@ local function mergeMainMods(env, repSlotName, repItem)
 			-- Slot is a jewel socket, check if socket is allocated
 			if not build.spec.allocNodes[slot.nodeId] then
 				item = nil
-			elseif item and item.jewelRadiusIndex and item.jewelFunc then
-				-- Jewel has a defined radius function, add it to the list
+			elseif item and item.jewelRadiusIndex then
+				-- Jewel has a radius,  add it to the list
+				local func = item.jewelFunc or function(nodeMods, out, data)
+					-- Default function just tallies all stats in radius
+					if nodeMods then
+						data.strBase = (data.strBase or 0) + (nodeMods.strBase or 0)
+						data.dexBase = (data.dexBase or 0) + (nodeMods.dexBase or 0)
+						data.intBase = (data.intBase or 0) + (nodeMods.intBase or 0)
+					end
+				end
 				local radiusInfo = data.jewelRadius[item.jewelRadiusIndex]
 				local node = build.spec.nodes[slot.nodeId]
 				t_insert(env.radiusJewelList, {
 					rSq = radiusInfo.rad * radiusInfo.rad,
 					x = node.x,
 					y = node.y,
-					func = item.jewelFunc,
+					func = func,
+					item = item,
 					data = { }
 				})
 			end
@@ -882,11 +894,10 @@ local function finaliseMods(env, output)
 	if env.skillFlags.showAverage then
 		env.mode_average = true
 	end
-	local buffMode = env.buffMode
-	if buffMode == "BUFFED" then
+	if env.buffMode == "BUFFED" then
 		env.mode_buffs = true
 		env.mode_effective = false
-	elseif buffMode == "EFFECTIVE" then
+	elseif env.buffMode == "EFFECTIVE" then
 		env.mode_buffs = true
 		env.mode_effective = true
 	else
@@ -1449,15 +1460,17 @@ local function performCalcs(env, output)
 			else
 				baseCrit = getMiscVal(modDB, "skill", "critChanceBase", 0)
 			end
-			output.total_critChance = calcVal(modDB, "critChance", baseCrit) / 100
-			if env.mode_effective then
-				output.total_critChance = output.total_critChance + getMiscVal(modDB, "effective", "additionalCritChance", 0) / 100
-			end
-			if baseCrit < 100 then
+			if baseCrit == 100 then
+				output.total_critChance = 1
+			else
+				output.total_critChance = calcVal(modDB, "critChance", baseCrit) / 100
+				if env.mode_effective then
+					output.total_critChance = output.total_critChance + getMiscVal(modDB, "effective", "additionalCritChance", 0) / 100
+				end
 				output.total_critChance = m_min(output.total_critChance, 0.95)
-			end
-			if baseCrit > 0 then
-				output.total_critChance = m_max(output.total_critChance, 0.05)
+				if baseCrit > 0 then
+					output.total_critChance = m_max(output.total_critChance, 0.05)
+				end
 			end
 			if getMiscVal(modDB, nil, "noCritMult", false) then
 				output.total_critMultiplier = 1
