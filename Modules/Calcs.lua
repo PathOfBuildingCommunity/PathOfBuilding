@@ -347,7 +347,10 @@ local function buildNodeModList(env, nodeList, finishJewels)
 		for _, rad in pairs(env.radiusJewelList) do
 			rad.func(nil, modList, rad.data)
 			if env.mode == "MAIN" then
-				rad.item.jewelRadiusData = rad.data
+				if not rad.item.jewelRadiusData then
+					rad.item.jewelRadiusData = { }
+				end
+				rad.item.jewelRadiusData[rad.nodeId] = rad.data
 			end
 		end
 	end
@@ -567,6 +570,7 @@ local function mergeMainMods(env, repSlotName, repItem)
 					y = node.y,
 					func = func,
 					item = item,
+					nodeId = slot.nodeId,
 					data = { }
 				})
 			end

@@ -48,6 +48,9 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.1.6 - 2016/10/02
+ * Fixed bug causing issues with the new jewel attribute totals when a jewel is used multiple times
+
 ### 1.1.5 - 2016/10/01
  * Jewel tooltips now show totals for any relevant attributes (Str, Dex, Int) allocated within their radius
     * For example, Eldritch Knowledge shows Intelligence, and Spire of Stone shows Strength

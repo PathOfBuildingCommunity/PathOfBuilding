@@ -485,7 +485,7 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 	if node.type == "socket" and node.alloc then
 		local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(node.id)
 		if jewel then
-			build.itemsTab:AddItemTooltip(jewel)
+			build.itemsTab:AddItemTooltip(jewel, { nodeId = node.id })
 		else
 			main:AddTooltipLine(24, "^7"..node.dn..(launch.devMode and IsKeyDown("ALT") and " ["..node.id.."]" or ""))
 		end

@@ -438,13 +438,14 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		if item.jewelRadiusIndex then
 			main:AddTooltipLine(16, "^x7F7F7FRadius: ^7"..data.jewelRadius[item.jewelRadiusIndex].label)
 		end
-		if item.jewelRadiusData then
+		if item.jewelRadiusData and slot and item.jewelRadiusData[slot.nodeId] then
+			local radiusData = item.jewelRadiusData[slot.nodeId]
 			local line
 			local labels = { "Str", "Dex", "Int" }
 			local codes = { data.colorCodes.MARAUDER, data.colorCodes.RANGER, data.colorCodes.WITCH }
 			for i, stat in ipairs({"strBase","dexBase","intBase"}) do
-				if item.jewelRadiusData[stat] and item.jewelRadiusData[stat] ~= 0 then
-					line = (line and line .. ", " or "") .. s_format("%s%d %s^7", codes[i], item.jewelRadiusData[stat], labels[i])
+				if radiusData[stat] and radiusData[stat] ~= 0 then
+					line = (line and line .. ", " or "") .. s_format("%s%d %s^7", codes[i], radiusData[stat], labels[i])
 				end
 			end
 			if line then
