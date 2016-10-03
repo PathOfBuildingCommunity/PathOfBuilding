@@ -1,3 +1,5 @@
+VERSION[1.1.7][2016/10/03]
+ * Fixed stun modifiers from several active and support gems
 VERSION[1.1.6][2016/10/02]
  * Fixed bug causing issues with the new jewel attribute totals when a jewel is used multiple times
 VERSION[1.1.5][2016/10/01]

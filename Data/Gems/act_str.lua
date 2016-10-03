@@ -594,10 +594,10 @@ gems["Ground Slam"] = {
 	hit = true,
 	base = {
 		skill_manaCostBase = 6,
-		stunEnemyThreshInc = -25,
+		stunEnemyThresholdInc = -25,
 	},
 	quality = {
-		stunEnemyDurInc = 1.5,
+		stunEnemyDurationInc = 1.5,
 	},
 	levels = {
 		[1] = { attack_damageMore = 0.9, aoeRadiusInc = 0, },
@@ -639,10 +639,10 @@ gems["Heavy Strike"] = {
 	hit = true,
 	base = {
 		skill_manaCostBase = 5,
-		stunEnemyThreshInc = -25,
+		stunEnemyThresholdInc = -25,
 	},
 	quality = {
-		stunEnemyDurInc = 1,
+		stunEnemyDurationInc = 1,
 	},
 	levels = {
 		[1] = { attack_damageMore = 1.5, },

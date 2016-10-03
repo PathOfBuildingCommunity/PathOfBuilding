@@ -449,7 +449,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 				end
 			end
 			if line then
-				main:AddTooltipLine(16, "^x7F7F7FIn Radius: "..line)
+				main:AddTooltipLine(16, "^x7F7F7FAllocated in Radius: "..line)
 			end
 		end
 		if item.limit then

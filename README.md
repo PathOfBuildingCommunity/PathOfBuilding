@@ -48,6 +48,9 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.1.7 - 2016/10/03
+ * Fixed stun modifiers from several active and support gems
+
 ### 1.1.6 - 2016/10/02
  * Fixed bug causing issues with the new jewel attribute totals when a jewel is used multiple times
 
