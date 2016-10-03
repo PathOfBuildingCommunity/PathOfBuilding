@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.1.6"/>
+	<Version number="1.1.7"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="889ff24936021c18a2b2d6893fc087cb3bc7018a" name="Launch.lua" part="program"/>
 	<File sha1="cb07c8d4819eb81df9e98ab9039e0c9adf74c150" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="4621a130535081d788e8bee337eefefad79a3d37" name="changelog.txt" part="program"/>
+	<File sha1="ee51635bfc224977b9e02a5d4371d8929f2175b1" name="changelog.txt" part="program"/>
 	<File sha1="aef7145f378d0a1d5dc6f5f2d3c08d2a1b6ef264" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="34fdf53db3b3231ce446749227e178847b982771" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="edc1ebdb3ad5ddbd9ae688ca93c0326c3d18b554" name="Classes/CalcsTab.lua" part="program"/>
