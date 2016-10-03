@@ -7,7 +7,7 @@
 	<File sha1="889ff24936021c18a2b2d6893fc087cb3bc7018a" name="Launch.lua" part="program"/>
 	<File sha1="cb07c8d4819eb81df9e98ab9039e0c9adf74c150" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="7d04b1c2a3237bfd6580bf5fb4a6a7d489d55a47" name="changelog.txt" part="program"/>
+	<File sha1="4621a130535081d788e8bee337eefefad79a3d37" name="changelog.txt" part="program"/>
 	<File sha1="aef7145f378d0a1d5dc6f5f2d3c08d2a1b6ef264" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="34fdf53db3b3231ce446749227e178847b982771" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="edc1ebdb3ad5ddbd9ae688ca93c0326c3d18b554" name="Classes/CalcsTab.lua" part="program"/>
@@ -22,7 +22,7 @@
 	<File sha1="f850636099479449de2e888a2b66846ccc912376" name="Classes/ItemDBControl.lua" part="program"/>
 	<File sha1="84ddcc1358c4c6a9c7f047cc882031d0696533d7" name="Classes/ItemListControl.lua" part="program"/>
 	<File sha1="0f5b3a31134cba2c08d7b57e865d4c7db0c04d27" name="Classes/ItemSlotControl.lua" part="program"/>
-	<File sha1="9ac7e672648f36db3c94ea302e8099f5c2db65b3" name="Classes/ItemsTab.lua" part="program"/>
+	<File sha1="83d3175b1b61e10ea19566d75945f75bf4817df9" name="Classes/ItemsTab.lua" part="program"/>
 	<File sha1="e577edeea7685cb2b0cd0d00b901a458ae45add0" name="Classes/LabelControl.lua" part="program"/>
 	<File sha1="6f8f98d6ee505af53441c1fe9ad74fbff86d56ad" name="Classes/PassiveSpec.lua" part="program"/>
 	<File sha1="03dde914f7ad75d26f2ba0845b11986d198b6e94" name="Classes/PassiveTree.lua" part="program"/>
@@ -53,11 +53,11 @@
 	<File sha1="dc1d602e0f895fa6a795f889fee555416d29af08" name="Data/Rares.lua" part="program"/>
 	<File sha1="05013d888ce08082426ba80d2ca05e2927cb8cf9" name="Data/Gems/act_dex.lua" part="program"/>
 	<File sha1="8b7bc28d84bff9202257f05297ff71dfc77ad408" name="Data/Gems/act_int.lua" part="program"/>
-	<File sha1="5cfc64e98c40eec8c4067528f4ad18502e9cfdc1" name="Data/Gems/act_str.lua" part="program"/>
+	<File sha1="a55b64f148573e6872cb947d8cf0acb8a9ef1cd9" name="Data/Gems/act_str.lua" part="program"/>
 	<File sha1="41a976f5158e6be42b793d877b7d8755c767c988" name="Data/Gems/other.lua" part="program"/>
 	<File sha1="1074ce64ade6f2fb3e83e0f4e64c1820bac6f37b" name="Data/Gems/sup_dex.lua" part="program"/>
 	<File sha1="19b628a1cc6c3659d85e83c10ed320049177592a" name="Data/Gems/sup_int.lua" part="program"/>
-	<File sha1="eee8dea77c0f7af0d0b32be326c5d3cd0bcce6a9" name="Data/Gems/sup_str.lua" part="program"/>
+	<File sha1="cfb59f404ca04119531737cdf72d698cb75a0767" name="Data/Gems/sup_str.lua" part="program"/>
 	<File sha1="e2bfaf8d42553867fff91aa7267dbae4e3ca460e" name="Data/Bases/amulet.lua" part="program"/>
 	<File sha1="4fcd6a8fcd07137dc641b3d690f1d7f10cced81a" name="Data/Bases/axe.lua" part="program"/>
 	<File sha1="326f1060f490c7b48f56c25721eaf43bd2772835" name="Data/Bases/belt.lua" part="program"/>
