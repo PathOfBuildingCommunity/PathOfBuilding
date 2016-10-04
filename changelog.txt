@@ -1,3 +1,7 @@
+VERSION[1.1.8][2016/10/04]
+ * Added support for the "Your flasks grant" modifiers on Doryani's Invitation
+ * Detection of the Unarmed state now ignores the offhand
+ * Added resistance breakdown section to the Calcs tab
 VERSION[1.1.7][2016/10/03]
  * Fixed stun modifiers from several active and support gems
 VERSION[1.1.6][2016/10/02]

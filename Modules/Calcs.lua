@@ -983,7 +983,7 @@ local function finaliseMods(env, output)
 	if data.weaponTypeInfo[weapon1Type] and data.weaponTypeInfo[weapon2Type] then
 		condList["DualWielding"] = true
 	end
-	if weapon1Type == "None" and not data.weaponTypeInfo[weapon2Type] then
+	if weapon1Type == "None" then
 		condList["Unarmed"] = true
 	end
 	if getMiscVal(modDB, "gear", "NormalCount", 0) > 0 then
@@ -2009,6 +2009,24 @@ function calcs.buildOutput(build, input, output, mode)
 				output["total_"..damageType] = formatRound(output["total_"..damageType.."Min"]) .. " - " .. formatRound(output["total_"..damageType.."Max"])		
 			else
 				output["total_"..damageType] = 0
+			end
+			if damageType ~= "physical" then
+				if damageType ~= "chaos" then
+					for _, domain in pairs({"spec_","gear_"}) do
+						local dmgResist = output[domain..damageType.."Resist"]
+						local elemResist = output[domain.."elementalResist"]
+						if dmgResist or elemResist then
+							output[domain..damageType.."Resist"] = (dmgResist or 0) + (elemResist or 0)
+						end
+					end
+				end
+				local actual = output["total_"..damageType.."Resist"]
+				local over = output["total_"..damageType.."ResistOverCap"]
+				if over > 0 then
+					output["total_"..damageType.."ResistStr"] = actual .. "+" .. over
+				else
+					output["total_"..damageType.."ResistStr"] = actual
+				end
 			end
 		end
 		output.total_damage = formatRound(output.total_combMin) .. " - " .. formatRound(output.total_combMax)
