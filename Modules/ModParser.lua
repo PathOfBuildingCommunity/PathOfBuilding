@@ -284,6 +284,7 @@ local preSpaceList = {
 	["^socketed gems deal "] = "SocketedIn:X_all_",
 	["^socketed curse gems have "] = "SocketedIn:X_curse_",
 	["^socketed melee gems have "] = "SocketedIn:X_melee_",
+	["^your flasks grant "] = "",
 }
 
 -- List of special namespaces
