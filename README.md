@@ -48,6 +48,9 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.1.9 - 2016/10/07
+ * Added flat chaos damage to all physical weapon templates
+
 ### 1.1.8 - 2016/10/04
  * Added support for the "Your flasks grant" modifiers on Doryani's Invitation
  * Detection of the Unarmed state now ignores the offhand

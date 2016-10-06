@@ -723,7 +723,7 @@ gems["Lesser Multiple Projectiles"] = {
 		[16] = { projectile_damageMore = 0.82, },
 		[17] = { projectile_damageMore = 0.83, },
 		[18] = { projectile_damageMore = 0.83, },
-		[19] = { projectile_damageMore = 0.835, }, -- EDITED
+		[19] = { projectile_damageMore = 0.84, },
 		[20] = { projectile_damageMore = 0.84, },
 		[21] = { projectile_damageMore = 0.85, },
 		[22] = { projectile_damageMore = 0.85, },
