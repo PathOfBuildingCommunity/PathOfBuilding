@@ -141,9 +141,11 @@ Suffixes:
 {range:0}+(0 to 360) to Accuracy Rating]],
 	["phys 1h"] = [[
 {phys 1h pre}
+{range:0}Adds (0-72 to 0-123) Chaos Damage
 {melee suf}]],
 	["phys 2h"] = [[
 {phys 2h pre}
+{range:0}Adds (0-108 to 0-185) Chaos Damage
 {melee suf}]],
 	["elem 1h"] = [[
 {elem 1h pre}
@@ -785,6 +787,7 @@ Physical Bow
 Harbinger Bow
 (30 to 50)% increased Critical Strike Chance
 {phys 2h pre}
+{range:0}Adds (0-72 to 0-123) Chaos Damage
 {ranged suf}
 ]],[[
 Elemental Bow
@@ -952,6 +955,7 @@ Physical Wand
 Imbued Wand
 (15 to 19)% increased Spell Damage
 {phys 1h pre}
+{range:0}Adds (0-72 to 0-123) Chaos Damage
 {ranged suf}
 ]],[[
 Elemental Wand

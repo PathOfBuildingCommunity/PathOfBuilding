@@ -81,7 +81,7 @@ function modLib.listScaleMerge(modList, modName, modVal, scale)
 		local type = modLib.getModType[modName]
 		if type == "MORE" then
 			modLib.listMerge(modList, modName, 1 + m_floor((modVal - 1) * scale * 100) / 100)
-		elseif type == "INC" or m_abs(modVal) == modVal then -- Yes, there's a nasty hack there, move along
+		elseif type == "INC" or m_floor(modVal) == modVal then -- Yes, there's a nasty hack there, move along
 			modLib.listMerge(modList, modName, m_floor(modVal * scale))
 		else
 			modLib.listMerge(modList, modName, modVal * scale)
