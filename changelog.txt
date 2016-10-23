@@ -1,3 +1,5 @@
+VERSION[1.1.10][2016/10/23]
+ * Added support for the poison-at-max-frenzy modifier on Snakebite
 VERSION[1.1.9][2016/10/07]
  * Added flat chaos damage to all physical weapon templates
 VERSION[1.1.8][2016/10/04]

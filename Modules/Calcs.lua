@@ -1048,6 +1048,41 @@ local function finaliseMods(env, output)
 		end
 	end
 
+	-- Calculate maximum charges
+	output.powerCount = 0
+	output.frenzyCount = 0
+	output.enduranceCount = 0
+	output.powerMax = getMiscVal(modDB, nil, "powerMax", 0)
+	output.frenzyMax = getMiscVal(modDB, nil, "frenzyMax", 0)
+	output.enduranceMax = getMiscVal(modDB, nil, "enduranceMax", 0)
+	if getMiscVal(modDB, "buff", "power", false) then
+		env.skillFlags.havePower = true
+		if env.mode_buffs then
+			output.powerCount = output.powerMax
+		end
+	end
+	if getMiscVal(modDB, "buff", "frenzy", false) then
+		env.skillFlags.haveFrenzy = true
+		if env.mode_buffs then
+			output.frenzyCount = output.frenzyMax
+		end
+	end
+	if getMiscVal(modDB, "buff", "endurance", false) then
+		env.skillFlags.haveEndurance = true
+		if env.mode_buffs then
+			output.enduranceCount = output.enduranceMax
+		end
+	end
+	if output.powerCount == output.powerMax then
+		condList["AtMaxPower"] = true
+	end
+	if output.frenzyCount == output.frenzyMax then
+		condList["AtMaxFrenzy"] = true
+	end
+	if output.enduranceCount == output.enduranceMax then
+		condList["AtMaxEndurance"] = true
+	end
+
 	-- Build and merge conditional modifier list
 	local condModList = wipeTable(env.condModList)
 	env.condModList = condModList
@@ -1078,20 +1113,6 @@ local function finaliseMods(env, output)
 				mod_dbScaleMerge(modDB, "", k, v, count)
 			end
 		end
-	end
-
-	-- Calculate maximum charges
-	if getMiscVal(modDB, "buff", "power", false) then
-		env.skillFlags.havePower = true
-		output.powerMax = getMiscVal(modDB, nil, "powerMax", 0)
-	end
-	if getMiscVal(modDB, "buff", "frenzy", false) then
-		env.skillFlags.haveFrenzy = true
-		output.frenzyMax = getMiscVal(modDB, nil, "frenzyMax", 0)
-	end
-	if getMiscVal(modDB, "buff", "endurance", false) then
-		env.skillFlags.haveEndurance = true
-		output.enduranceMax = getMiscVal(modDB, nil, "enduranceMax", 0)
 	end
 
 	if env.mode_buffs then
