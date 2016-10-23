@@ -988,7 +988,7 @@ gems["Spell Echo"] = {
 	require = "spell",
 	base = {
 		manaCostMore = 1.4,
-		spell_damageMore = 0.9,
+		damageMore = 0.9,
 	},
 	quality = {
 		spell_damageInc = 0.5,
