@@ -216,6 +216,7 @@ Prefixes:
 {inc ES}
 {range:.75}+(0 to 72) to maximum Energy Shield
 {range:.75}+(0 to 99) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 {range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
 {range:0}+(0 to 400) to Accuracy Rating
@@ -244,6 +245,7 @@ Prefixes:
 {range:0}+(0 to 138) to Armour
 {range:0}+(0 to 72) to maximum Energy Shield
 {range:.75}+(0 to 99) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 {range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
 {range:0}+(0 to 400) to Accuracy Rating
@@ -259,6 +261,7 @@ Prefixes:
 {range:0}+(0 to 138) to Armour
 {range:0}+(0 to 72) to maximum Energy Shield
 {range:.75}+(0 to 99) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 {range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
 {range:0}+(0 to 400) to Accuracy Rating
@@ -273,6 +276,7 @@ Prefixes:
 {range:0}+(0 to 138) to Evasion Rating
 {range:0}+(0 to 72) to maximum Energy Shield
 {range:.75}+(0 to 99) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 {range:0}+(0 to 2) to Level of Socketed Minion Gems
 Suffixes:
 {range:0}+(0 to 400) to Accuracy Rating
@@ -332,6 +336,7 @@ Prefixes:
 {inc ES}
 {range:.75}+(0 to 48) to maximum Energy Shield
 {range:.75}+(0 to 89) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 {gloves}
 {dex}
 {int}
@@ -344,6 +349,7 @@ Prefixes:
 {inc ES}
 {range:.75}+(0 to 48) to maximum Energy Shield
 {range:.75}+(0 to 89) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 {gloves}
 {dex}
 {int}
@@ -368,6 +374,7 @@ Prefixes:
 {range:0}+(0 to 80) to Armour
 {range:0}+(0 to 48) to maximum Energy Shield
 {range:.75}+(0 to 89) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 {gloves}
 {str}
 {dex}
@@ -381,6 +388,7 @@ Prefixes:
 {range:0}+(0 to 80) to Evasion Rating
 {range:0}+(0 to 48) to maximum Energy Shield
 {range:.75}+(0 to 89) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 {gloves}
 {dex}
 {int}
@@ -415,6 +423,7 @@ Prefixes:
 {inc ES}
 {range:.75}+(0 to 145) to maximum Energy Shield
 {range:.75}+(0 to 119) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 Suffixes:
 {int}
 {res}
@@ -438,6 +447,7 @@ Prefixes:
 {range:0}+(0 to 400) to Armour
 {range:0}+(0 to 145) to maximum Energy Shield
 {range:.75}+(0 to 119) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 Suffixes:
 {str}
 {int}
@@ -451,6 +461,7 @@ Prefixes:
 {range:0}+(0 to 400) to Evasion Rating
 {range:0}+(0 to 145) to maximum Energy Shield
 {range:.75}+(0 to 119) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 Suffixes:
 {dex}
 {int}
@@ -486,6 +497,7 @@ Prefixes:
 {inc ES}
 {range:0}+(0 to 48) to maximum Energy Shield
 {range:.75}+(0 to 89) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 {range:1}(0 to 30)% increased Movement Speed
 Suffixes:
 {int}
@@ -511,6 +523,7 @@ Prefixes:
 {range:0}+(0 to 80) to Armour
 {range:0}+(0 to 48) to maximum Energy Shield
 {range:.75}+(0 to 89) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 {range:1}(0 to 30)% increased Movement Speed
 Suffixes:
 {str}
@@ -524,6 +537,7 @@ Prefixes:
 {range:0}+(0 to 80) to Evasion Rating
 {range:0}+(0 to 48) to maximum Energy Shield
 {range:.75}+(0 to 89) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 {range:1}(0 to 30)% increased Movement Speed
 Suffixes:
 {dex}
@@ -558,6 +572,7 @@ Prefixes:
 {inc ES}
 {range:.75}+(0 to 135) to maximum Energy Shield
 {range:.75}+(0 to 109) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 {range:0}(0 to 79)% increased Spell Damage
 Suffixes:
 {int}
@@ -584,6 +599,7 @@ Prefixes:
 {range:0}+(0 to 400) to Armour
 {range:0}+(0 to 135) to maximum Energy Shield
 {range:.75}+(0 to 109) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 Suffixes:
 {str}
 {int}
@@ -597,6 +613,7 @@ Prefixes:
 {range:0}+(0 to 400) to Evasion Rating
 {range:0}+(0 to 135) to maximum Energy Shield
 {range:.75}+(0 to 109) to maximum Life
+{range:0}+(0 to 73) to maximum Mana
 Suffixes:
 {dex}
 {int}

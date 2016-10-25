@@ -48,6 +48,9 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.1.11 - 2016/10/25
+ * Added flat mana to ES armour rare templates
+
 ### 1.1.10 - 2016/10/23
  * Added support for the poison-at-max-frenzy modifier on Snakebite
 
