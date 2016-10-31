@@ -179,6 +179,7 @@ for index, data in ipairs(updateFiles) do
 	source = source:gsub("{branch}", localBranch)
 	local fileName = scriptPath.."/Update/"..data.name:gsub("[\\/]","{slash}")
 	data.updateFileName = fileName
+	local content
 	local zipName = source:match("/([^/]+%.zip)$")
 	if zipName then
 		if not zipFiles[zipName] then
@@ -191,36 +192,29 @@ for index, data in ipairs(updateFiles) do
 		if zip then
 			local zippedFile = zip:OpenFile(data.name)
 			if zippedFile then
-				local file = io.open(fileName, "w+b")
-				if not file then
-					ConPrintf("%s", fileName)
-				end
-				file:write(zippedFile:Read("*a"))
-				file:close()
+				content = zippedFile:Read("*a")
 				zippedFile:Close()
 			else
 				ConPrintf("Couldn't extract '%s' from '%s' (extract failed)", data.name, zipName)
-				failedFile = true
 			end
 		else
 			ConPrintf("Couldn't extract '%s' from '%s' (zip open failed)", data.name, zipName)
-			failedFile = true
 		end
 	else
-		ConPrintf("Downloading %s...", data.name)
-		local content = downloadFileText(source..data.name)
-		if content then
-			if data.sha1 ~= sha1(content) and data.sha1 ~= sha1(content:gsub("\n","\r\n")) then
-				ConPrintf("Hash mismatch on '%s'", data.name)
-				failedFile = true
-			else
-				local file = io.open(fileName, "w+b")
-				file:write(content)
-				file:close()
-			end
-		else
+		ConPrintf("Downloading %s... (%d of %d)", data.name, index, #updateFiles)
+		content = downloadFileText(source..data.name)
+	end
+	if content then
+		if data.sha1 ~= sha1(content) and data.sha1 ~= sha1(content:gsub("\n","\r\n")) then
+			ConPrintf("Hash mismatch on '%s'", data.name)
 			failedFile = true
+		else
+			local file = io.open(fileName, "w+b")
+			file:write(content)
+			file:close()
 		end
+	else
+		failedFile = true
 	end
 end
 for name, zip in pairs(zipFiles) do

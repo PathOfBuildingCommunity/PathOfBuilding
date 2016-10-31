@@ -490,7 +490,6 @@ local specialModList = {
 	["you have no life regeneration"] = { flag("NoLifeRegen") },
 	["cannot block attacks"] = { flag("CannotBlockAttacks") },
 	["projectiles pierce while phasing"] = { mod("PierceChance", "BASE", 100, { type = "Condition", var = "Phasing" }) },
-	["reserves (%d+)%% of life"] = function(num) return { } end,--FIXME { reserved_lifePercent = num } end,
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques
@@ -556,8 +555,8 @@ local function getSimpleConv(src, dst, type, factor)
 		if nodeMods then
 			local nodeVal = nodeMods:Sum(type, nil, src)
 			if nodeVal ~= 0 then
-				out:NewMod(src, type, -nodeVal, "Node:Jewel")
-				out:NewMod(dst, type, nodeVal * factor, "Node:Jewel")
+				out:NewMod(src, type, -nodeVal, "Tree:Jewel")
+				out:NewMod(dst, type, nodeVal * factor, "Tree:Jewel")
 			end
 		end
 	end
@@ -568,8 +567,8 @@ local function getMatchConv(others, dst, type)
 			for _, mod in ipairs(nodeMods) do
 				for _, other in pairs(others) do
 					if mod.name:match(other) then
-						out:NewMod(mod.name, type, -mod.value, "Node:Jewel")
-						out:NewMod(mod.name:gsub(other, dst), type, mod.value, "Node:Jewel")
+						out:NewMod(mod.name, type, -mod.value, "Tree:Jewel")
+						out:NewMod(mod.name:gsub(other, dst), type, mod.value, "Tree:Jewel")
 					end
 				end
 			end
@@ -581,7 +580,7 @@ local function getPerStat(dst, type, flags, stat, factor)
 		if nodeMods then
 			data[stat] = (data[stat] or 0) + nodeMods:Sum("BASE", nil, stat)
 		else
-			out:NewMod(dst, type, math.floor(data[stat] * factor + 0.5), "Node:Jewel", flags)
+			out:NewMod(dst, type, math.floor(data[stat] * factor + 0.5), "Tree:Jewel", flags)
 		end
 	end
 end
@@ -606,8 +605,8 @@ local jewelFuncs = {
 			local mask3 = bor(ModFlag.Weapon2H, ModFlag.WeaponMelee)
 			for _, mod in ipairs(nodeMods) do
 				if band(mod.flags, mask1) ~= 0 or band(mod.flags, mask2) == mask2 or band(mod.flags, mask3) == mask3 then
-					out:NewMod(mod.name, mod.type, -mod.value, "Node:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tag))
-					out:NewMod(mod.name, mod.type, mod.value, "Node:Jewel", bor(band(mod.flags, bnot(bor(mask1, mask2, mask3))), ModFlag.Bow), mod.keywordFlags, unpack(mod.tag))
+					out:NewMod(mod.name, mod.type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tag))
+					out:NewMod(mod.name, mod.type, mod.value, "Tree:Jewel", bor(band(mod.flags, bnot(bor(mask1, mask2, mask3))), ModFlag.Bow), mod.keywordFlags, unpack(mod.tag))
 				end
 			end
 		end
@@ -626,7 +625,7 @@ local jewelFuncs = {
 			data.Dex = (data.Dex or 0) + nodeMods:Sum("BASE", 0, "Dex")
 			data.Int = (data.Int or 0) + nodeMods:Sum("BASE", 0, "Int")
 		else
-			out:NewMod("DexIntToMeleeBonus", "BASE", data.Dex + data.Int, "Node:Jewel")
+			out:NewMod("DexIntToMeleeBonus", "BASE", data.Dex + data.Int, "Tree:Jewel")
 		end
 	end,
 }

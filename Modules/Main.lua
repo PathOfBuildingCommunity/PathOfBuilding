@@ -39,6 +39,8 @@ local classList = {
 	-- Mode: Build list
 	"BuildListControl",
 	-- Mode: Build
+	"ModList",
+	"ModDB",
 	"ImportTab",
 	"ConfigTab",
 	"TreeTab",

@@ -152,7 +152,7 @@ function SkillListClass:Draw(viewPort)
 			main:AddTooltipLine(16, "^7Active Skill #"..index..":")
 			for _, gem in ipairs(activeSkill.gemList) do
 				main:AddTooltipLine(20, string.format("%s%s ^7%d%s/%d%s", 
-					gem.srcGem.color, 
+					data.skillColorMap[gem.data.color], 
 					gem.name, 
 					gem.level, 
 					(gem.srcGem and gem.level > gem.srcGem.level) and data.colorCodes.MAGIC.."+"..(gem.level - gem.srcGem.level).."^7" or "",

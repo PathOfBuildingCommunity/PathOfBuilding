@@ -185,6 +185,7 @@ data.colorCodes = {
 data.colorCodes.STRENGTH = data.colorCodes.MARAUDER
 data.colorCodes.DEXTERITY = data.colorCodes.RANGER
 data.colorCodes.INTELLIGENCE = data.colorCodes.WITCH
+data.skillColorMap = { data.colorCodes.STRENGTH, data.colorCodes.DEXTERITY, data.colorCodes.INTELLIGENCE, data.colorCodes.NORMAL }
 
 data.jewelRadius = {
 	{ rad = 800, col = "^xBB6600", label = "Small" },

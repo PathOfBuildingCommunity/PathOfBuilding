@@ -266,7 +266,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 		for _, mod in pairs(node.mods) do
 			if mod.list and not mod.extra then
 				for i, mod in ipairs(mod.list) do
-					mod.source = "Node:"..node.id
+					mod.source = "Tree:"..node.id
 					if type(mod.value) == "table" and mod.value.mod then
 						mod.value.mod.source = mod.source
 					end
@@ -275,10 +275,10 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 			end
 		end
 		if node.passivePointsGranted > 0 then
-			node.modList:NewMod("ExtraPoints", "BASE", node.passivePointsGranted, "Node"..node.id)
+			node.modList:NewMod("ExtraPoints", "BASE", node.passivePointsGranted, "Tree"..node.id)
 		end
 		if node.type == "keystone" then
-			node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Node"..node.id)
+			node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree"..node.id)
 		end
 	end
 

@@ -9,7 +9,7 @@ significant upgrades:
 	   * You can click on a stat to pin the breakdown open so you can interact with it
 	   * Each breakdown view shows all the information used to calculate that stat, including ALL modifiers
 	   * You can hover over a modifier's source name to show the item's tooltip or passive node's location
-	   * Hovering over a modifier source type ('Item', 'Node', 'Gem' etc) will show the totals from that source type
+	   * Hovering over a modifier source type ('Item', 'Tree', 'Gem' etc) will show the totals from that source type
 	* Most modifier totals are no longer displayed in the tab itself, since they can be found in the breakdown views. 
 	  The most important ones (such as increased life from tree) are still present, however.
  * Per-stat modifiers are now supported, including, but not limited to, the modifiers from:
@@ -30,6 +30,7 @@ Other changes:
     * The names of many options have been changed to clarify their function
 	* Some options now have tooltips that explain aspects of their function
  * The new class background artworks have been added to the passive skill tree
+ * Unsupported modifiers are now shown in red instead of white to help convey the fact that they won't work
  * Support gem compatability is now determined using the same data the game itself uses, and should now be 100% accurate
 VERSION[1.1.11][2016/10/25]
  * Added flat mana to ES armour rare templates

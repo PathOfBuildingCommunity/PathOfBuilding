@@ -3,6 +3,7 @@
 -- Module: Calcs
 -- Performs all the offense and defense calculations.
 -- Here be dragons!
+-- This file is 2500 lines long, over half of which is in one function...
 --
 
 local pairs = pairs
@@ -419,7 +420,7 @@ local function buildNodeModList(env, nodeList, finishJewels)
 end
 
 -- Calculate min/max damage of a hit for the given damage type
-local function calcHitDamage(env, damageType, ...)
+local function calcHitDamage(env, source, damageType, ...)
 	local modDB = env.modDB
 	local skillCfg = env.mainSkill.skillCfg
 
@@ -427,7 +428,6 @@ local function calcHitDamage(env, damageType, ...)
 	local damageTypeMax = damageType.."Max"
 
 	-- Calculate base values
-	local source = (env.mode_skillType == "ATTACK") and env.weaponData1 or env.mainSkill.skillData
 	local damageEffectiveness = source.damageEffectiveness or 1
 	local addedMin = modDB:Sum("BASE", skillCfg, damageTypeMin)
 	local addedMax = modDB:Sum("BASE", skillCfg, damageTypeMax)
@@ -462,7 +462,7 @@ local function calcHitDamage(env, damageType, ...)
 		local convMult = conversionTable[otherType][damageType]
 		if convMult > 0 then
 			-- Damage is being converted/gained from the other damage type
-			local min, max = calcHitDamage(env, otherType, damageType, ...)
+			local min, max = calcHitDamage(env, source, otherType, damageType, ...)
 			addMin = addMin + min * convMult
 			addMax = addMax + max * convMult
 		end
@@ -814,7 +814,14 @@ local function mergeMainMods(env, repSlotName, repItem)
 				-- Add extra supports from the item this group is socketed in
 				local gemData = data.gems[value.name]
 				if gemData then
-					t_insert(supportList, { name = value.name, data = gemData, level = value.level, quality = 0, enabled = true, fromItem = true })
+					t_insert(supportList, { 
+						name = value.name, 
+						data = gemData, 
+						level = value.level,
+						quality = 0, 
+						enabled = true, 
+						fromItem = true
+					})
 				end
 			end
 			for _, gem in ipairs(socketGroup.gemList) do
@@ -907,6 +914,7 @@ local function mergeMainMods(env, repSlotName, repItem)
 end
 
 -- Finalise environment and perform the calculations
+-- This function is 1400 lines long. Enjoy!
 local function performCalcs(env)
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
@@ -1442,7 +1450,6 @@ local function performCalcs(env)
 			total = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
 		end
 		output[elem.."ResistMax"] = max
-		output[elem.."ResistTotal"] = total
 		output[elem.."Resist"] = m_min(total, max)
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
 		if breakdown then
@@ -1722,89 +1729,92 @@ local function performCalcs(env)
 
 	-- Calculate hit damage for each damage type
 	local totalMin, totalMax = 0, 0
-	for _, damageType in ipairs(dmgTypeList) do
-		local min, max
-		if canDeal[damageType] then
-			if breakdown then
-				breakdown[damageType] = {
-					damageComponents = { }
-				}
-			end
-			min, max = calcHitDamage(env, damageType)
-			local convMult = env.conversionTable[damageType].mult
-			if breakdown then
-				t_insert(breakdown[damageType], "Hit damage:")
-				t_insert(breakdown[damageType], "^7"..min.." to "..max.." ^8(total damage)")			
-				if convMult ~= 1 then
-					t_insert(breakdown[damageType], "^7x "..convMult.." ^8("..((1-convMult)*100).."% converted to other damage types)")
+	do
+		local hitSource = (env.mode_skillType == "ATTACK") and env.weaponData1 or env.mainSkill.skillData
+		for _, damageType in ipairs(dmgTypeList) do
+			local min, max
+			if canDeal[damageType] then
+				if breakdown then
+					breakdown[damageType] = {
+						damageComponents = { }
+					}
 				end
-			end
-			min = min * convMult
-			max = max * convMult
-			if env.mode_effective then
-				-- Apply enemy resistances and damage taken modifiers
-				local preMult
-				local taken = enemyDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken")
-				local resist = 0
-				local pen = 0
-				if isElemental[damageType] then
-					resist = output["Enemy"..damageType.."Resist"]
-					pen = modDB:Sum("BASE", skillCfg, damageType.."Penetration", "ElementalPenetration")
-					taken = taken + enemyDB:Sum("INC", nil, "ElementalDamageTaken")
-				elseif damageType == "Chaos" then
-					resist = output.EnemyChaosResist
-				else
-					resist = enemyDB:Sum("INC", nil, "PhysicalDamageReduction")
-				end
-				if skillFlags.projectile then
-					taken = taken + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
-				end
-				local mult = (1 - (resist - pen) / 100) * (1 + taken / 100)
-				min = min * mult
-				max = max * mult
-				if env.mode == "GRID" then
-					output[damageType.."EffMult"] = mult
-				end
-				if breakdown and mult ~= 1 then
-					t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", mult))
-					local out = { }
-					local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
-					if resist ~= 0 then
-						t_insert(out, "Enemy "..resistForm..": "..resist.."%")
+				min, max = calcHitDamage(env, hitSource, damageType)
+				local convMult = env.conversionTable[damageType].mult
+				if breakdown then
+					t_insert(breakdown[damageType], "Hit damage:")
+					t_insert(breakdown[damageType], "^7"..min.." to "..max.." ^8(total damage)")			
+					if convMult ~= 1 then
+						t_insert(breakdown[damageType], "^7x "..convMult.." ^8("..((1-convMult)*100).."% converted to other damage types)")
 					end
-					if pen ~= 0 then
-						t_insert(out, "Effective resistance:")
-						t_insert(out, ""..resist.."% ^8(resistance)")
-						t_insert(out, "- "..pen.."% ^8(penetration)")
-						t_insert(out, "= "..(resist-pen).."%")
+				end
+				min = min * convMult
+				max = max * convMult
+				if env.mode_effective then
+					-- Apply enemy resistances and damage taken modifiers
+					local preMult
+					local taken = enemyDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken")
+					local resist = 0
+					local pen = 0
+					if isElemental[damageType] then
+						resist = output["Enemy"..damageType.."Resist"]
+						pen = modDB:Sum("BASE", skillCfg, damageType.."Penetration", "ElementalPenetration")
+						taken = taken + enemyDB:Sum("INC", nil, "ElementalDamageTaken")
+					elseif damageType == "Chaos" then
+						resist = output.EnemyChaosResist
+					else
+						resist = enemyDB:Sum("INC", nil, "PhysicalDamageReduction")
 					end
-					if (resist - pen) ~= 0 and taken ~= 0 then
-						t_insert(out, "Effective DPS modifier:")
-						t_insert(out, (1 - (resist - pen) / 100).." ^8("..resistForm..")")
-						t_insert(out, "x "..(1 + taken / 100).." ^8(increased/reduced damage taken)")
-						t_insert(out, s_format("= %.3f", mult))
+					if skillFlags.projectile then
+						taken = taken + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
 					end
-					breakdown[damageType.."EffMult"] = out
+					local mult = (1 - (resist - pen) / 100) * (1 + taken / 100)
+					min = min * mult
+					max = max * mult
+					if env.mode == "GRID" then
+						output[damageType.."EffMult"] = mult
+					end
+					if breakdown and mult ~= 1 then
+						t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", mult))
+						local out = { }
+						local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
+						if resist ~= 0 then
+							t_insert(out, "Enemy "..resistForm..": "..resist.."%")
+						end
+						if pen ~= 0 then
+							t_insert(out, "Effective resistance:")
+							t_insert(out, ""..resist.."% ^8(resistance)")
+							t_insert(out, "- "..pen.."% ^8(penetration)")
+							t_insert(out, "= "..(resist-pen).."%")
+						end
+						if (resist - pen) ~= 0 and taken ~= 0 then
+							t_insert(out, "Effective DPS modifier:")
+							t_insert(out, (1 - (resist - pen) / 100).." ^8("..resistForm..")")
+							t_insert(out, "x "..(1 + taken / 100).." ^8(increased/reduced damage taken)")
+							t_insert(out, s_format("= %.3f", mult))
+						end
+						breakdown[damageType.."EffMult"] = out
+					end
+				end
+				if breakdown then	
+					t_insert(breakdown[damageType], "^7= "..round(min).." to "..round(max))
+				end
+			else
+				min, max = 0, 0
+				if breakdown then
+					breakdown[damageType] = {
+						"You can't deal "..damageType.." damage"
+					}
 				end
 			end
-			if breakdown then	
-				t_insert(breakdown[damageType], "^7= "..round(min).." to "..round(max))
+			if env.mode == "GRID" then
+				output[damageType.."Min"] = min
+				output[damageType.."Max"] = max
 			end
-		else
-			min, max = 0, 0
-			if breakdown then
-				breakdown[damageType] = {
-					"You can't deal "..damageType.." damage"
-				}
-			end
+			output[damageType.."Average"] = (min + max) / 2
+			totalMin = totalMin + min
+			totalMax = totalMax + max
 		end
-		if env.mode == "GRID" then
-			output[damageType.."Min"] = min
-			output[damageType.."Max"] = max
-		end
-		output[damageType.."Average"] = (min + max) / 2
-		totalMin = totalMin + min
-		totalMax = totalMax + max
 	end
 	output.TotalMin = totalMin
 	output.TotalMax = totalMax
@@ -2353,15 +2363,11 @@ local function getCalculator(build, fullInit, modFunc)
 		mergeMainMods(env)
 	end
 	local initModDB = common.New("ModDB")
-	for modName, modList in pairs(env.modDB.mods) do
-		initModDB:AddList(modList)
-	end
+	initModDB:AddDB(env.modDB)
 	initModDB.multipliers = copyTable(env.modDB.multipliers)
 	initModDB.conditions = copyTable(env.modDB.conditions)
 	local initEnemyDB = common.New("ModDB")
-	for modName, modList in pairs(env.enemyDB.mods) do
-		initEnemyDB:AddList(modList)
-	end
+	initEnemyDB:AddDB(env.enemyDB)
 	if not fullInit then
 		mergeMainMods(env)
 	end
@@ -2373,15 +2379,11 @@ local function getCalculator(build, fullInit, modFunc)
 	return function(...)
 		-- Restore initial mod database
 		env.modDB.mods = wipeTable(env.modDB.mods)
-		for modName, modList in pairs(initModDB.mods) do
-			env.modDB:AddList(modList)
-		end
+		env.modDB:AddDB(initModDB)
 		env.modDB.conditions = copyTable(initModDB.conditions)
 		env.modDB.multipliers = copyTable(initModDB.multipliers)
 		env.enemyDB.mods = wipeTable(env.enemyDB.mods)
-		for modName, modList in pairs(initEnemyDB.mods) do
-			env.enemyDB:AddList(modList)
-		end
+		env.enemyDB:AddDB(initEnemyDB)
 		
 		-- Call function to make modifications to the enviroment
 		modFunc(env, ...)
@@ -2440,7 +2442,7 @@ function calcs.buildOutput(build, mode)
 		output.ExtraPoints = env.modDB:Sum("BASE", nil, "ExtraPoints")
 
 		local specCfg = {
-			source = "Node"
+			source = "Tree"
 		}
 		for _, stat in pairs({"Life", "Mana", "Armour", "Evasion", "EnergyShield"}) do
 			output["Spec:"..stat.."Inc"] = env.modDB:Sum("INC", specCfg, stat)

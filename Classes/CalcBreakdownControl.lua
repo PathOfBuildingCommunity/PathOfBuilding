@@ -274,13 +274,13 @@ function CalcBreakdownClass:AddModSection(sectionData)
 				build.itemsTab:AddItemTooltip(item, row.mod.sourceSlot)
 				return data.colorCodes[item.rarity], true
 			end
-		elseif sourceType == "Node" then
-			local nodeId = row.mod.source:match("Node:(%d+)")
+		elseif sourceType == "Tree" then
+			local nodeId = row.mod.source:match("Tree:(%d+)")
 			if nodeId then
 				local node = build.spec.nodes[tonumber(nodeId)]
 				row.sourceName = node.dn
 				row.sourceNameNode = node
-			elseif row.mod.source == "Node:Jewel" then
+			elseif row.mod.source == "Tree:Jewel" then
 				row.sourceName = "Jewel conversion"
 			end
 		elseif sourceType == "Gem" then

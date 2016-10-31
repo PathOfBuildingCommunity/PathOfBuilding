@@ -350,7 +350,7 @@ function CalcsTabClass:BuildPower()
 			end
 			local output = cache[node.modKey]
 			node.power.dps = (output.CombinedDPS - calcBase.CombinedDPS) / calcBase.CombinedDPS
-			node.power.def = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) * 0.5 + 
+			node.power.def = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) + 
 							 (output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) + 
 							 (output.EnergyShield - calcBase.EnergyShield) / m_max(3000, calcBase.EnergyShield) + 
 							 (output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
