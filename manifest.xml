@@ -7,7 +7,7 @@
 	<File sha1="889ff24936021c18a2b2d6893fc087cb3bc7018a" name="Launch.lua" part="program"/>
 	<File sha1="cb07c8d4819eb81df9e98ab9039e0c9adf74c150" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="b17c54b55ae49a8a3ad2c7ca7ffa5807dd9c1ab7" name="changelog.txt" part="program"/>
+	<File sha1="0bd9caf1b0f69fc72d1be5feaf9c87313dfbda2a" name="changelog.txt" part="program"/>
 	<File sha1="aef7145f378d0a1d5dc6f5f2d3c08d2a1b6ef264" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="f41793d6cbf037cddab2079bf9445cf096e295cf" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="b7ceb3ebbb6cdb4bccaf2c0ada81add197fa9d84" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -28,7 +28,7 @@
 	<File sha1="e577edeea7685cb2b0cd0d00b901a458ae45add0" name="Classes/LabelControl.lua" part="program"/>
 	<File sha1="6f8f98d6ee505af53441c1fe9ad74fbff86d56ad" name="Classes/PassiveSpec.lua" part="program"/>
 	<File sha1="f647a251d5b2435cb4038f131d441795e0ef7756" name="Classes/PassiveTree.lua" part="program"/>
-	<File sha1="835c16a3419e98a7451c57efc12edb0e90dbaf0a" name="Classes/PassiveTreeView.lua" part="program"/>
+	<File sha1="98496bc834a2a7e46210f7ad8f3e7b3954ae2582" name="Classes/PassiveTreeView.lua" part="program"/>
 	<File sha1="b5d4e4e7cedcabefa029cdefc74db5ac0a82d87f" name="Classes/PopupDialog.lua" part="program"/>
 	<File sha1="86fee3127d9520144fc741f6fccc3c1d9f1aa532" name="Classes/ScrollBarControl.lua" part="program"/>
 	<File sha1="261dcf54a4542e6160fd7024d8edf4fc095d9c71" name="Classes/SectionControl.lua" part="program"/>
@@ -135,7 +135,7 @@
 	<File sha1="18629865eb351e483178b6524fb3935cbc9b8297" name="lua/base64.lua" part="runtime"/>
 	<File sha1="31e325cd40a9c0234c6265689cf70b97ef676f20" name="lua/sha1.lua" part="runtime"/>
 	<File sha1="859e09104842f91a4aaa9a4d9fadf667535877e2" name="lua/xml.lua" part="runtime"/>
-	<File sha1="343ee96762d86b1e4e2db22a342b46cd49146f8c" name="TreeData/tree.lua" part="tree"/>
+	<File sha1="dd9485f9bb28ae21302c49f64d5bcf0ec2b9cf4d" name="TreeData/tree.lua" part="tree"/>
 	<File sha1="a29d12d7710c3cb8f81a6ae431302e59fe44b510" name="TreeData/skill_sprite-3-6340617adde92c3d2a6d908b53092cb4.jpg" part="tree"/>
 	<File sha1="457d940b537d7207cb386c78a40c444893b5a5ce" name="TreeData/skill_sprite-active-3-18ba11635a6d283635c2fbdbfd30e7f6.jpg" part="tree"/>
 	<File sha1="0ba429a9704c51b3cbc5bff88a105dadaf72fa76" name="TreeData/skill_sprite-active-3-bcd39673e9d14074c3fc75a13f66d6e6.png" part="tree"/>

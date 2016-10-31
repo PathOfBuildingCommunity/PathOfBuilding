@@ -80,6 +80,7 @@ Other changes:
 	* Moving these into a dedicated tab will provide room for more options to be added in the future
     * The names of many options have been changed to clarify their function
 	* Some options now have tooltips that explain aspects of their function
+ * The new class background artworks have been added to the passive skill tree
  * Support gem compatability is now determined using the same data the game itself uses, and should now be 100% accurate
 
 ### 1.1.11 - 2016/10/25

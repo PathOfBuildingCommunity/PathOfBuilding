@@ -219,6 +219,27 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	SetDrawColor(1, 1, 1)
 	DrawImage(bg.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, (self.zoomX + viewPort.width/2) / -bgSize, (self.zoomY + viewPort.height/2) / -bgSize, (viewPort.width/2 - self.zoomX) / bgSize, (viewPort.height/2 - self.zoomY) / bgSize)
 
+	-- Hack to draw class background art, the position data doesn't seem to be in the tree JSON yet
+	if build.spec.curClassId == 1 then
+		local scrX, scrY = treeToScreen(-2750, 1600)
+		self:DrawAsset(tree.assets.BackgroundStr, scrX, scrY, scale)
+	elseif build.spec.curClassId == 2 then
+		local scrX, scrY = treeToScreen(2550, 1600)
+		self:DrawAsset(tree.assets.BackgroundDex, scrX, scrY, scale)
+	elseif build.spec.curClassId == 3 then
+		local scrX, scrY = treeToScreen(-250, -2200)
+		self:DrawAsset(tree.assets.BackgroundInt, scrX, scrY, scale)
+	elseif build.spec.curClassId == 4 then
+		local scrX, scrY = treeToScreen(-150, 2350)
+		self:DrawAsset(tree.assets.BackgroundStrDex, scrX, scrY, scale)
+	elseif build.spec.curClassId == 5 then
+		local scrX, scrY = treeToScreen(-2100, -1500)
+		self:DrawAsset(tree.assets.BackgroundStrInt, scrX, scrY, scale)
+	elseif build.spec.curClassId == 6 then
+		local scrX, scrY = treeToScreen(2350, -1950)
+		self:DrawAsset(tree.assets.BackgroundDexInt, scrX, scrY, scale)
+	end
+
 	-- Draw the group backgrounds
 	for _, group in pairs(tree.groups) do
 		local scrX, scrY = treeToScreen(group.x, group.y)
