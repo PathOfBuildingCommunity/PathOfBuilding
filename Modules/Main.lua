@@ -187,9 +187,6 @@ function main:Init()
 		return launch.devMode
 	end
 
-	-- FIXME: Remove before merge
-	self.controls.devMode.label = "^1Experimental"
-
 	self.inputEvents = { }
 	self.popups = { }
 	self.tooltipLines = { }
