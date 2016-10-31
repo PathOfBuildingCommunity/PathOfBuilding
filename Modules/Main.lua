@@ -138,7 +138,7 @@ function main:Init()
 		launch:CheckForUpdate()
 	end)
 	self.controls.checkUpdate.shown = function()
-		return true--not launch.devMode and (not launch.updateAvailable or launch.updateAvailable == "none")
+		return not launch.devMode and (not launch.updateAvailable or launch.updateAvailable == "none")
 	end
 	self.controls.checkUpdate.label = function()
 		return launch.subScriptType == "UPDATE" and launch.updateProgress or "Check for Update"

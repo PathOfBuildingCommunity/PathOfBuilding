@@ -46,7 +46,7 @@
 	<File sha1="f207df4010cb3c7bc6cce98be2529a3b8a708b8f" name="Modules/Common.lua" part="program"/>
 	<File sha1="00e226aaeec881dce3ee731297c0c7043bb267ea" name="Modules/Data.lua" part="program"/>
 	<File sha1="5ddfa4a5904cefbf2755c231797175c8ae24ac49" name="Modules/ItemTools.lua" part="program"/>
-	<File sha1="503acbeba1edfd816c76bad112e6f06ec1ec1ebe" name="Modules/Main.lua" part="program"/>
+	<File sha1="5f4335983c8844f74b80d44c282840678008b4aa" name="Modules/Main.lua" part="program"/>
 	<File sha1="07f0e188d7829023f98700e187c0fa568375187b" name="Modules/ModParser.lua" part="program"/>
 	<File sha1="c0fdcb2dd66c4404c600d8b065da5d8244f0e2f6" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
