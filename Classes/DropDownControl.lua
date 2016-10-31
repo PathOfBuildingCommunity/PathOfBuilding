@@ -9,11 +9,12 @@ local ipairs = ipairs
 local m_min = math.min
 local m_max = math.max
 
-local DropDownClass = common.NewClass("DropDownControl", "Control", function(self, anchor, x, y, width, height, list, selFunc)
+local DropDownClass = common.NewClass("DropDownControl", "Control", function(self, anchor, x, y, width, height, list, selFunc, tooltip)
 	self.Control(anchor, x, y, width, height)
 	self.list = list or { }
 	self.sel = 1
 	self.selFunc = selFunc
+	self.tooltip = tooltip
 end)
 
 function DropDownClass:SelByValue(val)
@@ -62,7 +63,7 @@ function DropDownClass:IsMouseOver()
 	return mOver, mOverComp
 end
 
-function DropDownClass:Draw()
+function DropDownClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -107,6 +108,12 @@ function DropDownClass:Draw()
 	end
 	if enabled then
 		SetDrawColor(1, 1, 1)
+		if (mOver or self.dropped) and self.tooltip then
+			SetDrawLayer(nil, 10)
+			main:AddTooltipLine(14, self.tooltip)
+			main:DrawTooltip(x, y, width, height + (self.dropped and dropExtra or 0), viewPort)
+			SetDrawLayer(nil, 0)
+		end
 	else
 		SetDrawColor(0.66, 0.66, 0.66)
 	end
@@ -176,10 +183,12 @@ function DropDownClass:OnKeyUp(key)
 			self:SetSel(math.floor((cursorY - y - height) / (height - 4)) + 1)
 			self.dropped = false
 		end
-	elseif key == "WHEELDOWN" then
+	elseif key == "WHEELDOWN" or key == "DOWN" then
 		self:SetSel(self.sel + 1)
-	elseif key == "WHEELUP" then
+		return self
+	elseif key == "WHEELUP" or key == "UP" then
 		self:SetSel(self.sel - 1)
+		return self
 	end
 	return self.dropped and self
 end

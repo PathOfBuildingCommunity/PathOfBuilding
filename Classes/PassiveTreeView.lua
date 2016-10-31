@@ -332,7 +332,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				local def = m_max(node.power.def or 0, 0)
 				local dpsCol = (dps / build.calcsTab.powerMax.dps * 1.5) ^ 0.5
 				local defCol = (def / build.calcsTab.powerMax.def * 1.5) ^ 0.5
-				SetDrawColor(dpsCol, (dpsCol + defCol) / 4, defCol)
+				SetDrawColor(dpsCol, (m_max(dpsCol - 0.5, 0) + m_max(defCol - 0.5, 0)) / 2, defCol)
 			else
 				SetDrawColor(1, 1, 1)
 			end
@@ -509,8 +509,8 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 				if launch.devMode and IsKeyDown("ALT") then
 					-- Modifier debugging info
 					local modStr
-					for k, v in pairs(node.mods[i].list) do
-						modStr = (modStr and modStr..", " or "^2") .. string.format("%s = %s", k, tostring(v))
+					for _, mod in pairs(node.mods[i].list) do
+						modStr = (modStr and modStr..", " or "^2") .. modLib.formatMod(mod)
 					end
 					if node.mods[i].extra then
 						modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
@@ -520,7 +520,7 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 					end
 				end
 			end
-			main:AddTooltipLine(16, ((node.mods[i].extra or not node.mods[i].list) and data.colorCodes.NORMAL or data.colorCodes.MAGIC)..line)
+			main:AddTooltipLine(16, ((node.mods[i].extra or not node.mods[i].list) and data.colorCodes.UNSUPPORTED or data.colorCodes.MAGIC)..line)
 		end
 	end
 

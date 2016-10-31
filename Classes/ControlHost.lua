@@ -55,8 +55,9 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 			elseif isMouseInRegion(viewPort) then
 				local mOverControl = self:GetMouseOverControl(viewPort)
 				if mOverControl and mOverControl.OnKeyUp then
-					mOverControl:OnKeyUp(event.key)
-					inputEvents[id] = nil
+					if mOverControl:OnKeyUp(event.key) then
+						inputEvents[id] = nil
+					end
 				end
 			end
 		elseif event.type == "Char" then

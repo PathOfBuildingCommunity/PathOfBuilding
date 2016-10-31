@@ -185,12 +185,21 @@ function isValueInArray(tbl, val)
 	end
 end
 
+-- Rounds a number to the nearest <dec> decimal places
+function round(val, dec)
+	if dec then
+		return m_floor(val * 10 ^ dec + 0.5) / 10 ^ dec
+	else
+		return m_floor(val + 0.5)
+	end
+end
+
 -- Formats 1234.56 -> "1,234.5" [dec=1]
 function formatNumSep(val, dec)
 	dec = dec or 0
 	val = val or 0
 	local neg = val < 0
-	val = m_floor(m_abs(val * 10 ^ dec))
+	val = m_floor(m_abs(val * 10 ^ dec) + 0.5)
 	local str = string.reverse(s_format("%.0f", val))
 	if #str < (dec + 1) then
 		str = str .. string.rep("0", dec + 1 - #str)

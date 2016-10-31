@@ -105,8 +105,8 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			end
 			if not found then
 				searchStr = searchStr:gsub(" ","")
-				for modName in pairs(item.baseModList) do
-					if modName:lower():gsub("_",""):match(searchStr) then
+				for i, mod in pairs(item.baseModList) do
+					if mod.name:lower():gsub("_",""):match(searchStr) then
 						found = true
 						break
 					end
@@ -262,6 +262,7 @@ function ItemDBClass:OnKeyDown(key, doubleClick)
 					self.itemsTab:CreateDisplayItemFromRaw(selItem.raw)
 					local newItem = self.itemsTab.displayItem
 					self.itemsTab:AddDisplayItem(true)
+					itemLib.buildItemModList(newItem)
 					local slotName = itemLib.getPrimarySlotForItem(newItem)
 					if slotName and self.itemsTab.slots[slotName] then
 						if IsKeyDown("SHIFT") then
@@ -313,6 +314,7 @@ function ItemDBClass:OnKeyUp(key)
 					self.itemsTab:CreateDisplayItemFromRaw(self.selItem.raw)
 					local newItem = self.itemsTab.displayItem
 					self.itemsTab:AddDisplayItem()
+					itemLib.buildItemModList(newItem)
 					t_remove(self.itemsTab.orderList, #self.itemsTab.orderList)
 					t_insert(self.itemsTab.orderList, self.itemsTab.controls.itemList.selDragIndex, newItem.id)
 				else
@@ -322,6 +324,7 @@ function ItemDBClass:OnKeyUp(key)
 								self.itemsTab:CreateDisplayItemFromRaw(self.selItem.raw)
 								local newItem = self.itemsTab.displayItem
 								self.itemsTab:AddDisplayItem(true)
+								itemLib.buildItemModList(newItem)
 								slot.selItemId = newItem.id
 								self.itemsTab:PopulateSlots()
 								self.itemsTab:AddUndoState()

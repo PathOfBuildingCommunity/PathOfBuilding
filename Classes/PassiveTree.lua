@@ -222,24 +222,25 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 		local i = 1
 		while node.sd[i] do
 			local line = node.sd[i]
-			local list, extra
-			if line:match("\n") then
-				-- There's a newline somewhere, so first try and parse it as a single line
-				list, extra = modLib.parseMod(line:gsub("\n", " "))
-				if list and not extra then
-					node.sd[i] = line:gsub("\n", " ")
-				else
-					-- That failed, so break it into separate lines and try to parse them
-					table.remove(node.sd, i)
-					local si = i
-					for subLine in line:gmatch("[^\n]+") do
-						table.insert(node.sd, si, subLine)
-						si = si + 1
+			local list, extra = modLib.parseMod(line)
+			if not list or extra then
+				-- Try to combine it with one or more of the lines that follow this one
+				local endI = i + 1
+				while node.sd[endI] do
+					local comb = line
+					for ci = i + 1, endI do
+						comb = comb .. " " .. node.sd[ci]
 					end
-					list, extra = modLib.parseMod(node.sd[i])
+					list, extra = modLib.parseMod(comb)
+					if list and not extra then
+						-- Success, add dummy mod lists to the other lines that were combined with this one
+						for ci = i + 1, endI do
+							node.mods[ci] = { list = { } }
+						end
+						break
+					end
+					endI = endI + 1
 				end
-			else
-				list, extra = modLib.parseMod(line)
 			end
 			if not list then
 				-- Parser had no idea how to read this modifier
@@ -248,28 +249,36 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 				-- Parser recognised this as a modifier but couldn't understand all of it
 				node.extra = true
 			else
-				for k, v in pairs(list) do
-					node.modKey = node.modKey..k.."="..tostring(v)..","
+				for _, mod in ipairs(list) do
+					node.modKey = node.modKey.."["..modLib.formatMod(mod).."]"
 				end
 			end
 			node.mods[i] = { list = list, extra = extra }
 			i = i + 1
+			while node.mods[i] do
+				-- Skip any lines with dummy lists added by the line combining code
+				i = i + 1
+			end
 		end
 
 		-- Build unified list of modifiers from all recognised modifier lines
-		node.modList = { }
+		node.modList = common.New("ModList")
 		for _, mod in pairs(node.mods) do
 			if mod.list and not mod.extra then
-				for k, v in pairs(mod.list) do
-					modLib.listMerge(node.modList, k, v)
+				for i, mod in ipairs(mod.list) do
+					mod.source = "Node:"..node.id
+					if type(mod.value) == "table" and mod.value.mod then
+						mod.value.mod.source = mod.source
+					end
+					node.modList:AddMod(mod)
 				end
 			end
 		end
-		if node.type == "keystone" then
-			modLib.listMerge(node.modList, "keystone:"..node.dn, true)
-		end
 		if node.passivePointsGranted > 0 then
-			modLib.listMerge(node.modList, "extraPoints", node.passivePointsGranted)
+			node.modList:NewMod("ExtraPoints", "BASE", node.passivePointsGranted, "Node"..node.id)
+		end
+		if node.type == "keystone" then
+			node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Node"..node.id)
 		end
 	end
 
