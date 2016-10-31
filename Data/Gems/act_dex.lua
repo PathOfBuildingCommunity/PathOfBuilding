@@ -1,6 +1,6 @@
 -- Path of Building
 --
--- Active Strength skills
+-- Active Dexterity gems
 -- Skill gem data (c) Grinding Gear Games
 --
 local gems, mod, flag, skill = ...

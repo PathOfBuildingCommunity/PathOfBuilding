@@ -344,6 +344,8 @@ function buildMode:OnFrame(inputEvents)
 					self.viewMode = "ITEMS"
 				elseif event.key == "4" then
 					self.viewMode = "CALCS"
+				elseif event.key == "5" then
+					self.viewMode = "CONFIG"
 				end
 			end
 		end
@@ -540,7 +542,7 @@ function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header)
 					main:AddTooltipLine(14, header)
 				end
 				local line = string.format("%s%+"..statData.fmt.." %s", diff > 0 and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE, diff * (statData.pc and 100 or 1), statData.label)
-				if statData.compPercent then
+				if statData.compPercent and (baseOutput[statData.mod] or 0) ~= 0 and (compareOutput[statData.mod] or 0) ~= 0 then
 					line = line .. string.format(" (%+.1f%%)", (compareOutput[statData.mod] or 0) / (baseOutput[statData.mod] or 0) * 100 - 100)
 				end
 				main:AddTooltipLine(14, line)

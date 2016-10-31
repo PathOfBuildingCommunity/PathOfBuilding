@@ -4,7 +4,7 @@
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
-	<File sha1="889ff24936021c18a2b2d6893fc087cb3bc7018a" name="Launch.lua" part="program"/>
+	<File sha1="c7007f0e0f9d39a9ba6c26ebd2ff4cf025fcd626" name="Launch.lua" part="program"/>
 	<File sha1="cb07c8d4819eb81df9e98ab9039e0c9adf74c150" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
 	<File sha1="0bd9caf1b0f69fc72d1be5feaf9c87313dfbda2a" name="changelog.txt" part="program"/>
@@ -39,7 +39,7 @@
 	<File sha1="844b8915ca0f2e6af82f2d15978af131a33ad50e" name="Classes/TextListControl.lua" part="program"/>
 	<File sha1="8b8fbea27b00c702ea7bcffa6945cc814cc2fa41" name="Classes/TreeTab.lua" part="program"/>
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
-	<File sha1="bd1d343b667e912582e4e0118320907f817308cc" name="Modules/Build.lua" part="program"/>
+	<File sha1="526d37e35b2d26cb798e91f7c873a86ca02438a7" name="Modules/Build.lua" part="program"/>
 	<File sha1="c03a7796aea3e9aa832fbb92c1f674ef5af690ca" name="Modules/BuildList.lua" part="program"/>
 	<File sha1="baec2035409861d507be1b7f0478b0230ec2bb2d" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="0c404b048baad2cea7f564a8014ad853f62b15e3" name="Modules/CalcSections.lua" part="program"/>
@@ -53,13 +53,13 @@
 	<File sha1="9a320bfe629b1cf3f14fc77fbbf2508d0a5b2841" name="Assets/small_ring.png" part="program"/>
 	<File sha1="698c46ec242133014f6904d276b27106580ea392" name="Data/New.lua" part="program"/>
 	<File sha1="4bda866bb45169b51bd193039a87d7bcc6cbacaa" name="Data/Rares.lua" part="program"/>
-	<File sha1="0e737a16f2f3997d55918006e05eac7d68b0cac0" name="Data/Gems/act_dex.lua" part="program"/>
-	<File sha1="ce2cc37043fca1d9dfc91580124aaad348b33c38" name="Data/Gems/act_int.lua" part="program"/>
-	<File sha1="ca3fc5238ddf2ffdf34e9cd0277e05d5cd372143" name="Data/Gems/act_str.lua" part="program"/>
-	<File sha1="e671276b84c0f3a7eff3cd5516208e3bf3b77c52" name="Data/Gems/other.lua" part="program"/>
-	<File sha1="a87f7d899a96e5b29b4debd5c2d132280cbe59f3" name="Data/Gems/sup_dex.lua" part="program"/>
-	<File sha1="9df718a410b9bfa157b87000c5bbbeca311df42f" name="Data/Gems/sup_int.lua" part="program"/>
-	<File sha1="91d311ac10d5fe61c642afa58cb44136240b6994" name="Data/Gems/sup_str.lua" part="program"/>
+	<File sha1="48ae2fa7c8fb4de252e264431eb5d80bf835d566" name="Data/Gems/act_dex.lua" part="program"/>
+	<File sha1="e2198488e5a0cb18645eea93ad14fabc73cde20f" name="Data/Gems/act_int.lua" part="program"/>
+	<File sha1="bec392131a513e81be5119805a94ef362bcf56ce" name="Data/Gems/act_str.lua" part="program"/>
+	<File sha1="f6d7bc0e523b7d97fd3f2a8d2f09476716757ce1" name="Data/Gems/other.lua" part="program"/>
+	<File sha1="1ed3fdba7925c4711f093edd42024d3eb33215d5" name="Data/Gems/sup_dex.lua" part="program"/>
+	<File sha1="e007dabf995914dd3ab2a2445ed705d9884d0b85" name="Data/Gems/sup_int.lua" part="program"/>
+	<File sha1="225a744e5ebc2c897c341d960e792d2bfd855f8a" name="Data/Gems/sup_str.lua" part="program"/>
 	<File sha1="e2bfaf8d42553867fff91aa7267dbae4e3ca460e" name="Data/Bases/amulet.lua" part="program"/>
 	<File sha1="78410a8a3ee33ad331fee2abd83e235fe5b702f6" name="Data/Bases/axe.lua" part="program"/>
 	<File sha1="326f1060f490c7b48f56c25721eaf43bd2772835" name="Data/Bases/belt.lua" part="program"/>

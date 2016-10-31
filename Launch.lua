@@ -19,12 +19,12 @@ function launch:OnInit()
 	self.versionPlatform = "?"
 	self.lastUpdateCheck = GetTime()
 	ConPrintf("Loading main script...")
-	local mainFile = io.open("Modules/Main.lua")
-	if mainFile then
-		mainFile:close()
+	local changeLogFile = io.open("changelog.txt")
+	if changeLogFile then
+		changeLogFile:close()
 	else
-		-- Main module isn't present, this must be a fresh installation
-		-- Perform an immediate update to download the remaining files
+		-- Changelog isn't present, this must be a fresh installation
+		-- Perform an immediate update to download the latest version
 		ConClear()
 		ConPrintf("Please wait while we complete installation...\n")
 		local updateMode = LoadModule("UpdateCheck")
