@@ -134,23 +134,23 @@ function main:Init()
 	self.controls.applyUpdate.shown = function()
 		return launch.updateAvailable and launch.updateAvailable ~= "none"
 	end
-	self.controls.checkUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 110, 18, "", function()
+	self.controls.checkUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 120, 18, "", function()
 		launch:CheckForUpdate()
 	end)
 	self.controls.checkUpdate.shown = function()
-		return not launch.devMode and (not launch.updateAvailable or launch.updateAvailable == "none")
+		return true--not launch.devMode and (not launch.updateAvailable or launch.updateAvailable == "none")
 	end
 	self.controls.checkUpdate.label = function()
-		return launch.subScriptType == "UPDATE" and "Checking..." or "Check for Update"
+		return launch.subScriptType == "UPDATE" and launch.updateProgress or "Check for Update"
 	end
 	self.controls.checkUpdate.enabled = function()
 		return not IsSubScriptRunning()
 	end
-	self.controls.versionLabel = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 114, 0, 0, 14, "")
+	self.controls.versionLabel = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 124, 0, 0, 14, "")
 	self.controls.versionLabel.label = function()
 		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or "")
 	end
-	self.controls.about = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 240, 0, 60, 20, "About", function()
+	self.controls.about = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 250, 0, 50, 20, "About", function()
 		local changeList = { }
 		for line in io.lines("changelog.txt") do
 			local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")

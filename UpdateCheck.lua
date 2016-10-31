@@ -170,7 +170,8 @@ downloadFile(localSource.."changelog.txt", scriptPath.."/changelog.txt")
 -- Download files that need updating
 local failedFile = false
 local zipFiles = { }
-for _, data in ipairs(updateFiles) do
+for index, data in ipairs(updateFiles) do
+	UpdateProgress("Downloading %d/%d", index, #updateFiles)
 	local partSources = remoteSources[data.part]
 	local source = partSources[localPlatform] or partSources["any"]
 	source = source:gsub("{branch}", localBranch)

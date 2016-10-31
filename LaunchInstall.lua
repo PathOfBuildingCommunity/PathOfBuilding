@@ -11,7 +11,7 @@ local xml = require("xml")
 local curl = require("lcurl")
 
 ConClear()
-ConPrintf("Preparing to finalise installation...\n")
+ConPrintf("Preparing to complete installation...\n")
 
 local localBranch, localSource
 local localManXML = xml.LoadXMLFile("manifest.xml")
