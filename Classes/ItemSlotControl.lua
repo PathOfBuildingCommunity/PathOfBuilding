@@ -17,7 +17,10 @@ local ItemSlotClass = common.NewClass("ItemSlot", "DropDownControl", function(se
 			itemsTab:AddUndoState()
 			itemsTab.build.buildFlag = true
 		end
-	end, function() return #self.items > 1 end)
+	end)
+	self.enabled = function()
+		return #self.items > 1
+	end
 	self.shown = function()
 		return not self.inactive
 	end
@@ -77,7 +80,7 @@ function ItemSlotClass:Draw(viewPort)
 		viewer.zoomY = -node.y / 11.85
 		SetViewport(viewerX + 2, viewerY + 2, 300, 300)
 		viewer:Draw(self.itemsTab.build, { x = 0, y = 0, width = 300, height = 300 }, { })
-		SetDrawColor(1, 1, 1, 0.1)
+		SetDrawColor(1, 1, 1, 0.2)
 		DrawImage(nil, 149, 0, 2, 300)
 		DrawImage(nil, 0, 149, 300, 2)
 		SetViewport()

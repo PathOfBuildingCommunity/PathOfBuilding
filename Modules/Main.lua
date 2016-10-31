@@ -40,6 +40,7 @@ local classList = {
 	"BuildListControl",
 	-- Mode: Build
 	"ImportTab",
+	"ConfigTab",
 	"TreeTab",
 	"PassiveTree",
 	"PassiveSpec",
@@ -53,7 +54,8 @@ local classList = {
 	"ItemListControl",
 	"ItemDBControl",
 	"CalcsTab",
-	"Grid",
+	"CalcSectionControl",
+	"CalcBreakdownControl",
 }
 for _, className in pairs(classList) do
 	LoadModule("Classes/"..className, launch, main)
@@ -184,6 +186,9 @@ function main:Init()
 	self.controls.devMode.shown = function()
 		return launch.devMode
 	end
+
+	-- FIXME: Remove before merge
+	self.controls.devMode.label = "^1Experimental"
 
 	self.inputEvents = { }
 	self.popups = { }
@@ -433,6 +438,9 @@ function main:DrawTooltip(x, y, w, h, viewPort, col, center)
 		ttX = ttX + w + 5
 		if ttX + ttW > viewPort.x + viewPort.width then
 			ttX = m_max(viewPort.x, x - 5 - ttW)
+			if ttX + ttW > x then
+				ttY = ttY + h
+			end
 		end
 		if ttY + ttH > viewPort.y + viewPort.height then
 			ttY = m_max(viewPort.y, y + h - ttH)

@@ -30,11 +30,9 @@ local EditClass = common.NewClass("EditControl", "ControlHost", "Control", funct
 		self.controls.buttonDown = common.New("ButtonControl", {"RIGHT",self,"RIGHT"}, -2, 0, buttonSize, buttonSize, "-", function()
 			self:OnKeyUp("DOWN")
 		end)
-		self.controls.buttonDown.overSizeText = 6
 		self.controls.buttonUp = common.New("ButtonControl", {"RIGHT",self.controls.buttonDown,"LEFT"}, 0, 0, buttonSize, buttonSize, "+", function()
 			self:OnKeyUp("UP")
 		end)
-		self.controls.buttonUp.overSizeText = 6
 	end
 end)
 
@@ -139,6 +137,12 @@ function EditClass:Draw(viewPort)
 	end
 	if not enabled then
 		return
+	end
+	if mOver and self.tooltip then
+		main:AddTooltipLine(16, self:GetProperty("tooltip"))
+		SetDrawLayer(nil, 100)
+		main:DrawTooltip(x, y, width, height, viewPort)
+		SetDrawLayer(nil, 0)
 	end
 	SetViewport(textX, textY, width - 2 - (textX - x), textHeight)
 	if not self.hasFocus then

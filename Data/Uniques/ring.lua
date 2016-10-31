@@ -336,6 +336,7 @@ Variant: Pre 1.2.0
 Variant: Current
 League: Anarchy, Onslaught
 Requires Level 30
+Implicits: 1
 +(15 to 25) to maximum Energy Shield
 +(60 to 75) to Intelligence
 Right ring slot: You cannot Regenerate Mana

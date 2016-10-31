@@ -24,7 +24,7 @@ local SkillListClass = common.NewClass("SkillList", "Control", "ControlHost", fu
 		self:OnKeyUp("DELETE")
 	end)
 	self.controls.delete.enabled = function()
-		return self.selGroup ~= nil
+		return self.selGroup ~= nil and self.selGroup.source == nil
 	end
 	self.controls.paste = common.New("ButtonControl", {"RIGHT",self.controls.delete,"LEFT"}, -4, 0, 60, 18, "Paste", function()
 		self.skillsTab:PasteSocketGroup()
@@ -33,7 +33,7 @@ local SkillListClass = common.NewClass("SkillList", "Control", "ControlHost", fu
 		self.skillsTab:CopySocketGroup(self.selGroup)
 	end)
 	self.controls.copy.enabled = function()
-		return self.selGroup ~= nil
+		return self.selGroup ~= nil and self.selGroup.source == nil
 	end
 	self.controls.new = common.New("ButtonControl", {"RIGHT",self.controls.copy,"LEFT"}, -4, 0, 60, 18, "New", function()
 		local newGroup = { label = "", enabled = true, gemList = { } }
@@ -141,15 +141,18 @@ function SkillListClass:Draw(viewPort)
 	if ttGroup and ttGroup.displaySkillList then
 		local count = 0
 		local gemShown = { }
+		if ttGroup.sourceItem then
+			main:AddTooltipLine(18, "^7Source: "..data.colorCodes[ttGroup.sourceItem.rarity]..ttGroup.sourceItem.name)
+			main:AddTooltipSeperator(10)
+		end
 		for index, activeSkill in ipairs(ttGroup.displaySkillList) do
 			if index > 1 then
 				main:AddTooltipSeperator(10)
 			end
 			main:AddTooltipLine(16, "^7Active Skill #"..index..":")
 			for _, gem in ipairs(activeSkill.gemList) do
-				local color = (gem.data.strength and "STRENGTH") or (gem.data.dexterity and "DEXTERITY") or (gem.data.intelligence and "INTELLIGENCE") or "NORMAL"
 				main:AddTooltipLine(20, string.format("%s%s ^7%d%s/%d%s", 
-					data.colorCodes[color], 
+					gem.srcGem.color, 
 					gem.name, 
 					gem.level, 
 					(gem.srcGem and gem.level > gem.srcGem.level) and data.colorCodes.MAGIC.."+"..(gem.level - gem.srcGem.level).."^7" or "",
@@ -176,9 +179,8 @@ function SkillListClass:Draw(viewPort)
 				elseif gem.data.support and gem.isSupporting and not next(gem.isSupporting) then
 					reason = "(Cannot apply to any of the active skills)"
 				end
-				local color = gem.data and ((gem.data.strength and "STRENGTH") or (gem.data.dexterity and "DEXTERITY") or (gem.data.intelligence and "INTELLIGENCE")) or "NORMAL"
 				main:AddTooltipLine(20, string.format("%s%s ^7%d/%d %s", 
-					data.colorCodes[color], 
+					gem.color, 
 					gem.name or gem.nameSpec, 
 					gem.level, 
 					gem.quality,
@@ -228,7 +230,7 @@ function SkillListClass:OnKeyDown(key, doubleClick)
 			self.selDragActive = false
 		end
 	elseif key == "c" and IsKeyDown("CTRL") then
-		if self.selGroup then	
+		if self.selGroup and not self.selGroup.source then	
 			self.skillsTab:CopySocketGroup(self.selGroup)
 		end
 	elseif #self.skillsTab.socketGroupList > 0 then
@@ -255,7 +257,9 @@ function SkillListClass:OnKeyUp(key)
 		self.controls.scrollBar:Scroll(-1)
 	elseif self.selGroup then
 		if key == "BACK" or key == "DELETE" then
-			if not self.selGroup.gemList[1] then
+			if self.selGroup.source then
+				main:OpenMessagePopup("Delete Socket Group", "This socket group cannot be deleted as it is created by an equipped item.")
+			elseif not self.selGroup.gemList[1] then
 				t_remove(self.skillsTab.socketGroupList, self.selIndex)
 				if self.skillsTab.displayGroup == self.selGroup then
 					self.skillsTab.displayGroup = nil

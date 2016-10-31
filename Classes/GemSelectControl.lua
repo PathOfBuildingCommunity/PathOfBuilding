@@ -53,8 +53,8 @@ function GemSelectClass:BuildList(buf)
 		local added = { }
 		for i, pattern in ipairs(patternList) do
 			local matchList = { }
-			for name in pairs(data.gems) do
-				if name ~= "_default" and not added[name] and (" "..name:lower()):match(pattern) then
+			for name, data in pairs(data.gems) do
+				if not data.hidden and not added[name] and (" "..name:lower()):match(pattern) then
 					t_insert(matchList, name)
 					added[name] = true
 				end
@@ -65,8 +65,8 @@ function GemSelectClass:BuildList(buf)
 			end
 		end
 	else
-		for name in pairs(data.gems) do
-			if name ~= "_default" then
+		for name, data in pairs(data.gems) do
+			if not data.hidden then
 				t_insert(self.list, name)
 			end
 			t_sort(self.list)

@@ -21,6 +21,7 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
   * Add any number of main or supporting skills to your build
   * Supporting skills (auras, curses, buffs) can be toggled on and off
   * Automatically applies Socketed Gem modifiers from the item a skill is socketed into
+  * Automatically applies support gems granted by items
 * Item planner:
   * Add items from in game by copying and pasting them straight into the program!
   * Automatically adds quality to non-corrupted items
@@ -48,6 +49,56 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.0 - 2016/10/00
+With this update, the program's internal modifier system has been completely overhauled.
+On its own this overhaul doesn't change much from the user's perspective, but it has opened the way for some
+significant upgrades:
+ * The Calcs tab has been rebuilt from the ground up to take advantage of the new modifier system:
+    * The various stats and totals are now more clearly divided into sections
+	* The individual sections can be minimized to their title bar, so you can hide sections you're not interested in
+	* Nearly all of the stats and totals in the new Calcs tab have a breakdown view that appears when you hover over them:
+	   * You can click on a stat to pin the breakdown open so you can interact with it
+	   * Each breakdown view shows all the information used to calculate that stat, including ALL modifiers
+	   * You can hover over a modifier's source name to show the item's tooltip or passive node's location
+	   * Hovering over a modifier source type ('Item', 'Node', 'Gem' etc) will show the totals from that source type
+	* Most modifier totals are no longer displayed in the tab itself, since they can be found in the breakdown views. 
+	  The most important ones (such as increased life from tree) are still present, however.
+ * Per-stat modifiers are now supported, including, but not limited to, the modifiers from:
+    * Shaper's Touch
+	* Pillar of the Caged God
+	* Dreamfeather
+ * Icestorm is now supported! When you have The Whispering Ice equipped, a special socket group will appear
+   containing the Icestorm skill. You can select it in the Main Skill dropdown, or view it in the Skills tab.
+   You cannot add support gems to this group, but supports from any other group socketed in the staff will
+   automatically apply to the Icestorm skill.
+ * All other skills granted by items are now supported as well, and will function in the same manner as Icestorm.
+   This includes "Curse Enemies with X on Hit" modifiers.
+ * Low life/full life conditions are now detected automatically (>=65% life reserved/with CI respectively), 
+   but you can still turn them on manually if you need to
+Other changes:
+ * The various configuration options in the Calcs tab have been moved to a new Configuration tab
+	* Moving these into a dedicated tab will provide room for more options to be added in the future
+    * The names of many options have been changed to clarify their function
+	* Some options now have tooltips that explain aspects of their function
+ * Support gem compatability is now determined using the same data the game itself uses, and should now be 100% accurate
+
+### 1.1.11 - 2016/10/25
+ * Added flat mana to ES armour rare templates
+
+### 1.1.10 - 2016/10/23
+ * Added support for the poison-at-max-frenzy modifier on Snakebite
+
+### 1.1.9 - 2016/10/07
+ * Added flat chaos damage to all physical weapon templates
+
+### 1.1.8 - 2016/10/04
+ * Added support for the "Your flasks grant" modifiers on Doryani's Invitation
+ * Detection of the Unarmed state now ignores the offhand
+ * Added resistance breakdown section to the Calcs tab
+
+### 1.1.7 - 2016/10/03
+ * Fixed stun modifiers from several active and support gems
+
 ### 1.1.6 - 2016/10/02
  * Fixed bug causing issues with the new jewel attribute totals when a jewel is used multiple times
 

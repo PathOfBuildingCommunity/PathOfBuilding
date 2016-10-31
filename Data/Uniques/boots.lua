@@ -183,7 +183,7 @@ League: Warbands
 Energy Shield: (194 to 230)
 Requires Level 67, 123 Int
 (110 to 140)% increased Energy Shield
-(20 to 30) to maximum Energy Shield
++(20 to 30) to maximum Energy Shield
 30% increased Movement Speed
 20% increased Movement Speed on Shocked Ground
 50% increased Damage on Burning Ground
