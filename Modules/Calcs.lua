@@ -117,18 +117,19 @@ local function createActiveSkill(activeGem, supportList)
 	}
 	activeSkill.gemList = { activeSkill.activeGem }
 
-	-- Build base skill flag set ('attack', 'projectile', etc)
-	local baseFlags = copyTable(activeGem.data.baseFlags)
-	activeSkill.baseFlags = baseFlags
-
 	activeSkill.skillTypes = copyTable(activeGem.data.skillTypes)
+
+	-- Initialise skill flag set ('attack', 'projectile', etc)
+	local skillFlags = copyTable(activeGem.data.baseFlags)
+	activeSkill.skillFlags = skillFlags
+	skillFlags.hit = activeSkill.skillTypes[SkillType.Attack] or activeSkill.skillTypes[SkillType.Hit]
 
 	for _, gem in ipairs(supportList) do
 		if gemCanSupport(gem, activeSkill) then
 			if gem.data.addFlags then
 				-- Support gem adds flags to supported skills (eg. Remote Mine adds 'mine')
 				for k in pairs(gem.data.addFlags) do
-					baseFlags[k] = true
+					skillFlags[k] = true
 				end
 			end
 			for _, skillType in pairs(gem.data.addSkillTypes) do
@@ -159,16 +160,11 @@ end
 
 -- Build list of modifiers for given active skill
 local function buildActiveSkillModList(env, activeSkill)
-	local skillModList = common.New("ModList")
-	activeSkill.skillModList = skillModList
+	local skillFlags = activeSkill.skillFlags
 
 	-- Handle multipart skills
-	activeSkill.skillPartList = { }
 	local activeGemParts = activeSkill.activeGem.data.parts
 	if activeGemParts then
-		for i, part in pairs(activeGemParts) do
-			activeSkill.skillPartList[i] = part.name or ""
-		end
 		if activeSkill == env.mainSkill then
 			activeSkill.skillPart = m_min(#activeGemParts, env.skillPart or activeSkill.activeGem.srcGem.skillPart or 1)
 		else
@@ -177,17 +173,13 @@ local function buildActiveSkillModList(env, activeSkill)
 		local part = activeGemParts[activeSkill.skillPart]
 		for k, v in pairs(part) do
 			if v == true then
-				activeSkill.baseFlags[k] = true
+				skillFlags[k] = true
 			elseif v == false then
-				activeSkill.baseFlags[k] = nil
+				skillFlags[k] = nil
 			end
 		end
-		activeSkill.baseFlags.multiPart = #activeGemParts > 1
+		skillFlags.multiPart = #activeGemParts > 1
 	end
-
-	-- Initialise skill flag set
-	local skillFlags = copyTable(activeSkill.baseFlags)
-	skillFlags.hit = activeSkill.skillTypes[SkillType.Attack] or activeSkill.skillTypes[SkillType.Hit]
 
 	-- Set weapon flags
 	local weapon1Type = env.itemList["Weapon 1"] and env.itemList["Weapon 1"].type or "None"
@@ -285,6 +277,8 @@ local function buildActiveSkillModList(env, activeSkill)
 	end
 	activeSkill.skillKeywordFlags = skillKeywordFlags
 
+	-- Get skill totem ID for totem skills
+	-- This is used to calculate totem life
 	if skillFlags.totem then
 		activeSkill.skillTotemId = activeSkill.activeGem.data.skillTotemId
 		if not activeSkill.skillTotemId then
@@ -308,7 +302,7 @@ local function buildActiveSkillModList(env, activeSkill)
 		slotName = activeSkill.slotName,
 	}
 
-	-- Apply local skill modifiers from the item this skill is socketed into
+	-- Apply gem property modifiers from the item this skill is socketed into
 	for _, value in ipairs(env.modDB:Sum("LIST", activeSkill.skillCfg, "GemProperty")) do
 		for _, gem in pairs(activeSkill.gemList) do
 			if not gem.fromItem and gemIsType(gem, value.keyword) then
@@ -316,6 +310,10 @@ local function buildActiveSkillModList(env, activeSkill)
 			end
 		end
 	end
+
+	-- Initialise skill modifier list
+	local skillModList = common.New("ModList")
+	activeSkill.skillModList = skillModList
 
 	-- Add support gem modifiers to skill mod list
 	for _, gem in pairs(activeSkill.gemList) do
@@ -347,9 +345,8 @@ local function buildActiveSkillModList(env, activeSkill)
 	-- Separate global effect modifiers (mods that can affect defensive stats or other skills)
 	local i = 1
 	while skillModList[i] do
-		local mod = skillModList[i]
 		local destList
-		for _, tag in ipairs(mod.tagList) do
+		for _, tag in ipairs(skillModList[i].tagList) do
 			if tag.type == "GlobalEffect" then
 				if tag.effectType == "Buff" then
 					destList = "buffModList"
@@ -367,7 +364,7 @@ local function buildActiveSkillModList(env, activeSkill)
 			if not activeSkill[destList] then
 				activeSkill[destList] = { }
 			end
-			t_insert(activeSkill[destList], mod)
+			t_insert(activeSkill[destList],  skillModList[i])
 			t_remove(skillModList, i)
 		else
 			i = i + 1
@@ -547,7 +544,7 @@ end
 -- 
 -- local env = initEnv(build, mode)
 -- mergeMainMods(env)
--- performCalcs(env, output)
+-- performCalcs(env)
 --
 
 local tempTable1 = { }
@@ -555,7 +552,7 @@ local tempTable2 = { }
 local tempTable3 = { }
 
 -- Initialise environment
--- This will initialise the modifier database
+-- This will initialise the modifier databases
 local function initEnv(build, mode)
 	local env = { }
 	env.build = build
@@ -693,7 +690,7 @@ local function mergeMainMods(env, repSlotName, repItem)
 		end
 		env.itemList[slotName] = item
 		if item then
-			-- Merge mods for this item into the global item mod list
+			-- Merge mods for this item
 			local srcList = item.modList or item.slotModList[slot.slotNum]
 			env.modDB:AddList(srcList)
 			if item.type ~= "Jewel" then
@@ -814,19 +811,21 @@ local function mergeMainMods(env, repSlotName, repItem)
 		if socketGroup.enabled or index == env.mainSocketGroup then
 			-- Build list of supports for this socket group
 			local supportList = wipeTable(tempTable2)
-			groupCfg.slotName = socketGroup.slot
-			for _, value in ipairs(env.modDB:Sum("LIST", groupCfg, "ExtraSupport")) do
-				-- Add extra supports from the item this group is socketed in
-				local gemData = data.gems[value.name]
-				if gemData then
-					t_insert(supportList, { 
-						name = value.name, 
-						data = gemData, 
-						level = value.level,
-						quality = 0, 
-						enabled = true, 
-						fromItem = true
-					})
+			if not socketGroup.source then
+				groupCfg.slotName = socketGroup.slot
+				for _, value in ipairs(env.modDB:Sum("LIST", groupCfg, "ExtraSupport")) do
+					-- Add extra supports from the item this group is socketed in
+					local gemData = data.gems[value.name]
+					if gemData then
+						t_insert(supportList, { 
+							name = value.name,
+							data = gemData,
+							level = value.level,
+							quality = 0, 
+							enabled = true, 
+							fromItem = true
+						})
+					end
 				end
 			end
 			for _, gem in ipairs(socketGroup.gemList) do
@@ -874,7 +873,6 @@ local function mergeMainMods(env, repSlotName, repItem)
 					activeSkillIndex = socketGroup.mainActiveSkill
 				end
 				env.mainSkill = socketGroupSkillList[activeSkillIndex]
-				env.mainSkillGroupActiveSkillList = socketGroupSkillList
 			end
 		end
 
@@ -909,7 +907,6 @@ local function mergeMainMods(env, repSlotName, repItem)
 		env.mainSkill = createActiveSkill(defaultGem, { })
 		t_insert(env.activeSkillList, env.mainSkill)
 	end
-	env.setupFunc = env.mainSkill.activeGem.data.setupFunc
 
 	-- Build skill modifier lists
 	env.auxSkillList = { }
@@ -934,7 +931,7 @@ local function performCalcs(env)
 	end
 
 	-- Set modes
-	if env.mainSkill.baseFlags.attack then
+	if env.mainSkill.skillFlags.attack then
 		env.mode_skillType = "ATTACK"
 	else
 		env.mode_skillType = "SPELL"
@@ -967,9 +964,61 @@ local function performCalcs(env)
 			keystoneList[name] = true
 		end
 		for name in pairs(keystoneList) do
-			local node = env.build.tree.keystoneMap[name]
-			modDB:AddList(node.modList)
+			modDB:AddList(env.build.tree.keystoneMap[name].modList)
 		end
+	end
+
+	-- Set conditions
+	local condList = modDB.conditions
+	if env.itemList["Weapon 1"] and env.itemList["Weapon 1"].type == "Staff" then
+		condList["UsingStaff"] = true
+	end
+	if env.itemList["Weapon 2"] and env.itemList["Weapon 2"].type == "Shield" then
+		condList["UsingShield"] = true
+	end
+	if env.weaponData1.type and env.weaponData2.type then
+		condList["DualWielding"] = true
+	end
+	if not env.weaponData1.type then
+		condList["Unarmed"] = true
+	end
+	if (modDB.multipliers["NormalItem"] or 0) > 0 then
+		condList["UsingNormalItem"] = true
+	end
+	if (modDB.multipliers["MagicItem"] or 0) > 0 then
+		condList["UsingMagicItem"] = true
+	end
+	if (modDB.multipliers["RareItem"] or 0) > 0 then
+		condList["UsingRareItem"] = true
+	end
+	if (modDB.multipliers["UniqueItem"] or 0) > 0 then
+		condList["UsingUniqueItem"] = true
+	end
+	if env.mode_buffs then
+		condList["Buffed"] = true
+	end
+	if env.mode_combat then
+		condList["Combat"] = true
+		if not modDB:Sum("FLAG", nil, "NeverCrit") then
+			condList["CritInPast8Sec"] = true
+		end
+		if env.mainSkill.skillFlags.attack then
+			condList["AttackedRecently"] = true
+		elseif env.mainSkill.skillFlags.spell then
+			condList["CastSpellRecently"] = true
+		end
+		if env.mainSkill.skillFlags.movement then
+			condList["UsedMovementSkillRecently"] = true
+		end
+		if env.mainSkill.skillFlags.totem then
+			condList["SummonedTotemRecently"] = true
+		end
+		if env.mainSkill.skillFlags.mine then
+			condList["DetonatedMinesRecently"] = true
+		end
+	end
+	if env.mode_effective then
+		condList["Effective"] = true
 	end
 	
 	-- Merge auxillary skill modifiers and calculate skill life and mana reservations
@@ -997,8 +1046,7 @@ local function performCalcs(env)
 			if activeSkill.auraModList then
 				local inc = modDB:Sum("INC", skillCfg, "AuraEffect") + skillModList:Sum("INC", skillCfg, "AuraEffect")
 				local more = modDB:Sum("MORE", skillCfg, "AuraEffect") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
-				local auraEffect = (1 + inc / 100) * more
-				modDB:ScaleAddList(activeSkill.auraModList, auraEffect)
+				modDB:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
 			end
 		end
 		if env.mode_effective then
@@ -1006,11 +1054,10 @@ local function performCalcs(env)
 				enemyDB:AddList(activeSkill.debuffModList)
 			end
 			if activeSkill.curseModList then
-				modDB.conditions["EnemyCursed"] = true
+				condList["EnemyCursed"] = true
 				local inc = modDB:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffect") + skillModList:Sum("INC", skillCfg, "CurseEffect")
 				local more = modDB:Sum("MORE", skillCfg, "CurseEffect") * enemyDB:Sum("MORE", nil, "CurseEffect") * skillModList:Sum("MORE", skillCfg, "CurseEffect")
-				local curseEffect = (1 + inc / 100) * more
-				enemyDB:ScaleAddList(activeSkill.curseModList, curseEffect)
+				enemyDB:ScaleAddList(activeSkill.curseModList, (1 + inc / 100) * more)
 			end
 		end
 
@@ -1022,9 +1069,11 @@ local function performCalcs(env)
 			local more = modDB:Sum("MORE", skillCfg, "ManaReserved") * skillModList:Sum("MORE", skillCfg, "ManaReserved")
 			local inc = modDB:Sum("INC", skillCfg, "ManaReserved") + skillModList:Sum("INC", skillCfg, "ManaReserved")
 			local cost = m_ceil(m_ceil(m_floor(baseVal * mult) * more) * (1 + inc / 100))
-			local pool = "Mana"
+			local pool
 			if modDB:Sum("FLAG", skillCfg, "BloodMagic", "SkillBloodMagic") or skillModList:Sum("FLAG", skillCfg, "SkillBloodMagic") then
 				pool = "Life"
+			else
+				pool = "Mana"
 			end
 			env["reserved_"..pool..suffix] = env["reserved_"..pool..suffix] + cost
 			if breakdown then
@@ -1038,62 +1087,6 @@ local function performCalcs(env)
 				})
 			end
 		end
-	end
-
-	-- Build condition list
-	local condList = modDB.conditions
-	if env.itemList["Weapon 1"] and env.itemList["Weapon 1"].type == "Staff" then
-		condList["UsingStaff"] = true
-	end
-	if env.itemList["Weapon 2"] and env.itemList["Weapon 2"].type == "Shield" then
-		condList["UsingShield"] = true
-	end
-	if env.weaponData1.type and env.weaponData2.type then
-		condList["DualWielding"] = true
-	end
-	if weapon1Type == "None" then
-		condList["Unarmed"] = true
-	end
-	if (modDB.multipliers["NormalItem"] or 0) > 0 then
-		condList["UsingNormalItem"] = true
-	end
-	if (modDB.multipliers["MagicItem"] or 0) > 0 then
-		condList["UsingMagicItem"] = true
-	end
-	if (modDB.multipliers["RareItem"] or 0) > 0 then
-		condList["UsingRareItem"] = true
-	end
-	if (modDB.multipliers["UniqueItem"] or 0) > 0 then
-		condList["UsingUniqueItem"] = true
-	end
-	if env.reserved_manaBase == 0 and env.reserved_manaPercent == 0 then
-		condList["NoManaReserved"] = true
-	end
-	if env.mode_buffs then
-		condList["Buffed"] = true
-	end
-	if env.mode_combat then
-		condList["Combat"] = true
-		if not modDB:Sum("FLAG", nil, "NeverCrit") then
-			condList["CritInPast8Sec"] = true
-		end
-		if env.mainSkill.skillFlags.attack then
-			condList["AttackedRecently"] = true
-		elseif env.mainSkill.skillFlags.spell then
-			condList["CastSpellRecently"] = true
-		end
-		if env.mainSkill.skillFlags.movement then
-			condList["UsedMovementSkillRecently"] = true
-		end
-		if env.mainSkill.skillFlags.totem then
-			condList["SummonedTotemRecently"] = true
-		end
-		if env.mainSkill.skillFlags.mine then
-			condList["DetonatedMinesRecently"] = true
-		end
-	end
-	if env.mode_effective then
-		condList["Effective"] = true
 	end
 
 	-- Process misc modifiers
@@ -1122,29 +1115,23 @@ local function performCalcs(env)
 	end
 
 	-- Calculate current and maximum charges
-	output.PowerCharges = 0
-	output.FrenzyCharges = 0
-	output.EnduranceCharges = 0
 	output.PowerChargesMax = modDB:Sum("BASE", nil, "PowerChargesMax")
 	output.FrenzyChargesMax = modDB:Sum("BASE", nil, "FrenzyChargesMax")
 	output.EnduranceChargesMax = modDB:Sum("BASE", nil, "EnduranceChargesMax")
-	if env.configInput.usePowerCharges then
-		env.mainSkill.skillFlags.havePower = true
-		if env.mode_combat then
-			output.PowerCharges = output.PowerChargesMax
-		end
+	if env.configInput.usePowerCharges and env.mode_combat then
+		output.PowerCharges = output.PowerChargesMax
+	else
+		output.PowerCharges = 0
 	end
-	if env.configInput.useFrenzyCharges then
-		env.mainSkill.skillFlags.haveFrenzy = true
-		if env.mode_combat then
-			output.FrenzyCharges = output.FrenzyChargesMax
-		end
+	if env.configInput.useFrenzyCharges and env.mode_combat then
+		output.FrenzyCharges = output.FrenzyChargesMax
+	else
+		output.FrenzyCharges = 0
 	end
-	if env.configInput.useEnduranceCharges then
-		env.mainSkill.skillFlags.haveEndurance = true
-		if env.mode_combat then
-			output.EnduranceCharges = output.EnduranceChargesMax
-		end
+	if env.configInput.useEnduranceCharges and env.mode_combat then
+		output.EnduranceCharges = output.EnduranceChargesMax
+	else
+		output.EnduranceCharges = 0
 	end
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
 	modDB.multipliers["FrenzyCharge"] = output.FrenzyCharges
@@ -1168,7 +1155,8 @@ local function performCalcs(env)
 		end
 	end
 
-	local simpleBreakdown, modBreakdown, slotBreakdown
+	-- Helper functions for stat breakdowns
+	local simpleBreakdown, modBreakdown, slotBreakdown, effMultBreakdown, dotBreakdown
 	if breakdown then
 		simpleBreakdown = function(extraBase, cfg, ...)
 			extraBase = extraBase or 0
@@ -1179,17 +1167,17 @@ local function performCalcs(env)
 				if inc ~= 0 or more ~= 1 or (base ~= 0 and extraBase ~= 0) then
 					local out = { }
 					if base ~= 0 and extraBase ~= 0 then
-						out[1] = "^7("..round(extraBase, 2).." + "..round(base, 2)..") ^8(base)"
+						out[1] = "("..round(extraBase, 2).." + "..round(base, 2)..") ^8(base)"
 					else
-						out[1] = "^7"..round(base + extraBase, 2).." ^8(base)"
+						out[1] = round(base + extraBase, 2).." ^8(base)"
 					end
 					if inc ~= 0 then
-						t_insert(out, "^7x "..s_format("%.2f", 1 + inc/100).." ^8(increased/reduced)")
+						t_insert(out, s_format("x %.2f", 1 + inc/100).." ^8(increased/reduced)")
 					end
 					if more ~= 1 then
-						t_insert(out, "^7x "..s_format("%.2f", more).." ^8(more/less)")
+						t_insert(out, s_format("x %.2f", more).." ^8(more/less)")
 					end
-					t_insert(out, "^7= "..output[...])
+					t_insert(out, "= "..output[...])
 					breakdown[...] = out
 				end
 			end
@@ -1199,29 +1187,57 @@ local function performCalcs(env)
 			local more = modDB:Sum("MORE", cfg, ...)
 			if inc ~= 0 and more ~= 1 then
 				return { 
-					"^7"..s_format("%.2f", 1 + inc/100).." ^8(increased/reduced)",
-					"^7x "..s_format("%.2f", more).." ^8(more/less)",
-					"^7= "..s_format("%.2f", (1 + inc/100) * more),
+					s_format("%.2f", 1 + inc/100).." ^8(increased/reduced)",
+					s_format("x %.2f", more).." ^8(more/less)",
+					s_format("= %.2f", (1 + inc/100) * more),
 				}
 			end
 		end
 		slotBreakdown = function(source, sourceName, cfg, base, ...)
-			local inc =  modDB:Sum("INC", cfg, ...)
+			local inc = modDB:Sum("INC", cfg, ...)
 			local more = modDB:Sum("MORE", cfg, ...)
-			local out = {
+			t_insert(breakdown[...].slots, {
 				base = base,
+				inc = (inc ~= 0) and s_format(" x %.2f", 1 + inc/100),
+				more = (more ~= 1) and s_format(" x %.2f", more),
+				total = s_format("%.2f", base * (1 + inc / 100) * more),
 				source = source,
 				sourceName = sourceName,
 				item = env.itemList[source],
-			}
-			out.total = s_format("%.2f", base * (1 + inc / 100) * more)
+			})
+		end
+		effMultBreakdown = function(damageType, resist, pen, taken, mult)
+			local out = { }
+			local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
+			if resist ~= 0 then
+				t_insert(out, "Enemy "..resistForm..": "..resist.."%")
+			end
+			if pen ~= 0 then
+				t_insert(out, "Effective resistance:")
+				t_insert(out, resist.."% ^8(resistance)")
+				t_insert(out, "- "..pen.."% ^8(penetration)")
+				t_insert(out, "= "..(resist-pen).."%")
+			end
+			if (resist - pen) ~= 0 and taken ~= 0 then
+				t_insert(out, "Effective DPS modifier:")
+				t_insert(out, (1 - (resist - pen) / 100).." ^8("..resistForm..")")
+				t_insert(out, "x "..(1 + taken / 100).." ^8(increased/reduced damage taken)")
+				t_insert(out, s_format("= %.3f", mult))
+			end
+			return out
+		end
+		dotBreakdown = function(out, baseVal, inc, more, effMult, total)
+			t_insert(out, s_format("%.1f ^8(base damage per second)", baseVal))
 			if inc ~= 0 then
-				out.inc = s_format(" x %.2f", 1 + inc/100)
+				t_insert(out, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
 			end
 			if more ~= 1 then
-				out.more = s_format(" x %.2f", more)
+				t_insert(out, s_format("x %.2f ^8(more/less)", more))
 			end
-			t_insert(breakdown[...].slots, out)
+			if effMult ~= 1 then
+				t_insert(out, s_format("x %.3f ^8(effective DPS modifier)", effMult))
+			end
+			t_insert(out, s_format("= %.1f ^8per second", total))
 		end
 	end
 
@@ -1274,7 +1290,10 @@ local function performCalcs(env)
 		output[pool.."Unreserved"] = max - reserved
 		output[pool.."UnreservedPercent"] = (max - reserved) / max * 100
 		if (max - reserved) / max <= 0.35 then
-			modDB.conditions["Low"..pool] = true
+			condList["Low"..pool] = true
+		end
+		if reserved == 0 then
+			condList["No"..pool.."Reserved"] = true
 		end
 	end
 
@@ -1382,9 +1401,9 @@ local function performCalcs(env)
 			simpleBreakdown(output.EnergyShield * 0.2, nil, "EnergyShieldRecharge", "EnergyShieldRecovery")
 			if output.EnergyShieldRechargeDelay ~= 2 then
 				breakdown.EnergyShieldRechargeDelay = {
-					"^72.00s ^8(base)",
-					"^7/ "..s_format("%.2f ^8(faster start)", 1 + modDB:Sum("INC", nil, "EnergyShieldRechargeFaster") / 100),
-					"^7= "..s_format("%.2fs", output.EnergyShieldRechargeDelay)
+					"2.00s ^8(base)",
+					s_format("/ %.2f ^8(faster start)", 1 + modDB:Sum("INC", nil, "EnergyShieldRechargeFaster") / 100),
+					s_format("= %.2fs", output.EnergyShieldRechargeDelay)
 				}
 			end
 		end
@@ -1395,9 +1414,9 @@ local function performCalcs(env)
 			output.EvadeChance = 100 - calcHitChance(output.Evasion, enemyAccuracy)
 			if breakdown then
 				breakdown.EvadeChance = {
-					"^7Enemy level: "..env.enemyLevel..(env.configInput.enemyLevel and " ^8(overridden from the Configuration tab" or " ^8(can be overridden in the Configuration tab)"),
-					"^7Average enemy accuracy: "..enemyAccuracy,
-					"^7Approximate evade chance: "..output.EvadeChance.."%",
+					"Enemy level: "..env.enemyLevel..(env.configInput.enemyLevel and " ^8(overridden from the Configuration tab" or " ^8(can be overridden in the Configuration tab)"),
+					"Average enemy accuracy: "..enemyAccuracy,
+					"Approximate evade chance: "..output.EvadeChance.."%",
 				}
 			end
 		end
@@ -1413,13 +1432,13 @@ local function performCalcs(env)
 			if lifeBase > 0 then
 				modDB:NewMod("EnergyShieldRegen", "BASE", lifeBase, "Zealot's Oath")
 			end
-			local lifePercent = modDB:Sum("BASE", nil, "LifeRegenPercent") 
+			local lifePercent = modDB:Sum("BASE", nil, "LifeRegenPercent")
 			if lifePercent > 0 then
 				modDB:NewMod("EnergyShieldRegenPercent", "BASE", lifePercent, "Zealot's Oath")
 			end
 		else
 			local lifeBase = modDB:Sum("BASE", nil, "LifeRegen")
-			local lifePercent = modDB:Sum("BASE", nil, "LifeRegenPercent") 
+			local lifePercent = modDB:Sum("BASE", nil, "LifeRegenPercent")
 			if lifePercent > 0 then
 				lifeBase = lifeBase + output.Life * lifePercent / 100
 			end
@@ -1453,14 +1472,13 @@ local function performCalcs(env)
 			max = modDB:Sum("BASE", nil, elem.."ResistMax")
 			total = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
 		end
-		output[elem.."ResistMax"] = max
 		output[elem.."Resist"] = m_min(total, max)
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
 		if breakdown then
 			breakdown[elem.."Resist"] = {
-				"^7Max: "..max.."%",
-				"^7Total: "..total.."%",
-				"^7In hideout: "..(total + 60).."%",
+				"Max: "..max.."%",
+				"Total: "..total.."%",
+				"In hideout: "..(total + 60).."%",
 			}
 		end
 	end
@@ -1493,14 +1511,14 @@ local function performCalcs(env)
 			output.BlockDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100)
 			if breakdown then
 				breakdown.StunDuration = {
-					"^70.35s ^8(base)",
-					"^7/ "..s_format("%.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery") / 100),
-					"^7= "..s_format("%.2fs", output.StunDuration)
+					"0.35s ^8(base)",
+					s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery") / 100),
+					s_format("= %.2fs", output.StunDuration)
 				}
 				breakdown.BlockDuration = {
-					"^70.35s ^8(base)",
-					"^7/ "..s_format("%.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100),
-					"^7= "..s_format("%.2fs", output.BlockDuration)
+					"0.35s ^8(base)",
+					s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100),
+					s_format("= %.2fs", output.BlockDuration)
 				}
 			end
 		end
@@ -1623,8 +1641,11 @@ local function performCalcs(env)
 	end
 
 	-- Run skill setup function
-	if env.setupFunc then
-		env.setupFunc(env, output)
+	do
+		local setupFunc = env.mainSkill.activeGem.data.setupFunc
+		if setupFunc then
+			setupFunc(env, output)
+		end
 	end
 
 	local isAttack = (env.mode_skillType == "ATTACK")
@@ -1700,9 +1721,9 @@ local function performCalcs(env)
 		output.HitChance = calcHitChance(enemyEvasion, output.Accuracy)
 		if breakdown then
 			breakdown.HitChance = {
-				"^7Enemy level: "..env.enemyLevel..(env.configInput.enemyLevel and " ^8(overridden from the Configuration tab" or " ^8(can be overridden in the Configuration tab)"),
-				"^7Average enemy evasion: "..enemyEvasion,
-				"^7Approximate hit chance: "..output.HitChance.."%",
+				"Enemy level: "..env.enemyLevel..(env.configInput.enemyLevel and " ^8(overridden from the Configuration tab" or " ^8(can be overridden in the Configuration tab)"),
+				"Average enemy evasion: "..enemyEvasion,
+				"Approximate hit chance: "..output.HitChance.."%",
 			}
 		end
 	end
@@ -1726,98 +1747,6 @@ local function performCalcs(env)
 			simpleBreakdown(baseSpeed, skillCfg, "Speed")
 		end
 	end
-
-	-- Calculate hit damage for each damage type
-	local totalMin, totalMax = 0, 0
-	do
-		local hitSource = (env.mode_skillType == "ATTACK") and env.weaponData1 or env.mainSkill.skillData
-		for _, damageType in ipairs(dmgTypeList) do
-			local min, max
-			if skillFlags.hit and canDeal[damageType] then
-				if breakdown then
-					breakdown[damageType] = {
-						damageComponents = { }
-					}
-				end
-				min, max = calcHitDamage(env, hitSource, damageType)
-				local convMult = env.conversionTable[damageType].mult
-				if breakdown then
-					t_insert(breakdown[damageType], "Hit damage:")
-					t_insert(breakdown[damageType], "^7"..min.." to "..max.." ^8(total damage)")			
-					if convMult ~= 1 then
-						t_insert(breakdown[damageType], "^7x "..convMult.." ^8("..((1-convMult)*100).."% converted to other damage types)")
-					end
-				end
-				min = min * convMult
-				max = max * convMult
-				if env.mode_effective then
-					-- Apply enemy resistances and damage taken modifiers
-					local preMult
-					local taken = enemyDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken")
-					local resist = 0
-					local pen = 0
-					if isElemental[damageType] then
-						resist = output["Enemy"..damageType.."Resist"]
-						pen = modDB:Sum("BASE", skillCfg, damageType.."Penetration", "ElementalPenetration")
-						taken = taken + enemyDB:Sum("INC", nil, "ElementalDamageTaken")
-					elseif damageType == "Chaos" then
-						resist = output.EnemyChaosResist
-					else
-						resist = enemyDB:Sum("INC", nil, "PhysicalDamageReduction")
-					end
-					if skillFlags.projectile then
-						taken = taken + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
-					end
-					local mult = (1 - (resist - pen) / 100) * (1 + taken / 100)
-					min = min * mult
-					max = max * mult
-					if env.mode == "CALCS" then
-						output[damageType.."EffMult"] = mult
-					end
-					if breakdown and mult ~= 1 then
-						t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", mult))
-						local out = { }
-						local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
-						if resist ~= 0 then
-							t_insert(out, "Enemy "..resistForm..": "..resist.."%")
-						end
-						if pen ~= 0 then
-							t_insert(out, "Effective resistance:")
-							t_insert(out, ""..resist.."% ^8(resistance)")
-							t_insert(out, "- "..pen.."% ^8(penetration)")
-							t_insert(out, "= "..(resist-pen).."%")
-						end
-						if (resist - pen) ~= 0 and taken ~= 0 then
-							t_insert(out, "Effective DPS modifier:")
-							t_insert(out, (1 - (resist - pen) / 100).." ^8("..resistForm..")")
-							t_insert(out, "x "..(1 + taken / 100).." ^8(increased/reduced damage taken)")
-							t_insert(out, s_format("= %.3f", mult))
-						end
-						breakdown[damageType.."EffMult"] = out
-					end
-				end
-				if breakdown then	
-					t_insert(breakdown[damageType], "^7= "..round(min).." to "..round(max))
-				end
-			else
-				min, max = 0, 0
-				if breakdown then
-					breakdown[damageType] = {
-						"You can't deal "..damageType.." damage"
-					}
-				end
-			end
-			if env.mode == "CALCS" then
-				output[damageType.."Min"] = min
-				output[damageType.."Max"] = max
-			end
-			output[damageType.."Average"] = (min + max) / 2
-			totalMin = totalMin + min
-			totalMax = totalMax + max
-		end
-	end
-	output.TotalMin = totalMin
-	output.TotalMax = totalMax
 
 	-- Calculate crit chance, crit multiplier, and their combined effect
 	if modDB:Sum("FLAG", nil, "NeverCrit") then
@@ -1854,12 +1783,87 @@ local function performCalcs(env)
 		output.CritEffect = 1 - output.CritChance / 100 + output.CritChance / 100 * output.CritMultiplier
 		if breakdown and output.CritEffect ~= 1 then
 			breakdown.CritEffect = {
-				"(1 - "..(output.CritChance/100)..") ^8(portion of damage from non-crits)",
-				"+ ("..(output.CritChance/100).." x "..output.CritMultiplier..") ^8(portion of damage from crits)",
+				s_format("(1 - %g) ^8(portion of damage from non-crits)", output.CritChance/100),
+				s_format("+ (%g x %g) ^8(portion of damage from crits)", output.CritChance/100, output.CritMultiplier),
 				s_format("= %.3f", output.CritEffect),
 			}
 		end
 	end
+
+	-- Calculate hit damage for each damage type
+	local totalMin, totalMax = 0, 0
+	do
+		local hitSource = (env.mode_skillType == "ATTACK") and env.weaponData1 or env.mainSkill.skillData
+		for _, damageType in ipairs(dmgTypeList) do
+			local min, max
+			if skillFlags.hit and canDeal[damageType] then
+				if breakdown then
+					breakdown[damageType] = {
+						damageComponents = { }
+					}
+				end
+				min, max = calcHitDamage(env, hitSource, damageType)
+				local convMult = env.conversionTable[damageType].mult
+				if breakdown then
+					t_insert(breakdown[damageType], "Hit damage:")
+					t_insert(breakdown[damageType], ""..min.." to "..max.." ^8(total damage)")			
+					if convMult ~= 1 then
+						t_insert(breakdown[damageType], "x "..convMult.." ^8("..((1-convMult)*100).."% converted to other damage types)")
+					end
+				end
+				min = min * convMult
+				max = max * convMult
+				if (min ~= 0 or max ~= 0) and env.mode_effective then
+					-- Apply enemy resistances and damage taken modifiers
+					local preMult
+					local resist = 0
+					local pen = 0
+					local taken = enemyDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken")
+					if isElemental[damageType] then
+						resist = output["Enemy"..damageType.."Resist"]
+						pen = modDB:Sum("BASE", skillCfg, damageType.."Penetration", "ElementalPenetration")
+						taken = taken + enemyDB:Sum("INC", nil, "ElementalDamageTaken")
+					elseif damageType == "Chaos" then
+						resist = output.EnemyChaosResist
+					else
+						resist = enemyDB:Sum("INC", nil, "PhysicalDamageReduction")
+					end
+					if skillFlags.projectile then
+						taken = taken + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
+					end
+					local effMult = (1 - (resist - pen) / 100) * (1 + taken / 100)
+					min = min * effMult
+					max = max * effMult
+					if env.mode == "CALCS" then
+						output[damageType.."EffMult"] = effMult
+					end
+					if breakdown and effMult ~= 1 then
+						t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
+						breakdown[damageType.."EffMult"] = effMultBreakdown(damageType, resist, pen, taken, effMult)
+					end
+				end
+				if breakdown then	
+					t_insert(breakdown[damageType], "= "..round(min).." to "..round(max))
+				end
+			else
+				min, max = 0, 0
+				if breakdown then
+					breakdown[damageType] = {
+						"You can't deal "..damageType.." damage"
+					}
+				end
+			end
+			if env.mode == "CALCS" then
+				output[damageType.."Min"] = min
+				output[damageType.."Max"] = max
+			end
+			output[damageType.."Average"] = (min + max) / 2
+			totalMin = totalMin + min
+			totalMax = totalMax + max
+		end
+	end
+	output.TotalMin = totalMin
+	output.TotalMax = totalMax
 
 	-- Calculate average damage and final DPS
 	output.AverageHit = (totalMin + totalMax) / 2 * output.CritEffect
@@ -1875,7 +1879,7 @@ local function performCalcs(env)
 	if breakdown then
 		if output.CritEffect ~= 1 then
 			breakdown.AverageHit = {
-				s_format("%.1f ^8(non-crit average damage)", (totalMin + totalMax) / 2),
+				s_format("%.1f ^8(non-crit average)", (totalMin + totalMax) / 2),
 				s_format("x %.3f ^8(crit effect modifier)", output.CritEffect),
 				s_format("= %.1f", output.AverageHit),
 			}
@@ -1944,8 +1948,8 @@ local function performCalcs(env)
 			skillFlags.dot = true
 			local effMult = 1
 			if env.mode_effective then
-				local taken = enemyDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken", "DotTaken")
 				local resist = 0
+				local taken = enemyDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken", "DotTaken")
 				if damageType == "Physical" then
 					resist = enemyDB:Sum("INC", nil, "PhysicalDamageReduction")
 				else
@@ -1957,37 +1961,15 @@ local function performCalcs(env)
 				effMult = (1 - resist / 100) * (1 + taken / 100)
 				output[damageType.."DotEffMult"] = effMult
 				if breakdown and effMult ~= 1 then
-					local out = { }
-					local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
-					if resist ~= 0 then
-						t_insert(out, "Enemy "..resistForm..": "..resist.."%")
-					end
-					if resist ~= 0 and taken ~= 0 then
-						t_insert(out, "Effective DPS modifier:")
-						t_insert(out, (1 - resist / 100).." ^8("..resistForm..")")
-						t_insert(out, "x "..(1 + taken / 100).." ^8(increased/reduced damage taken)")
-						t_insert(out, s_format("= %.3f", effMult))
-					end
-					breakdown[damageType.."DotEffMult"] = out
+					breakdown[damageType.."DotEffMult"] = effMultBreakdown(damageType, resist, 0, taken, effMult)
 				end
 			end
 			local inc = modDB:Sum("INC", dotCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
 			local more = round(modDB:Sum("MORE", dotCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil), 2)
 			output[damageType.."Dot"] = baseVal * (1 + inc/100) * more * effMult
 			if breakdown then
-				breakdown[damageType.."Dot"] = {
-					s_format("%.1f ^8(base damage per second)", baseVal)
-				}
-				if inc ~= 0 then
-					t_insert(breakdown[damageType.."Dot"], s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
-				end
-				if more ~= 1 then
-					t_insert(breakdown[damageType.."Dot"], s_format("x %.2f ^8(more/less)", more))
-				end
-				if effMult ~= 1 then
-					t_insert(breakdown[damageType.."Dot"], s_format("x %.3f ^8(effective DPS modifier)", effMult))
-				end
-				t_insert(breakdown[damageType.."Dot"], s_format("= %.1f ^8per second", output[damageType.."Dot"]))
+				breakdown[damageType.."Dot"] = { }
+				dotBreakdown(breakdown[damageType.."Dot"], baseVal, inc, more, effMult, output[damageType.."Dot"])
 			end
 		end
 		output.TotalDot = output.TotalDot + (output[damageType.."Dot"] or 0)
@@ -2012,17 +1994,7 @@ local function performCalcs(env)
 			effMult = (1 - resist / 100) * (1 + taken / 100)
 			output["BleedEffMult"] = effMult
 			if breakdown and effMult ~= 1 then
-				local out = { }
-				if resist ~= 0 then
-					t_insert(out, "Enemy physical damage reduction: "..resist.."%")
-				end
-				if resist ~= 0 and taken ~= 0 then
-					t_insert(out, "Effective DPS modifier:")
-					t_insert(out, (1 - resist / 100).." ^8(physical damage reduction)")
-					t_insert(out, "x "..(1 + taken / 100).." ^8(increased/reduced damage taken)")
-					t_insert(out, s_format("= %.3f", effMult))
-				end
-				breakdown.BleedEffMult = out
+				breakdown.BleedEffMult = effMultBreakdown("Physical", resist, 0, taken, effMult)
 			end
 		end
 		local inc = modDB:Sum("INC", dotCfg, "Damage", "PhysicalDamage")
@@ -2040,17 +2012,7 @@ local function performCalcs(env)
 			t_insert(breakdown.BleedDPS, "x 0.2 ^8(bleed deals 20% per second)")
 			t_insert(breakdown.BleedDPS, s_format("= %.1f", baseVal, 1))
 			t_insert(breakdown.BleedDPS, "Bleed DPS:")
-			t_insert(breakdown.BleedDPS, s_format("%.1f ^8(base damage)", baseVal))
-			if inc ~= 0 then
-				t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
-			end
-			if more ~= 0 then
-				t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(more/less)", more))
-			end
-			if effMult ~= 1 then
-				t_insert(breakdown.BleedDPS, "x "..effMult.." ^8(effective DPS modifier)")
-			end
-			t_insert(breakdown.BleedDPS, s_format("= %.1f ^8per second", output.BleedDPS))
+			dotBreakdown(breakdown.BleedDPS, baseVal, inc, more, effMult, output.BleedDPS)
 			if output.BleedDuration ~= 5 then
 				breakdown.BleedDuration = {
 					"5.00s ^8(base duration)"
@@ -2085,16 +2047,7 @@ local function performCalcs(env)
 			effMult = (1 - resist / 100) * (1 + taken / 100)
 			output["PoisonEffMult"] = effMult
 			if breakdown then
-				breakdown.PoisonEffMult = { }
-				if resist ~= 0 then
-					t_insert(breakdown.PoisonEffMult, "^7Enemy resistance: "..resist.."%")
-				end
-				if resist ~= 0 and taken ~= 0 then
-					t_insert(breakdown.PoisonEffMult, "Effective DPS modifier:")
-					t_insert(breakdown.PoisonEffMult, (1 - resist / 100).." ^8(resistance)")
-					t_insert(breakdown.PoisonEffMult, "x "..(1 + taken / 100).." ^8(increased/reduced damage taken)")
-					t_insert(breakdown.PoisonEffMult, s_format("= %.3f", effMult))
-				end
+				breakdown.PoisonEffMult = effMultBreakdown("Chaos", resist, 0, taken, effMult)
 			end
 		end
 		local inc = modDB:Sum("INC", dotCfg, "Damage", "ChaosDamage")
@@ -2119,17 +2072,7 @@ local function performCalcs(env)
 			t_insert(breakdown.PoisonDPS, "x 0.08 ^8(poison deals 8% per second)")
 			t_insert(breakdown.PoisonDPS, s_format("= %.1f", baseVal, 1))
 			t_insert(breakdown.PoisonDPS, "Poison DPS:")
-			t_insert(breakdown.PoisonDPS, s_format("%.1f ^8(base damage)", baseVal))
-			if inc ~= 0 then
-				t_insert(breakdown.PoisonDPS, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
-			end
-			if more ~= 0 then
-				t_insert(breakdown.PoisonDPS, s_format("x %.2f ^8(more/less)", more))
-			end
-			if effMult ~= 1 then
-				t_insert(breakdown.PoisonDPS, "x "..effMult.." ^8(effective DPS modifier)")
-			end
-			t_insert(breakdown.PoisonDPS, s_format("= %.1f ^8per second", output.PoisonDPS))
+			dotBreakdown(breakdown.PoisonDPS, baseVal, inc, more, effMult, output.PoisonDPS)
 			if output.PoisonDuration ~= 2 then
 				breakdown.PoisonDuration = {
 					s_format("%.2fs ^8(base duration)", durationBase)
@@ -2144,7 +2087,7 @@ local function performCalcs(env)
 			end
 			breakdown.PoisonDamage = {
 				s_format("%.1f ^8(damage per second)", output.PoisonDPS),
-				s_format("x %.2f ^8(poison duration)", output.PoisonDuration),
+				s_format("x %.2fs ^8(poison duration)", output.PoisonDuration),
 				s_format("= %.1f ^8damage per poison stack", output.PoisonDamage),s
 			}
 		end
@@ -2178,16 +2121,7 @@ local function performCalcs(env)
 				effMult = (1 - resist / 100) * (1 + taken / 100)
 				output["IgniteEffMult"] = effMult
 				if breakdown then
-					breakdown.IgniteEffMult = { }
-					if resist ~= 0 then
-						t_insert(breakdown.IgniteEffMult, "^7Enemy resistance: "..resist.."%")
-					end
-					if resist ~= 0 and taken ~= 0 then
-						t_insert(breakdown.IgniteEffMult, "Effective DPS modifier:")
-						t_insert(breakdown.IgniteEffMult, (1 - resist / 100).." ^8(resistance)")
-						t_insert(breakdown.IgniteEffMult, "x "..(1 + taken / 100).." ^8(increased/reduced damage taken)")
-						t_insert(breakdown.IgniteEffMult, s_format("= %.3f", effMult))
-					end
+					breakdown.IgniteEffMult = effMultBreakdown("Fire", resist, 0, taken, effMult)
 				end
 			end
 			local inc = modDB:Sum("INC", dotCfg, "Damage", "FireDamage", "ElementalDamage")
@@ -2206,17 +2140,7 @@ local function performCalcs(env)
 				t_insert(breakdown.IgniteDPS, "x 0.2 ^8(ignite deals 20% per second)")
 				t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
 				t_insert(breakdown.IgniteDPS, "Ignite DPS:")
-				t_insert(breakdown.IgniteDPS, s_format("%.1f ^8(base damage)", baseVal))
-				if inc ~= 0 then
-					t_insert(breakdown.IgniteDPS, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
-				end
-				if more ~= 0 then
-					t_insert(breakdown.IgniteDPS, s_format("x %.2f ^8(more/less)", more))
-				end
-				if effMult ~= 1 then
-					t_insert(breakdown.IgniteDPS, "x "..effMult.." ^8(effective DPS modifier)")
-				end
-				t_insert(breakdown.IgniteDPS, s_format("= %.1f ^8per second", output.IgniteDPS))
+				dotBreakdown(breakdown.IgniteDPS, baseVal, inc, more, effMult, output.IgniteDPS)
 				if output.IgniteDuration ~= 4 then
 					breakdown.IgniteDuration = {
 						s_format("4.00s ^8(base duration)", durationBase)

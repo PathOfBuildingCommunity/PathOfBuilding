@@ -163,13 +163,13 @@ function SkillListClass:Draw(viewPort)
 				count = count + 1
 			end
 		end
-		local showOtherHeader = (count > 0)
+		local showOtherHeader = true
 		for _, gem in ipairs(ttGroup.gemList) do
 			if not gemShown[gem] then
 				if showOtherHeader then
 					showOtherHeader = false
 					main:AddTooltipSeperator(10)
-					main:AddTooltipLine(16, "^7Other Gems:")
+					main:AddTooltipLine(16, "^7Inactive Gems:")
 				end
 				local reason = ""
 				if not gem.data then

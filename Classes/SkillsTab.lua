@@ -33,6 +33,7 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 		self.displayGroup.label = buf
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
+		self.build.buildFlag = true
 	end)
 	self.controls.groupSlotLabel = common.New("LabelControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 30, 0, 16, "^7Socketed in:")
 	self.controls.groupSlot = common.New("SlotSelectControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 85, 28, 110, 20, self.build, function(sel, selVal)
@@ -349,9 +350,13 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 		if gem.nameSpec:match("%S") then
 			-- Gem name has been specified, try to find the matching skill gem
 			if data.gems[gem.nameSpec] then
-				gem.errMsg = nil
-				gem.name = gem.nameSpec
-				gem.data = data.gems[gem.nameSpec]
+				if data.gems[gem.nameSpec].unsupported then
+					gem.errMsg = gem.nameSpec.." is unsupported"
+				else
+					gem.errMsg = nil
+					gem.name = gem.nameSpec
+					gem.data = data.gems[gem.nameSpec]
+				end
 			else
 				gem.errMsg, gem.name, gem.data = self:FindSkillGem(gem.nameSpec)
 			end

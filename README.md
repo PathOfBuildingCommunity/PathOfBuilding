@@ -58,7 +58,7 @@ significant upgrades:
 	* The individual sections can be minimized to their title bar, so you can hide sections you're not interested in
 	* Nearly all of the stats and totals in the new Calcs tab have a breakdown view that appears when you hover over them:
 	   * You can click on a stat to pin the breakdown open so you can interact with it
-	   * Each breakdown view shows all the information used to calculate that stat, including ALL modifiers
+	   * Each breakdown view shows all the information used to calculate that stat, including all modifiers
 	   * You can hover over a modifier's source name to show the item's tooltip or passive node's location
 	   * Hovering over a modifier source type ('Item', 'Tree', 'Gem' etc) will show the totals from that source type
 	* Most modifier totals are no longer displayed in the tab itself, since they can be found in the breakdown views. 

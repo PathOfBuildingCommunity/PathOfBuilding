@@ -491,7 +491,7 @@ gems["Enhance"] = {
 		--"local_gem_experience_gain_+%" = 5
 	},
 	levelMods = {
-		[1] = mod("GemProperty", "LIST", { keyword = "active", key = "quality", value = nil }), --"supported_active_skill_gem_quality_%"
+		[1] = mod("GemProperty", "LIST", { keyword = "active_skill", key = "quality", value = nil }), --"supported_active_skill_gem_quality_%"
 	},
 	levels = {
 		[1] = { 0, },

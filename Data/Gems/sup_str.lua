@@ -288,7 +288,7 @@ gems["Empower"] = {
 		--"local_gem_experience_gain_+%" = 5
 	},
 	levelMods = {
-		[1] = mod("GemProperty", "LIST", { keyword = "active", key = "level", value = nil }), --"supported_active_skill_gem_level_+"
+		[1] = mod("GemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }), --"supported_active_skill_gem_level_+"
 	},
 	levels = {
 		[1] = { 0, },
