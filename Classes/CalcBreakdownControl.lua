@@ -93,7 +93,7 @@ function CalcBreakdownClass:SetBreakdownData(displayData, pinned)
 end
 
 function CalcBreakdownClass:AddBreakdownSection(sectionData)
-	local breakdown = self.calcsTab.gridEnv.breakdown[sectionData.breakdown]
+	local breakdown = self.calcsTab.calcsEnv.breakdown[sectionData.breakdown]
 	if not breakdown then
 		return
 	end
@@ -164,7 +164,7 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 end
 
 function CalcBreakdownClass:AddModSection(sectionData)
-	local env = self.calcsTab.gridEnv
+	local env = self.calcsTab.calcsEnv
 	local build = self.calcsTab.build
 	local cfg = (sectionData.cfg and copyTable(env.mainSkill[sectionData.cfg.."Cfg"])) or { }
 	cfg.source = sectionData.modSource
@@ -187,9 +187,9 @@ function CalcBreakdownClass:AddModSection(sectionData)
 			{ label = "Value", key = "value" },
 			{ label = "Stat", key = "name" },
 			{ label = "Skill types", key = "flags" },
-			{ label = "Tags", key = "tags" },
+			{ label = "Notes", key = "tags" },
 			{ label = "Source", key = "source" },
-			{ label = "Name", key = "sourceName" },
+			{ label = "Source Name", key = "sourceName" },
 		},
 	}
 	t_insert(self.sectionList, section)
@@ -283,8 +283,8 @@ function CalcBreakdownClass:AddModSection(sectionData)
 			elseif row.mod.source == "Tree:Jewel" then
 				row.sourceName = "Jewel conversion"
 			end
-		elseif sourceType == "Gem" then
-			row.sourceName = row.mod.source:match("Gem:(.+)")
+		elseif sourceType == "Skill" then
+			row.sourceName = row.mod.source:match("Skill:(.+)")
 		end
 		if row.mod.flags ~= 0 or row.mod.keywordFlags ~= 0 then
 			local flagNames = { }

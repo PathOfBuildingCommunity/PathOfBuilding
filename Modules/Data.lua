@@ -152,7 +152,7 @@ for gemName, gemData in pairs(data.gems) do
 	-- Add sources for gem mods
 	for _, list in pairs({gemData.baseMods, gemData.qualityMods, gemData.levelMods}) do
 		for _, mod in pairs(list) do
-			mod.source = "Gem:"..gemName
+			mod.source = "Skill:"..gemName
 		end
 	end
 end

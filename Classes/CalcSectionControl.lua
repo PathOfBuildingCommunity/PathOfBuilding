@@ -73,7 +73,7 @@ function CalcSectionClass:IsMouseOver()
 end
 
 function CalcSectionClass:UpdateSize()
-	local skillFlags = self.calcsTab.gridEnv.mainSkill.skillFlags
+	local skillFlags = self.calcsTab.calcsEnv.mainSkill.skillFlags
 	self.enabled = not self.flag or skillFlags[self.flag]
 	if self.collapsed or not self.enabled then
 		self.height = 22
@@ -138,7 +138,7 @@ function CalcSectionClass:FormatStr(str, output, colData)
 	end)
 	str = str:gsub("{(%d+):mod:(%d+)}", function(p, n) 
 		local sectionData = colData[tonumber(n)]
-		local env = self.calcsTab.gridEnv
+		local env = self.calcsTab.calcsEnv
 		local modCfg = (sectionData.cfg and env.mainSkill[sectionData.cfg.."Cfg"]) or { }
 		if sectionData.modSource then
 			modCfg.source = sectionData.modSource
@@ -161,8 +161,8 @@ function CalcSectionClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
-	local env = self.calcsTab.gridEnv
-	local output = self.calcsTab.gridOutput
+	local env = self.calcsTab.calcsEnv
+	local output = self.calcsTab.calcsOutput
 	SetDrawLayer(nil, -10)
 	SetDrawColor(self.col)
 	DrawImage(nil, x, y, width, height)

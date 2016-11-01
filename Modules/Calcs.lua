@@ -187,6 +187,7 @@ local function buildActiveSkillModList(env, activeSkill)
 
 	-- Initialise skill flag set
 	local skillFlags = copyTable(activeSkill.baseFlags)
+	skillFlags.hit = activeSkill.skillTypes[SkillType.Attack] or activeSkill.skillTypes[SkillType.Hit]
 
 	-- Set weapon flags
 	local weapon1Type = env.itemList["Weapon 1"] and env.itemList["Weapon 1"].type or "None"
@@ -215,7 +216,9 @@ local function buildActiveSkillModList(env, activeSkill)
 
 	-- Build skill mod flag set
 	local skillModFlags = 0
-	skillModFlags = bor(skillModFlags, ModFlag.Hit)
+	if skillFlags.hit then
+		skillModFlags = bor(skillModFlags, ModFlag.Hit)
+	end
 	if skillFlags.spell then
 		skillModFlags = bor(skillModFlags, ModFlag.Spell)
 	elseif skillFlags.attack then
@@ -557,7 +560,7 @@ local function initEnv(build, mode)
 	local env = { }
 	env.build = build
 	env.configInput = build.configTab.input
-	env.gridInput = build.calcsTab.input
+	env.calcsInput = build.calcsTab.input
 	env.mode = mode
 	env.classId = build.spec.curClassId
 
@@ -790,11 +793,11 @@ local function mergeMainMods(env, repSlotName, repItem)
 	env.modDB:AddList(buildNodeModList(env, build.spec.allocNodes, true))
 
 	-- Determine main skill group
-	if env.mode == "GRID" then
-		env.gridInput.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.gridInput.skill_number or 1)
-		env.mainSocketGroup = env.gridInput.skill_number
-		env.skillPart = env.gridInput.skill_part or 1
-		env.buffMode = env.gridInput.misc_buffMode
+	if env.mode == "CALCS" then
+		env.calcsInput.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.calcsInput.skill_number or 1)
+		env.mainSocketGroup = env.calcsInput.skill_number
+		env.skillPart = env.calcsInput.skill_part or 1
+		env.buffMode = env.calcsInput.misc_buffMode
 	else
 		build.mainSocketGroup = m_min(m_max(#build.skillsTab.socketGroupList, 1), build.mainSocketGroup or 1)
 		env.mainSocketGroup = build.mainSocketGroup
@@ -861,9 +864,9 @@ local function mergeMainMods(env, repSlotName, repItem)
 			if index == env.mainSocketGroup and #socketGroupSkillList > 0 then
 				-- Select the main skill from this socket group
 				local activeSkillIndex
-				if env.mode == "GRID" then
-					env.gridInput.skill_activeNumber = m_min(#socketGroupSkillList, env.gridInput.skill_activeNumber or 1)
-					activeSkillIndex = env.gridInput.skill_activeNumber
+				if env.mode == "CALCS" then
+					env.calcsInput.skill_activeNumber = m_min(#socketGroupSkillList, env.calcsInput.skill_activeNumber or 1)
+					activeSkillIndex = env.calcsInput.skill_activeNumber
 				else
 					socketGroup.mainActiveSkill = m_min(#socketGroupSkillList, socketGroup.mainActiveSkill or 1)
 					activeSkillIndex = socketGroup.mainActiveSkill
@@ -923,7 +926,7 @@ local function performCalcs(env)
 	env.output = output
 	modDB.stats = output
 	local breakdown
-	if env.mode == "GRID" then
+	if env.mode == "CALCS" then
 		breakdown = { }
 		env.breakdown = breakdown
 	end
@@ -1733,7 +1736,7 @@ local function performCalcs(env)
 		local hitSource = (env.mode_skillType == "ATTACK") and env.weaponData1 or env.mainSkill.skillData
 		for _, damageType in ipairs(dmgTypeList) do
 			local min, max
-			if canDeal[damageType] then
+			if skillFlags.hit and canDeal[damageType] then
 				if breakdown then
 					breakdown[damageType] = {
 						damageComponents = { }
@@ -1771,7 +1774,7 @@ local function performCalcs(env)
 					local mult = (1 - (resist - pen) / 100) * (1 + taken / 100)
 					min = min * mult
 					max = max * mult
-					if env.mode == "GRID" then
+					if env.mode == "CALCS" then
 						output[damageType.."EffMult"] = mult
 					end
 					if breakdown and mult ~= 1 then
@@ -1807,7 +1810,7 @@ local function performCalcs(env)
 					}
 				end
 			end
-			if env.mode == "GRID" then
+			if env.mode == "CALCS" then
 				output[damageType.."Min"] = min
 				output[damageType.."Max"] = max
 			end
@@ -1865,7 +1868,7 @@ local function performCalcs(env)
 	output.AverageHit = (totalMin + totalMax) / 2 * output.CritEffect
 	output.AverageDamage = output.AverageHit * output.HitChance / 100
 	output.TotalDPS = output.AverageDamage * output.Speed * (skillData.dpsMultiplier or 1)
-	if env.mode == "GRID" then
+	if env.mode == "CALCS" then
 		if env.mode_average then
 			output.DisplayDamage = s_format("%.1f average damage", output.AverageDamage)
 		else
@@ -2429,7 +2432,7 @@ function calcs.getItemCalculator(build)
 	end)
 end
 
--- Build output for display in the grid or side bar
+-- Build output for display in the side bar or calcs tab
 function calcs.buildOutput(build, mode)
 	-- Build output
 	local env = initEnv(build, mode)
@@ -2447,7 +2450,7 @@ function calcs.buildOutput(build, mode)
 		for _, stat in pairs({"Life", "Mana", "Armour", "Evasion", "EnergyShield"}) do
 			output["Spec:"..stat.."Inc"] = env.modDB:Sum("INC", specCfg, stat)
 		end
-	elseif mode == "GRID" then
+	elseif mode == "CALCS" then
 		-- Calculate XP modifier 
 		--[[ FIXME
 		if input.monster_level and input.monster_level > 0 then

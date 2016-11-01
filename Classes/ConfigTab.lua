@@ -256,10 +256,10 @@ end
 
 function ConfigTabClass:ImportCalcSettings()
 	local input = self.input
-	local gridInput = self.build.calcsTab.input
+	local calcsInput = self.build.calcsTab.input
 	local function import(old, new)
-		input[new] = gridInput[old]
-		gridInput[old] = nil
+		input[new] = calcsInput[old]
+		calcsInput[old] = nil
 	end
 	import("Cond_LowLife", "conditionLowLife")
 	import("Cond_FullLife", "conditionFullLife")

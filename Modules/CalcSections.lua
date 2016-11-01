@@ -7,6 +7,7 @@
 return {
 { 3, "HitDamage", 1, "Skill Hit Damage", data.colorCodes.OFFENCE, {
 	extra = "{output:DisplayDamage}",
+	flag = "hit",
 	colWidth = 95,
 	{
 		{ format = "All Types:", },
@@ -154,6 +155,7 @@ return {
 } },
 { 1, "Crit", 1, "Crits", data.colorCodes.OFFENCE, {
 	extra = "{2:output:CritChance}% x{2:output:CritMultiplier}",
+	flag = "hit",
 	{ label = "Inc. Crit Chance", { format = "{0:mod:1}%", { modName = "CritChance", modType = "INC", cfg = "skill" }, }, },
 	{ label = "Crit Chance", { format = "{2:output:CritChance}%", { breakdown = "CritChance" }, { modName = "CritChance", cfg = "skill" }, }, },
 	{ label = "Crit Multiplier", { format = "x {2:output:CritMultiplier}", { modName = "CritMultiplier", cfg = "skill"}, }, },
@@ -211,6 +213,7 @@ return {
 	{ label = "Ignite Duration", { format = "{2:output:IgniteDuration}s", { breakdown = "IgniteDuration" }, { label = "Player modifiers", modName = "EnemyIgniteDuration", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfIgniteDuration", enemy = true }, }, },
 } },
 { 1, "MiscEffects", 1, "Other Effects", data.colorCodes.OFFENCE, {
+	flag = "hit",
 	{ label = "Chance to Shock", flag = "shock", { format = "{0:output:ShockChance}%", { label = "Player modifiers", modName = "EnemyShockChance", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfShockChance", enemy = true }, }, },
 	{ label = "Shock Dur. Mod", flag = "shock", { format = "x {2:output:ShockDurationMod}", { label = "Player modifiers", modName = "EnemyShockDuration", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfShockDuration", enemy = true }, }, },
 	{ label = "Chance to Freeze", flag = "freeze", { format = "{0:output:FreezeChance}%", { label = "Player modifiers", modName = "EnemyFreezeChance", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfFreezeChance", enemy = true }, }, },

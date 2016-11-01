@@ -1,4 +1,4 @@
-VERSION[1.2.0][2016/10/00]
+VERSION[1.2.0][2016/11/01]
 With this update, the program's internal modifier system has been completely overhauled.
 On its own this overhaul doesn't change much from the user's perspective, but it has opened the way for some
 significant upgrades:

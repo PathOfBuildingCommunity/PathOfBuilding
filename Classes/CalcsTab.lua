@@ -323,9 +323,9 @@ function CalcsTabClass:BuildOutput()
 
 	self.mainEnv = self.calcs.buildOutput(self.build, "MAIN")
 	self.mainOutput = self.mainEnv.output
-	self.gridEnv = self.calcs.buildOutput(self.build, "GRID")
-	self.gridOutput = self.gridEnv.output
-	self.gridBreakdown = self.gridEnv.breakdown
+	self.calcsEnv = self.calcs.buildOutput(self.build, "CALCS")
+	self.calcsOutput = self.calcsEnv.output
+	self.calcsBreakdown = self.calcsEnv.breakdown
 
 	if self.displayData then
 		self.controls.breakdown:SetBreakdownData()
