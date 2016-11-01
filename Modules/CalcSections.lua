@@ -165,7 +165,7 @@ return {
 	extra = "{0:output:HitChance}%",
 	flag = "attack",
 	{ label = "Accuracy", { format = "{0:output:Accuracy}", { breakdown = "Accuracy" }, { modName = "Accuracy", cfg = "skill" }, }, },
-	{ label = "Chance to Hit", { format = "{0:output:HitChance}%", { breakdown = "HitChance" }, }, },
+	{ label = "Chance to Hit", { format = "{0:output:HitChance}%", { breakdown = "HitChance" }, { label = "Enemy Evasion modifiers", modName = "Evasion", enemy = true }, }, },
 } },
 { 1, "SkillTypeStats", 1, "Skill type-specific Stats", data.colorCodes.OFFENCE, {
 	{ label = "Duration Mod", flag = "duration", { format = "x {2:output:DurationMod}", { breakdown = "DurationMod"}, { modName = "Duration", cfg = "skill" }, }, },
@@ -280,7 +280,7 @@ return {
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion", "Defences" }, modType = "MORE" }, }, },
 	{ label = "Total", { format = "{0:output:Evasion}", { breakdown = "Evasion" }, }, },
-	{ label = "Evade Chance", { format = "{0:output:EvadeChance}%", { breakdown = "EvadeChance" }, }, },
+	{ label = "Evade Chance", { format = "{0:output:EvadeChance}%", { breakdown = "EvadeChance" }, { label = "Enemy Accuracy modifiers", modName = "Accuracy", enemy = true }, }, },
 } },
 { 1, "Resist", 3, "Resists", data.colorCodes.DEFENCE, {
 	extra = data.colorCodes.FIRE.."{0:output:FireResist}+{0:output:FireResistOverCap}^7/"..data.colorCodes.COLD.."{0:output:ColdResist}+{0:output:ColdResistOverCap}^7/"..data.colorCodes.LIGHTNING.."{0:output:LightningResist}+{0:output:LightningResistOverCap}",

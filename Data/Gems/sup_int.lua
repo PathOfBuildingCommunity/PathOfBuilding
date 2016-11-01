@@ -322,7 +322,7 @@ gems["Controlled Destruction"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 30), 
-		mod("CritChance", "INC", -100), --"critical_strike_chance_+%" = -100
+		mod("CritChance", "INC", -100, 0, 0, nil), --"critical_strike_chance_+%" = -100
 	},
 	qualityMods = {
 		mod("Damage", "INC", 0.5, ModFlag.Spell, 0, nil), --"spell_damage_+%" = 0.5
@@ -667,10 +667,10 @@ gems["Increased Critical Damage"] = {
 		mod("ManaCost", "MORE", 30), 
 	},
 	qualityMods = {
-		mod("CritMultiplier", "BASE", 0.75), --"base_critical_strike_multiplier_+" = 0.75
+		mod("CritMultiplier", "BASE", 0.75, 0, 0, nil), --"base_critical_strike_multiplier_+" = 0.75
 	},
 	levelMods = {
-		[1] = mod("CritMultiplier", "BASE", nil), --"base_critical_strike_multiplier_+"
+		[1] = mod("CritMultiplier", "BASE", nil, 0, 0, nil), --"base_critical_strike_multiplier_+"
 	},
 	levels = {
 		[1] = { 75, },
@@ -716,11 +716,11 @@ gems["Increased Critical Strikes"] = {
 		mod("ManaCost", "MORE", 15), 
 	},
 	qualityMods = {
-		mod("CritChance", "INC", 1), --"critical_strike_chance_+%" = 1
+		mod("CritChance", "INC", 1, 0, 0, nil), --"critical_strike_chance_+%" = 1
 	},
 	levelMods = {
-		[1] = mod("CritChance", "INC", nil), --"critical_strike_chance_+%"
-		[2] = mod("CritChance", "BASE", nil), --"additional_base_critical_strike_chance"
+		[1] = mod("CritChance", "INC", nil, 0, 0, nil), --"critical_strike_chance_+%"
+		[2] = mod("CritChance", "BASE", nil, 0, 0, nil), --"additional_base_critical_strike_chance"
 	},
 	levels = {
 		[1] = { 50, 1, },
@@ -1044,7 +1044,7 @@ gems["Power Charge On Critical"] = {
 		mod("ManaCost", "MORE", 10), 
 	},
 	qualityMods = {
-		mod("CritChance", "INC", 1), --"critical_strike_chance_+%" = 1
+		mod("CritChance", "INC", 1, 0, 0, nil), --"critical_strike_chance_+%" = 1
 	},
 	levelMods = {
 		--[1] = "add_power_charge_on_critical_strike_%"

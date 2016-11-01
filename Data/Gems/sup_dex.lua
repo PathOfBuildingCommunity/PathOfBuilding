@@ -67,10 +67,10 @@ gems["Additional Accuracy"] = {
 	baseMods = {
 	},
 	qualityMods = {
-		mod("Accuracy", "INC", 1), --"accuracy_rating_+%" = 1
+		mod("Accuracy", "INC", 1, 0, 0, nil), --"accuracy_rating_+%" = 1
 	},
 	levelMods = {
-		[1] = mod("Accuracy", "BASE", nil), --"accuracy_rating"
+		[1] = mod("Accuracy", "BASE", nil, 0, 0, nil), --"accuracy_rating"
 	},
 	levels = {
 		[1] = { 74, },

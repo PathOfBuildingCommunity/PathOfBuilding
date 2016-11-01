@@ -111,17 +111,17 @@ function ModListClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7
 						local mult = (self.multipliers[tag.var] or 0)
 						if type(value) == "table" then
 							value = copyTable(value)
-							value.value = value.value * mult
+							value.value = value.value * mult + (tag.base or 0)
 						else
-							value = value * mult
+							value = value * mult + (tag.base or 0)
 						end
 					elseif tag.type == "PerStat" then
-						local mult = m_floor((self.stats[tag.stat] or 0) / tag.div + 0.0001) + (tag.base or 0)
+						local mult = m_floor((self.stats[tag.stat] or 0) / tag.div + 0.0001)
 						if type(value) == "table" then
 							value = copyTable(value)
-							value.value = value.value * mult
+							value.value = value.value * mult + (tag.base or 0)
 						else
-							value = value * mult
+							value = value * mult + (tag.base or 0)
 						end
 					elseif tag.type == "Condition" then
 						if not self.conditions[tag.var] then

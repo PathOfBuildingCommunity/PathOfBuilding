@@ -990,21 +990,21 @@ gems["Enfeeble"] = {
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, },
 	baseMods = {
 		skill("castTime", 0.5), 
-		mod("CritChance", "INC", -25), --"critical_strike_chance_+%" = -25
+		mod("CritChance", "INC", -25, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"critical_strike_chance_+%" = -25
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
 	},
 	qualityMods = {
-		mod("Accuracy", "INC", -0.5), --"accuracy_rating_+%" = -0.5
-		mod("CritChance", "INC", -0.5), --"critical_strike_chance_+%" = -0.5
+		mod("Accuracy", "INC", -0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"accuracy_rating_+%" = -0.5
+		mod("CritChance", "INC", -0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"critical_strike_chance_+%" = -0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
 		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
-		[4] = mod("Accuracy", "INC", nil), --"accuracy_rating_+%"
-		--[5] = "enfeeble_damage_+%_final"
-		[6] = mod("CritMultiplier", "BASE", nil), --"base_critical_strike_multiplier_+"
+		[4] = mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"accuracy_rating_+%"
+		[5] = mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"enfeeble_damage_+%_final"
+		[6] = mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"base_critical_strike_multiplier_+"
 	},
 	levels = {
 		[1] = { 24, 9, 0, -18, -21, -21, },

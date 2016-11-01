@@ -307,9 +307,17 @@ function CalcBreakdownClass:AddModSection(sectionData)
 				if tag.type == "Condition" then
 					desc = "Condition: "..self:FormatModName(tag.var)
 				elseif tag.type == "Multiplier" then
-					desc = baseVal.." per "..self:FormatModName(tag.var)
+					if tag.base then
+						desc = (row.mod.type == "BASE" and string.format("%+g", tag.base) or tag.base.."%").." + "..math.abs(row.mod.value).." per "..self:FormatModName(tag.var)
+					else
+						desc = baseVal.." per "..self:FormatModName(tag.var)
+					end
 				elseif tag.type == "PerStat" then
-					desc = baseVal.." per "..tag.div.." "..self:FormatModName(tag.stat)
+					if tag.base then
+						desc = (row.mod.type == "BASE" and string.format("%+g", tag.base) or tag.base.."%").." + "..math.abs(row.mod.value).." per "..tag.div.." "..self:FormatModName(tag.var)
+					else
+						desc = baseVal.." per "..tag.div.." "..self:FormatModName(tag.stat)
+					end
 				elseif tag.type == "SkillName" then
 					desc = "Skill: "..tag.skillName
 				elseif tag.type == "SlotNumber" then

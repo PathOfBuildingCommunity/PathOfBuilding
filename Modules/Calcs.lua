@@ -571,13 +571,12 @@ local function initEnv(build, mode)
 	for _, stat in pairs({"Str","Dex","Int"}) do
 		modDB:NewMod(stat, "BASE", classStats["base_"..stat:lower()], "Base")
 	end
-	local level = build.characterLevel
-	modDB.multipliers["Level"] = level
-	modDB:NewMod("Life", "BASE", 38 + level * 12, "Base")
-	modDB:NewMod("Mana", "BASE", 34 + level * 6, "Base")
+	modDB.multipliers["Level"] = m_max(1, m_min(100, build.characterLevel))
+	modDB:NewMod("Life", "BASE", 12, "Base", { type = "Multiplier", var = "Level", base = 38 })
+	modDB:NewMod("Mana", "BASE", 6, "Base", { type = "Multiplier", var = "Level", base = 34 })
 	modDB:NewMod("ManaRegen", "BASE", 0.0175, "Base", { type = "PerStat", stat = "Mana", div = 1 })
-	modDB:NewMod("Evasion", "BASE", 53 + level * 3, "Base")
-	modDB:NewMod("Accuracy", "BASE", (level - 1) * 2, "Base") 
+	modDB:NewMod("Evasion", "BASE", 3, "Base", { type = "Multiplier", var = "Level", base = 53 })
+	modDB:NewMod("Accuracy", "BASE", 2, "Base", { type = "Multiplier", var = "Level", base = -2 })
 	modDB:NewMod("FireResistMax", "BASE", 75, "Base")
 	modDB:NewMod("FireResist", "BASE", -60, "Base")
 	modDB:NewMod("ColdResistMax", "BASE", 75, "Base")
@@ -635,6 +634,9 @@ local function initEnv(build, mode)
 	-- Initialise enemy modifier database
 	local enemyDB = common.New("ModDB")
 	env.enemyDB = enemyDB
+	env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, 84)))
+	enemyDB:NewMod("Accuracy", "BASE", data.monsterAccuracyTable[env.enemyLevel], "Base")
+	enemyDB:NewMod("Evasion", "BASE", data.monsterEvasionTable[env.enemyLevel], "Base")
 
 	-- Add mods from the config tab
 	modDB:AddList(build.configTab.modList)
@@ -1389,13 +1391,12 @@ local function performCalcs(env)
 		if modDB:Sum("FLAG", nil, "CannotEvade") then
 			output.EvadeChance = 0
 		else
-			local attackerLevel = m_max(1, m_min(#data.monsterAccuracyTable, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, 84)))
-			local attackerAccuracy = data.monsterAccuracyTable[attackerLevel]
-			output.EvadeChance = 100 - calcHitChance(output.Evasion, attackerAccuracy)
+			local enemyAccuracy = round(calcVal(enemyDB, "Accuracy"))
+			output.EvadeChance = 100 - calcHitChance(output.Evasion, enemyAccuracy)
 			if breakdown then
 				breakdown.EvadeChance = {
-					"^7Enemy level: "..attackerLevel..(env.configInput.enemyLevel and " ^8(overridden from the Configuration tab" or " ^8(can be overridden in the Configuration tab)"),
-					"^7Average enemy accuracy: "..attackerAccuracy,
+					"^7Enemy level: "..env.enemyLevel..(env.configInput.enemyLevel and " ^8(overridden from the Configuration tab" or " ^8(can be overridden in the Configuration tab)"),
+					"^7Average enemy accuracy: "..enemyAccuracy,
 					"^7Approximate evade chance: "..output.EvadeChance.."%",
 				}
 			end
@@ -1695,16 +1696,12 @@ local function performCalcs(env)
 	if not isAttack or modDB:Sum("FLAG", skillCfg, "CannotBeEvaded") or env.weaponData1.CannotBeEvaded then
 		output.HitChance = 100
 	else
-		local targetLevel = m_max(1, m_min(#data.monsterEvasionTable, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, 84)))
-		local targetEvasion = data.monsterEvasionTable[targetLevel]
-		if env.mode_effective then
-			targetEvasion = targetEvasion * calcMod(enemyDB, "Evasion")
-		end
-		output.HitChance = calcHitChance(targetEvasion, output.Accuracy)
+		local enemyEvasion = round(calcVal(enemyDB, "Evasion"))
+		output.HitChance = calcHitChance(enemyEvasion, output.Accuracy)
 		if breakdown then
 			breakdown.HitChance = {
-				"^7Enemy level: "..targetLevel..(env.configInput.enemyLevel and " ^8(overridden from the Configuration tab" or " ^8(can be overridden in the Configuration tab)"),
-				"^7Average enemy evasion: "..targetEvasion,
+				"^7Enemy level: "..env.enemyLevel..(env.configInput.enemyLevel and " ^8(overridden from the Configuration tab" or " ^8(can be overridden in the Configuration tab)"),
+				"^7Average enemy evasion: "..enemyEvasion,
 				"^7Approximate hit chance: "..output.HitChance.."%",
 			}
 		end
