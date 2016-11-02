@@ -34,6 +34,7 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 	self.colWidth = 230
 	self.sectionList = { }
 
+	-- Special section for skill/mode selection
 	self:NewSection(3, "SkillSelect", 1, "View Skill Details", data.colorCodes.NORMAL, {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
 			control = common.New("DropDownControl", nil, 0, 0, 300, 16, nil, function(index) 
@@ -109,6 +110,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 		section.controls.mode:SelByValue(self.input.misc_buffMode)
 	end)
 
+	-- Add sections from the CalcSections module
 	for _, section in ipairs(sectionData) do
 		self:NewSection(unpack(section))
 	end
@@ -204,6 +206,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 
 	main:DrawBackground(viewPort)
 
+	-- Arrange the sections
 	local baseX = viewPort.x + 4
 	local baseY = viewPort.y + 4
 	local maxCol = m_floor(viewPort.width / (self.colWidth + 8))
@@ -214,6 +217,8 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		if section.enabled then
 			local col
 			if section.group == 1 then
+				-- Group 1: Offense 
+				-- This group is put into the first 3 columns, with each section placed into the highest available location
 				col = 1
 				local minY = colY[col] or baseY
 				for c = 2, 3 do
@@ -223,8 +228,12 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 					end
 				end
 			elseif section.group == 2 then
+				-- Group 2: Defense (the first 4 sections)
+				-- This group is put entirely into the 4th column
 				col = 4
 			elseif section.group == 3 then
+				-- Group 3: Defense (the remaining sections)
+				-- This group is put into a 5th column if there's room for one, otherwise they are handled separately
 				if maxCol >= 5 then
 					col = 5
 				end
@@ -240,13 +249,16 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 	if maxCol < 5 then
+		-- There's no room for a 5th column
+		-- Each section from group 3 will instead be placed into column 4 if there's room, otherwise they'll be put in columns 1-3
 		for c = 1, 3 do
-			colY[c] = m_max(colY[1], colY[2], colY[3])--maxY
+			colY[c] = m_max(colY[1], colY[2], colY[3])
 		end
 		for _, section in ipairs(self.sectionList) do
 			if section.enabled and section.group == 3 then
 				local col = 4
 				if colY[col] + section.height + 4 >= m_max(viewPort.y + viewPort.height, maxY) then
+					-- No room in the 4th column, find the highest available location in columns 1-4
 					local minY = colY[col]
 					for c = 3, 1, -1 do
 						if colY[c] < minY then
@@ -265,6 +277,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 	self.controls.scrollBar.height = viewPort.height
 	self.controls.scrollBar:SetContentDimension(maxY - baseY, viewPort.height)
 	for _, section in ipairs(self.sectionList) do
+		-- Give sections their actual Y position and let them update
 		section.y = section.y - self.controls.scrollBar.offset
 		section:UpdatePos()
 	end

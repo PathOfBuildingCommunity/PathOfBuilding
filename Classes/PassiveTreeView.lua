@@ -494,8 +494,8 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 		end
 		if not match and node.mods[index].list then
 			-- Then check modifiers
-			for k in pairs(node.mods[index].list) do
-				errMsg, match = PCall(string.match, k, self.searchStr)
+			for _, mod in ipairs(node.mods[index].list) do
+				errMsg, match = PCall(string.match, mod.name, self.searchStr)
 				if match then
 					return true
 				end
@@ -513,7 +513,7 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 		else
 			main:AddTooltipLine(24, "^7"..node.dn..(launch.devMode and IsKeyDown("ALT") and " ["..node.id.."]" or ""))
 		end
-		main:AddTooltipSeperator(14)
+		main:AddTooltipSeparator(14)
 		main:AddTooltipLine(14, "^x80A080Tip: Right click this socket to go to the items page and choose the jewel for this socket.")
 		return
 	end
@@ -550,7 +550,7 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 
 	-- Reminder text
 	if node.reminderText then
-		main:AddTooltipSeperator(14)
+		main:AddTooltipSeparator(14)
 		for _, line in ipairs(node.reminderText) do
 			main:AddTooltipLine(14, "^xA0A080"..line)
 		end
@@ -559,7 +559,7 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 	-- Mod differences
 	local calcFunc, calcBase = build.calcsTab:GetNodeCalculator(build)
 	if calcFunc then
-		main:AddTooltipSeperator(14)
+		main:AddTooltipSeparator(14)
 		local pathLength
 		local nodeOutput, pathOutput
 		if node.alloc then
@@ -589,7 +589,7 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 
 	-- Pathing distance
 	if node.path and #node.path > 0 then
-		main:AddTooltipSeperator(14)
+		main:AddTooltipSeparator(14)
 		main:AddTooltipLine(14, "^7"..#node.path .. " points to node")
 		if #node.path > 1 then
 			-- Handy hint!

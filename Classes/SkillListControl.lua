@@ -137,11 +137,11 @@ function SkillListClass:Draw(viewPort)
 		local gemShown = { }
 		if ttGroup.sourceItem then
 			main:AddTooltipLine(18, "^7Source: "..data.colorCodes[ttGroup.sourceItem.rarity]..ttGroup.sourceItem.name)
-			main:AddTooltipSeperator(10)
+			main:AddTooltipSeparator(10)
 		end
 		for index, activeSkill in ipairs(ttGroup.displaySkillList) do
 			if index > 1 then
-				main:AddTooltipSeperator(10)
+				main:AddTooltipSeparator(10)
 			end
 			main:AddTooltipLine(16, "^7Active Skill #"..index..":")
 			for _, gem in ipairs(activeSkill.gemList) do
@@ -162,7 +162,7 @@ function SkillListClass:Draw(viewPort)
 			if not gemShown[gem] then
 				if showOtherHeader then
 					showOtherHeader = false
-					main:AddTooltipSeperator(10)
+					main:AddTooltipSeparator(10)
 					main:AddTooltipLine(16, "^7Inactive Gems:")
 				end
 				local reason = ""

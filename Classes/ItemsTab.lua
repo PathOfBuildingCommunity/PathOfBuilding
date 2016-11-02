@@ -43,19 +43,29 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	-- Build item list
 	self.controls.itemList = common.New("ItemList", {"TOPLEFT",self.slots[baseSlots[1]],"TOPRIGHT"}, 20, 0, 360, 308, self)
 
+	-- Database selector
 	self.controls.selectDBLabel = common.New("LabelControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 14, 0, 16, "^7Import from:")
+	self.controls.selectDBLabel.shown = function()
+		return self.height < 984
+	end
 	self.controls.selectDB = common.New("DropDownControl", {"LEFT",self.controls.selectDBLabel,"RIGHT"}, 4, 0, 150, 18, { "Uniques", "Rare Templates" })
 
 	-- Unique database
-	self.controls.uniqueDB = common.New("ItemDB", {"TOPLEFT",self.controls.selectDBLabel,"BOTTOMLEFT"}, 0, 46, 360, 260, self, main.uniqueDB)
+	self.controls.uniqueDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, 260, self, main.uniqueDB)
+	self.controls.uniqueDB.y = function()
+		return self.controls.selectDBLabel:IsShown() and 76 or 54
+	end
 	self.controls.uniqueDB.shown = function()
-		return self.controls.selectDB.sel == 1
+		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.sel == 1
 	end
 
 	-- Rare template database
-	self.controls.rareDB = common.New("ItemDB", {"TOPLEFT",self.controls.selectDBLabel,"BOTTOMLEFT"}, 0, 46, 360, 260, self, main.rareDB)
+	self.controls.rareDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, 260, self, main.rareDB)
+	self.controls.rareDB.y = function()
+		return self.controls.selectDBLabel:IsShown() and 76 or 370
+	end
 	self.controls.rareDB.shown = function()
-		return self.controls.selectDB.sel == 2
+		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.sel == 2
 	end
 
 	-- Display item
@@ -364,7 +374,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	else
 		main:AddTooltipLine(20, rarityCode..item.name)
 	end
-	main:AddTooltipSeperator(10)
+	main:AddTooltipSeparator(10)
 
 	-- Special fields for database items
 	if dbMode and (item.variantList or item.league or item.unreleased) then
@@ -381,7 +391,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		if item.unreleased then
 			main:AddTooltipLine(16, "^1Not yet available")
 		end
-		main:AddTooltipSeperator(10)
+		main:AddTooltipSeparator(10)
 	end
 
 	local base = item.base
@@ -457,7 +467,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 			main:AddTooltipLine(16, "^x7F7F7FLimited to: ^7"..item.limit)
 		end
 	end
-	main:AddTooltipSeperator(10)
+	main:AddTooltipSeparator(10)
 
 	-- Implicit/explicit modifiers
 	if item.modLines[1] then
@@ -475,8 +485,8 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 				end
 			end
 			if index == item.implicitLines and item.modLines[index + 1] then
-				-- Add seperator between implicit and explicit modifiers
-				main:AddTooltipSeperator(10)
+				-- Add separator between implicit and explicit modifiers
+				main:AddTooltipSeparator(10)
 			end
 		end
 	end
@@ -484,11 +494,11 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	-- Corrupted item label
 	if item.corrupted then
 		if #item.modLines == item.implicitLines then
-			main:AddTooltipSeperator(10)
+			main:AddTooltipSeparator(10)
 		end
 		main:AddTooltipLine(16, "^1Corrupted")
 	end
-	main:AddTooltipSeperator(14)
+	main:AddTooltipSeparator(14)
 
 	-- Mod differences
 	local calcFunc, calcBase = self.build.calcsTab:GetItemCalculator()
@@ -535,7 +545,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 
 	if launch.devMode and IsKeyDown("ALT") then
 		-- Modifier debugging info
-		main:AddTooltipSeperator(10)
+		main:AddTooltipSeparator(10)
 		for _, mod in ipairs(modList) do
 			main:AddTooltipLine(14, "^7"..modLib.formatMod(mod))
 		end

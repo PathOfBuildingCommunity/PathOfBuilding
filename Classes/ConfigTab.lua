@@ -220,7 +220,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	for _, section in ipairs(self.sectionList) do
 		local y = 14
 		for _, varControl in ipairs(section.varControlList) do
-			if varControl:IsEnabled() then
+			if varControl:IsShown() then
 				varControl.y = y
 				y = y + 20
 			end

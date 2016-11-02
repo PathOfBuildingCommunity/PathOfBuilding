@@ -22,6 +22,7 @@ local CalcSectionClass = common.NewClass("CalcSection", "Control", "ControlHost"
 	for _, data in ipairs(self.data) do
 		for _, colData in ipairs(data) do
 			if colData.control then
+				-- Add control to the section's control list and set show/hide function
 				self.controls[colData.controlName] = colData.control
 				colData.control.shown = function()
 					return self.enabled and not self.collapsed and data.enabled
@@ -52,6 +53,7 @@ function CalcSectionClass:IsMouseOver()
 	end
 	local mOver = self:IsMouseInBounds()
 	if mOver and not self.collapsed and self.enabled then
+		-- Check if mouse is over one of the cells
 		local cursorX, cursorY = GetCursorPos()
 		for _, data in ipairs(self.data) do
 			if data.enabled then
@@ -116,6 +118,7 @@ function CalcSectionClass:UpdatePos()
 	for _, rowData in ipairs(self.data) do
 		if rowData.enabled then
 			for col, colData in ipairs(rowData) do
+				-- Update the real coordinates of this cell
 				colData.x = x + colData.xOffset
 				colData.y = y + colData.yOffset
 				if colData.control then
@@ -161,11 +164,13 @@ function CalcSectionClass:Draw(viewPort)
 	local cursorX, cursorY = GetCursorPos()
 	local env = self.calcsTab.calcsEnv
 	local output = self.calcsTab.calcsOutput
+	-- Draw border and background
 	SetDrawLayer(nil, -10)
 	SetDrawColor(self.col)
 	DrawImage(nil, x, y, width, height)
 	SetDrawColor(0.10, 0.10, 0.10)
 	DrawImage(nil, x + 2, y + 2, width - 4, height - 4)
+	-- Draw label
 	if not self.enabled then
 		DrawString(x + 3, y + 3, "LEFT", 16, "VAR BOLD", "^8"..self.label)
 	else
@@ -175,8 +180,10 @@ function CalcSectionClass:Draw(viewPort)
 			DrawString(x, y + 3, "LEFT", 16, "VAR", self:FormatStr(self.extra, output))
 		end
 	end
+	-- Draw line below label
 	SetDrawColor(self.col)
 	DrawImage(nil, x + 2, y + 20, width - 4, 2)
+	-- Draw controls
 	SetDrawLayer(nil, 0)
 	self:DrawControls(viewPort)
 	if self.collapsed or not self.enabled then
@@ -186,11 +193,13 @@ function CalcSectionClass:Draw(viewPort)
 	for _, rowData in ipairs(self.data) do
 		if rowData.enabled then
 			if rowData.label then
+				-- Draw row label with background
 				SetDrawColor(0, 0, 0)
 				DrawImage(nil, x + 2, lineY, 130, 18)
 				DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", "^7"..rowData.label..":")
 			end
 			for col, colData in ipairs(rowData) do
+				-- Draw column separator at the left end of the cell
 				SetDrawColor(self.col)
 				DrawImage(nil, colData.x, lineY, 2, colData.height)
 				if colData.format then
@@ -198,6 +207,7 @@ function CalcSectionClass:Draw(viewPort)
 						self.calcsTab:SetDisplayStat(colData)
 					end
 					if self.calcsTab.displayData == colData then
+						-- This is the display stat, draw a green border around this cell
 						SetDrawColor(0.25, 1, 0.25)
 						DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
 						SetDrawColor(0, 0, 0)
@@ -231,6 +241,7 @@ function CalcSectionClass:OnKeyDown(key, doubleClick)
 			return
 		end
 		if mOverComp then
+			-- Pin the stat breakdown
 			self.calcsTab:SetDisplayStat(mOverComp, true)
 			return self.calcsTab.controls.breakdown
 		end

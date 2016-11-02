@@ -80,9 +80,10 @@ Other changes:
 	* Moving these into a dedicated tab will provide room for more options to be added in the future
     * The names of many options have been changed to clarify their function
 	* Some options now have tooltips that explain aspects of their function
- * The new class background artworks have been added to the passive skill tree
  * Unsupported modifiers are now shown in red instead of white to help convey the fact that they won't work
+ * The new class background artworks have been added to the passive skill tree
  * The required level for a build's passive tree is now shown when hovering over the points display
+ * The Items tab will now display both source lists (Uniques and Rares) if there's room
  * Support gem compatability is now determined using the same data the game itself uses, and should now be 100% accurate
 
 ### 1.1.11 - 2016/10/25

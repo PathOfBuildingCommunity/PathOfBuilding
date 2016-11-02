@@ -415,7 +415,7 @@ function main:AddTooltipLine(size, text)
 	end
 end
 
-function main:AddTooltipSeperator(size)
+function main:AddTooltipSeparator(size)
 	t_insert(self.tooltipLines, { size = size })
 end
 

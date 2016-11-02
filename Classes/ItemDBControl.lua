@@ -106,7 +106,7 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			if not found then
 				searchStr = searchStr:gsub(" ","")
 				for i, mod in pairs(item.baseModList) do
-					if mod.name:lower():gsub("_",""):match(searchStr) then
+					if mod.name:lower():match(searchStr) then
 						found = true
 						break
 					end
