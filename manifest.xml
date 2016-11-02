@@ -41,7 +41,7 @@
 	<File sha1="a4f9cc96ba474d0a75c768a0eabec92837e027cf" name="Classes/TextListControl.lua" part="program"/>
 	<File sha1="8b8fbea27b00c702ea7bcffa6945cc814cc2fa41" name="Classes/TreeTab.lua" part="program"/>
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
-	<File sha1="360f76ab20204acf85b000c68c981d96132d7c8c" name="Modules/Build.lua" part="program"/>
+	<File sha1="6cae3251c907e4503802f554fb8840976cd7a69b" name="Modules/Build.lua" part="program"/>
 	<File sha1="c03a7796aea3e9aa832fbb92c1f674ef5af690ca" name="Modules/BuildList.lua" part="program"/>
 	<File sha1="a3530c34fe9c7e21992cf4e3b6d52cdc3aaf39a8" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="99148774ffc1c326f3a50e7d8b3f7a68fe1ede57" name="Modules/CalcSections.lua" part="program"/>
