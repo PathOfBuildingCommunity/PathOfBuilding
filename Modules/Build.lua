@@ -9,6 +9,7 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 local m_min = math.min
+local m_max = math.max
 
 local buildMode = common.New("ControlHost")
 
@@ -17,6 +18,7 @@ function buildMode:Init(dbFileName, buildName)
 
 	self.tree = main.tree
 	self.importTab = common.New("ImportTab", self)
+	self.configTab = common.New("ConfigTab", self)
 	self.spec = common.New("PassiveSpec", self)
 	self.treeTab = common.New("TreeTab", self)
 	self.skillsTab = common.New("SkillsTab", self)
@@ -71,7 +73,7 @@ function buildMode:Init(dbFileName, buildName)
 	self.controls.pointDisplay.Draw = function(control)
 		local x, y = control:GetPos()
 		local used, ascUsed = self.spec:CountAllocNodes()
-		local usedMax = 120 + (self.calcsTab.mainOutput.total_extraPoints or 0)
+		local usedMax = 120 + (self.calcsTab.mainOutput.ExtraPoints or 0)
 		local ascMax = 8
 		local str = string.format("%s%3d / %3d   %s%d / %d", used > usedMax and "^1" or "^7", used, usedMax, ascUsed > ascMax and "^1" or "^7", ascUsed, ascMax)
 		local strW = DrawStringWidth(16, "FIXED", str) + 6
@@ -82,6 +84,12 @@ function buildMode:Init(dbFileName, buildName)
 		DrawImage(nil, x + 1, y + 1, strW, 18)
 		SetDrawColor(1, 1, 1)
 		DrawString(x + 4, y + 2, "LEFT", 16, "FIXED", str)
+		if control:IsMouseInBounds() then
+			SetDrawLayer(nil, 10)
+			main:AddTooltipLine(16, "Required level: "..m_max(1, (100 + used - usedMax)))
+			main:DrawTooltip(x, y, control.width, control.height, main.viewPort)
+			SetDrawLayer(nil, 0)
+		end
 	end
 	self.controls.characterLevel = common.New("EditControl", {"LEFT",self.anchorTopBarRight,"RIGHT"}, 0, 0, 106, 20, "", "Level", "[%d]", 3, function(buf)
 		self.characterLevel = tonumber(buf) or 1
@@ -116,6 +124,10 @@ function buildMode:Init(dbFileName, buildName)
 		self.viewMode = "IMPORT"
 	end)
 	self.controls.modeImport.locked = function() return self.viewMode == "IMPORT" end
+	self.controls.modeConfig = common.New("ButtonControl", {"TOPRIGHT",self.anchorSideBar,"TOPLEFT"}, 300, 0, 100, 20, "Configuration", function()
+		self.viewMode = "CONFIG"
+	end)
+	self.controls.modeConfig.locked = function() return self.viewMode == "CONFIG" end
 	self.controls.modeTree = common.New("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 26, 72, 20, "Tree", function()
 		self.viewMode = "TREE"
 	end)
@@ -187,56 +199,56 @@ function buildMode:Init(dbFileName, buildName)
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
 	-- This may be user-customisable in the future
 	self.displayStats = {
-		{ mod = "total_averageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
-		{ mod = "total_speed", label = "Attack/Cast Rate", fmt = ".2f", compPercent = true },
-		{ mod = "total_critChance", label = "Crit Chance", fmt = ".2f%%", pc = true },
-		{ mod = "total_critMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true },
-		{ mod = "total_hitChance", label = "Hit Chance", fmt = "d%%", pc = true, condFunc = function(v,o) return v < 1 end },
-		{ mod = "total_dps", label = "Total DPS", fmt = ".1f", compPercent = true },
-		{ mod = "total_damageDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
-		{ mod = "bleed_dps", label = "Bleed DPS", fmt = ".1f", compPercent = true },
-		{ mod = "ignite_dps", label = "Ignite DPS", fmt = ".1f", compPercent = true },
-		{ mod = "poison_dps", label = "Poison DPS", fmt = ".1f", compPercent = true },
-		{ mod = "poison_damage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
-		{ mod = "total_manaCost", label = "Mana Cost", fmt = "d", compPercent = true },
+		{ mod = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
+		{ mod = "Speed", label = "Attack/Cast Rate", fmt = ".2f", compPercent = true },
+		{ mod = "CritChance", label = "Crit Chance", fmt = ".2f%%" },
+		{ mod = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return o.CritChance > 0 end },
+		{ mod = "HitChance", label = "Hit Chance", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
+		{ mod = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true },
+		{ mod = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
+		{ mod = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true },
+		{ mod = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true },
+		{ mod = "PoisonDPS", label = "Poison DPS", fmt = ".1f", compPercent = true },
+		{ mod = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
+		{ mod = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true },
 		{ },
-		{ mod = "total_str", label = "Strength", fmt = "d" },
-		{ mod = "total_dex", label = "Dexterity", fmt = "d" },
-		{ mod = "total_int", label = "Intelligence", fmt = "d" },
+		{ mod = "Str", label = "Strength", fmt = "d" },
+		{ mod = "Dex", label = "Dexterity", fmt = "d" },
+		{ mod = "Int", label = "Intelligence", fmt = "d" },
 		{ },
-		{ mod = "total_life", label = "Total Life", fmt = "d", compPercent = true },
-		{ mod = "spec_lifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.total_life > 1 end },
-		{ mod = "total_lifeUnreserved", label = "Unreserved Life", fmt = "d", condFunc = function(v,o) return v < o.total_life end, compPercent = true },
-		{ mod = "total_lifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", pc = true, condFunc = function(v,o) return v < 1 end },
-		{ mod = "total_lifeRegen", label = "Life Regen", fmt = ".1f" },
+		{ mod = "Life", label = "Total Life", fmt = "d", compPercent = true },
+		{ mod = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.Life > 1 end },
+		{ mod = "LifeUnreserved", label = "Unreserved Life", fmt = "d", condFunc = function(v,o) return v < o.Life end, compPercent = true },
+		{ mod = "LifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
+		{ mod = "LifeRegen", label = "Life Regen", fmt = ".1f" },
 		{ },
-		{ mod = "total_mana", label = "Total Mana", fmt = "d", compPercent = true },
-		{ mod = "spec_manaInc", label = "%Inc Mana from Tree", fmt = "d%%" },
-		{ mod = "total_manaUnreserved", label = "Unreserved Mana", fmt = "d", condFunc = function(v,o) return v < o.total_mana end, compPercent = true },
-		{ mod = "total_manaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", pc = true, condFunc = function(v,o) return v < 1 end },
-		{ mod = "total_manaRegen", label = "Mana Regen", fmt = ".1f" },
+		{ mod = "Mana", label = "Total Mana", fmt = "d", compPercent = true },
+		{ mod = "Spec:ManaInc", label = "%Inc Mana from Tree", fmt = "d%%" },
+		{ mod = "ManaUnreserved", label = "Unreserved Mana", fmt = "d", condFunc = function(v,o) return v < o.Mana end, compPercent = true },
+		{ mod = "ManaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
+		{ mod = "ManaRegen", label = "Mana Regen", fmt = ".1f" },
 		{ },
-		{ mod = "total_energyShield", label = "Energy Shield", fmt = "d", compPercent = true },
-		{ mod = "spec_energyShieldInc", label = "%Inc ES from Tree", fmt = "d%%" },
-		{ mod = "total_energyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
-		{ mod = "total_evasion", label = "Evasion rating", fmt = "d", compPercent = true },
-		{ mod = "spec_evasionInc", label = "%Inc Evasion from Tree", fmt = "d%%" },
-		{ mod = "total_evadeChance", label = "Evade Chance", fmt = "d%%", pc = true },
-		{ mod = "total_armour", label = "Armour", fmt = "d", compPercent = true },
-		{ mod = "spec_armourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
-		{ mod = "total_blockChance", label = "Block Chance", fmt = "d%%", pc = true },
-		{ mod = "total_spellBlockChance", label = "Spell Block Chance", fmt = "d%%", pc = true },
-		{ mod = "total_dodgeAttacks", label = "Attack Dodge Chance", fmt = "d%%", pc = true },
-		{ mod = "total_dodgeSpells", label = "Spell Dodge Chance", fmt = "d%%", pc = true },
+		{ mod = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
+		{ mod = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", fmt = "d%%" },
+		{ mod = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
+		{ mod = "Evasion", label = "Evasion rating", fmt = "d", compPercent = true },
+		{ mod = "Spec:EvasionInc", label = "%Inc Evasion from Tree", fmt = "d%%" },
+		{ mod = "EvadeChance", label = "Evade Chance", fmt = "d%%" },
+		{ mod = "Armour", label = "Armour", fmt = "d", compPercent = true },
+		{ mod = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
+		{ mod = "BlockChance", label = "Block Chance", fmt = "d%%" },
+		{ mod = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%" },
+		{ mod = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%" },
+		{ mod = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%" },
 		{ },
-		{ mod = "total_fireResist", label = "Fire Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ mod = "total_coldResist", label = "Cold Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ mod = "total_lightningResist", label = "Lightning Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ mod = "total_chaosResist", label = "Chaos Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ mod = "total_fireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%" },
-		{ mod = "total_coldResistOverCap", label = "Cold Res. Over Max", fmt = "d%%" },
-		{ mod = "total_lightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%" },
-		{ mod = "total_chaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%" },
+		{ mod = "FireResist", label = "Fire Resistance", fmt = "d%%", condFunc = function() return true end },
+		{ mod = "ColdResist", label = "Cold Resistance", fmt = "d%%", condFunc = function() return true end },
+		{ mod = "LightningResist", label = "Lightning Resistance", fmt = "d%%", condFunc = function() return true end },
+		{ mod = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", condFunc = function() return true end },
+		{ mod = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%" },
+		{ mod = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%" },
+		{ mod = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%" },
+		{ mod = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%" },
 	}
 
 	self.viewMode = "TREE"
@@ -253,6 +265,7 @@ function buildMode:Init(dbFileName, buildName)
 	-- These will be called to load or save data to their respective sections of the build XML file
 	self.savers = {
 		["Build"] = self,
+		["Config"] = self.configTab,
 		["Spec"] = self.spec,
 		["TreeView"] = self.treeTab.viewer,
 		["Items"] = self.itemsTab,
@@ -264,6 +277,11 @@ function buildMode:Init(dbFileName, buildName)
 	if self:LoadDBFile() then
 		main:SetMode("LIST", dbFileName)
 		return
+	end
+
+	if next(self.configTab.input) == nil then
+		-- Check for old calcs tab settings
+		self.configTab:ImportCalcSettings()
 	end
 
 	-- Build calculation output tables
@@ -333,6 +351,8 @@ function buildMode:OnFrame(inputEvents)
 					self.viewMode = "ITEMS"
 				elseif event.key == "4" then
 					self.viewMode = "CALCS"
+				elseif event.key == "5" then
+					self.viewMode = "CONFIG"
 				end
 			end
 		end
@@ -402,6 +422,8 @@ function buildMode:OnFrame(inputEvents)
 	}
 	if self.viewMode == "IMPORT" then
 		self.importTab:Draw(tabViewPort, inputEvents)
+	elseif self.viewMode == "CONFIG" then
+		self.configTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "TREE" then
 		self.treeTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "SKILLS" then
@@ -412,7 +434,7 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:Draw(tabViewPort, inputEvents)
 	end
 
-	self.unsaved = self.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+	self.unsaved = self.modFlag or self.configTab.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
 
 	SetDrawLayer(5)
 
@@ -527,7 +549,7 @@ function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header)
 					main:AddTooltipLine(14, header)
 				end
 				local line = string.format("%s%+"..statData.fmt.." %s", diff > 0 and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE, diff * (statData.pc and 100 or 1), statData.label)
-				if statData.compPercent then
+				if statData.compPercent and (baseOutput[statData.mod] or 0) ~= 0 and (compareOutput[statData.mod] or 0) ~= 0 then
 					line = line .. string.format(" (%+.1f%%)", (compareOutput[statData.mod] or 0) / (baseOutput[statData.mod] or 0) * 100 - 100)
 				end
 				main:AddTooltipLine(14, line)

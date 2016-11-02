@@ -1,3 +1,39 @@
+VERSION[1.2.0][2016/11/02]
+With this update, the program's internal modifier system has been completely overhauled.
+On its own this overhaul doesn't change much from the user's perspective, but it has opened the way for some
+significant upgrades:
+ * The Calcs tab has been rebuilt from the ground up to take advantage of the new modifier system:
+    * The various stats and totals are now more clearly divided into sections
+	* The individual sections can be minimized to their title bar, so you can hide sections you're not interested in
+	* Nearly all of the stats and totals in the new Calcs tab have a breakdown view that appears when you hover over them:
+	   * You can click on a stat to pin the breakdown open so you can interact with it
+	   * Each breakdown view shows all the information used to calculate that stat, including all modifiers
+	   * You can hover over a modifier's source name to show the item's tooltip or passive node's location
+	   * Hovering over a modifier source type ('Item', 'Tree', 'Gem' etc) will show the totals from that source type
+	* Most modifier totals are no longer displayed in the tab itself, since they can be found in the breakdown views. 
+	  The most important ones (such as increased life from tree) are still present, however.
+ * Per-stat modifiers are now supported, including, but not limited to, the modifiers from:
+    * Shaper's Touch
+	* Pillar of the Caged God
+	* Dreamfeather
+ * Icestorm is now supported! When you have The Whispering Ice equipped, a special socket group will appear
+   containing the Icestorm skill. You can select it in the Main Skill dropdown, or view it in the Skills tab.
+   You cannot add support gems to this group, but supports from any other group socketed in the staff will
+   automatically apply to the Icestorm skill.
+ * All other skills granted by items are now supported as well, and will function in the same manner as Icestorm.
+   This includes "Curse Enemies with X on Hit" modifiers.
+ * Low life/full life conditions are now detected automatically (>=65% life reserved/with CI respectively), 
+   but you can still turn them on manually if you need to
+Other changes:
+ * The various configuration options in the Calcs tab have been moved to a new Configuration tab
+	* Moving these into a dedicated tab will provide room for more options to be added in the future
+    * The names of many options have been changed to clarify their function
+	* Some options now have tooltips that explain aspects of their function
+ * Unsupported modifiers are now shown in red instead of white to help convey the fact that they won't work
+ * The new class background artworks have been added to the passive skill tree
+ * The required level for a build's passive tree is now shown when hovering over the points display
+ * The Items tab will now display both source lists (Uniques and Rares) if there's room
+ * Support gem compatability is now determined using the same data the game itself uses, and should now be 100% accurate
 VERSION[1.1.11][2016/10/25]
  * Added flat mana to ES armour rare templates
 VERSION[1.1.10][2016/10/23]

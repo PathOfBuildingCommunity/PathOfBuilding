@@ -415,7 +415,7 @@ Requires Level 64, 90 Str, 105 Int
 (50 to 75)% increased Armour and Energy Shield
 +(50 to 70) to maximum Life
 +(70 to 80) to maximum Energy Shield
-(14 to 18)% to all Elemental Resistances
++(14 to 18)% to all Elemental Resistances
 +1 maximum Energy Shield per 5 Strength
 Zealot's Oath
 ]],[[

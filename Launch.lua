@@ -19,12 +19,12 @@ function launch:OnInit()
 	self.versionPlatform = "?"
 	self.lastUpdateCheck = GetTime()
 	ConPrintf("Loading main script...")
-	local mainFile = io.open("Modules/Main.lua")
-	if mainFile then
-		mainFile:close()
+	local changeLogFile = io.open("changelog.txt")
+	if changeLogFile then
+		changeLogFile:close()
 	else
-		-- Main module isn't present, this must be a fresh installation
-		-- Perform an immediate update to download the remaining files
+		-- Changelog isn't present, this must be a fresh installation
+		-- Perform an immediate update to download the latest version
 		ConClear()
 		ConPrintf("Please wait while we complete installation...\n")
 		local updateMode = LoadModule("UpdateCheck")
@@ -155,6 +155,8 @@ end
 function launch:OnSubCall(func, ...)
 	if func == "ConPrintf" and self.subScriptType == "UPDATE" and self.updateChecking then
 		self.updateMsg = string.format(...)
+	elseif func == "UpdateProgress" then
+		self.updateProgress = string.format(...)
 	end
 	if _G[func] then
 		return _G[func](...)
@@ -257,10 +259,11 @@ function launch:CheckForUpdate(inBackground)
 	if not IsSubScriptRunning() then
 		self.updateChecking = not inBackground
 		self.updateMsg = "Initialising..."
+		self.updateProgress = "Checking..."
 		self.lastUpdateCheck = GetTime()
 		local update = io.open("UpdateCheck.lua", "r")
 		self.subScriptType = "UPDATE"
-		LaunchSubScript(update:read("*a"), "GetScriptPath,GetRuntimePath,GetWorkDir,MakeDir", "ConPrintf", "CHECK")
+		LaunchSubScript(update:read("*a"), "GetScriptPath,GetRuntimePath,GetWorkDir,MakeDir", "ConPrintf,UpdateProgress", "CHECK")
 		update:close()
 	end
 end

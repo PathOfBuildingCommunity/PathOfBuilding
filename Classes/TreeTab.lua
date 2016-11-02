@@ -78,7 +78,7 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 				launch:DownloadPage("http://poeurl.com/shrink.php?url="..treeLink, function(page, errMsg)
 					popup.controls.shrink.label = "Done"
 					if errMsg or not page:match("%S") then
-						main:OpenConfirmPopup("PoEURL Shortener", "Failed to get PoEURL link. Try again later.")
+						main:OpenMessagePopup("PoEURL Shortener", "Failed to get PoEURL link. Try again later.")
 					else
 						treeLink = "http://poeurl.com/"..page
 						popup.controls.edit:SetText(treeLink)

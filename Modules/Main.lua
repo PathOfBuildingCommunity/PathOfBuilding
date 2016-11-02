@@ -39,7 +39,10 @@ local classList = {
 	-- Mode: Build list
 	"BuildListControl",
 	-- Mode: Build
+	"ModList",
+	"ModDB",
 	"ImportTab",
+	"ConfigTab",
 	"TreeTab",
 	"PassiveTree",
 	"PassiveSpec",
@@ -53,7 +56,8 @@ local classList = {
 	"ItemListControl",
 	"ItemDBControl",
 	"CalcsTab",
-	"Grid",
+	"CalcSectionControl",
+	"CalcBreakdownControl",
 }
 for _, className in pairs(classList) do
 	LoadModule("Classes/"..className, launch, main)
@@ -132,23 +136,23 @@ function main:Init()
 	self.controls.applyUpdate.shown = function()
 		return launch.updateAvailable and launch.updateAvailable ~= "none"
 	end
-	self.controls.checkUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 110, 18, "", function()
+	self.controls.checkUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 120, 18, "", function()
 		launch:CheckForUpdate()
 	end)
 	self.controls.checkUpdate.shown = function()
 		return not launch.devMode and (not launch.updateAvailable or launch.updateAvailable == "none")
 	end
 	self.controls.checkUpdate.label = function()
-		return launch.subScriptType == "UPDATE" and "Checking..." or "Check for Update"
+		return launch.subScriptType == "UPDATE" and launch.updateProgress or "Check for Update"
 	end
 	self.controls.checkUpdate.enabled = function()
 		return not IsSubScriptRunning()
 	end
-	self.controls.versionLabel = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 114, 0, 0, 14, "")
+	self.controls.versionLabel = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 124, 0, 0, 14, "")
 	self.controls.versionLabel.label = function()
 		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or "")
 	end
-	self.controls.about = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 240, 0, 60, 20, "About", function()
+	self.controls.about = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 250, 0, 50, 20, "About", function()
 		local changeList = { }
 		for line in io.lines("changelog.txt") do
 			local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
@@ -411,7 +415,7 @@ function main:AddTooltipLine(size, text)
 	end
 end
 
-function main:AddTooltipSeperator(size)
+function main:AddTooltipSeparator(size)
 	t_insert(self.tooltipLines, { size = size })
 end
 
@@ -433,6 +437,9 @@ function main:DrawTooltip(x, y, w, h, viewPort, col, center)
 		ttX = ttX + w + 5
 		if ttX + ttW > viewPort.x + viewPort.width then
 			ttX = m_max(viewPort.x, x - 5 - ttW)
+			if ttX + ttW > x then
+				ttY = ttY + h
+			end
 		end
 		if ttY + ttH > viewPort.y + viewPort.height then
 			ttY = m_max(viewPort.y, y + h - ttH)

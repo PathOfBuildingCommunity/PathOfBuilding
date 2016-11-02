@@ -3,167 +3,104 @@
 -- Module: Calcs
 -- Performs all the offense and defense calculations.
 -- Here be dragons!
+-- This file is 2400 lines long, over half of which is in one function...
 --
-local grid = ...
 
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
+local t_remove = table.remove
 local m_abs = math.abs
 local m_ceil = math.ceil
 local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
-
-local mod_listMerge = modLib.listMerge
-local mod_listScaleMerge = modLib.listScaleMerge
-local mod_dbMerge = modLib.dbMerge
-local mod_dbScaleMerge = modLib.dbScaleMerge
-local mod_dbUnmerge = modLib.dbUnmerge
-local mod_dbMergeList = modLib.dbMergeList
-local mod_dbScaleMergeList = modLib.dbScaleMergeList
-local mod_dbUnmergeList = modLib.dbUnmergeList
-
-local setViewMode = LoadModule("Modules/CalcsView", grid)
-
-local isElemental = { fire = true, cold = true, lightning = true }
+local s_format = string.format
+local band = bit.band
+local bor = bit.bor
 
 -- List of all damage types, ordered according to the conversion sequence
-local dmgTypeList = {"physical", "lightning", "cold", "fire", "chaos"}
+local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 
--- Combine specified modifiers from all current namespaces
-local function sumMods(modDB, mult, ...)
-	local activeWatchers = modDB._activeWatchers
-	local val = mult and 1 or 0
-	for i = 1, select('#', ...) do
-		local modName = select(i, ...)
-		if modName then
-			for space, spaceName in pairs(modDB._spaces) do
-				local modVal = space[modName]
-				if modVal then
-					val = mult and (val * modVal) or (val + modVal)
-				end
-				if activeWatchers then
-					local fullName = (spaceName and spaceName.."_" or "") .. modName
-					for watchList in pairs(activeWatchers) do
-						watchList[fullName] = mult and 1 or 0
-					end
-				end
-			end
-		end
-	end
-	return val
-end
+local resistTypeList = { "Fire", "Cold", "Lightning", "Chaos" }
 
--- Get value of misc modifier
-local function getMiscVal(modDB, spaceName, modName, default)
-	local space = modDB[spaceName or "global"]
-	local val = default
-	if space and space[modName] ~= nil then
-		val = space[modName]
-	end
-	if modDB._activeWatchers then
-		local fullName = (spaceName and spaceName.."_" or "") .. modName
-		for watchList in pairs(modDB._activeWatchers) do
-			watchList[fullName] = default
-		end
-		if not space then
-			modDB[spaceName] = { }
-		end
-	end
-	return val
+local isElemental = { Fire = true, Cold = true, Lightning = true }
+
+-- Calculate and combine INC/MORE modifiers for the given modifier names
+local function calcMod(modDB, cfg, ...)
+	return (1 + (modDB:Sum("INC", cfg, ...)) / 100) * modDB:Sum("MORE", cfg, ...)
 end
 
 -- Calculate value, optionally adding additional base
-local function calcVal(modDB, name, base)
-	local baseVal = sumMods(modDB, false, name.."Base") + (base or 0)
-	return baseVal * (1 + (sumMods(modDB, false, name.."Inc")) / 100) * sumMods(modDB, true, name.."More")
+local function calcVal(modDB, name, cfg, base)
+	local baseVal = modDB:Sum("BASE", cfg, name) + (base or 0)
+	if baseVal ~= 0 then
+		return baseVal * calcMod(modDB, cfg, name)
+	else
+		return 0
+	end
 end
 
 -- Calculate hit chance
 local function calcHitChance(evasion, accuracy)
 	local rawChance = accuracy / (accuracy + (evasion / 4) ^ 0.8) * 100
-	return m_max(m_min(m_floor(rawChance + 0.5) / 100, 0.95), 0.05)	
+	return m_max(m_min(m_floor(rawChance + 0.5), 95), 5)	
 end
 
 -- Merge gem modifiers with given mod list
 local function mergeGemMods(modList, gem)
-	for k, v in pairs(gem.data.base) do
-		mod_listMerge(modList, k, v)
+	modList:AddList(gem.data.baseMods)
+	if gem.quality > 0 then
+		for i = 1, #gem.data.qualityMods do
+			local scaledMod = copyTable(gem.data.qualityMods[i])
+			scaledMod.value = m_floor(scaledMod.value * gem.quality)
+			modList:AddMod(scaledMod)
+		end
 	end
-	for k, v in pairs(gem.data.quality) do
-		mod_listMerge(modList, k, m_floor(v * gem.quality))
+	gem.level = m_max(gem.level, 1)
+	if not gem.data.levels[gem.level] then
+		gem.level = m_min(gem.level, #gem.data.levels)
 	end
-	gem.level = m_min(m_max(gem.level, 1), #gem.data.levels)
-	for k, v in pairs(gem.data.levels[gem.level]) do
-		mod_listMerge(modList, k, v)
-	end
-end
-
--- Generate active namespace table
-local function buildSpaceTable(modDB, spaceFlags)
-	modDB._spaces = { [modDB.global] = false }
-	if spaceFlags then
-		for spaceName, val in pairs(spaceFlags) do
-			if val then
-				modDB[spaceName] = modDB[spaceName] or { }
-				if modDB._activeWatchers or next(modDB[spaceName]) then
-					modDB._spaces[modDB[spaceName]] = spaceName
-				end
+	local levelData = gem.data.levels[gem.level]
+	for col, mod in pairs(gem.data.levelMods) do
+		if levelData[col] then
+			local newMod = copyTable(mod)
+			if type(newMod.value) == "table" then
+				newMod.value.value = levelData[col]
+			else
+				newMod.value = levelData[col]
 			end
+			modList:AddMod(newMod)
 		end
-	end
-end
-
--- Start watch section
-local function startWatch(env, key, ...)
-	if env.buildWatch then 
-		-- Running in build mode
-		-- In this mode, any modifiers read while this section is active will be tracked
-		env.watchers[key] = { _key = key }
-		env.modDB._activeWatchers[env.watchers[key] ] = true
-		return true
-	else
-		local watchers = env.watchers
-		if not watchers or env.spacesChanged then
-			-- Watch system is disabled or skill namespaces have changed, so all sections will run by default
-			return true
-		end
-		-- This section will be flagged if any modifiers read during build mode have changed since the build mode pass
-		if not watchers[key] or watchers[key]._flag then
-			return true
-		end
-		for i = 1, select('#', ...) do
-			-- Check if any dependant sections have been flagged
-			if watchers[select(i, ...)]._flag then
-				return true
-			end
-		end
-		return false
-	end
-end
-
--- End watch section
-local function endWatch(env, key)
-	if env.buildWatch and env.watchers[key] then
-		env.modDB._activeWatchers[env.watchers[key] ] = nil
 	end
 end
 
 -- Check if given support gem can support the given active skill
 -- Global function, as GemSelectControl needs to use it too
 function gemCanSupport(gem, activeSkill)
-	if gem.data.requireFunc then
-		setfenv(gem.data.requireFunc, activeSkill.baseFlags)
-		return gem.data.requireFunc() == true
-	else
+	if gem.data.unsupported then
+		return false
+	end
+	for _, skillType in pairs(gem.data.excludeSkillTypes) do
+		if activeSkill.skillTypes[skillType] then
+			return false
+		end
+	end
+	if not gem.data.requireSkillTypes[1] then
 		return true
 	end
+	for _, skillType in pairs(gem.data.requireSkillTypes) do
+		if activeSkill.skillTypes[skillType] then
+			return true
+		end
+	end
+	return false
 end
 
 -- Check if given gem is of the given type ("all", "strength", "melee", etc)
-local function gemIsType(gem, type)
-	return type == "all" or (type == "active" and not gem.data.support) or (type == "elemental" and (gem.data.fire or gem.data.cold or gem.data.lightning)) or gem.data[type]
+-- Global function, as ModDBClass and ModListClass need to use it too
+function gemIsType(gem, type)
+	return type == "all" or (type == "elemental" and (gem.data.fire or gem.data.cold or gem.data.lightning)) or gem.data[type]
 end
 
 -- Create an active skill using the given active gem and list of support gems
@@ -175,29 +112,28 @@ local function createActiveSkill(activeGem, supportList)
 		data = activeGem.data,
 		level = activeGem.level,
 		quality = activeGem.quality,
+		fromItem = activeGem.fromItem,
 		srcGem = activeGem,
 	}
 	activeSkill.gemList = { activeSkill.activeGem }
 
-	-- Build base skill flag set ('attack', 'projectile', etc)
-	local baseFlags = { }
-	activeSkill.baseFlags = baseFlags
-	for k, v in pairs(activeSkill.activeGem.data) do
-		if v == true then
-			baseFlags[k] = true
-		end
-	end
-	if baseFlags.hit then
-		baseFlags.damage = true
-	end
-	if baseFlags.bow then
-		baseFlags.projectile = true
-	end
+	activeSkill.skillTypes = copyTable(activeGem.data.skillTypes)
+
+	-- Initialise skill flag set ('attack', 'projectile', etc)
+	local skillFlags = copyTable(activeGem.data.baseFlags)
+	activeSkill.skillFlags = skillFlags
+	skillFlags.hit = activeSkill.skillTypes[SkillType.Attack] or activeSkill.skillTypes[SkillType.Hit]
+
 	for _, gem in ipairs(supportList) do
-		if gem.data.addFlags and gemCanSupport(gem, activeSkill) then
-			-- Support gem adds flags to supported skills (eg. Remote Mine adds 'mine')
-			for k in pairs(gem.data.addFlags) do
-				baseFlags[k] = true
+		if gemCanSupport(gem, activeSkill) then
+			if gem.data.addFlags then
+				-- Support gem adds flags to supported skills (eg. Remote Mine adds 'mine')
+				for k in pairs(gem.data.addFlags) do
+					skillFlags[k] = true
+				end
+			end
+			for _, skillType in pairs(gem.data.addSkillTypes) do
+				activeSkill.skillTypes[skillType] = true
 			end
 		end
 	end
@@ -224,41 +160,160 @@ end
 
 -- Build list of modifiers for given active skill
 local function buildActiveSkillModList(env, activeSkill)
-	local skillModList = { }
+	local skillFlags = activeSkill.skillFlags
+
+	-- Handle multipart skills
+	local activeGemParts = activeSkill.activeGem.data.parts
+	if activeGemParts then
+		if activeSkill == env.mainSkill then
+			activeSkill.skillPart = m_min(#activeGemParts, env.skillPart or activeSkill.activeGem.srcGem.skillPart or 1)
+		else
+			activeSkill.skillPart = m_min(#activeGemParts, activeSkill.activeGem.srcGem.skillPart or 1)
+		end
+		local part = activeGemParts[activeSkill.skillPart]
+		for k, v in pairs(part) do
+			if v == true then
+				skillFlags[k] = true
+			elseif v == false then
+				skillFlags[k] = nil
+			end
+		end
+		skillFlags.multiPart = #activeGemParts > 1
+	end
+
+	-- Set weapon flags
+	local weapon1Type = env.itemList["Weapon 1"] and env.itemList["Weapon 1"].type or "None"
+	local weapon2Type = env.itemList["Weapon 2"] and env.itemList["Weapon 2"].type or ""
+	skillFlags.mainIs1H = true
+	local weapon1Info = data.weaponTypeInfo[weapon1Type]
+	if weapon1Info then
+		if not weapon1Info.oneHand then
+			skillFlags.mainIs1H = nil
+		end
+		if skillFlags.attack then
+			skillFlags.weapon1Attack = true
+			if weapon1Info.melee and skillFlags.melee then
+				skillFlags.projectile = nil
+			elseif not weapon1Info.melee and skillFlags.projectile then
+				skillFlags.melee = nil
+			end
+		end
+	end
+	local weapon2Info = data.weaponTypeInfo[weapon2Type]
+	if weapon2Info and skillFlags.mainIs1H then
+		if skillFlags.attack then
+			skillFlags.weapon2Attack = true
+		end
+	end
+
+	-- Build skill mod flag set
+	local skillModFlags = 0
+	if skillFlags.hit then
+		skillModFlags = bor(skillModFlags, ModFlag.Hit)
+	end
+	if skillFlags.spell then
+		skillModFlags = bor(skillModFlags, ModFlag.Spell)
+	elseif skillFlags.attack then
+		skillModFlags = bor(skillModFlags, ModFlag.Attack)
+	end
+	if skillFlags.weapon1Attack then
+		skillModFlags = bor(skillModFlags, env.weaponData1.flag or weapon1Info.flag)
+		if weapon1Type ~= "None" then
+			skillModFlags = bor(skillModFlags, ModFlag.Weapon)
+			if skillFlags.mainIs1H then
+				skillModFlags = bor(skillModFlags, ModFlag.Weapon1H)
+			else
+				skillModFlags = bor(skillModFlags, ModFlag.Weapon2H)
+			end
+			if weapon1Info.melee then
+				skillModFlags = bor(skillModFlags, ModFlag.WeaponMelee)
+			else
+				skillModFlags = bor(skillModFlags, ModFlag.WeaponRanged)
+			end
+		end
+	end
+	if skillFlags.melee then
+		skillModFlags = bor(skillModFlags, ModFlag.Melee)
+	elseif skillFlags.projectile then
+		skillModFlags = bor(skillModFlags, ModFlag.Projectile)
+	end
+	if skillFlags.area then
+		skillModFlags = bor(skillModFlags, ModFlag.Area)
+	end
+	activeSkill.skillFlags = skillFlags
+
+	-- Build skill keyword flag set
+	local skillKeywordFlags = 0
+	if skillFlags.aura then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Aura)
+	end
+	if skillFlags.curse then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Curse)
+	end
+	if skillFlags.warcry then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Warcry)
+	end
+	if skillFlags.movement then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Movement)
+	end
+	if skillFlags.lightning then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Lightning)
+	end
+	if skillFlags.cold then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Cold)
+	end
+	if skillFlags.fire then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Fire)
+	end
+	if skillFlags.chaos then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Chaos)
+	end
+	if skillFlags.totem then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Totem)
+	elseif skillFlags.trap then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Trap)
+	elseif skillFlags.mine then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Mine)
+	end
+	activeSkill.skillKeywordFlags = skillKeywordFlags
+
+	-- Get skill totem ID for totem skills
+	-- This is used to calculate totem life
+	if skillFlags.totem then
+		activeSkill.skillTotemId = activeSkill.activeGem.data.skillTotemId
+		if not activeSkill.skillTotemId then
+			if activeSkill.activeGem.data.color == 2 then
+				activeSkill.skillTotemId = 2
+			elseif activeSkill.activeGem.data.color == 3 then
+				activeSkill.skillTotemId = 3
+			else
+				activeSkill.skillTotemId = 1
+			end
+		end
+	end
+
+	-- Build config structure for modifier searches
+	activeSkill.skillCfg = {
+		flags = skillModFlags,
+		keywordFlags = skillKeywordFlags,
+		skillName = activeSkill.activeGem.name:gsub("^Vaal ",""), -- This allows modifiers that target specific skills to also apply to their Vaal counterpart
+		skillGem = activeSkill.activeGem,
+		skillPart = activeSkill.skillPart,
+		slotName = activeSkill.slotName,
+	}
+
+	-- Apply gem property modifiers from the item this skill is socketed into
+	for _, value in ipairs(env.modDB:Sum("LIST", activeSkill.skillCfg, "GemProperty")) do
+		for _, gem in pairs(activeSkill.gemList) do
+			if not gem.fromItem and gemIsType(gem, value.keyword) then
+				gem[value.key] = (gem[value.key] or 0) + value.value
+			end
+		end
+	end
+
+	-- Initialise skill modifier list
+	local skillModList = common.New("ModList")
 	activeSkill.skillModList = skillModList
-
-	if activeSkill.socketBonuses then
-		-- Apply local skill modifiers from the item this skill is socketed into
-		for type, val in pairs(activeSkill.socketBonuses.gemLevel) do
-			for _, gem in pairs(activeSkill.gemList) do
-				if not gem.fromItem and gemIsType(gem, type) then
-					gem.level = gem.level + val
-				end
-			end
-		end
-		for type, val in pairs(activeSkill.socketBonuses.gemQuality) do
-			for _, gem in pairs(activeSkill.gemList) do
-				if not gem.fromItem and gemIsType(gem, type) then
-					gem.quality = gem.quality + val
-				end
-			end
-		end
-		for type, modList in pairs(activeSkill.socketBonuses.modList) do
-			if gemIsType(activeSkill.activeGem, type) then
-				for k, v in pairs(modList) do
-					mod_listMerge(skillModList, k, v)
-				end
-			end
-		end
-	end
-
-	-- Merge skill-specific modifiers
-	local skillSpace = env.modDB["Skill:"..activeSkill.activeGem.name]
-	if skillSpace then
-		for k, v in pairs(skillSpace) do
-			mod_listMerge(skillModList, k, v)
-		end
-	end
 
 	-- Add support gem modifiers to skill mod list
 	for _, gem in pairs(activeSkill.gemList) do
@@ -268,53 +323,57 @@ local function buildActiveSkillModList(env, activeSkill)
 	end
 
 	-- Apply gem/quality modifiers from support gems
-	activeSkill.activeGem.level = activeSkill.activeGem.level + (skillModList.gemLevel_active or 0)
-	activeSkill.activeGem.quality = activeSkill.activeGem.quality + (skillModList.gemQuality_active or 0)
+	if not activeSkill.activeGem.fromItem then
+		for _, value in ipairs(skillModList:Sum("LIST", activeSkill.skillCfg, "GemProperty")) do
+			if value.keyword == "active_skill" then
+				activeSkill.activeGem[value.key] = activeSkill.activeGem[value.key] + value.value
+			end
+		end
+	end
 
 	-- Add active gem modifiers
 	mergeGemMods(skillModList, activeSkill.activeGem)
 
-	-- Separate auxillary modifiers (mods that can affect defensive stats or other skills)
-	activeSkill.buffModList = { }
-	activeSkill.auraModList = { }
-	activeSkill.curseModList = { }
-	for k, v in pairs(skillModList) do
-		local spaceName, modName = modLib.getSpaceName(k)
-		if spaceName == "BuffEffect" then
-			mod_listMerge(activeSkill.buffModList, modName, v)
-		elseif spaceName == "AuraEffect" then
-			mod_listMerge(activeSkill.auraModList, modName, v)
-		elseif spaceName == "CurseEffect" then
-			mod_listMerge(activeSkill.curseModList, modName, v)
+	-- Extract skill data
+	activeSkill.skillData = { }
+	for _, value in ipairs(skillModList:Sum("LIST", activeSkill.skillCfg, "Misc")) do
+		if value.type == "SkillData" then
+			activeSkill.skillData[value.key] = value.value
 		end
 	end
 
-	if activeSkill ~= env.mainSkill then
-		-- Add to auxillary skill list
-		t_insert(env.auxSkillList, activeSkill)
-	end
-
-	-- Handle multipart skills
-	activeSkill.skillPartList = { }
-	local activeGemParts = activeSkill.activeGem.data.parts
-	if activeGemParts then
-		for i, part in pairs(activeGemParts) do
-			activeSkill.skillPartList[i] = part.name or ""
-		end
-		if activeSkill == env.mainSkill then
-			activeSkill.skillPart = m_min(#activeGemParts, env.skillPart or activeSkill.activeGem.srcGem.skillPart or 1)
-		else
-			activeSkill.skillPart = m_min(#activeGemParts, activeSkill.activeGem.srcGem.skillPart or 1)
-		end
-		local part = activeGemParts[activeSkill.skillPart]
-		for k, v in pairs(part) do
-			if v == true then
-				activeSkill.baseFlags[k] = true
-			elseif v == false then
-				activeSkill.baseFlags[k] = nil
+	-- Separate global effect modifiers (mods that can affect defensive stats or other skills)
+	local i = 1
+	while skillModList[i] do
+		local destList
+		for _, tag in ipairs(skillModList[i].tagList) do
+			if tag.type == "GlobalEffect" then
+				if tag.effectType == "Buff" then
+					destList = "buffModList"
+				elseif tag.effectType == "Aura" then
+					destList = "auraModList"
+				elseif tag.effectType == "Debuff" then
+					destList = "debuffModList"
+				elseif tag.effectType == "Curse" then
+					destList = "curseModList"
+				end
+				break
 			end
 		end
-		activeSkill.baseFlags.multiPart = #activeGemParts > 1
+		if destList then
+			if not activeSkill[destList] then
+				activeSkill[destList] = { }
+			end
+			t_insert(activeSkill[destList],  skillModList[i])
+			t_remove(skillModList, i)
+		else
+			i = i + 1
+		end
+	end
+
+	if activeSkill.buffModList or activeSkill.auraModList or activeSkill.debuffModList or activeSkill.curseModList then
+		-- Add to auxillary skill list
+		t_insert(env.auxSkillList, activeSkill)
 	end
 end
 
@@ -326,11 +385,13 @@ local function buildNodeModList(env, nodeList, finishJewels)
 	end
 
 	-- Add node modifers
-	local modList = { }
+	local modList = common.New("ModList")
 	for _, node in pairs(nodeList) do
 		-- Merge with output list
-		for k, v in pairs(node.modList) do
-			mod_listMerge(modList, k, v)
+		if node.type == "keystone" then
+			modList:AddMod(node.keystoneMod)
+		else
+			modList:AddList(node.modList)
 		end
 
 		-- Run radius jewels
@@ -359,83 +420,117 @@ local function buildNodeModList(env, nodeList, finishJewels)
 end
 
 -- Calculate min/max damage of a hit for the given damage type
-local function calcHitDamage(env, output, damageType, ...)
+local function calcHitDamage(env, source, damageType, ...)
 	local modDB = env.modDB
-	local isAttack = (env.mode_skillType == "ATTACK")
+	local skillCfg = env.mainSkill.skillCfg
 
 	local damageTypeMin = damageType.."Min"
 	local damageTypeMax = damageType.."Max"
 
 	-- Calculate base values
-	local baseMin, baseMax
-	if isAttack then
-		baseMin = getMiscVal(modDB, "weapon1", damageTypeMin, 0) + sumMods(modDB, false, damageTypeMin)
-		baseMax = getMiscVal(modDB, "weapon1", damageTypeMax, 0) + sumMods(modDB, false, damageTypeMax)
-	else
-		local damageEffectiveness = getMiscVal(modDB, "skill", "damageEffectiveness", 0)
-		if damageEffectiveness == 0 then
-			damageEffectiveness = 1
+	local damageEffectiveness = source.damageEffectiveness or 1
+	local addedMin = modDB:Sum("BASE", skillCfg, damageTypeMin)
+	local addedMax = modDB:Sum("BASE", skillCfg, damageTypeMax)
+	local baseMin = (source[damageTypeMin] or 0) + addedMin * damageEffectiveness
+	local baseMax = (source[damageTypeMax] or 0) + addedMax * damageEffectiveness
+
+	if env.breakdown and not (...) and baseMin ~= 0 and baseMax ~= 0 then
+		t_insert(env.breakdown[damageType], "Base damage:")
+		local plus = ""
+		if (source[damageTypeMin] or 0) ~= 0 or (source[damageTypeMax] or 0) ~= 0 then
+			t_insert(env.breakdown[damageType], s_format("%d to %d ^8(base damage from %s)", source[damageTypeMin], source[damageTypeMax], env.mode_skillType == "ATTACK" and "weapon" or "skill"))
+			plus = "+ "
 		end
-		baseMin = getMiscVal(modDB, "skill", damageTypeMin, 0) + sumMods(modDB, false, damageTypeMin) * damageEffectiveness
-		baseMax = getMiscVal(modDB, "skill", damageTypeMax, 0) + sumMods(modDB, false, damageTypeMax) * damageEffectiveness
+		if addedMin ~= 0 or addedMax ~= 0 then
+			if damageEffectiveness ~= 1 then
+				t_insert(env.breakdown[damageType], s_format("%s(%d to %d) x %.2f ^8(added damage multiplied by damage effectiveness)", plus, addedMin, addedMax, damageEffectiveness))
+			else
+				t_insert(env.breakdown[damageType], s_format("%s%d to %d ^8(added damage)", plus, addedMin, addedMax))
+			end
+		end
+		t_insert(env.breakdown[damageType], s_format("= %.1f to %.1f", baseMin, baseMax))
+	end
+
+	-- Calculate conversions
+	local addMin, addMax = 0, 0
+	local conversionTable = env.conversionTable
+	for _, otherType in ipairs(dmgTypeList) do
+		if otherType == damageType then
+			-- Damage can only be converted from damage types that preceed this one in the conversion sequence, so stop here
+			break
+		end
+		local convMult = conversionTable[otherType][damageType]
+		if convMult > 0 then
+			-- Damage is being converted/gained from the other damage type
+			local min, max = calcHitDamage(env, source, otherType, damageType, ...)
+			addMin = addMin + min * convMult
+			addMax = addMax + max * convMult
+		end
+	end
+	if addMin ~= 0 and addMax ~= 0 then
+		addMin = round(addMin)
+		addMax = round(addMax)
+	end
+
+	if baseMin == 0 and baseMax == 0 then
+		-- No base damage for this type, don't need to calculate modifiers
+		if env.breakdown and (addMin ~= 0 or addMax ~= 0) then
+			local endType, convDst
+			if (...) then
+				endType = select(select('#', ...), ...)
+				convDst = s_format("%d%% to %s", conversionTable[damageType][...] * 100, ...)
+			else
+				endType = damageType
+			end
+			t_insert(env.breakdown[endType].damageComponents, {
+				source = damageType,
+				convSrc = (addMin ~= 0 or addMax ~= 0) and (addMin .. " to " .. addMax),
+				total = addMin .. " to " .. addMax,
+				convDst = convDst,
+			})
+		end
+		return addMin, addMax
 	end
 
 	-- Build lists of applicable modifier names
 	local addElemental = isElemental[damageType]
-	local inc = { damageType.."Inc", "damageInc" }
-	local more = { damageType.."More", "damageMore" }
-	local damageTypeStr = "total_"..damageType
+	local modNames = { damageType.."Damage", "Damage" }
 	for i = 1, select('#', ...) do
 		local dstElem = select(i, ...)
-		damageTypeStr = damageTypeStr..dstElem
 		-- Add modifiers for damage types to which this damage is being converted
 		addElemental = addElemental or isElemental[dstElem]
-		t_insert(inc, dstElem.."Inc")
-		t_insert(more, dstElem.."More")
+		t_insert(modNames, dstElem.."Damage")
 	end
 	if addElemental then
 		-- Damage is elemental or is being converted to elemental damage, add global elemental modifiers
-		t_insert(inc, "elementalInc")
-		t_insert(more, "elementalMore")
+		t_insert(modNames, "ElementalDamage")
 	end
 
 	-- Combine modifiers
-	local damageTypeStrInc = damageTypeStr.."Inc"
-	if startWatch(env, damageTypeStrInc) then
-		output[damageTypeStrInc] = 1 + sumMods(modDB, false, unpack(inc)) / 100
-		endWatch(env, damageTypeStrInc)
-	end
-	local damageTypeStrMore = damageTypeStr.."More"
-	if startWatch(env, damageTypeStrMore) then
-		output[damageTypeStrMore] = m_floor(sumMods(modDB, true, unpack(more)) * 100 + 0.50000001) / 100
-		endWatch(env, damageTypeStrMore)
-	end
+	local inc = 1 + modDB:Sum("INC", skillCfg, unpack(modNames)) / 100
+	local more = m_floor(modDB:Sum("MORE", skillCfg, unpack(modNames)) * 100 + 0.50000001) / 100
 
-	-- Calculate conversions
-	if startWatch(env, damageTypeStr.."Conv", "conversionTable") then
-		local addMin, addMax = 0, 0
-		local conversionTable = output.conversionTable
-		for _, otherType in ipairs(dmgTypeList) do
-			if otherType == damageType then
-				-- Damage can only be converted from damage types that preceed this one in the conversion sequence, so stop here
-				break
-			end
-			local convMult = conversionTable[otherType][damageType]
-			if convMult > 0 then
-				-- Damage is being converted/gained from the other damage type
-				local min, max = calcHitDamage(env, output, otherType, damageType, ...)
-				addMin = addMin + min * convMult
-				addMax = addMax + max * convMult
-			end
+	if env.breakdown then
+		local endType, convDst
+		if (...) then
+			endType = select(select('#', ...), ...)
+			convDst = s_format("%d%% to %s", conversionTable[damageType][...] * 100, ...)
+		else
+			endType = damageType
 		end
-		output[damageTypeStr.."ConvAddMin"] = addMin
-		output[damageTypeStr.."ConvAddMax"] = addMax
-		endWatch(env, damageTypeStr.."Conv")
+		t_insert(env.breakdown[endType].damageComponents, {
+			source = damageType,
+			base = baseMin .. " to " .. baseMax,
+			inc = (inc ~= 1 and "x "..inc),
+			more = (more ~= 1 and "x "..more),
+			convSrc = (addMin ~= 0 or addMax ~= 0) and (addMin .. " to " .. addMax),
+			total = (round(baseMin * inc * more) + addMin) .. " to " .. (round(baseMax * inc * more) + addMax),
+			convDst = convDst,
+		})
 	end
 
-	local modMult = output[damageTypeStrInc] * output[damageTypeStrMore]
-	return (m_floor(baseMin * modMult + 0.5) + output[damageTypeStr.."ConvAddMin"]),
-		   (m_floor(baseMax * modMult + 0.5) + output[damageTypeStr.."ConvAddMax"])
+	return (round(baseMin * inc * more) + addMin),
+		   (round(baseMax * inc * more) + addMax)
 end
 
 --
@@ -443,88 +538,106 @@ end
 -- Depending on what is being done with the output, other code may run inbetween steps, however the steps must always be performed in order:
 -- 1. Initialise environment (initEnv)
 -- 2. Merge main modifiers (mergeMainMods)
--- 3. Finalise modifier database (finaliseMods)
--- 4. Run calculations (performCalcs)
+-- 3. Run calculations (performCalcs)
 --
 -- Thus a basic calculation pass would look like this:
 -- 
--- local env = initEnv(input, build)
+-- local env = initEnv(build, mode)
 -- mergeMainMods(env)
--- finaliseMods(env, output)
--- performCalcs(env, output)
+-- performCalcs(env)
 --
 
+local tempTable1 = { }
+local tempTable2 = { }
+local tempTable3 = { }
+
 -- Initialise environment
--- This will initialise the modifier database
-local function initEnv(build, input, mode)
+-- This will initialise the modifier databases
+local function initEnv(build, mode)
 	local env = { }
 	env.build = build
-	env.input = input
+	env.configInput = build.configTab.input
+	env.calcsInput = build.calcsTab.input
 	env.mode = mode
 	env.classId = build.spec.curClassId
 
 	-- Initialise modifier database with base values
-	local modDB = { }
+	local modDB = common.New("ModDB")
 	env.modDB = modDB
 	local classStats = build.tree.characterData[env.classId]
-	for _, stat in pairs({"str","dex","int"}) do
-		mod_dbMerge(modDB, "", stat.."Base", classStats["base_"..stat])
+	for _, stat in pairs({"Str","Dex","Int"}) do
+		modDB:NewMod(stat, "BASE", classStats["base_"..stat:lower()], "Base")
 	end
-	local level = build.characterLevel
-	mod_dbMerge(modDB, "", "lifeBase", 38 + level * 12)
-	mod_dbMerge(modDB, "", "manaBase", 34 + level * 6)
-	mod_dbMerge(modDB, "", "evasionBase", 53 + level * 3)
-	mod_dbMerge(modDB, "", "accuracyBase", (level - 1) * 2) 
-	mod_dbMerge(modDB, "", "fireResistMax", 75)
-	mod_dbMerge(modDB, "", "coldResistMax", 75)
-	mod_dbMerge(modDB, "", "lightningResistMax", 75)
-	mod_dbMerge(modDB, "", "chaosResistMax", 75)
-	mod_dbMerge(modDB, "", "blockChanceMax", 75)
-	mod_dbMerge(modDB, "", "powerMax", 3)
-	mod_dbMerge(modDB, "PerPower", "critChanceInc", 50)
-	mod_dbMerge(modDB, "", "frenzyMax", 3)
-	mod_dbMerge(modDB, "PerFrenzy", "speedInc", 4)
-	mod_dbMerge(modDB, "PerFrenzy", "damageMore", 1.04)
-	mod_dbMerge(modDB, "", "enduranceMax", 3)
-	mod_dbMerge(modDB, "PerEndurance", "elementalResist", 4)
-	mod_dbMerge(modDB, "", "activeTrapLimit", 3)
-	mod_dbMerge(modDB, "", "activeMineLimit", 5)
-	mod_dbMerge(modDB, "", "projectileCount", 1)
-	mod_dbMerge(modDB, "CondMod", "DualWielding_attackSpeedMore", 1.1)
-	mod_dbMerge(modDB, "CondMod", "DualWielding_attack_physicalMore", 1.2)
-	mod_dbMerge(modDB, "CondMod", "DualWielding_blockChance", 15)
-
+	modDB.multipliers["Level"] = m_max(1, m_min(100, build.characterLevel))
+	modDB:NewMod("Life", "BASE", 12, "Base", { type = "Multiplier", var = "Level", base = 38 })
+	modDB:NewMod("Mana", "BASE", 6, "Base", { type = "Multiplier", var = "Level", base = 34 })
+	modDB:NewMod("ManaRegen", "BASE", 0.0175, "Base", { type = "PerStat", stat = "Mana", div = 1 })
+	modDB:NewMod("Evasion", "BASE", 3, "Base", { type = "Multiplier", var = "Level", base = 53 })
+	modDB:NewMod("Accuracy", "BASE", 2, "Base", { type = "Multiplier", var = "Level", base = -2 })
+	modDB:NewMod("FireResistMax", "BASE", 75, "Base")
+	modDB:NewMod("FireResist", "BASE", -60, "Base")
+	modDB:NewMod("ColdResistMax", "BASE", 75, "Base")
+	modDB:NewMod("ColdResist", "BASE", -60, "Base")
+	modDB:NewMod("LightningResistMax", "BASE", 75, "Base")
+	modDB:NewMod("LightningResist", "BASE", -60, "Base")
+	modDB:NewMod("ChaosResistMax", "BASE", 75, "Base")
+	modDB:NewMod("ChaosResist", "BASE", -60, "Base")
+	modDB:NewMod("BlockChanceMax", "BASE", 75, "Base")
+	modDB:NewMod("PowerChargesMax", "BASE", 3, "Base")
+	modDB:NewMod("CritChance", "INC", 50, "Base", { type = "Multiplier", var = "PowerCharge" })
+	modDB:NewMod("FrenzyChargesMax", "BASE", 3, "Base")
+	modDB:NewMod("Speed", "INC", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
+	modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
+	modDB:NewMod("EnduranceChargesMax", "BASE", 3, "Base")
+	modDB:NewMod("ElementalResist", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
+	modDB:NewMod("ActiveTrapLimit", "BASE", 3, "Base")
+	modDB:NewMod("ActiveMineLimit", "BASE", 5, "Base")
+	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
+	modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
+	modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
+	modDB:NewMod("PhysicalDamage", "MORE", 20, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
+	modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" })
+	modDB:NewMod("Misc", "LIST", { type = "EnemyModifier", mod = modLib.createMod("DamageTaken", "INC", 50, "Shock") }, "Base", { type = "Condition", var = "EnemyShocked" })
+	
 	-- Add bandit mods
 	if build.banditNormal == "Alira" then
-		mod_dbMerge(modDB, "", "manaBase", 60)
+		modDB:NewMod("Mana", "BASE", 60, "Bandit")
 	elseif build.banditNormal == "Kraityn" then
-		mod_dbMerge(modDB, "", "elementalResist", 10)
+		modDB:NewMod("ElementalResist", "BASE", 10, "Bandit")
 	elseif build.banditNormal == "Oak" then
-		mod_dbMerge(modDB, "", "lifeBase", 40)
+		modDB:NewMod("Life", "BASE", 40, "Bandit")
 	else
-		mod_dbMerge(modDB, "", "extraPoints", 1)
+		modDB:NewMod("ExtraPoints", "BASE", 1, "Bandit")
 	end
 	if build.banditCruel == "Alira" then
-		mod_dbMerge(modDB, "", "castSpeedInc", 5)
+		modDB:NewMod("Speed", "INC", 5, "Bandit", ModFlag.Spell)
 	elseif build.banditCruel == "Kraityn" then
-		mod_dbMerge(modDB, "", "attackSpeedInc", 8)
+		modDB:NewMod("Speed", "INC", 8, "Bandit", ModFlag.Attack)
 	elseif build.banditCruel == "Oak" then
-		mod_dbMerge(modDB, "", "physicalInc", 16)
+		modDB:NewMod("PhysicalDamage", "INC", 16, "Bandit")
 	else
-		mod_dbMerge(modDB, "", "extraPoints", 1)
+		modDB:NewMod("ExtraPoints", "BASE", 1, "Bandit")
 	end
 	if build.banditMerciless == "Alira" then
-		mod_dbMerge(modDB, "", "powerMax", 1)
+		modDB:NewMod("PowerChargesMax", "BASE", 1, "Bandit")
 	elseif build.banditMerciless == "Kraityn" then
-		mod_dbMerge(modDB, "", "frenzyMax", 1)
+		modDB:NewMod("FrenzyChargesMax", "BASE", 1, "Bandit")
 	elseif build.banditMerciless == "Oak" then
-		mod_dbMerge(modDB, "", "enduranceMax", 1)
+		modDB:NewMod("EnduranceChargesMax", "BASE", 1, "Bandit")
 	else
-		mod_dbMerge(modDB, "", "extraPoints", 1)
+		modDB:NewMod("ExtraPoints", "BASE", 1, "Bandit")
 	end
 
-	-- Add mods from the input table
-	mod_dbMergeList(modDB, input)
+	-- Initialise enemy modifier database
+	local enemyDB = common.New("ModDB")
+	env.enemyDB = enemyDB
+	env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, 84)))
+	enemyDB:NewMod("Accuracy", "BASE", data.monsterAccuracyTable[env.enemyLevel], "Base")
+	enemyDB:NewMod("Evasion", "BASE", data.monsterEvasionTable[env.enemyLevel], "Base")
+
+	-- Add mods from the config tab
+	modDB:AddList(build.configTab.modList)
+	enemyDB:AddList(build.configTab.enemyModList)
 
 	return env
 end
@@ -539,8 +652,8 @@ local function mergeMainMods(env, repSlotName, repItem)
 	local build = env.build
 
 	-- Build and merge item modifiers, and create list of radius jewels
-	env.itemModList = wipeTable(env.itemModList)
 	env.radiusJewelList = wipeTable(env.radiusJewelList)
+	env.itemList = { }
 	for slotName, slot in pairs(build.itemsTab.slots) do
 		local item
 		if slotName == repSlotName then
@@ -575,97 +688,152 @@ local function mergeMainMods(env, repSlotName, repItem)
 				})
 			end
 		end
+		env.itemList[slotName] = item
 		if item then
-			-- Merge mods for this item into the global item mod list
+			-- Merge mods for this item
 			local srcList = item.modList or item.slotModList[slot.slotNum]
-			for k, v in pairs(srcList) do
-				mod_listMerge(env.itemModList, k, v)
-			end
+			env.modDB:AddList(srcList)
 			if item.type ~= "Jewel" then
 				-- Update item counts
+				local key
 				if item.rarity == "UNIQUE" then
-					mod_listMerge(env.itemModList, "gear_UniqueCount", 1)
+					key = "UniqueItem"
 				elseif item.rarity == "RARE" then
-					mod_listMerge(env.itemModList, "gear_RareCount", 1)
+					key = "RareItem"
 				elseif item.rarity == "MAGIC" then
-					mod_listMerge(env.itemModList, "gear_MagicCount", 1)
+					key = "MagicItem"
 				else
-					mod_listMerge(env.itemModList, "gear_NormalCount", 1)
+					key = "NormalItem"
 				end
+				env.modDB.multipliers[key] = (env.modDB.multipliers[key] or 0) + 1
 			end
 		end
 	end
-	mod_dbMergeList(env.modDB, env.itemModList)
+	
+	if env.mode == "MAIN" then
+		-- Process extra skills granted by items
+		local markList = { }
+		for _, mod in ipairs(env.modDB.mods["ExtraSkill"] or { }) do
+			-- Extract the name of the slot containing the item this skill was granted by
+			local slotName
+			for _, tag in ipairs(mod.tagList) do
+				if tag.type == "SocketedIn" then
+					slotName = tag.slotName
+					break
+				end
+			end
+
+			-- Check if a matching group already exists
+			local group
+			for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
+				if socketGroup.source == mod.source and socketGroup.slot == slotName then
+					if socketGroup.gemList[1] and socketGroup.gemList[1].nameSpec == mod.value.name then
+						group = socketGroup
+						markList[socketGroup] = true
+						break
+					end
+				end
+			end
+			if not group then
+				-- Create a new group for this skill
+				group = { label = "", enabled = true, gemList = { }, source = mod.source, slot = slotName }
+				t_insert(build.skillsTab.socketGroupList, group)
+				markList[group] = true
+			end
+
+			-- Update the group
+			group.sourceItem = build.itemsTab.list[tonumber(mod.source:match("Item:(%d+):"))]
+			wipeTable(group.gemList)
+			t_insert(group.gemList, {
+				nameSpec = mod.value.name,
+				level = mod.value.level,
+				quality = 0,
+				enabled = true,
+				fromItem = true,
+			})
+			if mod.value.noSupports then
+				group.noSupports = true
+			else
+				for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
+					-- Look for other groups that are socketed in the item
+					if socketGroup.slot == slotName and not socketGroup.source then
+						-- Add all support gems to the skill's group
+						for _, gem in ipairs(socketGroup.gemList) do
+							if gem.data and gem.data.support then
+								t_insert(group.gemList, gem)
+							end
+						end
+					end
+				end
+			end
+			build.skillsTab:ProcessSocketGroup(group)
+		end
+		
+		-- Remove any socket groups that no longer have a matching item
+		local i = 1
+		while build.skillsTab.socketGroupList[i] do
+			local socketGroup = build.skillsTab.socketGroupList[i]
+			if socketGroup.source and not markList[socketGroup] then
+				t_remove(build.skillsTab.socketGroupList, i)
+				if build.skillsTab.displayGroup == socketGroup then
+					build.skillsTab.displayGroup = nil
+				end
+			else
+				i = i + 1
+			end
+		end
+	end
+
+	-- Get the weapon data tables for the equipped weapons
+	env.weaponData1 = env.itemList["Weapon 1"] and env.itemList["Weapon 1"].weaponData and env.itemList["Weapon 1"].weaponData[1] or copyTable(data.unarmedWeaponData[env.classId])
+	env.weaponData2 = env.itemList["Weapon 2"] and env.itemList["Weapon 2"].weaponData and env.itemList["Weapon 2"].weaponData[2] or { }
 
 	-- Build and merge modifiers for allocated passives
-	env.specModList = buildNodeModList(env, build.spec.allocNodes, true)
-	mod_dbMergeList(env.modDB, env.specModList)
+	env.modDB:AddList(buildNodeModList(env, build.spec.allocNodes, true))
 
 	-- Determine main skill group
-	if env.mode == "GRID" then
-		env.input.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.input.skill_number or 1)
-		env.mainSocketGroup = env.input.skill_number
-		env.skillPart = env.input.skill_part or 1
-		env.buffMode = env.input.misc_buffMode
+	if env.mode == "CALCS" then
+		env.calcsInput.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.calcsInput.skill_number or 1)
+		env.mainSocketGroup = env.calcsInput.skill_number
+		env.skillPart = env.calcsInput.skill_part or 1
+		env.buffMode = env.calcsInput.misc_buffMode
 	else
 		build.mainSocketGroup = m_min(m_max(#build.skillsTab.socketGroupList, 1), build.mainSocketGroup or 1)
 		env.mainSocketGroup = build.mainSocketGroup
 		env.buffMode = "EFFECTIVE"
 	end
 
-	-- Build list of bonuses to socketed gems
-	local slotSocketBonuses = { }
-	for slotName in pairs(build.itemsTab.slots) do
-		if env.modDB["SocketedIn:"..slotName] then
-			slotSocketBonuses[slotName] = {
-				supports = { },
-				gemLevel = { },
-				gemQuality = { },
-				modList = { }
-			}
-			for k, v in pairs(env.modDB["SocketedIn:"..slotName]) do
-				local spaceName, modName = modLib.getSpaceName(k)
-				if spaceName == "supportedBy" then
-					local level, support = modName:match("(%d+):(.+)")
-					if level then
-						for gemName, gemData in pairs(data.gems) do
-							if support == gemName:lower() then
-								t_insert(slotSocketBonuses[slotName].supports, { name = gemName, data = gemData, level = tonumber(level), quality = 0, enabled = true, fromItem = true })
-								break
-							end
-						end
-					end
-				elseif spaceName == "gemLevel" then
-					slotSocketBonuses[slotName].gemLevel[modName] = v
-				elseif spaceName == "gemQuality" then
-					slotSocketBonuses[slotName].gemQuality[modName] = v
-				else
-					if not slotSocketBonuses[slotName].modList[spaceName] then
-						slotSocketBonuses[slotName].modList[spaceName] = { }
-					end
-					mod_listMerge(slotSocketBonuses[slotName].modList[spaceName], modName, v)
-				end
-			end
-		end
-	end
-
 	-- Build list of active skills
 	env.activeSkillList = { }
+	local groupCfg = wipeTable(tempTable1)
 	for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
 		local socketGroupSkillList = { }
 		if socketGroup.enabled or index == env.mainSocketGroup then
 			-- Build list of supports for this socket group
-			local socketBonuses = socketGroup.slot and slotSocketBonuses[socketGroup.slot]
-			local supportList = { }
-			if socketBonuses then
-				for _, gem in ipairs(socketBonuses.supports) do
-					t_insert(supportList, gem)
+			local supportList = wipeTable(tempTable2)
+			if not socketGroup.source then
+				groupCfg.slotName = socketGroup.slot
+				for _, value in ipairs(env.modDB:Sum("LIST", groupCfg, "ExtraSupport")) do
+					-- Add extra supports from the item this group is socketed in
+					local gemData = data.gems[value.name]
+					if gemData then
+						t_insert(supportList, { 
+							name = value.name,
+							data = gemData,
+							level = value.level,
+							quality = 0, 
+							enabled = true, 
+							fromItem = true
+						})
+					end
 				end
 			end
 			for _, gem in ipairs(socketGroup.gemList) do
 				if gem.enabled and gem.data and gem.data.support then
+					-- Add support gems from this group
 					local add = true
 					for _, otherGem in pairs(supportList) do
+						-- Check if there's another support with the same name already present
 						if gem.data == otherGem.data then
 							add = false
 							if gem.level > otherGem.level then
@@ -686,9 +854,9 @@ local function mergeMainMods(env, repSlotName, repItem)
 
 			-- Create active skills
 			for _, gem in ipairs(socketGroup.gemList) do
-				if gem.enabled and gem.data and not gem.data.support then
+				if gem.enabled and gem.data and not gem.data.support and not gem.data.unsupported then
 					local activeSkill = createActiveSkill(gem, supportList)
-					activeSkill.socketBonuses = socketBonuses
+					activeSkill.slotName = socketGroup.slot
 					t_insert(socketGroupSkillList, activeSkill)
 					t_insert(env.activeSkillList, activeSkill)
 				end
@@ -697,15 +865,14 @@ local function mergeMainMods(env, repSlotName, repItem)
 			if index == env.mainSocketGroup and #socketGroupSkillList > 0 then
 				-- Select the main skill from this socket group
 				local activeSkillIndex
-				if env.mode == "GRID" then
-					env.input.skill_activeNumber = m_min(#socketGroupSkillList, env.input.skill_activeNumber or 1)
-					activeSkillIndex = env.input.skill_activeNumber
+				if env.mode == "CALCS" then
+					env.calcsInput.skill_activeNumber = m_min(#socketGroupSkillList, env.calcsInput.skill_activeNumber or 1)
+					activeSkillIndex = env.calcsInput.skill_activeNumber
 				else
 					socketGroup.mainActiveSkill = m_min(#socketGroupSkillList, socketGroup.mainActiveSkill or 1)
 					activeSkillIndex = socketGroup.mainActiveSkill
 				end
 				env.mainSkill = socketGroupSkillList[activeSkillIndex]
-				env.mainSkillGroupActiveSkillList = socketGroupSkillList
 			end
 		end
 
@@ -740,7 +907,6 @@ local function mergeMainMods(env, repSlotName, repItem)
 		env.mainSkill = createActiveSkill(defaultGem, { })
 		t_insert(env.activeSkillList, env.mainSkill)
 	end
-	env.setupFunc = env.mainSkill.activeGem.data.setupFunc
 
 	-- Build skill modifier lists
 	env.auxSkillList = { }
@@ -749,1097 +915,1353 @@ local function mergeMainMods(env, repSlotName, repItem)
 	end
 end
 
--- Prepare environment for calculations
-local function finaliseMods(env, output)
+-- Finalise environment and perform the calculations
+-- This function is 1300 lines long. Enjoy!
+local function performCalcs(env)
 	local modDB = env.modDB
+	local enemyDB = env.enemyDB
 
-	local weapon1Type = getMiscVal(modDB, "weapon1", "type", "None")
-	local weapon2Type = getMiscVal(modDB, "weapon2", "type", "")
-	if weapon1Type == output.weapon1Type and weapon2Type == output.weapon2Type then
-		env.spacesChanged = false
-	else
-		env.spacesChanged = true
-		output.weapon1Type = weapon1Type
-		output.weapon2Type = weapon2Type
-		
-		-- Initialise skill flag set
-		env.skillFlags = wipeTable(env.skillFlags)
-		local skillFlags = env.skillFlags
-		for k, v in pairs(env.mainSkill.baseFlags) do
-			skillFlags[k] = v
-		end
-
-		-- Set weapon flags
-		skillFlags.mainIs1H = true
-		local weapon1Info = data.weaponTypeInfo[weapon1Type]
-		if weapon1Info then
-			if not weapon1Info.oneHand then
-				skillFlags.mainIs1H = nil
-			end
-			if skillFlags.attack then
-				skillFlags.weapon1Attack = true
-				if weapon1Info.melee and skillFlags.melee then
-					skillFlags.bow = nil
-					skillFlags.projectile = nil
-				elseif not weapon1Info.melee and skillFlags.bow then
-					skillFlags.melee = nil
-				end
-			end
-		end
-		local weapon2Info = data.weaponTypeInfo[weapon2Type]
-		if weapon2Info and skillFlags.mainIs1H then
-			if skillFlags.attack then
-				skillFlags.weapon2Attack = true
-			end
-		end
-
-		-- Build list of namespaces to search for mods
-		local skillSpaceFlags = wipeTable(env.skillSpaceFlags)
-		env.skillSpaceFlags = skillSpaceFlags
-		skillSpaceFlags["hit"] = true
-		if skillFlags.spell then
-			skillSpaceFlags["spell"] = true
-		elseif skillFlags.attack then
-			skillSpaceFlags["attack"] = true
-		end
-		if skillFlags.weapon1Attack then
-			if getMiscVal(modDB, "weapon1", "varunastra", false) then
-				skillSpaceFlags["axe"] = true
-				skillSpaceFlags["claw"] = true
-				skillSpaceFlags["dagger"] = true
-				skillSpaceFlags["mace"] = true
-				skillSpaceFlags["sword"] = true
-			else
-				skillSpaceFlags[weapon1Info.space] = true
-			end
-			if weapon1Type ~= "None" then
-				skillSpaceFlags["weapon"] = true
-				if skillFlags.mainIs1H then
-					skillSpaceFlags["weapon1h"] = true
-					if weapon1Info.melee then
-						skillSpaceFlags["weapon1hMelee"] = true
-					else
-						skillSpaceFlags["weaponRanged"] = true
-					end
-				else
-					skillSpaceFlags["weapon2h"] = true
-					if weapon1Info.melee then
-						skillSpaceFlags["weapon2hMelee"] = true
-					else
-						skillSpaceFlags["weaponRanged"] = true
-					end
-				end
-			end
-		end
-		if skillFlags.melee then
-			skillSpaceFlags["melee"] = true
-		elseif skillFlags.projectile then
-			skillSpaceFlags["projectile"] = true
-			if skillFlags.attack then
-				skillSpaceFlags["projectileAttack"] = true
-			end
-		end
-		if skillFlags.totem then
-			skillSpaceFlags["totem"] = true
-		elseif skillFlags.trap then
-			skillSpaceFlags["trap"] = true
-			skillSpaceFlags["trapHit"] = true
-		elseif skillFlags.mine then
-			skillSpaceFlags["mine"] = true
-			skillSpaceFlags["mineHit"] = true
-		end
-		if skillFlags.aoe then
-			skillSpaceFlags["aoe"] = true
-		end
-		if skillFlags.debuff then
-			skillSpaceFlags["debuff"] = true
-		end
-		if skillFlags.aura then
-			skillSpaceFlags["aura"] = true
-		end
-		if skillFlags.curse then
-			skillSpaceFlags["curse"] = true
-		end
-		if skillFlags.warcry then
-			skillSpaceFlags["warcry"] = true
-		end
-		if skillFlags.movement then
-			skillSpaceFlags["movementSkills"] = true
-		end
-		if skillFlags.lightning then
-			skillSpaceFlags["lightningSkills"] = true
-			skillSpaceFlags["elementalSkills"] = true
-		end
-		if skillFlags.cold then
-			skillSpaceFlags["coldSkills"] = true
-			skillSpaceFlags["elementalSkills"] = true
-		end
-		if skillFlags.fire then
-			skillSpaceFlags["fireSkills"] = true
-			skillSpaceFlags["elementalSkills"] = true
-		end
-		if skillFlags.chaos then
-			skillSpaceFlags["chaosSkills"] = true
-		end
+	local output = { }
+	env.output = output
+	modDB.stats = output
+	local breakdown
+	if env.mode == "CALCS" then
+		breakdown = { }
+		env.breakdown = breakdown
 	end
-	if weapon1Type == "None" then
-		-- Merge unarmed weapon modifiers
-		for k, v in pairs(data.unarmedWeapon[env.classId]) do
-			mod_dbMerge(modDB, "weapon1", k, v)
-		end
-	end
-	
+
 	-- Set modes
-	if env.mainSkill.baseFlags.attack then
+	if env.mainSkill.skillFlags.attack then
 		env.mode_skillType = "ATTACK"
 	else
 		env.mode_skillType = "SPELL"
 	end
-	if env.skillFlags.showAverage then
+	if env.mainSkill.skillData.showAverage then
 		env.mode_average = true
 	end
-	if env.buffMode == "BUFFED" then
+	if env.buffMode == "EFFECTIVE" then
 		env.mode_buffs = true
-		env.mode_effective = false
-	elseif env.buffMode == "EFFECTIVE" then
-		env.mode_buffs = true
+		env.mode_combat = true
 		env.mode_effective = true
+	elseif env.buffMode == "COMBAT" then
+		env.mode_buffs = true
+		env.mode_combat = true
+		env.mode_effective = false
+	elseif env.buffMode == "BUFFED" then
+		env.mode_buffs = true
+		env.mode_combat = false
+		env.mode_effective = false
 	else
 		env.mode_buffs = false
+		env.mode_combat = false
 		env.mode_effective = false
 	end
 	
-	-- Reset namespaces
-	buildSpaceTable(modDB)
-
-	-- Add boss modifiers
-	if getMiscVal(modDB, "effective", "enemyIsBoss", false) then
-		mod_dbMerge(modDB, "", "curseEffectMore", 0.4)
-		mod_dbMerge(modDB, "effective", "elementalResist", 30)
-		mod_dbMerge(modDB, "effective", "chaosResist", 15)
-	end
-	
-	-- Merge auxillary skill modifiers and calculate skill life and mana reservations
-	for _, activeSkill in pairs(env.activeSkillList) do
-		local skillModList = activeSkill.skillModList
-	
-		-- Merge auxillary modifiers
-		mod_dbMergeList(modDB, activeSkill.buffModList)
-		local auraEffect = (1 + (getMiscVal(modDB, nil, "auraEffectInc", 0) + (skillModList.auraEffectInc or 0)) / 100) * getMiscVal(modDB, nil, "auraEffectMore", 1) * (skillModList.auraEffectMore or 1)
-		mod_dbScaleMergeList(modDB, activeSkill.auraModList, auraEffect)
-		if env.mode_effective then
-			local curseEffect = (1 + (getMiscVal(modDB, nil, "curseEffectInc", 0) + (skillModList.curseEffectInc or 0)) / 100) * getMiscVal(modDB, nil, "curseEffectMore", 1) * (skillModList.curseEffectMore or 1)
-			mod_dbScaleMergeList(modDB, activeSkill.curseModList, curseEffect)
+	-- Merge keystone modifiers
+	do
+		local keystoneList = wipeTable(tempTable1)
+		for _, name in ipairs(modDB:Sum("LIST", nil, "Keystone")) do
+			keystoneList[name] = true
 		end
-
-		-- Calculate reservations
-		local baseVal, suffix
-		baseVal = skillModList.skill_manaReservedBase
-		if baseVal then
-			suffix = "Base"
-		else
-			baseVal = skillModList.skill_manaReservedPercent
-			if baseVal then
-				suffix = "Percent"
-			end
-		end
-		if baseVal then
-			local more = sumMods(modDB, true, "manaReservedMore") * (skillModList.manaReservedMore or 1)
-			local inc = sumMods(modDB, false, "manaReservedInc") + (skillModList.manaReservedInc or 0)
-			local cost = m_ceil(m_ceil(m_floor(baseVal * (skillModList.manaCostMore or 1)) * more) * (1 + inc / 100))
-			if getMiscVal(modDB, nil, "bloodMagic", false) or skillModList.skill_bloodMagic then
-				mod_dbMerge(modDB, "reserved", "life"..suffix, cost)
-			else
-				mod_dbMerge(modDB, "reserved", "mana"..suffix, cost)
-			end
+		for name in pairs(keystoneList) do
+			modDB:AddList(env.build.tree.keystoneMap[name].modList)
 		end
 	end
 
-	-- Merge main skill mods
-	mod_dbMergeList(modDB, env.mainSkill.skillModList)
-	if env.mainSkill.baseFlags.multiPart and modDB["SkillPart"..env.mainSkill.skillPart] then
-		mod_dbMergeList(modDB, modDB["SkillPart"..env.mainSkill.skillPart])
-	end
-	
-	-- Merge gear-sourced keystone modifiers
-	if modDB.gear then
-		for name, node in pairs(env.build.tree.keystoneMap) do
-			if getMiscVal(modDB, "gear", "keystone:"..name, false) and not getMiscVal(modDB, nil, "keystone:"..name, false) then
-				-- Keystone is granted by gear but not allocated on tree, so add its modifiers
-				mod_dbMergeList(modDB, buildNodeModList(env, { node }))
-			end
-		end
-	end
-
-	-- Build condition list
-	local condList = wipeTable(env.condList)
-	env.condList = condList
-	if weapon1Type == "Staff" then
+	-- Set conditions
+	local condList = modDB.conditions
+	if env.itemList["Weapon 1"] and env.itemList["Weapon 1"].type == "Staff" then
 		condList["UsingStaff"] = true
 	end
-	if env.skillFlags.mainIs1H and weapon2Type == "Shield" then
+	if env.itemList["Weapon 2"] and env.itemList["Weapon 2"].type == "Shield" then
 		condList["UsingShield"] = true
 	end
-	if data.weaponTypeInfo[weapon1Type] and data.weaponTypeInfo[weapon2Type] then
+	if env.weaponData1.type and env.weaponData2.type then
 		condList["DualWielding"] = true
 	end
-	if weapon1Type == "None" then
+	if not env.weaponData1.type then
 		condList["Unarmed"] = true
 	end
-	if getMiscVal(modDB, "gear", "NormalCount", 0) > 0 then
+	if (modDB.multipliers["NormalItem"] or 0) > 0 then
 		condList["UsingNormalItem"] = true
 	end
-	if getMiscVal(modDB, "gear", "MagicCount", 0) > 0 then
+	if (modDB.multipliers["MagicItem"] or 0) > 0 then
 		condList["UsingMagicItem"] = true
 	end
-	if getMiscVal(modDB, "gear", "RareCount", 0) > 0 then
+	if (modDB.multipliers["RareItem"] or 0) > 0 then
 		condList["UsingRareItem"] = true
 	end
-	if getMiscVal(modDB, "gear", "UniqueCount", 0) > 0 then
+	if (modDB.multipliers["UniqueItem"] or 0) > 0 then
 		condList["UsingUniqueItem"] = true
 	end
-	if getMiscVal(modDB, "reserved", "manaBase", 0) == 0 and getMiscVal(modDB, "reserved", "manaPercent", 0) == 0 then
-		condList["NoManaReserved"] = true
-	end
-	if modDB.Cond then
-		for k, v in pairs(modDB.Cond) do
-			condList[k] = v
-			if v then
-				env.skillFlags[k] = true
-			end
-		end
-	end
 	if env.mode_buffs then
-		if modDB.CondBuff then
-			for k, v in pairs(modDB.CondBuff) do
-				condList[k] = v
-				if v then
-					env.skillFlags[k] = true
-				end
-			end
-		end
-		if modDB.CondEff and env.mode_effective then
-			for k, v in pairs(modDB.CondEff) do
-				condList[k] = v
-				if v then
-					env.skillFlags[k] = true
-				end
-			end
-			mod_dbMerge(modDB, "CondMod", "EnemyShocked_effective_damageTakenInc", 50)
-			condList["EnemyFrozenShockedIgnited"] = condList["EnemyFrozen"] or condList["EnemyShocked"] or condList["EnemyIgnited"]
-			condList["EnemyElementalStatus"] = condList["EnemyChilled"] or condList["EnemyFrozen"] or condList["EnemyShocked"] or condList["EnemyIgnited"]
-		end
-		if not getMiscVal(modDB, nil, "neverCrit", false) then
+		condList["Buffed"] = true
+	end
+	if env.mode_combat then
+		condList["Combat"] = true
+		if not modDB:Sum("FLAG", nil, "NeverCrit") then
 			condList["CritInPast8Sec"] = true
 		end
-		if env.skillFlags.attack then
+		if env.mainSkill.skillFlags.attack then
 			condList["AttackedRecently"] = true
-		elseif env.skillFlags.spell then
+		elseif env.mainSkill.skillFlags.spell then
 			condList["CastSpellRecently"] = true
 		end
-		if env.skillFlags.movement then
+		if env.mainSkill.skillFlags.movement then
 			condList["UsedMovementSkillRecently"] = true
 		end
-		if env.skillFlags.totem then
+		if env.mainSkill.skillFlags.totem then
 			condList["SummonedTotemRecently"] = true
 		end
-		if env.skillFlags.mine then
+		if env.mainSkill.skillFlags.mine then
 			condList["DetonatedMinesRecently"] = true
 		end
 	end
+	if env.mode_effective then
+		condList["Effective"] = true
+	end
+	
+	-- Merge auxillary skill modifiers and calculate skill life and mana reservations
+	env.reserved_LifeBase = 0
+	env.reserved_LifePercent = 0
+	env.reserved_ManaBase = 0
+	env.reserved_ManaPercent = 0
+	if breakdown then
+		breakdown.LifeReserved = { reservations = { } }
+		breakdown.ManaReserved = { reservations = { } }
+	end
+	for _, activeSkill in pairs(env.activeSkillList) do
+		local skillModList = activeSkill.skillModList
+		local skillCfg = activeSkill.skillCfg
 
-	-- Calculate maximum charges
-	output.powerCount = 0
-	output.frenzyCount = 0
-	output.enduranceCount = 0
-	output.powerMax = getMiscVal(modDB, nil, "powerMax", 0)
-	output.frenzyMax = getMiscVal(modDB, nil, "frenzyMax", 0)
-	output.enduranceMax = getMiscVal(modDB, nil, "enduranceMax", 0)
-	if getMiscVal(modDB, "buff", "power", false) then
-		env.skillFlags.havePower = true
+		-- Merge auxillary modifiers
 		if env.mode_buffs then
-			output.powerCount = output.powerMax
-		end
-	end
-	if getMiscVal(modDB, "buff", "frenzy", false) then
-		env.skillFlags.haveFrenzy = true
-		if env.mode_buffs then
-			output.frenzyCount = output.frenzyMax
-		end
-	end
-	if getMiscVal(modDB, "buff", "endurance", false) then
-		env.skillFlags.haveEndurance = true
-		if env.mode_buffs then
-			output.enduranceCount = output.enduranceMax
-		end
-	end
-	if output.powerCount == output.powerMax then
-		condList["AtMaxPower"] = true
-	end
-	if output.frenzyCount == output.frenzyMax then
-		condList["AtMaxFrenzy"] = true
-	end
-	if output.enduranceCount == output.enduranceMax then
-		condList["AtMaxEndurance"] = true
-	end
-
-	-- Build and merge conditional modifier list
-	local condModList = wipeTable(env.condModList)
-	env.condModList = condModList
-	if modDB.CondMod then
-		for k, v in pairs(modDB.CondMod) do
-			local isNot, condName, modName = modLib.getCondName(k)
-			if (isNot and not condList[condName]) or (not isNot and condList[condName]) then
-				mod_listMerge(condModList, modName, v)
+			if activeSkill.buffModList and not activeSkill.skillFlags.totem then
+				if activeSkill.activeGem.data.golem and modDB:Sum("FLAG", skillCfg, "LiegeOfThePrimordial") and (activeSkill.activeGem.data.fire or activeSkill.activeGem.data.cold or activeSkill.activeGem.data.lightning) then
+					modDB:ScaleAddList(activeSkill.buffModList, 2)
+				else
+					modDB:AddList(activeSkill.buffModList)
+				end
+			end
+			if activeSkill.auraModList then
+				local inc = modDB:Sum("INC", skillCfg, "AuraEffect") + skillModList:Sum("INC", skillCfg, "AuraEffect")
+				local more = modDB:Sum("MORE", skillCfg, "AuraEffect") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
+				modDB:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
 			end
 		end
-	end
-	if modDB.CondEffMod and env.mode_effective then
-		for k, v in pairs(modDB.CondEffMod) do
-			local isNot, condName, modName = modLib.getCondName(k)
-			if (isNot and not condList[condName]) or (not isNot and condList[condName]) then
-				mod_listMerge(condModList, modName, v)
+		if env.mode_effective then
+			if activeSkill.debuffModList then
+				enemyDB:AddList(activeSkill.debuffModList)
+			end
+			if activeSkill.curseModList then
+				condList["EnemyCursed"] = true
+				local inc = modDB:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffect") + skillModList:Sum("INC", skillCfg, "CurseEffect")
+				local more = modDB:Sum("MORE", skillCfg, "CurseEffect") * enemyDB:Sum("MORE", nil, "CurseEffect") * skillModList:Sum("MORE", skillCfg, "CurseEffect")
+				enemyDB:ScaleAddList(activeSkill.curseModList, (1 + inc / 100) * more)
 			end
 		end
-	end
-	mod_dbMergeList(modDB, env.condModList)
 
-	-- Add per-item-type mods
-	for spaceName, countName in pairs({["PerNormal"]="NormalCount",["PerMagic"]="MagicCount",["PerRare"]="RareCount",["PerUnique"]="UniqueCount",["PerGrandSpectrum"]="GrandSpectrumCount"}) do
-		local space = modDB[spaceName]
-		if space then
-			local count = getMiscVal(modDB, "gear", countName, 0)
-			for k, v in pairs(space) do
-				mod_dbScaleMerge(modDB, "", k, v, count)
+		-- Calculate reservations
+		if activeSkill.skillTypes[SkillType.ManaCostReserved] then
+			local baseVal = activeSkill.skillData.manaCostOverride or activeSkill.skillData.manaCost
+			local suffix = activeSkill.skillTypes[SkillType.ManaCostPercent] and "Percent" or "Base"
+			local mult = skillModList:Sum("MORE", skillCfg, "ManaCost")
+			local more = modDB:Sum("MORE", skillCfg, "ManaReserved") * skillModList:Sum("MORE", skillCfg, "ManaReserved")
+			local inc = modDB:Sum("INC", skillCfg, "ManaReserved") + skillModList:Sum("INC", skillCfg, "ManaReserved")
+			local cost = m_ceil(m_ceil(m_floor(baseVal * mult) * more) * (1 + inc / 100))
+			local pool
+			if modDB:Sum("FLAG", skillCfg, "BloodMagic", "SkillBloodMagic") or skillModList:Sum("FLAG", skillCfg, "SkillBloodMagic") then
+				pool = "Life"
+			else
+				pool = "Mana"
+			end
+			env["reserved_"..pool..suffix] = env["reserved_"..pool..suffix] + cost
+			if breakdown then
+				t_insert(breakdown[pool.."Reserved"].reservations, {
+					skillName = activeSkill.activeGem.name,
+					base = baseVal .. (activeSkill.skillTypes[SkillType.ManaCostPercent] and "%" or ""),
+					mult = mult ~= 1 and ("x "..mult),
+					more = more ~= 1 and ("x "..more),
+					inc = inc ~= 0 and ("x "..(1 + inc/100)),
+					total = cost .. (activeSkill.skillTypes[SkillType.ManaCostPercent] and "%" or ""),
+				})
 			end
 		end
 	end
 
-	if env.mode_buffs then
-		-- Build buff mod list
-		local buffModList = wipeTable(env.buffModList)
-		env.buffModList = buffModList
+	-- Process misc modifiers
+	for _, value in ipairs(modDB:Sum("LIST", skillCfg, "Misc")) do
+		if value.type == "Condition" then
+			condList[value.var] = true
+		elseif value.type == "Multiplier" then
+			modDB.multipliers[value.var] = (modDB.multipliers[value.var] or 0) + value.value
+		end
+	end
+	-- Process enemy modifiers last in case they depend on conditions that were set by misc modifiers
+	for _, value in ipairs(modDB:Sum("LIST", skillCfg, "Misc")) do
+		if value.type == "EnemyModifier" then
+			enemyDB:AddMod(value.mod)
+		end
+	end
 
-		-- Calculate total charge bonuses
-		if env.skillFlags.havePower then
-			for k, v in pairs(modDB.PerPower) do
-				mod_listScaleMerge(buffModList, k, v, output.powerMax)
-			end
+	-- Process conditions that can depend on other conditions
+	if env.mode_effective then
+		if condList["EnemyIgnited"] then
+			condList["EnemyBurning"] = true
 		end
-		if env.skillFlags.haveFrenzy then
-			for k, v in pairs(modDB.PerFrenzy) do
-				mod_listScaleMerge(buffModList, k, v, output.frenzyMax)
-			end
-		end
-		if env.skillFlags.haveEndurance then
-			for k, v in pairs(modDB.PerEndurance) do
-				mod_listScaleMerge(buffModList, k, v, output.enduranceMax)
-			end
-		end
-		
-		-- Add other buffs
-		if env.condList["Onslaught"] then
-			local effect = m_floor(20 * (1 + sumMods(modDB, false, "onslaughtEffectInc") / 100))
-			mod_listMerge(buffModList, "attackSpeedInc", effect)
-			mod_listMerge(buffModList, "castSpeedInc", effect)
-			mod_listMerge(buffModList, "movementSpeedInc", effect)
-		end
-		if getMiscVal(modDB, "buff", "pendulum", false) then
-			mod_listMerge(buffModList, "elementalInc", 100)
-			mod_listMerge(buffModList, "aoeRadiusInc", 25)
-		end
+		condList["EnemyFrozenShockedIgnited"] = condList["EnemyFrozen"] or condList["EnemyShocked"] or condList["EnemyIgnited"]
+		condList["EnemyElementalStatus"] = condList["EnemyChilled"] or condList["EnemyFrozen"] or condList["EnemyShocked"] or condList["EnemyIgnited"]
+		condList["NotEnemyElementalStatus"] = not condList["EnemyElementalStatus"]
+	end
 
-		-- Merge buff bonuses
-		mod_dbMergeList(modDB, buffModList)
+	-- Calculate current and maximum charges
+	output.PowerChargesMax = modDB:Sum("BASE", nil, "PowerChargesMax")
+	output.FrenzyChargesMax = modDB:Sum("BASE", nil, "FrenzyChargesMax")
+	output.EnduranceChargesMax = modDB:Sum("BASE", nil, "EnduranceChargesMax")
+	if env.configInput.usePowerCharges and env.mode_combat then
+		output.PowerCharges = output.PowerChargesMax
+	else
+		output.PowerCharges = 0
+	end
+	if env.configInput.useFrenzyCharges and env.mode_combat then
+		output.FrenzyCharges = output.FrenzyChargesMax
+	else
+		output.FrenzyCharges = 0
+	end
+	if env.configInput.useEnduranceCharges and env.mode_combat then
+		output.EnduranceCharges = output.EnduranceChargesMax
+	else
+		output.EnduranceCharges = 0
+	end
+	modDB.multipliers["PowerCharge"] = output.PowerCharges
+	modDB.multipliers["FrenzyCharge"] = output.FrenzyCharges
+	modDB.multipliers["EnduranceCharge"] = output.EnduranceCharges
+	if output.PowerCharges == output.PowerChargesMax then
+		condList["AtMaxPowerCharges"] = true
+	end
+	if output.FrenzyCharges == output.FrenzyChargesMax then
+		condList["AtMaxFrenzyCharges"] = true
+	end
+	if output.EnduranceCharges == output.EnduranceChargesMax then
+		condList["AtMaxEnduranceCharges"] = true
+	end
+
+	-- Add misc buffs
+	if env.mode_combat then
+		if condList["Onslaught"] then
+			local effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "OnslaughtEffect") / 100))
+			modDB:NewMod("Speed", "INC", effect, "Onslaught")
+			modDB:NewMod("MovementSpeed", "INC", effect, "Onslaught")
+		end
+	end
+
+	-- Helper functions for stat breakdowns
+	local simpleBreakdown, modBreakdown, slotBreakdown, effMultBreakdown, dotBreakdown
+	if breakdown then
+		simpleBreakdown = function(extraBase, cfg, ...)
+			extraBase = extraBase or 0
+			local base = modDB:Sum("BASE", cfg, (...))
+			if (base + extraBase) ~= 0 then
+				local inc = modDB:Sum("INC", cfg, ...)
+				local more = modDB:Sum("MORE", cfg, ...)
+				if inc ~= 0 or more ~= 1 or (base ~= 0 and extraBase ~= 0) then
+					local out = { }
+					if base ~= 0 and extraBase ~= 0 then
+						out[1] = s_format("(%g + %g) ^8(base)", extraBase, base)
+					else
+						out[1] = s_format("%g ^8(base)", base + extraBase)
+					end
+					if inc ~= 0 then
+						t_insert(out, s_format("x %.2f", 1 + inc/100).." ^8(increased/reduced)")
+					end
+					if more ~= 1 then
+						t_insert(out, s_format("x %.2f", more).." ^8(more/less)")
+					end
+					t_insert(out, s_format("= %g", output[...]))
+					breakdown[...] = out
+				end
+			end
+		end
+		modBreakdown = function(cfg, ...)
+			local inc = modDB:Sum("INC", cfg, ...)
+			local more = modDB:Sum("MORE", cfg, ...)
+			if inc ~= 0 and more ~= 1 then
+				return { 
+					s_format("%.2f", 1 + inc/100).." ^8(increased/reduced)",
+					s_format("x %.2f", more).." ^8(more/less)",
+					s_format("= %.2f", (1 + inc/100) * more),
+				}
+			end
+		end
+		slotBreakdown = function(source, sourceName, cfg, base, ...)
+			local inc = modDB:Sum("INC", cfg, ...)
+			local more = modDB:Sum("MORE", cfg, ...)
+			t_insert(breakdown[...].slots, {
+				base = base,
+				inc = (inc ~= 0) and s_format(" x %.2f", 1 + inc/100),
+				more = (more ~= 1) and s_format(" x %.2f", more),
+				total = s_format("%.2f", base * (1 + inc / 100) * more),
+				source = source,
+				sourceName = sourceName,
+				item = env.itemList[source],
+			})
+		end
+		effMultBreakdown = function(damageType, resist, pen, taken, mult)
+			local out = { }
+			local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
+			if resist ~= 0 then
+				t_insert(out, s_format("Enemy %s: %d%%", resistForm, resist))
+			end
+			if pen ~= 0 then
+				t_insert(out, "Effective resistance:")
+				t_insert(out, s_format("%d%% ^8(resistance)", resist))
+				t_insert(out, s_format("- %d%% ^8(penetration)", pen))
+				t_insert(out, s_format("= %d%%", resist - pen))
+			end
+			if (resist - pen) ~= 0 and taken ~= 0 then
+				t_insert(out, "Effective DPS modifier:")
+				t_insert(out, s_format("%.2f ^8(%s)", 1 - (resist - pen) / 100, resistForm))
+				t_insert(out, s_format("x %.2f ^8(increased/reduced damage taken)", 1 + taken / 100))
+				t_insert(out, s_format("= %.3f", mult))
+			end
+			return out
+		end
+		dotBreakdown = function(out, baseVal, inc, more, effMult, total)
+			t_insert(out, s_format("%.1f ^8(base damage per second)", baseVal))
+			if inc ~= 0 then
+				t_insert(out, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
+			end
+			if more ~= 1 then
+				t_insert(out, s_format("x %.2f ^8(more/less)", more))
+			end
+			if effMult ~= 1 then
+				t_insert(out, s_format("x %.3f ^8(effective DPS modifier)", effMult))
+			end
+			t_insert(out, s_format("= %.1f ^8per second", total))
+		end
 	end
 
 	-- Calculate attributes
-	for _, stat in pairs({"str","dex","int"}) do
-		output["total_"..stat] = m_floor(calcVal(modDB, stat))
+	for _, stat in pairs({"Str","Dex","Int"}) do
+		output[stat] = round(calcVal(modDB, stat))
+		if breakdown then
+			simpleBreakdown(nil, nil, stat)
+		end
 	end
 
 	-- Add attribute bonuses
-	mod_dbMerge(modDB, "", "lifeBase", m_floor(output.total_str / 2))
-	local strDmgBonus = m_floor((output.total_str + getMiscVal(modDB, nil, "dexIntToMeleeBonus", 0)) / 5 + 0.5)
-	mod_dbMerge(modDB, "melee", "physicalInc", strDmgBonus)
-	if getMiscVal(modDB, nil, "ironGrip", false) then
-		mod_dbMerge(modDB, "projectileAttack", "physicalInc", strDmgBonus)
+	modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
+	local strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) / 5)
+	modDB:NewMod("PhysicalDamage", "INC", strDmgBonus, "Strength", ModFlag.Melee)
+	modDB:NewMod("Accuracy", "BASE", output.Dex * 2, "Dexterity")
+	if not modDB:Sum("FLAG", nil, "IronReflexes") then
+		modDB:NewMod("Evasion", "INC", round(output.Dex / 5), "Dexterity")
 	end
-	if getMiscVal(modDB, nil, "ironWill", false) then
-		mod_dbMerge(modDB, "spell", "damageInc", strDmgBonus)
-	end
-	mod_dbMerge(modDB, "", "accuracyBase", output.total_dex * 2)
-	if not getMiscVal(modDB, nil, "ironReflexes", false) then
-		mod_dbMerge(modDB, "", "evasionInc", m_floor(output.total_dex / 5 + 0.5))
-	end
-	mod_dbMerge(modDB, "", "manaBase", m_floor(output.total_int / 2 + 0.5))
-	mod_dbMerge(modDB, "", "energyShieldInc", m_floor(output.total_int / 5 + 0.5))
-end
+	modDB:NewMod("Mana", "BASE", round(output.Int / 2), "Intelligence")
+	modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
 
--- Calculate offence and defence stats
-local function performCalcs(env, output)
-	local modDB = env.modDB
+	-- ---------------------- --
+	-- Defensive Calculations --
+	-- ---------------------- --
 
-	-- Calculate life/mana pools
-	if startWatch(env, "life") then
-		if getMiscVal(modDB, nil, "chaosInoculation", false) then
-			output.total_life = 1
-		else
-			output.total_life = calcVal(modDB, "life")
+	-- Life/mana pools
+	if modDB:Sum("FLAG", nil, "ChaosInoculation") then
+		output.Life = 1
+		modDB.conditions["FullLife"] = true
+	else
+		output.Life = round(calcVal(modDB, "Life"))
+		if breakdown then
+			simpleBreakdown(nil, nil, "Life")
 		end
-		endWatch(env, "life")
 	end
-	if startWatch(env, "mana") then
-		output.total_mana = calcVal(modDB, "mana")
-		mod_dbMerge(modDB, "", "manaRegenBase", output.total_mana * 0.0175)
-		output.total_manaRegen = sumMods(modDB, false, "manaRegenBase") * (1 + sumMods(modDB, false, "manaRegenInc", "manaRecoveryInc") / 100) * sumMods(modDB, true, "manaRegenMore", "manaRecoveryMore")
-		endWatch(env, "mana")
+	output.Mana = round(calcVal(modDB, "Mana"))
+	output.ManaRegen = round(modDB:Sum("BASE", nil, "ManaRegen") * calcMod(modDB, nil, "ManaRegen", "ManaRecovery"), 1)
+	if breakdown then
+		simpleBreakdown(nil, nil, "Mana")
+		simpleBreakdown(nil, nil, "ManaRegen", "ManaRecovery")
 	end
 
-	-- Calculate life/mana reservation
-	for _, pool in pairs({"life", "mana"}) do
-		if startWatch(env, pool.."Reservation", pool) then
-			local max = output["total_"..pool]
-			local reserved = getMiscVal(modDB, "reserved", pool.."Base", 0) + m_floor(max * getMiscVal(modDB, "reserved", pool.."Percent", 0) / 100 + 0.5)
-			output["total_"..pool.."Reserved"] = reserved
-			output["total_"..pool.."ReservedPercent"] = reserved / max
-			output["total_"..pool.."Unreserved"] = max - reserved
-			output["total_"..pool.."UnreservedPercent"] = (max - reserved) / max
-			endWatch(env, pool.."Reservation")
+	-- Life/mana reservation
+	for _, pool in pairs({"Life", "Mana"}) do
+		local max = output[pool]
+		local reserved = env["reserved_"..pool.."Base"] + m_ceil(max * env["reserved_"..pool.."Percent"] / 100)
+		output[pool.."Reserved"] = reserved
+		output[pool.."ReservedPercent"] = reserved / max * 100
+		output[pool.."Unreserved"] = max - reserved
+		output[pool.."UnreservedPercent"] = (max - reserved) / max * 100
+		if (max - reserved) / max <= 0.35 then
+			condList["Low"..pool] = true
+		end
+		if reserved == 0 then
+			condList["No"..pool.."Reserved"] = true
 		end
 	end
 
-	-- Calculate primary defences
-	if startWatch(env, "energyShield", "mana") then
-		local convManaToES = getMiscVal(modDB, nil, "manaGainAsEnergyShield", 0)
-		if convManaToES > 0 then
-			output.total_energyShield = sumMods(modDB, false, "manaBase") * (1 + sumMods(modDB, false, "energyShieldInc", "defencesInc", "manaInc") / 100) * sumMods(modDB, true, "energyShieldMore", "defencesMore", "manaMore") * convManaToES / 100
-		else
-			output.total_energyShield = 0
+	-- Primary defences: Energy shield, evasion and armour
+	do
+		local ironReflexes = modDB:Sum("FLAG", nil, "IronReflexes")
+		local energyShield = 0
+		local armour = 0
+		local evasion = 0
+		if breakdown then
+			breakdown.EnergyShield = { slots = { } }
+			breakdown.Armour = { slots = { } }
+			breakdown.Evasion = { slots = { } }
 		end
-		local energyShieldFromReservedMana = getMiscVal(modDB, nil, "energyShieldFromReservedMana", 0)
-		if energyShieldFromReservedMana > 0 then
-			output.total_energyShield = output.total_energyShield + output.total_manaReserved * (1 + sumMods(modDB, false, "energyShieldInc", "defencesInc") / 100) * sumMods(modDB, true, "energyShieldMore", "defencesMore") * energyShieldFromReservedMana / 100
-		end
-		output.total_gear_energyShieldBase = env.itemModList.energyShieldBase or 0
-		for _, slot in pairs({"global","slot:Helmet","slot:Body Armour","slot:Gloves","slot:Boots","slot:Shield"}) do
-			buildSpaceTable(modDB, { [slot] = true })
-			local energyShieldBase = getMiscVal(modDB, slot, "energyShieldBase", 0)
-			if energyShieldBase > 0 then
-				output.total_energyShield = output.total_energyShield + energyShieldBase * (1 + sumMods(modDB, false, "energyShieldInc", "defencesInc") / 100) * sumMods(modDB, true, "energyShieldMore", "defencesMore")
-			end
-			if slot ~= "global" then
-				output.total_gear_energyShieldBase = output.total_gear_energyShieldBase + energyShieldBase
+		local energyShieldBase = modDB:Sum("BASE", nil, "EnergyShield")
+		if energyShieldBase > 0 then
+			energyShield = energyShield + energyShieldBase * calcMod(modDB, nil, "EnergyShield", "Defences")
+			if breakdown then
+				slotBreakdown("Global", nil, nil, energyShieldBase, "EnergyShield", "Defences")
 			end
 		end
-		buildSpaceTable(modDB)
-		output.total_energyShieldRecharge = output.total_energyShield * 0.2 * (1 + sumMods(modDB, false, "energyShieldRechargeInc", "energyShieldRecoveryInc") / 100) * sumMods(modDB, true, "energyShieldRechargeMore", "energyShieldRecoveryMore")
-		output.total_energyShieldRechargeDelay = 2 / (1 + getMiscVal(modDB, nil, "energyShieldRechargeFaster", 0) / 100)
-		endWatch(env, "energyShield")
-	end
-	if startWatch(env, "armourEvasion", "life") then
-		output.total_evasion = 0
-		local armourFromReservedLife = getMiscVal(modDB, nil, "armourFromReservedLife", 0)
-		if armourFromReservedLife > 0 then
-			output.total_armour = output.total_lifeReserved * (1 + sumMods(modDB, false, "armourInc", "armourAndEvasionInc", "defencesInc") / 100) * sumMods(modDB, true, "armourMore", "defencesMore") * armourFromReservedLife / 100
-		else
-			output.total_armour = 0
+		local armourBase = modDB:Sum("BASE", nil, "Armour", "ArmourAndEvasion")
+		if armourBase > 0 then
+			armour = armour + armourBase * calcMod(modDB, nil, "Armour", "ArmourAndEvasion", "Defences")
+			if breakdown then
+				slotBreakdown("Global", nil, nil, armourBase, "Armour", "ArmourAndEvasion", "Defences")
+			end
 		end
-		output.total_gear_evasionBase = env.itemModList.evasionBase or 0
-		output.total_gear_armourBase = env.itemModList.armourBase or 0
-		local ironReflexes = getMiscVal(modDB, nil, "ironReflexes", false)
-		if getMiscVal(modDB, nil, "unbreakable", false) then
-			mod_dbMerge(modDB, "slot:Body Armour", "armourBase", getMiscVal(modDB, "slot:Body Armour", "armourBase", 0))
-		end
-		for _, slot in pairs({"global","slot:Helmet","slot:Body Armour","slot:Gloves","slot:Boots","slot:Shield"}) do
-			buildSpaceTable(modDB, { [slot] = true })
-			local evasionBase = getMiscVal(modDB, slot, "evasionBase", 0)
-			local bothBase = getMiscVal(modDB, slot, "armourAndEvasionBase", 0)
-			local armourBase = getMiscVal(modDB, slot, "armourBase", 0)
+		local evasionBase = modDB:Sum("BASE", nil, "Evasion", "ArmourAndEvasion")
+		if evasionBase > 0 then
 			if ironReflexes then
-				if evasionBase > 0 or armourBase > 0 or bothBase > 0 then
-					output.total_armour = output.total_armour + (evasionBase + armourBase + bothBase) * (1 + sumMods(modDB, false, "armourInc", "evasionInc", "armourAndEvasionInc", "defencesInc") / 100) * sumMods(modDB, true, "armourMore", "evasionMore", "defencesMore")
+				armour = armour + evasionBase * calcMod(modDB, nil, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
+				if breakdown then
+					slotBreakdown("Conversion", "Evasion to Armour", nil, evasionBase, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
 				end
 			else
-				if evasionBase > 0 or bothBase > 0 then
-					output.total_evasion = output.total_evasion + (evasionBase + bothBase) * (1 + sumMods(modDB, false, "evasionInc", "armourAndEvasionInc", "defencesInc") / 100) * sumMods(modDB, true, "evasionMore", "defencesMore")
-				end
-				if armourBase > 0 or bothBase > 0 then
-					output.total_armour = output.total_armour + (armourBase + bothBase) * (1 + sumMods(modDB, false, "armourInc", "armourAndEvasionInc", "defencesInc") / 100) * sumMods(modDB, true, "armourMore", "defencesMore")
+				evasion = evasion + evasionBase * calcMod(modDB, nil, "Evasion", "ArmourAndEvasion", "Defences")
+				if breakdown then
+					slotBreakdown("Global", nil, nil, evasionBase, "Evasion", "ArmourAndEvasion", "Defences")
 				end
 			end
-			if slot ~= "global" then
-				output.total_gear_evasionBase = output.total_gear_evasionBase + evasionBase + bothBase
-				output.total_gear_armourBase = output.total_gear_armourBase + armourBase + bothBase
+		end
+		local gearEnergyShield = 0
+		local gearArmour = 0
+		local gearEvasion = 0
+		local slotCfg = wipeTable(tempTable1)
+		for _, slot in pairs({"Helmet","Body Armour","Gloves","Boots","Weapon 2"}) do
+			local armourData = env.itemList[slot] and env.itemList[slot].armourData
+			if armourData then
+				slotCfg.slotName = slot
+				energyShieldBase = armourData.EnergyShield or 0
+				if energyShieldBase > 0 then
+					energyShield = energyShield + energyShieldBase * calcMod(modDB, slotCfg, "EnergyShield", "Defences")
+					gearEnergyShield = gearEnergyShield + energyShieldBase
+					if breakdown then
+						slotBreakdown(slot, nil, slotCfg, energyShieldBase, "EnergyShield", "Defences")
+					end
+				end
+				armourBase = armourData.Armour or 0
+				if armourBase > 0 then
+					if slot == "Body Armour" and modDB:Sum("FLAG", nil, "Unbreakable") then
+						armourBase = armourBase * 2
+					end
+					armour = armour + armourBase * calcMod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences")
+					gearArmour = gearArmour + armourBase
+					if breakdown then
+						slotBreakdown(slot, nil, slotCfg, armourBase, "Armour", "ArmourAndEvasion", "Defences")
+					end
+				end
+				evasionBase = armourData.Evasion or 0
+				if evasionBase > 0 then
+					if ironReflexes then
+						armour = armour + evasionBase * calcMod(modDB, slotCfg, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
+						gearArmour = gearArmour + evasionBase
+						if breakdown then
+							slotBreakdown(slot, nil, slotCfg, evasionBase, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
+						end
+					else
+						evasion = evasion + evasionBase * calcMod(modDB, slotCfg, "Evasion", "ArmourAndEvasion", "Defences")
+						gearEvasion = gearEvasion + evasionBase
+						if breakdown then
+							slotBreakdown(slot, nil, slotCfg, evasionBase, "Evasion", "ArmourAndEvasion", "Defences")
+						end
+					end
+				end
 			end
 		end
-		if getMiscVal(modDB, nil, "cannotEvade", false) then
-			output.total_evadeChance = 0
-		else
-			local attackerLevel = getMiscVal(modDB, "misc", "evadeMonsterLevel", false) and m_min(getMiscVal(modDB, "monster", "level", 1), #data.enemyAccuracyTable) or m_max(m_min(env.build.characterLevel, 80), 1)
-			output.total_evadeChance = 1 - calcHitChance(output.total_evasion, data.enemyAccuracyTable[attackerLevel])
+		local convManaToES = modDB:Sum("BASE", nil, "ManaGainAsEnergyShield")
+		if convManaToES > 0 then
+			energyShieldBase = modDB:Sum("BASE", nil, "Mana") * convManaToES / 100
+			energyShield = energyShield + energyShieldBase * calcMod(modDB, nil, "Mana", "EnergyShield", "Defences") 
+			if breakdown then
+				slotBreakdown("Conversion", "Mana to Energy Shield", nil, energyShieldBase, "EnergyShield", "Defences", "Mana")
+			end
 		end
-		buildSpaceTable(modDB)
-		endWatch(env, "armourEvasion")
+		output.EnergyShield = round(energyShield)
+		output.Armour = round(armour)
+		output.Evasion = round(evasion)
+		output["Gear:EnergyShield"] = gearEnergyShield
+		output["Gear:Armour"] = gearArmour
+		output["Gear:Evasion"] = gearEvasion
+		output.EnergyShieldRecharge = round(output.EnergyShield * 0.2 * calcMod(modDB, nil, "EnergyShieldRecharge", "EnergyShieldRecovery"), 1)
+		output.EnergyShieldRechargeDelay = 2 / (1 + modDB:Sum("INC", nil, "EnergyShieldRechargeFaster") / 100)
+		if breakdown then
+			simpleBreakdown(output.EnergyShield * 0.2, nil, "EnergyShieldRecharge", "EnergyShieldRecovery")
+			if output.EnergyShieldRechargeDelay ~= 2 then
+				breakdown.EnergyShieldRechargeDelay = {
+					"2.00s ^8(base)",
+					s_format("/ %.2f ^8(faster start)", 1 + modDB:Sum("INC", nil, "EnergyShieldRechargeFaster") / 100),
+					s_format("= %.2fs", output.EnergyShieldRechargeDelay)
+				}
+			end
+		end
+		if modDB:Sum("FLAG", nil, "CannotEvade") then
+			output.EvadeChance = 0
+		else
+			local enemyAccuracy = round(calcVal(enemyDB, "Accuracy"))
+			output.EvadeChance = 100 - calcHitChance(output.Evasion, enemyAccuracy)
+			if breakdown then
+				breakdown.EvadeChance = {
+					s_format("Enemy level: %d ^8(%s the Configuration tab)", env.enemyLevel, env.configInput.enemyLevel and "overridden from" or "can be overridden in"),
+					s_format("Average enemy accuracy: %d", enemyAccuracy),
+					s_format("Approximate evade chance: %d%%", output.EvadeChance),
+				}
+			end
+		end
 	end
 
-	if startWatch(env, "lifeEnergyShieldRegen", "life", "energyShield") then
-		if getMiscVal(modDB, nil, "noLifeRegen", false) then
-			output.total_lifeRegen = 0
-		elseif getMiscVal(modDB, nil, "zealotsOath", false) then
-			output.total_lifeRegen = 0
-			mod_dbMerge(modDB, "", "energyShieldRegenBase", sumMods(modDB, false, "lifeRegenBase"))
-			mod_dbMerge(modDB, "", "energyShieldRegenPercent", sumMods(modDB, false, "lifeRegenPercent"))
+	-- Life and energy shield regen
+	do
+		if modDB:Sum("FLAG", nil, "NoLifeRegen") then
+			output.LifeRegen = 0
+		elseif modDB:Sum("FLAG", nil, "ZealotsOath") then
+			output.LifeRegen = 0
+			local lifeBase = modDB:Sum("BASE", nil, "LifeRegen")
+			if lifeBase > 0 then
+				modDB:NewMod("EnergyShieldRegen", "BASE", lifeBase, "Zealot's Oath")
+			end
+			local lifePercent = modDB:Sum("BASE", nil, "LifeRegenPercent")
+			if lifePercent > 0 then
+				modDB:NewMod("EnergyShieldRegenPercent", "BASE", lifePercent, "Zealot's Oath")
+			end
 		else
-			mod_dbMerge(modDB, "", "lifeRegenBase", output.total_life * sumMods(modDB, false, "lifeRegenPercent") / 100)
-			output.total_lifeRegen = sumMods(modDB, false, "lifeRegenBase") * (1 + sumMods(modDB, false, "lifeRecoveryInc") / 100) * sumMods(modDB, true, "lifeRecoveryMore")
+			local lifeBase = modDB:Sum("BASE", nil, "LifeRegen")
+			local lifePercent = modDB:Sum("BASE", nil, "LifeRegenPercent")
+			if lifePercent > 0 then
+				lifeBase = lifeBase + output.Life * lifePercent / 100
+			end
+			if lifeBase > 0 then
+				output.LifeRegen = lifeBase * calcMod(modDB, nil, "LifeRecovery")
+				output.LifeRegenPercent = round(lifeBase / output.Life * 100, 1)
+			else
+				output.LifeRegen = 0
+			end
 		end
-		mod_dbMerge(modDB, "", "energyShieldRegenBase", output.total_energyShield * sumMods(modDB, false, "energyShieldRegenPercent") / 100)
-		output.total_energyShieldRegen = sumMods(modDB, false, "energyShieldRegenBase") * (1 + sumMods(modDB, false, "energyShieldRecoveryInc") / 100) * sumMods(modDB, true, "energyShieldRecoveryMore")
-		endWatch(env, "lifeEnergyShieldRegen")
+		local esBase = modDB:Sum("BASE", nil, "EnergyShieldRegen")
+		local esPercent = modDB:Sum("BASE", nil, "EnergyShieldRegenPercent")
+		if esPercent > 0 then
+			esBase = esBase + output.EnergyShield * esPercent / 100
+		end
+		if esBase > 0 then
+			output.EnergyShieldRegen = esBase * calcMod(modDB, nil, "EnergyShieldRecovery")
+			output.EnergyShieldRegenPercent = round(esBase / output.EnergyShield * 100, 1)
+		else
+			output.EnergyShieldRegen = 0
+		end
 	end
 
-	if startWatch(env, "resist") then
-		for _, elem in pairs({"fire", "cold", "lightning"}) do
-			output["total_"..elem.."ResistMax"] = sumMods(modDB, false, elem.."ResistMax")
-			output["total_"..elem.."ResistTotal"] = sumMods(modDB, false, elem.."Resist", "elementalResist") - 60
-		end
-		if getMiscVal(modDB, nil, "chaosInoculation", false) then
-			output.total_chaosResistMax = 100
-			output.total_chaosResistTotal = 100
+	-- Resistances
+	for _, elem in ipairs(resistTypeList) do
+		local max, total
+		if elem == "Chaos" and modDB:Sum("FLAG", nil, "ChaosInoculation") then
+			max = 100
+			total = 100
 		else
-			output.total_chaosResistMax = sumMods(modDB, false, "chaosResistMax")
-			output.total_chaosResistTotal = sumMods(modDB, false, "chaosResist") - 60
+			max = modDB:Sum("BASE", nil, elem.."ResistMax")
+			total = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
 		end
-		for _, elem in pairs({"fire", "cold", "lightning", "chaos"}) do
-			local total = output["total_"..elem.."ResistTotal"]
-			local cap = output["total_"..elem.."ResistMax"]
-			output["total_"..elem.."Resist"] = m_min(total, cap)
-			output["total_"..elem.."ResistOverCap"] = m_max(0, total - cap)
+		output[elem.."Resist"] = m_min(total, max)
+		output[elem.."ResistOverCap"] = m_max(0, total - max)
+		if breakdown then
+			breakdown[elem.."Resist"] = {
+				"Max: "..max.."%",
+				"Total: "..total.."%",
+				"In hideout: "..(total + 60).."%",
+			}
 		end
-		endWatch(env, "resist")
 	end
 
-	if startWatch(env, "otherDef") then
-		output.total_blockChanceMax = sumMods(modDB, false, "blockChanceMax")
-		output.total_blockChance = m_min(sumMods(modDB, false, "blockChance") / 100 * (1 + sumMods(modDB, false, "blockChanceInc") / 100) * sumMods(modDB, true, "blockChanceMore"), output.total_blockChanceMax) 
-		output.total_spellBlockChance = m_min(sumMods(modDB, false, "spellBlockChance") / 100 * (1 + sumMods(modDB, false, "spellBlockChanceInc") / 100) * sumMods(modDB, true, "spellBlockChanceMore") + output.total_blockChance * m_min(100, getMiscVal(modDB, nil, "blockChanceConv", 0)) / 100, output.total_blockChanceMax) 
-		if getMiscVal(modDB, nil, "cannotBlockAttacks", false) then
-			output.total_blockChance = 0
+	-- Other defences: block, dodge, stun recovery/avoidance
+	do
+		output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
+		local shieldData = env.itemList["Weapon 2"] and env.itemList["Weapon 2"].armourData
+		output.BlockChance = m_min(((shieldData and shieldData.BlockChance or 0) + modDB:Sum("BASE", nil, "BlockChance")) * calcMod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
+		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcMod(modDB, nil, "SpellBlockChance") + output.BlockChance * modDB:Sum("BASE", nil, "BlockChanceConv") / 100, output.BlockChanceMax) 
+		if breakdown then
+			simpleBreakdown(shieldData and shieldData.BlockChance, nil, "BlockChance")
+			simpleBreakdown(output.BlockChance * modDB:Sum("BASE", nil, "BlockChanceConv") / 100, nil, "SpellBlockChance")
 		end
-		output.total_dodgeAttacks = sumMods(modDB, false, "dodgeAttacks") / 100 
-		output.total_dodgeSpells = sumMods(modDB, false, "dodgeSpells") / 100 
-		local stunChance = 1 - sumMods(modDB, false, "avoidStun", 0) / 100
-		if output.total_energyShield > output.total_life * 2 then
+		if modDB:Sum("FLAG", nil, "CannotBlockAttacks") then
+			output.BlockChance = 0
+		end
+		output.AttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
+		output.SpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
+		local stunChance = 100 - modDB:Sum("BASE", nil, "AvoidStun")
+		if output.EnergyShield > output.Life * 2 then
 			stunChance = stunChance * 0.5
 		end
-		output.stun_avoidChance = 1 - stunChance
-		if output.stun_avoidChance >= 1 then
-			output.stun_duration = 0
-			output.stun_blockDuration = 0
+		output.StunAvoidChance = 100 - stunChance
+		if output.StunAvoidChance >= 100 then
+			output.StunDuration = 0
+			output.BlockDuration = 0
 		else
-			output.stun_duration = 0.35 / (1 + sumMods(modDB, false, "stunRecoveryInc") / 100)
-			output.stun_blockDuration = 0.35 / (1 + sumMods(modDB, false, "stunRecoveryInc", "blockRecoveryInc") / 100)
+			output.StunDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery") / 100)
+			output.BlockDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100)
+			if breakdown then
+				breakdown.StunDuration = {
+					"0.35s ^8(base)",
+					s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery") / 100),
+					s_format("= %.2fs", output.StunDuration)
+				}
+				breakdown.BlockDuration = {
+					"0.35s ^8(base)",
+					s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100),
+					s_format("= %.2fs", output.BlockDuration)
+				}
+			end
 		end
-		endWatch(env, "otherDef")
 	end
 
-	-- Enable skill namespaces
-	buildSpaceTable(modDB, env.skillSpaceFlags)
+	-- ---------------------- --
+	-- Offensive Calculations --
+	-- ---------------------- --
 
-	-- Calculate projectile stats
-	if env.skillFlags.projectile then
-		if startWatch(env, "projectile") then
-			output.total_projectileCount = sumMods(modDB, false, "projectileCount")
-			output.total_pierce = m_min(100, sumMods(modDB, false, "pierceChance")) / 100
-			output.total_projectileSpeedMod = (1 + sumMods(modDB, false, "projectileSpeedInc") / 100) * sumMods(modDB, true, "projectileSpeedMore")
-			endWatch(env, "projectile")
+	-- Merge main skill mods
+	modDB:AddList(env.mainSkill.skillModList)
+
+	local skillData = env.mainSkill.skillData
+	local skillFlags = env.mainSkill.skillFlags
+	local skillCfg = env.mainSkill.skillCfg
+	if env.mode_buffs then
+		skillFlags.buffs = true
+	end
+	if env.mode_combat then
+		skillFlags.combat = true
+	end
+	if env.mode_effective then
+		skillFlags.effective = true
+	end
+	if not env.mode_average then
+		skillFlags.notAverage = true
+	end
+
+	-- Update skill data
+	for _, value in ipairs(modDB:Sum("LIST", skillCfg, "Misc")) do
+		if value.type == "SkillData" then
+			skillData[value.key] = value.value
 		end
-		if getMiscVal(modDB, nil, "drillneck", false) then
-			mod_dbMerge(modDB, "projectile", "damageInc", output.total_pierce * 100)
+	end
+
+	-- Add addition stat bonuses
+	if modDB:Sum("FLAG", nil, "IronGrip") then
+		modDB:NewMod("PhysicalDamage", "INC", strDmgBonus, "Strength", bor(ModFlag.Attack, ModFlag.Projectile))
+	end
+	if modDB:Sum("FLAG", nil, "IronWill") then
+		modDB:NewMod("Damage", "INC", strDmgBonus, "Strength", ModFlag.Spell)
+	end
+
+	-- Calculate skill type stats
+	if skillFlags.projectile then
+		output.ProjectileCount = modDB:Sum("BASE", skillCfg, "ProjectileCount")
+		output.PierceChance = m_min(100, modDB:Sum("BASE", skillCfg, "PierceChance"))
+		output.ProjectileSpeedMod = calcMod(modDB, skillCfg, "ProjectileSpeed")
+		if breakdown then
+			breakdown.ProjectileSpeedMod = modBreakdown(skillCfg, "ProjectileSpeed")
+		end
+	end
+	if skillFlags.area then
+		output.AreaRadiusMod = calcMod(modDB, skillCfg, "AreaRadius")
+		if breakdown then
+			breakdown.AreaRadiusMod = modBreakdown(skillCfg, "AreaRadius")
+		end
+	end
+	if skillFlags.trap then
+		output.ActiveTrapLimit = modDB:Sum("BASE", skillCfg, "ActiveTrapLimit")
+		output.TrapCooldown = (skillData.trapCooldown or 4) / calcMod(modDB, skillCfg, "TrapCooldownRecovery")
+		if breakdown then
+			breakdown.TrapCooldown = {
+				s_format("%.2fs ^8(base)", skillData.trapCooldown or 4),
+				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + modDB:Sum("INC", skillCfg, "TrapCooldownRecovery") / 100),
+				s_format("= %.2fs", output.TrapCooldown)
+			}
+		end
+	end
+	if skillFlags.mine then
+		output.ActiveMineLimit = modDB:Sum("BASE", skillCfg, "ActiveMineLimit")
+	end
+	if skillFlags.totem then
+		output.ActiveTotemLimit = modDB:Sum("BASE", skillCfg, "ActiveTotemLimit")
+		output.TotemLifeMod = calcMod(modDB, skillCfg, "TotemLife")
+		output.TotemLife = round(data.monsterLifeTable[skillData.totemLevel] * data.totemLifeMult[env.mainSkill.skillTotemId] * output.TotemLifeMod)
+		if breakdown then
+			breakdown.TotemLifeMod = modBreakdown(skillCfg, "TotemLife")
+			breakdown.TotemLife = {
+				"Totem level: "..skillData.totemLevel,
+				data.monsterLifeTable[skillData.totemLevel].." ^8(base life for a level "..skillData.totemLevel.." monster)",
+				"x "..data.totemLifeMult[env.mainSkill.skillTotemId].." ^8(life multiplier for this totem type)",
+				"x "..output.TotemLifeMod.." ^8(totem life modifier)",
+				"= "..output.TotemLife,
+			}
+		end
+	end
+
+	-- Skill duration
+	local debuffDurationMult
+	if env.mode_effective then
+		debuffDurationMult = 1 / calcMod(enemyDB, skillCfg, "BuffExpireFaster")
+	else
+		debuffDurationMult = 1
+	end
+	do
+		output.DurationMod = calcMod(modDB, skillCfg, "Duration")
+		if breakdown then
+			breakdown.DurationMod = modBreakdown(skillCfg, "Duration")
+		end
+		local durationBase = skillData.duration or 0
+		if durationBase > 0 then
+			output.Duration = durationBase * output.DurationMod
+			if skillData.debuff then
+				output.Duration = output.Duration * debuffDurationMult
+			end
+			if breakdown and output.Duration ~= durationBase then
+				breakdown.Duration = {
+					s_format("%.2fs ^8(base)", durationBase),
+				}
+				if output.DurationMod ~= 1 then
+					t_insert(breakdown.Duration, s_format("x %.2f ^8(duration modifier)", output.DurationMod))
+				end
+				if skillData.debuff and debuffDurationMult ~= 1 then
+					t_insert(breakdown.Duration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+				end
+				t_insert(breakdown.Duration, s_format("= %.2fs", output.Duration))
+			end
 		end
 	end
 
 	-- Run skill setup function
-	if env.setupFunc then
-		env.setupFunc(function(mod, val) mod_dbMerge(modDB, nil, mod, val) end, output)
+	do
+		local setupFunc = env.mainSkill.activeGem.data.setupFunc
+		if setupFunc then
+			setupFunc(env, output)
+		end
 	end
 
 	local isAttack = (env.mode_skillType == "ATTACK")
 
-	-- Calculate enemy resistances
-	if startWatch(env, "enemyResist") then
-		local elemResist = getMiscVal(modDB, "effective", "elementalResist", 0)
-		for _, damageType in pairs({"lightning","cold","fire"}) do
-			output["enemy_"..damageType.."Resist"] = m_min(elemResist + getMiscVal(modDB, "effective", damageType.."Resist", 0), 75)
-		end
-		output.enemy_chaosResist = m_min(getMiscVal(modDB, "effective", "chaosResist", 0), 75)
-		endWatch(env, "enemyResist")
+	-- Cache global damage disabling flags
+	local canDeal = { }
+	for _, damageType in pairs(dmgTypeList) do
+		canDeal[damageType] = not modDB:Sum("FLAG", skillCfg, "DealNo"..damageType)
 	end
 
-	-- Cache global damage disabling flags
-	if startWatch(env, "canDeal") then
-		output.canDeal = { }
-		for _, damageType in pairs(dmgTypeList) do
-			output.canDeal[damageType] = not getMiscVal(modDB, nil, "dealNo"..damageType, false)
+	-- Calculate enemy resistances
+	do
+		local elemResist = enemyDB:Sum("BASE", nil, "ElementalResist")
+		for _, damageType in pairs({"Lightning","Cold","Fire"}) do
+			output["Enemy"..damageType.."Resist"] = m_min(enemyDB:Sum("BASE", nil, damageType.."Resist") + elemResist, 75)
 		end
-		endWatch(env, "canDeal")
+		output.EnemyChaosResist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist"), 75)
 	end
-	local canDeal = output.canDeal
 
 	-- Calculate damage conversion percentages
-	if startWatch(env, "conversionTable") then
-		output.conversionTable = { }
-		for damageTypeIndex = 1, 4 do
-			local damageType = dmgTypeList[damageTypeIndex]
-			local globalConv = { }
-			local skillConv = { }
-			local add = { }
-			local globalTotal, skillTotal = 0, 0
-			for otherTypeIndex = damageTypeIndex + 1, 5 do
-				-- For all possible destination types, check for global and skill conversions
-				otherType = dmgTypeList[otherTypeIndex]
-				globalConv[otherType] = sumMods(modDB, false, damageType.."ConvertTo"..otherType)
-				globalTotal = globalTotal + globalConv[otherType]
-				skillConv[otherType] = getMiscVal(modDB, "skill", damageType.."ConvertTo"..otherType, 0)
-				skillTotal = skillTotal + skillConv[otherType]
-				add[otherType] = sumMods(modDB, false, damageType.."GainAs"..otherType)
-			end
-			if globalTotal + skillTotal > 100 then
-				-- Conversion exceeds 100%, scale down non-skill conversions
-				local factor = (100 - skillTotal) / globalTotal
-				for type, val in pairs(globalConv) do
-					globalConv[type] = globalConv[type] * factor
-				end
-				globalTotal = globalTotal * factor
-			end
-			local dmgTable = { }
-			for type, val in pairs(globalConv) do
-				dmgTable[type] = (globalConv[type] + skillConv[type] + add[type]) / 100
-			end
-			dmgTable.mult = 1 - (globalTotal + skillTotal) / 100
-			output.conversionTable[damageType] = dmgTable
+	env.conversionTable = wipeTable(env.conversionTable)
+	for damageTypeIndex = 1, 4 do
+		local damageType = dmgTypeList[damageTypeIndex]
+		local globalConv = wipeTable(tempTable1)
+		local skillConv = wipeTable(tempTable2)
+		local add = wipeTable(tempTable3)
+		local globalTotal, skillTotal = 0, 0
+		for otherTypeIndex = damageTypeIndex + 1, 5 do
+			-- For all possible destination types, check for global and skill conversions
+			otherType = dmgTypeList[otherTypeIndex]
+			globalConv[otherType] = modDB:Sum("BASE", skillCfg, damageType.."DamageConvertTo"..otherType)
+			globalTotal = globalTotal + globalConv[otherType]
+			skillConv[otherType] = skillData[damageType.."DamageConvertTo"..otherType] or 0
+			skillTotal = skillTotal + skillConv[otherType]
+			add[otherType] = modDB:Sum("BASE", skillCfg, damageType.."DamageGainAs"..otherType)
 		end
-		output.conversionTable["chaos"] = { mult = 1 }
-		endWatch(env, "conversionTable")
+		if skillTotal > 100 then
+			-- Skill conversion exceeds 100%, scale it down and remove non-skill conversions
+			local factor = 100 / skillTotal
+			for type, val in pairs(skillConv) do
+				-- The game currently doesn't scale this down even though it is supposed to
+				--skillConv[type] = val * factor
+			end
+			for type, val in pairs(globalConv) do
+				globalConv[type] = 0
+			end
+		elseif globalTotal + skillTotal > 100 then
+			-- Conversion exceeds 100%, scale down non-skill conversions
+			local factor = (100 - skillTotal) / globalTotal
+			for type, val in pairs(globalConv) do
+				globalConv[type] = val * factor
+			end
+			globalTotal = globalTotal * factor
+		end
+		local dmgTable = { }
+		for type, val in pairs(globalConv) do
+			dmgTable[type] = (globalConv[type] + skillConv[type] + add[type]) / 100
+		end
+		dmgTable.mult = 1 - m_min((globalTotal + skillTotal) / 100, 1)
+		env.conversionTable[damageType] = dmgTable
+	end
+	env.conversionTable["Chaos"] = { mult = 1 }
+	
+	-- Calculate hit chance
+	output.Accuracy = calcVal(modDB, "Accuracy", skillCfg)
+	if breakdown then
+		simpleBreakdown(nil, skillCfg, "Accuracy")
+	end
+	if not isAttack or modDB:Sum("FLAG", skillCfg, "CannotBeEvaded") or env.weaponData1.CannotBeEvaded then
+		output.HitChance = 100
+	else
+		local enemyEvasion = round(calcVal(enemyDB, "Evasion"))
+		output.HitChance = calcHitChance(enemyEvasion, output.Accuracy)
+		if breakdown then
+			breakdown.HitChance = {
+				"Enemy level: "..env.enemyLevel..(env.configInput.enemyLevel and " ^8(overridden from the Configuration tab" or " ^8(can be overridden in the Configuration tab)"),
+				"Average enemy evasion: "..enemyEvasion,
+				"Approximate hit chance: "..output.HitChance.."%",
+			}
+		end
 	end
 
-	-- Calculate damage for each damage type
-	local combMin, combMax = 0, 0
-	for _, damageType in pairs(dmgTypeList) do
-		local min, max
-		if startWatch(env, damageType, "enemyResist", "canDeal", "conversionTable") then
-			if canDeal[damageType] then
-				min, max = calcHitDamage(env, output, damageType)
-				local convMult = output.conversionTable[damageType].mult
+	-- Calculate attack/cast speed
+	do
+		local baseSpeed
+		if isAttack then
+			if skillData.castTimeOverridesAttackTime then
+				-- Skill is overriding weapon attack speed
+				baseSpeed = 1 / skillData.castTime * (1 + (env.weaponData1.AttackSpeedInc or 0) / 100)
+			else
+				baseSpeed = env.weaponData1.attackRate or 1
+			end
+		else
+			baseSpeed = 1 / (skillData.castTime or 1)
+		end
+		output.Speed = baseSpeed * calcMod(modDB, skillCfg, "Speed")
+		output.Time = 1 / output.Speed
+		if breakdown then
+			simpleBreakdown(baseSpeed, skillCfg, "Speed")
+		end
+	end
+
+	-- Calculate crit chance, crit multiplier, and their combined effect
+	if modDB:Sum("FLAG", nil, "NeverCrit") then
+		output.CritChance = 0
+		output.CritMultiplier = 0
+		output.CritEffect = 1
+	else
+		local baseCrit
+		if isAttack then
+			baseCrit = env.weaponData1.critChance or 0
+		else
+			baseCrit = skillData.critChance or 0
+		end
+		if baseCrit == 100 then
+			output.CritChance = 100
+		else
+			output.CritChance = calcVal(modDB, "CritChance", skillCfg, baseCrit)
+			if env.mode_effective then
+				output.CritChance = output.CritChance + enemyDB:Sum("BASE", nil, "SelfExtraCritChance")
+			end
+			output.CritChance = m_min(output.CritChance, 95)
+			if baseCrit > 0 then
+				output.CritChance = m_max(output.CritChance, 5)
+			end
+			if breakdown then
+				simpleBreakdown(baseCrit, skillCfg, "CritChance")
+			end
+		end
+		if modDB:Sum("FLAG", skillCfg, "NoCritMultiplier") then
+			output.CritMultiplier = 1
+		else
+			output.CritMultiplier = 1.5 + modDB:Sum("BASE", skillCfg, "CritMultiplier") / 100
+		end
+		output.CritEffect = 1 - output.CritChance / 100 + output.CritChance / 100 * output.CritMultiplier
+		if breakdown and output.CritEffect ~= 1 then
+			breakdown.CritEffect = {
+				s_format("(1 - %g) ^8(portion of damage from non-crits)", output.CritChance/100),
+				s_format("+ (%g x %g) ^8(portion of damage from crits)", output.CritChance/100, output.CritMultiplier),
+				s_format("= %.3f", output.CritEffect),
+			}
+		end
+	end
+
+	-- Calculate hit damage for each damage type
+	local totalMin, totalMax = 0, 0
+	do
+		local hitSource = (env.mode_skillType == "ATTACK") and env.weaponData1 or env.mainSkill.skillData
+		for _, damageType in ipairs(dmgTypeList) do
+			local min, max
+			if skillFlags.hit and canDeal[damageType] then
+				if breakdown then
+					breakdown[damageType] = {
+						damageComponents = { }
+					}
+				end
+				min, max = calcHitDamage(env, hitSource, damageType)
+				local convMult = env.conversionTable[damageType].mult
+				if breakdown then
+					t_insert(breakdown[damageType], "Hit damage:")
+					t_insert(breakdown[damageType], s_format("%d to %d ^8(total damage)", min, max))
+					if convMult ~= 1 then
+						t_insert(breakdown[damageType], s_format("x %g ^8(%g%% converted to other damage types)", convMult, (1-convMult)*100))
+					end
+				end
 				min = min * convMult
 				max = max * convMult
-				if env.mode_effective then
-					-- Apply resistances
+				if (min ~= 0 or max ~= 0) and env.mode_effective then
+					-- Apply enemy resistances and damage taken modifiers
 					local preMult
-					local taken = getMiscVal(modDB, "effective", damageType.."TakenInc", 0) + getMiscVal(modDB, "effective", "damageTakenInc", 0)
+					local resist = 0
+					local pen = 0
+					local taken = enemyDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken")
 					if isElemental[damageType] then
-						local resist = output["enemy_"..damageType.."Resist"] - sumMods(modDB, false, damageType.."Pen", "elementalPen")
-						preMult = 1 - resist / 100
-						taken = taken + getMiscVal(modDB, "effective", "elementalTakenInc", 0)
-					elseif damageType == "chaos" then
-						preMult = 1 - output.enemy_chaosResist / 100
+						resist = output["Enemy"..damageType.."Resist"]
+						pen = modDB:Sum("BASE", skillCfg, damageType.."Penetration", "ElementalPenetration")
+						taken = taken + enemyDB:Sum("INC", nil, "ElementalDamageTaken")
+					elseif damageType == "Chaos" then
+						resist = output.EnemyChaosResist
 					else
-						preMult = 1
-						taken = taken - getMiscVal(modDB, "effective", "physicalRed", 0)
+						resist = enemyDB:Sum("INC", nil, "PhysicalDamageReduction")
 					end
-					if env.skillSpaceFlags.projectile then
-						taken = taken + getMiscVal(modDB, "effective", "projectileTakenInc", 0)
+					if skillFlags.projectile then
+						taken = taken + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
 					end
-					local mult = preMult * (1 + taken / 100)
-					min = min * mult
-					max = max * mult
+					local effMult = (1 - (resist - pen) / 100) * (1 + taken / 100)
+					min = min * effMult
+					max = max * effMult
+					if env.mode == "CALCS" then
+						output[damageType.."EffMult"] = effMult
+					end
+					if breakdown and effMult ~= 1 then
+						t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
+						breakdown[damageType.."EffMult"] = effMultBreakdown(damageType, resist, pen, taken, effMult)
+					end
+				end
+				if breakdown then	
+					t_insert(breakdown[damageType], s_format("= %d to %d", min, max))
 				end
 			else
 				min, max = 0, 0
-			end
-			output["total_"..damageType.."Min"] = min
-			output["total_"..damageType.."Max"] = max
-			output["total_"..damageType.."Avg"] = (min + max) / 2
-			endWatch(env, damageType)
-		else
-			min = output["total_"..damageType.."Min"]
-			max = output["total_"..damageType.."Max"]
-		end
-		combMin = combMin + min
-		combMax = combMax + max
-	end
-	output.total_combMin = combMin
-	output.total_combMax = combMax
-
-	-- Calculate crit chance, crit multiplier, and their combined effect
-	if startWatch(env, "dps_crit") then
-		if getMiscVal(modDB, nil, "neverCrit", false) then
-			output.total_critChance = 0
-			output.total_critMultiplier = 0
-			output.total_critEffect = 1
-		else
-			local baseCrit
-			if isAttack then
-				baseCrit = getMiscVal(modDB, "weapon1", "critChanceBase", 0)
-			else
-				baseCrit = getMiscVal(modDB, "skill", "critChanceBase", 0)
-			end
-			if baseCrit == 100 then
-				output.total_critChance = 1
-			else
-				output.total_critChance = calcVal(modDB, "critChance", baseCrit) / 100
-				if env.mode_effective then
-					output.total_critChance = output.total_critChance + getMiscVal(modDB, "effective", "additionalCritChance", 0) / 100
-				end
-				output.total_critChance = m_min(output.total_critChance, 0.95)
-				if baseCrit > 0 then
-					output.total_critChance = m_max(output.total_critChance, 0.05)
+				if breakdown then
+					breakdown[damageType] = {
+						"You can't deal "..damageType.." damage"
+					}
 				end
 			end
-			if getMiscVal(modDB, nil, "noCritMult", false) then
-				output.total_critMultiplier = 1
-			else
-				output.total_critMultiplier = 1.5 + sumMods(modDB, false, "critMultiplier") / 100
+			if env.mode == "CALCS" then
+				output[damageType.."Min"] = min
+				output[damageType.."Max"] = max
 			end
-			output.total_critEffect = 1 - output.total_critChance + output.total_critChance * output.total_critMultiplier
+			output[damageType.."Average"] = (min + max) / 2
+			totalMin = totalMin + min
+			totalMax = totalMax + max
 		end
-		endWatch(env, "dps_crit")
 	end
-
-	-- Calculate skill speed
-	if startWatch(env, "dps_speed") then
-		if isAttack then
-			local baseSpeed
-			local attackTime = getMiscVal(modDB, "skill", "attackTime", 0)
-			if attackTime > 0 then
-				-- Skill is overriding weapon attack speed
-				baseSpeed = 1 / attackTime * (1 + getMiscVal(modDB, "weapon1", "attackSpeedInc", 0) / 100)
-			else
-				baseSpeed = getMiscVal(modDB, "weapon1", "attackRate", 0)
-			end
-			output.total_speed = baseSpeed * (1 + sumMods(modDB, false, "speedInc", "attackSpeedInc") / 100) * sumMods(modDB, true, "speedMore", "attackSpeedMore")
-		else
-			local baseSpeed = 1 / getMiscVal(modDB, "skill", "castTime", 0)
-			output.total_speed = baseSpeed * (1 + sumMods(modDB, false, "speedInc", "castSpeedInc") / 100) * sumMods(modDB, true, "speedMore", "castSpeedMore")
-		end
-		output.total_time = 1 / output.total_speed
-		endWatch(env, "dps_speed")
-	end
-
-	-- Calculate hit chance
-	if startWatch(env, "dps_hitChance") then
-		if not isAttack or getMiscVal(modDB, "skill", "cannotBeEvaded", false) or getMiscVal(modDB, nil, "cannotBeEvaded", false) or getMiscVal(modDB, "weapon1", "cannotBeEvaded", false) then
-			output.total_hitChance = 1
-		else
-			output.total_accuracy = calcVal(modDB, "accuracy")
-			local targetLevel = getMiscVal(modDB, "misc", "hitMonsterLevel", false) and m_min(getMiscVal(modDB, "monster", "level", 1), #data.enemyEvasionTable) or m_max(m_min(env.build.characterLevel, 79), 1)
-			local targetEvasion = data.enemyEvasionTable[targetLevel]
-			if env.mode_effective then
-				targetEvasion = targetEvasion * getMiscVal(modDB, "effective", "evasionMore", 1)
-			end
-			output.total_hitChance = calcHitChance(targetEvasion, output.total_accuracy)
-		end
-		endWatch(env, "dps_hitChance")
-	end
+	output.TotalMin = totalMin
+	output.TotalMax = totalMax
 
 	-- Calculate average damage and final DPS
-	output.total_averageHit = (combMin + combMax) / 2 * output.total_critEffect
-	output.total_averageDamage = output.total_averageHit * output.total_hitChance
-	output.total_dps = output.total_averageDamage * output.total_speed * getMiscVal(modDB, "skill", "dpsMultiplier", 1)
+	output.AverageHit = (totalMin + totalMax) / 2 * output.CritEffect
+	output.AverageDamage = output.AverageHit * output.HitChance / 100
+	output.TotalDPS = output.AverageDamage * output.Speed * (skillData.dpsMultiplier or 1)
+	if env.mode == "CALCS" then
+		if env.mode_average then
+			output.DisplayDamage = s_format("%.1f average damage", output.AverageDamage)
+		else
+			output.DisplayDamage = s_format("%.1f DPS", output.TotalDPS)
+		end
+	end
+	if breakdown then
+		if output.CritEffect ~= 1 then
+			breakdown.AverageHit = {
+				s_format("%.1f ^8(non-crit average)", (totalMin + totalMax) / 2),
+				s_format("x %.3f ^8(crit effect modifier)", output.CritEffect),
+				s_format("= %.1f", output.AverageHit),
+			}
+		end
+		if isAttack then
+			breakdown.AverageDamage = {
+				s_format("%.1f ^8(average hit)", output.AverageHit),
+				s_format("x %.2f ^8(chance to hit)", output.HitChance / 100),
+				s_format("%.1f", output.AverageDamage),
+			}
+			breakdown.TotalDPS = {
+				s_format("%.1f ^8(average damage)", output.AverageDamage),
+				s_format("x %.2f ^8(attack rate)", output.Speed),
+			}
+		else
+			breakdown.TotalDPS = {
+				s_format("%.1f ^8(average hit)", output.AverageDamage),
+				s_format("x %.2f ^8(cast rate)", output.Speed),
+			}
+		end
+		if skillData.dpsMultiplier then
+			t_insert(breakdown.TotalDPS, s_format("x %d ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+		end
+		t_insert(breakdown.TotalDPS, s_format("= %.1f", output.TotalDPS))
+	end
 
 	-- Calculate mana cost (may be slightly off due to rounding differences)
-	output.total_manaCost = m_floor(m_max(0, getMiscVal(modDB, "skill", "manaCostBase", 0) * (1 + m_floor((sumMods(modDB, true, "manaCostMore") - 1) * 100 + 0.0001) / 100) * (1 + sumMods(modDB, false, "manaCostInc") / 100) - sumMods(modDB, false, "manaCostBase")))
-
-	-- Calculate AoE stats
-	if env.skillFlags.aoe then
-		output.total_aoeRadiusMod = (1 + sumMods(modDB, false, "aoeRadiusInc") / 100) * sumMods(modDB, true, "aoeRadiusMore")
-	end
-
-	-- Calculate skill duration
-	if startWatch(env, "duration") then
-		local durationBase = getMiscVal(modDB, "skill", "durationBase", 0)
-		output.total_durationMod = (1 + sumMods(modDB, false, "durationInc") / 100) * sumMods(modDB, true, "durationMore")
-		if durationBase > 0 then
-			output.total_duration = durationBase * output.total_durationMod
+	do
+		local more = m_floor(modDB:Sum("MORE", skillCfg, "ManaCost") * 100 + 0.0001) / 100
+		local inc = modDB:Sum("INC", skillCfg, "ManaCost")
+		local base = modDB:Sum("BASE", skillCfg, "ManaCost")
+		output.ManaCost = m_floor(m_max(0, (skillData.manaCost or 0) * more * (1 + inc / 100) - base))
+		if breakdown and output.ManaCost ~= (skillData.manaCost or 0) then
+			breakdown.ManaCost = {
+				s_format("%d ^8(base mana cost)", skillData.manaCost or 0)
+			}
+			if more ~= 1 then
+				t_insert(breakdown.ManaCost, s_format("x %.2f ^8(mana cost multiplier)", more))
+			end
+			if inc ~= 0 then
+				t_insert(breakdown.ManaCost, s_format("x %.2f ^8(increased/reduced mana cost)", 1 + inc/100))
+			end	
+			if base ~= 0 then
+				t_insert(breakdown.ManaCost, s_format("- %d ^8(- mana cost)", base))
+			end
+			t_insert(breakdown.ManaCost, s_format("= %d", output.ManaCost))
 		end
-		endWatch(env, "duration")
-	end
-
-	-- Calculate trap, mine and totem stats
-	if startWatch(env, "trapMineTotem") then
-		if env.skillFlags.trap then
-			output.total_trapCooldown = getMiscVal(modDB, "skill", "trapCooldown", 4) / (1 + getMiscVal(modDB, nil, "trapCooldownRecoveryInc", 0) / 100)
-			output.total_activeTrapLimit = sumMods(modDB, false, "activeTrapLimit")
-		end
-		if env.skillFlags.mine then
-			output.total_activeMineLimit = sumMods(modDB, false, "activeMineLimit")
-		end
-		if env.skillFlags.totem then
-			output.totem_lifeMod = (1 + sumMods(modDB, false, "totemLifeInc") / 100) * sumMods(modDB, true, "totemLifeMore")
-		end
-		endWatch(env, "trapMineTotem")
-	end
-
-	-- Calculate enemy stun modifiers
-	if startWatch(env, "enemyStun") then
-		local enemyStunThresholdRed = -sumMods(modDB, false, "stunEnemyThresholdInc")
-		if enemyStunThresholdRed > 75 then
-			output.stun_enemyThresholdMod = 1 - (75 + (enemyStunThresholdRed - 75) * 25 / (enemyStunThresholdRed - 50)) / 100
-		else
-			output.stun_enemyThresholdMod = 1 - enemyStunThresholdRed / 100
-		end
-		output.stun_enemyDuration = 0.35 * (1 + sumMods(modDB, false, "stunEnemyDurationInc") / 100)
-		endWatch(env, "enemyStun")
 	end
 
 	-- Calculate skill DOT components
-	output.total_damageDot = 0
-	for _, damageType in pairs(dmgTypeList) do
-		if startWatch(env, damageType.."Dot", "enemyResist", "canDeal") then
-			local baseVal 
-			if canDeal[damageType] then
-				baseVal = getMiscVal(modDB, "skill", damageType.."DotBase", 0)
-			else
-				baseVal = 0
-			end
-			if baseVal > 0 then
-				env.skillFlags.dot = true
-				buildSpaceTable(modDB, {
-					dot = true,
-					debuff = env.skillSpaceFlags.debuff,
-					spell = getMiscVal(modDB, "skill", "dotIsSpell", false),
-					projectile = env.skillSpaceFlags.projectile,
-					aoe = env.skillSpaceFlags.aoe,
-					totem = env.skillSpaceFlags.totem,
-					trap = env.skillSpaceFlags.trap,
-					mine = env.skillSpaceFlags.mine,
-				})
-				local effMult = 1
-				if env.mode_effective then
-					local preMult
-					local taken = getMiscVal(modDB, "effective", damageType.."TakenInc", 0) + getMiscVal(modDB, "effective", "damageTakenInc", 0) + getMiscVal(modDB, "effective", "dotTakenInc", 0)
-					if damageType == "physical" then
-						taken = taken - getMiscVal(modDB, "effective", "physicalRed", 0)
-						preMult = 1
-					else
-						if isElemental[damageType] then
-							taken = taken + getMiscVal(modDB, "effective", "elementalTakenInc", 0)
-						end
-						preMult = 1 - output["enemy_"..damageType.."Resist"] / 100
-					end
-					effMult = preMult * (1 + taken / 100)
-				end
-				output["total_"..damageType.."Dot"] = baseVal
-					* (1 + sumMods(modDB, false, "damageInc", damageType.."Inc", isElemental[damageType] and "elementalInc" or nil) / 100) 
-					* sumMods(modDB, true, "damageMore", damageType.."More", isElemental[damageType] and "elementalMore" or nil) 
-					* effMult
-			end
-			buildSpaceTable(modDB, env.skillSpaceFlags)
-			endWatch(env, damageType.."Dot")
+	local dotCfg = {
+		skillName = skillCfg.skillName,
+		slotName = skillCfg.slotName,
+		flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
+		keywordFlags = skillCfg.keywordFlags
+	}
+	env.mainSkill.dotCfg = dotCfg
+	output.TotalDot = 0
+	for _, damageType in ipairs(dmgTypeList) do
+		local baseVal 
+		if canDeal[damageType] then
+			baseVal = skillData[damageType.."Dot"] or 0
+		else
+			baseVal = 0
 		end
-		output.total_damageDot = output.total_damageDot + (output["total_"..damageType.."Dot"] or 0)
+		if baseVal > 0 then
+			skillFlags.dot = true
+			local effMult = 1
+			if env.mode_effective then
+				local resist = 0
+				local taken = enemyDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken", "DotTaken")
+				if damageType == "Physical" then
+					resist = enemyDB:Sum("INC", nil, "PhysicalDamageReduction")
+				else
+					if isElemental[damageType] then
+						taken = taken + enemyDB:Sum("INC", nil, "ElementalDamageTaken")
+					end
+					resist = output["Enemy"..damageType.."Resist"]
+				end
+				effMult = (1 - resist / 100) * (1 + taken / 100)
+				output[damageType.."DotEffMult"] = effMult
+				if breakdown and effMult ~= 1 then
+					breakdown[damageType.."DotEffMult"] = effMultBreakdown(damageType, resist, 0, taken, effMult)
+				end
+			end
+			local inc = modDB:Sum("INC", dotCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
+			local more = round(modDB:Sum("MORE", dotCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil), 2)
+			local total = baseVal * (1 + inc/100) * more * effMult
+			output[damageType.."Dot"] = total
+			output.TotalDot = output.TotalDot + total
+			if breakdown then
+				breakdown[damageType.."Dot"] = { }
+				dotBreakdown(breakdown[damageType.."Dot"], baseVal, inc, more, effMult, total)
+			end
+		end
 	end
 
 	-- Calculate bleeding chance and damage
-	env.skillFlags.bleed = false
-	if startWatch(env, "bleed", "canDeal", "physical", "dps_crit") then
-		output.bleed_chance = m_min(100, sumMods(modDB, false, "bleedChance")) / 100
-		if canDeal.physical and output.bleed_chance > 0 and output.total_physicalAvg > 0 then
-			env.skillFlags.dot = true
-			env.skillFlags.bleed = true
-			env.skillFlags.duration = true
-			buildSpaceTable(modDB, {
-				dot = true,
-				debuff = true,
-				bleed = true,
-				projectile = env.skillSpaceFlags.projectile,
-				aoe = env.skillSpaceFlags.aoe,
-				totem = env.skillSpaceFlags.totem,
-				trap = env.skillSpaceFlags.trap,
-				mine = env.skillSpaceFlags.mine,
-			})
-			local baseVal = output.total_physicalAvg * output.total_critEffect * 0.1
-			local effMult = 1
-			if env.mode_effective then
-				local taken = getMiscVal(modDB, "effective", "physicalTakenInc", 0) + getMiscVal(modDB, "effective", "damageTakenInc", 0) + getMiscVal(modDB, "effective", "dotTakenInc", 0) - getMiscVal(modDB, "effective", "physicalRed", 0)
-				effMult = 1 + taken / 100
-			end
-			output.bleed_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "physicalInc") / 100) * sumMods(modDB, true, "damageMore", "physicalMore") * effMult
-			output.bleed_duration = 5 * (1 + sumMods(modDB, false, "durationInc") / 100) * sumMods(modDB, true, "durationMore")
-			buildSpaceTable(modDB, env.skillSpaceFlags)
-		end	
-		endWatch(env, "bleed")
-	end
-
-	-- Calculate poison chance and damage
-	env.skillFlags.poison = false
-	if startWatch(env, "poison", "canDeal", "physical", "chaos", "dps_crit", "enemyResist") then
-		output.poison_chance = m_min(100, sumMods(modDB, false, "poisonChance")) / 100
-		if canDeal.chaos and output.poison_chance > 0 and (output.total_physicalAvg > 0 or output.total_chaosAvg > 0) then
-			env.skillFlags.dot = true
-			env.skillFlags.poison = true
-			env.skillFlags.duration = true
-			buildSpaceTable(modDB, {
-				dot = true,
-				debuff = true,
-				spell = getMiscVal(modDB, "skill", "dotIsSpell", false),
-				poison = true,
-				projectile = env.skillSpaceFlags.projectile,
-				aoe = env.skillSpaceFlags.aoe,
-				totem = env.skillSpaceFlags.totem,
-				trap = env.skillSpaceFlags.trap,
-				mine = env.skillSpaceFlags.mine,
-			})
-			local baseVal = (output.total_physicalAvg + output.total_chaosAvg) * output.total_critEffect * 0.08
-			local effMult = 1
-			if env.mode_effective then
-				local taken = getMiscVal(modDB, "effective", "chaosTakenInc", 0) + getMiscVal(modDB, "effective", "damageTakenInc", 0) + getMiscVal(modDB, "effective", "dotTakenInc", 0)
-				effMult = (1 - output["enemy_chaosResist"] / 100) * (1 + taken / 100)
-			end
-			output.poison_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "chaosInc") / 100) * sumMods(modDB, true, "damageMore", "chaosMore") * effMult
-			output.poison_duration = 2 * (1 + sumMods(modDB, false, "durationInc") / 100) * sumMods(modDB, true, "durationMore")
-			output.poison_damage = output.poison_dps * output.poison_duration
-			buildSpaceTable(modDB, env.skillSpaceFlags)
-		end	
-		endWatch(env, "poison")
-	end
-
-	-- Calculate ignite chance and damage
-	env.skillFlags.ignite = false
-	if startWatch(env, "ignite", "canDeal", "fire", "cold", "dps_crit", "enemyResist") then
-		if getMiscVal(modDB, nil, "cannotIgnite", false) then
-			output.ignite_chance = 0
-		else
-			output.ignite_chance = m_min(100, sumMods(modDB, false, "igniteChance")) / 100
-			local sourceDmg = 0
-			if canDeal.fire and not getMiscVal(modDB, nil, "fireCannotIgnite", false) then
-				sourceDmg = sourceDmg + output.total_fireAvg
-			end
-			if canDeal.cold and getMiscVal(modDB, nil, "coldCanIgnite", false) then
-				sourceDmg = sourceDmg + output.total_coldAvg
-			end
-			if canDeal.fire and output.ignite_chance > 0 and sourceDmg > 0 then
-				env.skillFlags.dot = true
-				env.skillFlags.ignite = true
-				buildSpaceTable(modDB, {
-					dot = true,
-					debuff = true,
-					spell = getMiscVal(modDB, "skill", "dotIsSpell", false),
-					ignite = true,
-					projectile = env.skillSpaceFlags.projectile,
-					aoe = env.skillSpaceFlags.aoe,
-					totem = env.skillSpaceFlags.totem,
-					trap = env.skillSpaceFlags.trap,
-					mine = env.skillSpaceFlags.mine,
-				})
-				local baseVal = sourceDmg * output.total_critEffect * 0.2
-				local effMult = 1
-				if env.mode_effective then
-					local taken = getMiscVal(modDB, "effective", "fireTakenInc", 0) + getMiscVal(modDB, "effective", "elementalTakenInc", 0) + getMiscVal(modDB, "effective", "damageTakenInc", 0) + getMiscVal(modDB, "effective", "dotTakenInc", 0)
-					effMult = (1 - output["enemy_fireResist"] / 100) * (1 + taken / 100)
-				end
-				output.ignite_dps = baseVal * (1 + sumMods(modDB, false, "damageInc", "fireInc", "elementalInc") / 100) * sumMods(modDB, true, "damageMore", "fireMore", "elementalMore") * effMult
-				output.ignite_duration = 4 * (1 + getMiscVal(modDB, "ignite", "durationInc", 0) / 100)
-				buildSpaceTable(modDB, env.skillSpaceFlags)
+	skillFlags.bleed = false
+	output.BleedChance = m_min(100, modDB:Sum("BASE", skillCfg, "BleedChance"))
+	if canDeal.Physical and not modDB:Sum("FLAG", skillCfg, "CannotBleed") and output.BleedChance > 0 and output.PhysicalAverage > 0 then
+		skillFlags.bleed = true
+		skillFlags.duration = true
+		local dotCfg = {
+			slotName = skillCfg.slotName,
+			flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
+			keywordFlags = bor(skillCfg.keywordFlags, KeywordFlag.Bleed)
+		}
+		env.mainSkill.bleedCfg = dotCfg
+		local baseVal = output.PhysicalAverage * output.CritEffect * 0.1
+		local effMult = 1
+		if env.mode_effective then
+			local resist = enemyDB:Sum("INC", nil, "PhysicalDamageReduction")
+			local taken = enemyDB:Sum("INC", dotCfg, "DamageTaken", "PhysicalDamageTaken", "DotTaken")
+			effMult = (1 - resist / 100) * (1 + taken / 100)
+			output["BleedEffMult"] = effMult
+			if breakdown and effMult ~= 1 then
+				breakdown.BleedEffMult = effMultBreakdown("Physical", resist, 0, taken, effMult)
 			end
 		end
-		endWatch(env, "ignite")
+		local inc = modDB:Sum("INC", dotCfg, "Damage", "PhysicalDamage")
+		local more = round(modDB:Sum("MORE", dotCfg, "Damage", "PhysicalDamage"), 2)
+		output.BleedDPS = baseVal * (1 + inc/100) * more * effMult
+		output.BleedDuration = 5 * calcMod(modDB, dotCfg, "Duration") * debuffDurationMult
+		if breakdown then
+			breakdown.BleedDPS = {
+				"Base damage:",
+				s_format("%.1f ^8(average physical non-crit damage)", output.PhysicalAverage)
+			}
+			if output.CritEffect ~= 1 then
+				t_insert(breakdown.BleedDPS, s_format("x %.3f ^8(crit effect modifier)", output.CritEffect))
+			end
+			t_insert(breakdown.BleedDPS, "x 0.2 ^8(bleed deals 20% per second)")
+			t_insert(breakdown.BleedDPS, s_format("= %.1f", baseVal, 1))
+			t_insert(breakdown.BleedDPS, "Bleed DPS:")
+			dotBreakdown(breakdown.BleedDPS, baseVal, inc, more, effMult, output.BleedDPS)
+			if output.BleedDuration ~= 5 then
+				breakdown.BleedDuration = {
+					"5.00s ^8(base duration)"
+				}
+				if output.DurationMod ~= 1 then
+					t_insert(breakdown.BleedDuration, s_format("x %.2f ^8(duration modifier)", output.DurationMod))
+				end
+				if debuffDurationMult ~= 1 then
+					t_insert(breakdown.BleedDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+				end
+				t_insert(breakdown.BleedDuration, s_format("= %.2fs", output.BleedDuration))
+			end
+		end
+	end	
+
+	-- Calculate poison chance and damage
+	skillFlags.poison = false
+	output.PoisonChance = m_min(100, modDB:Sum("BASE", skillCfg, "PoisonChance"))
+	if canDeal.Chaos and output.PoisonChance > 0 and (output.PhysicalAverage > 0 or output.ChaosAverage > 0) then
+		skillFlags.poison = true
+		skillFlags.duration = true
+		local dotCfg = {
+			slotName = skillCfg.slotName,
+			flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
+			keywordFlags = bor(skillCfg.keywordFlags, KeywordFlag.Poison)
+		}
+		env.mainSkill.poisonCfg = dotCfg
+		local baseVal = (output.PhysicalAverage + output.ChaosAverage) * output.CritEffect * 0.08
+		local effMult = 1
+		if env.mode_effective then
+			local resist = output["EnemyChaosResist"]
+			local taken = enemyDB:Sum("INC", nil, "DamageTaken", "ChaosDamageTaken", "DotTaken")
+			effMult = (1 - resist / 100) * (1 + taken / 100)
+			output["PoisonEffMult"] = effMult
+			if breakdown then
+				breakdown.PoisonEffMult = effMultBreakdown("Chaos", resist, 0, taken, effMult)
+			end
+		end
+		local inc = modDB:Sum("INC", dotCfg, "Damage", "ChaosDamage")
+		local more = round(modDB:Sum("MORE", dotCfg, "Damage", "ChaosDamage"), 2)
+		output.PoisonDPS = baseVal * (1 + inc/100) * more * effMult
+		local durationBase
+		if skillData.poisonDurationIsSkillDuration then
+			durationBase = skillData.duration
+		else
+			durationBase = 2
+		end
+		output.PoisonDuration = durationBase * calcMod(modDB, dotCfg, "Duration") * debuffDurationMult
+		output.PoisonDamage = output.PoisonDPS * output.PoisonDuration
+		if breakdown then
+			breakdown.PoisonDPS = {
+				"Base damage:",
+				s_format("%.1f ^8(average physical + chaos non-crit damage)", output.PhysicalAverage + output.ChaosAverage)
+			}
+			if output.CritEffect ~= 1 then
+				t_insert(breakdown.PoisonDPS, s_format("x %.3f ^8(crit effect modifier)", output.CritEffect))
+			end
+			t_insert(breakdown.PoisonDPS, "x 0.08 ^8(poison deals 8% per second)")
+			t_insert(breakdown.PoisonDPS, s_format("= %.1f", baseVal, 1))
+			t_insert(breakdown.PoisonDPS, "Poison DPS:")
+			dotBreakdown(breakdown.PoisonDPS, baseVal, inc, more, effMult, output.PoisonDPS)
+			if output.PoisonDuration ~= 2 then
+				breakdown.PoisonDuration = {
+					s_format("%.2fs ^8(base duration)", durationBase)
+				}
+				if output.DurationMod ~= 1 then
+					t_insert(breakdown.PoisonDuration, s_format("x %.2f ^8(duration modifier)", output.DurationMod))
+				end
+				if debuffDurationMult ~= 1 then
+					t_insert(breakdown.PoisonDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+				end
+				t_insert(breakdown.PoisonDuration, s_format("= %.2fs", output.PoisonDuration))
+			end
+			breakdown.PoisonDamage = {
+				s_format("%.1f ^8(damage per second)", output.PoisonDPS),
+				s_format("x %.2fs ^8(poison duration)", output.PoisonDuration),
+				s_format("= %.1f ^8damage per poison stack", output.PoisonDamage),s
+			}
+		end
+	end	
+
+	-- Calculate ignite chance and damage
+	skillFlags.ignite = false
+	if modDB:Sum("FLAG", skillCfg, "CannotIgnite") then
+		output.IgniteChance = 0
+	else
+		output.IgniteChance = m_min(100, modDB:Sum("BASE", skillCfg, "EnemyIgniteChance") + enemyDB:Sum("BASE", nil, "SelfIgniteChance"))
+		local sourceDmg = 0
+		if canDeal.Fire and not modDB:Sum("FLAG", skillCfg, "FireCannotIgnite") then
+			sourceDmg = sourceDmg + output.FireAverage
+		end
+		if canDeal.Cold and modDB:Sum("FLAG", skillCfg, "ColdCanIgnite") then
+			sourceDmg = sourceDmg + output.ColdAverage
+		end
+		if canDeal.Fire and output.IgniteChance > 0 and sourceDmg > 0 then
+			skillFlags.ignite = true
+			local dotCfg = {
+				slotName = skillCfg.slotName,
+				flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
+				keywordFlags = skillCfg.keywordFlags,
+			}
+			env.mainSkill.igniteCfg = dotCfg
+			local baseVal = sourceDmg * output.CritEffect * 0.2
+			local effMult = 1
+			if env.mode_effective then
+				local resist = output["EnemyFireResist"]
+				local taken = enemyDB:Sum("INC", dotCfg, "DamageTaken", "FireDamageTaken", "ElementalDamageTaken", "DotTaken")
+				effMult = (1 - resist / 100) * (1 + taken / 100)
+				output["IgniteEffMult"] = effMult
+				if breakdown then
+					breakdown.IgniteEffMult = effMultBreakdown("Fire", resist, 0, taken, effMult)
+				end
+			end
+			local inc = modDB:Sum("INC", dotCfg, "Damage", "FireDamage", "ElementalDamage")
+			local more = round(modDB:Sum("MORE", dotCfg, "Damage", "FireDamage", "ElementalDamage"), 2)
+			output.IgniteDPS = baseVal * (1 + inc/100) * more * effMult
+			local incDur = modDB:Sum("INC", dotCfg, "EnemyIgniteDuration") + enemyDB:Sum("INC", nil, "SelfIgniteDuration")
+			output.IgniteDuration = 4 * (1 + incDur / 100) * debuffDurationMult
+			if breakdown then
+				breakdown.IgniteDPS = {
+					"Base damage:",
+					s_format("%.1f ^8(average non-crit damage from sources)", sourceDmg)
+				}
+				if output.CritEffect ~= 1 then
+					t_insert(breakdown.IgniteDPS, s_format("x %.3f ^8(crit effect modifier)", output.CritEffect))
+				end
+				t_insert(breakdown.IgniteDPS, "x 0.2 ^8(ignite deals 20% per second)")
+				t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
+				t_insert(breakdown.IgniteDPS, "Ignite DPS:")
+				dotBreakdown(breakdown.IgniteDPS, baseVal, inc, more, effMult, output.IgniteDPS)
+				if output.IgniteDuration ~= 4 then
+					breakdown.IgniteDuration = {
+						s_format("4.00s ^8(base duration)", durationBase)
+					}
+					if incDur ~= 0 then
+						t_insert(breakdown.IgniteDuration, s_format("x %.2f ^8(increased/reduced duration)", 1 + incDur/100))
+					end
+					if debuffDurationMult ~= 1 then
+						t_insert(breakdown.IgniteDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+					end
+					t_insert(breakdown.IgniteDuration, s_format("= %.2fs", output.IgniteDuration))
+				end
+			end
+		end
 	end
 
 	-- Calculate shock and freeze chance + duration modifier
-	if startWatch(env, "shock", "canDeal", "lightning", "fire", "chaos") then
-		if getMiscVal(modDB, nil, "cannotShock", false) then
-			output.shock_chance = 0
-		else
-			output.shock_chance = m_min(100, sumMods(modDB, false, "shockChance")) / 100
-			local sourceDmg = 0
-			if canDeal.lightning and not getMiscVal(modDB, nil, "lightningCannotShock", false) then
-				sourceDmg = sourceDmg + output.total_lightningAvg
-			end
-			if canDeal.physical and getMiscVal(modDB, nil, "physicalCanShock", false) then
-				sourceDmg = sourceDmg + output.total_physicalAvg
-			end
-			if canDeal.fire and getMiscVal(modDB, nil, "fireCanShock", false) then
-				sourceDmg = sourceDmg + output.total_fireAvg
-			end
-			if canDeal.chaos and getMiscVal(modDB, nil, "chaosCanShock", false) then
-				sourceDmg = sourceDmg + output.total_chaosAvg
-			end
-			if output.shock_chance > 0 and sourceDmg > 0 then
-				env.skillFlags.shock = true
-				output.shock_durationMod = 1 + getMiscVal(modDB, "shock", "durationInc", 0) / 100
- 			end
+	skillFlags.shock = false
+	if modDB:Sum("FLAG", skillCfg, "CannotShock") then
+		output.ShockChance = 0
+	else
+		output.ShockChance = m_min(100, modDB:Sum("BASE", skillCfg, "EnemyShockChance") + enemyDB:Sum("BASE", nil, "SelfShockChance"))
+		local sourceDmg = 0
+		if canDeal.Lightning and not modDB:Sum("FLAG", skillCfg, "LightningCannotShock") then
+			sourceDmg = sourceDmg + output.LightningAverage
 		end
-		endWatch(env, "shock")
+		if canDeal.Physical and modDB:Sum("FLAG", skillCfg, "PhysicalCanShock") then
+			sourceDmg = sourceDmg + output.PhysicalAverage
+		end
+		if canDeal.Fire and modDB:Sum("FLAG", skillCfg, "FireCanShock") then
+			sourceDmg = sourceDmg + output.FireAverage
+		end
+		if canDeal.Chaos and modDB:Sum("FLAG", skillCfg, "ChaosCanShock") then
+			sourceDmg = sourceDmg + output.ChaosAverage
+		end
+		if output.ShockChance > 0 and sourceDmg > 0 then
+			skillFlags.shock = true
+			output.ShockDurationMod = 1 + modDB:Sum("INC", dotCfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
+ 		end
 	end
-	if startWatch(env, "freeze", "canDeal", "cold", "lightning") then
-		if getMiscVal(modDB, nil, "cannotFreeze", false) then
-			output.freeze_chance = 0
+	skillFlags.freeze = false
+	if modDB:Sum("FLAG", skillCfg, "CannotFreeze") then
+		output.FreezeChance = 0
+	else
+		output.FreezeChance = m_min(100, modDB:Sum("BASE", skillCfg, "EnemyFreezeChance") + enemyDB:Sum("BASE", nil, "SelfFreezeChance"))
+		local sourceDmg = 0
+		if canDeal.Cold and not modDB:Sum("FLAG", skillCfg, "ColdCannotFreeze") then
+			sourceDmg = sourceDmg + output.ColdAverage
+		end
+		if canDeal.Lightning and modDB:Sum("FLAG", skillCfg, "LightningCanFreeze") then
+			sourceDmg = sourceDmg + output.LightningAverage
+		end
+		if output.FreezeChance > 0 and sourceDmg > 0 then
+			skillFlags.freeze = true
+			output.FreezeDurationMod = 1 + modDB:Sum("INC", dotCfg, "EnemyFreezeDuration") / 100 + enemyDB:Sum("INC", nil, "SelfFreezeDuration") / 100
+		end
+	end
+
+	-- Calculate enemy stun modifiers
+	do
+		local enemyStunThresholdRed = -modDB:Sum("INC", skillCfg, "EnemyStunThreshold")
+		if enemyStunThresholdRed > 75 then
+			output.EnemyStunThresholdMod = 1 - (75 + (enemyStunThresholdRed - 75) * 25 / (enemyStunThresholdRed - 50)) / 100
 		else
-			output.freeze_chance = m_min(100, sumMods(modDB, false, "freezeChance")) / 100
-			local sourceDmg = 0
-			if canDeal.cold and not getMiscVal(modDB, nil, "coldCannotFreeze", false) then
-				sourceDmg = sourceDmg + output.total_coldAvg
-			end
-			if canDeal.lightning and getMiscVal(modDB, nil, "lightningCanFreeze", false) then
-				sourceDmg = sourceDmg + output.total_lightningAvg
-			end
-			if output.freeze_chance > 0 and sourceDmg > 0 then
-				env.skillFlags.freeze = true
-				output.freeze_durationMod = 1 + getMiscVal(modDB, "freeze", "durationInc", 0) / 100
+			output.EnemyStunThresholdMod = 1 - enemyStunThresholdRed / 100
+		end
+		local incDur = modDB:Sum("INC", skillCfg, "EnemyStunDuration")
+		local incRecov = enemyDB:Sum("INC", nil, "StunRecovery")
+		output.EnemyStunDuration = 0.35 * (1 + incDur / 100) / (1 + incRecov / 100)
+		if breakdown then
+			if output.EnemyStunDuration ~= 0.35 then
+				breakdown.EnemyStunDuration = {
+					"0.35s ^8(base duration)"
+				}
+				if incDur ~= 0 then
+					t_insert(breakdown.EnemyStunDuration, s_format("x %.2f ^8(increased/reduced stun duration)", 1 + incDur/100))
+				end
+				if incRecov ~= 0 then
+					t_insert(breakdown.EnemyStunDuration, s_format("/ %.2f ^8(increased/reduced enemy stun recovery)", 1 + incRecov/100))
+				end
+				t_insert(breakdown.EnemyStunDuration, s_format("= %.2fs", output.EnemyStunDuration))
 			end
 		end
-		endWatch(env, "freeze")
 	end
 
 	-- Calculate combined DPS estimate, including DoTs
-	output.total_combinedDPS = output[(env.mode_average and "total_averageDamage") or "total_dps"] + output.total_damageDot
-	if env.skillFlags.poison then
+	output.CombinedDPS = output[(env.mode_average and "AverageDamage") or "TotalDPS"] + output.TotalDot
+	if skillFlags.poison then
 		if env.mode_average then
-			output.total_combinedDPS = output.total_combinedDPS + output.poison_chance * output.poison_dps * output.poison_duration
+			output.CombinedDPS = output.CombinedDPS + output.PoisonChance / 100 * output.PoisonDamage
 		else
-			output.total_combinedDPS = output.total_combinedDPS + output.poison_chance * output.poison_dps * output.poison_duration * output.total_speed
+			output.CombinedDPS = output.CombinedDPS + output.PoisonChance / 100 * output.PoisonDamage * output.Speed
 		end
 	end
-	if env.skillFlags.ignite then
-		output.total_combinedDPS = output.total_combinedDPS + output.ignite_dps
+	if skillFlags.ignite then
+		output.CombinedDPS = output.CombinedDPS + output.IgniteDPS
 	end
-	if env.skillFlags.bleed then
-		output.total_combinedDPS = output.total_combinedDPS + output.bleed_dps
-	end
-end
-
-local calcs = { }
-
--- Wipe mod database and repopulate with base mods
-local function resetModDB(modDB, base)
-	for spaceName, spaceMods in pairs(modDB) do
-		local baseSpace = base[spaceName]
-		if baseSpace then
-			for k in pairs(spaceMods) do
-				spaceMods[k] = baseSpace[k]
-			end
-		else
-			wipeTable(spaceMods)
-		end
+	if skillFlags.bleed then
+		output.CombinedDPS = output.CombinedDPS + output.BleedDPS
 	end
 end
 
 -- Print various tables to the console
-local function infoDump(env, output)
-	ConPrintf("== Modifier Database ==")
-	modLib.dbPrint(env.modDB)
-	ConPrintf("== Main Skill ==")
+local function infoDump(env, output)	
+	env.modDB:Print()
+	ConPrintf("=== Enemy Mod DB ===")
+	env.enemyDB:Print()
+	ConPrintf("=== Main Skill ===")
 	for _, gem in ipairs(env.mainSkill.gemList) do
 		ConPrintf("%s %d/%d", gem.name, gem.level, gem.quality)
 	end
-	ConPrintf("== Main Skill Mods ==")
-	modLib.listPrint(env.mainSkill.skillModList)
-	ConPrintf("== Main Skill Flags ==")
-	modLib.listPrint(env.skillFlags)
-	ConPrintf("== Namespaces ==")
-	modLib.listPrint(env.skillSpaceFlags)
+	ConPrintf("=== Main Skill Flags ===")
+	ConPrintf("Mod: %s", modLib.formatFlags(env.mainSkill.skillCfg.flags, ModFlag))
+	ConPrintf("Keyword: %s", modLib.formatFlags(env.mainSkill.skillCfg.keywordFlags, KeywordFlag))
+	ConPrintf("=== Main Skill Mods ===")
+	env.mainSkill.skillModList:Print()
 	ConPrintf("== Aux Skills ==")
 	for i, aux in ipairs(env.auxSkillList) do
 		ConPrintf("Skill #%d:", i)
@@ -1847,227 +2269,156 @@ local function infoDump(env, output)
 			ConPrintf("  %s %d/%d", gem.name, gem.level, gem.quality)
 		end
 	end
-	--[[ConPrintf("== Buff Skill Mods ==")
-	modLib.listPrint(env.buffSkillModList)
-	ConPrintf("== Aura Skill Mods ==")
-	modLib.listPrint(env.auraSkillModList)
-	ConPrintf("== Curse Skill Mods ==")
-	modLib.listPrint(env.curseSkillModList)]]
-	if env.buffModList then
-		ConPrintf("== Other Buff Mods ==")
-		modLib.listPrint(env.buffModList)
+--	ConPrintf("== Conversion Table ==")
+--	ConPrintTable(env.conversionTable)
+	ConPrintf("== Output Table ==")
+	local outNames = { }
+	for name in pairs(env.output) do
+		t_insert(outNames, name)
 	end
-	ConPrintf("== Spec Mods ==")
-	modLib.listPrint(env.specModList)
-	ConPrintf("== Item Mods ==")
-	modLib.listPrint(env.itemModList)
-	ConPrintf("== Conditions ==")
-	modLib.listPrint(env.condList)
-	ConPrintf("== Conditional Modifiers ==")
-	modLib.listPrint(env.condModList)
-	ConPrintf("== Conversion Table ==")
-	modLib.dbPrint(output.conversionTable)
+	table.sort(outNames)
+	for _, name in ipairs(outNames) do
+		ConPrintf("%s = %s", name, tostring(env.output[name]))
+	end
 end
 
 -- Generate a function for calculating the effect of some modification to the environment
-local function getCalculator(build, input, fullInit, modFunc)
+local function getCalculator(build, fullInit, modFunc)
 	-- Initialise environment
-	local env = initEnv(build, input, "CALCULATOR")
+	local env = initEnv(build, "CALCULATOR")
 
 	-- Save a copy of the initial mod database
 	if fullInit then
 		mergeMainMods(env)
 	end
-	local initModDB = copyTable(env.modDB)
+	local initModDB = common.New("ModDB")
+	initModDB:AddDB(env.modDB)
+	initModDB.multipliers = copyTable(env.modDB.multipliers)
+	initModDB.conditions = copyTable(env.modDB.conditions)
+	local initEnemyDB = common.New("ModDB")
+	initEnemyDB:AddDB(env.enemyDB)
 	if not fullInit then
 		mergeMainMods(env)
 	end
 
-	-- Finialise modifier database and make a copy for later comparison
-	local baseOutput = { }
-	local outputMeta = { __index = baseOutput }
-	finaliseMods(env, baseOutput)
-	local baseModDB = copyTable(env.modDB)
+	-- Run base calculation pass
+	performCalcs(env)
+	local baseOutput = env.output
 
-	-- Run base calculation pass while building watch lists
-	env.watchers = { }
-	env.buildWatch = true
-	env.modDB._activeWatchers = { }
-	performCalcs(env, baseOutput)
-	env.buildWatch = false
-	env.modDB._activeWatchers = nil
-
-	-- Generate list of watched mods
-	local watchedModList = { }
-	for _, watchList in pairs(env.watchers) do
-		for k, default in pairs(watchList) do
-			-- Add this watcher to the mod's watcher list
-			local spaceName, modName = modLib.getSpaceName(k)
-			if not watchedModList[spaceName] then
-				watchedModList[spaceName] = { }
-			end
-			if not baseModDB[spaceName] then
-				baseModDB[spaceName] = { }
-			end
-			if not initModDB[spaceName] then
-				initModDB[spaceName] = { }
-			end
-			if not watchedModList[spaceName][modName] then				
-				watchedModList[spaceName][modName] = { baseModDB[spaceName][modName], { } }
-			end
-			watchedModList[spaceName][modName][2][watchList] = true
-			if initModDB[spaceName][modName] == nil and baseModDB[spaceName][modName] ~= nil then
-				-- Ensure that the initial mod list has at least a default value for any modifiers present in the base database
-				initModDB[spaceName][modName] = default
-			end
-		end
-	end
-
-	local flagged = { }
 	return function(...)
 		-- Restore initial mod database
-		resetModDB(env.modDB, initModDB)
-
+		env.modDB.mods = wipeTable(env.modDB.mods)
+		env.modDB:AddDB(initModDB)
+		env.modDB.conditions = copyTable(initModDB.conditions)
+		env.modDB.multipliers = copyTable(initModDB.multipliers)
+		env.enemyDB.mods = wipeTable(env.enemyDB.mods)
+		env.enemyDB:AddDB(initEnemyDB)
+		
 		-- Call function to make modifications to the enviroment
 		modFunc(env, ...)
 		
-		-- Prepare for calculation
-		local output = setmetatable({ }, outputMeta)
-		finaliseMods(env, output)
+		-- Run calculation pass
+		performCalcs(env)
 
-		--[[local debugThis = type(...) == "table" and #(...) == 1 and (...)[1].id == 17735
-		if debugThis then
-			ConPrintf("+++++++++++++++++++++++++++++++++++++++")
-		end]]
-
-		-- Check if any watched mods have changed
-		local active = false
-		for spaceName, watchedMods in pairs(watchedModList) do
-			for k, v in pairs(env.modDB[spaceName]) do
-				local watchedMod = watchedMods[k]
-				if watchedMod and v ~= watchedMod[1] then
-					-- Modifier value has changed, flag all watchers for this mod
-					for watchList in pairs(watchedMod[2]) do
-						watchList._flag = true
-						flagged[watchList] = true
-					end
-					--[[if debugThis then
-						ConPrintf("%s:%s %s %s", spaceName, k, watchedMod[1], v)
-					end]]
-					active = true
-				end
-			end
-		end
-		if not active then
-			return baseOutput
-		end
-
-		-- Run the calculations
-		performCalcs(env, output)
-
-		--[[if debugThis then
-			infoDump(env, output)
-		end]]
-
-		-- Reset watcher flags
-		for watchList in pairs(flagged) do
-			watchList._flag = false
-			flagged[watchList] = nil
-		end
-
-		return output
+		return env.output
 	end, baseOutput	
 end
 
+local calcs = { }
+
 -- Get calculator for tree node modifiers
-function calcs.getNodeCalculator(build, input)
-	return getCalculator(build, input, true, function(env, nodeList, remove)
+function calcs.getNodeCalculator(build)
+	return getCalculator(build, true, function(env, nodeList, remove)
 		-- Build and merge/unmerge modifiers for these nodes
 		local nodeModList = buildNodeModList(env, nodeList)
 		if remove then
-			mod_dbUnmergeList(env.modDB, nodeModList)
+			for _, mod in ipairs(nodeModList) do
+				if mod.type == "LIST" or mod.type == "FLAG" then
+					for i, dbMod in ipairs(env.modDB.mods[mod.name] or { }) do
+						if mod == dbMod then
+							t_remove(env.modDB.mods[mod.name], i)
+							break
+						end
+					end
+				else
+					env.modDB:NewMod(mod.name, mod.type, -mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod.tagList))
+				end
+			end
 		else
-			mod_dbMergeList(env.modDB, nodeModList)
+			env.modDB:AddList(nodeModList)
 		end
 	end)
 end
 
 -- Get calculator for item modifiers
-function calcs.getItemCalculator(build, input)
-	return getCalculator(build, input, false, function(env, repSlotName, repItem)
+function calcs.getItemCalculator(build)
+	return getCalculator(build, false, function(env, repSlotName, repItem)
 		-- Merge main mods, replacing the item in the given slot with the given item
 		mergeMainMods(env, repSlotName, repItem)
 	end)
 end
 
--- Build output for display in the grid or side bar
-function calcs.buildOutput(build, input, output, mode)
+-- Build output for display in the side bar or calcs tab
+function calcs.buildOutput(build, mode)
 	-- Build output
-	local env = initEnv(build, input, mode)
+	local env = initEnv(build, mode)
 	mergeMainMods(env)
-	finaliseMods(env, output)
-	performCalcs(env, output)
+	performCalcs(env)
 
-	output.total_extraPoints = getMiscVal(env.modDB, nil, "extraPoints", 0)
-
-	-- Add extra display-only stats
-	for k, v in pairs(env.specModList) do
-		output["spec_"..k] = v
-	end
-	for k, v in pairs(env.itemModList) do
-		output["gear_"..k] = v
-	end
+	local output = env.output
 
 	if mode == "MAIN" then
-		
-	elseif mode == "GRID" then
-		for i, aux in pairs(env.auxSkillList) do
-			output["buff_label"..i] = aux.activeGem.name
-		end
-		for _, damageType in pairs(dmgTypeList) do
-			-- Add damage ranges
-			if output["total_"..damageType.."Max"] > 0 then
-				output["total_"..damageType] = formatRound(output["total_"..damageType.."Min"]) .. " - " .. formatRound(output["total_"..damageType.."Max"])		
-			else
-				output["total_"..damageType] = 0
-			end
-			if damageType ~= "physical" then
-				if damageType ~= "chaos" then
-					for _, domain in pairs({"spec_","gear_"}) do
-						local dmgResist = output[domain..damageType.."Resist"]
-						local elemResist = output[domain.."elementalResist"]
-						if dmgResist or elemResist then
-							output[domain..damageType.."Resist"] = (dmgResist or 0) + (elemResist or 0)
-						end
-					end
-				end
-				local actual = output["total_"..damageType.."Resist"]
-				local over = output["total_"..damageType.."ResistOverCap"]
-				if over > 0 then
-					output["total_"..damageType.."ResistStr"] = actual .. "+" .. over
-				else
-					output["total_"..damageType.."ResistStr"] = actual
-				end
-			end
-		end
-		output.total_damage = formatRound(output.total_combMin) .. " - " .. formatRound(output.total_combMax)
+		output.ExtraPoints = env.modDB:Sum("BASE", nil, "ExtraPoints")
 
-		-- Calculate XP modifier
+		local specCfg = {
+			source = "Tree"
+		}
+		for _, stat in pairs({"Life", "Mana", "Armour", "Evasion", "EnergyShield"}) do
+			output["Spec:"..stat.."Inc"] = env.modDB:Sum("INC", specCfg, stat)
+		end
+	elseif mode == "CALCS" then
+		-- Calculate XP modifier 
+		--[[ FIXME?
 		if input.monster_level and input.monster_level > 0 then
 			local playerLevel = build.characterLevel
 			local diff = m_abs(playerLevel - input.monster_level) - 3 - m_floor(playerLevel / 16)
 			if diff <= 0 then
-				output.monster_xp = 1
+				output.MonsterXP = 1
 			else
-				output.monster_xp = m_max(0.01, ((playerLevel + 5) / (playerLevel + 5 + diff ^ 2.5)) ^ 1.5)
+				output.MonsterXP = m_max(0.01, ((playerLevel + 5) / (playerLevel + 5 + diff ^ 2.5)) ^ 1.5)
+			end
+		end]]
+		local buffList = { }
+		local combatList = { }
+		local curseList = { }
+		if output.PowerCharges > 0 then
+			t_insert(combatList, s_format("%d Power Charges", output.PowerCharges))
+		end
+		if output.FrenzyCharges > 0 then
+			t_insert(combatList, s_format("%d Frenzy Charges", output.FrenzyCharges))
+		end
+		if output.EnduranceCharges > 0 then
+			t_insert(combatList, s_format("%d Endurance Charges", output.EnduranceCharges))
+		end
+		if env.modDB.conditions.Onslaught then
+			t_insert(combatList, "Onslaught")
+		end
+		for _, activeSkill in ipairs(env.activeSkillList) do
+			if activeSkill.buffModList or activeSkill.auraModList then
+				t_insert(buffList, activeSkill.activeGem.name)
+			end
+			if activeSkill.curseModList then
+				t_insert(curseList, activeSkill.activeGem.name)
 			end
 		end
+		output.BuffList = table.concat(buffList, ", ")
+		output.CombatList = table.concat(combatList, ", ")
+		output.CurseList = table.concat(curseList, ", ")
 
-		-- Configure view mode
-		setViewMode(env, build.skillsTab.socketGroupList, env.mainSkillGroupActiveSkillList or { })
-
-		--infoDump(env, output)
+		infoDump(env)
 	end
+
+	return env
 end
 
 return calcs

@@ -15,5 +15,5 @@ end)
 
 function LabelClass:Draw()
 	local x, y = self:GetPos()
-	DrawString(x, y, "LEFT", self.height, "VAR", self:GetProperty("label"))
+	DrawString(x, y, "LEFT", self:GetProperty("height"), "VAR", self:GetProperty("label"))
 end

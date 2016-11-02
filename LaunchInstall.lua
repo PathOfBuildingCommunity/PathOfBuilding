@@ -10,6 +10,9 @@ local basicFiles = { "Launch.lua", "UpdateCheck.lua", "UpdateApply.lua" }
 local xml = require("xml")
 local curl = require("lcurl")
 
+ConClear()
+ConPrintf("Preparing to complete installation...\n")
+
 local localBranch, localSource
 local localManXML = xml.LoadXMLFile("manifest.xml")
 if localManXML and localManXML[1].elem == "PoBVersion" then

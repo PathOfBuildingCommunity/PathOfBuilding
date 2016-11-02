@@ -43,19 +43,29 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	-- Build item list
 	self.controls.itemList = common.New("ItemList", {"TOPLEFT",self.slots[baseSlots[1]],"TOPRIGHT"}, 20, 0, 360, 308, self)
 
+	-- Database selector
 	self.controls.selectDBLabel = common.New("LabelControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 14, 0, 16, "^7Import from:")
+	self.controls.selectDBLabel.shown = function()
+		return self.height < 984
+	end
 	self.controls.selectDB = common.New("DropDownControl", {"LEFT",self.controls.selectDBLabel,"RIGHT"}, 4, 0, 150, 18, { "Uniques", "Rare Templates" })
 
 	-- Unique database
-	self.controls.uniqueDB = common.New("ItemDB", {"TOPLEFT",self.controls.selectDBLabel,"BOTTOMLEFT"}, 0, 46, 360, 260, self, main.uniqueDB)
+	self.controls.uniqueDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, 260, self, main.uniqueDB)
+	self.controls.uniqueDB.y = function()
+		return self.controls.selectDBLabel:IsShown() and 76 or 54
+	end
 	self.controls.uniqueDB.shown = function()
-		return self.controls.selectDB.sel == 1
+		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.sel == 1
 	end
 
 	-- Rare template database
-	self.controls.rareDB = common.New("ItemDB", {"TOPLEFT",self.controls.selectDBLabel,"BOTTOMLEFT"}, 0, 46, 360, 260, self, main.rareDB)
+	self.controls.rareDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, 260, self, main.rareDB)
+	self.controls.rareDB.y = function()
+		return self.controls.selectDBLabel:IsShown() and 76 or 370
+	end
 	self.controls.rareDB.shown = function()
-		return self.controls.selectDB.sel == 2
+		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.sel == 2
 	end
 
 	-- Display item
@@ -291,8 +301,9 @@ function ItemsTabClass:AddItem(item, noAutoEquip)
 		end
 	end
 	
-	-- Add it to the list and clear the current display item
+	-- Add it to the list
 	self.list[item.id] = item
+	itemLib.buildItemModList(item)
 end
 
 -- Adds the current display item to the build's item list
@@ -363,7 +374,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	else
 		main:AddTooltipLine(20, rarityCode..item.name)
 	end
-	main:AddTooltipSeperator(10)
+	main:AddTooltipSeparator(10)
 
 	-- Special fields for database items
 	if dbMode and (item.variantList or item.league or item.unreleased) then
@@ -380,7 +391,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		if item.unreleased then
 			main:AddTooltipLine(16, "^1Not yet available")
 		end
-		main:AddTooltipSeperator(10)
+		main:AddTooltipSeparator(10)
 	end
 
 	local base = item.base
@@ -388,47 +399,48 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	local modList = item.modList or item.slotModList[slotNum]
 	if base.weapon then
 		-- Weapon-specific info
-		local weaponPrefix = "weapon"..slotNum.."_"
+		local weaponData = item.weaponData[slotNum]
 		main:AddTooltipLine(16, s_format("^x7F7F7F%s", base.type))
 		if item.quality > 0 then
 			main:AddTooltipLine(16, s_format("^x7F7F7FQuality: "..data.colorCodes.MAGIC.."+%d%%", item.quality))
 		end
 		local totalDamageTypes = 0
-		if modList[weaponPrefix.."physicalDPS"] then
-			main:AddTooltipLine(16, s_format("^x7F7F7FPhysical Damage: "..data.colorCodes.MAGIC.."%d-%d (%.1f DPS)", modList[weaponPrefix.."physicalMin"], modList[weaponPrefix.."physicalMax"], modList[weaponPrefix.."physicalDPS"]))
+		if weaponData.PhysicalDPS then
+			main:AddTooltipLine(16, s_format("^x7F7F7FPhysical Damage: "..data.colorCodes.MAGIC.."%d-%d (%.1f DPS)", weaponData.PhysicalMin, weaponData.PhysicalMax, weaponData.PhysicalDPS))
 			totalDamageTypes = totalDamageTypes + 1
 		end
-		if modList[weaponPrefix.."elementalDPS"] then
+		if weaponData.ElementalDPS then
 			local elemLine
-			for _, var in ipairs({"fire","cold","lightning"}) do
-				if modList[weaponPrefix..var.."DPS"] then
+			for _, var in ipairs({"Fire","Cold","Lightning"}) do
+				if weaponData[var.."DPS"] then
 					elemLine = elemLine and elemLine.."^x7F7F7F, " or "^x7F7F7FElemental Damage: "
-					elemLine = elemLine..s_format("%s%d-%d", data.colorCodes[var:upper()], modList[weaponPrefix..var.."Min"], modList[weaponPrefix..var.."Max"])
+					elemLine = elemLine..s_format("%s%d-%d", data.colorCodes[var:upper()], weaponData[var.."Min"], weaponData[var.."Max"])
 				end
 			end
 			main:AddTooltipLine(16, elemLine)
-			main:AddTooltipLine(16, s_format("^x7F7F7FElemental DPS: "..data.colorCodes.MAGIC.."%.1f", modList[weaponPrefix.."elementalDPS"]))
+			main:AddTooltipLine(16, s_format("^x7F7F7FElemental DPS: "..data.colorCodes.MAGIC.."%.1f", weaponData.ElementalDPS))
 			totalDamageTypes = totalDamageTypes + 1	
 		end
-		if modList[weaponPrefix.."chaosDPS"] then
-			main:AddTooltipLine(16, s_format("^x7F7F7FChaos Damage: "..data.colorCodes.CHAOS.."%d-%d "..data.colorCodes.MAGIC.."(%.1f DPS)", modList[weaponPrefix.."chaosMin"], modList[weaponPrefix.."chaosMax"], modList[weaponPrefix.."chaosDPS"]))
+		if weaponData.ChaosDPS then
+			main:AddTooltipLine(16, s_format("^x7F7F7FChaos Damage: "..data.colorCodes.CHAOS.."%d-%d "..data.colorCodes.MAGIC.."(%.1f DPS)", weaponData.ChaosMin, weaponData.ChaosMax, weaponData.ChaosDPS))
 			totalDamageTypes = totalDamageTypes + 1
 		end
 		if totalDamageTypes > 1 then
-			main:AddTooltipLine(16, s_format("^x7F7F7FTotal DPS: "..data.colorCodes.MAGIC.."%.1f", modList[weaponPrefix.."damageDPS"]))
+			main:AddTooltipLine(16, s_format("^x7F7F7FTotal DPS: "..data.colorCodes.MAGIC.."%.1f", weaponData.TotalDPS))
 		end
-		main:AddTooltipLine(16, s_format("^x7F7F7FCritical Strike Chance: %s%.2f%%", modList[weaponPrefix.."critChanceBase"] ~= base.weapon.critChanceBase and data.colorCodes.MAGIC or "^7", modList[weaponPrefix.."critChanceBase"]))
-		main:AddTooltipLine(16, s_format("^x7F7F7FAttacks per Second: %s%.2f", modList[weaponPrefix.."ttackRate"] ~= base.weapon.attackRateBase and data.colorCodes.MAGIC or "^7", modList[weaponPrefix.."attackRate"]))
+		main:AddTooltipLine(16, s_format("^x7F7F7FCritical Strike Chance: %s%.2f%%", weaponData.critChance ~= base.weapon.critChanceBase and data.colorCodes.MAGIC or "^7", weaponData.critChance))
+		main:AddTooltipLine(16, s_format("^x7F7F7FAttacks per Second: %s%.2f", weaponData.attackRate ~= base.weapon.attackRateBase and data.colorCodes.MAGIC or "^7", weaponData.attackRate))
 	elseif base.armour then
 		-- Armour-specific info
+		local armourData = item.armourData
 		if item.quality > 0 then
 			main:AddTooltipLine(16, s_format("^x7F7F7FQuality: "..data.colorCodes.MAGIC.."+%d%%", item.quality))
 		end
-		if base.armour.blockChance and modList.blockChance > 0 then
-			main:AddTooltipLine(16, s_format("^x7F7F7FChance to Block: %s%d%%", modList.blockChance ~= base.armour.blockChance and data.colorCodes.MAGIC or "^7", modList.blockChance))
+		if base.armour.blockChance and armourData.BlockChance > 0 then
+			main:AddTooltipLine(16, s_format("^x7F7F7FChance to Block: %s%d%%", armourData.BlockChance ~= base.armour.blockChance and data.colorCodes.MAGIC or "^7", armourData.BlockChance))
 		end
-		for _, def in ipairs({{var="armour",label="Armour"},{var="evasion",label="Evasion Rating"},{var="energyShield",label="Energy Shield"}}) do
-			local itemVal = modList["slot:"..base.type.."_"..def.var.."Base"]
+		for _, def in ipairs({{var="Armour",label="Armour"},{var="Evasion",label="Evasion Rating"},{var="EnergyShield",label="Energy Shield"}}) do
+			local itemVal = armourData[def.var]
 			if itemVal and itemVal > 0 then
 				main:AddTooltipLine(16, s_format("^x7F7F7F%s: %s%d", def.label, itemVal ~= base.armour[def.var.."Base"] and data.colorCodes.MAGIC or "^7", itemVal))
 			end
@@ -441,11 +453,10 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		if item.jewelRadiusData and slot and item.jewelRadiusData[slot.nodeId] then
 			local radiusData = item.jewelRadiusData[slot.nodeId]
 			local line
-			local labels = { "Str", "Dex", "Int" }
 			local codes = { data.colorCodes.MARAUDER, data.colorCodes.RANGER, data.colorCodes.WITCH }
-			for i, stat in ipairs({"strBase","dexBase","intBase"}) do
+			for i, stat in ipairs({"Str","Dex","Int"}) do
 				if radiusData[stat] and radiusData[stat] ~= 0 then
-					line = (line and line .. ", " or "") .. s_format("%s%d %s^7", codes[i], radiusData[stat], labels[i])
+					line = (line and line .. ", " or "") .. s_format("%s%d %s^7", codes[i], radiusData[stat], stat)
 				end
 			end
 			if line then
@@ -456,7 +467,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 			main:AddTooltipLine(16, "^x7F7F7FLimited to: ^7"..item.limit)
 		end
 	end
-	main:AddTooltipSeperator(10)
+	main:AddTooltipSeparator(10)
 
 	-- Implicit/explicit modifiers
 	if item.modLines[1] then
@@ -466,7 +477,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 				if not line:match("^%+?0[^%.]") and not line:match(" 0%-0 ") and not line:match(" 0 to 0 ") then -- Hack to hide 0-value modifiers
 					local colorCode
 					if modLine.extra then
-						colorCode = data.colorCodes.NORMAL
+						colorCode = data.colorCodes.UNSUPPORTED
 					else
 						colorCode = modLine.crafted and data.colorCodes.CRAFTED or data.colorCodes.MAGIC
 					end
@@ -474,8 +485,8 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 				end
 			end
 			if index == item.implicitLines and item.modLines[index + 1] then
-				-- Add seperator between implicit and explicit modifiers
-				main:AddTooltipSeperator(10)
+				-- Add separator between implicit and explicit modifiers
+				main:AddTooltipSeparator(10)
 			end
 		end
 	end
@@ -483,11 +494,11 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	-- Corrupted item label
 	if item.corrupted then
 		if #item.modLines == item.implicitLines then
-			main:AddTooltipSeperator(10)
+			main:AddTooltipSeparator(10)
 		end
 		main:AddTooltipLine(16, "^1Corrupted")
 	end
-	main:AddTooltipSeperator(14)
+	main:AddTooltipSeparator(14)
 
 	-- Mod differences
 	local calcFunc, calcBase = self.build.calcsTab:GetItemCalculator()
@@ -534,14 +545,9 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 
 	if launch.devMode and IsKeyDown("ALT") then
 		-- Modifier debugging info
-		main:AddTooltipSeperator(10)
-		local nameList = { }
-		for k in pairs(modList) do
-			t_insert(nameList, k)
-		end
-		table.sort(nameList)
-		for _, name in ipairs(nameList) do
-			main:AddTooltipLine(16, "^7"..name.." = "..tostring(modList[name]))
+		main:AddTooltipSeparator(10)
+		for _, mod in ipairs(modList) do
+			main:AddTooltipLine(14, "^7"..modLib.formatMod(mod))
 		end
 	end
 end

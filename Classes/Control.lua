@@ -85,6 +85,13 @@ function ControlClass:IsEnabled()
 	return self:GetProperty("enabled")
 end
 
+function ControlClass:IsMouseInBounds()
+	local x, y = self:GetPos()
+	local width, height = self:GetSize()
+	local cursorX, cursorY = GetCursorPos()
+	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
+end
+
 function ControlClass:SetFocus(focus)
 	if focus ~= self.hasFocus then
 		if focus and self.OnFocusGained then

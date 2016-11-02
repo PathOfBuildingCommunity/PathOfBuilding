@@ -30,11 +30,9 @@ local EditClass = common.NewClass("EditControl", "ControlHost", "Control", funct
 		self.controls.buttonDown = common.New("ButtonControl", {"RIGHT",self,"RIGHT"}, -2, 0, buttonSize, buttonSize, "-", function()
 			self:OnKeyUp("DOWN")
 		end)
-		self.controls.buttonDown.overSizeText = 6
 		self.controls.buttonUp = common.New("ButtonControl", {"RIGHT",self.controls.buttonDown,"LEFT"}, 0, 0, buttonSize, buttonSize, "+", function()
 			self:OnKeyUp("UP")
 		end)
-		self.controls.buttonUp.overSizeText = 6
 	end
 end)
 
@@ -51,13 +49,7 @@ function EditClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
 	end
-	if self:GetMouseOverControl() then
-		return true
-	end
-	local x, y = self:GetPos()
-	local width, height = self:GetSize()
-	local cursorX, cursorY = GetCursorPos()
-	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
+	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
 function EditClass:SelectAll()
@@ -139,6 +131,12 @@ function EditClass:Draw(viewPort)
 	end
 	if not enabled then
 		return
+	end
+	if mOver and self.tooltip then
+		main:AddTooltipLine(16, self:GetProperty("tooltip"))
+		SetDrawLayer(nil, 100)
+		main:DrawTooltip(x, y, width, height, viewPort)
+		SetDrawLayer(nil, 0)
 	end
 	SetViewport(textX, textY, width - 2 - (textX - x), textHeight)
 	if not self.hasFocus then
