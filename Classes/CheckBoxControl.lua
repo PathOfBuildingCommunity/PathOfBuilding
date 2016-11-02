@@ -15,10 +15,7 @@ function CheckBoxClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
 	end
-	local x, y = self:GetPos()
-	local width, height = self:GetSize()
-	local cursorX, cursorY = GetCursorPos()
-	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
+	return self:IsMouseInBounds()
 end
 
 function CheckBoxClass:Draw(viewPort)

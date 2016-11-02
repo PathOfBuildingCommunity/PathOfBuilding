@@ -50,11 +50,9 @@ function CalcSectionClass:IsMouseOver()
 	if self:GetMouseOverControl() then
 		return true
 	end
-	local x, y = self:GetPos()
-	local width, height = self:GetSize()
-	local cursorX, cursorY = GetCursorPos()
-	local mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
+	local mOver = self:IsMouseInBounds()
 	if mOver and not self.collapsed and self.enabled then
+		local cursorX, cursorY = GetCursorPos()
 		for _, data in ipairs(self.data) do
 			if data.enabled then
 				for _, colData in ipairs(data) do

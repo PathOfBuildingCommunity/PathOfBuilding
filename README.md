@@ -49,7 +49,7 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
-### 1.2.0 - 2016/11/01
+### 1.2.0 - 2016/11/02
 With this update, the program's internal modifier system has been completely overhauled.
 On its own this overhaul doesn't change much from the user's perspective, but it has opened the way for some
 significant upgrades:
@@ -82,6 +82,7 @@ Other changes:
 	* Some options now have tooltips that explain aspects of their function
  * The new class background artworks have been added to the passive skill tree
  * Unsupported modifiers are now shown in red instead of white to help convey the fact that they won't work
+ * The required level for a build's passive tree is now shown when hovering over the points display
  * Support gem compatability is now determined using the same data the game itself uses, and should now be 100% accurate
 
 ### 1.1.11 - 2016/10/25

@@ -59,13 +59,14 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	local spec = build.spec
 
 	local cursorX, cursorY = GetCursorPos()
+	local mOver = cursorX >= viewPort.x and cursorX < viewPort.x + viewPort.width and cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height
 	
 	-- Process input events
 	local treeClick
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "LEFTBUTTON" then
-				if cursorX >= viewPort.x and cursorX < viewPort.x + viewPort.width and cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height then
+				if mOver then
 					-- Record starting coords of mouse drag
 					-- Dragging won't actually commence unless the cursor moves far enough
 					self.dragX, self.dragY = cursorX, cursorY
@@ -79,13 +80,15 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					-- Mouse button went down, but didn't move far enough to trigger drag, so register a normal click
 					treeClick = "LEFT"
 				end
-			elseif event.key == "RIGHTBUTTON" then
-				treeClick = "RIGHT"
-			elseif event.key == "WHEELUP" then
-				self:Zoom(IsKeyDown("SHIFT") and 3 or 1, viewPort)
-			elseif event.key == "WHEELDOWN" then
-				self:Zoom(IsKeyDown("SHIFT") and -3 or -1, viewPort)
-			end	
+			elseif mOver then
+				if event.key == "RIGHTBUTTON" then
+					treeClick = "RIGHT"
+				elseif event.key == "WHEELUP" then
+					self:Zoom(IsKeyDown("SHIFT") and 3 or 1, viewPort)
+				elseif event.key == "WHEELDOWN" then
+					self:Zoom(IsKeyDown("SHIFT") and -3 or -1, viewPort)
+				end	
+			end
 		end
 	end
 
@@ -130,7 +133,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	end
 
 	local hoverNode
-	if cursorX >= viewPort.x and cursorX < viewPort.x + viewPort.width and cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height then
+	if mOver then
 		-- Cursor is over the tree, check if it is over a node
 		local curTreeX, curTreeY = screenToTree(cursorX, cursorY)
 		for nodeId, node in pairs(spec.nodes) do

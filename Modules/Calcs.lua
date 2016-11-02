@@ -3,7 +3,7 @@
 -- Module: Calcs
 -- Performs all the offense and defense calculations.
 -- Here be dragons!
--- This file is 2500 lines long, over half of which is in one function...
+-- This file is 2400 lines long, over half of which is in one function...
 --
 
 local pairs = pairs
@@ -916,7 +916,7 @@ local function mergeMainMods(env, repSlotName, repItem)
 end
 
 -- Finalise environment and perform the calculations
--- This function is 1400 lines long. Enjoy!
+-- This function is 1300 lines long. Enjoy!
 local function performCalcs(env)
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
@@ -1036,7 +1036,7 @@ local function performCalcs(env)
 
 		-- Merge auxillary modifiers
 		if env.mode_buffs then
-			if activeSkill.buffModList then
+			if activeSkill.buffModList and not activeSkill.skillFlags.totem then
 				if activeSkill.activeGem.data.golem and modDB:Sum("FLAG", skillCfg, "LiegeOfThePrimordial") and (activeSkill.activeGem.data.fire or activeSkill.activeGem.data.cold or activeSkill.activeGem.data.lightning) then
 					modDB:ScaleAddList(activeSkill.buffModList, 2)
 				else
@@ -1167,9 +1167,9 @@ local function performCalcs(env)
 				if inc ~= 0 or more ~= 1 or (base ~= 0 and extraBase ~= 0) then
 					local out = { }
 					if base ~= 0 and extraBase ~= 0 then
-						out[1] = "("..round(extraBase, 2).." + "..round(base, 2)..") ^8(base)"
+						out[1] = s_format("(%g + %g) ^8(base)", extraBase, base)
 					else
-						out[1] = round(base + extraBase, 2).." ^8(base)"
+						out[1] = s_format("%g ^8(base)", base + extraBase)
 					end
 					if inc ~= 0 then
 						t_insert(out, s_format("x %.2f", 1 + inc/100).." ^8(increased/reduced)")
@@ -1177,7 +1177,7 @@ local function performCalcs(env)
 					if more ~= 1 then
 						t_insert(out, s_format("x %.2f", more).." ^8(more/less)")
 					end
-					t_insert(out, "= "..output[...])
+					t_insert(out, s_format("= %g", output[...]))
 					breakdown[...] = out
 				end
 			end
@@ -1210,18 +1210,18 @@ local function performCalcs(env)
 			local out = { }
 			local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
 			if resist ~= 0 then
-				t_insert(out, "Enemy "..resistForm..": "..resist.."%")
+				t_insert(out, s_format("Enemy %s: %d%%", resistForm, resist))
 			end
 			if pen ~= 0 then
 				t_insert(out, "Effective resistance:")
-				t_insert(out, resist.."% ^8(resistance)")
-				t_insert(out, "- "..pen.."% ^8(penetration)")
-				t_insert(out, "= "..(resist-pen).."%")
+				t_insert(out, s_format("%d%% ^8(resistance)", resist))
+				t_insert(out, s_format("- %d%% ^8(penetration)", pen))
+				t_insert(out, s_format("= %d%%", resist - pen))
 			end
 			if (resist - pen) ~= 0 and taken ~= 0 then
 				t_insert(out, "Effective DPS modifier:")
-				t_insert(out, (1 - (resist - pen) / 100).." ^8("..resistForm..")")
-				t_insert(out, "x "..(1 + taken / 100).." ^8(increased/reduced damage taken)")
+				t_insert(out, s_format("%.2f ^8(%s)", 1 - (resist - pen) / 100, resistForm))
+				t_insert(out, s_format("x %.2f ^8(increased/reduced damage taken)", 1 + taken / 100))
 				t_insert(out, s_format("= %.3f", mult))
 			end
 			return out
@@ -1251,7 +1251,7 @@ local function performCalcs(env)
 
 	-- Add attribute bonuses
 	modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
-	local strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus", 0)) / 5)
+	local strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) / 5)
 	modDB:NewMod("PhysicalDamage", "INC", strDmgBonus, "Strength", ModFlag.Melee)
 	modDB:NewMod("Accuracy", "BASE", output.Dex * 2, "Dexterity")
 	if not modDB:Sum("FLAG", nil, "IronReflexes") then
@@ -1414,9 +1414,9 @@ local function performCalcs(env)
 			output.EvadeChance = 100 - calcHitChance(output.Evasion, enemyAccuracy)
 			if breakdown then
 				breakdown.EvadeChance = {
-					"Enemy level: "..env.enemyLevel..(env.configInput.enemyLevel and " ^8(overridden from the Configuration tab" or " ^8(can be overridden in the Configuration tab)"),
-					"Average enemy accuracy: "..enemyAccuracy,
-					"Approximate evade chance: "..output.EvadeChance.."%",
+					s_format("Enemy level: %d ^8(%s the Configuration tab)", env.enemyLevel, env.configInput.enemyLevel and "overridden from" or "can be overridden in"),
+					s_format("Average enemy accuracy: %d", enemyAccuracy),
+					s_format("Approximate evade chance: %d%%", output.EvadeChance),
 				}
 			end
 		end
@@ -1806,9 +1806,9 @@ local function performCalcs(env)
 				local convMult = env.conversionTable[damageType].mult
 				if breakdown then
 					t_insert(breakdown[damageType], "Hit damage:")
-					t_insert(breakdown[damageType], ""..min.." to "..max.." ^8(total damage)")			
+					t_insert(breakdown[damageType], s_format("%d to %d ^8(total damage)", min, max))
 					if convMult ~= 1 then
-						t_insert(breakdown[damageType], "x "..convMult.." ^8("..((1-convMult)*100).."% converted to other damage types)")
+						t_insert(breakdown[damageType], s_format("x %g ^8(%g%% converted to other damage types)", convMult, (1-convMult)*100))
 					end
 				end
 				min = min * convMult
@@ -1843,7 +1843,7 @@ local function performCalcs(env)
 					end
 				end
 				if breakdown then	
-					t_insert(breakdown[damageType], "= "..round(min).." to "..round(max))
+					t_insert(breakdown[damageType], s_format("= %d to %d", min, max))
 				end
 			else
 				min, max = 0, 0
@@ -1910,28 +1910,29 @@ local function performCalcs(env)
 	do
 		local more = m_floor(modDB:Sum("MORE", skillCfg, "ManaCost") * 100 + 0.0001) / 100
 		local inc = modDB:Sum("INC", skillCfg, "ManaCost")
-		output.ManaCost = m_floor(m_max(0, (skillData.manaCost or 0) * more * (1 + inc / 100) - modDB:Sum("BASE", skillCfg, "ManaCost")))
+		local base = modDB:Sum("BASE", skillCfg, "ManaCost")
+		output.ManaCost = m_floor(m_max(0, (skillData.manaCost or 0) * more * (1 + inc / 100) - base))
 		if breakdown and output.ManaCost ~= (skillData.manaCost or 0) then
 			breakdown.ManaCost = {
-				(skillData.manaCost or 0).." ^8(base mana cost)",
+				s_format("%d ^8(base mana cost)", skillData.manaCost or 0)
 			}
 			if more ~= 1 then
-				t_insert(breakdown.ManaCost, "x "..more.." ^8(mana cost multiplier)")
+				t_insert(breakdown.ManaCost, s_format("x %.2f ^8(mana cost multiplier)", more))
 			end
 			if inc ~= 0 then
-				t_insert(breakdown.ManaCost, "x "..(1 + inc/100).." ^8(increased/reduced mana cost)")
-			end
-			local base = modDB:Sum("BASE", skillCfg, "ManaCost")
+				t_insert(breakdown.ManaCost, s_format("x %.2f ^8(increased/reduced mana cost)", 1 + inc/100))
+			end	
 			if base ~= 0 then
-				t_insert(breakdown.ManaCost, "- "..base.." ^8(- mana cost)")
+				t_insert(breakdown.ManaCost, s_format("- %d ^8(- mana cost)", base))
 			end
-			t_insert(breakdown.ManaCost, "= " .. output.ManaCost)
+			t_insert(breakdown.ManaCost, s_format("= %d", output.ManaCost))
 		end
 	end
 
 	-- Calculate skill DOT components
 	local dotCfg = {
 		skillName = skillCfg.skillName,
+		slotName = skillCfg.slotName,
 		flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
 		keywordFlags = skillCfg.keywordFlags
 	}
@@ -1966,13 +1967,14 @@ local function performCalcs(env)
 			end
 			local inc = modDB:Sum("INC", dotCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
 			local more = round(modDB:Sum("MORE", dotCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil), 2)
-			output[damageType.."Dot"] = baseVal * (1 + inc/100) * more * effMult
+			local total = baseVal * (1 + inc/100) * more * effMult
+			output[damageType.."Dot"] = total
+			output.TotalDot = output.TotalDot + total
 			if breakdown then
 				breakdown[damageType.."Dot"] = { }
-				dotBreakdown(breakdown[damageType.."Dot"], baseVal, inc, more, effMult, output[damageType.."Dot"])
+				dotBreakdown(breakdown[damageType.."Dot"], baseVal, inc, more, effMult, total)
 			end
 		end
-		output.TotalDot = output.TotalDot + (output[damageType.."Dot"] or 0)
 	end
 
 	-- Calculate bleeding chance and damage
@@ -1982,6 +1984,7 @@ local function performCalcs(env)
 		skillFlags.bleed = true
 		skillFlags.duration = true
 		local dotCfg = {
+			slotName = skillCfg.slotName,
 			flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
 			keywordFlags = bor(skillCfg.keywordFlags, KeywordFlag.Bleed)
 		}
@@ -2035,6 +2038,7 @@ local function performCalcs(env)
 		skillFlags.poison = true
 		skillFlags.duration = true
 		local dotCfg = {
+			slotName = skillCfg.slotName,
 			flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
 			keywordFlags = bor(skillCfg.keywordFlags, KeywordFlag.Poison)
 		}
@@ -2109,6 +2113,7 @@ local function performCalcs(env)
 		if canDeal.Fire and output.IgniteChance > 0 and sourceDmg > 0 then
 			skillFlags.ignite = true
 			local dotCfg = {
+				slotName = skillCfg.slotName,
 				flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
 				keywordFlags = skillCfg.keywordFlags,
 			}
@@ -2373,7 +2378,7 @@ function calcs.buildOutput(build, mode)
 		end
 	elseif mode == "CALCS" then
 		-- Calculate XP modifier 
-		--[[ FIXME
+		--[[ FIXME?
 		if input.monster_level and input.monster_level > 0 then
 			local playerLevel = build.characterLevel
 			local diff = m_abs(playerLevel - input.monster_level) - 3 - m_floor(playerLevel / 16)

@@ -280,7 +280,7 @@ return {
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion", "Defences" }, modType = "MORE" }, }, },
 	{ label = "Total", { format = "{0:output:Evasion}", { breakdown = "Evasion" }, }, },
-	{ label = "Evade Chance", { format = "{0:output:EvadeChance}%", { breakdown = "EvadeChance" }, { label = "Enemy Accuracy modifiers", modName = "Accuracy", enemy = true }, }, },
+	{ label = "Evade Chance", { format = "{0:output:EvadeChance}%", { breakdown = "EvadeChance" }, { modName = { "CannotEvade" } }, { label = "Enemy Accuracy modifiers", modName = "Accuracy", enemy = true }, }, },
 } },
 { 1, "Resist", 3, "Resists", data.colorCodes.DEFENCE, {
 	extra = data.colorCodes.FIRE.."{0:output:FireResist}+{0:output:FireResistOverCap}^7/"..data.colorCodes.COLD.."{0:output:ColdResist}+{0:output:ColdResistOverCap}^7/"..data.colorCodes.LIGHTNING.."{0:output:LightningResist}+{0:output:LightningResistOverCap}",

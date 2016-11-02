@@ -3218,7 +3218,11 @@ gems["Righteous Fire"] = {
 	area = true,
 	fire = true,
 	setupFunc = function(env, output)
-		env.mainSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.5
+		if env.mainSkill.skillFlags.totem then
+			env.mainSkill.skillData.FireDot = output.TotemLife * 0.5
+		else
+			env.mainSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.5
+		end
 	end,
 	color = 3,
 	baseFlags = {

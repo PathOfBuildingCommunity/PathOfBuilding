@@ -172,4 +172,3 @@ function ModListClass:Print()
 		ConPrintf("%s|%s", modLib.formatMod(mod), mod.source or "?")
 	end
 end
-

@@ -9,6 +9,7 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 local m_min = math.min
+local m_max = math.max
 
 local buildMode = common.New("ControlHost")
 
@@ -83,6 +84,12 @@ function buildMode:Init(dbFileName, buildName)
 		DrawImage(nil, x + 1, y + 1, strW, 18)
 		SetDrawColor(1, 1, 1)
 		DrawString(x + 4, y + 2, "LEFT", 16, "FIXED", str)
+		if control:IsMouseInBounds() then
+			SetDrawLayer(nil, 10)
+			main:AddTooltipLine(16, "Required level: "..m_max(1, (100 + used - usedMax)))
+			main:DrawTooltip(x, y, control.width, control.height, main.viewPort)
+			SetDrawLayer(nil, 0)
+		end
 	end
 	self.controls.characterLevel = common.New("EditControl", {"LEFT",self.anchorTopBarRight,"RIGHT"}, 0, 0, 106, 20, "", "Level", "[%d]", 3, function(buf)
 		self.characterLevel = tonumber(buf) or 1

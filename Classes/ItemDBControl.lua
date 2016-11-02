@@ -164,13 +164,7 @@ function ItemDBClass:IsMouseOver()
 	if not self:IsShown() then
 		return
 	end
-	if self:GetMouseOverControl() then
-		return true
-	end
-	local x, y = self:GetPos()
-	local width, height = self:GetSize()
-	local cursorX, cursorY = GetCursorPos()
-	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
+	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
 function ItemDBClass:Draw(viewPort)
