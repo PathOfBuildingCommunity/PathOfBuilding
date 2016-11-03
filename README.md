@@ -49,6 +49,9 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.1 - 2016/11/03
+ * Fixed error caused by Lioneye's Fall
+
 ### 1.2.0 - 2016/11/02
 With this update, the program's internal modifier system has been completely overhauled.
 On its own this overhaul doesn't change much from the user's perspective, but it has opened the way for some
