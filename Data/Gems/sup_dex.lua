@@ -164,7 +164,53 @@ gems["Cast On Critical Strike"] = {
 	support = true,
 	spell = true,
 	trigger = true,
-	unsupported = true,
+	color = 2,
+	requireSkillTypes = { 1, 36, },
+	addSkillTypes = { 42, },
+	excludeSkillTypes = { 37, 41, 30, 44, },
+	baseMods = {
+		mod("ManaCost", "MORE", 40), 
+		--"cast_linked_spells_on_attack_crit_%" = 100
+		--"spell_uncastable_if_triggerable" = ?
+	},
+	qualityMods = {
+		mod("CritChance", "INC", 1, 0, 0, nil), --"critical_strike_chance_+%" = 1
+	},
+	levelMods = {
+		[1] = mod("Damage", "MORE", nil, ModFlag.Spell), --"support_cast_on_crit_spell_damage_+%_final"
+	},
+	levels = {
+		[1] = { 20, },
+		[2] = { 21, },
+		[3] = { 22, },
+		[4] = { 23, },
+		[5] = { 24, },
+		[6] = { 25, },
+		[7] = { 26, },
+		[8] = { 27, },
+		[9] = { 28, },
+		[10] = { 29, },
+		[11] = { 30, },
+		[12] = { 31, },
+		[13] = { 32, },
+		[14] = { 33, },
+		[15] = { 34, },
+		[16] = { 35, },
+		[17] = { 36, },
+		[18] = { 37, },
+		[19] = { 38, },
+		[20] = { 39, },
+		[21] = { 40, },
+		[22] = { 41, },
+		[23] = { 42, },
+		[24] = { 43, },
+		[25] = { 44, },
+		[26] = { 45, },
+		[27] = { 46, },
+		[28] = { 47, },
+		[29] = { 48, },
+		[30] = { 49, },
+	},
 }
 gems["Cast on Death"] = {
 	dexterity = true,
