@@ -973,6 +973,9 @@ local function performCalcs(env)
 	if env.itemList["Weapon 1"] and env.itemList["Weapon 1"].type == "Staff" then
 		condList["UsingStaff"] = true
 	end
+	if env.itemList["Weapon 1"] and env.itemList["Weapon 1"].type == "Bow" then
+		condList["UsingBow"] = true
+	end
 	if env.itemList["Weapon 2"] and env.itemList["Weapon 2"].type == "Shield" then
 		condList["UsingShield"] = true
 	end
