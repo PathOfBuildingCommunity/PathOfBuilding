@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.2.2"/>
+	<Version number="1.2.3"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="6bb074e0d3a4043f0e5dcbd25c33f8e5e1f5cfe0" name="Launch.lua" part="program"/>
 	<File sha1="93e19c2a160eb49993d50d9e2b47ea79962373d9" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="e82022de6b1fee1346105e2aacc5ea472be79a7d" name="changelog.txt" part="program"/>
+	<File sha1="087b39317149e9b6ac5fa6fb0370cd302816258e" name="changelog.txt" part="program"/>
 	<File sha1="ea886e9e8ce013ed7d8805174d43becdca1f533e" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="e42437dd7e1b5a1032f1be9852ede4399a003826" name="Classes/ButtonControl.lua" part="program"/>
-	<File sha1="536682686e103cd1bc589c6c9f8dab0e6ac93310" name="Classes/CalcBreakdownControl.lua" part="program"/>
+	<File sha1="8df790619a3284b8ed78075f59dd34d5b00d28a3" name="Classes/CalcBreakdownControl.lua" part="program"/>
 	<File sha1="23171916fa590c5344b17e67bd8d378574922388" name="Classes/CalcSectionControl.lua" part="program"/>
-	<File sha1="808e7190ff6f97a6bf68c52b848563e96eade7dc" name="Classes/CalcsTab.lua" part="program"/>
+	<File sha1="229eb69a466db4a850a3a2dbd80c3f9259f7f8d2" name="Classes/CalcsTab.lua" part="program"/>
 	<File sha1="690f0d9d9ba0cd8092eb660d5d83bb0b9ad9f37d" name="Classes/CheckBoxControl.lua" part="program"/>
 	<File sha1="cc189c54962246366d8d72ac7e4800553696a91f" name="Classes/ConfigTab.lua" part="program"/>
 	<File sha1="bbb08f183746d6ec023e2bd08fb7a89d365381da" name="Classes/Control.lua" part="program"/>

@@ -95,7 +95,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 			end
 			section.controls.mainSkill.enabled = #mainSocketGroup.displaySkillList > 1
 			if mainSocketGroup.displaySkillList[1] then
-				local activeGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem
+				local activeGem = mainSocketGroup.displaySkillList[self.input.skill_activeNumber].activeGem
 				if activeGem and activeGem.data.parts and #activeGem.data.parts > 1 then
 					section.controls.mainSkillPart.shown = true
 					wipeTable(section.controls.mainSkillPart.list)
@@ -182,30 +182,6 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 	self.width = viewPort.width
 	self.height = viewPort.height
 
-	for id, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" then
-			if event.key == "z" and IsKeyDown("CTRL") then
-				self:Undo()
-				self.build.buildFlag = true
-			elseif event.key == "y" and IsKeyDown("CTRL") then
-				self:Redo()
-				self.build.buildFlag = true
-			end
-		end
-	end
-	self:ProcessControlsInput(inputEvents, viewPort)
-	for id, event in ipairs(inputEvents) do
-		if event.type == "KeyUp" then
-			if event.key == "WHEELDOWN" then
-				self.controls.scrollBar:Scroll(1)
-			elseif event.key == "WHEELUP" then
-				self.controls.scrollBar:Scroll(-1)
-			end
-		end
-	end
-
-	main:DrawBackground(viewPort)
-
 	-- Arrange the sections
 	local baseX = viewPort.x + 4
 	local baseY = viewPort.y + 4
@@ -281,6 +257,30 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		section.y = section.y - self.controls.scrollBar.offset
 		section:UpdatePos()
 	end
+
+	for id, event in ipairs(inputEvents) do
+		if event.type == "KeyDown" then
+			if event.key == "z" and IsKeyDown("CTRL") then
+				self:Undo()
+				self.build.buildFlag = true
+			elseif event.key == "y" and IsKeyDown("CTRL") then
+				self:Redo()
+				self.build.buildFlag = true
+			end
+		end
+	end
+	self:ProcessControlsInput(inputEvents, viewPort)
+	for id, event in ipairs(inputEvents) do
+		if event.type == "KeyUp" then
+			if event.key == "WHEELDOWN" then
+				self.controls.scrollBar:Scroll(1)
+			elseif event.key == "WHEELUP" then
+				self.controls.scrollBar:Scroll(-1)
+			end
+		end
+	end
+
+	main:DrawBackground(viewPort)
 
 	if not self.displayPinned then
 		self.displayData = nil
