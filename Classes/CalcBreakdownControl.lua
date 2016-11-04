@@ -291,10 +291,12 @@ function CalcBreakdownClass:AddModSection(sectionData)
 			-- Modifier is from an item, add item name and tooltip
 			local itemId = row.mod.source:match("Item:(%d+):.+")
 			local item = build.itemsTab.list[tonumber(itemId)]
-			row.sourceName = data.colorCodes[item.rarity]..item.name
-			row.sourceNameTooltip = function()
-				build.itemsTab:AddItemTooltip(item, row.mod.sourceSlot)
-				return data.colorCodes[item.rarity], true
+			if item then
+				row.sourceName = data.colorCodes[item.rarity]..item.name
+				row.sourceNameTooltip = function()
+					build.itemsTab:AddItemTooltip(item, row.mod.sourceSlot)
+					return data.colorCodes[item.rarity], true
+				end
 			end
 		elseif sourceType == "Tree" then
 			-- Modifier is from a passive node, add node name, and add node ID (used to show node location)
