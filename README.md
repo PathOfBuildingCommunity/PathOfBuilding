@@ -49,6 +49,9 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.4 - 2016/11/06
+ * Fixed a few minor bugs
+
 ### 1.2.3 - 2016/11/04
  * Fixed an error in the Calcs tab
 

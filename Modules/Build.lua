@@ -396,6 +396,7 @@ function buildMode:OnFrame(inputEvents)
 			t_insert(self.controls.mainSkill.list, { val = i, label = activeSkill.activeGem.name })
 		end
 		self.controls.mainSkill.enabled = #mainSocketGroup.displaySkillList > 1
+		self.controls.mainSkill.sel = mainSocketGroup.mainActiveSkill
 		self.controls.mainSkill.shown = true
 		self.controls.mainSkillPart.shown = false
 		if mainSocketGroup.displaySkillList[1] then

@@ -209,7 +209,7 @@ end
 function main:OnFrame()
 	self.screenW, self.screenH = GetScreenSize()
 
-	if self.newMode then
+	while self.newMode do
 		if self.mode then
 			self:CallMode("Shutdown")
 		end
