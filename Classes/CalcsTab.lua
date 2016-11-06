@@ -94,6 +94,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 				t_insert(section.controls.mainSkill.list, { val = i, label = activeSkill.activeGem.name })
 			end
 			section.controls.mainSkill.enabled = #mainSocketGroup.displaySkillList > 1
+			section.controls.mainSkill.sel = self.input.skill_activeNumber
 			if mainSocketGroup.displaySkillList[1] then
 				local activeGem = mainSocketGroup.displaySkillList[self.input.skill_activeNumber].activeGem
 				if activeGem and activeGem.data.parts and #activeGem.data.parts > 1 then

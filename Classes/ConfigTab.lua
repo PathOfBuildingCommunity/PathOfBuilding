@@ -239,7 +239,6 @@ function ConfigTabClass:BuildModList()
 	self.enemyModList = enemyModList
 	local input = self.input
 	for _, varData in ipairs(varList) do
-		ConPrintf("%s", varData.var)
 		if varData.apply then
 			if varData.type == "check" then
 				if input[varData.var] then
