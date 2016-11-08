@@ -5,9 +5,11 @@
 --
 local launch, main = ...
 
+local m_max = math.max
+local m_min = math.min
 local m_floor = math.floor
 
-local EditClass = common.NewClass("EditControl", "ControlHost", "Control", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, style)
+local EditClass = common.NewClass("EditControl", "ControlHost", "Control", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight)
 	self.ControlHost()
 	self.Control(anchor, x, y, width, height)
 	self:SetText(init or "")
@@ -15,11 +17,12 @@ local EditClass = common.NewClass("EditControl", "ControlHost", "Control", funct
 	self.filter = filter or "[%w%p ]"
 	self.limit = limit
 	self.changeFunc = changeFunc
-	self.textCol = (style and style.textCol) or "^7"
-	self.inactiveCol = (style and style.inactiveCol) or "^8"
-	self.disableCol = (style and style.disableCol) or "^9"
-	self.selCol = (style and style.selCol) or "^0"
-	self.selBGCol = (style and style.selBGCol) or "^xBBBBBB"
+	self.lineHeight = lineHeight
+	self.textCol = "^7"
+	self.inactiveCol = "^8"
+	self.disableCol = "^9"
+	self.selCol = "^0"
+	self.selBGCol = "^xBBBBBB"
 	self.blinkStart = GetTime()
 	if self.filter == "[%d]" then
 		-- Add +/- buttons for integer number edits
@@ -63,8 +66,8 @@ function EditClass:ReplaceSel(text)
 			return
 		end
 	end
-	local left = math.min(self.caret, self.sel)
-	local right = math.max(self.caret, self.sel)
+	local left = m_min(self.caret, self.sel)
+	local right = m_max(self.caret, self.sel)
 	local newBuf = self.buf:sub(1, left - 1) .. text .. self.buf:sub(right)
 	if self.limit and #newBuf > self.limit then
 		return
@@ -113,14 +116,18 @@ function EditClass:Draw(viewPort)
 	if not enabled then
 		SetDrawColor(0, 0, 0)
 	elseif self.hasFocus or mOver then
-		SetDrawColor(0.15, 0.15, 0.15)
+		if self.lineHeight then
+			SetDrawColor(0.1, 0.1, 0.1)
+		else
+			SetDrawColor(0.15, 0.15, 0.15)
+		end
 	else
 		SetDrawColor(0, 0, 0)
 	end
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 	local textX = x + 2
 	local textY = y + 2
-	local textHeight = height - 4
+	local textHeight = self.lineHeight or (height - 4)
 	if self.prompt then
 		if not enabled then
 			DrawString(textX, textY, "LEFT", textHeight, "VAR", self.disableCol..self.prompt)
@@ -138,7 +145,7 @@ function EditClass:Draw(viewPort)
 		main:DrawTooltip(x, y, width, height, viewPort)
 		SetDrawLayer(nil, 0)
 	end
-	SetViewport(textX, textY, width - 2 - (textX - x), textHeight)
+	SetViewport(textX, textY, width - 2 - (textX - x), height - 4)
 	if not self.hasFocus then
 		DrawString(0, 0, "LEFT", textHeight, "VAR", self.inactiveCol..self.buf)
 		SetViewport()
@@ -153,9 +160,57 @@ function EditClass:Draw(viewPort)
 		self.caret = DrawStringCursorIndex(textHeight, "VAR", self.buf, cursorX - textX, cursorY - textY)
 	end
 	textX, textY = 0, 0
-	if self.sel and self.sel ~= self.caret then
-		local left = math.min(self.caret, self.sel)
-		local right = math.max(self.caret, self.sel)
+	if self.lineHeight then
+		local left = m_min(self.caret, self.sel or self.caret)
+		local right = m_max(self.caret, self.sel or self.caret)
+		for s, line, e in (self.buf.."\n"):gmatch("()([^\n]*)\n()") do
+			textX = 0
+			local caretX
+			if left >= e or right <= s then
+				DrawString(textX, textY, "LEFT", textHeight, "VAR", self.textCol .. line)
+			end
+			if left < e then
+				if left > s then
+					local pre = self.textCol .. line:sub(1, left - s)
+					DrawString(textX, textY, "LEFT", textHeight, "VAR", pre)
+					textX = textX + DrawStringWidth(textHeight, "VAR", pre)
+				end
+				if left >= s and left == self.caret then
+					caretX = textX
+				end
+			end
+			if left < e and right > s then
+				local sel = self.selCol .. StripEscapes(line:sub(m_max(1, left - s + 1), m_min(#line, right - s)))
+				if right >= e then
+					sel = sel .. "  "
+				end
+				local selWidth = DrawStringWidth(textHeight, "VAR", sel)
+				SetDrawColor(self.selBGCol)
+				DrawImage(nil, textX, textY, selWidth, textHeight)
+				DrawString(textX, textY, "LEFT", textHeight, "VAR", sel)
+				textX = textX + selWidth
+			end
+			if right >= s and right < e and right == self.caret then
+				caretX = textX
+			end
+			if right > s then
+				if right < e then
+					local post = self.textCol .. line:sub(right - s + 1)
+					DrawString(textX, textY, "LEFT", textHeight, "VAR", post)
+					textX = textX + DrawStringWidth(textHeight, "VAR", post)
+				end
+			end
+			if caretX then
+				if (GetTime() - self.blinkStart) % 1000 < 500 then
+					SetDrawColor(self.textCol)
+					DrawImage(nil, caretX, textY, 1, textHeight)
+				end
+			end
+			textY = textY + textHeight
+		end
+	elseif self.sel and self.sel ~= self.caret then
+		local left = m_min(self.caret, self.sel)
+		local right = m_max(self.caret, self.sel)
 		local pre = self.textCol .. self.buf:sub(1, left - 1)
 		local sel = self.selCol .. StripEscapes(self.buf:sub(left, right - 1))
 		local post = self.textCol .. self.buf:sub(right)
@@ -202,6 +257,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 		return mOverControl:OnKeyDown(key)
 	end
 	local shift = IsKeyDown("SHIFT")
+	local ctrl =  IsKeyDown("CTRL")
 	if key == "LEFTBUTTON" then
 		if not self.Object:IsMouseOver() then
 			return
@@ -215,7 +271,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 			local width, height = self:GetSize()
 			local textX = x + 2
 			local textY = y + 2
-			local textHeight = height - 4
+			local textHeight = self.lineHeight or (height - 4)
 			if self.prompt then
 				textX = textX + DrawStringWidth(textHeight, "VAR", self.prompt) + textHeight/2
 			end
@@ -224,28 +280,32 @@ function EditClass:OnKeyDown(key, doubleClick)
 			self.sel = self.caret
 			self.blinkStart = GetTime()
 		end
-	elseif key == "ESCAPE" or key == "RETURN" then
+	elseif key == "ESCAPE" then
 		return
-	elseif IsKeyDown("CTRL") then
-		if key == "a" then
-			self:SelectAll()
-		elseif key == "c" or key == "x" then
-			if self.sel and self.sel ~= self.caret then
-				local left = math.min(self.caret, self.sel)
-				local right = math.max(self.caret, self.sel)
-				Copy(self.buf:sub(left, right - 1))
-				if key == "x" then
-					self:ReplaceSel("")
-				end
+	elseif key == "RETURN" then
+		if self.lineHeight then
+			self:Insert("\n")
+		else
+			return
+		end
+	elseif key == "a" and ctrl then
+		self:SelectAll()
+	elseif (key == "c" or key == "x") and ctrl then
+		if self.sel and self.sel ~= self.caret then
+			local left = m_min(self.caret, self.sel)
+			local right = m_max(self.caret, self.sel)
+			Copy(self.buf:sub(left, right - 1))
+			if key == "x" then
+				self:ReplaceSel("")
 			end
-		elseif key == "v" then
-			local text = Paste()
-			if text then
-				if self.sel and self.sel ~= self.caret then
-					self:ReplaceSel(text)
-				else
-					self:Insert(text)
-				end
+		end
+	elseif key == "v" and ctrl then
+		local text = Paste()
+		if text then
+			if self.sel and self.sel ~= self.caret then
+				self:ReplaceSel(text)
+			else
+				self:Insert(text)
 			end
 		end
 	elseif key == "LEFT" then
@@ -260,14 +320,62 @@ function EditClass:OnKeyDown(key, doubleClick)
 			self.caret = self.caret + 1
 			self.blinkStart = GetTime()
 		end
+	elseif key == "UP" and self.lineHeight then
+		self.sel = shift and (self.sel or self.caret) or nil
+		local lineNum = 0
+		for s, line, e in (self.buf.."\n"):gmatch("()([^\n]*)\n()") do
+			if self.caret >= s and self.caret < e then
+				if s > 1 then
+					local pre = (line.." "):sub(1, self.caret - s)
+					self.caret = DrawStringCursorIndex(self.lineHeight, "VAR", self.buf, DrawStringWidth(self.lineHeight, "VAR", pre) + 1, lineNum * self.lineHeight)
+					self.blinkStart = GetTime()
+				end
+				break
+			end
+			lineNum = lineNum + 1
+		end
+	elseif key == "DOWN" and self.lineHeight then
+		self.sel = shift and (self.sel or self.caret) or nil
+		local lineNum = 0
+		for s, line, e in (self.buf.."\n"):gmatch("()([^\n]*)\n()") do
+			if self.caret >= s and self.caret < e then
+				if e - 1 <= #self.buf then
+					local pre = (line.." "):sub(1, self.caret - s)
+					self.caret = DrawStringCursorIndex(self.lineHeight, "VAR", self.buf, DrawStringWidth(self.lineHeight, "VAR", pre) + 1, (lineNum + 2) * self.lineHeight)
+					self.blinkStart = GetTime()
+				end
+				break
+			end
+			lineNum = lineNum + 1
+		end
 	elseif key == "HOME" then
 		self.sel = shift and (self.sel or self.caret) or nil
-		self.caret = 1
-		self.blinkStart = GetTime()
+		if self.lineHeight and not ctrl then
+			for s, line, e in (self.buf.."\n"):gmatch("()([^\n]*)\n()") do
+				if self.caret >= s and self.caret < e then
+					self.caret = s
+					self.blinkStart = GetTime()
+					break
+				end
+			end
+		else
+			self.caret = 1
+			self.blinkStart = GetTime()
+		end
 	elseif key == "END" then
 		self.sel = shift and (self.sel or self.caret) or nil
-		self.caret = #self.buf + 1			
-		self.blinkStart = GetTime()
+		if self.lineHeight and not ctrl then
+			for s, line, e in (self.buf.."\n"):gmatch("()([^\n]*)\n()") do
+				if self.caret >= s and self.caret < e then
+					self.caret = e - 1
+					self.blinkStart = GetTime()
+					break
+				end
+			end
+		else
+			self.caret = #self.buf + 1			
+			self.blinkStart = GetTime()
+		end
 	elseif key == "BACK" then
 		if self.sel and self.sel ~= self.caret then
 			self:ReplaceSel("")
