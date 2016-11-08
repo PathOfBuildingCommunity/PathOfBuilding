@@ -2094,6 +2094,7 @@ gems["Static Strike"] = {
 	},
 	color = 1,
 	baseFlags = {
+		attack = true,
 		melee = true,
 		area = true,
 		duration = true,

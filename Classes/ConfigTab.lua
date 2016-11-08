@@ -97,6 +97,10 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 
 	self:BuildModList()
 
+	if launch.devMode then
+		self.controls.test = common.New("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 500, 50, 300, 300, "", nil, "[%C\n]", 500, nil, 14)
+	end
+
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
