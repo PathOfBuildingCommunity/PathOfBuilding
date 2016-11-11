@@ -14,6 +14,10 @@ gems["Abyssal Cry"] = {
 	chaos = true,
 	color = 1,
 	baseFlags = {
+		warcry = true,
+		area = true,
+		duration = true,
+		chaos = true,
 	},
 	skillTypes = { [11] = true, [12] = true, [50] = true, [10] = true, },
 	baseMods = {

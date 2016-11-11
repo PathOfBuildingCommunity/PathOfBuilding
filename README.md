@@ -49,6 +49,10 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.6 - 2016/11/12
+ * Added support for the "more Physical Damage" modifier on "Outmatch and Outlast"
+ * Added a splash damage skill part to Fireball
+
 ### 1.2.5 - 2016/11/08
  * Fixed bug preventing Static Strike damage from being calculated correctly
 

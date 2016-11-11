@@ -1,3 +1,6 @@
+VERSION[1.2.6][2016/11/12]
+ * Added support for the "more Physical Damage" modifier on "Outmatch and Outlast"
+ * Added a splash damage skill part to Fireball
 VERSION[1.2.5][2016/11/08]
  * Fixed bug preventing Static Strike damage from being calculated correctly
 VERSION[1.2.4][2016/11/06]
