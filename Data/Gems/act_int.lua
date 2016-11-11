@@ -1183,6 +1183,16 @@ gems["Fireball"] = {
 	spell = true,
 	area = true,
 	fire = true,
+	parts = {
+		{
+			name = "Direct hit",
+			area = false,
+		},
+		{
+			name = "Splash damage",
+			area = true,
+		},
+	},
 	color = 3,
 	baseFlags = {
 		spell = true,
