@@ -1,3 +1,10 @@
+VERSION[1.2.7][2016/11/18]
+ * Added support for the 3 new skills: Blade Flurry, Blight and Scorching Ray
+ * Added support for Wither
+    * The debuff will apply automatically when the skill is enabled
+	* Change the skill part while Wither is selected in the sidebar to choose the stack count
+ * Added a "Save As" button
+ * Various minor tweaks
 VERSION[1.2.6][2016/11/12]
  * Added support for the "more Physical Damage" modifier on "Outmatch and Outlast"
  * Added a splash damage skill part to Fireball

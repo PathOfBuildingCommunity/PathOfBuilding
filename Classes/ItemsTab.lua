@@ -377,7 +377,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	main:AddTooltipSeparator(10)
 
 	-- Special fields for database items
-	if dbMode and (item.variantList or item.league or item.unreleased) then
+	if dbMode then
 		if item.variantList then
 			if #item.variantList == 1 then
 				main:AddTooltipLine(16, "^xFFFF30Variant: "..item.variantList[1])
@@ -535,7 +535,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 			local output = calcFunc(slot.slotName, item ~= selItem and item)
 			local header
 			if item == selItem then
-				header = "^7Removing this item will give you:"
+				header = "^7Removing this item from "..slot.label.." will give you:"
 			else
 				header = string.format("^7Equipping this item in %s%s will give you:", slot.label, selItem and " (replacing "..data.colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
 			end

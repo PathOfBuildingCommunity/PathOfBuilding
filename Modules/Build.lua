@@ -60,12 +60,45 @@ function buildMode:Init(dbFileName, buildName)
 		SetDrawColor(1, 1, 1)
 		DrawString(x, y + 2, "LEFT", 16, "VAR", "Current build:  "..self.buildName)
 	end
-	self.controls.save = common.New("ButtonControl", {"LEFT",self.controls.buildName,"RIGHT"}, 8, 0, 80, 20, "Save", function()
+	self.controls.save = common.New("ButtonControl", {"LEFT",self.controls.buildName,"RIGHT"}, 8, 0, 50, 20, "Save", function()
 		self:SaveDBFile()
 	end)
-	self.controls.save.shown = function()
+	self.controls.save.enabled = function()
 		return self.unsaved
 	end
+	self.controls.saveAs = common.New("ButtonControl", {"LEFT",self.controls.save,"RIGHT"}, 8, 0, 70, 20, "Save As", function()
+		local newFileName, newBuildName
+		local popup
+		popup = main:OpenPopup(370, 100, "Save As", {
+			common.New("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:"),
+			edit = common.New("EditControl", nil, 0, 40, 350, 20, self.buildName, nil, "[%w _+-.()'\"]", 50, function(buf)
+				newFileName = main.buildPath..buf..".xml"
+				newBuildName = buf
+				popup.controls.save.enabled = false
+				if not buf:match("%S") then
+					return
+				end
+				local out = io.open(newFileName, "r")
+				if out then
+					out:close()
+					return
+				end
+				popup.controls.save.enabled = true
+			end),
+			save = common.New("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
+				self.dbFileName = newFileName
+				self.buildName = newBuildName
+				main.modeArgs = { newFileName, newBuildName }
+				self:SaveDBFile()
+				main:ClosePopup()
+			end),
+			common.New("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
+				main:ClosePopup()
+			end),
+		})
+		popup.controls.save.enabled = false
+		popup:SelectControl(popup.controls.edit)
+	end)
 
 	-- Controls: top bar, right side
 	self.anchorTopBarRight = common.New("Control", nil, function() return main.screenW / 2 + 6 end, 4, 0, 20)
@@ -200,17 +233,18 @@ function buildMode:Init(dbFileName, buildName)
 	-- This may be user-customisable in the future
 	self.displayStats = {
 		{ mod = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
-		{ mod = "Speed", label = "Attack/Cast Rate", fmt = ".2f", compPercent = true },
+		{ mod = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack" },
+		{ mod = "Speed", label = "Cast Rate", fmt = ".2f", compPercent = true, flag = "spell" },
 		{ mod = "CritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ mod = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return o.CritChance > 0 end },
-		{ mod = "HitChance", label = "Hit Chance", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
-		{ mod = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true },
+		{ mod = "HitChance", label = "Hit Chance", fmt = "d%%", flag = "attack" },
+		{ mod = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
 		{ mod = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
 		{ mod = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true },
 		{ mod = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true },
 		{ mod = "PoisonDPS", label = "Poison DPS", fmt = ".1f", compPercent = true },
 		{ mod = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
-		{ mod = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true },
+		{ mod = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, condFunc = function() return true end },
 		{ },
 		{ mod = "Str", label = "Strength", fmt = "d" },
 		{ mod = "Dex", label = "Dexterity", fmt = "d" },
@@ -460,14 +494,40 @@ function buildMode:RefreshStatList()
 	wipeTable(self.controls.statBox.list)
 	for index, statData in ipairs(self.displayStats) do
 		if statData.mod then
-			local modVal = self.calcsTab.mainOutput[statData.mod]
-			if modVal and ((statData.condFunc and statData.condFunc(modVal,self.calcsTab.mainOutput)) or (not statData.condFunc and modVal ~= 0)) then
-				t_insert(self.controls.statBox.list, { height = 16,  "^7"..statData.label..":", string.format("%s%"..statData.fmt, modVal > 0 and "^7" or data.colorCodes.NEGATIVE, modVal * (statData.pc and 100 or 1)) })
+			if not statData.flag or self.calcsTab.mainEnv.mainSkill.skillFlags[statData.flag] then 
+				local modVal = self.calcsTab.mainOutput[statData.mod]
+				if modVal and ((statData.condFunc and statData.condFunc(modVal,self.calcsTab.mainOutput)) or (not statData.condFunc and modVal ~= 0)) then
+					t_insert(self.controls.statBox.list, { height = 16,  "^7"..statData.label..":", string.format("%s%"..statData.fmt, modVal >= 0 and "^7" or data.colorCodes.NEGATIVE, modVal * (statData.pc and 100 or 1)) })
+				end
 			end
 		else
 			t_insert(self.controls.statBox.list, { height = 10 })
 		end
 	end
+end
+
+-- Compare values of all display stats between the two output tables, and add any changed stats to the tooltip
+-- Adds the provided header line before the first stat line, if any are added
+-- Returns the number of stat lines added
+function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header)
+	local count = 0
+	for _, statData in ipairs(self.displayStats) do
+		if statData.mod and (not statData.flag or self.calcsTab.mainEnv.mainSkill.skillFlags[statData.flag]) then
+			local diff = (compareOutput[statData.mod] or 0) - (baseOutput[statData.mod] or 0)
+			if diff > 0.001 or diff < -0.001 then
+				if count == 0 then
+					main:AddTooltipLine(14, header)
+				end
+				local line = string.format("%s%+"..statData.fmt.." %s", diff > 0 and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE, diff * (statData.pc and 100 or 1), statData.label)
+				if statData.compPercent and (baseOutput[statData.mod] or 0) ~= 0 and (compareOutput[statData.mod] or 0) ~= 0 then
+					line = line .. string.format(" (%+.1f%%)", (compareOutput[statData.mod] or 0) / (baseOutput[statData.mod] or 0) * 100 - 100)
+				end
+				main:AddTooltipLine(14, line)
+				count = count + 1
+			end
+		end
+	end
+	return count
 end
 
 function buildMode:LoadDB(xmlText, fileName)
@@ -535,30 +595,6 @@ function buildMode:SaveDBFile()
 	end
 	file:write(xmlText)
 	file:close()
-end
-
--- Compare values of all display stats between the two output tables, and add any changed stats to the tooltip
--- Adds the provided header line before the first stat line, if any are added
--- Returns the number of stat lines added
-function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header)
-	local count = 0
-	for _, statData in ipairs(self.displayStats) do
-		if statData.mod then
-			local diff = (compareOutput[statData.mod] or 0) - (baseOutput[statData.mod] or 0)
-			if diff > 0.001 or diff < -0.001 then
-				if count == 0 then
-					main:AddTooltipLine(14, header)
-				end
-				local line = string.format("%s%+"..statData.fmt.." %s", diff > 0 and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE, diff * (statData.pc and 100 or 1), statData.label)
-				if statData.compPercent and (baseOutput[statData.mod] or 0) ~= 0 and (compareOutput[statData.mod] or 0) ~= 0 then
-					line = line .. string.format(" (%+.1f%%)", (compareOutput[statData.mod] or 0) / (baseOutput[statData.mod] or 0) * 100 - 100)
-				end
-				main:AddTooltipLine(14, line)
-				count = count + 1
-			end
-		end
-	end
-	return count
 end
 
 return buildMode

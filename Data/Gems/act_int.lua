@@ -319,6 +319,70 @@ gems["Ball Lightning"] = {
 		[30] = { 31, 33, 620, },
 	},
 }
+gems["Blight"] = {
+	intelligence = true,
+	active_skill = true,
+	spell = true,
+	chaos = true,
+	area = true,
+	duration = true,
+	color = 3,
+	baseFlags = {
+		spell = true,
+		duration = true,
+		area = true,
+		chaos = true,
+	},
+	skillTypes = { [2] = true, [50] = true, [11] = true, [18] = true, [58] = true, [12] = true, [40] = true, [59] = true, [52] = true, },
+	baseMods = {
+		skill("castTime", 0.3), 
+		skill("duration", 2.5), --"base_skill_effect_duration" = 2500
+		--"base_secondary_skill_effect_duration" = 800
+		mod("MovementSpeed", "INC", -80, 0, 0, nil), --"base_movement_velocity_+%" = -80
+		--"display_max_blight_stacks" = 20
+		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_damage_over_time" = ?
+		--"is_area_damage" = ?
+	},
+	qualityMods = {
+		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("manaCost", nil), 
+		[2] = skill("ChaosDot", nil), --"base_chaos_damage_to_deal_per_minute"
+	},
+	levels = {
+		[1] = { 2, 1.65, },
+		[2] = { 2, 1.8666666666667, },
+		[3] = { 2, 2.3333333333333, },
+		[4] = { 2, 3.15, },
+		[5] = { 2, 4.45, },
+		[6] = { 2, 6.5333333333333, },
+		[7] = { 2, 8.6333333333333, },
+		[8] = { 2, 11.183333333333, },
+		[9] = { 2, 14.3, },
+		[10] = { 2, 18.083333333333, },
+		[11] = { 2, 22.633333333333, },
+		[12] = { 3, 28.133333333333, },
+		[13] = { 3, 34.75, },
+		[14] = { 3, 42.683333333333, },
+		[15] = { 3, 52.166666666667, },
+		[16] = { 3, 63.483333333333, },
+		[17] = { 3, 76.983333333333, },
+		[18] = { 4, 93.05, },
+		[19] = { 4, 107.05, },
+		[20] = { 4, 122.96666666667, },
+		[21] = { 4, 134.76666666667, },
+		[22] = { 4, 147.6, },
+		[23] = { 4, 161.58333333333, },
+		[24] = { 5, 176.78333333333, },
+		[25] = { 5, 193.31666666667, },
+		[26] = { 5, 211.28333333333, },
+		[27] = { 5, 230.81666666667, },
+		[28] = { 5, 252.05, },
+		[29] = { 5, 275.1, },
+		[30] = { 5, 300.15, },
+	},
+}
 gems["Bone Offering"] = {
 	minion = true,
 	intelligence = true,
@@ -1185,11 +1249,11 @@ gems["Fireball"] = {
 	fire = true,
 	parts = {
 		{
-			name = "Direct hit",
+			name = "Projectile",
 			area = false,
 		},
 		{
-			name = "Splash damage",
+			name = "Explosion",
 			area = true,
 		},
 	},
@@ -1399,6 +1463,7 @@ gems["Flame Dash"] = {
 		skill("critChance", 6), 
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
 		--"is_area_damage" = ?
+		--"firestorm_use_server_effects" = ?
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Spell), --"base_cast_speed_+%" = 0.5
@@ -3351,6 +3416,83 @@ gems["Vaal Righteous Fire"] = {
 		[30] = { 49, },
 	},
 }
+gems["Scorching Ray"] = {
+	intelligence = true,
+	active_skill = true,
+	spell = true,
+	fire = true,
+	duration = true,
+	parts = {
+		{
+			name = "1 Stage",
+		},
+		{
+			name = "4 Stages",
+		},
+		{
+			name = "8 Stages",
+		},
+	},
+	color = 3,
+	baseFlags = {
+		spell = true,
+		duration = true,
+		fire = true,
+	},
+	skillTypes = { [2] = true, [18] = true, [40] = true, [33] = true, [29] = true, [12] = true, [58] = true, [59] = true, [52] = true, },
+	baseMods = {
+		skill("castTime", 0.5), 
+		skill("duration", 1.5), --"base_skill_effect_duration" = 1500
+		--"fire_beam_additional_stack_damage_+%_final" = -40
+		--"display_max_fire_beam_stacks" = 8
+		mod("FireResist", "BASE", -3, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }), --"fire_beam_enemy_fire_resistance_%_per_stack" = -3
+		--"fire_beam_enemy_fire_resistance_%_maximum" = -24
+		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_damage_over_time" = ?
+		skill("stackCount", 4, { type = "SkillPart", skillPart = 2 }), 
+		skill("stackCount", 8, { type = "SkillPart", skillPart = 3 }), 
+		mod("Damage", "MORE", 180, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Damage", "MORE", 420, 0, 0, { type = "SkillPart", skillPart = 3 }), 
+	},
+	qualityMods = {
+		--"fire_beam_length_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("manaCost", nil), 
+		[2] = skill("FireDot", nil), --"base_fire_damage_to_deal_per_minute"
+	},
+	levels = {
+		[1] = { 4, 9.5333333333333, },
+		[2] = { 4, 12.416666666667, },
+		[3] = { 4, 17.266666666667, },
+		[4] = { 5, 23.533333333333, },
+		[5] = { 5, 31.6, },
+		[6] = { 5, 41.95, },
+		[7] = { 6, 55.133333333333, },
+		[8] = { 6, 67.333333333333, },
+		[9] = { 6, 81.9, },
+		[10] = { 7, 99.266666666667, },
+		[11] = { 7, 119.93333333333, },
+		[12] = { 7, 144.51666666667, },
+		[13] = { 8, 173.68333333333, },
+		[14] = { 8, 208.26666666667, },
+		[15] = { 8, 249.23333333333, },
+		[16] = { 9, 297.66666666667, },
+		[17] = { 9, 334.75, },
+		[18] = { 9, 376.18333333333, },
+		[19] = { 10, 422.46666666667, },
+		[20] = { 10, 474.1, },
+		[21] = { 10, 531.73333333333, },
+		[22] = { 11, 596, },
+		[23] = { 11, 667.65, },
+		[24] = { 11, 747.51666666667, },
+		[25] = { 12, 836.51666666667, },
+		[26] = { 12, 935.63333333333, },
+		[27] = { 12, 1046, },
+		[28] = { 13, 1168.85, },
+		[29] = { 13, 1305.55, },
+		[30] = { 13, 1457.6333333333, },
+	},
+}
 gems["Shock Nova"] = {
 	intelligence = true,
 	active_skill = true,
@@ -3768,7 +3910,7 @@ gems["Summon Lightning Golem"] = {
 		golem = true,
 		lightning = true,
 	},
-	skillTypes = { [36] = true, [35] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
+	skillTypes = { [36] = true, [35] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, [45] = true, },
 	baseMods = {
 		skill("castTime", 1), 
 		--"base_number_of_golems_allowed" = 1
@@ -4046,7 +4188,77 @@ gems["Wither"] = {
 	area = true,
 	duration = true,
 	chaos = true,
-	unsupported = true,
+	parts = {
+		{
+			name = "1 Stack",
+		},
+		{
+			name = "5 Stacks",
+		},
+		{
+			name = "10 Stacks",
+		},
+		{
+			name = "20 Stacks",
+		},
+	},
+	color = 3,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+		chaos = true,
+	},
+	skillTypes = { [2] = true, [11] = true, [12] = true, [18] = true, [50] = true, [58] = true, },
+	baseMods = {
+		skill("castTime", 0.28), 
+		mod("ChaosDamageTaken", "INC", 7, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }), --"chaos_damage_taken_+%" = 7
+		skill("duration", 0.5), --"base_skill_effect_duration" = 500
+		--"base_secondary_skill_effect_duration" = 2000
+		skill("stackCount", 5, { type = "SkillPart", skillPart = 2 }), 
+		skill("stackCount", 10, { type = "SkillPart", skillPart = 3 }), 
+		skill("stackCount", 20, { type = "SkillPart", skillPart = 4 }), 
+	},
+	qualityMods = {
+		mod("Duration", "INC", 1), --"skill_effect_duration_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("manaCost", nil), 
+		[2] = mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }), --"base_movement_velocity_+%"
+		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+	},
+	levels = {
+		[1] = { 4, -30, 0, },
+		[2] = { 4, -30, 1, },
+		[3] = { 4, -30, 2, },
+		[4] = { 5, -31, 3, },
+		[5] = { 5, -31, 4, },
+		[6] = { 5, -31, 5, },
+		[7] = { 6, -32, 6, },
+		[8] = { 6, -32, 7, },
+		[9] = { 6, -32, 8, },
+		[10] = { 7, -33, 9, },
+		[11] = { 7, -33, 10, },
+		[12] = { 7, -33, 11, },
+		[13] = { 8, -34, 12, },
+		[14] = { 8, -34, 13, },
+		[15] = { 8, -34, 14, },
+		[16] = { 9, -35, 15, },
+		[17] = { 9, -35, 16, },
+		[18] = { 9, -35, 17, },
+		[19] = { 10, -36, 18, },
+		[20] = { 10, -36, 19, },
+		[21] = { 10, -36, 20, },
+		[22] = { 11, -37, 21, },
+		[23] = { 11, -37, 22, },
+		[24] = { 11, -37, 23, },
+		[25] = { 12, -38, 24, },
+		[26] = { 12, -38, 25, },
+		[27] = { 12, -38, 26, },
+		[28] = { 13, -39, 27, },
+		[29] = { 13, -39, 28, },
+		[30] = { 13, -39, 29, },
+	},
 }
 gems["Wrath"] = {
 	aura = true,
