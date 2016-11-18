@@ -178,6 +178,7 @@ local function buildActiveSkillModList(env, activeSkill)
 				skillFlags[k] = nil
 			end
 		end
+		activeSkill.skillPartName = part.name
 		skillFlags.multiPart = #activeGemParts > 1
 	end
 
@@ -1054,7 +1055,7 @@ local function performCalcs(env)
 		end
 		if env.mode_effective then
 			if activeSkill.debuffModList then
-				enemyDB:AddList(activeSkill.debuffModList)
+				enemyDB:ScaleAddList(activeSkill.debuffModList, activeSkill.skillData.stackCount or 1)
 			end
 			if activeSkill.curseModList then
 				condList["EnemyCursed"] = true
@@ -1093,7 +1094,7 @@ local function performCalcs(env)
 	end
 
 	-- Process misc modifiers
-	for _, value in ipairs(modDB:Sum("LIST", skillCfg, "Misc")) do
+	for _, value in ipairs(modDB:Sum("LIST", nil, "Misc")) do
 		if value.type == "Condition" then
 			condList[value.var] = true
 		elseif value.type == "Multiplier" then
@@ -1101,7 +1102,7 @@ local function performCalcs(env)
 		end
 	end
 	-- Process enemy modifiers last in case they depend on conditions that were set by misc modifiers
-	for _, value in ipairs(modDB:Sum("LIST", skillCfg, "Misc")) do
+	for _, value in ipairs(modDB:Sum("LIST", nil, "Misc")) do
 		if value.type == "EnemyModifier" then
 			enemyDB:AddMod(value.mod)
 		end
@@ -1935,6 +1936,7 @@ local function performCalcs(env)
 	-- Calculate skill DOT components
 	local dotCfg = {
 		skillName = skillCfg.skillName,
+		skillPart = skillCfg.skillPart,
 		slotName = skillCfg.slotName,
 		flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
 		keywordFlags = skillCfg.keywordFlags
@@ -2408,10 +2410,18 @@ function calcs.buildOutput(build, mode)
 		end
 		for _, activeSkill in ipairs(env.activeSkillList) do
 			if activeSkill.buffModList or activeSkill.auraModList then
-				t_insert(buffList, activeSkill.activeGem.name)
+				if activeSkill.skillFlags.multiPart then
+					t_insert(buffList, activeSkill.activeGem.name .. " (" .. activeSkill.skillPartName .. ")")
+				else
+					t_insert(buffList, activeSkill.activeGem.name)
+				end
 			end
-			if activeSkill.curseModList then
-				t_insert(curseList, activeSkill.activeGem.name)
+			if activeSkill.debuffModList or activeSkill.curseModList then
+				if activeSkill.skillFlags.multiPart then
+					t_insert(curseList, activeSkill.activeGem.name .. " (" .. activeSkill.skillPartName .. ")")
+				else
+					t_insert(curseList, activeSkill.activeGem.name)
+				end
 			end
 		end
 		output.BuffList = table.concat(buffList, ", ")

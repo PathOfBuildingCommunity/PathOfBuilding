@@ -324,7 +324,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 			ConPrintf("Unrecognised base in imported item: %s", item.baseName)
 		end
 	else
-		item.name = itemLib.sanitiseItemText(itemData.name)
+		item.name = itemLib.sanitiseItemText(itemData.typeLine)
 		for baseName, baseData in pairs(data.itemBases) do
 			if item.name:find(baseName, 1, true) then
 				item.baseName = baseName

@@ -49,6 +49,14 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.7 - 2016/11/18
+ * Added support for the 3 new skills: Blade Flurry, Blight and Scorching Ray
+ * Added support for Wither
+    * The debuff will apply automatically when the skill is enabled
+	* Change the skill part while Wither is selected in the sidebar to choose the stack count
+ * Added a "Save As" button
+ * Various minor tweaks
+
 ### 1.2.6 - 2016/11/12
  * Added support for the "more Physical Damage" modifier on "Outmatch and Outlast"
  * Added a splash damage skill part to Fireball

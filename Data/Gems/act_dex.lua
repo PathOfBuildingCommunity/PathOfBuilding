@@ -196,6 +196,78 @@ gems["Bear Trap"] = {
 		[30] = { 54, 4162, 5826, },
 	},
 }
+gems["Blade Flurry"] = {
+	dexterity = true,
+	active_skill = true,
+	attack = true,
+	area = true,
+	melee = true,
+	parts = {
+		{
+			name = "1 Stage",
+		},
+		{
+			name = "6 Stages",
+		},
+	},
+	color = 2,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	skillTypes = { [1] = true, [11] = true, [6] = true, [58] = true, [24] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		skill("manaCost", 4), 
+		mod("Speed", "MORE", 65, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = 65
+		--"charged_attack_damage_per_stack_+%_final" = 20
+		--"is_area_damage" = ?
+		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		--"skill_can_add_multiple_charges_per_action" = ?
+		mod("Damage", "MORE", 20, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 1 }), 
+		mod("Damage", "MORE", 120, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), 
+	},
+	qualityMods = {
+		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
+	},
+	levelMods = {
+		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
+		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+	},
+	levels = {
+		[1] = { -45, 0, },
+		[2] = { -44.4, 1, },
+		[3] = { -43.8, 2, },
+		[4] = { -43.2, 3, },
+		[5] = { -42.6, 4, },
+		[6] = { -42, 5, },
+		[7] = { -41.4, 6, },
+		[8] = { -40.8, 7, },
+		[9] = { -40.2, 8, },
+		[10] = { -39.6, 9, },
+		[11] = { -39, 10, },
+		[12] = { -38.4, 11, },
+		[13] = { -37.8, 12, },
+		[14] = { -37.2, 13, },
+		[15] = { -36.6, 14, },
+		[16] = { -36, 15, },
+		[17] = { -35.4, 16, },
+		[18] = { -34.8, 17, },
+		[19] = { -34.2, 18, },
+		[20] = { -33.6, 19, },
+		[21] = { -33, 20, },
+		[22] = { -32.4, 21, },
+		[23] = { -31.8, 22, },
+		[24] = { -31.2, 23, },
+		[25] = { -30.6, 24, },
+		[26] = { -30, 25, },
+		[27] = { -29.4, 26, },
+		[28] = { -28.8, 27, },
+		[29] = { -28.2, 28, },
+		[30] = { -27.6, 29, },
+	},
+}
 gems["Blade Vortex"] = {
 	dexterity = true,
 	active_skill = true,

@@ -79,7 +79,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 		}, },
 		{ label = "Aura and Buff Skills", flag = "buffs", textSize = 12, { format = "{output:BuffList}" }, },
 		{ label = "Combat Buffs", flag = "combat", textSize = 12, { format = "{output:CombatList}" }, },
-		{ label = "Curse Skills", flag = "effective", textSize = 12, { format = "{output:CurseList}" }, },
+		{ label = "Curses and Debuffs", flag = "effective", textSize = 12, { format = "{output:CurseList}" }, },
 	}, function(section)
 		wipeTable(section.controls.mainSocketGroup.list)
 		for i, socketGroup in pairs(self.build.skillsTab.socketGroupList) do

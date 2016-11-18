@@ -559,6 +559,7 @@ gems["Earthquake"] = {
 		skill("duration", 1.5), --"base_skill_effect_duration" = 1500
 		mod("Damage", "MORE", 50, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), --"quake_slam_fully_charged_explosion_damage_+%_final" = 50
 		--"is_area_damage" = ?
+		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("PhysicalDamage", "INC", 1), --"physical_damage_+%" = 1
