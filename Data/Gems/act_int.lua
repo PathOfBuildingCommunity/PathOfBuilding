@@ -1453,6 +1453,7 @@ gems["Flame Dash"] = {
 	color = 3,
 	baseFlags = {
 		spell = true,
+		area = true,
 		duration = true,
 		movement = true,
 		fire = true,

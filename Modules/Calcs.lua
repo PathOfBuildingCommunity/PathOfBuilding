@@ -1500,8 +1500,8 @@ local function performCalcs(env)
 		if modDB:Sum("FLAG", nil, "CannotBlockAttacks") then
 			output.BlockChance = 0
 		end
-		output.AttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
-		output.SpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
+		output.AttackDodgeChance = m_min(modDB:Sum("BASE", nil, "AttackDodgeChance"), 75)
+		output.SpellDodgeChance = m_min(modDB:Sum("BASE", nil, "SpellDodgeChance"), 75)
 		local stunChance = 100 - modDB:Sum("BASE", nil, "AvoidStun")
 		if output.EnergyShield > output.Life * 2 then
 			stunChance = stunChance * 0.5

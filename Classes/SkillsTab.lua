@@ -352,6 +352,8 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			if data.gems[gem.nameSpec] then
 				if data.gems[gem.nameSpec].unsupported then
 					gem.errMsg = gem.nameSpec.." is unsupported"
+					gem.name = nil
+					gem.data = nil
 				else
 					gem.errMsg = nil
 					gem.name = gem.nameSpec
@@ -432,7 +434,7 @@ function SkillsTabClass:CreateUndoState()
 		}
 		for index, gem in pairs(socketGroup.gemList) do
 			newGroup.gemList[index] = {
-				nameSpec = gem.name,
+				nameSpec = gem.nameSpec,
 				level = gem.level,
 				quality = gem.quality,
 				enabled = gem.enabled,
