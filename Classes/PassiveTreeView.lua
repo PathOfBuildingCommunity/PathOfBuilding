@@ -597,4 +597,8 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 			main:AddTooltipLine(14, "Tip: To reach this node by a different path, hold Shift, then trace the path and click this node")
 		end
 	end
+	if node.depends and #node.depends > 1 then
+		main:AddTooltipSeparator(14)
+		main:AddTooltipLine(14, "^7"..#node.depends .. " points gained from unallocating these nodes")
+	end
 end

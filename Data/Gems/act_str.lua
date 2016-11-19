@@ -151,6 +151,7 @@ gems["Ancestral Warchief"] = {
 		attack = true,
 		melee = true,
 		totem = true,
+		area = true,
 		duration = true,
 	},
 	skillTypes = { [1] = true, [30] = true, [12] = true, [6] = true, [24] = true, [17] = true, [19] = true, [11] = true, },
