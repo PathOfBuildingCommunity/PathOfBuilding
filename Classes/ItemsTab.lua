@@ -27,8 +27,11 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 
 	-- Item slots
 	self.slots = { }
-	for index, slotName in pairs(baseSlots) do
+	self.orderedSlots = { }
+	self.slotOrder = { }
+	for index, slotName in ipairs(baseSlots) do
 		t_insert(self.controls, common.New("ItemSlot", {"TOPLEFT",self,"TOPLEFT"}, 96, (index - 1) * 20 + 24, self, slotName))
+		self.slotOrder[slotName] = index
 	end
 	self.sockets = { }
 	for _, node in pairs(main.tree.nodes) do
@@ -36,12 +39,16 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 			local socketControl = common.New("ItemSlot", {"TOPLEFT",self,"TOPLEFT"}, 96, 0, self, "Jewel "..node.id, "Socket", node.id)
 			self.controls["socket"..node.id] = socketControl
 			self.sockets[node.id] = socketControl
+			self.slotOrder["Jewel "..node.id] = #baseSlots + 1 + node.id
 		end
 	end
-	self.controls.slotHeader = common.New("LabelControl", {"BOTTOMLEFT",self.slots[baseSlots[1]],"TOPLEFT"}, 0, -4, 0, 16, "^7Equipped items:")
+	table.sort(self.orderedSlots, function(a, b)
+		return self.slotOrder[a.slotName] < self.slotOrder[b.slotName]
+	end)
+	self.controls.slotHeader = common.New("LabelControl", {"BOTTOMLEFT",self.orderedSlots[1],"TOPLEFT"}, 0, -4, 0, 16, "^7Equipped items:")
 
 	-- Build item list
-	self.controls.itemList = common.New("ItemList", {"TOPLEFT",self.slots[baseSlots[1]],"TOPRIGHT"}, 20, 0, 360, 308, self)
+	self.controls.itemList = common.New("ItemList", {"TOPLEFT",self.orderedSlots[1],"TOPRIGHT"}, 20, 0, 360, 308, self)
 
 	-- Database selector
 	self.controls.selectDBLabel = common.New("LabelControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 14, 0, 16, "^7Import from:")
@@ -335,10 +342,9 @@ function ItemsTabClass:DeleteItem(item)
 	self:AddUndoState()
 end
 
--- Returns a slot in which the given item is equipped, if one exists
--- If the item is equipped in multiple slots, the return value may be any of those slots
+-- Returns the first slot in which the given item is equipped
 function ItemsTabClass:GetEquippedSlotForItem(item)
-	for _, slot in pairs(self.slots) do
+	for _, slot in ipairs(self.orderedSlots) do
 		if not slot.inactive and slot.selItemId == item.id then
 			return slot
 		end

@@ -369,8 +369,8 @@ function main:DrawCheckMark(x, y, size)
 	DrawImageQuad(nil, x + size * 0.40, y + size * 0.90, x + size * 0.35, y + size * 0.75, x + size * 0.80, y + size * 0.10, x + size * 0.90, y + size * 0.20)
 end
 
-function main:OpenPopup(width, height, title, controls)
-	local popup = common.New("PopupDialog", width, height, title, controls)
+function main:OpenPopup(width, height, title, controls, enterControl, defaultControl)
+	local popup = common.New("PopupDialog", width, height, title, controls, enterControl, defaultControl)
 	t_insert(self.popups, popup)
 	return popup
 end
@@ -386,10 +386,10 @@ function main:OpenMessagePopup(title, msg)
 		t_insert(controls, common.New("LabelControl", nil, 0, 20 + numMsgLines * 16, 0, 16, line))
 		numMsgLines = numMsgLines + 1
 	end
-	t_insert(controls, common.New("ButtonControl", nil, 0, 40 + numMsgLines * 16, 80, 20, "Ok", function()
+	controls.close = common.New("ButtonControl", nil, 0, 40 + numMsgLines * 16, 80, 20, "Ok", function()
 		main:ClosePopup()
-	end))
-	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls)
+	end)
+	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "close")
 end
 
 function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm)
@@ -399,14 +399,14 @@ function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm)
 		t_insert(controls, common.New("LabelControl", nil, 0, 20 + numMsgLines * 16, 0, 16, line))
 		numMsgLines = numMsgLines + 1
 	end
-	t_insert(controls, common.New("ButtonControl", nil, -45, 40 + numMsgLines * 16, 80, 20, confirmLabel, function()
+	controls.confirm = common.New("ButtonControl", nil, -45, 40 + numMsgLines * 16, 80, 20, confirmLabel, function()
 		onConfirm()
 		main:ClosePopup()
-	end))
+	end)
 	t_insert(controls, common.New("ButtonControl", nil, 45, 40 + numMsgLines * 16, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end))
-	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls)
+	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "confirm")
 end
 
 function main:AddTooltipLine(size, text)
