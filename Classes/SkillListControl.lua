@@ -47,6 +47,15 @@ local SkillListClass = common.NewClass("SkillList", "Control", "ControlHost", fu
 	end)
 end)
 
+function SkillListClass:SelectIndex(index)
+	self.selGroup = self.skillsTab.socketGroupList[index]
+	if self.selGroup then
+		self.selIndex = index
+		self.skillsTab:SetDisplayGroup(self.selGroup)
+		self.controls.scrollBar:ScrollIntoView((index - 2) * 16, 48)
+	end
+end
+
 function SkillListClass:IsMouseOver()
 	if not self:IsShown() then
 		return
@@ -229,13 +238,13 @@ function SkillListClass:OnKeyDown(key, doubleClick)
 		end
 	elseif #self.skillsTab.socketGroupList > 0 then
 		if key == "UP" then
-			self.selIndex = ((self.selIndex or 1) - 2) % #self.skillsTab.socketGroupList + 1
-			self.selGroup = self.skillsTab.socketGroupList[self.selIndex]
-			self.skillsTab:SetDisplayGroup(self.selGroup)
+			self:SelectIndex(((self.selIndex or 1) - 2) % #self.skillsTab.socketGroupList + 1)
 		elseif key == "DOWN" then
-			self.selIndex = (self.selIndex or #self.skillsTab.socketGroupList) % #self.skillsTab.socketGroupList + 1
-			self.selGroup = self.skillsTab.socketGroupList[self.selIndex]
-			self.skillsTab:SetDisplayGroup(self.selGroup)
+			self:SelectIndex((self.selIndex or #self.skillsTab.socketGroupList) % #self.skillsTab.socketGroupList + 1)
+		elseif key == "HOME" then
+			self:SelectIndex(1)
+		elseif key == "END" then
+			self:SelectIndex(#self.skillsTab.socketGroupList)
 		end
 	end
 	return self

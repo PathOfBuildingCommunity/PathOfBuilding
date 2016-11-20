@@ -95,9 +95,8 @@ function buildMode:Init(dbFileName, buildName)
 			common.New("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
 				main:ClosePopup()
 			end),
-		})
+		}, "save", "edit")
 		popup.controls.save.enabled = false
-		popup:SelectControl(popup.controls.edit)
 	end)
 
 	-- Controls: top bar, right side

@@ -11,6 +11,12 @@ local ButtonClass = common.NewClass("ButtonControl", "Control", function(self, a
 	self.onClick = onClick
 end)
 
+function ButtonClass:Click()
+	if self:IsShown() and self:IsEnabled() then
+		self.onClick()
+	end
+end
+
 function ButtonClass:IsMouseOver()
 	if not self:IsShown() then
 		return false

@@ -49,6 +49,15 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.10 - 2016/11/21
+ * Added support for Unholy Might; you can enable it in the Configuration tab in the Combat section
+ * Added a Sort button to the "All items" list in the Items tab
+ * Improved keyboard interaction throughout the program:
+	* Enabled keyboard navigation for all lists
+    * 'Enter' now accepts confirmation popups, and other popups such as "Save As"
+	* Dropdown lists can be cycled with Up/Down as well as the mousewheel
+ * Fixed Elreon's -mana cost modifier increasing the mana cost instead of decreasing it
+
 ### 1.2.9 - 2016/11/20
  * Blade Flurry now shows DPS instead of average damage
  * Fixed stat counts not showing for some radius jewels

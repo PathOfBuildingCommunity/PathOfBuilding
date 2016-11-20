@@ -41,6 +41,13 @@ function BuildListClass:ScrollSelIntoView()
 	end
 end
 
+function BuildListClass:SelectIndex(index)
+	if self.listMode.list[index] then
+		self.listMode.sel = index
+		self:ScrollSelIntoView()
+	end
+end
+
 function BuildListClass:IsMouseOver()
 	if not self:IsShown() then
 		return
@@ -134,6 +141,14 @@ function BuildListClass:OnKeyDown(key, doubleClick)
 				end
 			end
 		end
+	elseif key == "UP" then
+		self:SelectIndex(((self.listMode.sel or 1) - 2) % #self.listMode.list + 1)
+	elseif key == "DOWN" then
+		self:SelectIndex((self.listMode.sel or #self.listMode.list) % #self.listMode.list + 1)
+	elseif key == "HOME" then
+		self:SelectIndex(1)
+	elseif key == "END" then
+		self:SelectIndex(#self.listMode.list)
 	elseif self.listMode.sel then
 		if key == "BACK" or key == "DELETE" then
 			self.listMode:DeleteSel()

@@ -1157,6 +1157,9 @@ local function performCalcs(env)
 			modDB:NewMod("Speed", "INC", effect, "Onslaught")
 			modDB:NewMod("MovementSpeed", "INC", effect, "Onslaught")
 		end
+		if condList["UnholyMight"] then
+			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", 30, "Unholy Might")
+		end
 	end
 
 	-- Helper functions for stat breakdowns
@@ -1915,7 +1918,7 @@ local function performCalcs(env)
 		local more = m_floor(modDB:Sum("MORE", skillCfg, "ManaCost") * 100 + 0.0001) / 100
 		local inc = modDB:Sum("INC", skillCfg, "ManaCost")
 		local base = modDB:Sum("BASE", skillCfg, "ManaCost")
-		output.ManaCost = m_floor(m_max(0, (skillData.manaCost or 0) * more * (1 + inc / 100) - base))
+		output.ManaCost = m_floor(m_max(0, (skillData.manaCost or 0) * more * (1 + inc / 100) + base))
 		if breakdown and output.ManaCost ~= (skillData.manaCost or 0) then
 			breakdown.ManaCost = {
 				s_format("%d ^8(base mana cost)", skillData.manaCost or 0)
@@ -1927,7 +1930,7 @@ local function performCalcs(env)
 				t_insert(breakdown.ManaCost, s_format("x %.2f ^8(increased/reduced mana cost)", 1 + inc/100))
 			end	
 			if base ~= 0 then
-				t_insert(breakdown.ManaCost, s_format("- %d ^8(- mana cost)", base))
+				t_insert(breakdown.ManaCost, s_format("- %d ^8(- mana cost)", -base))
 			end
 			t_insert(breakdown.ManaCost, s_format("= %d", output.ManaCost))
 		end

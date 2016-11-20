@@ -32,7 +32,7 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 				showMsg = nil
 			end),
 			common.New("LabelControl", nil, 0, 58, 0, 16, function() return showMsg or "" end),
-			common.New("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
+			import = common.New("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
 				if #treeLink > 0 then
 					if treeLink:match("poeurl%.com/") then
 						local curl = require("lcurl")
@@ -63,8 +63,7 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 			common.New("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()
 				main:ClosePopup()
 			end),
-		})
-		popup:SelectControl(popup.controls.edit)
+		}, "import", "edit")
 	end)
 	self.controls.export = common.New("ButtonControl", {"LEFT",self.controls.import,"RIGHT"}, 8, 0, 90, 20, "Export Tree", function()
 		local treeLink = self.build.spec:EncodeURL("https://www.pathofexile.com/passive-skill-tree/")
@@ -89,11 +88,10 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 			common.New("ButtonControl", nil, 30, 70, 80, 20, "Copy", function()
 				Copy(treeLink)
 			end),
-			common.New("ButtonControl", nil, 120, 70, 80, 20, "Done", function()
+			done = common.New("ButtonControl", nil, 120, 70, 80, 20, "Done", function()
 				main:ClosePopup()
 			end),
-		})
-		popup:SelectControl(popup.controls.edit)
+		}, "done", "edit")
 	end)
 	self.controls.treeSearch = common.New("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 400, 20, "", "Search", "[^%c%(%)]", 100, function(buf)
 		self.viewer.searchStr = buf
