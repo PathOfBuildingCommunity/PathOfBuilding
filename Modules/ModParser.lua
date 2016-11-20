@@ -312,6 +312,7 @@ local modTagList = {
 	["per (%d+) intelligence"] = function(num) return { tag = { type = "PerStat", stat = "Int", div = num } } end,
 	["per (%d+) evasion rating"] = function(num) return { tag = { type = "PerStat", stat = "Evasion", div = num } } end,
 	["per (%d+) accuracy rating"] = function(num) return { tag = { type = "PerStat", stat = "Accuracy", div = num } } end,
+	["per (%d+)%% block chance"] = function(num) return { tag = { type = "PerStat", stat = "BlockChance", div = num } } end,
 	-- Slot conditions
 	["in main hand"] = { tag = { type = "SlotNumber", num = 1 } },
 	["when in main hand"] = { tag = { type = "SlotNumber", num = 1 } },

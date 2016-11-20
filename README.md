@@ -52,6 +52,7 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ### 1.2.10 - 2016/11/21
  * Added support for Unholy Might; you can enable it in the Configuration tab in the Combat section
  * Added a Sort button to the "All items" list in the Items tab
+ * Added support for the "increased Spell Damage per Block Chance" modifier on Cybil's Paw
  * Improved keyboard interaction throughout the program:
 	* Enabled keyboard navigation for all lists
     * 'Enter' now accepts confirmation popups, and other popups such as "Save As"
