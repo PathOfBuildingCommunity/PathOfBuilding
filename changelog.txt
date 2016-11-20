@@ -1,3 +1,6 @@
+VERSION[1.2.10][2016/11/21]
+ * Added support for Unholy Might; you can enable it in the Configuration tab in the Combat section
+ * Fixed Elreon's -mana cost modifier increasing the mana cost instead of decreasing it
 VERSION[1.2.9][2016/11/20]
  * Blade Flurry now shows DPS instead of average damage
  * Fixed stat counts not showing for some radius jewels
