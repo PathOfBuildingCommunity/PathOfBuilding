@@ -49,6 +49,10 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.9 - 2016/11/20
+ * Blade Flurry now shows DPS instead of average damage
+ * Fixed stat counts not showing for some radius jewels
+
 ### 1.2.8 - 2016/11/20
  * Fixed dodge not being capped at 75%
  * Fixed missing area damage flag on Ancestral Warchief
