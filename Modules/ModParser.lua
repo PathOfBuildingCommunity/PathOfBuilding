@@ -640,8 +640,8 @@ local jewelFuncs = {
 	["5% increased Chaos damage per 10 Intelligence from Allocated Passives in Radius"] = getPerStat("ChaosDamage", "INC", 0, "Int", 5 / 10),
 	["Dexterity and Intelligence from passives in Radius count towards Strength Melee Damage bonus"] = function(nodeMods, out, data)
 		if nodeMods then
-			data.Dex = (data.Dex or 0) + nodeMods:Sum("BASE", 0, "Dex")
-			data.Int = (data.Int or 0) + nodeMods:Sum("BASE", 0, "Int")
+			data.Dex = (data.Dex or 0) + nodeMods:Sum("BASE", nil, "Dex")
+			data.Int = (data.Int or 0) + nodeMods:Sum("BASE", nil, "Int")
 		else
 			out:NewMod("DexIntToMeleeBonus", "BASE", data.Dex + data.Int, "Tree:Jewel")
 		end

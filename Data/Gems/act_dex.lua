@@ -223,7 +223,7 @@ gems["Blade Flurry"] = {
 		mod("Speed", "MORE", 65, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = 65
 		--"charged_attack_damage_per_stack_+%_final" = 20
 		--"is_area_damage" = ?
-		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
 		mod("Damage", "MORE", 20, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 1 }), 
 		mod("Damage", "MORE", 120, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), 

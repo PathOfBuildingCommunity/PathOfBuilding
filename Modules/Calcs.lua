@@ -671,9 +671,9 @@ local function mergeMainMods(env, repSlotName, repItem)
 				local func = item.jewelFunc or function(nodeMods, out, data)
 					-- Default function just tallies all stats in radius
 					if nodeMods then
-						data.strBase = (data.strBase or 0) + (nodeMods.strBase or 0)
-						data.dexBase = (data.dexBase or 0) + (nodeMods.dexBase or 0)
-						data.intBase = (data.intBase or 0) + (nodeMods.intBase or 0)
+						for _, stat in pairs({"Str","Dex","Int"}) do
+							data[stat] = (data[stat] or 0) + nodeMods:Sum("BASE", nil, stat)
+						end
 					end
 				end
 				local radiusInfo = data.jewelRadius[item.jewelRadiusIndex]
