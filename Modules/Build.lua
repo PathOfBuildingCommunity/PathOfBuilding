@@ -322,6 +322,17 @@ function buildMode:Init(dbFileName, buildName)
 	self:RefreshStatList()
 
 	--[[
+	for _, item in pairs(main.uniqueDB.list) do
+		ConPrintf("%s", item.name)
+		self.itemsTab:AddItemTooltip(item)
+	end
+	for _, item in pairs(main.rareDB.list) do
+		ConPrintf("%s", item.name)
+		self.itemsTab:AddItemTooltip(item)
+	end
+	--]]
+
+	--[[
 	local start = GetTime()
 	SetProfiling(true)
 	for i = 1, 10  do
