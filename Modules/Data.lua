@@ -201,6 +201,11 @@ data.monsterLifeTable = { 15, 17, 20, 23, 26, 30, 33, 37, 41, 46, 50, 55, 60, 66
 -- From MonsterVarieties.dat combined with SkillTotemVariations.dat
 data.totemLifeMult = { [1] = 2.94, [2] = 2.94, [3] = 2.94, [4] = 2.94, [5] = 2.94, [6] = 4.2, [7] = 2.94, [8] = 2.94, [9] = 2.94, [10] = 2.94, [11] = 2.94, [12] = 2.94, [13] = 4.5, }
 
+data.monsterExperienceLevelMap = { [71] = 70.94, [72] = 71.82, [73] = 72.64, [74] = 73.40, [75] = 74.10, [76] = 74.74, [77] = 75.32, [78] = 75.84, [79] = 76.30, [80] = 76.70, [81] = 77.04, [82] = 77.32, [83] = 77.54, [84] = 77.70, }
+for i = 1, 70 do
+	data.monsterExperienceLevelMap[i] = i
+end
+
 data.weaponTypeInfo = {
 	["None"] = { oneHand = true, melee = true, flag = ModFlag.Unarmed },
 	["Bow"] = { oneHand = false, melee = false, flag = ModFlag.Bow },

@@ -10,6 +10,8 @@ local ipairs = ipairs
 local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
+local m_floor = math.floor
+local m_abs = math.abs
 
 local buildMode = common.New("ControlHost")
 
@@ -124,9 +126,36 @@ function buildMode:Init(dbFileName, buildName)
 		end
 	end
 	self.controls.characterLevel = common.New("EditControl", {"LEFT",self.anchorTopBarRight,"RIGHT"}, 0, 0, 106, 20, "", "Level", "[%d]", 3, function(buf)
-		self.characterLevel = tonumber(buf) or 1
+		self.characterLevel = m_min(tonumber(buf) or 1, 100)
 		self.buildFlag = true
 	end)
+	self.controls.characterLevel.tooltip = function()
+		local ret = "Experience multiplier:"
+		local playerLevel = self.characterLevel
+		local safeZone = 3 + m_floor(playerLevel / 16)
+		for level, expLevel in ipairs(data.monsterExperienceLevelMap) do
+			local diff = m_abs(playerLevel - expLevel) - safeZone
+			local mult
+			if diff <= 0 then
+				mult = 1
+			else
+				mult = ((playerLevel + 5) / (playerLevel + 5 + diff ^ 2.5)) ^ 1.5
+			end
+			if playerLevel >= 95 then
+				mult = mult * (1 / (1 + 0.1 * (playerLevel - 94)))
+			end
+			if mult > 0.01 then
+				ret = ret .. "\n" .. level
+				if level >= 68 then 
+					ret = ret .. string.format(" (Tier %d)", level - 67)
+				else
+					
+				end
+				ret = ret .. string.format(": %.1f%%", mult * 100)
+			end
+		end
+		return ret
+	end
 	self.controls.classDrop = common.New("DropDownControl", {"LEFT",self.controls.characterLevel,"RIGHT"}, 8, 0, 100, 20, nil, function(index, val)
 		local classId = self.tree.classNameMap[val]
 		if classId ~= self.spec.curClassId then
@@ -496,7 +525,7 @@ function buildMode:OnFrame(inputEvents)
 	SetDrawColor(0.85, 0.85, 0.85)
 	DrawImage(nil, sideBarWidth - 4, 32, 4, main.screenH - 32)
 
-	self:DrawControls(viewPort)
+	self:DrawControls(main.viewPort)
 end
 
 function buildMode:RefreshStatList()
