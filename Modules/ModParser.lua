@@ -261,6 +261,7 @@ local modFlagList = {
 	["with traps"] = { keywordFlags = KeywordFlag.Trap },
 	["totem"] = { keywordFlags = KeywordFlag.Totem },
 	["with totem skills"] = { keywordFlags = KeywordFlag.Totem },
+	["minion"] = { keywordFlags = KeywordFlag.Minion },
 	["of aura skills"] = { keywordFlags = KeywordFlag.Aura },
 	["of curse skills"] = { keywordFlags = KeywordFlag.Curse },
 	["for curses"] = { keywordFlags = KeywordFlag.Curse },
@@ -346,6 +347,7 @@ local modTagList = {
 	["while using a flask"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["during flask effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["while on consecrated ground"] = { tag = { type = "Condition", var = "OnConsecratedGround" } },
+	["if you have hit recently"] = { tag = { type = "Condition", var = "HitRecently" } },
 	["if you've killed recently"] = { tag = { type = "Condition", var = "KilledRecently" } },
 	["if you haven't killed recently"] = { tag = { type = "Condition", var = "NotKilledRecently" } },
 	["if you've attacked recently"] = { tag = { type = "Condition", var = "AttackedRecently" } },
@@ -444,7 +446,7 @@ local specialModList = {
 	["no physical damage"] = { mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalMin" }), mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalMax" }), mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalDPS" }) },
 	["all attacks with this weapon are critical strikes"] = { mod("Misc", "LIST", { type = "WeaponData", key = "critChance", value = 100 }) },
 	["hits can't be evaded"] = { mod("Misc", "LIST", { type = "WeaponData", key = "CannotBeEvaded", value = true }) },
-	["no block chance"] = { mod("Misc", "LIST", { type = "ArmourData", key = "BlockChance" }) },
+	["no block chance"] = { mod("Misc", "LIST", { type = "ArmourData", key = "BlockChance", value = 0 }) },
 	["causes bleeding on hit"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Attack) },
 	["poisonous hit"] = { mod("PoisonChance", "BASE", 100, nil, ModFlag.Attack) },
 	["has no sockets"] = { },
@@ -494,6 +496,7 @@ local specialModList = {
 	["you have no life regeneration"] = { flag("NoLifeRegen") },
 	["cannot block attacks"] = { flag("CannotBlockAttacks") },
 	["projectiles pierce while phasing"] = { mod("PierceChance", "BASE", 100, { type = "Condition", var = "Phasing" }) },
+	["increases and reductions to minion damage also affects you"] = { flag("MinionDamageAppliesToPlayer") },
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques

@@ -269,7 +269,9 @@ local function buildActiveSkillModList(env, activeSkill)
 	if skillFlags.chaos then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Chaos)
 	end
-	if skillFlags.totem then
+	if skillFlags.minion then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Minion)
+	elseif skillFlags.totem then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Totem)
 	elseif skillFlags.trap then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Trap)
@@ -1011,6 +1013,9 @@ local function performCalcs(env)
 		elseif env.mainSkill.skillFlags.spell then
 			condList["CastSpellRecently"] = true
 		end
+		if not env.mainSkill.skillFlags.trap and not env.mainSkill.skillFlags.mine and not env.mainSkill.skillFlags.totem then
+			condList["HitRecently"] = true
+		end
 		if env.mainSkill.skillFlags.movement then
 			condList["UsedMovementSkillRecently"] = true
 		end
@@ -1567,6 +1572,15 @@ local function performCalcs(env)
 	end
 	if modDB:Sum("FLAG", nil, "IronWill") then
 		modDB:NewMod("Damage", "INC", strDmgBonus, "Strength", ModFlag.Spell)
+	end
+
+	if modDB:Sum("FLAG", nil, "MinionDamageAppliesToPlayer") then
+		-- Minion Damage conversion from The Scourge
+		for _, mod in ipairs(modDB.mods.Damage or { }) do
+			if mod.type == "INC" and mod.keywordFlags == KeywordFlag.Minion then
+				modDB:NewMod("Damage", "INC", mod.value, mod.source, 0, 0, unpack(mod.tagList))
+			end
+		end
 	end
 
 	-- Calculate skill type stats
