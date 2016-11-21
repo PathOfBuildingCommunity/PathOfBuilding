@@ -1114,6 +1114,7 @@ local function performCalcs(env)
 	end
 
 	-- Process conditions that can depend on other conditions
+	condList["NotKilledRecently"] = not condList["KilledRecently"]
 	if env.mode_effective then
 		if condList["EnemyIgnited"] then
 			condList["EnemyBurning"] = true
@@ -2399,17 +2400,6 @@ function calcs.buildOutput(build, mode)
 			output["Spec:"..stat.."Inc"] = env.modDB:Sum("INC", specCfg, stat)
 		end
 	elseif mode == "CALCS" then
-		-- Calculate XP modifier 
-		--[[ FIXME?
-		if input.monster_level and input.monster_level > 0 then
-			local playerLevel = build.characterLevel
-			local diff = m_abs(playerLevel - input.monster_level) - 3 - m_floor(playerLevel / 16)
-			if diff <= 0 then
-				output.MonsterXP = 1
-			else
-				output.MonsterXP = m_max(0.01, ((playerLevel + 5) / (playerLevel + 5 + diff ^ 2.5)) ^ 1.5)
-			end
-		end]]
 		local buffList = { }
 		local combatList = { }
 		local curseList = { }

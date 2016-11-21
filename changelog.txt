@@ -1,3 +1,6 @@
+VERSION[1.2.12][2016/11/22]
+ * Hovering over the character level input will now show the experience penalties for relevant area levels
+ * Fixed the "not Killed Recently" condition on "Rite of Ruin"
 VERSION[1.2.11][2016/11/22]
  * Added support for the Minion Damage-related modifiers on The Scourge
  * Fixed error when hovering over Kongming's Stratagem
