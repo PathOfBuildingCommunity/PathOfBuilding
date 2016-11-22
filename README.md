@@ -49,6 +49,13 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.13 - 2016/11/22
+ * The breakdown for crit chance now includes the "additional chance to receive a Critical Strike" from Assassin's Mark
+ * Added support for the "increased extra damage from Critical Strikes" modifier on Assassin's Mark
+ * Added support for Toxic Delivery
+    * The extra chaos and bleed damage modifiers require their respective conditions to be enabled in the Configuration tab
+ * Improved the program's startup time
+
 ### 1.2.12 - 2016/11/22
  * Hovering over the character level input will now show the experience penalties for relevant area levels
  * Fixed the "not Killed Recently" condition on "Rite of Ruin"
