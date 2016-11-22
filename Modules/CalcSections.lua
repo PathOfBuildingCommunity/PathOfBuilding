@@ -157,8 +157,8 @@ return {
 	extra = "{2:output:CritChance}% x{2:output:CritMultiplier}",
 	flag = "hit",
 	{ label = "Inc. Crit Chance", { format = "{0:mod:1}%", { modName = "CritChance", modType = "INC", cfg = "skill" }, }, },
-	{ label = "Crit Chance", { format = "{2:output:CritChance}%", { breakdown = "CritChance" }, { modName = "CritChance", cfg = "skill" }, }, },
-	{ label = "Crit Multiplier", { format = "x {2:output:CritMultiplier}", { modName = "CritMultiplier", cfg = "skill"}, }, },
+	{ label = "Crit Chance", { format = "{2:output:CritChance}%", { breakdown = "CritChance" }, { label = "Player modifiers", modName = "CritChance", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfExtraCritChance", enemy = true }, }, },
+	{ label = "Crit Multiplier", { format = "x {2:output:CritMultiplier}", { breakdown = "CritMultiplier" }, { label = "Player modifiers", modName = "CritMultiplier", cfg = "skill"}, { label = "Enemy modifiers", modName = "SelfCritMultiplier", enemy = true }, }, },
 	{ label = "Crit Effect Mod", { format = "x {3:output:CritEffect}", { breakdown = "CritEffect" }, }, },
 } },
 { 1, "HitChance", 1, "Accuracy", data.colorCodes.OFFENCE, {

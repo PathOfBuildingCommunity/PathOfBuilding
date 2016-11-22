@@ -208,7 +208,7 @@ gems["Assassin's Mark"] = {
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, },
 	baseMods = {
 		skill("castTime", 0.5), 
-		--"base_self_critical_strike_multiplier_-%" = -20
+		mod("SelfCritMultiplier", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"base_self_critical_strike_multiplier_-%" = -20
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
 	},

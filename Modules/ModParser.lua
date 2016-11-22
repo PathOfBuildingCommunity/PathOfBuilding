@@ -418,6 +418,8 @@ local specialModList = {
 	["skills from your helmet penetrate (%d+)%% elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "SocketedIn", slotName = "Helmet" }) } end,
 	["skills from your gloves have (%d+)%% increased area of effect"] = function(num) return { mod("AreaRadius", "INC", num, { type = "SocketedIn", slotName = "Gloves" }) } end,
 	["(%d+)%% less totem damage per totem"] = function(num) return { mod("Damage", "MORE", -num, nil, 0, KeywordFlag.Totem, { type = "PerStat", stat = "ActiveTotemLimit", div = 1 }) } end,
+	["poison you inflict with critical strikes deals (%d+)%% more damage"] = function(num) return { mod("PoisonDamageOnCrit", "MORE", 100) } end,
+	["bleeding you inflict on maimed enemies deals (%d+)%% more damage"] = function(num) return { mod("Damage", "MORE", num, nil, 0, KeywordFlag.Bleed, { type = "Condition", var = "EnemyMaimed"}) } end,
 	-- Special node types
 	["(%d+)%% of block chance applied to spells"] = function(num) return { mod("BlockChanceConv", "BASE", num) } end,
 	["(%d+)%% additional block chance with staves"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "UsingStaff" }) } end,
@@ -517,12 +519,16 @@ end
 local convTypes = {
 	["as extra lightning damage"] = "GainAsLightning",
 	["added as lightning damage"] = "GainAsLightning",
+	["gained as extra lightning damage"] = "GainAsLightning",
 	["as extra cold damage"] = "GainAsCold",
 	["added as cold damage"] = "GainAsCold",
+	["gained as extra cold damage"] = "GainAsCold",
 	["as extra fire damage"] = "GainAsFire",
 	["added as fire damage"] = "GainAsFire",
+	["gained as extra fire damage"] = "GainAsFire",
 	["as extra chaos damage"] = "GainAsChaos",
 	["added as chaos damage"] = "GainAsChaos",
+	["gained as extra chaos damage"] = "GainAsChaos",
 	["converted to lightning damage"] = "ConvertToLightning",
 	["converted to cold damage"] = "ConvertToCold",
 	["converted to fire damage"] = "ConvertToFire",
@@ -668,7 +674,7 @@ local function scan(line, patternList, plain)
 	return bestMatch[1], bestMatch[2], bestMatch[3]
 end
 
-return function(line)
+local function parseMod(line)
 	-- Check if this is a special modifier
 	local specialMod, specialLine, cap = scan(line, specialModList)
 	if specialMod and #specialLine == 0 then
@@ -812,4 +818,12 @@ return function(line)
 		}
 	end
 	return modList, line:match("%S") and line
+end
+
+local cache = { }
+return function(line)
+	if not cache[line] then
+		cache[line] = { parseMod(line) }
+	end
+	return unpack(copyTable(cache[line]))
 end

@@ -1793,14 +1793,51 @@ local function performCalcs(env)
 			if baseCrit > 0 then
 				output.CritChance = m_max(output.CritChance, 5)
 			end
-			if breakdown then
-				simpleBreakdown(baseCrit, skillCfg, "CritChance")
+			if breakdown and output.CritChance ~= baseCrit then
+				local base = modDB:Sum("BASE", cfg, "CritChance")
+				local inc = modDB:Sum("INC", cfg, "CritChance")
+				local more = modDB:Sum("MORE", cfg, "CritChance")
+				local enemyExtra = enemyDB:Sum("BASE", nil, "SelfExtraCritChance")
+				breakdown.CritChance = { }
+				if base ~= 0 then
+					t_insert(breakdown.CritChance, s_format("(%g + %g) ^8(base)", baseCrit, base))
+				else
+					t_insert(breakdown.CritChance, s_format("%g ^8(base)", baseCrit + base))
+				end
+				if inc ~= 0 then
+					t_insert(breakdown.CritChance, s_format("x %.2f", 1 + inc/100).." ^8(increased/reduced)")
+				end
+				if more ~= 1 then
+					t_insert(breakdown.CritChance, s_format("x %.2f", more).." ^8(more/less)")
+				end
+				if env.mode_effective and enemyExtra ~= 0 then
+					t_insert(breakdown.CritChance, s_format("+ %g ^8(extra chance for enemy to be crit)", enemyExtra))
+				end
+				t_insert(breakdown.CritChance, s_format("= %g", output.CritChance))
 			end
 		end
 		if modDB:Sum("FLAG", skillCfg, "NoCritMultiplier") then
 			output.CritMultiplier = 1
 		else
-			output.CritMultiplier = 1.5 + modDB:Sum("BASE", skillCfg, "CritMultiplier") / 100
+			local extraDamage = 0.5 + modDB:Sum("BASE", skillCfg, "CritMultiplier") / 100
+			if env.mode_effective then
+				extraDamage = round(extraDamage * (1 + enemyDB:Sum("INC", nil, "SelfCritMultiplier") / 100), 2)
+			end
+			output.CritMultiplier = 1 + m_max(0, extraDamage)
+			if breakdown and output.CritMultiplier ~= 1.5 then
+				breakdown.CritMultiplier = {
+					"50% ^8(base)",
+				}
+				local base = modDB:Sum("BASE", skillCfg, "CritMultiplier")
+				if base ~= 0 then
+					t_insert(breakdown.CritMultiplier, s_format("+ %d%% ^8(additional extra damage)", base))
+				end
+				local enemyInc = 1 + enemyDB:Sum("INC", nil, "SelfCritMultiplier") / 100
+				if env.mode_effective and enemyInc ~= 1 then
+					t_insert(breakdown.CritMultiplier, s_format("x %.2f ^8(increased/reduced extra crit damage taken by enemy)", enemyInc))
+				end
+				t_insert(breakdown.CritMultiplier, s_format("= %d%% ^8(extra crit damage)", extraDamage * 100))
+			end
 		end
 		output.CritEffect = 1 - output.CritChance / 100 + output.CritChance / 100 * output.CritMultiplier
 		if breakdown and output.CritEffect ~= 1 then
@@ -2066,7 +2103,8 @@ local function performCalcs(env)
 			keywordFlags = bor(skillCfg.keywordFlags, KeywordFlag.Poison)
 		}
 		env.mainSkill.poisonCfg = dotCfg
-		local baseVal = (output.PhysicalAverage + output.ChaosAverage) * output.CritEffect * 0.08
+		local poisonCritEffect = 1 - output.CritChance / 100 + output.CritChance / 100 * output.CritMultiplier * modDB:Sum("MORE", skillCfg, "PoisonDamageOnCrit")
+		local baseVal = (output.PhysicalAverage + output.ChaosAverage) * poisonCritEffect * 0.08
 		local effMult = 1
 		if env.mode_effective then
 			local resist = output["EnemyChaosResist"]
@@ -2089,12 +2127,17 @@ local function performCalcs(env)
 		output.PoisonDuration = durationBase * calcMod(modDB, dotCfg, "Duration") * debuffDurationMult
 		output.PoisonDamage = output.PoisonDPS * output.PoisonDuration
 		if breakdown then
-			breakdown.PoisonDPS = {
-				"Base damage:",
-				s_format("%.1f ^8(average physical + chaos non-crit damage)", output.PhysicalAverage + output.ChaosAverage)
-			}
+			breakdown.PoisonDPS = { }
+			if poisonCritEffect ~= output.CritEffect then
+				t_insert(breakdown.PoisonDPS, "Crit effect modifier for poison base damage:")
+				t_insert(breakdown.PoisonDPS, s_format("(1 - %g) ^8(portion of damage from non-crits)", output.CritChance/100))
+				t_insert(breakdown.PoisonDPS, s_format("+ (%g x %g x %g) ^8(portion of damage from crits)", output.CritChance/100, output.CritMultiplier, modDB:Sum("MORE", skillCfg, "PoisonDamageOnCrit")))
+				t_insert(breakdown.PoisonDPS, s_format("= %.3f", poisonCritEffect))
+			end
+			t_insert(breakdown.PoisonDPS, "Base damage:")
+			t_insert(breakdown.PoisonDPS, s_format("%.1f ^8(average physical + chaos non-crit damage)", output.PhysicalAverage + output.ChaosAverage))
 			if output.CritEffect ~= 1 then
-				t_insert(breakdown.PoisonDPS, s_format("x %.3f ^8(crit effect modifier)", output.CritEffect))
+				t_insert(breakdown.PoisonDPS, s_format("x %.3f ^8(crit effect modifier)", poisonCritEffect))
 			end
 			t_insert(breakdown.PoisonDPS, "x 0.08 ^8(poison deals 8% per second)")
 			t_insert(breakdown.PoisonDPS, s_format("= %.1f", baseVal, 1))
