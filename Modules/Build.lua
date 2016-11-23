@@ -20,6 +20,7 @@ function buildMode:Init(dbFileName, buildName)
 
 	self.tree = main.tree
 	self.importTab = common.New("ImportTab", self)
+	self.notesTab = common.New("NotesTab", self)
 	self.configTab = common.New("ConfigTab", self)
 	self.spec = common.New("PassiveSpec", self)
 	self.treeTab = common.New("TreeTab", self)
@@ -73,7 +74,7 @@ function buildMode:Init(dbFileName, buildName)
 		local popup
 		popup = main:OpenPopup(370, 100, "Save As", {
 			common.New("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:"),
-			edit = common.New("EditControl", nil, 0, 40, 350, 20, self.buildName, nil, "[%w _+-.()'\"]", 50, function(buf)
+			edit = common.New("EditControl", nil, 0, 40, 350, 20, self.buildName, nil, "\\/:%*%?\"<>|", 50, function(buf)
 				newFileName = main.buildPath..buf..".xml"
 				newBuildName = buf
 				popup.controls.save.enabled = false
@@ -125,7 +126,7 @@ function buildMode:Init(dbFileName, buildName)
 			SetDrawLayer(nil, 0)
 		end
 	end
-	self.controls.characterLevel = common.New("EditControl", {"LEFT",self.anchorTopBarRight,"RIGHT"}, 0, 0, 106, 20, "", "Level", "[%d]", 3, function(buf)
+	self.controls.characterLevel = common.New("EditControl", {"LEFT",self.anchorTopBarRight,"RIGHT"}, 0, 0, 106, 20, "", "Level", "%D", 3, function(buf)
 		self.characterLevel = m_min(tonumber(buf) or 1, 100)
 		self.buildFlag = true
 	end)
@@ -185,6 +186,10 @@ function buildMode:Init(dbFileName, buildName)
 		self.viewMode = "IMPORT"
 	end)
 	self.controls.modeImport.locked = function() return self.viewMode == "IMPORT" end
+	self.controls.modeNotes = common.New("ButtonControl", {"LEFT",self.controls.modeImport,"RIGHT"}, 4, 0, 58, 20, "Notes", function()
+		self.viewMode = "NOTES"
+	end)
+	self.controls.modeNotes.locked = function() return self.viewMode == "NOTES" end
 	self.controls.modeConfig = common.New("ButtonControl", {"TOPRIGHT",self.anchorSideBar,"TOPLEFT"}, 300, 0, 100, 20, "Configuration", function()
 		self.viewMode = "CONFIG"
 	end)
@@ -328,6 +333,7 @@ function buildMode:Init(dbFileName, buildName)
 	self.savers = {
 		["Build"] = self,
 		["Config"] = self.configTab,
+		["Notes"] = self.notesTab,
 		["Spec"] = self.spec,
 		["TreeView"] = self.treeTab.viewer,
 		["Items"] = self.itemsTab,
@@ -496,6 +502,8 @@ function buildMode:OnFrame(inputEvents)
 	}
 	if self.viewMode == "IMPORT" then
 		self.importTab:Draw(tabViewPort, inputEvents)
+	elseif self.viewMode == "NOTES" then
+		self.notesTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "CONFIG" then
 		self.configTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "TREE" then
@@ -508,7 +516,7 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:Draw(tabViewPort, inputEvents)
 	end
 
-	self.unsaved = self.modFlag or self.configTab.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+	self.unsaved = self.modFlag or self.notesTab.modFlag or self.configTab.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
 
 	SetDrawLayer(5)
 

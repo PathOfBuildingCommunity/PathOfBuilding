@@ -23,7 +23,7 @@ local BuildListClass = common.NewClass("BuildList", "Control", "ControlHost", fu
 	self.controls.scrollBar.locked = function()
 		return self.listMode.edit
 	end
-	self.controls.nameEdit = common.New("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 0, 20, nil, nil, "[%w _+-.()'\"]", 50)
+	self.controls.nameEdit = common.New("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 0, 20, nil, nil, "\\/:%*%?\"<>|", 50)
 	self.controls.nameEdit.shown = function()
 		return self.listMode.edit
 	end

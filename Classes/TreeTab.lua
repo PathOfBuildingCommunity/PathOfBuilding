@@ -70,7 +70,7 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 		local popup
 		popup = main:OpenPopup(380, 100, "Export Tree", {
 			common.New("LabelControl", nil, 0, 20, 0, 16, "Passive tree link:"),
-			edit = common.New("EditControl", nil, 0, 40, 350, 18, treeLink, nil, "[%z]"),
+			edit = common.New("EditControl", nil, 0, 40, 350, 18, treeLink, nil, "%Z"),
 			shrink = common.New("ButtonControl", nil, -90, 70, 140, 20, "Shrink with PoEURL", function()
 				popup.controls.shrink.enabled = false
 				popup.controls.shrink.label = "Shrinking..."
@@ -93,7 +93,7 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 			end),
 		}, "done", "edit")
 	end)
-	self.controls.treeSearch = common.New("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 400, 20, "", "Search", "[^%c%(%)]", 100, function(buf)
+	self.controls.treeSearch = common.New("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 400, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
 	end)
 	self.controls.treeHeatMap = common.New("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show node power:", function(state)	
