@@ -13,6 +13,8 @@ local NotesTabClass = common.NewClass("NotesTab", "ControlHost", "Control", func
 
 	self.build = build
 
+	self.lastContent = ""
+
 	self.controls.edit = common.New("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 0, 0, "", nil, "^%C\t\n", nil, nil, 16)
 	self.controls.edit.width = function()
 		return self.width - 16
