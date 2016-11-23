@@ -26,7 +26,7 @@ local ImportTabClass = common.NewClass("ImportTab", "ControlHost", "Control", fu
 	self.controls.accountNameHeader.shown = function()
 		return self.charImportMode == "GETACCOUNTNAME"
 	end
-	self.controls.accountName = common.New("EditControl", {"TOPLEFT",self.controls.accountNameHeader,"BOTTOMLEFT"}, 0, 4, 200, 20, main.lastAccountName or "", nil, "[%C]", 50)
+	self.controls.accountName = common.New("EditControl", {"TOPLEFT",self.controls.accountNameHeader,"BOTTOMLEFT"}, 0, 4, 200, 20, main.lastAccountName or "", nil, "%c", 50)
 	self.controls.accountNameGo = common.New("ButtonControl", {"LEFT",self.controls.accountName,"RIGHT"}, 8, 0, 60, 20, "Start", function()
 		self.controls.sessionInput.buf = ""
 		self:DownloadCharacterList()
@@ -59,7 +59,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 		self.charImportMode = "GETACCOUNTNAME"
 		self.charImportStatus = "Idle"
 	end)
-	self.controls.sessionInput = common.New("EditControl", {"TOPLEFT",self.controls.sessionRetry,"BOTTOMLEFT"}, 0, 8, 350, 20, "", "POESESSID", "[%x]", 32)
+	self.controls.sessionInput = common.New("EditControl", {"TOPLEFT",self.controls.sessionRetry,"BOTTOMLEFT"}, 0, 8, 350, 20, "", "POESESSID", "%X", 32)
 	self.controls.sessionGo = common.New("ButtonControl", {"LEFT",self.controls.sessionInput,"RIGHT"}, 8, 0, 60, 20, "Go", function()
 		self:DownloadCharacterList()
 	end)
@@ -107,7 +107,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.generateCode = common.New("ButtonControl", {"LEFT",self.controls.generateCodeLabel,"RIGHT"}, 4, 0, 80, 20, "Generate", function()
 		self.controls.generateCodeOut:SetText(common.base64.encode(Deflate(self.build:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
 	end)
-	self.controls.generateCodeOut = common.New("EditControl", {"TOPLEFT",self.controls.generateCodeLabel,"BOTTOMLEFT"}, 0, 8, 250, 20, "", "Code", "[%z]")
+	self.controls.generateCodeOut = common.New("EditControl", {"TOPLEFT",self.controls.generateCodeLabel,"BOTTOMLEFT"}, 0, 8, 250, 20, "", "Code", "%Z")
 	self.controls.generateCodeOut.enabled = function()
 		return #self.controls.generateCodeOut.buf > 0
 	end
@@ -120,7 +120,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 	self.controls.generateCodeNote = common.New("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; it may be easiest to share it using Pastebin or similar.")
 	self.controls.importCodeHeader = common.New("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, 0, 26, 0, 16, "^7To import a build, enter the code here:")
-	self.controls.importCodeIn = common.New("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 250, 20, "", nil, "[%w_%-=]", nil, function(buf)
+	self.controls.importCodeIn = common.New("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 250, 20, "", nil, "^%w_%-=", nil, function(buf)
 		if #buf == 0 then
 			self.importCodeState = nil
 			return
@@ -141,7 +141,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.importCodeMode.enabled = function()
 		return self.importCodeState == "VALID"
 	end
-	self.controls.importCodeBuildName = common.New("EditControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 4, 0, 400, 20, "", "New build name", "[%w _+-.()]", 50)
+	self.controls.importCodeBuildName = common.New("EditControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 4, 0, 400, 20, "", "New build name", "\\/:%*%?\"<>|", 50)
 	self.controls.importCodeBuildName.enabled = function()
 		return self.importCodeState == "VALID" and self.controls.importCodeMode.sel == 2
 	end

@@ -1,3 +1,5 @@
+VERSION[1.2.14][2016/11/23]
+ * Added a Notes tab
 VERSION[1.2.13][2016/11/22]
  * The breakdown for crit chance now includes the "additional chance to receive a Critical Strike" from Assassin's Mark
  * Added support for the "increased extra damage from Critical Strikes" modifier on Assassin's Mark

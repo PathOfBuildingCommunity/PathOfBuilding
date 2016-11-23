@@ -22,6 +22,7 @@ LoadModule("Classes/ControlHost")
 local main = common.New("ControlHost")
 
 local classList = {
+	"UndoHandler",
 	-- Basic controls
 	"Control",
 	"LabelControl",
@@ -35,13 +36,13 @@ local classList = {
 	"TextListControl",
 	-- Misc
 	"PopupDialog",
-	"UndoHandler",
 	-- Mode: Build list
 	"BuildListControl",
 	-- Mode: Build
 	"ModList",
 	"ModDB",
 	"ImportTab",
+	"NotesTab",
 	"ConfigTab",
 	"TreeTab",
 	"PassiveTree",

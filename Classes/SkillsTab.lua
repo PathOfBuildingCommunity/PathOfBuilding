@@ -29,7 +29,7 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 	self.anchorGroupDetail.shown = function()
 		return self.displayGroup ~= nil
 	end
-	self.controls.groupLabel = common.New("EditControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 0, 380, 20, nil, "Label", "[%C]", 50, function(buf)
+	self.controls.groupLabel = common.New("EditControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 0, 380, 20, nil, "Label", "%c", 50, function(buf)
 		self.displayGroup.label = buf
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
@@ -234,7 +234,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlotName"..index] = slot.nameSpec
 
 	-- Gem level
-	slot.level = common.New("EditControl", {"LEFT",slot.nameSpec,"RIGHT"}, 2, 0, 60, 20, nil, nil, "[%d]", 2, function(buf)
+	slot.level = common.New("EditControl", {"LEFT",slot.nameSpec,"RIGHT"}, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
 		if not self.displayGroup.gemList[index] then
 			self.displayGroup.gemList[index] = { nameSpec = "", level = 20, quality = 0, enabled = true }
 			slot.quality:SetText("0")
@@ -249,7 +249,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlotLevel"..index] = slot.level
 
 	-- Gem quality
-	slot.quality = common.New("EditControl", {"LEFT",slot.level,"RIGHT"}, 2, 0, 60, 20, nil, nil, "[%d]", 2, function(buf)
+	slot.quality = common.New("EditControl", {"LEFT",slot.level,"RIGHT"}, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
 		if not self.displayGroup.gemList[index] then
 			self.displayGroup.gemList[index] = { nameSpec = "", level = 20, quality = 0, enabled = true }
 			slot.level:SetText("20")
