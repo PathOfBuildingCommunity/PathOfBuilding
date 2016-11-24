@@ -47,6 +47,7 @@ local EditClass = common.NewClass("EditControl", "ControlHost", "Control", "Undo
 	self.limit = limit
 	self.changeFunc = changeFunc
 	self.lineHeight = lineHeight
+	self.font = "VAR"
 	self.textCol = "^7"
 	self.inactiveCol = "^8"
 	self.disableCol = "^9"
@@ -151,10 +152,10 @@ function EditClass:UpdateScrollBars()
 	local width, height = self:GetSize()
 	local textHeight = self.lineHeight or (height - 4)
 	if self.lineHeight then
-		self.controls.scrollBarH:SetContentDimension(DrawStringWidth(textHeight, "VAR", self.buf) + 2, width - 18)
+		self.controls.scrollBarH:SetContentDimension(DrawStringWidth(textHeight, self.font, self.buf) + 2, width - 18)
 		self.controls.scrollBarV:SetContentDimension(newlineCount(self.buf.."\n") * textHeight, height - (self.controls.scrollBarH.enabled and 18 or 4))
 	else
-		self.controls.scrollBarH:SetContentDimension(DrawStringWidth(textHeight, "VAR", self.buf) + 2, width - 4 - (self.prompt and DrawStringWidth(textHeight, "VAR", self.prompt) + textHeight/2 or 0))
+		self.controls.scrollBarH:SetContentDimension(DrawStringWidth(textHeight, self.font, self.buf) + 2, width - 4 - (self.prompt and DrawStringWidth(textHeight, self.font, self.prompt) + textHeight/2 or 0))
 	end
 end
 
@@ -162,7 +163,7 @@ function EditClass:ScrollCaretIntoView()
 	local width, height = self:GetSize()
 	local textHeight = self.lineHeight or (height - 4)
 	local pre = self.buf:sub(1, self.caret - 1)
-	local caretX = DrawStringWidth(textHeight, "VAR", lastLine(pre))
+	local caretX = DrawStringWidth(textHeight, self.font, lastLine(pre))
 	self:UpdateScrollBars()
 	self.controls.scrollBarH:ScrollIntoView(caretX - textHeight, textHeight * 2)
 	if self.lineHeight then
@@ -173,9 +174,10 @@ end
 
 function EditClass:MoveCaretVertically(offset)
 	local pre = self.buf:sub(1, self.caret - 1)
-	local caretX = DrawStringWidth(self.lineHeight, "VAR", lastLine(pre))
+	local caretX = DrawStringWidth(self.lineHeight, self.font, lastLine(pre))
 	local caretY = newlineCount(pre) * self.lineHeight
-	self.caret = DrawStringCursorIndex(self.lineHeight, "VAR", self.buf, caretX + 1, caretY + self.lineHeight/2 + offset)
+	self.caret = DrawStringCursorIndex(self.lineHeight, self.font, self.buf, caretX + 1, caretY + self.lineHeight/2 + offset)
+	self.lastUndoState.caret = self.caret
 	self:ScrollCaretIntoView()
 	self.blinkStart = GetTime()
 end
@@ -210,11 +212,11 @@ function EditClass:Draw(viewPort)
 	local textHeight = self.lineHeight or (height - 4)
 	if self.prompt then
 		if not enabled then
-			DrawString(textX, textY, "LEFT", textHeight, "VAR", self.disableCol..self.prompt)
+			DrawString(textX, textY, "LEFT", textHeight, self.font, self.disableCol..self.prompt)
 		else
-			DrawString(textX, textY, "LEFT", textHeight, "VAR", self.textCol..self.prompt..":")
+			DrawString(textX, textY, "LEFT", textHeight, self.font, self.textCol..self.prompt..":")
 		end
-		textX = textX + DrawStringWidth(textHeight, "VAR", self.prompt) + textHeight/2
+		textX = textX + DrawStringWidth(textHeight, self.font, self.prompt) + textHeight/2
 	end
 	if not enabled then
 		return
@@ -232,7 +234,7 @@ function EditClass:Draw(viewPort)
 	SetViewport(textX, textY, width - 4 - marginL - marginR, height - 4 - marginB)
 	if not self.hasFocus then
 		SetDrawColor(self.inactiveCol)
-		DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, "VAR", self.buf)
+		DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.buf)
 		SetViewport()
 		self:DrawControls(viewPort)
 		return
@@ -242,7 +244,8 @@ function EditClass:Draw(viewPort)
 	end
 	if self.drag then
 		local cursorX, cursorY = GetCursorPos()
-		self.caret = DrawStringCursorIndex(textHeight, "VAR", self.buf, cursorX - textX + self.controls.scrollBarH.offset, cursorY - textY + self.controls.scrollBarV.offset)
+		self.caret = DrawStringCursorIndex(textHeight, self.font, self.buf, cursorX - textX + self.controls.scrollBarH.offset, cursorY - textY + self.controls.scrollBarV.offset)
+		self.lastUndoState.caret = self.caret
 		self:ScrollCaretIntoView()
 	end
 	textX = -self.controls.scrollBarH.offset
@@ -255,13 +258,13 @@ function EditClass:Draw(viewPort)
 		for s, line, e in (self.buf.."\n"):gmatch("()([^\n]*)\n()") do
 			textX = -self.controls.scrollBarH.offset
 			if left >= e or right <= s then
-				DrawString(textX, textY, "LEFT", textHeight, "VAR", line)
+				DrawString(textX, textY, "LEFT", textHeight, self.font, line)
 			end
 			if left < e then
 				if left > s then
 					local pre = line:sub(1, left - s)
-					DrawString(textX, textY, "LEFT", textHeight, "VAR", pre)
-					textX = textX + DrawStringWidth(textHeight, "VAR", pre)
+					DrawString(textX, textY, "LEFT", textHeight, self.font, pre)
+					textX = textX + DrawStringWidth(textHeight, self.font, pre)
 				end
 				if left >= s and left == self.caret then
 					caretX, caretY = textX, textY
@@ -272,10 +275,10 @@ function EditClass:Draw(viewPort)
 				if right >= e then
 					sel = sel .. "  "
 				end
-				local selWidth = DrawStringWidth(textHeight, "VAR", sel)
+				local selWidth = DrawStringWidth(textHeight, self.font, sel)
 				SetDrawColor(self.selBGCol)
 				DrawImage(nil, textX, textY, selWidth, textHeight)
-				DrawString(textX, textY, "LEFT", textHeight, "VAR", sel)
+				DrawString(textX, textY, "LEFT", textHeight, self.font, sel)
 				SetDrawColor(self.textCol)
 				textX = textX + selWidth
 			end
@@ -285,8 +288,8 @@ function EditClass:Draw(viewPort)
 			if right > s then
 				if right < e then
 					local post = line:sub(right - s + 1)
-					DrawString(textX, textY, "LEFT", textHeight, "VAR", post)
-					textX = textX + DrawStringWidth(textHeight, "VAR", post)
+					DrawString(textX, textY, "LEFT", textHeight, self.font, post)
+					textX = textX + DrawStringWidth(textHeight, self.font, post)
 				end
 			end
 			textY = textY + textHeight
@@ -303,13 +306,13 @@ function EditClass:Draw(viewPort)
 		local pre = self.textCol .. self.buf:sub(1, left - 1)
 		local sel = self.selCol .. StripEscapes(self.buf:sub(left, right - 1))
 		local post = self.textCol .. self.buf:sub(right)
-		DrawString(textX, textY, "LEFT", textHeight, "VAR", pre)
-		textX = textX + DrawStringWidth(textHeight, "VAR", pre)
-		local selWidth = DrawStringWidth(textHeight, "VAR", sel)
+		DrawString(textX, textY, "LEFT", textHeight, self.font, pre)
+		textX = textX + DrawStringWidth(textHeight, self.font, pre)
+		local selWidth = DrawStringWidth(textHeight, self.font, sel)
 		SetDrawColor(self.selBGCol)
 		DrawImage(nil, textX, textY, selWidth, textHeight)
-		DrawString(textX, textY, "LEFT", textHeight, "VAR", sel)
-		DrawString(textX + selWidth, textY, "LEFT", textHeight, "VAR", post)
+		DrawString(textX, textY, "LEFT", textHeight, self.font, sel)
+		DrawString(textX + selWidth, textY, "LEFT", textHeight, self.font, post)
 		if (GetTime() - self.blinkStart) % 1000 < 500 then
 			local caretX = (self.caret > self.sel) and textX + selWidth or textX
 			SetDrawColor(self.textCol)
@@ -318,9 +321,9 @@ function EditClass:Draw(viewPort)
 	else
 		local pre = self.textCol .. self.buf:sub(1, self.caret - 1)
 		local post = self.buf:sub(self.caret)
-		DrawString(textX, textY, "LEFT", textHeight, "VAR", pre)
-		textX = textX + DrawStringWidth(textHeight, "VAR", pre)
-		DrawString(textX, textY, "LEFT", textHeight, "VAR", post)
+		DrawString(textX, textY, "LEFT", textHeight, self.font, pre)
+		textX = textX + DrawStringWidth(textHeight, self.font, pre)
+		DrawString(textX, textY, "LEFT", textHeight, self.font, post)
 		if (GetTime() - self.blinkStart) % 1000 < 500 then
 			SetDrawColor(self.textCol)
 			DrawImage(nil, textX, textY, 1, textHeight)
@@ -332,7 +335,7 @@ end
 
 function EditClass:OnFocusGained()
 	self.blinkStart = GetTime()
-	if not self.drag and not self.selControl then
+	if not self.drag and not self.selControl and not self.lineHeight then
 		self:SelectAll()
 	end
 end
@@ -355,8 +358,36 @@ function EditClass:OnKeyDown(key, doubleClick)
 			return
 		end
 		if doubleClick then
-			self.sel = 1
-			self.caret = #self.buf + 1
+			if self.lineHeight then
+				if self.buf:sub(self.caret - 1, self.caret):match("^%C\n$") then
+					self.caret = self.caret - 1
+				end
+				while self.buf:sub(self.caret - 1, self.caret):match("[^\n][ \t]") do
+					self.caret = self.caret - 1
+				end
+				local caretChar = self.buf:sub(self.caret, self.caret)
+				if caretChar:match("%w") then
+					self.sel = self.caret
+					while self.buf:sub(self.sel - 1, self.sel - 1):match("%w") do
+						self.sel = self.sel - 1
+					end
+					while self.buf:sub(self.caret, self.caret):match("%w") do
+						self.caret = self.caret + 1
+					end
+				elseif caretChar:match("%S") then
+					self.sel = self.caret
+					while self.buf:sub(self.sel - 1, self.sel - 1) == caretChar do
+						self.sel = self.sel - 1
+					end
+					while self.buf:sub(self.caret, self.caret) == caretChar do
+						self.caret = self.caret + 1
+					end
+				end
+			else
+				self.sel = 1
+				self.caret = #self.buf + 1
+			end
+			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()
 		else
 			self.drag = true
@@ -366,11 +397,12 @@ function EditClass:OnKeyDown(key, doubleClick)
 			local textY = y + 2
 			local textHeight = self.lineHeight or (height - 4)
 			if self.prompt then
-				textX = textX + DrawStringWidth(textHeight, "VAR", self.prompt) + textHeight/2
+				textX = textX + DrawStringWidth(textHeight, self.font, self.prompt) + textHeight/2
 			end
 			local cursorX, cursorY = GetCursorPos()
-			self.caret = DrawStringCursorIndex(textHeight, "VAR", self.buf, cursorX - textX + self.controls.scrollBarH.offset, cursorY - textY + self.controls.scrollBarV.offset)
+			self.caret = DrawStringCursorIndex(textHeight, self.font, self.buf, cursorX - textX + self.controls.scrollBarH.offset, cursorY - textY + self.controls.scrollBarV.offset)
 			self.sel = self.caret
+			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()
 			self.blinkStart = GetTime()
 		end
@@ -402,10 +434,15 @@ function EditClass:OnKeyDown(key, doubleClick)
 				self:Insert(text)
 			end
 		end
+	elseif key == "z" and ctrl then
+		self:Undo()
+	elseif key == "y" and ctrl then
+		self:Redo()
 	elseif key == "LEFT" then
 		self.sel = shift and (self.sel or self.caret) or nil
 		if self.caret > 1 then
 			self.caret = self.caret - 1
+			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()
 			self.blinkStart = GetTime()
 		end
@@ -413,6 +450,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 		self.sel = shift and (self.sel or self.caret) or nil
 		if self.caret <= #self.buf then
 			self.caret = self.caret + 1
+			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()
 			self.blinkStart = GetTime()
 		end
@@ -429,6 +467,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 		else
 			self.caret = 1
 		end
+		self.lastUndoState.caret = self.caret
 		self:ScrollCaretIntoView()
 		self.blinkStart = GetTime()
 	elseif key == "END" then
@@ -438,6 +477,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 		else
 			self.caret = #self.buf + 1			
 		end
+		self.lastUndoState.caret = self.caret
 		self:ScrollCaretIntoView()
 		self.blinkStart = GetTime()
 	elseif key == "PAGEUP" and self.lineHeight then
@@ -460,6 +500,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 			if self.changeFunc then
 				self.changeFunc(self.buf)
 			end
+			self:AddUndoState()
 		end
 	elseif key == "DELETE" then
 		if self.sel and self.sel ~= self.caret then
@@ -471,6 +512,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 			if self.changeFunc then
 				self.changeFunc(self.buf)
 			end
+			self:AddUndoState()
 		end
 	elseif key == "TAB" then
 		return self.Object:TabAdvance(shift and -1 or 1)
@@ -510,9 +552,17 @@ function EditClass:OnKeyUp(key)
 			end
 		end
 	elseif key == "WHEELUP" then
-		self.controls.scrollBarV:Scroll(-1)
+		if self.controls.scrollBarV.enabled then
+			self.controls.scrollBarV:Scroll(-1)
+		else
+			self.controls.scrollBarH:Scroll(-1)
+		end
 	elseif key == "WHEELDOWN" then
-		self.controls.scrollBarV:Scroll(1)
+		if self.controls.scrollBarV.enabled then
+			self.controls.scrollBarV:Scroll(1)
+		else
+			self.controls.scrollBarH:Scroll(1)
+		end
 	end
 	return self.hasFocus and self
 end
@@ -532,19 +582,21 @@ function EditClass:OnChar(key)
 end
 
 function EditClass:CreateUndoState()
-	return {
+	local state = {
 		buf = self.buf,
 		caret = self.caret,
-		sel = self.sel,
 	}
+	self.lastUndoState = state
+	return state
 end
 
 function EditClass:RestoreUndoState(state)
 	self.buf = state.buf
 	self.caret = state.caret
-	self.sel = state.sel
+	self.sel = nil
 	self:ScrollCaretIntoView()
 	if self.changeFunc then
 		self.changeFunc(self.buf)
 	end
+	self.lastUndoState = state
 end

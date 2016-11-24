@@ -22,8 +22,7 @@ local NotesTabClass = common.NewClass("NotesTab", "ControlHost", "Control", func
 	self.controls.edit.height = function()
 		return self.height - 16
 	end
-	self.selControl = self.controls.edit
-	self.controls.edit.hasFocus = true
+	self:SelectControl(self.controls.edit)
 end)
 
 function NotesTabClass:Load(xml, fileName)

@@ -24,7 +24,7 @@ function ButtonClass:IsMouseOver()
 	return self:IsMouseInBounds()
 end
 
-function ButtonClass:Draw()
+function ButtonClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -65,6 +65,15 @@ function ButtonClass:Draw()
 	else
 		local overSize = self.overSizeText or 0
 		DrawString(x + width / 2, y + 2 - overSize, "CENTER_X", height - 4 + overSize * 2, "VAR",label )
+	end
+	if mOver and self.tooltip then
+		local tooltip = self:GetProperty("tooltip")
+		if tooltip then
+			main:AddTooltipLine(16, tooltip)
+		end
+		SetDrawLayer(nil, 100)
+		main:DrawTooltip(x, y, width, height, viewPort)
+		SetDrawLayer(nil, 0)
 	end
 end
 

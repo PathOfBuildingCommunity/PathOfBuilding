@@ -96,6 +96,7 @@ gems["Ancestral Protector"] = {
 		mod("TotemPlacementSpeed", "INC", 50), --"summon_totem_cast_speed_+%" = 50
 		--"base_skill_is_totemified" = ?
 		--"is_totem" = ?
+		skill("allowTotemBuff", true), 
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, KeywordFlag.Totem), --"totem_damage_+%" = 1
@@ -168,6 +169,7 @@ gems["Ancestral Warchief"] = {
 		--"is_area_damage" = ?
 		--"base_skill_is_totemified" = ?
 		--"is_totem" = ?
+		skill("allowTotemBuff", true), 
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, KeywordFlag.Totem), --"totem_damage_+%" = 1

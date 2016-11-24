@@ -34,6 +34,7 @@ local ImportTabClass = common.NewClass("ImportTab", "ControlHost", "Control", fu
 	self.controls.accountNameGo.enabled = function()
 		return self.controls.accountName.buf:match("%S")
 	end
+	self.controls.accountNameTip = common.New("LabelControl", {"TOPLEFT",self.controls.accountName,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: the account name must have the correct capitalisation, or the character import will fail.")
 
 	-- Stage: input POESESSID
 	self.controls.sessionHeader = common.New("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 14)
@@ -408,7 +409,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 	end
 
 	-- Add and equip the new item
-	itemLib.createItemRaw(item)
+	item.raw = itemLib.createItemRaw(item)
 --	ConPrintf("%s", item.raw)
 	local newItem = itemLib.makeItemFromRaw(item.raw)
 	if newItem then

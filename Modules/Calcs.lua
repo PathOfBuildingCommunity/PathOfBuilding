@@ -709,6 +709,9 @@ local function mergeMainMods(env, repSlotName, repItem)
 					key = "NormalItem"
 				end
 				env.modDB.multipliers[key] = (env.modDB.multipliers[key] or 0) + 1
+				if item.corrupted then
+					env.modDB.multipliers.CorruptedItem = (env.modDB.multipliers.CorruptedItem or 0) + 1
+				end
 			end
 		end
 	end
@@ -1000,6 +1003,11 @@ local function performCalcs(env)
 	if (modDB.multipliers["UniqueItem"] or 0) > 0 then
 		condList["UsingUniqueItem"] = true
 	end
+	if (modDB.multipliers["CorruptedItem"] or 0) > 0 then
+		condList["UsingCorruptedItem"] = true
+	else
+		condList["NotUsingCorruptedItem"] = true
+	end
 	if env.mode_buffs then
 		condList["Buffed"] = true
 	end
@@ -1045,7 +1053,7 @@ local function performCalcs(env)
 
 		-- Merge auxillary modifiers
 		if env.mode_buffs then
-			if activeSkill.buffModList and not activeSkill.skillFlags.totem then
+			if activeSkill.buffModList and (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff) then
 				if activeSkill.activeGem.data.golem and modDB:Sum("FLAG", skillCfg, "LiegeOfThePrimordial") and (activeSkill.activeGem.data.fire or activeSkill.activeGem.data.cold or activeSkill.activeGem.data.lightning) then
 					modDB:ScaleAddList(activeSkill.buffModList, 2)
 				else
@@ -1114,7 +1122,9 @@ local function performCalcs(env)
 	end
 
 	-- Process conditions that can depend on other conditions
+	condList["NotCritRecently"] = not condList["CritRecently"]
 	condList["NotKilledRecently"] = not condList["KilledRecently"]
+	condList["NotBeenHitRecently"] = not condList["BeenHitRecently"]
 	if env.mode_effective then
 		if condList["EnemyIgnited"] then
 			condList["EnemyBurning"] = true
@@ -1310,6 +1320,28 @@ local function performCalcs(env)
 		end
 	end
 
+	-- Resistances
+	for _, elem in ipairs(resistTypeList) do
+		local max, total
+		if elem == "Chaos" and modDB:Sum("FLAG", nil, "ChaosInoculation") then
+			max = 100
+			total = 100
+		else
+			max = modDB:Sum("BASE", nil, elem.."ResistMax")
+			total = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
+		end
+		output[elem.."Resist"] = m_min(total, max)
+		output[elem.."ResistTotal"] = total
+		output[elem.."ResistOverCap"] = m_max(0, total - max)
+		if breakdown then
+			breakdown[elem.."Resist"] = {
+				"Max: "..max.."%",
+				"Total: "..total.."%",
+				"In hideout: "..(total + 60).."%",
+			}
+		end
+	end
+
 	-- Primary defences: Energy shield, evasion and armour
 	do
 		local ironReflexes = modDB:Sum("FLAG", nil, "IronReflexes")
@@ -1472,27 +1504,6 @@ local function performCalcs(env)
 			output.EnergyShieldRegenPercent = round(esBase / output.EnergyShield * 100, 1)
 		else
 			output.EnergyShieldRegen = 0
-		end
-	end
-
-	-- Resistances
-	for _, elem in ipairs(resistTypeList) do
-		local max, total
-		if elem == "Chaos" and modDB:Sum("FLAG", nil, "ChaosInoculation") then
-			max = 100
-			total = 100
-		else
-			max = modDB:Sum("BASE", nil, elem.."ResistMax")
-			total = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
-		end
-		output[elem.."Resist"] = m_min(total, max)
-		output[elem.."ResistOverCap"] = m_max(0, total - max)
-		if breakdown then
-			breakdown[elem.."Resist"] = {
-				"Max: "..max.."%",
-				"Total: "..total.."%",
-				"In hideout: "..(total + 60).."%",
-			}
 		end
 	end
 
@@ -1698,11 +1709,11 @@ local function performCalcs(env)
 		for otherTypeIndex = damageTypeIndex + 1, 5 do
 			-- For all possible destination types, check for global and skill conversions
 			otherType = dmgTypeList[otherTypeIndex]
-			globalConv[otherType] = modDB:Sum("BASE", skillCfg, damageType.."DamageConvertTo"..otherType)
+			globalConv[otherType] = modDB:Sum("BASE", skillCfg, damageType.."DamageConvertTo"..otherType, isElemental[damageType] and "ElementalDamageConvertTo"..otherType or nil)
 			globalTotal = globalTotal + globalConv[otherType]
 			skillConv[otherType] = skillData[damageType.."DamageConvertTo"..otherType] or 0
 			skillTotal = skillTotal + skillConv[otherType]
-			add[otherType] = modDB:Sum("BASE", skillCfg, damageType.."DamageGainAs"..otherType)
+			add[otherType] = modDB:Sum("BASE", skillCfg, damageType.."DamageGainAs"..otherType, isElemental[damageType] and "ElementalDamageGainAs"..otherType or nil)
 		end
 		if skillTotal > 100 then
 			-- Skill conversion exceeds 100%, scale it down and remove non-skill conversions
@@ -1794,9 +1805,9 @@ local function performCalcs(env)
 				output.CritChance = m_max(output.CritChance, 5)
 			end
 			if breakdown and output.CritChance ~= baseCrit then
-				local base = modDB:Sum("BASE", cfg, "CritChance")
-				local inc = modDB:Sum("INC", cfg, "CritChance")
-				local more = modDB:Sum("MORE", cfg, "CritChance")
+				local base = modDB:Sum("BASE", skillCfg, "CritChance")
+				local inc = modDB:Sum("INC", skillCfg, "CritChance")
+				local more = modDB:Sum("MORE", skillCfg, "CritChance")
 				local enemyExtra = enemyDB:Sum("BASE", nil, "SelfExtraCritChance")
 				breakdown.CritChance = { }
 				if base ~= 0 then
@@ -1816,7 +1827,9 @@ local function performCalcs(env)
 				t_insert(breakdown.CritChance, s_format("= %g", output.CritChance))
 			end
 		end
-		if modDB:Sum("FLAG", skillCfg, "NoCritMultiplier") then
+		if modDB:Sum("FLAG", skillCfg, "NoCritDamage") then
+			output.CritMultiplier = 0
+		elseif modDB:Sum("FLAG", skillCfg, "NoCritMultiplier") then
 			output.CritMultiplier = 1
 		else
 			local extraDamage = 0.5 + modDB:Sum("BASE", skillCfg, "CritMultiplier") / 100
@@ -2406,6 +2419,8 @@ function calcs.getNodeCalculator(build)
 							break
 						end
 					end
+				elseif mod.type == "MORE" then
+					env.modDB:NewMod(mod.name, mod.type, (1 / (1 + mod.value / 100) - 1) * 100, mod.source, mod.flags, mod.keywordFlags, unpack(mod.tagList))
 				else
 					env.modDB:NewMod(mod.name, mod.type, -mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod.tagList))
 				end

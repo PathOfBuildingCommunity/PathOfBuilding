@@ -205,7 +205,7 @@ function ItemDBClass:Draw(viewPort)
 		local item = orderList[index]
 		local itemY = 16 * (index - 1) - scrollBar.offset
 		local nameWidth = DrawStringWidth(16, "VAR", item.name)
-		if not scrollBar.dragging and (not self.itemsTab.selControl or self.hasFocus or self.controls.search.hasFocus) then
+		if not scrollBar.dragging and (not self.itemsTab.selControl or self.hasFocus or self.controls.search.hasFocus) and not main.popups[1] then
 			local cursorX, cursorY = GetCursorPos()
 			local relX = cursorX - (x + 2)
 			local relY = cursorY - (y + 2)
