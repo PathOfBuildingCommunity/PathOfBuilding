@@ -226,34 +226,34 @@ end
 
 -- Create raw item data for given item
 function itemLib.createItemRaw(item)
-	item.rawLines = { }
-	t_insert(item.rawLines, "Rarity: "..item.rarity)
+	local rawLines = { }
+	t_insert(rawLines, "Rarity: "..item.rarity)
 	if item.title then
-		t_insert(item.rawLines, item.title)
-		t_insert(item.rawLines, item.baseName)
+		t_insert(rawLines, item.title)
+		t_insert(rawLines, item.baseName)
 	else
-		t_insert(item.rawLines, item.name)
+		t_insert(rawLines, item.name)
 	end
 	if item.uniqueID then
-		t_insert(item.rawLines, "Unique ID: "..item.uniqueID)
+		t_insert(rawLines, "Unique ID: "..item.uniqueID)
 	end
 	if item.league then
-		t_insert(item.rawLines, "League: "..item.league)
+		t_insert(rawLines, "League: "..item.league)
 	end
 	if item.unreleased then
-		t_insert(item.rawLines, "Unreleased: true")
+		t_insert(rawLines, "Unreleased: true")
 	end
 	if item.itemLevel then
-		t_insert(item.rawLines, "Item Level: "..item.itemLevel)
+		t_insert(rawLines, "Item Level: "..item.itemLevel)
 	end
 	if item.variantList then
 		for _, variantName in ipairs(item.variantList) do
-			t_insert(item.rawLines, "Variant: "..variantName)
+			t_insert(rawLines, "Variant: "..variantName)
 		end
-		t_insert(item.rawLines, "Selected Variant: "..item.variant)
+		t_insert(rawLines, "Selected Variant: "..item.variant)
 	end
 	if item.quality > 0 then
-		t_insert(item.rawLines, "Quality: "..item.quality)
+		t_insert(rawLines, "Quality: "..item.quality)
 	end
 	if item.sockets then
 		local line = "Sockets: "
@@ -263,19 +263,19 @@ function itemLib.createItemRaw(item)
 				line = line .. (socket.group == item.sockets[i+1].group and "-" or " ")
 			end
 		end
-		t_insert(item.rawLines, line)
+		t_insert(rawLines, line)
 	end
 	if item.jewelRadiusIndex then
-		t_insert(item.rawLines, "Radius: "..data.jewelRadius[item.jewelRadiusIndex].label)
+		t_insert(rawLines, "Radius: "..data.jewelRadius[item.jewelRadiusIndex].label)
 	end
 	if item.limit then
-		t_insert(item.rawLines, "Limited to: "..item.limit)
+		t_insert(rawLines, "Limited to: "..item.limit)
 	end
-	t_insert(item.rawLines, "Implicits: "..item.implicitLines)
+	t_insert(rawLines, "Implicits: "..item.implicitLines)
 	for _, modLine in ipairs(item.modLines) do
 		local line = modLine.line
 		if modLine.range then
-			line = "{range:"..modLine.range.."}" .. line
+			line = "{range:"..round(modLine.range,2).."}" .. line
 		end
 		if modLine.crafted then
 			line = "{crafted}" .. line
@@ -287,12 +287,12 @@ function itemLib.createItemRaw(item)
 			end
 			line = "{variant:"..varSpec.."}"..line
 		end
-		t_insert(item.rawLines, line)
+		t_insert(rawLines, line)
 	end
 	if item.corrupted then
-		t_insert(item.rawLines, "Corrupted")
+		t_insert(rawLines, "Corrupted")
 	end
-	item.raw = table.concat(item.rawLines, "\n")
+	return table.concat(rawLines, "\n")
 end
 
 -- Return the name of the slot this item is equipped in

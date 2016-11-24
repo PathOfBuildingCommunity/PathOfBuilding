@@ -49,6 +49,21 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.15 - 2016/11/25
+ * Added all uniques so far announced for 2.5.0
+    * Most of their special modifiers should be working; as usual anything in blue should work, anything in red won't
+	* Note that for Shade of Solaris you must set the "Have you Crit Recently" condition in the Configuration tab
+ * You can now edit an item's text to change the name, base type or modifiers:
+    * Double-click on an item, then click "Edit..."
+	* When in the item editor, hovering over the Save button will show the item's tooltip
+	* You can also create items from scratch using this method, with the new "Create custom..." button
+	* This feature is mainly a stopgap until a more usable item editor is implemented
+ * When copying an item from the "All items" list, the modifier ranges are now preserved
+    * This means you can copy items that have been created from templates without losing the modifiers
+ * The rare templates have been updated, with some new bases and modifiers added
+ * Added several conditions to the Configuration tab
+ * Various minor tweaks and fixes
+
 ### 1.2.14 - 2016/11/23
  * Added a Notes tab
 

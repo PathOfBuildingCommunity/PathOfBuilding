@@ -76,11 +76,19 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	end
 
 	-- Display item
-	self.controls.displayItemTip = common.New("LabelControl", {"TOPLEFT",self.controls.itemList,"TOPRIGHT"}, 20, 0, 100, 16, 
-		"^7Double-click an item from one of the lists,\nor copy and paste an item from in game\nto view/edit the item and add it to your build.\nYou can Control + Click an item to equip it, or drag it onto the slot.\nThis will also add it to your build if it's from the unique/template list.\nIf there's 2 slots an item can go in, holding Shift will put it in the second.")
-	self.controls.displayItemTip.shown = function()
+	self.controls.newDisplayItem = common.New("ButtonControl", {"TOPLEFT",self.controls.itemList,"TOPRIGHT"}, 20, 0, 120, 20, "Create custom...", function()
+		self:EditDisplayItemText()
+	end)
+	self.controls.newDisplayItem.shown = function()
 		return self.displayItem == nil
 	end
+	self.controls.displayItemTip = common.New("LabelControl", {"TOPLEFT",self.controls.newDisplayItem,"BOTTOMLEFT"}, 0, 8, 100, 16, 
+[[^7Double-click an item from one of the lists,
+or copy and paste an item from in game (hover over the item and Ctrl+C)
+to view/edit the item and add it to your build.
+You can Control + Click an item to equip it, or drag it onto the slot.
+This will also add it to your build if it's from the unique/template list.
+If there's 2 slots an item can go in, holding Shift will put it in the second.]])
 	self.anchorDisplayItem = common.New("Control", {"TOPLEFT",self.controls.itemList,"TOPRIGHT"}, 20, 0, 0, 0)
 	self.anchorDisplayItem.shown = function()
 		return self.displayItem ~= nil
@@ -91,7 +99,10 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.controls.addDisplayItem.label = function()
 		return self.list[self.displayItem.id] and "Save" or "Add to build"
 	end
-	self.controls.removeDisplayItem = common.New("ButtonControl", {"LEFT",self.controls.addDisplayItem,"RIGHT"}, 8, 0, 60, 20, "Cancel", function()
+	self.controls.editDisplayItem = common.New("ButtonControl", {"LEFT",self.controls.addDisplayItem,"RIGHT"}, 8, 0, 60, 20, "Edit...", function()
+		self:EditDisplayItemText()
+	end)
+	self.controls.removeDisplayItem = common.New("ButtonControl", {"LEFT",self.controls.editDisplayItem,"RIGHT"}, 8, 0, 60, 20, "Cancel", function()
 		self:SetDisplayItem()
 	end)
 	self.controls.displayItemVariant = common.New("DropDownControl", {"LEFT",self.controls.removeDisplayItem,"RIGHT"}, 8, 0, 200, 20, nil, function(sel)
@@ -249,6 +260,47 @@ end
 -- Returns the slot control and equipped jewel for the given node ID
 function ItemsTabClass:GetSocketAndJewelForNodeID(nodeId)
 	return self.sockets[nodeId], self.list[self.sockets[nodeId].selItemId]
+end
+
+function ItemsTabClass:EditDisplayItemText()
+	local popup 
+	popup = main:OpenPopup(500, 500, self.displayItem and "Edit Item Text" or "Create Custom Item from Text", {
+		rarity = common.New("DropDownControl", nil, -190, 10, 100, 18, { {val = "NORMAL",label=data.colorCodes.NORMAL.."Normal"},{val="MAGIC",label=data.colorCodes.MAGIC.."Magic"},{val="RARE",label=data.colorCodes.RARE.."Rare"},{val="UNIQUE",label=data.colorCodes.UNIQUE.."Unique"} }),
+		edit = common.New("EditControl", nil, 0, 40, 480, 420, "", nil, "^%C\t\n", nil, nil, 14),
+		save = common.New("ButtonControl", nil, -45, 470, 80, 20, self.displayItem and "Save" or "Create", function()
+			self:CreateDisplayItemFromRaw("Rarity: "..popup.controls.rarity.list[popup.controls.rarity.sel].val.."\n"..popup.controls.edit.buf)
+			main:ClosePopup()
+		end),
+		common.New("ButtonControl", nil, 45, 470, 80, 20, "Cancel", function()
+			main:ClosePopup()
+		end),
+	}, nil, "edit")
+	if self.displayItem then
+		popup.controls.edit:SetText(itemLib.createItemRaw(self.displayItem):gsub("Rarity: %w+\n",""))
+		popup.controls.rarity:SelByValue(self.displayItem.rarity)
+	else
+		popup.controls.rarity.sel = 3
+	end
+	popup.controls.edit.font = "FIXED"
+	popup.controls.save.enabled = function()
+		local item = itemLib.makeItemFromRaw("Rarity: "..popup.controls.rarity.list[popup.controls.rarity.sel].val.."\n"..popup.controls.edit.buf)
+		return item ~= nil
+	end
+	popup.controls.save.tooltip = function()
+		local item = itemLib.makeItemFromRaw("Rarity: "..popup.controls.rarity.list[popup.controls.rarity.sel].val.."\n"..popup.controls.edit.buf)
+		if item then
+			self:AddItemTooltip(item, nil, true)
+		else
+			return 
+[[The item is invalid.
+Check that the item's title and base name are in the correct format.
+For Rare and Unique items, the first 2 lines must be the title and base name. E.g:
+Abberath's Horn
+Goat's Horn
+For Normal and Magic items, the base name must be somewhere in the first line. E.g:
+Scholar's Platinum Kris of Joy]]
+		end
+	end	
 end
 
 -- Attempt to create a new item from the given item raw text and sets it as the new display item

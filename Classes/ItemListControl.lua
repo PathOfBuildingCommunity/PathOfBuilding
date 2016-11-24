@@ -115,7 +115,7 @@ function ItemListClass:Draw(viewPort)
 		local item = list[orderList[index]]
 		local itemY = 16 * (index - 1) - scrollBar.offset
 		local nameWidth = DrawStringWidth(16, "VAR", item.name)
-		if not scrollBar.dragging and not self.selDragActive and (not self.itemsTab.selControl or self.hasFocus) then
+		if not scrollBar.dragging and not self.selDragActive and (not self.itemsTab.selControl or self.hasFocus) and not main.popups[1] then
 			local cursorX, cursorY = GetCursorPos()
 			local relX = cursorX - (x + 2)
 			local relY = cursorY - (y + 2)
@@ -220,7 +220,7 @@ function ItemListClass:OnKeyDown(key, doubleClick)
 		self:SelectIndex(#self.itemsTab.orderList)
 	elseif key == "c" and IsKeyDown("CTRL") then
 		if self.selItem then
-			Copy(self.selItem.raw:gsub("\n","\r\n"))
+			Copy(itemLib.createItemRaw(self.selItem):gsub("\n","\r\n"))
 		end
 	end
 	return self

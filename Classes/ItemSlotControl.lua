@@ -87,7 +87,7 @@ function ItemSlotClass:Draw(viewPort)
 		SetViewport()
 		SetDrawLayer(nil, 0)
 	end
-	if self:IsMouseOver() then
+	if self:IsMouseOver() and not main.popups[1] then
 		local ttItem
 		if self.dropped then
 			if self.hoverSel then

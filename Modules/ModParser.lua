@@ -30,6 +30,7 @@ local formList = {
 	["penetrates (%d+)%% of enemy"] = "PEN",
 	["^([%d%.]+)%% of (.+) regenerated per second"] = "REGENPERCENT",
 	["^([%d%.]+) (.+) regenerated per second"] = "REGENFLAT",
+	["^regenerate ([%d%.]+) (.+) per second"] = "REGENFLAT",
 	["(%d+) to (%d+) additional (%a+) damage"] = "DMG",
 	["adds (%d+)%-(%d+) (%a+) damage"] = "DMGATTACKS",
 	["adds (%d+) to (%d+) (%a+) damage"] = "DMGATTACKS",
@@ -66,6 +67,7 @@ local modNameList = {
 	["energy shield recovery rate"] = "EnergyShieldRecovery",
 	["start of energy shield recharge"] = "EnergyShieldRechargeFaster",
 	["armour"] = "Armour",
+	["evasion"] = "Evasion",
 	["evasion rating"] = "Evasion",
 	["energy shield"] = "EnergyShield",
 	["armour and evasion"] = "ArmourAndEvasion",
@@ -329,6 +331,7 @@ local modTagList = {
 	["with a magic item equipped"] = { tag = { type = "Condition", var = "UsingMagicItem" } },
 	["with a rare item equipped"] = { tag = { type = "Condition", var = "UsingRareItem" } },
 	["with a unique item equipped"] = { tag = { type = "Condition", var = "UsingUniqueItem" } },
+	["if you wear no corrupted items"] = { tag = { type = "Condition", var = "NotUsingCorruptedItem" } },
 	-- Player status conditions
 	["when on low life"] = { tag = { type = "Condition", var = "LowLife" } },
 	["while on low life"] = { tag = { type = "Condition", var = "LowLife" } },
@@ -348,8 +351,14 @@ local modTagList = {
 	["during flask effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["while on consecrated ground"] = { tag = { type = "Condition", var = "OnConsecratedGround" } },
 	["if you have hit recently"] = { tag = { type = "Condition", var = "HitRecently" } },
+	["if you've crit recently"] = { tag = { type = "Condition", var = "CritRecently" } },
+	["if you've dealt a critical strike recently"] = { tag = { type = "Condition", var = "CritRecently" } },
+	["if you haven't crit recently"] = { tag = { type = "Condition", var = "NotCritRecently" } },
 	["if you've killed recently"] = { tag = { type = "Condition", var = "KilledRecently" } },
 	["if you haven't killed recently"] = { tag = { type = "Condition", var = "NotKilledRecently" } },
+	["if you've been hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
+	["if you were hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
+	["if you haven't been hit recently"] = { tag = { type = "Condition", var = "NotBeenHitRecently" } },
 	["if you've attacked recently"] = { tag = { type = "Condition", var = "AttackedRecently" } },
 	["if you've cast a spell recently"] = { tag = { type = "Condition", var = "CastSpellRecently" } },
 	["if you've summoned a totem recently"] = { tag = { type = "Condition", var = "SummonedTotemRecently" } },
@@ -499,6 +508,8 @@ local specialModList = {
 	["cannot block attacks"] = { flag("CannotBlockAttacks") },
 	["projectiles pierce while phasing"] = { mod("PierceChance", "BASE", 100, { type = "Condition", var = "Phasing" }) },
 	["increases and reductions to minion damage also affects you"] = { flag("MinionDamageAppliesToPlayer") },
+	["armour is increased by uncapped fire resistance"] = { mod("Armour", "INC", 1, { type = "PerStat", stat = "FireResistTotal", div = 1 }) },
+	["critical strikes deal no damage"] = { flag("NoCritDamage") },
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques
@@ -510,6 +521,7 @@ local keystoneList = {
 	"Conduit",
 	"Mind Over Matter",
 	"Acrobatics",
+	"Avatar of Fire",
 }
 for _, name in pairs(keystoneList) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }

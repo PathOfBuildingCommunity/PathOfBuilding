@@ -81,6 +81,9 @@ Prefixes:
 {range:0}Adds (0-22 to 0-40) Cold Damage to Attacks
 {range:0}Adds (0-7 to 0-72) Lightning Damage to Attacks
 {range:0}(0 to 42)% increased Elemental Damage with Weapons
+{range:0}(0 to 20)% increased Armour
+{range:0}(0 to 20)% increased Evasion Rating
+{range:0}(0 to 20)% increased Energy Shield
 {range:0}(0 to 20)% faster start of Energy Shield Recharge
 Suffixes:
 {str}
@@ -406,9 +409,30 @@ Suffixes:
 {str}
 {res}
 ]],[[
+Armour Chest
+Astral Plate
++(8 to 12)% to all Elemental Resistances
+Prefixes:
+{inc Ar}
+{range:.75}+(0 to 400) to Armour
+{range:.75}+(0 to 119) to maximum Life
+Suffixes:
+{str}
+{res}
+]],[[
 Evasion Chest
 Assassin's Garb
 3% increased Movement Speed
+Prefixes:
+{inc Ev}
+{range:.75}+(0 to 400) to Evasion Rating
+{range:.75}+(0 to 119) to maximum Life
+Suffixes:
+{dex}
+{res}
+]],[[
+Evasion Chest
+Zodiac Leather
 Prefixes:
 {inc Ev}
 {range:.75}+(0 to 400) to Evasion Rating
@@ -714,6 +738,16 @@ Ruby Ring
 {ring}
 ]],[[
 Ring
+Coral Ring
++(20 to 30) to maximum Life
+{ring}
+]],[[
+Ring
+Prismatic Ring
++(8 to 10)% to all Elemental Resistances
+{ring}
+]],[[
+Ring
 Two-Stone Ring
 Variant: Fire and Cold
 Variant: Cold and Lightning
@@ -832,12 +866,12 @@ Imperial Claw
 {elem 1h}
 ]],[[
 Physical Dagger
-Imperial Skean
+Ambusher
 40% increased Global Critical Strike Chance
 {phys 1h}
 ]],[[
 Elemental Dagger
-Imperial Skean
+Ambusher
 40% increased Global Critical Strike Chance
 {elem 1h}
 ]],[[
@@ -953,9 +987,19 @@ Tiger Hook
 3% chance to Dodge Attacks
 {phys 1h}
 ]],[[
+Physical 1H Sword
+Jewelled Foil
++30% to Global Critical Strike Multiplier
+{phys 1h}
+]],[[
 Elemental 1H Sword
 Eternal Sword
 18% increased Accuracy Rating
+{elem 1h}
+]],[[
+Elemental 1H Sword
+Jewelled Foil
++30% to Global Critical Strike Multiplier
 {elem 1h}
 ]],[[
 Physical 2H Sword
