@@ -72,6 +72,19 @@ function launch:OnInit()
 	end
 end
 
+function launch:CanExit()
+	if self.main and self.main.CanExit and not self.promptMsg then
+		local errMsg, ret = PCall(self.main.CanExit, self.main)
+		if errMsg then
+			self:ShowErrMsg("In 'CanExit': %s", errMsg)
+			return false
+		else
+			return ret
+		end
+	end
+	return true
+end
+
 function launch:OnExit()
 	if self.main and self.main.Shutdown then
 		PCall(self.main.Shutdown, self.main)

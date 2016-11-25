@@ -128,6 +128,7 @@ function buildMode:Init(dbFileName, buildName)
 	end
 	self.controls.characterLevel = common.New("EditControl", {"LEFT",self.anchorTopBarRight,"RIGHT"}, 0, 0, 106, 20, "", "Level", "%D", 3, function(buf)
 		self.characterLevel = m_min(tonumber(buf) or 1, 100)
+		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.characterLevel.tooltip = function()
@@ -378,6 +379,28 @@ function buildMode:Init(dbFileName, buildName)
 	--]]
 
 	self.abortSave = false
+end
+
+function buildMode:CanExit()
+	if not self.unsaved then
+		return true
+	end
+	main:OpenPopup(280, 100, "Save Changes", {
+		common.New("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them before exiting?"),
+		common.New("ButtonControl", nil, -90, 70, 80, 20, "Save", function()
+			self:SaveDBFile()
+			main:ClosePopup()
+			Exit()
+		end),
+		common.New("ButtonControl", nil, 0, 70, 80, 20, "Don't Save", function()
+			main:ClosePopup()
+			Exit()
+		end),
+		common.New("ButtonControl", nil, 90, 70, 80, 20, "Cancel", function()
+			main:ClosePopup()
+		end),
+	})
+	return false
 end
 
 function buildMode:Shutdown()

@@ -126,6 +126,9 @@ function BuildListClass:OnKeyDown(key, doubleClick)
 	if not self:IsMouseOver() and key:match("BUTTON") then
 		return
 	end
+	if self.listMode.edit then
+		return self
+	end
 	if key == "LEFTBUTTON" then
 		self.listMode.sel = nil
 		local x, y = self:GetPos()

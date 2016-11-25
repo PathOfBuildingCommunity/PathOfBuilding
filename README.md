@@ -49,6 +49,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.16 - 2016/11/25
+ * The build list can now be sorted by name, class or time of last edit
+ * The save prompt will now show when closing the program if there are unsaved changes
+ * Fixed issue caused by right-clicking a jewel socket on the passive tree when there's no jewels in the build
+ * Various minor tweaks and fixes
+
 ### 1.2.15 - 2016/11/25
  * Added all uniques so far announced for 2.5.0
     * Most of their special modifiers should be working; as usual anything in blue should work, anything in red won't
