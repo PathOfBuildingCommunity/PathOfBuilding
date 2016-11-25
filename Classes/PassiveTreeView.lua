@@ -9,6 +9,7 @@ local launch, main = ...
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
+local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
@@ -165,8 +166,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			else
 				local lastPathNode = self.tracePath[#self.tracePath]
 				if hoverNode ~= lastPathNode then
-					-- If node is not in the trace path, but is directly linked to the last node in the path, then add it
-					if not isValueInArray(hoverNode, self.tracePath) and isValueInArray(hoverNode.linked, lastPathNode) then
+					-- If node is directly linked to the last node in the path, add it
+					if isValueInArray(hoverNode.linked, lastPathNode) then
+						local index = isValueInArray(self.tracePath, hoverNode)
+						if index then
+							-- Node is already in the trace path, remove it first
+							t_remove(self.tracePath, index)
+						end
 						t_insert(self.tracePath, hoverNode)	
 					else
 						hoverNode = nil
@@ -208,11 +214,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 	elseif treeClick == "RIGHT" then
 		if hoverNode and hoverNode.alloc and hoverNode.type == "socket" then
-			-- User right-clicked a jewel socket, jump to the item page and focus the corresponding item slot control
-			build.viewMode = "ITEMS"
 			local slot = build.itemsTab.sockets[hoverNode.id]
-			slot.dropped = true
-			build.itemsTab:SelectControl(slot)
+			if slot:IsEnabled() then
+				-- User right-clicked a jewel socket, jump to the item page and focus the corresponding item slot control
+				slot.dropped = true
+				build.itemsTab:SelectControl(slot)
+				build.viewMode = "ITEMS"
+			end
 		end
 	end
 
@@ -513,8 +521,10 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 		else
 			main:AddTooltipLine(24, "^7"..node.dn..(launch.devMode and IsKeyDown("ALT") and " ["..node.id.."]" or ""))
 		end
-		main:AddTooltipSeparator(14)
-		main:AddTooltipLine(14, "^x80A080Tip: Right click this socket to go to the items page and choose the jewel for this socket.")
+		if socket:IsEnabled() then
+			main:AddTooltipSeparator(14)
+			main:AddTooltipLine(14, "^x80A080Tip: Right click this socket to go to the items page and choose the jewel for this socket.")
+		end
 		return
 	end
 	
@@ -590,11 +600,15 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 	-- Pathing distance
 	if node.path and #node.path > 0 then
 		main:AddTooltipSeparator(14)
-		main:AddTooltipLine(14, "^7"..#node.path .. " points to node")
-		if #node.path > 1 then
-			-- Handy hint!
-			main:AddTooltipLine(14, "^x80A080")
-			main:AddTooltipLine(14, "Tip: To reach this node by a different path, hold Shift, then trace the path and click this node")
+		if self.traceMode and isValueInArray(self.tracePath, node) then
+			main:AddTooltipLine(14, "^7"..#self.tracePath .. " nodes in trace path")
+		else
+			main:AddTooltipLine(14, "^7"..#node.path .. " points to node")
+			if #node.path > 1 then
+				-- Handy hint!
+				main:AddTooltipLine(14, "^x80A080")
+				main:AddTooltipLine(14, "Tip: To reach this node by a different path, hold Shift, then trace the path and click this node")
+			end
 		end
 	end
 	if node.depends and #node.depends > 1 then

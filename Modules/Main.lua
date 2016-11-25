@@ -196,9 +196,20 @@ function main:Init()
 
 	self.accountSessionIDs = { }
 
+	self.buildSortMode = "NAME"
+
 	self:SetMode("LIST")
 
 	self:LoadSettings()
+end
+
+function main:CanExit()
+	local ret = self:CallMode("CanExit")
+	if ret ~= nil then
+		return ret
+	else
+		return true
+	end
 end
 
 function main:Shutdown()
@@ -264,7 +275,7 @@ end
 function main:CallMode(func, ...)
 	local modeTbl = self.modes[self.mode]
 	if modeTbl[func] then
-		modeTbl[func](modeTbl, ...)
+		return modeTbl[func](modeTbl, ...)
 	end
 end
 
@@ -305,6 +316,10 @@ function main:LoadSettings()
 						self.accountSessionIDs[child.attrib.accountName] = child.attrib.sessionID
 					end
 				end
+			elseif node.elem == "Misc" then
+				if node.attrib.buildSortMode then
+					self.buildSortMode = node.attrib.buildSortMode
+				end
 			end
 		end
 	end
@@ -330,6 +345,7 @@ function main:SaveSettings()
 		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = sessionID } })
 	end
 	t_insert(setXML, accounts)
+	t_insert(setXML, { elem = "Misc", attrib = { buildSortMode = self.buildSortMode } })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
 		launch:ShowErrMsg("Error saving 'Settings.xml': %s", errMsg)
