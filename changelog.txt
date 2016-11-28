@@ -1,9 +1,9 @@
 VERSION[1.2.17][2016/11/28]
  * Added 'Tulborn' and 'Voice of the Storm'
- * Added 2x multiplier to Cyclone's DPS to match the in-game tooltip
  * Added support for Mastermind of Discord; when this passive is allocated, new options will appear in the
    Configuration tab to allow you to indicate which skill types you are using
  * Conversion modifiers are now listed in the breakdowns for hit damage in the Calcs tab
+ * Added 2x multiplier to Cyclone's DPS to match the in-game tooltip
  * Fixed bug preventing the buff from Summon Lightning Golem from applying correctly
 VERSION[1.2.16][2016/11/25]
  * The build list can now be sorted by name, class or time of last edit
