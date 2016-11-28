@@ -988,6 +988,9 @@ local function performCalcs(env)
 	if env.weaponData1.type and env.weaponData2.type then
 		condList["DualWielding"] = true
 	end
+	if env.mode_skillType == "ATTACK" then
+		condList["MainHandAttack"] = true
+	end
 	if not env.weaponData1.type then
 		condList["Unarmed"] = true
 	end
@@ -1290,7 +1293,7 @@ local function performCalcs(env)
 	-- Life/mana pools
 	if modDB:Sum("FLAG", nil, "ChaosInoculation") then
 		output.Life = 1
-		modDB.conditions["FullLife"] = true
+		condList["FullLife"] = true
 	else
 		output.Life = round(calcVal(modDB, "Life"))
 		if breakdown then
@@ -1298,7 +1301,7 @@ local function performCalcs(env)
 		end
 	end
 	output.Mana = round(calcVal(modDB, "Mana"))
-	output.ManaRegen = round(modDB:Sum("BASE", nil, "ManaRegen") * calcMod(modDB, nil, "ManaRegen", "ManaRecovery"), 1)
+	output.ManaRegen = round((modDB:Sum("BASE", nil, "ManaRegen") + output.Mana * modDB:Sum("BASE", nil, "ManaRegenPercent") / 100) * calcMod(modDB, nil, "ManaRegen", "ManaRecovery"), 1)
 	if breakdown then
 		simpleBreakdown(nil, nil, "Mana")
 		simpleBreakdown(nil, nil, "ManaRegen", "ManaRecovery")
@@ -2030,6 +2033,9 @@ local function performCalcs(env)
 					if isElemental[damageType] then
 						taken = taken + enemyDB:Sum("INC", nil, "ElementalDamageTaken")
 					end
+					if damageType == "Fire" then
+						taken = taken + enemyDB:Sum("INC", nil, "BurningDamageTaken")
+					end
 					resist = output["Enemy"..damageType.."Resist"]
 				end
 				effMult = (1 - resist / 100) * (1 + taken / 100)
@@ -2201,7 +2207,7 @@ local function performCalcs(env)
 			local effMult = 1
 			if env.mode_effective then
 				local resist = output["EnemyFireResist"]
-				local taken = enemyDB:Sum("INC", dotCfg, "DamageTaken", "FireDamageTaken", "ElementalDamageTaken", "DotTaken")
+				local taken = enemyDB:Sum("INC", dotCfg, "DamageTaken", "FireDamageTaken", "ElementalDamageTaken", "BurningDamageTaken", "DotTaken")
 				effMult = (1 - resist / 100) * (1 + taken / 100)
 				output["IgniteEffMult"] = effMult
 				if breakdown then

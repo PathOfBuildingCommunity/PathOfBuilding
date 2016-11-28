@@ -283,6 +283,7 @@ local modFlagList = {
 
 -- List of modifier flags/tags that appear at the start of a line
 local preFlagList = {
+	["^hits deal "] = { flags = ModFlag.Hit },
 	["^minions have "] = { keywordFlags = KeywordFlag.Minion },
 	["^minions deal "] = { keywordFlags = KeywordFlag.Minion },
 	["^attacks used by totems have "] = { keywordFlags = KeywordFlag.Totem },
@@ -332,6 +333,8 @@ local modTagList = {
 	["with a rare item equipped"] = { tag = { type = "Condition", var = "UsingRareItem" } },
 	["with a unique item equipped"] = { tag = { type = "Condition", var = "UsingUniqueItem" } },
 	["if you wear no corrupted items"] = { tag = { type = "Condition", var = "NotUsingCorruptedItem" } },
+	["with main hand"] = { tag = { type = "Condition", var = "MainHandAttack" } },
+	["with off hand"] = { tag = { type = "Condition", var = "OffHandAttack" } },
 	-- Player status conditions
 	["when on low life"] = { tag = { type = "Condition", var = "LowLife" } },
 	["while on low life"] = { tag = { type = "Condition", var = "LowLife" } },
@@ -356,17 +359,27 @@ local modTagList = {
 	["if you haven't crit recently"] = { tag = { type = "Condition", var = "NotCritRecently" } },
 	["if you've killed recently"] = { tag = { type = "Condition", var = "KilledRecently" } },
 	["if you haven't killed recently"] = { tag = { type = "Condition", var = "NotKilledRecently" } },
+	["if you or your totems have killed recently"] = { tag = { type = "Condition", varList = {"KilledRecently","TotemsKilledRecently"} } },
 	["if you've been hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
 	["if you were hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
+	["if you were damaged by a hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
 	["if you haven't been hit recently"] = { tag = { type = "Condition", var = "NotBeenHitRecently" } },
+	["if you've taken no damage from hits recently"] = { tag = { type = "Condition", var = "NotBeenHitRecently" } },
 	["if you've attacked recently"] = { tag = { type = "Condition", var = "AttackedRecently" } },
 	["if you've cast a spell recently"] = { tag = { type = "Condition", var = "CastSpellRecently" } },
+	["if you've used a fire skill in the past 10 seconds"] = { tag = { type = "Condition", var = "UsedFireSkillInPast10Sec" } },
+	["if you've used a cold skill in the past 10 seconds"] = { tag = { type = "Condition", var = "UsedColdSkillInPast10Sec" } },
+	["if you've used a lightning skill in the past 10 seconds"] = { tag = { type = "Condition", var = "UsedLightningSkillInPast10Sec" } },
 	["if you've summoned a totem recently"] = { tag = { type = "Condition", var = "SummonedTotemRecently" } },
 	["if you've used a movement skill recently"] = { tag = { type = "Condition", var = "UsedMovementSkillRecently" } },
 	["if you detonated mines recently"] = { tag = { type = "Condition", var = "DetonatedMinesRecently" } },
 	["if you've crit in the past 8 seconds"] = { tag = { type = "Condition", var = "CritInPast8Sec" } },
 	["if energy shield recharge has started recently"] = { tag = { type = "Condition", var = "EnergyShieldRechargeRecently" } },
 	-- Enemy status conditions
+	["against enemies on full life"] = { tag = { type = "Condition", var = "EnemyFullLife" }, flags = ModFlag.Hit },
+	["against enemies that are on full life"] = { tag = { type = "Condition", var = "EnemyFullLife" }, flags = ModFlag.Hit },
+	["against enemies on low life"] = { tag = { type = "Condition", var = "EnemyLowLife" }, flags = ModFlag.Hit },
+	["against enemies that are on low life"] = { tag = { type = "Condition", var = "EnemyLowLife" }, flags = ModFlag.Hit },
 	["against bleeding enemies"] = { tag = { type = "Condition", var = "EnemyBleeding" }, flags = ModFlag.Hit },
 	["against poisoned enemies"] = { tag = { type = "Condition", var = "EnemyPoisoned" }, flags = ModFlag.Hit },
 	["against burning enemies"] = { tag = { type = "Condition", var = "EnemyBurning" }, flags = ModFlag.Hit },
@@ -417,6 +430,7 @@ local specialModList = {
 	["every 10 seconds, gain (%d+)%% increased elemental damage for 4 seconds"] = function(num) return { mod("ElementalDamage", "INC", num, { type = "Condition", var = "PendulumOfDestruction" }) } end,
 	["every 10 seconds, gain (%d+)%% increased radius of area skills for 4 seconds"] = function(num) return { mod("AreaRadius", "INC", num, { type = "Condition", var = "PendulumOfDestruction" }) } end,
 	["enemies you curse take (%d+)%% increased damage"] = function(num) return { mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("DamageTaken", "INC", num) }, { type = "Condition", var = "EnemyCursed" }) } end,
+	["enemies you curse have (%-%d+)%% to chaos resistance"] = function(num) return { mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("ChaosResist", "BASE", num) }, { type = "Condition", var = "EnemyCursed" }) } end,
 	["nearby enemies have (%-%d+)%% to chaos resistance"] = function(num) return { mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("ChaosResist", "BASE", num) }) } end,
 	["nearby enemies take (%d+)%% increased elemental damage"] = function(num) return { mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("ElementalDamageTaken", "INC", num) }) } end,
 	["enemies near your totems take (%d+)%% increased physical and fire damage"] = function(num) return { mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("PhysicalDamageTaken", "INC", num) }), mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("FireDamageTaken", "INC", num) }) } end,
@@ -509,7 +523,10 @@ local specialModList = {
 	["projectiles pierce while phasing"] = { mod("PierceChance", "BASE", 100, { type = "Condition", var = "Phasing" }) },
 	["increases and reductions to minion damage also affects you"] = { flag("MinionDamageAppliesToPlayer") },
 	["armour is increased by uncapped fire resistance"] = { mod("Armour", "INC", 1, { type = "PerStat", stat = "FireResistTotal", div = 1 }) },
+	["critical strike chance is increased by uncapped lightning resistance"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "LightningResistTotal", div = 1 }) },
 	["critical strikes deal no damage"] = { flag("NoCritDamage") },
+	["enemies chilled by you take (%d+)%% increased burning damage"] = function(num) return { mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("BurningDamageTaken", "INC", num) }, { type = "Condition", var = "EnemyChilled" }) } end,
+	["attacks with this weapon penetrate (%d+)%% elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, nil, ModFlag.Weapon) } end,
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques
@@ -565,6 +582,7 @@ local regenTypes = {
 	["maximum life"] = "LifeRegen",
 	["mana"] = "ManaRegen",
 	["energy shield"] = "EnergyShieldRegen",
+	["maximum mana and energy shield"] = { "ManaRegen", "EnergyShieldRegen" },
 }
 
 -- Build active skill name lookup
@@ -767,11 +785,11 @@ local function parseMod(line)
 			return { }, line
 		end
 	elseif modForm == "REGENPERCENT" then
-		local pool = regenTypes[formCap[2]]
-		if not pool then
+		modName = regenTypes[formCap[2]]
+		if not modName then
 			return { }, line
 		end
-		modName = pool .. "Percent"
+		modSuffix = "Percent"
 	elseif modForm == "REGENFLAT" then
 		modName = regenTypes[formCap[2]]
 		if not modName then
@@ -833,9 +851,19 @@ local function parseMod(line)
 end
 
 local cache = { }
+local unsupported = { }
+local count = 0
 return function(line)
 	if not cache[line] then
 		cache[line] = { parseMod(line) }
+		--[[if not cache[line][1] then
+			local form = line:gsub("[%+%-]?%d+%.?%d*","{num}")
+			if not unsupported[form] then
+				unsupported[form] = true
+				count = count + 1
+				ConPrintf("%d %s", count, form)
+			end
+		end]]
 	end
 	return unpack(copyTable(cache[line]))
 end

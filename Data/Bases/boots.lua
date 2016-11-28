@@ -224,6 +224,12 @@ itemBases["Crusader Boots"] = {
 	armour = { armourBase = 105, energyShieldBase = 31, },
 	req = { level = 64, str = 62, int = 62, },
 }
+itemBases["Two-Toned Boots"] = {
+	type = "Boots",
+	implicit = "",
+	armour = { armourBase = 109, energyShieldBase = 32 },
+	req = { level = 72, str = 62, int = 62 },
+}
 
 
 itemBases["Wrapped Boots"] = {

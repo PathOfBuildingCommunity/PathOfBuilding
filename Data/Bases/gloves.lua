@@ -46,6 +46,12 @@ itemBases["Titan Gauntlets"] = {
 	armour = { armourBase = 210, },
 	req = { level = 69, str = 98, },
 }
+itemBases["Spiked Gloves"] = {
+	type = "Gloves",
+	implicit = "(16-20)% increased Melee Damage",
+	armour = { armourBase = 191 },
+	req = { level = 73, str = 95 },
+}
 
 
 itemBases["Rawhide Gloves"] = {
@@ -93,6 +99,12 @@ itemBases["Slink Gloves"] = {
 	armour = { evasionBase = 210, },
 	req = { level = 70, dex = 95, },
 }
+itemBases["Gripped Gloves"] = {
+	type = "Gloves",
+	implicit = "(14-18)% increased Projectile Attack Damage",
+	armour = { evasionBase = 191 },
+	req = { level = 73, dex = 95 },
+}
 
 
 itemBases["Wool Gloves"] = {
@@ -139,6 +151,12 @@ itemBases["Sorcerer Gloves"] = {
 	type = "Gloves",
 	armour = { energyShieldBase = 61, },
 	req = { level = 69, int = 97, },
+}
+itemBases["Fingerless Silk Gloves"] = {
+	type = "Gloves",
+	implicit = "(12-16)% increased Spell Damage",
+	armour = { energyShieldBase = 56 },
+	req = { level = 73, int = 95 },
 }
 
 

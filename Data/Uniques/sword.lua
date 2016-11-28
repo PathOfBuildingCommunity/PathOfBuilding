@@ -176,6 +176,16 @@ Adds (20-30 to 31-40) Physical Damage
 0.4% of Physical Attack Damage Leeched as Mana per Blue Socket
 +2 to Melee Weapon Range per White Socket
 ]],[[
+Razor of the Seventh Sun 
+Midnight Blade
+One Handed Sword
+Requires Level 68, 113 Str, 113 Dex
+18% increased Accuracy Rating
+Adds (65-75) to (110-130) Physical Damage
+100% increased Burning Damage if you've Ignited an Enemy Recently
+Recovery 1% of Maximum Life when you Ignite an Enemy
+100% increased Melee Physical Damage against Ignited Enemies
+]],[[
 Rebuke of the Vaal
 Vaal Blade
 One Handed Sword
@@ -306,6 +316,22 @@ Implicits: 2
 30% increased Elemental Damage
 +2 to Weapon Range
 ]],[[
+Cospri's Malice 
+Jewelled Foil
+One Handed Sword
+Elemental Damage: (80–160 to 100–200)
+Critical Strike Chance: 5.50%
+Attacks per Second: (1.73–1.82)
+Requires Level 68, 212 Dex, 257 Int
++30% to Global Critical Strike Multiplier
+No Physical Damage
+Adds (80–100) to (160–200) Cold Damage
+Adds (40–60) to (90–110) Cold Damage to Spells
+(8-14)% increased Attack Speed
++257 Intelligence Requirement
+60% increased Critical Strike Chance against Chilled Enemies
+Cast a Socketed Cold Skill on Melee Critical Strike
+]],[[
 Daresso's Passion
 Estoc
 One Handed Sword
@@ -425,6 +451,21 @@ Adds (90-115 to 230-260) Physical Damage
 Enemies you Attack Reflect 100 Physical Damage to you
 +2 to Weapon range
 ]],[[
+Kondo's Pride 
+Ezomyte Blade
+Two Handed Sword
+Physical Damage: (226–418 to 256–475)
+Critical Strike Chance: 5.00%
+Attacks per Second: 1.25
+Requires Level 61, 113 Str, 113 Dex
+18% increased Accuracy Rating
+(270-320)% increased Physical Damage
+0.6% of Physical Attack Damage Leeched as Life
+50% increased Melee Damage against Bleeding Enemies
+Cannot Leech Life from Critical Strikes
+30% chance to Blind Enemies on Critical Strike
+Causes Bleeding on Melee Critical Strike
+]],[[
 Oro's Sacrifice
 Infernal Sword
 Variant: Pre 1.3.0
@@ -505,6 +546,21 @@ Requires Level 14, 21 Str, 30 Dex
 Adds 35 to 70 Cold Damage
 0.6% of Physical Attack Damage Leeched as Mana
 Cannot be Frozen
+]],[[
+Starforge 
+Infernal Sword
+Two Handed Sword
+Physical Damage: (285–590 to 342–708)
+Critical Strike Chance: 5.00%
+Attacks per Second: (1.31–1.35)
+Requires Level 67, 113 Str, 113 Dex
+30% increased Accuracy Rating
+(400-500)% increased Physical Damage
+(5-8)% increased Attack Speed
++(90-100) to maximum Life
+20% increased Area of Effect for Attacks
+Deal no Elemental Damage
+Your Physical Damage can Shock
 ]],[[
 Terminus Est
 Tiger Sword

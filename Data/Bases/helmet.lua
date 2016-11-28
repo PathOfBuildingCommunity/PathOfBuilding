@@ -269,6 +269,12 @@ itemBases["Praetor Crown"] = {
 	armour = { armourBase = 140, energyShieldBase = 63, },
 	req = { level = 68, str = 62, int = 91, },
 }
+itemBases["Bone Helmet"] = {
+	type = "Helmet",
+	implicit = "Minions deal (30-40)% increased Damage",
+	armour = { armourBase = 172, energyShieldBase = 50, },
+	req = { level = 75, str = 76, int = 76, },
+}
 
 
 itemBases["Scare Mask"] = {

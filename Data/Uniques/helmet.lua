@@ -91,6 +91,14 @@ Requires Level 20, 46 Dex
 −(20 to 10)% to Fire Resistance
 −(20 to 10)% to Cold Resistance
 ]],[[
+Obscurantis 
+Lion Pelt
+Requires Level 70, 150 Dex
++(300-500) to Accuracy Rating
+(100-120)% increased Evasion Rating
++(50-80) to maximum Life
+1% increased Projectile Attack Damage per 200 Accuracy Rating
+]],[[
 Rat's Nest
 Ursine Pelt
 Evasion: 600
@@ -344,6 +352,17 @@ Adds 1 to 13 Lightning Damage to Attacks
 +(10 to 20)% to all Elemental Resistances
 20% increased Elemental Resistances while on Low Life
 20% reduced Mana Cost of Skills when on Low Life
+]],[[
+Kitava's Thirst 
+Zealot Helmet
+Armour: (177–187)
+Energy Shield: (53–56)
+Requires Level 44, 50 Str, 50 Int
+15% reduced Cast Speed
+(70-80)% increased Armour and Energy Shield
++(30-50) to maximum Mana
+30% chance to Cast Socketed Spells when 
+you Spend at least 100 Mana to Use a Skill
 ]],[[
 Mindspiral
 Aventail Helmet

@@ -49,6 +49,14 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.17 - 2016/11/28
+ * Added 'Tulborn' and 'Voice of the Storm'
+ * Added support for Mastermind of Discord; when this passive is allocated, new options will appear in the
+   Configuration tab to allow you to indicate which skill types you are using
+ * Conversion modifiers are now listed in the breakdowns for hit damage in the Calcs tab
+ * Added 2x multiplier to Cyclone's DPS to match the in-game tooltip
+ * Fixed bug preventing the buff from Summon Lightning Golem from applying correctly
+
 ### 1.2.16 - 2016/11/25
  * The build list can now be sorted by name, class or time of last edit
  * The save prompt will now show when closing the program if there are unsaved changes

@@ -255,6 +255,16 @@ Attacks per Second: 1.54
 +30 to Accuracy Rating
 +10 Mana gained on Kill
 ]],[[
+Slivertongue 
+Harbinger Bow
+Bow
+Requires Level 68, 212 Dex
+(30-50)% increased Critical Strike Chance
+Adds (60-75) to (170-220) Physical Damage
+100% increased Critical Strike Chance with arrows that Fork
+Arrows that Pierce cause Bleeding
+Arrows always Pierce after Chaining
+]],[[
 Storm Cloud
 Long Bow
 Variant: Pre 2.0.0

@@ -11,6 +11,15 @@ Adds 2 to 4 Physical Damage to Attacks
 −2 Physical Damage taken from Attacks
 40% of Melee Physical Damage taken reflected to Attacker
 ]],[[
+The Brass Dome
+Gladiator Plate
+Requires Level 65, 177 Str
+30% reduced Chance to Block Attacks and Spells
+(600-650)% increased Armour
+10% reduced Movement Speed
+50% increased Shock Duration on You
+Take no Extra Damage from Critical Strikes
+]],[[
 Death's Oath
 Astral Plate
 Variant: Pre 2.0.0

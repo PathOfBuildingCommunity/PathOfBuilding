@@ -31,3 +31,13 @@ itemBases["Cloth Belt"] = {
 	implicit = "(15 to 25)% increased Stun Recovery",
 	req = { level = 16, },
 }
+itemBases["Vanguard Belt"] = {
+	type = "Belt",
+	implicit = "+(260-320) to Armour and Evasion Rating",
+	req = { level = 70 },
+}
+itemBases["Crystal Belt"] = {
+	type = "Belt",
+	implicit = "+(60-80) to maximum Energy Shield",
+	req = { level = 79 },
+}

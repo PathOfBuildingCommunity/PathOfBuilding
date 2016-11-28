@@ -647,17 +647,17 @@ Suffixes:
 [[
 Amulet
 Amber Amulet
-+(20 to 30) Strength
++(20 to 30) to Strength
 {amulet}
 ]],[[
 Amulet
 Jade Amulet
-+(20 to 30) Dexterity
++(20 to 30) to Dexterity
 {amulet}
 ]],[[
 Amulet
 Lapis Amulet
-+(20 to 30) Intelligence
++(20 to 30) to Intelligence
 {amulet}
 ]],[[
 Amulet
