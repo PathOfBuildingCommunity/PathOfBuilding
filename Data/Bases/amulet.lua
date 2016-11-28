@@ -56,6 +56,16 @@ itemBases["Ruby Amulet"] = {
 	implicit = "+(20 to 30)% to Fire Resistance",
 	req = { level = 35, },
 }
+itemBases["Marble Amulet"] = {
+	type = "Amulet",
+	implicit = "(1.2-1.6)% of Life Regenerated per second",
+	req = { level = 74 },
+}
+itemBases["Blue Pearl Amulet"] = {
+	type = "Amulet",
+	implicit = "(48-56)% increased Mana Regeneration Rate",
+	req = { level = 77 },
+}
 
 
 itemBases["Ashscale Talisman"] = {

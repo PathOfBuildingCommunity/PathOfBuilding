@@ -141,6 +141,15 @@ Requires Level 20
 30% increased Rarity of Items found
 Cannot be Stunned
 ]],[[
+Eye of Innocence 
+Citrine Amulet
+Requires Level 68
++(16-24) to Strength and Dexterity
+10% chance to Ignite
+(50-70)% increased Damage while Ignited
+Take 100 Fire Damage when you Ignite an Enemy
+2% of Fire Damage Leeched as Life while Ignited
+]],[[
 Hinekora's Sight
 Onyx Amulet
 Requires Level 20

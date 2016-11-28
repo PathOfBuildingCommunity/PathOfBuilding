@@ -740,6 +740,7 @@ gems["Cyclone"] = {
 		--"base_skill_number_of_additional_hits" = 1
 		--"cyclone_first_hit_damage_+%_final" = -50
 		--"is_area_damage" = ?
+		skill("dpsMultiplier", 2), 
 	},
 	qualityMods = {
 		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5

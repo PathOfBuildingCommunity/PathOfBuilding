@@ -3925,7 +3925,7 @@ gems["Summon Lightning Golem"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		--[2] = "base_actor_scale_+%"
-		[3] = mod("Speed", "INC", nil), --"lightning_golem_grants_attack_and_cast_speed_+%"
+		[3] = mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"lightning_golem_grants_attack_and_cast_speed_+%"
 		[4] = mod("MinionLife", "INC", nil), --"minion_maximum_life_+%"
 		--[5] = "display_minion_monster_level"
 	},

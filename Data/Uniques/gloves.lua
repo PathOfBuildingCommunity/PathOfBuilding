@@ -277,6 +277,19 @@ You cannot be Ignited for 3 seconds after being Ignited
 {variant:2}You cannot be Shocked for 3 seconds after being Shocked
 You grant (4 to 6) Frenzy Charges to allies on Death
 ]],[[
+Shaper's Touch 
+Crusader Gloves
+Armour: (194)
+Energy Shield: (57)
+Requires Level 66, 51 Str, 51 Int
+(80-120)% increased Armour and Energy Shield
++2 Accuracy Rating per 2 Intelligence
++1 Life per 4 Dexterity
++1 Mana per 4 Strength
+1% increased Energy Shield per 10 Strength
+1% increased Evasion Rating per 10 Intelligence
+1% increased Melee Physical Damage per 10 Dexterity
+]],[[
 Southbound
 Soldier Gloves
 Armour: 80

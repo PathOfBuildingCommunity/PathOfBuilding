@@ -390,6 +390,21 @@ Implicits: 2
 ]],
 -- Weapon: Two Handed Mace
 [[
+Brain Rattler 
+Meatgrinder
+Two Handed Mace
+Physical Damage: (143–437 to 163–487)
+Critical Strike Chance: 5.00%
+Attacks per Second: 1.25
+Requires Level 63, 212 Str
+20% increased Stun Duration on Enemies
+Adds (80-100) to (320–370) Physical Damage
+50% of Physical Damage Converted to Lightning Damage
+15% chance to Shock
+10% chance to Cause Monsters to Flee
+Enemies you Shock have 30% reduced Cast Speed
+Enemies you Shock have 20% reduced Movement Speed
+]],[[
 Chober Chaber
 Great Mallet
 Two Handed Mace

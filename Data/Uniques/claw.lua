@@ -183,6 +183,21 @@ Causes Bleeding on Hit
 1% increased Bleed Duration per 12 Intelligence
 30% Chance to cause Bleeding Enemies to Flee on hit
 ]],[[
+The Scourge
+Terror Claw
+Claws
+Physical Damage: 15–60
+Critical Strike Chance: 6.30%
+Attacks per Second: 1.50
+Requires Level 70, 113 Dex, 113 Int
+2% of Physical Attack Damage Leeched as Life
+Adds (35-50) to (100-125) Physical Damage
+(10-15)% increased Attack Speed
+Minions have (10-15)% increased Attack Speed
+10% Chance to summon a Spectral Wolf on Kill
+Increases and reductions to Minion Damage also affects you
+70% increased Minion Damage if you have Hit Recently
+]],[[
 Touch of Anguish
 Imperial Claw
 Claw

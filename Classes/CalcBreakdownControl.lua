@@ -331,7 +331,7 @@ function CalcBreakdownClass:AddModSection(sectionData)
 			for _, tag in ipairs(row.mod.tagList) do
 				local desc
 				if tag.type == "Condition" then
-					desc = "Condition: "..self:FormatModName(tag.var)
+					desc = "Condition: "..(tag.varList and table.concat(tag.varList, "/") or self:FormatModName(tag.var))
 				elseif tag.type == "Multiplier" then
 					if tag.base then
 						desc = (row.mod.type == "BASE" and string.format("%+g", tag.base) or tag.base.."%").." + "..math.abs(row.mod.value).." per "..self:FormatModName(tag.var)

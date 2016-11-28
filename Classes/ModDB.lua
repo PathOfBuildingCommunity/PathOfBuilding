@@ -154,7 +154,18 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 								value = value * mult + (tag.base or 0)
 							end
 						elseif tag.type == "Condition" then
-							if not self.conditions[tag.var] then
+							local match = false
+							if tag.varList then
+								for _, var in pairs(tag.varList) do
+									if self.conditions[var] then
+										match = true
+										break
+									end
+								end
+							else
+								match = self.conditions[tag.var]
+							end
+							if not match then
 								value = nullValue
 							end
 						elseif tag.type == "SocketedIn" then

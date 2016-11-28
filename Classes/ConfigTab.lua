@@ -36,9 +36,6 @@ local varList = {
 	{ var = "conditionUsingFlask", type = "check", label = "Do you have a Flask active?", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsingFlask" }, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffPendulum", type = "check", label = "Is Pendulum of Destruction active?", ifNode = 57197, apply = function(val, modList, enemyModList)
-		modList:NewMod("Misc", "LIST", { type = "Condition", var = "PendulumOfDestruction" }, "Config", { type = "Condition", var = "Combat" })
-	end },
 	{ var = "conditionOnConsecratedGround", type = "check", label = "Are you on Consecrated Ground?", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "OnConsecratedGround" }, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -51,10 +48,37 @@ local varList = {
 	{ var = "conditionKilledRecently", type = "check", label = "Have you Killed Recently?", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "KilledRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionTotemsKilledRecently", type = "check", label = "Have your Totems Killed Recently?", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "TotemsKilledRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionBeenHitRecently", type = "check", label = "Have you been Hit Recently?", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BeenHitRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "buffPendulum", type = "check", label = "Is Pendulum of Destruction active?", ifNode = 57197, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "PendulumOfDestruction" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionAttackedRecently", type = "check", label = "Have you Attacked Recently?", ifNode = 3154, tooltip = "You will automatically be considered to have Attacked Recently if your main skill is an attack,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "AttackedRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionCastSpellRecently", type = "check", label = "Have you Cast a Spell Recently?", ifNode = 3154, tooltip = "You will automatically be considered to have Cast a Spell Recently if your main skill is a spell,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "CastSpellRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsedFireSkillInPast10Sec", type = "check", label = "Used a Fire Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsedFireSkillInPast10Sec" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsedColdSkillInPast10Sec", type = "check", label = "Used a Cold Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsedColdSkillInPast10Sec" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsedLightningSkillInPast10Sec", type = "check", label = "Used a Light. Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsedLightningSkillInPast10Sec" }, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ section = "For Effective DPS" },
+	{ var = "conditionEnemyFullLife", type = "check", label = "Is the enemy on Full Life?", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyFullLife" }, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyLowLife", type = "check", label = "Is the enemy on Low Life?", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyLowLife" }, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "conditionEnemyCursed", type = "check", label = "Is the enemy Cursed?", tooltip = "Your enemy will automatically be considered to be Cursed if you have at least one curse enabled,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyCursed" }, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -121,11 +145,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
-			if lastSection then
-				lastSection = common.New("SectionControl", {"TOPLEFT",lastSection,"BOTTOMLEFT"}, 0, 18, 300, 0, varData.section)
-			else
-				lastSection = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 300, 0, varData.section)
-			end
+			lastSection = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 300, 0, varData.section)
 			lastSection.varControlList = { }
 			lastSection.height = function(self)
 				local height = 20
@@ -155,11 +175,15 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 					self.build.buildFlag = true
 				end) 
 			end
-			control.tooltip = varData.tooltip
 			if varData.ifNode then
 				control.shown = function()
 					return self.build.spec.allocNodes[varData.ifNode]
 				end
+				control.tooltip = function()
+					return "This option is specific to '"..self.build.spec.nodes[varData.ifNode].dn.."'."..(varData.tooltip and "\n"..varData.tooltip or "")
+				end
+			else
+				control.tooltip = varData.tooltip
 			end
 			t_insert(self.controls, common.New("LabelControl", {"RIGHT",control,"LEFT"}, -4, 2, 0, 14, "^7"..varData.label))
 			self.varControls[varData.var] = control
@@ -238,6 +262,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 
 	self:ProcessControlsInput(inputEvents, viewPort)
 
+	local colY = { }
 	for _, section in ipairs(self.sectionList) do
 		local y = 14
 		for _, varControl in ipairs(section.varControlList) do
@@ -246,6 +271,18 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 				y = y + 20
 			end
 		end
+		local width, height = section:GetSize()
+		local col = 1
+		while true do
+			colY[col] = colY[col] or 18
+			if colY[col] + height + 10 <= viewPort.height then
+				break
+			end
+			col = col + 1
+		end
+		section.x = 10 + (col - 1) * 310
+		section.y = colY[col]
+		colY[col] = colY[col] + height + 18
 	end
 
 	main:DrawBackground(viewPort)

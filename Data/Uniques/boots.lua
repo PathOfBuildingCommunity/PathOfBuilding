@@ -385,5 +385,17 @@ Requires Level 27, 27 Dex, 27 Int
 (20 to 30)% increased Rarity of Items found
 +(30 to 40)% to Fire Resistance
 10% increased Movement Speed
+]],[[
+Voidwalker
+Murder Boots
+Evasion: (386 to 450)
+Energy Shield: (52 to 61)
+Requires Level 69, 82 Dex, 42 Int
++(30-50) to Dexterity
+(140-180)% increased Evasion and Energy Shield
+30% increased Movement Speed
+20% chance to Avoid Projectiles while Phasing
+You have Phasing if you've Killed Recently
+Projectiles Pierce while Phasing
 ]],
 }

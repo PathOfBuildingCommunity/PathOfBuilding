@@ -91,6 +91,7 @@ function itemLib.parseItemRaw(item)
 		item.title = item.name
 		item.name = item.title .. ", " .. item.baseName
 		item.type = data.itemBases[item.baseName].type
+		l = l + 1
 	end
 	item.base = data.itemBases[item.baseName]
 	item.modLines = { }
@@ -438,6 +439,9 @@ function itemLib.buildItemModList(item)
 			end
 			for _, mod in ipairs(modLine.modList) do
 				mod.source = "Item:"..(item.id or -1)..":"..item.name
+				if type(mod.value) == "table" and mod.value.mod then
+					mod.value.mod.source = mod.source
+				end
 				t_insert(baseList, mod)
 			end
 		end

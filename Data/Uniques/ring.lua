@@ -282,6 +282,15 @@ Variant: Current
 {variant:2}2% increased Intelligence for each Unique Item you have equipped
 3% additional chance for Slain monsters to drop Scrolls of Wisdom
 ]],[[
+Praxis 
+Paua Ring
+Requires Level 22
++(20-25) to maximum Mana
++(30-60) to maximum Mana
+(3-6) Mana Regenerated per second
+−(4-8) to Mana Cost of Skills
+8% of Damage taken gained as Mana when Hit
+]],[[
 Pyre
 Sapphire Ring
 Requires Level 11
@@ -358,6 +367,14 @@ Adds (8-15 to 20-28) Fire Damage to Attacks
 Left ring slot: 30% reduced Reflected Elemental Damage taken
 Right ring slot: 30% reduced Reflected Physical Damage taken
 ]],[[
+Snakepit 
+Sapphire Ring
+Requires Level 68
++(20-30)% to Cold Resistance
+(20-40)% increased Cold Damage
+(5-10)% increased Cast Speed
+Spells have an additional Projectile
+]],[[
 The Taming
 Prismatic Ring
 League: Domination, Nemesis
@@ -418,6 +435,15 @@ Requires Level 38
 0.2% of Damage Leeched as Life against Shocked Enemies
 5% chance to Shock
 ]],[[
+Valyrium 
+Moonstone Ring
+Requires Level 38
++(15-25) to maximum Energy Shield
++(10-20) to maximum Energy Shield
++(20-30)% to Fire Resistance
+−40% to Cold Resistance
+Stun Threshold is based on Energy Shield instead of Life
+]],[[
 Ventor's Gamble
 Gold Ring
 Requires Level 65
@@ -451,5 +477,13 @@ Adds 1 to 3 Chaos Damage to Attacks
 {variant:2}(30 to 50)% chance to cause Bleeding on Melee Hit
 {variant:1}Melee Attacks Poison on Hit
 {variant:2}(20 to 40)% chance to Poison on Melee Hit
+]],[[
+The Warden's Brand 
+Iron Ring
+Requires Level 30
+Adds 1 to 4 Physical Damage to Attacks
+Adds (5–15) to (25–50) Physical Damage to Attacks
+30% reduced Attack Speed
+15% chance to gain a Frenzy Charge when you Stun an Enemy
 ]],
 }

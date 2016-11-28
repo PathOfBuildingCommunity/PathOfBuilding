@@ -284,6 +284,12 @@ Radius: Medium
 (6 to 10)% increased Projectile Damage
 With at least 50 Dexterity Allocated in Radius, each Spectral Throw Projectile gains 4% increased Damage each time it Hits.
 ]],[[
+Unending Hunger 
+Cobalt Jewel
+Minions have (5-8)% increased Radius of Area Skills
+20% chance for Spectres to gain Soul Eater on Kill for 30 seconds
+with 50 Intelligence from Allocated Passives in Radius
+]],[[
 Unstable Payload
 Cobalt Jewel
 (8 to 12)% Chance for Traps to Trigger an additional time
