@@ -181,6 +181,8 @@ Adds 10 to 20 Cold Damage to Spells per Power Charge
 ]],[[
 Tulfall
 Tornado Wand
+Unreleased: true
+League: Breach
 (35-39)% increased Spell Damage
 11% increased Cast Speed
 50% chance to gain a Power Charge on Killing a Frozen Enemy

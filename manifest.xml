@@ -54,7 +54,7 @@
 	<File sha1="5f93a9d8f58e0d5990a1f84e1ab1d53fbd35fb56" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
 	<File sha1="9a320bfe629b1cf3f14fc77fbbf2508d0a5b2841" name="Assets/small_ring.png" part="program"/>
-	<File sha1="5c338eb5766e531528b377a944b0b1881bc581f8" name="Data/New.lua" part="program"/>
+	<File sha1="963f242731beabe657298a6c58af06cb5aa431c7" name="Data/New.lua" part="program"/>
 	<File sha1="69b07ade5dbfa9c2e9cd8421d858e3d60a58a3a0" name="Data/Rares.lua" part="program"/>
 	<File sha1="4719bd0eb7b999372a219fe6f9c419d280867512" name="Data/Gems/act_dex.lua" part="program"/>
 	<File sha1="0b0026bdb9342999eda1890965e3b548c49f7b4d" name="Data/Gems/act_int.lua" part="program"/>
