@@ -135,6 +135,9 @@ function ModListClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7
 						else
 							match = self.conditions[tag.var]
 						end
+						if tag.neg then
+							match = not match
+						end
 						if not match then
 							value = nullValue
 						end

@@ -178,5 +178,15 @@ League: Breach
 50% chance to gain a Power Charge on Killing a Frozen Enemy
 Adds 10 to 20 Cold Damage to Spells per Power Charge
 +21 Mana gained on Killing a Frozen Enemy
+]],[[
+Tulfall
+Tornado Wand
+(35-39)% increased Spell Damage
+11% increased Cast Speed
+50% chance to gain a Power Charge on Killing a Frozen Enemy
+Adds 15 to 25 Cold Damage to Spells per Power Charge
+Lose all Power Charges on reaching Maximum Power Charges
+Gain a Frenzy Charge on reaching Maximum Power Charges
+11% increased Cold Damage per Frenzy Charge
 ]],
 }

@@ -198,7 +198,7 @@ function main:Init()
 
 	self.buildSortMode = "NAME"
 
-	self:SetMode("LIST")
+	self:SetMode("BUILD", false, "Unnamed build")
 
 	self:LoadSettings()
 end

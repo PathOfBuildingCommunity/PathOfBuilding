@@ -1113,6 +1113,8 @@ local function performCalcs(env)
 	for _, value in ipairs(modDB:Sum("LIST", nil, "Misc")) do
 		if value.type == "Condition" then
 			condList[value.var] = true
+		elseif value.type == "EnemyCondition" then
+			enemyDB.conditions[value.var] = true
 		elseif value.type == "Multiplier" then
 			modDB.multipliers[value.var] = (modDB.multipliers[value.var] or 0) + value.value
 		end
@@ -1939,6 +1941,17 @@ local function performCalcs(env)
 	end
 	output.TotalMin = totalMin
 	output.TotalMax = totalMax
+
+	-- Update enemy hit-by-damage-type conditions
+	if output.FireAverage > 0 then
+		enemyDB.conditions.HitByFireDamage = true
+	end
+	if output.ColdAverage > 0 then
+		enemyDB.conditions.HitByColdDamage = true
+	end
+	if output.LightningAverage > 0 then
+		enemyDB.conditions.HitByLightningDamage = true
+	end
 
 	-- Calculate average damage and final DPS
 	output.AverageHit = (totalMin + totalMax) / 2 * output.CritEffect

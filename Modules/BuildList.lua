@@ -18,7 +18,8 @@ function listMode:Init(selBuildName)
 	end
 
 	self.controls.new = common.New("ButtonControl", {"TOP",self.anchor,"TOP"}, -210, 0, 60, 20, "New", function()
-		self:New()
+		main:SetMode("BUILD", false, "Unnamed build")
+		--self:New()
 	end)
 	self.controls.open = common.New("ButtonControl", {"LEFT",self.controls.new,"RIGHT"}, 8, 0, 60, 20, "Open", function()
 		self:LoadSel()

@@ -49,10 +49,21 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.18 - 2016/11/29
+ * Added 3 new Jewel templates
+ * Added 'Tulfall'
+ * Creating a new build now opens an unnamed build rather than asking for a build name
+    * You will be prompted to name the build when saving
+	* The program now opens a new build when run for the first time
+ * Added support for Elemental Equilibrium; when this passive is allocated, new options will appear in the Configuration tab
+   to allow you to indicate which damage types the enemy has been hit by before being hit by your main skill
+    * The enemy's resistances will update after the skill's hit damage is calculated, so that any damage over time effects are
+	  calculated correctly
+
 ### 1.2.17 - 2016/11/28
  * Added 'Tulborn' and 'Voice of the Storm'
- * Added support for Mastermind of Discord; when this passive is allocated, new options will appear in the
-   Configuration tab to allow you to indicate which skill types you are using
+ * Added support for Mastermind of Discord; when this passive is allocated, new options will appear in the Configuration tab
+   to allow you to indicate which skill types you are using
  * Conversion modifiers are now listed in the breakdowns for hit damage in the Calcs tab
  * Added 2x multiplier to Cyclone's DPS to match the in-game tooltip
  * Fixed bug preventing the buff from Summon Lightning Golem from applying correctly
