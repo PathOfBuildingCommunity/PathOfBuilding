@@ -32,23 +32,9 @@ function buildMode:Init(dbFileName, buildName)
 	self.anchorTopBarLeft = common.New("Control", nil, 4, 4, 0, 20)
 	self.controls.back = common.New("ButtonControl", {"LEFT",self.anchorTopBarLeft,"RIGHT"}, 0, 0, 60, 20, "<< Back", function()
 		if self.unsaved then
-			main:OpenPopup(280, 100, "Save Changes", {
-				common.New("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them now?"),
-				common.New("ButtonControl", nil, -90, 70, 80, 20, "Save", function()
-					self:SaveDBFile()
-					main:ClosePopup()
-					main:SetMode("LIST", self.buildName)
-				end),
-				common.New("ButtonControl", nil, 0, 70, 80, 20, "Don't Save", function()
-					main:ClosePopup()
-					main:SetMode("LIST", self.buildName)
-				end),
-				common.New("ButtonControl", nil, 90, 70, 80, 20, "Cancel", function()
-					main:ClosePopup()
-				end),
-			})
+			self:OpenSavePopup(false)
 		else
-			main:SetMode("LIST", self.buildName)
+			main:SetMode("LIST", self.dbFileName and self.buildName)
 		end
 	end)
 	self.controls.buildName = common.New("Control", {"LEFT",self.controls.back,"RIGHT"}, 8, 0, 0, 20)
@@ -67,40 +53,14 @@ function buildMode:Init(dbFileName, buildName)
 		self:SaveDBFile()
 	end)
 	self.controls.save.enabled = function()
-		return self.unsaved
+		return not self.dbFileName or self.unsaved
 	end
 	self.controls.saveAs = common.New("ButtonControl", {"LEFT",self.controls.save,"RIGHT"}, 8, 0, 70, 20, "Save As", function()
-		local newFileName, newBuildName
-		local popup
-		popup = main:OpenPopup(370, 100, "Save As", {
-			common.New("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:"),
-			edit = common.New("EditControl", nil, 0, 40, 350, 20, self.buildName, nil, "\\/:%*%?\"<>|", 50, function(buf)
-				newFileName = main.buildPath..buf..".xml"
-				newBuildName = buf
-				popup.controls.save.enabled = false
-				if not buf:match("%S") then
-					return
-				end
-				local out = io.open(newFileName, "r")
-				if out then
-					out:close()
-					return
-				end
-				popup.controls.save.enabled = true
-			end),
-			save = common.New("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
-				self.dbFileName = newFileName
-				self.buildName = newBuildName
-				main.modeArgs = { newFileName, newBuildName }
-				self:SaveDBFile()
-				main:ClosePopup()
-			end),
-			common.New("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
-				main:ClosePopup()
-			end),
-		}, "save", "edit")
-		popup.controls.save.enabled = false
+		self:OpenSaveAsPopup()
 	end)
+	self.controls.saveAs.enabled = function()
+		return self.dbFileName
+	end
 
 	-- Controls: top bar, right side
 	self.anchorTopBarRight = common.New("Control", nil, function() return main.screenW / 2 + 6 end, 4, 0, 20)
@@ -325,6 +285,7 @@ function buildMode:Init(dbFileName, buildName)
 	self.buildName = buildName
 
 	self.characterLevel = 1
+	self.controls.characterLevel:SetText(tostring(self.characterLevel))
 	self.banditNormal = "None"
 	self.banditCruel = "None"
 	self.banditMerciless = "None"
@@ -344,7 +305,7 @@ function buildMode:Init(dbFileName, buildName)
 
 	ConPrintf("Loading '%s'...", dbFileName)
 	if self:LoadDBFile() then
-		main:SetMode("LIST", dbFileName)
+		main:SetMode("LIST", buildName)
 		return
 	end
 
@@ -385,26 +346,12 @@ function buildMode:CanExit()
 	if not self.unsaved then
 		return true
 	end
-	main:OpenPopup(280, 100, "Save Changes", {
-		common.New("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them before exiting?"),
-		common.New("ButtonControl", nil, -90, 70, 80, 20, "Save", function()
-			self:SaveDBFile()
-			main:ClosePopup()
-			Exit()
-		end),
-		common.New("ButtonControl", nil, 0, 70, 80, 20, "Don't Save", function()
-			main:ClosePopup()
-			Exit()
-		end),
-		common.New("ButtonControl", nil, 90, 70, 80, 20, "Cancel", function()
-			main:ClosePopup()
-		end),
-	})
+	self:OpenSavePopup(true)
 	return false
 end
 
 function buildMode:Shutdown()
-	if launch.devMode and not self.abortSave then
+	if launch.devMode and not self.abortSave and self.dbFileName then
 		self:SaveDBFile()
 	end
 	self.abortSave = nil
@@ -445,6 +392,12 @@ function buildMode:OnFrame(inputEvents)
 				if event.key == "s" then
 					self:SaveDBFile()
 					inputEvents[id] = nil
+				elseif event.key == "w" then
+					if self.unsaved then
+						self:OpenSavePopup(false)
+					else
+						main:SetMode("LIST", self.dbFileName and self.buildName)
+					end
 				elseif event.key == "1" then
 					self.viewMode = "TREE"
 				elseif event.key == "2" then
@@ -559,6 +512,61 @@ function buildMode:OnFrame(inputEvents)
 	self:DrawControls(main.viewPort)
 end
 
+function buildMode:OpenSavePopup(exit)
+	main:OpenPopup(280, 100, "Save Changes", {
+		common.New("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them "..(exit and "before exiting?" or "now?")),
+		common.New("ButtonControl", nil, -90, 70, 80, 20, "Save", function()
+			main:ClosePopup()
+			self.actionOnSave = exit and "EXIT" or "LIST"
+			self:SaveDBFile()
+		end),
+		common.New("ButtonControl", nil, 0, 70, 80, 20, "Don't Save", function()
+			main:ClosePopup()
+			if exit then
+				Exit()
+			else
+				main:SetMode("LIST", self.dbFileName and self.buildName)
+			end
+		end),
+		common.New("ButtonControl", nil, 90, 70, 80, 20, "Cancel", function()
+			main:ClosePopup()
+		end),
+	})
+end
+
+function buildMode:OpenSaveAsPopup()
+	local newFileName, newBuildName
+	local popup
+	popup = main:OpenPopup(370, 100, self.dbFileName and "Save As" or "Save", {
+		common.New("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:"),
+		edit = common.New("EditControl", nil, 0, 40, 350, 20, self.dbFileName and self.buildName, nil, "\\/:%*%?\"<>|", 50, function(buf)
+			newFileName = main.buildPath..buf..".xml"
+			newBuildName = buf
+			popup.controls.save.enabled = false
+			if not buf:match("%S") then
+				return
+			end
+			local out = io.open(newFileName, "r")
+			if out then
+				out:close()
+				return
+			end
+			popup.controls.save.enabled = true
+		end),
+		save = common.New("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
+			self.dbFileName = newFileName
+			self.buildName = newBuildName
+			main.modeArgs = { newFileName, newBuildName }
+			self:SaveDBFile()
+			main:ClosePopup()
+		end),
+		common.New("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
+			main:ClosePopup()
+		end),
+	}, "save", "edit")
+	popup.controls.save.enabled = false
+end
+
 function buildMode:RefreshStatList()
 	-- Build list of side bar stats
 	wipeTable(self.controls.statBox.list)
@@ -626,6 +634,9 @@ function buildMode:LoadDB(xmlText, fileName)
 end
 
 function buildMode:LoadDBFile()
+	if not self.dbFileName then
+		return
+	end
 	local file = io.open(self.dbFileName, "r")
 	if not file then
 		return true
@@ -655,6 +666,10 @@ function buildMode:SaveDB(fileName)
 end
 
 function buildMode:SaveDBFile()
+	if not self.dbFileName then
+		self:OpenSaveAsPopup()
+		return
+	end
 	local xmlText = self:SaveDB(self.dbFileName)
 	if not xmlText then
 		return true
@@ -665,6 +680,11 @@ function buildMode:SaveDBFile()
 	end
 	file:write(xmlText)
 	file:close()
+	if self.actionOnSave == "LIST" then
+		main:SetMode("LIST", self.buildName)
+	elseif self.actionOnSave == "EXIT" then
+		Exit()
+	end
 end
 
 return buildMode

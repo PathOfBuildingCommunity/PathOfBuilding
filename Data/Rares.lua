@@ -182,6 +182,23 @@ Prefixes:
 {range:0}Adds (0-60 to 0-104) Cold Damage to Spells
 {range:0}Adds (0-15 to 0-200) Lightning Damage to Spells
 {spell suf}]],
+	["jewel pre"] = [[
+Prefixes:
+{range:0}(0 to 16)% increased Physical Damage
+{range:0}(0 to 16)% increased Fire Damage
+{range:0}(0 to 16)% increased Cold Damage
+{range:0}(0 to 16)% increased Lightning Damage
+{range:0}(0 to 16)% increased Chaos Damage
+{range:0}(0 to 16)% increased Totem Damage
+{range:0}(0 to 7)% increased maximum Life]],
+	["jewel suf"] = [[
+Suffixes:
+{range:0}(0 to 10)% increased Damage
+{range:0}(0 to 12)% increased Projectile Damage
+{range:0}(0 to 12)% increased Damage over Time
+{range:0}(0 to 12)% increased Area Damage
+{range:0}(0 to 4)% increased Attack and Cast Speed
+{range:0}(0 to 5)% increased Attack Speed]],
 }
 
 local rares = {
@@ -1029,6 +1046,74 @@ Spell Wand
 Prophecy Wand
 (16 to 20)% increased Spell Damage
 {spell 1h}
+]],
+-- Jewels
+[[
+Jewel
+Crimson Jewel
+{jewel pre}
+{range:0}(0 to 18)% increased Armour
+{range:0}(0 to 14)% increased Physical Damage with One Handed Melee Weapons
+{range:0}(0 to 14)% increased Physical Damage with Two Handed Melee Weapons
+{range:0}(0 to 6)% increased Attack Speed with One Handed Melee Weapons
+{range:0}(0 to 6)% increased Attack Speed with Two Handed Melee Weapons
+{range:0}(0 to 18)% increased Critical Strike Chance with One Handed Melee Weapons
+{range:0}(0 to 18)% increased Critical Strike Chance with Two Handed Melee Weapons
+{range:0}+(0 to 12)% to Critical Strike Multiplier with One Handed Melee Weapons
+{range:0}+(0 to 12)% to Critical Strike Multiplier with Two Handed Melee Weapons
+{jewel suf}
+{range:0}(0 to 12)% increased Melee Damage
+{range:0}(0 to 12)% increased Global Critical Strike Chance
+{range:0}(0 to 14)% increased Melee Critical Strike Chance
+{range:0}+(0 to 8)% to Global Critical Strike Multiplier
+{range:0}+(0 to 10)% to Melee Critical Strike Multiplier
+]],
+[[
+Jewel
+Viridian Jewel
+{jewel pre}
+{range:0}(0 to 18)% increased Evasion Rating
+{range:0}(0 to 16)% increased Trap Damage
+{range:0}(0 to 16)% increased Mine Damage
+{range:0}(0 to 16)% increased Physical Damage with Bows
+{range:0}(0 to 14)% increased Physical Damage with One Handed Melee Weapons
+{range:0}(0 to 14)% increased Physical Damage with Two Handed Melee Weapons
+{range:0}(0 to 8)% increased Attack Speed with Bows
+{range:0}(0 to 6)% increased Attack Speed with One Handed Melee Weapons
+{range:0}(0 to 6)% increased Attack Speed with Two Handed Melee Weapons
+{range:0}(0 to 18)% increased Critical Strike Chance with One Handed Melee Weapons
+{range:0}(0 to 18)% increased Critical Strike Chance with Two Handed Melee Weapons
+{range:0}+(0 to 12)% to Critical Strike Multiplier with One Handed Melee Weapons
+{range:0}+(0 to 12)% to Critical Strike Multiplier with Two Handed Melee Weapons
+{jewel suf}
+{range:0}(0 to 12)% increased Melee Damage
+{range:0}(0 to 12)% increased Global Critical Strike Chance
+{range:0}(0 to 14)% increased Melee Critical Strike Chance
+{range:0}+(0 to 8)% to Global Critical Strike Multiplier
+{range:0}+(0 to 10)% to Melee Critical Strike Multiplier
+]],
+[[
+Jewel
+Cobalt Jewel
+{jewel pre}
+{range:0}(0 to 8)% increased maximum Energy Shield
+{range:0}(0 to 6)% faster start of Energy Shield Recharge
+{range:0}(0 to 16)% increased Trap Damage
+{range:0}(0 to 16)% increased Mine Damage
+{range:0}(0 to 16)% increased Minion Damage
+{range:0}(0 to 16)% increased Physical Damage with Wands
+{range:0}(0 to 8)% increased Attack Speed with Wands
+{range:0}(0 to 16)% increased Spell Damage while wielding a Staff
+{range:0}(0 to 16)% increased Spell Damage while holding a Shield
+{range:0}(0 to 5)% increased Cast Speed while wielding a Staff
+{range:0}(0 to 5)% increased Cast Speed while holding a Shield
+{jewel suf}
+{range:0}(0 to 4)% increased Cast Speed
+{range:0}(0 to 12)% increased Spell Damage
+{range:0}(0 to 12)% increased Global Critical Strike Chance
+{range:0}(0 to 14)% increased Critical Strike Chance for Spells
+{range:0}+(0 to 8)% to Global Critical Strike Multiplier
+{range:0}+(0 to 10)% to Critical Strike Multiplier for Spells
 ]],
 }
 

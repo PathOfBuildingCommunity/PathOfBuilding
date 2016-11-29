@@ -417,6 +417,17 @@ local specialModList = {
 	["life leech applies instantly%. life regeneration has no effect%."] = { flag("VaalPact"), flag("NoLifeRegen") },
 	["deal no non%-fire damage"] = { flag("DealNoPhysical"), flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoChaos") },
 	["removes all mana%. spend life instead of mana for skills"] = { mod("Mana", "MORE", -100), flag("BloodMagic") },
+	["enemies you hit with elemental damage temporarily get (%+%d+)%% resistance to those elements and (%-%d+)%% resistance to other elements"] = function(plus, _, minus)
+		minus = tonumber(minus)
+		return {
+			mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("FireResist", "BASE", plus, { type = "Condition", var = "HitByFireDamage" }) }),
+			mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("FireResist", "BASE", minus, { type = "Condition", var = "HitByFireDamage", neg = true }, { type = "Condition", varList={"HitByColdDamage","HitByLightningDamage"} }) }),
+			mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("ColdResist", "BASE", plus, { type = "Condition", var = "HitByColdDamage" }) }),
+			mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("ColdResist", "BASE", minus, { type = "Condition", var = "HitByColdDamage", neg = true }, { type = "Condition", varList={"HitByFireDamage","HitByLightningDamage"} }) }),
+			mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("LightningResist", "BASE", plus, { type = "Condition", var = "HitByLightningDamage" }) }),
+			mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("LightningResist", "BASE", minus, { type = "Condition", var = "HitByLightningDamage", neg = true }, { type = "Condition", varList={"HitByFireDamage","HitByColdDamage"} }) }),
+		}
+	end,
 	-- Ascendancy notables
 	["movement skills cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Movement) },
 	["projectiles have 100%% additional chance to pierce targets at the start of their movement, losing this chance as the projectile travels farther"] = { mod("PierceChance", "BASE", 100) },

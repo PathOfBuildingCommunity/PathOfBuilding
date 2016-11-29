@@ -126,6 +126,15 @@ local varList = {
 	{ var = "enemyChaosResist", type = "number", label = "Enemy Chaos Resistance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ChaosResist", "BASE", val, "Config")
 	end },
+	{ var = "enemyConditionHitByFireDamage", type = "check", label = "Enemy was Hit by Fire Damage?", ifNode = 39085, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "EnemyCondition", var = "HitByFireDamage" }, "Config")
+	end },
+	{ var = "enemyConditionHitByColdDamage", type = "check", label = "Enemy was Hit by Cold Damage?", ifNode = 39085, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "EnemyCondition", var = "HitByColdDamage" }, "Config")
+	end },
+	{ var = "enemyConditionHitByLightningDamage", type = "check", label = "Enemy was Hit by Light. Damage?", ifNode = 39085, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "EnemyCondition", var = "HitByLightningDamage" }, "Config")
+	end },
 }
 
 local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
