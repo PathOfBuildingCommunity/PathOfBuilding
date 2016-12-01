@@ -2544,13 +2544,13 @@ gems["Projectile Weakness"] = {
 		skill("debuff", true), 
 	},
 	qualityMods = {
-		mod("ProjectileDamageTaken", "BASE", 0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"projectile_damage_taken_+%" = 0.5
+		mod("ProjectileDamageTaken", "INC", 0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"projectile_damage_taken_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
 		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
-		[4] = mod("ProjectileDamageTaken", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"projectile_damage_taken_+%"
+		[4] = mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"projectile_damage_taken_+%"
 	},
 	levels = {
 		[1] = { 24, 9, 0, 25, },

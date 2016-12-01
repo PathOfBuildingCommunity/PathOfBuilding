@@ -190,5 +190,16 @@ Adds 15 to 25 Cold Damage to Spells per Power Charge
 Lose all Power Charges on reaching Maximum Power Charges
 Gain a Frenzy Charge on reaching Maximum Power Charges
 11% increased Cold Damage per Frenzy Charge
+]],[[
+The Halcyon
+Jade Amulet
+Unreleased: true
+League: Breach
++(20-30) to Dexterity
+18% increased Cold Damage
++38% to Cold Resistance
+30% increased Freeze Duration on Enemies
+10% chance to Freeze
+60% increased Damage if you've Frozen an Enemy Recently
 ]],
 }

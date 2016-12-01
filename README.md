@@ -49,6 +49,13 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.19 - 2016/11/30
+ * Updated the passive tree to 2.5.0
+ * Added 'The Halcyon'
+ * Added an "enemy at Close Range" condition for Chin Sol
+ * Corrected the projectile damage taken stat on Projectile Weakness
+ * Fixed error that could result from loading certain builds saved prior to version 1.0.27
+
 ### 1.2.18 - 2016/11/29
  * Added 3 new Jewel templates
  * Added 'Tulfall'

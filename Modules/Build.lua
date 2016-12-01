@@ -22,7 +22,6 @@ function buildMode:Init(dbFileName, buildName)
 	self.importTab = common.New("ImportTab", self)
 	self.notesTab = common.New("NotesTab", self)
 	self.configTab = common.New("ConfigTab", self)
-	self.spec = common.New("PassiveSpec", self)
 	self.treeTab = common.New("TreeTab", self)
 	self.skillsTab = common.New("SkillsTab", self)
 	self.itemsTab = common.New("ItemsTab", self)
@@ -296,11 +295,14 @@ function buildMode:Init(dbFileName, buildName)
 		["Build"] = self,
 		["Config"] = self.configTab,
 		["Notes"] = self.notesTab,
-		["Spec"] = self.spec,
+		["Tree"] = self.treeTab,
 		["TreeView"] = self.treeTab.viewer,
 		["Items"] = self.itemsTab,
 		["Skills"] = self.skillsTab,
 		["Calcs"] = self.calcsTab,
+	}
+	self.legacyLoaders = { -- Special loaders for legacy sections
+		["Spec"] = self.treeTab,
 	}
 
 	ConPrintf("Loading '%s'...", dbFileName)
@@ -317,6 +319,7 @@ function buildMode:Init(dbFileName, buildName)
 	-- Build calculation output tables
 	self.calcsTab:BuildOutput()
 	self:RefreshStatList()
+	self.buildFlag = false
 
 	--[[
 	for _, item in pairs(main.uniqueDB.list) do
@@ -386,6 +389,10 @@ function buildMode:Save(xml)
 end
 
 function buildMode:OnFrame(inputEvents)
+	if self.abortSave and not launch.devMode then
+		main:SetMode("LIST", self.buildName)
+	end
+
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if IsKeyDown("CTRL") then
@@ -623,7 +630,7 @@ function buildMode:LoadDB(xmlText, fileName)
 	for _, node in ipairs(dbXML[1]) do
 		if type(node) == "table" then
 			-- Check if there is a saver that can load this section
-			local saver = self.savers[node.elem]
+			local saver = self.savers[node.elem] or self.legacyLoaders[node.elem]
 			if saver then
 				if saver:Load(node, self.dbFileName) then
 					return true

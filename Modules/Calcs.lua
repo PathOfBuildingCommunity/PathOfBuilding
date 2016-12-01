@@ -2492,6 +2492,9 @@ function calcs.buildOutput(build, mode)
 		if env.modDB.conditions.Onslaught then
 			t_insert(combatList, "Onslaught")
 		end
+		if env.modDB.conditions.UnholyMight then
+			t_insert(combatList, "Unholy Might")
+		end
 		for _, activeSkill in ipairs(env.activeSkillList) do
 			if activeSkill.buffModList or activeSkill.auraModList then
 				if activeSkill.skillFlags.multiPart then

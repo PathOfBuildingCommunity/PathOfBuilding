@@ -100,7 +100,7 @@ function SkillsTabClass:Load(xml, fileName)
 				gem.skillPart = tonumber(child.attrib.skillPart)
 				t_insert(socketGroup.gemList, gem)
 			end
-			if node.attrib.skillPart then
+			if node.attrib.skillPart and socketGroup.gemList[1] then
 				socketGroup.gemList[1].skillPart = tonumber(node.attrib.skillPart)
 			end
 			self:ProcessSocketGroup(socketGroup)

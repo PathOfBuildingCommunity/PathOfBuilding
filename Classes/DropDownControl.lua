@@ -51,10 +51,15 @@ function DropDownClass:IsMouseOver()
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
 	local dropExtra = self.dropped and (height - 4) * #self.list + 2 or 0
-	local mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height + dropExtra
+	local mOver
+	if self.dropUp then
+		mOver = cursorX >= x and cursorY >= y - dropExtra and cursorX < x + width and cursorY < y + height
+	else
+		mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height + dropExtra
+	end
 	local mOverComp
 	if mOver then
-		if cursorY < y + height then
+		if cursorY >= y and cursorY < y + height then
 			mOverComp = "BODY"
 		else
 			mOverComp = "DROP"
@@ -69,6 +74,8 @@ function DropDownClass:Draw(viewPort)
 	local enabled = self:IsEnabled()
 	local mOver, mOverComp = self:IsMouseOver()
 	local dropExtra = (height - 4) * #self.list + 4
+	self.dropUp = y + height + dropExtra > viewPort.height
+	local dropY = self.dropUp and y - dropExtra or y + height
 	if not enabled then
 		SetDrawColor(0.33, 0.33, 0.33)
 	elseif mOver or self.dropped then
@@ -79,7 +86,7 @@ function DropDownClass:Draw(viewPort)
 	DrawImage(nil, x, y, width, height)
 	if self.dropped then
 		SetDrawLayer(nil, 5)
-		DrawImage(nil, x, y + height, width, dropExtra)
+		DrawImage(nil, x, dropY, width, dropExtra)
 		SetDrawLayer(nil, 0)
 	end
 	if not enabled then
@@ -103,7 +110,7 @@ function DropDownClass:Draw(viewPort)
 	if self.dropped then
 		SetDrawLayer(nil, 5)
 		SetDrawColor(0, 0, 0)
-		DrawImage(nil, x + 1, y + height + 1, width - 2, dropExtra - 2)
+		DrawImage(nil, x + 1, dropY + 1, width - 2, dropExtra - 2)
 		SetDrawLayer(nil, 0)
 	end
 	if enabled then
@@ -111,7 +118,7 @@ function DropDownClass:Draw(viewPort)
 		if (mOver or self.dropped) and self.tooltip then
 			SetDrawLayer(nil, 10)
 			main:AddTooltipLine(14, self.tooltip)
-			main:DrawTooltip(x, y, width, height + (self.dropped and dropExtra or 0), viewPort)
+			main:DrawTooltip(x, y - (self.dropped and self.dropUp and dropExtra or 0), width, height + (self.dropped and dropExtra or 0), viewPort)
 			SetDrawLayer(nil, 0)
 		end
 	else
@@ -127,11 +134,11 @@ function DropDownClass:Draw(viewPort)
 	if self.dropped then
 		SetDrawLayer(nil, 5)
 		local cursorX, cursorY = GetCursorPos()
-		self.hoverSel = mOver and math.floor((cursorY - y - height) / (height - 4)) + 1
+		self.hoverSel = mOver and math.floor((cursorY - dropY) / (height - 4)) + 1
 		if self.hoverSel and self.hoverSel < 1 then
 			self.hoverSel = nil
 		end
-		SetViewport(x + 2, y + height + 2, width - 4, #self.list * (height - 4))
+		SetViewport(x + 2, dropY + 2, width - 4, #self.list * (height - 4))
 		for index, listVal in ipairs(self.list) do
 			local y = (index - 1) * (height - 4)
 			if index == self.hoverSel then
@@ -180,7 +187,9 @@ function DropDownClass:OnKeyUp(key)
 			local x, y = self:GetPos()
 			local width, height = self:GetSize()
 			local cursorX, cursorY = GetCursorPos()
-			self:SetSel(math.floor((cursorY - y - height) / (height - 4)) + 1)
+			local dropExtra = (height - 4) * #self.list + 4
+			local dropY = self.dropUp and y - dropExtra or y + height
+			self:SetSel(math.floor((cursorY - dropY) / (height - 4)) + 1)
 			self.dropped = false
 		end
 	elseif key == "WHEELDOWN" or key == "DOWN" then

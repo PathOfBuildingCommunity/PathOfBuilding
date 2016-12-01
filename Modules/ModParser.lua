@@ -186,6 +186,7 @@ local modNameList = {
 	["physical weapon damage"] = { "PhysicalDamage", flags = ModFlag.Weapon },
 	["physical melee damage"] = { "PhysicalDamage", flags = ModFlag.Melee },
 	["melee physical damage"] = { "PhysicalDamage", flags = ModFlag.Melee },
+	["bow damage"] = { "Damage", flags = ModFlag.Bow },
 	["wand damage"] = { "Damage", flags = ModFlag.Wand },
 	["wand physical damage"] = { "PhysicalDamage", flags = ModFlag.Wand },
 	["claw physical damage"] = { "PhysicalDamage", flags = ModFlag.Claw },
@@ -376,6 +377,7 @@ local modTagList = {
 	["if you've crit in the past 8 seconds"] = { tag = { type = "Condition", var = "CritInPast8Sec" } },
 	["if energy shield recharge has started recently"] = { tag = { type = "Condition", var = "EnergyShieldRechargeRecently" } },
 	-- Enemy status conditions
+	["at close range"] = { tag = { type = "Condition", var = "AtCloseRange" }, flags = ModFlag.Hit },
 	["against enemies on full life"] = { tag = { type = "Condition", var = "EnemyFullLife" }, flags = ModFlag.Hit },
 	["against enemies that are on full life"] = { tag = { type = "Condition", var = "EnemyFullLife" }, flags = ModFlag.Hit },
 	["against enemies on low life"] = { tag = { type = "Condition", var = "EnemyLowLife" }, flags = ModFlag.Hit },

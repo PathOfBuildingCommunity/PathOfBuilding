@@ -40,6 +40,7 @@ local PassiveSpecClass = common.NewClass("PassiveSpec", "UndoHandler", function(
 end)
 
 function PassiveSpecClass:Load(xml, dbFileName)
+	self.title = xml.attrib.title
 	for _, node in pairs(xml) do
 		if type(node) == "table" then
 			if node.elem == "URL" then
@@ -55,6 +56,9 @@ function PassiveSpecClass:Load(xml, dbFileName)
 end
 
 function PassiveSpecClass:Save(xml)
+	xml.attrib = { 
+		title = self.title,
+	}
 	t_insert(xml, {
 		elem = "URL", 
 		[1] = self:EncodeURL("https://www.pathofexile.com/passive-skill-tree/")

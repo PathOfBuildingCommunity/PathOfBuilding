@@ -79,6 +79,9 @@ local varList = {
 	{ var = "conditionEnemyLowLife", type = "check", label = "Is the enemy on Low Life?", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyLowLife" }, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionAtCloseRange", type = "check", label = "Is the enemy at Close Range?", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "AtCloseRange" }, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "conditionEnemyCursed", type = "check", label = "Is the enemy Cursed?", tooltip = "Your enemy will automatically be considered to be Cursed if you have at least one curse enabled,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyCursed" }, "Config", { type = "Condition", var = "Effective" })
 	end },
