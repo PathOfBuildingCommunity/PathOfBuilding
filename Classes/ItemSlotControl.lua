@@ -58,7 +58,7 @@ function ItemSlotClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	DrawString(x - 2, y + 2, "RIGHT_X", height - 4, "VAR", "^7"..self.label..":")
-	self.DropDownControl:Draw()
+	self.DropDownControl:Draw(viewPort)
 	local highlight = false
 	for _, control in pairs({self.itemsTab.controls.itemList, self.itemsTab.controls.uniqueDB, self.itemsTab.controls.rareDB}) do
 		if control:IsShown() and control.selDragging and control.selDragActive and self.itemsTab:IsItemValidForSlot(control.selItem, self.slotName) then
