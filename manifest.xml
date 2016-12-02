@@ -4,7 +4,7 @@
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
-	<File sha1="cfd850496b79c7170e0ace52f611a1ea7e567224" name="Launch.lua" part="program"/>
+	<File sha1="2a5ebab89c9289a4707f2a42684ebcaefa66799f" name="Launch.lua" part="program"/>
 	<File sha1="d8e42beeb38baabcc197d658e4c0af33419eeff3" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
 	<File sha1="5db8eff1a9a4177ee7a8a421909b636ef2f1c7f8" name="changelog.txt" part="program"/>

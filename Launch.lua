@@ -163,7 +163,7 @@ function launch:OnChar(key)
 			end
 		end
 	end
-end
+end 
 
 function launch:OnSubCall(func, ...)
 	if func == "ConPrintf" and self.subScriptType == "UPDATE" and self.updateChecking then
