@@ -211,6 +211,13 @@ gems["Cast when Stunned"] = {
 		[30] = { 79, },
 	},
 }
+gems["Cast while Channelling"] = {
+	intelligence = true,
+	support = true,
+	channelling = true,
+	spell = true,
+	unsupported = true,
+}
 gems["Chance to Ignite"] = {
 	fire = true,
 	intelligence = true,
@@ -995,7 +1002,7 @@ gems["Minion and Totem Elemental Resistance"] = {
 		--[1] = "summon_fire_resistance_+"
 		--[2] = "summon_cold_resistance_+"
 		--[3] = "summon_lightning_resistance_+"
-		[4] = mod("ElementalDamage", "MORE", nil, 0, bit.bor(KeywordFlag.Minion, KeywordFlag.Totem)), 
+		[4] = mod("ElementalDamage", "MORE", nil, 0, bit.bor(KeywordFlag.Minion, KeywordFlag.Totem)), --"support_minion_totem_resistance_elemental_damage_+%_final"
 	},
 	levels = {
 		[1] = { 25, 25, 25, 10, },

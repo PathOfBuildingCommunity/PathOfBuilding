@@ -7,41 +7,43 @@
 
 local xml = require("xml")
 local sha1 = require("sha1")
-local curl = require("lcurl")
+local curl = require("lcurl.safe")
 local lzip = require("lzip")
 
-local function downloadFile(url, outName)
-	local outFile = io.open(outName, "wb")
-	local easy = curl.easy()
-	easy:setopt_url(url)
-	easy:setopt_writefunction(outFile)
-	easy:perform()
-	local size = easy:getinfo(curl.INFO_SIZE_DOWNLOAD)
-	easy:close()
-	outFile:close()
-	if size == 0 then
-		ConPrintf("Download failed")
-		os.remove(outName)
-		return true
+local globalRetryLimit = 10
+local function downloadFileText(url)
+	for i = 1, 5 do
+		if i > 1 then
+			ConPrintf("Retrying... (%d of 5)", i)
+		end
+		local text = ""
+		local easy = curl.easy()
+		easy:setopt_url(url)
+		easy:setopt_writefunction(function(data)
+			text = text..data 
+			return true
+		end)
+		local _, error = easy:perform()
+		easy:close()
+		if not error then
+			return text
+		end
+		ConPrintf("Download failed (%s)", error:msg())
+		if globalRetryLimit == 0 then
+			break
+		end
+		globalRetryLimit = globalRetryLimit - 1
 	end
 end
-
-local function downloadFileText(url)
-	local text = ""
-	local easy = curl.easy()
-	easy:setopt_url(url)
-	easy:setopt_writefunction(function(data)
-		text = text..data 
-		return true 
-	end)
-	easy:perform()
-	local size = easy:getinfo(curl.INFO_SIZE_DOWNLOAD)
-	easy:close()
-	if size == 0 then
-		ConPrintf("Download failed")
-		return nil
+local function downloadFile(url, outName)
+	local text = downloadFileText(url)
+	if text then
+		local outFile = io.open(outName, "wb")
+		outFile:write(text)
+		outFile:close()
+	else
+		return true
 	end
-	return text
 end
 
 ConPrintf("Checking for update...")

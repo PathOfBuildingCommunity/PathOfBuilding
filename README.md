@@ -49,6 +49,18 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.21 - 2016/12/03
+ * Updated the skill data to 2.5.0
+ * Added the Elreon flat chaos mod to the ring and amulet templates
+ * Added support for the "Auras you Cast" modifiers in Guardian and Necromancer
+ * Passives/items that affect mana cost will now display the mana cost change in green if the cost is reduced,
+   and red if the cost is increased (i.e the reverse of the behaviour for other stats)
+ * Skills that cannot miss will now correctly have a 100% chance to hit
+ * Fixed issue that could cause the stat comparisons in item and passive node tooltips to show incorrect values if 
+   Elemental Equilibrium is used
+ * The error messages displayed when a character import fails due to connection issues are now more readable
+ * Fixed the program's saved window position becoming invalid if the program was closed while minimised
+
 ### 1.2.20 - 2016/12/02
  * Added 'The Pandemonius', 'Light of Lunaris', 'The Surrender' and 'Malachai's Vision'
  * Added support for the Minion and Totem Elemental Resistances gem

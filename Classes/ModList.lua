@@ -140,22 +140,27 @@ function ModListClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7
 						end
 						if not match then
 							value = nullValue
+							break
 						end
 					elseif tag.type == "SocketedIn" then
 						if tag.slotName ~= slotName or (tag.keyword and (not skillGem or not gemIsType(skillGem, tag.keyword))) then
 							value = nullValue
+							break
 						end
 					elseif tag.type == "SkillName" then
 						if tag.skillName ~= skillName then
 							value = nullValue
+							break
 						end
 					elseif tag.type == "SkillPart" then
 						if tag.skillPart ~= skillPart then
 							value = nullValue
+							break
 						end
 					elseif tag.type == "SlotName" then
 						if tag.slotName ~= slotName then
 							value = nullValue
+							break
 						end
 					end
 				end

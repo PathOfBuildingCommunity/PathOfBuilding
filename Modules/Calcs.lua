@@ -1073,6 +1073,8 @@ local function performCalcs(env)
 				local inc = modDB:Sum("INC", skillCfg, "AuraEffect") + skillModList:Sum("INC", skillCfg, "AuraEffect")
 				local more = modDB:Sum("MORE", skillCfg, "AuraEffect") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
 				modDB:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
+				condList["HaveAuraActive"] = true
+				modDB.multipliers["ActiveAura"] = (modDB.multipliers["ActiveAura"] or 0) + 1
 			end
 		end
 		if env.mode_effective then
@@ -1766,7 +1768,7 @@ local function performCalcs(env)
 	if breakdown then
 		simpleBreakdown(nil, skillCfg, "Accuracy")
 	end
-	if not isAttack or modDB:Sum("FLAG", skillCfg, "CannotBeEvaded") or env.weaponData1.CannotBeEvaded then
+	if not isAttack or modDB:Sum("FLAG", skillCfg, "CannotBeEvaded") or env.weaponData1.CannotBeEvaded or skillData.cannotBeEvaded then
 		output.HitChance = 100
 	else
 		local enemyEvasion = round(calcVal(enemyDB, "Evasion"))
@@ -2405,10 +2407,12 @@ local function getCalculator(build, fullInit, modFunc)
 	end
 	local initModDB = common.New("ModDB")
 	initModDB:AddDB(env.modDB)
-	initModDB.multipliers = copyTable(env.modDB.multipliers)
 	initModDB.conditions = copyTable(env.modDB.conditions)
+	initModDB.multipliers = copyTable(env.modDB.multipliers)
 	local initEnemyDB = common.New("ModDB")
 	initEnemyDB:AddDB(env.enemyDB)
+	initEnemyDB.conditions = copyTable(env.enemyDB.conditions)
+	initEnemyDB.multipliers = copyTable(env.enemyDB.multipliers)
 	if not fullInit then
 		mergeMainMods(env)
 	end
@@ -2425,6 +2429,8 @@ local function getCalculator(build, fullInit, modFunc)
 		env.modDB.multipliers = copyTable(initModDB.multipliers)
 		env.enemyDB.mods = wipeTable(env.enemyDB.mods)
 		env.enemyDB:AddDB(initEnemyDB)
+		env.enemyDB.conditions = copyTable(initEnemyDB.conditions)
+		env.enemyDB.multipliers = copyTable(initEnemyDB.multipliers)
 		
 		-- Call function to make modifications to the enviroment
 		modFunc(env, ...)
@@ -2529,7 +2535,7 @@ function calcs.buildOutput(build, mode)
 		output.CombatList = table.concat(combatList, ", ")
 		output.CurseList = table.concat(curseList, ", ")
 
-		--infoDump(env)
+		infoDump(env)
 	end
 
 	return env

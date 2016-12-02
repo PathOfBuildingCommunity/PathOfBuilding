@@ -225,7 +225,7 @@ function launch:DownloadPage(url, callback, cookies)
 	LaunchSubScript([[
 		local url, cookies = ...
 		ConPrintf("Downloading page at: %s", url)
-		local curl = require("lcurl")
+		local curl = require("lcurl.safe")
 		local page = ""
 		local easy = curl.easy()
 		easy:setopt_url(url)
@@ -236,11 +236,13 @@ function launch:DownloadPage(url, callback, cookies)
 			page = page..data
 			return true
 		end)
-		easy:perform()
+		local _, error = easy:perform()
 		local code = easy:getinfo(curl.INFO_RESPONSE_CODE)
 		easy:close()
 		local errMsg
-		if code ~= 200 then
+		if error then
+			errMsg = error:msg()
+		elseif code ~= 200 then
 			errMsg = "Response code: "..code
 		elseif #page == 0 then
 			errMsg = "No data returned"

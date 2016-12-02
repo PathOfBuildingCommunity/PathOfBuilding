@@ -201,6 +201,7 @@ gems["Blade Flurry"] = {
 	active_skill = true,
 	attack = true,
 	area = true,
+	channelling = true,
 	melee = true,
 	parts = {
 		{
@@ -220,7 +221,7 @@ gems["Blade Flurry"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 4), 
-		mod("Speed", "MORE", 65, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = 65
+		mod("Speed", "MORE", 60, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = 60
 		--"charged_attack_damage_per_stack_+%_final" = 20
 		--"is_area_damage" = ?
 		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
@@ -287,11 +288,14 @@ gems["Blade Vortex"] = {
 		skill("critChance", 6), 
 		skill("duration", 5), --"base_skill_effect_duration" = 5000
 		--"maximum_number_of_spinning_blades" = 20
-		mod("AreaRadius", "INC", 0), --"base_skill_area_of_effect_+%" = 0
+		--"base_blade_vortex_hit_rate_ms" = 600
 		--"extra_gore_chance_override_%" = 15
+		--"blade_vortex_hit_rate_+%_per_blade" = 10
+		--"blade_vortex_damage_+%_per_blade" = 30
 		--"is_area_damage" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
 		--"action_ignores_crit_tracking" = ?
+		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		skill("deliciouslyOverpowered", true), 
 	},
 	qualityMods = {
@@ -303,36 +307,36 @@ gems["Blade Vortex"] = {
 		[3] = skill("PhysicalMax", nil), --"spell_maximum_base_physical_damage"
 	},
 	levels = {
-		[1] = { 6, 9, 14, },
-		[2] = { 7, 12, 17, },
-		[3] = { 8, 15, 23, },
-		[4] = { 9, 19, 29, },
-		[5] = { 10, 24, 36, },
-		[6] = { 11, 30, 45, },
-		[7] = { 12, 37, 55, },
-		[8] = { 13, 43, 64, },
-		[9] = { 13, 50, 74, },
-		[10] = { 14, 57, 86, },
-		[11] = { 14, 66, 98, },
-		[12] = { 15, 75, 113, },
-		[13] = { 16, 86, 129, },
-		[14] = { 16, 98, 147, },
-		[15] = { 17, 111, 167, },
-		[16] = { 18, 126, 190, },
-		[17] = { 18, 137, 206, },
-		[18] = { 19, 149, 224, },
-		[19] = { 19, 162, 243, },
-		[20] = { 19, 176, 264, },
-		[21] = { 20, 191, 286, },
-		[22] = { 21, 207, 310, },
-		[23] = { 21, 224, 336, },
-		[24] = { 21, 242, 363, },
-		[25] = { 22, 262, 393, },
-		[26] = { 23, 283, 425, },
-		[27] = { 23, 306, 459, },
-		[28] = { 23, 331, 496, },
-		[29] = { 24, 357, 536, },
-		[30] = { 24, 386, 579, },
+		[1] = { 6, 7, 10, },
+		[2] = { 7, 8, 12, },
+		[3] = { 8, 11, 16, },
+		[4] = { 9, 14, 20, },
+		[5] = { 10, 17, 25, },
+		[6] = { 11, 21, 32, },
+		[7] = { 12, 26, 39, },
+		[8] = { 13, 30, 45, },
+		[9] = { 13, 35, 52, },
+		[10] = { 14, 40, 60, },
+		[11] = { 14, 46, 69, },
+		[12] = { 15, 53, 79, },
+		[13] = { 16, 60, 90, },
+		[14] = { 16, 68, 103, },
+		[15] = { 17, 78, 117, },
+		[16] = { 18, 88, 133, },
+		[17] = { 18, 96, 144, },
+		[18] = { 19, 104, 157, },
+		[19] = { 19, 113, 170, },
+		[20] = { 19, 123, 185, },
+		[21] = { 20, 133, 200, },
+		[22] = { 21, 145, 217, },
+		[23] = { 21, 157, 235, },
+		[24] = { 21, 170, 254, },
+		[25] = { 22, 183, 275, },
+		[26] = { 23, 198, 298, },
+		[27] = { 23, 214, 322, },
+		[28] = { 23, 232, 347, },
+		[29] = { 24, 250, 375, },
+		[30] = { 24, 270, 405, },
 	},
 }
 gems["Bladefall"] = {
@@ -1922,7 +1926,7 @@ gems["Herald of Ice"] = {
 		area = true,
 		cold = true,
 	},
-	skillTypes = { [39] = true, [5] = true, [15] = true, [16] = true, [10] = true, [11] = true, [34] = true, },
+	skillTypes = { [39] = true, [5] = true, [15] = true, [16] = true, [10] = true, [11] = true, [34] = true, [27] = true, },
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 25), 

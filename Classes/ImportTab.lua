@@ -133,6 +133,9 @@ You can get this from your web browser's cookies while logged into the Path of E
 		end
 		self.importCodeState = "VALID"
 		self.importCodeXML = xmlText
+		if not self.build.dbFileName then
+			self.controls.importCodeMode.sel = 2
+		end
 	end)
 	self.controls.importCodeState = common.New("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 4, 0, 0, 16)
 	self.controls.importCodeState.label = function()
@@ -140,7 +143,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 	self.controls.importCodeMode = common.New("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "Import to this build", "Import to a new build:" })
 	self.controls.importCodeMode.enabled = function()
-		return self.importCodeState == "VALID"
+		return self.importCodeState == "VALID" and self.build.dbFileName
 	end
 	self.controls.importCodeBuildName = common.New("EditControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 4, 0, 400, 20, "", "New build name", "\\/:%*%?\"<>|", 50)
 	self.controls.importCodeBuildName.enabled = function()
@@ -188,7 +191,7 @@ function ImportTabClass:DownloadCharacterList()
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or main.accountSessionIDs[accountName]
 	launch:DownloadPage("https://www.pathofexile.com/character-window/get-characters?accountName="..accountName, function(page, errMsg)
 		if errMsg then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."Unknown error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
+			self.charImportStatus = data.colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
 			self.charImportMode = "GETACCOUNTNAME"
 			return
 		elseif page == "false" then
@@ -231,7 +234,7 @@ function ImportTabClass:DownloadPassiveTree()
 	launch:DownloadPage("https://www.pathofexile.com/character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name, function(page, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."Unknown error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
+			self.charImportStatus = data.colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
 			return
 		elseif page == "false" then
 			self.charImportStatus = data.colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
@@ -271,7 +274,7 @@ function ImportTabClass:DownloadItems()
 	launch:DownloadPage("https://www.pathofexile.com/character-window/get-items?accountName="..accountName.."&character="..charData.name, function(page, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."Unknown error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
+			self.charImportStatus = data.colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
 			return
 		elseif page == "false" then
 			self.charImportStatus = data.colorCodes.NEGATIVE.."Failed to retrieve character data, try again."

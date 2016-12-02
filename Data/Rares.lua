@@ -55,6 +55,7 @@ Prefixes:
 {range:0}(0 to 22)% increased Energy Shield
 {range:0}(0 to 26)% increased Spell Damage
 {range:0}(0 to 42)% increased Elemental Damage with Weapons
+{crafted}{range:0}Adds (0-11 to 0-23) Chaos Damage to Attacks
 Suffixes:
 {str}
 {dex}
@@ -81,10 +82,11 @@ Prefixes:
 {range:0}Adds (0-22 to 0-40) Cold Damage to Attacks
 {range:0}Adds (0-7 to 0-72) Lightning Damage to Attacks
 {range:0}(0 to 42)% increased Elemental Damage with Weapons
-{range:0}(0 to 20)% increased Armour
-{range:0}(0 to 20)% increased Evasion Rating
-{range:0}(0 to 20)% increased Energy Shield
-{range:0}(0 to 20)% faster start of Energy Shield Recharge
+{crafted}{range:0}(0 to 20)% increased Armour
+{crafted}{range:0}(0 to 20)% increased Evasion Rating
+{crafted}{range:0}(0 to 20)% increased Energy Shield
+{crafted}{range:0}(0 to 20)% faster start of Energy Shield Recharge
+{crafted}{range:0}Adds (0-11 to 0-23) Chaos Damage to Attacks
 Suffixes:
 {str}
 {dex}
@@ -98,7 +100,8 @@ Suffixes:
 {range:0}+(0 to 400) to Accuracy Rating
 {range:0}(0 to 12)% increased Fire Damage
 {range:0}(0 to 12)% increased Cold Damage
-{range:0}(0 to 12)% increased Lightning Damage]],
+{range:0}(0 to 12)% increased Lightning Damage
+{crafted}{range:0}(0 to 16)% increased Global Critical Strike Chance]],
 	["belt"] = [[
 Prefixes:
 {range:0}+(0 to 99) to maximum Life
