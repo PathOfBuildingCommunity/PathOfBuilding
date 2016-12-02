@@ -264,11 +264,19 @@ end
 
 function ItemsTabClass:EditDisplayItemText()
 	local popup 
+	local function buildRaw()
+		local editBuf = popup.controls.edit.buf
+		if editBuf:match("^Rarity: ") then
+			return editBuf
+		else
+			return "Rarity: "..popup.controls.rarity.list[popup.controls.rarity.sel].val.."\n"..popup.controls.edit.buf
+		end
+	end
 	popup = main:OpenPopup(500, 500, self.displayItem and "Edit Item Text" or "Create Custom Item from Text", {
 		rarity = common.New("DropDownControl", nil, -190, 10, 100, 18, { {val = "NORMAL",label=data.colorCodes.NORMAL.."Normal"},{val="MAGIC",label=data.colorCodes.MAGIC.."Magic"},{val="RARE",label=data.colorCodes.RARE.."Rare"},{val="UNIQUE",label=data.colorCodes.UNIQUE.."Unique"} }),
 		edit = common.New("EditControl", nil, 0, 40, 480, 420, "", nil, "^%C\t\n", nil, nil, 14),
 		save = common.New("ButtonControl", nil, -45, 470, 80, 20, self.displayItem and "Save" or "Create", function()
-			self:CreateDisplayItemFromRaw("Rarity: "..popup.controls.rarity.list[popup.controls.rarity.sel].val.."\n"..popup.controls.edit.buf)
+			self:CreateDisplayItemFromRaw(buildRaw())
 			main:ClosePopup()
 		end),
 		common.New("ButtonControl", nil, 45, 470, 80, 20, "Cancel", function()
@@ -283,11 +291,11 @@ function ItemsTabClass:EditDisplayItemText()
 	end
 	popup.controls.edit.font = "FIXED"
 	popup.controls.save.enabled = function()
-		local item = itemLib.makeItemFromRaw("Rarity: "..popup.controls.rarity.list[popup.controls.rarity.sel].val.."\n"..popup.controls.edit.buf)
+		local item = itemLib.makeItemFromRaw(buildRaw())
 		return item ~= nil
 	end
 	popup.controls.save.tooltip = function()
-		local item = itemLib.makeItemFromRaw("Rarity: "..popup.controls.rarity.list[popup.controls.rarity.sel].val.."\n"..popup.controls.edit.buf)
+		local item = itemLib.makeItemFromRaw(buildRaw())
 		if item then
 			self:AddItemTooltip(item, nil, true)
 		else

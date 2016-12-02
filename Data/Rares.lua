@@ -1059,16 +1059,15 @@ Crimson Jewel
 {range:0}(0 to 6)% increased Attack Speed with Two Handed Melee Weapons
 {range:0}(0 to 18)% increased Critical Strike Chance with One Handed Melee Weapons
 {range:0}(0 to 18)% increased Critical Strike Chance with Two Handed Melee Weapons
-{range:0}+(0 to 12)% to Critical Strike Multiplier with One Handed Melee Weapons
-{range:0}+(0 to 12)% to Critical Strike Multiplier with Two Handed Melee Weapons
+{range:0}+(0 to 18)% to Critical Strike Multiplier with One Handed Melee Weapons
+{range:0}+(0 to 18)% to Critical Strike Multiplier with Two Handed Melee Weapons
 {jewel suf}
 {range:0}(0 to 12)% increased Melee Damage
 {range:0}(0 to 12)% increased Global Critical Strike Chance
 {range:0}(0 to 14)% increased Melee Critical Strike Chance
-{range:0}+(0 to 8)% to Global Critical Strike Multiplier
-{range:0}+(0 to 10)% to Melee Critical Strike Multiplier
-]],
-[[
+{range:0}+(0 to 12)% to Global Critical Strike Multiplier
+{range:0}+(0 to 15)% to Melee Critical Strike Multiplier
+]],[[
 Jewel
 Viridian Jewel
 {jewel pre}
@@ -1083,16 +1082,15 @@ Viridian Jewel
 {range:0}(0 to 6)% increased Attack Speed with Two Handed Melee Weapons
 {range:0}(0 to 18)% increased Critical Strike Chance with One Handed Melee Weapons
 {range:0}(0 to 18)% increased Critical Strike Chance with Two Handed Melee Weapons
-{range:0}+(0 to 12)% to Critical Strike Multiplier with One Handed Melee Weapons
-{range:0}+(0 to 12)% to Critical Strike Multiplier with Two Handed Melee Weapons
+{range:0}+(0 to 18)% to Critical Strike Multiplier with One Handed Melee Weapons
+{range:0}+(0 to 18)% to Critical Strike Multiplier with Two Handed Melee Weapons
 {jewel suf}
 {range:0}(0 to 12)% increased Melee Damage
 {range:0}(0 to 12)% increased Global Critical Strike Chance
 {range:0}(0 to 14)% increased Melee Critical Strike Chance
-{range:0}+(0 to 8)% to Global Critical Strike Multiplier
-{range:0}+(0 to 10)% to Melee Critical Strike Multiplier
-]],
-[[
+{range:0}+(0 to 12)% to Global Critical Strike Multiplier
+{range:0}+(0 to 15)% to Melee Critical Strike Multiplier
+]],[[
 Jewel
 Cobalt Jewel
 {jewel pre}
@@ -1112,8 +1110,8 @@ Cobalt Jewel
 {range:0}(0 to 12)% increased Spell Damage
 {range:0}(0 to 12)% increased Global Critical Strike Chance
 {range:0}(0 to 14)% increased Critical Strike Chance for Spells
-{range:0}+(0 to 8)% to Global Critical Strike Multiplier
-{range:0}+(0 to 10)% to Critical Strike Multiplier for Spells
+{range:0}+(0 to 12)% to Global Critical Strike Multiplier
+{range:0}+(0 to 15)% to Critical Strike Multiplier for Spells
 ]],
 }
 

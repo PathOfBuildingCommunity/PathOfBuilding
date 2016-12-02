@@ -37,6 +37,17 @@ Requires Level 68, 62 Str, 91 Int
 12% increased maximum Life if you wear no Corrupted items
 Regenerate 100 Life per second if you wear no Corrupted items
 ]],[[
+Malachai's Vision
+Praetor Crown
+Unreleased: true
+Adds 16 to 35 Chaos Damage
++226 to maximum Energy Shield
++32% to Cold Resistance
++20% to Lightning Resistance
+Regenerate 100 Energy Shield per second if all worn items are Corrupted
+Regenerate 35 Mana per second if all worn items are Corrupted
+Corrupted
+]],[[
 Tukohama's Fortress
 Ebony Tower Shield
 Unreleased: true
@@ -201,5 +212,37 @@ League: Breach
 30% increased Freeze Duration on Enemies
 10% chance to Freeze
 60% increased Damage if you've Frozen an Enemy Recently
-]],
+]],[[
+The Pandemonius
+Jade Amulet
+Unreleased: true
+League: Breach
++(20-30) to Dexterity
+24% increased Cold Damage
++35% to Cold Resistance
+Chill Enemy for 1 second when hit
+Blind Chilled Enemies on Hit
+Damage Penetrates 20% of Cold Resistance against Chilled Enemies
+]],[[
+Light of Lunaris
+Jingling Spirit Shield
+Unreleased: true
+10% increased Spell Damage
+78% increased Critical Strike Chance for Spells
+133% increased Energy Shield
++5% Chance to Block
++1% to Critical Strike Multiplier per 1% Block Chance
++25% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently
+]],[[
+The Surrender
+Ezomyte Tower Shield
+Unreleased: true
+League: Breach
+Grants level 30 Reckoning Skill
+163% increased Armour
++79 to maximum Life
+Recover 250 Life when you Block
++6% Chance to Block
++1500 Armour if you've Blocked Recently
+]]
 }
