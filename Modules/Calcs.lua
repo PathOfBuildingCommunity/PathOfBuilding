@@ -658,6 +658,7 @@ local function mergeMainMods(env, repSlotName, repItem)
 	-- Build and merge item modifiers, and create list of radius jewels
 	env.radiusJewelList = wipeTable(env.radiusJewelList)
 	env.itemList = { }
+	env.modDB.conditions["UsingAllCorruptedItems"] = true
 	for slotName, slot in pairs(build.itemsTab.slots) do
 		local item
 		if slotName == repSlotName then
@@ -714,6 +715,8 @@ local function mergeMainMods(env, repSlotName, repItem)
 				env.modDB.multipliers[key] = (env.modDB.multipliers[key] or 0) + 1
 				if item.corrupted then
 					env.modDB.multipliers.CorruptedItem = (env.modDB.multipliers.CorruptedItem or 0) + 1
+				else
+					env.modDB.conditions["UsingAllCorruptedItems"] = false
 				end
 			end
 		end

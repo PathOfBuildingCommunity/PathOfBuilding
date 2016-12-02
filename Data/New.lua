@@ -37,6 +37,17 @@ Requires Level 68, 62 Str, 91 Int
 12% increased maximum Life if you wear no Corrupted items
 Regenerate 100 Life per second if you wear no Corrupted items
 ]],[[
+Malachai's Vision
+Praetor Crown
+Unreleased: true
+Adds 16 to 35 Chaos Damage
++226 to maximum Energy Shield
++32% to Cold Resistance
++20% to Lightning Resistance
+Regenerate 100 Energy Shield per second if all worn items are Corrupted
+Regenerate 35 Mana per second if all worn items are Corrupted
+Corrupted
+]],[[
 Tukohama's Fortress
 Ebony Tower Shield
 Unreleased: true

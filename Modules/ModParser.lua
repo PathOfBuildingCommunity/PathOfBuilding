@@ -335,6 +335,7 @@ local modTagList = {
 	["with a rare item equipped"] = { tag = { type = "Condition", var = "UsingRareItem" } },
 	["with a unique item equipped"] = { tag = { type = "Condition", var = "UsingUniqueItem" } },
 	["if you wear no corrupted items"] = { tag = { type = "Condition", var = "NotUsingCorruptedItem" } },
+	["if all worn items are corrupted"] = { tag = { type = "Condition", var = "UsingAllCorruptedItems" } },
 	["with main hand"] = { tag = { type = "Condition", var = "MainHandAttack" } },
 	["with off hand"] = { tag = { type = "Condition", var = "OffHandAttack" } },
 	-- Player status conditions

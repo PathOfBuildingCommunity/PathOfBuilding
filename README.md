@@ -50,7 +50,7 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 
 ## Changelog
 ### 1.2.20 - 2016/12/02
- * Added 'The Pandemonius', 'Light of Lunaris' and 'The Surrender'
+ * Added 'The Pandemonius', 'Light of Lunaris', 'The Surrender' and 'Malachai's Vision'
  * Added support for the Minion and Totem Elemental Resistances gem
     * The new elemental damage multiplier has been added to this gem
  * Added support for the Spell Damage->Attack Damage modifier on Crown of Eyes
