@@ -70,7 +70,9 @@ function itemLib.parseItemRaw(item)
 		local rarity = item.rawLines[l]:match("^Rarity: (%a+)")
 		if rarity then
 			mode = "GAME"
-			item.rarity = rarity:upper()
+			if data.colorCodes[rarity:upper()] then
+				item.rarity = rarity:upper()
+			end
 			l = l + 1
 		end
 	end
@@ -216,7 +218,7 @@ function itemLib.parseItemRaw(item)
 	elseif mode == "GAME" and not foundExplicit then
 		item.implicitLines = 0
 	end
-	if not item.corrupted and item.base and (item.base.armour or item.base.weapon) then
+	if not item.corrupted and not item.uniqueID and item.base and (item.base.armour or item.base.weapon) then
 		item.quality = 20
 	end
 	if item.variantList then
@@ -410,9 +412,11 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 			end
 		end
 	elseif item.type == "Jewel" then
+		item.jewelFunc = nil
 		for _, value in ipairs(modList:Sum("LIST", nil, "Misc")) do
 			if value.type == "JewelFunc" then
-				item.jewelFunc = value.func
+				item.jewelFunc = item.jewelFunc or { }
+				t_insert(item.jewelFunc, value.func)
 			end
 		end
 	end	

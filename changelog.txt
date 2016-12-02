@@ -1,3 +1,13 @@
+VERSION[1.2.20][2016/12/02]
+ * Added 'The Pandemonius', 'Light of Lunaris' and 'The Surrender'
+ * Added support for the Minion and Totem Elemental Resistances gem
+    * The new elemental damage multiplier has been added to this gem
+ * Added support for the Spell Damage->Attack Damage modifier on Crown of Eyes
+ * Imported items no longer have their quality normalised
+ * Fixed Avatar of Fire not working after the passive tree update
+ * Fixed bug preventing Cold Steel from applying both conversions
+ * Corrected the ranges of the crit multipler modifiers on the jewel templates
+ * Various minor tweaks and fixes
 VERSION[1.2.19][2016/11/30]
  * Updated the passive tree to 2.5.0
  * Added 'The Halcyon'

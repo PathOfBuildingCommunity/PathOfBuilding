@@ -18,6 +18,7 @@ local m_max = math.max
 local s_format = string.format
 local band = bit.band
 local bor = bit.bor
+local bnot = bit.bnot
 
 -- List of all damage types, ordered according to the conversion sequence
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
@@ -670,25 +671,27 @@ local function mergeMainMods(env, repSlotName, repItem)
 				item = nil
 			elseif item and item.jewelRadiusIndex then
 				-- Jewel has a radius,  add it to the list
-				local func = item.jewelFunc or function(nodeMods, out, data)
+				local funcList = item.jewelFunc or { function(nodeMods, out, data)
 					-- Default function just tallies all stats in radius
 					if nodeMods then
 						for _, stat in pairs({"Str","Dex","Int"}) do
 							data[stat] = (data[stat] or 0) + nodeMods:Sum("BASE", nil, stat)
 						end
 					end
+				end }
+				for _, func in ipairs(funcList) do
+					local radiusInfo = data.jewelRadius[item.jewelRadiusIndex]
+					local node = build.spec.nodes[slot.nodeId]
+					t_insert(env.radiusJewelList, {
+						rSq = radiusInfo.rad * radiusInfo.rad,
+						x = node.x,
+						y = node.y,
+						func = func,
+						item = item,
+						nodeId = slot.nodeId,
+						data = { }
+					})
 				end
-				local radiusInfo = data.jewelRadius[item.jewelRadiusIndex]
-				local node = build.spec.nodes[slot.nodeId]
-				t_insert(env.radiusJewelList, {
-					rSq = radiusInfo.rad * radiusInfo.rad,
-					x = node.x,
-					y = node.y,
-					func = func,
-					item = item,
-					nodeId = slot.nodeId,
-					data = { }
-				})
 			end
 		end
 		env.itemList[slotName] = item
@@ -1599,6 +1602,14 @@ local function performCalcs(env)
 			end
 		end
 	end
+	if modDB:Sum("FLAG", nil, "SpellDamageAppliesToAttacks") then
+		-- Spell Damage conversion from Crown of Eyes
+		for i, mod in ipairs(modDB.mods.Damage or { }) do
+			if mod.type == "INC" and band(mod.flags, ModFlag.Spell) ~= 0 then
+				modDB:NewMod("Damage", "INC", mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(mod.tagList))
+			end
+		end
+	end
 
 	-- Calculate skill type stats
 	if skillFlags.projectile then
@@ -1801,16 +1812,16 @@ local function performCalcs(env)
 		if baseCrit == 100 then
 			output.CritChance = 100
 		else
-			output.CritChance = calcVal(modDB, "CritChance", skillCfg, baseCrit)
+			local base = modDB:Sum("BASE", skillCfg, "CritChance")
+			output.CritChance = (baseCrit + base) * calcMod(modDB, skillCfg, "CritChance")
 			if env.mode_effective then
 				output.CritChance = output.CritChance + enemyDB:Sum("BASE", nil, "SelfExtraCritChance")
 			end
 			output.CritChance = m_min(output.CritChance, 95)
-			if baseCrit > 0 then
+			if (baseCrit + base) > 0 then
 				output.CritChance = m_max(output.CritChance, 5)
 			end
 			if breakdown and output.CritChance ~= baseCrit then
-				local base = modDB:Sum("BASE", skillCfg, "CritChance")
 				local inc = modDB:Sum("INC", skillCfg, "CritChance")
 				local more = modDB:Sum("MORE", skillCfg, "CritChance")
 				local enemyExtra = enemyDB:Sum("BASE", nil, "SelfExtraCritChance")
@@ -2515,7 +2526,7 @@ function calcs.buildOutput(build, mode)
 		output.CombatList = table.concat(combatList, ", ")
 		output.CurseList = table.concat(curseList, ", ")
 
-		infoDump(env)
+		--infoDump(env)
 	end
 
 	return env

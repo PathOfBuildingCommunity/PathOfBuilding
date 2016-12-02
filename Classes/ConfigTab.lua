@@ -72,6 +72,9 @@ local varList = {
 	{ var = "conditionUsedLightningSkillInPast10Sec", type = "check", label = "Used a Light. Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsedLightningSkillInPast10Sec" }, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionBlockedHitFromUniqueEnemyRecently", type = "check", label = "Blocked hit from a Unique Recently?", ifNode = 63490, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BlockedHitFromUniqueEnemyRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ section = "For Effective DPS" },
 	{ var = "conditionEnemyFullLife", type = "check", label = "Is the enemy on Full Life?", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyFullLife" }, "Config", { type = "Condition", var = "Effective" })
@@ -108,6 +111,9 @@ local varList = {
 	end },
 	{ var = "conditionEnemyShocked", type = "check", label = "Is the enemy Shocked?", tooltip = "In addition to allowing any 'against Shocked Enemies' modifiers to apply,\nthis will apply Shock's Damage Taken modifier to the enemy.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyShocked" }, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "This adds the following modifiers:\n20% less enemy Movement Speed\n20% increased Fire Damage Taken by enemy", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("FireDamageTaken", "INC", 20, "Ash")
 	end },
 	{ var = "enemyIsBoss", type = "check", label = "Is the enemy a Boss?", tooltip = "This adds the following modifiers:\n60% less Effect of your Curses\n+30% to enemy Elemental Resistances\n+15% to enemy Chaos Resistance", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("CurseEffect", "MORE", -60, "Boss")

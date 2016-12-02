@@ -979,7 +979,56 @@ gems["Minion and Totem Elemental Resistance"] = {
 	intelligence = true,
 	support = true,
 	minion = true,
-	unsupported = true,
+	color = 3,
+	requireSkillTypes = { 9, 30, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 40), 
+	},
+	qualityMods = {
+		--"summon_fire_resistance_+" = 0.5
+		--"summon_cold_resistance_+" = 0.5
+		--"summon_lightning_resistance_+" = 0.5
+	},
+	levelMods = {
+		--[1] = "summon_fire_resistance_+"
+		--[2] = "summon_cold_resistance_+"
+		--[3] = "summon_lightning_resistance_+"
+		[4] = mod("ElementalDamage", "MORE", nil, 0, bit.bor(KeywordFlag.Minion, KeywordFlag.Totem)), 
+	},
+	levels = {
+		[1] = { 25, 25, 25, 10, },
+		[2] = { 26, 26, 26, 10, },
+		[3] = { 27, 27, 27, 11, },
+		[4] = { 28, 28, 28, 11, },
+		[5] = { 29, 29, 29, 12, },
+		[6] = { 30, 30, 30, 12, },
+		[7] = { 31, 31, 31, 13, },
+		[8] = { 32, 32, 32, 13, },
+		[9] = { 33, 33, 33, 14, },
+		[10] = { 34, 34, 34, 14, },
+		[11] = { 35, 35, 35, 15, },
+		[12] = { 36, 36, 36, 15, },
+		[13] = { 37, 37, 37, 16, },
+		[14] = { 38, 38, 38, 16, },
+		[15] = { 39, 39, 39, 17, },
+		[16] = { 40, 40, 40, 17, },
+		[17] = { 41, 41, 41, 18, },
+		[18] = { 42, 42, 42, 18, },
+		[19] = { 43, 43, 43, 19, },
+		[20] = { 44, 44, 44, 19, },
+		[21] = { 45, 45, 45, 20, },
+		[22] = { 46, 46, 46, 20, },
+		[23] = { 47, 47, 47, 21, },
+		[24] = { 48, 48, 48, 21, },
+		[25] = { 49, 49, 49, 22, },
+		[26] = { 50, 50, 50, 22, },
+		[27] = { 51, 51, 51, 23, },
+		[28] = { 52, 52, 52, 23, },
+		[29] = { 53, 53, 53, 24, },
+		[30] = { 54, 54, 54, 24, },
+	},
 }
 gems["Physical to Lightning"] = {
 	lightning = true,

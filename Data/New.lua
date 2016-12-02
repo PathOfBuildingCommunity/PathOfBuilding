@@ -201,5 +201,37 @@ League: Breach
 30% increased Freeze Duration on Enemies
 10% chance to Freeze
 60% increased Damage if you've Frozen an Enemy Recently
-]],
+]],[[
+The Pandemonius
+Jade Amulet
+Unreleased: true
+League: Breach
++(20-30) to Dexterity
+24% increased Cold Damage
++35% to Cold Resistance
+Chill Enemy for 1 second when hit
+Blind Chilled Enemies on Hit
+Damage Penetrates 20% of Cold Resistance against Chilled Enemies
+]],[[
+Light of Lunaris
+Jingling Spirit Shield
+Unreleased: true
+10% increased Spell Damage
+78% increased Critical Strike Chance for Spells
+133% increased Energy Shield
++5% Chance to Block
++1% to Critical Strike Multiplier per 1% Block Chance
++25% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently
+]],[[
+The Surrender
+Ezomyte Tower Shield
+Unreleased: true
+League: Breach
+Grants level 30 Reckoning Skill
+163% increased Armour
++79 to maximum Life
+Recover 250 Life when you Block
++6% Chance to Block
++1500 Armour if you've Blocked Recently
+]]
 }

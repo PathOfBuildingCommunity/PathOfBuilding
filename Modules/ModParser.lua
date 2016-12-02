@@ -27,6 +27,7 @@ local formList = {
 	["^([%d%.]+)%% of"] = "CONV",
 	["^gain ([%d%.]+)%% of"] = "CONV",
 	["penetrates (%d+)%%"] = "PEN",
+	["penetrates (%d+)%% of"] = "PEN",
 	["penetrates (%d+)%% of enemy"] = "PEN",
 	["^([%d%.]+)%% of (.+) regenerated per second"] = "REGENPERCENT",
 	["^([%d%.]+) (.+) regenerated per second"] = "REGENFLAT",
@@ -339,10 +340,10 @@ local modTagList = {
 	-- Player status conditions
 	["when on low life"] = { tag = { type = "Condition", var = "LowLife" } },
 	["while on low life"] = { tag = { type = "Condition", var = "LowLife" } },
-	["when not on low life"] = { tag = { type = "Condition", var = "NotLowLife" } },
-	["while not on low life"] = { tag = { type = "Condition", var = "NotLowLife" } },
+	["when not on low life"] = { tag = { type = "Condition", var = "LowLife", neg = true } },
+	["while not on low life"] = { tag = { type = "Condition", var = "LowLife", neg = true } },
 	["when on full life"] = { tag = { type = "Condition", var = "FullLife" } },
-	["when not on full life"] = { tag = { type = "Condition", var = "NotFullLife" } },
+	["when not on full life"] = { tag = { type = "Condition", var = "FullLife", neg = true } },
 	["while no mana is reserved"] = { tag = { type = "Condition", var = "NoManaReserved" } },
 	["while at maximum power charges"] = { tag = { type = "Condition", var = "AtMaxPowerCharges" } },
 	["while at maximum frenzy charges"] = { tag = { type = "Condition", var = "AtMaxFrenzyCharges" } },
@@ -366,6 +367,7 @@ local modTagList = {
 	["if you were damaged by a hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
 	["if you haven't been hit recently"] = { tag = { type = "Condition", var = "NotBeenHitRecently" } },
 	["if you've taken no damage from hits recently"] = { tag = { type = "Condition", var = "NotBeenHitRecently" } },
+	["if you've blocked a hit from a unique enemy recently"] = { tag = { type = "Condition", var = "BlockedHitFromUniqueEnemyRecently" } },
 	["if you've attacked recently"] = { tag = { type = "Condition", var = "AttackedRecently" } },
 	["if you've cast a spell recently"] = { tag = { type = "Condition", var = "CastSpellRecently" } },
 	["if you've used a fire skill in the past 10 seconds"] = { tag = { type = "Condition", var = "UsedFireSkillInPast10Sec" } },
@@ -418,6 +420,7 @@ local specialModList = {
 	["life regeneration is applied to energy shield instead"] = { flag("ZealotsOath") },
 	["life leech applies instantly%. life regeneration has no effect%."] = { flag("VaalPact"), flag("NoLifeRegen") },
 	["deal no non%-fire damage"] = { flag("DealNoPhysical"), flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoChaos") },
+	["(%d+)%% of physical, cold and lightning damage converted to fire damage"] = function(num) return { mod("PhysicalDamageConvertToFire", "BASE", num), mod("LightningDamageConvertToFire", "BASE", num), mod("ColdDamageConvertToFire", "BASE", num) } end,
 	["removes all mana%. spend life instead of mana for skills"] = { mod("Mana", "MORE", -100), flag("BloodMagic") },
 	["enemies you hit with elemental damage temporarily get (%+%d+)%% resistance to those elements and (%-%d+)%% resistance to other elements"] = function(plus, _, minus)
 		minus = tonumber(minus)
@@ -432,8 +435,8 @@ local specialModList = {
 	end,
 	-- Ascendancy notables
 	["movement skills cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Movement) },
-	["projectiles have 100%% additional chance to pierce targets at the start of their movement, losing this chance as the projectile travels farther"] = { mod("PierceChance", "BASE", 100) },
-	["projectile critical strike chance increased by arrow pierce chance"] = { mod("CritChance", "INC", 100, nil, ModFlag.Projectile) },
+	["projectiles have 100%% additional chance to pierce targets at the start of their movement, losing this chance as the projectile travels farther"] = { mod("PierceChance", "BASE", 50, { type = "Condition", var = "Effective" }) },
+	["projectile critical strike chance increased by arrow pierce chance"] = { mod("CritChance", "INC", 1, nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "PierceChance", div = 1 }) },
 	["always poison on hit while using a flask"] = { mod("PoisonChance", "BASE", 100, { type = "Condition", var = "UsingFlask" }) },
 	["armour received from body armour is doubled"] = { flag("Unbreakable") },
 	["gain (%d+)%% of maximum mana as extra maximum energy shield"] = function(num) return { mod("ManaGainAsEnergyShield", "BASE", num) } end,
@@ -535,6 +538,7 @@ local specialModList = {
 	["cannot block attacks"] = { flag("CannotBlockAttacks") },
 	["projectiles pierce while phasing"] = { mod("PierceChance", "BASE", 100, { type = "Condition", var = "Phasing" }) },
 	["increases and reductions to minion damage also affects you"] = { flag("MinionDamageAppliesToPlayer") },
+	["increases and reductions to spell damage also apply to attacks"] = { flag("SpellDamageAppliesToAttacks") },
 	["armour is increased by uncapped fire resistance"] = { mod("Armour", "INC", 1, { type = "PerStat", stat = "FireResistTotal", div = 1 }) },
 	["critical strike chance is increased by uncapped lightning resistance"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "LightningResistTotal", div = 1 }) },
 	["critical strikes deal no damage"] = { flag("NoCritDamage") },
@@ -622,9 +626,9 @@ local function getMatchConv(others, dst, type)
 		if nodeMods then
 			for _, mod in ipairs(nodeMods) do
 				for _, other in pairs(others) do
-					if mod.name:match(other) then
-						out:NewMod(mod.name, type, -mod.value, "Tree:Jewel")
-						out:NewMod(mod.name:gsub(other, dst), type, mod.value, "Tree:Jewel")
+					if mod.name:match(other) and mod.type == type then
+						out:NewMod(mod.name, type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags)
+						out:NewMod(mod.name:gsub(other, dst), type, mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags)
 					end
 				end
 			end
