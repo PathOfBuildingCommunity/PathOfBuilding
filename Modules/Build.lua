@@ -237,7 +237,7 @@ function buildMode:Init(dbFileName, buildName)
 		{ mod = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true },
 		{ mod = "PoisonDPS", label = "Poison DPS", fmt = ".1f", compPercent = true },
 		{ mod = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
-		{ mod = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, condFunc = function() return true end },
+		{ mod = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function() return true end },
 		{ },
 		{ mod = "Str", label = "Strength", fmt = "d" },
 		{ mod = "Dex", label = "Dexterity", fmt = "d" },
@@ -305,7 +305,6 @@ function buildMode:Init(dbFileName, buildName)
 		["Spec"] = self.treeTab,
 	}
 
-	ConPrintf("Loading '%s'...", dbFileName)
 	if self:LoadDBFile() then
 		main:SetMode("LIST", buildName)
 		return
@@ -603,7 +602,8 @@ function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header)
 				if count == 0 then
 					main:AddTooltipLine(14, header)
 				end
-				local line = string.format("%s%+"..statData.fmt.." %s", diff > 0 and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE, diff * (statData.pc and 100 or 1), statData.label)
+				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE
+				local line = string.format("%s%+"..statData.fmt.." %s", color, diff * (statData.pc and 100 or 1), statData.label)
 				if statData.compPercent and (baseOutput[statData.mod] or 0) ~= 0 and (compareOutput[statData.mod] or 0) ~= 0 then
 					line = line .. string.format(" (%+.1f%%)", (compareOutput[statData.mod] or 0) / (baseOutput[statData.mod] or 0) * 100 - 100)
 				end
@@ -644,6 +644,7 @@ function buildMode:LoadDBFile()
 	if not self.dbFileName then
 		return
 	end
+	ConPrintf("Loading '%s'...", self.dbFileName)
 	local file = io.open(self.dbFileName, "r")
 	if not file then
 		return true

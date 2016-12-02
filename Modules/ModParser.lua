@@ -299,6 +299,8 @@ local preFlagList = {
 	["^socketed curse gems have "] = { tag = { type = "SocketedIn", keyword = "curse" } },
 	["^socketed melee gems have "] = { tag = { type = "SocketedIn", keyword = "melee" } },
 	["^your flasks grant "] = { },
+	["^auras you cast grant "] = { tag = { type = "Multiplier", var = "ActiveAura" } },
+	["^you and allies affected by your auras have "] = { tag = { type = "Condition", var = "HaveAuraActive" } },
 }
 
 -- List of modifier tags
@@ -312,6 +314,7 @@ local modTagList = {
 	["for each magic item you have equipped"] = { tag = { type = "Multiplier", var = "MagicItem" } },
 	["for each rare item you have equipped"] = { tag = { type = "Multiplier", var = "RareItem" } },
 	["for each unique item you have equipped"] = { tag = { type = "Multiplier", var = "UniqueItem" } },
+	["to you and allies"] = { },
 	-- Per stat
 	["per (%d+) strength"] = function(num) return { tag = { type = "PerStat", stat = "Str", div = num } } end,
 	["per (%d+) dexterity"] = function(num) return { tag = { type = "PerStat", stat = "Dex", div = num } } end,
@@ -484,6 +487,7 @@ local specialModList = {
 	["spells have an additional projectile"] = { mod("ProjectileCount", "BASE", 1, nil, ModFlag.Spell) },
 	["skills chain %+(%d) times"] = function(num) return { mod("ChainCount", "BASE", num) } end,
 	["reflects (%d+) physical damage to melee attackers"] = { },
+	["critical strikes with daggers have a (%d+)%% chance to poison the enemy"] = function(num) return { mod("PoisonChance", "BASE", 0.3, nil, ModFlag.Dagger, { type = "PerStat", stat = "CritChance", div = 1 }) } end,
 	-- Special item local modifiers
 	["no physical damage"] = { mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalMin" }), mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalMax" }), mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalDPS" }) },
 	["all attacks with this weapon are critical strikes"] = { mod("Misc", "LIST", { type = "WeaponData", key = "critChance", value = 100 }) },

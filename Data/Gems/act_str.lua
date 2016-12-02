@@ -156,7 +156,7 @@ gems["Ancestral Warchief"] = {
 		duration = true,
 	},
 	skillTypes = { [1] = true, [30] = true, [12] = true, [6] = true, [24] = true, [17] = true, [19] = true, [11] = true, },
-	skillTotemId = 13,
+	skillTotemId = 15,
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 10), 
@@ -164,8 +164,8 @@ gems["Ancestral Warchief"] = {
 		--"base_totem_range" = 50
 		--"ancestor_totem_parent_activiation_range" = 70
 		mod("TotemPlacementSpeed", "INC", 50), --"summon_totem_cast_speed_+%" = 50
-		--"totem_art_variation" = 2
 		mod("Speed", "MORE", -10, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = -10
+		--"melee_range_+" = 10
 		--"is_area_damage" = ?
 		--"base_skill_is_totemified" = ?
 		--"is_totem" = ?
@@ -175,41 +175,41 @@ gems["Ancestral Warchief"] = {
 		mod("Damage", "INC", 1, 0, KeywordFlag.Totem), --"totem_damage_+%" = 1
 	},
 	levelMods = {
-		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		[2] = skill("totemLevel", nil), --"base_active_skill_totem_level"
-		[3] = mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff" }), --"slam_ancestor_totem_grant_owner_melee_damage_+%_final"
+		[1] = skill("totemLevel", nil), --"base_active_skill_totem_level"
+		[2] = mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff" }), --"slam_ancestor_totem_grant_owner_melee_damage_+%_final"
+		[3] = mod("Damage", "MORE", nil, ModFlag.Attack), 
 	},
 	levels = {
-		[1] = { 10, 28, 8, },
-		[2] = { 11.2, 31, 8, },
-		[3] = { 12.4, 34, 9, },
-		[4] = { 13.6, 37, 10, },
-		[5] = { 14.8, 40, 10, },
-		[6] = { 16, 42, 10, },
-		[7] = { 17.2, 44, 11, },
-		[8] = { 18.4, 46, 12, },
-		[9] = { 19.6, 48, 12, },
-		[10] = { 20.8, 50, 12, },
-		[11] = { 22, 52, 13, },
-		[12] = { 23.2, 54, 14, },
-		[13] = { 24.4, 56, 14, },
-		[14] = { 25.6, 58, 14, },
-		[15] = { 26.8, 60, 15, },
-		[16] = { 28, 62, 16, },
-		[17] = { 29.2, 64, 16, },
-		[18] = { 30.4, 66, 16, },
-		[19] = { 31.6, 68, 17, },
-		[20] = { 32.8, 70, 18, },
-		[21] = { 34, 72, 18, },
-		[22] = { 35.2, 74, 18, },
-		[23] = { 36.4, 76, 19, },
-		[24] = { 37.6, 78, 20, },
-		[25] = { 38.8, 80, 20, },
-		[26] = { 40, 82, 20, },
-		[27] = { 41.2, 84, 21, },
-		[28] = { 42.4, 86, 22, },
-		[29] = { 43.6, 88, 22, },
-		[30] = { 44.8, 90, 22, },
+		[1] = { 28, 8, nil, },
+		[2] = { 31, 8, 1.2, },
+		[3] = { 34, 9, 2.4, },
+		[4] = { 37, 10, 3.6, },
+		[5] = { 40, 10, 4.8, },
+		[6] = { 42, 10, 6, },
+		[7] = { 44, 11, 7.2, },
+		[8] = { 46, 12, 8.4, },
+		[9] = { 48, 12, 9.6, },
+		[10] = { 50, 12, 10.8, },
+		[11] = { 52, 13, 12, },
+		[12] = { 54, 14, 13.2, },
+		[13] = { 56, 14, 14.4, },
+		[14] = { 58, 14, 15.6, },
+		[15] = { 60, 15, 16.8, },
+		[16] = { 62, 16, 18, },
+		[17] = { 64, 16, 19.2, },
+		[18] = { 66, 16, 20.4, },
+		[19] = { 68, 17, 21.6, },
+		[20] = { 70, 18, 22.8, },
+		[21] = { 72, 18, 24, },
+		[22] = { 74, 18, 25.2, },
+		[23] = { 76, 19, 26.4, },
+		[24] = { 78, 20, 27.6, },
+		[25] = { 80, 20, 28.8, },
+		[26] = { 82, 20, 30, },
+		[27] = { 84, 21, 31.2, },
+		[28] = { 86, 22, 32.4, },
+		[29] = { 88, 22, 33.6, },
+		[30] = { 90, 22, 44.8, },
 	},
 }
 gems["Anger"] = {
@@ -365,6 +365,8 @@ gems["Decoy Totem"] = {
 		--"base_totem_range" = 60
 		--"base_skill_is_totemified" = ?
 		--"base_deal_no_damage" = ?
+		--"totems_cannot_evade" = ?
+		--"totem_ignores_cooldown" = ?
 	},
 	qualityMods = {
 		mod("TotemLife", "INC", 1), --"totem_life_+%" = 1
@@ -1052,7 +1054,7 @@ gems["Herald of Ash"] = {
 		area = true,
 		fire = true,
 	},
-	skillTypes = { [2] = true, [5] = true, [15] = true, [16] = true, [29] = true, [11] = true, [40] = true, [20] = true, [33] = true, },
+	skillTypes = { [2] = true, [5] = true, [15] = true, [16] = true, [29] = true, [11] = true, [40] = true, [20] = true, [33] = true, [27] = true, },
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 25), 
