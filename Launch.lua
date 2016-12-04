@@ -163,7 +163,7 @@ function launch:OnChar(key)
 			end
 		end
 	end
-end 
+end
 
 function launch:OnSubCall(func, ...)
 	if func == "ConPrintf" and self.subScriptType == "UPDATE" and self.updateChecking then
@@ -278,7 +278,7 @@ function launch:CheckForUpdate(inBackground)
 		self.lastUpdateCheck = GetTime()
 		local update = io.open("UpdateCheck.lua", "r")
 		self.subScriptType = "UPDATE"
-		LaunchSubScript(update:read("*a"), "GetScriptPath,GetRuntimePath,GetWorkDir,MakeDir", "ConPrintf,UpdateProgress", "CHECK")
+		LaunchSubScript(update:read("*a"), "GetScriptPath,GetRuntimePath,GetWorkDir,MakeDir", "ConPrintf,UpdateProgress")
 		update:close()
 	end
 end

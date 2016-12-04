@@ -86,8 +86,11 @@ Increases and Reductions to Energy Shield in Radius are Transformed to apply to 
 ]],[[
 Energy From Within
 Cobalt Jewel
+Variant: Pre 2.5.0
+Variant: Current
 Radius: Large
-(8 to 12)% increased maximum Energy Shield
+{variant:1}(8 to 12)% increased maximum Energy Shield
+{variant:2}(3 to 6)% increased maximum Energy Shield
 Increases and Reductions to Life in Radius are Transformed to apply to Energy Shield
 ]],[[
 Fertile Mind
@@ -128,7 +131,10 @@ Gain 75 Armour per Grand Spectrum
 ]],[[
 Grand Spectrum
 Viridian Jewel
-5% increased Elemental Damage per Grand Spectrum
+Variant: Pre 2.5.0
+Variant: Current
+{variant:1}5% increased Elemental Damage per Grand Spectrum
+{variant:2}4% increased Elemental Damage per Grand Spectrum
 ]],[[
 Growing Agony
 Viridian Jewel

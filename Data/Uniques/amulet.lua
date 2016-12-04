@@ -57,13 +57,16 @@ Items and Gems have 25% reduced Attribute Requirements
 ]],[[
 The Aylardex
 Agate Amulet
+Variant: Current
+Variant: Pre 2.5.0
 Requires Level 32
 +(16 to 24) to Strength and Intelligence
 +(30 to 50) to maximum Life
 +(50 to 70) to maximum Mana
 +1 to Maximum Power Charges
-1% of Damage is taken from Mana before Life per Power Charge
 10% increased Mana Regeneration Rate Per Power Charge
+{variant:2}(80-100)% increased Power Charge Duration
+1% of Damage is taken from Mana before Life per Power Charge
 40% reduced Critical Strike Chance per Power Charge
 ]],[[
 Blightwell
