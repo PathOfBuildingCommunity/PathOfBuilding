@@ -49,6 +49,10 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.22 - 2016/12/04
+ * Added many more uniques from 2.5.0, and updated mods on others
+ * Updated existing uniques that were changed in 2.5.0
+
 ### 1.2.21 - 2016/12/03
  * Updated the skill data to 2.5.0
  * Added the Elreon flat chaos mod to the ring and amulet templates

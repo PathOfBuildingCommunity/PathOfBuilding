@@ -338,6 +338,7 @@ local modTagList = {
 	["with a rare item equipped"] = { tag = { type = "Condition", var = "UsingRareItem" } },
 	["with a unique item equipped"] = { tag = { type = "Condition", var = "UsingUniqueItem" } },
 	["if you wear no corrupted items"] = { tag = { type = "Condition", var = "NotUsingCorruptedItem" } },
+	["if no worn items are corrupted"] = { tag = { type = "Condition", var = "NotUsingCorruptedItem" } },
 	["if all worn items are corrupted"] = { tag = { type = "Condition", var = "UsingAllCorruptedItems" } },
 	["with main hand"] = { tag = { type = "Condition", var = "MainHandAttack" } },
 	["with off hand"] = { tag = { type = "Condition", var = "OffHandAttack" } },
@@ -545,6 +546,7 @@ local specialModList = {
 	["increases and reductions to minion damage also affects you"] = { flag("MinionDamageAppliesToPlayer") },
 	["increases and reductions to spell damage also apply to attacks"] = { flag("SpellDamageAppliesToAttacks") },
 	["armour is increased by uncapped fire resistance"] = { mod("Armour", "INC", 1, { type = "PerStat", stat = "FireResistTotal", div = 1 }) },
+	["evasion rating is increased by uncapped cold resistance"] = { mod("Evasion", "INC", 1, { type = "PerStat", stat = "ColdResistTotal", div = 1 }) },
 	["critical strike chance is increased by uncapped lightning resistance"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "LightningResistTotal", div = 1 }) },
 	["critical strikes deal no damage"] = { flag("NoCritDamage") },
 	["enemies chilled by you take (%d+)%% increased burning damage"] = function(num) return { mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("BurningDamageTaken", "INC", num) }, { type = "Condition", var = "EnemyChilled" }) } end,
@@ -560,6 +562,7 @@ local keystoneList = {
 	"Conduit",
 	"Mind Over Matter",
 	"Acrobatics",
+	"Phase Acrobatics",
 	"Avatar of Fire",
 }
 for _, name in pairs(keystoneList) do

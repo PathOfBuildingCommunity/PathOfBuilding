@@ -169,6 +169,8 @@ Cast Socketed Minion Spells on Kill with this Weapon
 ]],[[
 Nuro's Harp
 Harbinger Bow
+Variant: Pre 2.5.0
+Variant: Current
 Bow
 Elemental Damage: (120-140 to 180-210)
 Critical Strike Chance: (6.50 to 7.50)%
@@ -181,6 +183,7 @@ Adds (120-140 to 180-210) Cold Damage
 (10 to 30)% increased Light Radius
 15% chance to create Chilled Ground when you Freeze an Enemy
 Create Consecrated Ground when you Shatter an Enemy
+{variant:2}40% increased Effect of Chilled Ground
 ]],[[
 Quill Rain
 Short Bow

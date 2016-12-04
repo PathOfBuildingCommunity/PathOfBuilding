@@ -136,6 +136,8 @@ Attack skills can have 1 additional Totem Summoned at a time
 ]],[[
 Soul Strike
 Spike-Point Arrow Quiver
+Variant: Pre 2.5.0
+Variant: Current
 Requires Level 64
 (20 to 30)% increased Global Critical Strike Chance
 +30 to Dexterity
@@ -143,6 +145,7 @@ Adds (13-18 to 26-32) Chaos Damage to Attacks
 (8 to 12)% increased Attack Speed
 +(100 to 120) to maximum Energy Shield
 40% reduced Energy Shield Recharge Rate
-150% faster start of Energy Shield Recharge
+{variant:1}150% faster start of Energy Shield Recharge
+{variant:2}80% faster start of Energy Shield Recharge
 ]],
 }

@@ -684,6 +684,7 @@ function buildMode:SaveDBFile()
 	end
 	local file = io.open(self.dbFileName, "w+")
 	if not file then
+		main:OpenMessagePopup("Error", "Couldn't save the build file:\n"..self.dbFileName.."\nMake sure the save folder exists and is writable.")
 		return true
 	end
 	file:write(xmlText)
@@ -693,6 +694,7 @@ function buildMode:SaveDBFile()
 	elseif self.actionOnSave == "EXIT" then
 		Exit()
 	end
+	self.actionOnSave = nil
 end
 
 return buildMode

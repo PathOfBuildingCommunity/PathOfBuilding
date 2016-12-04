@@ -307,15 +307,17 @@ Facebreaker
 Strapped Mitts
 Variant: Pre 1.0.0
 Variant: Pre 2.2.0
+Variant: Pre 2.5.0
 Variant: Current
 Evasion: 26
 Energy Shield: 8
 Requires Level 16, 14 Dex, 14 Int
 {variant:1,2}+60% to Global Critical Strike Multiplier
 {variant:3}+90% to Global Critical Strike Multiplier
+{variant:4}+45% to Global Critical Strike Multiplier
 10% reduced Enemy Stun Threshold
 {variant:1}(800 to 1000)% more Unarmed Physical Damage
-{variant:2,3}(600 to 800)% more Unarmed Physical Damage
+{variant:2,3,4}(600 to 800)% more Unarmed Physical Damage
 Extra gore
 ]],[[
 Ondar's Clasp

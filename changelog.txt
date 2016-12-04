@@ -1,3 +1,6 @@
+VERSION[1.2.22][2016/12/04]
+ * Added many more uniques from 2.5.0, and updated mods on others
+ * Updated existing uniques that were changed in 2.5.0
 VERSION[1.2.21][2016/12/03]
  * Updated the skill data to 2.5.0
  * Added the Elreon flat chaos mod to the ring and amulet templates
