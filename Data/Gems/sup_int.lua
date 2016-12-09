@@ -216,7 +216,53 @@ gems["Cast while Channelling"] = {
 	support = true,
 	channelling = true,
 	spell = true,
-	unsupported = true,
+	color = 3,
+	requireSkillTypes = { 58, 36, },
+	addSkillTypes = { },
+	excludeSkillTypes = { 30, },
+	baseMods = {
+		mod("ManaCost", "MORE", 40), 
+		--"spell_uncastable_if_triggerable" = ?
+	},
+	qualityMods = {
+		mod("Damage", "INC", 0.5, 0, 0, nil), --"damage_+%" = 0.5
+	},
+	levelMods = {
+		--[1] = "cast_while_channelling_time_ms"
+		[2] = mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"support_cast_while_channelling_triggered_skill_damage_+%_final"
+	},
+	levels = {
+		[1] = { 450, 0, },
+		[2] = { 440, 0, },
+		[3] = { 440, 1, },
+		[4] = { 430, 1, },
+		[5] = { 430, 2, },
+		[6] = { 420, 2, },
+		[7] = { 420, 3, },
+		[8] = { 410, 3, },
+		[9] = { 410, 4, },
+		[10] = { 400, 4, },
+		[11] = { 400, 5, },
+		[12] = { 390, 5, },
+		[13] = { 390, 6, },
+		[14] = { 380, 6, },
+		[15] = { 380, 7, },
+		[16] = { 370, 7, },
+		[17] = { 370, 8, },
+		[18] = { 360, 8, },
+		[19] = { 360, 9, },
+		[20] = { 350, 9, },
+		[21] = { 350, 10, },
+		[22] = { 340, 10, },
+		[23] = { 340, 11, },
+		[24] = { 330, 11, },
+		[25] = { 330, 12, },
+		[26] = { 320, 12, },
+		[27] = { 320, 13, },
+		[28] = { 310, 13, },
+		[29] = { 310, 14, },
+		[30] = { 300, 14, },
+	},
 }
 gems["Chance to Ignite"] = {
 	fire = true,

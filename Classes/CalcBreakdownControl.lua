@@ -346,6 +346,16 @@ function CalcBreakdownClass:AddModSection(sectionData)
 					end
 				elseif tag.type == "SkillName" then
 					desc = "Skill: "..tag.skillName
+				elseif tag.type == "SkillType" then
+					for name, type in pairs(SkillType) do
+						if type == tag.skillType then
+							desc = "Skill type: "..self:FormatModName(name)
+							break
+						end
+					end
+					if not desc then
+						desc = "Skill type: ?"
+					end
 				elseif tag.type == "SlotNumber" then
 					desc = "When in slot #"..tag.num
 				elseif tag.type == "GlobalEffect" then

@@ -303,6 +303,7 @@ local function buildActiveSkillModList(env, activeSkill)
 		skillName = activeSkill.activeGem.name:gsub("^Vaal ",""), -- This allows modifiers that target specific skills to also apply to their Vaal counterpart
 		skillGem = activeSkill.activeGem,
 		skillPart = activeSkill.skillPart,
+		skillTypes = activeSkill.skillTypes,
 		slotName = activeSkill.slotName,
 	}
 
@@ -1229,14 +1230,14 @@ local function performCalcs(env)
 				}
 			end
 		end
-		slotBreakdown = function(source, sourceName, cfg, base, ...)
+		slotBreakdown = function(source, sourceName, cfg, base, total, ...)
 			local inc = modDB:Sum("INC", cfg, ...)
 			local more = modDB:Sum("MORE", cfg, ...)
 			t_insert(breakdown[...].slots, {
 				base = base,
 				inc = (inc ~= 0) and s_format(" x %.2f", 1 + inc/100),
 				more = (more ~= 1) and s_format(" x %.2f", more),
-				total = s_format("%.2f", base * (1 + inc / 100) * more),
+				total = s_format("%.2f", total or (base * (1 + inc / 100) * more)),
 				source = source,
 				sourceName = sourceName,
 				item = env.itemList[source],
@@ -1305,9 +1306,26 @@ local function performCalcs(env)
 		output.Life = 1
 		condList["FullLife"] = true
 	else
-		output.Life = round(calcVal(modDB, "Life"))
+		local base = modDB:Sum("BASE", cfg, "Life")
+		local inc = modDB:Sum("INC", cfg, "Life")
+		local more = modDB:Sum("MORE", cfg, "Life")
+		local conv = modDB:Sum("BASE", nil, "LifeConvertToEnergyShield")
+		output.Life = round(base * (1 + inc/100) * more * (1 - conv/100))
 		if breakdown then
-			simpleBreakdown(nil, nil, "Life")
+			if inc ~= 0 or more ~= 1 or conv ~= 0 then
+				breakdown.Life = { }
+				breakdown.Life[1] = s_format("%g ^8(base)", base)
+				if inc ~= 0 then
+					t_insert(breakdown.Life, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
+				end
+				if more ~= 1 then
+					t_insert(breakdown.Life, s_format("x %.2f ^8(more/less)", more))
+				end
+				if conv ~= 0 then
+					t_insert(breakdown.Life, s_format("x %.2f ^8(converted to Energy Shield)", 1 - conv/100))
+				end
+				t_insert(breakdown.Life, s_format("= %g", output.Life))
+			end
 		end
 	end
 	output.Mana = round(calcVal(modDB, "Mana"))
@@ -1370,14 +1388,14 @@ local function performCalcs(env)
 		if energyShieldBase > 0 then
 			energyShield = energyShield + energyShieldBase * calcMod(modDB, nil, "EnergyShield", "Defences")
 			if breakdown then
-				slotBreakdown("Global", nil, nil, energyShieldBase, "EnergyShield", "Defences")
+				slotBreakdown("Global", nil, nil, energyShieldBase, nil, "EnergyShield", "Defences")
 			end
 		end
 		local armourBase = modDB:Sum("BASE", nil, "Armour", "ArmourAndEvasion")
 		if armourBase > 0 then
 			armour = armour + armourBase * calcMod(modDB, nil, "Armour", "ArmourAndEvasion", "Defences")
 			if breakdown then
-				slotBreakdown("Global", nil, nil, armourBase, "Armour", "ArmourAndEvasion", "Defences")
+				slotBreakdown("Global", nil, nil, armourBase, nil, "Armour", "ArmourAndEvasion", "Defences")
 			end
 		end
 		local evasionBase = modDB:Sum("BASE", nil, "Evasion", "ArmourAndEvasion")
@@ -1385,12 +1403,12 @@ local function performCalcs(env)
 			if ironReflexes then
 				armour = armour + evasionBase * calcMod(modDB, nil, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
 				if breakdown then
-					slotBreakdown("Conversion", "Evasion to Armour", nil, evasionBase, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
+					slotBreakdown("Conversion", "Evasion to Armour", nil, evasionBase, nil, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
 				end
 			else
 				evasion = evasion + evasionBase * calcMod(modDB, nil, "Evasion", "ArmourAndEvasion", "Defences")
 				if breakdown then
-					slotBreakdown("Global", nil, nil, evasionBase, "Evasion", "ArmourAndEvasion", "Defences")
+					slotBreakdown("Global", nil, nil, evasionBase, nil, "Evasion", "ArmourAndEvasion", "Defences")
 				end
 			end
 		end
@@ -1407,7 +1425,7 @@ local function performCalcs(env)
 					energyShield = energyShield + energyShieldBase * calcMod(modDB, slotCfg, "EnergyShield", "Defences")
 					gearEnergyShield = gearEnergyShield + energyShieldBase
 					if breakdown then
-						slotBreakdown(slot, nil, slotCfg, energyShieldBase, "EnergyShield", "Defences")
+						slotBreakdown(slot, nil, slotCfg, energyShieldBase, nil, "EnergyShield", "Defences")
 					end
 				end
 				armourBase = armourData.Armour or 0
@@ -1418,7 +1436,7 @@ local function performCalcs(env)
 					armour = armour + armourBase * calcMod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences")
 					gearArmour = gearArmour + armourBase
 					if breakdown then
-						slotBreakdown(slot, nil, slotCfg, armourBase, "Armour", "ArmourAndEvasion", "Defences")
+						slotBreakdown(slot, nil, slotCfg, armourBase, nil, "Armour", "ArmourAndEvasion", "Defences")
 					end
 				end
 				evasionBase = armourData.Evasion or 0
@@ -1427,13 +1445,13 @@ local function performCalcs(env)
 						armour = armour + evasionBase * calcMod(modDB, slotCfg, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
 						gearArmour = gearArmour + evasionBase
 						if breakdown then
-							slotBreakdown(slot, nil, slotCfg, evasionBase, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
+							slotBreakdown(slot, nil, slotCfg, evasionBase, nil, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
 						end
 					else
 						evasion = evasion + evasionBase * calcMod(modDB, slotCfg, "Evasion", "ArmourAndEvasion", "Defences")
 						gearEvasion = gearEvasion + evasionBase
 						if breakdown then
-							slotBreakdown(slot, nil, slotCfg, evasionBase, "Evasion", "ArmourAndEvasion", "Defences")
+							slotBreakdown(slot, nil, slotCfg, evasionBase, nil, "Evasion", "ArmourAndEvasion", "Defences")
 						end
 					end
 				end
@@ -1444,12 +1462,27 @@ local function performCalcs(env)
 			energyShieldBase = modDB:Sum("BASE", nil, "Mana") * convManaToES / 100
 			energyShield = energyShield + energyShieldBase * calcMod(modDB, nil, "Mana", "EnergyShield", "Defences") 
 			if breakdown then
-				slotBreakdown("Conversion", "Mana to Energy Shield", nil, energyShieldBase, "EnergyShield", "Defences", "Mana")
+				slotBreakdown("Conversion", "Mana to Energy Shield", nil, energyShieldBase, nil, "EnergyShield", "Defences", "Mana")
+			end
+		end
+		local convLifeToES = modDB:Sum("BASE", nil, "LifeConvertToEnergyShield")
+		if convLifeToES > 0 then
+			energyShieldBase = modDB:Sum("BASE", nil, "Life") * convLifeToES / 100
+			local total
+			if modDB:Sum("FLAG", nil, "ChaosInoculation") then
+				total = 1
+			else
+				total = energyShieldBase * calcMod(modDB, nil, "Life", "EnergyShield", "Defences")
+			end
+			energyShield = energyShield + total
+			if breakdown then
+				slotBreakdown("Conversion", "Life to Energy Shield", nil, energyShieldBase, total, "EnergyShield", "Defences", "Life")
 			end
 		end
 		output.EnergyShield = round(energyShield)
 		output.Armour = round(armour)
 		output.Evasion = round(evasion)
+		output.LowestOfArmourAndEvasion = m_min(output.Armour, output.Evasion)
 		output["Gear:EnergyShield"] = gearEnergyShield
 		output["Gear:Armour"] = gearArmour
 		output["Gear:Evasion"] = gearEvasion

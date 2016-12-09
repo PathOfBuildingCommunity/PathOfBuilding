@@ -49,6 +49,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.23 - 2016/12/10
+ * Added and updated more uniques from 2.5.0
+ * Added a new skill part to Blade Flurry that approximates the DPS from releasing every time you hit 6 stages
+ * Added support for the Cast on Melee Kill and Cast while Channelling support gems
+
 ### 1.2.22 - 2016/12/04
  * Added many more uniques from 2.5.0, and updated mods on others
  * Updated existing uniques that were changed in 2.5.0

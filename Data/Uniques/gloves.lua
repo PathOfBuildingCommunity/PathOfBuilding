@@ -361,7 +361,7 @@ Requires Level 58, 45 Dex, 45 Int
 2% increased Attack Speed per Frenzy Charge
 6% increased Accuracy Rating per Frenzy Charge
 10% reduced Frenzy Charge Duration per Frenzy Charge
-When at Maximum Frenzy Charges, Attacks Poison Enemies
+While at Maximum Frenzy Charges, Attacks Poison Enemies
 ]],[[
 Thunderfist
 Murder Mitts

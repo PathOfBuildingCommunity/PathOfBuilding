@@ -210,6 +210,9 @@ gems["Blade Flurry"] = {
 		{
 			name = "6 Stages",
 		},
+		{
+			name = "Release at 6 Stages",
+		},
 	},
 	color = 2,
 	baseFlags = {
@@ -226,8 +229,8 @@ gems["Blade Flurry"] = {
 		--"is_area_damage" = ?
 		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
-		mod("Damage", "MORE", 20, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 1 }), 
-		mod("Damage", "MORE", 120, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Damage", "MORE", 100, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), 
+		skill("dpsMultiplier", 3, { type = "SkillPart", skillPart = 3 }), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5

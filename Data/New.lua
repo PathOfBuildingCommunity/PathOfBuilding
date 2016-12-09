@@ -48,9 +48,9 @@ Armour: 140
 Energy Shield: 63
 Requires Level 68, 62 Str, 91 Int
 Adds (13-17) to (29-37) Chaos Damage
-+226 to maximum Energy Shield
-+32% to Cold Resistance
-+20% to Lightning Resistance
++(200-250) to maximum Energy Shield
++(30-50)% to Cold Resistance
++(15-20)% to Lightning Resistance
 Regenerate 100 Energy Shield per second if all worn items are Corrupted
 Regenerate 35 Mana per second if all worn items are Corrupted
 Corrupted
@@ -107,6 +107,22 @@ Requires Level 28, 71 Int
 +1% to Critical Strike Multiplier per 1% Block Chance
 +25% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently
 ]],[[
+Duskdawn
+Maelström Staff
+Staves
+Physical Damage: 57–119
+Critical Strike Chance: 6.40%
+Attacks per Second: 1.20
+Weapon Range: 11
+Requires Level 64, 113 Str, 113 Int
+18% Chance to Block
+4% Chance to Block
+(60-80)% increased Critical Strike Chance for Spells
+Gain (10-20)% of Elemental Damage as Extra Chaos Damage
++1% to Critical Strike Multiplier per 1% Block Chance
++60% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently
+120% increased Spell Damage if you've dealt a Critical Strike Recently
+]],[[
 The Brine Crown
 Prophet Crown
 Armour: (390 to 429)
@@ -153,12 +169,36 @@ Splintered Tower Shield
 Chance to Block: (27% to 29%)
 Armour: (128 to 168)
 Requires 10 Str
-3% reduced Movement Speed (Hidden)
 +(120-160) to Armour
 +(30-40) to maximum Life
 Your hits can't be Evaded
 +(3-5)% Chance to Block
 Adds 250 to 300 Cold Damage to Counterattacks
+]],[[
+Perseverance
+Vanguard Belt
+Requires Level 78
++(260-320) to Armour and Evasion Rating
+(4-8)% increased maximum Life
++(20-40)% to Cold Resistance
+1% increased Attack Damage per 300 of the lowest of Armour and Evasion Rating
+(14-20)% chance to gain Fortify on Melee Stun
+You have Onslaught while you have Fortify
+]],[[
+Kitava's Feast
+Void Axe
+Two Hand Axes
+Physical Damage: (266 to 304)–(399 to 456)
+Critical Strike Chance: 5.00%
+Attacks per Second: 1.25
+Weapon Range: 11
+Requires Level 68, 149 Str, 76 Dex
+Socketed Gems are supported by level 25 Melee Splash
+(250-300)% increased Physical Damage
+1% of Physical Attack Damage Leeched as Life
+1% of Physical Attack Damage Leeched as Mana
+Recover 5% of Maximum Life on Kill
+Enemies you hit are destroyed on Kill
 ]],[[
 Primordial Might
 Crimson Jewel
@@ -221,26 +261,26 @@ Armour is increased by Uncapped Fire Resistance
 The Formless Inferno
 Royal Burgonet
 League: Breach
+Armour: (590 to 721)
 Requires Level 65, 148 Str
-(157)% increased Armour
--20 Fire Damage taken when Hit
+(80-120)% increased Armour
++(40-50) to maximum Life
+-30% to Fire Resistance
 8% of Physical Damage taken as Fire Damage
--30% to Cold Resistance
--30% to Lightning Resistance
 Armour is increased by Uncapped Fire Resistance
 ]],[[
-Xoph'ethakk's Heart
+Xoph's Heart
 Amber Amulet
 League: Breach
-Requires Level 40
+Requires Level 35
 +(20-30) to Strength
 +(20-30) to Strength
-(18-22)% increased Fire Damage
+25% increased Fire Damage
 +(25-35) to maximum Life
 +(20-40)% to Fire Resistance
 Cover Enemies in Ash when they Hit you
 ]],[[
-Xoph'ethula's Heart
+Xoph's Blood
 Amber Amulet
 League: Breach
 Requires Level 64
@@ -393,6 +433,20 @@ Requires Level 49, 122 Str, 53 Dex
 25% chance to Curse Enemies with level 10 Vulnerability on Hit
 Attacks Cause Bleeding when Hitting Cursed Enemies
 ]],[[
+Uul-Netol's Embrace
+Vaal Axe
+Two Hand Axes
+League: Breach
+Physical Damage: (300.2 to 331.8)–(497.8 to 550.2)
+Critical Strike Chance: 5.00%
+Attacks per Second: (0.84 to 0.90)
+Weapon Range: 11
+Requires Level 64, 158 Str, 76 Dex
+(280-320)% increased Physical Damage
+(30-25)% reduced Attack Speed
+Attacks Cause Bleeding when Hitting Cursed Enemies
+Attack with level 20 Bone Nova when you Kill a Bleeding Enemy
+]],[[
 The Infinite Pursuit
 Goliath Greaves
 League: Breach
@@ -408,7 +462,7 @@ Titan Greaves
 League: Breach
 Requires Level 68, 120 Str
 (60-80)% increased Armour
-+67 to maximum Life
++(50-70) to maximum Life
 25% increased Movement Speed
 Gain a Frenzy Charge on Hit while Bleeding
 15% increased Movement Speed while Bleeding
@@ -447,6 +501,22 @@ Minions have +17% to Chaos Resistance
 Minions Poison Enemies on Hit
 Minions Recover 20% of Maximum Life on Killing a Poisoned Enemy
 ]],[[
+United in Dream
+Cutlass
+League: Breach
+One Hand Swords
+Physical Damage: 11–44
+Critical Strike Chance: 5.00%
+Attacks per Second: 1.55
+Weapon Range: 9
+Requires Level 69, 55 Str, 79 Dex
+18% increased Accuracy Rating
+Grants level 15 Envy Skill
+Minions deal (30-40)% increased Damage
+Minions have +29% to Chaos Resistance
+Minions Poison Enemies on Hit
+Minions Leech 5% of Damage as Life against Poisoned Enemies
+]],[[
 Skin of the Loyal
 Simple Robe
 League: Breach
@@ -454,11 +524,72 @@ Sockets cannot be modified
 +1 to Level of Socketed Gems
 100% increased Global Defences
 ]],[[
+Skin of the Lords
+Simple Robe
+League: Breach
+Variant: Acrobatics
+Variant: Ancestral Bond
+Variant: Arrow Dancing
+Variant: Avatar of Fire
+Variant: Blood Magic
+Variant: Conduit
+Variant: Eldritch Battery
+Variant: Elemental Equilibrium
+Variant: Elemental Overload
+Variant: Ghost Reaver
+Variant: Iron Grip
+Variant: Iron Reflexes
+Variant: Mind Over Matter
+Variant: Minion Instability
+Variant: Pain Attunement
+Variant: Phase Acrobatics
+Variant: Point Blank
+Variant: Resolute Technique
+Variant: Unwavering Stance
+Variant: Vaal Pact
+Variant: Zealot's Oath
+Sockets cannot be modified
++1 to Level of Socketed Gems
+100% increased Global Defences
+You can only Socket Corrupted Gems in this item
+{variant:1}Acrobatics
+{variant:2}Ancestral Bond
+{variant:3}Arrow Dancing
+{variant:4}Avatar of Fire
+{variant:5}Blood Magic
+{variant:6}Conduit
+{variant:7}Eldritch Battery
+{variant:8}Elemental Equilibrium
+{variant:9}Elemental Overload
+{variant:10}Ghost Reaver
+{variant:11}Iron Grip
+{variant:12}Iron Reflexes
+{variant:13}Mind Over Matter
+{variant:14}Minion Instability
+{variant:15}Pain Attunement
+{variant:16}Phase Acrobatics
+{variant:17}Point Blank
+{variant:18}Resolute Technique
+{variant:19}Unwavering Stance
+{variant:20}Vaal Pact
+{variant:21}Zealot's Oath
+]],[[
 The Red Dream
 Crimson Jewel
 League: Breach
 Radius: Large
 Gain 5% of Fire Damage as Extra Chaos Damage
+Passives granting Fire Resistance or all Elemental Resistances in Radius
+also grant an equal chance to gain an Endurance Charge on Kill
+]],[[
+The Red Nightmare
+Crimson Jewel
+League: Breach
+Limited to: 1
+Radius: Large
+Gain 5% of Fire Damage as Extra Chaos Damage
+Passives granting Fire Resistance or all Elemental Resistances in Radius
+also grant Chance to Block at 35% of its value
 Passives granting Fire Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
@@ -470,6 +601,17 @@ Gain 5% of Cold Damage as Extra Chaos Damage
 Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
+The Green Nightmare
+Viridian Jewel
+League: Breach
+Limited to: 1
+Radius: Large
+Gain 5% of Cold Damage as Extra Chaos Damage
+Passives granting Cold Resistance or all Elemental Resistances in Radius
+also grant Chance to Dodge Attacks at 35% of its value
+Passives granting Cold Resistance or all Elemental Resistances in Radius
+also grant an equal chance to gain a Frenzy Charge on Kill
+]],[[
 The Blue Dream
 Cobalt Jewel
 League: Breach
@@ -477,5 +619,26 @@ Radius: Large
 Gain 5% of Lightning Damage as Extra Chaos Damage
 Passives granting Lightning Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Power Charge on Kill
-]]
+]],[[
+The Blue Nightmare
+Cobalt Jewel
+League: Breach
+Limited to: 1
+Radius: Large
+Gain 5% of Lightning Damage as Extra Chaos Damage
+Passives granting Lightning Resistance or all Elemental Resistances in Radius
+also grant Chance to Block Spells at 35% of its value
+Passives granting Lightning Resistance or all Elemental Resistances in Radius
+also grant an equal chance to gain a Power Charge on Kill
+]],[[
+Presence of Chayula
+Onyx Amulet
+League: Breach
+Requires Level 60
++(10-16) to all Attributes
+30% increased Rarity of Items found
++60% to Chaos Resistance
+Cannot be Stunned
+20% of Maximum Life Converted to Energy Shield
+]],
 }

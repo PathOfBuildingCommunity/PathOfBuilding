@@ -89,6 +89,34 @@ gems["Portal"] = {
 		[10] = { },
 	},
 }
+gems["Envy"] = {
+	hidden = true,
+	color = 3,
+	baseFlags = {
+		spell = true,
+		aura = true,
+		area = true,
+		chaos = true,
+	},
+	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [50] = true, },
+	baseMods = {
+		skill("castTime", 1.2), 
+		skill("manaCost", 50), 
+		mod("ChaosMin", "BASE", 58, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_minimum_added_chaos_damage" = 58
+		mod("ChaosMax", "BASE", 81, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_maximum_added_chaos_damage" = 81
+		mod("AreaRadius", "INC", 0), --"base_skill_area_of_effect_+%" = 0
+		mod("ChaosMin", "BASE", 52, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"spell_minimum_added_chaos_damage" = 52
+		mod("ChaosMax", "BASE", 69, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"spell_maximum_added_chaos_damage" = 69
+		--"base_deal_no_damage" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[15] = { },
+	},
+}
 gems["Gluttony of Elements"] = {
 	hidden = true,
 	color = 4,
