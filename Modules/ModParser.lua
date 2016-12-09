@@ -322,6 +322,7 @@ local modTagList = {
 	["per (%d+) evasion rating"] = function(num) return { tag = { type = "PerStat", stat = "Evasion", div = num } } end,
 	["per (%d+) accuracy rating"] = function(num) return { tag = { type = "PerStat", stat = "Accuracy", div = num } } end,
 	["per (%d+)%% block chance"] = function(num) return { tag = { type = "PerStat", stat = "BlockChance", div = num } } end,
+	["per (%d+) of the lowest of armour and evasion rating"] = function(num) return { tag = { type = "PerStat", stat = "LowestOfArmourAndEvasion", div = num } } end,
 	-- Slot conditions
 	["in main hand"] = { tag = { type = "SlotNumber", num = 1 } },
 	["when in main hand"] = { tag = { type = "SlotNumber", num = 1 } },
@@ -367,6 +368,7 @@ local modTagList = {
 	["if you've killed recently"] = { tag = { type = "Condition", var = "KilledRecently" } },
 	["if you haven't killed recently"] = { tag = { type = "Condition", var = "NotKilledRecently" } },
 	["if you or your totems have killed recently"] = { tag = { type = "Condition", varList = {"KilledRecently","TotemsKilledRecently"} } },
+	["if you've killed a maimed enemy recently"] = { tagList = { { type = "Condition", var = "KilledRecently" }, { type = "Condition", var = "EnemyMaimed" } } },
 	["if you've been hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
 	["if you were hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
 	["if you were damaged by a hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
@@ -538,6 +540,7 @@ local specialModList = {
 	["gain (%d+)%% of bow physical damage as extra damage of each element"] = function(num) return { mod("PhysicalDamageGainAsLightning", "BASE", num, nil, ModFlag.Bow), mod("PhysicalDamageGainAsCold", "BASE", num, nil, ModFlag.Bow), mod("PhysicalDamageGainAsFire", "BASE", num, nil, ModFlag.Bow) } end,
 	["totems fire (%d+) additional projectiles"] = function(num) return { mod("ProjectileCount", "BASE", num, nil, 0, KeywordFlag.Totem) } end,
 	["when at maximum frenzy charges, attacks poison enemies"] = { mod("PoisonChance", "BASE", 100, nil, ModFlag.Attack, { type = "Condition", var = "AtMaxFrenzyCharges" }) },
+	["while at maximum frenzy charges, attacks poison enemies"] = { mod("PoisonChance", "BASE", 100, nil, ModFlag.Attack, { type = "Condition", var = "AtMaxFrenzyCharges" }) },
 	["skills chain an additional time while at maximum frenzy charges"] = { mod("ChainCount", "BASE", 1, { type = "Condition", var = "AtMaxFrenzyCharges" }) },
 	["you cannot be shocked while at maximum endurance charges"] = { mod("AvoidShock", "BASE", 100, { type = "Condition", var = "AtMaxEnduranceCharges" }) },
 	["you have no life regeneration"] = { flag("NoLifeRegen") },
@@ -551,19 +554,31 @@ local specialModList = {
 	["critical strikes deal no damage"] = { flag("NoCritDamage") },
 	["enemies chilled by you take (%d+)%% increased burning damage"] = function(num) return { mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("BurningDamageTaken", "INC", num) }, { type = "Condition", var = "EnemyChilled" }) } end,
 	["attacks with this weapon penetrate (%d+)%% elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, nil, ModFlag.Weapon) } end,
+	["(%d+)%% of maximum life converted to energy shield"] = function(num) return { mod("LifeConvertToEnergyShield", "BASE", num) } end,
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques
-	"Zealot's Oath",
-	"Pain Attunement",
-	"Blood Magic",
-	"Unwavering Stance",
-	"Ghost Reaver",
-	"Conduit",
-	"Mind Over Matter",
 	"Acrobatics",
-	"Phase Acrobatics",
+	"Ancestral Bond",
+	"Arrow Dancing",
 	"Avatar of Fire",
+	"Blood Magic",
+	"Conduit",
+	"Eldritch Battery",
+	"Elemental Equilibrium",
+	"Elemental Overload",
+	"Ghost Reaver",
+	"Iron Grip",
+	"Iron Reflexes",
+	"Mind Over Matter",
+	"Minion Instability",
+	"Pain Attunement",
+	"Phase Acrobatics",
+	"Point Blank",
+	"Resolute Technique",
+	"Unwavering Stance",
+	"Vaal Pact",
+	"Zealot's Oath",
 }
 for _, name in pairs(keystoneList) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
@@ -855,6 +870,10 @@ local function parseMod(line)
 			keywordFlags = bor(keywordFlags, data.keywordFlags or 0)
 			if data.tag then
 				t_insert(tagList, copyTable(data.tag))
+			elseif data.tagList then
+				for _, tag in ipairs(data.tagList) do
+					t_insert(tagList, copyTable(tag))
+				end
 			end
 		end
 	end

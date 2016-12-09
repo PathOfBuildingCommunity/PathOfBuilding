@@ -82,13 +82,14 @@ end
 
 function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 	local flags, keywordFlags = 0, 0
-	local skillName, skillGem, skillPart, slotName, source, tabulate
+	local skillName, skillGem, skillPart, skillTypes, slotName, source, tabulate
 	if cfg then
 		flags = cfg.flags or 0
 		keywordFlags = cfg.keywordFlags or 0
 		skillName = cfg.skillName
 		skillGem = cfg.skillGem
 		skillPart = cfg.skillPart
+		skillTypes = cfg.skillTypes
 		slotName = cfg.slotName
 		source = cfg.source
 		tabulate = cfg.tabulate
@@ -184,6 +185,11 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 							end
 						elseif tag.type == "SkillPart" then
 							if tag.skillPart ~= skillPart then
+								value = nullValue
+								break
+							end
+						elseif tag.type == "SkillType" then
+							if not skillTypes or not skillTypes[tag.skillType] then
 								value = nullValue
 								break
 							end

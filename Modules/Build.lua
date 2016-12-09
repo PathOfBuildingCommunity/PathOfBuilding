@@ -203,7 +203,7 @@ function buildMode:Init(dbFileName, buildName)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillPart = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 100, 18, nil, function(index)
+	self.controls.mainSkillPart = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 150, 18, nil, function(index)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillPart = index
 		self.modFlag = true

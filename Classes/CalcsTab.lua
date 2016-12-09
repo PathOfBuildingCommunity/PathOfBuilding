@@ -51,7 +51,7 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 			end)
 		}, },
 		{ label = "Skill Part", flag = "multiPart", { controlName = "mainSkillPart", 
-			control = common.New("DropDownControl", nil, 0, 0, 100, 16, nil, function(index)
+			control = common.New("DropDownControl", nil, 0, 0, 130, 16, nil, function(index)
 				self.input.skill_part = index
 				self:AddUndoState()
 				self.build.buildFlag = true
