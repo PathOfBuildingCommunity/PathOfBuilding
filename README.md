@@ -49,6 +49,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.24 - 2016/12/10
+ * Added attributes to the jewel templates
+ * You can now zoom the tree by Ctrl+Left/Right-Clicking, in addition to using the mousewheel
+ * Added support for the Block/Dodge conversion modifiers on the 3 Nightmare jewels
+
 ### 1.2.23 - 2016/12/10
  * Added and updated more uniques from 2.5.0
  * Added a new skill part to Blade Flurry that approximates the DPS from releasing every time you hit 6 stages

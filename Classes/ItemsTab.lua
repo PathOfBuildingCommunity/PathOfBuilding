@@ -276,7 +276,9 @@ function ItemsTabClass:EditDisplayItemText()
 		rarity = common.New("DropDownControl", nil, -190, 10, 100, 18, { {val = "NORMAL",label=data.colorCodes.NORMAL.."Normal"},{val="MAGIC",label=data.colorCodes.MAGIC.."Magic"},{val="RARE",label=data.colorCodes.RARE.."Rare"},{val="UNIQUE",label=data.colorCodes.UNIQUE.."Unique"} }),
 		edit = common.New("EditControl", nil, 0, 40, 480, 420, "", nil, "^%C\t\n", nil, nil, 14),
 		save = common.New("ButtonControl", nil, -45, 470, 80, 20, self.displayItem and "Save" or "Create", function()
+			local id = self.displayItem and self.displayItem.id
 			self:CreateDisplayItemFromRaw(buildRaw())
+			self.displayItem.id = id
 			main:ClosePopup()
 		end),
 		common.New("ButtonControl", nil, 45, 470, 80, 20, "Cancel", function()

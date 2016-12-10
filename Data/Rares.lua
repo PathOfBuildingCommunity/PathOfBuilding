@@ -196,6 +196,9 @@ Prefixes:
 {range:0}(0 to 7)% increased maximum Life]],
 	["jewel suf"] = [[
 Suffixes:
+{range:0}+(0 to 16) to Strength
+{range:0}+(0 to 16) to Dexterity
+{range:0}+(0 to 16) to Intelligence
 {range:0}(0 to 10)% increased Damage
 {range:0}(0 to 12)% increased Projectile Damage
 {range:0}(0 to 12)% increased Damage over Time
