@@ -36,7 +36,7 @@ Cannot Evade Enemy Attacks
 Hrimnor's Resolve
 Samite Helmet
 Variant: Pre 2.0.0
-Variant: Currents
+Variant: Current
 Armour: (480 to 528)
 Requires Level 55, 114 Str
 {variant:1}(10 to 30)% increased Fire Damage

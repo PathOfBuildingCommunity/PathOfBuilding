@@ -112,6 +112,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			self.dragX, self.dragY = cursorX, cursorY
 		end
 	end
+	
+	-- Ctrl-click to zoom
+	if treeClick and IsKeyDown("CTRL") then
+		self:Zoom(treeClick == "RIGHT" and -2 or 2, viewPort)
+		treeClick = nil
+	end
 
 	-- Create functions that will convert coordinates between the screen and tree coordinate spaces
 	local scale = m_min(viewPort.width, viewPort.height) / tree.size * self.zoom

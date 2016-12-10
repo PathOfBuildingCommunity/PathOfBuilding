@@ -658,6 +658,16 @@ local function getMatchConv(others, dst, type)
 		end
 	end
 end
+local function getSimpleGain(src, dst, type, factor)
+	return function(nodeMods, out, data)
+		if nodeMods then
+			local val = nodeMods:Sum(type, nil, unpack(src))
+			if val ~= 0 then
+				out:NewMod(dst, type, math.floor(val * factor + 0.5), "Tree:Jewel")
+			end
+		end
+	end
+end
 local function getPerStat(dst, type, flags, stat, factor)
 	return function(nodeMods, out, data)
 		if nodeMods then
@@ -726,6 +736,9 @@ local jewelFuncs = {
 			out:NewMod("DexIntToMeleeBonus", "BASE", data.Dex + data.Int, "Tree:Jewel")
 		end
 	end,
+	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spells at 35% of its value"] = getSimpleGain({"LightningResist","ElementalResist"}, "SpellBlockChance", "BASE", 0.35),
+	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Dodge Attacks at 35% of its value"] = getSimpleGain({"ColdResist","ElementalResist"}, "AttackDodgeChance", "BASE", 0.35),
+	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Chance to Block at 35% of its value"] = getSimpleGain({"FireResist","ElementalResist"}, "BlockChance", "BASE", 0.35),
 }
 
 -- Scan a line for the earliest and longest match from the pattern list

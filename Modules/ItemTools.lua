@@ -184,6 +184,16 @@ function itemLib.parseItemRaw(item)
 					rangedLine = itemLib.applyRange(line, 1)
 				end
 				local modList, extra = modLib.parseMod(rangedLine or line)
+				if (not modList or extra) and item.rawLines[l+1] then
+					-- Try to combine it with the next line
+					modList, extra = modLib.parseMod(line.." "..item.rawLines[l+1])
+					if modList and not extra then
+						line = line.."\n"..item.rawLines[l+1]
+						l = l + 1
+					else
+						modList, extra = modLib.parseMod(rangedLine or line)
+					end
+				end
 				if modList then
 					t_insert(item.modLines, { line = line, extra = extra, modList = modList, variantList = variantList, crafted = crafted, range = rangedLine and (tonumber(rangeSpec) or 0.5) })
 					if mode == "GAME" then
