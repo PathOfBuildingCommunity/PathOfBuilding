@@ -1093,7 +1093,7 @@ gems["Physical to Lightning"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 10), 
-		skill("PhysicalDamageConvertToLightning", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
 	},
 	qualityMods = {
 		mod("PhysicalDamage", "INC", 0.5), --"physical_damage_+%" = 0.5

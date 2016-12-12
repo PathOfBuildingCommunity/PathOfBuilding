@@ -520,6 +520,7 @@ Minions Leech 5% of Damage as Life against Poisoned Enemies
 Skin of the Loyal
 Simple Robe
 League: Breach
+Implicits: 0
 Sockets cannot be modified
 +1 to Level of Socketed Gems
 100% increased Global Defences
@@ -548,6 +549,7 @@ Variant: Resolute Technique
 Variant: Unwavering Stance
 Variant: Vaal Pact
 Variant: Zealot's Oath
+Implicits: 0
 Sockets cannot be modified
 +1 to Level of Socketed Gems
 100% increased Global Defences

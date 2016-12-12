@@ -366,8 +366,6 @@ function ImportTabClass:ImportItem(itemData, sockets)
 	end
 	if itemData.corrupted then
 		item.corrupted = true
-	elseif item.base.weapon or item.base.armour then
-		item.quality = 20
 	end
 	if itemData.sockets[1] then
 		item.sockets = { }
