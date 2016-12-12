@@ -52,7 +52,7 @@ function ModListClass:NewMod(...)
 	self:AddMod(mod_createMod(...))
 end
 
-function ModListClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+function ModListClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
 	local flags, keywordFlags = 0, 0
 	local skillName, skillGem, skillPart, skillTypes, slotName, source, tabulate
 	if cfg then
@@ -94,6 +94,18 @@ function ModListClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7
 							hack[7] = arg7
 							if arg7 then
 								hack[8] = arg8
+								if arg8 then
+									hack[9] = arg9
+									if arg9 then
+										hack[10] = arg10
+										if arg10 then
+											hack[11] = arg11
+											if arg11 then
+												hack[12] = arg12
+											end
+										end
+									end
+								end
 							end
 						end
 					end

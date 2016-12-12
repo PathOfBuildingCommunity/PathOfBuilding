@@ -277,7 +277,7 @@ gems["Cold to Fire"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 10), 
-		skill("ColdDamageConvertToFire", 50), --"skill_cold_damage_%_to_convert_to_fire" = 50
+		mod("SkillColdDamageConvertToFire", "BASE", 50), --"skill_cold_damage_%_to_convert_to_fire" = 50
 	},
 	qualityMods = {
 		mod("ColdDamage", "INC", 0.5), --"cold_damage_+%" = 0.5

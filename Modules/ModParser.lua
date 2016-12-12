@@ -506,6 +506,8 @@ local specialModList = {
 	["%+(%d+)%% to quality of socketed (%a+) gems"] = function(num, _, type) return { mod("GemProperty", "LIST", { keyword = type, key = "quality", value = num }, { type = "SocketedIn" }) } end,
 	["%+(%d+) to level of active socketed skill gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "active_skill", key = "level", value = num }, { type = "SocketedIn" }) } end,
 	["grants level (%d+) (.+)"] = function(num, _, skill) return { mod("ExtraSkill", "LIST", { name = gemNameLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "SocketedIn" }) } end,
+	["casts level (%d+) (.+) when equipped"] = function(num, _, skill) return { mod("ExtraSkill", "LIST", { name = gemNameLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "SocketedIn" }) } end,
+	["cast level (%d+) (.+) when you deal a critical strike"] = function(num, _, skill) return { mod("ExtraSkill", "LIST", { name = gemNameLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "SocketedIn" }) } end,
 	["curse enemies with (%D+) on %a+"] = function(_, skill) return { mod("ExtraSkill", "LIST", { name = gemNameLookup[skill] or "Unknown", level = 1, noSupports = true }, { type = "SocketedIn" }) } end,
 	["curse enemies with level (%d+) (.+) on %a+"] = function(num, _, skill) return { mod("ExtraSkill", "LIST", { name = gemNameLookup[skill] or "Unknown", level = num, noSupports = true }, { type = "SocketedIn" }) } end,
 	["socketed .*gems are supported by level (%d+) (.+)"] = function(num, _, support) return { mod("ExtraSupport", "LIST", { name = gemNameLookup[support] or "Unknown", level = num }, { type = "SocketedIn" }) } end,

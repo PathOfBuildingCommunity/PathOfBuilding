@@ -89,6 +89,34 @@ gems["Portal"] = {
 		[10] = { },
 	},
 }
+gems["Abberath's Fury"] = {
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	skillTypes = { [11] = true, [36] = true, [42] = true, [2] = true, [10] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		skill("critChance", 5), 
+		skill("FireMin", 50), --"spell_minimum_base_fire_damage" = 50
+		skill("FireMax", 75), --"spell_maximum_base_fire_damage" = 75
+		mod("EnemyIgniteChance", "BASE", 10), --"base_chance_to_ignite_%" = 10
+		--"cast_on_gain_skill" = ?
+		--"cannot_knockback" = ?
+		--"spell_uncastable_if_triggerable" = ?
+		--"is_area_damage" = ?
+		--"skill_can_add_multiple_charges_per_action" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[7] = { },
+	},
+}
 gems["Envy"] = {
 	hidden = true,
 	color = 3,
@@ -200,3 +228,59 @@ gems["Illusory Warp"] = {
 		[20] = { },
 	},
 }
+gems["Lightning Bolt"] = {
+	hidden = true,
+	color = 3,
+	baseFlags = {
+		spell = true,
+		area = true,
+		lightning = true,
+	},
+	skillTypes = { [2] = true, [42] = true, [35] = true, [11] = true, [10] = true, [45] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		skill("critChance", 6), 
+		--"cast_on_crit_%" = 100
+		--"is_area_damage" = ?
+		--"spell_uncastable_if_triggerable" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("LightningMin", nil), --"spell_minimum_base_lightning_damage"
+		[2] = skill("LightningMax", nil), --"spell_maximum_base_lightning_damage"
+	},
+	levels = {
+		[1] = { 10, 29, },
+		[2] = { 11, 33, },
+		[3] = { 14, 41, },
+		[4] = { 18, 54, },
+		[5] = { 25, 75, },
+		[6] = { 36, 109, },
+		[7] = { 47, 141, },
+		[8] = { 60, 180, },
+		[9] = { 76, 227, },
+		[10] = { 94, 282, },
+		[11] = { 116, 348, },
+		[12] = { 142, 426, },
+		[13] = { 173, 518, },
+		[14] = { 209, 626, },
+		[15] = { 251, 754, },
+		[16] = { 301, 903, },
+		[17] = { 359, 1078, },
+		[18] = { 428, 1283, },
+		[19] = { 486, 1459, },
+		[20] = { 552, 1657, },
+		[21] = { 601, 1802, },
+		[22] = { 653, 1959, },
+		[23] = { 709, 2127, },
+		[24] = { 770, 2310, },
+		[25] = { 835, 2506, },
+		[26] = { 906, 2718, },
+		[27] = { 982, 2946, },
+		[28] = { 1064, 3192, },
+		[29] = { 1153, 3458, },
+		[30] = { 1248, 3743, },
+	},
+}
+

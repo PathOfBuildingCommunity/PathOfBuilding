@@ -2013,10 +2013,10 @@ gems["Ice Shot"] = {
 	skillTypes = { [1] = true, [48] = true, [3] = true, [11] = true, [12] = true, [22] = true, [17] = true, [19] = true, [34] = true, },
 	baseMods = {
 		skill("castTime", 1), 
-		skill("PhysicalDamageConvertToCold", 40), --"skill_physical_damage_%_to_convert_to_cold" = 40
+		mod("SkillPhysicalDamageConvertToCold", "BASE", 40), --"skill_physical_damage_%_to_convert_to_cold" = 40
 		skill("duration", 1.5), --"base_skill_effect_duration" = 1500
 		--"skill_can_fire_arrows" = ?
-		skill("PhysicalDamageConvertToCold", 100, { type = "SkillPart", skillPart = 2 }), 
+		mod("SkillPhysicalDamageConvertToCold", "BASE", 60, 0, 0, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("ColdDamage", "INC", 1), --"cold_damage_+%" = 1
@@ -2201,7 +2201,7 @@ gems["Lightning Arrow"] = {
 	skillTypes = { [1] = true, [48] = true, [11] = true, [3] = true, [22] = true, [17] = true, [19] = true, [35] = true, },
 	baseMods = {
 		skill("castTime", 1), 
-		skill("PhysicalDamageConvertToLightning", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
 		--"lightning_arrow_maximum_number_of_extra_targets" = 3
 		--"skill_can_fire_arrows" = ?
 	},
@@ -2275,7 +2275,7 @@ gems["Lightning Strike"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
-		skill("PhysicalDamageConvertToLightning", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
 		mod("Damage", "MORE", -25, ModFlag.Projectile), --"active_skill_projectile_damage_+%_final" = -25
 		--"total_projectile_spread_angle_override" = 70
 		--"show_number_of_projectiles" = ?
@@ -2347,7 +2347,7 @@ gems["Vaal Lightning Strike"] = {
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [12] = true, [43] = true, [35] = true, },
 	baseMods = {
 		skill("castTime", 1), 
-		skill("PhysicalDamageConvertToLightning", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
 		mod("Damage", "MORE", -50, 0, 0, { type = "SkillPart", skillPart = 2 }), --"vaal_lightning_strike_beam_damage_+%_final" = -50
 		skill("cannotBeEvaded", true), --"global_always_hit" = ?
 	},
@@ -3781,12 +3781,12 @@ gems["Wild Strike"] = {
 		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2
 		--"show_number_of_projectiles" = ?
 		mod("PierceChance", "BASE", 100), --"always_pierce" = ?
-		skill("PhysicalDamageConvertToFire", 60, { type = "SkillPart", skillPart = 1 }), 
-		skill("PhysicalDamageConvertToFire", 60, { type = "SkillPart", skillPart = 2 }), 
-		skill("PhysicalDamageConvertToLightning", 60, { type = "SkillPart", skillPart = 3 }), 
-		skill("PhysicalDamageConvertToLightning", 60, { type = "SkillPart", skillPart = 4 }), 
-		skill("PhysicalDamageConvertToCold", 60, { type = "SkillPart", skillPart = 5 }), 
-		skill("PhysicalDamageConvertToCold", 60, { type = "SkillPart", skillPart = 6 }), 
+		mod("SkillPhysicalDamageConvertToFire", "BASE", 60, 0, 0, { type = "SkillPart", skillPart = 1 }), 
+		mod("SkillPhysicalDamageConvertToFire", "BASE", 60, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 60, 0, 0, { type = "SkillPart", skillPart = 3 }), 
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 60, 0, 0, { type = "SkillPart", skillPart = 4 }), 
+		mod("SkillPhysicalDamageConvertToCold", "BASE", 60, 0, 0, { type = "SkillPart", skillPart = 5 }), 
+		mod("SkillPhysicalDamageConvertToCold", "BASE", 60, 0, 0, { type = "SkillPart", skillPart = 6 }), 
 	},
 	qualityMods = {
 		mod("ElementalDamage", "INC", 1), --"elemental_damage_+%" = 1

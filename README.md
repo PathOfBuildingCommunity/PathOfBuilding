@@ -49,6 +49,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.25 - 2016/12/13
+ * Added support for the Abberath's Fury skill granted by Abberath's Hooves
+ * Added support for the Lightning Bolt skill granted by Choir of the Storm and Voice of the Storm
+ * Fixed a conflict between the Physical to Lightning support gem and certain skill conversions
+
 ### 1.2.24 - 2016/12/10
  * Added attributes to the jewel templates
  * You can now zoom the tree by Ctrl+Left/Right-Clicking, in addition to using the mousewheel

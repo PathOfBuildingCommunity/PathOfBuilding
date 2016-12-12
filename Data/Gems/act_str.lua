@@ -753,7 +753,7 @@ gems["Glacial Hammer"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 5), 
-		skill("PhysicalDamageConvertToCold", 50), --"skill_physical_damage_%_to_convert_to_cold" = 50
+		mod("SkillPhysicalDamageConvertToCold", "BASE", 50), --"skill_physical_damage_%_to_convert_to_cold" = 50
 		mod("EnemyFreezeChance", "BASE", 25), --"base_chance_to_freeze_%" = 25
 		mod("EnemyChillDuration", "INC", 35), --"chill_duration_+%" = 35
 	},
@@ -818,7 +818,7 @@ gems["Vaal Glacial Hammer"] = {
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [12] = true, [11] = true, [43] = true, [34] = true, },
 	baseMods = {
 		skill("castTime", 1), 
-		skill("PhysicalDamageConvertToCold", 50), --"skill_physical_damage_%_to_convert_to_cold" = 50
+		mod("SkillPhysicalDamageConvertToCold", "BASE", 50), --"skill_physical_damage_%_to_convert_to_cold" = 50
 		mod("EnemyFreezeChance", "BASE", 25), --"base_chance_to_freeze_%" = 25
 		mod("EnemyChillDuration", "INC", 35), --"chill_duration_+%" = 35
 	},
@@ -1307,7 +1307,7 @@ gems["Infernal Blow"] = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
 		skill("critChance", 5), 
-		skill("PhysicalDamageConvertToFire", 50), --"skill_physical_damage_%_to_convert_to_fire" = 50
+		mod("SkillPhysicalDamageConvertToFire", "BASE", 50), --"skill_physical_damage_%_to_convert_to_fire" = 50
 		skill("duration", 0.5), --"base_skill_effect_duration" = 500
 		--"corpse_explosion_monster_life_%" = 10
 	},
@@ -1582,7 +1582,7 @@ gems["Molten Strike"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
-		skill("PhysicalDamageConvertToFire", 60), --"skill_physical_damage_%_to_convert_to_fire" = 60
+		mod("SkillPhysicalDamageConvertToFire", "BASE", 60), --"skill_physical_damage_%_to_convert_to_fire" = 60
 		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2
 		mod("Damage", "MORE", -40, ModFlag.Projectile), --"active_skill_projectile_damage_+%_final" = -40
 		--"show_number_of_projectiles" = ?
@@ -2114,7 +2114,7 @@ gems["Static Strike"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
-		skill("PhysicalDamageConvertToLightning", 60), --"skill_physical_damage_%_to_convert_to_lightning" = 60
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 60), --"skill_physical_damage_%_to_convert_to_lightning" = 60
 		skill("duration", 0.75), --"base_skill_effect_duration" = 750
 		mod("Damage", "MORE", -40, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), --"static_strike_explosion_damage_+%_final" = -40
 	},

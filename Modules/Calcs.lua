@@ -1765,7 +1765,7 @@ local function performCalcs(env)
 			otherType = dmgTypeList[otherTypeIndex]
 			globalConv[otherType] = modDB:Sum("BASE", skillCfg, damageType.."DamageConvertTo"..otherType, isElemental[damageType] and "ElementalDamageConvertTo"..otherType or nil)
 			globalTotal = globalTotal + globalConv[otherType]
-			skillConv[otherType] = skillData[damageType.."DamageConvertTo"..otherType] or 0
+			skillConv[otherType] = modDB:Sum("BASE", skillCfg, "Skill"..damageType.."DamageConvertTo"..otherType)
 			skillTotal = skillTotal + skillConv[otherType]
 			add[otherType] = modDB:Sum("BASE", skillCfg, damageType.."DamageGainAs"..otherType, isElemental[damageType] and "ElementalDamageGainAs"..otherType or nil)
 		end
