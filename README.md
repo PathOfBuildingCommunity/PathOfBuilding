@@ -49,6 +49,13 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.26 - 2016/12/14
+ * The sidebar now displays a DPS or Average Hit total that factors in Poison
+ * Added support for the Bone Nova skill granted by Uul-Netol's Embrace
+ * Added support for the Molten Burst skill granted by Ngamahu's Flame
+ * Fixed the handling of mana costs for totem-cast auras
+ * Corrected the no-crit-multiplier modifier on Kongor's Undying Rage
+
 ### 1.2.25 - 2016/12/13
  * Added support for the Abberath's Fury skill granted by Abberath's Hooves
  * Added support for the Lightning Bolt skill granted by Choir of the Storm and Voice of the Storm

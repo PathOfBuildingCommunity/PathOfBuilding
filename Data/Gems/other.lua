@@ -117,6 +117,32 @@ gems["Abberath's Fury"] = {
 		[7] = { },
 	},
 }
+gems["Bone Nova"] = {
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	skillTypes = { [1] = true, [48] = true, [3] = true, [10] = true, [57] = true, [47] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		mod("ProjectileCount", "BASE", 8), --"number_of_additional_projectiles" = 8
+		--"attack_trigger_on_killing_bleeding_enemy_%" = 100
+		--"monster_projectile_variation" = 15
+		--"projectiles_nova" = ?
+		--"spell_uncastable_if_triggerable" = ?
+		--"base_is_projectile" = ?
+		flag("CannotBleed"), --"cannot_cause_bleeding" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[20] = { },
+	},
+}
 gems["Envy"] = {
 	hidden = true,
 	color = 3,
@@ -283,4 +309,30 @@ gems["Lightning Bolt"] = {
 		[30] = { 1248, 3743, },
 	},
 }
-
+gems["Molten Burst"] = {
+	hidden = true,
+	color = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+		fire = true,
+	},
+	skillTypes = { [3] = true, [1] = true, [11] = true, [33] = true, [57] = true, [47] = true, [48] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2
+		--"attack_trigger_on_melee_hit_%" = 20
+		--"show_number_of_projectiles" = ?
+		--"base_is_projectile" = ?
+		--"is_area_damage" = ?
+		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[16] = { },
+	},
+}

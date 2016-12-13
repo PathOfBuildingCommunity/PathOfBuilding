@@ -202,6 +202,7 @@ Enemies you hit are destroyed on Kill
 ]],[[
 Primordial Might
 Crimson Jewel
+Implicits: 0
 (25-30)% increased Damage if you Summoned a Golem in the past 8 seconds
 Golems Summoned in the past 8 seconds deal (35-45)% increased Damage
 Golems have (18-22)% increased Maximum Life
@@ -210,6 +211,7 @@ Primordial
 ]],[[
 Primordial Harmony
 Cobalt Jewel
+Implicits: 0
 Golem Skills have (20-30)% increased Cooldown Recovery Speed
 Golems have (10-15)% increased Cooldown Recovery Speed
 (16-20)% increased Golem Damage for each Type of Golem you have Summoned
@@ -218,6 +220,7 @@ Primordial
 ]],[[
 Primordial Eminence
 Viridian Jewel
+Implicits: 0
 Golems have (16-20)% increased Attack and Cast Speed
 30% increased Effect of Buffs granted by your Golems
 Golems have +(800-1000) to Armour
@@ -225,6 +228,7 @@ Golems have +(800-1000) to Armour
 The Anima Stone
 Prismatic Jewel
 Limited to: 1
+Implicits: 0
 Can Summon up to 1 additional Golem at a time
 If you have 3 Primordial Jewels, can Summon up to 1 additional Golem at a time
 ]],

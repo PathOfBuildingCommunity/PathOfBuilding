@@ -495,7 +495,7 @@ Requires Level 67, 212 Str
 {variant:2}(30 to 40)% increased Critical Strike Chance
 +(15 to 20)% to all Elemental Resistances
 Hits can't be Evaded
-Your Critical Strikes do not deal increased Damage
+Your Critical Strikes do not deal extra Damage
 You gain Onslaught for 2 seconds on Critical Strike
 ]],[[
 Marohi Erqi
