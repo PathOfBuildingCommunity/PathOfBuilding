@@ -237,6 +237,8 @@ function buildMode:Init(dbFileName, buildName)
 		{ mod = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true },
 		{ mod = "PoisonDPS", label = "Poison DPS", fmt = ".1f", compPercent = true },
 		{ mod = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
+		{ mod = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true },
+		{ mod = "WithPoisonAverageHit", label = "Average Hit inc. Poison", fmt = ".1f", compPercent = true },
 		{ mod = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function() return true end },
 		{ },
 		{ mod = "Str", label = "Strength", fmt = "d" },

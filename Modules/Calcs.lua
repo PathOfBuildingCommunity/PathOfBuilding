@@ -1091,7 +1091,7 @@ local function performCalcs(env)
 		end
 
 		-- Calculate reservations
-		if activeSkill.skillTypes[SkillType.ManaCostReserved] then
+		if activeSkill.skillTypes[SkillType.ManaCostReserved] and not activeSkill.skillFlags.totem then
 			local baseVal = activeSkill.skillData.manaCostOverride or activeSkill.skillData.manaCost
 			local suffix = activeSkill.skillTypes[SkillType.ManaCostPercent] and "Percent" or "Base"
 			local mult = skillModList:Sum("MORE", skillCfg, "ManaCost")
@@ -1992,15 +1992,9 @@ local function performCalcs(env)
 	output.TotalMax = totalMax
 
 	-- Update enemy hit-by-damage-type conditions
-	if output.FireAverage > 0 then
-		enemyDB.conditions.HitByFireDamage = true
-	end
-	if output.ColdAverage > 0 then
-		enemyDB.conditions.HitByColdDamage = true
-	end
-	if output.LightningAverage > 0 then
-		enemyDB.conditions.HitByLightningDamage = true
-	end
+	enemyDB.conditions.HitByFireDamage =  output.FireAverage > 0
+	enemyDB.conditions.HitByColdDamage = output.ColdAverage > 0
+	enemyDB.conditions.HitByLightningDamage = output.LightningAverage > 0
 
 	-- Calculate average damage and final DPS
 	output.AverageHit = (totalMin + totalMax) / 2 * output.CritEffect
@@ -2049,6 +2043,9 @@ local function performCalcs(env)
 		local inc = modDB:Sum("INC", skillCfg, "ManaCost")
 		local base = modDB:Sum("BASE", skillCfg, "ManaCost")
 		output.ManaCost = m_floor(m_max(0, (skillData.manaCost or 0) * more * (1 + inc / 100) + base))
+		if env.mainSkill.skillTypes[SkillType.ManaCostPercent] and skillFlags.totem then
+			output.ManaCost = m_floor(output.Mana * output.ManaCost / 100)
+		end
 		if breakdown and output.ManaCost ~= (skillData.manaCost or 0) then
 			breakdown.ManaCost = {
 				s_format("%d ^8(base mana cost)", skillData.manaCost or 0)
@@ -2383,8 +2380,10 @@ local function performCalcs(env)
 	if skillFlags.poison then
 		if env.mode_average then
 			output.CombinedDPS = output.CombinedDPS + output.PoisonChance / 100 * output.PoisonDamage
+			output.WithPoisonAverageHit = output.CombinedDPS
 		else
 			output.CombinedDPS = output.CombinedDPS + output.PoisonChance / 100 * output.PoisonDamage * output.Speed
+			output.WithPoisonDPS = output.CombinedDPS
 		end
 	end
 	if skillFlags.ignite then
