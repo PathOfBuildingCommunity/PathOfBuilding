@@ -44,7 +44,7 @@
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
 	<File sha1="691acfe73dfa05be2c49adc42321cf770fd1f6a2" name="Modules/Build.lua" part="program"/>
 	<File sha1="8a07fe01c53b785ebb6256236e781fbaabd36c0e" name="Modules/BuildList.lua" part="program"/>
-	<File sha1="e95d50a18558174840992346f482f6a07f2c9ffa" name="Modules/Calcs.lua" part="program"/>
+	<File sha1="3cc5ef2fd0001443bbec2d3614c868a2f9e0babc" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="602c7ba4d1792162a43d2f64160ca7d7d624194f" name="Modules/CalcSections.lua" part="program"/>
 	<File sha1="f207df4010cb3c7bc6cce98be2529a3b8a708b8f" name="Modules/Common.lua" part="program"/>
 	<File sha1="2b393e960721c36dc4c99645a507d7232cbd6f0e" name="Modules/Data.lua" part="program"/>
@@ -61,7 +61,7 @@
 	<File sha1="79343ddf8c2ff5b0e4f73e5ff83bce5d8222a4af" name="Data/Gems/act_str.lua" part="program"/>
 	<File sha1="05201b4e14ff50dbc887e7cca37f1d476fb931aa" name="Data/Gems/other.lua" part="program"/>
 	<File sha1="b2f6b177821de87288760644f2ecdbde07a9c4c9" name="Data/Gems/sup_dex.lua" part="program"/>
-	<File sha1="d570226995c9312e9d5ad31d6555d72ed2b4f542" name="Data/Gems/sup_int.lua" part="program"/>
+	<File sha1="b8b44d4186785907344f88170aff70d4e8f366ff" name="Data/Gems/sup_int.lua" part="program"/>
 	<File sha1="9d7d4d58b9f6204897b8aee8e6bb32ac7659bc6e" name="Data/Gems/sup_str.lua" part="program"/>
 	<File sha1="48d916e1cf089c292b2c614805f80ce85cff55d9" name="Data/Bases/amulet.lua" part="program"/>
 	<File sha1="78410a8a3ee33ad331fee2abd83e235fe5b702f6" name="Data/Bases/axe.lua" part="program"/>

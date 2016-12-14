@@ -8,9 +8,8 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
   * Also calculates life/mana reservations
   * Shows a summary of character stats in the side bar, as well as a detailed calcs breakdown tab which can show you how the stats were derived
   * Supports most skills, support gems, passives and item modifiers
-    * Throughout the program, supported modifiers will show in blue and unsupported ones in white
+    * Throughout the program, supported modifiers will show in blue and unsupported ones in red
     * Most minion skill are unsupported at present (except for golems, which can provide buffs to you)
-    * Trigger gems are generally unsupported (Cast on Crit, etc)
     * No support for flasks yet
 * Passive skill tree planner:
   * Support for jewels including most radius/conversion jewels
