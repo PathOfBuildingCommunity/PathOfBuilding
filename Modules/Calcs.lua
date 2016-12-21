@@ -2155,7 +2155,7 @@ local function performCalcs(env)
 			if output.CritEffect ~= 1 then
 				t_insert(breakdown.BleedDPS, s_format("x %.3f ^8(crit effect modifier)", output.CritEffect))
 			end
-			t_insert(breakdown.BleedDPS, "x 0.2 ^8(bleed deals 20% per second)")
+			t_insert(breakdown.BleedDPS, "x 0.1 ^8(bleed deals 10% per second)")
 			t_insert(breakdown.BleedDPS, s_format("= %.1f", baseVal, 1))
 			t_insert(breakdown.BleedDPS, "Bleed DPS:")
 			dotBreakdown(breakdown.BleedDPS, baseVal, inc, more, effMult, output.BleedDPS)
@@ -2572,7 +2572,7 @@ function calcs.buildOutput(build, mode)
 		output.CombatList = table.concat(combatList, ", ")
 		output.CurseList = table.concat(curseList, ", ")
 
-		infoDump(env)
+		--infoDump(env)
 	end
 
 	return env

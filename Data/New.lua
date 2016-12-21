@@ -579,6 +579,7 @@ You can only Socket Corrupted Gems in this item
 {variant:19}Unwavering Stance
 {variant:20}Vaal Pact
 {variant:21}Zealot's Oath
+Corrupted
 ]],[[
 The Red Dream
 Crimson Jewel

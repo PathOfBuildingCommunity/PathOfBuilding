@@ -15,7 +15,7 @@ local s_format = string.format
 common = { }
 
 -- External libraries
-common.curl = require("lcurl")
+common.curl = require("lcurl.safe")
 common.xml = require("xml")
 common.base64 = require("base64")
 
