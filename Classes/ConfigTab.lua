@@ -17,6 +17,7 @@ local varList = {
 	{ var = "conditionFullLife", type = "check", label = "Are you always on Full Life?", tooltip = "You will automatically be considered to be on Full Life if you have Chaos Innoculation,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "FullLife" }, "Config")
 	end },
+	{ var = "igniteMode", type = "list", label = "Ignite calculation mode:", tooltip = "Controls how the base damage for ignite is calculated:\nAverage Damage: Ignite is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ignite is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
 	{ section = "When In Combat" },
 	{ var = "usePowerCharges", type = "check", label = "Do you use Power Charges?" },
 	{ var = "useFrenzyCharges", type = "check", label = "Do you use Frenzy Charges?" },
@@ -166,7 +167,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
-			lastSection = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 300, 0, varData.section)
+			lastSection = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 350, 0, varData.section)
 			lastSection.varControlList = { }
 			lastSection.height = function(self)
 				local height = 20
@@ -195,6 +196,13 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 					self:BuildModList()
 					self.build.buildFlag = true
 				end) 
+			elseif varData.type == "list" then
+				control = common.New("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 216, 0, 126, 16, varData.list, function(sel, selVal)
+					self.input[varData.var] = selVal.val
+					self:AddUndoState()
+					self:BuildModList()
+					self.build.buildFlag = true
+				end)
 			end
 			if varData.ifNode then
 				control.shown = function()
@@ -206,7 +214,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 			else
 				control.tooltip = varData.tooltip
 			end
-			t_insert(self.controls, common.New("LabelControl", {"RIGHT",control,"LEFT"}, -4, 2, 0, 14, "^7"..varData.label))
+			t_insert(self.controls, common.New("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, 14, "^7"..varData.label))
 			self.varControls[varData.var] = control
 			t_insert(self.controls, control)
 			t_insert(lastSection.varControlList, control)
@@ -259,6 +267,8 @@ function ConfigTabClass:UpdateControls()
 			control:SetText(tostring(self.input[var] or ""))
 		elseif control._className == "CheckBoxControl" then
 			control.state = self.input[var]
+		elseif control._className == "DropDownControl" then
+			control:SelByValue(self.input[var])
 		end
 	end
 end
@@ -288,7 +298,8 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 		local y = 14
 		for _, varControl in ipairs(section.varControlList) do
 			if varControl:IsShown() then
-				varControl.y = y
+				local width, height = varControl:GetSize()
+				varControl.y = y + (18 - height) / 2
 				y = y + 20
 			end
 		end
@@ -301,7 +312,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 			end
 			col = col + 1
 		end
-		section.x = 10 + (col - 1) * 310
+		section.x = 10 + (col - 1) * 360
 		section.y = colY[col]
 		colY[col] = colY[col] + height + 18
 	end

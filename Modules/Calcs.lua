@@ -1838,6 +1838,10 @@ local function performCalcs(env)
 				simpleBreakdown(baseSpeed, skillCfg, "Speed")
 			end
 		end
+		if skillData.hitTimeOverride then
+			output.HitTime = skillData.hitTimeOverride
+			output.HitSpeed = 1 / output.HitTime
+		end
 	end
 
 	-- Calculate crit chance, crit multiplier, and their combined effect
@@ -2004,7 +2008,7 @@ local function performCalcs(env)
 	-- Calculate average damage and final DPS
 	output.AverageHit = (totalMin + totalMax) / 2 * output.CritEffect
 	output.AverageDamage = output.AverageHit * output.HitChance / 100
-	output.TotalDPS = output.AverageDamage * output.Speed * (skillData.dpsMultiplier or 1)
+	output.TotalDPS = output.AverageDamage * (output.HitSpeed or output.Speed) * (skillData.dpsMultiplier or 1)
 	if env.mode == "CALCS" then
 		if env.mode_average then
 			output.DisplayDamage = s_format("%.1f average damage", output.AverageDamage)
@@ -2028,12 +2032,12 @@ local function performCalcs(env)
 			}
 			breakdown.TotalDPS = {
 				s_format("%.1f ^8(average damage)", output.AverageDamage),
-				s_format("x %.2f ^8(attack rate)", output.Speed),
+				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed),
 			}
 		else
 			breakdown.TotalDPS = {
 				s_format("%.1f ^8(average hit)", output.AverageDamage),
-				s_format("x %.2f ^8(cast rate)", output.Speed),
+				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(cast rate)", output.Speed),
 			}
 		end
 		if skillData.dpsMultiplier then
@@ -2251,6 +2255,7 @@ local function performCalcs(env)
 	if modDB:Sum("FLAG", skillCfg, "CannotIgnite") then
 		output.IgniteChance = 0
 	else
+		local igniteMode = env.configInput.igniteMode or "AVERAGE"
 		output.IgniteChance = m_min(100, modDB:Sum("BASE", skillCfg, "EnemyIgniteChance") + enemyDB:Sum("BASE", nil, "SelfIgniteChance"))
 		local sourceDmg = 0
 		if canDeal.Fire and not modDB:Sum("FLAG", skillCfg, "FireCannotIgnite") then
@@ -2259,7 +2264,7 @@ local function performCalcs(env)
 		if canDeal.Cold and modDB:Sum("FLAG", skillCfg, "ColdCanIgnite") then
 			sourceDmg = sourceDmg + output.ColdAverage
 		end
-		if canDeal.Fire and output.IgniteChance > 0 and sourceDmg > 0 then
+		if canDeal.Fire and (output.IgniteChance > 0 or igniteMode == "CRIT") and sourceDmg > 0 then
 			skillFlags.ignite = true
 			local dotCfg = {
 				slotName = skillCfg.slotName,
@@ -2267,7 +2272,12 @@ local function performCalcs(env)
 				keywordFlags = skillCfg.keywordFlags,
 			}
 			env.mainSkill.igniteCfg = dotCfg
-			local baseVal = sourceDmg * output.CritEffect * 0.2
+			local baseVal
+			if igniteMode == "CRIT" then
+				baseVal = sourceDmg * output.CritMultiplier * 0.2
+			else
+				baseVal = sourceDmg * output.CritEffect * 0.2
+			end
 			local effMult = 1
 			if env.mode_effective then
 				local resist = output["EnemyFireResist"]
@@ -2285,11 +2295,18 @@ local function performCalcs(env)
 			output.IgniteDuration = 4 * (1 + incDur / 100) * debuffDurationMult
 			if breakdown then
 				breakdown.IgniteDPS = {
+					s_format("Ignite mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crit Damage" or "Average Damage"),
 					"Base damage:",
-					s_format("%.1f ^8(average non-crit damage from sources)", sourceDmg)
+					s_format("%.1f ^8(average non-crit damage from sources)", sourceDmg),
 				}
-				if output.CritEffect ~= 1 then
-					t_insert(breakdown.IgniteDPS, s_format("x %.3f ^8(crit effect modifier)", output.CritEffect))
+				if igniteMode == "CRIT" then
+					if output.CritMultiplier ~= 1 then
+						t_insert(breakdown.IgniteDPS, s_format("x %.2f ^8(crit multiplier)", output.CritMultiplier))
+					end
+				else
+					if output.CritEffect ~= 1 then
+						t_insert(breakdown.IgniteDPS, s_format("x %.3f ^8(crit effect modifier)", output.CritEffect))
+					end
 				end
 				t_insert(breakdown.IgniteDPS, "x 0.2 ^8(ignite deals 20% per second)")
 				t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
@@ -2387,7 +2404,7 @@ local function performCalcs(env)
 			output.CombinedDPS = output.CombinedDPS + output.PoisonChance / 100 * output.PoisonDamage
 			output.WithPoisonAverageHit = output.CombinedDPS
 		else
-			output.CombinedDPS = output.CombinedDPS + output.PoisonChance / 100 * output.PoisonDamage * output.Speed
+			output.CombinedDPS = output.CombinedDPS + output.PoisonChance / 100 * output.PoisonDamage * (output.HitSpeed or output.Speed)
 			output.WithPoisonDPS = output.CombinedDPS
 		end
 	end

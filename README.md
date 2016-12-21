@@ -48,6 +48,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.28 - 2016/12/22
+ * Added skill parts to Blade Vortex to enable calculation of DPS with different blade counts
+    * Blade Vortex now has a hit rate override which replaces the cast rate when calculating the skill's DPS
+	* This will allow you to see the skill's true DPS at a given blade count
+ * The calculation of Ignite base damage can now be controlled using a new option in the Configuration tab
+
 ### 1.2.27 - 2016/12/21
  * Cast when Channelling now overrides the cast rate of the triggered skill, allowing the DPS of that skill 
    to be calculated correctly
