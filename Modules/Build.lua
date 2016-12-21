@@ -228,6 +228,7 @@ function buildMode:Init(dbFileName, buildName)
 		{ mod = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
 		{ mod = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack" },
 		{ mod = "Speed", label = "Cast Rate", fmt = ".2f", compPercent = true, flag = "spell" },
+		{ mod = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
 		{ mod = "CritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ mod = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return o.CritChance > 0 end },
 		{ mod = "HitChance", label = "Hit Chance", fmt = "d%%", flag = "attack" },

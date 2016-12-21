@@ -278,6 +278,20 @@ gems["Blade Vortex"] = {
 	spell = true,
 	area = true,
 	duration = true,
+	parts = {
+		{
+			name = "0 Blades",
+		},
+		{
+			name = "5 Blades",
+		},
+		{
+			name = "10 Blades",
+		},
+		{
+			name = "20 Blades",
+		},
+	},
 	color = 2,
 	baseFlags = {
 		spell = true,
@@ -298,8 +312,15 @@ gems["Blade Vortex"] = {
 		--"is_area_damage" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
 		--"action_ignores_crit_tracking" = ?
-		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
 		skill("deliciouslyOverpowered", true), 
+		mod("Damage", "MORE", 150, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Damage", "MORE", 300, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 3 }), 
+		mod("Damage", "MORE", 600, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 4 }), 
+		skill("hitTimeOverride", 0.6, { type = "SkillPart", skillPart = 1 }), 
+		skill("hitTimeOverride", 0.4, { type = "SkillPart", skillPart = 2 }), 
+		skill("hitTimeOverride", 0.3, { type = "SkillPart", skillPart = 3 }), 
+		skill("hitTimeOverride", 0.2, { type = "SkillPart", skillPart = 4 }), 
 	},
 	qualityMods = {
 		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
