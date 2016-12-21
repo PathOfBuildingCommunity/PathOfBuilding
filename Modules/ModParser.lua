@@ -20,7 +20,7 @@ local formList = {
 	["^([%+%-][%d%.]+)%%?"] = "BASE",
 	["^([%+%-][%d%.]+)%%? to"] = "BASE",
 	["^([%+%-][%d%.]+)%%? base"] = "BASE",
-	["^([%+%-]?[%d%.]+)%% additional"] = "BASE",
+	["^([%+%-]?[%d%.]+)%%? additional"] = "BASE",
 	["^you gain ([%d%.]+)"] = "BASE",
 	["^([%+%-]?%d+)%% chance"] = "CHANCE",
 	["^([%+%-]?%d+)%% additional chance"] = "CHANCE",
@@ -145,6 +145,8 @@ local modNameList = {
 	["energy shield gained for each enemy hit by your attacks"] = { "EnergyShieldOnHit", flags = ModFlag.Attack },
 	["life and mana gained for each enemy hit"] = { "LifeOnHit", "ManaOnHit", flags = ModFlag.Attack },
 	-- Projectile modifiers
+	["projectile"] = "ProjectileCount",
+	["projectiles"] = "ProjectileCount",
 	["pierce chance"] = "PierceChance",
 	["of projectiles piercing"] = "PierceChance",
 	["of arrows piercing"] = { "PierceChance", flags = ModFlag.Bow },
@@ -187,6 +189,8 @@ local modNameList = {
 	["physical weapon damage"] = { "PhysicalDamage", flags = ModFlag.Weapon },
 	["physical melee damage"] = { "PhysicalDamage", flags = ModFlag.Melee },
 	["melee physical damage"] = { "PhysicalDamage", flags = ModFlag.Melee },
+	["projectile damage"] = { "Damage", flags = ModFlag.Projectile },
+	["projectile attack damage"] = { "Damage", flags = bor(ModFlag.Projectile, ModFlag.Attack) },
 	["bow damage"] = { "Damage", flags = ModFlag.Bow },
 	["wand damage"] = { "Damage", flags = ModFlag.Wand },
 	["wand physical damage"] = { "PhysicalDamage", flags = ModFlag.Wand },
@@ -194,7 +198,6 @@ local modNameList = {
 	["damage over time"] = { "Damage", flags = ModFlag.Dot },
 	["physical damage over time"] = { "PhysicalDamage", flags = ModFlag.Dot },
 	["burning damage"] = { "FireDamage", flags = ModFlag.Dot },
-	["righteous fire damage"] = { "Damage", tag = { type = "SkillName", skillName = "Righteous Fire" } }, -- Parser mis-interprets this one (Righteous/Fire Damage instead of Righteous Fire/Damage)
 	-- Crit/accuracy/speed modifiers
 	["critical strike chance"] = "CritChance",
 	["critical strike multiplier"] = "CritMultiplier",
@@ -257,7 +260,6 @@ local modFlagList = {
 	["with melee attacks"] = { flags = ModFlag.Melee },
 	["on melee hit"] = { flags = ModFlag.Melee },
 	["with poison"] = { keywordFlags = KeywordFlag.Poison },
-	["projectile"] = { flags = ModFlag.Projectile },
 	["area"] = { flags = ModFlag.Area },
 	["mine"] = { keywordFlags = KeywordFlag.Mine },
 	["with mines"] = { keywordFlags = KeywordFlag.Mine },
@@ -290,6 +292,8 @@ local preFlagList = {
 	["^minions deal "] = { keywordFlags = KeywordFlag.Minion },
 	["^attacks used by totems have "] = { keywordFlags = KeywordFlag.Totem },
 	["^spells cast by totems have "] = { keywordFlags = KeywordFlag.Totem },
+	["^attacks with this weapon "] = { tag = { type = "Condition", var = "XHandAttack" } },
+	["^attacks with this weapon have "] = { tag = { type = "Condition", var = "XHandAttack" } },
 	["^attacks have "] = { flags = ModFlag.Attack },
 	["^melee attacks have "] = { flags = ModFlag.Melee },
 	["^left ring slot: "] = { tag = { type = "SlotNumber", num = 1 } },
@@ -343,6 +347,7 @@ local modTagList = {
 	["if all worn items are corrupted"] = { tag = { type = "Condition", var = "UsingAllCorruptedItems" } },
 	["with main hand"] = { tag = { type = "Condition", var = "MainHandAttack" } },
 	["with off hand"] = { tag = { type = "Condition", var = "OffHandAttack" } },
+	["with this weapon"] = { tag = { type = "Condition", var = "XHandAttack" } }, -- The X is replaced when the item modifiers are generated
 	-- Player status conditions
 	["when on low life"] = { tag = { type = "Condition", var = "LowLife" } },
 	["while on low life"] = { tag = { type = "Condition", var = "LowLife" } },
@@ -558,7 +563,8 @@ local specialModList = {
 	["critical strike chance is increased by uncapped lightning resistance"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "LightningResistTotal", div = 1 }) },
 	["critical strikes deal no damage"] = { flag("NoCritDamage") },
 	["enemies chilled by you take (%d+)%% increased burning damage"] = function(num) return { mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("BurningDamageTaken", "INC", num) }, { type = "Condition", var = "EnemyChilled" }) } end,
-	["attacks with this weapon penetrate (%d+)%% elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, nil, ModFlag.Weapon) } end,
+	["attacks with this weapon penetrate (%d+)%% elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "XHandAttack" }) } end,
+	["attacks with this weapon deal double damage to chilled enemies"] = { mod("Damage", "MORE", 100, nil, ModFlag.Hit, { type = "Condition", var = "XHandAttack" }, { type = "Condition", var = "EnemyChilled" }) },
 	["(%d+)%% of maximum life converted to energy shield"] = function(num) return { mod("LifeConvertToEnergyShield", "BASE", num) } end,
 }
 local keystoneList = {
@@ -641,10 +647,11 @@ end
 local function getSimpleConv(src, dst, type, factor)
 	return function(nodeMods, out, data)
 		if nodeMods then
-			local nodeVal = nodeMods:Sum(type, nil, src)
-			if nodeVal ~= 0 then
-				out:NewMod(src, type, -nodeVal, "Tree:Jewel")
-				out:NewMod(dst, type, nodeVal * factor, "Tree:Jewel")
+			for _, mod in ipairs(nodeMods) do
+				if mod.name == src and mod.type == type then
+					out:NewMod(src, type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
+					out:NewMod(dst, type, mod.value * factor, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
+				end
 			end
 		end
 	end
@@ -762,7 +769,7 @@ local function scan(line, patternList, plain)
 	return bestMatch[1], bestMatch[2], bestMatch[3]
 end
 
-local function parseMod(line)
+local function parseMod(line, order)
 	-- Check if this is a special modifier
 	local specialMod, specialLine, cap = scan(line, specialModList)
 	if specialMod and #specialLine == 0 then
@@ -803,14 +810,16 @@ local function parseMod(line)
 		end
 	end
 	
-	-- Scan for modifier name
-	local modName
-	modName, line = scan(line, modNameList, true)
-
-	-- Scan for skill name
-	local skillTag
+	-- Scan for modifier name and skill name
+	local modName, skillTag
+	if order == 1 then
+		modName, line = scan(line, modNameList, true)
+	end
 	skillTag, line = scan(line, skillNameList, true)
-
+	if order == 2 then
+		modName, line = scan(line, modNameList, true)
+	end
+	
 	-- Scan for flags if one hasn't been found already
 	if not modFlag then
 		modFlag, line = scan(line, modFlagList, true)
@@ -917,7 +926,11 @@ local unsupported = { }
 local count = 0
 return function(line)
 	if not cache[line] then
-		cache[line] = { parseMod(line) }
+		local modList, extra = parseMod(line, 1)
+		if modList and extra then
+			modList, extra = parseMod(line, 2)
+		end
+		cache[line] = { modList, extra }
 		--[[if not cache[line][1] then
 			local form = line:gsub("[%+%-]?%d+%.?%d*","{num}")
 			if not unsupported[form] then

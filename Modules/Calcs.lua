@@ -1818,20 +1818,25 @@ local function performCalcs(env)
 	-- Calculate attack/cast speed
 	do
 		local baseSpeed
-		if isAttack then
-			if skillData.castTimeOverridesAttackTime then
-				-- Skill is overriding weapon attack speed
-				baseSpeed = 1 / skillData.castTime * (1 + (env.weaponData1.AttackSpeedInc or 0) / 100)
-			else
-				baseSpeed = env.weaponData1.attackRate or 1
-			end
+		if skillData.timeOverride then
+			output.Time = skillData.timeOverride
+			output.Speed = 1 / output.Time
 		else
-			baseSpeed = 1 / (skillData.castTime or 1)
-		end
-		output.Speed = baseSpeed * calcMod(modDB, skillCfg, "Speed")
-		output.Time = 1 / output.Speed
-		if breakdown then
-			simpleBreakdown(baseSpeed, skillCfg, "Speed")
+			if isAttack then
+				if skillData.castTimeOverridesAttackTime then
+					-- Skill is overriding weapon attack speed
+					baseSpeed = 1 / skillData.castTime * (1 + (env.weaponData1.AttackSpeedInc or 0) / 100)
+				else
+					baseSpeed = env.weaponData1.attackRate or 1
+				end
+			else
+				baseSpeed = 1 / (skillData.castTime or 1)
+			end
+			output.Speed = baseSpeed * calcMod(modDB, skillCfg, "Speed")
+			output.Time = 1 / output.Speed
+			if breakdown then
+				simpleBreakdown(baseSpeed, skillCfg, "Speed")
+			end
 		end
 	end
 
@@ -1992,7 +1997,7 @@ local function performCalcs(env)
 	output.TotalMax = totalMax
 
 	-- Update enemy hit-by-damage-type conditions
-	enemyDB.conditions.HitByFireDamage =  output.FireAverage > 0
+	enemyDB.conditions.HitByFireDamage = output.FireAverage > 0
 	enemyDB.conditions.HitByColdDamage = output.ColdAverage > 0
 	enemyDB.conditions.HitByLightningDamage = output.LightningAverage > 0
 
@@ -2150,7 +2155,7 @@ local function performCalcs(env)
 			if output.CritEffect ~= 1 then
 				t_insert(breakdown.BleedDPS, s_format("x %.3f ^8(crit effect modifier)", output.CritEffect))
 			end
-			t_insert(breakdown.BleedDPS, "x 0.2 ^8(bleed deals 20% per second)")
+			t_insert(breakdown.BleedDPS, "x 0.1 ^8(bleed deals 10% per second)")
 			t_insert(breakdown.BleedDPS, s_format("= %.1f", baseVal, 1))
 			t_insert(breakdown.BleedDPS, "Bleed DPS:")
 			dotBreakdown(breakdown.BleedDPS, baseVal, inc, more, effMult, output.BleedDPS)
@@ -2567,7 +2572,7 @@ function calcs.buildOutput(build, mode)
 		output.CombatList = table.concat(combatList, ", ")
 		output.CurseList = table.concat(curseList, ", ")
 
-		infoDump(env)
+		--infoDump(env)
 	end
 
 	return env

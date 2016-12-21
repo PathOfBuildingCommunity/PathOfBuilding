@@ -356,6 +356,8 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 				end
 			elseif tag.type == "SocketedIn" then
 				tag.slotName = slotName
+			elseif tag.type == "Condition" and tag.var == "XHandAttack" then
+				tag.var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack"
 			end
 		end
 		if add then

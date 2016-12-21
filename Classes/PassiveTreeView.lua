@@ -425,7 +425,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
 			SetDrawLayer(nil, 0)
 		end
-		if node == hoverNode and (node.type ~= "socket" or not IsKeyDown("SHIFT") or self.traceMode) then
+		if node == hoverNode and (node.type ~= "socket" or not IsKeyDown("SHIFT")) then
 			-- Draw tooltip
 			SetDrawLayer(nil, 10)
 			local size = m_floor(hoverNode.size * scale)
@@ -527,10 +527,11 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 		else
 			main:AddTooltipLine(24, "^7"..node.dn..(launch.devMode and IsKeyDown("ALT") and " ["..node.id.."]" or ""))
 		end
+		main:AddTooltipSeparator(14)
 		if socket:IsEnabled() then
-			main:AddTooltipSeparator(14)
 			main:AddTooltipLine(14, "^x80A080Tip: Right click this socket to go to the items page and choose the jewel for this socket.")
 		end
+		main:AddTooltipLine(14, "^x80A080Tip: Hold Shift to hide this tooltip.")
 		return
 	end
 	
@@ -604,8 +605,8 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 	end
 
 	-- Pathing distance
+	main:AddTooltipSeparator(14)
 	if node.path and #node.path > 0 then
-		main:AddTooltipSeparator(14)
 		if self.traceMode and isValueInArray(self.tracePath, node) then
 			main:AddTooltipLine(14, "^7"..#self.tracePath .. " nodes in trace path")
 		else
@@ -616,6 +617,9 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 				main:AddTooltipLine(14, "Tip: To reach this node by a different path, hold Shift, then trace the path and click this node")
 			end
 		end
+	end
+	if node.type == "socket" then
+		main:AddTooltipLine(14, "^x80A080Tip: Hold Shift to hide this tooltip.")
 	end
 	if node.depends and #node.depends > 1 then
 		main:AddTooltipSeparator(14)

@@ -112,6 +112,9 @@ local varList = {
 	{ var = "conditionEnemyShocked", type = "check", label = "Is the enemy Shocked?", tooltip = "In addition to allowing any 'against Shocked Enemies' modifiers to apply,\nthis will apply Shock's Damage Taken modifier to the enemy.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyShocked" }, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionEnemyIntimidated", type = "check", label = "Is the enemy Intimidated?", tooltip = "This adds the following modifiers:\n10% increased Damage Taken by enemy", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("DamageTaken", "INC", 10, "Intimidate")
+	end },
 	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "This adds the following modifiers:\n20% less enemy Movement Speed\n20% increased Fire Damage Taken by enemy", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("FireDamageTaken", "INC", 20, "Ash")
 	end },

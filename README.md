@@ -8,9 +8,8 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
   * Also calculates life/mana reservations
   * Shows a summary of character stats in the side bar, as well as a detailed calcs breakdown tab which can show you how the stats were derived
   * Supports most skills, support gems, passives and item modifiers
-    * Throughout the program, supported modifiers will show in blue and unsupported ones in white
+    * Throughout the program, supported modifiers will show in blue and unsupported ones in red
     * Most minion skill are unsupported at present (except for golems, which can provide buffs to you)
-    * Trigger gems are generally unsupported (Cast on Crit, etc)
     * No support for flasks yet
 * Passive skill tree planner:
   * Support for jewels including most radius/conversion jewels
@@ -49,6 +48,18 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.27 - 2016/12/21
+ * Cast when Channelling now overrides the cast rate of the triggered skill, allowing the DPS of that skill 
+   to be calculated correctly
+ * Added an option to the Configuration tab to enable the Intimidate debuff on the enemy
+ * Jewel tooltips on the passive tree can now be hidden by holding Shift
+ * Corrected a display issue in the breakdown for Bleed that showed the wrong percentage of base damage
+ * Energised Armour now correctly converts the ES-from-Shield node in the Mind Barrier cluster
+ * Many skill-specific modifiers (such as helmet enchants) that weren't previously recognised should now be working
+ * New installer versions are available, and are recommended if you need to install the program again
+    * The new standalone install no longer forces an update check when run for the first time, and will never ask for
+	  administrator privileges to update itself (as currently happens when certain files need to be updated)
+
 ### 1.2.26 - 2016/12/14
  * The sidebar now displays a DPS or Average Hit total that factors in Poison
  * Added support for the Bone Nova skill granted by Uul-Netol's Embrace
