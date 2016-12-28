@@ -1868,6 +1868,10 @@ local function performCalcs(env)
 			if (baseCrit + base) > 0 then
 				output.CritChance = m_max(output.CritChance, 5)
 			end
+			local actualCritChance = output.CritChance
+			if env.mode_effective and modDB:Sum("FLAG", skillCfg, "CritChanceLucky") then
+				output.CritChance = (1 - (1 - output.CritChance / 100) ^ 2) * 100
+			end
 			if breakdown and output.CritChance ~= baseCrit then
 				local inc = modDB:Sum("INC", skillCfg, "CritChance")
 				local more = modDB:Sum("MORE", skillCfg, "CritChance")
@@ -1887,7 +1891,12 @@ local function performCalcs(env)
 				if env.mode_effective and enemyExtra ~= 0 then
 					t_insert(breakdown.CritChance, s_format("+ %g ^8(extra chance for enemy to be crit)", enemyExtra))
 				end
-				t_insert(breakdown.CritChance, s_format("= %g", output.CritChance))
+				t_insert(breakdown.CritChance, s_format("= %g", actualCritChance))
+				if env.mode_effective and modDB:Sum("FLAG", skillCfg, "CritChanceLucky") then
+					t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
+					t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", actualCritChance / 100, actualCritChance / 100))
+					t_insert(breakdown.CritChance, s_format("= %.2f", output.CritChance))
+				end
 			end
 		end
 		if modDB:Sum("FLAG", skillCfg, "NoCritDamage") then
@@ -2589,7 +2598,7 @@ function calcs.buildOutput(build, mode)
 		output.CombatList = table.concat(combatList, ", ")
 		output.CurseList = table.concat(curseList, ", ")
 
-		--infoDump(env)
+		infoDump(env)
 	end
 
 	return env
