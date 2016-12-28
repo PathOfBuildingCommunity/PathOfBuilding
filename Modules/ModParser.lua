@@ -398,6 +398,7 @@ local modTagList = {
 	["against enemies that are on low life"] = { tag = { type = "Condition", var = "EnemyLowLife" }, flags = ModFlag.Hit },
 	["against bleeding enemies"] = { tag = { type = "Condition", var = "EnemyBleeding" }, flags = ModFlag.Hit },
 	["against poisoned enemies"] = { tag = { type = "Condition", var = "EnemyPoisoned" }, flags = ModFlag.Hit },
+	["against hindered enemies"] = { tag = { type = "Condition", var = "EnemyHindered" }, flags = ModFlag.Hit },
 	["against burning enemies"] = { tag = { type = "Condition", var = "EnemyBurning" }, flags = ModFlag.Hit },
 	["against ignited enemies"] = { tag = { type = "Condition", var = "EnemyIgnited" }, flags = ModFlag.Hit },
 	["against shocked enemies"] = { tag = { type = "Condition", var = "EnemyShocked" }, flags = ModFlag.Hit },

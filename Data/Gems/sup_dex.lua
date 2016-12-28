@@ -172,6 +172,7 @@ gems["Cast On Critical Strike"] = {
 		mod("ManaCost", "MORE", 40), 
 		--"cast_linked_spells_on_attack_crit_%" = 100
 		--"spell_uncastable_if_triggerable" = ?
+		skill("showAverage", true, { type = "SkillType", skillType = 36 }), 
 	},
 	qualityMods = {
 		mod("CritChance", "INC", 1, 0, 0, nil), --"critical_strike_chance_+%" = 1

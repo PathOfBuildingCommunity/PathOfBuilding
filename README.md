@@ -48,6 +48,10 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.29 - 2016/12/26
+ * Added an "Enemy is Hindered" option to the Configuration tab
+ * Added a "Crit Chance is Lucky" option to the Configuration tab
+
 ### 1.2.28 - 2016/12/22
  * Added skill parts to Blade Vortex to enable calculation of DPS with different blade counts
     * Blade Vortex now has a hit rate override which replaces the cast rate when calculating the skill's DPS
