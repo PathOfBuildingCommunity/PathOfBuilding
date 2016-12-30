@@ -105,7 +105,7 @@ gems["Abberath's Fury"] = {
 		mod("EnemyIgniteChance", "BASE", 10), --"base_chance_to_ignite_%" = 10
 		--"cast_on_gain_skill" = ?
 		--"cannot_knockback" = ?
-		--"spell_uncastable_if_triggerable" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 		--"is_area_damage" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
 	},
@@ -131,7 +131,7 @@ gems["Bone Nova"] = {
 		--"attack_trigger_on_killing_bleeding_enemy_%" = 100
 		--"monster_projectile_variation" = 15
 		--"projectiles_nova" = ?
-		--"spell_uncastable_if_triggerable" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 		--"base_is_projectile" = ?
 		flag("CannotBleed"), --"cannot_cause_bleeding" = ?
 	},
@@ -268,7 +268,7 @@ gems["Lightning Bolt"] = {
 		skill("critChance", 6), 
 		--"cast_on_crit_%" = 100
 		--"is_area_damage" = ?
-		--"spell_uncastable_if_triggerable" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 	},
 	qualityMods = {
 	},
