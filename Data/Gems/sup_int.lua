@@ -169,7 +169,7 @@ gems["Cast when Stunned"] = {
 	addSkillTypes = { 42, },
 	excludeSkillTypes = { 37, 41, 30, 44, },
 	baseMods = {
-		--"spell_uncastable_if_triggerable" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
@@ -222,7 +222,7 @@ gems["Cast while Channelling"] = {
 	excludeSkillTypes = { 30, },
 	baseMods = {
 		mod("ManaCost", "MORE", 40), 
-		--"spell_uncastable_if_triggerable" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 	},
 	qualityMods = {
 		mod("Damage", "INC", 0.5, 0, 0, nil), --"damage_+%" = 0.5

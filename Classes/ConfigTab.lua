@@ -40,6 +40,15 @@ local varList = {
 	{ var = "conditionOnConsecratedGround", type = "check", label = "Are you on Consecrated Ground?", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "OnConsecratedGround" }, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionIgnited", type = "check", label = "Are you Ignited?", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "PlayerIgnited" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionFrozen", type = "check", label = "Are you Frozen?", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "PlayerFrozen" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionShocked", type = "check", label = "Are you Shocked?", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "PlayerShocked" }, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionHitRecently", type = "check", label = "Have you Hit Recently?", tooltip = "You will automatically be considered to have Hit Recently if your main skill is self-cast,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "HitRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },

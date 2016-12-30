@@ -48,6 +48,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.30 - 2016/12/30
+ * Added options to the Configuration tab for "Are you Ignited/Frozen/Shocked"
+ * Discharge's damage penalty when triggered will now apply correctly
+ * Skin of the Loyal and Skin of the Lords' Energy Shield values are now correctly removed
+ 
 ### 1.2.29 - 2016/12/26
  * Added an "Enemy is Hindered" option to the Configuration tab
  * Added a "Crit Chance is Lucky" option to the Configuration tab

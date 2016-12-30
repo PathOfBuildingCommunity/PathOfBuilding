@@ -1624,6 +1624,8 @@ local function performCalcs(env)
 		end
 	end
 
+	env.modDB.conditions["SkillIsTriggered"] = skillData.triggered
+
 	-- Add addition stat bonuses
 	if modDB:Sum("FLAG", nil, "IronGrip") then
 		modDB:NewMod("PhysicalDamage", "INC", strDmgBonus, "Strength", bor(ModFlag.Attack, ModFlag.Projectile))

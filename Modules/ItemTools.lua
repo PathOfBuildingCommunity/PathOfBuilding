@@ -462,7 +462,7 @@ function itemLib.buildItemModList(item)
 			end
 		end
 	end
-	if item.name == "Tabula Rasa, Simple Robe" then
+	if item.name == "Tabula Rasa, Simple Robe" or item.name == "Skin of the Loyal, Simple Robe" or item.name == "Skin of the Lords, Simple Robe" then
 		-- Hack to remove the energy shield
 		t_insert(baseList, { name = "Misc", type = "LIST", value = { type = "ArmourData", key = "EnergyShield" }, flags = 0, keywordFlags = 0, tagList = { } })
 	end

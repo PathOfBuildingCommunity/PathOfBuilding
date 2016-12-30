@@ -171,7 +171,7 @@ gems["Cast On Critical Strike"] = {
 	baseMods = {
 		mod("ManaCost", "MORE", 40), 
 		--"cast_linked_spells_on_attack_crit_%" = 100
-		--"spell_uncastable_if_triggerable" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 		skill("showAverage", true, { type = "SkillType", skillType = 36 }), 
 	},
 	qualityMods = {
@@ -224,7 +224,7 @@ gems["Cast on Death"] = {
 	excludeSkillTypes = { 9, 37, 41, 30, 44, },
 	baseMods = {
 		--"cast_on_death_%" = 100
-		--"spell_uncastable_if_triggerable" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 		--"spell_only_castable_on_death" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 	},
