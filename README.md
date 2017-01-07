@@ -48,6 +48,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.31 - 2017/01/08
+ * Added two new templates for sceptre attack builds
+ * Corrected the implicits on the wand and sceptre templates
+ * Fixed the rounding on life/mana reservation calculations
+ * Fixed the "additional Block Chance with Staves" modifier
+
 ### 1.2.30 - 2016/12/30
  * Added options to the Configuration tab for "Are you Ignited/Frozen/Shocked"
  * Discharge's damage penalty when triggered will now apply correctly

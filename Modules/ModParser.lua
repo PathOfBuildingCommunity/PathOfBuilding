@@ -478,6 +478,7 @@ local specialModList = {
 	-- Special node types
 	["(%d+)%% of block chance applied to spells"] = function(num) return { mod("BlockChanceConv", "BASE", num) } end,
 	["(%d+)%% additional block chance with staves"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "UsingStaff" }) } end,
+	["(%d+)%% additional chance to block with staves"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "UsingStaff" }) } end,
 	["(%d+)%% additional block chance while dual wielding or holding a shield"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "DualWielding"}), mod("BlockChance", "BASE", num, { type = "Condition", var = "UsingShield"}) } end,
 	["can have up to (%d+) additional traps? placed at a time"] = function(num) return { mod("ActiveTrapLimit", "BASE", num) } end,
 	["can have up to (%d+) additional remote mines? placed at a time"] = function(num) return { mod("ActiveMineLimit", "BASE", num) } end,
