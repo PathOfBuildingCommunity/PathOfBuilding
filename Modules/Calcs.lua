@@ -1097,7 +1097,9 @@ local function performCalcs(env)
 			local mult = skillModList:Sum("MORE", skillCfg, "ManaCost")
 			local more = modDB:Sum("MORE", skillCfg, "ManaReserved") * skillModList:Sum("MORE", skillCfg, "ManaReserved")
 			local inc = modDB:Sum("INC", skillCfg, "ManaReserved") + skillModList:Sum("INC", skillCfg, "ManaReserved")
-			local cost = m_ceil(m_ceil(m_floor(baseVal * mult) * more) * (1 + inc / 100))
+			--local cost = m_ceil(m_ceil(m_floor(baseVal * mult) * more) * (1 + inc / 100))
+			local base = m_floor(baseVal * mult)
+			local cost = base - m_floor(base * -m_floor((100 + inc) * more - 100) / 100)
 			local pool
 			if modDB:Sum("FLAG", skillCfg, "BloodMagic", "SkillBloodMagic") or skillModList:Sum("FLAG", skillCfg, "SkillBloodMagic") then
 				pool = "Life"

@@ -919,7 +919,7 @@ Suffixes:
 ]],[[
 Spell Sceptre
 Void Sceptre
-15% increased Elemental Damage
+40% increased Elemental Damage
 {spell 1h}
 ]],[[
 Physical 1H Mace
@@ -927,9 +927,19 @@ Behemoth Mace
 6% increased Attack Speed
 {phys 1h}
 ]],[[
+Physical Sceptre
+Void Sceptre
+40% increased Elemental Damage
+{phys 1h}
+]],[[
 Elemental 1H Mace
 Behemoth Mace
 6% increased Attack Speed
+{elem 1h}
+]],[[
+Elemental Sceptre
+Void Sceptre
+40% increased Elemental Damage
 {elem 1h}
 ]],[[
 Physical 2H Mace
@@ -1037,20 +1047,20 @@ Reaver Sword
 ]],[[
 Physical Wand
 Imbued Wand
-(15 to 19)% increased Spell Damage
+(33-37)% increased Spell Damage
 {phys 1h pre}
 {range:0}Adds (0-72 to 0-123) Chaos Damage
 {ranged suf}
 ]],[[
 Elemental Wand
 Imbued Wand
-(15 to 19)% increased Spell Damage
+(33-37)% increased Spell Damage
 {elem 1h pre}
 {ranged suf}
 ]],[[
 Spell Wand
 Prophecy Wand
-(16 to 20)% increased Spell Damage
+(36-40)% increased Spell Damage
 {spell 1h}
 ]],
 -- Jewels
