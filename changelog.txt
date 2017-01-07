@@ -1,3 +1,8 @@
+VERSION[1.2.31][2017/01/08]
+ * Added two new templates for sceptre attack builds
+ * Corrected the implicits on the wand and sceptre templates
+ * Fixed the rounding on life/mana reservation calculations
+ * Fixed the "additional Block Chance with Staves" modifier
 VERSION[1.2.30][2016/12/30]
  * Added options to the Configuration tab for "Are you Ignited/Frozen/Shocked"
  * Discharge's damage penalty when triggered will now apply correctly
