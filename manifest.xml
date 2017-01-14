@@ -7,7 +7,7 @@
 	<File sha1="46a39bc720b0339359fe598ea2828a9a43ecbcea" name="Launch.lua" part="program"/>
 	<File sha1="d8e42beeb38baabcc197d658e4c0af33419eeff3" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="8964717f8952b8cf320939b99d034f96db7abc75" name="changelog.txt" part="program"/>
+	<File sha1="6021566727e0d962a0d8af5d75a9a3945e4fe1ef" name="changelog.txt" part="program"/>
 	<File sha1="231a4fe264d84294427edacbf3e29ec4b301712e" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="47c28993f5653955c9e76714775d87ac22b077da" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="5a4b4930533a97f4d87231a6024b7f48ff0bad89" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -17,7 +17,7 @@
 	<File sha1="70bebdd6d7dcadddfef6429bc6dcc42072d8b04b" name="Classes/ConfigTab.lua" part="program"/>
 	<File sha1="bbb08f183746d6ec023e2bd08fb7a89d365381da" name="Classes/Control.lua" part="program"/>
 	<File sha1="ae55fe1093e727872bc01cc94fa987395f944313" name="Classes/ControlHost.lua" part="program"/>
-	<File sha1="95d665ada6515e8ce739b790a59213bdee75b6a5" name="Classes/DropDownControl.lua" part="program"/>
+	<File sha1="a6e9daebf8651d5e5c3bd96742d4430b95f3dcb9" name="Classes/DropDownControl.lua" part="program"/>
 	<File sha1="b80bce946bd080f77b00704353d0f782a2a2de72" name="Classes/EditControl.lua" part="program"/>
 	<File sha1="3dca397c5ed010ed2c5c0551b103c009cfa83c60" name="Classes/GemSelectControl.lua" part="program"/>
 	<File sha1="0d739a663e36ebecefaff9101e9b66346c2fd3c3" name="Classes/ImportTab.lua" part="program"/>
