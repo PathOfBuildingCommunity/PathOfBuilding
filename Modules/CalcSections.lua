@@ -211,6 +211,7 @@ return {
 	{ label = "Effective DPS Mod", flag = "effective", { format = "x {3:output:IgniteEffMult}", { breakdown = "IgniteEffMult" }, { label = "Enemy modifiers", modName = { "FireResist", "ElementalResist", "DamageTaken", "DotTaken", "FireDamageTaken", "BurningDamageTaken", "ElementalDamageTaken" }, enemy = true }, }, },
 	{ label = "Ignite DPS", { format = "{1:output:IgniteDPS}", { breakdown = "IgniteDPS" }, }, },
 	{ label = "Ignite Duration", { format = "{2:output:IgniteDuration}s", { breakdown = "IgniteDuration" }, { label = "Player modifiers", modName = "EnemyIgniteDuration", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfIgniteDuration", enemy = true }, }, },
+	{ label = "Dmg. per Ignite", flag = "igniteCanStack", { format = "{1:output:IgniteDamage}", { breakdown = "IgniteDamage" }, }, },
 } },
 { 1, "MiscEffects", 1, "Other Effects", data.colorCodes.OFFENCE, {
 	flag = "hit",

@@ -9,8 +9,20 @@ local ipairs = ipairs
 local m_min = math.min
 local m_max = math.max
 
-local DropDownClass = common.NewClass("DropDownControl", "Control", function(self, anchor, x, y, width, height, list, selFunc, tooltip)
+local DropDownClass = common.NewClass("DropDownControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, list, selFunc, tooltip)
 	self.Control(anchor, x, y, width, height)
+	self.ControlHost()
+	self.controls.scrollBar = common.New("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
+	self.controls.scrollBar.y = function()
+		local width, height = self:GetSize()
+		return height + 1
+	end
+	self.controls.scrollBar.height = function()
+		return (height - 4) * m_min(#self.list, 30) + 2
+	end
+	self.controls.scrollBar.shown = function()
+		return self.dropped and self.controls.scrollBar.enabled
+	end
 	self.list = list or { }
 	self.sel = 1
 	self.selFunc = selFunc
@@ -43,6 +55,14 @@ function DropDownClass:SetSel(newSel)
 	end
 end
 
+function DropDownClass:ScrollSelIntoView()
+	local width, height = self:GetSize()
+	local scrollBar = self.controls.scrollBar
+	local dropHeight = (height - 4) * m_min(#self.list, 30)
+	scrollBar:SetContentDimension((height - 4) * #self.list, dropHeight)
+	scrollBar:ScrollIntoView((self.sel - 2) * (height - 4), 3 * (height - 4))
+end
+
 function DropDownClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -50,7 +70,7 @@ function DropDownClass:IsMouseOver()
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
-	local dropExtra = self.dropped and (height - 4) * #self.list + 2 or 0
+	local dropExtra = self.dropped and (height - 4) * m_min(#self.list, 30) + 2 or 0
 	local mOver
 	if self.dropUp then
 		mOver = cursorX >= x and cursorY >= y - dropExtra and cursorX < x + width and cursorY < y + height
@@ -73,7 +93,10 @@ function DropDownClass:Draw(viewPort)
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
 	local mOver, mOverComp = self:IsMouseOver()
-	local dropExtra = (height - 4) * #self.list + 4
+	local dropHeight = (height - 4) * m_min(#self.list, 30)
+	local dropExtra = dropHeight + 4
+	local scrollBar = self.controls.scrollBar
+	scrollBar:SetContentDimension((height - 4) * #self.list, dropHeight)
 	self.dropUp = y + height + dropExtra > viewPort.height
 	local dropY = self.dropUp and y - dropExtra or y + height
 	if not enabled then
@@ -133,14 +156,15 @@ function DropDownClass:Draw(viewPort)
 	SetViewport()
 	if self.dropped then
 		SetDrawLayer(nil, 5)
+		self:DrawControls(viewPort)
 		local cursorX, cursorY = GetCursorPos()
-		self.hoverSel = mOver and math.floor((cursorY - dropY) / (height - 4)) + 1
+		self.hoverSel = mOver and not scrollBar:IsMouseOver() and math.floor((cursorY - dropY + scrollBar.offset) / (height - 4)) + 1
 		if self.hoverSel and self.hoverSel < 1 then
 			self.hoverSel = nil
 		end
-		SetViewport(x + 2, dropY + 2, width - 4, #self.list * (height - 4))
+		SetViewport(x + 2, dropY + 2, scrollBar.enabled and width - 22 or width - 4, dropHeight)
 		for index, listVal in ipairs(self.list) do
-			local y = (index - 1) * (height - 4)
+			local y = (index - 1) * (height - 4) - scrollBar.offset
 			if index == self.hoverSel then
 				SetDrawColor(0.5, 0.4, 0.3)
 				DrawImage(nil, 0, y, width - 4, height - 4)
@@ -162,13 +186,23 @@ function DropDownClass:OnKeyDown(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
+	local mOverControl = self:GetMouseOverControl()
+	if mOverControl and mOverControl.OnKeyDown then
+		self.selControl = mOverControl
+		return mOverControl:OnKeyDown(key) and self
+	else
+		self.selControl = nil
+	end
 	if key == "LEFTBUTTON" or key == "RIGHTBUTTON" then
 		local mOver, mOverComp = self:IsMouseOver()
 		if not mOver or (self.dropped and mOverComp == "BODY") then
 			self.dropped = false
 			return self
 		end
-		self.dropped = true
+		if not self.dropped then
+			self.dropped = true
+			self:ScrollSelIntoView()
+		end
 	elseif key == "ESCAPE" then
 		self.dropped = false
 	end
@@ -179,6 +213,15 @@ function DropDownClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
+	if self.selControl then
+		local newSel = self.selControl:OnKeyUp(key)
+		if newSel then
+			return self
+		else
+			self.selControl = nil
+		end
+		return self
+	end
 	if key == "LEFTBUTTON" or key == "RIGHTBUTTON" then
 		local mOver, mOverComp = self:IsMouseOver()
 		if not mOver then
@@ -187,16 +230,32 @@ function DropDownClass:OnKeyUp(key)
 			local x, y = self:GetPos()
 			local width, height = self:GetSize()
 			local cursorX, cursorY = GetCursorPos()
-			local dropExtra = (height - 4) * #self.list + 4
+			local dropExtra = (height - 4) * m_min(#self.list, 30) + 4
 			local dropY = self.dropUp and y - dropExtra or y + height
-			self:SetSel(math.floor((cursorY - dropY) / (height - 4)) + 1)
+			self:SetSel(math.floor((cursorY - dropY + self.controls.scrollBar.offset) / (height - 4)) + 1)
 			self.dropped = false
 		end
-	elseif key == "WHEELDOWN" or key == "DOWN" then
-		self:SetSel(self.sel + 1)
+	elseif key == "WHEELDOWN" then
+		if self.dropped and self.controls.scrollBar.enabled then
+			self.controls.scrollBar:Scroll(1)
+		else
+			self:SetSel(self.sel + 1)
+		end
 		return self
-	elseif key == "WHEELUP" or key == "UP" then
+	elseif key == "DOWN" then
+		self:SetSel(self.sel + 1)
+		self:ScrollSelIntoView()
+		return self
+	elseif key == "WHEELUP" then
+		if self.dropped and self.controls.scrollBar.enabled then
+			self.controls.scrollBar:Scroll(-1)
+		else
+			self:SetSel(self.sel - 1)
+		end
+		return self
+	elseif key == "UP" then
 		self:SetSel(self.sel - 1)
+		self:ScrollSelIntoView()
 		return self
 	end
 	return self.dropped and self

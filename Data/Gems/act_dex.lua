@@ -229,7 +229,7 @@ gems["Blade Flurry"] = {
 		--"is_area_damage" = ?
 		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
-		mod("Damage", "MORE", 100, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Damage", "MORE", 120, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), 
 		skill("dpsMultiplier", 3, { type = "SkillPart", skillPart = 3 }), 
 	},
 	qualityMods = {
