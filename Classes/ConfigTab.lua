@@ -64,6 +64,9 @@ local varList = {
 	{ var = "conditionBeenHitRecently", type = "check", label = "Have you been Hit Recently?", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BeenHitRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionBeenSavageHitRecently", type = "check", label = "Have you been Savage Hit Recently?", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BeenSavageHitRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "buffPendulum", type = "check", label = "Is Pendulum of Destruction active?", ifNode = 57197, apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "PendulumOfDestruction" }, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -198,21 +201,21 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 		else
 			local control
 			if varData.type == "check" then
-				control = common.New("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 216, 0, 18, nil, function(state)
+				control = common.New("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 224, 0, 18, nil, function(state)
 					self.input[varData.var] = state
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end) 
 			elseif varData.type == "number" then
-				control = common.New("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 216, 0, 50, 18, "", nil, "^%-%d", 4, function(buf)
+				control = common.New("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 224, 0, 50, 18, "", nil, "^%-%d", 4, function(buf)
 					self.input[varData.var] = tonumber(buf)
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end) 
 			elseif varData.type == "list" then
-				control = common.New("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 216, 0, 126, 16, varData.list, function(sel, selVal)
+				control = common.New("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 224, 0, 118, 16, varData.list, function(sel, selVal)
 					self.input[varData.var] = selVal.val
 					self:AddUndoState()
 					self:BuildModList()

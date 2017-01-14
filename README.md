@@ -48,6 +48,14 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.32 - 2017/01/15
+ * The program now calculates Total Damage per Ignite and Total DPS inc. Ignite when you have Emberwake equipped
+ * Added a "Have you been Savage Hit Recently?" option to the Configuration tab
+ * The calculation of Total DPS inc. Poison now factors in hit chance
+ * Fixed the bonus crit chance for Ice Spear's second form
+ * Vaal skills now correctly benefit from Vaal skill modifiers
+ * The breakdown for poison duration now correctly displays the poison duration modifier instead of the skill modifier
+
 ### 1.2.31 - 2017/01/08
  * Added two new templates for sceptre attack builds
  * Corrected the implicits on the wand and sceptre templates

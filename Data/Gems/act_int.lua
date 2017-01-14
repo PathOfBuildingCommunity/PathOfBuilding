@@ -2378,7 +2378,7 @@ gems["Ice Spear"] = {
 		skill("damageEffectiveness", 0.8), 
 		skill("critChance", 7), 
 		--"base_is_projectile" = 1
-		mod("CritChance", "INT", 600, 0, 0, { type = "SkillPart", skillPart = 2 }), --"ice_spear_second_form_critical_strike_chance_+%" = 600
+		mod("CritChance", "INC", 600, 0, 0, { type = "SkillPart", skillPart = 2 }), --"ice_spear_second_form_critical_strike_chance_+%" = 600
 		mod("PierceChance", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }), 
 	},
 	qualityMods = {

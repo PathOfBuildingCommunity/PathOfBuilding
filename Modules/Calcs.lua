@@ -258,6 +258,9 @@ local function buildActiveSkillModList(env, activeSkill)
 	if skillFlags.movement then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Movement)
 	end
+	if skillFlags.vaal then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Vaal)
+	end
 	if skillFlags.lightning then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Lightning)
 	end
@@ -2181,7 +2184,7 @@ local function performCalcs(env)
 					"5.00s ^8(base duration)"
 				}
 				if output.DurationMod ~= 1 then
-					t_insert(breakdown.BleedDuration, s_format("x %.2f ^8(duration modifier)", output.DurationMod))
+					t_insert(breakdown.BleedDuration, s_format("x %.2f ^8(duration modifier)", calcMod(modDB, dotCfg, "Duration")))
 				end
 				if debuffDurationMult ~= 1 then
 					t_insert(breakdown.BleedDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
@@ -2248,7 +2251,7 @@ local function performCalcs(env)
 					s_format("%.2fs ^8(base duration)", durationBase)
 				}
 				if output.DurationMod ~= 1 then
-					t_insert(breakdown.PoisonDuration, s_format("x %.2f ^8(duration modifier)", output.DurationMod))
+					t_insert(breakdown.PoisonDuration, s_format("x %.2f ^8(duration modifier)", calcMod(modDB, dotCfg, "Duration")))
 				end
 				if debuffDurationMult ~= 1 then
 					t_insert(breakdown.PoisonDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
@@ -2258,7 +2261,7 @@ local function performCalcs(env)
 			breakdown.PoisonDamage = {
 				s_format("%.1f ^8(damage per second)", output.PoisonDPS),
 				s_format("x %.2fs ^8(poison duration)", output.PoisonDuration),
-				s_format("= %.1f ^8damage per poison stack", output.PoisonDamage),s
+				s_format("= %.1f ^8damage per poison stack", output.PoisonDamage),
 			}
 		end
 	end	
@@ -2306,6 +2309,10 @@ local function performCalcs(env)
 			output.IgniteDPS = baseVal * (1 + inc/100) * more * effMult
 			local incDur = modDB:Sum("INC", dotCfg, "EnemyIgniteDuration") + enemyDB:Sum("INC", nil, "SelfIgniteDuration")
 			output.IgniteDuration = 4 * (1 + incDur / 100) * debuffDurationMult
+			if modDB:Sum("FLAG", nil, "IgniteCanStack") then
+				output.IgniteDamage = output.IgniteDPS * output.IgniteDuration
+				skillFlags.igniteCanStack = true
+			end
 			if breakdown then
 				breakdown.IgniteDPS = {
 					s_format("Ignite mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crit Damage" or "Average Damage"),
@@ -2325,6 +2332,13 @@ local function performCalcs(env)
 				t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
 				t_insert(breakdown.IgniteDPS, "Ignite DPS:")
 				dotBreakdown(breakdown.IgniteDPS, baseVal, inc, more, effMult, output.IgniteDPS)
+				if skillFlags.igniteCanStack then
+					breakdown.IgniteDamage = {
+						s_format("%.1f ^8(damage per second)", output.IgniteDPS),
+						s_format("x %.2fs ^8(ignite duration)", output.IgniteDuration),
+						s_format("= %.1f ^8damage per ignite stack", output.IgniteDamage)
+					}
+				end
 				if output.IgniteDuration ~= 4 then
 					breakdown.IgniteDuration = {
 						s_format("4.00s ^8(base duration)", durationBase)
@@ -2411,18 +2425,31 @@ local function performCalcs(env)
 	end
 
 	-- Calculate combined DPS estimate, including DoTs
-	output.CombinedDPS = output[(env.mode_average and "AverageDamage") or "TotalDPS"] + output.TotalDot
+	local baseDPS = output[(env.mode_average and "AverageDamage") or "TotalDPS"] + output.TotalDot
+	output.CombinedDPS = baseDPS
 	if skillFlags.poison then
 		if env.mode_average then
-			output.CombinedDPS = output.CombinedDPS + output.PoisonChance / 100 * output.PoisonDamage
-			output.WithPoisonAverageHit = output.CombinedDPS
+			output.CombinedDPS = output.CombinedDPS + output.HitChance / 100 * output.PoisonChance / 100 * output.PoisonDamage
+			output.WithPoisonAverageDamage = output.CombinedDPS
 		else
-			output.CombinedDPS = output.CombinedDPS + output.PoisonChance / 100 * output.PoisonDamage * (output.HitSpeed or output.Speed)
+			output.CombinedDPS = output.CombinedDPS + output.HitChance / 100 * output.PoisonChance / 100 * output.PoisonDamage * (output.HitSpeed or output.Speed)
 			output.WithPoisonDPS = output.CombinedDPS
 		end
 	end
 	if skillFlags.ignite then
-		output.CombinedDPS = output.CombinedDPS + output.IgniteDPS
+		if skillFlags.igniteCanStack then
+			local igniteDPS
+			if env.mode_average then
+				igniteDPS = output.HitChance / 100 * output.IgniteChance / 100 * output.IgniteDamage
+				output.WithIgniteAverageDamage = baseDPS + igniteDPS
+			else
+				igniteDPS = output.HitChance / 100 * output.IgniteChance / 100 * output.IgniteDamage * (output.HitSpeed or output.Speed)
+				output.WithIgniteDPS = baseDPS + igniteDPS
+			end
+			output.CombinedDPS = output.CombinedDPS + igniteDPS
+		else
+			output.CombinedDPS = output.CombinedDPS + output.IgniteDPS
+		end
 	end
 	if skillFlags.bleed then
 		output.CombinedDPS = output.CombinedDPS + output.BleedDPS
