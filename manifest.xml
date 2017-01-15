@@ -44,7 +44,7 @@
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
 	<File sha1="b902b15ed69d661ed0eabb4c2a5a5e9fcd4ecc9d" name="Modules/Build.lua" part="program"/>
 	<File sha1="8a07fe01c53b785ebb6256236e781fbaabd36c0e" name="Modules/BuildList.lua" part="program"/>
-	<File sha1="603cefb675097203dc5e8fb7c92d0784fe991e9d" name="Modules/Calcs.lua" part="program"/>
+	<File sha1="9e3b2cfac793e69323f6da7c2e4e5856f3ec57df" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="97e9fa0d605a80106fa6718f4cb10ac8063a8f1c" name="Modules/CalcSections.lua" part="program"/>
 	<File sha1="0f9df7b91a548b008693102854b108693205309c" name="Modules/Common.lua" part="program"/>
 	<File sha1="2b393e960721c36dc4c99645a507d7232cbd6f0e" name="Modules/Data.lua" part="program"/>

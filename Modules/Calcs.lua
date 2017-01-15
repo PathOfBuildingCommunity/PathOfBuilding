@@ -2268,6 +2268,7 @@ local function performCalcs(env)
 
 	-- Calculate ignite chance and damage
 	skillFlags.ignite = false
+	skillFlags.igniteCanStack = false
 	if modDB:Sum("FLAG", skillCfg, "CannotIgnite") then
 		output.IgniteChance = 0
 	else
