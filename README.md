@@ -48,6 +48,10 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.33 - 2017/01/21
+ * The aura effects granted by Unwavering Faith and Commander of Darkness now correctly benefit from aura effect modifiers
+ * The calculation of crit chance now factors in accuracy when in Effective DPS mode
+
 ### 1.2.32 - 2017/01/15
  * The program now calculates Total Damage per Ignite and Total DPS inc. Ignite when you have Emberwake equipped
  * Added a "Have you been Savage Hit Recently?" option to the Configuration tab

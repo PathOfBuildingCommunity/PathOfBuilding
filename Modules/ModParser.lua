@@ -303,7 +303,7 @@ local preFlagList = {
 	["^socketed curse gems have "] = { tag = { type = "SocketedIn", keyword = "curse" } },
 	["^socketed melee gems have "] = { tag = { type = "SocketedIn", keyword = "melee" } },
 	["^your flasks grant "] = { },
-	["^auras you cast grant "] = { tag = { type = "Multiplier", var = "ActiveAura" } },
+	["^auras you cast grant "] = { addToAura = true },
 	["^you and allies affected by your auras have "] = { tag = { type = "Condition", var = "HaveAuraActive" } },
 }
 
@@ -924,6 +924,12 @@ local function parseMod(line, order)
 			keywordFlags = keywordFlags,
 			tagList = tagList,
 		}
+	end
+	if modList[1] and modFlag and modFlag.addToAura then
+		-- Special handling for modifiers that add effects to your auras
+		for i, effectMod in ipairs(modList) do
+			modList[i] = mod("ExtraAuraEffect", "LIST", effectMod)
+		end
 	end
 	return modList, line:match("%S") and line
 end
