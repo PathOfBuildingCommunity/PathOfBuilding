@@ -1050,6 +1050,15 @@ local function performCalcs(env)
 	if env.mode_effective then
 		condList["Effective"] = true
 	end
+
+	-- Check for extra modifiers to apply to aura skills
+	local extraAuraModList = { }
+	if modDB.mods.ExtraAuraEffect then
+		for _, mod in ipairs(modDB.mods.ExtraAuraEffect) do
+			mod.value.source = mod.source
+			t_insert(extraAuraModList, mod.value)
+		end
+	end
 	
 	-- Merge auxillary skill modifiers and calculate skill life and mana reservations
 	env.reserved_LifeBase = 0
@@ -1077,8 +1086,8 @@ local function performCalcs(env)
 				local inc = modDB:Sum("INC", skillCfg, "AuraEffect") + skillModList:Sum("INC", skillCfg, "AuraEffect")
 				local more = modDB:Sum("MORE", skillCfg, "AuraEffect") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
 				modDB:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
+				modDB:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
 				condList["HaveAuraActive"] = true
-				modDB.multipliers["ActiveAura"] = (modDB.multipliers["ActiveAura"] or 0) + 1
 			end
 		end
 		if env.mode_effective then
@@ -1100,7 +1109,6 @@ local function performCalcs(env)
 			local mult = skillModList:Sum("MORE", skillCfg, "ManaCost")
 			local more = modDB:Sum("MORE", skillCfg, "ManaReserved") * skillModList:Sum("MORE", skillCfg, "ManaReserved")
 			local inc = modDB:Sum("INC", skillCfg, "ManaReserved") + skillModList:Sum("INC", skillCfg, "ManaReserved")
-			--local cost = m_ceil(m_ceil(m_floor(baseVal * mult) * more) * (1 + inc / 100))
 			local base = m_floor(baseVal * mult)
 			local cost = base - m_floor(base * -m_floor((100 + inc) * more - 100) / 100)
 			local pool
@@ -1875,9 +1883,13 @@ local function performCalcs(env)
 			if (baseCrit + base) > 0 then
 				output.CritChance = m_max(output.CritChance, 5)
 			end
-			local actualCritChance = output.CritChance
+			local preLuckyCritChance = output.CritChance
 			if env.mode_effective and modDB:Sum("FLAG", skillCfg, "CritChanceLucky") then
 				output.CritChance = (1 - (1 - output.CritChance / 100) ^ 2) * 100
+			end
+			local preHitCheckCritChance = output.CritChance
+			if env.mode_effective then
+				output.CritChance = output.CritChance * output.HitChance / 100
 			end
 			if breakdown and output.CritChance ~= baseCrit then
 				local inc = modDB:Sum("INC", skillCfg, "CritChance")
@@ -1898,10 +1910,16 @@ local function performCalcs(env)
 				if env.mode_effective and enemyExtra ~= 0 then
 					t_insert(breakdown.CritChance, s_format("+ %g ^8(extra chance for enemy to be crit)", enemyExtra))
 				end
-				t_insert(breakdown.CritChance, s_format("= %g", actualCritChance))
+				t_insert(breakdown.CritChance, s_format("= %g", preLuckyCritChance))
 				if env.mode_effective and modDB:Sum("FLAG", skillCfg, "CritChanceLucky") then
 					t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
-					t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", actualCritChance / 100, actualCritChance / 100))
+					t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", preLuckyCritChance / 100, preLuckyCritChance / 100))
+					t_insert(breakdown.CritChance, s_format("= %.2f", preHitCheckCritChance))
+				end
+				if env.mode_effective and output.HitChance < 100 then
+					t_insert(breakdown.CritChance, "Crit confirmation roll:")
+					t_insert(breakdown.CritChance, s_format("%.2f", preHitCheckCritChance))
+					t_insert(breakdown.CritChance, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
 					t_insert(breakdown.CritChance, s_format("= %.2f", output.CritChance))
 				end
 			end
@@ -2268,6 +2286,7 @@ local function performCalcs(env)
 
 	-- Calculate ignite chance and damage
 	skillFlags.ignite = false
+	skillFlags.igniteCanStack = false
 	if modDB:Sum("FLAG", skillCfg, "CannotIgnite") then
 		output.IgniteChance = 0
 	else

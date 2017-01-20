@@ -426,6 +426,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 			-- Item already exists in the build, overwrite it
 			newItem.id = repItem.id
 			self.build.itemsTab.list[newItem.id] = newItem
+			itemLib.buildItemModList(newItem)
 		else
 			self.build.itemsTab:AddItem(newItem, true)
 		end
