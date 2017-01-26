@@ -218,9 +218,11 @@ return {
 	{ label = "Chance to Shock", flag = "shock", { format = "{0:output:ShockChance}%", { label = "Player modifiers", modName = "EnemyShockChance", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfShockChance", enemy = true }, }, },
 	{ label = "Shock Dur. Mod", flag = "shock", { format = "x {2:output:ShockDurationMod}", { label = "Player modifiers", modName = "EnemyShockDuration", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfShockDuration", enemy = true }, }, },
 	{ label = "Chance to Freeze", flag = "freeze", { format = "{0:output:FreezeChance}%", { label = "Player modifiers", modName = "EnemyFreezeChance", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfFreezeChance", enemy = true }, }, },
-	{ label = "Freeze Dur. Mod", flag = "shock", { format = "x {2:output:FreezeDurationMod}", { label = "Player modifiers", modName = "EnemyFreezeDuration", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfFreezeDuration", enemy = true }, }, },
+	{ label = "Freeze Dur. Mod", flag = "freeze", { format = "x {2:output:FreezeDurationMod}", { label = "Player modifiers", modName = "EnemyFreezeDuration", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfFreezeDuration", enemy = true }, }, },
 	{ label = "Stun Thresh. Mod", { format = "x {2:output:EnemyStunThresholdMod}", { modName = "EnemyStunThreshold", cfg = "skill" }, }, },
 	{ label = "Stun Duration", { format = "{2:output:EnemyStunDuration}s", { breakdown = "EnemyStunDuration" }, { label = "Player modifiers", modName = { "EnemyStunDuration" }, cfg = "skill" }, { label = "Enemy modifiers", modName = { "StunRecovery" }, enemy = true }, }, },
+	{ label = "Inc. Item Quantity", { format = "{0:mod:1}%", { modName = "LootQuantity", modType = "INC", cfg = "skill" }, }, },
+	{ label = "Inc. Item Rarity", { format = "{0:mod:1}%", { modName = "LootRarity", modType = "INC", cfg = "skill" }, }, },
 } },
 { 1, "Attributes", 2, "Attributes", data.colorCodes.NORMAL, {
 	extra = data.colorCodes.STRENGTH.."{0:output:Str}^7, "..data.colorCodes.DEXTERITY.."{0:output:Dex}^7, "..data.colorCodes.INTELLIGENCE.."{0:output:Int}",
