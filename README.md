@@ -48,6 +48,10 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.34 - 2017/01/27
+ * IIQ/IIR totals are now shown in the "Other Effects" section in the Calcs tab
+ * Enabling the "on Consecrated Ground" option now applies the 4% life regen granted by that ground effect
+
 ### 1.2.33 - 2017/01/21
  * The aura effects granted by Unwavering Faith and Commander of Darkness now correctly benefit from aura effect modifiers
  * The calculation of crit chance now factors in accuracy when in Effective DPS mode

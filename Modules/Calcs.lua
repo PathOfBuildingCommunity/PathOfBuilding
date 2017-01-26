@@ -605,6 +605,7 @@ local function initEnv(build, mode)
 	modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
 	modDB:NewMod("PhysicalDamage", "MORE", 20, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
 	modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" })
+	modDB:NewMod("LifeRegenPercent", "BASE", 4, "Base", { type = "Condition", var = "OnConsecratedGround" })
 	modDB:NewMod("Misc", "LIST", { type = "EnemyModifier", mod = modLib.createMod("DamageTaken", "INC", 50, "Shock") }, "Base", { type = "Condition", var = "EnemyShocked" })
 	
 	-- Add bandit mods
@@ -2315,7 +2316,7 @@ local function performCalcs(env)
 			end
 			local effMult = 1
 			if env.mode_effective then
-				local resist = output["EnemyFireResist"]
+				local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist"), 75)
 				local taken = enemyDB:Sum("INC", dotCfg, "DamageTaken", "FireDamageTaken", "ElementalDamageTaken", "BurningDamageTaken", "DotTaken")
 				effMult = (1 - resist / 100) * (1 + taken / 100)
 				output["IgniteEffMult"] = effMult
