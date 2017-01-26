@@ -14,7 +14,7 @@
 	<File sha1="23171916fa590c5344b17e67bd8d378574922388" name="Classes/CalcSectionControl.lua" part="program"/>
 	<File sha1="0256fbb994946900a82b45ec4108a94643bd0c91" name="Classes/CalcsTab.lua" part="program"/>
 	<File sha1="5d30e33c23cabf22917c02eb7df1963a5a27cb6a" name="Classes/CheckBoxControl.lua" part="program"/>
-	<File sha1="70bebdd6d7dcadddfef6429bc6dcc42072d8b04b" name="Classes/ConfigTab.lua" part="program"/>
+	<File sha1="c9942c7ba73bfdf60d370696ed500fb1b3f0f722" name="Classes/ConfigTab.lua" part="program"/>
 	<File sha1="bbb08f183746d6ec023e2bd08fb7a89d365381da" name="Classes/Control.lua" part="program"/>
 	<File sha1="ae55fe1093e727872bc01cc94fa987395f944313" name="Classes/ControlHost.lua" part="program"/>
 	<File sha1="a6e9daebf8651d5e5c3bd96742d4430b95f3dcb9" name="Classes/DropDownControl.lua" part="program"/>
