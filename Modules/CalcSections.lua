@@ -184,7 +184,7 @@ return {
 { 1, "Bleed", 1, "Bleed", data.colorCodes.OFFENCE, {
 	extra = "{0:output:BleedChance}% {1:output:BleedDPS} {2:output:BleedDuration}s",
 	flag = "bleed",
-	{ label = "Chance to Bleed", { format = "{0:output:BleedChance}%", { modName = "BleedChance", cfg = "skill" }, }, },
+	{ label = "Chance to Bleed", { format = "{0:output:BleedChance}%", { breakdown = "BleedChance" }, { modName = "BleedChance", cfg = "skill" }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Damage", "PhysicalDamage" }, modType = "INC", cfg = "bleed" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Damage", "PhysicalDamage" }, modType = "MORE", cfg = "bleed" }, }, },
 	{ label = "Effective DPS Mod", flag = "effective", { format = "x {3:output:BleedEffMult}", { breakdown = "BleedEffMult" }, { label = "Enemy modifiers", modName = { "DamageTaken", "DotTaken", "PhysicalDamageTaken", "PhysicalDamageReduction" }, enemy = true }, }, },
@@ -194,7 +194,7 @@ return {
 { 1, "Poison", 1, "Poison", data.colorCodes.OFFENCE, {
 	extra = "{0:output:PoisonChance}% {1:output:PoisonDPS} {2:output:PoisonDuration}s",
 	flag = "poison",
-	{ label = "Chance to Poison", { format = "{0:output:PoisonChance}%", { modName = "PoisonChance", cfg = "skill" }, }, },
+	{ label = "Chance to Poison", { format = "{0:output:PoisonChance}%", { breakdown = "PoisonChance" }, { modName = "PoisonChance", cfg = "skill" }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Damage", "ChaosDamage" }, modType = "INC", cfg = "poison" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Damage", "ChaosDamage" }, modType = "MORE", cfg = "poison" }, }, },
 	{ label = "Effective DPS Mod", flag = "effective", { format = "x {3:output:PoisonEffMult}", { breakdown = "PoisonEffMult" }, { label = "Enemy modifiers", modName = { "ChaosResist", "DamageTaken", "DotTaken", "ChaosDamageTaken" }, enemy = true }, }, },
@@ -205,7 +205,7 @@ return {
 { 1, "Ignite", 1, "Ignite", data.colorCodes.OFFENCE, {	
 	extra = "{0:output:IgniteChance}% {1:output:IgniteDPS} {2:output:IgniteDuration}s",
 	flag = "ignite",
-	{ label = "Chance to Ignite", { format = "{0:output:IgniteChance}%", { label = "Player modifiers", modName = "EnemyIgniteChance", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfIgniteChance", enemy = true }, }, },
+	{ label = "Chance to Ignite", { format = "{0:output:IgniteChance}%", { breakdown = "IgniteChance" }, { label = "Player modifiers", modName = "EnemyIgniteChance", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfIgniteChance", enemy = true }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Damage", "FireDamage", "ElementalDamage" }, modType = "INC", cfg = "ignite" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Damage", "FireDamage", "ElementalDamage" }, modType = "MORE", cfg = "ignite" }, }, },
 	{ label = "Effective DPS Mod", flag = "effective", { format = "x {3:output:IgniteEffMult}", { breakdown = "IgniteEffMult" }, { label = "Enemy modifiers", modName = { "FireResist", "ElementalResist", "DamageTaken", "DotTaken", "FireDamageTaken", "BurningDamageTaken", "ElementalDamageTaken" }, enemy = true }, }, },
@@ -215,10 +215,10 @@ return {
 } },
 { 1, "MiscEffects", 1, "Other Effects", data.colorCodes.OFFENCE, {
 	flag = "hit",
-	{ label = "Chance to Shock", flag = "shock", { format = "{0:output:ShockChance}%", { label = "Player modifiers", modName = "EnemyShockChance", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfShockChance", enemy = true }, }, },
-	{ label = "Shock Dur. Mod", flag = "shock", { format = "x {2:output:ShockDurationMod}", { label = "Player modifiers", modName = "EnemyShockDuration", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfShockDuration", enemy = true }, }, },
-	{ label = "Chance to Freeze", flag = "freeze", { format = "{0:output:FreezeChance}%", { label = "Player modifiers", modName = "EnemyFreezeChance", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfFreezeChance", enemy = true }, }, },
-	{ label = "Freeze Dur. Mod", flag = "freeze", { format = "x {2:output:FreezeDurationMod}", { label = "Player modifiers", modName = "EnemyFreezeDuration", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfFreezeDuration", enemy = true }, }, },
+	{ label = "Chance to Shock", flag = "shock", { format = "{0:output:ShockChance}%", { breakdown = "ShockChance" }, { label = "Player modifiers", modName = "EnemyShockChance", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfShockChance", enemy = true }, }, },
+	{ label = "Shock Dur. Mod", flag = "shock", { format = "x {2:output:ShockDurationMod}", { breakdown = "ShockDPS" }, { label = "Player modifiers", modName = "EnemyShockDuration", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfShockDuration", enemy = true }, }, },
+	{ label = "Chance to Freeze", flag = "freeze", { format = "{0:output:FreezeChance}%", { breakdown = "FreezeChance" }, { label = "Player modifiers", modName = "EnemyFreezeChance", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfFreezeChance", enemy = true }, }, },
+	{ label = "Freeze Dur. Mod", flag = "freeze", { format = "x {2:output:FreezeDurationMod}", { breakdown = "FreezeDPS" }, { label = "Player modifiers", modName = "EnemyFreezeDuration", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfFreezeDuration", enemy = true }, }, },
 	{ label = "Stun Thresh. Mod", { format = "x {2:output:EnemyStunThresholdMod}", { modName = "EnemyStunThreshold", cfg = "skill" }, }, },
 	{ label = "Stun Duration", { format = "{2:output:EnemyStunDuration}s", { breakdown = "EnemyStunDuration" }, { label = "Player modifiers", modName = { "EnemyStunDuration" }, cfg = "skill" }, { label = "Enemy modifiers", modName = { "StunRecovery" }, enemy = true }, }, },
 	{ label = "Inc. Item Quantity", { format = "{0:mod:1}%", { modName = "LootQuantity", modType = "INC", cfg = "skill" }, }, },

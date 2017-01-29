@@ -288,6 +288,7 @@ local modFlagList = {
 -- List of modifier flags/tags that appear at the start of a line
 local preFlagList = {
 	["^hits deal "] = { flags = ModFlag.Hit },
+	["^critical strikes deal "] = { tag = { type = "Condition", var = "CriticalStrike" } },
 	["^minions have "] = { keywordFlags = KeywordFlag.Minion },
 	["^minions deal "] = { keywordFlags = KeywordFlag.Minion },
 	["^attacks used by totems have "] = { keywordFlags = KeywordFlag.Totem },
@@ -476,6 +477,8 @@ local specialModList = {
 	["(%d+)%% less totem damage per totem"] = function(num) return { mod("Damage", "MORE", -num, nil, 0, KeywordFlag.Totem, { type = "PerStat", stat = "ActiveTotemLimit", div = 1 }) } end,
 	["poison you inflict with critical strikes deals (%d+)%% more damage"] = function(num) return { mod("PoisonDamageOnCrit", "MORE", 100) } end,
 	["bleeding you inflict on maimed enemies deals (%d+)%% more damage"] = function(num) return { mod("Damage", "MORE", num, nil, 0, KeywordFlag.Bleed, { type = "Condition", var = "EnemyMaimed"}) } end,
+	["critical strikes ignore enemy monster elemental resistances"] = { flag("IgnoreElementalResistances", { type = "Condition", var = "CriticalStrike" }) },
+	["non%-critical strikes penetrate (%d+)%% of enemy elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
 	-- Special node types
 	["(%d+)%% of block chance applied to spells"] = function(num) return { mod("BlockChanceConv", "BASE", num) } end,
 	["(%d+)%% additional block chance with staves"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "UsingStaff" }) } end,
@@ -501,7 +504,7 @@ local specialModList = {
 	["spells have an additional projectile"] = { mod("ProjectileCount", "BASE", 1, nil, ModFlag.Spell) },
 	["skills chain %+(%d) times"] = function(num) return { mod("ChainCount", "BASE", num) } end,
 	["reflects (%d+) physical damage to melee attackers"] = { },
-	["critical strikes with daggers have a (%d+)%% chance to poison the enemy"] = function(num) return { mod("PoisonChance", "BASE", 0.3, nil, ModFlag.Dagger, { type = "PerStat", stat = "CritChance", div = 1 }) } end,
+	["critical strikes with daggers have a (%d+)%% chance to poison the enemy"] = function(num) return { mod("PoisonChance", "BASE", num, nil, ModFlag.Dagger, { type = "Condition", var = "CriticalStrike" }) } end,
 	-- Special item local modifiers
 	["no physical damage"] = { mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalMin" }), mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalMax" }), mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalDPS" }) },
 	["all attacks with this weapon are critical strikes"] = { mod("Misc", "LIST", { type = "WeaponData", key = "critChance", value = 100 }) },
@@ -539,11 +542,16 @@ local specialModList = {
 	["your chaos damage can shock"] = { flag("ChaosCanShock") },
 	["your physical damage can chill"] = { flag("PhysicalCanChill") },
 	["your physical damage can shock"] = { flag("PhysicalCanShock") },
+	["critical strikes do not always freeze"] = { flag("CritsDontAlwaysFreeze") },
 	["your chaos damage poisons enemies"] = { mod("PoisonChance", "BASE", 100) },
 	["you can inflict up to (%d+) ignites on an enemy"] = { flag("IgniteCanStack") },
 	["melee attacks cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee) },
 	["melee attacks poison on hit"] = { mod("PoisonChance", "BASE", 100, nil, ModFlag.Melee) },
 	["attacks cause bleeding when hitting cursed enemies"] = { mod("BleedChance", "BASE", 100, { type = "Condition", var = "EnemyCursed" }) },
+	["melee critical strikes cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee, { type = "Condition", var = "CriticalStrike" }) },
+	["melee critical strikes have (%d+)%% chance to cause bleeding"] = function(num) return { mod("BleedChance", "BASE", num, nil, ModFlag.Melee, { type = "Condition", var = "CriticalStrike" }) } end,
+	["melee critical strikes have (%d+)%% chance to poison the enemy"] = function(num) return { mod("PoisonChance", "BASE", num, nil, ModFlag.Melee, { type = "Condition", var = "CriticalStrike" }) } end,
+	["causes bleeding on melee critical strike"] = { mod("BleedChance", "BASE", num, nil, ModFlag.Melee, { type = "Condition", var = "CriticalStrike" }) },
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines have a (%d+)%% chance to poison on hit"] = function(num) return { mod("PoisonChance", "BASE", num, nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
@@ -568,11 +576,12 @@ local specialModList = {
 	["armour is increased by uncapped fire resistance"] = { mod("Armour", "INC", 1, { type = "PerStat", stat = "FireResistTotal", div = 1 }) },
 	["evasion rating is increased by uncapped cold resistance"] = { mod("Evasion", "INC", 1, { type = "PerStat", stat = "ColdResistTotal", div = 1 }) },
 	["critical strike chance is increased by uncapped lightning resistance"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "LightningResistTotal", div = 1 }) },
-	["critical strikes deal no damage"] = { flag("NoCritDamage") },
+	["critical strikes deal no damage"] = { mod("Damage", "MORE", -100, { type = "Condition", var = "CriticalStrike" }) },
 	["enemies chilled by you take (%d+)%% increased burning damage"] = function(num) return { mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("BurningDamageTaken", "INC", num) }, { type = "Condition", var = "EnemyChilled" }) } end,
 	["attacks with this weapon penetrate (%d+)%% elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "XHandAttack" }) } end,
 	["attacks with this weapon deal double damage to chilled enemies"] = { mod("Damage", "MORE", 100, nil, ModFlag.Hit, { type = "Condition", var = "XHandAttack" }, { type = "Condition", var = "EnemyChilled" }) },
 	["(%d+)%% of maximum life converted to energy shield"] = function(num) return { mod("LifeConvertToEnergyShield", "BASE", num) } end,
+	["non%-critical strikes deal (%d+)%% damage"] = function(num) return { mod("Damage", "MORE", -100+num, nil, ModFlag.Hit, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques
