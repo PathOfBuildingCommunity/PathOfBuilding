@@ -48,6 +48,25 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.35 - 2017/01/29
+With this update, the way the program handles the calculation of crit damage has been improved.
+Damage for crits and non-crits are now calculated and tallied separately, and combined later, instead of only
+calculating non-crit damage, and deriving crit damage from that. This has allowed for the following changes:
+ * Inevitable Judgement is now supported!
+ * Other modifiers that only apply to crit or non-crit damage are now supported:
+    * Choir of the Storm's increased lightning damage modifier
+	* Marylene's Fallacy's less damage on non-critical strikes
+Additionally, the handling of secondary effects (bleed, poison, ignite, shock, and freeze) has been improved.
+The calculations for base damage and overall chance to inflict can now handle having different chances to inflict on
+crits and non-crits. This has allowed for the following changes:
+ * Ignite/shock/freeze calculations now account for the guaranteed chance to inflict on critical strike
+    * This will greatly improve the accuracy of ignite DPS calculations for crit-based builds when in "Average Damage" mode,
+	  as ignite's base damage will be heavily skewed in favour of crit
+ * Modifiers that grant a chance to poison/bleed on crit are now supported and correctly simulated
+    * The existing support for Adder's Touch has been reworked to use the new system
+ * The base damage for shock and freeze is now calculated, and used to compute the maximum enemy life against
+   which those effects will be able to apply; the results appear in the breakdowns for Shock/Freeze Dur. Mod
+
 ### 1.2.34 - 2017/01/27
  * IIQ/IIR totals are now shown in the "Other Effects" section in the Calcs tab
  * Enabling the "on Consecrated Ground" option now applies the 4% life regen granted by that ground effect
