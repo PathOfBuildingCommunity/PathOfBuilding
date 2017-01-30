@@ -341,7 +341,7 @@ function buildMode:Init(dbFileName, buildName)
 	local start = GetTime()
 	SetProfiling(true)
 	for i = 1, 10  do
-		self.calcsTab:BuildPower(self)
+		self.calcsTab:PowerBuilder()
 	end
 	SetProfiling(false)
 	ConPrintf("Power build time: %d msec", GetTime() - start)

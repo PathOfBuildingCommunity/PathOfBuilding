@@ -350,13 +350,36 @@ function CalcsTabClass:BuildOutput()
 	self.itemCalculator = { self.calcs.getItemCalculator(self.build) }
 end
 
--- Estimate the offensive and defensive power of all unallocated nodes
+-- Controls the coroutine that calculations node power
 function CalcsTabClass:BuildPower()
+	if self.powerBuildFlag then
+		self.powerBuildFlag = false
+		self.powerBuilder = coroutine.create(self.PowerBuilder)
+	end
+	if self.powerBuilder then
+		collectgarbage("stop") -- This is necessary to work around a bug in the JIT
+		coroutine.resume(self.powerBuilder, self)
+		if coroutine.status(self.powerBuilder) == "dead" then
+			self.powerBuilder = nil
+		end
+		collectgarbage("restart")
+	end
+end
+
+-- Estimate the offensive and defensive power of all unallocated nodes
+function CalcsTabClass:PowerBuilder()
 	local calcFunc, calcBase = self:GetNodeCalculator()
 	local cache = { }
-	self.powerMax = { }
+	local newPowerMax = { 
+		dps = 0, 
+		def = 0
+	}
+	if not self.powerMax then
+		self.powerMax = newPowerMax
+	end
+	local start = GetTime()
 	for _, node in pairs(self.build.spec.nodes) do
-		node.power = wipeTable(node.power)
+		wipeTable(node.power)
 		if not node.alloc and node.modKey ~= "" then
 			if not cache[node.modKey] then
 				cache[node.modKey] = calcFunc({node})
@@ -370,12 +393,16 @@ function CalcsTabClass:BuildPower()
 							 (output.LifeRegen - calcBase.LifeRegen) / 500 +
 							 (output.EnergyShieldRegen - calcBase.EnergyShieldRegen) / 1000
 			if node.path then
-				self.powerMax.dps = m_max(self.powerMax.dps or 0, node.power.dps)
-				self.powerMax.def = m_max(self.powerMax.def or 0, node.power.def)
+				newPowerMax.dps = m_max(newPowerMax.dps, node.power.dps)
+				newPowerMax.def = m_max(newPowerMax.def, node.power.def)
 			end
 		end
-	end
-	self.powerBuildFlag = false
+		if coroutine.running() and GetTime() - start > 100 then
+			coroutine.yield()
+			start = GetTime()
+		end
+	end	
+	self.powerMax = newPowerMax
 end
 
 function CalcsTabClass:GetNodeCalculator()

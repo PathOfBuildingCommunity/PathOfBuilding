@@ -209,7 +209,7 @@ return {
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Damage", "FireDamage", "ElementalDamage" }, modType = "INC", cfg = "ignite" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Damage", "FireDamage", "ElementalDamage" }, modType = "MORE", cfg = "ignite" }, }, },
 	{ label = "Effective DPS Mod", flag = "effective", { format = "x {3:output:IgniteEffMult}", { breakdown = "IgniteEffMult" }, { label = "Enemy modifiers", modName = { "FireResist", "ElementalResist", "DamageTaken", "DotTaken", "FireDamageTaken", "BurningDamageTaken", "ElementalDamageTaken" }, enemy = true }, }, },
-	{ label = "Ignite DPS", { format = "{1:output:IgniteDPS}", { breakdown = "IgniteDPS" }, }, },
+	{ label = "Ignite DPS", { format = "{1:output:IgniteDPS}", { breakdown = "IgniteDPS" }, { modName = { "IgniteBurnRate" }, cfg = "skill" }, }, },
 	{ label = "Ignite Duration", { format = "{2:output:IgniteDuration}s", { breakdown = "IgniteDuration" }, { label = "Player modifiers", modName = "EnemyIgniteDuration", cfg = "skill" }, { label = "Enemy modifiers", modName = "SelfIgniteDuration", enemy = true }, }, },
 	{ label = "Dmg. per Ignite", flag = "igniteCanStack", { format = "{1:output:IgniteDamage}", { breakdown = "IgniteDamage" }, }, },
 } },

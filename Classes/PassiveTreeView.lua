@@ -309,6 +309,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		SetDrawColor(1, 1, 1)
 	end
 
+	if self.showHeatMap then
+		-- Build the power numbers if needed
+		build.calcsTab:BuildPower()
+	end
+
 	-- Draw the nodes
 	for nodeId, node in pairs(spec.nodes) do
 		-- Determine the base and overlay images for this node based on type and state
@@ -360,10 +365,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			SetDrawColor(0.5, 0.5, 0.5)
 		end
 		if self.showHeatMap then
-			if build.calcsTab.powerBuildFlag then
-				-- Build the power numbers if needed
-				build.calcsTab:BuildPower()
-			end
 			if not node.alloc and node.type ~= "classStart" and node.type ~= "ascendClassStart" then
 				-- Calculate color based on DPS and defensive powers
 				local dps = m_max(node.power.dps or 0, 0)

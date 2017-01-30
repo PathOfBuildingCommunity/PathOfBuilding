@@ -34,7 +34,6 @@ local ImportTabClass = common.NewClass("ImportTab", "ControlHost", "Control", fu
 	self.controls.accountNameGo.enabled = function()
 		return self.controls.accountName.buf:match("%S")
 	end
-	self.controls.accountNameTip = common.New("LabelControl", {"TOPLEFT",self.controls.accountName,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: the account name must have the correct capitalisation, or the character import will fail.")
 
 	-- Stage: input POESESSID
 	self.controls.sessionHeader = common.New("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 14)
@@ -205,22 +204,45 @@ function ImportTabClass:DownloadCharacterList()
 			self.charImportMode = "GETACCOUNTNAME"
 			return
 		end
-		self.charImportStatus = "Character list successfully retrieved."
-		self.charImportMode = "SELECTCHAR"
-		main.lastAccountName = accountName
-		if sessionID then
-			main.accountSessionIDs[accountName] = sessionID
+		--ConPrintTable(charList)
+		if #charList == 0 then
+			self.charImportStatus = data.colorCodes.NEGATIVE.."The account has no characters to import."
+			self.charImportMode = "GETACCOUNTNAME"
+			return
 		end
-		wipeTable(self.controls.charSelect.list)
-		for i, char in ipairs(charList) do
-			t_insert(self.controls.charSelect.list, {
-				val = char,
-				label = string.format("%s: Level %d %s in %s", char.name or "?", char.level or 0, char.class or "?", char.league or "?")
-			})
-		end
-		table.sort(self.controls.charSelect.list, function(a,b)
-			return a.val.name:lower() < b.val.name:lower()
-		end)
+		-- GGG's character API has an issue where for /get-characters the account name is not case-sensitive, but for /get-passive-skills and /get-items it is.
+		-- This workaround grabs the profile page and extracts the correct account name from one of the URLs.
+		launch:DownloadPage("https://www.pathofexile.com/account/view-profile/"..accountName, function(page, errMsg)
+			if errMsg then
+				self.charImportStatus = data.colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
+				self.charImportMode = "GETACCOUNTNAME"
+				return
+			end
+			local realAccountName = page:match("/account/view%-profile/([^/]+)/characters")
+			if not realAccountName then
+				self.charImportStatus = data.colorCodes.NEGATIVE.."Failed to retrieve character list."
+				self.charImportMode = "GETSESSIONID"
+				return
+			end
+			self.controls.accountName:SetText(realAccountName)
+			accountName = realAccountName
+			self.charImportStatus = "Character list successfully retrieved."
+			self.charImportMode = "SELECTCHAR"
+			main.lastAccountName = accountName
+			if sessionID then
+				main.accountSessionIDs[accountName] = sessionID
+			end
+			wipeTable(self.controls.charSelect.list)
+			for i, char in ipairs(charList) do
+				t_insert(self.controls.charSelect.list, {
+					val = char,
+					label = string.format("%s: Level %d %s in %s", char.name or "?", char.level or 0, char.class or "?", char.league or "?")
+				})
+			end
+			table.sort(self.controls.charSelect.list, function(a,b)
+				return a.val.name:lower() < b.val.name:lower()
+			end)
+		end, sessionID and "POESESSID="..sessionID)
 	end, sessionID and "POESESSID="..sessionID)
 end
 

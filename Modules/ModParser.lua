@@ -367,6 +367,9 @@ local modTagList = {
 	["while using a flask"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["during flask effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["while on consecrated ground"] = { tag = { type = "Condition", var = "OnConsecratedGround" } },
+	["on burning ground"] = { tag = { type = "Condition", var = "OnBurningGround" } },
+	["on chilled ground"] = { tag = { type = "Condition", var = "OnChilledGround" } },
+	["on shocked ground"] = { tag = { type = "Condition", var = "OnShockedGround" } },
 	["while ignited"] = { tag = { type = "Condition", var = "PlayerIgnited" } },
 	["while frozen"] = { tag = { type = "Condition", var = "PlayerFrozen" } },
 	["while shocked"] = { tag = { type = "Condition", var = "PlayerShocked" } },
@@ -582,6 +585,8 @@ local specialModList = {
 	["attacks with this weapon deal double damage to chilled enemies"] = { mod("Damage", "MORE", 100, nil, ModFlag.Hit, { type = "Condition", var = "XHandAttack" }, { type = "Condition", var = "EnemyChilled" }) },
 	["(%d+)%% of maximum life converted to energy shield"] = function(num) return { mod("LifeConvertToEnergyShield", "BASE", num) } end,
 	["non%-critical strikes deal (%d+)%% damage"] = function(num) return { mod("Damage", "MORE", -100+num, nil, ModFlag.Hit, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
+	["ignited enemies burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnRate", "INC", num) } end,
+	["enemies ignited by an attack burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnRate", "INC", num, nil, ModFlag.Attack) } end,
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques

@@ -48,6 +48,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.36 - 2017/01/31
+ * Condition toggles in the Configuration tab will now only appear if the condition is actually used by the build
+ * Added support for "Ignited Enemies Burn faster" modifiers
+ * Added options to the Configuration tab for "Are you on Shocked/Burning/Chilled Ground"
+ * Character imports will now work even if the capitalisation of the account name is incorrect
+
 ### 1.2.35 - 2017/01/29
 With this update, the way the program handles the calculation of crit damage has been improved.
 Damage for crits and non-crits are now calculated and tallied separately, and combined later, instead of only
