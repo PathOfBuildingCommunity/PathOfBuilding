@@ -3,7 +3,7 @@
 -- Module: Calcs
 -- Performs all the offense and defense calculations.
 -- Here be dragons!
--- This file is 2700 lines long, over half of which is in one function...
+-- This file is 2800 lines long, over half of which is in one function...
 --
 
 local pairs = pairs
@@ -1277,13 +1277,16 @@ local function performCalcs(env)
 			end
 			return out
 		end
-		dotBreakdown = function(out, baseVal, inc, more, effMult, total)
+		dotBreakdown = function(out, baseVal, inc, more, rate, effMult, total)
 			t_insert(out, s_format("%.1f ^8(base damage per second)", baseVal))
 			if inc ~= 0 then
 				t_insert(out, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
 			end
 			if more ~= 1 then
 				t_insert(out, s_format("x %.2f ^8(more/less)", more))
+			end
+			if rate and rate ~= 1 then
+				t_insert(out, s_format("x %.2f ^8(rate modifier)", rate))
 			end
 			if effMult ~= 1 then
 				t_insert(out, s_format("x %.3f ^8(effective DPS modifier)", effMult))
@@ -2170,7 +2173,7 @@ local function performCalcs(env)
 			output.TotalDot = output.TotalDot + total
 			if breakdown then
 				breakdown[damageType.."Dot"] = { }
-				dotBreakdown(breakdown[damageType.."Dot"], baseVal, inc, more, effMult, total)
+				dotBreakdown(breakdown[damageType.."Dot"], baseVal, inc, more, nil, effMult, total)
 			end
 		end
 	end
@@ -2312,7 +2315,7 @@ local function performCalcs(env)
 				t_insert(breakdown.BleedDPS, "x 0.1 ^8(bleed deals 10% per second)")
 				t_insert(breakdown.BleedDPS, s_format("= %.1f", baseVal))
 				t_insert(breakdown.BleedDPS, "Bleed DPS:")
-				dotBreakdown(breakdown.BleedDPS, baseVal, inc, more, effMult, output.BleedDPS)
+				dotBreakdown(breakdown.BleedDPS, baseVal, inc, more, nil, effMult, output.BleedDPS)
 				if output.BleedDuration ~= 5 then
 					breakdown.BleedDuration = {
 						"5.00s ^8(base duration)"
@@ -2373,7 +2376,7 @@ local function performCalcs(env)
 				t_insert(breakdown.PoisonDPS, "x 0.08 ^8(poison deals 8% per second)")
 				t_insert(breakdown.PoisonDPS, s_format("= %.1f", baseVal, 1))
 				t_insert(breakdown.PoisonDPS, "Poison DPS:")
-				dotBreakdown(breakdown.PoisonDPS, baseVal, inc, more, effMult, output.PoisonDPS)
+				dotBreakdown(breakdown.PoisonDPS, baseVal, inc, more, nil, effMult, output.PoisonDPS)
 				if output.PoisonDuration ~= 2 then
 					breakdown.PoisonDuration = {
 						s_format("%.2fs ^8(base duration)", durationBase)
@@ -2439,9 +2442,10 @@ local function performCalcs(env)
 			end
 			local inc = modDB:Sum("INC", dotCfg, "Damage", "FireDamage", "ElementalDamage")
 			local more = round(modDB:Sum("MORE", dotCfg, "Damage", "FireDamage", "ElementalDamage"), 2)
-			output.IgniteDPS = baseVal * (1 + inc/100) * more * effMult
+			local burnRateMod = calcMod(modDB, skillCfg, "IgniteBurnRate")
+			output.IgniteDPS = baseVal * (1 + inc/100) * more * burnRateMod * effMult
 			local incDur = modDB:Sum("INC", dotCfg, "EnemyIgniteDuration") + enemyDB:Sum("INC", nil, "SelfIgniteDuration")
-			output.IgniteDuration = 4 * (1 + incDur / 100) * debuffDurationMult
+			output.IgniteDuration = 4 * (1 + incDur / 100) / burnRateMod * debuffDurationMult
 			if modDB:Sum("FLAG", nil, "IgniteCanStack") then
 				output.IgniteDamage = output.IgniteDPS * output.IgniteDuration
 				skillFlags.igniteCanStack = true
@@ -2450,7 +2454,7 @@ local function performCalcs(env)
 				t_insert(breakdown.IgniteDPS, "x 0.2 ^8(ignite deals 20% per second)")
 				t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
 				t_insert(breakdown.IgniteDPS, "Ignite DPS:")
-				dotBreakdown(breakdown.IgniteDPS, baseVal, inc, more, effMult, output.IgniteDPS)
+				dotBreakdown(breakdown.IgniteDPS, baseVal, inc, more, burnRateMod, effMult, output.IgniteDPS)
 				if skillFlags.igniteCanStack then
 					breakdown.IgniteDamage = {
 						s_format("%.1f ^8(damage per second)", output.IgniteDPS),
@@ -2464,6 +2468,9 @@ local function performCalcs(env)
 					}
 					if incDur ~= 0 then
 						t_insert(breakdown.IgniteDuration, s_format("x %.2f ^8(increased/reduced duration)", 1 + incDur/100))
+					end
+					if burnRateMod ~= 1 then
+						t_insert(breakdown.IgniteDuration, s_format("/ %.2f ^8(rate modifier)", burnRateMod))
 					end
 					if debuffDurationMult ~= 1 then
 						t_insert(breakdown.IgniteDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
@@ -2725,6 +2732,32 @@ function calcs.buildOutput(build, mode)
 		for _, stat in pairs({"Life", "Mana", "Armour", "Evasion", "EnergyShield"}) do
 			output["Spec:"..stat.."Inc"] = env.modDB:Sum("INC", specCfg, stat)
 		end
+
+		env.conditionsUsed = { }
+		local function addCond(var, mod)
+			if not env.conditionsUsed[var] then
+				env.conditionsUsed[var] = { }
+			end
+			t_insert(env.conditionsUsed[var], mod)
+		end
+		for _, db in ipairs{env.modDB, env.enemyDB} do
+			for modName, modList in pairs(db.mods) do
+				for _, mod in ipairs(modList) do
+					for _, tag in ipairs(mod.tagList) do
+						if tag.type == "Condition" then
+							if tag.varList then
+								for _, var in ipairs(tag.varList) do
+									addCond(var, mod)
+								end
+							else
+								addCond(tag.var, mod)
+							end
+						end
+					end
+				end
+			end
+		end
+		ConPrintTable(env.conditionsUsed)
 	elseif mode == "CALCS" then
 		local buffList = { }
 		local combatList = { }

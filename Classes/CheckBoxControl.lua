@@ -64,10 +64,10 @@ function CheckBoxClass:Draw(viewPort)
 		local tooltip = self:GetProperty("tooltip")
 		if tooltip then
 			main:AddTooltipLine(16, tooltip)
+			SetDrawLayer(nil, 100)
+			main:DrawTooltip(x, y, size, size, viewPort)
+			SetDrawLayer(nil, 0)
 		end
-		SetDrawLayer(nil, 100)
-		main:DrawTooltip(x, y, size, size, viewPort)
-		SetDrawLayer(nil, 0)
 	end
 end
 

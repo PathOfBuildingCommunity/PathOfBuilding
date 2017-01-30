@@ -190,7 +190,9 @@ function launch:OnSubError(errMsg)
 end
 
 function launch:OnSubFinished(...)
-	if self.subScriptType == "UPDATE" then
+	local type = self.subScriptType
+	self.subScriptType = nil
+	if type == "UPDATE" then
 		local ret = (...)
 		self.updateAvailable = ret
 		if self.updateChecking then
@@ -203,14 +205,14 @@ function launch:OnSubFinished(...)
 			end
 			self.updateChecking = false
 		end
-	elseif self.subScriptType == "DOWNLOAD" then
-		local errMsg = PCall(self.downloadCallback, ...)
+	elseif type == "DOWNLOAD" then
+		local callback = self.downloadCallback
+		self.downloadCallback = nil
+		local errMsg = PCall(callback, ...)
 		if errMsg then
 			self:ShowErrMsg("In download callback: %s", errMsg)
 		end
-		self.downloadCallback = nil
 	end
-	self.subScriptType = nil
 end
 
 function launch:DownloadPage(url, callback, cookies)

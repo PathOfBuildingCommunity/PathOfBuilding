@@ -297,7 +297,7 @@ Energy Shield: 24
 Requires Level 51, 40 Str, 40 Int
 Adds (30-36 to 44-50) Cold Damage to Attacks
 (12 to 16)% increased maximum Life
-(40 to 50)% to Cold Resistance
++(40 to 50)% to Cold Resistance
 25% increased Freeze Duration on Enemies
 Your Hits can only Kill Frozen enemies
 ]],

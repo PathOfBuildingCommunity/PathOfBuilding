@@ -23,7 +23,8 @@ local PassiveSpecClass = common.NewClass("PassiveSpec", "UndoHandler", function(
 	self.nodes = { }
 	for _, treeNode in ipairs(self.tree.nodes) do
 		self.nodes[treeNode.id] = setmetatable({ 
-			linked = { }
+			linked = { },
+			power = { }
 		}, treeNode.meta)
 	end
 	for id, node in pairs(self.nodes) do
