@@ -159,8 +159,38 @@ local function createActiveSkill(activeGem, supportList)
 	return activeSkill
 end
 
+local function getWeaponFlags(weaponData, weaponTypes)
+	local info = data.weaponTypeInfo[weaponData.type]
+	if not info then
+		return
+	end
+	if weaponTypes and not weaponTypes[weaponData.type] and 
+		(not weaponData.countsAsAll1H or not (weaponTypes["Claw"] or weaponTypes["Dagger"] or weaponTypes["One Handed Axe"] or weaponTypes["One Handed Mace"] or weaponTypes["One Handed Sword"])) then
+		return
+	end
+	local flags = info.flag
+	if weaponData.countsAsAll1H then
+		flags = bor(ModFlag.Axe, ModFlag.Claw, ModFlag.Dagger, ModFlag.Mace, ModFlag.Sword)
+	end
+	if weaponData.type ~= "None" then
+		flags = bor(flags, ModFlag.Weapon)
+		if info.oneHand then
+			flags = bor(flags, ModFlag.Weapon1H)
+		else
+			flags = bor(flags, ModFlag.Weapon2H)
+		end
+		if info.melee then
+			flags = bor(flags, ModFlag.WeaponMelee)
+		else
+			flags = bor(flags, ModFlag.WeaponRanged)
+		end
+	end
+	return flags, info
+end
+
 -- Build list of modifiers for given active skill
 local function buildActiveSkillModList(env, activeSkill)
+	local skillTypes = activeSkill.skillTypes
 	local skillFlags = activeSkill.skillFlags
 
 	-- Handle multipart skills
@@ -183,31 +213,40 @@ local function buildActiveSkillModList(env, activeSkill)
 		skillFlags.multiPart = #activeGemParts > 1
 	end
 
-	-- Set weapon flags
-	local weapon1Type = env.itemList["Weapon 1"] and env.itemList["Weapon 1"].type or "None"
-	local weapon2Type = env.itemList["Weapon 2"] and env.itemList["Weapon 2"].type or ""
-	skillFlags.mainIs1H = true
-	local weapon1Info = data.weaponTypeInfo[weapon1Type]
-	if weapon1Info then
-		if not weapon1Info.oneHand then
-			skillFlags.mainIs1H = nil
-		end
-		if skillFlags.attack then
+	if skillTypes[SkillType.Shield] and (not env.itemList["Weapon 2"] or env.itemList["Weapon 2"].type ~= "Shield") then
+		-- Skill requires a shield to be equipped
+		skillFlags.disable = true
+	end
+
+	if skillFlags.attack then
+		-- Set weapon flags
+		local weaponTypes = activeSkill.activeGem.data.weaponTypes
+		local weapon1Flags, weapon1Info = getWeaponFlags(env.weaponData1, weaponTypes)
+		if weapon1Flags then
+			activeSkill.weapon1Flags = weapon1Flags
 			skillFlags.weapon1Attack = true
 			if weapon1Info.melee and skillFlags.melee then
 				skillFlags.projectile = nil
 			elseif not weapon1Info.melee and skillFlags.projectile then
 				skillFlags.melee = nil
 			end
+		elseif skillTypes[SkillType.DualWield] or not skillTypes[SkillType.CanDualWield] or skillTypes[SkillType.MainHandOnly] then
+			-- Skill requires a compatible main hand weapon
+			skillFlags.disable = true
 		end
-	end
-	local weapon2Info = data.weaponTypeInfo[weapon2Type]
-	if weapon2Info and skillFlags.mainIs1H then
-		if skillFlags.attack then
-			skillFlags.weapon2Attack = true
+		if skillTypes[SkillType.DualWield] or skillTypes[SkillType.CanDualWield] then
+			local weapon2Flags = getWeaponFlags(env.weaponData2, weaponTypes)
+			if weapon2Flags then
+				activeSkill.weapon2Flags = weapon2Flags
+				skillFlags.weapon2Attack = true
+			elseif skillTypes[SkillType.DualWield] or not skillFlags.weapon1Attack then
+				-- Skill requires a compatible off hand weapon
+				skillFlags.disable = true
+			end
 		end
+		skillFlags.bothWeaponAttack = skillFlags.weapon1Attack and skillFlags.weapon2Attack
 	end
-
+	
 	-- Build skill mod flag set
 	local skillModFlags = 0
 	if skillFlags.hit then
@@ -218,22 +257,6 @@ local function buildActiveSkillModList(env, activeSkill)
 	elseif skillFlags.attack then
 		skillModFlags = bor(skillModFlags, ModFlag.Attack)
 	end
-	if skillFlags.weapon1Attack then
-		skillModFlags = bor(skillModFlags, env.weaponData1.flag or weapon1Info.flag)
-		if weapon1Type ~= "None" then
-			skillModFlags = bor(skillModFlags, ModFlag.Weapon)
-			if skillFlags.mainIs1H then
-				skillModFlags = bor(skillModFlags, ModFlag.Weapon1H)
-			else
-				skillModFlags = bor(skillModFlags, ModFlag.Weapon2H)
-			end
-			if weapon1Info.melee then
-				skillModFlags = bor(skillModFlags, ModFlag.WeaponMelee)
-			else
-				skillModFlags = bor(skillModFlags, ModFlag.WeaponRanged)
-			end
-		end
-	end
 	if skillFlags.melee then
 		skillModFlags = bor(skillModFlags, ModFlag.Melee)
 	elseif skillFlags.projectile then
@@ -242,7 +265,6 @@ local function buildActiveSkillModList(env, activeSkill)
 	if skillFlags.area then
 		skillModFlags = bor(skillModFlags, ModFlag.Area)
 	end
-	activeSkill.skillFlags = skillFlags
 
 	-- Build skill keyword flag set
 	local skillKeywordFlags = 0
@@ -282,7 +304,6 @@ local function buildActiveSkillModList(env, activeSkill)
 	elseif skillFlags.mine then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Mine)
 	end
-	activeSkill.skillKeywordFlags = skillKeywordFlags
 
 	-- Get skill totem ID for totem skills
 	-- This is used to calculate totem life
@@ -301,7 +322,7 @@ local function buildActiveSkillModList(env, activeSkill)
 
 	-- Build config structure for modifier searches
 	activeSkill.skillCfg = {
-		flags = skillModFlags,
+		flags = bor(skillModFlags, activeSkill.weapon1Flags or activeSkill.weapon2Flags or 0),
 		keywordFlags = skillKeywordFlags,
 		skillName = activeSkill.activeGem.name:gsub("^Vaal ",""), -- This allows modifiers that target specific skills to also apply to their Vaal counterpart
 		skillGem = activeSkill.activeGem,
@@ -309,6 +330,14 @@ local function buildActiveSkillModList(env, activeSkill)
 		skillTypes = activeSkill.skillTypes,
 		slotName = activeSkill.slotName,
 	}
+	if skillFlags.weapon1Attack then
+		activeSkill.weapon1Cfg = copyTable(activeSkill.skillCfg, true)
+		activeSkill.weapon1Cfg.flags = bor(skillModFlags, activeSkill.weapon1Flags)
+	end
+	if skillFlags.weapon2Attack then
+		activeSkill.weapon2Cfg = copyTable(activeSkill.skillCfg, true)
+		activeSkill.weapon2Cfg.flags = bor(skillModFlags, activeSkill.weapon2Flags)
+	end
 
 	-- Apply gem property modifiers from the item this skill is socketed into
 	for _, value in ipairs(env.modDB:Sum("LIST", activeSkill.skillCfg, "GemProperty")) do
@@ -322,6 +351,10 @@ local function buildActiveSkillModList(env, activeSkill)
 	-- Initialise skill modifier list
 	local skillModList = common.New("ModList")
 	activeSkill.skillModList = skillModList
+
+	if skillFlags.disable then
+		return
+	end
 
 	-- Add support gem modifiers to skill mod list
 	for _, gem in pairs(activeSkill.gemList) do
@@ -948,14 +981,6 @@ local function performCalcs(env)
 	end
 
 	-- Set modes
-	if env.mainSkill.skillFlags.attack then
-		env.mode_skillType = "ATTACK"
-	else
-		env.mode_skillType = "SPELL"
-	end
-	if env.mainSkill.skillData.showAverage then
-		env.mode_average = true
-	end
 	if env.buffMode == "EFFECTIVE" then
 		env.mode_buffs = true
 		env.mode_combat = true
@@ -998,9 +1023,6 @@ local function performCalcs(env)
 	end
 	if env.weaponData1.type and env.weaponData2.type then
 		condList["DualWielding"] = true
-	end
-	if env.mode_skillType == "ATTACK" then
-		condList["MainHandAttack"] = true
 	end
 	if not env.weaponData1.type then
 		condList["Unarmed"] = true
@@ -1615,12 +1637,28 @@ local function performCalcs(env)
 	-- Offensive Calculations --
 	-- ---------------------- --
 
+	if env.mainSkill.skillFlags.disable then
+		-- Skill is disabled
+		wipeTable(env.mainSkill.skillFlags)
+		return
+	end
+
 	-- Merge main skill mods
 	modDB:AddList(env.mainSkill.skillModList)
 
 	local skillData = env.mainSkill.skillData
 	local skillFlags = env.mainSkill.skillFlags
 	local skillCfg = env.mainSkill.skillCfg
+	if env.mainSkill.skillFlags.attack then
+		env.mode_skillType = "ATTACK"
+	else
+		env.mode_skillType = "SPELL"
+	end
+	if env.mainSkill.skillData.showAverage then
+		env.mode_average = true
+	else
+		skillFlags.notAverage = true
+	end
 	if env.mode_buffs then
 		skillFlags.buffs = true
 	end
@@ -1629,9 +1667,6 @@ local function performCalcs(env)
 	end
 	if env.mode_effective then
 		skillFlags.effective = true
-	end
-	if not env.mode_average then
-		skillFlags.notAverage = true
 	end
 
 	-- Update skill data
@@ -1667,6 +1702,8 @@ local function performCalcs(env)
 			end
 		end
 	end
+
+	local isAttack = (env.mode_skillType == "ATTACK")
 
 	-- Calculate skill type stats
 	if skillFlags.projectile then
@@ -1754,8 +1791,6 @@ local function performCalcs(env)
 		end
 	end
 
-	local isAttack = (env.mode_skillType == "ATTACK")
-
 	-- Cache global damage disabling flags
 	local canDeal = { }
 	for _, damageType in pairs(dmgTypeList) do
@@ -1840,13 +1875,27 @@ local function performCalcs(env)
 			t_insert(breakdown.ManaCost, s_format("= %d", output.ManaCost))
 		end
 	end
-	
+
+	-- Determine source for skill damage
+	local source
+	if isAttack then
+		if skillFlags.weapon1Attack then
+			source = env.weaponData1
+			condList["MainHandAttack"] = true
+		else
+			source = env.weaponData2
+			condList["OffHandAttack"] = true
+		end
+	else
+		source = env.mainSkill.skillData
+	end
+
 	-- Calculate hit chance
 	output.Accuracy = calcVal(modDB, "Accuracy", skillCfg)
 	if breakdown then
 		simpleBreakdown(nil, skillCfg, "Accuracy")
 	end
-	if not isAttack or modDB:Sum("FLAG", skillCfg, "CannotBeEvaded") or env.weaponData1.CannotBeEvaded or skillData.cannotBeEvaded then
+	if not isAttack or modDB:Sum("FLAG", skillCfg, "CannotBeEvaded") or skillData.cannotBeEvaded then
 		output.HitChance = 100
 	else
 		local enemyEvasion = round(calcVal(enemyDB, "Evasion"))
@@ -1870,9 +1919,9 @@ local function performCalcs(env)
 			if isAttack then
 				if skillData.castTimeOverridesAttackTime then
 					-- Skill is overriding weapon attack speed
-					baseSpeed = 1 / skillData.castTime * (1 + (env.weaponData1.AttackSpeedInc or 0) / 100)
+					baseSpeed = 1 / skillData.castTime * (1 + (source.AttackSpeedInc or 0) / 100)
 				else
-					baseSpeed = env.weaponData1.attackRate or 1
+					baseSpeed = source.attackRate or 1
 				end
 			else
 				baseSpeed = 1 / (skillData.castTime or 1)
@@ -1895,12 +1944,7 @@ local function performCalcs(env)
 		output.CritMultiplier = 0
 		output.CritEffect = 1
 	else
-		local baseCrit
-		if isAttack then
-			baseCrit = env.weaponData1.critChance or 0
-		else
-			baseCrit = skillData.critChance or 0
-		end
+		local baseCrit = source.critChance or 0
 		if baseCrit == 100 then
 			output.CritChance = 100
 		else
@@ -1993,7 +2037,6 @@ local function performCalcs(env)
 	for pass = 1, 2 do
 		-- Pass 1 is critical strike damage, pass 2 is non-critical strike
 		condList["CriticalStrike"] = (pass == 1)
-		local hitSource = (env.mode_skillType == "ATTACK") and env.weaponData1 or env.mainSkill.skillData
 		for _, damageType in ipairs(dmgTypeList) do
 			local min, max
 			if skillFlags.hit and canDeal[damageType] then
@@ -2002,7 +2045,7 @@ local function performCalcs(env)
 						damageComponents = { }
 					}
 				end
-				min, max = calcHitDamage(env, hitSource, damageType)
+				min, max = calcHitDamage(env, source, damageType)
 				local convMult = env.conversionTable[damageType].mult
 				if breakdown then
 					t_insert(breakdown[damageType], "Hit damage:")
@@ -2574,7 +2617,7 @@ local function performCalcs(env)
 			output.CombinedDPS = output.CombinedDPS + output.HitChance / 100 * output.PoisonChance / 100 * output.PoisonDamage
 			output.WithPoisonAverageDamage = output.CombinedDPS
 		else
-			output.CombinedDPS = output.CombinedDPS + output.HitChance / 100 * output.PoisonChance / 100 * output.PoisonDamage * (output.HitSpeed or output.Speed)
+			output.CombinedDPS = output.CombinedDPS + output.HitChance / 100 * output.PoisonChance / 100 * output.PoisonDamage * (output.HitSpeed or output.Speed) * (skillData.dpsMultiplier or 1)
 			output.WithPoisonDPS = output.CombinedDPS
 		end
 	end
@@ -2585,7 +2628,7 @@ local function performCalcs(env)
 				igniteDPS = output.HitChance / 100 * output.IgniteChance / 100 * output.IgniteDamage
 				output.WithIgniteAverageDamage = baseDPS + igniteDPS
 			else
-				igniteDPS = output.HitChance / 100 * output.IgniteChance / 100 * output.IgniteDamage * (output.HitSpeed or output.Speed)
+				igniteDPS = output.HitChance / 100 * output.IgniteChance / 100 * output.IgniteDamage * (output.HitSpeed or output.Speed) * (skillData.dpsMultiplier or 1)
 				output.WithIgniteDPS = baseDPS + igniteDPS
 			end
 			output.CombinedDPS = output.CombinedDPS + igniteDPS
@@ -2757,7 +2800,6 @@ function calcs.buildOutput(build, mode)
 				end
 			end
 		end
-		ConPrintTable(env.conditionsUsed)
 	elseif mode == "CALCS" then
 		local buffList = { }
 		local combatList = { }

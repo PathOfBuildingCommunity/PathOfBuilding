@@ -76,6 +76,9 @@ local varList = {
 	{ var = "conditionBeenSavageHitRecently", type = "check", label = "Have you been Savage Hit Recently?", ifCond = "BeenSavageHitRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BeenSavageHitRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionBlockedRecently", type = "check", label = "Have you Blocked Recently?", ifCond = "BlockedRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BlockedRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "buffPendulum", type = "check", label = "Is Pendulum of Destruction active?", ifNode = 57197, apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "PendulumOfDestruction" }, "Config", { type = "Condition", var = "Combat" })
 	end },

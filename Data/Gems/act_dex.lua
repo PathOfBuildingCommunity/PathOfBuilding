@@ -83,6 +83,10 @@ gems["Barrage"] = {
 		projectile = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [6] = true, [3] = true, [22] = true, [17] = true, [19] = true, },
+	weaponTypes = {
+		["Wand"] = true,
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		mod("ProjectileCount", "BASE", 3), --"number_of_additional_projectiles" = 3
@@ -221,6 +225,11 @@ gems["Blade Flurry"] = {
 		area = true,
 	},
 	skillTypes = { [1] = true, [11] = true, [6] = true, [58] = true, [24] = true, },
+	weaponTypes = {
+		["One Handed Sword"] = true,
+		["Dagger"] = true,
+		["Claw"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 4), 
@@ -430,6 +439,14 @@ gems["Blast Rain"] = {
 	attack = true,
 	area = true,
 	bow = true,
+	parts = {
+		{
+			name = "1 explosion",
+		},
+		{
+			name = "4 explosions",
+		},
+	},
 	color = 2,
 	baseFlags = {
 		attack = true,
@@ -438,6 +455,9 @@ gems["Blast Rain"] = {
 		fire = true,
 	},
 	skillTypes = { [1] = true, [11] = true, [14] = true, [22] = true, [17] = true, [19] = true, [33] = true, [48] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_fire" = 50
@@ -445,6 +465,7 @@ gems["Blast Rain"] = {
 		--"blast_rain_arrow_delay_ms" = 80
 		--"base_is_projectile" = ?
 		--"is_area_damage" = ?
+		skill("dpsMultiplier", 4, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -570,6 +591,9 @@ gems["Burning Arrow"] = {
 		fire = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [22] = true, [17] = true, [19] = true, [33] = true, [53] = true, [55] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		mod("EnemyIgniteChance", "BASE", 20), --"base_chance_to_ignite_%" = 20
@@ -634,6 +658,9 @@ gems["Vaal Burning Arrow"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [22] = true, [17] = true, [19] = true, [11] = true, [43] = true, [33] = true, [55] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		mod("EnemyIgniteChance", "BASE", 20), --"base_chance_to_ignite_%" = 20
@@ -699,6 +726,9 @@ gems["Caustic Arrow"] = {
 		chaos = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [11] = true, [12] = true, [17] = true, [19] = true, [22] = true, [40] = true, [50] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"skill_can_fire_arrows" = 1
@@ -760,6 +790,18 @@ gems["Cyclone"] = {
 		movement = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [38] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 12), 
@@ -826,6 +868,18 @@ gems["Vaal Cyclone"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [12] = true, [43] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		mod("Speed", "MORE", 100, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = 100
@@ -964,6 +1018,17 @@ gems["Double Strike"] = {
 		melee = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [7] = true, [25] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 5), 
@@ -1024,6 +1089,17 @@ gems["Vaal Double Strike"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [43] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"base_skill_number_of_additional_hits" = 1
@@ -1248,6 +1324,9 @@ gems["Explosive Arrow"] = {
 		fire = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [10] = true, [11] = true, [12] = true, [22] = true, [17] = true, [19] = true, [33] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("critChance", 6), 
@@ -1381,6 +1460,17 @@ gems["Flicker Strike"] = {
 		movement = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [24] = true, [25] = true, [28] = true, [38] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 10), 
@@ -1584,6 +1674,17 @@ gems["Frost Blades"] = {
 		cold = true,
 	},
 	skillTypes = { [1] = true, [3] = true, [6] = true, [25] = true, [28] = true, [24] = true, [34] = true, [48] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
@@ -2032,6 +2133,9 @@ gems["Ice Shot"] = {
 		cold = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [11] = true, [12] = true, [22] = true, [17] = true, [19] = true, [34] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		mod("SkillPhysicalDamageConvertToCold", "BASE", 40), --"skill_physical_damage_%_to_convert_to_cold" = 40
@@ -2160,6 +2264,12 @@ gems["Lacerate"] = {
 		area = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["Two Handed Axe"] = true,
+		["Two Handed Sword"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 8), 
@@ -2220,6 +2330,9 @@ gems["Lightning Arrow"] = {
 		lightning = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [11] = true, [3] = true, [22] = true, [17] = true, [19] = true, [35] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
@@ -2293,6 +2406,17 @@ gems["Lightning Strike"] = {
 		lightning = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [25] = true, [28] = true, [24] = true, [35] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
@@ -2366,6 +2490,17 @@ gems["Vaal Lightning Strike"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [12] = true, [43] = true, [35] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
@@ -2628,6 +2763,13 @@ gems["Puncture"] = {
 		duration = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [12] = true, [17] = true, [19] = true, [22] = true, [25] = true, [28] = true, [24] = true, [40] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+		["Claw"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
@@ -2750,6 +2892,9 @@ gems["Rain of Arrows"] = {
 		area = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [11] = true, [14] = true, [22] = true, [17] = true, [19] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"base_is_projectile" = ?
@@ -2813,6 +2958,9 @@ gems["Vaal Rain of Arrows"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [11] = true, [14] = true, [22] = true, [17] = true, [19] = true, [12] = true, [43] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"base_is_projectile" = ?
@@ -2874,6 +3022,11 @@ gems["Reave"] = {
 		area = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["One Handed Sword"] = true,
+		["Dagger"] = true,
+		["Claw"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
@@ -2934,6 +3087,11 @@ gems["Vaal Reave"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [28] = true, [24] = true, [43] = true, },
+	weaponTypes = {
+		["One Handed Sword"] = true,
+		["Dagger"] = true,
+		["Claw"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"reave_area_of_effect_+%_final_per_stage" = 20
@@ -2996,6 +3154,18 @@ gems["Riposte"] = {
 		melee = true,
 	},
 	skillTypes = { [1] = true, [24] = true, [25] = true, [6] = true, [47] = true, [57] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"melee_counterattack_trigger_on_block_%" = 100
@@ -3067,6 +3237,9 @@ gems["Shrapnel Shot"] = {
 		lightning = true,
 	},
 	skillTypes = { [1] = true, [3] = true, [11] = true, [22] = true, [17] = true, [19] = true, [35] = true, [48] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"base_arrow_pierce_%" = 100
@@ -3131,6 +3304,9 @@ gems["Siege Ballista"] = {
 		duration = true,
 	},
 	skillTypes = { [1] = true, [3] = true, [48] = true, [17] = true, [19] = true, [30] = true, [12] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	skillTotemId = 12,
 	baseMods = {
 		skill("castTime", 1), 
@@ -3261,6 +3437,17 @@ gems["Spectral Throw"] = {
 		projectile = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"base_is_projectile" = ?
@@ -3319,6 +3506,17 @@ gems["Vaal Spectral Throw"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [43] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"projectiles_nova" = ?
@@ -3375,6 +3573,9 @@ gems["Split Arrow"] = {
 		projectile = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [22] = true, [17] = true, [19] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"skill_can_fire_arrows" = ?
@@ -3560,6 +3761,9 @@ gems["Tornado Shot"] = {
 		projectile = true,
 	},
 	skillTypes = { [1] = true, [3] = true, [17] = true, [19] = true, [22] = true, [48] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"tornado_shot_num_of_secondary_projectiles" = 3
@@ -3621,6 +3825,12 @@ gems["Viper Strike"] = {
 		chaos = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [12] = true, [28] = true, [24] = true, [25] = true, [40] = true, [50] = true, },
+	weaponTypes = {
+		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Claw"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 5), 
@@ -3681,6 +3891,11 @@ gems["Whirling Blades"] = {
 		movement = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [24] = true, [38] = true, },
+	weaponTypes = {
+		["Claw"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 2.6), 
 		skill("manaCost", 15), 
@@ -3794,6 +4009,17 @@ gems["Wild Strike"] = {
 		fire = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [35] = true, [34] = true, [33] = true, [3] = true, [11] = true, [23] = true, [48] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 

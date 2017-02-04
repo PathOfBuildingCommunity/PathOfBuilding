@@ -85,6 +85,18 @@ gems["Ancestral Protector"] = {
 		duration = true,
 	},
 	skillTypes = { [1] = true, [30] = true, [12] = true, [6] = true, [25] = true, [24] = true, [17] = true, [19] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	skillTotemId = 13,
 	baseMods = {
 		skill("castTime", 1), 
@@ -156,6 +168,18 @@ gems["Ancestral Warchief"] = {
 		duration = true,
 	},
 	skillTypes = { [1] = true, [30] = true, [12] = true, [6] = true, [24] = true, [17] = true, [19] = true, [11] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	skillTotemId = 15,
 	baseMods = {
 		skill("castTime", 1), 
@@ -295,6 +319,12 @@ gems["Cleave"] = {
 		area = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [8] = true, [11] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["Two Handed Axe"] = true,
+		["One Handed Axe"] = true,
+		["Two Handed Sword"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
@@ -489,6 +519,18 @@ gems["Dominating Blow"] = {
 		duration = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [9] = true, [12] = true, [21] = true, [25] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("duration", 20), --"base_skill_effect_duration" = 20000
@@ -558,6 +600,13 @@ gems["Earthquake"] = {
 		duration = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [7] = true, [10] = true, [28] = true, [12] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Staff"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 10), 
@@ -750,6 +799,11 @@ gems["Glacial Hammer"] = {
 		cold = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [34] = true, },
+	weaponTypes = {
+		["Two Handed Mace"] = true,
+		["One Handed Mace"] = true,
+		["Staff"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 5), 
@@ -816,6 +870,11 @@ gems["Vaal Glacial Hammer"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [12] = true, [11] = true, [43] = true, [34] = true, },
+	weaponTypes = {
+		["Two Handed Mace"] = true,
+		["One Handed Mace"] = true,
+		["Staff"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		mod("SkillPhysicalDamageConvertToCold", "BASE", 50), --"skill_physical_damage_%_to_convert_to_cold" = 50
@@ -876,6 +935,11 @@ gems["Ground Slam"] = {
 		area = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["Two Handed Mace"] = true,
+		["One Handed Mace"] = true,
+		["Staff"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
@@ -937,6 +1001,11 @@ gems["Vaal Ground Slam"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [28] = true, [24] = true, [43] = true, },
+	weaponTypes = {
+		["Two Handed Mace"] = true,
+		["One Handed Mace"] = true,
+		["Staff"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"knockback_distance_+%" = 100
@@ -997,6 +1066,15 @@ gems["Heavy Strike"] = {
 		melee = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["One Handed Sword"] = true,
+		["One Handed Mace"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["One Handed Axe"] = true,
+		["Staff"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 5), 
@@ -1126,6 +1204,16 @@ gems["Ice Crash"] = {
 		cold = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [7] = true, [34] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["Two Handed Sword"] = true,
+		["One Handed Mace"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Sword"] = true,
+		["Staff"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 8), 
@@ -1303,6 +1391,16 @@ gems["Infernal Blow"] = {
 		fire = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [25] = true, [28] = true, [24] = true, [33] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["Staff"] = true,
+		["One Handed Mace"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
@@ -1365,6 +1463,15 @@ gems["Leap Slam"] = {
 		movement = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [24] = true, [38] = true, },
+	weaponTypes = {
+		["Two Handed Sword"] = true,
+		["One Handed Mace"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Sword"] = true,
+		["Staff"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1.4), 
 		skill("manaCost", 15), 
@@ -1579,6 +1686,17 @@ gems["Molten Strike"] = {
 		fire = true,
 	},
 	skillTypes = { [1] = true, [3] = true, [6] = true, [11] = true, [24] = true, [25] = true, [28] = true, [33] = true, [48] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
@@ -1771,6 +1889,14 @@ gems["Reckoning"] = {
 		melee = true,
 	},
 	skillTypes = { [1] = true, [7] = true, [13] = true, [24] = true, [11] = true, [47] = true, [57] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Claw"] = true,
+		["One Handed Axe"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"melee_counterattack_trigger_on_block_%" = 100
@@ -1965,6 +2091,14 @@ gems["Shield Charge"] = {
 		movement = true,
 	},
 	skillTypes = { [1] = true, [7] = true, [13] = true, [24] = true, [11] = true, [38] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Claw"] = true,
+		["One Handed Axe"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 8), 
@@ -2111,6 +2245,17 @@ gems["Static Strike"] = {
 		lightning = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [11] = true, [12] = true, [35] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
@@ -2307,6 +2452,13 @@ gems["Sunder"] = {
 		area = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Staff"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 8), 
@@ -2366,6 +2518,12 @@ gems["Sweep"] = {
 		area = true,
 	},
 	skillTypes = { [1] = true, [11] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1.15), 
 		skill("manaCost", 8), 
@@ -2426,6 +2584,17 @@ gems["Vengeance"] = {
 		area = true,
 	},
 	skillTypes = { [1] = true, [11] = true, [24] = true, [47] = true, [6] = true, [57] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"melee_counterattack_trigger_on_hit_%" = 30
@@ -2483,6 +2652,17 @@ gems["Vigilant Strike"] = {
 		melee = true,
 	},
 	skillTypes = { [1] = true, [5] = true, [24] = true, [6] = true, [28] = true, [25] = true, [53] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 

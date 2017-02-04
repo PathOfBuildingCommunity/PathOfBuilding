@@ -108,14 +108,14 @@ SkillType = {
 	MinionSpell = 49,
 	ChaosSkill = 50,
 	Type51 = 51, -- Not used by any skill
-	Type52 = 52, -- Allows Contagion to be supported by Iron Will
+	Type52 = 52, -- Allows Contagion, Blight and Scorching Ray to be supported by Iron Will
 	Type53 = 53, -- Allows Burning Arrow and Vigilant Strike to be supported by Inc AoE and Conc Effect
 	Type54 = 54, -- Not used by any skill
 	Type55 = 55, -- Allows Burning Arrow to be supported by Inc/Less Duration and Rapid Decay
 	Type56 = 56, -- Not used by any skill
 	Type57 = 57, -- Appears to be the same as 47
 	Channelled = 58,
-	Type59 = 59, -- Allows Contagion to be supported by Controlled Destruction
+	Type59 = 59, -- Allows Contagion, Blight and Scorching Ray to be supported by Controlled Destruction
 	ColdSpell = 60, -- Used for Cospri's Malice
 }
 
@@ -222,13 +222,13 @@ data.weaponTypeInfo = {
 }
 
 data.unarmedWeaponData = {
-	[0] = { attackRate = 1.2, critChance = 0, PhysicalMin = 2, PhysicalMax = 6 }, -- Scion
-	[1] = { attackRate = 1.2, critChance = 0, PhysicalMin = 2, PhysicalMax = 8 }, -- Marauder
-	[2] = { attackRate = 1.2, critChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Ranger
-	[3] = { attackRate = 1.2, critChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Witch
-	[4] = { attackRate = 1.2, critChance = 0, PhysicalMin = 2, PhysicalMax = 6 }, -- Duelist
-	[5] = { attackRate = 1.2, critChance = 0, PhysicalMin = 2, PhysicalMax = 6 }, -- Templar
-	[6] = { attackRate = 1.2, critChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Shadow
+	[0] = { type = "None", attackRate = 1.2, critChance = 0, PhysicalMin = 2, PhysicalMax = 6 }, -- Scion
+	[1] = { type = "None", attackRate = 1.2, critChance = 0, PhysicalMin = 2, PhysicalMax = 8 }, -- Marauder
+	[2] = { type = "None", attackRate = 1.2, critChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Ranger
+	[3] = { type = "None", attackRate = 1.2, critChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Witch
+	[4] = { type = "None", attackRate = 1.2, critChance = 0, PhysicalMin = 2, PhysicalMax = 6 }, -- Duelist
+	[5] = { type = "None", attackRate = 1.2, critChance = 0, PhysicalMin = 2, PhysicalMax = 6 }, -- Templar
+	[6] = { type = "None", attackRate = 1.2, critChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Shadow
 }
 
 data.itemBases = { }

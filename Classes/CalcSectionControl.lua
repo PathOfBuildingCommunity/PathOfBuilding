@@ -18,6 +18,7 @@ local CalcSectionClass = common.NewClass("CalcSection", "Control", "ControlHost"
 	self.data = data
 	self.extra = data.extra
 	self.flag = data.flag
+	self.notFlag = data.notFlag
 	self.updateFunc = updateFunc
 	for _, data in ipairs(self.data) do
 		for _, colData in ipairs(data) do
@@ -74,8 +75,8 @@ end
 
 function CalcSectionClass:UpdateSize()
 	local skillFlags = self.calcsTab.calcsEnv.mainSkill.skillFlags
-	self.enabled = not self.flag or skillFlags[self.flag]
-	if self.collapsed or not self.enabled then
+	self.enabled = (not self.flag or skillFlags[self.flag]) and (not self.notFlag or not skillFlags[self.notFlag])
+	if not self.enabled then
 		self.height = 22
 		return
 	end
@@ -85,7 +86,7 @@ function CalcSectionClass:UpdateSize()
 	self.enabled = false
 	local yOffset = 22
 	for _, rowData in ipairs(self.data) do
-		rowData.enabled = not rowData.flag or skillFlags[rowData.flag]
+		rowData.enabled = (not rowData.flag or skillFlags[rowData.flag]) and (not rowData.notFlag or not skillFlags[rowData.notFlag])
 		if rowData.enabled then
 			self.enabled = true
 			local xOffset = 134
@@ -99,8 +100,11 @@ function CalcSectionClass:UpdateSize()
 			yOffset = yOffset + 18
 			self.height = self.height + 18
 		end
+		if self.collapsed then
+			rowData.enabled = false
+		end
 	end
-	if self.enabled then
+	if self.enabled and not self.collapsed then
 		self.height = self.height + 24
 		if self.updateFunc then
 			self:updateFunc()
@@ -131,11 +135,21 @@ function CalcSectionClass:UpdatePos()
 end
 
 function CalcSectionClass:FormatStr(str, output, colData)
-	str = str:gsub("{output:([%a:]+)}", function(c) 
-		return output[c] or ""
+	str = str:gsub("{output:([%a%.:]+)}", function(c) 
+		local ns, var = c:match("^(%a+)%.(%a+)$")
+		if ns then
+			return output[ns][var] or ""
+		else
+			return output[c] or ""
+		end
 	end)
-	str = str:gsub("{(%d+):output:([%a:]+)}", function(p, c) 
-		return formatRound(output[c] or 0, tonumber(p))
+	str = str:gsub("{(%d+):output:([%a%.:]+)}", function(p, c) 
+		local ns, var = c:match("^(%a+)%.(%a+)$")
+		if ns then
+			return formatRound(output[ns][var] or 0, tonumber(p))
+		else
+			return formatRound(output[c] or 0, tonumber(p))
+		end
 	end)
 	str = str:gsub("{(%d+):mod:(%d+)}", function(p, n) 
 		local sectionData = colData[tonumber(n)]
