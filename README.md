@@ -48,6 +48,14 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.37 - 2017/02/05
+ * Attack skills will now only work if your equipped weapons can be used with that skill
+ * Dual Wield attack skills will now use the off hand weapon if the main hand isn't compatible with the skill
+    * If both weapons are compatible the calculations will still only use the main hand; full dual wield support is coming soon
+ * Added skill parts to Blast Rain to allow calculation of DPS against a target that's being hit by all 4 explosions
+ * Added a "Have you Blocked Recently?" option to the Configuration tab
+ * Added the block chance buff for Tempest Shield
+
 ### 1.2.36 - 2017/01/31
  * Condition toggles in the Configuration tab will now only appear if the condition is actually used by the build
  * Added support for "Ignited Enemies Burn faster" modifiers

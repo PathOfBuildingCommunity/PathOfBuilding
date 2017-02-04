@@ -2518,6 +2518,9 @@ gems["Kinetic Blast"] = {
 		area = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [11] = true, [17] = true, [19] = true, [22] = true, },
+	weaponTypes = {
+		["Wand"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"cluster_burst_spawn_amount" = 4
@@ -3050,6 +3053,9 @@ gems["Power Siphon"] = {
 		projectile = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [6] = true, [3] = true, [22] = true, [17] = true, [19] = true, },
+	weaponTypes = {
+		["Wand"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"kill_enemy_on_hit_if_under_10%_life" = ?
@@ -3108,6 +3114,9 @@ gems["Vaal Power Siphon"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [6] = true, [3] = true, [22] = true, [17] = true, [19] = true, [43] = true, },
+	weaponTypes = {
+		["Wand"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"power_siphon_fire_at_all_targets" = ?
@@ -4011,7 +4020,7 @@ gems["Tempest Shield"] = {
 		skill("castTime", 0.5), 
 		skill("damageEffectiveness", 0.6), 
 		skill("critChance", 6), 
-		--"shield_block_%" = 3
+		mod("BlockChance", "BASE", 3, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"shield_block_%" = 3
 		--"skill_override_pvp_scaling_time_ms" = 700
 		mod("ChainCount", "BASE", 1), --"number_of_additional_projectiles_in_chain" = 1
 		skill("duration", 12), --"base_skill_effect_duration" = 12000
