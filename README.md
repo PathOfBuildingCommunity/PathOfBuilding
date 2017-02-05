@@ -48,6 +48,9 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.38 - 2017/02/05
+ * Fixed error when hovering over a passive node with a main skill that isn't compatible with the equipped weapons
+
 ### 1.2.37 - 2017/02/05
  * Attack skills will now only work if your equipped weapons can be used with that skill
  * Dual Wield attack skills will now use the off hand weapon if the main hand isn't compatible with the skill
