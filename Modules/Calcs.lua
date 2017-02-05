@@ -353,6 +353,8 @@ local function buildActiveSkillModList(env, activeSkill)
 	activeSkill.skillModList = skillModList
 
 	if skillFlags.disable then
+		wipeTable(skillFlags)
+		skillFlags.disable = true
 		return
 	end
 
@@ -1639,7 +1641,7 @@ local function performCalcs(env)
 
 	if env.mainSkill.skillFlags.disable then
 		-- Skill is disabled
-		wipeTable(env.mainSkill.skillFlags)
+		output.CombinedDPS = 0
 		return
 	end
 
