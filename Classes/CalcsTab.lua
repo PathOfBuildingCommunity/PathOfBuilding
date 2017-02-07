@@ -319,6 +319,31 @@ function CalcsTabClass:SetDisplayStat(displayData, pin)
 	self.controls.breakdown:SetBreakdownData(displayData, pin)
 end
 
+function CalcsTabClass:CheckFlag(obj)
+	local skillFlags = self.calcsEnv.mainSkill.skillFlags
+	if obj.flag and not skillFlags[obj.flag] then
+		return
+	end
+	if obj.flagList then
+		for _, flag in ipairs(obj.flagList) do
+			if not skillFlags[flag] then
+				return
+			end
+		end
+	end
+	if obj.notFlag and skillFlags[obj.notFlag] then
+		return
+	end
+	if obj.notFlagList then
+		for _, flag in ipairs(obj.notFlagList) do
+			if skillFlags[flag] then
+				return
+			end
+		end
+	end
+	return true
+end
+
 -- Build the calculation output tables
 function CalcsTabClass:BuildOutput()
 	self.powerBuildFlag = true
@@ -358,7 +383,10 @@ function CalcsTabClass:BuildPower()
 	end
 	if self.powerBuilder then
 		collectgarbage("stop") -- This is necessary to work around a bug in the JIT
-		coroutine.resume(self.powerBuilder, self)
+		local res, errMsg = coroutine.resume(self.powerBuilder, self)
+		if launch.devMode and not res then
+			error(errMsg)
+		end
 		if coroutine.status(self.powerBuilder) == "dead" then
 			self.powerBuilder = nil
 		end
@@ -376,6 +404,9 @@ function CalcsTabClass:PowerBuilder()
 	}
 	if not self.powerMax then
 		self.powerMax = newPowerMax
+	end
+	if coroutine.running() then
+		coroutine.yield()
 	end
 	local start = GetTime()
 	for _, node in pairs(self.build.spec.nodes) do

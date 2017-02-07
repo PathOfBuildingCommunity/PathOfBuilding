@@ -226,12 +226,13 @@ function buildMode:Init(dbFileName, buildName)
 	-- This may be user-customisable in the future
 	self.displayStats = {
 		{ mod = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
+		{ mod = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true, flag = "attack" },
 		{ mod = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack" },
 		{ mod = "Speed", label = "Cast Rate", fmt = ".2f", compPercent = true, flag = "spell" },
 		{ mod = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
 		{ mod = "CritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ mod = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return o.CritChance > 0 end },
-		{ mod = "HitChance", label = "Hit Chance", fmt = "d%%", flag = "attack" },
+		{ mod = "HitChance", label = "Hit Chance", fmt = ".0f%%", flag = "attack" },
 		{ mod = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
 		{ mod = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
 		{ mod = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true },

@@ -181,6 +181,10 @@ data.colorCodes = {
 	DUELIST = "^xE0E070",
 	TEMPLAR = "^xC040FF",
 	SHADOW = "^x30C0D0",
+	MAINHAND = "^x50FF50",
+	MAINHANDBG = "^x071907",
+	OFFHAND = "^xB7B7FF",
+	OFFHANDBG = "^x070719",
 }
 data.colorCodes.STRENGTH = data.colorCodes.MARAUDER
 data.colorCodes.DEXTERITY = data.colorCodes.RANGER
