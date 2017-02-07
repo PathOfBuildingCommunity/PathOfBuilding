@@ -328,9 +328,9 @@ gems["Cleave"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
-		--"cleave_damage_+%_final_while_dual_wielding" = -40
+		mod("Damage", "MORE", -40, 0, 0, { type = "Condition", var = "DualWielding" }), --"cleave_damage_+%_final_while_dual_wielding" = -40
 		--"is_area_damage" = ?
-		--"skill_double_hits_when_dual_wielding" = ?
+		skill("doubleHitsWhenDualWielding", true), --"skill_double_hits_when_dual_wielding" = ?
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5

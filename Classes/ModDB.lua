@@ -82,7 +82,7 @@ end
 
 function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
 	local flags, keywordFlags = 0, 0
-	local skillName, skillGem, skillPart, skillTypes, slotName, source, tabulate
+	local skillName, skillGem, skillPart, skillTypes, skillStats, skillCond, slotName, source, tabulate
 	if cfg then
 		flags = cfg.flags or 0
 		keywordFlags = cfg.keywordFlags or 0
@@ -90,6 +90,8 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 		skillGem = cfg.skillGem
 		skillPart = cfg.skillPart
 		skillTypes = cfg.skillTypes
+		skillStats = cfg.skillStats
+		skillCond = cfg.skillCond
 		slotName = cfg.slotName
 		source = cfg.source
 		tabulate = cfg.tabulate
@@ -159,7 +161,7 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 								value = value * mult + (tag.base or 0)
 							end
 						elseif tag.type == "PerStat" then
-							local mult = m_floor((self.stats[tag.stat] or 0) / tag.div + 0.0001)
+							local mult = m_floor((self.stats[tag.stat] or (skillStats and skillStats[tag.stat]) or 0) / tag.div + 0.0001)
 							if type(value) == "table" then
 								value = copyTable(value)
 								value.value = value.value * mult + (tag.base or 0)
@@ -170,13 +172,13 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 							local match = false
 							if tag.varList then
 								for _, var in pairs(tag.varList) do
-									if self.conditions[var] then
+									if self.conditions[var] or (skillCond and skillCond[var]) then
 										match = true
 										break
 									end
 								end
 							else
-								match = self.conditions[tag.var]
+								match = self.conditions[tag.var] or (skillCond and skillCond[tag.var])
 							end
 							if tag.neg then
 								match = not match

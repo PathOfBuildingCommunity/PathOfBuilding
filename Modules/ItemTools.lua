@@ -323,12 +323,13 @@ end
 
 -- Add up local modifiers, and removes them from the modifier list
 -- To be considered local, a modifier must be an exact flag match, and cannot have any tags (e.g conditions, multipliers)
+-- Only the InSlot tag is allowed (for Adds x to x X Damage in X Hand modifiers)
 local function sumLocal(modList, name, type, flags)
 	local result = 0
 	local i = 1
 	while modList[i] do
 		local mod = modList[i]
-		if mod.name == name and mod.type == type and mod.flags == flags and mod.keywordFlags == 0 and not mod.tagList[1] then
+		if mod.name == name and mod.type == type and mod.flags == flags and mod.keywordFlags == 0 and (not mod.tagList[1] or mod.tagList[1].type == "InSlot") then
 			result = result + mod.value
 			t_remove(modList, i)
 		else
@@ -349,7 +350,7 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 		local mod = copyTable(baseMod)
 		local add = true
 		for _, tag in pairs(mod.tagList) do
-			if tag.type == "SlotNumber" then
+			if tag.type == "SlotNumber" or tag.type == "InSlot" then
 				if tag.num ~= slotNum then
 					add = false
 					break
@@ -371,14 +372,14 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 		weaponData.type = item.base.type
 		weaponData.name = item.name
 		weaponData.AttackSpeedInc = sumLocal(modList, "Speed", "INC", ModFlag.Attack)
-		weaponData.attackRate = m_floor(item.base.weapon.attackRateBase * (1 + weaponData.AttackSpeedInc / 100) * 100 + 0.5) / 100
+		weaponData.attackRate = round(item.base.weapon.attackRateBase * (1 + weaponData.AttackSpeedInc / 100), 2)
 		for _, dmgType in pairs(dmgTypeList) do
-			local min = (item.base.weapon[dmgType.."Min"] or 0) + sumLocal(modList, dmgType.."Min", "BASE", ModFlag.Attack)
-			local max = (item.base.weapon[dmgType.."Max"] or 0) + sumLocal(modList, dmgType.."Max", "BASE", ModFlag.Attack)
+			local min = (item.base.weapon[dmgType.."Min"] or 0) + sumLocal(modList, dmgType.."Min", "BASE", 0)
+			local max = (item.base.weapon[dmgType.."Max"] or 0) + sumLocal(modList, dmgType.."Max", "BASE", 0)
 			if dmgType == "Physical" then
 				local physInc = sumLocal(modList, "PhysicalDamage", "INC", 0)
-				min = m_floor(min * (1 + (physInc + item.quality) / 100) + 0.5)
-				max = m_floor(max * (1 + (physInc + item.quality) / 100) + 0.5)
+				min = round(min * (1 + (physInc + item.quality) / 100))
+				max = round(max * (1 + (physInc + item.quality) / 100))
 			end
 			if min > 0 and max > 0 then
 				weaponData[dmgType.."Min"] = min
@@ -390,10 +391,16 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 				end
 			end
 		end
-		weaponData.critChance = m_floor(item.base.weapon.critChanceBase * (1 + sumLocal(modList, "CritChance", "INC", 0) / 100) * 100 + 0.5) / 100
+		weaponData.critChance = round(item.base.weapon.critChanceBase * (1 + sumLocal(modList, "CritChance", "INC", 0) / 100), 2)
 		for _, value in ipairs(modList:Sum("LIST", nil, "Misc")) do
 			if value.type == "WeaponData" then
 				weaponData[value.key] = value.value
+			end
+		end
+		for _, mod in ipairs(modList) do
+			-- Convert accuracy modifiers to local
+			if mod.name == "Accuracy" and mod.flags == 0 and mod.keywordFlags == 0 and not mod.tagList[1] then
+				mod.tagList[1] = { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" }
 			end
 		end
 		weaponData.TotalDPS = 0
@@ -412,9 +419,9 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 		local energyShieldInc = sumLocal(modList, "EnergyShield", "INC", 0)
 		local armourEnergyShieldInc = sumLocal(modList, "ArmourAndEnergyShield", "INC", 0)
 		local defencesInc = sumLocal(modList, "Defences", "INC", 0)
-		armourData.Armour = m_floor(armourBase * (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + item.quality) / 100) + 0.5)
-		armourData.Evasion = m_floor(evasionBase * (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + item.quality) / 100) + 0.5)
-		armourData.EnergyShield = m_floor(energyShieldBase * (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + item.quality) / 100) + 0.5)
+		armourData.Armour = round(armourBase * (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + item.quality) / 100))
+		armourData.Evasion = round(evasionBase * (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + item.quality) / 100))
+		armourData.EnergyShield = round(energyShieldBase * (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + item.quality) / 100))
 		if item.base.armour.blockChance then
 			armourData.BlockChance = item.base.armour.blockChance + sumLocal(modList, "BlockChance", "BASE", 0)
 		end

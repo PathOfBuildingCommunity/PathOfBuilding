@@ -1150,7 +1150,63 @@ gems["Dual Strike"] = {
 	active_skill = true,
 	attack = true,
 	melee = true,
-	unsupported = true,
+	color = 2,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	skillTypes = { [1] = true, [4] = true, [25] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Axe"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("manaCost", 5), 
+		skill("doubleHitsWhenDualWielding", true), --"skill_double_hits_when_dual_wielding" = ?
+	},
+	qualityMods = {
+		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
+	},
+	levelMods = {
+		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
+	},
+	levels = {
+		[1] = { -15, },
+		[2] = { -14, },
+		[3] = { -13, },
+		[4] = { -12, },
+		[5] = { -11, },
+		[6] = { -10, },
+		[7] = { -9, },
+		[8] = { -8, },
+		[9] = { -7, },
+		[10] = { -6, },
+		[11] = { -5, },
+		[12] = { -4, },
+		[13] = { -3, },
+		[14] = { -2, },
+		[15] = { -1, },
+		[16] = { nil, },
+		[17] = { 1, },
+		[18] = { 2, },
+		[19] = { 3, },
+		[20] = { 4, },
+		[21] = { 5, },
+		[22] = { 6, },
+		[23] = { 7, },
+		[24] = { 8, },
+		[25] = { 9, },
+		[26] = { 10, },
+		[27] = { 11, },
+		[28] = { 12, },
+		[29] = { 13, },
+		[30] = { 14, },
+	},
 }
 gems["Elemental Hit"] = {
 	dexterity = true,
@@ -3171,7 +3227,7 @@ gems["Riposte"] = {
 		--"melee_counterattack_trigger_on_block_%" = 100
 		--"attack_unusable_if_triggerable" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
-		--"skill_double_hits_when_dual_wielding" = ?
+		skill("doubleHitsWhenDualWielding", true), --"skill_double_hits_when_dual_wielding" = ?
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, 0, nil), --"damage_+%" = 1

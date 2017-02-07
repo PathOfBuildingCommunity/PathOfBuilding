@@ -48,6 +48,16 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.39 - 2017/02/08
+This update adds full support for Dual Wielding:
+ * DPS calculations for dual wield skills will now use both weapons if they are usable with the skill
+ * Calculations for bleed, poison and ignite will correctly factor in both weapons
+ * Dual Strike is now supported
+Other changes:
+ * Importing the passive tree from PoEPlanner links will now work with links created by the latest version of the site
+ * Fixed error when showing the tooltip for Kondo's Pride
+ * Various minor tweaks and fixes
+
 ### 1.2.38 - 2017/02/05
  * Fixed error when hovering over a passive node with a main skill that isn't compatible with the equipped weapons
 

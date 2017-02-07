@@ -74,8 +74,7 @@ function CalcSectionClass:IsMouseOver()
 end
 
 function CalcSectionClass:UpdateSize()
-	local skillFlags = self.calcsTab.calcsEnv.mainSkill.skillFlags
-	self.enabled = (not self.flag or skillFlags[self.flag]) and (not self.notFlag or not skillFlags[self.notFlag])
+	self.enabled = self.calcsTab:CheckFlag(self)
 	if not self.enabled then
 		self.height = 22
 		return
@@ -86,7 +85,7 @@ function CalcSectionClass:UpdateSize()
 	self.enabled = false
 	local yOffset = 22
 	for _, rowData in ipairs(self.data) do
-		rowData.enabled = (not rowData.flag or skillFlags[rowData.flag]) and (not rowData.notFlag or not skillFlags[rowData.notFlag])
+		rowData.enabled = self.calcsTab:CheckFlag(rowData)
 		if rowData.enabled then
 			self.enabled = true
 			local xOffset = 134
@@ -208,15 +207,15 @@ function CalcSectionClass:Draw(viewPort)
 		if rowData.enabled then
 			if rowData.label then
 				-- Draw row label with background
-				SetDrawColor(0, 0, 0)
+				SetDrawColor(rowData.bgCol or "^0")
 				DrawImage(nil, x + 2, lineY, 130, 18)
-				DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", "^7"..rowData.label..":")
+				DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", "^7"..rowData.label.."^7:")
 			end
 			for col, colData in ipairs(rowData) do
 				-- Draw column separator at the left end of the cell
 				SetDrawColor(self.col)
 				DrawImage(nil, colData.x, lineY, 2, colData.height)
-				if colData.format then
+				if colData.format and self.calcsTab:CheckFlag(colData) then
 					if cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height and cursorX >= colData.x and cursorY >= colData.y and cursorX < colData.x + colData.width and cursorY < colData.y + colData.height then
 						self.calcsTab:SetDisplayStat(colData)
 					end
@@ -224,10 +223,10 @@ function CalcSectionClass:Draw(viewPort)
 						-- This is the display stat, draw a green border around this cell
 						SetDrawColor(0.25, 1, 0.25)
 						DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
-						SetDrawColor(0, 0, 0)
+						SetDrawColor(rowData.bgCol or "^0")
 						DrawImage(nil, colData.x + 3, colData.y + 1, colData.width - 4, colData.height - 2)
 					else
-						SetDrawColor(0, 0, 0)
+						SetDrawColor(rowData.bgCol or "^0")
 						DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
 					end
 					local textSize = rowData.textSize or 14

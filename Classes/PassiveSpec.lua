@@ -99,6 +99,14 @@ function PassiveSpecClass:DecodeURL(url)
 		ascendClassId = b:byte(4)
 		bandits = b:byte(5)
 		nodes = b:sub(8, -1)
+	elseif b:byte(1) == 0 and b:byte(2) == 4 then
+		-- PoE Planner version 4
+		-- Now with 50% fewer layers of base 64 encoding
+		classId = b:byte(6) % 16
+		ascendClassId = m_floor(b:byte(6) / 16)
+		bandits = b:byte(7)
+		local numNodes = b:byte(8) * 256 + b:byte(9)
+		nodes = b:sub(10, 10 + numNodes * 2 - 1)
 	else
 		local ver = b:byte(1) * 16777216 + b:byte(2) * 65536 + b:byte(3) * 256 + b:byte(4)
 		if ver > 4 then
