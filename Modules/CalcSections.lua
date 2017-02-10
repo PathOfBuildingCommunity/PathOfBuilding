@@ -622,6 +622,7 @@ return {
 	}, },
 } },
 { 1, "MiscDefences", 3, "Other Defences", data.colorCodes.DEFENCE, {
+	{ label = "Movement Speed", { format = "x {2:output:MovementSpeedMod}", { modName = "MovementSpeed" }, }, },
 	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}%", { modName = "AttackDodgeChance" }, }, },
 	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}%", { modName = "SpellDodgeChance" }, }, }, 
 	{ label = "Block Chance", { format = "{0:output:BlockChance}%",

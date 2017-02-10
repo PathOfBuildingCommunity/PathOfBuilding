@@ -12,6 +12,13 @@ local t_remove = table.remove
 local s_format = string.format
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt" }
+if launch.enableFlasks then -- FIXME Flask release
+	t_insert(baseSlots, "Flask 1")
+	t_insert(baseSlots, "Flask 2")
+	t_insert(baseSlots, "Flask 3")
+	t_insert(baseSlots, "Flask 4")
+	t_insert(baseSlots, "Flask 5")
+end
 
 local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
@@ -513,6 +520,32 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 				main:AddTooltipLine(16, s_format("^x7F7F7F%s: %s%d", def.label, itemVal ~= base.armour[def.var.."Base"] and data.colorCodes.MAGIC or "^7", itemVal))
 			end
 		end
+	elseif base.flask then
+		-- Flask-specific info
+		local flaskData = item.flaskData
+		if item.quality > 0 then
+			main:AddTooltipLine(16, s_format("^x7F7F7FQuality: "..data.colorCodes.MAGIC.."+%d%%", item.quality))
+		end
+		if flaskData.lifeTotal then
+			main:AddTooltipLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FLife over %s%.1f0 ^x7F7F7FSeconds", flaskData.lifeTotal ~= base.flask.life and data.colorCodes.MAGIC or "^7", flaskData.lifeTotal, flaskData.lifeDuration ~= base.flask.duration and data.colorCodes.MAGIC or "^7", flaskData.lifeDuration))
+		end
+		if flaskData.manaTotal then
+			main:AddTooltipLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FMana over %s%.1f0 ^x7F7F7FSeconds", flaskData.manaTotal ~= base.flask.mana and data.colorCodes.MAGIC or "^7", flaskData.manaTotal, flaskData.manaDuration ~= base.flask.duration and data.colorCodes.MAGIC or "^7", flaskData.manaDuration))
+		end
+		if not flaskData.lifeTotal and not flaskData.manaTotal then
+			main:AddTooltipLine(16, s_format("^x7F7F7FLasts %s%.2f ^x7F7F7FSeconds", flaskData.duration ~= base.flask.duration and data.colorCodes.MAGIC or "^7", flaskData.duration))
+		end
+		main:AddTooltipLine(16, s_format("^x7F7F7FConsumes %s%d ^x7F7F7Fof %s%d ^x7F7F7FCharges on use",
+			flaskData.chargesUsed ~= base.flask.chargesUsed and data.colorCodes.MAGIC or "^7",
+			flaskData.chargesUsed,
+			flaskData.chargesMax ~= base.flask.chargesMax and data.colorCodes.MAGIC or "^7",
+			flaskData.chargesMax
+		))
+		for _, modLine in pairs(item.modLines) do
+			if modLine.buff then
+				main:AddTooltipLine(16, (modLine.extra and data.colorCodes.UNSUPPORTED or data.colorCodes.MAGIC) .. modLine.line)
+			end
+		end
 	elseif item.type == "Jewel" then
 		-- Jewel-specific info
 		if item.jewelRadiusIndex then
@@ -540,7 +573,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	-- Implicit/explicit modifiers
 	if item.modLines[1] then
 		for index, modLine in pairs(item.modLines) do
-			if not modLine.variantList or modLine.variantList[item.variant] then
+			if not modLine.buff and (not modLine.variantList or modLine.variantList[item.variant]) then
 				local line = (not dbMode and modLine.range and itemLib.applyRange(modLine.line, modLine.range)) or modLine.line
 				if not line:match("^%+?0[^%.]") and not line:match(" 0%-0 ") and not line:match(" 0 to 0 ") then -- Hack to hide 0-value modifiers
 					local colorCode

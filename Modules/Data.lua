@@ -3,6 +3,7 @@
 -- Module: Data
 -- Contains static data used by other modules.
 --
+local launch = ...
 
 data = { }
 
@@ -257,6 +258,7 @@ local itemTypes = {
 	"ring",
 	"belt",
 	"jewel",
+	launch.enableFlasks and "flask" or nil,
 }
 for _, type in pairs(itemTypes) do
 	LoadModule("Data/Bases/"..type, data.itemBases)

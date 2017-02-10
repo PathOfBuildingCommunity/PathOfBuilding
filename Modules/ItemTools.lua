@@ -98,12 +98,22 @@ function itemLib.parseItemRaw(item)
 	item.base = data.itemBases[item.baseName]
 	item.modLines = { }
 	item.implicitLines = 0
+	local flaskBuffLines = { }
+	if item.base and item.base.flask and item.base.flask.buff then
+		for _, line in ipairs(item.base.flask.buff) do
+			flaskBuffLines[line] = true
+			local modList, extra = modLib.parseMod(line)
+			t_insert(item.modLines, { line = line, extra = extra, modList = modList or { }, buff = true })
+		end
+	end
 	local gameModeStage = "FINDIMPLICIT"
 	local gameModeSection = 1
 	local foundExplicit
 	while item.rawLines[l] do
 		local line = item.rawLines[l]
-		if line == "--------" then
+		if flaskBuffLines[line] then
+			flaskBuffLines[line] = nil
+		elseif line == "--------" then
 			gameModeSection = gameModeSection + 1
 			if gameModeStage == "IMPLICIT" then
 				item.implicitLines = #item.modLines
@@ -228,7 +238,7 @@ function itemLib.parseItemRaw(item)
 	elseif mode == "GAME" and not foundExplicit then
 		item.implicitLines = 0
 	end
-	if not item.corrupted and not item.uniqueID and item.base and (item.base.armour or item.base.weapon) then
+	if not item.corrupted and not item.uniqueID and item.base and (item.base.armour or item.base.weapon or item.base.flask) then
 		item.quality = 20
 	end
 	if item.variantList then
@@ -316,6 +326,8 @@ function itemLib.getPrimarySlotForItem(item)
 		return "Weapon 2"
 	elseif item.type == "Ring" then
 		return "Ring 1"
+	elseif item.type == "Flask" then
+		return "Flask 1"
 	else
 		return item.type
 	end
@@ -425,9 +437,50 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 		if item.base.armour.blockChance then
 			armourData.BlockChance = item.base.armour.blockChance + sumLocal(modList, "BlockChance", "BASE", 0)
 		end
+		if item.base.armour.movementPenalty then
+			modList:NewMod("MovementSpeed", "INC", -item.base.armour.movementPenalty, item.modSource, { type = "Condition", var = "IgnoreMovementPenalties", neg = true })
+		end
 		for _, value in ipairs(modList:Sum("LIST", nil, "Misc")) do
 			if value.type == "ArmourData" then
 				armourData[value.key] = value.value
+			end
+		end
+	elseif item.base.flask then
+		local flaskData = item.flaskData
+		local durationInc = sumLocal(modList, "Duration", "INC", 0)
+		if item.base.flask.life or item.base.flask.mana then
+			-- Recovery flask
+			local recoveryMod = 1 + sumLocal(modList, "FlaskRecovery", "INC", 0) / 100
+			local rateMod = 1 + sumLocal(modList, "FlaskRecoveryRate", "INC", 0) / 100
+			local instant = sumLocal(modList, "FlaskInstantRecovery", "BASE", 0)
+			local durBase = item.base.flask.duration * (1 + durationInc / 100)
+			if item.base.flask.life then
+				local base = item.base.flask.life * (1 + item.quality / 100) * recoveryMod
+				local inst = base * instant / 100
+				local grad = base * (1 - instant / 100) * (1 + durationInc / 100)
+				flaskData.lifeTotal = inst + grad
+				flaskData.lifeDuration = durBase / rateMod
+			end
+			if item.base.flask.mana then
+				local base = item.base.flask.mana * (1 + item.quality / 100) * recoveryMod
+				local inst = base * instant / 100
+				local grad = base * (1 - instant / 100) * (1 + durationInc / 100)
+				flaskData.manaTotal = inst + grad
+				flaskData.manaDuration = durBase / rateMod
+			end
+		else
+			-- Utility flask
+			flaskData.duration = round(item.base.flask.duration * (1 + (durationInc + item.quality) / 100), 1)
+		end
+		local extra = sumLocal(modList, "FlaskCharges", "BASE", 0)
+		local usedInc = sumLocal(modList, "FlaskChargesUsed", "INC", 0)
+		local gainedInc = sumLocal(modList, "FlaskChargeRecovery", "INC", 0)
+		flaskData.chargesMax = item.base.flask.chargesMax + extra
+		flaskData.chargesUsed = m_floor(item.base.flask.chargesUsed * (1 + usedInc / 100))
+		flaskData.gainMod = 1 + gainedInc / 100
+		for _, value in ipairs(modList:Sum("LIST", nil, "Misc")) do
+			if value.type == "FlaskData" then
+				flaskData[value.key] = value.value
 			end
 		end
 	elseif item.type == "Jewel" then
@@ -450,6 +503,7 @@ function itemLib.buildItemModList(item)
 	local baseList = { }
 	item.baseModList = baseList
 	item.rangeLineList = { }
+	item.modSource = "Item:"..(item.id or -1)..":"..item.name
 	for _, modLine in ipairs(item.modLines) do
 		if not modLine.extra and (not modLine.variantList or modLine.variantList[item.variant]) then
 			if modLine.range then
@@ -461,7 +515,7 @@ function itemLib.buildItemModList(item)
 				end
 			end
 			for _, mod in ipairs(modLine.modList) do
-				mod.source = "Item:"..(item.id or -1)..":"..item.name
+				mod.source = item.modSource
 				if type(mod.value) == "table" and mod.value.mod then
 					mod.value.mod.source = mod.source
 				end
@@ -477,6 +531,8 @@ function itemLib.buildItemModList(item)
 		item.weaponData = { }
 	elseif item.base.armour then
 		item.armourData = { }
+	elseif item.base.flask then
+		item.flaskData = { }
 	end
 	if item.base.weapon or item.type == "Ring" then
 		item.slotModList = { }

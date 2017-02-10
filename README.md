@@ -48,6 +48,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.40 - 2017/02/11
+ * Movement Speed is now calculated and displayed in the sidebar and Calcs tab (in Other Defences)
+ * Fixed display issue in the breakdown for ignite DPS
+ * Fixed issue preventing some condition toggles from showing when related passive nodes are allocated
+
 ### 1.2.39 - 2017/02/08
 This update adds full support for Dual Wielding:
  * DPS calculations for dual wield skills will now use both weapons if they are usable with the skill

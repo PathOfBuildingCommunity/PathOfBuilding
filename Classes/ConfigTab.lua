@@ -34,7 +34,7 @@ local varList = {
 	{ var = "buffFortify", type = "check", label = "Do you have Fortify?", ifCond = "Fortify", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "Fortify" }, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionUsingFlask", type = "check", label = "Do you have a Flask active?", ifCond = "UsingFlask", apply = function(val, modList, enemyModList)
+	{ var = "conditionUsingFlask", type = "check", label = "Do you have a Flask active?", ifCond = "UsingFlask", apply = function(val, modList, enemyModList) -- FIXME Flask release (autocondition note)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsingFlask" }, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionOnConsecratedGround", type = "check", label = "Are you on Consecrated Ground?", tooltip = "In addition to allowing any 'while on Consecrated Ground' modifiers to apply,\nthis will apply the 4% life regen modifier granted by Consecrated Ground.", apply = function(val, modList, enemyModList)
@@ -179,6 +179,13 @@ local varList = {
 		modList:NewMod("Misc", "LIST", { type = "EnemyCondition", var = "HitByLightningDamage" }, "Config")
 	end },
 }
+if launch.enableFlasks then -- FIXME Flask release
+	t_insert(varList, { var = "enableFlask1", type = "check", label = "Flask 1", })
+	t_insert(varList, { var = "enableFlask2", type = "check", label = "Flask 2", })
+	t_insert(varList, { var = "enableFlask3", type = "check", label = "Flask 3", })
+	t_insert(varList, { var = "enableFlask4", type = "check", label = "Flask 4", })
+	t_insert(varList, { var = "enableFlask5", type = "check", label = "Flask 5", })
+end
 
 local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
@@ -246,7 +253,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 					return self.build.calcsTab.mainEnv.conditionsUsed[varData.ifCond]
 				end
 				control.tooltip = function()
-					if launch.devMode and IsKeyDown("CTRL") then
+					if launch.devMode and IsKeyDown("ALT") then
 						local out = varData.tooltip or ""
 						for _, mod in ipairs(self.build.calcsTab.mainEnv.conditionsUsed[varData.ifCond]) do
 							out = (#out > 0 and out.."\n" or out) .. modLib.formatMod(mod) .. "|" .. mod.source

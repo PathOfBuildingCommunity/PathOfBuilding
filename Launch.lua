@@ -52,6 +52,7 @@ function launch:OnInit()
 		-- Looks like a remote manifest, so we're probably running from a repository
 		-- Enable dev mode to disable updates and set user path to be the script path
 		self.devMode = true
+		--self.enableFlasks = true
 	end
 	local errMsg
 	errMsg, self.main = PLoadModule("Modules/Main", self)
