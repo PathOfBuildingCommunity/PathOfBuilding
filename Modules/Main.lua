@@ -13,7 +13,7 @@ local m_max = math.max
 local m_min = math.min
 
 LoadModule("Modules/Common")
-LoadModule("Modules/Data")
+LoadModule("Modules/Data", launch)
 LoadModule("Modules/ModTools")
 LoadModule("Modules/ItemTools")
 
@@ -486,7 +486,7 @@ function main:DrawTooltip(x, y, w, h, viewPort, col, center)
 				DrawString(ttX + 6, y, "LEFT", data.size, "VAR", data.text)
 			end
 			y = y + data.size + 2
-		elseif self.tooltipLines[i + 1] and self.tooltipLines[i - 1] and self.tooltipLines[i - 1].text then
+		elseif self.tooltipLines[i + 1] and self.tooltipLines[i - 1] and self.tooltipLines[i + 1].text then
 			if type(col) == "string" then
 				SetDrawColor(col) 
 			else

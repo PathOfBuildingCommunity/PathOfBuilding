@@ -91,6 +91,7 @@ local modNameList = {
 	["cold and lightning resistances"] = { "ColdResist", "LightningResist" },
 	["elemental resistances"] = "ElementalResist",
 	["all elemental resistances"] = "ElementalResist",
+	["all maximum elemental resistances"] = { "FireResistMax", "ColdResistMax", "LightningResistMax" },
 	["all maximum resistances"] = { "FireResistMax", "ColdResistMax", "LightningResistMax", "ChaosResistMax" },
 	-- Other defences
 	["to dodge attacks"] = "AttackDodgeChance",
@@ -231,6 +232,22 @@ local modNameList = {
 	["light radius"] = "LightRadius",
 	["rarity of items found"] = "LootRarity",
 	["quantity of items found"] = "LootQuantity",
+	-- Flask modifiers
+	["effect"] = "FlaskEffect",
+	["effect of flasks"] = "FlaskEffect",
+	["amount recovered"] = "FlaskRecovery",
+	["life recovery from flasks"] = "FlaskLifeRecovery",
+	["mana recovery from flasks"] = "FlaskManaRecovery",
+	["flask effect duration"] = "FlaskDuration",
+	["recovery speed"] = "FlaskRecoveryRate",
+	["flask recovery speed"] = "FlaskRecoveryRate",
+	["flask life recovery rate"] = "FlaskLifeRecoveryRate",
+	["flask mana recovery rate"] = "FlaskManaRecoveryRate",
+	["extra charges"] = "FlaskCharges",
+	["charges used"] = "FlaskChargesUsed",
+	["flask charges used"] = "FlaskChargesUsed",
+	["flask charges gained"] = "FlaskChargesGained",
+	["charge recovery"] = "FlaskChargeRecovery",
 }
 
 -- List of modifier flags
@@ -367,6 +384,7 @@ local modTagList = {
 	["while you have onslaught"] = { tag = { type = "Condition", var = "Onslaught" } },
 	["while phasing"] = { tag = { type = "Condition", var = "Phasing" } },
 	["while using a flask"] = { tag = { type = "Condition", var = "UsingFlask" } },
+	["during effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["during flask effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["while on consecrated ground"] = { tag = { type = "Condition", var = "OnConsecratedGround" } },
 	["on burning ground"] = { tag = { type = "Condition", var = "OnBurningGround" } },
@@ -416,9 +434,9 @@ local modTagList = {
 	["against frozen enemies"] = { tag = { type = "Condition", var = "EnemyFrozen" }, flags = ModFlag.Hit },
 	["against chilled enemies"] = { tag = { type = "Condition", var = "EnemyChilled" }, flags = ModFlag.Hit },
 	["enemies which are chilled"] = { tag = { type = "Condition", var = "EnemyChilled" }, flags = ModFlag.Hit },
-	["against frozen, shocked or ignited enemies"] = { tag = { type = "Condition", var = "EnemyFrozenShockedIgnited" }, flags = ModFlag.Hit },
-	["against enemies that are affected by elemental status ailments"] = { tag = { type = "Condition", var = "EnemyElementalStatus" }, flags = ModFlag.Hit },
-	["against enemies that are affected by no elemental status ailments"] = { tag = { type = "Condition", var = "NotEnemyElementalStatus" }, flags = ModFlag.Hit },
+	["against frozen, shocked or ignited enemies"] = { tag = { type = "Condition", varList = {"EnemyFrozen","EnemyShocked","EnemyIgnited"} }, flags = ModFlag.Hit },
+	["against enemies that are affected by elemental status ailments"] = { tag = { type = "Condition", varList = {"EnemyFrozen","EnemyChilled","EnemyShocked","EnemyIgnited"} }, flags = ModFlag.Hit },
+	["against enemies that are affected by no elemental status ailments"] = { tagList = { { type = "Condition", varList = {"EnemyFrozen","EnemyChilled","EnemyShocked","EnemyIgnited"}, neg = true }, { type = "Condition", var = "Effective" } }, flags = ModFlag.Hit },
 }
 
 local mod = modLib.createMod
@@ -485,6 +503,7 @@ local specialModList = {
 	["bleeding you inflict on maimed enemies deals (%d+)%% more damage"] = function(num) return { mod("Damage", "MORE", num, nil, 0, KeywordFlag.Bleed, { type = "Condition", var = "EnemyMaimed"}) } end,
 	["critical strikes ignore enemy monster elemental resistances"] = { flag("IgnoreElementalResistances", { type = "Condition", var = "CriticalStrike" }) },
 	["non%-critical strikes penetrate (%d+)%% of enemy elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
+	["movement speed cannot be modified to below base value"] = { flag("MovementSpeedCannotBeBelowBase") },
 	-- Special node types
 	["(%d+)%% of block chance applied to spells"] = function(num) return { mod("BlockChanceConv", "BASE", num) } end,
 	["(%d+)%% additional block chance with staves"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "UsingStaff" }) } end,
@@ -499,6 +518,13 @@ local specialModList = {
 	["cannot be frozen"] = { mod("AvoidFreeze", "BASE", 100) },
 	["cannot be chilled"] = { mod("AvoidChill", "BASE", 100) },
 	["cannot be ignited"] = { mod("AvoidIgnite", "BASE", 100) },
+	["you are immune to bleeding"] = { mod("AvoidBleed", "BASE", 100) },
+	["immunity to shock during flask effect"] = { mod("AvoidShock", "BASE", 100, { type = "Condition", var = "UsingFlask" }) },
+	["immunity to freeze and chill during flask effect"] = { mod("AvoidFreeze", "BASE", 100, { type = "Condition", var = "UsingFlask" }), mod("AvoidChill", "BASE", 100, { type = "Condition", var = "UsingFlask" }) },
+	["immunity to ignite during flask effect"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "UsingFlask" }) },
+	["immunity to bleeding during flask effect"] = { mod("AvoidBleed", "BASE", 100, { type = "Condition", var = "UsingFlask" }) },
+	["immune to poison during flask effect"] = { mod("AvoidPoison", "BASE", 100, { type = "Condition", var = "UsingFlask" }) },
+	["immune to curses during flask effect"] = { mod("AvoidCurse", "BASE", 100, { type = "Condition", var = "UsingFlask" }) },
 	["cannot evade enemy attacks"] = { flag("CannotEvade") },
 	["deal no physical damage"] = { flag("DealNoPhysical") },
 	["deal no elemental damage"] = { flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoFire") },
@@ -511,6 +537,10 @@ local specialModList = {
 	["skills chain %+(%d) times"] = function(num) return { mod("ChainCount", "BASE", num) } end,
 	["reflects (%d+) physical damage to melee attackers"] = { },
 	["critical strikes with daggers have a (%d+)%% chance to poison the enemy"] = function(num) return { mod("PoisonChance", "BASE", num, nil, ModFlag.Dagger, { type = "Condition", var = "CriticalStrike" }) } end,
+	["ignore all movement penalties from armour"] = { mod("Misc", "LIST", { type = "Condition", var = "IgnoreMovementPenalties" }) },
+	["your critical strike chance is lucky"] = { flag("CritChanceLucky") },
+	["phasing"] = { mod("Misc", "LIST", { type = "Condition", var = "Phasing" }) },
+	["onslaught"] = { mod("Misc", "LIST", { type = "Condition", var = "Onslaught" }) },
 	-- Special item local modifiers
 	["no physical damage"] = { mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalMin" }), mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalMax" }), mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalDPS" }) },
 	["all attacks with this weapon are critical strikes"] = { mod("Misc", "LIST", { type = "WeaponData", key = "critChance", value = 100 }) },
@@ -540,6 +570,8 @@ local specialModList = {
 	["socketed gems have blood magic"] = { flag("SkillBloodMagic", { type = "SocketedIn" }) },
 	["socketed gems gain (%d+)%% of physical damage as extra lightning damage"] = function(num) return { mod("PhysicalDamageGainAsLightning", "BASE", num, { type = "SocketedIn" }) } end,
 	["socketed red gems get (%d+)%% physical damage as extra fire damage"] = function(num) return { mod("PhysicalDamageGainAsFire", "BASE", num, { type = "SocketedIn", keyword = "strength" }) } end,
+	["instant recovery"] = {  mod("FlaskInstantRecovery", "BASE", 100) },
+	["(%d+)%% of recovery applied instantly"] = function(num) return { mod("FlaskInstantRecovery", "BASE", num) } end,
 	-- Unique item modifiers
 	["your cold damage can ignite"] = { flag("ColdCanIgnite") },
 	["your fire damage can shock but not ignite"] = { flag("FireCanShock"), flag("FireCannotIgnite") },
@@ -633,6 +665,7 @@ local convTypes = {
 	["as extra chaos damage"] = "GainAsChaos",
 	["added as chaos damage"] = "GainAsChaos",
 	["gained as extra chaos damage"] = "GainAsChaos",
+	["converted to lightning"] = "ConvertToLightning",
 	["converted to lightning damage"] = "ConvertToLightning",
 	["converted to cold damage"] = "ConvertToCold",
 	["converted to fire damage"] = "ConvertToFire",

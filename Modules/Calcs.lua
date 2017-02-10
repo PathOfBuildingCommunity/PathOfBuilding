@@ -726,12 +726,20 @@ local function mergeMainMods(env, repSlotName, repItem)
 				end
 			end
 		end
+		if item and item.type == "Flask" then
+			if env.configInput["enableFlask"..slot.slotNum] then
+				-- FIXME dunno lol
+				env.modDB.conditions["UsingFlask"] = true
+			else
+				item = nil
+			end
+		end
 		env.itemList[slotName] = item
 		if item then
 			-- Merge mods for this item
 			local srcList = item.modList or item.slotModList[slot.slotNum]
 			env.modDB:AddList(srcList)
-			if item.type ~= "Jewel" then
+			if item.type ~= "Jewel" and item.type ~= "Flask" then
 				-- Update item counts
 				local key
 				if item.rarity == "UNIQUE" then
@@ -1169,13 +1177,8 @@ local function performCalcs(env)
 	end
 
 	-- Process conditions that can depend on other conditions
-	if env.mode_effective then
-		if condList["EnemyIgnited"] then
-			condList["EnemyBurning"] = true
-		end
-		condList["EnemyFrozenShockedIgnited"] = condList["EnemyFrozen"] or condList["EnemyShocked"] or condList["EnemyIgnited"]
-		condList["EnemyElementalStatus"] = condList["EnemyChilled"] or condList["EnemyFrozen"] or condList["EnemyShocked"] or condList["EnemyIgnited"]
-		condList["NotEnemyElementalStatus"] = not condList["EnemyElementalStatus"]
+	if condList["EnemyIgnited"] then
+		condList["EnemyBurning"] = true
 	end
 
 	-- Calculate current and maximum charges
@@ -1588,6 +1591,10 @@ local function performCalcs(env)
 
 	-- Other defences: block, dodge, stun recovery/avoidance
 	do
+		output.MovementSpeedMod = calcMod(modDB, nil, "MovementSpeed")
+		if modDB:Sum("FLAG", nil, "MovementSpeedCannotBeBelowBase") then
+			output.MovementSpeedMod = m_max(output.MovementSpeedMod, 1)
+		end
 		output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
 		local shieldData = env.itemList["Weapon 2"] and env.itemList["Weapon 2"].armourData
 		output.BlockChance = m_min(((shieldData and shieldData.BlockChance or 0) + modDB:Sum("BASE", nil, "BlockChance")) * calcMod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
@@ -2586,6 +2593,11 @@ local function performCalcs(env)
 			if igniteMode == "CRIT" then
 				output.IgniteChanceOnHit = 0
 			end
+			if globalBreakdown then
+				globalBreakdown.IgniteDPS = {
+					s_format("Ignite mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crit Damage" or "Average Damage")
+				}
+			end
 			local baseVal = calcSecondaryEffectBase("Ignite", sourceHitDmg, sourceCritDmg) * 0.2
 			if baseVal > 0 then
 				skillFlags.ignite = true
@@ -2597,11 +2609,6 @@ local function performCalcs(env)
 					}
 				end
 				local dotCfg = env.mainSkill.igniteCfg
-				if globalBreakdown then
-					globalBreakdown.IgniteDPS = {
-						s_format("Ignite mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crit Damage" or "Average Damage")
-					}
-				end
 				local effMult = 1
 				if env.mode_effective then
 					local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist"), 75)

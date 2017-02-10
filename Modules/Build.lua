@@ -225,64 +225,65 @@ function buildMode:Init(dbFileName, buildName)
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
 	-- This may be user-customisable in the future
 	self.displayStats = {
-		{ mod = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
-		{ mod = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true, flag = "attack" },
-		{ mod = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack" },
-		{ mod = "Speed", label = "Cast Rate", fmt = ".2f", compPercent = true, flag = "spell" },
-		{ mod = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
-		{ mod = "CritChance", label = "Crit Chance", fmt = ".2f%%" },
-		{ mod = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return o.CritChance > 0 end },
-		{ mod = "HitChance", label = "Hit Chance", fmt = ".0f%%", flag = "attack" },
-		{ mod = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
-		{ mod = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
-		{ mod = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true },
-		{ mod = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true },
-		{ mod = "IgniteDamage", label = "Total Damage per Ignite", fmt = ".1f", compPercent = true },
-		{ mod = "WithIgniteDPS", label = "Total DPS inc. Ignite", fmt = ".1f", compPercent = true },
-		{ mod = "WithIgniteAverageDamage", label = "Average Dmg. inc. Ignite", fmt = ".1f", compPercent = true },
-		{ mod = "PoisonDPS", label = "Poison DPS", fmt = ".1f", compPercent = true },
-		{ mod = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
-		{ mod = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true },
-		{ mod = "WithPoisonAverageDamage", label = "Average Dmg. inc. Poison", fmt = ".1f", compPercent = true },
-		{ mod = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function() return true end },
+		{ stat = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
+		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true, flag = "attack" },
+		{ stat = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack" },
+		{ stat = "Speed", label = "Cast Rate", fmt = ".2f", compPercent = true, flag = "spell" },
+		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
+		{ stat = "CritChance", label = "Crit Chance", fmt = ".2f%%" },
+		{ stat = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return o.CritChance > 0 end },
+		{ stat = "HitChance", label = "Hit Chance", fmt = ".0f%%", flag = "attack" },
+		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
+		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
+		{ stat = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true },
+		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true },
+		{ stat = "IgniteDamage", label = "Total Damage per Ignite", fmt = ".1f", compPercent = true },
+		{ stat = "WithIgniteDPS", label = "Total DPS inc. Ignite", fmt = ".1f", compPercent = true },
+		{ stat = "WithIgniteAverageDamage", label = "Average Dmg. inc. Ignite", fmt = ".1f", compPercent = true },
+		{ stat = "PoisonDPS", label = "Poison DPS", fmt = ".1f", compPercent = true },
+		{ stat = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
+		{ stat = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true },
+		{ stat = "WithPoisonAverageDamage", label = "Average Dmg. inc. Poison", fmt = ".1f", compPercent = true },
+		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function() return true end },
 		{ },
-		{ mod = "Str", label = "Strength", fmt = "d" },
-		{ mod = "Dex", label = "Dexterity", fmt = "d" },
-		{ mod = "Int", label = "Intelligence", fmt = "d" },
+		{ stat = "Str", label = "Strength", fmt = "d" },
+		{ stat = "Dex", label = "Dexterity", fmt = "d" },
+		{ stat = "Int", label = "Intelligence", fmt = "d" },
 		{ },
-		{ mod = "Life", label = "Total Life", fmt = "d", compPercent = true },
-		{ mod = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.Life > 1 end },
-		{ mod = "LifeUnreserved", label = "Unreserved Life", fmt = "d", condFunc = function(v,o) return v < o.Life end, compPercent = true },
-		{ mod = "LifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
-		{ mod = "LifeRegen", label = "Life Regen", fmt = ".1f" },
+		{ stat = "Life", label = "Total Life", fmt = "d", compPercent = true },
+		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.Life > 1 end },
+		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", condFunc = function(v,o) return v < o.Life end, compPercent = true },
+		{ stat = "LifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
+		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
 		{ },
-		{ mod = "Mana", label = "Total Mana", fmt = "d", compPercent = true },
-		{ mod = "Spec:ManaInc", label = "%Inc Mana from Tree", fmt = "d%%" },
-		{ mod = "ManaUnreserved", label = "Unreserved Mana", fmt = "d", condFunc = function(v,o) return v < o.Mana end, compPercent = true },
-		{ mod = "ManaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
-		{ mod = "ManaRegen", label = "Mana Regen", fmt = ".1f" },
+		{ stat = "Mana", label = "Total Mana", fmt = "d", compPercent = true },
+		{ stat = "Spec:ManaInc", label = "%Inc Mana from Tree", fmt = "d%%" },
+		{ stat = "ManaUnreserved", label = "Unreserved Mana", fmt = "d", condFunc = function(v,o) return v < o.Mana end, compPercent = true },
+		{ stat = "ManaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
+		{ stat = "ManaRegen", label = "Mana Regen", fmt = ".1f" },
 		{ },
-		{ mod = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
-		{ mod = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", fmt = "d%%" },
-		{ mod = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
-		{ mod = "Evasion", label = "Evasion rating", fmt = "d", compPercent = true },
-		{ mod = "Spec:EvasionInc", label = "%Inc Evasion from Tree", fmt = "d%%" },
-		{ mod = "EvadeChance", label = "Evade Chance", fmt = "d%%" },
-		{ mod = "Armour", label = "Armour", fmt = "d", compPercent = true },
-		{ mod = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
-		{ mod = "BlockChance", label = "Block Chance", fmt = "d%%" },
-		{ mod = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%" },
-		{ mod = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%" },
-		{ mod = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%" },
+		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
+		{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", fmt = "d%%" },
+		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
+		{ stat = "Evasion", label = "Evasion rating", fmt = "d", compPercent = true },
+		{ stat = "Spec:EvasionInc", label = "%Inc Evasion from Tree", fmt = "d%%" },
+		{ stat = "EvadeChance", label = "Evade Chance", fmt = "d%%" },
+		{ stat = "Armour", label = "Armour", fmt = "d", compPercent = true },
+		{ stat = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
+		{ stat = "MovementSpeedMod", label = "Movement Speed Modifier", fmt = "+d%%", mod = true },
+		{ stat = "BlockChance", label = "Block Chance", fmt = "d%%" },
+		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%" },
+		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%" },
+		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%" },
 		{ },
-		{ mod = "FireResist", label = "Fire Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ mod = "ColdResist", label = "Cold Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ mod = "LightningResist", label = "Lightning Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ mod = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ mod = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%" },
-		{ mod = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%" },
-		{ mod = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%" },
-		{ mod = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%" },
+		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", condFunc = function() return true end },
+		{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", condFunc = function() return true end },
+		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", condFunc = function() return true end },
+		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", condFunc = function() return true end },
+		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%" },
+		{ stat = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%" },
+		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%" },
+		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%" },
 	}
 
 	self.viewMode = "TREE"
@@ -584,11 +585,15 @@ function buildMode:RefreshStatList()
 	-- Build list of side bar stats
 	wipeTable(self.controls.statBox.list)
 	for index, statData in ipairs(self.displayStats) do
-		if statData.mod then
+		if statData.stat then
 			if not statData.flag or self.calcsTab.mainEnv.mainSkill.skillFlags[statData.flag] then 
-				local modVal = self.calcsTab.mainOutput[statData.mod]
+				local modVal = self.calcsTab.mainOutput[statData.stat]
 				if modVal and ((statData.condFunc and statData.condFunc(modVal,self.calcsTab.mainOutput)) or (not statData.condFunc and modVal ~= 0)) then
-					t_insert(self.controls.statBox.list, { height = 16,  "^7"..statData.label..":", string.format("%s%"..statData.fmt, modVal >= 0 and "^7" or data.colorCodes.NEGATIVE, modVal * (statData.pc and 100 or 1)) })
+					t_insert(self.controls.statBox.list, {
+						height = 16,
+						"^7"..statData.label..":",
+						string.format("%s%"..statData.fmt, modVal >= 0 and "^7" or data.colorCodes.NEGATIVE, modVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)) 
+					})
 				end
 			end
 		else
@@ -603,16 +608,16 @@ end
 function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header)
 	local count = 0
 	for _, statData in ipairs(self.displayStats) do
-		if statData.mod and (not statData.flag or self.calcsTab.mainEnv.mainSkill.skillFlags[statData.flag]) then
-			local diff = (compareOutput[statData.mod] or 0) - (baseOutput[statData.mod] or 0)
+		if statData.stat and (not statData.flag or self.calcsTab.mainEnv.mainSkill.skillFlags[statData.flag]) then
+			local diff = (compareOutput[statData.stat] or 0) - (baseOutput[statData.stat] or 0)
 			if diff > 0.001 or diff < -0.001 then
 				if count == 0 then
 					main:AddTooltipLine(14, header)
 				end
 				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE
-				local line = string.format("%s%+"..statData.fmt.." %s", color, diff * (statData.pc and 100 or 1), statData.label)
-				if statData.compPercent and (baseOutput[statData.mod] or 0) ~= 0 and (compareOutput[statData.mod] or 0) ~= 0 then
-					line = line .. string.format(" (%+.1f%%)", (compareOutput[statData.mod] or 0) / (baseOutput[statData.mod] or 0) * 100 - 100)
+				local line = string.format("%s%+"..statData.fmt.." %s", color, diff * ((statData.pc or statData.mod) and 100 or 1), statData.label)
+				if statData.compPercent and (baseOutput[statData.stat] or 0) ~= 0 and (compareOutput[statData.stat] or 0) ~= 0 then
+					line = line .. string.format(" (%+.1f%%)", (compareOutput[statData.stat] or 0) / (baseOutput[statData.stat] or 0) * 100 - 100)
 				end
 				main:AddTooltipLine(14, line)
 				count = count + 1
