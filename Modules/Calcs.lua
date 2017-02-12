@@ -633,6 +633,7 @@ local function initEnv(build, mode)
 	modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" })
 	modDB:NewMod("LifeRegenPercent", "BASE", 4, "Base", { type = "Condition", var = "OnConsecratedGround" })
 	modDB:NewMod("Misc", "LIST", { type = "EnemyModifier", mod = modLib.createMod("DamageTaken", "INC", 50, "Shock") }, "Base", { type = "Condition", var = "EnemyShocked" })
+	modDB:NewMod("Misc", "LIST", { type = "EnemyModifier", mod = modLib.createMod("HitChance", "MORE", -50, "Blind") }, "Base", { type = "Condition", var = "EnemyBlinded" })
 	
 	-- Add bandit mods
 	if build.banditNormal == "Alira" then
@@ -678,32 +679,52 @@ local function initEnv(build, mode)
 end
 
 -- This function:
--- 1. Merges modifiers for all items, optionally replacing one item
+-- 1. Merges modifiers for all items
 -- 2. Builds a list of jewels with radius functions
 -- 3. Merges modifiers for all allocated passive nodes
 -- 4. Builds a list of active skills and their supports
 -- 5. Builds modifier lists for all active skills
-local function mergeMainMods(env, repSlotName, repItem)
+local function mergeMainMods(env, override)
 	local build = env.build
+	override = override or { }
+
+	-- Build list of passive nodes
+	local nodes
+	if override.addNodes or override.removeNodes then
+		nodes = { }
+		if override.addNodes then
+			for node in pairs(override.addNodes) do
+				nodes[node.id] = node
+			end
+		end
+		for _, node in pairs(build.spec.allocNodes) do
+			if not override.removeNodes or not override.removeNodes[node] then
+				nodes[node.id] = node
+			end
+		end
+	else
+		nodes = build.spec.allocNodes
+	end
 
 	-- Build and merge item modifiers, and create list of radius jewels
 	env.radiusJewelList = wipeTable(env.radiusJewelList)
 	env.itemList = { }
+	env.flasks = { }
 	env.modDB.conditions["UsingAllCorruptedItems"] = true
 	for slotName, slot in pairs(build.itemsTab.slots) do
 		local item
-		if slotName == repSlotName then
-			item = repItem
+		if slotName == override.repSlotName then
+			item = override.repItem
 		else
 			item = build.itemsTab.list[slot.selItemId]
 		end
 		if slot.nodeId then
 			-- Slot is a jewel socket, check if socket is allocated
-			if not build.spec.allocNodes[slot.nodeId] then
+			if not nodes[slot.nodeId] then
 				item = nil
 			elseif item and item.jewelRadiusIndex then
 				-- Jewel has a radius,  add it to the list
-				local funcList = item.jewelFunc or { function(nodeMods, out, data)
+				local funcList = item.jewelFuncList or { function(nodeMods, out, data)
 					-- Default function just tallies all stats in radius
 					if nodeMods then
 						for _, stat in pairs({"Str","Dex","Int"}) do
@@ -727,12 +748,10 @@ local function mergeMainMods(env, repSlotName, repItem)
 			end
 		end
 		if item and item.type == "Flask" then
-			if env.configInput["enableFlask"..slot.slotNum] then
-				-- FIXME dunno lol
-				env.modDB.conditions["UsingFlask"] = true
-			else
-				item = nil
+			if slot.active then
+				env.flasks[item] = true
 			end
+			item = nil
 		end
 		env.itemList[slotName] = item
 		if item then
@@ -758,6 +777,14 @@ local function mergeMainMods(env, repSlotName, repItem)
 					env.modDB.conditions["UsingAllCorruptedItems"] = false
 				end
 			end
+		end
+	end
+
+	if override.toggleFlask then
+		if env.flasks[override.toggleFlask] then
+			env.flasks[override.toggleFlask] = nil
+		else
+			env.flasks[override.toggleFlask] = true
 		end
 	end
 	
@@ -844,7 +871,7 @@ local function mergeMainMods(env, repSlotName, repItem)
 	end
 
 	-- Build and merge modifiers for allocated passives
-	env.modDB:AddList(buildNodeModList(env, build.spec.allocNodes, true))
+	env.modDB:AddList(buildNodeModList(env, nodes, true))
 
 	-- Determine main skill group
 	if env.mode == "CALCS" then
@@ -1012,6 +1039,15 @@ local function performCalcs(env)
 		end
 		for name in pairs(keystoneList) do
 			modDB:AddList(env.build.tree.keystoneMap[name].modList)
+		end
+	end
+
+	-- Merge flask modifiers
+	if env.mode_combat then
+		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
+		for item in pairs(env.flasks) do
+			modDB.conditions["UsingFlask"] = true
+			modDB:ScaleAddList(item.modList, 1 + (effectInc + item.flaskData.effectInc) / 100)
 		end
 	end
 
@@ -1538,7 +1574,7 @@ local function performCalcs(env)
 			output.EvadeChance = 0
 		else
 			local enemyAccuracy = round(calcVal(enemyDB, "Accuracy"))
-			output.EvadeChance = 100 - calcHitChance(output.Evasion, enemyAccuracy)
+			output.EvadeChance = 100 - calcHitChance(output.Evasion, enemyAccuracy) * calcMod(enemyDB, nil, "HitChance")
 			if breakdown then
 				breakdown.EvadeChance = {
 					s_format("Enemy level: %d ^8(%s the Configuration tab)", env.enemyLevel, env.configInput.enemyLevel and "overridden from" or "can be overridden in"),
@@ -2894,11 +2930,12 @@ end
 
 local calcs = { }
 
--- Get calculator for tree node modifiers
+-- Get fast calculator for adding tree node modifiers
 function calcs.getNodeCalculator(build)
-	return getCalculator(build, true, function(env, nodeList, remove)
-		-- Build and merge/unmerge modifiers for these nodes
-		local nodeModList = buildNodeModList(env, nodeList)
+	return getCalculator(build, true, function(env, nodeList)
+		-- Build and merge modifiers for these nodes
+		env.modDB:AddList(buildNodeModList(env, nodeList))
+		--[[local nodeModList = buildNodeModList(env, nodeList)
 		if remove then
 			for _, mod in ipairs(nodeModList) do
 				if mod.type == "LIST" or mod.type == "FLAG" then
@@ -2916,15 +2953,14 @@ function calcs.getNodeCalculator(build)
 			end
 		else
 			env.modDB:AddList(nodeModList)
-		end
+		end]]
 	end)
 end
 
--- Get calculator for item modifiers
-function calcs.getItemCalculator(build)
-	return getCalculator(build, false, function(env, repSlotName, repItem)
-		-- Merge main mods, replacing the item in the given slot with the given item
-		mergeMainMods(env, repSlotName, repItem)
+-- Get calculator for other changes (adding/removing nodes, items, gems, etc)
+function calcs.getMiscCalculator(build)
+	return getCalculator(build, false, function(env, override)
+		mergeMainMods(env, override)
 	end)
 end
 

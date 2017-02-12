@@ -372,7 +372,7 @@ function CalcsTabClass:BuildOutput()
 	
 	-- Retrieve calculator functions
 	self.nodeCalculator = { self.calcs.getNodeCalculator(self.build) }
-	self.itemCalculator = { self.calcs.getItemCalculator(self.build) }
+	self.miscCalculator = { self.calcs.getMiscCalculator(self.build) }
 end
 
 -- Controls the coroutine that calculations node power
@@ -382,7 +382,7 @@ function CalcsTabClass:BuildPower()
 		self.powerBuilder = coroutine.create(self.PowerBuilder)
 	end
 	if self.powerBuilder then
-		collectgarbage("stop") -- This is necessary to work around a bug in the JIT
+		collectgarbage("stop")
 		local res, errMsg = coroutine.resume(self.powerBuilder, self)
 		if launch.devMode and not res then
 			error(errMsg)
@@ -440,8 +440,8 @@ function CalcsTabClass:GetNodeCalculator()
 	return unpack(self.nodeCalculator)
 end
 
-function CalcsTabClass:GetItemCalculator()
-	return unpack(self.itemCalculator)
+function CalcsTabClass:GetMiscCalculator()
+	return unpack(self.miscCalculator)
 end
 
 function CalcsTabClass:CreateUndoState()

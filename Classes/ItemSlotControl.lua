@@ -28,6 +28,20 @@ local ItemSlotClass = common.NewClass("ItemSlot", "DropDownControl", function(se
 	self.items = { }
 	self.slotName = slotName
 	self.slotNum = tonumber(slotName:match("%d+"))
+	if slotName:match("Flask") then
+		self.controls.activate = common.New("CheckBoxControl", {"RIGHT",self,"LEFT"}, -2, 0, 20, nil, function(state)
+			self.active = state
+			itemsTab:AddUndoState()
+			itemsTab.build.buildFlag = true
+		end)
+		self.controls.activate.enabled = function()
+			return self.selItemId ~= 0
+		end
+		self.controls.activate.tooltip = "Activate this flask."
+		self.labelOffset = -24
+	else
+		self.labelOffset = -2
+	end
 	self.label = slotLabel or slotName
 	self.nodeId = nodeId
 	itemsTab.slots[slotName] = self
@@ -57,8 +71,9 @@ end
 function ItemSlotClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
-	DrawString(x - 2, y + 2, "RIGHT_X", height - 4, "VAR", "^7"..self.label..":")
+	DrawString(x + self.labelOffset, y + 2, "RIGHT_X", height - 4, "VAR", "^7"..self.label..":")
 	self.DropDownControl:Draw(viewPort)
+	self:DrawControls(viewPort)
 	local highlight = false
 	for _, control in pairs({self.itemsTab.controls.itemList, self.itemsTab.controls.uniqueDB, self.itemsTab.controls.rareDB}) do
 		if control:IsShown() and control.selDragging and control.selDragActive and self.itemsTab:IsItemValidForSlot(control.selItem, self.slotName) then
@@ -93,7 +108,7 @@ function ItemSlotClass:Draw(viewPort)
 			if self.hoverSel then
 				ttItem = self.itemsTab.list[self.items[self.hoverSel]]
 			end
-		elseif self.selItemId and not self.itemsTab.selControl then
+		elseif self.selItemId and (not self.itemsTab.selControl or self.itemsTab.selControl == self.controls.activate) then
 			ttItem = self.itemsTab.list[self.selItemId]
 		end
 		if ttItem then
@@ -103,4 +118,15 @@ function ItemSlotClass:Draw(viewPort)
 			SetDrawLayer(nil, 0)
 		end
 	end
+end
+
+function ItemSlotClass:OnKeyDown(key)
+	if not self:IsShown() or not self:IsEnabled() then
+		return
+	end
+	local mOverControl = self:GetMouseOverControl()
+	if mOverControl and mOverControl == self.controls.activate then
+		return mOverControl:OnKeyDown(key)
+	end
+	return self.DropDownControl:OnKeyDown(key)
 end

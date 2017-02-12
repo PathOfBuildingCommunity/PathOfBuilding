@@ -67,6 +67,9 @@ function DropDownClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
 	end
+	if self:GetMouseOverControl() then
+		return true
+	end
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()

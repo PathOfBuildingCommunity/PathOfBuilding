@@ -1,3 +1,7 @@
+VERSION[1.2.41][2017/02/13]
+ * The program now shows the save prompt before updating if there are unsaved changes
+ * Added options to the Configuration tab for: Enemy Blinded, Dealt Non-Crit Recently, Ignited/Frozen an Enemy Recently
+ * Stat differences for allocating/deallocating passives will no longer be incorrect when certain radius jewels are used
 VERSION[1.2.40][2017/02/11]
  * Movement Speed is now calculated and displayed in the sidebar and Calcs tab (in Other Defences)
  * Fixed display issue in the breakdown for ignite DPS
@@ -330,7 +334,7 @@ VERSION[1.0.26][2016/09/09]
  * More updates to 2.4.0 uniques
  * Re-nerfed Voidheart
  * Hypothermia now correctly affects hits only and not damage over time
- * Fixed gems sometimes appearing to be deleted when another gem in the same socketGroup was removed
+ * Fixed gems sometimes appearing to be deleted when another gem in the same socket group was removed
  * Added flat elemental damage to ring, amulet and glove templates
 VERSION[1.0.25][2016/09/06]
  * More updates to 2.4.0 uniques

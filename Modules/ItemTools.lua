@@ -450,45 +450,41 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 		local durationInc = sumLocal(modList, "Duration", "INC", 0)
 		if item.base.flask.life or item.base.flask.mana then
 			-- Recovery flask
+			flaskData.instantPerc = sumLocal(modList, "FlaskInstantRecovery", "BASE", 0)
 			local recoveryMod = 1 + sumLocal(modList, "FlaskRecovery", "INC", 0) / 100
 			local rateMod = 1 + sumLocal(modList, "FlaskRecoveryRate", "INC", 0) / 100
-			local instant = sumLocal(modList, "FlaskInstantRecovery", "BASE", 0)
-			local durBase = item.base.flask.duration * (1 + durationInc / 100)
+			flaskData.duration = item.base.flask.duration * (1 + durationInc / 100) / rateMod
 			if item.base.flask.life then
-				local base = item.base.flask.life * (1 + item.quality / 100) * recoveryMod
-				local inst = base * instant / 100
-				local grad = base * (1 - instant / 100) * (1 + durationInc / 100)
-				flaskData.lifeTotal = inst + grad
-				flaskData.lifeDuration = durBase / rateMod
+				flaskData.lifeBase = item.base.flask.life * (1 + item.quality / 100) * recoveryMod
+				flaskData.lifeInstant = flaskData.lifeBase * flaskData.instantPerc / 100
+				flaskData.lifeGradual = flaskData.lifeBase * (1 - flaskData.instantPerc / 100) * (1 + durationInc / 100)
+				flaskData.lifeTotal = flaskData.lifeInstant + flaskData.lifeGradual
 			end
 			if item.base.flask.mana then
-				local base = item.base.flask.mana * (1 + item.quality / 100) * recoveryMod
-				local inst = base * instant / 100
-				local grad = base * (1 - instant / 100) * (1 + durationInc / 100)
-				flaskData.manaTotal = inst + grad
-				flaskData.manaDuration = durBase / rateMod
+				flaskData.manaBase = item.base.flask.mana * (1 + item.quality / 100) * recoveryMod
+				flaskData.manaInstant = flaskData.manaBase * flaskData.instantPerc / 100
+				flaskData.manaGradual = flaskData.manaBase * (1 - flaskData.instantPerc / 100) * (1 + durationInc / 100)
+				flaskData.manaTotal = flaskData.manaInstant + flaskData.manaGradual
 			end
 		else
 			-- Utility flask
-			flaskData.duration = round(item.base.flask.duration * (1 + (durationInc + item.quality) / 100), 1)
+			flaskData.duration = item.base.flask.duration * (1 + (durationInc + item.quality) / 100)
 		end
-		local extra = sumLocal(modList, "FlaskCharges", "BASE", 0)
-		local usedInc = sumLocal(modList, "FlaskChargesUsed", "INC", 0)
-		local gainedInc = sumLocal(modList, "FlaskChargeRecovery", "INC", 0)
-		flaskData.chargesMax = item.base.flask.chargesMax + extra
-		flaskData.chargesUsed = m_floor(item.base.flask.chargesUsed * (1 + usedInc / 100))
-		flaskData.gainMod = 1 + gainedInc / 100
+		flaskData.chargesMax = item.base.flask.chargesMax + sumLocal(modList, "FlaskCharges", "BASE", 0)
+		flaskData.chargesUsed = m_floor(item.base.flask.chargesUsed * (1 + sumLocal(modList, "FlaskChargesUsed", "INC", 0) / 100))
+		flaskData.gainMod = 1 + sumLocal(modList, "FlaskChargeRecovery", "INC", 0) / 100
+		flaskData.effectInc = sumLocal(modList, "FlaskEffect", "INC", 0)
 		for _, value in ipairs(modList:Sum("LIST", nil, "Misc")) do
 			if value.type == "FlaskData" then
 				flaskData[value.key] = value.value
 			end
 		end
 	elseif item.type == "Jewel" then
-		item.jewelFunc = nil
+		item.jewelFuncList = nil
 		for _, value in ipairs(modList:Sum("LIST", nil, "Misc")) do
 			if value.type == "JewelFunc" then
-				item.jewelFunc = item.jewelFunc or { }
-				t_insert(item.jewelFunc, value.func)
+				item.jewelFuncList = item.jewelFuncList or { }
+				t_insert(item.jewelFuncList, value.func)
 			end
 		end
 	end	

@@ -31,7 +31,7 @@ function buildMode:Init(dbFileName, buildName)
 	self.anchorTopBarLeft = common.New("Control", nil, 4, 4, 0, 20)
 	self.controls.back = common.New("ButtonControl", {"LEFT",self.anchorTopBarLeft,"RIGHT"}, 0, 0, 60, 20, "<< Back", function()
 		if self.unsaved then
-			self:OpenSavePopup(false)
+			self:OpenSavePopup("LIST")
 		else
 			main:SetMode("LIST", self.dbFileName and self.buildName)
 		end
@@ -352,11 +352,11 @@ function buildMode:Init(dbFileName, buildName)
 	self.abortSave = false
 end
 
-function buildMode:CanExit()
+function buildMode:CanExit(mode)
 	if not self.unsaved then
 		return true
 	end
-	self:OpenSavePopup(true)
+	self:OpenSavePopup(mode)
 	return false
 end
 
@@ -408,7 +408,7 @@ function buildMode:OnFrame(inputEvents)
 					inputEvents[id] = nil
 				elseif event.key == "w" then
 					if self.unsaved then
-						self:OpenSavePopup(false)
+						self:OpenSavePopup("LIST")
 					else
 						main:SetMode("LIST", self.dbFileName and self.buildName)
 					end
@@ -526,20 +526,27 @@ function buildMode:OnFrame(inputEvents)
 	self:DrawControls(main.viewPort)
 end
 
-function buildMode:OpenSavePopup(exit)
-	main:OpenPopup(280, 100, "Save Changes", {
-		common.New("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them "..(exit and "before exiting?" or "now?")),
+function buildMode:OpenSavePopup(mode)
+	local modeDesc = {
+		["LIST"] = "now?",
+		["EXIT"] = "before exiting?",
+		["UPDATE"] = "before updating?",
+	}
+	main:OpenPopup(290, 100, "Save Changes", {
+		common.New("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them "..modeDesc[mode]),
 		common.New("ButtonControl", nil, -90, 70, 80, 20, "Save", function()
 			main:ClosePopup()
-			self.actionOnSave = exit and "EXIT" or "LIST"
+			self.actionOnSave = mode
 			self:SaveDBFile()
 		end),
 		common.New("ButtonControl", nil, 0, 70, 80, 20, "Don't Save", function()
 			main:ClosePopup()
-			if exit then
-				Exit()
-			else
+			if mode == "LIST" then
 				main:SetMode("LIST", self.dbFileName and self.buildName)
+			elseif mode == "EXIT" then
+				Exit()
+			elseif mode == "UPDATE" then
+				launch:ApplyUpdate(launch.updateAvailable)
 			end
 		end),
 		common.New("ButtonControl", nil, 90, 70, 80, 20, "Cancel", function()
@@ -702,9 +709,11 @@ function buildMode:SaveDBFile()
 	file:write(xmlText)
 	file:close()
 	if self.actionOnSave == "LIST" then
-		main:SetMode("LIST", self.buildName)
+		main:SetMode("LIST", self.dbFileName and self.buildName)
 	elseif self.actionOnSave == "EXIT" then
 		Exit()
+	elseif self.actionOnSave == "UPDATE" then
+		launch:ApplyUpdate(launch.updateAvailable)
 	end
 	self.actionOnSave = nil
 end

@@ -48,6 +48,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.2.41 - 2017/02/13
+ * The program now shows the save prompt before updating if there are unsaved changes
+ * Added options to the Configuration tab for: Enemy Blinded, Dealt Non-Crit Recently, Ignited/Frozen an Enemy Recently
+ * Stat differences for allocating/deallocating passives will no longer be incorrect when certain radius jewels are used
+
 ### 1.2.40 - 2017/02/11
  * Movement Speed is now calculated and displayed in the sidebar and Calcs tab (in Other Defences)
  * Fixed display issue in the breakdown for ignite DPS
@@ -436,7 +441,7 @@ Other changes:
  * More updates to 2.4.0 uniques
  * Re-nerfed Voidheart
  * Hypothermia now correctly affects hits only and not damage over time
- * Fixed gems sometimes appearing to be deleted when another gem in the same socketGroup was removed
+ * Fixed gems sometimes appearing to be deleted when another gem in the same socket group was removed
  * Added flat elemental damage to ring, amulet and glove templates
 
 ### 1.0.25 - 2016/09/06
