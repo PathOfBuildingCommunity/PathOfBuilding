@@ -575,25 +575,27 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 	end
 
 	-- Mod differences
-	local calcFunc, calcBase = build.calcsTab:GetNodeCalculator(build)
+	local calcFunc, calcBase = build.calcsTab:GetMiscCalculator(build)
 	if calcFunc then
 		main:AddTooltipSeparator(14)
-		local pathLength
+		local path = (node.alloc and node.depends) or self.tracePath or node.path or { }
+		local pathLength = #path
+		local pathNodes = { }
+		for _, node in pairs(path) do
+			pathNodes[node] = true
+		end
 		local nodeOutput, pathOutput
 		if node.alloc then
 			-- Calculate the differences caused by deallocating this node and its dependants
-			pathLength = #node.depends
-			nodeOutput = calcFunc({node}, true)
+			nodeOutput = calcFunc({ removeNodes = { [node] = true } })
 			if pathLength > 1 then
-				pathOutput = calcFunc(node.depends, true)
+				pathOutput = calcFunc({ removeNodes = pathNodes })
 			end
 		else
-			-- Calculated the differences caused by allocting this node and all nodes along the path to it
-			local path = self.tracePath or node.path or { }
-			pathLength = #path
-			nodeOutput = calcFunc({node})
+			-- Calculated the differences caused by allocating this node and all nodes along the path to it
+			nodeOutput = calcFunc({ addNodes = { [node] = true } })
 			if pathLength > 1 then
-				pathOutput = calcFunc(path)
+				pathOutput = calcFunc({ addNodes = pathNodes })
 			end
 		end
 		local count = build:AddStatComparesToTooltip(calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")

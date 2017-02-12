@@ -64,11 +64,20 @@ local varList = {
 	{ var = "conditionCritRecently", type = "check", label = "Have you Crit Recently?", ifCond = "CritRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "CritRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionNonCritRecently", type = "check", label = "Have you dealt a Non-Crit Recently?", ifCond = "NonCritRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "NonCritRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionKilledRecently", type = "check", label = "Have you Killed Recently?", ifCond = "KilledRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "KilledRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionTotemsKilledRecently", type = "check", label = "Have your Totems Killed Recently?", ifCond = "TotemsKilledRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "TotemsKilledRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionFrozenEnemyRecently", type = "check", label = "Have you Frozen an Enemy Recently?", ifCond = "FrozenEnemyRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "FrozenEnemyRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionIgnitedEnemyRecently", type = "check", label = "Have you Ignited an Enemy Recently?", ifCond = "IgnitedEnemyRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "IgnitedEnemyRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionBeenHitRecently", type = "check", label = "Have you been Hit Recently?", ifCond = "BeenHitRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BeenHitRecently" }, "Config", { type = "Condition", var = "Combat" })
@@ -128,6 +137,9 @@ local varList = {
 	{ var = "conditionEnemyHindered", type = "check", label = "Is the enemy Hindered?", ifCond = "EnemyHindered", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyHindered" }, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionEnemyBlinded", type = "check", label = "Is the enemy Blinded?", tooltip = "In addition to allowing 'against Blinded Enemies' modifiers to apply,\nthis will lessen the enemy's chance to hit, and thereby increase your evade chance.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyBlinded" }, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "conditionEnemyBurning", type = "check", label = "Is the enemy Burning?", ifCond = "EnemyBurning", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyBurning" }, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -179,13 +191,6 @@ local varList = {
 		modList:NewMod("Misc", "LIST", { type = "EnemyCondition", var = "HitByLightningDamage" }, "Config")
 	end },
 }
-if launch.enableFlasks then -- FIXME Flask release
-	t_insert(varList, { var = "enableFlask1", type = "check", label = "Flask 1", })
-	t_insert(varList, { var = "enableFlask2", type = "check", label = "Flask 2", })
-	t_insert(varList, { var = "enableFlask3", type = "check", label = "Flask 3", })
-	t_insert(varList, { var = "enableFlask4", type = "check", label = "Flask 4", })
-	t_insert(varList, { var = "enableFlask5", type = "check", label = "Flask 5", })
-end
 
 local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
@@ -204,7 +209,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
-			lastSection = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 350, 0, varData.section)
+			lastSection = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 360, 0, varData.section)
 			lastSection.varControlList = { }
 			lastSection.height = function(self)
 				local height = 20
@@ -220,21 +225,21 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 		else
 			local control
 			if varData.type == "check" then
-				control = common.New("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 224, 0, 18, nil, function(state)
+				control = common.New("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 18, nil, function(state)
 					self.input[varData.var] = state
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end) 
 			elseif varData.type == "number" then
-				control = common.New("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 224, 0, 50, 18, "", nil, "^%-%d", 4, function(buf)
+				control = common.New("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 50, 18, "", nil, "^%-%d", 4, function(buf)
 					self.input[varData.var] = tonumber(buf)
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end) 
 			elseif varData.type == "list" then
-				control = common.New("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 224, 0, 118, 16, varData.list, function(sel, selVal)
+				control = common.New("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 118, 16, varData.list, function(sel, selVal)
 					self.input[varData.var] = selVal.val
 					self:AddUndoState()
 					self:BuildModList()

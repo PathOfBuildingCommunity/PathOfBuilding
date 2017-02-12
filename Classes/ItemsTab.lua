@@ -10,6 +10,9 @@ local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
 local s_format = string.format
+local m_max = math.max
+local m_min = math.min
+local m_floor = math.floor
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt" }
 if launch.enableFlasks then -- FIXME Flask release
@@ -159,8 +162,13 @@ function ItemsTabClass:Load(xml, dbFileName)
 			self.list[item.id] = item
 			t_insert(self.orderList, item.id)
 		elseif node.elem == "Slot" then
-			if self.slots[node.attrib.name or ""] then
-				self.slots[node.attrib.name].selItemId = tonumber(node.attrib.itemId)
+			local slot = self.slots[node.attrib.name or ""]
+			if slot then
+				slot.selItemId = tonumber(node.attrib.itemId)
+				if slot.controls.activate then
+					slot.active = node.attrib.active == "true"
+					slot.controls.activate.state = slot.active
+				end
 			end
 		end
 	end
@@ -182,7 +190,7 @@ function ItemsTabClass:Save(xml)
 	end
 	for name, slot in pairs(self.slots) do
 		if slot.selItemId ~= 0 then
-			t_insert(xml, { elem = "Slot", attrib = { name = name, itemId = tostring(slot.selItemId) }})
+			t_insert(xml, { elem = "Slot", attrib = { name = name, itemId = tostring(slot.selItemId), active = slot.active and "true" }})
 		end
 	end
 	self.modFlag = false
@@ -527,10 +535,10 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 			main:AddTooltipLine(16, s_format("^x7F7F7FQuality: "..data.colorCodes.MAGIC.."+%d%%", item.quality))
 		end
 		if flaskData.lifeTotal then
-			main:AddTooltipLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FLife over %s%.1f0 ^x7F7F7FSeconds", flaskData.lifeTotal ~= base.flask.life and data.colorCodes.MAGIC or "^7", flaskData.lifeTotal, flaskData.lifeDuration ~= base.flask.duration and data.colorCodes.MAGIC or "^7", flaskData.lifeDuration))
+			main:AddTooltipLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FLife over %s%.1f0 ^x7F7F7FSeconds", flaskData.lifeTotal ~= base.flask.life and data.colorCodes.MAGIC or "^7", flaskData.lifeTotal, flaskData.duration ~= base.flask.duration and data.colorCodes.MAGIC or "^7", flaskData.duration))
 		end
 		if flaskData.manaTotal then
-			main:AddTooltipLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FMana over %s%.1f0 ^x7F7F7FSeconds", flaskData.manaTotal ~= base.flask.mana and data.colorCodes.MAGIC or "^7", flaskData.manaTotal, flaskData.manaDuration ~= base.flask.duration and data.colorCodes.MAGIC or "^7", flaskData.manaDuration))
+			main:AddTooltipLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FMana over %s%.1f0 ^x7F7F7FSeconds", flaskData.manaTotal ~= base.flask.mana and data.colorCodes.MAGIC or "^7", flaskData.manaTotal, flaskData.duration ~= base.flask.duration and data.colorCodes.MAGIC or "^7", flaskData.duration))
 		end
 		if not flaskData.lifeTotal and not flaskData.manaTotal then
 			main:AddTooltipLine(16, s_format("^x7F7F7FLasts %s%.2f ^x7F7F7FSeconds", flaskData.duration ~= base.flask.duration and data.colorCodes.MAGIC or "^7", flaskData.duration))
@@ -602,45 +610,121 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	main:AddTooltipSeparator(14)
 
 	-- Mod differences
-	local calcFunc, calcBase = self.build.calcsTab:GetItemCalculator()
+	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 	if calcFunc then
-		self:UpdateSockets()
-		-- Build sorted list of slots to compare with
-		local compareSlots = { }
-		for slotName, slot in pairs(self.slots) do
-			local selItem = self.list[slot.selItemId]
-			if self:IsItemValidForSlot(item, slotName) and not slot.inactive then
-				t_insert(compareSlots, slot)
-			end
-		end
-		table.sort(compareSlots, function(a, b)
-			if a.selItemId ~= b.selItemId then
-				if item == self.list[a.selItemId] then
-					return true
-				elseif item == self.list[b.selItemId] then
-					return false
+		if base.flask then
+			-- Special handling for flasks
+			local stats = { }
+			local flaskData = item.flaskData
+			local modDB = self.build.calcsTab.mainEnv.modDB
+			local durInc = modDB:Sum("INC", nil, "FlaskDuration")
+			local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
+			if item.base.flask.life or item.base.flask.mana then
+				local rateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
+				local instantPerc = flaskData.instantPerc > 0 and m_min(flaskData.instantPerc + effectInc, 100) or 0
+				if item.base.flask.life then
+					local lifeInc = modDB:Sum("INC", nil, "FlaskLifeRecovery")
+					local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
+					local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * (1 + effectInc / 100)
+					local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100)
+					local lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
+					if inst > 0 and grad > 0 then
+						t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
+					elseif inst + grad ~= flaskData.lifeTotal then
+						if inst > 0 then
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8instantly", inst))
+						elseif grad > 0 then
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
+						end
+					end
+				end
+				if item.base.flask.mana then
+					local manaInc = modDB:Sum("INC", nil, "FlaskManaRecovery")
+					local manaRateInc = modDB:Sum("INC", nil, "FlaskManaRecoveryRate")
+					local inst = flaskData.manaBase * instantPerc / 100 * (1 + manaInc / 100) * (1 + effectInc / 100)
+					local grad = flaskData.manaBase * (1 - instantPerc / 100) * (1 + manaInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100)
+					local manaDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + manaRateInc / 100)
+					if inst > 0 and grad > 0 then
+						t_insert(stats, s_format("^8Mana recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, manaDur))
+					elseif inst + grad ~= flaskData.manaTotal then
+						if inst > 0 then
+							t_insert(stats, s_format("^8Mana recovered: ^7%d ^8instantly", inst))
+						elseif grad > 0 then
+							t_insert(stats, s_format("^8Mana recovered: ^7%d ^8over ^7%.2fs", grad, manaDur))
+						end
+					end
+				end
+			else
+				if durInc ~= 0 then
+					t_insert(stats, s_format("^8Flask effect duration: ^7%.1f0s", flaskData.duration * (1 + durInc / 100)))
 				end
 			end
-			local aNum = tonumber(a.slotName:match("%d+"))
-			local bNum = tonumber(b.slotName:match("%d+"))
-			if aNum and bNum then
-				return aNum < bNum
-			else
-				return a.slotName < b.slotName
+			local effectMod = 1 + (flaskData.effectInc + effectInc) / 100
+			if effectMod ~= 1 then
+				t_insert(stats, s_format("^8Flask effect modifier: ^7%+d%%", effectMod * 100 - 100))
 			end
-		end)
-
-		-- Add comparisons for each slot
-		for _, slot in pairs(compareSlots) do
-			local selItem = self.list[slot.selItemId]
-			local output = calcFunc(slot.slotName, item ~= selItem and item)
+			local usedInc = modDB:Sum("INC", nil, "FlaskChargesUsed")
+			if usedInc ~= 0 then
+				local used = m_floor(flaskData.chargesUsed * (1 + usedInc / 100))
+				t_insert(stats, s_format("^8Charges used: ^7%d ^8of ^7%d ^8(^7%d ^8uses)", used, flaskData.chargesMax, m_floor(flaskData.chargesMax / used)))
+			end
+			local gainMod = flaskData.gainMod * (1 + modDB:Sum("INC", nil, "FlaskChargesGained") / 100)
+			if gainMod ~= 1 then
+				t_insert(stats, s_format("^8Charge gain modifier: ^7%+d%%", gainMod * 100 - 100))
+			end
+			if stats[1] then
+				main:AddTooltipLine(14, "^7Effective flask stats:")
+				for _, stat in ipairs(stats) do
+					main:AddTooltipLine(14, stat)
+				end
+			end
+			local output = calcFunc({ toggleFlask = item })
 			local header
-			if item == selItem then
-				header = "^7Removing this item from "..slot.label.." will give you:"
+			if self.build.calcsTab.mainEnv.flasks[item] then
+				header = "^7Deactivating this flask will give you:"
 			else
-				header = string.format("^7Equipping this item in %s%s will give you:", slot.label, selItem and " (replacing "..data.colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+				header = "^7Activating this flask will give you:"
 			end
 			self.build:AddStatComparesToTooltip(calcBase, output, header)
+		else
+			self:UpdateSockets()
+			-- Build sorted list of slots to compare with
+			local compareSlots = { }
+			for slotName, slot in pairs(self.slots) do
+				local selItem = self.list[slot.selItemId]
+				if self:IsItemValidForSlot(item, slotName) and not slot.inactive then
+					t_insert(compareSlots, slot)
+				end
+			end
+			table.sort(compareSlots, function(a, b)
+				if a.selItemId ~= b.selItemId then
+					if item == self.list[a.selItemId] then
+						return true
+					elseif item == self.list[b.selItemId] then
+						return false
+					end
+				end
+				local aNum = tonumber(a.slotName:match("%d+"))
+				local bNum = tonumber(b.slotName:match("%d+"))
+				if aNum and bNum then
+					return aNum < bNum
+				else
+					return a.slotName < b.slotName
+				end
+			end)
+
+			-- Add comparisons for each slot
+			for _, slot in pairs(compareSlots) do
+				local selItem = self.list[slot.selItemId]
+				local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item })
+				local header
+				if item == selItem then
+					header = "^7Removing this item from "..slot.label.." will give you:"
+				else
+					header = string.format("^7Equipping this item in %s%s will give you:", slot.label, selItem and " (replacing "..data.colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+				end
+				self.build:AddStatComparesToTooltip(calcBase, output, header)
+			end
 		end
 	end
 

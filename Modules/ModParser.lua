@@ -111,6 +111,7 @@ local modNameList = {
 	-- Stun modifiers
 	["stun recovery"] = "StunRecovery",
 	["stun and block recovery"] = "StunRecovery",
+	["block and stun recovery"] = "StunRecovery",
 	["stun threshold"] = "StunThreshold",
 	["block recovery"] = "BlockRecovery",
 	["enemy stun threshold"] = "EnemyStunThreshold",
@@ -236,6 +237,8 @@ local modNameList = {
 	["effect"] = "FlaskEffect",
 	["effect of flasks"] = "FlaskEffect",
 	["amount recovered"] = "FlaskRecovery",
+	["life recovered"] = "FlaskRecovery",
+	["mana recovered"] = "FlaskRecovery",
 	["life recovery from flasks"] = "FlaskLifeRecovery",
 	["mana recovery from flasks"] = "FlaskManaRecovery",
 	["flask effect duration"] = "FlaskDuration",
@@ -397,10 +400,13 @@ local modTagList = {
 	["if you've crit recently"] = { tag = { type = "Condition", var = "CritRecently" } },
 	["if you've dealt a critical strike recently"] = { tag = { type = "Condition", var = "CritRecently" } },
 	["if you haven't crit recently"] = { tag = { type = "Condition", var = "CritRecently", neg = true } },
+	["if you've dealt a non%-critical strike recently"] = { tag = { type = "Condition", var = "NonCritRecently" } },
 	["if you've killed recently"] = { tag = { type = "Condition", var = "KilledRecently" } },
 	["if you haven't killed recently"] = { tag = { type = "Condition", var = "KilledRecently", neg = true } },
 	["if you or your totems have killed recently"] = { tag = { type = "Condition", varList = {"KilledRecently","TotemsKilledRecently"} } },
 	["if you've killed a maimed enemy recently"] = { tagList = { { type = "Condition", var = "KilledRecently" }, { type = "Condition", var = "EnemyMaimed" } } },
+	["if you've frozen an enemy recently"] = { tag = { type = "Condition", var = "FrozenEnemyRecently" } },
+	["if you've ignited an enemy recently"] = { tag = { type = "Condition", var = "IgnitedEnemyRecently" } },
 	["if you've been hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
 	["if you were hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
 	["if you were damaged by a hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
@@ -428,6 +434,7 @@ local modTagList = {
 	["against bleeding enemies"] = { tag = { type = "Condition", var = "EnemyBleeding" }, flags = ModFlag.Hit },
 	["against poisoned enemies"] = { tag = { type = "Condition", var = "EnemyPoisoned" }, flags = ModFlag.Hit },
 	["against hindered enemies"] = { tag = { type = "Condition", var = "EnemyHindered" }, flags = ModFlag.Hit },
+	["against blinded enemies"] = { tag = { type = "Condition", var = "EnemyBlinded" }, flags = ModFlag.Hit },
 	["against burning enemies"] = { tag = { type = "Condition", var = "EnemyBurning" }, flags = ModFlag.Hit },
 	["against ignited enemies"] = { tag = { type = "Condition", var = "EnemyIgnited" }, flags = ModFlag.Hit },
 	["against shocked enemies"] = { tag = { type = "Condition", var = "EnemyShocked" }, flags = ModFlag.Hit },
@@ -541,6 +548,9 @@ local specialModList = {
 	["your critical strike chance is lucky"] = { flag("CritChanceLucky") },
 	["phasing"] = { mod("Misc", "LIST", { type = "Condition", var = "Phasing" }) },
 	["onslaught"] = { mod("Misc", "LIST", { type = "Condition", var = "Onslaught" }) },
+	["creates a smoke cloud on use"] = { },
+	["creates chilled ground on use"] = { },
+	["creates consecrated ground on use"] = { },
 	-- Special item local modifiers
 	["no physical damage"] = { mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalMin" }), mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalMax" }), mod("Misc", "LIST", { type = "WeaponData", key = "PhysicalDPS" }) },
 	["all attacks with this weapon are critical strikes"] = { mod("Misc", "LIST", { type = "WeaponData", key = "critChance", value = 100 }) },
@@ -622,6 +632,7 @@ local specialModList = {
 	["non%-critical strikes deal (%d+)%% damage"] = function(num) return { mod("Damage", "MORE", -100+num, nil, ModFlag.Hit, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
 	["ignited enemies burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnRate", "INC", num) } end,
 	["enemies ignited by an attack burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnRate", "INC", num, nil, ModFlag.Attack) } end,
+	["gain unholy might during flask effect"] = { mod("Misc", "LIST", { type = "Condition", var = "UnholyMight" }, { type = "Condition", var = "UsingFlask" }) },
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques
