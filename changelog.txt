@@ -1,4 +1,4 @@
-VERSION[1.2.41][2017/02/12]
+VERSION[1.2.41][2017/02/13]
  * The program now shows the save prompt before updating if there are unsaved changes
  * Added options to the Configuration tab for: Enemy Blinded, Dealt Non-Crit Recently, Ignited/Frozen an Enemy Recently
  * Stat differences for allocating/deallocating passives will no longer be incorrect when certain radius jewels are used

@@ -4,10 +4,10 @@
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
-	<File sha1="9a1069e95dcf66034f185a751904b131c5e66191" name="Launch.lua" part="program"/>
+	<File sha1="0bf8bbd4f44b47a9aa795f80880fd42a5dfc2af8" name="Launch.lua" part="program"/>
 	<File sha1="d8e42beeb38baabcc197d658e4c0af33419eeff3" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="912314921717481c27f9885718f893ee655906b8" name="changelog.txt" part="program"/>
+	<File sha1="3c353c62612ec975dff6b1d86a4a31f12bba907b" name="changelog.txt" part="program"/>
 	<File sha1="231a4fe264d84294427edacbf3e29ec4b301712e" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="47c28993f5653955c9e76714775d87ac22b077da" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="412639a254d0e275d9cc2286c5d76d3b0a9a0e8e" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -23,7 +23,7 @@
 	<File sha1="b8a47c6dda51cb4217f605bf4408871f389a2ec1" name="Classes/ImportTab.lua" part="program"/>
 	<File sha1="f5b0e4c3e8c9892dec419227c4f8490d420ecd98" name="Classes/ItemDBControl.lua" part="program"/>
 	<File sha1="249ffd71dc8659ed83b6e2a8195291e4dfaf7324" name="Classes/ItemListControl.lua" part="program"/>
-	<File sha1="e7726e8ece60fc3e2d880201d9397a4c864e16db" name="Classes/ItemSlotControl.lua" part="program"/>
+	<File sha1="6857df67c62bca23314020893fac4c47027ba20b" name="Classes/ItemSlotControl.lua" part="program"/>
 	<File sha1="a86e510dcec024a6a57cda94a4bcf7a0ea1b4d43" name="Classes/ItemsTab.lua" part="program"/>
 	<File sha1="62138c7db82d57d638a16610a26acd0de75d3486" name="Classes/LabelControl.lua" part="program"/>
 	<File sha1="62a5a9ce8e3bc3000c9c0445e2fca60c0b2e9e8d" name="Classes/ModDB.lua" part="program"/>
