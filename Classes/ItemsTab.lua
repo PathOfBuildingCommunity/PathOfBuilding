@@ -80,6 +80,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 		return self.slotOrder[a.slotName] < self.slotOrder[b.slotName]
 	end)
 	self.controls.slotHeader = common.New("LabelControl", {"BOTTOMLEFT",self.orderedSlots[1],"TOPLEFT"}, 0, -4, 0, 16, "^7Equipped items:")
+	self:PopulateSlots()
 
 	-- Build item list
 	self.controls.itemList = common.New("ItemList", {"TOPLEFT",self.orderedSlots[1],"TOPRIGHT"}, 20, 0, 360, 308, self)
@@ -376,7 +377,7 @@ function ItemsTabClass:CraftItem()
 			main:ClosePopup()
 			local item = makeItem(popup.controls.base.list[popup.controls.base.sel])
 			self:SetDisplayItem(item)
-			if not item.craftable then
+			if not item.craftable and item.rarity ~= "NORMAL" then
 				self:EditDisplayItemText()
 			end
 			self.lastCraftRaritySel = popup.controls.rarity.sel
@@ -507,12 +508,12 @@ function ItemsTabClass:SetDisplayItem(item)
 				pre.list = prefixTable
 				pre.outputTable = "prefixes"
 				pre.outputIndex = i
-				pre.sel = isValueInArray(prefixList, item.prefixes[i] or "None")
+				pre.sel = isValueInArray(prefixList, item.prefixes[i] or "None") or 1
 				local suf = self.controls["displayItemAffix"..(i+item.affixLimit/2)]
 				suf.list = suffixTable
 				suf.outputTable = "suffixes"
 				suf.outputIndex = i
-				suf.sel = isValueInArray(suffixList, item.suffixes[i] or "None")
+				suf.sel = isValueInArray(suffixList, item.suffixes[i] or "None") or 1
 			end
 		end
 	else

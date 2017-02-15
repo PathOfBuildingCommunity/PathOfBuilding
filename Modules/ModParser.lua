@@ -57,6 +57,7 @@ local modNameList = {
 	["maximum life"] = "Life",
 	["mana"] = "Mana",
 	["maximum mana"] = "Mana",
+	["mana regeneration"] = "ManaRegen",
 	["mana regeneration rate"] = "ManaRegen",
 	["mana cost"] = "ManaCost",
 	["mana cost of skills"] = "ManaCost",

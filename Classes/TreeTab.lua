@@ -176,6 +176,10 @@ function TreeTabClass:SetActiveSpec(specId)
 			end
 		end
 	end
+	if self.build.itemsTab.orderList[1] then
+		-- Update item slots if items have been loaded already
+		self.build.itemsTab:PopulateSlots()
+	end
 end
 
 function TreeTabClass:OpenSpecManagePopup()

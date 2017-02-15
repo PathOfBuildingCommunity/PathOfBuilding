@@ -10,8 +10,8 @@ itemBases["Plate Vest"] = {
 itemBases["Chestplate"] = {
 	type = "Body Armour",
 	subType = "Armour",
-	armour = { armourBase = 49, },
-	req = { level = 6, str = 25, movementPenalty = 5, },
+	armour = { armourBase = 49, movementPenalty = 5, },
+	req = { level = 6, str = 25, },
 }
 itemBases["Copper Plate"] = {
 	type = "Body Armour",
