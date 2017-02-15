@@ -22,9 +22,9 @@ function buildMode:Init(dbFileName, buildName)
 	self.importTab = common.New("ImportTab", self)
 	self.notesTab = common.New("NotesTab", self)
 	self.configTab = common.New("ConfigTab", self)
+	self.itemsTab = common.New("ItemsTab", self)
 	self.treeTab = common.New("TreeTab", self)
 	self.skillsTab = common.New("SkillsTab", self)
-	self.itemsTab = common.New("ItemsTab", self)
 	self.calcsTab = common.New("CalcsTab", self)
 
 	-- Controls: top bar, left side
@@ -90,8 +90,8 @@ function buildMode:Init(dbFileName, buildName)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.characterLevel.tooltip = function()
-		local ret = "Experience multiplier:"
+	self.controls.characterLevel.tooltipFunc = function()
+		main:AddTooltipLine(16, "Experience multiplier:")
 		local playerLevel = self.characterLevel
 		local safeZone = 3 + m_floor(playerLevel / 16)
 		for level, expLevel in ipairs(data.monsterExperienceLevelMap) do
@@ -106,16 +106,14 @@ function buildMode:Init(dbFileName, buildName)
 				mult = mult * (1 / (1 + 0.1 * (playerLevel - 94)))
 			end
 			if mult > 0.01 then
-				ret = ret .. "\n" .. level
+				local line = level
 				if level >= 68 then 
-					ret = ret .. string.format(" (Tier %d)", level - 67)
-				else
-					
+					line = line .. string.format(" (Tier %d)", level - 67)
 				end
-				ret = ret .. string.format(": %.1f%%", mult * 100)
+				line = line .. string.format(": %.1f%%", mult * 100)
+				main:AddTooltipLine(14, line)
 			end
 		end
-		return ret
 	end
 	self.controls.classDrop = common.New("DropDownControl", {"LEFT",self.controls.characterLevel,"RIGHT"}, 8, 0, 100, 20, nil, function(index, val)
 		local classId = self.tree.classNameMap[val]
@@ -612,7 +610,7 @@ end
 -- Compare values of all display stats between the two output tables, and add any changed stats to the tooltip
 -- Adds the provided header line before the first stat line, if any are added
 -- Returns the number of stat lines added
-function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header)
+function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header, nodeCount)
 	local count = 0
 	for _, statData in ipairs(self.displayStats) do
 		if statData.stat and (not statData.flag or self.calcsTab.mainEnv.mainSkill.skillFlags[statData.flag]) then
@@ -625,6 +623,9 @@ function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header)
 				local line = string.format("%s%+"..statData.fmt.." %s", color, diff * ((statData.pc or statData.mod) and 100 or 1), statData.label)
 				if statData.compPercent and (baseOutput[statData.stat] or 0) ~= 0 and (compareOutput[statData.stat] or 0) ~= 0 then
 					line = line .. string.format(" (%+.1f%%)", (compareOutput[statData.stat] or 0) / (baseOutput[statData.stat] or 0) * 100 - 100)
+				end
+				if nodeCount then
+					line = line .. string.format(" ^8(%+"..statData.fmt.." per point)", diff * ((statData.pc or statData.mod) and 100 or 1) / nodeCount)
 				end
 				main:AddTooltipLine(14, line)
 				count = count + 1

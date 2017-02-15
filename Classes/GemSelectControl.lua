@@ -182,6 +182,20 @@ function GemSelectClass:Draw(viewPort)
 		end
 		SetViewport()
 		self:DrawControls(viewPort)
+		if self.hoverSel then
+			local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
+			if calcFunc then
+				local gemList = self.skillsTab.displayGroup.gemList
+				local oldGem = gemList[self.index]
+				gemList[self.index] = copyTable(oldGem or { level = 20, quality = 0, enabled = true }, true)
+				gemList[self.index].name = self.list[self.hoverSel]
+				gemList[self.index].data = data.gems[self.list[self.hoverSel]]
+				local output = calcFunc()
+				gemList[self.index] = oldGem
+				self.skillsTab.build:AddStatComparesToTooltip(calcBase, output, "^7Selecting this gem will give you:")
+				main:DrawTooltip(x, y + height + 2 + (self.hoverSel - 1) * (height - 4) - scrollBar.offset, width, height - 4, viewPort)
+			end
+		end
 		SetDrawLayer(nil, 0)
 	else
 		local hoverControl 

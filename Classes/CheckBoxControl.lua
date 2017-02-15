@@ -9,6 +9,12 @@ local CheckBoxClass = common.NewClass("CheckBoxControl", "Control", function(sel
 	self.Control(anchor, x, y, size, size)
 	self.label = label
 	self.changeFunc = changeFunc
+	self.tooltipFunc = function(state)
+		local tooltip = self:GetProperty("tooltip")
+		if tooltip then
+			main:AddTooltipLine(14, tooltip)
+		end
+	end
 end)
 
 function CheckBoxClass:IsMouseOver()
@@ -60,14 +66,11 @@ function CheckBoxClass:Draw(viewPort)
 	if label then
 		DrawString(x - 5, y + 2, "RIGHT_X", size - 4, "VAR", label)
 	end
-	if mOver and self.tooltip then
-		local tooltip = self:GetProperty("tooltip")
-		if tooltip then
-			main:AddTooltipLine(16, tooltip)
-			SetDrawLayer(nil, 100)
-			main:DrawTooltip(x, y, size, size, viewPort)
-			SetDrawLayer(nil, 0)
-		end
+	if mOver then
+		SetDrawLayer(nil, 100)
+		local col, center = self.tooltipFunc(self.state)
+		main:DrawTooltip(x, y, size, size, viewPort, col, center)
+		SetDrawLayer(nil, 0)
 	end
 end
 

@@ -36,7 +36,7 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 		self.build.buildFlag = true
 	end)
 	self.controls.groupSlotLabel = common.New("LabelControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 30, 0, 16, "^7Socketed in:")
-	self.controls.groupSlot = common.New("SlotSelectControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 85, 28, 110, 20, self.build, function(sel, selVal)
+	self.controls.groupSlot = common.New("DropDownControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 85, 28, 110, 20, { "None", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2" }, function(sel, selVal)
 		if sel > 1 then
 			self.displayGroup.slot = selVal
 		else
@@ -45,6 +45,21 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
+	self.controls.groupSlot.tooltipFunc = function(mode, sel, selVal)
+		if mode == "OUT" or sel == 1 then
+			main:AddTooltipLine(16, "Select the item in which this skill is socketed.")
+			main:AddTooltipLine(16, "This will allow the skill to benefit from modifiers on the item that affect socketed gems.")
+		else
+			local slot = self.build.itemsTab.slots[selVal]
+			local ttItem = self.build.itemsTab.list[slot.selItemId]
+			if ttItem then
+				self.build.itemsTab:AddItemTooltip(ttItem, slot)
+				return data.colorCodes[ttItem.rarity], true
+			else
+				main:AddTooltipLine(16, "No item is equipped in this slot.")
+			end
+		end
+	end
 	self.controls.groupSlot.enabled = function()
 		return self.displayGroup.source == nil
 	end
@@ -275,6 +290,17 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
+	slot.enabled.tooltipFunc = function()
+		if self.displayGroup.gemList[index] then
+			local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+			if calcFunc then
+				self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
+				local output = calcFunc()
+				self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
+				self.build:AddStatComparesToTooltip(calcBase, output, self.displayGroup.gemList[index].enabled and "^7Disabling this gem will give you:" or "^7Enabling this gem will give you:")
+			end
+		end
+	end
 	self.controls["gemSlotEnable"..index] = slot.enabled
 
 	-- Parser/calculator error message
@@ -351,7 +377,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			-- Gem name has been specified, try to find the matching skill gem
 			if data.gems[gem.nameSpec] then
 				if data.gems[gem.nameSpec].unsupported then
-					gem.errMsg = gem.nameSpec.." is unsupported"
+					gem.errMsg = gem.nameSpec.." is not supported yet"
 					gem.name = nil
 					gem.data = nil
 				else

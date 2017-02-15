@@ -81,6 +81,12 @@ local EditClass = common.NewClass("EditControl", "ControlHost", "Control", "Undo
 		self.controls.scrollBarH.shown = false
 		self.controls.scrollBarV.shown = false
 	end
+	self.tooltipFunc = function()
+		local tooltip = self:GetProperty("tooltip")
+		if tooltip then
+			main:AddTooltipLine(14, tooltip)
+		end
+	end
 end)
 
 function EditClass:SetText(text, notify)
@@ -221,10 +227,10 @@ function EditClass:Draw(viewPort)
 	if not enabled then
 		return
 	end
-	if mOver and self.tooltip then
-		main:AddTooltipLine(16, self:GetProperty("tooltip"))
+	if mOver then
 		SetDrawLayer(nil, 100)
-		main:DrawTooltip(x, y, width, height, viewPort)
+		local col, center = self.tooltipFunc()
+		main:DrawTooltip(x, y, width, height, viewPort, col, center)
 		SetDrawLayer(nil, 0)
 	end
 	self:UpdateScrollBars()

@@ -48,9 +48,9 @@ local classList = {
 	"PassiveTree",
 	"PassiveSpec",
 	"PassiveTreeView",
+	"PassiveSpecListControl",
 	"SkillsTab",
 	"SkillListControl",
-	"SlotSelectControl",
 	"GemSelectControl",
 	"ItemsTab",
 	"ItemSlotControl",
@@ -389,9 +389,9 @@ function main:DrawCheckMark(x, y, size)
 	DrawImageQuad(nil, x + size * 0.40, y + size * 0.90, x + size * 0.35, y + size * 0.75, x + size * 0.80, y + size * 0.10, x + size * 0.90, y + size * 0.20)
 end
 
-function main:OpenPopup(width, height, title, controls, enterControl, defaultControl)
-	local popup = common.New("PopupDialog", width, height, title, controls, enterControl, defaultControl)
-	t_insert(self.popups, popup)
+function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl)
+	local popup = common.New("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl)
+	t_insert(self.popups, 1, popup)
 	return popup
 end
 
@@ -440,6 +440,9 @@ function main:AddTooltipSeparator(size)
 end
 
 function main:DrawTooltip(x, y, w, h, viewPort, col, center)
+	if #self.tooltipLines == 0 then
+		return
+	end
 	local ttW, ttH = 0, 0
 	for i, data in ipairs(self.tooltipLines) do
 		if data.text or (self.tooltipLines[i - 1] and self.tooltipLines[i + 1] and self.tooltipLines[i + 1].text) then

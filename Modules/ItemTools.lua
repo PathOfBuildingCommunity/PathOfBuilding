@@ -98,8 +98,13 @@ function itemLib.parseItemRaw(item)
 	item.base = data.itemBases[item.baseName]
 	item.modLines = { }
 	item.implicitLines = 0
+	item.buffLines = 0
+	item.affixes = data.itemMods[item.base and item.base.type]
+	item.prefixes = { }
+	item.suffixes = { }
 	local flaskBuffLines = { }
 	if item.base and item.base.flask and item.base.flask.buff then
+		item.buffLines = #item.base.flask.buff
 		for _, line in ipairs(item.base.flask.buff) do
 			flaskBuffLines[line] = true
 			local modList, extra = modLib.parseMod(line)
@@ -116,7 +121,7 @@ function itemLib.parseItemRaw(item)
 		elseif line == "--------" then
 			gameModeSection = gameModeSection + 1
 			if gameModeStage == "IMPLICIT" then
-				item.implicitLines = #item.modLines
+				item.implicitLines = #item.modLines - item.buffLines
 				gameModeStage = "FINDEXPLICIT"
 			elseif gameModeStage == "EXPLICIT" then
 				gameModeStage = "DONE"
@@ -166,6 +171,12 @@ function itemLib.parseItemRaw(item)
 					item.variant = tonumber(specVal)
 				elseif specName == "League" then
 					item.league = specVal
+				elseif specName == "Crafted" then
+					item.crafted = true
+				elseif specName == "Prefix" then
+					t_insert(item.prefixes, specVal)
+				elseif specName == "Suffix" then
+					t_insert(item.suffixes, specVal)
 				elseif specName == "Implicits" then
 					item.implicitLines = tonumber(specVal)
 					gameModeStage = "EXPLICIT"
@@ -238,6 +249,14 @@ function itemLib.parseItemRaw(item)
 	elseif mode == "GAME" and not foundExplicit then
 		item.implicitLines = 0
 	end
+	item.affixLimit = 0
+	if item.crafted and item.affixes then
+		if item.rarity == "MAGIC" then
+			item.affixLimit = 2
+		elseif item.rarity == "RARE" then
+			item.affixLimit = (item.base.type == "Jewel" and 4 or 6)
+		end
+	end
 	if not item.corrupted and not item.uniqueID and item.base and (item.base.armour or item.base.weapon or item.base.flask) then
 		item.quality = 20
 	end
@@ -265,6 +284,15 @@ function itemLib.createItemRaw(item)
 	end
 	if item.unreleased then
 		t_insert(rawLines, "Unreleased: true")
+	end
+	if item.crafted then
+		t_insert(rawLines, "Crafted: true")
+		for _, name in ipairs(item.prefixes or { }) do
+			t_insert(rawLines, "Prefix: "..name)
+		end
+		for _, name in ipairs(item.suffixes or { }) do
+			t_insert(rawLines, "Suffix: "..name)
+		end
 	end
 	if item.itemLevel then
 		t_insert(rawLines, "Item Level: "..item.itemLevel)
@@ -296,26 +324,62 @@ function itemLib.createItemRaw(item)
 	end
 	t_insert(rawLines, "Implicits: "..item.implicitLines)
 	for _, modLine in ipairs(item.modLines) do
-		local line = modLine.line
-		if modLine.range then
-			line = "{range:"..round(modLine.range,2).."}" .. line
-		end
-		if modLine.crafted then
-			line = "{crafted}" .. line
-		end
-		if modLine.variantList then
-			local varSpec
-			for varId in pairs(modLine.variantList) do
-				varSpec = (varSpec and varSpec.."," or "") .. varId
+		if not modLine.buff then
+			local line = modLine.line
+			if modLine.range then
+				line = "{range:"..round(modLine.range,2).."}" .. line
 			end
-			line = "{variant:"..varSpec.."}"..line
+			if modLine.crafted then
+				line = "{crafted}" .. line
+			end
+			if modLine.variantList then
+				local varSpec
+				for varId in pairs(modLine.variantList) do
+					varSpec = (varSpec and varSpec.."," or "") .. varId
+				end
+				line = "{variant:"..varSpec.."}"..line
+			end
+			t_insert(rawLines, line)
 		end
-		t_insert(rawLines, line)
 	end
 	if item.corrupted then
 		t_insert(rawLines, "Corrupted")
 	end
 	return table.concat(rawLines, "\n")
+end
+
+-- Rebuild explicit modifiers using the item's affixes
+function itemLib.craftItem(item)
+	local ranges = { }
+	for l = item.buffLines + item.implicitLines + 1, #item.modLines do
+		ranges[item.modLines[l].line] = item.modLines[l].range
+		item.modLines[l] = nil
+	end
+	local newName = item.baseName
+	for _, list in ipairs({item.prefixes,item.suffixes}) do
+		for i = 1, item.affixLimit/2 do
+			local name = list[i]
+			if not name then
+				list[i] = "None"
+			end
+			local mod = item.affixes[name]
+			if mod then
+				if mod.type == "Prefix" then
+					newName = name .. " " .. newName
+				elseif mod.type == "Suffix" then
+					newName = newName .. " " .. name
+				end
+				for _, line in ipairs(mod) do
+					t_insert(item.modLines, { line = line, range = ranges[line] })
+				end
+			end
+		end
+	end
+	if item.rarity == "MAGIC" then
+		item.name = newName
+	end
+	item.raw = itemLib.createItemRaw(item)
+	itemLib.parseItemRaw(item)
 end
 
 -- Return the name of the slot this item is equipped in
