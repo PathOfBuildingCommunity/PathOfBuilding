@@ -84,6 +84,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4
 		Classes\ModList.lua = Classes\ModList.lua
 		Classes\NotesTab.lua = Classes\NotesTab.lua
 		Classes\PassiveSpec.lua = Classes\PassiveSpec.lua
+		Classes\PassiveSpecListControl.lua = Classes\PassiveSpecListControl.lua
 		Classes\PassiveTree.lua = Classes\PassiveTree.lua
 		Classes\PassiveTreeView.lua = Classes\PassiveTreeView.lua
 		Classes\PopupDialog.lua = Classes\PopupDialog.lua
@@ -92,7 +93,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4
 		Classes\SkillListControl.lua = Classes\SkillListControl.lua
 		Classes\SkillsTab.lua = Classes\SkillsTab.lua
 		Classes\SliderControl.lua = Classes\SliderControl.lua
-		Classes\SlotSelectControl.lua = Classes\SlotSelectControl.lua
 		Classes\TextListControl.lua = Classes\TextListControl.lua
 		Classes\TreeTab.lua = Classes\TreeTab.lua
 		Classes\UndoHandler.lua = Classes\UndoHandler.lua
@@ -100,6 +100,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}"
 	ProjectSection(SolutionItems) = preProject
+		Data\ModFlask.lua = Data\ModFlask.lua
+		Data\ModJewel.lua = Data\ModJewel.lua
 		Data\New.lua = Data\New.lua
 		Data\Rares.lua = Data\Rares.lua
 	EndProjectSection

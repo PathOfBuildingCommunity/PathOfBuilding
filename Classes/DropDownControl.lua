@@ -27,6 +27,12 @@ local DropDownClass = common.NewClass("DropDownControl", "Control", "ControlHost
 	self.sel = 1
 	self.selFunc = selFunc
 	self.tooltip = tooltip
+	self.tooltipFunc = function(mode, sel, selVal)
+		local tooltip = self:GetProperty("tooltip")
+		if tooltip then
+			main:AddTooltipLine(14, self.tooltip)
+		end
+	end
 end)
 
 function DropDownClass:SelByValue(val)
@@ -140,13 +146,13 @@ function DropDownClass:Draw(viewPort)
 		SetDrawLayer(nil, 0)
 	end
 	if enabled then
-		SetDrawColor(1, 1, 1)
-		if (mOver or self.dropped) and self.tooltip then
+		if (mOver or self.dropped) and mOverComp ~= "DROP" then
+			local col, center = self.tooltipFunc(mOver and "BODY" or "OUT", self.sel, self.list[self.sel])
 			SetDrawLayer(nil, 10)
-			main:AddTooltipLine(14, self.tooltip)
-			main:DrawTooltip(x, y - (self.dropped and self.dropUp and dropExtra or 0), width, height + (self.dropped and dropExtra or 0), viewPort)
+			main:DrawTooltip(x, y - (self.dropped and self.dropUp and dropExtra or 0), width, height + (self.dropped and dropExtra or 0), viewPort, col, center)
 			SetDrawLayer(nil, 0)
 		end
+		SetDrawColor(1, 1, 1)
 	else
 		SetDrawColor(0.66, 0.66, 0.66)
 	end
@@ -162,8 +168,12 @@ function DropDownClass:Draw(viewPort)
 		self:DrawControls(viewPort)
 		local cursorX, cursorY = GetCursorPos()
 		self.hoverSel = mOver and not scrollBar:IsMouseOver() and math.floor((cursorY - dropY + scrollBar.offset) / (height - 4)) + 1
-		if self.hoverSel and self.hoverSel < 1 then
+		if self.hoverSel and not self.list[self.hoverSel] then
 			self.hoverSel = nil
+		end
+		if self.hoverSel then
+			local col, center = self.tooltipFunc("HOVER", self.hoverSel, self.list[self.hoverSel])
+			main:DrawTooltip(x, dropY + 2 + (self.hoverSel - 1) * (height - 4) - scrollBar.offset, width, height - 4, viewPort, col, center)
 		end
 		SetViewport(x + 2, dropY + 2, scrollBar.enabled and width - 22 or width - 4, dropHeight)
 		for index, listVal in ipairs(self.list) do

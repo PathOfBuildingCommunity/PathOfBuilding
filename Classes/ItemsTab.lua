@@ -14,14 +14,7 @@ local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
 
-local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt" }
-if launch.enableFlasks then -- FIXME Flask release
-	t_insert(baseSlots, "Flask 1")
-	t_insert(baseSlots, "Flask 2")
-	t_insert(baseSlots, "Flask 3")
-	t_insert(baseSlots, "Flask 4")
-	t_insert(baseSlots, "Flask 5")
-end
+local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
 local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
@@ -34,6 +27,37 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 
 	self.list = { }
 	self.orderList = { }
+
+	-- Build lists of item bases, separated by type
+	self.baseLists = { }
+	for name, base in pairs(data.itemBases) do
+		local type = base.type
+		if base.subType then
+			type = type .. ": " .. base.subType
+		end
+		self.baseLists[type] = self.baseLists[type] or { }
+		t_insert(self.baseLists[type], { label = name, name = name, base = base })
+	end
+	self.baseTypeList = { }
+	for type, list in pairs(self.baseLists) do
+		t_insert(self.baseTypeList, type)
+		table.sort(list, function(a, b) 
+			if a.base.req and b.base.req then
+				if a.base.req.level == b.base.req.level then
+					return a.name < b.name
+				else
+					return (a.base.req.level or 1) > (b.base.req.level or 1)
+				end
+			elseif a.base.req and not b.base.req then
+				return true
+			elseif b.base.req and not a.base.req then
+				return false
+			else
+				return a.name < b.name
+			end
+		end)
+	end
+	table.sort(self.baseTypeList)
 
 	-- Item slots
 	self.slots = { }
@@ -56,6 +80,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 		return self.slotOrder[a.slotName] < self.slotOrder[b.slotName]
 	end)
 	self.controls.slotHeader = common.New("LabelControl", {"BOTTOMLEFT",self.orderedSlots[1],"TOPLEFT"}, 0, -4, 0, 16, "^7Equipped items:")
+	self:PopulateSlots()
 
 	-- Build item list
 	self.controls.itemList = common.New("ItemList", {"TOPLEFT",self.orderedSlots[1],"TOPRIGHT"}, 20, 0, 360, 308, self)
@@ -86,13 +111,16 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	end
 
 	-- Display item
-	self.controls.newDisplayItem = common.New("ButtonControl", {"TOPLEFT",self.controls.itemList,"TOPRIGHT"}, 20, 0, 120, 20, "Create custom...", function()
-		self:EditDisplayItemText()
+	self.controls.craftDisplayItem = common.New("ButtonControl", {"TOPLEFT",self.controls.itemList,"TOPRIGHT"}, 20, 0, 120, 20, "Craft item...", function()
+		self:CraftItem()
 	end)
-	self.controls.newDisplayItem.shown = function()
+	self.controls.craftDisplayItem.shown = function()
 		return self.displayItem == nil
 	end
-	self.controls.displayItemTip = common.New("LabelControl", {"TOPLEFT",self.controls.newDisplayItem,"BOTTOMLEFT"}, 0, 8, 100, 16, 
+	self.controls.newDisplayItem = common.New("ButtonControl", {"TOPLEFT",self.controls.craftDisplayItem,"TOPRIGHT"}, 8, 0, 120, 20, "Create custom...", function()
+		self:EditDisplayItemText()
+	end)
+	self.controls.displayItemTip = common.New("LabelControl", {"TOPLEFT",self.controls.craftDisplayItem,"BOTTOMLEFT"}, 0, 8, 100, 16, 
 [[^7Double-click an item from one of the lists,
 or copy and paste an item from in game (hover over the item and Ctrl+C)
 to view/edit the item and add it to your build.
@@ -123,9 +151,35 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemVariant.shown = function()
 		return self.displayItem.variantList and #self.displayItem.variantList > 1
 	end
-	self.controls.displayItemRangeLine = common.New("DropDownControl", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 350, 18, nil, function(sel)
+	for i = 1, 6 do
+		local prev = self.controls["displayItemAffix"..(i-1)] or self.controls.addDisplayItem
+		local drop
+		drop = common.New("DropDownControl", {"TOPLEFT",prev,"BOTTOMLEFT"}, i==1 and 40 or 0, i == 1 and 8 or 2, 418, 20, nil, function(sel, value)
+			self.displayItem[drop.outputTable][drop.outputIndex] = value.value
+			itemLib.craftItem(self.displayItem)
+			self:UpdateDisplayItemRangeLines()
+		end)
+		drop.tooltipFunc = function(mode, sel, value)
+			if mode ~= "OUT" and self.displayItem.affixes[value.value] and (not self.selControl or self.selControl == drop) then
+				for _, line in ipairs(self.displayItem.affixes[value.value]) do
+					main:AddTooltipLine(16, "^7"..line)
+				end
+			end
+		end
+		drop.shown = function()
+			return self.displayItem.craftable and i <= self.displayItem.affixLimit
+		end
+		self.controls["displayItemAffix"..i] = drop
+		self.controls["displayItemAffixLabel"..i] = common.New("LabelControl", {"RIGHT",drop,"LEFT"}, -4, 0, 0, 14, function()
+			return drop.outputTable == "prefixes" and "^7Prefix:" or "^7Suffix:"
+		end)
+	end
+	self.controls.displayItemRangeLine = common.New("DropDownControl", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 0, 350, 18, nil, function(sel)
 		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[sel].range
 	end)
+	self.controls.displayItemRangeLine.y = function()
+		return 8 + (self.displayItem and self.displayItem.craftable and (self.displayItem.affixLimit * 22 + 6) or 0)
+	end
 	self.controls.displayItemRangeLine.shown = function()
 		return self.displayItem.rangeLineList[1] ~= nil
 	end
@@ -189,7 +243,7 @@ function ItemsTabClass:Save(xml)
 		t_insert(xml, child)
 	end
 	for name, slot in pairs(self.slots) do
-		if slot.selItemId ~= 0 then
+		if slot.selItemId ~= 0 and not slot.nodeId then
 			t_insert(xml, { elem = "Slot", attrib = { name = name, itemId = tostring(slot.selItemId), active = slot.active and "true" }})
 		end
 	end
@@ -234,6 +288,9 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 
 	if self.displayItem then
 		local extraOffset = self.controls.displayItemRangeLine:IsShown() and 26 or 0
+		if self.displayItem.craftable then
+			extraOffset = extraOffset + self.displayItem.affixLimit * 22 + 6
+		end
 		self:AddItemTooltip(self.displayItem)
 		local baseX, baseY = self.anchorDisplayItem:GetPos()
 		main:DrawTooltip(baseX, baseY + 28 + extraOffset, nil, nil, viewPort, data.colorCodes[self.displayItem.rarity])
@@ -277,6 +334,77 @@ function ItemsTabClass:GetSocketAndJewelForNodeID(nodeId)
 	return self.sockets[nodeId], self.list[self.sockets[nodeId].selItemId]
 end
 
+-- Opens the item crafting popup
+function ItemsTabClass:CraftItem()
+	local popup
+	local function makeItem(base)
+		local item = { name = base.name, base = base.base, modLines = { }, quality = 0 }
+		local raritySel = popup.controls.rarity.sel
+		if base.base.flask then
+			if raritySel == 3 then
+				raritySel = 2
+			end
+		end
+		if data.itemMods[base.base.type] and (raritySel == 2 or raritySel == 3) then
+			item.crafted = true
+		end
+		item.rarity = popup.controls.rarity.list[raritySel].val
+		if raritySel >= 3 then
+			item.baseName = base.name
+			item.title = popup.controls.title.buf:match("%S") and popup.controls.title.buf or "New Item"
+		end
+		if base.base.implicit then
+			local modList, extra = modLib.parseMod(base.base.implicit)
+			t_insert(item.modLines, { line = base.base.implicit, extra = extra, modList = modList or { } })
+			item.implicitLines = 1
+		else
+			item.implicitLines = 0
+		end
+		return itemLib.makeItemFromRaw(itemLib.createItemRaw(item))
+	end
+	popup = main:OpenPopup(370, 130, "Craft Item", {
+		common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 20, 0, 16, "Rarity:"),
+		title = common.New("EditControl", nil, 70, 20, 190, 18, "", "Name"),
+		rarity = common.New("DropDownControl", nil, -80, 20, 100, 18, { {val = "NORMAL",label=data.colorCodes.NORMAL.."Normal"},{val="MAGIC",label=data.colorCodes.MAGIC.."Magic"},{val="RARE",label=data.colorCodes.RARE.."Rare"},{val="UNIQUE",label=data.colorCodes.UNIQUE.."Unique"} }),
+		common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 45, 0, 16, "Type:"),
+		type = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 45, 295, 18, self.baseTypeList, function(sel, value)
+			popup.controls.base.list = self.baseLists[self.baseTypeList[sel]]
+			popup.controls.base.sel = 1
+		end),
+		common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 70, 0, 16, "Base:"),
+		base = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 70, 200, 18),
+		save = common.New("ButtonControl", nil, -45, 100, 80, 20, "Create", function()
+			main:ClosePopup()
+			local item = makeItem(popup.controls.base.list[popup.controls.base.sel])
+			self:SetDisplayItem(item)
+			if not item.craftable and item.rarity ~= "NORMAL" then
+				self:EditDisplayItemText()
+			end
+			self.lastCraftRaritySel = popup.controls.rarity.sel
+			self.lastCraftTypeSel = popup.controls.type.sel
+			self.lastCraftBaseSel = popup.controls.base.sel
+		end),
+		common.New("ButtonControl", nil, 45, 100, 80, 20, "Cancel", function()
+			main:ClosePopup()
+		end),
+	})
+	popup.controls.rarity.sel = self.lastCraftRaritySel or 3
+	popup.controls.type.sel = self.lastCraftTypeSel or 1
+	popup.controls.base.list = self.baseLists[self.baseTypeList[popup.controls.type.sel]]
+	popup.controls.base.sel = self.lastCraftBaseSel or 1
+	popup.controls.title.shown = function()
+		return popup.controls.rarity.sel >= 3
+	end
+	popup.controls.base.tooltipFunc = function(mode, sel, selVal)
+		if mode ~= "OUT" then
+			local item = makeItem(selVal)
+			self:AddItemTooltip(item, nil, true)
+			return data.colorCodes[item.rarity], true
+		end
+	end
+end
+
+-- Opens the item text editor popup
 function ItemsTabClass:EditDisplayItemText()
 	local popup 
 	local function buildRaw()
@@ -311,19 +439,19 @@ function ItemsTabClass:EditDisplayItemText()
 		local item = itemLib.makeItemFromRaw(buildRaw())
 		return item ~= nil
 	end
-	popup.controls.save.tooltip = function()
+	popup.controls.save.tooltipFunc = function()
 		local item = itemLib.makeItemFromRaw(buildRaw())
 		if item then
 			self:AddItemTooltip(item, nil, true)
+			return data.colorCodes[item.rarity], true
 		else
-			return 
-[[The item is invalid.
-Check that the item's title and base name are in the correct format.
-For Rare and Unique items, the first 2 lines must be the title and base name. E.g:
-Abberath's Horn
-Goat's Horn
-For Normal and Magic items, the base name must be somewhere in the first line. E.g:
-Scholar's Platinum Kris of Joy]]
+			main:AddTooltipLine(14, "The item is invalid.")
+			main:AddTooltipLine(14, "Check that the item's title and base name are in the correct format.")
+			main:AddTooltipLine(14, "For Rare and Unique items, the first 2 lines must be the title and base name. E.g:")
+			main:AddTooltipLine(14, "Abberath's Horn")
+			main:AddTooltipLine(14, "Goat's Horn")
+			main:AddTooltipLine(14, "For Normal and Magic items, the base name must be somewhere in the first line. E.g:")
+			main:AddTooltipLine(14, "Scholar's Platinum Kris of Joy")
 		end
 	end	
 end
@@ -345,6 +473,49 @@ function ItemsTabClass:SetDisplayItem(item)
 		self.controls.displayItemVariant.sel = item.variant
 		self:UpdateDisplayItemRangeLines()
 		self.controls.scrollBarH:SetOffset(self.controls.scrollBarH.offsetMax)
+		item.craftable = item.crafted and item.affixes and item.affixLimit > 0
+		if item.craftable then
+			local prefixList = { }
+			local suffixList = { }
+			for name, data in pairs(item.affixes) do
+				if not data.exclude or (not data.exclude[item.base.subType] and not data.exclude[item.baseName]) then
+					if data.type == "Prefix" then
+						t_insert(prefixList, name)
+					elseif data.type == "Suffix" then
+						t_insert(suffixList, name)
+					end
+				end
+			end
+			table.sort(prefixList)
+			t_insert(prefixList, 1, "None")
+			table.sort(suffixList)
+			t_insert(suffixList, 1, "None")
+			local prefixTable = { }
+			local suffixTable = { }
+			for list, out in pairs({[prefixList] = prefixTable, [suffixList] = suffixTable}) do
+				for i, name in pairs(list) do
+					out[i] = {
+						label = name,
+						value = name,
+					}
+					if item.affixes[name] then
+						out[i].label = out[i].label .. "   ^8[" .. table.concat(item.affixes[name], "/") .. "]"
+					end
+				end
+			end
+			for i = 1, item.affixLimit/2 do
+				local pre = self.controls["displayItemAffix"..i]
+				pre.list = prefixTable
+				pre.outputTable = "prefixes"
+				pre.outputIndex = i
+				pre.sel = isValueInArray(prefixList, item.prefixes[i] or "None") or 1
+				local suf = self.controls["displayItemAffix"..(i+item.affixLimit/2)]
+				suf.list = suffixTable
+				suf.outputTable = "suffixes"
+				suf.outputIndex = i
+				suf.sel = isValueInArray(suffixList, item.suffixes[i] or "None") or 1
+			end
+		end
 	else
 		self.controls.scrollBarH:SetOffset(0)
 	end
@@ -412,6 +583,13 @@ function ItemsTabClass:DeleteItem(item)
 		if id == item.id then
 			t_remove(self.orderList, index)
 			break
+		end
+	end
+	for _, spec in pairs(self.build.treeTab.specList) do
+		for nodeId, itemId in pairs(spec.jewels) do
+			if itemId == item.id then
+				spec.jewels[nodeId] = 0
+			end
 		end
 	end
 	self.list[item.id] = nil
@@ -525,7 +703,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		for _, def in ipairs({{var="Armour",label="Armour"},{var="Evasion",label="Evasion Rating"},{var="EnergyShield",label="Energy Shield"}}) do
 			local itemVal = armourData[def.var]
 			if itemVal and itemVal > 0 then
-				main:AddTooltipLine(16, s_format("^x7F7F7F%s: %s%d", def.label, itemVal ~= base.armour[def.var.."Base"] and data.colorCodes.MAGIC or "^7", itemVal))
+				main:AddTooltipLine(16, s_format("^x7F7F7F%s: %s%d", def.label, itemVal ~= base.armour[def.var:sub(1,1):lower()..def.var:sub(2,-1).."Base"] and data.colorCodes.MAGIC or "^7", itemVal))
 			end
 		end
 	elseif base.flask then
@@ -593,7 +771,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 					main:AddTooltipLine(16, colorCode..line)
 				end
 			end
-			if index == item.implicitLines and item.modLines[index + 1] then
+			if index == item.implicitLines + item.buffLines and item.modLines[index + 1] then
 				-- Add separator between implicit and explicit modifiers
 				main:AddTooltipSeparator(10)
 			end
@@ -602,7 +780,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 
 	-- Corrupted item label
 	if item.corrupted then
-		if #item.modLines == item.implicitLines then
+		if #item.modLines == item.implicitLines + item.buffLines then
 			main:AddTooltipSeparator(10)
 		end
 		main:AddTooltipLine(16, "^1Corrupted")

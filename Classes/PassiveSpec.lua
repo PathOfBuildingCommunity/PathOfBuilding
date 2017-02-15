@@ -37,6 +37,10 @@ local PassiveSpecClass = common.NewClass("PassiveSpec", "UndoHandler", function(
 	-- Keys are node IDs, values are nodes
 	self.allocNodes = { }
 
+	-- Table of jewels equipped in this tree
+	-- Keys are node IDs, values are items
+	self.jewels = { }
+
 	self:SelectClass(0)
 end)
 
@@ -46,10 +50,24 @@ function PassiveSpecClass:Load(xml, dbFileName)
 		if type(node) == "table" then
 			if node.elem == "URL" then
 				if type(node[1]) ~= "string" then
-					launch:ShowErrMsg("^1Error parsing '%s': 'URL' element missing content", fileName)
+					launch:ShowErrMsg("^1Error parsing '%s': 'URL' element missing content", dbFileName)
 					return true
 				end
 				self:DecodeURL(node[1])
+			elseif node.elem == "Sockets" then
+				for _, child in ipairs(node) do
+					if child.elem == "Socket" then
+						if not child.attrib.nodeId then
+							launch:ShowErrMsg("^1Error parsing '%s': 'Socket' element missing 'nodeId' attribute", dbFileName)
+							return true
+						end
+						if not child.attrib.itemId then
+							launch:ShowErrMsg("^1Error parsing '%s': 'Socket' element missing 'itemId' attribute", dbFileName)
+							return true
+						end
+						self.jewels[tonumber(child.attrib.nodeId)] = tonumber(child.attrib.itemId)
+					end
+				end
 			end
 		end
 	end
@@ -64,6 +82,13 @@ function PassiveSpecClass:Save(xml)
 		elem = "URL", 
 		[1] = self:EncodeURL("https://www.pathofexile.com/passive-skill-tree/")
 	})
+	local sockets = {
+		elem = "Sockets"
+	}
+	for nodeId, itemId in pairs(self.jewels) do
+		t_insert(sockets, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(itemId) } })
+	end
+	t_insert(xml, sockets)
 	self.modFlag = false
 end
 

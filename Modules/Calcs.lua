@@ -571,13 +571,11 @@ end
 -- The following functions perform various steps in the calculations process.
 -- Depending on what is being done with the output, other code may run inbetween steps, however the steps must always be performed in order:
 -- 1. Initialise environment (initEnv)
--- 2. Merge main modifiers (mergeMainMods)
--- 3. Run calculations (performCalcs)
+-- 2. Run calculations (performCalcs)
 --
 -- Thus a basic calculation pass would look like this:
 -- 
 -- local env = initEnv(build, mode)
--- mergeMainMods(env)
 -- performCalcs(env)
 --
 
@@ -585,15 +583,23 @@ local tempTable1 = { }
 local tempTable2 = { }
 local tempTable3 = { }
 
--- Initialise environment
--- This will initialise the modifier databases
-local function initEnv(build, mode)
+-- Initialise environment: 
+-- 1. Initialises the modifier databases
+-- 2. Merges modifiers for all items
+-- 3. Builds a list of jewels with radius functions
+-- 4. Merges modifiers for all allocated passive nodes
+-- 5. Builds a list of active skills and their supports
+-- 6. Builds modifier lists for all active skills
+local function initEnv(build, mode, override)
+	override = override or { }
+
 	local env = { }
 	env.build = build
 	env.configInput = build.configTab.input
 	env.calcsInput = build.calcsTab.input
 	env.mode = mode
-	env.classId = build.spec.curClassId
+	env.spec = override.spec or build.spec
+	env.classId = env.spec.curClassId
 
 	-- Initialise modifier database with base values
 	local modDB = common.New("ModDB")
@@ -675,19 +681,6 @@ local function initEnv(build, mode)
 	modDB:AddList(build.configTab.modList)
 	enemyDB:AddList(build.configTab.enemyModList)
 
-	return env
-end
-
--- This function:
--- 1. Merges modifiers for all items
--- 2. Builds a list of jewels with radius functions
--- 3. Merges modifiers for all allocated passive nodes
--- 4. Builds a list of active skills and their supports
--- 5. Builds modifier lists for all active skills
-local function mergeMainMods(env, override)
-	local build = env.build
-	override = override or { }
-
 	-- Build list of passive nodes
 	local nodes
 	if override.addNodes or override.removeNodes then
@@ -697,13 +690,13 @@ local function mergeMainMods(env, override)
 				nodes[node.id] = node
 			end
 		end
-		for _, node in pairs(build.spec.allocNodes) do
+		for _, node in pairs(env.spec.allocNodes) do
 			if not override.removeNodes or not override.removeNodes[node] then
 				nodes[node.id] = node
 			end
 		end
 	else
-		nodes = build.spec.allocNodes
+		nodes = env.spec.allocNodes
 	end
 
 	-- Build and merge item modifiers, and create list of radius jewels
@@ -715,6 +708,8 @@ local function mergeMainMods(env, override)
 		local item
 		if slotName == override.repSlotName then
 			item = override.repItem
+		elseif slot.nodeId and override.spec then
+			item = build.itemsTab.list[env.spec.jewels[slot.nodeId]]
 		else
 			item = build.itemsTab.list[slot.selItemId]
 		end
@@ -995,6 +990,8 @@ local function mergeMainMods(env, override)
 	for _, activeSkill in pairs(env.activeSkillList) do
 		buildActiveSkillModList(env, activeSkill)
 	end
+
+	return env
 end
 
 -- Finalise environment and perform the calculations
@@ -1115,6 +1112,24 @@ local function performCalcs(env)
 		condList["Effective"] = true
 	end
 
+	-- Check for extra curses
+	for _, value in ipairs(modDB:Sum("LIST", nil, "ExtraCurse")) do
+		local modList = common.New("ModList")
+		mergeGemMods(modList, {
+			level = value.level,
+			quality = 0,
+			data = data.gems[value.name],
+		})
+		for _, mod in ipairs(modList) do
+			for _, tag in ipairs(mod.tagList) do
+				if tag.type == "GlobalEffect" and tag.effectType == "Curse" then
+					enemyDB:AddMod(mod)
+					break
+				end
+			end
+		end
+	end
+	
 	-- Check for extra modifiers to apply to aura skills
 	local extraAuraModList = { }
 	if modDB.mods.ExtraAuraEffect then
@@ -1123,7 +1138,7 @@ local function performCalcs(env)
 			t_insert(extraAuraModList, mod.value)
 		end
 	end
-	
+
 	-- Merge auxillary skill modifiers and calculate skill life and mana reservations
 	env.reserved_LifeBase = 0
 	env.reserved_LifePercent = 0
@@ -2243,10 +2258,12 @@ local function performCalcs(env)
 		output.TotalMin = totalHitMin
 		output.TotalMax = totalHitMax
 
-		-- Update enemy hit-by-damage-type conditions
-		enemyDB.conditions.HitByFireDamage = output.FireHitAverage > 0
-		enemyDB.conditions.HitByColdDamage = output.ColdHitAverage > 0
-		enemyDB.conditions.HitByLightningDamage = output.LightningHitAverage > 0
+		if output.FireHitAverage + output.ColdHitAverage + output.LightningHitAverage > 0 then
+			-- Update enemy hit-by-damage-type conditions
+			enemyDB.conditions.HitByFireDamage = output.FireHitAverage > 0
+			enemyDB.conditions.HitByColdDamage = output.ColdHitAverage > 0
+			enemyDB.conditions.HitByLightningDamage = output.LightningHitAverage > 0
+		end
 
 		-- Calculate average damage and final DPS
 		output.AverageHit = (totalHitMin + totalHitMax) / 2 * (1 - output.CritChance / 100) + (totalCritMin + totalCritMax) / 2 * output.CritChance / 100
@@ -2888,9 +2905,6 @@ local function getCalculator(build, fullInit, modFunc)
 	local env = initEnv(build, "CALCULATOR")
 
 	-- Save a copy of the initial mod database
-	if fullInit then
-		mergeMainMods(env)
-	end
 	local initModDB = common.New("ModDB")
 	initModDB:AddDB(env.modDB)
 	initModDB.conditions = copyTable(env.modDB.conditions)
@@ -2899,9 +2913,6 @@ local function getCalculator(build, fullInit, modFunc)
 	initEnemyDB:AddDB(env.enemyDB)
 	initEnemyDB.conditions = copyTable(env.enemyDB.conditions)
 	initEnemyDB.multipliers = copyTable(env.enemyDB.multipliers)
-	if not fullInit then
-		mergeMainMods(env)
-	end
 
 	-- Run base calculation pass
 	performCalcs(env)
@@ -2959,16 +2970,22 @@ end
 
 -- Get calculator for other changes (adding/removing nodes, items, gems, etc)
 function calcs.getMiscCalculator(build)
-	return getCalculator(build, false, function(env, override)
-		mergeMainMods(env, override)
-	end)
+	-- Run base calculation pass
+	local env = initEnv(build, "CALCULATOR")
+	performCalcs(env)
+	local baseOutput = env.output
+
+	return function(override)
+		env = initEnv(build, "CALCULATOR", override)
+		performCalcs(env)
+		return env.output
+	end, baseOutput	
 end
 
 -- Build output for display in the side bar or calcs tab
 function calcs.buildOutput(build, mode)
 	-- Build output
 	local env = initEnv(build, mode)
-	mergeMainMods(env)
 	performCalcs(env)
 
 	local output = env.output
@@ -3041,6 +3058,9 @@ function calcs.buildOutput(build, mode)
 					t_insert(curseList, activeSkill.activeGem.name)
 				end
 			end
+		end
+		for _, value in ipairs(env.modDB:Sum("LIST", nil, "ExtraCurse")) do
+			t_insert(curseList, value.name)
 		end
 		output.BuffList = table.concat(buffList, ", ")
 		output.CombatList = table.concat(combatList, ", ")

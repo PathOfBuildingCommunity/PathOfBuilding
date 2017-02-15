@@ -57,6 +57,7 @@ local modNameList = {
 	["maximum life"] = "Life",
 	["mana"] = "Mana",
 	["maximum mana"] = "Mana",
+	["mana regeneration"] = "ManaRegen",
 	["mana regeneration rate"] = "ManaRegen",
 	["mana cost"] = "ManaCost",
 	["mana cost of skills"] = "ManaCost",
@@ -633,6 +634,8 @@ local specialModList = {
 	["ignited enemies burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnRate", "INC", num) } end,
 	["enemies ignited by an attack burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnRate", "INC", num, nil, ModFlag.Attack) } end,
 	["gain unholy might during flask effect"] = { mod("Misc", "LIST", { type = "Condition", var = "UnholyMight" }, { type = "Condition", var = "UsingFlask" }) },
+	["zealot's oath during flask effect"] = { mod("ZealotsOath", "FLAG", true, { type = "Condition", var = "UsingFlask" }) },
+	["grants level (%d+) (.+) curse aura during flask effect"] = function(num, _, skill) return { mod("ExtraCurse", "LIST", { name = gemNameLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "Condition", var = "UsingFlask" }) } end,
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques
@@ -825,12 +828,14 @@ local jewelFuncs = {
 -- If a match is found, returns the corresponding value from the pattern list, plus the remainder of the line and a table of captures
 local function scan(line, patternList, plain)
 	local bestIndex, bestEndIndex
+	local bestPattern = ""
 	local bestMatch = { nil, line, nil }
 	for pattern, patternVal in pairs(patternList) do
 		local index, endIndex, cap1, cap2, cap3, cap4, cap5 = line:lower():find(pattern, 1, plain)
-		if index and (not bestIndex or index < bestIndex or (index == bestIndex and endIndex > bestEndIndex)) then
+		if index and (not bestIndex or index < bestIndex or (index == bestIndex and (endIndex > bestEndIndex or (endIndex == bestEndIndex and #pattern > #bestPattern)))) then
 			bestIndex = index
 			bestEndIndex = endIndex
+			bestPattern = pattern
 			bestMatch = { patternVal, line:sub(1, index - 1)..line:sub(endIndex + 1, -1), { cap1, cap2, cap3, cap4, cap5 } }
 		end
 	end
@@ -861,7 +866,7 @@ local function parseMod(line, order)
 	local modForm, formCap
 	modForm, line, formCap = scan(line, formList)
 	if not modForm then
-		return
+		return nil, line
 	end
 	local num = tonumber(formCap[1])
 

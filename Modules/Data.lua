@@ -120,6 +120,10 @@ SkillType = {
 	ColdSpell = 60, -- Used for Cospri's Malice
 }
 
+data.itemMods = { }
+data.itemMods.Flask = LoadModule("Data/ModFlask")
+data.itemMods.Jewel = LoadModule("Data/ModJewel")
+
 data.gems = { }
 local function makeGemMod(modName, modType, modVal, flags, keywordFlags, ...)
 	return {
@@ -258,7 +262,7 @@ local itemTypes = {
 	"ring",
 	"belt",
 	"jewel",
-	launch.enableFlasks and "flask" or nil,
+	"flask",
 }
 for _, type in pairs(itemTypes) do
 	LoadModule("Data/Bases/"..type, data.itemBases)

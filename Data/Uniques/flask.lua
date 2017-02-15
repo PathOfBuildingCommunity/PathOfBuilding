@@ -158,7 +158,7 @@ Sin's Rebirth
 Stibnite Flask
 100% increased Evasion Rating
 Requires Level 14
-Implicits: 2
+Implicits: 1
 Creates a Smoke Cloud on Use
 Gain Unholy Might during Flask Effect
 Immunity to Ignite during Flask effect
@@ -181,7 +181,7 @@ The Overflowing Chalice
 Sulphur Flask
 40% increased Damage
 Requires Level 35
-Implicits: 2
+Implicits: 1
 Creates Consecrated Ground on Use
 100% increased Charge Recovery
 (10-20)% increased Duration
@@ -192,7 +192,7 @@ The Sorrow of the Divine
 Sulphur Flask
 40% increased Damage
 Requires Level 35
-Implicits: 2
+Implicits: 1
 Creates Consecrated Ground on Use
 (25-50)% increased Duration
 Zealot's Oath during Flask effect
@@ -227,7 +227,7 @@ Witchfire Brew
 Stibnite Flask
 100% increased Evasion Rating
 Requires Level 48
-Implicits: 2
+Implicits: 1
 Creates a Smoke Cloud on Use
 50% increased Charges used
 (50-70)% increased Damage Over Time during Flask Effect

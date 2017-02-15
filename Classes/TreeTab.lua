@@ -21,15 +21,33 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 	self:SetActiveSpec(1)
 
 	self.anchorControls = common.New("Control", nil, 0, 0, 0, 20)
-	--[[self.controls.specSelect = common.New("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 150, 20, nil, function(sel)
+	self.controls.specSelect = common.New("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 150, 20, nil, function(sel, selVal)
 		if self.specList[sel] then
+			self.build.modFlag = true
 			self:SetActiveSpec(sel)
 		else
 			self:OpenSpecManagePopup()
 		end
-	end)]]
-	--self.controls.reset = common.New("ButtonControl", {"LEFT",self.controls.specSelect,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
-	self.controls.reset = common.New("ButtonControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 60, 20, "Reset", function()
+	end)
+	self.controls.specSelect.tooltipFunc = function(mode, sel, selVal)
+		if mode ~= "OUT" then
+			local spec = self.specList[sel]
+			if spec then
+				local used = spec:CountAllocNodes()
+				main:AddTooltipLine(16, "Class: "..spec.curClassName)
+				main:AddTooltipLine(16, "Ascendancy: "..spec.curAscendClassName)
+				main:AddTooltipLine(16, "Points used: "..used)
+				if sel ~= self.activeSpec then
+					local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
+					if calcFunc then
+						local output = calcFunc({ spec = spec })
+						self.build:AddStatComparesToTooltip(calcBase, output, "^7Switching to this tree will give you:")
+					end
+				end
+			end
+		end
+	end
+	self.controls.reset = common.New("ButtonControl", {"LEFT",self.controls.specSelect,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
 		main:OpenConfirmPopup("Reset Tree", "Are you sure you want to reset your passive tree?", "Reset", function()
 			self.build.spec:ResetNodes()
 			self.build.spec:AddUndoState()
@@ -73,12 +91,12 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - 32 }
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
-	--[[self.controls.specSelect.sel = self.activeSpec
+	self.controls.specSelect.sel = self.activeSpec
 	wipeTable(self.controls.specSelect.list)
 	for id, spec in ipairs(self.specList) do
 		t_insert(self.controls.specSelect.list, spec.title or "Default")
 	end
-	t_insert(self.controls.specSelect.list, "Manage trees...")]]
+	t_insert(self.controls.specSelect.list, "Manage trees...")
 	if not self.controls.treeSearch.hasFocus then
 		self.controls.treeSearch:SetText(self.viewer.searchStr)
 	end
@@ -123,7 +141,15 @@ function TreeTabClass:Save(xml)
 	xml.attrib = { 
 		activeSpec = tostring(self.activeSpec)
 	}
-	for _, spec in ipairs(self.specList) do
+	for specId, spec in ipairs(self.specList) do
+		if specId == self.activeSpec then
+			-- Update this spec's jewels from the socket slots
+			for _, slot in pairs(self.build.itemsTab.slots) do
+				if slot.nodeId then
+					spec.jewels[slot.nodeId] = slot.selItemId
+				end
+			end
+		end
 		local child = {
 			elem = "Spec"
 		}
@@ -133,13 +159,35 @@ function TreeTabClass:Save(xml)
 end
 
 function TreeTabClass:SetActiveSpec(specId)
+	local prevSpec = self.build.spec
 	self.activeSpec = m_min(specId, #self.specList)
-	self.build.spec = self.specList[self.activeSpec]
+	local curSpec = self.specList[self.activeSpec]
+	self.build.spec = curSpec
 	self.build.buildFlag = true
+	for _, slot in pairs(self.build.itemsTab.slots) do
+		if slot.nodeId then
+			if prevSpec then
+				-- Update the previous spec's jewel for this slot
+				prevSpec.jewels[slot.nodeId] = slot.selItemId
+			end
+			if curSpec.jewels[slot.nodeId] then
+				-- Socket the jewel for the new spec
+				slot.selItemId = curSpec.jewels[slot.nodeId]
+			end
+		end
+	end
+	if self.build.itemsTab.orderList[1] then
+		-- Update item slots if items have been loaded already
+		self.build.itemsTab:PopulateSlots()
+	end
 end
 
 function TreeTabClass:OpenSpecManagePopup()
-	main:OpenPopup(500, 400, "Manage Passive Trees", {
+	main:OpenPopup(370, 290, "Manage Passive Trees", {
+		common.New("PassiveSpecList", nil, 0, 50, 350, 200, self),
+		common.New("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
+			main:ClosePopup()
+		end),
 	})
 end
 

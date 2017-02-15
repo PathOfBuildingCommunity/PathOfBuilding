@@ -1,3 +1,24 @@
+VERSION[1.3.0][2017/02/15]
+This update adds support for Flasks:
+ * Flask slots have been added to the Items tab. Checkboxes next to each slot allow the flasks to be individually activated.
+ * All flask-related modifiers are now supported
+ * Flask modifiers have been added to the belt templates; this will not affect items previously created from templates
+ * All unique flasks have been added to the Uniques database
+ * There will not be templates for flasks; custom flasks can be created using the new crafting system
+Additionally, a new item crafting system has been added:
+ * You can access it by clicking "Craft item..." in the Items tab
+ * You can choose the rarity and base type of the item from lists
+ * For flasks and jewels, you can choose the item's affixes from lists once you've created the item
+ * For other items, modifiers must be added manually for now, so you may continue to use templates for them
+Other changes:
+ * You can now have multiple passive trees within one build!
+    * To add more trees, select "Manage trees..." from the new dropdown at the bottom left corner of the Tree tab
+    * Different trees may have different jewels socketed in them
+	* Hovering over a passive tree in the dropdown will show you the stat differences from switching to that tree
+ * Hovering over gem names in the gem dropdown now shows the stat differences from selecting that gem
+ * Hovering over the gem enable checkbox now shows the stat differences from enabling/disabling that gem
+ * Passive node stat differences now show the value per point when showing the difference from multiple passives
+ * Fixed issue preventing Elemental Equilibrium from functioning correctly with skills that don't hit
 VERSION[1.2.41][2017/02/13]
  * The program now shows the save prompt before updating if there are unsaved changes
  * Added options to the Configuration tab for: Enemy Blinded, Dealt Non-Crit Recently, Ignited/Frozen an Enemy Recently

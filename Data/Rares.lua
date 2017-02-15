@@ -108,9 +108,14 @@ Prefixes:
 {range:0}+(0 to 51) to maximum Energy Shield
 {range:0}+(0 to 460) to Armour
 {range:0}(0 to 42)% increased Elemental Damage with Weapons
+{range:0}(0 to 20)% increased Flask Life Recovery rate
+{range:0}(0 to 20)% increased Flask Mana Recovery rate
 Suffixes:
 {str}
-{res}]],
+{res}
+{range:0}(0 to 20)% increased Flask Charges gained
+{range:0}(0 to 20)% reduced Flask Charges used
+{range:0}(0 to 20)% increased Flask effect duration]],
 	["phys 1h pre"] = [[
 Prefixes:
 {range:.5}(0 to 179)% increased Physical Damage

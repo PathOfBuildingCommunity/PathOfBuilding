@@ -327,7 +327,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 	local slotName
 	if itemData.inventoryId == "PassiveJewels" and sockets then
 		slotName = "Jewel "..sockets[itemData.x + 1]
-	elseif launch.enableFlasks and itemData.inventoryId == "Flask" then -- FIXME Flask release
+	elseif itemData.inventoryId == "Flask" then
 		slotName = "Flask "..(itemData.x + 1)
 	else
 		slotName = slotMap[itemData.inventoryId]
@@ -405,19 +405,17 @@ function ImportTabClass:ImportItem(itemData, sockets)
 	if itemData.implicitMods then
 		item.implicitLines = item.implicitLines + #itemData.implicitMods
 		for _, line in ipairs(itemData.implicitMods) do
-			for line in line:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod(line)
-				t_insert(item.modLines, { line = line, extra = extra, mods = modList or { } })
-			end
+			line = line:gsub("\n"," ")
+			local modList, extra = modLib.parseMod(line)
+			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { } })
 		end
 	end
 	if itemData.enchantMods then
 		item.implicitLines = item.implicitLines + #itemData.enchantMods
 		for _, line in ipairs(itemData.enchantMods) do
-			for line in line:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod(line)
-				t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
-			end
+			line = line:gsub("\n"," ")
+			local modList, extra = modLib.parseMod(line)
+			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
 		end
 	end
 	if itemData.explicitMods then

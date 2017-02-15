@@ -9,6 +9,12 @@ local ButtonClass = common.NewClass("ButtonControl", "Control", function(self, a
 	self.Control(anchor, x, y, width, height)
 	self.label = label
 	self.onClick = onClick
+	self.tooltipFunc = function()
+		local tooltip = self:GetProperty("tooltip")
+		if tooltip then
+			main:AddTooltipLine(14, tooltip)
+		end
+	end
 end)
 
 function ButtonClass:Click()
@@ -66,13 +72,10 @@ function ButtonClass:Draw(viewPort)
 		local overSize = self.overSizeText or 0
 		DrawString(x + width / 2, y + 2 - overSize, "CENTER_X", height - 4 + overSize * 2, "VAR",label )
 	end
-	if mOver and self.tooltip then
-		local tooltip = self:GetProperty("tooltip")
-		if tooltip then
-			main:AddTooltipLine(16, tooltip)
-		end
+	if mOver then
 		SetDrawLayer(nil, 100)
-		main:DrawTooltip(x, y, width, height, viewPort)
+		local col, center = self.tooltipFunc()
+		main:DrawTooltip(x, y, width, height, viewPort, col, center)
 		SetDrawLayer(nil, 0)
 	end
 end
