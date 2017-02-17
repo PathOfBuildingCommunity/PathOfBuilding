@@ -235,13 +235,15 @@ local function buildActiveSkillModList(env, activeSkill)
 			skillFlags.disable = true
 		end
 		if skillTypes[SkillType.DualWield] or skillTypes[SkillType.CanDualWield] then
-			local weapon2Flags = getWeaponFlags(env.weaponData2, weaponTypes)
-			if weapon2Flags then
-				activeSkill.weapon2Flags = weapon2Flags
-				skillFlags.weapon2Attack = true
-			elseif skillTypes[SkillType.DualWield] or not skillFlags.weapon1Attack then
-				-- Skill requires a compatible off hand weapon
-				skillFlags.disable = true
+			if not skillTypes[SkillType.MainHandOnly] then
+				local weapon2Flags = getWeaponFlags(env.weaponData2, weaponTypes)
+				if weapon2Flags then
+					activeSkill.weapon2Flags = weapon2Flags
+					skillFlags.weapon2Attack = true
+				elseif skillTypes[SkillType.DualWield] or not skillFlags.weapon1Attack then
+					-- Skill requires a compatible off hand weapon
+					skillFlags.disable = true
+				end
 			end
 		elseif env.weaponData2.type then
 			-- Skill cannot be used while dual wielding
@@ -2326,7 +2328,7 @@ local function performCalcs(env)
 			}
 		end
 		if skillData.dpsMultiplier then
-			t_insert(breakdown.TotalDPS, s_format("x %d ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+			t_insert(breakdown.TotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
 		end
 		t_insert(breakdown.TotalDPS, s_format("= %.1f", output.TotalDPS))
 	end

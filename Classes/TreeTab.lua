@@ -33,10 +33,13 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 		if mode ~= "OUT" then
 			local spec = self.specList[sel]
 			if spec then
-				local used = spec:CountAllocNodes()
+				local used, ascUsed, sockets = spec:CountAllocNodes()
 				main:AddTooltipLine(16, "Class: "..spec.curClassName)
 				main:AddTooltipLine(16, "Ascendancy: "..spec.curAscendClassName)
 				main:AddTooltipLine(16, "Points used: "..used)
+				if sockets > 0 then
+					main:AddTooltipLine(16, "Jewel sockets: "..sockets)
+				end
 				if sel ~= self.activeSpec then
 					local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 					if calcFunc then

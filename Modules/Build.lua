@@ -621,11 +621,16 @@ function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header, n
 				end
 				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE
 				local line = string.format("%s%+"..statData.fmt.." %s", color, diff * ((statData.pc or statData.mod) and 100 or 1), statData.label)
+				local pcPerPt = ""
 				if statData.compPercent and (baseOutput[statData.stat] or 0) ~= 0 and (compareOutput[statData.stat] or 0) ~= 0 then
-					line = line .. string.format(" (%+.1f%%)", (compareOutput[statData.stat] or 0) / (baseOutput[statData.stat] or 0) * 100 - 100)
+					local pc = (compareOutput[statData.stat] or 0) / (baseOutput[statData.stat] or 0) * 100 - 100
+					line = line .. string.format(" (%+.1f%%)", pc)
+					if nodeCount then
+						pcPerPt = string.format(" (%+.1f%%)", pc / nodeCount)
+					end
 				end
 				if nodeCount then
-					line = line .. string.format(" ^8(%+"..statData.fmt.." per point)", diff * ((statData.pc or statData.mod) and 100 or 1) / nodeCount)
+					line = line .. string.format(" ^8[%+"..statData.fmt.."%s per point]", diff * ((statData.pc or statData.mod) and 100 or 1) / nodeCount, pcPerPt)
 				end
 				main:AddTooltipLine(14, line)
 				count = count + 1
@@ -656,6 +661,12 @@ function buildMode:LoadDB(xmlText, fileName)
 					return true
 				end
 			end
+		end
+	end
+
+	for _, saver in pairs(self.savers) do
+		if saver.PostLoad then
+			saver:PostLoad()
 		end
 	end
 end
