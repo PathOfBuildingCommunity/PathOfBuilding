@@ -315,7 +315,7 @@ end
 
 -- Count the number of allocated nodes and allocated ascendancy nodes
 function PassiveSpecClass:CountAllocNodes()
-	local used, ascUsed = 0, 0
+	local used, ascUsed, sockets = 0, 0, 0
 	for _, node in pairs(self.allocNodes) do
 		if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
 			if node.ascendancyName then
@@ -325,9 +325,12 @@ function PassiveSpecClass:CountAllocNodes()
 			else
 				used = used + 1
 			end
+			if node.type == "socket" then
+				sockets = sockets + 1
+			end
 		end
 	end
-	return used, ascUsed
+	return used, ascUsed, sockets
 end
 
 -- Perform a breadth-first search of the tree, starting from this node, and determine if it is the closest node to any other nodes

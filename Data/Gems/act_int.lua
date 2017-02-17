@@ -1600,7 +1600,7 @@ gems["Flameblast"] = {
 		--"is_area_damage" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		mod("Damage", "MORE", 990, 0, 0, { type = "SkillPart", skillPart = 2 }), 
-		mod("Speed", "MORE", -90, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		skill("dpsMultiplier", 0.1, { type = "SkillPart", skillPart = 2 }), 
 		skill("showAverage", false), 
 	},
 	qualityMods = {

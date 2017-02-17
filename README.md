@@ -10,7 +10,6 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
   * Supports most skills, support gems, passives and item modifiers
     * Throughout the program, supported modifiers will show in blue and unsupported ones in red
     * Most minion skill are unsupported at present (except for golems, which can provide buffs to you)
-    * No support for flasks yet
 * Passive skill tree planner:
   * Support for jewels including most radius/conversion jewels
   * Features alternate path tracing (mouse over a sequence of nodes while holding shift, then click to allocate them all)
@@ -48,7 +47,15 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
-### 1.3.0 - 2017/02/15
+### 1.3.1 - 2017/02/18
+ * Added socket count to the tooltips in the passive tree selection dropdown menu
+ * Added percentage values to the per-point stat differences for passive nodes
+ * Flameblast's 10 Stages skill part now uses a x0.1 DPS multiplier instead of a 90% less Cast Speed modifier
+    * The cast rate will now reflect the time taken to build each stage, rather than the total time to build 10 stages
+	* This change will prevent an issue where adding increased cast speed would have no effect under some conditions
+ * Skills that only use the main-hand when dual wielding will now be handled correctly
+
+### 1.3.0 - 2017/02/16
 This update adds support for Flasks:
  * Flask slots have been added to the Items tab. Checkboxes next to each slot allow the flasks to be individually activated.
  * All flask-related modifiers are now supported
