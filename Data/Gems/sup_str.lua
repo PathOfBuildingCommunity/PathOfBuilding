@@ -1297,7 +1297,7 @@ gems["Spell Totem"] = {
 		--"is_totem" = 1
 		--"base_totem_duration" = 8000
 		--"base_totem_range" = 60
-		mod("Speed", "MORE", -30, ModFlag.Spell), --"support_spell_totem_cast_speed_+%_final" = -30
+		mod("Speed", "MORE", -30, ModFlag.Cast), --"support_spell_totem_cast_speed_+%_final" = -30
 		--"base_skill_is_totemified" = ?
 	},
 	qualityMods = {

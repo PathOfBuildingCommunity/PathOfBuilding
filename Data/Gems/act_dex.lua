@@ -950,7 +950,7 @@ gems["Desecrate"] = {
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("Speed", "INC", 1, ModFlag.Spell), --"base_cast_speed_+%" = 1
+		mod("Speed", "INC", 1, ModFlag.Cast), --"base_cast_speed_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -996,7 +996,61 @@ gems["Detonate Dead"] = {
 	cast = true,
 	area = true,
 	fire = true,
-	unsupported = true,
+	color = 2,
+	baseFlags = {
+		cast = true,
+		area = true,
+		fire = true,
+	},
+	skillTypes = { [39] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, },
+	baseMods = {
+		skill("castTime", 0.8), 
+		skill("critChance", 5), 
+		--"corpse_explosion_monster_life_%" = 6
+		--"is_area_damage" = 1
+		--"display_skill_deals_secondary_damage" = ?
+		--"damage_cannot_be_reflected" = ?
+	},
+	qualityMods = {
+		mod("Speed", "INC", 1, ModFlag.Cast), --"base_cast_speed_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("manaCost", nil), 
+		[2] = skill("FireMin", nil), --"secondary_minimum_base_fire_damage"
+		[3] = skill("FireMax", nil), --"secondary_maximum_base_fire_damage"
+	},
+	levels = {
+		[1] = { 7, 4, 5, },
+		[2] = { 8, 5, 8, },
+		[3] = { 9, 8, 11, },
+		[4] = { 10, 9, 14, },
+		[5] = { 11, 13, 19, },
+		[6] = { 12, 17, 25, },
+		[7] = { 14, 22, 33, },
+		[8] = { 15, 28, 43, },
+		[9] = { 17, 36, 54, },
+		[10] = { 19, 46, 69, },
+		[11] = { 21, 58, 87, },
+		[12] = { 22, 72, 108, },
+		[13] = { 23, 90, 135, },
+		[14] = { 24, 111, 167, },
+		[15] = { 25, 130, 195, },
+		[16] = { 26, 152, 227, },
+		[17] = { 27, 176, 265, },
+		[18] = { 28, 205, 308, },
+		[19] = { 29, 238, 357, },
+		[20] = { 30, 276, 414, },
+		[21] = { 31, 304, 456, },
+		[22] = { 32, 335, 502, },
+		[23] = { 33, 369, 553, },
+		[24] = { 34, 406, 609, },
+		[25] = { 34, 446, 669, },
+		[26] = { 35, 491, 736, },
+		[27] = { 36, 539, 809, },
+		[28] = { 37, 592, 888, },
+		[29] = { 38, 650, 975, },
+		[30] = { 38, 713, 1070, },
+	},
 }
 gems["Vaal Detonate Dead"] = {
 	dexterity = true,
@@ -1005,7 +1059,61 @@ gems["Vaal Detonate Dead"] = {
 	cast = true,
 	area = true,
 	fire = true,
-	unsupported = true,
+	color = 2,
+	baseFlags = {
+		cast = true,
+		area = true,
+		fire = true,
+	},
+	skillTypes = { [39] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [43] = true, [33] = true, },
+	baseMods = {
+		skill("castTime", 0.8), 
+		skill("critChance", 5), 
+		--"corpse_explosion_monster_life_%" = 8
+		--"is_area_damage" = 1
+		--"display_skill_deals_secondary_damage" = ?
+		--"detonate_dead_chain_explode" = ?
+		--"damage_cannot_be_reflected" = ?
+	},
+	qualityMods = {
+		mod("Speed", "INC", 1, ModFlag.Cast), --"base_cast_speed_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("FireMin", nil), --"secondary_minimum_base_fire_damage"
+		[2] = skill("FireMax", nil), --"secondary_maximum_base_fire_damage"
+	},
+	levels = {
+		[1] = { 3, 5, },
+		[2] = { 5, 7, },
+		[3] = { 7, 10, },
+		[4] = { 8, 12, },
+		[5] = { 11, 17, },
+		[6] = { 15, 23, },
+		[7] = { 20, 30, },
+		[8] = { 26, 39, },
+		[9] = { 33, 50, },
+		[10] = { 42, 63, },
+		[11] = { 53, 79, },
+		[12] = { 66, 99, },
+		[13] = { 82, 122, },
+		[14] = { 101, 151, },
+		[15] = { 118, 177, },
+		[16] = { 138, 207, },
+		[17] = { 160, 241, },
+		[18] = { 186, 280, },
+		[19] = { 216, 325, },
+		[20] = { 251, 376, },
+		[21] = { 276, 415, },
+		[22] = { 304, 457, },
+		[23] = { 335, 503, },
+		[24] = { 369, 553, },
+		[25] = { 406, 609, },
+		[26] = { 446, 669, },
+		[27] = { 490, 735, },
+		[28] = { 538, 807, },
+		[29] = { 591, 886, },
+		[30] = { 649, 973, },
+	},
 }
 gems["Double Strike"] = {
 	dexterity = true,
@@ -1934,7 +2042,7 @@ gems["Haste"] = {
 	},
 	levelMods = {
 		[1] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_speed_+%"
-		[2] = mod("Speed", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cast_speed_+%_from_haste_aura"
+		[2] = mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cast_speed_+%_from_haste_aura"
 		[3] = mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_movement_velocity_+%"
 		[4] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
@@ -1998,7 +2106,7 @@ gems["Vaal Haste"] = {
 	},
 	levelMods = {
 		[1] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_speed_+%"
-		[2] = mod("Speed", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cast_speed_+%_from_haste_aura"
+		[2] = mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cast_speed_+%_from_haste_aura"
 		[3] = mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_movement_velocity_+%"
 		[4] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
 	},

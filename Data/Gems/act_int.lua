@@ -1468,7 +1468,7 @@ gems["Flame Dash"] = {
 		--"firestorm_use_server_effects" = ?
 	},
 	qualityMods = {
-		mod("Speed", "INC", 0.5, ModFlag.Spell), --"base_cast_speed_+%" = 0.5
+		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -1530,7 +1530,7 @@ gems["Flame Surge"] = {
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("Speed", "INC", 0.5, ModFlag.Spell), --"base_cast_speed_+%" = 0.5
+		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -2801,7 +2801,7 @@ gems["Lightning Warp"] = {
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
-		mod("Speed", "INC", 1, ModFlag.Spell), --"base_cast_speed_+%" = 1
+		mod("Speed", "INC", 1, ModFlag.Cast), --"base_cast_speed_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -2868,7 +2868,7 @@ gems["Vaal Lightning Warp"] = {
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
-		mod("Speed", "INC", 1, ModFlag.Spell), --"base_cast_speed_+%" = 1
+		mod("Speed", "INC", 1, ModFlag.Cast), --"base_cast_speed_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("LightningMin", nil), --"spell_minimum_base_lightning_damage"

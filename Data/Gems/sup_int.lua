@@ -621,10 +621,10 @@ gems["Faster Casting"] = {
 		mod("ManaCost", "MORE", 20), 
 	},
 	qualityMods = {
-		mod("Speed", "INC", 0.5, ModFlag.Spell), --"base_cast_speed_+%" = 0.5
+		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
 	},
 	levelMods = {
-		[1] = mod("Speed", "INC", nil, ModFlag.Spell), --"base_cast_speed_+%"
+		[1] = mod("Speed", "INC", nil, ModFlag.Cast), --"base_cast_speed_+%"
 	},
 	levels = {
 		[1] = { 20, },
@@ -1262,7 +1262,7 @@ gems["Spell Echo"] = {
 		mod("Damage", "INC", 0.5, ModFlag.Spell, 0, nil), --"spell_damage_+%" = 0.5
 	},
 	levelMods = {
-		[1] = mod("Speed", "MORE", nil, ModFlag.Spell), --"support_multicast_cast_speed_+%_final"
+		[1] = mod("Speed", "MORE", nil, ModFlag.Cast), --"support_multicast_cast_speed_+%_final"
 	},
 	levels = {
 		[1] = { 51, },

@@ -47,6 +47,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.2 - 2017/02/18
+ * Added support for the "increased Effect of Buffs on You" modifier on Ichimonji
+ * Added basic support for Detonate Dead; only the base damage is used
+ * Fixed issue preventing Unarmed from being correctly detected
+
 ### 1.3.1 - 2017/02/18
  * Added socket count to the tooltips in the passive tree selection dropdown menu
  * Added percentage values to the per-point stat differences for passive nodes

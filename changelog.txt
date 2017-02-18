@@ -1,3 +1,7 @@
+VERSION[1.3.2][2017/02/18]
+ * Added support for the "increased Effect of Buffs on You" modifier on Ichimonji
+ * Added basic support for Detonate Dead; only the base damage is used
+ * Fixed issue preventing Unarmed from being correctly detected
 VERSION[1.3.1][2017/02/18]
  * Added socket count to the tooltips in the passive tree selection dropdown menu
  * Added percentage values to the per-point stat differences for passive nodes

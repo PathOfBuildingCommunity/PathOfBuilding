@@ -481,11 +481,11 @@ gems["Culling Strike"] = {
 		mod("ManaCost", "MORE", 10), 
 		--"kill_enemy_on_hit_if_under_10%_life" = 1
 		mod("Speed", "INC", 0, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0
-		mod("Speed", "INC", 0, ModFlag.Spell), --"base_cast_speed_+%" = 0
+		mod("Speed", "INC", 0, ModFlag.Cast), --"base_cast_speed_+%" = 0
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
-		mod("Speed", "INC", 0.5, ModFlag.Spell), --"base_cast_speed_+%" = 0.5
+		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "INC", nil, 0, 0, nil), --"damage_+%"
@@ -616,7 +616,7 @@ gems["Faster Projectiles"] = {
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
-		mod("Speed", "INC", 0.5, ModFlag.Spell), --"base_cast_speed_+%" = 0.5
+		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("ProjectileSpeed", "INC", nil), --"base_projectile_speed_+%"
@@ -721,7 +721,7 @@ gems["Greater Multiple Projectiles"] = {
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
-		mod("Speed", "INC", 0.5, ModFlag.Spell), --"base_cast_speed_+%" = 0.5
+		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Projectile), --"support_multiple_projectile_damage_+%_final"
@@ -876,7 +876,7 @@ gems["Lesser Multiple Projectiles"] = {
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
-		mod("Speed", "INC", 0.5, ModFlag.Spell), --"base_cast_speed_+%" = 0.5
+		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Projectile), --"support_lesser_multiple_projectile_damage_+%_final"
