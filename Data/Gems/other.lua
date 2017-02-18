@@ -41,7 +41,7 @@ gems["Detonate Mines"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("Speed", "INC", 5, ModFlag.Spell), --"base_cast_speed_+%" = 5
+		mod("Speed", "INC", 5, ModFlag.Cast), --"base_cast_speed_+%" = 5
 	},
 	levelMods = {
 	},
@@ -72,7 +72,7 @@ gems["Portal"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("Speed", "INC", 3, ModFlag.Spell), --"base_cast_speed_+%" = 3
+		mod("Speed", "INC", 3, ModFlag.Cast), --"base_cast_speed_+%" = 3
 	},
 	levelMods = {
 	},

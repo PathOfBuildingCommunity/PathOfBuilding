@@ -1279,7 +1279,7 @@ gems["Immortal Call"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("Speed", "INC", 2, ModFlag.Spell), --"base_cast_speed_+%" = 2
+		mod("Speed", "INC", 2, ModFlag.Cast), --"base_cast_speed_+%" = 2
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -1338,7 +1338,7 @@ gems["Vaal Immortal Call"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("Speed", "INC", 2, ModFlag.Spell), --"base_cast_speed_+%" = 2
+		mod("Speed", "INC", 2, ModFlag.Cast), --"base_cast_speed_+%" = 2
 	},
 	levelMods = {
 		[1] = mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }), --"buff_effect_duration_+%_per_endurance_charge"

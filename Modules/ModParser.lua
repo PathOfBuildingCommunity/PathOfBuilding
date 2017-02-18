@@ -125,6 +125,7 @@ local modNameList = {
 	["curse duration"] = { "Duration", keywordFlags = KeywordFlag.Curse },
 	["radius of auras"] = { "AreaRadius", keywordFlags = KeywordFlag.Aura },
 	["radius of curses"] = { "AreaRadius", keywordFlags = KeywordFlag.Curse },
+	["effect of buffs on you"] = "BuffEffect",
 	-- Charges
 	["maximum power charge"] = "PowerChargesMax",
 	["maximum power charges"] = "PowerChargesMax",
@@ -207,7 +208,7 @@ local modNameList = {
 	["critical strike multiplier"] = "CritMultiplier",
 	["accuracy rating"] = "Accuracy",
 	["attack speed"] = { "Speed", flags = ModFlag.Attack },
-	["cast speed"] = { "Speed", flags = ModFlag.Spell },
+	["cast speed"] = { "Speed", flags = ModFlag.Cast },
 	["attack and cast speed"] = "Speed",
 	-- Elemental status ailments
 	["to shock"] = "EnemyShockChance",

@@ -13,11 +13,12 @@ ModFlag.Attack =	 0x00000001
 ModFlag.Spell =		 0x00000002
 ModFlag.Hit =		 0x00000004
 ModFlag.Dot =		 0x00000008
+ModFlag.Cast =		 0x00000010
 -- Damage sources
-ModFlag.Melee =		 0x00000010
-ModFlag.Area =		 0x00000020
-ModFlag.Projectile = 0x00000040
-ModFlag.SourceMask = 0x00000060
+ModFlag.Melee =		 0x00000100
+ModFlag.Area =		 0x00000200
+ModFlag.Projectile = 0x00000400
+ModFlag.SourceMask = 0x00000600
 -- Weapon types
 ModFlag.Axe =		 0x00001000
 ModFlag.Bow =		 0x00002000

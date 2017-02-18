@@ -257,10 +257,13 @@ local function buildActiveSkillModList(env, activeSkill)
 	if skillFlags.hit then
 		skillModFlags = bor(skillModFlags, ModFlag.Hit)
 	end
-	if skillFlags.spell then
-		skillModFlags = bor(skillModFlags, ModFlag.Spell)
-	elseif skillFlags.attack then
+	if skillFlags.attack then
 		skillModFlags = bor(skillModFlags, ModFlag.Attack)
+	else
+		skillModFlags = bor(skillModFlags, ModFlag.Cast)
+		if skillFlags.spell then
+			skillModFlags = bor(skillModFlags, ModFlag.Spell)
+		end
 	end
 	if skillFlags.melee then
 		skillModFlags = bor(skillModFlags, ModFlag.Melee)
@@ -1064,7 +1067,7 @@ local function performCalcs(env)
 	if env.weaponData1.type and env.weaponData2.type then
 		condList["DualWielding"] = true
 	end
-	if not env.weaponData1.type then
+	if env.weaponData1.type == "None" then
 		condList["Unarmed"] = true
 	end
 	if (modDB.multipliers["NormalItem"] or 0) > 0 then
@@ -1157,14 +1160,14 @@ local function performCalcs(env)
 		-- Merge auxillary modifiers
 		if env.mode_buffs then
 			if activeSkill.buffModList and (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff) then
+				local inc = modDB:Sum("INC", skillCfg, "BuffEffect")
 				if activeSkill.activeGem.data.golem and modDB:Sum("FLAG", skillCfg, "LiegeOfThePrimordial") and (activeSkill.activeGem.data.fire or activeSkill.activeGem.data.cold or activeSkill.activeGem.data.lightning) then
-					modDB:ScaleAddList(activeSkill.buffModList, 2)
-				else
-					modDB:AddList(activeSkill.buffModList)
+					inc = inc + 100
 				end
+				modDB:ScaleAddList(activeSkill.buffModList, 1 + inc / 100)
 			end
 			if activeSkill.auraModList then
-				local inc = modDB:Sum("INC", skillCfg, "AuraEffect") + skillModList:Sum("INC", skillCfg, "AuraEffect")
+				local inc = modDB:Sum("INC", skillCfg, "AuraEffect") + skillModList:Sum("INC", skillCfg, "AuraEffect") + modDB:Sum("INC", skillCfg, "BuffEffect")
 				local more = modDB:Sum("MORE", skillCfg, "AuraEffect") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
 				modDB:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
 				modDB:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
@@ -1269,12 +1272,13 @@ local function performCalcs(env)
 	-- Add misc buffs
 	if env.mode_combat then
 		if condList["Onslaught"] then
-			local effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "OnslaughtEffect") / 100))
+			local effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffect") / 100))
 			modDB:NewMod("Speed", "INC", effect, "Onslaught")
 			modDB:NewMod("MovementSpeed", "INC", effect, "Onslaught")
 		end
 		if condList["UnholyMight"] then
-			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", 30, "Unholy Might")
+			local effect = m_floor(30 * (1 + modDB:Sum("INC", nil, "BuffEffect") / 100))
+			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", effect, "Unholy Might")
 		end
 	end
 
