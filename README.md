@@ -50,6 +50,7 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ### 1.3.2 - 2017/02/18
  * Added support for the "increased Effect of Buffs on You" modifier on Ichimonji
  * Added basic support for Detonate Dead; only the base damage is used
+ * The points display in the top bar will now move to the right of center if the Save/Save As buttons would cover it
  * Fixed issue preventing Unarmed from being correctly detected
 
 ### 1.3.1 - 2017/02/18

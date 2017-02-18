@@ -37,10 +37,12 @@ function buildMode:Init(dbFileName, buildName)
 		end
 	end)
 	self.controls.buildName = common.New("Control", {"LEFT",self.controls.back,"RIGHT"}, 8, 0, 0, 20)
+	self.controls.buildName.width = function(control)
+		return DrawStringWidth(16, "VAR", self.buildName) + 98
+	end
 	self.controls.buildName.Draw = function(control)
 		local x, y = control:GetPos()
 		local bnw = DrawStringWidth(16, "VAR", self.buildName)
-		control.width = bnw + 98
 		SetDrawColor(0.5, 0.5, 0.5)
 		DrawImage(nil, x + 91, y, bnw + 6, 20)
 		SetDrawColor(0, 0, 0)
@@ -63,29 +65,40 @@ function buildMode:Init(dbFileName, buildName)
 
 	-- Controls: top bar, right side
 	self.anchorTopBarRight = common.New("Control", nil, function() return main.screenW / 2 + 6 end, 4, 0, 20)
-	self.controls.pointDisplay = common.New("Control", {"RIGHT",self.anchorTopBarRight,"LEFT"}, -12, 0, 0, 20)
-	self.controls.pointDisplay.Draw = function(control)
-		local x, y = control:GetPos()
+	self.controls.pointDisplay = common.New("Control", {"LEFT",self.anchorTopBarRight,"RIGHT"}, -12, 0, 0, 20)
+	self.controls.pointDisplay.x = function(control)
+		local width, height = control:GetSize()
+		if self.controls.saveAs:GetPos() + self.controls.saveAs:GetSize() < self.anchorTopBarRight:GetPos() - width - 16 then
+			return -12 - width
+		else
+			return 0
+		end
+	end
+	self.controls.pointDisplay.width = function(control)
 		local used, ascUsed = self.spec:CountAllocNodes()
 		local usedMax = 120 + (self.calcsTab.mainOutput.ExtraPoints or 0)
 		local ascMax = 8
-		local str = string.format("%s%3d / %3d   %s%d / %d", used > usedMax and "^1" or "^7", used, usedMax, ascUsed > ascMax and "^1" or "^7", ascUsed, ascMax)
-		local strW = DrawStringWidth(16, "FIXED", str) + 6
-		control.width = strW + 2
+		control.str = string.format("%s%3d / %3d   %s%d / %d", used > usedMax and "^1" or "^7", used, usedMax, ascUsed > ascMax and "^1" or "^7", ascUsed, ascMax)
+		control.req = "Required level: "..m_max(1, (100 + used - usedMax))
+		return DrawStringWidth(16, "FIXED", control.str) + 8
+	end
+	self.controls.pointDisplay.Draw = function(control)
+		local x, y = control:GetPos()
+		local width, height = control:GetSize()
 		SetDrawColor(1, 1, 1)
-		DrawImage(nil, x, y, strW + 2, 20)
+		DrawImage(nil, x, y, width, height)
 		SetDrawColor(0, 0, 0)
-		DrawImage(nil, x + 1, y + 1, strW, 18)
+		DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 		SetDrawColor(1, 1, 1)
-		DrawString(x + 4, y + 2, "LEFT", 16, "FIXED", str)
+		DrawString(x + 4, y + 2, "LEFT", 16, "FIXED", control.str)
 		if control:IsMouseInBounds() then
 			SetDrawLayer(nil, 10)
-			main:AddTooltipLine(16, "Required level: "..m_max(1, (100 + used - usedMax)))
-			main:DrawTooltip(x, y, control.width, control.height, main.viewPort)
+			main:AddTooltipLine(16, control.req)
+			main:DrawTooltip(x, y, width, height, main.viewPort)
 			SetDrawLayer(nil, 0)
 		end
 	end
-	self.controls.characterLevel = common.New("EditControl", {"LEFT",self.anchorTopBarRight,"RIGHT"}, 0, 0, 106, 20, "", "Level", "%D", 3, function(buf)
+	self.controls.characterLevel = common.New("EditControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 106, 20, "", "Level", "%D", 3, function(buf)
 		self.characterLevel = m_min(tonumber(buf) or 1, 100)
 		self.modFlag = true
 		self.buildFlag = true
