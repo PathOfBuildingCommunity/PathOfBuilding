@@ -3,7 +3,7 @@
 -- Module: Calcs
 -- Performs all the offense and defense calculations.
 -- Here be dragons!
--- This file is 3000 lines long, over half of which is in one function...
+-- This file is 3100 lines long, over half of which is in one function...
 --
 
 local pairs = pairs
@@ -1155,7 +1155,8 @@ local function performCalcs(env)
 
 		-- Merge auxillary modifiers
 		if env.mode_buffs then
-			if activeSkill.buffModList and (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff) then
+			if activeSkill.buffModList and (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff) and (not activeSkill.skillData.offering or modDB:Sum("FLAG", nil, "OfferingsAffectPlayer")) then
+				activeSkill.buffSkill = true
 				local inc = modDB:Sum("INC", skillCfg, "BuffEffect")
 				if activeSkill.activeGem.data.golem and modDB:Sum("FLAG", skillCfg, "LiegeOfThePrimordial") and (activeSkill.activeGem.data.fire or activeSkill.activeGem.data.cold or activeSkill.activeGem.data.lightning) then
 					inc = inc + 100
@@ -1163,6 +1164,7 @@ local function performCalcs(env)
 				modDB:ScaleAddList(activeSkill.buffModList, 1 + inc / 100)
 			end
 			if activeSkill.auraModList then
+				activeSkill.buffSkill = true
 				local inc = modDB:Sum("INC", skillCfg, "AuraEffect") + skillModList:Sum("INC", skillCfg, "AuraEffect") + modDB:Sum("INC", skillCfg, "BuffEffect")
 				local more = modDB:Sum("MORE", skillCfg, "AuraEffect") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
 				modDB:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
@@ -1172,9 +1174,11 @@ local function performCalcs(env)
 		end
 		if env.mode_effective then
 			if activeSkill.debuffModList then
+				activeSkill.debuffSkill = true
 				enemyDB:ScaleAddList(activeSkill.debuffModList, activeSkill.skillData.stackCount or 1)
 			end
 			if activeSkill.curseModList then
+				activeSkill.debuffSkill = true
 				condList["EnemyCursed"] = true
 				local inc = modDB:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffect") + skillModList:Sum("INC", skillCfg, "CurseEffect")
 				local more = modDB:Sum("MORE", skillCfg, "CurseEffect") * enemyDB:Sum("MORE", nil, "CurseEffect") * skillModList:Sum("MORE", skillCfg, "CurseEffect")
@@ -1554,7 +1558,7 @@ local function performCalcs(env)
 				slotBreakdown("Conversion", "Mana to Energy Shield", nil, energyShieldBase, nil, "EnergyShield", "Defences", "Mana")
 			end
 		end
-		local convLifeToES = modDB:Sum("BASE", nil, "LifeConvertToEnergyShield")
+		local convLifeToES = modDB:Sum("BASE", nil, "LifeConvertToEnergyShield", "LifeGainAsEnergyShield")
 		if convLifeToES > 0 then
 			energyShieldBase = modDB:Sum("BASE", nil, "Life") * convLifeToES / 100
 			local total
@@ -3096,14 +3100,14 @@ function calcs.buildOutput(build, mode)
 			t_insert(combatList, "Unholy Might")
 		end
 		for _, activeSkill in ipairs(env.activeSkillList) do
-			if activeSkill.buffModList or activeSkill.auraModList then
+			if activeSkill.buffSkill then
 				if activeSkill.skillFlags.multiPart then
 					t_insert(buffList, activeSkill.activeGem.name .. " (" .. activeSkill.skillPartName .. ")")
 				else
 					t_insert(buffList, activeSkill.activeGem.name)
 				end
 			end
-			if activeSkill.debuffModList or activeSkill.curseModList then
+			if activeSkill.debuffSkill then
 				if activeSkill.skillFlags.multiPart then
 					t_insert(curseList, activeSkill.activeGem.name .. " (" .. activeSkill.skillPartName .. ")")
 				else
