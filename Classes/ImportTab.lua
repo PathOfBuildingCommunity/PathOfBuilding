@@ -269,8 +269,6 @@ function ImportTabClass:DownloadPassiveTree()
 		end
 		self.charImportStatus = data.colorCodes.POSITIVE.."Passive tree and jewels successfully imported."
 		--ConPrintTable(charPassiveData)
-		self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes)
-		self.build.spec:AddUndoState()
 		local sockets = { }
 		for i, slot in pairs(charPassiveData.jewel_slots) do
 			sockets[i] = tonumber(slot.passiveSkill.hash)
@@ -280,6 +278,8 @@ function ImportTabClass:DownloadPassiveTree()
 		end
 		self.build.itemsTab:PopulateSlots()
 		self.build.itemsTab:AddUndoState()
+		self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes)
+		self.build.spec:AddUndoState()
 		self.build.characterLevel = charData.level
 		self.build.controls.characterLevel:SetText(charData.level)
 		self.build.buildFlag = true
@@ -456,7 +456,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 		else
 			self.build.itemsTab:AddItem(newItem, true)
 		end
-		self.build.itemsTab.slots[slotName].selItemId = newItem.id
+		self.build.itemsTab.slots[slotName]:SetSelItemId(newItem.id)
 	end
 end
 

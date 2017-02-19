@@ -275,7 +275,7 @@ function ItemDBClass:OnKeyDown(key, doubleClick)
 							end
 						end
 						if self.itemsTab.slots[slotName].selItemId ~= newItem.id then
-							self.itemsTab.slots[slotName].selItemId = newItem.id
+							self.itemsTab.slots[slotName]:SetSelItemId(newItem.id)
 							self.itemsTab:PopulateSlots()
 							self.itemsTab:AddUndoState()
 							self.itemsTab.build.buildFlag = true
@@ -336,7 +336,7 @@ function ItemDBClass:OnKeyUp(key)
 								local newItem = self.itemsTab.displayItem
 								self.itemsTab:AddDisplayItem(true)
 								itemLib.buildItemModList(newItem)
-								slot.selItemId = newItem.id
+								slot:SetSelItemId(newItem.id)
 								self.itemsTab:PopulateSlots()
 								self.itemsTab:AddUndoState()
 								self.itemsTab.build.buildFlag = true

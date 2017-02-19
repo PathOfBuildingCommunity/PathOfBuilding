@@ -450,8 +450,7 @@ local function buildNodeModList(env, nodeList, finishJewels)
 
 		-- Run radius jewels
 		for _, rad in pairs(env.radiusJewelList) do
-			local vX, vY = node.x - rad.x, node.y - rad.y
-			if vX * vX + vY * vY <= rad.rSq then
+			if rad.nodes[node.id] then
 				rad.func(node.modList, modList, rad.data)
 			end
 		end
@@ -724,7 +723,7 @@ local function initEnv(build, mode, override)
 				item = nil
 			elseif item and item.jewelRadiusIndex then
 				-- Jewel has a radius,  add it to the list
-				local funcList = item.jewelFuncList or { function(nodeMods, out, data)
+				local funcList = item.jewelData.funcList or { function(nodeMods, out, data)
 					-- Default function just tallies all stats in radius
 					if nodeMods then
 						for _, stat in pairs({"Str","Dex","Int"}) do
@@ -733,12 +732,9 @@ local function initEnv(build, mode, override)
 					end
 				end }
 				for _, func in ipairs(funcList) do
-					local radiusInfo = data.jewelRadius[item.jewelRadiusIndex]
 					local node = build.spec.nodes[slot.nodeId]
 					t_insert(env.radiusJewelList, {
-						rSq = radiusInfo.rad * radiusInfo.rad,
-						x = node.x,
-						y = node.y,
+						nodes = node.nodesInRadius[item.jewelRadiusIndex],
 						func = func,
 						item = item,
 						nodeId = slot.nodeId,
@@ -1730,7 +1726,11 @@ local function performCalcs(env)
 	-- Update skill data
 	for _, value in ipairs(modDB:Sum("LIST", skillCfg, "Misc")) do
 		if value.type == "SkillData" then
-			skillData[value.key] = value.value
+			if value.merge == "MAX" then
+				skillData[value.key] = m_max(value.value, skillData[value.key] or 0)
+			else
+				skillData[value.key] = value.value
+			end
 		end
 	end
 
@@ -2830,6 +2830,49 @@ local function performCalcs(env)
 		combineStat("FreezeDurationMod", "AVERAGE")
 	end
 
+	if skillFlags.hit and skillData.decay then
+		-- Calculate DPS for Essence of Delirium's Decay effect
+		skillFlags.decay = true
+		env.mainSkill.decayCfg = {
+			slotName = skillCfg.slotName,
+			flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
+			keywordFlags = skillCfg.keywordFlags,
+		}
+		local dotCfg = env.mainSkill.decayCfg
+		local effMult = 1
+		if env.mode_effective then
+			local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist"), 75)
+			local taken = enemyDB:Sum("INC", nil, "DamageTaken", "ChaosDamageTaken", "DotTaken")
+			effMult = (1 - resist / 100) * (1 + taken / 100)
+			output["DecayEffMult"] = effMult
+			if breakdown and effMult ~= 1 then
+				breakdown.DecayEffMult = effMultBreakdown("Chaos", resist, 0, taken, effMult)
+			end
+		end
+		local inc = modDB:Sum("INC", dotCfg, "Damage", "ChaosDamage")
+		local more = round(modDB:Sum("MORE", dotCfg, "Damage", "ChaosDamage"), 2)
+		output.DecayDPS = skillData.decay * (1 + inc/100) * more * effMult
+		local durationMod = calcMod(modDB, dotCfg, "Duration")
+		output.DecayDuration = 10 * durationMod * debuffDurationMult
+		if breakdown then
+			breakdown.DecayDPS = { }
+			t_insert(breakdown.DecayDPS, "Decay DPS:")
+			dotBreakdown(breakdown.DecayDPS, skillData.decay, inc, more, nil, effMult, output.DecayDPS)
+			if output.DecayDuration ~= 2 then
+				breakdown.DecayDuration = {
+					s_format("%.2fs ^8(base duration)", 10)
+				}
+				if durationMod ~= 1 then
+					t_insert(breakdown.DecayDuration, s_format("x %.2f ^8(duration modifier)", durationMod))
+				end
+				if debuffDurationMult ~= 1 then
+					t_insert(breakdown.DecayDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+				end
+				t_insert(breakdown.DecayDuration, s_format("= %.2fs", output.DecayDuration))
+			end
+		end
+	end
+
 	-- Calculate combined DPS estimate, including DoTs
 	local baseDPS = output[(env.mode_average and "AverageDamage") or "TotalDPS"] + output.TotalDot
 	output.CombinedDPS = baseDPS
@@ -2857,6 +2900,9 @@ local function performCalcs(env)
 	end
 	if skillFlags.bleed then
 		output.CombinedDPS = output.CombinedDPS + output.BleedDPS
+	end
+	if skillFlags.decay then
+		output.CombinedDPS = output.CombinedDPS + output.DecayDPS
 	end
 end
 

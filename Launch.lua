@@ -18,6 +18,7 @@ function launch:OnInit()
 	self.versionBranch = "?"
 	self.versionPlatform = "?"
 	self.lastUpdateCheck = GetTime()
+	self.subScripts = { }
 	ConPrintf("Loading main script...")
 	local changeLogFile = io.open("changelog.txt")
 	if changeLogFile then
@@ -166,7 +167,7 @@ function launch:OnChar(key)
 end
 
 function launch:OnSubCall(func, ...)
-	if func == "ConPrintf" and self.subScriptType == "UPDATE" and self.updateChecking then
+	if func == "ConPrintf" and self.updateChecking then
 		self.updateMsg = string.format(...)
 	elseif func == "UpdateProgress" then
 		self.updateProgress = string.format(...)
@@ -176,23 +177,21 @@ function launch:OnSubCall(func, ...)
 	end
 end
 
-function launch:OnSubError(errMsg)
-	if self.subScriptType == "UPDATE" then
+function launch:OnSubError(id, errMsg)
+	if self.subScripts[id].type == "UPDATE" then
 		self:ShowErrMsg("In update thread: %s", errMsg)
-	elseif self.subScriptType == "DOWNLOAD" then
-		local errMsg = PCall(self.downloadCallback, nil, errMsg)
+		self.updateCheckRunning = false
+	elseif self.subScripts[id].type == "DOWNLOAD" then
+		local errMsg = PCall(self.subScripts[id].callback, nil, errMsg)
 		if errMsg then
 			self:ShowErrMsg("In download callback: %s", errMsg)
 		end
-		self.downloadCallback = nil
 	end
-	self.subScriptType = nil
+	self.subScripts[id] = nil
 end
 
-function launch:OnSubFinished(...)
-	local type = self.subScriptType
-	self.subScriptType = nil
-	if type == "UPDATE" then
+function launch:OnSubFinished(id, ...)
+	if self.subScripts[id].type == "UPDATE" then
 		local ret = (...)
 		self.updateAvailable = ret
 		if self.updateChecking then
@@ -205,26 +204,20 @@ function launch:OnSubFinished(...)
 			end
 			self.updateChecking = false
 		end
-	elseif type == "DOWNLOAD" then
-		local callback = self.downloadCallback
-		self.downloadCallback = nil
-		local errMsg = PCall(callback, ...)
+		self.updateCheckRunning = false
+	elseif self.subScripts[id].type == "DOWNLOAD" then
+		local errMsg = PCall(self.subScripts[id].callback, ...)
 		if errMsg then
 			self:ShowErrMsg("In download callback: %s", errMsg)
 		end
 	end
+	self.subScripts[id] = nil
 end
 
 function launch:DownloadPage(url, callback, cookies)
 	-- Download the given page in the background, and calls the provided callback function when done:
 	-- callback(pageText, errMsg)
-	if IsSubScriptRunning() then
-		callback(nil, "Already downloading a page")
-		return
-	end
-	self.downloadCallback = callback
-	self.subScriptType = "DOWNLOAD"
-	LaunchSubScript([[
+	local id = LaunchSubScript([[
 		local url, cookies = ...
 		ConPrintf("Downloading page at: %s", url)
 		local curl = require("lcurl.safe")
@@ -256,6 +249,12 @@ function launch:DownloadPage(url, callback, cookies)
 			return page
 		end
 	]], "", "ConPrintf", url, cookies)
+	if id then
+		self.subScripts[id] = {
+			type = "DOWNLOAD",
+			callback = callback
+		}
+	end
 end
 
 function launch:ApplyUpdate(mode)
@@ -273,16 +272,22 @@ function launch:ApplyUpdate(mode)
 end
 
 function launch:CheckForUpdate(inBackground)
-	if not IsSubScriptRunning() then
-		self.updateChecking = not inBackground
-		self.updateMsg = "Initialising..."
-		self.updateProgress = "Checking..."
-		self.lastUpdateCheck = GetTime()
-		local update = io.open("UpdateCheck.lua", "r")
-		self.subScriptType = "UPDATE"
-		LaunchSubScript(update:read("*a"), "GetScriptPath,GetRuntimePath,GetWorkDir,MakeDir", "ConPrintf,UpdateProgress")
-		update:close()
+	if self.updateCheckRunning then
+		return
 	end
+	self.updateChecking = not inBackground
+	self.updateMsg = "Initialising..."
+	self.updateProgress = "Checking..."
+	self.lastUpdateCheck = GetTime()
+	local update = io.open("UpdateCheck.lua", "r")
+	local id = LaunchSubScript(update:read("*a"), "GetScriptPath,GetRuntimePath,GetWorkDir,MakeDir", "ConPrintf,UpdateProgress")
+	if id then
+		self.subScripts[id] = {
+			type = "UPDATE"
+		}
+		self.updateCheckRunning = true
+	end
+	update:close()
 end
 
 function launch:ShowPrompt(r, g, b, str, func)
