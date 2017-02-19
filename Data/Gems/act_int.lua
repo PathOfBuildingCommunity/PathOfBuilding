@@ -390,7 +390,60 @@ gems["Bone Offering"] = {
 	active_skill = true,
 	spell = true,
 	duration = true,
-	unsupported = true,
+	color = 3,
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	skillTypes = { [2] = true, [5] = true, [12] = true, [36] = true, [9] = true, [49] = true, [17] = true, [19] = true, [18] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		skill("duration", 3), --"base_skill_effect_duration" = 3000
+		--"offering_skill_effect_duration_per_corpse" = 500
+		--"base_deal_no_damage" = ?
+		skill("offering", true), 
+	},
+	qualityMods = {
+		mod("Duration", "INC", 0.5), --"skill_effect_duration_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("manaCost", nil), 
+		[2] = mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"monster_base_block_%"
+		[3] = mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"base_spell_block_%"
+		--[4] = "minion_recover_X_life_on_block"
+	},
+	levels = {
+		[1] = { 16, 25, 25, 11, },
+		[2] = { 17, 26, 25, 14, },
+		[3] = { 18, 26, 26, 20, },
+		[4] = { 19, 27, 26, 27, },
+		[5] = { 20, 27, 27, 38, },
+		[6] = { 21, 28, 27, 50, },
+		[7] = { 22, 28, 28, 66, },
+		[8] = { 23, 29, 28, 81, },
+		[9] = { 24, 29, 29, 99, },
+		[10] = { 25, 30, 29, 120, },
+		[11] = { 26, 30, 30, 146, },
+		[12] = { 27, 31, 30, 176, },
+		[13] = { 28, 31, 31, 212, },
+		[14] = { 29, 32, 31, 255, },
+		[15] = { 29, 32, 32, 306, },
+		[16] = { 30, 33, 32, 366, },
+		[17] = { 30, 33, 33, 414, },
+		[18] = { 31, 34, 33, 468, },
+		[19] = { 32, 34, 34, 528, },
+		[20] = { 33, 35, 34, 594, },
+		[21] = { 34, 35, 35, 644, },
+		[22] = { 34, 36, 35, 693, },
+		[23] = { 35, 36, 36, 743, },
+		[24] = { 36, 37, 36, 792, },
+		[25] = { 37, 37, 37, 842, },
+		[26] = { 38, 38, 37, 891, },
+		[27] = { 38, 38, 38, 941, },
+		[28] = { 39, 39, 38, 990, },
+		[29] = { 40, 39, 39, 1040, },
+		[30] = { 41, 40, 39, 1089, },
+	},
 }
 gems["Clarity"] = {
 	aura = true,
@@ -1779,7 +1832,60 @@ gems["Flesh Offering"] = {
 	active_skill = true,
 	spell = true,
 	duration = true,
-	unsupported = true,
+	color = 3,
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	skillTypes = { [2] = true, [5] = true, [12] = true, [36] = true, [9] = true, [49] = true, [17] = true, [19] = true, [18] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		skill("duration", 3), --"base_skill_effect_duration" = 3000
+		--"offering_skill_effect_duration_per_corpse" = 500
+		--"base_deal_no_damage" = ?
+		skill("offering", true), 
+	},
+	qualityMods = {
+		mod("Duration", "INC", 0.5), --"skill_effect_duration_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("manaCost", nil), 
+		[2] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }), --"attack_speed_+%"
+		[3] = mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"base_movement_velocity_+%"
+		[4] = mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }), --"cast_speed_+%_from_haste_aura"
+	},
+	levels = {
+		[1] = { 16, 20, 20, 20, },
+		[2] = { 17, 21, 20, 21, },
+		[3] = { 18, 21, 21, 21, },
+		[4] = { 19, 22, 21, 22, },
+		[5] = { 20, 22, 22, 22, },
+		[6] = { 21, 23, 22, 23, },
+		[7] = { 22, 23, 23, 23, },
+		[8] = { 23, 24, 23, 24, },
+		[9] = { 24, 24, 24, 24, },
+		[10] = { 25, 25, 24, 25, },
+		[11] = { 26, 25, 25, 25, },
+		[12] = { 27, 26, 25, 26, },
+		[13] = { 28, 26, 26, 26, },
+		[14] = { 29, 27, 26, 27, },
+		[15] = { 29, 27, 27, 27, },
+		[16] = { 30, 28, 27, 28, },
+		[17] = { 30, 28, 28, 28, },
+		[18] = { 31, 29, 28, 29, },
+		[19] = { 32, 29, 29, 29, },
+		[20] = { 33, 30, 29, 30, },
+		[21] = { 34, 30, 30, 30, },
+		[22] = { 34, 31, 30, 31, },
+		[23] = { 35, 31, 31, 31, },
+		[24] = { 36, 32, 31, 32, },
+		[25] = { 37, 32, 32, 32, },
+		[26] = { 38, 33, 32, 33, },
+		[27] = { 38, 33, 33, 33, },
+		[28] = { 39, 34, 33, 34, },
+		[29] = { 40, 34, 34, 34, },
+		[30] = { 41, 35, 34, 35, },
+	},
 }
 gems["Freezing Pulse"] = {
 	projectile = true,
@@ -3714,7 +3820,60 @@ gems["Spirit Offering"] = {
 	active_skill = true,
 	spell = true,
 	duration = true,
-	unsupported = true,
+	color = 3,
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	skillTypes = { [2] = true, [5] = true, [12] = true, [36] = true, [9] = true, [49] = true, [17] = true, [19] = true, [18] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		skill("duration", 3), --"base_skill_effect_duration" = 3000
+		--"offering_skill_effect_duration_per_corpse" = 500
+		--"spirit_offering_life_%_added_as_base_maximum_energy_shield_per_corpse_consumed" = 2
+		--"base_deal_no_damage" = ?
+		skill("offering", true), 
+	},
+	qualityMods = {
+		mod("Duration", "INC", 0.5), --"skill_effect_duration_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("manaCost", nil), 
+		[2] = mod("PhysicalDamageGainAsChaos", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"physical_damage_%_to_add_as_chaos"
+		[3] = mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"base_resist_all_elements_%"
+	},
+	levels = {
+		[1] = { 16, 20, 20, },
+		[2] = { 17, 20, 21, },
+		[3] = { 18, 21, 21, },
+		[4] = { 19, 21, 22, },
+		[5] = { 20, 22, 22, },
+		[6] = { 21, 22, 23, },
+		[7] = { 22, 23, 23, },
+		[8] = { 23, 23, 24, },
+		[9] = { 24, 24, 24, },
+		[10] = { 25, 24, 25, },
+		[11] = { 26, 25, 25, },
+		[12] = { 27, 25, 26, },
+		[13] = { 28, 26, 26, },
+		[14] = { 29, 26, 27, },
+		[15] = { 29, 27, 27, },
+		[16] = { 30, 27, 28, },
+		[17] = { 30, 28, 28, },
+		[18] = { 31, 28, 29, },
+		[19] = { 32, 29, 29, },
+		[20] = { 33, 29, 30, },
+		[21] = { 34, 30, 30, },
+		[22] = { 34, 30, 31, },
+		[23] = { 35, 31, 31, },
+		[24] = { 36, 31, 32, },
+		[25] = { 37, 32, 32, },
+		[26] = { 38, 32, 33, },
+		[27] = { 38, 33, 33, },
+		[28] = { 39, 33, 34, },
+		[29] = { 40, 34, 34, },
+		[30] = { 41, 34, 35, },
+	},
 }
 gems["Storm Call"] = {
 	intelligence = true,
