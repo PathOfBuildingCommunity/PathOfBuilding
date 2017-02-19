@@ -171,6 +171,62 @@ gems["Envy"] = {
 		[15] = { },
 	},
 }
+gems["Fire Burst"] = {
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		spell = true,
+		area = true,
+		fire = true,
+	},
+	skillTypes = { [2] = true, [11] = true, [10] = true, [33] = true, [36] = true, [42] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		skill("damageEffectiveness", 0.5), 
+		skill("critChance", 5), 
+		--"cast_on_hit_%" = 10
+		--"is_area_damage" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("FireMin", nil), --"spell_minimum_base_fire_damage"
+		[2] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
+	},
+	levels = {
+		[1] = { 7, 11, },
+		[2] = { 8, 12, },
+		[3] = { 10, 16, },
+		[4] = { 14, 21, },
+		[5] = { 20, 30, },
+		[6] = { 30, 46, },
+		[7] = { 41, 61, },
+		[8] = { 54, 80, },
+		[9] = { 70, 104, },
+		[10] = { 89, 134, },
+		[11] = { 114, 170, },
+		[12] = { 143, 215, },
+		[13] = { 180, 270, },
+		[14] = { 224, 336, },
+		[15] = { 278, 418, },
+		[16] = { 344, 516, },
+		[17] = { 424, 636, },
+		[18] = { 520, 780, },
+		[19] = { 605, 908, },
+		[20] = { 703, 1055, },
+		[21] = { 777, 1165, },
+		[22] = { 858, 1286, },
+		[23] = { 946, 1419, },
+		[24] = { 1043, 1564, },
+		[25] = { 1149, 1724, },
+		[26] = { 1266, 1899, },
+		[27] = { 1394, 2091, },
+		[28] = { 1534, 2301, },
+		[29] = { 1687, 2530, },
+		[30] = { 1855, 2782, },
+	},
+}
 gems["Gluttony of Elements"] = {
 	hidden = true,
 	color = 4,

@@ -166,6 +166,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 	ConPrintf("Processing tree...")
 	self.keystoneMap = { }
 	local nodeMap = { }
+	local sockets = { }
 	local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6, m_pi / 20 }
 	local orbitDist = { [0] = 0, 82, 162, 335, 493 }
 	for _, node in pairs(self.nodes) do
@@ -187,6 +188,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 			node.type = "mastery"
 		elseif node.isJewelSocket then
 			node.type = "socket"
+			sockets[node.id] = node
 		elseif node.ks then
 			node.type = "keystone"
 			self.keystoneMap[node.dn] = node
@@ -279,6 +281,23 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 		end
 		if node.type == "keystone" then
 			node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree"..node.id)
+		end
+	end
+
+	-- Precalculate the lists of nodes that are within each radius of each socket
+	for nodeId, socket in pairs(sockets) do
+		socket.nodesInRadius = { }
+		for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
+			socket.nodesInRadius[radiusIndex] = { }
+			local rSq = radiusInfo.rad * radiusInfo.rad
+			for _, node in ipairs(self.nodes) do
+				if node ~= socket then
+					local vX, vY = node.x - socket.x, node.y - socket.y
+					if vX * vX + vY * vY <= rSq then 
+						socket.nodesInRadius[radiusIndex][node.id] = node
+					end
+				end
+			end
 		end
 	end
 

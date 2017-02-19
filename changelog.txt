@@ -1,3 +1,7 @@
+VERSION[1.3.3][2017/02/19]
+ * Added support for Intuitive Leap
+ * Added support for the Decay effect granted by Essence of Delirium
+ * Added support for the Fire Burst skill granted by Essence of Hysteria
 VERSION[1.3.2][2017/02/18]
  * Added support for the "increased Effect of Buffs on You" modifier on Ichimonji
  * Added basic support for Detonate Dead; only the base damage is used

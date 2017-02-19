@@ -12,7 +12,7 @@ local m_min = math.min
 local ItemSlotClass = common.NewClass("ItemSlot", "DropDownControl", function(self, anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
 	self.DropDownControl(anchor, x, y, 310, 20, { }, function(sel)
 		if self.items[sel] ~= self.selItemId then
-			self.selItemId = self.items[sel]
+			self:SetSelItemId(self.items[sel])
 			itemsTab:PopulateSlots()
 			itemsTab:AddUndoState()
 			itemsTab.build.buildFlag = true
@@ -48,6 +48,14 @@ local ItemSlotClass = common.NewClass("ItemSlot", "DropDownControl", function(se
 	t_insert(itemsTab.orderedSlots, self)
 end)
 
+function ItemSlotClass:SetSelItemId(selItemId)
+	self.selItemId = selItemId
+	if self.nodeId and self.itemsTab.build.spec then
+		self.itemsTab.build.spec.jewels[self.nodeId] = selItemId
+		self.itemsTab.build.spec:BuildAllDependsAndPaths()
+	end
+end
+
 function ItemSlotClass:Populate()
 	wipeTable(self.items)
 	wipeTable(self.list)
@@ -64,7 +72,7 @@ function ItemSlotClass:Populate()
 		end
 	end
 	if not self.selItemId or not self.itemsTab.list[self.selItemId] or not self.itemsTab:IsItemValidForSlot(self.itemsTab.list[self.selItemId], self.slotName) then
-		self.selItemId = 0
+		self:SetSelItemId(0)
 	end
 end
 

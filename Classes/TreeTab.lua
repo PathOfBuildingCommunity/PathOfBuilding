@@ -140,6 +140,12 @@ function TreeTabClass:Load(xml, dbFileName)
 	self:SetActiveSpec(tonumber(xml.attrib.activeSpec) or 1)
 end
 
+function TreeTabClass:PostLoad()
+	for _, spec in ipairs(self.specList) do
+		spec:BuildAllDependsAndPaths()
+	end
+end
+
 function TreeTabClass:Save(xml)
 	xml.attrib = { 
 		activeSpec = tostring(self.activeSpec)

@@ -147,10 +147,10 @@ function main:Init()
 		return not launch.devMode and (not launch.updateAvailable or launch.updateAvailable == "none")
 	end
 	self.controls.checkUpdate.label = function()
-		return launch.subScriptType == "UPDATE" and launch.updateProgress or "Check for Update"
+		return launch.updateCheckRunning and launch.updateProgress or "Check for Update"
 	end
 	self.controls.checkUpdate.enabled = function()
-		return not IsSubScriptRunning()
+		return not launch.updateCheckRunning
 	end
 	self.controls.versionLabel = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 124, 0, 0, 14, "")
 	self.controls.versionLabel.label = function()

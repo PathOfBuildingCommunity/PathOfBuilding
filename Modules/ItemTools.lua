@@ -544,11 +544,13 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 			end
 		end
 	elseif item.type == "Jewel" then
-		item.jewelFuncList = nil
+		local jewelData = item.jewelData
 		for _, value in ipairs(modList:Sum("LIST", nil, "Misc")) do
 			if value.type == "JewelFunc" then
-				item.jewelFuncList = item.jewelFuncList or { }
-				t_insert(item.jewelFuncList, value.func)
+				jewelData.funcList = jewelData.funcList or { }
+				t_insert(jewelData.funcList, value.func)
+			elseif value.type == "JewelData" then
+				jewelData[value.key] = value.value
 			end
 		end
 	end	
@@ -593,6 +595,8 @@ function itemLib.buildItemModList(item)
 		item.armourData = { }
 	elseif item.base.flask then
 		item.flaskData = { }
+	elseif item.type == "Jewel" then
+		item.jewelData = { }
 	end
 	if item.base.weapon or item.type == "Ring" then
 		item.slotModList = { }

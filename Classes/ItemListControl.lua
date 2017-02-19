@@ -191,9 +191,9 @@ function ItemListClass:OnKeyDown(key, doubleClick)
 							end
 						end
 						if self.itemsTab.slots[slotName].selItemId == selItemId then
-							self.itemsTab.slots[slotName].selItemId = 0
+							self.itemsTab.slots[slotName]:SetSelItemId(0)
 						else
-							self.itemsTab.slots[slotName].selItemId = selItemId
+							self.itemsTab.slots[slotName]:SetSelItemId(selItemId)
 						end
 						self.itemsTab:PopulateSlots()
 						self.itemsTab:AddUndoState()
@@ -267,7 +267,7 @@ function ItemListClass:OnKeyUp(key)
 					for slotName, slot in pairs(self.itemsTab.slots) do
 						if not slot.inactive and slot:IsMouseOver() then
 							if self.itemsTab:IsItemValidForSlot(self.selItem, slotName) and slot.selItemId ~= self.selItem.id then
-								slot.selItemId = self.selItem.id
+								slot:SetSelItemId(self.selItem.id)
 								self.itemsTab:PopulateSlots()
 								self.itemsTab:AddUndoState()
 								self.itemsTab.build.buildFlag = true

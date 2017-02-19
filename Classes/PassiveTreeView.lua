@@ -194,8 +194,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	elseif hoverNode and hoverNode.path then
 		-- Use the node's own path and dependance list
 		hoverPath = { }
-		for _, pathNode in pairs(hoverNode.path) do
-			hoverPath[pathNode] = true
+		if not hoverNode.dependsOnIntuitiveLeap then
+			for _, pathNode in pairs(hoverNode.path) do
+				hoverPath[pathNode] = true
+			end
 		end
 		hoverDep = { }
 		for _, depNode in pairs(hoverNode.depends) do
@@ -401,13 +403,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					if hoverDep and hoverDep[node] then
 						-- This node depends on the hover node, turn it red
 						SetDrawColor(1, 0, 0)
-					end
-					if hoverNode.type == "socket" then
+					elseif hoverNode.type == "socket" then
 						-- Hover node is a socket, check if this node falls within its radius and color it accordingly
-						local vX, vY = node.x - hoverNode.x, node.y - hoverNode.y
-						local dSq = vX * vX + vY * vY
-						for _, data in ipairs(data.jewelRadius) do
-							if dSq <= data.rad * data.rad then
+						for index, data in ipairs(data.jewelRadius) do
+							if hoverNode.nodesInRadius[index][node.id] then
 								SetDrawColor(data.col)
 								break
 							end

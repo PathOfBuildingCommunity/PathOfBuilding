@@ -549,7 +549,7 @@ function ItemsTabClass:AddItem(item, noAutoEquip)
 			-- Autoequip it
 			for _, slotName in ipairs(baseSlots) do
 				if self.slots[slotName].selItemId == 0 and self:IsItemValidForSlot(item, slotName) then
-					self.slots[slotName].selItemId = item.id
+					self.slots[slotName]:SetSelItemId(item.id)
 					break
 				end
 			end
@@ -575,7 +575,7 @@ end
 function ItemsTabClass:DeleteItem(item)
 	for _, slot in pairs(self.slots) do
 		if slot.selItemId == item.id then
-			slot.selItemId = 0
+			slot:SetSelItemId(0)
 			self.build.buildFlag = true
 		end
 	end
@@ -930,7 +930,7 @@ function ItemsTabClass:RestoreUndoState(state)
 	self.list = state.list
 	self.orderList = state.orderList
 	for slotName, selItemId in pairs(state.slotSelItemId) do
-		self.slots[slotName].selItemId = selItemId
+		self.slots[slotName]:SetSelItemId(selItemId)
 	end
 	self:PopulateSlots()
 end
