@@ -288,6 +288,7 @@ local modFlagList = {
 	["with mines"] = { keywordFlags = KeywordFlag.Mine },
 	["trap"] = { keywordFlags = KeywordFlag.Trap },
 	["with traps"] = { keywordFlags = KeywordFlag.Trap },
+	["for traps"] = { keywordFlags = KeywordFlag.Trap },
 	["totem"] = { keywordFlags = KeywordFlag.Totem },
 	["with totem skills"] = { keywordFlags = KeywordFlag.Totem },
 	["minion"] = { keywordFlags = KeywordFlag.Minion },
@@ -381,9 +382,11 @@ local modTagList = {
 	["when on full life"] = { tag = { type = "Condition", var = "FullLife" } },
 	["when not on full life"] = { tag = { type = "Condition", var = "FullLife", neg = true } },
 	["while no mana is reserved"] = { tag = { type = "Condition", var = "NoManaReserved" } },
+	["while on full energy shield"] = { tag = { type = "Condition", var = "FullEnergyShield" } },
 	["while at maximum power charges"] = { tag = { type = "Condition", var = "AtMaxPowerCharges" } },
 	["while at maximum frenzy charges"] = { tag = { type = "Condition", var = "AtMaxFrenzyCharges" } },
 	["while at maximum endurance charges"] = { tag = { type = "Condition", var = "AtMaxEnduranceCharges" } },
+	["while you have a totem"] = { tag = { type = "Condition", var = "HaveTotem" } },
 	["while you have fortify"] = { tag = { type = "Condition", var = "Fortify" } },
 	["during onslaught"] = { tag = { type = "Condition", var = "Onslaught" } },
 	["while you have onslaught"] = { tag = { type = "Condition", var = "Onslaught" } },
@@ -419,6 +422,7 @@ local modTagList = {
 	["if you've blocked a hit from a unique enemy recently"] = { tag = { type = "Condition", var = "BlockedHitFromUniqueEnemyRecently" } },
 	["if you've attacked recently"] = { tag = { type = "Condition", var = "AttackedRecently" } },
 	["if you've cast a spell recently"] = { tag = { type = "Condition", var = "CastSpellRecently" } },
+	["if you have consumed a corpse recently"] = { tag = { type = "Condition", var = "ConsumedCorpseRecently" } },
 	["if you've used a fire skill in the past 10 seconds"] = { tag = { type = "Condition", var = "UsedFireSkillInPast10Sec" } },
 	["if you've used a cold skill in the past 10 seconds"] = { tag = { type = "Condition", var = "UsedColdSkillInPast10Sec" } },
 	["if you've used a lightning skill in the past 10 seconds"] = { tag = { type = "Condition", var = "UsedLightningSkillInPast10Sec" } },
@@ -444,6 +448,7 @@ local modTagList = {
 	["against chilled enemies"] = { tag = { type = "Condition", var = "EnemyChilled" }, flags = ModFlag.Hit },
 	["enemies which are chilled"] = { tag = { type = "Condition", var = "EnemyChilled" }, flags = ModFlag.Hit },
 	["against frozen, shocked or ignited enemies"] = { tag = { type = "Condition", varList = {"EnemyFrozen","EnemyShocked","EnemyIgnited"} }, flags = ModFlag.Hit },
+	["against enemies affected by elemental status ailments"] = { tag = { type = "Condition", varList = {"EnemyFrozen","EnemyChilled","EnemyShocked","EnemyIgnited"} }, flags = ModFlag.Hit },
 	["against enemies that are affected by elemental status ailments"] = { tag = { type = "Condition", varList = {"EnemyFrozen","EnemyChilled","EnemyShocked","EnemyIgnited"} }, flags = ModFlag.Hit },
 	["against enemies that are affected by no elemental status ailments"] = { tagList = { { type = "Condition", varList = {"EnemyFrozen","EnemyChilled","EnemyShocked","EnemyIgnited"}, neg = true }, { type = "Condition", var = "Effective" } }, flags = ModFlag.Hit },
 }
@@ -492,7 +497,13 @@ local specialModList = {
 	["armour received from body armour is doubled"] = { flag("Unbreakable") },
 	["gain (%d+)%% of maximum mana as extra maximum energy shield"] = function(num) return { mod("ManaGainAsEnergyShield", "BASE", num) } end,
 	["you have fortify"] = { mod("Misc", "LIST", { type = "Condition", var = "Fortify"}) },
-	["(%d+)%% increased damage of each damage type for which you have a matching golem"] = function(num) return { mod("PhysicalDamage", "INC", num, { type = "Condition", var = "HavePhysicalGolem"}), mod("LightningDamage", "INC", num, { type = "Condition", var = "HaveLightningGolem"}), mod("ColdDamage", "INC", num, { type = "Condition", var = "HaveColdGolem"}), mod("FireDamage", "INC", num, { type = "Condition", var = "HaveFireGolem"}), mod("ChaosDamage", "INC", num, { type = "Condition", var = "HaveChaosGolem"}) } end,
+	["(%d+)%% increased damage of each damage type for which you have a matching golem"] = function(num) return {
+		mod("PhysicalDamage", "INC", num, { type = "Condition", var = "HavePhysicalGolem"}), 
+		mod("LightningDamage", "INC", num, { type = "Condition", var = "HaveLightningGolem"}), 
+		mod("ColdDamage", "INC", num, { type = "Condition", var = "HaveColdGolem"}), 
+		mod("FireDamage", "INC", num, { type = "Condition", var = "HaveFireGolem"}), 
+		mod("ChaosDamage", "INC", num, { type = "Condition", var = "HaveChaosGolem"}) 
+	} end,
 	["100%% increased effect of buffs granted by your elemental golems"] = { flag("LiegeOfThePrimordial") },
 	["every 10 seconds, gain (%d+)%% increased elemental damage for 4 seconds"] = function(num) return { mod("ElementalDamage", "INC", num, { type = "Condition", var = "PendulumOfDestruction" }) } end,
 	["every 10 seconds, gain (%d+)%% increased radius of area skills for 4 seconds"] = function(num) return { mod("AreaRadius", "INC", num, { type = "Condition", var = "PendulumOfDestruction" }) } end,
@@ -514,6 +525,20 @@ local specialModList = {
 	["non%-critical strikes penetrate (%d+)%% of enemy elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
 	["movement speed cannot be modified to below base value"] = { flag("MovementSpeedCannotBeBelowBase") },
 	["your offering skills also affect you"] = { flag("OfferingsAffectPlayer") },
+	["consecrated ground you create grants (%d+)%% increased damage to you and allies"] = function(num) return { mod("Damage", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) } end,
+	["for each element you've been hit by damage of recently, (%d+)%% increased damage of that element"] = function(num) return { 
+		mod("FireDamage", "INC", num, { type = "Condition", var = "HitByFireDamageRecently" }), 
+		mod("ColdDamage", "INC", num, { type = "Condition", var = "HitByColdDamageRecently" }), 
+		mod("LightningDamage", "INC", num, { type = "Condition", var = "HitByLightningDamageRecently" })
+	} end,
+	["when you kill an enemy, for each curse on that enemy, gain (%d+)%% of non%-chaos damage as extra chaos damage for 4 seconds"] = function(num) return { 
+		mod("PhysicalDamageGainAsChaos", "BASE", num, { type = "Condition", var = "KilledRecently" }, { type = "Multiplier", var = "CurseOnEnemy" }), 
+		mod("LightningDamageGainAsChaos", "BASE", num, { type = "Condition", var = "KilledRecently" }, { type = "Multiplier", var = "CurseOnEnemy" }), 
+		mod("ColdDamageGainAsChaos", "BASE", num, { type = "Condition", var = "KilledRecently" }, { type = "Multiplier", var = "CurseOnEnemy" }), 
+		mod("FireDamageGainAsChaos", "BASE", num, { type = "Condition", var = "KilledRecently" }, { type = "Multiplier", var = "CurseOnEnemy" }) 
+	} end,
+	["you and nearby allies have (%d+)%% increased attack, cast and movement speed if you've used a warcry recently"] = function(num) return { mod("Speed", "INC", num, { type = "Condition", var = "UsedWarcryRecently" }), mod("MovementSpeed", "INC", num, { type = "Condition", var = "UsedWarcryRecently" }) } end,
+	["warcries cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Warcry) },
 	-- Special node types
 	["(%d+)%% of block chance applied to spells"] = function(num) return { mod("BlockChanceConv", "BASE", num) } end,
 	["(%d+)%% additional block chance with staves"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "UsingStaff" }) } end,

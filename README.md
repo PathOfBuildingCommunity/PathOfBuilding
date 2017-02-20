@@ -47,6 +47,17 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.5 - 2017/02/21
+ * Added support for the extra Chaos Damage from Malediction
+    * The bonus only applies with "Have you killed Recently?" enabled, and scales based on the number of active curse skills
+ * Added options to the Configuration tab for: 
+    * Are you always on Full Energy Shield?
+	* Do you have a Totem summoned?
+	* Have you been hit by Fire/Cold/Lightning Recently? (for Paragon of Calamity)
+	* Have you used a Warcry Recently?
+	* Consumed a corpse Recently?
+ * Added support for the "Consecrated Ground grants 40% increased Damage" modifier from Sanctify
+
 ### 1.3.4 - 2017/02/20
  * Added support for the Offering skills and Mistress of Sacrifice
 
