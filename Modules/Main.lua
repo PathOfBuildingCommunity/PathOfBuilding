@@ -87,6 +87,7 @@ function main:Init()
 		for _, raw in pairs(typeList) do
 			local newItem = itemLib.makeItemFromRaw("Rarity: Unique\n"..raw)
 			if newItem then
+				itemLib.normaliseQuality(newItem)
 				self.uniqueDB.list[newItem.name] = newItem
 			else
 				ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
@@ -97,6 +98,7 @@ function main:Init()
 	for _, raw in pairs(data.rares) do
 		local newItem = itemLib.makeItemFromRaw(raw)
 		if newItem then
+			itemLib.normaliseQuality(newItem)
 			self.rareDB.list[newItem.name] = newItem
 		else
 			ConPrintf("Rare DB unrecognised item:\n%s", raw)
