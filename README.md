@@ -57,6 +57,8 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 	* Have you used a Warcry Recently?
 	* Consumed a corpse Recently?
  * Added support for the "Consecrated Ground grants 40% increased Damage" modifier from Sanctify
+ * The total Damage taken from Mana before Life is now displayed in the Other Defences section in the Calcs tab
+ * The Items tab now only normalises quality on items when they are first added, allowing the quality to be edited if necessary
 
 ### 1.3.4 - 2017/02/20
  * Added support for the Offering skills and Mistress of Sacrifice

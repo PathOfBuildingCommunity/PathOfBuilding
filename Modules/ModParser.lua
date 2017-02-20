@@ -109,6 +109,7 @@ local modNameList = {
 	["to avoid being chilled"] = "AvoidChilled",
 	["to avoid being ignited"] = "AvoidIgnite",
 	["to avoid elemental status ailments"] = { "AvoidShock", "AvoidFrozen", "AvoidChilled", "AvoidIgnite" },
+	["damage is taken from mana before life"] = { "DamageTakenFromManaBeforeLife" },
 	-- Stun modifiers
 	["stun recovery"] = "StunRecovery",
 	["stun and block recovery"] = "StunRecovery",
@@ -328,6 +329,7 @@ local preFlagList = {
 	["^socketed curse gems have "] = { tag = { type = "SocketedIn", keyword = "curse" } },
 	["^socketed melee gems have "] = { tag = { type = "SocketedIn", keyword = "melee" } },
 	["^your flasks grant "] = { },
+	["^when hit, "] = { },
 	["^auras you cast grant "] = { addToAura = true },
 	["^you and allies affected by your auras have "] = { tag = { type = "Condition", var = "HaveAuraActive" } },
 }
@@ -947,7 +949,8 @@ local function parseMod(line, order)
 	elseif modForm == "CONV" then		
 		modSuffix, line = scan(line, convTypes, true)
 		if not modSuffix then
-			return { }, line
+			modSuffix = ""
+			--return { }, line
 		end
 	elseif modForm == "PEN" then
 		modName, line = scan(line, penTypes, true)

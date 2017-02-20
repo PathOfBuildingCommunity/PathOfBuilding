@@ -257,13 +257,16 @@ function itemLib.parseItemRaw(item)
 			item.affixLimit = (item.base.type == "Jewel" and 4 or 6)
 		end
 	end
-	if not item.corrupted and not item.uniqueID and item.base and (item.base.armour or item.base.weapon or item.base.flask) then
-		item.quality = 20
-	end
 	if item.variantList then
 		item.variant = m_min(#item.variantList, item.variant or #item.variantList)
 	end
 	itemLib.buildItemModList(item)
+end
+
+function itemLib.normaliseQuality(item)
+	if not item.corrupted and not item.uniqueID and item.base and (item.base.armour or item.base.weapon or item.base.flask) then
+		item.quality = 20
+	end	
 end
 
 -- Create raw item data for given item

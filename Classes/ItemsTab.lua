@@ -266,7 +266,7 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 			if event.key == "v" and IsKeyDown("CTRL") then
 				local newItem = Paste()
 				if newItem then
-					self:CreateDisplayItemFromRaw(newItem)
+					self:CreateDisplayItemFromRaw(newItem, true)
 				end
 			elseif event.key == "z" and IsKeyDown("CTRL") then
 				self:Undo()
@@ -360,6 +360,7 @@ function ItemsTabClass:CraftItem()
 		else
 			item.implicitLines = 0
 		end
+		itemLib.normaliseQuality(item)
 		return itemLib.makeItemFromRaw(itemLib.createItemRaw(item))
 	end
 	popup = main:OpenPopup(370, 130, "Craft Item", {
@@ -420,7 +421,7 @@ function ItemsTabClass:EditDisplayItemText()
 		edit = common.New("EditControl", nil, 0, 40, 480, 420, "", nil, "^%C\t\n", nil, nil, 14),
 		save = common.New("ButtonControl", nil, -45, 470, 80, 20, self.displayItem and "Save" or "Create", function()
 			local id = self.displayItem and self.displayItem.id
-			self:CreateDisplayItemFromRaw(buildRaw())
+			self:CreateDisplayItemFromRaw(buildRaw(), not self.displayItem)
 			self.displayItem.id = id
 			main:ClosePopup()
 		end),
@@ -457,9 +458,12 @@ function ItemsTabClass:EditDisplayItemText()
 end
 
 -- Attempt to create a new item from the given item raw text and sets it as the new display item
-function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw)
+function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
 	local newItem = itemLib.makeItemFromRaw(itemRaw)
 	if newItem then
+		if normalise then
+			itemLib.normaliseQuality(newItem)
+		end
 		self:SetDisplayItem(newItem)
 	end
 end

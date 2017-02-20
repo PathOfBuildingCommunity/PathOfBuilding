@@ -262,7 +262,7 @@ function ItemDBClass:OnKeyDown(key, doubleClick)
 				self.selIndex = index
 				if IsKeyDown("CTRL") then
 					-- Immediately add and equip it
-					self.itemsTab:CreateDisplayItemFromRaw(selItem.raw)
+					self.itemsTab:CreateDisplayItemFromRaw(selItem.raw, true)
 					local newItem = self.itemsTab.displayItem
 					self.itemsTab:AddDisplayItem(true)
 					itemLib.buildItemModList(newItem)
@@ -282,7 +282,7 @@ function ItemDBClass:OnKeyDown(key, doubleClick)
 						end
 					end
 				elseif doubleClick then
-					self.itemsTab:CreateDisplayItemFromRaw(selItem.raw)
+					self.itemsTab:CreateDisplayItemFromRaw(selItem.raw, true)
 				end
 			end
 		end
@@ -322,7 +322,7 @@ function ItemDBClass:OnKeyUp(key)
 			if self.selDragActive then
 				self.selDragActive = false
 				if self.itemsTab.controls.itemList:IsMouseOver() and self.itemsTab.controls.itemList.selDragIndex then
-					self.itemsTab:CreateDisplayItemFromRaw(self.selItem.raw)
+					self.itemsTab:CreateDisplayItemFromRaw(self.selItem.raw, true)
 					local newItem = self.itemsTab.displayItem
 					self.itemsTab:AddDisplayItem()
 					itemLib.buildItemModList(newItem)
@@ -332,7 +332,7 @@ function ItemDBClass:OnKeyUp(key)
 					for slotName, slot in pairs(self.itemsTab.slots) do
 						if not slot.inactive and slot:IsMouseOver() then
 							if self.itemsTab:IsItemValidForSlot(self.selItem, slotName) then
-								self.itemsTab:CreateDisplayItemFromRaw(self.selItem.raw)
+								self.itemsTab:CreateDisplayItemFromRaw(self.selItem.raw, true)
 								local newItem = self.itemsTab.displayItem
 								self.itemsTab:AddDisplayItem(true)
 								itemLib.buildItemModList(newItem)

@@ -659,5 +659,6 @@ return {
 		{ breakdown = "BlockDuration" },
 		{ modName = { "StunRecovery", "BlockRecovery" }, }, 
 	}, },
+	{ label = "Mind over Matter", { format = "{0:mod:1}%", { modName = "DamageTakenFromManaBeforeLife" }, }, },
 } },
 }
