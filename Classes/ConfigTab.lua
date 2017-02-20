@@ -17,6 +17,9 @@ local varList = {
 	{ var = "conditionFullLife", type = "check", label = "Are you always on Full Life?", ifCond = "FullLife", tooltip = "You will automatically be considered to be on Full Life if you have Chaos Innoculation,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "FullLife" }, "Config")
 	end },
+	{ var = "conditionFullEnergyShield", type = "check", label = "Are you always on Full Energy Shield?", ifCond = "FullES", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "FullEnergyShield" }, "Config")
+	end },
 	{ var = "igniteMode", type = "list", label = "Ignite calculation mode:", tooltip = "Controls how the base damage for ignite is calculated:\nAverage Damage: Ignite is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ignite is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
 	{ section = "When In Combat" },
 	{ var = "usePowerCharges", type = "check", label = "Do you use Power Charges?" },
@@ -36,6 +39,9 @@ local varList = {
 	end },
 	{ var = "conditionUsingFlask", type = "check", label = "Do you have a Flask active?", ifCond = "UsingFlask", tooltip = "This is automatically enabled if you have a flask active,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsingFlask" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionHaveTotem", type = "check", label = "Do you have a Totem summoned?", ifCond = "HaveTotem", tooltip = "You will automatically be considered to have a Totem if your main skill is a Totem,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "HaveTotem" }, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionOnConsecratedGround", type = "check", label = "Are you on Consecrated Ground?", tooltip = "In addition to allowing any 'while on Consecrated Ground' modifiers to apply,\nthis will apply the 4% life regen modifier granted by Consecrated Ground.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "OnConsecratedGround" }, "Config", { type = "Condition", var = "Combat" })
@@ -85,6 +91,15 @@ local varList = {
 	{ var = "conditionBeenSavageHitRecently", type = "check", label = "Have you been Savage Hit Recently?", ifCond = "BeenSavageHitRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BeenSavageHitRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionHitByFireDamageRecently", type = "check", label = "Have you been hit by Fire Recently?", ifCond = "HitByFireDamageRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "HitByFireDamageRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionHitByColdDamageRecently", type = "check", label = "Have you been hit by Cold Recently?", ifCond = "HitByColdDamageRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "HitByColdDamageRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionHitByLightningDamageRecently", type = "check", label = "Have you been hit by Light. Recently?", ifCond = "HitByLightningDamageRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "HitByLightningDamageRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionBlockedRecently", type = "check", label = "Have you Blocked Recently?", ifCond = "BlockedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BlockedRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -96,6 +111,12 @@ local varList = {
 	end },
 	{ var = "conditionCastSpellRecently", type = "check", label = "Have you Cast a Spell Recently?", ifNode = 3154, tooltip = "You will automatically be considered to have Cast a Spell Recently if your main skill is a spell,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "CastSpellRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsedWarcryRecently", type = "check", label = "Have you used a Warcry Recently?", ifCond = "UsedWarcryRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsedWarcryRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionConsumedCorpseRecently", type = "check", label = "Consumed a corpse Recently?", ifCond = "ConsumedCorpseRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "ConsumedCorpseRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionUsedFireSkillInPast10Sec", type = "check", label = "Used a Fire Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsedFireSkillInPast10Sec" }, "Config", { type = "Condition", var = "Combat" })

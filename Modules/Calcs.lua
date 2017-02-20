@@ -1103,6 +1103,7 @@ local function performCalcs(env)
 			condList["UsedMovementSkillRecently"] = true
 		end
 		if env.mainSkill.skillFlags.totem then
+			condList["HaveTotem"] = true
 			condList["SummonedTotemRecently"] = true
 		end
 		if env.mainSkill.skillFlags.mine then
@@ -1180,6 +1181,7 @@ local function performCalcs(env)
 			if activeSkill.curseModList then
 				activeSkill.debuffSkill = true
 				condList["EnemyCursed"] = true
+				modDB.multipliers["CurseOnEnemy"] = (modDB.multipliers["CurseOnEnemy"] or 0) + 1
 				local inc = modDB:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffect") + skillModList:Sum("INC", skillCfg, "CurseEffect")
 				local more = modDB:Sum("MORE", skillCfg, "CurseEffect") * enemyDB:Sum("MORE", nil, "CurseEffect") * skillModList:Sum("MORE", skillCfg, "CurseEffect")
 				enemyDB:ScaleAddList(activeSkill.curseModList, (1 + inc / 100) * more)
