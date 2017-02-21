@@ -47,6 +47,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.7 - 2017/02/22
+ * The "enemy is a Boss" option in the Configuration tab now has 2 modes: Standard Boss, and Shaper/Guardian
+   * Standard Boss is equivelant to the old boss setting (30/30/30/15 resists, -60% curse effect)
+   * Shaper/Guardian applies: 40/40/40/25 resists, -80% curse effect, 50% less Bleed/Poison/Ignite Duration
+ * Witchfire Brew's Vulnerability aura now correctly accounts for less curse effect on bosses, and now counts for Malediction
+
 ### 1.3.6 - 2017/02/21
  * Added a skill part for Barrage that calculates the DPS from all projectiles hitting the target
  * The breakdown for Crit Chance in the Calcs tab now shows how far overcapped your crit chance is

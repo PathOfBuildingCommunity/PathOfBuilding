@@ -400,16 +400,18 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	for id, node in pairs(self.nodes) do
 		node.depends = wipeTable(node.depends)
 		node.dependsOnIntuitiveLeap = false
-		for nodeId, itemId in pairs(self.jewels) do
-			if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius[1][node.id] then
-				if itemId ~= 0 and self.build.itemsTab.list[itemId] and self.build.itemsTab.list[itemId].jewelData and self.build.itemsTab.list[itemId].jewelData.intuitiveLeap then
-					-- This node depends on Intuitive Leap
-					-- This flag:
-					-- 1. Prevents generation of paths from this node
-					-- 2. Prevents this node from being deallocted via dependancy
-					-- 3. Prevents allocation of path nodes when this node is being allocated
-					node.dependsOnIntuitiveLeap = true
-					break
+		if node.type ~= "classStart" then
+			for nodeId, itemId in pairs(self.jewels) do
+				if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius[1][node.id] then
+					if itemId ~= 0 and self.build.itemsTab.list[itemId] and self.build.itemsTab.list[itemId].jewelData and self.build.itemsTab.list[itemId].jewelData.intuitiveLeap then
+						-- This node depends on Intuitive Leap
+						-- This flag:
+						-- 1. Prevents generation of paths from this node
+						-- 2. Prevents this node from being deallocted via dependancy
+						-- 3. Prevents allocation of path nodes when this node is being allocated
+						node.dependsOnIntuitiveLeap = true
+						break
+					end
 				end
 			end
 		end
