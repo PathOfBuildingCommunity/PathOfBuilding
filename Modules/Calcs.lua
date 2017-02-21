@@ -1122,14 +1122,17 @@ local function performCalcs(env)
 			quality = 0,
 			data = data.gems[value.name],
 		})
+		modDB.multipliers["CurseOnEnemy"] = (modDB.multipliers["CurseOnEnemy"] or 0) + 1
+		local curseModList = { }
 		for _, mod in ipairs(modList) do
 			for _, tag in ipairs(mod.tagList) do
 				if tag.type == "GlobalEffect" and tag.effectType == "Curse" then
-					enemyDB:AddMod(mod)
+					t_insert(curseModList, mod)
 					break
 				end
 			end
 		end
+		enemyDB:ScaleAddList(curseModList, (1 + enemyDB:Sum("INC", nil, "CurseEffect") / 100) * enemyDB:Sum("MORE", nil, "CurseEffect"))
 	end
 	
 	-- Check for extra modifiers to apply to aura skills
@@ -2553,7 +2556,7 @@ local function performCalcs(env)
 				local inc = modDB:Sum("INC", dotCfg, "Damage", "PhysicalDamage")
 				local more = round(modDB:Sum("MORE", dotCfg, "Damage", "PhysicalDamage"), 2)
 				output.BleedDPS = baseVal * (1 + inc/100) * more * effMult
-				local durationMod = calcMod(modDB, dotCfg, "Duration")
+				local durationMod = calcMod(modDB, dotCfg, "Duration") * calcMod(enemyDB, nil, "SelfBleedDuration")
 				globalOutput.BleedDuration = 5 * durationMod * debuffDurationMult
 				if breakdown then
 					t_insert(breakdown.BleedDPS, "x 0.1 ^8(bleed deals 10% per second)")
@@ -2611,7 +2614,7 @@ local function performCalcs(env)
 				else
 					durationBase = 2
 				end
-				local durationMod = calcMod(modDB, dotCfg, "Duration")
+				local durationMod = calcMod(modDB, dotCfg, "Duration") * calcMod(enemyDB, nil, "SelfPoisonDuration")
 				globalOutput.PoisonDuration = durationBase * durationMod * debuffDurationMult
 				output.PoisonDamage = output.PoisonDPS * globalOutput.PoisonDuration
 				if env.mode_average then
@@ -2694,7 +2697,8 @@ local function performCalcs(env)
 				local burnRateMod = calcMod(modDB, cfg, "IgniteBurnRate")
 				output.IgniteDPS = baseVal * (1 + inc/100) * more * burnRateMod * effMult
 				local incDur = modDB:Sum("INC", dotCfg, "EnemyIgniteDuration") + enemyDB:Sum("INC", nil, "SelfIgniteDuration")
-				globalOutput.IgniteDuration = 4 * (1 + incDur / 100) / burnRateMod * debuffDurationMult
+				local moreDur = enemyDB:Sum("MORE", nil, "SelfIgniteDuration")
+				globalOutput.IgniteDuration = 4 * (1 + incDur / 100) * moreDur / burnRateMod * debuffDurationMult
 				if skillFlags.igniteCanStack then
 					output.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 					if env.mode_average then
@@ -2723,6 +2727,9 @@ local function performCalcs(env)
 						}
 						if incDur ~= 0 then
 							t_insert(globalBreakdown.IgniteDuration, s_format("x %.2f ^8(increased/reduced duration)", 1 + incDur/100))
+						end
+						if moreDur ~= 1 then
+							t_insert(globalBreakdown.IgniteDuration, s_format("x %.2f ^8(more/less duration)", moreDur))
 						end
 						if burnRateMod ~= 1 then
 							t_insert(globalBreakdown.IgniteDuration, s_format("/ %.2f ^8(rate modifier)", burnRateMod))

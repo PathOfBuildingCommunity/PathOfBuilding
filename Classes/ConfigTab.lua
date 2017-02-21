@@ -182,10 +182,19 @@ local varList = {
 	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "This adds the following modifiers:\n20% less enemy Movement Speed\n20% increased Fire Damage Taken by enemy", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("FireDamageTaken", "INC", 20, "Ash")
 	end },
-	{ var = "enemyIsBoss", type = "check", label = "Is the enemy a Boss?", tooltip = "This adds the following modifiers:\n60% less Effect of your Curses\n+30% to enemy Elemental Resistances\n+15% to enemy Chaos Resistance", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("CurseEffect", "MORE", -60, "Boss")
-		enemyModList:NewMod("ElementalResist", "BASE", 30, "Boss")
-		enemyModList:NewMod("ChaosResist", "BASE", 15, "Boss")
+	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", tooltip = "Standard Boss adds the following modifiers:\n60% less Effect of your Curses\n+30% to enemy Elemental Resistances\n+15% to enemy Chaos Resistance\n\nShaper/Guardian adds the following modifiers:\n80% less Effect of your Curses\n+40% to enemy Elemental Resistances\n+25% to enemy Chaos Resistance\n50% less Duration of Bleed\n50% less Duration of Poison\n50% less Duration of Ignite", list = {{val="NONE",label="No"},{val=true,label="Standard Boss"},{val="SHAPER",label="Shaper/Guardian"}}, apply = function(val, modList, enemyModList)
+		if val == true then
+			enemyModList:NewMod("CurseEffect", "MORE", -60, "Boss")
+			enemyModList:NewMod("ElementalResist", "BASE", 30, "Boss")
+			enemyModList:NewMod("ChaosResist", "BASE", 15, "Boss")
+		elseif val == "SHAPER" then
+			enemyModList:NewMod("CurseEffect", "MORE", -80, "Boss")
+			enemyModList:NewMod("ElementalResist", "BASE", 40, "Boss")
+			enemyModList:NewMod("ChaosResist", "BASE", 25, "Boss")
+			enemyModList:NewMod("SelfBleedDuration", "MORE", -50, "Boss")
+			enemyModList:NewMod("SelfPoisonDuration", "MORE", -50, "Boss")
+			enemyModList:NewMod("SelfIgniteDuration", "MORE", -50, "Boss")
+		end
 	end },
 	{ var = "enemyPhysicalReduction", type = "number", label = "Enemy Phys. Damage Reduction:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("PhysicalDamageReduction", "INC", val, "Config")
@@ -414,6 +423,10 @@ function ConfigTabClass:BuildModList()
 				end
 			elseif varData.type == "number" then
 				if input[varData.var] and input[varData.var] ~= 0 then
+					varData.apply(input[varData.var], modList, enemyModList)
+				end
+			elseif varData.type == "list" then
+				if input[varData.var] then
 					varData.apply(input[varData.var], modList, enemyModList)
 				end
 			end
