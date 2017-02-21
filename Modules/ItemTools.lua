@@ -56,7 +56,7 @@ end
 function itemLib.parseItemRaw(item)
 	item.name = "?"
 	item.rarity = "UNIQUE"
-	item.quality = 0
+	item.quality = nil
 	item.rawLines = { }
 	for line in string.gmatch(item.raw .. "\r\n", "([^\r\n]*)\r?\n") do
 		line = line:gsub("^%s+",""):gsub("%s+$","")
@@ -260,12 +260,19 @@ function itemLib.parseItemRaw(item)
 	if item.variantList then
 		item.variant = m_min(#item.variantList, item.variant or #item.variantList)
 	end
+	if not item.quality then
+		itemLib.normaliseQuality(item)
+	end
 	itemLib.buildItemModList(item)
 end
 
 function itemLib.normaliseQuality(item)
-	if not item.corrupted and not item.uniqueID and item.base and (item.base.armour or item.base.weapon or item.base.flask) then
-		item.quality = 20
+	if item.base and (item.base.armour or item.base.weapon or item.base.flask) then
+		if not item.quality then
+			item.quality = item.corrupted and 0 or 20 
+		elseif not item.uniqueID and not item.corrupted then
+			item.quality = 20
+		end
 	end	
 end
 
@@ -306,7 +313,7 @@ function itemLib.createItemRaw(item)
 		end
 		t_insert(rawLines, "Selected Variant: "..item.variant)
 	end
-	if item.quality > 0 then
+	if item.quality then
 		t_insert(rawLines, "Quality: "..item.quality)
 	end
 	if item.sockets then

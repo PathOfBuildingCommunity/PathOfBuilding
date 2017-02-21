@@ -145,7 +145,7 @@ function GemSelectClass:Draw(viewPort)
 		SetDrawLayer(nil, 5)
 		local cursorX, cursorY = GetCursorPos()
 		self.hoverSel = mOverComp == "DROP" and math.floor((cursorY - y - height + scrollBar.offset) / (height - 4)) + 1
-		if self.hoverSel and self.hoverSel < 1 then
+		if self.hoverSel and not data.gems[self.list[self.hoverSel]] then
 			self.hoverSel = nil
 		end
 		SetViewport(x + 2, y + height + 2, width - 4, dropHeight)
@@ -190,6 +190,13 @@ function GemSelectClass:Draw(viewPort)
 				gemList[self.index] = copyTable(oldGem or { level = 20, quality = 0, enabled = true }, true)
 				gemList[self.index].name = self.list[self.hoverSel]
 				gemList[self.index].data = data.gems[self.list[self.hoverSel]]
+				if gemList[self.index].data.low_max_level and not gemList[self.index].data.levels[gemList[self.index].level] then
+					if gemList[self.index].data.levels[3][1] then
+						gemList[self.index].level = 3
+					else
+						gemList[self.index].level = 1
+					end
+				end
 				local output = calcFunc()
 				gemList[self.index] = oldGem
 				self.skillsTab.build:AddStatComparesToTooltip(calcBase, output, "^7Selecting this gem will give you:")

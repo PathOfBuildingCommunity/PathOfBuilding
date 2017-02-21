@@ -371,7 +371,9 @@ function ImportTabClass:ImportItem(itemData, sockets)
 	if itemData.ilvl > 0 then
 		item.itemLevel = itemData.ilvl
 	end
-	item.quality = 0
+	if item.base.weapon or item.base.armour or item.base.flask then
+		item.quality = 0
+	end
 	if itemData.properties then
 		for _, property in pairs(itemData.properties) do
 			if property.name == "Quality" then

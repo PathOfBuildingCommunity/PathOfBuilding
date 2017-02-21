@@ -47,6 +47,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.6 - 2017/02/21
+ * Added a skill part for Barrage that calculates the DPS from all projectiles hitting the target
+ * The breakdown for Crit Chance in the Calcs tab now shows how far overcapped your crit chance is
+ * Empower/Enhance/Enlighten now default to level 3; Portal/Detonate Mines default to level 1
+ * Fixed issue that caused some existing items to lose quality; all affected items will be fixed automatically
+
 ### 1.3.5 - 2017/02/21
  * Added support for the extra Chaos Damage from Malediction
     * The bonus only applies with "Have you killed Recently?" enabled, and scales based on the number of active curse skills

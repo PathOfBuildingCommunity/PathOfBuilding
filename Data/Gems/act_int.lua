@@ -1246,7 +1246,7 @@ gems["Fire Nova Mine"] = {
 		skill("damageEffectiveness", 0.3), 
 		skill("critChance", 5), 
 		--"base_mine_duration" = 16000
-		--"base_spell_repeat_count" = 3
+		skill("repeatCount", 3), --"base_spell_repeat_count" = 3
 		--"base_skill_is_mined" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"is_remote_mine" = ?
