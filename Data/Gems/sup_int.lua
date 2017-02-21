@@ -1255,7 +1255,7 @@ gems["Spell Echo"] = {
 	excludeSkillTypes = { 30, 37, 41, 42, 15, },
 	baseMods = {
 		mod("ManaCost", "MORE", 40), 
-		--"base_spell_repeat_count" = 1
+		skill("repeatCount", 1), --"base_spell_repeat_count" = 1
 		mod("Damage", "MORE", -10), --"support_echo_damage_+%_final" = -10
 	},
 	qualityMods = {

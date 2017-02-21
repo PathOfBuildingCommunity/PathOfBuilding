@@ -275,6 +275,7 @@ local modFlagList = {
 	["with ranged weapons"] = { flags = ModFlag.WeaponRanged },
 	-- Skill types
 	["spell"] = { flags = ModFlag.Spell },
+	["with spells"] = { flags = ModFlag.Spell },
 	["for spells"] = { flags = ModFlag.Spell },
 	["with attacks"] = { flags = ModFlag.Attack },
 	["for attacks"] = { flags = ModFlag.Attack },

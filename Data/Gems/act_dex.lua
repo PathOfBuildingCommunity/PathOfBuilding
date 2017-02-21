@@ -77,6 +77,19 @@ gems["Barrage"] = {
 	active_skill = true,
 	attack = true,
 	bow = true,
+	parts = {
+		{
+			name = "1 Arrow",
+		},
+		{
+			name = "All Arrows",
+		},
+	},
+	setupFunc = function(env, output)
+		if env.mainSkill.skillPart == 2 then
+			env.mainSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
 	color = 2,
 	baseFlags = {
 		attack = true,

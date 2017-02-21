@@ -2095,10 +2095,13 @@ local function performCalcs(env)
 				output.CritChance = 100
 			else
 				local base = modDB:Sum("BASE", cfg, "CritChance")
-				output.CritChance = (baseCrit + base) * calcMod(modDB, cfg, "CritChance")
+				local inc = modDB:Sum("INC", cfg, "CritChance")
+				local more = modDB:Sum("MORE", cfg, "CritChance")
+				output.CritChance = (baseCrit + base) * (1 + inc / 100) * more
 				if env.mode_effective then
 					output.CritChance = output.CritChance + enemyDB:Sum("BASE", nil, "SelfExtraCritChance")
 				end
+				local preCapCritChance = output.CritChance
 				output.CritChance = m_min(output.CritChance, 95)
 				if (baseCrit + base) > 0 then
 					output.CritChance = m_max(output.CritChance, 5)
@@ -2112,8 +2115,6 @@ local function performCalcs(env)
 					output.CritChance = output.CritChance * output.HitChance / 100
 				end
 				if breakdown and output.CritChance ~= baseCrit then
-					local inc = modDB:Sum("INC", cfg, "CritChance")
-					local more = modDB:Sum("MORE", cfg, "CritChance")
 					local enemyExtra = enemyDB:Sum("BASE", nil, "SelfExtraCritChance")
 					breakdown.CritChance = { }
 					if base ~= 0 then
@@ -2131,6 +2132,10 @@ local function performCalcs(env)
 						t_insert(breakdown.CritChance, s_format("+ %g ^8(extra chance for enemy to be crit)", enemyExtra))
 					end
 					t_insert(breakdown.CritChance, s_format("= %g", preLuckyCritChance))
+					if preCapCritChance > 95 then
+						local overCap = preCapCritChance - 95
+						t_insert(breakdown.CritChance, s_format("Crit is overcapped by %.2f%% (%d%% increased Critical Strike Chance)", overCap, overCap / more / (baseCrit + base) * 100))
+					end
 					if env.mode_effective and modDB:Sum("FLAG", cfg, "CritChanceLucky") then
 						t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
 						t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", preLuckyCritChance / 100, preLuckyCritChance / 100))
