@@ -337,6 +337,7 @@ local function buildActiveSkillModList(env, activeSkill)
 		skillPart = activeSkill.skillPart,
 		skillTypes = activeSkill.skillTypes,
 		skillCond = { },
+		skillDist = env.buffMode == "EFFECTIVE" and env.configInput.projectileDistance,
 		slotName = activeSkill.slotName,
 	}
 	if skillFlags.weapon1Attack then
@@ -996,7 +997,7 @@ local function initEnv(build, mode, override)
 end
 
 -- Finalise environment and perform the calculations
--- This function is 1800 lines long. Enjoy!
+-- This function is 1900 lines long. Enjoy!
 local function performCalcs(env)
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
@@ -1774,6 +1775,9 @@ local function performCalcs(env)
 
 	-- Calculate skill type stats
 	if skillFlags.projectile then
+		if modDB:Sum("FLAG", nil, "PointBlank") then
+			modDB:NewMod("Damage", "MORE", 50, "Point Blank", bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{10,1},{35,0},{150,-1}} })
+		end
 		output.ProjectileCount = modDB:Sum("BASE", skillCfg, "ProjectileCount")
 		output.PierceChance = m_min(100, modDB:Sum("BASE", skillCfg, "PierceChance"))
 		output.ProjectileSpeedMod = calcMod(modDB, skillCfg, "ProjectileSpeed")

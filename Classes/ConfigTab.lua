@@ -137,6 +137,7 @@ local varList = {
 	{ var = "critChanceLucky", type = "check", label = "Is your Crit Chance Lucky?", apply = function(val, modList, enemyModList)
 		modList:NewMod("CritChanceLucky", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "projectileDistance", type = "number", label = "Projectile travel distance:", ifFlag = "projectile" },
 	{ var = "conditionEnemyFullLife", type = "check", label = "Is the enemy on Full Life?", ifCond = "EnemyFullLife", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyFullLife" }, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -305,6 +306,11 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 						return varData.tooltip
 					end
 				end
+			elseif varData.ifFlag then
+				control.shown = function()
+					return self.build.calcsTab.mainEnv.mainSkill.skillFlags[varData.ifFlag]
+				end
+				control.tooltip = varData.tooltip
 			else
 				control.tooltip = varData.tooltip
 			end

@@ -82,7 +82,7 @@ end
 
 function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
 	local flags, keywordFlags = 0, 0
-	local skillName, skillGem, skillPart, skillTypes, skillStats, skillCond, slotName, source, tabulate
+	local skillName, skillGem, skillPart, skillTypes, skillStats, skillCond, skillDist, slotName, source, tabulate
 	if cfg then
 		flags = cfg.flags or 0
 		keywordFlags = cfg.keywordFlags or 0
@@ -92,6 +92,7 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 		skillTypes = cfg.skillTypes
 		skillStats = cfg.skillStats
 		skillCond = cfg.skillCond
+		skillDist = cfg.skillDist
 		slotName = cfg.slotName
 		source = cfg.source
 		tabulate = cfg.tabulate
@@ -167,6 +168,24 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 								value.value = value.value * mult + (tag.base or 0)
 							else
 								value = value * mult + (tag.base or 0)
+							end
+						elseif tag.type == "DistanceRamp" then
+							if not skillDist then
+								value = nullValue
+								break
+							end
+							if skillDist <= tag.ramp[1][1] then
+								value = value * tag.ramp[1][2]
+							elseif skillDist >= tag.ramp[#tag.ramp][1] then
+								value = value * tag.ramp[#tag.ramp][2]
+							else
+								for i, dat in ipairs(tag.ramp) do
+									local next = tag.ramp[i+1]
+									if skillDist <= next[1] then
+										value = m_floor(value * (dat[2] + (next[2] - dat[2]) * (skillDist - dat[1]) / (next[1] - dat[1])))
+										break
+									end
+								end
 							end
 						elseif tag.type == "Condition" then
 							local match = false

@@ -1893,6 +1893,10 @@ gems["Freezing Pulse"] = {
 	active_skill = true,
 	spell = true,
 	cold = true,
+	setupFunc = function(env, output)
+		env.modDB:NewMod("Damage", "MORE", -100, "Skill:Freezing Pulse", ModFlag.Spell, { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+		env.modDB:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:Freezing Pulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
+	end,
 	color = 3,
 	baseFlags = {
 		spell = true,
@@ -1906,7 +1910,6 @@ gems["Freezing Pulse"] = {
 		skill("critChance", 6), 
 		--"base_is_projectile" = ?
 		mod("PierceChance", "BASE", 100), --"always_pierce" = ?
-		mod("EnemyFreezeChance", "BASE", 25), 
 	},
 	qualityMods = {
 		mod("ProjectileSpeed", "INC", 2), --"base_projectile_speed_+%" = 2

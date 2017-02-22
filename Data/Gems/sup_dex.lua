@@ -1128,7 +1128,7 @@ gems["Point Blank"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 20), 
-		--"keystone_point_blank" = 1
+		flag("PointBlank"), --"keystone_point_blank" = 1
 	},
 	qualityMods = {
 		mod("Damage", "INC", 0.5, ModFlag.Projectile), --"projectile_damage_+%" = 0.5

@@ -1,3 +1,8 @@
+VERSION[1.3.9][2017/02/23]
+ * Projectile skills now have an option in the Configuration tab for "Projectile travel distance"
+    * Point Blank, and the scaling Pierce chance from Powerful Precision, are now supported
+	* Far Shot is not supported yet, as the scaling is unknown
+	* Freezing Pulse's damage and freeze chance can now scale with distance (factoring in projectile speed)
 VERSION[1.3.8][2017/02/22]
  * Flicker Strike now shows DPS instead of Average Damage
  * Added an extra option for Elemental Equilibrium to ignore the hit damage of your main skill
