@@ -1654,7 +1654,7 @@ gems["Flicker Strike"] = {
 		mod("Speed", "MORE", 20, ModFlag.Attack), --"flicker_strike_more_attack_speed_+%_final" = 20
 		mod("Speed", "INC", 10, ModFlag.Attack, 0, { type = "Multiplier", var = "FrenzyCharge" }), --"base_attack_speed_+%_per_frenzy_charge" = 10
 		--"ignores_proximity_shield" = ?
-		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, 0, nil), --"damage_+%" = 1

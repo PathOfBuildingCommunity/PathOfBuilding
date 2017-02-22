@@ -118,6 +118,9 @@ local varList = {
 	{ var = "conditionConsumedCorpseRecently", type = "check", label = "Consumed a corpse Recently?", ifCond = "ConsumedCorpseRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "ConsumedCorpseRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionTauntedEnemyRecently", type = "check", label = "Taunted an Enemy Recently?", ifCond = "TauntedEnemyRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "TauntedEnemyRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionUsedFireSkillInPast10Sec", type = "check", label = "Used a Fire Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsedFireSkillInPast10Sec" }, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -161,6 +164,9 @@ local varList = {
 	{ var = "conditionEnemyBlinded", type = "check", label = "Is the enemy Blinded?", tooltip = "In addition to allowing 'against Blinded Enemies' modifiers to apply,\nthis will lessen the enemy's chance to hit, and thereby increase your evade chance.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyBlinded" }, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionEnemyTaunted", type = "check", label = "Is the enemy Taunted?", ifCond = "EnemyTaunted", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyTaunted" }, "Config", { type = "Condition", var = "Effective" })
+	end }, 
 	{ var = "conditionEnemyBurning", type = "check", label = "Is the enemy Burning?", ifCond = "EnemyBurning", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyBurning" }, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -220,6 +226,7 @@ local varList = {
 	{ var = "enemyConditionHitByLightningDamage", type = "check", label = "Enemy was Hit by Light. Damage?", ifNode = 39085, apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "EnemyCondition", var = "HitByLightningDamage" }, "Config")
 	end },
+	{ var = "EEIgnoreHitDamage", type = "check", label = "Ignore Skill Hit Damage?", ifNode = 39085, tooltip = "This option prevents EE from being reset by the hit damage of your main skill." },
 }
 
 local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)

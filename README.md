@@ -47,6 +47,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.8 - 2017/02/22
+ * Flicker Strike now shows DPS instead of Average Damage
+ * Added an extra option for Elemental Equilibrium to ignore the hit damage of your main skill
+ * Added options to the Configuration tab for "Taunted an Enemy Recently" and "Enemy is Taunted"
+
 ### 1.3.7 - 2017/02/22
  * The "enemy is a Boss" option in the Configuration tab now has 2 modes: Standard Boss, and Shaper/Guardian
    * Standard Boss is equivelant to the old boss setting (30/30/30/15 resists, -60% curse effect)
