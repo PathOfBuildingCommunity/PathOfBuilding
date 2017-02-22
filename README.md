@@ -47,6 +47,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.9 - 2017/02/23
+ * Projectile skills now have an option in the Configuration tab for "Projectile travel distance"
+    * Point Blank, and the scaling Pierce chance from Powerful Precision, are now supported
+	* Far Shot is not supported yet, as the scaling is unknown
+	* Freezing Pulse's damage and freeze chance can now scale with distance (factoring in projectile speed)
+
 ### 1.3.8 - 2017/02/22
  * Flicker Strike now shows DPS instead of Average Damage
  * Added an extra option for Elemental Equilibrium to ignore the hit damage of your main skill
