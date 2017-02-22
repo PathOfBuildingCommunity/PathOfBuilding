@@ -1,3 +1,7 @@
+VERSION[1.3.8][2017/02/22]
+ * Flicker Strike now shows DPS instead of Average Damage
+ * Added an extra option for Elemental Equilibrium to ignore the hit damage of your main skill
+ * Added options to the Configuration tab for "Taunted an Enemy Recently" and "Enemy is Taunted"
 VERSION[1.3.7][2017/02/22]
  * The "enemy is a Boss" option in the Configuration tab now has 2 modes: Standard Boss, and Shaper/Guardian
    * Standard Boss is equivelant to the old boss setting (30/30/30/15 resists, -60% curse effect)

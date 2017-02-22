@@ -426,6 +426,7 @@ local modTagList = {
 	["if you've attacked recently"] = { tag = { type = "Condition", var = "AttackedRecently" } },
 	["if you've cast a spell recently"] = { tag = { type = "Condition", var = "CastSpellRecently" } },
 	["if you have consumed a corpse recently"] = { tag = { type = "Condition", var = "ConsumedCorpseRecently" } },
+	["if you've taunted an enemy recently"] = { tag = { type = "Condition", var = "TauntedEnemyRecently" } },
 	["if you've used a fire skill in the past 10 seconds"] = { tag = { type = "Condition", var = "UsedFireSkillInPast10Sec" } },
 	["if you've used a cold skill in the past 10 seconds"] = { tag = { type = "Condition", var = "UsedColdSkillInPast10Sec" } },
 	["if you've used a lightning skill in the past 10 seconds"] = { tag = { type = "Condition", var = "UsedLightningSkillInPast10Sec" } },
@@ -542,6 +543,7 @@ local specialModList = {
 	} end,
 	["you and nearby allies have (%d+)%% increased attack, cast and movement speed if you've used a warcry recently"] = function(num) return { mod("Speed", "INC", num, { type = "Condition", var = "UsedWarcryRecently" }), mod("MovementSpeed", "INC", num, { type = "Condition", var = "UsedWarcryRecently" }) } end,
 	["warcries cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Warcry) },
+	["enemies you taunt take (%d+)%% increased damage"] = function(num) return { mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("DamageTaken", "INC", num) }, { type = "Condition", var = "EnemyTaunted" }) } end,
 	-- Special node types
 	["(%d+)%% of block chance applied to spells"] = function(num) return { mod("BlockChanceConv", "BASE", num) } end,
 	["(%d+)%% additional block chance with staves"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "UsingStaff" }) } end,

@@ -2278,7 +2278,7 @@ local function performCalcs(env)
 		output.TotalMin = totalHitMin
 		output.TotalMax = totalHitMax
 
-		if output.FireHitAverage + output.ColdHitAverage + output.LightningHitAverage > 0 then
+		if not env.configInput.EEIgnoreHitDamage and (output.FireHitAverage + output.ColdHitAverage + output.LightningHitAverage > 0) then
 			-- Update enemy hit-by-damage-type conditions
 			enemyDB.conditions.HitByFireDamage = output.FireHitAverage > 0
 			enemyDB.conditions.HitByColdDamage = output.ColdHitAverage > 0

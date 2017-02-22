@@ -185,7 +185,7 @@ function CalcBreakdownClass:AddModSection(sectionData)
 	local build = self.calcsTab.build
 
 	-- Build list of modifiers to display
-	local cfg = (sectionData.cfg and copyTable(env.mainSkill[sectionData.cfg.."Cfg"])) or { }
+	local cfg = (sectionData.cfg and env.mainSkill[sectionData.cfg.."Cfg"] and copyTable(env.mainSkill[sectionData.cfg.."Cfg"])) or { }
 	cfg.source = sectionData.modSource
 	cfg.tabulate = true
 	local rowList

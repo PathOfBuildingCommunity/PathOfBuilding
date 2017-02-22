@@ -498,8 +498,19 @@ function EditClass:OnKeyDown(key, doubleClick)
 		if self.sel and self.sel ~= self.caret then
 			self:ReplaceSel("")
 		elseif self.caret > 1 then
-			self.buf = self.buf:sub(1, self.caret - 2) .. self.buf:sub(self.caret)
-			self.caret = self.caret - 1
+			local len = 1
+			if IsKeyDown("CTRL") then
+				while self.caret - len > 1 and self.buf:sub(self.caret - len, self.caret - len):match("%s") and not self.buf:sub(self.caret - len - 1, self.caret - len - 1):match("\n") do
+					len = len + 1
+				end
+				if self.buf:sub(self.caret - len, self.caret - len):match("%w") then
+					while self.caret - len > 1 and self.buf:sub(self.caret - len - 1, self.caret - len - 1):match("%w") do
+						len = len + 1
+					end
+				end
+			end
+			self.buf = self.buf:sub(1, self.caret - 1 - len) .. self.buf:sub(self.caret)
+			self.caret = self.caret - len
 			self.sel = nil
 			self:ScrollCaretIntoView()
 			self.blinkStart = GetTime()
@@ -512,7 +523,18 @@ function EditClass:OnKeyDown(key, doubleClick)
 		if self.sel and self.sel ~= self.caret then
 			self:ReplaceSel("")
 		elseif self.caret <= #self.buf then
-			self.buf = self.buf:sub(1, self.caret - 1) .. self.buf:sub(self.caret + 1)
+			local len = 1
+			if IsKeyDown("CTRL") then
+				while self.caret + len <= #self.buf and self.buf:sub(self.caret + len - 1, self.caret + len - 1):match("%s") and not self.buf:sub(self.caret + len, self.caret + len):match("\n") do
+					len = len + 1
+				end
+				if self.buf:sub(self.caret + len - 1, self.caret + len - 1):match("%w") then
+					while self.caret + len <= #self.buf and self.buf:sub(self.caret + len, self.caret + len):match("%w") do
+						len = len + 1
+					end
+				end
+			end
+			self.buf = self.buf:sub(1, self.caret - 1) .. self.buf:sub(self.caret + len)
 			self.sel = nil
 			self.blinkStart = GetTime()
 			if self.changeFunc then
