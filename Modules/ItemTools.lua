@@ -80,20 +80,41 @@ function itemLib.parseItemRaw(item)
 		item.name = item.rawLines[l]
 		l = l + 1
 	end
+	item.namePrefix = ""
+	item.nameSuffix = ""
 	if item.rarity == "NORMAL" or item.rarity == "MAGIC" then
 		for baseName, baseData in pairs(data.itemBases) do
-			if item.name:find(baseName, 1, true) then
+			local s, e = item.name:find(baseName, 1, true)
+			if s then
 				item.baseName = baseName
+				item.namePrefix = item.name:sub(1, s - 1)
+				item.nameSuffix = item.name:sub(e + 1)
 				item.type = baseData.type
 				break
 			end
 		end
-	elseif item.rawLines[l] and not item.rawLines[l]:match("^%-") and data.itemBases[item.rawLines[l]] then
-		item.baseName = item.rawLines[l]
-		item.title = item.name
-		item.name = item.title .. ", " .. item.baseName
-		item.type = data.itemBases[item.baseName].type
-		l = l + 1
+		if not item.baseName then
+			local s, e = item.name:find("Two-Toned Boots", 1, true)
+			if s then
+				-- Hack for Two-Toned Boots
+				item.baseName = "Two-Toned Boots (Armour/Energy Shield)"
+				item.namePrefix = item.name:sub(1, s - 1)
+				item.nameSuffix = item.name:sub(e + 1)
+				item.type = "Boots"
+			end
+		end
+		item.name = item.name:gsub(" %(.+%)","")
+	elseif item.rawLines[l] and not item.rawLines[l]:match("^%-") then
+		if item.rawLines[l] == "Two-Toned Boots" then
+			item.rawLines[l] = "Two-Toned Boots (Armour/Energy Shield)"
+		end
+		if data.itemBases[item.rawLines[l]] then
+			item.baseName = item.rawLines[l]
+			item.title = item.name
+			item.name = item.title .. ", " .. item.baseName:gsub(" %(.+%)","")
+			item.type = data.itemBases[item.baseName].type
+			l = l + 1
+		end
 	end
 	item.base = data.itemBases[item.baseName]
 	item.modLines = { }
@@ -182,6 +203,18 @@ function itemLib.parseItemRaw(item)
 					gameModeStage = "EXPLICIT"
 				elseif specName == "Unreleased" then
 					item.unreleased = (specVal == "true")
+				elseif specName == "Evasion Rating" then
+					if item.baseName == "Two-Toned Boots (Armour/Energy Shield)" then
+						-- Another hack for Two-Toned Boots
+						item.baseName = "Two-Toned Boots (Armour/Evasion)"
+						item.base = data.itemBases[item.baseName]
+					end
+				elseif specName == "Energy Shield" then
+					if item.baseName == "Two-Toned Boots (Armour/Evasion)" then
+						-- Yet another hack for Two-Toned Boots
+						item.baseName = "Two-Toned Boots (Evasion/Energy Shield)"
+						item.base = data.itemBases[item.baseName]
+					end
 				end
 			end
 			if line == "Prefixes:" then
@@ -284,7 +317,7 @@ function itemLib.createItemRaw(item)
 		t_insert(rawLines, item.title)
 		t_insert(rawLines, item.baseName)
 	else
-		t_insert(rawLines, item.name)
+		t_insert(rawLines, (item.namePrefix or "")..item.baseName..(item.nameSuffix or ""))
 	end
 	if item.uniqueID then
 		t_insert(rawLines, "Unique ID: "..item.uniqueID)
@@ -365,7 +398,8 @@ function itemLib.craftItem(item)
 		ranges[item.modLines[l].line] = item.modLines[l].range
 		item.modLines[l] = nil
 	end
-	local newName = item.baseName
+	item.namePrefix = ""
+	item.nameSuffix = ""
 	for _, list in ipairs({item.prefixes,item.suffixes}) do
 		for i = 1, item.affixLimit/2 do
 			local name = list[i]
@@ -375,9 +409,9 @@ function itemLib.craftItem(item)
 			local mod = item.affixes[name]
 			if mod then
 				if mod.type == "Prefix" then
-					newName = name .. " " .. newName
+					item.namePrefix = name .. " "
 				elseif mod.type == "Suffix" then
-					newName = newName .. " " .. name
+					item.nameSuffix = " " .. name
 				end
 				for _, line in ipairs(mod) do
 					t_insert(item.modLines, { line = line, range = ranges[line] })

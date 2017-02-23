@@ -217,6 +217,13 @@ itemBases["Dragonscale Boots"] = {
 	armour = { armourBase = 105, evasionBase = 105, },
 	req = { level = 65, str = 62, dex = 62, },
 }
+itemBases["Two-Toned Boots (Armour/Evasion)"] = {
+	type = "Boots",
+	subType = "Armour/Evasion",
+	implicit = "+(15-20)% to Fire and Cold Resistances",
+	armour = { armourBase = 109, evasionBase = 109 },
+	req = { level = 72, str = 62, dex = 62 },
+}
 
 
 itemBases["Chain Boots"] = {
@@ -267,10 +274,10 @@ itemBases["Crusader Boots"] = {
 	armour = { armourBase = 105, energyShieldBase = 31, },
 	req = { level = 64, str = 62, int = 62, },
 }
-itemBases["Two-Toned Boots"] = {
+itemBases["Two-Toned Boots (Armour/Energy Shield)"] = {
 	type = "Boots",
 	subType = "Armour/Energy Shield",
-	implicit = "",
+	implicit = "+(15-20)% to Fire and Lightning Resistances",
 	armour = { armourBase = 109, energyShieldBase = 32 },
 	req = { level = 72, str = 62, int = 62 },
 }
@@ -329,4 +336,11 @@ itemBases["Murder Boots"] = {
 	subType = "Evasion/Energy Shield",
 	armour = { evasionBase = 161, energyShieldBase = 22, },
 	req = { level = 69, dex = 82, int = 42, },
+}
+itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
+	type = "Boots",
+	subType = "Evasion/Energy Shield",
+	implicit = "+(15-20)% to Cold and Lightning Resistances",
+	armour = { evasionBase = 109, energyShieldBase = 32 },
+	req = { level = 72, dex = 62, int = 62 },
 }
