@@ -47,6 +47,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.10 - 2017/02/23
+ * Added support for the helmet enchants that grant increased Buff Effect from Golems 
+ * Added an option to the Configuration tab for "Is the enemy Rare or Unique?"
+ * Skills that cause Bleeding now have an option in the Configuration tab for "Is the enemy Moving?"
+ * Two-Toned Boots should now be handled correctly; all 3 variants should import correctly, and are available to craft
+
 ### 1.3.9 - 2017/02/23
  * Projectile skills now have an option in the Configuration tab for "Projectile travel distance"
     * Point Blank, and the scaling Pierce chance from Powerful Precision, are now supported

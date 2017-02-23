@@ -1,3 +1,8 @@
+VERSION[1.3.10][2017/02/23]
+ * Added support for the helmet enchants that grant increased Buff Effect from Golems 
+ * Added an option to the Configuration tab for "Is the enemy Rare or Unique?"
+ * Skills that cause Bleeding now have an option in the Configuration tab for "Is the enemy Moving?"
+ * Two-Toned Boots should now be handled correctly; all 3 variants should import correctly, and are available to craft
 VERSION[1.3.9][2017/02/23]
  * Projectile skills now have an option in the Configuration tab for "Projectile travel distance"
     * Point Blank, and the scaling Pierce chance from Powerful Precision, are now supported

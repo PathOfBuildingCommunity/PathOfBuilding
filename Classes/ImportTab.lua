@@ -345,6 +345,10 @@ function ImportTabClass:ImportItem(itemData, sockets)
 		item.title = itemLib.sanitiseItemText(itemData.name)
 		item.baseName = itemLib.sanitiseItemText(itemData.typeLine)
 		item.name = item.title .. ", " .. item.baseName
+		if item.baseName == "Two-Toned Boots" then
+			-- Hack for Two-Toned Boots
+			item.baseName = "Two-Toned Boots (Armour/Energy Shield)"
+		end
 		item.base = data.itemBases[item.baseName]
 		if item.base then
 			item.type = item.base.type
@@ -354,13 +358,26 @@ function ImportTabClass:ImportItem(itemData, sockets)
 	else
 		item.name = itemLib.sanitiseItemText(itemData.typeLine)
 		for baseName, baseData in pairs(data.itemBases) do
-			if item.name:find(baseName, 1, true) then
+			local s, e = item.name:find(baseName, 1, true)
+			if s then
 				item.baseName = baseName
-				item.base = data.itemBases[item.baseName]
+				item.namePrefix = item.name:sub(1, s - 1)
+				item.nameSuffix = item.name:sub(e + 1)
 				item.type = baseData.type
 				break
 			end
 		end
+		if not item.baseName then
+			local s, e = item.name:find("Two-Toned Boots", 1, true)
+			if s then
+				-- Hack for Two-Toned Boots
+				item.baseName = "Two-Toned Boots (Armour/Energy Shield)"
+				item.namePrefix = item.name:sub(1, s - 1)
+				item.nameSuffix = item.name:sub(e + 1)
+				item.type = "Boots"
+			end
+		end
+		item.base = data.itemBases[item.baseName]
 	end
 	if not item.base or not item.rarity then
 		return
@@ -387,6 +404,18 @@ function ImportTabClass:ImportItem(itemData, sockets)
 				end
 			elseif property.name == "Limited to" then
 				item.limit = tonumber(property.values[1][1])
+			elseif property.name == "Evasion Rating" then
+				if item.baseName == "Two-Toned Boots (Armour/Energy Shield)" then
+					-- Another hack for Two-Toned Boots
+					item.baseName = "Two-Toned Boots (Armour/Evasion)"
+					item.base = data.itemBases[item.baseName]
+				end
+			elseif property.name == "Energy Shield" then
+				if item.baseName == "Two-Toned Boots (Armour/Evasion)" then
+					-- Yet another hack for Two-Toned Boots
+					item.baseName = "Two-Toned Boots (Evasion/Energy Shield)"
+					item.base = data.itemBases[item.baseName]
+				end
 			end
 		end
 	end

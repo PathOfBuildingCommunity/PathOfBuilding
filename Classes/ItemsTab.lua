@@ -36,7 +36,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 			type = type .. ": " .. base.subType
 		end
 		self.baseLists[type] = self.baseLists[type] or { }
-		t_insert(self.baseLists[type], { label = name, name = name, base = base })
+		t_insert(self.baseLists[type], { label = name:gsub(" %(.+%)",""), name = name, base = base })
 	end
 	self.baseTypeList = { }
 	for type, list in pairs(self.baseLists) do
@@ -338,7 +338,7 @@ end
 function ItemsTabClass:CraftItem()
 	local popup
 	local function makeItem(base)
-		local item = { name = base.name, base = base.base, modLines = { }, quality = 0 }
+		local item = { name = base.name, base = base.base, baseName = base.name, modLines = { }, quality = 0 }
 		local raritySel = popup.controls.rarity.sel
 		if base.base.flask then
 			if raritySel == 3 then
@@ -350,7 +350,6 @@ function ItemsTabClass:CraftItem()
 		end
 		item.rarity = popup.controls.rarity.list[raritySel].val
 		if raritySel >= 3 then
-			item.baseName = base.name
 			item.title = popup.controls.title.buf:match("%S") and popup.controls.title.buf or "New Item"
 		end
 		if base.base.implicit then
@@ -635,9 +634,9 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	local rarityCode = data.colorCodes[item.rarity]
 	if item.title then
 		main:AddTooltipLine(20, rarityCode..item.title)
-		main:AddTooltipLine(20, rarityCode..item.baseName)
+		main:AddTooltipLine(20, rarityCode..item.baseName:gsub(" %(.+%)",""))
 	else
-		main:AddTooltipLine(20, rarityCode..item.name)
+		main:AddTooltipLine(20, rarityCode..item.namePrefix..item.baseName:gsub(" %(.+%)","")..item.nameSuffix)
 	end
 	main:AddTooltipSeparator(10)
 
