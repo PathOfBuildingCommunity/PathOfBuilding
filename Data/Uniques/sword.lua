@@ -35,9 +35,9 @@ Requires Level 32, 57 Str, 57 Dex
 {variant:2}150% increased Physical Damage
 +10 to Intelligence
 50% increased Global Critical Strike Chance
-(0.6 to 1)% of Physical Attack Damage Leeched as Mana
+(0.6-1)% of Physical Attack Damage Leeched as Mana
 10% reduced Maximum Life
-(40 to 50)% increased Maximum Energy Shield
+(40-50)% increased Maximum Energy Shield
 ]],[[
 The Goddess Scorned
 Elegant Sword

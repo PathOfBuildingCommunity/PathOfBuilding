@@ -2785,8 +2785,8 @@ gems["Warlord's Mark"] = {
 	baseMods = {
 		skill("castTime", 0.5), 
 		--"chance_to_be_stunned_%" = 10
-		--"life_leech_on_any_damage_when_hit_permyriad" = 200
-		--"mana_leech_on_any_damage_when_hit_permyriad" = 200
+		mod("SelfDamageLifeLeech", "BASE", 200, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"life_leech_on_any_damage_when_hit_permyriad" = 200
+		mod("SelfDamageManaLeech", "BASE", 200, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"mana_leech_on_any_damage_when_hit_permyriad" = 200
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
 	},

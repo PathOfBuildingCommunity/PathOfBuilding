@@ -19,6 +19,7 @@ local formList = {
 	["^(%d+)%% less"] = "LESS",
 	["^([%+%-][%d%.]+)%%?"] = "BASE",
 	["^([%+%-][%d%.]+)%%? to"] = "BASE",
+	["^([%+%-][%d%.]+)%%? of"] = "BASE",
 	["^([%+%-][%d%.]+)%%? base"] = "BASE",
 	["^([%+%-]?[%d%.]+)%%? additional"] = "BASE",
 	["^you gain ([%d%.]+)"] = "BASE",
@@ -143,7 +144,7 @@ local modNameList = {
 	["maximum endurance charges"] = "EnduranceChargesMax",
 	["endurance charge duration"] = "EnduranceChargesDuration",
 	["endurance, frenzy and power charge duration"] = { "PowerChargesDuration", "FrenzyChargesDuration", "EnduranceChargesDuration" },
-	-- On hit/kill effects
+	-- On hit/kill/leech effects
 	["life gained on kill"] = "LifeOnKill",
 	["mana gained on kill"] = "ManaOnKill",
 	["life gained for each enemy hit by attacks"] = { "LifeOnHit", flags = ModFlag.Attack },
@@ -155,6 +156,10 @@ local modNameList = {
 	["energy shield gained for each enemy hit by attacks"] = { "EnergyShieldOnHit", flags = ModFlag.Attack },
 	["energy shield gained for each enemy hit by your attacks"] = { "EnergyShieldOnHit", flags = ModFlag.Attack },
 	["life and mana gained for each enemy hit"] = { "LifeOnHit", "ManaOnHit", flags = ModFlag.Attack },
+	["life leeched per second"] = "LifeLeechRate",
+	["mana leeched per second"] = "ManaLeechRate",
+	["maximum life per second to maximum life leech rate"] = "MaxLifeLeechRate",
+	["maximum mana per second to maximum mana leech rate"] = "MaxLifeLeechRate",
 	-- Projectile modifiers
 	["projectile"] = "ProjectileCount",
 	["projectiles"] = "ProjectileCount",
@@ -267,6 +272,7 @@ local modFlagList = {
 	["with axes"] = { flags = ModFlag.Axe },
 	["with bows"] = { flags = ModFlag.Bow },
 	["with claws"] = { flags = ModFlag.Claw },
+	["dealt with claws"] = { flags = ModFlag.Claw },
 	["with daggers"] = { flags = ModFlag.Dagger },
 	["with maces"] = { flags = ModFlag.Mace },
 	["with staves"] = { flags = ModFlag.Staff },
@@ -343,6 +349,7 @@ local preFlagList = {
 -- List of modifier tags
 local modTagList = {
 	["on enemies"] = { },
+	[" on critical strike"] = { tag = { type = "Condition", var = "CriticalStrike" } },
 	-- Multipliers
 	["per power charge"] = { tag = { type = "Multiplier", var = "PowerCharge" } },
 	["per frenzy charge"] = { tag = { type = "Multiplier", var = "FrenzyCharge" } },
@@ -447,6 +454,7 @@ local modTagList = {
 	["against enemies on low life"] = { tag = { type = "Condition", var = "EnemyLowLife" }, flags = ModFlag.Hit },
 	["against enemies that are on low life"] = { tag = { type = "Condition", var = "EnemyLowLife" }, flags = ModFlag.Hit },
 	["against rare and unique enemies"] = { tag = { type = "Condition", var = "EnemyRareOrUnique" }, flags = ModFlag.Hit },
+	["against cursed enemies"] = { tag = { type = "Condition", var = "EnemyCursed" }, flags = ModFlag.Hit },
 	["against bleeding enemies"] = { tag = { type = "Condition", var = "EnemyBleeding" }, flags = ModFlag.Hit },
 	["against poisoned enemies"] = { tag = { type = "Condition", var = "EnemyPoisoned" }, flags = ModFlag.Hit },
 	["against hindered enemies"] = { tag = { type = "Condition", var = "EnemyHindered" }, flags = ModFlag.Hit },
@@ -484,7 +492,7 @@ local specialModList = {
 	["30%% chance to dodge attacks%. 50%% less armour and energy shield, 30%% less chance to block spells and attacks"] = { mod("AttackDodgeChance", "BASE", 30), mod("Armour", "MORE", -50), mod("EnergyShield", "MORE", -50), mod("BlockChance", "MORE", -30), mod("SpellBlockChance", "MORE", -30) },
 	["maximum life becomes 1, immune to chaos damage"] = { flag("ChaosInoculation") },
 	["life regeneration is applied to energy shield instead"] = { flag("ZealotsOath") },
-	["life leech applies instantly%. life regeneration has no effect%."] = { flag("VaalPact"), flag("NoLifeRegen") },
+	["life leech applies instantly%. life regeneration has no effect%."] = { flag("InstantLifeLeech"), flag("NoLifeRegen") },
 	["deal no non%-fire damage"] = { flag("DealNoPhysical"), flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoChaos") },
 	["(%d+)%% of physical, cold and lightning damage converted to fire damage"] = function(num) return { mod("PhysicalDamageConvertToFire", "BASE", num), mod("LightningDamageConvertToFire", "BASE", num), mod("ColdDamageConvertToFire", "BASE", num) } end,
 	["removes all mana%. spend life instead of mana for skills"] = { mod("Mana", "MORE", -100), flag("BloodMagic") },
@@ -500,6 +508,7 @@ local specialModList = {
 		}
 	end,
 	["projectile attacks deal up to 50%% more damage to targets at the start of their movement, dealing less damage to targets as the projectile travels farther"] = { flag("PointBlank") },
+	["life leech is applied to energy shield instead"] = { flag("GhostReaver") },
 	-- Ascendancy notables
 	["movement skills cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Movement) },
 	["projectiles have (%d+)%% additional chance to pierce targets at the start of their movement, losing this chance as the projectile travels farther"] = function(num) return { mod("PierceChance", "BASE", num, { type = "DistanceRamp", ramp = {{10,1},{120,0}} }) } end,
@@ -529,6 +538,7 @@ local specialModList = {
 	["you and nearby allies have (%d+)%% increased movement speed"] = function(num) return { mod("MovementSpeed", "INC", num) } end,
 	["skills from your helmet penetrate (%d+)%% elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "SocketedIn", slotName = "Helmet" }) } end,
 	["skills from your gloves have (%d+)%% increased area of effect"] = function(num) return { mod("AreaRadius", "INC", num, { type = "SocketedIn", slotName = "Gloves" }) } end,
+	["skills from your boots leech (%d+)%% of damage as life"] = function(num) return { mod("DamageLifeLeech", "BASE", num, { type = "SocketedIn", slotName = "Boots" }) } end,
 	["(%d+)%% less totem damage per totem"] = function(num) return { mod("Damage", "MORE", -num, nil, 0, KeywordFlag.Totem, { type = "PerStat", stat = "ActiveTotemLimit", div = 1 }) } end,
 	["poison you inflict with critical strikes deals (%d+)%% more damage"] = function(num) return { mod("PoisonDamageOnCrit", "MORE", 100) } end,
 	["bleeding you inflict on maimed enemies deals (%d+)%% more damage"] = function(num) return { mod("Damage", "MORE", num, nil, 0, KeywordFlag.Bleed, { type = "Condition", var = "EnemyMaimed"}) } end,
@@ -678,6 +688,9 @@ local specialModList = {
 	["grants level (%d+) (.+) curse aura during flask effect"] = function(num, _, skill) return { mod("ExtraCurse", "LIST", { name = gemNameLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "Condition", var = "UsingFlask" }) } end,
 	["passives in radius can be allocated without being connected to your tree"] = { mod("Misc", "LIST", { type = "JewelData", key = "intuitiveLeap", value = true }) },
 	["your hits inflict decay, dealing (%d+) chaos damage per second for 10 seconds"] = function(num) return { mod("Misc", "LIST", { type = "SkillData", key = "decay", value = num, merge = "MAX" }) } end,
+	["leech applies instantly on critical strike"] = { flag("InstantLifeLeech", { type = "Condition", var = "CriticalStrike" }), flag("InstantManaLeech", { type = "Condition", var = "CriticalStrike" }) },
+	["leech applies instantly during flask effect"] = { flag("InstantLifeLeech", { type = "Condition", var = "UsingFlask" }), flag("InstantManaLeech", { type = "Condition", var = "UsingFlask" }) },
+	["life leech from hits with this weapon applies instantly"] = { flag("InstantLifeLeech", { type = "Condition", var = "XHandAttack" }) },
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques
@@ -726,6 +739,9 @@ local convTypes = {
 	["converted to cold damage"] = "ConvertToCold",
 	["converted to fire damage"] = "ConvertToFire",
 	["converted to chaos damage"] = "ConvertToChaos",
+	["leeched as life and mana"] = "Leech",
+	["leeched as life"] = "LifeLeech",
+	["leeched as mana"] = "ManaLeech",
 }
 local dmgTypes = {
 	["physical"] = "Physical",

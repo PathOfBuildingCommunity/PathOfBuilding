@@ -47,6 +47,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.11 - 2017/02/26
+ * When importing a character you can now choose to delete existing data (jewels, skills, equipment) before importing
+ * Wither now shows the secondary duration (%increased Chaos Damage Taken) instead of the primary duration (Hinder)
+ * Local increased Accuracy modifiers on weapons are now correctly multiplicative with global increased Accuracy
+ 
 ### 1.3.10 - 2017/02/23
  * Added support for the helmet enchants that grant increased Buff Effect from Golems 
  * Added an option to the Configuration tab for "Is the enemy Rare or Unique?"

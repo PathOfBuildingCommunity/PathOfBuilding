@@ -89,11 +89,11 @@ Death Rush
 Amethyst Ring
 League: Onslaught
 Requires Level 46
-+(9 to 13)% to Chaos Resistance
-+(300 to 350) to Accuracy Rating
-+(60 to 80) to Armour
-+(15 to 20)% to Chaos Resistance
-(0.6 to 0.8)% of Physical Attack Damage Leeched as Life
++(9-13)% to Chaos Resistance
++(300-350) to Accuracy Rating
++(60-80) to Armour
++(15-20)% to Chaos Resistance
+(0.6-0.8)% of Physical Attack Damage Leeched as Life
 You gain Onslaught for 2 seconds on Kill
 ]],[[
 Doedre's Damning

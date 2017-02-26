@@ -517,6 +517,10 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 				weaponData[value.key] = value.value
 			end
 		end
+		weaponData.AccuracyInc = sumLocal(modList, "Accuracy", "INC", 0)
+		if weaponData.AccuracyInc > 0 then
+			modList:NewMod("Accuracy", "MORE", weaponData.AccuracyInc, item.modSource, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })
+		end
 		for _, mod in ipairs(modList) do
 			-- Convert accuracy modifiers to local
 			if mod.name == "Accuracy" and mod.flags == 0 and mod.keywordFlags == 0 and not mod.tagList[1] then

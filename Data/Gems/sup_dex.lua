@@ -922,13 +922,13 @@ gems["Mana Leech"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	baseMods = {
-		--"mana_leech_from_any_damage_permyriad" = 200
+		mod("DamageManaLeech", "BASE", 2), --"mana_leech_from_any_damage_permyriad" = 200
 	},
 	qualityMods = {
-		--"mana_leech_speed_+%" = 0.5
+		mod("ManaLeechRate", "INC", 0.5), --"mana_leech_speed_+%" = 0.5
 	},
 	levelMods = {
-		--[1] = "mana_leech_speed_+%"
+		[1] = mod("ManaLeechRate", "INC", nil), --"mana_leech_speed_+%"
 	},
 	levels = {
 		[1] = { 0, },

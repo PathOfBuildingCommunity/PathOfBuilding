@@ -635,6 +635,8 @@ local function initEnv(build, mode, override)
 	modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
 	modDB:NewMod("EnduranceChargesMax", "BASE", 3, "Base")
 	modDB:NewMod("ElementalResist", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
+	modDB:NewMod("MaxLifeLeechRate", "BASE", 20, "Base")
+	modDB:NewMod("MaxManaLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("ActiveTrapLimit", "BASE", 3, "Base")
 	modDB:NewMod("ActiveMineLimit", "BASE", 5, "Base")
 	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
@@ -1652,6 +1654,14 @@ local function performCalcs(env)
 		end
 	end
 
+	-- Leech caps
+	if modDB:Sum("FLAG", nil, "GhostReaver") then
+		output.MaxEnergyShieldLeechRate = output.EnergyShield * modDB:Sum("BASE", nil, "MaxLifeLeechRate") / 100
+	else
+		output.MaxLifeLeechRate = output.Life * modDB:Sum("BASE", nil, "MaxLifeLeechRate") / 100
+	end
+	output.MaxManaLeechRate = output.Mana * modDB:Sum("BASE", nil, "MaxManaLeechRate") / 100
+
 	-- Other defences: block, dodge, stun recovery/avoidance
 	do
 		output.MovementSpeedMod = calcMod(modDB, nil, "MovementSpeed")
@@ -2195,6 +2205,8 @@ local function performCalcs(env)
 		for pass = 1, 2 do
 			-- Pass 1 is critical strike damage, pass 2 is non-critical strike
 			condList["CriticalStrike"] = (pass == 1)
+			local lifeLeechTotal = 0
+			local manaLeechTotal = 0
 			for _, damageType in ipairs(dmgTypeList) do
 				local min, max
 				if skillFlags.hit and canDeal[damageType] then
@@ -2253,8 +2265,16 @@ local function performCalcs(env)
 							breakdown[damageType.."EffMult"] = effMultBreakdown(damageType, resist, pen, taken, effMult)
 						end
 					end
-					if breakdown then	
+					if breakdown then
 						t_insert(breakdown[damageType], s_format("= %d to %d", min, max))
+					end
+					local lifeLeech = modDB:Sum("BASE", cfg, "DamageLifeLeech", damageType.."LifeLeech", isElemental[damageType] and "ElementalLifeLeech" or nil) + enemyDB:Sum("BASE", nil, "SelfDamageLifeLeech") / 100
+					if lifeLeech > 0 then
+						lifeLeechTotal = lifeLeechTotal + (min + max) / 2 * lifeLeech / 100
+					end
+					local manaLeech = modDB:Sum("BASE", cfg, "DamageManaLeech", damageType.."ManaLeech", isElemental[damageType] and "ElementalManaLeech" or nil) + enemyDB:Sum("BASE", nil, "SelfDamageManaLeech") / 100
+					if manaLeech > 0 then
+						manaLeechTotal = manaLeechTotal + (min + max) / 2 * manaLeech / 100
 					end
 				else
 					min, max = 0, 0
@@ -2278,6 +2298,29 @@ local function performCalcs(env)
 					totalHitMax = totalHitMax + max
 				end
 			end
+			if pass == 1 then
+				if modDB:Sum("FLAG", cfg, "InstantLifeLeech") then
+					output.LifeLeechInstant = (output.LifeLeechInstant or 0) + lifeLeechTotal * output.CritChance / 100
+				else
+					output.LifeLeech = (output.LifeLeech or 0) + lifeLeechTotal * output.CritChance / 100
+				end
+				if modDB:Sum("FLAG", cfg, "InstantManaLeech") then
+					output.ManaLeechInstant = (output.ManaLeechInstant or 0) + manaLeechTotal * output.CritChance / 100
+				else
+					output.ManaLeech = (output.ManaLeech or 0) + manaLeechTotal * output.CritChance / 100
+				end
+			else
+				if modDB:Sum("FLAG", cfg, "InstantLifeLeech") then
+					output.LifeLeechInstant = (output.LifeLeechInstant or 0) + lifeLeechTotal * (1 - output.CritChance / 100)
+				else
+					output.LifeLeech = (output.LifeLeech or 0) + lifeLeechTotal * (1 - output.CritChance / 100)
+				end
+				if modDB:Sum("FLAG", cfg, "InstantManaLeech") then
+					output.ManaLeechInstant = (output.ManaLeechInstant or 0) + manaLeechTotal * (1 - output.CritChance / 100)
+				else
+					output.ManaLeech = (output.ManaLeech or 0) + manaLeechTotal * (1 - output.CritChance / 100)
+				end
+			end
 		end
 		output.TotalMin = totalHitMin
 		output.TotalMax = totalHitMax
@@ -2288,6 +2331,15 @@ local function performCalcs(env)
 			enemyDB.conditions.HitByColdDamage = output.ColdHitAverage > 0
 			enemyDB.conditions.HitByLightningDamage = output.LightningHitAverage > 0
 		end
+
+		-- Calculate leech
+		local hitRate = output.HitChance / 100 * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+		output.LifeLeechDuration = (output.LifeLeech or 0) / (modDB:Sum("FLAG", nil, "GhostReaver") and globalOutput.EnergyShield or globalOutput.Life) / 0.02
+		output.LifeLeechInstances = output.LifeLeechDuration * hitRate
+		output.LifeLeechInstantRate = (output.LifeLeechInstant or 0) * hitRate
+		output.ManaLeechDuration = (output.ManaLeech or 0) / globalOutput.Mana / 0.02
+		output.ManaLeechInstances = output.ManaLeechDuration * hitRate
+		output.ManaLeechInstantRate = (output.ManaLeechInstant or 0) * hitRate
 
 		-- Calculate average damage and final DPS
 		output.AverageHit = (totalHitMin + totalHitMax) / 2 * (1 - output.CritChance / 100) + (totalCritMin + totalCritMax) / 2 * output.CritChance / 100
@@ -2317,6 +2369,12 @@ local function performCalcs(env)
 		combineStat("CritMultiplier", "AVERAGE")
 		combineStat("AverageDamage", "DPS")
 		combineStat("TotalDPS", "DPS")
+		combineStat("LifeLeechDuration", "DPS")
+		combineStat("LifeLeechInstances", "DPS")
+		combineStat("LifeLeechInstantRate", "DPS")
+		combineStat("ManaLeechDuration", "DPS")
+		combineStat("ManaLeechInstances", "DPS")
+		combineStat("ManaLeechInstantRate", "DPS")
 		if skillFlags.bothWeaponAttack then
 			if breakdown then
 				breakdown.AverageDamage = { }
@@ -2353,6 +2411,57 @@ local function performCalcs(env)
 			t_insert(breakdown.TotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
 		end
 		t_insert(breakdown.TotalDPS, s_format("= %.1f", output.TotalDPS))
+	end
+
+	-- Calculate leech rates
+	if modDB:Sum("FLAG", nil, "GhostReaver") then
+		output.EnergyShieldLeechRate = output.LifeLeechInstantRate + m_min(output.LifeLeechInstances * output.EnergyShield * 0.02 * calcMod(modDB, skillCfg, "LifeLeechRate"), output.MaxEnergyShieldLeechRate)
+	else
+		output.LifeLeechRate = output.LifeLeechInstantRate + m_min(output.LifeLeechInstances * output.Life * 0.02 * calcMod(modDB, skillCfg, "LifeLeechRate"), output.MaxLifeLeechRate)
+	end
+	output.ManaLeechRate = output.ManaLeechInstantRate + m_min(output.ManaLeechInstances * output.Mana * 0.02 * calcMod(modDB, skillCfg, "ManaLeechRate"), output.MaxManaLeechRate)
+	skillFlags.leechES = (output.EnergyShieldLeechRate or 0) > 0
+	skillFlags.leechLife = (output.LifeLeechRate or 0) > 0
+	skillFlags.leechMana = output.ManaLeechRate > 0
+	if breakdown then
+		local function leechBreakdown(instant, instances, pool, rate, max, dur)
+			local out = { }
+			if instant > 0 then
+				t_insert(out, s_format("Instant Leech per second: %.1f", instant))
+			end
+			if instances > 0 then
+				t_insert(out, "Rate per instance:")
+				t_insert(out, s_format("%d ^8(size of leech destination pool)", pool))
+				t_insert(out, "x 0.02 ^8(base leech rate is 2% per second)")
+				local rateMod = calcMod(modDB, skillCfg, rate)
+				if rateMod ~= 1 then
+					t_insert(out, s_format("x %.2f ^8(leech rate modifier)", rateMod))
+				end
+				t_insert(out, s_format("= %.1f ^8per second", pool * 0.02 * rateMod))
+				t_insert(out, "Maximum leech rate against one target:")
+				t_insert(out, s_format("%.1f", pool * 0.02 * rateMod))
+				t_insert(out, s_format("x %.1f ^8(average instances)", instances))
+				local total = pool * 0.02 * rateMod * instances
+				t_insert(out, s_format("= %.1f ^8per second", total))
+				if total <= max then
+					t_insert(out, s_format("Time to reach max: %.1fs", dur))
+				end
+				t_insert(out, s_format("Leech rate cap: %.1f", max))
+				if total > max then
+					t_insert(out, s_format("Time to reach cap: %.1fs", dur / total * max))
+				end
+			end
+			return out
+		end
+		if skillFlags.leechES then
+			breakdown.EnergyShieldLeechRate = leechBreakdown(output.LifeLeechInstantRate, output.LifeLeechInstances, output.EnergyShield, "LifeLeechRate", output.MaxEnergyShieldLeechRate, output.LifeLeechDuration)
+		end
+		if skillFlags.leechLife then
+			breakdown.LifeLeechRate = leechBreakdown(output.LifeLeechInstantRate, output.LifeLeechInstances, output.Life, "LifeLeechRate", output.MaxLifeLeechRate, output.LifeLeechDuration)
+		end
+		if skillFlags.leechMana then
+			breakdown.ManaLeechRate = leechBreakdown(output.ManaLeechInstantRate, output.ManaLeechInstances, output.Mana, "ManaLeechRate", output.MaxManaLeechRate, output.ManaLeechDuration)
+		end
 	end
 
 	-- Calculate skill DOT components
