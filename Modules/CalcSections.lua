@@ -504,6 +504,9 @@ return {
 	}, },
 } },
 { 1, "MiscEffects", 1, "Other Effects", data.colorCodes.OFFENCE, {
+	--[[{ label = "Life Leech Rate", flag = "leechLife", { format = "{1:output:LifeLeechRate}", { breakdown = "LifeLeechRate" }, }, },
+	{ label = "ES Leech Rate", flag = "leechES", { format = "{1:output:EnergyShieldLeechRate}", { breakdown = "EnergyShieldLeechRate" }, }, },
+	{ label = "Mana Leech Rate", flag = "leechMana", { format = "{1:output:ManaLeechRate}", { breakdown = "ManaLeechRate" }, }, },]]
 	{ label = "Chance to Shock", flag = "shock", { format = "{0:output:ShockChance}%", 
 		{ breakdown = "MainHand.ShockChance" }, 
 		{ breakdown = "OffHand.ShockChance" }, 

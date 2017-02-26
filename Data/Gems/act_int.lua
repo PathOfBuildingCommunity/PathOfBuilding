@@ -4390,8 +4390,8 @@ gems["Wither"] = {
 	baseMods = {
 		skill("castTime", 0.28), 
 		mod("ChaosDamageTaken", "INC", 7, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }), --"chaos_damage_taken_+%" = 7
-		skill("duration", 0.5), --"base_skill_effect_duration" = 500
-		--"base_secondary_skill_effect_duration" = 2000
+		nil, --"base_skill_effect_duration" = 500
+		skill("duration", 2), --"base_secondary_skill_effect_duration" = 2000
 		skill("stackCount", 5, { type = "SkillPart", skillPart = 2 }), 
 		skill("stackCount", 10, { type = "SkillPart", skillPart = 3 }), 
 		skill("stackCount", 20, { type = "SkillPart", skillPart = 4 }), 

@@ -148,11 +148,11 @@ Crown of Eyes
 Hubris Circlet
 Energy Shield: (220 to 250)
 Requires Level 69, 154 Int
-+(200 to 250) to Accuracy Rating
-(120 to 150)% increased Energy Shield
++(200-250) to Accuracy Rating
+(120-150)% increased Energy Shield
 −30% to Fire Resistance
-(0.4 to 0.8)% of Physical Attack Damage Leeched as Life
-(0.2 to 0.4)% of Physical Attack Damage Leeched as Mana
+(0.4-0.8)% of Physical Attack Damage Leeched as Life
+(0.2-0.4)% of Physical Attack Damage Leeched as Mana
 Increases and Reductions to Spell Damage also apply to Attacks
 ]],[[
 Crown of Thorns
@@ -395,8 +395,8 @@ League: Tempest
 Evasion: (305 to 366)
 Energy Shield: (90 to 108)
 Requires Level 52, 58 Dex, 58 Int
-(150 to 200)% increased Evasion and Energy Shield
-(0.4 to 0.8)% of Physical Attack Damage Leeched as Life
+(150-200)% increased Evasion and Energy Shield
+(0.4-0.8)% of Physical Attack Damage Leeched as Life
 Reflects 100 to 150 Physical Damage to Melee Attackers
 30% of Damage you Reflect to enemies is gained as Life
 ]],[[

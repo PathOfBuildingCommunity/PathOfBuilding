@@ -16,7 +16,7 @@ local ImportTabClass = common.NewClass("ImportTab", "ControlHost", "Control", fu
 
 	self.charImportMode = "GETACCOUNTNAME"
 	self.charImportStatus = "Idle"
-	self.controls.sectionCharImport = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 600, 210, "Character Import")
+	self.controls.sectionCharImport = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 600, 230, "Character Import")
 	self.controls.charImportStatusLabel = common.New("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 14, 200, 16, function()
 		return "^7Character import status: "..self.charImportStatus
 	end)
@@ -89,14 +89,20 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charImportTree.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.charImportItems = common.New("ButtonControl", {"LEFT",self.controls.charImportTree, "RIGHT"}, 8, 0, 110, 20, "Items and Skills", function()
+	self.controls.charImportTreeClearJewels = common.New("CheckBoxControl", {"LEFT",self.controls.charImportTree,"RIGHT"}, 90, 0, 18, "Delete jewels:")
+	self.controls.charImportTreeClearJewels.tooltip = "Delete all existing jewels when importing."
+	self.controls.charImportItems = common.New("ButtonControl", {"LEFT",self.controls.charImportTree, "LEFT"}, 0, 36, 110, 20, "Items and Skills", function()
 		self:DownloadItems()
 	end)
 	self.controls.charImportItems.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.charBanditNote = common.New("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 14, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choices,\nas these cannot be imported.")
-	self.controls.charDone = common.New("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 60, 60, 20, "Done", function()
+	self.controls.charImportItemsClearSkills = common.New("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 85, 0, 18, "Delete skills:")
+	self.controls.charImportItemsClearSkills.tooltip = "Delete all existing skills when importing."
+	self.controls.charImportItemsClearItems = common.New("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:")
+	self.controls.charImportItemsClearItems.tooltip = "Delete all equipped items when importing."
+	self.controls.charBanditNote = common.New("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choices,\nas these cannot be imported.")
+	self.controls.charDone = common.New("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Done", function()
 		self.charImportMode = "GETACCOUNTNAME"
 		self.charImportStatus = "Idle"
 	end)
@@ -269,6 +275,13 @@ function ImportTabClass:DownloadPassiveTree()
 		end
 		self.charImportStatus = data.colorCodes.POSITIVE.."Passive tree and jewels successfully imported."
 		--ConPrintTable(charPassiveData)
+		if self.controls.charImportTreeClearJewels.state then
+			for _, slot in pairs(self.build.itemsTab.slots) do
+				if slot.selItemId ~= 0 and slot.nodeId then
+					self.build.itemsTab:DeleteItem(self.build.itemsTab.list[slot.selItemId])
+				end
+			end
+		end
 		local sockets = { }
 		for i, slot in pairs(charPassiveData.jewel_slots) do
 			sockets[i] = tonumber(slot.passiveSkill.hash)
@@ -307,10 +320,66 @@ function ImportTabClass:DownloadItems()
 			self.charImportStatus = data.colorCodes.NEGATIVE.."Error processing character data, try again later."
 			return
 		end
+		if self.controls.charImportItemsClearItems.state then
+			for _, slot in pairs(self.build.itemsTab.slots) do
+				if slot.selItemId ~= 0 and not slot.nodeId then
+					self.build.itemsTab:DeleteItem(self.build.itemsTab.list[slot.selItemId])
+				end
+			end
+		end
+		local skillOrder
+		if self.controls.charImportItemsClearSkills.state then
+			skillOrder = { }
+			for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+				for _, gem in ipairs(socketGroup.gemList) do
+					if gem.data and not gem.data.support then
+						t_insert(skillOrder, gem.name)
+					end
+				end
+			end
+			wipeTable(self.build.skillsTab.socketGroupList)
+		end
 		self.charImportStatus = data.colorCodes.POSITIVE.."Items and skills successfully imported."
 		--ConPrintTable(charItemData)
 		for _, itemData in pairs(charItemData.items) do
 			self:ImportItem(itemData)
+		end
+		if skillOrder then
+			local groupOrder = { }
+			for index, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+				groupOrder[socketGroup] = index
+			end
+			table.sort(self.build.skillsTab.socketGroupList, function(a, b)
+				local orderA
+				for _, gem in ipairs(a.gemList) do
+					if gem.data and not gem.data.support then
+						local i = isValueInArray(skillOrder, gem.name)
+						if i and (not orderA or i < orderA) then
+							orderA = i
+						end
+					end
+				end
+				local orderB
+				for _, gem in ipairs(b.gemList) do
+					if gem.data and not gem.data.support then
+						local i = isValueInArray(skillOrder, gem.name)
+						if i and (not orderB or i < orderB) then
+							orderB = i
+						end
+					end
+				end
+				if orderA and orderB then
+					if orderA ~= orderB then
+						return orderA < orderB
+					else
+						return groupOrder[a] < groupOrder[b]
+					end
+				elseif not orderA and not orderB then
+					return groupOrder[a] < groupOrder[b]
+				else
+					return orderA
+				end
+			end)
 		end
 		self.build.itemsTab:PopulateSlots()
 		self.build.itemsTab:AddUndoState()

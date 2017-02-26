@@ -917,13 +917,13 @@ gems["Life Leech"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 30), 
-		--"life_leech_from_any_damage_permyriad" = 200
+		mod("DamageLifeLeech", "BASE", 2), --"life_leech_from_any_damage_permyriad" = 200
 	},
 	qualityMods = {
-		--"life_leech_speed_+%" = 0.5
+		mod("LifeLeechRate", "INC", 0.5), --"life_leech_speed_+%" = 0.5
 	},
 	levelMods = {
-		--[1] = "life_leech_speed_+%"
+		[1] = mod("LifeLeechRate", "INC", nil), --"life_leech_speed_+%"
 	},
 	levels = {
 		[1] = { 0, },

@@ -363,9 +363,9 @@ Full Dragonscale
 Armour: (871 to 1005)
 Evasion: (692 to 798)
 Requires Level 63, 115 Str, 94 Dex
-(160 to 200)% increased Armour and Evasion
-+(40 to 60) to maximum Life
-(0.4 to 0.6)% of Physical Attack Damage Leeched as Life
+(160-200)% increased Armour and Evasion
++(40-60) to maximum Life
+(0.4-0.6)% of Physical Attack Damage Leeched as Life
 6% Chance to Dodge Attacks
 You lose all Endurance Charges when Hit
 You gain an Endurance Charge on Kill
@@ -449,10 +449,10 @@ Saintly Chainmail
 Armour: (761 to 878)
 Energy Shield: (216 to 235)
 Requires Level 70, 99 Str, 115 Int
-+(60 to 80) to Armour
-(120 to 140)% increased Armour and Energy Shield
-+(80 to 90) to maximum Life
-(0.8 to 1)% of Physical Attack Damage Leeched as Life
++(60-80) to Armour
+(120-140)% increased Armour and Energy Shield
++(80-90) to maximum Life
+(0.8-1)% of Physical Attack Damage Leeched as Life
 25% of Elemental Damage taken as Chaos Damage
 (20 to 30)% increased Light Radius
 Light Radius is based on Energy Shield instead of Life

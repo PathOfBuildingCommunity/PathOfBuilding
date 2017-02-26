@@ -91,7 +91,9 @@ function CheckBoxClass:OnKeyUp(key)
 	if key == "LEFTBUTTON" then
 		if self:IsMouseOver() then
 			self.state = not self.state
-			self.changeFunc(self.state)
+			if self.changeFunc then
+				self.changeFunc(self.state)
+			end
 		end
 	end
 	self.clicked = false

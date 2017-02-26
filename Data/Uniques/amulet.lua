@@ -105,12 +105,12 @@ Moving while Bleeding doesn't cause you to take extra Damage
 Carnage Heart
 Onyx Amulet
 Requires Level 20
-+(10 to 16) to all Attributes
-+(20 to 40) to all Attributes
++(10-16) to all Attributes
++(20-40) to all Attributes
 25% reduced maximum Life
 25% reduced maximum Energy Shield
-+(10 to 20)% to all Elemental Resistances
-(1.2 to 2)% of Physical Attack Damage Leeched as Life
++(10-20)% to all Elemental Resistances
+(1.2-2)% of Physical Attack Damage Leeched as Life
 Extra Gore
 ]],[[
 Daresso's Salute
@@ -360,8 +360,8 @@ Requires Level 50
 (8 to 12)% increased Cast Speed
 12% increased Movement Speed
 (8 to 12)% reduced Skill Effect Duration
-30% increased Life Leech Rate
-30% increased Mana Leech Rate
+30% increased Life Leeched per second
+30% increased Mana Leeched per second
 ]],[[
 Winterheart
 Gold Amulet
