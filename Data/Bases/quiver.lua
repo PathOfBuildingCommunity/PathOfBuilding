@@ -8,17 +8,17 @@ itemBases["Serrated Arrow Quiver"] = {
 }
 itemBases["Two-Point Arrow Quiver"] = {
 	type = "Quiver",
-	implicit = "(20 to 30)% increased Accuracy Rating",
+	implicit = "(20-30)% increased Accuracy Rating",
 	req = { level = 4, },
 }
 itemBases["Sharktooth Arrow Quiver"] = {
 	type = "Quiver",
-	implicit = "+(3 to 4) Life gained for each Enemy hit by your Attacks",
+	implicit = "+(3-4) Life gained for each Enemy hit by your Attacks",
 	req = { level = 10, },
 }
 itemBases["Blunt Arrow Quiver"] = {
 	type = "Quiver",
-	implicit = "(25 to 35)% increased Stun Duration on Enemies",
+	implicit = "(25-35)% increased Stun Duration on Enemies",
 	req = { level = 16, },
 }
 itemBases["Fire Arrow Quiver"] = {
@@ -38,6 +38,6 @@ itemBases["Penetrating Arrow Quiver"] = {
 }
 itemBases["Spike-Point Arrow Quiver"] = {
 	type = "Quiver",
-	implicit = "(20 to 30)% increased Global Critical Strike Chance",
+	implicit = "(20-30)% increased Global Critical Strike Chance",
 	req = { level = 45, },
 }

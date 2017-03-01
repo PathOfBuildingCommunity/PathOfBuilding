@@ -47,6 +47,18 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.12 - 2017/03/02
+This update brings some of the changes for 2.6; other changes are awaiting updated data.
+ * Almost all balance changes to unique items have been applied
+ * Implicits for most weapon types have been updated
+ * Added the four new uniques announced thus far
+ * A new Unset Ring template has been added, with the new + to Level of Socketed Gems modifier
+ * The +2 Chaos Staff template is now +3
+Other changes:
+ * The "Blocked Recently" option has been replaced with separate options for "Blocked an Attack" and "Blocked a Spell"
+ * Caustic Arrow's hits no longer incorrectly benefit from Area Damage
+ * Ancestral Protector and Ancestral Warchief now correctly use the main hand only
+
 ### 1.3.11 - 2017/02/26
  * When importing a character you can now choose to delete existing data (jewels, skills, equipment) before importing
  * Wither now shows the secondary duration (%increased Chaos Damage Taken) instead of the primary duration (Hinder)

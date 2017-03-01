@@ -6,36 +6,62 @@ return {
 Anatomical Knowledge
 Cobalt Jewel
 Radius: Large
-(6 to 8)% increased maximum Life
+(6-8)% increased maximum Life
 Adds 1 to Maximum Life per 3 Intelligence Allocated in Radius
+]],[[
+The Anima Stone
+Prismatic Jewel
+Limited to: 1
+Implicits: 0
+Can Summon up to 1 additional Golem at a time
+If you have 3 Primordial Jewels, can Summon up to 1 additional Golem at a time
 ]],[[
 Apparitions
 Viridian Jewel
-Minions have (5 to 10)% increased Movement Speed
-Minions have (2 to 5)% additional chance to Dodge Attacks
+Minions have (5-10)% increased Movement Speed
+Minions have (2-5)% additional chance to Dodge Attacks
 ]],[[
 Army of Bones
 Cobalt Jewel
-Minions deal (8 to 12)% increased Damage
+Minions deal (8-12)% increased Damage
 +2 to maximum number of Skeletons
-(10 to 20)% reduced Skeleton Duration
+(10-20)% reduced Skeleton Duration
+]],[[
+The Blue Dream
+Cobalt Jewel
+League: Breach
+Radius: Large
+Gain 5% of Lightning Damage as Extra Chaos Damage
+Passives granting Lightning Resistance or all Elemental Resistances in Radius
+also grant an equal chance to gain a Power Charge on Kill
+]],[[
+The Blue Nightmare
+Cobalt Jewel
+League: Breach
+Limited to: 1
+Radius: Large
+Gain 5% of Lightning Damage as Extra Chaos Damage
+Passives granting Lightning Resistance or all Elemental Resistances in Radius
+also grant Chance to Block Spells at 35% of its value
+Passives granting Lightning Resistance or all Elemental Resistances in Radius
+also grant an equal chance to gain a Power Charge on Kill
 ]],[[
 Brawn
 Crimson Jewel
-(4 to 6)% increased Dexterity
-(4 to 6)% increased Strength
-(10 to 15)% reduced Intelligence
+(4-6)% increased Dexterity
+(4-6)% increased Strength
+(10-15)% reduced Intelligence
 ]],[[
 Brute Force Solution
 Cobalt Jewel
 Radius: Large
-+(16 to 24) to Intelligence
++(16-24) to Intelligence
 Strength from Passives in Radius is Transformed to Intelligence
 ]],[[
 Careful Planning
 Viridian Jewel
 Radius: Large
-+(16 to 24) to Dexterity
++(16-24) to Dexterity
 Intelligence from Passives in Radius is Transformed to Dexterity
 ]],[[
 Cheap Construction
@@ -46,12 +72,12 @@ Can have up to 1 additional Trap placed at a time
 Clear Mind
 Cobalt Jewel
 Limited to: 1
-(20 to 30)% increased Mana Regeneration Rate
-(40 to 60)% increased Spell Damage while no Mana is Reserved
+(20-30)% increased Mana Regeneration Rate
+(40-60)% increased Spell Damage while no Mana is Reserved
 ]],[[
 Coated Shrapnel
 Crimson Jewel
-Traps and Mines deal (3-5 to 10-15) additional Physical Damage
+Traps and Mines deal (3-5) to (10-15) additional Physical Damage
 Traps and Mines have a 25% chance to Poison on Hit
 ]],[[
 Cold Steel
@@ -63,14 +89,14 @@ Increases and Reductions to Cold Damage in Radius are Transformed to apply to Ph
 Dead Reckoning
 Cobalt Jewel
 Radius: Medium
-Minions have +(7 to 10)% to all Elemental Resistances
+Minions have +(7-10)% to all Elemental Resistances
 With at least 50 Intelligence Allocated in Radius, can summon
 up to 3 Skeleton Mages with Summon Skeletons
 ]],[[
 Efficient Training
 Crimson Jewel
 Radius: Large
-+(16 to 24) to Strength
++(16-24) to Strength
 Intelligence from Passives in Radius is Transformed to Strength
 ]],[[
 Eldritch Knowledge
@@ -81,7 +107,7 @@ Radius: Medium
 Energised Armour
 Crimson Jewel
 Radius: Large
-(15 to 20)% increased Armour
+(15-20)% increased Armour
 Increases and Reductions to Energy Shield in Radius are Transformed to apply to Armour at 200% of their value
 ]],[[
 Energy From Within
@@ -89,14 +115,14 @@ Cobalt Jewel
 Variant: Pre 2.5.0
 Variant: Current
 Radius: Large
-{variant:1}(8 to 12)% increased maximum Energy Shield
-{variant:2}(3 to 6)% increased maximum Energy Shield
+{variant:1}(8-12)% increased maximum Energy Shield
+{variant:2}(3-6)% increased maximum Energy Shield
 Increases and Reductions to Life in Radius are Transformed to apply to Energy Shield
 ]],[[
 Fertile Mind
 Cobalt Jewel
 Radius: Large
-+(16 to 24) to Intelligence
++(16-24) to Intelligence
 Dexterity from Passives in Radius is Transformed to Intelligence
 ]],[[
 Fireborn
@@ -107,13 +133,13 @@ Increases and Reductions to other Damage Types in Radius are Transformed to appl
 Fluid Motion
 Viridian Jewel
 Radius: Large
-+(16 to 24) to Dexterity
++(16-24) to Dexterity
 Strength from Passives in Radius is Transformed to Dexterity
 ]],[[
 Fortified Legion
 Cobalt Jewel
 Limited to: 1
-Minions have (5 to 15)% increased maximum Life
+Minions have (5-15)% increased maximum Life
 Minions Recover 2% of their Maximum Life when they Block
 ]],[[
 Fragile Bloom
@@ -136,38 +162,57 @@ Variant: Current
 {variant:1}5% increased Elemental Damage per Grand Spectrum
 {variant:2}4% increased Elemental Damage per Grand Spectrum
 ]],[[
+The Green Dream
+Viridian Jewel
+League: Breach
+Radius: Large
+Gain 5% of Cold Damage as Extra Chaos Damage
+Passives granting Cold Resistance or all Elemental Resistances in Radius
+also grant an equal chance to gain a Frenzy Charge on Kill
+]],[[
+The Green Nightmare
+Viridian Jewel
+League: Breach
+Limited to: 1
+Radius: Large
+Gain 5% of Cold Damage as Extra Chaos Damage
+Passives granting Cold Resistance or all Elemental Resistances in Radius
+also grant Chance to Dodge Attacks at 35% of its value
+Passives granting Cold Resistance or all Elemental Resistances in Radius
+also grant an equal chance to gain a Frenzy Charge on Kill
+]],[[
 Growing Agony
 Viridian Jewel
 Radius: Medium
-(4 to 12)% increased Damage over Time
+(4-12)% increased Damage over Time
 With at least 50 Dexterity Allocated in Radius,
 Viper Strike deals 2% increased Attack Damage for each Poison on the Enemy
 ]],[[
 Hair Trigger
 Viridian Jewel
-(15 to 25)% increased Trap Damage
-(20 to 30)% increased Trap Trigger Radius
+(15-25)% increased Trap Damage
+(20-30)% increased Trap Trigger Radius
 ]],[[
 Healthy Mind
 Cobalt Jewel
 Radius: Large
-(15 to 20)% increased maximum Mana
+(15-20)% increased maximum Mana
 Increases and Reductions to Life in Radius are Transformed to apply to Mana at 200% of their value
 ]],[[
 Hidden Potential
 Viridian Jewel
 Limited to: 1
-(20 to 25)% increased Damage for each Magic Item you have equipped
+(20-25)% increased Damage for each Magic Item you have equipped
 ]],[[
 Hotfooted
 Viridian Jewel
 Limited to: 1
-(10 to 15)% increased Movement Speed while Ignited
+(10-15)% increased Movement Speed while Ignited
 ]],[[
 Inertia
 Crimson Jewel
 Radius: Large
-+(16 to 24) to Strength
++(16-24) to Strength
 Dexterity from Passives in Radius is Transformed to Strength
 ]],[[
 Inspired Learning
@@ -185,8 +230,8 @@ Passives in Radius can be Allocated without being connected to your tree
 ]],[[
 Izaro's Turmoil
 Crimson Jewel
-(18 to 25)% increased Fire Damage
-(18 to 25)% increased Cold Damage
+(18-25)% increased Fire Damage
+(18-25)% increased Cold Damage
 2% chance to Freeze
 2% chance to Ignite
 ]],[[
@@ -202,13 +247,13 @@ Cobalt Jewel
 Mantra of Flames
 Crimson Jewel
 Limited to: 1
-Adds (3-8 to 5-12) Fire Damage to Attacks per Buff on You
-Adds (2-5 to 3-8) Fire Damage to Spells per Buff on You
+Adds (3-8) to (5-12) Fire Damage to Attacks per Buff on You
+Adds (2-5) to (3-8) Fire Damage to Spells per Buff on You
 ]],[[
 Martial Artistry
 Crimson Jewel
 Limited to: 1
-(10 to 15)% increased Area of Effect while Unarmed
+(10-15)% increased Area of Effect while Unarmed
 ]],[[
 Might in All Forms
 Crimson Jewel
@@ -218,9 +263,34 @@ Dexterity and Intelligence from passives in Radius count towards Strength Melee 
 Pitch Darkness
 Viridian Jewel
 Radius: Medium
-(5 to 15)% increased Fire Damage
+(5-15)% increased Fire Damage
 With at least 50 Dexterity Allocated in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy.
 With at least 50 Dexterity Allocated in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
+]],[[
+Primordial Eminence
+Viridian Jewel
+Implicits: 0
+Golems have (16-20)% increased Attack and Cast Speed
+30% increased Effect of Buffs granted by your Golems
+Golems have +(800-1000) to Armour
+]],[[
+Primordial Harmony
+Cobalt Jewel
+Implicits: 0
+Golem Skills have (20-30)% increased Cooldown Recovery Speed
+Golems have (10-15)% increased Cooldown Recovery Speed
+(16-20)% increased Golem Damage for each Type of Golem you have Summoned
+Golems regenerate 2% of their Maximum Life per second
+Primordial
+]],[[
+Primordial Might
+Crimson Jewel
+Implicits: 0
+(25-30)% increased Damage if you Summoned a Golem in the past 8 seconds
+Golems Summoned in the past 8 seconds deal (35-45)% increased Damage
+Golems have (18-22)% increased Maximum Life
+Your Golems are aggressive
+Primordial
 ]],[[
 Pugilist
 Viridian Jewel
@@ -232,31 +302,50 @@ Radius: Large
 Rain of Splinters
 Crimson Jewel
 Limited to: 1
-(30 to 50)% reduced Totem Damage
+(30-50)% reduced Totem Damage
 Totems Fire 2 additional Projectiles
 ]],[[
 Rapid Expansion
 Crimson Jewel
 Radius: Medium
-(4 to 12)% increased Physical Damage
+(4-12)% increased Physical Damage
 With at least 50 Strength Allocated in radius, Ground Slam has a 20% increased angle
 ]],[[
 Reckless Defence
 Cobalt Jewel
 20% of Block Chance applied to Spells
-(2 to 4)% additional Block Chance
-(7 to 10)% additional Chance to receive a Critical Strike
+(2-4)% additional Block Chance
+(7-10)% additional Chance to receive a Critical Strike
+]],[[
+The Red Dream
+Crimson Jewel
+League: Breach
+Radius: Large
+Gain 5% of Fire Damage as Extra Chaos Damage
+Passives granting Fire Resistance or all Elemental Resistances in Radius
+also grant an equal chance to gain an Endurance Charge on Kill
+]],[[
+The Red Nightmare
+Crimson Jewel
+League: Breach
+Limited to: 1
+Radius: Large
+Gain 5% of Fire Damage as Extra Chaos Damage
+Passives granting Fire Resistance or all Elemental Resistances in Radius
+also grant Chance to Block at 35% of its value
+Passives granting Fire Resistance or all Elemental Resistances in Radius
+also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
 Rolling Flames
 Cobalt Jewel
 Radius: Medium
-(5 to 15)% increased Fire Damage
+(5-15)% increased Fire Damage
 With at least 50 Intelligence Allocated in Radius, Fireball Projectiles gain Area of Effect Radius as they travel further, up to 50% increased Radius.
 ]],[[
 Shattered Chains
 Crimson Jewel
 Radius: Medium
-(5 to 15)% increased Cold Damage
+(5-15)% increased Cold Damage
 With at least 50 Strength Allocated in Radius, 20% increased Rarity of Items dropped by Enemies Shattered by Glacial Hammer
 ]],[[
 Spire of Stone
@@ -269,13 +358,13 @@ Totems cannot be Stunned
 Spirit Guards
 Viridian Jewel
 Radius: Medium
-Minions deal (8 to 12)% increased Damage
+Minions deal (8-12)% increased Damage
 With 50 Dexterity Allocated in radius, Animate Weapon can Animate up to 4 Ranged Weapons
 ]],[[
 Spirited Response
 Cobalt Jewel
 Radius: Medium
-(5 to 10)% increased maximum Mana
+(5-10)% increased maximum Mana
 With at least 50 Intelligence Allocated in radius, 10% of Damage taken gained as Mana when Hit during Rallying Cry for you and Allies
 ]],[[
 Static Electricity
@@ -287,7 +376,7 @@ Adds 1 to 2 Lightning Damage to Attacks
 Steel Spirit
 Viridian Jewel
 Radius: Medium
-(6 to 10)% increased Projectile Damage
+(6-10)% increased Projectile Damage
 With at least 50 Dexterity Allocated in Radius, each Spectral Throw Projectile gains 4% increased Damage each time it Hits.
 ]],[[
 Unending Hunger 
@@ -298,30 +387,30 @@ with 50 Intelligence from Allocated Passives in Radius
 ]],[[
 Unstable Payload
 Cobalt Jewel
-(8 to 12)% Chance for Traps to Trigger an additional time
+(8-12)% Chance for Traps to Trigger an additional time
 ]],[[
 The Vigil
 Crimson Jewel
 Radius: Medium
-(8 to 15)% increased Armour
+(8-15)% increased Armour
 With at least 50 Strength Allocated in Radius, Vigilant Strike also Fortifies Nearby Allies for 3 seconds.
 ]],[[
 Volley Fire
 Viridian Jewel
 Radius: Medium
-(6 to 10)% increased Projectile Damage
+(6-10)% increased Projectile Damage
 With at least 50 Dexterity Allocated in radius, Barrage fires an additional 2 projectiles simultaneously on the first and final attacks
 ]],[[
 Weight of the Empire
 Crimson Jewel
 Radius: Medium
-(4 to 12)% increased Physical Damage
+(4-12)% increased Physical Damage
 With at least 50 Strength Allocated in Radius, Heavy Strike has a 10% chance to deal Double Damage.
 ]],[[
 Winter's Bounty
 Cobalt Jewel
 Radius: Medium
-(5 to 15)% increased Cold Damage
+(5-15)% increased Cold Damage
 With at least 50 Intelligence Allocated in radius, Cold Snap has a 25% chance to grant a Power Charge on Kill
 ]],
 -- Jewel: Corrupted
@@ -334,7 +423,7 @@ Corrupted
 ]],[[
 Atziri's Reign
 Crimson Jewel
-(15 to 20)% increased Vaal Skill Effect Duration
+(15-20)% increased Vaal Skill Effect Duration
 Corrupted
 ]],[[
 Blood Sacrifice
@@ -359,7 +448,7 @@ Corrupted
 Combustibles
 Crimson Jewel
 10% reduced Quantity of Items found
-(20 to 30)% increased Burning Damage
+(20-30)% increased Burning Damage
 Corrupted
 ]],[[
 Corrupted Energy
@@ -370,7 +459,7 @@ Corrupted
 ]],[[
 Fevered Mind
 Cobalt Jewel
-(20 to 30)% increased Spell Damage
+(20-30)% increased Spell Damage
 100% increased Mana Cost of Skills
 Corrupted
 ]],[[
@@ -405,7 +494,7 @@ Corrupted
 ]],[[
 Sacrificial Harvest
 Viridian Jewel
-(20 to 30)% chance to gain an additional Vaal Soul on Kill
+(20-30)% chance to gain an additional Vaal Soul on Kill
 Corrupted
 ]],[[
 Self-Flagellation
@@ -413,17 +502,17 @@ Viridian Jewel
 Limited to: 1
 Implicits: 0
 You can have one additional Curse
-(10 to 20)% increased Damage per Curse on you
+(10-20)% increased Damage per Curse on you
 Corrupted
 ]],[[
 Vaal Sentencing
 Cobalt Jewel
-(80 to 120)% increased Vaal Skill Critical Strike Chance
+(80-120)% increased Vaal Skill Critical Strike Chance
 Corrupted
 ]],[[
 Weight of Sin
 Viridian Jewel
-(15 to 20)% increased Chaos Damage
+(15-20)% increased Chaos Damage
 15% reduced Movement Speed
 Corrupted
 ]],
@@ -494,7 +583,7 @@ Viridian Jewel
 Limited to: 1
 20% increased Accuracy Rating
 3% increased Character Size
-(4 to 6)% increased Dexterity
+(4-6)% increased Dexterity
 ]],[[
 Emperor's Mastery
 Prismatic Jewel
@@ -502,20 +591,20 @@ Limited to: 1
 4% increased maximum Life
 3% increased Character Size
 5% increased Defences
-(5 to 7)% increased Attributes
+(5-7)% increased Attributes
 ]],[[
 Emperor's Might
 Crimson Jewel
 Limited to: 1
 10% increased Damage
 3% increased Character Size
-(4 to 6)% increased Strength
+(4-6)% increased Strength
 ]],[[
 Emperor's Wit
 Cobalt Jewel
 Limited to: 1
 30% increased Global Critical Strike Chance
 3% increased Character Size
-(4 to 6)% increased Intelligence
+(4-6)% increased Intelligence
 ]],
 }

@@ -3,55 +3,55 @@ local itemBases = ...
 
 itemBases["Nailed Fist"] = {
 	type = "Claw",
-	implicit = "+3 Life gained for each enemy hit by your Attacks",
+	implicit = "+3 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 4, PhysicalMax = 9, critChanceBase = 6.2, attackRateBase = 1.6, },
 	req = { level = 3, dex = 11, int = 11, },
 }
 itemBases["Sharktooth Claw"] = {
 	type = "Claw",
-	implicit = "+6 Life gained for each enemy hit by your Attacks",
+	implicit = "+6 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 6, PhysicalMax = 15, critChanceBase = 6.5, attackRateBase = 1.4, },
 	req = { level = 7, dex = 14, int = 20, },
 }
 itemBases["Awl"] = {
 	type = "Claw",
-	implicit = "+5 Life gained for each enemy hit by your Attacks",
+	implicit = "+5 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 6, PhysicalMax = 20, critChanceBase = 6.3, attackRateBase = 1.5, },
 	req = { level = 12, dex = 25, int = 25, },
 }
 itemBases["Cat's Paw"] = {
 	type = "Claw",
-	implicit = "1.6% of Physical Attack Damage Leeched as Life",
+	implicit = "+8 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 10, PhysicalMax = 19, critChanceBase = 6, attackRateBase = 1.6, },
 	req = { level = 17, dex = 39, int = 27, },
 }
 itemBases["Blinder"] = {
 	type = "Claw",
-	implicit = "+10 Life gained for each enemy hit by your Attacks",
+	implicit = "+10 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 10, PhysicalMax = 27, critChanceBase = 6.3, attackRateBase = 1.5, },
 	req = { level = 22, dex = 41, int = 41, },
 }
 itemBases["Timeworn Claw"] = {
 	type = "Claw",
-	implicit = "2% of Physical Attack Damage Leeched as Life",
+	implicit = "+19 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 14, PhysicalMax = 36, critChanceBase = 6.5, attackRateBase = 1.3, },
 	req = { level = 26, dex = 39, int = 56, },
 }
 itemBases["Sparkling Claw"] = {
 	type = "Claw",
-	implicit = "+10 Life gained for each enemy hit by your Attacks",
+	implicit = "+10 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 12, PhysicalMax = 32, critChanceBase = 6, attackRateBase = 1.6, },
 	req = { level = 30, dex = 64, int = 44, },
 }
 itemBases["Fright Claw"] = {
 	type = "Claw",
-	implicit = "2% of Physical Attack Damage Leeched as Life",
+	implicit = "+20 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 9, PhysicalMax = 37, critChanceBase = 6.3, attackRateBase = 1.5, },
 	req = { level = 34, dex = 61, int = 61, },
 }
 itemBases["Double Claw"] = {
 	type = "Claw",
-	implicit = "+6 Life and Mana gained for each Enemy hit",
+	implicit = "+15 Life gained for each Enemy hit by Attacks\n+6 Mana gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 13, PhysicalMax = 40, critChanceBase = 6.3, attackRateBase = 1.5, },
 	req = { level = 36, dex = 67, int = 67, },
 }
@@ -63,7 +63,7 @@ itemBases["Thresher Claw"] = {
 }
 itemBases["Gouger"] = {
 	type = "Claw",
-	implicit = "+13 Life gained for each enemy hit by your Attacks",
+	implicit = "+13 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 13, PhysicalMax = 46, critChanceBase = 6.3, attackRateBase = 1.5, },
 	req = { level = 40, dex = 70, int = 70, },
 }
@@ -75,7 +75,7 @@ itemBases["Tiger's Paw"] = {
 }
 itemBases["Gut Ripper"] = {
 	type = "Claw",
-	implicit = "+21 Life gained for each enemy hit by your Attacks",
+	implicit = "+21 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 18, PhysicalMax = 48, critChanceBase = 6.3, attackRateBase = 1.5, },
 	req = { level = 46, dex = 80, int = 80, },
 }
@@ -99,7 +99,7 @@ itemBases["Eagle Claw"] = {
 }
 itemBases["Twin Claw"] = {
 	type = "Claw",
-	implicit = "+10 Life and Mana gained for each Enemy hit",
+	implicit = "+28 Life gained for each Enemy hit by Attacks\n+10 Mana gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 20, PhysicalMax = 60, critChanceBase = 6.3, attackRateBase = 1.5, },
 	req = { level = 57, dex = 103, int = 103, },
 }
@@ -147,7 +147,7 @@ itemBases["Terror Claw"] = {
 }
 itemBases["Gemini Claw"] = {
 	type = "Claw",
-	implicit = "+14 Life and Mana gained for each Enemy hit",
+	implicit = "+38 Life gained for each Enemy hit by Attacks\n+14 Mana gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 21, PhysicalMax = 63, critChanceBase = 6.3, attackRateBase = 1.5, },
 	req = { level = 72, dex = 121, int = 121, },
 }

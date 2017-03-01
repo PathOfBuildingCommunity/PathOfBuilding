@@ -352,12 +352,13 @@ function ItemsTabClass:CraftItem()
 		if raritySel >= 3 then
 			item.title = popup.controls.title.buf:match("%S") and popup.controls.title.buf or "New Item"
 		end
+		item.implicitLines = 0
 		if base.base.implicit then
-			local modList, extra = modLib.parseMod(base.base.implicit)
-			t_insert(item.modLines, { line = base.base.implicit, extra = extra, modList = modList or { } })
-			item.implicitLines = 1
-		else
-			item.implicitLines = 0
+			for line in base.base.implicit:gmatch("[^\n]+") do
+				local modList, extra = modLib.parseMod(line)
+				t_insert(item.modLines, { line = line, extra = extra, modList = modList or { } })
+				item.implicitLines = item.implicitLines + 1
+			end
 		end
 		itemLib.normaliseQuality(item)
 		return itemLib.makeItemFromRaw(itemLib.createItemRaw(item))
@@ -768,6 +769,9 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 					local colorCode
 					if modLine.extra then
 						colorCode = data.colorCodes.UNSUPPORTED
+						if launch.devMode and IsKeyDown("ALT") then
+							line = line .. "   ^1'" .. modLine.extra .. "'"
+						end
 					else
 						colorCode = modLine.crafted and data.colorCodes.CRAFTED or data.colorCodes.MAGIC
 					end

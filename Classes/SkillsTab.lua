@@ -268,7 +268,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.quality:SetText("0")
 			slot.enabled.state = true
 		end
-		self.displayGroup.gemList[index].level = tonumber(buf) or 20
+		self.displayGroup.gemList[index].level = tonumber(buf) or self.displayGroup.gemList[index].defaultLevel or 20
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true
@@ -416,7 +416,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 		else
 			gem.errMsg, gem.name, gem.data = nil
 		end
-		if gem.nameSpec:match("%S") or gem.level ~= (gem.defaultLevel or 20) or gem.quality ~= 0 or gem.enabled ~= true or (socketGroup == self.displayGroup and self.gemSlots[index] and self.gemSlots[index].nameSpec.dropped) then
+		if gem.nameSpec:match("%S") or gem.level ~= (gem.defaultLevel or 20) or gem.quality ~= 0 or (socketGroup == self.displayGroup and self.gemSlots[index] and self.gemSlots[index].nameSpec.dropped) then
 			index = index + 1
 		else
 			-- Empty gem, remove it

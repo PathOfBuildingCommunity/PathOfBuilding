@@ -277,7 +277,7 @@ function itemLib.parseItemRaw(item)
 	end
 	if item.base and item.base.implicit then
 		if item.implicitLines == 0 then
-			item.implicitLines = 1
+			item.implicitLines = 1 + #item.base.implicit:gsub("[^\n]","")
 		end
 	elseif mode == "GAME" and not foundExplicit then
 		item.implicitLines = 0
