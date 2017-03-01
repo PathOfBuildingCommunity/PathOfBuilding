@@ -177,7 +177,7 @@ Requires Level 62, 170 Dex
 +(60-80) to maximum Life
 +30% to Fire Resistance
 20% less Damage taken if you have not been Hit Recently
-50% increased Evasion if you were Hit Recently
+50% increased Evasion if you have been Hit Recently
 ]],[[
 Queen of the Forest
 Destiny Leather

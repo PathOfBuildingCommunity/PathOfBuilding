@@ -29,8 +29,8 @@ Requires Level 52, 89 Str, 89 Int
 15% Chance to Block
 Adds 375 to 574 Fire Damage
 Adds 142 to 212 Fire Damage to Spells
-100% increased Fire Damage if you've been Hit Recently
-Damage Penetrates 15% of Fire Resistance if you've Blocked Recently
+100% increased Fire Damage if you have been Hit Recently
+Damage Penetrates 15% of Fire Resistance if you have Blocked Recently
 Immune to Freeze and Chill while Ignited
 Grants level 15 Vengeance Skill
 ]],[[
