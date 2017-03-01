@@ -1636,7 +1636,7 @@ local function performCalcs(env)
 			end
 			if lifeBase > 0 then
 				output.LifeRegen = lifeBase * calcMod(modDB, nil, "LifeRecovery")
-				output.LifeRegenPercent = round(lifeBase / output.Life * 100, 1)
+				output.LifeRegenPercent = round(output.LifeRegen / output.Life * 100, 1)
 			else
 				output.LifeRegen = 0
 			end
@@ -1648,7 +1648,7 @@ local function performCalcs(env)
 		end
 		if esBase > 0 then
 			output.EnergyShieldRegen = esBase * calcMod(modDB, nil, "EnergyShieldRecovery")
-			output.EnergyShieldRegenPercent = round(esBase / output.EnergyShield * 100, 1)
+			output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
 		else
 			output.EnergyShieldRegen = 0
 		end

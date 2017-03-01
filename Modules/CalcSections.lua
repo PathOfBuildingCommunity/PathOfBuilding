@@ -602,7 +602,7 @@ return {
 		{ breakdown = "EnergyShieldRechargeDelay" },
 		{ modName = "EnergyShieldRechargeFaster" },
 	}, },
-	{ label = "Regen", { format = "{1:output:EnergyShieldRegen} ({1:output:EnergyShieldRegenPercent}%)", { modName = { "EnergyShieldRegen", "EnergyShieldRegenPercent", "EnergyShieldRecovery" }, modType = "BASE" }, }, },
+	{ label = "Regen", { format = "{1:output:EnergyShieldRegen} ({1:output:EnergyShieldRegenPercent}%)", { modName = { "EnergyShieldRegen", "EnergyShieldRegenPercent", "EnergyShieldRecovery" } }, }, },
 } },
 { 1, "Armour", 3, "Armour", data.colorCodes.DEFENCE, {
 	extra = "{0:output:Armour}",
