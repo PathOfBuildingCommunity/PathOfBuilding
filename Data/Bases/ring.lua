@@ -8,12 +8,12 @@ itemBases["Iron Ring"] = {
 }
 itemBases["Coral Ring"] = {
 	type = "Ring",
-	implicit = "+(20 to 30) to Maximum Life",
+	implicit = "+(20-30) to Maximum Life",
 	req = { },
 }
 itemBases["Paua Ring"] = {
 	type = "Ring",
-	implicit = "+(20 to 25) to Maximum Mana",
+	implicit = "+(20-25) to Maximum Mana",
 	req = { },
 }
 itemBases["Unset Ring"] = {
@@ -23,57 +23,57 @@ itemBases["Unset Ring"] = {
 }
 itemBases["Sapphire Ring"] = {
 	type = "Ring",
-	implicit = "+(20 to 30)% to Cold Resistance",
+	implicit = "+(20-30)% to Cold Resistance",
 	req = { level = 8, },
 }
 itemBases["Topaz Ring"] = {
 	type = "Ring",
-	implicit = "+(20 to 30)% to Lightning Resistance",
+	implicit = "+(20-30)% to Lightning Resistance",
 	req = { level = 12, },
 }
 itemBases["Ruby Ring"] = {
 	type = "Ring",
-	implicit = "+(20 to 30)% to Fire Resistance",
+	implicit = "+(20-30)% to Fire Resistance",
 	req = { level = 16, },
 }
 itemBases["Gold Ring"] = {
 	type = "Ring",
-	implicit = "(6 to 15)% increased Rarity of Items found",
+	implicit = "(6-15)% increased Rarity of Items found",
 	req = { level = 20, },
 }
 itemBases["Diamond Ring"] = {
 	type = "Ring",
-	implicit = "(20 to 30)% increased Global Critical Strike Chance",
+	implicit = "(20-30)% increased Global Critical Strike Chance",
 	req = { level = 20, },
 }
 itemBases["Moonstone Ring"] = {
 	type = "Ring",
-	implicit = "+(15 to 25) to maximum Energy Shield",
+	implicit = "+(15-25) to maximum Energy Shield",
 	req = { level = 20, },
 }
 itemBases["Two-Stone Ring"] = {
 	type = "Ring",
-	implicit = "+(12 to 16)% to Fire and Cold Resistances",
+	implicit = "+(12-16)% to Fire and Cold Resistances",
 	req = { level = 20, },
 }
 itemBases["Two-Stone Ring"] = {
 	type = "Ring",
-	implicit = "+(12 to 16)% to Cold and Lightning Resistances",
+	implicit = "+(12-16)% to Cold and Lightning Resistances",
 	req = { level = 20, },
 }
 itemBases["Two-Stone Ring"] = {
 	type = "Ring",
-	implicit = "+(12 to 16)% to Fire and Lightning Resistances",
+	implicit = "+(12-16)% to Fire and Lightning Resistances",
 	req = { level = 20, },
 }
 itemBases["Prismatic Ring"] = {
 	type = "Ring",
-	implicit = "+(8 to 10)% to all Elemental Resistances",
+	implicit = "+(8-10)% to all Elemental Resistances",
 	req = { level = 30, },
 }
 itemBases["Amethyst Ring"] = {
 	type = "Ring",
-	implicit = "+(9 to 13)% to Chaos Resistance",
+	implicit = "+(9-13)% to Chaos Resistance",
 	req = { level = 30, },
 }
 itemBases["Steel Ring"] = {
@@ -86,3 +86,11 @@ itemBases["Opal Ring"] = {
 	implicit = "(15-25)% increased Elemental Damage",
 	req = { level = 80 },
 }
+
+
+itemBases["Breach Ring"] = {
+	type = "Ring",
+	implicit = "Properties are doubled while in a Breach",
+	req = { },
+}
+

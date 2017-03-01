@@ -497,91 +497,91 @@ itemBases["Archon Kite Shield"] = {
 itemBases["Spiked Bundle"] = {
 	type = "Shield",
 	subType = "Evasion/Energy Shield",
-	implicit = "Reflects (2 to 5) Physical Damage to Melee Attackers",
+	implicit = "Reflects (2-5) Physical Damage to Melee Attackers",
 	armour = { blockChance = 24, evasionBase = 11, energyShieldBase = 4, movementPenalty = 3, },
 	req = { level = 5, },
 }
 itemBases["Driftwood Spiked Shield"] = {
 	type = "Shield",
 	subType = "Evasion/Energy Shield",
-	implicit = "Reflects (2 to 5) Physical Damage to Melee Attackers",
+	implicit = "Reflects (2-5) Physical Damage to Melee Attackers",
 	armour = { blockChance = 24, evasionBase = 40, energyShieldBase = 13, movementPenalty = 3, },
 	req = { level = 12, dex = 19, int = 19, },
 }
 itemBases["Alloyed Spiked Shield"] = {
 	type = "Shield",
 	subType = "Evasion/Energy Shield",
-	implicit = "Reflects (5 to 12) Physical Damage to Melee Attackers",
+	implicit = "Reflects (5-12) Physical Damage to Melee Attackers",
 	armour = { blockChance = 25, evasionBase = 48, energyShieldBase = 15, movementPenalty = 3, },
 	req = { level = 20, dex = 28, int = 28, },
 }
 itemBases["Burnished Spiked Shield"] = {
 	type = "Shield",
 	subType = "Evasion/Energy Shield",
-	implicit = "Reflects (10 to 23) Physical Damage to Melee Attackers",
+	implicit = "Reflects (10-23) Physical Damage to Melee Attackers",
 	armour = { blockChance = 26, evasionBase = 54, energyShieldBase = 16, movementPenalty = 3, },
 	req = { level = 27, dex = 37, int = 37, },
 }
 itemBases["Ornate Spiked Shield"] = {
 	type = "Shield",
 	subType = "Evasion/Energy Shield",
-	implicit = "Reflects (24 to 35) Physical Damage to Melee Attackers",
+	implicit = "Reflects (24-35) Physical Damage to Melee Attackers",
 	armour = { blockChance = 24, evasionBase = 105, energyShieldBase = 31, movementPenalty = 3, },
 	req = { level = 33, dex = 44, int = 44, },
 }
 itemBases["Redwood Spiked Shield"] = {
 	type = "Shield",
 	subType = "Evasion/Energy Shield",
-	implicit = "Reflects (36 to 50) Physical Damage to Melee Attackers",
+	implicit = "Reflects (36-50) Physical Damage to Melee Attackers",
 	armour = { blockChance = 24, evasionBase = 123, energyShieldBase = 36, movementPenalty = 3, },
 	req = { level = 39, dex = 52, int = 52, },
 }
 itemBases["Compound Spiked Shield"] = {
 	type = "Shield",
 	subType = "Evasion/Energy Shield",
-	implicit = "Reflects (51 to 70) Physical Damage to Melee Attackers",
+	implicit = "Reflects (51-70) Physical Damage to Melee Attackers",
 	armour = { blockChance = 25, evasionBase = 106, energyShieldBase = 31, movementPenalty = 3, },
 	req = { level = 45, dex = 58, int = 58, },
 }
 itemBases["Polished Spiked Shield"] = {
 	type = "Shield",
 	subType = "Evasion/Energy Shield",
-	implicit = "Reflects (71 to 90) Physical Damage to Melee Attackers",
+	implicit = "Reflects (71-90) Physical Damage to Melee Attackers",
 	armour = { blockChance = 26, evasionBase = 96, energyShieldBase = 28, movementPenalty = 3, },
 	req = { level = 49, dex = 64, int = 64, },
 }
 itemBases["Sovereign Spiked Shield"] = {
 	type = "Shield",
 	subType = "Evasion/Energy Shield",
-	implicit = "Reflects (91 to 120) Physical Damage to Melee Attackers",
+	implicit = "Reflects (91-120) Physical Damage to Melee Attackers",
 	armour = { blockChance = 24, evasionBase = 169, energyShieldBase = 50, movementPenalty = 3, },
 	req = { level = 54, dex = 70, int = 70, },
 }
 itemBases["Alder Spiked Shield"] = {
 	type = "Shield",
 	subType = "Evasion/Energy Shield",
-	implicit = "Reflects (121 to 150) Physical Damage to Melee Attackers",
+	implicit = "Reflects (121-150) Physical Damage to Melee Attackers",
 	armour = { blockChance = 24, evasionBase = 182, energyShieldBase = 53, movementPenalty = 3, },
 	req = { level = 58, dex = 74, int = 74, },
 }
 itemBases["Ezomyte Spiked Shield"] = {
 	type = "Shield",
 	subType = "Evasion/Energy Shield",
-	implicit = "Reflects (151 to 180) Physical Damage to Melee Attackers",
+	implicit = "Reflects (151-180) Physical Damage to Melee Attackers",
 	armour = { blockChance = 25, evasionBase = 158, energyShieldBase = 46, movementPenalty = 3, },
 	req = { level = 62, dex = 85, int = 85, },
 }
 itemBases["Mirrored Spiked Shield"] = {
 	type = "Shield",
 	subType = "Evasion/Energy Shield",
-	implicit = "Reflects (181 to 220) Physical Damage to Melee Attackers",
+	implicit = "Reflects (181-220) Physical Damage to Melee Attackers",
 	armour = { blockChance = 26, evasionBase = 131, energyShieldBase = 38, movementPenalty = 3, },
 	req = { level = 66, dex = 85, int = 85, },
 }
 itemBases["Supreme Spiked Shield"] = {
 	type = "Shield",
 	subType = "Evasion/Energy Shield",
-	implicit = "Reflects (221 to 260) Physical Damage to Melee Attackers",
+	implicit = "Reflects (221-260) Physical Damage to Melee Attackers",
 	armour = { blockChance = 24, evasionBase = 210, energyShieldBase = 62, movementPenalty = 3, },
 	req = { level = 70, dex = 85, int = 85, },
 }

@@ -5,9 +5,12 @@ return {
 [[
 Blood of the Karui
 Sanctified Life Flask
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 50
 (5-20)% increased Recovery Speed
-No Life Recovery Applies during Flask effect
+{variant:1}No Life Recovery Applies during Flask effect
+{variant:2}100% increased Amount Recovered
 Recover Full Life at the end of the Flask effect
 ]],
 -- Flask: Mana
@@ -58,7 +61,7 @@ The Writhing Jar
 Hallowed Hybrid Flask
 Requires Level 60
 (75-65)% reduced Amount Recovered 
- Instant Recovery
+Instant Recovery
 2 Enemy Writhing Worms escape the Flask when used
 (20-10)% reduced Charges used
 ]],
@@ -66,7 +69,6 @@ Requires Level 60
 [[
 Atziri's Promise
 Amethyst Flask
-+35% to Chaos Resistance
 Requires Level 68
 2% of Chaos Damage Leeched as Life during Flask effect
 Gain (22-25)% of Physical Damage as Extra Chaos Damage during effect
@@ -74,18 +76,17 @@ Gain (13-15)% of Elemental Damage as Extra Chaos Damage during effect
 ]],[[
 Coruscating Elixir
 Ruby Flask
-+50% to Fire Resistance
-+6% to maximum Fire Resistance
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 18
 Implicits: 0
+{variant:2}100% increased Duration
 Chaos Damage does not bypass Energy Shield during effect
 Removes all but one Life on use
 Removed life is regenerated as Energy Shield over 2 seconds
 ]],[[
 Dying Sun
 Ruby Flask
-+50% to Fire Resistance
-+6% to maximum Fire Resistance
 Requires Level 68
 (-10-10)% increased Charges used
 30% increased Area of Effect during Flask Effect
@@ -94,20 +95,18 @@ Requires Level 68
 Forbidden Taste
 Quartz Flask
 Variant: Pre 1.2.3
+Variant: Pre 2.6.0
 Variant: Current
-10% chance to Dodge Attacks
-10% chance to Dodge Spell Damage
-Phasing
 Requires Level 27
-50% increased Charges used
+{variant:1,2}50% increased Charges used
 {variant:1}Recover 50% of your maximum Life on use
 {variant:2}Recover 75% of your maximum Life on use
+{variant:3}Recover (75-100)% of your maximum Life on use
 {variant:1}15% of maximum Life taken as Chaos Damage per second
-{variant:2}8% of maximum Life taken as Chaos Damage per second
+{variant:2,3}8% of maximum Life taken as Chaos Damage per second
 ]],[[
 Kiara's Determination
 Silver Flask
-Onslaught
 Requires Level 22
 Implicits: 0
 Immune to Freeze, Chill, Curses and Stuns during Flask Effect
@@ -117,12 +116,11 @@ Lion's Roar
 Granite Flask
 Variant: Pre 2.2.0
 Variant: Current
-+3000 to Armour
 Requires Level 27
 Implicits: 0
 Adds Knockback during Flask effect
 75% chance to cause Enemies to Flee on use
-{variant:1}(70 to 100)% increased Charges used
+{variant:1}(70-100)% increased Charges used
 {variant:1}30% more Melee Physical Damage during effect
 {variant:2}(30-35)% more Melee Physical Damage during effect
 Knocks Back Enemies in an Area on Flask use
@@ -130,22 +128,24 @@ Knocks Back Enemies in an Area on Flask use
 Rotgut
 Quicksilver Flask
 Variant: Pre 2.2.0
+Variant: Pre 2.6.0
 Variant: Current
-40% increased Movement Speed
 Requires Level 40
 {variant:1}(100-150)% increased Charges used
-{variant:2}(50-100)% increased Charges used
-15% chance to gain a Flask Charge when you deal a Critical Strike
+{variant:2,3}(50-100)% increased Charges used
+{variant:3}50% increased Duration
+{variant:1,2}15% chance to gain a Flask Charge when you deal a Critical Strike
+{variant:3}50% chance to gain a Flask Charge when you deal a Critical Strike
 (10-30)% increased Movement Speed during Flask effect
 Consumes Frenzy Charges on use
-Gain Onslaught for 1 second per Frenzy Charge on use
+{variant:1,2}Gain Onslaught for 1 second per Frenzy Charge on use
+{variant:3}Gain Onslaught for 2 second per Frenzy Charge on use
 ]],[[
 Rumi's Concoction
 Granite Flask
 Variant: Pre 1.3.0
 Variant: Pre 2.5.0
 Variant: Current
-+3000 to Armour
 Requires Level 68
 {variant:1}(30-40)% Chance to Block during Flask effect
 {variant:2}(20-30)% Chance to Block during Flask effect
@@ -156,7 +156,6 @@ Requires Level 68
 ]],[[
 Sin's Rebirth
 Stibnite Flask
-100% increased Evasion Rating
 Requires Level 14
 Implicits: 1
 Creates a Smoke Cloud on Use
@@ -168,8 +167,6 @@ Taste of Hate
 Sapphire Flask
 Variant: Pre 2.2.0
 Variant: Current
-+50% to Cold Resistance
-+6% to maximum Cold Resistance
 Requires Level 18
 {variant:1}30% of Physical Damage taken as Cold Damage during Flask effect
 {variant:2}20% of Physical Damage taken as Cold Damage during Flask effect
@@ -179,7 +176,6 @@ Gain (20-30)% of Physical Damage as Extra Cold Damage during effect
 ]],[[
 The Overflowing Chalice
 Sulphur Flask
-40% increased Damage
 Requires Level 35
 Implicits: 1
 Creates Consecrated Ground on Use
@@ -190,7 +186,6 @@ Gains no Charges during Effect of any Overflowing Chalice Flask
 ]],[[
 The Sorrow of the Divine
 Sulphur Flask
-40% increased Damage
 Requires Level 35
 Implicits: 1
 Creates Consecrated Ground on Use
@@ -207,8 +202,6 @@ Variant: Current (Penetration)
 Variant: Current (Spells)
 Variant: Current (Attacks)
 Variant: Current (Conversion)
-+50% to Lightning Resistance
-+6% to maximum Lightning Resistance
 Requires Level 68
 {variant:5,6,7,8}(80-100)% increased Charges used
 Shocks nearby Enemies during Flask effect
@@ -225,7 +218,6 @@ You are Shocked during Flask effect
 ]],[[
 Witchfire Brew
 Stibnite Flask
-100% increased Evasion Rating
 Requires Level 48
 Implicits: 1
 Creates a Smoke Cloud on Use

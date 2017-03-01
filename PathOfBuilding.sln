@@ -121,7 +121,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unique items", "Unique item
 		Data\Uniques\helmet.lua = Data\Uniques\helmet.lua
 		Data\Uniques\jewel.lua = Data\Uniques\jewel.lua
 		Data\Uniques\mace.lua = Data\Uniques\mace.lua
-		Data\Uniques\misc.lua = Data\Uniques\misc.lua
 		Data\Uniques\quiver.lua = Data\Uniques\quiver.lua
 		Data\Uniques\ring.lua = Data\Uniques\ring.lua
 		Data\Uniques\shield.lua = Data\Uniques\shield.lua

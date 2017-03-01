@@ -100,8 +100,11 @@ local varList = {
 	{ var = "conditionHitByLightningDamageRecently", type = "check", label = "Have you been hit by Light. Recently?", ifCond = "HitByLightningDamageRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "HitByLightningDamageRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionBlockedRecently", type = "check", label = "Have you Blocked Recently?", ifCond = "BlockedRecently", apply = function(val, modList, enemyModList)
-		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BlockedRecently" }, "Config", { type = "Condition", var = "Combat" })
+	{ var = "conditionBlockedAttackRecently", type = "check", label = "Have you Blocked an Attack Recently?", ifCond = "BlockedAttackRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BlockedAttackRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionBlockedSpellRecently", type = "check", label = "Have you Blocked a Spell Recently?", ifCond = "BlockedSpellRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BlockedSpellRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffPendulum", type = "check", label = "Is Pendulum of Destruction active?", ifNode = 57197, apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "PendulumOfDestruction" }, "Config", { type = "Condition", var = "Combat" })

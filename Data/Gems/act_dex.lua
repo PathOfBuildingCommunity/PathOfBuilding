@@ -734,7 +734,6 @@ gems["Caustic Arrow"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
-		area = true,
 		duration = true,
 		chaos = true,
 	},
@@ -745,6 +744,7 @@ gems["Caustic Arrow"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		--"skill_can_fire_arrows" = 1
+		skill("dotIsArea", true), 
 	},
 	qualityMods = {
 		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5

@@ -88,7 +88,7 @@ itemBases["Crusader Plate"] = {
 itemBases["Astral Plate"] = {
 	type = "Body Armour",
 	subType = "Armour",
-	implicit = "+(8 to 12)% to all Elemental Resistances",
+	implicit = "+(8-12)% to all Elemental Resistances",
 	armour = { armourBase = 507, movementPenalty = 5, },
 	req = { level = 62, str = 180, },
 }
@@ -298,7 +298,7 @@ itemBases["Necromancer Silks"] = {
 itemBases["Occultist's Vestment"] = {
 	type = "Body Armour",
 	subType = "Energy Shield",
-	implicit = "(3 to 10)% increased Spell Damage",
+	implicit = "(3-10)% increased Spell Damage",
 	armour = { energyShieldBase = 140, movementPenalty = 3, },
 	req = { level = 62, int = 180, },
 }
@@ -623,7 +623,7 @@ itemBases["Sadist Garb"] = {
 itemBases["Carnal Armour"] = {
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
-	implicit = "+(20 to 25) to maximum Mana",
+	implicit = "+(20-25) to maximum Mana",
 	armour = { evasionBase = 251, energyShieldBase = 105, movementPenalty = 3, },
 	req = { level = 71, dex = 88, int = 122, },
 }

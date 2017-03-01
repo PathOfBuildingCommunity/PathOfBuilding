@@ -230,12 +230,12 @@ local function buildActiveSkillModList(env, activeSkill)
 			elseif not weapon1Info.melee and skillFlags.projectile then
 				skillFlags.melee = nil
 			end
-		elseif skillTypes[SkillType.DualWield] or not skillTypes[SkillType.CanDualWield] or skillTypes[SkillType.MainHandOnly] then
+		elseif skillTypes[SkillType.DualWield] or not skillTypes[SkillType.CanDualWield] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand then
 			-- Skill requires a compatible main hand weapon
 			skillFlags.disable = true
 		end
 		if skillTypes[SkillType.DualWield] or skillTypes[SkillType.CanDualWield] then
-			if not skillTypes[SkillType.MainHandOnly] then
+			if not skillTypes[SkillType.MainHandOnly] and not skillFlags.forceMainHand then
 				local weapon2Flags = getWeaponFlags(env.weaponData2, weaponTypes)
 				if weapon2Flags then
 					activeSkill.weapon2Flags = weapon2Flags
@@ -2469,7 +2469,7 @@ local function performCalcs(env)
 		skillName = skillCfg.skillName,
 		skillPart = skillCfg.skillPart,
 		slotName = skillCfg.slotName,
-		flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
+		flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0, skillData.dotIsArea and ModFlag.Area or 0),
 		keywordFlags = skillCfg.keywordFlags
 	}
 	env.mainSkill.dotCfg = dotCfg

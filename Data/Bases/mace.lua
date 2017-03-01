@@ -3,49 +3,49 @@ local itemBases = ...
 
 itemBases["Driftwood Club"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 5, PhysicalMax = 7, critChanceBase = 5, attackRateBase = 1.45, },
 	req = { str = 14, },
 }
 itemBases["Tribal Club"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 7, PhysicalMax = 12, critChanceBase = 5, attackRateBase = 1.35, },
 	req = { level = 5, str = 26, },
 }
 itemBases["Spiked Club"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 11, PhysicalMax = 14, critChanceBase = 5, attackRateBase = 1.4, },
 	req = { level = 10, str = 41, },
 }
 itemBases["Stone Hammer"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 14, PhysicalMax = 27, critChanceBase = 5, attackRateBase = 1.15, },
 	req = { level = 15, str = 56, },
 }
 itemBases["War Hammer"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 11, PhysicalMax = 26, critChanceBase = 5, attackRateBase = 1.4, },
 	req = { level = 20, str = 71, },
 }
 itemBases["Bladed Mace"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 18, PhysicalMax = 30, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 24, str = 83, },
 }
 itemBases["Ceremonial Mace"] = {
 	type = "One Handed Mace",
-	implicit = "40% increased Stun Duration on enemies",
+	implicit = "15% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 26, PhysicalMax = 33, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 28, str = 95, },
 }
 itemBases["Dream Mace"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 17, PhysicalMax = 35, critChanceBase = 5, attackRateBase = 1.4, },
 	req = { level = 32, str = 107, },
 }
@@ -57,43 +57,43 @@ itemBases["Wyrm Mace"] = {
 }
 itemBases["Petrified Club"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 25, PhysicalMax = 41, critChanceBase = 5, attackRateBase = 1.25, },
 	req = { level = 35, str = 116, },
 }
 itemBases["Barbed Club"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 27, PhysicalMax = 34, critChanceBase = 5, attackRateBase = 1.4, },
 	req = { level = 38, str = 125, },
 }
 itemBases["Rock Breaker"] = {
 	type = "One Handed Mace",
-	implicit = "40% increased Stun Duration on enemies",
+	implicit = "15% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 30, PhysicalMax = 55, critChanceBase = 5, attackRateBase = 1.15, },
 	req = { level = 41, str = 134, },
 }
 itemBases["Battle Hammer"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 20, PhysicalMax = 48, critChanceBase = 5, attackRateBase = 1.4, },
 	req = { level = 44, str = 143, },
 }
 itemBases["Flanged Mace"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 30, PhysicalMax = 50, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 47, str = 152, },
 }
 itemBases["Ornate Mace"] = {
 	type = "One Handed Mace",
-	implicit = "40% increased Stun Duration on enemies",
+	implicit = "15% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 42, PhysicalMax = 53, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 50, str = 161, },
 }
 itemBases["Phantom Mace"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 26, PhysicalMax = 54, critChanceBase = 5, attackRateBase = 1.4, },
 	req = { level = 53, str = 170, },
 }
@@ -105,43 +105,43 @@ itemBases["Dragon Mace"] = {
 }
 itemBases["Ancestral Club"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 37, PhysicalMax = 62, critChanceBase = 5, attackRateBase = 1.25, },
 	req = { level = 56, str = 179, },
 }
 itemBases["Tenderizer"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 38, PhysicalMax = 49, critChanceBase = 5, attackRateBase = 1.4, },
 	req = { level = 58, str = 185, },
 }
 itemBases["Gavel"] = {
 	type = "One Handed Mace",
-	implicit = "40% increased Stun Duration on enemies",
+	implicit = "15% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 42, PhysicalMax = 77, critChanceBase = 5, attackRateBase = 1.15, },
 	req = { level = 60, str = 212, },
 }
 itemBases["Legion Hammer"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 27, PhysicalMax = 63, critChanceBase = 5, attackRateBase = 1.4, },
 	req = { level = 62, str = 212, },
 }
 itemBases["Pernarch"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 37, PhysicalMax = 62, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 64, str = 212, },
 }
 itemBases["Auric Mace"] = {
 	type = "One Handed Mace",
-	implicit = "40% increased Stun Duration on enemies",
+	implicit = "15% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 49, PhysicalMax = 63, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 66, str = 212, },
 }
 itemBases["Nightmare Mace"] = {
 	type = "One Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "10% reduced Enemy Stun Threshold",
 	weapon = { PhysicalMin = 29, PhysicalMax = 61, critChanceBase = 5, attackRateBase = 1.4, },
 	req = { level = 68, str = 212, },
 }
