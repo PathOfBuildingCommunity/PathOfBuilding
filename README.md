@@ -47,6 +47,9 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.13 - 2017/03/02
+ * Updated tree to 2.6.0
+
 ### 1.3.12 - 2017/03/02
 This update brings some of the changes for 2.6; other changes are awaiting updated data.
  * Almost all balance changes to unique items have been applied
