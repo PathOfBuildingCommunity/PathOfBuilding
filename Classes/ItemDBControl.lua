@@ -92,13 +92,13 @@ function ItemDBClass:DoesItemMatchFilters(item)
 		local found = false
 		local mode = self.controls.searchMode.sel
 		if mode == 1 or mode == 2 then
-			if item.name:lower():match(searchStr) then
+			if item.name:lower():find(searchStr, 1, true) then
 				found = true
 			end
 		end
 		if mode == 1 or mode == 3 then
 			for _, line in pairs(item.modLines) do
-				if line.line:lower():match(searchStr) then
+				if line.line:lower():find(searchStr, 1, true) then
 					found = true
 					break
 				end
@@ -106,7 +106,7 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			if not found then
 				searchStr = searchStr:gsub(" ","")
 				for i, mod in pairs(item.baseModList) do
-					if mod.name:lower():match(searchStr) then
+					if mod.name:lower():find(searchStr, 1, true) then
 						found = true
 						break
 					end

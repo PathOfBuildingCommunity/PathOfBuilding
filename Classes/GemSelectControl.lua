@@ -13,7 +13,7 @@ local m_max = math.max
 local m_floor = math.floor
 
 local GemSelectClass = common.NewClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc)
-	self.EditControl(anchor, x, y, width, height)
+	self.EditControl(anchor, x, y, width, height, nil, nil, "^ %a'")
 	self.controls.scrollBar = common.New("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
 	self.controls.scrollBar.y = function()
 		local width, height = self:GetSize()
@@ -29,7 +29,6 @@ local GemSelectClass = common.NewClass("GemSelectControl", "EditControl", functi
 	self.index = index
 	self.gemChangeFunc = changeFunc
 	self.list = { }
-	self.filter = "^ %a'"
 	self.changeFunc = function()
 		self.dropped = true
 		self.selIndex = 0
@@ -55,6 +54,20 @@ function GemSelectClass:BuildList(buf)
 			local matchList = { }
 			for name, data in pairs(data.gems) do
 				if not data.hidden and not added[name] and (" "..name:lower()):match(pattern) then
+					t_insert(matchList, name)
+					added[name] = true
+				end
+			end
+			t_sort(matchList)
+			for _, name in ipairs(matchList) do
+				t_insert(self.list, name)
+			end
+		end
+		local tagName = self.searchStr:match("^%s*(%a+)%s*$")
+		if tagName then
+			local matchList = { }
+			for name, data in pairs(data.gems) do
+				if not data.hidden and not added[name] and data[tagName:lower()] == true then
 					t_insert(matchList, name)
 					added[name] = true
 				end
