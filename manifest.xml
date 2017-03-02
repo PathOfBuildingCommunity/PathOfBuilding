@@ -7,7 +7,7 @@
 	<File sha1="8a7163c306feb866be7f8d66c71b282c9f99be94" name="Launch.lua" part="program"/>
 	<File sha1="d8e42beeb38baabcc197d658e4c0af33419eeff3" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="6510fa6ff551cd01992e185653926d9d4cfa9f16" name="changelog.txt" part="program"/>
+	<File sha1="5a43f8d8c5945f16e1326a7cb3c21c303dc0a23a" name="changelog.txt" part="program"/>
 	<File sha1="231a4fe264d84294427edacbf3e29ec4b301712e" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="deffd663ba726d938fcbe2870aab8a4e982587fa" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="160efe1f8fd7e5db9d53017b0dd89d55372e0712" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -44,13 +44,13 @@
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
 	<File sha1="06cef31ee7a133da6a9c4b8b4b9e859901c4a4a4" name="Modules/Build.lua" part="program"/>
 	<File sha1="8a07fe01c53b785ebb6256236e781fbaabd36c0e" name="Modules/BuildList.lua" part="program"/>
-	<File sha1="089cf6b7d5439b4d0a1f315c510d636174efeba5" name="Modules/Calcs.lua" part="program"/>
+	<File sha1="bc84cee468f6e78ce29c4c85096ff779b76fa93a" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="1a49b23df0a47dba23a906c448c60a5c6db606d2" name="Modules/CalcSections.lua" part="program"/>
 	<File sha1="761af85f3e1c5601fdb790356a09aefe2f5a64e3" name="Modules/Common.lua" part="program"/>
 	<File sha1="cc9721ab97b5cfb9c707f4523168b9df618db083" name="Modules/Data.lua" part="program"/>
 	<File sha1="c42e1bc839ef3c6e6b8a35392fa2a454d86fb925" name="Modules/ItemTools.lua" part="program"/>
 	<File sha1="cc69e5d4f5cbc8739340820314629245f317b555" name="Modules/Main.lua" part="program"/>
-	<File sha1="692f2046b47b98ea0c9496d5f888ea18693bb196" name="Modules/ModParser.lua" part="program"/>
+	<File sha1="f98dd65a6d654ee48ab0f375b0d6afe878b1cc08" name="Modules/ModParser.lua" part="program"/>
 	<File sha1="5f93a9d8f58e0d5990a1f84e1ab1d53fbd35fb56" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
 	<File sha1="9a320bfe629b1cf3f14fc77fbbf2508d0a5b2841" name="Assets/small_ring.png" part="program"/>

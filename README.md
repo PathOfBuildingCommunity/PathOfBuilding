@@ -56,6 +56,7 @@ This update implements the AoE changes for 2.6:
  * The area of effect of many skills will be incorrect until all the data is made available in the patch
 Other changes:
  * Added support for the "Arrows that Pierce cause Bleeding" stat on Slivertongue
+ * Added support for the increased Golem Buff Effect stat on Primordial Eminence
  * Corrected the implicits added when crafting Wands and Sceptres
  * The (possibly incorrect) pathing in the Storm Weaver cluster should now render correctly
  * Fixed an error that would occur when loading certain builds
