@@ -176,7 +176,7 @@ itemBases["Monkey Paw Talisman"] = {
 itemBases["Monkey Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	implicit = "(5-8)% increased Radius of Area Skills",
+	implicit = "(5-8)% increased Area of Effect of Area Skills",
 }
 itemBases["Rotfeather Talisman"] = {
 	type = "Amulet",

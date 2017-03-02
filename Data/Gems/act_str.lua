@@ -259,12 +259,12 @@ gems["Anger"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("FireMin", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_minimum_added_fire_damage"
 		[2] = mod("FireMax", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_maximum_added_fire_damage"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("FireMin", "BASE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"spell_minimum_added_fire_damage"
 		[5] = mod("FireMax", "BASE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"spell_maximum_added_fire_damage"
 	},
@@ -339,7 +339,7 @@ gems["Cleave"] = {
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		nil, --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 10, 0, },
@@ -460,11 +460,11 @@ gems["Determination"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"determination_aura_armour_+%_final"
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[2] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 32, 0, },
@@ -676,7 +676,7 @@ gems["Enduring Cry"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 3), --"base_skill_area_of_effect_+%" = 3
+		mod("AreaOfEffect", "INC", 3), --"base_skill_area_of_effect_+%" = 3
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -953,7 +953,7 @@ gems["Ground Slam"] = {
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		nil, --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { -10, 0, },
@@ -1012,7 +1012,7 @@ gems["Vaal Ground Slam"] = {
 		skill("castTime", 1), 
 		--"knockback_distance_+%" = 100
 		--"animation_effect_variation" = -1
-		mod("AreaRadius", "INC", 20), --"base_skill_area_of_effect_+%" = 20
+		mod("AreaOfEffect", "INC", 20), --"base_skill_area_of_effect_+%" = 20
 		--"always_stun" = ?
 		--"global_knockback" = ?
 		--"is_area_damage" = ?
@@ -1412,7 +1412,7 @@ gems["Infernal Blow"] = {
 		--"corpse_explosion_monster_life_%" = 10
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
@@ -1776,12 +1776,12 @@ gems["Purity of Fire"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_fire_damage_resistance_%"
 		[2] = mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_maximum_fire_damage_resistance_%"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 22, 0, 0, },
@@ -1908,7 +1908,7 @@ gems["Reckoning"] = {
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
@@ -1973,7 +1973,7 @@ gems["Rejuvenation Totem"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 3, 0, KeywordFlag.Aura), --"base_aura_area_of_effect_+%" = 3
+		mod("AreaOfEffect", "INC", 3, 0, KeywordFlag.Aura), --"base_aura_area_of_effect_+%" = 3
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -2266,11 +2266,11 @@ gems["Static Strike"] = {
 		mod("Damage", "MORE", -40, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), --"static_strike_explosion_damage_+%_final" = -40
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		nil, --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 10, 0, },
@@ -2469,7 +2469,7 @@ gems["Sunder"] = {
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
@@ -2533,7 +2533,7 @@ gems["Sweep"] = {
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		--[1] = "base_global_chance_to_knockback_%"
@@ -2730,11 +2730,11 @@ gems["Vitality"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("LifeRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"life_regeneration_rate_per_minute_%"
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[2] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 0.7, 0, },
@@ -2798,7 +2798,7 @@ gems["Warlord's Mark"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("StunRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"base_stun_recovery_+%"
 		--[5] = "chance_to_grant_endurance_charge_on_death_%"
 	},

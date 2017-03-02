@@ -969,12 +969,12 @@ Void Sceptre
 ]],[[
 Physical 2H Mace
 Coronal Maul
-6% increased Radius of Area Skills
+6% increased Area of Effect of Area Skills
 {phys 2h}
 ]],[[
 Elemental 2H Mace
 Coronal Maul
-6% increased Radius of Area Skills
+6% increased Area of Effect of Area Skills
 {elem 2h}
 ]],[[
 Physical Staff

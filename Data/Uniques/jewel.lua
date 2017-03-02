@@ -190,8 +190,11 @@ Viper Strike deals 2% increased Attack Damage for each Poison on the Enemy
 ]],[[
 Hair Trigger
 Viridian Jewel
+Variant: Pre 2.6.0
+Variant: Current
 (15-25)% increased Trap Damage
-(20-30)% increased Trap Trigger Radius
+{variant:1}(20-30)% increased Trap Trigger Radius
+{variant:2}(40-60)% increased Trap Trigger Area of Effect
 ]],[[
 Healthy Mind
 Cobalt Jewel
@@ -381,7 +384,7 @@ With at least 50 Dexterity Allocated in Radius, each Spectral Throw Projectile g
 ]],[[
 Unending Hunger 
 Cobalt Jewel
-Minions have (5-8)% increased Radius of Area Skills
+Minions have (5-8)% increased Area of Effect of Area Skills
 20% chance for Spectres to gain Soul Eater on Kill for 30 seconds
 with 50 Intelligence from Allocated Passives in Radius
 ]],[[

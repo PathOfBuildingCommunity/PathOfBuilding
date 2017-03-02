@@ -422,16 +422,18 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			-- Empty gem, remove it
 			t_remove(socketGroup.gemList, index)
 
-			-- Update the other gem slot controls
-			for index2 = index, #socketGroup.gemList do
-				local gem = socketGroup.gemList[index2]
-				if not self.gemSlots[index2] then
-					self:CreateGemSlot(index2)
+			if socketGroup == self.displayGroup then
+				-- Update the other gem slot controls
+				for index2 = index, #socketGroup.gemList do
+					local gem = socketGroup.gemList[index2]
+					if not self.gemSlots[index2] then
+						self:CreateGemSlot(index2)
+					end
+					self.gemSlots[index2].nameSpec:SetText(gem.nameSpec)
+					self.gemSlots[index2].level:SetText(gem.level)
+					self.gemSlots[index2].quality:SetText(gem.quality)
+					self.gemSlots[index2].enabled.state = gem.enabled
 				end
-				self.gemSlots[index2].nameSpec:SetText(gem.nameSpec)
-				self.gemSlots[index2].level:SetText(gem.level)
-				self.gemSlots[index2].quality:SetText(gem.quality)
-				self.gemSlots[index2].enabled.state = gem.enabled
 			end
 		end
 	end

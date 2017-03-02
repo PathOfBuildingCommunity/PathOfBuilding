@@ -259,7 +259,7 @@ gems["Blade Flurry"] = {
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		nil, --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { -45, 0, },
@@ -345,7 +345,7 @@ gems["Blade Vortex"] = {
 		skill("hitTimeOverride", 0.2, { type = "SkillPart", skillPart = 4 }), 
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -401,11 +401,11 @@ gems["Bladefall"] = {
 		skill("damageEffectiveness", 0.9), 
 		skill("critChance", 5), 
 		--"bladefall_damage_per_stage_+%_final" = -6
-		mod("AreaRadius", "INC", 0), --"base_skill_area_of_effect_+%" = 0
+		mod("AreaOfEffect", "INC", 0), --"base_skill_area_of_effect_+%" = 0
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -481,12 +481,12 @@ gems["Blast Rain"] = {
 		skill("dpsMultiplier", 4, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		nil, --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 8, -60, 0, },
@@ -747,7 +747,7 @@ gems["Caustic Arrow"] = {
 		skill("dotIsArea", true), 
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -826,7 +826,7 @@ gems["Cyclone"] = {
 		skill("dpsMultiplier", 2), 
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
@@ -898,12 +898,12 @@ gems["Vaal Cyclone"] = {
 		mod("Speed", "MORE", 100, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = 100
 		skill("duration", 5), --"base_skill_effect_duration" = 5000
 		--"base_skill_number_of_additional_hits" = 1
-		mod("AreaRadius", "INC", 50), --"base_skill_area_of_effect_+%" = 50
+		mod("AreaOfEffect", "INC", 50), --"base_skill_area_of_effect_+%" = 50
 		--"is_area_damage" = ?
 		skill("cannotBeEvaded", true), --"global_always_hit" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
@@ -1723,7 +1723,7 @@ gems["Freeze Mine"] = {
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -1930,11 +1930,11 @@ gems["Grace"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("Evasion", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_evasion_rating"
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[2] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 227, 0, },
@@ -1992,12 +1992,12 @@ gems["Vaal Grace"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("AttackDodgeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_chance_to_dodge_%"
 		[2] = mod("SpellDodgeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_chance_to_dodge_spells_%"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 24, 24, 0, },
@@ -2051,13 +2051,13 @@ gems["Haste"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_speed_+%"
 		[2] = mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cast_speed_+%_from_haste_aura"
 		[3] = mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_movement_velocity_+%"
-		[4] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[4] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 9, 9, 4, 0, },
@@ -2115,13 +2115,13 @@ gems["Vaal Haste"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_speed_+%"
 		[2] = mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cast_speed_+%_from_haste_aura"
 		[3] = mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_movement_velocity_+%"
-		[4] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[4] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 30, 29, 14, 0, },
@@ -2177,11 +2177,11 @@ gems["Hatred"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("PhysicalDamageGainAsCold", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"physical_damage_%_to_add_as_cold"
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[2] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 26, 0, },
@@ -2388,7 +2388,7 @@ gems["Ice Trap"] = {
 		skill("trapCooldown", 2), 
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -2454,11 +2454,11 @@ gems["Lacerate"] = {
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		nil, --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { -5, 0, },
@@ -2822,7 +2822,7 @@ gems["Poacher's Mark"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse"}), --"evasion_rating_+%_final_from_poachers_mark"
 		[5] = mod("LifeOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }), --"life_granted_when_hit_by_attacks"
 		[6] = mod("ManaOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }), --"mana_granted_when_hit_by_attacks"
@@ -2889,7 +2889,7 @@ gems["Projectile Weakness"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"projectile_damage_taken_+%"
 	},
 	levels = {
@@ -3016,12 +3016,12 @@ gems["Purity of Ice"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_cold_damage_resistance_%"
 		[2] = mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_maximum_cold_damage_resistance_%"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 22, 0, 0, },
@@ -3078,12 +3078,12 @@ gems["Rain of Arrows"] = {
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		nil, --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 7, 10, 0, },
@@ -3146,12 +3146,12 @@ gems["Vaal Rain of Arrows"] = {
 		skill("cannotBeEvaded", true), --"global_always_hit" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		nil, --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 40, 3.4, 0, },
@@ -3427,7 +3427,7 @@ gems["Shrapnel Shot"] = {
 		mod("PierceChance", "BASE", 100), --"always_pierce" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -3564,7 +3564,7 @@ gems["Smoke Mine"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -3891,7 +3891,7 @@ gems["Temporal Chains"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		--[4] = "temporal_chains_action_speed_+%_final"
 	},
 	levels = {
@@ -4218,7 +4218,7 @@ gems["Wild Strike"] = {
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
 		[2] = mod("ChainCount", "BASE", nil), --"number_of_additional_projectiles_in_chain"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		nil, --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 30, 4, 0, },

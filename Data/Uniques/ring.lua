@@ -188,7 +188,7 @@ Requires Level 20
 (10-15) Life Regenerated per second
 (20-40)% increased Mana Regeneration Rate
 Minions have 15% increased maximum Life
-Minions have 10% increased Radius of Area Skills
+Minions have 10% increased Area of Effect of Area Skills
 350 Physical Damage taken on Minion Death
 ]],[[
 Kaom's Sign

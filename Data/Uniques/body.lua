@@ -236,7 +236,7 @@ Requires Level 68, 194 Int
 40% increased Spell Damage
 (110-130)% increased Energy Shield
 +(50-65) to maximum Energy Shield
-10% increased Radius of Area Skills
+10% increased Area of Effect of Area Skills
 5% increased Damage taken
 (30-40)% increased Energy Shield Recovery Rate
 ]],[[
@@ -602,7 +602,7 @@ Requires Level 62, 96 Dex, 96 Int
 (120-150)% increased Evasion and Energy Shield
 +(50-70) to maximum Life
 +(9-12)% to all Elemental Resistances
-20% increased Radius of Area Skills
+20% increased Area of Effect of Area Skills
 12% increased Area Damage
 Extra gore
 ]],[[
@@ -644,7 +644,7 @@ Requires Level 52, 76 Dex, 76 Int
 {variant:2}Socketed Gems are Supported by level 30 Generosity
 (120-150)% increased Evasion and Energy Shield
 {variant:1}(10-20)% increased Radius of Auras
-{variant:2}(20-40)% increased Aura Area of Effect
+{variant:2}(20-40)% increased Area of Effect of Aura Skills
 (10-15)% increased effect of Non-Curse Auras you Cast
 ]],
 -- Body: Armour/Evasion/Energy Shield

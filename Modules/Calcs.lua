@@ -1796,9 +1796,9 @@ local function performCalcs(env)
 		end
 	end
 	if skillFlags.area then
-		output.AreaRadiusMod = calcMod(modDB, skillCfg, "AreaRadius")
+		output.AreaOfEffectMod = calcMod(modDB, skillCfg, "AreaOfEffect")
 		if breakdown then
-			breakdown.AreaRadiusMod = modBreakdown(skillCfg, "AreaRadius")
+			breakdown.AreaOfEffectMod = modBreakdown(skillCfg, "AreaOfEffect")
 		end
 	end
 	if skillFlags.trap then
@@ -2575,6 +2575,10 @@ local function performCalcs(env)
 			if modDB:Sum("FLAG", cfg, "CritsDontAlwaysFreeze") then
 				output.FreezeChanceOnCrit = output.FreezeChanceOnHit
 			end
+		end
+		if skillFlags.attack and modDB:Sum("FLAG", cfg, "ArrowsThatPierceCauseBleeding") then
+			output.BleedChanceOnHit = 100 - (1 - output.BleedChanceOnHit / 100) * (1 - globalOutput.PierceChance / 100) * 100
+			output.BleedChanceOnCrit = 100 - (1 - output.BleedChanceOnCrit / 100) * (1 - globalOutput.PierceChance / 100) * 100
 		end
 
 		local function calcSecondaryEffectBase(type, sourceHitDmg, sourceCritDmg)

@@ -118,7 +118,7 @@ Implicits: 2
 +(10-20) to maximum Mana
 (130-160)% increased Physical Damage
 5% reduced Movement Speed
-10% increased Radius of Area Skills
+10% increased Area of Effect of Area Skills
 (10-15)% increased Area Damage
 ]],[[
 Mjölner
@@ -178,7 +178,7 @@ Requires Level 66, 113 Str, 113 Int
 32% increased Elemental Damage
 (260-310)% increased Physical Damage
 (60-80)% increased Chaos Damage
-10% increased Radius of Area Skills
+10% increased Area of Effect of Area Skills
 40% increased Chaos Skill Effect Duration
 ]],[[
 Brutus' Lead Sprinkler

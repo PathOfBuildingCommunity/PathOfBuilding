@@ -105,8 +105,8 @@ Implicits: 2
 {variant:2}20% Chance to Block
 18% increased Cast Speed
 18% increased maximum Mana
-18% increased Radius of Aura Skills
-18% increased Radius of Curse Skills
+18% increased Area of Effect of Aura Skills
+18% increased Area of Effect of Curse Skills
 Nearby Enemies have 18% increased Effect of Curses on them
 Nearby allies gain 18% increased Damage
 18% increased effect of Non-Curse Auras you Cast
@@ -160,7 +160,7 @@ Requires Level 13, 27 Str, 27 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2}18% Chance to Block
-1% increased Area of Effect Radius per 20 Intelligence
+1% increased Area of Effect of Area Skills per 20 Intelligence
 1% increased Attack Speed per 10 Dexterity
 16% increased Physical Weapon Damage per 10 Strength
 ]],[[

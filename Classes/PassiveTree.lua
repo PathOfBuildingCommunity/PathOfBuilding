@@ -344,10 +344,7 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 				-- This will occur when the tree is being drawn; .vert will map line state (Normal/Intermediate/Active) to the correct tree-space coordinates 
 	}
 	if node1.g == node2.g and node1.o == node2.o then
-		-- Nodes are in the same orbit of the same group, so generate an arc
-		-- This is an arc texture mapped onto a kite-shaped quad
-		connector.type = "Orbit" .. node1.o
-
+		-- Nodes are in the same orbit of the same group
 		-- Calculate the starting angle (node1.angle) and arc angle
 		if node1.angle > node2.angle then
 			node1, node2 = node2, node1
@@ -357,50 +354,56 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 			node1, node2 = node2, node1
 			arcAngle = m_pi * 2 - arcAngle
 		end
-		-- Calculate how much the arc needs to be clipped by
-		-- Both ends of the arc will be clipped by this amount, so 90 degree arc angle = no clipping and 30 degree arc angle = 75 degrees of clipping
-		-- The clipping is accomplished by effectively moving the bottom left and top right corners of the arc texture towards the top left corner
-		-- The arc texture only shows 90 degrees of an arc, but some arcs must go for more than 90 degrees
-		-- Fortunately there's nowhere on the tree where we can't just show the middle 90 degrees and rely on the node artwork to cover the gaps :)
-		local clipAngle = m_pi / 4 - arcAngle / 2
-		local p = 1 - m_max(m_tan(clipAngle), 0)
-		local angle = node1.angle - clipAngle
-		connector.vert = { }
-		for _, state in pairs({"Normal","Intermediate","Active"}) do
-			-- The different line states have differently-sized artwork, so the vertex coords must be calculated separately for each one
-			local art = self.assets[connector.type..state]
-			local size = art.width * 2 * 1.33
-			local oX, oY = size * m_sqrt(2) * m_sin(angle + m_pi/4), size * m_sqrt(2) * -m_cos(angle + m_pi/4)
-			local cX, cY = node1.group.x + oX, node1.group.y + oY
-			local vert = { }
-			vert[1], vert[2] = node1.group.x, node1.group.y
-			vert[3], vert[4] = cX + (size * m_sin(angle) - oX) * p, cY + (size * -m_cos(angle) - oY) * p
-			vert[5], vert[6] = cX, cY
-			vert[7], vert[8] = cX + (size * m_cos(angle) - oX) * p, cY + (size * m_sin(angle) - oY) * p
-			connector.vert[state] = vert
+		if arcAngle < m_pi * 0.9 then
+			-- Angle is less than 180 degrees, draw an arc
+			connector.type = "Orbit" .. node1.o
+			-- This is an arc texture mapped onto a kite-shaped quad
+			-- Calculate how much the arc needs to be clipped by
+			-- Both ends of the arc will be clipped by this amount, so 90 degree arc angle = no clipping and 30 degree arc angle = 75 degrees of clipping
+			-- The clipping is accomplished by effectively moving the bottom left and top right corners of the arc texture towards the top left corner
+			-- The arc texture only shows 90 degrees of an arc, but some arcs must go for more than 90 degrees
+			-- Fortunately there's nowhere on the tree where we can't just show the middle 90 degrees and rely on the node artwork to cover the gaps :)
+			local clipAngle = m_pi / 4 - arcAngle / 2
+			local p = 1 - m_max(m_tan(clipAngle), 0)
+			local angle = node1.angle - clipAngle
+			connector.vert = { }
+			for _, state in pairs({"Normal","Intermediate","Active"}) do
+				-- The different line states have differently-sized artwork, so the vertex coords must be calculated separately for each one
+				local art = self.assets[connector.type..state]
+				local size = art.width * 2 * 1.33
+				local oX, oY = size * m_sqrt(2) * m_sin(angle + m_pi/4), size * m_sqrt(2) * -m_cos(angle + m_pi/4)
+				local cX, cY = node1.group.x + oX, node1.group.y + oY
+				local vert = { }
+				vert[1], vert[2] = node1.group.x, node1.group.y
+				vert[3], vert[4] = cX + (size * m_sin(angle) - oX) * p, cY + (size * -m_cos(angle) - oY) * p
+				vert[5], vert[6] = cX, cY
+				vert[7], vert[8] = cX + (size * m_cos(angle) - oX) * p, cY + (size * m_sin(angle) - oY) * p
+				connector.vert[state] = vert
+			end
+			connector.c[9], connector.c[10] = 1, 1
+			connector.c[11], connector.c[12] = 0, p
+			connector.c[13], connector.c[14] = 0, 0
+			connector.c[15], connector.c[16] = p, 0
+			return connector
 		end
-		connector.c[9], connector.c[10] = 1, 1
-		connector.c[11], connector.c[12] = 0, p
-		connector.c[13], connector.c[14] = 0, 0
-		connector.c[15], connector.c[16] = p, 0
-	else
-		-- Generate a straight line
-		connector.type = "LineConnector"
-		local art = self.assets.LineConnectorNormal
-		local vX, vY = node2.x - node1.x, node2.y - node1.y
-		local dist = m_sqrt(vX * vX + vY * vY)
-		local scale = art.height * 1.33 / dist
-		local nX, nY = vX * scale, vY * scale
-		local endS = dist / (art.width * 1.33)
-		connector[1], connector[2] = node1.x - nY, node1.y + nX
-		connector[3], connector[4] = node1.x + nY, node1.y - nX
-		connector[5], connector[6] = node2.x + nY, node2.y - nX
-		connector[7], connector[8] = node2.x - nY, node2.y + nX
-		connector.c[9], connector.c[10] = 0, 1
-		connector.c[11], connector.c[12] = 0, 0
-		connector.c[13], connector.c[14] = endS, 0
-		connector.c[15], connector.c[16] = endS, 1
-		connector.vert = { Normal = connector, Intermediate = connector, Active = connector }
 	end
+
+	-- Generate a straight line
+	connector.type = "LineConnector"
+	local art = self.assets.LineConnectorNormal
+	local vX, vY = node2.x - node1.x, node2.y - node1.y
+	local dist = m_sqrt(vX * vX + vY * vY)
+	local scale = art.height * 1.33 / dist
+	local nX, nY = vX * scale, vY * scale
+	local endS = dist / (art.width * 1.33)
+	connector[1], connector[2] = node1.x - nY, node1.y + nX
+	connector[3], connector[4] = node1.x + nY, node1.y - nX
+	connector[5], connector[6] = node2.x + nY, node2.y - nX
+	connector[7], connector[8] = node2.x - nY, node2.y + nX
+	connector.c[9], connector.c[10] = 0, 1
+	connector.c[11], connector.c[12] = 0, 0
+	connector.c[13], connector.c[14] = endS, 0
+	connector.c[15], connector.c[16] = endS, 1
+	connector.vert = { Normal = connector, Intermediate = connector, Active = connector }
 	return connector
 end

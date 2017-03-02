@@ -194,7 +194,7 @@ Requires Level 42, 103 Dex
 +(20-40)% to Cold Resistance
 {variant:1}+1 to Level of Socketed Warcry Gems
 {variant:2}(80-100)% Increased Evasion Rating
-10% increased Radius of Area Skills
+10% increased Area of Effect of Area Skills
 {variant:1}(20-30)% increased Chaos Damage
 {variant:1}You gain Onslaught for 2 seconds on Killing Taunted Enemies
 {variant:2}You gain Onslaught for 4 seconds on using a Warcry
@@ -481,12 +481,15 @@ Requires Level 7
 ]],[[
 Victario's Charity
 Laminated Kite Shield
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 50, 64 Str, 64 Int
 +8% to all Elemental Resistances
 +(50-70) to maximum Life
 +(20-30)% to Lightning Resistance
 +11% to Chaos Resistance
-10% increased Radius of Aura Skills
+{variant:1}10% increased Radius of Aura Skills
+{variant:2}20% increased Area of Effect of Aura Skills
 10% chance to grant a Power Charge to nearby Allies on Kill
 5% chance to grant a Frenzy Charge to nearby Allies on Hit
 ]],
@@ -523,7 +526,7 @@ Reflects (51-70) Physical Damage to Melee Attackers
 (10-15)% increased Attack Speed
 (10-20)% increased maximum Life
 −50% to all Elemental Resistances
-10% increased Radius of Area Skills
+10% increased Area of Effect of Area Skills
 Nearby allies Recover 2% of your maximum Life when you Die
 ]],
 }

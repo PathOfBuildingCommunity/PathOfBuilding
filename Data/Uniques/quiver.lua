@@ -12,7 +12,7 @@ Requires Level 10
 (30-40)% increased Chill Duration on Enemies
 20% of Physical Damage Converted to Cold Damage
 (7-10)% chance to Freeze
-40% reduced Radius of Curses
+40% reduced Area of Effect of Curse Skills
 Curses on Slain Enemies are transferred to a nearby Enemy
 ]],[[
 Blackgleam
@@ -69,7 +69,7 @@ Requires Level 10
 {variant:2}Adds 10 to 20 Cold Damage to Attacks
 (7-10)% increased Attack Speed
 +(2-3) Life gained for each Enemy hit by your Attacks
-10% increased Radius of Area Skills
+10% increased Area of Effect of Area Skills
 ]],[[
 Maloney's Nightfall
 Blunt Arrow Quiver

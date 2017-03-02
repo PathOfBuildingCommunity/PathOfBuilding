@@ -229,7 +229,7 @@ gems["Cast on Death"] = {
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 3), --"area_of_effect_+%_while_dead" = 3
+		mod("AreaOfEffect", "INC", 3), --"area_of_effect_+%_while_dead" = 3
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil), --"cast_on_death_damage_+%_final_while_dead"
@@ -977,7 +977,7 @@ gems["Multiple Traps"] = {
 		mod("ActiveTrapLimit", "BASE", 3), --"number_of_additional_traps_allowed" = 3
 	},
 	qualityMods = {
-		mod("TrapTriggerRadius", "INC", 1), --"trap_trigger_radius_+%" = 1
+		mod("TrapTriggerAreaOfEffect", "INC", 1), --"trap_trigger_radius_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil), --"support_multithrow_damage_+%_final"

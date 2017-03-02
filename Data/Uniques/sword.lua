@@ -375,7 +375,7 @@ Doomsower
 Lion Sword
 Requires Level 65, 104 Str, 122 Dex
 18% increased Accuracy Rating
-Socketed Melee Gems have 15% increased Area of Effect Radius
+Socketed Melee Gems have 15% increased Area of Effect
 Socketed Red Gems get 10% Physical Damage as Extra Fire Damage
 (50-70)% increased Physical Damage
 Adds (50-75) to (85-110) Physical Damage

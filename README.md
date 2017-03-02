@@ -47,6 +47,19 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.14 - 2017/03/02
+This update implements the AoE changes for 2.6:
+ * Changed the Area Radius Modifier output in the Calcs tab to Area of Effect Modifier
+ * Updated the stats for Increased Area of Effect, Concentrated Effect and Melee Splash
+ * Changed Area Radius modifiers on uniques to Area of Effect
+ * Changed the Area of Effect value on Illuminated Devotion to match that listed in the patch notes
+ * The area of effect of many skills will be incorrect until all the data is made available in the patch
+Other changes:
+ * Added support for the "Arrows that Pierce cause Bleeding" stat on Slivertongue
+ * Corrected the implicits added when crafting Wands and Sceptres
+ * The (possibly incorrect) pathing in the Storm Weaver cluster should now render correctly
+ * Fixed an error that would occur when loading certain builds
+
 ### 1.3.13 - 2017/03/02
  * Updated tree to 2.6.0
 
