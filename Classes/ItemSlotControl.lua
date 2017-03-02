@@ -92,7 +92,7 @@ function ItemSlotClass:Draw(viewPort)
 		end
 	end
 	if self.nodeId and (self.dropped or (self:IsMouseOver() and (highlight or not self.itemsTab.selControl))) then
-		SetDrawLayer(nil, 10)
+		SetDrawLayer(nil, 15)
 		local viewerX = x + width + 5
 		local viewerY = m_min(y, viewPort.y + viewPort.height - 304)
 		SetDrawColor(1, 1, 1)
@@ -104,6 +104,7 @@ function ItemSlotClass:Draw(viewPort)
 		viewer.zoomY = -node.y / 11.85
 		SetViewport(viewerX + 2, viewerY + 2, 300, 300)
 		viewer:Draw(self.itemsTab.build, { x = 0, y = 0, width = 300, height = 300 }, { })
+		SetDrawLayer(nil, 30)
 		SetDrawColor(1, 1, 1, 0.2)
 		DrawImage(nil, 149, 0, 2, 300)
 		DrawImage(nil, 0, 149, 300, 2)

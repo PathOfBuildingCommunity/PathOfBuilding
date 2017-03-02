@@ -47,6 +47,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.15 - 2017/03/02
+ * The skill gem search field can now search by gem tag (e.g 'support' or 'aura')
+ * Removed the bonus Energy Shield from Vaal Discipline
+ * Node location displays in the Items and Calcs tabs will now render correctly
+ * Fixed error that resulted from entering certain characters into search fields
+
 ### 1.3.14 - 2017/03/02
 This update implements the AoE changes for 2.6:
  * Changed the Area Radius Modifier output in the Calcs tab to Area of Effect Modifier

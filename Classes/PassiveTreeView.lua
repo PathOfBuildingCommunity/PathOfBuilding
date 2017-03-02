@@ -280,7 +280,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	end
 
 	-- Draw the connecting lines between nodes
-	SetDrawLayer(nil, 1)
+	SetDrawLayer(nil, 20)
 	for _, connector in pairs(tree.connectors) do
 		local node1, node2 = spec.nodes[connector.nodeId1], spec.nodes[connector.nodeId2]
 
@@ -321,14 +321,14 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	for nodeId, node in pairs(spec.nodes) do
 		-- Determine the base and overlay images for this node based on type and state
 		local base, overlay
-		SetDrawLayer(nil, 1)
+		SetDrawLayer(nil, 25)
 		if node.type == "classStart" then
 			overlay = node.alloc and node.startArt or "PSStartNodeBackgroundInactive"
 		elseif node.type == "ascendClassStart" then
 			overlay = "PassiveSkillScreenAscendancyMiddle"
 		elseif node.type == "mastery" then
 			-- This is the icon that appears in the center of many groups
-			SetDrawLayer(nil, 0)
+			SetDrawLayer(nil, 15)
 			base = node.sprites.mastery
 		else
 			local state
@@ -422,24 +422,22 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 		if #self.searchStr > 0 and self:DoesNodeMatchSearchStr(node) then
 			-- Node matches the search string, show the highlight circle
-			SetDrawLayer(nil, 5)
+			SetDrawLayer(nil, 30)
 			SetDrawColor(1, 0, 0)
 			local size = 175 * scale / self.zoom ^ 0.4
 			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
-			SetDrawLayer(nil, 0)
 		end
 		if node == hoverNode and (node.type ~= "socket" or not IsKeyDown("SHIFT")) then
 			-- Draw tooltip
-			SetDrawLayer(nil, 10)
+			SetDrawLayer(nil, 100)
 			local size = m_floor(hoverNode.size * scale)
 			self:AddNodeTooltip(hoverNode, build)
 			main:DrawTooltip(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
-			SetDrawLayer(nil, 0)
 		end
 	end
 
 	-- Draw ring overlays for jewel sockets
-	SetDrawLayer(nil, 1)
+	SetDrawLayer(nil, 25)
 	for nodeId, slot in pairs(build.itemsTab.sockets) do
 		local node = spec.nodes[nodeId]
 		if node == hoverNode then
