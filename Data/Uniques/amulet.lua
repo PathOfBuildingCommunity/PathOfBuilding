@@ -342,11 +342,14 @@ Minions deal (10-15)% increased Damage
 ]],[[
 Star of Wraeclast
 Ruby Amulet
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 28
 +(20-30)% to Fire Resistance
 (30-50)% increased Cold Damage
 +(10-15)% to all Elemental Resistances
-30% increased Radius of Curse Skills
+{variant:1}30% increased Radius of Curse Skills
+{variant:2}60% increased Area of Effect of Curse Skills
 You are Immune to Silence
 Grants level 20 Illusory Warp Skill
 Corrupted

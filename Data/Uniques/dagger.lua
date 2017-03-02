@@ -65,7 +65,7 @@ Requires Level 66, 95 Dex, 131 Int
 (80-100)% increased Critical Strike Chance for Spells
 +10 Life gained on Kill
 +5 Mana gained on Kill
-10% increased Radius of Area Skills
+10% increased Area of Effect of Area Skills
 ]],[[
 Goredrill
 Skinning Knife

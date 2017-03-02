@@ -1165,8 +1165,11 @@ local function performCalcs(env)
 			if activeSkill.buffModList and (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff) and (not activeSkill.skillData.offering or modDB:Sum("FLAG", nil, "OfferingsAffectPlayer")) then
 				activeSkill.buffSkill = true
 				local inc = modDB:Sum("INC", skillCfg, "BuffEffect")
-				if activeSkill.activeGem.data.golem and modDB:Sum("FLAG", skillCfg, "LiegeOfThePrimordial") and (activeSkill.activeGem.data.fire or activeSkill.activeGem.data.cold or activeSkill.activeGem.data.lightning) then
-					inc = inc + 100
+				if activeSkill.activeGem.data.golem then	
+					inc = inc + modDB:Sum("INC", skillCfg, "GolemBuffEffect")
+					if modDB:Sum("FLAG", skillCfg, "LiegeOfThePrimordial") and (activeSkill.activeGem.data.fire or activeSkill.activeGem.data.cold or activeSkill.activeGem.data.lightning) then
+						inc = inc + 100
+					end
 				end
 				modDB:ScaleAddList(activeSkill.buffModList, 1 + inc / 100)
 			end
@@ -1796,9 +1799,9 @@ local function performCalcs(env)
 		end
 	end
 	if skillFlags.area then
-		output.AreaRadiusMod = calcMod(modDB, skillCfg, "AreaRadius")
+		output.AreaOfEffectMod = calcMod(modDB, skillCfg, "AreaOfEffect")
 		if breakdown then
-			breakdown.AreaRadiusMod = modBreakdown(skillCfg, "AreaRadius")
+			breakdown.AreaOfEffectMod = modBreakdown(skillCfg, "AreaOfEffect")
 		end
 	end
 	if skillFlags.trap then
@@ -2575,6 +2578,10 @@ local function performCalcs(env)
 			if modDB:Sum("FLAG", cfg, "CritsDontAlwaysFreeze") then
 				output.FreezeChanceOnCrit = output.FreezeChanceOnHit
 			end
+		end
+		if skillFlags.attack and modDB:Sum("FLAG", cfg, "ArrowsThatPierceCauseBleeding") then
+			output.BleedChanceOnHit = 100 - (1 - output.BleedChanceOnHit / 100) * (1 - globalOutput.PierceChance / 100) * 100
+			output.BleedChanceOnCrit = 100 - (1 - output.BleedChanceOnCrit / 100) * (1 - globalOutput.PierceChance / 100) * 100
 		end
 
 		local function calcSecondaryEffectBase(type, sourceHitDmg, sourceCritDmg)

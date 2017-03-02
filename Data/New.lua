@@ -55,13 +55,5 @@ Requiress Level 38, 57 Str, 57 Dex
 15% increased Character Size
 Spell Skills deal no Damage
 Your Spells are disabled
-]],[[
-]],[[
-]],[[
-]],[[
-]],[[
-]],[[
-]],[[
-]],[[
 ]],
 }

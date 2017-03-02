@@ -150,7 +150,7 @@ gems["Arctic Breath"] = {
 		--"base_is_projectile" = 1
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -218,7 +218,7 @@ gems["Assassin's Mark"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("SelfExtraCritChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"additional_chance_to_take_critical_strike_%"
 		[5] = mod("LifeOnKill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"life_granted_when_killed"
 		[6] = mod("ManaOnKill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"mana_granted_when_killed"
@@ -345,7 +345,7 @@ gems["Blight"] = {
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -463,12 +463,12 @@ gems["Clarity"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_mana_regeneration_rate_per_minute"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 34, 2.9333333333333, 0, },
@@ -526,10 +526,10 @@ gems["Vaal Clarity"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
-		[1] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[1] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
 	},
 	levels = {
@@ -589,7 +589,7 @@ gems["Cold Snap"] = {
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -655,7 +655,7 @@ gems["Vaal Cold Snap"] = {
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("ColdMin", nil), --"spell_minimum_base_cold_damage"
@@ -722,7 +722,7 @@ gems["Conductivity"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"base_lightning_damage_resistance_%"
 		[5] = mod("SelfShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"chance_to_be_shocked_%"
 	},
@@ -782,7 +782,7 @@ gems["Contagion"] = {
 		skill("debuff", true), 
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -864,7 +864,7 @@ gems["Discharge"] = {
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -927,11 +927,11 @@ gems["Discipline"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("EnergyShield", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_maximum_energy_shield"
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[2] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 60, 0, },
@@ -990,11 +990,11 @@ gems["Vaal Discipline"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("EnergyShield", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_maximum_energy_shield"
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[2] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 181, 0, },
@@ -1055,7 +1055,7 @@ gems["Elemental Weakness"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"base_resist_all_elements_%"
 	},
 	levels = {
@@ -1119,7 +1119,7 @@ gems["Enfeeble"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"accuracy_rating_+%"
 		[5] = mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"enfeeble_damage_+%_final"
 		[6] = mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"base_critical_strike_multiplier_+"
@@ -1388,7 +1388,7 @@ gems["Vaal Fireball"] = {
 		--"base_number_of_projectiles_in_spiral_nova" = 32
 		--"projectile_spiral_nova_time_ms" = 2000
 		--"projectile_spiral_nova_angle" = -720
-		mod("AreaRadius", "INC", 50), --"base_skill_area_of_effect_+%" = 50
+		mod("AreaOfEffect", "INC", 50), --"base_skill_area_of_effect_+%" = 50
 		--"base_is_projectile" = ?
 	},
 	qualityMods = {
@@ -1789,7 +1789,7 @@ gems["Flammability"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"base_fire_damage_resistance_%"
 		[5] = mod("SelfIgniteChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"chance_to_be_ignited_%"
 	},
@@ -2109,7 +2109,7 @@ gems["Frostbite"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"base_cold_damage_resistance_%"
 		[5] = mod("SelfFreezeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"chance_to_be_frozen_%"
 	},
@@ -2358,7 +2358,7 @@ gems["Ice Nova"] = {
 		--"is_area_damage" = 1
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -2422,7 +2422,7 @@ gems["Vaal Ice Nova"] = {
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("ColdMin", nil), --"spell_minimum_base_cold_damage"
@@ -2638,12 +2638,12 @@ gems["Kinetic Blast"] = {
 		--"skill_can_fire_wand_projectiles" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		nil, --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 15, 20, 0, },
@@ -3295,11 +3295,11 @@ gems["Purity of Elements"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_resist_all_elements_%"
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[2] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 12, 0, },
@@ -3354,12 +3354,12 @@ gems["Purity of Lightning"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_lightning_damage_resistance_%"
 		[2] = mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_maximum_lightning_damage_resistance_%"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 22, 0, 0, },
@@ -3902,7 +3902,7 @@ gems["Storm Call"] = {
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -3968,7 +3968,7 @@ gems["Vaal Storm Call"] = {
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("LightningMin", nil), --"spell_minimum_base_lightning_damage"
@@ -4253,7 +4253,7 @@ gems["Vortex"] = {
 		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_damage_over_time" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -4321,7 +4321,7 @@ gems["Vulnerability"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"physical_damage_taken_+%"
 	},
 	levels = {
@@ -4402,7 +4402,7 @@ gems["Wither"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }), --"base_movement_velocity_+%"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		nil, --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 4, -30, 0, },
@@ -4458,12 +4458,12 @@ gems["Wrath"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("LightningMin", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_minimum_added_lightning_damage"
 		[2] = mod("LightningMax", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_maximum_added_lightning_damage"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("LightningDamage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"wrath_aura_spell_lightning_damage_+%_final"
 	},
 	levels = {
