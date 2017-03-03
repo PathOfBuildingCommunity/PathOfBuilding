@@ -4,151 +4,151 @@ local itemBases = ...
 itemBases["Rusted Sword"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 4, PhysicalMax = 8, critChanceBase = 5, attackRateBase = 1.45, },
+	weapon = { PhysicalMin = 4, PhysicalMax = 10, critChanceBase = 5, attackRateBase = 1.45, },
 	req = { level = 1, str = 8, dex = 8, },
 }
 itemBases["Copper Sword"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 6, PhysicalMax = 12, critChanceBase = 5, attackRateBase = 1.4, },
+	weapon = { PhysicalMin = = 7, PhysicalMax = 15, critChanceBase = 5, attackRateBase = 1.4, },
 	req = { level = 5, str = 14, dex = 14, },
 }
 itemBases["Sabre"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 4, PhysicalMax = 18, critChanceBase = 5, attackRateBase = 1.55, },
+	weapon = { PhysicalMin = 5, PhysicalMax = 22, critChanceBase = 5, attackRateBase = 1.55, },
 	req = { level = 10, str = 18, dex = 26, },
 }
 itemBases["Broad Sword"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 14, PhysicalMax = 21, critChanceBase = 5, attackRateBase = 1.3, },
+	weapon = { PhysicalMin = 17, PhysicalMax = 25, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 15, str = 30, dex = 30, },
 }
 itemBases["War Sword"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 16, PhysicalMax = 30, critChanceBase = 5, attackRateBase = 1.2, },
+	weapon = { PhysicalMin = 20, PhysicalMax = 37, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 20, str = 41, dex = 35, },
 }
 itemBases["Ancient Sword"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 17, PhysicalMax = 31, critChanceBase = 5, attackRateBase = 1.3, },
+	weapon = { PhysicalMin = 20, PhysicalMax = 38, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 24, str = 44, dex = 44, },
 }
 itemBases["Elegant Sword"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 17, PhysicalMax = 27, critChanceBase = 5, attackRateBase = 1.5, },
+	weapon = { PhysicalMin = 20, PhysicalMax = 33, critChanceBase = 5, attackRateBase = 1.5, },
 	req = { level = 28, str = 46, dex = 55, },
 }
 itemBases["Dusk Blade"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 15, PhysicalMax = 43, critChanceBase = 5, attackRateBase = 1.3, },
+	weapon = { PhysicalMin = 19, PhysicalMax = 54, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 32, str = 57, dex = 57, },
 }
 itemBases["Hook Sword"] = {
 	type = "One Handed Sword",
 	implicit = "2% chance to Dodge Attacks",
-	weapon = { PhysicalMin = 23, PhysicalMax = 49, critChanceBase = 5, attackRateBase = 1.15, },
+	weapon = { PhysicalMin = 28, PhysicalMax = 60, critChanceBase = 5, attackRateBase = 1.15, },
 	req = { level = 34, str = 64, dex = 64, },
 }
 itemBases["Variscite Blade"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 20, PhysicalMax = 43, critChanceBase = 5, attackRateBase = 1.3, },
+	weapon = { PhysicalMin = 25, PhysicalMax = 53, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 35, str = 62, dex = 62, },
 }
 itemBases["Cutlass"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 11, PhysicalMax = 44, critChanceBase = 5, attackRateBase = 1.55, },
+	weapon = { PhysicalMin = 13, PhysicalMax = 53, critChanceBase = 5, attackRateBase = 1.55, },
 	req = { level = 38, str = 55, dex = 79, },
 }
 itemBases["Baselard"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 29, PhysicalMax = 42, critChanceBase = 5, attackRateBase = 1.3, },
+	weapon = { PhysicalMin = 37, PhysicalMax = 53, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 41, str = 72, dex = 72, },
 }
 itemBases["Battle Sword"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 30, PhysicalMax = 55, critChanceBase = 5, attackRateBase = 1.2, },
+	weapon = { PhysicalMin = 38, PhysicalMax = 70, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 44, str = 83, dex = 70, },
 }
 itemBases["Elder Sword"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 28, PhysicalMax = 52, critChanceBase = 5, attackRateBase = 1.3, },
+	weapon = { PhysicalMin = 36, PhysicalMax = 66, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 47, str = 81, dex = 81, },
 }
 itemBases["Graceful Sword"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 27, PhysicalMax = 44, critChanceBase = 5, attackRateBase = 1.5, },
+	weapon = { PhysicalMin = 34, PhysicalMax = 55, critChanceBase = 5, attackRateBase = 1.5, },
 	req = { level = 50, str = 78, dex = 94, },
 }
 itemBases["Twilight Blade"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 23, PhysicalMax = 66, critChanceBase = 5, attackRateBase = 1.3, },
+	weapon = { PhysicalMin = 30, PhysicalMax = 86, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 53, str = 91, dex = 91, },
 }
 itemBases["Grappler"] = {
 	type = "One Handed Sword",
 	implicit = "2% chance to Dodge Attacks",
-	weapon = { PhysicalMin = 35, PhysicalMax = 75, critChanceBase = 5, attackRateBase = 1.15, },
+	weapon = { PhysicalMin = 44, PhysicalMax = 94, critChanceBase = 5, attackRateBase = 1.15, },
 	req = { level = 55, str = 99, dex = 99, },
 }
 itemBases["Gemstone Sword"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 30, PhysicalMax = 64, critChanceBase = 5, attackRateBase = 1.3, },
+	weapon = { PhysicalMin = 39, PhysicalMax = 83, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 56, str = 96, dex = 96, },
 }
 itemBases["Corsair Sword"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 16, PhysicalMax = 63, critChanceBase = 5, attackRateBase = 1.55, },
+	weapon = { PhysicalMin = 20, PhysicalMax = 80, critChanceBase = 5, attackRateBase = 1.55, },
 	req = { level = 58, str = 81, dex = 117, },
 }
 itemBases["Gladius"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 41, PhysicalMax = 59, critChanceBase = 5, attackRateBase = 1.3, },
+	weapon = { PhysicalMin = 54, PhysicalMax = 78, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 60, str = 113, dex = 113, },
 }
 itemBases["Legion Sword"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 39, PhysicalMax = 73, critChanceBase = 5, attackRateBase = 1.2, },
+	weapon = { PhysicalMin = 53, PhysicalMax = 98, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 62, str = 122, dex = 104, },
 }
 itemBases["Vaal Blade"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 35, PhysicalMax = 65, critChanceBase = 5, attackRateBase = 1.3, },
+	weapon = { PhysicalMin = 48, PhysicalMax = 86, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 64, str = 113, dex = 113, },
 }
 itemBases["Eternal Sword"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 32, PhysicalMax = 52, critChanceBase = 5, attackRateBase = 1.5, },
+	weapon = { PhysicalMin = 41, PhysicalMax = 68, critChanceBase = 5, attackRateBase = 1.5, },
 	req = { level = 66, str = 104, dex = 122, },
 }
 itemBases["Midnight Blade"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 26, PhysicalMax = 74, critChanceBase = 5, attackRateBase = 1.3, },
+	weapon = { PhysicalMin = 35, PhysicalMax = 99, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 68, str = 113, dex = 113, },
 }
 itemBases["Tiger Hook"] = {
 	type = "One Handed Sword",
 	implicit = "3% chance to Dodge Attacks",
-	weapon = { PhysicalMin = 43, PhysicalMax = 92, critChanceBase = 5, attackRateBase = 1.15, },
+	weapon = { PhysicalMin = 49, PhysicalMax = 105, critChanceBase = 5, attackRateBase = 1.15, },
 	req = { level = 70, str = 119, dex = 119, },
 }
 
@@ -276,7 +276,7 @@ itemBases["Dragonbone Rapier"] = {
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	implicit = "+25% to Global Critical Strike Multiplier",
-	weapon = { PhysicalMin = 16, PhysicalMax = 65, critChanceBase = 5.5, attackRateBase = 1.5, },
+	weapon = { PhysicalMin = 19, PhysicalMax = 75, critChanceBase = 5.5, attackRateBase = 1.5, },
 	req = { level = 58, dex = 185, },
 }
 itemBases["Tempered Foil"] = {
