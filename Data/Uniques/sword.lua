@@ -203,7 +203,7 @@ Cutlass
 League: Breach
 Requires Level 38, 55 Str, 79 Dex
 18% increased Accuracy Rating
-+(10-15) to all Attributes
++(10-20) to all Attributes
 Minions deal (20-30)% increased Damage
 Minions have +17% to Chaos Resistance
 Minions Poison Enemies on Hit

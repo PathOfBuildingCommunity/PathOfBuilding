@@ -1270,11 +1270,20 @@ local function performCalcs(env)
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
 	modDB.multipliers["FrenzyCharge"] = output.FrenzyCharges
 	modDB.multipliers["EnduranceCharge"] = output.EnduranceCharges
+	if output.PowerCharges == 0 then
+		condList["HaveNoPowerCharges"] = true
+	end
 	if output.PowerCharges == output.PowerChargesMax then
 		condList["AtMaxPowerCharges"] = true
 	end
+	if output.FrenzyCharges == 0 then
+		condList["HaveNoFrenzyCharges"] = true
+	end
 	if output.FrenzyCharges == output.FrenzyChargesMax then
 		condList["AtMaxFrenzyCharges"] = true
+	end
+	if output.EnduranceCharges == 0 then
+		condList["HaveNoEnduranceCharges"] = true
 	end
 	if output.EnduranceCharges == output.EnduranceChargesMax then
 		condList["AtMaxEnduranceCharges"] = true
@@ -2697,7 +2706,7 @@ local function performCalcs(env)
 					end
 				end
 			end
-		end	
+		end
 
 		-- Calculate poison chance and damage
 		if canDeal.Chaos and (output.PoisonChanceOnHit + output.PoisonChanceOnCrit) > 0 then
