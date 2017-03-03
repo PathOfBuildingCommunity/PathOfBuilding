@@ -33,9 +33,9 @@ Iron Gauntlets
 Variant: Pre 2.6.0
 Variant: Current
 (10-15)% increased Attack Speed
-+(10-20) to Armour
+{variant:1}+(10-20) to Armour
 {variant:2}+(20-30) to maximum Life
-{variant:1}(10-15)% reduced maximum Mana
+(10-15)% reduced maximum Mana
 (10-15)% increased Cast Speed
 {variant:2}10% chance to gain a Frenzy, Power or Endurance Charge on Kill
 Conduit
