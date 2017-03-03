@@ -10,7 +10,7 @@ itemBases["Rusted Sword"] = {
 itemBases["Copper Sword"] = {
 	type = "One Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = = 7, PhysicalMax = 15, critChanceBase = 5, attackRateBase = 1.4, },
+	weapon = { PhysicalMin = 7, PhysicalMax = 15, critChanceBase = 5, attackRateBase = 1.4, },
 	req = { level = 5, str = 14, dex = 14, },
 }
 itemBases["Sabre"] = {
