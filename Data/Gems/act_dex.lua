@@ -1865,7 +1865,7 @@ gems["Frost Blades"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
-		mod("PhysicalDamageConvertToCold", "BASE", 40, 0, 0, nil), --"base_physical_damage_%_to_convert_to_cold" = 40
+		mod("PhysicalDamageConvertToCold", "BASE", 60, 0, 0, nil), --"base_physical_damage_%_to_convert_to_cold" = 60
 		--"total_projectile_spread_angle_override" = 110
 		--"show_number_of_projectiles" = ?
 	},
@@ -2315,7 +2315,7 @@ gems["Ice Shot"] = {
 	},
 	baseMods = {
 		skill("castTime", 1), 
-		mod("SkillPhysicalDamageConvertToCold", "BASE", 40), --"skill_physical_damage_%_to_convert_to_cold" = 40
+		mod("SkillPhysicalDamageConvertToCold", "BASE", 60), --"skill_physical_damage_%_to_convert_to_cold" = 60
 		skill("duration", 1.5), --"base_skill_effect_duration" = 1500
 		--"skill_can_fire_arrows" = ?
 		mod("SkillPhysicalDamageConvertToCold", "BASE", 60, 0, 0, { type = "SkillPart", skillPart = 2 }), 
