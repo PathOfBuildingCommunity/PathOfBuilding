@@ -166,7 +166,7 @@ gems["Cast on Melee Kill"] = {
 	color = 1,
 	requireSkillTypes = { 24, 36, },
 	addSkillTypes = { 42, },
-	excludeSkillTypes = { 37, 41, 30, 44, },
+	excludeSkillTypes = { 37, 41, 30, 44, 61, },
 	baseMods = {
 		mod("ManaCost", "MORE", 40), 
 		--"cast_linked_spells_on_melee_kill_%" = 100
@@ -219,7 +219,7 @@ gems["Cast when Damage Taken"] = {
 	color = 1,
 	requireSkillTypes = { 36, },
 	addSkillTypes = { 42, },
-	excludeSkillTypes = { 37, 41, 30, 44, },
+	excludeSkillTypes = { 37, 41, 30, 44, 61, },
 	baseMods = {
 		--"cast_on_damage_taken_%" = 100
 		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
@@ -1291,7 +1291,7 @@ gems["Spell Totem"] = {
 	color = 1,
 	requireSkillTypes = { 18, },
 	addSkillTypes = { 12, 17, 19, 30, },
-	excludeSkillTypes = { },
+	excludeSkillTypes = { 61, },
 	baseMods = {
 		mod("ManaCost", "MORE", 100), 
 		--"is_totem" = 1

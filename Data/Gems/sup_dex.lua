@@ -167,7 +167,7 @@ gems["Cast On Critical Strike"] = {
 	color = 2,
 	requireSkillTypes = { 1, 36, },
 	addSkillTypes = { 42, },
-	excludeSkillTypes = { 37, 41, 30, 44, },
+	excludeSkillTypes = { 37, 41, 30, 44, 61, },
 	baseMods = {
 		mod("ManaCost", "MORE", 40), 
 		--"cast_linked_spells_on_attack_crit_%" = 100
@@ -221,7 +221,7 @@ gems["Cast on Death"] = {
 	color = 2,
 	requireSkillTypes = { 36, },
 	addSkillTypes = { 42, },
-	excludeSkillTypes = { 9, 37, 41, 30, 44, },
+	excludeSkillTypes = { 9, 37, 41, 30, 44, 61, },
 	baseMods = {
 		--"cast_on_death_%" = 100
 		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
@@ -1334,7 +1334,7 @@ gems["Trap"] = {
 	color = 2,
 	requireSkillTypes = { 17, },
 	addSkillTypes = { 12, 37, },
-	excludeSkillTypes = { },
+	excludeSkillTypes = { 61, },
 	baseMods = {
 		mod("ManaCost", "MORE", 40), 
 		--"is_trap" = 1

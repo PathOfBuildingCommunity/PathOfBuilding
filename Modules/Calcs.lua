@@ -1165,11 +1165,8 @@ local function performCalcs(env)
 			if activeSkill.buffModList and (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff) and (not activeSkill.skillData.offering or modDB:Sum("FLAG", nil, "OfferingsAffectPlayer")) then
 				activeSkill.buffSkill = true
 				local inc = modDB:Sum("INC", skillCfg, "BuffEffect")
-				if activeSkill.activeGem.data.golem then	
-					inc = inc + modDB:Sum("INC", skillCfg, "GolemBuffEffect")
-					if modDB:Sum("FLAG", skillCfg, "LiegeOfThePrimordial") and (activeSkill.activeGem.data.fire or activeSkill.activeGem.data.cold or activeSkill.activeGem.data.lightning) then
-						inc = inc + 100
-					end
+				if activeSkill.activeGem.data.golem and modDB:Sum("FLAG", skillCfg, "LiegeOfThePrimordial") and (activeSkill.activeGem.data.fire or activeSkill.activeGem.data.cold or activeSkill.activeGem.data.lightning) then	
+					inc = inc + 100
 				end
 				modDB:ScaleAddList(activeSkill.buffModList, 1 + inc / 100)
 			end

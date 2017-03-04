@@ -96,7 +96,7 @@ gems["Abberath's Fury"] = {
 		spell = true,
 		area = true,
 	},
-	skillTypes = { [11] = true, [36] = true, [42] = true, [2] = true, [10] = true, },
+	skillTypes = { [11] = true, [36] = true, [42] = true, [2] = true, [10] = true, [61] = true, },
 	baseMods = {
 		skill("castTime", 1), 
 		skill("critChance", 5), 
@@ -124,7 +124,7 @@ gems["Bone Nova"] = {
 		attack = true,
 		projectile = true,
 	},
-	skillTypes = { [1] = true, [48] = true, [3] = true, [10] = true, [57] = true, [47] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [10] = true, [57] = true, [47] = true, [61] = true, },
 	baseMods = {
 		skill("castTime", 1), 
 		mod("ProjectileCount", "BASE", 8), --"number_of_additional_projectiles" = 8
@@ -179,7 +179,7 @@ gems["Fire Burst"] = {
 		area = true,
 		fire = true,
 	},
-	skillTypes = { [2] = true, [11] = true, [10] = true, [33] = true, [36] = true, [42] = true, },
+	skillTypes = { [2] = true, [11] = true, [10] = true, [33] = true, [36] = true, [42] = true, [61] = true, },
 	baseMods = {
 		skill("castTime", 1), 
 		skill("damageEffectiveness", 0.5), 
@@ -300,7 +300,7 @@ gems["Illusory Warp"] = {
 	baseMods = {
 		skill("castTime", 0.6), 
 		skill("manaCost", 20), 
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
+		skill("duration", 1.5), --"base_skill_effect_duration" = 1500
 	},
 	qualityMods = {
 	},
@@ -318,7 +318,7 @@ gems["Lightning Bolt"] = {
 		area = true,
 		lightning = true,
 	},
-	skillTypes = { [2] = true, [42] = true, [35] = true, [11] = true, [10] = true, [45] = true, },
+	skillTypes = { [2] = true, [42] = true, [35] = true, [11] = true, [10] = true, [45] = true, [61] = true, },
 	baseMods = {
 		skill("castTime", 1), 
 		skill("critChance", 6), 

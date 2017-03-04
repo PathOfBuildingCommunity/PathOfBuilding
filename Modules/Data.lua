@@ -119,6 +119,8 @@ SkillType = {
 	Channelled = 58,
 	Type59 = 59, -- Allows Contagion, Blight and Scorching Ray to be supported by Controlled Destruction
 	ColdSpell = 60, -- Used for Cospri's Malice
+	TriggeredGrantedSkill = 61, -- Skill granted by item that is automatically triggered, prevents trigger gems and trap/mine/totem from applying
+	Golem = 62,
 }
 
 data.itemMods = { }
