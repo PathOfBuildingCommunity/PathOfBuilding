@@ -47,6 +47,9 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.17 - 2017/03/04
+ * Updated skill data to 2.6
+
 ### 1.3.16 - 2017/03/03
  * Added a skill part to Lacerate to simulate the target being hit by both slashes
  * Added support for the "Damage while you have no Frenzy Charges" modifier on Daresso's Passion
