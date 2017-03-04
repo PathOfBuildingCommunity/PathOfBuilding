@@ -7,7 +7,7 @@
 	<File sha1="8a7163c306feb866be7f8d66c71b282c9f99be94" name="Launch.lua" part="program"/>
 	<File sha1="d8e42beeb38baabcc197d658e4c0af33419eeff3" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="1081829259dd834eb48ad27dd861624c25a3ab05" name="changelog.txt" part="program"/>
+	<File sha1="5247cf5a9a5243ced8f5313ee3f58c10987b6460" name="changelog.txt" part="program"/>
 	<File sha1="231a4fe264d84294427edacbf3e29ec4b301712e" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="deffd663ba726d938fcbe2870aab8a4e982587fa" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="ec81fc6c0ee4a4d228f88ec165a0bc7e994278bc" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -56,7 +56,7 @@
 	<File sha1="9a320bfe629b1cf3f14fc77fbbf2508d0a5b2841" name="Assets/small_ring.png" part="program"/>
 	<File sha1="d06292de8b169e3adedc7fda69edae6ac466442e" name="Data/ModFlask.lua" part="program"/>
 	<File sha1="15664631a501d837c5c6796217c663457f115bb1" name="Data/ModJewel.lua" part="program"/>
-	<File sha1="3d96e85810ec6f22ab2767e62948912337eb0419" name="Data/New.lua" part="program"/>
+	<File sha1="c6e665e919e99aaa11eb8573000b820cd7d0ebc7" name="Data/New.lua" part="program"/>
 	<File sha1="3df9b8671cab006ed78c91b431f9c8593525d00f" name="Data/Rares.lua" part="program"/>
 	<File sha1="b63567be6b95257e95c8c6938450e7e61d60115d" name="Data/Gems/act_dex.lua" part="program"/>
 	<File sha1="762fb737d2ca3339a284c0a71782d34c50e99ea5" name="Data/Gems/act_int.lua" part="program"/>
