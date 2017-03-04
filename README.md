@@ -49,6 +49,7 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ## Changelog
 ### 1.3.17 - 2017/03/04
  * Updated skill data to 2.6
+ * Minor update of the passive tree data; this fixes the Storm Weaver pathing
 
 ### 1.3.16 - 2017/03/03
  * Added a skill part to Lacerate to simulate the target being hit by both slashes
