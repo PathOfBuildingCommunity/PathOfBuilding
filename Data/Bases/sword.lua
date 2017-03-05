@@ -333,7 +333,7 @@ itemBases["Dragoon Sword"] = {
 itemBases["Corroded Blade"] = {
 	type = "Two Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 7, PhysicalMax = 14, critChanceBase = 5, attackRateBase = 1.35, },
+	weapon = { PhysicalMin = 7, PhysicalMax = 13, critChanceBase = 5, attackRateBase = 1.45, },
 	req = { },
 }
 itemBases["Longsword"] = {
@@ -345,7 +345,7 @@ itemBases["Longsword"] = {
 itemBases["Bastard Sword"] = {
 	type = "Two Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 15, PhysicalMax = 25, critChanceBase = 5, attackRateBase = 1.35, },
+	weapon = { PhysicalMin = 15, PhysicalMax = 25, critChanceBase = 5, attackRateBase = 1.45, },
 	req = { level = 12, str = 21, dex = 30, },
 }
 itemBases["Two-Handed Sword"] = {
@@ -357,7 +357,7 @@ itemBases["Two-Handed Sword"] = {
 itemBases["Etched Greatsword"] = {
 	type = "Two Handed Sword",
 	implicit = "18% increased Accuracy Rating",
-	weapon = { PhysicalMin = 22, PhysicalMax = 46, critChanceBase = 5, attackRateBase = 1.35, },
+	weapon = { PhysicalMin = 22, PhysicalMax = 46, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 22, str = 45, dex = 38, },
 }
 itemBases["Ornate Sword"] = {

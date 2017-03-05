@@ -47,6 +47,15 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.18 - 2017/03/05
+ * Added support for threshold jewels:
+    * Most of the relevant modifiers from threshold jewels should now be supported
+	* The tooltip for jewel sockets now indicates which types of threshold jewels will work there
+ * Added and updated many new uniques (shoutout to chuanhsing for the list on PoEDB)
+ * Applied the remaining balance changes to unique items (including threshold jewels)
+ * Updated all item bases (thanks Patrick)
+ * Corrected the conversion on Wild Strike
+
 ### 1.3.17 - 2017/03/04
  * Updated skill data to 2.6
  * Minor update of the passive tree data; this fixes the Storm Weaver pathing

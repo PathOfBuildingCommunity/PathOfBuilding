@@ -520,6 +520,21 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 	end
 end
 
+function PassiveTreeViewClass:AddNodeName(node)
+	main:AddTooltipLine(24, "^7"..node.dn..(launch.devMode and IsKeyDown("ALT") and " ["..node.id.."]" or ""))
+	if node.type == "socket" then
+		if node.attributesInRadius[2]["Str"] >= 40 then
+			main:AddTooltipLine(16, "^7Can support "..data.colorCodes.STRENGTH.."Strength ^7threshold jewels")
+		end
+		if node.attributesInRadius[2]["Dex"] >= 40 then
+			main:AddTooltipLine(16, "^7Can support "..data.colorCodes.DEXTERITY.."Dexterity ^7threshold jewels")
+		end
+		if node.attributesInRadius[2]["Int"] >= 40 then
+			main:AddTooltipLine(16, "^7Can support "..data.colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels")
+		end
+	end
+end
+
 function PassiveTreeViewClass:AddNodeTooltip(node, build)
 	-- Special case for sockets
 	if node.type == "socket" and node.alloc then
@@ -527,7 +542,7 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 		if jewel then
 			build.itemsTab:AddItemTooltip(jewel, { nodeId = node.id })
 		else
-			main:AddTooltipLine(24, "^7"..node.dn..(launch.devMode and IsKeyDown("ALT") and " ["..node.id.."]" or ""))
+			self:AddNodeName(node)
 		end
 		main:AddTooltipSeparator(14)
 		if socket:IsEnabled() then
@@ -538,7 +553,7 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 	end
 	
 	-- Node name
-	main:AddTooltipLine(24, "^7"..node.dn..(launch.devMode and IsKeyDown("ALT") and " ["..node.id.."]" or ""))
+	self:AddNodeName(node)
 	if launch.devMode and IsKeyDown("ALT") and node.power and node.power.dps then
 		-- Power debugging info
 		main:AddTooltipLine(16, string.format("DPS power: %g   Defence power: %g", node.power.dps, node.power.def))

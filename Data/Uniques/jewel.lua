@@ -90,7 +90,7 @@ Dead Reckoning
 Cobalt Jewel
 Radius: Medium
 Minions have +(7-10)% to all Elemental Resistances
-With at least 50 Intelligence Allocated in Radius, can summon
+With at least 40 Intelligence in Radius, can summon
 up to 3 Skeleton Mages with Summon Skeletons
 ]],[[
 Efficient Training
@@ -183,10 +183,14 @@ also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 Growing Agony
 Viridian Jewel
+Variant: Pre 2.6.0
+Variant: Current
+Limited to: 1
 Radius: Medium
 (4-12)% increased Damage over Time
-With at least 50 Dexterity Allocated in Radius,
+With at least 40 Dexterity in Radius,
 Viper Strike deals 2% increased Attack Damage for each Poison on the Enemy
+{variant:2}With at least 40 Dexterity in Radius, Viper Strike has a 10% chance per Poison on Enemy to grant Unholy Might for 4 seconds on Hit
 ]],[[
 Hair Trigger
 Viridian Jewel
@@ -267,8 +271,8 @@ Pitch Darkness
 Viridian Jewel
 Radius: Medium
 (5-15)% increased Fire Damage
-With at least 50 Dexterity Allocated in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy.
-With at least 50 Dexterity Allocated in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
+With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy.
+With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
 ]],[[
 Primordial Eminence
 Viridian Jewel
@@ -310,9 +314,14 @@ Totems Fire 2 additional Projectiles
 ]],[[
 Rapid Expansion
 Crimson Jewel
+Variant: Pre 2.6.0
+Variant: Current
+Limited to: 3
 Radius: Medium
 (4-12)% increased Physical Damage
-With at least 50 Strength Allocated in radius, Ground Slam has a 20% increased angle
+{variant:1}With at least 40 Strength in Radius, Ground Slam has a 20% increased angle
+{variant:2}With at least 40 Strength in Radius, Ground Slam has a 35% increased angle
+{variant:2}With at least 40 Strength in Radius, Ground Slam has a 25% chance to grant an Endurance Charge when you Stun an Enemy
 ]],[[
 Reckless Defence
 Cobalt Jewel
@@ -341,15 +350,19 @@ also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
 Rolling Flames
 Cobalt Jewel
+Variant: Pre 2.6.0
+Variant: Current
+Limited to: 2
 Radius: Medium
 (5-15)% increased Fire Damage
-With at least 50 Intelligence Allocated in Radius, Fireball Projectiles gain Area of Effect Radius as they travel further, up to 50% increased Radius.
+{variant:1}With at least 40 Intelligence in Radius, Fireball Projectiles gain Area of Effect Radius as they travel further, up to 50% increased Radius.
+{variant:2}With at least 40 Intelligence in Radius, Fireball Projectiles gain Radius as they travel farther, up to +4 Radius
 ]],[[
 Shattered Chains
 Crimson Jewel
 Radius: Medium
 (5-15)% increased Cold Damage
-With at least 50 Strength Allocated in Radius, 20% increased Rarity of Items dropped by Enemies Shattered by Glacial Hammer
+With at least 40 Strength in Radius, 20% increased Rarity of Items dropped by Enemies Shattered by Glacial Hammer
 ]],[[
 Spire of Stone
 Crimson Jewel
@@ -360,15 +373,20 @@ Totems cannot be Stunned
 ]],[[
 Spirit Guards
 Viridian Jewel
+Variant: Pre 2.6.0
+Variant: Current
+Limited to: 2
 Radius: Medium
 Minions deal (8-12)% increased Damage
-With 50 Dexterity Allocated in radius, Animate Weapon can Animate up to 4 Ranged Weapons
+{variant:1}With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 4 Ranged Weapons
+{variant:2}With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 8 Ranged Weapons
 ]],[[
 Spirited Response
 Cobalt Jewel
+Limited to: 2
 Radius: Medium
 (5-10)% increased maximum Mana
-With at least 50 Intelligence Allocated in radius, 10% of Damage taken gained as Mana when Hit during Rallying Cry for you and Allies
+With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana when Hit during Rallying Cry for you and Allies
 ]],[[
 Static Electricity
 Viridian Jewel
@@ -378,15 +396,19 @@ Adds 1 to 2 Lightning Damage to Attacks
 ]],[[
 Steel Spirit
 Viridian Jewel
+Variant: Pre 2.6.0
+Variant: Current
 Radius: Medium
 (6-10)% increased Projectile Damage
-With at least 50 Dexterity Allocated in Radius, each Spectral Throw Projectile gains 4% increased Damage each time it Hits.
+{variant:1}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 4% increased Damage each time it Hits.
+{variant:2}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 5% increased Damage each time it Hits.
 ]],[[
 Unending Hunger 
 Cobalt Jewel
+Limited to: 2
+Radius: Medium
 Minions have (5-8)% increased Area of Effect of Area Skills
-20% chance for Spectres to gain Soul Eater on Kill for 30 seconds
-with 50 Intelligence from Allocated Passives in Radius
+With at least 40 Intelligence in Radius, Raised Spectres have a 50% chance to gain Soul Eater for 30 seconds on Kill
 ]],[[
 Unstable Payload
 Cobalt Jewel
@@ -394,27 +416,37 @@ Cobalt Jewel
 ]],[[
 The Vigil
 Crimson Jewel
+Variant: Pre 2.6.0
+Variant: Current
+Limited to: 1
 Radius: Medium
 (8-15)% increased Armour
-With at least 50 Strength Allocated in Radius, Vigilant Strike also Fortifies Nearby Allies for 3 seconds.
+{variant:1}With at least 40 Strength in Radius, Vigilant Strike also Fortifies Nearby Allies for 3 seconds.
+{variant:2}With at least 40 Strength in Radius, Vigilant Strike Fortifies you and Nearby Allies for 12 seconds
 ]],[[
 Volley Fire
 Viridian Jewel
+Limited to: 3
 Radius: Medium
 (6-10)% increased Projectile Damage
-With at least 50 Dexterity Allocated in radius, Barrage fires an additional 2 projectiles simultaneously on the first and final attacks
+With at least 40 Dexterity in Radius, Barrage fires an additional 2 projectiles simultaneously on the first and final attacks
 ]],[[
 Weight of the Empire
 Crimson Jewel
+Limited to: 2
 Radius: Medium
 (4-12)% increased Physical Damage
-With at least 50 Strength Allocated in Radius, Heavy Strike has a 10% chance to deal Double Damage.
+With at least 40 Strength in Radius, Heavy Strike has a 10% chance to deal Double Damage.
 ]],[[
 Winter's Bounty
 Cobalt Jewel
+Variant: Pre 2.6.0
+Variant: Current
+Limited to: 2
 Radius: Medium
 (5-15)% increased Cold Damage
-With at least 50 Intelligence Allocated in radius, Cold Snap has a 25% chance to grant a Power Charge on Kill
+{variant:1}With at least 40 Intelligence in Radius, Cold Snap has a 25% chance to grant a Power Charge on Kill
+{variant:2}With at least 40 Intelligence in Radius, Cold Snap has a 50% chance to grant a Power Charge on Kill
 ]],
 -- Jewel: Corrupted
 [[

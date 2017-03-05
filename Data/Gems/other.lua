@@ -143,6 +143,30 @@ gems["Bone Nova"] = {
 		[20] = { },
 	},
 }
+gems["Consecrate"] = {
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		spell = true,
+		duration = true,
+		area = true,
+	},
+	skillTypes = { [2] = true, [12] = true, [36] = true, [11] = true, [42] = true, [61] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		skill("duration", 5), --"base_skill_effect_duration" = 5000
+		mod("LifeRegenPercent", "BASE", 4, 0, 0, nil), --"life_regeneration_rate_per_minute_%" = 240
+		--"cast_on_crit_%" = 100
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[10] = { },
+	},
+}
 gems["Envy"] = {
 	hidden = true,
 	color = 3,
@@ -390,5 +414,30 @@ gems["Molten Burst"] = {
 	},
 	levels = {
 		[16] = { },
+	},
+}
+gems["Shock Ground"] = {
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+		lightning = true,
+	},
+	skillTypes = { [2] = true, [11] = true, [36] = true, [12] = true, [42] = true, [45] = true, [61] = true, [35] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		--"cast_when_hit_%" = 100
+		--"skill_art_variation" = 7
+		skill("duration", 5), --"base_skill_effect_duration" = 5000
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { },
 	},
 }

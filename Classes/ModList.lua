@@ -176,6 +176,11 @@ function ModListClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7
 							value = nullValue
 							break
 						end
+					elseif tag.type == "StatThreshold" then
+						if (self.stats[tag.stat] or (skillStats and skillStats[tag.stat]) or 0) < tag.threshold then
+							value = nullValue
+							break
+						end
 					elseif tag.type == "SocketedIn" then
 						if tag.slotName ~= slotName or (tag.keyword and (not skillGem or not gemIsType(skillGem, tag.keyword))) then
 							value = nullValue

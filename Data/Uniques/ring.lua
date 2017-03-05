@@ -173,13 +173,18 @@ Socketed Gems Reserve No Mana
 ]],[[
 Gifts from Above
 Diamond Ring
+Variant: Pre 2.6.0
+Variant: Current
 League: Anarchy
 Requires Level 28
 (20-30)% increased Global Critical Strike Chance
+Cast level 10 Consecrate when you deal a Critical Strike
 (30-35)% increased Global Critical Strike Chance
 (10-15)% increased Light Radius
-Creates Consecrated Ground on Critical Strike
+{variant:1}Creates Consecrated Ground on Critical Strike
 (40-50)% increased Rarity of Items Dropped by Enemies killed with a Critical Strike
+{variant:2}50% increased Damage while on Consecrated Ground
+{variant:2}5% additional Block Chance while on Consecrated Ground
 ]],[[
 Heartbound Loop
 Moonstone Ring

@@ -43,12 +43,14 @@ Conduit
 Meginord's Vise
 Steel Gauntlets
 Variant: Pre 1.1.0
+Variant: Pre 2.6.0
 Variant: Current
 Requires Level 35, 52 Str
 10% increased Physical Damage
 +100 to Strength
 {variant:1}(5-15)% reduced Attack Speed
 (40-60)% increased Armour
+{variant:3}2% of Life Regenerated per second with at least 400 Strength
 ]],[[
 Veruso's Battering Rams
 Titan Gauntlets

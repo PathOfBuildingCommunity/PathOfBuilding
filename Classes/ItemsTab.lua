@@ -738,6 +738,9 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		end
 	elseif item.type == "Jewel" then
 		-- Jewel-specific info
+		if item.limit then
+			main:AddTooltipLine(16, "^x7F7F7FLimited to: ^7"..item.limit)
+		end
 		if item.jewelRadiusIndex then
 			main:AddTooltipLine(16, "^x7F7F7FRadius: ^7"..data.jewelRadius[item.jewelRadiusIndex].label)
 		end
@@ -753,9 +756,6 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 			if line then
 				main:AddTooltipLine(16, "^x7F7F7FAllocated in Radius: "..line)
 			end
-		end
-		if item.limit then
-			main:AddTooltipLine(16, "^x7F7F7FLimited to: ^7"..item.limit)
 		end
 	end
 	main:AddTooltipSeparator(10)

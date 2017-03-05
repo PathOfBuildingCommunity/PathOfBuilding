@@ -460,7 +460,7 @@ local function buildNodeModList(env, nodeList, finishJewels)
 	if finishJewels then
 		-- Finalise radius jewels
 		for _, rad in pairs(env.radiusJewelList) do
-			rad.func(nil, modList, rad.data)
+			rad.func(nil, modList, rad.data, rad.attributes)
 			if env.mode == "MAIN" then
 				if not rad.item.jewelRadiusData then
 					rad.item.jewelRadiusData = { }
@@ -741,6 +741,7 @@ local function initEnv(build, mode, override)
 						func = func,
 						item = item,
 						nodeId = slot.nodeId,
+						attributes = node.attributesInRadius[item.jewelRadiusIndex],
 						data = { }
 					})
 				end
