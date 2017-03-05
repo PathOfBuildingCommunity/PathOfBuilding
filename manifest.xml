@@ -50,7 +50,7 @@
 	<File sha1="f898e9b89b829b13143702ca582b62681369d5a1" name="Modules/Data.lua" part="program"/>
 	<File sha1="c42e1bc839ef3c6e6b8a35392fa2a454d86fb925" name="Modules/ItemTools.lua" part="program"/>
 	<File sha1="cc69e5d4f5cbc8739340820314629245f317b555" name="Modules/Main.lua" part="program"/>
-	<File sha1="5d51e892ec1809c75a62ee1126b2286b95819911" name="Modules/ModParser.lua" part="program"/>
+	<File sha1="b8852db8145dd136414aaf30a29f2c9323754da7" name="Modules/ModParser.lua" part="program"/>
 	<File sha1="5f93a9d8f58e0d5990a1f84e1ab1d53fbd35fb56" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
 	<File sha1="9a320bfe629b1cf3f14fc77fbbf2508d0a5b2841" name="Assets/small_ring.png" part="program"/>
@@ -61,7 +61,7 @@
 	<File sha1="f52fafa9635ba4a8468ccd198c6c5bcb48efe283" name="Data/Gems/act_dex.lua" part="program"/>
 	<File sha1="762fb737d2ca3339a284c0a71782d34c50e99ea5" name="Data/Gems/act_int.lua" part="program"/>
 	<File sha1="3662b4317714feea4f4b3f661ddd8560c6f2f2f6" name="Data/Gems/act_str.lua" part="program"/>
-	<File sha1="87217c180ebde33257c49026c9446f073489222a" name="Data/Gems/other.lua" part="program"/>
+	<File sha1="396db3f55e32fd863ddd127fdcb969f1f67ef6e3" name="Data/Gems/other.lua" part="program"/>
 	<File sha1="e7ce0e4a513f2e572d3bd6cb498755e39a119944" name="Data/Gems/sup_dex.lua" part="program"/>
 	<File sha1="9dea051759cc611f03c773264faac19ab8cfed92" name="Data/Gems/sup_int.lua" part="program"/>
 	<File sha1="77e41584bc1786da8b4d2ab9de74b6ac6569e65c" name="Data/Gems/sup_str.lua" part="program"/>
@@ -94,7 +94,7 @@
 	<File sha1="e2c2fc4d04fcec13c416818629bffd542886e617" name="Data/Uniques/dagger.lua" part="program"/>
 	<File sha1="acfc587edffcb9d4810b2b2d30cd510176d8b780" name="Data/Uniques/flask.lua" part="program"/>
 	<File sha1="019b56f239dfa4e54ee6b94f93b9125fabc2b715" name="Data/Uniques/gloves.lua" part="program"/>
-	<File sha1="5675b974bda46f1b5ba17aec36258f67daa32731" name="Data/Uniques/helmet.lua" part="program"/>
+	<File sha1="7e70825d889ef5dc61cb117ab1ebf7e7f814f54a" name="Data/Uniques/helmet.lua" part="program"/>
 	<File sha1="81ee65fed4e1c86fc9f096cf78872e18543e7213" name="Data/Uniques/jewel.lua" part="program"/>
 	<File sha1="b038b90bca6b2d260534537adb25ddd9da428bd8" name="Data/Uniques/mace.lua" part="program"/>
 	<File sha1="940ec4e40778144151a611400174ed79b813c204" name="Data/Uniques/quiver.lua" part="program"/>

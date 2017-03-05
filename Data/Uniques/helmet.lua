@@ -453,6 +453,7 @@ Variant: Pre 2.6.0
 Variant: Current
 League: Domination
 Requires Level 38, 44 Dex, 44 Int
+{variant:2}Cast level 1 Create Lesser Shrine when you Kill an Enemy
 (120-150)% increased Evasion and Energy Shield
 {variant:2}+(40-65) to maximum Energy Shield
 {variant:1}+(30-40) to maximum Mana

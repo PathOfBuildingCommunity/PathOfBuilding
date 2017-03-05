@@ -167,6 +167,27 @@ gems["Consecrate"] = {
 		[10] = { },
 	},
 }
+gems["Create Lesser Shrine"] = {
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		spell = true,
+	},
+	skillTypes = { [2] = true, [36] = true, [42] = true, [61] = true, [12] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		--"chance_to_cast_on_kill_%" = 100
+		skill("duration", 10), --"base_skill_effect_duration" = 10000
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { },
+	},
+}
 gems["Envy"] = {
 	hidden = true,
 	color = 3,
