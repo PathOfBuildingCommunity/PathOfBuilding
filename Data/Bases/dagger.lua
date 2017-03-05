@@ -49,17 +49,17 @@ itemBases["Imp Dagger"] = {
 	weapon = { PhysicalMin = 15, PhysicalMax = 59, critChanceBase = 6.5, attackRateBase = 1.2, },
 	req = { level = 32, dex = 36, int = 78, },
 }
-itemBases["Prong Dagger"] = {
-	type = "Dagger",
-	implicit = "4% Chance to Block",
-	weapon = { PhysicalMin = 14, PhysicalMax = 57, critChanceBase = 6.2, attackRateBase = 1.3, },
-	req = { level = 36, dex = 55, int = 77, },
-}
 itemBases["Flaying Knife"] = {
 	type = "Dagger",
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 16, PhysicalMax = 64, critChanceBase = 6, attackRateBase = 1.2, },
 	req = { level = 35, dex = 73, int = 51, },
+}
+itemBases["Prong Dagger"] = {
+	type = "Dagger",
+	implicit = "4% Chance to Block",
+	weapon = { PhysicalMin = 14, PhysicalMax = 57, critChanceBase = 6.2, attackRateBase = 1.3, },
+	req = { level = 36, dex = 55, int = 77, },
 }
 itemBases["Butcher Knife"] = {
 	type = "Dagger",

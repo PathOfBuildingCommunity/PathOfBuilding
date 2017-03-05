@@ -50,10 +50,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ### 1.3.18 - 2017/03/05
  * Added support for threshold jewels:
     * Most of the relevant modifiers from threshold jewels should now be supported
-	* The tooltip for jewel sockets now indicates which types of threshold jewels will work there
+	* The tooltips for jewel sockets now indicate which types of threshold jewels will work there
  * Added and updated many new uniques (shoutout to chuanhsing for the list on PoEDB)
  * Applied the remaining balance changes to unique items (including threshold jewels)
- * Updated all item bases (thanks Patrick)
+ * Updated all item bases (thanks Patrick for doing most of the work)
+    * Claw and Sword uniques and templates have been updated to account for the new implicits
  * Corrected the conversion on Wild Strike
 
 ### 1.3.17 - 2017/03/04

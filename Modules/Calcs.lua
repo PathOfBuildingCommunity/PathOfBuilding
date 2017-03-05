@@ -3,7 +3,7 @@
 -- Module: Calcs
 -- Performs all the offense and defense calculations.
 -- Here be dragons!
--- This file is 3100 lines long, over half of which is in one function...
+-- This file is 3300 lines long, over half of which is in one function...
 --
 
 local pairs = pairs

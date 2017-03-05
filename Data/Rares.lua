@@ -119,7 +119,7 @@ Suffixes:
 Prefixes:
 {range:.5}(0-179)% increased Physical Damage
 {range:.5}(0-79)% increased Physical Damage
-{range:.5}Adds (0-25) to (0-45) Physical Damage]],
+{range:.5}Adds (0-27) to (0-49) Physical Damage]],
 	["phys 2h pre"] = [[
 Prefixes:
 {range:.5}(0-179)% increased Physical Damage
@@ -910,28 +910,28 @@ Gemini Claw
 ]],[[
 Elemental Claw
 Imperial Claw
-+25 Life gained for each Enemy hit by Attacks
++46 Life gained for each Enemy hit by Attacks
 {elem 1h}
 ]],[[
 Physical Dagger
 Ambusher
-40% increased Global Critical Strike Chance
+30% increased Global Critical Strike Chance
 {phys 1h}
 ]],[[
 Elemental Dagger
 Ambusher
-40% increased Global Critical Strike Chance
+30% increased Global Critical Strike Chance
 {elem 1h}
 ]],[[
 Spell Dagger
 Platinum Kris
-80% increased Global Critical Strike Chance
+50% increased Global Critical Strike Chance
 {spell 1h}
 {range:.0}(0-27)% increased Attack Speed
 ]],[[
 Vagan Dagger
 Royal Skean
-40% increased Global Critical Strike Chance
+30% increased Global Critical Strike Chance
 Prefixes:
 Hits can't be Evaded
 {range:0}Adds (0-61) to (0-106) Fire Damage
@@ -994,7 +994,7 @@ Eclipse Staff
 ]],[[
 +3 Fire Staff
 Maelstrom Staff
-18% Chance to Block
+20% Chance to Block
 Prefixes:
 {range:1}+(0-1) to Level of Socketed Gems
 {range:1}+(0-2) to Level of Socketed Fire Gems
@@ -1006,7 +1006,7 @@ Prefixes:
 ]],[[
 +3 Cold Staff
 Maelstrom Staff
-18% Chance to Block
+20% Chance to Block
 Prefixes:
 {range:1}+(0-1) to Level of Socketed Gems
 {range:1}+(0-2) to Level of Socketed Cold Gems
@@ -1018,7 +1018,7 @@ Prefixes:
 ]],[[
 +3 Lightning Staff
 Maelstrom Staff
-18% Chance to Block
+20% Chance to Block
 Prefixes:
 {range:1}+(0-1) to Level of Socketed Gems
 {range:1}+(0-2) to Level of Socketed Lightning Gems
@@ -1030,7 +1030,7 @@ Prefixes:
 ]],[[
 +3 Chaos Staff
 Maelstrom Staff
-18% Chance to Block
+20% Chance to Block
 Prefixes:
 {range:1}+(0-1) to Level of Socketed Gems
 {range:1}+(0-2) to Level of Socketed Chaos Gems
@@ -1047,17 +1047,17 @@ Tiger Hook
 ]],[[
 Physical 1H Sword
 Jewelled Foil
-+30% to Global Critical Strike Multiplier
++25% to Global Critical Strike Multiplier
 {phys 1h}
 ]],[[
 Elemental 1H Sword
 Eternal Sword
-18% increased Accuracy Rating
++475 to Accuracy Rating
 {elem 1h}
 ]],[[
 Elemental 1H Sword
 Jewelled Foil
-+30% to Global Critical Strike Multiplier
++25% to Global Critical Strike Multiplier
 {elem 1h}
 ]],[[
 Physical 2H Sword
@@ -1067,7 +1067,7 @@ Exquisite Blade
 ]],[[
 Elemental 2H Sword
 Reaver Sword
-18% increased Accuracy Rating
+40% increased Accuracy Rating
 {elem 2h}
 ]],[[
 Physical Wand
