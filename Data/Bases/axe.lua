@@ -173,7 +173,7 @@ itemBases["Jasper Chopper"] = {
 }
 itemBases["Dagger Axe"] = {
 	type = "Two Handed Axe",
-	implicit = "25% increased Critical Strike Chance",
+	implicit = "50% increased Critical Strike Chance",
 	weapon = { PhysicalMin = 45, PhysicalMax = 71, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 36, str = 89, dex = 43, },
 }
@@ -204,7 +204,7 @@ itemBases["Abyssal Axe"] = {
 }
 itemBases["Talon Axe"] = {
 	type = "Two Handed Axe",
-	implicit = "25% increased Critical Strike Chance",
+	implicit = "50% increased Critical Strike Chance",
 	weapon = { PhysicalMin = 75, PhysicalMax = 118, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 59, str = 140, dex = 67, },
 }
@@ -240,7 +240,7 @@ itemBases["Void Axe"] = {
 }
 itemBases["Fleshripper"] = {
 	type = "Two Handed Axe",
-	implicit = "40% increased Critical Strike Chance",
+	implicit = "50% increased Critical Strike Chance",
 	weapon = { PhysicalMin = 80, PhysicalMax = 125, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 70, str = 156, dex = 84, },
 }

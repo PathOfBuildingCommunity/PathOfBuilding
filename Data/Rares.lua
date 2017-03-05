@@ -874,7 +874,7 @@ Vaal Hatchet
 ]],[[
 Physical 2H Axe
 Fleshripper
-40% increased Critical Strike Chance
+50% increased Critical Strike Chance
 {phys 2h}
 ]],[[
 Elemental 2H Axe

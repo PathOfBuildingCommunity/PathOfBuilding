@@ -57,7 +57,7 @@
 	<File sha1="d06292de8b169e3adedc7fda69edae6ac466442e" name="Data/ModFlask.lua" part="program"/>
 	<File sha1="15664631a501d837c5c6796217c663457f115bb1" name="Data/ModJewel.lua" part="program"/>
 	<File sha1="2f998ea5294c8d89ee3bae8e874c142632384a81" name="Data/New.lua" part="program"/>
-	<File sha1="29f25605fc90dad5a31862f8cf2dc0bf270d64ba" name="Data/Rares.lua" part="program"/>
+	<File sha1="0ef3157207a705c8300124a798197e913075c840" name="Data/Rares.lua" part="program"/>
 	<File sha1="f52fafa9635ba4a8468ccd198c6c5bcb48efe283" name="Data/Gems/act_dex.lua" part="program"/>
 	<File sha1="762fb737d2ca3339a284c0a71782d34c50e99ea5" name="Data/Gems/act_int.lua" part="program"/>
 	<File sha1="3662b4317714feea4f4b3f661ddd8560c6f2f2f6" name="Data/Gems/act_str.lua" part="program"/>
@@ -66,7 +66,7 @@
 	<File sha1="9dea051759cc611f03c773264faac19ab8cfed92" name="Data/Gems/sup_int.lua" part="program"/>
 	<File sha1="77e41584bc1786da8b4d2ab9de74b6ac6569e65c" name="Data/Gems/sup_str.lua" part="program"/>
 	<File sha1="8163089cecf7253ec1f5d658141de81bc6e4046c" name="Data/Bases/amulet.lua" part="program"/>
-	<File sha1="d23ee8ca4ade14ff60323e6b1718cb2c020abb80" name="Data/Bases/axe.lua" part="program"/>
+	<File sha1="9871414663d5da9fa564f959e42dcdc22c66f486" name="Data/Bases/axe.lua" part="program"/>
 	<File sha1="8504a4003c30cdfb94f354faa2789de7712cee1c" name="Data/Bases/belt.lua" part="program"/>
 	<File sha1="14a674f0b530fb7604580165db93cd8944f33843" name="Data/Bases/body.lua" part="program"/>
 	<File sha1="642d89a064a6accce227c77261f1d844c3aaa1c9" name="Data/Bases/boots.lua" part="program"/>
