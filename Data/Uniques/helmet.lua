@@ -228,13 +228,17 @@ Your Skills deal you 400% of Mana Cost as Physical Damage
 ]],[[
 Ylfeban's Trickery
 Hubris Circlet
+Variant: Pre 2.6.0
+Variant: Current
 League: Tempest
 Requires Level 69, 154 Int
+{variant:2}Cast Level 10 Shock Ground when Hit
 Adds 1 to (60-80) Lightning Damage to Spells and Attacks
 (130-170)% increased Energy Shield
 +(25-35)% to Lightning Resistance
-10% chance to Curse Enemies with a random Curse on Hit
-5% chance to create Shocked Ground when Hit
+{variant:1}10% chance to Curse Enemies with a random Curse on Hit
+{variant:2}20% chance to Curse non-Cursed Enemies with a random Curse on Hit
+{variant:1}5% chance to create Shocked Ground when Hit
 ]],
 -- Helmet: Armour/Evasion
 [[
@@ -449,6 +453,7 @@ Variant: Pre 2.6.0
 Variant: Current
 League: Domination
 Requires Level 38, 44 Dex, 44 Int
+{variant:2}Cast level 1 Create Lesser Shrine when you Kill an Enemy
 (120-150)% increased Evasion and Energy Shield
 {variant:2}+(40-65) to maximum Energy Shield
 {variant:1}+(30-40) to maximum Mana

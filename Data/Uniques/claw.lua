@@ -5,8 +5,12 @@ return {
 [[
 Advancing Fortress
 Gut Ripper
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 46, 80 Dex, 80 Int
-+21 Life gained for each Enemy hit by Attacks
+Implicits: 2
+{variant:1}+21 Life gained for each Enemy hit by Attacks
+{variant:2}+44 Life gained for each Enemy hit by Attacks
 Socketed Gems are Supported by level 12 Fortify
 (100-120)% increased Physical Damage
 +110 to Evasion Rating
@@ -24,7 +28,7 @@ Requires Level 26, 39 Dex, 56 Int
 Implicits: 3
 {variant:1}+8 Life gained for each Enemy hit by Attacks
 {variant:2}2% of Physical Attack Damage Leeched as Life
-{variant:3}+19 Life gained for each enemy hit by Attacks
+{variant:3}+19 Life gained for each Enemy hit by Attacks
 {variant:1}(60-80)% increased Physical Damage
 {variant:2,3}(100-120)% increased Physical Damage
 3% of Physical Attack Damage Leeched as Life
@@ -55,16 +59,18 @@ Life Leech from Hits with this Weapon applies instantly
 Cybil's Paw
 Thresher Claw
 Variant: Pre 2.0.0
+Variant: Pre 2.6.0
 Variant: Current
 Requires Level 37, 53 Dex, 77 Int
-Implicits: 2
+Implicits: 3
 {variant:1}+15 Life gained for each Enemy hit by Attacks
 {variant:2}+21 Life gained for each Enemy hit by Attacks
+{variant:3}+25 Life gained for each Enemy hit by Attacks
 (8-12)% increased Cast Speed
 +(30-40) to maximum Mana
 +(5-8) Life gained for each Enemy hit by your Spells
 {variant:1}6% increased Spell Damage per 5% Block Chance
-{variant:2}8% increased Spell Damage per 5% Block Chance
+{variant:2,3}8% increased Spell Damage per 5% Block Chance
 ]],[[
 Essentia Sanguis
 Eye Gouger
@@ -99,9 +105,13 @@ Ghost Reaver
 ]],[[
 Hand of Thought and Motion
 Blinder
+Variant: Pre 2.6.0
+Variant: Current
 League: Breach
 Requires Level 22, 41 Dex, 41 Int
-+10 Life gained for each Enemy hit by Attacks
+Implicits: 2
+{variant:1}+10 Life gained for each Enemy hit by Attacks
+{variant:2}+12 Life gained for each Enemy hit by Attacks
 (20-25)% increased Elemental Damage with Weapons
 Adds 1 to (50-60) Lightning Damage
 (10-15)% increased Attack Speed
@@ -109,9 +119,13 @@ Adds 1-3 Lightning Damage to Attacks per 10 Intelligence
 ]],[[
 Hand of Wisdom and Action
 Imperial Claw
+Variant: Pre 2.6.0
+Variant: Current
 League: Breach
 Requires Level 68, 131 Dex, 95 Int
-+25 Life gained for each Enemy hit by Attacks
+Implicits: 2
+{variant:1}+25 Life gained for each Enemy hit by Attacks
+{variant:2}+46 Life gained for each Enemy hit by Attacks
 (25-30)% increased Elemental Damage with Weapons
 (8-12)% increased Dexterity
 (8-12)% increased Intelligence
@@ -120,8 +134,12 @@ Adds 1-6 Lightning Damage to Attacks per 10 Intelligence
 ]],[[
 Izaro's Dilemma
 Imperial Claw
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 68, 131 Dex, 95 Int
-+25 Life gained for each Enemy hit by Attacks
+Implicits: 2
+{variant:1}+25 Life gained for each Enemy hit by Attacks
+{variant:2}+46 Life gained for each Enemy hit by Attacks
 (40-60)% increased Physical Damage
 Adds 20 to 50 Physical Damage
 (10-15)% increased Attack Speed
@@ -145,7 +163,7 @@ Variant: Current
 Requires Level 34, 61 Dex, 61 Int
 Implicits: 2
 {variant:1,2}2% of Physical Attack Damage Leeched as Life
-{variant:3}+20 Life gained for each enemy hit by Attacks
+{variant:3}+20 Life gained for each Enemy hit by Attacks
 (75-100)% increased Physical Damage
 20% increased Attack Speed
 25% increased Critical Strike Chance
@@ -157,8 +175,12 @@ Poisonous Hit
 ]],[[
 Ornament of the East
 Gut Ripper
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 46, 80 Dex, 80 Int
-+21 Life gained for each Enemy hit by Attacks
+Implicits: 2
+{variant:1}+21 Life gained for each Enemy hit by Attacks
+{variant:2}+44 Life gained for each Enemy hit by Attacks
 (100-120)% increased Physical Damage
 (10-15)% increased Attack Speed
 25% increased Stun Recovery
@@ -189,8 +211,12 @@ Increases and reductions to Minion Damage also affects you
 ]],[[
 Touch of Anguish
 Imperial Claw
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 68, 131 Dex, 95 Int
-+25 Life gained for each Enemy hit by Attacks
+Implicits: 2
+{variant:1}+25 Life gained for each Enemy hit by Attacks
+{variant:2}+46 Life gained for each Enemy hit by Attacks
 Adds (40-50) to (130-150) Physical Damage
 30% increased Cold Damage
 (30-40)% increased Critical Strike Chance
@@ -201,8 +227,12 @@ Critical Strikes do not always Freeze
 ]],[[
 Wildslash
 Awl
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 12, 25 Dex, 25 Int
-+5 Life gained for each Enemy hit by Attacks
+Implicits: 2
+{variant:1}+5 Life gained for each Enemy hit by Attacks
+{variant:2}+7 Life gained for each Enemy hit by Attacks
 +(10-15) to Strength
 +(10-15) to Dexterity
 15% reduced Accuracy Rating

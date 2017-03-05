@@ -157,11 +157,14 @@ Requires Level 50
 ]],[[
 The Magnate
 Studded Belt
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 16
 (20-30)% increased Stun Duration on Enemies
 (25-40)% increased Physical Damage
 +(40-50) to Strength
 50% increased Flask Charges gained
+{variant:2}+(20-25)% to all Elemental Resistances with 200 or more Strength
 ]],[[
 Maligaro's Restraint
 Chain Belt

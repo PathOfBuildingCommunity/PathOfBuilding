@@ -287,14 +287,19 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 	-- Precalculate the lists of nodes that are within each radius of each socket
 	for nodeId, socket in pairs(sockets) do
 		socket.nodesInRadius = { }
+		socket.attributesInRadius = { }
 		for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
 			socket.nodesInRadius[radiusIndex] = { }
+			socket.attributesInRadius[radiusIndex] = { }
 			local rSq = radiusInfo.rad * radiusInfo.rad
 			for _, node in ipairs(self.nodes) do
 				if node ~= socket then
 					local vX, vY = node.x - socket.x, node.y - socket.y
 					if vX * vX + vY * vY <= rSq then 
 						socket.nodesInRadius[radiusIndex][node.id] = node
+						for _, att in pairs({"Str","Dex","Int"}) do
+							socket.attributesInRadius[radiusIndex][att] = (socket.attributesInRadius[radiusIndex][att] or 0) + node.modList:Sum("BASE", nil, att)
+						end
 					end
 				end
 			end

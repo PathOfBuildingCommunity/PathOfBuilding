@@ -3,7 +3,7 @@
 -- Module: Calcs
 -- Performs all the offense and defense calculations.
 -- Here be dragons!
--- This file is 3100 lines long, over half of which is in one function...
+-- This file is 3300 lines long, over half of which is in one function...
 --
 
 local pairs = pairs
@@ -460,7 +460,7 @@ local function buildNodeModList(env, nodeList, finishJewels)
 	if finishJewels then
 		-- Finalise radius jewels
 		for _, rad in pairs(env.radiusJewelList) do
-			rad.func(nil, modList, rad.data)
+			rad.func(nil, modList, rad.data, rad.attributes)
 			if env.mode == "MAIN" then
 				if not rad.item.jewelRadiusData then
 					rad.item.jewelRadiusData = { }
@@ -741,6 +741,7 @@ local function initEnv(build, mode, override)
 						func = func,
 						item = item,
 						nodeId = slot.nodeId,
+						attributes = node.attributesInRadius[item.jewelRadiusIndex],
 						data = { }
 					})
 				end

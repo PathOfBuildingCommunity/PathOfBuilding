@@ -380,6 +380,9 @@ local modTagList = {
 	["per (%d+) accuracy rating"] = function(num) return { tag = { type = "PerStat", stat = "Accuracy", div = num } } end,
 	["per (%d+)%% block chance"] = function(num) return { tag = { type = "PerStat", stat = "BlockChance", div = num } } end,
 	["per (%d+) of the lowest of armour and evasion rating"] = function(num) return { tag = { type = "PerStat", stat = "LowestOfArmourAndEvasion", div = num } } end,
+	-- Stat conditions
+	["with (%d+) or more strength"] = function(num) return { tag = { type = "StatThreshold", stat = "Str", threshold = num } } end,
+	["with at least (%d+) strength"] = function(num) return { tag = { type = "StatThreshold", stat = "Str", threshold = num } } end,
 	-- Slot conditions
 	["when in main hand"] = { tag = { type = "SlotNumber", num = 1 } },
 	["when in off hand"] = { tag = { type = "SlotNumber", num = 2 } },
@@ -637,6 +640,8 @@ local specialModList = {
 	["grants level (%d+) (.+)"] = function(num, _, skill) return { mod("ExtraSkill", "LIST", { name = gemNameLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "SocketedIn" }) } end,
 	["casts level (%d+) (.+) when equipped"] = function(num, _, skill) return { mod("ExtraSkill", "LIST", { name = gemNameLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "SocketedIn" }) } end,
 	["cast level (%d+) (.+) when you deal a critical strike"] = function(num, _, skill) return { mod("ExtraSkill", "LIST", { name = gemNameLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "SocketedIn" }) } end,
+	["cast level (%d+) (.+) when hit"] = function(num, _, skill) return { mod("ExtraSkill", "LIST", { name = gemNameLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "SocketedIn" }) } end,
+	["cast level (%d+) (.+) when you kill an enemy"] = function(num, _, skill) return { mod("ExtraSkill", "LIST", { name = gemNameLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "SocketedIn" }) } end,
 	["%d+%% chance to attack with level (%d+) (.+) on melee hit"] = function(num, _, skill) return { mod("ExtraSkill", "LIST", { name = gemNameLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "SocketedIn" }) } end,
 	["%d+%% chance to cast level (%d+) (.+) on hit"] = function(num, _, skill) return { mod("ExtraSkill", "LIST", { name = gemNameLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "SocketedIn" }) } end,
 	["attack with level (%d+) (.+) when you kill a bleeding enemy"] = function(num, _, skill) return { mod("ExtraSkill", "LIST", { name = gemNameLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "SocketedIn" }) } end,
@@ -840,8 +845,17 @@ local function getPerStat(dst, type, flags, stat, factor)
 		end
 	end
 end
+local function getThreshold(attrib, name, type, value, ...)
+	local mod = mod(name, type, value, "Tree:Jewel", ...)
+	return function(nodeMods, out, data, attributes)
+		if not nodeMods and attributes[attrib] >= 40 then
+			out:AddMod(mod)
+		end
+	end
+end
 -- List of radius jewel functions
 local jewelFuncs = {
+-- Conversion jewels
 	["Strength from Passives in Radius is Transformed to Dexterity"] = getSimpleConv("Str", "Dex", "BASE", 1),
 	["Dexterity from Passives in Radius is Transformed to Strength"] = getSimpleConv("Dex", "Str", "BASE", 1),
 	["Strength from Passives in Radius is Transformed to Intelligence"] = getSimpleConv("Str", "Int", "BASE", 1),
@@ -882,6 +896,7 @@ local jewelFuncs = {
 			end
 		end
 	end,
+-- Per stat jewels
 	["Adds 1 to maximum Life per 3 Intelligence in Radius"] = getPerStat("Life", "BASE", 0, "Int", 1 / 3),
 	["Adds 1 to Maximum Life per 3 Intelligence Allocated in Radius"] = getPerStat("Life", "BASE", 0, "Int", 1 / 3),
 	["1% increased Evasion Rating per 3 Dexterity Allocated in Radius"] = getPerStat("Evasion", "INC", 0, "Dex", 1 / 3),
@@ -902,6 +917,20 @@ local jewelFuncs = {
 	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spells at 35% of its value"] = getSimpleGain({"LightningResist","ElementalResist"}, "SpellBlockChance", "BASE", 0.35),
 	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Dodge Attacks at 35% of its value"] = getSimpleGain({"ColdResist","ElementalResist"}, "AttackDodgeChance", "BASE", 0.35),
 	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Chance to Block at 35% of its value"] = getSimpleGain({"FireResist","ElementalResist"}, "BlockChance", "BASE", 0.35),
+-- Threshold jewels
+	["With at least 40 Dexterity in Radius, Frost Blades Melee Damage Penetrates 15% Cold Resistance"] = getThreshold("Dex", "ColdPenetration", "BASE", 15, ModFlag.Melee, { type = "SkillName", skillName = "Frost Blades" }),
+	["With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile Speed"] = getThreshold("Dex", "ProjectileSpeed", "INC", 25, { type = "SkillName", skillName = "Frost Blades" }),
+	["With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect"] = getThreshold("Dex", "AreaOfEffect", "INC", 25, { type = "SkillName", skillName = "Ice Shot" }),
+	["With at least 40 Dexterity in Radius, Ice Shot has 50% chance of Projectiles Piercing"] = getThreshold("Dex", "PierceChance", "BASE", 50, { type = "SkillName", skillName = "Ice Shot" }),
+	["With at least 40 Intelligence in Radius, Frostbolt fires 2 additional Projectiles"] = getThreshold("Int", "ProjectileCount", "BASE", 2, { type = "SkillName", skillName = "Frostbolt" }),
+	["With at least 40 Intelligence in Radius, Magma Orb fires an additional Projectile"] = getThreshold("Int", "ProjectileCount", "BASE", 1, { type = "SkillName", skillName = "Magma Orb" }),
+	["With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect"] = getThreshold("Dex", "AreaOfEffect", "INC", 25, { type = "SkillName", skillName = "Shrapnel Shot" }),
+	["With at least 40 Intelligence in Radius, Freezing Pulse fires 2 additional Projectiles"] = getThreshold("Int", "ProjectileCount", "BASE", 2, { type = "SkillName", skillName = "Freezing Pulse" }),
+	["With at least 40 Dexterity in Radius, Ethereal Knives fires 10 additional Projectiles"] = getThreshold("Dex", "ProjectileCount", "BASE", 10, { type = "SkillName", skillName = "Ethereal Knives" }),
+	["With at least 40 Strength in Radius, Molten Strike fires 2 additional Projectiles"] = getThreshold("Str", "ProjectileCount", "BASE", 2, { type = "SkillName", skillName = "Molten Strike" }),
+	["With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Effect"] = getThreshold("Str", "AreaOfEffect", "INC", 25, { type = "SkillName", skillName = "Molten Strike" }),
+	["With at least 40 Strength in Radius, 25% of Glacial Hammer Physical Damage converted to Cold Damage"] = getThreshold("Str", "PhysicalDamageConvertToCold", "BASE", 25, { type = "SkillName", skillName = "Glacial Hammer" }),
+	--[""] = getThreshold("", "", "", , { type = "SkillName", skillName = "" }),
 }
 
 -- Scan a line for the earliest and longest match from the pattern list

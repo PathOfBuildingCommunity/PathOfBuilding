@@ -4218,12 +4218,12 @@ gems["Wild Strike"] = {
 		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2
 		--"show_number_of_projectiles" = ?
 		mod("PierceChance", "BASE", 100), --"always_pierce" = ?
-		mod("PhysicalDamageConvertToFire", "BASE", 60, 0, 0, { type = "SkillPart", skillPart = 1 }), 
-		mod("PhysicalDamageConvertToFire", "BASE", 60, 0, 0, { type = "SkillPart", skillPart = 2 }), 
-		mod("PhysicalDamageConvertToLightning", "BASE", 60, 0, 0, { type = "SkillPart", skillPart = 3 }), 
-		mod("PhysicalDamageConvertToLightning", "BASE", 60, 0, 0, { type = "SkillPart", skillPart = 4 }), 
-		mod("PhysicalDamageConvertToCold", "BASE", 60, 0, 0, { type = "SkillPart", skillPart = 5 }), 
-		mod("PhysicalDamageConvertToCold", "BASE", 60, 0, 0, { type = "SkillPart", skillPart = 6 }), 
+		mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }), 
+		mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 3 }), 
+		mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 4 }), 
+		mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 5 }), 
+		mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 6 }), 
 	},
 	qualityMods = {
 		mod("ElementalDamage", "INC", 1), --"elemental_damage_+%" = 1
