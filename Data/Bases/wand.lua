@@ -106,7 +106,7 @@ itemBases["Tornado Wand"] = {
 itemBases["Prophecy Wand"] = {
 	type = "Wand",
 	implicit = "(36-40)% increased Spell Damage",
-	weapon = { PhysicalMin = 29, PhysicalMax = 54, critChanceBase = 7, attackRateBase = 1.2, },
+	weapon = { PhysicalMin = 29, PhysicalMax = 54, critChanceBase = 8, attackRateBase = 1.2, },
 	req = { level = 68, int = 245, },
 }
 itemBases["Profane Wand"] = {
