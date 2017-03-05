@@ -15,7 +15,7 @@ itemBases["Sharktooth Claw"] = {
 }
 itemBases["Awl"] = {
 	type = "Claw",
-	implicit = "+5 Life gained for each enemy hit by Attacks",
+	implicit = "+7 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 7, PhysicalMax = 24, critChanceBase = 6.3, attackRateBase = 1.5, },
 	req = { level = 12, dex = 25, int = 25, },
 }
@@ -27,7 +27,7 @@ itemBases["Cat's Paw"] = {
 }
 itemBases["Blinder"] = {
 	type = "Claw",
-	implicit = "+10 Life gained for each enemy hit by Attacks",
+	implicit = "+12 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 12, PhysicalMax = 32, critChanceBase = 6.3, attackRateBase = 1.5, },
 	req = { level = 22, dex = 41, int = 41, },
 }
@@ -39,7 +39,7 @@ itemBases["Timeworn Claw"] = {
 }
 itemBases["Sparkling Claw"] = {
 	type = "Claw",
-	implicit = "+10 Life gained for each enemy hit by Attacks",
+	implicit = "+15 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 14, PhysicalMax = 43, critChanceBase = 6, attackRateBase = 1.6, },
 	req = { level = 30, dex = 64, int = 44, },
 }
@@ -57,13 +57,13 @@ itemBases["Double Claw"] = {
 }
 itemBases["Thresher Claw"] = {
 	type = "Claw",
-	implicit = "+21 Life gained for each Enemy hit by Attacks",
+	implicit = "+25 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 20, PhysicalMax = 53, critChanceBase = 6.5, attackRateBase = 1.3, },
 	req = { level = 37, dex = 53, int = 77, },
 }
 itemBases["Gouger"] = {
 	type = "Claw",
-	implicit = "+13 Life gained for each enemy hit by Attacks",
+	implicit = "+24 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 15, PhysicalMax = 51, critChanceBase = 6.3, attackRateBase = 1.5, },
 	req = { level = 40, dex = 70, int = 70, },
 }
@@ -75,7 +75,7 @@ itemBases["Tiger's Paw"] = {
 }
 itemBases["Gut Ripper"] = {
 	type = "Claw",
-	implicit = "+21 Life gained for each enemy hit by Attacks",
+	implicit = "+44 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 20, PhysicalMax = 53, critChanceBase = 6.3, attackRateBase = 1.5, },
 	req = { level = 46, dex = 80, int = 80, },
 }
@@ -87,7 +87,7 @@ itemBases["Prehistoric Claw"] = {
 }
 itemBases["Noble Claw"] = {
 	type = "Claw",
-	implicit = "+18 Life gained for each Enemy hit by Attacks",
+	implicit = "+40 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 21, PhysicalMax = 56, critChanceBase = 6, attackRateBase = 1.6, },
 	req = { level = 52, dex = 105, int = 73, },
 }
@@ -105,13 +105,13 @@ itemBases["Twin Claw"] = {
 }
 itemBases["Great White Claw"] = {
 	type = "Claw",
-	implicit = "+34 Life gained for each Enemy hit by Attacks",
+	implicit = "+46 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 30, PhysicalMax = 78, critChanceBase = 6.5, attackRateBase = 1.3, },
 	req = { level = 58, dex = 81, int = 117, },
 }
 itemBases["Throat Stabber"] = {
 	type = "Claw",
-	implicit = "+21 Life gained for each Enemy hit by Attacks",
+	implicit = "+40 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 21, PhysicalMax = 73, critChanceBase = 6.3, attackRateBase = 1.5, },
 	req = { level = 60, dex = 113, int = 113, },
 }
@@ -123,7 +123,7 @@ itemBases["Hellion's Paw"] = {
 }
 itemBases["Eye Gouger"] = {
 	type = "Claw",
-	implicit = "+31 Life gained for each enemy hit by Attacks",
+	implicit = "+50 Life gained for each enemy hit by Attacks",
 	weapon = { PhysicalMin = 26, PhysicalMax = 68, critChanceBase = 6.3, attackRateBase = 1.5, },
 	req = { level = 64, dex = 113, int = 113, },
 }
@@ -135,7 +135,7 @@ itemBases["Vaal Claw"] = {
 }
 itemBases["Imperial Claw"] = {
 	type = "Claw",
-	implicit = "+25 Life gained for each Enemy hit by Attacks",
+	implicit = "+46 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 25, PhysicalMax = 65, critChanceBase = 6, attackRateBase = 1.6, },
 	req = { level = 68, dex = 131, int = 95, },
 }
