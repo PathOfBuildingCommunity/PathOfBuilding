@@ -44,7 +44,7 @@ itemBases["Spectral Axe"] = {
 itemBases["Etched Hatchet"] = {
 	type = "One Handed Axe",
 	implicit = "8% increased Physical Damage",
-	weapon = { PhysicalMin = 24, PhysicalMax = 42, critChanceBase = 5, attackRateBase = 1.35, },
+	weapon = { PhysicalMin = 26, PhysicalMax = 46, critChanceBase = 5, attackRateBase = 1.35, },
 	req = { level = 35, str = 93, dex = 43, },
 }
 itemBases["Jasper Axe"] = {

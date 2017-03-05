@@ -60,6 +60,7 @@ Requires Level 37, 53 Dex, 77 Int
 Implicits: 2
 {variant:1}+15 Life gained for each Enemy hit by Attacks
 {variant:2}+21 Life gained for each Enemy hit by Attacks
+{variant:3}+25 Life gained for each Enemy hit by Attacks
 (8-12)% increased Cast Speed
 +(30-40) to maximum Mana
 +(5-8) Life gained for each Enemy hit by your Spells
