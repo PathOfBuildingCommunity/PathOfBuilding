@@ -47,6 +47,13 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.19 - 2017/03/09
+ * Changed the rounding method for flask/aura/buff/curse effect to reflect the change in 2.6
+ * Relics can now be imported, and copied from in-game
+ * Fixed behaviour of the "Both slashes" skill part of Lacerate when only using one weapon
+ * Corrected the implicits of Maraketh sceptres
+ * Various minor tweaks and fixes
+
 ### 1.3.18 - 2017/03/05
  * Added support for threshold jewels:
     * Most of the relevant modifiers from threshold jewels should now be supported

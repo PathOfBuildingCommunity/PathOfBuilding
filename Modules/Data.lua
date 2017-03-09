@@ -170,6 +170,7 @@ data.colorCodes = {
 	MAGIC = "^x8888FF",
 	RARE = "^xFFFF77",
 	UNIQUE = "^xAF6025",
+	RELIC = "^x60C060",
 	CRAFTED = "^xB8DAF1",
 	UNSUPPORTED = "^xF05050",
 	--FIRE = "^x960000",

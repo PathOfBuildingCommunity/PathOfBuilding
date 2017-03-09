@@ -313,7 +313,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 			local other = nodeMap[otherId]
 			t_insert(node.linkedId, otherId)
 			t_insert(other.linkedId, node.id)
-			if node.type ~= "classStart" and other.type ~= "classStart" and node.ascendancyName == other.ascendancyName then
+			if node.type ~= "classStart" and other.type ~= "classStart" and node.type ~= "mastery" and other.type ~= "mastery" and node.ascendancyName == other.ascendancyName then
 				t_insert(self.connectors, self:BuildConnector(node, other))
 			end
 		end

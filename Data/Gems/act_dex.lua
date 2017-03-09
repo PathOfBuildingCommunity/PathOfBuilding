@@ -2461,7 +2461,7 @@ gems["Lacerate"] = {
 		skill("manaCost", 8), 
 		mod("Speed", "MORE", -25, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = -25
 		--"is_area_damage" = ?
-		skill("doubleHitsWhenDualWielding", true, { type = "SkillPart", skillPart = 2 }), 
+		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5

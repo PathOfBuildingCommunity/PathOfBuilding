@@ -69,7 +69,7 @@ function ModDBClass:ScaleAddList(modList, scale)
 		for i = 1, #modList do
 			local scaledMod = copyTable(modList[i])
 			if type(scaledMod.value) == "number" then
-				scaledMod.value = (m_floor(scaledMod.value) == scaledMod.value) and m_floor(scaledMod.value * scale) or scaledMod.value * scale
+				scaledMod.value = (m_floor(scaledMod.value) == scaledMod.value) and m_floor(scaledMod.value * scale + 0.5) or scaledMod.value * scale
 			end
 			self:AddMod(scaledMod)
 		end
