@@ -150,7 +150,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.importCodeMode.enabled = function()
 		return self.importCodeState == "VALID" and self.build.dbFileName
 	end
-	self.controls.importCodeBuildName = common.New("EditControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 4, 0, 400, 20, "", "New build name", "\\/:%*%?\"<>|", 50)
+	self.controls.importCodeBuildName = common.New("EditControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 4, 0, 400, 20, "", "New build name", "\\/:%*%?\"<>|%c", 50)
 	self.controls.importCodeBuildName.enabled = function()
 		return self.importCodeState == "VALID" and self.controls.importCodeMode.sel == 2
 	end
@@ -388,7 +388,7 @@ function ImportTabClass:DownloadItems()
 	end, sessionID and "POESESSID="..sessionID)
 end
 
-local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE" }
+local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC" }
 local colorMap = { S = "R", D = "G", I = "B", G = "W" }
 local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Belt"] = "Belt" }
 

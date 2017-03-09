@@ -469,6 +469,7 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 7
+Implicits: 2
 {variant:1}+8% to all Elemental Resistances
 {variant:2,3,4}+4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield

@@ -572,7 +572,7 @@ function buildMode:OpenSaveAsPopup()
 	local popup
 	popup = main:OpenPopup(370, 100, self.dbFileName and "Save As" or "Save", {
 		common.New("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:"),
-		edit = common.New("EditControl", nil, 0, 40, 350, 20, self.dbFileName and self.buildName, nil, "\\/:%*%?\"<>|", 50, function(buf)
+		edit = common.New("EditControl", nil, 0, 40, 350, 20, self.dbFileName and self.buildName, nil, "\\/:%*%?\"<>|%c", 50, function(buf)
 			newFileName = main.buildPath..buf..".xml"
 			newBuildName = buf
 			popup.controls.save.enabled = false

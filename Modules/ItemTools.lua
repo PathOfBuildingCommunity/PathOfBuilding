@@ -73,6 +73,15 @@ function itemLib.parseItemRaw(item)
 			if data.colorCodes[rarity:upper()] then
 				item.rarity = rarity:upper()
 			end
+			if item.rarity == "NORMAL" then
+				-- Hack for relics
+				for _, line in ipairs(item.rawLines) do
+					if line == "Relic Unique" then
+						item.rarity = "RELIC"
+						break
+					end
+				end
+			end
 			l = l + 1
 		end
 	end

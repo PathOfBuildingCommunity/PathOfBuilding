@@ -219,7 +219,7 @@ itemBases["Grinning Fetish"] = {
 itemBases["Horned Sceptre"] = {
 	type = "One Handed Mace",
 	subType = "Sceptre",
-	implicit = "Damage Penetrates 1% Elemental Resistances",
+	implicit = "Damage Penetrates 4% Elemental Resistances",
 	weapon = { PhysicalMin = 27, PhysicalMax = 50, critChanceBase = 6, attackRateBase = 1.3, },
 	req = { level = 36, str = 66, int = 66, },
 }
@@ -268,7 +268,7 @@ itemBases["Abyssal Sceptre"] = {
 itemBases["Stag Sceptre"] = {
 	type = "One Handed Mace",
 	subType = "Sceptre",
-	implicit = "Damage Penetrates 1% Elemental Resistances",
+	implicit = "Damage Penetrates 4% Elemental Resistances",
 	weapon = { PhysicalMin = 39, PhysicalMax = 72, critChanceBase = 6, attackRateBase = 1.3, },
 	req = { level = 55, str = 98, int = 98, },
 }
@@ -324,7 +324,7 @@ itemBases["Void Sceptre"] = {
 itemBases["Sambar Sceptre"] = {
 	type = "One Handed Mace",
 	subType = "Sceptre",
-	implicit = "Damage Penetrates 2% Elemental Resistances",
+	implicit = "Damage Penetrates 6% Elemental Resistances",
 	weapon = { PhysicalMin = 42, PhysicalMax = 78, critChanceBase = 6, attackRateBase = 1.3, },
 	req = { level = 70, str = 121, int = 112, },
 }

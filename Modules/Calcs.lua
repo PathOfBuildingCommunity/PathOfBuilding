@@ -761,7 +761,7 @@ local function initEnv(build, mode, override)
 			if item.type ~= "Jewel" and item.type ~= "Flask" then
 				-- Update item counts
 				local key
-				if item.rarity == "UNIQUE" then
+				if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
 					key = "UniqueItem"
 				elseif item.rarity == "RARE" then
 					key = "RareItem"
@@ -2586,7 +2586,7 @@ local function performCalcs(env)
 				output.FreezeChanceOnCrit = output.FreezeChanceOnHit
 			end
 		end
-		if skillFlags.attack and modDB:Sum("FLAG", cfg, "ArrowsThatPierceCauseBleeding") then
+		if skillFlags.attack and skillFlags.projectile and modDB:Sum("FLAG", cfg, "ArrowsThatPierceCauseBleeding") then
 			output.BleedChanceOnHit = 100 - (1 - output.BleedChanceOnHit / 100) * (1 - globalOutput.PierceChance / 100) * 100
 			output.BleedChanceOnCrit = 100 - (1 - output.BleedChanceOnCrit / 100) * (1 - globalOutput.PierceChance / 100) * 100
 		end

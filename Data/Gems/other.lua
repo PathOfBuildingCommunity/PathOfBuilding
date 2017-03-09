@@ -172,6 +172,7 @@ gems["Create Lesser Shrine"] = {
 	color = 4,
 	baseFlags = {
 		spell = true,
+		duration = true,
 	},
 	skillTypes = { [2] = true, [36] = true, [42] = true, [61] = true, [12] = true, },
 	baseMods = {
