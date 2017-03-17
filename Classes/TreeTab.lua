@@ -203,7 +203,8 @@ end
 function TreeTabClass:OpenImportPopup()
 	local treeLink = ""
 	local showMsg
-	main:OpenPopup(380, 110, "Import Tree", {
+	local popup
+	popup = main:OpenPopup(380, 110, "Import Tree", {
 		common.New("LabelControl", nil, 0, 20, 0, 16, "Enter passive tree link:"),
 		edit = common.New("EditControl", nil, 0, 40, 350, 18, "", nil, nil, nil, function(buf)
 			treeLink = buf 
@@ -213,28 +214,50 @@ function TreeTabClass:OpenImportPopup()
 		import = common.New("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
 			if #treeLink > 0 then
 				if treeLink:match("poeurl%.com/") then
-					local curl = require("lcurl")
-					local easy = curl.easy()
-					easy:setopt_url(treeLink)
-					easy:setopt_writefunction(function(data)
-						return true
-					end)
-					easy:perform()
-					local redirect = easy:getinfo(curl.INFO_REDIRECT_URL)
-					easy:close()
-					if not redirect or redirect == treeLink then
-						showMsg = "^1Failed to resolve PoEURL link"
-						return
+					popup.controls.import.enabled = false
+					showMsg = "Resolving PoEURL link..."
+					local id = LaunchSubScript([[
+						local treeLink = ...
+						local curl = require("lcurl.safe")
+						local easy = curl.easy()
+						easy:setopt_url(treeLink)
+						easy:setopt_writefunction(function(data)
+							return true
+						end)
+						easy:perform()
+						local redirect = easy:getinfo(curl.INFO_REDIRECT_URL)
+						easy:close()
+						if not redirect or redirect:match("poeurl%.com/") then
+							return nil, "Failed to resolve PoEURL link"
+						end
+						return redirect
+					]], "", "", treeLink)
+					if id then
+						launch:RegisterSubScript(id, function(treeLink, errMsg)
+							if errMsg then
+								showMsg = "^1"..errMsg
+								popup.controls.import.enabled = true
+							else
+								local errMsg = self.build.spec:DecodeURL(treeLink)
+								if errMsg then
+									showMsg = "^1"..errMsg
+								else
+									self.build.spec:AddUndoState()
+									self.build.buildFlag = true
+									main:ClosePopup()
+								end
+							end
+						end)
 					end
-					treeLink = redirect
-				end
-				local errMsg = self.build.spec:DecodeURL(treeLink)
-				if errMsg then
-					showMsg = "^1"..errMsg
 				else
-					self.build.spec:AddUndoState()
-					self.build.buildFlag = true
-					main:ClosePopup()
+					local errMsg = self.build.spec:DecodeURL(treeLink)
+					if errMsg then
+						showMsg = "^1"..errMsg
+					else
+						self.build.spec:AddUndoState()
+						self.build.buildFlag = true
+						main:ClosePopup()
+					end
 				end
 			end
 		end),

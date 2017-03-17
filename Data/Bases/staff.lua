@@ -45,7 +45,7 @@ itemBases["Vile Staff"] = {
 }
 itemBases["Crescent Staff"] = {
 	type = "Staff",
-	implicit = "60% increased Global Critical Strike Chance",
+	implicit = "80% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 35, PhysicalMax = 73, critChanceBase = 6, attackRateBase = 1.2, },
 	req = { level = 36, str = 66, int = 66, },
 }
@@ -87,7 +87,7 @@ itemBases["Foul Staff"] = {
 }
 itemBases["Moon Staff"] = {
 	type = "Staff",
-	implicit = "60% increased Global Critical Strike Chance",
+	implicit = "80% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 57, PhysicalMax = 118, critChanceBase = 6, attackRateBase = 1.2, },
 	req = { level = 57, str = 101, int = 101, },
 }
@@ -129,7 +129,7 @@ itemBases["Judgement Staff"] = {
 }
 itemBases["Eclipse Staff"] = {
 	type = "Staff",
-	implicit = "80% increased Global Critical Strike Chance",
+	implicit = "100% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 60, PhysicalMax = 125, critChanceBase = 6, attackRateBase = 1.2, },
 	req = { level = 70, str = 117, int = 117, },
 }

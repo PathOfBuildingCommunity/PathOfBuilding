@@ -39,7 +39,7 @@ itemBases["Sage Wand"] = {
 }
 itemBases["Pagan Wand"] = {
 	type = "Wand",
-	implicit = "4% increased Cast Speed",
+	implicit = "10% increased Cast Speed",
 	weapon = { PhysicalMin = 18, PhysicalMax = 33, critChanceBase = 7, attackRateBase = 1.35, },
 	req = { level = 34, int = 118, },
 }
@@ -75,7 +75,7 @@ itemBases["Omen Wand"] = {
 }
 itemBases["Heathen Wand"] = {
 	type = "Wand",
-	implicit = "4% increased Cast Speed",
+	implicit = "10% increased Cast Speed",
 	weapon = { PhysicalMin = 26, PhysicalMax = 48, critChanceBase = 7, attackRateBase = 1.35, },
 	req = { level = 55, int = 184, },
 }
@@ -111,7 +111,7 @@ itemBases["Prophecy Wand"] = {
 }
 itemBases["Profane Wand"] = {
 	type = "Wand",
-	implicit = "6% increased Cast Speed",
+	implicit = "14% increased Cast Speed",
 	weapon = { PhysicalMin = 27, PhysicalMax = 51, critChanceBase = 7, attackRateBase = 1.35, },
 	req = { level = 70, int = 237, },
 }

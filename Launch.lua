@@ -210,8 +210,24 @@ function launch:OnSubFinished(id, ...)
 		if errMsg then
 			self:ShowErrMsg("In download callback: %s", errMsg)
 		end
+	elseif self.subScripts[id].type == "CUSTOM" then
+		if self.subScripts[id].callback then
+			local errMsg = PCall(self.subScripts[id].callback, ...)
+			if errMsg then
+				self:ShowErrMsg("In subscript callback: %s", errMsg)
+			end
+		end
 	end
 	self.subScripts[id] = nil
+end
+
+function launch:RegisterSubScript(id, callback)
+	if id then
+		self.subScripts[id] = {
+			type = "CUSTOM",
+			callback = callback,
+		}
+	end
 end
 
 function launch:DownloadPage(url, callback, cookies)
@@ -224,6 +240,7 @@ function launch:DownloadPage(url, callback, cookies)
 		local page = ""
 		local easy = curl.easy()
 		easy:setopt_url(url)
+		easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
 		if cookies then
 			easy:setopt(curl.OPT_COOKIE, cookies)
 		end

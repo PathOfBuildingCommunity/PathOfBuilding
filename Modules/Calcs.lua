@@ -120,6 +120,8 @@ local function createActiveSkill(activeGem, supportList)
 
 	activeSkill.skillTypes = copyTable(activeGem.data.skillTypes)
 
+	activeSkill.skillData = { }
+
 	-- Initialise skill flag set ('attack', 'projectile', etc)
 	local skillFlags = copyTable(activeGem.data.baseFlags)
 	activeSkill.skillFlags = skillFlags
@@ -390,7 +392,6 @@ local function buildActiveSkillModList(env, activeSkill)
 	mergeGemMods(skillModList, activeSkill.activeGem)
 
 	-- Extract skill data
-	activeSkill.skillData = { }
 	for _, value in ipairs(skillModList:Sum("LIST", activeSkill.skillCfg, "Misc")) do
 		if value.type == "SkillData" then
 			activeSkill.skillData[value.key] = value.value
@@ -640,6 +641,7 @@ local function initEnv(build, mode, override)
 	modDB:NewMod("ActiveTrapLimit", "BASE", 3, "Base")
 	modDB:NewMod("ActiveMineLimit", "BASE", 5, "Base")
 	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
+	modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
 	modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
 	modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
 	modDB:NewMod("PhysicalDamage", "MORE", 20, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
@@ -1066,6 +1068,9 @@ local function performCalcs(env)
 	end
 	if env.weaponData1.type and env.weaponData2.type then
 		condList["DualWielding"] = true
+		if env.weaponData1.type == "Claw" and env.weaponData2.type == "Claw" then
+			condList["DualWieldingClaws"] = true
+		end
 	end
 	if env.weaponData1.type == "None" then
 		condList["Unarmed"] = true
@@ -1095,12 +1100,14 @@ local function performCalcs(env)
 		if not modDB:Sum("FLAG", nil, "NeverCrit") then
 			condList["CritInPast8Sec"] = true
 		end
-		if env.mainSkill.skillFlags.attack then
-			condList["AttackedRecently"] = true
-		elseif env.mainSkill.skillFlags.spell then
-			condList["CastSpellRecently"] = true
+		if not env.mainSkill.skillData.triggered then 
+			if env.mainSkill.skillFlags.attack then
+				condList["AttackedRecently"] = true
+			elseif env.mainSkill.skillFlags.spell then
+				condList["CastSpellRecently"] = true
+			end
 		end
-		if not env.mainSkill.skillFlags.trap and not env.mainSkill.skillFlags.mine and not env.mainSkill.skillFlags.totem then
+		if env.mainSkill.skillFlags.hit and not env.mainSkill.skillFlags.trap and not env.mainSkill.skillFlags.mine and not env.mainSkill.skillFlags.totem then
 			condList["HitRecently"] = true
 		end
 		if env.mainSkill.skillFlags.movement then

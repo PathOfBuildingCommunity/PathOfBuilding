@@ -1376,6 +1376,16 @@ gems["Vaal Fireball"] = {
 	spell = true,
 	area = true,
 	fire = true,
+	parts = {
+		{
+			name = "Projectile",
+			area = false,
+		},
+		{
+			name = "Explosion",
+			area = true,
+		},
+	},
 	color = 3,
 	baseFlags = {
 		spell = true,

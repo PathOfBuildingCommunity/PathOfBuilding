@@ -14,7 +14,7 @@ data.uniques.new = {
 Tidebreaker
 Imperial Maul
 Requires Level 65, 212 Str
-20% increased Stun Duration on Enemies
+30% increased Stun Duration on Enemies
 Socketed Gems are Supported by Level 20 Endurance Charge on Melee Stun
 Adds (60–70) to (300–350) Physical Damage
 +40 to Intelligence
@@ -45,9 +45,9 @@ Regenerate 100 Life per second while moving
 Gruthkul's Pelt
 Wyrmscale Doublet
 Requiress Level 38, 57 Str, 57 Dex
-69% increased Physical Damage
-+131 to maximum Life
-+32% to Cold Resistance
+(60-100)% increased Physical Damage
++(130-160) to maximum Life
++(20-40)% to Cold Resistance
 2% of Life Regenerated per second
 15% increased Character Size
 Spell Skills deal no Damage
@@ -75,7 +75,7 @@ Heavy Belt
 Requires Level 30
 +(25-35) to Strength
 5% increased Quantity of Items found
-+(30–40)% to Cold Resistance
++(20–40)% to Cold Resistance
 Rampage
 1% increased Rarity of Items found per 15 Rampage Kills
 ]],[[
@@ -91,8 +91,8 @@ Uncapped Elemental Resistance is highest
 Ahn's Heritage
 Colossal Tower Shield
 Requires Level 67, 159 Str
-69% increased Armour
-+69 to maximum Life
+(50-100)% increased Armour
++(60-80) to maximum Life
 -1 to maximum Endurance Charges
 -10% to maximum Block Chance
 +6% Chance to Block

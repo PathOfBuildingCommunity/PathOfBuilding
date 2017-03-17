@@ -392,6 +392,7 @@ local modTagList = {
 	["while holding a shield"] = { tag = { type = "Condition", var = "UsingShield" } },
 	["with shields"] = { tag = { type = "Condition", var = "UsingShield" } },
 	["while dual wielding"] = { tag = { type = "Condition", var = "DualWielding" } },
+	["while dual wielding claws"] = { tag = { type = "Condition", var = "DualWieldingClaws" } },
 	["while wielding a staff"] = { tag = { type = "Condition", var = "UsingStaff" } },
 	["while unarmed"] = { tag = { type = "Condition", var = "Unarmed" } },
 	["with a normal item equipped"] = { tag = { type = "Condition", var = "UsingNormalItem" } },
@@ -591,6 +592,7 @@ local specialModList = {
 	["can have up to (%d+) additional traps? placed at a time"] = function(num) return { mod("ActiveTrapLimit", "BASE", num) } end,
 	["can have up to (%d+) additional remote mines? placed at a time"] = function(num) return { mod("ActiveMineLimit", "BASE", num) } end,
 	["can have up to (%d+) additional totems? summoned at a time"] = function(num) return { mod("ActiveTotemLimit", "BASE", num) } end,
+	["enemies can have 1 additional curse"] = { mod("EnemyCurseLimit", "BASE", 1) },
 	-- Other modifiers
 	["cannot be stunned"] = { mod("AvoidStun", "BASE", 100) },
 	["cannot be shocked"] = { mod("AvoidShock", "BASE", 100) },
@@ -695,7 +697,7 @@ local specialModList = {
 	["you have no life regeneration"] = { flag("NoLifeRegen") },
 	["cannot block attacks"] = { flag("CannotBlockAttacks") },
 	["projectiles pierce while phasing"] = { mod("PierceChance", "BASE", 100, { type = "Condition", var = "Phasing" }) },
-	["increases and reductions to minion damage also affects you"] = { flag("MinionDamageAppliesToPlayer") },
+	["increases and reductions to minion damage also affects? you"] = { flag("MinionDamageAppliesToPlayer") },
 	["increases and reductions to spell damage also apply to attacks"] = { flag("SpellDamageAppliesToAttacks") },
 	["armour is increased by uncapped fire resistance"] = { mod("Armour", "INC", 1, { type = "PerStat", stat = "FireResistTotal", div = 1 }) },
 	["evasion rating is increased by uncapped cold resistance"] = { mod("Evasion", "INC", 1, { type = "PerStat", stat = "ColdResistTotal", div = 1 }) },
@@ -818,8 +820,8 @@ local function getMatchConv(others, dst, type)
 			for _, mod in ipairs(nodeMods) do
 				for _, other in pairs(others) do
 					if mod.name:match(other) and mod.type == type then
-						out:NewMod(mod.name, type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags)
-						out:NewMod(mod.name:gsub(other, dst), type, mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags)
+						out:NewMod(mod.name, type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
+						out:NewMod(mod.name:gsub(other, dst), type, mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
 					end
 				end
 			end
