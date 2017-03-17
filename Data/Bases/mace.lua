@@ -332,43 +332,43 @@ itemBases["Sambar Sceptre"] = {
 
 itemBases["Driftwood Maul"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 9, PhysicalMax = 13, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 3, str = 20, },
 }
 itemBases["Tribal Maul"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 15, PhysicalMax = 23, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 8, str = 35, },
 }
 itemBases["Mallet"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 15, PhysicalMax = 30, critChanceBase = 5, attackRateBase = 1.25, },
 	req = { level = 12, str = 47, },
 }
 itemBases["Sledgehammer"] = {
 	type = "Two Handed Mace",
-	implicit = "40% increased Stun Duration on enemies",
+	implicit = "45% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 21, PhysicalMax = 32, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 17, str = 62, },
 }
 itemBases["Jagged Maul"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 24, PhysicalMax = 45, critChanceBase = 5, attackRateBase = 1.25, },
 	req = { level = 22, str = 77, },
 }
 itemBases["Brass Maul"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 34, PhysicalMax = 51, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 27, str = 92, },
 }
 itemBases["Fright Maul"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 39, PhysicalMax = 53, critChanceBase = 5, attackRateBase = 1.25, },
 	req = { level = 32, str = 107, },
 }
@@ -380,37 +380,37 @@ itemBases["Morning Star"] = {
 }
 itemBases["Totemic Maul"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 49, PhysicalMax = 73, critChanceBase = 5, attackRateBase = 1.1, },
 	req = { level = 36, str = 119, },
 }
 itemBases["Great Mallet"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 37, PhysicalMax = 76, critChanceBase = 5, attackRateBase = 1.25, },
 	req = { level = 40, str = 131, },
 }
 itemBases["Steelhead"] = {
 	type = "Two Handed Mace",
-	implicit = "40% increased Stun Duration on enemies",
+	implicit = "45% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 47, PhysicalMax = 70, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 44, str = 143, },
 }
 itemBases["Spiny Maul"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 47, PhysicalMax = 88, critChanceBase = 5, attackRateBase = 1.25, },
 	req = { level = 48, str = 155, },
 }
 itemBases["Plated Maul"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 62, PhysicalMax = 92, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 51, str = 164, },
 }
 itemBases["Dread Maul"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 66, PhysicalMax = 89, critChanceBase = 5, attackRateBase = 1.25, },
 	req = { level = 54, str = 173, },
 }
@@ -422,37 +422,37 @@ itemBases["Solar Maul"] = {
 }
 itemBases["Karui Maul"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 79, PhysicalMax = 118, critChanceBase = 5, attackRateBase = 1.1, },
 	req = { level = 57, str = 182, },
 }
 itemBases["Colossus Mallet"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 57, PhysicalMax = 118, critChanceBase = 5, attackRateBase = 1.25, },
 	req = { level = 59, str = 188, },
 }
 itemBases["Piledriver"] = {
 	type = "Two Handed Mace",
-	implicit = "40% increased Stun Duration on enemies",
+	implicit = "45% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 67, PhysicalMax = 100, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 61, str = 212, },
 }
 itemBases["Meatgrinder"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 63, PhysicalMax = 117, critChanceBase = 5, attackRateBase = 1.25, },
 	req = { level = 63, str = 212, },
 }
 itemBases["Imperial Maul"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 74, PhysicalMax = 111, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 65, str = 212, },
 }
 itemBases["Terror Maul"] = {
 	type = "Two Handed Mace",
-	implicit = "20% increased Stun Duration on enemies",
+	implicit = "30% increased Stun Duration on enemies",
 	weapon = { PhysicalMin = 75, PhysicalMax = 102, critChanceBase = 5, attackRateBase = 1.25, },
 	req = { level = 67, str = 212, },
 }

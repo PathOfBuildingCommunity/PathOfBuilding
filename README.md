@@ -47,6 +47,13 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.20 - 2017/03/17
+ * Added skill parts to Vaal Fireball that match those on Fireball
+ * Reverted the rounding change from the previous update, as the change in the game has been reverted also
+ * Fixed issue that caused passive node stats to lose tags (such as conditions) when converted by certain jewels
+ * Corrected the implicits on many item bases that received undocumented buffs in 2.6
+ * Various minor tweaks and fixes
+
 ### 1.3.19 - 2017/03/09
  * Changed the rounding method for flask/aura/buff/curse effect to reflect the change in 2.6
  * Relics can now be imported, and copied from in-game

@@ -979,17 +979,17 @@ Coronal Maul
 ]],[[
 Physical Staff
 Eclipse Staff
-80% increased Global Critical Strike Chance
+100% increased Global Critical Strike Chance
 {phys 2h}
 ]],[[
 Elemental Staff
 Eclipse Staff
-80% increased Global Critical Strike Chance
+100% increased Global Critical Strike Chance
 {elem 2h}
 ]],[[
 Spell Staff
 Eclipse Staff
-80% increased Global Critical Strike Chance
+100% increased Global Critical Strike Chance
 {spell 2h}
 ]],[[
 +3 Fire Staff

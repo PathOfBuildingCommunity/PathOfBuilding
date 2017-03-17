@@ -224,7 +224,7 @@ function ImportTabClass:DownloadCharacterList()
 				self.charImportMode = "GETACCOUNTNAME"
 				return
 			end
-			local realAccountName = page:match("/account/view%-profile/([^/]+)/characters")
+			local realAccountName = page:match("/account/view%-profile/([^/]+)/characters"):gsub(".", function(c) if c:byte(1) > 127 then return string.format("%%%2X",c:byte(1)) else return c end end)
 			if not realAccountName then
 				self.charImportStatus = data.colorCodes.NEGATIVE.."Failed to retrieve character list."
 				self.charImportMode = "GETSESSIONID"

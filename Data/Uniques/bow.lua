@@ -62,10 +62,13 @@ Adds (10-20) to (30-35) Physical Damage
 Doomfletch
 Royal Bow
 Variant: Pre 2.0.0
+Variant: Pre 2.6.0
 Variant: Current
 Requires Level 28, 95 Dex
-(6-12)% increased Elemental Damage with Weapons
-{variant:2}Adds (8-12) to (16-20) Physical Damage
+Implicits: 2
+{variant:1,2}(6-12)% increased Elemental Damage with Weapons
+{variant:3}(20-24)% increased Elemental Damage with Weapons
+{variant:2,3}Adds (8-12) to (16-20) Physical Damage
 (10-14)% increased Attack Speed
 (30-40)% increased Critical Strike Chance
 60% increased Mana Regeneration Rate
@@ -73,8 +76,12 @@ Gain 110% of Bow Physical Damage as Extra Damage of an Element
 ]],[[
 Doomfletch's Prism
 Royal Bow
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 40, 95 Dex
-(6-12)% increased Elemental Damage with Weapons
+Implicits: 2
+{variant:1}(6-12)% increased Elemental Damage with Weapons
+{variant:2}(20-24)% increased Elemental Damage with Weapons
 Adds (8-12) to (16-20) Physical Damage
 (10-14)% increased Attack Speed
 (30-40)% increased Critical Strike Chance
@@ -112,9 +119,12 @@ Adds 1 to 3 Physical Damage to Attacks per 25 Dexterity
 Lioneye's Glare
 Imperial Bow
 Variant: Pre 2.0.0
+Variant: Pre 2.6.0
 Variant: Current
 Requires Level 66, 212 Dex
+Implicits: 2
 {variant:2}(6-12)% increased Elemental Damage with Weapons
+{variant:3}(20-24)% increased Elemental Damage with Weapons
 (150-175)% increased Physical Damage
 Adds (6-12) to (20-32) Physical Damage
 (10-20)% increased Attack Speed
@@ -244,17 +254,20 @@ Your Chaos Damage can Shock
 Windripper
 Imperial Bow
 Variant: Pre 2.0.0
+Variant: Pre 2.6.0
 Variant: Current
 Requires Level 66, 212 Dex
+Implicits: 2
 {variant:2}(6-12)% increased Elemental Damage with Weapons
+{variant:3}(20-24)% increased Elemental Damage with Weapons
 Adds (32-40) to (48-60) Cold Damage
 Adds 1 to (80-100) Lightning Damage
 (10-15)% increased Attack Speed
 (60-80)% increased Critical Strike Chance
 {variant:1}25% increased Quantity of Items Dropped by Slain Frozen enemies
-{variant:2}15% increased Quantity of Items Dropped by Slain Frozen Enemies
+{variant:2,3}15% increased Quantity of Items Dropped by Slain Frozen Enemies
 {variant:1}50% increased Rarity of Items Dropped by Slain Shocked enemies
-{variant:2}30% increased Rarity of Items Dropped by Slain Shocked Enemies
+{variant:2,3}30% increased Rarity of Items Dropped by Slain Shocked Enemies
 ]],[[
 Xoph's Inception
 Bone Bow

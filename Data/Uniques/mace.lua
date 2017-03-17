@@ -351,7 +351,9 @@ Meatgrinder
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 63, 212 Str
-20% increased Stun Duration on Enemies
+Implicits: 2
+{variant:1}20% increased Stun Duration on Enemies
+{variant:2}30% increased Stun Duration on Enemies
 Adds (80-100) to (320–370) Physical Damage
 50% of Physical Damage Converted to Lightning Damage
 15% chance to Shock
@@ -362,8 +364,12 @@ Damage Penetrates 20% Lightning Resistance
 ]],[[
 Chober Chaber
 Great Mallet
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 40, 104 Str
-20% increased Stun Duration on Enemies
+Implicits: 2
+{variant:1}20% increased Stun Duration on Enemies
+{variant:2}30% increased Stun Duration on Enemies
 +1 to Level of Socketed Melee Gems
 +1 to Level of Socketed Minion Gems
 (100-120)% increased Physical Damage
@@ -374,9 +380,12 @@ Minions have (20-40)% increased maximum Life
 ]],[[
 Geofri's Baptism
 Brass Maul
-Attacks per Second: 1.10
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 27, 92 Str
-20% increased Stun Duration on Enemies
+Implicits: 2
+{variant:1}20% increased Stun Duration on Enemies
+{variant:2}30% increased Stun Duration on Enemies
 200% increased Physical Damage
 Adds 11 to 23 Cold Damage
 (10-20)% increased Stun Duration on Enemies
@@ -384,8 +393,12 @@ Never deal Critical Strikes
 ]],[[
 Hrimnor's Dirge
 Sledgehammer
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 36, 62 Str
-40% increased Stun Duration on Enemies
+Implicits: 2
+{variant:1}40% increased Stun Duration on Enemies
+{variant:2}45% increased Stun Duration on Enemies
 (140-200)% increased Physical Damage
 Adds (10-20) to (30-40) Physical Damage
 +10 to Strength
@@ -396,8 +409,12 @@ Gain 50% of Physical Damage as Extra Cold Damage
 ]],[[
 Hrimnor's Hymn
 Sledgehammer
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 17, 62 Str
-40% increased Stun Duration on Enemies
+Implicits: 2
+{variant:1}40% increased Stun Duration on Enemies
+{variant:2}45% increased Stun Duration on Enemies
 (140-200)% increased Physical Damage
 +10 to Strength
 15% reduced Enemy Stun Threshold
@@ -410,7 +427,9 @@ Variant: Pre 2.6.0
 Variant: Current
 League: Tempest
 Requires Level 44, 143 Str
-40% increased Stun Duration on Enemies
+Implicits: 2
+{variant:1}40% increased Stun Duration on Enemies
+{variant:2}45% increased Stun Duration on Enemies
 (150-200)% increased Physical Damage
 (8-12)% increased Cast Speed
 (8-12)% increased Attack Speed
@@ -424,7 +443,9 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 67, 212 Str
-20% increased Stun Duration on Enemies
+Implicits: 2
+{variant:1,2}20% increased Stun Duration on Enemies
+{variant:3}30% increased Stun Duration on Enemies
 {variant:1}Adds (27-36) to (270-360) Physical Damage
 {variant:2,3}Adds (27-56) to (270-400) Physical Damage
 {variant:2,3}(30-40)% increased Critical Strike Chance
@@ -436,8 +457,12 @@ Your Critical Strikes do not deal extra Damage
 ]],[[
 Marohi Erqi
 Karui Maul
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 57, 182 Str
-20% increased Stun Duration on Enemies
+Implicits: 2
+{variant:1}20% increased Stun Duration on Enemies
+{variant:2}30% increased Stun Duration on Enemies
 Socketed Gems are Supported by level 15 Increased Area of Effect
 (220-250)% increased Physical Damage
 Adds 10 to 20 Physical Damage
@@ -448,8 +473,12 @@ Adds 10 to 20 Physical Damage
 ]],[[
 Quecholli
 Jagged Maul
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 22, 77 Str
-20% increased Stun Duration on Enemies
+Implicits: 2
+{variant:1}20% increased Stun Duration on Enemies
+{variant:2}30% increased Stun Duration on Enemies
 (80-100)% increased Physical Damage
 Adds 5 to 25 Physical Damage
 +(25-50) to all Attributes
@@ -458,16 +487,24 @@ Enemies killed explode dealing 10% of their Life as Fire Damage
 ]],[[
 Trypanon
 Great Mallet
+Variant: Pre 2.6.0
+Variant: Current
 League: Perandus
 Requires Level 40, 131 Str
-20% increased Stun Duration on Enemies
+Implicits: 2
+{variant:1}20% increased Stun Duration on Enemies
+{variant:2}30% increased Stun Duration on Enemies
 50% reduced Attack Speed
 All Attacks with this Weapon are Critical Strikes
 ]],[[
 Voidhome
 Dread Maul
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 54, 173 Str
-20% increased Stun Duration on Enemies
+Implicits: 2
+{variant:1}20% increased Stun Duration on Enemies
+{variant:2}30% increased Stun Duration on Enemies
 150% increased Physical Damage
 50% increased Attack Speed
 (30-50)% reduced Rarity of Items found
