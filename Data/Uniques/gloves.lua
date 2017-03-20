@@ -86,7 +86,7 @@ Requires Level 24, 17 Dex
 {variant:2}+(40-50) to Evasion Rating
 {variant:1}+(10-20)% to Cold Resistance
 {variant:2}+(20-30)% to Cold Resistance
-{variant:2}Adds (5-7) to (13-15) Cold Damage
+{variant:2}Adds (5-7) to (13-15) Cold Damage to Spells and Attacks
 {variant:1}25% of Physical Damage Converted to Cold Damage
 {variant:2}50% of Physical Damage Converted to Cold Damage
 Reflects 10 Cold Damage to Melee Attackers
@@ -102,7 +102,7 @@ Requires Level 9, 17 Dex
 {variant:2}+(40-50) to Evasion Rating
 {variant:1}+(10-20)% to Cold Resistance
 {variant:2}+(20-30)% to Cold Resistance
-{variant:2}Adds (5-7) to (13-15) Cold Damage
+{variant:2}Adds (5-7) to (13-15) Cold Damage to Spells and Attacks
 {variant:1}25% of Physical Damage Converted to Cold Damage
 {variant:2}50% of Physical Damage Converted to Cold Damage
 Reflects 10 Cold Damage to Melee Attackers

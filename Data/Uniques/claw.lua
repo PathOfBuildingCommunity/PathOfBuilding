@@ -205,8 +205,8 @@ Requires Level 70, 113 Dex, 113 Int
 Adds (35-50) to (100-125) Physical Damage
 (10-15)% increased Attack Speed
 Minions have (10-15)% increased Attack Speed
-10% Chance to summon a Spectral Wolf on Kill
-Increases and reductions to Minion Damage also affects you
+10% Chance to Cast level 18 Summon Spectral Wolf on Kill
+Increases and Reductions to Minion Damage also affect you
 70% increased Minion Damage if you have Hit Recently
 ]],[[
 Touch of Anguish

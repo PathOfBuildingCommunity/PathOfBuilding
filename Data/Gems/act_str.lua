@@ -1753,7 +1753,60 @@ gems["Punishment"] = {
 	spell = true,
 	area = true,
 	duration = true,
-	unsupported = true,
+	color = 1,
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+	},
+	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, },
+	baseMods = {
+		skill("castTime", 0.5), 
+		--"newpunishment_applied_buff_duration_ms" = 4000
+	},
+	qualityMods = {
+		mod("Speed", "INC", 0.25, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff"}), --"newpunishment_attack_speed_+%" = 0.25
+	},
+	levelMods = {
+		[1] = skill("manaCost", nil), 
+		[2] = skill("duration", nil), --"base_skill_effect_duration"
+		[3] = mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff"}), --"newpunishment_melee_damage_+%_final"
+		[4] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff"}), --"newpunishment_attack_speed_+%"
+		[5] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
+	},
+	levels = {
+		[1] = { 24, 9, 25, 10, 0, },
+		[2] = { 26, 9.1, 26, 10, 4, },
+		[3] = { 27, 9.2, 26, 11, 8, },
+		[4] = { 29, 9.3, 27, 11, 12, },
+		[5] = { 30, 9.4, 27, 12, 16, },
+		[6] = { 32, 9.5, 28, 12, 20, },
+		[7] = { 34, 9.6, 28, 13, 24, },
+		[8] = { 35, 9.7, 29, 13, 28, },
+		[9] = { 37, 9.8, 29, 14, 32, },
+		[10] = { 38, 9.9, 30, 14, 36, },
+		[11] = { 39, 10, 30, 15, 40, },
+		[12] = { 40, 10.1, 31, 15, 44, },
+		[13] = { 42, 10.2, 31, 16, 48, },
+		[14] = { 43, 10.3, 32, 16, 52, },
+		[15] = { 44, 10.4, 32, 17, 56, },
+		[16] = { 45, 10.5, 33, 17, 60, },
+		[17] = { 46, 10.6, 33, 18, 64, },
+		[18] = { 47, 10.7, 34, 18, 68, },
+		[19] = { 48, 10.8, 34, 19, 72, },
+		[20] = { 50, 10.9, 35, 19, 76, },
+		[21] = { 51, 11, 35, 20, 80, },
+		[22] = { 52, 11.1, 36, 20, 84, },
+		[23] = { 53, 11.2, 36, 21, 88, },
+		[24] = { 54, 11.3, 37, 21, 92, },
+		[25] = { 56, 11.4, 37, 22, 96, },
+		[26] = { 57, 11.5, 38, 22, 100, },
+		[27] = { 58, 11.6, 38, 23, 104, },
+		[28] = { 59, 11.7, 39, 23, 108, },
+		[29] = { 60, 11.8, 39, 24, 112, },
+		[30] = { 61, 11.9, 40, 24, 116, },
+	},
 }
 gems["Purity of Fire"] = {
 	aura = true,

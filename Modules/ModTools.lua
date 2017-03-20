@@ -113,6 +113,10 @@ function modLib.formatValue(value)
 	return "{"..ret.."}"
 end
 
+function modLib.formatModParams(mod)
+	return string.format("%s|%s|%s|%s|%s", mod.name, mod.type, modLib.formatFlags(mod.flags, ModFlag), modLib.formatFlags(mod.keywordFlags, KeywordFlag), modLib.formatTags(mod.tagList))
+end
+
 function modLib.formatMod(mod)
-	return string.format("%s = %s|%s|%s|%s|%s", modLib.formatValue(mod.value), mod.name, mod.type, modLib.formatFlags(mod.flags, ModFlag), modLib.formatFlags(mod.keywordFlags, KeywordFlag), modLib.formatTags(mod.tagList))
+	return modLib.formatValue(mod.value) .. " = " .. modLib.formatModParams(mod)
 end

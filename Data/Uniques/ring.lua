@@ -21,7 +21,7 @@ Requires Level 20
 {variant:1}(10-15)% increased Cold Damage
 {variant:2}(25-30)% increased Cold Damage
 {variant:1}Adds 1 to (1-50) Lightning Damage to Attacks
-{variant:2}Adds 1 to (50-70) Lightning Damage
+{variant:2}Adds 1 to (50-70) Lightning Damage to Spells and Attacks
 +(30-40) to maximum Life
 {variant:1}1% of Damage against Frozen Enemies Leeched as Life
 {variant:2}1% of Damage against Shocked Enemies Leeched as Life
@@ -38,7 +38,7 @@ Requires Level 20
 {variant:1}(10-15)% increased Fire Damage
 {variant:1}(25-30)% increased Fire Damage
 {variant:1}Adds 1 to (10-30) Cold Damage to Attacks
-{variant:2}Adds (20-25) to (30-50) Cold Damage
+{variant:2}Adds (20-25) to (30-50) Cold Damage to Spells and Attacks
 +(30-40) to maximum Energy Shield
 30% increased Damage while Ignited
 +5000 to Armour while Frozen
@@ -51,7 +51,7 @@ League: Domination, Nemesis
 Requires Level 20
 +(12-16)% to Fire and Lightning Resistances
 {variant:1}Adds 1 to (10-30) Fire Damage to Attacks
-{variant:2}Adds (20-25) to (30-50) Fire Damage
+{variant:2}Adds (20-25) to (30-50) Fire Damage to Spells and Attacks
 {variant:1}(10-15)% increased Lightning Damage
 {variant:2}(25-30)% increased Lightning Damage
 +(30-40) to maximum Mana
@@ -486,7 +486,7 @@ Requires Level 20
 {variant:1}Adds 10 to 15 Physical Damage to Attacks against Frozen Enemies
 {variant:2}Adds 40 to 60 Cold Damage against Chilled Enemies
 {variant:1}Adds (5-6) to (7-9) Cold Damage to Attacks
-{variant:2}Adds (7-10) to (15-20) Cold Damage
+{variant:2}Adds (7-10) to (15-20) Cold Damage to Spells and Attacks
 +(200-300) to Evasion Rating
 {variant:1}20% reduced Chill Duration on You
 {variant:2}50% chance to Avoid being Chilled

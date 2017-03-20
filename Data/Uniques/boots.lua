@@ -294,7 +294,7 @@ Requires Level 18
 15% increased Movement Speed
 50% increased Stun Recovery
 20% reduced Light Radius
-{variant:2}Adds (15-20) to (25-30) Chaos Damage while using a Flask
+{variant:2}Adds (15-20) to (25-30) Chaos Damage to Spells and Attacks while using a Flask
 +50% to Chaos Resistance while using a Flask
 ]],[[
 Dusktoe
