@@ -157,7 +157,51 @@ gems["Blind"] = {
 gems["Block Chance Reduction"] = {
 	dexterity = true,
 	support = true,
-	unsupported = true,
+	color = 2,
+	requireSkillTypes = { 10, 1, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+	},
+	qualityMods = {
+		--"global_reduce_enemy_block_%" = 0.25
+	},
+	levelMods = {
+		--[1] = "global_reduce_enemy_block_%"
+		--[2] = "reduce_enemy_dodge_%"
+	},
+	levels = {
+		[1] = { 20, 20, },
+		[2] = { 21, 20, },
+		[3] = { 21, 21, },
+		[4] = { 22, 21, },
+		[5] = { 22, 22, },
+		[6] = { 23, 22, },
+		[7] = { 23, 23, },
+		[8] = { 24, 23, },
+		[9] = { 24, 24, },
+		[10] = { 25, 24, },
+		[11] = { 25, 25, },
+		[12] = { 26, 25, },
+		[13] = { 26, 26, },
+		[14] = { 27, 26, },
+		[15] = { 27, 27, },
+		[16] = { 28, 27, },
+		[17] = { 28, 28, },
+		[18] = { 29, 28, },
+		[19] = { 29, 29, },
+		[20] = { 30, 29, },
+		[21] = { 30, 30, },
+		[22] = { 31, 30, },
+		[23] = { 31, 31, },
+		[24] = { 32, 31, },
+		[25] = { 32, 32, },
+		[26] = { 33, 32, },
+		[27] = { 33, 33, },
+		[28] = { 34, 33, },
+		[29] = { 34, 34, },
+		[30] = { 35, 34, },
+	},
 }
 gems["Cast On Critical Strike"] = {
 	dexterity = true,

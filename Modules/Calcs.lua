@@ -3,7 +3,7 @@
 -- Module: Calcs
 -- Performs all the offense and defense calculations.
 -- Here be dragons!
--- This file is 3300 lines long, over half of which is in one function...
+-- This file is 3400 lines long, over half of which is in one function...
 --
 
 local pairs = pairs
@@ -472,6 +472,29 @@ local function buildNodeModList(env, nodeList, finishJewels)
 	end
 
 	return modList
+end
+
+-- Merge an instance of a buff, taking the highest value of each modifier
+local function mergeBuff(src, destTable, destKey)
+	if not destTable[destKey] then
+		destTable[destKey] = { }
+	end
+	local dest = destTable[destKey]
+	for _, mod in ipairs(src) do
+		local param = modLib.formatModParams(mod)
+		for index, destMod in ipairs(dest) do
+			if param == modLib.formatModParams(destMod) then
+				if type(destMod.value) == "number" and mod.value > destMod.value then
+					dest[index] = mod
+				end
+				param = nil
+				break
+			end
+		end
+		if param then
+			t_insert(dest, mod)
+		end
+	end
 end
 
 -- Calculate min/max damage of a hit for the given damage type
@@ -1002,7 +1025,7 @@ local function initEnv(build, mode, override)
 end
 
 -- Finalise environment and perform the calculations
--- This function is 1900 lines long. Enjoy!
+-- This function is 2100 lines long. Enjoy!
 local function performCalcs(env)
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
@@ -1049,9 +1072,35 @@ local function performCalcs(env)
 	-- Merge flask modifiers
 	if env.mode_combat then
 		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
+		local flaskBuffs = { }
 		for item in pairs(env.flasks) do
 			modDB.conditions["UsingFlask"] = true
-			modDB:ScaleAddList(item.modList, 1 + (effectInc + item.flaskData.effectInc) / 100)
+			-- Avert thine eyes, lest they be forever scarred
+			-- I have no idea how to determine which buff is applied by a given flask, 
+			-- so utility flasks are grouped by base, unique flasks are grouped by name, and magic flasks by their modifiers
+			local effectMod = 1 + (effectInc + item.flaskData.effectInc) / 100
+			if item.buffModList[1] then
+				local srcList = common.New("ModList")
+				srcList:ScaleAddList(item.buffModList, effectMod)
+				mergeBuff(srcList, flaskBuffs, item.baseName)
+			end
+			if item.modList[1] then
+				local srcList = common.New("ModList")
+				srcList:ScaleAddList(item.modList, effectMod)
+				local key
+				if item.rarity == "UNIQUE" then
+					key = item.title
+				else
+					key = ""
+					for _, mod in ipairs(item.modList) do
+						key = key .. modLib.formatModParams(mod) .. "&"
+					end
+				end
+				mergeBuff(srcList, flaskBuffs, key)
+			end
+		end
+		for _, buffModList in pairs(flaskBuffs) do
+			modDB:AddList(buffModList)
 		end
 	end
 
@@ -1124,27 +1173,6 @@ local function performCalcs(env)
 	if env.mode_effective then
 		condList["Effective"] = true
 	end
-
-	-- Check for extra curses
-	for _, value in ipairs(modDB:Sum("LIST", nil, "ExtraCurse")) do
-		local modList = common.New("ModList")
-		mergeGemMods(modList, {
-			level = value.level,
-			quality = 0,
-			data = data.gems[value.name],
-		})
-		modDB.multipliers["CurseOnEnemy"] = (modDB.multipliers["CurseOnEnemy"] or 0) + 1
-		local curseModList = { }
-		for _, mod in ipairs(modList) do
-			for _, tag in ipairs(mod.tagList) do
-				if tag.type == "GlobalEffect" and tag.effectType == "Curse" then
-					t_insert(curseModList, mod)
-					break
-				end
-			end
-		end
-		enemyDB:ScaleAddList(curseModList, (1 + enemyDB:Sum("INC", nil, "CurseEffect") / 100) * enemyDB:Sum("MORE", nil, "CurseEffect"))
-	end
 	
 	-- Check for extra modifiers to apply to aura skills
 	local extraAuraModList = { }
@@ -1155,7 +1183,10 @@ local function performCalcs(env)
 		end
 	end
 
-	-- Merge auxillary skill modifiers and calculate skill life and mana reservations
+	-- Combine buffs/debuffs and calculate skill life and mana reservations
+	local buffs = { }
+	local debuffs = { }
+	local curses = { }
 	env.reserved_LifeBase = 0
 	env.reserved_LifePercent = 0
 	env.reserved_ManaBase = 0
@@ -1168,37 +1199,58 @@ local function performCalcs(env)
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
 
-		-- Merge auxillary modifiers
+		-- Combine buffs/debuffs
 		if env.mode_buffs then
-			if activeSkill.buffModList and (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff) and (not activeSkill.skillData.offering or modDB:Sum("FLAG", nil, "OfferingsAffectPlayer")) then
+			if activeSkill.buffModList and 
+			   not activeSkill.skillFlags.curse and 
+			   (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff) and 
+			   (not activeSkill.skillData.offering or modDB:Sum("FLAG", nil, "OfferingsAffectPlayer")) then
 				activeSkill.buffSkill = true
+				local srcList = common.New("ModList")
 				local inc = modDB:Sum("INC", skillCfg, "BuffEffect")
-				if activeSkill.activeGem.data.golem and modDB:Sum("FLAG", skillCfg, "LiegeOfThePrimordial") and (activeSkill.activeGem.data.fire or activeSkill.activeGem.data.cold or activeSkill.activeGem.data.lightning) then	
-					inc = inc + 100
-				end
-				modDB:ScaleAddList(activeSkill.buffModList, 1 + inc / 100)
+				local more = modDB:Sum("MORE", skillCfg, "BuffEffect")
+				srcList:ScaleAddList(activeSkill.buffModList, (1 + inc / 100) * more)
+				mergeBuff(srcList, buffs, activeSkill.activeGem.name)
 			end
-			if activeSkill.auraModList then
+			if activeSkill.auraModList and not activeSkill.skillData.auraCannotAffectSelf then
 				activeSkill.buffSkill = true
-				local inc = modDB:Sum("INC", skillCfg, "AuraEffect") + skillModList:Sum("INC", skillCfg, "AuraEffect") + modDB:Sum("INC", skillCfg, "BuffEffect")
-				local more = modDB:Sum("MORE", skillCfg, "AuraEffect") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
-				modDB:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
-				modDB:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
+				local srcList = common.New("ModList")
+				local inc = modDB:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect")
+				local more = modDB:Sum("MORE", skillCfg, "AuraEffect", "BuffEffect") * skillModList:Sum("MORE", skillCfg, "AuraEffect", "BuffEffect")
+				srcList:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
+				srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
+				mergeBuff(srcList, buffs, activeSkill.activeGem.name)
 				condList["HaveAuraActive"] = true
 			end
 		end
 		if env.mode_effective then
 			if activeSkill.debuffModList then
 				activeSkill.debuffSkill = true
-				enemyDB:ScaleAddList(activeSkill.debuffModList, activeSkill.skillData.stackCount or 1)
+				local srcList = common.New("ModList")
+				srcList:ScaleAddList(activeSkill.debuffModList, activeSkill.skillData.stackCount or 1)
+				mergeBuff(srcList, debuffs, activeSkill.activeGem.name)
 			end
-			if activeSkill.curseModList then
-				activeSkill.debuffSkill = true
-				condList["EnemyCursed"] = true
-				modDB.multipliers["CurseOnEnemy"] = (modDB.multipliers["CurseOnEnemy"] or 0) + 1
+			if activeSkill.curseModList or (activeSkill.skillFlags.curse and activeSkill.buffModList) then
+				local curse = {
+					name = activeSkill.activeGem.name,
+					priority = activeSkill.skillTypes[SkillType.Aura] and 3 or 1,
+				}
 				local inc = modDB:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffect") + skillModList:Sum("INC", skillCfg, "CurseEffect")
 				local more = modDB:Sum("MORE", skillCfg, "CurseEffect") * enemyDB:Sum("MORE", nil, "CurseEffect") * skillModList:Sum("MORE", skillCfg, "CurseEffect")
-				enemyDB:ScaleAddList(activeSkill.curseModList, (1 + inc / 100) * more)
+				if activeSkill.curseModList then
+					curse.modList = common.New("ModList")
+					curse.modList:ScaleAddList(activeSkill.curseModList, (1 + inc / 100) * more)
+				end
+				if activeSkill.buffModList then
+					-- Curse applies a buff; scale by curse effect, then buff effect
+					local temp = common.New("ModList")
+					temp:ScaleAddList(activeSkill.buffModList, (1 + inc / 100) * more)
+					curse.buffModList = common.New("ModList")
+					local buffInc = modDB:Sum("INC", skillCfg, "BuffEffect")
+					local buffMore = modDB:Sum("MORE", skillCfg, "BuffEffect")
+					curse.buffModList:ScaleAddList(temp, (1 + buffInc / 100) * buffMore)
+				end
+				t_insert(curses, curse)
 			end
 		end
 
@@ -1228,6 +1280,76 @@ local function performCalcs(env)
 					total = cost .. (activeSkill.skillTypes[SkillType.ManaCostPercent] and "%" or ""),
 				})
 			end
+		end
+	end
+
+	-- Check for extra curses
+	for _, value in ipairs(modDB:Sum("LIST", nil, "ExtraCurse")) do
+		local curse = {
+			name = value.name,
+			priority = 2,
+			modList = common.New("ModList")
+		}
+		local gemModList = common.New("ModList")
+		mergeGemMods(gemModList, {
+			level = value.level,
+			quality = 0,
+			data = data.gems[value.name],
+		})
+		local curseModList = { }
+		for _, mod in ipairs(gemModList) do
+			for _, tag in ipairs(mod.tagList) do
+				if tag.type == "GlobalEffect" and tag.effectType == "Curse" then
+					t_insert(curseModList, mod)
+					break
+				end
+			end
+		end
+		curse.modList:ScaleAddList(curseModList, (1 + enemyDB:Sum("INC", nil, "CurseEffect") / 100) * enemyDB:Sum("MORE", nil, "CurseEffect"))
+		t_insert(curses, curse)
+	end
+
+	-- Assign curses to slots
+	local curseSlots = { }
+	env.curseSlots = curseSlots
+	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit")
+	for _, curse in ipairs(curses) do
+		local slot
+		for i = 1, output.EnemyCurseLimit do
+			if not curseSlots[i] then
+				slot = i
+				break
+			elseif curseSlots[i].name == curse.name then
+				if curseSlots[i].priority < curse.priority then
+					slot = i
+				else
+					slot = nil
+				end
+				break
+			elseif curseSlots[i].priority < curse.priority then
+				slot = i
+			end
+		end
+		if slot then
+			curseSlots[slot] = curse
+		end
+	end
+
+	-- Merge buff/debuff modifiers
+	for _, modList in pairs(buffs) do
+		modDB:AddList(modList)
+	end
+	for _, modList in pairs(debuffs) do
+		enemyDB:AddList(modList)
+	end
+	modDB.multipliers["CurseOnEnemy"] = #curseSlots
+	for _, slot in ipairs(curseSlots) do
+		condList["EnemyCursed"] = true
+		if slot.modList then
+			enemyDB:AddList(slot.modList)
+		end
+		if slot.buffModList then
+			modDB:AddList(slot.buffModList)
 		end
 	end
 
@@ -2538,7 +2660,7 @@ local function performCalcs(env)
 	skillFlags.bleed = false
 	skillFlags.poison = false
 	skillFlags.ignite = false
-	skillFlags.igniteCanStack = modDB:Sum("FLAG", nil, "IgniteCanStack")
+	skillFlags.igniteCanStack = modDB:Sum("FLAG", skillCfg, "IgniteCanStack")
 	skillFlags.shock = false
 	skillFlags.freeze = false
 	for _, pass in ipairs(passList) do
@@ -3263,8 +3385,8 @@ function calcs.buildOutput(build, mode)
 				end
 			end
 		end
-		for _, value in ipairs(env.modDB:Sum("LIST", nil, "ExtraCurse")) do
-			t_insert(curseList, value.name)
+		for _, slot in ipairs(env.curseSlots) do
+			t_insert(curseList, slot.name)
 		end
 		output.BuffList = table.concat(buffList, ", ")
 		output.CombatList = table.concat(combatList, ", ")

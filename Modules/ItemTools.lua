@@ -620,6 +620,16 @@ function itemLib.buildItemModList(item)
 		return
 	end
 	local baseList = { }
+	if item.base.weapon then
+		item.weaponData = { }
+	elseif item.base.armour then
+		item.armourData = { }
+	elseif item.base.flask then
+		item.flaskData = { }
+		item.buffModList = { }
+	elseif item.type == "Jewel" then
+		item.jewelData = { }
+	end
 	item.baseModList = baseList
 	item.rangeLineList = { }
 	item.modSource = "Item:"..(item.id or -1)..":"..item.name
@@ -638,22 +648,17 @@ function itemLib.buildItemModList(item)
 				if type(mod.value) == "table" and mod.value.mod then
 					mod.value.mod.source = mod.source
 				end
-				t_insert(baseList, mod)
+				if modLine.buff then
+					t_insert(item.buffModList, mod)
+				else
+					t_insert(baseList, mod)
+				end
 			end
 		end
 	end
 	if item.name == "Tabula Rasa, Simple Robe" or item.name == "Skin of the Loyal, Simple Robe" or item.name == "Skin of the Lords, Simple Robe" then
 		-- Hack to remove the energy shield
 		t_insert(baseList, { name = "Misc", type = "LIST", value = { type = "ArmourData", key = "EnergyShield" }, flags = 0, keywordFlags = 0, tagList = { } })
-	end
-	if item.base.weapon then
-		item.weaponData = { }
-	elseif item.base.armour then
-		item.armourData = { }
-	elseif item.base.flask then
-		item.flaskData = { }
-	elseif item.type == "Jewel" then
-		item.jewelData = { }
 	end
 	if item.base.weapon or item.type == "Ring" then
 		item.slotModList = { }

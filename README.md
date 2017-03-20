@@ -47,6 +47,20 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.21 - 2017/03/20
+With this update, the handling of buffs and debuffs has been improved:
+ * Having multiple copies of the same flask or buff/debuff skill active is now handled correctly
+   * When multiple copies are present, the highest value of each stat is used
+ * The enemy curse limit is now calculated and respected; when the limit is exceeded:
+   * Blasphemy curses take priority over other curses
+   * The Vulnerability aura from Witchfire Brew takes priority over non-Blasphemy curses
+   * Otherwise, curses are prioritised according to their ordering in the Skills tab
+Other changes:
+ * Punishment is now supported (this was mostly made possible by the buff overhaul)
+ * Generosity is now supported
+ * Block Chance Reduction is now supported (although it has no effect)
+ * Several uniques have received minor corrections to the wording of stats
+
 ### 1.3.20 - 2017/03/17
  * Added skill parts to Vaal Fireball that match those on Fireball
  * Reverted the rounding change from the previous update, as the change in the game has been reverted also

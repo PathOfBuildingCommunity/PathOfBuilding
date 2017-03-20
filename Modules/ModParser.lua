@@ -546,7 +546,11 @@ local specialModList = {
 		mod("FireDamage", "INC", num, { type = "Condition", var = "HaveFireGolem"}), 
 		mod("ChaosDamage", "INC", num, { type = "Condition", var = "HaveChaosGolem"}) 
 	} end,
-	["100%% increased effect of buffs granted by your elemental golems"] = { flag("LiegeOfThePrimordial") },
+	["(%d+)%% increased effect of buffs granted by your elemental golems"] = function(num) return { 
+		mod("BuffEffect", "INC", num, { type = "SkillType", skillType = SkillType.Golem }, { type = "SkillType", skillType = SkillType.FireSkill }),
+		mod("BuffEffect", "INC", num, { type = "SkillType", skillType = SkillType.Golem }, { type = "SkillType", skillType = SkillType.ColdSkill }),
+		mod("BuffEffect", "INC", num, { type = "SkillType", skillType = SkillType.Golem }, { type = "SkillType", skillType = SkillType.LightningSkill }),
+	} end,
 	["every 10 seconds, gain (%d+)%% increased elemental damage for 4 seconds"] = function(num) return { mod("ElementalDamage", "INC", num, { type = "Condition", var = "PendulumOfDestruction" }) } end,
 	["every 10 seconds, gain (%d+)%% increased area of effect of area skills for 4 seconds"] = function(num) return { mod("AreaOfEffect", "INC", num, { type = "Condition", var = "PendulumOfDestruction" }) } end,
 	["enemies you curse take (%d+)%% increased damage"] = function(num) return { mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("DamageTaken", "INC", num) }, { type = "Condition", var = "EnemyCursed" }) } end,
@@ -1081,7 +1085,6 @@ local function parseMod(line, order)
 		end
 		modValue = { tonumber(formCap[1]), tonumber(formCap[2]) }		
 		modName = { damageType.."Min", damageType.."Max" }
-		modFlag = modFlag or { flags = bor(ModFlag.Attack, ModFlag.Spell) }
 	end
 
 	-- Combine flags and tags

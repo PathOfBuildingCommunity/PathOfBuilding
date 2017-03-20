@@ -508,7 +508,51 @@ gems["Generosity"] = {
 	strength = true,
 	support = true,
 	aura = true,
-	unsupported = true,
+	color = 1,
+	requireSkillTypes = { 44, },
+	addSkillTypes = { },
+	excludeSkillTypes = { 30, 32, },
+	baseMods = {
+		skill("auraCannotAffectSelf", true), --"aura_cannot_affect_self" = ?
+	},
+	qualityMods = {
+		mod("AreaOfEffect", "INC", 2, 0, KeywordFlag.Aura), --"base_aura_area_of_effect_+%" = 2
+	},
+	levelMods = {
+		[1] = mod("AuraEffect", "INC", nil), --"non_curse_aura_effect_+%"
+	},
+	levels = {
+		[1] = { 20, },
+		[2] = { 21, },
+		[3] = { 22, },
+		[4] = { 23, },
+		[5] = { 24, },
+		[6] = { 25, },
+		[7] = { 26, },
+		[8] = { 27, },
+		[9] = { 28, },
+		[10] = { 29, },
+		[11] = { 30, },
+		[12] = { 31, },
+		[13] = { 32, },
+		[14] = { 33, },
+		[15] = { 34, },
+		[16] = { 35, },
+		[17] = { 36, },
+		[18] = { 37, },
+		[19] = { 38, },
+		[20] = { 39, },
+		[21] = { 40, },
+		[22] = { 41, },
+		[23] = { 42, },
+		[24] = { 43, },
+		[25] = { 44, },
+		[26] = { 45, },
+		[27] = { 46, },
+		[28] = { 47, },
+		[29] = { 48, },
+		[30] = { 49, },
+	},
 }
 gems["Increased Burning Damage"] = {
 	fire = true,

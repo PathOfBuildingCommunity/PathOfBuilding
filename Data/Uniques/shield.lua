@@ -31,7 +31,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 61, 159 Str
 {variant:2}Adds (7-10) to (15-25) Fire Damage to Attacks
-{variant:3}Adds (12-15) to (30-35) Fire Damage
+{variant:3}Adds (12-15) to (30-35) Fire Damage to Spells and Attacks
 (120-150)% increased Armour
 {variant:3}+(60-80) to maximum Life
 +(35-50)% to Fire Resistance

@@ -467,7 +467,7 @@ Implicits: 2
 +1 to Level of Active Socketed Skill Gems
 (60-80)% increased Physical Damage
 Adds (60-65) to (90-105) Chaos Damage
-{variant:2}Adds 1 to 2 Physical Damage per Level
+{variant:2}Adds 1 to 2 Physical Damage to Attacks per Level
 {variant:1}+1 Life gained on Kill per Level
 {variant:1}1% increased Elemental Damage per Level
 1% increased Chaos Damage per Level

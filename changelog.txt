@@ -1,3 +1,16 @@
+VERSION[1.3.21][2017/03/20]
+With this update, the handling of buffs and debuffs has been improved:
+ * Having multiple copies of the same flask or buff/debuff skill active is now handled correctly
+   * When multiple copies are present, the highest value of each stat is used
+ * The enemy curse limit is now calculated and respected; when the limit is exceeded:
+   * Blasphemy curses take priority over other curses
+   * The Vulnerability aura from Witchfire Brew takes priority over non-Blasphemy curses
+   * Otherwise, curses are prioritised according to their ordering in the Skills tab
+Other changes:
+ * Punishment is now supported (this was mostly made possible by the buff overhaul)
+ * Generosity is now supported
+ * Block Chance Reduction is now supported (although it has no effect)
+ * Several uniques have received minor corrections to the wording of stats
 VERSION[1.3.20][2017/03/17]
  * Added skill parts to Vaal Fireball that match those on Fireball
  * Reverted the rounding change from the previous update, as the change in the game has been reverted also
