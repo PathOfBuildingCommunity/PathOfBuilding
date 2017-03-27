@@ -50,7 +50,7 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ### 1.3.22 - 2017/03/28
  * The sidebar can now displays two Crit Chance values:
     1. Crit Chance: 
-	   * This is the skill's "real" crit chance, as displayed in the in-game tooltip
+	   * This is the skill's "real" crit chance, as displayed in the in-game character sheet
 	   * If your crit chance is capped, this value will always be 95%, unlike your effective crit chance (which can be lower)
 	2. Effective Crit Chance: 
 	   * This is the value previously shown as "Crit Chance"
