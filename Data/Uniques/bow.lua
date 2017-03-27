@@ -263,7 +263,8 @@ Implicits: 2
 Adds (32-40) to (48-60) Cold Damage
 Adds 1 to (80-100) Lightning Damage
 (10-15)% increased Attack Speed
-(60-80)% increased Critical Strike Chance
+{variant:1}(80-100)% increased Critical Strike Chance
+{variant:2,3}(60-80)% increased Critical Strike Chance
 {variant:1}25% increased Quantity of Items Dropped by Slain Frozen enemies
 {variant:2,3}15% increased Quantity of Items Dropped by Slain Frozen Enemies
 {variant:1}50% increased Rarity of Items Dropped by Slain Shocked enemies

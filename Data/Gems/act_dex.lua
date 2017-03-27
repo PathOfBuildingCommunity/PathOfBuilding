@@ -1512,6 +1512,7 @@ gems["Explosive Arrow"] = {
 		--"active_skill_attack_damage_+%_final" = 0
 		--"skill_can_fire_arrows" = 1
 		--"base_is_projectile" = 1
+		skill("showAverage", true, { type = "SkillPart", skillPart = 1 }), 
 	},
 	qualityMods = {
 		mod("EnemyIgniteChance", "BASE", 1), --"base_chance_to_ignite_%" = 1

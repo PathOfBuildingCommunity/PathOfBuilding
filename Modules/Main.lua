@@ -128,11 +128,11 @@ function main:Init()
 		self:OpenPopup(800, 250, "Update Available", {
 			common.New("TextListControl", nil, 0, 20, 780, 190, nil, changeList),
 			common.New("ButtonControl", nil, -45, 220, 80, 20, "Update", function()
+				main:ClosePopup()
 				local ret = self:CallMode("CanExit", "UPDATE")
 				if ret == nil or ret == true then
 					launch:ApplyUpdate(launch.updateAvailable)
 				end
-				main:ClosePopup()
 			end),
 			common.New("ButtonControl", nil, 45, 220, 80, 20, "Cancel", function()
 				main:ClosePopup()

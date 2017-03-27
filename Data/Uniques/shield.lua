@@ -408,13 +408,17 @@ Gain (5-10)% of Physical Damage as Extra Chaos Damage
 ]],[[
 The Oak
 Plank Kite Shield
+Variant: Pre 2.6.0
+Variant: Current
 Requires Level 40
 +4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
 +(100-150) to maximum Life
 50% reduced Freeze Duration on You
-1% of Life Regenerated per Second
-5% of Life Regenerated per Second while on Low Life
+{variant:1}1% of Life Regenerated per Second
+{variant:2}3% of Life Regenerated per Second
+{variant:1}5% of Life Regenerated per Second while on Low Life
+{variant:2}3% of Life Regenerated per Second while on Low Life
 ]],[[
 Prism Guardian
 Archon Kite Shield

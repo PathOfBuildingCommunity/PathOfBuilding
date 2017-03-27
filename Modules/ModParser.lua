@@ -388,6 +388,9 @@ local modTagList = {
 	["when in off hand"] = { tag = { type = "SlotNumber", num = 2 } },
 	["in main hand"] = { tag = { type = "InSlot", num = 1 } },
 	["in off hand"] = { tag = { type = "InSlot", num = 2 } },
+	["with main hand"] = { tag = { type = "Condition", var = "MainHandAttack" } },
+	["with off hand"] = { tag = { type = "Condition", var = "OffHandAttack" } },
+	["with this weapon"] = { tag = { type = "Condition", var = "XHandAttack" } }, -- The X is replaced when the item modifiers are generated
 	-- Equipment conditions
 	["while holding a shield"] = { tag = { type = "Condition", var = "UsingShield" } },
 	["with shields"] = { tag = { type = "Condition", var = "UsingShield" } },
@@ -402,9 +405,6 @@ local modTagList = {
 	["if you wear no corrupted items"] = { tag = { type = "Condition", var = "NotUsingCorruptedItem" } },
 	["if no worn items are corrupted"] = { tag = { type = "Condition", var = "NotUsingCorruptedItem" } },
 	["if all worn items are corrupted"] = { tag = { type = "Condition", var = "UsingAllCorruptedItems" } },
-	["with main hand"] = { tag = { type = "Condition", var = "MainHandAttack" } },
-	["with off hand"] = { tag = { type = "Condition", var = "OffHandAttack" } },
-	["with this weapon"] = { tag = { type = "Condition", var = "XHandAttack" } }, -- The X is replaced when the item modifiers are generated
 	-- Player status conditions
 	["when on low life"] = { tag = { type = "Condition", var = "LowLife" } },
 	["while on low life"] = { tag = { type = "Condition", var = "LowLife" } },
@@ -425,6 +425,7 @@ local modTagList = {
 	["during onslaught"] = { tag = { type = "Condition", var = "Onslaught" } },
 	["while you have onslaught"] = { tag = { type = "Condition", var = "Onslaught" } },
 	["while phasing"] = { tag = { type = "Condition", var = "Phasing" } },
+	["while leeching"] = { tag = { type = "Condition", var = "Leeching" } },
 	["while using a flask"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["during effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["during flask effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
@@ -587,6 +588,7 @@ local specialModList = {
 	["you and nearby allies have (%d+)%% increased attack, cast and movement speed if you've used a warcry recently"] = function(num) return { mod("Speed", "INC", num, { type = "Condition", var = "UsedWarcryRecently" }), mod("MovementSpeed", "INC", num, { type = "Condition", var = "UsedWarcryRecently" }) } end,
 	["warcries cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Warcry) },
 	["enemies you taunt take (%d+)%% increased damage"] = function(num) return { mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("DamageTaken", "INC", num) }, { type = "Condition", var = "EnemyTaunted" }) } end,
+	["you have phasing while at maximum frenzy charges"] = { mod("Misc", "LIST", { type = "Condition", var = "Phasing" }, { type = "Condition", var = "AtMaxFrenzyCharges" }) },
 	-- Special node types
 	["(%d+)%% of block chance applied to spells"] = function(num) return { mod("BlockChanceConv", "BASE", num) } end,
 	["(%d+)%% of block chance applied to spells when on low life"] = function(num) return { mod("BlockChanceConv", "BASE", num, { type = "Condition", var = "LowLife" }) } end,
@@ -805,39 +807,22 @@ for skillName, data in pairs(data.gems) do
 		skillNameList[" "..skillName:lower().." "] = { tag = { type = "SkillName", skillName = skillName } }
 	end
 end
-
-local function getSimpleConv(src, dst, type, factor)
+local function getSimpleConv(srcList, dst, type, remove, factor)
 	return function(nodeMods, out, data)
 		if nodeMods then
-			for _, mod in ipairs(nodeMods) do
-				if mod.name == src and mod.type == type then
-					out:NewMod(src, type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
-					out:NewMod(dst, type, mod.value * factor, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
-				end
-			end
-		end
-	end
-end
-local function getMatchConv(others, dst, type)
-	return function(nodeMods, out, data)
-		if nodeMods then
-			for _, mod in ipairs(nodeMods) do
-				for _, other in pairs(others) do
-					if mod.name:match(other) and mod.type == type then
-						out:NewMod(mod.name, type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
-						out:NewMod(mod.name:gsub(other, dst), type, mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
+			for _, src in pairs(srcList) do
+				for _, mod in ipairs(nodeMods) do
+					if mod.name == src and mod.type == type then
+						if remove then
+							out:NewMod(src, type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
+						end
+						if factor then
+							out:NewMod(dst, type, math.floor(mod.value * factor + 0.5), "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
+						else
+							out:NewMod(dst, type, mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
+						end
 					end
-				end
-			end
-		end
-	end
-end
-local function getSimpleGain(src, dst, type, factor)
-	return function(nodeMods, out, data)
-		if nodeMods then
-			local val = nodeMods:Sum(type, nil, unpack(src))
-			if val ~= 0 then
-				out:NewMod(dst, type, math.floor(val * factor + 0.5), "Tree:Jewel")
+				end	
 			end
 		end
 	end
@@ -862,18 +847,21 @@ end
 -- List of radius jewel functions
 local jewelFuncs = {
 -- Conversion jewels
-	["Strength from Passives in Radius is Transformed to Dexterity"] = getSimpleConv("Str", "Dex", "BASE", 1),
-	["Dexterity from Passives in Radius is Transformed to Strength"] = getSimpleConv("Dex", "Str", "BASE", 1),
-	["Strength from Passives in Radius is Transformed to Intelligence"] = getSimpleConv("Str", "Int", "BASE", 1),
-	["Intelligence from Passives in Radius is Transformed to Strength"] = getSimpleConv("Int", "Str", "BASE", 1),
-	["Dexterity from Passives in Radius is Transformed to Intelligence"] = getSimpleConv("Dex", "Int", "BASE", 1),
-	["Intelligence from Passives in Radius is Transformed to Dexterity"] = getSimpleConv("Int", "Dex", "BASE", 1),
-	["Increases and Reductions to Life in Radius are Transformed to apply to Energy Shield"] = getSimpleConv("Life", "EnergyShield", "INC", 1),
-	["Increases and Reductions to Energy Shield in Radius are Transformed to apply to Armour at 200% of their value"] = getSimpleConv("EnergyShield", "Armour", "INC", 2),
-	["Increases and Reductions to Life in Radius are Transformed to apply to Mana at 200% of their value"] = getSimpleConv("Life", "Mana", "INC", 2),
-	["Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage"] = getMatchConv({"PhysicalDamage"}, "ColdDamage", "INC"),
-	["Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage"] = getMatchConv({"ColdDamage"}, "PhysicalDamage", "INC"),
-	["Increases and Reductions to other Damage Types in Radius are Transformed to apply to Fire Damage"] = getMatchConv({"PhysicalDamage","ColdDamage","LightningDamage","ChaosDamage"}, "FireDamage", "INC"),
+	["Strength from Passives in Radius is Transformed to Dexterity"] = getSimpleConv({"Str"}, "Dex", "BASE", true),
+	["Dexterity from Passives in Radius is Transformed to Strength"] = getSimpleConv({"Dex"}, "Str", "BASE", true),
+	["Strength from Passives in Radius is Transformed to Intelligence"] = getSimpleConv({"Str"}, "Int", "BASE", true),
+	["Intelligence from Passives in Radius is Transformed to Strength"] = getSimpleConv({"Int"}, "Str", "BASE", true),
+	["Dexterity from Passives in Radius is Transformed to Intelligence"] = getSimpleConv({"Dex"}, "Int", "BASE", true),
+	["Intelligence from Passives in Radius is Transformed to Dexterity"] = getSimpleConv({"Int"}, "Dex", "BASE", true),
+	["Increases and Reductions to Life in Radius are Transformed to apply to Energy Shield"] = getSimpleConv({"Life"}, "EnergyShield", "INC", true),
+	["Increases and Reductions to Energy Shield in Radius are Transformed to apply to Armour at 200% of their value"] = getSimpleConv({"EnergyShield"}, "Armour", "INC", true, 2),
+	["Increases and Reductions to Life in Radius are Transformed to apply to Mana at 200% of their value"] = getSimpleConv({"Life"}, "Mana", "INC", true, 2),
+	["Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage"] = getSimpleConv({"PhysicalDamage"}, "ColdDamage", "INC", true),
+	["Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage"] = getSimpleConv({"ColdDamage"}, "PhysicalDamage", "INC", true),
+	["Increases and Reductions to other Damage Types in Radius are Transformed to apply to Fire Damage"] = getSimpleConv({"PhysicalDamage","ColdDamage","LightningDamage","ChaosDamage"}, "FireDamage", "INC", true),
+	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spells at 35% of its value"] = getSimpleConv({"LightningResist","ElementalResist"}, "SpellBlockChance", "BASE", false, 0.35),
+	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Dodge Attacks at 35% of its value"] = getSimpleConv({"ColdResist","ElementalResist"}, "AttackDodgeChance", "BASE", false, 0.35),
+	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Chance to Block at 35% of its value"] = getSimpleConv({"FireResist","ElementalResist"}, "BlockChance", "BASE", false, 0.35),
 	["Melee and Melee Weapon Type modifiers in Radius are Transformed to Bow Modifiers"] = function(nodeMods, out, data)
 		if nodeMods then
 			local mask1 = bor(ModFlag.Axe, ModFlag.Claw, ModFlag.Dagger, ModFlag.Mace, ModFlag.Staff, ModFlag.Sword, ModFlag.Melee)
@@ -920,9 +908,6 @@ local jewelFuncs = {
 			out:NewMod("DexIntToMeleeBonus", "BASE", data.Dex + data.Int, "Tree:Jewel")
 		end
 	end,
-	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spells at 35% of its value"] = getSimpleGain({"LightningResist","ElementalResist"}, "SpellBlockChance", "BASE", 0.35),
-	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Dodge Attacks at 35% of its value"] = getSimpleGain({"ColdResist","ElementalResist"}, "AttackDodgeChance", "BASE", 0.35),
-	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Chance to Block at 35% of its value"] = getSimpleGain({"FireResist","ElementalResist"}, "BlockChance", "BASE", 0.35),
 -- Threshold jewels
 	["With at least 40 Dexterity in Radius, Frost Blades Melee Damage Penetrates 15% Cold Resistance"] = getThreshold("Dex", "ColdPenetration", "BASE", 15, ModFlag.Melee, { type = "SkillName", skillName = "Frost Blades" }),
 	["With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile Speed"] = getThreshold("Dex", "ProjectileSpeed", "INC", 25, { type = "SkillName", skillName = "Frost Blades" }),
