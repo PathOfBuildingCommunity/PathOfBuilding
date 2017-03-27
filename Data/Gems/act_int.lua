@@ -1183,6 +1183,7 @@ gems["Essence Drain"] = {
 		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_damage_over_time" = ?
 		--"base_is_projectile" = ?
 		skill("debuff", true), 
+		skill("showAverage", true), 
 	},
 	qualityMods = {
 		mod("ChaosDamage", "INC", 1), --"chaos_damage_+%" = 1

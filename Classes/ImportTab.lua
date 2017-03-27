@@ -592,7 +592,7 @@ function ImportTabClass:ImportSocketedSkills(item, socketedItems, slotName)
 		-- Check if this socket group matches an existing one
 		local repGroup
 		for index, socketGroup in pairs(self.build.skillsTab.socketGroupList) do
-			if #socketGroup.gemList == #itemSocketGroup.gemList then
+			if #socketGroup.gemList == #itemSocketGroup.gemList and (not socketGroup.slot or socketGroup.slot == slotName) then
 				local match = true
 				for gemIndex, gem in pairs(socketGroup.gemList) do
 					if gem.nameSpec:lower() ~= itemSocketGroup.gemList[gemIndex].nameSpec:lower() then

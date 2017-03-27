@@ -84,7 +84,7 @@ function ItemSlotClass:Draw(viewPort)
 	self:DrawControls(viewPort)
 	local highlight = false
 	for _, control in pairs({self.itemsTab.controls.itemList, self.itemsTab.controls.uniqueDB, self.itemsTab.controls.rareDB}) do
-		if control:IsShown() and control.selDragging and control.selDragActive and self.itemsTab:IsItemValidForSlot(control.selItem, self.slotName) then
+		if control:IsShown() and control.selDragging and control.selDragActive and control.selItem and self.itemsTab:IsItemValidForSlot(control.selItem, self.slotName) then
 			highlight = true
 			SetDrawColor(0, 1, 0, 0.25)
 			DrawImage(nil, x, y, width, height)

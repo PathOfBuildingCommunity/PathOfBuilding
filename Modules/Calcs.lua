@@ -1353,28 +1353,6 @@ local function performCalcs(env)
 		end
 	end
 
-	-- Process misc modifiers
-	for _, value in ipairs(modDB:Sum("LIST", nil, "Misc")) do
-		if value.type == "Condition" then
-			condList[value.var] = true
-		elseif value.type == "EnemyCondition" then
-			enemyDB.conditions[value.var] = true
-		elseif value.type == "Multiplier" then
-			modDB.multipliers[value.var] = (modDB.multipliers[value.var] or 0) + value.value
-		end
-	end
-	-- Process enemy modifiers last in case they depend on conditions that were set by misc modifiers
-	for _, value in ipairs(modDB:Sum("LIST", nil, "Misc")) do
-		if value.type == "EnemyModifier" then
-			enemyDB:AddMod(value.mod)
-		end
-	end
-
-	-- Process conditions that can depend on other conditions
-	if condList["EnemyIgnited"] then
-		condList["EnemyBurning"] = true
-	end
-
 	-- Calculate current and maximum charges
 	output.PowerChargesMax = modDB:Sum("BASE", nil, "PowerChargesMax")
 	output.FrenzyChargesMax = modDB:Sum("BASE", nil, "FrenzyChargesMax")
@@ -1414,6 +1392,28 @@ local function performCalcs(env)
 	end
 	if output.EnduranceCharges == output.EnduranceChargesMax then
 		condList["AtMaxEnduranceCharges"] = true
+	end
+
+	-- Process misc modifiers
+	for _, value in ipairs(modDB:Sum("LIST", nil, "Misc")) do
+		if value.type == "Condition" then
+			condList[value.var] = true
+		elseif value.type == "EnemyCondition" then
+			enemyDB.conditions[value.var] = true
+		elseif value.type == "Multiplier" then
+			modDB.multipliers[value.var] = (modDB.multipliers[value.var] or 0) + value.value
+		end
+	end
+	-- Process enemy modifiers last in case they depend on conditions that were set by misc modifiers
+	for _, value in ipairs(modDB:Sum("LIST", nil, "Misc")) do
+		if value.type == "EnemyModifier" then
+			enemyDB:AddMod(value.mod)
+		end
+	end
+
+	-- Process conditions that can depend on other conditions
+	if condList["EnemyIgnited"] then
+		condList["EnemyBurning"] = true
 	end
 
 	-- Add misc buffs
@@ -2242,12 +2242,14 @@ local function performCalcs(env)
 
 		-- Calculate crit chance, crit multiplier, and their combined effect
 		if modDB:Sum("FLAG", nil, "NeverCrit") then
+			output.PreEffectiveCritChance = 0
 			output.CritChance = 0
 			output.CritMultiplier = 0
 			output.CritEffect = 1
 		else
 			local baseCrit = source.critChance or 0
 			if baseCrit == 100 then
+				output.PreEffectiveCritChance = 100
 				output.CritChance = 100
 			else
 				local base = modDB:Sum("BASE", cfg, "CritChance")
@@ -2262,6 +2264,7 @@ local function performCalcs(env)
 				if (baseCrit + base) > 0 then
 					output.CritChance = m_max(output.CritChance, 5)
 				end
+				output.PreEffectiveCritChance = output.CritChance
 				local preLuckyCritChance = output.CritChance
 				if env.mode_effective and modDB:Sum("FLAG", cfg, "CritChanceLucky") then
 					output.CritChance = (1 - (1 - output.CritChance / 100) ^ 2) * 100
@@ -2504,6 +2507,7 @@ local function performCalcs(env)
 
 	if isAttack then
 		-- Combine crit stats, average damage and DPS
+		combineStat("PreEffectiveCritChance", "AVERAGE")
 		combineStat("CritChance", "AVERAGE")
 		combineStat("CritMultiplier", "AVERAGE")
 		combineStat("AverageDamage", "DPS")

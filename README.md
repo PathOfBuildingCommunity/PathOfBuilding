@@ -47,6 +47,22 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.22 - 2017/03/28
+ * The sidebar can now displays two Crit Chance values:
+    1. Crit Chance: 
+	   * This is the skill's "real" crit chance, as displayed in the in-game tooltip
+	   * If your crit chance is capped, this value will always be 95%, unlike your effective crit chance (which can be lower)
+	2. Effective Crit Chance: 
+	   * This is the value previously shown as "Crit Chance"
+	   * This estimates your true crit chance, factoring in accuracy and "Crit Chance is Lucky"
+ * Added an option to the Configuration tab for "Are you Leeching?" 
+ * Essence Drain now uses "Average Damage" mode
+ * Phasing is now enabled automatically if you have Quartz Infusion and maximum frenzy charges
+ * The Red/Green/Blue Nightmare jewels now correctly apply to the condition resistance stats in the Sanctuary cluster
+ * Corrected the crit chance modifier on Pre-2.0.0 Windripper
+ * Updated "The Oak" to mirror the changes to Springleaf in 2.6
+ * The program should now correctly prompt to save the current build before updating
+ 
 ### 1.3.21 - 2017/03/20
 With this update, the handling of buffs and debuffs has been improved:
  * Having multiple copies of the same flask or buff/debuff skill active is now handled correctly

@@ -436,7 +436,7 @@ Crimson Jewel
 Limited to: 2
 Radius: Medium
 (4-12)% increased Physical Damage
-With at least 40 Strength in Radius, Heavy Strike has a 10% chance to deal Double Damage.
+With at least 40 Strength in Radius, Heavy Strike has a 20% chance to deal Double Damage.
 ]],[[
 Winter's Bounty
 Cobalt Jewel
