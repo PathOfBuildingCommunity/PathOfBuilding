@@ -201,97 +201,91 @@ function TreeTabClass:OpenSpecManagePopup()
 end
 
 function TreeTabClass:OpenImportPopup()
-	local treeLink = ""
-	local showMsg
-	local popup
-	popup = main:OpenPopup(380, 110, "Import Tree", {
-		common.New("LabelControl", nil, 0, 20, 0, 16, "Enter passive tree link:"),
-		edit = common.New("EditControl", nil, 0, 40, 350, 18, "", nil, nil, nil, function(buf)
-			treeLink = buf 
-			showMsg = nil
-		end),
-		common.New("LabelControl", nil, 0, 58, 0, 16, function() return showMsg or "" end),
-		import = common.New("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
-			if #treeLink > 0 then
-				if treeLink:match("poeurl%.com/") then
-					popup.controls.import.enabled = false
-					showMsg = "Resolving PoEURL link..."
-					local id = LaunchSubScript([[
-						local treeLink = ...
-						local curl = require("lcurl.safe")
-						local easy = curl.easy()
-						easy:setopt_url(treeLink)
-						easy:setopt_writefunction(function(data)
-							return true
-						end)
-						easy:perform()
-						local redirect = easy:getinfo(curl.INFO_REDIRECT_URL)
-						easy:close()
-						if not redirect or redirect:match("poeurl%.com/") then
-							return nil, "Failed to resolve PoEURL link"
-						end
-						return redirect
-					]], "", "", treeLink)
-					if id then
-						launch:RegisterSubScript(id, function(treeLink, errMsg)
-							if errMsg then
-								showMsg = "^1"..errMsg
-								popup.controls.import.enabled = true
-							else
-								local errMsg = self.build.spec:DecodeURL(treeLink)
-								if errMsg then
-									showMsg = "^1"..errMsg
-								else
-									self.build.spec:AddUndoState()
-									self.build.buildFlag = true
-									main:ClosePopup()
-								end
-							end
-						end)
-					end
-				else
-					local errMsg = self.build.spec:DecodeURL(treeLink)
-					if errMsg then
-						showMsg = "^1"..errMsg
-					else
-						self.build.spec:AddUndoState()
-						self.build.buildFlag = true
-						main:ClosePopup()
-					end
-				end
-			end
-		end),
-		common.New("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()
+	local controls = { }
+	local function decodeTreeLink(treeLink)
+		local errMsg = self.build.spec:DecodeURL(treeLink)
+		if errMsg then
+			controls.msg.label = "^1"..errMsg
+		else
+			self.build.spec:AddUndoState()
+			self.build.buildFlag = true
 			main:ClosePopup()
-		end),
-	}, "import", "edit")
+		end
+	end
+	controls.editLabel = common.New("LabelControl", nil, 0, 20, 0, 16, "Enter passive tree link:")
+	controls.edit = common.New("EditControl", nil, 0, 40, 350, 18, "", nil, nil, nil, function(buf)
+		controls.msg.label = ""
+	end)
+	controls.msg = common.New("LabelControl", nil, 0, 58, 0, 16, "")
+	controls.import = common.New("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
+		local treeLink = controls.edit.buf
+		if #treeLink == 0 then
+			return
+		end
+		if treeLink:match("poeurl%.com/") then
+			controls.import.enabled = false
+			controls.msg.label = "Resolving PoEURL link..."
+			local id = LaunchSubScript([[
+				local treeLink = ...
+				local curl = require("lcurl.safe")
+				local easy = curl.easy()
+				easy:setopt_url(treeLink)
+				easy:setopt_writefunction(function(data)
+					return true
+				end)
+				easy:perform()
+				local redirect = easy:getinfo(curl.INFO_REDIRECT_URL)
+				easy:close()
+				if not redirect or redirect:match("poeurl%.com/") then
+					return nil, "Failed to resolve PoEURL link"
+				end
+				return redirect
+			]], "", "", treeLink)
+			if id then
+				launch:RegisterSubScript(id, function(treeLink, errMsg)
+					if errMsg then
+						controls.msg.label = "^1"..errMsg
+						controls.import.enabled = true
+					else
+						decodeTreeLink(treeLink)
+					end
+				end)
+			end
+		else
+			decodeTreeLink(treeLink)
+		end
+	end)
+	controls.cancel = common.New("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(380, 110, "Import Tree", controls, "import", "edit")
 end
 
 function TreeTabClass:OpenExportPopup()
 	local treeLink = self.build.spec:EncodeURL("https://www.pathofexile.com/passive-skill-tree/")
 	local popup
-	popup = main:OpenPopup(380, 100, "Export Tree", {
-		common.New("LabelControl", nil, 0, 20, 0, 16, "Passive tree link:"),
-		edit = common.New("EditControl", nil, 0, 40, 350, 18, treeLink, nil, "%Z"),
-		shrink = common.New("ButtonControl", nil, -90, 70, 140, 20, "Shrink with PoEURL", function()
-			popup.controls.shrink.enabled = false
-			popup.controls.shrink.label = "Shrinking..."
-			launch:DownloadPage("http://poeurl.com/shrink.php?url="..treeLink, function(page, errMsg)
-				popup.controls.shrink.label = "Done"
-				if errMsg or not page:match("%S") then
-					main:OpenMessagePopup("PoEURL Shortener", "Failed to get PoEURL link. Try again later.")
-				else
-					treeLink = "http://poeurl.com/"..page
-					popup.controls.edit:SetText(treeLink)
-					popup:SelectControl(popup.controls.edit)
-				end
-			end)
-		end),
-		common.New("ButtonControl", nil, 30, 70, 80, 20, "Copy", function()
-			Copy(treeLink)
-		end),
-		done = common.New("ButtonControl", nil, 120, 70, 80, 20, "Done", function()
-			main:ClosePopup()
-		end),
-	}, "done", "edit")
+	local controls = { }
+	controls.label = common.New("LabelControl", nil, 0, 20, 0, 16, "Passive tree link:")
+	controls.edit = common.New("EditControl", nil, 0, 40, 350, 18, treeLink, nil, "%Z")
+	controls.shrink = common.New("ButtonControl", nil, -90, 70, 140, 20, "Shrink with PoEURL", function()
+		controls.shrink.enabled = false
+		controls.shrink.label = "Shrinking..."
+		launch:DownloadPage("http://poeurl.com/shrink.php?url="..treeLink, function(page, errMsg)
+			controls.shrink.label = "Done"
+			if errMsg or not page:match("%S") then
+				main:OpenMessagePopup("PoEURL Shortener", "Failed to get PoEURL link. Try again later.")
+			else
+				treeLink = "http://poeurl.com/"..page
+				controls.edit:SetText(treeLink)
+				popup:SelectControl(controls.edit)
+			end
+		end)
+	end)
+	controls.copy = common.New("ButtonControl", nil, 30, 70, 80, 20, "Copy", function()
+		Copy(treeLink)
+	end)
+	controls.done = common.New("ButtonControl", nil, 120, 70, 80, 20, "Done", function()
+		main:ClosePopup()
+	end)
+	popup = main:OpenPopup(380, 100, "Export Tree", controls, "done", "edit")
 end

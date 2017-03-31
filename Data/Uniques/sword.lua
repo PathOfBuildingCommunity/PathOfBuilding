@@ -184,7 +184,7 @@ Implicits: 2
 {variant:2}40% increased Accuracy Rating
 Adds (65-75) to (110-130) Physical Damage
 100% increased Burning Damage if you've Ignited an Enemy Recently
-Recovery 1% of Maximum Life when you Ignite an Enemy
+Recover 1% of Maximum Life when you Ignite an Enemy
 100% increased Melee Physical Damage against Ignited Enemies
 ]],[[
 Rebuke of the Vaal

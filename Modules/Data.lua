@@ -127,6 +127,17 @@ data.itemMods = { }
 data.itemMods.Flask = LoadModule("Data/ModFlask")
 data.itemMods.Jewel = LoadModule("Data/ModJewel")
 
+data.enchantments = { }
+data.enchantments.Helmet = LoadModule("Data/EnchantmentHelmet")
+data.enchantments.Boots = LoadModule("Data/EnchantmentBoots")
+
+data.labyrinths = {
+	{ name = "ENDGAME", label = "Endgame" },
+	{ name = "MERCILESS", label = "Merciless" },
+	{ name = "CRUEL", label = "Cruel" },
+	{ name = "NORMAL", label = "Normal" },
+}
+
 data.gems = { }
 local function makeGemMod(modName, modType, modVal, flags, keywordFlags, ...)
 	return {

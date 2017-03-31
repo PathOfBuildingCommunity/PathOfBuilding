@@ -390,7 +390,7 @@ return {
 	{ label = "Active Trap Limit", flag = "trap", { format = "{0:output:ActiveTrapLimit}", { modName = "ActiveTrapLimit", cfg = "skill" }, }, },
 	{ label = "Trap Cooldown", flag = "trap", { format = "{2:output:TrapCooldown}s", 
 		{ breakdown = "TrapCooldown" }, 
-		{ modName = "TrapCooldownRecovery", cfg = "skill" },
+		{ modName = "CooldownRecovery", cfg = "skill" },
 	}, },
 	{ label = "Active Mine Limit", flag = "mine", { format = "{0:output:ActiveMineLimit}", { modName = "ActiveMineLimit", cfg = "skill" }, }, },
 	{ label = "Active Totem Limit", flag = "totem", { format = "{0:output:ActiveTotemLimit}", { modName = "ActiveTotemLimit", cfg = "skill" }, }, },

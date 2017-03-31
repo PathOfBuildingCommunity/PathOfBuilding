@@ -54,7 +54,7 @@ Requires Level 70, 159 Str
 +5% Chance to Block
 ]],[[
 Lycosidae
-Splintered Tower Shield
+Rawhide Tower Shield
 Requires Level 11, 33 Str
 +(120-160) to Armour
 +(30-40) to maximum Life

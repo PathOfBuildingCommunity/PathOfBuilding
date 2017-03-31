@@ -151,10 +151,16 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemVariant.shown = function()
 		return self.displayItem.variantList and #self.displayItem.variantList > 1
 	end
+	self.controls.displayItemEnchant = common.New("ButtonControl", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 160, 20, "Apply Enchantment...", function()
+		self:EnchantDisplayItem()
+	end)
+	self.controls.displayItemEnchant.shown = function()
+		return self.displayItem.enchantments
+	end
 	for i = 1, 6 do
 		local prev = self.controls["displayItemAffix"..(i-1)] or self.controls.addDisplayItem
 		local drop
-		drop = common.New("DropDownControl", {"TOPLEFT",prev,"BOTTOMLEFT"}, i==1 and 40 or 0, i == 1 and 8 or 2, 418, 20, nil, function(sel, value)
+		drop = common.New("DropDownControl", {"TOPLEFT",prev,"BOTTOMLEFT"}, i==1 and 40 or 0, i == 1 and function() return self.displayItem.enchantments and 28 or 8 end or 2, 418, 20, nil, function(sel, value)
 			self.displayItem[drop.outputTable][drop.outputIndex] = value.value
 			itemLib.craftItem(self.displayItem)
 			self:UpdateDisplayItemRangeLines()
@@ -178,7 +184,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[sel].range
 	end)
 	self.controls.displayItemRangeLine.y = function()
-		return 8 + (self.displayItem and self.displayItem.craftable and (self.displayItem.affixLimit * 22 + 6) or 0)
+		return 8 + (self.displayItem and self.displayItem.enchantments and 28 or 0) + (self.displayItem and self.displayItem.craftable and (self.displayItem.affixLimit * 22 + 6) or 0)
 	end
 	self.controls.displayItemRangeLine.shown = function()
 		return self.displayItem.rangeLineList[1] ~= nil
@@ -288,6 +294,9 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 
 	if self.displayItem then
 		local extraOffset = self.controls.displayItemRangeLine:IsShown() and 26 or 0
+		if self.displayItem.enchantments then
+			extraOffset = extraOffset + 28
+		end
 		if self.displayItem.craftable then
 			extraOffset = extraOffset + self.displayItem.affixLimit * 22 + 6
 		end
@@ -336,10 +345,10 @@ end
 
 -- Opens the item crafting popup
 function ItemsTabClass:CraftItem()
-	local popup
+	local controls = { }
 	local function makeItem(base)
 		local item = { name = base.name, base = base.base, baseName = base.name, modLines = { }, quality = 0 }
-		local raritySel = popup.controls.rarity.sel
+		local raritySel = controls.rarity.sel
 		if base.base.flask then
 			if raritySel == 3 then
 				raritySel = 2
@@ -348,9 +357,9 @@ function ItemsTabClass:CraftItem()
 		if data.itemMods[base.base.type] and (raritySel == 2 or raritySel == 3) then
 			item.crafted = true
 		end
-		item.rarity = popup.controls.rarity.list[raritySel].val
+		item.rarity = controls.rarity.list[raritySel].val
 		if raritySel >= 3 then
-			item.title = popup.controls.title.buf:match("%S") and popup.controls.title.buf or "New Item"
+			item.title = controls.title.buf:match("%S") and controls.title.buf or "New Item"
 		end
 		item.implicitLines = 0
 		if base.base.implicit then
@@ -363,84 +372,88 @@ function ItemsTabClass:CraftItem()
 		itemLib.normaliseQuality(item)
 		return itemLib.makeItemFromRaw(itemLib.createItemRaw(item))
 	end
-	popup = main:OpenPopup(370, 130, "Craft Item", {
-		common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 20, 0, 16, "Rarity:"),
-		title = common.New("EditControl", nil, 70, 20, 190, 18, "", "Name"),
-		rarity = common.New("DropDownControl", nil, -80, 20, 100, 18, { {val = "NORMAL",label=data.colorCodes.NORMAL.."Normal"},{val="MAGIC",label=data.colorCodes.MAGIC.."Magic"},{val="RARE",label=data.colorCodes.RARE.."Rare"},{val="UNIQUE",label=data.colorCodes.UNIQUE.."Unique"} }),
-		common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 45, 0, 16, "Type:"),
-		type = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 45, 295, 18, self.baseTypeList, function(sel, value)
-			popup.controls.base.list = self.baseLists[self.baseTypeList[sel]]
-			popup.controls.base.sel = 1
-		end),
-		common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 70, 0, 16, "Base:"),
-		base = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 70, 200, 18),
-		save = common.New("ButtonControl", nil, -45, 100, 80, 20, "Create", function()
-			main:ClosePopup()
-			local item = makeItem(popup.controls.base.list[popup.controls.base.sel])
-			self:SetDisplayItem(item)
-			if not item.craftable and item.rarity ~= "NORMAL" then
-				self:EditDisplayItemText()
-			end
-			self.lastCraftRaritySel = popup.controls.rarity.sel
-			self.lastCraftTypeSel = popup.controls.type.sel
-			self.lastCraftBaseSel = popup.controls.base.sel
-		end),
-		common.New("ButtonControl", nil, 45, 100, 80, 20, "Cancel", function()
-			main:ClosePopup()
-		end),
+	controls.rarityLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 20, 0, 16, "Rarity:")
+	controls.rarity = common.New("DropDownControl", nil, -80, 20, 100, 18, { 
+		{val = "NORMAL",label=data.colorCodes.NORMAL.."Normal"},
+		{val="MAGIC",label=data.colorCodes.MAGIC.."Magic"},
+		{val="RARE",label=data.colorCodes.RARE.."Rare"},
+		{val="UNIQUE",label=data.colorCodes.UNIQUE.."Unique"}
 	})
-	popup.controls.rarity.sel = self.lastCraftRaritySel or 3
-	popup.controls.type.sel = self.lastCraftTypeSel or 1
-	popup.controls.base.list = self.baseLists[self.baseTypeList[popup.controls.type.sel]]
-	popup.controls.base.sel = self.lastCraftBaseSel or 1
-	popup.controls.title.shown = function()
-		return popup.controls.rarity.sel >= 3
+	controls.rarity.sel = self.lastCraftRaritySel or 3
+	controls.title = common.New("EditControl", nil, 70, 20, 190, 18, "", "Name")
+	controls.title.shown = function()
+		return controls.rarity.sel >= 3
 	end
-	popup.controls.base.tooltipFunc = function(mode, sel, selVal)
+	controls.typeLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 45, 0, 16, "Type:")
+	controls.type = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 45, 295, 18, self.baseTypeList, function(sel, value)
+		controls.base.list = self.baseLists[self.baseTypeList[sel]]
+		controls.base.sel = 1
+	end)
+	controls.type.sel = self.lastCraftTypeSel or 1
+	controls.baseLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 70, 0, 16, "Base:")
+	controls.base = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 70, 200, 18, self.baseLists[self.baseTypeList[controls.type.sel]])
+	controls.base.sel = self.lastCraftBaseSel or 1
+	controls.base.tooltipFunc = function(mode, sel, selVal)
 		if mode ~= "OUT" then
 			local item = makeItem(selVal)
 			self:AddItemTooltip(item, nil, true)
 			return data.colorCodes[item.rarity], true
 		end
 	end
+	controls.save = common.New("ButtonControl", nil, -45, 100, 80, 20, "Create", function()
+		main:ClosePopup()
+		local item = makeItem(controls.base.list[controls.base.sel])
+		self:SetDisplayItem(item)
+		if not item.craftable and item.rarity ~= "NORMAL" then
+			self:EditDisplayItemText()
+		end
+		self.lastCraftRaritySel = controls.rarity.sel
+		self.lastCraftTypeSel = controls.type.sel
+		self.lastCraftBaseSel = controls.base.sel
+	end)
+	controls.cancel = common.New("ButtonControl", nil, 45, 100, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(370, 130, "Craft Item", controls)
 end
 
 -- Opens the item text editor popup
 function ItemsTabClass:EditDisplayItemText()
-	local popup 
+	local controls = { }
 	local function buildRaw()
-		local editBuf = popup.controls.edit.buf
+		local editBuf = controls.edit.buf
 		if editBuf:match("^Rarity: ") then
 			return editBuf
 		else
-			return "Rarity: "..popup.controls.rarity.list[popup.controls.rarity.sel].val.."\n"..popup.controls.edit.buf
+			return "Rarity: "..controls.rarity.list[controls.rarity.sel].val.."\n"..controls.edit.buf
 		end
 	end
-	popup = main:OpenPopup(500, 500, self.displayItem and "Edit Item Text" or "Create Custom Item from Text", {
-		rarity = common.New("DropDownControl", nil, -190, 10, 100, 18, { {val="NORMAL",label=data.colorCodes.NORMAL.."Normal"},{val="MAGIC",label=data.colorCodes.MAGIC.."Magic"},{val="RARE",label=data.colorCodes.RARE.."Rare"},{val="UNIQUE",label=data.colorCodes.UNIQUE.."Unique"},{val="RELIC",label=data.colorCodes.RELIC.."Relic"} }),
-		edit = common.New("EditControl", nil, 0, 40, 480, 420, "", nil, "^%C\t\n", nil, nil, 14),
-		save = common.New("ButtonControl", nil, -45, 470, 80, 20, self.displayItem and "Save" or "Create", function()
-			local id = self.displayItem and self.displayItem.id
-			self:CreateDisplayItemFromRaw(buildRaw(), not self.displayItem)
-			self.displayItem.id = id
-			main:ClosePopup()
-		end),
-		common.New("ButtonControl", nil, 45, 470, 80, 20, "Cancel", function()
-			main:ClosePopup()
-		end),
-	}, nil, "edit")
+	controls.rarity = common.New("DropDownControl", nil, -190, 10, 100, 18, { 
+		{val="NORMAL",label=data.colorCodes.NORMAL.."Normal"},
+		{val="MAGIC",label=data.colorCodes.MAGIC.."Magic"},
+		{val="RARE",label=data.colorCodes.RARE.."Rare"},
+		{val="UNIQUE",label=data.colorCodes.UNIQUE.."Unique"},
+		{val="RELIC",label=data.colorCodes.RELIC.."Relic"}
+	})
+	controls.edit = common.New("EditControl", nil, 0, 40, 480, 420, "", nil, "^%C\t\n", nil, nil, 14)
 	if self.displayItem then
-		popup.controls.edit:SetText(itemLib.createItemRaw(self.displayItem):gsub("Rarity: %w+\n",""))
-		popup.controls.rarity:SelByValue(self.displayItem.rarity)
+		controls.edit:SetText(itemLib.createItemRaw(self.displayItem):gsub("Rarity: %w+\n",""))
+		controls.rarity:SelByValue(self.displayItem.rarity)
 	else
-		popup.controls.rarity.sel = 3
+		controls.rarity.sel = 3
 	end
-	popup.controls.edit.font = "FIXED"
-	popup.controls.save.enabled = function()
+	controls.edit.font = "FIXED"
+	controls.save = common.New("ButtonControl", nil, -45, 470, 80, 20, self.displayItem and "Save" or "Create", function()
+		local id = self.displayItem and self.displayItem.id
+		self:CreateDisplayItemFromRaw(buildRaw(), not self.displayItem)
+		self.displayItem.id = id
+		main:ClosePopup()
+	end)
+	controls.save.enabled = function()
 		local item = itemLib.makeItemFromRaw(buildRaw())
 		return item ~= nil
 	end
-	popup.controls.save.tooltipFunc = function()
+	controls.save.tooltipFunc = function()
 		local item = itemLib.makeItemFromRaw(buildRaw())
 		if item then
 			self:AddItemTooltip(item, nil, true)
@@ -455,6 +468,112 @@ function ItemsTabClass:EditDisplayItemText()
 			main:AddTooltipLine(14, "Scholar's Platinum Kris of Joy")
 		end
 	end	
+	controls.cancel = common.New("ButtonControl", nil, 45, 470, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(500, 500, self.displayItem and "Edit Item Text" or "Create Custom Item from Text", controls, nil, "edit")
+end
+
+-- Opens the item enchanting popup
+function ItemsTabClass:EnchantDisplayItem()
+	local controls = { } 
+	local enchantments = self.displayItem.enchantments
+	local haveSkills = not self.displayItem.enchantments[data.labyrinths[1].name]
+	local skillList = { }
+	local skillsUsed = { }
+	if haveSkills then
+		for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+			for _, gem in ipairs(socketGroup.gemList) do
+				if gem.data and not gem.data.support then
+					skillsUsed[gem.name] = true
+					break
+				end
+			end
+		end
+	end
+	local function buildSkillList(onlyUsedSkills)
+		wipeTable(skillList)
+		for skillName in pairs(enchantments) do
+			if not onlyUsedSkills or not next(skillsUsed) or skillsUsed[skillName] then
+				t_insert(skillList, skillName)
+			end
+		end
+		table.sort(skillList)
+	end
+	local labyrinthList = { }
+	local function buildLabyrinthList()
+		wipeTable(labyrinthList)
+		local list = haveSkills and enchantments[skillList[controls.skill and controls.skill.sel or 1]] or enchantments
+		for _, lab in ipairs(data.labyrinths) do
+			if list[lab.name] then
+				t_insert(labyrinthList, lab)
+			end
+		end
+	end
+	local enchantmentList = { }
+	local function buildEnchantmentList()
+		wipeTable(enchantmentList)
+		local list = haveSkills and enchantments[skillList[controls.skill and controls.skill.sel or 1]] or enchantments
+		for _, enchantment in ipairs(list[labyrinthList[controls.labyrinth and controls.labyrinth.sel or 1].name]) do
+			t_insert(enchantmentList, enchantment)
+		end
+	end
+	if haveSkills then
+		buildSkillList(true)
+	end
+	buildLabyrinthList()
+	buildEnchantmentList()
+	local function enchantItem()
+		local item = itemLib.makeItemFromRaw(itemLib.createItemRaw(self.displayItem))
+		item.id = self.displayItem.id
+		for i = 1, item.implicitLines do 
+			t_remove(item.modLines, 1)
+		end
+		local list = haveSkills and enchantments[controls.skill.list[controls.skill.sel]] or enchantments
+		t_insert(item.modLines, 1, { crafted = true, line = list[controls.labyrinth.list[controls.labyrinth.sel].name][controls.enchantment.sel] })
+		item.implicitLines = 1
+		item.raw = itemLib.createItemRaw(item)
+		itemLib.parseItemRaw(item)
+		return item
+	end
+	if haveSkills then
+		controls.skillLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "Skill:")
+		controls.skill = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 180, 18, skillList, function(sel, value)
+			buildLabyrinthList()
+			buildEnchantmentList()
+			controls.enchantment:SetSel(1)
+		end)
+		controls.allSkills = common.New("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 350, 20, 18, "All skills:", function(state)
+			buildSkillList(not state)
+			controls.skill:SetSel(1)
+			buildEnchantmentList()
+			controls.enchantment:SetSel(1)
+		end)
+		controls.allSkills.tooltip = "Show all skills, not just those used by this build."
+		if not next(skillsUsed) then
+			controls.allSkills.state = true
+			controls.allSkills.enabled = false
+		end
+	end
+	controls.labyrinthLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "Labyrinth:")
+	controls.labyrinth = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 100, 18, labyrinthList, function(sel, value)
+		buildEnchantmentList()
+	end)
+	controls.enchantmentLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 70, 0, 16, "Enchantment:")
+	controls.enchantment = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 70, 440, 18, enchantmentList)
+	controls.save = common.New("ButtonControl", nil, -45, 100, 80, 20, "Enchant", function()
+		self:SetDisplayItem(enchantItem())
+		main:ClosePopup()
+	end)
+	controls.save.tooltipFunc = function()
+		local item = enchantItem()
+		self:AddItemTooltip(item, nil, true)
+		return data.colorCodes[item.rarity], true
+	end	
+	controls.close = common.New("ButtonControl", nil, 45, 100, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(550, 130, "Enchant Item", controls)
 end
 
 -- Attempt to create a new item from the given item raw text and sets it as the new display item

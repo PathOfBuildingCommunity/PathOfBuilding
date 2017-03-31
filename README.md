@@ -47,18 +47,25 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.23 - 2017/03/31
+ * Helmets and Boots can now be enchanted via the new "Apply Enchantment..." button that appears when viewing the item
+ * Added support for more helmet enchants; the vast majority of them should now work
+ * Added support for the conditional penetration stat on The Wise Oak
+ * Corrected the base of Lycosidae
+ * The quality bonus on Blood Rage now applies correctly
+ 
 ### 1.3.22 - 2017/03/28
  * The sidebar can now displays two Crit Chance values:
-    1. Crit Chance: 
+    1. Crit Chance:
 	   * This is the skill's "real" crit chance, as displayed in the in-game character sheet
 	   * If your crit chance is capped, this value will always be 95%, unlike your effective crit chance (which can be lower)
-	2. Effective Crit Chance: 
+	2. Effective Crit Chance:
 	   * This is the value previously shown as "Crit Chance"
 	   * This estimates your true crit chance, factoring in accuracy and "Crit Chance is Lucky"
  * Added an option to the Configuration tab for "Are you Leeching?" 
  * Essence Drain now uses "Average Damage" mode
  * Phasing is now enabled automatically if you have Quartz Infusion and maximum frenzy charges
- * The Red/Green/Blue Nightmare jewels now correctly apply to the condition resistance stats in the Sanctuary cluster
+ * The Red/Green/Blue Nightmare jewels now correctly apply to the conditional resistance stats in the Sanctuary cluster
  * Corrected the crit chance modifier on Pre-2.0.0 Windripper
  * Updated "The Oak" to mirror the changes to Springleaf in 2.6
  * The program should now correctly prompt to save the current build before updating

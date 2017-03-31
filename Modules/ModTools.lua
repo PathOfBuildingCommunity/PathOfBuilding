@@ -108,7 +108,11 @@ function modLib.formatValue(value)
 		if i > 1 then
 			ret = ret .. "/"
 		end
-		ret = ret .. string.format("%s=%s", paramName, tostring(value[paramName]))
+		if paramName == "mod" then
+			ret = ret .. string.format("%s=[%s]", paramName, modLib.formatMod(value[paramName]))
+		else
+			ret = ret .. string.format("%s=%s", paramName, tostring(value[paramName]))
+		end
 	end
 	return "{"..ret.."}"
 end

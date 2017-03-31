@@ -391,6 +391,11 @@ local function buildActiveSkillModList(env, activeSkill)
 	-- Add active gem modifiers
 	mergeGemMods(skillModList, activeSkill.activeGem)
 
+	-- Add extra modifiers
+	for _, value in ipairs(env.modDB:Sum("LIST", activeSkill.skillCfg, "ExtraSkillMod")) do
+		skillModList:AddMod(value.mod)
+	end
+
 	-- Extract skill data
 	for _, value in ipairs(skillModList:Sum("LIST", activeSkill.skillCfg, "Misc")) do
 		if value.type == "SkillData" then
@@ -420,7 +425,18 @@ local function buildActiveSkillModList(env, activeSkill)
 			if not activeSkill[destList] then
 				activeSkill[destList] = { }
 			end
-			t_insert(activeSkill[destList],  skillModList[i])
+			local sig = modLib.formatModParams(skillModList[i])
+			for d = 1, #activeSkill[destList] do
+				local destMod = activeSkill[destList][d]
+				if sig == modLib.formatModParams(destMod) and (destMod.type == "BASE" or destMod.type == "INC") then
+					destMod.value = destMod.value + skillModList[i].value
+					sig = nil
+					break
+				end
+			end
+			if sig then
+				t_insert(activeSkill[destList],  skillModList[i])
+			end
 			t_remove(skillModList, i)
 		else
 			i = i + 1
@@ -1176,11 +1192,8 @@ local function performCalcs(env)
 	
 	-- Check for extra modifiers to apply to aura skills
 	local extraAuraModList = { }
-	if modDB.mods.ExtraAuraEffect then
-		for _, mod in ipairs(modDB.mods.ExtraAuraEffect) do
-			mod.value.source = mod.source
-			t_insert(extraAuraModList, mod.value)
-		end
+	for _, value in ipairs(modDB:Sum("LIST", nil, "ExtraAuraEffect")) do
+		t_insert(extraAuraModList, value.mod)
 	end
 
 	-- Combine buffs/debuffs and calculate skill life and mana reservations
@@ -1612,6 +1625,12 @@ local function performCalcs(env)
 			}
 		end
 	end
+	condList.UncappedLightningResistIsLowest = (output.LightningResistTotal <= output.ColdResistTotal and output.LightningResistTotal <= output.FireResistTotal)
+	condList.UncappedColdResistIsLowest = (output.ColdResistTotal <= output.LightningResistTotal and output.ColdResistTotal <= output.FireResistTotal)
+	condList.UncappedFireResistIsLowest = (output.FireResistTotal <= output.LightningResistTotal and output.FireResistTotal <= output.ColdResistTotal)
+	condList.UncappedLightningResistIsHighest = (output.LightningResistTotal >= output.ColdResistTotal and output.LightningResistTotal >= output.FireResistTotal)
+	condList.UncappedColdResistIsHighest = (output.ColdResistTotal >= output.LightningResistTotal and output.ColdResistTotal >= output.FireResistTotal)
+	condList.UncappedFireResistIsHighest = (output.FireResistTotal >= output.LightningResistTotal and output.FireResistTotal >= output.ColdResistTotal)
 
 	-- Primary defences: Energy shield, evasion and armour
 	do
@@ -1942,11 +1961,11 @@ local function performCalcs(env)
 	end
 	if skillFlags.trap then
 		output.ActiveTrapLimit = modDB:Sum("BASE", skillCfg, "ActiveTrapLimit")
-		output.TrapCooldown = (skillData.trapCooldown or 4) / calcMod(modDB, skillCfg, "TrapCooldownRecovery")
+		output.TrapCooldown = (skillData.trapCooldown or 4) / calcMod(modDB, skillCfg, "CooldownRecovery")
 		if breakdown then
 			breakdown.TrapCooldown = {
 				s_format("%.2fs ^8(base)", skillData.trapCooldown or 4),
-				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + modDB:Sum("INC", skillCfg, "TrapCooldownRecovery") / 100),
+				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + modDB:Sum("INC", skillCfg, "CooldownRecovery") / 100),
 				s_format("= %.2fs", output.TrapCooldown)
 			}
 		end
