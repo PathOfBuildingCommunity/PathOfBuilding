@@ -19,20 +19,20 @@ local formList = {
 	["^(%d+)%% less"] = "LESS",
 	["^([%+%-][%d%.]+)%%?"] = "BASE",
 	["^([%+%-][%d%.]+)%%? to"] = "BASE",
-	["^([%+%-][%d%.]+)%%? of"] = "BASE",
+	["^([%+%-]?[%d%.]+)%%? of"] = "BASE",
 	["^([%+%-][%d%.]+)%%? base"] = "BASE",
 	["^([%+%-]?[%d%.]+)%%? additional"] = "BASE",
 	["^you gain ([%d%.]+)"] = "BASE",
+	["^gain ([%d%.]+)%% of"] = "BASE",
 	["^([%+%-]?%d+)%% chance"] = "CHANCE",
 	["^([%+%-]?%d+)%% additional chance"] = "CHANCE",
-	["^([%d%.]+)%% of"] = "CONV",
-	["^gain ([%d%.]+)%% of"] = "CONV",
 	["penetrates? (%d+)%%"] = "PEN",
 	["penetrates (%d+)%% of"] = "PEN",
 	["penetrates (%d+)%% of enemy"] = "PEN",
-	["^([%d%.]+)%% of (.+) regenerated per second"] = "REGENPERCENT",
 	["^([%d%.]+) (.+) regenerated per second"] = "REGENFLAT",
+	["^([%d%.]+)%% of (.+) regenerated per second"] = "REGENPERCENT",
 	["^regenerate ([%d%.]+) (.+) per second"] = "REGENFLAT",
+	["^regenerate ([%d%.]+)%% of (.+) per second"] = "REGENPERCENT",
 	["(%d+) to (%d+) additional (%a+) damage"] = "DMG",
 	["adds (%d+)%-(%d+) (%a+) damage"] = "DMG",
 	["adds (%d+) to (%d+) (%a+) damage"] = "DMG",
@@ -125,6 +125,7 @@ local modNameList = {
 	["stun duration on enemies"] = "EnemyStunDuration",
 	["stun duration"] = "EnemyStunDuration",
 	-- Auras/curses
+	["aura effect"] = "AuraEffect",
 	["effect of non-curse auras you cast"] = "AuraEffect",
 	["effect of your curses"] = "CurseEffect",
 	["curse effect"] = "CurseEffect",
@@ -182,7 +183,7 @@ local modNameList = {
 	["trap throwing speed"] = "TrapThrowingSpeed",
 	["trap trigger area of effect"] = "TrapTriggerAreaOfEffect",
 	["trap duration"] = "TrapDuration",
-	["cooldown recovery speed for throwing traps"] = "TrapCooldownRecovery",
+	["cooldown recovery speed for throwing traps"] = { "CooldownRecovery", keywordFlags = KeywordFlag.Trap },
 	["mine laying speed"] = "MineLayingSpeed",
 	["mine detonation area of effect"] = "MineDetonationAreaOfEffect",
 	["mine duration"] = "MineDuration",
@@ -195,6 +196,7 @@ local modNameList = {
 	["duration"] = "Duration",
 	["skill effect duration"] = "Duration",
 	["chaos skill effect duration"] = { "Duration", keywordFlags = KeywordFlag.Chaos },
+	["cooldown recovery speed"] = "CooldownRecovery",
 	-- Buffs
 	["onslaught effect"] = "OnslaughtEffect",
 	["fortify duration"] = "FortifyDuration",
@@ -360,6 +362,7 @@ local preFlagList = {
 -- List of modifier tags
 local modTagList = {
 	["on enemies"] = { },
+	["while active"] = { },
 	[" on critical strike"] = { tag = { type = "Condition", var = "CriticalStrike" } },
 	-- Multipliers
 	["per power charge"] = { tag = { type = "Multiplier", var = "PowerCharge" } },
@@ -665,6 +668,11 @@ local specialModList = {
 	["socketed red gems get (%d+)%% physical damage as extra fire damage"] = function(num) return { mod("PhysicalDamageGainAsFire", "BASE", num, { type = "SocketedIn", keyword = "strength" }) } end,
 	["instant recovery"] = {  mod("FlaskInstantRecovery", "BASE", 100) },
 	["(%d+)%% of recovery applied instantly"] = function(num) return { mod("FlaskInstantRecovery", "BASE", num) } end,
+	-- Enchantment modifiers
+	["(%d+)%% increased decoy totem life"] = function(num) return { mod("TotemLife", "INC", num, { type = "SkillName", skillName = "Decoy Totem" }) } end,
+	["(%d+)%% increased ice spear critical strike chance in second form"] = function(num) return { mod("CritChance", "INC", num, { type = "SkillName", skillName = "Ice Spear" }, { type = "SkillPart", skillPart = 2 }) } end,
+	["(%d+)%% increased incinerate damage for each stage"] = function(num) return { mod("Damage", "INC", num * 3, { type = "SkillName", skillName = "Incinerate" }, { type = "SkillPart", skillPart = 2 }) } end,
+	["shock nova ring deals (%d+)%% increased damage"] = function(num) return { mod("Damage", "INC", num, { type = "SkillName", skillName = "Shock Nova" }, { type = "SkillPart", skillPart = 1 }) } end,
 	-- Unique item modifiers
 	["your cold damage can ignite"] = { flag("ColdCanIgnite") },
 	["your fire damage can shock but not ignite"] = { flag("FireCanShock"), flag("FireCannotIgnite") },
@@ -726,6 +734,11 @@ local specialModList = {
 	["socketed lightning spells have (%d+)%% increased spell damage if triggered"] = function(num) return { mod("Damage", "INC", num, nil, ModFlag.Spell, { type = "SocketedIn", keyword = "lightning" }, { type = "Condition", var = "SkillIsTriggered" }) } end,
 	["arrows always pierce"] = { mod("PierceChance", "BASE", 100, nil, ModFlag.Attack) },
 	["arrows that pierce cause bleeding"] = { flag("ArrowsThatPierceCauseBleeding") },
+	["during flask effect, damage penetrates (%d+)%% of resistance of each element for which your uncapped elemental resistance is highest"] = function(num) return {
+		mod("LightningPenetration", "BASE", num, { type = "Condition", var = "UncappedLightningResistIsHighest" }),
+		mod("ColdPenetration", "BASE", num, { type = "Condition", var = "UncappedColdResistIsHighest" }),
+		mod("FirePenetration", "BASE", num, { type = "Condition", var = "UncappedFireResistIsHighest" }),
+	} end,
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques
@@ -756,7 +769,7 @@ for _, name in pairs(keystoneList) do
 end
 
 -- Special lookups used for various modifier forms
-local convTypes = {
+local suffixTypes = {
 	["as extra lightning damage"] = "GainAsLightning",
 	["added as lightning damage"] = "GainAsLightning",
 	["gained as extra lightning damage"] = "GainAsLightning",
@@ -795,6 +808,7 @@ local penTypes = {
 local regenTypes = {
 	["life"] = "LifeRegen",
 	["maximum life"] = "LifeRegen",
+	["life and mana"] = { "LifeRegen", "ManaRegen" },
 	["mana"] = "ManaRegen",
 	["energy shield"] = "EnergyShieldRegen",
 	["maximum mana and energy shield"] = { "ManaRegen", "EnergyShieldRegen" },
@@ -802,11 +816,18 @@ local regenTypes = {
 
 -- Build active skill name lookup
 local skillNameList = { }
+local preSkillNameList = { }
 for skillName, data in pairs(data.gems) do
 	if not data.support then
 		skillNameList[" "..skillName:lower().." "] = { tag = { type = "SkillName", skillName = skillName } }
+		preSkillNameList["^"..skillName:lower().." has "] = { tag = { type = "SkillName", skillName = skillName } }
+		preSkillNameList["^"..skillName:lower().." totem deals "] = { tag = { type = "SkillName", skillName = skillName } }
+		preSkillNameList["^"..skillName:lower().." grants "] = { addToSkill = { type = "SkillName", skillName = skillName }, tag = { type = "GlobalEffect", effectType = "Buff" } }
+		preSkillNameList["^"..skillName:lower().." grants a?n? ?additional "] = { addToSkill = { type = "SkillName", skillName = skillName }, tag = { type = "GlobalEffect", effectType = "Buff" } }
+		preSkillNameList["^"..skillName:lower().." totem grants "] = { addToSkill = { type = "SkillName", skillName = skillName }, tag = { type = "GlobalEffect", effectType = "Buff" } }
 	end
 end
+
 local function getSimpleConv(srcList, dst, type, remove, factor)
 	return function(nodeMods, out, data)
 		if nodeMods then
@@ -962,6 +983,10 @@ local function parseMod(line, order)
 	local modFlag
 	modFlag, line = scan(line, preFlagList)
 
+	-- Check for skill name at the start of the line
+	local skillTag
+	skillTag, line = scan(line, preSkillNameList)
+
 	-- Scan for modifier form
 	local modForm, formCap
 	modForm, line, formCap = scan(line, formList)
@@ -984,8 +1009,8 @@ local function parseMod(line, order)
 	end
 	
 	-- Scan for modifier name and skill name
-	local modName, skillTag
-	if order == 2 then
+	local modName
+	if order == 2 and not skillTag then
 		skillTag, line = scan(line, skillNameList, true)
 	end
 	if modForm == "PEN" then
@@ -998,7 +1023,7 @@ local function parseMod(line, order)
 	else
 		modName, line = scan(line, modNameList, true)
 	end
-	if order == 1 then
+	if order == 1 and not skillTag  then
 		skillTag, line = scan(line, skillNameList, true)
 	end
 	
@@ -1010,7 +1035,7 @@ local function parseMod(line, order)
 	-- Find modifier value and type according to form
 	local modValue = num
 	local modType = "BASE"
-	local modSuffix = ""
+	local modSuffix
 	if modForm == "INC" then
 		modType = "INC"
 	elseif modForm == "RED" then
@@ -1022,13 +1047,8 @@ local function parseMod(line, order)
 		modValue = -num
 		modType = "MORE"
 	elseif modForm == "BASE" then
+		modSuffix, line = scan(line, suffixTypes, true)
 	elseif modForm == "CHANCE" then
-	elseif modForm == "CONV" then		
-		modSuffix, line = scan(line, convTypes, true)
-		if not modSuffix then
-			modSuffix = ""
-			--return { }, line
-		end
 	elseif modForm == "REGENPERCENT" then
 		modName = regenTypes[formCap[2]]
 		if not modName then
@@ -1095,7 +1115,7 @@ local function parseMod(line, order)
 	local modList = { }
 	for i, name in ipairs(type(nameList) == "table" and nameList or { nameList }) do
 		modList[i] = {
-			name = name .. modSuffix,
+			name = name .. (modSuffix or ""),
 			type = modType,
 			value = type(modValue) == "table" and modValue[i] or modValue,
 			flags = flags,
@@ -1103,10 +1123,17 @@ local function parseMod(line, order)
 			tagList = tagList,
 		}
 	end
-	if modList[1] and modFlag and modFlag.addToAura then
-		-- Special handling for modifiers that add effects to your auras
-		for i, effectMod in ipairs(modList) do
-			modList[i] = mod("ExtraAuraEffect", "LIST", effectMod)
+	if modList[1] then
+		if modFlag and modFlag.addToAura then
+			-- Special handling for modifiers that add effects to your auras
+			for i, effectMod in ipairs(modList) do
+				modList[i] = mod("ExtraAuraEffect", "LIST", { mod = effectMod })
+			end
+		elseif skillTag and skillTag.addToSkill then
+			-- Special handling for skill enchants that add additional effects
+			for i, effectMod in ipairs(modList) do
+				modList[i] = mod("ExtraSkillMod", "LIST", { mod = effectMod }, skillTag.addToSkill)
+			end
 		end
 	end
 	return modList, line:match("%S") and line

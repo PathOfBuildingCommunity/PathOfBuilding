@@ -130,6 +130,7 @@ function itemLib.parseItemRaw(item)
 	item.implicitLines = 0
 	item.buffLines = 0
 	item.affixes = data.itemMods[item.base and item.base.type]
+	item.enchantments = data.enchantments[item.base and item.base.type]
 	item.prefixes = { }
 	item.suffixes = { }
 	local flaskBuffLines = { }
