@@ -113,7 +113,7 @@ Adds (8-12) to (16-24) Physical Damage
 (14-20)% increased Attack Speed
 (14-20)% increased Totem Life
 (14-20)% increased Totem Placement speed
-Can summon 1 additional Siege Ballista Totem per 200 Dexterity
+Can have 1 additional Siege Ballista Totem per 200 Dexterity
 Adds 1 to 3 Physical Damage to Attacks per 25 Dexterity
 ]],[[
 Lioneye's Glare

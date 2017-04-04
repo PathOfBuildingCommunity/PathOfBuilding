@@ -47,6 +47,18 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.24 - 2017/04/05
+This update adds support for Life/Mana Leech and Life/Mana/ES Gain on Hit:
+ * All sources of Leech and Gain on Hit are supported, including "Damage dealt by your Totems is Leeched to you"
+ * For skills with a known hit rate (i.e skills that show DPS instead of Average Damage), the combined rate of recovery
+   from Leech and Gain on Hit is displayed in the sidebar
+ * For other skills, the total amount leeched/gained from one hit is displayed instead
+ * Detailed breakdowns of Leech and Gain on Hit can be found in the new "Leech & Gain on Hit" section in the Calcs tab
+ Other changes:
+ * Added support for the additional Siege Ballista totems modifier on Iron Commander
+ * The "%Inc Armour from Tree" and "%Inc Evasion from Tree" sidebar stats now include "increased Evasion Rating and Armour"
+ * Various minor tweaks and fixes
+
 ### 1.3.23 - 2017/03/31
  * Helmets and Boots can now be enchanted via the new "Apply Enchantment..." button that appears when viewing the item
  * Added support for more helmet enchants; the vast majority of them should now work
