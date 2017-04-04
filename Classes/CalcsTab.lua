@@ -341,6 +341,11 @@ function CalcsTabClass:CheckFlag(obj)
 			end
 		end
 	end
+	if obj.haveOutput then
+		if not self.calcsOutput[obj.haveOutput] or self.calcsOutput[obj.haveOutput] == 0 then
+			return
+		end
+	end
 	return true
 end
 

@@ -114,7 +114,7 @@ local modNameList = {
 	["to avoid being chilled"] = "AvoidChilled",
 	["to avoid being ignited"] = "AvoidIgnite",
 	["to avoid elemental status ailments"] = { "AvoidShock", "AvoidFrozen", "AvoidChilled", "AvoidIgnite" },
-	["damage is taken from mana before life"] = { "DamageTakenFromManaBeforeLife" },
+	["damage is taken from mana before life"] = "DamageTakenFromManaBeforeLife",
 	-- Stun modifiers
 	["stun recovery"] = "StunRecovery",
 	["stun and block recovery"] = "StunRecovery",
@@ -167,7 +167,7 @@ local modNameList = {
 	["life leeched per second"] = "LifeLeechRate",
 	["mana leeched per second"] = "ManaLeechRate",
 	["maximum life per second to maximum life leech rate"] = "MaxLifeLeechRate",
-	["maximum mana per second to maximum mana leech rate"] = "MaxLifeLeechRate",
+	["maximum mana per second to maximum mana leech rate"] = "MaxManaLeechRate",
 	-- Projectile modifiers
 	["projectile"] = "ProjectileCount",
 	["projectiles"] = "ProjectileCount",
@@ -221,6 +221,7 @@ local modNameList = {
 	["wand damage"] = { "Damage", flags = ModFlag.Wand },
 	["wand physical damage"] = { "PhysicalDamage", flags = ModFlag.Wand },
 	["claw physical damage"] = { "PhysicalDamage", flags = ModFlag.Claw },
+	["sword physical damage"] = { "PhysicalDamage", flags = ModFlag.Sword },
 	["damage over time"] = { "Damage", flags = ModFlag.Dot },
 	["physical damage over time"] = { "PhysicalDamage", flags = ModFlag.Dot },
 	["burning damage"] = { "FireDamage", flags = ModFlag.Dot },
@@ -602,6 +603,7 @@ local specialModList = {
 	["can have up to (%d+) additional remote mines? placed at a time"] = function(num) return { mod("ActiveMineLimit", "BASE", num) } end,
 	["can have up to (%d+) additional totems? summoned at a time"] = function(num) return { mod("ActiveTotemLimit", "BASE", num) } end,
 	["enemies can have 1 additional curse"] = { mod("EnemyCurseLimit", "BASE", 1) },
+	["([%d%.]+)%% of damage dealt by y?o?u?r? ?totems is leeched to you as life"] = function(num) return { mod("DamageLifeLeechToPlayer", "BASE", num, nil, 0, KeywordFlag.Totem) } end,
 	-- Other modifiers
 	["cannot be stunned"] = { mod("AvoidStun", "BASE", 100) },
 	["cannot be shocked"] = { mod("AvoidShock", "BASE", 100) },
@@ -739,6 +741,11 @@ local specialModList = {
 		mod("ColdPenetration", "BASE", num, { type = "Condition", var = "UncappedColdResistIsHighest" }),
 		mod("FirePenetration", "BASE", num, { type = "Condition", var = "UncappedFireResistIsHighest" }),
 	} end,
+	["can [hs][au][vm][em]o?n? 1 additional siege ballista totem per (%d+) dexterity"] = function(num) return { mod("ActiveTotemLimit", "BASE", 1, { type = "SkillName", skillName = "Siege Ballista" }, { type = "PerStat", stat = "Dex", div = num }) } end,
+	["cannot leech life"] = { flag("CannotLeechLife") },
+	["cannot leech mana"] = { flag("CannotLeechMana") },
+	["cannot leech when on low life"] = { flag("CannotLeechLife", { type = "Condition", var = "LowLife" }), flag("CannotLeechMana", { type = "Condition", var = "LowLife" }) },
+	["cannot leech life from critical strikes"] = { flag("CannotLeechLife", { type = "Condition", var = "CriticalStrike" }) },
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques

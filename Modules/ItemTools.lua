@@ -532,8 +532,12 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 			modList:NewMod("Accuracy", "MORE", weaponData.AccuracyInc, item.modSource, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })
 		end
 		for _, mod in ipairs(modList) do
-			-- Convert accuracy modifiers to local
-			if mod.name == "Accuracy" and mod.flags == 0 and mod.keywordFlags == 0 and not mod.tagList[1] then
+			-- Convert accuracy, L/MGoH and PAD Leech modifiers to local
+			if (
+				(mod.name == "Accuracy" and mod.flags == 0) or
+				((mod.name == "LifeOnHit" or mod.name == "ManaOnHit") and mod.flags == ModFlag.Attack) or
+				((mod.name == "PhysicalDamageLifeLeech" or mod.name == "PhysicalDamageManaLeech") and mod.flags == ModFlag.Attack) 
+			   ) and mod.keywordFlags == 0 and not mod.tagList[1] then
 				mod.tagList[1] = { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" }
 			end
 		end

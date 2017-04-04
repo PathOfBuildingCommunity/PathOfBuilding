@@ -101,7 +101,7 @@ Requires Level 17, 46 Str
 0.5% of Life Regenerated per Second
 15% increased Area of Effect for Skills used by Totems
 {variant:1}1% of Damage Leeched as Life for Skills used by Totems
-{variant:2}0.5% of Damage dealt by Totems is Leeched to you as Life
+{variant:2}0.5% of Damage dealt by your Totems is Leeched to you as Life
 ]],[[
 Tukohama's Fortress
 Ebony Tower Shield

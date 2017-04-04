@@ -2835,8 +2835,8 @@ gems["Poacher's Mark"] = {
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
 		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse"}), --"evasion_rating_+%_final_from_poachers_mark"
-		[5] = mod("LifeOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }), --"life_granted_when_hit_by_attacks"
-		[6] = mod("ManaOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }), --"mana_granted_when_hit_by_attacks"
+		[5] = mod("SelfLifeOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }), --"life_granted_when_hit_by_attacks"
+		[6] = mod("SelfManaOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }), --"mana_granted_when_hit_by_attacks"
 		--[7] = "chance_to_grant_frenzy_charge_on_death_%"
 	},
 	levels = {

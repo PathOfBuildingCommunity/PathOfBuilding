@@ -220,8 +220,8 @@ gems["Assassin's Mark"] = {
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
 		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("SelfExtraCritChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"additional_chance_to_take_critical_strike_%"
-		[5] = mod("LifeOnKill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"life_granted_when_killed"
-		[6] = mod("ManaOnKill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"mana_granted_when_killed"
+		[5] = mod("SelfLifeOnKill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"life_granted_when_killed"
+		[6] = mod("SelfManaOnKill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"mana_granted_when_killed"
 		--[7] = "chance_to_grant_power_charge_on_death_%"
 	},
 	levels = {
@@ -3415,6 +3415,59 @@ gems["Raise Spectre"] = {
 	spell = true,
 	minion = true,
 	unsupported = true,
+	color = 3,
+	baseFlags = {
+	},
+	skillTypes = { [2] = true, [9] = true, [21] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [49] = true, },
+	baseMods = {
+		skill("castTime", 0.85), 
+		--"base_number_of_spectres_allowed" = 1
+		--"active_skill_minion_movement_velocity_+%_final" = 55
+		--"movement_velocity_cap" = -89
+		--"damage_taken_+%_from_arrow_traps_final" = -90
+		--"minion_elemental_resistance_%" = 30
+	},
+	qualityMods = {
+		--"minion_movement_speed_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("manaCost", nil), 
+		--[2] = "active_skill_minion_damage_+%_final"
+		--[3] = "active_skill_minion_life_+%_final"
+		--[4] = "active_skill_minion_energy_shield_+%_final"
+	},
+	levels = {
+		[1] = { 21, -30, -20, -20, },
+		[2] = { 23, -25, -19, -19, },
+		[3] = { 24, -21, -18, -18, },
+		[4] = { 26, -17, -17, -17, },
+		[5] = { 27, -14, -16, -16, },
+		[6] = { 28, -11, -15, -15, },
+		[7] = { 29, -8, -14, -14, },
+		[8] = { 30, -6, -13, -13, },
+		[9] = { 31, -4, -12, -12, },
+		[10] = { 32, -2, -11, -11, },
+		[11] = { 33, 0, -10, -10, },
+		[12] = { 34, 1, -9, -9, },
+		[13] = { 35, 2, -8, -8, },
+		[14] = { 36, 3, -7, -7, },
+		[15] = { 37, 4, -6, -6, },
+		[16] = { 38, 5, -5, -5, },
+		[17] = { 39, 6, -4, -4, },
+		[18] = { 40, 7, -3, -3, },
+		[19] = { 41, 8, -2, -2, },
+		[20] = { 42, 10, 0, 0, },
+		[21] = { 43, 12, 2, 2, },
+		[22] = { 44, 14, 4, 4, },
+		[23] = { 44, 16, 6, 6, },
+		[24] = { 45, 18, 8, 8, },
+		[25] = { 46, 20, 10, 10, },
+		[26] = { 47, 22, 12, 12, },
+		[27] = { 48, 24, 14, 14, },
+		[28] = { 49, 26, 16, 16, },
+		[29] = { 50, 28, 18, 18, },
+		[30] = { 51, 30, 20, 20, },
+	},
 }
 gems["Raise Zombie"] = {
 	intelligence = true,
@@ -3422,6 +3475,56 @@ gems["Raise Zombie"] = {
 	spell = true,
 	minion = true,
 	unsupported = true,
+	color = 3,
+	baseFlags = {
+	},
+	skillTypes = { [2] = true, [9] = true, [21] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [49] = true, },
+	baseMods = {
+		skill("castTime", 0.85), 
+		--"base_number_of_zombies_allowed" = 3
+		--"active_skill_minion_damage_+%_final" = 0
+		--"display_minion_monster_type" = 1
+	},
+	qualityMods = {
+		mod("MinionLife", "INC", 1), --"minion_maximum_life_+%" = 1
+		--"minion_movement_speed_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("manaCost", nil), 
+		--[2] = "display_minion_monster_level"
+	},
+	levels = {
+		[1] = { 10, 2, },
+		[2] = { 11, 3, },
+		[3] = { 12, 5, },
+		[4] = { 13, 8, },
+		[5] = { 14, 12, },
+		[6] = { 16, 16, },
+		[7] = { 18, 20, },
+		[8] = { 21, 24, },
+		[9] = { 24, 28, },
+		[10] = { 26, 32, },
+		[11] = { 28, 36, },
+		[12] = { 30, 40, },
+		[13] = { 31, 44, },
+		[14] = { 32, 48, },
+		[15] = { 33, 52, },
+		[16] = { 34, 56, },
+		[17] = { 35, 60, },
+		[18] = { 36, 64, },
+		[19] = { 37, 67, },
+		[20] = { 38, 70, },
+		[21] = { 38, 72, },
+		[22] = { 38, 74, },
+		[23] = { 38, 76, },
+		[24] = { 39, 78, },
+		[25] = { 40, 80, },
+		[26] = { 40, 82, },
+		[27] = { 41, 84, },
+		[28] = { 42, 86, },
+		[29] = { 42, 88, },
+		[30] = { 42, 90, },
+	},
 }
 gems["Righteous Fire"] = {
 	intelligence = true,
@@ -4162,6 +4265,54 @@ gems["Summon Raging Spirit"] = {
 	duration = true,
 	fire = true,
 	unsupported = true,
+	color = 3,
+	baseFlags = {
+	},
+	skillTypes = { [2] = true, [9] = true, [12] = true, [21] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [49] = true, [33] = true, },
+	baseMods = {
+		skill("castTime", 0.5), 
+		skill("duration", 5), --"base_skill_effect_duration" = 5000
+		--"base_number_of_raging_spirits_allowed" = 20
+		--"active_skill_minion_added_damage_+%_final" = -30
+	},
+	qualityMods = {
+		--"minion_movement_speed_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("manaCost", nil), 
+	},
+	levels = {
+		[1] = { 4, },
+		[2] = { 4, },
+		[3] = { 5, },
+		[4] = { 5, },
+		[5] = { 6, },
+		[6] = { 6, },
+		[7] = { 6, },
+		[8] = { 7, },
+		[9] = { 7, },
+		[10] = { 8, },
+		[11] = { 8, },
+		[12] = { 9, },
+		[13] = { 9, },
+		[14] = { 10, },
+		[15] = { 10, },
+		[16] = { 10, },
+		[17] = { 11, },
+		[18] = { 11, },
+		[19] = { 11, },
+		[20] = { 12, },
+		[21] = { 12, },
+		[22] = { 13, },
+		[23] = { 13, },
+		[24] = { 13, },
+		[25] = { 14, },
+		[26] = { 14, },
+		[27] = { 14, },
+		[28] = { 15, },
+		[29] = { 15, },
+		[30] = { 15, },
+	},
 }
 gems["Summon Skeletons"] = {
 	intelligence = true,
@@ -4170,6 +4321,57 @@ gems["Summon Skeletons"] = {
 	minion = true,
 	duration = true,
 	unsupported = true,
+	color = 3,
+	baseFlags = {
+	},
+	skillTypes = { [2] = true, [9] = true, [12] = true, [21] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [49] = true, },
+	baseMods = {
+		skill("castTime", 0.8), 
+		--"number_of_melee_skeletons_to_summon" = 2
+		skill("duration", 20), --"base_skill_effect_duration" = 20000
+		--"active_skill_minion_added_damage_+%_final" = -50
+		--"display_minion_monster_type" = 2
+	},
+	qualityMods = {
+		mod("Damage", "INC", 1, 0, 0, nil), --"damage_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("manaCost", nil), 
+		--[2] = "base_number_of_skeletons_allowed"
+		--[3] = "display_minion_monster_level"
+	},
+	levels = {
+		[1] = { 6, 4, 10, },
+		[2] = { 7, 4, 13, },
+		[3] = { 8, 4, 16, },
+		[4] = { 9, 4, 19, },
+		[5] = { 10, 4, 22, },
+		[6] = { 11, 4, 25, },
+		[7] = { 12, 4, 28, },
+		[8] = { 12, 4, 32, },
+		[9] = { 13, 5, 36, },
+		[10] = { 14, 5, 40, },
+		[11] = { 15, 5, 44, },
+		[12] = { 15, 5, 47, },
+		[13] = { 16, 5, 50, },
+		[14] = { 17, 5, 53, },
+		[15] = { 17, 5, 56, },
+		[16] = { 18, 6, 59, },
+		[17] = { 19, 6, 62, },
+		[18] = { 20, 6, 64, },
+		[19] = { 20, 6, 66, },
+		[20] = { 21, 6, 68, },
+		[21] = { 21, 6, 70, },
+		[22] = { 22, 6, 72, },
+		[23] = { 22, 6, 74, },
+		[24] = { 22, 6, 76, },
+		[25] = { 23, 6, 78, },
+		[26] = { 23, 6, 80, },
+		[27] = { 24, 6, 82, },
+		[28] = { 24, 6, 84, },
+		[29] = { 25, 6, 86, },
+		[30] = { 25, 6, 88, },
+	},
 }
 gems["Vaal Summon Skeletons"] = {
 	intelligence = true,
@@ -4179,6 +4381,58 @@ gems["Vaal Summon Skeletons"] = {
 	minion = true,
 	duration = true,
 	unsupported = true,
+	color = 3,
+	baseFlags = {
+	},
+	skillTypes = { [2] = true, [9] = true, [12] = true, [21] = true, [17] = true, [18] = true, [19] = true, [26] = true, [43] = true, },
+	baseMods = {
+		skill("castTime", 0.8), 
+		--"number_of_leader_skeletons_to_summon" = 1
+		skill("duration", 20), --"base_skill_effect_duration" = 20000
+		--"display_minion_monster_type" = 2
+	},
+	qualityMods = {
+		mod("Damage", "INC", 1, 0, 0, nil), --"damage_+%" = 1
+	},
+	levelMods = {
+		--[1] = "number_of_melee_skeletons_to_summon"
+		--[2] = "number_of_archer_skeletons_to_summon"
+		--[3] = "number_of_mage_skeletons_to_summon"
+		--[4] = "base_number_of_skeletons_allowed"
+		--[5] = "display_minion_monster_level"
+	},
+	levels = {
+		[1] = { 14, 2, 0, 17, 10, },
+		[2] = { 15, 2, 0, 18, 13, },
+		[3] = { 15, 3, 0, 19, 16, },
+		[4] = { 16, 3, 0, 20, 19, },
+		[5] = { 16, 4, 0, 21, 22, },
+		[6] = { 17, 4, 0, 22, 25, },
+		[7] = { 17, 5, 0, 23, 28, },
+		[8] = { 18, 5, 0, 24, 32, },
+		[9] = { 18, 5, 1, 25, 36, },
+		[10] = { 18, 6, 1, 26, 40, },
+		[11] = { 18, 6, 2, 27, 44, },
+		[12] = { 19, 6, 2, 28, 47, },
+		[13] = { 19, 6, 3, 29, 50, },
+		[14] = { 20, 6, 3, 30, 53, },
+		[15] = { 20, 7, 3, 31, 56, },
+		[16] = { 20, 7, 4, 32, 59, },
+		[17] = { 20, 8, 4, 33, 62, },
+		[18] = { 21, 8, 4, 34, 64, },
+		[19] = { 21, 8, 5, 35, 66, },
+		[20] = { 21, 9, 5, 36, 68, },
+		[21] = { 22, 9, 5, 37, 70, },
+		[22] = { 22, 9, 6, 38, 72, },
+		[23] = { 22, 10, 6, 39, 74, },
+		[24] = { 23, 10, 6, 40, 76, },
+		[25] = { 23, 10, 7, 41, 78, },
+		[26] = { 23, 11, 7, 42, 80, },
+		[27] = { 24, 11, 7, 43, 82, },
+		[28] = { 24, 11, 8, 44, 84, },
+		[29] = { 25, 11, 8, 45, 86, },
+		[30] = { 25, 12, 8, 46, 88, },
+	},
 }
 gems["Tempest Shield"] = {
 	intelligence = true,
