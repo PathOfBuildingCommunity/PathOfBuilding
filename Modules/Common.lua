@@ -15,7 +15,7 @@ local s_format = string.format
 common = { }
 
 -- External libraries
-common.curl = require("lcurl")
+common.curl = require("lcurl.safe")
 common.xml = require("xml")
 common.base64 = require("base64")
 
@@ -144,10 +144,10 @@ function isMouseInRegion(region)
 end
 
 -- Make a copy of a table and all subtables
-function copyTable(tbl)
+function copyTable(tbl, noRecurse)
 	local out = {}
 	for k, v in pairs(tbl) do
-		if type(v) == "table" then
+		if not noRecurse and type(v) == "table" then
 			out[k] = copyTable(v)
 		else
 			out[k] = v

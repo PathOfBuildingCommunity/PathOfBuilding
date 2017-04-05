@@ -6,266 +6,236 @@ local gems = data.gems
 
 
 local itemBases = data.itemBases
-itemBases["Blue Pearl Amulet"] = {
-	type = "Amulet",
-	implicit = "(48-56)% increased Mana Regeneration Rate",
-	req = { level = 77 },
-}
-itemBases["Marble Amulet"] = {
-	type = "Amulet",
-	implicit = "(1.2-1.6)% of Life Regenerated per second",
-	req = { level = 74 },
-}
-itemBases["Steel Ring"] = {
-	type = "Ring",
-	implicit = "Adds (3-4) to (10-14) Physical Damage to Attacks",
-	req = { level = 80 },
-}
-itemBases["Opal Ring"] = {
-	type = "Ring",
-	implicit = "(15-25)% increased Elemental Damage",
-	req = { level = 80 },
-}
-itemBases["Vanguard Belt"] = {
-	type = "Belt",
-	implicit = "+(260-320) to Armour and Evasion Rating",
-	req = { level = 70 },
-}
-itemBases["Crystal Belt"] = {
-	type = "Belt",
-	implicit = "+(60-80) to maximum Energy Shield",
-	req = { level = 79 },
-}
-itemBases["Bone Helmet"] = {
-	type = "Helmet",
-	implicit = "Minions deal (30 to 40)% increased Damage",
-	armour = { armourBase = 172, energyShieldBase = 50, },
-	req = { level = 75, str = 76, int = 76, },
-}
-itemBases["Fingerless Silk Gloves"] = {
-	type = "Gloves",
-	implicit = "(12-16)% increased Spell Damage",
-	armour = { energyShieldBase = 56 },
-	req = { level = 73, int = 95 },
-}
-itemBases["Gripped Gloves"] = {
-	type = "Gloves",
-	implicit = "(14-18)% increased Projectile Attack Damage",
-	armour = { evasionBase = 191 },
-	req = { level = 73, dex = 95 },
-}
-itemBases["Spiked Gloves"] = {
-	type = "Gloves",
-	implicit = "(16-20)% increased Melee Damage",
-	armour = { armourBase = 191 },
-	req = { level = 73, str = 95 },
-}
-itemBases["Two-Toned Boots"] = {
-	type = "Boots",
-	implicit = "",
-	armour = { armourBase = 109, energyShieldBase = 32 },
-	req = { level = 72, str = 62, int = 62 },
-}
 
 
 data.uniques.new = {
+-- Equippable items
 [[
-The Brass Dome
-Gladiator Plate
-Requires Level 65, 177 Str
-30% reduced Chance to Block Attacks and Spells
-(600-650)% increased Armour
-10% reduced Movement Speed
-50% increased Shock Duration on You
-Take no Extra Damage from Critical Strikes
+Tidebreaker
+Imperial Maul
+Requires Level 65, 212 Str
+30% increased Stun Duration on Enemies
+Socketed Gems are Supported by Level 20 Endurance Charge on Melee Stun
+Adds (60–70) to (300–350) Physical Damage
++40 to Intelligence
+10% increased Physical Damage per Endurance Charge
+(20–30)% reduced Enemy Stun Threshold with this Weapon
 ]],[[
-Voidwalker
-Murder Boots
-Evasion: (386 to 450)
-Energy Shield: (52 to 61)
-Requires Level 69, 82 Dex, 42 Int
-+(30-50) to Dexterity
-(140-180)% increased Evasion and Energy Shield
+Martyr of Innocence
+Highborn Staff
+Requires Level 52, 89 Str, 89 Int
+18% Chance to Block
+(12–16)% Chance to Block 
+Adds (350–400) to (500–600) Fire Damage 
+Adds (130–150) to (200–250) Fire Damage to Spells
+100% increased Fire Damage if you have been Hit Recently
+Damage Penetrates 15% of Fire Resistance if you have Blocked Recently
+Immune to Freeze and Chill while Ignited
+Grants level 15 Vengeance Skill
+]],[[
+Garukhan's Flight
+Stealth Boots
+Requires Level 62, 117 Dex
+(80–120)% increased Evasion Rating
 30% increased Movement Speed
-20% chance to Avoid Projectiles while Phasing
-You have Phasing if you've Killed Recently
-Projectiles Pierce while Phasing
+Immune to Burning Ground, Shocked Ground and Chilled Ground
+Regenerate 100 Life per second while moving
++1 to Maximum Life per 10 Dexterity
 ]],[[
-Kitava's Thirst 
-Zealot Helmet
-Armour: (177–187)
-Energy Shield: (53–56)
-Requires Level 44, 50 Str, 50 Int
-15% reduced Cast Speed
-(70–80)% increased Armour and Energy Shield
-+(30–50) to maximum Mana
-30% chance to Cast Socketed Spells when 
-you Spend at least 100 Mana to Use a Skill
+Gruthkul's Pelt
+Wyrmscale Doublet
+Requiress Level 38, 57 Str, 57 Dex
+(60-100)% increased Physical Damage
++(130-160) to maximum Life
++(20-40)% to Cold Resistance
+2% of Life Regenerated per second
+15% increased Character Size
+Spell Skills deal no Damage
+Your Spells are disabled
 ]],[[
-Kondo's Pride 
-Ezomyte Blade
-Two Handed Sword
-Physical Damage: (226–418 to 256–475)
-Critical Strike Chance: 5.00%
-Attacks per Second: 1.25
-Requires Level 61, 113 Str, 113 Dex
-18% increased Accuracy Rating
-(270–320)% increased Physical Damage
-0.6% of Physical Attack Damage Leeched as Life
-50% increased Melee Damage against Bleeding Enemies
-Cannot Leech Life from Critical Strikes
-30% chance to Blind Enemies on Critical Strike
-Causes Bleeding on Melee Critical Strike
+The Baron
+Close Helmet
+Requires Level 26, 58 Str
++2 to Level of Socketed Minion Gems
++(20–40) to Strength
+Minions have 20% increase maximum Life
+Your Strenght is added to your Minions
++1 to maximum number of Zombies per 300 Strength
+With 1000 or more Strength 2% of Damage dealt by your Zombies is Leeched to you as Life
 ]],[[
-Obscurantis 
-Lion Pelt
-Requires Level 70, 150 Dex
-+(300-500) to Accuracy Rating
-(100-120)% increased Evasion Rating
-+(50-80) to maximum Life
-1% increased Projectile Attack Damage per 200 Accuracy Rating
-]],[[
-Slivertongue 
-Harbinger Bow
-Bow
-Requires Level 68, 212 Dex
-(30 to 50)% increased Critical Strike Chance
-Adds (60-75) to (170-220) Physical Damage
-100% increased Critical Strike Chance with arrows that Fork
-Arrows that Pierce cause Bleeding
-Arrows always Pierce after Chaining
-]],[[
-Snakepit 
-Sapphire Ring
-Requires Level 68
-+(20 to 30)% to Cold Resistance
-(20-40)% increased Cold Damage
-(5-10)% increased Cast Speed
-Spells have an additional Projectile
-]],[[
-Brain Rattler 
-Meatgrinder
-Two Handed Mace
-Physical Damage: (143–437 to 163–487)
-Critical Strike Chance: 5.00%
-Attacks per Second: 1.25
-Requires Level 63, 212 Str
-20% increased Stun Duration on Enemies
-Adds (80–100) to (320–370) Physical Damage
-50% of Physical Damage Converted to Lightning Damage
-15% chance to Shock
-10% chance to Cause Monsters to Flee
-Enemies you Shock have 30% reduced Cast Speed
-Enemies you Shock have 20% reduced Movement Speed
-]],[[
-Razor of the Seventh Sun 
-Midnight Blade
-One Handed Sword
-Requires Level 68, 113 Str, 113 Dex
-18% increased Accuracy Rating
-Adds (65-75) to (110-130) Physical Damage
-100% increased Burning Damage if you've Ignited an Enemy Recently
-Recovery 1% of Maximum Life when you Ignite an Enemy
-100% increased Melee Physical Damage against Ignited Enemies
-]],[[
-Eye of Innocence 
-Citrine Amulet
-Requires Level 68
-+(16 to 24) to Strength and Dexterity
-10% chance to Ignite
-(50-70)% increased Damage while Ignited
-Take 100 Fire Damage when you Ignite an Enemy
-2% of Fire Damage Leeched as Life while Ignited
-]],[[
-Cospri's Malice 
-Jewelled Foil
-One Handed Sword
-Elemental Damage: (80–160 to 100–200)
-Critical Strike Chance: 5.50%
-Attacks per Second: (1.73–1.82)
-Requires Level 68, 212 Dex, 257 Int
-+30% to Global Critical Strike Multiplier
-No Physical Damage
-Adds (80–100) to (160–200) Cold Damage
-Adds (40–60) to (90–110) Cold Damage to Spells
-(8–14)% increased Attack Speed
-+257 Intelligence Requirement
-60% increased Critical Strike Chance against Chilled Enemies
-Cast a Socketed Cold Skill on Melee Critical Strike
-]],[[
-The Scourge
-Terror Claw
-Claws
-Physical Damage: 15–60
-Critical Strike Chance: 6.30%
-Attacks per Second: 1.50
-Requires Level 70, 113 Dex, 113 Int
-2% of Physical Attack Damage Leeched as Life
-Adds (35-50) to (100-125) Physical Damage
-(10-15)% increased Attack Speed
-Minions have (10-15)% increased Attack Speed
-10% Chance to summon a Spectral Wolf on Kill
-Increases and reductions to Minion Damage also affects you
-70% increased Minion Damage if you have Hit Recently
-]],[[
-Unending Hunger 
-Cobalt Jewel
-Minions have (5-8)% increased Radius of Area Skills
-20% chance for Spectres to gain Soul Eater on Kill for 30 seconds
-with 50 Intelligence from Allocated Passives in Radius
-]],[[
-The Warden's Brand 
-Iron Ring
+Bisco's Collar
+Gold Amulet
 Requires Level 30
-Adds 1 to 4 Physical Damage to Attacks
-Adds (5–15) to (25–50) Physical Damage to Attacks
-30% reduced Attack Speed
-15% chance to gain a Frenzy Charge when you Stun an Enemy
+(12-20)% increased Rarity of Items found
+150% increased Rarity of Items Dropped by Slain Magic Enemies
+100% increased Quantity of Items Dropped by Slain Normal Enemies
 ]],[[
-Praxis 
-Paua Ring
-Requires Level 22
-+(20–25) to maximum Mana
-+(30–60) to maximum Mana
-(3–6) Mana Regenerated per second
-−(4–8) to Mana Cost of Skills
-8% of Damage taken gained as Mana when Hit
+Bisco's Leash
+Heavy Belt
+Requires Level 30
++(25-35) to Strength
+5% increased Quantity of Items found
++(20–40)% to Cold Resistance
+Rampage
+1% increased Rarity of Items found per 15 Rampage Kills
 ]],[[
-Valyrium 
-Moonstone Ring
-Requires Level 38
-+(15–25) to maximum Energy Shield
-+(10–20) to maximum Energy Shield
-+(20–30)% to Fire Resistance
-−40% to Cold Resistance
-Stun Threshold is based on Energy Shield instead of Life
+The Wise Oak
+Bismuth Flask
+Requires Level 8
+Implicits: 0
+During Flask Effect, 10% reduced Damage taken of each Element for which your Uncapped
+Elemental Resistance is lowest
+During Flask Effect, Damage Penetrates 20% Resistance of each Element for which your
+Uncapped Elemental Resistance is highest
 ]],[[
-Shaper's Touch 
-Crusader Gloves
-Armour: (194)
-Energy Shield: (57)
-Requires Level 66, 51 Str, 51 Int
-(80-120)% increased Armour and Energy Shield
-+2 Accuracy Rating per 2 Intelligence
-+1 Life per 4 Dexterity
-+1 Mana per 4 Strength
-1% increased Energy Shield per 10 Strength
-1% increased Evasion Rating per 10 Intelligence
-1% increased Melee Physical Damage per 10 Dexterity
+Ahn's Heritage
+Colossal Tower Shield
+Requires Level 67, 159 Str
+(50-100)% increased Armour
++(60-80) to maximum Life
+-1 to maximum Endurance Charges
+-10% to maximum Block Chance
++6% Chance to Block
++3% to all maximum Resistances while you have no Endurance Charges
+You have Onslaught while at maximum Endurance Charges
 ]],[[
-Starforge 
-Infernal Sword
-Two Handed Sword
-Physical Damage: (285–590 to 342–708)
-Critical Strike Chance: 5.00%
-Attacks per Second: (1.31–1.35)
-Requires Level 67, 113 Str, 113 Dex
-30% increased Accuracy Rating
-(400–500)% increased Physical Damage
-(5–8)% increased Attack Speed
-+(90–100) to maximum Life
-20% increased Area of Effect for Attacks
-Deal no Elemental Damage
-Your Physical Damage can Shock
-]]
+Haemophilia
+Serpentscale Gauntlets
+Requires Level 43, 34 Str, 34 Dex
++(20–30) to Strength 
+25% increased Damage over Time 
+Attacks have 25% chance to cause Bleeding 
+(25–40)% increased Attack Damage against Bleeding Enemies 
+Bleeding Enemies you Kill Explode, dealing 5% of
+their Maximum Life as Physical Damage 
+25% reduced Bleed duration
+]],[[
+Ryslatha's Coil
+Studded Belt
+Requires Level: 20
+(20–30)% increased Stun Duration on Enemies 
++(20–40) to Strength 
+Adds 1 to (15–20) Physical Damage to Attacks 
+Gain 50 Life when you Stun an Enemy 
+20% less Minimum Physical Attack Damage 
+20% more Maximum Physical Attack Damage
+]],
+-- Theshold jewels
+[[
+Fight for Survival
+Viridian Jewel
+Limited to: 2
+Radius: Medium
+(10–15)% increased Cold Damage
+With at least 40 Dexterity in Radius, Frost
+Blades Melee Damage Penetrates 15% Cold Resistance
+With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile Speed
+]],[[
+Omen on the Winds
+Viridian Jewel
+Limited to: 2
+Radius: Medium
+16% increased Damage against Chilled Enemies
+With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect
+With at least 40 Dexterity in Radius, Ice Shot has 50% chance of Projectiles Piercing
+]],[[
+Frozen Trail
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+(7–10)% increased Projectile Damage
+With at least 40 Intelligence in Radius, Frostbolt fires 2 additional Projectiles
+With at least 40 Intelligence in Radius, Frostbolt Projectiles gain 40% increased Projectile
+Speed per second
+]],[[
+Inevitability
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+(10–15)% increased Fire Damage
+With at least 40 Intelligence in Radius, Magma Orb fires an additional Projectile
+With at least 40 Intelligence in Radius, Magma Orb
+has 10% increased Area of Effect per Chain
+]],[[
+Overwhelming Odds
+Crimson Jewel
+Limited to: 2
+Radius: Medium
+(10-15)% increased Physical Damage
+With at least 40 Strength in Radius, Cleave grants Fortify on Hit
+With at least 40 Strength in Radius, Cleave has 3% increased Area of
+Effect per Nearby Enemy
+]],[[
+Collateral Damage
+Viridian Jewel
+Limited to: 2
+Radius: Medium
+(10–15)% increased Physical Damage
+With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect
+With at least 40 Dexterity in Radius, Shrapnel Shot's
+cone has a 50% chance to deal Double Damage
+]],[[
+Might and Influence
+Viridian Jewel
+Limited to: 1
+Radius: Medium
+(10–15)% increased Physical Damage
+With at least 40 Dexterity in Radius, Dual Strike has a 20% chance
+to deal Double Damage with the Main-Hand Weapon
+With at least 40 Dexterity in Radius, Dual Strike deals Off-Hand Splash Damage
+to surrounding targets
+]],[[
+First Snow
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+(7–10)% increased Projectile Damage 
+With at least 40 Intelligence in Radius, Freezing Pulse fires 2 additional Projectiles
+With at least 40 Intelligence in Radius, 25% increased Freezing Pulse Damage if
+you've Shattered an Enemy Recently
+]],[[
+Ring of Blades
+Viridian Jewel
+Limited to: 1
+Radius: Medium
+(10–15)% increased Physical Damage 
+With at least 40 Dexterity in Radius, Ethereal Knives fires Projectiles in a Nova
+With at least 40 Dexterity in Radius, Ethereal Knives fires 10 additional Projectiles
+]],[[
+Sudden Ignition
+Viridian Jewel
+Limited to: 1
+Radius: Medium
+(10–15)% increased Fire Damage 
+With at least 40 Dexterity in Radius, Burning
+Arrow can inflict an additional Ignite on an Enemy
+]],[[
+Violent Dead
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+Minions deal (8–12)% increased Damage 
+With at least 40 Intelligence in Radius, Raised
+Zombies' Slam Attack has 100% increased Cooldown Recovery Speed
+With at least 40 Intelligence in Radius, Raised Zombies' Slam
+Attack deals 30% increased Damage
+]],[[
+Wildfire
+Crimson Jewel
+Limited to: 2
+Radius: Medium
+(10–15)% increased Fire Damage 
+With at least 40 Strength in Radius, Molten Strike fires 2 additional Projectiles
+With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Effect
+]],[[
+Winter Burial
+Crimson Jewel
+Limited to: 2
+Radius: Medium
+(10–15)% increased Cold Damage 
+With at least 40 Strength in Radius, Glacial Hammer deals
+Cold-only Splash Damage to surrounding targets
+With at least 40 Strength in Radius, 25% of Glacial
+Hammer Physical Damage converted to Cold Damage
+]],
 }

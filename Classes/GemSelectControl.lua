@@ -13,7 +13,7 @@ local m_max = math.max
 local m_floor = math.floor
 
 local GemSelectClass = common.NewClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc)
-	self.EditControl(anchor, x, y, width, height)
+	self.EditControl(anchor, x, y, width, height, nil, nil, "^ %a'")
 	self.controls.scrollBar = common.New("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
 	self.controls.scrollBar.y = function()
 		local width, height = self:GetSize()
@@ -29,7 +29,6 @@ local GemSelectClass = common.NewClass("GemSelectControl", "EditControl", functi
 	self.index = index
 	self.gemChangeFunc = changeFunc
 	self.list = { }
-	self.filter = "[ %a']"
 	self.changeFunc = function()
 		self.dropped = true
 		self.selIndex = 0
@@ -55,6 +54,20 @@ function GemSelectClass:BuildList(buf)
 			local matchList = { }
 			for name, data in pairs(data.gems) do
 				if not data.hidden and not added[name] and (" "..name:lower()):match(pattern) then
+					t_insert(matchList, name)
+					added[name] = true
+				end
+			end
+			t_sort(matchList)
+			for _, name in ipairs(matchList) do
+				t_insert(self.list, name)
+			end
+		end
+		local tagName = self.searchStr:match("^%s*(%a+)%s*$")
+		if tagName then
+			local matchList = { }
+			for name, data in pairs(data.gems) do
+				if not data.hidden and not added[name] and data[tagName:lower()] == true then
 					t_insert(matchList, name)
 					added[name] = true
 				end
@@ -145,7 +158,7 @@ function GemSelectClass:Draw(viewPort)
 		SetDrawLayer(nil, 5)
 		local cursorX, cursorY = GetCursorPos()
 		self.hoverSel = mOverComp == "DROP" and math.floor((cursorY - y - height + scrollBar.offset) / (height - 4)) + 1
-		if self.hoverSel and self.hoverSel < 1 then
+		if self.hoverSel and not data.gems[self.list[self.hoverSel]] then
 			self.hoverSel = nil
 		end
 		SetViewport(x + 2, y + height + 2, width - 4, dropHeight)
@@ -182,6 +195,27 @@ function GemSelectClass:Draw(viewPort)
 		end
 		SetViewport()
 		self:DrawControls(viewPort)
+		if self.hoverSel then
+			local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
+			if calcFunc then
+				local gemList = self.skillsTab.displayGroup.gemList
+				local oldGem = gemList[self.index]
+				gemList[self.index] = copyTable(oldGem or { level = 20, quality = 0, enabled = true }, true)
+				gemList[self.index].name = self.list[self.hoverSel]
+				gemList[self.index].data = data.gems[self.list[self.hoverSel]]
+				if gemList[self.index].data.low_max_level and not gemList[self.index].data.levels[gemList[self.index].level] then
+					if gemList[self.index].data.levels[3][1] then
+						gemList[self.index].level = 3
+					else
+						gemList[self.index].level = 1
+					end
+				end
+				local output = calcFunc()
+				gemList[self.index] = oldGem
+				self.skillsTab.build:AddStatComparesToTooltip(calcBase, output, "^7Selecting this gem will give you:")
+				main:DrawTooltip(x, y + height + 2 + (self.hoverSel - 1) * (height - 4) - scrollBar.offset, width, height - 4, viewPort)
+			end
+		end
 		SetDrawLayer(nil, 0)
 	else
 		local hoverControl 

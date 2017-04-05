@@ -1,6 +1,6 @@
 -- Path of Building
 --
--- Active Strength skills
+-- Strength support gems
 -- Skill gem data (c) Grinding Gear Games
 --
 local gems, mod, flag, skill = ...
@@ -163,7 +163,53 @@ gems["Cast on Melee Kill"] = {
 	attack = true,
 	spell = true,
 	trigger = true,
-	unsupported = true,
+	color = 1,
+	requireSkillTypes = { 24, 36, },
+	addSkillTypes = { 42, },
+	excludeSkillTypes = { 37, 41, 30, 44, 61, },
+	baseMods = {
+		mod("ManaCost", "MORE", 40), 
+		--"cast_linked_spells_on_melee_kill_%" = 100
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+	},
+	qualityMods = {
+		mod("Damage", "INC", 0.5, 0, 0, nil), --"damage_+%" = 0.5
+	},
+	levelMods = {
+		[1] = mod("Damage", "MORE", nil, ModFlag.Spell), --"support_cast_on_melee_kill_spell_damage_+%_final"
+	},
+	levels = {
+		[1] = { 20, },
+		[2] = { 21, },
+		[3] = { 22, },
+		[4] = { 23, },
+		[5] = { 24, },
+		[6] = { 25, },
+		[7] = { 26, },
+		[8] = { 27, },
+		[9] = { 28, },
+		[10] = { 29, },
+		[11] = { 30, },
+		[12] = { 31, },
+		[13] = { 32, },
+		[14] = { 33, },
+		[15] = { 34, },
+		[16] = { 35, },
+		[17] = { 36, },
+		[18] = { 37, },
+		[19] = { 38, },
+		[20] = { 39, },
+		[21] = { 40, },
+		[22] = { 41, },
+		[23] = { 42, },
+		[24] = { 43, },
+		[25] = { 44, },
+		[26] = { 45, },
+		[27] = { 46, },
+		[28] = { 47, },
+		[29] = { 48, },
+		[30] = { 49, },
+	},
 }
 gems["Cast when Damage Taken"] = {
 	strength = true,
@@ -173,10 +219,10 @@ gems["Cast when Damage Taken"] = {
 	color = 1,
 	requireSkillTypes = { 36, },
 	addSkillTypes = { 42, },
-	excludeSkillTypes = { 37, 41, 30, 44, },
+	excludeSkillTypes = { 37, 41, 30, 44, 61, },
 	baseMods = {
 		--"cast_on_damage_taken_%" = 100
-		--"spell_uncastable_if_triggerable" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
@@ -231,7 +277,7 @@ gems["Cold to Fire"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 10), 
-		skill("ColdDamageConvertToFire", 50), --"skill_cold_damage_%_to_convert_to_fire" = 50
+		mod("SkillColdDamageConvertToFire", "BASE", 50), --"skill_cold_damage_%_to_convert_to_fire" = 50
 	},
 	qualityMods = {
 		mod("ColdDamage", "INC", 0.5), --"cold_damage_+%" = 0.5
@@ -288,7 +334,7 @@ gems["Empower"] = {
 		--"local_gem_experience_gain_+%" = 5
 	},
 	levelMods = {
-		[1] = mod("GemProperty", "LIST", { keyword = "active", key = "level", value = nil }), --"supported_active_skill_gem_level_+"
+		[1] = mod("GemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }), --"supported_active_skill_gem_level_+"
 	},
 	levels = {
 		[1] = { 0, },
@@ -462,7 +508,51 @@ gems["Generosity"] = {
 	strength = true,
 	support = true,
 	aura = true,
-	unsupported = true,
+	color = 1,
+	requireSkillTypes = { 44, },
+	addSkillTypes = { },
+	excludeSkillTypes = { 30, 32, },
+	baseMods = {
+		skill("auraCannotAffectSelf", true), --"aura_cannot_affect_self" = ?
+	},
+	qualityMods = {
+		mod("AreaOfEffect", "INC", 2, 0, KeywordFlag.Aura), --"base_aura_area_of_effect_+%" = 2
+	},
+	levelMods = {
+		[1] = mod("AuraEffect", "INC", nil), --"non_curse_aura_effect_+%"
+	},
+	levels = {
+		[1] = { 20, },
+		[2] = { 21, },
+		[3] = { 22, },
+		[4] = { 23, },
+		[5] = { 24, },
+		[6] = { 25, },
+		[7] = { 26, },
+		[8] = { 27, },
+		[9] = { 28, },
+		[10] = { 29, },
+		[11] = { 30, },
+		[12] = { 31, },
+		[13] = { 32, },
+		[14] = { 33, },
+		[15] = { 34, },
+		[16] = { 35, },
+		[17] = { 36, },
+		[18] = { 37, },
+		[19] = { 38, },
+		[20] = { 39, },
+		[21] = { 40, },
+		[22] = { 41, },
+		[23] = { 42, },
+		[24] = { 43, },
+		[25] = { 44, },
+		[26] = { 45, },
+		[27] = { 46, },
+		[28] = { 47, },
+		[29] = { 48, },
+		[30] = { 49, },
+	},
 }
 gems["Increased Burning Damage"] = {
 	fire = true,
@@ -619,7 +709,7 @@ gems["Iron Will"] = {
 	strength = true,
 	support = true,
 	color = 1,
-	requireSkillTypes = { 10, 52, },
+	requireSkillTypes = { 10, 52, 59, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	baseMods = {
@@ -871,13 +961,13 @@ gems["Life Leech"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 30), 
-		--"life_leech_from_any_damage_permyriad" = 200
+		mod("DamageLifeLeech", "BASE", 2), --"life_leech_from_any_damage_permyriad" = 200
 	},
 	qualityMods = {
-		--"life_leech_speed_+%" = 0.5
+		mod("LifeLeechRate", "INC", 0.5), --"life_leech_speed_+%" = 0.5
 	},
 	levelMods = {
-		--[1] = "life_leech_speed_+%"
+		[1] = mod("LifeLeechRate", "INC", nil), --"life_leech_speed_+%"
 	},
 	levels = {
 		[1] = { 0, },
@@ -1030,43 +1120,43 @@ gems["Melee Splash"] = {
 		--"melee_splash" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		--[1] = "support_melee_splash_damage_+%_final_for_splash"
-		[2] = mod("AreaRadius", "MORE", nil), --"melee_splash_area_of_effect_+%_final"
+		[2] = mod("AreaOfEffect", "MORE", nil), --"melee_splash_area_of_effect_+%_final"
 	},
 	levels = {
 		[1] = { -35, 0, },
-		[2] = { -35, 1, },
-		[3] = { -34, 2, },
-		[4] = { -34, 3, },
-		[5] = { -33, 4, },
-		[6] = { -33, 5, },
-		[7] = { -32, 6, },
-		[8] = { -32, 7, },
-		[9] = { -31, 8, },
-		[10] = { -31, 9, },
-		[11] = { -30, 10, },
-		[12] = { -30, 11, },
-		[13] = { -29, 12, },
-		[14] = { -29, 13, },
-		[15] = { -28, 14, },
-		[16] = { -28, 15, },
-		[17] = { -27, 16, },
-		[18] = { -27, 17, },
-		[19] = { -26, 18, },
-		[20] = { -26, 19, },
-		[21] = { -25, 20, },
-		[22] = { -25, 21, },
-		[23] = { -24, 22, },
-		[24] = { -24, 23, },
-		[25] = { -23, 24, },
-		[26] = { -23, 25, },
-		[27] = { -22, 26, },
-		[28] = { -22, 27, },
-		[29] = { -21, 28, },
-		[30] = { -21, 29, },
+		[2] = { -35, 3, },
+		[3] = { -34, 6, },
+		[4] = { -34, 9, },
+		[5] = { -33, 12, },
+		[6] = { -33, 15, },
+		[7] = { -32, 18, },
+		[8] = { -32, 21, },
+		[9] = { -31, 24, },
+		[10] = { -31, 27, },
+		[11] = { -30, 30, },
+		[12] = { -30, 33, },
+		[13] = { -29, 36, },
+		[14] = { -29, 39, },
+		[15] = { -28, 42, },
+		[16] = { -28, 45, },
+		[17] = { -27, 48, },
+		[18] = { -27, 51, },
+		[19] = { -26, 54, },
+		[20] = { -26, 57, },
+		[21] = { -25, 60, },
+		[22] = { -25, 63, },
+		[23] = { -24, 66, },
+		[24] = { -24, 69, },
+		[25] = { -23, 72, },
+		[26] = { -23, 75, },
+		[27] = { -22, 78, },
+		[28] = { -22, 81, },
+		[29] = { -21, 84, },
+		[30] = { -21, 87, },
 	},
 }
 gems["Multistrike"] = {
@@ -1154,35 +1244,35 @@ gems["Ranged Attack Totem"] = {
 		[2] = mod("Damage", "MORE", nil), --"support_totem_damage_+%_final"
 	},
 	levels = {
-		[1] = { 8, -50, },
-		[2] = { 10, -49, },
-		[3] = { 13, -48, },
-		[4] = { 17, -47, },
-		[5] = { 21, -46, },
-		[6] = { 25, -45, },
-		[7] = { 29, -44, },
-		[8] = { 33, -43, },
-		[9] = { 37, -42, },
-		[10] = { 40, -41, },
-		[11] = { 43, -40, },
-		[12] = { 46, -39, },
-		[13] = { 49, -38, },
-		[14] = { 52, -37, },
-		[15] = { 55, -36, },
-		[16] = { 58, -35, },
-		[17] = { 61, -34, },
-		[18] = { 64, -33, },
-		[19] = { 67, -32, },
-		[20] = { 70, -31, },
-		[21] = { 72, -30, },
-		[22] = { 74, -29, },
-		[23] = { 76, -28, },
-		[24] = { 78, -27, },
-		[25] = { 80, -26, },
-		[26] = { 82, -25, },
-		[27] = { 84, -24, },
-		[28] = { 86, -23, },
-		[29] = { 88, -22, },
+		[1] = { 8, -35, },
+		[2] = { 10, -35, },
+		[3] = { 13, -34, },
+		[4] = { 17, -34, },
+		[5] = { 21, -33, },
+		[6] = { 25, -33, },
+		[7] = { 29, -32, },
+		[8] = { 33, -32, },
+		[9] = { 37, -31, },
+		[10] = { 40, -31, },
+		[11] = { 43, -30, },
+		[12] = { 46, -30, },
+		[13] = { 49, -29, },
+		[14] = { 52, -29, },
+		[15] = { 55, -28, },
+		[16] = { 58, -28, },
+		[17] = { 61, -27, },
+		[18] = { 64, -27, },
+		[19] = { 67, -26, },
+		[20] = { 70, -26, },
+		[21] = { 72, -25, },
+		[22] = { 74, -25, },
+		[23] = { 76, -24, },
+		[24] = { 78, -24, },
+		[25] = { 80, -23, },
+		[26] = { 82, -23, },
+		[27] = { 84, -22, },
+		[28] = { 86, -22, },
+		[29] = { 88, -21, },
 		[30] = { 90, -21, },
 	},
 }
@@ -1245,13 +1335,13 @@ gems["Spell Totem"] = {
 	color = 1,
 	requireSkillTypes = { 18, },
 	addSkillTypes = { 12, 17, 19, 30, },
-	excludeSkillTypes = { },
+	excludeSkillTypes = { 61, },
 	baseMods = {
 		mod("ManaCost", "MORE", 100), 
 		--"is_totem" = 1
 		--"base_totem_duration" = 8000
 		--"base_totem_range" = 60
-		mod("Speed", "MORE", -30, ModFlag.Spell), --"support_spell_totem_cast_speed_+%_final" = -30
+		mod("Speed", "MORE", -30, ModFlag.Cast), --"support_spell_totem_cast_speed_+%_final" = -30
 		--"base_skill_is_totemified" = ?
 	},
 	qualityMods = {

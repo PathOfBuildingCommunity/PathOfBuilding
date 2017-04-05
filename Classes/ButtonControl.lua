@@ -9,19 +9,28 @@ local ButtonClass = common.NewClass("ButtonControl", "Control", function(self, a
 	self.Control(anchor, x, y, width, height)
 	self.label = label
 	self.onClick = onClick
+	self.tooltipFunc = function()
+		local tooltip = self:GetProperty("tooltip")
+		if tooltip then
+			main:AddTooltipLine(14, tooltip)
+		end
+	end
 end)
+
+function ButtonClass:Click()
+	if self:IsShown() and self:IsEnabled() then
+		self.onClick()
+	end
+end
 
 function ButtonClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
 	end
-	local x, y = self:GetPos()
-	local width, height = self:GetSize()
-	local cursorX, cursorY = GetCursorPos()
-	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
+	return self:IsMouseInBounds()
 end
 
-function ButtonClass:Draw()
+function ButtonClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -62,6 +71,12 @@ function ButtonClass:Draw()
 	else
 		local overSize = self.overSizeText or 0
 		DrawString(x + width / 2, y + 2 - overSize, "CENTER_X", height - 4 + overSize * 2, "VAR",label )
+	end
+	if mOver then
+		SetDrawLayer(nil, 100)
+		local col, center = self.tooltipFunc()
+		main:DrawTooltip(x, y, width, height, viewPort, col, center)
+		SetDrawLayer(nil, 0)
 	end
 end
 

@@ -5,10 +5,13 @@
 -- Installation bootstrap
 --
 
-local basicFiles = { "Launch.lua", "UpdateCheck.lua", "UpdateApply.lua" }
+local basicFiles = { "UpdateCheck.lua", "UpdateApply.lua", "Launch.lua" }
 
 local xml = require("xml")
-local curl = require("lcurl")
+local curl = require("lcurl.safe")
+
+ConClear()
+ConPrintf("Preparing to complete installation...\n")
 
 local localBranch, localSource
 local localManXML = xml.LoadXMLFile("manifest.xml")
@@ -30,18 +33,23 @@ if not localBranch or not localSource then
 	return
 end
 localSource = localSource:gsub("{branch}", localBranch)
-for _, name in pairs(basicFiles) do
-	local outFile = io.open(name, "wb")
+for _, name in ipairs(basicFiles) do
+	local text = ""
 	local easy = curl.easy()
 	easy:setopt_url(localSource..name)
-	easy:setopt_writefunction(outFile)
+	easy:setopt_writefunction(function(data)
+		text = text..data 
+		return true 
+	end)
 	easy:perform()
 	local size = easy:getinfo(curl.INFO_SIZE_DOWNLOAD)
 	easy:close()
-	outFile:close()
 	if size == 0 then
 		Exit("Install failed. (Couldn't download program files)")
 		return
 	end
+	local outFile = io.open(name, "wb")
+	outFile:write(text)
+	outFile:close()
 end
 Restart()

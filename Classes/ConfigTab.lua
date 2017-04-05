@@ -11,60 +11,211 @@ local m_max = math.max
 local varList = {
 	{ section = "General" },
 	{ var = "enemyLevel", type = "number", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and evade chances.\nThe default level is your character level, capped at 84, which is the same value\nused in-game to calculate the stats on the character sheet." },
-	{ var = "conditionLowLife", type = "check", label = "Are you always on Low Life?", tooltip = "You will automatically be considered to be on Low Life if you have at least 65% life reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+	{ var = "conditionLowLife", type = "check", label = "Are you always on Low Life?", ifCond = "LowLife", tooltip = "You will automatically be considered to be on Low Life if you have at least 65% life reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "LowLife" }, "Config")
 	end },
-	{ var = "conditionFullLife", type = "check", label = "Are you always on Full Life?", tooltip = "You will automatically be considered to be on Full Life if you have Chaos Innoculation,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+	{ var = "conditionFullLife", type = "check", label = "Are you always on Full Life?", ifCond = "FullLife", tooltip = "You will automatically be considered to be on Full Life if you have Chaos Innoculation,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "FullLife" }, "Config")
 	end },
+	{ var = "conditionFullEnergyShield", type = "check", label = "Are you always on Full Energy Shield?", ifCond = "FullES", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "FullEnergyShield" }, "Config")
+	end },
+	{ var = "igniteMode", type = "list", label = "Ignite calculation mode:", tooltip = "Controls how the base damage for ignite is calculated:\nAverage Damage: Ignite is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ignite is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
 	{ section = "When In Combat" },
 	{ var = "usePowerCharges", type = "check", label = "Do you use Power Charges?" },
 	{ var = "useFrenzyCharges", type = "check", label = "Do you use Frenzy Charges?" },
 	{ var = "useEnduranceCharges", type = "check", label = "Do you use Endurance Charges?" },
-	{ var = "buffOnslaught", type = "check", label = "Do you have Onslaught?", tooltip = "In addition to allowing any 'while you have Onslaught' modifiers to apply,\nthis will enable the Onslaught buff itself.", apply = function(val, modList, enemyModList)
+	{ var = "buffOnslaught", type = "check", label = "Do you have Onslaught?", tooltip = "In addition to allowing any 'while you have Onslaught' modifiers to apply,\nthis will enable the Onslaught buff itself. (20% increased Attack/Cast/Movement Speed)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "Onslaught" }, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffPhasing", type = "check", label = "Do you have Phasing?", apply = function(val, modList, enemyModList)
+	{ var = "buffUnholyMight", type = "check", label = "Do you have Unholy Might?", tooltip = "This will enable the Unholy Might buff. (Gain 30% of Physical Damage as Extra Chaos Damage)", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UnholyMight" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffPhasing", type = "check", label = "Do you have Phasing?", ifCond = "Phasing", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "Phasing" }, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffFortify", type = "check", label = "Do you have Fortify?", apply = function(val, modList, enemyModList)
+	{ var = "buffFortify", type = "check", label = "Do you have Fortify?", ifCond = "Fortify", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "Fortify" }, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionUsingFlask", type = "check", label = "Do you have a Flask active?", apply = function(val, modList, enemyModList)
+	{ var = "conditionLeeching", type = "check", label = "Are you Leeching?", ifCond = "Leeching", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "Leeching" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsingFlask", type = "check", label = "Do you have a Flask active?", ifCond = "UsingFlask", tooltip = "This is automatically enabled if you have a flask active,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsingFlask" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionHaveTotem", type = "check", label = "Do you have a Totem summoned?", ifCond = "HaveTotem", tooltip = "You will automatically be considered to have a Totem if your main skill is a Totem,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "HaveTotem" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionOnConsecratedGround", type = "check", label = "Are you on Consecrated Ground?", tooltip = "In addition to allowing any 'while on Consecrated Ground' modifiers to apply,\nthis will apply the 4% life regen modifier granted by Consecrated Ground.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "OnConsecratedGround" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionOnBurningGround", type = "check", label = "Are you on Burning Ground?", ifCond = "OnBurningGround", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "OnBurningGround" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionOnChilledGround", type = "check", label = "Are you on Chilled Ground?", ifCond = "OnChilledGround", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "OnChilledGround" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionOnShockedGround", type = "check", label = "Are you on Shocked Ground?", ifCond = "OnShockedGround", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "OnShockedGround" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionIgnited", type = "check", label = "Are you Ignited?", ifCond = "PlayerIgnited", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "PlayerIgnited" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionFrozen", type = "check", label = "Are you Frozen?", ifCond = "PlayerFrozen", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "PlayerFrozen" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionShocked", type = "check", label = "Are you Shocked?", ifCond = "PlayerShocked", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "PlayerShocked" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionHitRecently", type = "check", label = "Have you Hit Recently?", ifCond = "HitRecently", tooltip = "You will automatically be considered to have Hit Recently if your main skill is self-cast,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "HitRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionCritRecently", type = "check", label = "Have you Crit Recently?", ifCond = "CritRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "CritRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionNonCritRecently", type = "check", label = "Have you dealt a Non-Crit Recently?", ifCond = "NonCritRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "NonCritRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionKilledRecently", type = "check", label = "Have you Killed Recently?", ifCond = "KilledRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "KilledRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionTotemsKilledRecently", type = "check", label = "Have your Totems Killed Recently?", ifCond = "TotemsKilledRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "TotemsKilledRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionFrozenEnemyRecently", type = "check", label = "Have you Frozen an Enemy Recently?", ifCond = "FrozenEnemyRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "FrozenEnemyRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionIgnitedEnemyRecently", type = "check", label = "Have you Ignited an Enemy Recently?", ifCond = "IgnitedEnemyRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "IgnitedEnemyRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionBeenHitRecently", type = "check", label = "Have you been Hit Recently?", ifCond = "BeenHitRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BeenHitRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionBeenSavageHitRecently", type = "check", label = "Have you been Savage Hit Recently?", ifCond = "BeenSavageHitRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BeenSavageHitRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionHitByFireDamageRecently", type = "check", label = "Have you been hit by Fire Recently?", ifCond = "HitByFireDamageRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "HitByFireDamageRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionHitByColdDamageRecently", type = "check", label = "Have you been hit by Cold Recently?", ifCond = "HitByColdDamageRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "HitByColdDamageRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionHitByLightningDamageRecently", type = "check", label = "Have you been hit by Light. Recently?", ifCond = "HitByLightningDamageRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "HitByLightningDamageRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionBlockedAttackRecently", type = "check", label = "Have you Blocked an Attack Recently?", ifCond = "BlockedAttackRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BlockedAttackRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionBlockedSpellRecently", type = "check", label = "Have you Blocked a Spell Recently?", ifCond = "BlockedSpellRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BlockedSpellRecently" }, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffPendulum", type = "check", label = "Is Pendulum of Destruction active?", ifNode = 57197, apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "PendulumOfDestruction" }, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionAttackedRecently", type = "check", label = "Have you Attacked Recently?", ifNode = 3154, tooltip = "You will automatically be considered to have Attacked Recently if your main skill is an attack,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "AttackedRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionCastSpellRecently", type = "check", label = "Have you Cast a Spell Recently?", ifNode = 3154, tooltip = "You will automatically be considered to have Cast a Spell Recently if your main skill is a spell,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "CastSpellRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsedWarcryRecently", type = "check", label = "Have you used a Warcry Recently?", ifCond = "UsedWarcryRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsedWarcryRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionConsumedCorpseRecently", type = "check", label = "Consumed a corpse Recently?", ifCond = "ConsumedCorpseRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "ConsumedCorpseRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionTauntedEnemyRecently", type = "check", label = "Taunted an Enemy Recently?", ifCond = "TauntedEnemyRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "TauntedEnemyRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsedFireSkillInPast10Sec", type = "check", label = "Used a Fire Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsedFireSkillInPast10Sec" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsedColdSkillInPast10Sec", type = "check", label = "Used a Cold Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsedColdSkillInPast10Sec" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsedLightningSkillInPast10Sec", type = "check", label = "Used a Light. Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "UsedLightningSkillInPast10Sec" }, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionBlockedHitFromUniqueEnemyRecently", type = "check", label = "Blocked hit from a Unique Recently?", ifNode = 63490, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "BlockedHitFromUniqueEnemyRecently" }, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ section = "For Effective DPS" },
-	{ var = "conditionEnemyCursed", type = "check", label = "Is the enemy Cursed?", tooltip = "Your enemy will automatically be considered to be Cursed if you have at least one curse enabled,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+	{ var = "critChanceLucky", type = "check", label = "Is your Crit Chance Lucky?", apply = function(val, modList, enemyModList)
+		modList:NewMod("CritChanceLucky", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "projectileDistance", type = "number", label = "Projectile travel distance:", ifFlag = "projectile" },
+	{ var = "conditionEnemyMoving", type = "check", label = "Is the enemy Moving?", ifFlag = "bleed", apply = function(val, modList, enemyModList)
+		modList:NewMod("Damage", "MORE", 500, "Movement", 0, KeywordFlag.Bleed)
+	end },
+	{ var = "conditionEnemyFullLife", type = "check", label = "Is the enemy on Full Life?", ifCond = "EnemyFullLife", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyFullLife" }, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyLowLife", type = "check", label = "Is the enemy on Low Life?", ifCond = "EnemyLowLife", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyLowLife" }, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionAtCloseRange", type = "check", label = "Is the enemy at Close Range?", ifCond = "AtCloseRange", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "AtCloseRange" }, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyCursed", type = "check", label = "Is the enemy Cursed?", ifCond = "EnemyCursed", tooltip = "Your enemy will automatically be considered to be Cursed if you have at least one curse enabled,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyCursed" }, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyBleeding", type = "check", label = "Is the enemy Bleeding?", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyBleeding", type = "check", label = "Is the enemy Bleeding?", ifCond = "EnemyBleeding", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyBleeding" }, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyPoisoned", type = "check", label = "Is the enemy Poisoned?", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyPoisoned", type = "check", label = "Is the enemy Poisoned?", ifCond = "EnemyPoisoned", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyPoisoned" }, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyBurning", type = "check", label = "Is the enemy Burning?", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyMaimed", type = "check", label = "Is the enemy Maimed?", ifCond = "EnemyMaimed", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyMaimed" }, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyHindered", type = "check", label = "Is the enemy Hindered?", ifCond = "EnemyHindered", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyHindered" }, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyBlinded", type = "check", label = "Is the enemy Blinded?", tooltip = "In addition to allowing 'against Blinded Enemies' modifiers to apply,\nthis will lessen the enemy's chance to hit, and thereby increase your evade chance.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyBlinded" }, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyTaunted", type = "check", label = "Is the enemy Taunted?", ifCond = "EnemyTaunted", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyTaunted" }, "Config", { type = "Condition", var = "Effective" })
+	end }, 
+	{ var = "conditionEnemyBurning", type = "check", label = "Is the enemy Burning?", ifCond = "EnemyBurning", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyBurning" }, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyIgnited", type = "check", label = "Is the enemy Ignited?", tooltip = "This also implies that the enemy is Burning.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyIgnited", type = "check", label = "Is the enemy Ignited?", ifCond = "EnemyIgnited", tooltip = "This also implies that the enemy is Burning.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyIgnited" }, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyChilled", type = "check", label = "Is the enemy Chilled?", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyChilled", type = "check", label = "Is the enemy Chilled?", ifCond = "EnemyChilled", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyChilled" }, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyFrozen", type = "check", label = "Is the enemy Frozen?", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyFrozen", type = "check", label = "Is the enemy Frozen?", ifCond = "EnemyFrozen", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyFrozen" }, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyShocked", type = "check", label = "Is the enemy Shocked?", tooltip = "In addition to allowing any 'against Shocked Enemies' modifiers to apply,\nthis will apply Shock's Damage Taken modifier to the enemy.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyShocked" }, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "enemyIsBoss", type = "check", label = "Is the enemy a Boss?", tooltip = "This adds the following modifiers:\n60% less Effect of your Curses\n+30% to enemy Elemental Resistances\n+15% to enemy Chaos Resistance", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("CurseEffect", "MORE", -60, "Boss")
-		enemyModList:NewMod("ElementalResist", "BASE", 30, "Boss")
-		enemyModList:NewMod("ChaosResist", "BASE", 15, "Boss")
+	{ var = "conditionEnemyIntimidated", type = "check", label = "Is the enemy Intimidated?", tooltip = "This adds the following modifiers:\n10% increased Damage Taken by enemy", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("DamageTaken", "INC", 10, "Intimidate")
+	end },
+	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "This adds the following modifiers:\n20% less enemy Movement Speed\n20% increased Fire Damage Taken by enemy", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("FireDamageTaken", "INC", 20, "Ash")
+	end },
+	{ var = "conditionEnemyRareOrUnique", type = "check", label = "is the enemy Rare or Unique?", ifCond = "EnemyRareOrUnique", tooltip = "Your enemy will automatically be considered to be Unique if one of the Boss options is selected.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyRareOrUnique" }, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", tooltip = "Standard Boss adds the following modifiers:\n60% less Effect of your Curses\n+30% to enemy Elemental Resistances\n+15% to enemy Chaos Resistance\n\nShaper/Guardian adds the following modifiers:\n80% less Effect of your Curses\n+40% to enemy Elemental Resistances\n+25% to enemy Chaos Resistance\n50% less Duration of Bleed\n50% less Duration of Poison\n50% less Duration of Ignite", list = {{val="NONE",label="No"},{val=true,label="Standard Boss"},{val="SHAPER",label="Shaper/Guardian"}}, apply = function(val, modList, enemyModList)
+		if val == true then
+			modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyRareOrUnique" }, "Config", { type = "Condition", var = "Effective" })
+			enemyModList:NewMod("CurseEffect", "MORE", -60, "Boss")
+			enemyModList:NewMod("ElementalResist", "BASE", 30, "Boss")
+			enemyModList:NewMod("ChaosResist", "BASE", 15, "Boss")
+		elseif val == "SHAPER" then
+			modList:NewMod("Misc", "LIST", { type = "Condition", var = "EnemyRareOrUnique" }, "Config", { type = "Condition", var = "Effective" })
+			enemyModList:NewMod("CurseEffect", "MORE", -80, "Boss")
+			enemyModList:NewMod("ElementalResist", "BASE", 40, "Boss")
+			enemyModList:NewMod("ChaosResist", "BASE", 25, "Boss")
+			enemyModList:NewMod("SelfBleedDuration", "MORE", -50, "Boss")
+			enemyModList:NewMod("SelfPoisonDuration", "MORE", -50, "Boss")
+			enemyModList:NewMod("SelfIgniteDuration", "MORE", -50, "Boss")
+		end
 	end },
 	{ var = "enemyPhysicalReduction", type = "number", label = "Enemy Phys. Damage Reduction:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("PhysicalDamageReduction", "INC", val, "Config")
@@ -81,6 +232,16 @@ local varList = {
 	{ var = "enemyChaosResist", type = "number", label = "Enemy Chaos Resistance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ChaosResist", "BASE", val, "Config")
 	end },
+	{ var = "enemyConditionHitByFireDamage", type = "check", label = "Enemy was Hit by Fire Damage?", ifNode = 39085, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "EnemyCondition", var = "HitByFireDamage" }, "Config")
+	end },
+	{ var = "enemyConditionHitByColdDamage", type = "check", label = "Enemy was Hit by Cold Damage?", ifNode = 39085, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "EnemyCondition", var = "HitByColdDamage" }, "Config")
+	end },
+	{ var = "enemyConditionHitByLightningDamage", type = "check", label = "Enemy was Hit by Light. Damage?", ifNode = 39085, apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "EnemyCondition", var = "HitByLightningDamage" }, "Config")
+	end },
+	{ var = "EEIgnoreHitDamage", type = "check", label = "Ignore Skill Hit Damage?", ifNode = 39085, tooltip = "This option prevents EE from being reset by the hit damage of your main skill." },
 }
 
 local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
@@ -100,11 +261,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
-			if lastSection then
-				lastSection = common.New("SectionControl", {"TOPLEFT",lastSection,"BOTTOMLEFT"}, 0, 18, 300, 0, varData.section)
-			else
-				lastSection = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 300, 0, varData.section)
-			end
+			lastSection = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 360, 0, varData.section)
 			lastSection.varControlList = { }
 			lastSection.height = function(self)
 				local height = 20
@@ -120,27 +277,58 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 		else
 			local control
 			if varData.type == "check" then
-				control = common.New("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 216, 0, 18, nil, function(state)
+				control = common.New("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 18, nil, function(state)
 					self.input[varData.var] = state
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end) 
 			elseif varData.type == "number" then
-				control = common.New("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 216, 0, 50, 18, "", nil, "[%-%d]", 4, function(buf)
+				control = common.New("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 50, 18, "", nil, "^%-%d", 4, function(buf)
 					self.input[varData.var] = tonumber(buf)
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end) 
+			elseif varData.type == "list" then
+				control = common.New("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 118, 16, varData.list, function(sel, selVal)
+					self.input[varData.var] = selVal.val
+					self:AddUndoState()
+					self:BuildModList()
+					self.build.buildFlag = true
+				end)
 			end
-			control.tooltip = varData.tooltip
 			if varData.ifNode then
 				control.shown = function()
 					return self.build.spec.allocNodes[varData.ifNode]
 				end
+				control.tooltip = function()
+					return "This option is specific to '"..self.build.spec.nodes[varData.ifNode].dn.."'."..(varData.tooltip and "\n"..varData.tooltip or "")
+				end
+			elseif varData.ifCond then
+				control.shown = function()
+					return self.build.calcsTab.mainEnv.conditionsUsed[varData.ifCond]
+				end
+				control.tooltip = function()
+					if launch.devMode and IsKeyDown("ALT") then
+						local out = varData.tooltip or ""
+						for _, mod in ipairs(self.build.calcsTab.mainEnv.conditionsUsed[varData.ifCond]) do
+							out = (#out > 0 and out.."\n" or out) .. modLib.formatMod(mod) .. "|" .. mod.source
+						end
+						return out
+					else
+						return varData.tooltip
+					end
+				end
+			elseif varData.ifFlag then
+				control.shown = function()
+					return self.build.calcsTab.mainEnv.mainSkill.skillFlags[varData.ifFlag]
+				end
+				control.tooltip = varData.tooltip
+			else
+				control.tooltip = varData.tooltip
 			end
-			t_insert(self.controls, common.New("LabelControl", {"RIGHT",control,"LEFT"}, -4, 2, 0, 14, "^7"..varData.label))
+			t_insert(self.controls, common.New("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, 14, "^7"..varData.label))
 			self.varControls[varData.var] = control
 			t_insert(self.controls, control)
 			t_insert(lastSection.varControlList, control)
@@ -193,6 +381,8 @@ function ConfigTabClass:UpdateControls()
 			control:SetText(tostring(self.input[var] or ""))
 		elseif control._className == "CheckBoxControl" then
 			control.state = self.input[var]
+		elseif control._className == "DropDownControl" then
+			control:SelByValue(self.input[var])
 		end
 	end
 end
@@ -217,14 +407,28 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 
 	self:ProcessControlsInput(inputEvents, viewPort)
 
+	local colY = { }
 	for _, section in ipairs(self.sectionList) do
 		local y = 14
 		for _, varControl in ipairs(section.varControlList) do
-			if varControl:IsEnabled() then
-				varControl.y = y
+			if varControl:IsShown() then
+				local width, height = varControl:GetSize()
+				varControl.y = y + (18 - height) / 2
 				y = y + 20
 			end
 		end
+		local width, height = section:GetSize()
+		local col = 1
+		while true do
+			colY[col] = colY[col] or 18
+			if colY[col] + height + 10 <= viewPort.height then
+				break
+			end
+			col = col + 1
+		end
+		section.x = 10 + (col - 1) * 360
+		section.y = colY[col]
+		colY[col] = colY[col] + height + 18
 	end
 
 	main:DrawBackground(viewPort)
@@ -239,7 +443,6 @@ function ConfigTabClass:BuildModList()
 	self.enemyModList = enemyModList
 	local input = self.input
 	for _, varData in ipairs(varList) do
-		ConPrintf("%s", varData.var)
 		if varData.apply then
 			if varData.type == "check" then
 				if input[varData.var] then
@@ -249,6 +452,10 @@ function ConfigTabClass:BuildModList()
 				if input[varData.var] and input[varData.var] ~= 0 then
 					varData.apply(input[varData.var], modList, enemyModList)
 				end
+			elseif varData.type == "list" then
+				if input[varData.var] then
+					varData.apply(input[varData.var], modList, enemyModList)
+				end
 			end
 		end
 	end
@@ -256,10 +463,10 @@ end
 
 function ConfigTabClass:ImportCalcSettings()
 	local input = self.input
-	local gridInput = self.build.calcsTab.input
+	local calcsInput = self.build.calcsTab.input
 	local function import(old, new)
-		input[new] = gridInput[old]
-		gridInput[old] = nil
+		input[new] = calcsInput[old]
+		calcsInput[old] = nil
 	end
 	import("Cond_LowLife", "conditionLowLife")
 	import("Cond_FullLife", "conditionFullLife")
@@ -299,4 +506,5 @@ function ConfigTabClass:RestoreUndoState(state)
 		self.input[k] = v
 	end
 	self:UpdateControls()
+	self:BuildModList()
 end

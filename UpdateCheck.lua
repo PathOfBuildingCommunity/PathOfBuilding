@@ -7,41 +7,43 @@
 
 local xml = require("xml")
 local sha1 = require("sha1")
-local curl = require("lcurl")
+local curl = require("lcurl.safe")
 local lzip = require("lzip")
 
-local function downloadFile(url, outName)
-	local outFile = io.open(outName, "wb")
-	local easy = curl.easy()
-	easy:setopt_url(url)
-	easy:setopt_writefunction(outFile)
-	easy:perform()
-	local size = easy:getinfo(curl.INFO_SIZE_DOWNLOAD)
-	easy:close()
-	outFile:close()
-	if size == 0 then
-		ConPrintf("Download failed")
-		os.remove(outName)
-		return true
+local globalRetryLimit = 10
+local function downloadFileText(url)
+	for i = 1, 5 do
+		if i > 1 then
+			ConPrintf("Retrying... (%d of 5)", i)
+		end
+		local text = ""
+		local easy = curl.easy()
+		easy:setopt_url(url)
+		easy:setopt_writefunction(function(data)
+			text = text..data 
+			return true
+		end)
+		local _, error = easy:perform()
+		easy:close()
+		if not error then
+			return text
+		end
+		ConPrintf("Download failed (%s)", error:msg())
+		if globalRetryLimit == 0 then
+			break
+		end
+		globalRetryLimit = globalRetryLimit - 1
 	end
 end
-
-local function downloadFileText(url)
-	local text = ""
-	local easy = curl.easy()
-	easy:setopt_url(url)
-	easy:setopt_writefunction(function(data)
-		text = text..data 
-		return true 
-	end)
-	easy:perform()
-	local size = easy:getinfo(curl.INFO_SIZE_DOWNLOAD)
-	easy:close()
-	if size == 0 then
-		ConPrintf("Download failed")
-		return nil
+local function downloadFile(url, outName)
+	local text = downloadFileText(url)
+	if text then
+		local outFile = io.open(outName, "wb")
+		outFile:write(text)
+		outFile:close()
+	else
+		return true
 	end
-	return text
 end
 
 ConPrintf("Checking for update...")
@@ -170,12 +172,16 @@ downloadFile(localSource.."changelog.txt", scriptPath.."/changelog.txt")
 -- Download files that need updating
 local failedFile = false
 local zipFiles = { }
-for _, data in ipairs(updateFiles) do
+for index, data in ipairs(updateFiles) do
+	if UpdateProgress then
+		UpdateProgress("Downloading %d/%d", index, #updateFiles)
+	end
 	local partSources = remoteSources[data.part]
 	local source = partSources[localPlatform] or partSources["any"]
 	source = source:gsub("{branch}", localBranch)
 	local fileName = scriptPath.."/Update/"..data.name:gsub("[\\/]","{slash}")
 	data.updateFileName = fileName
+	local content
 	local zipName = source:match("/([^/]+%.zip)$")
 	if zipName then
 		if not zipFiles[zipName] then
@@ -188,36 +194,29 @@ for _, data in ipairs(updateFiles) do
 		if zip then
 			local zippedFile = zip:OpenFile(data.name)
 			if zippedFile then
-				local file = io.open(fileName, "w+b")
-				if not file then
-					ConPrintf("%s", fileName)
-				end
-				file:write(zippedFile:Read("*a"))
-				file:close()
+				content = zippedFile:Read("*a")
 				zippedFile:Close()
 			else
 				ConPrintf("Couldn't extract '%s' from '%s' (extract failed)", data.name, zipName)
-				failedFile = true
 			end
 		else
 			ConPrintf("Couldn't extract '%s' from '%s' (zip open failed)", data.name, zipName)
-			failedFile = true
 		end
 	else
-		ConPrintf("Downloading %s...", data.name)
-		local content = downloadFileText(source..data.name)
-		if content then
-			if data.sha1 ~= sha1(content) and data.sha1 ~= sha1(content:gsub("\n","\r\n")) then
-				ConPrintf("Hash mismatch on '%s'", data.name)
-				failedFile = true
-			else
-				local file = io.open(fileName, "w+b")
-				file:write(content)
-				file:close()
-			end
-		else
+		ConPrintf("Downloading %s... (%d of %d)", data.name, index, #updateFiles)
+		content = downloadFileText(source..data.name)
+	end
+	if content then
+		if data.sha1 ~= sha1(content) and data.sha1 ~= sha1(content:gsub("\n","\r\n")) then
+			ConPrintf("Hash mismatch on '%s'", data.name)
 			failedFile = true
+		else
+			local file = io.open(fileName, "w+b")
+			file:write(content)
+			file:close()
 		end
+	else
+		failedFile = true
 	end
 end
 for name, zip in pairs(zipFiles) do

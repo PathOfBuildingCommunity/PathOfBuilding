@@ -1,6 +1,6 @@
 -- Path of Building
 --
--- Active Strength skills
+-- Active Dexterity gems
 -- Skill gem data (c) Grinding Gear Games
 --
 local gems, mod, flag, skill = ...
@@ -77,12 +77,29 @@ gems["Barrage"] = {
 	active_skill = true,
 	attack = true,
 	bow = true,
+	parts = {
+		{
+			name = "1 Arrow",
+		},
+		{
+			name = "All Arrows",
+		},
+	},
+	setupFunc = function(env, output)
+		if env.mainSkill.skillPart == 2 then
+			env.mainSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
 	color = 2,
 	baseFlags = {
 		attack = true,
 		projectile = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [6] = true, [3] = true, [22] = true, [17] = true, [19] = true, },
+	weaponTypes = {
+		["Wand"] = true,
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		mod("ProjectileCount", "BASE", 3), --"number_of_additional_projectiles" = 3
@@ -196,12 +213,106 @@ gems["Bear Trap"] = {
 		[30] = { 54, 4162, 5826, },
 	},
 }
+gems["Blade Flurry"] = {
+	dexterity = true,
+	active_skill = true,
+	attack = true,
+	area = true,
+	channelling = true,
+	melee = true,
+	parts = {
+		{
+			name = "1 Stage",
+		},
+		{
+			name = "6 Stages",
+		},
+		{
+			name = "Release at 6 Stages",
+		},
+	},
+	color = 2,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	skillTypes = { [1] = true, [11] = true, [6] = true, [58] = true, [24] = true, },
+	weaponTypes = {
+		["One Handed Sword"] = true,
+		["Dagger"] = true,
+		["Claw"] = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("manaCost", 4), 
+		mod("Speed", "MORE", 60, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = 60
+		--"charged_attack_damage_per_stack_+%_final" = 20
+		--"is_area_damage" = ?
+		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
+		--"skill_can_add_multiple_charges_per_action" = ?
+		mod("Damage", "MORE", 120, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), 
+		skill("dpsMultiplier", 3, { type = "SkillPart", skillPart = 3 }), 
+	},
+	qualityMods = {
+		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
+	},
+	levelMods = {
+		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
+	},
+	levels = {
+		[1] = { -55, },
+		[2] = { -54.4, },
+		[3] = { -53.8, },
+		[4] = { -53.2, },
+		[5] = { -52.6, },
+		[6] = { -52, },
+		[7] = { -51.4, },
+		[8] = { -50.8, },
+		[9] = { -50.2, },
+		[10] = { -49.6, },
+		[11] = { -49, },
+		[12] = { -48.4, },
+		[13] = { -47.8, },
+		[14] = { -47.2, },
+		[15] = { -46.6, },
+		[16] = { -46, },
+		[17] = { -45.4, },
+		[18] = { -44.8, },
+		[19] = { -44.2, },
+		[20] = { -43.6, },
+		[21] = { -43, },
+		[22] = { -42.4, },
+		[23] = { -41.8, },
+		[24] = { -41.2, },
+		[25] = { -40.6, },
+		[26] = { -40, },
+		[27] = { -39.4, },
+		[28] = { -38.8, },
+		[29] = { -38.2, },
+		[30] = { -37.6, },
+	},
+}
 gems["Blade Vortex"] = {
 	dexterity = true,
 	active_skill = true,
 	spell = true,
 	area = true,
 	duration = true,
+	parts = {
+		{
+			name = "0 Blades",
+		},
+		{
+			name = "5 Blades",
+		},
+		{
+			name = "10 Blades",
+		},
+		{
+			name = "20 Blades",
+		},
+	},
 	color = 2,
 	baseFlags = {
 		spell = true,
@@ -215,52 +326,62 @@ gems["Blade Vortex"] = {
 		skill("critChance", 6), 
 		skill("duration", 5), --"base_skill_effect_duration" = 5000
 		--"maximum_number_of_spinning_blades" = 20
-		mod("AreaRadius", "INC", 0), --"base_skill_area_of_effect_+%" = 0
-		--"extra_gore_chance_override_%" = 15
+		--"base_blade_vortex_hit_rate_ms" = 600
+		--"blade_vortex_hit_rate_+%_per_blade" = 10
+		--"blade_vortex_damage_+%_per_blade_final" = 30
 		--"is_area_damage" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
 		--"action_ignores_crit_tracking" = ?
+		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
 		skill("deliciouslyOverpowered", true), 
+		mod("Damage", "MORE", 150, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Damage", "MORE", 300, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 3 }), 
+		mod("Damage", "MORE", 600, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 4 }), 
+		skill("hitTimeOverride", 0.6, { type = "SkillPart", skillPart = 1 }), 
+		skill("hitTimeOverride", 0.4, { type = "SkillPart", skillPart = 2 }), 
+		skill("hitTimeOverride", 0.3, { type = "SkillPart", skillPart = 3 }), 
+		skill("hitTimeOverride", 0.2, { type = "SkillPart", skillPart = 4 }), 
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("PhysicalMin", nil), --"spell_minimum_base_physical_damage"
 		[3] = skill("PhysicalMax", nil), --"spell_maximum_base_physical_damage"
+		--[4] = "active_skill_base_radius_+"
 	},
 	levels = {
-		[1] = { 6, 9, 14, },
-		[2] = { 7, 12, 17, },
-		[3] = { 8, 15, 23, },
-		[4] = { 9, 19, 29, },
-		[5] = { 10, 24, 36, },
-		[6] = { 11, 30, 45, },
-		[7] = { 12, 37, 55, },
-		[8] = { 13, 43, 64, },
-		[9] = { 13, 50, 74, },
-		[10] = { 14, 57, 86, },
-		[11] = { 14, 66, 98, },
-		[12] = { 15, 75, 113, },
-		[13] = { 16, 86, 129, },
-		[14] = { 16, 98, 147, },
-		[15] = { 17, 111, 167, },
-		[16] = { 18, 126, 190, },
-		[17] = { 18, 137, 206, },
-		[18] = { 19, 149, 224, },
-		[19] = { 19, 162, 243, },
-		[20] = { 19, 176, 264, },
-		[21] = { 20, 191, 286, },
-		[22] = { 21, 207, 310, },
-		[23] = { 21, 224, 336, },
-		[24] = { 21, 242, 363, },
-		[25] = { 22, 262, 393, },
-		[26] = { 23, 283, 425, },
-		[27] = { 23, 306, 459, },
-		[28] = { 23, 331, 496, },
-		[29] = { 24, 357, 536, },
-		[30] = { 24, 386, 579, },
+		[1] = { 6, 7, 10, 0, },
+		[2] = { 7, 8, 12, 0, },
+		[3] = { 8, 11, 16, 0, },
+		[4] = { 9, 14, 20, 0, },
+		[5] = { 10, 17, 25, 1, },
+		[6] = { 11, 21, 32, 1, },
+		[7] = { 12, 26, 39, 1, },
+		[8] = { 13, 30, 45, 1, },
+		[9] = { 13, 35, 52, 1, },
+		[10] = { 14, 40, 60, 2, },
+		[11] = { 14, 46, 69, 2, },
+		[12] = { 15, 53, 79, 2, },
+		[13] = { 16, 60, 90, 2, },
+		[14] = { 16, 68, 103, 2, },
+		[15] = { 17, 78, 117, 3, },
+		[16] = { 18, 88, 133, 3, },
+		[17] = { 18, 96, 144, 3, },
+		[18] = { 19, 104, 157, 3, },
+		[19] = { 19, 113, 170, 3, },
+		[20] = { 19, 123, 185, 4, },
+		[21] = { 20, 133, 200, 4, },
+		[22] = { 21, 145, 217, 4, },
+		[23] = { 21, 157, 235, 4, },
+		[24] = { 21, 170, 254, 4, },
+		[25] = { 22, 183, 275, 5, },
+		[26] = { 23, 198, 298, 5, },
+		[27] = { 23, 214, 322, 5, },
+		[28] = { 23, 232, 347, 5, },
+		[29] = { 24, 250, 375, 5, },
+		[30] = { 24, 270, 405, 6, },
 	},
 }
 gems["Bladefall"] = {
@@ -279,11 +400,11 @@ gems["Bladefall"] = {
 		skill("damageEffectiveness", 0.9), 
 		skill("critChance", 5), 
 		--"bladefall_damage_per_stage_+%_final" = -6
-		mod("AreaRadius", "INC", 0), --"base_skill_area_of_effect_+%" = 0
+		mod("AreaOfEffect", "INC", 0), --"base_skill_area_of_effect_+%" = 0
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -330,6 +451,14 @@ gems["Blast Rain"] = {
 	attack = true,
 	area = true,
 	bow = true,
+	parts = {
+		{
+			name = "1 explosion",
+		},
+		{
+			name = "4 explosions",
+		},
+	},
 	color = 2,
 	baseFlags = {
 		attack = true,
@@ -338,53 +467,57 @@ gems["Blast Rain"] = {
 		fire = true,
 	},
 	skillTypes = { [1] = true, [11] = true, [14] = true, [22] = true, [17] = true, [19] = true, [33] = true, [48] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_fire" = 50
+		mod("AreaOfEffect", "INC", 0), --"base_skill_area_of_effect_+%" = 0
 		--"blast_rain_number_of_blasts" = 4
 		--"blast_rain_arrow_delay_ms" = 80
 		--"base_is_projectile" = ?
 		--"is_area_damage" = ?
+		skill("dpsMultiplier", 4, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
-		[1] = { 8, -60, 0, },
-		[2] = { 8, -59.6, 1, },
-		[3] = { 8, -59.2, 2, },
-		[4] = { 8, -58.8, 3, },
-		[5] = { 9, -58.4, 4, },
-		[6] = { 9, -58, 5, },
-		[7] = { 9, -57.6, 6, },
-		[8] = { 9, -57.2, 7, },
-		[9] = { 9, -56.8, 8, },
-		[10] = { 9, -56.4, 9, },
-		[11] = { 9, -56, 10, },
-		[12] = { 10, -55.6, 11, },
-		[13] = { 10, -55.2, 12, },
-		[14] = { 10, -54.8, 13, },
-		[15] = { 10, -54.4, 14, },
-		[16] = { 10, -54, 15, },
-		[17] = { 10, -53.6, 16, },
-		[18] = { 10, -53.2, 17, },
-		[19] = { 10, -52.8, 18, },
-		[20] = { 10, -52.4, 19, },
-		[21] = { 10, -52, 20, },
-		[22] = { 10, -51.6, 21, },
-		[23] = { 11, -51.2, 22, },
-		[24] = { 11, -50.8, 23, },
-		[25] = { 11, -50.4, 24, },
-		[26] = { 11, -50, 25, },
-		[27] = { 11, -49.6, 26, },
-		[28] = { 12, -49.2, 27, },
-		[29] = { 12, -48.8, 28, },
-		[30] = { 12, -48.4, 29, },
+		[1] = { 8, -60, },
+		[2] = { 8, -59.6, },
+		[3] = { 8, -59.2, },
+		[4] = { 8, -58.8, },
+		[5] = { 9, -58.4, },
+		[6] = { 9, -58, },
+		[7] = { 9, -57.6, },
+		[8] = { 9, -57.2, },
+		[9] = { 9, -56.8, },
+		[10] = { 9, -56.4, },
+		[11] = { 9, -56, },
+		[12] = { 10, -55.6, },
+		[13] = { 10, -55.2, },
+		[14] = { 10, -54.8, },
+		[15] = { 10, -54.4, },
+		[16] = { 10, -54, },
+		[17] = { 10, -53.6, },
+		[18] = { 10, -53.2, },
+		[19] = { 10, -52.8, },
+		[20] = { 10, -52.4, },
+		[21] = { 10, -52, },
+		[22] = { 10, -51.6, },
+		[23] = { 11, -51.2, },
+		[24] = { 11, -50.8, },
+		[25] = { 11, -50.4, },
+		[26] = { 11, -50, },
+		[27] = { 11, -49.6, },
+		[28] = { 12, -49.2, },
+		[29] = { 12, -48.8, },
+		[30] = { 12, -48.4, },
 	},
 }
 gems["Blink Arrow"] = {
@@ -470,6 +603,9 @@ gems["Burning Arrow"] = {
 		fire = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [22] = true, [17] = true, [19] = true, [33] = true, [53] = true, [55] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		mod("EnemyIgniteChance", "BASE", 20), --"base_chance_to_ignite_%" = 20
@@ -534,6 +670,9 @@ gems["Vaal Burning Arrow"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [22] = true, [17] = true, [19] = true, [11] = true, [43] = true, [33] = true, [55] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		mod("EnemyIgniteChance", "BASE", 20), --"base_chance_to_ignite_%" = 20
@@ -594,55 +733,59 @@ gems["Caustic Arrow"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
-		area = true,
 		duration = true,
 		chaos = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [11] = true, [12] = true, [17] = true, [19] = true, [22] = true, [40] = true, [50] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
-		--"skill_can_fire_arrows" = 1
+		--"skill_can_fire_arrows" = ?
+		skill("dotIsArea", true), 
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
 		[3] = skill("ChaosDot", nil), --"base_chaos_damage_to_deal_per_minute"
 		[4] = mod("PhysicalDamageGainAsChaos", "BASE", nil, 0, 0, nil), --"physical_damage_%_to_add_as_chaos"
+		--[5] = "active_skill_base_radius_+"
 	},
 	levels = {
-		[1] = { 8, 2.8, 5.2, 30, },
-		[2] = { 8, 2.9, 6.5166666666667, 31, },
-		[3] = { 8, 3, 8.8333333333333, 32, },
-		[4] = { 9, 3.1, 11.7, 33, },
-		[5] = { 9, 3.2, 16.516666666667, 34, },
-		[6] = { 9, 3.3, 22.75, 35, },
-		[7] = { 10, 3.4, 30.766666666667, 36, },
-		[8] = { 10, 3.5, 41.033333333333, 37, },
-		[9] = { 10, 3.6, 54.116666666667, 38, },
-		[10] = { 11, 3.7, 70.716666666667, 39, },
-		[11] = { 11, 3.9, 91.683333333333, 40, },
-		[12] = { 12, 4, 118.13333333333, 41, },
-		[13] = { 12, 4.1, 151.35, 42, },
-		[14] = { 13, 4.2, 192.96666666667, 43, },
-		[15] = { 13, 4.3, 230.91666666667, 44, },
-		[16] = { 14, 4.4, 275.7, 45, },
-		[17] = { 14, 4.5, 328.55, 46, },
-		[18] = { 15, 4.6, 390.81666666667, 47, },
-		[19] = { 15, 4.7, 464.13333333333, 48, },
-		[20] = { 16, 4.8, 550.33333333333, 49, },
-		[21] = { 16, 5, 616.05, 50, },
-		[22] = { 17, 5.1, 689.2, 51, },
-		[23] = { 17, 5.2, 770.58333333333, 52, },
-		[24] = { 18, 5.3, 861.11666666667, 53, },
-		[25] = { 18, 5.4, 961.78333333333, 54, },
-		[26] = { 19, 5.5, 1073.6833333333, 55, },
-		[27] = { 19, 5.6, 1198.05, 56, },
-		[28] = { 20, 5.7, 1336.2, 57, },
-		[29] = { 20, 5.8, 1489.6166666667, 58, },
-		[30] = { 21, 5.9, 1659.9833333333, 59, },
+		[1] = { 8, 2.8, 5.2, 30, 0, },
+		[2] = { 8, 2.9, 6.5166666666667, 31, 0, },
+		[3] = { 8, 3, 8.8333333333333, 32, 0, },
+		[4] = { 9, 3.1, 11.7, 33, 0, },
+		[5] = { 9, 3.2, 16.516666666667, 34, 1, },
+		[6] = { 9, 3.3, 22.75, 35, 1, },
+		[7] = { 10, 3.4, 30.766666666667, 36, 1, },
+		[8] = { 10, 3.5, 41.033333333333, 37, 1, },
+		[9] = { 10, 3.6, 54.116666666667, 38, 1, },
+		[10] = { 11, 3.7, 70.716666666667, 39, 2, },
+		[11] = { 11, 3.9, 91.683333333333, 40, 2, },
+		[12] = { 12, 4, 118.13333333333, 41, 2, },
+		[13] = { 12, 4.1, 151.35, 42, 2, },
+		[14] = { 13, 4.2, 192.96666666667, 43, 2, },
+		[15] = { 13, 4.3, 230.91666666667, 44, 3, },
+		[16] = { 14, 4.4, 275.7, 45, 3, },
+		[17] = { 14, 4.5, 328.55, 46, 3, },
+		[18] = { 15, 4.6, 390.81666666667, 47, 3, },
+		[19] = { 15, 4.7, 464.13333333333, 48, 3, },
+		[20] = { 16, 4.8, 550.33333333333, 49, 4, },
+		[21] = { 16, 5, 616.05, 50, 4, },
+		[22] = { 17, 5.1, 689.2, 51, 4, },
+		[23] = { 17, 5.2, 770.58333333333, 52, 4, },
+		[24] = { 18, 5.3, 861.11666666667, 53, 4, },
+		[25] = { 18, 5.4, 961.78333333333, 54, 5, },
+		[26] = { 19, 5.5, 1073.6833333333, 55, 5, },
+		[27] = { 19, 5.6, 1198.05, 56, 5, },
+		[28] = { 20, 5.7, 1336.2, 57, 5, },
+		[29] = { 20, 5.8, 1489.6166666667, 58, 5, },
+		[30] = { 21, 5.9, 1659.9833333333, 59, 6, },
 	},
 }
 gems["Cyclone"] = {
@@ -660,6 +803,18 @@ gems["Cyclone"] = {
 		movement = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [38] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 12), 
@@ -668,9 +823,10 @@ gems["Cyclone"] = {
 		--"base_skill_number_of_additional_hits" = 1
 		--"cyclone_first_hit_damage_+%_final" = -50
 		--"is_area_damage" = ?
+		skill("dpsMultiplier", 2), 
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
@@ -725,17 +881,29 @@ gems["Vaal Cyclone"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [12] = true, [43] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		mod("Speed", "MORE", 100, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = 100
 		skill("duration", 5), --"base_skill_effect_duration" = 5000
 		--"base_skill_number_of_additional_hits" = 1
-		mod("AreaRadius", "INC", 50), --"base_skill_area_of_effect_+%" = 50
+		mod("AreaOfEffect", "INC", 50), --"base_skill_area_of_effect_+%" = 50
 		--"is_area_damage" = ?
 		skill("cannotBeEvaded", true), --"global_always_hit" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
@@ -795,7 +963,7 @@ gems["Desecrate"] = {
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("Speed", "INC", 1, ModFlag.Spell), --"base_cast_speed_+%" = 1
+		mod("Speed", "INC", 1, ModFlag.Cast), --"base_cast_speed_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -841,7 +1009,61 @@ gems["Detonate Dead"] = {
 	cast = true,
 	area = true,
 	fire = true,
-	unsupported = true,
+	color = 2,
+	baseFlags = {
+		cast = true,
+		area = true,
+		fire = true,
+	},
+	skillTypes = { [39] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, },
+	baseMods = {
+		skill("castTime", 0.8), 
+		skill("critChance", 5), 
+		--"corpse_explosion_monster_life_%" = 6
+		--"is_area_damage" = 1
+		--"display_skill_deals_secondary_damage" = ?
+		--"damage_cannot_be_reflected" = ?
+	},
+	qualityMods = {
+		mod("Speed", "INC", 1, ModFlag.Cast), --"base_cast_speed_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("manaCost", nil), 
+		[2] = skill("FireMin", nil), --"secondary_minimum_base_fire_damage"
+		[3] = skill("FireMax", nil), --"secondary_maximum_base_fire_damage"
+	},
+	levels = {
+		[1] = { 7, 4, 5, },
+		[2] = { 8, 5, 8, },
+		[3] = { 9, 8, 11, },
+		[4] = { 10, 9, 14, },
+		[5] = { 11, 13, 19, },
+		[6] = { 12, 17, 25, },
+		[7] = { 14, 22, 33, },
+		[8] = { 15, 28, 43, },
+		[9] = { 17, 36, 54, },
+		[10] = { 19, 46, 69, },
+		[11] = { 21, 58, 87, },
+		[12] = { 22, 72, 108, },
+		[13] = { 23, 90, 135, },
+		[14] = { 24, 111, 167, },
+		[15] = { 25, 130, 195, },
+		[16] = { 26, 152, 227, },
+		[17] = { 27, 176, 265, },
+		[18] = { 28, 205, 308, },
+		[19] = { 29, 238, 357, },
+		[20] = { 30, 276, 414, },
+		[21] = { 31, 304, 456, },
+		[22] = { 32, 335, 502, },
+		[23] = { 33, 369, 553, },
+		[24] = { 34, 406, 609, },
+		[25] = { 34, 446, 669, },
+		[26] = { 35, 491, 736, },
+		[27] = { 36, 539, 809, },
+		[28] = { 37, 592, 888, },
+		[29] = { 38, 650, 975, },
+		[30] = { 38, 713, 1070, },
+	},
 }
 gems["Vaal Detonate Dead"] = {
 	dexterity = true,
@@ -850,7 +1072,61 @@ gems["Vaal Detonate Dead"] = {
 	cast = true,
 	area = true,
 	fire = true,
-	unsupported = true,
+	color = 2,
+	baseFlags = {
+		cast = true,
+		area = true,
+		fire = true,
+	},
+	skillTypes = { [39] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [43] = true, [33] = true, },
+	baseMods = {
+		skill("castTime", 0.8), 
+		skill("critChance", 5), 
+		--"corpse_explosion_monster_life_%" = 8
+		--"is_area_damage" = 1
+		--"display_skill_deals_secondary_damage" = ?
+		--"detonate_dead_chain_explode" = ?
+		--"damage_cannot_be_reflected" = ?
+	},
+	qualityMods = {
+		mod("Speed", "INC", 1, ModFlag.Cast), --"base_cast_speed_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("FireMin", nil), --"secondary_minimum_base_fire_damage"
+		[2] = skill("FireMax", nil), --"secondary_maximum_base_fire_damage"
+	},
+	levels = {
+		[1] = { 3, 5, },
+		[2] = { 5, 7, },
+		[3] = { 7, 10, },
+		[4] = { 8, 12, },
+		[5] = { 11, 17, },
+		[6] = { 15, 23, },
+		[7] = { 20, 30, },
+		[8] = { 26, 39, },
+		[9] = { 33, 50, },
+		[10] = { 42, 63, },
+		[11] = { 53, 79, },
+		[12] = { 66, 99, },
+		[13] = { 82, 122, },
+		[14] = { 101, 151, },
+		[15] = { 118, 177, },
+		[16] = { 138, 207, },
+		[17] = { 160, 241, },
+		[18] = { 186, 280, },
+		[19] = { 216, 325, },
+		[20] = { 251, 376, },
+		[21] = { 276, 415, },
+		[22] = { 304, 457, },
+		[23] = { 335, 503, },
+		[24] = { 369, 553, },
+		[25] = { 406, 609, },
+		[26] = { 446, 669, },
+		[27] = { 490, 735, },
+		[28] = { 538, 807, },
+		[29] = { 591, 886, },
+		[30] = { 649, 973, },
+	},
 }
 gems["Double Strike"] = {
 	dexterity = true,
@@ -863,6 +1139,17 @@ gems["Double Strike"] = {
 		melee = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [7] = true, [25] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 5), 
@@ -923,6 +1210,17 @@ gems["Vaal Double Strike"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [43] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"base_skill_number_of_additional_hits" = 1
@@ -973,7 +1271,63 @@ gems["Dual Strike"] = {
 	active_skill = true,
 	attack = true,
 	melee = true,
-	unsupported = true,
+	color = 2,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	skillTypes = { [1] = true, [4] = true, [25] = true, [28] = true, [24] = true, [53] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Axe"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("manaCost", 5), 
+		skill("doubleHitsWhenDualWielding", true), --"skill_double_hits_when_dual_wielding" = ?
+	},
+	qualityMods = {
+		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
+	},
+	levelMods = {
+		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
+	},
+	levels = {
+		[1] = { -15, },
+		[2] = { -14, },
+		[3] = { -13, },
+		[4] = { -12, },
+		[5] = { -11, },
+		[6] = { -10, },
+		[7] = { -9, },
+		[8] = { -8, },
+		[9] = { -7, },
+		[10] = { -6, },
+		[11] = { -5, },
+		[12] = { -4, },
+		[13] = { -3, },
+		[14] = { -2, },
+		[15] = { -1, },
+		[16] = { nil, },
+		[17] = { 1, },
+		[18] = { 2, },
+		[19] = { 3, },
+		[20] = { 4, },
+		[21] = { 5, },
+		[22] = { 6, },
+		[23] = { 7, },
+		[24] = { 8, },
+		[25] = { 9, },
+		[26] = { 10, },
+		[27] = { 11, },
+		[28] = { 12, },
+		[29] = { 13, },
+		[30] = { 14, },
+	},
 }
 gems["Elemental Hit"] = {
 	dexterity = true,
@@ -1147,6 +1501,9 @@ gems["Explosive Arrow"] = {
 		fire = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [10] = true, [11] = true, [12] = true, [22] = true, [17] = true, [19] = true, [33] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("critChance", 6), 
@@ -1155,6 +1512,7 @@ gems["Explosive Arrow"] = {
 		--"active_skill_attack_damage_+%_final" = 0
 		--"skill_can_fire_arrows" = 1
 		--"base_is_projectile" = 1
+		skill("showAverage", true, { type = "SkillPart", skillPart = 1 }), 
 	},
 	qualityMods = {
 		mod("EnemyIgniteChance", "BASE", 1), --"base_chance_to_ignite_%" = 1
@@ -1233,38 +1591,39 @@ gems["Fire Trap"] = {
 		[2] = skill("FireMin", nil), --"spell_minimum_base_fire_damage"
 		[3] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
 		[4] = skill("FireDot", nil), --"base_fire_damage_to_deal_per_minute"
+		--[5] = "active_skill_base_radius_+"
 	},
 	levels = {
-		[1] = { 7, 2, 4, 3.6166666666667, },
-		[2] = { 8, 3, 5, 4.1, },
-		[3] = { 9, 4, 6, 5.2, },
-		[4] = { 10, 6, 8, 7.1833333333333, },
-		[5] = { 11, 8, 12, 10.6, },
-		[6] = { 12, 13, 19, 16.416666666667, },
-		[7] = { 13, 18, 27, 22.566666666667, },
-		[8] = { 14, 25, 37, 30.466666666667, },
-		[9] = { 14, 34, 50, 40.533333333333, },
-		[10] = { 16, 45, 67, 53.333333333333, },
-		[11] = { 17, 59, 89, 69.5, },
-		[12] = { 18, 78, 117, 89.866666666667, },
-		[13] = { 19, 101, 152, 115.41666666667, },
-		[14] = { 20, 132, 197, 147.36666666667, },
-		[15] = { 21, 170, 255, 187.21666666667, },
-		[16] = { 22, 219, 328, 236.78333333333, },
-		[17] = { 22, 280, 420, 298.28333333333, },
-		[18] = { 23, 358, 536, 374.41666666667, },
-		[19] = { 24, 429, 643, 441.11666666667, },
-		[20] = { 24, 513, 770, 518.76666666667, },
-		[21] = { 25, 578, 867, 573.95, },
-		[22] = { 26, 651, 976, 634.4, },
-		[23] = { 26, 732, 1098, 700.6, },
-		[24] = { 27, 823, 1235, 772.98333333333, },
-		[25] = { 27, 925, 1388, 852.1, },
-		[26] = { 28, 1040, 1559, 938.5, },
-		[27] = { 29, 1167, 1751, 1032.75, },
-		[28] = { 30, 1310, 1965, 1135.4666666667, },
-		[29] = { 30, 1470, 2205, 1247.3166666667, },
-		[30] = { 30, 1648, 2472, 1368.9833333333, },
+		[1] = { 7, 2, 4, 3.6166666666667, 0, },
+		[2] = { 8, 3, 5, 4.1, 0, },
+		[3] = { 9, 4, 6, 5.2, 1, },
+		[4] = { 10, 6, 8, 7.1833333333333, 1, },
+		[5] = { 11, 8, 12, 10.6, 1, },
+		[6] = { 12, 13, 19, 16.416666666667, 2, },
+		[7] = { 13, 18, 27, 22.566666666667, 2, },
+		[8] = { 14, 25, 37, 30.466666666667, 2, },
+		[9] = { 14, 34, 50, 40.533333333333, 3, },
+		[10] = { 16, 45, 67, 53.333333333333, 3, },
+		[11] = { 17, 59, 89, 69.5, 3, },
+		[12] = { 18, 78, 117, 89.866666666667, 4, },
+		[13] = { 19, 101, 152, 115.41666666667, 4, },
+		[14] = { 20, 132, 197, 147.36666666667, 4, },
+		[15] = { 21, 170, 255, 187.21666666667, 5, },
+		[16] = { 22, 219, 328, 236.78333333333, 5, },
+		[17] = { 22, 280, 420, 298.28333333333, 5, },
+		[18] = { 23, 358, 536, 374.41666666667, 6, },
+		[19] = { 24, 429, 643, 441.11666666667, 6, },
+		[20] = { 24, 513, 770, 518.76666666667, 6, },
+		[21] = { 25, 578, 867, 573.95, 7, },
+		[22] = { 26, 651, 976, 634.4, 7, },
+		[23] = { 26, 732, 1098, 700.6, 7, },
+		[24] = { 27, 823, 1235, 772.98333333333, 8, },
+		[25] = { 27, 925, 1388, 852.1, 8, },
+		[26] = { 28, 1040, 1559, 938.5, 8, },
+		[27] = { 29, 1167, 1751, 1032.75, 9, },
+		[28] = { 30, 1310, 1965, 1135.4666666667, 9, },
+		[29] = { 30, 1470, 2205, 1247.3166666667, 9, },
+		[30] = { 30, 1648, 2472, 1368.9833333333, 10, },
 	},
 }
 gems["Flicker Strike"] = {
@@ -1280,13 +1639,24 @@ gems["Flicker Strike"] = {
 		movement = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [24] = true, [25] = true, [28] = true, [38] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 10), 
 		mod("Speed", "MORE", 20, ModFlag.Attack), --"flicker_strike_more_attack_speed_+%_final" = 20
 		mod("Speed", "INC", 10, ModFlag.Attack, 0, { type = "Multiplier", var = "FrenzyCharge" }), --"base_attack_speed_+%_per_frenzy_charge" = 10
 		--"ignores_proximity_shield" = ?
-		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, 0, nil), --"damage_+%" = 1
@@ -1355,7 +1725,7 @@ gems["Freeze Mine"] = {
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -1483,10 +1853,21 @@ gems["Frost Blades"] = {
 		cold = true,
 	},
 	skillTypes = { [1] = true, [3] = true, [6] = true, [25] = true, [28] = true, [24] = true, [34] = true, [48] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
-		mod("PhysicalDamageConvertToCold", "BASE", 40, 0, 0, nil), --"base_physical_damage_%_to_convert_to_cold" = 40
+		mod("PhysicalDamageConvertToCold", "BASE", 60, 0, 0, nil), --"base_physical_damage_%_to_convert_to_cold" = 60
 		--"total_projectile_spread_angle_override" = 110
 		--"show_number_of_projectiles" = ?
 	},
@@ -1551,11 +1932,11 @@ gems["Grace"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("Evasion", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_evasion_rating"
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[2] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 227, 0, },
@@ -1613,12 +1994,12 @@ gems["Vaal Grace"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("AttackDodgeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_chance_to_dodge_%"
 		[2] = mod("SpellDodgeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_chance_to_dodge_spells_%"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 24, 24, 0, },
@@ -1672,13 +2053,13 @@ gems["Haste"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_speed_+%"
-		[2] = mod("Speed", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cast_speed_+%_from_haste_aura"
+		[2] = mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cast_speed_+%_from_haste_aura"
 		[3] = mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_movement_velocity_+%"
-		[4] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[4] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 9, 9, 4, 0, },
@@ -1732,49 +2113,49 @@ gems["Vaal Haste"] = {
 	skillTypes = { [2] = true, [5] = true, [11] = true, [18] = true, [27] = true, [12] = true, [43] = true, [44] = true, },
 	baseMods = {
 		skill("castTime", 0.6), 
-		skill("duration", 6), --"base_skill_effect_duration" = 6000
+		skill("duration", 4), --"base_skill_effect_duration" = 4000
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_speed_+%"
-		[2] = mod("Speed", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cast_speed_+%_from_haste_aura"
+		[2] = mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cast_speed_+%_from_haste_aura"
 		[3] = mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_movement_velocity_+%"
-		[4] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[4] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
-		[1] = { 30, 29, 14, 0, },
-		[2] = { 30, 30, 14, 3, },
-		[3] = { 30, 30, 15, 6, },
-		[4] = { 31, 30, 15, 9, },
-		[5] = { 31, 31, 15, 12, },
-		[6] = { 31, 31, 16, 15, },
-		[7] = { 32, 31, 16, 18, },
-		[8] = { 32, 32, 16, 21, },
-		[9] = { 32, 32, 17, 23, },
-		[10] = { 33, 32, 17, 25, },
-		[11] = { 33, 33, 17, 27, },
-		[12] = { 33, 33, 18, 29, },
-		[13] = { 34, 33, 18, 31, },
-		[14] = { 34, 34, 18, 33, },
-		[15] = { 34, 34, 19, 35, },
-		[16] = { 35, 34, 19, 36, },
-		[17] = { 35, 35, 19, 37, },
-		[18] = { 35, 35, 20, 38, },
-		[19] = { 36, 35, 20, 39, },
-		[20] = { 36, 36, 20, 40, },
-		[21] = { 36, 36, 21, 41, },
-		[22] = { 37, 36, 21, 42, },
-		[23] = { 37, 37, 21, 43, },
-		[24] = { 37, 37, 22, 44, },
-		[25] = { 38, 37, 22, 45, },
-		[26] = { 38, 38, 22, 46, },
-		[27] = { 38, 38, 23, 47, },
-		[28] = { 39, 38, 23, 48, },
-		[29] = { 39, 39, 23, 49, },
-		[30] = { 39, 39, 24, 50, },
+		[1] = { 25, 24, 10, 0, },
+		[2] = { 25, 25, 10, 3, },
+		[3] = { 25, 25, 10, 6, },
+		[4] = { 26, 25, 10, 9, },
+		[5] = { 26, 26, 10, 12, },
+		[6] = { 26, 26, 11, 15, },
+		[7] = { 27, 26, 11, 18, },
+		[8] = { 27, 27, 11, 21, },
+		[9] = { 27, 27, 11, 23, },
+		[10] = { 28, 27, 11, 25, },
+		[11] = { 28, 28, 12, 27, },
+		[12] = { 28, 28, 12, 29, },
+		[13] = { 29, 28, 12, 31, },
+		[14] = { 29, 29, 12, 33, },
+		[15] = { 29, 29, 12, 35, },
+		[16] = { 30, 29, 13, 36, },
+		[17] = { 30, 30, 13, 37, },
+		[18] = { 30, 30, 13, 38, },
+		[19] = { 31, 30, 13, 39, },
+		[20] = { 31, 31, 13, 40, },
+		[21] = { 31, 31, 14, 41, },
+		[22] = { 32, 31, 14, 42, },
+		[23] = { 32, 32, 14, 43, },
+		[24] = { 32, 32, 14, 44, },
+		[25] = { 33, 32, 14, 45, },
+		[26] = { 33, 33, 15, 46, },
+		[27] = { 33, 33, 15, 47, },
+		[28] = { 34, 33, 15, 48, },
+		[29] = { 34, 34, 15, 49, },
+		[30] = { 34, 34, 15, 50, },
 	},
 }
 gems["Hatred"] = {
@@ -1798,11 +2179,11 @@ gems["Hatred"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("PhysicalDamageGainAsCold", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"physical_damage_%_to_add_as_cold"
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[2] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 26, 0, },
@@ -1849,7 +2230,7 @@ gems["Herald of Ice"] = {
 		area = true,
 		cold = true,
 	},
-	skillTypes = { [39] = true, [5] = true, [15] = true, [16] = true, [10] = true, [11] = true, [34] = true, },
+	skillTypes = { [39] = true, [5] = true, [15] = true, [16] = true, [10] = true, [11] = true, [34] = true, [27] = true, },
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 25), 
@@ -1931,12 +2312,15 @@ gems["Ice Shot"] = {
 		cold = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [11] = true, [12] = true, [22] = true, [17] = true, [19] = true, [34] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
-		skill("PhysicalDamageConvertToCold", 40), --"skill_physical_damage_%_to_convert_to_cold" = 40
+		mod("SkillPhysicalDamageConvertToCold", "BASE", 60), --"skill_physical_damage_%_to_convert_to_cold" = 60
 		skill("duration", 1.5), --"base_skill_effect_duration" = 1500
 		--"skill_can_fire_arrows" = ?
-		skill("PhysicalDamageConvertToCold", 100, { type = "SkillPart", skillPart = 2 }), 
+		mod("SkillPhysicalDamageConvertToCold", "BASE", 40, 0, 0, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("ColdDamage", "INC", 1), --"cold_damage_+%" = 1
@@ -2006,7 +2390,7 @@ gems["Ice Trap"] = {
 		skill("trapCooldown", 2), 
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -2052,6 +2436,14 @@ gems["Lacerate"] = {
 	attack = true,
 	area = true,
 	melee = true,
+	parts = {
+		{
+			name = "One slash",
+		},
+		{
+			name = "Both slashes",
+		},
+	},
 	color = 2,
 	baseFlags = {
 		attack = true,
@@ -2059,50 +2451,57 @@ gems["Lacerate"] = {
 		area = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["Two Handed Axe"] = true,
+		["Two Handed Sword"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 8), 
 		mod("Speed", "MORE", -25, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = -25
 		--"is_area_damage" = ?
+		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		[2] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		--[2] = "active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { -5, 0, },
-		[2] = { -3.8, 1, },
-		[3] = { -2.6, 2, },
-		[4] = { -1.4, 3, },
-		[5] = { -0.2, 4, },
-		[6] = { 1, 5, },
-		[7] = { 2.2, 6, },
-		[8] = { 3.4, 7, },
-		[9] = { 4.6, 8, },
-		[10] = { 5.8, 9, },
-		[11] = { 7, 10, },
-		[12] = { 8.2, 11, },
-		[13] = { 9.4, 12, },
-		[14] = { 10.6, 13, },
-		[15] = { 11.8, 14, },
-		[16] = { 13, 15, },
-		[17] = { 14.2, 16, },
-		[18] = { 15.4, 17, },
-		[19] = { 16.6, 18, },
-		[20] = { 17.8, 19, },
-		[21] = { 19, 20, },
-		[22] = { 20.2, 21, },
-		[23] = { 21.4, 22, },
-		[24] = { 22.6, 23, },
-		[25] = { 23.8, 24, },
-		[26] = { 25, 25, },
-		[27] = { 26.2, 26, },
-		[28] = { 27.4, 27, },
-		[29] = { 28.6, 28, },
-		[30] = { 29.8, 29, },
+		[2] = { -3.8, 0, },
+		[3] = { -2.6, 0, },
+		[4] = { -1.4, 1, },
+		[5] = { -0.2, 1, },
+		[6] = { 1, 1, },
+		[7] = { 2.2, 1, },
+		[8] = { 3.4, 2, },
+		[9] = { 4.6, 2, },
+		[10] = { 5.8, 2, },
+		[11] = { 7, 2, },
+		[12] = { 8.2, 3, },
+		[13] = { 9.4, 3, },
+		[14] = { 10.6, 3, },
+		[15] = { 11.8, 3, },
+		[16] = { 13, 4, },
+		[17] = { 14.2, 4, },
+		[18] = { 15.4, 4, },
+		[19] = { 16.6, 4, },
+		[20] = { 17.8, 5, },
+		[21] = { 19, 5, },
+		[22] = { 20.2, 5, },
+		[23] = { 21.4, 5, },
+		[24] = { 22.6, 6, },
+		[25] = { 23.8, 6, },
+		[26] = { 25, 6, },
+		[27] = { 26.2, 6, },
+		[28] = { 27.4, 7, },
+		[29] = { 28.6, 7, },
+		[30] = { 29.8, 7, },
 	},
 }
 gems["Lightning Arrow"] = {
@@ -2119,9 +2518,12 @@ gems["Lightning Arrow"] = {
 		lightning = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [11] = true, [3] = true, [22] = true, [17] = true, [19] = true, [35] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
-		skill("PhysicalDamageConvertToLightning", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
 		--"lightning_arrow_maximum_number_of_extra_targets" = 3
 		--"skill_can_fire_arrows" = ?
 	},
@@ -2192,10 +2594,21 @@ gems["Lightning Strike"] = {
 		lightning = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [25] = true, [28] = true, [24] = true, [35] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
-		skill("PhysicalDamageConvertToLightning", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
 		mod("Damage", "MORE", -25, ModFlag.Projectile), --"active_skill_projectile_damage_+%_final" = -25
 		--"total_projectile_spread_angle_override" = 70
 		--"show_number_of_projectiles" = ?
@@ -2265,9 +2678,20 @@ gems["Vaal Lightning Strike"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [12] = true, [43] = true, [35] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
-		skill("PhysicalDamageConvertToLightning", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
 		mod("Damage", "MORE", -50, 0, 0, { type = "SkillPart", skillPart = 2 }), --"vaal_lightning_strike_beam_damage_+%_final" = -50
 		skill("cannotBeEvaded", true), --"global_always_hit" = ?
 	},
@@ -2409,43 +2833,43 @@ gems["Poacher's Mark"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[4] = mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse"}), --"evasion_rating_+%_final_from_poachers_mark"
-		[5] = mod("LifeOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }), --"life_granted_when_hit_by_attacks"
-		[6] = mod("ManaOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }), --"mana_granted_when_hit_by_attacks"
+		[5] = mod("SelfLifeOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }), --"life_granted_when_hit_by_attacks"
+		[6] = mod("SelfManaOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }), --"mana_granted_when_hit_by_attacks"
 		--[7] = "chance_to_grant_frenzy_charge_on_death_%"
 	},
 	levels = {
 		[1] = { 24, 6, 0, -30, 5, 5, 21, },
-		[2] = { 26, 6.2, 2, -31, 6, 6, 21, },
-		[3] = { 27, 6.4, 4, -32, 7, 6, 22, },
-		[4] = { 29, 6.6, 6, -33, 8, 6, 22, },
-		[5] = { 30, 6.8, 8, -34, 9, 7, 23, },
-		[6] = { 32, 7, 10, -35, 10, 7, 23, },
-		[7] = { 34, 7.2, 12, -36, 11, 7, 24, },
-		[8] = { 35, 7.4, 14, -37, 12, 8, 24, },
-		[9] = { 37, 7.6, 16, -38, 13, 8, 25, },
-		[10] = { 38, 7.8, 18, -39, 14, 8, 25, },
-		[11] = { 39, 8, 20, -40, 15, 9, 26, },
-		[12] = { 40, 8.2, 22, -41, 16, 9, 26, },
-		[13] = { 42, 8.4, 24, -42, 17, 9, 27, },
-		[14] = { 43, 8.6, 26, -43, 18, 10, 27, },
-		[15] = { 44, 8.8, 28, -44, 19, 10, 28, },
-		[16] = { 45, 9, 30, -45, 20, 10, 28, },
-		[17] = { 46, 9.2, 32, -46, 21, 11, 29, },
-		[18] = { 47, 9.4, 34, -47, 22, 11, 29, },
-		[19] = { 48, 9.6, 36, -48, 23, 11, 30, },
-		[20] = { 50, 9.8, 38, -49, 24, 12, 30, },
-		[21] = { 51, 10, 40, -50, 25, 12, 31, },
-		[22] = { 52, 10.2, 42, -51, 26, 12, 31, },
-		[23] = { 53, 10.4, 44, -52, 27, 13, 32, },
-		[24] = { 54, 10.6, 46, -53, 28, 13, 32, },
-		[25] = { 56, 10.8, 48, -54, 29, 13, 33, },
-		[26] = { 57, 11, 50, -55, 30, 14, 33, },
-		[27] = { 58, 11.2, 52, -56, 31, 14, 34, },
-		[28] = { 59, 11.4, 54, -57, 32, 14, 34, },
-		[29] = { 60, 11.6, 56, -58, 33, 15, 35, },
-		[30] = { 61, 11.8, 58, -59, 34, 15, 35, },
+		[2] = { 26, 6.2, 4, -31, 6, 6, 21, },
+		[3] = { 27, 6.4, 8, -32, 7, 6, 22, },
+		[4] = { 29, 6.6, 12, -33, 8, 6, 22, },
+		[5] = { 30, 6.8, 16, -34, 9, 7, 23, },
+		[6] = { 32, 7, 20, -35, 10, 7, 23, },
+		[7] = { 34, 7.2, 24, -36, 11, 7, 24, },
+		[8] = { 35, 7.4, 28, -37, 12, 8, 24, },
+		[9] = { 37, 7.6, 32, -38, 13, 8, 25, },
+		[10] = { 38, 7.8, 36, -39, 14, 8, 25, },
+		[11] = { 39, 8, 40, -40, 15, 9, 26, },
+		[12] = { 40, 8.2, 44, -41, 16, 9, 26, },
+		[13] = { 42, 8.4, 48, -42, 17, 9, 27, },
+		[14] = { 43, 8.6, 52, -43, 18, 10, 27, },
+		[15] = { 44, 8.8, 56, -44, 19, 10, 28, },
+		[16] = { 45, 9, 60, -45, 20, 10, 28, },
+		[17] = { 46, 9.2, 64, -46, 21, 11, 29, },
+		[18] = { 47, 9.4, 68, -47, 22, 11, 29, },
+		[19] = { 48, 9.6, 72, -48, 23, 11, 30, },
+		[20] = { 50, 9.8, 76, -49, 24, 12, 30, },
+		[21] = { 51, 10, 80, -50, 25, 12, 31, },
+		[22] = { 52, 10.2, 84, -51, 26, 12, 31, },
+		[23] = { 53, 10.4, 88, -52, 27, 13, 32, },
+		[24] = { 54, 10.6, 92, -53, 28, 13, 32, },
+		[25] = { 56, 10.8, 96, -54, 29, 13, 33, },
+		[26] = { 57, 11, 100, -55, 30, 14, 33, },
+		[27] = { 58, 11.2, 104, -56, 31, 14, 34, },
+		[28] = { 59, 11.4, 108, -57, 32, 14, 34, },
+		[29] = { 60, 11.6, 112, -58, 33, 15, 35, },
+		[30] = { 61, 11.8, 116, -59, 34, 15, 35, },
 	},
 }
 gems["Projectile Weakness"] = {
@@ -2471,45 +2895,45 @@ gems["Projectile Weakness"] = {
 		skill("debuff", true), 
 	},
 	qualityMods = {
-		mod("ProjectileDamageTaken", "BASE", 0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"projectile_damage_taken_+%" = 0.5
+		mod("ProjectileDamageTaken", "INC", 0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"projectile_damage_taken_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
-		[4] = mod("ProjectileDamageTaken", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"projectile_damage_taken_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
+		[4] = mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"projectile_damage_taken_+%"
 	},
 	levels = {
 		[1] = { 24, 9, 0, 25, },
-		[2] = { 26, 9.1, 2, 26, },
-		[3] = { 27, 9.2, 4, 27, },
-		[4] = { 29, 9.3, 6, 28, },
-		[5] = { 30, 9.4, 8, 29, },
-		[6] = { 32, 9.5, 10, 30, },
-		[7] = { 34, 9.6, 12, 31, },
-		[8] = { 35, 9.7, 14, 32, },
-		[9] = { 37, 9.8, 16, 33, },
-		[10] = { 38, 9.9, 18, 34, },
-		[11] = { 39, 10, 20, 35, },
-		[12] = { 40, 10.1, 22, 36, },
-		[13] = { 42, 10.2, 24, 37, },
-		[14] = { 43, 10.3, 26, 38, },
-		[15] = { 44, 10.4, 28, 39, },
-		[16] = { 45, 10.5, 30, 40, },
-		[17] = { 46, 10.6, 32, 41, },
-		[18] = { 47, 10.7, 34, 42, },
-		[19] = { 48, 10.8, 36, 43, },
-		[20] = { 50, 10.9, 38, 44, },
-		[21] = { 51, 11, 40, 45, },
-		[22] = { 52, 11.1, 42, 46, },
-		[23] = { 53, 11.2, 44, 47, },
-		[24] = { 54, 11.3, 46, 48, },
-		[25] = { 56, 11.4, 48, 49, },
-		[26] = { 57, 11.5, 50, 50, },
-		[27] = { 58, 11.6, 52, 51, },
-		[28] = { 59, 11.7, 54, 52, },
-		[29] = { 60, 11.8, 56, 53, },
-		[30] = { 61, 11.9, 58, 54, },
+		[2] = { 26, 9.1, 4, 26, },
+		[3] = { 27, 9.2, 8, 27, },
+		[4] = { 29, 9.3, 12, 28, },
+		[5] = { 30, 9.4, 16, 29, },
+		[6] = { 32, 9.5, 20, 30, },
+		[7] = { 34, 9.6, 24, 31, },
+		[8] = { 35, 9.7, 28, 32, },
+		[9] = { 37, 9.8, 32, 33, },
+		[10] = { 38, 9.9, 36, 34, },
+		[11] = { 39, 10, 40, 35, },
+		[12] = { 40, 10.1, 44, 36, },
+		[13] = { 42, 10.2, 48, 37, },
+		[14] = { 43, 10.3, 52, 38, },
+		[15] = { 44, 10.4, 56, 39, },
+		[16] = { 45, 10.5, 60, 40, },
+		[17] = { 46, 10.6, 64, 41, },
+		[18] = { 47, 10.7, 68, 42, },
+		[19] = { 48, 10.8, 72, 43, },
+		[20] = { 50, 10.9, 76, 44, },
+		[21] = { 51, 11, 80, 45, },
+		[22] = { 52, 11.1, 84, 46, },
+		[23] = { 53, 11.2, 88, 47, },
+		[24] = { 54, 11.3, 92, 48, },
+		[25] = { 56, 11.4, 96, 49, },
+		[26] = { 57, 11.5, 100, 50, },
+		[27] = { 58, 11.6, 104, 51, },
+		[28] = { 59, 11.7, 108, 52, },
+		[29] = { 60, 11.8, 112, 53, },
+		[30] = { 61, 11.9, 116, 54, },
 	},
 }
 gems["Puncture"] = {
@@ -2527,6 +2951,13 @@ gems["Puncture"] = {
 		duration = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [12] = true, [17] = true, [19] = true, [22] = true, [25] = true, [28] = true, [24] = true, [40] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+		["Claw"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
@@ -2596,12 +3027,12 @@ gems["Purity of Ice"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_cold_damage_resistance_%"
 		[2] = mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_maximum_cold_damage_resistance_%"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 22, 0, 0, },
@@ -2649,50 +3080,53 @@ gems["Rain of Arrows"] = {
 		area = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [11] = true, [14] = true, [22] = true, [17] = true, [19] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"base_is_projectile" = ?
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		--[3] = "active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 7, 10, 0, },
-		[2] = { 7, 11, 1, },
-		[3] = { 7, 12, 2, },
-		[4] = { 8, 13, 3, },
-		[5] = { 8, 14, 4, },
-		[6] = { 8, 15, 5, },
-		[7] = { 8, 16, 6, },
-		[8] = { 8, 17, 7, },
-		[9] = { 9, 18, 8, },
-		[10] = { 9, 19, 9, },
-		[11] = { 9, 20, 10, },
-		[12] = { 9, 21, 11, },
-		[13] = { 9, 22, 12, },
-		[14] = { 10, 23, 13, },
-		[15] = { 10, 24, 14, },
-		[16] = { 10, 25, 15, },
-		[17] = { 10, 26, 16, },
-		[18] = { 10, 27, 17, },
-		[19] = { 11, 28, 18, },
-		[20] = { 11, 29, 19, },
-		[21] = { 11, 30, 20, },
-		[22] = { 11, 31, 21, },
-		[23] = { 11, 32, 22, },
-		[24] = { 11, 33, 23, },
-		[25] = { 11, 34, 24, },
-		[26] = { 12, 35, 25, },
-		[27] = { 12, 36, 26, },
-		[28] = { 12, 37, 27, },
-		[29] = { 12, 38, 28, },
-		[30] = { 12, 39, 29, },
+		[2] = { 7, 11, 0, },
+		[3] = { 7, 12, 0, },
+		[4] = { 8, 13, 0, },
+		[5] = { 8, 14, 1, },
+		[6] = { 8, 15, 1, },
+		[7] = { 8, 16, 1, },
+		[8] = { 8, 17, 1, },
+		[9] = { 9, 18, 1, },
+		[10] = { 9, 19, 2, },
+		[11] = { 9, 20, 2, },
+		[12] = { 9, 21, 2, },
+		[13] = { 9, 22, 2, },
+		[14] = { 10, 23, 2, },
+		[15] = { 10, 24, 3, },
+		[16] = { 10, 25, 3, },
+		[17] = { 10, 26, 3, },
+		[18] = { 10, 27, 3, },
+		[19] = { 11, 28, 3, },
+		[20] = { 11, 29, 4, },
+		[21] = { 11, 30, 4, },
+		[22] = { 11, 31, 4, },
+		[23] = { 11, 32, 4, },
+		[24] = { 11, 33, 4, },
+		[25] = { 11, 34, 5, },
+		[26] = { 12, 35, 5, },
+		[27] = { 12, 36, 5, },
+		[28] = { 12, 37, 5, },
+		[29] = { 12, 38, 5, },
+		[30] = { 12, 39, 6, },
 	},
 }
 gems["Vaal Rain of Arrows"] = {
@@ -2712,6 +3146,9 @@ gems["Vaal Rain of Arrows"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [11] = true, [14] = true, [22] = true, [17] = true, [19] = true, [12] = true, [43] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"base_is_projectile" = ?
@@ -2720,12 +3157,12 @@ gems["Vaal Rain of Arrows"] = {
 		skill("cannotBeEvaded", true), --"global_always_hit" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 40, 3.4, 0, },
@@ -2773,49 +3210,55 @@ gems["Reave"] = {
 		area = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["One Handed Sword"] = true,
+		["Dagger"] = true,
+		["Claw"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
-		--"reave_area_of_effect_+%_final_per_stage" = 20
+		--"reave_area_of_effect_+%_final_per_stage" = 50
 		--"is_area_damage" = ?
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
 	},
 	levelMods = {
-		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
+		--[1] = "active_skill_base_radius_+"
+		[2] = mod("Damage", "MORE", nil, ModFlag.Attack), 
 	},
 	levels = {
-		[1] = { nil, },
-		[2] = { 2, },
-		[3] = { 4, },
-		[4] = { 6, },
-		[5] = { 8, },
-		[6] = { 10, },
-		[7] = { 12, },
-		[8] = { 14, },
-		[9] = { 16, },
-		[10] = { 18, },
-		[11] = { 20, },
-		[12] = { 22, },
-		[13] = { 24, },
-		[14] = { 26, },
-		[15] = { 28, },
-		[16] = { 30, },
-		[17] = { 32, },
-		[18] = { 34, },
-		[19] = { 36, },
-		[20] = { 38, },
-		[21] = { 40, },
-		[22] = { 42, },
-		[23] = { 44, },
-		[24] = { 46, },
-		[25] = { 48, },
-		[26] = { 50, },
-		[27] = { 52, },
-		[28] = { 54, },
-		[29] = { 56, },
-		[30] = { 58, },
+		[1] = { 0, nil, },
+		[2] = { 0, 2, },
+		[3] = { 0, 4, },
+		[4] = { 0, 6, },
+		[5] = { 1, 8, },
+		[6] = { 1, 10, },
+		[7] = { 1, 12, },
+		[8] = { 1, 14, },
+		[9] = { 1, 16, },
+		[10] = { 2, 18, },
+		[11] = { 2, 20, },
+		[12] = { 2, 22, },
+		[13] = { 2, 24, },
+		[14] = { 2, 26, },
+		[15] = { 3, 28, },
+		[16] = { 3, 30, },
+		[17] = { 3, 32, },
+		[18] = { 3, 34, },
+		[19] = { 3, 36, },
+		[20] = { 4, 38, },
+		[21] = { 4, 40, },
+		[22] = { 4, 42, },
+		[23] = { 4, 44, },
+		[24] = { 4, 46, },
+		[25] = { 5, 48, },
+		[26] = { 5, 50, },
+		[27] = { 5, 52, },
+		[28] = { 5, 54, },
+		[29] = { 5, 56, },
+		[30] = { 6, 58, },
 	},
 }
 gems["Vaal Reave"] = {
@@ -2833,9 +3276,14 @@ gems["Vaal Reave"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [28] = true, [24] = true, [43] = true, },
+	weaponTypes = {
+		["One Handed Sword"] = true,
+		["Dagger"] = true,
+		["Claw"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
-		--"reave_area_of_effect_+%_final_per_stage" = 20
+		--"reave_area_of_effect_+%_final_per_stage" = 50
 		--"reave_rotation_on_repeat" = 135
 		--"reave_additional_max_stacks" = 4
 		--"base_attack_repeat_count" = 7
@@ -2848,39 +3296,40 @@ gems["Vaal Reave"] = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
 	},
 	levelMods = {
-		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
+		--[1] = "active_skill_base_radius_+"
+		[2] = mod("Damage", "MORE", nil, ModFlag.Attack), 
 	},
 	levels = {
-		[1] = { nil, },
-		[2] = { 1.2, },
-		[3] = { 2.4, },
-		[4] = { 3.6, },
-		[5] = { 4.8, },
-		[6] = { 6, },
-		[7] = { 7.2, },
-		[8] = { 8.4, },
-		[9] = { 9.6, },
-		[10] = { 10.8, },
-		[11] = { 12, },
-		[12] = { 13.2, },
-		[13] = { 14.4, },
-		[14] = { 15.6, },
-		[15] = { 16.8, },
-		[16] = { 18, },
-		[17] = { 19.2, },
-		[18] = { 20.4, },
-		[19] = { 21.6, },
-		[20] = { 22.8, },
-		[21] = { 24, },
-		[22] = { 25.2, },
-		[23] = { 26.4, },
-		[24] = { 27.6, },
-		[25] = { 28.8, },
-		[26] = { 30, },
-		[27] = { 31.2, },
-		[28] = { 32.4, },
-		[29] = { 33.6, },
-		[30] = { 34.8, },
+		[1] = { 0, nil, },
+		[2] = { 0, 1.2, },
+		[3] = { 0, 2.4, },
+		[4] = { 0, 3.6, },
+		[5] = { 1, 4.8, },
+		[6] = { 1, 6, },
+		[7] = { 1, 7.2, },
+		[8] = { 1, 8.4, },
+		[9] = { 1, 9.6, },
+		[10] = { 2, 10.8, },
+		[11] = { 2, 12, },
+		[12] = { 2, 13.2, },
+		[13] = { 2, 14.4, },
+		[14] = { 2, 15.6, },
+		[15] = { 3, 16.8, },
+		[16] = { 3, 18, },
+		[17] = { 3, 19.2, },
+		[18] = { 3, 20.4, },
+		[19] = { 3, 21.6, },
+		[20] = { 4, 22.8, },
+		[21] = { 4, 24, },
+		[22] = { 4, 25.2, },
+		[23] = { 4, 26.4, },
+		[24] = { 4, 27.6, },
+		[25] = { 5, 28.8, },
+		[26] = { 5, 30, },
+		[27] = { 5, 31.2, },
+		[28] = { 5, 32.4, },
+		[29] = { 5, 33.6, },
+		[30] = { 6, 34.8, },
 	},
 }
 gems["Riposte"] = {
@@ -2895,12 +3344,24 @@ gems["Riposte"] = {
 		melee = true,
 	},
 	skillTypes = { [1] = true, [24] = true, [25] = true, [6] = true, [47] = true, [57] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"melee_counterattack_trigger_on_block_%" = 100
 		--"attack_unusable_if_triggerable" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
-		--"skill_double_hits_when_dual_wielding" = ?
+		skill("doubleHitsWhenDualWielding", true), --"skill_double_hits_when_dual_wielding" = ?
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, 0, nil), --"damage_+%" = 1
@@ -2966,6 +3427,9 @@ gems["Shrapnel Shot"] = {
 		lightning = true,
 	},
 	skillTypes = { [1] = true, [3] = true, [11] = true, [22] = true, [17] = true, [19] = true, [35] = true, [48] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"base_arrow_pierce_%" = 100
@@ -2976,43 +3440,44 @@ gems["Shrapnel Shot"] = {
 		mod("PierceChance", "BASE", 100), --"always_pierce" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = mod("Damage", "MORE", nil, ModFlag.Attack), 
+		--[3] = "active_skill_base_radius_+"
 	},
 	levels = {
-		[1] = { 6, -20, },
-		[2] = { 6, -19, },
-		[3] = { 6, -18, },
-		[4] = { 7, -17, },
-		[5] = { 7, -16, },
-		[6] = { 7, -15, },
-		[7] = { 7, -14, },
-		[8] = { 8, -13, },
-		[9] = { 8, -12, },
-		[10] = { 8, -11, },
-		[11] = { 8, -10, },
-		[12] = { 8, -9, },
-		[13] = { 9, -8, },
-		[14] = { 9, -7, },
-		[15] = { 9, -6, },
-		[16] = { 9, -5, },
-		[17] = { 9, -4, },
-		[18] = { 10, -3, },
-		[19] = { 10, -2, },
-		[20] = { 10, -1, },
-		[21] = { 10, nil, },
-		[22] = { 10, 1, },
-		[23] = { 11, 2, },
-		[24] = { 11, 3, },
-		[25] = { 11, 4, },
-		[26] = { 11, 5, },
-		[27] = { 11, 6, },
-		[28] = { 12, 7, },
-		[29] = { 12, 8, },
-		[30] = { 12, 9, },
+		[1] = { 6, -20, 0, },
+		[2] = { 6, -19, 0, },
+		[3] = { 6, -18, 0, },
+		[4] = { 7, -17, 1, },
+		[5] = { 7, -16, 1, },
+		[6] = { 7, -15, 1, },
+		[7] = { 7, -14, 1, },
+		[8] = { 8, -13, 2, },
+		[9] = { 8, -12, 2, },
+		[10] = { 8, -11, 2, },
+		[11] = { 8, -10, 2, },
+		[12] = { 8, -9, 3, },
+		[13] = { 9, -8, 3, },
+		[14] = { 9, -7, 3, },
+		[15] = { 9, -6, 3, },
+		[16] = { 9, -5, 4, },
+		[17] = { 9, -4, 4, },
+		[18] = { 10, -3, 4, },
+		[19] = { 10, -2, 4, },
+		[20] = { 10, -1, 5, },
+		[21] = { 10, nil, 5, },
+		[22] = { 10, 1, 5, },
+		[23] = { 11, 2, 5, },
+		[24] = { 11, 3, 6, },
+		[25] = { 11, 4, 6, },
+		[26] = { 11, 5, 6, },
+		[27] = { 11, 6, 6, },
+		[28] = { 12, 7, 7, },
+		[29] = { 12, 8, 7, },
+		[30] = { 12, 9, 7, },
 	},
 }
 gems["Siege Ballista"] = {
@@ -3030,6 +3495,9 @@ gems["Siege Ballista"] = {
 		duration = true,
 	},
 	skillTypes = { [1] = true, [3] = true, [48] = true, [17] = true, [19] = true, [30] = true, [12] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	skillTotemId = 12,
 	baseMods = {
 		skill("castTime", 1), 
@@ -3110,7 +3578,7 @@ gems["Smoke Mine"] = {
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("manaCost", nil), 
@@ -3160,6 +3628,17 @@ gems["Spectral Throw"] = {
 		projectile = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"base_is_projectile" = ?
@@ -3218,6 +3697,17 @@ gems["Vaal Spectral Throw"] = {
 		vaal = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [43] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"projectiles_nova" = ?
@@ -3274,6 +3764,9 @@ gems["Split Arrow"] = {
 		projectile = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [22] = true, [17] = true, [19] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"skill_can_fire_arrows" = ?
@@ -3320,12 +3813,12 @@ gems["Split Arrow"] = {
 	},
 }
 gems["Summon Ice Golem"] = {
-	golem = true,
 	dexterity = true,
 	active_skill = true,
 	cold = true,
 	minion = true,
 	spell = true,
+	golem = true,
 	color = 2,
 	baseFlags = {
 		spell = true,
@@ -3333,7 +3826,7 @@ gems["Summon Ice Golem"] = {
 		golem = true,
 		cold = true,
 	},
-	skillTypes = { [36] = true, [34] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, [60] = true, },
+	skillTypes = { [36] = true, [34] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, [60] = true, [62] = true, },
 	baseMods = {
 		skill("castTime", 1), 
 		--"base_number_of_golems_allowed" = 1
@@ -3412,40 +3905,40 @@ gems["Temporal Chains"] = {
 	levelMods = {
 		[1] = skill("manaCost", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		--[4] = "temporal_chains_action_speed_+%_final"
 	},
 	levels = {
 		[1] = { 24, 5, 0, -20, },
-		[2] = { 26, 5.05, 2, -20, },
-		[3] = { 27, 5.1, 4, -21, },
-		[4] = { 29, 5.15, 6, -21, },
-		[5] = { 30, 5.2, 8, -22, },
-		[6] = { 32, 5.25, 10, -22, },
-		[7] = { 34, 5.3, 12, -23, },
-		[8] = { 35, 5.35, 14, -23, },
-		[9] = { 37, 5.4, 16, -24, },
-		[10] = { 38, 5.45, 18, -24, },
-		[11] = { 39, 5.5, 20, -25, },
-		[12] = { 40, 5.55, 22, -25, },
-		[13] = { 42, 5.6, 24, -26, },
-		[14] = { 43, 5.65, 26, -26, },
-		[15] = { 44, 5.7, 28, -27, },
-		[16] = { 45, 5.75, 30, -27, },
-		[17] = { 46, 5.8, 32, -28, },
-		[18] = { 47, 5.85, 34, -28, },
-		[19] = { 48, 5.9, 36, -29, },
-		[20] = { 50, 5.95, 38, -29, },
-		[21] = { 51, 6, 40, -30, },
-		[22] = { 52, 6.05, 42, -30, },
-		[23] = { 53, 6.1, 44, -31, },
-		[24] = { 54, 6.15, 46, -31, },
-		[25] = { 56, 6.2, 48, -32, },
-		[26] = { 57, 6.25, 50, -32, },
-		[27] = { 58, 6.3, 52, -33, },
-		[28] = { 59, 6.35, 54, -33, },
-		[29] = { 60, 6.4, 56, -34, },
-		[30] = { 61, 6.45, 58, -34, },
+		[2] = { 26, 5.05, 4, -20, },
+		[3] = { 27, 5.1, 8, -21, },
+		[4] = { 29, 5.15, 12, -21, },
+		[5] = { 30, 5.2, 16, -22, },
+		[6] = { 32, 5.25, 20, -22, },
+		[7] = { 34, 5.3, 24, -23, },
+		[8] = { 35, 5.35, 28, -23, },
+		[9] = { 37, 5.4, 32, -24, },
+		[10] = { 38, 5.45, 36, -24, },
+		[11] = { 39, 5.5, 40, -25, },
+		[12] = { 40, 5.55, 44, -25, },
+		[13] = { 42, 5.6, 48, -26, },
+		[14] = { 43, 5.65, 52, -26, },
+		[15] = { 44, 5.7, 56, -27, },
+		[16] = { 45, 5.75, 60, -27, },
+		[17] = { 46, 5.8, 64, -28, },
+		[18] = { 47, 5.85, 68, -28, },
+		[19] = { 48, 5.9, 72, -29, },
+		[20] = { 50, 5.95, 76, -29, },
+		[21] = { 51, 6, 80, -30, },
+		[22] = { 52, 6.05, 84, -30, },
+		[23] = { 53, 6.1, 88, -31, },
+		[24] = { 54, 6.15, 92, -31, },
+		[25] = { 56, 6.2, 96, -32, },
+		[26] = { 57, 6.25, 100, -32, },
+		[27] = { 58, 6.3, 104, -33, },
+		[28] = { 59, 6.35, 108, -33, },
+		[29] = { 60, 6.4, 112, -34, },
+		[30] = { 61, 6.45, 116, -34, },
 	},
 }
 gems["Tornado Shot"] = {
@@ -3459,6 +3952,9 @@ gems["Tornado Shot"] = {
 		projectile = true,
 	},
 	skillTypes = { [1] = true, [3] = true, [17] = true, [19] = true, [22] = true, [48] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		--"tornado_shot_num_of_secondary_projectiles" = 3
@@ -3520,6 +4016,12 @@ gems["Viper Strike"] = {
 		chaos = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [12] = true, [28] = true, [24] = true, [25] = true, [40] = true, [50] = true, },
+	weaponTypes = {
+		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Claw"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 5), 
@@ -3580,6 +4082,11 @@ gems["Whirling Blades"] = {
 		movement = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [24] = true, [38] = true, },
+	weaponTypes = {
+		["Claw"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 2.6), 
 		skill("manaCost", 15), 
@@ -3693,20 +4200,31 @@ gems["Wild Strike"] = {
 		fire = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [35] = true, [34] = true, [33] = true, [3] = true, [11] = true, [23] = true, [48] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
-		--"elemental_strike_physical_damage_%_to_convert" = 60
+		--"elemental_strike_physical_damage_%_to_convert" = 100
 		--"fixed_projectile_spread" = 70
 		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2
 		--"show_number_of_projectiles" = ?
 		mod("PierceChance", "BASE", 100), --"always_pierce" = ?
-		skill("PhysicalDamageConvertToFire", 60, { type = "SkillPart", skillPart = 1 }), 
-		skill("PhysicalDamageConvertToFire", 60, { type = "SkillPart", skillPart = 2 }), 
-		skill("PhysicalDamageConvertToLightning", 60, { type = "SkillPart", skillPart = 3 }), 
-		skill("PhysicalDamageConvertToLightning", 60, { type = "SkillPart", skillPart = 4 }), 
-		skill("PhysicalDamageConvertToCold", 60, { type = "SkillPart", skillPart = 5 }), 
-		skill("PhysicalDamageConvertToCold", 60, { type = "SkillPart", skillPart = 6 }), 
+		mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }), 
+		mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 3 }), 
+		mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 4 }), 
+		mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 5 }), 
+		mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 6 }), 
 	},
 	qualityMods = {
 		mod("ElementalDamage", "INC", 1), --"elemental_damage_+%" = 1
@@ -3714,7 +4232,7 @@ gems["Wild Strike"] = {
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Attack), 
 		[2] = mod("ChainCount", "BASE", nil), --"number_of_additional_projectiles_in_chain"
-		[3] = mod("AreaRadius", "INC", nil), --"base_skill_area_of_effect_+%"
+		[3] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {
 		[1] = { 30, 4, 0, },

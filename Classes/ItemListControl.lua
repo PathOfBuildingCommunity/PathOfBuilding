@@ -20,6 +20,33 @@ local ItemListClass = common.NewClass("ItemList", "Control", "ControlHost", func
 		local width, height = self:GetSize()
 		return height - 2
 	end
+	self.controls.sort = common.New("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, -64, -2, 60, 18, "Sort", function()
+		table.sort(itemsTab.orderList, function(a, b)
+			local itemA = itemsTab.list[a]
+			local itemB = itemsTab.list[b]
+			local primSlotA = itemLib.getPrimarySlotForItem(itemA)
+			local primSlotB = itemLib.getPrimarySlotForItem(itemB)
+			if primSlotA ~= primSlotB then
+				if not itemsTab.slotOrder[primSlotA] then
+					return false
+				elseif not itemsTab.slotOrder[primSlotB] then
+					return true
+				end
+				return itemsTab.slotOrder[primSlotA] < itemsTab.slotOrder[primSlotB]
+			end
+			local equipSlotA = itemsTab:GetEquippedSlotForItem(itemA)
+			local equipSlotB = itemsTab:GetEquippedSlotForItem(itemB)
+			if equipSlotA and equipSlotB then
+				return itemsTab.slotOrder[equipSlotA.slotName] < itemsTab.slotOrder[equipSlotB.slotName]
+			elseif not equipSlotA then
+				return false
+			elseif not equipSlotB then
+				return true
+			end
+			return itemA.name < itemB.name
+		end)
+		itemsTab:AddUndoState()
+	end)
 	self.controls.delete = common.New("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Delete", function()
 		self:OnKeyUp("DELETE")
 	end)
@@ -28,17 +55,20 @@ local ItemListClass = common.NewClass("ItemList", "Control", "ControlHost", func
 	end
 end)
 
+function ItemListClass:SelectIndex(index)
+	local selItemId = self.itemsTab.orderList[index]
+	if selItemId then
+		self.selItem = self.itemsTab.list[selItemId]
+		self.selIndex = index
+		self.controls.scrollBar:ScrollIntoView((index - 2) * 16, 48)
+	end
+end
+
 function ItemListClass:IsMouseOver()
 	if not self:IsShown() then
 		return
 	end
-	if self:GetMouseOverControl() then
-		return true
-	end
-	local x, y = self:GetPos()
-	local width, height = self:GetSize()
-	local cursorX, cursorY = GetCursorPos()
-	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
+	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
 function ItemListClass:Draw(viewPort)
@@ -85,7 +115,7 @@ function ItemListClass:Draw(viewPort)
 		local item = list[orderList[index]]
 		local itemY = 16 * (index - 1) - scrollBar.offset
 		local nameWidth = DrawStringWidth(16, "VAR", item.name)
-		if not scrollBar.dragging and not self.selDragActive and (not self.itemsTab.selControl or self.hasFocus) then
+		if not scrollBar.dragging and not self.selDragActive and (not self.itemsTab.selControl or self.hasFocus) and not main.popups[1] then
 			local cursorX, cursorY = GetCursorPos()
 			local relX = cursorX - (x + 2)
 			local relY = cursorY - (y + 2)
@@ -140,6 +170,7 @@ function ItemListClass:OnKeyDown(key, doubleClick)
 	end
 	if key == "LEFTBUTTON" then
 		self.selItem = nil
+		self.selIndex = nil
 		local x, y = self:GetPos()
 		local width, height = self:GetSize()
 		local cursorX, cursorY = GetCursorPos()
@@ -160,9 +191,9 @@ function ItemListClass:OnKeyDown(key, doubleClick)
 							end
 						end
 						if self.itemsTab.slots[slotName].selItemId == selItemId then
-							self.itemsTab.slots[slotName].selItemId = 0
+							self.itemsTab.slots[slotName]:SetSelItemId(0)
 						else
-							self.itemsTab.slots[slotName].selItemId = selItemId
+							self.itemsTab.slots[slotName]:SetSelItemId(selItemId)
 						end
 						self.itemsTab:PopulateSlots()
 						self.itemsTab:AddUndoState()
@@ -179,9 +210,17 @@ function ItemListClass:OnKeyDown(key, doubleClick)
 			self.selDragging = true
 			self.selDragActive = false
 		end
+	elseif key == "UP" then
+		self:SelectIndex(((self.selIndex or 1) - 2) % #self.itemsTab.orderList + 1)
+	elseif key == "DOWN" then
+		self:SelectIndex((self.selIndex or #self.itemsTab.orderList) % #self.itemsTab.orderList + 1)
+	elseif key == "HOME" then
+		self:SelectIndex(1)
+	elseif key == "END" then
+		self:SelectIndex(#self.itemsTab.orderList)
 	elseif key == "c" and IsKeyDown("CTRL") then
 		if self.selItem then
-			Copy(self.selItem.raw:gsub("\n","\r\n"))
+			Copy(itemLib.createItemRaw(self.selItem):gsub("\n","\r\n"))
 		end
 	end
 	return self
@@ -202,10 +241,12 @@ function ItemListClass:OnKeyUp(key)
 				main:OpenConfirmPopup("Delete Item", self.selItem.name.." is currently equipped in "..equipSlot.label..".\nAre you sure you want to delete it?", "Delete", function()
 					self.itemsTab:DeleteItem(self.selItem)
 					self.selItem = nil
+					self.selIndex = nil
 				end)
 			else
 				self.itemsTab:DeleteItem(self.selItem)
 				self.selItem = nil
+				self.selIndex = nil
 			end
 		elseif key == "LEFTBUTTON" then
 			self.selDragging = false
@@ -220,17 +261,19 @@ function ItemListClass:OnKeyUp(key)
 						t_insert(self.itemsTab.orderList, self.selDragIndex, self.selItem.id)
 						self.itemsTab:AddUndoState()
 						self.selItem = nil
+						self.selIndex = nil
 					end
 				else
 					for slotName, slot in pairs(self.itemsTab.slots) do
 						if not slot.inactive and slot:IsMouseOver() then
 							if self.itemsTab:IsItemValidForSlot(self.selItem, slotName) and slot.selItemId ~= self.selItem.id then
-								slot.selItemId = self.selItem.id
+								slot:SetSelItemId(self.selItem.id)
 								self.itemsTab:PopulateSlots()
 								self.itemsTab:AddUndoState()
 								self.itemsTab.build.buildFlag = true
 							end
 							self.selItem = nil
+							self.selIndex = nil
 							return
 						end
 					end

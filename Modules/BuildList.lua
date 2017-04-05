@@ -17,25 +17,31 @@ function listMode:Init(selBuildName)
 		return main.screenW / 2 
 	end
 
-	self.controls.new = common.New("ButtonControl", {"TOP",self.anchor,"TOP"}, -68*2, 0, 60, 20, "New", function()
-		self:New()
+	self.controls.new = common.New("ButtonControl", {"TOP",self.anchor,"TOP"}, -210, 0, 60, 20, "New", function()
+		main:SetMode("BUILD", false, "Unnamed build")
+		--self:New()
 	end)
-	self.controls.open = common.New("ButtonControl", {"TOP",self.anchor,"TOP"}, -68, 0, 60, 20, "Open", function()
+	self.controls.open = common.New("ButtonControl", {"LEFT",self.controls.new,"RIGHT"}, 8, 0, 60, 20, "Open", function()
 		self:LoadSel()
 	end)
 	self.controls.open.enabled = function() return self.sel ~= nil end
-	self.controls.copy = common.New("ButtonControl", {"TOP",self.anchor,"TOP"}, 0, 0, 60, 20, "Copy", function()
+	self.controls.copy = common.New("ButtonControl", {"LEFT",self.controls.open,"RIGHT"}, 8, 0, 60, 20, "Copy", function()
 		self:CopySel()
 	end)
 	self.controls.copy.enabled = function() return self.sel ~= nil end
-	self.controls.rename = common.New("ButtonControl", {"TOP",self.anchor,"TOP"}, 68, 0, 60, 20, "Rename", function()
+	self.controls.rename = common.New("ButtonControl", {"LEFT",self.controls.copy,"RIGHT"}, 8, 0, 60, 20, "Rename", function()
 		self:RenameSel()
 	end)
 	self.controls.rename.enabled = function() return self.sel ~= nil end
-	self.controls.delete = common.New("ButtonControl", {"TOP",self.anchor,"TOP"}, 68*2, 0, 60, 20, "Delete", function()
+	self.controls.delete = common.New("ButtonControl", {"LEFT",self.controls.rename,"RIGHT"}, 8, 0, 60, 20, "Delete", function()
 		self:DeleteSel()
 	end)
 	self.controls.delete.enabled = function() return self.sel ~= nil end
+	self.controls.sort = common.New("DropDownControl", {"LEFT",self.controls.delete,"RIGHT"}, 8, 0, 140, 20, {{val="NAME",label="Sort by Name"},{val="CLASS",label="Sort by Class"},{val="EDITED",label="Sort by Last Edited"}}, function(sel, val)
+		main.buildSortMode = val.val
+		self:SortList()
+	end)
+	self.controls.sort:SelByValue(main.buildSortMode)
 
 	self.controls.buildList = common.New("BuildList", {"TOP",self.anchor,"TOP"}, 0, 24, 500, 0, self)
 	self.controls.buildList.height = function()
@@ -81,6 +87,7 @@ function listMode:BuildList()
 		local fileName = handle:GetFileName()
 		local build = { }
 		build.fileName = fileName
+		build.modified = handle:GetFileModifiedTime()
 		build.buildName = fileName:gsub("%.xml$","")
 		local dbXML = common.xml.LoadXMLFile(main.buildPath..fileName)
 		if dbXML and dbXML[1].elem == "PathOfBuilding" then
@@ -102,7 +109,22 @@ end
 
 function listMode:SortList()
 	local oldSelFileName = self.sel and self.list[self.sel] and self.list[self.sel].fileName
-	table.sort(self.list, function(a, b) return a.fileName:upper() < b.fileName:upper() end)
+	table.sort(self.list, function(a, b) 
+		if main.buildSortMode == "EDITED" then
+			return a.modified > b.modified
+		elseif main.buildSortMode == "CLASS" then
+			if a.className and not b.className then
+				return false
+			elseif not a.className and b.className then
+				return true
+			elseif a.className ~= b.className then
+				return a.className < b.className
+			elseif a.ascendClassName ~= b.ascendClassName then
+				return a.ascendClassName < b.ascendClassName
+			end
+		end
+		return a.fileName:upper() < b.fileName:upper()
+	end)
 	if oldSelFileName then
 		self:SelByFileName(oldSelFileName)
 	end
@@ -169,7 +191,7 @@ function listMode:New()
 		outFile:close()
 		self.list[self.edit].fileName = fileName
 		self.list[self.edit].buildName = buf
-		self:SortList()
+		self:BuildList()
 	end)
 end
 
@@ -211,7 +233,7 @@ function listMode:CopySel()
 		outFile:close()
 		self.list[self.edit].fileName = dstName
 		self.list[self.edit].buildName = buf
-		self:SortList()
+		self:BuildList()
 	end)
 end
 

@@ -23,7 +23,7 @@ local BuildListClass = common.NewClass("BuildList", "Control", "ControlHost", fu
 	self.controls.scrollBar.locked = function()
 		return self.listMode.edit
 	end
-	self.controls.nameEdit = common.New("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 0, 20, nil, nil, "[%w _+-.()'\"]", 50)
+	self.controls.nameEdit = common.New("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 0, 20, nil, nil, "\\/:%*%?\"<>|%c", 50)
 	self.controls.nameEdit.shown = function()
 		return self.listMode.edit
 	end
@@ -41,17 +41,18 @@ function BuildListClass:ScrollSelIntoView()
 	end
 end
 
+function BuildListClass:SelectIndex(index)
+	if self.listMode.list[index] then
+		self.listMode.sel = index
+		self:ScrollSelIntoView()
+	end
+end
+
 function BuildListClass:IsMouseOver()
 	if not self:IsShown() then
 		return
 	end
-	if self:GetMouseOverControl() then
-		return true
-	end
-	local x, y = self:GetPos()
-	local width, height = self:GetSize()
-	local cursorX, cursorY = GetCursorPos()
-	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
+	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
 function BuildListClass:Draw(viewPort)
@@ -125,6 +126,9 @@ function BuildListClass:OnKeyDown(key, doubleClick)
 	if not self:IsMouseOver() and key:match("BUTTON") then
 		return
 	end
+	if self.listMode.edit then
+		return self
+	end
 	if key == "LEFTBUTTON" then
 		self.listMode.sel = nil
 		local x, y = self:GetPos()
@@ -140,6 +144,14 @@ function BuildListClass:OnKeyDown(key, doubleClick)
 				end
 			end
 		end
+	elseif key == "UP" then
+		self:SelectIndex(((self.listMode.sel or 1) - 2) % #self.listMode.list + 1)
+	elseif key == "DOWN" then
+		self:SelectIndex((self.listMode.sel or #self.listMode.list) % #self.listMode.list + 1)
+	elseif key == "HOME" then
+		self:SelectIndex(1)
+	elseif key == "END" then
+		self:SelectIndex(#self.listMode.list)
 	elseif self.listMode.sel then
 		if key == "BACK" or key == "DELETE" then
 			self.listMode:DeleteSel()

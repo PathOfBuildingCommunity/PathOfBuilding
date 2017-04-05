@@ -60,7 +60,7 @@ local ItemDBClass = common.NewClass("ItemDB", "Control", "ControlHost", function
 	self.controls.league.shown = function()
 		return #self.leagueList > 2
 	end
-	self.controls.search = common.New("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -2, 258, 18, "", "Search", "[%C]", 100, function()
+	self.controls.search = common.New("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -2, 258, 18, "", "Search", "%c", 100, function()
 		self:BuildOrderList()
 	end)
 	self.controls.searchMode = common.New("DropDownControl", {"LEFT",self.controls.search,"RIGHT"}, 2, 0, 100, 18, { "Anywhere", "Names", "Modifiers" }, function()
@@ -92,13 +92,13 @@ function ItemDBClass:DoesItemMatchFilters(item)
 		local found = false
 		local mode = self.controls.searchMode.sel
 		if mode == 1 or mode == 2 then
-			if item.name:lower():match(searchStr) then
+			if item.name:lower():find(searchStr, 1, true) then
 				found = true
 			end
 		end
 		if mode == 1 or mode == 3 then
 			for _, line in pairs(item.modLines) do
-				if line.line:lower():match(searchStr) then
+				if line.line:lower():find(searchStr, 1, true) then
 					found = true
 					break
 				end
@@ -106,7 +106,7 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			if not found then
 				searchStr = searchStr:gsub(" ","")
 				for i, mod in pairs(item.baseModList) do
-					if mod.name:lower():gsub("_",""):match(searchStr) then
+					if mod.name:lower():find(searchStr, 1, true) then
 						found = true
 						break
 					end
@@ -160,17 +160,19 @@ function ItemDBClass:BuildOrderList()
 	end)
 end
 
+function ItemDBClass:SelectIndex(index)
+	self.selItem = self.orderList[index]
+	if self.selItem then
+		self.selIndex = index
+		self.controls.scrollBar:ScrollIntoView((index - 2) * 16, 48)
+	end
+end
+
 function ItemDBClass:IsMouseOver()
 	if not self:IsShown() then
 		return
 	end
-	if self:GetMouseOverControl() then
-		return true
-	end
-	local x, y = self:GetPos()
-	local width, height = self:GetSize()
-	local cursorX, cursorY = GetCursorPos()
-	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
+	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
 function ItemDBClass:Draw(viewPort)
@@ -203,7 +205,7 @@ function ItemDBClass:Draw(viewPort)
 		local item = orderList[index]
 		local itemY = 16 * (index - 1) - scrollBar.offset
 		local nameWidth = DrawStringWidth(16, "VAR", item.name)
-		if not scrollBar.dragging and (not self.itemsTab.selControl or self.hasFocus or self.controls.search.hasFocus) then
+		if not scrollBar.dragging and (not self.itemsTab.selControl or self.hasFocus or self.controls.search.hasFocus) and not main.popups[1] then
 			local cursorX, cursorY = GetCursorPos()
 			local relX = cursorX - (x + 2)
 			local relY = cursorY - (y + 2)
@@ -248,6 +250,7 @@ function ItemDBClass:OnKeyDown(key, doubleClick)
 	end
 	if key == "LEFTBUTTON" then
 		self.selItem = nil
+		self.selIndex = nil
 		local x, y = self:GetPos()
 		local width, height = self:GetSize()
 		local cursorX, cursorY = GetCursorPos()
@@ -259,7 +262,7 @@ function ItemDBClass:OnKeyDown(key, doubleClick)
 				self.selIndex = index
 				if IsKeyDown("CTRL") then
 					-- Immediately add and equip it
-					self.itemsTab:CreateDisplayItemFromRaw(selItem.raw)
+					self.itemsTab:CreateDisplayItemFromRaw(selItem.raw, true)
 					local newItem = self.itemsTab.displayItem
 					self.itemsTab:AddDisplayItem(true)
 					itemLib.buildItemModList(newItem)
@@ -272,14 +275,14 @@ function ItemDBClass:OnKeyDown(key, doubleClick)
 							end
 						end
 						if self.itemsTab.slots[slotName].selItemId ~= newItem.id then
-							self.itemsTab.slots[slotName].selItemId = newItem.id
+							self.itemsTab.slots[slotName]:SetSelItemId(newItem.id)
 							self.itemsTab:PopulateSlots()
 							self.itemsTab:AddUndoState()
 							self.itemsTab.build.buildFlag = true
 						end
 					end
 				elseif doubleClick then
-					self.itemsTab:CreateDisplayItemFromRaw(selItem.raw)
+					self.itemsTab:CreateDisplayItemFromRaw(selItem.raw, true)
 				end
 			end
 		end
@@ -289,6 +292,14 @@ function ItemDBClass:OnKeyDown(key, doubleClick)
 			self.selDragging = true
 			self.selDragActive = false
 		end
+	elseif key == "UP" then
+		self:SelectIndex(((self.selIndex or 1) - 2) % #self.orderList + 1)
+	elseif key == "DOWN" then
+		self:SelectIndex((self.selIndex or #self.orderList) % #self.orderList + 1)
+	elseif key == "HOME" then
+		self:SelectIndex(1)
+	elseif key == "END" then
+		self:SelectIndex(#self.orderList)
 	elseif key == "c" and IsKeyDown("CTRL") then
 		if self.selItem then
 			Copy(self.selItem.raw:gsub("\n","\r\n"))
@@ -311,7 +322,7 @@ function ItemDBClass:OnKeyUp(key)
 			if self.selDragActive then
 				self.selDragActive = false
 				if self.itemsTab.controls.itemList:IsMouseOver() and self.itemsTab.controls.itemList.selDragIndex then
-					self.itemsTab:CreateDisplayItemFromRaw(self.selItem.raw)
+					self.itemsTab:CreateDisplayItemFromRaw(self.selItem.raw, true)
 					local newItem = self.itemsTab.displayItem
 					self.itemsTab:AddDisplayItem()
 					itemLib.buildItemModList(newItem)
@@ -321,16 +332,17 @@ function ItemDBClass:OnKeyUp(key)
 					for slotName, slot in pairs(self.itemsTab.slots) do
 						if not slot.inactive and slot:IsMouseOver() then
 							if self.itemsTab:IsItemValidForSlot(self.selItem, slotName) then
-								self.itemsTab:CreateDisplayItemFromRaw(self.selItem.raw)
+								self.itemsTab:CreateDisplayItemFromRaw(self.selItem.raw, true)
 								local newItem = self.itemsTab.displayItem
 								self.itemsTab:AddDisplayItem(true)
 								itemLib.buildItemModList(newItem)
-								slot.selItemId = newItem.id
+								slot:SetSelItemId(newItem.id)
 								self.itemsTab:PopulateSlots()
 								self.itemsTab:AddUndoState()
 								self.itemsTab.build.buildFlag = true
 							end
 							self.selItem = nil
+							self.selIndex = nil
 							return
 						end
 					end

@@ -47,17 +47,20 @@ local SkillListClass = common.NewClass("SkillList", "Control", "ControlHost", fu
 	end)
 end)
 
+function SkillListClass:SelectIndex(index)
+	self.selGroup = self.skillsTab.socketGroupList[index]
+	if self.selGroup then
+		self.selIndex = index
+		self.skillsTab:SetDisplayGroup(self.selGroup)
+		self.controls.scrollBar:ScrollIntoView((index - 2) * 16, 48)
+	end
+end
+
 function SkillListClass:IsMouseOver()
 	if not self:IsShown() then
 		return
 	end
-	if self:GetMouseOverControl() then
-		return true
-	end
-	local x, y = self:GetPos()
-	local width, height = self:GetSize()
-	local cursorX, cursorY = GetCursorPos()
-	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
+	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
 function SkillListClass:Draw(viewPort)
@@ -143,16 +146,16 @@ function SkillListClass:Draw(viewPort)
 		local gemShown = { }
 		if ttGroup.sourceItem then
 			main:AddTooltipLine(18, "^7Source: "..data.colorCodes[ttGroup.sourceItem.rarity]..ttGroup.sourceItem.name)
-			main:AddTooltipSeperator(10)
+			main:AddTooltipSeparator(10)
 		end
 		for index, activeSkill in ipairs(ttGroup.displaySkillList) do
 			if index > 1 then
-				main:AddTooltipSeperator(10)
+				main:AddTooltipSeparator(10)
 			end
 			main:AddTooltipLine(16, "^7Active Skill #"..index..":")
 			for _, gem in ipairs(activeSkill.gemList) do
 				main:AddTooltipLine(20, string.format("%s%s ^7%d%s/%d%s", 
-					gem.srcGem.color, 
+					data.skillColorMap[gem.data.color], 
 					gem.name, 
 					gem.level, 
 					(gem.srcGem and gem.level > gem.srcGem.level) and data.colorCodes.MAGIC.."+"..(gem.level - gem.srcGem.level).."^7" or "",
@@ -163,13 +166,13 @@ function SkillListClass:Draw(viewPort)
 				count = count + 1
 			end
 		end
-		local showOtherHeader = (count > 0)
+		local showOtherHeader = true
 		for _, gem in ipairs(ttGroup.gemList) do
 			if not gemShown[gem] then
 				if showOtherHeader then
 					showOtherHeader = false
-					main:AddTooltipSeperator(10)
-					main:AddTooltipLine(16, "^7Other Gems:")
+					main:AddTooltipSeparator(10)
+					main:AddTooltipLine(16, "^7Inactive Gems:")
 				end
 				local reason = ""
 				if not gem.data then
@@ -235,13 +238,13 @@ function SkillListClass:OnKeyDown(key, doubleClick)
 		end
 	elseif #self.skillsTab.socketGroupList > 0 then
 		if key == "UP" then
-			self.selIndex = ((self.selIndex or 1) - 2) % #self.skillsTab.socketGroupList + 1
-			self.selGroup = self.skillsTab.socketGroupList[self.selIndex]
-			self.skillsTab:SetDisplayGroup(self.selGroup)
+			self:SelectIndex(((self.selIndex or 1) - 2) % #self.skillsTab.socketGroupList + 1)
 		elseif key == "DOWN" then
-			self.selIndex = (self.selIndex or #self.skillsTab.socketGroupList) % #self.skillsTab.socketGroupList + 1
-			self.selGroup = self.skillsTab.socketGroupList[self.selIndex]
-			self.skillsTab:SetDisplayGroup(self.selGroup)
+			self:SelectIndex((self.selIndex or #self.skillsTab.socketGroupList) % #self.skillsTab.socketGroupList + 1)
+		elseif key == "HOME" then
+			self:SelectIndex(1)
+		elseif key == "END" then
+			self:SelectIndex(#self.skillsTab.socketGroupList)
 		end
 	end
 	return self

@@ -1,6 +1,6 @@
 -- Path of Building
 --
--- Active Strength skills
+-- Dexterity support gems
 -- Skill gem data (c) Grinding Gear Games
 --
 local gems, mod, flag, skill = ...
@@ -67,10 +67,10 @@ gems["Additional Accuracy"] = {
 	baseMods = {
 	},
 	qualityMods = {
-		mod("Accuracy", "INC", 1), --"accuracy_rating_+%" = 1
+		mod("Accuracy", "INC", 1, 0, 0, nil), --"accuracy_rating_+%" = 1
 	},
 	levelMods = {
-		[1] = mod("Accuracy", "BASE", nil), --"accuracy_rating"
+		[1] = mod("Accuracy", "BASE", nil, 0, 0, nil), --"accuracy_rating"
 	},
 	levels = {
 		[1] = { 74, },
@@ -157,14 +157,105 @@ gems["Blind"] = {
 gems["Block Chance Reduction"] = {
 	dexterity = true,
 	support = true,
-	unsupported = true,
+	color = 2,
+	requireSkillTypes = { 10, 1, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+	},
+	qualityMods = {
+		--"global_reduce_enemy_block_%" = 0.25
+	},
+	levelMods = {
+		--[1] = "global_reduce_enemy_block_%"
+		--[2] = "reduce_enemy_dodge_%"
+	},
+	levels = {
+		[1] = { 20, 20, },
+		[2] = { 21, 20, },
+		[3] = { 21, 21, },
+		[4] = { 22, 21, },
+		[5] = { 22, 22, },
+		[6] = { 23, 22, },
+		[7] = { 23, 23, },
+		[8] = { 24, 23, },
+		[9] = { 24, 24, },
+		[10] = { 25, 24, },
+		[11] = { 25, 25, },
+		[12] = { 26, 25, },
+		[13] = { 26, 26, },
+		[14] = { 27, 26, },
+		[15] = { 27, 27, },
+		[16] = { 28, 27, },
+		[17] = { 28, 28, },
+		[18] = { 29, 28, },
+		[19] = { 29, 29, },
+		[20] = { 30, 29, },
+		[21] = { 30, 30, },
+		[22] = { 31, 30, },
+		[23] = { 31, 31, },
+		[24] = { 32, 31, },
+		[25] = { 32, 32, },
+		[26] = { 33, 32, },
+		[27] = { 33, 33, },
+		[28] = { 34, 33, },
+		[29] = { 34, 34, },
+		[30] = { 35, 34, },
+	},
 }
 gems["Cast On Critical Strike"] = {
 	dexterity = true,
 	support = true,
 	spell = true,
 	trigger = true,
-	unsupported = true,
+	color = 2,
+	requireSkillTypes = { 1, 36, },
+	addSkillTypes = { 42, },
+	excludeSkillTypes = { 37, 41, 30, 44, 61, },
+	baseMods = {
+		mod("ManaCost", "MORE", 40), 
+		--"cast_linked_spells_on_attack_crit_%" = 100
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+		skill("showAverage", true, { type = "SkillType", skillType = 36 }), 
+	},
+	qualityMods = {
+		mod("CritChance", "INC", 1, 0, 0, nil), --"critical_strike_chance_+%" = 1
+	},
+	levelMods = {
+		[1] = mod("Damage", "MORE", nil, ModFlag.Spell), --"support_cast_on_crit_spell_damage_+%_final"
+	},
+	levels = {
+		[1] = { 20, },
+		[2] = { 21, },
+		[3] = { 22, },
+		[4] = { 23, },
+		[5] = { 24, },
+		[6] = { 25, },
+		[7] = { 26, },
+		[8] = { 27, },
+		[9] = { 28, },
+		[10] = { 29, },
+		[11] = { 30, },
+		[12] = { 31, },
+		[13] = { 32, },
+		[14] = { 33, },
+		[15] = { 34, },
+		[16] = { 35, },
+		[17] = { 36, },
+		[18] = { 37, },
+		[19] = { 38, },
+		[20] = { 39, },
+		[21] = { 40, },
+		[22] = { 41, },
+		[23] = { 42, },
+		[24] = { 43, },
+		[25] = { 44, },
+		[26] = { 45, },
+		[27] = { 46, },
+		[28] = { 47, },
+		[29] = { 48, },
+		[30] = { 49, },
+	},
 }
 gems["Cast on Death"] = {
 	dexterity = true,
@@ -174,15 +265,15 @@ gems["Cast on Death"] = {
 	color = 2,
 	requireSkillTypes = { 36, },
 	addSkillTypes = { 42, },
-	excludeSkillTypes = { 9, 37, 41, 30, 44, },
+	excludeSkillTypes = { 9, 37, 41, 30, 44, 61, },
 	baseMods = {
 		--"cast_on_death_%" = 100
-		--"spell_uncastable_if_triggerable" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 		--"spell_only_castable_on_death" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
-		mod("AreaRadius", "INC", 3), --"area_of_effect_+%_while_dead" = 3
+		mod("AreaOfEffect", "INC", 3), --"area_of_effect_+%_while_dead" = 3
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil), --"cast_on_death_damage_+%_final_while_dead"
@@ -434,11 +525,11 @@ gems["Culling Strike"] = {
 		mod("ManaCost", "MORE", 10), 
 		--"kill_enemy_on_hit_if_under_10%_life" = 1
 		mod("Speed", "INC", 0, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0
-		mod("Speed", "INC", 0, ModFlag.Spell), --"base_cast_speed_+%" = 0
+		mod("Speed", "INC", 0, ModFlag.Cast), --"base_cast_speed_+%" = 0
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
-		mod("Speed", "INC", 0.5, ModFlag.Spell), --"base_cast_speed_+%" = 0.5
+		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "INC", nil, 0, 0, nil), --"damage_+%"
@@ -491,7 +582,7 @@ gems["Enhance"] = {
 		--"local_gem_experience_gain_+%" = 5
 	},
 	levelMods = {
-		[1] = mod("GemProperty", "LIST", { keyword = "active", key = "quality", value = nil }), --"supported_active_skill_gem_quality_%"
+		[1] = mod("GemProperty", "LIST", { keyword = "active_skill", key = "quality", value = nil }), --"supported_active_skill_gem_quality_%"
 	},
 	levels = {
 		[1] = { 0, },
@@ -569,7 +660,7 @@ gems["Faster Projectiles"] = {
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
-		mod("Speed", "INC", 0.5, ModFlag.Spell), --"base_cast_speed_+%" = 0.5
+		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("ProjectileSpeed", "INC", nil), --"base_projectile_speed_+%"
@@ -674,7 +765,7 @@ gems["Greater Multiple Projectiles"] = {
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
-		mod("Speed", "INC", 0.5, ModFlag.Spell), --"base_cast_speed_+%" = 0.5
+		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Projectile), --"support_multiple_projectile_damage_+%_final"
@@ -829,7 +920,7 @@ gems["Lesser Multiple Projectiles"] = {
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
-		mod("Speed", "INC", 0.5, ModFlag.Spell), --"base_cast_speed_+%" = 0.5
+		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil, ModFlag.Projectile), --"support_lesser_multiple_projectile_damage_+%_final"
@@ -875,13 +966,13 @@ gems["Mana Leech"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	baseMods = {
-		--"mana_leech_from_any_damage_permyriad" = 200
+		mod("DamageManaLeech", "BASE", 2), --"mana_leech_from_any_damage_permyriad" = 200
 	},
 	qualityMods = {
-		--"mana_leech_speed_+%" = 0.5
+		mod("ManaLeechRate", "INC", 0.5), --"mana_leech_speed_+%" = 0.5
 	},
 	levelMods = {
-		--[1] = "mana_leech_speed_+%"
+		[1] = mod("ManaLeechRate", "INC", nil), --"mana_leech_speed_+%"
 	},
 	levels = {
 		[1] = { 0, },
@@ -930,7 +1021,7 @@ gems["Multiple Traps"] = {
 		mod("ActiveTrapLimit", "BASE", 3), --"number_of_additional_traps_allowed" = 3
 	},
 	qualityMods = {
-		mod("TrapTriggerRadius", "INC", 1), --"trap_trigger_radius_+%" = 1
+		mod("TrapTriggerAreaOfEffect", "INC", 1), --"trap_trigger_radius_+%" = 1
 	},
 	levelMods = {
 		[1] = mod("Damage", "MORE", nil), --"support_multithrow_damage_+%_final"
@@ -1081,7 +1172,7 @@ gems["Point Blank"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 20), 
-		--"keystone_point_blank" = 1
+		flag("PointBlank"), --"keystone_point_blank" = 1
 	},
 	qualityMods = {
 		mod("Damage", "INC", 0.5, ModFlag.Projectile), --"projectile_damage_+%" = 0.5
@@ -1287,7 +1378,7 @@ gems["Trap"] = {
 	color = 2,
 	requireSkillTypes = { 17, },
 	addSkillTypes = { 12, 37, },
-	excludeSkillTypes = { },
+	excludeSkillTypes = { 61, },
 	baseMods = {
 		mod("ManaCost", "MORE", 40), 
 		--"is_trap" = 1

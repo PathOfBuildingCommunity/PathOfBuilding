@@ -29,13 +29,14 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 	self.anchorGroupDetail.shown = function()
 		return self.displayGroup ~= nil
 	end
-	self.controls.groupLabel = common.New("EditControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 0, 380, 20, nil, "Label", "[%C]", 50, function(buf)
+	self.controls.groupLabel = common.New("EditControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 0, 380, 20, nil, "Label", "%c", 50, function(buf)
 		self.displayGroup.label = buf
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
+		self.build.buildFlag = true
 	end)
 	self.controls.groupSlotLabel = common.New("LabelControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 30, 0, 16, "^7Socketed in:")
-	self.controls.groupSlot = common.New("SlotSelectControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 85, 28, 110, 20, self.build, function(sel, selVal)
+	self.controls.groupSlot = common.New("DropDownControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 85, 28, 110, 20, { "None", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2" }, function(sel, selVal)
 		if sel > 1 then
 			self.displayGroup.slot = selVal
 		else
@@ -44,6 +45,21 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
+	self.controls.groupSlot.tooltipFunc = function(mode, sel, selVal)
+		if mode == "OUT" or sel == 1 then
+			main:AddTooltipLine(16, "Select the item in which this skill is socketed.")
+			main:AddTooltipLine(16, "This will allow the skill to benefit from modifiers on the item that affect socketed gems.")
+		else
+			local slot = self.build.itemsTab.slots[selVal]
+			local ttItem = self.build.itemsTab.list[slot.selItemId]
+			if ttItem then
+				self.build.itemsTab:AddItemTooltip(ttItem, slot)
+				return data.colorCodes[ttItem.rarity], true
+			else
+				main:AddTooltipLine(16, "No item is equipped in this slot.")
+			end
+		end
+	end
 	self.controls.groupSlot.enabled = function()
 		return self.displayGroup.source == nil
 	end
@@ -99,7 +115,7 @@ function SkillsTabClass:Load(xml, fileName)
 				gem.skillPart = tonumber(child.attrib.skillPart)
 				t_insert(socketGroup.gemList, gem)
 			end
-			if node.attrib.skillPart then
+			if node.attrib.skillPart and socketGroup.gemList[1] then
 				socketGroup.gemList[1].skillPart = tonumber(node.attrib.skillPart)
 			end
 			self:ProcessSocketGroup(socketGroup)
@@ -214,8 +230,21 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.quality:SetText("0")
 			slot.enabled.state = true
 		end
-		self.displayGroup.gemList[index].nameSpec = buf
+		local gem = self.displayGroup.gemList[index]
+		local prevDefaultLevel
+		if gem.data then
+			prevDefaultLevel = (gem.data.levels[20] and 20) or (gem.data.levels[3][1] and 3) or 1
+		end
+		gem.nameSpec = buf
 		self:ProcessSocketGroup(self.displayGroup)
+		if gem.data then
+			local defaultLevel = (gem.data.levels[20] and 20) or (gem.data.levels[3][1] and 3) or 1
+			gem.defaultLevel = defaultLevel
+			if prevDefaultLevel ~= defaultLevel then
+				gem.level = defaultLevel
+				slot.level:SetText(tostring(gem.level))
+			end
+		end
 		if addUndo then
 			self:AddUndoState()
 		end
@@ -233,13 +262,13 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlotName"..index] = slot.nameSpec
 
 	-- Gem level
-	slot.level = common.New("EditControl", {"LEFT",slot.nameSpec,"RIGHT"}, 2, 0, 60, 20, nil, nil, "[%d]", 2, function(buf)
+	slot.level = common.New("EditControl", {"LEFT",slot.nameSpec,"RIGHT"}, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
 		if not self.displayGroup.gemList[index] then
 			self.displayGroup.gemList[index] = { nameSpec = "", level = 20, quality = 0, enabled = true }
 			slot.quality:SetText("0")
 			slot.enabled.state = true
 		end
-		self.displayGroup.gemList[index].level = tonumber(buf) or 20
+		self.displayGroup.gemList[index].level = tonumber(buf) or self.displayGroup.gemList[index].defaultLevel or 20
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true
@@ -248,7 +277,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlotLevel"..index] = slot.level
 
 	-- Gem quality
-	slot.quality = common.New("EditControl", {"LEFT",slot.level,"RIGHT"}, 2, 0, 60, 20, nil, nil, "[%d]", 2, function(buf)
+	slot.quality = common.New("EditControl", {"LEFT",slot.level,"RIGHT"}, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
 		if not self.displayGroup.gemList[index] then
 			self.displayGroup.gemList[index] = { nameSpec = "", level = 20, quality = 0, enabled = true }
 			slot.level:SetText("20")
@@ -274,6 +303,17 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
+	slot.enabled.tooltipFunc = function()
+		if self.displayGroup.gemList[index] then
+			local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+			if calcFunc then
+				self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
+				local output = calcFunc()
+				self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
+				self.build:AddStatComparesToTooltip(calcBase, output, self.displayGroup.gemList[index].enabled and "^7Disabling this gem will give you:" or "^7Enabling this gem will give you:")
+			end
+		end
+	end
 	self.controls["gemSlotEnable"..index] = slot.enabled
 
 	-- Parser/calculator error message
@@ -349,9 +389,15 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 		if gem.nameSpec:match("%S") then
 			-- Gem name has been specified, try to find the matching skill gem
 			if data.gems[gem.nameSpec] then
-				gem.errMsg = nil
-				gem.name = gem.nameSpec
-				gem.data = data.gems[gem.nameSpec]
+				if data.gems[gem.nameSpec].unsupported then
+					gem.errMsg = gem.nameSpec.." is not supported yet"
+					gem.name = nil
+					gem.data = nil
+				else
+					gem.errMsg = nil
+					gem.name = gem.nameSpec
+					gem.data = data.gems[gem.nameSpec]
+				end
 			else
 				gem.errMsg, gem.name, gem.data = self:FindSkillGem(gem.nameSpec)
 			end
@@ -370,22 +416,24 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 		else
 			gem.errMsg, gem.name, gem.data = nil
 		end
-		if gem.nameSpec:match("%S") or gem.level ~= 20 or gem.quality ~= 0 or gem.enabled ~= true or (socketGroup == self.displayGroup and self.gemSlots[index] and self.gemSlots[index].nameSpec.dropped) then
+		if gem.nameSpec:match("%S") or gem.level ~= (gem.defaultLevel or 20) or gem.quality ~= 0 or (socketGroup == self.displayGroup and self.gemSlots[index] and self.gemSlots[index].nameSpec.dropped) then
 			index = index + 1
 		else
 			-- Empty gem, remove it
 			t_remove(socketGroup.gemList, index)
 
-			-- Update the other gem slot controls
-			for index2 = index, #socketGroup.gemList do
-				local gem = socketGroup.gemList[index2]
-				if not self.gemSlots[index2] then
-					self:CreateGemSlot(index2)
+			if socketGroup == self.displayGroup then
+				-- Update the other gem slot controls
+				for index2 = index, #socketGroup.gemList do
+					local gem = socketGroup.gemList[index2]
+					if not self.gemSlots[index2] then
+						self:CreateGemSlot(index2)
+					end
+					self.gemSlots[index2].nameSpec:SetText(gem.nameSpec)
+					self.gemSlots[index2].level:SetText(gem.level)
+					self.gemSlots[index2].quality:SetText(gem.quality)
+					self.gemSlots[index2].enabled.state = gem.enabled
 				end
-				self.gemSlots[index2].nameSpec:SetText(gem.nameSpec)
-				self.gemSlots[index2].level:SetText(gem.level)
-				self.gemSlots[index2].quality:SetText(gem.quality)
-				self.gemSlots[index2].enabled.state = gem.enabled
 			end
 		end
 	end
@@ -427,7 +475,7 @@ function SkillsTabClass:CreateUndoState()
 		}
 		for index, gem in pairs(socketGroup.gemList) do
 			newGroup.gemList[index] = {
-				nameSpec = gem.name,
+				nameSpec = gem.nameSpec,
 				level = gem.level,
 				quality = gem.quality,
 				enabled = gem.enabled,

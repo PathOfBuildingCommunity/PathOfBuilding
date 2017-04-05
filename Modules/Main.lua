@@ -13,7 +13,7 @@ local m_max = math.max
 local m_min = math.min
 
 LoadModule("Modules/Common")
-LoadModule("Modules/Data")
+LoadModule("Modules/Data", launch)
 LoadModule("Modules/ModTools")
 LoadModule("Modules/ItemTools")
 
@@ -22,6 +22,7 @@ LoadModule("Classes/ControlHost")
 local main = common.New("ControlHost")
 
 local classList = {
+	"UndoHandler",
 	-- Basic controls
 	"Control",
 	"LabelControl",
@@ -35,19 +36,21 @@ local classList = {
 	"TextListControl",
 	-- Misc
 	"PopupDialog",
-	"UndoHandler",
 	-- Mode: Build list
 	"BuildListControl",
 	-- Mode: Build
+	"ModList",
+	"ModDB",
 	"ImportTab",
+	"NotesTab",
 	"ConfigTab",
 	"TreeTab",
 	"PassiveTree",
 	"PassiveSpec",
 	"PassiveTreeView",
+	"PassiveSpecListControl",
 	"SkillsTab",
 	"SkillListControl",
-	"SlotSelectControl",
 	"GemSelectControl",
 	"ItemsTab",
 	"ItemSlotControl",
@@ -84,6 +87,7 @@ function main:Init()
 		for _, raw in pairs(typeList) do
 			local newItem = itemLib.makeItemFromRaw("Rarity: Unique\n"..raw)
 			if newItem then
+				itemLib.normaliseQuality(newItem)
 				self.uniqueDB.list[newItem.name] = newItem
 			else
 				ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
@@ -94,6 +98,7 @@ function main:Init()
 	for _, raw in pairs(data.rares) do
 		local newItem = itemLib.makeItemFromRaw(raw)
 		if newItem then
+			itemLib.normaliseQuality(newItem)
 			self.rareDB.list[newItem.name] = newItem
 		else
 			ConPrintf("Rare DB unrecognised item:\n%s", raw)
@@ -123,8 +128,11 @@ function main:Init()
 		self:OpenPopup(800, 250, "Update Available", {
 			common.New("TextListControl", nil, 0, 20, 780, 190, nil, changeList),
 			common.New("ButtonControl", nil, -45, 220, 80, 20, "Update", function()
-				launch:ApplyUpdate(launch.updateAvailable)
 				main:ClosePopup()
+				local ret = self:CallMode("CanExit", "UPDATE")
+				if ret == nil or ret == true then
+					launch:ApplyUpdate(launch.updateAvailable)
+				end
 			end),
 			common.New("ButtonControl", nil, 45, 220, 80, 20, "Cancel", function()
 				main:ClosePopup()
@@ -134,23 +142,23 @@ function main:Init()
 	self.controls.applyUpdate.shown = function()
 		return launch.updateAvailable and launch.updateAvailable ~= "none"
 	end
-	self.controls.checkUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 110, 18, "", function()
+	self.controls.checkUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 120, 18, "", function()
 		launch:CheckForUpdate()
 	end)
 	self.controls.checkUpdate.shown = function()
 		return not launch.devMode and (not launch.updateAvailable or launch.updateAvailable == "none")
 	end
 	self.controls.checkUpdate.label = function()
-		return launch.subScriptType == "UPDATE" and "Checking..." or "Check for Update"
+		return launch.updateCheckRunning and launch.updateProgress or "Check for Update"
 	end
 	self.controls.checkUpdate.enabled = function()
-		return not IsSubScriptRunning()
+		return not launch.updateCheckRunning
 	end
-	self.controls.versionLabel = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 114, 0, 0, 14, "")
+	self.controls.versionLabel = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 124, 0, 0, 14, "")
 	self.controls.versionLabel.label = function()
 		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or "")
 	end
-	self.controls.about = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 240, 0, 60, 20, "About", function()
+	self.controls.about = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 250, 0, 50, 20, "About", function()
 		local changeList = { }
 		for line in io.lines("changelog.txt") do
 			local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
@@ -187,18 +195,26 @@ function main:Init()
 		return launch.devMode
 	end
 
-	-- FIXME: Remove before merge
-	self.controls.devMode.label = "^1Experimental"
-
 	self.inputEvents = { }
 	self.popups = { }
 	self.tooltipLines = { }
 
 	self.accountSessionIDs = { }
 
-	self:SetMode("LIST")
+	self.buildSortMode = "NAME"
+
+	self:SetMode("BUILD", false, "Unnamed build")
 
 	self:LoadSettings()
+end
+
+function main:CanExit()
+	local ret = self:CallMode("CanExit", "EXIT")
+	if ret ~= nil then
+		return ret
+	else
+		return true
+	end
 end
 
 function main:Shutdown()
@@ -210,7 +226,7 @@ end
 function main:OnFrame()
 	self.screenW, self.screenH = GetScreenSize()
 
-	if self.newMode then
+	while self.newMode do
 		if self.mode then
 			self:CallMode("Shutdown")
 		end
@@ -264,7 +280,7 @@ end
 function main:CallMode(func, ...)
 	local modeTbl = self.modes[self.mode]
 	if modeTbl[func] then
-		modeTbl[func](modeTbl, ...)
+		return modeTbl[func](modeTbl, ...)
 	end
 end
 
@@ -305,6 +321,10 @@ function main:LoadSettings()
 						self.accountSessionIDs[child.attrib.accountName] = child.attrib.sessionID
 					end
 				end
+			elseif node.elem == "Misc" then
+				if node.attrib.buildSortMode then
+					self.buildSortMode = node.attrib.buildSortMode
+				end
 			end
 		end
 	end
@@ -330,6 +350,7 @@ function main:SaveSettings()
 		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = sessionID } })
 	end
 	t_insert(setXML, accounts)
+	t_insert(setXML, { elem = "Misc", attrib = { buildSortMode = self.buildSortMode } })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
 		launch:ShowErrMsg("Error saving 'Settings.xml': %s", errMsg)
@@ -370,9 +391,9 @@ function main:DrawCheckMark(x, y, size)
 	DrawImageQuad(nil, x + size * 0.40, y + size * 0.90, x + size * 0.35, y + size * 0.75, x + size * 0.80, y + size * 0.10, x + size * 0.90, y + size * 0.20)
 end
 
-function main:OpenPopup(width, height, title, controls)
-	local popup = common.New("PopupDialog", width, height, title, controls)
-	t_insert(self.popups, popup)
+function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl)
+	local popup = common.New("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl)
+	t_insert(self.popups, 1, popup)
 	return popup
 end
 
@@ -387,10 +408,10 @@ function main:OpenMessagePopup(title, msg)
 		t_insert(controls, common.New("LabelControl", nil, 0, 20 + numMsgLines * 16, 0, 16, line))
 		numMsgLines = numMsgLines + 1
 	end
-	t_insert(controls, common.New("ButtonControl", nil, 0, 40 + numMsgLines * 16, 80, 20, "Ok", function()
+	controls.close = common.New("ButtonControl", nil, 0, 40 + numMsgLines * 16, 80, 20, "Ok", function()
 		main:ClosePopup()
-	end))
-	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls)
+	end)
+	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "close")
 end
 
 function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm)
@@ -400,14 +421,14 @@ function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm)
 		t_insert(controls, common.New("LabelControl", nil, 0, 20 + numMsgLines * 16, 0, 16, line))
 		numMsgLines = numMsgLines + 1
 	end
-	t_insert(controls, common.New("ButtonControl", nil, -45, 40 + numMsgLines * 16, 80, 20, confirmLabel, function()
+	controls.confirm = common.New("ButtonControl", nil, -45, 40 + numMsgLines * 16, 80, 20, confirmLabel, function()
 		onConfirm()
 		main:ClosePopup()
-	end))
+	end)
 	t_insert(controls, common.New("ButtonControl", nil, 45, 40 + numMsgLines * 16, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end))
-	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls)
+	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "confirm")
 end
 
 function main:AddTooltipLine(size, text)
@@ -416,11 +437,14 @@ function main:AddTooltipLine(size, text)
 	end
 end
 
-function main:AddTooltipSeperator(size)
+function main:AddTooltipSeparator(size)
 	t_insert(self.tooltipLines, { size = size })
 end
 
 function main:DrawTooltip(x, y, w, h, viewPort, col, center)
+	if #self.tooltipLines == 0 then
+		return
+	end
 	local ttW, ttH = 0, 0
 	for i, data in ipairs(self.tooltipLines) do
 		if data.text or (self.tooltipLines[i - 1] and self.tooltipLines[i + 1] and self.tooltipLines[i + 1].text) then
@@ -470,7 +494,7 @@ function main:DrawTooltip(x, y, w, h, viewPort, col, center)
 				DrawString(ttX + 6, y, "LEFT", data.size, "VAR", data.text)
 			end
 			y = y + data.size + 2
-		elseif self.tooltipLines[i + 1] and self.tooltipLines[i - 1] and self.tooltipLines[i - 1].text then
+		elseif self.tooltipLines[i + 1] and self.tooltipLines[i - 1] and self.tooltipLines[i + 1].text then
 			if type(col) == "string" then
 				SetDrawColor(col) 
 			else

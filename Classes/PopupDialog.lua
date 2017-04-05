@@ -7,7 +7,7 @@ local launch, main = ...
 
 local m_floor = math.floor
 
-local PopupDialogClass = common.NewClass("PopupDialog", "ControlHost", "Control", function(self, width, height, title, controls)
+local PopupDialogClass = common.NewClass("PopupDialog", "ControlHost", "Control", function(self, width, height, title, controls, enterControl, defaultControl, escapeControl)
 	self.ControlHost()
 	self.Control(nil, 0, 0, width, height)
 	self.x = function()
@@ -18,6 +18,8 @@ local PopupDialogClass = common.NewClass("PopupDialog", "ControlHost", "Control"
 	end
 	self.title = title
 	self.controls = controls
+	self.enterControl = enterControl
+	self.escapeControl = escapeControl
 	for id, control in pairs(self.controls) do
 		if not control.anchor.point then
 			control:SetAnchor("TOP", self, "TOP")
@@ -26,6 +28,9 @@ local PopupDialogClass = common.NewClass("PopupDialog", "ControlHost", "Control"
 		elseif type(control.anchor.other) ~= "table" then
 			control.anchor.other = self.controls[control.anchor.other]
 		end
+	end
+	if defaultControl then
+		self:SelectControl(self.controls[defaultControl])
 	end
 end)
 
@@ -55,8 +60,17 @@ function PopupDialogClass:ProcessInput(inputEvents, viewPort)
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "ESCAPE" then
-				main:ClosePopup()
+				if self.escapeControl then
+					self.controls[self.escapeControl]:Click()
+				else
+					main:ClosePopup()
+				end
 				return
+			elseif event.key == "RETURN" then
+				if self.enterControl then
+					self.controls[self.enterControl]:Click()
+					return
+				end
 			end
 		end
 	end

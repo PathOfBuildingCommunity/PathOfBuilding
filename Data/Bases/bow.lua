@@ -33,13 +33,13 @@ itemBases["Bone Bow"] = {
 }
 itemBases["Royal Bow"] = {
 	type = "Bow",
-	implicit = "(6 to 12)% increased Elemental Damage with Weapons",
+	implicit = "(20-24)% increased Elemental Damage with Weapons",
 	weapon = { PhysicalMin = 10, PhysicalMax = 41, critChanceBase = 5, attackRateBase = 1.45, },
 	req = { level = 28, dex = 95, },
 }
 itemBases["Death Bow"] = {
 	type = "Bow",
-	implicit = "(30 to 50)% increased Critical Strike Chance",
+	implicit = "(30-50)% increased Critical Strike Chance",
 	weapon = { PhysicalMin = 20, PhysicalMax = 53, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 32, dex = 107, },
 }
@@ -76,13 +76,13 @@ itemBases["Ivory Bow"] = {
 }
 itemBases["Highborn Bow"] = {
 	type = "Bow",
-	implicit = "(6 to 12)% increased Elemental Damage with Weapons",
+	implicit = "(20-24)% increased Elemental Damage with Weapons",
 	weapon = { PhysicalMin = 17, PhysicalMax = 66, critChanceBase = 5, attackRateBase = 1.45, },
 	req = { level = 50, dex = 161, },
 }
 itemBases["Decimation Bow"] = {
 	type = "Bow",
-	implicit = "(30 to 50)% increased Critical Strike Chance",
+	implicit = "(30-50)% increased Critical Strike Chance",
 	weapon = { PhysicalMin = 31, PhysicalMax = 81, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 53, dex = 170, },
 }
@@ -119,13 +119,13 @@ itemBases["Spine Bow"] = {
 }
 itemBases["Imperial Bow"] = {
 	type = "Bow",
-	implicit = "(6 to 12)% increased Elemental Damage with Weapons",
+	implicit = "(20-24)% increased Elemental Damage with Weapons",
 	weapon = { PhysicalMin = 19, PhysicalMax = 78, critChanceBase = 5, attackRateBase = 1.45, },
 	req = { level = 66, dex = 212, },
 }
 itemBases["Harbinger Bow"] = {
 	type = "Bow",
-	implicit = "(30 to 50)% increased Critical Strike Chance",
+	implicit = "(30-50)% increased Critical Strike Chance",
 	weapon = { PhysicalMin = 35, PhysicalMax = 91, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 68, dex = 212, },
 }
