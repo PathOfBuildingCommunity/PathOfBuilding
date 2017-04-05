@@ -736,7 +736,7 @@ local specialModList = {
 	["socketed lightning spells have (%d+)%% increased spell damage if triggered"] = function(num) return { mod("Damage", "INC", num, nil, ModFlag.Spell, { type = "SocketedIn", keyword = "lightning" }, { type = "Condition", var = "SkillIsTriggered" }) } end,
 	["arrows always pierce"] = { mod("PierceChance", "BASE", 100, nil, ModFlag.Attack) },
 	["arrows that pierce cause bleeding"] = { flag("ArrowsThatPierceCauseBleeding") },
-	["during flask effect, damage penetrates (%d+)%% of resistance of each element for which your uncapped elemental resistance is highest"] = function(num) return {
+	["during flask effect, damage penetrates (%d+)%% o?f? ?resistance of each element for which your uncapped elemental resistance is highest"] = function(num) return {
 		mod("LightningPenetration", "BASE", num, { type = "Condition", var = "UncappedLightningResistIsHighest" }),
 		mod("ColdPenetration", "BASE", num, { type = "Condition", var = "UncappedColdResistIsHighest" }),
 		mod("FirePenetration", "BASE", num, { type = "Condition", var = "UncappedFireResistIsHighest" }),
@@ -746,6 +746,9 @@ local specialModList = {
 	["cannot leech mana"] = { flag("CannotLeechMana") },
 	["cannot leech when on low life"] = { flag("CannotLeechLife", { type = "Condition", var = "LowLife" }), flag("CannotLeechMana", { type = "Condition", var = "LowLife" }) },
 	["cannot leech life from critical strikes"] = { flag("CannotLeechLife", { type = "Condition", var = "CriticalStrike" }) },
+	["modifiers to claw damage also apply to unarmed"] = { flag("ClawDamageAppliesToUnarmed") },
+	["modifiers to claw attack speed also apply to unarmed"] = { flag("ClawAttackSpeedAppliesToUnarmed") },
+	["modifiers to claw critical strike chance also apply to unarmed"] = { flag("ClawCritChanceAppliesToUnarmed") },
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques

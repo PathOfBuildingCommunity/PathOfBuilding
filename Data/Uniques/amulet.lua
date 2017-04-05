@@ -309,10 +309,14 @@ Cannot gain Power Charges
 ]],[[
 Rigwald's Curse
 Wereclaw Talisman
+Variant: Pre 2.2.0
+Variant: Current
 League: Talisman Standard
 Requires Level 28
 Talisman Tier: 2
-+(16-24)% to Global Critical Strike Multiplier
+Implicits: 2
+{variant:1}+(16-24)% to Global Critical Strike Multiplier
+{variant:2}+(24-36)% to Global Critical Strike Multiplier
 +7% Base Unarmed Critical Strike Chance
 Modifiers to Claw Damage also apply to Unarmed
 Modifiers to Claw Attack Speed also apply to Unarmed

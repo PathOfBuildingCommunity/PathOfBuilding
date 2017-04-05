@@ -47,6 +47,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.3.25 - 2017/04/06
+ * You can now export and import builds directly to/from Pastebin.com links
+ * Added support for the "Claw X also apply to Unarmed" modifiers on Rigwald's Curse
+ * The conditional penetration modifier on imported copies of The Wise Oak should now be recognised correctly
+
 ### 1.3.24 - 2017/04/05
 This update adds support for Life/Mana Leech and Life/Mana/ES Gain on Hit:
  * All sources of Leech and Gain on Hit are supported, including "Damage dealt by your Totems is Leeched to you"
