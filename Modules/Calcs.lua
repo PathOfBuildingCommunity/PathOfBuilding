@@ -1959,6 +1959,30 @@ local function performCalcs(env)
 			end
 		end
 	end
+	if modDB:Sum("FLAG", nil, "ClawDamageAppliesToUnarmed") then
+		-- Claw Damage conversion from Rigwald's Curse
+		for i, mod in ipairs(modDB.mods.PhysicalDamage or { }) do
+			if band(mod.flags, ModFlag.Claw) ~= 0 then
+				modDB:NewMod("PhysicalDamage", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod.tagList))
+			end
+		end
+	end
+	if modDB:Sum("FLAG", nil, "ClawAttackSpeedAppliesToUnarmed") then
+		-- Claw Attack Speed conversion from Rigwald's Curse
+		for i, mod in ipairs(modDB.mods.Speed or { }) do
+			if band(mod.flags, ModFlag.Claw) ~= 0 and band(mod.flags, ModFlag.Attack) ~= 0 then
+				modDB:NewMod("Speed", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod.tagList))
+			end
+		end
+	end
+	if modDB:Sum("FLAG", nil, "ClawCritChanceAppliesToUnarmed") then
+		-- Claw Crit Chance conversion from Rigwald's Curse
+		for i, mod in ipairs(modDB.mods.CritChance or { }) do
+			if band(mod.flags, ModFlag.Claw) ~= 0 then
+				modDB:NewMod("CritChance", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod.tagList))
+			end
+		end
+	end
 
 	local isAttack = (env.mode_skillType == "ATTACK")
 

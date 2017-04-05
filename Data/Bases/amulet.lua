@@ -161,7 +161,7 @@ itemBases["Splitnewt Talisman"] = {
 itemBases["Wereclaw Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
-	implicit = "+(16-24)% to Global Critical Strike Multiplier",
+	implicit = "+(24-36)% to Global Critical Strike Multiplier",
 }
 itemBases["Longtooth Talisman"] = {
 	type = "Amulet",

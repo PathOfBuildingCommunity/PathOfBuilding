@@ -124,7 +124,44 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.generateCodeCopy.enabled = function()
 		return #self.controls.generateCodeOut.buf > 0
 	end
-	self.controls.generateCodeNote = common.New("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; it may be easiest to share it using Pastebin or similar.")
+	self.controls.generateCodePastebin = common.New("ButtonControl", {"LEFT",self.controls.generateCodeCopy,"RIGHT"}, 8, 0, 140, 20, "Share with Pastebin", function()
+		local id = LaunchSubScript([[
+			local code = ...
+			local curl = require("lcurl.safe")
+			local page = ""
+			local easy = curl.easy()
+			easy:setopt_url("https://pastebin.com/api/api_post.php")
+			easy:setopt(curl.OPT_POST, true)
+			easy:setopt(curl.OPT_POSTFIELDS, "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_option=paste&api_paste_code="..code)
+			easy:setopt_writefunction(function(data)
+				page = page..data
+				return true
+			end)
+			easy:perform()
+			easy:close()
+			if page:match("pastebin.com") then
+				return page
+			else
+				return nil, page
+			end
+		]], "", "", self.controls.generateCodeOut.buf)
+		if id then
+			self.controls.generateCodeOut:SetText("")
+			self.controls.generateCodePastebin.label = "Creating paste..."
+			launch:RegisterSubScript(id, function(pasteLink, errMsg)
+				self.controls.generateCodePastebin.label = "Share with Pastebin"
+				if errMsg then
+					main:OpenMessagePopup("Pastebin.com", "Error creating paste:\n"..errMsg)
+				else
+					self.controls.generateCodeOut:SetText(pasteLink)
+				end
+			end)
+		end
+	end)
+	self.controls.generateCodePastebin.enabled = function()
+		return #self.controls.generateCodeOut.buf > 0 and not self.controls.generateCodeOut.buf:match("pastebin%.com")
+	end
+	self.controls.generateCodeNote = common.New("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; you can use 'Share with Pastebin' to shrink it.")
 	self.controls.importCodeHeader = common.New("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, 0, 26, 0, 16, "^7To import a build, enter the code here:")
 	self.controls.importCodeIn = common.New("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 250, 20, "", nil, "^%w_%-=", nil, function(buf)
 		if #buf == 0 then
@@ -146,6 +183,34 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.importCodeState.label = function()
 		return (self.importCodeState == "VALID" and data.colorCodes.POSITIVE.."Code is valid") or (self.importCodeState == "INVALID" and data.colorCodes.NEGATIVE.."Invalid code") or ""
 	end
+	self.controls.importCodePastebin = common.New("ButtonControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 90, 0, 160, 20, "Import from Pastebin...", function()
+		local controls = { }
+		controls.editLabel = common.New("LabelControl", nil, 0, 20, 0, 16, "Enter Pastebin.com link:")
+		controls.edit = common.New("EditControl", nil, 0, 40, 250, 18, "", nil, nil, nil, function(buf)
+			controls.msg.label = ""
+		end)
+		controls.msg = common.New("LabelControl", nil, 0, 58, 0, 16, "")
+		controls.import = common.New("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
+			controls.import.enabled = false
+			controls.msg.label = "Retrieving paste..."
+			launch:DownloadPage(controls.edit.buf:gsub("pastebin%.com/(%w+)$","pastebin.com/raw/%1"), function(page, errMsg)
+				if errMsg then
+					controls.msg.label = "^1"..errMsg
+					controls.import.enabled = true
+				else
+					self.controls.importCodeIn:SetText(page, true)
+					main:ClosePopup()
+				end
+			end)
+		end)
+		controls.import.enabled = function()
+			return #controls.edit.buf > 0 and controls.edit.buf:match("pastebin%.com/%w+")
+		end
+		controls.cancel = common.New("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()
+			main:ClosePopup()
+		end)
+		main:OpenPopup(280, 110, "Import from Pastebin", controls, "import", "edit")
+	end)
 	self.controls.importCodeMode = common.New("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "Import to this build", "Import to a new build:" })
 	self.controls.importCodeMode.enabled = function()
 		return self.importCodeState == "VALID" and self.build.dbFileName
