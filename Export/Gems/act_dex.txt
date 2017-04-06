@@ -1,0 +1,535 @@
+-- Path of Building
+--
+-- Active Dexterity gems
+-- Skill gem data (c) Grinding Gear Games
+--
+local gems, mod, flag, skill = ...
+
+gems["Animate Weapon"] = {
+#skill AnimateWeapon
+	unsupported = true,
+}
+gems["Arctic Armour"] = {
+#skill NewArcticArmour
+#flags spell duration cold
+#mods
+}
+gems["Barrage"] = {
+#skill Barrage
+#flags attack projectile
+	parts = {
+		{
+			name = "1 Arrow",
+		},
+		{
+			name = "All Arrows",
+		},
+	},
+	setupFunc = function(env, output)
+		if env.mainSkill.skillPart == 2 then
+			env.mainSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
+#mods
+}
+gems["Bear Trap"] = {
+#skill BearTrap
+#flags cast trap duration
+#baseMod skill("trapCooldown", 3)
+#mods
+}
+gems["Blade Flurry"] = {
+#skill ChargedAttack
+#flags attack melee area
+	parts = {
+		{
+			name = "1 Stage",
+		},
+		{
+			name = "6 Stages",
+		},
+		{
+			name = "Release at 6 Stages",
+		},
+	},
+#setMod base_skill_show_average_damage_instead_of_dps==nil
+#baseMod mod("Damage", "MORE", 120, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("dpsMultiplier", 3, { type = "SkillPart", skillPart = 3 })
+#mods
+}
+gems["Blade Vortex"] = {
+#skill BladeVortex
+#flags spell area duration
+	parts = {
+		{
+			name = "0 Blades",
+		},
+		{
+			name = "5 Blades",
+		},
+		{
+			name = "10 Blades",
+		},
+		{
+			name = "20 Blades",
+		},
+	},
+#baseMod skill("deliciouslyOverpowered", true)
+#baseMod mod("Damage", "MORE", 150, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Damage", "MORE", 300, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("Damage", "MORE", 600, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 4 })
+#baseMod skill("hitTimeOverride", 0.6, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("hitTimeOverride", 0.4, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("hitTimeOverride", 0.3, { type = "SkillPart", skillPart = 3 })
+#baseMod skill("hitTimeOverride", 0.2, { type = "SkillPart", skillPart = 4 })
+#setMod base_skill_show_average_damage_instead_of_dps==nil
+#mods
+}
+gems["Bladefall"] = {
+#skill Bladefall
+#flags spell area
+#mods
+}
+gems["Blast Rain"] = {
+#skill BlastRain
+#flags attack projectile area fire
+	parts = {
+		{
+			name = "1 explosion",
+		},
+		{
+			name = "4 explosions",
+		},
+	},
+#baseMod skill("dpsMultiplier", 4, { type = "SkillPart", skillPart = 2 })
+#mods
+}
+gems["Blink Arrow"] = {
+#skill BlinkArrow
+	unsupported = true,
+}
+gems["Blood Rage"] = {
+#skill BloodRage
+#flags spell duration
+#mods
+}
+gems["Burning Arrow"] = {
+#skill BurningArrow
+#flags attack projectile fire
+#mods
+}
+gems["Vaal Burning Arrow"] = {
+#skill VaalBurningArrow
+#flags attack projectile area fire vaal
+#mods
+}
+gems["Caustic Arrow"] = {
+#skill PoisonArrow
+#flags attack projectile duration chaos
+#baseMod skill("dotIsArea", true)
+#mods
+}
+gems["Cyclone"] = {
+#skill Cyclone
+#flags attack melee area movement
+#baseMod skill("dpsMultiplier", 2)
+#mods
+}
+gems["Vaal Cyclone"] = {
+#skill VaalCyclone
+#flags attack melee area duration vaal
+#mods
+}
+gems["Desecrate"] = {
+#skill Desecrate
+#flags spell area duration chaos
+#mods
+}
+gems["Detonate Dead"] = {
+#skill DetonateDead
+#flags cast area fire
+#mods
+}
+gems["Vaal Detonate Dead"] = {
+#skill VaalDetonateDead
+#flags cast area fire
+#mods
+}
+gems["Double Strike"] = {
+#skill DoubleStrike
+#flags attack melee
+#baseMod skill("dpsMultiplier", 2)
+#mods
+}
+gems["Vaal Double Strike"] = {
+#skill VaalDoubleStrike
+#flags attack melee duration vaal
+#mods
+}
+gems["Dual Strike"] = {
+#skill DualStrike
+#flags attack melee
+#mods
+}
+gems["Elemental Hit"] = {
+#skill ElementalHit
+#flags attack melee projectile cold fire lightning
+	parts = {
+		{
+			name = "Added fire",
+		},
+		{
+			name = "Added cold",
+		},
+		{
+			name = "Added lightning",
+		},
+	},
+#baseMod mod("EnemyFreezeChance", "BASE", 10)
+#baseMod mod("EnemyShockChance", "BASE", 10)
+#baseMod mod("EnemyIgniteChance", "BASE", 10)
+#mods
+}
+gems["Ethereal Knives"] = {
+#skill EtherealKnives
+#flags spell projectile
+#mods
+}
+gems["Explosive Arrow"] = {
+#skill ExplosiveArrow
+#flags attack projectile area duration fire
+	parts = {
+		{
+			name = "Explosion",
+			attack = false,
+			cast = true,
+		},
+		{
+			name = "Arrow",
+			attack = true,
+			cast = false,
+		},
+	},
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 1 })
+#mods
+}
+gems["Fire Trap"] = {
+#skill FireTrap
+#flags spell trap area duration fire
+#baseMod skill("trapCooldown", 3)
+#mods
+}
+gems["Flicker Strike"] = {
+#skill FlickerStrike
+#flags attack melee movement
+#setMod base_skill_show_average_damage_instead_of_dps==nil
+#mods
+}
+gems["Freeze Mine"] = {
+#skill FreezeMine
+#flags spell mine area cold
+#mods
+}
+gems["Frenzy"] = {
+#skill Frenzy
+#flags attack melee projectile
+#mods
+}
+gems["Frost Blades"] = {
+#skill FrostBlades
+#flags attack melee projectile cold
+	parts = {
+		{
+			name = "Melee hit",
+			melee = true,
+			projectile = false,
+		},
+		{
+			name = "Icy blades",
+			melee = false,
+			projectile = true,
+		},
+	},
+#mods
+}
+gems["Grace"] = {
+#skill Grace
+#flags spell aura area
+#mods
+}
+gems["Vaal Grace"] = {
+#skill VaalGrace
+#flags spell aura area duration vaal
+#mods
+}
+gems["Haste"] = {
+#skill Haste
+#flags spell aura area
+#mods
+}
+gems["Vaal Haste"] = {
+#skill VaalHaste
+#flags spell aura area duration vaal
+#mods
+}
+gems["Hatred"] = {
+#skill Hatred
+#flags spell aura area cold
+#mods
+}
+gems["Herald of Ice"] = {
+#skill HeraldOfIce
+#flags cast area cold
+#mods
+}
+gems["Ice Shot"] = {
+#skill IceShot
+#flags attack projectile area duration cold
+	parts = {
+		{
+			name = "Arrow",
+			area = false,
+		},
+		{
+			name = "Cone",
+			area = true,
+		},
+	},
+#baseMod mod("SkillPhysicalDamageConvertToCold", "BASE", 40, 0, 0, { type = "SkillPart", skillPart = 2 })
+#mods
+}
+gems["Ice Trap"] = {
+#skill IceTrap
+#flags spell trap area cold
+#baseMod skill("trapCooldown", 2)
+#mods
+}
+gems["Lacerate"] = {
+#skill DoubleSlash
+#flags attack melee area
+	parts = {
+		{
+			name = "One slash",
+		},
+		{
+			name = "Both slashes",
+		},
+	},
+#baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 })
+#mods
+}
+gems["Lightning Arrow"] = {
+#skill LightningArrow
+#flags attack projectile lightning
+#mods
+}
+gems["Lightning Strike"] = {
+#skill LightningStrike
+#flags attack melee projectile lightning
+	parts = {
+		{
+			name = "Melee hit",
+			melee = true,
+			projectile = false,
+		},
+		{
+			name = "Projectiles",
+			melee = false,
+			projectile = true,
+		},
+	},
+#mods
+}
+gems["Vaal Lightning Strike"] = {
+#skill VaalLightningStrike
+#flags attack melee duration lightning vaal
+	parts = {
+		{
+			name = "Strike",
+		},
+		{
+			name = "Beams",
+		},
+	},
+#mods
+}
+gems["Mirror Arrow"] = {
+#skill MirrorArrow
+	unsupported = true,
+}
+gems["Phase Run"] = {
+#skill NewPhaseRun
+#flags spell duration movement
+#mods
+}
+gems["Poacher's Mark"] = {
+#skill PoachersMark
+#flags spell curse area duration
+#baseMod skill("debuff", true)
+#mods
+}
+gems["Projectile Weakness"] = {
+#skill ProjectileWeakness
+#flags spell curse area duration
+#baseMod skill("debuff", true)
+#mods
+}
+gems["Puncture"] = {
+#skill Puncture
+#flags attack melee projectile duration
+#baseMod mod("BleedChance", "BASE", 100)
+#mods
+}
+gems["Purity of Ice"] = {
+#skill ColdResistAura
+#flags spell aura area cold
+#mods
+}
+gems["Rain of Arrows"] = {
+#skill RainOfArrows
+#flags attack projectile area
+#mods
+}
+gems["Vaal Rain of Arrows"] = {
+#skill VaalRainOfArrows
+#flags attack projectile area duration vaal
+#mods
+}
+gems["Reave"] = {
+#skill Reave
+#flags attack melee area
+#mods
+}
+gems["Vaal Reave"] = {
+#skill VaalReave
+#flags attack melee area vaal
+#mods
+}
+gems["Riposte"] = {
+#skill Riposte
+#flags attack melee
+#mods
+}
+gems["Shrapnel Shot"] = {
+#skill ShrapnelShot
+#flags attack projectile area lightning
+	parts = {
+		{
+			name = "Arrow",
+			area = false,
+		},
+		{
+			name = "Cone",
+			area = true,
+		},
+	},
+#mods
+}
+gems["Siege Ballista"] = {
+#skill SiegeBallista
+#flags attack projectile totem duration
+#mods
+}
+gems["Smoke Mine"] = {
+#skill SmokeMine
+#flags spell mine area duration movement
+#mods
+}
+gems["Spectral Throw"] = {
+#skill ThrownWeapon
+#flags attack projectile
+#baseMod mod("PierceChance", "BASE", 100)
+#mods
+}
+gems["Vaal Spectral Throw"] = {
+#skill VaalThrownWeapon
+#flags attack projectile vaal
+#mods
+}
+gems["Split Arrow"] = {
+#skill SplitArrow
+#flags attack projectile
+#mods
+}
+gems["Summon Ice Golem"] = {
+#skill SummonIceGolem
+#flags spell minion golem cold
+#baseMod mod("Misc", "LIST", { type = "Condition", var = "HaveColdGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+#mods
+}
+gems["Temporal Chains"] = {
+#skill TemporalChains
+#flags spell curse area
+#baseMod skill("debuff", true)
+#mods
+}
+gems["Tornado Shot"] = {
+#skill TornadoShot
+#flags attack projectile
+#mods
+}
+gems["Viper Strike"] = {
+#skill ViperStrike
+#flags attack melee duration chaos
+#mods
+}
+gems["Whirling Blades"] = {
+#skill WhirlingBlades
+#flags attack melee movement
+#mods
+}
+gems["Wild Strike"] = {
+#skill WildStrike
+#flags attack melee projectile chaining area lightning cold fire
+	parts = {
+		{
+			name = "Fire hit",
+			melee = true,
+			projectile = false,
+			chaining = false,
+			area = false,
+		},
+		{
+			name = "Fire explosion",
+			melee = false,
+			projectile = false,
+			chaining = false,
+			area = true,
+		},
+		{
+			name = "Lightning hit",
+			melee = true,
+			projectile = false,
+			chaining = false,
+			area = false,
+		},
+		{
+			name = "Lightning bolt",
+			melee = false,
+			projectile = false,
+			chaining = true,
+			area = false,
+		},
+		{
+			name = "Cold hit",
+			melee = true,
+			projectile = false,
+			chaining = false,
+			area = false,
+		},
+		{
+			name = "Icy wave",
+			melee = false,
+			projectile = true,
+			chaining = false,
+			area = false,
+		},
+	},
+#baseMod mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 })
+#baseMod mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 4 })
+#baseMod mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 5 })
+#baseMod mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 6 })
+#mods
+}

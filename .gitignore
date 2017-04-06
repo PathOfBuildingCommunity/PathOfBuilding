@@ -3,6 +3,7 @@
 
 Settings.xml
 *.cfg
+*.json
 TreeData/
 Builds/
 
