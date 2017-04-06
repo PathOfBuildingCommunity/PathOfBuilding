@@ -1,0 +1,282 @@
+-- Path of Building
+--
+-- Active Strength gems
+-- Skill gem data (c) Grinding Gear Games
+--
+local gems, mod, flag, skill = ...
+
+gems["Abyssal Cry"] = {
+#skill AbyssalCry
+#flags warcry area duration chaos
+#mods
+}
+gems["Ancestral Protector"] = {
+#skill TotemMelee
+#flags attack melee totem duration forceMainHand
+#baseMod skill("allowTotemBuff", true)
+#mods
+}
+gems["Ancestral Warchief"] = {
+#skill AncestorTotemSlam
+#flags attack melee totem area duration forceMainHand
+#baseMod skill("allowTotemBuff", true)
+#mods
+}
+gems["Anger"] = {
+#skill Anger
+#flags spell aura area fire
+#mods
+}
+gems["Animate Guardian"] = {
+#skill AnimateArmour
+	unsupported = true,
+}
+gems["Cleave"] = {
+#skill Cleave
+#flags attack melee area
+#mods
+}
+gems["Decoy Totem"] = {
+#skill DecoyTotem
+#flags spell totem area duration
+#mods
+}
+gems["Determination"] = {
+#skill Determination
+#flags spell aura area
+#mods
+}
+gems["Devouring Totem"] = {
+#skill DevouringTotem
+	unsupported = true,
+}
+gems["Dominating Blow"] = {
+#skill DominatingBlow
+#flags attack melee duration
+#mods
+}
+gems["Earthquake"] = {
+#skill Earthquake
+#flags attack melee area duration
+	parts = {
+		{
+			name = "Initial impact",
+		},
+		{
+			name = "Aftershock",
+		},
+	},
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
+#mods
+}
+gems["Enduring Cry"] = {
+#skill EnduringCry
+#flags warcry area duration
+#mods
+}
+gems["Flame Totem"] = {
+#skill FlameTotem
+#flags spell totem projectile duration fire
+#mods
+}
+gems["Glacial Hammer"] = {
+#skill GlacialHammer
+#flags attack melee cold
+#mods
+}
+gems["Vaal Glacial Hammer"] = {
+#skill VaalGlacialHammer
+#flags attack melee area duration cold vaal
+#mods
+}
+gems["Ground Slam"] = {
+#skill GroundSlam
+#flags attack melee area
+#mods
+}
+gems["Vaal Ground Slam"] = {
+#skill VaalGroundSlam
+#flags attack melee area vaal
+#mods
+}
+gems["Heavy Strike"] = {
+#skill HeavyStrike
+#flags attack melee
+#mods
+}
+gems["Herald of Ash"] = {
+#skill HeraldOfAsh
+#flags spell area fire
+#mods
+}
+gems["Ice Crash"] = {
+#skill IceCrash
+#flags attack melee area cold
+	parts = {
+		{
+			name = "First Hit",
+		},
+		{
+			name = "Second Hit",
+		},
+		{
+			name = "Third Hit",
+		},
+	},
+#mods
+}
+gems["Immortal Call"] = {
+#skill ImmortalCall
+#flags spell duration
+#mods
+}
+gems["Vaal Immortal Call"] = {
+#skill VaalImmortalCall
+#flags spell duration vaal
+#mods
+}
+gems["Infernal Blow"] = {
+#skill InfernalBlow
+#flags attack melee area fire
+#mods
+}
+gems["Leap Slam"] = {
+#skill LeapSlam
+#flags attack melee area movement
+#mods
+}
+gems["Molten Shell"] = {
+#skill MoltenShell
+#flags spell area duration fire
+#mods
+}
+gems["Vaal Molten Shell"] = {
+#skill VaalMoltenShell
+#flags spell area duration fire vaal
+#mods
+}
+gems["Molten Strike"] = {
+#skill MoltenStrike
+#flags attack melee projectile area fire
+	parts = {
+		{
+			name = "Melee Hit",
+			melee = true,
+			projectile = false,
+			area = false,
+		},
+		{
+			name = "Magma Balls",
+			melee = false,
+			projectile = true,
+			area = true,
+		},
+	},
+#mods
+}
+gems["Punishment"] = {
+#skill Punishment
+#flags spell curse area duration
+#mods
+}
+gems["Purity of Fire"] = {
+#skill FireResistAura
+#flags spell aura area fire
+#mods
+}
+gems["Rallying Cry"] = {
+#skill RallyingCry
+#flags warcry area duration
+#mods
+}
+gems["Reckoning"] = {
+#skill Reckoning
+#flags attack area melee
+#mods
+}
+gems["Rejuvenation Totem"] = {
+#skill RejuvenationTotem
+#flags spell aura totem area duration
+#mods
+}
+gems["Searing Bond"] = {
+#skill SearingBond
+#flags spell totem duration fire
+#mods
+}
+gems["Shield Charge"] = {
+#skill NewShieldCharge
+#flags attack melee area movement
+#mods
+}
+gems["Shockwave Totem"] = {
+#skill ShockwaveTotem
+#flags spell totem area duration
+#mods
+}
+gems["Static Strike"] = {
+#skill StaticStrike
+#flags attack melee area duration lightning
+	parts = {
+		{
+			name = "Melee hit",
+			area = false,
+		},
+		{
+			name = "Explosion",
+			area = true,
+		},
+	},
+#mods
+}
+gems["Summon Flame Golem"] = {
+#skill SummonFireGolem
+#flags spell minion golem fire
+#baseMod mod("Misc", "LIST", { type = "Condition", var = "HaveFireGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+#mods
+}
+gems["Summon Stone Golem"] = {
+#skill SummonRockGolem
+#flags spell minion golem
+#baseMod mod("Misc", "LIST", { type = "Condition", var = "HavePhysicalGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+#mods
+}
+gems["Sunder"] = {
+#skill Sunder
+#flags attack melee area
+	parts = {
+		{
+			name = "Primary wave",
+		},
+		{
+			name = "Shockwaves",
+		},
+	},
+#mods
+}
+gems["Sweep"] = {
+#skill Sweep
+#flags attack melee area
+#mods
+}
+gems["Vengeance"] = {
+#skill Vengeance
+#flags attack melee area
+#mods
+}
+gems["Vigilant Strike"] = {
+#skill VigilantStrike
+#flags attack melee
+#mods
+}
+gems["Vitality"] = {
+#skill Vitality
+#flags spell aura area
+#mods
+}
+gems["Warlord's Mark"] = {
+#skill WarlordsMark
+#flags spell curse area duration
+#baseMod skill("debuff", true)
+#mods
+}
