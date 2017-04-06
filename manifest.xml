@@ -84,7 +84,7 @@
 	<File sha1="f20e3ec3cc10bcc0b6da39665d4862b5ec158326" name="Data/Bases/ring.lua" part="program"/>
 	<File sha1="182f9b6d244d37e782a2d8778d6162a344150481" name="Data/Bases/shield.lua" part="program"/>
 	<File sha1="167ef0fa2bc11e9b48030d351e8a83fe6c898b4e" name="Data/Bases/staff.lua" part="program"/>
-	<File sha1="4fbaf5151664b31057bebab733ba8537a4388a66" name="Data/Bases/sword.lua" part="program"/>
+	<File sha1="cec36294ccfa7cb5f8760c599d869cd9ae750e2f" name="Data/Bases/sword.lua" part="program"/>
 	<File sha1="8ef2fa5612846d7795aabe655b36a0fd46ad8260" name="Data/Bases/wand.lua" part="program"/>
 	<File sha1="886d02b814d3c311e2c6dc0ad2dab644f4095a6d" name="Data/Uniques/amulet.lua" part="program"/>
 	<File sha1="595e3816af08514a6d86b53f737bff913d953c69" name="Data/Uniques/axe.lua" part="program"/>
