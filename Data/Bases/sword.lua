@@ -51,7 +51,7 @@ itemBases["Dusk Blade"] = {
 }
 itemBases["Hook Sword"] = {
 	type = "One Handed Sword",
-	implicit = "2% chance to Dodge Attacks",
+	implicit = "4% chance to Dodge Attacks",
 	weapon = { PhysicalMin = 28, PhysicalMax = 60, critChanceBase = 5, attackRateBase = 1.15, },
 	req = { level = 34, str = 64, dex = 64, },
 }
@@ -99,7 +99,7 @@ itemBases["Twilight Blade"] = {
 }
 itemBases["Grappler"] = {
 	type = "One Handed Sword",
-	implicit = "2% chance to Dodge Attacks",
+	implicit = "4% chance to Dodge Attacks",
 	weapon = { PhysicalMin = 44, PhysicalMax = 94, critChanceBase = 5, attackRateBase = 1.15, },
 	req = { level = 55, str = 99, dex = 99, },
 }
@@ -147,7 +147,7 @@ itemBases["Midnight Blade"] = {
 }
 itemBases["Tiger Hook"] = {
 	type = "One Handed Sword",
-	implicit = "3% chance to Dodge Attacks",
+	implicit = "6% chance to Dodge Attacks",
 	weapon = { PhysicalMin = 49, PhysicalMax = 105, critChanceBase = 5, attackRateBase = 1.15, },
 	req = { level = 70, str = 119, dex = 119, },
 }
