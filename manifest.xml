@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.3.25"/>
+	<Version number="1.3.26"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="7912b22666567d5f0ff46378f5cb22e589e84efd" name="Launch.lua" part="program"/>
 	<File sha1="d8e42beeb38baabcc197d658e4c0af33419eeff3" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="0c8ae9ffc96e8a466b85bb4230bab8e8cb6eda75" name="changelog.txt" part="program"/>
+	<File sha1="887a819789d360699245d5beb0171899584842b0" name="changelog.txt" part="program"/>
 	<File sha1="74fff9f369b6e2c98cfdf978c251c9828bcf39dc" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="deffd663ba726d938fcbe2870aab8a4e982587fa" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="ec81fc6c0ee4a4d228f88ec165a0bc7e994278bc" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -50,7 +50,7 @@
 	<File sha1="c8ef5bcd468ad851cf48fbef48680c963a748a6b" name="Modules/Data.lua" part="program"/>
 	<File sha1="06088f7cb8a4080a530f257e64e3c4ecbd1dd628" name="Modules/ItemTools.lua" part="program"/>
 	<File sha1="5a276cfd0bad3ce60585edf734420943c632a9cb" name="Modules/Main.lua" part="program"/>
-	<File sha1="70c074d5d5307de540fbeda6eff46d015a1582fe" name="Modules/ModParser.lua" part="program"/>
+	<File sha1="25726c8efdcfb80de8e97a1378d649c53abd7b8a" name="Modules/ModParser.lua" part="program"/>
 	<File sha1="b906cad5c54d675f680096caef514bd1bd2a7681" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
 	<File sha1="9a320bfe629b1cf3f14fc77fbbf2508d0a5b2841" name="Assets/small_ring.png" part="program"/>
@@ -59,7 +59,7 @@
 	<File sha1="d06292de8b169e3adedc7fda69edae6ac466442e" name="Data/ModFlask.lua" part="program"/>
 	<File sha1="15664631a501d837c5c6796217c663457f115bb1" name="Data/ModJewel.lua" part="program"/>
 	<File sha1="d57c1505a06530c9f4d273edbfc5d44213e967be" name="Data/New.lua" part="program"/>
-	<File sha1="0d6e592ba125e721062cf1d388aa5eccd44703f1" name="Data/Rares.lua" part="program"/>
+	<File sha1="7523385920c639527980388d6e18cd7c92a786ce" name="Data/Rares.lua" part="program"/>
 	<File sha1="a2273c4018e15bce0fdc47ef4c8ce32e995fb410" name="Data/Gems/act_dex.lua" part="program"/>
 	<File sha1="d6234b37154d78b920c88a602f2d3770aabdb8ca" name="Data/Gems/act_int.lua" part="program"/>
 	<File sha1="3463375d5ec812437cef5b6325d3b616c06dbcad" name="Data/Gems/act_str.lua" part="program"/>

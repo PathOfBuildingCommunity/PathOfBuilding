@@ -1042,7 +1042,7 @@ Prefixes:
 ]],[[
 Physical 1H Sword
 Tiger Hook
-3% chance to Dodge Attacks
+6% chance to Dodge Attacks
 {phys 1h}
 ]],[[
 Physical 1H Sword
