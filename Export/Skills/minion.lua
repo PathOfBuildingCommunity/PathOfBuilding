@@ -888,6 +888,7 @@ skills["RockGolemSlam"] = {
 	color = 1,
 	baseFlags = {
 		attack = true,
+		melee = true,
 		area = true,
 	},
 	skillTypes = { [1] = true, [11] = true, },
@@ -948,6 +949,7 @@ skills["ZombieSlam"] = {
 	color = 4,
 	baseFlags = {
 		attack = true,
+		melee = true,
 		area = true,
 	},
 	skillTypes = { [1] = true, [11] = true, },

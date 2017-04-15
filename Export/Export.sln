@@ -5,30 +5,50 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ECF13334-6BFE-4F72-A68F-DF00F5C86DE7}"
 	ProjectSection(SolutionItems) = preProject
-		act_dex.lua = act_dex.lua
-		act_dex.txt = act_dex.txt
-		act_int.lua = act_int.lua
-		act_int.txt = act_int.txt
-		act_str.lua = act_str.lua
-		act_str.txt = act_str.txt
-		minion.lua = minion.lua
-		minion.txt = minion.txt
-		other.lua = other.lua
-		other.txt = other.txt
-		..\skills.lua = ..\skills.lua
-		spectre.lua = spectre.lua
-		spectre.txt = spectre.txt
-		statmap.ini = statmap.ini
-		sup_dex.lua = sup_dex.lua
-		sup_dex.txt = sup_dex.txt
-		sup_int.lua = sup_int.lua
-		sup_int.txt = sup_int.txt
-		sup_str.lua = sup_str.lua
-		sup_str.txt = sup_str.txt
+		_common.lua = _common.lua
+		browse.lua = browse.lua
+		gemList.lua = gemList.lua
+		minions.lua = minions.lua
+		miscdata.lua = miscdata.lua
+		skills.lua = skills.lua
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skills", "Skills", "{740FE360-DB7C-403B-A6BD-61EDFAB1B54D}"
+	ProjectSection(SolutionItems) = preProject
+		Skills\act_dex.lua = Skills\act_dex.lua
+		Skills\act_dex.txt = Skills\act_dex.txt
+		Skills\act_int.lua = Skills\act_int.lua
+		Skills\act_int.txt = Skills\act_int.txt
+		Skills\act_str.lua = Skills\act_str.lua
+		Skills\act_str.txt = Skills\act_str.txt
+		Skills\minion.lua = Skills\minion.lua
+		Skills\minion.txt = Skills\minion.txt
+		Skills\other.lua = Skills\other.lua
+		Skills\other.txt = Skills\other.txt
+		Skills\spectre.lua = Skills\spectre.lua
+		Skills\spectre.txt = Skills\spectre.txt
+		Skills\statmap.ini = Skills\statmap.ini
+		Skills\sup_dex.lua = Skills\sup_dex.lua
+		Skills\sup_dex.txt = Skills\sup_dex.txt
+		Skills\sup_int.lua = Skills\sup_int.lua
+		Skills\sup_int.txt = Skills\sup_int.txt
+		Skills\sup_str.lua = Skills\sup_str.lua
+		Skills\sup_str.txt = Skills\sup_str.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Minions", "Minions", "{9FE6A1A9-0224-4724-9684-CC44B4540BE3}"
+	ProjectSection(SolutionItems) = preProject
+		Minions\modmap.ini = Minions\modmap.ini
+		Minions\Spectres.lua = Minions\Spectres.lua
+		Minions\Spectres.txt = Minions\Spectres.txt
 	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{740FE360-DB7C-403B-A6BD-61EDFAB1B54D} = {ECF13334-6BFE-4F72-A68F-DF00F5C86DE7}
+		{9FE6A1A9-0224-4724-9684-CC44B4540BE3} = {ECF13334-6BFE-4F72-A68F-DF00F5C86DE7}
 	EndGlobalSection
 EndGlobal

@@ -136,6 +136,11 @@ function ModListClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7
 						else
 							value = value * mult + (tag.base or 0)
 						end
+					elseif tag.type == "MultiplierThreshold" then
+						if (self.multipliers[tag.var] or 0) < tag.threshold then
+							value = nullValue
+							break
+						end
 					elseif tag.type == "PerStat" then
 						local mult = m_floor((self.actor.output[tag.stat] or (skillStats and skillStats[tag.stat]) or 0) / tag.div + 0.0001)
 						if type(value) == "table" then
@@ -143,6 +148,11 @@ function ModListClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7
 							value.value = value.value * mult + (tag.base or 0)
 						else
 							value = value * mult + (tag.base or 0)
+						end
+					elseif tag.type == "StatThreshold" then
+						if (self.actor.output[tag.stat] or (skillStats and skillStats[tag.stat]) or 0) < tag.threshold then
+							value = nullValue
+							break
 						end
 					elseif tag.type == "DistanceRamp" then
 						if not skillDist then
@@ -202,8 +212,24 @@ function ModListClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7
 							value = nullValue
 							break
 						end
-					elseif tag.type == "StatThreshold" then
-						if (self.actor.output[tag.stat] or (skillStats and skillStats[tag.stat]) or 0) < tag.threshold then
+					elseif tag.type == "ParentCondition" then
+						local match = false
+						if self.actor.parent then
+							if tag.varList then
+								for _, var in pairs(tag.varList) do
+									if self.actor.parent.modDB.conditions[var] then
+										match = true
+										break
+									end
+								end
+							else
+								match = self.actor.parent.modDB.conditions[tag.var]
+							end
+						end
+						if tag.neg then
+							match = not match
+						end
+						if not match then
 							value = nullValue
 							break
 						end

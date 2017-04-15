@@ -346,6 +346,8 @@ function CalcBreakdownClass:AddModSection(sectionData)
 					desc = "Condition: "..(tag.neg and "Not " or "")..(tag.varList and table.concat(tag.varList, "/") or self:FormatModName(tag.var))
 				elseif tag.type == "EnemyCondition" then
 					desc = "Enemy Condition: "..(tag.neg and "Not " or "")..(tag.varList and table.concat(tag.varList, "/") or self:FormatModName(tag.var))
+				elseif tag.type == "ParentCondition" then
+					desc = "Player Condition: "..(tag.neg and "Not " or "")..(tag.varList and table.concat(tag.varList, "/") or self:FormatModName(tag.var))
 				elseif tag.type == "Multiplier" then
 					if tag.base then
 						desc = (row.mod.type == "BASE" and string.format("%+g", tag.base) or tag.base.."%").." + "..math.abs(row.mod.value).." per "..self:FormatModName(tag.var)
@@ -360,6 +362,8 @@ function CalcBreakdownClass:AddModSection(sectionData)
 					end
 				elseif tag.type == "SkillName" then
 					desc = "Skill: "..tag.skillName
+				elseif tag.type == "SkillId" then
+					desc = "Skill: "..data.skills[tag.skillId].name
 				elseif tag.type == "SkillType" then
 					for name, type in pairs(SkillType) do
 						if type == tag.skillType then

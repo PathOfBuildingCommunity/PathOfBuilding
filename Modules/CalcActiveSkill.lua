@@ -411,6 +411,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			local minion = { }
 			activeSkill.minion = minion
 			skillFlags.haveMinion = true
+			minion.parent = env.player
 			minion.minionData = data.minions[minionType]
 			minion.config = { }
 			minion.level = activeSkill.skillData.minionLevel or activeSkill.skillData.levelRequirement

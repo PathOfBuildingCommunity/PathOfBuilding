@@ -29,6 +29,10 @@ local skills, mod, flag, skill = ...
 #flags attack projectile
 #mods
 
+#skill DemonModularBladeVortexSpectre Blade Vortex
+#flags spell area duration
+#mods
+
 #skill ExperimenterDetonateDead Detonate Dead
 #flags cast area fire
 #mods
@@ -39,6 +43,10 @@ local skills, mod, flag, skill = ...
 
 #skill FlamebearerFlameBlue Blue Flame
 #flags spell projectile duration fire
+#mods
+
+#skill GhostPirateBladeVortexSpectre Blade Vortex
+#flags spell duration area
 #mods
 
 #skill GoatmanMoltenShell Molten Shell
@@ -104,6 +112,10 @@ local skills, mod, flag, skill = ...
 
 #skill MonsterFlickerStrike Flicker Strike
 #flags attack melee movement
+#mods
+
+#skill MonsterFlameRedCannibal Incinerate
+#flags spell projectile fire
 #mods
 
 #skill MonsterLeapSlam Leap Slam

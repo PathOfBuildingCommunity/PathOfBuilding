@@ -19,6 +19,8 @@ local minions, mod = ...
 #monster Metadata/Monsters/Beasts/BeastCleaveEnduringCry
 -- Blood apes
 #monster Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage
+-- Cannibals
+#monster Metadata/Monsters/Cannibal/CannibalMaleChampion
 -- Goatmen
 #monster Metadata/Monsters/Goatman/GoatmanLeapSlam
 #monster Metadata/Monsters/Goatman/GoatmanLightningLeapSlamMaps
@@ -27,6 +29,7 @@ local minions, mod = ...
 -- Miscreation
 #monster Metadata/Monsters/DemonFemale/DemonFemale
 #monster Metadata/Monsters/DemonModular/DemonFemaleRanged
+#monster Metadata/Monsters/DemonModular/DemonModularBladeVortex
 #monster Metadata/Monsters/DemonModular/DemonModularFire
 -- Maw
 #monster Metadata/Monsters/Frog/Frog
@@ -36,6 +39,7 @@ local minions, mod = ...
 -- Ghost pirate
 #monster Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps
 #monster Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps
+#monster Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex
 -- Undying grappler
 #monster Metadata/Monsters/Grappler/Grappler
 -- Ribbon

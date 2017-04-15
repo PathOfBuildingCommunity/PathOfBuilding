@@ -227,6 +227,26 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
 		-- MonsterCastsMassFrenzyText
 	},
 }
+-- Cannibals
+minions["Metadata/Monsters/Cannibal/CannibalMaleChampion"] = {
+	name = "Cannibal Fire-eater",
+	life = 1.44,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.2,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	weaponType1 = "One Handed Mace",
+	skillList = {
+		"Melee",
+		"MonsterFlameRedCannibal",
+	},
+	modList = {
+		-- StanceScavengerRun
+	},
+}
 -- Goatmen
 minions["Metadata/Monsters/Goatman/GoatmanLeapSlam"] = {
 	name = "Goatman",
@@ -353,6 +373,24 @@ minions["Metadata/Monsters/DemonModular/DemonFemaleRanged"] = {
 		mod("PhysicalDamageConvertToFire", "BASE", 50), -- MonsterConvertToFireDamage2
 	},
 }
+minions["Metadata/Monsters/DemonModular/DemonModularBladeVortex"] = {
+	name = "Slashed Miscreation",
+	life = 1.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	skillList = {
+		"Melee",
+		"DemonModularBladeVortex",
+		"DemonModularBladeVortexSpectre",
+	},
+	modList = {
+	},
+}
 minions["Metadata/Monsters/DemonModular/DemonModularFire"] = {
 	name = "Burned Miscreation",
 	life = 1,
@@ -472,6 +510,28 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
 	modList = {
 		mod("PhysicalDamageGainAsLightning", "BASE", 100), -- MonsterPhysicalAddedAsLightningSkeletonMaps
 		-- MonsterUsesFlickerStrikeText
+	},
+}
+minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex"] = {
+	name = "Spectral Scoundrel",
+	life = 1.5,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 2,
+	damageSpread = 0.2,
+	attackTime = 1.65,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	skillList = {
+		"Melee",
+		"GhostPirateBladeVortex",
+		"GhostPirateBladeVortexSpectre",
+	},
+	modList = {
+		mod("PhysicalDamageConvertToLightning", "BASE", 50), -- MonsterElementalSkeletonLightning
 	},
 }
 -- Undying grappler

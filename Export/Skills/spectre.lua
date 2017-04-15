@@ -236,6 +236,71 @@ skills["DemonFemaleRangedProjectile"] = {
 		[1] = { },
 	},
 }
+skills["DemonModularBladeVortexSpectre"] = {
+	name = "Blade Vortex",
+	hidden = true,
+	color = 2,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [18] = true, [26] = true, [36] = true, [27] = true, },
+	baseMods = {
+		skill("castTime", 0.5), 
+		skill("critChance", 6), 
+		skill("duration", 5), --"base_skill_effect_duration" = 5000
+		--"maximum_number_of_spinning_blades" = 5
+		--"active_skill_area_of_effect_radius_+%_final" = 0
+		--"skill_repeat_count" = 2
+		--"is_area_damage" = ?
+		--"skill_can_add_multiple_charges_per_action" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("PhysicalMin", nil), --"spell_minimum_base_physical_damage"
+		[3] = skill("PhysicalMax", nil), --"spell_maximum_base_physical_damage"
+	},
+	levels = {
+		[1] = { 3, 2, 4, },
+		[2] = { 5, 3, 4, },
+		[3] = { 8, 4, 6, },
+		[4] = { 10, 5, 7, },
+		[5] = { 12, 6, 8, },
+		[6] = { 14, 6, 10, },
+		[7] = { 17, 8, 12, },
+		[8] = { 20, 10, 15, },
+		[9] = { 25, 14, 21, },
+		[10] = { 28, 17, 25, },
+		[11] = { 31, 20, 30, },
+		[12] = { 36, 27, 41, },
+		[13] = { 41, 36, 54, },
+		[14] = { 46, 47, 70, },
+		[15] = { 51, 61, 92, },
+		[16] = { 52, 64, 97, },
+		[17] = { 57, 83, 124, },
+		[18] = { 65, 123, 185, },
+		[19] = { 66, 129, 194, },
+		[20] = { 67, 136, 204, },
+		[21] = { 68, 143, 214, },
+		[22] = { 69, 150, 224, },
+		[23] = { 70, 157, 236, },
+		[24] = { 71, 165, 247, },
+		[25] = { 72, 173, 259, },
+		[26] = { 73, 181, 272, },
+		[27] = { 74, 190, 285, },
+		[28] = { 75, 199, 299, },
+		[29] = { 76, 209, 313, },
+		[30] = { 77, 219, 328, },
+		[31] = { 78, 229, 344, },
+		[32] = { 79, 240, 360, },
+		[33] = { 80, 252, 378, },
+		[34] = { 81, 264, 395, },
+		[35] = { 82, 276, 414, },
+	},
+}
 skills["ExperimenterDetonateDead"] = {
 	name = "Detonate Dead",
 	hidden = true,
@@ -424,6 +489,71 @@ skills["FlamebearerFlameBlue"] = {
 		[27] = { 80, 464, 695, -75, },
 		[28] = { 81, 488, 732, -75, },
 		[29] = { 82, 514, 770, -75, },
+	},
+}
+skills["GhostPirateBladeVortexSpectre"] = {
+	name = "Blade Vortex",
+	hidden = true,
+	color = 2,
+	baseFlags = {
+		spell = true,
+		duration = true,
+		area = true,
+	},
+	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [18] = true, [26] = true, [36] = true, [27] = true, },
+	baseMods = {
+		skill("castTime", 0.5), 
+		skill("critChance", 6), 
+		skill("duration", 5), --"base_skill_effect_duration" = 5000
+		--"maximum_number_of_spinning_blades" = 5
+		--"active_skill_area_of_effect_radius_+%_final" = 0
+		--"skill_repeat_count" = 2
+		--"is_area_damage" = ?
+		--"skill_can_add_multiple_charges_per_action" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("PhysicalMin", nil), --"spell_minimum_base_physical_damage"
+		[3] = skill("PhysicalMax", nil), --"spell_maximum_base_physical_damage"
+	},
+	levels = {
+		[1] = { 3, 2, 4, },
+		[2] = { 5, 3, 4, },
+		[3] = { 8, 4, 6, },
+		[4] = { 10, 5, 7, },
+		[5] = { 12, 6, 8, },
+		[6] = { 14, 6, 10, },
+		[7] = { 17, 8, 12, },
+		[8] = { 20, 10, 15, },
+		[9] = { 25, 14, 21, },
+		[10] = { 28, 17, 25, },
+		[11] = { 31, 20, 30, },
+		[12] = { 36, 27, 41, },
+		[13] = { 41, 36, 54, },
+		[14] = { 46, 47, 70, },
+		[15] = { 51, 61, 92, },
+		[16] = { 52, 64, 97, },
+		[17] = { 57, 83, 124, },
+		[18] = { 65, 123, 185, },
+		[19] = { 66, 129, 194, },
+		[20] = { 67, 136, 204, },
+		[21] = { 68, 143, 214, },
+		[22] = { 69, 150, 224, },
+		[23] = { 70, 157, 236, },
+		[24] = { 71, 165, 247, },
+		[25] = { 72, 173, 259, },
+		[26] = { 73, 181, 272, },
+		[27] = { 74, 190, 285, },
+		[28] = { 75, 199, 299, },
+		[29] = { 76, 209, 313, },
+		[30] = { 77, 219, 328, },
+		[31] = { 78, 229, 344, },
+		[32] = { 79, 240, 360, },
+		[33] = { 80, 252, 378, },
+		[34] = { 81, 264, 395, },
+		[35] = { 82, 276, 414, },
 	},
 }
 skills["GoatmanMoltenShell"] = {
@@ -1329,6 +1459,75 @@ skills["MonsterFlickerStrike"] = {
 	},
 	levels = {
 		[1] = { },
+	},
+}
+skills["MonsterFlameRedCannibal"] = {
+	name = "Incinerate",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		fire = true,
+	},
+	skillTypes = { [2] = true, [3] = true, [10] = true, [12] = true, [17] = true, [19] = true, [30] = true, [33] = true, },
+	skillTotemId = 8,
+	baseMods = {
+		skill("castTime", 0.25), 
+		skill("damageEffectiveness", 0.25), 
+		--"skill_repeat_count" = 8
+		--"skill_art_variation" = 2
+		--"spell_maximum_action_distance_+%" = -75
+		mod("Speed", "MORE", 25, ModFlag.Cast), --"active_skill_cast_speed_+%_final" = 25
+		--"monster_penalty_against_minions_damage_+%_final_vs_player_minions" = -25
+		mod("ProjectileCount", "BASE", 3), --"number_of_additional_projectiles" = 3
+		--"base_is_projectile" = ?
+		--"projectile_uses_contact_position" = ?
+		mod("PierceChance", "BASE", 100), --"always_pierce" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("FireMin", nil), --"spell_minimum_base_fire_damage"
+		[3] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
+	},
+	levels = {
+		[1] = { 3, 2, 3, },
+		[2] = { 5, 2, 3, },
+		[3] = { 8, 3, 5, },
+		[4] = { 12, 5, 7, },
+		[5] = { 15, 6, 9, },
+		[6] = { 19, 9, 13, },
+		[7] = { 20, 10, 14, },
+		[8] = { 21, 10, 16, },
+		[9] = { 26, 16, 23, },
+		[10] = { 30, 21, 31, },
+		[11] = { 34, 28, 42, },
+		[12] = { 38, 37, 56, },
+		[13] = { 43, 52, 79, },
+		[14] = { 45, 60, 90, },
+		[15] = { 53, 102, 153, },
+		[16] = { 58, 140, 210, },
+		[17] = { 62, 180, 271, },
+		[18] = { 63, 192, 288, },
+		[19] = { 66, 231, 347, },
+		[20] = { 67, 246, 369, },
+		[21] = { 68, 262, 393, },
+		[22] = { 69, 278, 418, },
+		[23] = { 70, 296, 444, },
+		[24] = { 71, 315, 472, },
+		[25] = { 72, 335, 502, },
+		[26] = { 73, 356, 534, },
+		[27] = { 74, 378, 567, },
+		[28] = { 75, 402, 602, },
+		[29] = { 76, 427, 640, },
+		[30] = { 77, 453, 680, },
+		[31] = { 78, 481, 722, },
+		[32] = { 79, 511, 767, },
+		[33] = { 80, 543, 814, },
+		[34] = { 81, 576, 864, },
+		[35] = { 82, 612, 918, },
 	},
 }
 skills["MonsterLeapSlam"] = {
