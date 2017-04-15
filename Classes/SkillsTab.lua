@@ -76,7 +76,7 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 		local item = self.displayGroup.sourceItem or { rarity = "NORMAL", name = "?" }
 		local itemName = data.colorCodes[item.rarity]..item.name.."^7"
 		local activeGem = self.displayGroup.gemList[1]
-		local label = [[^7This is a special group created for the ']]..activeGem.color..activeGem.nameSpec..[[^7' skill,
+		local label = [[^7This is a special group created for the ']]..activeGem.color..activeGem.name..[[^7' skill,
 which is being provided by ']]..itemName..[['.
 You cannot delete this group, but it will disappear if you un-equip the item.]]
 		if not self.displayGroup.noSupports then
@@ -105,6 +105,7 @@ function SkillsTabClass:Load(xml, fileName)
 			socketGroup.slot = node.attrib.slot
 			socketGroup.source = node.attrib.source
 			socketGroup.mainActiveSkill = tonumber(node.attrib.mainActiveSkill) or 1
+			socketGroup.mainActiveSkillCalcs = tonumber(node.attrib.mainActiveSkillCalcs) or 1
 			socketGroup.gemList = { }
 			for _, child in ipairs(node) do
 				local gem = { }
@@ -113,6 +114,11 @@ function SkillsTabClass:Load(xml, fileName)
 				gem.quality = tonumber(child.attrib.quality)
 				gem.enabled = not child.attrib.enabled and true or child.attrib.enabled == "true"
 				gem.skillPart = tonumber(child.attrib.skillPart)
+				gem.skillPartCalcs = tonumber(child.attrib.skillPartCalcs)
+				gem.skillMinion = child.attrib.skillMinion
+				gem.skillMinionCalcs = child.attrib.skillMinionCalcs
+				gem.skillMinionSkill = tonumber(child.attrib.skillMinionSkill)
+				gem.skillMinionSkillCalcs = tonumber(child.attrib.skillMinionSkillCalcs)
 				t_insert(socketGroup.gemList, gem)
 			end
 			if node.attrib.skillPart and socketGroup.gemList[1] then
@@ -134,6 +140,7 @@ function SkillsTabClass:Save(xml)
 			slot = socketGroup.slot,
 			source = socketGroup.source,
 			mainActiveSkill = tostring(socketGroup.mainActiveSkill),
+			mainActiveSkillCalcs = tostring(socketGroup.mainActiveSkillCalcs),
 		} }
 		for _, gem in ipairs(socketGroup.gemList) do
 			t_insert(node, { elem = "Gem", attrib = {
@@ -142,6 +149,11 @@ function SkillsTabClass:Save(xml)
 				quality = tostring(gem.quality),
 				enabled = tostring(gem.enabled),
 				skillPart = gem.skillPart and tostring(gem.skillPart),
+				skillPartCalcs = gem.skillPartCalcs and tostring(gem.skillPartCalcs),
+				skillMinion = gem.skillMinion,
+				skillMinionCalcs = gem.skillMinionCalcs,
+				skillMinionSkill = gem.skillMinionSkill and tostring(gem.skillMinionSkill),
+				skillMinionSkillCalcs = gem.skillMinionSkillCalcs and tostring(gem.skillMinionSkillCalcs),
 			} })
 		end
 		t_insert(xml, node)
@@ -398,16 +410,22 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 					gem.name = gem.nameSpec
 					gem.data = data.gems[gem.nameSpec]
 				end
+			elseif data.skills[gem.nameSpec] then
+				gem.errMsg = nil
+				gem.data = data.skills[gem.nameSpec]
+				gem.name = gem.data.name
 			else
 				gem.errMsg, gem.name, gem.data = self:FindSkillGem(gem.nameSpec)
+				if gem.name then
+					gem.nameSpec = gem.name
+				end
 			end
 			if gem.name then
-				gem.nameSpec = gem.name
-				if gem.data.strength then
+				if gem.data.color == 1 then
 					gem.color = data.colorCodes.STRENGTH
-				elseif gem.data.dexterity then
+				elseif gem.data.color == 2 then
 					gem.color = data.colorCodes.DEXTERITY
-				elseif gem.data.intelligence then
+				elseif gem.data.color == 3 then
 					gem.color = data.colorCodes.INTELLIGENCE
 				else
 					gem.color = data.colorCodes.NORMAL
@@ -471,6 +489,7 @@ function SkillsTabClass:CreateUndoState()
 			enabled = socketGroup.enabled,
 			source = socketGroup.source,
 			mainActiveSkill = socketGroup.mainActiveSkill,
+			mainActiveSkillCalcs = socketGroup.mainActiveSkillCalcs,
 			gemList = { }
 		}
 		for index, gem in pairs(socketGroup.gemList) do
@@ -480,6 +499,11 @@ function SkillsTabClass:CreateUndoState()
 				quality = gem.quality,
 				enabled = gem.enabled,
 				skillPart = gem.skillPart,
+				skillPartCalcs = gem.skillPartCalcs,
+				skillMinion = gem.skillMinion,
+				skillMinionCalcs = gem.skillMinionCalcs,
+				skillMinionSkill = gem.skillMinionSkill,
+				skillMinionSkillCalcs = gem.skillMinionSkillCalcs,
 				name = gem.name,
 				data = gem.data,
 				errMsg = gem.errMsg,

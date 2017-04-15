@@ -473,7 +473,7 @@ Requires Level 67, 73 Dex, 88 Int
 (130-150)% increased Evasion and Energy Shield
 {variant:1}+2 to Level of Socketed Curse Gems
 {variant:2}+1 to Level of Socketed Curse Gems
-Socketed Curse Gems Supported by Level 22 Blasphemy
+Socketed Curse Gems are Supported by Level 22 Blasphemy
 Socketed Curse Gems have 12% reduced Mana Reservation
 ]],[[
 Leer Cast

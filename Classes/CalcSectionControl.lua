@@ -133,35 +133,34 @@ function CalcSectionClass:UpdatePos()
 	end
 end
 
-function CalcSectionClass:FormatStr(str, output, colData)
+function CalcSectionClass:FormatStr(str, actor, colData)
 	str = str:gsub("{output:([%a%.:]+)}", function(c) 
 		local ns, var = c:match("^(%a+)%.(%a+)$")
 		if ns then
-			return output[ns][var] or ""
+			return actor.output[ns] and actor.output[ns][var] or ""
 		else
-			return output[c] or ""
+			return actor.output[c] or ""
 		end
 	end)
 	str = str:gsub("{(%d+):output:([%a%.:]+)}", function(p, c) 
 		local ns, var = c:match("^(%a+)%.(%a+)$")
 		if ns then
-			return formatRound(output[ns][var] or 0, tonumber(p))
+			return formatRound(actor.output[ns] and actor.output[ns][var] or 0, tonumber(p))
 		else
-			return formatRound(output[c] or 0, tonumber(p))
+			return formatRound(actor.output[c] or 0, tonumber(p))
 		end
 	end)
 	str = str:gsub("{(%d+):mod:(%d+)}", function(p, n) 
 		local sectionData = colData[tonumber(n)]
-		local env = self.calcsTab.calcsEnv
-		local modCfg = (sectionData.cfg and env.mainSkill[sectionData.cfg.."Cfg"]) or { }
+		local modCfg = (sectionData.cfg and actor.mainSkill[sectionData.cfg.."Cfg"]) or { }
 		if sectionData.modSource then
 			modCfg.source = sectionData.modSource
 		end
 		local modVal
 		if type(sectionData.modName) == "table" then
-			modVal = env.modDB:Sum(sectionData.modType, modCfg, unpack(sectionData.modName))
+			modVal = actor.modDB:Sum(sectionData.modType, modCfg, unpack(sectionData.modName))
 		else
-			modVal = env.modDB:Sum(sectionData.modType, modCfg, sectionData.modName)
+			modVal = actor.modDB:Sum(sectionData.modType, modCfg, sectionData.modName)
 		end
 		if sectionData.modType == "MORE" then
 			modVal = (modVal - 1) * 100
@@ -175,8 +174,7 @@ function CalcSectionClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
-	local env = self.calcsTab.calcsEnv
-	local output = self.calcsTab.calcsOutput
+	local actor = self.calcsTab.input.showMinion and self.calcsTab.calcsEnv.minion or self.calcsTab.calcsEnv.player
 	-- Draw border and background
 	SetDrawLayer(nil, -10)
 	SetDrawColor(self.col)
@@ -190,7 +188,7 @@ function CalcSectionClass:Draw(viewPort)
 		DrawString(x + 3, y + 3, "LEFT", 16, "VAR BOLD", "^7"..self.label..":")
 		if self.extra then
 			local x = x + 3 + DrawStringWidth(16, "VAR BOLD", self.label) + 10
-			DrawString(x, y + 3, "LEFT", 16, "VAR", self:FormatStr(self.extra, output))
+			DrawString(x, y + 3, "LEFT", 16, "VAR", self:FormatStr(self.extra, actor))
 		end
 	end
 	-- Draw line below label
@@ -231,7 +229,7 @@ function CalcSectionClass:Draw(viewPort)
 					end
 					local textSize = rowData.textSize or 14
 					SetViewport(colData.x + 3, colData.y, colData.width - 4, colData.height)
-					DrawString(1, 9 - textSize/2, "LEFT", textSize, "VAR", "^7"..self:FormatStr(colData.format, output, colData))
+					DrawString(1, 9 - textSize/2, "LEFT", textSize, "VAR", "^7"..self:FormatStr(colData.format, actor, colData))
 					SetViewport()
 				end
 			end

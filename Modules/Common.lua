@@ -6,6 +6,7 @@
 
 local pairs = pairs
 local ipairs = ipairs
+local t_insert = table.insert
 local m_abs = math.abs
 local m_floor = math.floor
 local m_min = math.min
@@ -181,6 +182,23 @@ function isValueInArray(tbl, val)
 	for i, v in ipairs(tbl) do
 		if val == v then
 			return i
+		end
+	end
+end
+
+-- Pretty-prints a table
+function prettyPrintTable(tbl, pre)
+	pre = pre or ""
+	local outNames = { }
+	for name in pairs(tbl) do
+		t_insert(outNames, name)
+	end
+	table.sort(outNames)
+	for _, name in ipairs(outNames) do
+		if type(tbl[name]) == "table" then
+			prettyPrintTable(tbl[name], pre .. name .. ".")
+		else
+			ConPrintf("%s%s = %s", pre, name, tostring(tbl[name]))
 		end
 	end
 end

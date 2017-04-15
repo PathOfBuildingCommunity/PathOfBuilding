@@ -12,17 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		UpdateCheck.lua = UpdateCheck.lua
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gems", "Gems", "{EE9D06F5-7310-4567-AB18-6923BCF0A2A1}"
-	ProjectSection(SolutionItems) = preProject
-		Data\Gems\act_dex.lua = Data\Gems\act_dex.lua
-		Data\Gems\act_int.lua = Data\Gems\act_int.lua
-		Data\Gems\act_str.lua = Data\Gems\act_str.lua
-		Data\Gems\other.lua = Data\Gems\other.lua
-		Data\Gems\sup_dex.lua = Data\Gems\sup_dex.lua
-		Data\Gems\sup_int.lua = Data\Gems\sup_int.lua
-		Data\Gems\sup_str.lua = Data\Gems\sup_str.lua
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Item bases", "Item bases", "{5BCB69A7-EFE8-4C72-B5E3-DF2C1E227290}"
 	ProjectSection(SolutionItems) = preProject
 		Data\Bases\amulet.lua = Data\Bases\amulet.lua
@@ -50,8 +39,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{35D8
 	ProjectSection(SolutionItems) = preProject
 		Modules\Build.lua = Modules\Build.lua
 		Modules\BuildList.lua = Modules\BuildList.lua
+		Modules\CalcActiveSkill.lua = Modules\CalcActiveSkill.lua
+		Modules\CalcBreakdown.lua = Modules\CalcBreakdown.lua
+		Modules\CalcDefence.lua = Modules\CalcDefence.lua
+		Modules\CalcOffence.lua = Modules\CalcOffence.lua
+		Modules\CalcPerform.lua = Modules\CalcPerform.lua
 		Modules\Calcs.lua = Modules\Calcs.lua
 		Modules\CalcSections.lua = Modules\CalcSections.lua
+		Modules\CalcSetup.lua = Modules\CalcSetup.lua
+		Modules\CalcTools.lua = Modules\CalcTools.lua
 		Modules\Common.lua = Modules\Common.lua
 		Modules\Data.lua = Modules\Data.lua
 		Modules\ItemTools.lua = Modules\ItemTools.lua
@@ -80,6 +76,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4
 		Classes\ItemSlotControl.lua = Classes\ItemSlotControl.lua
 		Classes\ItemsTab.lua = Classes\ItemsTab.lua
 		Classes\LabelControl.lua = Classes\LabelControl.lua
+		Classes\MinionListControl.lua = Classes\MinionListControl.lua
 		Classes\ModDB.lua = Classes\ModDB.lua
 		Classes\ModList.lua = Classes\ModList.lua
 		Classes\NotesTab.lua = Classes\NotesTab.lua
@@ -102,10 +99,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F2327651-C
 	ProjectSection(SolutionItems) = preProject
 		Data\EnchantmentBoots.lua = Data\EnchantmentBoots.lua
 		Data\EnchantmentHelmet.lua = Data\EnchantmentHelmet.lua
+		Data\Minions.lua = Data\Minions.lua
 		Data\ModFlask.lua = Data\ModFlask.lua
 		Data\ModJewel.lua = Data\ModJewel.lua
 		Data\New.lua = Data\New.lua
 		Data\Rares.lua = Data\Rares.lua
+		Data\Spectres.lua = Data\Spectres.lua
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unique items", "Unique items", "{D9D8B9D1-F114-40CB-8EFA-B0F753009183}"
@@ -131,16 +130,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unique items", "Unique item
 		Data\Uniques\wand.lua = Data\Uniques\wand.lua
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skills", "Skills", "{41E2B69C-4D14-4280-B22F-34F1B3E709CE}"
+	ProjectSection(SolutionItems) = preProject
+		Data\Skills\act_dex.lua = Data\Skills\act_dex.lua
+		Data\Skills\act_int.lua = Data\Skills\act_int.lua
+		Data\Skills\act_str.lua = Data\Skills\act_str.lua
+		Data\Skills\minion.lua = Data\Skills\minion.lua
+		Data\Skills\other.lua = Data\Skills\other.lua
+		Data\Skills\spectre.lua = Data\Skills\spectre.lua
+		Data\Skills\sup_dex.lua = Data\Skills\sup_dex.lua
+		Data\Skills\sup_int.lua = Data\Skills\sup_int.lua
+		Data\Skills\sup_str.lua = Data\Skills\sup_str.lua
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EE9D06F5-7310-4567-AB18-6923BCF0A2A1} = {F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}
 		{5BCB69A7-EFE8-4C72-B5E3-DF2C1E227290} = {F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}
 		{35D8BE82-CD83-4C2D-AD31-47026E724F46} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
 		{7EE4DE67-DABD-4A3C-8772-37D4A9DB6D59} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
 		{F2327651-CAA5-4DA0-91DB-EFA5E0E07A51} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
 		{D9D8B9D1-F114-40CB-8EFA-B0F753009183} = {F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}
+		{41E2B69C-4D14-4280-B22F-34F1B3E709CE} = {F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}
 	EndGlobalSection
 EndGlobal

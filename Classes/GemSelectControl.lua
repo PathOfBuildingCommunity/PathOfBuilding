@@ -173,11 +173,11 @@ function GemSelectClass:Draw(viewPort)
 			SetDrawColor(1, 1, 1)
 			local gemData = data.gems[self.list[index]]
 			if gemData then
-				if gemData.strength then
+				if gemData.color == 1 then
 					SetDrawColor(data.colorCodes.STRENGTH)
-				elseif gemData.dexterity then
+				elseif gemData.color == 2 then
 					SetDrawColor(data.colorCodes.DEXTERITY)
-				elseif gemData.intelligence then
+				elseif gemData.color == 3 then
 					SetDrawColor(data.colorCodes.INTELLIGENCE)
 				end
 			end
@@ -185,7 +185,7 @@ function GemSelectClass:Draw(viewPort)
 			if gemData and gemData.support and self.skillsTab.displayGroup.displaySkillList then
 				local gem = { data = gemData }
 				for _, activeSkill in ipairs(self.skillsTab.displayGroup.displaySkillList) do
-					if gemCanSupport(gem, activeSkill) then
+					if calcLib.gemCanSupport(gem, activeSkill) then
 						SetDrawColor(0.33, 1, 0.33)
 						main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
 						break

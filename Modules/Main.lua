@@ -16,6 +16,7 @@ LoadModule("Modules/Common")
 LoadModule("Modules/Data", launch)
 LoadModule("Modules/ModTools")
 LoadModule("Modules/ItemTools")
+LoadModule("Modules/CalcTools")
 
 LoadModule("Classes/ControlHost")
 
@@ -41,6 +42,7 @@ local classList = {
 	-- Mode: Build
 	"ModList",
 	"ModDB",
+	"MinionListControl",
 	"ImportTab",
 	"NotesTab",
 	"ConfigTab",

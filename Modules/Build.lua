@@ -220,7 +220,22 @@ function buildMode:Init(dbFileName, buildName)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.statBox = common.New("TextListControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 42, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
+	self.controls.mainSkillMinion = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 178, 18, nil, function(index, val)
+		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillMinion = val.val
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.mainSkillMinionLibrary = common.New("ButtonControl", {"LEFT",self.controls.mainSkillMinion,"RIGHT"}, 2, 0, 120, 18, "Manage Spectres...", function()
+		self:OpenSpectreLibrary()
+	end)
+	self.controls.mainSkillMinionSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT"}, 0, 2, 200, 16, nil, function(index)
+		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillMinionSkill = index
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.statBox = common.New("TextListControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 62, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
 	self.controls.statBox.height = function(control)
 		local x, y = control:GetPos()
 		return main.screenH - 30 - y
@@ -257,6 +272,7 @@ function buildMode:Init(dbFileName, buildName)
 		{ stat = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true },
 		{ stat = "WithPoisonAverageDamage", label = "Average Dmg. inc. Poison", fmt = ".1f", compPercent = true },
 		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
+		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function() return true end },
 		{ },
 		{ stat = "Str", label = "Strength", fmt = "d" },
@@ -304,6 +320,17 @@ function buildMode:Init(dbFileName, buildName)
 		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%" },
 		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%" },
 	}
+	self.minionDisplayStats = {
+		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
+		{ stat = "Speed", label = "Attack/Cast Rate", fmt = ".2f", compPercent = true },
+		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true },
+		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
+		{ stat = "WithPoisonDPS", label = "DPS inc. Poison", fmt = ".1f", compPercent = true },
+		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
+		{ stat = "Life", label = "Total Life", fmt = ".1f", compPercent = true },
+		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
+		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", compPercent = true },
+	}
 
 	self.viewMode = "TREE"
 
@@ -315,6 +342,7 @@ function buildMode:Init(dbFileName, buildName)
 	self.banditNormal = "None"
 	self.banditCruel = "None"
 	self.banditMerciless = "None"
+	self.spectreList = { }
 
 	-- List of modules with Load/Save methods
 	-- These will be called to load or save data to their respective sections of the build XML file
@@ -398,6 +426,14 @@ function buildMode:Load(xml, fileName)
 		self[diff] = xml.attrib[diff] or "None"
 	end
 	self.mainSocketGroup = tonumber(xml.attrib.mainSkillIndex) or tonumber(xml.attrib.mainSocketGroup) or 1
+	wipeTable(self.spectreList)
+	for _, child in ipairs(xml) do
+		if child.elem == "Spectre" then
+			if child.attrib.id and data.minions[child.attrib.id] then
+				t_insert(self.spectreList, child.attrib.id)
+			end
+		end
+	end
 end
 
 function buildMode:Save(xml)
@@ -411,6 +447,9 @@ function buildMode:Save(xml)
 		banditMerciless = self.banditMerciless,
 		mainSocketGroup = tostring(self.mainSocketGroup),
 	}
+	for _, id in ipairs(self.spectreList) do
+		t_insert(xml, { elem = "Spectre", attrib = { id = id } })
+	end
 	self.modFlag = false
 end
 
@@ -468,38 +507,8 @@ function buildMode:OnFrame(inputEvents)
 		self:RefreshStatList()
 	end
 
-	-- Update contents of main skill dropdown
-	wipeTable(self.controls.mainSocketGroup.list)
-	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
-		self.controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
-	end
-	if #self.controls.mainSocketGroup.list == 0 then
-		self.controls.mainSocketGroup.list[1] = { val = 1, label = "<No skills added yet>" }
-		self.controls.mainSkill.shown = false
-		self.controls.mainSkillPart.shown = false
-	else
-		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		wipeTable(self.controls.mainSkill.list)
-		for i, activeSkill in ipairs(mainSocketGroup.displaySkillList) do
-			t_insert(self.controls.mainSkill.list, { val = i, label = activeSkill.activeGem.name })
-		end
-		self.controls.mainSkill.enabled = #mainSocketGroup.displaySkillList > 1
-		self.controls.mainSkill.sel = mainSocketGroup.mainActiveSkill
-		self.controls.mainSkill.shown = true
-		self.controls.mainSkillPart.shown = false
-		if mainSocketGroup.displaySkillList[1] then
-			local activeGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem
-			if activeGem and activeGem.data.parts and #activeGem.data.parts > 1 then
-				self.controls.mainSkillPart.shown = true
-				wipeTable(self.controls.mainSkillPart.list)
-				for i, part in ipairs(activeGem.data.parts) do
-					t_insert(self.controls.mainSkillPart.list, { val = i, label = part.name })
-				end
-				self.controls.mainSkillPart.sel = activeGem.srcGem.skillPart or 1
-			end
-		end
-	end
-	self.controls.mainSocketGroup.sel = self.mainSocketGroup
+	-- Update contents of main skill dropdowns
+	self:RefreshSkillSelectControls(self.controls, self.mainSocketGroup, "")
 
 	-- Draw contents of current tab
 	local sideBarWidth = 312
@@ -607,18 +616,120 @@ function buildMode:OpenSaveAsPopup()
 	popup.controls.save.enabled = false
 end
 
-function buildMode:RefreshStatList()
-	-- Build list of side bar stats
-	wipeTable(self.controls.statBox.list)
-	for index, statData in ipairs(self.displayStats) do
+-- Open the spectre library popup
+function buildMode:OpenSpectreLibrary()
+	local controls = { }
+	local destList = copyTable(self.spectreList)
+	local sourceList = { }
+	for id in pairs(data.spectres) do
+		t_insert(sourceList, id)
+	end
+	table.sort(sourceList, function(a,b) 
+		if data.minions[a].name == data.minions[b].name then
+			return a < b
+		else
+			return data.minions[a].name < data.minions[b].name
+		end
+	end)
+	controls.list = common.New("MinionList", nil, -100, 40, 190, 250, destList, true)
+	controls.source = common.New("MinionList", nil, 100, 40, 190, 250, sourceList, false, controls.list)
+	controls.save = common.New("ButtonControl", nil, -45, 300, 80, 20, "Save", function()
+		self.spectreList = destList
+		self.modFlag = true
+		self.buildFlag = true
+		main:ClosePopup()
+	end)
+	controls.cancel = common.New("ButtonControl", nil, 45, 300, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(410, 330, "Spectre Library", controls)
+end
+
+-- Refresh the set of controls used to select main group/skill/minion
+function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
+	controls.mainSocketGroup.sel = mainGroup
+	wipeTable(controls.mainSocketGroup.list)
+	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
+		controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
+	end
+	if #controls.mainSocketGroup.list == 0 then
+		controls.mainSocketGroup.list[1] = { val = 1, label = "<No skills added yet>" }
+		controls.mainSkill.shown = false
+		controls.mainSkillPart.shown = false
+		controls.mainSkillMinion.shown = false
+		controls.mainSkillMinionSkill.shown = false
+	else
+		local mainSocketGroup = self.skillsTab.socketGroupList[mainGroup]
+		local displaySkillList = mainSocketGroup["displaySkillList"..suffix]
+		local mainActiveSkill = mainSocketGroup["mainActiveSkill"..suffix] or 1
+		wipeTable(controls.mainSkill.list)
+		for i, activeSkill in ipairs(displaySkillList) do
+			t_insert(controls.mainSkill.list, { val = i, label = activeSkill.activeGem.name })
+		end
+		controls.mainSkill.enabled = #displaySkillList > 1
+		controls.mainSkill.sel = mainActiveSkill
+		controls.mainSkill.shown = true
+		controls.mainSkillPart.shown = false
+		controls.mainSkillMinion.shown = false
+		controls.mainSkillMinionLibrary.shown = false
+		controls.mainSkillMinionSkill.shown = false
+		if displaySkillList[1] then
+			local activeSkill = displaySkillList[mainActiveSkill]
+			local activeGem = activeSkill.activeGem
+			if activeGem then
+				if activeGem.data.parts and #activeGem.data.parts > 1 then
+					controls.mainSkillPart.shown = true
+					wipeTable(controls.mainSkillPart.list)
+					for i, part in ipairs(activeGem.data.parts) do
+						t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
+					end
+					controls.mainSkillPart.sel = activeGem.srcGem["skillPart"..suffix] or 1
+				elseif not activeSkill.skillFlags.disable and activeGem.data.minionList then
+					local list
+					if activeGem.data.minionList[1] then
+						list = activeGem.data.minionList
+					else
+						list = self.spectreList 
+						controls.mainSkillMinionLibrary.shown = true
+					end
+					wipeTable(controls.mainSkillMinion.list)
+					for _, name in ipairs(list) do
+						t_insert(controls.mainSkillMinion.list, {
+							val = name,
+							label = data.minions[name].name,
+						})
+					end
+					controls.mainSkillMinion.enabled = #controls.mainSkillMinion.list > 1
+					controls.mainSkillMinion.shown = true
+					controls.mainSkillMinion:SelByValue(activeGem.srcGem["skillMinion"..suffix] or controls.mainSkillMinion.list[1])
+					wipeTable(controls.mainSkillMinionSkill.list)
+					if activeSkill.minion then
+						for _, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
+							t_insert(controls.mainSkillMinionSkill.list, minionSkill.activeGem.name)
+						end
+						controls.mainSkillMinionSkill.sel = activeGem.srcGem["skillMinionSkill"..suffix] or 1
+						controls.mainSkillMinionSkill.shown = true
+						controls.mainSkillMinionSkill.enabled = #controls.mainSkillMinionSkill.list > 1
+					else
+						t_insert(controls.mainSkillMinion.list, "<No spectres in build>")
+					end
+				end
+			end
+		end
+	end
+end
+
+-- Add stat list for given actor
+function buildMode:AddDisplayStatList(statList, actor)
+	for index, statData in ipairs(statList) do
 		if statData.stat then
-			if not statData.flag or self.calcsTab.mainEnv.mainSkill.skillFlags[statData.flag] then 
-				local modVal = self.calcsTab.mainOutput[statData.stat]
-				if modVal and ((statData.condFunc and statData.condFunc(modVal,self.calcsTab.mainOutput)) or (not statData.condFunc and modVal ~= 0)) then
+			if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then 
+				local statVal = actor.output[statData.stat]
+				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
 					t_insert(self.controls.statBox.list, {
 						height = 16,
 						"^7"..statData.label..":",
-						string.format("%s%"..statData.fmt, modVal >= 0 and "^7" or data.colorCodes.NEGATIVE, modVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)) 
+						string.format("%s%"..statData.fmt, statVal >= 0 and "^7" or data.colorCodes.NEGATIVE, statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)) 
 					})
 				end
 			end
@@ -628,14 +739,25 @@ function buildMode:RefreshStatList()
 	end
 end
 
--- Compare values of all display stats between the two output tables, and add any changed stats to the tooltip
--- Adds the provided header line before the first stat line, if any are added
--- Returns the number of stat lines added
-function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header, nodeCount)
+-- Build list of side bar stats
+function buildMode:RefreshStatList()
+	wipeTable(self.controls.statBox.list)
+	if self.calcsTab.mainEnv.minion then
+		t_insert(self.controls.statBox.list, { height = 18, "^7Minion:" })
+		self:AddDisplayStatList(self.minionDisplayStats, self.calcsTab.mainEnv.minion)
+		t_insert(self.controls.statBox.list, { height = 10 })
+		t_insert(self.controls.statBox.list, { height = 18, "^7Player:" })
+	end
+	self:AddDisplayStatList(self.displayStats, self.calcsTab.mainEnv.player)
+end
+
+function buildMode:CompareStatList(statList, actor, baseOutput, compareOutput, header, nodeCount)
 	local count = 0
-	for _, statData in ipairs(self.displayStats) do
-		if statData.stat and (not statData.flag or self.calcsTab.mainEnv.mainSkill.skillFlags[statData.flag]) then
-			local diff = (compareOutput[statData.stat] or 0) - (baseOutput[statData.stat] or 0)
+	for _, statData in ipairs(statList) do
+		if statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) then
+			local statVal1 = compareOutput[statData.stat] or 0
+			local statVal2 = baseOutput[statData.stat] or 0
+			local diff = statVal1 - statVal2
 			if diff > 0.001 or diff < -0.001 then
 				if count == 0 then
 					main:AddTooltipLine(14, header)
@@ -643,8 +765,8 @@ function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header, n
 				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE
 				local line = string.format("%s%+"..statData.fmt.." %s", color, diff * ((statData.pc or statData.mod) and 100 or 1), statData.label)
 				local pcPerPt = ""
-				if statData.compPercent and (baseOutput[statData.stat] or 0) ~= 0 and (compareOutput[statData.stat] or 0) ~= 0 then
-					local pc = (compareOutput[statData.stat] or 0) / (baseOutput[statData.stat] or 0) * 100 - 100
+				if statData.compPercent and statVal1 ~= 0 and statVal2 ~= 0 then
+					local pc = statVal1 / statVal2 * 100 - 100
 					line = line .. string.format(" (%+.1f%%)", pc)
 					if nodeCount then
 						pcPerPt = string.format(" (%+.1f%%)", pc / nodeCount)
@@ -658,6 +780,23 @@ function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header, n
 			end
 		end
 	end
+	return count
+end
+
+-- Compare values of all display stats between the two output tables, and add any changed stats to the tooltip
+-- Adds the provided header line before the first stat line, if any are added
+-- Returns the number of stat lines added
+function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header, nodeCount)
+	local count = 0
+	if baseOutput.Minion and compareOutput.Minion then
+		count = count + self:CompareStatList(self.minionDisplayStats, self.calcsTab.mainEnv.minion, baseOutput.Minion, compareOutput.Minion, header.."\n^7Minion:", nodeCount)
+		if count > 0 then
+			header = "^7Player:"
+		else
+			header = header.."\n^7Player:"
+		end
+	end
+	count = count + self:CompareStatList(self.displayStats, self.calcsTab.mainEnv.player, baseOutput, compareOutput, header, nodeCount)
 	return count
 end
 

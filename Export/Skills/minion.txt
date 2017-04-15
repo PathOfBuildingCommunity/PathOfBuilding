@@ -1,0 +1,98 @@
+-- Path of Building
+--
+-- Minion active skills
+-- Skill data (c) Grinding Gear Games
+--
+local skills, mod, flag, skill = ...
+
+#skill ChaosElementalCascadeSummoned Cascade
+#flags spell area cold
+#mods
+
+#skill SandstormChaosElementalSummoned Chaos Aura
+#flags spell duration area
+#mods
+
+#skill FireElementalFlameRedSummoned Immolate
+#flags spell projectile fire
+#mods
+
+#skill FireElementalMortarSummoned Magma Ball
+#flags spell projectile area
+#mods
+
+#skill FireElementalConeSummoned Flame Wave
+#flags spell area fire
+#mods
+
+#skill IceElementalIceCyclone Cyclone
+#flags attack area melee movement
+#mods
+
+#skill IceElementalSpearSummoned Ice Spear
+#flags spell projectile
+#mods
+
+#skill LightningGolemArcSummoned Storm Orb
+#flags spell projectile lightning duration
+#mods
+
+#skill MonsterProjectileSpellLightningGolemSummoned Lightning Projectile
+#flags spell projectile
+#mods
+
+#skill LightningGolemWrath Wrath
+#flags spell aura area duration lightning
+#mods
+
+#skill PlayerRagingSpiritMeleeAttack Melee Attack
+#flags attack melee
+#mods
+
+#skill SkeletonProjectileCold Cold Projectile
+#flags spell projectile
+#mods
+
+#skill SkeletonProjectileFire Fire Projectile
+#flags spell projectile
+#mods
+
+#skill SkeletonProjectileLightning Lightning Projectile
+#flags spell projectile
+#mods
+
+#skill RockGolemSlam Slam
+#flags attack area
+#mods
+
+#skill RockGolemWhirlingBlades Roll
+#flags attack melee movement
+#mods
+
+#skill ZombieSlam Slam
+#flags attack area
+#mods
+
+skills["MinionInstability"] = {
+	name = "Minion Instability",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		cast = true,
+		area = true,
+		fire = true,
+	},
+	skillTypes = { [10] = true, },
+	baseMods = {
+		skill("FireMin", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
+		skill("FireMax", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
+		skill("showAverage", true),
+	},
+	qualityMods = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { },
+	},
+}

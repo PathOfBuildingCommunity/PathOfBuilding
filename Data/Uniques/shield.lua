@@ -73,7 +73,7 @@ Requires Level 35, 87 Str
 {variant:1}+1 to Level of Socketed Warcry Gems
 {variant:2}(80-100)% increased Armour
 {variant:2}2% of Attack Damage Leeched as Life against Taunted Enemies
-{variant:2}50% increased Warcry Cooldown Recovery
+{variant:2}50% increased Warcry Cooldown Recovery Speed
 +5% Chance to Block
 {variant:1}20% increased Endurance Charge Duration
 Gain +10 Life when you Taunt an Enemy

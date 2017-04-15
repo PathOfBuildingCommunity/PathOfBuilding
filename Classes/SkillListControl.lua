@@ -165,6 +165,21 @@ function SkillListClass:Draw(viewPort)
 				gemShown[gem.srcGem] = true
 				count = count + 1
 			end
+			if activeSkill.minion then
+				main:AddTooltipSeparator(10)
+				main:AddTooltipLine(16, "^7Active Skill #"..index.."'s Main Minion Skill:")
+				local gem = activeSkill.minion.mainSkill.gemList[1]
+				main:AddTooltipLine(20, string.format("%s%s ^7%d%s/%d%s", 
+					data.skillColorMap[gem.data.color], 
+					gem.name, 
+					gem.level, 
+					(gem.srcGem and gem.level > gem.srcGem.level) and data.colorCodes.MAGIC.."+"..(gem.level - gem.srcGem.level).."^7" or "",
+					gem.quality,
+					(gem.srcGem and gem.quality > gem.srcGem.quality) and data.colorCodes.MAGIC.."+"..(gem.quality - gem.srcGem.quality).."^7" or ""
+				))
+				gemShown[gem.srcGem] = true
+				count = count + 1
+			end
 		end
 		local showOtherHeader = true
 		for _, gem in ipairs(ttGroup.gemList) do

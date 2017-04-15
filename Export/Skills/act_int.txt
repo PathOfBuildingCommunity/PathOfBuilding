@@ -1,0 +1,467 @@
+-- Path of Building
+--
+-- Active Intelligence skill gems
+-- Skill data (c) Grinding Gear Games
+--
+local skills, mod, flag, skill = ...
+
+#skill Arc
+#flags spell chaining lightning
+#mods
+
+#skill VaalArcChain
+#flags spell lightning vaal
+#mods
+
+#skill ArcticBreath
+#flags spell area projectile duration cold
+#mods
+
+#skill AssassinsMark
+#flags spell curse area duration
+#baseMod skill("debuff", true)
+#mods
+
+#skill BallLightning
+#flags spell projectile lightning
+#mods
+
+#skill Blight
+#flags spell duration area chaos
+#mods
+
+#skill BoneOffering
+#flags spell duration
+#baseMod skill("offering", true)
+#mods
+
+#skill Clarity
+#flags spell aura area
+#mods
+
+#skill VaalClarity
+#flags spell aura area duration vaal
+#mods
+
+#skill ColdSnap
+#flags spell area cold
+#mods
+
+#skill VaalColdSnap
+#flags spell area duration cold vaal
+#mods
+
+#skill Conductivity
+#flags spell curse area duration lightning
+#baseMod skill("debuff", true)
+#mods
+
+#skill Contagion
+#flags spell area duration chaos
+#baseMod skill("debuff", true)
+#mods
+
+#skill ConversionTrap
+	unsupported = true,
+#mods
+
+#skill Convocation
+	unsupported = true,
+#mods
+
+#skill Discharge
+#flags spell area lightning cold fire
+#mods
+
+#skill Discipline
+#flags spell aura area
+#mods
+
+#skill VaalDiscipline
+#flags spell aura area duration vaal
+#mods
+
+#skill ElementalWeakness
+#flags spell curse area duration
+#baseMod skill("debuff", true)
+#mods
+
+#skill Enfeeble
+#flags spell curse area duration
+#baseMod skill("debuff", true)
+#mods
+
+#skill EssenceDrain
+#flags spell projectile duration chaos
+#baseMod skill("debuff", true)
+#baseMod skill("showAverage", true)
+#mods
+
+#skill FireNovaMine
+#flags spell mine area duration fire
+#mods
+
+#skill Fireball
+#flags spell projectile fire
+	parts = {
+		{
+			name = "Projectile",
+			area = false,
+		},
+		{
+			name = "Explosion",
+			area = true,
+		},
+	},
+#mods
+
+#skill VaalFireballSpiralNova
+#flags spell projectile fire vaal
+	parts = {
+		{
+			name = "Projectile",
+			area = false,
+		},
+		{
+			name = "Explosion",
+			area = true,
+		},
+	},
+#mods
+
+#skill Firestorm
+#flags spell area duration fire
+#mods
+
+#skill FlameDash
+#flags spell area duration movement fire
+#mods
+
+#skill FlameWhip
+#flags spell area fire
+#mods
+
+#skill Flameblast
+#flags spell area fire
+	parts = {
+		{
+			name = "1 Stage",
+		},
+		{
+			name = "10 Stages",
+		},
+	},
+#baseMod mod("Damage", "MORE", 990, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("dpsMultiplier", 0.1, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("showAverage", false)
+#mods
+
+#skill VaalFlameblast
+#flags spell area fire vaal
+#baseMod mod("Damage", "MORE", 1100, ModFlag.Spell)
+#mods
+
+#skill Flammability
+#flags spell curse area duration fire
+#baseMod skill("debuff", true)
+#mods
+
+#skill FleshOffering
+#flags spell duration
+#baseMod skill("offering", true)
+#mods
+
+#skill FreezingPulse
+#flags spell projectile cold
+	setupFunc = function(env, output)
+		env.modDB:NewMod("Damage", "MORE", -100, "Skill:Freezing Pulse", ModFlag.Spell, { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+		env.modDB:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:Freezing Pulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
+	end,
+#mods
+
+#skill FrostBomb
+#flags spell area duration cold
+#global Debuff
+#mods
+
+#skill FrostWall
+#flags spell duration cold
+#mods
+
+#skill Frostbite
+#flags spell curse area duration cold
+#baseMod skill("debuff", true)
+#mods
+
+#skill FrostBolt
+#flags spell projectile cold
+#mods
+
+#skill GlacialCascade
+#flags spell area cold
+#mods
+
+#skill HeraldOfThunder
+#flags cast duration lightning
+#mods
+
+#skill IceNova
+#flags spell area cold
+#mods
+
+#skill VaalIceNova
+#flags spell area cold vaal
+#mods
+
+#skill IceSpear
+#flags spell projectile cold
+	parts = {
+		{
+			name = "First Form",
+		},
+		{
+			name = "Second Form",
+		},
+	},
+#baseMod mod("PierceChance", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 })
+#mods
+
+#skill Incinerate
+#flags spell projectile fire
+	parts = {
+		{
+			name = "Base damage",
+		},
+		{
+			name = "Fully charged",
+		},
+	},
+#baseMod mod("Damage", "MORE", 150, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 2 })
+#mods
+
+#skill ClusterBurst
+#flags attack projectile area
+	parts = {
+		{
+			name = "Projectile",
+			area = false,
+		},
+		{
+			name = "Explosions",
+			area = true,
+		},
+	},
+#mods
+
+#skill LightningTendrils
+#flags spell area lightning
+#baseMod skill("dpsMultiplier", 4)
+#mods
+
+#skill LightningTrap
+#flags spell trap projectile lightning
+#baseMod skill("trapCooldown", 2)
+#mods
+
+#skill VaalLightningTrap
+#flags spell trap projectile duration lightning vaal
+#mods
+
+#skill LightningWarp
+#flags spell area duration movement lightning
+#mods
+
+#skill VaalLightningWarpInstant
+#flags spell area duration lightning vaal
+#mods
+
+#skill MagmaOrb
+#flags spell projectile area chaining fire
+#mods
+
+#skill OrbOfStorms
+#flags spell area chaining duration lightning
+#mods
+
+#skill PowerSiphon
+#flags attack projectile
+#mods
+
+#skill VaalPowerSiphon
+#flags attack projectile vaal
+#mods
+
+#skill Purity
+#flags spell aura area
+#mods
+
+#skill LightningResistAura
+#flags spell aura area
+#mods
+
+#skill RaiseSpectre
+#flags spell minion spectre
+	minionList = {
+	},
+#mods
+
+#skill RaiseZombie
+#flags spell minion
+	minionList = {
+		"RaisedZombie",
+	},
+#mods
+
+#skill RighteousFire
+#flags spell area fire
+	setupFunc = function(actor, output)
+		if actor.mainSkill.skillFlags.totem then
+			actor.mainSkill.skillData.FireDot = output.TotemLife * 0.5
+		else
+			actor.mainSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.5
+		end
+	end,
+#mods
+
+#skill VaalRighteousFire
+#flags spell area fire vaal
+	setupFunc = function(actor, output)
+		actor.mainSkill.skillData.FireMin = output.EnergyShield + output.Life - 1
+		actor.mainSkill.skillData.FireMax = output.EnergyShield + output.Life - 1
+	end,
+#mods
+
+#skill FireBeam
+#flags spell duration fire
+	parts = {
+		{
+			name = "1 Stage",
+		},
+		{
+			name = "4 Stages",
+		},
+		{
+			name = "8 Stages",
+		},
+	},
+#setMod fire_beam_enemy_fire_resistance_%_per_stack==mod("FireResist", "BASE", {val}, 0, 0, { type = "GlobalEffect", effectType = "Debuff" })
+#baseMod skill("stackCount", 4, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("stackCount", 8, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("Damage", "MORE", 180, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Damage", "MORE", 420, 0, 0, { type = "SkillPart", skillPart = 3 })
+#mods
+
+#skill ShockNova
+#flags spell area lightning
+	parts = {
+		{
+			name = "Ring",
+		},
+		{
+			name = "Nova",
+		},
+	},
+#mods
+
+#skill Spark
+#flags spell projectile duration lightning
+#mods
+
+#skill VaalSparkSpiralNova
+#flags spell projectile duration lightning vaal
+#mods
+
+#skill SpiritOffering
+#flags spell duration
+#baseMod skill("offering", true)
+#mods
+
+#skill StormCall
+#flags spell area duration lightning
+#mods
+
+#skill VaalStormCall
+#flags spell area duration lightning vaal
+#mods
+
+#skill SummonChaosGolem
+#flags spell minion golem chaos
+#baseMod mod("Misc", "LIST", { type = "Condition", var = "HaveChaosGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+	minionList = {
+		"SummonedChaosGolem",
+	},
+#mods
+
+#skill SummonLightningGolem
+#flags spell minion golem lightning
+#baseMod mod("Misc", "LIST", { type = "Condition", var = "HaveLightningGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+	minionList = {
+		"SummonedLightningGolem",
+	},
+#mods
+
+#skill SummonRagingSpirit
+#flags spell minion duration fire
+	minionList = {
+		"SummonedRagingSpirit",
+	},
+#mods
+
+#skill SummonSkeletons
+#flags spell minion duration
+	minionList = {
+		"RaisedSkeleton",
+		"RaisedSkeletonCaster",
+	},
+#mods
+
+#skill VaalSummonSkeletons
+#flags spell minion duration
+	minionList = {
+		"RaisedSkeleton",
+		"RaisedSkeletonCaster",
+		"RaisedSkeletonArcher",
+	},
+#mods
+
+#skill TempestShield
+#flags spell duration chaining lightning
+#setMod shield_block_%==mod("BlockChance", "BASE", {val}, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill FrostBoltNova
+#flags spell area duration cold
+#mods
+
+#skill Vulnerability
+#flags spell curse area duration
+#baseMod skill("debuff", true)
+#mods
+
+#skill Wither
+#flags spell area duration chaos
+	parts = {
+		{
+			name = "1 Stack",
+		},
+		{
+			name = "5 Stacks",
+		},
+		{
+			name = "10 Stacks",
+		},
+		{
+			name = "20 Stacks",
+		},
+	},
+#global Debuff
+#baseMod skill("stackCount", 5, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("stackCount", 10, { type = "SkillPart", skillPart = 3 })
+#baseMod skill("stackCount", 20, { type = "SkillPart", skillPart = 4 })
+#setMod base_skill_effect_duration==nil
+#setMod base_secondary_skill_effect_duration==skill("duration", {val});div=1000
+#mods
+
+#skill Wrath
+#flags spell aura area lightning
+#mods

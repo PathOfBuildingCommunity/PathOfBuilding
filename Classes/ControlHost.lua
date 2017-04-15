@@ -73,7 +73,7 @@ end
 
 function ControlHostClass:DrawControls(viewPort)
 	for _, control in pairs(self.controls) do
-		if control:IsShown() then
+		if control:IsShown() and control.Draw then
 			control:Draw(viewPort)
 		end
 	end

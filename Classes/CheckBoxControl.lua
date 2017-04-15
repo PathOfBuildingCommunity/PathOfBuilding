@@ -5,10 +5,11 @@
 --
 local launch, main = ...
 
-local CheckBoxClass = common.NewClass("CheckBoxControl", "Control", function(self, anchor, x, y, size, label, changeFunc)
+local CheckBoxClass = common.NewClass("CheckBoxControl", "Control", function(self, anchor, x, y, size, label, changeFunc, tooltip)
 	self.Control(anchor, x, y, size, size)
 	self.label = label
 	self.changeFunc = changeFunc
+	self.tooltip = tooltip
 	self.tooltipFunc = function(state)
 		local tooltip = self:GetProperty("tooltip")
 		if tooltip then

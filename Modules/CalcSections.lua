@@ -372,6 +372,11 @@ return {
 	}, },
 } },
 { 1, "SkillTypeStats", 1, "Skill type-specific Stats", data.colorCodes.OFFENCE, {
+	{ label = "Active Minion Limit", haveOutput = "ActiveMinionLimit", { format = "{0:output:ActiveMinionLimit}" } },
+	{ label = "Skill Cooldown", haveOutput = "Cooldown", { format = "{2:output:Cooldown}s", 
+		{ breakdown = "Cooldown" }, 
+		{ modName = "CooldownRecovery", cfg = "skill" },
+	}, },
 	{ label = "Duration Mod", flag = "duration", { format = "x {2:output:DurationMod}", 
 		{ breakdown = "DurationMod"}, 
 		{ modName = "Duration", cfg = "skill" }, 
@@ -661,6 +666,7 @@ return {
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = "Life", modType = "INC", modSource = "Tree" }, }, },
 	{ label = "Total Base", { format = "{0:mod:1}", { modName = "Life", modType = "BASE" }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = "Life", modType = "INC", }, }, },
+	{ label = "Total More", { format = "{0:mod:1}%", { modName = "Life", modType = "MORE", }, }, },
 	{ label = "Total", { format = "{0:output:Life}", { breakdown = "Life" }, }, },
 	{ label = "Reserved", { format = "{0:output:LifeReserved} ({0:output:LifeReservedPercent}%)", { breakdown = "LifeReserved" }, }, },
 	{ label = "Unreserved", { format = "{0:output:LifeUnreserved} ({0:output:LifeUnreservedPercent}%)" }, },
@@ -668,6 +674,7 @@ return {
 } },
 { 1, "Mana", 2, "Mana", data.colorCodes.DEFENCE, {
 	extra = "{0:output:ManaUnreserved}/{0:output:Mana}",
+	notFlag = "minionSkill",
 	{ label = "Base from Gear", { format = "{0:mod:1}", { modName = "Mana", modType = "BASE", modSource = "Item" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = "Mana", modType = "INC", modSource = "Tree" }, }, },
 	{ label = "Total Base", { format = "{0:mod:1}", { modName = "Mana", modType = "BASE" }, }, },

@@ -17,9 +17,9 @@ local mod_createMod = modLib.createMod
 local hack = { }
 
 local ModListClass = common.NewClass("ModList", function(self)
+	self.actor = { output = { } }
 	self.multipliers = { }
 	self.conditions = { }
-	self.stats = { }
 end)
 
 function ModListClass:AddMod(mod)
@@ -58,11 +58,12 @@ end
 
 function ModListClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
 	local flags, keywordFlags = 0, 0
-	local skillName, skillGem, skillPart, skillTypes, skillStats, skillCond, skillDist, slotName, source, tabulate
+	local skillName, summonSkillName, skillGem, skillPart, skillTypes, skillStats, skillCond, skillDist, slotName, source, tabulate
 	if cfg then
 		flags = cfg.flags or 0
 		keywordFlags = cfg.keywordFlags or 0
 		skillName = cfg.skillName
+		summonSkillName = cfg.summonSkillName
 		skillGem = cfg.skillGem
 		skillPart = cfg.skillPart
 		skillTypes = cfg.skillTypes
@@ -136,7 +137,7 @@ function ModListClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7
 							value = value * mult + (tag.base or 0)
 						end
 					elseif tag.type == "PerStat" then
-						local mult = m_floor((self.stats[tag.stat] or (skillStats and skillStats[tag.stat]) or 0) / tag.div + 0.0001)
+						local mult = m_floor((self.actor.output[tag.stat] or (skillStats and skillStats[tag.stat]) or 0) / tag.div + 0.0001)
 						if type(value) == "table" then
 							value = copyTable(value)
 							value.value = value.value * mult + (tag.base or 0)
@@ -180,18 +181,56 @@ function ModListClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7
 							value = nullValue
 							break
 						end
+					elseif tag.type == "EnemyCondition" then
+						local match = false
+						if self.actor.enemy then
+							if tag.varList then
+								for _, var in pairs(tag.varList) do
+									if self.actor.enemy.modDB.conditions[var] then
+										match = true
+										break
+									end
+								end
+							else
+								match = self.actor.enemy.modDB.conditions[tag.var]
+							end
+							if tag.neg then
+								match = not match
+							end
+						end
+						if not match then
+							value = nullValue
+							break
+						end
 					elseif tag.type == "StatThreshold" then
-						if (self.stats[tag.stat] or (skillStats and skillStats[tag.stat]) or 0) < tag.threshold then
+						if (self.actor.output[tag.stat] or (skillStats and skillStats[tag.stat]) or 0) < tag.threshold then
 							value = nullValue
 							break
 						end
 					elseif tag.type == "SocketedIn" then
-						if tag.slotName ~= slotName or (tag.keyword and (not skillGem or not gemIsType(skillGem, tag.keyword))) then
+						if tag.slotName ~= slotName or (tag.keyword and (not skillGem or not calcLib.gemIsType(skillGem, tag.keyword))) then
 							value = nullValue
 							break
 						end
 					elseif tag.type == "SkillName" then
-						if tag.skillName ~= skillName then
+						local match = false
+						local matchName = tag.summonSkill and (summonSkillName or "") or skillName
+						if tag.skillNameList then
+							for _, name in pairs(tag.skillNameList) do
+								if name == matchName then
+									match = true
+									break
+								end
+							end
+						else
+							match = (tag.skillName == matchName)
+						end
+						if not match then
+							value = nullValue
+							break
+						end
+					elseif tag.type == "SkillId" then
+						if not skillGem or skillGem.data.id ~= tag.skillId then
 							value = nullValue
 							break
 						end
