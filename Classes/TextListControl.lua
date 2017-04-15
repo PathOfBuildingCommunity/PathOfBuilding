@@ -67,7 +67,9 @@ function TextListClass:OnKeyUp(key)
 	end
 	if key == "WHEELDOWN" then
 		self.controls.scrollBar:Scroll(1)
+		return self
 	elseif key == "WHEELUP" then
 		self.controls.scrollBar:Scroll(-1)
+		return self
 	end
 end

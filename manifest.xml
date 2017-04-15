@@ -40,7 +40,7 @@
 	<File sha1="f1429ae4113b1172ed45eefd4c1f0c06a0972e67" name="Classes/SkillListControl.lua" part="program"/>
 	<File sha1="afa09b0d7725446c535df27ec3cd01d5d853b283" name="Classes/SkillsTab.lua" part="program"/>
 	<File sha1="6317bd9ba391832dccafcb62409a5ce2988d1928" name="Classes/SliderControl.lua" part="program"/>
-	<File sha1="a4f9cc96ba474d0a75c768a0eabec92837e027cf" name="Classes/TextListControl.lua" part="program"/>
+	<File sha1="ada27b91a3c466689111429105edd4ee28ad0c3f" name="Classes/TextListControl.lua" part="program"/>
 	<File sha1="64aa26df76dfbdd479db81580cbe9126541a1a43" name="Classes/TreeTab.lua" part="program"/>
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
 	<File sha1="049e8a6bac5a4aa50d4aebedcd131e63e7be6f4c" name="Modules/Build.lua" part="program"/>
