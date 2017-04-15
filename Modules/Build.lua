@@ -755,14 +755,8 @@ function buildMode:CompareStatList(statList, actor, baseOutput, compareOutput, h
 	local count = 0
 	for _, statData in ipairs(statList) do
 		if statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) then
-			local statVal1, statVal2
-			if statData.space then
-				statVal1 = compareOutput[statData.space] and compareOutput[statData.space][statData.stat] or 0
-				statVal2 = baseOutput[statData.space] and baseOutput[statData.space][statData.stat] or 0
-			else
-				statVal1 = compareOutput[statData.stat] or 0
-				statVal2 = baseOutput[statData.stat] or 0
-			end
+			local statVal1 = compareOutput[statData.stat] or 0
+			local statVal2 = baseOutput[statData.stat] or 0
 			local diff = statVal1 - statVal2
 			if diff > 0.001 or diff < -0.001 then
 				if count == 0 then
@@ -794,7 +788,7 @@ end
 -- Returns the number of stat lines added
 function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header, nodeCount)
 	local count = 0
-	if baseOutput.Minion then
+	if baseOutput.Minion and compareOutput.Minion then
 		count = count + self:CompareStatList(self.minionDisplayStats, self.calcsTab.mainEnv.minion, baseOutput.Minion, compareOutput.Minion, header.."\n^7Minion:", nodeCount)
 		if count > 0 then
 			header = "^7Player:"
