@@ -192,7 +192,7 @@ function main:Init()
 			common.New("TextListControl", nil, 0, 100, 630, 290, nil, changeList),
 		})
 	end)
-	self.controls.devMode = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 0, 18, "^1EXPERIMENTAL")
+	self.controls.devMode = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 0, 18, "^1Dev Mode")
 	self.controls.devMode.shown = function()
 		return launch.devMode
 	end

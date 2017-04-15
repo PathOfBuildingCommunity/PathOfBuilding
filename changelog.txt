@@ -4,7 +4,7 @@ This update adds support for Minions:
     * Blink Arrow
 	* Mirror Arrow
 	* Raise Spectre:
-	   * A library of commonly used spectres has been added; with Raise Spectre is selected as the main skill,
+	   * A library of commonly used spectres has been added; with Raise Spectre selected as the main skill,
 	     you can click "Manage Spectres..." to browse it and add spectres to your build
 	   * The level of the spectre can be set via a new option in the Configuration tab
 	   * Spectre curses are disabled by default, and can be enabled in the Configuration tab
