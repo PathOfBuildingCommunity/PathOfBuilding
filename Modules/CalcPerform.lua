@@ -606,7 +606,7 @@ function calcs.perform(env)
 			modList = common.New("ModList")
 		}
 		local gemModList = common.New("ModList")
-		mergeGemMods(gemModList, {
+		calcs.mergeGemMods(gemModList, {
 			level = value.level,
 			quality = 0,
 			data = data.gems[value.name],

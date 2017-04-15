@@ -31,7 +31,7 @@ local function mergeLevelMod(modList, mod, value)
 end
 
 -- Merge gem modifiers with given mod list
-local function mergeGemMods(modList, gem)
+function calcs.mergeGemMods(modList, gem)
 	modList:AddList(gem.data.baseMods)
 	if gem.quality > 0 then
 		for i = 1, #gem.data.qualityMods do
@@ -361,7 +361,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	-- Add support gem modifiers to skill mod list
 	for _, gem in pairs(activeSkill.gemList) do
 		if gem.data.support then
-			mergeGemMods(skillModList, gem)
+			calcs.mergeGemMods(skillModList, gem)
 		end
 	end
 
@@ -375,7 +375,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	end
 
 	-- Add active gem modifiers
-	mergeGemMods(skillModList, activeGem)
+	calcs.mergeGemMods(skillModList, activeGem)
 
 	-- Add extra modifiers
 	for _, value in ipairs(env.modDB:Sum("LIST", activeSkill.skillCfg, "ExtraSkillMod")) do

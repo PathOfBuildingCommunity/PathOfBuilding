@@ -229,7 +229,7 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 								break
 							end
 						elseif tag.type == "StatThreshold" then
-							if (self.stats[tag.stat] or (skillStats and skillStats[tag.stat]) or 0) < tag.threshold then
+							if (self.actor.output[tag.stat] or (skillStats and skillStats[tag.stat]) or 0) < tag.threshold then
 								value = nullValue
 								break
 							end

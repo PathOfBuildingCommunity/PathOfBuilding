@@ -209,7 +209,7 @@ end
 local missing = { }
 for _, minion in pairs(data.minions) do
 	for _, skillId in ipairs(minion.skillList) do
-		if not data.skills[skillId] and not missing[skillId] then
+		if not data.skills[skillId] and not missing[skillId] and launch.devMode then
 			ConPrintf("'%s' missing skill '%s'", minion.name, skillId)
 			missing[skillId] = true
 		end
