@@ -410,7 +410,7 @@ Requires Level 16, 18 Dex, 18 Int
 +(30-50) to Evasion Rating
 +(15-30) to maximum Energy Shield
 20% increased Movement Speed
-20% to Cold Resistance
++20% to Cold Resistance
 {variant:1}30% increased Physical Damage taken
 {variant:2}20% increased Physical Damage taken
 {variant:3}15% increased Damage taken while on Full Energy Shield

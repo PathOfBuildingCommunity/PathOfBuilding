@@ -9,7 +9,7 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
   * Shows a summary of character stats in the side bar, as well as a detailed calcs breakdown tab which can show you how the stats were derived
   * Supports most skills, support gems, passives and item modifiers
     * Throughout the program, supported modifiers will show in blue and unsupported ones in red
-    * Most minion skill are unsupported at present (except for golems, which can provide buffs to you)
+  * Full support for minions
 * Passive skill tree planner:
   * Support for jewels including most radius/conversion jewels
   * Features alternate path tracing (mouse over a sequence of nodes while holding shift, then click to allocate them all)
@@ -47,6 +47,43 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.0 - 2017/04/15
+This update adds support for Minions:
+ * Added support for the following skills:
+    * Blink Arrow
+	* Mirror Arrow
+	* Raise Spectre:
+	   * A library of commonly used spectres has been added; with Raise Spectre is selected as the main skill,
+	     you can click "Manage Spectres..." to browse it and add spectres to your build
+	   * The level of the spectre can be set via a new option in the Configuration tab
+	   * Spectre curses are disabled by default, and can be enabled in the Configuration tab
+	* Raise Zombie
+	* Summon Raging Spirit
+	* Summon Skeletons
+	* Vaal Summon Skeletons (except generals)
+	* Summon Spectal Wolf (from The Scourge)
+ * Added minion support for:
+	* Summon Chaos Golem
+	* Summon Flame Golem
+	* Summon Ice Golem
+	* Summon Lightning Golem (the Wrath aura can be enabled via a new option in the Configuration tab)
+	* Summon Stone Golem
+ * Added support for:
+    * Minion Instability (adds an extra 'Minion Instability' skill to your minions)
+	* Necromantic Aegis
+    * Most minion-related helmet enchantments
+Other changes:
+ * A new section has been added to the Configuration tab for skill-specific options
+    * The section will only appear if at least one of your skills have options
+    * The only options added so far are those mentioned above, but more will be added later
+ * Skill cooldowns are now calculated and displayed
+ * Corrected or updated the wording of modifiers on several uniques
+ * Fixed several "NaN" values that could appear for mana-related stats when Blood Magic is allocated
+
+### 1.3.26 - 2017/04/08
+ * Modifiers to Area of Effect of Aura Skills now correctly apply to curses supported by Blasphemy
+ * Corrected the implicits on Maraketh One-Handed Swords (thanks sherardy)
+
 ### 1.3.25 - 2017/04/06
  * You can now export and import builds directly to/from Pastebin.com links
  * Added support for the "Claw X also apply to Unarmed" modifiers on Rigwald's Curse

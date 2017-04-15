@@ -1,0 +1,99 @@
+-- Path of Building
+--
+-- Strength support gems
+-- Skill data (c) Grinding Gear Games
+--
+local skills, mod, flag, skill = ...
+
+#skill SupportAddedFireDamage
+#mods
+
+#skill SupportBloodMagic
+#mods
+
+#skill SupportBloodlust
+#mods
+
+#skill SupportCastOnMeleeKill
+#mods
+
+#skill SupportCastOnDamageTaken
+#mods
+
+#skill SupportColdToFire
+#mods
+
+#skill SupportAdditionalLevel
+#mods
+
+#skill EnduranceChargeOnMeleeStun
+#mods
+
+#skill SupportFirePenetration
+#mods
+
+#skill SupportFortify
+#mods
+
+#skill SupportGenerosity
+#mods
+
+#skill SupportIncreasedBurningDamage
+#mods
+
+#skill SupportIncreasedDuration
+#mods
+
+#skill SupportIronGrip
+#mods
+
+#skill SupportIronWill
+#mods
+
+#skill SupportItemQuantity
+#mods
+
+#skill SupportKnockback
+#mods
+
+#skill SupportReducedDuration
+#mods
+
+#skill SupportLifeGainOnHit
+#mods
+
+#skill SupportLifeLeech
+#mods
+
+#skill SupportMeleeDamageOnFullLife
+#mods
+
+#skill SupportMeleePhysicalDamage
+#mods
+
+#skill SupportMeleeSplash
+#mods
+
+#skill SupportMultistrike
+#mods
+
+#skill SupportRangedAttackTotem
+	addFlags = {
+		totem = true,
+	},
+#mods
+
+#skill SupportReducedMana
+#mods
+
+#skill SupportSpellTotem
+	addFlags = {
+		totem = true,
+	},
+#mods
+
+#skill SupportStun
+#mods
+
+#skill SupportWeaponElementalDamage
+#mods

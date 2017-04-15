@@ -1,0 +1,98 @@
+-- Path of Building
+--
+-- Spectre Data
+-- Monster data (c) Grinding Gear Games
+--
+local minions, mod = ...
+
+-- Blackguard
+#monster Metadata/Monsters/Axis/AxisCaster
+#monster Metadata/Monsters/Axis/AxisCasterArc
+#monster Metadata/Monsters/Axis/AxisExperimenter
+#monster Metadata/Monsters/Axis/AxisExperimenter2
+#monster Metadata/Monsters/Axis/AxisExperimenterRaiseZombie
+-- Bandit
+#monster Metadata/Monsters/Bandits/BanditBowPoisonArrow
+#monster Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul
+-- Beast
+#monster Metadata/Monsters/Beasts/BeastCaveDegenAura
+#monster Metadata/Monsters/Beasts/BeastCleaveEnduringCry
+-- Blood apes
+#monster Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage
+-- Goatmen
+#monster Metadata/Monsters/Goatman/GoatmanLeapSlam
+#monster Metadata/Monsters/Goatman/GoatmanLightningLeapSlamMaps
+#monster Metadata/Monsters/Goatman/GoatmanShamanFireball
+#monster Metadata/Monsters/Goatman/GoatmanShamanLightning
+-- Miscreation
+#monster Metadata/Monsters/DemonFemale/DemonFemale
+#monster Metadata/Monsters/DemonModular/DemonFemaleRanged
+#monster Metadata/Monsters/DemonModular/DemonModularFire
+-- Maw
+#monster Metadata/Monsters/Frog/Frog
+#monster Metadata/Monsters/Frog/Frog2
+-- Chimeral
+#monster Metadata/Monsters/GemMonster/Iguana
+-- Ghost pirate
+#monster Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps
+#monster Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps
+-- Undying grappler
+#monster Metadata/Monsters/Grappler/Grappler
+-- Ribbon
+#monster Metadata/Monsters/Guardians/GuardianFire
+#monster Metadata/Monsters/Guardians/GuardianLightning
+-- Gut flayer
+#monster Metadata/Monsters/HalfSkeleton/HalfSkeleton
+-- Construct
+#monster Metadata/Monsters/incaminion/Fragment
+-- Carrion queen
+#monster Metadata/Monsters/InsectSpawner/InsectSpawner
+-- Birdman
+#monster Metadata/Monsters/Kiweth/Kiweth
+#monster Metadata/Monsters/Kiweth/KiwethSeagull
+-- Helion
+#monster Metadata/Monsters/Lion/LionDesertSkinPuncture
+-- Knitted horror
+#monster Metadata/Monsters/MassSkeleton/MassSkeleton
+-- Voidbearer
+#monster Metadata/Monsters/Monkeys/FlameBearer
+-- Stone golem
+#monster Metadata/Monsters/MossMonster/FireMonster
+-- Necromancer
+#monster Metadata/Monsters/Necromancer/NecromancerConductivity
+#monster Metadata/Monsters/Necromancer/NecromancerEnfeebleCurse
+#monster Metadata/Monsters/Necromancer/NecromancerFlamability
+#monster Metadata/Monsters/Necromancer/NecromancerFrostbite
+#monster Metadata/Monsters/Necromancer/NecromancerElementalWeakness
+#monster Metadata/Monsters/Necromancer/NecromancerProjectileWeakness
+#monster Metadata/Monsters/Necromancer/NecromancerVulnerability
+-- Undying bomber
+#monster Metadata/Monsters/Pyromaniac/PyromaniacFire
+#monster Metadata/Monsters/Pyromaniac/PyromaniacPoison
+-- Stygian revenant
+#monster Metadata/Monsters/Revenant/Revenant
+-- Sea witch
+#monster Metadata/Monsters/Seawitch/SeaWitchScreech
+#monster Metadata/Monsters/Seawitch/SeaWitchSpawnExploding
+#monster Metadata/Monsters/Seawitch/SeaWitchSpawnTemporalChains
+#monster Metadata/Monsters/Seawitch/SeaWitchVulnerabilityCurse
+-- Skeleton
+#monster Metadata/Monsters/Skeletons/SkeletonBowPuncture
+#monster Metadata/Monsters/Skeletons/SkeletonBowLightning
+#monster Metadata/Monsters/Skeletons/SkeletonMeleeLarge
+#monster Metadata/Monsters/Skeletons/SkeletonBowLightning3
+#monster Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectiles
+#monster Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectiles2
+#monster Metadata/Monsters/Skeletons/SkeletonBowPoison
+#monster Metadata/Monsters/Skeletons/SkeletonBowLightning2
+#monster Metadata/Monsters/Skeletons/SkeletonBowLightning4
+#monster Metadata/Monsters/Skeletons/SkeletonCasterLightningSpark
+#monster Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse
+-- Snake
+#monster Metadata/Monsters/Snake/SnakeScorpionMultiShot
+-- Spider
+#monster Metadata/Monsters/Spiders/SpiderThornFlickerStrike
+-- Undying
+#monster Metadata/Monsters/Undying/CityStalkerMaleCasterArmour
+#monster Metadata/Monsters/Undying/UndyingOutcastPuncture
+#monster Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades
