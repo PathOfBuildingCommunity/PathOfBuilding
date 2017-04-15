@@ -280,6 +280,7 @@ Implicits: 0
 Golems have (16-20)% increased Attack and Cast Speed
 30% increased Effect of Buffs granted by your Golems
 Golems have +(800-1000) to Armour
+Primordial
 ]],[[
 Primordial Harmony
 Cobalt Jewel

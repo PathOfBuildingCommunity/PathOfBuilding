@@ -1,0 +1,98 @@
+-- Path of Building
+--
+-- Intelligence support gems
+-- Skill data (c) Grinding Gear Games
+--
+local skills, mod, flag, skill = ...
+
+#skill SupportAddedChaosDamage
+#mods
+
+#skill SupportAddedLightningDamage
+#mods
+
+#skill SupportBlasphemy
+#mods
+
+#skill SupportCastOnStunned
+#mods
+
+#skill SupportCastWhileChannelling
+#mods
+
+#skill SupportChanceToIgnite
+#mods
+
+#skill SupportConcentratedEffect
+#mods
+
+#skill SupportControlledDestruction
+#mods
+
+#skill SupportCurseOnHit
+#mods
+
+#skill SupportElementalFocus
+#baseMod flag("CannotShock")
+#baseMod flag("CannotChill")
+#baseMod flag("CannotFreeze")
+#baseMod flag("CannotIgnite")
+#mods
+
+#skill SupportElementalProliferation
+#mods
+
+#skill SupportAdditionalXP
+#mods
+
+#skill SupportFasterCast
+#mods
+
+#skill SupportIncreasedAreaOfEffect
+#mods
+
+#skill SupportIncreasedCriticalDamage
+#mods
+
+#skill SupportIncreasedCriticalStrikes
+#mods
+
+#skill SupportOnslaughtOnSlayingShockedEnemy
+#mods
+
+#skill SupportItemRarity
+#mods
+
+#skill SupportLightningPenetration
+#mods
+
+#skill SupportMinefield
+#mods
+
+#skill SupportMinionDamage
+#mods
+
+#skill SupportMinionLife
+#mods
+
+#skill SupportMinionSpeed
+#mods
+
+#skill SupportSummonElementalResistances
+#mods
+
+#skill SupportPhysicalToLightning
+#mods
+
+#skill SupportPowerChargeOnCrit
+#mods
+
+#skill SupportRemoteMine
+	addFlags = {
+		mine = true,
+		duration = true,
+	},
+#mods
+
+#skill SupportMulticast
+#mods

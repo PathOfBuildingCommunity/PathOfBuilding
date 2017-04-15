@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ECF13334-6BFE-4F72-A68F-DF00F5C86DE7}"
+	ProjectSection(SolutionItems) = preProject
+		act_dex.lua = act_dex.lua
+		act_dex.txt = act_dex.txt
+		act_int.lua = act_int.lua
+		act_int.txt = act_int.txt
+		act_str.lua = act_str.lua
+		act_str.txt = act_str.txt
+		minion.lua = minion.lua
+		minion.txt = minion.txt
+		other.lua = other.lua
+		other.txt = other.txt
+		..\skills.lua = ..\skills.lua
+		spectre.lua = spectre.lua
+		spectre.txt = spectre.txt
+		statmap.ini = statmap.ini
+		sup_dex.lua = sup_dex.lua
+		sup_dex.txt = sup_dex.txt
+		sup_int.lua = sup_int.lua
+		sup_int.txt = sup_int.txt
+		sup_str.lua = sup_str.lua
+		sup_str.txt = sup_str.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -57,7 +57,7 @@ Adds (24-30) to (34-40) Physical Damage
 (8-10)% increased Attack Speed
 Minions have (20-30)% increased maximum Life
 Minions' Attacks deal (5-8) to (12-16) additional Physical Damage
-+1 to maximum number of Golems
+Can Summon up to 1 additional Golem at a time
 Grants level 12 Summon Stone Golem
 ]],[[
 Flesh-Eater

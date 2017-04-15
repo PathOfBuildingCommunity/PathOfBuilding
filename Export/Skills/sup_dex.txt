@@ -1,0 +1,105 @@
+-- Path of Building
+--
+-- Dexterity support gems
+-- Skill data (c) Grinding Gear Games
+--
+local skills, mod, flag, skill = ...
+
+#skill SupportAddedColdDamage
+#mods
+
+#skill SupportAdditionalAccuracy
+#mods
+
+#skill SupportBlind
+#mods
+
+#skill SupportBlockReduction
+#mods
+
+#skill SupportCastOnCrit
+#baseMod skill("showAverage", true, { type = "SkillType", skillType = 36 })
+#mods
+
+#skill SupportCastOnDeath
+#mods
+
+#skill SupportChain
+#mods
+
+#skill SupportChanceToFlee
+#mods
+
+#skill SupportClusterTrap
+#mods
+
+#skill SupportColdPenetration
+#mods
+
+#skill SupportCullingStrike
+#mods
+
+#skill SupportAdditionalQuality
+#mods
+
+#skill SupportFasterAttack
+#mods
+
+#skill SupportFasterProjectiles
+#mods
+
+#skill SupportFork
+#mods
+
+#skill SupportGreaterMultipleProjectiles
+#mods
+
+#skill SupportDamageAgainstChilled
+#mods
+
+#skill SupportFrenzyChargeOnSlayingFrozenEnemy
+#mods
+
+#skill SupportLesserMultipleProjectiles
+#mods
+
+#skill SupportManaLeech
+#mods
+
+#skill SupportMultiTrap
+#mods
+
+#skill SupportPhysicalProjectileAttackDamage
+#mods
+
+#skill SupportPierce
+#mods
+
+#skill SupportPointBlank
+#mods
+
+#skill SupportPoison
+#mods
+
+#skill SupportRapidDecay
+#mods
+
+#skill SupportSlowerProjectiles
+#mods
+
+#skill SupportTrap
+#baseMod skill("trapCooldown", 4)
+	addFlags = {
+		trap = true,
+		duration = true,
+	},
+#mods
+
+#skill SupportTrapCooldown
+#mods
+
+#skill SupportTrapAndMineDamage
+#mods
+
+#skill SupportVoidManipulation
+#mods

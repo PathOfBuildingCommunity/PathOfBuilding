@@ -1,0 +1,242 @@
+-- Path of Building
+--
+-- Spectre active skills
+-- Skill data (c) Grinding Gear Games
+--
+local skills, mod, flag, skill = ...
+
+#skill BeastCleave Cleave
+#flags attack melee area
+#mods
+
+#skill BirdmanBloodProjectile Blood Projectile
+#flags attack projectile
+#mods
+
+#skill BirdmanConsumeCorpse Consume Corpse
+#flags spell
+#mods
+
+#skill ChaosDegenAura Chaos Aura
+#flags spell aura area chaos
+#mods
+
+#skill DelayedBlastSpectre Delayed Blast
+#flags spell area
+#mods
+
+#skill DemonFemaleRangedProjectile Ranged Attack
+#flags attack projectile
+#mods
+
+#skill ExperimenterDetonateDead Detonate Dead
+#flags cast area fire
+#mods
+
+#skill FireMonsterWhirlingBlades Fire Roll
+#flags attack melee movement duration
+#mods
+
+#skill FlamebearerFlameBlue Blue Flame
+#flags spell projectile duration fire
+#mods
+
+#skill GoatmanMoltenShell Molten Shell
+#flags spell area duration fire
+#mods
+
+#skill GuardianArc Arc
+#flags spell lightning
+#mods
+
+#skill HalfSkeletonPuncture Puncture
+#flags attack melee projectile
+#baseMod mod("BleedChance", "BASE", 100)
+#mods
+
+#skill IguanaProjectile Ranged Attack
+#flags attack projectile
+#mods
+
+#skill IncaMinionProjectile Chaos Projectile
+#flags spell projectile
+#mods
+
+#skill InsectSpawnerSpit Spit
+#flags attack projectile
+#mods
+
+#skill MassFrenzy Mass Frenzy
+#flags spell area
+#mods
+
+#skill MonsterArc Arc
+#flags spell lightning
+#mods
+
+#skill MonsterCausticArrow Caustic Arrow
+#flags attack projectile area duration chaos
+#mods
+
+#skill MonsterCausticBomb Caustic Bomb
+#flags spell trap area duration chaos
+#mods
+
+#skill MonsterDischarge Discharge
+#flags spell area fire cold lightning
+#mods
+
+#skill MonsterEnduringCry Enduring Cry
+#flags warcry area duration
+#mods
+
+#skill MonsterEnfeeble Enfeeble
+#flags spell curse area duration
+#mods
+
+#skill MonsterFireball Fireball
+#flags spell projectile area fire
+#mods
+
+#skill MonsterFireBomb Fire Bomb
+#flags spell trap area duration fire
+#mods
+
+#skill MonsterFlickerStrike Flicker Strike
+#flags attack melee movement
+#mods
+
+#skill MonsterLeapSlam Leap Slam
+#flags attack melee area
+#mods
+
+#skill MonsterLesserMultiFireballSpectre Lesser Multi Fireball
+#flags spell projectile area fire
+#mods
+
+#skill MonsterLightningArrow Lightning Arrow
+#flags attack projectile lightning
+#mods
+
+#skill MonsterLightningThorns Lightning Thorns
+#flags spell duration lightning
+#mods
+
+#skill MonsterMultiFireballSpectre Multi Fireball
+#flags spell projectile area fire
+#mods
+
+#skill MonsterProjectileWeakness Projectile Weakness
+#flags spell curse area duration
+#mods
+
+#skill MonsterProximityShield Proximity Shield
+#flags spell duration
+#mods
+
+#skill MonsterPuncture Puncture
+#flags attack melee projectile
+#baseMod mod("BleedChance", "BASE", 100)
+#mods
+
+#skill MonsterRighteousFireWhileSpectred Unrighteous Fire
+#flags spell area fire
+#mods
+
+#skill MonsterShockNova Shock Nova
+#flags spell area lightning
+#mods
+
+#skill MonsterSpark Spark
+#flags spell projectile duration lightning
+#mods
+
+#skill MonsterSplitFireballSpectre Split Fireball
+#flags spell projectile area fire
+#mods
+
+#skill MonsterWarlordsMark Warlord's Mark
+#flags spell curse area duration
+#mods
+
+#skill NecromancerConductivity Conductivity
+#flags spell curse area duration lightning
+#mods
+
+#skill NecromancerElementalWeakness Elemental Weakness
+#flags spell curse area duration
+#mods
+
+#skill NecromancerEnfeeble Enfeeble
+#flags spell curse area duration
+#mods
+
+#skill NecromancerFlammability Flammability
+#flags spell curse area duration fire
+#mods
+
+#skill NecromancerFrostbite Frostbite
+#flags spell curse area duration cold
+#mods
+
+#skill NecromancerProjectileWeakness Projectile Weakness
+#flags spell curse area duration
+#mods
+
+#skill NecromancerRaiseZombie Raise Zombie
+#flags spell minion
+#mods
+
+#skill NecromancerVulnerability Vulnerability
+#flags spell curse area duration
+#mods
+
+#skill PyroChaosFireball Chaos Fireball
+#flags spell projectile area fire
+#mods
+
+#skill PyroFireball Fireball
+#flags spell projectile area fire
+#mods
+
+#skill PyroSuicideExplosion Suicide Explosion
+#flags spell area
+#mods
+
+#skill RevenantSpellProjectileSpectre Lightning Projectile
+#flags spell projectile 
+#mods
+
+#skill SeaWitchScreech Screech
+#flags spell duration area
+#global Debuff
+#mods
+
+#skill SeaWitchWave Wave
+#flags spell 
+#mods
+
+#skill SkeletonMassBowProjectile Puncture
+#flags attack melee projectile
+#baseMod mod("BleedChance", "BASE", 100)
+#mods
+
+#skill SkeletonSpark Spark
+#flags spell projectile duration lightning
+#mods
+
+#skill SkeletonTemporalChains Temporal Chains
+#flags spell curse area duration
+#mods
+
+#skill SkeletonVulnerability Vulnerability
+#flags spell curse area duration
+#mods
+
+#skill SnakeSpineProjectile Spine Attack
+#flags attack projectile
+#mods
+
+#skill UndyingWhirlingBlades Whirling Blades
+#flags attack melee movement
+#mods

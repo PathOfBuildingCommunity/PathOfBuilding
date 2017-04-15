@@ -1,0 +1,74 @@
+-- Path of Building
+--
+-- Other active skills
+-- Skill data (c) Grinding Gear Games
+--
+local skills, mod, flag, skill = ...
+
+#skill Melee Default Attack
+#flags attack melee projectile
+#mods
+
+#skill GemDetonateMines
+#flags spell
+#mods
+
+#skill Portal
+#flags spell
+#mods
+
+#skill RepeatingShockwave Abberath's Fury
+#flags spell area
+#mods
+
+#skill TriggeredBoneNova Bone Nova
+#flags attack projectile
+#mods
+
+#skill TriggeredConsecrate Consecrate
+#flags spell duration area
+#mods
+
+#skill TriggeredSummonLesserShrine Create Lesser Shrine
+#flags spell duration
+#mods
+
+#skill Envy
+#flags spell aura area chaos
+#mods
+
+#skill FireBurstOnHit Fire Burst
+#flags spell area fire
+#mods
+
+#skill VaalAuraElementalDamageHealing Gluttony of Elements
+#flags spell aura area duration vaal
+#mods
+
+#skill IcestormUniqueStaff12 Icestorm
+#flags spell area duration cold
+#baseMod skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 })
+#mods
+
+#skill MerveilWarp Illusory Warp
+#flags spell area duration movement cold
+#mods
+
+#skill LightningSpell Lightning Bolt
+#flags spell area lightning
+#mods
+
+#skill TriggeredMoltenStrike Molten Burst
+#flags attack projectile area fire
+#mods
+
+#skill TriggeredShockedGround Shock Ground
+#flags spell area duration lightning
+#mods
+
+#skill SummonRigwaldsPack Summon Spectral Wolf
+#flags spell minion duration
+	minionList = {
+		"SummonedSpectralWolf",
+	},
+#mods

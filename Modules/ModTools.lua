@@ -58,30 +58,47 @@ function modLib.formatFlags(flags, src)
 	return ret or "-"
 end
 
+function modLib.formatTag(tag)
+	local paramNames = { }
+	local haveType
+	for name, val in pairs(tag) do
+		if name == "type" then
+			haveType = true
+		else
+			t_insert(paramNames, name)
+		end
+	end
+	table.sort(paramNames)
+	if haveType then
+		t_insert(paramNames, 1, "type")
+	end
+	local str = ""
+	for i, paramName in ipairs(paramNames) do
+		if i > 1 then
+			str = str .. "/"
+		end
+		local val = tag[paramName]
+		if type(val) == "table" then
+			if val[1] then
+				if type(val[1]) == "table" then
+					val = modLib.formatTags(val)
+				else
+					val = table.concat(val, ",")
+				end
+			else
+				val = modLib.formatTag(tag[paramName])
+			end
+			val = "{"..val.."}"
+		end
+		str = str .. string.format("%s=%s", paramName, tostring(val))
+	end
+	return str
+end
+
 function modLib.formatTags(tagList)
 	local ret
 	for _, tag in ipairs(tagList) do
-		local paramNames = { }
-		local haveType
-		for name, val in pairs(tag) do
-			if name == "type" then
-				haveType = true
-			else
-				t_insert(paramNames, name)
-			end
-		end
-		table.sort(paramNames)
-		if haveType then
-			t_insert(paramNames, 1, "type")
-		end
-		local str = ""
-		for i, paramName in ipairs(paramNames) do
-			if i > 1 then
-				str = str .. "/"
-			end
-			str = str .. string.format("%s=%s", paramName, tostring(tag[paramName]))
-		end
-		ret = (ret and ret.."," or "") .. str
+		ret = (ret and ret.."," or "") .. modLib.formatTag(tag)
 	end
 	return ret or "-"
 end

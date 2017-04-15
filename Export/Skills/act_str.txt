@@ -1,0 +1,245 @@
+-- Path of Building
+--
+-- Active Strength skill gems
+-- Skill data (c) Grinding Gear Games
+--
+local skills, mod, flag, skill = ...
+
+#skill AbyssalCry
+#flags warcry area duration chaos
+#mods
+
+#skill TotemMelee
+#flags attack melee totem duration forceMainHand
+#baseMod skill("allowTotemBuff", true)
+#mods
+
+#skill AncestorTotemSlam
+#flags attack melee totem area duration forceMainHand
+#baseMod skill("allowTotemBuff", true)
+#mods
+
+#skill Anger
+#flags spell aura area fire
+#mods
+
+#skill AnimateArmour
+	unsupported = true,
+#mods
+
+#skill Cleave
+#flags attack melee area
+#mods
+
+#skill DecoyTotem
+#flags spell totem area duration
+#mods
+
+#skill Determination
+#flags spell aura area
+#mods
+
+#skill DevouringTotem
+	unsupported = true,
+#mods
+
+#skill DominatingBlow
+#flags attack melee duration
+#mods
+
+#skill Earthquake
+#flags attack melee area duration
+	parts = {
+		{
+			name = "Initial impact",
+		},
+		{
+			name = "Aftershock",
+		},
+	},
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
+#mods
+
+#skill EnduringCry
+#flags warcry area duration
+#mods
+
+#skill FlameTotem
+#flags spell totem projectile duration fire
+#mods
+
+#skill GlacialHammer
+#flags attack melee cold
+#mods
+
+#skill VaalGlacialHammer
+#flags attack melee area duration cold vaal
+#mods
+
+#skill GroundSlam
+#flags attack melee area
+#mods
+
+#skill VaalGroundSlam
+#flags attack melee area vaal
+#mods
+
+#skill HeavyStrike
+#flags attack melee
+#mods
+
+#skill HeraldOfAsh
+#flags spell area fire
+#mods
+
+#skill IceCrash
+#flags attack melee area cold
+	parts = {
+		{
+			name = "First Hit",
+		},
+		{
+			name = "Second Hit",
+		},
+		{
+			name = "Third Hit",
+		},
+	},
+#mods
+
+#skill ImmortalCall
+#flags spell duration
+#mods
+
+#skill VaalImmortalCall
+#flags spell duration vaal
+#mods
+
+#skill InfernalBlow
+#flags attack melee area fire
+#mods
+
+#skill LeapSlam
+#flags attack melee area movement
+#mods
+
+#skill MoltenShell
+#flags spell area duration fire
+#mods
+
+#skill VaalMoltenShell
+#flags spell area duration fire vaal
+#mods
+
+#skill MoltenStrike
+#flags attack melee projectile area fire
+	parts = {
+		{
+			name = "Melee Hit",
+			melee = true,
+			projectile = false,
+			area = false,
+		},
+		{
+			name = "Magma Balls",
+			melee = false,
+			projectile = true,
+			area = true,
+		},
+	},
+#mods
+
+#skill Punishment
+#flags spell curse area duration
+#mods
+
+#skill FireResistAura
+#flags spell aura area fire
+#mods
+
+#skill RallyingCry
+#flags warcry area duration
+#mods
+
+#skill Reckoning
+#flags attack area melee
+#mods
+
+#skill RejuvenationTotem
+#flags spell aura totem area duration
+#mods
+
+#skill SearingBond
+#flags spell totem duration fire
+#mods
+
+#skill NewShieldCharge
+#flags attack melee area movement
+#mods
+
+#skill ShockwaveTotem
+#flags spell totem area duration
+#mods
+
+#skill StaticStrike
+#flags attack melee area duration lightning
+	parts = {
+		{
+			name = "Melee hit",
+			area = false,
+		},
+		{
+			name = "Explosion",
+			area = true,
+		},
+	},
+#mods
+
+#skill SummonFireGolem
+#flags spell minion golem fire
+#baseMod mod("Misc", "LIST", { type = "Condition", var = "HaveFireGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+	minionList = {
+		"SummonedFlameGolem",
+	},
+#mods
+
+#skill SummonRockGolem
+#flags spell minion golem
+#baseMod mod("Misc", "LIST", { type = "Condition", var = "HavePhysicalGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+	minionList = {
+		"SummonedStoneGolem",
+	},
+#mods
+
+#skill Sunder
+#flags attack melee area
+	parts = {
+		{
+			name = "Primary wave",
+		},
+		{
+			name = "Shockwaves",
+		},
+	},
+#mods
+
+#skill Sweep
+#flags attack melee area
+#mods
+
+#skill Vengeance
+#flags attack melee area
+#mods
+
+#skill VigilantStrike
+#flags attack melee
+#mods
+
+#skill Vitality
+#flags spell aura area
+#mods
+
+#skill WarlordsMark
+#flags spell curse area duration
+#baseMod skill("debuff", true)
+#mods
