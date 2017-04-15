@@ -47,6 +47,16 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.1 - 2017/04/16
+ * Added Slashed Miscreation, Spectral Scoundrel and Cannibal Fire-eater to the spectre library
+    * The DPS for monster versions of Blade Vortex won't be accurate yet
+ * Added support for the modifier on The Anima Stone that grants an additional golem with 3 Primordial jewels
+ * The Zombie's Slam skill should now count as a melee skill
+ * Minion and Totem Elemental Resistances Support now correctly applies resistances to minions
+ * Fixed the minion damage conversion from The Scourge
+ * Fixed the golem damage modifier on Primordial Harmony
+ * Fixed the Zombie Slam modifiers on Violent Dead
+
 ### 1.4.0 - 2017/04/15
 This update adds support for Minions:
  * Added support for the following skills:

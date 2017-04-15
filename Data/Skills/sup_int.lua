@@ -1272,14 +1272,14 @@ skills["SupportSummonElementalResistances"] = {
 		mod("ManaCost", "MORE", 40), 
 	},
 	qualityMods = {
-		--"summon_fire_resistance_+" = 0.5
-		--"summon_cold_resistance_+" = 0.5
-		--"summon_lightning_resistance_+" = 0.5
+		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("FireResist", "BASE", 0.5) }), --"summon_fire_resistance_+" = 0.5
+		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("ColdResist", "BASE", 0.5) }), --"summon_cold_resistance_+" = 0.5
+		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("LightningResist", "BASE", 0.5) }), --"summon_lightning_resistance_+" = 0.5
 	},
 	levelMods = {
-		--[1] = "summon_fire_resistance_+"
-		--[2] = "summon_cold_resistance_+"
-		--[3] = "summon_lightning_resistance_+"
+		[1] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("FireResist", "BASE", nil) }), --"summon_fire_resistance_+"
+		[2] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("ColdResist", "BASE", nil) }), --"summon_cold_resistance_+"
+		[3] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("LightningResist", "BASE", nil) }), --"summon_lightning_resistance_+"
 		[4] = { mod("ElementalDamage", "MORE", nil, 0, KeywordFlag.Totem), mod("Misc", "LIST", { type = "MinionModifier", mod = mod("ElementalDamage", "MORE", nil) }) }, --"support_minion_totem_resistance_elemental_damage_+%_final"
 	},
 	levels = {

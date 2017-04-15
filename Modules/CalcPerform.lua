@@ -66,7 +66,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 	-- Life/mana pools
 	if modDB:Sum("FLAG", nil, "ChaosInoculation") then
 		output.Life = 1
-		modDB.conditions["FullLife"] = true
+		condList["FullLife"] = true
 	else
 		local base = modDB:Sum("BASE", nil, "Life")
 		local inc = modDB:Sum("INC", nil, "Life")
@@ -188,6 +188,11 @@ local function doActorAttribsPoolsConditions(env, actor)
 	end
 	if env.mode_effective then
 		condList["Effective"] = true
+	end
+	for _, value in ipairs(modDB:Sum("LIST", nil, "Misc")) do
+		if value.type == "Condition" then
+			condList[value.var] = true
+		end
 	end
 end
 

@@ -755,13 +755,14 @@ local specialModList = {
 	["minions poison enemies on hit"] = { mod("Misc", "LIST", { type = "MinionModifier", mod = mod("PoisonChance", "BASE", 100) }) },
 	["(%d+)%% increased minion damage if you have hit recently"] = function(num) return { mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", num) }, { type = "Condition", var = "HitRecently" }) } end,
 	["(%d+)%% increased golem damage for each type of golem you have summoned"] = function(num) return {
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", num) }, { type = "Condition", var = "HavePhysicalGolem" }, { type = "SkillType", skillType = SkillType.Golem }),
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", num) }, { type = "Condition", var = "HaveLightningGolem" }, { type = "SkillType", skillType = SkillType.Golem }),
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", num) }, { type = "Condition", var = "HaveColdGolem" }, { type = "SkillType", skillType = SkillType.Golem }),
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", num) }, { type = "Condition", var = "HaveFireGolem" }, { type = "SkillType", skillType = SkillType.Golem }),
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", num) }, { type = "Condition", var = "HaveChaosGolem" }, { type = "SkillType", skillType = SkillType.Golem }),
+		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", num, { type = "ParentCondition", var = "HavePhysicalGolem" }) }, { type = "SkillType", skillType = SkillType.Golem }),
+		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", num, { type = "ParentCondition", var = "HaveLightningGolem" }) }, { type = "SkillType", skillType = SkillType.Golem }),
+		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", num, { type = "ParentCondition", var = "HaveColdGolem" }) }, { type = "SkillType", skillType = SkillType.Golem }),
+		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", num, { type = "ParentCondition", var = "HaveFireGolem" }) }, { type = "SkillType", skillType = SkillType.Golem }),
+		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", num, { type = "ParentCondition", var = "HaveChaosGolem" }) }, { type = "SkillType", skillType = SkillType.Golem }),
 	} end,
 	["can summon up to (%d) additional golems? at a time"] = function(num) return { mod("ActiveGolemLimit", "BASE", num) } end,
+	["if you have 3 primordial jewels, can summon up to (%d) additional golems? at a time"] = function(num) return { mod("ActiveGolemLimit", "BASE", num, { type = "MultiplierThreshold", var = "PrimordialJewel", threshold = 3 }) } end,
 	["golems regenerate (%d)%% of their maximum life per second"] = function(num) return { mod("Misc", "LIST", { type = "MinionModifier", mod = mod("LifeRegenPercent", "BASE", num) }, { type = "SkillType", skillType = SkillType.Golem }) } end,
 	-- Projectiles
 	["skills chain %+(%d) times"] = function(num) return { mod("ChainCount", "BASE", num) } end,
@@ -1046,8 +1047,8 @@ local jewelFuncs = {
 	["With at least 40 Strength in Radius, Molten Strike fires 2 additional Projectiles"] = getThreshold("Str", "ProjectileCount", "BASE", 2, { type = "SkillName", skillName = "Molten Strike" }),
 	["With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Effect"] = getThreshold("Str", "AreaOfEffect", "INC", 25, { type = "SkillName", skillName = "Molten Strike" }),
 	["With at least 40 Strength in Radius, 25% of Glacial Hammer Physical Damage converted to Cold Damage"] = getThreshold("Str", "PhysicalDamageConvertToCold", "BASE", 25, { type = "SkillName", skillName = "Glacial Hammer" }),
-	["With at least 40 Intelligence in Radius, Raised Zombies' Slam Attack has 100% increased Cooldown Recovery Speed"] = getThreshold("Int", "Misc", "LIST", { type = "MinionModifier", mod = mod("CooldownRecovery", "INC", 100, { type = "SkillName", skillName = "Zombie Slam" }) }),
-	["With at least 40 Intelligence in Radius, Raised Zombies' Slam Attack deals 30% increased Damage"] = getThreshold("Int", "Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", 30, { type = "SkillName", skillName = "Zombie Slam" }) }),
+	["With at least 40 Intelligence in Radius, Raised Zombies' Slam Attack has 100% increased Cooldown Recovery Speed"] = getThreshold("Int", "Misc", "LIST", { type = "MinionModifier", mod = mod("CooldownRecovery", "INC", 100, { type = "SkillId", skillId = "ZombieSlam" }) }),
+	["With at least 40 Intelligence in Radius, Raised Zombies' Slam Attack deals 30% increased Damage"] = getThreshold("Int", "Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", 30, { type = "SkillId", skillId = "ZombieSlam" }) }),
 	--[""] = getThreshold("", "", "", , { type = "SkillName", skillName = "" }),
 }
 

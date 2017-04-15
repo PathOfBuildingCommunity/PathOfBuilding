@@ -62,7 +62,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill RockGolemSlam Slam
-#flags attack area
+#flags attack melee area
 #mods
 
 #skill RockGolemWhirlingBlades Roll
@@ -70,7 +70,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ZombieSlam Slam
-#flags attack area
+#flags attack melee area
 #mods
 
 skills["MinionInstability"] = {

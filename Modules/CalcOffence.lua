@@ -174,7 +174,7 @@ function calcs.offence(env, actor)
 	if modDB:Sum("FLAG", nil, "MinionDamageAppliesToPlayer") then
 		-- Minion Damage conversion from The Scourge
 		for _, value in ipairs(modDB:Sum("LIST", env.player.mainSkill.skillCfg, "Misc")) do
-			if value.type == "MinionModifier" and value.mod.name == "Damage "then
+			if value.type == "MinionModifier" and value.mod.name == "Damage" then
 				modDB:AddMod(value.mod)
 			end
 		end
