@@ -70,6 +70,15 @@
 	<File sha1="fd98575e526d69d515c7b37f277066477af425e9" name="Data/New.lua" part="program"/>
 	<File sha1="7523385920c639527980388d6e18cd7c92a786ce" name="Data/Rares.lua" part="program"/>
 	<File sha1="8362b5bbea493895df4e80a7f45438fcf1bf5d00" name="Data/Spectres.lua" part="program"/>
+	<File sha1="715ad98af2f1fe25133bf9b2aaa29354857fe148" name="Data/Skills/act_dex.lua" part="program"/>
+	<File sha1="92c32cf8758fa1514253a24cccca1717c0bf3523" name="Data/Skills/act_int.lua" part="program"/>
+	<File sha1="f6baa0c4fdae08c4f297bf46982e1791eabf0fb9" name="Data/Skills/act_str.lua" part="program"/>
+	<File sha1="fece5bbc50cf35812c48ef426ce27fb863b9100a" name="Data/Skills/minion.lua" part="program"/>
+	<File sha1="7005dddeb01854027ea4ec988e48e38d5bc13377" name="Data/Skills/other.lua" part="program"/>
+	<File sha1="2b0419c9c767cfca1d722075c775482feb1702b3" name="Data/Skills/spectre.lua" part="program"/>
+	<File sha1="9edfbaea58b86df56357d343609cb0b9f6503707" name="Data/Skills/sup_dex.lua" part="program"/>
+	<File sha1="d7f42c52606145bd5cd9cf76d6050ca940b6c63f" name="Data/Skills/sup_int.lua" part="program"/>
+	<File sha1="d50a67bf97c7103b669f46c675b84fe6389a6e72" name="Data/Skills/sup_str.lua" part="program"/>
 	<File sha1="91ba12a1eeb94fa8d20e959a4d3b97a8dafab0b6" name="Data/Bases/amulet.lua" part="program"/>
 	<File sha1="9871414663d5da9fa564f959e42dcdc22c66f486" name="Data/Bases/axe.lua" part="program"/>
 	<File sha1="8504a4003c30cdfb94f354faa2789de7712cee1c" name="Data/Bases/belt.lua" part="program"/>

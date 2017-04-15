@@ -130,13 +130,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unique items", "Unique item
 		Data\Uniques\wand.lua = Data\Uniques\wand.lua
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skills", "Skills", "{C25AF719-B309-41E2-8696-C07EEDA2FC45}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skills", "Skills", "{41E2B69C-4D14-4280-B22F-34F1B3E709CE}"
 	ProjectSection(SolutionItems) = preProject
 		Data\Skills\act_dex.lua = Data\Skills\act_dex.lua
 		Data\Skills\act_int.lua = Data\Skills\act_int.lua
 		Data\Skills\act_str.lua = Data\Skills\act_str.lua
 		Data\Skills\minion.lua = Data\Skills\minion.lua
 		Data\Skills\other.lua = Data\Skills\other.lua
+		Data\Skills\spectre.lua = Data\Skills\spectre.lua
 		Data\Skills\sup_dex.lua = Data\Skills\sup_dex.lua
 		Data\Skills\sup_int.lua = Data\Skills\sup_int.lua
 		Data\Skills\sup_str.lua = Data\Skills\sup_str.lua
@@ -152,6 +153,6 @@ Global
 		{7EE4DE67-DABD-4A3C-8772-37D4A9DB6D59} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
 		{F2327651-CAA5-4DA0-91DB-EFA5E0E07A51} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
 		{D9D8B9D1-F114-40CB-8EFA-B0F753009183} = {F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}
-		{C25AF719-B309-41E2-8696-C07EEDA2FC45} = {F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}
+		{41E2B69C-4D14-4280-B22F-34F1B3E709CE} = {F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}
 	EndGlobalSection
 EndGlobal
