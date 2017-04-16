@@ -250,8 +250,6 @@ local function doActorMisc(env, actor)
 			condList[value.var] = true
 		elseif value.type == "EnemyCondition" then
 			enemyDB.conditions[value.var] = true
-		elseif value.type == "Multiplier" then
-			modDB.multipliers[value.var] = (modDB.multipliers[value.var] or 0) + value.value
 		end
 	end
 	-- Process enemy modifiers last in case they depend on conditions that were set by misc modifiers
@@ -362,6 +360,13 @@ function calcs.perform(env)
 		env.player.breakdown = breakdown
 		if env.minion then
 			env.minion.breakdown = LoadModule("Modules/CalcBreakdown", env.minion.modDB, env.minion.output, env.minion)
+		end
+	end
+
+	-- Set multipliers
+	for _, value in ipairs(modDB:Sum("LIST", nil, "Misc")) do
+		if value.type == "Multiplier" then
+			modDB.multipliers[value.var] = (modDB.multipliers[value.var] or 0) + value.value
 		end
 	end
 

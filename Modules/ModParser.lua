@@ -654,6 +654,7 @@ local specialModList = {
 	["warcries cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Warcry) },
 	["enemies you taunt take (%d+)%% increased damage"] = function(num) return { mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("DamageTaken", "INC", num, { type = "Condition", var = "Taunted" }) }) } end,
 	["you have phasing while at maximum frenzy charges"] = { mod("Misc", "LIST", { type = "Condition", var = "Phasing" }, { type = "Condition", var = "AtMaxFrenzyCharges" }) },
+	["your minions spread caustic cloud on death, dealing 10%% of their maximum life as chaos damage per second"] = { flag("MinionCausticCloudOnDeath") },
 	-- Item local modifiers
 	["has no sockets"] = { },
 	["has 1 socket"] = { },

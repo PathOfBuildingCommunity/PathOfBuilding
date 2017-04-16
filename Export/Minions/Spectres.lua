@@ -313,6 +313,29 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanFireball"] = {
 		-- MonsterCastsMoltenShellText
 	},
 }
+minions["Metadata/Monsters/Goatman/GoatmanShamanFireChampion"] = {
+	name = "Goatman Fire-raiser",
+	life = 1.4,
+	energyShield = 0.2,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	weaponType1 = "Staff",
+	skillList = {
+		"MonsterFireball",
+		"GoatmanMoltenShell",
+		"GoatmanFireMagmaOrb",
+	},
+	modList = {
+		mod("Damage", "MORE", -11), -- MonsterSpeedAndDamageFixupSmall
+		mod("Speed", "MORE", 11), -- MonsterSpeedAndDamageFixupSmall
+		mod("Speed", "INC", -50, ModFlag.Cast), -- MonsterGoatmanShamanCastSpeed
+	},
+}
 minions["Metadata/Monsters/Goatman/GoatmanShamanLightning"] = {
 	name = "Bearded Shaman",
 	life = 1,
@@ -736,6 +759,43 @@ minions["Metadata/Monsters/MassSkeleton/MassSkeleton"] = {
 	},
 	modList = {
 		-- MonsterCastsPunctureText
+	},
+}
+-- Miners
+minions["Metadata/Monsters/Miner/MinerLantern"] = {
+	name = "Pocked Lanternbearer",
+	life = 1.21,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.21,
+	damageSpread = 0.2,
+	attackTime = 1.395,
+	skillList = {
+		"MinerThrowFire",
+		"MinerThrowFireSpectre",
+	},
+	modList = {
+		-- IgniteArtVariation
+	},
+}
+minions["Metadata/Monsters/Miner/MinerLanternCrystalVeins"] = {
+	name = "Pocked Illuminator",
+	life = 1.21,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.21,
+	damageSpread = 0.2,
+	attackTime = 1.395,
+	skillList = {
+		"MinerThrowFire",
+		"MinerThrowFireSpectre",
+	},
+	modList = {
+		-- IgniteArtVariation
 	},
 }
 -- Voidbearer
@@ -1341,6 +1401,47 @@ minions["Metadata/Monsters/Spiders/SpiderThornFlickerStrike"] = {
 	},
 	modList = {
 		-- MonsterUsesFlickerStrikeText
+	},
+}
+-- Statue
+minions["Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear"] = {
+	name = "Towering Figment",
+	life = 5.76,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.3,
+	damageSpread = 0.2,
+	attackTime = 1.875,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"Melee",
+		"MonsterPuncture",
+	},
+	modList = {
+		mod("Damage", "MORE", -33), -- MonsterSpeedAndDamageFixupComplete
+		mod("Speed", "MORE", 33), -- MonsterSpeedAndDamageFixupComplete
+		-- MonsterCastsPunctureText
+	},
+}
+-- Ophidian
+minions["Metadata/Monsters/Taster/Taster"] = {
+	name = "Noisome Ophidian",
+	life = 1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	weaponType1 = "Dagger",
+	skillList = {
+		"Melee",
+		"TarMortarTaster",
+	},
+	modList = {
 	},
 }
 -- Undying
