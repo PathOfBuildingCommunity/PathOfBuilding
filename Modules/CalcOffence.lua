@@ -772,7 +772,7 @@ function calcs.offence(env, actor)
 		output.TotalMin = totalHitMin
 		output.TotalMax = totalHitMax
 
-		if not env.configInput.EEIgnoreHitDamage and (output.FireHitAverage + output.ColdHitAverage + output.LightningHitAverage > 0) then
+		if modDB:Sum("FLAG", skillCfg, "ElementalEquilibrium") and not env.configInput.EEIgnoreHitDamage and (output.FireHitAverage + output.ColdHitAverage + output.LightningHitAverage > 0) then
 			-- Update enemy hit-by-damage-type conditions
 			enemyDB.conditions.HitByFireDamage = output.FireHitAverage > 0
 			enemyDB.conditions.HitByColdDamage = output.ColdHitAverage > 0

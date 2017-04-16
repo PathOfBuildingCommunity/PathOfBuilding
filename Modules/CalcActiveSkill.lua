@@ -413,7 +413,6 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			skillFlags.haveMinion = true
 			minion.parent = env.player
 			minion.minionData = data.minions[minionType]
-			minion.config = { }
 			minion.level = activeSkill.skillData.minionLevel or activeSkill.skillData.levelRequirement
 			minion.itemList = { }
 			local damage = data.monsterDamageTable[minion.level] * minion.minionData.damage

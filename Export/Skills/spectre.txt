@@ -5,6 +5,11 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill BanditExplosiveArrow Explosive Arrow
+#flags cast projectile area duration fire
+#baseMod skill("showAverage", true)
+#mods
+
 #skill BeastCleave Cleave
 #flags attack melee area
 #mods
@@ -15,6 +20,10 @@ local skills, mod, flag, skill = ...
 
 #skill BirdmanConsumeCorpse Consume Corpse
 #flags spell
+#mods
+
+#skill BullCharge Charge
+#flags attack melee
 #mods
 
 #skill ChaosDegenAura Chaos Aura
@@ -72,6 +81,14 @@ local skills, mod, flag, skill = ...
 
 #skill InsectSpawnerSpit Spit
 #flags attack projectile
+#mods
+
+#skill KaomWarriorGroundSlam Ground Slam
+#flags attack melee area
+#mods
+
+#skill KaomWarriorMoltenStrike Molten Strike
+#flags attack melee fire
 #mods
 
 #skill MassFrenzy Mass Frenzy

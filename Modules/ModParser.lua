@@ -582,6 +582,7 @@ local specialModList = {
 	["enemies you hit with elemental damage temporarily get (%+%d+)%% resistance to those elements and (%-%d+)%% resistance to other elements"] = function(plus, _, minus)
 		minus = tonumber(minus)
 		return {
+			flag("ElementalEquilibrium"),
 			mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("FireResist", "BASE", plus, { type = "Condition", var = "HitByFireDamage" }) }),
 			mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("FireResist", "BASE", minus, { type = "Condition", var = "HitByFireDamage", neg = true }, { type = "Condition", varList={"HitByColdDamage","HitByLightningDamage"} }) }),
 			mod("Misc", "LIST", { type = "EnemyModifier", mod = mod("ColdResist", "BASE", plus, { type = "Condition", var = "HitByColdDamage" }) }),

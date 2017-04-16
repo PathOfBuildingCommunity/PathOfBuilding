@@ -109,7 +109,7 @@ function SkillsTabClass:Load(xml, fileName)
 			socketGroup.gemList = { }
 			for _, child in ipairs(node) do
 				local gem = { }
-				gem.nameSpec = child.attrib.nameSpec
+				gem.nameSpec = (child.attrib.nameSpec or "")
 				gem.level = tonumber(child.attrib.level)
 				gem.quality = tonumber(child.attrib.quality)
 				gem.enabled = not child.attrib.enabled and true or child.attrib.enabled == "true"
@@ -398,6 +398,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			break
 		end
 		gem.color = "^8"
+		gem.nameSpec = gem.nameSpec or ""
 		if gem.nameSpec:match("%S") then
 			-- Gem name has been specified, try to find the matching skill gem
 			if data.gems[gem.nameSpec] then

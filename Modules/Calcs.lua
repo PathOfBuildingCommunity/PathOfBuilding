@@ -237,6 +237,22 @@ function calcs.buildOutput(build, mode)
 		output.CurseList = table.concat(curseList, ", ")
 		if env.minion then
 			local buffList = { }
+			local combatList = { }
+			if output.Minion.PowerCharges > 0 then
+				t_insert(combatList, s_format("%d Power Charges", output.Minion.PowerCharges))
+			end
+			if output.Minion.FrenzyCharges > 0 then
+				t_insert(combatList, s_format("%d Frenzy Charges", output.Minion.FrenzyCharges))
+			end
+			if output.Minion.EnduranceCharges > 0 then
+				t_insert(combatList, s_format("%d Endurance Charges", output.Minion.EnduranceCharges))
+			end
+			if env.minion.modDB.conditions.Onslaught then
+				t_insert(combatList, "Onslaught")
+			end
+			if env.minion.modDB.conditions.UnholyMight then
+				t_insert(combatList, "Unholy Might")
+			end
 			for _, activeSkill in ipairs(env.activeSkillList) do
 				if activeSkill.minionBuffSkill then
 					if activeSkill.skillFlags.multiPart then
@@ -247,6 +263,7 @@ function calcs.buildOutput(build, mode)
 				end
 			end
 			output.Minion.BuffList = table.concat(buffList, ", ")
+			output.Minion.CombatList = table.concat(combatList, ", ")
 			output.Minion.CurseList = output.CurseList
 		end
 

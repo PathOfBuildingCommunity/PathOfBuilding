@@ -207,17 +207,17 @@ local function doActorMisc(env, actor)
 	output.PowerChargesMax = modDB:Sum("BASE", nil, "PowerChargesMax")
 	output.FrenzyChargesMax = modDB:Sum("BASE", nil, "FrenzyChargesMax")
 	output.EnduranceChargesMax = modDB:Sum("BASE", nil, "EnduranceChargesMax")
-	if actor.config.usePowerCharges and env.mode_combat then
+	if modDB:Sum("FLAG", nil, "UsePowerCharges") then
 		output.PowerCharges = output.PowerChargesMax
 	else
 		output.PowerCharges = 0
 	end
-	if actor.config.useFrenzyCharges and env.mode_combat then
+	if modDB:Sum("FLAG", nil, "UseFrenzyCharges") then
 		output.FrenzyCharges = output.FrenzyChargesMax
 	else
 		output.FrenzyCharges = 0
 	end
-	if actor.config.useEnduranceCharges and env.mode_combat then
+	if modDB:Sum("FLAG", nil, "UseEnduranceCharges") then
 		output.EnduranceCharges = output.EnduranceChargesMax
 	else
 		output.EnduranceCharges = 0

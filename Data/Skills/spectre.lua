@@ -5,6 +5,71 @@
 --
 local skills, mod, flag, skill = ...
 
+skills["BanditExplosiveArrow"] = {
+	name = "Explosive Arrow",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		cast = true,
+		projectile = true,
+		area = true,
+		duration = true,
+		fire = true,
+	},
+	skillTypes = { [1] = true, [48] = true, [3] = true, [10] = true, [11] = true, [12] = true, [22] = true, [17] = true, [19] = true, [33] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("critChance", 6), 
+		skill("duration", 1), --"base_skill_effect_duration" = 1000
+		--"fuse_arrow_explosion_radius_+_per_fuse_arrow_orb" = 2
+		--"active_skill_attack_damage_+%_final" = 0
+		--"skill_can_fire_arrows" = 1
+		--"base_is_projectile" = 1
+		skill("showAverage", true), 
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+		[3] = skill("FireMin", nil), --"minimum_fire_damage_per_fuse_arrow_orb"
+		[4] = skill("FireMax", nil), --"maximum_fire_damage_per_fuse_arrow_orb"
+	},
+	levels = {
+		[1] = { 2, 5, 7, 10, },
+		[2] = { 4, 5, 8, 12, },
+		[3] = { 5, 5, 9, 14, },
+		[4] = { 6, 5, 10, 15, },
+		[5] = { 10, 5, 15, 22, },
+		[6] = { 12, 5, 18, 26, },
+		[7] = { 14, 5, 21, 31, },
+		[8] = { 16, 5, 24, 36, },
+		[9] = { 18, 5, 28, 42, },
+		[10] = { 20, 4, 33, 49, },
+		[11] = { 45, 4, 152, 228, },
+		[12] = { 62, 4, 376, 564, },
+		[13] = { 66, 4, 460, 691, },
+		[14] = { 67, 4, 484, 726, },
+		[15] = { 68, 4, 764, 1146, },
+		[16] = { 69, 4, 803, 1204, },
+		[17] = { 70, 4, 844, 1266, },
+		[18] = { 71, 4, 887, 1331, },
+		[19] = { 72, 4, 932, 1398, },
+		[20] = { 73, 4, 980, 1469, },
+		[21] = { 74, 4, 1029, 1544, },
+		[22] = { 75, 4, 1081, 1621, },
+		[23] = { 76, 4, 1135, 1703, },
+		[24] = { 77, 4, 1192, 1788, },
+		[25] = { 78, 4, 1252, 1877, },
+		[26] = { 79, 4, 1314, 1971, },
+		[27] = { 80, 4, 1379, 2069, },
+		[28] = { 81, 4, 1448, 2171, },
+		[29] = { 82, 4, 1519, 2279, },
+	},
+}
 skills["BeastCleave"] = {
 	name = "Cleave",
 	hidden = true,
@@ -90,6 +155,63 @@ skills["BirdmanConsumeCorpse"] = {
 	},
 	levels = {
 		[1] = { },
+	},
+}
+skills["BullCharge"] = {
+	name = "Charge",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	skillTypes = { [1] = true, [6] = true, },
+	baseMods = {
+		skill("castTime", 2.75), 
+		skill("cooldown", 4), 
+		--"skill_art_variation" = 1
+		mod("Damage", "MORE", 15, ModFlag.Hit), --"active_skill_damage_+%_final" = 15
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[1] = { 2, },
+		[2] = { 6, },
+		[3] = { 10, },
+		[4] = { 14, },
+		[5] = { 18, },
+		[6] = { 22, },
+		[7] = { 26, },
+		[8] = { 30, },
+		[9] = { 34, },
+		[10] = { 38, },
+		[11] = { 42, },
+		[12] = { 46, },
+		[13] = { 50, },
+		[14] = { 54, },
+		[15] = { 58, },
+		[16] = { 61, },
+		[17] = { 63, },
+		[18] = { 66, },
+		[19] = { 67, },
+		[20] = { 68, },
+		[21] = { 69, },
+		[22] = { 70, },
+		[23] = { 71, },
+		[24] = { 72, },
+		[25] = { 73, },
+		[26] = { 74, },
+		[27] = { 75, },
+		[28] = { 76, },
+		[29] = { 77, },
+		[30] = { 78, },
+		[31] = { 79, },
+		[32] = { 80, },
+		[33] = { 81, },
+		[34] = { 82, },
 	},
 }
 skills["ChaosDegenAura"] = {
@@ -904,6 +1026,140 @@ skills["InsectSpawnerSpit"] = {
 		[32] = { 80, 70, 105, 188, 236, },
 		[33] = { 81, 73, 109, 196, 245, },
 		[34] = { 82, 76, 114, 204, 255, },
+	},
+}
+skills["KaomWarriorGroundSlam"] = {
+	name = "Ground Slam",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	skillTypes = { [1] = true, [6] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		skill("cooldown", 5), 
+		mod("EnemyStunThreshold", "INC", -10), --"base_stun_threshold_reduction_+%" = 10
+		--"active_skill_area_of_effect_radius_+%_final" = 0
+		mod("Damage", "MORE", 20, ModFlag.Hit), --"active_skill_damage_+%_final" = 20
+		--"skill_art_variation" = 1
+		--"is_area_damage" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[1] = { 2, },
+		[2] = { 6, },
+		[3] = { 10, },
+		[4] = { 14, },
+		[5] = { 18, },
+		[6] = { 22, },
+		[7] = { 26, },
+		[8] = { 30, },
+		[9] = { 34, },
+		[10] = { 38, },
+		[11] = { 42, },
+		[12] = { 46, },
+		[13] = { 50, },
+		[14] = { 54, },
+		[15] = { 58, },
+		[16] = { 61, },
+		[17] = { 63, },
+		[18] = { 66, },
+		[19] = { 67, },
+		[20] = { 68, },
+		[21] = { 69, },
+		[22] = { 70, },
+		[23] = { 71, },
+		[24] = { 72, },
+		[25] = { 73, },
+		[26] = { 74, },
+		[27] = { 75, },
+		[28] = { 76, },
+		[29] = { 77, },
+		[30] = { 78, },
+		[31] = { 79, },
+		[32] = { 80, },
+		[33] = { 81, },
+		[34] = { 82, },
+	},
+}
+skills["KaomWarriorMoltenStrike"] = {
+	name = "Molten Strike",
+	hidden = true,
+	color = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		fire = true,
+	},
+	skillTypes = { [1] = true, [3] = true, [6] = true, [11] = true, [24] = true, [25] = true, [28] = true, [33] = true, [48] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("cooldown", 3), 
+		mod("SkillPhysicalDamageConvertToFire", "BASE", 60), --"skill_physical_damage_%_to_convert_to_fire" = 60
+		mod("ProjectileCount", "BASE", 5), --"number_of_additional_projectiles" = 5
+		mod("Damage", "MORE", -20, ModFlag.Hit), --"active_skill_damage_+%_final" = -20
+		mod("PhysicalDamage", "INC", 0), --"physical_damage_+%" = 0
+		mod("Damage", "MORE", -20, ModFlag.Projectile), --"active_skill_projectile_damage_+%_final" = -20
+		--"active_skill_area_of_effect_radius_+%_final" = 0
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[1] = { 2, },
+		[2] = { 6, },
+		[3] = { 10, },
+		[4] = { 14, },
+		[5] = { 18, },
+		[6] = { 22, },
+		[7] = { 26, },
+		[8] = { 30, },
+		[9] = { 34, },
+		[10] = { 38, },
+		[11] = { 42, },
+		[12] = { 46, },
+		[13] = { 50, },
+		[14] = { 54, },
+		[15] = { 58, },
+		[16] = { 61, },
+		[17] = { 63, },
+		[18] = { 66, },
+		[19] = { 67, },
+		[20] = { 68, },
+		[21] = { 69, },
+		[22] = { 70, },
+		[23] = { 71, },
+		[24] = { 72, },
+		[25] = { 73, },
+		[26] = { 74, },
+		[27] = { 75, },
+		[28] = { 76, },
+		[29] = { 77, },
+		[30] = { 78, },
+		[31] = { 79, },
+		[32] = { 80, },
+		[33] = { 81, },
+		[34] = { 82, },
 	},
 }
 skills["MassFrenzy"] = {
