@@ -193,12 +193,10 @@ function calcs.initEnv(build, mode, override)
 	env.player = {
 		modDB = modDB,
 		enemy = env.enemy,
-		config = env.configInput,
 	}
 	modDB.actor = env.player
 	env.enemy = {
 		modDB = enemyDB,
-		config = { },
 	}
 	enemyDB.actor = env.enemy
 	env.player.enemy = env.enemy

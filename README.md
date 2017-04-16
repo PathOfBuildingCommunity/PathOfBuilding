@@ -47,6 +47,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.3 - 2017/04/16
+ * Added Fighting Bull, Kraityn's Sniper, Shadow Lurker and Kaom's Chosen to the spectre library
+ * Added options to the Configuration tab to enable charges for all minions
+ * Corrected the minion damage modifier on the Cobalt Jewel template, and added the minion life modifier
+ * Fixed issue causing minions to trigger Elemental Equilibrium
+ 
 ### 1.4.2 - 2017/04/16
  * Added support for Beacon of Corruption's Caustic Cloud (adds an extra 'Caustic Cloud' skill to your minions)
  * Added Goatman Fire-raiser, Towering Figment, Noisome Ophidian and Pocked Lanternbearer/Illuminator to the spectre library

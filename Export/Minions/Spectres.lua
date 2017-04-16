@@ -123,6 +123,25 @@ minions["Metadata/Monsters/Axis/AxisExperimenterRaiseZombie"] = {
 	},
 }
 -- Bandit
+minions["Metadata/Monsters/Bandits/BanditBowExplosiveArrow"] = {
+	name = "Kraityn's Sniper",
+	life = 0.96,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.6,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	weaponType1 = "Bow",
+	skillList = {
+		"Melee",
+		"BanditExplosiveArrow",
+	},
+	modList = {
+		-- MonsterFiresExplosiveArrowText
+	},
+}
 minions["Metadata/Monsters/Bandits/BanditBowPoisonArrow"] = {
 	name = "Alira's Deadeye",
 	life = 0.96,
@@ -225,6 +244,25 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
 		mod("Speed", "MORE", 22), -- MonsterSpeedAndDamageFixupLarge
 		-- MonsterSummonsMonkeysText
 		-- MonsterCastsMassFrenzyText
+	},
+}
+-- Bull
+minions["Metadata/Monsters/Bull/Bull"] = {
+	name = "Fighting Bull",
+	life = 2.38,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.28,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	weaponType1 = "One Handed Mace",
+	skillList = {
+		"Melee",
+		"BullCharge",
+	},
+	modList = {
 	},
 }
 -- Cannibals
@@ -579,6 +617,27 @@ minions["Metadata/Monsters/Grappler/Grappler"] = {
 		-- MonsterCastsDischargeText
 	},
 }
+minions["Metadata/Monsters/Grappler/GrapplerLabyrinth"] = {
+	name = "Shadow Lurker",
+	life = 1,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 20,
+	damage = 2,
+	damageSpread = 0.2,
+	attackTime = 1.245,
+	skillList = {
+		"Melee",
+		"MonsterFlickerStrike",
+		"MonsterDischarge",
+	},
+	modList = {
+		-- MonsterGainsPowerChargeOnKinDeath
+		-- MonsterUsesFlickerStrikeText
+		-- MonsterCastsDischargeText
+	},
+}
 -- Ribbon
 minions["Metadata/Monsters/Guardians/GuardianFire"] = {
 	name = "Flame Sentinel",
@@ -676,6 +735,41 @@ minions["Metadata/Monsters/InsectSpawner/InsectSpawner"] = {
 	},
 	modList = {
 		mod("PhysicalDamageConvertToFire", "BASE", 50), -- MonsterConvertToFireDamage2
+	},
+}
+-- Kaom's Warriors
+minions["Metadata/Monsters/KaomWarrior/KaomWarrior2"] = {
+	name = "Kaom's Chosen",
+	life = 1.43,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.16,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	skillList = {
+		"Melee",
+		"KaomWarriorMoltenStrike",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/KaomWarrior/KaomWarrior3"] = {
+	name = "Kaom's Chosen",
+	life = 1.43,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.16,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	skillList = {
+		"Melee",
+		"KaomWarriorGroundSlam",
+	},
+	modList = {
 	},
 }
 -- Birdman

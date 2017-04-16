@@ -12,6 +12,7 @@ local minions, mod = ...
 #monster Metadata/Monsters/Axis/AxisExperimenter2
 #monster Metadata/Monsters/Axis/AxisExperimenterRaiseZombie
 -- Bandit
+#monster Metadata/Monsters/Bandits/BanditBowExplosiveArrow
 #monster Metadata/Monsters/Bandits/BanditBowPoisonArrow
 #monster Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul
 -- Beast
@@ -19,6 +20,8 @@ local minions, mod = ...
 #monster Metadata/Monsters/Beasts/BeastCleaveEnduringCry
 -- Blood apes
 #monster Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage
+-- Bull
+#monster Metadata/Monsters/Bull/Bull
 -- Cannibals
 #monster Metadata/Monsters/Cannibal/CannibalMaleChampion
 -- Goatmen
@@ -43,6 +46,7 @@ local minions, mod = ...
 #monster Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex
 -- Undying grappler
 #monster Metadata/Monsters/Grappler/Grappler
+#monster Metadata/Monsters/Grappler/GrapplerLabyrinth
 -- Ribbon
 #monster Metadata/Monsters/Guardians/GuardianFire
 #monster Metadata/Monsters/Guardians/GuardianLightning
@@ -52,6 +56,9 @@ local minions, mod = ...
 #monster Metadata/Monsters/incaminion/Fragment
 -- Carrion queen
 #monster Metadata/Monsters/InsectSpawner/InsectSpawner
+-- Kaom's Warriors
+#monster Metadata/Monsters/KaomWarrior/KaomWarrior2
+#monster Metadata/Monsters/KaomWarrior/KaomWarrior3
 -- Birdman
 #monster Metadata/Monsters/Kiweth/Kiweth
 #monster Metadata/Monsters/Kiweth/KiwethSeagull

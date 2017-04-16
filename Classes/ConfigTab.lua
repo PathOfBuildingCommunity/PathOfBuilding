@@ -22,9 +22,24 @@ local varList = {
 	end },
 	{ var = "igniteMode", type = "list", label = "Ignite calculation mode:", tooltip = "Controls how the base damage for ignite is calculated:\nAverage Damage: Ignite is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ignite is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
 	{ section = "When In Combat" },
-	{ var = "usePowerCharges", type = "check", label = "Do you use Power Charges?" },
-	{ var = "useFrenzyCharges", type = "check", label = "Do you use Frenzy Charges?" },
-	{ var = "useEnduranceCharges", type = "check", label = "Do you use Endurance Charges?" },
+	{ var = "usePowerCharges", type = "check", label = "Do you use Power Charges?", apply = function(val, modList, enemyModList)
+		modList:NewMod("UsePowerCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "useFrenzyCharges", type = "check", label = "Do you use Frenzy Charges?", apply = function(val, modList, enemyModList)
+		modList:NewMod("UseFrenzyCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "useEnduranceCharges", type = "check", label = "Do you use Endurance Charges?", apply = function(val, modList, enemyModList)
+		modList:NewMod("UseEnduranceCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "minionsUsePowerCharges", type = "check", label = "Do your minions use Power Charges?", ifFlag = "haveMinion", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "MinionModifier", mod = modLib.createMod("UsePowerCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) }, "Config")
+	end },
+	{ var = "minionsUseFrenzyCharges", type = "check", label = "Do your minions use Frenzy Charges?", ifFlag = "haveMinion", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "MinionModifier", mod = modLib.createMod("UseFrenzyCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) }, "Config")
+	end },
+	{ var = "minionsUseEnduranceCharges", type = "check", label = "Do your minions use Endur. Charges?", ifFlag = "haveMinion", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "MinionModifier", mod = modLib.createMod("UseEnduranceCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) }, "Config")
+	end },
 	{ var = "buffOnslaught", type = "check", label = "Do you have Onslaught?", tooltip = "In addition to allowing any 'while you have Onslaught' modifiers to apply,\nthis will enable the Onslaught buff itself. (20% increased Attack/Cast/Movement Speed)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "Condition", var = "Onslaught" }, "Config", { type = "Condition", var = "Combat" })
 	end },

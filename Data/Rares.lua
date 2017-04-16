@@ -1139,7 +1139,8 @@ Cobalt Jewel
 {range:0}(0-6)% faster start of Energy Shield Recharge
 {range:0}(0-16)% increased Trap Damage
 {range:0}(0-16)% increased Mine Damage
-{range:0}(0-16)% increased Minion Damage
+{range:0}Minions deal (0-16)% increased Damage
+{range:0}Minions have (0-12)% increased maximum Life
 {range:0}(0-16)% increased Physical Damage with Wands
 {range:0}(0-8)% increased Attack Speed with Wands
 {range:0}(0-16)% increased Spell Damage while wielding a Staff

@@ -1,3 +1,8 @@
+VERSION[1.4.3][2017/04/16]
+ * Added Fighting Bull, Kraityn's Sniper, Shadow Lurker and Kaom's Chosen to the spectre library
+ * Added options to the Configuration tab to enable charges for all minions
+ * Corrected the minion damage modifier on the Cobalt Jewel template, and added the minion life modifier
+ * Fixed issue causing minions to trigger Elemental Equilibrium
 VERSION[1.4.2][2017/04/16]
  * Added support for Beacon of Corruption's Caustic Cloud (adds an extra 'Caustic Cloud' skill to your minions)
  * Added Goatman Fire-raiser, Towering Figment, Noisome Ophidian and Pocked Lanternbearer/Illuminator to the spectre library
