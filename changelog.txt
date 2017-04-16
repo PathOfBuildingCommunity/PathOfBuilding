@@ -1,3 +1,7 @@
+VERSION[1.4.2][2017/04/16]
+ * Added support for Beacon of Corruption's Caustic Cloud (adds an extra 'Caustic Cloud' skill to your minions)
+ * Added Goatman Fire-raiser, Towering Figment, Noisome Ophidian and Pocked Lanternbearer/Illuminator to the spectre library
+ * Fixed the flat mana modifier on Grand Spectrum
 VERSION[1.4.1][2017/04/16]
  * Added Slashed Miscreation, Spectral Scoundrel and Cannibal Fire-eater to the spectre library
     * The DPS for monster versions of Blade Vortex won't be accurate yet

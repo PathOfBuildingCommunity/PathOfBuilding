@@ -78,6 +78,10 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #mods
 
+#skill MinerThrowFireSpectre Throw Fire
+#flags spell projectile area fire duration
+#mods
+
 #skill MonsterArc Arc
 #flags spell lightning
 #mods
@@ -247,6 +251,10 @@ local skills, mod, flag, skill = ...
 
 #skill SnakeSpineProjectile Spine Attack
 #flags attack projectile
+#mods
+
+#skill TarMortarTaster Tar Projectile
+#flags spell projectile area
 #mods
 
 #skill UndyingWhirlingBlades Whirling Blades

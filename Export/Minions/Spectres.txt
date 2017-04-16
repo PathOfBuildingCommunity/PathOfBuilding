@@ -25,6 +25,7 @@ local minions, mod = ...
 #monster Metadata/Monsters/Goatman/GoatmanLeapSlam
 #monster Metadata/Monsters/Goatman/GoatmanLightningLeapSlamMaps
 #monster Metadata/Monsters/Goatman/GoatmanShamanFireball
+#monster Metadata/Monsters/Goatman/GoatmanShamanFireChampion
 #monster Metadata/Monsters/Goatman/GoatmanShamanLightning
 -- Miscreation
 #monster Metadata/Monsters/DemonFemale/DemonFemale
@@ -58,6 +59,9 @@ local minions, mod = ...
 #monster Metadata/Monsters/Lion/LionDesertSkinPuncture
 -- Knitted horror
 #monster Metadata/Monsters/MassSkeleton/MassSkeleton
+-- Miners
+#monster Metadata/Monsters/Miner/MinerLantern
+#monster Metadata/Monsters/Miner/MinerLanternCrystalVeins
 -- Voidbearer
 #monster Metadata/Monsters/Monkeys/FlameBearer
 -- Stone golem
@@ -96,6 +100,10 @@ local minions, mod = ...
 #monster Metadata/Monsters/Snake/SnakeScorpionMultiShot
 -- Spider
 #monster Metadata/Monsters/Spiders/SpiderThornFlickerStrike
+-- Statue
+#monster Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear
+-- Ophidian
+#monster Metadata/Monsters/Taster/Taster
 -- Undying
 #monster Metadata/Monsters/Undying/CityStalkerMaleCasterArmour
 #monster Metadata/Monsters/Undying/UndyingOutcastPuncture

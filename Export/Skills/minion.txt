@@ -96,3 +96,24 @@ skills["MinionInstability"] = {
 		[1] = { },
 	},
 }
+skills["BeaconCausticCloud"] = {
+	name = "Caustic Cloud",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		cast = true,
+		area = true,
+		chaos = true,
+	},
+	skillTypes = { },
+	baseMods = {
+		skill("ChaosDot", 1, { type = "PerStat", stat = "Life", div = 10 }),
+	},
+	qualityMods = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { },
+	},
+}

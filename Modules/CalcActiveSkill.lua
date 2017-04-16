@@ -494,6 +494,9 @@ function calcs.createMinionSkills(env, activeSkill)
 	if env.modDB:Sum("FLAG", nil, "MinionInstability") then
 		t_insert(skillIdList, "MinionInstability")
 	end
+	if env.modDB:Sum("FLAG", nil, "MinionCausticCloudOnDeath") then
+		t_insert(skillIdList, "BeaconCausticCloud")
+	end
 	for _, skillId in ipairs(skillIdList) do
 		local gem = {
 			name = data.skills[skillId].name,

@@ -47,6 +47,11 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.2 - 2017/04/16
+ * Added support for Beacon of Corruption's Caustic Cloud (adds an extra 'Caustic Cloud' skill to your minions)
+ * Added Goatman Fire-raiser, Towering Figment, Noisome Ophidian and Pocked Lanternbearer/Illuminator to the spectre library
+ * Fixed the flat mana modifier on Grand Spectrum
+
 ### 1.4.1 - 2017/04/16
  * Added Slashed Miscreation, Spectral Scoundrel and Cannibal Fire-eater to the spectre library
     * The DPS for monster versions of Blade Vortex won't be accurate yet
