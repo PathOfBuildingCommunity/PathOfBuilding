@@ -678,6 +678,93 @@ skills["PlayerRagingSpiritMeleeAttack"] = {
 		[30] = { 88, 47, },
 	},
 }
+skills["RagingSpiritMeleeAttack"] = {
+	name = "Melee Attack",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	skillTypes = { [1] = true, [48] = true, [6] = true, [3] = true, [25] = true, [28] = true, [24] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = mod("Damage", "MORE", nil, ModFlag.Hit), --"active_skill_damage_+%_final"
+	},
+	levels = {
+		[1] = { 4, 76, },
+		[2] = { 6, 71, },
+		[3] = { 9, 66, },
+		[4] = { 12, 61, },
+		[5] = { 15, 56, },
+		[6] = { 19, 52, },
+		[7] = { 23, 47, },
+		[8] = { 28, 42, },
+		[9] = { 33, 37, },
+		[10] = { 39, 32, },
+		[11] = { 43, 28, },
+		[12] = { 46, 23, },
+		[13] = { 49, 18, },
+		[14] = { 52, 12, },
+		[15] = { 55, 10, },
+		[16] = { 58, 7, },
+		[17] = { 61, 5, },
+		[18] = { 64, 2, },
+		[19] = { 66, 0, },
+		[20] = { 68, -2, },
+		[21] = { 70, -4, },
+		[22] = { 72, -7, },
+		[23] = { 74, -10, },
+		[24] = { 76, -10, },
+		[25] = { 78, -10, },
+		[26] = { 80, -10, },
+		[27] = { 82, -10, },
+		[28] = { 84, -10, },
+		[29] = { 86, -10, },
+		[30] = { 88, -10, },
+	},
+}
+skills["SpectralSkullShieldCharge"] = {
+	name = "Charge",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		movement = true,
+	},
+	skillTypes = { [1] = true, [7] = true, [13] = true, [24] = true, [25] = true, [38] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Claw"] = true,
+		["One Handed Axe"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("levelRequirement", 1), 
+		skill("cooldown", 5), 
+		--"shield_charge_stun_duration_+%_maximum" = 200
+		mod("MovementSpeed", "INC", 500, 0, 0, nil), --"base_movement_velocity_+%" = 500
+		--"shield_charge_damage_+%_maximum" = 300
+		mod("Damage", "MORE", -50, ModFlag.Hit), --"active_skill_damage_+%_final" = -50
+		--"ignores_proximity_shield" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { },
+	},
+}
 skills["SkeletonProjectileCold"] = {
 	name = "Cold Projectile",
 	hidden = true,
@@ -961,6 +1048,44 @@ skills["ZombieSlam"] = {
 		mod("Damage", "MORE", 45, ModFlag.Hit), --"active_skill_damage_+%_final" = 45
 		skill("duration", 0.28), --"base_skill_effect_duration" = 280
 		--"is_area_damage" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { },
+	},
+}
+skills["SpiderMinionLeapSlam"] = {
+	name = "Leap Slam",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+		movement = true,
+	},
+	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [24] = true, [38] = true, },
+	weaponTypes = {
+		["Two Handed Sword"] = true,
+		["One Handed Mace"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Sword"] = true,
+		["Staff"] = true,
+	},
+	baseMods = {
+		skill("castTime", 1.4), 
+		skill("levelRequirement", 1), 
+		mod("Damage", "MORE", 50, ModFlag.Attack), 
+		skill("cooldown", 2), 
+		--"skill_art_variation" = 3
+		--"active_skill_area_of_effect_radius_+%_final" = 0
+		--"is_area_damage" = ?
+		skill("castTimeOverridesAttackTime", true), --"cast_time_overrides_attack_duration" = ?
 	},
 	qualityMods = {
 	},

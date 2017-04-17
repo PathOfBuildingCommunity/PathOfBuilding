@@ -265,6 +265,10 @@ local varList = {
 	{ var = "raiseSpectreEnableCurses", type = "check", label = "Enable curses:", ifSkill = "Raise Spectre", tooltip = "Enable any curse skills that your spectres have.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "SkillData", key = "enable", value = true }, "Config", { type = "SkillType", skillType = SkillType.Curse }, { type = "SkillName", skillName = "Raise Spectre", summonSkill = true })
 	end },
+	{ var = "raiseSpectreBladeVortexBladeCount", type = "number", label = "Blade Vortex blade count:", ifSkillList = {"DemonModularBladeVortexSpectre","GhostPirateBladeVortexSpectre"}, tooltip = "Sets the blade count for Blade Vortex skills used by spectres.\nDefault is 1; maximum is 5.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Misc", "LIST", { type = "SkillData", key = "dpsMultiplier", value = val }, "Config", { type = "SkillId", skillId = "DemonModularBladeVortexSpectre" })
+		modList:NewMod("Misc", "LIST", { type = "SkillData", key = "dpsMultiplier", value = val }, "Config", { type = "SkillId", skillId = "GhostPirateBladeVortexSpectre" })
+	end },
 	{ label = "Summon Lightning Golem:", ifSkill = "Summon Lightning Golem" },
 	{ var = "summonLightningGolemEnableWrath", type = "check", label = "Enable Wrath Aura:", ifSkill = "Summon Lightning Golem", apply = function(val, modList, enemyModList)
 		modList:NewMod("Misc", "LIST", { type = "SkillData", key = "enable", value = true }, "Config", { type = "SkillId", skillId = "LightningGolemWrath" })
@@ -364,9 +368,17 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 					return self.build.calcsTab.mainEnv.player.mainSkill.skillFlags[varData.ifFlag] -- O_O
 				end
 				control.tooltip = varData.tooltip
-			elseif varData.ifSkill then
+			elseif varData.ifSkill or varData.ifSkillList then
 				control.shown = function()
-					return self.build.calcsTab.mainEnv.skillsUsed[varData.ifSkill]
+					if varData.ifSkillList then
+						for _, skillName in ipairs(varData.ifSkillList) do
+							if self.build.calcsTab.mainEnv.skillsUsed[skillName] then
+								return true
+							end
+						end
+					else
+						return self.build.calcsTab.mainEnv.skillsUsed[varData.ifSkill]
+					end
 				end
 				control.tooltip = varData.tooltip
 			else

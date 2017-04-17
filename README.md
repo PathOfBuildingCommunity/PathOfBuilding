@@ -47,6 +47,21 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.4 - 2017/04/17
+This update fixes two issues affecting the damage calculations for minions.
+As a result, the calculated DPS for many minion skills will change to some degree:
+ * All golem skills will gain up to 25% DPS
+ * Other minion's attacks will generally lose up to 30% DPS, but some may gain DPS
+ * Other minion's spells are generally unaffected, but some will gain up to 10% DPS
+ * Zombies, Skeleton Warriors and Raging Spirits are not affected
+Other changes:
+ * Improved the DPS calculation for Blade Vortex skills used by spectres:
+	* The blade count can be set using a new option for Raise Spectre in the Configuration tab
+    * The skills now have a hit rate override, which allows the DPS to be calculated properly
+ * Added support for the Raise Spiders skill granted by Arakaali's Fang
+ * Added support for the Spectral Spirits skill granted by Essence of Insanity
+ * Added the attack rate cap for Blink/Mirror Arrow clones
+
 ### 1.4.3 - 2017/04/16
  * Added Fighting Bull, Kraityn's Sniper, Shadow Lurker and Kaom's Chosen to the spectre library
  * Added options to the Configuration tab to enable charges for all minions

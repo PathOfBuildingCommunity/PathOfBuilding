@@ -49,6 +49,14 @@ local skills, mod, flag, skill = ...
 #flags attack melee
 #mods
 
+#skill RagingSpiritMeleeAttack Melee Attack
+#flags attack melee
+#mods
+
+#skill SpectralSkullShieldCharge Charge
+#flags attack melee movement
+#mods
+
 #skill SkeletonProjectileCold Cold Projectile
 #flags spell projectile
 #mods
@@ -71,6 +79,10 @@ local skills, mod, flag, skill = ...
 
 #skill ZombieSlam Slam
 #flags attack melee area
+#mods
+
+#skill SpiderMinionLeapSlam Leap Slam
+#flags attack melee area movement
 #mods
 
 skills["MinionInstability"] = {

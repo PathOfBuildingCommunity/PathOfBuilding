@@ -40,6 +40,7 @@ local skills, mod, flag, skill = ...
 
 #skill DemonModularBladeVortexSpectre Blade Vortex
 #flags spell area duration
+#baseMod skill("hitTimeOverride", 1)
 #mods
 
 #skill ExperimenterDetonateDead Detonate Dead
@@ -56,6 +57,7 @@ local skills, mod, flag, skill = ...
 
 #skill GhostPirateBladeVortexSpectre Blade Vortex
 #flags spell duration area
+#baseMod skill("hitTimeOverride", 1)
 #mods
 
 #skill GoatmanMoltenShell Molten Shell

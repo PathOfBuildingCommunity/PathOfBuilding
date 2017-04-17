@@ -426,7 +426,7 @@ function calcs.perform(env)
 		if activeSkill.skillTypes[SkillType.ManaCostReserved] and not activeSkill.skillFlags.totem then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
-			local baseVal = activeSkill.skillData.manaCostOverride or activeSkill.skillData.manaCost
+			local baseVal = activeSkill.skillData.manaCostOverride or activeSkill.skillData.manaCost or 0
 			local suffix = activeSkill.skillTypes[SkillType.ManaCostPercent] and "Percent" or "Base"
 			local mult = skillModList:Sum("MORE", skillCfg, "ManaCost")
 			local more = modDB:Sum("MORE", skillCfg, "ManaReserved") * skillModList:Sum("MORE", skillCfg, "ManaReserved")

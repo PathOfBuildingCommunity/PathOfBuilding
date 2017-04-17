@@ -198,7 +198,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 		skillFlags.multiPart = #activeGemParts > 1
 	end
 
-	if skillTypes[SkillType.Shield] and (not actor.itemList["Weapon 2"] or actor.itemList["Weapon 2"].type ~= "Shield") then
+	if skillTypes[SkillType.Shield] and not activeSkill.summonSkill and (not actor.itemList["Weapon 2"] or actor.itemList["Weapon 2"].type ~= "Shield") then
 		-- Skill requires a shield to be equipped
 		skillFlags.disable = true
 	end
@@ -413,15 +413,16 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			skillFlags.haveMinion = true
 			minion.parent = env.player
 			minion.minionData = data.minions[minionType]
-			minion.level = activeSkill.skillData.minionLevel or activeSkill.skillData.levelRequirement
+			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or activeSkill.skillData.minionLevel or activeSkill.skillData.levelRequirement
 			minion.itemList = { }
-			local damage = data.monsterDamageTable[minion.level] * minion.minionData.damage
+			local attackTime = minion.minionData.attackTime * (1 - (minion.minionData.damageFixup or 0))
+			local damage = data.monsterDamageTable[minion.level] * minion.minionData.damage * attackTime
 			if activeSkill.skillData.minionUseBowAndQuiver and env.player.weaponData1.type == "Bow" then
 				minion.weaponData1 = env.player.weaponData1
 			else
-				minion.weaponData1 = { 
-					type = minion.minionData.weaponType1 or "None", 
-					attackRate = 1 / minion.minionData.attackTime, 
+				minion.weaponData1 = {
+					type = minion.minionData.weaponType1 or "None",
+					attackRate = 1 / attackTime,
 					critChance = 5,
 					PhysicalMin = damage * (1 - minion.minionData.damageSpread),
 					PhysicalMax = damage * (1 + minion.minionData.damageSpread),
