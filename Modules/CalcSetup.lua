@@ -326,59 +326,62 @@ function calcs.initEnv(build, mode, override)
 		-- Process extra skills granted by items
 		local markList = { }
 		for _, mod in ipairs(modDB.mods["ExtraSkill"] or { }) do
-			-- Extract the name of the slot containing the item this skill was granted by
-			local slotName
-			for _, tag in ipairs(mod.tagList) do
-				if tag.type == "SocketedIn" then
-					slotName = tag.slotName
-					break
-				end
-			end
-
-			-- Check if a matching group already exists
-			local group
-			for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
-				if socketGroup.source == mod.source and socketGroup.slot == slotName then
-					if socketGroup.gemList[1] and socketGroup.gemList[1].nameSpec == mod.value.name then
-						group = socketGroup
-						markList[socketGroup] = true
+			if mod.value.name ~= "Unknown" then
+				-- Extract the name of the slot containing the item this skill was granted by
+				local slotName
+				for _, tag in ipairs(mod.tagList) do
+					if tag.type == "SocketedIn" then
+						slotName = tag.slotName
 						break
 					end
 				end
-			end
-			if not group then
-				-- Create a new group for this skill
-				group = { label = "", enabled = true, gemList = { }, source = mod.source, slot = slotName }
-				t_insert(build.skillsTab.socketGroupList, group)
-				markList[group] = true
-			end
 
-			-- Update the group
-			group.sourceItem = build.itemsTab.list[tonumber(mod.source:match("Item:(%d+):"))]
-			wipeTable(group.gemList)
-			t_insert(group.gemList, {
-				nameSpec = mod.value.name,
-				level = mod.value.level,
-				quality = 0,
-				enabled = true,
-				fromItem = true,
-			})
-			if mod.value.noSupports then
-				group.noSupports = true
-			else
-				for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
-					-- Look for other groups that are socketed in the item
-					if socketGroup.slot == slotName and not socketGroup.source then
-						-- Add all support gems to the skill's group
-						for _, gem in ipairs(socketGroup.gemList) do
-							if gem.data and gem.data.support then
-								t_insert(group.gemList, gem)
+				-- Check if a matching group already exists
+				local group
+				for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
+					if socketGroup.source == mod.source and socketGroup.slot == slotName then
+						if socketGroup.gemList[1] and socketGroup.gemList[1].nameSpec == mod.value.name then
+							group = socketGroup
+							markList[socketGroup] = true
+							break
+						end
+					end
+				end
+				if not group then
+					-- Create a new group for this skill
+					group = { label = "", enabled = true, gemList = { }, source = mod.source, slot = slotName }
+					t_insert(build.skillsTab.socketGroupList, group)
+					markList[group] = true
+				end
+
+				-- Update the group
+				group.sourceItem = build.itemsTab.list[tonumber(mod.source:match("Item:(%d+):"))]
+				local activeGem = group.gemList[1] or {
+					nameSpec = mod.value.name,
+					quality = 0,
+					enabled = true,
+					fromItem = true,
+				}
+				activeGem.level = mod.value.level
+				wipeTable(group.gemList)
+				t_insert(group.gemList, activeGem)
+				if mod.value.noSupports then
+					group.noSupports = true
+				else
+					for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
+						-- Look for other groups that are socketed in the item
+						if socketGroup.slot == slotName and not socketGroup.source then
+							-- Add all support gems to the skill's group
+							for _, gem in ipairs(socketGroup.gemList) do
+								if gem.data and gem.data.support then
+									t_insert(group.gemList, gem)
+								end
 							end
 						end
 					end
 				end
+				build.skillsTab:ProcessSocketGroup(group)
 			end
-			build.skillsTab:ProcessSocketGroup(group)
 		end
 		
 		-- Remove any socket groups that no longer have a matching item

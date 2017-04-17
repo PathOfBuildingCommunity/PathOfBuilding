@@ -515,10 +515,13 @@ function calcs.offence(env, actor)
 				baseSpeed = 1 / (skillData.castTime or 1)
 			end
 			output.Speed = baseSpeed * round(calcLib.mod(modDB, cfg, "Speed"), 2)
-			output.Time = 1 / output.Speed
 			if breakdown then
 				breakdown.Speed = breakdown.simple(baseSpeed, cfg, output.Speed, "Speed")
 			end
+			if skillData.attackRateCap then
+				output.Speed = m_min(output.Speed, skillData.attackRateCap)
+			end
+			output.Time = 1 / output.Speed
 		end
 		if skillData.hitTimeOverride then
 			output.HitTime = skillData.hitTimeOverride

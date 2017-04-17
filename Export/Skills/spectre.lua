@@ -377,6 +377,7 @@ skills["DemonModularBladeVortexSpectre"] = {
 		--"skill_repeat_count" = 2
 		--"is_area_damage" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
+		skill("hitTimeOverride", 1), 
 	},
 	qualityMods = {
 	},
@@ -632,6 +633,7 @@ skills["GhostPirateBladeVortexSpectre"] = {
 		--"skill_repeat_count" = 2
 		--"is_area_damage" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
+		skill("hitTimeOverride", 1), 
 	},
 	qualityMods = {
 	},

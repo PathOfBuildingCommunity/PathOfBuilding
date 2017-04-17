@@ -490,6 +490,41 @@ skills["TriggeredMoltenStrike"] = {
 		[16] = { },
 	},
 }
+skills["TriggeredSummonSpider"] = {
+	name = "Raise Spiders",
+	hidden = true,
+	other = true,
+	minionList = {
+		"SpiderMinion",
+	},
+	color = 3,
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+	},
+	skillTypes = { [2] = true, [9] = true, [36] = true, [49] = true, [42] = true, [61] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		skill("levelRequirement", 1), 
+		skill("cooldown", 2), 
+		--"chance_to_cast_on_kill_%_target_self" = 20
+		skill("duration", 8), --"base_skill_effect_duration" = 8000
+		mod("ActiveSpiderLimit", "BASE", 20), --"number_of_spider_minions_allowed" = 20
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+		--"take_no_actions_while_parent_dead" = ?
+		--"minion_dies_when_parent_dies" = ?
+		skill("minionLevelIsEnemyLevel", true), --"display_skill_minions_level_is_corpse_level" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { },
+	},
+}
 skills["TriggeredShockedGround"] = {
 	name = "Shock Ground",
 	hidden = true,
@@ -517,6 +552,67 @@ skills["TriggeredShockedGround"] = {
 	},
 	levels = {
 		[1] = { },
+	},
+}
+skills["SummonEssenceSpirits"] = {
+	name = "Spectral Spirits",
+	hidden = true,
+	other = true,
+	minionList = {
+		"SummonedEssenceSpirit",
+	},
+	color = 3,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	skillTypes = { [2] = true, [9] = true, [36] = true, [49] = true, [42] = true, [61] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, },
+	baseMods = {
+		skill("castTime", 1), 
+		skill("minionDamageEffectiveness", -15), --"active_skill_minion_added_damage_+%_final" = -15
+		--"number_of_monsters_to_summon" = 3
+		--"cast_on_gain_skill" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+		--"take_no_actions_while_parent_dead" = ?
+		--"minion_dies_when_parent_dies" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[1] = { 1, },
+		[2] = { 2, },
+		[3] = { 4, },
+		[4] = { 7, },
+		[5] = { 11, },
+		[6] = { 16, },
+		[7] = { 20, },
+		[8] = { 24, },
+		[9] = { 28, },
+		[10] = { 32, },
+		[11] = { 36, },
+		[12] = { 40, },
+		[13] = { 44, },
+		[14] = { 48, },
+		[15] = { 52, },
+		[16] = { 56, },
+		[17] = { 60, },
+		[18] = { 64, },
+		[19] = { 67, },
+		[20] = { 70, },
+		[21] = { 72, },
+		[22] = { 74, },
+		[23] = { 76, },
+		[24] = { 78, },
+		[25] = { 80, },
+		[26] = { 82, },
+		[27] = { 84, },
+		[28] = { 86, },
+		[29] = { 88, },
+		[30] = { 90, },
 	},
 }
 skills["SummonRigwaldsPack"] = {

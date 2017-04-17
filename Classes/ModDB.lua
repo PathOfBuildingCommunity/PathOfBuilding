@@ -80,21 +80,12 @@ function ModDBClass:NewMod(...)
 	self:AddMod(mod_createMod(...))
 end
 
-function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
+function ModDBClass:Sum(modType, cfg, ...--[[arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12]])
 	local flags, keywordFlags = 0, 0
-	local skillName, summonSkillName, skillGem, skillPart, skillTypes, skillStats, skillCond, skillDist, slotName, source, tabulate
+	local source, tabulate
 	if cfg then
 		flags = cfg.flags or 0
 		keywordFlags = cfg.keywordFlags or 0
-		skillName = cfg.skillName
-		summonSkillName = cfg.summonSkillName
-		skillGem = cfg.skillGem
-		skillPart = cfg.skillPart
-		skillTypes = cfg.skillTypes
-		skillStats = cfg.skillStats
-		skillCond = cfg.skillCond
-		skillDist = cfg.skillDist
-		slotName = cfg.slotName
 		source = cfg.source
 		tabulate = cfg.tabulate
 	end
@@ -111,7 +102,7 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 	else
 		result = 0
 	end
-	hack[1] = arg1
+	--[[hack[1] = arg1
 	if arg1 then
 		hack[2] = arg2
 		if arg2 then
@@ -144,9 +135,9 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 				end
 			end
 		end
-	end
-	for i = 1, #hack do --i = 1, select('#', ...) do
-		local modName = hack[i]--select(i, ...)
+	end]]
+	for --[[i = 1, #hack do --]]i = 1, select('#', ...) do
+		local modName = --[[hack[i]--]]select(i, ...)
 		local modList = self.mods[modName]
 		if modList then
 			for i = 1, #modList do
@@ -155,7 +146,7 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 					local value = mod.value
 					for _, tag in pairs(mod.tagList) do
 						if tag.type == "Multiplier" then
-							local mult = (self.multipliers[tag.var] or 0)
+							local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", nil, "Multiplier:"..tag.var)
 							if type(value) == "table" then
 								value = copyTable(value)
 								value.value = value.value * mult + (tag.base or 0)
@@ -163,12 +154,13 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 								value = value * mult + (tag.base or 0)
 							end
 						elseif tag.type == "MultiplierThreshold" then
-							if (self.multipliers[tag.var] or 0) < tag.threshold then
+							local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", nil, "Multiplier:"..tag.var)
+							if mult < tag.threshold then
 								value = nullValue
 								break
 							end
 						elseif tag.type == "PerStat" then
-							local mult = m_floor((self.actor.output[tag.stat] or (skillStats and skillStats[tag.stat]) or 0) / tag.div + 0.0001)
+							local mult = m_floor((self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0) / tag.div + 0.0001)
 							if type(value) == "table" then
 								value = copyTable(value)
 								value.value = value.value * mult + (tag.base or 0)
@@ -176,24 +168,24 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 								value = value * mult + (tag.base or 0)
 							end
 						elseif tag.type == "StatThreshold" then
-							if (self.actor.output[tag.stat] or (skillStats and skillStats[tag.stat]) or 0) < tag.threshold then
+							if (self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0) < tag.threshold then
 								value = nullValue
 								break
 							end
 						elseif tag.type == "DistanceRamp" then
-							if not skillDist then
+							if not cfg or not cfg.skillDist then
 								value = nullValue
 								break
 							end
-							if skillDist <= tag.ramp[1][1] then
+							if cfg.skillDist <= tag.ramp[1][1] then
 								value = value * tag.ramp[1][2]
-							elseif skillDist >= tag.ramp[#tag.ramp][1] then
+							elseif cfg.skillDist >= tag.ramp[#tag.ramp][1] then
 								value = value * tag.ramp[#tag.ramp][2]
 							else
 								for i, dat in ipairs(tag.ramp) do
 									local next = tag.ramp[i+1]
-									if skillDist <= next[1] then
-										value = m_floor(value * (dat[2] + (next[2] - dat[2]) * (skillDist - dat[1]) / (next[1] - dat[1])))
+									if cfg.skillDist <= next[1] then
+										value = value * (dat[2] + (next[2] - dat[2]) * (cfg.skillDist - dat[1]) / (next[1] - dat[1]))
 										break
 									end
 								end
@@ -202,13 +194,13 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 							local match = false
 							if tag.varList then
 								for _, var in pairs(tag.varList) do
-									if self.conditions[var] or (skillCond and skillCond[var]) then
+									if self.conditions[var] or (cfg and cfg.skillCond and cfg.skillCond[var]) or self:Sum("FLAG", nil, "Condition:"..var) then
 										match = true
 										break
 									end
 								end
 							else
-								match = self.conditions[tag.var] or (skillCond and skillCond[tag.var])
+								match = self.conditions[tag.var] or (cfg and cfg.skillCond and cfg.skillCond[tag.var]) or self:Sum("FLAG", nil, "Condition:"..tag.var)
 							end
 							if tag.neg then
 								match = not match
@@ -219,16 +211,17 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 							end
 						elseif tag.type == "EnemyCondition" then
 							local match = false
-							if self.actor.enemy then
+							local enemy = self.actor.enemy
+							if enemy then
 								if tag.varList then
 									for _, var in pairs(tag.varList) do
-										if self.actor.enemy.modDB.conditions[var] then
+										if enemy.modDB.conditions[var] or enemy.modDB:Sum("FLAG", nil, "Condition:"..var) then
 											match = true
 											break
 										end
 									end
 								else
-									match = self.actor.enemy.modDB.conditions[tag.var]
+									match = enemy.modDB.conditions[tag.var] or enemy.modDB:Sum("FLAG", nil, "Condition:"..tag.var)
 								end
 								if tag.neg then
 									match = not match
@@ -260,13 +253,13 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 								break
 							end
 						elseif tag.type == "SocketedIn" then
-							if tag.slotName ~= slotName or (tag.keyword and (not skillGem or not calcLib.gemIsType(skillGem, tag.keyword))) then
+							if not cfg or tag.slotName ~= cfg.slotName or (tag.keyword and (not cfg or not cfg.skillGem or not calcLib.gemIsType(cfg.skillGem, tag.keyword))) then
 								value = nullValue
 								break
 							end
 						elseif tag.type == "SkillName" then
 							local match = false
-							local matchName = tag.summonSkill and (summonSkillName or "") or skillName
+							local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName)
 							if tag.skillNameList then
 								for _, name in pairs(tag.skillNameList) do
 									if name == matchName then
@@ -282,27 +275,27 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 								break
 							end
 						elseif tag.type == "SkillId" then
-							if not skillGem or skillGem.data.id ~= tag.skillId then
+							if not cfg or not cfg.skillGem or cfg.skillGem.data.id ~= tag.skillId then
 								value = nullValue
 								break
 							end
 						elseif tag.type == "SkillPart" then
-							if tag.skillPart ~= skillPart then
+							if not cfg or tag.skillPart ~= cfg.skillPart then
 								value = nullValue
 								break
 							end
 						elseif tag.type == "SkillType" then
-							if not skillTypes or not skillTypes[tag.skillType] then
+							if not cfg or not cfg.skillTypes or not cfg.skillTypes[tag.skillType] then
 								value = nullValue
 								break
 							end
 						elseif tag.type == "SlotName" then
-							if tag.slotName ~= slotName then
+							if not cfg or tag.slotName ~= cfg.slotName then
 								value = nullValue
 								break
 							end
 						end
-					end
+						end
 					if tabulate then
 						if value and value ~= 0 then
 							t_insert(result, { value = value, mod = mod })
@@ -310,7 +303,10 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 					elseif modType == "MORE" then
 						result = result * (1 + value / 100)
 					elseif modType == "FLAG" then
-						result = result or value
+						if value then
+							result = true
+							break
+						end
 					elseif modType == "LIST" then
 						if value then
 							t_insert(result, value)
@@ -321,7 +317,7 @@ function ModDBClass:Sum(modType, cfg, arg1, arg2, arg3, arg4, arg5, arg6, arg7, 
 				end
 			end
 		end
-		hack[i] = nil
+		--hack[i] = nil
 	end
 	return result
 end

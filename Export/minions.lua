@@ -65,9 +65,19 @@ for _, name in pairs({"Spectres"}) do
 					out:write('\tcoldResist = '..Resist.ColdMerciless..',\n')
 					out:write('\tlightningResist = '..Resist.LightningMerciless..',\n')
 					out:write('\tchaosResist = '..Resist.ChaosMerciless..',\n')
-					out:write('\tdamage = '..(1 + MonsterVariety.DamageMultiplier/100)..',\n')
+					out:write('\tdamage = '..(MonsterVariety.DamageMultiplier/100)..',\n')
 					out:write('\tdamageSpread = '..(MonsterType.Unknown5 / 100)..',\n')
 					out:write('\tattackTime = '..(MonsterVariety.AttackSpeed/1000)..',\n')
+					for _, key in ipairs(MonsterVariety.ModsKeys) do
+						local Mod = Mods[key]
+						if Mod.Id == "MonsterSpeedAndDamageFixupSmall" then
+							out:write('\tdamageFixup = 0.11,\n')
+						elseif Mod.Id == "MonsterSpeedAndDamageFixupLarge" then
+							out:write('\tdamageFixup = 0.22,\n')
+						elseif Mod.Id == "MonsterSpeedAndDamageFixupComplete" then
+							out:write('\tdamageFixup = 0.33,\n')
+						end
+					end
 					if MonsterVariety.MainHand_ItemClassesKey and itemClassMap[MonsterVariety.MainHand_ItemClassesKey] then
 						out:write('\tweaponType1 = "'..itemClassMap[MonsterVariety.MainHand_ItemClassesKey]..'",\n')
 					end

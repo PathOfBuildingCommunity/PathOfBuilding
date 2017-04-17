@@ -153,6 +153,11 @@ function calcs.buildOutput(build, mode)
 		env.skillsUsed = { }
 		for _, activeSkill in ipairs(env.activeSkillList) do
 			env.skillsUsed[activeSkill.activeGem.name] = true
+			if activeSkill.minion then
+				for	_, activeSkill in ipairs(activeSkill.minion.activeSkillList) do
+					env.skillsUsed[activeSkill.activeGem.data.id] = true
+				end
+			end
 		end
 
 		env.conditionsUsed = { }

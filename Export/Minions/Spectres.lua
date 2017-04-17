@@ -14,7 +14,7 @@ minions["Metadata/Monsters/Axis/AxisCaster"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.305,
 	weaponType1 = "Wand",
@@ -38,7 +38,7 @@ minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.305,
 	weaponType1 = "Wand",
@@ -62,7 +62,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenter"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 75,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	weaponType1 = "Wand",
@@ -84,7 +84,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenter2"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 75,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	weaponType1 = "Wand",
@@ -108,7 +108,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenterRaiseZombie"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 75,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	weaponType1 = "Wand",
@@ -130,7 +130,7 @@ minions["Metadata/Monsters/Bandits/BanditBowExplosiveArrow"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	weaponType1 = "Bow",
@@ -149,7 +149,7 @@ minions["Metadata/Monsters/Bandits/BanditBowPoisonArrow"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	weaponType1 = "Bow",
@@ -168,7 +168,7 @@ minions["Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.35,
 	weaponType1 = "Two Handed Mace",
@@ -188,16 +188,16 @@ minions["Metadata/Monsters/Beasts/BeastCaveDegenAura"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.5,
+	damage = 1.5,
 	damageSpread = 0.2,
 	attackTime = 1.605,
+	damageFixup = 0.33,
 	skillList = {
 		"Melee",
 		"ChaosDegenAura",
 	},
 	modList = {
-		mod("Damage", "MORE", -33), -- MonsterSpeedAndDamageFixupComplete
-		mod("Speed", "MORE", 33), -- MonsterSpeedAndDamageFixupComplete
+		-- MonsterSpeedAndDamageFixupComplete
 	},
 }
 minions["Metadata/Monsters/Beasts/BeastCleaveEnduringCry"] = {
@@ -207,17 +207,17 @@ minions["Metadata/Monsters/Beasts/BeastCleaveEnduringCry"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.5,
+	damage = 1.5,
 	damageSpread = 0.2,
 	attackTime = 1.605,
+	damageFixup = 0.33,
 	skillList = {
 		"Melee",
 		"MonsterEnduringCry",
 		"BeastCleave",
 	},
 	modList = {
-		mod("Damage", "MORE", -33), -- MonsterSpeedAndDamageFixupComplete
-		mod("Speed", "MORE", 33), -- MonsterSpeedAndDamageFixupComplete
+		-- MonsterSpeedAndDamageFixupComplete
 		-- MonsterUsesEnduringCryText
 		-- MonsterCleavesText
 	},
@@ -230,9 +230,10 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.5,
+	damage = 1.5,
 	damageSpread = 0.2,
 	attackTime = 1.395,
+	damageFixup = 0.22,
 	weaponType1 = "One Handed Mace",
 	skillList = {
 		"Melee",
@@ -240,8 +241,7 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
 		"MassFrenzy",
 	},
 	modList = {
-		mod("Damage", "MORE", -22), -- MonsterSpeedAndDamageFixupLarge
-		mod("Speed", "MORE", 22), -- MonsterSpeedAndDamageFixupLarge
+		-- MonsterSpeedAndDamageFixupLarge
 		-- MonsterSummonsMonkeysText
 		-- MonsterCastsMassFrenzyText
 	},
@@ -254,7 +254,7 @@ minions["Metadata/Monsters/Bull/Bull"] = {
 	coldResist = 40,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.28,
+	damage = 1.28,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	weaponType1 = "One Handed Mace",
@@ -273,7 +273,7 @@ minions["Metadata/Monsters/Cannibal/CannibalMaleChampion"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.2,
+	damage = 1.2,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	weaponType1 = "One Handed Mace",
@@ -293,7 +293,7 @@ minions["Metadata/Monsters/Goatman/GoatmanLeapSlam"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.455,
 	skillList = {
@@ -313,7 +313,7 @@ minions["Metadata/Monsters/Goatman/GoatmanLightningLeapSlamMaps"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.8,
+	damage = 0.8,
 	damageSpread = 0.2,
 	attackTime = 1.455,
 	skillList = {
@@ -335,17 +335,17 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanFireball"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.5,
+	damageFixup = 0.11,
 	weaponType1 = "Staff",
 	skillList = {
 		"MonsterFireball",
 		"GoatmanMoltenShell",
 	},
 	modList = {
-		mod("Damage", "MORE", -11), -- MonsterSpeedAndDamageFixupSmall
-		mod("Speed", "MORE", 11), -- MonsterSpeedAndDamageFixupSmall
+		-- MonsterSpeedAndDamageFixupSmall
 		mod("Speed", "INC", -50, ModFlag.Cast), -- MonsterGoatmanShamanCastSpeed
 		-- MonsterCastsFireballText
 		-- MonsterCastsMoltenShellText
@@ -359,9 +359,10 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanFireChampion"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.5,
+	damageFixup = 0.11,
 	weaponType1 = "Staff",
 	skillList = {
 		"MonsterFireball",
@@ -369,8 +370,7 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanFireChampion"] = {
 		"GoatmanFireMagmaOrb",
 	},
 	modList = {
-		mod("Damage", "MORE", -11), -- MonsterSpeedAndDamageFixupSmall
-		mod("Speed", "MORE", 11), -- MonsterSpeedAndDamageFixupSmall
+		-- MonsterSpeedAndDamageFixupSmall
 		mod("Speed", "INC", -50, ModFlag.Cast), -- MonsterGoatmanShamanCastSpeed
 	},
 }
@@ -382,9 +382,10 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanLightning"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.5,
+	damageFixup = 0.11,
 	weaponType1 = "Staff",
 	skillList = {
 		"Melee",
@@ -392,8 +393,7 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanLightning"] = {
 		"MonsterSpark",
 	},
 	modList = {
-		mod("Damage", "MORE", -11), -- MonsterSpeedAndDamageFixupSmall
-		mod("Speed", "MORE", 11), -- MonsterSpeedAndDamageFixupSmall
+		-- MonsterSpeedAndDamageFixupSmall
 		mod("Speed", "INC", -50, ModFlag.Cast), -- MonsterGoatmanShamanCastSpeed
 		-- MonsterCastsShockNovaText
 		-- MonsterCastsSparkText
@@ -407,7 +407,7 @@ minions["Metadata/Monsters/DemonFemale/DemonFemale"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.88,
+	damage = 0.88,
 	damageSpread = 0.2,
 	attackTime = 2.445,
 	skillList = {
@@ -424,7 +424,7 @@ minions["Metadata/Monsters/DemonModular/DemonFemaleRanged"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.84,
+	damage = 0.84,
 	damageSpread = 0.2,
 	attackTime = 3,
 	skillList = {
@@ -441,7 +441,7 @@ minions["Metadata/Monsters/DemonModular/DemonModularBladeVortex"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -459,7 +459,7 @@ minions["Metadata/Monsters/DemonModular/DemonModularFire"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -479,7 +479,7 @@ minions["Metadata/Monsters/Frog/Frog"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.455,
 	skillList = {
@@ -497,7 +497,7 @@ minions["Metadata/Monsters/Frog/Frog2"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.455,
 	skillList = {
@@ -517,7 +517,7 @@ minions["Metadata/Monsters/GemMonster/Iguana"] = {
 	coldResist = 52,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.12,
+	damage = 1.12,
 	damageSpread = 0.2,
 	attackTime = 1.005,
 	skillList = {
@@ -538,7 +538,7 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 1.48,
+	damage = 0.48,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	weaponType1 = "Bow",
@@ -559,7 +559,7 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 1.8,
+	damage = 0.8,
 	damageSpread = 0.2,
 	attackTime = 1.65,
 	weaponType1 = "One Handed Sword",
@@ -581,7 +581,7 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.65,
 	weaponType1 = "One Handed Sword",
@@ -603,7 +603,7 @@ minions["Metadata/Monsters/Grappler/Grappler"] = {
 	coldResist = 20,
 	lightningResist = 20,
 	chaosResist = 20,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.245,
 	skillList = {
@@ -624,7 +624,7 @@ minions["Metadata/Monsters/Grappler/GrapplerLabyrinth"] = {
 	coldResist = 20,
 	lightningResist = 20,
 	chaosResist = 20,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.245,
 	skillList = {
@@ -647,7 +647,7 @@ minions["Metadata/Monsters/Guardians/GuardianFire"] = {
 	coldResist = 75,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.2,
+	damage = 1.2,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -670,7 +670,7 @@ minions["Metadata/Monsters/Guardians/GuardianLightning"] = {
 	coldResist = 85,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.2,
+	damage = 1.2,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -688,7 +688,7 @@ minions["Metadata/Monsters/HalfSkeleton/HalfSkeleton"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.1,
+	damage = 1.1,
 	damageSpread = 0.3,
 	attackTime = 1.5,
 	weaponType1 = "Dagger",
@@ -709,7 +709,7 @@ minions["Metadata/Monsters/incaminion/Fragment"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 40,
-	damage = 1.84,
+	damage = 0.84,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	skillList = {
@@ -726,7 +726,7 @@ minions["Metadata/Monsters/InsectSpawner/InsectSpawner"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.91,
+	damage = 0.91,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -745,7 +745,7 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior2"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.16,
+	damage = 1.16,
 	damageSpread = 0.2,
 	attackTime = 1.755,
 	skillList = {
@@ -762,7 +762,7 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior3"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.16,
+	damage = 1.16,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -781,17 +781,17 @@ minions["Metadata/Monsters/Kiweth/Kiweth"] = {
 	coldResist = 40,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.68,
+	damage = 1.68,
 	damageSpread = 0.2,
 	attackTime = 1.5,
+	damageFixup = 0.11,
 	skillList = {
 		"Melee",
 		"BirdmanConsumeCorpse",
 		"BirdmanBloodProjectile",
 	},
 	modList = {
-		mod("Damage", "MORE", -11), -- MonsterSpeedAndDamageFixupSmall
-		mod("Speed", "MORE", 11), -- MonsterSpeedAndDamageFixupSmall
+		-- MonsterSpeedAndDamageFixupSmall
 		-- MonsterLesserFarShot
 	},
 }
@@ -803,17 +803,17 @@ minions["Metadata/Monsters/Kiweth/KiwethSeagull"] = {
 	coldResist = 40,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.56,
+	damage = 1.56,
 	damageSpread = 0.2,
 	attackTime = 1.5,
+	damageFixup = 0.11,
 	skillList = {
 		"Melee",
 		"BirdmanConsumeCorpse",
 		"BirdmanBloodProjectile",
 	},
 	modList = {
-		mod("Damage", "MORE", -11), -- MonsterSpeedAndDamageFixupSmall
-		mod("Speed", "MORE", 11), -- MonsterSpeedAndDamageFixupSmall
+		-- MonsterSpeedAndDamageFixupSmall
 		-- MonsterLesserFarShot
 	},
 }
@@ -825,7 +825,7 @@ minions["Metadata/Monsters/Lion/LionDesertSkinPuncture"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -844,7 +844,7 @@ minions["Metadata/Monsters/MassSkeleton/MassSkeleton"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.98,
+	damage = 0.98,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -863,7 +863,7 @@ minions["Metadata/Monsters/Miner/MinerLantern"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.21,
+	damage = 1.21,
 	damageSpread = 0.2,
 	attackTime = 1.395,
 	skillList = {
@@ -881,7 +881,7 @@ minions["Metadata/Monsters/Miner/MinerLanternCrystalVeins"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.21,
+	damage = 1.21,
 	damageSpread = 0.2,
 	attackTime = 1.395,
 	skillList = {
@@ -900,7 +900,7 @@ minions["Metadata/Monsters/Monkeys/FlameBearer"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.1,
+	damage = 1.1,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -918,16 +918,16 @@ minions["Metadata/Monsters/MossMonster/FireMonster"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.5,
+	damage = 1.5,
 	damageSpread = 0.2,
 	attackTime = 1.695,
+	damageFixup = 0.33,
 	skillList = {
 		"Melee",
 		"FireMonsterWhirlingBlades",
 	},
 	modList = {
-		mod("Damage", "MORE", -33), -- MonsterSpeedAndDamageFixupComplete
-		mod("Speed", "MORE", 33), -- MonsterSpeedAndDamageFixupComplete
+		-- MonsterSpeedAndDamageFixupComplete
 		-- MonsterRollsOverEnemiesText
 		-- ImmuneToLavaDamage
 	},
@@ -941,7 +941,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerConductivity"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.98,
+	damage = 0.98,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -963,7 +963,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerEnfeebleCurse"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.98,
+	damage = 0.98,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -985,7 +985,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerFlamability"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.98,
+	damage = 0.98,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -1008,7 +1008,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerFrostbite"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.98,
+	damage = 0.98,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -1030,7 +1030,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerElementalWeakness"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.98,
+	damage = 0.98,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -1052,7 +1052,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerProjectileWeakness"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.98,
+	damage = 0.98,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -1074,7 +1074,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerVulnerability"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.98,
+	damage = 0.98,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -1096,7 +1096,7 @@ minions["Metadata/Monsters/Pyromaniac/PyromaniacFire"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -1117,7 +1117,7 @@ minions["Metadata/Monsters/Pyromaniac/PyromaniacPoison"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -1137,7 +1137,7 @@ minions["Metadata/Monsters/Revenant/Revenant"] = {
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 2.4,
+	damage = 1.4,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	skillList = {
@@ -1158,17 +1158,17 @@ minions["Metadata/Monsters/Seawitch/SeaWitchScreech"] = {
 	coldResist = 75,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.02,
+	damage = 1.02,
 	damageSpread = 0.2,
 	attackTime = 1.5,
+	damageFixup = 0.11,
 	skillList = {
 		"SeaWitchWave",
 		"Melee",
 		"SeaWitchScreech",
 	},
 	modList = {
-		mod("Damage", "MORE", -11), -- MonsterSpeedAndDamageFixupSmall
-		mod("Speed", "MORE", 11), -- MonsterSpeedAndDamageFixupSmall
+		-- MonsterSpeedAndDamageFixupSmall
 	},
 }
 minions["Metadata/Monsters/Seawitch/SeaWitchSpawnExploding"] = {
@@ -1179,9 +1179,10 @@ minions["Metadata/Monsters/Seawitch/SeaWitchSpawnExploding"] = {
 	coldResist = 75,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.02,
+	damage = 1.02,
 	damageSpread = 0.2,
 	attackTime = 1.5,
+	damageFixup = 0.11,
 	skillList = {
 		"SeaWitchWave",
 		"Melee",
@@ -1189,8 +1190,7 @@ minions["Metadata/Monsters/Seawitch/SeaWitchSpawnExploding"] = {
 		"SeaWitchScreech",
 	},
 	modList = {
-		mod("Damage", "MORE", -11), -- MonsterSpeedAndDamageFixupSmall
-		mod("Speed", "MORE", 11), -- MonsterSpeedAndDamageFixupSmall
+		-- MonsterSpeedAndDamageFixupSmall
 		-- MonsterSummonsExplodingSpawnText
 	},
 }
@@ -1202,9 +1202,10 @@ minions["Metadata/Monsters/Seawitch/SeaWitchSpawnTemporalChains"] = {
 	coldResist = 75,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.02,
+	damage = 1.02,
 	damageSpread = 0.2,
 	attackTime = 1.5,
+	damageFixup = 0.11,
 	skillList = {
 		"SeaWitchWave",
 		"Melee",
@@ -1212,8 +1213,7 @@ minions["Metadata/Monsters/Seawitch/SeaWitchSpawnTemporalChains"] = {
 		"SummonSpawn",
 	},
 	modList = {
-		mod("Damage", "MORE", -11), -- MonsterSpeedAndDamageFixupSmall
-		mod("Speed", "MORE", 11), -- MonsterSpeedAndDamageFixupSmall
+		-- MonsterSpeedAndDamageFixupSmall
 		-- MonsterSummonsSpawnText
 		-- MonsterCastsTemporalChainsText
 	},
@@ -1226,17 +1226,17 @@ minions["Metadata/Monsters/Seawitch/SeaWitchVulnerabilityCurse"] = {
 	coldResist = 75,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.02,
+	damage = 1.02,
 	damageSpread = 0.2,
 	attackTime = 1.5,
+	damageFixup = 0.11,
 	skillList = {
 		"SeaWitchWave",
 		"Melee",
 		"SkeletonVulnerability",
 	},
 	modList = {
-		mod("Damage", "MORE", -11), -- MonsterSpeedAndDamageFixupSmall
-		mod("Speed", "MORE", 11), -- MonsterSpeedAndDamageFixupSmall
+		-- MonsterSpeedAndDamageFixupSmall
 		-- MonsterCastsVulnerabilityCurseText
 	},
 }
@@ -1248,7 +1248,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowPuncture"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	weaponType1 = "Bow",
@@ -1268,7 +1268,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	weaponType1 = "Bow",
@@ -1288,7 +1288,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeLarge"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 2.8,
+	damage = 1.8,
 	damageSpread = 0.2,
 	attackTime = 2.25,
 	weaponType1 = "One Handed Mace",
@@ -1306,7 +1306,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning3"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	weaponType1 = "Bow",
@@ -1327,7 +1327,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectiles"] = {
 	coldResist = 40,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.605,
 	skillList = {
@@ -1346,7 +1346,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectiles2"] = 
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.605,
 	skillList = {
@@ -1365,7 +1365,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowPoison"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	weaponType1 = "Bow",
@@ -1385,7 +1385,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning2"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	weaponType1 = "Bow",
@@ -1405,7 +1405,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning4"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	weaponType1 = "Bow",
@@ -1426,7 +1426,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterLightningSpark"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.605,
 	skillList = {
@@ -1445,7 +1445,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 1.6,
+	damage = 0.6,
 	damageSpread = 0.2,
 	attackTime = 1.995,
 	weaponType1 = "Bow",
@@ -1466,7 +1466,7 @@ minions["Metadata/Monsters/Snake/SnakeScorpionMultiShot"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 30,
-	damage = 1.75,
+	damage = 0.75,
 	damageSpread = 0.2,
 	attackTime = 1.65,
 	skillList = {
@@ -1486,7 +1486,7 @@ minions["Metadata/Monsters/Spiders/SpiderThornFlickerStrike"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.44,
 	skillList = {
@@ -1505,17 +1505,17 @@ minions["Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.3,
+	damage = 1.3,
 	damageSpread = 0.2,
 	attackTime = 1.875,
+	damageFixup = 0.33,
 	weaponType1 = "One Handed Sword",
 	skillList = {
 		"Melee",
 		"MonsterPuncture",
 	},
 	modList = {
-		mod("Damage", "MORE", -33), -- MonsterSpeedAndDamageFixupComplete
-		mod("Speed", "MORE", 33), -- MonsterSpeedAndDamageFixupComplete
+		-- MonsterSpeedAndDamageFixupComplete
 		-- MonsterCastsPunctureText
 	},
 }
@@ -1527,7 +1527,7 @@ minions["Metadata/Monsters/Taster/Taster"] = {
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.5,
+	damage = 1.5,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	weaponType1 = "Dagger",
@@ -1546,7 +1546,7 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleCasterArmour"] = {
 	coldResist = 37,
 	lightningResist = 37,
 	chaosResist = 0,
-	damage = 2.2,
+	damage = 1.2,
 	damageSpread = 0.2,
 	attackTime = 1.245,
 	skillList = {
@@ -1565,7 +1565,7 @@ minions["Metadata/Monsters/Undying/UndyingOutcastPuncture"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.65,
 	skillList = {
@@ -1583,7 +1583,7 @@ minions["Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades"] = {
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.65,
 	skillList = {

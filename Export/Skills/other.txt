@@ -62,8 +62,22 @@ local skills, mod, flag, skill = ...
 #flags attack projectile area fire
 #mods
 
+#skill TriggeredSummonSpider Raise Spiders
+#flags spell minion duration
+	minionList = {
+		"SpiderMinion",
+	},
+#mods
+
 #skill TriggeredShockedGround Shock Ground
 #flags spell area duration lightning
+#mods
+
+#skill SummonEssenceSpirits Spectral Spirits
+#flags spell minion
+	minionList = {
+		"SummonedEssenceSpirit",
+	},
 #mods
 
 #skill SummonRigwaldsPack Summon Spectral Wolf

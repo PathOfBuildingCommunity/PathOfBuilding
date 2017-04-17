@@ -11,6 +11,7 @@ loadDat("GrantedEffects")
 loadDat("GrantedEffectsPerLevel")
 loadDat("MonsterVarieties")
 loadDat("MonsterTypes")
+loadDat("MonsterResistances")
 loadDat("ItemClasses")
 
 function actWithType(skillType)
@@ -60,7 +61,11 @@ function spectre(name)
 		if MT[mon.MonsterTypesKey].Unknown4 ~= 0 then
 			print("energyShield = "..(0.4 * MT[mon.MonsterTypesKey].Unknown4 / 100))
 		end
-		print("damage = "..(1 + mon.DamageMultiplier/100))
+		print("fireResist = "..MR[MT[mon.MonsterTypesKey].MonsterResistancesKey].FireMerciless)
+		print("coldResist = "..MR[MT[mon.MonsterTypesKey].MonsterResistancesKey].ColdMerciless)
+		print("lightningResist = "..MR[MT[mon.MonsterTypesKey].MonsterResistancesKey].LightningMerciless)
+		print("chaosResist = "..MR[MT[mon.MonsterTypesKey].MonsterResistancesKey].ChaosMerciless)
+		print("damage = "..(mon.DamageMultiplier/100))
 		print("damageSpread = "..(MT[mon.MonsterTypesKey].Unknown5 / 100))
 		print("attackTime = "..mon.AttackSpeed/1000)
 		if mon.MainHand_ItemClassesKey then

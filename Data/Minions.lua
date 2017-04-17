@@ -6,15 +6,16 @@
 local minions, mod = ...
 
 minions["RaisedZombie"] = {
-	name = "Zombie",
+	name = "Raised Zombie",
 	life = 2.55,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 1.75,
+	damage = 1.5,
 	damageSpread = 0.4,
-	attackTime = 1.17,
+	attackTime = 1.755,
+	damageFixup = 0.33,
 	limit = "ActiveZombieLimit",
 	skillList = {
 		"Melee",
@@ -27,14 +28,15 @@ minions["RaisedZombie"] = {
 minions["SummonedChaosGolem"] = {
 	name = "Chaos Golem",
 	life = 4.8,
+	energyShield = 0.2,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 60,
-	energyShield = 0.2,
-	damage = 3.48,
+	damage = 2.48,
 	damageSpread = 0.2,
 	attackTime = 1.5,
+	damageFixup = 0.22,
 	limit = "ActiveGolemLimit",
 	skillList = {
 		"Melee",
@@ -42,8 +44,6 @@ minions["SummonedChaosGolem"] = {
 		"SandstormChaosElementalSummoned",
 	},
 	modList = {
-		mod("Damage", "MORE", -22),
-		mod("Speed", "MORE", 22),
 	},
 }
 minions["SummonedFlameGolem"] = {
@@ -54,9 +54,10 @@ minions["SummonedFlameGolem"] = {
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 2.5,
+	damage = 1.5,
 	damageSpread = 0.2,
 	attackTime = 1.5,
+	damageFixup = 0.22,
 	limit = "ActiveGolemLimit",
 	skillList = {
 		"FireElementalFlameRedSummoned",
@@ -64,8 +65,6 @@ minions["SummonedFlameGolem"] = {
 		"FireElementalConeSummoned",
 	},
 	modList = {
-		mod("Damage", "MORE", -33),
-		mod("Speed", "MORE", 33),
 	},
 }
 minions["SummonedIceGolem"] = {
@@ -76,9 +75,10 @@ minions["SummonedIceGolem"] = {
 	coldResist = 70,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 4.06,
+	damage = 3.06,
 	damageSpread = 0.2,
 	attackTime = 1.275,
+	damageFixup = 0.33,
 	limit = "ActiveGolemLimit",
 	skillList = {
 		"Melee",
@@ -86,8 +86,6 @@ minions["SummonedIceGolem"] = {
 		"IceElementalSpearSummoned",
 	},
 	modList = {
-		mod("Damage", "MORE", -33),
-		mod("Speed", "MORE", 33),
 	},
 }
 minions["SummonedLightningGolem"] = {
@@ -98,9 +96,10 @@ minions["SummonedLightningGolem"] = {
 	coldResist = 40,
 	lightningResist = 70,
 	chaosResist = 20,
-	damage = 2.5,
+	damage = 1.5,
 	damageSpread = 0.2,
 	attackTime = 1.755,
+	damageFixup = 0.22,
 	limit = "ActiveGolemLimit",
 	skillList = {
 		"LightningGolemArcSummoned",
@@ -108,8 +107,6 @@ minions["SummonedLightningGolem"] = {
 		"LightningGolemWrath",
 	},
 	modList = {
-		mod("Damage", "MORE", -22),
-		mod("Speed", "MORE", 22),
 	},
 }
 minions["SummonedStoneGolem"] = {
@@ -119,7 +116,7 @@ minions["SummonedStoneGolem"] = {
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 4,
+	damage = 3,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	weaponType1 = "One Handed Sword",
@@ -130,8 +127,6 @@ minions["SummonedStoneGolem"] = {
 		"RockGolemWhirlingBlades",
 	},
 	modList = {
-		mod("Damage", "MORE", -33),
-		mod("Speed", "MORE", 33),
 	},
 }
 minions["SummonedRagingSpirit"] = {
@@ -141,7 +136,7 @@ minions["SummonedRagingSpirit"] = {
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 0.66,
+	damage = 0.77,
 	damageSpread = 0.2,
 	attackTime = 0.855,
 	limit = "ActiveRagingSpiritLimit",
@@ -149,9 +144,27 @@ minions["SummonedRagingSpirit"] = {
 		"PlayerRagingSpiritMeleeAttack",
 	},
 	modList = {
-		mod("PhysicalMin", "BASE", 4),
-		mod("PhysicalMax", "BASE", 5),
 		mod("PhysicalDamageConvertToFire", "BASE", 50),
+		mod("PhysicalMin", "BASE", 4, ModFlag.Attack),
+		mod("PhysicalMax", "BASE", 5, ModFlag.Attack),
+		mod("Speed", "MORE", 40, ModFlag.Attack),
+	},
+}
+minions["SummonedEssenceSpirit"] = {
+	name = "Essence Spirit",
+	life = 1.8,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 0.77,
+	damageSpread = 0.2,
+	attackTime = 0.855,
+	skillList = {
+		"RagingSpiritMeleeAttack",
+		"SpectralSkullShieldCharge",
+	},
+	modList = {
 		mod("Speed", "MORE", 40, ModFlag.Attack),
 	},
 }
@@ -162,9 +175,10 @@ minions["SummonedSpectralWolf"] = {
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 2.5,
+	damage = 1.5,
 	damageSpread = 0.2,
 	attackTime = 1.5,
+	weaponType1 = "Dagger",
 	limit = "ActiveWolfLimit",
 	skillList = {
 		"Melee",
@@ -179,10 +193,12 @@ minions["RaisedSkeleton"] = {
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 1.49,
+	damage = 1.72,
 	damageSpread = 0.4,
-	attackTime = 0.87,
+	attackTime = 1.305,
+	damageFixup = 0.33,
 	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
 	limit = "ActiveSkeletonLimit",
 	skillList = {
 		"Melee",
@@ -197,9 +213,10 @@ minions["RaisedSkeletonCaster"] = {
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 1.98,
+	damage = 0.98,
 	damageSpread = 0.3,
 	attackTime = 1.605,
+	damageFixup = 0.33,
 	limit = "ActiveSkeletonLimit",
 	skillList = {
 		"SkeletonProjectileFire",
@@ -207,8 +224,6 @@ minions["RaisedSkeletonCaster"] = {
 		"SkeletonProjectileLightning",
 	},
 	modList = {
-		mod("Damage", "MORE", -33),
-		mod("Speed", "MORE", 33),
 	},
 }
 minions["RaisedSkeletonArcher"] = {
@@ -218,17 +233,16 @@ minions["RaisedSkeletonArcher"] = {
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 1.98,
+	damage = 0.98,
 	damageSpread = 0.16,
 	attackTime = 1.995,
+	damageFixup = 0.33,
 	weaponType1 = "Bow",
 	limit = "ActiveSkeletonLimit",
 	skillList = {
 		"Melee",
 	},
 	modList = {
-		mod("Damage", "MORE", -33),
-		mod("Speed", "MORE", 33),
 	},
 }
 minions["Clone"] = {
@@ -238,13 +252,33 @@ minions["Clone"] = {
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 2,
+	damage = 1,
 	damageSpread = 0,
-	attackTime = 1.425,
+	attackTime = 1.245,
 	skillList = {
 		"Melee",
 	},
 	modList = {
 		mod("EnergyShield", "BASE", 10),
+		mod("Misc", "LIST", { type = "SkillData", key = "attackRateCap", value = 1.84 }),
+	},
+}
+minions["SpiderMinion"] = {
+	name = "Spider Minion",
+	life = 1.8,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1.32,
+	damageSpread = 0.2,
+	attackTime = 1.44,
+	weaponType1 = "One Handed Sword",
+	limit = "ActiveSpiderLimit",
+	skillList = {
+		"Melee",
+		"SpiderMinionLeapSlam",
+	},
+	modList = {
 	},
 }
