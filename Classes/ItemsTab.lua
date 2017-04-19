@@ -885,7 +885,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		for index, modLine in pairs(item.modLines) do
 			if not modLine.buff and (not modLine.variantList or modLine.variantList[item.variant]) then
 				local line = (not dbMode and modLine.range and itemLib.applyRange(modLine.line, modLine.range)) or modLine.line
-				if not line:match("^%+?0[^%.]") and not line:match(" 0%-0 ") and not line:match(" 0 to 0 ") then -- Hack to hide 0-value modifiers
+				if not line:match("^%+?0%%? ") and not line:match(" %+?0%%? ") and not line:match(" 0%-0 ") and not line:match(" 0 to 0 ") then -- Hack to hide 0-value modifiers
 					local colorCode
 					if modLine.extra then
 						colorCode = data.colorCodes.UNSUPPORTED

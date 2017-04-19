@@ -47,6 +47,10 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.6 - 2017/04/20
+ * Fixed bug introduced in 1.4.5 that prevented Onslaught and Unholy Might from applying correctly
+ * The minion modifiers on the jewel templates are now correctly hidden when their value is set to 0
+
 ### 1.4.5 - 2017/04/19
  * Added support for Goatman Fire-raiser's Magma Orb skill
  * Demigod items and legacy (pre-1.2.0) quiver types can now be imported

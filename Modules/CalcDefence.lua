@@ -198,36 +198,42 @@ function calcs.defence(env, actor)
 	end
 
 	-- Mana, life and energy shield regen
-	do
+	if modDB:Sum("FLAG", nil, "NoManaRegen") then
+		output.ManaRegen = 0
+	else
 		output.ManaRegen = round((modDB:Sum("BASE", nil, "ManaRegen") + output.Mana * modDB:Sum("BASE", nil, "ManaRegenPercent") / 100) * calcLib.mod(modDB, nil, "ManaRegen", "ManaRecovery"), 1)
 		if breakdown then
 			breakdown.ManaRegen = breakdown.simple(nil, nil, output.ManaRegen, "ManaRegen", "ManaRecovery")
 		end
-		if modDB:Sum("FLAG", nil, "NoLifeRegen") then
-			output.LifeRegen = 0
-		elseif modDB:Sum("FLAG", nil, "ZealotsOath") then
-			output.LifeRegen = 0
-			local lifeBase = modDB:Sum("BASE", nil, "LifeRegen")
-			if lifeBase > 0 then
-				modDB:NewMod("EnergyShieldRegen", "BASE", lifeBase, "Zealot's Oath")
-			end
-			local lifePercent = modDB:Sum("BASE", nil, "LifeRegenPercent")
-			if lifePercent > 0 then
-				modDB:NewMod("EnergyShieldRegenPercent", "BASE", lifePercent, "Zealot's Oath")
-			end
-		else
-			local lifeBase = modDB:Sum("BASE", nil, "LifeRegen")
-			local lifePercent = modDB:Sum("BASE", nil, "LifeRegenPercent")
-			if lifePercent > 0 then
-				lifeBase = lifeBase + output.Life * lifePercent / 100
-			end
-			if lifeBase > 0 then
-				output.LifeRegen = lifeBase * calcLib.mod(modDB, nil, "LifeRecovery")
-				output.LifeRegenPercent = round(output.LifeRegen / output.Life * 100, 1)
-			else
-				output.LifeRegen = 0
-			end
+	end
+	if modDB:Sum("FLAG", nil, "NoLifeRegen") then
+		output.LifeRegen = 0
+	elseif modDB:Sum("FLAG", nil, "ZealotsOath") then
+		output.LifeRegen = 0
+		local lifeBase = modDB:Sum("BASE", nil, "LifeRegen")
+		if lifeBase > 0 then
+			modDB:NewMod("EnergyShieldRegen", "BASE", lifeBase, "Zealot's Oath")
 		end
+		local lifePercent = modDB:Sum("BASE", nil, "LifeRegenPercent")
+		if lifePercent > 0 then
+			modDB:NewMod("EnergyShieldRegenPercent", "BASE", lifePercent, "Zealot's Oath")
+		end
+	else
+		local lifeBase = modDB:Sum("BASE", nil, "LifeRegen")
+		local lifePercent = modDB:Sum("BASE", nil, "LifeRegenPercent")
+		if lifePercent > 0 then
+			lifeBase = lifeBase + output.Life * lifePercent / 100
+		end
+		if lifeBase > 0 then
+			output.LifeRegen = lifeBase * calcLib.mod(modDB, nil, "LifeRecovery")
+			output.LifeRegenPercent = round(output.LifeRegen / output.Life * 100, 1)
+		else
+			output.LifeRegen = 0
+		end
+	end
+	if modDB:Sum("FLAG", nil, "NoEnergyShieldRegen") then
+		output.EnergyShieldRegen = 0
+	else
 		local esBase = modDB:Sum("BASE", nil, "EnergyShieldRegen")
 		local esPercent = modDB:Sum("BASE", nil, "EnergyShieldRegenPercent")
 		if esPercent > 0 then
@@ -289,6 +295,10 @@ function calcs.defence(env, actor)
 		end
 		output.AttackDodgeChance = m_min(modDB:Sum("BASE", nil, "AttackDodgeChance"), 75)
 		output.SpellDodgeChance = m_min(modDB:Sum("BASE", nil, "SpellDodgeChance"), 75)
+		if modDB:Sum("FLAG", nil, "DodgeChanceIsUnlucky") then
+			output.AttackDodgeChance = output.AttackDodgeChance / 100 * output.AttackDodgeChance
+			output.SpellDodgeChance = output.SpellDodgeChance / 100 * output.SpellDodgeChance
+		end
 		local stunChance = 100 - modDB:Sum("BASE", nil, "AvoidStun")
 		if output.EnergyShield > output.Life * 2 then
 			stunChance = stunChance * 0.5

@@ -7,9 +7,10 @@ local launch, main = ...
 
 local t_insert = table.insert
 local m_max = math.max
+local m_floor = math.floor
 
 local varList = {
-	{ section = "General" },
+	{ section = "General", col = 1 },
 	{ var = "enemyLevel", type = "number", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and evade chances.\nThe default level is your character level, capped at 84, which is the same value\nused in-game to calculate the stats on the character sheet." },
 	{ var = "conditionLowLife", type = "check", label = "Are you always on Low Life?", ifCond = "LowLife", tooltip = "You will automatically be considered to be on Low Life if you have at least 65% life reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LowLife", "FLAG", true, "Config")
@@ -21,7 +22,125 @@ local varList = {
 		modList:NewMod("Condition:FullEnergyShield", "FLAG", true, "Config")
 	end },
 	{ var = "igniteMode", type = "list", label = "Ignite calculation mode:", tooltip = "Controls how the base damage for ignite is calculated:\nAverage Damage: Ignite is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ignite is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
-	{ section = "When In Combat" },
+	{ section = "Skill Options", col = 2 },
+	{ label = "Raise Spectre:", ifSkill = "Raise Spectre" },
+	{ var = "raiseSpectreSpectreLevel", type = "number", label = "Spectre Level:", ifSkill = "Raise Spectre", tooltip = "Sets the level of the raised spectre.\nThe default level is the level requirement of the Raise Spectre skill.", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "minionLevel", value = val }, "Config", { type = "SkillName", skillName = "Raise Spectre" })
+	end },
+	{ var = "raiseSpectreEnableCurses", type = "check", label = "Enable curses:", ifSkill = "Raise Spectre", tooltip = "Enable any curse skills that your spectres have.", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillType", skillType = SkillType.Curse }, { type = "SkillName", skillName = "Raise Spectre", summonSkill = true })
+	end },
+	{ var = "raiseSpectreBladeVortexBladeCount", type = "number", label = "Blade Vortex blade count:", ifSkillList = {"DemonModularBladeVortexSpectre","GhostPirateBladeVortexSpectre"}, tooltip = "Sets the blade count for Blade Vortex skills used by spectres.\nDefault is 1; maximum is 5.", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "dpsMultiplier", value = val }, "Config", { type = "SkillId", skillId = "DemonModularBladeVortexSpectre" })
+		modList:NewMod("SkillData", "LIST", { key = "dpsMultiplier", value = val }, "Config", { type = "SkillId", skillId = "GhostPirateBladeVortexSpectre" })
+	end },
+	{ label = "Summon Lightning Golem:", ifSkill = "Summon Lightning Golem" },
+	{ var = "summonLightningGolemEnableWrath", type = "check", label = "Enable Wrath Aura:", ifSkill = "Summon Lightning Golem", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "LightningGolemWrath" })
+	end },
+--[[	{ section = "Map Modifiers and Player Debuffs", col = 2 },
+	{ label = "Player is cursed by:" },
+	{ var = "playerCursedWithAssassinsMark", type = "number", label = "Assassin's Mark:", tooltip = "Sets the level of Assassin's Mark to apply to the player.", apply = function(val, modList, enemyModList)
+		modList:NewMod("ExtraCurse", "LIST", { name = "Assassin's Mark", level = val, applyToPlayer = true })
+	end },
+	{ var = "playerCursedWithConductivity", type = "number", label = "Conductivity:", tooltip = "Sets the level of Conductivity to apply to the player.", apply = function(val, modList, enemyModList)
+		modList:NewMod("ExtraCurse", "LIST", { name = "Conductivity", level = val, applyToPlayer = true })
+	end },
+	{ var = "playerCursedWithElementalWeakness", type = "number", label = "Elemental Weakness:", tooltip = "Sets the level of Elemental Weakness to apply to the player.\nIn mid tier maps, 'of Elemental Weakness' applies level 10.\nIn high tier maps, 'of Elemental Weakness' applies level 15.", apply = function(val, modList, enemyModList)
+		modList:NewMod("ExtraCurse", "LIST", { name = "Elemental Weakness", level = val, applyToPlayer = true })
+	end },
+	{ var = "playerCursedWithEnfeeble", type = "number", label = "Enfeeble:", tooltip = "Sets the level of Enfeeble to apply to the player.\nIn mid tier maps, 'of Enfeeblement' applies level 10.\nIn high tier maps, 'of Enfeeblement' applies level 15.", apply = function(val, modList, enemyModList)
+		modList:NewMod("ExtraCurse", "LIST", { name = "Enfeeble", level = val, applyToPlayer = true })
+	end },
+	{ var = "playerCursedWithFlammability", type = "number", label = "Flammability:", tooltip = "Sets the level of Flammability to apply to the player.", apply = function(val, modList, enemyModList)
+		modList:NewMod("ExtraCurse", "LIST", { name = "Flammability", level = val, applyToPlayer = true })
+	end },
+	{ var = "playerCursedWithFrostbite", type = "number", label = "Frostbite:", tooltip = "Sets the level of Frostbite to apply to the player.", apply = function(val, modList, enemyModList)
+		modList:NewMod("ExtraCurse", "LIST", { name = "Frostbite", level = val, applyToPlayer = true })
+	end },
+	{ var = "playerCursedWithPoachersMark", type = "number", label = "Poacher's Mark:", tooltip = "Sets the level of Poacher's Mark to apply to the player.", apply = function(val, modList, enemyModList)
+		modList:NewMod("ExtraCurse", "LIST", { name = "Poacher's Mark", level = val, applyToPlayer = true })
+	end },
+	{ var = "playerCursedWithProjectileWeakness", type = "number", label = "Projectile Weakness:", tooltip = "Sets the level of Projectile Weakness to apply to the player.", apply = function(val, modList, enemyModList)
+		modList:NewMod("ExtraCurse", "LIST", { name = "Projectile Weakness", level = val, applyToPlayer = true })
+	end },
+	{ var = "playerCursedWithTemporalChains", type = "number", label = "Temporal Chains:", tooltip = "Sets the level of Temporal Chains to apply to the player.\nIn mid tier maps, 'of Temporal Chains' applies level 10.\nIn high tier maps, 'of Temporal Chains' applies level 15.", apply = function(val, modList, enemyModList)
+		modList:NewMod("ExtraCurse", "LIST", { name = "Temporal Chains", level = val, applyToPlayer = true })
+	end },
+	{ var = "playerCursedWithVulnerability", type = "number", label = "Vulnerability:", tooltip = "Sets the level of Vulnerability to apply to the player.\nIn mid tier maps, 'of Vulnerability' applies level 10.\nIn high tier maps, 'of Vulnerability' applies level 15.", apply = function(val, modList, enemyModList)
+		modList:NewMod("ExtraCurse", "LIST", { name = "Vulnerability", level = val, applyToPlayer = true })
+	end },
+	{ var = "playerCursedWithWarlordsMark", type = "number", label = "Warlord's Mark:", tooltip = "Sets the level of Warlord's Mark to apply to the player.", apply = function(val, modList, enemyModList)
+		modList:NewMod("ExtraCurse", "LIST", { name = "Warlord's Mark", level = val, applyToPlayer = true })
+	end },
+	{ label = "Map Prefix Modifiers:" },
+	{ var = "enemyHasPhysicalReduction", type = "list", label = "Enemy Physical Damage reduction:", list = {{val=0,label="No"},{val=20,label="20% (Low tier)"},{val=30,label="30% (Mid tier)"},{val=40,label="40% (High tier)"}}, apply = function(val, modList, enemyModList)	
+		enemyModList:NewMod("PhysicalDamageReduction", "INC", val, "Config")
+	end },
+	{ var = "enemyHasLessCurseEffectOnSelf", type = "list", label = "Less effect of Curses on Enemy:", list = {{val=0,label="No"},{val=25,label="25% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=60,label="60% (High tier)"}}, apply = function(val, modList, enemyModList)	
+		if val ~= 0 then
+			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -val, "Config")
+		end
+	end },
+	{ label = "Map Suffix Modifiers:" },
+	{ var = "playerHasElementalEquilibrium", type = "check", label = "Player has Elemental Equilibrium?", apply = function(val, modList, enemyModList)
+		modList:NewMod("Keystone", "LIST", "Elemental Equilibrium", "Config")
+	end },
+	{ var = "playerHasPointBlank", type = "check", label = "Player has Point Blank?", apply = function(val, modList, enemyModList)
+		modList:NewMod("Keystone", "LIST", "Point Blank", "Config")
+	end },
+	{ var = "playerGainsReducedFlaskCharges", type = "list", label = "Gains reduced Flask Charges:", list = {{val=0,label="No"},{val=30,label="30% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=50,label="50% (High tier)"}}, apply = function(val, modList, enemyModList)
+		if val ~= 0 then
+			modList:NewMod("FlaskChargesGained", "INC", -val, "Config")
+		end
+	end },
+	{ var = "playerHasLessAreaOfEffect", type = "list", label = "Less Area of Effect:", list = {{val=0,label="No"},{val=15,label="15% (Low tier)"},{val=20,label="20% (Mid tier)"},{val=25,label="25% (High tier)"}}, apply = function(val, modList, enemyModList)
+		if val ~= 0 then
+			modList:NewMod("AreaOfEffect", "MORE", -val, "Config")
+		end
+	end },
+	{ var = "enemyHasIncreasedAccuracy", type = "list", label = "Unlucky Dodge/Enemy has inc. Acc.:", list = {{val=0,label="No"},{val=30,label="30% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=50,label="50% (High tier)"}}, apply = function(val, modList, enemyModList)
+		if val ~= 0 then
+			modList:NewMod("DodgeChanceIsUnlucky", "FLAG", true, "Config")
+			enemyModList:NewMod("Accuracy", "INC", val, "Config")
+		end
+	end },
+	{ var = "playerHasLessArmourandBlock", type = "list", label = "Reduced Block Chance/less Armour:", list = {{val=0,label="No"},{val="LOW",label="20%/20% (Low tier)"},{val="MID",label="30%/25% (Mid tier)"},{val="HIGH",label="40%/30% (High tier)"}}, apply = function(val, modList, enemyModList)
+		local map = { ["LOW"] = {20,20}, ["MID"] = {30,25}, ["HIGH"] = {40,30} }
+		if map[val] then
+			modList:NewMod("BlockChance", "INC", -map[val][1], "Config")
+			modList:NewMod("Armour", "LESS", -map[val][2], "Config")
+		end
+	end },
+	{ var = "playerHasLessLifeESRecovery", type = "list", label = "Less Recovery of Life & Energy Shield:", list = {{val=0,label="No"},{val=20,label="20% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=60,label="60% (High tier)"}}, apply = function(val, modList, enemyModList)
+		if val ~= 0 then
+			modList:NewMod("LifeRecovery", "MORE", -val, "Config")
+			modList:NewMod("EnergyShieldRecovery", "MORE", -val, "Config")
+		end
+	end },
+	{ var = "enemyTakesReducedExtraCritDamage", type = "number", label = "Enemy takes red. Extra Crit Damage:", tooltip = "Low tier: 25-30%\nMid tier: 31-35%\nHigh tier: 36-40%" , apply = function(val, modList, enemyModList)
+		if val ~= 0 then
+			enemyModList:NewMod("SelfCritMultiplier", "INC", -val, "Config")
+		end
+	end },
+	{ var = "playerHasMinusMaxResist", type = "number", label = "-X% maximum Resistances:", tooltip = "Mid tier: 5-8%\nHigh tier: 9-12%", apply = function(val, modList, enemyModList)
+		if val ~= 0 then
+			modList:NewMod("FireResistMax", "BASE", -val, "Config")
+			modList:NewMod("ColdResistMax", "BASE", -val, "Config")
+			modList:NewMod("LightningResistMax", "BASE", -val, "Config")
+			modList:NewMod("ChaosResistMax", "BASE", -val, "Config")
+		end
+	end },
+	{ var = "playerCannotRegenLifeManaEnergyShield", type = "check", label = "Cannot Regen Life/Mana/ES?", apply = function(val, modList, enemyModList)
+		modList:NewMod("NoLifeRegen", "FLAG", true, "Config")
+		modList:NewMod("NoEnergyShieldRegen", "FLAG", true, "Config")
+		modList:NewMod("NoManaRegen", "FLAG", true, "Config")
+	end },
+	{ var = "playerCannotLeech", type = "check", label = "Cannot Leech Life/Mana?", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("CannotLeechLifeFromSelf", "FLAG", true, "Config")
+		enemyModList:NewMod("CannotLeechManaFromSelf", "FLAG", true, "Config")
+	end },]]
+	{ section = "When In Combat", col = 1 },
 	{ var = "usePowerCharges", type = "check", label = "Do you use Power Charges?", apply = function(val, modList, enemyModList)
 		modList:NewMod("UsePowerCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -154,7 +273,7 @@ local varList = {
 	{ var = "conditionBlockedHitFromUniqueEnemyRecently", type = "check", label = "Blocked hit from a Unique Recently?", ifNode = 63490, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BlockedHitFromUniqueEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ section = "For Effective DPS" },
+	{ section = "For Effective DPS", col = 1 },
 	{ var = "critChanceLucky", type = "check", label = "Is your Crit Chance Lucky?", apply = function(val, modList, enemyModList)
 		modList:NewMod("CritChanceLucky", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -257,22 +376,6 @@ local varList = {
 		enemyModList:NewMod("Condition:HitByLightningDamage", "FLAG", true, "Config")
 	end },
 	{ var = "EEIgnoreHitDamage", type = "check", label = "Ignore Skill Hit Damage?", ifNode = 39085, tooltip = "This option prevents EE from being reset by the hit damage of your main skill." },
-	{ section = "Skill Options" },
-	{ label = "Raise Spectre:", ifSkill = "Raise Spectre" },
-	{ var = "raiseSpectreSpectreLevel", type = "number", label = "Spectre Level:", ifSkill = "Raise Spectre", tooltip = "Sets the level of the raised spectre.\nThe default level is the level requirement of the Raise Spectre skill.", apply = function(val, modList, enemyModList)
-		modList:NewMod("SkillData", "LIST", { key = "minionLevel", value = val }, "Config", { type = "SkillName", skillName = "Raise Spectre" })
-	end },
-	{ var = "raiseSpectreEnableCurses", type = "check", label = "Enable curses:", ifSkill = "Raise Spectre", tooltip = "Enable any curse skills that your spectres have.", apply = function(val, modList, enemyModList)
-		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillType", skillType = SkillType.Curse }, { type = "SkillName", skillName = "Raise Spectre", summonSkill = true })
-	end },
-	{ var = "raiseSpectreBladeVortexBladeCount", type = "number", label = "Blade Vortex blade count:", ifSkillList = {"DemonModularBladeVortexSpectre","GhostPirateBladeVortexSpectre"}, tooltip = "Sets the blade count for Blade Vortex skills used by spectres.\nDefault is 1; maximum is 5.", apply = function(val, modList, enemyModList)
-		modList:NewMod("SkillData", "LIST", { key = "dpsMultiplier", value = val }, "Config", { type = "SkillId", skillId = "DemonModularBladeVortexSpectre" })
-		modList:NewMod("SkillData", "LIST", { key = "dpsMultiplier", value = val }, "Config", { type = "SkillId", skillId = "GhostPirateBladeVortexSpectre" })
-	end },
-	{ label = "Summon Lightning Golem:", ifSkill = "Summon Lightning Golem" },
-	{ var = "summonLightningGolemEnableWrath", type = "check", label = "Enable Wrath Aura:", ifSkill = "Summon Lightning Golem", apply = function(val, modList, enemyModList)
-		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "LightningGolemWrath" })
-	end },
 }
 
 local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
@@ -294,6 +397,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 		if varData.section then
 			lastSection = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 360, 0, varData.section)
 			lastSection.varControlList = { }
+			lastSection.col = varData.col
 			lastSection.height = function(self)
 				local height = 20
 				for _, varControl in pairs(self.varControlList) do
@@ -392,6 +496,8 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 			t_insert(lastSection.varControlList, control)
 		end
 	end
+
+	self.controls.scrollBar = common.New("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
 end)
 
 function ConfigTabClass:Load(xml, fileName)
@@ -464,7 +570,18 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self:ProcessControlsInput(inputEvents, viewPort)
+	for id, event in ipairs(inputEvents) do
+		if event.type == "KeyUp" then
+			if event.key == "WHEELDOWN" then
+				self.controls.scrollBar:Scroll(1)
+			elseif event.key == "WHEELUP" then
+				self.controls.scrollBar:Scroll(-1)
+			end
+		end
+	end
 
+	local maxCol = m_floor((viewPort.width - 10) / 370)
+	local maxColY = 0
 	local colY = { }
 	for _, section in ipairs(self.sectionList) do
 		local y = 14
@@ -481,18 +598,30 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 		section.shown = doShow
 		if doShow then
 			local width, height = section:GetSize()
-			local col = 1
-			while true do
-				colY[col] = colY[col] or 18
-				if colY[col] + height + 10 <= viewPort.height then
-					break
+			local col
+			if section.col and (colY[section.col] or 0) + height + 28 <= viewPort.height then
+				col = section.col
+			else
+				col = 1
+				for c = 2, maxCol do
+					colY[c] = colY[c] or 0
+					if colY[c] < colY[col] then
+						col = c
+					end
 				end
-				col = col + 1
 			end
-			section.x = 10 + (col - 1) * 360
-			section.y = colY[col]
+			colY[col] = colY[col] or 0
+			section.x = 10 + (col - 1) * 370
+			section.y = colY[col] + 18
 			colY[col] = colY[col] + height + 18
+			maxColY = m_max(maxColY, colY[col])
 		end
+	end
+
+	self.controls.scrollBar.height = viewPort.height
+	self.controls.scrollBar:SetContentDimension(maxColY + 10, viewPort.height)
+	for _, section in ipairs(self.sectionList) do
+		section.y = section.y - self.controls.scrollBar.offset
 	end
 
 	main:DrawBackground(viewPort)
