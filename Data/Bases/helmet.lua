@@ -396,3 +396,12 @@ itemBases["Deicide Mask"] = {
 	armour = { evasionBase = 166, energyShieldBase = 59, },
 	req = { level = 67, dex = 73, int = 88, },
 }
+
+
+itemBases["Golden Wreath"] = {
+	hidden = true,
+	type = "Helmet",
+	implicit = "+(16-24) to all Attributes",
+	armour = { },
+	req = { level = 12, },
+}

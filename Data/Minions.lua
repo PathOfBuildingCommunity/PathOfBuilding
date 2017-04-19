@@ -260,7 +260,7 @@ minions["Clone"] = {
 	},
 	modList = {
 		mod("EnergyShield", "BASE", 10),
-		mod("Misc", "LIST", { type = "SkillData", key = "attackRateCap", value = 1.84 }),
+		mod("SkillData", "LIST", { key = "attackRateCap", value = 1.84 }),
 	},
 }
 minions["SpiderMinion"] = {

@@ -522,10 +522,8 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 			end
 		end
 		weaponData.critChance = round(item.base.weapon.critChanceBase * (1 + sumLocal(modList, "CritChance", "INC", 0) / 100), 2)
-		for _, value in ipairs(modList:Sum("LIST", nil, "Misc")) do
-			if value.type == "WeaponData" then
-				weaponData[value.key] = value.value
-			end
+		for _, value in ipairs(modList:Sum("LIST", nil, "WeaponData")) do
+			weaponData[value.key] = value.value
 		end
 		weaponData.AccuracyInc = sumLocal(modList, "Accuracy", "INC", 0)
 		if weaponData.AccuracyInc > 0 then
@@ -566,10 +564,8 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 		if item.base.armour.movementPenalty then
 			modList:NewMod("MovementSpeed", "INC", -item.base.armour.movementPenalty, item.modSource, { type = "Condition", var = "IgnoreMovementPenalties", neg = true })
 		end
-		for _, value in ipairs(modList:Sum("LIST", nil, "Misc")) do
-			if value.type == "ArmourData" then
-				armourData[value.key] = value.value
-			end
+		for _, value in ipairs(modList:Sum("LIST", nil, "ArmourData")) do
+			armourData[value.key] = value.value
 		end
 	elseif item.base.flask then
 		local flaskData = item.flaskData
@@ -600,20 +596,17 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 		flaskData.chargesUsed = m_floor(item.base.flask.chargesUsed * (1 + sumLocal(modList, "FlaskChargesUsed", "INC", 0) / 100))
 		flaskData.gainMod = 1 + sumLocal(modList, "FlaskChargeRecovery", "INC", 0) / 100
 		flaskData.effectInc = sumLocal(modList, "FlaskEffect", "INC", 0)
-		for _, value in ipairs(modList:Sum("LIST", nil, "Misc")) do
-			if value.type == "FlaskData" then
-				flaskData[value.key] = value.value
-			end
+		for _, value in ipairs(modList:Sum("LIST", nil, "FlaskData")) do
+			flaskData[value.key] = value.value
 		end
 	elseif item.type == "Jewel" then
 		local jewelData = item.jewelData
-		for _, value in ipairs(modList:Sum("LIST", nil, "Misc")) do
-			if value.type == "JewelFunc" then
-				jewelData.funcList = jewelData.funcList or { }
-				t_insert(jewelData.funcList, value.func)
-			elseif value.type == "JewelData" then
-				jewelData[value.key] = value.value
-			end
+		for _, func in ipairs(modList:Sum("LIST", nil, "JewelFunc")) do
+			jewelData.funcList = jewelData.funcList or { }
+			t_insert(jewelData.funcList, func)
+		end
+		for _, value in ipairs(modList:Sum("LIST", nil, "JewelData")) do
+			jewelData[value.key] = value.value
 		end
 	end	
 	return { unpack(modList) }
@@ -663,7 +656,7 @@ function itemLib.buildItemModList(item)
 	end
 	if item.name == "Tabula Rasa, Simple Robe" or item.name == "Skin of the Loyal, Simple Robe" or item.name == "Skin of the Lords, Simple Robe" then
 		-- Hack to remove the energy shield
-		t_insert(baseList, { name = "Misc", type = "LIST", value = { type = "ArmourData", key = "EnergyShield" }, flags = 0, keywordFlags = 0, tagList = { } })
+		t_insert(baseList, { name = "ArmourData", type = "LIST", value = { key = "EnergyShield" }, flags = 0, keywordFlags = 0, tagList = { } })
 	end
 	if item.base.weapon or item.type == "Ring" then
 		item.slotModList = { }

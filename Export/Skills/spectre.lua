@@ -680,6 +680,74 @@ skills["GhostPirateBladeVortexSpectre"] = {
 		[35] = { 82, 276, 414, },
 	},
 }
+skills["GoatmanFireMagmaOrb"] = {
+	name = "Magma Orb",
+	hidden = true,
+	color = 3,
+	baseFlags = {
+		spell = true,
+		area = true,
+		projectile = true,
+		fire = true,
+	},
+	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [19] = true, [18] = true, [36] = true, [33] = true, [3] = true, [26] = true, [23] = true, },
+	baseMods = {
+		skill("castTime", 0.7), 
+		skill("critChance", 5), 
+		skill("cooldown", 3), 
+		--"projectile_spread_radius" = 0
+		mod("ProjectileCount", "BASE", 0), --"number_of_additional_projectiles" = 0
+		--"fire_mortar_second_hit_damage_+%_final" = -60
+		mod("Speed", "INC", 30, ModFlag.Cast), --"base_cast_speed_+%" = 30
+		mod("ChainCount", "BASE", 2), --"number_of_additional_projectiles_in_chain" = 2
+		--"is_area_damage" = ?
+		--"base_is_projectile" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("FireMin", nil), --"spell_minimum_base_fire_damage"
+		[3] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
+	},
+	levels = {
+		[1] = { 3, 11, 16, },
+		[2] = { 5, 14, 20, },
+		[3] = { 8, 18, 27, },
+		[4] = { 12, 26, 39, },
+		[5] = { 15, 33, 49, },
+		[6] = { 19, 44, 65, },
+		[7] = { 20, 47, 70, },
+		[8] = { 21, 50, 75, },
+		[9] = { 26, 69, 104, },
+		[10] = { 30, 89, 133, },
+		[11] = { 34, 113, 169, },
+		[12] = { 38, 142, 212, },
+		[13] = { 43, 187, 280, },
+		[14] = { 45, 208, 312, },
+		[15] = { 53, 316, 474, },
+		[16] = { 58, 407, 611, },
+		[17] = { 62, 497, 746, },
+		[18] = { 63, 522, 783, },
+		[19] = { 66, 604, 907, },
+		[20] = { 67, 634, 952, },
+		[21] = { 68, 1149, 1531, },
+		[22] = { 69, 1205, 1607, },
+		[23] = { 70, 1265, 1686, },
+		[24] = { 71, 1326, 1769, },
+		[25] = { 72, 1391, 1855, },
+		[26] = { 73, 1459, 1945, },
+		[27] = { 74, 1530, 2040, },
+		[28] = { 75, 1604, 2138, },
+		[29] = { 76, 1681, 2241, },
+		[30] = { 77, 1762, 2349, },
+		[31] = { 78, 1846, 2462, },
+		[32] = { 79, 1935, 2579, },
+		[33] = { 80, 2027, 2702, },
+		[34] = { 81, 2123, 2831, },
+		[35] = { 82, 2224, 2965, },
+	},
+}
 skills["GoatmanMoltenShell"] = {
 	name = "Molten Shell",
 	hidden = true,

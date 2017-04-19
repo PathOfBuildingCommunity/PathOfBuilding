@@ -14,8 +14,8 @@ local m_max = math.max
 
 local tempTable1 = { }
 
--- Initialise modifier database with stats common to all actors
-function calcs.initModDB(modDB)
+-- Initialise modifier database with stats and conditions common to all actors
+function calcs.initModDB(env, modDB)
 	modDB:NewMod("FireResistMax", "BASE", 75, "Base")
 	modDB:NewMod("ColdResistMax", "BASE", 75, "Base")
 	modDB:NewMod("LightningResistMax", "BASE", 75, "Base")
@@ -30,6 +30,10 @@ function calcs.initModDB(modDB)
 	modDB:NewMod("DamageTaken", "INC", 50, "Base", { type = "Condition", var = "Shocked" })
 	modDB:NewMod("HitChance", "MORE", -50, "Base", { type = "Condition", var = "Blinded" })
 	modDB:NewMod("MovementSpeed", "INC", -30, "Base", { type = "Condition", var = "Maimed" })
+	modDB:NewMod("Condition:Burning", "FLAG", true, "Base", { type = "Condition", var = "Ignited" })
+	modDB.conditions["Buffed"] = env.mode_buffs
+	modDB.conditions["Combat"] = env.mode_combat
+	modDB.conditions["Effective"] = env.mode_effective
 end
 
 -- Build list of modifiers from the listed tree nodes
@@ -124,7 +128,7 @@ function calcs.initEnv(build, mode, override)
 		modDB:NewMod(stat, "BASE", classStats["base_"..stat:lower()], "Base")
 	end
 	modDB.multipliers["Level"] = m_max(1, m_min(100, build.characterLevel))
-	calcs.initModDB(modDB)
+	calcs.initModDB(env, modDB)
 	modDB:NewMod("Life", "BASE", 12, "Base", { type = "Multiplier", var = "Level", base = 38 })
 	modDB:NewMod("Mana", "BASE", 6, "Base", { type = "Multiplier", var = "Level", base = 34 })
 	modDB:NewMod("ManaRegen", "BASE", 0.0175, "Base", { type = "PerStat", stat = "Mana", div = 1 })
@@ -181,7 +185,7 @@ function calcs.initEnv(build, mode, override)
 	local enemyDB = common.New("ModDB")
 	env.enemyDB = enemyDB
 	env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, 84)))
-	calcs.initModDB(enemyDB)
+	calcs.initModDB(env, enemyDB)
 	enemyDB:NewMod("Accuracy", "BASE", data.monsterAccuracyTable[env.enemyLevel], "Base")
 	enemyDB:NewMod("Evasion", "BASE", data.monsterEvasionTable[env.enemyLevel], "Base")
 

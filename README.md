@@ -47,6 +47,12 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.5 - 2017/04/19
+ * Added support for Goatman Fire-raiser's Magma Orb skill
+ * Demigod items and legacy (pre-1.2.0) quiver types can now be imported
+ * Fixed issue causing the enchanting UI to only show enchantments for the first skill in each socket group
+ * Fixed issue preventing the life/mana leech boot enchantment from working
+
 ### 1.4.4 - 2017/04/17
 This update fixes two issues affecting the damage calculations for minions.
 As a result, the calculated DPS for many minion skills will change to some degree:

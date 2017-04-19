@@ -60,6 +60,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("hitTimeOverride", 1)
 #mods
 
+#skill GoatmanFireMagmaOrb Magma Orb
+#flags spell area projectile fire
+#mods
+
 #skill GoatmanMoltenShell Molten Shell
 #flags spell area duration fire
 #mods

@@ -1,3 +1,8 @@
+VERSION[1.4.5][2017/04/19]
+ * Added support for Goatman Fire-raiser's Magma Orb skill
+ * Demigod items and legacy (pre-1.2.0) quiver types can now be imported
+ * Fixed issue causing the enchanting UI to only show enchantments for the first skill in each socket group
+ * Fixed issue preventing the life/mana leech boot enchantment from working
 VERSION[1.4.4][2017/04/17]
 This update fixes two issues affecting the damage calculations for minions.
 As a result, the calculated DPS for many minion skills will change to some degree:

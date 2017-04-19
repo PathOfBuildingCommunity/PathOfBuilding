@@ -14,7 +14,15 @@ local bor = bit.bor
 
 local mod_createMod = modLib.createMod
 
-local hack = { }
+-- Magic tables for caching multiplier/condition modifier names
+local multiplierName = setmetatable({ }, { __index = function(t, var)
+	t[var] = "Multiplier:"..var
+	return t[var]
+end })
+local conditionName = setmetatable({ }, { __index = function(t, var)
+	t[var] = "Condition:"..var
+	return t[var]
+end })
 
 local ModListClass = common.NewClass("ModList", function(self)
 	self.actor = { output = { } }
@@ -56,7 +64,7 @@ function ModListClass:NewMod(...)
 	self:AddMod(mod_createMod(...))
 end
 
-function ModListClass:Sum(modType, cfg, ...--[[arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12]])
+function ModListClass:Sum(modType, cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source, tabulate
 	if cfg then
@@ -64,6 +72,10 @@ function ModListClass:Sum(modType, cfg, ...--[[arg1, arg2, arg3, arg4, arg5, arg
 		keywordFlags = cfg.keywordFlags or 0
 		source = cfg.source
 		tabulate = cfg.tabulate
+		if tabulate then
+			cfg = copyTable(cfg)
+			cfg.tabulate = false
+		end
 	end
 	local result
 	local nullValue = 0
@@ -78,49 +90,15 @@ function ModListClass:Sum(modType, cfg, ...--[[arg1, arg2, arg3, arg4, arg5, arg
 	else
 		result = 0
 	end
-	--[[hack[1] = arg1
-	if arg1 then
-		hack[2] = arg2
-		if arg2 then
-			hack[3] = arg3
-			if arg3 then
-				hack[4] = arg4
-				if arg4 then
-					hack[5] = arg5
-					if arg5 then
-						hack[6] = arg6
-						if arg6 then
-							hack[7] = arg7
-							if arg7 then
-								hack[8] = arg8
-								if arg8 then
-									hack[9] = arg9
-									if arg9 then
-										hack[10] = arg10
-										if arg10 then
-											hack[11] = arg11
-											if arg11 then
-												hack[12] = arg12
-											end
-										end
-									end
-								end
-							end
-						end
-					end
-				end
-			end
-		end
-	end]]
-	for --[[i = 1, #hack do --]]i = 1, select('#', ...) do
-		local modName = --[[hack[i]--]]select(i, ...)
+	for i = 1, select('#', ...) do
+		local modName = select(i, ...)
 		for i = 1, #self do
 			local mod = self[i]
 			if mod.name == modName and (not modType or mod.type == modType) and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
 				local value = mod.value
 				for _, tag in pairs(mod.tagList) do
 					if tag.type == "Multiplier" then
-						local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", nil, "Multiplier:"..tag.var)
+						local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
 						if type(value) == "table" then
 							value = copyTable(value)
 							value.value = value.value * mult + (tag.base or 0)
@@ -128,7 +106,7 @@ function ModListClass:Sum(modType, cfg, ...--[[arg1, arg2, arg3, arg4, arg5, arg
 							value = value * mult + (tag.base or 0)
 						end
 					elseif tag.type == "MultiplierThreshold" then
-						local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", nil, "Multiplier:"..tag.var)
+						local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
 						if mult < tag.threshold then
 							value = nullValue
 							break
@@ -168,13 +146,13 @@ function ModListClass:Sum(modType, cfg, ...--[[arg1, arg2, arg3, arg4, arg5, arg
 						local match = false
 						if tag.varList then
 							for _, var in pairs(tag.varList) do
-								if self.conditions[var] or (cfg and cfg.skillCond and cfg.skillCond[var]) or self:Sum("FLAG", nil, "Condition:"..var) then
+								if self.conditions[var] or (cfg and cfg.skillCond and cfg.skillCond[var]) or self:Sum("FLAG", cfg, conditionName[var]) then
 									match = true
 									break
 								end
 							end
 						else
-							match = self.conditions[tag.var] or (cfg and cfg.skillCond and cfg.skillCond[tag.var]) or self:Sum("FLAG", nil, "Condition:"..tag.var)
+							match = self.conditions[tag.var] or (cfg and cfg.skillCond and cfg.skillCond[tag.var]) or self:Sum("FLAG", cfg, conditionName[tag.var])
 						end
 						if tag.neg then
 							match = not match
@@ -189,13 +167,13 @@ function ModListClass:Sum(modType, cfg, ...--[[arg1, arg2, arg3, arg4, arg5, arg
 						if enemy then
 							if tag.varList then
 								for _, var in pairs(tag.varList) do
-									if enemy.modDB.conditions[var] or enemy.modDB:Sum("FLAG", nil, "Condition:"..var) then
+									if enemy.modDB.conditions[var] or enemy.modDB:Sum("FLAG", nil, conditionName[var]) then
 										match = true
 										break
 									end
 								end
 							else
-								match = enemy.modDB.conditions[tag.var] or enemy.modDB:Sum("FLAG", nil, "Condition:"..tag.var)
+								match = enemy.modDB.conditions[tag.var] or enemy.modDB:Sum("FLAG", nil, conditionName[tag.var])
 							end
 							if tag.neg then
 								match = not match
@@ -207,16 +185,17 @@ function ModListClass:Sum(modType, cfg, ...--[[arg1, arg2, arg3, arg4, arg5, arg
 						end
 					elseif tag.type == "ParentCondition" then
 						local match = false
-						if self.actor.parent then
+						local parent = self.actor.parent
+						if parent then
 							if tag.varList then
 								for _, var in pairs(tag.varList) do
-									if self.actor.parent.modDB.conditions[var] then
+									if parent.modDB.conditions[var] or parent.modDB:Sum("FLAG", nil, conditionName[var]) then
 										match = true
 										break
 									end
 								end
 							else
-								match = self.actor.parent.modDB.conditions[tag.var]
+								match = parent.modDB.conditions[tag.var] or parent.modDB:Sum("FLAG", nil, conditionName[tag.var])
 							end
 						end
 						if tag.neg then
@@ -278,8 +257,7 @@ function ModListClass:Sum(modType, cfg, ...--[[arg1, arg2, arg3, arg4, arg5, arg
 					result = result * (1 + value / 100)
 				elseif modType == "FLAG" then
 					if value then
-						result = true
-						break
+						return true
 					end
 				elseif modType == "LIST" then
 					if value then
@@ -290,7 +268,6 @@ function ModListClass:Sum(modType, cfg, ...--[[arg1, arg2, arg3, arg4, arg5, arg
 				end
 			end
 		end
-		--hack[i] = nil
 	end
 	return result
 end

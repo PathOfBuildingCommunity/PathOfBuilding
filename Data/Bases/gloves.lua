@@ -338,3 +338,12 @@ itemBases["Murder Mitts"] = {
 	armour = { evasionBase = 105, energyShieldBase = 31, },
 	req = { level = 67, dex = 51, int = 51, },
 }
+
+
+itemBases["Golden Bracers"] = {
+	hidden = true,
+	type = "Gloves",
+	implicit = "(20-30) to maximum Life",
+	armour = { },
+	req = { level = 12, },
+}

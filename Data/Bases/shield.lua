@@ -585,3 +585,12 @@ itemBases["Supreme Spiked Shield"] = {
 	armour = { blockChance = 24, evasionBase = 210, energyShieldBase = 62, movementPenalty = 3, },
 	req = { level = 70, dex = 85, int = 85, },
 }
+
+
+itemBases["Golden Flame"] = {
+	hidden = true,
+	type = "Shield",
+	implicit = "+(11-19)% to Chaos Resistance",
+	armour = { blockChance = 20, movementPenalty = 3, },
+	req = { level = 15, },
+}

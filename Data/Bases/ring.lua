@@ -94,3 +94,10 @@ itemBases["Breach Ring"] = {
 	req = { },
 }
 
+
+itemBases["Golden Hoop"] = {
+	hidden = true,
+	type = "Ring",
+	implicit = "+(8-12) to all Attributes",
+	req = { level = 12, },
+}

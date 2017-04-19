@@ -386,7 +386,7 @@ local skills, mod, flag, skill = ...
 
 #skill SummonChaosGolem
 #flags spell minion golem chaos
-#baseMod mod("Misc", "LIST", { type = "Condition", var = "HaveChaosGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+#baseMod flag("Condition:HaveChaosGolem", { type = "GlobalEffect", effectType = "Buff" })
 	minionList = {
 		"SummonedChaosGolem",
 	},
@@ -394,7 +394,7 @@ local skills, mod, flag, skill = ...
 
 #skill SummonLightningGolem
 #flags spell minion golem lightning
-#baseMod mod("Misc", "LIST", { type = "Condition", var = "HaveLightningGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+#baseMod flag("Condition:HaveLightningGolem", { type = "GlobalEffect", effectType = "Buff" })
 	minionList = {
 		"SummonedLightningGolem",
 	},

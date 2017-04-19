@@ -151,13 +151,11 @@ function calcs.offence(env, actor)
 	modDB:AddList(mainSkill.skillModList)
 
 	-- Update skill data
-	for _, value in ipairs(modDB:Sum("LIST", skillCfg, "Misc")) do
-		if value.type == "SkillData" then
-			if value.merge == "MAX" then
-				skillData[value.key] = m_max(value.value, skillData[value.key] or 0)
-			else
-				skillData[value.key] = value.value
-			end
+	for _, value in ipairs(modDB:Sum("LIST", skillCfg, "SkillData")) do
+		if value.merge == "MAX" then
+			skillData[value.key] = m_max(value.value, skillData[value.key] or 0)
+		else
+			skillData[value.key] = value.value
 		end
 	end
 
@@ -173,8 +171,8 @@ function calcs.offence(env, actor)
 
 	if modDB:Sum("FLAG", nil, "MinionDamageAppliesToPlayer") then
 		-- Minion Damage conversion from The Scourge
-		for _, value in ipairs(modDB:Sum("LIST", env.player.mainSkill.skillCfg, "Misc")) do
-			if value.type == "MinionModifier" and value.mod.name == "Damage" then
+		for _, value in ipairs(modDB:Sum("LIST", env.player.mainSkill.skillCfg, "MinionModifier")) do
+			if value.mod.name == "Damage" then
 				modDB:AddMod(value.mod)
 			end
 		end
@@ -726,13 +724,13 @@ function calcs.offence(env, actor)
 						end
 					else
 						if not modDB:Sum("FLAG", cfg, "CannotLeechLife") then				
-							local lifeLeech = modDB:Sum("BASE", cfg, "DamageLifeLeech", damageType.."DamageLifeLeech", isElemental[damageType] and "ElementalDamageLifeLeech" or nil) + enemyDB:Sum("BASE", nil, "SelfDamageLifeLeech") / 100
+							local lifeLeech = modDB:Sum("BASE", cfg, "DamageLeech", "DamageLifeLeech", damageType.."DamageLifeLeech", isElemental[damageType] and "ElementalDamageLifeLeech" or nil) + enemyDB:Sum("BASE", nil, "SelfDamageLifeLeech") / 100
 							if lifeLeech > 0 then
 								lifeLeechTotal = lifeLeechTotal + (min + max) / 2 * lifeLeech / 100
 							end
 						end
 						if not modDB:Sum("FLAG", cfg, "CannotLeechMana") then
-							local manaLeech = modDB:Sum("BASE", cfg, "DamageManaLeech", damageType.."DamageManaLeech", isElemental[damageType] and "ElementalDamageManaLeech" or nil) + enemyDB:Sum("BASE", nil, "SelfDamageManaLeech") / 100
+							local manaLeech = modDB:Sum("BASE", cfg, "DamageLeech", "DamageManaLeech", damageType.."DamageManaLeech", isElemental[damageType] and "ElementalDamageManaLeech" or nil) + enemyDB:Sum("BASE", nil, "SelfDamageManaLeech") / 100
 							if manaLeech > 0 then
 								manaLeechTotal = manaLeechTotal + (min + max) / 2 * manaLeech / 100
 							end
