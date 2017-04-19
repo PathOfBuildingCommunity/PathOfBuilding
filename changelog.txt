@@ -1,3 +1,6 @@
+VERSION[1.4.6][2017/04/20]
+ * Fixed bug introduced in 1.4.5 that prevented Onslaught and Unholy Might from applying correctly
+ * The minion modifiers on the jewel templates are now correctly hidden when their value is set to 0
 VERSION[1.4.5][2017/04/19]
  * Added support for Goatman Fire-raiser's Magma Orb skill
  * Demigod items and legacy (pre-1.2.0) quiver types can now be imported

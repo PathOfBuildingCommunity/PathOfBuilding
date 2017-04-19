@@ -239,12 +239,12 @@ local function doActorMisc(env, actor)
 
 	-- Add misc buffs
 	if env.mode_combat then
-		if condList["Onslaught"] then
+		if modDB:Sum("FLAG", nil, "Onslaught") then
 			local effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffect") / 100))
 			modDB:NewMod("Speed", "INC", effect, "Onslaught")
 			modDB:NewMod("MovementSpeed", "INC", effect, "Onslaught")
 		end
-		if condList["UnholyMight"] then
+		if modDB:Sum("FLAG", nil, "UnholyMight") then
 			local effect = m_floor(30 * (1 + modDB:Sum("INC", nil, "BuffEffect") / 100))
 			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", effect, "Unholy Might")
 		end
@@ -575,11 +575,6 @@ function calcs.perform(env)
 
 	-- Check for extra curses
 	for _, value in ipairs(modDB:Sum("LIST", nil, "ExtraCurse")) do
-		local curse = {
-			name = value.name,
-			fromPlayer = true,
-			priority = 2,
-		}
 		local gemModList = common.New("ModList")
 		calcs.mergeGemMods(gemModList, {
 			level = value.level,
@@ -595,9 +590,20 @@ function calcs.perform(env)
 				end
 			end
 		end
-		curse.modList = common.New("ModList")
-		curse.modList:ScaleAddList(curseModList, (1 + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * enemyDB:Sum("MORE", nil, "CurseEffectOnSelf"))
-		t_insert(curses, curse)
+		if value.applyToPlayer then
+			-- Sources for curses on the player don't usually respect any kind of limit, so there's little point bothering with slots
+			modDB.multipliers["CurseOnSelf"] = (modDB.multipliers["CurseOnSelf"] or 0) + 1
+			modDB:ScaleAddList(curseModList, (1 + modDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * modDB:Sum("MORE", nil, "CurseEffectOnSelf"))
+		else
+			local curse = {
+				name = value.name,
+				fromPlayer = true,
+				priority = 2,
+			}
+			curse.modList = common.New("ModList")
+			curse.modList:ScaleAddList(curseModList, (1 + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * enemyDB:Sum("MORE", nil, "CurseEffectOnSelf"))
+			t_insert(curses, curse)
+		end
 	end
 
 	-- Assign curses to slots

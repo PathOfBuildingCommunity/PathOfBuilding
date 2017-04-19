@@ -212,10 +212,10 @@ function calcs.buildOutput(build, mode)
 		if output.EnduranceCharges > 0 then
 			t_insert(combatList, s_format("%d Endurance Charges", output.EnduranceCharges))
 		end
-		if env.modDB.conditions.Onslaught then
+		if env.modDB:Sum("FLAG", nil, "Onslaught") then
 			t_insert(combatList, "Onslaught")
 		end
-		if env.modDB.conditions.UnholyMight then
+		if env.modDB:Sum("FLAG", nil, "UnholyMight") then
 			t_insert(combatList, "Unholy Might")
 		end
 		for _, activeSkill in ipairs(env.activeSkillList) do
@@ -252,10 +252,10 @@ function calcs.buildOutput(build, mode)
 			if output.Minion.EnduranceCharges > 0 then
 				t_insert(combatList, s_format("%d Endurance Charges", output.Minion.EnduranceCharges))
 			end
-			if env.minion.modDB.conditions.Onslaught then
+			if env.minion.modDB:Sum("FLAG", nil, "Onslaught") then
 				t_insert(combatList, "Onslaught")
 			end
-			if env.minion.modDB.conditions.UnholyMight then
+			if env.minion.modDB:Sum("FLAG", nil, "UnholyMight") then
 				t_insert(combatList, "Unholy Might")
 			end
 			for _, activeSkill in ipairs(env.activeSkillList) do

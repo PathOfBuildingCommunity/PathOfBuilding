@@ -129,6 +129,7 @@ local modNameList = {
 	["to avoid being ignited"] = "AvoidIgnite",
 	["to avoid elemental status ailments"] = { "AvoidShock", "AvoidFrozen", "AvoidChilled", "AvoidIgnite" },
 	["damage is taken from mana before life"] = "DamageTakenFromManaBeforeLife",
+	["effect of curses on you"] = "CurseEffectOnSelf",
 	-- Stun modifiers
 	["stun recovery"] = "StunRecovery",
 	["stun and block recovery"] = "StunRecovery",
@@ -428,6 +429,7 @@ local modTagList = {
 	["for each rare item you have equipped"] = { tag = { type = "Multiplier", var = "RareItem" } },
 	["for each unique item you have equipped"] = { tag = { type = "Multiplier", var = "UniqueItem" } },
 	["per curse on enemy"] = { tag = { type = "Multiplier", var = "CurseOnEnemy" } },
+	["per curse on you"] = { tag = { type = "Multiplier", var = "CurseOnPlayer" } },
 	["to you and allies"] = { },
 	-- Per stat
 	["per (%d+) strength"] = function(num) return { tag = { type = "PerStat", stat = "Str", div = num } } end,
