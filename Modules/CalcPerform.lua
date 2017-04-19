@@ -157,11 +157,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 	else
 		condList["NotUsingCorruptedItem"] = true
 	end
-	if env.mode_buffs then
-		condList["Buffed"] = true
-	end
-	if env.mode_combat then
-		condList["Combat"] = true
+	if env.mode_combat then		
 		if not modDB:Sum("FLAG", nil, "NeverCrit") then
 			condList["CritInPast8Sec"] = true
 		end
@@ -186,17 +182,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 			condList["DetonatedMinesRecently"] = true
 		end
 	end
-	if env.mode_effective then
-		condList["Effective"] = true
-	end
-	for _, value in ipairs(modDB:Sum("LIST", nil, "Misc")) do
-		if value.type == "Condition" then
-			condList[value.var] = true
-		end
-	end
 end
 
--- Process charges, misc modifiers, and other buffs
+-- Process charges, enemy modifiers, and other buffs
 local function doActorMisc(env, actor)
 	local modDB = actor.modDB
 	local enemyDB = actor.enemy.modDB
@@ -244,24 +232,9 @@ local function doActorMisc(env, actor)
 		condList["AtMaxEnduranceCharges"] = true
 	end
 
-	-- Process misc modifiers
-	for _, value in ipairs(modDB:Sum("LIST", nil, "Misc")) do
-		if value.type == "Condition" then
-			condList[value.var] = true
-		elseif value.type == "EnemyCondition" then
-			enemyDB.conditions[value.var] = true
-		end
-	end
-	-- Process enemy modifiers last in case they depend on conditions that were set by misc modifiers
-	for _, value in ipairs(modDB:Sum("LIST", nil, "Misc")) do
-		if value.type == "EnemyModifier" then
-			enemyDB:AddMod(value.mod)
-		end
-	end
-
-	-- Process conditions that can depend on other conditions
-	if condList["Ignited"] then
-		condList["Burning"] = true
+	-- Process enemy modifiers 
+	for _, value in ipairs(modDB:Sum("LIST", nil, "EnemyModifier")) do
+		enemyDB:AddMod(value.mod)
 	end
 
 	-- Add misc buffs
@@ -314,7 +287,7 @@ function calcs.perform(env)
 		env.minion.modDB = common.New("ModDB")
 		env.minion.modDB.actor = env.minion
 		env.minion.modDB.multipliers["Level"] = env.minion.level
-		calcs.initModDB(env.minion.modDB)
+		calcs.initModDB(env, env.minion.modDB)
 		env.minion.modDB:NewMod("Life", "BASE", m_floor(data.monsterLifeTable[env.minion.level] * env.minion.minionData.life), "Base")
 		if env.minion.minionData.energyShield then
 			env.minion.modDB:NewMod("EnergyShield", "BASE", m_floor(data.monsterLifeTable[env.minion.level] * env.minion.minionData.life * env.minion.minionData.energyShield), "Base")
@@ -360,13 +333,6 @@ function calcs.perform(env)
 		env.player.breakdown = breakdown
 		if env.minion then
 			env.minion.breakdown = LoadModule("Modules/CalcBreakdown", env.minion.modDB, env.minion.output, env.minion)
-		end
-	end
-
-	-- Set multipliers
-	for _, value in ipairs(modDB:Sum("LIST", nil, "Misc")) do
-		if value.type == "Multiplier" then
-			modDB.multipliers[value.var] = (modDB.multipliers[value.var] or 0) + value.value
 		end
 	end
 
@@ -457,10 +423,8 @@ function calcs.perform(env)
 	doActorAttribsPoolsConditions(env, env.player)
 	if env.minion then
 		for _, source in ipairs({modDB, env.player.mainSkill.skillModList}) do
-			for _, value in ipairs(source:Sum("LIST", env.player.mainSkill.skillCfg, "Misc")) do
-				if value.type == "MinionModifier" then
-					env.minion.modDB:AddMod(value.mod)
-				end
+			for _, value in ipairs(source:Sum("LIST", env.player.mainSkill.skillCfg, "MinionModifier")) do
+				env.minion.modDB:AddMod(value.mod)
 			end
 		end
 		doActorAttribsPoolsConditions(env, env.minion)
@@ -483,7 +447,7 @@ function calcs.perform(env)
 	local minionCurses = { 
 		limit = 1,
 	}
-	local affectedByAuras = { }
+	local affectedByAura = { }
 	for _, activeSkill in ipairs(env.activeSkillList) do
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
@@ -511,7 +475,7 @@ function calcs.perform(env)
 			if activeSkill.auraModList then
 				if not activeSkill.skillData.auraCannotAffectSelf then
 					activeSkill.buffSkill = true
-					affectedByAuras[env.player] = true
+					affectedByAura[env.player] = true
 					local srcList = common.New("ModList")
 					local inc = modDB:Sum("INC", skillCfg, "AuraEffect", "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
 					local more = modDB:Sum("MORE", skillCfg, "AuraEffect", "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
@@ -521,7 +485,7 @@ function calcs.perform(env)
 				end
 				if env.minion and not modDB:Sum("FLAG", nil, "YourAurasCannotAffectAllies") then
 					activeSkill.minionBuffSkill = true
-					affectedByAuras[env.minion] = true
+					affectedByAura[env.minion] = true
 					local srcList = common.New("ModList")
 					local inc = modDB:Sum("INC", skillCfg, "AuraEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
 					local more = modDB:Sum("MORE", skillCfg, "AuraEffect") * env.minion.modDB:Sum("MORE", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
@@ -563,6 +527,7 @@ function calcs.perform(env)
 			if activeSkill.curseModList or (activeSkill.skillFlags.curse and activeSkill.buffModList) then
 				local curse = {
 					name = activeSkill.activeGem.name,
+					fromPlayer = true,
 					priority = activeSkill.skillTypes[SkillType.Aura] and 3 or 1,
 				}
 				local inc = modDB:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") + skillModList:Sum("INC", skillCfg, "CurseEffect")
@@ -612,8 +577,8 @@ function calcs.perform(env)
 	for _, value in ipairs(modDB:Sum("LIST", nil, "ExtraCurse")) do
 		local curse = {
 			name = value.name,
+			fromPlayer = true,
 			priority = 2,
-			modList = common.New("ModList")
 		}
 		local gemModList = common.New("ModList")
 		calcs.mergeGemMods(gemModList, {
@@ -630,6 +595,7 @@ function calcs.perform(env)
 				end
 			end
 		end
+		curse.modList = common.New("ModList")
 		curse.modList:ScaleAddList(curseModList, (1 + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * enemyDB:Sum("MORE", nil, "CurseEffectOnSelf"))
 		t_insert(curses, curse)
 	end
@@ -674,9 +640,12 @@ function calcs.perform(env)
 		enemyDB:AddList(modList)
 	end
 	modDB.multipliers["CurseOnEnemy"] = #curseSlots
+	local affectedByCurse = { }
 	for _, slot in ipairs(curseSlots) do
-		modDB.conditions["EnemyCursed"] = true
 		enemyDB.conditions["Cursed"] = true
+		if slot.fromPlayer then
+			affectedByCurse[env.enemy] = true
+		end
 		if slot.modList then
 			enemyDB:AddList(slot.modList)
 		end
@@ -703,9 +672,14 @@ function calcs.perform(env)
 		end
 	end
 
-	-- Check for modifiers to apply to actors affected by player auras
+	-- Check for modifiers to apply to actors affected by player auras or curses
 	for _, value in ipairs(modDB:Sum("LIST", nil, "AffectedByAuraMod")) do
-		for actor in pairs(affectedByAuras) do
+		for actor in pairs(affectedByAura) do
+			actor.modDB:AddMod(value.mod)
+		end
+	end
+	for _, value in ipairs(modDB:Sum("LIST", nil, "AffectedByCurseMod")) do
+		for actor in pairs(affectedByCurse) do
 			actor.modDB:AddMod(value.mod)
 		end
 	end

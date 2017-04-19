@@ -41,3 +41,11 @@ itemBases["Crystal Belt"] = {
 	implicit = "+(60-80) to maximum Energy Shield",
 	req = { level = 79 },
 }
+
+
+itemBases["Golden Obi"] = {
+	hidden = true,
+	type = "Belt",
+	implicit = "(20-30)% increased Rarity of Items found",
+	req = { },
+}

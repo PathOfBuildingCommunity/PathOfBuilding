@@ -71,7 +71,7 @@ skills["SupportBloodMagic"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	baseMods = {
-		flag("SkillBloodMagic", true), --"base_use_life_in_place_of_mana" = ?
+		flag("SkillBloodMagic"), --"base_use_life_in_place_of_mana" = ?
 	},
 	qualityMods = {
 		mod("ManaCost", "INC", -0.5), --"base_mana_cost_-%" = 0.5
@@ -504,7 +504,7 @@ skills["SupportFortify"] = {
 	excludeSkillTypes = { 47, },
 	baseMods = {
 		mod("ManaCost", "MORE", 10), 
-		mod("Misc", "LIST", { type = "Condition", var = "Fortify" }, 0, 0, { type = "Condition", var = "Combat" }), --"chance_to_fortify_on_melee_hit_+%" = 100
+		flag("Condition:Fortify", { type = "Condition", var = "Combat" }), --"chance_to_fortify_on_melee_hit_+%" = 100
 		mod("FortifyDuration", "INC", 25), --"fortify_duration_+%" = 25
 	},
 	qualityMods = {

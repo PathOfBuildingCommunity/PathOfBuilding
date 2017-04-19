@@ -31,12 +31,14 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	-- Build lists of item bases, separated by type
 	self.baseLists = { }
 	for name, base in pairs(data.itemBases) do
-		local type = base.type
-		if base.subType then
-			type = type .. ": " .. base.subType
+		if not base.hidden then
+			local type = base.type
+			if base.subType then
+				type = type .. ": " .. base.subType
+			end
+			self.baseLists[type] = self.baseLists[type] or { }
+			t_insert(self.baseLists[type], { label = name:gsub(" %(.+%)",""), name = name, base = base })
 		end
-		self.baseLists[type] = self.baseLists[type] or { }
-		t_insert(self.baseLists[type], { label = name:gsub(" %(.+%)",""), name = name, base = base })
 	end
 	self.baseTypeList = { }
 	for type, list in pairs(self.baseLists) do
@@ -486,7 +488,6 @@ function ItemsTabClass:EnchantDisplayItem()
 			for _, gem in ipairs(socketGroup.gemList) do
 				if gem.data and not gem.data.support then
 					skillsUsed[gem.name] = true
-					break
 				end
 			end
 		end

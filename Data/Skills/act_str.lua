@@ -688,7 +688,7 @@ skills["DominatingBlow"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("duration", 20), --"base_skill_effect_duration" = 20000
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "MORE", -35) }), --"active_skill_minion_damage_+%_final" = -35
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", -35) }), --"active_skill_minion_damage_+%_final" = -35
 		--"is_dominated" = ?
 	},
 	qualityMods = {
@@ -2648,18 +2648,18 @@ skills["SummonFireGolem"] = {
 		skill("cooldown", 6), 
 		mod("ActiveGolemLimit", "BASE", 1), --"base_number_of_golems_allowed" = 1
 		--"display_minion_monster_type" = 7
-		mod("Misc", "LIST", { type = "Condition", var = "HaveFireGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), 
+		flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" }), 
 	},
 	qualityMods = {
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", 1) }), --"minion_damage_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) }), --"minion_damage_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		--[3] = "base_actor_scale_+%"
 		[4] = mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"fire_golem_grants_damage_+%"
-		[5] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
+		[5] = mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
 		[6] = skill("minionLevel", nil), --"display_minion_monster_level"
 	},
 	levels = {
@@ -2720,17 +2720,17 @@ skills["SummonRockGolem"] = {
 		skill("cooldown", 6), 
 		mod("ActiveGolemLimit", "BASE", 1), --"base_number_of_golems_allowed" = 1
 		--"display_minion_monster_type" = 10
-		mod("Misc", "LIST", { type = "Condition", var = "HavePhysicalGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), 
+		flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" }), 
 	},
 	qualityMods = {
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", 1) }), --"minion_damage_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) }), --"minion_damage_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		--[3] = "base_actor_scale_+%"
-		[4] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
+		[4] = mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
 		[5] = mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"stone_golem_grants_base_life_regeneration_rate_per_minute"
 		[6] = skill("minionLevel", nil), --"display_minion_monster_level"
 	},

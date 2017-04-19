@@ -406,7 +406,7 @@ local skills, mod, flag, skill = ...
 
 #skill SummonIceGolem
 #flags spell minion golem cold
-#baseMod mod("Misc", "LIST", { type = "Condition", var = "HaveColdGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+#baseMod flag("Condition:HaveColdGolem", { type = "GlobalEffect", effectType = "Buff" })
 	minionList = {
 		"SummonedIceGolem",
 	},

@@ -149,11 +149,11 @@ local function makeSkillMod(modName, modType, modVal, flags, keywordFlags, ...)
 		tagList = { ... }
 	}
 end
-local function makeFlagMod(modName)
-	return makeSkillMod(modName, "FLAG", true)
+local function makeFlagMod(modName, ...)
+	return makeSkillMod(modName, "FLAG", true, 0, 0, ...)
 end
 local function makeSkillDataMod(dataKey, dataValue, ...)
-	return makeSkillMod("Misc", "LIST", { type = "SkillData", key = dataKey, value = dataValue }, 0, 0, ...)
+	return makeSkillMod("SkillData", "LIST", { key = dataKey, value = dataValue }, 0, 0, ...)
 end
 local skillTypes = {
 	"act_str",

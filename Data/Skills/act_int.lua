@@ -3758,20 +3758,20 @@ skills["RaiseSpectre"] = {
 	baseMods = {
 		skill("castTime", 0.85), 
 		mod("ActiveSpectreLimit", "BASE", 1), --"base_number_of_spectres_allowed" = 1
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("MovementSpeed", "MORE", 55) }), --"active_skill_minion_movement_velocity_+%_final" = 55
+		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "MORE", 55) }), --"active_skill_minion_movement_velocity_+%_final" = 55
 		--"movement_velocity_cap" = -89
 		--"damage_taken_+%_from_arrow_traps_final" = -90
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("ElementalResist", "BASE", 30) }), --"minion_elemental_resistance_%" = 30
+		mod("MinionModifier", "LIST", { mod = mod("ElementalResist", "BASE", 30) }), --"minion_elemental_resistance_%" = 30
 	},
 	qualityMods = {
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("MovementSpeed", "INC", 1) }), --"minion_movement_speed_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 1) }), --"minion_movement_speed_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
-		[3] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "MORE", nil) }), --"active_skill_minion_damage_+%_final"
-		[4] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Life", "MORE", nil) }), --"active_skill_minion_life_+%_final"
-		[5] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("EnergyShield", "MORE", nil) }), --"active_skill_minion_energy_shield_+%_final"
+		[3] = mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }), --"active_skill_minion_damage_+%_final"
+		[4] = mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }), --"active_skill_minion_life_+%_final"
+		[5] = mod("MinionModifier", "LIST", { mod = mod("EnergyShield", "MORE", nil) }), --"active_skill_minion_energy_shield_+%_final"
 	},
 	levels = {
 		[1] = { 28, 21, -30, -20, -20, },
@@ -3827,12 +3827,12 @@ skills["RaiseZombie"] = {
 	baseMods = {
 		skill("castTime", 0.85), 
 		mod("ActiveZombieLimit", "BASE", 3), --"base_number_of_zombies_allowed" = 3
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "MORE", 0) }), --"active_skill_minion_damage_+%_final" = 0
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 0) }), --"active_skill_minion_damage_+%_final" = 0
 		--"display_minion_monster_type" = 1
 	},
 	qualityMods = {
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("MovementSpeed", "INC", 1) }), --"minion_movement_speed_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 1) }), --"minion_movement_speed_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
@@ -4536,18 +4536,18 @@ skills["SummonChaosGolem"] = {
 		skill("cooldown", 6), 
 		mod("ActiveGolemLimit", "BASE", 1), --"base_number_of_golems_allowed" = 1
 		--"display_minion_monster_type" = 5
-		mod("Misc", "LIST", { type = "Condition", var = "HaveChaosGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), 
+		flag("Condition:HaveChaosGolem", { type = "GlobalEffect", effectType = "Buff" }), 
 	},
 	qualityMods = {
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", 1) }), --"minion_damage_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) }), --"minion_damage_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		--[3] = "base_actor_scale_+%"
 		--[4] = "chaos_golem_grants_additional_physical_damage_reduction_%"
-		[5] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
+		[5] = mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
 		[6] = skill("minionLevel", nil), --"display_minion_monster_level"
 	},
 	levels = {
@@ -4610,18 +4610,18 @@ skills["SummonLightningGolem"] = {
 		skill("cooldown", 6), 
 		mod("ActiveGolemLimit", "BASE", 1), --"base_number_of_golems_allowed" = 1
 		--"display_minion_monster_type" = 11
-		mod("Misc", "LIST", { type = "Condition", var = "HaveLightningGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), 
+		flag("Condition:HaveLightningGolem", { type = "GlobalEffect", effectType = "Buff" }), 
 	},
 	qualityMods = {
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", 1) }), --"minion_damage_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) }), --"minion_damage_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		--[3] = "base_actor_scale_+%"
 		[4] = mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"lightning_golem_grants_attack_and_cast_speed_+%"
-		[5] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
+		[5] = mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
 		[6] = skill("minionLevel", nil), --"display_minion_monster_level"
 	},
 	levels = {
@@ -4686,7 +4686,7 @@ skills["SummonRagingSpirit"] = {
 		skill("minionDamageEffectiveness", -30), --"active_skill_minion_added_damage_+%_final" = -30
 	},
 	qualityMods = {
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("MovementSpeed", "INC", 1) }), --"minion_movement_speed_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 1) }), --"minion_movement_speed_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 

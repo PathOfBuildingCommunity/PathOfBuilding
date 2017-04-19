@@ -640,7 +640,7 @@ skills["BlinkArrow"] = {
 		skill("cooldown", 3), 
 		skill("duration", 3), --"base_skill_effect_duration" = 3000
 		--"number_of_monsters_to_summon" = 1
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "MORE", 75) }), --"active_skill_minion_damage_+%_final" = 75
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 75) }), --"active_skill_minion_damage_+%_final" = 75
 		--"display_minion_monster_type" = 4
 		--"base_is_projectile" = ?
 		skill("minionUseBowAndQuiver", true), 
@@ -651,8 +651,8 @@ skills["BlinkArrow"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
-		[3] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", nil) }), --"minion_damage_+%"
-		[4] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
+		[3] = mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) }), --"minion_damage_+%"
+		[4] = mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
 		[5] = skill("minionLevel", nil), --"display_minion_monster_level"
 	},
 	levels = {
@@ -3061,7 +3061,7 @@ skills["MirrorArrow"] = {
 		skill("cooldown", 3), 
 		skill("duration", 3), --"base_skill_effect_duration" = 3000
 		--"number_of_monsters_to_summon" = 1
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "MORE", 75) }), --"active_skill_minion_damage_+%_final" = 75
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 75) }), --"active_skill_minion_damage_+%_final" = 75
 		--"display_minion_monster_type" = 4
 		--"base_is_projectile" = ?
 		skill("minionUseBowAndQuiver", true), 
@@ -3072,8 +3072,8 @@ skills["MirrorArrow"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
-		[3] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", nil) }), --"minion_damage_+%"
-		[4] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
+		[3] = mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) }), --"minion_damage_+%"
+		[4] = mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
 		[5] = skill("minionLevel", nil), --"display_minion_monster_level"
 	},
 	levels = {
@@ -4271,11 +4271,11 @@ skills["SummonIceGolem"] = {
 		skill("cooldown", 6), 
 		mod("ActiveGolemLimit", "BASE", 1), --"base_number_of_golems_allowed" = 1
 		--"display_minion_monster_type" = 6
-		mod("Misc", "LIST", { type = "Condition", var = "HaveColdGolem" }, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), 
+		flag("Condition:HaveColdGolem", { type = "GlobalEffect", effectType = "Buff" }), 
 	},
 	qualityMods = {
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
-		mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Damage", "INC", 1) }), --"minion_damage_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) }), --"minion_damage_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
@@ -4283,7 +4283,7 @@ skills["SummonIceGolem"] = {
 		--[3] = "base_actor_scale_+%"
 		[4] = mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"ice_golem_grants_critical_strike_chance_+%"
 		[5] = mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"ice_golem_grants_accuracy_+%"
-		[6] = mod("Misc", "LIST", { type = "MinionModifier", mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
+		[6] = mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
 		[7] = skill("minionLevel", nil), --"display_minion_monster_level"
 	},
 	levels = {

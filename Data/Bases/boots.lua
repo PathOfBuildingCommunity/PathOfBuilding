@@ -344,3 +344,12 @@ itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
 	armour = { evasionBase = 109, energyShieldBase = 32 },
 	req = { level = 72, dex = 62, int = 62 },
 }
+
+
+itemBases["Golden Caligae"] = {
+	hidden = true,
+	type = "Boots",
+	implicit = "+(8-16)% to all Elemental Resistances",
+	armour = { },
+	req = { level = 12, },
+}

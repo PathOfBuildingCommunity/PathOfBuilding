@@ -635,3 +635,13 @@ itemBases["Sacrificial Garb"] = {
 	armour = { armourBase = 234, evasionBase = 234, energyShieldBase = 69, movementPenalty = 3 },
 	req = { level = 72, str = 66, dex = 66, int = 66, },
 }
+
+
+itemBases["Golden Mantle"] = {
+	hidden = true,
+	type = "Body Armour",
+	subType = "Armour/Evasion/Energy Shield",
+	implicit = "+(15-25)% to all Elemental Resistances",
+	armour = { armourBase = 53, evasionBase = 53, energyShieldBase = 16, },
+	req = { level = 20, str = 8, dex = 8, int = 8, },
+}

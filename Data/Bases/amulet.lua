@@ -203,3 +203,11 @@ itemBases["Greatwolf Talisman"] = {
 	subType = "Talisman",
 	implicit = "",
 }
+
+
+itemBases["Jet Amulet"] = {
+	hidden = true,
+	type = "Amulet",
+	implicit = "+(8-12)% to all Elemental Resistances",
+	req = { level = 12, },
+}
