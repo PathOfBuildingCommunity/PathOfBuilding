@@ -38,7 +38,97 @@ local varList = {
 	{ var = "summonLightningGolemEnableWrath", type = "check", label = "Enable Wrath Aura:", ifSkill = "Summon Lightning Golem", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "LightningGolemWrath" })
 	end },
---[[	{ section = "Map Modifiers and Player Debuffs", col = 2 },
+	{ section = "Map Modifiers and Player Debuffs", col = 2 },
+	{ label = "Map Prefix Modifiers:" },
+	{ var = "enemyHasPhysicalReduction", type = "list", label = "Enemy Physical Damage reduction:", tooltip = "'Armoured'", list = {{val=0,label="None"},{val=20,label="20% (Low tier)"},{val=30,label="30% (Mid tier)"},{val=40,label="40% (High tier)"}}, apply = function(val, modList, enemyModList)	
+		enemyModList:NewMod("PhysicalDamageReduction", "INC", val, "Config")
+	end },
+	{ var = "enemyIsHexproof", type = "check", label = "Enemy is Hexproof?", tooltip = "'Hexproof'", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Hexproof", "FLAG", true, "Config")
+	end },
+	{ var = "enemyHasLessCurseEffectOnSelf", type = "list", label = "Less effect of Curses on Enemy:", tooltip = "'Hexwarded'", list = {{val=0,label="None"},{val=25,label="25% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=60,label="60% (High tier)"}}, apply = function(val, modList, enemyModList)	
+		if val ~= 0 then
+			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -val, "Config")
+		end
+	end },
+	{ var = "enemyCanAvoidPoisonBlindBleed", type = "list", label = "Enemy avoid Poison/Blind/Bleed:", tooltip = "'Impervious'", list = {{val=0,label="None"},{val=25,label="25% (Low tier)"},{val=45,label="45% (Mid tier)"},{val=65,label="65% (High tier)"}}, apply = function(val, modList, enemyModList)	
+		if val ~= 0 then
+			enemyModList:NewMod("AvoidPoison", "BASE", val, "Config")
+			enemyModList:NewMod("AvoidBleed", "BASE", val, "Config")
+		end
+	end },
+	{ var = "enemyHasResistances", type = "list", label = "Enemy has Elemental/Chaos Resist:", tooltip = "'Resistant'", list = {{val=0,label="None"},{val="LOW",label="20%/15% (Low tier)"},{val="MID",label="30%/20% (Mid tier)"},{val="HIGH",label="40%/25% (High tier)"}}, apply = function(val, modList, enemyModList)
+		local map = { ["LOW"] = {20,15}, ["MID"] = {30,20}, ["HIGH"] = {40,25} }
+		if map[val] then
+			enemyModList:NewMod("ElementalResist", "BASE", map[val][1], "Config")
+			enemyModList:NewMod("ChaosResist", "BASE", map[val][2], "Config")
+		end
+	end },
+	{ label = "Map Suffix Modifiers:" },
+	{ var = "playerHasElementalEquilibrium", type = "check", label = "Player has Elemental Equilibrium?", tooltip = "'of Balance'", apply = function(val, modList, enemyModList)
+		modList:NewMod("Keystone", "LIST", "Elemental Equilibrium", "Config")
+	end },
+	{ var = "playerCannotLeech", type = "check", label = "Cannot Leech Life/Mana?", tooltip = "'of Congealment'", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("CannotLeechLifeFromSelf", "FLAG", true, "Config")
+		enemyModList:NewMod("CannotLeechManaFromSelf", "FLAG", true, "Config")
+	end },
+	{ var = "playerGainsReducedFlaskCharges", type = "list", label = "Gains reduced Flask Charges:", tooltip = "'of Drought'", list = {{val=0,label="None"},{val=30,label="30% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=50,label="50% (High tier)"}}, apply = function(val, modList, enemyModList)
+		if val ~= 0 then
+			modList:NewMod("FlaskChargesGained", "INC", -val, "Config")
+		end
+	end },
+	{ var = "playerHasMinusMaxResist", type = "number", label = "-X% maximum Resistances:", tooltip = "'of Exposure'\nMid tier: 5-8%\nHigh tier: 9-12%", apply = function(val, modList, enemyModList)
+		if val ~= 0 then
+			modList:NewMod("FireResistMax", "BASE", -val, "Config")
+			modList:NewMod("ColdResistMax", "BASE", -val, "Config")
+			modList:NewMod("LightningResistMax", "BASE", -val, "Config")
+			modList:NewMod("ChaosResistMax", "BASE", -val, "Config")
+		end
+	end },
+	{ var = "playerHasLessAreaOfEffect", type = "list", label = "Less Area of Effect:", tooltip = "'of Impotence'", list = {{val=0,label="None"},{val=15,label="15% (Low tier)"},{val=20,label="20% (Mid tier)"},{val=25,label="25% (High tier)"}}, apply = function(val, modList, enemyModList)
+		if val ~= 0 then
+			modList:NewMod("AreaOfEffect", "MORE", -val, "Config")
+		end
+	end },
+	{ var = "enemyCanAvoidStatusAilment", type = "list", label = "Enemy avoid Elem. Status Ailments:", tooltip = "'of Insulation'", list = {{val=0,label="None"},{val=30,label="30% (Low tier)"},{val=60,label="60% (Mid tier)"},{val=90,label="90% (High tier)"}}, apply = function(val, modList, enemyModList)	
+		if val ~= 0 then
+			enemyModList:NewMod("AvoidIgnite", "BASE", val, "Config")
+			enemyModList:NewMod("AvoidShock", "BASE", val, "Config")
+			enemyModList:NewMod("AvoidFreeze", "BASE", val, "Config")
+		end
+	end },
+	{ var = "enemyHasIncreasedAccuracy", type = "list", label = "Unlucky Dodge/Enemy has inc. Acc.:", tooltip = "'of Miring'", list = {{val=0,label="None"},{val=30,label="30% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=50,label="50% (High tier)"}}, apply = function(val, modList, enemyModList)
+		if val ~= 0 then
+			modList:NewMod("DodgeChanceIsUnlucky", "FLAG", true, "Config")
+			enemyModList:NewMod("Accuracy", "INC", val, "Config")
+		end
+	end },
+	{ var = "playerHasLessArmourandBlock", type = "list", label = "Reduced Block Chance/less Armour:", tooltip = "'of Rust'", list = {{val=0,label="None"},{val="LOW",label="20%/20% (Low tier)"},{val="MID",label="30%/25% (Mid tier)"},{val="HIGH",label="40%/30% (High tier)"}}, apply = function(val, modList, enemyModList)
+		local map = { ["LOW"] = {20,20}, ["MID"] = {30,25}, ["HIGH"] = {40,30} }
+		if map[val] then
+			modList:NewMod("BlockChance", "INC", -map[val][1], "Config")
+			modList:NewMod("Armour", "MORE", -map[val][2], "Config")
+		end
+	end },
+	{ var = "playerHasPointBlank", type = "check", label = "Player has Point Blank?", tooltip = "'of Skirmishing'", apply = function(val, modList, enemyModList)
+		modList:NewMod("Keystone", "LIST", "Point Blank", "Config")
+	end },
+	{ var = "playerHasLessLifeESRecovery", type = "list", label = "Less Recovery of Life & Energy Shield:", tooltip = "'of Smothering'", list = {{val=0,label="None"},{val=20,label="20% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=60,label="60% (High tier)"}}, apply = function(val, modList, enemyModList)
+		if val ~= 0 then
+			modList:NewMod("LifeRecovery", "MORE", -val, "Config")
+			modList:NewMod("EnergyShieldRecovery", "MORE", -val, "Config")
+		end
+	end },
+	{ var = "playerCannotRegenLifeManaEnergyShield", type = "check", label = "Cannot Regen Life/Mana/ES?", tooltip = "'of Stasis'", apply = function(val, modList, enemyModList)
+		modList:NewMod("NoLifeRegen", "FLAG", true, "Config")
+		modList:NewMod("NoEnergyShieldRegen", "FLAG", true, "Config")
+		modList:NewMod("NoManaRegen", "FLAG", true, "Config")
+	end },
+	{ var = "enemyTakesReducedExtraCritDamage", type = "number", label = "Enemy takes red. Extra Crit Damage:", tooltip = "'of Toughness'\nLow tier: 25-30%\nMid tier: 31-35%\nHigh tier: 36-40%" , apply = function(val, modList, enemyModList)
+		if val ~= 0 then
+			enemyModList:NewMod("SelfCritMultiplier", "INC", -val, "Config")
+		end
+	end },
 	{ label = "Player is cursed by:" },
 	{ var = "playerCursedWithAssassinsMark", type = "number", label = "Assassin's Mark:", tooltip = "Sets the level of Assassin's Mark to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { name = "Assassin's Mark", level = val, applyToPlayer = true })
@@ -64,6 +154,9 @@ local varList = {
 	{ var = "playerCursedWithProjectileWeakness", type = "number", label = "Projectile Weakness:", tooltip = "Sets the level of Projectile Weakness to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { name = "Projectile Weakness", level = val, applyToPlayer = true })
 	end },
+	{ var = "playerCursedWithPunishment", type = "number", label = "Punishment:", tooltip = "Sets the level of Punishment to apply to the player.", apply = function(val, modList, enemyModList)
+		modList:NewMod("ExtraCurse", "LIST", { name = "Punishment", level = val, applyToPlayer = true })
+	end },
 	{ var = "playerCursedWithTemporalChains", type = "number", label = "Temporal Chains:", tooltip = "Sets the level of Temporal Chains to apply to the player.\nIn mid tier maps, 'of Temporal Chains' applies level 10.\nIn high tier maps, 'of Temporal Chains' applies level 15.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { name = "Temporal Chains", level = val, applyToPlayer = true })
 	end },
@@ -73,73 +166,6 @@ local varList = {
 	{ var = "playerCursedWithWarlordsMark", type = "number", label = "Warlord's Mark:", tooltip = "Sets the level of Warlord's Mark to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { name = "Warlord's Mark", level = val, applyToPlayer = true })
 	end },
-	{ label = "Map Prefix Modifiers:" },
-	{ var = "enemyHasPhysicalReduction", type = "list", label = "Enemy Physical Damage reduction:", list = {{val=0,label="No"},{val=20,label="20% (Low tier)"},{val=30,label="30% (Mid tier)"},{val=40,label="40% (High tier)"}}, apply = function(val, modList, enemyModList)	
-		enemyModList:NewMod("PhysicalDamageReduction", "INC", val, "Config")
-	end },
-	{ var = "enemyHasLessCurseEffectOnSelf", type = "list", label = "Less effect of Curses on Enemy:", list = {{val=0,label="No"},{val=25,label="25% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=60,label="60% (High tier)"}}, apply = function(val, modList, enemyModList)	
-		if val ~= 0 then
-			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -val, "Config")
-		end
-	end },
-	{ label = "Map Suffix Modifiers:" },
-	{ var = "playerHasElementalEquilibrium", type = "check", label = "Player has Elemental Equilibrium?", apply = function(val, modList, enemyModList)
-		modList:NewMod("Keystone", "LIST", "Elemental Equilibrium", "Config")
-	end },
-	{ var = "playerHasPointBlank", type = "check", label = "Player has Point Blank?", apply = function(val, modList, enemyModList)
-		modList:NewMod("Keystone", "LIST", "Point Blank", "Config")
-	end },
-	{ var = "playerGainsReducedFlaskCharges", type = "list", label = "Gains reduced Flask Charges:", list = {{val=0,label="No"},{val=30,label="30% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=50,label="50% (High tier)"}}, apply = function(val, modList, enemyModList)
-		if val ~= 0 then
-			modList:NewMod("FlaskChargesGained", "INC", -val, "Config")
-		end
-	end },
-	{ var = "playerHasLessAreaOfEffect", type = "list", label = "Less Area of Effect:", list = {{val=0,label="No"},{val=15,label="15% (Low tier)"},{val=20,label="20% (Mid tier)"},{val=25,label="25% (High tier)"}}, apply = function(val, modList, enemyModList)
-		if val ~= 0 then
-			modList:NewMod("AreaOfEffect", "MORE", -val, "Config")
-		end
-	end },
-	{ var = "enemyHasIncreasedAccuracy", type = "list", label = "Unlucky Dodge/Enemy has inc. Acc.:", list = {{val=0,label="No"},{val=30,label="30% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=50,label="50% (High tier)"}}, apply = function(val, modList, enemyModList)
-		if val ~= 0 then
-			modList:NewMod("DodgeChanceIsUnlucky", "FLAG", true, "Config")
-			enemyModList:NewMod("Accuracy", "INC", val, "Config")
-		end
-	end },
-	{ var = "playerHasLessArmourandBlock", type = "list", label = "Reduced Block Chance/less Armour:", list = {{val=0,label="No"},{val="LOW",label="20%/20% (Low tier)"},{val="MID",label="30%/25% (Mid tier)"},{val="HIGH",label="40%/30% (High tier)"}}, apply = function(val, modList, enemyModList)
-		local map = { ["LOW"] = {20,20}, ["MID"] = {30,25}, ["HIGH"] = {40,30} }
-		if map[val] then
-			modList:NewMod("BlockChance", "INC", -map[val][1], "Config")
-			modList:NewMod("Armour", "LESS", -map[val][2], "Config")
-		end
-	end },
-	{ var = "playerHasLessLifeESRecovery", type = "list", label = "Less Recovery of Life & Energy Shield:", list = {{val=0,label="No"},{val=20,label="20% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=60,label="60% (High tier)"}}, apply = function(val, modList, enemyModList)
-		if val ~= 0 then
-			modList:NewMod("LifeRecovery", "MORE", -val, "Config")
-			modList:NewMod("EnergyShieldRecovery", "MORE", -val, "Config")
-		end
-	end },
-	{ var = "enemyTakesReducedExtraCritDamage", type = "number", label = "Enemy takes red. Extra Crit Damage:", tooltip = "Low tier: 25-30%\nMid tier: 31-35%\nHigh tier: 36-40%" , apply = function(val, modList, enemyModList)
-		if val ~= 0 then
-			enemyModList:NewMod("SelfCritMultiplier", "INC", -val, "Config")
-		end
-	end },
-	{ var = "playerHasMinusMaxResist", type = "number", label = "-X% maximum Resistances:", tooltip = "Mid tier: 5-8%\nHigh tier: 9-12%", apply = function(val, modList, enemyModList)
-		if val ~= 0 then
-			modList:NewMod("FireResistMax", "BASE", -val, "Config")
-			modList:NewMod("ColdResistMax", "BASE", -val, "Config")
-			modList:NewMod("LightningResistMax", "BASE", -val, "Config")
-			modList:NewMod("ChaosResistMax", "BASE", -val, "Config")
-		end
-	end },
-	{ var = "playerCannotRegenLifeManaEnergyShield", type = "check", label = "Cannot Regen Life/Mana/ES?", apply = function(val, modList, enemyModList)
-		modList:NewMod("NoLifeRegen", "FLAG", true, "Config")
-		modList:NewMod("NoEnergyShieldRegen", "FLAG", true, "Config")
-		modList:NewMod("NoManaRegen", "FLAG", true, "Config")
-	end },
-	{ var = "playerCannotLeech", type = "check", label = "Cannot Leech Life/Mana?", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("CannotLeechLifeFromSelf", "FLAG", true, "Config")
-		enemyModList:NewMod("CannotLeechManaFromSelf", "FLAG", true, "Config")
-	end },]]
 	{ section = "When In Combat", col = 1 },
 	{ var = "usePowerCharges", type = "check", label = "Do you use Power Charges?", apply = function(val, modList, enemyModList)
 		modList:NewMod("UsePowerCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
