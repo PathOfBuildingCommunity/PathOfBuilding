@@ -524,7 +524,8 @@ function calcs.perform(env)
 				srcList:ScaleAddList(activeSkill.debuffModList, activeSkill.skillData.stackCount or 1)
 				mergeBuff(srcList, debuffs, activeSkill.activeGem.name)
 			end
-			if activeSkill.curseModList or (activeSkill.skillFlags.curse and activeSkill.buffModList) then
+			if (activeSkill.curseModList or (activeSkill.skillFlags.curse and activeSkill.buffModList))
+			   and (not enemyDB:Sum("FLAG", nil, "Hexproof") or modDB:Sum("FLAG", nil, "CursesIgnoreHexproof")) then
 				local curse = {
 					name = activeSkill.activeGem.name,
 					fromPlayer = true,
@@ -557,7 +558,7 @@ function calcs.perform(env)
 				for _, activeSkill in ipairs(activeSkill.minion.activeSkillList) do
 					local skillModList = activeSkill.skillModList
 					local skillCfg = activeSkill.skillCfg
-					if activeSkill.curseModList and activeSkill.skillData.enable then
+					if activeSkill.curseModList and activeSkill.skillData.enable and not enemyDB:Sum("FLAG", nil, "Hexproof") then
 						local curse = {
 							name = activeSkill.activeGem.name,
 							priority = 1,
@@ -594,7 +595,7 @@ function calcs.perform(env)
 			-- Sources for curses on the player don't usually respect any kind of limit, so there's little point bothering with slots
 			modDB.multipliers["CurseOnSelf"] = (modDB.multipliers["CurseOnSelf"] or 0) + 1
 			modDB:ScaleAddList(curseModList, (1 + modDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * modDB:Sum("MORE", nil, "CurseEffectOnSelf"))
-		else
+		elseif not enemyDB:Sum("FLAG", nil, "Hexproof") or modDB:Sum("FLAG", nil, "CursesIgnoreHexproof") then
 			local curse = {
 				name = value.name,
 				fromPlayer = true,

@@ -1047,6 +1047,23 @@ function calcs.offence(env, actor)
 			output.BleedChanceOnHit = 100 - (1 - output.BleedChanceOnHit / 100) * (1 - globalOutput.PierceChance / 100) * 100
 			output.BleedChanceOnCrit = 100 - (1 - output.BleedChanceOnCrit / 100) * (1 - globalOutput.PierceChance / 100) * 100
 		end
+		if env.mode_effective then
+			local bleedMult = (1 - enemyDB:Sum("BASE", nil, "AvoidBleed") / 100)
+			output.BleedChanceOnHit = output.BleedChanceOnHit * bleedMult
+			output.BleedChanceOnCrit = output.BleedChanceOnCrit * bleedMult
+			local poisonMult = (1 - enemyDB:Sum("BASE", nil, "AvoidPoison") / 100)
+			output.PoisonChanceOnHit = output.PoisonChanceOnHit * poisonMult
+			output.PoisonChanceOnCrit = output.PoisonChanceOnCrit * poisonMult
+			local igniteMult = (1 - enemyDB:Sum("BASE", nil, "AvoidIgnite") / 100)
+			output.IgniteChanceOnHit = output.IgniteChanceOnHit * igniteMult
+			output.IgniteChanceOnCrit = output.IgniteChanceOnCrit * igniteMult
+			local shockMult = (1 - enemyDB:Sum("BASE", nil, "AvoidShock") / 100)
+			output.ShockChanceOnHit = output.ShockChanceOnHit * shockMult
+			output.ShockChanceOnCrit = output.ShockChanceOnCrit * shockMult
+			local freezeMult = (1 - enemyDB:Sum("BASE", nil, "AvoidFreeze") / 100)
+			output.FreezeChanceOnHit = output.FreezeChanceOnHit * freezeMult
+			output.FreezeChanceOnCrit = output.FreezeChanceOnCrit * freezeMult
+		end
 
 		local function calcSecondaryEffectBase(type, sourceHitDmg, sourceCritDmg)
 			-- Calculate the inflict chance and base damage of a secondary effect (bleed/poison/ignite/shock/freeze)

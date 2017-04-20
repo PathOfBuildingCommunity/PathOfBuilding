@@ -465,7 +465,7 @@ Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Accuracy Rating
 +1 to Level of Active Socketed Skill Gems
-(60-80)% increased Physical Damage
+(40-60)% increased Physical Damage
 Adds (60-65) to (90-105) Chaos Damage
 {variant:2}Adds 1 to 2 Physical Damage to Attacks per Level
 {variant:1}+1 Life gained on Kill per Level

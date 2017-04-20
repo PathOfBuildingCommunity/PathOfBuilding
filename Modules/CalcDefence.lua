@@ -295,7 +295,7 @@ function calcs.defence(env, actor)
 		end
 		output.AttackDodgeChance = m_min(modDB:Sum("BASE", nil, "AttackDodgeChance"), 75)
 		output.SpellDodgeChance = m_min(modDB:Sum("BASE", nil, "SpellDodgeChance"), 75)
-		if modDB:Sum("FLAG", nil, "DodgeChanceIsUnlucky") then
+		if env.mode_effective and modDB:Sum("FLAG", nil, "DodgeChanceIsUnlucky") then
 			output.AttackDodgeChance = output.AttackDodgeChance / 100 * output.AttackDodgeChance
 			output.SpellDodgeChance = output.SpellDodgeChance / 100 * output.SpellDodgeChance
 		end
