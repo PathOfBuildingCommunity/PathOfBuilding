@@ -221,7 +221,7 @@ Zodiac Leather
 League: Breach
 Requires Level 65, 197 Dex
 (30-50)% increased Evasion Rating
-+(50-70) to maximum Life
++(50-80) to maximum Life
 -30% to Cold Resistance
 (5-10)% increased Dexterity
 100% reduced Arctic Armour Mana Reservation

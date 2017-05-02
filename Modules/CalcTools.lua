@@ -29,7 +29,12 @@ end
 -- Calculate hit chance
 function calcLib.hitChance(evasion, accuracy)
 	local rawChance = accuracy / (accuracy + (evasion / 4) ^ 0.8) * 100
-	return m_max(m_min(m_floor(rawChance + 0.5), 95), 5)	
+	return m_max(m_min(round(rawChance), 95), 5)	
+end
+
+-- Calculate physical damage reduction from armour
+function calcLib.armourReduction(armour, raw)
+	return round(armour / (armour + raw * 10) * 100)
 end
 
 -- Check if given support gem can support the given skill types

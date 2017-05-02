@@ -1500,7 +1500,7 @@ skills["SupportTrap"] = {
 		--"trap_override_pvp_scaling_time_ms" = 900
 		--"base_skill_is_trapped" = ?
 		--"disable_skill_if_melee_attack" = ?
-		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanTrap }), --"base_skill_show_average_damage_instead_of_dps" = ?
 		skill("trapCooldown", 4), 
 	},
 	qualityMods = {
@@ -1561,7 +1561,7 @@ skills["SupportTrapCooldown"] = {
 		mod("Damage", "INC", 0.5, 0, KeywordFlag.Trap), --"trap_damage_+%" = 0.5
 	},
 	levelMods = {
-		[1] = mod("TrapCooldownRecovery", "INC", nil), --"placing_traps_cooldown_recovery_+%"
+		[1] = mod("CooldownRecovery", "INC", nil, 0, KeywordFlag.Trap), --"placing_traps_cooldown_recovery_+%"
 	},
 	levels = {
 		[1] = { 30, },

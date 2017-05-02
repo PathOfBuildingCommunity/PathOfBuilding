@@ -53,7 +53,7 @@ function GemSelectClass:BuildList(buf)
 		for i, pattern in ipairs(patternList) do
 			local matchList = { }
 			for name, data in pairs(data.gems) do
-				if not data.hidden and not added[name] and (" "..name:lower()):match(pattern) then
+				if not added[name] and (" "..name:lower()):match(pattern) then
 					t_insert(matchList, name)
 					added[name] = true
 				end
@@ -67,7 +67,7 @@ function GemSelectClass:BuildList(buf)
 		if tagName then
 			local matchList = { }
 			for name, data in pairs(data.gems) do
-				if not data.hidden and not added[name] and data[tagName:lower()] == true then
+				if not added[name] and data.gemTags[tagName:lower()] == true then
 					t_insert(matchList, name)
 					added[name] = true
 				end
@@ -79,11 +79,9 @@ function GemSelectClass:BuildList(buf)
 		end
 	else
 		for name, data in pairs(data.gems) do
-			if not data.hidden then
-				t_insert(self.list, name)
-			end
-			t_sort(self.list)
+			t_insert(self.list, name)
 		end
+		t_sort(self.list)
 	end
 	if not self.list[1] then
 		self.list[1] = "<No matches>"

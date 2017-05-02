@@ -63,8 +63,8 @@ Items and Gems have 25% reduced Attribute Requirements
 ]],[[
 The Aylardex
 Agate Amulet
-Variant: Current
 Variant: Pre 2.5.0
+Variant: Current
 Requires Level 32
 +(16-24) to Strength and Intelligence
 +(30-50) to maximum Life

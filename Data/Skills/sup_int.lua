@@ -1448,7 +1448,7 @@ skills["SupportRemoteMine"] = {
 		--"mine_override_pvp_scaling_time_ms" = 900
 		--"base_skill_is_mined" = ?
 		--"disable_skill_if_melee_attack" = ?
-		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanMine }), --"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
 		mod("MineLayingSpeed", "MORE", 0.5), --"mine_laying_speed_+%" = 0.5

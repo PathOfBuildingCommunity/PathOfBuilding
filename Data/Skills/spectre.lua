@@ -2814,7 +2814,7 @@ skills["NecromancerVulnerability"] = {
 		skill("duration", 10.9), --"base_skill_effect_duration" = 10900
 		--"active_skill_area_of_effect_radius_+%_final" = 0
 		mod("PhysicalDamageTaken", "INC", 50, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"physical_damage_taken_+%" = 50
-		mod("DotTaken", "INC", 50, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"degen_effect_+%" = 50
+		mod("DamageTakenOverTime", "INC", 50, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"degen_effect_+%" = 50
 		--"skill_art_variation" = 1
 	},
 	qualityMods = {
@@ -3214,7 +3214,6 @@ skills["SkeletonMassBowProjectile"] = {
 	color = 4,
 	baseFlags = {
 		attack = true,
-		melee = true,
 		projectile = true,
 	},
 	skillTypes = { [1] = true, [48] = true, [3] = true, [10] = true, [57] = true, },
@@ -3385,7 +3384,7 @@ skills["SkeletonVulnerability"] = {
 		skill("duration", 10.9), --"base_skill_effect_duration" = 10900
 		--"active_skill_area_of_effect_radius_+%_final" = 0
 		mod("PhysicalDamageTaken", "INC", 50, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"physical_damage_taken_+%" = 50
-		mod("DotTaken", "INC", 50, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"degen_effect_+%" = 50
+		mod("DamageTakenOverTime", "INC", 50, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"degen_effect_+%" = 50
 	},
 	qualityMods = {
 	},

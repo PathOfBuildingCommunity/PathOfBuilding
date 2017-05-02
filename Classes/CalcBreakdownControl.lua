@@ -116,20 +116,13 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 		})
 	end
 
-	if breakdown.damageComponents and #breakdown.damageComponents > 0 then
-		-- Damage component table, used for hit damage breakdowns
+	if breakdown.rowList and #breakdown.rowList > 0 then
+		-- Generic table
 		local section = {
 			type = "TABLE",
-			rowList = breakdown.damageComponents,
-			colList = { 
-				{ label = "From", key = "source", right = true },
-				{ label = "Base", key = "base" },
-				{ label = "Inc/red", key = "inc" },
-				{ label = "More/less", key = "more" },
-				{ label = "Converted Damage", key = "convSrc" },
-				{ label = "Total", key = "total" },
-				{ label = "Conversion", key = "convDst" },
-			}
+			label = breakdown.label,
+			rowList = breakdown.rowList,
+			colList = breakdown.colList,
 		}
 		t_insert(self.sectionList, section)
 	end

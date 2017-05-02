@@ -212,6 +212,9 @@ function calcs.buildOutput(build, mode)
 		if output.EnduranceCharges > 0 then
 			t_insert(combatList, s_format("%d Endurance Charges", output.EnduranceCharges))
 		end
+		if env.modDB:Sum("FLAG", nil, "Fortify") then
+			t_insert(combatList, "Fortify")
+		end
 		if env.modDB:Sum("FLAG", nil, "Onslaught") then
 			t_insert(combatList, "Onslaught")
 		end
@@ -251,6 +254,9 @@ function calcs.buildOutput(build, mode)
 			end
 			if output.Minion.EnduranceCharges > 0 then
 				t_insert(combatList, s_format("%d Endurance Charges", output.Minion.EnduranceCharges))
+			end
+			if env.minion.modDB:Sum("FLAG", nil, "Fortify") then
+				t_insert(combatList, "Fortify")
 			end
 			if env.minion.modDB:Sum("FLAG", nil, "Onslaught") then
 				t_insert(combatList, "Onslaught")

@@ -36,14 +36,16 @@ local formList = {
 	["^regenerate ([%d%.]+)%% of (.+) per second"] = "REGENPERCENT",
 	["^regenerate ([%d%.]+)%% of your (.+) per second"] = "REGENPERCENT",
 	["(%d+) to (%d+) additional (%a+) damage"] = "DMG",
-	["adds (%d+)%-(%d+) (%a+) damage"] = "DMG",
 	["adds (%d+) to (%d+) (%a+) damage"] = "DMG",
-	["adds (%d+)%-(%d+) (%a+) damage to attacks"] = "DMGATTACKS",
+	["adds (%d+)%-(%d+) (%a+) damage"] = "DMG",
 	["adds (%d+) to (%d+) (%a+) damage to attacks"] = "DMGATTACKS",
-	["adds (%d+)%-(%d+) (%a+) damage to spells"] = "DMGSPELLS",
+	["adds (%d+)%-(%d+) (%a+) damage to attacks"] = "DMGATTACKS",
 	["adds (%d+) to (%d+) (%a+) damage to spells"] = "DMGSPELLS",
+	["adds (%d+)%-(%d+) (%a+) damage to spells"] = "DMGSPELLS",
 	["adds (%d+) to (%d+) (%a+) damage to attacks and spells"] = "DMGBOTH",
+	["adds (%d+)%-(%d+) (%a+) damage to attacks and spells"] = "DMGBOTH",
 	["adds (%d+) to (%d+) (%a+) damage to spells and attacks"] = "DMGBOTH", -- o_O
+	["adds (%d+)%-(%d+) (%a+) damage to spells and attacks"] = "DMGBOTH", -- o_O
 }
 
 -- Map of modifier names
@@ -84,7 +86,10 @@ local modNameList = {
 	["evasion and energy shield"] = "EvasionAndEnergyShield",
 	["armour, evasion and energy shield"] = "Defences",
 	["defences"] = "Defences",
+	["chance to evade projectile attacks"] = "ProjectileEvadeChance",
+	["chance to evade melee attacks"] = "MeleeEvadeChance",
 	-- Resistances
+	["physical damage reduction"] = "PhysicalDamageReduction",
 	["fire resistance"] = "FireResist",
 	["maximum fire resistance"] = "FireResistMax",
 	["cold resistance"] = "ColdResist",
@@ -108,7 +113,8 @@ local modNameList = {
 	["fire damage taken"] = "FireDamageTaken",
 	["chaos damage taken"] = "ChaosDamageTaken",
 	["elemental damage taken"] = "ElementalDamageTaken",
-	["damage taken from damage over time"] = "DotTaken",
+	["damage taken from damage over time"] = "DamageTakenOverTime",
+	["chaos damage taken over time"] = "ChaosDamageTakenOverTime",
 	-- Other defences
 	["to dodge attacks"] = "AttackDodgeChance",
 	["to dodge spells"] = "SpellDodgeChance",
@@ -227,7 +233,7 @@ local modNameList = {
 	-- Buffs
 	["onslaught effect"] = "OnslaughtEffect",
 	["fortify duration"] = "FortifyDuration",
-	["effect of fortify on you"] = "FortifyEffect",
+	["effect of fortify on you"] = "FortifyEffectOnSelf",
 	-- Basic damage types
 	["damage"] = "Damage",
 	["physical damage"] = "PhysicalDamage",
@@ -598,6 +604,8 @@ local specialModList = {
 	["life leech is applied to energy shield instead"] = { flag("GhostReaver") },
 	["minions explode when reduced to low life, dealing 33%% of their maximum life as fire damage to surrounding enemies"] = { flag("MinionInstability") },
 	["all bonuses from an equipped shield apply to your minions instead of you"] = { }, -- The node itself is detected by the code that handles it
+	["spend energy shield before mana for skill costs"] = { },
+	["energy shield protects mana instead of life"] = { flag("EnergyShieldProtectsMana") },
 	-- Ascendancy notables
 	["movement skills cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Movement) },
 	["projectiles have (%d+)%% additional chance to pierce targets at the start of their movement, losing this chance as the projectile travels farther"] = function(num) return { mod("PierceChance", "BASE", num, { type = "DistanceRamp", ramp = {{10,1},{120,0}} }) } end,
@@ -660,6 +668,7 @@ local specialModList = {
 	["you have phasing while at maximum frenzy charges"] = { flag("Condition:Phasing", { type = "Condition", var = "AtMaxFrenzyCharges" }) },
 	["you have phasing while you have onslaught"] = { flag("Condition:Phasing", { type = "Condition", var = "Onlaught" }) },
 	["your minions spread caustic cloud on death, dealing 10%% of their maximum life as chaos damage per second"] = { flag("MinionCausticCloudOnDeath") },
+	["you and your minions have (%d+)%% physical damage reduction"] = function(num) return { mod("PhysicalDamageReduction", "BASE", num), mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", num) }) } end,
 	-- Item local modifiers
 	["has no sockets"] = { },
 	["has 1 socket"] = { },
@@ -722,7 +731,7 @@ local specialModList = {
 	["your physical damage can shock"] = { flag("PhysicalCanShock") },
 	["critical strikes do not always freeze"] = { flag("CritsDontAlwaysFreeze") },
 	["you can inflict up to (%d+) ignites on an enemy"] = { flag("IgniteCanStack") },
-	["enemies chilled by you take (%d+)%% increased burning damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("BurningDamageTaken", "INC", num) }, { type = "EnemyCondition", var = "Chilled" }) } end,
+	["enemies chilled by you take (%d+)%% increased burning damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("FireDamageTakenOverTime", "INC", num) }, { type = "EnemyCondition", var = "Chilled" }) } end,
 	["ignited enemies burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnRate", "INC", num) } end,
 	["enemies ignited by an attack burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnRate", "INC", num, nil, ModFlag.Attack) } end,
 	-- Bleed
@@ -820,9 +829,9 @@ local specialModList = {
 	["zealot's oath during flask effect"] = { mod("ZealotsOath", "FLAG", true, { type = "Condition", var = "UsingFlask" }) },
 	["grants level (%d+) (.+) curse aura during flask effect"] = function(num, _, skill) return { mod("ExtraCurse", "LIST", { name = gemNameLookup[skill:gsub(" skill","")] or "Unknown", level = num }, { type = "Condition", var = "UsingFlask" }) } end,
 	["during flask effect, (%d+)%% reduced damage taken of each element for which your uncapped elemental resistance is lowest"] = function(num) return {
-		mod("LightningDamageTaken", "BASE", -num, { type = "Condition", var = "UncappedLightningResistIsLowest" }),
-		mod("ColdDamageTaken", "BASE", -num, { type = "Condition", var = "UncappedColdResistIsLowest" }),
-		mod("FireDamageTaken", "BASE", -num, { type = "Condition", var = "UncappedFireResistIsLowest" }),
+		mod("LightningDamageTaken", "INC", -num, { type = "Condition", var = "UncappedLightningResistIsLowest" }),
+		mod("ColdDamageTaken", "INC", -num, { type = "Condition", var = "UncappedColdResistIsLowest" }),
+		mod("FireDamageTaken", "INC", -num, { type = "Condition", var = "UncappedFireResistIsLowest" }),
 	} end,
 	["during flask effect, damage penetrates (%d+)%% o?f? ?resistance of each element for which your uncapped elemental resistance is highest"] = function(num) return {
 		mod("LightningPenetration", "BASE", num, { type = "Condition", var = "UncappedLightningResistIsHighest" }),
@@ -842,6 +851,8 @@ local specialModList = {
 	["attacks have blood magic"] = { flag("SkillBloodMagic", nil, ModFlag.Attack) },
 	["socketed lightning spells have (%d+)%% increased spell damage if triggered"] = function(num) return { mod("Damage", "INC", num, nil, ModFlag.Spell, { type = "SocketedIn", keyword = "lightning" }, { type = "Condition", var = "SkillIsTriggered" }) } end,
 	["your curses can apply to hexproof enemies"] = { flag("CursesIgnoreHexproof") },
+	["you have onslaught while you have fortify"] = { flag("Condition:Onslaught", { type = "Condition", var = "Fortify" }) },
+	["reserves (%d+)%% of life"] = function(num) return { mod("ExtraLifeReserved", "BASE", num) } end,
 	-- Skill-specific enchantment modifiers
 	["(%d+)%% increased decoy totem life"] = function(num) return { mod("TotemLife", "INC", num, { type = "SkillName", skillName = "Decoy Totem" }) } end,
 	["(%d+)%% increased ice spear critical strike chance in second form"] = function(num) return { mod("CritChance", "INC", num, { type = "SkillName", skillName = "Ice Spear" }, { type = "SkillPart", skillPart = 2 }) } end,
@@ -896,6 +907,11 @@ local suffixTypes = {
 	["converted to fire damage"] = "ConvertToFire",
 	["converted to chaos damage"] = "ConvertToChaos",
 	["converted to energy shield"] = "ConvertToEnergyShield",
+	["as physical damage"] = "AsPhysical",
+	["as lightning damage"] = "AsLightning",
+	["as cold damage"] = "AsCold",
+	["as fire damage"] = "AsFire",
+	["as chaos damage"] = "AsChaos",
 	["leeched as life and mana"] = "Leech",
 	["leeched as life"] = "LifeLeech",
 	["leeched as mana"] = "ManaLeech",

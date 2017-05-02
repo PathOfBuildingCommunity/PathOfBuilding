@@ -507,6 +507,7 @@ function main:DrawTooltip(x, y, w, h, viewPort, col, center)
 		end
 	end
 	self.tooltipLines = wipeTable(self.tooltipLines)
+	return ttW, ttH
 end
 
 return main
