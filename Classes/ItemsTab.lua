@@ -95,7 +95,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.controls.selectDB = common.New("DropDownControl", {"LEFT",self.controls.selectDBLabel,"RIGHT"}, 4, 0, 150, 18, { "Uniques", "Rare Templates" })
 
 	-- Unique database
-	self.controls.uniqueDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, 260, self, main.uniqueDB)
+	self.controls.uniqueDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end, self, main.uniqueDB)
 	self.controls.uniqueDB.y = function()
 		return self.controls.selectDBLabel:IsShown() and 76 or 54
 	end
@@ -104,7 +104,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	end
 
 	-- Rare template database
-	self.controls.rareDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, 260, self, main.rareDB)
+	self.controls.rareDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end, self, main.rareDB)
 	self.controls.rareDB.y = function()
 		return self.controls.selectDBLabel:IsShown() and 76 or 370
 	end
@@ -267,6 +267,7 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 	self.controls.scrollBarH.x = viewPort.x
 	self.controls.scrollBarH.y = viewPort.y + viewPort.height - 18
 	self.controls.scrollBarH:SetContentDimension(self.controls.displayItemRangeSlider:GetPos() + self.controls.displayItemRangeSlider:GetSize() - self.x, viewPort.width)
+	self.maxY = self.controls.scrollBarH:IsShown() and self.controls.scrollBarH.y or viewPort.y + viewPort.height
 	self.x = self.x - self.controls.scrollBarH.offset
 	
 	for id, event in ipairs(inputEvents) do

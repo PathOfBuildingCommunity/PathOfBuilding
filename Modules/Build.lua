@@ -251,6 +251,7 @@ function buildMode:Init(dbFileName, buildName)
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
 	-- This may be user-customisable in the future
 	self.displayStats = {
+		{ stat = "ActiveMinionLimit", label = "Active Minion Limit", fmt = "d" },
 		{ stat = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true, flag = "attack" },
 		{ stat = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack" },
@@ -258,7 +259,7 @@ function buildMode:Init(dbFileName, buildName)
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
 		{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },
-		{ stat = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return o.CritChance > 0 end },
+		{ stat = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return (o.CritChance or 0) > 0 end },
 		{ stat = "HitChance", label = "Hit Chance", fmt = ".0f%%", flag = "attack" },
 		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
@@ -295,6 +296,9 @@ function buildMode:Init(dbFileName, buildName)
 		{ stat = "ManaLeechGainRate", label = "Mana Leech/On Hit Rate", fmt = ".1f", compPercent = true },
 		{ stat = "ManaLeechGainPerHit", label = "Mana Leech/Gain per Hit", fmt = ".1f", compPercent = true },
 		{ },
+		{ stat = "TotalDegen", label = "Total Degen", fmt = ".1f", lowerIsBetter = true },
+		{ stat = "NetRegen", label = "Net Regen", fmt = "+.1f" },
+		{ },
 		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
 		{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", fmt = "d%%" },
 		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
@@ -302,9 +306,12 @@ function buildMode:Init(dbFileName, buildName)
 		{ stat = "EnergyShieldLeechGainPerHit", label = "ES Leech/Gain per Hit", fmt = ".1f", compPercent = true },
 		{ stat = "Evasion", label = "Evasion rating", fmt = "d", compPercent = true },
 		{ stat = "Spec:EvasionInc", label = "%Inc Evasion from Tree", fmt = "d%%" },
-		{ stat = "EvadeChance", label = "Evade Chance", fmt = "d%%" },
+		{ stat = "EvadeChance", label = "Evade Chance", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance == o.ProjectileEvadeChance end },
+		{ stat = "MeleeEvadeChance", label = "Melee Evade Chance", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
+		{ stat = "ProjectileEvadeChance", label = "Projectile Evade Chance", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
 		{ stat = "Armour", label = "Armour", fmt = "d", compPercent = true },
 		{ stat = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
+		{ stat = "PhysicalDamageReduction", label = "Phys. Damage Reduction", fmt = "d%%" },
 		{ stat = "MovementSpeedMod", label = "Movement Speed Modifier", fmt = "+d%%", mod = true },
 		{ stat = "BlockChance", label = "Block Chance", fmt = "d%%" },
 		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%" },
@@ -759,7 +766,7 @@ function buildMode:CompareStatList(statList, actor, baseOutput, compareOutput, h
 			local statVal1 = compareOutput[statData.stat] or 0
 			local statVal2 = baseOutput[statData.stat] or 0
 			local diff = statVal1 - statVal2
-			if diff > 0.001 or diff < -0.001 then
+			if (diff > 0.001 or diff < -0.001) and (not statData.condFunc or statData.condFunc(statVal1,compareOutput) or statData.condFunc(statVal2,baseOutput)) then
 				if count == 0 then
 					main:AddTooltipLine(14, header)
 				end

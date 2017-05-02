@@ -705,9 +705,9 @@ skills["BloodRage"] = {
 	baseMods = {
 		skill("castTime", 0.25), 
 		skill("cooldown", 1), 
-		--"life_leech_from_physical_attack_damage_permyriad" = 120
-		--"base_physical_damage_%_of_maximum_life_to_deal_per_minute" = 240
-		--"base_physical_damage_%_of_maximum_energy_shield_to_deal_per_minute" = 240
+		mod("PhysicalDamageLifeLeech", "BASE", 1.2, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }), --"life_leech_from_physical_attack_damage_permyriad" = 120
+		mod("PhysicalDegen", "BASE", 0.04, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }), --"base_physical_damage_%_of_maximum_life_to_deal_per_minute" = 240
+		mod("PhysicalDegen", "BASE", 0.04, 0, 0, { type = "PerStat", stat = "EnergyShield", div = 1}, { type = "GlobalEffect", effectType = "Buff" }), --"base_physical_damage_%_of_maximum_energy_shield_to_deal_per_minute" = 240
 		--"add_frenzy_charge_on_kill_%_chance" = 25
 	},
 	qualityMods = {

@@ -44,6 +44,68 @@ local function doActorAttribsPoolsConditions(env, actor)
 	local breakdown = actor.breakdown
 	local condList = modDB.conditions
 
+	-- Set conditions
+	if actor.weaponData1.type == "Staff" then
+		condList["UsingStaff"] = true
+	end
+	if actor.weaponData1.type == "Bow" then
+		condList["UsingBow"] = true
+	end
+	if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].type == "Shield" then
+		condList["UsingShield"] = true
+	end
+	if actor.weaponData1.type and actor.weaponData2.type then
+		condList["DualWielding"] = true
+		if actor.weaponData1.type == "Claw" and actor.weaponData2.type == "Claw" then
+			condList["DualWieldingClaws"] = true
+		end
+	end
+	if actor.weaponData1.type == "None" then
+		condList["Unarmed"] = true
+	end
+	if (modDB.multipliers["NormalItem"] or 0) > 0 then
+		condList["UsingNormalItem"] = true
+	end
+	if (modDB.multipliers["MagicItem"] or 0) > 0 then
+		condList["UsingMagicItem"] = true
+	end
+	if (modDB.multipliers["RareItem"] or 0) > 0 then
+		condList["UsingRareItem"] = true
+	end
+	if (modDB.multipliers["UniqueItem"] or 0) > 0 then
+		condList["UsingUniqueItem"] = true
+	end
+	if (modDB.multipliers["CorruptedItem"] or 0) > 0 then
+		condList["UsingCorruptedItem"] = true
+	else
+		condList["NotUsingCorruptedItem"] = true
+	end
+	if env.mode_combat then		
+		if not modDB:Sum("FLAG", nil, "NeverCrit") then
+			condList["CritInPast8Sec"] = true
+		end
+		if not actor.mainSkill.skillData.triggered then 
+			if actor.mainSkill.skillFlags.attack then
+				condList["AttackedRecently"] = true
+			elseif actor.mainSkill.skillFlags.spell then
+				condList["CastSpellRecently"] = true
+			end
+		end
+		if actor.mainSkill.skillFlags.hit and not actor.mainSkill.skillFlags.trap and not actor.mainSkill.skillFlags.mine and not actor.mainSkill.skillFlags.totem then
+			condList["HitRecently"] = true
+		end
+		if actor.mainSkill.skillFlags.movement then
+			condList["UsedMovementSkillRecently"] = true
+		end
+		if actor.mainSkill.skillFlags.totem then
+			condList["HaveTotem"] = true
+			condList["SummonedTotemRecently"] = true
+		end
+		if actor.mainSkill.skillFlags.mine then
+			condList["DetonatedMinesRecently"] = true
+		end
+	end
+
 	-- Calculate attributes
 	for _, stat in pairs({"Str","Dex","Int"}) do
 		output[stat] = round(calcLib.val(modDB, stat))
@@ -120,68 +182,6 @@ local function doActorAttribsPoolsConditions(env, actor)
 			modDB:NewMod("ExtraAura", "LIST", { mod = auraMod })
 		end
 	end
-
-	-- Set conditions
-	if actor.weaponData1.type == "Staff" then
-		condList["UsingStaff"] = true
-	end
-	if actor.weaponData1.type == "Bow" then
-		condList["UsingBow"] = true
-	end
-	if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].type == "Shield" then
-		condList["UsingShield"] = true
-	end
-	if actor.weaponData1.type and actor.weaponData2.type then
-		condList["DualWielding"] = true
-		if actor.weaponData1.type == "Claw" and actor.weaponData2.type == "Claw" then
-			condList["DualWieldingClaws"] = true
-		end
-	end
-	if actor.weaponData1.type == "None" then
-		condList["Unarmed"] = true
-	end
-	if (modDB.multipliers["NormalItem"] or 0) > 0 then
-		condList["UsingNormalItem"] = true
-	end
-	if (modDB.multipliers["MagicItem"] or 0) > 0 then
-		condList["UsingMagicItem"] = true
-	end
-	if (modDB.multipliers["RareItem"] or 0) > 0 then
-		condList["UsingRareItem"] = true
-	end
-	if (modDB.multipliers["UniqueItem"] or 0) > 0 then
-		condList["UsingUniqueItem"] = true
-	end
-	if (modDB.multipliers["CorruptedItem"] or 0) > 0 then
-		condList["UsingCorruptedItem"] = true
-	else
-		condList["NotUsingCorruptedItem"] = true
-	end
-	if env.mode_combat then		
-		if not modDB:Sum("FLAG", nil, "NeverCrit") then
-			condList["CritInPast8Sec"] = true
-		end
-		if not actor.mainSkill.skillData.triggered then 
-			if actor.mainSkill.skillFlags.attack then
-				condList["AttackedRecently"] = true
-			elseif actor.mainSkill.skillFlags.spell then
-				condList["CastSpellRecently"] = true
-			end
-		end
-		if actor.mainSkill.skillFlags.hit and not actor.mainSkill.skillFlags.trap and not actor.mainSkill.skillFlags.mine and not actor.mainSkill.skillFlags.totem then
-			condList["HitRecently"] = true
-		end
-		if actor.mainSkill.skillFlags.movement then
-			condList["UsedMovementSkillRecently"] = true
-		end
-		if actor.mainSkill.skillFlags.totem then
-			condList["HaveTotem"] = true
-			condList["SummonedTotemRecently"] = true
-		end
-		if actor.mainSkill.skillFlags.mine then
-			condList["DetonatedMinesRecently"] = true
-		end
-	end
 end
 
 -- Process charges, enemy modifiers, and other buffs
@@ -239,13 +239,17 @@ local function doActorMisc(env, actor)
 
 	-- Add misc buffs
 	if env.mode_combat then
+		if modDB:Sum("FLAG", nil, "Fortify") then
+			local effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "FortifyEffectOnSelf", "BuffEffectOnSelf") / 100))
+			modDB:NewMod("DamageTakenWhenHit", "INC", -20, "Fortify")
+		end
 		if modDB:Sum("FLAG", nil, "Onslaught") then
-			local effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffect") / 100))
+			local effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffectOnSelf") / 100))
 			modDB:NewMod("Speed", "INC", effect, "Onslaught")
 			modDB:NewMod("MovementSpeed", "INC", effect, "Onslaught")
 		end
 		if modDB:Sum("FLAG", nil, "UnholyMight") then
-			local effect = m_floor(30 * (1 + modDB:Sum("INC", nil, "BuffEffect") / 100))
+			local effect = m_floor(30 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
 			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", effect, "Unholy Might")
 		end
 	end	
@@ -303,6 +307,7 @@ function calcs.perform(env)
 		env.minion.modDB:NewMod("Speed", "INC", 15, "Base", { type = "Multiplier", var = "FrenzyCharge" })
 		env.minion.modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
 		env.minion.modDB:NewMod("MovementSpeed", "INC", 5, "Base", { type = "Multiplier", var = "FrenzyCharge" })
+		env.minion.modDB:NewMod("PhysicalDamageReduction", "BASE", 15, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 		env.minion.modDB:NewMod("ElementalResist", "BASE", 15, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 		env.minion.modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
 		for _, mod in ipairs(env.minion.minionData.modList) do
@@ -381,7 +386,7 @@ function calcs.perform(env)
 
 	-- Calculate skill life and mana reservations
 	env.player.reserved_LifeBase = 0
-	env.player.reserved_LifePercent = 0
+	env.player.reserved_LifePercent = modDB:Sum("BASE", nil, "ExtraLifeReserved") 
 	env.player.reserved_ManaBase = 0
 	env.player.reserved_ManaPercent = 0
 	if breakdown then

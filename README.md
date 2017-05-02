@@ -47,6 +47,24 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.8 - 2017/05/02
+ * Added a Physical Damage Reduction estimate for Armour; by default the estimate is made using the same damage value
+   used in-game on the character sheet, but it can be overriden using a new option in the Configuration tab
+ * Added a new "Damage Taken" section to the Calcs tab that shows the incoming damage multipliers for each damage type
+    * These factor in mitigation (resistances/armour) and modifiers to damage taken
+	* The multipliers for hits and degens are calculated and shown separately
+	* The multiplier for Physical hit damage includes the Physical Damage Reduction estimate mentioned above
+ * Added self-degen calculations for Righteous Fire and Blood Rage:
+    * The sidebar will display "Total Degen" and "Net Regen" (Total Regen minus Total Degen)
+    * Detailed breakdowns for these calculations can be found in the new Damage Taken section of the Calcs tab
+ * Added combined avoidance chances for Melee/Projectile/Spell to the Other Defences section of the Calcs tab which
+   factor in evasion, block, and dodge
+ * Added support for Arrow Dancing
+ * The "increase maximum Life if no worn Items are Corrupted" stat on Voll's Vision should now apply correctly
+ * Corrected the range of the life modifier on The Perfect Form
+ * Corrected The Alyardex's variants
+ * Fixed issue that prevented the program's title bar from appearing at low screen resolutions
+ 
 ### 1.4.7 - 2017/04/20
  * A new section has been added to the Configuration tab for Map Modifiers and Player Debuffs
     * This section contains options for simulating many map modifiers, as well as self-curses

@@ -149,7 +149,7 @@ Implicits: 2
 Adds (180-190) to (190-220) Physical Damage
 (12-16)% increased Attack Speed
 (20-30)% increased Critical Strike Chance
-+1 maximum Power Charge
++1 to Maximum Power Charges
 10% chance to gain a Power Charge if you Knock an Enemy Back with Melee Damage
 ]],[[
 Pillar of the Caged God

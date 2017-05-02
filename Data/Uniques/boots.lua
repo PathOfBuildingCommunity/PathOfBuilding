@@ -276,7 +276,7 @@ Requires Level 65, 62 Str, 62 Dex
 {variant:2}(40-70)% increased Armour and Evasion
 +(20-40)% to Lightning Resistance
 5% increased Movement Speed per Frenzy Charge
-+1 maximum Frenzy Charge
++1 to Maximum Frenzy Charge
 {variant:1}50% reduced Frenzy Charge Duration
 {variant:2}40% reduced Frenzy Charge Duration
 25% reduced Light Radius

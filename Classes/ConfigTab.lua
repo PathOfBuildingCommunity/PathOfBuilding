@@ -12,6 +12,7 @@ local m_floor = math.floor
 local varList = {
 	{ section = "General", col = 1 },
 	{ var = "enemyLevel", type = "number", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and evade chances.\nThe default level is your character level, capped at 84, which is the same value\nused in-game to calculate the stats on the character sheet." },
+	{ var = "enemyPhysicalHit", type = "number", label = "Enemy Physical Hit Damage:", tooltip = "This overrides the default damage amount used to estimate your physical damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet." },
 	{ var = "conditionLowLife", type = "check", label = "Are you always on Low Life?", ifCond = "LowLife", tooltip = "You will automatically be considered to be on Low Life if you have at least 65% life reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LowLife", "FLAG", true, "Config")
 	end },
@@ -41,7 +42,7 @@ local varList = {
 	{ section = "Map Modifiers and Player Debuffs", col = 2 },
 	{ label = "Map Prefix Modifiers:" },
 	{ var = "enemyHasPhysicalReduction", type = "list", label = "Enemy Physical Damage reduction:", tooltip = "'Armoured'", list = {{val=0,label="None"},{val=20,label="20% (Low tier)"},{val=30,label="30% (Mid tier)"},{val=40,label="40% (High tier)"}}, apply = function(val, modList, enemyModList)	
-		enemyModList:NewMod("PhysicalDamageReduction", "INC", val, "Config")
+		enemyModList:NewMod("PhysicalDamageReduction", "BASE", val, "Config")
 	end },
 	{ var = "enemyIsHexproof", type = "check", label = "Enemy is Hexproof?", tooltip = "'Hexproof'", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Hexproof", "FLAG", true, "Config")
@@ -378,7 +379,7 @@ local varList = {
 		end
 	end },
 	{ var = "enemyPhysicalReduction", type = "number", label = "Enemy Phys. Damage Reduction:", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("PhysicalDamageReduction", "INC", val, "Config")
+		enemyModList:NewMod("PhysicalDamageReduction", "BASE", val, "Config")
 	end },
 	{ var = "enemyFireResist", type = "number", label = "Enemy Fire Resistance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("FireResist", "BASE", val, "Config")
@@ -445,7 +446,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 					self.build.buildFlag = true
 				end) 
 			elseif varData.type == "number" then
-				control = common.New("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 70, 18, "", nil, "^%-%d", 4, function(buf)
+				control = common.New("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, "^%-%d", 6, function(buf)
 					self.input[varData.var] = tonumber(buf)
 					self:AddUndoState()
 					self:BuildModList()

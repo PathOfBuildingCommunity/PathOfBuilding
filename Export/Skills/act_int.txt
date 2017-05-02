@@ -151,9 +151,9 @@ local skills, mod, flag, skill = ...
 			name = "10 Stages",
 		},
 	},
+#setMod base_skill_show_average_damage_instead_of_dps==nil
 #baseMod mod("Damage", "MORE", 990, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("dpsMultiplier", 0.1, { type = "SkillPart", skillPart = 2 })
-#baseMod skill("showAverage", false)
 #mods
 
 #skill VaalFlameblast

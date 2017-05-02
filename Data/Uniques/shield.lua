@@ -456,6 +456,7 @@ Branded Kite Shield
 Variant: Pre 1.1.0
 Variant: Current
 Requires Level 59, 76 Str, 76 Int
+Implicits: 2
 {variant:1}+8% to all Elemental Resistances
 {variant:2}+4% to all Elemental Resistances
 {variant:1}(100-120)% of Block Chance applied to Spells

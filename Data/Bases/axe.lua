@@ -120,7 +120,7 @@ itemBases["Royal Axe"] = {
 }
 itemBases["Infernal Axe"] = {
 	type = "One Handed Axe",
-	weapon = { PhysicalMin = 43, PhysicalMax = 72, critChanceBase = 5, attackRateBase = 1.3, },
+	weapon = { PhysicalMin = 51, PhysicalMax = 85, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 69, str = 158, dex = 76, },
 }
 itemBases["Runic Hatchet"] = {
@@ -148,7 +148,7 @@ itemBases["Woodsplitter"] = {
 }
 itemBases["Poleaxe"] = {
 	type = "Two Handed Axe",
-	weapon = { PhysicalMin = 29, PhysicalMax = 44, critChanceBase = 5, attackRateBase = 1.25, },
+	weapon = { PhysicalMin = 25, PhysicalMax = 37, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 18, str = 44, dex = 25, },
 }
 itemBases["Double Axe"] = {
@@ -158,7 +158,7 @@ itemBases["Double Axe"] = {
 }
 itemBases["Gilded Axe"] = {
 	type = "Two Handed Axe",
-	weapon = { PhysicalMin = 43, PhysicalMax = 58, critChanceBase = 5, attackRateBase = 1.25, },
+	weapon = { PhysicalMin = 37, PhysicalMax = 50, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 28, str = 64, dex = 37, },
 }
 itemBases["Shadow Axe"] = {
@@ -166,16 +166,16 @@ itemBases["Shadow Axe"] = {
 	weapon = { PhysicalMin = 42, PhysicalMax = 62, critChanceBase = 5, attackRateBase = 1.25, },
 	req = { level = 33, str = 80, dex = 37, },
 }
-itemBases["Jasper Chopper"] = {
-	type = "Two Handed Axe",
-	weapon = { PhysicalMin = 50, PhysicalMax = 78, critChanceBase = 5, attackRateBase = 1.15, },
-	req = { level = 37, str = 100, dex = 29, },
-}
 itemBases["Dagger Axe"] = {
 	type = "Two Handed Axe",
 	implicit = "50% increased Critical Strike Chance",
 	weapon = { PhysicalMin = 45, PhysicalMax = 71, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 36, str = 89, dex = 43, },
+}
+itemBases["Jasper Chopper"] = {
+	type = "Two Handed Axe",
+	weapon = { PhysicalMin = 50, PhysicalMax = 78, critChanceBase = 5, attackRateBase = 1.15, },
+	req = { level = 37, str = 100, dex = 29, },
 }
 itemBases["Timber Axe"] = {
 	type = "Two Handed Axe",
@@ -189,12 +189,12 @@ itemBases["Headsman Axe"] = {
 }
 itemBases["Labrys"] = {
 	type = "Two Handed Axe",
-	weapon = { PhysicalMin = 71, PhysicalMax = 118, critChanceBase = 5, attackRateBase = 1.15, },
+	weapon = { PhysicalMin = 63, PhysicalMax = 105, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 49, str = 122, dex = 53, },
 }
 itemBases["Noble Axe"] = {
 	type = "Two Handed Axe",
-	weapon = { PhysicalMin = 73, PhysicalMax = 98, critChanceBase = 5, attackRateBase = 1.25, },
+	weapon = { PhysicalMin = 65, PhysicalMax = 88, critChanceBase = 5, attackRateBase = 1.3, },
 	req = { level = 52, str = 113, dex = 65, },
 }
 itemBases["Abyssal Axe"] = {
@@ -202,16 +202,16 @@ itemBases["Abyssal Axe"] = {
 	weapon = { PhysicalMin = 69, PhysicalMax = 104, critChanceBase = 5, attackRateBase = 1.25, },
 	req = { level = 55, str = 128, dex = 60, },
 }
+itemBases["Karui Chopper"] = {
+	type = "Two Handed Axe",
+	weapon = { PhysicalMin = 80, PhysicalMax = 125, critChanceBase = 5, attackRateBase = 1.15, },
+	req = { level = 58, str = 151, dex = 43, },
+}
 itemBases["Talon Axe"] = {
 	type = "Two Handed Axe",
 	implicit = "50% increased Critical Strike Chance",
 	weapon = { PhysicalMin = 75, PhysicalMax = 118, critChanceBase = 5, attackRateBase = 1.2, },
 	req = { level = 59, str = 140, dex = 67, },
-}
-itemBases["Karui Chopper"] = {
-	type = "Two Handed Axe",
-	weapon = { PhysicalMin = 80, PhysicalMax = 125, critChanceBase = 5, attackRateBase = 1.15, },
-	req = { level = 58, str = 151, dex = 43, },
 }
 itemBases["Sundering Axe"] = {
 	type = "Two Handed Axe",

@@ -5,10 +5,40 @@
 --
 local modDB, output, actor = ...
 
+local unpack = unpack
+local ipairs = ipairs
 local t_insert = table.insert
 local s_format = string.format
 
 local breakdown = { }
+
+function breakdown.multiChain(out, chain)
+	local base = chain.base
+	local lines = 0
+	for _, mult in ipairs(chain) do
+		if mult[2] and mult[2] ~= 1 then
+			if lines == 0 then
+				if base then
+					if chain.label then
+						t_insert(out, chain.label)
+					end
+					t_insert(out, base)
+					t_insert(out, "x "..s_format(unpack(mult)))
+					lines = 2
+				else
+					base = s_format(unpack(mult))
+				end
+			else
+				t_insert(out, "x "..s_format(unpack(mult)))
+				lines = lines + 1
+			end
+		end
+	end
+	if lines > 0 then
+		t_insert(out, chain.total)
+	end
+	return lines
+end
 
 function breakdown.simple(extraBase, cfg, total, ...)
 	extraBase = extraBase or 0
@@ -24,10 +54,10 @@ function breakdown.simple(extraBase, cfg, total, ...)
 				out[1] = s_format("%g ^8(base)", base + extraBase)
 			end
 			if inc ~= 0 then
-				t_insert(out, s_format("x %.2f", 1 + inc/100).." ^8(increased/reduced)")
+				t_insert(out, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
 			end
 			if more ~= 1 then
-				t_insert(out, s_format("x %.2f", more).." ^8(more/less)")
+				t_insert(out, s_format("x %.2f ^8(more/less)", more))
 			end
 			t_insert(out, s_format("= %g", total))
 			return out
@@ -40,8 +70,8 @@ function breakdown.mod(cfg, ...)
 	local more = modDB:Sum("MORE", cfg, ...)
 	if inc ~= 0 and more ~= 1 then
 		return { 
-			s_format("%.2f", 1 + inc/100).." ^8(increased/reduced)",
-			s_format("x %.2f", more).." ^8(more/less)",
+			s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
+			s_format("x %.2f ^8(more/less)", more),
 			s_format("= %.2f", (1 + inc/100) * more),
 		}
 	end
@@ -83,20 +113,14 @@ function breakdown.effMult(damageType, resist, pen, taken, mult)
 end
 
 function breakdown.dot(out, baseVal, inc, more, rate, effMult, total)
-	t_insert(out, s_format("%.1f ^8(base damage per second)", baseVal))
-	if inc ~= 0 then
-		t_insert(out, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
-	end
-	if more ~= 1 then
-		t_insert(out, s_format("x %.2f ^8(more/less)", more))
-	end
-	if rate and rate ~= 1 then
-		t_insert(out, s_format("x %.2f ^8(rate modifier)", rate))
-	end
-	if effMult ~= 1 then
-		t_insert(out, s_format("x %.3f ^8(effective DPS modifier)", effMult))
-	end
-	t_insert(out, s_format("= %.1f ^8per second", total))
+	breakdown.multiChain(out, {
+		base = s_format("%.1f ^8(base damage per second)", baseVal), 
+		{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
+		{ "%.2f ^8(more/less)", more },
+		{ "%.2f ^8(rate modifier)", rate },
+		{ "%.3f ^8(effective DPS modifier)", effMult },
+		total = s_format("= %.1f ^8per second", total),
+	})
 end
 
 function breakdown.leech(instant, instantRate, instances, pool, rate, max, dur)

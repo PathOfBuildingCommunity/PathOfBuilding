@@ -1881,10 +1881,9 @@ skills["Flameblast"] = {
 		skill("critChance", 5), 
 		--"charged_blast_spell_damage_+%_final_per_stack" = 110
 		--"is_area_damage" = ?
-		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
 		mod("Damage", "MORE", 990, 0, 0, { type = "SkillPart", skillPart = 2 }), 
 		skill("dpsMultiplier", 0.1, { type = "SkillPart", skillPart = 2 }), 
-		skill("showAverage", false), 
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, 0, nil), --"damage_+%" = 1
@@ -3898,9 +3897,9 @@ skills["RighteousFire"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		--"base_righteous_fire_%_of_max_life_to_deal_to_nearby_per_minute" = 3000
-		--"base_nonlethal_fire_damage_%_of_maximum_life_taken_per_minute" = 5400
+		mod("FireDegen", "BASE", 0.9, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }), --"base_nonlethal_fire_damage_%_of_maximum_life_taken_per_minute" = 5400
 		--"base_righteous_fire_%_of_max_energy_shield_to_deal_to_nearby_per_minute" = 3000
-		--"base_nonlethal_fire_damage_%_of_maximum_energy_shield_taken_per_minute" = 4200
+		mod("FireDegen", "BASE", 0.7, 0, 0, { type = "PerStat", stat = "EnergyShield", div = 1}, { type = "GlobalEffect", effectType = "Buff" }), --"base_nonlethal_fire_damage_%_of_maximum_energy_shield_taken_per_minute" = 4200
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }), --"spell_damage_+%" = 1
@@ -4546,7 +4545,7 @@ skills["SummonChaosGolem"] = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		--[3] = "base_actor_scale_+%"
-		--[4] = "chaos_golem_grants_additional_physical_damage_reduction_%"
+		[4] = mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"chaos_golem_grants_additional_physical_damage_reduction_%"
 		[5] = mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
 		[6] = skill("minionLevel", nil), --"display_minion_monster_level"
 	},
@@ -5027,7 +5026,7 @@ skills["Vulnerability"] = {
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, },
 	baseMods = {
 		skill("castTime", 0.5), 
-		mod("DotTaken", "INC", 33, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"degen_effect_+%" = 33
+		mod("DamageTakenOverTime", "INC", 33, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"degen_effect_+%" = 33
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
 	},

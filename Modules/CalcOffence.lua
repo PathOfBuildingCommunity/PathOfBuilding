@@ -80,7 +80,7 @@ local function calcHitDamage(actor, source, cfg, breakdown, damageType, ...)
 	if baseMin == 0 and baseMax == 0 then
 		-- No base damage for this type, don't need to calculate modifiers
 		if breakdown and (addMin ~= 0 or addMax ~= 0) then
-			t_insert(breakdown.damageComponents, {
+			t_insert(breakdown.rowList, {
 				source = damageType,
 				convSrc = (addMin ~= 0 or addMax ~= 0) and (addMin .. " to " .. addMax),
 				total = addMin .. " to " .. addMax,
@@ -109,7 +109,7 @@ local function calcHitDamage(actor, source, cfg, breakdown, damageType, ...)
 	local more = m_floor(modDB:Sum("MORE", cfg, unpack(modNames)) * 100 + 0.50000001) / 100
 
 	if breakdown then
-		t_insert(breakdown.damageComponents, {
+		t_insert(breakdown.rowList, {
 			source = damageType,
 			base = baseMin .. " to " .. baseMax,
 			inc = (inc ~= 1 and "x "..inc),
@@ -659,7 +659,16 @@ function calcs.offence(env, actor)
 				if skillFlags.hit and canDeal[damageType] then
 					if breakdown then
 						breakdown[damageType] = {
-							damageComponents = { }
+							rowList = { },
+							colList = { 
+								{ label = "From", key = "source", right = true },
+								{ label = "Base", key = "base" },
+								{ label = "Inc/red", key = "inc" },
+								{ label = "More/less", key = "more" },
+								{ label = "Converted Damage", key = "convSrc" },
+								{ label = "Total", key = "total" },
+								{ label = "Conversion", key = "convDst" },
+							}
 						}
 					end
 					min, max = calcHitDamage(actor, source, cfg, breakdown and breakdown[damageType], damageType)
@@ -685,7 +694,7 @@ function calcs.offence(env, actor)
 						local pen = 0
 						local taken = enemyDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken")
 						if damageType == "Physical" then
-							resist = enemyDB:Sum("INC", nil, "PhysicalDamageReduction")
+							resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
 						else
 							resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 							if isElemental[damageType] then
@@ -953,17 +962,14 @@ function calcs.offence(env, actor)
 			local effMult = 1
 			if env.mode_effective then
 				local resist = 0
-				local taken = enemyDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken", "DotTaken")
+				local taken = enemyDB:Sum("INC", nil, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
 				if damageType == "Physical" then
-					resist = enemyDB:Sum("INC", nil, "PhysicalDamageReduction")
+					resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
 				else
 					resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 					if isElemental[damageType] then
 						resist = resist + enemyDB:Sum("BASE", nil, "ElementalResist")
 						taken = taken + enemyDB:Sum("INC", nil, "ElementalDamageTaken")
-					end
-					if damageType == "Fire" then
-						taken = taken + enemyDB:Sum("INC", nil, "BurningDamageTaken")
 					end
 					resist = m_min(resist, 75)
 				end
@@ -1148,8 +1154,8 @@ function calcs.offence(env, actor)
 				local dotCfg = mainSkill.bleedCfg
 				local effMult = 1
 				if env.mode_effective then
-					local resist = enemyDB:Sum("INC", nil, "PhysicalDamageReduction")
-					local taken = enemyDB:Sum("INC", dotCfg, "DamageTaken", "PhysicalDamageTaken", "DotTaken")
+					local resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
+					local taken = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime")
 					effMult = (1 - resist / 100) * (1 + taken / 100)
 					globalOutput["BleedEffMult"] = effMult
 					if breakdown and effMult ~= 1 then
@@ -1202,7 +1208,7 @@ function calcs.offence(env, actor)
 				local effMult = 1
 				if env.mode_effective then
 					local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist"), 75)
-					local taken = enemyDB:Sum("INC", nil, "DamageTaken", "ChaosDamageTaken", "DotTaken")
+					local taken = enemyDB:Sum("INC", nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 					effMult = (1 - resist / 100) * (1 + taken / 100)
 					globalOutput["PoisonEffMult"] = effMult
 					if breakdown and effMult ~= 1 then
@@ -1290,7 +1296,7 @@ function calcs.offence(env, actor)
 				local effMult = 1
 				if env.mode_effective then
 					local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist"), 75)
-					local taken = enemyDB:Sum("INC", dotCfg, "DamageTaken", "FireDamageTaken", "ElementalDamageTaken", "BurningDamageTaken", "DotTaken")
+					local taken = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 					effMult = (1 - resist / 100) * (1 + taken / 100)
 					globalOutput["IgniteEffMult"] = effMult
 					if breakdown and effMult ~= 1 then
@@ -1465,7 +1471,7 @@ function calcs.offence(env, actor)
 		local effMult = 1
 		if env.mode_effective then
 			local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist"), 75)
-			local taken = enemyDB:Sum("INC", nil, "DamageTaken", "ChaosDamageTaken", "DotTaken")
+			local taken = enemyDB:Sum("INC", nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 			effMult = (1 - resist / 100) * (1 + taken / 100)
 			output["DecayEffMult"] = effMult
 			if breakdown and effMult ~= 1 then

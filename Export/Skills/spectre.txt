@@ -256,7 +256,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SkeletonMassBowProjectile Puncture
-#flags attack melee projectile
+#flags attack projectile
 #baseMod mod("BleedChance", "BASE", 100)
 #mods
 
