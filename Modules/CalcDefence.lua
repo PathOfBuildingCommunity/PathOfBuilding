@@ -346,6 +346,13 @@ function calcs.defence(env, actor)
 	end
 	if output.TotalDegen and output.TotalRegen then
 		output.NetRegen = output.TotalRegen - output.TotalDegen
+		if breakdown then
+			breakdown.NetRegen = {
+				s_format("%.1f ^8(total life%s regen)", output.TotalRegen, modDB:Sum("FLAG", nil, "EnergyShieldProtectsMana") and "" or " + energy shield"),	
+				s_format("- %.1f ^8(total degen)", output.TotalDegen),
+				s_format("= %.1f", output.NetRegen),
+			}
+		end
 	end
 
 	-- Incoming hit damage multipliers

@@ -7,7 +7,7 @@
 	<File sha1="7912b22666567d5f0ff46378f5cb22e589e84efd" name="Launch.lua" part="program"/>
 	<File sha1="d8e42beeb38baabcc197d658e4c0af33419eeff3" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="831511868438f8cb2cf6a077240c76b618f1859c" name="changelog.txt" part="program"/>
+	<File sha1="e9e47767bf360abced58c51580ad2e913d4e8276" name="changelog.txt" part="program"/>
 	<File sha1="74fff9f369b6e2c98cfdf978c251c9828bcf39dc" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="deffd663ba726d938fcbe2870aab8a4e982587fa" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="ee3652a91878315a8c04222186aed646c0e52d7a" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -47,11 +47,11 @@
 	<File sha1="8a07fe01c53b785ebb6256236e781fbaabd36c0e" name="Modules/BuildList.lua" part="program"/>
 	<File sha1="5aa4d8544c1d1a2d6085696068bf02426986c517" name="Modules/CalcActiveSkill.lua" part="program"/>
 	<File sha1="b2b8d55258d9763d7c7a4a9ca1f99be3973528a8" name="Modules/CalcBreakdown.lua" part="program"/>
-	<File sha1="d036a51d2696fdd22c6d8b281a875436877a730a" name="Modules/CalcDefence.lua" part="program"/>
+	<File sha1="8647664477fef0e771500b96342496c83ab3fe4f" name="Modules/CalcDefence.lua" part="program"/>
 	<File sha1="67f5660b2fa5a013c9aa11ee4d3608211244f6b9" name="Modules/CalcOffence.lua" part="program"/>
 	<File sha1="106200e213225fb7eba0a690b6dc7418ce2d7680" name="Modules/CalcPerform.lua" part="program"/>
 	<File sha1="df0a74a9419fd796d5db0333b4781552bc6b20bd" name="Modules/Calcs.lua" part="program"/>
-	<File sha1="6efcba75ad4231f99de1b6ac238543058cf35cd2" name="Modules/CalcSections.lua" part="program"/>
+	<File sha1="35957fc76c6a4e9aa41a564696a7565c2d65e78c" name="Modules/CalcSections.lua" part="program"/>
 	<File sha1="75485f4caf30e0b7254a5e8f40f73f74e2be40df" name="Modules/CalcSetup.lua" part="program"/>
 	<File sha1="d15500aeb71f04993850bc9401d1e20e3436c795" name="Modules/CalcTools.lua" part="program"/>
 	<File sha1="1333f0be1dec8f99e971d4175574296f82691fac" name="Modules/Common.lua" part="program"/>

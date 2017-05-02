@@ -52,7 +52,7 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
    used in-game on the character sheet, but it can be overriden using a new option in the Configuration tab
  * Added a new "Damage Taken" section to the Calcs tab that shows the incoming damage multipliers for each damage type
     * These factor in mitigation (resistances/armour) and modifiers to damage taken
-	* The multipliers for hits and degens are calculated and shown separately
+	* The multipliers for hits and DoTs are calculated and shown separately
 	* The multiplier for Physical hit damage includes the Physical Damage Reduction estimate mentioned above
  * Added self-degen calculations for Righteous Fire and Blood Rage:
     * The sidebar will display "Total Degen" and "Net Regen" (Total Regen minus Total Degen)

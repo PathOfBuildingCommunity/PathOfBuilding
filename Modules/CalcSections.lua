@@ -780,6 +780,7 @@ return {
 		{ breakdown = "TotalDegen" },
 		{ label = "Sources", modName = { "PhysicalDegen", "FireDegen", "ColdDegen", "LightningDegen", "ChaosDegen" }, modType = "BASE" },
 	}, },
+	{ label = "Net Regen", haveOutput = "NetRegen", { format = "{1:output:NetRegen}", { breakdown = "NetRegen" }, }, },
 } },
 { 1, "MiscDefences", 3, "Other Defences", data.colorCodes.DEFENCE, {
 	{ label = "Movement Speed", { format = "x {2:output:MovementSpeedMod}", { modName = "MovementSpeed" }, }, },
