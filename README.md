@@ -47,6 +47,16 @@ Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) 
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.9 - 2017/05/08
+ * AoE Radius and Weapon Range are now calculated and displayed in the "Skill type-specific Stats" section of the Calcs tab
+    * The breakdown for those calculations features a visual display of the area size
+	* The base radius values of some skills are not known, so they will not be shown
+ * Explosive Arrow now has separate skill parts for 1 fuse and 5 fuses
+ * Added support for Convocation
+ * Rallying Cry's buff is now able to affect minions
+ * Spells of the correct type will now be considered to be Triggered when socketed into Mjolner and Cospri's Malice
+ * Infernal Blow no longer incorrectly benefits from modifiers to area damage
+
 ### 1.4.8 - 2017/05/02
  * Added a Physical Damage Reduction estimate for Armour; by default the estimate is made using the same damage value
    used in-game on the character sheet, but it can be overriden using a new option in the Configuration tab

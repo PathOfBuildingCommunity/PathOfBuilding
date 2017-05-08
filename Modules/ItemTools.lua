@@ -529,6 +529,9 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 		if weaponData.AccuracyInc > 0 then
 			modList:NewMod("Accuracy", "MORE", weaponData.AccuracyInc, item.modSource, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })
 		end
+		if data.weaponTypeInfo[item.base.type].range then
+			weaponData.range = data.weaponTypeInfo[item.base.type].range + sumLocal(modList, "WeaponRange", "BASE", 0)
+		end
 		for _, mod in ipairs(modList) do
 			-- Convert accuracy, L/MGoH and PAD Leech modifiers to local
 			if (

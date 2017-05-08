@@ -786,7 +786,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	if base.weapon then
 		-- Weapon-specific info
 		local weaponData = item.weaponData[slotNum]
-		main:AddTooltipLine(16, s_format("^x7F7F7F%s", base.type))
+		main:AddTooltipLine(16, s_format("^x7F7F7F%s", data.weaponTypeInfo[base.type].label or base.type))
 		if item.quality > 0 then
 			main:AddTooltipLine(16, s_format("^x7F7F7FQuality: "..data.colorCodes.MAGIC.."+%d%%", item.quality))
 		end
@@ -816,6 +816,9 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		end
 		main:AddTooltipLine(16, s_format("^x7F7F7FCritical Strike Chance: %s%.2f%%", weaponData.critChance ~= base.weapon.critChanceBase and data.colorCodes.MAGIC or "^7", weaponData.critChance))
 		main:AddTooltipLine(16, s_format("^x7F7F7FAttacks per Second: %s%.2f", weaponData.attackRate ~= base.weapon.attackRateBase and data.colorCodes.MAGIC or "^7", weaponData.attackRate))
+		if weaponData.range then
+			main:AddTooltipLine(16, s_format("^x7F7F7FWeapon Range: %s%d", weaponData.range ~= data.weaponTypeInfo[base.type].range and data.colorCodes.MAGIC or "^7", weaponData.range))
+		end
 	elseif base.armour then
 		-- Armour-specific info
 		local armourData = item.armourData

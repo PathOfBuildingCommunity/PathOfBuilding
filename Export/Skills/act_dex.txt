@@ -49,6 +49,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #setMod base_skill_show_average_damage_instead_of_dps==nil
+#baseMod skill("radius", 14)
 #baseMod mod("Damage", "MORE", 120, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("dpsMultiplier", 3, { type = "SkillPart", skillPart = 3 })
 #mods
@@ -69,7 +70,7 @@ local skills, mod, flag, skill = ...
 			name = "20 Blades",
 		},
 	},
-#baseMod skill("deliciouslyOverpowered", true)
+#baseMod skill("radius", 15)
 #baseMod mod("Damage", "MORE", 150, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod mod("Damage", "MORE", 300, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 3 })
 #baseMod mod("Damage", "MORE", 600, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 4 })
@@ -94,6 +95,7 @@ local skills, mod, flag, skill = ...
 			name = "4 explosions",
 		},
 	},
+#baseMod skill("radius", 24)
 #baseMod skill("dpsMultiplier", 4, { type = "SkillPart", skillPart = 2 })
 #mods
 
@@ -119,12 +121,14 @@ local skills, mod, flag, skill = ...
 
 #skill PoisonArrow
 #flags attack projectile duration chaos
+#baseMod skill("radius", 20)
 #baseMod skill("dotIsArea", true)
 #mods
 
 #skill Cyclone
 #flags attack melee area movement
 #baseMod skill("dpsMultiplier", 2)
+#baseMod skill("radiusIsWeaponRange", true)
 #mods
 
 #skill VaalCyclone
@@ -137,6 +141,7 @@ local skills, mod, flag, skill = ...
 
 #skill DetonateDead
 #flags cast area fire
+#baseMod skill("radius", 22)
 #mods
 
 #skill VaalDetonateDead
@@ -182,22 +187,35 @@ local skills, mod, flag, skill = ...
 #flags attack projectile area duration fire
 	parts = {
 		{
-			name = "Explosion",
+			name = "Explosion (1 fuse)",
 			attack = false,
+			area = true,
+			cast = true,
+		},
+		{
+			name = "Explosion (5 fuses)",
+			attack = false,
+			area = true,
 			cast = true,
 		},
 		{
 			name = "Arrow",
 			attack = true,
+			area = false,
 			cast = false,
 		},
 	},
+#baseMod skill("radius", 15)
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 1 })
+#baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill FireTrap
 #flags spell trap area duration fire
 #baseMod skill("trapCooldown", 3)
+#baseMod skill("radius", 15)
 #mods
 
 #skill FlickerStrike
@@ -231,22 +249,27 @@ local skills, mod, flag, skill = ...
 
 #skill Grace
 #flags spell aura area
+#baseMod skill("radius", 36)
 #mods
 
 #skill VaalGrace
 #flags spell aura area duration vaal
+#baseMod skill("radius", 36)
 #mods
 
 #skill Haste
 #flags spell aura area
+#baseMod skill("radius", 36)
 #mods
 
 #skill VaalHaste
 #flags spell aura area duration vaal
+#baseMod skill("radius", 36)
 #mods
 
 #skill Hatred
 #flags spell aura area cold
+#baseMod skill("radius", 36)
 #mods
 
 #skill HeraldOfIce
@@ -266,6 +289,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod mod("SkillPhysicalDamageConvertToCold", "BASE", 40, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radius", 23)
 #mods
 
 #skill IceTrap
@@ -283,6 +307,7 @@ local skills, mod, flag, skill = ...
 			name = "Both slashes",
 		},
 	},
+#baseMod skill("radius", 38)
 #baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 })
 #mods
 
@@ -333,11 +358,13 @@ local skills, mod, flag, skill = ...
 #skill PoachersMark
 #flags spell curse area duration
 #baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
 #mods
 
 #skill ProjectileWeakness
 #flags spell curse area duration
 #baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
 #mods
 
 #skill Puncture
@@ -347,10 +374,12 @@ local skills, mod, flag, skill = ...
 
 #skill ColdResistAura
 #flags spell aura area cold
+#baseMod skill("radius", 36)
 #mods
 
 #skill RainOfArrows
 #flags attack projectile area
+#baseMod skill("radius", 24)
 #mods
 
 #skill VaalRainOfArrows
@@ -359,10 +388,12 @@ local skills, mod, flag, skill = ...
 
 #skill Reave
 #flags attack melee area
+#baseMod skill("radius", 14)
 #mods
 
 #skill VaalReave
 #flags attack melee area vaal
+#baseMod skill("radius", 12)
 #mods
 
 #skill Riposte
@@ -415,6 +446,7 @@ local skills, mod, flag, skill = ...
 #skill TemporalChains
 #flags spell curse area
 #baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
 #mods
 
 #skill TornadoShot

@@ -35,8 +35,8 @@ skills["BanditExplosiveArrow"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
-		[3] = skill("FireMin", nil), --"minimum_fire_damage_per_fuse_arrow_orb"
-		[4] = skill("FireMax", nil), --"maximum_fire_damage_per_fuse_arrow_orb"
+		[3] = skill("FireMin", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }), --"minimum_fire_damage_per_fuse_arrow_orb"
+		[4] = skill("FireMax", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }), --"maximum_fire_damage_per_fuse_arrow_orb"
 	},
 	levels = {
 		[1] = { 2, 5, 7, 10, },
@@ -82,6 +82,7 @@ skills["BeastCleave"] = {
 	skillTypes = { [1] = true, [6] = true, [8] = true, [11] = true, [28] = true, [24] = true, [53] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["Two Handed Sword"] = true,
 		["One Handed Sword"] = true,
@@ -496,6 +497,7 @@ skills["FireMonsterWhirlingBlades"] = {
 	},
 	skillTypes = { [1] = true, [6] = true, [24] = true, [38] = true, },
 	weaponTypes = {
+		["Thrusting One Handed Sword"] = true,
 		["Claw"] = true,
 		["Dagger"] = true,
 		["One Handed Sword"] = true,
@@ -893,6 +895,7 @@ skills["HalfSkeletonPuncture"] = {
 	weaponTypes = {
 		["Bow"] = true,
 		["Claw"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["One Handed Sword"] = true,
@@ -1171,6 +1174,7 @@ skills["KaomWarriorMoltenStrike"] = {
 	skillTypes = { [1] = true, [3] = true, [6] = true, [11] = true, [24] = true, [25] = true, [28] = true, [33] = true, [48] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -1823,6 +1827,7 @@ skills["MonsterFlickerStrike"] = {
 	skillTypes = { [1] = true, [6] = true, [24] = true, [25] = true, [28] = true, [38] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -1931,13 +1936,14 @@ skills["MonsterLeapSlam"] = {
 	},
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [24] = true, [38] = true, },
 	weaponTypes = {
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
 		["One Handed Mace"] = true,
 		["Two Handed Axe"] = true,
-		["Two Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
-		["One Handed Sword"] = true,
 		["Staff"] = true,
+		["One Handed Sword"] = true,
 	},
 	baseMods = {
 		skill("castTime", 1.4), 
@@ -2238,6 +2244,7 @@ skills["MonsterPuncture"] = {
 	weaponTypes = {
 		["Bow"] = true,
 		["Claw"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["One Handed Sword"] = true,
@@ -3497,6 +3504,7 @@ skills["UndyingWhirlingBlades"] = {
 	},
 	skillTypes = { [1] = true, [6] = true, [24] = true, [38] = true, },
 	weaponTypes = {
+		["Thrusting One Handed Sword"] = true,
 		["Claw"] = true,
 		["Dagger"] = true,
 		["One Handed Sword"] = true,

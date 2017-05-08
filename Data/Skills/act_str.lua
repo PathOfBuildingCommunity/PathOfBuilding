@@ -97,6 +97,7 @@ skills["TotemMelee"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -185,6 +186,7 @@ skills["AncestorTotemSlam"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -274,6 +276,7 @@ skills["Anger"] = {
 		skill("manaCost", 50), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -402,6 +405,7 @@ skills["Cleave"] = {
 	skillTypes = { [1] = true, [6] = true, [8] = true, [11] = true, [28] = true, [24] = true, [53] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["Two Handed Sword"] = true,
 		["One Handed Sword"] = true,
@@ -412,6 +416,7 @@ skills["Cleave"] = {
 		mod("Damage", "MORE", -40, 0, 0, { type = "Condition", var = "DualWielding" }), --"cleave_damage_+%_final_while_dual_wielding" = -40
 		--"is_area_damage" = ?
 		skill("doubleHitsWhenDualWielding", true), --"skill_double_hits_when_dual_wielding" = ?
+		skill("radius", 20), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
@@ -419,7 +424,7 @@ skills["Cleave"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		--[3] = "active_skill_base_radius_+"
+		[3] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 1, 10, 0, },
@@ -483,6 +488,7 @@ skills["DecoyTotem"] = {
 		--"base_deal_no_damage" = ?
 		--"totems_cannot_evade" = ?
 		--"totem_ignores_cooldown" = ?
+		skill("radius", 60), 
 	},
 	qualityMods = {
 		mod("TotemLife", "INC", 1), --"totem_life_+%" = 1
@@ -547,6 +553,7 @@ skills["Determination"] = {
 		skill("manaCost", 50), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -676,6 +683,7 @@ skills["DominatingBlow"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -772,6 +780,8 @@ skills["Earthquake"] = {
 		mod("Damage", "MORE", 50, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), --"quake_slam_fully_charged_explosion_damage_+%_final" = 50
 		--"is_area_damage" = ?
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }), 
+		skill("radius", 18, { type = "SkillPart", skillPart = 1 }), 
+		skill("radius", 25, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("PhysicalDamage", "INC", 1), --"physical_damage_+%" = 1
@@ -835,6 +845,7 @@ skills["EnduringCry"] = {
 		skill("duration", 0.75), --"base_skill_effect_duration" = 750
 		--"is_warcry" = ?
 		--"base_deal_no_damage" = ?
+		skill("radius", 60), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 3), --"base_skill_area_of_effect_+%" = 3
@@ -1124,6 +1135,7 @@ skills["GroundSlam"] = {
 		skill("manaCost", 6), 
 		mod("EnemyStunThreshold", "INC", -25), --"base_stun_threshold_reduction_+%" = 25
 		--"is_area_damage" = ?
+		skill("radius", 35), 
 	},
 	qualityMods = {
 		mod("EnemyStunDuration", "INC", 1.5), --"base_stun_duration_+%" = 1.5
@@ -1131,7 +1143,7 @@ skills["GroundSlam"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		--[3] = "active_skill_base_radius_+"
+		[3] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 1, -10, 0, },
@@ -1254,6 +1266,7 @@ skills["HeavyStrike"] = {
 	},
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, },
 	weaponTypes = {
+		["Thrusting One Handed Sword"] = true,
 		["One Handed Sword"] = true,
 		["One Handed Mace"] = true,
 		["Two Handed Axe"] = true,
@@ -1330,6 +1343,7 @@ skills["HeraldOfAsh"] = {
 		skill("cooldown", 1), 
 		mod("PhysicalDamageGainAsFire", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"physical_damage_%_to_add_as_fire" = 15
 		--"is_area_damage" = ?
+		skill("radius", 10), 
 	},
 	qualityMods = {
 		mod("FireDamage", "INC", 0.75, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"herald_of_ash_fire_damage_+%" = 0.75
@@ -1402,13 +1416,14 @@ skills["IceCrash"] = {
 	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [7] = true, [34] = true, },
 	weaponTypes = {
 		["None"] = true,
-		["Two Handed Sword"] = true,
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Staff"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Sword"] = true,
-		["Staff"] = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1418,6 +1433,7 @@ skills["IceCrash"] = {
 		mod("Damage", "MORE", -10, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), --"ice_crash_second_hit_damage_+%_final" = -10
 		mod("Damage", "MORE", -20, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 3 }), --"ice_crash_third_hit_damage_+%_final" = -20
 		--"is_area_damage" = ?
+		skill("radius", 24), 
 	},
 	qualityMods = {
 		mod("ColdDamage", "INC", 1), --"cold_damage_+%" = 1
@@ -1597,17 +1613,17 @@ skills["InfernalBlow"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
-		area = true,
 		fire = true,
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [25] = true, [28] = true, [24] = true, [33] = true, },
 	weaponTypes = {
 		["None"] = true,
-		["Staff"] = true,
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Staff"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["Two Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Sword"] = true,
 	},
@@ -1618,6 +1634,7 @@ skills["InfernalBlow"] = {
 		mod("SkillPhysicalDamageConvertToFire", "BASE", 50), --"skill_physical_damage_%_to_convert_to_fire" = 50
 		skill("duration", 0.5), --"base_skill_effect_duration" = 500
 		--"corpse_explosion_monster_life_%" = 10
+		skill("radius", 24), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -1678,13 +1695,14 @@ skills["LeapSlam"] = {
 	},
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [24] = true, [38] = true, },
 	weaponTypes = {
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
 		["One Handed Mace"] = true,
 		["Two Handed Axe"] = true,
-		["Two Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
-		["One Handed Sword"] = true,
 		["Staff"] = true,
+		["One Handed Sword"] = true,
 	},
 	baseMods = {
 		skill("castTime", 1.4), 
@@ -1692,6 +1710,7 @@ skills["LeapSlam"] = {
 		--"base_global_chance_to_knockback_%" = 20
 		--"is_area_damage" = ?
 		skill("castTimeOverridesAttackTime", true), --"cast_time_overrides_attack_duration" = ?
+		skill("radius", 15), 
 	},
 	qualityMods = {
 		--"base_global_chance_to_knockback_%" = 0.5
@@ -1760,6 +1779,7 @@ skills["MoltenShell"] = {
 		skill("duration", 10), --"base_skill_effect_duration" = 10000
 		--"skill_override_pvp_scaling_time_ms" = 1200
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		skill("radius", 15), 
 	},
 	qualityMods = {
 		mod("EnemyIgniteChance", "BASE", 1), --"base_chance_to_ignite_%" = 1
@@ -1914,6 +1934,7 @@ skills["MoltenStrike"] = {
 	skillTypes = { [1] = true, [3] = true, [6] = true, [11] = true, [24] = true, [25] = true, [28] = true, [33] = true, [48] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -1992,6 +2013,8 @@ skills["Punishment"] = {
 	baseMods = {
 		skill("castTime", 0.5), 
 		--"newpunishment_applied_buff_duration_ms" = 4000
+		skill("debuff", true), 
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.25, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff"}), --"newpunishment_attack_speed_+%" = 0.25
@@ -2060,6 +2083,7 @@ skills["FireResistAura"] = {
 		skill("manaCost", 35), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -2125,6 +2149,7 @@ skills["RallyingCry"] = {
 		skill("duration", 8), --"base_skill_effect_duration" = 8000
 		--"base_deal_no_damage" = ?
 		--"is_warcry" = ?
+		skill("buffAllies", true), 
 	},
 	qualityMods = {
 		mod("Duration", "INC", 1.5), --"skill_effect_duration_+%" = 1.5
@@ -2190,6 +2215,7 @@ skills["Reckoning"] = {
 		["None"] = true,
 		["One Handed Mace"] = true,
 		["Claw"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["Dagger"] = true,
 		["One Handed Sword"] = true,
@@ -2271,6 +2297,7 @@ skills["RejuvenationTotem"] = {
 		--"base_totem_range" = 10
 		--"base_skill_is_totemified" = ?
 		--"base_deal_no_damage" = ?
+		skill("radius", 10), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 3, 0, KeywordFlag.Aura), --"base_aura_area_of_effect_+%" = 3
@@ -2405,6 +2432,7 @@ skills["NewShieldCharge"] = {
 		["None"] = true,
 		["One Handed Mace"] = true,
 		["Claw"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["Dagger"] = true,
 		["One Handed Sword"] = true,
@@ -2488,6 +2516,7 @@ skills["ShockwaveTotem"] = {
 		--"is_totem" = ?
 		--"is_area_damage" = ?
 		--"base_skill_is_totemified" = ?
+		skill("radius", 24), 
 	},
 	qualityMods = {
 		mod("TotemLife", "INC", 1), --"totem_life_+%" = 1
@@ -2564,6 +2593,7 @@ skills["StaticStrike"] = {
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [11] = true, [12] = true, [35] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -2579,6 +2609,7 @@ skills["StaticStrike"] = {
 		mod("SkillPhysicalDamageConvertToLightning", "BASE", 60), --"skill_physical_damage_%_to_convert_to_lightning" = 60
 		skill("duration", 0.75), --"base_skill_effect_duration" = 750
 		mod("Damage", "MORE", -40, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), --"static_strike_explosion_damage_+%_final" = -40
+		skill("radius", 19), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -2586,7 +2617,7 @@ skills["StaticStrike"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		--[3] = "active_skill_base_radius_+"
+		[3] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 12, 10, 0, },
@@ -2811,7 +2842,7 @@ skills["Sunder"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		--[3] = "active_skill_base_radius_+"
+		[3] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 12, 40, 0, },
@@ -2873,6 +2904,7 @@ skills["Sweep"] = {
 		skill("manaCost", 8), 
 		mod("Speed", "MORE", -10, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = -10
 		--"is_area_damage" = ?
+		skill("radius", 26), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -2880,7 +2912,7 @@ skills["Sweep"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		--[2] = "base_global_chance_to_knockback_%"
-		--[3] = "active_skill_base_radius_+"
+		[3] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 		[4] = mod("Damage", "MORE", nil, ModFlag.Attack), 
 	},
 	levels = {
@@ -2935,6 +2967,7 @@ skills["Vengeance"] = {
 	skillTypes = { [1] = true, [11] = true, [24] = true, [47] = true, [6] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -3008,6 +3041,7 @@ skills["VigilantStrike"] = {
 	skillTypes = { [1] = true, [5] = true, [24] = true, [6] = true, [28] = true, [25] = true, [53] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -3085,6 +3119,7 @@ skills["Vitality"] = {
 		skill("manaCost", 35), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -3152,6 +3187,7 @@ skills["WarlordsMark"] = {
 		mod("SelfDamageManaLeech", "BASE", 200, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"mana_leech_on_any_damage_when_hit_permyriad" = 200
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		--"chance_to_grant_endurance_charge_on_death_%" = 0.5

@@ -460,7 +460,7 @@ function calcs.perform(env)
 			if activeSkill.buffModList and 
 			   not activeSkill.skillFlags.curse and
 			   (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff) then
-				if (not activeSkill.skillData.offering or modDB:Sum("FLAG", nil, "OfferingsAffectPlayer")) then
+				if not activeSkill.skillData.buffNotPlayer then
 					activeSkill.buffSkill = true
 					local srcList = common.New("ModList")
 					local inc = modDB:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf")
@@ -468,7 +468,7 @@ function calcs.perform(env)
 					srcList:ScaleAddList(activeSkill.buffModList, (1 + inc / 100) * more)
 					mergeBuff(srcList, buffs, activeSkill.activeGem.name)
 				end
-				if activeSkill.skillData.offering and env.minion then
+				if env.minion and (activeSkill.skillData.buffMinions or activeSkill.skillData.buffAllies) then
 					activeSkill.minionBuffSkill = true
 					local srcList = common.New("ModList")
 					local inc = modDB:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf")

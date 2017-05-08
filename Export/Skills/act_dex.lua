@@ -314,6 +314,7 @@ skills["ChargedAttack"] = {
 	},
 	skillTypes = { [1] = true, [11] = true, [6] = true, [58] = true, [24] = true, },
 	weaponTypes = {
+		["Thrusting One Handed Sword"] = true,
 		["One Handed Sword"] = true,
 		["Dagger"] = true,
 		["Claw"] = true,
@@ -326,6 +327,7 @@ skills["ChargedAttack"] = {
 		--"is_area_damage" = ?
 		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
+		skill("radius", 14), 
 		mod("Damage", "MORE", 120, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), 
 		skill("dpsMultiplier", 3, { type = "SkillPart", skillPart = 3 }), 
 	},
@@ -412,7 +414,7 @@ skills["BladeVortex"] = {
 		--"skill_can_add_multiple_charges_per_action" = ?
 		--"action_ignores_crit_tracking" = ?
 		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
-		skill("deliciouslyOverpowered", true), 
+		skill("radius", 15), 
 		mod("Damage", "MORE", 150, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 2 }), 
 		mod("Damage", "MORE", 300, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 3 }), 
 		mod("Damage", "MORE", 600, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 4 }), 
@@ -429,7 +431,7 @@ skills["BladeVortex"] = {
 		[2] = skill("manaCost", nil), 
 		[3] = skill("PhysicalMin", nil), --"spell_minimum_base_physical_damage"
 		[4] = skill("PhysicalMax", nil), --"spell_maximum_base_physical_damage"
-		--[5] = "active_skill_base_radius_+"
+		[5] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 12, 6, 7, 10, 0, },
@@ -565,6 +567,7 @@ skills["BlastRain"] = {
 		--"blast_rain_arrow_delay_ms" = 80
 		--"base_is_projectile" = ?
 		--"is_area_damage" = ?
+		skill("radius", 24), 
 		skill("dpsMultiplier", 4, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
@@ -917,6 +920,7 @@ skills["PoisonArrow"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		--"skill_can_fire_arrows" = ?
+		skill("radius", 20), 
 		skill("dotIsArea", true), 
 	},
 	qualityMods = {
@@ -928,7 +932,7 @@ skills["PoisonArrow"] = {
 		[3] = skill("duration", nil), --"base_skill_effect_duration"
 		[4] = skill("ChaosDot", nil), --"base_chaos_damage_to_deal_per_minute"
 		[5] = mod("PhysicalDamageGainAsChaos", "BASE", nil, 0, 0, nil), --"physical_damage_%_to_add_as_chaos"
-		--[6] = "active_skill_base_radius_+"
+		[6] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 4, 8, 2.8, 5.2, 30, 0, },
@@ -984,6 +988,7 @@ skills["Cyclone"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -1002,6 +1007,7 @@ skills["Cyclone"] = {
 		--"cyclone_first_hit_damage_+%_final" = -50
 		--"is_area_damage" = ?
 		skill("dpsMultiplier", 2), 
+		skill("radiusIsWeaponRange", true), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -1066,6 +1072,7 @@ skills["VaalCyclone"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -1214,6 +1221,7 @@ skills["DetonateDead"] = {
 		--"is_area_damage" = 1
 		--"display_skill_deals_secondary_damage" = ?
 		--"damage_cannot_be_reflected" = ?
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 1, ModFlag.Cast), --"base_cast_speed_+%" = 1
@@ -1340,6 +1348,7 @@ skills["DoubleStrike"] = {
 	skillTypes = { [1] = true, [6] = true, [7] = true, [25] = true, [28] = true, [24] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -1415,6 +1424,7 @@ skills["VaalDoubleStrike"] = {
 	skillTypes = { [1] = true, [6] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [43] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -1485,9 +1495,10 @@ skills["DualStrike"] = {
 	},
 	skillTypes = { [1] = true, [4] = true, [25] = true, [28] = true, [24] = true, [53] = true, },
 	weaponTypes = {
+		["Claw"] = true,
 		["One Handed Mace"] = true,
 		["Two Handed Axe"] = true,
-		["Claw"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["Dagger"] = true,
 		["One Handed Sword"] = true,
@@ -1701,13 +1712,21 @@ skills["ExplosiveArrow"] = {
 	},
 	parts = {
 		{
-			name = "Explosion",
+			name = "Explosion (1 fuse)",
 			attack = false,
+			area = true,
+			cast = true,
+		},
+		{
+			name = "Explosion (5 fuses)",
+			attack = false,
+			area = true,
 			cast = true,
 		},
 		{
 			name = "Arrow",
 			attack = true,
+			area = false,
 			cast = false,
 		},
 	},
@@ -1731,7 +1750,11 @@ skills["ExplosiveArrow"] = {
 		--"active_skill_attack_damage_+%_final" = 0
 		--"skill_can_fire_arrows" = 1
 		--"base_is_projectile" = 1
+		skill("radius", 15), 
 		skill("showAverage", true, { type = "SkillPart", skillPart = 1 }), 
+		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }), 
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 1 }), 
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("EnemyIgniteChance", "BASE", 1), --"base_chance_to_ignite_%" = 1
@@ -1739,8 +1762,8 @@ skills["ExplosiveArrow"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
-		[3] = skill("FireMin", nil), --"minimum_fire_damage_per_fuse_arrow_orb"
-		[4] = skill("FireMax", nil), --"maximum_fire_damage_per_fuse_arrow_orb"
+		[3] = skill("FireMin", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }), --"minimum_fire_damage_per_fuse_arrow_orb"
+		[4] = skill("FireMax", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }), --"maximum_fire_damage_per_fuse_arrow_orb"
 	},
 	levels = {
 		[1] = { 28, 18, 44, 66, },
@@ -1806,6 +1829,7 @@ skills["FireTrap"] = {
 		--"base_skill_is_trapped" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		skill("trapCooldown", 3), 
+		skill("radius", 15), 
 	},
 	qualityMods = {
 		mod("FireDamage", "INC", 1.5, ModFlag.Dot), --"burn_damage_+%" = 1.5
@@ -1816,7 +1840,7 @@ skills["FireTrap"] = {
 		[3] = skill("FireMin", nil), --"spell_minimum_base_fire_damage"
 		[4] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
 		[5] = skill("FireDot", nil), --"base_fire_damage_to_deal_per_minute"
-		--[6] = "active_skill_base_radius_+"
+		[6] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 1, 7, 2, 4, 3.6166666666667, 0, },
@@ -1869,6 +1893,7 @@ skills["FlickerStrike"] = {
 	skillTypes = { [1] = true, [6] = true, [24] = true, [25] = true, [28] = true, [38] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -2096,6 +2121,7 @@ skills["FrostBlades"] = {
 	skillTypes = { [1] = true, [3] = true, [6] = true, [25] = true, [28] = true, [24] = true, [34] = true, [48] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -2118,7 +2144,7 @@ skills["FrostBlades"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = mod("ProjectileCount", "BASE", nil), --"number_of_additional_projectiles"
-		--[3] = "melee_weapon_range_+"
+		[3] = mod("MeleeWeaponRange", "BASE", nil), --"melee_weapon_range_+"
 		[4] = mod("ProjectileSpeed", "INC", nil), --"base_projectile_speed_+%"
 		[5] = mod("Damage", "MORE", nil, ModFlag.Attack), 
 	},
@@ -2176,6 +2202,7 @@ skills["Grace"] = {
 		skill("manaCost", 50), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -2242,6 +2269,7 @@ skills["VaalGrace"] = {
 		skill("castTime", 0.6), 
 		skill("duration", 6), --"base_skill_effect_duration" = 6000
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -2306,6 +2334,7 @@ skills["Haste"] = {
 		skill("manaCost", 50), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -2374,6 +2403,7 @@ skills["VaalHaste"] = {
 		skill("castTime", 0.6), 
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -2441,6 +2471,7 @@ skills["Hatred"] = {
 		skill("manaCost", 50), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -2594,6 +2625,7 @@ skills["IceShot"] = {
 		skill("duration", 1.5), --"base_skill_effect_duration" = 1500
 		--"skill_can_fire_arrows" = ?
 		mod("SkillPhysicalDamageConvertToCold", "BASE", 40, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		skill("radius", 23), 
 	},
 	qualityMods = {
 		mod("ColdDamage", "INC", 1), --"cold_damage_+%" = 1
@@ -2735,6 +2767,7 @@ skills["DoubleSlash"] = {
 	skillTypes = { [1] = true, [6] = true, [11] = true, [28] = true, [24] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Sword"] = true,
@@ -2744,6 +2777,7 @@ skills["DoubleSlash"] = {
 		skill("manaCost", 8), 
 		mod("Speed", "MORE", -25, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = -25
 		--"is_area_damage" = ?
+		skill("radius", 38), 
 		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
@@ -2752,7 +2786,7 @@ skills["DoubleSlash"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		--[3] = "active_skill_base_radius_+"
+		[3] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 12, -5, 0, },
@@ -2886,6 +2920,7 @@ skills["LightningStrike"] = {
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [25] = true, [28] = true, [24] = true, [35] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -2974,6 +3009,7 @@ skills["VaalLightningStrike"] = {
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [12] = true, [43] = true, [35] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -3199,6 +3235,7 @@ skills["PoachersMark"] = {
 		--"monster_slain_flask_charges_granted_+%" = 100
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		--"chance_to_grant_frenzy_charge_on_death_%" = 0.5
@@ -3270,6 +3307,7 @@ skills["ProjectileWeakness"] = {
 		--"chance_to_be_knocked_back_%" = 25
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		mod("ProjectileDamageTaken", "INC", 0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"projectile_damage_taken_+%" = 0.5
@@ -3335,6 +3373,7 @@ skills["Puncture"] = {
 	weaponTypes = {
 		["Bow"] = true,
 		["Claw"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["One Handed Sword"] = true,
@@ -3411,6 +3450,7 @@ skills["ColdResistAura"] = {
 		skill("manaCost", 35), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -3477,6 +3517,7 @@ skills["RainOfArrows"] = {
 		skill("castTime", 1), 
 		--"base_is_projectile" = ?
 		--"is_area_damage" = ?
+		skill("radius", 24), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -3485,7 +3526,7 @@ skills["RainOfArrows"] = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		[3] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		--[4] = "active_skill_base_radius_+"
+		[4] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 12, 7, 10, 0, },
@@ -3609,6 +3650,7 @@ skills["Reave"] = {
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [28] = true, [24] = true, },
 	weaponTypes = {
+		["Thrusting One Handed Sword"] = true,
 		["One Handed Sword"] = true,
 		["Dagger"] = true,
 		["Claw"] = true,
@@ -3618,13 +3660,14 @@ skills["Reave"] = {
 		skill("manaCost", 6), 
 		--"reave_area_of_effect_+%_final_per_stage" = 50
 		--"is_area_damage" = ?
+		skill("radius", 14), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
-		--[2] = "active_skill_base_radius_+"
+		[2] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 		[3] = mod("Damage", "MORE", nil, ModFlag.Attack), 
 	},
 	levels = {
@@ -3679,6 +3722,7 @@ skills["VaalReave"] = {
 	},
 	skillTypes = { [1] = true, [6] = true, [11] = true, [28] = true, [24] = true, [43] = true, },
 	weaponTypes = {
+		["Thrusting One Handed Sword"] = true,
 		["One Handed Sword"] = true,
 		["Dagger"] = true,
 		["Claw"] = true,
@@ -3693,13 +3737,14 @@ skills["VaalReave"] = {
 		--"reave_additional_starting_stacks" = 4
 		--"is_area_damage" = ?
 		skill("cannotBeEvaded", true), --"global_always_hit" = ?
+		skill("radius", 12), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
-		--[2] = "active_skill_base_radius_+"
+		[2] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 		[3] = mod("Damage", "MORE", nil, ModFlag.Attack), 
 	},
 	levels = {
@@ -3753,6 +3798,7 @@ skills["Riposte"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -3857,7 +3903,7 @@ skills["ShrapnelShot"] = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		[3] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		--[4] = "active_skill_base_radius_+"
+		[4] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 1, 6, -20, 0, },
@@ -4053,6 +4099,7 @@ skills["ThrownWeapon"] = {
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -4126,6 +4173,7 @@ skills["VaalThrownWeapon"] = {
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [43] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -4342,6 +4390,7 @@ skills["TemporalChains"] = {
 		--"curse_effect_+%_vs_players" = -40
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		--"temporal_chains_action_speed_+%_final" = -0.5
@@ -4469,10 +4518,11 @@ skills["ViperStrike"] = {
 	},
 	skillTypes = { [1] = true, [6] = true, [12] = true, [28] = true, [24] = true, [25] = true, [40] = true, [50] = true, },
 	weaponTypes = {
-		["One Handed Sword"] = true,
+		["Claw"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
-		["Claw"] = true,
+		["One Handed Sword"] = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -4539,6 +4589,7 @@ skills["WhirlingBlades"] = {
 	},
 	skillTypes = { [1] = true, [6] = true, [24] = true, [38] = true, },
 	weaponTypes = {
+		["Thrusting One Handed Sword"] = true,
 		["Claw"] = true,
 		["Dagger"] = true,
 		["One Handed Sword"] = true,
@@ -4662,6 +4713,7 @@ skills["WildStrike"] = {
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [35] = true, [34] = true, [33] = true, [3] = true, [11] = true, [23] = true, [48] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,

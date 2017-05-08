@@ -154,176 +154,151 @@ itemBases["Tiger Hook"] = {
 
 
 itemBases["Rusted Spike"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 5, PhysicalMax = 13, critChanceBase = 5.5, attackRateBase = 1.4, },
 	req = { dex = 20, },
 }
 itemBases["Whalebone Rapier"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 4, PhysicalMax = 18, critChanceBase = 5.5, attackRateBase = 1.55, },
 	req = { level = 7, dex = 32, },
 }
 itemBases["Battered Foil"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 12, PhysicalMax = 22, critChanceBase = 6, attackRateBase = 1.4, },
 	req = { level = 12, dex = 47, },
 }
 itemBases["Basket Rapier"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 11, PhysicalMax = 26, critChanceBase = 5.5, attackRateBase = 1.5, },
 	req = { level = 17, dex = 62, },
 }
 itemBases["Jagged Foil"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 12, PhysicalMax = 29, critChanceBase = 5.5, attackRateBase = 1.6, },
 	req = { level = 22, dex = 77, },
 }
 itemBases["Antique Rapier"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 12, PhysicalMax = 46, critChanceBase = 6.5, attackRateBase = 1.3, },
 	req = { level = 26, dex = 89, },
 }
 itemBases["Elegant Foil"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 18, PhysicalMax = 33, critChanceBase = 5.5, attackRateBase = 1.6, },
 	req = { level = 30, dex = 101, },
 }
 itemBases["Thorn Rapier"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+35% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 19, PhysicalMax = 44, critChanceBase = 5.7, attackRateBase = 1.4, },
 	req = { level = 34, dex = 113, },
 }
 itemBases["Smallsword"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "15% chance to cause Bleeding on Hit",
 	weapon = { PhysicalMin = 19, PhysicalMax = 40, critChanceBase = 6, attackRateBase = 1.55, },
 	req = { level = 36, dex = 124, },
 }
 itemBases["Wyrmbone Rapier"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 13, PhysicalMax = 51, critChanceBase = 5.5, attackRateBase = 1.5, },
 	req = { level = 37, dex = 122, },
 }
 itemBases["Burnished Foil"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 25, PhysicalMax = 46, critChanceBase = 6, attackRateBase = 1.4, },
 	req = { level = 40, dex = 131, },
 }
 itemBases["Estoc"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 21, PhysicalMax = 50, critChanceBase = 5.5, attackRateBase = 1.5, },
 	req = { level = 43, dex = 140, },
 }
 itemBases["Serrated Foil"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 21, PhysicalMax = 49, critChanceBase = 5.5, attackRateBase = 1.6, },
 	req = { level = 46, dex = 149, },
 }
 itemBases["Primeval Rapier"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 18, PhysicalMax = 73, critChanceBase = 6.5, attackRateBase = 1.3, },
 	req = { level = 49, dex = 158, },
 }
 itemBases["Fancy Foil"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 28, PhysicalMax = 51, critChanceBase = 5.5, attackRateBase = 1.6, },
 	req = { level = 52, dex = 167, },
 }
 itemBases["Apex Rapier"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+35% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 29, PhysicalMax = 67, critChanceBase = 5.7, attackRateBase = 1.4, },
 	req = { level = 55, dex = 176, },
 }
 itemBases["Courtesan Sword"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "15% chance to cause Bleeding on Hit",
 	weapon = { PhysicalMin = 29, PhysicalMax = 60, critChanceBase = 6, attackRateBase = 1.55, },
 	req = { level = 57, dex = 190, },
 }
 itemBases["Dragonbone Rapier"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 19, PhysicalMax = 75, critChanceBase = 5.5, attackRateBase = 1.5, },
 	req = { level = 58, dex = 185, },
 }
 itemBases["Tempered Foil"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 35, PhysicalMax = 65, critChanceBase = 6, attackRateBase = 1.4, },
 	req = { level = 60, dex = 212, },
 }
 itemBases["Pecoraro"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 29, PhysicalMax = 69, critChanceBase = 5.5, attackRateBase = 1.5, },
 	req = { level = 62, dex = 212, },
 }
 itemBases["Spiraled Foil"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 27, PhysicalMax = 64, critChanceBase = 5.5, attackRateBase = 1.6, },
 	req = { level = 64, dex = 212, },
 }
 itemBases["Vaal Rapier"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 22, PhysicalMax = 87, critChanceBase = 6.5, attackRateBase = 1.3, },
 	req = { level = 66, dex = 212, },
 }
 itemBases["Jewelled Foil"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+25% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 32, PhysicalMax = 60, critChanceBase = 5.5, attackRateBase = 1.6, },
 	req = { level = 68, dex = 212, },
 }
 itemBases["Harpy Rapier"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "+35% to Global Critical Strike Multiplier",
 	weapon = { PhysicalMin = 31, PhysicalMax = 72, critChanceBase = 5.7, attackRateBase = 1.4, },
 	req = { level = 70, dex = 212, },
 }
 itemBases["Dragoon Sword"] = {
-	type = "One Handed Sword",
-	subType = "Thrusting",
+	type = "Thrusting One Handed Sword",
 	implicit = "20% chance to cause Bleeding on Hit",
 	weapon = { PhysicalMin = 28, PhysicalMax = 58, critChanceBase = 6, attackRateBase = 1.5, },
 	req = { level = 72, dex = 220, },

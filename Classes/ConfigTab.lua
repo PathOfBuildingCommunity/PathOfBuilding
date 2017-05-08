@@ -98,7 +98,7 @@ local varList = {
 			enemyModList:NewMod("AvoidFreeze", "BASE", val, "Config")
 		end
 	end },
-	{ var = "enemyHasIncreasedAccuracy", type = "list", label = "Unlucky Dodge/Enemy has inc. Acc.:", tooltip = "'of Miring'", list = {{val=0,label="None"},{val=30,label="30% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=50,label="50% (High tier)"}}, apply = function(val, modList, enemyModList)
+	{ var = "enemyHasIncreasedAccuracy", type = "list", label = "Unlucky Dodge/Enemy has inc. Accuracy:", tooltip = "'of Miring'", list = {{val=0,label="None"},{val=30,label="30% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=50,label="50% (High tier)"}}, apply = function(val, modList, enemyModList)
 		if val ~= 0 then
 			modList:NewMod("DodgeChanceIsUnlucky", "FLAG", true, "Config")
 			enemyModList:NewMod("Accuracy", "INC", val, "Config")
@@ -114,13 +114,13 @@ local varList = {
 	{ var = "playerHasPointBlank", type = "check", label = "Player has Point Blank?", tooltip = "'of Skirmishing'", apply = function(val, modList, enemyModList)
 		modList:NewMod("Keystone", "LIST", "Point Blank", "Config")
 	end },
-	{ var = "playerHasLessLifeESRecovery", type = "list", label = "Less Recovery of Life & Energy Shield:", tooltip = "'of Smothering'", list = {{val=0,label="None"},{val=20,label="20% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=60,label="60% (High tier)"}}, apply = function(val, modList, enemyModList)
+	{ var = "playerHasLessLifeESRecovery", type = "list", label = "Less Recovery of Life and Energy Shield:", tooltip = "'of Smothering'", list = {{val=0,label="None"},{val=20,label="20% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=60,label="60% (High tier)"}}, apply = function(val, modList, enemyModList)
 		if val ~= 0 then
 			modList:NewMod("LifeRecovery", "MORE", -val, "Config")
 			modList:NewMod("EnergyShieldRecovery", "MORE", -val, "Config")
 		end
 	end },
-	{ var = "playerCannotRegenLifeManaEnergyShield", type = "check", label = "Cannot Regen Life/Mana/ES?", tooltip = "'of Stasis'", apply = function(val, modList, enemyModList)
+	{ var = "playerCannotRegenLifeManaEnergyShield", type = "check", label = "Cannot Regen Life, Mana or ES?", tooltip = "'of Stasis'", apply = function(val, modList, enemyModList)
 		modList:NewMod("NoLifeRegen", "FLAG", true, "Config")
 		modList:NewMod("NoEnergyShieldRegen", "FLAG", true, "Config")
 		modList:NewMod("NoManaRegen", "FLAG", true, "Config")
@@ -242,6 +242,9 @@ local varList = {
 	end },
 	{ var = "conditionTotemsKilledRecently", type = "check", label = "Have your Totems Killed Recently?", ifCond = "TotemsKilledRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:TotemsKilledRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionKilledAffectedByDoT", type = "check", label = "Killed Enemy affected by your DoT Recently?", ifCond = "KilledAffectedByDotRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:KilledAffectedByDotRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionFrozenEnemyRecently", type = "check", label = "Have you Frozen an Enemy Recently?", ifCond = "FrozenEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FrozenEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -515,7 +518,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 			else
 				control.tooltip = varData.tooltip
 			end
-			t_insert(self.controls, common.New("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, 14, "^7"..varData.label))
+			t_insert(self.controls, common.New("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label))
 			if varData.var then
 				self.varControls[varData.var] = control
 			end

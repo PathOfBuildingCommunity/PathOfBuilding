@@ -159,6 +159,7 @@ skills["ArcticBreath"] = {
 		skill("castTime", 0.8), 
 		skill("critChance", 5), 
 		--"base_is_projectile" = 1
+		skill("radius", 12), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -226,6 +227,7 @@ skills["AssassinsMark"] = {
 		mod("SelfCritMultiplier", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"base_self_critical_strike_multiplier_-%" = -20
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		--"chance_to_grant_power_charge_on_death_%" = 0.5
@@ -296,6 +298,7 @@ skills["BallLightning"] = {
 		skill("critChance", 5), 
 		--"active_skill_index" = 0
 		--"base_is_projectile" = ?
+		skill("radius", 20), 
 	},
 	qualityMods = {
 		mod("LightningDamage", "INC", 1), --"lightning_damage_+%" = 1
@@ -366,6 +369,7 @@ skills["Blight"] = {
 		--"display_max_blight_stacks" = 20
 		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_damage_over_time" = ?
 		--"is_area_damage" = ?
+		skill("radius", 26), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -374,7 +378,7 @@ skills["Blight"] = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		[3] = skill("ChaosDot", nil), --"base_chaos_damage_to_deal_per_minute"
-		--[4] = "active_skill_base_radius_+"
+		[4] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 1, 2, 1.7333333333333, 0, },
@@ -429,7 +433,8 @@ skills["BoneOffering"] = {
 		skill("duration", 3), --"base_skill_effect_duration" = 3000
 		--"offering_skill_effect_duration_per_corpse" = 500
 		--"base_deal_no_damage" = ?
-		skill("offering", true), 
+		skill("buffMinions", true), 
+		skill("buffNotPlayer", true), 
 	},
 	qualityMods = {
 		mod("Duration", "INC", 0.5), --"skill_effect_duration_+%" = 0.5
@@ -494,6 +499,7 @@ skills["Clarity"] = {
 		skill("castTime", 1.2), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -561,6 +567,7 @@ skills["VaalClarity"] = {
 		skill("castTime", 0.6), 
 		mod("ManaCost", "MORE", -100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"no_mana_cost" = ?
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -629,6 +636,7 @@ skills["ColdSnap"] = {
 		mod("EnemyChillDuration", "INC", 110), --"chill_duration_+%" = 110
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"is_area_damage" = ?
+		skill("radius", 16), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -638,7 +646,7 @@ skills["ColdSnap"] = {
 		[2] = skill("manaCost", nil), 
 		[3] = skill("ColdMin", nil), --"spell_minimum_base_cold_damage"
 		[4] = skill("ColdMax", nil), --"spell_maximum_base_cold_damage"
-		--[5] = "active_skill_base_radius_+"
+		[5] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 4, 11, 9, 13, 0, },
@@ -766,6 +774,7 @@ skills["Conductivity"] = {
 		skill("castTime", 0.5), 
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		mod("SelfShockDuration", "INC", 1, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"base_self_shock_duration_-%" = -1
@@ -835,6 +844,7 @@ skills["Contagion"] = {
 		--"is_area_damage" = ?
 		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_damage_over_time" = ?
 		skill("debuff", true), 
+		skill("radius", 20), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -949,9 +959,10 @@ skills["Convocation"] = {
 		spell = true,
 		duration = true,
 	},
-	unsupported = true,
 	color = 3,
 	baseFlags = {
+		spell = true,
+		duration = true,
 	},
 	skillTypes = { [2] = true, [5] = true, [12] = true, [36] = true, [9] = true, [49] = true, },
 	baseMods = {
@@ -959,6 +970,8 @@ skills["Convocation"] = {
 		skill("cooldown", 8), 
 		skill("duration", 2), --"base_skill_effect_duration" = 2000
 		--"base_deal_no_damage" = ?
+		skill("buffMinions", true), 
+		skill("buffNotPlayer", true), 
 	},
 	qualityMods = {
 		mod("Duration", "INC", 1), --"skill_effect_duration_+%" = 1
@@ -1030,6 +1043,7 @@ skills["Discharge"] = {
 		mod("Damage", "MORE", -35, ModFlag.Spell, 0, { type = "Condition", var = "SkillIsTriggered" }), --"triggered_discharge_damage_+%_final" = -35
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"is_area_damage" = ?
+		skill("radius", 30), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -1098,6 +1112,7 @@ skills["Discipline"] = {
 		skill("manaCost", 35), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -1166,6 +1181,7 @@ skills["VaalDiscipline"] = {
 		skill("duration", 3), --"base_skill_effect_duration" = 3000
 		--"energy_shield_recharge_not_delayed_by_damage" = ?
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -1229,6 +1245,7 @@ skills["ElementalWeakness"] = {
 		skill("castTime", 0.5), 
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		mod("ElementalResist", "BASE", -0.25, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"base_resist_all_elements_%" = -0.25
@@ -1296,6 +1313,7 @@ skills["Enfeeble"] = {
 		mod("CritChance", "INC", -25, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"critical_strike_chance_+%" = -25
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		mod("Accuracy", "INC", -0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"accuracy_rating_+%" = -0.5
@@ -1445,6 +1463,7 @@ skills["FireNovaMine"] = {
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"is_remote_mine" = ?
 		--"is_area_damage" = ?
+		skill("radius", 30), 
 	},
 	qualityMods = {
 		mod("FireDamage", "INC", 1), --"fire_damage_+%" = 1
@@ -1520,6 +1539,7 @@ skills["Fireball"] = {
 		skill("castTime", 0.85), 
 		skill("critChance", 6), 
 		--"base_is_projectile" = ?
+		skill("radius", 9), 
 	},
 	qualityMods = {
 		mod("EnemyIgniteChance", "BASE", 0.5), --"base_chance_to_ignite_%" = 0.5
@@ -1530,7 +1550,7 @@ skills["Fireball"] = {
 		[3] = skill("FireMin", nil), --"spell_minimum_base_fire_damage"
 		[4] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
 		[5] = mod("EnemyIgniteChance", "BASE", nil), --"base_chance_to_ignite_%"
-		--[6] = "active_skill_base_radius_+"
+		[6] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 1, 6, 7, 10, 20, 0, },
@@ -1672,6 +1692,8 @@ skills["Firestorm"] = {
 		--"is_area_damage" = 1
 		--"skill_override_pvp_scaling_time_ms" = 450
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		skill("radius", 25), 
+		skill("radiusSecondary", 10), 
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, 0, nil), --"damage_+%" = 1
@@ -1807,6 +1829,7 @@ skills["FlameWhip"] = {
 		mod("Damage", "MORE", 50, bit.bor(ModFlag.Spell, ModFlag.Hit), 0, { type = "EnemyCondition", var = "Burning" }), --"flame_whip_damage_+%_final_vs_burning_enemies" = 50
 		flag("CannotIgnite"), --"never_ignite" = ?
 		--"is_area_damage" = ?
+		skill("radius", 30), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
@@ -2019,6 +2042,7 @@ skills["Flammability"] = {
 		skill("castTime", 0.5), 
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		mod("SelfIgniteDuration", "INC", 0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"base_self_ignite_duration_-%" = -0.5
@@ -2084,7 +2108,8 @@ skills["FleshOffering"] = {
 		skill("duration", 3), --"base_skill_effect_duration" = 3000
 		--"offering_skill_effect_duration_per_corpse" = 500
 		--"base_deal_no_damage" = ?
-		skill("offering", true), 
+		skill("buffMinions", true), 
+		skill("buffNotPlayer", true), 
 	},
 	qualityMods = {
 		mod("Duration", "INC", 0.5), --"skill_effect_duration_+%" = 0.5
@@ -2361,6 +2386,7 @@ skills["Frostbite"] = {
 		skill("castTime", 0.5), 
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		mod("SelfFreezeDuration", "INC", 1, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"base_self_freeze_duration_-%" = -1
@@ -2492,6 +2518,7 @@ skills["GlacialCascade"] = {
 		skill("critChance", 5), 
 		--"upheaval_number_of_spikes" = 7
 		--"is_area_damage" = ?
+		skill("radius", 14), 
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, 0, nil), --"damage_+%" = 1
@@ -2564,6 +2591,7 @@ skills["HeraldOfThunder"] = {
 		flag("CannotShock"), --"never_shock" = ?
 		--"display_skill_deals_secondary_damage" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
+		skill("radius", 32), 
 	},
 	qualityMods = {
 		mod("LightningDamage", "INC", 0.75, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"herald_of_thunder_lightning_damage_+%" = 0.75
@@ -2632,6 +2660,7 @@ skills["IceNova"] = {
 		skill("critChance", 6), 
 		--"skill_art_variation" = 0
 		--"is_area_damage" = 1
+		skill("radius", 30), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -2928,6 +2957,7 @@ skills["ClusterBurst"] = {
 		mod("Damage", "MORE", -25, ModFlag.Area), --"active_skill_area_damage_+%_final" = -25
 		--"base_is_projectile" = ?
 		--"skill_can_fire_wand_projectiles" = ?
+		skill("radius", 14), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -2994,6 +3024,7 @@ skills["LightningTendrils"] = {
 		--"base_skill_number_of_additional_hits" = 3
 		--"is_area_damage" = ?
 		skill("dpsMultiplier", 4), 
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		mod("LightningDamage", "INC", 1), --"lightning_damage_+%" = 1
@@ -3003,7 +3034,7 @@ skills["LightningTendrils"] = {
 		[2] = skill("manaCost", nil), 
 		[3] = skill("LightningMin", nil), --"spell_minimum_base_lightning_damage"
 		[4] = skill("LightningMax", nil), --"spell_maximum_base_lightning_damage"
-		--[5] = "active_skill_base_radius_+"
+		[5] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 1, 6, 1, 3, 0, },
@@ -3218,6 +3249,7 @@ skills["LightningWarp"] = {
 		--"is_area_damage" = 1
 		--"skill_override_pvp_scaling_time_ms" = 1000
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		skill("radius", 16), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 1, ModFlag.Cast), --"base_cast_speed_+%" = 1
@@ -3629,6 +3661,7 @@ skills["Purity"] = {
 		mod("ColdResistMax", "BASE", 0, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_maximum_cold_damage_resistance_%" = 0
 		mod("LightningResistMax", "BASE", 0, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_maximum_lightning_damage_resistance_%" = 0
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -3693,6 +3726,7 @@ skills["LightningResistAura"] = {
 		skill("manaCost", 35), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -3900,6 +3934,7 @@ skills["RighteousFire"] = {
 		mod("FireDegen", "BASE", 0.9, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }), --"base_nonlethal_fire_damage_%_of_maximum_life_taken_per_minute" = 5400
 		--"base_righteous_fire_%_of_max_energy_shield_to_deal_to_nearby_per_minute" = 3000
 		mod("FireDegen", "BASE", 0.7, 0, 0, { type = "PerStat", stat = "EnergyShield", div = 1}, { type = "GlobalEffect", effectType = "Buff" }), --"base_nonlethal_fire_damage_%_of_maximum_energy_shield_taken_per_minute" = 4200
+		skill("radius", 18), 
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }), --"spell_damage_+%" = 1
@@ -3907,7 +3942,7 @@ skills["RighteousFire"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }), --"righteous_fire_spell_damage_+%_final"
-		--[3] = "active_skill_base_radius_+"
+		[3] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 16, 40, 0, },
@@ -4123,6 +4158,7 @@ skills["ShockNova"] = {
 		mod("Damage", "MORE", -80, 0, 0, { type = "SkillPart", skillPart = 1 }), --"newshocknova_first_ring_damage_+%_final" = -80
 		mod("EnemyShockChance", "BASE", 20), --"base_chance_to_shock_%" = 20
 		--"is_area_damage" = ?
+		skill("radius", 26), 
 	},
 	qualityMods = {
 		mod("EnemyShockDuration", "INC", 2), --"shock_duration_+%" = 2
@@ -4326,7 +4362,8 @@ skills["SpiritOffering"] = {
 		--"offering_skill_effect_duration_per_corpse" = 500
 		--"spirit_offering_life_%_added_as_base_maximum_energy_shield_per_corpse_consumed" = 2
 		--"base_deal_no_damage" = ?
-		skill("offering", true), 
+		skill("buffMinions", true), 
+		skill("buffNotPlayer", true), 
 	},
 	qualityMods = {
 		mod("Duration", "INC", 0.5), --"skill_effect_duration_+%" = 0.5
@@ -4395,6 +4432,7 @@ skills["StormCall"] = {
 		skill("duration", 1.5), --"base_skill_effect_duration" = 1500
 		--"is_area_damage" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		skill("radius", 20), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -4404,7 +4442,7 @@ skills["StormCall"] = {
 		[2] = skill("manaCost", nil), 
 		[3] = skill("LightningMin", nil), --"spell_minimum_base_lightning_damage"
 		[4] = skill("LightningMax", nil), --"spell_maximum_base_lightning_damage"
-		--[5] = "active_skill_base_radius_+"
+		[5] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
 		[1] = { 12, 6, 13, 24, 0, },
@@ -5029,6 +5067,7 @@ skills["Vulnerability"] = {
 		mod("DamageTakenOverTime", "INC", 33, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"degen_effect_+%" = 33
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		mod("PhysicalDamageTaken", "INC", 0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"physical_damage_taken_+%" = 0.5
@@ -5180,6 +5219,7 @@ skills["Wrath"] = {
 		skill("manaCost", 50), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
