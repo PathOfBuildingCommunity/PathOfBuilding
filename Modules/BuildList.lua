@@ -42,7 +42,7 @@ function listMode:Init(selBuildName)
 	end)
 	self.controls.sort:SelByValue(main.buildSortMode)
 
-	self.controls.buildList = common.New("BuildList", {"TOP",self.anchor,"TOP"}, 0, 24, 500, 0, self)
+	self.controls.buildList = common.New("BuildList", {"TOP",self.anchor,"TOP"}, 0, 24, 640, 0, self)
 	self.controls.buildList.height = function()
 		return main.screenH - 32
 	end
