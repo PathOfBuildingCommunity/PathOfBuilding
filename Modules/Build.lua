@@ -38,17 +38,29 @@ function buildMode:Init(dbFileName, buildName)
 	end)
 	self.controls.buildName = common.New("Control", {"LEFT",self.controls.back,"RIGHT"}, 8, 0, 0, 20)
 	self.controls.buildName.width = function(control)
-		return DrawStringWidth(16, "VAR", self.buildName) + 98
+		local limit = self.anchorTopBarRight:GetPos() - 98 - 40 - self.controls.back:GetSize() - self.controls.save:GetSize() - self.controls.saveAs:GetSize()
+		local bnw = DrawStringWidth(16, "VAR", self.buildName)
+		self.strWidth = m_min(bnw, limit)
+		self.strLimited = bnw > limit
+		return self.strWidth + 98
 	end
 	self.controls.buildName.Draw = function(control)
 		local x, y = control:GetPos()
-		local bnw = DrawStringWidth(16, "VAR", self.buildName)
+		local width, height = control:GetSize()
 		SetDrawColor(0.5, 0.5, 0.5)
-		DrawImage(nil, x + 91, y, bnw + 6, 20)
+		DrawImage(nil, x + 91, y, self.strWidth + 6, 20)
 		SetDrawColor(0, 0, 0)
-		DrawImage(nil, x + 92, y + 1, bnw + 4, 18)
+		DrawImage(nil, x + 92, y + 1, self.strWidth + 4, 18)
 		SetDrawColor(1, 1, 1)
-		DrawString(x, y + 2, "LEFT", 16, "VAR", "Current build:  "..self.buildName)
+		SetViewport(x, y + 2, self.strWidth + 94, 16)
+		DrawString(0, 0, "LEFT", 16, "VAR", "Current build:  "..self.buildName)
+		SetViewport()
+		if control:IsMouseInBounds() and self.strLimited then
+			SetDrawLayer(nil, 10)
+			main:AddTooltipLine(16, self.buildName)
+			main:DrawTooltip(x, y, width, height, main.viewPort)
+			SetDrawLayer(nil, 0)
+		end
 	end
 	self.controls.save = common.New("ButtonControl", {"LEFT",self.controls.buildName,"RIGHT"}, 8, 0, 50, 20, "Save", function()
 		self:SaveDBFile()
@@ -596,7 +608,7 @@ function buildMode:OpenSaveAsPopup()
 	local popup
 	popup = main:OpenPopup(370, 100, self.dbFileName and "Save As" or "Save", {
 		common.New("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:"),
-		edit = common.New("EditControl", nil, 0, 40, 350, 20, self.dbFileName and self.buildName, nil, "\\/:%*%?\"<>|%c", 50, function(buf)
+		edit = common.New("EditControl", nil, 0, 40, 350, 20, self.dbFileName and self.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 			newFileName = main.buildPath..buf..".xml"
 			newBuildName = buf
 			popup.controls.save.enabled = false

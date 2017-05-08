@@ -1218,7 +1218,7 @@ skills["SupportMeleeSplash"] = {
 	},
 	levelMods = {
 		--[1] = "support_melee_splash_damage_+%_final_for_splash"
-		[2] = mod("AreaOfEffect", "MORE", nil), --"melee_splash_area_of_effect_+%_final"
+		[2] = mod("AreaOfEffect", "MORE", nil, ModFlag.Melee), --"melee_splash_area_of_effect_+%_final"
 	},
 	levels = {
 		[1] = { -35, 0, },

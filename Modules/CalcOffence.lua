@@ -11,6 +11,8 @@ local t_insert = table.insert
 local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
+local m_sqrt = math.sqrt
+local m_pi = math.pi
 local bor = bit.bor
 local band = bit.band
 local bnot = bit.bnot
@@ -229,8 +231,74 @@ function calcs.offence(env, actor)
 			breakdown.ProjectileSpeedMod = breakdown.mod(skillCfg, "ProjectileSpeed")
 		end
 	end
-	if skillFlags.area then
+	if skillFlags.melee then
+		if skillFlags.weapon1Attack then
+			actor.weaponRange1 = (actor.weaponData1.range and actor.weaponData1.range + modDB:Sum("BASE", skillCfg, "MeleeWeaponRange")) or (data.weaponTypeInfo["None"].range + modDB:Sum("BASE", skillCfg, "UnarmedRange"))	
+		end
+		if skillFlags.weapon2Attack then
+			actor.weaponRange2 = (actor.weaponData2.range and actor.weaponData2.range + modDB:Sum("BASE", skillCfg, "MeleeWeaponRange")) or (data.weaponTypeInfo["None"].range + modDB:Sum("BASE", skillCfg, "UnarmedRange"))	
+		end
+		if mainSkill.skillTypes[SkillType.MeleeSingleTarget] then
+			local range = 100
+			if skillFlags.weapon1Attack then
+				range = m_min(range, actor.weaponRange1)
+			end
+			if skillFlags.weapon2Attack then
+				range = m_min(range, actor.weaponRange2)
+			end
+			output.WeaponRange = range + 2
+			if breakdown then
+				breakdown.WeaponRange = {
+					radius = output.WeaponRange
+				}
+			end
+		end
+	end
+	if skillFlags.area or skillData.radius then
 		output.AreaOfEffectMod = calcLib.mod(modDB, skillCfg, "AreaOfEffect")
+		if skillData.radiusIsWeaponRange then
+			local range = 0
+			if skillFlags.weapon1Attack then
+				range = m_max(range, actor.weaponRange1)
+			end
+			if skillFlags.weapon2Attack then
+				range = m_max(range, actor.weaponRange2)
+			end
+			skillData.radius = range + 2
+		end
+		if skillData.radius then
+			skillFlags.area = true
+			local baseRadius = skillData.radius + (skillData.radiusExtra or 0)
+			output.AreaOfEffectRadius = m_floor(baseRadius * m_sqrt(output.AreaOfEffectMod))
+			if breakdown then
+				if output.AreaOfEffectRadius ~= baseRadius then
+					breakdown.AreaOfEffectRadius = {
+						s_format("%d ^8(base radius)", baseRadius),
+						s_format("x %.2f ^8(square root of area of effect modifier)", m_sqrt(output.AreaOfEffectMod)),
+						s_format("= %d", output.AreaOfEffectRadius),
+					}
+				else
+					breakdown.AreaOfEffectRadius = { }
+				end
+				breakdown.AreaOfEffectRadius.radius = output.AreaOfEffectRadius
+			end
+			if skillData.radiusSecondary then
+				baseRadius = skillData.radiusSecondary + (skillData.radiusExtra or 0)
+				output.AreaOfEffectRadiusSecondary = m_floor(baseRadius * m_sqrt(output.AreaOfEffectMod))
+				if breakdown then
+					if output.AreaOfEffectRadiusSecondary ~= baseRadius then
+						breakdown.AreaOfEffectRadiusSecondary = {
+							s_format("%d ^8(base radius)", baseRadius),
+							s_format("x %.2f ^8(square root of area of effect modifier)", m_sqrt(output.AreaOfEffectMod)),
+							s_format("= %d", output.AreaOfEffectRadiusSecondary),
+						}
+					else
+						breakdown.AreaOfEffectRadiusSecondary = { }
+					end
+					breakdown.AreaOfEffectRadiusSecondary.radius = output.AreaOfEffectRadiusSecondary
+				end
+			end
+		end
 		if breakdown then
 			breakdown.AreaOfEffectMod = breakdown.mod(skillCfg, "AreaOfEffect")
 		end

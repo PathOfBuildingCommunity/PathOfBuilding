@@ -100,6 +100,49 @@ skills["Portal"] = {
 		[10] = { },
 	},
 }
+skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
+	name = "Mjolner",
+	hidden = true,
+	other = true,
+	support = true,
+	color = 4,
+	requireSkillTypes = { 45, },
+	addSkillTypes = { 42, },
+	excludeSkillTypes = { 37, 41, 30, 44, 61, },
+	baseMods = {
+		skill("cooldown", 0.25), 
+		mod("Damage", "INC", 100, ModFlag.Spell, 0, { type = "Condition", var = "SkillIsTriggered" }), --"triggered_spell_spell_damage_+%" = 100
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"unique_mjolner_lightning_spells_triggered" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { },
+	},
+}
+skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
+	name = "Cospri's Malice",
+	hidden = true,
+	other = true,
+	support = true,
+	color = 4,
+	requireSkillTypes = { 60, },
+	addSkillTypes = { },
+	excludeSkillTypes = { 37, 41, 30, 44, 61, },
+	baseMods = {
+		skill("cooldown", 0.25), 
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"unique_cospris_malice_cold_spells_triggered" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { },
+	},
+}
 skills["RepeatingShockwave"] = {
 	name = "Abberath's Fury",
 	hidden = true,
@@ -238,6 +281,7 @@ skills["Envy"] = {
 		mod("ChaosMin", "BASE", 52, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"spell_minimum_added_chaos_damage" = 52
 		mod("ChaosMax", "BASE", 69, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"spell_maximum_added_chaos_damage" = 69
 		--"base_deal_no_damage" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 	},
@@ -325,6 +369,7 @@ skills["VaalAuraElementalDamageHealing"] = {
 		skill("levelRequirement", 1), 
 		skill("duration", 6), --"base_skill_effect_duration" = 6000
 		--"base_elemental_damage_heals" = ?
+		skill("radius", 36), 
 	},
 	qualityMods = {
 	},
@@ -363,6 +408,8 @@ skills["IcestormUniqueStaff12"] = {
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"is_area_damage" = ?
 		skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 }), 
+		skill("radius", 25), 
+		skill("radiusSecondary", 10), 
 	},
 	qualityMods = {
 	},

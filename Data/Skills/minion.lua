@@ -333,6 +333,7 @@ skills["IceElementalIceCyclone"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
 		["Staff"] = true,
@@ -743,6 +744,7 @@ skills["SpectralSkullShieldCharge"] = {
 		["None"] = true,
 		["One Handed Mace"] = true,
 		["Claw"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["Dagger"] = true,
 		["One Handed Sword"] = true,
@@ -1009,6 +1011,7 @@ skills["RockGolemWhirlingBlades"] = {
 	},
 	skillTypes = { [1] = true, [6] = true, [24] = true, [38] = true, },
 	weaponTypes = {
+		["Thrusting One Handed Sword"] = true,
 		["Claw"] = true,
 		["Dagger"] = true,
 		["One Handed Sword"] = true,
@@ -1069,13 +1072,14 @@ skills["SpiderMinionLeapSlam"] = {
 	},
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [24] = true, [38] = true, },
 	weaponTypes = {
+		["Two Handed Mace"] = true,
 		["Two Handed Sword"] = true,
 		["One Handed Mace"] = true,
 		["Two Handed Axe"] = true,
-		["Two Handed Mace"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
-		["One Handed Sword"] = true,
 		["Staff"] = true,
+		["One Handed Sword"] = true,
 	},
 	baseMods = {
 		skill("castTime", 1.4), 
@@ -1109,6 +1113,7 @@ skills["MinionInstability"] = {
 		skill("FireMin", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
 		skill("FireMax", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
 		skill("showAverage", true),
+		skill("radius", 22),
 	},
 	qualityMods = {
 	},

@@ -8,6 +8,11 @@ local launch, main = ...
 local t_insert = table.insert
 local m_max = math.max
 local m_min = math.min
+local m_ceil = math.ceil
+local m_floor = math.floor
+local m_sin = math.sin
+local m_cos = math.cos
+local m_pi = math.pi
 local band = bit.band
 
 local CalcBreakdownClass = common.NewClass("CalcBreakdown", "Control", "ControlHost", function(self, calcsTab)
@@ -16,6 +21,10 @@ local CalcBreakdownClass = common.NewClass("CalcBreakdown", "Control", "ControlH
 	self.calcsTab = calcsTab
 	self.shown = false
 	self.nodeViewer = common.New("PassiveTreeView")
+	self.rangeGuide = NewImageHandle()
+	self.rangeGuide:Load("Assets/range_guide.png")
+	self.uiOverlay = NewImageHandle()
+	self.uiOverlay:Load("Assets/game_ui_small.png")
 	self.controls.scrollBar = common.New("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -2, 0, 18, 0, 80, "VERTICAL", true)
 end)
 
@@ -113,6 +122,16 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 			type = "TEXT",
 			lines = breakdown,
 			textSize = 16
+		})
+	end
+
+	if breakdown.radius then
+		-- Radius visualiser
+		t_insert(self.sectionList, {
+			type = "RADIUS",
+			radius = breakdown.radius,
+			width = 8 + 1920/4,
+			height = 4 + 1080/4,
 		})
 	end
 
@@ -481,6 +500,41 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 	end
 end
 
+function CalcBreakdownClass:DrawRadiusVisual(x, y, width, height, radius)
+	SetDrawColor(0.75, 0.75, 0.75)
+	DrawImage(self.rangeGuide, x, y, width, height)
+	--SetDrawColor(0, 0, 0)
+	--DrawImage(nil, x, y, width, height)
+	--[[SetDrawColor(0.5, 0.5, 0.75)
+	for r = 10, 130, 20 do
+		main:RenderRing(x, y, width, height, 0, 0, r, 3)
+	end
+	SetDrawColor(1, 1, 1)
+	for r = 20, 120, 20 do
+		main:RenderRing(x, y, width, height, 0, 0, r, 3)
+	end
+	main:RenderCircle(x, y, width, height, 0, 0, 2)]]
+	SetDrawColor(0.5, 1, 0.5, 0.33)
+	main:RenderCircle(x, y, width, height, 0, 0, radius)
+	--[[SetDrawColor(1, 0.5, 0.5, 0.33)
+	if not self.foo1 then
+		self.foo1, self.foo2 = 0, 0
+	end
+	if IsKeyDown("LEFT") then
+		self.foo1 = self.foo1 - 0.3
+	elseif IsKeyDown("RIGHT") then
+		self.foo1 = self.foo1 + 0.3
+	end
+	if IsKeyDown("UP") then
+		self.foo2 = self.foo2 + 0.3
+	elseif IsKeyDown("DOWN") then
+		self.foo2 = self.foo2 - 0.3
+	end
+	main:RenderCircle(x, y, width, height, self.foo1, self.foo2, 30)]]
+	SetDrawColor(1, 1, 1)
+	DrawImage(self.uiOverlay, x, y, width, height)
+end
+
 function CalcBreakdownClass:Draw(viewPort)
 	local sourceData = self.sourceData
 	local scrollBar = self.controls.scrollBar
@@ -535,6 +589,10 @@ function CalcBreakdownClass:Draw(viewPort)
 			end
 		elseif section.type == "TABLE" then
 			self:DrawBreakdownTable(viewPort, x, sectionY, section)
+		elseif section.type == "RADIUS" then
+			SetDrawColor(1, 1, 1)
+			DrawImage(nil, x + 2, sectionY, section.width - 4, section.height)
+			self:DrawRadiusVisual(x + 4, sectionY + 2, section.width - 8, section.height - 4, section.radius)
 		end
 	end
 	SetDrawLayer(nil, 0)

@@ -237,7 +237,7 @@ skills["SupportCastOnCrit"] = {
 		skill("cooldown", 0.5), 
 		--"cast_linked_spells_on_attack_crit_%" = 100
 		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
-		skill("showAverage", true, { type = "SkillType", skillType = 36 }), 
+		skill("showAverage", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), 
 	},
 	qualityMods = {
 		mod("CritChance", "INC", 1, 0, 0, nil), --"critical_strike_chance_+%" = 1

@@ -275,18 +275,19 @@ for i = 1, 70 do
 end
 
 data.weaponTypeInfo = {
-	["None"] = { oneHand = true, melee = true, flag = ModFlag.Unarmed },
+	["None"] = { oneHand = true, melee = true, flag = ModFlag.Unarmed, range = 4 },
 	["Bow"] = { oneHand = false, melee = false, flag = ModFlag.Bow },
-	["Claw"] = { oneHand = true, melee = true, flag = ModFlag.Claw },
-	["Dagger"] = { oneHand = true, melee = true, flag = ModFlag.Dagger },
-	["Staff"] = { oneHand = false, melee = true, flag = ModFlag.Staff },
+	["Claw"] = { oneHand = true, melee = true, flag = ModFlag.Claw, range = 9 },
+	["Dagger"] = { oneHand = true, melee = true, flag = ModFlag.Dagger, range = 8 },
+	["Staff"] = { oneHand = false, melee = true, flag = ModFlag.Staff, range = 11 },
 	["Wand"] = { oneHand = true, melee = false, flag = ModFlag.Wand },
-	["One Handed Axe"] = { oneHand = true, melee = true, flag = ModFlag.Axe },
-	["One Handed Mace"] = { oneHand = true, melee = true, flag = ModFlag.Mace },
-	["One Handed Sword"] = { oneHand = true, melee = true, flag = ModFlag.Sword },
-	["Two Handed Axe"] = { oneHand = false, melee = true, flag = ModFlag.Axe },
-	["Two Handed Mace"] = { oneHand = false, melee = true, flag = ModFlag.Mace },
-	["Two Handed Sword"] = { oneHand = false, melee = true, flag = ModFlag.Sword },
+	["One Handed Axe"] = { oneHand = true, melee = true, flag = ModFlag.Axe, range = 9 },
+	["One Handed Mace"] = { oneHand = true, melee = true, flag = ModFlag.Mace, range = 9 },
+	["One Handed Sword"] = { oneHand = true, melee = true, flag = ModFlag.Sword, range = 9 },
+	["Thrusting One Handed Sword"] = { oneHand = true, melee = true, flag = ModFlag.Sword, range = 12, label = "One Handed Sword" },
+	["Two Handed Axe"] = { oneHand = false, melee = true, flag = ModFlag.Axe, range = 11 },
+	["Two Handed Mace"] = { oneHand = false, melee = true, flag = ModFlag.Mace, range = 11 },
+	["Two Handed Sword"] = { oneHand = false, melee = true, flag = ModFlag.Sword, range = 11 },
 }
 
 data.unarmedWeaponData = {

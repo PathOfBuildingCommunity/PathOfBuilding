@@ -18,7 +18,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCastOnCrit
-#baseMod skill("showAverage", true, { type = "SkillType", skillType = 36 })
+#baseMod skill("showAverage", true, { type = "SkillType", skillType = SkillType.TriggerableSpell })
 #mods
 
 #skill SupportCastOnDeath

@@ -215,7 +215,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.importCodeMode.enabled = function()
 		return self.importCodeState == "VALID" and self.build.dbFileName
 	end
-	self.controls.importCodeBuildName = common.New("EditControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 4, 0, 400, 20, "", "New build name", "\\/:%*%?\"<>|%c", 50)
+	self.controls.importCodeBuildName = common.New("EditControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 4, 0, 400, 20, "", "New build name", "\\/:%*%?\"<>|%c", 100)
 	self.controls.importCodeBuildName.enabled = function()
 		return self.importCodeState == "VALID" and self.controls.importCodeMode.sel == 2
 	end

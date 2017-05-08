@@ -11,6 +11,9 @@ local t_remove = table.remove
 local m_floor = math.floor
 local m_max = math.max
 local m_min = math.min
+local m_sin = math.sin
+local m_cos = math.cos
+local m_pi = math.pi
 
 LoadModule("Modules/Common")
 LoadModule("Modules/Data", launch)
@@ -65,6 +68,9 @@ local classList = {
 for _, className in pairs(classList) do
 	LoadModule("Classes/"..className, launch, main)
 end
+
+local tempTable1 = { }
+local tempTable2 = { }
 
 function main:Init()
 	self.modes = { }
@@ -391,6 +397,55 @@ function main:DrawCheckMark(x, y, size)
 	y = y - size / 2
 	DrawImageQuad(nil, x + size * 0.15, y + size * 0.50, x + size * 0.30, y + size * 0.45, x + size * 0.50, y + size * 0.80, x + size * 0.40, y + size * 0.90)
 	DrawImageQuad(nil, x + size * 0.40, y + size * 0.90, x + size * 0.35, y + size * 0.75, x + size * 0.80, y + size * 0.10, x + size * 0.90, y + size * 0.20)
+end
+
+do
+	local cos45 = m_cos(m_pi / 4)
+	local cos35 = m_cos(m_pi * 0.195)
+	local sin35 = m_sin(m_pi * 0.195)
+	function main:WorldToScreen(x, y, z, width, height)
+		-- World -> camera
+		local cx = (x - y) * cos45
+		local cy = -5.33 - (y + x) * cos45 * cos35 - z * sin35
+		local cz = 122 + (y + x) * cos45 * sin35 - z * cos35
+		-- Camera -> screen
+		local sx = width * 0.5 + cx / cz * 1.27 * height
+		local sy = height * 0.5 + cy / cz * 1.27 * height
+		return round(sx), round(sy)
+	end
+end
+
+function main:RenderCircle(x, y, width, height, oX, oY, radius)
+	local minX = wipeTable(tempTable1)
+	local maxX = wipeTable(tempTable2)
+	local minY = height
+	local maxY = 0
+	for d = 0, 360, 0.2 do
+		local r = d / 180 * m_pi
+		local px, py = main:WorldToScreen(oX + m_sin(r) * radius, oY + m_cos(r) * radius, 0, width, height)
+		if py >= 0 and py < height then
+			px = m_min(width, m_max(0, px))
+			minY = m_min(minY, py)
+			maxY = m_max(maxY, py)
+			minX[py] = m_min(minX[py] or px, px)
+			maxX[py] = m_max(maxX[py] or px, px)
+		end
+	end
+	for ly = minY, maxY do
+		DrawImage(nil, x + minX[ly], y + ly, maxX[ly] - minX[ly], 1)
+	end
+end
+
+function main:RenderRing(x, y, width, height, oX, oY, radius, size)
+	local lastX, lastY
+	for d = 0, 360, 0.2 do
+		local r = d / 180 * m_pi
+		local px, py = main:WorldToScreen(oX + m_sin(r) * radius, oY + m_cos(r) * radius, 0, width, height)
+		if px >= -size/2 and px < width + size/2 and py >= -size/2 and py < height + size/2 and (px ~= lastX or py ~= lastY) then
+			DrawImage(nil, x + px - size/2, y + py, size, size)
+			lastX, lastY = px, py
+		end
+	end
 end
 
 function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl)

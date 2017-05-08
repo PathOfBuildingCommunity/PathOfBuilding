@@ -19,7 +19,6 @@ function listMode:Init(selBuildName)
 
 	self.controls.new = common.New("ButtonControl", {"TOP",self.anchor,"TOP"}, -210, 0, 60, 20, "New", function()
 		main:SetMode("BUILD", false, "Unnamed build")
-		--self:New()
 	end)
 	self.controls.open = common.New("ButtonControl", {"LEFT",self.controls.new,"RIGHT"}, 8, 0, 60, 20, "Open", function()
 		self:LoadSel()
@@ -43,7 +42,7 @@ function listMode:Init(selBuildName)
 	end)
 	self.controls.sort:SelByValue(main.buildSortMode)
 
-	self.controls.buildList = common.New("BuildList", {"TOP",self.anchor,"TOP"}, 0, 24, 500, 0, self)
+	self.controls.buildList = common.New("BuildList", {"TOP",self.anchor,"TOP"}, 0, 24, 640, 0, self)
 	self.controls.buildList.height = function()
 		return main.screenH - 32
 	end
@@ -168,31 +167,6 @@ function listMode:EditCancel()
 	self.edit = nil
 	self:BuildList()
 	self:SelectControl(self.controls.buildList)
-end
-
-function listMode:New()
-	table.insert(self.list, 1, { fileName = "", level = 1 })
-	self.sel = 1
-	self:EditInit("New build name", function(buf)
-		if #buf < 1 then
-			return "No name entered"
-		end
-		local fileName = buf .. ".xml"
-		local outFile, msg = io.open(main.buildPath..fileName, "r")
-		if outFile then
-			outFile:close()
-			return "'"..fileName.."' already exists"
-		end
-		outFile, msg = io.open(main.buildPath..fileName, "w")
-		if not outFile then
-			return "Couldn't create '"..fileName.."': "..msg
-		end
-		outFile:write('<?xml version="1.0" encoding="UTF-8"?>\n<PathOfBuilding>\n</PathOfBuilding>')
-		outFile:close()
-		self.list[self.edit].fileName = fileName
-		self.list[self.edit].buildName = buf
-		self:BuildList()
-	end)
 end
 
 function listMode:LoadSel()

@@ -21,6 +21,7 @@ local skills, mod, flag, skill = ...
 
 #skill Anger
 #flags spell aura area fire
+#baseMod skill("radius", 36)
 #mods
 
 #skill AnimateArmour
@@ -29,14 +30,17 @@ local skills, mod, flag, skill = ...
 
 #skill Cleave
 #flags attack melee area
+#baseMod skill("radius", 20)
 #mods
 
 #skill DecoyTotem
 #flags spell totem area duration
+#baseMod skill("radius", 60)
 #mods
 
 #skill Determination
 #flags spell aura area
+#baseMod skill("radius", 36)
 #mods
 
 #skill DevouringTotem
@@ -58,10 +62,13 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("radius", 25, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill EnduringCry
 #flags warcry area duration
+#baseMod skill("radius", 60)
 #mods
 
 #skill FlameTotem
@@ -78,6 +85,7 @@ local skills, mod, flag, skill = ...
 
 #skill GroundSlam
 #flags attack melee area
+#baseMod skill("radius", 35)
 #mods
 
 #skill VaalGroundSlam
@@ -90,6 +98,7 @@ local skills, mod, flag, skill = ...
 
 #skill HeraldOfAsh
 #flags spell area fire
+#baseMod skill("radius", 10)
 #mods
 
 #skill IceCrash
@@ -105,6 +114,7 @@ local skills, mod, flag, skill = ...
 			name = "Third Hit",
 		},
 	},
+#baseMod skill("radius", 24)
 #mods
 
 #skill ImmortalCall
@@ -116,15 +126,18 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill InfernalBlow
-#flags attack melee area fire
+#flags attack melee fire
+#baseMod skill("radius", 24)
 #mods
 
 #skill LeapSlam
 #flags attack melee area movement
+#baseMod skill("radius", 15)
 #mods
 
 #skill MoltenShell
 #flags spell area duration fire
+#baseMod skill("radius", 15)
 #mods
 
 #skill VaalMoltenShell
@@ -151,14 +164,18 @@ local skills, mod, flag, skill = ...
 
 #skill Punishment
 #flags spell curse area duration
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
 #mods
 
 #skill FireResistAura
 #flags spell aura area fire
+#baseMod skill("radius", 36)
 #mods
 
 #skill RallyingCry
 #flags warcry area duration
+#baseMod skill("buffAllies", true)
 #mods
 
 #skill Reckoning
@@ -167,6 +184,7 @@ local skills, mod, flag, skill = ...
 
 #skill RejuvenationTotem
 #flags spell aura totem area duration
+#baseMod skill("radius", 10)
 #mods
 
 #skill SearingBond
@@ -179,6 +197,7 @@ local skills, mod, flag, skill = ...
 
 #skill ShockwaveTotem
 #flags spell totem area duration
+#baseMod skill("radius", 24)
 #mods
 
 #skill StaticStrike
@@ -193,6 +212,7 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
+#baseMod skill("radius", 19)
 #mods
 
 #skill SummonFireGolem
@@ -225,6 +245,7 @@ local skills, mod, flag, skill = ...
 
 #skill Sweep
 #flags attack melee area
+#baseMod skill("radius", 26)
 #mods
 
 #skill Vengeance
@@ -237,9 +258,11 @@ local skills, mod, flag, skill = ...
 
 #skill Vitality
 #flags spell aura area
+#baseMod skill("radius", 36)
 #mods
 
 #skill WarlordsMark
 #flags spell curse area duration
 #baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
 #mods

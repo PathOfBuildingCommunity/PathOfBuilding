@@ -15,36 +15,44 @@ local skills, mod, flag, skill = ...
 
 #skill ArcticBreath
 #flags spell area projectile duration cold
+#baseMod skill("radius", 12)
 #mods
 
 #skill AssassinsMark
 #flags spell curse area duration
 #baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
 #mods
 
 #skill BallLightning
 #flags spell projectile lightning
+#baseMod skill("radius", 20)
 #mods
 
 #skill Blight
 #flags spell duration area chaos
+#baseMod skill("radius", 26)
 #mods
 
 #skill BoneOffering
 #flags spell duration
-#baseMod skill("offering", true)
+#baseMod skill("buffMinions", true)
+#baseMod skill("buffNotPlayer", true)
 #mods
 
 #skill Clarity
 #flags spell aura area
+#baseMod skill("radius", 36)
 #mods
 
 #skill VaalClarity
 #flags spell aura area duration vaal
+#baseMod skill("radius", 36)
 #mods
 
 #skill ColdSnap
 #flags spell area cold
+#baseMod skill("radius", 16)
 #mods
 
 #skill VaalColdSnap
@@ -54,11 +62,13 @@ local skills, mod, flag, skill = ...
 #skill Conductivity
 #flags spell curse area duration lightning
 #baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
 #mods
 
 #skill Contagion
 #flags spell area duration chaos
 #baseMod skill("debuff", true)
+#baseMod skill("radius", 20)
 #mods
 
 #skill ConversionTrap
@@ -66,29 +76,36 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Convocation
-	unsupported = true,
+#flags spell duration
+#baseMod skill("buffMinions", true)
+#baseMod skill("buffNotPlayer", true)
 #mods
 
 #skill Discharge
 #flags spell area lightning cold fire
+#baseMod skill("radius", 30)
 #mods
 
 #skill Discipline
 #flags spell aura area
+#baseMod skill("radius", 36)
 #mods
 
 #skill VaalDiscipline
 #flags spell aura area duration vaal
+#baseMod skill("radius", 36)
 #mods
 
 #skill ElementalWeakness
 #flags spell curse area duration
 #baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
 #mods
 
 #skill Enfeeble
 #flags spell curse area duration
 #baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
 #mods
 
 #skill EssenceDrain
@@ -99,6 +116,7 @@ local skills, mod, flag, skill = ...
 
 #skill FireNovaMine
 #flags spell mine area duration fire
+#baseMod skill("radius", 30)
 #mods
 
 #skill Fireball
@@ -113,6 +131,7 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
+#baseMod skill("radius", 9)
 #mods
 
 #skill VaalFireballSpiralNova
@@ -131,6 +150,8 @@ local skills, mod, flag, skill = ...
 
 #skill Firestorm
 #flags spell area duration fire
+#baseMod skill("radius", 25)
+#baseMod skill("radiusSecondary", 10)
 #mods
 
 #skill FlameDash
@@ -139,6 +160,7 @@ local skills, mod, flag, skill = ...
 
 #skill FlameWhip
 #flags spell area fire
+#baseMod skill("radius", 30)
 #mods
 
 #skill Flameblast
@@ -164,11 +186,13 @@ local skills, mod, flag, skill = ...
 #skill Flammability
 #flags spell curse area duration fire
 #baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
 #mods
 
 #skill FleshOffering
 #flags spell duration
-#baseMod skill("offering", true)
+#baseMod skill("buffMinions", true)
+#baseMod skill("buffNotPlayer", true)
 #mods
 
 #skill FreezingPulse
@@ -191,6 +215,7 @@ local skills, mod, flag, skill = ...
 #skill Frostbite
 #flags spell curse area duration cold
 #baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
 #mods
 
 #skill FrostBolt
@@ -199,14 +224,17 @@ local skills, mod, flag, skill = ...
 
 #skill GlacialCascade
 #flags spell area cold
+#baseMod skill("radius", 14)
 #mods
 
 #skill HeraldOfThunder
 #flags cast duration lightning
+#baseMod skill("radius", 32)
 #mods
 
 #skill IceNova
 #flags spell area cold
+#baseMod skill("radius", 30)
 #mods
 
 #skill VaalIceNova
@@ -251,11 +279,13 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
+#baseMod skill("radius", 14)
 #mods
 
 #skill LightningTendrils
 #flags spell area lightning
 #baseMod skill("dpsMultiplier", 4)
+#baseMod skill("radius", 22)
 #mods
 
 #skill LightningTrap
@@ -269,6 +299,7 @@ local skills, mod, flag, skill = ...
 
 #skill LightningWarp
 #flags spell area duration movement lightning
+#baseMod skill("radius", 16)
 #mods
 
 #skill VaalLightningWarpInstant
@@ -293,10 +324,12 @@ local skills, mod, flag, skill = ...
 
 #skill Purity
 #flags spell aura area
+#baseMod skill("radius", 36)
 #mods
 
 #skill LightningResistAura
 #flags spell aura area
+#baseMod skill("radius", 36)
 #mods
 
 #skill RaiseSpectre
@@ -321,6 +354,7 @@ local skills, mod, flag, skill = ...
 			actor.mainSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.5
 		end
 	end,
+#baseMod skill("radius", 18)
 #mods
 
 #skill VaalRighteousFire
@@ -361,6 +395,7 @@ local skills, mod, flag, skill = ...
 			name = "Nova",
 		},
 	},
+#baseMod skill("radius", 26)
 #mods
 
 #skill Spark
@@ -373,11 +408,13 @@ local skills, mod, flag, skill = ...
 
 #skill SpiritOffering
 #flags spell duration
-#baseMod skill("offering", true)
+#baseMod skill("buffMinions", true)
+#baseMod skill("buffNotPlayer", true)
 #mods
 
 #skill StormCall
 #flags spell area duration lightning
+#baseMod skill("radius", 20)
 #mods
 
 #skill VaalStormCall
@@ -436,6 +473,7 @@ local skills, mod, flag, skill = ...
 #skill Vulnerability
 #flags spell curse area duration
 #baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
 #mods
 
 #skill Wither
@@ -464,4 +502,5 @@ local skills, mod, flag, skill = ...
 
 #skill Wrath
 #flags spell aura area lightning
+#baseMod skill("radius", 36)
 #mods

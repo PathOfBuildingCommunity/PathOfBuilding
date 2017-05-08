@@ -439,10 +439,10 @@ function calcs.initEnv(build, mode, override)
 				groupCfg.slotName = socketGroup.slot
 				for _, value in ipairs(env.modDB:Sum("LIST", groupCfg, "ExtraSupport")) do
 					-- Add extra supports from the item this group is socketed in
-					local gemData = data.gems[value.name]
+					local gemData = data.gems[value.name] or data.skills[value.name]
 					if gemData then
 						t_insert(supportList, { 
-							name = value.name,
+							name = gemData.name,
 							data = gemData,
 							level = value.level,
 							quality = 0, 

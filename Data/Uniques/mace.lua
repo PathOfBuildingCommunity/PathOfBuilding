@@ -136,9 +136,9 @@ Skills Chain +1 times
 (30-40)% increased Lightning Damage with Weapons
 +200 Strength Requirement
 +300 Intelligence Requirement
-{variant:1}50% chance to Cast Socketed Lightning Spells on Hit
-{variant:2}30% chance to Cast Socketed Lightning Spells on Hit
-{variant:3,4}100% chance to Cast Socketed Lightning Spells on Hit
+{variant:1}50% chance to Cast a Socketed Lightning Spell on Hit
+{variant:2}30% chance to Cast a Socketed Lightning Spell on Hit
+{variant:3,4}Cast a Socketed Lightning Spell on Hit
 Socketed Lightning Spells have 100% increased Spell Damage if Triggered
 ]],
 -- Weapon: Sceptre

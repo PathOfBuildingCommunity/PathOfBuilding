@@ -17,6 +17,12 @@ local skills, mod, flag, skill = ...
 #flags spell
 #mods
 
+#skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner
+#mods
+
+#skill SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike Cospri's Malice
+#mods
+
 #skill RepeatingShockwave Abberath's Fury
 #flags spell area
 #mods
@@ -35,6 +41,7 @@ local skills, mod, flag, skill = ...
 
 #skill Envy
 #flags spell aura area chaos
+#baseMod skill("radius", 36)
 #mods
 
 #skill FireBurstOnHit Fire Burst
@@ -43,11 +50,14 @@ local skills, mod, flag, skill = ...
 
 #skill VaalAuraElementalDamageHealing Gluttony of Elements
 #flags spell aura area duration vaal
+#baseMod skill("radius", 36)
 #mods
 
 #skill IcestormUniqueStaff12 Icestorm
 #flags spell area duration cold
 #baseMod skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 })
+#baseMod skill("radius", 25)
+#baseMod skill("radiusSecondary", 10)
 #mods
 
 #skill MerveilWarp Illusory Warp

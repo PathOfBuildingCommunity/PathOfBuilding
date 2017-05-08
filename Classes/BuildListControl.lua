@@ -23,7 +23,7 @@ local BuildListClass = common.NewClass("BuildList", "Control", "ControlHost", fu
 	self.controls.scrollBar.locked = function()
 		return self.listMode.edit
 	end
-	self.controls.nameEdit = common.New("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 0, 20, nil, nil, "\\/:%*%?\"<>|%c", 50)
+	self.controls.nameEdit = common.New("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 0, 20, nil, nil, "\\/:%*%?\"<>|%c", 100)
 	self.controls.nameEdit.shown = function()
 		return self.listMode.edit
 	end
@@ -104,6 +104,14 @@ function BuildListClass:Draw(viewPort)
 		DrawImage(nil, 0, lineY + 1, width - 22, 18)
 		if self.listMode.edit ~= index then
 			DrawString(0, lineY + 2, "LEFT", 16, "VAR", "^7"..(build.buildName or "?"))
+			if mOverLine or index == selBuildIndex then
+				SetDrawColor(0.33, 0.33, 0.33)
+			elseif index % 2 == 0 then
+				SetDrawColor(0.05, 0.05, 0.05)
+			else
+				SetDrawColor(0, 0, 0)
+			end
+			DrawImage(nil, width - 162, lineY + 2, 162, 16)
 			SetDrawColor(build.className and data.colorCodes[build.className:upper()] or "^7")
 			DrawString(width - 160, lineY + 2, "LEFT", 16, "VAR", string.format("Level %d %s", build.level or 1, (build.ascendClassName ~= "None" and build.ascendClassName) or build.className or "?"))
 		end
