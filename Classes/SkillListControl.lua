@@ -102,7 +102,7 @@ function SkillListClass:Draw(viewPort)
 		local socketGroup = list[index]
 		local lineY = 16 * (index - 1) - scrollBar.offset
 		local label = socketGroup.displayLabel or "?"
-		if not socketGroup.enabled then
+		if not socketGroup.enabled or not socketGroup.slotEnabled then
 			label = label .. " (Disabled)"
 		end
 		local nameWidth = DrawStringWidth(16, "VAR", label)
@@ -126,7 +126,7 @@ function SkillListClass:Draw(viewPort)
 			SetDrawColor(0.15, 0.15, 0.15)
 			DrawImage(nil, 0, lineY + 1, width - 20, 14)		
 		end
-		if socketGroup.enabled then
+		if socketGroup.enabled and socketGroup.slotEnabled then
 			SetDrawColor(1, 1, 1)
 		else
 			SetDrawColor(0.5, 0.5, 0.5)
@@ -142,12 +142,14 @@ function SkillListClass:Draw(viewPort)
 	end
 	SetViewport()
 	if ttGroup and ttGroup.displaySkillList then
-		local count = 0
-		local gemShown = { }
+		if ttGroup.enabled and not ttGroup.slotEnabled then
+			main:AddTooltipLine(16, "^7Note: this group is disabled because it is socketed in the inactive weapon set.")
+		end
 		if ttGroup.sourceItem then
 			main:AddTooltipLine(18, "^7Source: "..data.colorCodes[ttGroup.sourceItem.rarity]..ttGroup.sourceItem.name)
 			main:AddTooltipSeparator(10)
 		end
+		local gemShown = { }
 		for index, activeSkill in ipairs(ttGroup.displaySkillList) do
 			if index > 1 then
 				main:AddTooltipSeparator(10)
@@ -156,14 +158,15 @@ function SkillListClass:Draw(viewPort)
 			for _, gem in ipairs(activeSkill.gemList) do
 				main:AddTooltipLine(20, string.format("%s%s ^7%d%s/%d%s", 
 					data.skillColorMap[gem.data.color], 
-					gem.name, 
+					gem.name,
 					gem.level, 
 					(gem.srcGem and gem.level > gem.srcGem.level) and data.colorCodes.MAGIC.."+"..(gem.level - gem.srcGem.level).."^7" or "",
 					gem.quality,
 					(gem.srcGem and gem.quality > gem.srcGem.quality) and data.colorCodes.MAGIC.."+"..(gem.quality - gem.srcGem.quality).."^7" or ""
 				))
-				gemShown[gem.srcGem] = true
-				count = count + 1
+				if gem.srcGem then
+					gemShown[gem.srcGem] = true
+				end
 			end
 			if activeSkill.minion then
 				main:AddTooltipSeparator(10)
@@ -177,8 +180,9 @@ function SkillListClass:Draw(viewPort)
 					gem.quality,
 					(gem.srcGem and gem.quality > gem.srcGem.quality) and data.colorCodes.MAGIC.."+"..(gem.quality - gem.srcGem.quality).."^7" or ""
 				))
-				gemShown[gem.srcGem] = true
-				count = count + 1
+				if gem.srcGem then
+					gemShown[gem.srcGem] = true
+				end
 			end
 		end
 		local showOtherHeader = true
@@ -190,28 +194,33 @@ function SkillListClass:Draw(viewPort)
 					main:AddTooltipLine(16, "^7Inactive Gems:")
 				end
 				local reason = ""
+				local displayGem = gem.displayGem or gem
 				if not gem.data then
 					reason = "(Unsupported)"
 				elseif not gem.enabled then
 					reason = "(Disabled)"
-				elseif gem.data.support and gem.isSupporting and not next(gem.isSupporting) then
-					reason = "(Cannot apply to any of the active skills)"
+				elseif not ttGroup.enabled or not ttGroup.slotEnabled then
+				elseif gem.data.support then
+					if displayGem.superseded then
+						reason = "(Superseded)"
+					elseif not next(displayGem.isSupporting) and #ttGroup.displaySkillList > 0 then
+						reason = "(Cannot apply to any of the active skills)"
+					end
 				end
-				main:AddTooltipLine(20, string.format("%s%s ^7%d/%d %s", 
+				main:AddTooltipLine(20, string.format("%s%s ^7%d%s/%d%s %s", 
 					gem.color, 
 					gem.name or gem.nameSpec, 
-					gem.level, 
-					gem.quality,
+					displayGem.level, 
+					displayGem.level > gem.level and data.colorCodes.MAGIC.."+"..(displayGem.level - gem.level).."^7" or "",
+					displayGem.quality,
+					displayGem.quality > gem.quality and data.colorCodes.MAGIC.."+"..(displayGem.quality - gem.quality).."^7" or "",
 					reason
 				))
-				count = count + 1
 			end
 		end
-		if count > 0 then
-			SetDrawLayer(nil, 100)
-			main:DrawTooltip(x + 2, ttY, ttWidth, 16, viewPort)
-			SetDrawLayer(nil, 0)
-		end
+		SetDrawLayer(nil, 100)
+		main:DrawTooltip(x + 2, ttY, ttWidth, 16, viewPort)
+		SetDrawLayer(nil, 0)
 	end
 end
 

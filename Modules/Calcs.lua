@@ -199,6 +199,20 @@ function calcs.buildOutput(build, mode)
 				end
 			end
 		end
+
+		env.multipliersUsed = { }
+		for modName, modList in pairs(env.player.modDB.mods) do
+			for _, mod in ipairs(modList) do
+				for _, tag in ipairs(mod.tagList) do
+					if tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
+						if not env.multipliersUsed[tag.var] then
+							env.multipliersUsed[tag.var] = { }
+						end
+						t_insert(env.multipliersUsed[tag.var], mod)
+					end
+				end
+			end
+		end
 	elseif mode == "CALCS" then
 		local buffList = { }
 		local combatList = { }

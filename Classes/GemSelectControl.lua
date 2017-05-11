@@ -197,19 +197,30 @@ function GemSelectClass:Draw(viewPort)
 			local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
 			if calcFunc then
 				local gemList = self.skillsTab.displayGroup.gemList
-				local oldGem = gemList[self.index]
-				gemList[self.index] = copyTable(oldGem or { level = 20, quality = 0, enabled = true }, true)
-				gemList[self.index].name = self.list[self.hoverSel]
-				gemList[self.index].data = data.gems[self.list[self.hoverSel]]
-				if gemList[self.index].data.low_max_level and not gemList[self.index].data.levels[gemList[self.index].level] then
-					if gemList[self.index].data.levels[3][1] then
-						gemList[self.index].level = 3
+				local oldGem
+				if gemList[self.index] then
+					oldGem = copyTable(gemList[self.index], true)
+				else
+					gemList[self.index] = { level = 20, quality = 0, enabled = true }
+				end
+				local gem = gemList[self.index]
+				gem.name = self.list[self.hoverSel]
+				gem.data = data.gems[self.list[self.hoverSel]]
+				if gem.data.low_max_level and not gem.data.levels[gem.level] then
+					if gem.data.levels[3][1] then
+						gem.level = 3
 					else
-						gemList[self.index].level = 1
+						gem.level = 1
 					end
 				end
 				local output = calcFunc()
-				gemList[self.index] = oldGem
+				if oldGem then
+					gem.name = oldGem.name
+					gem.data = oldGem.data
+					gem.level = oldGem.level
+				else
+					gemList[self.index] = nil
+				end
 				self.skillsTab.build:AddStatComparesToTooltip(calcBase, output, "^7Selecting this gem will give you:")
 				main:DrawTooltip(x, y + height + 2 + (self.hoverSel - 1) * (height - 4) - scrollBar.offset, width, height - 4, viewPort)
 			end
@@ -226,8 +237,8 @@ function GemSelectClass:Draw(viewPort)
 			local thisGem = self.skillsTab.displayGroup.gemList[self.index]
 			local hoverGem = self.skillsTab.displayGroup.gemList[hoverControl.index]
 			if thisGem and hoverGem and thisGem.enabled and hoverGem.enabled and thisGem.data and hoverGem.data and
-			  ((hoverGem.data.support and not thisGem.data.support and hoverGem.isSupporting and hoverGem.isSupporting[thisGem.name]) or
-			   (thisGem.data.support and not hoverGem.data.support and thisGem.isSupporting and thisGem.isSupporting[hoverGem.name])) then
+			  ((hoverGem.data.support and not thisGem.data.support and hoverGem.displayGem and hoverGem.displayGem.isSupporting[thisGem.name]) or
+			   (thisGem.data.support and not hoverGem.data.support and thisGem.displayGem and thisGem.displayGem.isSupporting[hoverGem.name])) then
 			   SetDrawColor(0.33, 1, 0.33, 0.25)
 			   DrawImage(nil, x, y, width, height)
 			end

@@ -6,7 +6,7 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
   * Calculate your skill DPS, damage over time, life/mana/ES totals and much more!
   * Can factor in auras, buffs, charges, curses, monster resistances and more, to estimate your effective DPS
   * Also calculates life/mana reservations
-  * Shows a summary of character stats in the side bar, as well as a detailed calcs breakdown tab which can show you how the stats were derived
+  * Shows a summary of character stats in the side bar, as well as a detailed calculations breakdown tab which can show you how the stats were derived
   * Supports most skills, support gems, passives and item modifiers
     * Throughout the program, supported modifiers will show in blue and unsupported ones in red
   * Full support for minions
@@ -27,6 +27,9 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
   * Contains a searchable database of all uniques that are currently in game (and some that aren't yet!)
     * You can choose the modifier rolls when you add a unique to your build
     * Includes all league-specific items and legacy variants
+  * Features a basic item crafting system:
+    * You can select from any of the game's base item types
+	* For Flasks and Jewels you can select modifiers from lists; for other item types modifiers must be added manually at present
   * Also contains a database of rare item templates:
     * Allows you to create rare items for your build to approximate the gear you will be using
     * Choose which modifiers appear on each item, and the rolls for each modifier, to suit your needs
@@ -41,12 +44,29 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
 ## Download
 Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) page to download the installer.
 
+## Donate
+If you'd like to help support the development of Path of Building, I have a [Patreon page](https://www.patreon.com/openarl).
+
 ## Screenshots
 ![ss1](https://cloud.githubusercontent.com/assets/19189971/18089779/f0fe23fa-6f04-11e6-8ed7-ff7d5b9f867a.png)
 ![ss2](https://cloud.githubusercontent.com/assets/19189971/18089778/f0f923f0-6f04-11e6-89c2-b2c1410d3583.png)
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.10 - 2017/05/12
+ * Added support for weapon swap:
+    * You can switch between the two weapon sets using the new buttons above the Weapon 1 slot on the Items tab
+	* Skills in the inactive weapon set are automatically disabled
+	* Switching weapon sets will automatically update the main skill selection if the current main skill is socketed in the
+	  set being deactivated and there is a skill socketed in the set being activated
+	* Importing character items will now import both weapon sets
+ * Added support for "X% chance to deal Double Damage" modifiers
+ * The comparison tooltip for passive trees now displays the number of refund points needed to switch to that tree
+ * Added an option to the Configuration tab for "# of Freeze/Shock/Ignite on Enemy" (for The Taming)
+ * Fixed several anomalies in the handling of duplicate support gems
+Also, for those interested in supporting the development of the program I now have a Patreon page.
+You can find the link in the About window.
+
 ### 1.4.9 - 2017/05/08
  * AoE Radius and Weapon Range are now calculated and displayed in the "Skill type-specific Stats" section of the Calcs tab
     * The breakdowns for those calculations feature a visual display of the area size

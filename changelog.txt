@@ -1,3 +1,16 @@
+VERSION[1.4.10][2017/05/12]
+ * Added support for weapon swap:
+    * You can switch between the two weapon sets using the new buttons above the Weapon 1 slot on the Items tab
+	* Skills in the inactive weapon set are automatically disabled
+	* Switching weapon sets will automatically update the main skill selection if the current main skill is socketed in the
+	  set being deactivated and there is a skill socketed in the set being activated
+	* Importing character items will now import both weapon sets
+ * Added support for "X% chance to deal Double Damage" modifiers
+ * The comparison tooltip for passive trees now displays the number of refund points needed to switch to that tree
+ * Added an option to the Configuration tab for "# of Freeze/Shock/Ignite on Enemy" (for The Taming)
+ * Fixed several anomalies in the handling of duplicate support gems
+Also, for those interested in supporting the development of the program I now have a Patreon page.
+You can find the link in the About window.
 VERSION[1.4.9][2017/05/08]
  * AoE Radius and Weapon Range are now calculated and displayed in the "Skill type-specific Stats" section of the Calcs tab
     * The breakdowns for those calculations feature a visual display of the area size

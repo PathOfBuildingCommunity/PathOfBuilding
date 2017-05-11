@@ -34,6 +34,10 @@ local ImportTabClass = common.NewClass("ImportTab", "ControlHost", "Control", fu
 	self.controls.accountNameGo.enabled = function()
 		return self.controls.accountName.buf:match("%S")
 	end
+	self.controls.accountNameUnicode = common.New("LabelControl", {"TOPLEFT",self.controls.accountName,"BOTTOMLEFT"}, 0, 16, 0, 14, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
+	self.controls.accountNameURLEncoder = common.New("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, 0, 4, 170, 18, "^x4040FFhttps://www.urlencoder.org/", function()
+		OpenURL("https://www.urlencoder.org/")
+	end)
 
 	-- Stage: input POESESSID
 	self.controls.sessionHeader = common.New("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 14)
@@ -455,7 +459,7 @@ end
 
 local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC" }
 local colorMap = { S = "R", D = "G", I = "B", G = "W" }
-local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Belt"] = "Belt" }
+local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Belt"] = "Belt" }
 
 function ImportTabClass:ImportItem(itemData, sockets)
 	local slotName

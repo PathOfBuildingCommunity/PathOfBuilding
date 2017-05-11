@@ -356,6 +356,9 @@ local varList = {
 	{ var = "conditionEnemyShocked", type = "check", label = "Is the enemy Shocked?", tooltip = "In addition to allowing any 'against Shocked Enemies' modifiers to apply,\nthis will apply Shock's Damage Taken modifier to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Shocked", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "multiplierFreezeShockIgniteOnEnemy", type = "number", label = "# of Freeze/Shock/Ignite on Enemy:", ifMult = "FreezeShockIgniteOnEnemy", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:FreezeShockIgniteOnEnemy", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "conditionEnemyIntimidated", type = "check", label = "Is the enemy Intimidated?", tooltip = "This adds the following modifiers:\n10% increased Damage Taken by enemy", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("DamageTaken", "INC", 10, "Intimidate")
 	end },
@@ -490,6 +493,21 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 							list = self.build.calcsTab.mainEnv.enemyConditionsUsed[varData.ifEnemyCond]
 						end
 						for _, mod in ipairs(list) do
+							out = (#out > 0 and out.."\n" or out) .. modLib.formatMod(mod) .. "|" .. mod.source
+						end
+						return out
+					else
+						return varData.tooltip
+					end
+				end
+			elseif varData.ifMult then
+				control.shown = function()
+					return self.build.calcsTab.mainEnv.multipliersUsed[varData.ifMult]
+				end
+				control.tooltip = function()
+					if launch.devMode and IsKeyDown("ALT") then
+						local out = varData.tooltip or ""
+						for _, mod in ipairs(self.build.calcsTab.mainEnv.multipliersUsed[varData.ifMult]) do
 							out = (#out > 0 and out.."\n" or out) .. modLib.formatMod(mod) .. "|" .. mod.source
 						end
 						return out

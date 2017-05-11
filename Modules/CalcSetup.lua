@@ -235,12 +235,17 @@ function calcs.initEnv(build, mode, override)
 	env.modDB.conditions["UsingAllCorruptedItems"] = true
 	for slotName, slot in pairs(build.itemsTab.slots) do
 		local item
-		if slotName == override.repSlotName then
+		if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.useSecondWeaponSet and 2 or 1) then
+			item = nil
+		elseif slotName == override.repSlotName then
 			item = override.repItem
 		elseif slot.nodeId and override.spec then
 			item = build.itemsTab.list[env.spec.jewels[slot.nodeId]]
 		else
 			item = build.itemsTab.list[slot.selItemId]
+		end
+		if slot.weaponSet == 2 and build.itemsTab.useSecondWeaponSet then
+			slotName = slotName:gsub(" Swap","")
 		end
 		if slot.nodeId then
 			-- Slot is a jewel socket, check if socket is allocated
@@ -415,7 +420,7 @@ function calcs.initEnv(build, mode, override)
 		env.player.weaponData2 = env.player.itemList["Weapon 2"] and env.player.itemList["Weapon 2"].weaponData and env.player.itemList["Weapon 2"].weaponData[2] or { }
 	end
 
-	-- Build and merge modifiers for allocated passives
+	-- Merge modifiers for allocated passives
 	env.modDB:AddList(calcs.buildNodeModList(env, nodes, true))
 
 	-- Determine main skill group
@@ -429,16 +434,20 @@ function calcs.initEnv(build, mode, override)
 
 	-- Build list of active skills
 	env.activeSkillList = { }
-	local groupCfg = wipeTable(tempTable1)
 	for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
 		local socketGroupSkillList = { }
-		if socketGroup.enabled or index == env.mainSocketGroup then
+		local slot = socketGroup.slot and build.itemsTab.slots[socketGroup.slot]
+		socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.useSecondWeaponSet and 2 or 1)
+		if index == env.mainSocketGroup or (socketGroup.enabled and socketGroup.slotEnabled) then
+			local groupCfg = wipeTable(tempTable1)
+			groupCfg.slotName = socketGroup.slot
+			local propertyModList = env.modDB:Sum("LIST", groupCfg, "GemProperty")
+
 			-- Build list of supports for this socket group
 			local supportList = { }
 			if not socketGroup.source then
-				groupCfg.slotName = socketGroup.slot
+				-- Add extra supports from the item this group is socketed in
 				for _, value in ipairs(env.modDB:Sum("LIST", groupCfg, "ExtraSupport")) do
-					-- Add extra supports from the item this group is socketed in
 					local gemData = data.gems[value.name] or data.skills[value.name]
 					if gemData then
 						t_insert(supportList, { 
@@ -447,31 +456,43 @@ function calcs.initEnv(build, mode, override)
 							level = value.level,
 							quality = 0, 
 							enabled = true, 
-							fromItem = true
 						})
 					end
 				end
 			end
 			for _, gem in ipairs(socketGroup.gemList) do
+				-- Add support gems from this group
 				if gem.enabled and gem.data and gem.data.support then
-					-- Add support gems from this group
+					local supportGem = copyTable(gem, true)
+					supportGem.srcGem = gem
+					supportGem.superseded = false
+					supportGem.isSupporting = { }
+					if env.mode == "MAIN" then
+						gem.displayGem = supportGem
+					end
+					for _, value in ipairs(propertyModList) do
+						if calcLib.gemIsType(supportGem, value.keyword) then
+							supportGem[value.key] = (supportGem[value.key] or 0) + value.value
+						end
+					end
 					local add = true
-					for _, otherGem in pairs(supportList) do
+					for index, otherGem in ipairs(supportList) do
 						-- Check if there's another support with the same name already present
-						if gem.data == otherGem.data then
+						if supportGem.data == otherGem.data then
 							add = false
-							if gem.level > otherGem.level then
-								otherGem.level = gem.level
-								otherGem.quality = gem.quality
-							elseif gem.level == otherGem.level then
-								otherGem.quality = m_max(gem.quality, otherGem.quality)
+							if supportGem.level > otherGem.level or (supportGem.level == otherGem.level and supportGem.quality > otherGem.quality) then
+								if env.mode == "MAIN" then
+									otherGem.superseded = true
+								end
+								supportList[index] = supportGem
+							else
+								supportGem.superseded = true
 							end
 							break
 						end
 					end
 					if add then
-						gem.isSupporting = { }
-						t_insert(supportList, gem)
+						t_insert(supportList, supportGem)
 					end
 				end
 			end
@@ -479,7 +500,16 @@ function calcs.initEnv(build, mode, override)
 			-- Create active skills
 			for _, gem in ipairs(socketGroup.gemList) do
 				if gem.enabled and gem.data and not gem.data.support and not gem.data.unsupported then
-					local activeSkill = calcs.createActiveSkill(gem, supportList)
+					local activeGem = copyTable(gem, true)
+					activeGem.srcGem = gem
+					if not gem.fromItem then
+						for _, value in ipairs(propertyModList) do
+							if calcLib.gemIsType(activeGem, value.keyword) then
+								activeGem[value.key] = (activeGem[value.key] or 0) + value.value
+							end
+						end
+					end
+					local activeSkill = calcs.createActiveSkill(activeGem, supportList)
 					activeSkill.slotName = socketGroup.slot
 					t_insert(socketGroupSkillList, activeSkill)
 					t_insert(env.activeSkillList, activeSkill)
