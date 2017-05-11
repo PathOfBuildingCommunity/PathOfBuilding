@@ -46,6 +46,21 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 						local output = calcFunc({ spec = spec })
 						self.build:AddStatComparesToTooltip(calcBase, output, "^7Switching to this tree will give you:")
 					end
+					if spec.curClassId == self.build.spec.curClassId then
+						local respec = 0
+						for nodeId, node in pairs(self.build.spec.allocNodes) do
+							if node.type ~= "classStart" and node.type ~= "ascendClassStart" and not spec.allocNodes[nodeId] then
+								if node.ascendancyName then
+									respec = respec + 5
+								else
+									respec = respec + 1
+								end
+							end
+						end
+						if respec > 0 then
+							main:AddTooltipLine(16, "^7Switching to this tree requires "..respec.." refund points.")
+						end
+					end
 				end
 			end
 		end

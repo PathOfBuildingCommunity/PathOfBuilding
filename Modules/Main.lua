@@ -118,34 +118,7 @@ function main:Init()
 		return self.screenH - 4
 	end
 	self.controls.applyUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 110, 20, "^x50E050Update Ready", function()
-		local changeList = { }
-		for line in io.lines("changelog.txt") do
-			local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
-			if ver then
-				if ver == launch.versionNumber then
-					break
-				end
-				if #changeList > 0 then
-					t_insert(changeList, { height = 12 })
-				end
-				t_insert(changeList, { height = 20, "^7Version "..ver.." ("..date..")" })
-			else
-				t_insert(changeList, { height = 14, "^7"..line })
-			end
-		end
-		self:OpenPopup(800, 250, "Update Available", {
-			common.New("TextListControl", nil, 0, 20, 780, 190, nil, changeList),
-			common.New("ButtonControl", nil, -45, 220, 80, 20, "Update", function()
-				main:ClosePopup()
-				local ret = self:CallMode("CanExit", "UPDATE")
-				if ret == nil or ret == true then
-					launch:ApplyUpdate(launch.updateAvailable)
-				end
-			end),
-			common.New("ButtonControl", nil, 45, 220, 80, 20, "Cancel", function()
-				main:ClosePopup()
-			end),
-		})
+		self:OpenUpdatePopup()
 	end)
 	self.controls.applyUpdate.shown = function()
 		return launch.updateAvailable and launch.updateAvailable ~= "none"
@@ -167,36 +140,7 @@ function main:Init()
 		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or "")
 	end
 	self.controls.about = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 250, 0, 50, 20, "About", function()
-		local changeList = { }
-		for line in io.lines("changelog.txt") do
-			local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
-			if ver then
-				if #changeList > 0 then
-					t_insert(changeList, { height = 10 })
-				end
-				t_insert(changeList, { height = 18, "^7Version "..ver.." ("..date..")" })
-			else
-				t_insert(changeList, { height = 12, "^7"..line })
-			end
-		end
-		self:OpenPopup(650, 400, "About", {
-			common.New("ButtonControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -10, 10, 50, 20, "Close", function()
-				main:ClosePopup()
-			end),
-			common.New("LabelControl", nil, 0, 18, 0, 18, "Path of Building v"..launch.versionNumber.." by Openarl"),
-			common.New("ButtonControl", nil, 0, 42, 420, 18, "Forum Thread: ^x4040FFhttps://www.pathofexile.com/forum/view-thread/1716360", function(control)
-				if OpenURL then
-					OpenURL("https://www.pathofexile.com/forum/view-thread/1716360")
-				end
-			end),
-			common.New("ButtonControl", nil, 0, 64, 340, 18, "GitHub page: ^x4040FFhttps://github.com/Openarl/PathOfBuilding", function(control)
-				if OpenURL then
-					OpenURL("https://github.com/Openarl/PathOfBuilding")
-				end
-			end),
-			common.New("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 82, 0, 18, "^7Version history:"),
-			common.New("TextListControl", nil, 0, 100, 630, 290, nil, changeList),
-		})
+		self:OpenAboutPopup()
 	end)
 	self.controls.devMode = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 0, 18, "^1Dev Mode")
 	self.controls.devMode.shown = function()
@@ -364,6 +308,76 @@ function main:SaveSettings()
 		launch:ShowErrMsg("Error saving 'Settings.xml': %s", errMsg)
 		return true
 	end
+end
+
+function main:OpenUpdatePopup()
+	local changeList = { }
+	for line in io.lines("changelog.txt") do
+		local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
+		if ver then
+			if ver == launch.versionNumber then
+				break
+			end
+			if #changeList > 0 then
+				t_insert(changeList, { height = 12 })
+			end
+			t_insert(changeList, { height = 20, "^7Version "..ver.." ("..date..")" })
+		else
+			t_insert(changeList, { height = 14, "^7"..line })
+		end
+	end
+	local controls = { }
+	controls.changeLog = common.New("TextListControl", nil, 0, 20, 780, 190, nil, changeList)
+	controls.update = common.New("ButtonControl", nil, -45, 220, 80, 20, "Update", function()
+		self:ClosePopup()
+		local ret = self:CallMode("CanExit", "UPDATE")
+		if ret == nil or ret == true then
+			launch:ApplyUpdate(launch.updateAvailable)
+		end
+	end)
+	controls.cancel = common.New("ButtonControl", nil, 45, 220, 80, 20, "Cancel", function()
+		self:ClosePopup()
+	end)
+	controls.patreon = common.New("ButtonControl", {"BOTTOMLEFT",nil,"BOTTOMLEFT"}, 10, -10, 82, 22, "", function()
+		OpenURL("https://www.patreon.com/openarl")
+	end)
+	controls.patreon:SetImage("Assets/patreon_logo.png")
+	controls.patreon.tooltip = "Help support the development of Path of Building by pledging a monthly donation!"
+	self:OpenPopup(800, 250, "Update Available", controls)
+end
+
+function main:OpenAboutPopup()
+	local changeList = { }
+	for line in io.lines("changelog.txt") do
+		local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
+		if ver then
+			if #changeList > 0 then
+				t_insert(changeList, { height = 10 })
+			end
+			t_insert(changeList, { height = 18, "^7Version "..ver.." ("..date..")" })
+		else
+			t_insert(changeList, { height = 12, "^7"..line })
+		end
+	end
+	local controls = { }
+	controls.close = common.New("ButtonControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -10, 10, 50, 20, "Close", function()
+		self:ClosePopup()
+	end)
+	controls.version = common.New("LabelControl", nil, 0, 18, 0, 18, "Path of Building v"..launch.versionNumber.." by Openarl")
+	controls.forum = common.New("ButtonControl", nil, 0, 42, 420, 18, "Forum Thread: ^x4040FFhttps://www.pathofexile.com/forum/view-thread/1716360", function(control)
+		OpenURL("https://www.pathofexile.com/forum/view-thread/1716360")
+	end)
+	controls.github = common.New("ButtonControl", nil, 0, 64, 340, 18, "GitHub page: ^x4040FFhttps://github.com/Openarl/PathOfBuilding", function(control)
+		OpenURL("https://github.com/Openarl/PathOfBuilding")
+	end)
+	controls.patreon = common.New("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 10, 82, 22, "", function()
+		OpenURL("https://www.patreon.com/openarl")
+	end)
+	controls.patreon:SetImage("Assets/patreon_logo.png")
+	controls.patreon.tooltip = "Help support the development of Path of Building by pledging a monthly donation!"
+	controls.verLabel = common.New("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 82, 0, 18, "^7Version history:")
+	controls.changelog = common.New("TextListControl", nil, 0, 100, 630, 290, nil, changeList)
+	self:OpenPopup(650, 400, "About", controls)
 end
 
 function main:DrawBackground(viewPort)

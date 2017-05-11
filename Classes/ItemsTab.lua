@@ -65,14 +65,29 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.slots = { }
 	self.orderedSlots = { }
 	self.slotOrder = { }
+	self.slotAnchor = common.New("Control", {"TOPLEFT",self,"TOPLEFT"}, 96, 24, 310, 0)
 	for index, slotName in ipairs(baseSlots) do
-		t_insert(self.controls, common.New("ItemSlot", {"TOPLEFT",self,"TOPLEFT"}, 96, (index - 1) * 20 + 24, self, slotName))
-		self.slotOrder[slotName] = index
+		local slot = common.New("ItemSlot", {"TOPLEFT",self.slotAnchor,"TOPLEFT"}, 0, (index - 1) * 20, self, slotName)
+		t_insert(self.controls, slot)
+		self.slotOrder[slotName] = #self.orderedSlots
+		if slotName:match("Weapon") then
+			slot.weaponSet = 1
+			slot.shown = function()
+				return not self.useSecondWeaponSet
+			end
+			local swapSlot = common.New("ItemSlot", {"TOPLEFT",self.slotAnchor,"TOPLEFT"}, 0, (index - 1) * 20, self, slotName.." Swap", slotName)
+			t_insert(self.controls, swapSlot)
+			self.slotOrder[swapSlot.slotName] = #self.orderedSlots
+			swapSlot.weaponSet = 2
+			swapSlot.shown = function()
+				return not slot:IsShown()
+			end
+		end
 	end
 	self.sockets = { }
 	for _, node in pairs(main.tree.nodes) do
 		if node.type == "socket" then
-			local socketControl = common.New("ItemSlot", {"TOPLEFT",self,"TOPLEFT"}, 96, 0, self, "Jewel "..node.id, "Socket", node.id)
+			local socketControl = common.New("ItemSlot", {"TOPLEFT",self.slotAnchor,"TOPLEFT"}, 0, 0, self, "Jewel "..node.id, "Socket", node.id)
 			self.controls["socket"..node.id] = socketControl
 			self.sockets[node.id] = socketControl
 			self.slotOrder["Jewel "..node.id] = #baseSlots + 1 + node.id
@@ -81,11 +96,52 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	table.sort(self.orderedSlots, function(a, b)
 		return self.slotOrder[a.slotName] < self.slotOrder[b.slotName]
 	end)
-	self.controls.slotHeader = common.New("LabelControl", {"BOTTOMLEFT",self.orderedSlots[1],"TOPLEFT"}, 0, -4, 0, 16, "^7Equipped items:")
+	self.controls.slotHeader = common.New("LabelControl", {"BOTTOMLEFT",self.slotAnchor,"TOPLEFT"}, 0, -4, 0, 16, "^7Equipped items:")
+	self.controls.weaponSwap1 = common.New("ButtonControl", {"BOTTOMRIGHT",self.slotAnchor,"TOPRIGHT"}, -20, -2, 18, 18, "I", function()
+		if self.useSecondWeaponSet then
+			self.useSecondWeaponSet = false
+			self:AddUndoState()
+			self.build.buildFlag = true
+			local mainSocketGroup = self.build.skillsTab.socketGroupList[self.build.mainSocketGroup]
+			if mainSocketGroup and mainSocketGroup.slot and self.slots[mainSocketGroup.slot].weaponSet == 2 then
+				for index, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+					if socketGroup.slot and self.slots[socketGroup.slot].weaponSet == 1 then
+						self.build.mainSocketGroup = index
+						break
+					end
+				end
+			end
+		end
+	end)
+	self.controls.weaponSwap1.overSizeText = 3
+	self.controls.weaponSwap1.locked = function()
+		return not self.useSecondWeaponSet
+	end
+	self.controls.weaponSwap2 = common.New("ButtonControl", {"BOTTOMRIGHT",self.slotAnchor,"TOPRIGHT"}, 0, -2, 18, 18, "II", function()
+		if not self.useSecondWeaponSet then
+			self.useSecondWeaponSet = true
+			self:AddUndoState()
+			self.build.buildFlag = true
+			local mainSocketGroup = self.build.skillsTab.socketGroupList[self.build.mainSocketGroup]
+			if mainSocketGroup and mainSocketGroup.slot and self.slots[mainSocketGroup.slot].weaponSet == 1 then
+				for index, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+					if socketGroup.slot and self.slots[socketGroup.slot].weaponSet == 2 then
+						self.build.mainSocketGroup = index
+						break
+					end
+				end
+			end
+		end
+	end)
+	self.controls.weaponSwap2.overSizeText = 3
+	self.controls.weaponSwap2.locked = function()
+		return self.useSecondWeaponSet
+	end
+	self.controls.weaponSwapLabel = common.New("LabelControl", {"RIGHT",self.controls.weaponSwap1,"LEFT"}, -4, 0, 0, 14, "^7Weapon Set:")
 	self:PopulateSlots()
 
 	-- Build item list
-	self.controls.itemList = common.New("ItemList", {"TOPLEFT",self.orderedSlots[1],"TOPRIGHT"}, 20, 0, 360, 308, self)
+	self.controls.itemList = common.New("ItemList", {"TOPLEFT",self.slotAnchor,"TOPRIGHT"}, 20, 0, 360, 308, self)
 
 	-- Database selector
 	self.controls.selectDBLabel = common.New("LabelControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 14, 0, 16, "^7Import from:")
@@ -201,6 +257,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 end)
 
 function ItemsTabClass:Load(xml, dbFileName)
+	self.useSecondWeaponSet = xml.attrib.useSecondWeaponSet == "true"
 	for _, node in ipairs(xml) do
 		if node.elem == "Item" then
 			local item = { }
@@ -239,6 +296,9 @@ function ItemsTabClass:Load(xml, dbFileName)
 end
 
 function ItemsTabClass:Save(xml)
+	xml.attrib = {
+		useSecondWeaponSet = tostring(self.useSecondWeaponSet)
+	}
 	for _, id in ipairs(self.orderList) do
 		local item = self.list[id]
 		local child = { elem = "Item", attrib = { id = tostring(id), variant = item.variant and tostring(item.variant) } }
@@ -337,7 +397,7 @@ function ItemsTabClass:UpdateSockets()
 	-- Update the position of the active socket controls
 	for index, nodeId in pairs(activeSocketList) do
 		self.sockets[nodeId].label = "Socket #"..index
-		self.sockets[nodeId].y = (#baseSlots + index - 1) * 20 + 24
+		self.sockets[nodeId].y = (#baseSlots + index - 1) * 20
 	end
 end
 
@@ -736,10 +796,10 @@ end
 function ItemsTabClass:IsItemValidForSlot(item, slotName)
 	if item.type == slotName:gsub(" %d+","") then
 		return true
-	elseif slotName == "Weapon 1" or slotName == "Weapon" then
+	elseif slotName == "Weapon 1" or slotName == "Weapon 1 Swap" or slotName == "Weapon" then
 		return item.base.weapon ~= nil
-	elseif slotName == "Weapon 2" then
-		local weapon1Sel = self.slots["Weapon 1"].selItemId or 0
+	elseif slotName == "Weapon 2" or slotName == "Weapon 2 Swap" then
+		local weapon1Sel = self.slots[slotName == "Weapon 2" and "Weapon 1" or "Weapon 1 Swap"].selItemId or 0
 		local weapon1Type = weapon1Sel > 0 and self.list[weapon1Sel].base.type or "None"
 		if weapon1Type == "None" then
 			return item.type == "Quiver" or item.type == "Shield" or (data.weaponTypeInfo[item.type] and data.weaponTypeInfo[item.type].oneHand)
@@ -1000,8 +1060,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 			-- Build sorted list of slots to compare with
 			local compareSlots = { }
 			for slotName, slot in pairs(self.slots) do
-				local selItem = self.list[slot.selItemId]
-				if self:IsItemValidForSlot(item, slotName) and not slot.inactive then
+				if self:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.useSecondWeaponSet and 2 or 1)) then
 					t_insert(compareSlots, slot)
 				end
 			end
@@ -1048,6 +1107,7 @@ end
 
 function ItemsTabClass:CreateUndoState()
 	local state = { }
+	state.useSecondWeaponSet = self.useSecondWeaponSet
 	state.list = copyTable(self.list)
 	state.orderList = copyTable(self.orderList)
 	state.slotSelItemId = { }
@@ -1058,6 +1118,7 @@ function ItemsTabClass:CreateUndoState()
 end
 
 function ItemsTabClass:RestoreUndoState(state)
+	self.useSecondWeaponSet = state.useSecondWeaponSet
 	self.list = state.list
 	self.orderList = state.orderList
 	for slotName, selItemId in pairs(state.slotSelItemId) do

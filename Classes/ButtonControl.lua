@@ -23,6 +23,15 @@ function ButtonClass:Click()
 	end
 end
 
+function ButtonClass:SetImage(path)
+	if path then
+		self.image = NewImageHandle()
+		self.image:Load(path)
+	else
+		self.image = nil
+	end
+end
+
 function ButtonClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -54,6 +63,18 @@ function ButtonClass:Draw(viewPort)
 		SetDrawColor(0, 0, 0)
 	end
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
+	if self.image then
+		if enabled then
+			SetDrawColor(1, 1, 1)
+		else
+			SetDrawColor(0.33, 0.33, 0.33)
+		end
+		DrawImage(self.image, x + 2, y + 2, width - 4, height - 4)
+		if self.clicked and mOver then
+			SetDrawColor(1, 1, 1, 0.5)
+			DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
+		end
+	end
 	if enabled then
 		SetDrawColor(1, 1, 1)
 	else

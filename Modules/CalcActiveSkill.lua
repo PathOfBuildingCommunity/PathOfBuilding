@@ -70,19 +70,11 @@ end
 -- It will determine the base flag set, and check which of the support gems can support this skill
 function calcs.createActiveSkill(activeGem, supportList, summonSkill)
 	local activeSkill = { }
-	activeSkill.summonSkill = summonSkill
-	activeSkill.supportList = supportList
-
-	activeSkill.activeGem = {
-		name = activeGem.name,
-		data = activeGem.data,
-		level = activeGem.level,
-		quality = activeGem.quality,
-		fromItem = activeGem.fromItem,
-		srcGem = activeGem,
-	}
+	activeSkill.activeGem = activeGem
 	activeSkill.gemList = { activeSkill.activeGem }
-
+	activeSkill.supportList = supportList
+	activeSkill.summonSkill = summonSkill
+	
 	activeSkill.skillTypes = copyTable(activeGem.data.skillTypes)
 	if activeGem.data.minionSkillTypes then
 		activeSkill.minionSkillTypes = copyTable(activeGem.data.minionSkillTypes)
@@ -112,14 +104,7 @@ function calcs.createActiveSkill(activeGem, supportList, summonSkill)
 	-- Process support gems
 	for _, gem in ipairs(supportList) do
 		if calcLib.gemCanSupport(gem, activeSkill) then
-			t_insert(activeSkill.gemList, {
-				name = gem.name,
-				data = gem.data,
-				level = gem.level,
-				quality = gem.quality,
-				fromItem = gem.fromItem,
-				srcGem = gem,
-			})
+			t_insert(activeSkill.gemList, gem)
 			if gem.isSupporting then
 				gem.isSupporting[activeGem.name] = true
 			end
@@ -337,15 +322,6 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 		activeSkill.weapon2Cfg = copyTable(activeSkill.skillCfg, true)
 		activeSkill.weapon2Cfg.skillCond = setmetatable({ ["OffHandAttack"] = true }, { __index = activeSkill.skillCfg.skillCond })
 		activeSkill.weapon2Cfg.flags = bor(skillModFlags, activeSkill.weapon2Flags)
-	end
-
-	-- Apply gem property modifiers from the item this skill is socketed into
-	for _, value in ipairs(env.modDB:Sum("LIST", activeSkill.skillCfg, "GemProperty")) do
-		for _, gem in pairs(activeSkill.gemList) do
-			if not gem.fromItem and calcLib.gemIsType(gem, value.keyword) then
-				gem[value.key] = (gem[value.key] or 0) + value.value
-			end
-		end
 	end
 
 	-- Initialise skill modifier list

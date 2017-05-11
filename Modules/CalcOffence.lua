@@ -741,15 +741,23 @@ function calcs.offence(env, actor)
 					end
 					min, max = calcHitDamage(actor, source, cfg, breakdown and breakdown[damageType], damageType)
 					local convMult = actor.conversionTable[damageType].mult
+					local doubleChance = m_min(modDB:Sum("BASE", cfg, "DoubleDamageChance"), 100)
 					if breakdown then
 						t_insert(breakdown[damageType], "Hit damage:")
 						t_insert(breakdown[damageType], s_format("%d to %d ^8(total damage)", min, max))
 						if convMult ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %g ^8(%g%% converted to other damage types)", convMult, (1-convMult)*100))
 						end
+						if doubleChance > 0 then
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(chance to deal double damage)", 1 + doubleChance / 100))
+						end
 					end
 					min = min * convMult
 					max = max * convMult
+					if doubleChance > 0 then
+						min = min * (1 + doubleChance / 100)
+						max = max * (1 + doubleChance / 100)
+					end
 					if pass == 1 then
 						-- Apply crit multiplier
 						min = min * output.CritMultiplier
