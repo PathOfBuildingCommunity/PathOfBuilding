@@ -97,7 +97,7 @@ function ModDBClass:Sum(modType, cfg, ...)
 		source = cfg.source
 		tabulate = cfg.tabulate
 		if tabulate then
-			cfg = copyTable(cfg)
+			cfg = copyTable(cfg, true)
 			cfg.tabulate = false
 		end
 	end

@@ -405,8 +405,8 @@ function CalcsTabClass:PowerBuilder()
 	local calcFunc, calcBase = self:GetNodeCalculator()
 	local cache = { }
 	local newPowerMax = { 
-		dps = 0, 
-		def = 0
+		offence = 0, 
+		defence = 0
 	}
 	if not self.powerMax then
 		self.powerMax = newPowerMax
@@ -423,19 +423,19 @@ function CalcsTabClass:PowerBuilder()
 			end
 			local output = cache[node.modKey]
 			if calcBase.Minion then
-				node.power.dps = (output.Minion.CombinedDPS - calcBase.Minion.CombinedDPS) / calcBase.Minion.CombinedDPS
+				node.power.offence = (output.Minion.CombinedDPS - calcBase.Minion.CombinedDPS) / calcBase.Minion.CombinedDPS
 			else
-				node.power.dps = (output.CombinedDPS - calcBase.CombinedDPS) / calcBase.CombinedDPS
+				node.power.offence = (output.CombinedDPS - calcBase.CombinedDPS) / calcBase.CombinedDPS
 			end
-			node.power.def = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) + 
+			node.power.defence = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) + 
 							 (output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) + 
 							 (output.EnergyShield - calcBase.EnergyShield) / m_max(3000, calcBase.EnergyShield) + 
 							 (output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
 							 (output.LifeRegen - calcBase.LifeRegen) / 500 +
 							 (output.EnergyShieldRegen - calcBase.EnergyShieldRegen) / 1000
 			if node.path then
-				newPowerMax.dps = m_max(newPowerMax.dps, node.power.dps)
-				newPowerMax.def = m_max(newPowerMax.def, node.power.def)
+				newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
+				newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
 			end
 		end
 		if coroutine.running() and GetTime() - start > 100 then

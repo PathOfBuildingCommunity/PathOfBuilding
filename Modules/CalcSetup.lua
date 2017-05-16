@@ -231,18 +231,29 @@ function calcs.initEnv(build, mode, override)
 	-- Build and merge item modifiers, and create list of radius jewels
 	env.radiusJewelList = wipeTable(env.radiusJewelList)
 	env.player.itemList = { }
+	env.itemGrantedSkills = { }
 	env.flasks = { }
 	env.modDB.conditions["UsingAllCorruptedItems"] = true
 	for slotName, slot in pairs(build.itemsTab.slots) do
 		local item
-		if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.useSecondWeaponSet and 2 or 1) then
-			item = nil
-		elseif slotName == override.repSlotName then
+		if slotName == override.repSlotName then
 			item = override.repItem
 		elseif slot.nodeId and override.spec then
 			item = build.itemsTab.list[env.spec.jewels[slot.nodeId]]
 		else
 			item = build.itemsTab.list[slot.selItemId]
+		end
+		if item then
+			-- Find skills granted by this item
+			for _, skill in ipairs(item.grantedSkills) do
+				local grantedSkill = copyTable(skill)
+				grantedSkill.sourceItem = item
+				grantedSkill.slotName = slotName
+				t_insert(env.itemGrantedSkills, grantedSkill)
+			end
+		end
+		if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.useSecondWeaponSet and 2 or 1) then			
+			item = nil
 		end
 		if slot.weaponSet == 2 and build.itemsTab.useSecondWeaponSet then
 			slotName = slotName:gsub(" Swap","")
@@ -337,64 +348,53 @@ function calcs.initEnv(build, mode, override)
 	
 	if env.mode == "MAIN" then
 		-- Process extra skills granted by items
-		local markList = { }
-		for _, mod in ipairs(modDB.mods["ExtraSkill"] or { }) do
-			if mod.value.name ~= "Unknown" then
-				-- Extract the name of the slot containing the item this skill was granted by
-				local slotName
-				for _, tag in ipairs(mod.tagList) do
-					if tag.type == "SocketedIn" then
-						slotName = tag.slotName
+		local markList = wipeTable(tempTable1)
+		for _, grantedSkill in ipairs(env.itemGrantedSkills) do	
+			-- Check if a matching group already exists
+			local group
+			for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
+				if socketGroup.source == grantedSkill.source and socketGroup.slot == grantedSkill.slotName then
+					if socketGroup.gemList[1] and socketGroup.gemList[1].nameSpec == grantedSkill.name then
+						group = socketGroup
+						markList[socketGroup] = true
 						break
 					end
 				end
+			end
+			if not group then
+				-- Create a new group for this skill
+				group = { label = "", enabled = true, gemList = { }, source = grantedSkill.source, slot = grantedSkill.slotName }
+				t_insert(build.skillsTab.socketGroupList, group)
+				markList[group] = true
+			end
 
-				-- Check if a matching group already exists
-				local group
-				for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
-					if socketGroup.source == mod.source and socketGroup.slot == slotName then
-						if socketGroup.gemList[1] and socketGroup.gemList[1].nameSpec == mod.value.name then
-							group = socketGroup
-							markList[socketGroup] = true
-							break
-						end
-					end
-				end
-				if not group then
-					-- Create a new group for this skill
-					group = { label = "", enabled = true, gemList = { }, source = mod.source, slot = slotName }
-					t_insert(build.skillsTab.socketGroupList, group)
-					markList[group] = true
-				end
-
-				-- Update the group
-				group.sourceItem = build.itemsTab.list[tonumber(mod.source:match("Item:(%d+):"))]
-				local activeGem = group.gemList[1] or {
-					nameSpec = mod.value.name,
-					quality = 0,
-					enabled = true,
-					fromItem = true,
-				}
-				activeGem.level = mod.value.level
-				wipeTable(group.gemList)
-				t_insert(group.gemList, activeGem)
-				if mod.value.noSupports then
-					group.noSupports = true
-				else
-					for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
-						-- Look for other groups that are socketed in the item
-						if socketGroup.slot == slotName and not socketGroup.source then
-							-- Add all support gems to the skill's group
-							for _, gem in ipairs(socketGroup.gemList) do
-								if gem.data and gem.data.support then
-									t_insert(group.gemList, gem)
-								end
+			-- Update the group
+			group.sourceItem = grantedSkill.sourceItem
+			local activeGem = group.gemList[1] or {
+				nameSpec = grantedSkill.name,
+				quality = 0,
+				enabled = true,
+				fromItem = true,
+			}
+			activeGem.level = grantedSkill.level
+			wipeTable(group.gemList)
+			t_insert(group.gemList, activeGem)
+			if grantedSkill.noSupports then
+				group.noSupports = true
+			else
+				for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
+					-- Look for other groups that are socketed in the item
+					if socketGroup.slot == grantedSkill.slotName and not socketGroup.source then
+						-- Add all support gems to the skill's group
+						for _, gem in ipairs(socketGroup.gemList) do
+							if gem.data and gem.data.support then
+								t_insert(group.gemList, gem)
 							end
 						end
 					end
 				end
-				build.skillsTab:ProcessSocketGroup(group)
 			end
+			build.skillsTab:ProcessSocketGroup(group)
 		end
 		
 		-- Remove any socket groups that no longer have a matching item
@@ -434,12 +434,12 @@ function calcs.initEnv(build, mode, override)
 
 	-- Build list of active skills
 	env.activeSkillList = { }
+	local groupCfg = wipeTable(tempTable1)
 	for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
 		local socketGroupSkillList = { }
 		local slot = socketGroup.slot and build.itemsTab.slots[socketGroup.slot]
 		socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.useSecondWeaponSet and 2 or 1)
 		if index == env.mainSocketGroup or (socketGroup.enabled and socketGroup.slotEnabled) then
-			local groupCfg = wipeTable(tempTable1)
 			groupCfg.slotName = socketGroup.slot
 			local propertyModList = env.modDB:Sum("LIST", groupCfg, "GemProperty")
 
@@ -454,14 +454,17 @@ function calcs.initEnv(build, mode, override)
 							name = gemData.name,
 							data = gemData,
 							level = value.level,
-							quality = 0, 
-							enabled = true, 
+							quality = 0,
+							enabled = true,
 						})
 					end
 				end
 			end
 			for _, gem in ipairs(socketGroup.gemList) do
 				-- Add support gems from this group
+				if env.mode == "MAIN" then
+					gem.displayGem = nil
+				end
 				if gem.enabled and gem.data and gem.data.support then
 					local supportGem = copyTable(gem, true)
 					supportGem.srcGem = gem

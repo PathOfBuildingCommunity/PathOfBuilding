@@ -145,16 +145,25 @@ function isMouseInRegion(region)
 end
 
 -- Make a copy of a table and all subtables
-function copyTable(tbl, noRecurse)
-	local out = {}
-	for k, v in pairs(tbl) do
-		if not noRecurse and type(v) == "table" then
-			out[k] = copyTable(v)
-		else
-			out[k] = v
+do
+	local subTableMap = { }
+	function copyTable(tbl, noRecurse, isSubTable)
+		local out = {}
+		if not noRecurse then
+			subTableMap[tbl] = out
 		end
+		for k, v in pairs(tbl) do
+			if not noRecurse and type(v) == "table" then
+				out[k] = subTableMap[v] or copyTable(v, false, true)
+			else
+				out[k] = v
+			end
+		end
+		if not noRecurse and not isSubTable then
+			wipeTable(subTableMap)
+		end
+		return out
 	end
-	return out
 end
 
 -- Wipe all keys from the table and return it, or return a new table if no table provided

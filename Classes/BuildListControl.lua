@@ -5,181 +5,124 @@
 --
 local launch, main = ...
 
-local t_insert = table.insert
-local t_remove = table.remove
-local m_min = math.min
-local m_max = math.max
-local m_floor = math.floor
+local s_format = string.format
 
-local BuildListClass = common.NewClass("BuildList", "Control", "ControlHost", function(self, anchor, x, y, width, height, listMode)
-	self.Control(anchor, x, y, width, height)
-	self.ControlHost()
+local BuildListClass = common.NewClass("BuildList", "ListControl", function(self, anchor, x, y, width, height, listMode)
+	self.ListControl(anchor, x, y, width, height, 20, false, listMode.list)
 	self.listMode = listMode
-	self.controls.scrollBar = common.New("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -1, 0, 18, 0, 40)
-	self.controls.scrollBar.height = function()
-		local width, height = self:GetSize()
-		return height - 2
-	end
-	self.controls.scrollBar.locked = function()
-		return self.listMode.edit
-	end
-	self.controls.nameEdit = common.New("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 0, 20, nil, nil, "\\/:%*%?\"<>|%c", 100)
-	self.controls.nameEdit.shown = function()
-		return self.listMode.edit
-	end
-	self.controls.nameEdit.width = function()
-		local width, height = self:GetSize()
-		return width - 20
-	end
+	self.showRowSeparators = true
 end)
 
-function BuildListClass:ScrollSelIntoView()
-	if self.listMode.sel then
-		local width, height = self:GetSize()
-		self.controls.scrollBar:SetContentDimension(#self.listMode.list * 20, height - 4)
-		self.controls.scrollBar:ScrollIntoView((self.listMode.sel - 2) * 20, 60)
+function BuildListClass:SelByFileName(selFileName)
+	for index, build in ipairs(self.list) do
+		if build.fileName == selFileName then
+			self:SelectIndex(index)
+			break
+		end
 	end
 end
 
-function BuildListClass:SelectIndex(index)
-	if self.listMode.list[index] then
-		self.listMode.sel = index
-		self:ScrollSelIntoView()
-	end
+function BuildListClass:LoadBuild(build)
+	main:SetMode("BUILD", main.buildPath..build.fileName, build.buildName)
 end
 
-function BuildListClass:IsMouseOver()
-	if not self:IsShown() then
-		return
-	end
-	return self:IsMouseInBounds() or self:GetMouseOverControl()
-end
-
-function BuildListClass:Draw(viewPort)
-	local x, y = self:GetPos()
-	local width, height = self:GetSize()
-	local list = self.listMode.list
-	local scrollBar = self.controls.scrollBar
-	scrollBar:SetContentDimension(#list * 20, height - 4)
-	if self.hasFocus then
-		SetDrawColor(1, 1, 1)
-	else
-		SetDrawColor(0.5, 0.5, 0.5)
-	end
-	DrawImage(nil, x, y, width, height)
-	SetDrawColor(0, 0, 0)
-	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
-	SetViewport(x + 2, y + 2, width - 22, height - 4)
-	local selBuildIndex = self.listMode.sel
-	local minIndex = m_floor(scrollBar.offset / 20 + 1)
-	local maxIndex = m_min(m_floor((scrollBar.offset + height) / 20 + 1), #list)
-	for index = minIndex, maxIndex do
-		local build = list[index]
-		local lineY = 20 * (index - 1) - scrollBar.offset
-		if index == selBuildIndex then
-			self.controls.nameEdit.y = lineY + 2
-		end
-		local mOverLine
-		if not scrollBar.dragging then
-			local cursorX, cursorY = GetCursorPos()
-			local relX = cursorX - (x + 2)
-			local relY = cursorY - (y + 2)
-			if relX >= 0 and relX < width - 19 and relY >= 0 and relY >= lineY and relY < height - 2 and relY < lineY + 20 then
-				mOverLine = true
-			end
-		end
-		if index == selBuildIndex then
-			SetDrawColor(1, 1, 1)
-		else
-			SetDrawColor(0.5, 0.5, 0.5)
-		end
-		DrawImage(nil, 0, lineY, width - 22, 20)
-		if mOverLine or index == selBuildIndex then
-			SetDrawColor(0.33, 0.33, 0.33)
-		elseif index % 2 == 0 then
-			SetDrawColor(0.05, 0.05, 0.05)
-		else
-			SetDrawColor(0, 0, 0)
-		end
-		DrawImage(nil, 0, lineY + 1, width - 22, 18)
-		if self.listMode.edit ~= index then
-			DrawString(0, lineY + 2, "LEFT", 16, "VAR", "^7"..(build.buildName or "?"))
-			if mOverLine or index == selBuildIndex then
-				SetDrawColor(0.33, 0.33, 0.33)
-			elseif index % 2 == 0 then
-				SetDrawColor(0.05, 0.05, 0.05)
+function BuildListClass:RenameBuild(build, copyOnName)
+	local controls = { }
+	controls.label = common.New("LabelControl", nil, 0, 20, 0, 16, "^7Enter the new name for this build:")
+	controls.edit = common.New("EditControl", nil, 0, 40, 350, 20, build.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+		controls.save.enabled = false
+		if buf:match("%S") and buf:lower() ~= build.buildName:lower() then
+			local newName = buf..".xml"
+			local newFile = io.open(main.buildPath..newName, "r")
+			if newFile then
+				newFile:close()
 			else
-				SetDrawColor(0, 0, 0)
-			end
-			DrawImage(nil, width - 162, lineY + 2, 162, 16)
-			SetDrawColor(build.className and data.colorCodes[build.className:upper()] or "^7")
-			DrawString(width - 160, lineY + 2, "LEFT", 16, "VAR", string.format("Level %d %s", build.level or 1, (build.ascendClassName ~= "None" and build.ascendClassName) or build.className or "?"))
-		end
-	end
-	SetViewport()
-	if self.listMode.edit then
-		self.listMode:SelectControl(self.controls.nameEdit)
-	end
-	self:DrawControls(viewPort)
-end
-
-function BuildListClass:OnKeyDown(key, doubleClick)
-	if not self:IsShown() or not self:IsEnabled() then
-		return
-	end
-	local mOverControl = self:GetMouseOverControl()
-	if mOverControl and mOverControl.OnKeyDown then
-		return mOverControl:OnKeyDown(key)
-	end
-	if not self:IsMouseOver() and key:match("BUTTON") then
-		return
-	end
-	if self.listMode.edit then
-		return self
-	end
-	if key == "LEFTBUTTON" then
-		self.listMode.sel = nil
-		local x, y = self:GetPos()
-		local width, height = self:GetSize()
-		local cursorX, cursorY = GetCursorPos()
-		if cursorX >= x + 2 and cursorY >= y + 2 and cursorX < x + width - 20 and cursorY < y + height - 2 then
-			local index = math.floor((cursorY - y - 2 + self.controls.scrollBar.offset) / 20) + 1
-			local selBuild = self.listMode.list[index]
-			if selBuild then
-				self.listMode.sel = index
-				if doubleClick then
-					self.listMode:LoadSel()
-				end
+				controls.save.enabled = true
 			end
 		end
-	elseif key == "UP" then
-		self:SelectIndex(((self.listMode.sel or 1) - 2) % #self.listMode.list + 1)
-	elseif key == "DOWN" then
-		self:SelectIndex((self.listMode.sel or #self.listMode.list) % #self.listMode.list + 1)
-	elseif key == "HOME" then
-		self:SelectIndex(1)
-	elseif key == "END" then
-		self:SelectIndex(#self.listMode.list)
-	elseif self.listMode.sel then
-		if key == "BACK" or key == "DELETE" then
-			self.listMode:DeleteSel()
-		elseif key == "F2" then
-			self.listMode:RenameSel()
-		elseif key == "RETURN" then
-			self.listMode:LoadSel()
+	end)
+	controls.save = common.New("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
+		local newBuildName = controls.edit.buf
+		local newFileName = newBuildName..".xml"
+		if copyOnName then
+			local inFile, msg = io.open(main.buildPath..build.fileName, "r")
+			if not inFile then
+				main:OpenMessagePopup("Error", "Couldn't open '"..build.fileName.."': "..msg)
+				return
+			end
+			local outFile, msg = io.open(main.buildPath..newFileName, "w")
+			if not outFile then
+				main:OpenMessagePopup("Error", "Couldn't create '"..newFileName.."': "..msg)
+				return
+			end
+			outFile:write(inFile:read("*a"))
+			inFile:close()
+			outFile:close()
+		else
+			local res, msg = os.rename(main.buildPath..build.fileName, main.buildPath..newFileName)
+			if not res then
+				main:OpenMessagePopup("Error", "Couldn't rename '"..build.fileName.."' to '"..newFileName.."': "..msg)
+				return
+			end
+			build.buildName = newBuildName
+			build.fileName = newFileName
 		end
-	end
-	return self
+		self.listMode:BuildList()
+		self:SelByFileName(newFileName)
+		main:ClosePopup()
+		self.listMode:SelectControl(self)
+	end)
+	controls.save.enabled = false
+	controls.cancel = common.New("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
+		main:ClosePopup()
+		self.listMode:SelectControl(self)
+	end)
+	main:OpenPopup(370, 100, copyOnName and "Copy Build" or "Rename Build", controls, "save", "edit")	
 end
 
-function BuildListClass:OnKeyUp(key)
-	if not self:IsShown() or not self:IsEnabled() then
-		return
+function BuildListClass:DeleteBuild(build)
+	main:OpenConfirmPopup("Confirm Delete", "Are you sure you want to delete build:\n"..build.buildName.."\nThis cannot be undone.", "Delete", function()
+		os.remove(main.buildPath..build.fileName)
+		self.listMode:BuildList()
+		self.selIndex = nil
+		self.selValue = nil
+	end)
+end
+
+function BuildListClass:GetColumnOffset(column)
+	if column == 1 then
+		return 0
+	elseif column == 2 then
+		return self:GetProperty("width") - 164
 	end
-	if key == "WHEELDOWN" then
-		self.controls.scrollBar:Scroll(1)
-	elseif key == "WHEELUP" then
-		self.controls.scrollBar:Scroll(-1)
+end
+
+function BuildListClass:GetRowValue(column, index, build)
+	if column == 1 then
+		return build.buildName or "?"
+	elseif column == 2 then
+		return s_format("%sLevel %d %s", 
+			build.className and data.colorCodes[build.className:upper()] or "^7", 
+			build.level or 1, 
+			(build.ascendClassName ~= "None" and build.ascendClassName) or build.className or "?"
+		)
 	end
-	return self
+end
+
+function BuildListClass:OnSelClick(index, build, doubleClick)
+	if doubleClick then
+		self:LoadBuild(build)
+	end
+end
+
+function BuildListClass:OnSelDelete(index, build)
+	self:DeleteBuild(build)
+end
+
+function BuildListClass:OnSelKeyDown(index, build, key)
+	if key == "RETURN" then
+		self:LoadBuild(build)
+	elseif key == "F2" then
+		self:RenameBuild(build)
+	end	
 end

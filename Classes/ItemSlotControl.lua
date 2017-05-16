@@ -5,7 +5,7 @@
 --
 local launch, main = ...
 
-local ipairs = ipairs
+local pairs = pairs
 local t_insert = table.insert
 local m_min = math.min
 
@@ -76,22 +76,35 @@ function ItemSlotClass:Populate()
 	end
 end
 
+function ItemSlotClass:CanReceiveDrag(type, value)
+	return type == "Item" and self.itemsTab:IsItemValidForSlot(value, self.slotName)
+end
+
+function ItemSlotClass:ReceiveDrag(type, value, source)
+	if value.id and self.itemsTab.list[value.id] then
+		self:SetSelItemId(value.id)
+	else
+		local newItem = itemLib.makeItemFromRaw(value.raw)
+		itemLib.normaliseQuality(newItem)
+		self.itemsTab:AddItem(newItem, true)
+		self:SetSelItemId(newItem.id)
+	end
+	self.itemsTab:PopulateSlots()
+	self.itemsTab:AddUndoState()
+	self.itemsTab.build.buildFlag = true
+end
+
 function ItemSlotClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	DrawString(x + self.labelOffset, y + 2, "RIGHT_X", height - 4, "VAR", "^7"..self.label..":")
 	self.DropDownControl:Draw(viewPort)
 	self:DrawControls(viewPort)
-	local highlight = false
-	for _, control in pairs({self.itemsTab.controls.itemList, self.itemsTab.controls.uniqueDB, self.itemsTab.controls.rareDB}) do
-		if control:IsShown() and control.selDragging and control.selDragActive and control.selItem and self.itemsTab:IsItemValidForSlot(control.selItem, self.slotName) then
-			highlight = true
-			SetDrawColor(0, 1, 0, 0.25)
-			DrawImage(nil, x, y, width, height)
-			break
-		end
+	if self.otherDragSource then
+		SetDrawColor(0, 1, 0, 0.25)
+		DrawImage(nil, x, y, width, height)
 	end
-	if self.nodeId and (self.dropped or (self:IsMouseOver() and (highlight or not self.itemsTab.selControl))) then
+	if self.nodeId and (self.dropped or (self:IsMouseOver() and (self.otherDragSource or not self.itemsTab.selControl))) then
 		SetDrawLayer(nil, 15)
 		local viewerX = x + width + 5
 		local viewerY = m_min(y, viewPort.y + viewPort.height - 304)

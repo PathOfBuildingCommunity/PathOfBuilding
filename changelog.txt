@@ -1,3 +1,9 @@
+VERSION[1.4.11][2017/05/16]
+ * Fixed a stack overflow error that could occur when trying to view breakdowns in the Calcs tab
+ * Fixed interaction between weapon swap and skills granted by items
+ * Consolidated the program's various list controls; their appearence and behaviour should be largely unchanged,
+   aside from some minor enhancements
+ * Various minor tweaks and fixes
 VERSION[1.4.10][2017/05/12]
  * Added support for weapon swap:
     * You can switch between the two weapon sets using the new buttons above the Weapon 1 slot on the Items tab

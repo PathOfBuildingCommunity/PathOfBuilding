@@ -76,6 +76,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4
 		Classes\ItemSlotControl.lua = Classes\ItemSlotControl.lua
 		Classes\ItemsTab.lua = Classes\ItemsTab.lua
 		Classes\LabelControl.lua = Classes\LabelControl.lua
+		Classes\ListControl.lua = Classes\ListControl.lua
 		Classes\MinionListControl.lua = Classes\MinionListControl.lua
 		Classes\ModDB.lua = Classes\ModDB.lua
 		Classes\ModList.lua = Classes\ModList.lua

@@ -69,44 +69,46 @@ end
 -- Create an active skill using the given active gem and list of support gems
 -- It will determine the base flag set, and check which of the support gems can support this skill
 function calcs.createActiveSkill(activeGem, supportList, summonSkill)
-	local activeSkill = { }
-	activeSkill.activeGem = activeGem
-	activeSkill.gemList = { activeSkill.activeGem }
-	activeSkill.supportList = supportList
-	activeSkill.summonSkill = summonSkill
+	local activeSkill = {
+		activeGem = activeGem,
+		supportList = supportList,
+		summonSkill = summonSkill,
+		skillData = { },
+	}
 	
+	-- Initialise skill types
 	activeSkill.skillTypes = copyTable(activeGem.data.skillTypes)
 	if activeGem.data.minionSkillTypes then
 		activeSkill.minionSkillTypes = copyTable(activeGem.data.minionSkillTypes)
 	end
-
-	activeSkill.skillData = { }
 
 	-- Initialise skill flag set ('attack', 'projectile', etc)
 	local skillFlags = copyTable(activeGem.data.baseFlags)
 	activeSkill.skillFlags = skillFlags
 	skillFlags.hit = activeSkill.skillTypes[SkillType.Attack] or activeSkill.skillTypes[SkillType.Hit] or activeSkill.skillTypes[SkillType.Projectile]
 
-	for _, gem in ipairs(supportList) do
-		if calcLib.gemCanSupport(gem, activeSkill) then
-			if gem.data.addFlags then
-				-- Support gem adds flags to supported skills (eg. Remote Mine adds 'mine')
-				for k in pairs(gem.data.addFlags) do
-					skillFlags[k] = true
-				end
-			end
-			for _, skillType in pairs(gem.data.addSkillTypes) do
+	-- Process support skills
+	activeSkill.gemList = { activeGem }
+	for _, supportGem in ipairs(supportList) do
+		-- Pass 1: Add skill types from compatible supports
+		if calcLib.gemCanSupport(supportGem, activeSkill) then
+			for _, skillType in pairs(supportGem.data.addSkillTypes) do
 				activeSkill.skillTypes[skillType] = true
 			end
 		end
 	end
-
-	-- Process support gems
-	for _, gem in ipairs(supportList) do
-		if calcLib.gemCanSupport(gem, activeSkill) then
-			t_insert(activeSkill.gemList, gem)
-			if gem.isSupporting then
-				gem.isSupporting[activeGem.name] = true
+	for _, supportGem in ipairs(supportList) do
+		-- Pass 2: Add all compatible supports
+		if calcLib.gemCanSupport(supportGem, activeSkill) then
+			t_insert(activeSkill.gemList, supportGem)
+			if supportGem.isSupporting then
+				supportGem.isSupporting[activeGem.name] = true
+			end
+			if supportGem.data.addFlags and not summonSkill then
+				-- Support skill adds flags to supported skills (eg. Remote Mine adds 'mine')
+				for k in pairs(supportGem.data.addFlags) do
+					skillFlags[k] = true
+				end
 			end
 		end
 	end
