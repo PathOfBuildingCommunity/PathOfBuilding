@@ -220,8 +220,8 @@ function SkillsTabClass:PasteSocketGroup()
 		end
 		if #newGroup.gemList > 0 then
 			t_insert(self.socketGroupList, newGroup)
-			self.controls.groupList.selGroup = newGroup
 			self.controls.groupList.selIndex = #self.socketGroupList
+			self.controls.groupList.selValue = newGroup
 			self:SetDisplayGroup(newGroup)
 			self:AddUndoState()
 			self.build.buildFlag = true
@@ -487,31 +487,9 @@ function SkillsTabClass:CreateUndoState()
 	local state = { }
 	state.socketGroupList = { }
 	for _, socketGroup in ipairs(self.socketGroupList) do
-		local newGroup = { 
-			label = socketGroup.label,
-			slot = socketGroup.slot,
-			enabled = socketGroup.enabled,
-			source = socketGroup.source,
-			mainActiveSkill = socketGroup.mainActiveSkill,
-			mainActiveSkillCalcs = socketGroup.mainActiveSkillCalcs,
-			gemList = { }
-		}
+		local newGroup = copyTable(socketGroup, true)
 		for index, gem in pairs(socketGroup.gemList) do
-			newGroup.gemList[index] = {
-				nameSpec = gem.nameSpec,
-				level = gem.level,
-				quality = gem.quality,
-				enabled = gem.enabled,
-				skillPart = gem.skillPart,
-				skillPartCalcs = gem.skillPartCalcs,
-				skillMinion = gem.skillMinion,
-				skillMinionCalcs = gem.skillMinionCalcs,
-				skillMinionSkill = gem.skillMinionSkill,
-				skillMinionSkillCalcs = gem.skillMinionSkillCalcs,
-				name = gem.name,
-				data = gem.data,
-				errMsg = gem.errMsg,
-			}
+			newGroup.gemList[index] = copyTable(gem, true)
 		end
 		t_insert(state.socketGroupList, newGroup)
 	end
@@ -520,9 +498,12 @@ end
 
 function SkillsTabClass:RestoreUndoState(state)
 	local displayId = isValueInArray(self.socketGroupList, self.displayGroup)
-	self.socketGroupList = state.socketGroupList
+	wipeTable(self.socketGroupList)
+	for k, v in pairs(state.socketGroupList) do
+		self.socketGroupList[k] = v
+	end
 	self:SetDisplayGroup(displayId and self.socketGroupList[displayId])
-	if self.controls.groupList.selGroup then
-		self.controls.groupList.selGroup = self.socketGroupList[self.controls.groupList.selIndex]
+	if self.controls.groupList.selValue then
+		self.controls.groupList.selValue = self.socketGroupList[self.controls.groupList.selIndex]
 	end
 end

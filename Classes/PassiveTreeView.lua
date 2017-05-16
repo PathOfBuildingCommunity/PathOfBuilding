@@ -372,10 +372,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if self.showHeatMap then
 			if not node.alloc and node.type ~= "classStart" and node.type ~= "ascendClassStart" then
 				-- Calculate color based on DPS and defensive powers
-				local dps = m_max(node.power.dps or 0, 0)
-				local def = m_max(node.power.def or 0, 0)
-				local dpsCol = (dps / build.calcsTab.powerMax.dps * 1.5) ^ 0.5
-				local defCol = (def / build.calcsTab.powerMax.def * 1.5) ^ 0.5
+				local offence = m_max(node.power.offence or 0, 0)
+				local defence = m_max(node.power.defence or 0, 0)
+				local dpsCol = (offence / build.calcsTab.powerMax.offence * 1.5) ^ 0.5
+				local defCol = (defence / build.calcsTab.powerMax.defence * 1.5) ^ 0.5
 				SetDrawColor(dpsCol, (m_max(dpsCol - 0.5, 0) + m_max(defCol - 0.5, 0)) / 2, defCol)
 			else
 				SetDrawColor(1, 1, 1)
@@ -554,9 +554,9 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 	
 	-- Node name
 	self:AddNodeName(node)
-	if launch.devMode and IsKeyDown("ALT") and node.power and node.power.dps then
+	if launch.devMode and IsKeyDown("ALT") and node.power and node.power.offence then
 		-- Power debugging info
-		main:AddTooltipLine(16, string.format("DPS power: %g   Defence power: %g", node.power.dps, node.power.def))
+		main:AddTooltipLine(16, string.format("DPS power: %g   Defence power: %g", node.power.offence, node.power.defence))
 	end
 
 	-- Node description

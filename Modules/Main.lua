@@ -38,6 +38,7 @@ local classList = {
 	"ScrollBarControl",
 	"SliderControl",
 	"TextListControl",
+	"ListControl",
 	-- Misc
 	"PopupDialog",
 	-- Mode: Build list
@@ -327,7 +328,7 @@ function main:OpenUpdatePopup()
 		end
 	end
 	local controls = { }
-	controls.changeLog = common.New("TextListControl", nil, 0, 20, 780, 190, nil, changeList)
+	controls.changeLog = common.New("TextListControl", nil, 0, 20, 780, 192, nil, changeList)
 	controls.update = common.New("ButtonControl", nil, -45, 220, 80, 20, "Update", function()
 		self:ClosePopup()
 		local ret = self:CallMode("CanExit", "UPDATE")
@@ -446,7 +447,7 @@ function main:RenderCircle(x, y, width, height, oX, oY, radius)
 		end
 	end
 	for ly = minY, maxY do
-		DrawImage(nil, x + minX[ly], y + ly, maxX[ly] - minX[ly], 1)
+		DrawImage(nil, x + minX[ly], y + ly, maxX[ly] - minX[ly] + 1, 1)
 	end
 end
 

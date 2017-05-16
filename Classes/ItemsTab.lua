@@ -406,6 +406,213 @@ function ItemsTabClass:GetSocketAndJewelForNodeID(nodeId)
 	return self.sockets[nodeId], self.list[self.sockets[nodeId].selItemId]
 end
 
+-- Adds the given item to the build's item list
+function ItemsTabClass:AddItem(item, noAutoEquip, index)
+	if not item.id then
+		-- Find an unused item ID
+		item.id = 1
+		while self.list[item.id] do
+			item.id = item.id + 1
+		end
+
+		if index then
+			t_insert(self.orderList, index, item.id)
+		else
+			-- Add it to the end of the display order list
+			t_insert(self.orderList, item.id)
+		end
+
+		if not noAutoEquip then
+			-- Autoequip it
+			for _, slot in ipairs(self.orderedSlots) do
+				if not slot.nodeId and slot.selItemId == 0 and slot:IsShown() and self:IsItemValidForSlot(item, slot.slotName) then
+					slot:SetSelItemId(item.id)
+					break
+				end
+			end
+		end
+	end
+	
+	-- Add it to the list
+	self.list[item.id] = item
+	itemLib.buildItemModList(item)
+end
+
+-- Adds the current display item to the build's item list
+function ItemsTabClass:AddDisplayItem(noAutoEquip)
+	-- Add it to the list and clear the current display item
+	self:AddItem(self.displayItem, noAutoEquip)
+	self:SetDisplayItem()
+
+	self:PopulateSlots()
+	self:AddUndoState()
+	self.build.buildFlag = true
+end
+
+-- Sorts the build's item list
+function ItemsTabClass:SortItemList()
+	table.sort(self.orderList, function(a, b)
+		local itemA = self.list[a]
+		local itemB = self.list[b]
+		local primSlotA = itemLib.getPrimarySlotForItem(itemA)
+		local primSlotB = itemLib.getPrimarySlotForItem(itemB)
+		if primSlotA ~= primSlotB then
+			if not self.slotOrder[primSlotA] then
+				return false
+			elseif not self.slotOrder[primSlotB] then
+				return true
+			end
+			return self.slotOrder[primSlotA] < self.slotOrder[primSlotB]
+		end
+		local equipSlotA = self:GetEquippedSlotForItem(itemA)
+		local equipSlotB = self:GetEquippedSlotForItem(itemB)
+		if equipSlotA and equipSlotB then
+			return self.slotOrder[equipSlotA.slotName] < self.slotOrder[equipSlotB.slotName]
+		elseif equipSlotA then
+			return true
+		elseif equipSlotB then
+			return false
+		end
+		return itemA.name < itemB.name
+	end)
+	self:AddUndoState()
+end
+
+-- Deletes an item
+function ItemsTabClass:DeleteItem(item)
+	for _, slot in pairs(self.slots) do
+		if slot.selItemId == item.id then
+			slot:SetSelItemId(0)
+			self.build.buildFlag = true
+		end
+	end
+	for index, id in pairs(self.orderList) do
+		if id == item.id then
+			t_remove(self.orderList, index)
+			break
+		end
+	end
+	for _, spec in pairs(self.build.treeTab.specList) do
+		for nodeId, itemId in pairs(spec.jewels) do
+			if itemId == item.id then
+				spec.jewels[nodeId] = 0
+			end
+		end
+	end
+	self.list[item.id] = nil
+	self:PopulateSlots()
+	self:AddUndoState()
+end
+
+-- Attempt to create a new item from the given item raw text and sets it as the new display item
+function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
+	local newItem = itemLib.makeItemFromRaw(itemRaw)
+	if newItem then
+		if normalise then
+			itemLib.normaliseQuality(newItem)
+		end
+		self:SetDisplayItem(newItem)
+	end
+end
+
+-- Sets the display item to the given item
+function ItemsTabClass:SetDisplayItem(item)
+	self.displayItem = item
+	if item then
+		-- Update the display item controls
+		self.controls.displayItemVariant.list = item.variantList
+		self.controls.displayItemVariant.sel = item.variant
+		self:UpdateDisplayItemRangeLines()
+		self.controls.scrollBarH:SetOffset(self.controls.scrollBarH.offsetMax)
+		item.craftable = item.crafted and item.affixes and item.affixLimit > 0
+		if item.craftable then
+			local prefixList = { }
+			local suffixList = { }
+			for name, data in pairs(item.affixes) do
+				if not data.exclude or (not data.exclude[item.base.subType] and not data.exclude[item.baseName]) then
+					if data.type == "Prefix" then
+						t_insert(prefixList, name)
+					elseif data.type == "Suffix" then
+						t_insert(suffixList, name)
+					end
+				end
+			end
+			table.sort(prefixList)
+			t_insert(prefixList, 1, "None")
+			table.sort(suffixList)
+			t_insert(suffixList, 1, "None")
+			local prefixTable = { }
+			local suffixTable = { }
+			for list, out in pairs({[prefixList] = prefixTable, [suffixList] = suffixTable}) do
+				for i, name in pairs(list) do
+					out[i] = {
+						label = name,
+						value = name,
+					}
+					if item.affixes[name] then
+						out[i].label = out[i].label .. "   ^8[" .. table.concat(item.affixes[name], "/") .. "]"
+					end
+				end
+			end
+			for i = 1, item.affixLimit/2 do
+				local pre = self.controls["displayItemAffix"..i]
+				pre.list = prefixTable
+				pre.outputTable = "prefixes"
+				pre.outputIndex = i
+				pre.sel = isValueInArray(prefixList, item.prefixes[i] or "None") or 1
+				local suf = self.controls["displayItemAffix"..(i+item.affixLimit/2)]
+				suf.list = suffixTable
+				suf.outputTable = "suffixes"
+				suf.outputIndex = i
+				suf.sel = isValueInArray(suffixList, item.suffixes[i] or "None") or 1
+			end
+		end
+	else
+		self.controls.scrollBarH:SetOffset(0)
+	end
+end
+
+-- Updates the range line dropdown and range slider for the current display item
+function ItemsTabClass:UpdateDisplayItemRangeLines()
+	if self.displayItem and self.displayItem.rangeLineList[1] then
+		wipeTable(self.controls.displayItemRangeLine.list)
+		for _, modLine in ipairs(self.displayItem.rangeLineList) do
+			t_insert(self.controls.displayItemRangeLine.list, modLine.line)
+		end
+		self.controls.displayItemRangeLine.sel = 1
+		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[1].range
+	end
+end
+
+-- Returns the first slot in which the given item is equipped
+function ItemsTabClass:GetEquippedSlotForItem(item)
+	for _, slot in ipairs(self.orderedSlots) do
+		if not slot.inactive and slot.selItemId == item.id then
+			return slot
+		end
+	end
+end
+
+-- Check if the given item could be equipped in the given slot, taking into account possible conflicts with currently equipped items
+-- For example, a shield is not valid for Weapon 2 if Weapon 1 is a staff, and a wand is not valid for Weapon 2 if Weapon 1 is a dagger
+function ItemsTabClass:IsItemValidForSlot(item, slotName)
+	if item.type == slotName:gsub(" %d+","") then
+		return true
+	elseif slotName == "Weapon 1" or slotName == "Weapon 1 Swap" or slotName == "Weapon" then
+		return item.base.weapon ~= nil
+	elseif slotName == "Weapon 2" or slotName == "Weapon 2 Swap" then
+		local weapon1Sel = self.slots[slotName == "Weapon 2" and "Weapon 1" or "Weapon 1 Swap"].selItemId or 0
+		local weapon1Type = weapon1Sel > 0 and self.list[weapon1Sel].base.type or "None"
+		if weapon1Type == "None" then
+			return item.type == "Quiver" or item.type == "Shield" or (data.weaponTypeInfo[item.type] and data.weaponTypeInfo[item.type].oneHand)
+		elseif weapon1Type == "Bow" then
+			return item.type == "Quiver"
+		elseif data.weaponTypeInfo[weapon1Type].oneHand then
+			return item.type == "Shield" or (data.weaponTypeInfo[item.type] and data.weaponTypeInfo[item.type].oneHand and ((weapon1Type == "Wand" and item.type == "Wand") or (weapon1Type ~= "Wand" and item.type ~= "Wand")))
+		end
+	end
+end
+
 -- Opens the item crafting popup
 function ItemsTabClass:CraftItem()
 	local controls = { }
@@ -638,179 +845,6 @@ function ItemsTabClass:EnchantDisplayItem()
 	main:OpenPopup(550, 130, "Enchant Item", controls)
 end
 
--- Attempt to create a new item from the given item raw text and sets it as the new display item
-function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
-	local newItem = itemLib.makeItemFromRaw(itemRaw)
-	if newItem then
-		if normalise then
-			itemLib.normaliseQuality(newItem)
-		end
-		self:SetDisplayItem(newItem)
-	end
-end
-
--- Sets the display item to the given item
-function ItemsTabClass:SetDisplayItem(item)
-	self.displayItem = item
-	if item then
-		-- Update the display item controls
-		self.controls.displayItemVariant.list = item.variantList
-		self.controls.displayItemVariant.sel = item.variant
-		self:UpdateDisplayItemRangeLines()
-		self.controls.scrollBarH:SetOffset(self.controls.scrollBarH.offsetMax)
-		item.craftable = item.crafted and item.affixes and item.affixLimit > 0
-		if item.craftable then
-			local prefixList = { }
-			local suffixList = { }
-			for name, data in pairs(item.affixes) do
-				if not data.exclude or (not data.exclude[item.base.subType] and not data.exclude[item.baseName]) then
-					if data.type == "Prefix" then
-						t_insert(prefixList, name)
-					elseif data.type == "Suffix" then
-						t_insert(suffixList, name)
-					end
-				end
-			end
-			table.sort(prefixList)
-			t_insert(prefixList, 1, "None")
-			table.sort(suffixList)
-			t_insert(suffixList, 1, "None")
-			local prefixTable = { }
-			local suffixTable = { }
-			for list, out in pairs({[prefixList] = prefixTable, [suffixList] = suffixTable}) do
-				for i, name in pairs(list) do
-					out[i] = {
-						label = name,
-						value = name,
-					}
-					if item.affixes[name] then
-						out[i].label = out[i].label .. "   ^8[" .. table.concat(item.affixes[name], "/") .. "]"
-					end
-				end
-			end
-			for i = 1, item.affixLimit/2 do
-				local pre = self.controls["displayItemAffix"..i]
-				pre.list = prefixTable
-				pre.outputTable = "prefixes"
-				pre.outputIndex = i
-				pre.sel = isValueInArray(prefixList, item.prefixes[i] or "None") or 1
-				local suf = self.controls["displayItemAffix"..(i+item.affixLimit/2)]
-				suf.list = suffixTable
-				suf.outputTable = "suffixes"
-				suf.outputIndex = i
-				suf.sel = isValueInArray(suffixList, item.suffixes[i] or "None") or 1
-			end
-		end
-	else
-		self.controls.scrollBarH:SetOffset(0)
-	end
-end
-
--- Updates the range line dropdown and range slider for the current display item
-function ItemsTabClass:UpdateDisplayItemRangeLines()
-	if self.displayItem and self.displayItem.rangeLineList[1] then
-		wipeTable(self.controls.displayItemRangeLine.list)
-		for _, modLine in ipairs(self.displayItem.rangeLineList) do
-			t_insert(self.controls.displayItemRangeLine.list, modLine.line)
-		end
-		self.controls.displayItemRangeLine.sel = 1
-		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[1].range
-	end
-end
-
--- Adds the given item to the build's item list
-function ItemsTabClass:AddItem(item, noAutoEquip)
-	if not item.id then
-		-- Find an unused item ID
-		item.id = 1
-		while self.list[item.id] do
-			item.id = item.id + 1
-		end
-
-		-- Add it to the end of the display order list
-		t_insert(self.orderList, item.id)
-
-		if not noAutoEquip then
-			-- Autoequip it
-			for _, slotName in ipairs(baseSlots) do
-				if self.slots[slotName].selItemId == 0 and self:IsItemValidForSlot(item, slotName) then
-					self.slots[slotName]:SetSelItemId(item.id)
-					break
-				end
-			end
-		end
-	end
-	
-	-- Add it to the list
-	self.list[item.id] = item
-	itemLib.buildItemModList(item)
-end
-
--- Adds the current display item to the build's item list
-function ItemsTabClass:AddDisplayItem(noAutoEquip)
-	-- Add it to the list and clear the current display item
-	self:AddItem(self.displayItem, noAutoEquip)
-	self:SetDisplayItem()
-
-	self:PopulateSlots()
-	self:AddUndoState()
-	self.build.buildFlag = true
-end
-
-function ItemsTabClass:DeleteItem(item)
-	for _, slot in pairs(self.slots) do
-		if slot.selItemId == item.id then
-			slot:SetSelItemId(0)
-			self.build.buildFlag = true
-		end
-	end
-	for index, id in pairs(self.orderList) do
-		if id == item.id then
-			t_remove(self.orderList, index)
-			break
-		end
-	end
-	for _, spec in pairs(self.build.treeTab.specList) do
-		for nodeId, itemId in pairs(spec.jewels) do
-			if itemId == item.id then
-				spec.jewels[nodeId] = 0
-			end
-		end
-	end
-	self.list[item.id] = nil
-	self:PopulateSlots()
-	self:AddUndoState()
-end
-
--- Returns the first slot in which the given item is equipped
-function ItemsTabClass:GetEquippedSlotForItem(item)
-	for _, slot in ipairs(self.orderedSlots) do
-		if not slot.inactive and slot.selItemId == item.id then
-			return slot
-		end
-	end
-end
-
--- Check if the given item could be equipped in the given slot, taking into account possible conflicts with currently equipped items
--- For example, a shield is not valid for Weapon 2 if Weapon 1 is a staff, and a wand is not valid for Weapon 2 if Weapon 1 is a dagger
-function ItemsTabClass:IsItemValidForSlot(item, slotName)
-	if item.type == slotName:gsub(" %d+","") then
-		return true
-	elseif slotName == "Weapon 1" or slotName == "Weapon 1 Swap" or slotName == "Weapon" then
-		return item.base.weapon ~= nil
-	elseif slotName == "Weapon 2" or slotName == "Weapon 2 Swap" then
-		local weapon1Sel = self.slots[slotName == "Weapon 2" and "Weapon 1" or "Weapon 1 Swap"].selItemId or 0
-		local weapon1Type = weapon1Sel > 0 and self.list[weapon1Sel].base.type or "None"
-		if weapon1Type == "None" then
-			return item.type == "Quiver" or item.type == "Shield" or (data.weaponTypeInfo[item.type] and data.weaponTypeInfo[item.type].oneHand)
-		elseif weapon1Type == "Bow" then
-			return item.type == "Quiver"
-		elseif data.weaponTypeInfo[weapon1Type].oneHand then
-			return item.type == "Shield" or (data.weaponTypeInfo[item.type] and data.weaponTypeInfo[item.type].oneHand and ((weapon1Type == "Wand" and item.type == "Wand") or (weapon1Type ~= "Wand" and item.type ~= "Wand")))
-		end
-	end
-end
-
 function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	-- Item name
 	local rarityCode = data.colorCodes[item.rarity]
@@ -888,10 +922,10 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		if base.armour.blockChance and armourData.BlockChance > 0 then
 			main:AddTooltipLine(16, s_format("^x7F7F7FChance to Block: %s%d%%", armourData.BlockChance ~= base.armour.blockChance and data.colorCodes.MAGIC or "^7", armourData.BlockChance))
 		end
-		for _, def in ipairs({{var="Armour",label="Armour"},{var="Evasion",label="Evasion Rating"},{var="EnergyShield",label="Energy Shield"}}) do
-			local itemVal = armourData[def.var]
+		for _, defence in ipairs({{var="Armour",label="Armour"},{var="Evasion",label="Evasion Rating"},{var="EnergyShield",label="Energy Shield"}}) do
+			local itemVal = armourData[defence.var]
 			if itemVal and itemVal > 0 then
-				main:AddTooltipLine(16, s_format("^x7F7F7F%s: %s%d", def.label, itemVal ~= base.armour[def.var:sub(1,1):lower()..def.var:sub(2,-1).."Base"] and data.colorCodes.MAGIC or "^7", itemVal))
+				main:AddTooltipLine(16, s_format("^x7F7F7F%s: %s%d", defence.label, itemVal ~= base.armour[defence.var:sub(1,1):lower()..defence.var:sub(2,-1).."Base"] and data.colorCodes.MAGIC or "^7", itemVal))
 			end
 		end
 	elseif base.flask then
@@ -978,7 +1012,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	end
 	main:AddTooltipSeparator(14)
 
-	-- Mod differences
+	-- Stat differences
 	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 	if calcFunc then
 		if base.flask then
@@ -1120,7 +1154,10 @@ end
 function ItemsTabClass:RestoreUndoState(state)
 	self.useSecondWeaponSet = state.useSecondWeaponSet
 	self.list = state.list
-	self.orderList = state.orderList
+	wipeTable(self.orderList)
+	for k, v in pairs(state.orderList) do
+		self.orderList[k] = v
+	end
 	for slotName, selItemId in pairs(state.slotSelItemId) do
 		self.slots[slotName]:SetSelItemId(selItemId)
 	end

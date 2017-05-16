@@ -574,15 +574,17 @@ end
 
 function ConfigTabClass:Save(xml)
 	for k, v in pairs(self.input) do
-		local child = { elem = "Input", attrib = {name = k} }
-		if type(v) == "number" then
-			child.attrib.number = tostring(v)
-		elseif type(v) == "boolean" then
-			child.attrib.boolean = tostring(v)
-		else
-			child.attrib.string = tostring(v)
+		if v then
+			local child = { elem = "Input", attrib = {name = k} }
+			if type(v) == "number" then
+				child.attrib.number = tostring(v)
+			elseif type(v) == "boolean" then
+				child.attrib.boolean = tostring(v)
+			else
+				child.attrib.string = tostring(v)
+			end
+			t_insert(xml, child)
 		end
-		t_insert(xml, child)
 	end
 	self.modFlag = false
 end

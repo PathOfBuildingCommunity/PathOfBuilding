@@ -620,7 +620,7 @@ function itemLib.buildItemModList(item)
 	if not item.base then
 		return
 	end
-	local baseList = { }
+	local baseList = common.New("ModList")
 	if item.base.weapon then
 		item.weaponData = { }
 	elseif item.base.armour then
@@ -652,14 +652,25 @@ function itemLib.buildItemModList(item)
 				if modLine.buff then
 					t_insert(item.buffModList, mod)
 				else
-					t_insert(baseList, mod)
+					baseList:AddMod(mod)
 				end
 			end
 		end
 	end
+	item.grantedSkills = { }
+	for _, skill in ipairs(baseList:Sum("LIST", nil, "ExtraSkill")) do
+		if skill.name ~= "Unknown" then
+			t_insert(item.grantedSkills, {
+				name = skill.name,
+				level = skill.level,
+				noSupports = skill.noSupports,
+				source = item.modSource,
+			})
+		end
+	end
 	if item.name == "Tabula Rasa, Simple Robe" or item.name == "Skin of the Loyal, Simple Robe" or item.name == "Skin of the Lords, Simple Robe" then
 		-- Hack to remove the energy shield
-		t_insert(baseList, { name = "ArmourData", type = "LIST", value = { key = "EnergyShield" }, flags = 0, keywordFlags = 0, tagList = { } })
+		baseList:NewMod("ArmourData", "LIST", { key = "EnergyShield" })
 	end
 	if item.base.weapon or item.type == "Ring" then
 		item.slotModList = { }
