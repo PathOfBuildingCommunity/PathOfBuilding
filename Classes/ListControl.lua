@@ -197,6 +197,10 @@ function ListClass:Draw(viewPort)
 		end
 		column = column + 1
 	end
+	if #self.list == 0 and self.defaultText then
+		SetDrawColor(1, 1, 1)
+		DrawString(2, 2, "LEFT", 14, "VAR", self.defaultText)
+	end
 	if self.selDragIndex then
 		local lineY = rowHeight * (self.selDragIndex - 1) - scrollBar.offset
 		SetDrawColor(1, 1, 1)

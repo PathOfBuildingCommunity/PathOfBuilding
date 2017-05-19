@@ -19,28 +19,32 @@ local SkillListClass = common.NewClass("SkillList", "ListControl", function(self
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil and self.selValue.source == nil
 	end
-	self.controls.paste = common.New("ButtonControl", {"RIGHT",self.controls.delete,"LEFT"}, -4, 0, 60, 18, "Paste", function()
-		skillsTab:PasteSocketGroup()
+	self.controls.deleteAll = common.New("ButtonControl", {"RIGHT",self.controls.delete,"LEFT"}, -4, 0, 70, 18, "Delete All", function()
+		main:OpenConfirmPopup("Delete All", "Are you sure you want to delete all socket groups in this build?", "Delete", function()
+			wipeTable(self.list)
+			skillsTab:SetDisplayGroup()
+			skillsTab:AddUndoState()
+			skillsTab.build.buildFlag = true
+			self.selIndex = nil
+			self.selValue = nil
+		end)
 	end)
-	self.controls.copy = common.New("ButtonControl", {"RIGHT",self.controls.paste,"LEFT"}, -4, 0, 60, 18, "Copy", function()
-		skillsTab:CopySocketGroup(self.selValue)
-	end)
-	self.controls.copy.enabled = function()
-		return self.selValue ~= nil and self.selValue.source == nil
+	self.controls.deleteAll.enabled = function()
+		return #self.list > 0 
 	end
-	self.controls.new = common.New("ButtonControl", {"RIGHT",self.controls.copy,"LEFT"}, -4, 0, 60, 18, "New", function()
+	self.controls.new = common.New("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, -4, 0, 60, 18, "New", function()
 		local newGroup = { 
 			label = "", 
 			enabled = true, 
 			gemList = { } 
 		}
 		t_insert(self.list, newGroup)
-		self.selIndex = #self.skillsTab.socketGroupList
+		self.selIndex = #self.list
 		self.selValue = newGroup
-		self.skillsTab:SetDisplayGroup(newGroup)
-		self.skillsTab:AddUndoState()
-		self.skillsTab.build.buildFlag = true
-		return self.skillsTab.gemSlots[1].nameSpec
+		skillsTab:SetDisplayGroup(newGroup)
+		skillsTab:AddUndoState()
+		skillsTab.build.buildFlag = true
+		return skillsTab.gemSlots[1].nameSpec
 	end)
 end)
 
@@ -166,7 +170,7 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 		main:OpenConfirmPopup("Delete Socket Group", "Are you sure you want to delete '"..socketGroup.displayLabel.."'?", "Delete", function()
 			t_remove(self.list, index)
 			if self.skillsTab.displayGroup == socketGroup then
-				self.skillsTab.displayGroup = nil
+				self.skillsTab:SetDisplayGroup()
 			end
 			self.skillsTab:AddUndoState()
 			self.skillsTab.build.buildFlag = true

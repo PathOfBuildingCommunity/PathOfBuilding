@@ -60,6 +60,7 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 	* Build save path: overrides the default save location for builds
 	* Node Power colours: changes the colour scheme used for the node power display
  * The breakdowns for hit damage types now show the percentage of total hit damage that is being dealt as that type
+ * The stat differences shown in passive skill tooltips can now be toggled on and off by pressing Ctrl+D
  * Some friendly toasts have set up camp in the bottom left corner, and may appear occasionally to convey various messages
  * With the new installer versions, the program will always update itself when started for the first time, but will still
    start even if the update check fails

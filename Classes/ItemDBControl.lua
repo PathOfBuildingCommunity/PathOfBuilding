@@ -13,6 +13,7 @@ local ItemDBClass = common.NewClass("ItemDB", "ListControl", function(self, anch
 	self.ListControl(anchor, x, y, width, height, 16, false)
 	self.itemsTab = itemsTab
 	self.db = db
+	self.defaultText = "^7No items found that match those filters."
 	self.dragTargetList = { }
 	self.sortControl = { 
 		NAME = { key = "name", order = 1, dir = "ASCEND", func = function(a,b) return a:gsub("^The ","") < b:gsub("^The ","") end }

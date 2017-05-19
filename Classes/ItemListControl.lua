@@ -12,16 +12,39 @@ local ItemListClass = common.NewClass("ItemList", "ListControl", function(self, 
 	self.ListControl(anchor, x, y, width, height, 16, true, itemsTab.orderList)
 	self.itemsTab = itemsTab
 	self.label = "^7All items:"
+	self.defaultText = "^x7F7F7FThis is the list of items that have been added to this build.\nYou can add items to this list by dragging them from\none of the other lists, or by clicking 'Add to build' when\nviewing an item."
 	self.dragTargetList = { }
-	self.controls.sort = common.New("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, -64, -2, 60, 18, "Sort", function()
-		itemsTab:SortItemList()
-	end)
 	self.controls.delete = common.New("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Delete", function()
 		self:OnSelDelete(self.selIndex, self.selValue)
 	end)
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil
 	end
+	self.controls.deleteAll = common.New("ButtonControl", {"RIGHT",self.controls.delete,"LEFT"}, -4, 0, 70, 18, "Delete All", function()
+		main:OpenConfirmPopup("Delete All", "Are you sure you want to delete all items in this build?", "Delete", function()
+			for _, slot in pairs(itemsTab.slots) do
+				slot:SetSelItemId(0)
+			end
+			for _, spec in pairs(itemsTab.build.treeTab.specList) do
+				for nodeId, itemId in pairs(spec.jewels) do
+					spec.jewels[nodeId] = 0
+				end
+			end
+			wipeTable(self.list)
+			wipeTable(self.itemsTab.list)
+			itemsTab:PopulateSlots()
+			itemsTab:AddUndoState()
+			itemsTab.build.buildFlag = true
+			self.selIndex = nil
+			self.selValue = nil
+		end)
+	end)
+	self.controls.deleteAll.enabled = function()
+		return #self.list > 0
+	end
+	self.controls.sort = common.New("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, -4, 0, 60, 18, "Sort", function()
+		itemsTab:SortItemList()
+	end)
 end)
 
 function ItemListClass:GetRowValue(column, index, itemId)

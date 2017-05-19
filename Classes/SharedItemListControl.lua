@@ -13,6 +13,7 @@ local SharedItemListClass = common.NewClass("SharedItemList", "ListControl", fun
 	self.ListControl(anchor, x, y, width, height, 16, true, main.sharedItems)
 	self.itemsTab = itemsTab
 	self.label = "^7Shared items:"
+	self.defaultText = "^x7F7F7FThis is a list of items that will be shared between all of\nyour builds.\nYou can add items to this list by dragging them from\none of the other lists."
 	self.dragTargetList = { }
 	self.controls.delete = common.New("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Delete", function()
 		self:OnSelDelete(self.selIndex, self.selValue)
