@@ -1,3 +1,6 @@
+VERSION[1.4.13][2017/05/20]
+ * Detonate Dead now has an input in the Configuration tab for "Corpse Life"
+ * Added support for Hungry Abyss
 VERSION[1.4.12][2017/05/19]
  * The Items tab now has a "Shared items" list which is shared between all of your builds
  * Added an Options screen, accessed via a new button at the bottom left corner. The following options have been added:

@@ -329,12 +329,12 @@ function calcs.offence(env, actor)
 	if skillFlags.totem then
 		output.ActiveTotemLimit = modDB:Sum("BASE", skillCfg, "ActiveTotemLimit")
 		output.TotemLifeMod = calcLib.mod(modDB, skillCfg, "TotemLife")
-		output.TotemLife = round(m_floor(data.monsterLifeTable[skillData.totemLevel] * data.totemLifeMult[mainSkill.skillTotemId]) * output.TotemLifeMod)
+		output.TotemLife = round(m_floor(data.monsterAllyLifeTable[skillData.totemLevel] * data.totemLifeMult[mainSkill.skillTotemId]) * output.TotemLifeMod)
 		if breakdown then
 			breakdown.TotemLifeMod = breakdown.mod(skillCfg, "TotemLife")
 			breakdown.TotemLife = {
 				"Totem level: "..skillData.totemLevel,
-				data.monsterLifeTable[skillData.totemLevel].." ^8(base life for a level "..skillData.totemLevel.." monster)",
+				data.monsterAllyLifeTable[skillData.totemLevel].." ^8(base life for a level "..skillData.totemLevel.." monster)",
 				"x "..data.totemLifeMult[mainSkill.skillTotemId].." ^8(life multiplier for this totem type)",
 				"x "..output.TotemLifeMod.." ^8(totem life modifier)",
 				"= "..output.TotemLife,
@@ -810,7 +810,16 @@ function calcs.offence(env, actor)
 						end
 					else
 						if not modDB:Sum("FLAG", cfg, "CannotLeechLife") and not enemyDB:Sum("FLAG", nil, "CannotLeechLifeFromSelf") then				
-							local lifeLeech = modDB:Sum("BASE", cfg, "DamageLeech", "DamageLifeLeech", damageType.."DamageLifeLeech", isElemental[damageType] and "ElementalDamageLifeLeech" or nil) + enemyDB:Sum("BASE", nil, "SelfDamageLifeLeech") / 100
+							local lifeLeech
+							if modDB:Sum("FLAG", nil, "LifeLeechBasedOnChaosDamage") then
+								if damageType == "Chaos" then
+									lifeLeech = modDB:Sum("BASE", cfg, "DamageLeech", "DamageLifeLeech", "PhysicalDamageLifeLeech", "LightningDamageLifeLeech", "ColdDamageLifeLeech", "FireDamageLifeLeech", "ChaosDamageLifeLeech", "ElementalDamageLifeLeech") + enemyDB:Sum("BASE", nil, "SelfDamageLifeLeech") / 100
+								else
+									lifeLeech = 0
+								end
+							else
+								lifeLeech = modDB:Sum("BASE", cfg, "DamageLeech", "DamageLifeLeech", damageType.."DamageLifeLeech", isElemental[damageType] and "ElementalDamageLifeLeech" or nil) + enemyDB:Sum("BASE", nil, "SelfDamageLifeLeech") / 100
+							end
 							if lifeLeech > 0 then
 								lifeLeechTotal = lifeLeechTotal + (min + max) / 2 * lifeLeech / 100
 							end

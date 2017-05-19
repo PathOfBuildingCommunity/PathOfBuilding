@@ -1207,6 +1207,13 @@ skills["DetonateDead"] = {
 		area = true,
 		fire = true,
 	},
+	setupFunc = function(actor, output)
+		local skillData = actor.mainSkill.skillData
+		if skillData.corpseLife then
+			skillData.FireMin = skillData.FireMin + skillData.corpseLife * 0.06
+			skillData.FireMax = skillData.FireMax + skillData.corpseLife * 0.06
+		end
+	end,
 	color = 2,
 	baseFlags = {
 		cast = true,
@@ -1275,6 +1282,13 @@ skills["VaalDetonateDead"] = {
 		area = true,
 		fire = true,
 	},
+	setupFunc = function(actor, output)
+		local skillData = actor.mainSkill.skillData
+		if skillData.corpseLife then
+			skillData.FireMin = skillData.FireMin + skillData.corpseLife * 0.08
+			skillData.FireMax = skillData.FireMax + skillData.corpseLife * 0.08
+		end
+	end,
 	color = 2,
 	baseFlags = {
 		cast = true,

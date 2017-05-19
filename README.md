@@ -53,6 +53,10 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.13 - 2017/05/20
+ * Detonate Dead now has an input in the Configuration tab for "Corpse Life"
+ * Added support for Hungry Abyss
+
 ### 1.4.12 - 2017/05/19
  * The Items tab now has a "Shared items" list which is shared between all of your builds
  * Added an Options screen, accessed via a new button at the bottom left corner. The following options have been added:

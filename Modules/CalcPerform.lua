@@ -302,9 +302,9 @@ function calcs.perform(env)
 		env.minion.modDB.actor = env.minion
 		env.minion.modDB.multipliers["Level"] = env.minion.level
 		calcs.initModDB(env, env.minion.modDB)
-		env.minion.modDB:NewMod("Life", "BASE", m_floor(data.monsterLifeTable[env.minion.level] * env.minion.minionData.life), "Base")
+		env.minion.modDB:NewMod("Life", "BASE", m_floor(data.monsterAllyLifeTable[env.minion.level] * env.minion.minionData.life), "Base")
 		if env.minion.minionData.energyShield then
-			env.minion.modDB:NewMod("EnergyShield", "BASE", m_floor(data.monsterLifeTable[env.minion.level] * env.minion.minionData.life * env.minion.minionData.energyShield), "Base")
+			env.minion.modDB:NewMod("EnergyShield", "BASE", m_floor(data.monsterAllyLifeTable[env.minion.level] * env.minion.minionData.life * env.minion.minionData.energyShield), "Base")
 		end
 		env.minion.modDB:NewMod("Evasion", "BASE", data.monsterEvasionTable[env.minion.level], "Base")
 		env.minion.modDB:NewMod("Accuracy", "BASE", data.monsterAccuracyTable[env.minion.level], "Base")
