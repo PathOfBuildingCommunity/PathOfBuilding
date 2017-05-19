@@ -58,15 +58,15 @@ function spectre(name)
 		local mon = MV[key]
 		print("#"..i..": "..mon.Id.." ["..key.."]")
 		print("life = "..mon.LifeMultiplier/100)
-		if MT[mon.MonsterTypesKey].Unknown4 ~= 0 then
-			print("energyShield = "..(0.4 * MT[mon.MonsterTypesKey].Unknown4 / 100))
+		if MT[mon.MonsterTypesKey].EnergyShieldFromLife ~= 0 then
+			print("energyShield = "..(0.4 * MT[mon.MonsterTypesKey].EnergyShieldFromLife / 100))
 		end
 		print("fireResist = "..MR[MT[mon.MonsterTypesKey].MonsterResistancesKey].FireMerciless)
 		print("coldResist = "..MR[MT[mon.MonsterTypesKey].MonsterResistancesKey].ColdMerciless)
 		print("lightningResist = "..MR[MT[mon.MonsterTypesKey].MonsterResistancesKey].LightningMerciless)
 		print("chaosResist = "..MR[MT[mon.MonsterTypesKey].MonsterResistancesKey].ChaosMerciless)
 		print("damage = "..(mon.DamageMultiplier/100))
-		print("damageSpread = "..(MT[mon.MonsterTypesKey].Unknown5 / 100))
+		print("damageSpread = "..(MT[mon.MonsterTypesKey].DamageSpread / 100))
 		print("attackTime = "..mon.AttackSpeed/1000)
 		if mon.MainHand_ItemClassesKey then
 			print("weaponType1 = "..IC[mon.MainHand_ItemClassesKey].Name)

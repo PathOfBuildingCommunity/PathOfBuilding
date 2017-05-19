@@ -142,10 +142,24 @@ local skills, mod, flag, skill = ...
 #skill DetonateDead
 #flags cast area fire
 #baseMod skill("radius", 22)
+	setupFunc = function(actor, output)
+		local skillData = actor.mainSkill.skillData
+		if skillData.corpseLife then
+			skillData.FireMin = skillData.FireMin + skillData.corpseLife * 0.06
+			skillData.FireMax = skillData.FireMax + skillData.corpseLife * 0.06
+		end
+	end,
 #mods
 
 #skill VaalDetonateDead
 #flags cast area fire
+	setupFunc = function(actor, output)
+		local skillData = actor.mainSkill.skillData
+		if skillData.corpseLife then
+			skillData.FireMin = skillData.FireMin + skillData.corpseLife * 0.08
+			skillData.FireMax = skillData.FireMax + skillData.corpseLife * 0.08
+		end
+	end,
 #mods
 
 #skill DoubleStrike

@@ -24,6 +24,10 @@ local varList = {
 	end },
 	{ var = "igniteMode", type = "list", label = "Ignite calculation mode:", tooltip = "Controls how the base damage for ignite is calculated:\nAverage Damage: Ignite is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ignite is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
 	{ section = "Skill Options", col = 2 },
+	{ label = "Detonate Dead", ifSkill = "Detonate Dead" },
+	{ var = "detonateDeadCorpseLife", type = "number", label = "Corpse Life:", ifSkillList = { "Detonate Dead", "Vaal Detonate Dead" }, tooltip = "Sets the maximum life of the corpse that is being detonated.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base life, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config", { type = "SkillName", skillName = "Detonate Dead" })
+	end },
 	{ label = "Raise Spectre:", ifSkill = "Raise Spectre" },
 	{ var = "raiseSpectreSpectreLevel", type = "number", label = "Spectre Level:", ifSkill = "Raise Spectre", tooltip = "Sets the level of the raised spectre.\nThe default level is the level requirement of the Raise Spectre skill.", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "minionLevel", value = val }, "Config", { type = "SkillName", skillName = "Raise Spectre" })

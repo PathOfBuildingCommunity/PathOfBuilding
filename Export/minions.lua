@@ -57,8 +57,8 @@ for _, name in pairs({"Spectres"}) do
 					out:write('minions["'..args..'"] = {\n')
 					out:write('\tname = "'..MonsterVariety.Name..'",\n')
 					out:write('\tlife = '..(MonsterVariety.LifeMultiplier/100)..',\n')
-					if MonsterType.Unknown4 ~= 0 then
-						out:write('\tenergyShield = '..(0.4 * MonsterType.Unknown4 / 100)..',\n')
+					if MonsterType.EnergyShieldFromLife ~= 0 then
+						out:write('\tenergyShield = '..(0.4 * MonsterType.EnergyShieldFromLife / 100)..',\n')
 					end
 					local Resist = MonsterResistances[MonsterType.MonsterResistancesKey]
 					out:write('\tfireResist = '..Resist.FireMerciless..',\n')
@@ -66,7 +66,7 @@ for _, name in pairs({"Spectres"}) do
 					out:write('\tlightningResist = '..Resist.LightningMerciless..',\n')
 					out:write('\tchaosResist = '..Resist.ChaosMerciless..',\n')
 					out:write('\tdamage = '..(MonsterVariety.DamageMultiplier/100)..',\n')
-					out:write('\tdamageSpread = '..(MonsterType.Unknown5 / 100)..',\n')
+					out:write('\tdamageSpread = '..(MonsterType.DamageSpread / 100)..',\n')
 					out:write('\tattackTime = '..(MonsterVariety.AttackSpeed/1000)..',\n')
 					for _, key in ipairs(MonsterVariety.ModsKeys) do
 						local Mod = Mods[key]
