@@ -88,6 +88,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4
 		Classes\PopupDialog.lua = Classes\PopupDialog.lua
 		Classes\ScrollBarControl.lua = Classes\ScrollBarControl.lua
 		Classes\SectionControl.lua = Classes\SectionControl.lua
+		Classes\SharedItemListControl.lua = Classes\SharedItemListControl.lua
 		Classes\SkillListControl.lua = Classes\SkillListControl.lua
 		Classes\SkillsTab.lua = Classes\SkillsTab.lua
 		Classes\SliderControl.lua = Classes\SliderControl.lua

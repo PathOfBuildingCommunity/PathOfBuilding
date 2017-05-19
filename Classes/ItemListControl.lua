@@ -13,9 +13,6 @@ local ItemListClass = common.NewClass("ItemList", "ListControl", function(self, 
 	self.itemsTab = itemsTab
 	self.label = "^7All items:"
 	self.dragTargetList = { }
-	for _, slot in pairs(itemsTab.slots) do
-		t_insert(self.dragTargetList, slot)
-	end
 	self.controls.sort = common.New("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, -64, -2, 60, 18, "Sort", function()
 		itemsTab:SortItemList()
 	end)
@@ -36,8 +33,10 @@ end
 
 function ItemListClass:AddValueTooltip(index, itemId)
 	local item = self.itemsTab.list[itemId]
-	self.itemsTab:AddItemTooltip(item, nil, true)
-	return data.colorCodes[item.rarity], true
+	if not main.popups[1] then
+		self.itemsTab:AddItemTooltip(item, nil, true)
+		return data.colorCodes[item.rarity], true
+	end
 end
 
 function ItemListClass:GetDragValue(index, itemId)

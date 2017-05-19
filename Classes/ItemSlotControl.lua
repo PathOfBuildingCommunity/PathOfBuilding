@@ -104,6 +104,9 @@ function ItemSlotClass:Draw(viewPort)
 		SetDrawColor(0, 1, 0, 0.25)
 		DrawImage(nil, x, y, width, height)
 	end
+	if main.popups[1] then
+		return
+	end
 	if self.nodeId and (self.dropped or (self:IsMouseOver() and (self.otherDragSource or not self.itemsTab.selControl))) then
 		SetDrawLayer(nil, 15)
 		local viewerX = x + width + 5
@@ -124,7 +127,7 @@ function ItemSlotClass:Draw(viewPort)
 		SetViewport()
 		SetDrawLayer(nil, 0)
 	end
-	if self:IsMouseOver() and not main.popups[1] then
+	if self:IsMouseOver() then
 		local ttItem
 		if self.dropped then
 			if self.hoverSel then

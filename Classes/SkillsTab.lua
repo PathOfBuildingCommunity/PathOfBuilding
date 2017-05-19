@@ -488,6 +488,7 @@ function SkillsTabClass:CreateUndoState()
 	state.socketGroupList = { }
 	for _, socketGroup in ipairs(self.socketGroupList) do
 		local newGroup = copyTable(socketGroup, true)
+		newGroup.gemList = { }
 		for index, gem in pairs(socketGroup.gemList) do
 			newGroup.gemList[index] = copyTable(gem, true)
 		end

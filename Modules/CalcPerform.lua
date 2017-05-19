@@ -8,6 +8,7 @@ local calcs = ...
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
+local m_min = math.min
 local m_ceil = math.ceil
 local m_floor = math.floor
 local s_format = string.format
@@ -178,7 +179,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 		end
 		for _, value in ipairs(modDB:Sum("LIST", nil, "GrantReserved"..pool.."AsAura")) do
 			local auraMod = copyTable(value.mod)
-			auraMod.value = m_floor(auraMod.value * reserved)
+			auraMod.value = m_floor(auraMod.value * m_min(reserved, max))
 			modDB:NewMod("ExtraAura", "LIST", { mod = auraMod })
 		end
 	end
@@ -255,7 +256,16 @@ local function doActorMisc(env, actor)
 	end	
 end
 
--- Finalise environment and perform the calculations
+-- Finalises the environment and performs the stat calculations:
+-- 1. Merges keystone modifiers
+-- 2. Initialises minion skills
+-- 3. Initialises the main skill's minion, if present
+-- 4. Merges flask effects
+-- 5. Calculates reservations
+-- 6. Sets conditions and calculates attributes and life/mana pools (doActorAttribsPoolsConditions)
+-- 7. Processes buffs and debuffs
+-- 8. Processes charges and misc buffs (doActorMisc)
+-- 9. Calculates defence and offence stats (calcs.defence, calcs.offence)
 function calcs.perform(env)
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB

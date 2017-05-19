@@ -250,7 +250,7 @@ function buildMode:Init(dbFileName, buildName)
 	self.controls.statBox = common.New("TextListControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 62, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
 	self.controls.statBox.height = function(control)
 		local x, y = control:GetPos()
-		return main.screenH - 30 - y
+		return main.screenH - main.mainBarHeight - 4 - y
 	end
 
 	-- Initialise class dropdown
@@ -623,11 +623,11 @@ function buildMode:OpenSaveAsPopup()
 			popup.controls.save.enabled = true
 		end),
 		save = common.New("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
+			main:ClosePopup()
 			self.dbFileName = newFileName
 			self.buildName = newBuildName
 			main.modeArgs = { newFileName, newBuildName }
 			self:SaveDBFile()
-			main:ClosePopup()
 		end),
 		common.New("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
 			main:ClosePopup()

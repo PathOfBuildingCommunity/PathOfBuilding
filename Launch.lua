@@ -19,22 +19,21 @@ function launch:OnInit()
 	self.versionPlatform = "?"
 	self.lastUpdateCheck = GetTime()
 	self.subScripts = { }
-	ConPrintf("Loading main script...")
-	local changeLogFile = io.open("changelog.txt")
-	if changeLogFile then
-		changeLogFile:close()
-	else
-		-- Changelog isn't present, this must be a fresh installation
+	local firstRunFile = io.open("first.run", "r")
+	if firstRunFile then
+		firstRunFile:close()
+		os.remove("first.run")
+		-- This is a fresh installation
 		-- Perform an immediate update to download the latest version
 		ConClear()
 		ConPrintf("Please wait while we complete installation...\n")
-		local updateMode = LoadModule("UpdateCheck")
-		if not updateMode or updateMode == "none" then
-			Exit("Failed to install.")
-		else
+		local updateMode, errMsg = LoadModule("UpdateCheck")
+		if not updateMode then
+			self.updateErrMsg = errMsg
+		elseif updateMode ~= "none" then
 			self:ApplyUpdate(updateMode)
+			return
 		end
-		return
 	end
 	local xml = require("xml")
 	local localManXML = xml.LoadXMLFile("manifest.xml")
@@ -54,6 +53,7 @@ function launch:OnInit()
 		-- Enable dev mode to disable updates and set user path to be the script path
 		self.devMode = true
 	end
+	ConPrintf("Loading main script...")
 	local errMsg
 	errMsg, self.main = PLoadModule("Modules/Main", self)
 	if errMsg then
@@ -106,8 +106,6 @@ function launch:OnFrame()
 	if self.promptMsg then
 		local r, g, b = unpack(self.promptCol)
 		self:DrawPopup(r, g, b, "^0%s", self.promptMsg)
-	elseif self.updateChecking then
-		self:DrawPopup(0, 0.5, 0, "^0%s", self.updateMsg)
 	end
 	if self.doRestart then
 		local screenW, screenH = GetScreenSize()
@@ -132,7 +130,7 @@ function launch:OnKeyDown(key, doubleClick)
 		end
 	elseif self.promptMsg then
 		self:RunPromptFunc(key)
-	elseif not self.updateChecking then
+	else
 		if self.main and self.main.OnKeyDown then
 			local errMsg = PCall(self.main.OnKeyDown, self.main, key, doubleClick)
 			if errMsg then
@@ -143,7 +141,7 @@ function launch:OnKeyDown(key, doubleClick)
 end
 
 function launch:OnKeyUp(key)
-	if not self.promptMsg and not self.updateChecking then
+	if not self.promptMsg then
 		if self.main and self.main.OnKeyUp then
 			local errMsg = PCall(self.main.OnKeyUp, self.main, key)
 			if errMsg then
@@ -156,7 +154,7 @@ end
 function launch:OnChar(key)
 	if self.promptMsg then
 		self:RunPromptFunc(key)
-	elseif not self.updateChecking then
+	else
 		if self.main and self.main.OnChar then
 			local errMsg = PCall(self.main.OnChar, self.main, key)
 			if errMsg then
@@ -167,9 +165,7 @@ function launch:OnChar(key)
 end
 
 function launch:OnSubCall(func, ...)
-	if func == "ConPrintf" and self.updateChecking then
-		self.updateMsg = string.format(...)
-	elseif func == "UpdateProgress" then
+	if func == "UpdateProgress" then
 		self.updateProgress = string.format(...)
 	end
 	if _G[func] then
@@ -192,18 +188,7 @@ end
 
 function launch:OnSubFinished(id, ...)
 	if self.subScripts[id].type == "UPDATE" then
-		local ret = (...)
-		self.updateAvailable = ret
-		if self.updateChecking then
-			if not ret then
-				self:ShowPrompt(1, 0, 0, self.updateMsg .. "\n\nPress Enter/Escape to dismiss")
-			elseif ret == "none" then
-				self:ShowPrompt(0, 0, 0, "No update available.", function(key) return true end)
-			else
-				self:ShowPrompt(0.2, 0.8, 0.2, "An update has been downloaded.\n\nClick 'Update Ready' at bottom left when you are ready to update.", function(key) return true end)
-			end
-			self.updateChecking = false
-		end
+		self.updateAvailable, self.updateErrMsg = ...
 		self.updateCheckRunning = false
 	elseif self.subScripts[id].type == "DOWNLOAD" then
 		local errMsg = PCall(self.subScripts[id].callback, ...)
@@ -234,7 +219,7 @@ function launch:DownloadPage(url, callback, cookies)
 	-- Download the given page in the background, and calls the provided callback function when done:
 	-- callback(pageText, errMsg)
 	local id = LaunchSubScript([[
-		local url, cookies = ...
+		local url, cookies, proxyURL = ...
 		ConPrintf("Downloading page at: %s", url)
 		local curl = require("lcurl.safe")
 		local page = ""
@@ -243,6 +228,9 @@ function launch:DownloadPage(url, callback, cookies)
 		easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
 		if cookies then
 			easy:setopt(curl.OPT_COOKIE, cookies)
+		end
+		if proxyURL then
+			easy:setopt(curl.OPT_PROXY, proxyURL)
 		end
 		easy:setopt_writefunction(function(data)
 			page = page..data
@@ -265,7 +253,7 @@ function launch:DownloadPage(url, callback, cookies)
 		else
 			return page
 		end
-	]], "", "ConPrintf", url, cookies)
+	]], "", "ConPrintf", url, cookies, self.proxyURL)
 	if id then
 		self.subScripts[id] = {
 			type = "DOWNLOAD",
@@ -292,12 +280,12 @@ function launch:CheckForUpdate(inBackground)
 	if self.updateCheckRunning then
 		return
 	end
-	self.updateChecking = not inBackground
+	self.updateCheckBackground = inBackground
 	self.updateMsg = "Initialising..."
 	self.updateProgress = "Checking..."
 	self.lastUpdateCheck = GetTime()
 	local update = io.open("UpdateCheck.lua", "r")
-	local id = LaunchSubScript(update:read("*a"), "GetScriptPath,GetRuntimePath,GetWorkDir,MakeDir", "ConPrintf,UpdateProgress")
+	local id = LaunchSubScript(update:read("*a"), "GetScriptPath,GetRuntimePath,GetWorkDir,MakeDir", "ConPrintf,UpdateProgress", self.proxyURL)
 	if id then
 		self.subScripts[id] = {
 			type = "UPDATE"

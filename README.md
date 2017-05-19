@@ -53,6 +53,17 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.12 - 2017/05/19
+ * The Items tab now has a "Shared items" list which is shared between all of your builds
+ * Added an Options screen, accessed via a new button at the bottom left corner. The following options have been added:
+    * Proxy server: specifies the proxy that the program should use when updating or importing characters
+	* Build save path: overrides the default save location for builds
+	* Node Power colours: changes the colour scheme used for the node power display
+ * The breakdowns for hit damage types now show the percentage of total hit damage that is being dealt as that type
+ * Some friendly toasts have set up camp in the bottom left corner, and may appear occasionally to convey various messages
+ * With the new installer versions, the program will always update itself when started for the first time, but will still
+   start even if the update check fails
+
 ### 1.4.11 - 2017/05/16
  * Fixed a stack overflow error that could occur when trying to view breakdowns in the Calcs tab
  * Fixed interaction between weapon swap and skills granted by items
