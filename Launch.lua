@@ -67,7 +67,7 @@ function launch:OnInit()
 		end
 	end
 
-	if not self.devMode then
+	if not self.devMode and not firstRunFile then
 		-- Run a background update check if developer mode is off
 		self:CheckForUpdate(true)
 	end
