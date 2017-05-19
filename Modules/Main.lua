@@ -237,7 +237,7 @@ function main:OnFrame()
 	if launch.updateAvailable then
 		if launch.updateAvailable == "none" then
 			t_insert(self.toastMessages, "No update available\nYou are running the latest version.")
-			self.updateAvailable = nil
+			launch.updateAvailable = nil
 		elseif not self.updateAvailableShown then
 			t_insert(self.toastMessages, "Update Available\nAn update has been downloaded and is ready\nto be applied.")
 			self.updateAvailableShown = true
