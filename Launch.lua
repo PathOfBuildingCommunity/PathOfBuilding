@@ -190,6 +190,9 @@ function launch:OnSubFinished(id, ...)
 	if self.subScripts[id].type == "UPDATE" then
 		self.updateAvailable, self.updateErrMsg = ...
 		self.updateCheckRunning = false
+		if self.updateCheckBackground and self.updateAvailable == "none" then
+			self.updateAvailable = nil
+		end
 	elseif self.subScripts[id].type == "DOWNLOAD" then
 		local errMsg = PCall(self.subScripts[id].callback, ...)
 		if errMsg then

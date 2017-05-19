@@ -234,9 +234,14 @@ function main:OnFrame()
 		t_insert(self.toastMessages, string.format("Update check failed!\n%s", launch.updateErrMsg))
 		launch.updateErrMsg = nil
 	end
-	if launch.updateAvailable and launch.updateAvailable ~= "none" and not self.updateAvailableShown then
-		t_insert(self.toastMessages, "Update Available\nAn update has been downloaded and is ready\nto be applied.")
-		self.updateAvailableShown = true
+	if launch.updateAvailable then
+		if launch.updateAvailable == "none" then
+			t_insert(self.toastMessages, "No update available\nYou are running the latest version.")
+			self.updateAvailable = nil
+		elseif not self.updateAvailableShown then
+			t_insert(self.toastMessages, "Update Available\nAn update has been downloaded and is ready\nto be applied.")
+			self.updateAvailableShown = true
+		end
 	end
 
 	-- Run toasts
