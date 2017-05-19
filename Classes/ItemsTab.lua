@@ -168,12 +168,12 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.sel == 2
 	end
 
-	-- Display item
+	-- Create/import item
 	self.controls.craftDisplayItem = common.New("ButtonControl", {"TOPLEFT",self.controls.itemList,"TOPRIGHT"}, 20, 0, 120, 20, "Craft item...", function()
 		self:CraftItem()
 	end)
 	self.controls.craftDisplayItem.shown = function()
-		return self.displayItem == nil
+		return self.displayItem == nil 
 	end
 	self.controls.newDisplayItem = common.New("ButtonControl", {"TOPLEFT",self.controls.craftDisplayItem,"TOPRIGHT"}, 8, 0, 120, 20, "Create custom...", function()
 		self:EditDisplayItemText()
@@ -181,10 +181,13 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.controls.displayItemTip = common.New("LabelControl", {"TOPLEFT",self.controls.craftDisplayItem,"BOTTOMLEFT"}, 0, 8, 100, 16, 
 [[^7Double-click an item from one of the lists,
 or copy and paste an item from in game (hover over the item and Ctrl+C)
-to view/edit the item and add it to your build.
+to view or edit the item and add it to your build.
 You can Control + Click an item to equip it, or drag it onto the slot.
 This will also add it to your build if it's from the unique/template list.
 If there's 2 slots an item can go in, holding Shift will put it in the second.]])
+	self.controls.sharedItemList = common.New("SharedItemList", {"TOPLEFT",self.controls.craftDisplayItem, "BOTTOMLEFT"}, 0, 142, 360, 308, self)
+
+	-- Display item
 	self.anchorDisplayItem = common.New("Control", {"TOPLEFT",self.controls.itemList,"TOPRIGHT"}, 20, 0, 0, 0)
 	self.anchorDisplayItem.shown = function()
 		return self.displayItem ~= nil
@@ -253,7 +256,21 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	end)
 
 	-- Scroll bar
-	self.controls.scrollBarH = common.New("ScrollBarControl", nil, 0, 0, 0, 18, 80, "HORIZONTAL", true)
+	self.controls.scrollBarH = common.New("ScrollBarControl", nil, 0, 0, 0, 18, 100, "HORIZONTAL", true)
+
+	-- Initialise drag target lists
+	t_insert(self.controls.itemList.dragTargetList, self.controls.sharedItemList)
+	t_insert(self.controls.uniqueDB.dragTargetList, self.controls.itemList)
+	t_insert(self.controls.uniqueDB.dragTargetList, self.controls.sharedItemList)
+	t_insert(self.controls.rareDB.dragTargetList, self.controls.itemList)
+	t_insert(self.controls.rareDB.dragTargetList, self.controls.sharedItemList)
+	t_insert(self.controls.sharedItemList.dragTargetList, self.controls.itemList)
+	for _, slot in pairs(self.slots) do
+		t_insert(self.controls.itemList.dragTargetList, slot)
+		t_insert(self.controls.uniqueDB.dragTargetList, slot)
+		t_insert(self.controls.rareDB.dragTargetList, slot)
+		t_insert(self.controls.sharedItemList.dragTargetList, slot)
+	end
 end)
 
 function ItemsTabClass:Load(xml, dbFileName)
@@ -352,6 +369,15 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
+	for id, event in ipairs(inputEvents) do
+		if event.type == "KeyUp" then
+			if event.key == "WHEELDOWN" then
+				self.controls.scrollBarH:Scroll(1)
+			elseif event.key == "WHEELUP" then
+				self.controls.scrollBarH:Scroll(-1)
+			end
+		end
+	end
 
 	main:DrawBackground(viewPort)
 
@@ -510,6 +536,7 @@ function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
 	if newItem then
 		if normalise then
 			itemLib.normaliseQuality(newItem)
+			itemLib.buildItemModList(newItem)
 		end
 		self:SetDisplayItem(newItem)
 	end

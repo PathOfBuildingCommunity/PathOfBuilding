@@ -3,6 +3,7 @@
 -- Class: Control
 -- UI control base class
 --
+local launch, main = ...
 
 local t_insert = table.insert
 local m_floor = math.floor

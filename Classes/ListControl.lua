@@ -197,6 +197,10 @@ function ListClass:Draw(viewPort)
 		end
 		column = column + 1
 	end
+	if #self.list == 0 and self.defaultText then
+		SetDrawColor(1, 1, 1)
+		DrawString(2, 2, "LEFT", 14, "VAR", self.defaultText)
+	end
 	if self.selDragIndex then
 		local lineY = rowHeight * (self.selDragIndex - 1) - scrollBar.offset
 		SetDrawColor(1, 1, 1)
@@ -245,17 +249,17 @@ function ListClass:OnKeyDown(key, doubleClick)
 			self.selValue = self.list[index]
 			if self.selValue then
 				self.selIndex = index
-				if self.isMutable or self.dragTargetList then
-					self.selCX = cursorX
-					self.selCY = cursorY
-					self.selDragging = true
-					self.selDragActive = false
-				end
 				if self.OnSelect then
 					self:OnSelect(self.selIndex, self.selValue)
 				end
 				if self.OnSelClick then
 					self:OnSelClick(self.selIndex, self.selValue, doubleClick)
+				end
+				if (self.isMutable or self.dragTargetList) and self:IsShown() then
+					self.selCX = cursorX
+					self.selCY = cursorY
+					self.selDragging = true
+					self.selDragActive = false
 				end
 			end
 		end

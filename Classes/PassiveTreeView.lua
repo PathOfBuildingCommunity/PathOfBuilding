@@ -26,6 +26,7 @@ local PassiveTreeViewClass = common.NewClass("PassiveTreeView", function(self)
 	self.zoomY = 0
 
 	self.searchStr = ""
+	self.showStatDifferences = true
 end)
 
 function PassiveTreeViewClass:Load(xml, fileName)
@@ -43,6 +44,9 @@ function PassiveTreeViewClass:Load(xml, fileName)
 	if xml.attrib.showHeatMap then
 		self.showHeatMap = xml.attrib.showHeatMap == "true"
 	end
+	if xml.attrib.showStatDifferences then
+		self.showStatDifferences = xml.attrib.showStatDifferences == "true"
+	end
 end
 
 function PassiveTreeViewClass:Save(xml)
@@ -52,6 +56,7 @@ function PassiveTreeViewClass:Save(xml)
 		zoomY = tostring(self.zoomY),
 		searchStr = self.searchStr,
 		showHeatMap = tostring(self.showHeatMap),
+		showStatDifferences = tostring(self.showStatDifferences),
 	}
 end
 
@@ -74,6 +79,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				end
 			elseif event.key == "p" then
 				self.showHeatMap = not self.showHeatMap
+			elseif event.key == "d" and IsKeyDown("CTRL") then
+				self.showStatDifferences = not self.showStatDifferences
 			end
 		elseif event.type == "KeyUp" then
 			if event.key == "LEFTBUTTON" then
@@ -376,7 +383,14 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				local defence = m_max(node.power.defence or 0, 0)
 				local dpsCol = (offence / build.calcsTab.powerMax.offence * 1.5) ^ 0.5
 				local defCol = (defence / build.calcsTab.powerMax.defence * 1.5) ^ 0.5
-				SetDrawColor(dpsCol, (m_max(dpsCol - 0.5, 0) + m_max(defCol - 0.5, 0)) / 2, defCol)
+				local mixCol = (m_max(dpsCol - 0.5, 0) + m_max(defCol - 0.5, 0)) / 2
+				if main.nodePowerTheme == "RED/BLUE" then
+					SetDrawColor(dpsCol, mixCol, defCol)
+				elseif main.nodePowerTheme == "RED/GREEN" then
+					SetDrawColor(dpsCol, defCol, mixCol)
+				elseif main.nodePowerTheme == "GREEN/BLUE" then
+					SetDrawColor(mixCol, dpsCol, defCol)
+				end
 			else
 				SetDrawColor(1, 1, 1)
 			end
@@ -427,7 +441,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			local size = 175 * scale / self.zoom ^ 0.4
 			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
 		end
-		if node == hoverNode and (node.type ~= "socket" or not IsKeyDown("SHIFT")) then
+		if node == hoverNode and (node.type ~= "socket" or not IsKeyDown("SHIFT")) and not main.popups[1] then
 			-- Draw tooltip
 			SetDrawLayer(nil, 100)
 			local size = m_floor(hoverNode.size * scale)
@@ -591,36 +605,42 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 	end
 
 	-- Mod differences
-	local calcFunc, calcBase = build.calcsTab:GetMiscCalculator(build)
-	if calcFunc then
+	if self.showStatDifferences then
+		local calcFunc, calcBase = build.calcsTab:GetMiscCalculator(build)
+		if calcFunc then
+			main:AddTooltipSeparator(14)
+			local path = (node.alloc and node.depends) or self.tracePath or node.path or { }
+			local pathLength = #path
+			local pathNodes = { }
+			for _, node in pairs(path) do
+				pathNodes[node] = true
+			end
+			local nodeOutput, pathOutput
+			if node.alloc then
+				-- Calculate the differences caused by deallocating this node and its dependants
+				nodeOutput = calcFunc({ removeNodes = { [node] = true } })
+				if pathLength > 1 then
+					pathOutput = calcFunc({ removeNodes = pathNodes })
+				end
+			else
+				-- Calculated the differences caused by allocating this node and all nodes along the path to it
+				nodeOutput = calcFunc({ addNodes = { [node] = true } })
+				if pathLength > 1 then
+					pathOutput = calcFunc({ addNodes = pathNodes })
+				end
+			end
+			local count = build:AddStatComparesToTooltip(calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
+			if pathLength > 1 then
+				count = count + build:AddStatComparesToTooltip(calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
+			end
+			if count == 0 then
+				main:AddTooltipLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
+			end
+			main:AddTooltipLine(14, "^x80A080Tip: Press Ctrl+D to disable the display of stat differences.")
+		end
+	else
 		main:AddTooltipSeparator(14)
-		local path = (node.alloc and node.depends) or self.tracePath or node.path or { }
-		local pathLength = #path
-		local pathNodes = { }
-		for _, node in pairs(path) do
-			pathNodes[node] = true
-		end
-		local nodeOutput, pathOutput
-		if node.alloc then
-			-- Calculate the differences caused by deallocating this node and its dependants
-			nodeOutput = calcFunc({ removeNodes = { [node] = true } })
-			if pathLength > 1 then
-				pathOutput = calcFunc({ removeNodes = pathNodes })
-			end
-		else
-			-- Calculated the differences caused by allocating this node and all nodes along the path to it
-			nodeOutput = calcFunc({ addNodes = { [node] = true } })
-			if pathLength > 1 then
-				pathOutput = calcFunc({ addNodes = pathNodes })
-			end
-		end
-		local count = build:AddStatComparesToTooltip(calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
-		if pathLength > 1 then
-			count = count + build:AddStatComparesToTooltip(calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
-		end
-		if count == 0 then
-			main:AddTooltipLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
-		end
+		main:AddTooltipLine(14, "^x80A080Tip: Press Ctrl+D to enable the display of stat differences.")
 	end
 
 	-- Pathing distance

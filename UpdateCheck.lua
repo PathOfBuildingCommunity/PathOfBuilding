@@ -4,6 +4,7 @@
 -- Module: Update Check
 -- Checks for updates
 --
+local proxyURL = ...
 
 local xml = require("xml")
 local sha1 = require("sha1")
@@ -19,6 +20,10 @@ local function downloadFileText(url)
 		local text = ""
 		local easy = curl.easy()
 		easy:setopt_url(url)
+		easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
+		if proxyURL then
+			easy:setopt(curl.OPT_PROXY, proxyURL)
+		end
 		easy:setopt_writefunction(function(data)
 			text = text..data 
 			return true
@@ -29,8 +34,8 @@ local function downloadFileText(url)
 			return text
 		end
 		ConPrintf("Download failed (%s)", error:msg())
-		if globalRetryLimit == 0 then
-			break
+		if globalRetryLimit == 0 or i == 5 then
+			return nil, error:msg()
 		end
 		globalRetryLimit = globalRetryLimit - 1
 	end
@@ -86,7 +91,7 @@ if localManXML and localManXML[1].elem == "PoBVersion" then
 end
 if not localVer or not localSource or not localBranch or not next(localFiles) then
 	ConPrintf("Update check failed: invalid local manifest")
-	return
+	return nil, "Invalid local manifest"
 end
 localSource = localSource:gsub("{branch}", localBranch)
 
@@ -94,10 +99,10 @@ localSource = localSource:gsub("{branch}", localBranch)
 local remoteVer
 local remoteFiles = { }
 local remoteSources = { }
-local remoteManText = downloadFileText(localSource.."manifest.xml")
+local remoteManText, errMsg = downloadFileText(localSource.."manifest.xml")
 if not remoteManText then
 	ConPrintf("Update check failed: couldn't download version manifest")
-	return
+	return nil, "Couldn't download version manifest.\nReason: "..errMsg.."\nCheck your internet connectivity.\nIf you are using a proxy, specify it in Options."
 end
 local remoteManXML = xml.ParseXML(remoteManText)
 if remoteManXML and remoteManXML[1].elem == "PoBVersion" then
@@ -126,7 +131,7 @@ if remoteManXML and remoteManXML[1].elem == "PoBVersion" then
 end
 if not remoteVer or not next(remoteSources) or not next(remoteFiles) then
 	ConPrintf("Update check failed: invalid remote manifest")
-	return
+	return nil, "Invalid remote manifest"
 end
 
 -- Build lists of files to be updated or deleted
@@ -225,7 +230,7 @@ for name, zip in pairs(zipFiles) do
 end
 if failedFile then
 	ConPrintf("Update failed: one or more files couldn't be downloaded")
-	return
+	return nil, "One or more files couldn't be downloaded.\nCheck your internet connectivity,\nor try again later."
 end
 
 -- Create new manifest

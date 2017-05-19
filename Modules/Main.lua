@@ -62,6 +62,7 @@ local classList = {
 	"ItemSlotControl",
 	"ItemListControl",
 	"ItemDBControl",
+	"SharedItemListControl",
 	"CalcsTab",
 	"CalcSectionControl",
 	"CalcBreakdownControl",
@@ -85,7 +86,8 @@ function main:Init()
 		self.userPath = GetUserPath().."/Path of Building/"
 		MakeDir(self.userPath)
 	end
-	self.buildPath = self.userPath.."Builds/"
+	self.defaultBuildPath = self.userPath.."Builds/"
+	self.buildPath = self.defaultBuildPath
 	MakeDir(self.buildPath)
 	
 	self.tree = common.New("PassiveTree")
@@ -114,17 +116,25 @@ function main:Init()
 		end
 	end
 
-	self.anchorUpdate = common.New("Control", nil, 2, 0, 0, 0)
-	self.anchorUpdate.y = function()
+	self.sharedItems = { }
+
+	self.anchorMain = common.New("Control", nil, 4, 0, 0, 0)
+	self.anchorMain.y = function()
 		return self.screenH - 4
 	end
-	self.controls.applyUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 110, 20, "^x50E050Update Ready", function()
+	self.controls.options = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, 0, 70, 20, "Options", function()
+		self:OpenOptionsPopup()
+	end)
+	self.controls.about = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 228, 0, 70, 20, "About", function()
+		self:OpenAboutPopup()
+	end)
+	self.controls.applyUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -24, 130, 20, "^x50E050Update Ready", function()
 		self:OpenUpdatePopup()
 	end)
 	self.controls.applyUpdate.shown = function()
 		return launch.updateAvailable and launch.updateAvailable ~= "none"
 	end
-	self.controls.checkUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 120, 18, "", function()
+	self.controls.checkUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -24, 130, 20, "", function()
 		launch:CheckForUpdate()
 	end)
 	self.controls.checkUpdate.shown = function()
@@ -136,16 +146,35 @@ function main:Init()
 	self.controls.checkUpdate.enabled = function()
 		return not launch.updateCheckRunning
 	end
-	self.controls.versionLabel = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 124, 0, 0, 14, "")
+	self.controls.versionLabel = common.New("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 134, -27, 0, 14, "")
 	self.controls.versionLabel.label = function()
 		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or "")
 	end
-	self.controls.about = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 250, 0, 50, 20, "About", function()
-		self:OpenAboutPopup()
-	end)
-	self.controls.devMode = common.New("LabelControl", {"BOTTOMLEFT",self.anchorUpdate,"BOTTOMLEFT"}, 0, 0, 0, 18, "^1Dev Mode")
+	self.controls.devMode = common.New("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -26, 0, 20, "^1Dev Mode")
 	self.controls.devMode.shown = function()
 		return launch.devMode
+	end
+	self.controls.dismissToast = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, function() return -self.mainBarHeight + self.toastHeight end, 80, 20, "Dismiss", function()
+		self.toastMode = "HIDING"
+		self.toastStart = GetTime()
+	end)
+	self.controls.dismissToast.shown = function()
+		return self.toastMode == "SHOWN"
+	end
+
+	self.mainBarHeight = 58
+	self.toastMessages = { }
+
+	if launch.devMode and GetTime() < 15000 then
+		t_insert(self.toastMessages, [[
+^xFF7700Warning: ^7Developer Mode active!
+The program is currently running in developer
+mode, which is not intended for normal use.
+If you are not expecting this, then you may have
+set up the program from the source .zip instead
+of using one of the installers. If that is the case,
+please reinstall using one of the installers from
+the "Releases" section of the GitHub page.]])
 	end
 
 	self.inputEvents = { }
@@ -155,6 +184,7 @@ function main:Init()
 	self.accountSessionIDs = { }
 
 	self.buildSortMode = "NAME"
+	self.nodePowerTheme = "RED/BLUE"
 
 	self:SetMode("BUILD", false, "Unnamed build")
 
@@ -200,6 +230,63 @@ function main:OnFrame()
 
 	self:CallMode("OnFrame", self.inputEvents, self.viewPort)
 
+	if launch.updateErrMsg then
+		t_insert(self.toastMessages, string.format("Update check failed!\n%s", launch.updateErrMsg))
+		launch.updateErrMsg = nil
+	end
+	if launch.updateAvailable then
+		if launch.updateAvailable == "none" then
+			t_insert(self.toastMessages, "No update available\nYou are running the latest version.")
+			launch.updateAvailable = nil
+		elseif not self.updateAvailableShown then
+			t_insert(self.toastMessages, "Update Available\nAn update has been downloaded and is ready\nto be applied.")
+			self.updateAvailableShown = true
+		end
+	end
+
+	-- Run toasts
+	if self.toastMessages[1] then
+		if not self.toastMode then
+			self.toastMode = "SHOWING"
+			self.toastStart = GetTime()
+			self.toastHeight = #self.toastMessages[1]:gsub("[^\n]","") * 16 + 20 + 40
+		end
+		if self.toastMode == "SHOWING" then
+			local now = GetTime()
+			if now >= self.toastStart + 250 then
+				self.toastMode = "SHOWN"
+			else
+				self.mainBarHeight = 58 + self.toastHeight * (now - self.toastStart) / 250
+			end
+		end
+		if self.toastMode == "SHOWN" then
+			self.mainBarHeight = 58 + self.toastHeight
+		elseif self.toastMode == "HIDING" then
+			local now = GetTime()
+			if now >= self.toastStart + 75 then
+				self.toastMode = nil
+				self.mainBarHeight = 58
+				t_remove(self.toastMessages, 1)
+			else
+				self.mainBarHeight = 58 + self.toastHeight * (1 - (now - self.toastStart) / 75)
+			end
+		end
+		if self.toastMode then
+			SetDrawColor(0.85, 0.85, 0.85)
+			DrawImage(nil, 0, self.screenH - self.mainBarHeight, 312, self.mainBarHeight)
+			SetDrawColor(0.1, 0.1, 0.1)
+			DrawImage(nil, 0, self.screenH - self.mainBarHeight + 4, 308, self.mainBarHeight - 4)
+			SetDrawColor(1, 1, 1)
+			DrawString(4, self.screenH - self.mainBarHeight + 8, "LEFT", 20, "VAR", self.toastMessages[1]:gsub("\n.*",""))
+			DrawString(4, self.screenH - self.mainBarHeight + 28, "LEFT", 16, "VAR", self.toastMessages[1]:gsub("^[^\n]*\n?",""))
+		end
+	end
+
+	-- Draw main controls
+	SetDrawColor(0.85, 0.85, 0.85)
+	DrawImage(nil, 0, self.screenH - 58, 312, 58)
+	SetDrawColor(0.1, 0.1, 0.1)
+	DrawImage(nil, 0, self.screenH - 54, 308, 54)
 	self:DrawControls(self.viewPort)
 
 	if self.popups[1] then
@@ -274,9 +361,31 @@ function main:LoadSettings()
 						self.accountSessionIDs[child.attrib.accountName] = child.attrib.sessionID
 					end
 				end
+			elseif node.elem == "SharedItems" then
+				for _, child in ipairs(node) do
+					if child.elem == "Item" then
+						local item = { raw = "" }
+						itemLib.parseItemRaw(item)
+						for _, subChild in ipairs(child) do
+							if type(subChild) == "string" then
+								item.raw = subChild
+								itemLib.parseItemRaw(item)
+							end
+						end
+						itemLib.buildItemModList(item)
+						t_insert(self.sharedItems, item)
+					end
+				end
 			elseif node.elem == "Misc" then
 				if node.attrib.buildSortMode then
 					self.buildSortMode = node.attrib.buildSortMode
+				end
+				launch.proxyURL = node.attrib.proxyURL
+				if node.attrib.buildPath then
+					self.buildPath = node.attrib.buildPath
+				end
+				if node.attrib.nodePowerTheme then
+					self.nodePowerTheme = node.attrib.nodePowerTheme
 				end
 			end
 		end
@@ -303,12 +412,71 @@ function main:SaveSettings()
 		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = sessionID } })
 	end
 	t_insert(setXML, accounts)
-	t_insert(setXML, { elem = "Misc", attrib = { buildSortMode = self.buildSortMode } })
+	local sharedItems = { elem = "SharedItems" }
+	for _, item in ipairs(self.sharedItems) do
+		t_insert(sharedItems, { elem = "Item", [1] = item.raw })
+	end
+	t_insert(setXML, sharedItems)
+	t_insert(setXML, { elem = "Misc", attrib = { 
+		buildSortMode = self.buildSortMode, 
+		proxyURL = launch.proxyURL, 
+		buildPath = (self.buildPath ~= self.defaultBuildPath and self.buildPath or nil),
+		nodePowerTheme = self.nodePowerTheme,
+	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
 		launch:ShowErrMsg("Error saving 'Settings.xml': %s", errMsg)
 		return true
 	end
+end
+
+function main:OpenOptionsPopup()
+	local controls = { }
+	controls.proxyType = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 20, 80, 18, {{val="http",label="HTTP"},{val="socks5",label="SOCKS"}})
+	controls.proxyLabel = common.New("LabelControl", {"RIGHT",controls.proxyType,"LEFT"}, -4, 0, 0, 16, "^7Proxy server:")
+	controls.proxyURL = common.New("EditControl", {"LEFT",controls.proxyType,"RIGHT"}, 4, 0, 206, 18)
+	if launch.proxyURL then
+		local scheme, url = launch.proxyURL:match("(%w+)://(.+)")
+		controls.proxyType:SelByValue(scheme)
+		controls.proxyURL:SetText(url)
+	end
+	controls.buildPath = common.New("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 44, 290, 18)
+	controls.buildPathLabel = common.New("LabelControl", {"RIGHT",controls.buildPath,"LEFT"}, -4, 0, 0, 16, "^7Build save path:")
+	if self.buildPath ~= self.defaultBuildPath then
+		controls.buildPath:SetText(self.buildPath)
+	end
+	controls.buildPath.tooltip = "Overrides the default save location for builds.\nThe default location is: '"..self.defaultBuildPath.."'"
+	controls.nodePowerTheme = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 68, 100, 18, {{val="RED/BLUE",label="Red & Blue"},{val="RED/GREEN",label="Red & Green"},{val="GREEN/BLUE",label="Green & Blue"}}, function(sel, value)
+		self.nodePowerTheme = value.val
+	end)
+	controls.nodePowerThemeLabel = common.New("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, -4, 0, 0, 16, "^7Node Power colours:")
+	controls.nodePowerTheme.tooltip = "Changes the colour scheme used for the node power display on the passive tree."
+	controls.nodePowerTheme:SelByValue(self.nodePowerTheme)
+	local initialNodePowerTheme = self.nodePowerTheme
+	controls.save = common.New("ButtonControl", nil, -45, 120, 80, 20, "Save", function()
+		if controls.proxyURL.buf:match("%w") then
+			launch.proxyURL = controls.proxyType.list[controls.proxyType.sel].val .. "://" .. controls.proxyURL.buf
+		else
+			launch.proxyURL = nil
+		end
+		if controls.buildPath.buf:match("%S") then
+			self.buildPath = controls.buildPath.buf
+			if not self.buildPath:match("[\\/]$") then
+				self.buildPath = self.buildPath .. "/"
+			end
+		else
+			self.buildPath = self.defaultBuildPath
+		end
+		if self.mode == "LIST" then
+			self.modes.LIST:BuildList()
+		end
+		main:ClosePopup()
+	end)
+	controls.cancel = common.New("ButtonControl", nil, 45, 120, 80, 20, "Cancel", function()
+		self.nodePowerTheme = initialNodePowerTheme
+		main:ClosePopup()
+	end)
+	self:OpenPopup(450, 150, "Options", controls, "save", nil, "cancel")
 end
 
 function main:OpenUpdatePopup()

@@ -23,6 +23,7 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 
 	-- Socket group list
 	self.controls.groupList = common.New("SkillList", {"TOPLEFT",self,"TOPLEFT"}, 20, 24, 360, 300, self)
+	self.controls.groupTip = common.New("LabelControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 8, 0, 14, "^7Tip: You can copy/paste socket groups using Ctrl+C and Ctrl+V.")
 
 	-- Socket group details
 	self.anchorGroupDetail = common.New("Control", {"TOPLEFT",self.controls.groupList,"TOPRIGHT"}, 20, 0, 0, 0)
@@ -488,6 +489,7 @@ function SkillsTabClass:CreateUndoState()
 	state.socketGroupList = { }
 	for _, socketGroup in ipairs(self.socketGroupList) do
 		local newGroup = copyTable(socketGroup, true)
+		newGroup.gemList = { }
 		for index, gem in pairs(socketGroup.gemList) do
 			newGroup.gemList[index] = copyTable(gem, true)
 		end

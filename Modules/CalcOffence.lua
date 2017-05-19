@@ -630,16 +630,17 @@ function calcs.offence(env, actor)
 				local base = modDB:Sum("BASE", cfg, "CritChance")
 				local inc = modDB:Sum("INC", cfg, "CritChance")
 				local more = modDB:Sum("MORE", cfg, "CritChance")
+				local enemyExtra = env.mode_effective and enemyDB:Sum("BASE", nil, "SelfExtraCritChance") or 0
 				output.CritChance = (baseCrit + base) * (1 + inc / 100) * more
-				if env.mode_effective then
-					output.CritChance = output.CritChance + enemyDB:Sum("BASE", nil, "SelfExtraCritChance")
-				end
 				local preCapCritChance = output.CritChance
 				output.CritChance = m_min(output.CritChance, 95)
 				if (baseCrit + base) > 0 then
 					output.CritChance = m_max(output.CritChance, 5)
 				end
 				output.PreEffectiveCritChance = output.CritChance
+				if enemyExtra ~= 0 then
+					output.CritChance = m_min(output.CritChance + enemyExtra, 100)
+				end
 				local preLuckyCritChance = output.CritChance
 				if env.mode_effective and modDB:Sum("FLAG", cfg, "CritChanceLucky") then
 					output.CritChance = (1 - (1 - output.CritChance / 100) ^ 2) * 100
@@ -649,7 +650,6 @@ function calcs.offence(env, actor)
 					output.CritChance = output.CritChance * output.HitChance / 100
 				end
 				if breakdown and output.CritChance ~= baseCrit then
-					local enemyExtra = enemyDB:Sum("BASE", nil, "SelfExtraCritChance")
 					breakdown.CritChance = { }
 					if base ~= 0 then
 						t_insert(breakdown.CritChance, s_format("(%g + %g) ^8(base)", baseCrit, base))
@@ -662,24 +662,25 @@ function calcs.offence(env, actor)
 					if more ~= 1 then
 						t_insert(breakdown.CritChance, s_format("x %.2f", more).." ^8(more/less)")
 					end
-					if env.mode_effective and enemyExtra ~= 0 then
-						t_insert(breakdown.CritChance, s_format("+ %g ^8(extra chance for enemy to be crit)", enemyExtra))
-					end
-					t_insert(breakdown.CritChance, s_format("= %g", preLuckyCritChance))
+					t_insert(breakdown.CritChance, s_format("= %.2f%% ^8(crit chance)", output.PreEffectiveCritChance))
 					if preCapCritChance > 95 then
 						local overCap = preCapCritChance - 95
 						t_insert(breakdown.CritChance, s_format("Crit is overcapped by %.2f%% (%d%% increased Critical Strike Chance)", overCap, overCap / more / (baseCrit + base) * 100))
 					end
+					if enemyExtra ~= 0 then
+						t_insert(breakdown.CritChance, s_format("+ %g ^8(extra chance for enemy to be crit)", enemyExtra))
+						t_insert(breakdown.CritChance, s_format("= %.2f%% ^8(chance to crit against enemy)", preLuckyCritChance))
+					end
 					if env.mode_effective and modDB:Sum("FLAG", cfg, "CritChanceLucky") then
 						t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
 						t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", preLuckyCritChance / 100, preLuckyCritChance / 100))
-						t_insert(breakdown.CritChance, s_format("= %.2f", preHitCheckCritChance))
+						t_insert(breakdown.CritChance, s_format("= %.2f%%", preHitCheckCritChance))
 					end
 					if env.mode_effective and output.HitChance < 100 then
 						t_insert(breakdown.CritChance, "Crit confirmation roll:")
-						t_insert(breakdown.CritChance, s_format("%.2f", preHitCheckCritChance))
+						t_insert(breakdown.CritChance, s_format("%.2f%%", preHitCheckCritChance))
 						t_insert(breakdown.CritChance, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
-						t_insert(breakdown.CritChance, s_format("= %.2f", output.CritChance))
+						t_insert(breakdown.CritChance, s_format("= %.2f%%", output.CritChance))
 					end
 				end
 			end
@@ -863,6 +864,15 @@ function calcs.offence(env, actor)
 			enemyDB.conditions.HitByFireDamage = output.FireHitAverage > 0
 			enemyDB.conditions.HitByColdDamage = output.ColdHitAverage > 0
 			enemyDB.conditions.HitByLightningDamage = output.LightningHitAverage > 0
+		end
+
+		if breakdown then
+			-- For each damage type, calculate percentage of total damage
+			for _, damageType in ipairs(dmgTypeList) do
+				if output[damageType.."HitAverage"] > 0 then
+					t_insert(breakdown[damageType], s_format("Portion of total damage: %d%%", output[damageType.."HitAverage"] / (totalHitMin + totalHitMax) * 200))
+				end
+			end
 		end
 
 		local hitRate = output.HitChance / 100 * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)

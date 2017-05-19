@@ -13,10 +13,8 @@ local ItemDBClass = common.NewClass("ItemDB", "ListControl", function(self, anch
 	self.ListControl(anchor, x, y, width, height, 16, false)
 	self.itemsTab = itemsTab
 	self.db = db
-	self.dragTargetList = { itemsTab.controls.itemList }
-	for _, slot in pairs(itemsTab.slots) do
-		t_insert(self.dragTargetList, slot)
-	end
+	self.defaultText = "^7No items found that match those filters."
+	self.dragTargetList = { }
 	self.sortControl = { 
 		NAME = { key = "name", order = 1, dir = "ASCEND", func = function(a,b) return a:gsub("^The ","") < b:gsub("^The ","") end }
 	}
@@ -163,8 +161,10 @@ function ItemDBClass:GetRowValue(column, index, item)
 end
 
 function ItemDBClass:AddValueTooltip(index, item)
-	self.itemsTab:AddItemTooltip(item, nil, true)
-	return data.colorCodes[item.rarity], true
+	if not main.popups[1] then
+		self.itemsTab:AddItemTooltip(item, nil, true)
+		return data.colorCodes[item.rarity], true
+	end
 end
 
 function ItemDBClass:GetDragValue(index, item)

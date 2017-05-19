@@ -81,10 +81,13 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 	self.controls.treeSearch = common.New("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 300, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
 	end)
-	self.controls.treeHeatMap = common.New("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show node power:", function(state)	
+	self.controls.treeHeatMap = common.New("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)	
 		self.viewer.showHeatMap = state
 	end)
-	self.controls.treeHeatMap.tooltip = "When enabled, an estimate of the offensive and defensive strength of\neach unallocated passive is calculated and displayed visually.\nOffensive power shows as red, defensive power as blue."
+	self.controls.treeHeatMap.tooltip = function()
+		local offCol, defCol = main.nodePowerTheme:match("(%a+)/(%a+)")
+		return "When enabled, an estimate of the offensive and defensive strength of\neach unallocated passive is calculated and displayed visually.\nOffensive power shows as "..offCol:lower()..", defensive power as "..defCol:lower().."."
+	end
 end)
 
 function TreeTabClass:Draw(viewPort, inputEvents)

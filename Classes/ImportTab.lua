@@ -130,13 +130,17 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 	self.controls.generateCodePastebin = common.New("ButtonControl", {"LEFT",self.controls.generateCodeCopy,"RIGHT"}, 8, 0, 140, 20, "Share with Pastebin", function()
 		local id = LaunchSubScript([[
-			local code = ...
+			local code, proxyURL = ...
 			local curl = require("lcurl.safe")
 			local page = ""
 			local easy = curl.easy()
 			easy:setopt_url("https://pastebin.com/api/api_post.php")
 			easy:setopt(curl.OPT_POST, true)
 			easy:setopt(curl.OPT_POSTFIELDS, "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_option=paste&api_paste_code="..code)
+			easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
+			if proxyURL then
+				easy:setopt(curl.OPT_PROXY, proxyURL)
+			end
 			easy:setopt_writefunction(function(data)
 				page = page..data
 				return true
@@ -148,7 +152,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 			else
 				return nil, page
 			end
-		]], "", "", self.controls.generateCodeOut.buf)
+		]], "", "", self.controls.generateCodeOut.buf, launch.proxyURL)
 		if id then
 			self.controls.generateCodeOut:SetText("")
 			self.controls.generateCodePastebin.label = "Creating paste..."
