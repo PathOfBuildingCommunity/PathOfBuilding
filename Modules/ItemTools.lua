@@ -380,7 +380,7 @@ function itemLib.createItemRaw(item)
 		if not modLine.buff then
 			local line = modLine.line
 			if modLine.range then
-				line = "{range:"..round(modLine.range,2).."}" .. line
+				line = "{range:"..round(modLine.range,3).."}" .. line
 			end
 			if modLine.crafted then
 				line = "{crafted}" .. line

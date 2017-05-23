@@ -519,6 +519,7 @@ local modTagList = {
 	["if you[' ]h?a?ve been hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
 	["if you were hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
 	["if you were damaged by a hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
+	["if you've taken a critical strike recently"] = { tag = { type = "Condition", var = "BeenCritRecently" } },
 	["if you've taken a savage hit recently"] = { tag = { type = "Condition", var = "BeenSavageHitRecently" } },
 	["if you have ?n[o']t been hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently", neg = true } },
 	["if you've taken no damage from hits recently"] = { tag = { type = "Condition", var = "BeenHitRecently", neg = true } },

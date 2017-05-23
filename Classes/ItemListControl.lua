@@ -57,7 +57,7 @@ end
 function ItemListClass:AddValueTooltip(index, itemId)
 	local item = self.itemsTab.list[itemId]
 	if not main.popups[1] then
-		self.itemsTab:AddItemTooltip(item, nil, true)
+		self.itemsTab:AddItemTooltip(item)
 		return data.colorCodes[item.rarity], true
 	end
 end

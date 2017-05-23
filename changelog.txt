@@ -1,3 +1,6 @@
+VERSION[1.4.14][2017/05/24]
+ * Added an option to the Configuration tab for "Have you been Crit Recently?"
+ * Fixed some issues with item templates and the All items/Shared items lists
 VERSION[1.4.13][2017/05/20]
  * Detonate Dead now has an input in the Configuration tab for "Corpse Life"
  * Added support for Hungry Abyss

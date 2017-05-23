@@ -53,6 +53,10 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.14 - 2017/05/24
+ * Added an option to the Configuration tab for "Have you been Crit Recently?"
+ * Fixed some issues with item templates and the All items/Shared items lists
+
 ### 1.4.13 - 2017/05/20
  * Detonate Dead now has an input in the Configuration tab for "Corpse Life"
  * Added support for Hungry Abyss
