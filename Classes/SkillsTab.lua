@@ -77,7 +77,7 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 		local item = self.displayGroup.sourceItem or { rarity = "NORMAL", name = "?" }
 		local itemName = data.colorCodes[item.rarity]..item.name.."^7"
 		local activeGem = self.displayGroup.gemList[1]
-		local label = [[^7This is a special group created for the ']]..activeGem.color..activeGem.name..[[^7' skill,
+		local label = [[^7This is a special group created for the ']]..activeGem.color..(activeGem.name or activeGem.nameSpec)..[[^7' skill,
 which is being provided by ']]..itemName..[['.
 You cannot delete this group, but it will disappear if you un-equip the item.]]
 		if not self.displayGroup.noSupports then

@@ -102,6 +102,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F2327651-C
 		Data\EnchantmentBoots.lua = Data\EnchantmentBoots.lua
 		Data\EnchantmentHelmet.lua = Data\EnchantmentHelmet.lua
 		Data\Minions.lua = Data\Minions.lua
+		Data\ModCorrupted.lua = Data\ModCorrupted.lua
 		Data\ModFlask.lua = Data\ModFlask.lua
 		Data\ModJewel.lua = Data\ModJewel.lua
 		Data\New.lua = Data\New.lua

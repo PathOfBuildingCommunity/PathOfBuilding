@@ -31,7 +31,7 @@ end
 
 function SharedItemListClass:AddValueTooltip(index, item)
 	if not main.popups[1] then
-		self.itemsTab:AddItemTooltip(item, nil, true)
+		self.itemsTab:AddItemTooltip(item)
 		return data.colorCodes[item.rarity], true
 	end
 end
@@ -42,7 +42,7 @@ end
 
 function SharedItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
-		local newItem = itemLib.makeItemFromRaw(value.raw)
+		local newItem = itemLib.makeItemFromRaw(itemLib.createItemRaw(value))
 		if not value.id then
 			itemLib.normaliseQuality(newItem)
 		end

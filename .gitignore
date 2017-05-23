@@ -250,3 +250,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 *.lnk
+/Export/stat_descriptions.txt
