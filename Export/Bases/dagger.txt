@@ -1,0 +1,6 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Dagger
+#baseTags weapon onehand dagger one_hand_weapon
+#baseMatch Metadata/Items/Weapons/OneHandWeapons/Daggers/Dagger

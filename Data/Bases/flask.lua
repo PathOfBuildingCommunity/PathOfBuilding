@@ -5,7 +5,7 @@ itemBases["Small Life Flask"] = {
 	type = "Flask",
 	subType = "Life",
 	flask = { life = 70, duration = 6, chargesUsed = 7, chargesMax = 21, },
-	req = { level = 1, },
+	req = { },
 }
 itemBases["Medium Life Flask"] = {
 	type = "Flask",
@@ -79,7 +79,7 @@ itemBases["Small Mana Flask"] = {
 	type = "Flask",
 	subType = "Mana",
 	flask = { mana = 60, duration = 5, chargesUsed = 10, chargesMax = 30, },
-	req = { level = 1, },
+	req = { },
 }
 itemBases["Medium Mana Flask"] = {
 	type = "Flask",
@@ -191,7 +191,7 @@ itemBases["Quicksilver Flask"] = {
 	type = "Flask",
 	subType = "Utility",
 	flask = { duration = 4, chargesUsed = 20, chargesMax = 50, buff = { "40% increased Movement Speed" }, },
-	req = { level = 1, },
+	req = { },
 }
 itemBases["Bismuth Flask"] = {
 	type = "Flask",

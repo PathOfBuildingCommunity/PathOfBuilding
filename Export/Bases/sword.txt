@@ -1,0 +1,14 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type One Handed Sword
+#baseTags weapon onehand sword one_hand_weapon
+
+#baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword
+
+#type Thrusting One Handed Sword
+#baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier
+
+#type Two Handed Sword
+#baseTags weapon twohand sword two_hand_weapon
+#baseMatch Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword

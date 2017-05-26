@@ -53,6 +53,17 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.15 - 2017/05/26
+This update adds support for level and attribute requirements:
+ * Item tooltips now show level and attribute requirements
+    * Level requirements shown for items imported from in-game may be lower than in-game; this cannot be avoided
+	* Some previously-imported items may display a more accurate level requirement if they are re-imported
+ * The gem selectors in the Skills tab now have tooltips that show level and attribute requirements, plus some other details
+ * The sidebar now shows your attribute requirements if they aren't met
+ * The Attributes section of the Calcs tab now shows attribute requirements, with detailed breakdowns
+Other changes:
+ * Witchfire Brew's Vulnerability aura now interacts correctly with Umbilicus Immortalis
+
 ### 1.4.14 - 2017/05/24
  * Added an option to the Configuration tab for "Have you been Crit Recently?"
  * Fixed some issues with item templates and the All items/Shared items lists

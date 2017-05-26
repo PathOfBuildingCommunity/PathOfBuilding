@@ -44,7 +44,7 @@ Regenerate 100 Life per second while moving
 ]],[[
 Gruthkul's Pelt
 Wyrmscale Doublet
-Requiress Level 38, 57 Str, 57 Dex
+Requires Level 38, 57 Str, 57 Dex
 (60-100)% increased Physical Damage
 +(130-160) to maximum Life
 +(20-40)% to Cold Resistance
@@ -112,7 +112,7 @@ their Maximum Life as Physical Damage
 ]],[[
 Ryslatha's Coil
 Studded Belt
-Requires Level: 20
+Requires Level 20
 (20–30)% increased Stun Duration on Enemies 
 +(20–40) to Strength 
 Adds 1 to (15–20) Physical Damage to Attacks 

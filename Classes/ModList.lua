@@ -101,6 +101,11 @@ function ModListClass:Sum(modType, cfg, ...)
 						local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
 						if type(value) == "table" then
 							value = copyTable(value)
+							if value.mod then
+								value.mod.value = value.mod.value * mult + (tag.base or 0)
+							else
+								value.value = value.value * mult + (tag.base or 0)
+							end
 							value.value = value.value * mult + (tag.base or 0)
 						else
 							value = value * mult + (tag.base or 0)
@@ -115,7 +120,11 @@ function ModListClass:Sum(modType, cfg, ...)
 						local mult = m_floor((self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0) / tag.div + 0.0001)
 						if type(value) == "table" then
 							value = copyTable(value)
-							value.value = value.value * mult + (tag.base or 0)
+							if value.mod then
+								value.mod.value = value.mod.value * mult + (tag.base or 0)
+							else
+								value.value = value.value * mult + (tag.base or 0)
+							end
 						else
 							value = value * mult + (tag.base or 0)
 						end

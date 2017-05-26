@@ -396,8 +396,8 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			else
 				minion.weaponData1 = {
 					type = minion.minionData.weaponType1 or "None",
-					attackRate = 1 / attackTime,
-					critChance = 5,
+					AttackRate = 1 / attackTime,
+					CritChance = 5,
 					PhysicalMin = damage * (1 - minion.minionData.damageSpread),
 					PhysicalMax = damage * (1 + minion.minionData.damageSpread),
 				}

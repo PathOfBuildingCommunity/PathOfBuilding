@@ -1,0 +1,26 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Shield
+#baseTags armour shield
+
+#subType Armour
+#baseMatch Metadata/Items/Armours/Shields/ShieldStr%d+
+
+#subType Evasion
+#baseMatch Metadata/Items/Armours/Shields/ShieldDex%d+
+
+#subType Energy Shield
+#baseMatch Metadata/Items/Armours/Shields/ShieldInt%d+
+
+#subType Armour/Evasion
+#baseMatch Metadata/Items/Armours/Shields/ShieldStrDex%d+
+
+#subType Armour/Energy Shield
+#baseMatch Metadata/Items/Armours/Shields/ShieldStrInt%d+
+
+#subType Evasion/Energy Shield
+#baseMatch Metadata/Items/Armours/Shields/ShieldDexInt%d+
+
+#subType
+#base Metadata/Items/Armours/Shields/ShieldDemigods

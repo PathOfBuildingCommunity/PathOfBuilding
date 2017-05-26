@@ -1,0 +1,18 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Ring
+#baseTags ring
+
+#baseMatch Metadata/Items/Rings/Ring%d+
+#forceShow true
+#base Metadata/Items/Rings/Ring12 Two-Stone Ring (Fire/Lightning)
+#base Metadata/Items/Rings/Ring13 Two-Stone Ring (Cold/Lightning)
+#base Metadata/Items/Rings/Ring14 Two-Stone Ring (Fire/Cold)
+#forceShow false
+#base Metadata/Items/Rings/RingAtlas1
+#base Metadata/Items/Rings/RingAtlas2
+
+#base Metadata/Items/Rings/BreachRing
+#base Metadata/Items/Rings/RingDemigods1
+#base Metadata/Items/Rings/RingVictor1

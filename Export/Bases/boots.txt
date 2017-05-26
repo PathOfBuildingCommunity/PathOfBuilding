@@ -1,0 +1,29 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Boots
+#baseTags armour boots
+
+#subType Armour
+#baseMatch Metadata/Items/Armours/Boots/BootsStr%d+
+
+#subType Evasion
+#baseMatch Metadata/Items/Armours/Boots/BootsDex%d+
+
+#subType Energy Shield
+#baseMatch Metadata/Items/Armours/Boots/BootsInt%d+
+
+#subType Armour/Evasion
+#baseMatch Metadata/Items/Armours/Boots/BootsStrDex%d+
+#base Metadata/Items/Armours/Boots/BootsAtlas2 Two-Toned Boots (Armour/Evasion)
+
+#subType Armour/Energy Shield
+#baseMatch Metadata/Items/Armours/Boots/BootsStrInt%d+
+#base Metadata/Items/Armours/Boots/BootsAtlas3 Two-Toned Boots (Armour/Energy Shield)
+
+#subType Evasion/Energy Shield
+#baseMatch Metadata/Items/Armours/Boots/BootsDexInt%d+
+#base Metadata/Items/Armours/Boots/BootsAtlas1 Two-Toned Boots (Evasion/Energy Shield)
+
+#subType
+#base Metadata/Items/Armours/Boots/BootsDemigods1

@@ -662,6 +662,9 @@ return {
 	{ label = "Strength", { format = "{0:output:Str}", { breakdown = "Str" }, { modName = "Str" }, }, },
 	{ label = "Dexterity", { format = "{0:output:Dex}", { breakdown = "Dex" }, { modName = "Dex" }, }, },
 	{ label = "Intelligence", { format = "{0:output:Int}", { breakdown = "Int" }, { modName = "Int" }, }, },
+	{ notFlag = "minionSkill", label = "Str. Required", { format = "{output:ReqStrString}", { breakdown = "ReqStr" }, }, },
+	{ notFlag = "minionSkill", label = "Dex. Required", { format = "{output:ReqDexString}", { breakdown = "ReqDex" }, }, },
+	{ notFlag = "minionSkill", label = "Int. Required", { format = "{output:ReqIntString}", { breakdown = "ReqInt" }, }, },
 } },
 { 1, "Life", 2, "Life", data.colorCodes.DEFENCE, {
 	extra = "{0:output:LifeUnreserved}/{0:output:Life}",

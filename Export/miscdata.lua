@@ -1,12 +1,4 @@
-#@
-
-dofile("_common.lua")
-
-loadDat("DefaultMonsterStats")
-loadDat("SkillTotemVariations")
-loadDat("MonsterVarieties")
-
-local out = io.open("miscdata.txt", "w")
+local out = io.open("../Data/Misc.lua", "w")
 
 local evasion = ""
 local accuracy = ""
@@ -42,5 +34,4 @@ out:write('data.totemLifeMult = { '..totemMult..'}\n')
 
 out:close()
 
-print("Export complete.")
-os.execute("pause")
+print("Misc data exported.")

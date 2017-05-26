@@ -9,6 +9,7 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 local m_min = math.min
+local m_max = math.max
 local m_ceil = math.ceil
 local m_floor = math.floor
 local s_format = string.format
@@ -109,7 +110,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 
 	-- Calculate attributes
 	for _, stat in pairs({"Str","Dex","Int"}) do
-		output[stat] = round(calcLib.val(modDB, stat))
+		output[stat] = m_max(round(calcLib.val(modDB, stat)), 0)
 		if breakdown then
 			breakdown[stat] = breakdown.simple(nil, nil, output[stat], stat)
 		end
@@ -445,6 +446,61 @@ function calcs.perform(env)
 		doActorAttribsPoolsConditions(env, env.minion)
 	end
 
+	-- Process attribute requirements
+	do
+		local reqMult = calcLib.mod(modDB, nil, "GlobalAttributeRequirements")
+		for _, attr in ipairs({"Str","Dex","Int"}) do
+			if env.mode == "CALCS" then
+				breakdown["Req"..attr] = {
+					rowList = { },
+					colList = {
+						{ label = attr, key = "req" },
+						{ label = "Source", key = "source" },
+						{ label = "Source Name", key = "sourceName" },
+					}
+				}
+			end
+			local out = 0
+			for _, reqSource in ipairs(env.requirementsTable) do
+				if reqSource[attr] and reqSource[attr] > 0 then
+					local req = m_floor(reqSource[attr] * reqMult)
+					out = m_max(out, req)
+					if env.mode == "CALCS" then
+						local row = {
+							req = req > output[attr] and data.colorCodes.NEGATIVE..req or req,
+							reqNum = req,
+							source = reqSource.source,
+						}
+						if reqSource.source == "Item" then
+							local item = reqSource.sourceItem
+							row.sourceName = data.colorCodes[item.rarity]..item.name
+							row.sourceNameTooltip = function()
+								env.build.itemsTab:AddItemTooltip(item, reqSource.sourceSlot)
+								return data.colorCodes[item.rarity], true
+							end
+						elseif reqSource.source == "Gem" then
+							row.sourceName = s_format("%s%s ^7%d/%d", reqSource.sourceGem.color, reqSource.sourceGem.name, reqSource.sourceGem.level, reqSource.sourceGem.quality)
+						end
+						t_insert(breakdown["Req"..attr].rowList, row)
+					end
+				end
+			end
+			output["Req"..attr] = out
+			if env.mode == "CALCS" then
+				output["Req"..attr.."String"] = out > output[attr] and data.colorCodes.NEGATIVE..out or out
+				table.sort(breakdown["Req"..attr].rowList, function(a, b)
+					if a.reqNum ~= b.reqNum then
+						return a.reqNum > b.reqNum
+					elseif a.source ~= b.source then
+						return a.source < b.source 
+					else
+						return a.sourceName < b.sourceName
+					end
+				end)
+			end
+		end
+	end
+
 	-- Check for extra modifiers to apply to aura skills
 	local extraAuraModList = { }
 	for _, value in ipairs(modDB:Sum("LIST", nil, "ExtraAuraEffect")) do
@@ -590,35 +646,37 @@ function calcs.perform(env)
 	end
 
 	-- Check for extra curses
-	for _, value in ipairs(modDB:Sum("LIST", nil, "ExtraCurse")) do
-		local gemModList = common.New("ModList")
-		calcs.mergeGemMods(gemModList, {
-			level = value.level,
-			quality = 0,
-			data = data.gems[value.name],
-		})
-		local curseModList = { }
-		for _, mod in ipairs(gemModList) do
-			for _, tag in ipairs(mod.tagList) do
-				if tag.type == "GlobalEffect" and tag.effectType == "Curse" then
-					t_insert(curseModList, mod)
-					break
+	for dest, modDB in pairs({[curses] = modDB, [minionCurses] = env.minion and env.minion.modDB}) do
+		for _, value in ipairs(modDB:Sum("LIST", nil, "ExtraCurse")) do
+			local gemModList = common.New("ModList")
+			calcs.mergeGemMods(gemModList, {
+				level = value.level,
+				quality = 0,
+				data = data.gems[value.name],
+			})
+			local curseModList = { }
+			for _, mod in ipairs(gemModList) do
+				for _, tag in ipairs(mod.tagList) do
+					if tag.type == "GlobalEffect" and tag.effectType == "Curse" then
+						t_insert(curseModList, mod)
+						break
+					end
 				end
 			end
-		end
-		if value.applyToPlayer then
-			-- Sources for curses on the player don't usually respect any kind of limit, so there's little point bothering with slots
-			modDB.multipliers["CurseOnSelf"] = (modDB.multipliers["CurseOnSelf"] or 0) + 1
-			modDB:ScaleAddList(curseModList, (1 + modDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * modDB:Sum("MORE", nil, "CurseEffectOnSelf"))
-		elseif not enemyDB:Sum("FLAG", nil, "Hexproof") or modDB:Sum("FLAG", nil, "CursesIgnoreHexproof") then
-			local curse = {
-				name = value.name,
-				fromPlayer = true,
-				priority = 2,
-			}
-			curse.modList = common.New("ModList")
-			curse.modList:ScaleAddList(curseModList, (1 + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * enemyDB:Sum("MORE", nil, "CurseEffectOnSelf"))
-			t_insert(curses, curse)
+			if value.applyToPlayer then
+				-- Sources for curses on the player don't usually respect any kind of limit, so there's little point bothering with slots
+				modDB.multipliers["CurseOnSelf"] = (modDB.multipliers["CurseOnSelf"] or 0) + 1
+				modDB:ScaleAddList(curseModList, (1 + modDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * modDB:Sum("MORE", nil, "CurseEffectOnSelf"))
+			elseif not enemyDB:Sum("FLAG", nil, "Hexproof") or modDB:Sum("FLAG", nil, "CursesIgnoreHexproof") then
+				local curse = {
+					name = value.name,
+					fromPlayer = (dest == curses),
+					priority = 2,
+				}
+				curse.modList = common.New("ModList")
+				curse.modList:ScaleAddList(curseModList, (1 + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * enemyDB:Sum("MORE", nil, "CurseEffectOnSelf"))
+				t_insert(dest, curse)
+			end
 		end
 	end
 

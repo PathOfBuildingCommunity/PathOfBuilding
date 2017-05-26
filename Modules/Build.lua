@@ -12,6 +12,7 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 local m_abs = math.abs
+local s_format = string.format
 
 local buildMode = common.New("ControlHost")
 
@@ -289,8 +290,11 @@ function buildMode:Init(dbFileName, buildName)
 		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function() return true end },
 		{ },
 		{ stat = "Str", label = "Strength", fmt = "d" },
+		{ stat = "ReqStr", label = "Strength Required", fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end },
 		{ stat = "Dex", label = "Dexterity", fmt = "d" },
+		{ stat = "ReqDex", label = "Dexterity Required", fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Dex end },
 		{ stat = "Int", label = "Intelligence", fmt = "d" },
+		{ stat = "ReqInt", label = "Intelligence Required", fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Int end },
 		{ },
 		{ stat = "Life", label = "Total Life", fmt = "d", compPercent = true },
 		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.Life > 1 end },
@@ -819,6 +823,30 @@ function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header, n
 	end
 	count = count + self:CompareStatList(self.displayStats, self.calcsTab.mainEnv.player, baseOutput, compareOutput, header, nodeCount)
 	return count
+end
+
+-- Add requirements to tooltip
+do
+	local req = { }
+	function buildMode:AddRequirementsToTooltip(level, str, dex, int, strBase, dexBase, intBase)
+		if level and level > 0 then
+			t_insert(req, s_format("^x7F7F7FLevel %s%d", main:StatColor(level, nil, self.characterLevel), level))
+		end
+		if str and (str > 14 or str > self.calcsTab.mainOutput.Str) then
+			t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
+		end
+		if dex and (dex > 14 or dex > self.calcsTab.mainOutput.Dex) then
+			t_insert(req, s_format("%s%d ^x7F7F7FDex", main:StatColor(dex, dexBase, self.calcsTab.mainOutput.Dex), dex))
+		end
+		if int and (int > 14 or int > self.calcsTab.mainOutput.Int) then
+			t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
+		end
+		if req[1] then
+			main:AddTooltipLine(16, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "))
+			main:AddTooltipSeparator(10)
+		end	
+		wipeTable(req)
+	end
 end
 
 function buildMode:LoadDB(xmlText, fileName)

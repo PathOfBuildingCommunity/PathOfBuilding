@@ -1,0 +1,10 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Belt
+#baseTags belt
+#baseMatch Metadata/Items/Belts/Belt%d+
+#base Metadata/Items/Belts/BeltAtlas1
+#base Metadata/Items/Belts/BeltAtlas2
+
+#base Metadata/Items/Belts/BeltDemigods1

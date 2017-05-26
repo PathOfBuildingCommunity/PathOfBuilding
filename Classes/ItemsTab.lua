@@ -935,10 +935,10 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		if totalDamageTypes > 1 then
 			main:AddTooltipLine(16, s_format("^x7F7F7FTotal DPS: "..data.colorCodes.MAGIC.."%.1f", weaponData.TotalDPS))
 		end
-		main:AddTooltipLine(16, s_format("^x7F7F7FCritical Strike Chance: %s%.2f%%", weaponData.critChance ~= base.weapon.critChanceBase and data.colorCodes.MAGIC or "^7", weaponData.critChance))
-		main:AddTooltipLine(16, s_format("^x7F7F7FAttacks per Second: %s%.2f", weaponData.attackRate ~= base.weapon.attackRateBase and data.colorCodes.MAGIC or "^7", weaponData.attackRate))
+		main:AddTooltipLine(16, s_format("^x7F7F7FCritical Strike Chance: %s%.2f%%", main:StatColor(weaponData.CritChance, base.weapon.CritChanceBase), weaponData.CritChance))
+		main:AddTooltipLine(16, s_format("^x7F7F7FAttacks per Second: %s%.2f", main:StatColor(weaponData.AttackRate, base.weapon.AttackRateBase), weaponData.AttackRate))
 		if weaponData.range then
-			main:AddTooltipLine(16, s_format("^x7F7F7FWeapon Range: %s%d", weaponData.range ~= data.weaponTypeInfo[base.type].range and data.colorCodes.MAGIC or "^7", weaponData.range))
+			main:AddTooltipLine(16, s_format("^x7F7F7FWeapon Range: %s%d", main:StatColor(weaponData.range, data.weaponTypeInfo[base.type].range), weaponData.range))
 		end
 	elseif base.armour then
 		-- Armour-specific info
@@ -946,14 +946,17 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		if item.quality > 0 then
 			main:AddTooltipLine(16, s_format("^x7F7F7FQuality: "..data.colorCodes.MAGIC.."+%d%%", item.quality))
 		end
-		if base.armour.blockChance and armourData.BlockChance > 0 then
-			main:AddTooltipLine(16, s_format("^x7F7F7FChance to Block: %s%d%%", armourData.BlockChance ~= base.armour.blockChance and data.colorCodes.MAGIC or "^7", armourData.BlockChance))
+		if base.armour.BlockChance and armourData.BlockChance > 0 then
+			main:AddTooltipLine(16, s_format("^x7F7F7FChance to Block: %s%d%%", main:StatColor(armourData.BlockChance, base.armour.BlockChance), armourData.BlockChance))
 		end
-		for _, defence in ipairs({{var="Armour",label="Armour"},{var="Evasion",label="Evasion Rating"},{var="EnergyShield",label="Energy Shield"}}) do
-			local itemVal = armourData[defence.var]
-			if itemVal and itemVal > 0 then
-				main:AddTooltipLine(16, s_format("^x7F7F7F%s: %s%d", defence.label, itemVal ~= base.armour[defence.var:sub(1,1):lower()..defence.var:sub(2,-1).."Base"] and data.colorCodes.MAGIC or "^7", itemVal))
-			end
+		if armourData.Armour > 0 then
+			main:AddTooltipLine(16, s_format("^x7F7F7FArmour: %s%d", main:StatColor(armourData.Armour, base.armour.ArmourBase), armourData.Armour))
+		end
+		if armourData.Evasion > 0 then
+			main:AddTooltipLine(16, s_format("^x7F7F7FEvasion Rating: %s%d", main:StatColor(armourData.Evasion, base.armour.EvasionBase), armourData.Evasion))
+		end
+		if armourData.EnergyShield > 0 then
+			main:AddTooltipLine(16, s_format("^x7F7F7FEnergy Shield: %s%d", main:StatColor(armourData.EnergyShield, base.armour.EnergyShieldBase), armourData.EnergyShield))
 		end
 	elseif base.flask then
 		-- Flask-specific info
@@ -962,19 +965,23 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 			main:AddTooltipLine(16, s_format("^x7F7F7FQuality: "..data.colorCodes.MAGIC.."+%d%%", item.quality))
 		end
 		if flaskData.lifeTotal then
-			main:AddTooltipLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FLife over %s%.1f0 ^x7F7F7FSeconds", flaskData.lifeTotal ~= base.flask.life and data.colorCodes.MAGIC or "^7", flaskData.lifeTotal, flaskData.duration ~= base.flask.duration and data.colorCodes.MAGIC or "^7", flaskData.duration))
+			main:AddTooltipLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FLife over %s%.1f0 ^x7F7F7FSeconds", 
+				main:StatColor(flaskData.lifeTotal, base.flask.life), flaskData.lifeTotal,
+				main:StatColor(flaskData.duration, base.flask.duration), flaskData.duration
+			))
 		end
 		if flaskData.manaTotal then
-			main:AddTooltipLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FMana over %s%.1f0 ^x7F7F7FSeconds", flaskData.manaTotal ~= base.flask.mana and data.colorCodes.MAGIC or "^7", flaskData.manaTotal, flaskData.duration ~= base.flask.duration and data.colorCodes.MAGIC or "^7", flaskData.duration))
+			main:AddTooltipLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FMana over %s%.1f0 ^x7F7F7FSeconds", 
+				main:StatColor(flaskData.manaTotal, base.flask.mana), flaskData.manaTotal, 
+				main:StatColor(flaskData.duration, base.flask.duration), flaskData.duration
+			))
 		end
 		if not flaskData.lifeTotal and not flaskData.manaTotal then
-			main:AddTooltipLine(16, s_format("^x7F7F7FLasts %s%.2f ^x7F7F7FSeconds", flaskData.duration ~= base.flask.duration and data.colorCodes.MAGIC or "^7", flaskData.duration))
+			main:AddTooltipLine(16, s_format("^x7F7F7FLasts %s%.2f ^x7F7F7FSeconds", main:StatColor(flaskData.duration, base.flask.duration), flaskData.duration))
 		end
 		main:AddTooltipLine(16, s_format("^x7F7F7FConsumes %s%d ^x7F7F7Fof %s%d ^x7F7F7FCharges on use",
-			flaskData.chargesUsed ~= base.flask.chargesUsed and data.colorCodes.MAGIC or "^7",
-			flaskData.chargesUsed,
-			flaskData.chargesMax ~= base.flask.chargesMax and data.colorCodes.MAGIC or "^7",
-			flaskData.chargesMax
+			main:StatColor(flaskData.chargesUsed, base.flask.chargesUsed), flaskData.chargesUsed,
+			main:StatColor(flaskData.chargesMax, base.flask.chargesMax), flaskData.chargesMax
 		))
 		for _, modLine in pairs(item.modLines) do
 			if modLine.buff then
@@ -1004,6 +1011,11 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		end
 	end
 	main:AddTooltipSeparator(10)
+
+	-- Requirements
+	self.build:AddRequirementsToTooltip(item.requirements.level, 
+		item.requirements.strMod, item.requirements.dexMod, item.requirements.intMod, 
+		item.requirements.str or 0, item.requirements.dex or 0, item.requirements.int or 0)
 
 	-- Implicit/explicit modifiers
 	if item.modLines[1] then

@@ -573,6 +573,15 @@ function ImportTabClass:ImportItem(itemData, sockets)
 	if itemData.socketedItems then
 		self:ImportSocketedSkills(item, itemData.socketedItems, slotName)
 	end
+	if itemData.requirements and (not itemData.socketedItems or not itemData.socketedItems[1]) then
+		-- Requirements cannot be trusted if there are socketed gems, as they may override the item's natural requirements
+		item.requirements = { }
+		for _, req in ipairs(itemData.requirements) do
+			if req.name == "Level" then
+				item.requirements.level = req.values[1][1]
+			end
+		end
+	end
 	item.modLines = { }
 	item.implicitLines = 0
 	if itemData.implicitMods then
