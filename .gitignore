@@ -6,6 +6,10 @@ Settings.xml
 *.json
 TreeData/
 Builds/
+Export/Bases/*.lua
+Export/Skills/*.lua
+Export/Minions/*.lua
+Export/stat_descriptions.txt
 
 # User-specific files
 *.suo
@@ -250,4 +254,3 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 *.lnk
-/Export/stat_descriptions.txt

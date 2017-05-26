@@ -1,17 +1,3 @@
-#@
-
-dofile("_common.lua")
-
-loadDat("SkillGems")
-loadDat("BaseItemTypes")
-loadDat("ActiveSkills")
-loadDat("GemTags")
-loadDat("Stats")
-loadDat("GrantedEffects")
-loadDat("GrantedEffectsPerLevel")
-
-while true do
-
 local statMap = { }
 do
 	local lastStat
@@ -57,8 +43,6 @@ local function addMod(mods, statKey, value)
 	table.insert(mods, mod)
 	return mod
 end
-
-local gem
 
 -- Skill types:
 -- 1	Attack
@@ -141,288 +125,318 @@ local weaponClassMap = {
 	[36] = "None",
 }
 
-for _, name in pairs({"act_str","act_dex","act_int","other","minion","spectre","sup_str","sup_dex","sup_int"}) do
-	local out = io.open("Skills/"..name..".lua", "w")
-	for line in io.lines("Skills/"..name..".txt") do
-		local spec, args = line:match("#(%a+) ?(.*)")
-		if spec then
-			if spec == "skill" then
-				local grantedId, displayName = args:match("(%w+) (.+)")
-				if not grantedId then
-					grantedId = args
-					displayName = args
-				end
-				out:write('skills["'..grantedId..'"] = {\n')
-				local grantedKey = GrantedEffects.Id(grantedId)[1]
-				local granted = GrantedEffects[grantedKey]
-				local skillGemKey = SkillGems.GrantedEffectsKey(grantedKey)[1]
-				gem = { }
-				if skillGemKey then
-					out:write('\tname = "'..BaseItemTypes[SkillGems[skillGemKey].BaseItemTypesKey].Name:gsub(" Support","")..'",\n')
-					out:write('\tgemTags = {\n')
-					for _, tagKey in pairs(SkillGems[skillGemKey].GemTagsKeys) do
-						out:write('\t\t'..GemTags[tagKey].Id..' = true,\n')
-					end
-					out:write('\t},\n')
-				else
-					out:write('\tname = "'..displayName..'",\n')
-					out:write('\thidden = true,\n')
-					if name == "other" then
-						out:write('\tother = true,\n')
-					end
-				end
-				gem.baseFlags = { }
-				gem.mods = { }
-				local modMap = { }
-				gem.levels = { }
-				gem.global = "nil"
-				gem.curse = "nil"
-				gem.color = granted.Unknown0
-				if granted.IsSupport then
-					gem.requireSkillTypes = granted.Data0
-					gem.addSkillTypes = granted.Data1
-					gem.excludeSkillTypes = granted.Data2
-					gem.isSupport = true
-					out:write('\tsupport = true,\n')
-				else
-					local activeSkill = ActiveSkills[granted.ActiveSkillsKey]
-					gem.skillTypes = activeSkill.ActiveSkillTypes
-					if activeSkill.Unknown19[1] then
-						gem.minionSkillTypes = activeSkill.Unknown19
-					end
-					if activeSkill.SkillTotemId ~= 16 then
-						gem.skillTotemId = activeSkill.SkillTotemId
-					end
-					gem.weaponTypes = { }
-					for _, classKey in ipairs(activeSkill.WeaponRestriction_ItemClassesKeys) do
-						if weaponClassMap[classKey] then
-							gem.weaponTypes[weaponClassMap[classKey]] = true
-						end
-					end
-					local typeFlag = { }
-					for _, type in ipairs(gem.skillTypes) do
-						typeFlag[type] = true
-					end
-					if typeFlag[32] then
-						gem.global = '{ type = "GlobalEffect", effectType = "Curse" }'
-						gem.curse = gem.global
-					elseif typeFlag[44] then
-						gem.global = '{ type = "GlobalEffect", effectType = "Aura" }'
-					elseif typeFlag[5] or typeFlag[31] then
-						gem.global = '{ type = "GlobalEffect", effectType = "Buff" }'
-					end
-					addMod(gem.mods, 'skill("castTime", {val})', granted.CastTime / 1000)
-				end
-				for _, key in ipairs(GrantedEffectsPerLevel.GrantedEffectsKey(grantedKey)) do
-					local level = { }
-					local levelRow = GrantedEffectsPerLevel[key]
-					level.level = levelRow.Level
-					table.insert(gem.levels, level)
-					local function addLevelMod(statKey, value)
-						local mod = gem.mods[modMap[statKey]]
-						if mod then
-							if value ~= mod.val then
-								mod.perLevel = true
-							end
-						else
-							modMap[statKey] = #gem.mods + 1
-							addMod(gem.mods, statKey)
-							mod = gem.mods[modMap[statKey]]
-							mod.val = value
-						end
-						mod.levels[levelRow.Level] = value
-					end
-					if not granted.IsSupport then
-						addLevelMod('skill("levelRequirement", {val})', levelRow.LevelRequirement)
-					end
-					if levelRow.ManaCost and levelRow.ManaCost ~= 0 then
-						addLevelMod('skill("manaCost", {val})', levelRow.ManaCost)
-					end
-					if levelRow.ManaMultiplier ~= 100 then
-						addLevelMod('mod("ManaCost", "MORE", {val})', levelRow.ManaMultiplier - 100)
-					end
-					if levelRow.DamageEffectiveness ~= 0 then
-						addLevelMod('skill("damageEffectiveness", {val})', levelRow.DamageEffectiveness / 100 + 1)
-					end
-					if levelRow.CriticalStrikeChance ~= 0 then
-						addLevelMod('skill("critChance", {val})', levelRow.CriticalStrikeChance / 100)
-					end
-					if levelRow.DamageMultiplier and levelRow.DamageMultiplier ~= 0 then
-						addLevelMod('mod("Damage", "MORE", {val}, ModFlag.Attack)', levelRow.DamageMultiplier / 100)
-					end
-					if levelRow.ManaReservationOverride ~= 0 then
-						addLevelMod('skill("manaCostOverride", {val})', levelRow.ManaReservationOverride)
-					end
-					if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
-						addLevelMod('skill("cooldown", {val})', levelRow.Cooldown / 1000)
-					end
-					for i, statKey in ipairs(levelRow.StatsKeys) do
-						addLevelMod(statKey, levelRow["Stat"..i.."Value"])
-					end
-					for i, statKey in ipairs(levelRow.StatsKeys2) do
-						addLevelMod(statKey)
-					end
-					if not gem.qualityMods then
-						gem.qualityMods = { }
-						for i, statKey in ipairs(levelRow.Quality_StatsKeys) do
-							addMod(gem.qualityMods, statKey, levelRow.Quality_Values[i] / 1000)
-						end
-					end
-				end
-			elseif spec == "global" then
-				gem.global = '{ type = "GlobalEffect", effectType = "'..args..'" }'
-			elseif spec == "flags" then
-				for flag in args:gmatch("%a+") do
-					table.insert(gem.baseFlags, flag)
-				end
-			elseif spec == "baseMod" then
-				addMod(gem.mods, args)
-			elseif spec == "levelMod" then
-				local def, vals = args:match("(.*)==(.*)")
-				local mod = addMod(gem.mods, def)
-				mod.perLevel = true
-				local i = 1
-				for _, level in ipairs(gem.levels) do
-					local s, e, val = vals:find("([%+%-]?[%d%.]+)", i)
-					mod.levels[level.level] = tonumber(val)
-					i = e + 1
-				end
-			elseif spec == "setMod" then
-				local id, def = args:match("(.*)==(.*)")
-				for _, mod in ipairs(gem.mods) do
-					if mod.id == id then
-						local name, mult = def:match("(.*);mult=(.*)")
-						if name then
-							mod.def = name
-							mod.mult = tonumber(mult)
-						else
-							local name, div = def:match("(.*);div=(.*)")
-							if name then
-								mod.def = name
-								mod.mult = 1 / tonumber(div)
-							else
-								mod.def = def
-							end
-						end
-					end
-				end
-			elseif spec == "mods" then
-				out:write('\tcolor = '..gem.color..',\n')
-				if not gem.isSupport then
-					out:write('\tbaseFlags = {\n')
-					for _, flag in ipairs(gem.baseFlags) do
-						out:write('\t\t'..flag..' = true,\n')
-					end		
-					out:write('\t},\n')
-				end
-				if gem.skillTypes then
-					out:write('\tskillTypes = { ')
-					for _, type in ipairs(gem.skillTypes) do
-						out:write('['..type..'] = true, ')
-					end
-					out:write('},\n')
-				end
-				if gem.minionSkillTypes then
-					out:write('\tminionSkillTypes = { ')
-					for _, type in ipairs(gem.minionSkillTypes) do
-						out:write('['..type..'] = true, ')
-					end
-					out:write('},\n')
-				end
-				if gem.weaponTypes and next(gem.weaponTypes) then
-					out:write('\tweaponTypes = {\n')
-					for type in pairs(gem.weaponTypes) do
-						out:write('\t\t["'..type..'"] = true,\n')
-					end
-					out:write('\t},\n')
-				end
-				if gem.skillTotemId then
-					out:write('\tskillTotemId = '..gem.skillTotemId..',\n')
-				end
-				for _, field in ipairs({"requireSkillTypes","addSkillTypes","excludeSkillTypes"}) do
-					if gem[field] then
-						out:write('\t'..field..' = { ')
-						for _, type in ipairs(gem[field]) do
-							out:write(type..', ')
-						end
-						out:write('},\n')
-					end
-				end
-				out:write('\tbaseMods = {\n')
-				for _, mod in ipairs(gem.mods) do
-					if not mod.perLevel then
-						out:write('\t\t')
-						if mod.def then
-							out:write(mod.def:gsub("{val}",(mod.val or 0)*mod.mult):gsub("{global}",gem.global):gsub("{curse}",gem.curse)..', ')
-						end
-						if mod.id then
-							out:write('--"'..mod.id..'" = '..(mod.val or "?"))
-						end
-						out:write('\n')
-					end
-				end
-				out:write('\t},\n')
-				out:write('\tqualityMods = {\n')
-				for _, mod in ipairs(gem.qualityMods) do
-					out:write('\t\t')
-					if mod.def then
-						out:write(mod.def:gsub("{val}",mod.levels[1]*mod.mult):gsub("{global}",gem.global):gsub("{curse}",gem.curse)..', ')
-					end
-					if mod.id then
-						out:write('--"'..mod.id..'" = '..mod.levels[1])
-					end
-					out:write('\n')
-				end
-				out:write('\t},\n')
-				out:write('\tlevelMods = {\n')
-				local lcol = 1
-				for _, mod in ipairs(gem.mods) do
-					if mod.perLevel then
-						out:write('\t\t')
-						if mod.def then
-							out:write('['..lcol..'] = '..mod.def:gsub("{val}","nil"):gsub("{global}",gem.global):gsub("{curse}",gem.curse)..', ')
-							if mod.id then
-								out:write('--"'..mod.id..'"')
-							end
-							out:write('\n')
-						else
-							out:write('--['..lcol..'] = "'..mod.id..'"\n')
-						end
-						mod.col = lcol
-						lcol = lcol + 1
-					end
-				end
-				out:write('\t},\n')
-				out:write('\tlevels = {\n')
-				for _, level in ipairs(gem.levels) do
-					out:write('\t\t['..level.level..'] = { ')
-					for _, mod in ipairs(gem.mods) do
-						if mod.perLevel then
-							if mod.levels[level.level] then
-								out:write(tostring(mod.levels[level.level] * mod.mult)..', ')
-							else
-								out:write('nil, ')
-							end
-						end
-					end
-					out:write('},\n')
-				end
-				out:write('\t},\n')
-				out:write('}')
+local directiveTable = { }
+
+-- #skill <GrantedEffectId> [<Display name>]
+-- Initialises the gem data and emits the skill header
+directiveTable.skill = function(state, args, out)
+	local grantedId, displayName = args:match("(%w+) (.+)")
+	if not grantedId then
+		grantedId = args
+		displayName = args
+	end
+	out:write('skills["', grantedId, '"] = {\n')
+	local grantedKey = GrantedEffects.Id(grantedId)[1]
+	local granted = GrantedEffects[grantedKey]
+	local skillGemKey = SkillGems.GrantedEffectsKey(grantedKey)[1]
+	local gem = { }
+	state.gem = gem
+	if skillGemKey then
+		local skillGem = SkillGems[skillGemKey]
+		out:write('\tname = "', BaseItemTypes[skillGem.BaseItemTypesKey].Name:gsub(" Support",""), '",\n')
+		local tagNames = { }
+		out:write('\tgemTags = {\n')
+		for i, tagKey in ipairs(skillGem.GemTagsKeys) do
+			out:write('\t\t', GemTags[tagKey].Id, ' = true,\n')
+			if #GemTags[tagKey].Tag > 0 then
+				table.insert(tagNames, GemTags[tagKey].Tag)
 			end
+		end
+		out:write('\t},\n')
+		out:write('\tgemTagString = "', table.concat(tagNames, ", "), '",\n')
+		out:write('\tgemStr = ', skillGem.Str, ',\n')
+		out:write('\tgemDex = ', skillGem.Dex, ',\n')
+		out:write('\tgemInt = ', skillGem.Int, ',\n')
+	else
+		out:write('\tname = "', displayName, '",\n')
+		out:write('\thidden = true,\n')
+	end
+	gem.baseFlags = { }
+	gem.mods = { }
+	local modMap = { }
+	gem.levels = { }
+	gem.global = "nil"
+	gem.curse = "nil"
+	out:write('\tcolor = ', granted.Unknown0, ',\n')
+	if granted.IsSupport then
+		gem.isSupport = true
+		out:write('\tsupport = true,\n')
+		out:write('\trequireSkillTypes = { ')
+		for _, type in ipairs(granted.Data0) do
+			out:write(type, ', ')
+		end
+		out:write('},\n')
+		out:write('\taddSkillTypes = { ')
+		for _, type in ipairs(granted.Data1) do
+			out:write(type, ', ')
+		end
+		out:write('},\n')
+		out:write('\texcludeSkillTypes = { ')
+		for _, type in ipairs(granted.Data2) do
+			out:write(type, ', ')
+		end
+		out:write('},\n')
+	else
+		local activeSkill = ActiveSkills[granted.ActiveSkillsKey]
+		if #activeSkill.Description > 0 then
+			out:write('\tdescription = "', activeSkill.Description, '",\n')
+		end
+		out:write('\tskillTypes = { ')
+		for _, type in ipairs(activeSkill.ActiveSkillTypes) do
+			out:write('[', type, '] = true, ')
+		end
+		out:write('},\n')
+		if activeSkill.Unknown19[1] then
+			out:write('\tminionSkillTypes = { ')
+			for _, type in ipairs(activeSkill.Unknown19) do
+				out:write('[', type, '] = true, ')
+			end
+			out:write('},\n')
+		end
+		local weaponTypes = { }
+		for _, classKey in ipairs(activeSkill.WeaponRestriction_ItemClassesKeys) do
+			if weaponClassMap[classKey] then
+				weaponTypes[weaponClassMap[classKey]] = true
+			end
+		end
+		if next(weaponTypes) then
+			out:write('\tweaponTypes = {\n')
+			for type in pairs(weaponTypes) do
+				out:write('\t\t["', type, '"] = true,\n')
+			end
+			out:write('\t},\n')
+		end
+		if activeSkill.SkillTotemId ~= 16 then
+			out:write('\tskillTotemId = ', activeSkill.SkillTotemId, ',\n')
+		end
+		local typeFlag = { }
+		for _, type in ipairs(activeSkill.ActiveSkillTypes) do
+			typeFlag[type] = true
+		end
+		if typeFlag[32] then
+			gem.global = '{ type = "GlobalEffect", effectType = "Curse" }'
+			gem.curse = gem.global
+		elseif typeFlag[44] then
+			gem.global = '{ type = "GlobalEffect", effectType = "Aura" }'
+		elseif typeFlag[5] or typeFlag[31] then
+			gem.global = '{ type = "GlobalEffect", effectType = "Buff" }'
+		end
+		addMod(gem.mods, 'skill("castTime", {val})', granted.CastTime / 1000)
+	end
+	for _, key in ipairs(GrantedEffectsPerLevel.GrantedEffectsKey(grantedKey)) do
+		local level = { }
+		local levelRow = GrantedEffectsPerLevel[key]
+		level.level = levelRow.Level
+		table.insert(gem.levels, level)
+		local function addLevelMod(statKey, value, forcePerLevel)
+			local mod = gem.mods[modMap[statKey]]
+			if mod then
+				if value ~= mod.val then
+					mod.perLevel = true
+				end
+			else
+				modMap[statKey] = #gem.mods + 1
+				addMod(gem.mods, statKey)
+				mod = gem.mods[modMap[statKey]]
+				mod.val = value
+			end
+			if forcePerLevel then
+				mod.perLevel = true
+			end
+			mod.levels[levelRow.Level] = value
+		end
+		if not granted.IsSupport then
+			addLevelMod('skill("levelRequirement", {val})', levelRow.LevelRequirement, true)
 		else
-			out:write(line.."\n")
+			addLevelMod("nil", levelRow.LevelRequirement, true)
+		end
+		if levelRow.ManaCost and levelRow.ManaCost ~= 0 then
+			addLevelMod('skill("manaCost", {val})', levelRow.ManaCost)
+		end
+		if levelRow.ManaMultiplier ~= 100 then
+			addLevelMod('mod("ManaCost", "MORE", {val})', levelRow.ManaMultiplier - 100)
+		end
+		if levelRow.DamageEffectiveness ~= 0 then
+			addLevelMod('skill("damageEffectiveness", {val})', levelRow.DamageEffectiveness / 100 + 1)
+		end
+		if levelRow.CriticalStrikeChance ~= 0 then
+			addLevelMod('skill("CritChance", {val})', levelRow.CriticalStrikeChance / 100)
+		end
+		if levelRow.DamageMultiplier and levelRow.DamageMultiplier ~= 0 then
+			addLevelMod('mod("Damage", "MORE", {val}, ModFlag.Attack)', levelRow.DamageMultiplier / 100)
+		end
+		if levelRow.ManaReservationOverride ~= 0 then
+			addLevelMod('skill("manaCostOverride", {val})', levelRow.ManaReservationOverride)
+		end
+		if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
+			addLevelMod('skill("cooldown", {val})', levelRow.Cooldown / 1000)
+		end
+		for i, statKey in ipairs(levelRow.StatsKeys) do
+			addLevelMod(statKey, levelRow["Stat"..i.."Value"])
+		end
+		for i, statKey in ipairs(levelRow.StatsKeys2) do
+			addLevelMod(statKey)
+		end
+		if not gem.qualityMods then
+			gem.qualityMods = { }
+			for i, statKey in ipairs(levelRow.Quality_StatsKeys) do
+				addMod(gem.qualityMods, statKey, levelRow.Quality_Values[i] / 1000)
+			end
 		end
 	end
-	out:close()
 end
 
-print("Gem data exported.")
-
-os.execute("xcopy Skills\\*.lua ..\\Data\\Skills\\ /Y")
-
-if io.read("*l") ~= "" then
-	break
+-- #global <Buff|Aura|Debuff|Curse>
+-- Sets the global effect tag for this skill
+directiveTable.global = function(state, args, out)
+	local gem = state.gem
+	gem.global = '{ type = "GlobalEffect", effectType = "'..args..'" }'
 end
+
+-- #flags <flag>[ <flag>[...]]
+-- Sets the base flags for this active skill
+directiveTable.flags = function(state, args, out)
+	local gem = state.gem
+	for flag in args:gmatch("%a+") do
+		table.insert(gem.baseFlags, flag)
+	end
 end
-os.execute("pause")
+
+-- #baseMod <mod definition>
+-- Adds a base modifier to the skill
+directiveTable.baseMod = function(state, args, out)
+	local gem = state.gem
+	addMod(gem.mods, args)
+end
+
+-- #levelMod <mod definition>==<val>[ <val>[...]]
+-- Adds a per-level modifier to the skill
+directiveTable.levelMod = function(state, args, out)
+	local gem = state.gem
+	local def, vals = args:match("(.*)==(.*)")
+	local mod = addMod(gem.mods, def)
+	mod.perLevel = true
+	local i = 1
+	for _, level in ipairs(gem.levels) do
+		local s, e, val = vals:find("([%+%-]?[%d%.]+)", i)
+		mod.levels[level.level] = tonumber(val)
+		i = e + 1
+	end
+end
+
+-- #setMod <StatId>==<mod definition[;<mult|div>=<val>]
+-- Sets or overrides the mapping of the given stat
+directiveTable.setMod = function(state, args, out)
+	local gem = state.gem
+	local id, def = args:match("(.*)==(.*)")
+	for _, mod in ipairs(gem.mods) do
+		if mod.id == id then
+			local name, mult = def:match("(.*);mult=(.*)")
+			if name then
+				mod.def = name
+				mod.mult = tonumber(mult)
+			else
+				local name, div = def:match("(.*);div=(.*)")
+				if name then
+					mod.def = name
+					mod.mult = 1 / tonumber(div)
+				else
+					mod.def = def
+				end
+			end
+		end
+	end
+end
+
+-- #mods
+-- Emits the skill modifiers
+directiveTable.mods = function(state, args, out)
+	local gem = state.gem
+	if not gem.isSupport then
+		out:write('\tbaseFlags = {\n')
+		for _, flag in ipairs(gem.baseFlags) do
+			out:write('\t\t', flag, ' = true,\n')
+		end		
+		out:write('\t},\n')
+	end
+	out:write('\tbaseMods = {\n')
+	for _, mod in ipairs(gem.mods) do
+		if not mod.perLevel then
+			out:write('\t\t')
+			if mod.def then
+				out:write(mod.def:gsub("{val}",(mod.val or 0)*mod.mult):gsub("{global}",gem.global):gsub("{curse}",gem.curse), ', ')
+			end
+			if mod.id then
+				out:write('--"', mod.id, '" = ', (mod.val or "?"))
+			end
+			out:write('\n')
+		end
+	end
+	out:write('\t},\n')
+	out:write('\tqualityMods = {\n')
+	for _, mod in ipairs(gem.qualityMods) do
+		out:write('\t\t')
+		if mod.def then
+			out:write(mod.def:gsub("{val}",mod.levels[1]*mod.mult):gsub("{global}",gem.global):gsub("{curse}",gem.curse), ', ')
+		end
+		if mod.id then
+			out:write('--"', mod.id, '" = ', mod.levels[1])
+		end
+		out:write('\n')
+	end
+	out:write('\t},\n')
+	out:write('\tlevelMods = {\n')
+	local lcol = 1
+	for _, mod in ipairs(gem.mods) do
+		if mod.perLevel then
+			out:write('\t\t')
+			if mod.def then
+				out:write('[', lcol, '] = ', mod.def:gsub("{val}","nil"):gsub("{global}",gem.global):gsub("{curse}",gem.curse), ', ')
+				if mod.id then
+					out:write('--"', mod.id, '"')
+				end
+				out:write('\n')
+			else
+				out:write('--[', lcol, '] = "', mod.id, '"\n')
+			end
+			mod.col = lcol
+			lcol = lcol + 1
+		end
+	end
+	out:write('\t},\n')
+	out:write('\tlevels = {\n')
+	for _, level in ipairs(gem.levels) do
+		out:write('\t\t[', level.level, '] = { ')
+		for _, mod in ipairs(gem.mods) do
+			if mod.perLevel then
+				if mod.levels[level.level] then
+					out:write(tostring(mod.levels[level.level] * mod.mult), ', ')
+				else
+					out:write('nil, ')
+				end
+			end
+		end
+		out:write('},\n')
+	end
+	out:write('\t},\n')
+	out:write('}')
+	state.gem = nil
+end
+
+for _, name in pairs({"act_str","act_dex","act_int","other","minion","spectre","sup_str","sup_dex","sup_int"}) do
+	processTemplateFile("Skills/"..name, directiveTable)
+end
+
+os.execute("xcopy Skills\\*.lua ..\\Data\\Skills\\ /Y /Q")
+
+print("Skill data exported.")

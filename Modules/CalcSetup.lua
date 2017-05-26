@@ -228,6 +228,9 @@ function calcs.initEnv(build, mode, override)
 		nodes = env.spec.allocNodes
 	end
 
+	-- Set up requirements tracking
+	env.requirementsTable = { }
+
 	-- Build and merge item modifiers, and create list of radius jewels
 	env.radiusJewelList = wipeTable(env.radiusJewelList)
 	env.player.itemList = { }
@@ -295,6 +298,16 @@ function calcs.initEnv(build, mode, override)
 		if item then
 			-- Merge mods for this item
 			local srcList = item.modList or item.slotModList[slot.slotNum]
+			if item.requirements then	
+				t_insert(env.requirementsTable, {
+					source = "Item",
+					sourceItem = item,
+					sourceSlot = slotName,
+					Str = item.requirements.str,
+					Dex = item.requirements.dex,
+					Int = item.requirements.int,
+				})
+			end
 			if item.type == "Shield" and nodes[45175] then
 				-- Special handling for Necromantic Aegis
 				env.aegisModList = common.New("ModList")
@@ -374,9 +387,9 @@ function calcs.initEnv(build, mode, override)
 				nameSpec = grantedSkill.name,
 				quality = 0,
 				enabled = true,
-				fromItem = true,
 			}
 			activeGem.level = grantedSkill.level
+			activeGem.fromItem = true
 			wipeTable(group.gemList)
 			t_insert(group.gemList, activeGem)
 			if grantedSkill.noSupports then
@@ -495,6 +508,13 @@ function calcs.initEnv(build, mode, override)
 						end
 					end
 					if add then
+						t_insert(env.requirementsTable, {
+							source = "Gem",
+							sourceGem = gem,
+							Str = gem.reqStr,
+							Dex = gem.reqDex,
+							Int = gem.reqInt,
+						})
 						t_insert(supportList, supportGem)
 					end
 				end
@@ -511,6 +531,13 @@ function calcs.initEnv(build, mode, override)
 								activeGem[value.key] = (activeGem[value.key] or 0) + value.value
 							end
 						end
+						t_insert(env.requirementsTable, {
+							source = "Gem",
+							sourceGem = gem,
+							Str = gem.reqStr,
+							Dex = gem.reqDex,
+							Int = gem.reqInt,
+						})
 					end
 					local activeSkill = calcs.createActiveSkill(activeGem, supportList)
 					activeSkill.slotName = socketGroup.slot

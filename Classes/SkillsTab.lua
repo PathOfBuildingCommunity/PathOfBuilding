@@ -247,20 +247,9 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enabled.state = true
 		end
 		local gem = self.displayGroup.gemList[index]
-		local prevDefaultLevel
-		if gem.data then
-			prevDefaultLevel = (gem.data.levels[20] and 20) or (gem.data.levels[3][1] and 3) or 1
-		end
 		gem.nameSpec = buf
 		self:ProcessSocketGroup(self.displayGroup)
-		if gem.data then
-			local defaultLevel = (gem.data.levels[20] and 20) or (gem.data.levels[3][1] and 3) or 1
-			gem.defaultLevel = defaultLevel
-			if prevDefaultLevel ~= defaultLevel then
-				gem.level = defaultLevel
-				slot.level:SetText(tostring(gem.level))
-			end
-		end
+		slot.level:SetText(tostring(gem.level))
 		if addUndo then
 			self:AddUndoState()
 		end
@@ -403,6 +392,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 		end
 		gem.color = "^8"
 		gem.nameSpec = gem.nameSpec or ""
+		local prevDefaultLevel = gem.data and gem.data.defaultLevel
 		if gem.nameSpec:match("%S") then
 			-- Gem name has been specified, try to find the matching skill gem
 			if data.gems[gem.nameSpec] then
@@ -434,6 +424,16 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 					gem.color = data.colorCodes.INTELLIGENCE
 				else
 					gem.color = data.colorCodes.NORMAL
+				end
+				if prevDefaultLevel and gem.data.defaultLevel ~= prevDefaultLevel then
+					gem.level = gem.data.defaultLevel
+					gem.defaultLevel = gem.data.defaultLevel
+				end
+				if gem.data.gemTags then
+					gem.reqLevel = gem.data.levels[gem.level][1]
+					gem.reqStr = calcLib.gemStatRequirement(gem.reqLevel, gem.data.support, gem.data.gemStr)
+					gem.reqDex = calcLib.gemStatRequirement(gem.reqLevel, gem.data.support, gem.data.gemDex)
+					gem.reqInt = calcLib.gemStatRequirement(gem.reqLevel, gem.data.support, gem.data.gemInt)
 				end
 			end
 		else

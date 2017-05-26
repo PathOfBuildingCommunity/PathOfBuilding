@@ -575,7 +575,7 @@ function calcs.offence(env, actor)
 					-- Skill is overriding weapon attack speed
 					baseSpeed = 1 / skillData.castTime * (1 + (source.AttackSpeedInc or 0) / 100)
 				else
-					baseSpeed = source.attackRate or 1
+					baseSpeed = source.AttackRate or 1
 				end
 			else
 				baseSpeed = 1 / (skillData.castTime or 1)
@@ -622,7 +622,7 @@ function calcs.offence(env, actor)
 			output.CritMultiplier = 0
 			output.CritEffect = 1
 		else
-			local baseCrit = source.critChance or 0
+			local baseCrit = source.CritChance or 0
 			if baseCrit == 100 then
 				output.PreEffectiveCritChance = 100
 				output.CritChance = 100

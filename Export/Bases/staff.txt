@@ -1,0 +1,7 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Staff
+#baseTags weapon twohand staff two_hand_weapon
+#baseMatch Metadata/Items/Weapons/TwoHandWeapons/Staves/Staff
+#base Metadata/Items/Weapons/TwoHandWeapons/Staves/Staff17 Maelstrom Staff

@@ -1,0 +1,6 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Jewel
+#baseTags 
+#baseMatch Metadata/Items/Jewels/Jewel

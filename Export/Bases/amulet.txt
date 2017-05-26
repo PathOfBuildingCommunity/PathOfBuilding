@@ -1,0 +1,14 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Amulet
+#baseTags amulet
+
+#baseMatch Metadata/Items/Amulets/Amulet%d+
+#base Metadata/Items/Amulet/AmuletAtlas1
+#base Metadata/Items/Amulet/AmuletAtlas2
+
+#base Metadata/Items/Amulet/AmuletVictor1
+
+#subType Talisman
+#baseMatch Metadata/Items/Amulets/Talismans/Talisman

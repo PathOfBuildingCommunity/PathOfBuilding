@@ -18,39 +18,48 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner
+	fromItem = true,
 #mods
 
 #skill SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike Cospri's Malice
+	fromItem = true,
 #mods
 
 #skill RepeatingShockwave Abberath's Fury
 #flags spell area
+	fromItem = true,
 #mods
 
 #skill TriggeredBoneNova Bone Nova
 #flags attack projectile
+	fromItem = true,
 #mods
 
 #skill TriggeredConsecrate Consecrate
 #flags spell duration area
+	fromItem = true,
 #mods
 
 #skill TriggeredSummonLesserShrine Create Lesser Shrine
 #flags spell duration
+	fromItem = true,
 #mods
 
 #skill Envy
 #flags spell aura area chaos
 #baseMod skill("radius", 36)
+	fromItem = true,
 #mods
 
 #skill FireBurstOnHit Fire Burst
 #flags spell area fire
+	fromItem = true,
 #mods
 
 #skill VaalAuraElementalDamageHealing Gluttony of Elements
 #flags spell aura area duration vaal
 #baseMod skill("radius", 36)
+	fromItem = true,
 #mods
 
 #skill IcestormUniqueStaff12 Icestorm
@@ -58,22 +67,27 @@ local skills, mod, flag, skill = ...
 #baseMod skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 })
 #baseMod skill("radius", 25)
 #baseMod skill("radiusSecondary", 10)
+	fromItem = true,
 #mods
 
 #skill MerveilWarp Illusory Warp
 #flags spell area duration movement cold
+	fromItem = true,
 #mods
 
 #skill LightningSpell Lightning Bolt
 #flags spell area lightning
+	fromItem = true,
 #mods
 
 #skill TriggeredMoltenStrike Molten Burst
 #flags attack projectile area fire
+	fromItem = true,
 #mods
 
 #skill TriggeredSummonSpider Raise Spiders
 #flags spell minion duration
+	fromItem = true,
 	minionList = {
 		"SpiderMinion",
 	},
@@ -81,10 +95,12 @@ local skills, mod, flag, skill = ...
 
 #skill TriggeredShockedGround Shock Ground
 #flags spell area duration lightning
+	fromItem = true,
 #mods
 
 #skill SummonEssenceSpirits Spectral Spirits
 #flags spell minion
+	fromItem = true,
 	minionList = {
 		"SummonedEssenceSpirit",
 	},
@@ -92,6 +108,7 @@ local skills, mod, flag, skill = ...
 
 #skill SummonRigwaldsPack Summon Spectral Wolf
 #flags spell minion duration
+	fromItem = true,
 	minionList = {
 		"SummonedSpectralWolf",
 	},

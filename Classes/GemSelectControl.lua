@@ -206,12 +206,8 @@ function GemSelectClass:Draw(viewPort)
 				local gem = gemList[self.index]
 				gem.name = self.list[self.hoverSel]
 				gem.data = data.gems[self.list[self.hoverSel]]
-				if gem.data.low_max_level and not gem.data.levels[gem.level] then
-					if gem.data.levels[3][1] then
-						gem.level = 3
-					else
-						gem.level = 1
-					end
+				if not gem.data.levels[gem.level] then
+					gem.level = gem.data.defaultLevel
 				end
 				local output = calcFunc()
 				if oldGem then
@@ -241,6 +237,25 @@ function GemSelectClass:Draw(viewPort)
 			   (thisGem.data.support and not hoverGem.data.support and thisGem.displayGem and thisGem.displayGem.isSupporting[hoverGem.name])) then
 			   SetDrawColor(0.33, 1, 0.33, 0.25)
 			   DrawImage(nil, x, y, width, height)
+			end
+		end
+		if mOver then
+			local gem = self.skillsTab.displayGroup.gemList[self.index]
+			if gem and gem.data then
+				SetDrawLayer(nil, 10)
+				main:AddTooltipLine(20, data.colorCodes.GEM..gem.data.name)
+				main:AddTooltipSeparator(10)
+				main:AddTooltipLine(16, "^x7F7F7F"..gem.data.gemTagString)
+				main:AddTooltipSeparator(10)
+				self.skillsTab.build:AddRequirementsToTooltip(gem.reqLevel, gem.reqStr, gem.reqDex, gem.reqInt)
+				if gem.data.description then
+					local wrap = main:WrapString(gem.data.description, 16, m_max(DrawStringWidth(16, "VAR", gem.data.gemTagString), 400))
+					for _, line in ipairs(wrap) do
+						main:AddTooltipLine(16, data.colorCodes.GEM..line)
+					end
+				end
+				main:DrawTooltip(x, y, width, height, viewPort, data.colorCodes.GEM, true)
+				SetDrawLayer(nil, 0)
 			end
 		end
 	end

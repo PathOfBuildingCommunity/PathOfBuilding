@@ -631,6 +631,16 @@ function main:RenderRing(x, y, width, height, oX, oY, radius, size)
 	end
 end
 
+function main:StatColor(stat, base, limit)
+	if limit and stat > limit then
+		return data.colorCodes.NEGATIVE
+	elseif base and stat ~= base then
+		return data.colorCodes.MAGIC
+	else
+		return "^7"
+	end
+end
+
 function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl)
 	local popup = common.New("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl)
 	t_insert(self.popups, 1, popup)
@@ -669,6 +679,33 @@ function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm)
 		main:ClosePopup()
 	end))
 	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "confirm")
+end
+
+do
+	local wrapTable = { }
+	function main:WrapString(str, height, width)
+		wipeTable(wrapTable)
+		local lineStart = 1
+		local lastSpace, lastBreak
+		while true do
+			local s, e = str:find("%s+", lastSpace)
+			if not s then
+				s = #str + 1
+				e = #str + 1
+			end
+			if DrawStringWidth(height, "VAR", str:sub(lineStart, s - 1)) > width then
+				t_insert(wrapTable, str:sub(lineStart, lastBreak))
+				lineStart = lastSpace
+			end
+			if s > #str then
+				t_insert(wrapTable, str:sub(lineStart, -1))
+				break
+			end
+			lastBreak = s - 1
+			lastSpace = e + 1
+		end
+		return wrapTable
+	end
 end
 
 function main:AddTooltipLine(size, text)

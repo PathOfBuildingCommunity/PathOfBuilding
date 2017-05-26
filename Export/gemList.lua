@@ -1,13 +1,3 @@
-#@
-
-dofile("_common.lua")
-
-loadDat("SkillGems")
-loadDat("ActiveSkills")
-loadDat("GemTags")
-loadDat("BaseItemTypes")
-loadDat("GrantedEffects")
-
 local gems = { }
 
 function addGem(name, tags, grantedKey)
@@ -44,4 +34,3 @@ end
 f:close()
 
 print("Gem list generated.")
-os.execute("pause")

@@ -294,6 +294,10 @@ local modNameList = {
 	["light radius"] = "LightRadius",
 	["rarity of items found"] = "LootRarity",
 	["quantity of items found"] = "LootQuantity",
+	["strength requirement"] = "StrRequirement",
+	["dexterity requirement"] = "DexRequirement",
+	["intelligence requirement"] = "IntRequirement",
+	["attribute requirements"] = { "StrRequirement", "DexRequirement", "IntRequirement" },
 	-- Flask modifiers
 	["effect"] = "FlaskEffect",
 	["effect of flasks"] = "FlaskEffect",
@@ -575,7 +579,7 @@ local gemNameLookup = { }
 for name, data in pairs(data.skills) do
 	if not data.hidden then
 		gemNameLookup[data.name:lower()] = data.name
-	elseif data.other then
+	elseif data.fromItem then
 		gemNameLookup[data.name:lower()] = data.id
 	end
 end
@@ -689,7 +693,7 @@ local specialModList = {
 	["has no sockets"] = { },
 	["has 1 socket"] = { },
 	["no physical damage"] = { mod("WeaponData", "LIST", { key = "PhysicalMin" }), mod("WeaponData", "LIST", { key = "PhysicalMax" }), mod("WeaponData", "LIST", { key = "PhysicalDPS" }) },
-	["all attacks with this weapon are critical strikes"] = { mod("WeaponData", "LIST", { key = "critChance", value = 100 }) },
+	["all attacks with this weapon are critical strikes"] = { mod("WeaponData", "LIST", { key = "CritChance", value = 100 }) },
 	["counts as dual wielding"] = { mod("WeaponData", "LIST", { key = "countsAsDualWielding", value = true}) },
 	["counts as all one handed melee weapon types"] = { mod("WeaponData", "LIST", { key = "countsAsAll1H", value = true }) },
 	["no block chance"] = { mod("ArmourData", "LIST", { key = "BlockChance", value = 0 }) },
@@ -786,6 +790,7 @@ local specialModList = {
 	["your strength is added to your minions"] = { flag("StrengthAddedToMinions") },
 	["minions poison enemies on hit"] = { mod("MinionModifier", "LIST", { mod = mod("PoisonChance", "BASE", 100) }) },
 	["(%d+)%% increased minion damage if you have hit recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "Condition", var = "HitRecently" }) } end,
+	["minions deal (%d+)%% increased damage per 10 dexterity"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "PerStat", stat = "Dex", div = 10 }) } end,
 	["(%d+)%% increased golem damage for each type of golem you have summoned"] = function(num) return {
 		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num, { type = "ParentCondition", var = "HavePhysicalGolem" }) }, { type = "SkillType", skillType = SkillType.Golem }),
 		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num, { type = "ParentCondition", var = "HaveLightningGolem" }) }, { type = "SkillType", skillType = SkillType.Golem }),
@@ -883,6 +888,7 @@ local specialModList = {
 	["your curses can apply to hexproof enemies"] = { flag("CursesIgnoreHexproof") },
 	["you have onslaught while you have fortify"] = { flag("Condition:Onslaught", { type = "Condition", var = "Fortify" }) },
 	["reserves (%d+)%% of life"] = function(num) return { mod("ExtraLifeReserved", "BASE", num) } end,
+	["items and gems have (%d+)%% reduced attribute requirements"] = function(num) return { mod("GlobalAttributeRequirements", "INC", -num) } end,
 	-- Skill-specific enchantment modifiers
 	["(%d+)%% increased decoy totem life"] = function(num) return { mod("TotemLife", "INC", num, { type = "SkillName", skillName = "Decoy Totem" }) } end,
 	["(%d+)%% increased ice spear critical strike chance in second form"] = function(num) return { mod("CritChance", "INC", num, { type = "SkillName", skillName = "Ice Spear" }, { type = "SkillPart", skillPart = 2 }) } end,
@@ -916,6 +922,12 @@ local keystoneList = {
 for _, name in pairs(keystoneList) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
 end
+
+-- Modifiers that are recognised but unsupported
+local unsupportedModList = {
+	["culling strike"] = true,
+	["properties are doubled while in a breach"] = true,
+}
 
 -- Special lookups used for various modifier forms
 local suffixTypes = {
@@ -1142,6 +1154,9 @@ local function parseMod(line, order)
 		if desc:lower() == line:lower() then
 			return { mod("JewelFunc", "LIST", func) }
 		end
+	end
+	if unsupportedModList[line:lower()] then
+		return { }, line
 	end
 
 	-- Check for a flag/tag specification at the start of the line

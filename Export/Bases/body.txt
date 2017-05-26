@@ -1,0 +1,27 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Body Armour
+#baseTags armour body_armour
+
+#subType Armour
+#baseMatch Metadata/Items/Armours/BodyArmours/BodyStr%d+
+
+#subType Evasion
+#baseMatch Metadata/Items/Armours/BodyArmours/BodyDex%d+
+
+#subType Energy Shield
+#baseMatch Metadata/Items/Armours/BodyArmours/BodyInt%d+
+
+#subType Armour/Evasion
+#baseMatch Metadata/Items/Armours/BodyArmours/BodyStrDex%d+
+
+#subType Armour/Energy Shield
+#baseMatch Metadata/Items/Armours/BodyArmours/BodyStrInt%d+
+
+#subType Evasion/Energy Shield
+#baseMatch Metadata/Items/Armours/BodyArmours/BodyDexInt%d+
+
+#subType Armour/Evasion/Energy Shield
+#baseMatch Metadata/Items/Armours/BodyArmours/BodyStrDexInt%d+
+#base Metadata/Items/Armours/BodyArmours/BodyDemigods1

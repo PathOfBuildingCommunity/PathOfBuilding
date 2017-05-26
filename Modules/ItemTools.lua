@@ -133,6 +133,13 @@ function itemLib.parseItemRaw(item)
 	item.enchantments = data.enchantments[item.base and item.base.type]
 	item.prefixes = { }
 	item.suffixes = { }
+	item.requirements = { }
+	if item.base then
+		item.requirements.str = item.base.req.str or 0
+		item.requirements.dex = item.base.req.dex or 0
+		item.requirements.int = item.base.req.int or 0
+	end
+	local importedLevelReq
 	local flaskBuffLines = { }
 	if item.base and item.base.flask and item.base.flask.buff then
 		item.buffLines = #item.base.flask.buff
@@ -167,6 +174,9 @@ function itemLib.parseItemRaw(item)
 			if not specName then
 				specName, specVal = line:match("^([%a ]+): (.+)$")
 			end
+			if not specName then
+				specName, specVal = line:match("^(Requires) (.+)$")
+			end
 			if specName then
 				if specName == "Unique ID" then
 					item.uniqueID = specVal
@@ -198,6 +208,13 @@ function itemLib.parseItemRaw(item)
 						item.variantList = { }
 					end
 					t_insert(item.variantList, specVal)
+				elseif specName == "Requires" then
+					item.requirements.level = tonumber(specVal:match("Level (%d+)"))
+				elseif specName == "Level" then
+					-- Requirements from imported items can't always be trusted
+					importedLevelReq = tonumber(specVal)
+				elseif specName == "LevelReq" then
+					item.requirements.level = tonumber(specVal)
 				elseif specName == "Selected Variant" then
 					item.variant = tonumber(specVal)
 				elseif specName == "League" then
@@ -285,6 +302,14 @@ function itemLib.parseItemRaw(item)
 		end
 		l = l + 1
 	end
+	if item.base and not item.requirements.level then
+		if importedLevelReq and not item.sockets then
+			-- Requirements on imported items can only be trusted for items with no sockets
+			item.requirements.level = importedLevelReq
+		else
+			item.requirements.level = item.base.req.level
+		end
+	end
 	if item.base and item.base.implicit then
 		if item.implicitLines == 0 then
 			item.implicitLines = 1 + #item.base.implicit:gsub("[^\n]","")
@@ -368,6 +393,9 @@ function itemLib.createItemRaw(item)
 			end
 		end
 		t_insert(rawLines, line)
+	end
+	if item.requirements and item.requirements.level then
+		t_insert(rawLines, "LevelReq: "..item.requirements.level)
 	end
 	if item.jewelRadiusIndex then
 		t_insert(rawLines, "Radius: "..data.jewelRadius[item.jewelRadiusIndex].label)
@@ -502,7 +530,7 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 		weaponData.type = item.base.type
 		weaponData.name = item.name
 		weaponData.AttackSpeedInc = sumLocal(modList, "Speed", "INC", ModFlag.Attack)
-		weaponData.attackRate = round(item.base.weapon.attackRateBase * (1 + weaponData.AttackSpeedInc / 100), 2)
+		weaponData.AttackRate = round(item.base.weapon.AttackRateBase * (1 + weaponData.AttackSpeedInc / 100), 2)
 		for _, dmgType in pairs(dmgTypeList) do
 			local min = (item.base.weapon[dmgType.."Min"] or 0) + sumLocal(modList, dmgType.."Min", "BASE", 0)
 			local max = (item.base.weapon[dmgType.."Max"] or 0) + sumLocal(modList, dmgType.."Max", "BASE", 0)
@@ -514,14 +542,14 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 			if min > 0 and max > 0 then
 				weaponData[dmgType.."Min"] = min
 				weaponData[dmgType.."Max"] = max
-				local dps = (min + max) / 2 * weaponData.attackRate
+				local dps = (min + max) / 2 * weaponData.AttackRate
 				weaponData[dmgType.."DPS"] = dps
 				if dmgType ~= "Physical" and dmgType ~= "Chaos" then
 					weaponData.ElementalDPS = (weaponData.ElementalDPS or 0) + dps
 				end
 			end
 		end
-		weaponData.critChance = round(item.base.weapon.critChanceBase * (1 + sumLocal(modList, "CritChance", "INC", 0) / 100), 2)
+		weaponData.CritChance = round(item.base.weapon.CritChanceBase * (1 + sumLocal(modList, "CritChance", "INC", 0) / 100), 2)
 		for _, value in ipairs(modList:Sum("LIST", nil, "WeaponData")) do
 			weaponData[value.key] = value.value
 		end
@@ -548,9 +576,9 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 		end
 	elseif item.base.armour then
 		local armourData = item.armourData
-		local armourBase = sumLocal(modList, "Armour", "BASE", 0) + (item.base.armour.armourBase or 0)
-		local evasionBase = sumLocal(modList, "Evasion", "BASE", 0) + (item.base.armour.evasionBase or 0)
-		local energyShieldBase = sumLocal(modList, "EnergyShield", "BASE", 0) + (item.base.armour.energyShieldBase or 0)
+		local armourBase = sumLocal(modList, "Armour", "BASE", 0) + (item.base.armour.ArmourBase or 0)
+		local evasionBase = sumLocal(modList, "Evasion", "BASE", 0) + (item.base.armour.EvasionBase or 0)
+		local energyShieldBase = sumLocal(modList, "EnergyShield", "BASE", 0) + (item.base.armour.EnergyShieldBase or 0)
 		local armourInc = sumLocal(modList, "Armour", "INC", 0)
 		local armourEvasionInc = sumLocal(modList, "ArmourAndEvasion", "INC", 0)
 		local evasionInc = sumLocal(modList, "Evasion", "INC", 0)
@@ -561,11 +589,11 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 		armourData.Armour = round(armourBase * (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc + item.quality) / 100))
 		armourData.Evasion = round(evasionBase * (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + item.quality) / 100))
 		armourData.EnergyShield = round(energyShieldBase * (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + item.quality) / 100))
-		if item.base.armour.blockChance then
-			armourData.BlockChance = item.base.armour.blockChance + sumLocal(modList, "BlockChance", "BASE", 0)
+		if item.base.armour.BlockChance then
+			armourData.BlockChance = item.base.armour.BlockChance + sumLocal(modList, "BlockChance", "BASE", 0)
 		end
-		if item.base.armour.movementPenalty then
-			modList:NewMod("MovementSpeed", "INC", -item.base.armour.movementPenalty, item.modSource, { type = "Condition", var = "IgnoreMovementPenalties", neg = true })
+		if item.base.armour.MovementPenalty then
+			modList:NewMod("MovementSpeed", "INC", -item.base.armour.MovementPenalty, item.modSource, { type = "Condition", var = "IgnoreMovementPenalties", neg = true })
 		end
 		for _, value in ipairs(modList:Sum("LIST", nil, "ArmourData")) do
 			armourData[value.key] = value.value
@@ -657,6 +685,9 @@ function itemLib.buildItemModList(item)
 			end
 		end
 	end
+	item.requirements.strMod = m_floor((item.requirements.str + sumLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "StrRequirement", "INC", 0) / 100))
+	item.requirements.dexMod = m_floor((item.requirements.dex + sumLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "DexRequirement", "INC", 0) / 100))
+	item.requirements.intMod = m_floor((item.requirements.int + sumLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "IntRequirement", "INC", 0) / 100))
 	item.grantedSkills = { }
 	for _, skill in ipairs(baseList:Sum("LIST", nil, "ExtraSkill")) do
 		if skill.name ~= "Unknown" then
@@ -670,7 +701,7 @@ function itemLib.buildItemModList(item)
 	end
 	if item.name == "Tabula Rasa, Simple Robe" or item.name == "Skin of the Loyal, Simple Robe" or item.name == "Skin of the Lords, Simple Robe" then
 		-- Hack to remove the energy shield
-		baseList:NewMod("ArmourData", "LIST", { key = "EnergyShield" })
+		baseList:NewMod("ArmourData", "LIST", { key = "EnergyShield", value = 0 })
 	end
 	if item.base.weapon or item.type == "Ring" then
 		item.slotModList = { }
