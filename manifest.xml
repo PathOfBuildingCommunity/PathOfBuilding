@@ -95,7 +95,7 @@
 	<File sha1="ff980198a548f1965c7beb55bfc36208159dac7d" name="Data/Bases/claw.lua" part="program"/>
 	<File sha1="0fdab95164aef00b6dc0cdde336484bd67014b35" name="Data/Bases/dagger.lua" part="program"/>
 	<File sha1="c41d3d5afada19cc3a530aa8c0cc58cac6169d90" name="Data/Bases/flask.lua" part="program"/>
-	<File sha1="5617360540ab67ae85870b71dfd3467037357120" name="Data/Bases/gloves.lua" part="program"/>
+	<File sha1="60f1a543121d92b7cfa9a9ab108076e983fd632c" name="Data/Bases/gloves.lua" part="program"/>
 	<File sha1="42519374646274b388108edcf413d8ff773444b8" name="Data/Bases/helmet.lua" part="program"/>
 	<File sha1="768eea50f8995473c66d39b507f3f3d9a8d9a75a" name="Data/Bases/jewel.lua" part="program"/>
 	<File sha1="f5b4aaeb3f321f0e3598a7d269f3e15f7c20c4b6" name="Data/Bases/mace.lua" part="program"/>
