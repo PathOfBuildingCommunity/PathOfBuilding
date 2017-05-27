@@ -218,10 +218,16 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemEnchant.shown = function()
 		return self.displayItem.enchantments
 	end
+	self.controls.displayItemCorrupt = common.New("ButtonControl", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, function() return self.controls.displayItemEnchant:IsShown() and 168 or 0 end, 8, 100, 20, "Corrupt...", function()
+		self:CorruptDisplayItem()
+	end)
+	self.controls.displayItemCorrupt.shown = function()
+		return self.displayItem.corruptable
+	end
 	for i = 1, 6 do
 		local prev = self.controls["displayItemAffix"..(i-1)] or self.controls.addDisplayItem
 		local drop
-		drop = common.New("DropDownControl", {"TOPLEFT",prev,"BOTTOMLEFT"}, i==1 and 40 or 0, i == 1 and function() return self.displayItem.enchantments and 28 or 8 end or 2, 418, 20, nil, function(sel, value)
+		drop = common.New("DropDownControl", {"TOPLEFT",prev,"BOTTOMLEFT"}, i==1 and 40 or 0, i == 1 and function() return (self.displayItem.enchantments or self.displayItem.corruptable) and 36 or 8 end or 2, 418, 20, nil, function(sel, value)
 			self.displayItem[drop.outputTable][drop.outputIndex] = value.value
 			itemLib.craftItem(self.displayItem)
 			self:UpdateDisplayItemRangeLines()
@@ -245,7 +251,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[sel].range
 	end)
 	self.controls.displayItemRangeLine.y = function()
-		return 8 + (self.displayItem and self.displayItem.enchantments and 28 or 0) + (self.displayItem and self.displayItem.craftable and (self.displayItem.affixLimit * 22 + 6) or 0)
+		return 8 + (self.displayItem and (self.displayItem.enchantments or self.displayItem.corruptable) and 28 or 0) + (self.displayItem and self.displayItem.craftable and (self.displayItem.affixLimit * 22 + 6) or 0)
 	end
 	self.controls.displayItemRangeLine.shown = function()
 		return self.displayItem.rangeLineList[1] ~= nil
@@ -383,7 +389,7 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 
 	if self.displayItem then
 		local extraOffset = self.controls.displayItemRangeLine:IsShown() and 26 or 0
-		if self.displayItem.enchantments then
+		if self.displayItem.enchantments or self.displayItem.corruptable then
 			extraOffset = extraOffset + 28
 		end
 		if self.displayItem.craftable then
@@ -870,6 +876,61 @@ function ItemsTabClass:EnchantDisplayItem()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(550, 130, "Enchant Item", controls)
+end
+
+-- Opens the item corrupting popup
+function ItemsTabClass:CorruptDisplayItem()
+	local controls = { } 
+	local implicitList = { }
+	for modId, mod in pairs(data.corruptedMods) do
+		if itemLib.getModSpawnWeight(self.displayItem, mod) > 0 then
+			t_insert(implicitList, mod)
+		end
+	end
+	table.sort(implicitList, function(a, b)
+		local an = a[1]:lower():gsub("%(.-%)","$"):gsub("[%+%-%%]",""):gsub("%d+","$")
+		local bn = b[1]:lower():gsub("%(.-%)","$"):gsub("[%+%-%%]",""):gsub("%d+","$")
+		if an ~= bn then
+			return an < bn
+		else
+			return a.level < b.level
+		end
+	end)
+	local function corruptItem()
+		local item = itemLib.makeItemFromRaw(itemLib.createItemRaw(self.displayItem))
+		item.id = self.displayItem.id
+		item.corrupted = true
+		if controls.implicit.sel > 1 then
+			for i = 1, item.implicitLines do 
+				t_remove(item.modLines, 1)
+			end
+			for _, modLine in ipairs(implicitList[controls.implicit.sel - 1]) do
+				t_insert(item.modLines, 1, { line = modLine })
+			end
+			item.implicitLines = #implicitList[controls.implicit.sel - 1]
+		end
+		item.raw = itemLib.createItemRaw(item)
+		itemLib.parseItemRaw(item)
+		return item
+	end
+	controls.implicitLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 65, 20, 0, 16, "Implicit:")
+	controls.implicit = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 70, 20, 450, 18, { "None" })
+	for _, mod in ipairs(implicitList) do
+		t_insert(controls.implicit.list, table.concat(mod, "/"))
+	end
+	controls.save = common.New("ButtonControl", nil, -45, 50, 80, 20, "Corrupt", function()
+		self:SetDisplayItem(corruptItem())
+		main:ClosePopup()
+	end)
+	controls.save.tooltipFunc = function()
+		local item = corruptItem()
+		self:AddItemTooltip(item, nil, true)
+		return data.colorCodes[item.rarity], true
+	end	
+	controls.close = common.New("ButtonControl", nil, 45, 50, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(540, 80, "Corrupt Item", controls)
 end
 
 function ItemsTabClass:AddItemTooltip(item, slot, dbMode)

@@ -2,7 +2,7 @@
 local itemBases = ...
 
 #type Gloves
-#baseTags armour helmet
+#baseTags armour gloves
 
 #subType Armour
 #baseMatch Metadata/Items/Armours/Gloves/GlovesStr%d+

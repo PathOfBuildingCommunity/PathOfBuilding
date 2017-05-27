@@ -1,3 +1,7 @@
+VERSION[1.4.16][2017/05/27]
+ * Items can now be corrupted via the new "Corrupt..." button that appears when viewing the item
+ * Explosive Arrow's additional radius per fuse is now factored into the area calculation
+ * Fixed an error that would sometimes appear when editing gems in the Skills tab
 VERSION[1.4.15][2017/05/26]
 This update adds support for level and attribute requirements:
  * Item tooltips now show level and attribute requirements

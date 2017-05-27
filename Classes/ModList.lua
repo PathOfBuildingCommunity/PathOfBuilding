@@ -106,7 +106,6 @@ function ModListClass:Sum(modType, cfg, ...)
 							else
 								value.value = value.value * mult + (tag.base or 0)
 							end
-							value.value = value.value * mult + (tag.base or 0)
 						else
 							value = value * mult + (tag.base or 0)
 						end

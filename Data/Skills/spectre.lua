@@ -26,7 +26,7 @@ skills["BanditExplosiveArrow"] = {
 		skill("castTime", 1), 
 		skill("CritChance", 6), 
 		skill("duration", 1), --"base_skill_effect_duration" = 1000
-		--"fuse_arrow_explosion_radius_+_per_fuse_arrow_orb" = 2
+		skill("radiusExtra", 2, { type = "Multiplier", var = "ExplosiveArrowFuse" }), --"fuse_arrow_explosion_radius_+_per_fuse_arrow_orb" = 2
 		--"active_skill_attack_damage_+%_final" = 0
 		--"skill_can_fire_arrows" = 1
 		--"base_is_projectile" = 1
