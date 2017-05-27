@@ -131,6 +131,7 @@ function itemLib.parseItemRaw(item)
 	item.buffLines = 0
 	item.affixes = data.itemMods[item.base and item.base.type]
 	item.enchantments = data.enchantments[item.base and item.base.type]
+	item.corruptable = item.base and item.base.type ~= "Flask"
 	item.prefixes = { }
 	item.suffixes = { }
 	item.requirements = { }
@@ -342,6 +343,17 @@ function itemLib.normaliseQuality(item)
 			item.quality = 20
 		end
 	end	
+end
+
+function itemLib.getModSpawnWeight(item, mod)
+	if item.base then
+		for i, key in ipairs(mod.weightKey) do
+			if item.base.tags[key] then
+				return mod.weightVal[i]
+			end
+		end
+	end
+	return 0
 end
 
 -- Create raw item data for given item

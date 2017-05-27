@@ -1165,7 +1165,7 @@ function calcs.offence(env, actor)
 			output.FreezeChanceOnHit = output.FreezeChanceOnHit * freezeMult
 			output.FreezeChanceOnCrit = output.FreezeChanceOnCrit * freezeMult
 		end
-
+	
 		local function calcSecondaryEffectBase(type, sourceHitDmg, sourceCritDmg)
 			-- Calculate the inflict chance and base damage of a secondary effect (bleed/poison/ignite/shock/freeze)
 			local chanceOnHit, chanceOnCrit = output[type.."ChanceOnHit"], output[type.."ChanceOnCrit"]
