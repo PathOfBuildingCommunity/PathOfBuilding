@@ -1750,7 +1750,7 @@ skills["InfernalBlow"] = {
 		mod("SkillPhysicalDamageConvertToFire", "BASE", 50), --"skill_physical_damage_%_to_convert_to_fire" = 50
 		skill("duration", 0.5), --"base_skill_effect_duration" = 500
 		--"corpse_explosion_monster_life_%" = 10
-		skill("radius", 24), 
+		skill("radius", 15), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5

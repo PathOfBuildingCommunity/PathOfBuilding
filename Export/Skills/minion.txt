@@ -79,6 +79,7 @@ local skills, mod, flag, skill = ...
 
 #skill ZombieSlam Slam
 #flags attack melee area
+#baseMod skill("radius", 18)
 #mods
 
 #skill SpiderMinionLeapSlam Leap Slam

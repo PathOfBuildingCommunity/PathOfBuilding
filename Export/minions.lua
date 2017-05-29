@@ -55,6 +55,7 @@ directiveTable.monster = function(state, args, out)
 	out:write('\tdamage = ', (MonsterVariety.DamageMultiplier/100), ',\n')
 	out:write('\tdamageSpread = ', (MonsterType.DamageSpread / 100), ',\n')
 	out:write('\tattackTime = ', (MonsterVariety.AttackSpeed/1000), ',\n')
+	out:write('\tattackRange = ', MonsterVariety.MaximumAttackDistance, ',\n')
 	for _, key in ipairs(MonsterVariety.ModsKeys) do
 		local Mod = Mods[key]
 		if Mod.Id == "MonsterSpeedAndDamageFixupSmall" then

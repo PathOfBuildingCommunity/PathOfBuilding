@@ -7,6 +7,7 @@ Blood of the Karui
 Sanctified Life Flask
 Variant: Pre 2.6.0
 Variant: Current
+League: Domination, Nemesis
 Requires Level 50
 (5-20)% increased Recovery Speed
 {variant:1}No Life Recovery Applies during Flask effect
@@ -31,6 +32,7 @@ You gain an Endurance Charge on use
 ]],[[
 Lavianga's Spirit
 Sanctified Mana Flask
+League: Domination, Nemesis
 Requires Level 50
 (30-50)% increased Amount Recovered
 100% increased Recovery Speed
@@ -38,6 +40,7 @@ Your Skills have no Mana Cost during Flask effect
 ]],[[
 Zerphi's Last Breath
 Grand Mana Flask
+League: Perandus
 Requires Level 18
 50% increased Charges used
 Skills used during Flask effect grant 800% of Mana Cost as Life

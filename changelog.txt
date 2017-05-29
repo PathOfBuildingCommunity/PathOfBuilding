@@ -1,3 +1,8 @@
+VERSION[1.4.17][2017/05/29]
+ * Added base radius for Zombie's slam
+ * Minions (including Spectres) will now show the correct attack range for their melee skills
+ * Fixed an error that would appear when equipping Blood of Corruption
+ * Corrected the radius for Infernal Blow
 VERSION[1.4.16][2017/05/27]
  * Items can now be corrupted via the new "Corrupt..." button that appears when viewing the item
  * Explosive Arrow's additional radius per fuse is now factored into the area calculation

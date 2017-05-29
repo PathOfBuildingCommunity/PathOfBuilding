@@ -1059,6 +1059,7 @@ skills["ZombieSlam"] = {
 		mod("Damage", "MORE", 45, ModFlag.Hit), --"active_skill_damage_+%_final" = 45
 		skill("duration", 0.28), --"base_skill_effect_duration" = 280
 		--"is_area_damage" = ?
+		skill("radius", 18), 
 	},
 	qualityMods = {
 	},
