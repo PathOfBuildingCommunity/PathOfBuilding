@@ -127,7 +127,7 @@ local skills, mod, flag, skill = ...
 
 #skill InfernalBlow
 #flags attack melee fire
-#baseMod skill("radius", 24)
+#baseMod skill("radius", 15)
 #mods
 
 #skill LeapSlam

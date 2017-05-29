@@ -68,6 +68,7 @@ function spectre(name)
 		print("damage = "..(mon.DamageMultiplier/100))
 		print("damageSpread = "..(MT[mon.MonsterTypesKey].DamageSpread / 100))
 		print("attackTime = "..mon.AttackSpeed/1000)
+		print("attackRange = "..mon.MaximumAttackDistance)
 		if mon.MainHand_ItemClassesKey then
 			print("weaponType1 = "..IC[mon.MainHand_ItemClassesKey].Name)
 		end

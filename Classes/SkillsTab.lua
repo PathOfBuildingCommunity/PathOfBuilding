@@ -429,9 +429,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 					gem.level = gem.data.defaultLevel
 					gem.defaultLevel = gem.data.defaultLevel
 				end
-				if not gem.data.levels[gem.level] then
-					gem.level = m_max(1, m_min(#gem.data.levels, gem.level))
-				end
+				calcLib.validateGemLevel(gem)
 				if gem.data.gemTags then
 					gem.reqLevel = gem.data.levels[gem.level][1]
 					gem.reqStr = calcLib.gemStatRequirement(gem.reqLevel, gem.data.support, gem.data.gemStr)

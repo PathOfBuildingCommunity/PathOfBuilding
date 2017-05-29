@@ -53,6 +53,12 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.17 - 2017/05/29
+ * Added base radius for Zombie's slam
+ * Minions (including Spectres) will now show the correct attack range for their melee skills
+ * Fixed an error that would appear when equipping Blood of Corruption
+ * Corrected the radius for Infernal Blow
+
 ### 1.4.16 - 2017/05/27
  * Items can now be corrupted via the new "Corrupt..." button that appears when viewing the item
  * Explosive Arrow's additional radius per fuse is now factored into the area calculation

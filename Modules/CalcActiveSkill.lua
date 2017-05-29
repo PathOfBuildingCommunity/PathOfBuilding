@@ -48,10 +48,7 @@ function calcs.mergeGemMods(modList, gem)
 			modList:AddMod(scaledMod)
 		end
 	end
-	gem.level = m_max(gem.level, 1)
-	if not gem.data.levels[gem.level] then
-		gem.level = m_min(gem.level, #gem.data.levels)
-	end
+	calcLib.validateGemLevel(gem)
 	local levelData = gem.data.levels[gem.level]
 	for col, mod in pairs(gem.data.levelMods) do
 		if levelData[col] then
@@ -400,6 +397,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 					CritChance = 5,
 					PhysicalMin = damage * (1 - minion.minionData.damageSpread),
 					PhysicalMax = damage * (1 + minion.minionData.damageSpread),
+					range = minion.minionData.attackRange,
 				}
 			end
 			minion.weaponData2 = { }
