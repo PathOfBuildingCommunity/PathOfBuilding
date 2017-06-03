@@ -126,11 +126,15 @@ SkillType = {
 data.itemMods = { }
 data.itemMods.Flask = LoadModule("Data/ModFlask")
 data.itemMods.Jewel = LoadModule("Data/ModJewel")
+data.itemMods.Item = LoadModule("Data/ModItem")
 data.corruptedMods = LoadModule("Data/ModCorrupted")
+data.masterMods = LoadModule("Data/ModMaster")
 
 data.enchantments = { }
 data.enchantments.Helmet = LoadModule("Data/EnchantmentHelmet")
 data.enchantments.Boots = LoadModule("Data/EnchantmentBoots")
+
+data.essences = LoadModule("Data/Essence")
 
 data.labyrinths = {
 	{ name = "ENDGAME", label = "Endgame" },
@@ -211,7 +215,7 @@ end
 local missing = { }
 for _, minion in pairs(data.minions) do
 	for _, skillId in ipairs(minion.skillList) do
-		if not data.skills[skillId] and not missing[skillId] and launch.devMode then
+		if launch.devMode and not data.skills[skillId] and not missing[skillId] then
 			ConPrintf("'%s' missing skill '%s'", minion.name, skillId)
 			missing[skillId] = true
 		end
@@ -229,6 +233,7 @@ data.colorCodes = {
 	RELIC = "^x60C060",
 	GEM = "^x1AA29B",
 	CRAFTED = "^xB8DAF1",
+	CUSTOM = "^x5CF0BB",
 	UNSUPPORTED = "^xF05050",
 	--FIRE = "^x960000",
 	FIRE = "^xD02020",
@@ -281,6 +286,7 @@ data.weaponTypeInfo = {
 	["One Handed Axe"] = { oneHand = true, melee = true, flag = ModFlag.Axe, range = 9 },
 	["One Handed Mace"] = { oneHand = true, melee = true, flag = ModFlag.Mace, range = 9 },
 	["One Handed Sword"] = { oneHand = true, melee = true, flag = ModFlag.Sword, range = 9 },
+	["Sceptre"] = { oneHand = true, melee = true, flag = ModFlag.Mace, range = 9, label = "One Handed Mace" },
 	["Thrusting One Handed Sword"] = { oneHand = true, melee = true, flag = ModFlag.Sword, range = 12, label = "One Handed Sword" },
 	["Two Handed Axe"] = { oneHand = false, melee = true, flag = ModFlag.Axe, range = 11 },
 	["Two Handed Mace"] = { oneHand = false, melee = true, flag = ModFlag.Mace, range = 11 },

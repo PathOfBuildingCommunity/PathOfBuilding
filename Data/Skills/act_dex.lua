@@ -1053,6 +1053,7 @@ skills["Cyclone"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -1141,6 +1142,7 @@ skills["VaalCyclone"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -1454,6 +1456,7 @@ skills["DoubleStrike"] = {
 	skillTypes = { [1] = true, [6] = true, [7] = true, [25] = true, [28] = true, [24] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -1533,6 +1536,7 @@ skills["VaalDoubleStrike"] = {
 	skillTypes = { [1] = true, [6] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [43] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -1611,9 +1615,10 @@ skills["DualStrike"] = {
 	description = "Attacks with both weapons, dealing the damage of both in one strike. Dual wield only. Does not work with wands.",
 	skillTypes = { [1] = true, [4] = true, [25] = true, [28] = true, [24] = true, [53] = true, },
 	weaponTypes = {
+		["Two Handed Axe"] = true,
 		["Claw"] = true,
 		["One Handed Mace"] = true,
-		["Two Handed Axe"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["Dagger"] = true,
@@ -2033,6 +2038,7 @@ skills["FlickerStrike"] = {
 	skillTypes = { [1] = true, [6] = true, [24] = true, [25] = true, [28] = true, [38] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -2263,6 +2269,7 @@ skills["FrostBlades"] = {
 	skillTypes = { [1] = true, [3] = true, [6] = true, [25] = true, [28] = true, [24] = true, [34] = true, [48] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -3117,6 +3124,7 @@ skills["LightningStrike"] = {
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [25] = true, [28] = true, [24] = true, [35] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -3214,6 +3222,7 @@ skills["VaalLightningStrike"] = {
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [12] = true, [43] = true, [35] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -4069,6 +4078,7 @@ skills["Riposte"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -4323,11 +4333,12 @@ skills["SmokeMine"] = {
 		area = true,
 		duration = true,
 		movement = true,
+		buff = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
 		--"base_mine_duration" = 16000
-		mod("MovementSpeed", "INC", 30, 0, 0, nil), --"base_movement_velocity_+%" = 30
+		mod("MovementSpeed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"base_movement_velocity_+%" = 30
 		--"is_remote_mine" = ?
 		--"base_skill_is_mined" = ?
 		--"base_deal_no_damage" = ?
@@ -4390,6 +4401,7 @@ skills["ThrownWeapon"] = {
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -4468,6 +4480,7 @@ skills["VaalThrownWeapon"] = {
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [43] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -4994,6 +5007,7 @@ skills["WildStrike"] = {
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [35] = true, [34] = true, [33] = true, [3] = true, [11] = true, [23] = true, [48] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,

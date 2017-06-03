@@ -4,6 +4,8 @@
 -- Parser function for modifier names
 --
 
+local pairs = pairs
+local ipairs = ipairs
 local t_insert = table.insert
 local band = bit.band
 local bor = bit.bor
@@ -233,6 +235,7 @@ local modNameList = {
 	["cooldown recovery speed"] = "CooldownRecovery",
 	["weapon range"] = "WeaponRange",
 	["melee weapon and unarmed range"] = { "MeleeWeaponRange", "UnarmedRange" },
+	["to deal double damage"] = "DoubleDamageChance",
 	-- Buffs
 	["onslaught effect"] = "OnslaughtEffect",
 	["fortify duration"] = "FortifyDuration",
@@ -922,6 +925,11 @@ local keystoneList = {
 for _, name in pairs(keystoneList) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
 end
+local oldList = specialModList
+specialModList = { }
+for k, v in pairs(oldList) do
+	specialModList["^"..k.."$"] = v
+end
 
 -- Modifiers that are recognised but unsupported
 local unsupportedModList = {
@@ -988,12 +996,16 @@ local preSkillNameList = { }
 for skillName, data in pairs(data.gems) do
 	if not data.hidden and not data.support then
 		skillNameList[" "..skillName:lower().." "] = { tag = { type = "SkillName", skillName = skillName } }
-		preSkillNameList["^"..skillName:lower().." has "] = { tag = { type = "SkillName", skillName = skillName } }
-		preSkillNameList["^"..skillName:lower().." totem deals "] = { tag = { type = "SkillName", skillName = skillName } }
-		preSkillNameList["^"..skillName:lower().." grants "] = { addToSkill = { type = "SkillName", skillName = skillName }, tag = { type = "GlobalEffect", effectType = "Buff" } }
-		preSkillNameList["^"..skillName:lower().." grants a?n? ?additional "] = { addToSkill = { type = "SkillName", skillName = skillName }, tag = { type = "GlobalEffect", effectType = "Buff" } }
-		preSkillNameList["^"..skillName:lower().." totem grants "] = { addToSkill = { type = "SkillName", skillName = skillName }, tag = { type = "GlobalEffect", effectType = "Buff" } }
-	end
+		preSkillNameList["^"..skillName:lower().." has ?a? "] = { tag = { type = "SkillName", skillName = skillName } }
+		if data.gemTags.totem then
+			preSkillNameList["^"..skillName:lower().." totem deals "] = { tag = { type = "SkillName", skillName = skillName } }
+			preSkillNameList["^"..skillName:lower().." totem grants "] = { addToSkill = { type = "SkillName", skillName = skillName }, tag = { type = "GlobalEffect", effectType = "Buff" } }
+		end
+		if data.skillTypes[SkillType.Buff] or data.baseFlags.buff then
+			preSkillNameList["^"..skillName:lower().." grants "] = { addToSkill = { type = "SkillName", skillName = skillName }, tag = { type = "GlobalEffect", effectType = "Buff" } }
+			preSkillNameList["^"..skillName:lower().." grants a?n? ?additional "] = { addToSkill = { type = "SkillName", skillName = skillName }, tag = { type = "GlobalEffect", effectType = "Buff" } }
+		end
+	end	
 end
 
 local function getSimpleConv(srcList, dst, type, remove, factor)
@@ -1006,7 +1018,7 @@ local function getSimpleConv(srcList, dst, type, remove, factor)
 							out:NewMod(src, type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
 						end
 						if factor then
-							out:NewMod(dst, type, math.floor(mod.value * factor + 0.5), "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
+							out:NewMod(dst, type, math.floor(mod.value * factor), "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
 						else
 							out:NewMod(dst, type, mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
 						end
@@ -1119,25 +1131,38 @@ local jewelFuncs = {
 	["With at least 40 Dexterity in Radius, Dual Strike has a 20% chance to deal Double Damage with the Main-Hand Weapon"] = getThreshold("Dex", "DoubleDamageChance", "BASE", 20, { type = "SkillName", skillName = "Dual Strike" }, { type = "Condition", var = "MainHandAttack" }),
 	["With at least 40 Intelligence in Radius, Raised Zombies' Slam Attack has 100% increased Cooldown Recovery Speed"] = getThreshold("Int", "MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", 100, { type = "SkillId", skillId = "ZombieSlam" }) }),
 	["With at least 40 Intelligence in Radius, Raised Zombies' Slam Attack deals 30% increased Damage"] = getThreshold("Int", "MinionModifier", "LIST", { mod = mod("Damage", "INC", 30, { type = "SkillId", skillId = "ZombieSlam" }) }),
+	["With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Attack Damage for each Poison on the Enemy"] = getThreshold("Dex", "Damage", "INC", 2, ModFlag.Attack, { type = "SkillName", skillName = "Viper Strike" }, { type = "Multiplier", var = "PoisonOnEnemy" }),
 	--[""] = getThreshold("", "", "", , { type = "SkillName", skillName = "" }),
 }
+local jewelFuncList = { }
+for k, v in pairs(jewelFuncs) do
+	jewelFuncList[k:lower()] = v
+end
 
 -- Scan a line for the earliest and longest match from the pattern list
 -- If a match is found, returns the corresponding value from the pattern list, plus the remainder of the line and a table of captures
 local function scan(line, patternList, plain)
 	local bestIndex, bestEndIndex
 	local bestPattern = ""
-	local bestMatch = { nil, line, nil }
+	local bestVal, bestStart, bestEnd, bestCaps
+	local lineLower = line:lower()
 	for pattern, patternVal in pairs(patternList) do
-		local index, endIndex, cap1, cap2, cap3, cap4, cap5 = line:lower():find(pattern, 1, plain)
+		local index, endIndex, cap1, cap2, cap3, cap4, cap5 = lineLower:find(pattern, 1, plain)
 		if index and (not bestIndex or index < bestIndex or (index == bestIndex and (endIndex > bestEndIndex or (endIndex == bestEndIndex and #pattern > #bestPattern)))) then
 			bestIndex = index
 			bestEndIndex = endIndex
 			bestPattern = pattern
-			bestMatch = { patternVal, line:sub(1, index - 1)..line:sub(endIndex + 1, -1), { cap1, cap2, cap3, cap4, cap5 } }
+			bestVal = patternVal
+			bestStart = index
+			bestEnd = endIndex
+			bestCaps = { cap1, cap2, cap3, cap4, cap5 }
 		end
 	end
-	return bestMatch[1], bestMatch[2], bestMatch[3]
+	if bestVal then
+		return bestVal, line:sub(1, bestStart - 1) .. line:sub(bestEnd + 1, -1), bestCaps
+	else
+		return nil, line
+	end
 end
 
 local function parseMod(line, order)
@@ -1150,12 +1175,12 @@ local function parseMod(line, order)
 			return copyTable(specialMod)
 		end
 	end
-	for desc, func in pairs(jewelFuncs) do
-		if desc:lower() == line:lower() then
-			return { mod("JewelFunc", "LIST", func) }
-		end
+	local lineLower = line:lower()
+	local jewelFunc = jewelFuncList[lineLower]
+	if jewelFunc then
+		return { mod("JewelFunc", "LIST", jewelFunc) }
 	end
-	if unsupportedModList[line:lower()] then
+	if unsupportedModList[lineLower] then
 		return { }, line
 	end
 
@@ -1176,15 +1201,15 @@ local function parseMod(line, order)
 	local num = tonumber(formCap[1])
 
 	-- Check for tags (per-charge, conditionals)
-	local modTag, modTag2
-	modTag, line, cap = scan(line, modTagList)
+	local modTag, modTag2, tagCap
+	modTag, line, tagCap = scan(line, modTagList)
 	if type(modTag) == "function" then
-		modTag = modTag(tonumber(cap[1]), unpack(cap))
+		modTag = modTag(tonumber(tagCap[1]), unpack(tagCap))
 	end
 	if modTag then
-		modTag2, line, cap = scan(line, modTagList)
+		modTag2, line, tagCap = scan(line, modTagList)
 		if type(modTag2) == "function" then
-			modTag2 = modTag2(tonumber(cap[1]), unpack(cap))
+			modTag2 = modTag2(tonumber(tagCap[1]), unpack(tagCap))
 		end
 	end
 	
@@ -1231,15 +1256,9 @@ local function parseMod(line, order)
 	elseif modForm == "CHANCE" then
 	elseif modForm == "REGENPERCENT" then
 		modName = regenTypes[formCap[2]]
-		if not modName then
-			return { }, line
-		end
 		modSuffix = "Percent"
 	elseif modForm == "REGENFLAT" then
 		modName = regenTypes[formCap[2]]
-		if not modName then
-			return { }, line
-		end
 	elseif modForm == "DMG" then
 		local damageType = dmgTypes[formCap[3]]
 		if not damageType then
@@ -1271,6 +1290,9 @@ local function parseMod(line, order)
 		modValue = { tonumber(formCap[1]), tonumber(formCap[2]) }		
 		modName = { damageType.."Min", damageType.."Max" }
 	end
+	if not modName then
+		return { }, line
+	end
 
 	-- Combine flags and tags
 	local flags = 0
@@ -1295,7 +1317,7 @@ local function parseMod(line, order)
 	end
 
 	-- Generate modifier list
-	local nameList = modName or ""
+	local nameList = modName
 	local modList = { }
 	for i, name in ipairs(type(nameList) == "table" and nameList or { nameList }) do
 		modList[i] = {

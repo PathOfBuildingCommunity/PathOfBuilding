@@ -3700,7 +3700,6 @@ skills["OrbOfStorms"] = {
 	skillTypes = { [2] = true, [10] = true, [35] = true, [12] = true, [11] = true, [23] = true, },
 	baseFlags = {
 		spell = true,
-		area = true,
 		chaining = true,
 		duration = true,
 		lightning = true,

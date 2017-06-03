@@ -41,14 +41,18 @@ local ItemDBClass = common.NewClass("ItemDB", "ListControl", function(self, anch
 	end
 	table.sort(self.typeList)
 	t_insert(self.typeList, 1, "Any type")
+	t_insert(self.typeList, 2, "Armour")
+	t_insert(self.typeList, 3, "Jewellery")
+	t_insert(self.typeList, 4, "One Handed Melee")
+	t_insert(self.typeList, 5, "Two Handed Melee")
 	self.slotList = { "Any slot", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring", "Belt", "Jewel" }
-	self.controls.slot = common.New("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -22, 95, 18, self.slotList, function()
+	self.controls.slot = common.New("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -22, 95, 18, self.slotList, function(index, value)
 		self:BuildList()
 	end)
-	self.controls.type = common.New("DropDownControl", {"LEFT",self.controls.slot,"RIGHT"}, 2, 0, 135, 18, self.typeList, function()
+	self.controls.type = common.New("DropDownControl", {"LEFT",self.controls.slot,"RIGHT"}, 2, 0, 135, 18, self.typeList, function(index, value)
 		self:BuildList()
 	end)
-	self.controls.league = common.New("DropDownControl", {"LEFT",self.controls.type,"RIGHT"}, 2, 0, 126, 18, self.leagueList, function()
+	self.controls.league = common.New("DropDownControl", {"LEFT",self.controls.type,"RIGHT"}, 2, 0, 126, 18, self.leagueList, function(index, value)
 		self:BuildList()
 	end)
 	self.controls.league.shown = function()
@@ -57,7 +61,7 @@ local ItemDBClass = common.NewClass("ItemDB", "ListControl", function(self, anch
 	self.controls.search = common.New("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -2, 258, 18, "", "Search", "%c", 100, function()
 		self:BuildList()
 	end)
-	self.controls.searchMode = common.New("DropDownControl", {"LEFT",self.controls.search,"RIGHT"}, 2, 0, 100, 18, { "Anywhere", "Names", "Modifiers" }, function()
+	self.controls.searchMode = common.New("DropDownControl", {"LEFT",self.controls.search,"RIGHT"}, 2, 0, 100, 18, { "Anywhere", "Names", "Modifiers" }, function(index, value)
 		self:BuildList()
 	end)
 	self:BuildSortOrder()
@@ -65,26 +69,34 @@ local ItemDBClass = common.NewClass("ItemDB", "ListControl", function(self, anch
 end)
 
 function ItemDBClass:DoesItemMatchFilters(item)
-	if self.controls.slot.sel > 1 then
+	if self.controls.slot.selIndex > 1 then
 		local primarySlot = itemLib.getPrimarySlotForItem(item)
-		if primarySlot ~= self.slotList[self.controls.slot.sel] and primarySlot:gsub(" %d","") ~= self.slotList[self.controls.slot.sel] then
+		if primarySlot ~= self.slotList[self.controls.slot.selIndex] and primarySlot:gsub(" %d","") ~= self.slotList[self.controls.slot.selIndex] then
 			return false
 		end
 	end
-	if self.controls.type.sel > 1 then
-		if item.type ~= self.typeList[self.controls.type.sel] then
+	local typeSel = self.controls.type.selIndex
+	if typeSel > 1 then
+		if typeSel == 2 then
+			return item.base.armour
+		elseif typeSel == 3 then
+			return item.type == "Amulet" or item.type == "Ring" or item.type == "Belt"
+		elseif typeSel == 4 or typeSel == 5 then
+			local weaponInfo = data.weaponTypeInfo[item.type]
+			return weaponInfo and weaponInfo.melee and ((typeSel == 4 and weaponInfo.oneHand) or (typeSel == 5 and not weaponInfo.oneHand))
+		elseif item.type ~= self.typeList[typeSel] then
 			return false
 		end
 	end
-	if self.controls.league.sel > 1 then
-		if (self.controls.league.sel == 2 and item.league) or (self.controls.league.sel > 2 and (not item.league or not item.league:match(self.leagueList[self.controls.league.sel]))) then
+	if self.controls.league.selIndex > 1 then
+		if (self.controls.league.selIndex == 2 and item.league) or (self.controls.league.selIndex > 2 and (not item.league or not item.league:match(self.leagueList[self.controls.league.selIndex]))) then
 			return false
 		end
 	end
 	local searchStr = self.controls.search.buf:lower()
 	if searchStr:match("%S") then
 		local found = false
-		local mode = self.controls.searchMode.sel
+		local mode = self.controls.searchMode.selIndex
 		if mode == 1 or mode == 2 then
 			if item.name:lower():find(searchStr, 1, true) then
 				found = true

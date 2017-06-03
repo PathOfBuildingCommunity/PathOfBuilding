@@ -24,10 +24,10 @@ local DropDownClass = common.NewClass("DropDownControl", "Control", "ControlHost
 		return self.dropped and self.controls.scrollBar.enabled
 	end
 	self.list = list or { }
-	self.sel = 1
+	self.selIndex = 1
 	self.selFunc = selFunc
 	self.tooltip = tooltip
-	self.tooltipFunc = function(mode, sel, selVal)
+	self.tooltipFunc = function(mode, index, value)
 		local tooltip = self:GetProperty("tooltip")
 		if tooltip then
 			main:AddTooltipLine(14, self.tooltip)
@@ -35,16 +35,16 @@ local DropDownClass = common.NewClass("DropDownControl", "Control", "ControlHost
 	end
 end)
 
-function DropDownClass:SelByValue(val)
+function DropDownClass:SelByValue(value, key)
 	for index, listVal in ipairs(self.list) do
 		if type(listVal) == "table" then
-			if listVal.val == val then
-				self.sel = index
+			if listVal[key] == value then
+				self.selIndex = index
 				return
 			end
 		else
 			if listVal == val then
-				self.sel = index
+				self.selIndex = index
 				return
 			end
 		end
@@ -53,8 +53,8 @@ end
 
 function DropDownClass:SetSel(newSel)
 	newSel = m_max(1, m_min(#self.list, newSel))
-	if newSel ~= self.sel then
-		self.sel = newSel
+	if newSel ~= self.selIndex then
+		self.selIndex = newSel
 		if self.selFunc then
 			self.selFunc(newSel, self.list[newSel])
 		end
@@ -66,7 +66,7 @@ function DropDownClass:ScrollSelIntoView()
 	local scrollBar = self.controls.scrollBar
 	local dropHeight = (height - 4) * m_min(#self.list, 30)
 	scrollBar:SetContentDimension((height - 4) * #self.list, dropHeight)
-	scrollBar:ScrollIntoView((self.sel - 2) * (height - 4), 3 * (height - 4))
+	scrollBar:ScrollIntoView((self.selIndex - 2) * (height - 4), 3 * (height - 4))
 end
 
 function DropDownClass:IsMouseOver()
@@ -147,7 +147,7 @@ function DropDownClass:Draw(viewPort)
 	end
 	if enabled then
 		if (mOver or self.dropped) and mOverComp ~= "DROP" then
-			local col, center = self.tooltipFunc(mOver and "BODY" or "OUT", self.sel, self.list[self.sel])
+			local col, center = self.tooltipFunc(mOver and "BODY" or "OUT", self.selIndex, self.list[self.selIndex])
 			SetDrawLayer(nil, 10)
 			main:DrawTooltip(x, y - (self.dropped and self.dropUp and dropExtra or 0), width, height + (self.dropped and dropExtra or 0), viewPort, col, center)
 			SetDrawLayer(nil, 0)
@@ -156,7 +156,7 @@ function DropDownClass:Draw(viewPort)
 	else
 		SetDrawColor(0.66, 0.66, 0.66)
 	end
-	local selLabel = self.list[self.sel]
+	local selLabel = self.list[self.selIndex]
 	if type(selLabel) == "table" then
 		selLabel = selLabel.label
 	end
@@ -182,7 +182,7 @@ function DropDownClass:Draw(viewPort)
 				SetDrawColor(0.5, 0.4, 0.3)
 				DrawImage(nil, 0, y, width - 4, height - 4)
 			end
-			if index == self.hoverSel or index == self.sel then
+			if index == self.hoverSel or index == self.selIndex then
 				SetDrawColor(1, 1, 1)
 			else
 				SetDrawColor(0.66, 0.66, 0.66)
@@ -252,22 +252,22 @@ function DropDownClass:OnKeyUp(key)
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(1)
 		else
-			self:SetSel(self.sel + 1)
+			self:SetSel(self.selIndex + 1)
 		end
 		return self
 	elseif key == "DOWN" then
-		self:SetSel(self.sel + 1)
+		self:SetSel(self.selIndex + 1)
 		self:ScrollSelIntoView()
 		return self
 	elseif key == "WHEELUP" then
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(-1)
 		else
-			self:SetSel(self.sel - 1)
+			self:SetSel(self.selIndex - 1)
 		end
 		return self
 	elseif key == "UP" then
-		self:SetSel(self.sel - 1)
+		self:SetSel(self.selIndex - 1)
 		self:ScrollSelIntoView()
 		return self
 	end

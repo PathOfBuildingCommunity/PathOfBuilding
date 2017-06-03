@@ -332,6 +332,7 @@ skills["IceElementalIceCyclone"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -745,8 +746,9 @@ skills["SpectralSkullShieldCharge"] = {
 	skillTypes = { [1] = true, [7] = true, [13] = true, [24] = true, [25] = true, [38] = true, },
 	weaponTypes = {
 		["None"] = true,
-		["One Handed Mace"] = true,
 		["Claw"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["Dagger"] = true,
@@ -1077,13 +1079,14 @@ skills["SpiderMinionLeapSlam"] = {
 	description = "Jump into the air, damaging enemies (and knocking back some) with your main hand where you land. Enemies you would land on are pushed out of the way. Requires an axe, mace, sword or staff.",
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [24] = true, [38] = true, },
 	weaponTypes = {
-		["Two Handed Mace"] = true,
-		["Two Handed Sword"] = true,
 		["One Handed Mace"] = true,
-		["Two Handed Axe"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
-		["One Handed Axe"] = true,
+		["Two Handed Sword"] = true,
 		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
 		["One Handed Sword"] = true,
 	},
 	baseFlags = {

@@ -21,17 +21,17 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 	self:SetActiveSpec(1)
 
 	self.anchorControls = common.New("Control", nil, 0, 0, 0, 20)
-	self.controls.specSelect = common.New("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 150, 20, nil, function(sel, selVal)
-		if self.specList[sel] then
+	self.controls.specSelect = common.New("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 150, 20, nil, function(index, value)
+		if self.specList[index] then
 			self.build.modFlag = true
-			self:SetActiveSpec(sel)
+			self:SetActiveSpec(index)
 		else
 			self:OpenSpecManagePopup()
 		end
 	end)
-	self.controls.specSelect.tooltipFunc = function(mode, sel, selVal)
+	self.controls.specSelect.tooltipFunc = function(mode, selIndex, selVal)
 		if mode ~= "OUT" then
-			local spec = self.specList[sel]
+			local spec = self.specList[selIndex]
 			if spec then
 				local used, ascUsed, sockets = spec:CountAllocNodes()
 				main:AddTooltipLine(16, "Class: "..spec.curClassName)
@@ -40,7 +40,7 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 				if sockets > 0 then
 					main:AddTooltipLine(16, "Jewel sockets: "..sockets)
 				end
-				if sel ~= self.activeSpec then
+				if selIndex ~= self.activeSpec then
 					local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 					if calcFunc then
 						local output = calcFunc({ spec = spec })
@@ -112,7 +112,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - 32 }
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
-	self.controls.specSelect.sel = self.activeSpec
+	self.controls.specSelect.selIndex = self.activeSpec
 	wipeTable(self.controls.specSelect.list)
 	for id, spec in ipairs(self.specList) do
 		t_insert(self.controls.specSelect.list, spec.title or "Default")

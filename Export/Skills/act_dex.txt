@@ -433,7 +433,8 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SmokeMine
-#flags spell mine area duration movement
+#flags spell mine area duration movement buff
+#global Buff
 #mods
 
 #skill ThrownWeapon

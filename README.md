@@ -53,6 +53,21 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.18 - 2017/06/03
+ * The "Craft item..." feature has been significantly enhanced:
+    * Modifiers are now available for all item types, not just Flasks and Jewels
+	* The affix lists now obey all restrictions that prevent certain modifiers from appearing together
+	   * For example, selecting "inc. Attack Speed with Bows" on a jewel will exclude "inc. Physical Damage with Axes"
+ * You can now add custom modifiers to Magic and Rare items using the new "Add modifier.." button
+    * For applicable item types you can choose from Master and Essence modifiers, in addition to writing your own modifier
+	* All master mods have been removed from the rare templates, since they can easily be added using the new option
+ * Additional type filters have been added to the Unique and Rare databases
+ * Added a "# of Poison on Enemy" option to the Configuration tab for Growing Agony
+ * The Poison section in the Calcs tab now displays Max Poison Stacks
+ * Added Merveil's Blessed to the spectre library
+ * Orb of Storms no longer incorrectly benefits from modifiers to area damage
+ * Various minor tweaks and fixes
+ 
 ### 1.4.17 - 2017/05/29
  * Added base radius for Zombie's slam
  * Minions (including Spectres) will now show the correct attack range for their melee skills

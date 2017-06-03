@@ -607,37 +607,35 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 	-- Mod differences
 	if self.showStatDifferences then
 		local calcFunc, calcBase = build.calcsTab:GetMiscCalculator(build)
-		if calcFunc then
-			main:AddTooltipSeparator(14)
-			local path = (node.alloc and node.depends) or self.tracePath or node.path or { }
-			local pathLength = #path
-			local pathNodes = { }
-			for _, node in pairs(path) do
-				pathNodes[node] = true
-			end
-			local nodeOutput, pathOutput
-			if node.alloc then
-				-- Calculate the differences caused by deallocating this node and its dependants
-				nodeOutput = calcFunc({ removeNodes = { [node] = true } })
-				if pathLength > 1 then
-					pathOutput = calcFunc({ removeNodes = pathNodes })
-				end
-			else
-				-- Calculated the differences caused by allocating this node and all nodes along the path to it
-				nodeOutput = calcFunc({ addNodes = { [node] = true } })
-				if pathLength > 1 then
-					pathOutput = calcFunc({ addNodes = pathNodes })
-				end
-			end
-			local count = build:AddStatComparesToTooltip(calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
-			if pathLength > 1 then
-				count = count + build:AddStatComparesToTooltip(calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
-			end
-			if count == 0 then
-				main:AddTooltipLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
-			end
-			main:AddTooltipLine(14, "^x80A080Tip: Press Ctrl+D to disable the display of stat differences.")
+		main:AddTooltipSeparator(14)
+		local path = (node.alloc and node.depends) or self.tracePath or node.path or { }
+		local pathLength = #path
+		local pathNodes = { }
+		for _, node in pairs(path) do
+			pathNodes[node] = true
 		end
+		local nodeOutput, pathOutput
+		if node.alloc then
+			-- Calculate the differences caused by deallocating this node and its dependants
+			nodeOutput = calcFunc({ removeNodes = { [node] = true } })
+			if pathLength > 1 then
+				pathOutput = calcFunc({ removeNodes = pathNodes })
+			end
+		else
+			-- Calculated the differences caused by allocating this node and all nodes along the path to it
+			nodeOutput = calcFunc({ addNodes = { [node] = true } })
+			if pathLength > 1 then
+				pathOutput = calcFunc({ addNodes = pathNodes })
+			end
+		end
+		local count = build:AddStatComparesToTooltip(calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
+		if pathLength > 1 then
+			count = count + build:AddStatComparesToTooltip(calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
+		end
+		if count == 0 then
+			main:AddTooltipLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
+		end
+		main:AddTooltipLine(14, "^x80A080Tip: Press Ctrl+D to disable the display of stat differences.")
 	else
 		main:AddTooltipSeparator(14)
 		main:AddTooltipLine(14, "^x80A080Tip: Press Ctrl+D to enable the display of stat differences.")

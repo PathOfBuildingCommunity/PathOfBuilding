@@ -12,6 +12,21 @@ local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 
+local groupSlotDropList = {
+	{ label = "None" },
+	{ label = "Weapon 1", slotName = "Weapon 1" },
+	{ label = "Weapon 2", slotName = "Weapon 2" },
+	{ label = "Weapon 1 (Swap)", slotName = "Weapon 1 Swap" },
+	{ label = "Weapon 2 (Swap)", slotName = "Weapon 2 Swap" },
+	{ label = "Helmet", slotName = "Helmet" },
+	{ label = "Body Armour", slotName = "Body Armour" },
+	{ label = "Gloves", slotName = "Gloves" },
+	{ label = "Boots", slotName = "Boots" }, 
+	{ label = "Amulet", slotName = "Amulet" },
+	{ label = "Ring 1", slotName = "Ring 1" },
+	{ label = "Ring 2", slotName = "Ring 2" },
+}
+
 local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
 	self.ControlHost()
@@ -37,21 +52,17 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 		self.build.buildFlag = true
 	end)
 	self.controls.groupSlotLabel = common.New("LabelControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 30, 0, 16, "^7Socketed in:")
-	self.controls.groupSlot = common.New("DropDownControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 85, 28, 130, 20, { "None", "Weapon 1", "Weapon 2", "Weapon 1 Swap", "Weapon 2 Swap", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2" }, function(sel, selVal)
-		if sel > 1 then
-			self.displayGroup.slot = selVal
-		else
-			self.displayGroup.slot = nil
-		end
+	self.controls.groupSlot = common.New("DropDownControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 85, 28, 130, 20, groupSlotDropList, function(index, value)
+		self.displayGroup.slot = value.slotName
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
-	self.controls.groupSlot.tooltipFunc = function(mode, sel, selVal)
-		if mode == "OUT" or sel == 1 then
+	self.controls.groupSlot.tooltipFunc = function(mode, index, value)
+		if mode == "OUT" or index == 1 then
 			main:AddTooltipLine(16, "Select the item in which this skill is socketed.")
 			main:AddTooltipLine(16, "This will allow the skill to benefit from modifiers on the item that affect socketed gems.")
 		else
-			local slot = self.build.itemsTab.slots[selVal]
+			local slot = self.build.itemsTab.slots[value.slotName]
 			local ttItem = self.build.itemsTab.list[slot.selItemId]
 			if ttItem then
 				self.build.itemsTab:AddItemTooltip(ttItem, slot)
@@ -471,7 +482,7 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 
 		-- Update the main controls
 		self.controls.groupLabel:SetText(socketGroup.label)
-		self.controls.groupSlot:SelByValue(socketGroup.slot or "None")
+		self.controls.groupSlot:SelByValue(socketGroup.slot or "None", "slotName")
 		self.controls.groupEnabled.state = socketGroup.enabled
 
 		-- Update the gem slot controls

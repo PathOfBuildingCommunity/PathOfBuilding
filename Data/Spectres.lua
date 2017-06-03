@@ -1206,6 +1206,28 @@ minions["Metadata/Monsters/Revenant/Revenant"] = {
 	},
 }
 -- Sea witch
+minions["Metadata/Monsters/Seawitch/SeaWitchFrostBolt"] = {
+	name = "Merveil's Blessed",
+	life = 1.44,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.02,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 6,
+	damageFixup = 0.11,
+	skillList = {
+		"SeaWitchWave",
+		"Melee",
+		"SeawitchFrostbolt",
+	},
+	modList = {
+		-- MonsterSpeedAndDamageFixupSmall
+	},
+}
 minions["Metadata/Monsters/Seawitch/SeaWitchScreech"] = {
 	name = "Singing Siren",
 	life = 1.02,

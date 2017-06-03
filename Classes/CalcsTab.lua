@@ -16,6 +16,13 @@ local band = bit.band
 
 local sectionData = LoadModule("Modules/CalcSections")
 
+local buffModeDropList = {
+	{ label = "Unbuffed", buffMode = "UNBUFFED" },
+	{ label = "Buffed", buffMode = "BUFFED" },
+	{ label = "In Combat", buffMode = "COMBAT" },
+	{ label = "Effective DPS", buffMode = "EFFECTIVE" } 
+}
+
 local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
 	self.ControlHost()
@@ -35,21 +42,21 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 	-- Special section for skill/mode selection
 	self:NewSection(3, "SkillSelect", 1, "View Skill Details", data.colorCodes.NORMAL, {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
-			control = common.New("DropDownControl", nil, 0, 0, 300, 16, nil, function(index) 
+			control = common.New("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value) 
 				self.input.skill_number = index 
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end)
 		}, },
 		{ label = "Active Skill", { controlName = "mainSkill", 
-			control = common.New("DropDownControl", nil, 0, 0, 300, 16, nil, function(index)
+			control = common.New("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				mainSocketGroup.mainActiveSkillCalcs = index
 				self.build.buildFlag = true
 			end)
 		}, },
 		{ label = "Skill Part", flag = "multiPart", { controlName = "mainSkillPart", 
-			control = common.New("DropDownControl", nil, 0, 0, 130, 16, nil, function(index)
+			control = common.New("DropDownControl", nil, 0, 0, 130, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeGem.srcGem.skillPartCalcs = index
 				self:AddUndoState()
@@ -63,9 +70,9 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 			end, "Show stats for the minion instead of the player.")
 		}, },
 		{ label = "Minion", flag = "minion", { controlName = "mainSkillMinion",
-			control = common.New("DropDownControl", nil, 0, 0, 150, 16, nil, function(index, val)
+			control = common.New("DropDownControl", nil, 0, 0, 150, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
-				mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeGem.srcGem.skillMinionCalcs = val.val
+				mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeGem.srcGem.skillMinionCalcs = value.minionId
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end)
@@ -76,7 +83,7 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 			end)
 		} },
 		{ label = "Minion Skill", flag = "haveMinion", { controlName = "mainSkillMinionSkill",
-			control = common.New("DropDownControl", nil, 0, 0, 200, 16, nil, function(index)
+			control = common.New("DropDownControl", nil, 0, 0, 200, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeGem.srcGem.skillMinionSkillCalcs = index
 				self:AddUndoState()
@@ -85,13 +92,8 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 		} },
 		{ label = "Calculation Mode", { 
 			controlName = "mode", 
-			control = common.New("DropDownControl", nil, 0, 0, 100, 16, {
-				{label="Unbuffed",val="UNBUFFED"},
-				{label="Buffed",val="BUFFED"},
-				{label="In Combat",val="COMBAT"},
-				{label="Effective DPS",val="EFFECTIVE"} 
-			}, function(_, sel) 
-				self.input.misc_buffMode = sel.val 
+			control = common.New("DropDownControl", nil, 0, 0, 100, 16, buffModeDropList, function(index, value) 
+				self.input.misc_buffMode = value.buffMode 
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end, [[
@@ -109,7 +111,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 	}, function(section)
 		self.build:RefreshSkillSelectControls(section.controls, self.input.skill_number, "Calcs")
 		section.controls.showMinion.state = self.input.showMinion
-		section.controls.mode:SelByValue(self.input.misc_buffMode)
+		section.controls.mode:SelByValue(self.input.misc_buffMode, "buffMode")
 	end)
 
 	-- Add sections from the CalcSections module

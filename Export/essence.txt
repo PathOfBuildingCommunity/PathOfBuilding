@@ -1,0 +1,407 @@
+Rarity: Currency
+Deafening Essence of Greed
+--------
+Stack Size: 2/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Weapon: (1.1-1.3)% of Physical Attack Damage Leeched as Life
+Body Armour: (120-126) to maximum Life
+Helmet: (100-106) to maximum Life
+Shield: (110-116) to maximum Life
+Other Armour: (90-96) to maximum Life
+Quiver: (1.1-1.3)% of Physical Attack Damage Leeched as Life
+Belt: (32-35)% increased Flask Life Recovery rate
+Other Jewellery: (7-9) Life Regenerated per second
+--------
+Right click this item then left click a normal or rare item to apply it.
+Shift click to unstack.
+Rarity: Currency
+Deafening Essence of Contempt
+--------
+Stack Size: 2/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+One Handed Weapon: Adds (17-24) to (36-41) Physical Damage
+Two Handed Weapon: Adds (24-33) to (49-57) Physical Damage
+Gloves: Adds (6-7) to (10-11) Physical Damage to Attacks
+Other Armour: Reflects (151-200) Physical Damage to Melee Attackers
+Quiver: Adds (6-7) to (10-11) Physical Damage to Attacks
+Amulet: Adds (16-18) to (27-30) Physical Damage to Attacks
+Ring: Adds (10-11) to (16-17) Physical Damage to Attacks
+Belt: Reflects (151-200) Physical Damage to Melee Attackers
+--------
+Right click this item then left click a normal or rare item to apply it.
+Shift click to unstack.
+Rarity: Currency
+Deafening Essence of Hatred
+--------
+Stack Size: 1/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Two Handed Melee Weapon: Adds (62-81) to (117-137) Cold Damage
+Other Weapon: Adds (41-54) to (78-91) Cold Damage
+Armour: (46-48)% to Cold Resistance
+Quiver: (46-48)% to Cold Resistance
+Belt: (46-48)% to Cold Resistance
+Other Jewellery: (30-33)% increased Cold Damage
+--------
+Right click this item then left click a normal or rare item to apply it.
+Rarity: Currency
+Deafening Essence of Woe
+--------
+Stack Size: 1/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+One Handed Weapon: (63-69)% increased Spell Damage
+Two Handed Weapon: (95-104)% increased Spell Damage
+Body Armour: (111-125) to maximum Energy Shield
+Helmet: (55-66) to maximum Energy Shield
+Shield: (96-110) to maximum Energy Shield
+Other Armour: (36-42) to maximum Energy Shield
+Quiver: (39-42)% increased Elemental Damage with Weapons
+Amulet: (18-19)% increased maximum Energy Shield
+Ring: (44-47) to maximum Energy Shield
+Belt: (38-43) to maximum Energy Shield
+--------
+Right click this item then left click a normal or rare item to apply it.
+Rarity: Currency
+Deafening Essence of Fear
+--------
+Stack Size: 2/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+One Handed Weapon: Minions deal (27-30)% increased Damage
+Two Handed Weapon: Minions deal (40-45)% increased Damage
+Armour: Minions have (27-30)% increased maximum Life
+Quiver: Minions have (27-30)% increased Movement Speed
+Belt: Minions have (27-30)% increased maximum Life
+Other Jewellery: Minions have (27-30)% increased Movement Speed
+--------
+Right click this item then left click a normal or rare item to apply it.
+Shift click to unstack.
+Rarity: Currency
+Deafening Essence of Anger
+--------
+Stack Size: 2/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Two Handed Melee Weapon: Adds (93-108) to (160-171) Fire Damage
+Other Weapon: Adds (62-72) to (107-114) Fire Damage
+Armour: (46-48)% to Fire Resistance
+Quiver: (46-48)% to Fire Resistance
+Belt: (46-48)% to Fire Resistance
+Other Jewellery: (31-34)% increased Fire Damage
+--------
+Right click this item then left click a normal or rare item to apply it.
+Shift click to unstack.
+Rarity: Currency
+Deafening Essence of Torment
+--------
+Stack Size: 1/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+One Handed Weapon: Adds (4-11) to (134-144) Lightning Damage to Spells
+Two Handed Weapon: Adds (6-16) to (201-216) Lightning Damage to Spells
+Gloves: Adds (1-3) to (29-30) Lightning Damage to Attacks
+Body Armour: (9-10)% chance to Avoid Lightning Damage when Hit
+Shield: (9-10)% chance to Avoid Lightning Damage when Hit
+Other Armour: (31-44)% chance to Avoid being Shocked
+Quiver: Adds (1-3) to (29-30) Lightning Damage to Attacks
+Belt: (31-44)% chance to Avoid being Shocked
+Other Jewellery: Adds (4-8) to (71-76) Lightning Damage to Attacks
+--------
+Right click this item then left click a normal or rare item to apply it.
+Rarity: Currency
+Deafening Essence of Sorrow
+--------
+Stack Size: 3/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Weapon: +2 to Level of Socketed Cold Gems
+Other Item: (53-58) to Dexterity
+--------
+Right click this item then left click a normal or rare item to apply it.
+Shift click to unstack.
+Rarity: Currency
+Deafening Essence of Rage
+--------
+Stack Size: 2/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Weapon: +2 to Level of Socketed Fire Gems
+Other Item: (51-58) to Strength
+--------
+Right click this item then left click a normal or rare item to apply it.
+Shift click to unstack.
+Rarity: Currency
+Deafening Essence of Suffering
+--------
+Stack Size: 1/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+One Handed Weapon: Adds (35-45) to (66-74) Cold Damage to Spells
+Two Handed Weapon: Adds (57-66) to (100-111) Cold Damage to Spells
+Gloves: Adds (8-10) to (14-17) Cold Damage to Attacks
+Body Armour: (9-10)% chance to Avoid Cold Damage when Hit
+Shield: (9-10)% chance to Avoid Cold Damage when Hit
+Other Armour: (31-44)% chance to Avoid being Frozen
+Quiver: Adds (8-10) to (14-17) Cold Damage to Attacks
+Belt: (31-44)% chance to Avoid being Frozen
+Other Jewellery: Adds (20-24) to (38-44) Cold Damage to Attacks
+--------
+Right click this item then left click a normal or rare item to apply it.
+Rarity: Currency
+Deafening Essence of Wrath
+--------
+Stack Size: 2/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Two Handed Melee Weapon: Adds (7-21) to (243-258) Lightning Damage
+Other Weapon: Adds (5-14) to (162-172) Lightning Damage
+Armour: (46-48)% to Lightning Resistance
+Quiver: (46-48)% to Lightning Resistance
+Belt: (46-48)% to Lightning Resistance
+Other Jewellery: (31-34)% increased Lightning Damage
+--------
+Right click this item then left click a normal or rare item to apply it.
+Shift click to unstack.
+Rarity: Currency
+Deafening Essence of Doubt
+--------
+Stack Size: 1/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Weapon: (361-380) to Accuracy Rating
+Body Armour: (401-430) to Evasion Rating
+Helmet: (139-155) to Evasion Rating
+Shield: (401-430) to Evasion Rating
+Other Armour: (61-70) to Evasion Rating
+Quiver: (401-440) to Accuracy Rating
+Amulet: (23-24)% increased Evasion Rating
+Other Jewellery: (151-180) to Evasion Rating
+--------
+Right click this item then left click a normal or rare item to apply it.
+Rarity: Currency
+Deafening Essence of Loathing
+--------
+Stack Size: 1/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Weapon: (35-38)% increased Critical Strike Chance
+Gloves: (24-26)% increased Global Critical Strike Chance
+Helmet: 5% reduced Mana Reserved
+Shield: (7-8)% Chance to Block
+Other Armour: (9-10)% chance to Dodge Attacks
+Quiver: (39-42)% increased Global Critical Strike Chance
+Amulet: (39-42)% increased Global Critical Strike Chance
+Ring: (24-26)% increased Global Critical Strike Chance
+Belt: (36-39)% increased Stun Duration on Enemies
+--------
+Right click this item then left click a normal or rare item to apply it.
+Rarity: Currency
+Deafening Essence of Zeal
+--------
+Stack Size: 1/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Melee Weapon: (28-30)% increased Attack Speed
+Ranged Weapon: (14-15)% increased Attack Speed
+Gloves: (17-18)% increased Attack Speed
+Boots: 32% increased Movement Speed
+Other Armour: (29-34)% increased Stun and Block Recovery
+Quiver: (11-12)% increased Attack Speed
+Belt: (29-34)% increased Stun and Block Recovery
+Other Jewellery: (7-8)% increased Attack Speed
+--------
+Right click this item then left click a normal or rare item to apply it.
+Rarity: Currency
+Deafening Essence of Anguish
+--------
+Stack Size: 1/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+One Handed Weapon: Adds (45-54) to (80-90) Fire Damage to Spells
+Two Handed Weapon: Adds (67-81) to (120-135) Fire Damage to Spells
+Gloves: Adds (9-11) to (17-21) Fire Damage to Attacks
+Body Armour: (9-10)% chance to Avoid Fire Damage when Hit
+Shield: (9-10)% chance to Avoid Fire Damage when Hit
+Other Armour: (31-34)% chance to Avoid being Ignited
+Quiver: Adds (9-11) to (17-21) Fire Damage to Attacks
+Belt: (31-34)% chance to Avoid being Ignited
+Other Jewellery: Adds (23-27) to (43-48) Fire Damage to Attacks
+--------
+Right click this item then left click a normal or rare item to apply it.
+Rarity: Currency
+Deafening Essence of Spite
+--------
+Stack Size: 1/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Weapon: +2 to Level of Socketed Lightning Gems
+Other Item: (51-58) to Intelligence
+--------
+Right click this item then left click a normal or rare item to apply it.
+Rarity: Currency
+Deafening Essence of Scorn
+--------
+Stack Size: 1/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Weapon: (110-119)% increased Critical Strike Chance for Spells
+Gloves: (31-34)% chance to Avoid being Stunned
+Helmet: (31-34)% chance to Avoid being Stunned
+Shield: (110-119)% increased Critical Strike Chance for Spells
+Other Armour: (7-8)% chance to Dodge Spell Damage
+Quiver: (35-41)% to Global Critical Strike Multiplier
+Amulet: (35-41)% to Global Critical Strike Multiplier
+Ring: (21-25)% to Global Critical Strike Multiplier
+Belt: (16-17)% reduced Enemy Stun Threshold
+--------
+Right click this item then left click a normal or rare item to apply it.
+Rarity: Currency
+Deafening Essence of Envy
+--------
+Stack Size: 1/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Weapon: (0.9-1)% of Physical Attack Damage Leeched as Mana
+Armour: (31-35)% to Chaos Resistance
+Quiver: (0.9-1)% of Physical Attack Damage Leeched as Mana
+Belt: (31-35)% to Chaos Resistance
+Other Jewellery: (31-34)% increased Chaos Damage
+--------
+Right click this item then left click a normal or rare item to apply it.
+Rarity: Currency
+Deafening Essence of Misery
+--------
+Stack Size: 1/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+One Handed Weapon: (26-28)% increased Cast Speed
+Two Handed Weapon: (39-42)% increased Cast Speed
+Shield: (70-76)% increased Mana Regeneration Rate
+Other Armour: (69-77) to maximum Mana
+Quiver: (21-25)% chance of Projectiles Piercing
+Belt: (21-25)% increased Flask Mana Recovery rate
+Other Jewellery: (70-76)% increased Mana Regeneration Rate
+--------
+Right click this item then left click a normal or rare item to apply it.
+Rarity: Currency
+Deafening Essence of Dread
+--------
+Stack Size: 1/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Wand: (47-52)% increased Projectile Speed
+Bow: +2 to Level of Socketed Bow Gems
+Melee Weapon: +3 to Weapon range
+Body Armour: (401-440) to Armour
+Helmet: (139-180) to Armour
+Shield: (401-440) to Armour
+Other Armour: (61-75) to Armour
+Quiver: (47-52)% increased Projectile Speed
+Amulet: (23-24)% increased Armour
+Ring: (201-300) to Armour
+Belt: (420-480) to Armour
+--------
+Right click this item then left click a normal or rare item to apply it.
+
+Rarity: Currency
+Essence of Insanity
+--------
+Stack Size: 2/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Weapon: Casts level 20 Spectral Spirits when equipped
+Gloves: Socketed Gems have 16% more Attack and Cast Speed
+Boots: 12% increased Movement speed while on Burning, Chilled or Shocked ground
+Body Armour: Gain Onslaught for 3 seconds when Hit
+Helmet: Socketed Gems gain 50% of Physical Damage as extra Lightning Damage
+Shield: 10% chance to gain a Power Charge on Block
+Quiver: 10% reduced Reflected Damage taken
+Amulet: 10% chance to Recover 10% of Maximum Mana when you use a Skill
+Ring: 10% reduced Reflected Damage taken
+Belt: 5% increased Movement Speed while using a Flask
+--------
+Right click this item then left click a normal or rare item to apply it.
+Shift click to unstack.
+Rarity: Currency
+Essence of Horror
+--------
+Stack Size: 2/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Weapon: 16% chance to gain a Power, Frenzy or Endurance Charge on Kill
+Gloves: Socketed Gems have +3.5% Critical Strike Chance
+Boots: 5% reduced Elemental Damage Taken while stationary
+Body Armour: 15% of Physical Damage taken as Cold Damage
+Helmet: Socketed Gems deal 30% more Elemental Damage
+Shield: Chill Nearby Enemies for 1 second on Block
+Quiver: Adds 4 to 7 Cold Damage per Frenzy Charge
+Amulet: 15% increased effect of Fortify on You
+Ring: Adds 4 to 7 Cold Damage per Frenzy Charge
+Belt: 5% additional Physical Damage Reduction while using a Flask
+--------
+Right click this item then left click a normal or rare item to apply it.
+Shift click to unstack.
+Rarity: Currency
+Essence of Delirium
+--------
+Stack Size: 1/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Weapon: Your Hits inflict Decay, dealing 750 Chaos Damage per second for 10 seconds
+Gloves: Socketed Gems deal 30% more Damage over Time
+Boots: Cannot be Poisoned
+Body Armour: 50% reduced Chaos Damage taken over time
+Helmet: +2 to Level of Socketed Aura Gems
+Shield: Recover 2% of your maximum Mana when you Block
+Quiver: 40% increased Damage with Poison
+Amulet: 0.5% of Chaos Damage Leeched as Life
+Ring: 40% increased Damage with Poison
+Belt: +50% to Chaos Resistance while using a Flask
+--------
+Right click this item then left click a normal or rare item to apply it.
+Rarity: Currency
+Essence of Hysteria
+--------
+Stack Size: 2/9
+--------
+Upgrades a normal item to rare or reforges a rare item, guaranteeing one property
+
+Weapon: 10% chance to Cast Level 20 Fire Burst on Hit
+Gloves: Socketed Gems deal 175 to 225 additional Fire Damage
+Boots: Drops Burning Ground while moving, dealing 2500 Fire Damage per second
+Body Armour: 10% increased Area of Effect of Area Skills
+Helmet: Socketed Gems have 50% chance to Ignite
+Shield: Adds 40 to 80 Fire Damage if you've Blocked Recently
+Quiver: Gain 10% of Physical Damage as Extra Fire Damage
+Amulet: 40% increased Life Leeched per second
+Ring: Gain 10% of Physical Damage as Extra Fire Damage
+Belt: Damage Penetrates 5% Elemental Resistances while using a Flask
+--------
+Right click this item then left click a normal or rare item to apply it.
+Shift click to unstack.

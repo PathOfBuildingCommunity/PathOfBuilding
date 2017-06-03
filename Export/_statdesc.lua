@@ -1,24 +1,20 @@
-
-loadDat("Mods")
-loadDat("Stats")
-loadDat("Tags")
-loadDat("ItemClasses")
-
 local nk = { }
 
 local statDescriptor = { }
 do
 	local curLang
 	local curDescriptor = { }
+	local order = 1
 	for line in io.lines("stat_descriptions.txt") do
 		local noDesc = line:match("no_description ([%w_%+%-%%]+)")
 		if noDesc then
-			statDescriptor[noDesc] = { }
+			statDescriptor[noDesc] = { order = 0 }
 		elseif line:match("description") then	
 			curLang = { }
-			curDescriptor = { lang = { ["English"] = curLang } }
+			curDescriptor = { lang = { ["English"] = curLang }, order = order }
+			order = order + 1
 		elseif not curDescriptor.stats then
-			local stats = line:match("%d+ ([%w_%+%-%% ]+)")
+			local stats = line:match("%d+%s+([%w_%+%-%% ]+)")
 			if stats then
 				curDescriptor.stats = { }
 				for stat in stats:gmatch("[%w_%+%-%%]+") do
@@ -83,24 +79,25 @@ local function matchLimit(lang, val)
 	end
 end
 
-function describeMod(mod)
+function describeStats(stats)
 	local out = { }
-	local stats = { }
-	for i = 1, 5 do
-		if mod["StatsKey"..i] then
-			stats[Stats[mod["StatsKey"..i]].Id] = { min = mod["Stat"..i.."Min"], max = mod["Stat"..i.."Max"], fmt = "d" }
-		end
-	end
+	local orders = { }
 	local descriptors = { }
 	for s, v in pairs(stats) do
-		if (v.min ~= 0 or v.max ~= 0) and statDescriptor[s] then
+		if (v.min ~= 0 or v.max ~= 0) and statDescriptor[s] and statDescriptor[s].stats then
 			descriptors[statDescriptor[s]] = true
 		end
 	end
+	local descOrdered = { }
 	for descriptor in pairs(descriptors) do
+		table.insert(descOrdered, descriptor)
+	end
+	table.sort(descOrdered, function(a, b) return a.order < b.order end)
+	for _, descriptor in ipairs(descOrdered) do
 		local val = { }
 		for i, s in ipairs(descriptor.stats) do
-			val[i] = stats[s]
+			val[i] = stats[s] or { min = 0, max = 0 }
+			val[i].fmt = "d"
 		end
 		local desc = matchLimit(descriptor.lang["English"], val)
 		if desc then
@@ -125,7 +122,7 @@ function describeMod(mod)
 				elseif spec.k == "milliseconds_to_seconds" then
 					val[spec.v].min = val[spec.v].min / 1000
 					val[spec.v].max = val[spec.v].max / 1000
-					val[spec.v].fmt = ".2f"
+					val[spec.v].fmt = "g"
 				elseif spec.k == "milliseconds_to_seconds_0dp" then
 					val[spec.v].min = val[spec.v].min / 1000
 					val[spec.v].max = val[spec.v].max / 1000
@@ -145,7 +142,7 @@ function describeMod(mod)
 					val[spec.v].max = 100 + val[spec.v].max
 				end
 			end
-			table.insert(out, (desc.text:gsub("%%(%d)%%", function(n) 
+			local statDesc = desc.text:gsub("%%(%d)%%", function(n) 
 				local v = val[tonumber(n)]
 				if v.min == v.max then
 					return string.format("%"..v.fmt, v.min)
@@ -159,22 +156,39 @@ function describeMod(mod)
 				else
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("%%(%d)$(%+?d)", function(n, fmt)
+			end):gsub("%%(%d)$(%+?)d", function(n, fmt)
 				local v = val[tonumber(n)]
 				if v.min == v.max then
-					return string.format("%"..fmt, v.min)
-				elseif fmt == "+d" then
+					return string.format("%"..fmt..v.fmt, v.min)
+				elseif fmt == "+" then
 					if v.max < 0 then
 						return string.format("-(%d-%d)", -v.min, -v.max)
 					else
 						return string.format("+(%d-%d)", v.min, v.max)
 					end
 				else
-					return string.format("(%"..fmt.."-%"..fmt..")", v.min, v.max)
+					return string.format("(%"..fmt..v.fmt.."-%"..fmt..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("%%%%","%%")))
+			end):gsub("%%%%","%%")
+			local order = descriptor.order
+			for line in (statDesc.."\\n"):gmatch("([^\\]+)\\n") do
+				table.insert(out, line)
+				table.insert(orders, order)
+				order = order + 0.1
+			end
 		end
 	end
-	return out
+	return out, orders
 end
 
+function describeMod(mod)
+	local stats = { }
+	for i = 1, 5 do
+		if mod["StatsKey"..i] then
+			stats[Stats[mod["StatsKey"..i]].Id] = { min = mod["Stat"..i.."Min"], max = mod["Stat"..i.."Max"] }
+		end
+	end
+	return describeStats(stats)
+end
+
+print("Stat descriptions loaded.")

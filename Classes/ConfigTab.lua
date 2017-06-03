@@ -336,6 +336,9 @@ local varList = {
 	{ var = "conditionEnemyPoisoned", type = "check", label = "Is the enemy Poisoned?", ifEnemyCond = "Poisoned", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Poisoned", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "multiplierPoisonOnEnemy", type = "number", label = "# of Poison on Enemy:", ifMult = "PoisonOnEnemy", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:PoisonOnEnemy", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "conditionEnemyMaimed", type = "check", label = "Is the enemy Maimed?", ifEnemyCond = "Maimed", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Maimed", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -466,8 +469,8 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 					self.build.buildFlag = true
 				end) 
 			elseif varData.type == "list" then
-				control = common.New("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 118, 16, varData.list, function(sel, selVal)
-					self.input[varData.var] = selVal.val
+				control = common.New("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 118, 16, varData.list, function(index, value)
+					self.input[varData.var] = value.val
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
@@ -603,7 +606,7 @@ function ConfigTabClass:UpdateControls()
 		elseif control._className == "CheckBoxControl" then
 			control.state = self.input[var]
 		elseif control._className == "DropDownControl" then
-			control:SelByValue(self.input[var])
+			control:SelByValue(self.input[var], "val")
 		end
 	end
 end

@@ -1182,6 +1182,7 @@ skills["KaomWarriorMoltenStrike"] = {
 	skillTypes = { [1] = true, [3] = true, [6] = true, [11] = true, [24] = true, [25] = true, [28] = true, [33] = true, [48] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -1843,6 +1844,7 @@ skills["MonsterFlickerStrike"] = {
 	skillTypes = { [1] = true, [6] = true, [24] = true, [25] = true, [28] = true, [38] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -1954,13 +1956,14 @@ skills["MonsterLeapSlam"] = {
 	description = "Jump into the air, damaging enemies (and knocking back some) with your main hand where you land. Enemies you would land on are pushed out of the way. Requires an axe, mace, sword or staff.",
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [24] = true, [38] = true, },
 	weaponTypes = {
-		["Two Handed Mace"] = true,
-		["Two Handed Sword"] = true,
 		["One Handed Mace"] = true,
-		["Two Handed Axe"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
-		["One Handed Axe"] = true,
+		["Two Handed Sword"] = true,
 		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
 		["One Handed Sword"] = true,
 	},
 	baseFlags = {
@@ -3130,6 +3133,69 @@ skills["RevenantSpellProjectileSpectre"] = {
 		[35] = { 80, 1148, 2678, },
 		[36] = { 81, 1222, 2851, },
 		[37] = { 82, 1301, 3035, },
+	},
+}
+skills["SeawitchFrostbolt"] = {
+	name = "Frostbolt",
+	hidden = true,
+	color = 3,
+	description = "Fires a slow-moving projectile that pierces through enemies, dealing cold damage.",
+	skillTypes = { [2] = true, [3] = true, [10] = true, [17] = true, [18] = true, [19] = true, [26] = true, [34] = true, [36] = true, [60] = true, },
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		cold = true,
+	},
+	baseMods = {
+		skill("castTime", 0.75), 
+		skill("CritChance", 5), 
+		skill("cooldown", 3), 
+		--"base_is_projectile" = ?
+		mod("PierceChance", "BASE", 100), --"always_pierce" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("ColdMin", nil), --"spell_minimum_base_cold_damage"
+		[3] = skill("ColdMax", nil), --"spell_maximum_base_cold_damage"
+	},
+	levels = {
+		[1] = { 3, 8, 12, },
+		[2] = { 5, 10, 15, },
+		[3] = { 8, 14, 21, },
+		[4] = { 10, 17, 25, },
+		[5] = { 12, 20, 30, },
+		[6] = { 14, 24, 35, },
+		[7] = { 17, 30, 45, },
+		[8] = { 20, 38, 57, },
+		[9] = { 25, 54, 81, },
+		[10] = { 28, 66, 99, },
+		[11] = { 31, 80, 120, },
+		[12] = { 36, 110, 165, },
+		[13] = { 41, 149, 224, },
+		[14] = { 46, 201, 301, },
+		[15] = { 51, 267, 401, },
+		[16] = { 52, 283, 424, },
+		[17] = { 57, 374, 560, },
+		[18] = { 65, 577, 865, },
+		[19] = { 66, 609, 913, },
+		[20] = { 67, 642, 963, },
+		[21] = { 68, 889, 1337, },
+		[22] = { 69, 937, 1410, },
+		[23] = { 70, 988, 1486, },
+		[24] = { 71, 1041, 1566, },
+		[25] = { 72, 1097, 1651, },
+		[26] = { 73, 1156, 1740, },
+		[27] = { 74, 1218, 1833, },
+		[28] = { 75, 1283, 1931, },
+		[29] = { 76, 1351, 2034, },
+		[30] = { 77, 1423, 2142, },
+		[31] = { 78, 1499, 2255, },
+		[32] = { 79, 1578, 2374, },
+		[33] = { 80, 1661, 2500, },
+		[34] = { 81, 1748, 2631, },
+		[35] = { 82, 1840, 2769, },
 	},
 }
 skills["SeaWitchScreech"] = {

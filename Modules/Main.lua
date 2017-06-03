@@ -17,9 +17,9 @@ local m_pi = math.pi
 
 LoadModule("Modules/Common")
 LoadModule("Modules/Data", launch)
-LoadModule("Modules/ModTools")
-LoadModule("Modules/ItemTools")
-LoadModule("Modules/CalcTools")
+LoadModule("Modules/ModTools", launch)
+LoadModule("Modules/ItemTools", launch)
+LoadModule("Modules/CalcTools", launch)
 
 LoadModule("Classes/ControlHost")
 
@@ -70,6 +70,17 @@ local classList = {
 for _, className in pairs(classList) do
 	LoadModule("Classes/"..className, launch, main)
 end
+
+--[[if launch.devMode then
+	for skillName, skill in pairs(data.enchantments.Helmet) do
+		for _, mod in ipairs(skill.ENDGAME) do
+			local modList, extra = modLib.parseMod(mod)
+			if not modList or extra then
+				ConPrintf("%s: '%s' '%s'", skillName, mod, extra or "")
+			end
+		end
+	end
+end]]
 
 local tempTable1 = { }
 local tempTable2 = { }
@@ -437,12 +448,15 @@ end
 
 function main:OpenOptionsPopup()
 	local controls = { }
-	controls.proxyType = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 20, 80, 18, {{val="http",label="HTTP"},{val="socks5",label="SOCKS"}})
+	controls.proxyType = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 20, 80, 18, {
+		{ label = "HTTP", scheme = "http" },
+		{ label = "SOCKS", scheme = "socks5" },
+	})
 	controls.proxyLabel = common.New("LabelControl", {"RIGHT",controls.proxyType,"LEFT"}, -4, 0, 0, 16, "^7Proxy server:")
 	controls.proxyURL = common.New("EditControl", {"LEFT",controls.proxyType,"RIGHT"}, 4, 0, 206, 18)
 	if launch.proxyURL then
 		local scheme, url = launch.proxyURL:match("(%w+)://(.+)")
-		controls.proxyType:SelByValue(scheme)
+		controls.proxyType:SelByValue(scheme, "scheme")
 		controls.proxyURL:SetText(url)
 	end
 	controls.buildPath = common.New("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 44, 290, 18)
@@ -451,16 +465,20 @@ function main:OpenOptionsPopup()
 		controls.buildPath:SetText(self.buildPath)
 	end
 	controls.buildPath.tooltip = "Overrides the default save location for builds.\nThe default location is: '"..self.defaultBuildPath.."'"
-	controls.nodePowerTheme = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 68, 100, 18, {{val="RED/BLUE",label="Red & Blue"},{val="RED/GREEN",label="Red & Green"},{val="GREEN/BLUE",label="Green & Blue"}}, function(sel, value)
-		self.nodePowerTheme = value.val
+	controls.nodePowerTheme = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 68, 100, 18, {
+		{ label = "Red & Blue", theme = "RED/BLUE" },
+		{ label = "Red & Green", theme = "RED/GREEN" },
+		{ label = "Green & Blue", theme = "GREEN/BLUE" },
+	}, function(index, value)
+		self.nodePowerTheme = value.theme
 	end)
 	controls.nodePowerThemeLabel = common.New("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, -4, 0, 0, 16, "^7Node Power colours:")
 	controls.nodePowerTheme.tooltip = "Changes the colour scheme used for the node power display on the passive tree."
-	controls.nodePowerTheme:SelByValue(self.nodePowerTheme)
+	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
 	local initialNodePowerTheme = self.nodePowerTheme
 	controls.save = common.New("ButtonControl", nil, -45, 120, 80, 20, "Save", function()
 		if controls.proxyURL.buf:match("%w") then
-			launch.proxyURL = controls.proxyType.list[controls.proxyType.sel].val .. "://" .. controls.proxyURL.buf
+			launch.proxyURL = controls.proxyType.list[controls.proxyType.selIndex].scheme .. "://" .. controls.proxyURL.buf
 		else
 			launch.proxyURL = nil
 		end
@@ -714,8 +732,10 @@ do
 end
 
 function main:AddTooltipLine(size, text)
-	for line in string.gmatch(text .. "\n", "([^\n]*)\n") do
-		t_insert(self.tooltipLines, { size = size, text = line })
+	if text then
+		for line in string.gmatch(text .. "\n", "([^\n]*)\n") do
+			t_insert(self.tooltipLines, { size = size, text = line })
+		end
 	end
 end
 

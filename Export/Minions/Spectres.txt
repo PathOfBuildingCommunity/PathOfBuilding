@@ -87,6 +87,7 @@ local minions, mod = ...
 -- Stygian revenant
 #monster Metadata/Monsters/Revenant/Revenant
 -- Sea witch
+#monster Metadata/Monsters/Seawitch/SeaWitchFrostBolt
 #monster Metadata/Monsters/Seawitch/SeaWitchScreech
 #monster Metadata/Monsters/Seawitch/SeaWitchSpawnExploding
 #monster Metadata/Monsters/Seawitch/SeaWitchSpawnTemporalChains
