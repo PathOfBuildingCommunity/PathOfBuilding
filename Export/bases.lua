@@ -96,6 +96,30 @@ directiveTable.base = function(state, args, out)
 		end
 		out:write('},\n')
 	end
+	local flaskKey = Flasks.BaseItemTypesKey(baseItemTypeKey)[1]
+	if flaskKey then
+		local flask = Flasks[flaskKey]
+		local compCharges = ComponentCharges[ComponentCharges.BaseItemTypesKey(baseTypeId)[1]]
+		out:write('\tflask = { ')
+		if flask.LifePerUse > 0 then
+			out:write('life = ', flask.LifePerUse, ', ')
+		end
+		if flask.ManaPerUse > 0 then
+			out:write('mana = ', flask.ManaPerUse, ', ')
+		end
+		out:write('duration = ', flask.RecoveryTime / 10, ', ')
+		out:write('chargesUsed = ', compCharges.PerCharge, ', ')
+		out:write('chargesMax = ', compCharges.MaxCharges, ', ')
+		if flask.BuffDefinitionsKey then
+			local buffDef = BuffDefinitions[flask.BuffDefinitionsKey]
+			local stats = { }
+			for i, statKey in ipairs(buffDef.StatsKeys) do
+				stats[Stats[statKey].Id] = { min = flask.BuffStatValues[i], max = flask.BuffStatValues[i] }
+			end
+			out:write('buff = { "', table.concat(describeStats(stats), '", "'), '" }, ')
+		end
+		out:write('},\n')
+	end
 	out:write('\treq = { ')
 	local reqLevel = 1
 	if weaponTypeKey or compArmourKey then
@@ -150,7 +174,7 @@ local itemTypes = {
 	"ring",
 	"belt",
 	"jewel",
-	--"flask",
+	"flask",
 }
 for _, name in pairs(itemTypes) do
 	processTemplateFile("Bases/"..name, directiveTable)

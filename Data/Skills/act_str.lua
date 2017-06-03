@@ -101,6 +101,7 @@ skills["TotemMelee"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -194,6 +195,7 @@ skills["AncestorTotemSlam"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -729,6 +731,7 @@ skills["DominatingBlow"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -810,9 +813,10 @@ skills["Earthquake"] = {
 	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [7] = true, [10] = true, [28] = true, [12] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
-		["Two Handed Axe"] = true,
+		["Sceptre"] = true,
 		["Two Handed Mace"] = true,
 		["One Handed Axe"] = true,
+		["Two Handed Axe"] = true,
 		["Staff"] = true,
 	},
 	parts = {
@@ -1049,8 +1053,9 @@ skills["GlacialHammer"] = {
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [34] = true, [53] = true, },
 	weaponTypes = {
 		["Two Handed Mace"] = true,
-		["One Handed Mace"] = true,
 		["Staff"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 	},
 	baseFlags = {
 		attack = true,
@@ -1126,8 +1131,9 @@ skills["VaalGlacialHammer"] = {
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [12] = true, [11] = true, [43] = true, [34] = true, },
 	weaponTypes = {
 		["Two Handed Mace"] = true,
-		["One Handed Mace"] = true,
 		["Staff"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 	},
 	baseFlags = {
 		attack = true,
@@ -1203,8 +1209,9 @@ skills["GroundSlam"] = {
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [28] = true, [24] = true, },
 	weaponTypes = {
 		["Two Handed Mace"] = true,
-		["One Handed Mace"] = true,
 		["Staff"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 	},
 	baseFlags = {
 		attack = true,
@@ -1278,8 +1285,9 @@ skills["VaalGroundSlam"] = {
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [28] = true, [24] = true, [43] = true, },
 	weaponTypes = {
 		["Two Handed Mace"] = true,
-		["One Handed Mace"] = true,
 		["Staff"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 	},
 	baseFlags = {
 		attack = true,
@@ -1353,14 +1361,15 @@ skills["HeavyStrike"] = {
 	description = "Attacks the enemy with a forceful blow, knocking them back. Requires a Mace, Axe, Sword or Two-Handed Weapon.",
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, },
 	weaponTypes = {
-		["Thrusting One Handed Sword"] = true,
-		["One Handed Sword"] = true,
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Staff"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["Two Handed Sword"] = true,
 		["One Handed Axe"] = true,
-		["Staff"] = true,
+		["One Handed Sword"] = true,
 	},
 	baseFlags = {
 		attack = true,
@@ -1501,6 +1510,7 @@ skills["IceCrash"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Staff"] = true,
@@ -1730,6 +1740,7 @@ skills["InfernalBlow"] = {
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Staff"] = true,
@@ -1810,13 +1821,14 @@ skills["LeapSlam"] = {
 	description = "Jump into the air, damaging enemies (and knocking back some) with your main hand where you land. Enemies you would land on are pushed out of the way. Requires an axe, mace, sword or staff.",
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [24] = true, [38] = true, },
 	weaponTypes = {
-		["Two Handed Mace"] = true,
-		["Two Handed Sword"] = true,
 		["One Handed Mace"] = true,
-		["Two Handed Axe"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
-		["One Handed Axe"] = true,
+		["Two Handed Sword"] = true,
 		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
 		["One Handed Sword"] = true,
 	},
 	baseFlags = {
@@ -2049,6 +2061,7 @@ skills["MoltenStrike"] = {
 	skillTypes = { [1] = true, [3] = true, [6] = true, [11] = true, [24] = true, [25] = true, [28] = true, [33] = true, [48] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -2364,8 +2377,9 @@ skills["Reckoning"] = {
 	skillTypes = { [1] = true, [7] = true, [13] = true, [24] = true, [11] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["None"] = true,
-		["One Handed Mace"] = true,
 		["Claw"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["Dagger"] = true,
@@ -2595,8 +2609,9 @@ skills["NewShieldCharge"] = {
 	skillTypes = { [1] = true, [7] = true, [13] = true, [24] = true, [11] = true, [38] = true, },
 	weaponTypes = {
 		["None"] = true,
-		["One Handed Mace"] = true,
 		["Claw"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["One Handed Axe"] = true,
 		["Dagger"] = true,
@@ -2757,6 +2772,7 @@ skills["StaticStrike"] = {
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [11] = true, [12] = true, [35] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -3007,9 +3023,10 @@ skills["Sunder"] = {
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [28] = true, [24] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
-		["Two Handed Axe"] = true,
+		["Sceptre"] = true,
 		["Two Handed Mace"] = true,
 		["One Handed Axe"] = true,
+		["Two Handed Axe"] = true,
 		["Staff"] = true,
 	},
 	parts = {
@@ -3168,6 +3185,7 @@ skills["Vengeance"] = {
 	skillTypes = { [1] = true, [11] = true, [24] = true, [47] = true, [6] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,
@@ -3248,6 +3266,7 @@ skills["VigilantStrike"] = {
 	skillTypes = { [1] = true, [5] = true, [24] = true, [6] = true, [28] = true, [25] = true, [53] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
+		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
 		["Two Handed Sword"] = true,
 		["Dagger"] = true,

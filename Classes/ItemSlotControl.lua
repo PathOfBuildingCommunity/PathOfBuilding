@@ -10,9 +10,9 @@ local t_insert = table.insert
 local m_min = math.min
 
 local ItemSlotClass = common.NewClass("ItemSlot", "DropDownControl", function(self, anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
-	self.DropDownControl(anchor, x, y, 310, 20, { }, function(sel)
-		if self.items[sel] ~= self.selItemId then
-			self:SetSelItemId(self.items[sel])
+	self.DropDownControl(anchor, x, y, 310, 20, { }, function(index, value)
+		if self.items[index] ~= self.selItemId then
+			self:SetSelItemId(self.items[index])
 			itemsTab:PopulateSlots()
 			itemsTab:AddUndoState()
 			itemsTab.build.buildFlag = true
@@ -61,13 +61,13 @@ function ItemSlotClass:Populate()
 	wipeTable(self.list)
 	self.items[1] = 0
 	self.list[1] = "None"
-	self.sel = 1
+	self.selIndex = 1
 	for _, item in pairs(self.itemsTab.list) do
 		if self.itemsTab:IsItemValidForSlot(item, self.slotName) then
 			t_insert(self.items, item.id)
 			t_insert(self.list, data.colorCodes[item.rarity]..item.name)
 			if item.id == self.selItemId then
-				self.sel = #self.list
+				self.selIndex = #self.list
 			end
 		end
 	end

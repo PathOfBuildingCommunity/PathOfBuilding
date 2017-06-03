@@ -1325,7 +1325,8 @@ function calcs.offence(env, actor)
 				if skillData.showAverage then
 					output.TotalPoisonAverageDamage = output.HitChance / 100 * output.PoisonChance / 100 * output.PoisonDamage
 				else
-					output.TotalPoisonDPS = output.HitChance / 100 * output.PoisonChance / 100 * output.PoisonDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+					output.TotalPoisonStacks = output.HitChance / 100 * output.PoisonChance / 100 * globalOutput.PoisonDuration * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+					output.TotalPoisonDPS = output.PoisonDPS * output.TotalPoisonStacks
 				end
 				if breakdown then
 					t_insert(breakdown.PoisonDPS, "x 0.08 ^8(poison deals 8% per second)")
@@ -1351,6 +1352,20 @@ function calcs.offence(env, actor)
 					t_insert(breakdown.PoisonDamage, s_format("%.1f ^8(damage per second)", output.PoisonDPS))
 					t_insert(breakdown.PoisonDamage, s_format("x %.2fs ^8(poison duration)", globalOutput.PoisonDuration))
 					t_insert(breakdown.PoisonDamage, s_format("= %.1f ^8damage per poison stack", output.PoisonDamage))
+					if not skillData.showAverage then
+						breakdown.TotalPoisonStacks = { }
+						if isAttack then
+							t_insert(breakdown.TotalPoisonStacks, pass.label..":")
+						end
+						breakdown.multiChain(breakdown.TotalPoisonStacks, {
+							base = s_format("%.2fs ^8(poison duration)", globalOutput.PoisonDuration),
+							{ "%.2f ^8(poison chance)", output.PoisonChance / 100 },
+							{ "%.2f ^8(hit chance)", output.HitChance / 100 },
+							{ "%.2f ^8(hits per second)", globalOutput.HitSpeed or globalOutput.Speed },
+							{ "%g ^8(dps multiplier for this skill)", skillData.dpsMultiplier or 1 },
+							total = s_format("= %.1f", output.TotalPoisonStacks),
+						})
+					end
 				end
 			end
 		end	
@@ -1410,7 +1425,8 @@ function calcs.offence(env, actor)
 					if skillData.showAverage then
 						output.TotalIgniteAverageDamage = output.HitChance / 100 * output.IgniteChance / 100 * output.IgniteDamage
 					else
-						output.TotalIgniteDPS = output.HitChance / 100 * output.IgniteChance / 100 * output.IgniteDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+						output.TotalIgniteStacks = output.HitChance / 100 * output.IgniteChance / 100 * globalOutput.IgniteDuration * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+						output.TotalIgniteDPS = output.IgniteDPS * output.TotalIgniteStacks
 					end
 				end
 				if breakdown then
@@ -1426,6 +1442,20 @@ function calcs.offence(env, actor)
 						t_insert(breakdown.IgniteDamage, s_format("%.1f ^8(damage per second)", output.IgniteDPS))
 						t_insert(breakdown.IgniteDamage, s_format("x %.2fs ^8(ignite duration)", globalOutput.IgniteDuration))
 						t_insert(breakdown.IgniteDamage, s_format("= %.1f ^8damage per ignite stack", output.IgniteDamage))
+						if not skillData.showAverage then
+							breakdown.TotalIgniteStacks = { }
+							if isAttack then
+								t_insert(breakdown.TotalIgniteStacks, pass.label..":")
+							end
+							breakdown.multiChain(breakdown.TotalIgniteStacks, {
+								base = s_format("%.2fs ^8(ignite duration)", globalOutput.IgniteDuration),
+								{ "%.2f ^8(ignite chance)", output.IgniteChance / 100 },
+								{ "%.2f ^8(hit chance)", output.HitChance / 100 },
+								{ "%.2f ^8(hits per second)", globalOutput.HitSpeed or globalOutput.Speed },
+								{ "%g ^8(dps multiplier for this skill)", skillData.dpsMultiplier or 1 },
+								total = s_format("= %.1f", output.TotalIgniteStacks),
+							})
+						end
 					end
 					if globalOutput.IgniteDuration ~= 4 then
 						globalBreakdown.IgniteDuration = {
@@ -1536,6 +1566,7 @@ function calcs.offence(env, actor)
 		if skillData.showAverage then
 			combineStat("TotalPoisonAverageDamage", "DPS")
 		else
+			combineStat("TotalPoisonStacks", "DPS")
 			combineStat("TotalPoisonDPS", "DPS")
 		end
 		combineStat("IgniteChance", "AVERAGE")
@@ -1545,6 +1576,7 @@ function calcs.offence(env, actor)
 			if skillData.showAverage then
 				combineStat("TotalIgniteAverageDamage", "DPS")
 			else
+				combineStat("TotalIgniteStacks", "DPS")
 				combineStat("TotalIgniteDPS", "DPS")
 			end
 		end

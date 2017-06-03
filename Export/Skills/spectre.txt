@@ -246,6 +246,10 @@ local skills, mod, flag, skill = ...
 #flags spell projectile 
 #mods
 
+#skill SeawitchFrostbolt Frostbolt
+#flags spell projectile cold
+#mods
+
 #skill SeaWitchScreech Screech
 #flags spell duration area
 #global Debuff

@@ -179,200 +179,175 @@ itemBases["Behemoth Mace"] = {
 }
 
 itemBases["Driftwood Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "10% increased Elemental Damage",
 	weapon = { PhysicalMin = 6, PhysicalMax = 9, CritChanceBase = 6, AttackRateBase = 1.4, },
 	req = { str = 8, int = 8, },
 }
 itemBases["Darkwood Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "12% increased Elemental Damage",
 	weapon = { PhysicalMin = 8, PhysicalMax = 12, CritChanceBase = 6, AttackRateBase = 1.5, },
 	req = { level = 5, str = 14, int = 14, },
 }
 itemBases["Bronze Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "12% increased Elemental Damage",
 	weapon = { PhysicalMin = 12, PhysicalMax = 23, CritChanceBase = 6, AttackRateBase = 1.25, },
 	req = { level = 10, str = 22, int = 22, },
 }
 itemBases["Quartz Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "20% increased Elemental Damage",
 	weapon = { PhysicalMin = 17, PhysicalMax = 26, CritChanceBase = 6.5, AttackRateBase = 1.25, },
 	req = { level = 15, str = 25, int = 35, },
 }
 itemBases["Iron Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "14% increased Elemental Damage",
 	weapon = { PhysicalMin = 21, PhysicalMax = 32, CritChanceBase = 6, AttackRateBase = 1.25, },
 	req = { level = 20, str = 38, int = 38, },
 }
 itemBases["Ochre Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "16% increased Elemental Damage",
 	weapon = { PhysicalMin = 17, PhysicalMax = 32, CritChanceBase = 6, AttackRateBase = 1.4, },
 	req = { level = 24, str = 44, int = 44, },
 }
 itemBases["Ritual Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "16% increased Elemental Damage",
 	weapon = { PhysicalMin = 21, PhysicalMax = 50, CritChanceBase = 6, AttackRateBase = 1.2, },
 	req = { level = 28, str = 51, int = 51, },
 }
 itemBases["Shadow Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "22% increased Elemental Damage",
 	weapon = { PhysicalMin = 29, PhysicalMax = 44, CritChanceBase = 6.2, AttackRateBase = 1.25, },
 	req = { level = 32, str = 52, int = 62, },
 }
 itemBases["Horned Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, not_for_sale = true, maraketh = true, },
 	implicit = "Damage Penetrates 4% Elemental Resistances",
 	weapon = { PhysicalMin = 27, PhysicalMax = 50, CritChanceBase = 6, AttackRateBase = 1.3, },
 	req = { level = 36, str = 66, int = 66, },
 }
 itemBases["Grinning Fetish"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "18% increased Elemental Damage",
 	weapon = { PhysicalMin = 24, PhysicalMax = 36, CritChanceBase = 6, AttackRateBase = 1.5, },
 	req = { level = 35, str = 62, int = 62, },
 }
 itemBases["Sekhem"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "18% increased Elemental Damage",
 	weapon = { PhysicalMin = 30, PhysicalMax = 55, CritChanceBase = 6, AttackRateBase = 1.25, },
 	req = { level = 38, str = 67, int = 67, },
 }
 itemBases["Crystal Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "30% increased Elemental Damage",
 	weapon = { PhysicalMin = 35, PhysicalMax = 52, CritChanceBase = 6.5, AttackRateBase = 1.25, },
 	req = { level = 41, str = 59, int = 85, },
 }
 itemBases["Lead Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "22% increased Elemental Damage",
 	weapon = { PhysicalMin = 38, PhysicalMax = 57, CritChanceBase = 6, AttackRateBase = 1.25, },
 	req = { level = 44, str = 77, int = 77, },
 }
 itemBases["Blood Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "24% increased Elemental Damage",
 	weapon = { PhysicalMin = 30, PhysicalMax = 55, CritChanceBase = 6, AttackRateBase = 1.4, },
 	req = { level = 47, str = 81, int = 81, },
 }
 itemBases["Royal Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "24% increased Elemental Damage",
 	weapon = { PhysicalMin = 34, PhysicalMax = 80, CritChanceBase = 6, AttackRateBase = 1.2, },
 	req = { level = 50, str = 86, int = 86, },
 }
 itemBases["Abyssal Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "30% increased Elemental Damage",
 	weapon = { PhysicalMin = 45, PhysicalMax = 67, CritChanceBase = 6.2, AttackRateBase = 1.25, },
 	req = { level = 53, str = 83, int = 99, },
 }
 itemBases["Stag Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, not_for_sale = true, maraketh = true, },
 	implicit = "Damage Penetrates 4% Elemental Resistances",
 	weapon = { PhysicalMin = 39, PhysicalMax = 72, CritChanceBase = 6, AttackRateBase = 1.3, },
 	req = { level = 55, str = 98, int = 98, },
 }
 itemBases["Karui Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "26% increased Elemental Damage",
 	weapon = { PhysicalMin = 37, PhysicalMax = 55, CritChanceBase = 6, AttackRateBase = 1.5, },
 	req = { level = 56, str = 96, int = 96, },
 }
 itemBases["Tyrant's Sekhem"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "26% increased Elemental Damage",
 	weapon = { PhysicalMin = 43, PhysicalMax = 80, CritChanceBase = 6, AttackRateBase = 1.25, },
 	req = { level = 58, str = 99, int = 99, },
 }
 itemBases["Opal Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "40% increased Elemental Damage",
 	weapon = { PhysicalMin = 49, PhysicalMax = 73, CritChanceBase = 6.5, AttackRateBase = 1.25, },
 	req = { level = 60, str = 95, int = 131, },
 }
 itemBases["Platinum Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "30% increased Elemental Damage",
 	weapon = { PhysicalMin = 51, PhysicalMax = 76, CritChanceBase = 6, AttackRateBase = 1.25, },
 	req = { level = 62, str = 113, int = 113, },
 }
 itemBases["Vaal Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "32% increased Elemental Damage",
 	weapon = { PhysicalMin = 37, PhysicalMax = 70, CritChanceBase = 6, AttackRateBase = 1.4, },
 	req = { level = 64, str = 113, int = 113, },
 }
 itemBases["Carnal Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "32% increased Elemental Damage",
 	weapon = { PhysicalMin = 41, PhysicalMax = 95, CritChanceBase = 6, AttackRateBase = 1.2, },
 	req = { level = 66, str = 113, int = 113, },
 }
 itemBases["Void Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "40% increased Elemental Damage",
 	weapon = { PhysicalMin = 50, PhysicalMax = 76, CritChanceBase = 6.2, AttackRateBase = 1.25, },
 	req = { level = 68, str = 104, int = 122, },
 }
 itemBases["Sambar Sceptre"] = {
-	type = "One Handed Mace",
-	subType = "Sceptre",
+	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, not_for_sale = true, maraketh = true, },
 	implicit = "Damage Penetrates 6% Elemental Resistances",
 	weapon = { PhysicalMin = 42, PhysicalMax = 78, CritChanceBase = 6, AttackRateBase = 1.3, },

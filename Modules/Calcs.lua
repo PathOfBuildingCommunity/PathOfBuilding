@@ -94,25 +94,6 @@ function calcs.getNodeCalculator(build)
 	return getCalculator(build, true, function(env, nodeList)
 		-- Build and merge modifiers for these nodes
 		env.modDB:AddList(calcs.buildNodeModList(env, nodeList))
-		--[[local nodeModList = buildNodeModList(env, nodeList)
-		if remove then
-			for _, mod in ipairs(nodeModList) do
-				if mod.type == "LIST" or mod.type == "FLAG" then
-					for i, dbMod in ipairs(env.modDB.mods[mod.name] or { }) do
-						if mod == dbMod then
-							t_remove(env.modDB.mods[mod.name], i)
-							break
-						end
-					end
-				elseif mod.type == "MORE" then
-					env.modDB:NewMod(mod.name, mod.type, (1 / (1 + mod.value / 100) - 1) * 100, mod.source, mod.flags, mod.keywordFlags, unpack(mod.tagList))
-				else
-					env.modDB:NewMod(mod.name, mod.type, -mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod.tagList))
-				end
-			end
-		else
-			env.modDB:AddList(nodeModList)
-		end]]
 	end)
 end
 

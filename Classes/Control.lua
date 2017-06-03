@@ -21,10 +21,10 @@ local anchorPos = {
 }
 
 local ControlClass = common.NewClass("Control", function(self, anchor, x, y, width, height)
-	self.x = x
-	self.y = y
-	self.width = width
-	self.height = height
+	self.x = x or 0
+	self.y = y or 0
+	self.width = width or 0
+	self.height = height or 0
 	self.shown = true
 	self.enabled = true
 	self.anchor = { }

@@ -14,6 +14,14 @@ local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
 
+local rarityDropList = { 
+	{ label = data.colorCodes.NORMAL.."Normal", rarity = "NORMAL" },
+	{ label = data.colorCodes.MAGIC.."Magic", rarity = "MAGIC" },
+	{ label = data.colorCodes.RARE.."Rare", rarity = "RARE" },
+	{ label = data.colorCodes.UNIQUE.."Unique", rarity = "UNIQUE" },
+	{ label = data.colorCodes.RELIC.."Relic", rarity = "RELIC" }
+}
+
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
 local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
@@ -140,7 +148,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.controls.weaponSwapLabel = common.New("LabelControl", {"RIGHT",self.controls.weaponSwap1,"LEFT"}, -4, 0, 0, 14, "^7Weapon Set:")
 	self:PopulateSlots()
 
-	-- Build item list
+	-- All items list
 	self.controls.itemList = common.New("ItemList", {"TOPLEFT",self.slotAnchor,"TOPRIGHT"}, 20, 0, 360, 308, self)
 
 	-- Database selector
@@ -156,7 +164,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 		return self.controls.selectDBLabel:IsShown() and 76 or 54
 	end
 	self.controls.uniqueDB.shown = function()
-		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.sel == 1
+		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 1
 	end
 
 	-- Rare template database
@@ -165,7 +173,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 		return self.controls.selectDBLabel:IsShown() and 76 or 370
 	end
 	self.controls.rareDB.shown = function()
-		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.sel == 2
+		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
 	end
 
 	-- Create/import item
@@ -204,62 +212,91 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.removeDisplayItem = common.New("ButtonControl", {"LEFT",self.controls.editDisplayItem,"RIGHT"}, 8, 0, 60, 20, "Cancel", function()
 		self:SetDisplayItem()
 	end)
-	self.controls.displayItemVariant = common.New("DropDownControl", {"LEFT",self.controls.removeDisplayItem,"RIGHT"}, 8, 0, 200, 20, nil, function(sel)
-		self.displayItem.variant = sel
+	self.controls.displayItemVariant = common.New("DropDownControl", {"LEFT",self.controls.removeDisplayItem,"RIGHT"}, 8, 0, 200, 20, nil, function(index, value)
+		self.displayItem.variant = index
 		itemLib.buildItemModList(self.displayItem)
 		self:UpdateDisplayItemRangeLines()
 	end)
 	self.controls.displayItemVariant.shown = function()
 		return self.displayItem.variantList and #self.displayItem.variantList > 1
 	end
-	self.controls.displayItemEnchant = common.New("ButtonControl", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 160, 20, "Apply Enchantment...", function()
+	
+	-- Section: Apply Implicit
+	self.controls.displayItemSectionImplicit = common.New("Control", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 0, function()
+		return (self.controls.displayItemEnchant:IsShown() or self.controls.displayItemCorrupt:IsShown()) and 28 or 0
+	end)
+	self.controls.displayItemEnchant = common.New("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, 0, 0, 160, 20, "Apply Enchantment...", function()
 		self:EnchantDisplayItem()
 	end)
 	self.controls.displayItemEnchant.shown = function()
 		return self.displayItem.enchantments
 	end
-	self.controls.displayItemCorrupt = common.New("ButtonControl", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, function() return self.controls.displayItemEnchant:IsShown() and 168 or 0 end, 8, 100, 20, "Corrupt...", function()
+	self.controls.displayItemCorrupt = common.New("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, function() return self.controls.displayItemEnchant:IsShown() and 168 or 0 end, 0, 100, 20, "Corrupt...", function()
 		self:CorruptDisplayItem()
 	end)
 	self.controls.displayItemCorrupt.shown = function()
 		return self.displayItem.corruptable
 	end
+
+	-- Section: Affix Selection
+	self.controls.displayItemSectionAffix = common.New("Control", {"TOPLEFT",self.controls.displayItemSectionImplicit,"BOTTOMLEFT"}, 0, 0, 0, function()
+		return self.displayItem.crafted and self.displayItem.affixLimit * 22 + 6 or 0
+	end)
 	for i = 1, 6 do
-		local prev = self.controls["displayItemAffix"..(i-1)] or self.controls.addDisplayItem
+		local prev = self.controls["displayItemAffix"..(i-1)] or self.controls.displayItemSectionAffix
 		local drop
-		drop = common.New("DropDownControl", {"TOPLEFT",prev,"BOTTOMLEFT"}, i==1 and 40 or 0, i == 1 and function() return (self.displayItem.enchantments or self.displayItem.corruptable) and 36 or 8 end or 2, 418, 20, nil, function(sel, value)
-			self.displayItem[drop.outputTable][drop.outputIndex] = value.value
+		drop = common.New("DropDownControl", {"TOPLEFT",prev,"TOPLEFT"}, i==1 and 40 or 0, i == 1 and 0 or 22, 418, 20, nil, function(index, value)
+			self.displayItem[drop.outputTable][drop.outputIndex] = value.modId
 			itemLib.craftItem(self.displayItem)
+			self:UpdateAffixControls()
 			self:UpdateDisplayItemRangeLines()
 		end)
-		drop.tooltipFunc = function(mode, sel, value)
-			if mode ~= "OUT" and self.displayItem.affixes[value.value] and (not self.selControl or self.selControl == drop) then
-				for _, line in ipairs(self.displayItem.affixes[value.value]) do
+		drop.tooltipFunc = function(mode, index, value)
+			if mode ~= "OUT" and self.displayItem.affixes[value.modId] and (not self.selControl or self.selControl == drop) then
+				for _, line in ipairs(self.displayItem.affixes[value.modId]) do
 					main:AddTooltipLine(16, "^7"..line)
 				end
 			end
 		end
 		drop.shown = function()
-			return self.displayItem.craftable and i <= self.displayItem.affixLimit
+			return self.displayItem.crafted and i <= self.displayItem.affixLimit
 		end
 		self.controls["displayItemAffix"..i] = drop
 		self.controls["displayItemAffixLabel"..i] = common.New("LabelControl", {"RIGHT",drop,"LEFT"}, -4, 0, 0, 14, function()
 			return drop.outputTable == "prefixes" and "^7Prefix:" or "^7Suffix:"
 		end)
 	end
-	self.controls.displayItemRangeLine = common.New("DropDownControl", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 0, 350, 18, nil, function(sel)
-		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[sel].range
+
+	-- Section: Custom modifiers
+	self.controls.displayItemSectionCustom = common.New("Control", {"TOPLEFT",self.controls.displayItemSectionAffix,"BOTTOMLEFT"}, 0, 0, 0, function()
+		local ret = 0
+		return self.controls.displayItemAddCustom:IsShown() and 28 + self.displayItem.customCount * 22 or 0
 	end)
-	self.controls.displayItemRangeLine.y = function()
-		return 8 + (self.displayItem and (self.displayItem.enchantments or self.displayItem.corruptable) and 28 or 0) + (self.displayItem and self.displayItem.craftable and (self.displayItem.affixLimit * 22 + 6) or 0)
+	self.controls.displayItemAddCustom = common.New("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, 0, 0, 120, 20, "Add modifier...", function()
+		self:AddCustomModifierToDisplayItem()
+	end)
+	self.controls.displayItemAddCustom.shown = function()
+		return self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE"
 	end
+
+	-- Section: Modifier Range
+	self.controls.displayItemSectionRange = common.New("Control", {"TOPLEFT",self.controls.displayItemSectionCustom,"BOTTOMLEFT"}, 0, 0, 0, function()
+		return self.displayItem.rangeLineList[1] and 28 or 0
+	end)
+	self.controls.displayItemRangeLine = common.New("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionRange,"TOPLEFT"}, 0, 0, 350, 18, nil, function(index, value)
+		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[index].range
+	end)
 	self.controls.displayItemRangeLine.shown = function()
 		return self.displayItem.rangeLineList[1] ~= nil
 	end
 	self.controls.displayItemRangeSlider = common.New("SliderControl", {"LEFT",self.controls.displayItemRangeLine,"RIGHT"}, 8, 0, 100, 18, function(val)
-		self.displayItem.rangeLineList[self.controls.displayItemRangeLine.sel].range = val
+		self.displayItem.rangeLineList[self.controls.displayItemRangeLine.selIndex].range = val
 		itemLib.buildItemModList(self.displayItem)
+		self:UpdateCustomControls()
 	end)
+
+	-- Tooltip anchor
+	self.controls.displayItemTooltipAnchor = common.New("Control", {"TOPLEFT",self.controls.displayItemSectionRange,"BOTTOMLEFT"})
 
 	-- Scroll bar
 	self.controls.scrollBarH = common.New("ScrollBarControl", nil, 0, 0, 0, 18, 100, "HORIZONTAL", true)
@@ -349,7 +386,7 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 	self.controls.scrollBarH.width = viewPort.width
 	self.controls.scrollBarH.x = viewPort.x
 	self.controls.scrollBarH.y = viewPort.y + viewPort.height - 18
-	self.controls.scrollBarH:SetContentDimension(self.controls.displayItemRangeSlider:GetPos() + self.controls.displayItemRangeSlider:GetSize() - self.x, viewPort.width)
+	self.controls.scrollBarH:SetContentDimension(self.anchorDisplayItem:GetPos() + 462 - self.x, viewPort.width)
 	self.maxY = self.controls.scrollBarH:IsShown() and self.controls.scrollBarH.y or viewPort.y + viewPort.height
 	self.x = self.x - self.controls.scrollBarH.offset
 	
@@ -388,16 +425,9 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 	main:DrawBackground(viewPort)
 
 	if self.displayItem then
-		local extraOffset = self.controls.displayItemRangeLine:IsShown() and 26 or 0
-		if self.displayItem.enchantments or self.displayItem.corruptable then
-			extraOffset = extraOffset + 28
-		end
-		if self.displayItem.craftable then
-			extraOffset = extraOffset + self.displayItem.affixLimit * 22 + 6
-		end
 		self:AddItemTooltip(self.displayItem)
-		local baseX, baseY = self.anchorDisplayItem:GetPos()
-		main:DrawTooltip(baseX, baseY + 28 + extraOffset, nil, nil, viewPort, data.colorCodes[self.displayItem.rarity])
+		local x, y = self.controls.displayItemTooltipAnchor:GetPos()
+		main:DrawTooltip(x, y, nil, nil, viewPort, data.colorCodes[self.displayItem.rarity])
 	end
 
 	self:UpdateSockets()
@@ -553,55 +583,129 @@ function ItemsTabClass:SetDisplayItem(item)
 	self.displayItem = item
 	if item then
 		-- Update the display item controls
-		self.controls.displayItemVariant.list = item.variantList
-		self.controls.displayItemVariant.sel = item.variant
-		self:UpdateDisplayItemRangeLines()
 		self.controls.scrollBarH:SetOffset(self.controls.scrollBarH.offsetMax)
-		item.craftable = item.crafted and item.affixes and item.affixLimit > 0
-		if item.craftable then
-			local prefixList = { }
-			local suffixList = { }
-			for name, data in pairs(item.affixes) do
-				if not data.exclude or (not data.exclude[item.base.subType] and not data.exclude[item.baseName]) then
-					if data.type == "Prefix" then
-						t_insert(prefixList, name)
-					elseif data.type == "Suffix" then
-						t_insert(suffixList, name)
-					end
-				end
-			end
-			table.sort(prefixList)
-			t_insert(prefixList, 1, "None")
-			table.sort(suffixList)
-			t_insert(suffixList, 1, "None")
-			local prefixTable = { }
-			local suffixTable = { }
-			for list, out in pairs({[prefixList] = prefixTable, [suffixList] = suffixTable}) do
-				for i, name in pairs(list) do
-					out[i] = {
-						label = name,
-						value = name,
-					}
-					if item.affixes[name] then
-						out[i].label = out[i].label .. "   ^8[" .. table.concat(item.affixes[name], "/") .. "]"
-					end
-				end
-			end
-			for i = 1, item.affixLimit/2 do
-				local pre = self.controls["displayItemAffix"..i]
-				pre.list = prefixTable
-				pre.outputTable = "prefixes"
-				pre.outputIndex = i
-				pre.sel = isValueInArray(prefixList, item.prefixes[i] or "None") or 1
-				local suf = self.controls["displayItemAffix"..(i+item.affixLimit/2)]
-				suf.list = suffixTable
-				suf.outputTable = "suffixes"
-				suf.outputIndex = i
-				suf.sel = isValueInArray(suffixList, item.suffixes[i] or "None") or 1
-			end
+		self.controls.displayItemVariant.list = item.variantList
+		self.controls.displayItemVariant.selIndex = item.variant
+		if item.crafted then
+			self:UpdateAffixControls()
 		end
+		self:UpdateCustomControls()
+		self:UpdateDisplayItemRangeLines()
 	else
 		self.controls.scrollBarH:SetOffset(0)
+	end
+end
+
+-- Update affix selection controls
+function ItemsTabClass:UpdateAffixControls()
+	local item = self.displayItem
+	for i = 1, item.affixLimit/2 do
+		self:UpdateAffixControl(self.controls["displayItemAffix"..i], item, "Prefix", "prefixes", i)
+		self:UpdateAffixControl(self.controls["displayItemAffix"..(i+item.affixLimit/2)], item, "Suffix", "suffixes", i)
+	end	
+end
+
+function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outputIndex)
+	local affixList = { }
+	local extraTags = { }
+	local excludeGroups = { }
+	for _, table in ipairs({"prefixes","suffixes"}) do
+		for index = 1, item.affixLimit/2 do
+			if index ~= outputIndex or table ~= outputTable then
+				local mod = item.affixes[item[table][index]]
+				if mod then
+					if mod.group then
+						excludeGroups[mod.group] = true
+					end
+					if mod.tags then
+						for _, tag in ipairs(mod.tags) do
+							extraTags[tag] = true
+						end
+					end
+				end
+			end
+		end
+	end
+	for modId, mod in pairs(item.affixes) do
+		if mod.type == type and not excludeGroups[mod.group] and itemLib.getModSpawnWeight(item, mod, extraTags) > 0 then
+			t_insert(affixList, modId)
+		end
+	end
+	table.sort(affixList, function(a, b)
+		local modA = item.affixes[a]
+		local modB = item.affixes[b]
+		if item.type == "Flask" then
+			return modA.affix < modB.affix
+		end
+		for i = 1, m_max(#modA, #modB) do
+			if not modA[i] then
+				return true
+			elseif not modB[i] then
+				return false
+			elseif modA.statOrder[i] ~= modB.statOrder[i] then
+				return modA.statOrder[i] < modB.statOrder[i]
+			end
+		end
+		return modA.level > modB.level
+		--[[if item.type ~= "Jewel" and modA.group ~= modB.group then	
+			return modA.group < modB.group
+		end
+		local statA = modA[1]:gsub("%(.-%)","$"):gsub("[%+%-%%]",""):gsub("%d+","$")
+		local statB = modB[1]:gsub("%(.-%)","$"):gsub("[%+%-%%]",""):gsub("%d+","$")
+		if statA ~= statB then
+			return statA < statB
+		else
+			return modA.level > modB.level
+		end]]
+	end)
+	control.selIndex = 1
+	control.outputTable = outputTable
+	control.outputIndex = outputIndex
+	control.list = { "None" }
+	local selAffix = item[outputTable][outputIndex]
+	for i, modId in pairs(affixList) do
+		if selAffix == modId then
+			control.selIndex = i + 1
+		end
+		control.list[i + 1] = {
+			label = item.affixes[modId].affix .. "   ^8[" .. table.concat(item.affixes[modId], "/") .. "]",
+			modId = modId,
+		}
+	end
+end
+
+-- Create/update custom modifier controls
+function ItemsTabClass:UpdateCustomControls()
+	local item = self.displayItem
+	local i = 1
+	if item.rarity == "MAGIC" or item.rarity == "RARE" then
+		for index, modLine in ipairs(item.modLines) do
+			if index > item.implicitLines and (modLine.custom or modLine.crafted) then
+				local line = itemLib.formatModLine(modLine)
+				if line then
+					if not self.controls["displayItemCustomModifier"..i] then
+						self.controls["displayItemCustomModifier"..i] = common.New("LabelControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, 55, i * 22 + 4, 0, 16)
+						self.controls["displayItemCustomModifierLabel"..i] = common.New("LabelControl", {"RIGHT",self.controls["displayItemCustomModifier"..i],"LEFT"}, -2, 0, 0, 16)
+						self.controls["displayItemCustomModifierRemove"..i] = common.New("ButtonControl", {"LEFT",self.controls["displayItemCustomModifier"..i],"RIGHT"}, 4, 0, 70, 20, "^7Remove")
+					end
+					self.controls["displayItemCustomModifier"..i].shown = true
+					self.controls["displayItemCustomModifier"..i].label = itemLib.formatModLine(modLine)
+					self.controls["displayItemCustomModifierLabel"..i].label = modLine.crafted and "^7Crafted:" or "^7Custom:"
+					self.controls["displayItemCustomModifierRemove"..i].onClick = function()
+						t_remove(item.modLines, index)
+						local id = item.id
+						self:CreateDisplayItemFromRaw(itemLib.createItemRaw(item))
+						self.displayItem.id = id
+					end				
+					i = i + 1
+				end
+			end
+		end
+	end
+	item.customCount = i - 1
+	while self.controls["displayItemCustomModifier"..i] do
+		self.controls["displayItemCustomModifier"..i].shown = false
+		i = i + 1
 	end
 end
 
@@ -612,7 +716,7 @@ function ItemsTabClass:UpdateDisplayItemRangeLines()
 		for _, modLine in ipairs(self.displayItem.rangeLineList) do
 			t_insert(self.controls.displayItemRangeLine.list, modLine.line)
 		end
-		self.controls.displayItemRangeLine.sel = 1
+		self.controls.displayItemRangeLine.selIndex = 1
 		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[1].range
 	end
 end
@@ -651,16 +755,16 @@ function ItemsTabClass:CraftItem()
 	local controls = { }
 	local function makeItem(base)
 		local item = { name = base.name, base = base.base, baseName = base.name, modLines = { }, quality = 0 }
-		local raritySel = controls.rarity.sel
+		local raritySel = controls.rarity.selIndex
 		if base.base.flask then
 			if raritySel == 3 then
 				raritySel = 2
 			end
 		end
-		if data.itemMods[base.base.type] and (raritySel == 2 or raritySel == 3) then
+		if raritySel == 2 or raritySel == 3 then
 			item.crafted = true
 		end
-		item.rarity = controls.rarity.list[raritySel].val
+		item.rarity = controls.rarity.list[raritySel].rarity
 		if raritySel >= 3 then
 			item.title = controls.title.buf:match("%S") and controls.title.buf or "New Item"
 		end
@@ -676,43 +780,38 @@ function ItemsTabClass:CraftItem()
 		return itemLib.makeItemFromRaw(itemLib.createItemRaw(item))
 	end
 	controls.rarityLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 20, 0, 16, "Rarity:")
-	controls.rarity = common.New("DropDownControl", nil, -80, 20, 100, 18, { 
-		{val = "NORMAL",label=data.colorCodes.NORMAL.."Normal"},
-		{val="MAGIC",label=data.colorCodes.MAGIC.."Magic"},
-		{val="RARE",label=data.colorCodes.RARE.."Rare"},
-		{val="UNIQUE",label=data.colorCodes.UNIQUE.."Unique"}
-	})
-	controls.rarity.sel = self.lastCraftRaritySel or 3
+	controls.rarity = common.New("DropDownControl", nil, -80, 20, 100, 18, rarityDropList)
+	controls.rarity.selIndex = self.lastCraftRaritySel or 3
 	controls.title = common.New("EditControl", nil, 70, 20, 190, 18, "", "Name")
 	controls.title.shown = function()
-		return controls.rarity.sel >= 3
+		return controls.rarity.selIndex >= 3
 	end
 	controls.typeLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 45, 0, 16, "Type:")
-	controls.type = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 45, 295, 18, self.baseTypeList, function(sel, value)
-		controls.base.list = self.baseLists[self.baseTypeList[sel]]
-		controls.base.sel = 1
+	controls.type = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 45, 295, 18, self.baseTypeList, function(index, value)
+		controls.base.list = self.baseLists[self.baseTypeList[index]]
+		controls.base.selIndex = 1
 	end)
-	controls.type.sel = self.lastCraftTypeSel or 1
+	controls.type.selIndex = self.lastCraftTypeSel or 1
 	controls.baseLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 70, 0, 16, "Base:")
-	controls.base = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 70, 200, 18, self.baseLists[self.baseTypeList[controls.type.sel]])
-	controls.base.sel = self.lastCraftBaseSel or 1
-	controls.base.tooltipFunc = function(mode, sel, selVal)
+	controls.base = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 70, 200, 18, self.baseLists[self.baseTypeList[controls.type.selIndex]])
+	controls.base.selIndex = self.lastCraftBaseSel or 1
+	controls.base.tooltipFunc = function(mode, index, value)
 		if mode ~= "OUT" then
-			local item = makeItem(selVal)
+			local item = makeItem(value)
 			self:AddItemTooltip(item, nil, true)
 			return data.colorCodes[item.rarity], true
 		end
 	end
 	controls.save = common.New("ButtonControl", nil, -45, 100, 80, 20, "Create", function()
 		main:ClosePopup()
-		local item = makeItem(controls.base.list[controls.base.sel])
+		local item = makeItem(controls.base.list[controls.base.selIndex])
 		self:SetDisplayItem(item)
-		if not item.craftable and item.rarity ~= "NORMAL" then
+		if not item.crafted and item.rarity ~= "NORMAL" then
 			self:EditDisplayItemText()
 		end
-		self.lastCraftRaritySel = controls.rarity.sel
-		self.lastCraftTypeSel = controls.type.sel
-		self.lastCraftBaseSel = controls.base.sel
+		self.lastCraftRaritySel = controls.rarity.selIndex
+		self.lastCraftTypeSel = controls.type.selIndex
+		self.lastCraftBaseSel = controls.base.selIndex
 	end)
 	controls.cancel = common.New("ButtonControl", nil, 45, 100, 80, 20, "Cancel", function()
 		main:ClosePopup()
@@ -728,24 +827,21 @@ function ItemsTabClass:EditDisplayItemText()
 		if editBuf:match("^Rarity: ") then
 			return editBuf
 		else
-			return "Rarity: "..controls.rarity.list[controls.rarity.sel].val.."\n"..controls.edit.buf
+			return "Rarity: "..controls.rarity.list[controls.rarity.selIndex].rarity.."\n"..controls.edit.buf
 		end
 	end
-	controls.rarity = common.New("DropDownControl", nil, -190, 10, 100, 18, { 
-		{val="NORMAL",label=data.colorCodes.NORMAL.."Normal"},
-		{val="MAGIC",label=data.colorCodes.MAGIC.."Magic"},
-		{val="RARE",label=data.colorCodes.RARE.."Rare"},
-		{val="UNIQUE",label=data.colorCodes.UNIQUE.."Unique"},
-		{val="RELIC",label=data.colorCodes.RELIC.."Relic"}
-	})
+	controls.rarity = common.New("DropDownControl", nil, -190, 10, 100, 18, rarityDropList)
 	controls.edit = common.New("EditControl", nil, 0, 40, 480, 420, "", nil, "^%C\t\n", nil, nil, 14)
 	if self.displayItem then
 		controls.edit:SetText(itemLib.createItemRaw(self.displayItem):gsub("Rarity: %w+\n",""))
-		controls.rarity:SelByValue(self.displayItem.rarity)
+		controls.rarity:SelByValue(self.displayItem.rarity, "rarity")
 	else
-		controls.rarity.sel = 3
+		controls.rarity.selIndex = 3
 	end
 	controls.edit.font = "FIXED"
+	controls.edit.pasteFilter = function(text)
+		return text:gsub("\246","o")
+	end
 	controls.save = common.New("ButtonControl", nil, -45, 470, 80, 20, self.displayItem and "Save" or "Create", function()
 		local id = self.displayItem and self.displayItem.id
 		self:CreateDisplayItemFromRaw(buildRaw(), not self.displayItem)
@@ -787,7 +883,7 @@ function ItemsTabClass:EnchantDisplayItem()
 	if haveSkills then
 		for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
 			for _, gem in ipairs(socketGroup.gemList) do
-				if gem.data and not gem.data.support then
+				if gem.data and not gem.data.support and enchantments[gem.name] then
 					skillsUsed[gem.name] = true
 				end
 			end
@@ -805,7 +901,7 @@ function ItemsTabClass:EnchantDisplayItem()
 	local labyrinthList = { }
 	local function buildLabyrinthList()
 		wipeTable(labyrinthList)
-		local list = haveSkills and enchantments[skillList[controls.skill and controls.skill.sel or 1]] or enchantments
+		local list = haveSkills and enchantments[skillList[controls.skill and controls.skill.selIndex or 1]] or enchantments
 		for _, lab in ipairs(data.labyrinths) do
 			if list[lab.name] then
 				t_insert(labyrinthList, lab)
@@ -815,8 +911,8 @@ function ItemsTabClass:EnchantDisplayItem()
 	local enchantmentList = { }
 	local function buildEnchantmentList()
 		wipeTable(enchantmentList)
-		local list = haveSkills and enchantments[skillList[controls.skill and controls.skill.sel or 1]] or enchantments
-		for _, enchantment in ipairs(list[labyrinthList[controls.labyrinth and controls.labyrinth.sel or 1].name]) do
+		local list = haveSkills and enchantments[skillList[controls.skill and controls.skill.selIndex or 1]] or enchantments
+		for _, enchantment in ipairs(list[labyrinthList[controls.labyrinth and controls.labyrinth.selIndex or 1].name]) do
 			t_insert(enchantmentList, enchantment)
 		end
 	end
@@ -831,16 +927,16 @@ function ItemsTabClass:EnchantDisplayItem()
 		for i = 1, item.implicitLines do 
 			t_remove(item.modLines, 1)
 		end
-		local list = haveSkills and enchantments[controls.skill.list[controls.skill.sel]] or enchantments
-		t_insert(item.modLines, 1, { crafted = true, line = list[controls.labyrinth.list[controls.labyrinth.sel].name][controls.enchantment.sel] })
+		local list = haveSkills and enchantments[controls.skill.list[controls.skill.selIndex]] or enchantments
+		t_insert(item.modLines, 1, { crafted = true, line = list[controls.labyrinth.list[controls.labyrinth.selIndex].name][controls.enchantment.selIndex] })
 		item.implicitLines = 1
 		item.raw = itemLib.createItemRaw(item)
 		itemLib.parseItemRaw(item)
 		return item
 	end
 	if haveSkills then
-		controls.skillLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "Skill:")
-		controls.skill = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 180, 18, skillList, function(sel, value)
+		controls.skillLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Skill:")
+		controls.skill = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 180, 18, skillList, function(index, value)
 			buildLabyrinthList()
 			buildEnchantmentList()
 			controls.enchantment:SetSel(1)
@@ -857,11 +953,11 @@ function ItemsTabClass:EnchantDisplayItem()
 			controls.allSkills.enabled = false
 		end
 	end
-	controls.labyrinthLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "Labyrinth:")
-	controls.labyrinth = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 100, 18, labyrinthList, function(sel, value)
+	controls.labyrinthLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Labyrinth:")
+	controls.labyrinth = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 100, 18, labyrinthList, function(index, value)
 		buildEnchantmentList()
 	end)
-	controls.enchantmentLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 70, 0, 16, "Enchantment:")
+	controls.enchantmentLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 70, 0, 16, "^7Enchantment:")
 	controls.enchantment = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 70, 440, 18, enchantmentList)
 	controls.save = common.New("ButtonControl", nil, -45, 100, 80, 20, "Enchant", function()
 		self:SetDisplayItem(enchantItem())
@@ -900,20 +996,21 @@ function ItemsTabClass:CorruptDisplayItem()
 		local item = itemLib.makeItemFromRaw(itemLib.createItemRaw(self.displayItem))
 		item.id = self.displayItem.id
 		item.corrupted = true
-		if controls.implicit.sel > 1 then
+		if controls.implicit.selIndex > 1 then
 			for i = 1, item.implicitLines do 
 				t_remove(item.modLines, 1)
 			end
-			for _, modLine in ipairs(implicitList[controls.implicit.sel - 1]) do
+			local mod = implicitList[controls.implicit.selIndex - 1]
+			for _, modLine in ipairs(mod) do
 				t_insert(item.modLines, 1, { line = modLine })
 			end
-			item.implicitLines = #implicitList[controls.implicit.sel - 1]
+			item.implicitLines = #mod
 		end
 		item.raw = itemLib.createItemRaw(item)
 		itemLib.parseItemRaw(item)
 		return item
 	end
-	controls.implicitLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 65, 20, 0, 16, "Implicit:")
+	controls.implicitLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 65, 20, 0, 16, "^7Implicit:")
 	controls.implicit = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 70, 20, 450, 18, { "None" })
 	for _, mod in ipairs(implicitList) do
 		t_insert(controls.implicit.list, table.concat(mod, "/"))
@@ -931,6 +1028,132 @@ function ItemsTabClass:CorruptDisplayItem()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(540, 80, "Corrupt Item", controls)
+end
+
+-- Opens the custom modifier popup
+function ItemsTabClass:AddCustomModifierToDisplayItem()
+	local controls = { }
+	local sourceList = { }
+	local modList = { }
+	local function buildMods(sourceId)
+		wipeTable(modList)
+		if sourceId == "MASTER" then
+			for _, craft in ipairs(data.masterMods) do
+				if craft.types[self.displayItem.type] then
+					t_insert(modList, {
+						label = craft.master .. " " .. craft.masterLevel .. "   "..craft.type:sub(1,3).."^8[" .. table.concat(craft, "/") .. "]",
+						mod = craft,
+						type = "crafted",
+					})
+				end
+			end
+		elseif sourceId == "ESSENCE" then
+			for _, essence in pairs(data.essences) do
+				local modId = essence.mods[self.displayItem.type]
+				local mod = self.displayItem.affixes[modId]
+				t_insert(modList, {
+					label = essence.name .. "   "..mod.type:sub(1,3).."^8[" .. table.concat(mod, "/") .. "]",
+					mod = mod,
+					type = "custom",
+					essence = essence,
+				})
+			end
+			table.sort(modList, function(a, b)
+				if a.essence.type ~= b.essence.type then
+					return a.essence.type > b.essence.type 
+				else
+					return a.essence.tier > b.essence.tier
+				end
+			end)
+		elseif sourceId == "PREFIX" or sourceId == "SUFFIX" then
+			for _, mod in pairs(self.displayItem.affixes) do
+				if sourceId:lower() == mod.type:lower() and itemLib.getModSpawnWeight(self.displayItem, mod) > 0 then
+					t_insert(modList, {
+						label = mod.affix .. "   ^8[" .. table.concat(mod, "/") .. "]",
+						mod = mod,
+						type = "custom",
+					})
+				end
+			end
+			table.sort(modList, function(a, b) 
+				local modA = a.mod
+				local modB = b.mod
+				for i = 1, m_max(#modA, #modB) do
+					if not modA[i] then
+						return true
+					elseif not modB[i] then
+						return false
+					elseif modA.statOrder[i] ~= modB.statOrder[i] then
+						return modA.statOrder[i] < modB.statOrder[i]
+					end
+				end
+				return modA.level > modB.level
+			end)
+		end
+	end
+	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
+		t_insert(sourceList, { label = "Master", sourceId = "MASTER" })
+		t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
+	end
+	if not self.displayItem.crafted then
+		t_insert(sourceList, { label = "Prefix", sourceId = "PREFIX" })
+		t_insert(sourceList, { label = "Suffix", sourceId = "SUFFIX" })
+	end
+	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
+	buildMods(sourceList[1].sourceId)
+	local function addModifier()
+		local item = itemLib.makeItemFromRaw(itemLib.createItemRaw(self.displayItem))
+		item.id = self.displayItem.id
+		local sourceId = sourceList[controls.source.selIndex].sourceId
+		if sourceId == "CUSTOM" then
+			if controls.custom.buf:match("%S") then
+				t_insert(item.modLines, { line = controls.custom.buf, custom = true })
+			end
+		else
+			local listMod = modList[controls.modSelect.selIndex]
+			for _, line in ipairs(listMod.mod) do
+				t_insert(item.modLines, { line = line, [listMod.type] = true })
+			end
+		end
+		item.raw = itemLib.createItemRaw(item)
+		itemLib.parseItemRaw(item)
+		return item
+	end
+	controls.sourceLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Source:")
+	controls.source = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 100, 18, sourceList, function(index, value)
+		buildMods(value.sourceId)
+		controls.modSelect:SetSel(1)
+	end)
+	controls.source.enabled = #sourceList > 1
+	controls.modSelectLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Modifier:")
+	controls.modSelect = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 600, 18, modList)
+	controls.modSelect.shown = function()
+		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
+	end
+	controls.modSelect.tooltipFunc = function(mode, index, value)
+		if mode ~= "OUT" then
+			for _, line in ipairs(value.mod) do
+				main:AddTooltipLine(16, "^7"..line)
+			end
+		end
+	end
+	controls.custom = common.New("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 440, 18)
+	controls.custom.shown = function()
+		return sourceList[controls.source.selIndex].sourceId == "CUSTOM"
+	end
+	controls.save = common.New("ButtonControl", nil, -45, 75, 80, 20, "Add", function()
+		self:SetDisplayItem(addModifier())
+		main:ClosePopup()
+	end)
+	controls.save.tooltipFunc = function()
+		local item = addModifier()
+		self:AddItemTooltip(item)
+		return data.colorCodes[item.rarity], true
+	end	
+	controls.close = common.New("ButtonControl", nil, 45, 75, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(710, 105, "Add Modifier to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")	
 end
 
 function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
@@ -1082,19 +1305,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	if item.modLines[1] then
 		for index, modLine in pairs(item.modLines) do
 			if not modLine.buff and (not modLine.variantList or modLine.variantList[item.variant]) then
-				local line = (not dbMode and modLine.range and itemLib.applyRange(modLine.line, modLine.range)) or modLine.line
-				if not line:match("^%+?0%%? ") and not line:match(" %+?0%%? ") and not line:match(" 0%-0 ") and not line:match(" 0 to 0 ") then -- Hack to hide 0-value modifiers
-					local colorCode
-					if modLine.extra then
-						colorCode = data.colorCodes.UNSUPPORTED
-						if launch.devMode and IsKeyDown("ALT") then
-							line = line .. "   ^1'" .. modLine.extra .. "'"
-						end
-					else
-						colorCode = modLine.crafted and data.colorCodes.CRAFTED or data.colorCodes.MAGIC
-					end
-					main:AddTooltipLine(16, colorCode..line)
-				end
+				main:AddTooltipLine(16, itemLib.formatModLine(modLine, dbMode))
 			end
 			if index == item.implicitLines + item.buffLines and item.modLines[index + 1] then
 				-- Add separator between implicit and explicit modifiers
@@ -1114,119 +1325,117 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 
 	-- Stat differences
 	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
-	if calcFunc then
-		if base.flask then
-			-- Special handling for flasks
-			local stats = { }
-			local flaskData = item.flaskData
-			local modDB = self.build.calcsTab.mainEnv.modDB
-			local durInc = modDB:Sum("INC", nil, "FlaskDuration")
-			local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
-			if item.base.flask.life or item.base.flask.mana then
-				local rateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
-				local instantPerc = flaskData.instantPerc > 0 and m_min(flaskData.instantPerc + effectInc, 100) or 0
-				if item.base.flask.life then
-					local lifeInc = modDB:Sum("INC", nil, "FlaskLifeRecovery")
-					local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
-					local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * (1 + effectInc / 100)
-					local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100)
-					local lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
-					if inst > 0 and grad > 0 then
-						t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
-					elseif inst + grad ~= flaskData.lifeTotal then
-						if inst > 0 then
-							t_insert(stats, s_format("^8Life recovered: ^7%d ^8instantly", inst))
-						elseif grad > 0 then
-							t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
-						end
+	if base.flask then
+		-- Special handling for flasks
+		local stats = { }
+		local flaskData = item.flaskData
+		local modDB = self.build.calcsTab.mainEnv.modDB
+		local durInc = modDB:Sum("INC", nil, "FlaskDuration")
+		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
+		if item.base.flask.life or item.base.flask.mana then
+			local rateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
+			local instantPerc = flaskData.instantPerc > 0 and m_min(flaskData.instantPerc + effectInc, 100) or 0
+			if item.base.flask.life then
+				local lifeInc = modDB:Sum("INC", nil, "FlaskLifeRecovery")
+				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
+				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * (1 + effectInc / 100)
+				local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100)
+				local lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
+				if inst > 0 and grad > 0 then
+					t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
+				elseif inst + grad ~= flaskData.lifeTotal then
+					if inst > 0 then
+						t_insert(stats, s_format("^8Life recovered: ^7%d ^8instantly", inst))
+					elseif grad > 0 then
+						t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
 					end
 				end
-				if item.base.flask.mana then
-					local manaInc = modDB:Sum("INC", nil, "FlaskManaRecovery")
-					local manaRateInc = modDB:Sum("INC", nil, "FlaskManaRecoveryRate")
-					local inst = flaskData.manaBase * instantPerc / 100 * (1 + manaInc / 100) * (1 + effectInc / 100)
-					local grad = flaskData.manaBase * (1 - instantPerc / 100) * (1 + manaInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100)
-					local manaDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + manaRateInc / 100)
-					if inst > 0 and grad > 0 then
-						t_insert(stats, s_format("^8Mana recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, manaDur))
-					elseif inst + grad ~= flaskData.manaTotal then
-						if inst > 0 then
-							t_insert(stats, s_format("^8Mana recovered: ^7%d ^8instantly", inst))
-						elseif grad > 0 then
-							t_insert(stats, s_format("^8Mana recovered: ^7%d ^8over ^7%.2fs", grad, manaDur))
-						end
+			end
+			if item.base.flask.mana then
+				local manaInc = modDB:Sum("INC", nil, "FlaskManaRecovery")
+				local manaRateInc = modDB:Sum("INC", nil, "FlaskManaRecoveryRate")
+				local inst = flaskData.manaBase * instantPerc / 100 * (1 + manaInc / 100) * (1 + effectInc / 100)
+				local grad = flaskData.manaBase * (1 - instantPerc / 100) * (1 + manaInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100)
+				local manaDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + manaRateInc / 100)
+				if inst > 0 and grad > 0 then
+					t_insert(stats, s_format("^8Mana recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, manaDur))
+				elseif inst + grad ~= flaskData.manaTotal then
+					if inst > 0 then
+						t_insert(stats, s_format("^8Mana recovered: ^7%d ^8instantly", inst))
+					elseif grad > 0 then
+						t_insert(stats, s_format("^8Mana recovered: ^7%d ^8over ^7%.2fs", grad, manaDur))
 					end
 				end
+			end
+		else
+			if durInc ~= 0 then
+				t_insert(stats, s_format("^8Flask effect duration: ^7%.1f0s", flaskData.duration * (1 + durInc / 100)))
+			end
+		end
+		local effectMod = 1 + (flaskData.effectInc + effectInc) / 100
+		if effectMod ~= 1 then
+			t_insert(stats, s_format("^8Flask effect modifier: ^7%+d%%", effectMod * 100 - 100))
+		end
+		local usedInc = modDB:Sum("INC", nil, "FlaskChargesUsed")
+		if usedInc ~= 0 then
+			local used = m_floor(flaskData.chargesUsed * (1 + usedInc / 100))
+			t_insert(stats, s_format("^8Charges used: ^7%d ^8of ^7%d ^8(^7%d ^8uses)", used, flaskData.chargesMax, m_floor(flaskData.chargesMax / used)))
+		end
+		local gainMod = flaskData.gainMod * (1 + modDB:Sum("INC", nil, "FlaskChargesGained") / 100)
+		if gainMod ~= 1 then
+			t_insert(stats, s_format("^8Charge gain modifier: ^7%+d%%", gainMod * 100 - 100))
+		end
+		if stats[1] then
+			main:AddTooltipLine(14, "^7Effective flask stats:")
+			for _, stat in ipairs(stats) do
+				main:AddTooltipLine(14, stat)
+			end
+		end
+		local output = calcFunc({ toggleFlask = item })
+		local header
+		if self.build.calcsTab.mainEnv.flasks[item] then
+			header = "^7Deactivating this flask will give you:"
+		else
+			header = "^7Activating this flask will give you:"
+		end
+		self.build:AddStatComparesToTooltip(calcBase, output, header)
+	else
+		self:UpdateSockets()
+		-- Build sorted list of slots to compare with
+		local compareSlots = { }
+		for slotName, slot in pairs(self.slots) do
+			if self:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.useSecondWeaponSet and 2 or 1)) then
+				t_insert(compareSlots, slot)
+			end
+		end
+		table.sort(compareSlots, function(a, b)
+			if a.selItemId ~= b.selItemId then
+				if item == self.list[a.selItemId] then
+					return true
+				elseif item == self.list[b.selItemId] then
+					return false
+				end
+			end
+			local aNum = tonumber(a.slotName:match("%d+"))
+			local bNum = tonumber(b.slotName:match("%d+"))
+			if aNum and bNum then
+				return aNum < bNum
 			else
-				if durInc ~= 0 then
-					t_insert(stats, s_format("^8Flask effect duration: ^7%.1f0s", flaskData.duration * (1 + durInc / 100)))
-				end
+				return a.slotName < b.slotName
 			end
-			local effectMod = 1 + (flaskData.effectInc + effectInc) / 100
-			if effectMod ~= 1 then
-				t_insert(stats, s_format("^8Flask effect modifier: ^7%+d%%", effectMod * 100 - 100))
-			end
-			local usedInc = modDB:Sum("INC", nil, "FlaskChargesUsed")
-			if usedInc ~= 0 then
-				local used = m_floor(flaskData.chargesUsed * (1 + usedInc / 100))
-				t_insert(stats, s_format("^8Charges used: ^7%d ^8of ^7%d ^8(^7%d ^8uses)", used, flaskData.chargesMax, m_floor(flaskData.chargesMax / used)))
-			end
-			local gainMod = flaskData.gainMod * (1 + modDB:Sum("INC", nil, "FlaskChargesGained") / 100)
-			if gainMod ~= 1 then
-				t_insert(stats, s_format("^8Charge gain modifier: ^7%+d%%", gainMod * 100 - 100))
-			end
-			if stats[1] then
-				main:AddTooltipLine(14, "^7Effective flask stats:")
-				for _, stat in ipairs(stats) do
-					main:AddTooltipLine(14, stat)
-				end
-			end
-			local output = calcFunc({ toggleFlask = item })
+		end)
+
+		-- Add comparisons for each slot
+		for _, slot in pairs(compareSlots) do
+			local selItem = self.list[slot.selItemId]
+			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item })
 			local header
-			if self.build.calcsTab.mainEnv.flasks[item] then
-				header = "^7Deactivating this flask will give you:"
+			if item == selItem then
+				header = "^7Removing this item from "..slot.label.." will give you:"
 			else
-				header = "^7Activating this flask will give you:"
+				header = string.format("^7Equipping this item in %s%s will give you:", slot.label, selItem and " (replacing "..data.colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
 			end
 			self.build:AddStatComparesToTooltip(calcBase, output, header)
-		else
-			self:UpdateSockets()
-			-- Build sorted list of slots to compare with
-			local compareSlots = { }
-			for slotName, slot in pairs(self.slots) do
-				if self:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.useSecondWeaponSet and 2 or 1)) then
-					t_insert(compareSlots, slot)
-				end
-			end
-			table.sort(compareSlots, function(a, b)
-				if a.selItemId ~= b.selItemId then
-					if item == self.list[a.selItemId] then
-						return true
-					elseif item == self.list[b.selItemId] then
-						return false
-					end
-				end
-				local aNum = tonumber(a.slotName:match("%d+"))
-				local bNum = tonumber(b.slotName:match("%d+"))
-				if aNum and bNum then
-					return aNum < bNum
-				else
-					return a.slotName < b.slotName
-				end
-			end)
-
-			-- Add comparisons for each slot
-			for _, slot in pairs(compareSlots) do
-				local selItem = self.list[slot.selItemId]
-				local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item })
-				local header
-				if item == selItem then
-					header = "^7Removing this item from "..slot.label.." will give you:"
-				else
-					header = string.format("^7Equipping this item in %s%s will give you:", slot.label, selItem and " (replacing "..data.colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
-				end
-				self.build:AddStatComparesToTooltip(calcBase, output, header)
-			end
 		end
 	end
 

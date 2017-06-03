@@ -435,6 +435,10 @@ function EditClass:OnKeyDown(key, doubleClick)
 	elseif key == "v" and ctrl then
 		local text = Paste()
 		if text then
+			if self.pasteFilter then
+				text = self.pasteFilter(text)
+			end
+			text = text:gsub("[\128-\255]","?")
 			if self.sel and self.sel ~= self.caret then
 				self:ReplaceSel(text)
 			else

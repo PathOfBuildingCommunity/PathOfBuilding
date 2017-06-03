@@ -5,10 +5,9 @@ local itemBases = ...
 #baseTags weapon onehand mace one_hand_weapon
 #baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace
 
-#subType Sceptre
+#type Sceptre
 #baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre
 
 #type Two Handed Mace
-#subType
 #baseTags weapon twohand mace two_hand_weapon
 #baseMatch Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace

@@ -311,7 +311,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill OrbOfStorms
-#flags spell area chaining duration lightning
+#flags spell chaining duration lightning
 #mods
 
 #skill PowerSiphon

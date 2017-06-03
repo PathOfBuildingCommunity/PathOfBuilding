@@ -8,6 +8,12 @@ local launch, main = ...
 local pairs = pairs
 local ipairs = ipairs
 
+local buildSortDropList = {
+	{ label = "Sort by Name", sortMode = "NAME" },
+	{ label = "Sort by Class", sortMode = "CLASS" },
+	{ label = "Sort by Last Edited", sortMode = "EDITED"},
+}
+
 local listMode = common.New("ControlHost")
 
 function listMode:Init(selBuildName)
@@ -37,11 +43,11 @@ function listMode:Init(selBuildName)
 		self.controls.buildList:DeleteBuild(self.controls.buildList.selValue)
 	end)
 	self.controls.delete.enabled = function() return self.controls.buildList.selValue ~= nil end
-	self.controls.sort = common.New("DropDownControl", {"LEFT",self.controls.delete,"RIGHT"}, 8, 0, 140, 20, {{val="NAME",label="Sort by Name"},{val="CLASS",label="Sort by Class"},{val="EDITED",label="Sort by Last Edited"}}, function(sel, val)
-		main.buildSortMode = val.val
+	self.controls.sort = common.New("DropDownControl", {"LEFT",self.controls.delete,"RIGHT"}, 8, 0, 140, 20, buildSortDropList, function(index, value)
+		main.buildSortMode = value.sortMode
 		self:SortList()
 	end)
-	self.controls.sort:SelByValue(main.buildSortMode)
+	self.controls.sort:SelByValue(main.buildSortMode, "sortMode")
 
 	self.controls.buildList = common.New("BuildList", {"TOP",self.anchor,"TOP"}, 0, 24, 640, 0, self)
 	self.controls.buildList.height = function()

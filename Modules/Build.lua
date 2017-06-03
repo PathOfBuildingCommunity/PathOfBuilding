@@ -14,6 +14,25 @@ local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
 
+local normalBanditDropList = {
+	{ label = "Passive point", banditId = "None" },
+	{ label = "Oak (Life)", banditId = "Oak" },
+	{ label = "Kraityn (Resists)", banditId = "Kraityn" },
+	{ label = "Alira (Mana)", banditId = "Alira" },
+}
+local cruelBanditDropList = {
+	{ label = "Passive point", banditId = "None" },
+	{ label = "Oak (Endurance)", banditId = "Oak" },
+	{ label = "Kraityn (Frenzy)", banditId = "Kraityn" },
+	{ label = "Alira (Power)", banditId = "Alira" },
+}
+local mercilessBanditDropList = {
+	{ label = "Passive point", banditId = "None" },
+	{ label = "Oak (Phys Dmg)", banditId = "Oak" },
+	{ label = "Kraityn (Att. Speed)", banditId = "Kraityn" },
+	{ label = "Alira (Cast Speed)", banditId = "Alira" },
+}
+
 local buildMode = common.New("ControlHost")
 
 function buildMode:Init(dbFileName, buildName)
@@ -141,25 +160,23 @@ function buildMode:Init(dbFileName, buildName)
 			end
 		end
 	end
-	self.controls.classDrop = common.New("DropDownControl", {"LEFT",self.controls.characterLevel,"RIGHT"}, 8, 0, 100, 20, nil, function(index, val)
-		local classId = self.tree.classNameMap[val]
-		if classId ~= self.spec.curClassId then
-			if self.spec:CountAllocNodes() == 0 or self.spec:IsClassConnected(classId) then
-				self.spec:SelectClass(classId)
+	self.controls.classDrop = common.New("DropDownControl", {"LEFT",self.controls.characterLevel,"RIGHT"}, 8, 0, 100, 20, nil, function(index, value)
+		if value.classId ~= self.spec.curClassId then
+			if self.spec:CountAllocNodes() == 0 or self.spec:IsClassConnected(value.classId) then
+				self.spec:SelectClass(value.classId)
 				self.spec:AddUndoState()
 				self.buildFlag = true
 			else
-				main:OpenConfirmPopup("Class Change", "Changing class to "..val.." will reset your passive tree.\nThis can be avoided by connecting one of the "..val.." starting nodes to your tree.", "Continue", function()
-					self.spec:SelectClass(classId)
+				main:OpenConfirmPopup("Class Change", "Changing class to "..value.label.." will reset your passive tree.\nThis can be avoided by connecting one of the "..value.label.." starting nodes to your tree.", "Continue", function()
+					self.spec:SelectClass(value.classId)
 					self.spec:AddUndoState()
 					self.buildFlag = true					
 				end)
 			end
 		end
 	end)
-	self.controls.ascendDrop = common.New("DropDownControl", {"LEFT",self.controls.classDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, val)
-		local ascendClassId = self.tree.ascendNameMap[val].ascendClassId
-		self.spec:SelectAscendClass(ascendClassId)
+	self.controls.ascendDrop = common.New("DropDownControl", {"LEFT",self.controls.classDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
+		self.spec:SelectAscendClass(value.ascendClassId)
 		self.spec:AddUndoState()
 		self.buildFlag = true
 	end)
@@ -194,55 +211,52 @@ function buildMode:Init(dbFileName, buildName)
 		self.viewMode = "CALCS"
 	end)
 	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
-	self.controls.banditNormal = common.New("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 100, 16, 
-		{{val="None",label="Passive point"},{val="Oak",label="Oak (Life)"},{val="Kraityn",label="Kraityn (Resists)"},{val="Alira",label="Alira (Mana)"}}, function(sel,val)
-		self.banditNormal = val.val
+	self.controls.banditNormal = common.New("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 100, 16, normalBanditDropList, function(index, value)
+		self.banditNormal = value.banditId
 		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.banditNormalLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditNormal,"TOPLEFT"}, 0, 0, 0, 14, "^7Normal Bandit:")
-	self.controls.banditCruel = common.New("DropDownControl", {"LEFT",self.controls.banditNormal,"RIGHT"}, 0, 0, 100, 16, 
-		{{val="None",label="Passive point"},{val="Oak",label="Oak (Phys Dmg)"},{val="Kraityn",label="Kraityn (Att. Speed)"},{val="Alira",label="Alira (Cast Speed)"}}, function(sel,val)
-		self.banditCruel = val.val
+	self.controls.banditCruel = common.New("DropDownControl", {"LEFT",self.controls.banditNormal,"RIGHT"}, 0, 0, 100, 16, mercilessBanditDropList, function(index, value)
+		self.banditCruel = value.banditId
 		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.banditCruelLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditCruel,"TOPLEFT"}, 0, 0, 0, 14, "^7Cruel Bandit:")
-	self.controls.banditMerciless = common.New("DropDownControl", {"LEFT",self.controls.banditCruel,"RIGHT"}, 0, 0, 100, 16, 
-		{{val="None",label="Passive point"},{val="Oak",label="Oak (Endurance)"},{val="Kraityn",label="Kraityn (Frenzy)"},{val="Alira",label="Alira (Power)"}}, function(sel,val)
-		self.banditMerciless = val.val
+	self.controls.banditMerciless = common.New("DropDownControl", {"LEFT",self.controls.banditCruel,"RIGHT"}, 0, 0, 100, 16, cruelBanditDropList, function(index, value)
+		self.banditMerciless = value.banditId
 		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.banditMercilessLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditMerciless,"TOPLEFT"}, 0, 0, 0, 14, "^7Merciless Bandit:")
 	self.controls.mainSkillLabel = common.New("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 95, 300, 16, "^7Main Skill:")
-	self.controls.mainSocketGroup = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index)
+	self.controls.mainSocketGroup = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
 		self.mainSocketGroup = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index)
+	self.controls.mainSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		mainSocketGroup.mainActiveSkill = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillPart = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 150, 18, nil, function(index)
+	self.controls.mainSkillPart = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 150, 18, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillPart = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillMinion = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 178, 18, nil, function(index, val)
+	self.controls.mainSkillMinion = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 178, 18, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillMinion = val.val
+		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillMinion = value.minionId
 		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.mainSkillMinionLibrary = common.New("ButtonControl", {"LEFT",self.controls.mainSkillMinion,"RIGHT"}, 2, 0, 120, 18, "Manage Spectres...", function()
 		self:OpenSpectreLibrary()
 	end)
-	self.controls.mainSkillMinionSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT"}, 0, 2, 200, 16, nil, function(index)
+	self.controls.mainSkillMinionSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT"}, 0, 2, 200, 16, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillMinionSkill = index
 		self.modFlag = true
@@ -256,9 +270,12 @@ function buildMode:Init(dbFileName, buildName)
 
 	-- Initialise class dropdown
 	for classId, class in pairs(self.tree.classes) do
-		t_insert(self.controls.classDrop.list, class.name)
+		t_insert(self.controls.classDrop.list, {
+			label = class.name,
+			classId = classId,
+		})
 	end
-	table.sort(self.controls.classDrop.list)
+	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
 
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
@@ -514,14 +531,17 @@ function buildMode:OnFrame(inputEvents)
 	wipeTable(self.controls.ascendDrop.list)
 	for i = 0, #self.spec.curClass.classes do
 		local ascendClass = self.spec.curClass.classes[i]
-		t_insert(self.controls.ascendDrop.list, ascendClass.name)
+		t_insert(self.controls.ascendDrop.list, {
+			label = ascendClass.name,
+			ascendClassId = i,
+		})
 	end
 
-	self.controls.classDrop:SelByValue(self.spec.curClassName)
-	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassName)
+	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
+	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
 
 	for _, diff in pairs({"banditNormal","banditCruel","banditMerciless"}) do
-		self.controls[diff]:SelByValue(self[diff])
+		self.controls[diff]:SelByValue(self[diff], "banditId")
 	end
 
 	if self.buildFlag then
@@ -671,7 +691,7 @@ end
 
 -- Refresh the set of controls used to select main group/skill/minion
 function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
-	controls.mainSocketGroup.sel = mainGroup
+	controls.mainSocketGroup.selIndex = mainGroup
 	wipeTable(controls.mainSocketGroup.list)
 	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
 		controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
@@ -691,7 +711,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 			t_insert(controls.mainSkill.list, { val = i, label = activeSkill.activeGem.name })
 		end
 		controls.mainSkill.enabled = #displaySkillList > 1
-		controls.mainSkill.sel = mainActiveSkill
+		controls.mainSkill.selIndex = mainActiveSkill
 		controls.mainSkill.shown = true
 		controls.mainSkillPart.shown = false
 		controls.mainSkillMinion.shown = false
@@ -707,7 +727,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 					for i, part in ipairs(activeGem.data.parts) do
 						t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
 					end
-					controls.mainSkillPart.sel = activeGem.srcGem["skillPart"..suffix] or 1
+					controls.mainSkillPart.selIndex = activeGem.srcGem["skillPart"..suffix] or 1
 				elseif not activeSkill.skillFlags.disable and activeGem.data.minionList then
 					local list
 					if activeGem.data.minionList[1] then
@@ -717,21 +737,21 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 						controls.mainSkillMinionLibrary.shown = true
 					end
 					wipeTable(controls.mainSkillMinion.list)
-					for _, name in ipairs(list) do
+					for _, minionId in ipairs(list) do
 						t_insert(controls.mainSkillMinion.list, {
-							val = name,
-							label = data.minions[name].name,
+							label = data.minions[minionId].name,
+							minionId = minionId,
 						})
 					end
 					controls.mainSkillMinion.enabled = #controls.mainSkillMinion.list > 1
 					controls.mainSkillMinion.shown = true
-					controls.mainSkillMinion:SelByValue(activeGem.srcGem["skillMinion"..suffix] or controls.mainSkillMinion.list[1])
+					controls.mainSkillMinion:SelByValue(activeGem.srcGem["skillMinion"..suffix] or controls.mainSkillMinion.list[1], "minionId")
 					wipeTable(controls.mainSkillMinionSkill.list)
 					if activeSkill.minion then
 						for _, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
 							t_insert(controls.mainSkillMinionSkill.list, minionSkill.activeGem.name)
 						end
-						controls.mainSkillMinionSkill.sel = activeGem.srcGem["skillMinionSkill"..suffix] or 1
+						controls.mainSkillMinionSkill.selIndex = activeGem.srcGem["skillMinionSkill"..suffix] or 1
 						controls.mainSkillMinionSkill.shown = true
 						controls.mainSkillMinionSkill.enabled = #controls.mainSkillMinionSkill.list > 1
 					else

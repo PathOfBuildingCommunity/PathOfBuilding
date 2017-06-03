@@ -3,10 +3,12 @@
 -- Module: Item Tools
 -- Various functions for dealing with items.
 --
+local launch = ...
 
 local t_insert = table.insert
 local t_remove = table.remove
 local m_min = math.min
+local m_max = math.max
 local m_floor = math.floor
 
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
@@ -39,6 +41,23 @@ end
 function itemLib.sanitiseItemText(text)
 	-- Something something unicode support something grumble
 	return text:gsub("^%s+",""):gsub("%s+$",""):gsub("\r\n","\n"):gsub("%b<>",""):gsub("–","-"):gsub("\226\128\147","-"):gsub("\226\136\146","-"):gsub("ö","o"):gsub("\195\182","o"):gsub("[\128-\255]","?")
+end
+
+function itemLib.formatModLine(modLine, dbMode)
+	local line = (not dbMode and modLine.range and itemLib.applyRange(modLine.line, modLine.range)) or modLine.line
+	if line:match("^%+?0%%? ") or line:match(" %+?0%%? ") or line:match(" 0%-0 ") or line:match(" 0 to 0 ") then -- Hack to hide 0-value modifiers
+		return
+	end
+	local colorCode
+	if modLine.extra then
+		colorCode = data.colorCodes.UNSUPPORTED
+		if launch.devMode and IsKeyDown("ALT") then
+			line = line .. "   ^1'" .. modLine.extra .. "'"
+		end
+	else
+		colorCode = (modLine.crafted and data.colorCodes.CRAFTED) or (modLine.custom and data.colorCodes.CUSTOM) or data.colorCodes.MAGIC
+	end
+	return colorCode..line
 end
 
 -- Make an item from raw data
@@ -129,9 +148,11 @@ function itemLib.parseItemRaw(item)
 	item.modLines = { }
 	item.implicitLines = 0
 	item.buffLines = 0
-	item.affixes = data.itemMods[item.base and item.base.type]
-	item.enchantments = data.enchantments[item.base and item.base.type]
-	item.corruptable = item.base and item.base.type ~= "Flask"
+	if item.base then
+		item.affixes = data.itemMods[item.base.type] or data.itemMods.Item
+		item.enchantments = data.enchantments[item.base.type]
+		item.corruptable = item.base.type ~= "Flask"
+	end
 	item.prefixes = { }
 	item.suffixes = { }
 	item.requirements = { }
@@ -260,6 +281,7 @@ function itemLib.parseItemRaw(item)
 				end
 				local rangeSpec = line:match("{range:([%d.]+)}")
 				local crafted = line:match("{crafted}")
+				local custom = line:match("{custom}")
 				line = line:gsub("%b{}", "")
 				local rangedLine
 				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
@@ -277,7 +299,7 @@ function itemLib.parseItemRaw(item)
 					end
 				end
 				if modList then
-					t_insert(item.modLines, { line = line, extra = extra, modList = modList, variantList = variantList, crafted = crafted, range = rangedLine and (tonumber(rangeSpec) or 0.5) })
+					t_insert(item.modLines, { line = line, extra = extra, modList = modList, variantList = variantList, crafted = crafted, custom = custom, range = rangedLine and (tonumber(rangeSpec) or 0.5) })
 					if mode == "GAME" then
 						if gameModeStage == "FINDIMPLICIT" then
 							gameModeStage = "IMPLICIT"
@@ -292,12 +314,12 @@ function itemLib.parseItemRaw(item)
 					end
 				elseif mode == "GAME" then
 					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" then
-						t_insert(item.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted })
+						t_insert(item.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted, custom = custom })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
 					end
 				elseif foundExplicit then
-					t_insert(item.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted })
+					t_insert(item.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted, custom = custom })
 				end
 			end
 		end
@@ -319,11 +341,30 @@ function itemLib.parseItemRaw(item)
 		item.implicitLines = 0
 	end
 	item.affixLimit = 0
-	if item.crafted and item.affixes then
+	if item.crafted then
 		if item.rarity == "MAGIC" then
 			item.affixLimit = 2
 		elseif item.rarity == "RARE" then
 			item.affixLimit = (item.base.type == "Jewel" and 4 or 6)
+		else
+			item.crafted = false
+		end
+		for _, list in ipairs({item.prefixes,item.suffixes}) do
+			for i = 1, item.affixLimit/2 do
+				if not list[i] then
+					list[i] = "None"
+				elseif list[i] ~= "None" and not item.affixes[list[i]] then
+					for modId, mod in pairs(item.affixes) do
+						if list[i] == mod.affix then
+							list[i] = modId
+							break
+						end
+					end
+					if not item.affixes[list[i]] then
+						list[i] = "None"
+					end
+				end
+			end
 		end
 	end
 	if item.variantList then
@@ -345,10 +386,10 @@ function itemLib.normaliseQuality(item)
 	end	
 end
 
-function itemLib.getModSpawnWeight(item, mod)
+function itemLib.getModSpawnWeight(item, mod, extraTags)
 	if item.base then
 		for i, key in ipairs(mod.weightKey) do
-			if item.base.tags[key] then
+			if item.base.tags[key] or (extraTags and extraTags[key]) then
 				return mod.weightVal[i]
 			end
 		end
@@ -425,6 +466,9 @@ function itemLib.createItemRaw(item)
 			if modLine.crafted then
 				line = "{crafted}" .. line
 			end
+			if modLine.custom then
+				line = "{custom}" .. line
+			end
 			if modLine.variantList then
 				local varSpec
 				for varId in pairs(modLine.variantList) do
@@ -444,12 +488,20 @@ end
 -- Rebuild explicit modifiers using the item's affixes
 function itemLib.craftItem(item)
 	local ranges = { }
+	local custom = { }
 	for l = item.buffLines + item.implicitLines + 1, #item.modLines do
-		ranges[item.modLines[l].line] = item.modLines[l].range
+		local modLine = item.modLines[l]
+		if modLine.custom or modLine.crafted then
+			t_insert(custom, modLine)
+		else
+			ranges[modLine.line] = modLine.range
+		end
 		item.modLines[l] = nil
 	end
 	item.namePrefix = ""
 	item.nameSuffix = ""
+	item.requirements.level = item.base.req.level
+	local statOrder = { }
 	for _, list in ipairs({item.prefixes,item.suffixes}) do
 		for i = 1, item.affixLimit/2 do
 			local name = list[i]
@@ -459,15 +511,38 @@ function itemLib.craftItem(item)
 			local mod = item.affixes[name]
 			if mod then
 				if mod.type == "Prefix" then
-					item.namePrefix = name .. " "
+					item.namePrefix = mod.affix .. " "
 				elseif mod.type == "Suffix" then
-					item.nameSuffix = " " .. name
+					item.nameSuffix = " " .. mod.affix
 				end
-				for _, line in ipairs(mod) do
-					t_insert(item.modLines, { line = line, range = ranges[line] })
+				item.requirements.level = m_max(item.requirements.level or 0, m_floor(mod.level * 0.8))
+				for i, line in ipairs(mod) do
+					local order = mod.statOrder[i]
+					if statOrder[order] then
+						-- Combine stats
+						local start = 1
+						statOrder[order].line = statOrder[order].line:gsub("%d+", function(num)
+							local s, e, other = line:find("(%d+)", start)
+							start = e + 1
+							return tonumber(num) + tonumber(other)
+						end)
+						statOrder[order].range = ranges[statOrder[order].line]
+					else
+						local modLine = { line = line, range = ranges[line], order = order }
+						for l = item.buffLines + item.implicitLines + 1, #item.modLines + 1 do
+							if not item.modLines[l] or item.modLines[l].order > order then
+								t_insert(item.modLines, l, modLine)
+								break
+							end
+						end
+						statOrder[order] = modLine
+					end	
 				end
 			end
 		end
+	end
+	for _, line in ipairs(custom) do
+		t_insert(item.modLines, line)
 	end
 	if item.rarity == "MAGIC" then
 		item.name = newName

@@ -27,6 +27,13 @@ local ImportTabClass = common.NewClass("ImportTab", "ControlHost", "Control", fu
 		return self.charImportMode == "GETACCOUNTNAME"
 	end
 	self.controls.accountName = common.New("EditControl", {"TOPLEFT",self.controls.accountNameHeader,"BOTTOMLEFT"}, 0, 4, 200, 20, main.lastAccountName or "", nil, "%c", 50)
+	self.controls.accountName.pasteFilter = function(text)
+		return text:gsub("[\128-\255]",function(c)
+			return codePointToUTF8(c:byte(1)):gsub(".",function(c)
+				return string.format("%%%X", c:byte(1))
+			end)
+		end)
+	end
 	self.controls.accountNameGo = common.New("ButtonControl", {"LEFT",self.controls.accountName,"RIGHT"}, 8, 0, 60, 20, "Start", function()
 		self.controls.sessionInput.buf = ""
 		self:DownloadCharacterList()
@@ -184,7 +191,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 		self.importCodeState = "VALID"
 		self.importCodeXML = xmlText
 		if not self.build.dbFileName then
-			self.controls.importCodeMode.sel = 2
+			self.controls.importCodeMode.selIndex = 2
 		end
 	end)
 	self.controls.importCodeState = common.New("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 4, 0, 0, 16)
@@ -225,10 +232,10 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 	self.controls.importCodeBuildName = common.New("EditControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 4, 0, 400, 20, "", "New build name", "\\/:%*%?\"<>|%c", 100)
 	self.controls.importCodeBuildName.enabled = function()
-		return self.importCodeState == "VALID" and self.controls.importCodeMode.sel == 2
+		return self.importCodeState == "VALID" and self.controls.importCodeMode.selIndex == 2
 	end
 	self.controls.importCodeGo = common.New("ButtonControl", {"TOPLEFT",self.controls.importCodeMode,"BOTTOMLEFT"}, 0, 8, 60, 20, "Import", function()
-		if self.controls.importCodeMode.sel == 1 then
+		if self.controls.importCodeMode.selIndex == 1 then
 			main:OpenConfirmPopup("Build Import", "^xFF9922Warning:^7 Importing to the current build will erase ALL existing data for this build.\nThis cannot be undone.", "Import", function()
 				self:ImportToBuild(self.build.dbFileName, self.build.buildName)
 			end)
@@ -245,7 +252,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 		end
 	end)
 	self.controls.importCodeGo.enabled = function()
-		return self.importCodeState == "VALID" and (self.controls.importCodeMode.sel == 1 or self.controls.importCodeBuildName.buf:match("%S"))
+		return self.importCodeState == "VALID" and (self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeBuildName.buf:match("%S"))
 	end
 end)
 
@@ -314,12 +321,12 @@ function ImportTabClass:DownloadCharacterList()
 			wipeTable(self.controls.charSelect.list)
 			for i, char in ipairs(charList) do
 				t_insert(self.controls.charSelect.list, {
-					val = char,
-					label = string.format("%s: Level %d %s in %s", char.name or "?", char.level or 0, char.class or "?", char.league or "?")
+					label = string.format("%s: Level %d %s in %s", char.name or "?", char.level or 0, char.class or "?", char.league or "?"),
+					char = char,
 				})
 			end
 			table.sort(self.controls.charSelect.list, function(a,b)
-				return a.val.name:lower() < b.val.name:lower()
+				return a.char.name:lower() < b.char.name:lower()
 			end)
 		end, sessionID and "POESESSID="..sessionID)
 	end, sessionID and "POESESSID="..sessionID)
@@ -331,7 +338,7 @@ function ImportTabClass:DownloadPassiveTree()
 	local accountName = self.controls.accountName.buf
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or main.accountSessionIDs[accountName]
 	local charSelect = self.controls.charSelect
-	local charData = charSelect.list[charSelect.sel].val
+	local charData = charSelect.list[charSelect.selIndex].char
 	launch:DownloadPage("https://www.pathofexile.com/character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name, function(page, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
@@ -378,7 +385,7 @@ function ImportTabClass:DownloadItems()
 	local accountName = self.controls.accountName.buf
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or main.accountSessionIDs[accountName]
 	local charSelect = self.controls.charSelect
-	local charData = charSelect.list[charSelect.sel].val
+	local charData = charSelect.list[charSelect.selIndex].char
 	launch:DownloadPage("https://www.pathofexile.com/character-window/get-items?accountName="..accountName.."&character="..charData.name, function(page, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then

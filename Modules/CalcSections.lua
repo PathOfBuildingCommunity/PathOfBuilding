@@ -460,6 +460,11 @@ return {
 		{ breakdown = "OffHand.PoisonDamage" }, 
 		{ breakdown = "PoisonDamage" }, 
 	}, },
+	{ flag = "notAverage", label = "Max Poison Stacks", { format = "{1:output:TotalPoisonStacks}",
+		{ breakdown = "MainHand.TotalPoisonStacks" }, 
+		{ breakdown = "OffHand.TotalPoisonStacks" }, 
+		{ breakdown = "TotalPoisonStacks" }, 
+	}, },
 } },
 { 1, "Ignite", 1, "Ignite", data.colorCodes.OFFENCE, {	
 	extra = "{0:output:IgniteChance}% {1:output:IgniteDPS} {2:output:IgniteDuration}s",
@@ -492,6 +497,11 @@ return {
 		{ breakdown = "MainHand.IgniteDamage" },
 		{ breakdown = "OffHand.IgniteDamage" },
 		{ breakdown = "IgniteDamage" },
+	}, },
+	{ flagList = { "notAverage", "igniteCanStack" }, label = "Max Ignite Stacks", { format = "{1:output:TotalIgniteStacks}",
+		{ breakdown = "MainHand.TotalIgniteStacks" }, 
+		{ breakdown = "OffHand.TotalIgniteStacks" }, 
+		{ breakdown = "TotalIgniteStacks" }, 
 	}, },
 } },
 { 1, "Decay", 1, "Decay", data.colorCodes.OFFENCE, {
