@@ -135,7 +135,7 @@ local modNameList = {
 	["to avoid being frozen"] = "AvoidFrozen",
 	["to avoid being chilled"] = "AvoidChilled",
 	["to avoid being ignited"] = "AvoidIgnite",
-	["to avoid elemental status ailments"] = { "AvoidShock", "AvoidFrozen", "AvoidChilled", "AvoidIgnite" },
+	["to avoid elemental ailments"] = { "AvoidShock", "AvoidFrozen", "AvoidChilled", "AvoidIgnite" },
 	["damage is taken from mana before life"] = "DamageTakenFromManaBeforeLife",
 	["effect of curses on you"] = "CurseEffectOnSelf",
 	["recovery rate of life, mana and energy shield"] = { "LifeRecovery", "ManaRecovery", "EnergyShieldRecovery" },
@@ -250,6 +250,7 @@ local modNameList = {
 	["elemental damage"] = "ElementalDamage",
 	-- Other damage forms
 	["attack damage"] = { "Damage", flags = ModFlag.Attack },
+	["attack physical damage"] = { "PhysicalDamage", flags = ModFlag.Attack },
 	["physical attack damage"] = { "PhysicalDamage", flags = ModFlag.Attack },
 	["physical weapon damage"] = { "PhysicalDamage", flags = ModFlag.Weapon },
 	["physical melee damage"] = { "PhysicalDamage", flags = ModFlag.Melee },
@@ -271,7 +272,7 @@ local modNameList = {
 	["attack speed"] = { "Speed", flags = ModFlag.Attack },
 	["cast speed"] = { "Speed", flags = ModFlag.Cast },
 	["attack and cast speed"] = "Speed",
-	-- Elemental status ailments
+	-- Elemental ailments
 	["to shock"] = "EnemyShockChance",
 	["shock chance"] = "EnemyShockChance",
 	["to freeze"] = "EnemyFreezeChance",
@@ -283,7 +284,7 @@ local modNameList = {
 	["freeze duration"] = "EnemyFreezeDuration",
 	["chill duration"] = "EnemyChillDuration",
 	["ignite duration"] = "EnemyIgniteDuration",
-	["duration of elemental status ailments"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration" },
+	["duration of elemental ailments"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration" },
 	-- Other debuffs
 	["to poison"] = "PoisonChance",
 	["to poison on hit"] = "PoisonChance",
@@ -344,6 +345,7 @@ local modFlagList = {
 	["with spells"] = { flags = ModFlag.Spell },
 	["for spells"] = { flags = ModFlag.Spell },
 	["with attacks"] = { flags = ModFlag.Attack },
+	["with attack skills"] = { flags = ModFlag.Attack },
 	["for attacks"] = { flags = ModFlag.Attack },
 	["weapon"] = { flags = ModFlag.Weapon },
 	["with weapons"] = { flags = ModFlag.Weapon },
@@ -351,6 +353,7 @@ local modFlagList = {
 	["with melee attacks"] = { flags = ModFlag.Melee },
 	["on melee hit"] = { flags = ModFlag.Melee },
 	["with poison"] = { keywordFlags = KeywordFlag.Poison },
+	["with bleeding"] = { keywordFlags = KeywordFlag.Bleed },
 	["area"] = { flags = ModFlag.Area },
 	["mine"] = { keywordFlags = KeywordFlag.Mine },
 	["with mines"] = { keywordFlags = KeywordFlag.Mine },
@@ -567,9 +570,9 @@ local modTagList = {
 	["against chilled enemies"] = { tag = { type = "EnemyCondition", var = "Chilled" }, flags = ModFlag.Hit },
 	["enemies which are chilled"] = { tag = { type = "EnemyCondition", var = "Chilled" }, flags = ModFlag.Hit },
 	["against frozen, shocked or ignited enemies"] = { tag = { type = "EnemyCondition", varList = {"Frozen","Shocked","Ignited"} }, flags = ModFlag.Hit },
-	["against enemies affected by elemental status ailments"] = { tag = { type = "EnemyCondition", varList = {"Frozen","Chilled","Shocked","Ignited"} }, flags = ModFlag.Hit },
-	["against enemies that are affected by elemental status ailments"] = { tag = { type = "EnemyCondition", varList = {"Frozen","Chilled","Shocked","Ignited"} }, flags = ModFlag.Hit },
-	["against enemies that are affected by no elemental status ailments"] = { tagList = { { type = "EnemyCondition", varList = {"Frozen","Chilled","Shocked","Ignited"}, neg = true }, { type = "Condition", var = "Effective" } }, flags = ModFlag.Hit },
+	["against enemies affected by elemental ailments"] = { tag = { type = "EnemyCondition", varList = {"Frozen","Chilled","Shocked","Ignited"} }, flags = ModFlag.Hit },
+	["against enemies that are affected by elemental ailments"] = { tag = { type = "EnemyCondition", varList = {"Frozen","Chilled","Shocked","Ignited"} }, flags = ModFlag.Hit },
+	["against enemies that are affected by no elemental ailments"] = { tagList = { { type = "EnemyCondition", varList = {"Frozen","Chilled","Shocked","Ignited"}, neg = true }, { type = "Condition", var = "Effective" } }, flags = ModFlag.Hit },
 	["per freeze, shock and ignite on enemy"] = { tag = { type = "Multiplier", var = "FreezeShockIgniteOnEnemy" }, flags = ModFlag.Hit },
 }
 

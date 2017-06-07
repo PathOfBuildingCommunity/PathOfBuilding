@@ -10,6 +10,7 @@ local launch, main = ...
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
+local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 local m_pi = math.pi
@@ -95,7 +96,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
-			self:LoadImage(maxZoom.filename, self.imageRoot.."build-gen/passive-skill-sprite/"..maxZoom.filename, sheet, "CLAMP")
+			self:LoadImage(maxZoom.filename:gsub("%?%x+$",""), self.imageRoot.."build-gen/passive-skill-sprite/"..maxZoom.filename, sheet, "CLAMP")
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
@@ -217,6 +218,15 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		node.modKey = ""
 		local i = 1
 		while node.sd[i] do
+			if node.sd[i]:match("\n") then
+				local line = node.sd[i]
+				local il = i
+				t_remove(node.sd, i)
+				for line in line:gmatch("[^\n]+") do
+					t_insert(node.sd, il, line)
+					il = il + 1
+				end
+			end
 			local line = node.sd[i]
 			local list, extra = modLib.parseMod[targetVersion](line)
 			if not list or extra then
