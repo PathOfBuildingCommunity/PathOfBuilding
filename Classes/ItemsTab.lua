@@ -15,11 +15,11 @@ local m_min = math.min
 local m_floor = math.floor
 
 local rarityDropList = { 
-	{ label = data.colorCodes.NORMAL.."Normal", rarity = "NORMAL" },
-	{ label = data.colorCodes.MAGIC.."Magic", rarity = "MAGIC" },
-	{ label = data.colorCodes.RARE.."Rare", rarity = "RARE" },
-	{ label = data.colorCodes.UNIQUE.."Unique", rarity = "UNIQUE" },
-	{ label = data.colorCodes.RELIC.."Relic", rarity = "RELIC" }
+	{ label = colorCodes.NORMAL.."Normal", rarity = "NORMAL" },
+	{ label = colorCodes.MAGIC.."Magic", rarity = "MAGIC" },
+	{ label = colorCodes.RARE.."Rare", rarity = "RARE" },
+	{ label = colorCodes.UNIQUE.."Unique", rarity = "UNIQUE" },
+	{ label = colorCodes.RELIC.."Relic", rarity = "RELIC" }
 }
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
@@ -30,6 +30,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.Control()
 
 	self.build = build
+	self.versionData = data[build.targetVersion]
 
 	self.socketViewer = common.New("PassiveTreeView")
 
@@ -38,7 +39,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 
 	-- Build lists of item bases, separated by type
 	self.baseLists = { }
-	for name, base in pairs(data.itemBases) do
+	for name, base in pairs(self.versionData.itemBases) do
 		if not base.hidden then
 			local type = base.type
 			if base.subType then
@@ -93,7 +94,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 		end
 	end
 	self.sockets = { }
-	for _, node in pairs(main.tree.nodes) do
+	for _, node in pairs(build.tree.nodes) do
 		if node.type == "socket" then
 			local socketControl = common.New("ItemSlot", {"TOPLEFT",self.slotAnchor,"TOPLEFT"}, 0, 0, self, "Jewel "..node.id, "Socket", node.id)
 			self.controls["socket"..node.id] = socketControl
@@ -159,7 +160,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.controls.selectDB = common.New("DropDownControl", {"LEFT",self.controls.selectDBLabel,"RIGHT"}, 4, 0, 150, 18, { "Uniques", "Rare Templates" })
 
 	-- Unique database
-	self.controls.uniqueDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end, self, main.uniqueDB)
+	self.controls.uniqueDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end, self, main.uniqueDB[build.targetVersion])
 	self.controls.uniqueDB.y = function()
 		return self.controls.selectDBLabel:IsShown() and 76 or 54
 	end
@@ -168,7 +169,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	end
 
 	-- Rare template database
-	self.controls.rareDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end, self, main.rareDB)
+	self.controls.rareDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end, self, main.rareDB[build.targetVersion])
 	self.controls.rareDB.y = function()
 		return self.controls.selectDBLabel:IsShown() and 76 or 370
 	end
@@ -322,6 +323,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 		if node.elem == "Item" then
 			local item = { }
 			item.raw = ""
+			item.targetVersion = self.build.targetVersion
 			item.id = tonumber(node.attrib.id)
 			item.variant = tonumber(node.attrib.variant)
 			itemLib.parseItemRaw(item)
@@ -427,7 +429,7 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 	if self.displayItem then
 		self:AddItemTooltip(self.displayItem)
 		local x, y = self.controls.displayItemTooltipAnchor:GetPos()
-		main:DrawTooltip(x, y, nil, nil, viewPort, data.colorCodes[self.displayItem.rarity])
+		main:DrawTooltip(x, y, nil, nil, viewPort, colorCodes[self.displayItem.rarity])
 	end
 
 	self:UpdateSockets()
@@ -568,7 +570,7 @@ end
 
 -- Attempt to create a new item from the given item raw text and sets it as the new display item
 function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
-	local newItem = itemLib.makeItemFromRaw(itemRaw)
+	local newItem = itemLib.makeItemFromRaw(self.build.targetVersion, itemRaw)
 	if newItem then
 		if normalise then
 			itemLib.normaliseQuality(newItem)
@@ -741,11 +743,11 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName)
 		local weapon1Sel = self.slots[slotName == "Weapon 2" and "Weapon 1" or "Weapon 1 Swap"].selItemId or 0
 		local weapon1Type = weapon1Sel > 0 and self.list[weapon1Sel].base.type or "None"
 		if weapon1Type == "None" then
-			return item.type == "Quiver" or item.type == "Shield" or (data.weaponTypeInfo[item.type] and data.weaponTypeInfo[item.type].oneHand)
+			return item.type == "Quiver" or item.type == "Shield" or (self.build.data.weaponTypeInfo[item.type] and self.build.data.weaponTypeInfo[item.type].oneHand)
 		elseif weapon1Type == "Bow" then
 			return item.type == "Quiver"
-		elseif data.weaponTypeInfo[weapon1Type].oneHand then
-			return item.type == "Shield" or (data.weaponTypeInfo[item.type] and data.weaponTypeInfo[item.type].oneHand and ((weapon1Type == "Wand" and item.type == "Wand") or (weapon1Type ~= "Wand" and item.type ~= "Wand")))
+		elseif self.build.data.weaponTypeInfo[weapon1Type].oneHand then
+			return item.type == "Shield" or (self.build.data.weaponTypeInfo[item.type] and self.build.data.weaponTypeInfo[item.type].oneHand and ((weapon1Type == "Wand" and item.type == "Wand") or (weapon1Type ~= "Wand" and item.type ~= "Wand")))
 		end
 	end
 end
@@ -771,13 +773,13 @@ function ItemsTabClass:CraftItem()
 		item.implicitLines = 0
 		if base.base.implicit then
 			for line in base.base.implicit:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod(line)
+				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
 				t_insert(item.modLines, { line = line, extra = extra, modList = modList or { } })
 				item.implicitLines = item.implicitLines + 1
 			end
 		end
 		itemLib.normaliseQuality(item)
-		return itemLib.makeItemFromRaw(itemLib.createItemRaw(item))
+		return itemLib.makeItemFromRaw(self.build.targetVersion, itemLib.createItemRaw(item))
 	end
 	controls.rarityLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 20, 0, 16, "Rarity:")
 	controls.rarity = common.New("DropDownControl", nil, -80, 20, 100, 18, rarityDropList)
@@ -799,7 +801,7 @@ function ItemsTabClass:CraftItem()
 		if mode ~= "OUT" then
 			local item = makeItem(value)
 			self:AddItemTooltip(item, nil, true)
-			return data.colorCodes[item.rarity], true
+			return colorCodes[item.rarity], true
 		end
 	end
 	controls.save = common.New("ButtonControl", nil, -45, 100, 80, 20, "Create", function()
@@ -849,14 +851,14 @@ function ItemsTabClass:EditDisplayItemText()
 		main:ClosePopup()
 	end)
 	controls.save.enabled = function()
-		local item = itemLib.makeItemFromRaw(buildRaw())
+		local item = itemLib.makeItemFromRaw(self.build.targetVersion, buildRaw())
 		return item ~= nil
 	end
 	controls.save.tooltipFunc = function()
-		local item = itemLib.makeItemFromRaw(buildRaw())
+		local item = itemLib.makeItemFromRaw(self.build.targetVersion, buildRaw())
 		if item then
 			self:AddItemTooltip(item, nil, true)
-			return data.colorCodes[item.rarity], true
+			return colorCodes[item.rarity], true
 		else
 			main:AddTooltipLine(14, "The item is invalid.")
 			main:AddTooltipLine(14, "Check that the item's title and base name are in the correct format.")
@@ -877,7 +879,7 @@ end
 function ItemsTabClass:EnchantDisplayItem()
 	local controls = { } 
 	local enchantments = self.displayItem.enchantments
-	local haveSkills = not self.displayItem.enchantments[data.labyrinths[1].name]
+	local haveSkills = not self.displayItem.enchantments[self.build.data.labyrinths[1].name]
 	local skillList = { }
 	local skillsUsed = { }
 	if haveSkills then
@@ -902,7 +904,7 @@ function ItemsTabClass:EnchantDisplayItem()
 	local function buildLabyrinthList()
 		wipeTable(labyrinthList)
 		local list = haveSkills and enchantments[skillList[controls.skill and controls.skill.selIndex or 1]] or enchantments
-		for _, lab in ipairs(data.labyrinths) do
+		for _, lab in ipairs(self.build.data.labyrinths) do
 			if list[lab.name] then
 				t_insert(labyrinthList, lab)
 			end
@@ -922,7 +924,7 @@ function ItemsTabClass:EnchantDisplayItem()
 	buildLabyrinthList()
 	buildEnchantmentList()
 	local function enchantItem()
-		local item = itemLib.makeItemFromRaw(itemLib.createItemRaw(self.displayItem))
+		local item = itemLib.makeItemFromRaw(self.build.targetVersion, itemLib.createItemRaw(self.displayItem))
 		item.id = self.displayItem.id
 		for i = 1, item.implicitLines do 
 			t_remove(item.modLines, 1)
@@ -966,7 +968,7 @@ function ItemsTabClass:EnchantDisplayItem()
 	controls.save.tooltipFunc = function()
 		local item = enchantItem()
 		self:AddItemTooltip(item, nil, true)
-		return data.colorCodes[item.rarity], true
+		return colorCodes[item.rarity], true
 	end	
 	controls.close = common.New("ButtonControl", nil, 45, 100, 80, 20, "Cancel", function()
 		main:ClosePopup()
@@ -978,7 +980,7 @@ end
 function ItemsTabClass:CorruptDisplayItem()
 	local controls = { } 
 	local implicitList = { }
-	for modId, mod in pairs(data.corruptedMods) do
+	for modId, mod in pairs(self.versionData.corruptedMods) do
 		if itemLib.getModSpawnWeight(self.displayItem, mod) > 0 then
 			t_insert(implicitList, mod)
 		end
@@ -993,7 +995,7 @@ function ItemsTabClass:CorruptDisplayItem()
 		end
 	end)
 	local function corruptItem()
-		local item = itemLib.makeItemFromRaw(itemLib.createItemRaw(self.displayItem))
+		local item = itemLib.makeItemFromRaw(self.build.targetVersion, itemLib.createItemRaw(self.displayItem))
 		item.id = self.displayItem.id
 		item.corrupted = true
 		if controls.implicit.selIndex > 1 then
@@ -1022,7 +1024,7 @@ function ItemsTabClass:CorruptDisplayItem()
 	controls.save.tooltipFunc = function()
 		local item = corruptItem()
 		self:AddItemTooltip(item, nil, true)
-		return data.colorCodes[item.rarity], true
+		return colorCodes[item.rarity], true
 	end	
 	controls.close = common.New("ButtonControl", nil, 45, 50, 80, 20, "Cancel", function()
 		main:ClosePopup()
@@ -1038,7 +1040,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local function buildMods(sourceId)
 		wipeTable(modList)
 		if sourceId == "MASTER" then
-			for _, craft in ipairs(data.masterMods) do
+			for _, craft in ipairs(self.versionData.masterMods) do
 				if craft.types[self.displayItem.type] then
 					t_insert(modList, {
 						label = craft.master .. " " .. craft.masterLevel .. "   "..craft.type:sub(1,3).."^8[" .. table.concat(craft, "/") .. "]",
@@ -1048,7 +1050,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 				end
 			end
 		elseif sourceId == "ESSENCE" then
-			for _, essence in pairs(data.essences) do
+			for _, essence in pairs(self.versionData.essences) do
 				local modId = essence.mods[self.displayItem.type]
 				local mod = self.displayItem.affixes[modId]
 				t_insert(modList, {
@@ -1102,7 +1104,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
 	buildMods(sourceList[1].sourceId)
 	local function addModifier()
-		local item = itemLib.makeItemFromRaw(itemLib.createItemRaw(self.displayItem))
+		local item = itemLib.makeItemFromRaw(self.build.targetVersion, itemLib.createItemRaw(self.displayItem))
 		item.id = self.displayItem.id
 		local sourceId = sourceList[controls.source.selIndex].sourceId
 		if sourceId == "CUSTOM" then
@@ -1148,7 +1150,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	controls.save.tooltipFunc = function()
 		local item = addModifier()
 		self:AddItemTooltip(item)
-		return data.colorCodes[item.rarity], true
+		return colorCodes[item.rarity], true
 	end	
 	controls.close = common.New("ButtonControl", nil, 45, 75, 80, 20, "Cancel", function()
 		main:ClosePopup()
@@ -1158,7 +1160,7 @@ end
 
 function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	-- Item name
-	local rarityCode = data.colorCodes[item.rarity]
+	local rarityCode = colorCodes[item.rarity]
 	if item.title then
 		main:AddTooltipLine(20, rarityCode..item.title)
 		main:AddTooltipLine(20, rarityCode..item.baseName:gsub(" %(.+%)",""))
@@ -1191,13 +1193,13 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	if base.weapon then
 		-- Weapon-specific info
 		local weaponData = item.weaponData[slotNum]
-		main:AddTooltipLine(16, s_format("^x7F7F7F%s", data.weaponTypeInfo[base.type].label or base.type))
+		main:AddTooltipLine(16, s_format("^x7F7F7F%s", self.build.data.weaponTypeInfo[base.type].label or base.type))
 		if item.quality > 0 then
-			main:AddTooltipLine(16, s_format("^x7F7F7FQuality: "..data.colorCodes.MAGIC.."+%d%%", item.quality))
+			main:AddTooltipLine(16, s_format("^x7F7F7FQuality: "..colorCodes.MAGIC.."+%d%%", item.quality))
 		end
 		local totalDamageTypes = 0
 		if weaponData.PhysicalDPS then
-			main:AddTooltipLine(16, s_format("^x7F7F7FPhysical Damage: "..data.colorCodes.MAGIC.."%d-%d (%.1f DPS)", weaponData.PhysicalMin, weaponData.PhysicalMax, weaponData.PhysicalDPS))
+			main:AddTooltipLine(16, s_format("^x7F7F7FPhysical Damage: "..colorCodes.MAGIC.."%d-%d (%.1f DPS)", weaponData.PhysicalMin, weaponData.PhysicalMax, weaponData.PhysicalDPS))
 			totalDamageTypes = totalDamageTypes + 1
 		end
 		if weaponData.ElementalDPS then
@@ -1205,30 +1207,30 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 			for _, var in ipairs({"Fire","Cold","Lightning"}) do
 				if weaponData[var.."DPS"] then
 					elemLine = elemLine and elemLine.."^x7F7F7F, " or "^x7F7F7FElemental Damage: "
-					elemLine = elemLine..s_format("%s%d-%d", data.colorCodes[var:upper()], weaponData[var.."Min"], weaponData[var.."Max"])
+					elemLine = elemLine..s_format("%s%d-%d", colorCodes[var:upper()], weaponData[var.."Min"], weaponData[var.."Max"])
 				end
 			end
 			main:AddTooltipLine(16, elemLine)
-			main:AddTooltipLine(16, s_format("^x7F7F7FElemental DPS: "..data.colorCodes.MAGIC.."%.1f", weaponData.ElementalDPS))
+			main:AddTooltipLine(16, s_format("^x7F7F7FElemental DPS: "..colorCodes.MAGIC.."%.1f", weaponData.ElementalDPS))
 			totalDamageTypes = totalDamageTypes + 1	
 		end
 		if weaponData.ChaosDPS then
-			main:AddTooltipLine(16, s_format("^x7F7F7FChaos Damage: "..data.colorCodes.CHAOS.."%d-%d "..data.colorCodes.MAGIC.."(%.1f DPS)", weaponData.ChaosMin, weaponData.ChaosMax, weaponData.ChaosDPS))
+			main:AddTooltipLine(16, s_format("^x7F7F7FChaos Damage: "..colorCodes.CHAOS.."%d-%d "..colorCodes.MAGIC.."(%.1f DPS)", weaponData.ChaosMin, weaponData.ChaosMax, weaponData.ChaosDPS))
 			totalDamageTypes = totalDamageTypes + 1
 		end
 		if totalDamageTypes > 1 then
-			main:AddTooltipLine(16, s_format("^x7F7F7FTotal DPS: "..data.colorCodes.MAGIC.."%.1f", weaponData.TotalDPS))
+			main:AddTooltipLine(16, s_format("^x7F7F7FTotal DPS: "..colorCodes.MAGIC.."%.1f", weaponData.TotalDPS))
 		end
 		main:AddTooltipLine(16, s_format("^x7F7F7FCritical Strike Chance: %s%.2f%%", main:StatColor(weaponData.CritChance, base.weapon.CritChanceBase), weaponData.CritChance))
 		main:AddTooltipLine(16, s_format("^x7F7F7FAttacks per Second: %s%.2f", main:StatColor(weaponData.AttackRate, base.weapon.AttackRateBase), weaponData.AttackRate))
 		if weaponData.range then
-			main:AddTooltipLine(16, s_format("^x7F7F7FWeapon Range: %s%d", main:StatColor(weaponData.range, data.weaponTypeInfo[base.type].range), weaponData.range))
+			main:AddTooltipLine(16, s_format("^x7F7F7FWeapon Range: %s%d", main:StatColor(weaponData.range, self.build.data.weaponTypeInfo[base.type].range), weaponData.range))
 		end
 	elseif base.armour then
 		-- Armour-specific info
 		local armourData = item.armourData
 		if item.quality > 0 then
-			main:AddTooltipLine(16, s_format("^x7F7F7FQuality: "..data.colorCodes.MAGIC.."+%d%%", item.quality))
+			main:AddTooltipLine(16, s_format("^x7F7F7FQuality: "..colorCodes.MAGIC.."+%d%%", item.quality))
 		end
 		if base.armour.BlockChance and armourData.BlockChance > 0 then
 			main:AddTooltipLine(16, s_format("^x7F7F7FChance to Block: %s%d%%", main:StatColor(armourData.BlockChance, base.armour.BlockChance), armourData.BlockChance))
@@ -1246,7 +1248,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		-- Flask-specific info
 		local flaskData = item.flaskData
 		if item.quality > 0 then
-			main:AddTooltipLine(16, s_format("^x7F7F7FQuality: "..data.colorCodes.MAGIC.."+%d%%", item.quality))
+			main:AddTooltipLine(16, s_format("^x7F7F7FQuality: "..colorCodes.MAGIC.."+%d%%", item.quality))
 		end
 		if flaskData.lifeTotal then
 			main:AddTooltipLine(16, s_format("^x7F7F7FRecovers %s%d ^x7F7F7FLife over %s%.1f0 ^x7F7F7FSeconds", 
@@ -1269,7 +1271,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		))
 		for _, modLine in pairs(item.modLines) do
 			if modLine.buff then
-				main:AddTooltipLine(16, (modLine.extra and data.colorCodes.UNSUPPORTED or data.colorCodes.MAGIC) .. modLine.line)
+				main:AddTooltipLine(16, (modLine.extra and colorCodes.UNSUPPORTED or colorCodes.MAGIC) .. modLine.line)
 			end
 		end
 	elseif item.type == "Jewel" then
@@ -1283,7 +1285,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		if item.jewelRadiusData and slot and item.jewelRadiusData[slot.nodeId] then
 			local radiusData = item.jewelRadiusData[slot.nodeId]
 			local line
-			local codes = { data.colorCodes.MARAUDER, data.colorCodes.RANGER, data.colorCodes.WITCH }
+			local codes = { colorCodes.MARAUDER, colorCodes.RANGER, colorCodes.WITCH }
 			for i, stat in ipairs({"Str","Dex","Int"}) do
 				if radiusData[stat] and radiusData[stat] ~= 0 then
 					line = (line and line .. ", " or "") .. s_format("%s%d %s^7", codes[i], radiusData[stat], stat)
@@ -1433,7 +1435,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 			if item == selItem then
 				header = "^7Removing this item from "..slot.label.." will give you:"
 			else
-				header = string.format("^7Equipping this item in %s%s will give you:", slot.label, selItem and " (replacing "..data.colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+				header = string.format("^7Equipping this item in %s%s will give you:", slot.label, selItem and " (replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
 			end
 			self.build:AddStatComparesToTooltip(calcBase, output, header)
 		end

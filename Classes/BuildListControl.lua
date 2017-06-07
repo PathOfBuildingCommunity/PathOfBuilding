@@ -175,7 +175,7 @@ function BuildListClass:GetRowValue(column, index, build)
 	elseif column == 2 then
 		if build.buildName then
 			return s_format("%sLevel %d %s", 
-				build.className and data.colorCodes[build.className:upper()] or "^7", 
+				build.className and colorCodes[build.className:upper()] or "^7", 
 				build.level or 1, 
 				(build.ascendClassName ~= "None" and build.ascendClassName) or build.className or "?"
 			)

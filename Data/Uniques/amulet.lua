@@ -75,6 +75,13 @@ Requires Level 32
 1% of Damage is taken from Mana before Life per Power Charge
 40% reduced Critical Strike Chance per Power Charge
 ]],[[
+Bisco's Collar
+Gold Amulet
+Requires Level 30
+(12-20)% increased Rarity of Items found
+150% increased Rarity of Items Dropped by Slain Magic Enemies
+100% increased Quantity of Items Dropped by Slain Normal Enemies
+]],[[
 Blightwell
 Clutching Talisman
 League: Talisman Hardcore

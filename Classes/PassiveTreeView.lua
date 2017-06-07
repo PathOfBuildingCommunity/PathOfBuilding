@@ -422,7 +422,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						SetDrawColor(1, 0, 0)
 					elseif hoverNode.type == "socket" then
 						-- Hover node is a socket, check if this node falls within its radius and color it accordingly
-						for index, data in ipairs(data.jewelRadius) do
+						for index, data in ipairs(build.data.jewelRadius) do
 							if hoverNode.nodesInRadius[index][node.id] then
 								SetDrawColor(data.col)
 								break
@@ -457,7 +457,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if node == hoverNode then
 			-- Mouse is over this socket, show all radius rings
 			local scrX, scrY = treeToScreen(node.x, node.y)
-			for _, radData in ipairs(data.jewelRadius) do
+			for _, radData in ipairs(build.data.jewelRadius) do
 				local size = radData.rad * scale
 				SetDrawColor(radData.col)
 				DrawImage(self.ring, scrX - size, scrY - size, size * 2, size * 2)
@@ -467,7 +467,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			if jewel and jewel.jewelRadiusIndex then
 				-- Socket is allocated and there's a jewel socketed into it which has a radius, so show it
 				local scrX, scrY = treeToScreen(node.x, node.y)
-				local radData = data.jewelRadius[jewel.jewelRadiusIndex]
+				local radData = build.data.jewelRadius[jewel.jewelRadiusIndex]
 				local size = radData.rad * scale
 				SetDrawColor(radData.col)
 				DrawImage(self.ring, scrX - size, scrY - size, size * 2, size * 2)				
@@ -538,13 +538,13 @@ function PassiveTreeViewClass:AddNodeName(node)
 	main:AddTooltipLine(24, "^7"..node.dn..(launch.devMode and IsKeyDown("ALT") and " ["..node.id.."]" or ""))
 	if node.type == "socket" then
 		if node.attributesInRadius[2]["Str"] >= 40 then
-			main:AddTooltipLine(16, "^7Can support "..data.colorCodes.STRENGTH.."Strength ^7threshold jewels")
+			main:AddTooltipLine(16, "^7Can support "..colorCodes.STRENGTH.."Strength ^7threshold jewels")
 		end
 		if node.attributesInRadius[2]["Dex"] >= 40 then
-			main:AddTooltipLine(16, "^7Can support "..data.colorCodes.DEXTERITY.."Dexterity ^7threshold jewels")
+			main:AddTooltipLine(16, "^7Can support "..colorCodes.DEXTERITY.."Dexterity ^7threshold jewels")
 		end
 		if node.attributesInRadius[2]["Int"] >= 40 then
-			main:AddTooltipLine(16, "^7Can support "..data.colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels")
+			main:AddTooltipLine(16, "^7Can support "..colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels")
 		end
 	end
 end
@@ -592,7 +592,7 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 					end
 				end
 			end
-			main:AddTooltipLine(16, ((node.mods[i].extra or not node.mods[i].list) and data.colorCodes.UNSUPPORTED or data.colorCodes.MAGIC)..line)
+			main:AddTooltipLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
 		end
 	end
 

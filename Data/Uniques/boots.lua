@@ -128,6 +128,16 @@ Requires Level 34, 62 Dex
 +(40-50)% to Fire Resistance
 10% increased Movement Speed
 ]],[[
+Garukhan's Flight
+Stealth Boots
+Requires Level 62, 117 Dex
++(30-40) to Dexterity
+(80-120)% increased Evasion Rating
+30% increased Movement Speed
+Immune to Burning Ground, Shocked Ground and Chilled Ground
+Regenerate 100 Life per second while moving
++1 to Maximum Life per 10 Dexterity
+]],[[
 Seven-League Step
 Rawhide Boots
 League: Perandus

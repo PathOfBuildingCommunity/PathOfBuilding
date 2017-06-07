@@ -50,7 +50,7 @@ end)
 function ItemListClass:GetRowValue(column, index, itemId)
 	local item = self.itemsTab.list[itemId]
 	if column == 1 then
-		return data.colorCodes[item.rarity] .. item.name .. (not self.itemsTab:GetEquippedSlotForItem(item) and "  ^9(Unused)" or "")
+		return colorCodes[item.rarity] .. item.name .. (not self.itemsTab:GetEquippedSlotForItem(item) and "  ^9(Unused)" or "")
 	end
 end
 
@@ -58,7 +58,7 @@ function ItemListClass:AddValueTooltip(index, itemId)
 	local item = self.itemsTab.list[itemId]
 	if not main.popups[1] then
 		self.itemsTab:AddItemTooltip(item)
-		return data.colorCodes[item.rarity], true
+		return colorCodes[item.rarity], true
 	end
 end
 
@@ -68,7 +68,7 @@ end
 
 function ItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
-		local newItem = itemLib.makeItemFromRaw(value.raw)
+		local newItem = itemLib.makeItemFromRaw(self.itemsTab.build.targetVersion, value.raw)
 		itemLib.normaliseQuality(newItem)
 		self.itemsTab:AddItem(newItem, true, self.selDragIndex)
 		self.itemsTab:PopulateSlots()

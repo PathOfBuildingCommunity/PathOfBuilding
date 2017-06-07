@@ -86,6 +86,15 @@ Radius: Large
 Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage
 Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage
 ]],[[
+Collateral Damage
+Viridian Jewel
+Limited to: 2
+Radius: Medium
+(10–15)% increased Physical Damage
+With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect
+With at least 40 Dexterity in Radius, Shrapnel Shot's
+cone has a 50% chance to deal Double Damage
+]],[[
 Dead Reckoning
 Cobalt Jewel
 Radius: Medium
@@ -125,10 +134,28 @@ Radius: Large
 +(16-24) to Intelligence
 Dexterity from Passives in Radius is Transformed to Intelligence
 ]],[[
+Fight for Survival
+Viridian Jewel
+Limited to: 2
+Radius: Medium
+(10–15)% increased Cold Damage
+With at least 40 Dexterity in Radius, Frost
+Blades Melee Damage Penetrates 15% Cold Resistance
+With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile Speed
+]],[[
 Fireborn
 Crimson Jewel
 Radius: Medium
 Increases and Reductions to other Damage Types in Radius are Transformed to apply to Fire Damage
+]],[[
+First Snow
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+(7–10)% increased Projectile Damage 
+With at least 40 Intelligence in Radius, Freezing Pulse fires 2 additional Projectiles
+With at least 40 Intelligence in Radius, 25% increased Freezing Pulse Damage if
+you've Shattered an Enemy Recently
 ]],[[
 Fluid Motion
 Viridian Jewel
@@ -146,6 +173,15 @@ Fragile Bloom
 Crimson Jewel
 2% of Life Regenerated per Second
 10% increased Damage taken
+]],[[
+Frozen Trail
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+(7–10)% increased Projectile Damage
+With at least 40 Intelligence in Radius, Frostbolt fires 2 additional Projectiles
+With at least 40 Intelligence in Radius, Frostbolt Projectiles gain 40% increased Projectile
+Speed per second
 ]],[[
 Grand Spectrum
 Cobalt Jewel
@@ -222,6 +258,15 @@ Radius: Large
 +(16-24) to Strength
 Dexterity from Passives in Radius is Transformed to Strength
 ]],[[
+Inevitability
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+(10–15)% increased Fire Damage
+With at least 40 Intelligence in Radius, Magma Orb fires an additional Projectile
+With at least 40 Intelligence in Radius, Magma Orb
+has 10% increased Area of Effect per Chain
+]],[[
 Inspired Learning
 Crimson Jewel
 Radius: Small
@@ -262,10 +307,37 @@ Crimson Jewel
 Limited to: 1
 (10-15)% increased Area of Effect while Unarmed
 ]],[[
+Might and Influence
+Viridian Jewel
+Limited to: 1
+Radius: Medium
+(10–15)% increased Physical Damage
+With at least 40 Dexterity in Radius, Dual Strike has a 20% chance
+to deal Double Damage with the Main-Hand Weapon
+With at least 40 Dexterity in Radius, Dual Strike deals Off-Hand Splash Damage
+to surrounding targets
+]],[[
 Might in All Forms
 Crimson Jewel
 Radius: Medium
 Dexterity and Intelligence from passives in Radius count towards Strength Melee Damage bonus
+]],[[
+Omen on the Winds
+Viridian Jewel
+Limited to: 2
+Radius: Medium
+(15-20)% increased Damage against Chilled Enemies
+With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect
+With at least 40 Dexterity in Radius, Ice Shot has 50% chance of Projectiles Piercing
+]],[[
+Overwhelming Odds
+Crimson Jewel
+Limited to: 2
+Radius: Medium
+(10-15)% increased Physical Damage
+With at least 40 Strength in Radius, Cleave grants Fortify on Hit
+With at least 40 Strength in Radius, Cleave has 3% increased Area of
+Effect per Nearby Enemy
 ]],[[
 Pitch Darkness
 Viridian Jewel
@@ -349,6 +421,14 @@ also grant Chance to Block at 35% of its value
 Passives granting Fire Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
+Ring of Blades
+Viridian Jewel
+Limited to: 1
+Radius: Medium
+(10–15)% increased Physical Damage 
+With at least 40 Dexterity in Radius, Ethereal Knives fires Projectiles in a Nova
+With at least 40 Dexterity in Radius, Ethereal Knives fires 10 additional Projectiles
+]],[[
 Rolling Flames
 Cobalt Jewel
 Variant: Pre 2.6.0
@@ -404,6 +484,14 @@ Radius: Medium
 {variant:1}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 4% increased Damage each time it Hits.
 {variant:2}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 5% increased Damage each time it Hits.
 ]],[[
+Sudden Ignition
+Viridian Jewel
+Limited to: 1
+Radius: Medium
+(10–15)% increased Fire Damage 
+With at least 40 Dexterity in Radius, Burning
+Arrow can inflict an additional Ignite on an Enemy
+]],[[
 Unending Hunger 
 Cobalt Jewel
 Limited to: 2
@@ -425,6 +513,16 @@ Radius: Medium
 {variant:1}With at least 40 Strength in Radius, Vigilant Strike also Fortifies Nearby Allies for 3 seconds.
 {variant:2}With at least 40 Strength in Radius, Vigilant Strike Fortifies you and Nearby Allies for 12 seconds
 ]],[[
+Violent Dead
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+Minions deal (10-15)% increased Damage 
+With at least 40 Intelligence in Radius, Raised
+Zombies' Slam Attack has 100% increased Cooldown Recovery Speed
+With at least 40 Intelligence in Radius, Raised Zombies' Slam
+Attack deals 30% increased Damage
+]],[[
 Volley Fire
 Viridian Jewel
 Limited to: 3
@@ -439,6 +537,14 @@ Radius: Medium
 (4-12)% increased Physical Damage
 With at least 40 Strength in Radius, Heavy Strike has a 20% chance to deal Double Damage
 ]],[[
+Wildfire
+Crimson Jewel
+Limited to: 2
+Radius: Medium
+(10–15)% increased Fire Damage 
+With at least 40 Strength in Radius, Molten Strike fires 2 additional Projectiles
+With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Effect
+]],[[
 Winter's Bounty
 Cobalt Jewel
 Variant: Pre 2.6.0
@@ -448,6 +554,16 @@ Radius: Medium
 (5-15)% increased Cold Damage
 {variant:1}With at least 40 Intelligence in Radius, Cold Snap has a 25% chance to grant a Power Charge on Kill
 {variant:2}With at least 40 Intelligence in Radius, Cold Snap has a 50% chance to grant a Power Charge on Kill
+]],[[
+Winter Burial
+Crimson Jewel
+Limited to: 2
+Radius: Medium
+(10–15)% increased Cold Damage 
+With at least 40 Strength in Radius, Glacial Hammer deals
+Cold-only Splash Damage to surrounding targets
+With at least 40 Strength in Radius, 25% of Glacial
+Hammer Physical Damage converted to Cold Damage
 ]],
 -- Jewel: Corrupted
 [[

@@ -12,29 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		UpdateCheck.lua = UpdateCheck.lua
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Item bases", "Item bases", "{5BCB69A7-EFE8-4C72-B5E3-DF2C1E227290}"
-	ProjectSection(SolutionItems) = preProject
-		Data\Bases\amulet.lua = Data\Bases\amulet.lua
-		Data\Bases\axe.lua = Data\Bases\axe.lua
-		Data\Bases\belt.lua = Data\Bases\belt.lua
-		Data\Bases\body.lua = Data\Bases\body.lua
-		Data\Bases\boots.lua = Data\Bases\boots.lua
-		Data\Bases\bow.lua = Data\Bases\bow.lua
-		Data\Bases\claw.lua = Data\Bases\claw.lua
-		Data\Bases\dagger.lua = Data\Bases\dagger.lua
-		Data\Bases\flask.lua = Data\Bases\flask.lua
-		Data\Bases\gloves.lua = Data\Bases\gloves.lua
-		Data\Bases\helmet.lua = Data\Bases\helmet.lua
-		Data\Bases\jewel.lua = Data\Bases\jewel.lua
-		Data\Bases\mace.lua = Data\Bases\mace.lua
-		Data\Bases\quiver.lua = Data\Bases\quiver.lua
-		Data\Bases\ring.lua = Data\Bases\ring.lua
-		Data\Bases\shield.lua = Data\Bases\shield.lua
-		Data\Bases\staff.lua = Data\Bases\staff.lua
-		Data\Bases\sword.lua = Data\Bases\sword.lua
-		Data\Bases\wand.lua = Data\Bases\wand.lua
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{35D8BE82-CD83-4C2D-AD31-47026E724F46}"
 	ProjectSection(SolutionItems) = preProject
 		Modules\Build.lua = Modules\Build.lua
@@ -42,17 +19,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{35D8
 		Modules\CalcActiveSkill.lua = Modules\CalcActiveSkill.lua
 		Modules\CalcBreakdown.lua = Modules\CalcBreakdown.lua
 		Modules\CalcDefence.lua = Modules\CalcDefence.lua
-		Modules\CalcOffence.lua = Modules\CalcOffence.lua
+		Modules\CalcOffence-2_6.lua = Modules\CalcOffence-2_6.lua
+		Modules\CalcOffence-3_0.lua = Modules\CalcOffence-3_0.lua
 		Modules\CalcPerform.lua = Modules\CalcPerform.lua
 		Modules\Calcs.lua = Modules\Calcs.lua
-		Modules\CalcSections.lua = Modules\CalcSections.lua
+		Modules\CalcSections-2_6.lua = Modules\CalcSections-2_6.lua
+		Modules\CalcSections-3_0.lua = Modules\CalcSections-3_0.lua
 		Modules\CalcSetup.lua = Modules\CalcSetup.lua
 		Modules\CalcTools.lua = Modules\CalcTools.lua
 		Modules\Common.lua = Modules\Common.lua
 		Modules\Data.lua = Modules\Data.lua
 		Modules\ItemTools.lua = Modules\ItemTools.lua
 		Modules\Main.lua = Modules\Main.lua
-		Modules\ModParser.lua = Modules\ModParser.lua
+		Modules\ModParser-2_6.lua = Modules\ModParser-2_6.lua
+		Modules\ModParser-3_0.lua = Modules\ModParser-3_0.lua
 		Modules\ModTools.lua = Modules\ModTools.lua
 	EndProjectSection
 EndProject
@@ -101,19 +81,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}"
 	ProjectSection(SolutionItems) = preProject
-		Data\EnchantmentBoots.lua = Data\EnchantmentBoots.lua
-		Data\EnchantmentHelmet.lua = Data\EnchantmentHelmet.lua
-		Data\Essence.lua = Data\Essence.lua
-		Data\Minions.lua = Data\Minions.lua
-		Data\Misc.lua = Data\Misc.lua
-		Data\ModCorrupted.lua = Data\ModCorrupted.lua
-		Data\ModFlask.lua = Data\ModFlask.lua
-		Data\ModItem.lua = Data\ModItem.lua
-		Data\ModJewel.lua = Data\ModJewel.lua
-		Data\ModMaster.lua = Data\ModMaster.lua
+		Data\Global.lua = Data\Global.lua
 		Data\New.lua = Data\New.lua
-		Data\Rares.lua = Data\Rares.lua
-		Data\Spectres.lua = Data\Spectres.lua
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unique items", "Unique items", "{D9D8B9D1-F114-40CB-8EFA-B0F753009183}"
@@ -139,29 +108,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unique items", "Unique item
 		Data\Uniques\wand.lua = Data\Uniques\wand.lua
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skills", "Skills", "{41E2B69C-4D14-4280-B22F-34F1B3E709CE}"
-	ProjectSection(SolutionItems) = preProject
-		Data\Skills\act_dex.lua = Data\Skills\act_dex.lua
-		Data\Skills\act_int.lua = Data\Skills\act_int.lua
-		Data\Skills\act_str.lua = Data\Skills\act_str.lua
-		Data\Skills\minion.lua = Data\Skills\minion.lua
-		Data\Skills\other.lua = Data\Skills\other.lua
-		Data\Skills\spectre.lua = Data\Skills\spectre.lua
-		Data\Skills\sup_dex.lua = Data\Skills\sup_dex.lua
-		Data\Skills\sup_int.lua = Data\Skills\sup_int.lua
-		Data\Skills\sup_str.lua = Data\Skills\sup_str.lua
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{5BCB69A7-EFE8-4C72-B5E3-DF2C1E227290} = {F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}
 		{35D8BE82-CD83-4C2D-AD31-47026E724F46} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
 		{7EE4DE67-DABD-4A3C-8772-37D4A9DB6D59} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
 		{F2327651-CAA5-4DA0-91DB-EFA5E0E07A51} = {AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}
 		{D9D8B9D1-F114-40CB-8EFA-B0F753009183} = {F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}
-		{41E2B69C-4D14-4280-B22F-34F1B3E709CE} = {F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}
 	EndGlobalSection
 EndGlobal

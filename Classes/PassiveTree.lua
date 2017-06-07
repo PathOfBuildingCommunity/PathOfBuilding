@@ -10,6 +10,7 @@ local launch, main = ...
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
+local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 local m_pi = math.pi
@@ -32,19 +33,21 @@ local function getFile(URL)
 	return #page > 0 and page
 end
 
-local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
+local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVersion)
+	self.targetVersion = targetVersion
+
 	MakeDir("TreeData")
 
 	ConPrintf("Loading passive tree data...")
 	local treeText
-	local treeFile = io.open("TreeData/tree.lua", "r")
+	local treeFile = io.open("TreeData/"..targetVersion.."/tree.lua", "r")
 	if treeFile then
 		treeText = treeFile:read("*a")
 		treeFile:close()
 	else
 		ConPrintf("Downloading passive tree data...")
 		local page
-		local pageFile = io.open("TreeData/tree.txt", "r")
+		local pageFile = io.open("TreeData/"..targetVersion.."/tree.txt", "r")
 		if pageFile then
 			page = pageFile:read("*a")
 			pageFile:close()
@@ -54,7 +57,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 		treeText = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
 		treeText = treeText .. "tree.classes=" .. jsonToLua(page:match("ascClasses: (%b{})"))
 		treeText = treeText .. "return tree"
-		treeFile = io.open("TreeData/tree.lua", "w")
+		treeFile = io.open("TreeData/"..targetVersion.."/tree.lua", "w")
 		treeFile:write(treeText)
 		treeFile:close()
 	end
@@ -82,11 +85,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
-		local imgName = "TreeData/"..name..".png"
-		self:CacheImage(imgName, data[0.3835] or data[1])
-		data.handle = NewImageHandle()
-		data.handle:Load(imgName)
-		data.width, data.height = data.handle:ImageSize()
+		self:LoadImage(name..".png", data[0.3835] or data[1], data)
 	end
 
 	-- Load sprite sheets and build sprite map
@@ -97,11 +96,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
-			local imgName = "TreeData/"..maxZoom.filename
-			self:CacheImage(imgName, self.imageRoot.."build-gen/passive-skill-sprite/"..maxZoom.filename)
-			sheet.handle = NewImageHandle()
-			sheet.handle:Load(imgName, "CLAMP")
-			sheet.width, sheet.height = sheet.handle:ImageSize()
+			self:LoadImage(maxZoom.filename:gsub("%?%x+$",""), self.imageRoot.."build-gen/passive-skill-sprite/"..maxZoom.filename, sheet, "CLAMP")
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
@@ -223,8 +218,17 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 		node.modKey = ""
 		local i = 1
 		while node.sd[i] do
+			if node.sd[i]:match("\n") then
+				local line = node.sd[i]
+				local il = i
+				t_remove(node.sd, i)
+				for line in line:gmatch("[^\n]+") do
+					t_insert(node.sd, il, line)
+					il = il + 1
+				end
+			end
 			local line = node.sd[i]
-			local list, extra = modLib.parseMod(line)
+			local list, extra = modLib.parseMod[targetVersion](line)
 			if not list or extra then
 				-- Try to combine it with one or more of the lines that follow this one
 				local endI = i + 1
@@ -233,7 +237,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 					for ci = i + 1, endI do
 						comb = comb .. " " .. node.sd[ci]
 					end
-					list, extra = modLib.parseMod(comb)
+					list, extra = modLib.parseMod[targetVersion](comb)
 					if list and not extra then
 						-- Success, add dummy mod lists to the other lines that were combined with this one
 						for ci = i + 1, endI do
@@ -288,7 +292,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 	for nodeId, socket in pairs(sockets) do
 		socket.nodesInRadius = { }
 		socket.attributesInRadius = { }
-		for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
+		for radiusIndex, radiusInfo in ipairs(data[targetVersion].jewelRadius) do
 			socket.nodesInRadius[radiusIndex] = { }
 			socket.attributesInRadius[radiusIndex] = { }
 			local rSq = radiusInfo.rad * radiusInfo.rad
@@ -321,21 +325,30 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self)
 end)
 
 -- Checks if a given image is present and downloads it from the given URL if it isn't there
-function PassiveTreeClass:CacheImage(imgName, url)
-	local imgFile = io.open(imgName, "r")
+function PassiveTreeClass:LoadImage(imgName, url, data, ...)
+	local imgFile = io.open("TreeData/"..imgName, "r")
 	if imgFile then
 		imgFile:close()
 	else
-		ConPrintf("Downloading '%s'...", imgName)
-		local data = getFile(url)
-		if data then
-			imgFile = io.open(imgName, "wb")
-			imgFile:write(data)
+		imgFile = io.open("TreeData/"..self.targetVersion.."/"..imgName, "r")
+		if imgFile then
 			imgFile:close()
+			imgName = self.targetVersion.."/"..imgName
 		else
-			ConPrintf("Failed to download: %s", url)
+			ConPrintf("Downloading '%s'...", imgName)
+			local data = getFile(url)
+			if data then
+				imgFile = io.open("TreeData/"..imgName, "wb")
+				imgFile:write(data)
+				imgFile:close()
+			else
+				ConPrintf("Failed to download: %s", url)
+			end
 		end
 	end
+	data.handle = NewImageHandle()
+	data.handle:Load("TreeData/"..imgName, ...)
+	data.width, data.height = data.handle:ImageSize()
 end
 
 -- Generate the quad used to render the line between the two given nodes

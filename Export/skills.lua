@@ -437,6 +437,6 @@ for _, name in pairs({"act_str","act_dex","act_int","other","minion","spectre","
 	processTemplateFile("Skills/"..name, directiveTable)
 end
 
-os.execute("xcopy Skills\\*.lua ..\\Data\\Skills\\ /Y /Q")
+os.execute("xcopy Skills\\*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
 
 print("Skill data exported.")

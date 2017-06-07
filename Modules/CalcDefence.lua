@@ -397,7 +397,7 @@ function calcs.defence(env, actor)
 				local resist = output[destType.."Resist"]
 				if damageType == "Physical" and destType == "Physical" then
 					-- Factor in armour for Physical taken as Physical
-					local damage = env.configInput.enemyPhysicalHit or data.monsterDamageTable[env.enemyLevel] * 1.5
+					local damage = env.configInput.enemyPhysicalHit or env.data.monsterDamageTable[env.enemyLevel] * 1.5
 					local armourReduct = calcLib.armourReduction(output.Armour, damage * portion / 100)
 					resist = m_min(90, resist + armourReduct)
 					output.PhysicalDamageReduction = resist

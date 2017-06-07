@@ -50,19 +50,20 @@ function itemLib.formatModLine(modLine, dbMode)
 	end
 	local colorCode
 	if modLine.extra then
-		colorCode = data.colorCodes.UNSUPPORTED
+		colorCode = colorCodes.UNSUPPORTED
 		if launch.devMode and IsKeyDown("ALT") then
 			line = line .. "   ^1'" .. modLine.extra .. "'"
 		end
 	else
-		colorCode = (modLine.crafted and data.colorCodes.CRAFTED) or (modLine.custom and data.colorCodes.CUSTOM) or data.colorCodes.MAGIC
+		colorCode = (modLine.crafted and colorCodes.CRAFTED) or (modLine.custom and colorCodes.CUSTOM) or colorCodes.MAGIC
 	end
 	return colorCode..line
 end
 
 -- Make an item from raw data
-function itemLib.makeItemFromRaw(raw)
+function itemLib.makeItemFromRaw(targetVersion, raw)
 	local newItem = {
+		targetVersion = targetVersion,
 		raw = itemLib.sanitiseItemText(raw)
 	}
 	itemLib.parseItemRaw(newItem)
@@ -73,6 +74,7 @@ end
 
 -- Parse raw item data and extract item name, base type, quality, and modifiers
 function itemLib.parseItemRaw(item)
+	local verData = data[item.targetVersion]
 	item.name = "?"
 	item.rarity = "UNIQUE"
 	item.quality = nil
@@ -89,7 +91,7 @@ function itemLib.parseItemRaw(item)
 		local rarity = item.rawLines[l]:match("^Rarity: (%a+)")
 		if rarity then
 			mode = "GAME"
-			if data.colorCodes[rarity:upper()] then
+			if colorCodes[rarity:upper()] then
 				item.rarity = rarity:upper()
 			end
 			if item.rarity == "NORMAL" then
@@ -111,7 +113,7 @@ function itemLib.parseItemRaw(item)
 	item.namePrefix = ""
 	item.nameSuffix = ""
 	if item.rarity == "NORMAL" or item.rarity == "MAGIC" then
-		for baseName, baseData in pairs(data.itemBases) do
+		for baseName, baseData in pairs(verData.itemBases) do
 			local s, e = item.name:find(baseName, 1, true)
 			if s then
 				item.baseName = baseName
@@ -136,21 +138,21 @@ function itemLib.parseItemRaw(item)
 		if item.rawLines[l] == "Two-Toned Boots" then
 			item.rawLines[l] = "Two-Toned Boots (Armour/Energy Shield)"
 		end
-		if data.itemBases[item.rawLines[l]] then
+		if verData.itemBases[item.rawLines[l]] then
 			item.baseName = item.rawLines[l]
 			item.title = item.name
 			item.name = item.title .. ", " .. item.baseName:gsub(" %(.+%)","")
-			item.type = data.itemBases[item.baseName].type
+			item.type = verData.itemBases[item.baseName].type
 			l = l + 1
 		end
 	end
-	item.base = data.itemBases[item.baseName]
+	item.base = verData.itemBases[item.baseName]
 	item.modLines = { }
 	item.implicitLines = 0
 	item.buffLines = 0
 	if item.base then
-		item.affixes = data.itemMods[item.base.type] or data.itemMods.Item
-		item.enchantments = data.enchantments[item.base.type]
+		item.affixes = verData.itemMods[item.base.type] or verData.itemMods.Item
+		item.enchantments = verData.enchantments[item.base.type]
 		item.corruptable = item.base.type ~= "Flask"
 	end
 	item.prefixes = { }
@@ -167,7 +169,7 @@ function itemLib.parseItemRaw(item)
 		item.buffLines = #item.base.flask.buff
 		for _, line in ipairs(item.base.flask.buff) do
 			flaskBuffLines[line] = true
-			local modList, extra = modLib.parseMod(line)
+			local modList, extra = modLib.parseMod[item.targetVersion](line)
 			t_insert(item.modLines, { line = line, extra = extra, modList = modList or { }, buff = true })
 		end
 	end
@@ -217,7 +219,7 @@ function itemLib.parseItemRaw(item)
 						end
 					end
 				elseif specName == "Radius" and item.type == "Jewel" then
-					for index, data in pairs(data.jewelRadius) do
+					for index, data in pairs(verData.jewelRadius) do
 						if specVal == data.label then
 							item.jewelRadiusIndex = index
 							break
@@ -256,13 +258,13 @@ function itemLib.parseItemRaw(item)
 					if item.baseName == "Two-Toned Boots (Armour/Energy Shield)" then
 						-- Another hack for Two-Toned Boots
 						item.baseName = "Two-Toned Boots (Armour/Evasion)"
-						item.base = data.itemBases[item.baseName]
+						item.base = verData.itemBases[item.baseName]
 					end
 				elseif specName == "Energy Shield" then
 					if item.baseName == "Two-Toned Boots (Armour/Evasion)" then
 						-- Yet another hack for Two-Toned Boots
 						item.baseName = "Two-Toned Boots (Evasion/Energy Shield)"
-						item.base = data.itemBases[item.baseName]
+						item.base = verData.itemBases[item.baseName]
 					end
 				end
 			end
@@ -287,15 +289,15 @@ function itemLib.parseItemRaw(item)
 				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
 					rangedLine = itemLib.applyRange(line, 1)
 				end
-				local modList, extra = modLib.parseMod(rangedLine or line)
+				local modList, extra = modLib.parseMod[item.targetVersion](rangedLine or line)
 				if (not modList or extra) and item.rawLines[l+1] then
 					-- Try to combine it with the next line
-					modList, extra = modLib.parseMod(line.." "..item.rawLines[l+1])
+					modList, extra = modLib.parseMod[item.targetVersion](line.." "..item.rawLines[l+1])
 					if modList and not extra then
 						line = line.."\n"..item.rawLines[l+1]
 						l = l + 1
 					else
-						modList, extra = modLib.parseMod(rangedLine or line)
+						modList, extra = modLib.parseMod[item.targetVersion](rangedLine or line)
 					end
 				end
 				if modList then
@@ -645,8 +647,8 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 		if weaponData.AccuracyInc > 0 then
 			modList:NewMod("Accuracy", "MORE", weaponData.AccuracyInc, item.modSource, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })
 		end
-		if data.weaponTypeInfo[item.base.type].range then
-			weaponData.range = data.weaponTypeInfo[item.base.type].range + sumLocal(modList, "WeaponRange", "BASE", 0)
+		if data[item.targetVersion].weaponTypeInfo[item.base.type].range then
+			weaponData.range = data[item.targetVersion].weaponTypeInfo[item.base.type].range + sumLocal(modList, "WeaponRange", "BASE", 0)
 		end
 		for _, mod in ipairs(modList) do
 			-- Convert accuracy, L/MGoH and PAD Leech modifiers to local
@@ -754,7 +756,7 @@ function itemLib.buildItemModList(item)
 		if not modLine.extra and (not modLine.variantList or modLine.variantList[item.variant]) then
 			if modLine.range then
 				local line = itemLib.applyRange(modLine.line, modLine.range)
-				local list, extra = modLib.parseMod(line)
+				local list, extra = modLib.parseMod[item.targetVersion](line)
 				if list and not extra then
 					modLine.modList = list
 					t_insert(item.rangeLineList, modLine)

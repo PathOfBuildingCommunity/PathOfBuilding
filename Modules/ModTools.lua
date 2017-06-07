@@ -41,7 +41,10 @@ function modLib.createMod(modName, modType, modVal, ...)
 	}
 end
 
-modLib.parseMod = LoadModule("Modules/ModParser")
+modLib.parseMod = { }
+for _, targetVersion in pairs(targetVersionList) do
+	modLib.parseMod[targetVersion] = LoadModule("Modules/ModParser-"..targetVersion)
+end
 
 function modLib.formatFlags(flags, src)
 	local flagNames = { }

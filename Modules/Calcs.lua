@@ -3,6 +3,7 @@
 -- Module: Calcs
 -- Manages the calculation system.
 --
+local targetVersion = ...
 
 local pairs = pairs
 local ipairs = ipairs
@@ -11,11 +12,13 @@ local t_remove = table.remove
 local s_format = string.format
 
 local calcs = { }
+calcs.targetVersion = targetVersion
+calcs.breakdownModule = "Modules/CalcBreakdown"
 LoadModule("Modules/CalcSetup", calcs)
 LoadModule("Modules/CalcPerform", calcs)
 LoadModule("Modules/CalcActiveSkill", calcs)
 LoadModule("Modules/CalcDefence", calcs)
-LoadModule("Modules/CalcOffence", calcs)
+LoadModule("Modules/CalcOffence-"..targetVersion, calcs)
 
 -- Print various tables to the console
 local function infoDump(env, output)

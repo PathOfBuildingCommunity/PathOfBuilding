@@ -8,12 +8,16 @@ local launch = ...
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
+local m_ceil = math.ceil
 local m_floor = math.floor
 local m_max = math.max
 local m_min = math.min
 local m_sin = math.sin
 local m_cos = math.cos
 local m_pi = math.pi
+
+defaultTargetVersion = "2_6"
+targetVersionList = { "2_6", "3_0" }
 
 LoadModule("Modules/Common")
 LoadModule("Modules/Data", launch)
@@ -103,29 +107,36 @@ function main:Init()
 	self.buildPath = self.defaultBuildPath
 	MakeDir(self.buildPath)
 	
-	self.tree = common.New("PassiveTree")
+	self.tree = { }
+	for _, targetVersion in ipairs(targetVersionList) do
+		self.tree[targetVersion] = common.New("PassiveTree", targetVersion)
+	end
 
 	ConPrintf("Loading item databases...")
-	self.uniqueDB = { list = { } }
-	for type, typeList in pairs(data.uniques) do
-		for _, raw in pairs(typeList) do
-			local newItem = itemLib.makeItemFromRaw("Rarity: Unique\n"..raw)
-			if newItem then
-				itemLib.normaliseQuality(newItem)
-				self.uniqueDB.list[newItem.name] = newItem
-			else
-				ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
+	self.uniqueDB = { }
+	self.rareDB = { }
+	for _, targetVersion in ipairs(targetVersionList) do
+		self.uniqueDB[targetVersion] = { list = { } }
+		for type, typeList in pairs(data.uniques) do
+			for _, raw in pairs(typeList) do
+				local newItem = itemLib.makeItemFromRaw(targetVersion, "Rarity: Unique\n"..raw)
+				if newItem then
+					itemLib.normaliseQuality(newItem)
+					self.uniqueDB[targetVersion].list[newItem.name] = newItem
+				else
+					ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
+				end
 			end
 		end
-	end
-	self.rareDB = { list = { } }
-	for _, raw in pairs(data.rares) do
-		local newItem = itemLib.makeItemFromRaw(raw)
-		if newItem then
-			itemLib.normaliseQuality(newItem)
-			self.rareDB.list[newItem.name] = newItem
-		else
-			ConPrintf("Rare DB unrecognised item:\n%s", raw)
+		self.rareDB[targetVersion] = { list = { } }
+		for _, raw in pairs(data[targetVersion].rares) do
+			local newItem = itemLib.makeItemFromRaw(targetVersion, raw)
+			if newItem then
+				itemLib.normaliseQuality(newItem)
+				self.rareDB[targetVersion].list[newItem.name] = newItem
+			else
+				ConPrintf("Rare DB unrecognised item:\n%s", raw)
+			end
 		end
 	end
 
@@ -146,13 +157,13 @@ function main:Init()
 	self.controls.about = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 228, 0, 70, 20, "About", function()
 		self:OpenAboutPopup()
 	end)
-	self.controls.applyUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -24, 130, 20, "^x50E050Update Ready", function()
+	self.controls.applyUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -24, 140, 20, "^x50E050Update Ready", function()
 		self:OpenUpdatePopup()
 	end)
 	self.controls.applyUpdate.shown = function()
 		return launch.updateAvailable and launch.updateAvailable ~= "none"
 	end
-	self.controls.checkUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -24, 130, 20, "", function()
+	self.controls.checkUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -24, 140, 20, "", function()
 		launch:CheckForUpdate()
 	end)
 	self.controls.checkUpdate.shown = function()
@@ -164,7 +175,7 @@ function main:Init()
 	self.controls.checkUpdate.enabled = function()
 		return not launch.updateCheckRunning
 	end
-	self.controls.versionLabel = common.New("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 134, -27, 0, 14, "")
+	self.controls.versionLabel = common.New("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 144, -27, 0, 14, "")
 	self.controls.versionLabel.label = function()
 		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or "")
 	end
@@ -381,16 +392,21 @@ function main:LoadSettings()
 			elseif node.elem == "SharedItems" then
 				for _, child in ipairs(node) do
 					if child.elem == "Item" then
-						local item = { raw = "" }
-						itemLib.parseItemRaw(item)
+						local verItem = { raw = "" }
 						for _, subChild in ipairs(child) do
 							if type(subChild) == "string" then
-								item.raw = subChild
-								itemLib.parseItemRaw(item)
+								verItem.raw = subChild
 							end
 						end
-						itemLib.buildItemModList(item)
-						t_insert(self.sharedItems, item)
+						for _, targetVersion in ipairs(targetVersionList) do			
+							local item = { 
+								targetVersion = targetVersion,
+								raw = verItem.raw,
+							}
+							itemLib.parseItemRaw(item)
+							verItem[targetVersion] = item
+						end
+						t_insert(self.sharedItems, verItem)
 					end
 				end
 			elseif node.elem == "Misc" then
@@ -430,8 +446,8 @@ function main:SaveSettings()
 	end
 	t_insert(setXML, accounts)
 	local sharedItems = { elem = "SharedItems" }
-	for _, item in ipairs(self.sharedItems) do
-		t_insert(sharedItems, { elem = "Item", [1] = item.raw })
+	for _, verItem in ipairs(self.sharedItems) do
+		t_insert(sharedItems, { elem = "Item", [1] = verItem.raw })
 	end
 	t_insert(setXML, sharedItems)
 	t_insert(setXML, { elem = "Misc", attrib = { 
@@ -576,7 +592,7 @@ end
 function main:DrawBackground(viewPort)
 	SetDrawLayer(nil, -100)
 	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(self.tree.assets.Background1.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
+	DrawImage(self.tree[defaultTargetVersion].assets.Background1.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
 	SetDrawLayer(nil, 0)
 end
 
@@ -657,9 +673,9 @@ end
 
 function main:StatColor(stat, base, limit)
 	if limit and stat > limit then
-		return data.colorCodes.NEGATIVE
+		return colorCodes.NEGATIVE
 	elseif base and stat ~= base then
-		return data.colorCodes.MAGIC
+		return colorCodes.MAGIC
 	else
 		return "^7"
 	end
@@ -771,11 +787,12 @@ function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm)
 		t_insert(controls, common.New("LabelControl", nil, 0, 20 + numMsgLines * 16, 0, 16, line))
 		numMsgLines = numMsgLines + 1
 	end
-	controls.confirm = common.New("ButtonControl", nil, -45, 40 + numMsgLines * 16, 80, 20, confirmLabel, function()
-		onConfirm()
+	local confirmWidth = m_max(80, DrawStringWidth(16, "VAR", confirmLabel) + 10)
+	controls.confirm = common.New("ButtonControl", nil, -5 - m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20, confirmLabel, function()
 		main:ClosePopup()
+		onConfirm()
 	end)
-	t_insert(controls, common.New("ButtonControl", nil, 45, 40 + numMsgLines * 16, 80, 20, "Cancel", function()
+	t_insert(controls, common.New("ButtonControl", nil, 5 + m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20, "Cancel", function()
 		main:ClosePopup()
 	end))
 	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "confirm")

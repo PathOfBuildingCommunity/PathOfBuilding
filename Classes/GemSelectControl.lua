@@ -52,7 +52,7 @@ function GemSelectClass:BuildList(buf)
 		local added = { }
 		for i, pattern in ipairs(patternList) do
 			local matchList = { }
-			for name, data in pairs(data.gems) do
+			for name, data in pairs(self.skillsTab.build.data.gems) do
 				if not added[name] and (" "..name:lower()):match(pattern) then
 					t_insert(matchList, name)
 					added[name] = true
@@ -66,7 +66,7 @@ function GemSelectClass:BuildList(buf)
 		local tagName = self.searchStr:match("^%s*(%a+)%s*$")
 		if tagName then
 			local matchList = { }
-			for name, data in pairs(data.gems) do
+			for name, data in pairs(self.skillsTab.build.data.gems) do
 				if not added[name] and data.gemTags[tagName:lower()] == true then
 					t_insert(matchList, name)
 					added[name] = true
@@ -78,7 +78,7 @@ function GemSelectClass:BuildList(buf)
 			end
 		end
 	else
-		for name, data in pairs(data.gems) do
+		for name, data in pairs(self.skillsTab.build.data.gems) do
 			t_insert(self.list, name)
 		end
 		t_sort(self.list)
@@ -93,7 +93,7 @@ end
 
 function GemSelectClass:UpdateGem(setText, addUndo)
 	local gemName = self.list[m_max(self.selIndex, 1)]
-	if self.buf:match("%S") and data.gems[gemName] then
+	if self.buf:match("%S") and self.skillsTab.build.data.gems[gemName] then
 		self.gemName = gemName
 	else
 		self.gemName = ""
@@ -156,7 +156,7 @@ function GemSelectClass:Draw(viewPort)
 		SetDrawLayer(nil, 5)
 		local cursorX, cursorY = GetCursorPos()
 		self.hoverSel = mOverComp == "DROP" and math.floor((cursorY - y - height + scrollBar.offset) / (height - 4)) + 1
-		if self.hoverSel and not data.gems[self.list[self.hoverSel]] then
+		if self.hoverSel and not self.skillsTab.build.data.gems[self.list[self.hoverSel]] then
 			self.hoverSel = nil
 		end
 		SetViewport(x + 2, y + height + 2, width - 4, dropHeight)
@@ -169,14 +169,14 @@ function GemSelectClass:Draw(viewPort)
 				DrawImage(nil, 0, y, width - 4, height - 4)
 			end
 			SetDrawColor(1, 1, 1)
-			local gemData = data.gems[self.list[index]]
+			local gemData = self.skillsTab.build.data.gems[self.list[index]]
 			if gemData then
 				if gemData.color == 1 then
-					SetDrawColor(data.colorCodes.STRENGTH)
+					SetDrawColor(colorCodes.STRENGTH)
 				elseif gemData.color == 2 then
-					SetDrawColor(data.colorCodes.DEXTERITY)
+					SetDrawColor(colorCodes.DEXTERITY)
 				elseif gemData.color == 3 then
-					SetDrawColor(data.colorCodes.INTELLIGENCE)
+					SetDrawColor(colorCodes.INTELLIGENCE)
 				end
 			end
 			DrawString(0, y, "LEFT", height - 4, "VAR", self.list[index])
@@ -205,7 +205,7 @@ function GemSelectClass:Draw(viewPort)
 				end
 				local gem = gemList[self.index]
 				gem.name = self.list[self.hoverSel]
-				gem.data = data.gems[self.list[self.hoverSel]]
+				gem.data = self.skillsTab.build.data.gems[self.list[self.hoverSel]]
 				if not gem.data.levels[gem.level] then
 					gem.level = gem.data.defaultLevel
 				end
@@ -243,7 +243,7 @@ function GemSelectClass:Draw(viewPort)
 			local gem = self.skillsTab.displayGroup.gemList[self.index]
 			if gem and gem.data then
 				SetDrawLayer(nil, 10)
-				main:AddTooltipLine(20, data.colorCodes.GEM..gem.data.name)
+				main:AddTooltipLine(20, colorCodes.GEM..gem.data.name)
 				main:AddTooltipSeparator(10)
 				main:AddTooltipLine(16, "^x7F7F7F"..gem.data.gemTagString)
 				main:AddTooltipSeparator(10)
@@ -251,10 +251,10 @@ function GemSelectClass:Draw(viewPort)
 				if gem.data.description then
 					local wrap = main:WrapString(gem.data.description, 16, m_max(DrawStringWidth(16, "VAR", gem.data.gemTagString), 400))
 					for _, line in ipairs(wrap) do
-						main:AddTooltipLine(16, data.colorCodes.GEM..line)
+						main:AddTooltipLine(16, colorCodes.GEM..line)
 					end
 				end
-				main:DrawTooltip(x, y, width, height, viewPort, data.colorCodes.GEM, true)
+				main:DrawTooltip(x, y, width, height, viewPort, colorCodes.GEM, true)
 				SetDrawLayer(nil, 0)
 			end
 		end
@@ -303,7 +303,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 			return
 		end
 		if key == "LEFTBUTTON" then
-			if self.hoverSel and data.gems[self.list[self.hoverSel]] then
+			if self.hoverSel and self.skillsTab.build.data.gems[self.list[self.hoverSel]] then
 				self.dropped = false
 				self.selIndex = self.hoverSel
 				self:SetText(self.list[self.selIndex])

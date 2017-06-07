@@ -92,6 +92,7 @@ function calcs.initEnv(build, mode, override)
 
 	local env = { }
 	env.build = build
+	env.data = build.data
 	env.configInput = build.configTab.input
 	env.calcsInput = build.calcsTab.input
 	env.mode = mode
@@ -190,8 +191,8 @@ function calcs.initEnv(build, mode, override)
 	env.enemyDB = enemyDB
 	env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, 84)))
 	calcs.initModDB(env, enemyDB)
-	enemyDB:NewMod("Accuracy", "BASE", data.monsterAccuracyTable[env.enemyLevel], "Base")
-	enemyDB:NewMod("Evasion", "BASE", data.monsterEvasionTable[env.enemyLevel], "Base")
+	enemyDB:NewMod("Accuracy", "BASE", env.data.monsterAccuracyTable[env.enemyLevel], "Base")
+	enemyDB:NewMod("Evasion", "BASE", env.data.monsterEvasionTable[env.enemyLevel], "Base")
 
 	-- Add mods from the config tab
 	modDB:AddList(build.configTab.modList)
@@ -426,7 +427,7 @@ function calcs.initEnv(build, mode, override)
 	end
 
 	-- Get the weapon data tables for the equipped weapons
-	env.player.weaponData1 = env.player.itemList["Weapon 1"] and env.player.itemList["Weapon 1"].weaponData and env.player.itemList["Weapon 1"].weaponData[1] or copyTable(data.unarmedWeaponData[env.classId])
+	env.player.weaponData1 = env.player.itemList["Weapon 1"] and env.player.itemList["Weapon 1"].weaponData and env.player.itemList["Weapon 1"].weaponData[1] or copyTable(env.data.unarmedWeaponData[env.classId])
 	if env.player.weaponData1.countsAsDualWielding then
 		env.player.weaponData2 = env.player.itemList["Weapon 1"].weaponData[2]
 	else
@@ -461,7 +462,7 @@ function calcs.initEnv(build, mode, override)
 			if not socketGroup.source then
 				-- Add extra supports from the item this group is socketed in
 				for _, value in ipairs(env.modDB:Sum("LIST", groupCfg, "ExtraSupport")) do
-					local gemData = data.gems[value.name] or data.skills[value.name]
+					local gemData = env.data.gems[value.name] or env.data.skills[value.name]
 					if gemData then
 						t_insert(supportList, { 
 							name = gemData.name,
@@ -588,7 +589,7 @@ function calcs.initEnv(build, mode, override)
 			level = 1,
 			quality = 0,
 			enabled = true,
-			data = data.skills.Melee
+			data = env.data.skills.Melee
 		}
 		env.player.mainSkill = calcs.createActiveSkill(defaultGem, { })
 		t_insert(env.activeSkillList, env.player.mainSkill)

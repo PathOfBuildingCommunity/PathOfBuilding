@@ -9,6 +9,11 @@ local t_insert = table.insert
 local m_max = math.max
 local m_floor = math.floor
 
+local gameVersionDropList = {
+	{ label = "2.6 (Atlas of Worlds)", version = "2_6", versionPretty = "2.6" },
+	{ label = "3.0 (Fall of Oriath)", version = "3_0", versionPretty = "3.0" },
+}
+
 local varList = {
 	{ section = "General", col = 1 },
 	{ var = "enemyLevel", type = "number", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and evade chances.\nThe default level is your character level, capped at 84, which is the same value\nused in-game to calculate the stats on the character sheet." },
@@ -555,6 +560,26 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 		end
 	end
 
+	-- Special control for game version selector
+	self.controls.gameVersion = common.New("DropDownControl", {"TOPLEFT",self.sectionList[1],"TOPLEFT"}, 234, 0, 118, 16, gameVersionDropList, function(index, value)
+		if value.version ~= build.targetVersion then
+			main:OpenConfirmPopup("Convert Build", "^xFF9922Warning:^7 Converting a build to a different game version may have side effects.\nFor example, if the passive tree has changed, then some passives may be deallocated.\nYou should create a backup copy of the build before proceeding.", "Convert to "..value.versionPretty, function()
+				if build.unsaved then
+					build:OpenSavePopup("VERSION", value.version)
+				else
+					if build.dbFileName then
+						build.targetVersion = value.version
+						build:SaveDBFile()
+					end
+					build:Shutdown()
+					build:Init(build.dbFileName, build.buildName, nil, value.version)
+				end
+			end)
+		end
+	end)
+	t_insert(self.controls, common.New("LabelControl", {"RIGHT",self.controls.gameVersion,"LEFT"}, -4, 0, 0, 14, "^7Game Version:"))
+	t_insert(self.sectionList[1].varControlList, 1, self.controls.gameVersion)
+
 	self.controls.scrollBar = common.New("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
 end)
 
@@ -616,6 +641,11 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	self.y = viewPort.y
 	self.width = viewPort.width
 	self.height = viewPort.height
+
+	if not main.popups[1] then
+		-- >_>
+		self.controls.gameVersion:SelByValue(self.build.targetVersion, "version")
+	end
 
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then	

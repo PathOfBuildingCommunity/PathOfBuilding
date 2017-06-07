@@ -14,7 +14,12 @@ local m_min = math.min
 local m_floor = math.floor
 local band = bit.band
 
-local sectionData = LoadModule("Modules/CalcSections")
+local calcs = { }
+local sectionData = { } 
+for _, targetVersion in ipairs(targetVersionList) do
+	calcs[targetVersion] = LoadModule("Modules/Calcs", targetVersion)
+	sectionData[targetVersion] = LoadModule("Modules/CalcSections-"..targetVersion)
+end
 
 local buffModeDropList = {
 	{ label = "Unbuffed", buffMode = "UNBUFFED" },
@@ -29,8 +34,9 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 	self.Control()
 
 	self.build = build
+	self.versionData = data[build.targetVersion]
 
-	self.calcs = LoadModule("Modules/Calcs")
+	self.calcs = calcs[build.targetVersion]
 
 	self.input = { }
 	self.input.skill_number = 1
@@ -40,7 +46,7 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 	self.sectionList = { }
 
 	-- Special section for skill/mode selection
-	self:NewSection(3, "SkillSelect", 1, "View Skill Details", data.colorCodes.NORMAL, {
+	self:NewSection(3, "SkillSelect", 1, "View Skill Details", colorCodes.NORMAL, {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
 			control = common.New("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value) 
 				self.input.skill_number = index 
@@ -115,7 +121,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 	end)
 
 	-- Add sections from the CalcSections module
-	for _, section in ipairs(sectionData) do
+	for _, section in ipairs(sectionData[build.targetVersion]) do
 		self:NewSection(unpack(section))
 	end
 

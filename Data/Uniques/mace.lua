@@ -485,6 +485,16 @@ Adds 5 to 25 Physical Damage
 +10 Life gained on Kill
 Enemies killed explode dealing 10% of their Life as Fire Damage
 ]],[[
+Tidebreaker
+Imperial Maul
+Requires Level 65, 212 Str
+30% increased Stun Duration on Enemies
+Socketed Gems are Supported by Level 20 Endurance Charge on Melee Stun
+Adds (60–70) to (300–350) Physical Damage
++40 to Intelligence
+10% increased Physical Damage per Endurance Charge
+(20–30)% reduced Enemy Stun Threshold with this Weapon
+]],[[
 Trypanon
 Great Mallet
 Variant: Pre 2.6.0

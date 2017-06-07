@@ -3,6 +3,17 @@
 return {
 -- Shield: Armour
 [[
+Ahn's Heritage
+Colossal Tower Shield
+Requires Level 67, 159 Str
+(50-100)% increased Armour
++(60-80) to maximum Life
+-1 to maximum Endurance Charges
+-10% to maximum Block Chance
++6% Chance to Block
++3% to all maximum Resistances while you have no Endurance Charges
+You have Onslaught while at maximum Endurance Charges
+]],[[
 The Anticipation
 Ezomyte Tower Shield
 League: Breach

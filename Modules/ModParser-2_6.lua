@@ -1,6 +1,6 @@
 -- Path of Building
 --
--- Module: Mod Parser
+-- Module: Mod Parser for 2.6
 -- Parser function for modifier names
 --
 
@@ -579,7 +579,7 @@ local function flag(name, ...)
 end
 
 local gemNameLookup = { }
-for name, data in pairs(data.skills) do
+for name, data in pairs(data["2_6"].skills) do
 	if not data.hidden then
 		gemNameLookup[data.name:lower()] = data.name
 	elseif data.fromItem then
@@ -993,7 +993,7 @@ local regenTypes = {
 -- Build active skill name lookup
 local skillNameList = { }
 local preSkillNameList = { }
-for skillName, data in pairs(data.gems) do
+for skillName, data in pairs(data["2_6"].gems) do
 	if not data.hidden and not data.support then
 		skillNameList[" "..skillName:lower().." "] = { tag = { type = "SkillName", skillName = skillName } }
 		preSkillNameList["^"..skillName:lower().." has ?a? "] = { tag = { type = "SkillName", skillName = skillName } }

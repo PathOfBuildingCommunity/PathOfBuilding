@@ -114,8 +114,8 @@ function calcs.createActiveSkill(activeGem, supportList, summonSkill)
 end
 
 -- Get weapon flags and info for given weapon
-local function getWeaponFlags(weaponData, weaponTypes)
-	local info = data.weaponTypeInfo[weaponData.type]
+local function getWeaponFlags(env, weaponData, weaponTypes)
+	local info = env.data.weaponTypeInfo[weaponData.type]
 	if not info then
 		return
 	end
@@ -190,10 +190,10 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	if skillFlags.attack then
 		-- Set weapon flags
 		local weaponTypes = activeGem.data.weaponTypes
-		local weapon1Flags, weapon1Info = getWeaponFlags(actor.weaponData1, weaponTypes)
+		local weapon1Flags, weapon1Info = getWeaponFlags(env, actor.weaponData1, weaponTypes)
 		if not weapon1Flags and activeSkill.summonSkill then
 			-- Minion skills seem to ignore weapon types
-			weapon1Flags, weapon1Info = data.weaponTypeInfo["None"].flag, data.weaponTypeInfo["None"]
+			weapon1Flags, weapon1Info = env.data.weaponTypeInfo["None"].flag, env.data.weaponTypeInfo["None"]
 		end
 		if weapon1Flags then
 			activeSkill.weapon1Flags = weapon1Flags
@@ -209,7 +209,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 		end
 		if skillTypes[SkillType.DualWield] or skillTypes[SkillType.CanDualWield] then
 			if not skillTypes[SkillType.MainHandOnly] and not skillFlags.forceMainHand then
-				local weapon2Flags = getWeaponFlags(actor.weaponData2, weaponTypes)
+				local weapon2Flags = getWeaponFlags(env, actor.weaponData2, weaponTypes)
 				if weapon2Flags then
 					activeSkill.weapon2Flags = weapon2Flags
 					skillFlags.weapon2Attack = true
@@ -383,11 +383,11 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			activeSkill.minion = minion
 			skillFlags.haveMinion = true
 			minion.parent = env.player
-			minion.minionData = data.minions[minionType]
+			minion.minionData = env.data.minions[minionType]
 			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or activeSkill.skillData.minionLevel or activeSkill.skillData.levelRequirement
 			minion.itemList = { }
 			local attackTime = minion.minionData.attackTime * (1 - (minion.minionData.damageFixup or 0))
-			local damage = data.monsterDamageTable[minion.level] * minion.minionData.damage * attackTime
+			local damage = env.data.monsterDamageTable[minion.level] * minion.minionData.damage * attackTime
 			if activeSkill.skillData.minionUseBowAndQuiver and env.player.weaponData1.type == "Bow" then
 				minion.weaponData1 = env.player.weaponData1
 			else
@@ -459,7 +459,7 @@ function calcs.createMinionSkills(env, activeSkill)
 	minion.activeSkillList = { }
 	local skillIdList = { }
 	for _, skillId in ipairs(minionData.skillList) do
-		if data.skills[skillId] then
+		if env.data.skills[skillId] then
 			t_insert(skillIdList, skillId)
 		end
 	end
@@ -471,8 +471,8 @@ function calcs.createMinionSkills(env, activeSkill)
 	end
 	for _, skillId in ipairs(skillIdList) do
 		local gem = {
-			name = data.skills[skillId].name,
-			data = data.skills[skillId],
+			name = env.data.skills[skillId].name,
+			data = env.data.skills[skillId],
 			level = 1,
 			quality = 0,
 			fromItem = true,

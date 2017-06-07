@@ -152,6 +152,18 @@ Adds (180-190) to (190-220) Physical Damage
 +1 to Maximum Power Charges
 10% chance to gain a Power Charge if you Knock an Enemy Back with Melee Damage
 ]],[[
+Martyr of Innocence
+Highborn Staff
+Requires Level 52, 89 Str, 89 Int
+18% Chance to Block
+(12-16)% Chance to Block
+Adds (350-400) to (500-600) Fire Damage
+Adds (130-150) to (200-250) Fire Damage to Spells
+Grants level 15 Vengeance Skill
+100% increased Fire Damage if you have been Hit Recently
+Immune to Freeze and Chill while Ignited
+Damage Penetrates 15% of Fire Resistance if you have Blocked Recently
+]],[[
 Pillar of the Caged God
 Long Staff
 Variant: Pre 2.6.0
