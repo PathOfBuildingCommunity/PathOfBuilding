@@ -352,6 +352,7 @@ local modFlagList = {
 	["melee"] = { flags = ModFlag.Melee },
 	["with melee attacks"] = { flags = ModFlag.Melee },
 	["on melee hit"] = { flags = ModFlag.Melee },
+	["with hits"] = { flags = ModFlag.Hit },
 	["with poison"] = { keywordFlags = KeywordFlag.Poison },
 	["with bleeding"] = { keywordFlags = KeywordFlag.Bleed },
 	["area"] = { flags = ModFlag.Area },

@@ -65,7 +65,7 @@
 	<File sha1="7cde2cb67e0b5a5d19d438e714f94b0ffe64743f" name="Modules/ItemTools.lua" part="program"/>
 	<File sha1="2ef13c53fbae978887cdbba97862367bd3c23725" name="Modules/Main.lua" part="program"/>
 	<File sha1="10454e6b49fcd243fbbf896da70d7bf54a821833" name="Modules/ModParser-2_6.lua" part="program"/>
-	<File sha1="f9909624b47e932276241b5aaf42ddd8ea2a1e6d" name="Modules/ModParser-3_0.lua" part="program"/>
+	<File sha1="808ba67755fdc3d76ca096c94cba0bcbf618daeb" name="Modules/ModParser-3_0.lua" part="program"/>
 	<File sha1="4e1067e5444062686cd06783034537e7ff4fbfe1" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="c345cdcf374d271411aa424ab150c0edbb5a362d" name="Assets/game_ui_small.png" part="program"/>
 	<File sha1="97b020d8213e09c313536a91528ba5d5ebc4ca0a" name="Assets/patreon_logo.png" part="program"/>
