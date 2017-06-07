@@ -219,6 +219,15 @@ You are Shocked during Flask effect
 {variant:3,7}Adds (25-35) to (110-130) Lightning Damage to Attacks during Flask effect
 {variant:4,8}20% of Physical Damage Converted to Lightning during Flask effect
 ]],[[
+The Wise Oak
+Bismuth Flask
+Requires Level 8
+Implicits: 0
+During Flask Effect, 10% reduced Damage taken of each Element for which your Uncapped
+Elemental Resistance is lowest
+During Flask Effect, Damage Penetrates 20% Resistance of each Element for which your
+Uncapped Elemental Resistance is highest
+]],[[
 Witchfire Brew
 Stibnite Flask
 Requires Level 48

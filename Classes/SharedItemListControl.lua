@@ -23,44 +23,54 @@ local SharedItemListClass = common.NewClass("SharedItemList", "ListControl", fun
 	end
 end)
 
-function SharedItemListClass:GetRowValue(column, index, item)
+function SharedItemListClass:GetRowValue(column, index, verItem)
+	local item = verItem[self.itemsTab.build.targetVersion]
 	if column == 1 then
-		return data.colorCodes[item.rarity] .. item.name
+		return colorCodes[item.rarity] .. item.name
 	end
 end
 
-function SharedItemListClass:AddValueTooltip(index, item)
+function SharedItemListClass:AddValueTooltip(index, verItem)
+	local item = verItem[self.itemsTab.build.targetVersion]
 	if not main.popups[1] then
 		self.itemsTab:AddItemTooltip(item)
-		return data.colorCodes[item.rarity], true
+		return colorCodes[item.rarity], true
 	end
 end
 
-function SharedItemListClass:GetDragValue(index, item)
+function SharedItemListClass:GetDragValue(index, verItem)
+	local item = verItem[self.itemsTab.build.targetVersion]
 	return "Item", item
 end
 
 function SharedItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
-		local newItem = itemLib.makeItemFromRaw(itemLib.createItemRaw(value))
-		if not value.id then
-			itemLib.normaliseQuality(newItem)
+		local verItem = { raw = itemLib.createItemRaw(value) }
+		for _, targetVersion in ipairs(targetVersionList) do
+			local newItem = itemLib.makeItemFromRaw(targetVersion, verItem.raw)
+			if not value.id then
+				itemLib.normaliseQuality(newItem)
+			end
+			verItem[targetVersion] = newItem
 		end
-		t_insert(self.list, self.selDragIndex or #self.list, newItem)
+		t_insert(self.list, self.selDragIndex or #self.list, verItem)
 	end
 end
 
-function SharedItemListClass:OnSelClick(index, item, doubleClick)
+function SharedItemListClass:OnSelClick(index, verItem, doubleClick)
+	local item = verItem[self.itemsTab.build.targetVersion]
 	if doubleClick then
 		self.itemsTab:CreateDisplayItemFromRaw(item.raw, true)
 	end
 end
 
-function SharedItemListClass:OnSelCopy(index, item)
+function SharedItemListClass:OnSelCopy(index, verItem)
+	local item = verItem[self.itemsTab.build.targetVersion]
 	Copy(itemLib.createItemRaw(item):gsub("\n","\r\n"))
 end
 
-function SharedItemListClass:OnSelDelete(index, item)
+function SharedItemListClass:OnSelDelete(index, verItem)
+	local item = verItem[self.itemsTab.build.targetVersion]	
 	main:OpenConfirmPopup("Delete Item", "Are you sure you want to remove '"..item.name.."' from the shared item list?", "Delete", function()
 		t_remove(self.list, index)
 		self.selIndex = nil

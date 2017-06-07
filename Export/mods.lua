@@ -35,16 +35,16 @@ local function writeMods(outName, condFunc)
 	out:close()
 end
 
-writeMods("../Data/ModItem.lua", function(mod)
+writeMods("../Data/3_0/ModItem.lua", function(mod)
 	return mod.Domain == 1 and (mod.GenerationType == 1 or mod.GenerationType == 2)
 end)
-writeMods("../Data/ModFlask.lua", function(mod)
+writeMods("../Data/3_0/ModFlask.lua", function(mod)
 	return mod.Domain == 2 and (mod.GenerationType == 1 or mod.GenerationType == 2)
 end)
-writeMods("../Data/ModJewel.lua", function(mod)
+writeMods("../Data/3_0/ModJewel.lua", function(mod)
 	return mod.Domain == 11 and (mod.GenerationType == 1 or mod.GenerationType == 2)
 end)
-writeMods("../Data/ModCorrupted.lua", function(mod)
+writeMods("../Data/3_0/ModCorrupted.lua", function(mod)
 	return mod.GenerationType == 5
 end)
 

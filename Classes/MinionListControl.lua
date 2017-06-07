@@ -10,8 +10,9 @@ local t_insert = table.insert
 local t_remove = table.remove
 local s_format = string.format
 
-local MinionListClass = common.NewClass("MinionList", "ListControl", function(self, anchor, x, y, width, height, list, dest)
+local MinionListClass = common.NewClass("MinionList", "ListControl", function(self, anchor, x, y, width, height, data, list, dest)
 	self.ListControl(anchor, x, y, width, height, 16, not dest, list)
+	self.data = data
 	self.dest = dest
 	if dest then
 		self.dragTargetList = { dest }
@@ -40,30 +41,30 @@ function MinionListClass:AddSel()
 end
 
 function MinionListClass:GetRowValue(column, index, minionId)
-	local minion = data.minions[minionId]
+	local minion = self.data.minions[minionId]
 	if column == 1 then
 		return minion.name
 	end
 end
 
 function MinionListClass:AddValueTooltip(index, minionId)
-	local minion = data.minions[minionId]
+	local minion = self.data.minions[minionId]
 	main:AddTooltipLine(18, "^7"..minion.name)
 	main:AddTooltipLine(14, s_format("^7Life multiplier: x%.2f", minion.life))
 	if minion.energyShield then
 		main:AddTooltipLine(14, s_format("^7Energy Shield: %d%% of base Life", minion.energyShield * 100))
 	end
 	main:AddTooltipLine(14, s_format("^7Resistances: %s%d^7/%s%d^7/%s%d^7/%s%d", 
-		data.colorCodes.FIRE, minion.fireResist, 
-		data.colorCodes.COLD, minion.coldResist, 
-		data.colorCodes.LIGHTNING, minion.lightningResist, 
-		data.colorCodes.CHAOS, minion.chaosResist
+		colorCodes.FIRE, minion.fireResist, 
+		colorCodes.COLD, minion.coldResist, 
+		colorCodes.LIGHTNING, minion.lightningResist, 
+		colorCodes.CHAOS, minion.chaosResist
 	))
 	main:AddTooltipLine(14, s_format("^7Base damage: x%.2f", minion.damage))
 	main:AddTooltipLine(14, s_format("^7Base attack speed: %.2f", 1 / minion.attackTime))
 	for _, skillId in ipairs(minion.skillList) do
-		if data.skills[skillId] then
-			main:AddTooltipLine(14, "^7Skill: "..data.skills[skillId].name)
+		if self.data.skills[skillId] then
+			main:AddTooltipLine(14, "^7Skill: "..self.data.skills[skillId].name)
 		end
 	end
 end

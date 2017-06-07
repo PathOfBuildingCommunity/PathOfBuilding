@@ -33,6 +33,7 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 	self.Control()
 
 	self.build = build
+	self.versionData = data[build.targetVersion]
 
 	self.socketGroupList = { }
 
@@ -66,7 +67,7 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 			local ttItem = self.build.itemsTab.list[slot.selItemId]
 			if ttItem then
 				self.build.itemsTab:AddItemTooltip(ttItem, slot)
-				return data.colorCodes[ttItem.rarity], true
+				return colorCodes[ttItem.rarity], true
 			else
 				main:AddTooltipLine(16, "No item is equipped in this slot.")
 			end
@@ -86,7 +87,7 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 	end
 	self.controls.sourceNote.label = function()
 		local item = self.displayGroup.sourceItem or { rarity = "NORMAL", name = "?" }
-		local itemName = data.colorCodes[item.rarity]..item.name.."^7"
+		local itemName = colorCodes[item.rarity]..item.name.."^7"
 		local activeGem = self.displayGroup.gemList[1]
 		local label = [[^7This is a special group created for the ']]..activeGem.color..(activeGem.name or activeGem.nameSpec)..[[^7' skill,
 which is being provided by ']]..itemName..[['.
@@ -372,7 +373,7 @@ function SkillsTabClass:FindSkillGem(nameSpec)
 	}
 	local gemName, gemData
 	for i, pattern in ipairs(patternList) do
-		for name, data in pairs(data.gems) do
+		for name, data in pairs(self.versionData.gems) do
 			if (" "..name):match(pattern) then
 				if gemName then
 					return "Ambiguous gem name '"..nameSpec.."': matches '"..gemName.."', '"..name.."'"
@@ -406,19 +407,19 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 		local prevDefaultLevel = gem.data and gem.data.defaultLevel
 		if gem.nameSpec:match("%S") then
 			-- Gem name has been specified, try to find the matching skill gem
-			if data.gems[gem.nameSpec] then
-				if data.gems[gem.nameSpec].unsupported then
+			if self.versionData.gems[gem.nameSpec] then
+				if self.versionData.gems[gem.nameSpec].unsupported then
 					gem.errMsg = gem.nameSpec.." is not supported yet"
 					gem.name = nil
 					gem.data = nil
 				else
 					gem.errMsg = nil
 					gem.name = gem.nameSpec
-					gem.data = data.gems[gem.nameSpec]
+					gem.data = self.build.data.gems[gem.nameSpec]
 				end
-			elseif data.skills[gem.nameSpec] then
+			elseif self.versionData.skills[gem.nameSpec] then
 				gem.errMsg = nil
-				gem.data = data.skills[gem.nameSpec]
+				gem.data = self.versionData.skills[gem.nameSpec]
 				gem.name = gem.data.name
 			else
 				gem.errMsg, gem.name, gem.data = self:FindSkillGem(gem.nameSpec)
@@ -428,13 +429,13 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			end
 			if gem.name then
 				if gem.data.color == 1 then
-					gem.color = data.colorCodes.STRENGTH
+					gem.color = colorCodes.STRENGTH
 				elseif gem.data.color == 2 then
-					gem.color = data.colorCodes.DEXTERITY
+					gem.color = colorCodes.DEXTERITY
 				elseif gem.data.color == 3 then
-					gem.color = data.colorCodes.INTELLIGENCE
+					gem.color = colorCodes.INTELLIGENCE
 				else
-					gem.color = data.colorCodes.NORMAL
+					gem.color = colorCodes.NORMAL
 				end
 				if prevDefaultLevel and gem.data.defaultLevel ~= prevDefaultLevel then
 					gem.level = gem.data.defaultLevel

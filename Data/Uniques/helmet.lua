@@ -15,6 +15,16 @@ Adds 40 to 60 Physical Damage to Attacks
 (100-120)% increased Armour
 (40-50)% increased Physical Damage taken
 ]],[[
+The Baron
+Close Helmet
+Requires Level 26, 58 Str
++2 to Level of Socketed Minion Gems
++(20–40) to Strength
+Minions have 20% increased maximum Life
+Your Strength is added to your Minions
++1 to maximum number of Zombies per 300 Strength
+With 1000 or more Strength 2% of Damage dealt by your Zombies is Leeched to you as Life
+]],[[
 Ezomyte Hold
 Iron Hat
 20% increased Physical Damage

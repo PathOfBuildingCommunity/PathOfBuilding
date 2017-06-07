@@ -35,17 +35,25 @@ local mercilessBanditDropList = {
 
 local buildMode = common.New("ControlHost")
 
-function buildMode:Init(dbFileName, buildName, buildXML)
-	self.abortSave = true
+function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
+	self.dbFileName = dbFileName
+	self.buildName = buildName
+	if dbFileName then
+		self.dbFileSubPath = self.dbFileName:sub(#main.buildPath + 1, -#self.buildName - 5)
+	else
+		self.dbFileSubPath = main.modes.LIST.subPath or ""
+	end
+	if not buildName then
+		main:SetMode("LIST")
+	end
 
-	self.tree = main.tree
-	self.importTab = common.New("ImportTab", self)
-	self.notesTab = common.New("NotesTab", self)
-	self.configTab = common.New("ConfigTab", self)
-	self.itemsTab = common.New("ItemsTab", self)
-	self.treeTab = common.New("TreeTab", self)
-	self.skillsTab = common.New("SkillsTab", self)
-	self.calcsTab = common.New("CalcsTab", self)
+	if not dbFileName and not targetVersion then
+		self.targetVersion = nil
+		self:OpenTargetVersionPopup(true)
+		return
+	end
+
+	self.abortSave = true
 
 	-- Controls: top bar, left side
 	self.anchorTopBarLeft = common.New("Control", nil, 4, 4, 0, 20)
@@ -143,7 +151,7 @@ function buildMode:Init(dbFileName, buildName, buildXML)
 		main:AddTooltipLine(16, "Experience multiplier:")
 		local playerLevel = self.characterLevel
 		local safeZone = 3 + m_floor(playerLevel / 16)
-		for level, expLevel in ipairs(data.monsterExperienceLevelMap) do
+		for level, expLevel in ipairs(self.data.monsterExperienceLevelMap) do
 			local diff = m_abs(playerLevel - expLevel) - safeZone
 			local mult
 			if diff <= 0 then
@@ -272,15 +280,6 @@ function buildMode:Init(dbFileName, buildName, buildXML)
 		return main.screenH - main.mainBarHeight - 4 - y
 	end
 
-	-- Initialise class dropdown
-	for classId, class in pairs(self.tree.classes) do
-		t_insert(self.controls.classDrop.list, {
-			label = class.name,
-			classId = classId,
-		})
-	end
-	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
-
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
 	-- This may be user-customisable in the future
@@ -379,14 +378,7 @@ function buildMode:Init(dbFileName, buildName, buildXML)
 
 	self.viewMode = "TREE"
 
-	self.dbFileName = dbFileName
-	self.buildName = buildName
-	if dbFileName then
-		self.dbFileSubPath = self.dbFileName:sub(#main.buildPath + 1, -#self.buildName - 5)
-	else
-		self.dbFileSubPath = main.modes.LIST.subPath or ""
-	end
-
+	self.targetVersion = defaultTargetVersion
 	self.characterLevel = 1
 	self.controls.characterLevel:SetText(tostring(self.characterLevel))
 	self.banditNormal = "None"
@@ -394,24 +386,10 @@ function buildMode:Init(dbFileName, buildName, buildXML)
 	self.banditMerciless = "None"
 	self.spectreList = { }
 
-	-- List of modules with Load/Save methods
-	-- These will be called to load or save data to their respective sections of the build XML file
-	self.savers = {
-		["Build"] = self,
-		["Config"] = self.configTab,
-		["Notes"] = self.notesTab,
-		["Tree"] = self.treeTab,
-		["TreeView"] = self.treeTab.viewer,
-		["Items"] = self.itemsTab,
-		["Skills"] = self.skillsTab,
-		["Calcs"] = self.calcsTab,
-	}
-	self.legacyLoaders = { -- Special loaders for legacy sections
-		["Spec"] = self.treeTab,
-	}
-
+	-- Load build file
+	self.xmlSectionList = { }
 	if buildXML then
-		if self:LoadDB(buildXML, "Imported build") then
+		if self:LoadDB(buildXML, "Unnamed build") then
 			self:CloseBuild()
 			return
 		end
@@ -424,10 +402,63 @@ function buildMode:Init(dbFileName, buildName, buildXML)
 		self.modFlag = false
 	end
 
+	if targetVersion then
+		self.targetVersion = targetVersion
+	end
+
+	-- Initialise build components
+	self.data = data[self.targetVersion]
+	self.tree = main.tree[self.targetVersion]
+	self.importTab = common.New("ImportTab", self)
+	self.notesTab = common.New("NotesTab", self)
+	self.configTab = common.New("ConfigTab", self)
+	self.itemsTab = common.New("ItemsTab", self)
+	self.treeTab = common.New("TreeTab", self)
+	self.skillsTab = common.New("SkillsTab", self)
+	self.calcsTab = common.New("CalcsTab", self)
+
+	-- Load sections from the build file
+	self.savers = {
+		["Config"] = self.configTab,
+		["Notes"] = self.notesTab,
+		["Tree"] = self.treeTab,
+		["TreeView"] = self.treeTab.viewer,
+		["Items"] = self.itemsTab,
+		["Skills"] = self.skillsTab,
+		["Calcs"] = self.calcsTab,
+	}
+	self.legacyLoaders = { -- Special loaders for legacy sections
+		["Spec"] = self.treeTab,
+	}
+	for _, node in ipairs(self.xmlSectionList) do
+		-- Check if there is a saver that can load this section
+		local saver = self.savers[node.elem] or self.legacyLoaders[node.elem]
+		if saver then
+			if saver:Load(node, self.dbFileName) then
+				self:CloseBuild()
+				return
+			end
+		end
+	end
+	for _, saver in pairs(self.savers) do
+		if saver.PostLoad then
+			saver:PostLoad()
+		end
+	end
+
 	if next(self.configTab.input) == nil then
 		-- Check for old calcs tab settings
 		self.configTab:ImportCalcSettings()
 	end
+
+	-- Initialise class dropdown
+	for classId, class in pairs(self.tree.classes) do
+		t_insert(self.controls.classDrop.list, {
+			label = class.name,
+			classId = classId,
+		})
+	end
+	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
 
 	-- Build calculation output tables
 	self.calcsTab:BuildOutput()
@@ -459,7 +490,7 @@ function buildMode:Init(dbFileName, buildName, buildXML)
 end
 
 function buildMode:CanExit(mode)
-	if not self.unsaved then
+	if not self.targetVersion or not self.unsaved then
 		return true
 	end
 	self:OpenSavePopup(mode)
@@ -484,6 +515,7 @@ function buildMode:CloseBuild()
 end
 
 function buildMode:Load(xml, fileName)
+	self.targetVersion = data[xml.attrib.targetVersion] and xml.attrib.targetVersion or defaultTargetVersion
 	if xml.attrib.viewMode then
 		self.viewMode = xml.attrib.viewMode
 	end
@@ -496,7 +528,7 @@ function buildMode:Load(xml, fileName)
 	wipeTable(self.spectreList)
 	for _, child in ipairs(xml) do
 		if child.elem == "Spectre" then
-			if child.attrib.id and data.minions[child.attrib.id] then
+			if child.attrib.id and self.data.minions[child.attrib.id] then
 				t_insert(self.spectreList, child.attrib.id)
 			end
 		end
@@ -505,6 +537,7 @@ end
 
 function buildMode:Save(xml)
 	xml.attrib = {
+		targetVersion = self.targetVersion,
 		viewMode = self.viewMode,
 		level = tostring(self.characterLevel),
 		className = self.spec.curClassName,
@@ -521,6 +554,11 @@ function buildMode:Save(xml)
 end
 
 function buildMode:OnFrame(inputEvents)
+	if not self.targetVersion then
+		main:DrawBackground(main.viewPort)
+		return
+	end
+
 	if self.abortSave and not launch.devMode then
 		self:CloseBuild()
 	end
@@ -630,16 +668,51 @@ function buildMode:OnFrame(inputEvents)
 	self:DrawControls(main.viewPort)
 end
 
-function buildMode:OpenSavePopup(mode)
+-- Opens the game version selection popup
+function buildMode:OpenTargetVersionPopup(initial)
+	local controls = { }
+	local function setVersion(version)
+		if version == self.targetVersion then
+			main:ClosePopup()
+			return
+		end
+		if initial then
+			main:ClosePopup()
+			self:Shutdown()
+			self:Init(false, self.buildName, nil, version)
+		end
+	end
+	controls.label = common.New("LabelControl", nil, 0, 20, 0, 16, "^7Which game version will this build use?")
+	controls.version2_6 = common.New("ButtonControl", nil, -90, 50, 170, 20, "2.6 (Atlas of Worlds)", function()
+		setVersion("2_6")
+	end)
+	controls.version3_0 = common.New("ButtonControl", nil, 90, 50, 170, 20, "3.0 (Fall of Oriath Beta)", function()
+		setVersion("3_0")
+	end)
+	controls.note = common.New("LabelControl", nil, 0, 80, 0, 14, "^7Tip: Existing builds can be converted between versions\nusing the 'Game Version' option in the Configuration tab.")
+	controls.cancel = common.New("ButtonControl", nil, 0, 120, 80, 20, "Cancel", function()
+		main:ClosePopup()
+		if initial then
+			self:CloseBuild()
+		end
+	end)
+	main:OpenPopup(370, 150, "Game Version", controls, nil, nil, "cancel")
+end
+
+function buildMode:OpenSavePopup(mode, newVersion)
 	local modeDesc = {
 		["LIST"] = "now?",
 		["EXIT"] = "before exiting?",
 		["UPDATE"] = "before updating?",
+		["VERSION"] = "before converting?",
 	}
 	local controls = { }
 	controls.label = common.New("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them "..modeDesc[mode])
 	controls.save = common.New("ButtonControl", nil, -90, 70, 80, 20, "Save", function()
 		main:ClosePopup()
+		if mode == "VERSION" then
+			self.targetVersion = newVersion
+		end
 		self.actionOnSave = mode
 		self:SaveDBFile()
 	end)
@@ -651,12 +724,15 @@ function buildMode:OpenSavePopup(mode)
 			Exit()
 		elseif mode == "UPDATE" then
 			launch:ApplyUpdate(launch.updateAvailable)
+		elseif mode == "VERSION" then
+			self:Shutdown()
+			self:Init(self.dbFileName, self.buildName, nil, newVersion)
 		end
 	end)
 	controls.close = common.New("ButtonControl", nil, 90, 70, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(290, 100, "Save Changes", controls)
+	main:OpenPopup(300, 100, "Save Changes", controls)
 end
 
 function buildMode:OpenSaveAsPopup()
@@ -701,6 +777,7 @@ function buildMode:OpenSaveAsPopup()
 	controls.save.enabled = false
 	controls.close = common.New("ButtonControl", nil, 45, 225, 80, 20, "Cancel", function()
 		main:ClosePopup()
+		self.actionOnSave = nil
 	end)
 	main:OpenPopup(470, 255, self.dbFileName and "Save As" or "Save", controls, "save", "edit")
 end
@@ -709,19 +786,19 @@ end
 function buildMode:OpenSpectreLibrary()
 	local destList = copyTable(self.spectreList)
 	local sourceList = { }
-	for id in pairs(data.spectres) do
+	for id in pairs(self.data.spectres) do
 		t_insert(sourceList, id)
 	end
 	table.sort(sourceList, function(a,b) 
-		if data.minions[a].name == data.minions[b].name then
+		if self.data.minions[a].name == self.data.minions[b].name then
 			return a < b
 		else
-			return data.minions[a].name < data.minions[b].name
+			return self.data.minions[a].name < self.data.minions[b].name
 		end
 	end)
 	local controls = { }
-	controls.list = common.New("MinionList", nil, -100, 40, 190, 250, destList)
-	controls.source = common.New("MinionList", nil, 100, 40, 190, 250, sourceList, controls.list)
+	controls.list = common.New("MinionList", nil, -100, 40, 190, 250, self.data, destList)
+	controls.source = common.New("MinionList", nil, 100, 40, 190, 250, self.data, sourceList, controls.list)
 	controls.save = common.New("ButtonControl", nil, -45, 300, 80, 20, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
@@ -784,7 +861,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 					wipeTable(controls.mainSkillMinion.list)
 					for _, minionId in ipairs(list) do
 						t_insert(controls.mainSkillMinion.list, {
-							label = data.minions[minionId].name,
+							label = self.data.minions[minionId].name,
 							minionId = minionId,
 						})
 					end
@@ -819,7 +896,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 					t_insert(statBoxList, {
 						height = 16,
 						"^7"..statData.label..":",
-						string.format("%s%"..statData.fmt, statVal >= 0 and "^7" or data.colorCodes.NEGATIVE, statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)) 
+						string.format("%s%"..statData.fmt, statVal >= 0 and "^7" or colorCodes.NEGATIVE, statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)) 
 					})
 				end
 			end
@@ -852,7 +929,7 @@ function buildMode:CompareStatList(statList, actor, baseOutput, compareOutput, h
 				if count == 0 then
 					main:AddTooltipLine(14, header)
 				end
-				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and data.colorCodes.POSITIVE or data.colorCodes.NEGATIVE
+				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and colorCodes.POSITIVE or colorCodes.NEGATIVE
 				local line = string.format("%s%+"..statData.fmt.." %s", color, diff * ((statData.pc or statData.mod) and 100 or 1), statData.label)
 				local pcPerPt = ""
 				if statData.compPercent and statVal1 ~= 0 and statVal2 ~= 0 then
@@ -925,22 +1002,18 @@ function buildMode:LoadDB(xmlText, fileName)
 		return true
 	end
 
-	-- For each child of the root node...
+	-- Load Build section first
 	for _, node in ipairs(dbXML[1]) do
-		if type(node) == "table" then
-			-- Check if there is a saver that can load this section
-			local saver = self.savers[node.elem] or self.legacyLoaders[node.elem]
-			if saver then
-				if saver:Load(node, self.dbFileName) then
-					return true
-				end
-			end
+		if type(node) == "table" and node.elem == "Build" then
+			self:Load(node, self.dbFileName)
+			break
 		end
 	end
 
-	for _, saver in pairs(self.savers) do
-		if saver.PostLoad then
-			saver:PostLoad()
+	-- Store other sections for later processing
+	for _, node in ipairs(dbXML[1]) do
+		if type(node) == "table" then
+			t_insert(self.xmlSectionList, node)
 		end
 	end
 end
@@ -961,6 +1034,13 @@ end
 
 function buildMode:SaveDB(fileName)
 	local dbXML = { elem = "PathOfBuilding" }
+
+	-- Save Build section first
+	do
+		local node = { elem = "Build" }
+		self:Save(node)
+		t_insert(dbXML, node)
+	end
 
 	-- Call on all savers to save their data in their respective sections
 	for elem, saver in pairs(self.savers) do
@@ -994,14 +1074,18 @@ function buildMode:SaveDBFile()
 	end
 	file:write(xmlText)
 	file:close()
-	if self.actionOnSave == "LIST" then
-		self:CloseBuild()
-	elseif self.actionOnSave == "EXIT" then
-		Exit()
-	elseif self.actionOnSave == "UPDATE" then
-		launch:ApplyUpdate(launch.updateAvailable)
-	end
+	local action = self.actionOnSave
 	self.actionOnSave = nil
+	if action == "LIST" then
+		self:CloseBuild()
+	elseif action == "EXIT" then
+		Exit()
+	elseif action == "UPDATE" then
+		launch:ApplyUpdate(launch.updateAvailable)
+	elseif action == "VERSION" then
+		self:Shutdown()
+		self:Init(self.dbFileName, self.buildName)
+	end
 end
 
 return buildMode

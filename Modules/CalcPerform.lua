@@ -303,12 +303,12 @@ function calcs.perform(env)
 		env.minion.modDB.actor = env.minion
 		env.minion.modDB.multipliers["Level"] = env.minion.level
 		calcs.initModDB(env, env.minion.modDB)
-		env.minion.modDB:NewMod("Life", "BASE", m_floor(data.monsterAllyLifeTable[env.minion.level] * env.minion.minionData.life), "Base")
+		env.minion.modDB:NewMod("Life", "BASE", m_floor(env.data.monsterAllyLifeTable[env.minion.level] * env.minion.minionData.life), "Base")
 		if env.minion.minionData.energyShield then
-			env.minion.modDB:NewMod("EnergyShield", "BASE", m_floor(data.monsterAllyLifeTable[env.minion.level] * env.minion.minionData.life * env.minion.minionData.energyShield), "Base")
+			env.minion.modDB:NewMod("EnergyShield", "BASE", m_floor(env.data.monsterAllyLifeTable[env.minion.level] * env.minion.minionData.life * env.minion.minionData.energyShield), "Base")
 		end
-		env.minion.modDB:NewMod("Evasion", "BASE", data.monsterEvasionTable[env.minion.level], "Base")
-		env.minion.modDB:NewMod("Accuracy", "BASE", data.monsterAccuracyTable[env.minion.level], "Base")
+		env.minion.modDB:NewMod("Evasion", "BASE", env.data.monsterEvasionTable[env.minion.level], "Base")
+		env.minion.modDB:NewMod("Accuracy", "BASE", env.data.monsterAccuracyTable[env.minion.level], "Base")
 		env.minion.modDB:NewMod("CritMultiplier", "BASE", 30, "Base")
 		env.minion.modDB:NewMod("FireResist", "BASE", env.minion.minionData.fireResist, "Base")
 		env.minion.modDB:NewMod("ColdResist", "BASE", env.minion.minionData.coldResist, "Base")
@@ -345,10 +345,10 @@ function calcs.perform(env)
 	local breakdown
 	if env.mode == "CALCS" then
 		-- Initialise breakdown module
-		breakdown = LoadModule("Modules/CalcBreakdown", modDB, output, env.player)
+		breakdown = LoadModule(calcs.breakdownModule, modDB, output, env.player)
 		env.player.breakdown = breakdown
 		if env.minion then
-			env.minion.breakdown = LoadModule("Modules/CalcBreakdown", env.minion.modDB, env.minion.output, env.minion)
+			env.minion.breakdown = LoadModule(calcs.breakdownModule, env.minion.modDB, env.minion.output, env.minion)
 		end
 	end
 
@@ -467,16 +467,16 @@ function calcs.perform(env)
 					out = m_max(out, req)
 					if env.mode == "CALCS" then
 						local row = {
-							req = req > output[attr] and data.colorCodes.NEGATIVE..req or req,
+							req = req > output[attr] and colorCodes.NEGATIVE..req or req,
 							reqNum = req,
 							source = reqSource.source,
 						}
 						if reqSource.source == "Item" then
 							local item = reqSource.sourceItem
-							row.sourceName = data.colorCodes[item.rarity]..item.name
+							row.sourceName = colorCodes[item.rarity]..item.name
 							row.sourceNameTooltip = function()
 								env.build.itemsTab:AddItemTooltip(item, reqSource.sourceSlot)
-								return data.colorCodes[item.rarity], true
+								return colorCodes[item.rarity], true
 							end
 						elseif reqSource.source == "Gem" then
 							row.sourceName = s_format("%s%s ^7%d/%d", reqSource.sourceGem.color, reqSource.sourceGem.name, reqSource.sourceGem.level, reqSource.sourceGem.quality)
@@ -487,7 +487,7 @@ function calcs.perform(env)
 			end
 			output["Req"..attr] = out
 			if env.mode == "CALCS" then
-				output["Req"..attr.."String"] = out > output[attr] and data.colorCodes.NEGATIVE..out or out
+				output["Req"..attr.."String"] = out > output[attr] and colorCodes.NEGATIVE..out or out
 				table.sort(breakdown["Req"..attr].rowList, function(a, b)
 					if a.reqNum ~= b.reqNum then
 						return a.reqNum > b.reqNum
@@ -652,7 +652,7 @@ function calcs.perform(env)
 			calcs.mergeGemMods(gemModList, {
 				level = value.level,
 				quality = 0,
-				data = data.gems[value.name],
+				data = env.data.gems[value.name],
 			})
 			local curseModList = { }
 			for _, mod in ipairs(gemModList) do

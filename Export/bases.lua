@@ -180,6 +180,6 @@ for _, name in pairs(itemTypes) do
 	processTemplateFile("Bases/"..name, directiveTable)
 end
 
-os.execute("xcopy Bases\\*.lua ..\\Data\\Bases\\ /Y /Q")
+os.execute("xcopy Bases\\*.lua ..\\Data\\3_0\\Bases\\ /Y /Q")
 
 print("Item bases exported.")

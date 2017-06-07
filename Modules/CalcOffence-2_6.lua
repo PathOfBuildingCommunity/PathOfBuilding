@@ -233,10 +233,10 @@ function calcs.offence(env, actor)
 	end
 	if skillFlags.melee then
 		if skillFlags.weapon1Attack then
-			actor.weaponRange1 = (actor.weaponData1.range and actor.weaponData1.range + modDB:Sum("BASE", skillCfg, "MeleeWeaponRange")) or (data.weaponTypeInfo["None"].range + modDB:Sum("BASE", skillCfg, "UnarmedRange"))	
+			actor.weaponRange1 = (actor.weaponData1.range and actor.weaponData1.range + modDB:Sum("BASE", skillCfg, "MeleeWeaponRange")) or (env.data.weaponTypeInfo["None"].range + modDB:Sum("BASE", skillCfg, "UnarmedRange"))	
 		end
 		if skillFlags.weapon2Attack then
-			actor.weaponRange2 = (actor.weaponData2.range and actor.weaponData2.range + modDB:Sum("BASE", skillCfg, "MeleeWeaponRange")) or (data.weaponTypeInfo["None"].range + modDB:Sum("BASE", skillCfg, "UnarmedRange"))	
+			actor.weaponRange2 = (actor.weaponData2.range and actor.weaponData2.range + modDB:Sum("BASE", skillCfg, "MeleeWeaponRange")) or (env.data.weaponTypeInfo["None"].range + modDB:Sum("BASE", skillCfg, "UnarmedRange"))	
 		end
 		if mainSkill.skillTypes[SkillType.MeleeSingleTarget] then
 			local range = 100
@@ -329,12 +329,12 @@ function calcs.offence(env, actor)
 	if skillFlags.totem then
 		output.ActiveTotemLimit = modDB:Sum("BASE", skillCfg, "ActiveTotemLimit")
 		output.TotemLifeMod = calcLib.mod(modDB, skillCfg, "TotemLife")
-		output.TotemLife = round(m_floor(data.monsterAllyLifeTable[skillData.totemLevel] * data.totemLifeMult[mainSkill.skillTotemId]) * output.TotemLifeMod)
+		output.TotemLife = round(m_floor(env.data.monsterAllyLifeTable[skillData.totemLevel] * env.data.totemLifeMult[mainSkill.skillTotemId]) * output.TotemLifeMod)
 		if breakdown then
 			breakdown.TotemLifeMod = breakdown.mod(skillCfg, "TotemLife")
 			breakdown.TotemLife = {
 				"Totem level: "..skillData.totemLevel,
-				data.monsterAllyLifeTable[skillData.totemLevel].." ^8(base life for a level "..skillData.totemLevel.." monster)",
+				env.data.monsterAllyLifeTable[skillData.totemLevel].." ^8(base life for a level "..skillData.totemLevel.." monster)",
 				"x "..data.totemLifeMult[mainSkill.skillTotemId].." ^8(life multiplier for this totem type)",
 				"x "..output.TotemLifeMod.." ^8(totem life modifier)",
 				"= "..output.TotemLife,
@@ -466,7 +466,7 @@ function calcs.offence(env, actor)
 		output.OffHand = { }
 		if skillFlags.weapon1Attack then
 			if breakdown then
-				breakdown.MainHand = LoadModule("Modules/CalcBreakdown", modDB, output.MainHand)
+				breakdown.MainHand = LoadModule(calcs.breakdownModule, modDB, output.MainHand)
 			end
 			mainSkill.weapon1Cfg.skillStats = output.MainHand
 			t_insert(passList, {
@@ -479,7 +479,7 @@ function calcs.offence(env, actor)
 		end
 		if skillFlags.weapon2Attack then
 			if breakdown then
-				breakdown.OffHand = LoadModule("Modules/CalcBreakdown", modDB, output.OffHand)
+				breakdown.OffHand = LoadModule(calcs.breakdownModule, modDB, output.OffHand)
 			end
 			mainSkill.weapon2Cfg.skillStats = output.OffHand
 			t_insert(passList, {

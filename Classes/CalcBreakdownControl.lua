@@ -180,10 +180,10 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 		t_insert(self.sectionList, section)
 		for _, row in pairs(section.rowList) do
 			if row.item then
-				row.sourceLabel = data.colorCodes[row.item.rarity]..row.item.name
+				row.sourceLabel = colorCodes[row.item.rarity]..row.item.name
 				row.sourceLabelTooltip = function()
 					self.calcsTab.build.itemsTab:AddItemTooltip(row.item, row.source)
-					return data.colorCodes[row.item.rarity], true
+					return colorCodes[row.item.rarity], true
 				end
 			else
 				row.sourceLabel = row.sourceName
@@ -316,10 +316,10 @@ function CalcBreakdownClass:AddModSection(sectionData)
 			local itemId = row.mod.source:match("Item:(%d+):.+")
 			local item = build.itemsTab.list[tonumber(itemId)]
 			if item then
-				row.sourceName = data.colorCodes[item.rarity]..item.name
+				row.sourceName = colorCodes[item.rarity]..item.name
 				row.sourceNameTooltip = function()
 					build.itemsTab:AddItemTooltip(item, row.mod.sourceSlot)
-					return data.colorCodes[item.rarity], true
+					return colorCodes[item.rarity], true
 				end
 			end
 		elseif sourceType == "Tree" then
@@ -334,7 +334,7 @@ function CalcBreakdownClass:AddModSection(sectionData)
 			end
 		elseif sourceType == "Skill" then
 			-- Extract skill name
-			row.sourceName = data.skills[row.mod.source:match("Skill:(.+)")].name
+			row.sourceName = self.calcsTab.build.data.skills[row.mod.source:match("Skill:(.+)")].name
 		end
 		if row.mod.flags ~= 0 or row.mod.keywordFlags ~= 0 then
 			-- Combine, sort and format modifier flags

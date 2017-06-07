@@ -65,6 +65,15 @@ You take 30% reduced Extra Damage from Critical Strikes
 {variant:2}+(10-15)% to all Elemental Resistances
 {variant:2}Nearby Enemies are Intimidated
 ]],[[
+Bisco's Leash
+Heavy Belt
+Requires Level 30
++(25-35) to Strength
+5% increased Quantity of Items found
++(20–40)% to Cold Resistance
+Rampage
+1% increased Rarity of Items found per 15 Rampage Kills
+]],[[
 Doryani's Invitation
 Heavy Belt
 Variant: Physical
@@ -240,6 +249,16 @@ Requires Level 44
 30% reduced Flask Charges gained while using a Flask
 200% of Life Leech applies to enemies as Chaos Damage
 15% increased Movement Speed while using a Flask
+]],[[
+Ryslatha's Coil
+Studded Belt
+Requires Level 20
+(20–30)% increased Stun Duration on Enemies 
++(20–40) to Strength 
+Adds 1 to (15–20) Physical Damage to Attacks 
+Gain 50 Life when you Stun an Enemy 
+20% less Minimum Physical Attack Damage 
+20% more Maximum Physical Attack Damage
 ]],[[
 Soulthirst
 Cloth Belt

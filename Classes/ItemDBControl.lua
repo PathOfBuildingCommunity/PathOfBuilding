@@ -82,7 +82,7 @@ function ItemDBClass:DoesItemMatchFilters(item)
 		elseif typeSel == 3 then
 			return item.type == "Amulet" or item.type == "Ring" or item.type == "Belt"
 		elseif typeSel == 4 or typeSel == 5 then
-			local weaponInfo = data.weaponTypeInfo[item.type]
+			local weaponInfo = self.itemsTab.build.data.weaponTypeInfo[item.type]
 			return weaponInfo and weaponInfo.melee and ((typeSel == 4 and weaponInfo.oneHand) or (typeSel == 5 and not weaponInfo.oneHand))
 		elseif item.type ~= self.typeList[typeSel] then
 			return false
@@ -168,14 +168,14 @@ end
 
 function ItemDBClass:GetRowValue(column, index, item)
 	if column == 1 then
-		return data.colorCodes[item.rarity] .. item.name
+		return colorCodes[item.rarity] .. item.name
 	end
 end
 
 function ItemDBClass:AddValueTooltip(index, item)
 	if not main.popups[1] then
 		self.itemsTab:AddItemTooltip(item, nil, true)
-		return data.colorCodes[item.rarity], true
+		return colorCodes[item.rarity], true
 	end
 end
 
@@ -186,7 +186,7 @@ end
 function ItemDBClass:OnSelClick(index, item, doubleClick)
 	if IsKeyDown("CTRL") then
 		-- Add item
-		local newItem = itemLib.makeItemFromRaw(item.raw)
+		local newItem = itemLib.makeItemFromRaw(self.itemsTab.build.targetVersion, item.raw)
 		itemLib.normaliseQuality(newItem)
 		self.itemsTab:AddItem(newItem, true)
 

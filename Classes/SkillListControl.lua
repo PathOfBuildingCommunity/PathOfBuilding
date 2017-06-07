@@ -66,7 +66,7 @@ function SkillListClass:AddValueTooltip(index, socketGroup)
 		main:AddTooltipLine(16, "^7Note: this group is disabled because it is socketed in the inactive weapon set.")
 	end
 	if socketGroup.sourceItem then
-		main:AddTooltipLine(18, "^7Source: "..data.colorCodes[socketGroup.sourceItem.rarity]..socketGroup.sourceItem.name)
+		main:AddTooltipLine(18, "^7Source: "..colorCodes[socketGroup.sourceItem.rarity]..socketGroup.sourceItem.name)
 		main:AddTooltipSeparator(10)
 	end
 	local gemShown = { }
@@ -80,9 +80,9 @@ function SkillListClass:AddValueTooltip(index, socketGroup)
 				data.skillColorMap[gem.data.color], 
 				gem.name,
 				gem.level, 
-				(gem.srcGem and gem.level > gem.srcGem.level) and data.colorCodes.MAGIC.."+"..(gem.level - gem.srcGem.level).."^7" or "",
+				(gem.srcGem and gem.level > gem.srcGem.level) and colorCodes.MAGIC.."+"..(gem.level - gem.srcGem.level).."^7" or "",
 				gem.quality,
-				(gem.srcGem and gem.quality > gem.srcGem.quality) and data.colorCodes.MAGIC.."+"..(gem.quality - gem.srcGem.quality).."^7" or ""
+				(gem.srcGem and gem.quality > gem.srcGem.quality) and colorCodes.MAGIC.."+"..(gem.quality - gem.srcGem.quality).."^7" or ""
 			))
 			if gem.srcGem then
 				gemShown[gem.srcGem] = true
@@ -96,9 +96,9 @@ function SkillListClass:AddValueTooltip(index, socketGroup)
 				data.skillColorMap[gem.data.color], 
 				gem.name, 
 				gem.level, 
-				(gem.srcGem and gem.level > gem.srcGem.level) and data.colorCodes.MAGIC.."+"..(gem.level - gem.srcGem.level).."^7" or "",
+				(gem.srcGem and gem.level > gem.srcGem.level) and colorCodes.MAGIC.."+"..(gem.level - gem.srcGem.level).."^7" or "",
 				gem.quality,
-				(gem.srcGem and gem.quality > gem.srcGem.quality) and data.colorCodes.MAGIC.."+"..(gem.quality - gem.srcGem.quality).."^7" or ""
+				(gem.srcGem and gem.quality > gem.srcGem.quality) and colorCodes.MAGIC.."+"..(gem.quality - gem.srcGem.quality).."^7" or ""
 			))
 			if gem.srcGem then
 				gemShown[gem.srcGem] = true
@@ -131,9 +131,9 @@ function SkillListClass:AddValueTooltip(index, socketGroup)
 				gem.color, 
 				gem.name or gem.nameSpec, 
 				displayGem.level, 
-				displayGem.level > gem.level and data.colorCodes.MAGIC.."+"..(displayGem.level - gem.level).."^7" or "",
+				displayGem.level > gem.level and colorCodes.MAGIC.."+"..(displayGem.level - gem.level).."^7" or "",
 				displayGem.quality,
-				displayGem.quality > gem.quality and data.colorCodes.MAGIC.."+"..(displayGem.quality - gem.quality).."^7" or "",
+				displayGem.quality > gem.quality and colorCodes.MAGIC.."+"..(displayGem.quality - gem.quality).."^7" or "",
 				reason
 			))
 		end

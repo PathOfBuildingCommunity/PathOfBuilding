@@ -196,7 +196,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end)
 	self.controls.importCodeState = common.New("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 4, 0, 0, 16)
 	self.controls.importCodeState.label = function()
-		return (self.importCodeState == "VALID" and data.colorCodes.POSITIVE.."Code is valid") or (self.importCodeState == "INVALID" and data.colorCodes.NEGATIVE.."Invalid code") or ""
+		return (self.importCodeState == "VALID" and colorCodes.POSITIVE.."Code is valid") or (self.importCodeState == "INVALID" and colorCodes.NEGATIVE.."Invalid code") or ""
 	end
 	self.controls.importCodePastebin = common.New("ButtonControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 90, 0, 160, 20, "Import from Pastebin...", function()
 		self:OpenPastebinImportPopup()
@@ -243,23 +243,23 @@ function ImportTabClass:DownloadCharacterList()
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or main.accountSessionIDs[accountName]
 	launch:DownloadPage("https://www.pathofexile.com/character-window/get-characters?accountName="..accountName, function(page, errMsg)
 		if errMsg then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
+			self.charImportStatus = colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
 			self.charImportMode = "GETACCOUNTNAME"
 			return
 		elseif page == "false" then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."Failed to retrieve character list."
+			self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character list."
 			self.charImportMode = "GETSESSIONID"
 			return
 		end
 		local charList, errMsg = self:ProcessJSON(page)
 		if errMsg then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."Error processing character list, try again later"
+			self.charImportStatus = colorCodes.NEGATIVE.."Error processing character list, try again later"
 			self.charImportMode = "GETACCOUNTNAME"
 			return
 		end
 		--ConPrintTable(charList)
 		if #charList == 0 then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."The account has no characters to import."
+			self.charImportStatus = colorCodes.NEGATIVE.."The account has no characters to import."
 			self.charImportMode = "GETACCOUNTNAME"
 			return
 		end
@@ -267,13 +267,13 @@ function ImportTabClass:DownloadCharacterList()
 		-- This workaround grabs the profile page and extracts the correct account name from one of the URLs.
 		launch:DownloadPage("https://www.pathofexile.com/account/view-profile/"..accountName, function(page, errMsg)
 			if errMsg then
-				self.charImportStatus = data.colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
+				self.charImportStatus = colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
 				self.charImportMode = "GETACCOUNTNAME"
 				return
 			end
 			local realAccountName = page:match("/account/view%-profile/([^/]+)/characters"):gsub(".", function(c) if c:byte(1) > 127 then return string.format("%%%2X",c:byte(1)) else return c end end)
 			if not realAccountName then
-				self.charImportStatus = data.colorCodes.NEGATIVE.."Failed to retrieve character list."
+				self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character list."
 				self.charImportMode = "GETSESSIONID"
 				return
 			end
@@ -309,18 +309,18 @@ function ImportTabClass:DownloadPassiveTree()
 	launch:DownloadPage("https://www.pathofexile.com/character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name, function(page, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
+			self.charImportStatus = colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
 			return
 		elseif page == "false" then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
+			self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
 			return
 		end
 		local charPassiveData, errMsg = self:ProcessJSON(page)
 		if errMsg then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."Error processing character data, try again later."
+			self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
 			return
 		end
-		self.charImportStatus = data.colorCodes.POSITIVE.."Passive tree and jewels successfully imported."
+		self.charImportStatus = colorCodes.POSITIVE.."Passive tree and jewels successfully imported."
 		--ConPrintTable(charPassiveData)
 		if self.controls.charImportTreeClearJewels.state then
 			for _, slot in pairs(self.build.itemsTab.slots) do
@@ -356,15 +356,15 @@ function ImportTabClass:DownloadItems()
 	launch:DownloadPage("https://www.pathofexile.com/character-window/get-items?accountName="..accountName.."&character="..charData.name, function(page, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
+			self.charImportStatus = colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
 			return
 		elseif page == "false" then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
+			self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
 			return
 		end
 		local charItemData, errMsg = self:ProcessJSON(page)
 		if errMsg then
-			self.charImportStatus = data.colorCodes.NEGATIVE.."Error processing character data, try again later."
+			self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
 			return
 		end
 		if self.controls.charImportItemsClearItems.state then
@@ -386,7 +386,7 @@ function ImportTabClass:DownloadItems()
 			end
 			wipeTable(self.build.skillsTab.socketGroupList)
 		end
-		self.charImportStatus = data.colorCodes.POSITIVE.."Items and skills successfully imported."
+		self.charImportStatus = colorCodes.POSITIVE.."Items and skills successfully imported."
 		--ConPrintTable(charItemData)
 		for _, itemData in pairs(charItemData.items) do
 			self:ImportItem(itemData)
@@ -465,7 +465,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 			-- Hack for Two-Toned Boots
 			item.baseName = "Two-Toned Boots (Armour/Energy Shield)"
 		end
-		item.base = data.itemBases[item.baseName]
+		item.base = self.build.data.itemBases[item.baseName]
 		if item.base then
 			item.type = item.base.type
 		else
@@ -473,7 +473,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 		end
 	else
 		item.name = itemLib.sanitiseItemText(itemData.typeLine)
-		for baseName, baseData in pairs(data.itemBases) do
+		for baseName, baseData in pairs(self.build.data.itemBases) do
 			local s, e = item.name:find(baseName, 1, true)
 			if s then
 				item.baseName = baseName
@@ -493,7 +493,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 				item.type = "Boots"
 			end
 		end
-		item.base = data.itemBases[item.baseName]
+		item.base = self.build.data.itemBases[item.baseName]
 	end
 	if not item.base or not item.rarity then
 		return
@@ -512,7 +512,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 			if property.name == "Quality" then
 				item.quality = tonumber(property.values[1][1]:match("%d+"))
 			elseif property.name == "Radius" then
-				for index, data in pairs(data.jewelRadius) do
+				for index, data in pairs(self.build.data.jewelRadius) do
 					if property.values[1][1] == data.label then
 						item.jewelRadiusIndex = index
 						break
@@ -524,13 +524,13 @@ function ImportTabClass:ImportItem(itemData, sockets)
 				if item.baseName == "Two-Toned Boots (Armour/Energy Shield)" then
 					-- Another hack for Two-Toned Boots
 					item.baseName = "Two-Toned Boots (Armour/Evasion)"
-					item.base = data.itemBases[item.baseName]
+					item.base = self.build.data.itemBases[item.baseName]
 				end
 			elseif property.name == "Energy Shield" then
 				if item.baseName == "Two-Toned Boots (Armour/Evasion)" then
 					-- Yet another hack for Two-Toned Boots
 					item.baseName = "Two-Toned Boots (Evasion/Energy Shield)"
-					item.base = data.itemBases[item.baseName]
+					item.base = self.build.data.itemBases[item.baseName]
 				end
 			end
 		end
@@ -562,7 +562,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 		item.implicitLines = item.implicitLines + #itemData.implicitMods
 		for _, line in ipairs(itemData.implicitMods) do
 			line = line:gsub("\n"," ")
-			local modList, extra = modLib.parseMod(line)
+			local modList, extra = modLib.parseMod[self.build.targetVersion](line)
 			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { } })
 		end
 	end
@@ -570,14 +570,14 @@ function ImportTabClass:ImportItem(itemData, sockets)
 		item.implicitLines = item.implicitLines + #itemData.enchantMods
 		for _, line in ipairs(itemData.enchantMods) do
 			line = line:gsub("\n"," ")
-			local modList, extra = modLib.parseMod(line)
+			local modList, extra = modLib.parseMod[self.build.targetVersion](line)
 			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
 		end
 	end
 	if itemData.explicitMods then
 		for _, line in ipairs(itemData.explicitMods) do
 			for line in line:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod(line)
+				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
 				t_insert(item.modLines, { line = line, extra = extra, mods = modList or { } })
 			end
 		end
@@ -585,7 +585,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 	if itemData.craftedMods then
 		for _, line in ipairs(itemData.craftedMods) do
 			for line in line:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod(line)
+				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
 				t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
 			end
 		end
@@ -594,7 +594,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 	-- Add and equip the new item
 	item.raw = itemLib.createItemRaw(item)
 --	ConPrintf("%s", item.raw)
-	local newItem = itemLib.makeItemFromRaw(item.raw)
+	local newItem = itemLib.makeItemFromRaw(self.build.targetVersion, item.raw)
 	if newItem then
 		local repIndex, repItem
 		for index, item in pairs(self.build.itemsTab.list) do

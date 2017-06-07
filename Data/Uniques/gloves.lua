@@ -200,6 +200,17 @@ Recover 20% of your Maximum Life on Rampage
 Gain 5 Souls for Vaal Skills on Rampage
 Rampage
 ]],[[
+Haemophilia
+Serpentscale Gauntlets
+Requires Level 43, 34 Str, 34 Dex
++(20–30) to Strength 
+25% increased Damage over Time 
+Attacks have 25% chance to cause Bleeding 
+(25–40)% increased Attack Damage against Bleeding Enemies 
+Bleeding Enemies you Kill Explode, dealing 5% of
+their Maximum Life as Physical Damage 
+25% reduced Bleed duration
+]],[[
 Slitherpinch
 Bronzescale Gauntlets
 Variant: Pre 2.6.0

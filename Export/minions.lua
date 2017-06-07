@@ -103,6 +103,6 @@ for _, name in pairs({"Spectres"}) do
 	processTemplateFile("Minions/"..name, directiveTable)
 end
 
-os.execute("xcopy Minions\\*.lua ..\\Data\\ /Y /Q")
+os.execute("xcopy Minions\\*.lua ..\\Data\\3_0\\ /Y /Q")
 
 print("Minion data exported.")

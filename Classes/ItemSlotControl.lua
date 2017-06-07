@@ -65,7 +65,7 @@ function ItemSlotClass:Populate()
 	for _, item in pairs(self.itemsTab.list) do
 		if self.itemsTab:IsItemValidForSlot(item, self.slotName) then
 			t_insert(self.items, item.id)
-			t_insert(self.list, data.colorCodes[item.rarity]..item.name)
+			t_insert(self.list, colorCodes[item.rarity]..item.name)
 			if item.id == self.selItemId then
 				self.selIndex = #self.list
 			end
@@ -84,7 +84,7 @@ function ItemSlotClass:ReceiveDrag(type, value, source)
 	if value.id and self.itemsTab.list[value.id] then
 		self:SetSelItemId(value.id)
 	else
-		local newItem = itemLib.makeItemFromRaw(value.raw)
+		local newItem = itemLib.makeItemFromRaw(self.itemsTab.build.targetVersion, value.raw)
 		itemLib.normaliseQuality(newItem)
 		self.itemsTab:AddItem(newItem, true)
 		self:SetSelItemId(newItem.id)
@@ -139,7 +139,7 @@ function ItemSlotClass:Draw(viewPort)
 		if ttItem then
 			self.itemsTab:AddItemTooltip(ttItem, self)
 			SetDrawLayer(nil, 100)
-			main:DrawTooltip(x, y, width, height, viewPort, data.colorCodes[ttItem.rarity], true)
+			main:DrawTooltip(x, y, width, height, viewPort, colorCodes[ttItem.rarity], true)
 			SetDrawLayer(nil, 0)
 		end
 	end
