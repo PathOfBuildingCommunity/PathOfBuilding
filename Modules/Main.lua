@@ -39,10 +39,12 @@ local classList = {
 	"SliderControl",
 	"TextListControl",
 	"ListControl",
+	"PathControl",
 	-- Misc
 	"PopupDialog",
 	-- Mode: Build list
 	"BuildListControl",
+	"FolderListControl",
 	-- Mode: Build
 	"ModList",
 	"ModDB",
@@ -230,9 +232,8 @@ function main:OnFrame()
 			self:CallMode("Shutdown")
 		end
 		self.mode = self.newMode
-		self.modeArgs = self.newModeArgs
 		self.newMode = nil
-		self:CallMode("Init", unpack(self.modeArgs))
+		self:CallMode("Init", unpack(self.newModeArgs))
 	end
 
 	self.viewPort = { x = 0, y = 0, width = self.screenW, height = self.screenH }
@@ -411,7 +412,7 @@ end
 function main:SaveSettings()
 	local setXML = { elem = "PathOfBuilding" }
 	local mode = { elem = "Mode", attrib = { mode = self.mode } }
-	for _, val in ipairs(self.modeArgs) do
+	for _, val in ipairs({ self:CallMode("GetArgs") }) do
 		local child = { elem = "Arg", attrib = { } }
 		if type(val) == "number" then
 			child.attrib.number = tostring(val)
@@ -664,6 +665,82 @@ function main:StatColor(stat, base, limit)
 	end
 end
 
+function main:MoveFolder(name, srcPath, dstPath)
+	-- Create destination folder
+	local res, msg = MakeDir(dstPath..name)
+	if not res then
+		self:OpenMessagePopup("Error", "Couldn't move '"..name.."' to '"..dstPath.."' : "..msg)
+		return
+	end
+
+	-- Move subfolders
+	local handle = NewFileSearch(srcPath..name.."/*", true)
+	while handle do
+		self:MoveFolder(handle:GetFileName(), srcPath..name.."/", dstPath..name.."/")
+		if not handle:NextFile() then
+			break
+		end
+	end
+
+	-- Move files
+	handle = NewFileSearch(srcPath..name.."/*") 
+	while handle do
+		local fileName = handle:GetFileName()
+		local srcName = srcPath..name.."/"..fileName
+		local dstName = dstPath..name.."/"..fileName
+		local res, msg = os.rename(srcName, dstName)
+		if not res then
+			self:OpenMessagePopup("Error", "Couldn't move '"..srcName.."' to '"..dstName.."': "..msg)
+			return
+		end
+		if not handle:NextFile() then
+			break
+		end		
+	end
+
+	-- Remove source folder
+	local res, msg = RemoveDir(srcPath..name)
+	if not res then
+		self:OpenMessagePopup("Error", "Couldn't delete '"..dstPath..name.."' : "..msg)
+		return
+	end
+end
+
+function main:CopyFolder(srcName, dstName)
+	-- Create destination folder
+	local res, msg = MakeDir(dstName)
+	if not res then
+		self:OpenMessagePopup("Error", "Couldn't copy '"..srcName.."' to '"..dstName.."' : "..msg)
+		return
+	end
+
+	-- Copy subfolders
+	local handle = NewFileSearch(srcName.."/*", true)
+	while handle do
+		local fileName = handle:GetFileName()
+		self:CopyFolder(srcName.."/"..fileName, dstName.."/"..fileName)
+		if not handle:NextFile() then
+			break
+		end
+	end
+
+	-- Copy files
+	handle = NewFileSearch(srcName.."/*") 
+	while handle do
+		local fileName = handle:GetFileName()
+		local srcName = srcName.."/"..fileName
+		local dstName = dstName.."/"..fileName
+		local res, msg = copyFile(srcName, dstName)
+		if not res then
+			self:OpenMessagePopup("Error", "Couldn't copy '"..srcName.."' to '"..dstName.."': "..msg)
+			return
+		end
+		if not handle:NextFile() then
+			break
+		end		
+	end
+end
+
 function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl)
 	local popup = common.New("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl)
 	t_insert(self.popups, 1, popup)
@@ -702,6 +779,34 @@ function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm)
 		main:ClosePopup()
 	end))
 	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "confirm")
+end
+
+function main:OpenNewFolderPopup(path, onClose)
+	local controls = { }
+	controls.label = common.New("LabelControl", nil, 0, 20, 0, 16, "^7Enter folder name:")
+	controls.edit = common.New("EditControl", nil, 0, 40, 350, 20, nil, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+		controls.create.enabled = buf:match("%S")
+	end)
+	controls.create = common.New("ButtonControl", nil, -45, 70, 80, 20, "Create", function()
+		local newFolderName = controls.edit.buf
+		local res, msg = MakeDir(path..newFolderName)
+		if not res then
+			main:OpenMessagePopup("Error", "Couldn't create '"..newFolderName.."': "..msg)
+			return
+		end
+		if onClose then
+			onClose(newFolderName)
+		end
+		main:ClosePopup()
+	end)
+	controls.create.enabled = false
+	controls.cancel = common.New("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
+		if onClose then
+			onClose()
+		end
+		main:ClosePopup()
+	end)
+	main:OpenPopup(370, 100, "New Folder", controls, "create", "edit", "cancel")	
 end
 
 do

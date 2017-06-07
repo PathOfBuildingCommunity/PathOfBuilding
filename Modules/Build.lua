@@ -35,7 +35,7 @@ local mercilessBanditDropList = {
 
 local buildMode = common.New("ControlHost")
 
-function buildMode:Init(dbFileName, buildName)
+function buildMode:Init(dbFileName, buildName, buildXML)
 	self.abortSave = true
 
 	self.tree = main.tree
@@ -53,7 +53,7 @@ function buildMode:Init(dbFileName, buildName)
 		if self.unsaved then
 			self:OpenSavePopup("LIST")
 		else
-			main:SetMode("LIST", self.dbFileName and self.buildName)
+			self:CloseBuild()
 		end
 	end)
 	self.controls.buildName = common.New("Control", {"LEFT",self.controls.back,"RIGHT"}, 8, 0, 0, 20)
@@ -75,9 +75,13 @@ function buildMode:Init(dbFileName, buildName)
 		SetViewport(x, y + 2, self.strWidth + 94, 16)
 		DrawString(0, 0, "LEFT", 16, "VAR", "Current build:  "..self.buildName)
 		SetViewport()
-		if control:IsMouseInBounds() and self.strLimited then
+		if control:IsMouseInBounds() then
 			SetDrawLayer(nil, 10)
-			main:AddTooltipLine(16, self.buildName)
+			if self.dbFileSubPath and self.dbFileSubPath ~= "" then
+				main:AddTooltipLine(16, self.dbFileSubPath..self.buildName)
+			elseif self.strLimited then
+				main:AddTooltipLine(16, self.buildName)
+			end
 			main:DrawTooltip(x, y, width, height, main.viewPort)
 			SetDrawLayer(nil, 0)
 		end
@@ -377,6 +381,11 @@ function buildMode:Init(dbFileName, buildName)
 
 	self.dbFileName = dbFileName
 	self.buildName = buildName
+	if dbFileName then
+		self.dbFileSubPath = self.dbFileName:sub(#main.buildPath + 1, -#self.buildName - 5)
+	else
+		self.dbFileSubPath = main.modes.LIST.subPath or ""
+	end
 
 	self.characterLevel = 1
 	self.controls.characterLevel:SetText(tostring(self.characterLevel))
@@ -401,9 +410,18 @@ function buildMode:Init(dbFileName, buildName)
 		["Spec"] = self.treeTab,
 	}
 
-	if self:LoadDBFile() then
-		main:SetMode("LIST", buildName)
-		return
+	if buildXML then
+		if self:LoadDB(buildXML, "Imported build") then
+			self:CloseBuild()
+			return
+		end
+		self.modFlag = true
+	else
+		if self:LoadDBFile() then
+			self:CloseBuild()
+			return
+		end
+		self.modFlag = false
 	end
 
 	if next(self.configTab.input) == nil then
@@ -457,6 +475,14 @@ function buildMode:Shutdown()
 	self.savers = nil
 end
 
+function buildMode:GetArgs()
+	return self.dbFileName, self.buildName
+end
+
+function buildMode:CloseBuild()
+	main:SetMode("LIST", self.dbFileName and self.buildName, self.dbFileSubPath)
+end
+
 function buildMode:Load(xml, fileName)
 	if xml.attrib.viewMode then
 		self.viewMode = xml.attrib.viewMode
@@ -496,12 +522,18 @@ end
 
 function buildMode:OnFrame(inputEvents)
 	if self.abortSave and not launch.devMode then
-		main:SetMode("LIST", self.buildName)
+		self:CloseBuild()
 	end
 
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
-			if IsKeyDown("CTRL") then
+			if event.key == "MOUSE4" then
+				if self.unsaved then
+					self:OpenSavePopup("LIST")
+				else
+					self:CloseBuild()
+				end
+		elseif IsKeyDown("CTRL") then
 				if event.key == "s" then
 					self:SaveDBFile()
 					inputEvents[id] = nil
@@ -509,7 +541,7 @@ function buildMode:OnFrame(inputEvents)
 					if self.unsaved then
 						self:OpenSavePopup("LIST")
 					else
-						main:SetMode("LIST", self.dbFileName and self.buildName)
+						self:CloseBuild()
 					end
 				elseif event.key == "1" then
 					self.viewMode = "TREE"
@@ -604,65 +636,77 @@ function buildMode:OpenSavePopup(mode)
 		["EXIT"] = "before exiting?",
 		["UPDATE"] = "before updating?",
 	}
-	main:OpenPopup(290, 100, "Save Changes", {
-		common.New("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them "..modeDesc[mode]),
-		common.New("ButtonControl", nil, -90, 70, 80, 20, "Save", function()
-			main:ClosePopup()
-			self.actionOnSave = mode
-			self:SaveDBFile()
-		end),
-		common.New("ButtonControl", nil, 0, 70, 80, 20, "Don't Save", function()
-			main:ClosePopup()
-			if mode == "LIST" then
-				main:SetMode("LIST", self.dbFileName and self.buildName)
-			elseif mode == "EXIT" then
-				Exit()
-			elseif mode == "UPDATE" then
-				launch:ApplyUpdate(launch.updateAvailable)
-			end
-		end),
-		common.New("ButtonControl", nil, 90, 70, 80, 20, "Cancel", function()
-			main:ClosePopup()
-		end),
-	})
+	local controls = { }
+	controls.label = common.New("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them "..modeDesc[mode])
+	controls.save = common.New("ButtonControl", nil, -90, 70, 80, 20, "Save", function()
+		main:ClosePopup()
+		self.actionOnSave = mode
+		self:SaveDBFile()
+	end)
+	controls.noSave = common.New("ButtonControl", nil, 0, 70, 80, 20, "Don't Save", function()
+		main:ClosePopup()
+		if mode == "LIST" then
+			self:CloseBuild()
+		elseif mode == "EXIT" then
+			Exit()
+		elseif mode == "UPDATE" then
+			launch:ApplyUpdate(launch.updateAvailable)
+		end
+	end)
+	controls.close = common.New("ButtonControl", nil, 90, 70, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(290, 100, "Save Changes", controls)
 end
 
 function buildMode:OpenSaveAsPopup()
 	local newFileName, newBuildName
-	local popup
-	popup = main:OpenPopup(370, 100, self.dbFileName and "Save As" or "Save", {
-		common.New("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:"),
-		edit = common.New("EditControl", nil, 0, 40, 350, 20, self.dbFileName and self.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
-			newFileName = main.buildPath..buf..".xml"
-			newBuildName = buf
-			popup.controls.save.enabled = false
-			if not buf:match("%S") then
-				return
-			end
+	local controls = { }
+	local function updateBuildName()
+		local buf = controls.edit.buf
+		newFileName = main.buildPath..controls.folder.subPath..buf..".xml"
+		newBuildName = buf
+		controls.save.enabled = false
+		if buf:match("%S") then
 			local out = io.open(newFileName, "r")
 			if out then
 				out:close()
-				return
+			else
+				controls.save.enabled = true
 			end
-			popup.controls.save.enabled = true
-		end),
-		save = common.New("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
-			main:ClosePopup()
-			self.dbFileName = newFileName
-			self.buildName = newBuildName
-			main.modeArgs = { newFileName, newBuildName }
-			self:SaveDBFile()
-		end),
-		common.New("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
-			main:ClosePopup()
-		end),
-	}, "save", "edit")
-	popup.controls.save.enabled = false
+		end
+	end
+	controls.label = common.New("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:")
+	controls.edit = common.New("EditControl", nil, 0, 40, 450, 20, self.dbFileName and self.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+		updateBuildName()
+	end)
+	controls.folderLabel = common.New("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 70, 0, 16, "^7Folder:")
+	controls.newFolder = common.New("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 67, 94, 20, "New Folder...", function()
+		main:OpenNewFolderPopup(main.buildPath..controls.folder.subPath, function(newFolderName)
+			if newFolderName then
+				controls.folder:OpenFolder(newFolderName)
+			end
+		end)
+	end)
+	controls.folder = common.New("FolderList", nil, 0, 115, 450, 100, self.dbFileSubPath, function(subPath)
+		updateBuildName()
+	end)
+	controls.save = common.New("ButtonControl", nil, -45, 225, 80, 20, "Save", function()
+		main:ClosePopup()
+		self.dbFileName = newFileName
+		self.buildName = newBuildName
+		self.dbFileSubPath = controls.folder.subPath
+		self:SaveDBFile()
+	end)
+	controls.save.enabled = false
+	controls.close = common.New("ButtonControl", nil, 45, 225, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(470, 255, self.dbFileName and "Save As" or "Save", controls, "save", "edit")
 end
 
 -- Open the spectre library popup
 function buildMode:OpenSpectreLibrary()
-	local controls = { }
 	local destList = copyTable(self.spectreList)
 	local sourceList = { }
 	for id in pairs(data.spectres) do
@@ -675,6 +719,7 @@ function buildMode:OpenSpectreLibrary()
 			return data.minions[a].name < data.minions[b].name
 		end
 	end)
+	local controls = { }
 	controls.list = common.New("MinionList", nil, -100, 40, 190, 250, destList)
 	controls.source = common.New("MinionList", nil, 100, 40, 190, 250, sourceList, controls.list)
 	controls.save = common.New("ButtonControl", nil, -45, 300, 80, 20, "Save", function()
@@ -950,7 +995,7 @@ function buildMode:SaveDBFile()
 	file:write(xmlText)
 	file:close()
 	if self.actionOnSave == "LIST" then
-		main:SetMode("LIST", self.dbFileName and self.buildName)
+		self:CloseBuild()
 	elseif self.actionOnSave == "EXIT" then
 		Exit()
 	elseif self.actionOnSave == "UPDATE" then

@@ -294,3 +294,17 @@ function getFormatSec(dec)
 	end
 end
 
+function copyFile(srcName, dstName)
+	local inFile, msg = io.open(srcName, "r")
+	if not inFile then
+		return nil, "Couldn't open '"..srcName.."': "..msg
+	end
+	local outFile, msg = io.open(dstName, "w")
+	if not outFile then
+		return nil, "Couldn't create '"..dstName.."': "..msg
+	end
+	outFile:write(inFile:read("*a"))
+	inFile:close()
+	outFile:close()
+	return true
+end

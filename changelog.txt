@@ -1,3 +1,7 @@
+VERSION[1.4.19][2017/06/07]
+ * The build list now has support for folders
+ * Importing from a build code no longer requires you to name the build before importing
+ * Fixed an error that could appear while using the item text editor
 VERSION[1.4.18][2017/06/03]
  * The "Craft item..." feature has been significantly enhanced:
     * Modifiers are now available for all item types, not just Flasks and Jewels

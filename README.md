@@ -53,6 +53,11 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.19 - 2017/06/07
+ * The build list now has support for folders
+ * Importing from a build code no longer requires you to name the build before importing
+ * Fixed an error that could appear while using the item text editor
+
 ### 1.4.18 - 2017/06/03
  * The "Craft item..." feature has been significantly enhanced:
     * Modifiers are now available for all item types, not just Flasks and Jewels
