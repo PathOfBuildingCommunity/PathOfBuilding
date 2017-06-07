@@ -199,60 +199,27 @@ You can get this from your web browser's cookies while logged into the Path of E
 		return (self.importCodeState == "VALID" and data.colorCodes.POSITIVE.."Code is valid") or (self.importCodeState == "INVALID" and data.colorCodes.NEGATIVE.."Invalid code") or ""
 	end
 	self.controls.importCodePastebin = common.New("ButtonControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 90, 0, 160, 20, "Import from Pastebin...", function()
-		local controls = { }
-		controls.editLabel = common.New("LabelControl", nil, 0, 20, 0, 16, "Enter Pastebin.com link:")
-		controls.edit = common.New("EditControl", nil, 0, 40, 250, 18, "", nil, nil, nil, function(buf)
-			controls.msg.label = ""
-		end)
-		controls.msg = common.New("LabelControl", nil, 0, 58, 0, 16, "")
-		controls.import = common.New("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
-			controls.import.enabled = false
-			controls.msg.label = "Retrieving paste..."
-			launch:DownloadPage(controls.edit.buf:gsub("pastebin%.com/(%w+)$","pastebin.com/raw/%1"), function(page, errMsg)
-				if errMsg then
-					controls.msg.label = "^1"..errMsg
-					controls.import.enabled = true
-				else
-					self.controls.importCodeIn:SetText(page, true)
-					main:ClosePopup()
-				end
-			end)
-		end)
-		controls.import.enabled = function()
-			return #controls.edit.buf > 0 and controls.edit.buf:match("pastebin%.com/%w+")
-		end
-		controls.cancel = common.New("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()
-			main:ClosePopup()
-		end)
-		main:OpenPopup(280, 110, "Import from Pastebin", controls, "import", "edit")
+		self:OpenPastebinImportPopup()
 	end)
-	self.controls.importCodeMode = common.New("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "Import to this build", "Import to a new build:" })
+	self.controls.importCodeMode = common.New("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "Import to this build", "Import to a new build" })
 	self.controls.importCodeMode.enabled = function()
 		return self.importCodeState == "VALID" and self.build.dbFileName
 	end
-	self.controls.importCodeBuildName = common.New("EditControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 4, 0, 400, 20, "", "New build name", "\\/:%*%?\"<>|%c", 100)
-	self.controls.importCodeBuildName.enabled = function()
-		return self.importCodeState == "VALID" and self.controls.importCodeMode.selIndex == 2
-	end
 	self.controls.importCodeGo = common.New("ButtonControl", {"TOPLEFT",self.controls.importCodeMode,"BOTTOMLEFT"}, 0, 8, 60, 20, "Import", function()
 		if self.controls.importCodeMode.selIndex == 1 then
-			main:OpenConfirmPopup("Build Import", "^xFF9922Warning:^7 Importing to the current build will erase ALL existing data for this build.\nThis cannot be undone.", "Import", function()
-				self:ImportToBuild(self.build.dbFileName, self.build.buildName)
+			main:OpenConfirmPopup("Build Import", "^xFF9922Warning:^7 Importing to the current build will erase ALL existing data for this build.", "Import", function()
+				self.build:Shutdown()
+				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML)
+				self.build.viewMode = "TREE"
 			end)
 		else
-			local newBuildName = self.controls.importCodeBuildName.buf
-			local newFileName = main.buildPath .. newBuildName .. ".xml"
-			local file = io.open(newFileName, "r")
-			if file then
-				file:close()
-				main:OpenMessagePopup("Build Import", "A build with that name already exists.")
-				return
-			end
-			self:ImportToBuild(newFileName, newBuildName)
+			self.build:Shutdown()
+			self.build:Init(false, "Imported build", self.importCodeXML)
+			self.build.viewMode = "TREE"
 		end
 	end)
 	self.controls.importCodeGo.enabled = function()
-		return self.importCodeState == "VALID" and (self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeBuildName.buf:match("%S"))
+		return self.importCodeState == "VALID"
 	end
 end)
 
@@ -709,6 +676,35 @@ function ImportTabClass:ImportSocketedSkills(item, socketedItems, slotName)
 	end	
 end
 
+function ImportTabClass:OpenPastebinImportPopup()
+	local controls = { }
+	controls.editLabel = common.New("LabelControl", nil, 0, 20, 0, 16, "Enter Pastebin.com link:")
+	controls.edit = common.New("EditControl", nil, 0, 40, 250, 18, "", nil, nil, nil, function(buf)
+		controls.msg.label = ""
+	end)
+	controls.msg = common.New("LabelControl", nil, 0, 58, 0, 16, "")
+	controls.import = common.New("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
+		controls.import.enabled = false
+		controls.msg.label = "Retrieving paste..."
+		launch:DownloadPage(controls.edit.buf:gsub("pastebin%.com/(%w+)$","pastebin.com/raw/%1"), function(page, errMsg)
+			if errMsg then
+				controls.msg.label = "^1"..errMsg
+				controls.import.enabled = true
+			else
+				self.controls.importCodeIn:SetText(page, true)
+				main:ClosePopup()
+			end
+		end)
+	end)
+	controls.import.enabled = function()
+		return #controls.edit.buf > 0 and controls.edit.buf:match("pastebin%.com/%w+")
+	end
+	controls.cancel = common.New("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(280, 110, "Import from Pastebin", controls, "import", "edit")
+end
+
 function ImportTabClass:ProcessJSON(json)
 	local func, errMsg = loadstring("return "..jsonToLua(json))
 	if errMsg then
@@ -720,17 +716,4 @@ function ImportTabClass:ProcessJSON(json)
 		return nil, "Return type is not a table"
 	end
 	return data
-end
-
-function ImportTabClass:ImportToBuild(buildFileName, buildName)
-	self.build:Shutdown()
-	local file = io.open(buildFileName, "w+")
-	if not file then
-		main:ShowMessagePopup("Build Import", "^xFF2222Error:^7 Couldn't create build file (invalid name?)")
-		return
-	end
-	file:write(self.importCodeXML)
-	file:close()
-	self.build:Init(buildFileName, buildName)
-	self.build.viewMode = "TREE"
 end

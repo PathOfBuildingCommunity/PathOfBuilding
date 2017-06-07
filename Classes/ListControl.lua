@@ -112,7 +112,7 @@ function ListClass:Draw(viewPort)
 	if label then
 		DrawString(x, y - 20, "LEFT", 16, "VAR", label)
 	end
-	if self.otherDragSource then
+	if self.otherDragSource and not self.CanDragToValue then
 		SetDrawColor(0.2, 0.6, 0.2)
 	elseif self.hasFocus then
 		SetDrawColor(1, 1, 1)
@@ -120,7 +120,7 @@ function ListClass:Draw(viewPort)
 		SetDrawColor(0.5, 0.5, 0.5)
 	end
 	DrawImage(nil, x, y, width, height)
-	if self.otherDragSource then
+	if self.otherDragSource and not self.CanDragToValue then
 		SetDrawColor(0, 0.05, 0)
 	else
 		SetDrawColor(0, 0, 0)
@@ -151,7 +151,7 @@ function ListClass:Draw(viewPort)
 				text = text:sub(1, clipIndex - 1) .. "..."
 				textWidth = DrawStringWidth(textHeight, "VAR", text)
 			end
-			if not scrollBar.dragging and not self.selDragActive then
+			if not scrollBar.dragging and (not self.selDragActive or (self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource))) then
 				local cursorX, cursorY = GetCursorPos()
 				local relX = cursorX - (x + 2)
 				local relY = cursorY - (y + 2)
@@ -174,6 +174,8 @@ function ListClass:Draw(viewPort)
 				DrawImage(nil, colOffset, lineY, colWidth, rowHeight)
 				if (value == self.selValue or value == ttValue) then
 					SetDrawColor(0.33, 0.33, 0.33)
+				elseif self.otherDragSource and self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource) then
+					SetDrawColor(0, 0.2, 0)
 				elseif index % 2 == 0 then
 					SetDrawColor(0.05, 0.05, 0.05)
 				else
@@ -189,7 +191,11 @@ function ListClass:Draw(viewPort)
 					SetDrawColor(0.5, 0.5, 0.5)
 				end
 				DrawImage(nil, colOffset, lineY, colWidth, rowHeight)
-				SetDrawColor(0.15, 0.15, 0.15)
+				if self.otherDragSource and self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource) then
+					SetDrawColor(0, 0.2, 0)
+				else
+					SetDrawColor(0.15, 0.15, 0.15)
+				end
 				DrawImage(nil, colOffset, lineY + 1, colWidth, rowHeight - 2)
 			end
 			SetDrawColor(1, 1, 1)
@@ -219,6 +225,8 @@ function ListClass:Draw(viewPort)
 		DrawString(cursorX + 1, cursorY - 7, "LEFT", 16, "VAR", text)
 		SetDrawLayer(nil, 0)
 	end
+	self.hoverIndex = ttIndex
+	self.hoverValue = ttValue
 	if ttIndex and self.AddValueTooltip then
 		local col, center = self:AddValueTooltip(ttIndex, ttValue)
 		SetDrawLayer(nil, 100)
@@ -249,21 +257,21 @@ function ListClass:OnKeyDown(key, doubleClick)
 			self.selValue = self.list[index]
 			if self.selValue then
 				self.selIndex = index
-				if self.OnSelect then
-					self:OnSelect(self.selIndex, self.selValue)
-				end
-				if self.OnSelClick then
-					self:OnSelClick(self.selIndex, self.selValue, doubleClick)
-				end
 				if (self.isMutable or self.dragTargetList) and self:IsShown() then
 					self.selCX = cursorX
 					self.selCY = cursorY
 					self.selDragging = true
 					self.selDragActive = false
 				end
+				if self.OnSelect then
+					self:OnSelect(self.selIndex, self.selValue)
+				end
+				if self.OnSelClick then
+					self:OnSelClick(self.selIndex, self.selValue, doubleClick)
+				end
 			end
 		end
-	elseif #self.list > 0 then
+	elseif #self.list > 0 and not self.selDragActive then
 		if key == "UP" then
 			self:SelectIndex(((self.selIndex or 1) - 2) % #self.list + 1)
 		elseif key == "DOWN" then
@@ -276,6 +284,10 @@ function ListClass:OnKeyDown(key, doubleClick)
 			if key == "c" and IsKeyDown("CTRL") then
 				if self.OnSelCopy then
 					self:OnSelCopy(self.selIndex, self.selValue)
+				end
+			elseif key == "x" and IsKeyDown("CTRL") then
+				if self.OnSelCut then
+					self:OnSelCut(self.selIndex, self.selValue)
 				end
 			elseif key == "BACK" or key == "DELETE" then
 				if self.OnSelDelete then

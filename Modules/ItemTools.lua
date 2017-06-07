@@ -342,26 +342,30 @@ function itemLib.parseItemRaw(item)
 	end
 	item.affixLimit = 0
 	if item.crafted then
-		if item.rarity == "MAGIC" then
+		if not item.affixes then 
+			item.crafted = false
+		elseif item.rarity == "MAGIC" then
 			item.affixLimit = 2
 		elseif item.rarity == "RARE" then
-			item.affixLimit = (item.base.type == "Jewel" and 4 or 6)
+			item.affixLimit = (item.type == "Jewel" and 4 or 6)
 		else
 			item.crafted = false
 		end
-		for _, list in ipairs({item.prefixes,item.suffixes}) do
-			for i = 1, item.affixLimit/2 do
-				if not list[i] then
-					list[i] = "None"
-				elseif list[i] ~= "None" and not item.affixes[list[i]] then
-					for modId, mod in pairs(item.affixes) do
-						if list[i] == mod.affix then
-							list[i] = modId
-							break
-						end
-					end
-					if not item.affixes[list[i]] then
+		if item.crafted then
+			for _, list in ipairs({item.prefixes,item.suffixes}) do
+				for i = 1, item.affixLimit/2 do
+					if not list[i] then
 						list[i] = "None"
+					elseif list[i] ~= "None" and not item.affixes[list[i]] then
+						for modId, mod in pairs(item.affixes) do
+							if list[i] == mod.affix then
+								list[i] = modId
+								break
+							end
+						end
+						if not item.affixes[list[i]] then
+							list[i] = "None"
+						end
 					end
 				end
 			end
@@ -543,9 +547,6 @@ function itemLib.craftItem(item)
 	end
 	for _, line in ipairs(custom) do
 		t_insert(item.modLines, line)
-	end
-	if item.rarity == "MAGIC" then
-		item.name = newName
 	end
 	item.raw = itemLib.createItemRaw(item)
 	itemLib.parseItemRaw(item)

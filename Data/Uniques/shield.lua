@@ -426,6 +426,7 @@ Variant: Pre 1.1.0
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 68, 85 Str, 85 Int
+Implicits: 2
 {variant:1}+24% to all Elemental Resistances
 {variant:2,3}+12% to all Elemental Resistances
 {variant:1,2}+1 to Level of Aura Gems in this item
