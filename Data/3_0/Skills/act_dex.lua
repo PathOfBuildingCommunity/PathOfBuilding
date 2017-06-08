@@ -352,7 +352,7 @@ skills["ChargedAttack"] = {
 		mod("Speed", "MORE", 60, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = 60
 		--"charged_attack_damage_per_stack_+%_final" = 20
 		--"is_area_damage" = ?
-		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
+		--"base_skill_show_average_damage_instead_of_dps" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
 		skill("radius", 14), 
 		mod("Damage", "MORE", 120, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), 
@@ -446,7 +446,7 @@ skills["BladeVortex"] = {
 		--"is_area_damage" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
 		--"action_ignores_crit_tracking" = ?
-		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
+		--"base_skill_show_average_damage_instead_of_dps" = ?
 		skill("radius", 15), 
 		mod("Damage", "MORE", 150, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 2 }), 
 		mod("Damage", "MORE", 300, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 3 }), 
@@ -2072,7 +2072,7 @@ skills["FlickerStrike"] = {
 		mod("Speed", "MORE", 20, ModFlag.Attack), --"flicker_strike_more_attack_speed_+%_final" = 20
 		mod("Speed", "INC", 10, ModFlag.Attack, 0, { type = "Multiplier", var = "FrenzyCharge" }), --"base_attack_speed_+%_per_frenzy_charge" = 10
 		--"ignores_proximity_shield" = ?
-		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
+		--"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, 0, nil), --"damage_+%" = 1

@@ -32,6 +32,12 @@ local mercilessBanditDropList = {
 	{ label = "Kraityn (Att. Speed)", banditId = "Kraityn" },
 	{ label = "Alira (Cast Speed)", banditId = "Alira" },
 }
+local fooBanditDropList = {
+	{ label = "2 Passive Points", banditId = "None" },
+	{ label = "Oak (Life Regen, Phys.Dmg. Reduction, Phys.Dmg)", banditId = "Oak" },
+	{ label = "Kraityn (Attack/Cast Speed, Attack Dodge, Move Speed)", banditId = "Kraityn" },
+	{ label = "Alira (Mana Regen, Crit Multiplier, Resists)", banditId = "Alira" },
+}
 
 local buildMode = common.New("ControlHost")
 
@@ -47,13 +53,15 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		main:SetMode("LIST")
 	end
 
-	if not dbFileName and not targetVersion then
+	if not dbFileName and not targetVersion and not buildXML then
 		self.targetVersion = nil
 		self:OpenTargetVersionPopup(true)
 		return
 	end
 
 	self.abortSave = true
+
+	wipeTable(self.controls)
 
 	-- Controls: top bar, left side
 	self.anchorTopBarLeft = common.New("Control", nil, 4, 4, 0, 20)
@@ -193,93 +201,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		self.buildFlag = true
 	end)
 
-	-- Controls: Side bar
-	self.anchorSideBar = common.New("Control", nil, 4, 36, 0, 0)
-	self.controls.modeImport = common.New("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 0, 134, 20, "Import/Export Build", function()
-		self.viewMode = "IMPORT"
-	end)
-	self.controls.modeImport.locked = function() return self.viewMode == "IMPORT" end
-	self.controls.modeNotes = common.New("ButtonControl", {"LEFT",self.controls.modeImport,"RIGHT"}, 4, 0, 58, 20, "Notes", function()
-		self.viewMode = "NOTES"
-	end)
-	self.controls.modeNotes.locked = function() return self.viewMode == "NOTES" end
-	self.controls.modeConfig = common.New("ButtonControl", {"TOPRIGHT",self.anchorSideBar,"TOPLEFT"}, 300, 0, 100, 20, "Configuration", function()
-		self.viewMode = "CONFIG"
-	end)
-	self.controls.modeConfig.locked = function() return self.viewMode == "CONFIG" end
-	self.controls.modeTree = common.New("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 26, 72, 20, "Tree", function()
-		self.viewMode = "TREE"
-	end)
-	self.controls.modeTree.locked = function() return self.viewMode == "TREE" end
-	self.controls.modeSkills = common.New("ButtonControl", {"LEFT",self.controls.modeTree,"RIGHT"}, 4, 0, 72, 20, "Skills", function()
-		self.viewMode = "SKILLS"
-	end)
-	self.controls.modeSkills.locked = function() return self.viewMode == "SKILLS" end
-	self.controls.modeItems = common.New("ButtonControl", {"LEFT",self.controls.modeSkills,"RIGHT"}, 4, 0, 72, 20, "Items", function()
-		self.viewMode = "ITEMS"
-	end)
-	self.controls.modeItems.locked = function() return self.viewMode == "ITEMS" end
-	self.controls.modeCalcs = common.New("ButtonControl", {"LEFT",self.controls.modeItems,"RIGHT"}, 4, 0, 72, 20, "Calcs", function()
-		self.viewMode = "CALCS"
-	end)
-	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
-	self.controls.banditNormal = common.New("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 100, 16, normalBanditDropList, function(index, value)
-		self.banditNormal = value.banditId
-		self.modFlag = true
-		self.buildFlag = true
-	end)
-	self.controls.banditNormalLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditNormal,"TOPLEFT"}, 0, 0, 0, 14, "^7Normal Bandit:")
-	self.controls.banditCruel = common.New("DropDownControl", {"LEFT",self.controls.banditNormal,"RIGHT"}, 0, 0, 100, 16, mercilessBanditDropList, function(index, value)
-		self.banditCruel = value.banditId
-		self.modFlag = true
-		self.buildFlag = true
-	end)
-	self.controls.banditCruelLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditCruel,"TOPLEFT"}, 0, 0, 0, 14, "^7Cruel Bandit:")
-	self.controls.banditMerciless = common.New("DropDownControl", {"LEFT",self.controls.banditCruel,"RIGHT"}, 0, 0, 100, 16, cruelBanditDropList, function(index, value)
-		self.banditMerciless = value.banditId
-		self.modFlag = true
-		self.buildFlag = true
-	end)
-	self.controls.banditMercilessLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditMerciless,"TOPLEFT"}, 0, 0, 0, 14, "^7Merciless Bandit:")
-	self.controls.mainSkillLabel = common.New("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 95, 300, 16, "^7Main Skill:")
-	self.controls.mainSocketGroup = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
-		self.mainSocketGroup = index
-		self.modFlag = true
-		self.buildFlag = true
-	end)
-	self.controls.mainSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
-		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		mainSocketGroup.mainActiveSkill = index
-		self.modFlag = true
-		self.buildFlag = true
-	end)
-	self.controls.mainSkillPart = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 150, 18, nil, function(index, value)
-		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillPart = index
-		self.modFlag = true
-		self.buildFlag = true
-	end)
-	self.controls.mainSkillMinion = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 178, 18, nil, function(index, value)
-		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillMinion = value.minionId
-		self.modFlag = true
-		self.buildFlag = true
-	end)
-	self.controls.mainSkillMinionLibrary = common.New("ButtonControl", {"LEFT",self.controls.mainSkillMinion,"RIGHT"}, 2, 0, 120, 18, "Manage Spectres...", function()
-		self:OpenSpectreLibrary()
-	end)
-	self.controls.mainSkillMinionSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT"}, 0, 2, 200, 16, nil, function(index, value)
-		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillMinionSkill = index
-		self.modFlag = true
-		self.buildFlag = true
-	end)
-	self.controls.statBox = common.New("TextListControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 62, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
-	self.controls.statBox.height = function(control)
-		local x, y = control:GetPos()
-		return main.screenH - main.mainBarHeight - 4 - y
-	end
-
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
 	-- This may be user-customisable in the future
@@ -406,6 +327,102 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		self.targetVersion = targetVersion
 	end
 
+	-- Controls: Side bar
+	self.anchorSideBar = common.New("Control", nil, 4, 36, 0, 0)
+	self.controls.modeImport = common.New("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 0, 134, 20, "Import/Export Build", function()
+		self.viewMode = "IMPORT"
+	end)
+	self.controls.modeImport.locked = function() return self.viewMode == "IMPORT" end
+	self.controls.modeNotes = common.New("ButtonControl", {"LEFT",self.controls.modeImport,"RIGHT"}, 4, 0, 58, 20, "Notes", function()
+		self.viewMode = "NOTES"
+	end)
+	self.controls.modeNotes.locked = function() return self.viewMode == "NOTES" end
+	self.controls.modeConfig = common.New("ButtonControl", {"TOPRIGHT",self.anchorSideBar,"TOPLEFT"}, 300, 0, 100, 20, "Configuration", function()
+		self.viewMode = "CONFIG"
+	end)
+	self.controls.modeConfig.locked = function() return self.viewMode == "CONFIG" end
+	self.controls.modeTree = common.New("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 26, 72, 20, "Tree", function()
+		self.viewMode = "TREE"
+	end)
+	self.controls.modeTree.locked = function() return self.viewMode == "TREE" end
+	self.controls.modeSkills = common.New("ButtonControl", {"LEFT",self.controls.modeTree,"RIGHT"}, 4, 0, 72, 20, "Skills", function()
+		self.viewMode = "SKILLS"
+	end)
+	self.controls.modeSkills.locked = function() return self.viewMode == "SKILLS" end
+	self.controls.modeItems = common.New("ButtonControl", {"LEFT",self.controls.modeSkills,"RIGHT"}, 4, 0, 72, 20, "Items", function()
+		self.viewMode = "ITEMS"
+	end)
+	self.controls.modeItems.locked = function() return self.viewMode == "ITEMS" end
+	self.controls.modeCalcs = common.New("ButtonControl", {"LEFT",self.controls.modeItems,"RIGHT"}, 4, 0, 72, 20, "Calcs", function()
+		self.viewMode = "CALCS"
+	end)
+	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
+	if self.targetVersion == "2_6" then
+		self.controls.banditNormal = common.New("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 100, 16, normalBanditDropList, function(index, value)
+			self.banditNormal = value.banditId
+			self.modFlag = true
+			self.buildFlag = true
+		end)
+		self.controls.banditNormalLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditNormal,"TOPLEFT"}, 0, 0, 0, 14, "^7Normal Bandit:")
+		self.controls.banditCruel = common.New("DropDownControl", {"LEFT",self.controls.banditNormal,"RIGHT"}, 0, 0, 100, 16, mercilessBanditDropList, function(index, value)
+			self.banditCruel = value.banditId
+			self.modFlag = true
+			self.buildFlag = true
+		end)
+		self.controls.banditCruelLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditCruel,"TOPLEFT"}, 0, 0, 0, 14, "^7Cruel Bandit:")
+		self.controls.banditMerciless = common.New("DropDownControl", {"LEFT",self.controls.banditCruel,"RIGHT"}, 0, 0, 100, 16, cruelBanditDropList, function(index, value)
+			self.banditMerciless = value.banditId
+			self.modFlag = true
+			self.buildFlag = true
+		end)
+		self.controls.banditMercilessLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditMerciless,"TOPLEFT"}, 0, 0, 0, 14, "^7Merciless Bandit:")
+	else
+		self.controls.bandit = common.New("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 300, 16, fooBanditDropList, function(index, value)
+			self.bandit = value.banditId
+			self.modFlag = true
+			self.buildFlag = true
+		end)
+		self.controls.banditLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.bandit,"TOPLEFT"}, 0, 0, 0, 14, "^7Bandit:")
+	end	
+	self.controls.mainSkillLabel = common.New("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 95, 300, 16, "^7Main Skill:")
+	self.controls.mainSocketGroup = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
+		self.mainSocketGroup = index
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.mainSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
+		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		mainSocketGroup.mainActiveSkill = index
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.mainSkillPart = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 150, 18, nil, function(index, value)
+		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillPart = index
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.mainSkillMinion = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 178, 18, nil, function(index, value)
+		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillMinion = value.minionId
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.mainSkillMinionLibrary = common.New("ButtonControl", {"LEFT",self.controls.mainSkillMinion,"RIGHT"}, 2, 0, 120, 18, "Manage Spectres...", function()
+		self:OpenSpectreLibrary()
+	end)
+	self.controls.mainSkillMinionSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT"}, 0, 2, 200, 16, nil, function(index, value)
+		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillMinionSkill = index
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.statBox = common.New("TextListControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 62, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
+	self.controls.statBox.height = function(control)
+		local x, y = control:GetPos()
+		return main.screenH - main.mainBarHeight - 4 - y
+	end
+
 	-- Initialise build components
 	self.data = data[self.targetVersion]
 	self.tree = main.tree[self.targetVersion]
@@ -521,7 +538,7 @@ function buildMode:Load(xml, fileName)
 	end
 	self.characterLevel = tonumber(xml.attrib.level) or 1
 	self.controls.characterLevel:SetText(tostring(self.characterLevel))
-	for _, diff in pairs({"banditNormal","banditCruel","banditMerciless"}) do
+	for _, diff in pairs({"bandit","banditNormal","banditCruel","banditMerciless"}) do
 		self[diff] = xml.attrib[diff] or "None"
 	end
 	self.mainSocketGroup = tonumber(xml.attrib.mainSkillIndex) or tonumber(xml.attrib.mainSocketGroup) or 1
@@ -542,6 +559,7 @@ function buildMode:Save(xml)
 		level = tostring(self.characterLevel),
 		className = self.spec.curClassName,
 		ascendClassName = self.spec.curAscendClassName,
+		bandit = self.bandit,
 		banditNormal = self.banditNormal,
 		banditCruel = self.banditCruel,
 		banditMerciless = self.banditMerciless,
@@ -610,8 +628,10 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
 
-	for _, diff in pairs({"banditNormal","banditCruel","banditMerciless"}) do
-		self.controls[diff]:SelByValue(self[diff], "banditId")
+	for _, diff in pairs({"bandit","banditNormal","banditCruel","banditMerciless"}) do
+		if self.controls[diff] then
+			self.controls[diff]:SelByValue(self[diff], "banditId")
+		end
 	end
 
 	if self.buildFlag then

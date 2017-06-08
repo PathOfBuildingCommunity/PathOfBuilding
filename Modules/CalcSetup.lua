@@ -139,6 +139,7 @@ function calcs.initEnv(build, mode, override)
 	modDB:NewMod("Evasion", "BASE", 3, "Base", { type = "Multiplier", var = "Level", base = 53 })
 	modDB:NewMod("Accuracy", "BASE", 2, "Base", { type = "Multiplier", var = "Level", base = -2 })
 	modDB:NewMod("CritMultiplier", "BASE", 50, "Base")
+	modDB:NewMod("CritDegenMultiplier", "BASE", 50, "Base")
 	modDB:NewMod("FireResist", "BASE", -60, "Base")
 	modDB:NewMod("ColdResist", "BASE", -60, "Base")
 	modDB:NewMod("LightningResist", "BASE", -60, "Base")
@@ -158,32 +159,50 @@ function calcs.initEnv(build, mode, override)
 	modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" })
 	
 	-- Add bandit mods
-	if build.banditNormal == "Alira" then
-		modDB:NewMod("Mana", "BASE", 60, "Bandit")
-	elseif build.banditNormal == "Kraityn" then
-		modDB:NewMod("ElementalResist", "BASE", 10, "Bandit")
-	elseif build.banditNormal == "Oak" then
-		modDB:NewMod("Life", "BASE", 40, "Bandit")
+	if build.targetVersion == "2_6" then
+		if build.banditNormal == "Alira" then
+			modDB:NewMod("Mana", "BASE", 60, "Bandit")
+		elseif build.banditNormal == "Kraityn" then
+			modDB:NewMod("ElementalResist", "BASE", 10, "Bandit")
+		elseif build.banditNormal == "Oak" then
+			modDB:NewMod("Life", "BASE", 40, "Bandit")
+		else
+			modDB:NewMod("ExtraPoints", "BASE", 1, "Bandit")
+		end
+		if build.banditCruel == "Alira" then
+			modDB:NewMod("Speed", "INC", 5, "Bandit", ModFlag.Cast)
+		elseif build.banditCruel == "Kraityn" then
+			modDB:NewMod("Speed", "INC", 8, "Bandit", ModFlag.Attack)
+		elseif build.banditCruel == "Oak" then
+			modDB:NewMod("PhysicalDamage", "INC", 16, "Bandit")
+		else
+			modDB:NewMod("ExtraPoints", "BASE", 1, "Bandit")
+		end
+		if build.banditMerciless == "Alira" then
+			modDB:NewMod("PowerChargesMax", "BASE", 1, "Bandit")
+		elseif build.banditMerciless == "Kraityn" then
+			modDB:NewMod("FrenzyChargesMax", "BASE", 1, "Bandit")
+		elseif build.banditMerciless == "Oak" then
+			modDB:NewMod("EnduranceChargesMax", "BASE", 1, "Bandit")
+		else
+			modDB:NewMod("ExtraPoints", "BASE", 1, "Bandit")
+		end
 	else
-		modDB:NewMod("ExtraPoints", "BASE", 1, "Bandit")
-	end
-	if build.banditCruel == "Alira" then
-		modDB:NewMod("Speed", "INC", 5, "Bandit", ModFlag.Cast)
-	elseif build.banditCruel == "Kraityn" then
-		modDB:NewMod("Speed", "INC", 8, "Bandit", ModFlag.Attack)
-	elseif build.banditCruel == "Oak" then
-		modDB:NewMod("PhysicalDamage", "INC", 16, "Bandit")
-	else
-		modDB:NewMod("ExtraPoints", "BASE", 1, "Bandit")
-	end
-	if build.banditMerciless == "Alira" then
-		modDB:NewMod("PowerChargesMax", "BASE", 1, "Bandit")
-	elseif build.banditMerciless == "Kraityn" then
-		modDB:NewMod("FrenzyChargesMax", "BASE", 1, "Bandit")
-	elseif build.banditMerciless == "Oak" then
-		modDB:NewMod("EnduranceChargesMax", "BASE", 1, "Bandit")
-	else
-		modDB:NewMod("ExtraPoints", "BASE", 1, "Bandit")
+		if build.bandit == "Alira" then
+			modDB:NewMod("ManaRegen", "BASE", 5, "Bandit")
+			modDB:NewMod("CritMultiplier", "BASE", 20, "Bandit")
+			modDB:NewMod("ElementalResist", "BASE", 15, "Bandit")
+		elseif build.bandit == "Kraityn" then
+			modDB:NewMod("Speed", "INC", 6, "Bandit")
+			modDB:NewMod("AttackDodgeChance", "BASE", 3, "Bandit")
+			modDB:NewMod("MovementSpeed", "INC", 6, "Bandit")
+		elseif build.bandit == "Oak" then
+			modDB:NewMod("LifeRegenPercent", "BASE", 1, "Bandit")
+			modDB:NewMod("PhysicalDamageReduction", "BASE", 2, "Bandit")
+			modDB:NewMod("PhysicalDamage", "INC", 20, "Bandit")
+		else
+			modDB:NewMod("ExtraPoints", "BASE", 2, "Bandit")
+		end
 	end
 
 	-- Initialise enemy modifier database

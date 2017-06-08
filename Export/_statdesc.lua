@@ -61,7 +61,7 @@ do
 end
 
 for k, v in pairs(nk) do
-	print("'"..k.."' = '"..v.."'")
+	--print("'"..k.."' = '"..v.."'")
 end
 
 local function matchLimit(lang, val) 

@@ -1452,7 +1452,7 @@ skills["SupportPoison"] = {
 		mod("PoisonChance", "BASE", 100), --"global_poison_on_hit" = ?
 	},
 	qualityMods = {
-		mod("Duration", "INC", 0.5, 0, KeywordFlag.Poison), --"base_poison_duration_+%" = 0.5
+		mod("EnemyPoisonDuration", "INC", 0.5), --"base_poison_duration_+%" = 0.5
 	},
 	levelMods = {
 		[1] = nil, 

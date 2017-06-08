@@ -320,8 +320,12 @@ local varList = {
 		modList:NewMod("CritChanceLucky", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "projectileDistance", type = "number", label = "Projectile travel distance:", ifFlag = "projectile" },
-	{ var = "conditionEnemyMoving", type = "check", label = "Is the enemy Moving?", ifFlag = "bleed", apply = function(val, modList, enemyModList)
-		modList:NewMod("Damage", "MORE", 500, "Movement", 0, KeywordFlag.Bleed)
+	{ var = "conditionEnemyMoving", type = "check", label = "Is the enemy Moving?", ifFlag = "bleed", apply = function(val, modList, enemyModList, build)
+		if build.targetVersion == "2_6" then
+			modList:NewMod("Damage", "MORE", 500, "Movement", 0, KeywordFlag.Bleed)
+		else
+			modList:NewMod("Damage", "MORE", 100, "Movement", 0, KeywordFlag.Bleed)
+		end
 	end },
 	{ var = "conditionEnemyFullLife", type = "check", label = "Is the enemy on Full Life?", ifEnemyCond = "FullLife", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:FullLife", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -729,15 +733,15 @@ function ConfigTabClass:BuildModList()
 		if varData.apply then
 			if varData.type == "check" then
 				if input[varData.var] then
-					varData.apply(true, modList, enemyModList)
+					varData.apply(true, modList, enemyModList, self.build)
 				end
 			elseif varData.type == "number" then
 				if input[varData.var] and input[varData.var] ~= 0 then
-					varData.apply(input[varData.var], modList, enemyModList)
+					varData.apply(input[varData.var], modList, enemyModList, self.build)
 				end
 			elseif varData.type == "list" then
 				if input[varData.var] then
-					varData.apply(input[varData.var], modList, enemyModList)
+					varData.apply(input[varData.var], modList, enemyModList, self.build)
 				end
 			end
 		end

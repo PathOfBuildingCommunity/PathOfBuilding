@@ -285,13 +285,13 @@ local modNameList = {
 	["chill duration"] = "EnemyChillDuration",
 	["ignite duration"] = "EnemyIgniteDuration",
 	["duration of elemental ailments"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration" },
-	-- Other debuffs
+	-- Other ailments
 	["to poison"] = "PoisonChance",
 	["to poison on hit"] = "PoisonChance",
-	["poison duration"] = { "Duration", keywordFlags = KeywordFlag.Poison },
+	["poison duration"] = { "EnemyPoisonDuration" },
 	["to cause bleeding"] = "BleedChance",
 	["to cause bleeding on hit"] = "BleedChance",
-	["bleed duration"] = { "Duration", keywordFlags = KeywordFlag.Bleed },
+	["bleed duration"] = { "EnemyBleedDuration" },
 	-- Misc modifiers
 	["movement speed"] = "MovementSpeed",
 	["attack, cast and movement speed"] = { "Speed", "MovementSpeed" },
@@ -344,8 +344,8 @@ local modFlagList = {
 	["spell"] = { flags = ModFlag.Spell },
 	["with spells"] = { flags = ModFlag.Spell },
 	["for spells"] = { flags = ModFlag.Spell },
-	["with attacks"] = { flags = ModFlag.Attack },
-	["with attack skills"] = { flags = ModFlag.Attack },
+	["with attacks"] = { keywordFlags = KeywordFlag.Attack },
+	["with attack skills"] = { keywordFlags = KeywordFlag.Attack },
 	["for attacks"] = { flags = ModFlag.Attack },
 	["weapon"] = { flags = ModFlag.Weapon },
 	["with weapons"] = { flags = ModFlag.Weapon },
@@ -634,6 +634,7 @@ local specialModList = {
 	["all bonuses from an equipped shield apply to your minions instead of you"] = { }, -- The node itself is detected by the code that handles it
 	["spend energy shield before mana for skill costs"] = { },
 	["energy shield protects mana instead of life"] = { flag("EnergyShieldProtectsMana") },
+	["modifiers to critical strike multiplier also apply to damage multiplier for ailments from critical strikes at (%d+)%% of their value"] = function(num) return { mod("CritMultiplierAppliesToDegen", "BASE", num) } end,
 	-- Ascendancy notables
 	["movement skills cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Movement) },
 	["projectiles have (%d+)%% additional chance to pierce targets at the start of their movement, losing this chance as the projectile travels farther"] = function(num) return { mod("PierceChance", "BASE", num, { type = "DistanceRamp", ramp = {{10,1},{120,0}} }) } end,
@@ -1277,7 +1278,7 @@ local function parseMod(line, order)
 		end
 		modValue = { tonumber(formCap[1]), tonumber(formCap[2]) }
 		modName = { damageType.."Min", damageType.."Max" }
-		modFlag = modFlag or { flags = ModFlag.Attack }
+		modFlag = modFlag or { keywordFlags = KeywordFlag.Attack }
 	elseif modForm == "DMGSPELLS" then
 		local damageType = dmgTypes[formCap[3]]
 		if not damageType then
@@ -1285,7 +1286,7 @@ local function parseMod(line, order)
 		end
 		modValue = { tonumber(formCap[1]), tonumber(formCap[2]) }		
 		modName = { damageType.."Min", damageType.."Max" }
-		modFlag = modFlag or { flags = ModFlag.Spell }
+		modFlag = modFlag or { keywordFlags = KeywordFlag.Spell }
 	elseif modForm == "DMGBOTH" then
 		local damageType = dmgTypes[formCap[3]]
 		if not damageType then
@@ -1293,6 +1294,7 @@ local function parseMod(line, order)
 		end
 		modValue = { tonumber(formCap[1]), tonumber(formCap[2]) }		
 		modName = { damageType.."Min", damageType.."Max" }
+		modFlag = modFlag or { keywordFlags = bor(KeywordFlag.Attack, KeywordFlag.Spell) }
 	end
 	if not modName then
 		return { }, line
