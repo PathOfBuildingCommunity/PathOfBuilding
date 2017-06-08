@@ -53,6 +53,14 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.22 - 2017/06/09
+ * Fixed bug causing certain skill stats to be ignored; this notably affected Blade Vortex and Wither
+For 3.0 builds:
+ * Applied the Damage over Time changes
+    * The new DoT code hasn't been tested as thoroughly as it needs to be, so it may have mistakes
+ * Updated the bandit rewards
+ * Reverted some unintended changes to minion's skills made in 1.4.21
+
 ### 1.4.21 - 2017/06/08
 For 3.0 builds:
  * Updated skills (except for skills used by minions and spectres)

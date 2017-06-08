@@ -32,7 +32,7 @@ end
 
 -- Merge gem modifiers with given mod list
 function calcs.mergeGemMods(modList, gem)
-	for _, mod in ipairs(gem.data.baseMods) do
+	for _, mod in pairs(gem.data.baseMods) do
 		if mod[1] then
 			for _, subMod in ipairs(mod) do
 				modList:AddMod(subMod)
@@ -272,16 +272,16 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	if skillFlags.vaal then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Vaal)
 	end
-	if skillFlags.lightning then
+	if skillTypes[SkillType.LightningSkill] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Lightning)
 	end
-	if skillFlags.cold then
+	if skillTypes[SkillType.ColdSkill] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Cold)
 	end
-	if skillFlags.fire then
+	if skillTypes[SkillType.FireSkill] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Fire)
 	end
-	if skillFlags.chaos then
+	if skillTypes[SkillType.ChaosSkill] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Chaos)
 	end
 	if skillFlags.totem then
@@ -290,6 +290,12 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Trap)
 	elseif skillFlags.mine then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Mine)
+	end
+	if skillTypes[SkillType.Attack] then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Attack)
+	end
+	if skillTypes[SkillType.Spell] then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Spell)
 	end
 
 	-- Get skill totem ID for totem skills

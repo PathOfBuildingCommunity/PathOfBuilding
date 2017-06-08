@@ -377,7 +377,7 @@ directiveTable.mods = function(state, args, out)
 	for _, mod in ipairs(gem.mods) do
 		if not mod.perLevel then
 			out:write('\t\t')
-			if mod.def then
+			if mod.def and mod.def ~= "nil" then
 				out:write(mod.def:gsub("{val}",(mod.val or 0)*mod.mult):gsub("{global}",gem.global):gsub("{curse}",gem.curse), ', ')
 			end
 			if mod.id then

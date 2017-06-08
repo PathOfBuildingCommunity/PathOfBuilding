@@ -2048,7 +2048,7 @@ skills["Flameblast"] = {
 		skill("CritChance", 5), 
 		--"charged_blast_spell_damage_+%_final_per_stack" = 110
 		--"is_area_damage" = ?
-		nil, --"base_skill_show_average_damage_instead_of_dps" = ?
+		--"base_skill_show_average_damage_instead_of_dps" = ?
 		mod("Damage", "MORE", 990, 0, 0, { type = "SkillPart", skillPart = 2 }), 
 		skill("dpsMultiplier", 0.1, { type = "SkillPart", skillPart = 2 }), 
 	},
@@ -5526,7 +5526,7 @@ skills["Wither"] = {
 	baseMods = {
 		skill("castTime", 0.28), 
 		mod("ChaosDamageTaken", "INC", 7, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }), --"chaos_damage_taken_+%" = 7
-		nil, --"base_skill_effect_duration" = 500
+		--"base_skill_effect_duration" = 500
 		skill("duration", 2), --"base_secondary_skill_effect_duration" = 2000
 		skill("stackCount", 5, { type = "SkillPart", skillPart = 2 }), 
 		skill("stackCount", 10, { type = "SkillPart", skillPart = 3 }), 
