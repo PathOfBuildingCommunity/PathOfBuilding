@@ -1504,12 +1504,12 @@ skills["SupportRapidDecay"] = {
 	gemInt = 0,
 	color = 2,
 	support = true,
-	requireSkillTypes = { 12, 55, },
+	requireSkillTypes = { 12, 55, 10, 1, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 25), 
-		mod("Duration", "INC", -15), --"skill_effect_duration_+%" = -15
+		--"skill_effect_and_damaging_ailment_duration_+%" = -15
 	},
 	qualityMods = {
 		mod("Damage", "INC", 0.5, ModFlag.Dot), --"damage_over_time_+%" = 0.5
@@ -1648,7 +1648,7 @@ skills["SupportTrap"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("Damage", "MORE", nil, ModFlag.Hit, KeywordFlag.Trap), --"support_trap_hit_damage_+%_final"
+		[2] = mod("Damage", "MORE", nil, 0, KeywordFlag.Trap), --"support_trap_damage_+%_final"
 	},
 	levels = {
 		[1] = { 8, 20, },

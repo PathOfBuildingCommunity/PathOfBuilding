@@ -107,6 +107,7 @@ end
 -- 60	Cold spell
 -- 61	Granted triggered skill (Prevents trigger supports, trap, mine, totem)
 -- 62	Golem
+-- 63	Herald
 
 local weaponClassMap = {
 	[6] = "Claw",
@@ -138,6 +139,9 @@ directiveTable.skill = function(state, args, out)
 	out:write('skills["', grantedId, '"] = {\n')
 	local grantedKey = GrantedEffects.Id(grantedId)[1]
 	local granted = GrantedEffects[grantedKey]
+	if not granted then
+		print('Unknown GE: "'..grantedId..'"')
+	end
 	local skillGemKey = SkillGems.GrantedEffectsKey(grantedKey)[1]
 	local gem = { }
 	state.gem = gem
@@ -273,7 +277,7 @@ directiveTable.skill = function(state, args, out)
 			addLevelMod('skill("CritChance", {val})', levelRow.CriticalStrikeChance / 100)
 		end
 		if levelRow.DamageMultiplier and levelRow.DamageMultiplier ~= 0 then
-			addLevelMod('mod("Damage", "MORE", {val}, ModFlag.Attack)', levelRow.DamageMultiplier / 100)
+			addLevelMod('skill("baseMultiplier", {val})', levelRow.DamageMultiplier / 10000 + 1)
 		end
 		if levelRow.ManaReservationOverride ~= 0 then
 			addLevelMod('skill("manaCostOverride", {val})', levelRow.ManaReservationOverride)
@@ -433,7 +437,7 @@ directiveTable.mods = function(state, args, out)
 	state.gem = nil
 end
 
-for _, name in pairs({"act_str","act_dex","act_int","other","minion","spectre","sup_str","sup_dex","sup_int"}) do
+for _, name in pairs({"act_str","act_dex","act_int","other",--[["minion","spectre",]]"sup_str","sup_dex","sup_int"}) do
 	processTemplateFile("Skills/"..name, directiveTable)
 end
 

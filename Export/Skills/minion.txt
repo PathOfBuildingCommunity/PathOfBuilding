@@ -45,14 +45,6 @@ local skills, mod, flag, skill = ...
 #flags spell aura area duration lightning
 #mods
 
-#skill PlayerRagingSpiritMeleeAttack Melee Attack
-#flags attack melee
-#mods
-
-#skill RagingSpiritMeleeAttack Melee Attack
-#flags attack melee
-#mods
-
 #skill SpectralSkullShieldCharge Charge
 #flags attack melee movement
 #mods

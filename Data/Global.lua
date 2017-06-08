@@ -152,4 +152,5 @@ SkillType = {
 	ColdSpell = 60, -- Used for Cospri's Malice
 	TriggeredGrantedSkill = 61, -- Skill granted by item that is automatically triggered, prevents trigger gems and trap/mine/totem from applying
 	Golem = 62,
+	Herald = 63,
 }

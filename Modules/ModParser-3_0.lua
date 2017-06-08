@@ -608,7 +608,7 @@ local specialModList = {
 	},
 	["maximum life becomes 1, immune to chaos damage"] = { flag("ChaosInoculation") },
 	["life regeneration is applied to energy shield instead"] = { flag("ZealotsOath") },
-	["life leech applies instantly%. life regeneration has no effect%."] = { flag("InstantLifeLeech"), flag("NoLifeRegen") },
+	["gain life from leech instantly%. life regeneration has no effect%."] = { flag("InstantLifeLeech"), flag("NoLifeRegen") },
 	["deal no non%-fire damage"] = { flag("DealNoPhysical"), flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoChaos") },
 	["(%d+)%% of physical, cold and lightning damage converted to fire damage"] = function(num) return {
 		mod("PhysicalDamageConvertToFire", "BASE", num), 

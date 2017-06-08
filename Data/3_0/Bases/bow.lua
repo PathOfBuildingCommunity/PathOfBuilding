@@ -5,8 +5,8 @@ local itemBases = ...
 itemBases["Crude Bow"] = {
 	type = "Bow",
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
-	weapon = { PhysicalMin = 5, PhysicalMax = 13, CritChanceBase = 5, AttackRateBase = 1.4, },
-	req = { dex = 14, },
+	weapon = { PhysicalMin = 6, PhysicalMax = 14, CritChanceBase = 5, AttackRateBase = 1.4, },
+	req = { dex = 17, },
 }
 itemBases["Short Bow"] = {
 	type = "Bow",
@@ -41,7 +41,7 @@ itemBases["Bone Bow"] = {
 itemBases["Royal Bow"] = {
 	type = "Bow",
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
-	implicit = "(20-24)% increased Elemental Damage with Weapons",
+	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
 	weapon = { PhysicalMin = 10, PhysicalMax = 41, CritChanceBase = 5, AttackRateBase = 1.45, },
 	req = { level = 28, dex = 95, },
 }
@@ -92,7 +92,7 @@ itemBases["Ivory Bow"] = {
 itemBases["Highborn Bow"] = {
 	type = "Bow",
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
-	implicit = "(20-24)% increased Elemental Damage with Weapons",
+	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
 	weapon = { PhysicalMin = 17, PhysicalMax = 66, CritChanceBase = 5, AttackRateBase = 1.45, },
 	req = { level = 50, dex = 161, },
 }
@@ -143,7 +143,7 @@ itemBases["Spine Bow"] = {
 itemBases["Imperial Bow"] = {
 	type = "Bow",
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
-	implicit = "(20-24)% increased Elemental Damage with Weapons",
+	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
 	weapon = { PhysicalMin = 19, PhysicalMax = 78, CritChanceBase = 5, AttackRateBase = 1.45, },
 	req = { level = 66, dex = 212, },
 }

@@ -35,17 +35,22 @@ local function calcHitDamage(actor, source, cfg, breakdown, damageType, ...)
 	local damageTypeMax = damageType.."Max"
 
 	-- Calculate base values
+	local baseMultiplier = actor.mainSkill.skillData.baseMultiplier or 1
 	local damageEffectiveness = actor.mainSkill.skillData.damageEffectiveness or 1
 	local addedMin = modDB:Sum("BASE", cfg, damageTypeMin)
 	local addedMax = modDB:Sum("BASE", cfg, damageTypeMax)
-	local baseMin = (source[damageTypeMin] or 0) + addedMin * damageEffectiveness
-	local baseMax = (source[damageTypeMax] or 0) + addedMax * damageEffectiveness
+	local baseMin = (source[damageTypeMin] or 0) * baseMultiplier + addedMin * damageEffectiveness
+	local baseMax = (source[damageTypeMax] or 0) * baseMultiplier + addedMax * damageEffectiveness
 
 	if breakdown and not (...) and baseMin ~= 0 and baseMax ~= 0 then
 		t_insert(breakdown, "Base damage:")
 		local plus = ""
 		if (source[damageTypeMin] or 0) ~= 0 or (source[damageTypeMax] or 0) ~= 0 then
-			t_insert(breakdown, s_format("%d to %d ^8(base damage from %s)", source[damageTypeMin], source[damageTypeMax], source.type and "weapon" or "skill"))
+			if baseMultiplier ~= 1 then
+				t_insert(breakdown, s_format("(%d to %d) x %.2f ^8(base damage from %s multiplied by base damage multiplier)", source[damageTypeMin], source[damageTypeMax], baseMultiplier, source.type and "weapon" or "skill"))
+			else
+				t_insert(breakdown, s_format("%d to %d ^8(base damage from %s)", source[damageTypeMin], source[damageTypeMax], source.type and "weapon" or "skill"))
+			end
 			plus = "+ "
 		end
 		if addedMin ~= 0 or addedMax ~= 0 then
@@ -854,7 +859,7 @@ function calcs.offence(env, actor)
 				end
 			end
 			local portion = (pass == 1) and (output.CritChance / 100) or (1 - output.CritChance / 100)
-			if modDB:Sum("FLAG", cfg, "InstantLifeLeech") then
+			if modDB:Sum("FLAG", cfg, "InstantLifeLeech") and not modDB:Sum("FLAG", nil, "GhostReaver") then
 				output.LifeLeechInstant = output.LifeLeechInstant + lifeLeechTotal * portion
 			else
 				output.LifeLeech = output.LifeLeech + lifeLeechTotal * portion

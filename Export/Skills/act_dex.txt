@@ -383,7 +383,6 @@ local skills, mod, flag, skill = ...
 
 #skill Puncture
 #flags attack melee projectile duration
-#baseMod mod("BleedChance", "BASE", 100)
 #mods
 
 #skill ColdResistAura
