@@ -14,6 +14,9 @@ local skills, mod, flag, skill = ...
 #skill SupportBloodlust
 #mods
 
+#skill SupportIncreasedBurningDamage
+#mods
+
 #skill SupportCastOnMeleeKill
 #mods
 
@@ -21,6 +24,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportColdToFire
+#mods
+
+#skill SupportWeaponElementalDamage
 #mods
 
 #skill SupportAdditionalLevel
@@ -36,9 +42,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportGenerosity
-#mods
-
-#skill SupportIncreasedBurningDamage
 #mods
 
 #skill SupportIncreasedDuration
@@ -93,7 +96,4 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportStun
-#mods
-
-#skill SupportWeaponElementalDamage
 #mods

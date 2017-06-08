@@ -32,7 +32,15 @@ end
 
 -- Merge gem modifiers with given mod list
 function calcs.mergeGemMods(modList, gem)
-	modList:AddList(gem.data.baseMods)
+	for _, mod in ipairs(gem.data.baseMods) do
+		if mod[1] then
+			for _, subMod in ipairs(mod) do
+				modList:AddMod(subMod)
+			end
+		else
+			modList:AddMod(mod)
+		end
+	end
 	if gem.quality > 0 then
 		for i = 1, #gem.data.qualityMods do
 			local scaledMod = copyTable(gem.data.qualityMods[i])

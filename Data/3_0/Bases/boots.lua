@@ -14,56 +14,56 @@ itemBases["Steel Greaves"] = {
 	type = "Boots",
 	subType = "Armour",
 	tags = { default = true, armour = true, boots = true, str_armour = true, },
-	armour = { ArmourBase = 28, },
+	armour = { ArmourBase = 32, },
 	req = { level = 9, str = 21, },
 }
 itemBases["Plated Greaves"] = {
 	type = "Boots",
 	subType = "Armour",
 	tags = { default = true, armour = true, boots = true, str_armour = true, },
-	armour = { ArmourBase = 67, },
+	armour = { ArmourBase = 77, },
 	req = { level = 23, str = 44, },
 }
 itemBases["Reinforced Greaves"] = {
 	type = "Boots",
 	subType = "Armour",
 	tags = { default = true, armour = true, boots = true, str_armour = true, },
-	armour = { ArmourBase = 95, },
+	armour = { ArmourBase = 109, },
 	req = { level = 33, str = 60, },
 }
 itemBases["Antique Greaves"] = {
 	type = "Boots",
 	subType = "Armour",
 	tags = { default = true, armour = true, boots = true, str_armour = true, },
-	armour = { ArmourBase = 106, },
+	armour = { ArmourBase = 122, },
 	req = { level = 37, str = 67, },
 }
 itemBases["Ancient Greaves"] = {
 	type = "Boots",
 	subType = "Armour",
 	tags = { default = true, armour = true, boots = true, str_armour = true, },
-	armour = { ArmourBase = 132, },
+	armour = { ArmourBase = 151, },
 	req = { level = 46, str = 82, },
 }
 itemBases["Goliath Greaves"] = {
 	type = "Boots",
 	subType = "Armour",
 	tags = { default = true, armour = true, boots = true, str_armour = true, },
-	armour = { ArmourBase = 154, },
+	armour = { ArmourBase = 177, },
 	req = { level = 54, str = 95, },
 }
 itemBases["Vaal Greaves"] = {
 	type = "Boots",
 	subType = "Armour",
 	tags = { default = true, armour = true, boots = true, str_armour = true, },
-	armour = { ArmourBase = 191, },
+	armour = { ArmourBase = 220, },
 	req = { level = 62, str = 117, },
 }
 itemBases["Titan Greaves"] = {
 	type = "Boots",
 	subType = "Armour",
 	tags = { default = true, armour = true, boots = true, str_armour = true, },
-	armour = { ArmourBase = 210, },
+	armour = { ArmourBase = 241, },
 	req = { level = 68, str = 120, },
 }
 
@@ -71,63 +71,63 @@ itemBases["Rawhide Boots"] = {
 	type = "Boots",
 	subType = "Evasion",
 	tags = { default = true, armour = true, boots = true, dex_armour = true, },
-	armour = { EvasionBase = 11, },
+	armour = { EvasionBase = 13, },
 	req = { dex = 11, },
 }
 itemBases["Goathide Boots"] = {
 	type = "Boots",
 	subType = "Evasion",
 	tags = { default = true, armour = true, boots = true, dex_armour = true, },
-	armour = { EvasionBase = 36, },
+	armour = { EvasionBase = 42, },
 	req = { level = 12, dex = 26, },
 }
 itemBases["Deerskin Boots"] = {
 	type = "Boots",
 	subType = "Evasion",
 	tags = { default = true, armour = true, boots = true, dex_armour = true, },
-	armour = { EvasionBase = 64, },
+	armour = { EvasionBase = 74, },
 	req = { level = 22, dex = 42, },
 }
 itemBases["Nubuck Boots"] = {
 	type = "Boots",
 	subType = "Evasion",
 	tags = { default = true, armour = true, boots = true, dex_armour = true, },
-	armour = { EvasionBase = 98, },
+	armour = { EvasionBase = 113, },
 	req = { level = 34, dex = 62, },
 }
 itemBases["Eelskin Boots"] = {
 	type = "Boots",
 	subType = "Evasion",
 	tags = { default = true, armour = true, boots = true, dex_armour = true, },
-	armour = { EvasionBase = 112, },
+	armour = { EvasionBase = 129, },
 	req = { level = 39, dex = 70, },
 }
 itemBases["Sharkskin Boots"] = {
 	type = "Boots",
 	subType = "Evasion",
 	tags = { default = true, armour = true, boots = true, dex_armour = true, },
-	armour = { EvasionBase = 126, },
+	armour = { EvasionBase = 145, },
 	req = { level = 44, dex = 79, },
 }
 itemBases["Shagreen Boots"] = {
 	type = "Boots",
 	subType = "Evasion",
 	tags = { default = true, armour = true, boots = true, dex_armour = true, },
-	armour = { EvasionBase = 157, },
+	armour = { EvasionBase = 180, },
 	req = { level = 55, dex = 97, },
 }
 itemBases["Stealth Boots"] = {
 	type = "Boots",
 	subType = "Evasion",
 	tags = { default = true, armour = true, boots = true, dex_armour = true, },
-	armour = { EvasionBase = 191, },
+	armour = { EvasionBase = 220, },
 	req = { level = 62, dex = 117, },
 }
 itemBases["Slink Boots"] = {
 	type = "Boots",
 	subType = "Evasion",
 	tags = { default = true, armour = true, boots = true, dex_armour = true, },
-	armour = { EvasionBase = 214, },
+	armour = { EvasionBase = 246, },
 	req = { level = 69, dex = 120, },
 }
 
@@ -142,56 +142,56 @@ itemBases["Velvet Slippers"] = {
 	type = "Boots",
 	subType = "Energy Shield",
 	tags = { default = true, armour = true, boots = true, int_armour = true, },
-	armour = { EnergyShieldBase = 9, },
+	armour = { EnergyShieldBase = 8, },
 	req = { level = 9, int = 21, },
 }
 itemBases["Silk Slippers"] = {
 	type = "Boots",
 	subType = "Energy Shield",
 	tags = { default = true, armour = true, boots = true, int_armour = true, },
-	armour = { EnergyShieldBase = 20, },
+	armour = { EnergyShieldBase = 15, },
 	req = { level = 22, int = 42, },
 }
 itemBases["Scholar Boots"] = {
 	type = "Boots",
 	subType = "Energy Shield",
 	tags = { default = true, armour = true, boots = true, int_armour = true, },
-	armour = { EnergyShieldBase = 28, },
+	armour = { EnergyShieldBase = 21, },
 	req = { level = 32, int = 59, },
 }
 itemBases["Satin Slippers"] = {
 	type = "Boots",
 	subType = "Energy Shield",
 	tags = { default = true, armour = true, boots = true, int_armour = true, },
-	armour = { EnergyShieldBase = 32, },
+	armour = { EnergyShieldBase = 25, },
 	req = { level = 38, int = 69, },
 }
 itemBases["Samite Slippers"] = {
 	type = "Boots",
 	subType = "Energy Shield",
 	tags = { default = true, armour = true, boots = true, int_armour = true, },
-	armour = { EnergyShieldBase = 37, },
+	armour = { EnergyShieldBase = 29, },
 	req = { level = 44, int = 79, },
 }
 itemBases["Conjurer Boots"] = {
 	type = "Boots",
 	subType = "Energy Shield",
 	tags = { default = true, armour = true, boots = true, int_armour = true, },
-	armour = { EnergyShieldBase = 44, },
+	armour = { EnergyShieldBase = 34, },
 	req = { level = 53, int = 94, },
 }
 itemBases["Arcanist Slippers"] = {
 	type = "Boots",
 	subType = "Energy Shield",
 	tags = { default = true, armour = true, boots = true, int_armour = true, },
-	armour = { EnergyShieldBase = 59, },
+	armour = { EnergyShieldBase = 45, },
 	req = { level = 61, int = 119, },
 }
 itemBases["Sorcerer Boots"] = {
 	type = "Boots",
 	subType = "Energy Shield",
 	tags = { default = true, armour = true, boots = true, int_armour = true, },
-	armour = { EnergyShieldBase = 64, },
+	armour = { EnergyShieldBase = 49, },
 	req = { level = 67, int = 123, },
 }
 
@@ -199,56 +199,56 @@ itemBases["Leatherscale Boots"] = {
 	type = "Boots",
 	subType = "Armour/Evasion",
 	tags = { default = true, armour = true, boots = true, str_dex_armour = true, },
-	armour = { ArmourBase = 11, EvasionBase = 11, },
+	armour = { ArmourBase = 12, EvasionBase = 12, },
 	req = { level = 6, str = 9, dex = 9, },
 }
 itemBases["Ironscale Boots"] = {
 	type = "Boots",
 	subType = "Armour/Evasion",
 	tags = { default = true, armour = true, boots = true, str_dex_armour = true, },
-	armour = { ArmourBase = 29, EvasionBase = 29, },
+	armour = { ArmourBase = 34, EvasionBase = 34, },
 	req = { level = 18, str = 19, dex = 19, },
 }
 itemBases["Bronzescale Boots"] = {
 	type = "Boots",
 	subType = "Armour/Evasion",
 	tags = { default = true, armour = true, boots = true, str_dex_armour = true, },
-	armour = { ArmourBase = 48, EvasionBase = 48, },
+	armour = { ArmourBase = 55, EvasionBase = 55, },
 	req = { level = 30, str = 30, dex = 30, },
 }
 itemBases["Steelscale Boots"] = {
 	type = "Boots",
 	subType = "Armour/Evasion",
 	tags = { default = true, armour = true, boots = true, str_dex_armour = true, },
-	armour = { ArmourBase = 57, EvasionBase = 57, },
+	armour = { ArmourBase = 65, EvasionBase = 65, },
 	req = { level = 36, str = 35, dex = 35, },
 }
 itemBases["Serpentscale Boots"] = {
 	type = "Boots",
 	subType = "Armour/Evasion",
 	tags = { default = true, armour = true, boots = true, str_dex_armour = true, },
-	armour = { ArmourBase = 66, EvasionBase = 66, },
+	armour = { ArmourBase = 76, EvasionBase = 76, },
 	req = { level = 42, str = 40, dex = 40, },
 }
 itemBases["Wyrmscale Boots"] = {
 	type = "Boots",
 	subType = "Armour/Evasion",
 	tags = { default = true, armour = true, boots = true, str_dex_armour = true, },
-	armour = { ArmourBase = 80, EvasionBase = 80, },
+	armour = { ArmourBase = 92, EvasionBase = 92, },
 	req = { level = 51, str = 48, dex = 48, },
 }
 itemBases["Hydrascale Boots"] = {
 	type = "Boots",
 	subType = "Armour/Evasion",
 	tags = { default = true, armour = true, boots = true, str_dex_armour = true, },
-	armour = { ArmourBase = 92, EvasionBase = 92, },
+	armour = { ArmourBase = 106, EvasionBase = 106, },
 	req = { level = 59, str = 56, dex = 56, },
 }
 itemBases["Dragonscale Boots"] = {
 	type = "Boots",
 	subType = "Armour/Evasion",
 	tags = { default = true, armour = true, boots = true, str_dex_armour = true, },
-	armour = { ArmourBase = 105, EvasionBase = 105, },
+	armour = { ArmourBase = 121, EvasionBase = 121, },
 	req = { level = 65, str = 62, dex = 62, },
 }
 itemBases["Two-Toned Boots (Armour/Evasion)"] = {
@@ -257,7 +257,7 @@ itemBases["Two-Toned Boots (Armour/Evasion)"] = {
 	hidden = true,
 	tags = { default = true, armour = true, boots = true, not_for_sale = true, atlas_base_type = true, bootsatlas2 = true, str_dex_armour = true, },
 	implicit = "+(15-20)% to Fire and Cold Resistances",
-	armour = { ArmourBase = 109, EvasionBase = 109, },
+	armour = { ArmourBase = 126, EvasionBase = 126, },
 	req = { level = 72, str = 62, dex = 62, },
 }
 
@@ -265,56 +265,56 @@ itemBases["Chain Boots"] = {
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	tags = { default = true, armour = true, boots = true, str_int_armour = true, },
-	armour = { ArmourBase = 9, EnergyShieldBase = 3, },
+	armour = { ArmourBase = 11, EnergyShieldBase = 3, },
 	req = { level = 5, str = 8, int = 8, },
 }
 itemBases["Ringmail Boots"] = {
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	tags = { default = true, armour = true, boots = true, str_int_armour = true, },
-	armour = { ArmourBase = 22, EnergyShieldBase = 7, },
+	armour = { ArmourBase = 25, EnergyShieldBase = 5, },
 	req = { level = 13, str = 15, int = 15, },
 }
 itemBases["Mesh Boots"] = {
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	tags = { default = true, armour = true, boots = true, str_int_armour = true, },
-	armour = { ArmourBase = 45, EnergyShieldBase = 13, },
+	armour = { ArmourBase = 51, EnergyShieldBase = 10, },
 	req = { level = 28, str = 28, int = 28, },
 }
 itemBases["Riveted Boots"] = {
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	tags = { default = true, armour = true, boots = true, str_int_armour = true, },
-	armour = { ArmourBase = 57, EnergyShieldBase = 17, },
+	armour = { ArmourBase = 65, EnergyShieldBase = 13, },
 	req = { level = 36, str = 35, int = 35, },
 }
 itemBases["Zealot Boots"] = {
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	tags = { default = true, armour = true, boots = true, str_int_armour = true, },
-	armour = { ArmourBase = 63, EnergyShieldBase = 19, },
+	armour = { ArmourBase = 73, EnergyShieldBase = 14, },
 	req = { level = 40, str = 38, int = 38, },
 }
 itemBases["Soldier Boots"] = {
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	tags = { default = true, armour = true, boots = true, str_int_armour = true, },
-	armour = { ArmourBase = 77, EnergyShieldBase = 23, },
+	armour = { ArmourBase = 88, EnergyShieldBase = 17, },
 	req = { level = 49, str = 47, int = 47, },
 }
 itemBases["Legion Boots"] = {
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	tags = { default = true, armour = true, boots = true, str_int_armour = true, },
-	armour = { ArmourBase = 91, EnergyShieldBase = 27, },
+	armour = { ArmourBase = 104, EnergyShieldBase = 20, },
 	req = { level = 58, str = 54, int = 54, },
 }
 itemBases["Crusader Boots"] = {
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	tags = { default = true, armour = true, boots = true, str_int_armour = true, },
-	armour = { ArmourBase = 105, EnergyShieldBase = 31, },
+	armour = { ArmourBase = 121, EnergyShieldBase = 24, },
 	req = { level = 64, str = 62, int = 62, },
 }
 itemBases["Two-Toned Boots (Armour/Energy Shield)"] = {
@@ -323,7 +323,7 @@ itemBases["Two-Toned Boots (Armour/Energy Shield)"] = {
 	hidden = true,
 	tags = { default = true, armour = true, boots = true, not_for_sale = true, atlas_base_type = true, bootsatlas3 = true, str_int_armour = true, },
 	implicit = "+(15-20)% to Fire and Lightning Resistances",
-	armour = { ArmourBase = 109, EnergyShieldBase = 32, },
+	armour = { ArmourBase = 126, EnergyShieldBase = 24, },
 	req = { level = 72, str = 62, int = 62, },
 }
 
@@ -331,63 +331,63 @@ itemBases["Wrapped Boots"] = {
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	tags = { default = true, armour = true, boots = true, dex_int_armour = true, },
-	armour = { EvasionBase = 11, EnergyShieldBase = 4, },
+	armour = { EvasionBase = 12, EnergyShieldBase = 3, },
 	req = { level = 6, dex = 9, int = 9, },
 }
 itemBases["Strapped Boots"] = {
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	tags = { default = true, armour = true, boots = true, dex_int_armour = true, },
-	armour = { EvasionBase = 26, EnergyShieldBase = 8, },
+	armour = { EvasionBase = 30, EnergyShieldBase = 6, },
 	req = { level = 16, dex = 18, int = 18, },
 }
 itemBases["Clasped Boots"] = {
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	tags = { default = true, armour = true, boots = true, dex_int_armour = true, },
-	armour = { EvasionBase = 43, EnergyShieldBase = 13, },
+	armour = { EvasionBase = 50, EnergyShieldBase = 10, },
 	req = { level = 27, dex = 27, int = 27, },
 }
 itemBases["Shackled Boots"] = {
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	tags = { default = true, armour = true, boots = true, dex_int_armour = true, },
-	armour = { EvasionBase = 54, EnergyShieldBase = 16, },
+	armour = { EvasionBase = 62, EnergyShieldBase = 12, },
 	req = { level = 34, dex = 34, int = 34, },
 }
 itemBases["Trapper Boots"] = {
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	tags = { default = true, armour = true, boots = true, dex_int_armour = true, },
-	armour = { EvasionBase = 65, EnergyShieldBase = 19, },
+	armour = { EvasionBase = 74, EnergyShieldBase = 15, },
 	req = { level = 41, dex = 40, int = 40, },
 }
 itemBases["Ambush Boots"] = {
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	tags = { default = true, armour = true, boots = true, dex_int_armour = true, },
-	armour = { EvasionBase = 74, EnergyShieldBase = 22, },
+	armour = { EvasionBase = 85, EnergyShieldBase = 17, },
 	req = { level = 47, dex = 45, int = 45, },
 }
 itemBases["Carnal Boots"] = {
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	tags = { default = true, armour = true, boots = true, dex_int_armour = true, },
-	armour = { EvasionBase = 86, EnergyShieldBase = 25, },
+	armour = { EvasionBase = 99, EnergyShieldBase = 19, },
 	req = { level = 55, dex = 52, int = 52, },
 }
 itemBases["Assassin's Boots"] = {
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	tags = { default = true, armour = true, boots = true, dex_int_armour = true, },
-	armour = { EvasionBase = 105, EnergyShieldBase = 31, },
+	armour = { EvasionBase = 121, EnergyShieldBase = 24, },
 	req = { level = 63, dex = 62, int = 62, },
 }
 itemBases["Murder Boots"] = {
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	tags = { default = true, armour = true, boots = true, dex_int_armour = true, },
-	armour = { EvasionBase = 161, EnergyShieldBase = 22, },
+	armour = { EvasionBase = 185, EnergyShieldBase = 17, },
 	req = { level = 69, dex = 82, int = 42, },
 }
 itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
@@ -395,7 +395,7 @@ itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
 	subType = "Evasion/Energy Shield",
 	tags = { default = true, armour = true, boots = true, not_for_sale = true, atlas_base_type = true, bootsatlas1 = true, dex_int_armour = true, },
 	implicit = "+(15-20)% to Cold and Lightning Resistances",
-	armour = { EvasionBase = 109, EnergyShieldBase = 32, },
+	armour = { EvasionBase = 126, EnergyShieldBase = 24, },
 	req = { level = 72, dex = 62, int = 62, },
 }
 

@@ -161,7 +161,7 @@ skills["RepeatingShockwave"] = {
 	hidden = true,
 	color = 4,
 	description = "While you run, this skill creates a small explosion with each step, dealing fire damage in an area around you.",
-	skillTypes = { [11] = true, [36] = true, [42] = true, [2] = true, [10] = true, [61] = true, },
+	skillTypes = { [11] = true, [36] = true, [42] = true, [2] = true, [10] = true, [61] = true, [33] = true, },
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -235,7 +235,7 @@ skills["TriggeredConsecrate"] = {
 		skill("castTime", 1), 
 		skill("cooldown", 5), 
 		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		mod("LifeRegenPercent", "BASE", 4, 0, 0, nil), --"life_regeneration_rate_per_minute_%" = 240
+		mod("LifeRegenPercent", "BASE", 6, 0, 0, nil), --"life_regeneration_rate_per_minute_%" = 360
 		--"cast_on_crit_%" = 100
 		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 	},
@@ -624,7 +624,7 @@ skills["TriggeredShockedGround"] = {
 		[1] = skill("levelRequirement", nil), 
 	},
 	levels = {
-		[1] = { 1, },
+		[10] = { 1, },
 	},
 }
 skills["SummonEssenceSpirits"] = {

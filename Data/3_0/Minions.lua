@@ -148,7 +148,7 @@ minions["SummonedRagingSpirit"] = {
 	attackRange = 6,
 	limit = "ActiveRagingSpiritLimit",
 	skillList = {
-		"PlayerRagingSpiritMeleeAttack",
+		"Melee",
 	},
 	modList = {
 		mod("PhysicalDamageConvertToFire", "BASE", 50),
