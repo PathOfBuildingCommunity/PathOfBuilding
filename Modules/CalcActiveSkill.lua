@@ -444,7 +444,9 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			for d = 1, #activeSkill[destList] do
 				local destMod = activeSkill[destList][d]
 				if sig == modLib.formatModParams(destMod) and (destMod.type == "BASE" or destMod.type == "INC") then
+					destMod = copyTable(destMod)
 					destMod.value = destMod.value + skillModList[i].value
+					activeSkill[destList][d] = destMod
 					sig = nil
 					break
 				end

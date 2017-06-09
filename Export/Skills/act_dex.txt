@@ -137,6 +137,7 @@ local skills, mod, flag, skill = ...
 
 #skill Desecrate
 #flags spell area duration chaos
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill DetonateDead
@@ -229,6 +230,7 @@ local skills, mod, flag, skill = ...
 #skill FireTrap
 #flags spell trap area duration fire
 #baseMod skill("trapCooldown", 3)
+#baseMod skill("dotIsArea", true)
 #baseMod skill("radius", 15)
 #mods
 
@@ -383,6 +385,7 @@ local skills, mod, flag, skill = ...
 
 #skill Puncture
 #flags attack melee projectile duration
+#baseMod skill("bleedIsSkillEffect", true)
 #mods
 
 #skill ColdResistAura
@@ -469,6 +472,7 @@ local skills, mod, flag, skill = ...
 
 #skill ViperStrike
 #flags attack melee duration chaos
+#baseMod skill("poisonIsSkillEffect", true)
 #mods
 
 #skill WhirlingBlades

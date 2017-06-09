@@ -53,6 +53,14 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.23 - 2017/06/09
+ * Fixed issue causing some of the item type filters in the unique and rare databases to disable the other filters
+For 3.0 builds:
+ * Modifiers to Area Damage should now apply to all instances of Area Damage over Time (Righteous Fire, Vortex, etc)
+ * Modifiers to Skill Effect Duration will now apply to Puncture's Bleed and Viper Strike's Poison
+ * The Decay calculation has been updated to account for the Damage over Time changes
+ * Elemental Damage with Attacks now correctly affects Ignite
+ 
 ### 1.4.22 - 2017/06/09
  * Fixed bug causing certain skill stats to be ignored; this notably affected Blade Vortex and Wither
 For 3.0 builds:

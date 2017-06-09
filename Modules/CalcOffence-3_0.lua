@@ -1277,7 +1277,7 @@ function calcs.offence(env, actor)
 					end
 				end
 				output.BleedDPS = baseVal * effMult
-				local durationMod = calcLib.mod(modDB, dotCfg, "EnemyBleedDuration") * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
+				local durationMod = calcLib.mod(modDB, dotCfg, "EnemyBleedDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
 				globalOutput.BleedDuration = 5 * durationMod * debuffDurationMult
 				if breakdown then
 					t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(bleed deals %d%% per second)", basePercent/100, basePercent))
@@ -1353,7 +1353,7 @@ function calcs.offence(env, actor)
 				else
 					durationBase = 2
 				end
-				local durationMod = calcLib.mod(modDB, dotCfg, "EnemyPoisonDuration") * calcLib.mod(enemyDB, nil, "SelfPoisonDuration")
+				local durationMod = calcLib.mod(modDB, dotCfg, "EnemyPoisonDuration", skillData.poisonIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfPoisonDuration")
 				globalOutput.PoisonDuration = durationBase * durationMod * debuffDurationMult
 				output.PoisonDamage = output.PoisonDPS * globalOutput.PoisonDuration
 				if skillData.showAverage then
@@ -1634,8 +1634,9 @@ function calcs.offence(env, actor)
 		-- Calculate DPS for Essence of Delirium's Decay effect
 		skillFlags.decay = true
 		mainSkill.decayCfg = {
+			skillName = skillCfg.skillName,
 			slotName = skillCfg.slotName,
-			flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
+			flags = ModFlag.Dot,
 			keywordFlags = skillCfg.keywordFlags,
 		}
 		local dotCfg = mainSkill.decayCfg
