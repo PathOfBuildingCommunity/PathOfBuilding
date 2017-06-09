@@ -33,7 +33,6 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 	self.Control()
 
 	self.build = build
-	self.versionData = data[build.targetVersion]
 
 	self.socketGroupList = { }
 
@@ -89,7 +88,7 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 		local item = self.displayGroup.sourceItem or { rarity = "NORMAL", name = "?" }
 		local itemName = colorCodes[item.rarity]..item.name.."^7"
 		local activeGem = self.displayGroup.gemList[1]
-		local label = [[^7This is a special group created for the ']]..activeGem.color..(activeGem.name or activeGem.nameSpec)..[[^7' skill,
+		local label = [[^7This is a special group created for the ']]..activeGem.color..(activeGem.grantedEffect and activeGem.grantedEffect.name or activeGem.nameSpec)..[[^7' skill,
 which is being provided by ']]..itemName..[['.
 You cannot delete this group, but it will disappear if you un-equip the item.]]
 		if not self.displayGroup.noSupports then
@@ -122,7 +121,13 @@ function SkillsTabClass:Load(xml, fileName)
 			socketGroup.gemList = { }
 			for _, child in ipairs(node) do
 				local gem = { }
-				gem.nameSpec = (child.attrib.nameSpec or "")
+				gem.nameSpec = child.attrib.nameSpec or ""
+				if child.attrib.skillId then
+					local skill = self.build.data.skills[child.attrib.skillId]
+					if skill and self.build.data.gems[skill.name] then
+						gem.nameSpec = skill.name
+					end
+				end
 				gem.level = tonumber(child.attrib.level)
 				gem.quality = tonumber(child.attrib.quality)
 				gem.enabled = not child.attrib.enabled and true or child.attrib.enabled == "true"
@@ -158,6 +163,7 @@ function SkillsTabClass:Save(xml)
 		for _, gem in ipairs(socketGroup.gemList) do
 			t_insert(node, { elem = "Gem", attrib = {
 				nameSpec = gem.nameSpec,
+				skillId = gem.skillId,
 				level = tostring(gem.level),
 				quality = tostring(gem.quality),
 				enabled = tostring(gem.enabled),
@@ -371,23 +377,18 @@ function SkillsTabClass:FindSkillGem(nameSpec)
 		"^"..nameSpec:gsub(" ",""):gsub("%a", ".*%0"), -- Global abbreviation ("CtoF" -> "Cold to Fire")
 		"^"..nameSpec:gsub(" ",""):gsub("%a", function(a) return ".*".."["..a:upper()..a:lower().."]" end), -- Case insensitive global abbreviation ("ctof" -> "Cold to Fire")
 	}
-	local gemName, gemData
 	for i, pattern in ipairs(patternList) do
-		for name, data in pairs(self.versionData.gems) do
-			if (" "..name):match(pattern) then
-				if gemName then
-					return "Ambiguous gem name '"..nameSpec.."': matches '"..gemName.."', '"..name.."'"
+		local gemData
+		for gemName, grantedEffect in pairs(self.build.data.gems) do
+			if (" "..gemName):match(pattern) then
+				if gemData then
+					return "Ambiguous gem name '"..nameSpec.."': matches '"..gemData.name.."', '"..gemName.."'"
 				end
-				gemName = name
-				gemData = data
+				gemData = grantedEffect
 			end
 		end
-		if gemName then
-			if gemData.unsupported then
-				return gemName.." is unsupported"
-			else
-				return nil, gemName, gemData
-			end
+		if gemData then
+			return nil, gemData
 		end
 	end
 	return "Unrecognised gem name '"..nameSpec.."'"
@@ -404,53 +405,50 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 		end
 		gem.color = "^8"
 		gem.nameSpec = gem.nameSpec or ""
-		local prevDefaultLevel = gem.data and gem.data.defaultLevel
+		local prevDefaultLevel = gem.grantedEffect and gem.grantedEffect.defaultLevel
 		if gem.nameSpec:match("%S") then
-			-- Gem name has been specified, try to find the matching skill gem
-			if self.versionData.gems[gem.nameSpec] then
-				if self.versionData.gems[gem.nameSpec].unsupported then
-					gem.errMsg = gem.nameSpec.." is not supported yet"
-					gem.name = nil
-					gem.data = nil
-				else
-					gem.errMsg = nil
-					gem.name = gem.nameSpec
-					gem.data = self.build.data.gems[gem.nameSpec]
-				end
-			elseif self.versionData.skills[gem.nameSpec] then
+			-- Gem name has been specified, try to find the matching skill
+			if self.build.data.gems[gem.nameSpec] then
 				gem.errMsg = nil
-				gem.data = self.versionData.skills[gem.nameSpec]
-				gem.name = gem.data.name
+				gem.grantedEffect = self.build.data.gems[gem.nameSpec]
+			elseif self.build.data.skills[gem.nameSpec] then
+				gem.errMsg = nil
+				gem.grantedEffect = self.build.data.skills[gem.nameSpec]
 			else
-				gem.errMsg, gem.name, gem.data = self:FindSkillGem(gem.nameSpec)
-				if gem.name then
-					gem.nameSpec = gem.name
+				gem.errMsg, gem.grantedEffect = self:FindSkillGem(gem.nameSpec)
+				if gem.grantedEffect then
+					gem.nameSpec = gem.grantedEffect.name
 				end
 			end
-			if gem.name then
-				if gem.data.color == 1 then
+			gem.skillId = gem.grantedEffect and gem.grantedEffect.id
+			if gem.grantedEffect.unsupported then
+				gem.errMsg = gem.nameSpec.." is not supported yet"
+				gem.grantedEffect = nil
+			end
+			if gem.grantedEffect then
+				if gem.grantedEffect.color == 1 then
 					gem.color = colorCodes.STRENGTH
-				elseif gem.data.color == 2 then
+				elseif gem.grantedEffect.color == 2 then
 					gem.color = colorCodes.DEXTERITY
-				elseif gem.data.color == 3 then
+				elseif gem.grantedEffect.color == 3 then
 					gem.color = colorCodes.INTELLIGENCE
 				else
 					gem.color = colorCodes.NORMAL
 				end
-				if prevDefaultLevel and gem.data.defaultLevel ~= prevDefaultLevel then
-					gem.level = gem.data.defaultLevel
-					gem.defaultLevel = gem.data.defaultLevel
+				if prevDefaultLevel and gem.grantedEffect.defaultLevel ~= prevDefaultLevel then
+					gem.level = gem.grantedEffect.defaultLevel
+					gem.defaultLevel = gem.grantedEffect.defaultLevel
 				end
 				calcLib.validateGemLevel(gem)
-				if gem.data.gemTags then
-					gem.reqLevel = gem.data.levels[gem.level][1]
-					gem.reqStr = calcLib.gemStatRequirement(gem.reqLevel, gem.data.support, gem.data.gemStr)
-					gem.reqDex = calcLib.gemStatRequirement(gem.reqLevel, gem.data.support, gem.data.gemDex)
-					gem.reqInt = calcLib.gemStatRequirement(gem.reqLevel, gem.data.support, gem.data.gemInt)
+				if gem.grantedEffect.gemTags then
+					gem.reqLevel = gem.grantedEffect.levels[gem.level][1]
+					gem.reqStr = calcLib.gemStatRequirement(gem.reqLevel, gem.grantedEffect.support, gem.grantedEffect.gemStr)
+					gem.reqDex = calcLib.gemStatRequirement(gem.reqLevel, gem.grantedEffect.support, gem.grantedEffect.gemDex)
+					gem.reqInt = calcLib.gemStatRequirement(gem.reqLevel, gem.grantedEffect.support, gem.grantedEffect.gemInt)
 				end
 			end
 		else
-			gem.errMsg, gem.name, gem.data = nil
+			gem.errMsg, gem.grantedEffect = nil
 		end
 		if gem.nameSpec:match("%S") or gem.level ~= (gem.defaultLevel or 20) or gem.quality ~= 0 or (socketGroup == self.displayGroup and self.gemSlots[index] and self.gemSlots[index].nameSpec.dropped) then
 			index = index + 1

@@ -30,8 +30,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.Control()
 
 	self.build = build
-	self.versionData = data[build.targetVersion]
-
+	
 	self.socketViewer = common.New("PassiveTreeView")
 
 	self.list = { }
@@ -39,7 +38,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 
 	-- Build lists of item bases, separated by type
 	self.baseLists = { }
-	for name, base in pairs(self.versionData.itemBases) do
+	for name, base in pairs(self.build.data.itemBases) do
 		if not base.hidden then
 			local type = base.type
 			if base.subType then
@@ -885,8 +884,8 @@ function ItemsTabClass:EnchantDisplayItem()
 	if haveSkills then
 		for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
 			for _, gem in ipairs(socketGroup.gemList) do
-				if gem.data and not gem.data.support and enchantments[gem.name] then
-					skillsUsed[gem.name] = true
+				if gem.grantedEffect and not gem.grantedEffect.support and enchantments[gem.grantedEffect.name] then
+					skillsUsed[gem.grantedEffect.name] = true
 				end
 			end
 		end
@@ -980,7 +979,7 @@ end
 function ItemsTabClass:CorruptDisplayItem()
 	local controls = { } 
 	local implicitList = { }
-	for modId, mod in pairs(self.versionData.corruptedMods) do
+	for modId, mod in pairs(self.build.data.corruptedMods) do
 		if itemLib.getModSpawnWeight(self.displayItem, mod) > 0 then
 			t_insert(implicitList, mod)
 		end
@@ -1040,7 +1039,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local function buildMods(sourceId)
 		wipeTable(modList)
 		if sourceId == "MASTER" then
-			for _, craft in ipairs(self.versionData.masterMods) do
+			for _, craft in ipairs(self.build.data.masterMods) do
 				if craft.types[self.displayItem.type] then
 					t_insert(modList, {
 						label = craft.master .. " " .. craft.masterLevel .. "   "..craft.type:sub(1,3).."^8[" .. table.concat(craft, "/") .. "]",
@@ -1050,7 +1049,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 				end
 			end
 		elseif sourceId == "ESSENCE" then
-			for _, essence in pairs(self.versionData.essences) do
+			for _, essence in pairs(self.build.data.essences) do
 				local modId = essence.mods[self.displayItem.type]
 				local mod = self.displayItem.affixes[modId]
 				t_insert(modList, {

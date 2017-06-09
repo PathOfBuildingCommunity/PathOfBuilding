@@ -1509,7 +1509,7 @@ skills["SupportRapidDecay"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 25), 
-		--"skill_effect_and_damaging_ailment_duration_+%" = -15
+		mod("SkillAndDamagingAilmentDuration", "INC", -15), --"skill_effect_and_damaging_ailment_duration_+%" = -15
 	},
 	qualityMods = {
 		mod("Damage", "INC", 0.5, ModFlag.Dot), --"damage_over_time_+%" = 0.5

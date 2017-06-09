@@ -579,11 +579,11 @@ local function flag(name, ...)
 end
 
 local gemNameLookup = { }
-for name, data in pairs(data["2_6"].skills) do
-	if not data.hidden then
-		gemNameLookup[data.name:lower()] = data.name
-	elseif data.fromItem then
-		gemNameLookup[data.name:lower()] = data.id
+for name, grantedEffect in pairs(data["2_6"].skills) do
+	if not grantedEffect.hidden then
+		gemNameLookup[grantedEffect.name:lower()] = grantedEffect.name
+	elseif grantedEffect.fromItem then
+		gemNameLookup[grantedEffect.name:lower()] = grantedEffect.id
 	end
 end
 
@@ -993,15 +993,15 @@ local regenTypes = {
 -- Build active skill name lookup
 local skillNameList = { }
 local preSkillNameList = { }
-for skillName, data in pairs(data["2_6"].gems) do
-	if not data.hidden and not data.support then
+for skillName, grantedEffect in pairs(data["2_6"].gems) do
+	if not grantedEffect.hidden and not grantedEffect.support then
 		skillNameList[" "..skillName:lower().." "] = { tag = { type = "SkillName", skillName = skillName } }
 		preSkillNameList["^"..skillName:lower().." has ?a? "] = { tag = { type = "SkillName", skillName = skillName } }
-		if data.gemTags.totem then
+		if grantedEffect.gemTags.totem then
 			preSkillNameList["^"..skillName:lower().." totem deals "] = { tag = { type = "SkillName", skillName = skillName } }
 			preSkillNameList["^"..skillName:lower().." totem grants "] = { addToSkill = { type = "SkillName", skillName = skillName }, tag = { type = "GlobalEffect", effectType = "Buff" } }
 		end
-		if data.skillTypes[SkillType.Buff] or data.baseFlags.buff then
+		if grantedEffect.skillTypes[SkillType.Buff] or grantedEffect.baseFlags.buff then
 			preSkillNameList["^"..skillName:lower().." grants "] = { addToSkill = { type = "SkillName", skillName = skillName }, tag = { type = "GlobalEffect", effectType = "Buff" } }
 			preSkillNameList["^"..skillName:lower().." grants a?n? ?additional "] = { addToSkill = { type = "SkillName", skillName = skillName }, tag = { type = "GlobalEffect", effectType = "Buff" } }
 		end

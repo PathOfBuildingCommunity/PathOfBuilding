@@ -146,8 +146,8 @@ local skills, mod, flag, skill = ...
 	setupFunc = function(actor, output)
 		local skillData = actor.mainSkill.skillData
 		if skillData.corpseLife then
-			skillData.FireMin = skillData.FireMin + skillData.corpseLife * 0.06
-			skillData.FireMax = skillData.FireMax + skillData.corpseLife * 0.06
+			skillData.FireMin = skillData.FireMin + skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
+			skillData.FireMax = skillData.FireMax + skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
 		end
 	end,
 #mods
@@ -157,8 +157,8 @@ local skills, mod, flag, skill = ...
 	setupFunc = function(actor, output)
 		local skillData = actor.mainSkill.skillData
 		if skillData.corpseLife then
-			skillData.FireMin = skillData.FireMin + skillData.corpseLife * 0.08
-			skillData.FireMax = skillData.FireMax + skillData.corpseLife * 0.08
+			skillData.FireMin = skillData.FireMin + skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
+			skillData.FireMax = skillData.FireMax + skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
 		end
 	end,
 #mods
@@ -189,9 +189,6 @@ local skills, mod, flag, skill = ...
 			name = "Added lightning",
 		},
 	},
-#baseMod mod("EnemyFreezeChance", "BASE", 10)
-#baseMod mod("EnemyShockChance", "BASE", 10)
-#baseMod mod("EnemyIgniteChance", "BASE", 10)
 #mods
 
 #skill EtherealKnives

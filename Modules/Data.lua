@@ -148,10 +148,10 @@ for _, targetVersion in ipairs(targetVersionList) do
 	for _, type in pairs(skillTypes) do
 		dataModule("Skills/"..type, data[targetVersion].skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
 	end
-	for skillId, skillData in pairs(data[targetVersion].skills) do
-		skillData.id = skillId
+	for skillId, grantedEffect in pairs(data[targetVersion].skills) do
+		grantedEffect.id = skillId
 		-- Add sources for skill mods
-		for _, list in pairs({skillData.baseMods, skillData.qualityMods, skillData.levelMods}) do
+		for _, list in pairs({grantedEffect.baseMods, grantedEffect.qualityMods, grantedEffect.levelMods}) do
 			for _, mod in pairs(list) do
 				if mod[1] then
 					for _, mod in ipairs(mod) do
@@ -172,10 +172,10 @@ for _, targetVersion in ipairs(targetVersionList) do
 
 	-- Build gem list
 	data[targetVersion].gems = { }
-	for _, skillData in pairs(data[targetVersion].skills) do
-		if skillData.gemTags then
-			data[targetVersion].gems[skillData.name] = skillData
-			skillData.defaultLevel = (skillData.levels[20] and 20) or (skillData.levels[3][2] and 3) or 1
+	for _, grantedEffect in pairs(data[targetVersion].skills) do
+		if grantedEffect.gemTags then
+			data[targetVersion].gems[grantedEffect.name] = grantedEffect
+			grantedEffect.defaultLevel = (grantedEffect.levels[20] and 20) or (grantedEffect.levels[3][2] and 3) or 1
 		end
 	end
 

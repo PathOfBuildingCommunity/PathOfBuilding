@@ -377,7 +377,7 @@ function calcs.offence(env, actor)
 
 	-- Run skill setup function
 	do
-		local setupFunc = mainSkill.activeGem.data.setupFunc
+		local setupFunc = mainSkill.activeGem.grantedEffect.setupFunc
 		if setupFunc then
 			setupFunc(actor, output)
 		end

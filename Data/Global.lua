@@ -85,9 +85,10 @@ KeywordFlag.Totem =		0x004000
 KeywordFlag.Minion =	0x008000
 KeywordFlag.Attack =	0x010000
 KeywordFlag.Spell =		0x020000
--- Skill effects
+-- Other effects
 KeywordFlag.Poison =	0x100000
 KeywordFlag.Bleed =		0x200000
+KeywordFlag.Ignite =	0x400000
 
 -- Active skill types, used in ActiveSkills.dat and GrantedEffects.dat
 -- Had to reverse engineer this, not sure what all of the values mean

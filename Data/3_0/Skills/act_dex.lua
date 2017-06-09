@@ -1309,8 +1309,8 @@ skills["DetonateDead"] = {
 	setupFunc = function(actor, output)
 		local skillData = actor.mainSkill.skillData
 		if skillData.corpseLife then
-			skillData.FireMin = skillData.FireMin + skillData.corpseLife * 0.06
-			skillData.FireMax = skillData.FireMax + skillData.corpseLife * 0.06
+			skillData.FireMin = skillData.FireMin + skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
+			skillData.FireMax = skillData.FireMax + skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
 		end
 	end,
 	baseFlags = {
@@ -1321,7 +1321,7 @@ skills["DetonateDead"] = {
 	baseMods = {
 		skill("castTime", 0.8), 
 		skill("CritChance", 5), 
-		--"corpse_explosion_monster_life_%" = 6
+		skill("corpseExplosionLifeMultiplier", 0.06), --"corpse_explosion_monster_life_%" = 6
 		--"is_area_damage" = 1
 		--"display_skill_deals_secondary_damage" = ?
 		--"damage_cannot_be_reflected" = ?
@@ -1389,8 +1389,8 @@ skills["VaalDetonateDead"] = {
 	setupFunc = function(actor, output)
 		local skillData = actor.mainSkill.skillData
 		if skillData.corpseLife then
-			skillData.FireMin = skillData.FireMin + skillData.corpseLife * 0.08
-			skillData.FireMax = skillData.FireMax + skillData.corpseLife * 0.08
+			skillData.FireMin = skillData.FireMin + skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
+			skillData.FireMax = skillData.FireMax + skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
 		end
 	end,
 	baseFlags = {
@@ -1401,7 +1401,7 @@ skills["VaalDetonateDead"] = {
 	baseMods = {
 		skill("castTime", 0.8), 
 		skill("CritChance", 5), 
-		--"corpse_explosion_monster_life_%" = 8
+		skill("corpseExplosionLifeMultiplier", 0.08), --"corpse_explosion_monster_life_%" = 8
 		--"is_area_damage" = 1
 		--"display_skill_deals_secondary_damage" = ?
 		--"detonate_dead_chain_explode" = ?
@@ -1728,9 +1728,6 @@ skills["ElementalHit"] = {
 		{ mod("EnemyFreezeChance", "BASE", 10), mod("EnemyShockChance", "BASE", 10), mod("EnemyIgniteChance", "BASE", 10) }, --"chance_to_freeze_shock_ignite_%" = 10
 		--"skill_can_fire_arrows" = ?
 		--"skill_can_fire_wand_projectiles" = ?
-		mod("EnemyFreezeChance", "BASE", 10), 
-		mod("EnemyShockChance", "BASE", 10), 
-		mod("EnemyIgniteChance", "BASE", 10), 
 	},
 	qualityMods = {
 		mod("ElementalDamage", "INC", 1), --"elemental_damage_+%" = 1

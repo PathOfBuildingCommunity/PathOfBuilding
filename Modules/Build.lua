@@ -545,7 +545,7 @@ function buildMode:Load(xml, fileName)
 	wipeTable(self.spectreList)
 	for _, child in ipairs(xml) do
 		if child.elem == "Spectre" then
-			if child.attrib.id and self.data.minions[child.attrib.id] then
+			if child.attrib.id and data[self.targetVersion].minions[child.attrib.id] then
 				t_insert(self.spectreList, child.attrib.id)
 			end
 		end
@@ -850,7 +850,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		local mainActiveSkill = mainSocketGroup["mainActiveSkill"..suffix] or 1
 		wipeTable(controls.mainSkill.list)
 		for i, activeSkill in ipairs(displaySkillList) do
-			t_insert(controls.mainSkill.list, { val = i, label = activeSkill.activeGem.name })
+			t_insert(controls.mainSkill.list, { val = i, label = activeSkill.activeGem.grantedEffect.name })
 		end
 		controls.mainSkill.enabled = #displaySkillList > 1
 		controls.mainSkill.selIndex = mainActiveSkill
@@ -863,17 +863,17 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 			local activeSkill = displaySkillList[mainActiveSkill]
 			local activeGem = activeSkill.activeGem
 			if activeGem then
-				if activeGem.data.parts and #activeGem.data.parts > 1 then
+				if activeGem.grantedEffect.parts and #activeGem.grantedEffect.parts > 1 then
 					controls.mainSkillPart.shown = true
 					wipeTable(controls.mainSkillPart.list)
-					for i, part in ipairs(activeGem.data.parts) do
+					for i, part in ipairs(activeGem.grantedEffect.parts) do
 						t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
 					end
 					controls.mainSkillPart.selIndex = activeGem.srcGem["skillPart"..suffix] or 1
-				elseif not activeSkill.skillFlags.disable and activeGem.data.minionList then
+				elseif not activeSkill.skillFlags.disable and activeGem.grantedEffect.minionList then
 					local list
-					if activeGem.data.minionList[1] then
-						list = activeGem.data.minionList
+					if activeGem.grantedEffect.minionList[1] then
+						list = activeGem.grantedEffect.minionList
 					else
 						list = self.spectreList 
 						controls.mainSkillMinionLibrary.shown = true
@@ -891,7 +891,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 					wipeTable(controls.mainSkillMinionSkill.list)
 					if activeSkill.minion then
 						for _, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
-							t_insert(controls.mainSkillMinionSkill.list, minionSkill.activeGem.name)
+							t_insert(controls.mainSkillMinionSkill.list, minionSkill.activeGem.grantedEffect.name)
 						end
 						controls.mainSkillMinionSkill.selIndex = activeGem.srcGem["skillMinionSkill"..suffix] or 1
 						controls.mainSkillMinionSkill.shown = true
