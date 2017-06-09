@@ -1897,6 +1897,7 @@ skills["FlameDash"] = {
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
 		--"is_area_damage" = ?
 		--"firestorm_use_server_effects" = ?
+		skill("dotIsArea", true), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
@@ -4226,6 +4227,7 @@ skills["RighteousFire"] = {
 		mod("FireDegen", "BASE", 0.9, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }), --"base_nonlethal_fire_damage_%_of_maximum_life_taken_per_minute" = 5400
 		--"base_righteous_fire_%_of_max_energy_shield_to_deal_to_nearby_per_minute" = 3000
 		mod("FireDegen", "BASE", 0.7, 0, 0, { type = "PerStat", stat = "EnergyShield", div = 1}, { type = "GlobalEffect", effectType = "Buff" }), --"base_nonlethal_fire_damage_%_of_maximum_energy_shield_taken_per_minute" = 4200
+		skill("dotIsArea", true), 
 		skill("radius", 18), 
 	},
 	qualityMods = {
@@ -5368,6 +5370,7 @@ skills["FrostBoltNova"] = {
 		--"active_skill_if_used_through_frostbolt_damage_+%_final" = 40
 		--"is_area_damage" = ?
 		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_skill_dot" = ?
+		skill("dotIsArea", true), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5

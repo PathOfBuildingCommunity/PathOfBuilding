@@ -78,12 +78,18 @@ function ItemDBClass:DoesItemMatchFilters(item)
 	local typeSel = self.controls.type.selIndex
 	if typeSel > 1 then
 		if typeSel == 2 then
-			return item.base.armour
+			if not item.base.armour then
+				return false
+			end
 		elseif typeSel == 3 then
-			return item.type == "Amulet" or item.type == "Ring" or item.type == "Belt"
+			if not (item.type == "Amulet" or item.type == "Ring" or item.type == "Belt") then
+				return false
+			end
 		elseif typeSel == 4 or typeSel == 5 then
 			local weaponInfo = self.itemsTab.build.data.weaponTypeInfo[item.type]
-			return weaponInfo and weaponInfo.melee and ((typeSel == 4 and weaponInfo.oneHand) or (typeSel == 5 and not weaponInfo.oneHand))
+			if not (weaponInfo and weaponInfo.melee and ((typeSel == 4 and weaponInfo.oneHand) or (typeSel == 5 and not weaponInfo.oneHand))) then 
+				return false
+			end
 		elseif item.type ~= self.typeList[typeSel] then
 			return false
 		end

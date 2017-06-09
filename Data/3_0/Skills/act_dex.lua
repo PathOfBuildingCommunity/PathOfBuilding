@@ -1246,6 +1246,7 @@ skills["Desecrate"] = {
 		skill("duration", 5), --"base_skill_effect_duration" = 5000
 		--"desecrate_number_of_corpses_to_create" = 3
 		--"is_area_damage" = ?
+		skill("dotIsArea", true), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 1, ModFlag.Cast), --"base_cast_speed_+%" = 1
@@ -1985,6 +1986,7 @@ skills["FireTrap"] = {
 		--"base_skill_is_trapped" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		skill("trapCooldown", 3), 
+		skill("dotIsArea", true), 
 		skill("radius", 15), 
 	},
 	qualityMods = {
@@ -3657,6 +3659,7 @@ skills["Puncture"] = {
 		skill("manaCost", 6), 
 		--"skill_can_fire_arrows" = ?
 		mod("BleedChance", "BASE", 100), --"global_bleed_on_hit" = ?
+		skill("bleedIsSkillEffect", true), 
 	},
 	qualityMods = {
 		mod("Duration", "INC", 1), --"skill_effect_duration_+%" = 1
@@ -4898,6 +4901,7 @@ skills["ViperStrike"] = {
 		mod("PoisonChance", "BASE", 100), --"base_chance_to_poison_on_hit_%" = 100
 		skill("duration", 8), --"base_skill_effect_duration" = 8000
 		skill("poisonDurationIsSkillDuration", true), --"poison_duration_is_skill_duration" = ?
+		skill("poisonIsSkillEffect", true), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5

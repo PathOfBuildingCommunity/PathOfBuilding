@@ -156,6 +156,7 @@ local skills, mod, flag, skill = ...
 
 #skill FlameDash
 #flags spell area duration movement fire
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill FlameWhip
@@ -354,6 +355,7 @@ local skills, mod, flag, skill = ...
 			actor.mainSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.5
 		end
 	end,
+#baseMod skill("dotIsArea", true)
 #baseMod skill("radius", 18)
 #mods
 
@@ -468,6 +470,7 @@ local skills, mod, flag, skill = ...
 
 #skill FrostBoltNova
 #flags spell area duration cold
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill Vulnerability

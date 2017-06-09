@@ -455,11 +455,11 @@ skills["SupportWeaponElementalDamage"] = {
 		mod("ManaCost", "MORE", 40), 
 	},
 	qualityMods = {
-		mod("ElementalDamage", "INC", 0.5, ModFlag.Attack), --"elemental_damage_with_attack_skills_+%" = 0.5
+		mod("ElementalDamage", "INC", 0.5, 0, KeywordFlag.Attack), --"elemental_damage_with_attack_skills_+%" = 0.5
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("ElementalDamage", "MORE", nil, ModFlag.Attack), --"support_attack_skills_elemental_damage_+%_final"
+		[2] = mod("ElementalDamage", "MORE", nil, 0, KeywordFlag.Attack), --"support_attack_skills_elemental_damage_+%_final"
 	},
 	levels = {
 		[1] = { 18, 35, },
