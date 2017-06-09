@@ -32,7 +32,7 @@ local function infoDump(env, output)
 	local mainSkill = env.minion and env.minion.mainSkill or env.player.mainSkill
 	ConPrintf("=== Main Skill ===")
 	for _, gem in ipairs(mainSkill.gemList) do
-		ConPrintf("%s %d/%d", gem.name, gem.level, gem.quality)
+		ConPrintf("%s %d/%d", gem.grantedEffect.name, gem.level, gem.quality)
 	end
 	ConPrintf("=== Main Skill Flags ===")
 	ConPrintf("Mod: %s", modLib.formatFlags(mainSkill.skillCfg.flags, ModFlag))
@@ -43,7 +43,7 @@ local function infoDump(env, output)
 	for i, aux in ipairs(env.auxSkillList) do
 		ConPrintf("Skill #%d:", i)
 		for _, gem in ipairs(aux.gemList) do
-			ConPrintf("  %s %d/%d", gem.name, gem.level, gem.quality)
+			ConPrintf("  %s %d/%d", gem.grantedEffect.name, gem.level, gem.quality)
 		end
 	end
 --	ConPrintf("== Conversion Table ==")
@@ -136,10 +136,10 @@ function calcs.buildOutput(build, mode)
 
 		env.skillsUsed = { }
 		for _, activeSkill in ipairs(env.activeSkillList) do
-			env.skillsUsed[activeSkill.activeGem.name] = true
+			env.skillsUsed[activeSkill.activeGem.grantedEffect.name] = true
 			if activeSkill.minion then
 				for	_, activeSkill in ipairs(activeSkill.minion.activeSkillList) do
-					env.skillsUsed[activeSkill.activeGem.data.id] = true
+					env.skillsUsed[activeSkill.activeGem.grantedEffect.id] = true
 				end
 			end
 		end
@@ -222,16 +222,16 @@ function calcs.buildOutput(build, mode)
 		for _, activeSkill in ipairs(env.activeSkillList) do
 			if activeSkill.buffSkill then
 				if activeSkill.skillFlags.multiPart then
-					t_insert(buffList, activeSkill.activeGem.name .. " (" .. activeSkill.skillPartName .. ")")
+					t_insert(buffList, activeSkill.activeGem.grantedEffect.name .. " (" .. activeSkill.skillPartName .. ")")
 				else
-					t_insert(buffList, activeSkill.activeGem.name)
+					t_insert(buffList, activeSkill.activeGem.grantedEffect.name)
 				end
 			end
 			if activeSkill.debuffSkill then
 				if activeSkill.skillFlags.multiPart then
-					t_insert(curseList, activeSkill.activeGem.name .. " (" .. activeSkill.skillPartName .. ")")
+					t_insert(curseList, activeSkill.activeGem.grantedEffect.name .. " (" .. activeSkill.skillPartName .. ")")
 				else
-					t_insert(curseList, activeSkill.activeGem.name)
+					t_insert(curseList, activeSkill.activeGem.grantedEffect.name)
 				end
 			end
 		end
@@ -265,9 +265,9 @@ function calcs.buildOutput(build, mode)
 			for _, activeSkill in ipairs(env.activeSkillList) do
 				if activeSkill.minionBuffSkill then
 					if activeSkill.skillFlags.multiPart then
-						t_insert(buffList, activeSkill.activeGem.name .. " (" .. activeSkill.skillPartName .. ")")
+						t_insert(buffList, activeSkill.activeGem.grantedEffect.name .. " (" .. activeSkill.skillPartName .. ")")
 					else
-						t_insert(buffList, activeSkill.activeGem.name)
+						t_insert(buffList, activeSkill.activeGem.grantedEffect.name)
 					end
 				end
 			end

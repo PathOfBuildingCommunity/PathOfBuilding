@@ -1,3 +1,8 @@
+VERSION[1.4.24][2017/06/09]
+ * Converting builds between game versions will now automatically update the names of gems that been renamed
+For 3.0 builds:
+ * Updated the base damage for Zombies, Raging Spirits and Skeleton Warriors
+ * The duration penalty from Rapid Decay should now apply correctly
 VERSION[1.4.23][2017/06/09]
  * Fixed issue causing some of the item type filters in the unique and rare databases to disable the other filters
 For 3.0 builds:

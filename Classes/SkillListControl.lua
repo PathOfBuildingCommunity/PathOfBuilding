@@ -77,8 +77,8 @@ function SkillListClass:AddValueTooltip(index, socketGroup)
 		main:AddTooltipLine(16, "^7Active Skill #"..index..":")
 		for _, gem in ipairs(activeSkill.gemList) do
 			main:AddTooltipLine(20, string.format("%s%s ^7%d%s/%d%s", 
-				data.skillColorMap[gem.data.color], 
-				gem.name,
+				data.skillColorMap[gem.grantedEffect.color], 
+				gem.grantedEffect.name,
 				gem.level, 
 				(gem.srcGem and gem.level > gem.srcGem.level) and colorCodes.MAGIC.."+"..(gem.level - gem.srcGem.level).."^7" or "",
 				gem.quality,
@@ -93,8 +93,8 @@ function SkillListClass:AddValueTooltip(index, socketGroup)
 			main:AddTooltipLine(16, "^7Active Skill #"..index.."'s Main Minion Skill:")
 			local gem = activeSkill.minion.mainSkill.gemList[1]
 			main:AddTooltipLine(20, string.format("%s%s ^7%d%s/%d%s", 
-				data.skillColorMap[gem.data.color], 
-				gem.name, 
+				data.skillColorMap[gem.grantedEffect.color], 
+				gem.grantedEffect.name, 
 				gem.level, 
 				(gem.srcGem and gem.level > gem.srcGem.level) and colorCodes.MAGIC.."+"..(gem.level - gem.srcGem.level).."^7" or "",
 				gem.quality,
@@ -115,12 +115,12 @@ function SkillListClass:AddValueTooltip(index, socketGroup)
 			end
 			local reason = ""
 			local displayGem = gem.displayGem or gem
-			if not gem.data then
+			if not gem.grantedEffect then
 				reason = "(Unsupported)"
 			elseif not gem.enabled then
 				reason = "(Disabled)"
 			elseif not socketGroup.enabled or not socketGroup.slotEnabled then
-			elseif gem.data.support then
+			elseif gem.grantedEffect.support then
 				if displayGem.superseded then
 					reason = "(Superseded)"
 				elseif not next(displayGem.isSupporting) and #socketGroup.displaySkillList > 0 then
@@ -129,7 +129,7 @@ function SkillListClass:AddValueTooltip(index, socketGroup)
 			end
 			main:AddTooltipLine(20, string.format("%s%s ^7%d%s/%d%s %s", 
 				gem.color, 
-				gem.name or gem.nameSpec, 
+				gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec, 
 				displayGem.level, 
 				displayGem.level > gem.level and colorCodes.MAGIC.."+"..(displayGem.level - gem.level).."^7" or "",
 				displayGem.quality,

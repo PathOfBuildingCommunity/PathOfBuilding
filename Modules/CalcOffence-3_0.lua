@@ -355,9 +355,9 @@ function calcs.offence(env, actor)
 		debuffDurationMult = 1
 	end
 	do
-		output.DurationMod = calcLib.mod(modDB, skillCfg, "Duration")
+		output.DurationMod = calcLib.mod(modDB, skillCfg, "Duration", "SkillAndDamagingAilmentDuration")
 		if breakdown then
-			breakdown.DurationMod = breakdown.mod(skillCfg, "Duration")
+			breakdown.DurationMod = breakdown.mod(skillCfg, "Duration", "SkillAndDamagingAilmentDuration")
 		end
 		local durationBase = skillData.duration or 0
 		if durationBase > 0 then
@@ -382,7 +382,7 @@ function calcs.offence(env, actor)
 
 	-- Run skill setup function
 	do
-		local setupFunc = mainSkill.activeGem.data.setupFunc
+		local setupFunc = mainSkill.activeGem.grantedEffect.setupFunc
 		if setupFunc then
 			setupFunc(actor, output)
 		end
@@ -1277,7 +1277,7 @@ function calcs.offence(env, actor)
 					end
 				end
 				output.BleedDPS = baseVal * effMult
-				local durationMod = calcLib.mod(modDB, dotCfg, "EnemyBleedDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
+				local durationMod = calcLib.mod(modDB, dotCfg, "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
 				globalOutput.BleedDuration = 5 * durationMod * debuffDurationMult
 				if breakdown then
 					t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(bleed deals %d%% per second)", basePercent/100, basePercent))
@@ -1353,7 +1353,7 @@ function calcs.offence(env, actor)
 				else
 					durationBase = 2
 				end
-				local durationMod = calcLib.mod(modDB, dotCfg, "EnemyPoisonDuration", skillData.poisonIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfPoisonDuration")
+				local durationMod = calcLib.mod(modDB, dotCfg, "EnemyPoisonDuration", "SkillAndDamagingAilmentDuration", skillData.poisonIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfPoisonDuration")
 				globalOutput.PoisonDuration = durationBase * durationMod * debuffDurationMult
 				output.PoisonDamage = output.PoisonDPS * globalOutput.PoisonDuration
 				if skillData.showAverage then
@@ -1460,7 +1460,7 @@ function calcs.offence(env, actor)
 				end
 				local burnRateMod = calcLib.mod(modDB, cfg, "IgniteBurnRate")
 				output.IgniteDPS = baseVal * burnRateMod * effMult
-				local incDur = modDB:Sum("INC", dotCfg, "EnemyIgniteDuration") + enemyDB:Sum("INC", nil, "SelfIgniteDuration")
+				local incDur = modDB:Sum("INC", dotCfg, "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration") + enemyDB:Sum("INC", nil, "SelfIgniteDuration")
 				local moreDur = enemyDB:Sum("MORE", nil, "SelfIgniteDuration")
 				globalOutput.IgniteDuration = 4 * (1 + incDur / 100) * moreDur / burnRateMod * debuffDurationMult
 				if skillFlags.igniteCanStack then
@@ -1653,7 +1653,7 @@ function calcs.offence(env, actor)
 		local inc = modDB:Sum("INC", dotCfg, "Damage", "ChaosDamage")
 		local more = round(modDB:Sum("MORE", dotCfg, "Damage", "ChaosDamage"), 2)
 		output.DecayDPS = skillData.decay * (1 + inc/100) * more * effMult
-		local durationMod = calcLib.mod(modDB, dotCfg, "Duration")
+		local durationMod = calcLib.mod(modDB, dotCfg, "Duration", "SkillAndDamagingAilmentDuration")
 		output.DecayDuration = 10 * durationMod * debuffDurationMult
 		if breakdown then
 			breakdown.DecayDPS = { }

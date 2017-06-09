@@ -262,7 +262,7 @@ function ModDBClass:Sum(modType, cfg, ...)
 								break
 							end
 						elseif tag.type == "SkillId" then
-							if not cfg or not cfg.skillGem or cfg.skillGem.data.id ~= tag.skillId then
+							if not cfg or not cfg.skillGem or cfg.skillGem.grantedEffect.id ~= tag.skillId then
 								value = nullValue
 								break
 							end

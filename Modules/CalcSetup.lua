@@ -420,7 +420,7 @@ function calcs.initEnv(build, mode, override)
 					if socketGroup.slot == grantedSkill.slotName and not socketGroup.source then
 						-- Add all support gems to the skill's group
 						for _, gem in ipairs(socketGroup.gemList) do
-							if gem.data and gem.data.support then
+							if gem.grantedEffect and gem.grantedEffect.support then
 								t_insert(group.gemList, gem)
 							end
 						end
@@ -481,11 +481,10 @@ function calcs.initEnv(build, mode, override)
 			if not socketGroup.source then
 				-- Add extra supports from the item this group is socketed in
 				for _, value in ipairs(env.modDB:Sum("LIST", groupCfg, "ExtraSupport")) do
-					local gemData = env.data.gems[value.name] or env.data.skills[value.name]
-					if gemData then
+					local grantedEffect = env.data.gems[value.name] or env.data.skills[value.name]
+					if grantedEffect then
 						t_insert(supportList, { 
-							name = gemData.name,
-							data = gemData,
+							grantedEffect = grantedEffect,
 							level = value.level,
 							quality = 0,
 							enabled = true,
@@ -498,7 +497,7 @@ function calcs.initEnv(build, mode, override)
 				if env.mode == "MAIN" then
 					gem.displayGem = nil
 				end
-				if gem.enabled and gem.data and gem.data.support then
+				if gem.enabled and gem.grantedEffect and gem.grantedEffect.support then
 					local supportGem = copyTable(gem, true)
 					supportGem.srcGem = gem
 					supportGem.superseded = false
@@ -514,7 +513,7 @@ function calcs.initEnv(build, mode, override)
 					local add = true
 					for index, otherGem in ipairs(supportList) do
 						-- Check if there's another support with the same name already present
-						if supportGem.data == otherGem.data then
+						if supportGem.grantedEffect == otherGem.grantedEffect then
 							add = false
 							if supportGem.level > otherGem.level or (supportGem.level == otherGem.level and supportGem.quality > otherGem.quality) then
 								if env.mode == "MAIN" then
@@ -542,7 +541,7 @@ function calcs.initEnv(build, mode, override)
 
 			-- Create active skills
 			for _, gem in ipairs(socketGroup.gemList) do
-				if gem.enabled and gem.data and not gem.data.support and not gem.data.unsupported then
+				if gem.enabled and gem.grantedEffect and not gem.grantedEffect.support and not gem.grantedEffect.unsupported then
 					local activeGem = copyTable(gem, true)
 					activeGem.srcGem = gem
 					if not gem.fromItem then
@@ -587,8 +586,8 @@ function calcs.initEnv(build, mode, override)
 			else
 				socketGroup.displayLabel = nil
 				for _, gem in ipairs(socketGroup.gemList) do
-					if gem.enabled and gem.data and not gem.data.support then
-						socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. gem.name
+					if gem.enabled and gem.grantedEffect and not gem.grantedEffect.support then
+						socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. gem.grantedEffect.name
 					end
 				end
 				socketGroup.displayLabel = socketGroup.displayLabel or "<No active skills>"
@@ -604,11 +603,10 @@ function calcs.initEnv(build, mode, override)
 	if not env.player.mainSkill then
 		-- Add a default main skill if none are specified
 		local defaultGem = {
-			name = "Default Attack",
 			level = 1,
 			quality = 0,
 			enabled = true,
-			data = env.data.skills.Melee
+			grantedEffect = env.data.skills.Melee
 		}
 		env.player.mainSkill = calcs.createActiveSkill(defaultGem, { })
 		t_insert(env.activeSkillList, env.player.mainSkill)

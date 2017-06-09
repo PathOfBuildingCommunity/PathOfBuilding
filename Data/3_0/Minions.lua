@@ -12,7 +12,7 @@ minions["RaisedZombie"] = {
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 1.5,
+	damage = 2.19,
 	damageSpread = 0.4,
 	attackTime = 1.755,
 	attackRange = 9,
@@ -142,7 +142,7 @@ minions["SummonedRagingSpirit"] = {
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 0.77,
+	damage = 1.2,
 	damageSpread = 0.2,
 	attackTime = 0.855,
 	attackRange = 6,
@@ -196,15 +196,15 @@ minions["SummonedSpectralWolf"] = {
 	},
 }
 minions["RaisedSkeleton"] = {
-	name = "Skeleton Warrior",
+	name = "Summoned Skeleton",
 	life = 1.05,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 1.72,
+	damage = 4.05,
 	damageSpread = 0.4,
-	attackTime = 1.305,
+	attackTime = 1.2,
 	attackRange = 6,
 	damageFixup = 0.33,
 	weaponType1 = "One Handed Sword",
@@ -217,7 +217,7 @@ minions["RaisedSkeleton"] = {
 	},
 }
 minions["RaisedSkeletonCaster"] = {
-	name = "Skeleton Mage",
+	name = "Summoned Skeleton Caster",
 	life = 1.05,
 	fireResist = 40,
 	coldResist = 40,
@@ -238,7 +238,7 @@ minions["RaisedSkeletonCaster"] = {
 	},
 }
 minions["RaisedSkeletonArcher"] = {
-	name = "Skeleton Archer",
+	name = "Summoned Skeleton Archer",
 	life = 1.05,
 	fireResist = 40,
 	coldResist = 40,

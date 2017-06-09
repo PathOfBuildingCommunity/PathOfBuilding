@@ -379,8 +379,8 @@ function ImportTabClass:DownloadItems()
 			skillOrder = { }
 			for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
 				for _, gem in ipairs(socketGroup.gemList) do
-					if gem.data and not gem.data.support then
-						t_insert(skillOrder, gem.name)
+					if gem.grantedEffect and not gem.grantedEffect.support then
+						t_insert(skillOrder, gem.grantedEffect.name)
 					end
 				end
 			end
@@ -399,8 +399,8 @@ function ImportTabClass:DownloadItems()
 			table.sort(self.build.skillsTab.socketGroupList, function(a, b)
 				local orderA
 				for _, gem in ipairs(a.gemList) do
-					if gem.data and not gem.data.support then
-						local i = isValueInArray(skillOrder, gem.name)
+					if gem.grantedEffect and not gem.grantedEffect.support then
+						local i = isValueInArray(skillOrder, gem.grantedEffect.name)
 						if i and (not orderA or i < orderA) then
 							orderA = i
 						end
@@ -408,8 +408,8 @@ function ImportTabClass:DownloadItems()
 				end
 				local orderB
 				for _, gem in ipairs(b.gemList) do
-					if gem.data and not gem.data.support then
-						local i = isValueInArray(skillOrder, gem.name)
+					if gem.grantedEffect and not gem.grantedEffect.support then
+						local i = isValueInArray(skillOrder, gem.grantedEffect.name)
 						if i and (not orderB or i < orderB) then
 							orderB = i
 						end

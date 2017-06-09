@@ -53,6 +53,12 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.24 - 2017/06/09
+ * Converting builds between game versions will now automatically update the names of gems that been renamed
+For 3.0 builds:
+ * Updated the base damage for Zombies, Raging Spirits and Skeleton Warriors
+ * The duration penalty from Rapid Decay should now apply correctly
+
 ### 1.4.23 - 2017/06/09
  * Fixed issue causing some of the item type filters in the unique and rare databases to disable the other filters
 For 3.0 builds:

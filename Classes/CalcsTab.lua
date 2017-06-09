@@ -34,7 +34,6 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 	self.Control()
 
 	self.build = build
-	self.versionData = data[build.targetVersion]
 
 	self.calcs = calcs[build.targetVersion]
 
@@ -76,7 +75,7 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 			end, "Show stats for the minion instead of the player.")
 		}, },
 		{ label = "Minion", flag = "minion", { controlName = "mainSkillMinion",
-			control = common.New("DropDownControl", nil, 0, 0, 150, 16, nil, function(index, value)
+			control = common.New("DropDownControl", nil, 0, 0, 160, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeGem.srcGem.skillMinionCalcs = value.minionId
 				self:AddUndoState()

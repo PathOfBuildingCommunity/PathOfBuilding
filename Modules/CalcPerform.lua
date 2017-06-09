@@ -425,7 +425,7 @@ function calcs.perform(env)
 			env.player["reserved_"..pool..suffix] = env.player["reserved_"..pool..suffix] + cost
 			if breakdown then
 				t_insert(breakdown[pool.."Reserved"].reservations, {
-					skillName = activeSkill.activeGem.name,
+					skillName = activeSkill.activeGem.grantedEffect.name,
 					base = baseVal .. (activeSkill.skillTypes[SkillType.ManaCostPercent] and "%" or ""),
 					mult = mult ~= 1 and ("x "..mult),
 					more = more ~= 1 and ("x "..more),
@@ -480,7 +480,7 @@ function calcs.perform(env)
 								return colorCodes[item.rarity], true
 							end
 						elseif reqSource.source == "Gem" then
-							row.sourceName = s_format("%s%s ^7%d/%d", reqSource.sourceGem.color, reqSource.sourceGem.name, reqSource.sourceGem.level, reqSource.sourceGem.quality)
+							row.sourceName = s_format("%s%s ^7%d/%d", reqSource.sourceGem.color, reqSource.sourceGem.grantedEffect.name, reqSource.sourceGem.level, reqSource.sourceGem.quality)
 						end
 						t_insert(breakdown["Req"..attr].rowList, row)
 					end
@@ -533,7 +533,7 @@ function calcs.perform(env)
 					local inc = modDB:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf")
 					local more = modDB:Sum("MORE", skillCfg, "BuffEffect", "BuffEffectOnSelf")
 					srcList:ScaleAddList(activeSkill.buffModList, (1 + inc / 100) * more)
-					mergeBuff(srcList, buffs, activeSkill.activeGem.name)
+					mergeBuff(srcList, buffs, activeSkill.activeGem.grantedEffect.name)
 				end
 				if env.minion and (activeSkill.skillData.buffMinions or activeSkill.skillData.buffAllies) then
 					activeSkill.minionBuffSkill = true
@@ -541,7 +541,7 @@ function calcs.perform(env)
 					local inc = modDB:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf")
 					local more = modDB:Sum("MORE", skillCfg, "BuffEffect") * env.minion.modDB:Sum("MORE", nil, "BuffEffectOnSelf")
 					srcList:ScaleAddList(activeSkill.buffModList, (1 + inc / 100) * more)
-					mergeBuff(srcList, minionBuffs, activeSkill.activeGem.name)
+					mergeBuff(srcList, minionBuffs, activeSkill.activeGem.grantedEffect.name)
 				end
 			end
 			if activeSkill.auraModList then
@@ -553,7 +553,7 @@ function calcs.perform(env)
 					local more = modDB:Sum("MORE", skillCfg, "AuraEffect", "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
 					srcList:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
 					srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
-					mergeBuff(srcList, buffs, activeSkill.activeGem.name)
+					mergeBuff(srcList, buffs, activeSkill.activeGem.grantedEffect.name)
 				end
 				if env.minion and not modDB:Sum("FLAG", nil, "YourAurasCannotAffectAllies") then
 					activeSkill.minionBuffSkill = true
@@ -563,7 +563,7 @@ function calcs.perform(env)
 					local more = modDB:Sum("MORE", skillCfg, "AuraEffect") * env.minion.modDB:Sum("MORE", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
 					srcList:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
 					srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
-					mergeBuff(srcList, minionBuffs, activeSkill.activeGem.name)
+					mergeBuff(srcList, minionBuffs, activeSkill.activeGem.grantedEffect.name)
 				end
 			end
 			if activeSkill.minion then
@@ -576,14 +576,14 @@ function calcs.perform(env)
 							local inc = modDB:Sum("INC", skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
 							local more = modDB:Sum("MORE", skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
 							srcList:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
-							mergeBuff(srcList, buffs, activeSkill.activeGem.data.id)
+							mergeBuff(srcList, buffs, activeSkill.activeGem.grantedEffect.id)
 						end
 						if env.minion and (env.minion ~= activeSkill.minion or not activeSkill.skillData.auraCannotAffectSelf) then
 							local srcList = common.New("ModList")
 							local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
 							local more = env.minion.modDB:Sum("MORE", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
 							srcList:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
-							mergeBuff(srcList, minionBuffs, activeSkill.activeGem.data.id)
+							mergeBuff(srcList, minionBuffs, activeSkill.activeGem.grantedEffect.id)
 						end
 					end
 				end
@@ -594,12 +594,12 @@ function calcs.perform(env)
 				activeSkill.debuffSkill = true
 				local srcList = common.New("ModList")
 				srcList:ScaleAddList(activeSkill.debuffModList, activeSkill.skillData.stackCount or 1)
-				mergeBuff(srcList, debuffs, activeSkill.activeGem.name)
+				mergeBuff(srcList, debuffs, activeSkill.activeGem.grantedEffect.name)
 			end
 			if (activeSkill.curseModList or (activeSkill.skillFlags.curse and activeSkill.buffModList))
 			   and (not enemyDB:Sum("FLAG", nil, "Hexproof") or modDB:Sum("FLAG", nil, "CursesIgnoreHexproof")) then
 				local curse = {
-					name = activeSkill.activeGem.name,
+					name = activeSkill.activeGem.grantedEffect.name,
 					fromPlayer = true,
 					priority = activeSkill.skillTypes[SkillType.Aura] and 3 or 1,
 				}
@@ -632,7 +632,7 @@ function calcs.perform(env)
 					local skillCfg = activeSkill.skillCfg
 					if activeSkill.curseModList and activeSkill.skillData.enable and not enemyDB:Sum("FLAG", nil, "Hexproof") then
 						local curse = {
-							name = activeSkill.activeGem.name,
+							name = activeSkill.activeGem.grantedEffect.name,
 							priority = 1,
 						}
 						local inc = enemyDB:Sum("INC", nil, "CurseEffectOnSelf") + skillModList:Sum("INC", skillCfg, "CurseEffect")
@@ -653,7 +653,7 @@ function calcs.perform(env)
 			calcs.mergeGemMods(gemModList, {
 				level = value.level,
 				quality = 0,
-				data = env.data.gems[value.name],
+				grantedEffect = env.data.gems[value.name],
 			})
 			local curseModList = { }
 			for _, mod in ipairs(gemModList) do

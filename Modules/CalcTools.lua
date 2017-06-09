@@ -39,30 +39,30 @@ end
 
 -- Validate the level of the given gem
 function calcLib.validateGemLevel(gem)
-	if not gem.data.levels[gem.level] then
+	if not gem.grantedEffect.levels[gem.level] then
 		-- Try limiting to the level range of the gem
 		gem.level = m_max(1, gem.level)
-		if #gem.data.levels > 0 then
-			gem.level = m_min(#gem.data.levels, gem.level)
+		if #gem.grantedEffect.levels > 0 then
+			gem.level = m_min(#gem.grantedEffect.levels, gem.level)
 		end
-		if not gem.data.levels[gem.level] then
+		if not gem.grantedEffect.levels[gem.level] then
 			-- That failed, so just grab any level
-			gem.level = next(gem.data.levels)
+			gem.level = next(gem.grantedEffect.levels)
 		end
 	end	
 end
 
 -- Check if given support gem can support the given skill types
 function calcLib.gemCanSupportTypes(gem, skillTypes)
-	for _, skillType in pairs(gem.data.excludeSkillTypes) do
+	for _, skillType in pairs(gem.grantedEffect.excludeSkillTypes) do
 		if skillTypes[skillType] then
 			return false
 		end
 	end
-	if not gem.data.requireSkillTypes[1] then
+	if not gem.grantedEffect.requireSkillTypes[1] then
 		return true
 	end
-	for _, skillType in pairs(gem.data.requireSkillTypes) do
+	for _, skillType in pairs(gem.grantedEffect.requireSkillTypes) do
 		if skillTypes[skillType] then
 			return true
 		end
@@ -72,7 +72,7 @@ end
 
 -- Check if given support gem can support the given active skill
 function calcLib.gemCanSupport(gem, activeSkill)
-	if gem.data.unsupported then
+	if gem.grantedEffect.unsupported then
 		return false
 	end
 	if activeSkill.summonSkill then
@@ -86,7 +86,7 @@ end
 
 -- Check if given gem is of the given type ("all", "strength", "melee", etc)
 function calcLib.gemIsType(gem, type)
-	local tags = gem.data.gemTags
+	local tags = gem.grantedEffect.gemTags
 	return tags and (type == "all" or (type == "elemental" and (tags.fire or tags.cold or tags.lightning)) or tags[type])
 end
 

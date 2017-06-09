@@ -52,7 +52,7 @@ function GemSelectClass:BuildList(buf)
 		local added = { }
 		for i, pattern in ipairs(patternList) do
 			local matchList = { }
-			for name, data in pairs(self.skillsTab.build.data.gems) do
+			for name, grantedEffect in pairs(self.skillsTab.build.data.gems) do
 				if not added[name] and (" "..name:lower()):match(pattern) then
 					t_insert(matchList, name)
 					added[name] = true
@@ -66,8 +66,8 @@ function GemSelectClass:BuildList(buf)
 		local tagName = self.searchStr:match("^%s*(%a+)%s*$")
 		if tagName then
 			local matchList = { }
-			for name, data in pairs(self.skillsTab.build.data.gems) do
-				if not added[name] and data.gemTags[tagName:lower()] == true then
+			for name, grantedEffect in pairs(self.skillsTab.build.data.gems) do
+				if not added[name] and grantedEffect.gemTags[tagName:lower()] == true then
 					t_insert(matchList, name)
 					added[name] = true
 				end
@@ -78,7 +78,7 @@ function GemSelectClass:BuildList(buf)
 			end
 		end
 	else
-		for name, data in pairs(self.skillsTab.build.data.gems) do
+		for name, grantedEffect in pairs(self.skillsTab.build.data.gems) do
 			t_insert(self.list, name)
 		end
 		t_sort(self.list)
@@ -169,19 +169,19 @@ function GemSelectClass:Draw(viewPort)
 				DrawImage(nil, 0, y, width - 4, height - 4)
 			end
 			SetDrawColor(1, 1, 1)
-			local gemData = self.skillsTab.build.data.gems[self.list[index]]
-			if gemData then
-				if gemData.color == 1 then
+			local grantedEffect = self.skillsTab.build.data.gems[self.list[index]]
+			if grantedEffect then
+				if grantedEffect.color == 1 then
 					SetDrawColor(colorCodes.STRENGTH)
-				elseif gemData.color == 2 then
+				elseif grantedEffect.color == 2 then
 					SetDrawColor(colorCodes.DEXTERITY)
-				elseif gemData.color == 3 then
+				elseif grantedEffect.color == 3 then
 					SetDrawColor(colorCodes.INTELLIGENCE)
 				end
 			end
 			DrawString(0, y, "LEFT", height - 4, "VAR", self.list[index])
-			if gemData and gemData.support and self.skillsTab.displayGroup.displaySkillList then
-				local gem = { data = gemData }
+			if grantedEffect and grantedEffect.support and self.skillsTab.displayGroup.displaySkillList then
+				local gem = { grantedEffect = grantedEffect }
 				for _, activeSkill in ipairs(self.skillsTab.displayGroup.displaySkillList) do
 					if calcLib.gemCanSupport(gem, activeSkill) then
 						SetDrawColor(0.33, 1, 0.33)
@@ -204,15 +204,13 @@ function GemSelectClass:Draw(viewPort)
 					gemList[self.index] = { level = 20, quality = 0, enabled = true }
 				end
 				local gem = gemList[self.index]
-				gem.name = self.list[self.hoverSel]
-				gem.data = self.skillsTab.build.data.gems[self.list[self.hoverSel]]
-				if not gem.data.levels[gem.level] then
-					gem.level = gem.data.defaultLevel
+				gem.grantedEffect = self.skillsTab.build.data.gems[self.list[self.hoverSel]]
+				if not gem.grantedEffect.levels[gem.level] then
+					gem.level = gem.grantedEffect.defaultLevel
 				end
 				local output = calcFunc()
 				if oldGem then
-					gem.name = oldGem.name
-					gem.data = oldGem.data
+					gem.grantedEffect = oldGem.grantedEffect
 					gem.level = oldGem.level
 				else
 					gemList[self.index] = nil
@@ -232,24 +230,24 @@ function GemSelectClass:Draw(viewPort)
 		if hoverControl and hoverControl._className == "GemSelectControl" then
 			local thisGem = self.skillsTab.displayGroup.gemList[self.index]
 			local hoverGem = self.skillsTab.displayGroup.gemList[hoverControl.index]
-			if thisGem and hoverGem and thisGem.enabled and hoverGem.enabled and thisGem.data and hoverGem.data and
-			  ((hoverGem.data.support and not thisGem.data.support and hoverGem.displayGem and hoverGem.displayGem.isSupporting[thisGem.name]) or
-			   (thisGem.data.support and not hoverGem.data.support and thisGem.displayGem and thisGem.displayGem.isSupporting[hoverGem.name])) then
+			if thisGem and hoverGem and thisGem.enabled and hoverGem.enabled and thisGem.grantedEffect and hoverGem.grantedEffect and
+			  ((hoverGem.grantedEffect.support and not thisGem.grantedEffect.support and hoverGem.displayGem and hoverGem.displayGem.isSupporting[thisGem.grantedEffect.name]) or
+			   (thisGem.grantedEffect.support and not hoverGem.grantedEffect.support and thisGem.displayGem and thisGem.displayGem.isSupporting[hoverGem.grantedEffect.name])) then
 			   SetDrawColor(0.33, 1, 0.33, 0.25)
 			   DrawImage(nil, x, y, width, height)
 			end
 		end
 		if mOver then
 			local gem = self.skillsTab.displayGroup.gemList[self.index]
-			if gem and gem.data then
+			if gem and gem.grantedEffect then
 				SetDrawLayer(nil, 10)
-				main:AddTooltipLine(20, colorCodes.GEM..gem.data.name)
+				main:AddTooltipLine(20, colorCodes.GEM..gem.grantedEffect.name)
 				main:AddTooltipSeparator(10)
-				main:AddTooltipLine(16, "^x7F7F7F"..gem.data.gemTagString)
+				main:AddTooltipLine(16, "^x7F7F7F"..gem.grantedEffect.gemTagString)
 				main:AddTooltipSeparator(10)
 				self.skillsTab.build:AddRequirementsToTooltip(gem.reqLevel, gem.reqStr, gem.reqDex, gem.reqInt)
-				if gem.data.description then
-					local wrap = main:WrapString(gem.data.description, 16, m_max(DrawStringWidth(16, "VAR", gem.data.gemTagString), 400))
+				if gem.grantedEffect.description then
+					local wrap = main:WrapString(gem.grantedEffect.description, 16, m_max(DrawStringWidth(16, "VAR", gem.grantedEffect.gemTagString), 400))
 					for _, line in ipairs(wrap) do
 						main:AddTooltipLine(16, colorCodes.GEM..line)
 					end
