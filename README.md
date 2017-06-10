@@ -53,7 +53,7 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
-### 1.4.25 - 2017/06/09
+### 1.4.25 - 2017/06/11
  * Added options to the Options dialog to show thousands separators in the sidebar or Calcs tab
  * Fixed error that could result from importing a character into a 3.0 build
  * A warning is now shown before importing a character into a 3.0 build
