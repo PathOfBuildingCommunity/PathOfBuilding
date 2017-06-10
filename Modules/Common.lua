@@ -221,35 +221,11 @@ function round(val, dec)
 	end
 end
 
--- Formats 1234.56 -> "1,234.5" [dec=1]
-function formatNumSep(val, dec)
-	dec = dec or 0
-	val = val or 0
-	local neg = val < 0
-	val = m_floor(m_abs(val * 10 ^ dec) + 0.5)
-	local str = string.reverse(s_format("%.0f", val))
-	if #str < (dec + 1) then
-		str = str .. string.rep("0", dec + 1 - #str)
-	end
-	local ret = ""
-	local pDec, pThou = dec, 3
-	for ci = 1, #str do
-		local c = str:sub(ci, ci)
-		ret = c .. ret
-		if pDec > 0 then
-			pDec = pDec - 1
-			if pDec == 0 then
-				ret = "." .. ret
-			end
-		else
-			pThou = pThou - 1
-			if pThou == 0 and ci < #str then
-				ret = "," .. ret
-				pThou = 3
-			end
-		end
-	end
-	return (neg and "-" or "") .. ret
+-- Formats "1234.56" -> "1,234.5"
+function formatNumSep(str)
+	return str:gsub("(%d*)(%d%.?)", function(s, e)
+		return s:reverse():gsub("(%d%d)(%d)","%1,%2"):reverse()..e
+	end)
 end
 function getFormatNumSep(dec)
 	return function(val)

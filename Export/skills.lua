@@ -437,10 +437,12 @@ directiveTable.mods = function(state, args, out)
 	state.gem = nil
 end
 
-for _, name in pairs({"act_str","act_dex","act_int","other",--[["minion","spectre",]]"sup_str","sup_dex","sup_int"}) do
+for _, name in pairs({"act_str","act_dex","act_int","other","minion","spectre","sup_str","sup_dex","sup_int"}) do
 	processTemplateFile("Skills/"..name, directiveTable)
 end
 
-os.execute("xcopy Skills\\*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
+os.execute("xcopy Skills\\act_*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
+os.execute("xcopy Skills\\sup_*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
+os.execute("xcopy Skills\\other.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
 
 print("Skill data exported.")

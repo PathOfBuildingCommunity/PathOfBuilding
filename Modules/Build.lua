@@ -640,6 +640,9 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:BuildOutput()
 		self:RefreshStatList()
 	end
+	if main.showThousandsSidebar ~= self.lastShowThousandsSidebar then
+		self:RefreshStatList()
+	end
 
 	-- Update contents of main skill dropdowns
 	self:RefreshSkillSelectControls(self.controls, self.mainSocketGroup, "")
@@ -905,6 +908,18 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	end
 end
 
+function buildMode:FormatStat(statData, statVal)
+	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
+	local color = (statVal >= 0 and "^7" or colorCodes.NEGATIVE)
+	local valStr = s_format("%"..statData.fmt, val)
+	if main.showThousandsSidebar then
+		return color..formatNumSep(valStr)
+	else
+		return color..valStr
+	end
+	self.lastShowThousandsSidebar = main.showThousandsSidebar
+end
+
 -- Add stat list for given actor
 function buildMode:AddDisplayStatList(statList, actor)
 	local statBoxList = self.controls.statBox.list
@@ -916,7 +931,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 					t_insert(statBoxList, {
 						height = 16,
 						"^7"..statData.label..":",
-						string.format("%s%"..statData.fmt, statVal >= 0 and "^7" or colorCodes.NEGATIVE, statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)) 
+						self:FormatStat(statData, statVal),
 					})
 				end
 			end

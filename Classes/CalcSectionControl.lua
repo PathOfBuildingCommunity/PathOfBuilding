@@ -133,6 +133,14 @@ function CalcSectionClass:UpdatePos()
 	end
 end
 
+function CalcSectionClass:FormatVal(val, p)
+	if main.showThousandsCalcs then
+		return formatNumSep(tostring(round(val, p)))
+	else
+		return round(val, p)
+	end
+end
+
 function CalcSectionClass:FormatStr(str, actor, colData)
 	str = str:gsub("{output:([%a%.:]+)}", function(c) 
 		local ns, var = c:match("^(%a+)%.(%a+)$")
@@ -145,9 +153,9 @@ function CalcSectionClass:FormatStr(str, actor, colData)
 	str = str:gsub("{(%d+):output:([%a%.:]+)}", function(p, c) 
 		local ns, var = c:match("^(%a+)%.(%a+)$")
 		if ns then
-			return formatRound(actor.output[ns] and actor.output[ns][var] or 0, tonumber(p))
+			return self:FormatVal(actor.output[ns] and actor.output[ns][var] or 0, tonumber(p))
 		else
-			return formatRound(actor.output[c] or 0, tonumber(p))
+			return self:FormatVal(actor.output[c] or 0, tonumber(p))
 		end
 	end)
 	str = str:gsub("{(%d+):mod:(%d+)}", function(p, n) 
@@ -165,7 +173,7 @@ function CalcSectionClass:FormatStr(str, actor, colData)
 		if sectionData.modType == "MORE" then
 			modVal = (modVal - 1) * 100
 		end
-		return formatRound(modVal, tonumber(p)) 
+		return self:FormatVal(modVal, tonumber(p)) 
 	end)
 	return str
 end
