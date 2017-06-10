@@ -14,12 +14,26 @@ local ImportTabClass = common.NewClass("ImportTab", "ControlHost", "Control", fu
 
 	self.build = build
 
-	self.charImportMode = "GETACCOUNTNAME"
+	self.charImportMode = build.targetVersion == liveTargetVersion and "GETACCOUNTNAME" or "VERSIONWARNING"
 	self.charImportStatus = "Idle"
 	self.controls.sectionCharImport = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 600, 230, "Character Import")
+	self.controls.charImportVersionWarning = common.New("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 20, 0, 16, colorCodes.WARNING..[[
+Warning:^7 Characters may not import into this build correctly, 
+as the build's game version is different from the live game version.
+Some passives may be deallocated, and some gems may not be recognised.
+If possible, change the game version in the Configuration tab before importing.]])
+	self.controls.charImportVersionWarning.shown = function()
+		return self.charImportMode == "VERSIONWARNING"
+	end
+	self.controls.charImportVersionWarningGo = common.New("ButtonControl", {"TOPLEFT",self.controls.charImportVersionWarning,"TOPLEFT"}, 0, 70, 80, 20, "Continue", function()
+		self.charImportMode = "GETACCOUNTNAME"
+	end)
 	self.controls.charImportStatusLabel = common.New("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 14, 200, 16, function()
 		return "^7Character import status: "..self.charImportStatus
 	end)
+	self.controls.charImportStatusLabel.shown = function()
+		return self.charImportMode ~= "VERSIONWARNING"
+	end
 
 	-- Stage: input account name
 	self.controls.accountNameHeader = common.New("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 16, "^7To start importing a character, enter the character's account name:")
@@ -207,7 +221,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 	self.controls.importCodeGo = common.New("ButtonControl", {"TOPLEFT",self.controls.importCodeMode,"BOTTOMLEFT"}, 0, 8, 60, 20, "Import", function()
 		if self.controls.importCodeMode.selIndex == 1 then
-			main:OpenConfirmPopup("Build Import", "^xFF9922Warning:^7 Importing to the current build will erase ALL existing data for this build.", "Import", function()
+			main:OpenConfirmPopup("Build Import", colorCodes.WARNING.."Warning:^7 Importing to the current build will erase ALL existing data for this build.", "Import", function()
 				self.build:Shutdown()
 				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML)
 				self.build.viewMode = "TREE"

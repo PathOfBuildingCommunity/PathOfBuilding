@@ -421,7 +421,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 				end
 			end
 			gem.skillId = gem.grantedEffect and gem.grantedEffect.id
-			if gem.grantedEffect.unsupported then
+			if gem.grantedEffect and gem.grantedEffect.unsupported then
 				gem.errMsg = gem.nameSpec.." is not supported yet"
 				gem.grantedEffect = nil
 			end

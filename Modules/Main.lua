@@ -17,6 +17,7 @@ local m_cos = math.cos
 local m_pi = math.pi
 
 defaultTargetVersion = "2_6"
+liveTargetVersion = "2_6"
 targetVersionList = { "2_6", "3_0" }
 
 LoadModule("Modules/Common")
@@ -420,6 +421,8 @@ function main:LoadSettings()
 				if node.attrib.nodePowerTheme then
 					self.nodePowerTheme = node.attrib.nodePowerTheme
 				end
+				self.showThousandsSidebar = node.attrib.showThousandsSidebar == "true"
+				self.showThousandsCalcs = node.attrib.showThousandsCalcs == "true"
 			end
 		end
 	end
@@ -455,6 +458,8 @@ function main:SaveSettings()
 		proxyURL = launch.proxyURL, 
 		buildPath = (self.buildPath ~= self.defaultBuildPath and self.buildPath or nil),
 		nodePowerTheme = self.nodePowerTheme,
+		showThousandsSidebar = tostring(self.showThousandsSidebar),
+		showThousandsCalcs = tostring(self.showThousandsCalcs),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -492,7 +497,18 @@ function main:OpenOptionsPopup()
 	controls.nodePowerThemeLabel = common.New("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, -4, 0, 0, 16, "^7Node Power colours:")
 	controls.nodePowerTheme.tooltip = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
+	controls.thousandsLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 200, 94, 0, 16, "^7Show thousands separators in:")
+	controls.thousandsSidebar = common.New("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 270, 92, 20, "Sidebar:", function(state)
+		self.showThousandsSidebar = state
+	end)
+	controls.thousandsSidebar.state = self.showThousandsSidebar
+	controls.thousandsCalcs = common.New("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 370, 92, 20, "Calcs tab:", function(state)
+		self.showThousandsCalcs = state
+	end)
+	controls.thousandsCalcs.state = self.showThousandsCalcs
 	local initialNodePowerTheme = self.nodePowerTheme
+	local initialThousandsSidebar = self.showThousandsSidebar
+	local initialThousandsCalcs = self.showThousandsCalcs
 	controls.save = common.New("ButtonControl", nil, -45, 120, 80, 20, "Save", function()
 		if controls.proxyURL.buf:match("%w") then
 			launch.proxyURL = controls.proxyType.list[controls.proxyType.selIndex].scheme .. "://" .. controls.proxyURL.buf
@@ -514,6 +530,8 @@ function main:OpenOptionsPopup()
 	end)
 	controls.cancel = common.New("ButtonControl", nil, 45, 120, 80, 20, "Cancel", function()
 		self.nodePowerTheme = initialNodePowerTheme
+		self.showThousandsSidebar = initialThousandsSidebar
+		self.showThousandsCalcs = initialThousandsCalcs
 		main:ClosePopup()
 	end)
 	self:OpenPopup(450, 150, "Options", controls, "save", nil, "cancel")
