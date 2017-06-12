@@ -199,8 +199,8 @@ local skills, mod, flag, skill = ...
 #skill FreezingPulse
 #flags spell projectile cold
 	setupFunc = function(env, output)
-		env.modDB:NewMod("Damage", "MORE", -100, "Skill:Freezing Pulse", ModFlag.Spell, { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
-		env.modDB:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:Freezing Pulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
+		env.modDB:NewMod("Damage", "MORE", -100, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+		env.modDB:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
 	end,
 #mods
 
@@ -265,7 +265,7 @@ local skills, mod, flag, skill = ...
 			name = "Fully charged",
 		},
 	},
-#baseMod mod("Damage", "MORE", 150, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Damage", "MORE", 150, 0, 0, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill ClusterBurst

@@ -1552,6 +1552,25 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
 	},
 }
 -- Snake
+minions["Metadata/Monsters/Snake/SnakeMeleeSpit"] = {
+	name = "Bramble Cobra",
+	life = 0.8,
+	fireResist = 30,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 30,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.65,
+	attackRange = 7,
+	skillList = {
+		"Melee",
+		"SnakeProjectile",
+	},
+	modList = {
+		mod("PhysicalDamageConvertToChaos", "BASE", 30), -- MonsterSnakeChaos
+	},
+}
 minions["Metadata/Monsters/Snake/SnakeScorpionMultiShot"] = {
 	name = "Barb Serpent",
 	life = 0.94,

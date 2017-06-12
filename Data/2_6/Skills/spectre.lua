@@ -3513,6 +3513,30 @@ skills["SkeletonVulnerability"] = {
 		[1] = { 1, },
 	},
 }
+skills["SnakeProjectile"] = {
+	name = "Spine Attack",
+	hidden = true,
+	color = 4,
+	skillTypes = { [1] = true, [48] = true, [3] = true, [10] = true, [57] = true, },
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	baseMods = {
+		skill("castTime", 1.5), 
+		--"monster_projectile_variation" = 1
+		--"base_is_projectile" = 1
+		--"spell_maximum_action_distance_+%" = -60
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[1] = { 1, },
+	},
+}
 skills["SnakeSpineProjectile"] = {
 	name = "Spine Attack",
 	hidden = true,

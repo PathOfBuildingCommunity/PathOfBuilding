@@ -105,6 +105,7 @@ local minions, mod = ...
 #monster Metadata/Monsters/Skeletons/SkeletonCasterLightningSpark
 #monster Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse
 -- Snake
+#monster Metadata/Monsters/Snake/SnakeMeleeSpit
 #monster Metadata/Monsters/Snake/SnakeScorpionMultiShot
 -- Spider
 #monster Metadata/Monsters/Spiders/SpiderThornFlickerStrike

@@ -50,7 +50,7 @@ local skills, mod, flag, skill = ...
 	},
 #setMod base_skill_show_average_damage_instead_of_dps==nil
 #baseMod skill("radius", 14)
-#baseMod mod("Damage", "MORE", 120, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Damage", "MORE", 120, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("dpsMultiplier", 3, { type = "SkillPart", skillPart = 3 })
 #mods
 
@@ -71,9 +71,9 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 15)
-#baseMod mod("Damage", "MORE", 150, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 2 })
-#baseMod mod("Damage", "MORE", 300, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 3 })
-#baseMod mod("Damage", "MORE", 600, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 4 })
+#baseMod mod("Damage", "MORE", 150, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Damage", "MORE", 300, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("Damage", "MORE", 600, 0, 0, { type = "SkillPart", skillPart = 4 })
 #baseMod skill("hitTimeOverride", 0.6, { type = "SkillPart", skillPart = 1 })
 #baseMod skill("hitTimeOverride", 0.4, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("hitTimeOverride", 0.3, { type = "SkillPart", skillPart = 3 })

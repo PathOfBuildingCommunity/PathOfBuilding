@@ -1242,6 +1242,7 @@ function calcs.offence(env, actor)
 			if not mainSkill.bleedCfg then
 				mainSkill.bleedCfg = {
 					skillName = skillCfg.skillName,
+					skillPart = skillCfg.skillPart,
 					slotName = skillCfg.slotName,
 					flags = ModFlag.Dot,
 					keywordFlags = bor(skillCfg.keywordFlags, KeywordFlag.Bleed),
@@ -1305,6 +1306,7 @@ function calcs.offence(env, actor)
 			if not mainSkill.poisonCfg then
 				mainSkill.poisonCfg = {
 					skillName = skillCfg.skillName,
+					skillPart = skillCfg.skillPart,
 					slotName = skillCfg.slotName,
 					flags = ModFlag.Dot,
 					keywordFlags = bor(skillCfg.keywordFlags, KeywordFlag.Poison),
@@ -1409,6 +1411,7 @@ function calcs.offence(env, actor)
 			if not mainSkill.igniteCfg then
 				mainSkill.igniteCfg = {
 					skillName = skillCfg.skillName,
+					skillPart = skillCfg.skillPart,
 					slotName = skillCfg.slotName,
 					flags = ModFlag.Dot,
 					keywordFlags = skillCfg.keywordFlags,
