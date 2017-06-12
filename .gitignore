@@ -254,3 +254,7 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 *.lnk
+/Export/.~lock.data.ods#
+/Export/data.ods
+/Export/lol.csv
+/Export/test.lua

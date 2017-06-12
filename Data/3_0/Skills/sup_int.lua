@@ -1589,7 +1589,7 @@ skills["SupportRemoteMine"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		--[2] = "support_gem_mine_damage_+%_final"
+		[2] = mod("Damage", "MORE", nil, 0, KeywordFlag.Mine), --"support_gem_mine_damage_+%_final"
 	},
 	levels = {
 		[1] = { 8, 30, },

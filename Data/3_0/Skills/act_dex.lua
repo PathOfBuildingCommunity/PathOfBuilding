@@ -41,8 +41,8 @@ skills["AnimateWeapon"] = {
 		--[3] = "animate_item_maximum_level_requirement"
 		[4] = mod("Damage", "MORE", nil, ModFlag.Hit), --"active_skill_damage_+%_final"
 		[5] = mod("Speed", "INC", nil, ModFlag.Attack, 0, nil), --"attack_speed_+%"
-		[6] = mod("PhysicalMin", "BASE", nil, ModFlag.Attack, 0, nil), --"attack_minimum_added_physical_damage"
-		[7] = mod("PhysicalMax", "BASE", nil, ModFlag.Attack, 0, nil), --"attack_maximum_added_physical_damage"
+		[6] = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack, nil), --"attack_minimum_added_physical_damage"
+		[7] = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, nil), --"attack_maximum_added_physical_damage"
 	},
 	levels = {
 		[1] = { 4, 9, 9, 0, 0, 4, 6, },
@@ -355,7 +355,7 @@ skills["ChargedAttack"] = {
 		--"base_skill_show_average_damage_instead_of_dps" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
 		skill("radius", 14), 
-		mod("Damage", "MORE", 120, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Damage", "MORE", 120, 0, 0, { type = "SkillPart", skillPart = 2 }), 
 		skill("dpsMultiplier", 3, { type = "SkillPart", skillPart = 3 }), 
 	},
 	qualityMods = {
@@ -448,9 +448,9 @@ skills["BladeVortex"] = {
 		--"action_ignores_crit_tracking" = ?
 		--"base_skill_show_average_damage_instead_of_dps" = ?
 		skill("radius", 15), 
-		mod("Damage", "MORE", 150, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 2 }), 
-		mod("Damage", "MORE", 300, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 3 }), 
-		mod("Damage", "MORE", 600, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 4 }), 
+		mod("Damage", "MORE", 150, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Damage", "MORE", 300, 0, 0, { type = "SkillPart", skillPart = 3 }), 
+		mod("Damage", "MORE", 600, 0, 0, { type = "SkillPart", skillPart = 4 }), 
 		skill("hitTimeOverride", 0.6, { type = "SkillPart", skillPart = 1 }), 
 		skill("hitTimeOverride", 0.4, { type = "SkillPart", skillPart = 2 }), 
 		skill("hitTimeOverride", 0.3, { type = "SkillPart", skillPart = 3 }), 
@@ -1735,12 +1735,12 @@ skills["ElementalHit"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
-		[3] = mod("FireMin", "BASE", nil, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 1 }), --"attack_minimum_base_fire_damage_for_elemental_hit"
-		[4] = mod("FireMax", "BASE", nil, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 1 }), --"attack_maximum_base_fire_damage_for_elemental_hit"
-		[5] = mod("ColdMin", "BASE", nil, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), --"attack_minimum_base_cold_damage_for_elemental_hit"
-		[6] = mod("ColdMax", "BASE", nil, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), --"attack_maximum_base_cold_damage_for_elemental_hit"
-		[7] = mod("LightningMin", "BASE", nil, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 3 }), --"attack_minimum_base_lightning_damage_for_elemental_hit"
-		[8] = mod("LightningMax", "BASE", nil, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 3 }), --"attack_maximum_base_lightning_damage_for_elemental_hit"
+		[3] = mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "SkillPart", skillPart = 1 }), --"attack_minimum_base_fire_damage_for_elemental_hit"
+		[4] = mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "SkillPart", skillPart = 1 }), --"attack_maximum_base_fire_damage_for_elemental_hit"
+		[5] = mod("ColdMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "SkillPart", skillPart = 2 }), --"attack_minimum_base_cold_damage_for_elemental_hit"
+		[6] = mod("ColdMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "SkillPart", skillPart = 2 }), --"attack_maximum_base_cold_damage_for_elemental_hit"
+		[7] = mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "SkillPart", skillPart = 3 }), --"attack_minimum_base_lightning_damage_for_elemental_hit"
+		[8] = mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "SkillPart", skillPart = 3 }), --"attack_maximum_base_lightning_damage_for_elemental_hit"
 	},
 	levels = {
 		[1] = { 1, 6, 4, 8, 3, 6, 1, 13, },
@@ -2757,10 +2757,10 @@ skills["HeraldOfIce"] = {
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
-		[2] = mod("ColdMin", "BASE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }), --"spell_minimum_added_cold_damage"
-		[3] = mod("ColdMax", "BASE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }), --"spell_maximum_added_cold_damage"
-		[4] = mod("ColdMin", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }), --"attack_minimum_added_cold_damage"
-		[5] = mod("ColdMax", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }), --"attack_maximum_added_cold_damage"
+		[2] = mod("ColdMin", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Buff" }), --"spell_minimum_added_cold_damage"
+		[3] = mod("ColdMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Buff" }), --"spell_maximum_added_cold_damage"
+		[4] = mod("ColdMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }), --"attack_minimum_added_cold_damage"
+		[5] = mod("ColdMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }), --"attack_maximum_added_cold_damage"
 		[6] = skill("ColdMin", nil), --"secondary_minimum_base_cold_damage"
 		[7] = skill("ColdMax", nil), --"secondary_maximum_base_cold_damage"
 	},

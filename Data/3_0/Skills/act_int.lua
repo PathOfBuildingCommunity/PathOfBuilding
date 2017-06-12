@@ -2331,8 +2331,8 @@ skills["FreezingPulse"] = {
 	description = "An icy projectile which has a chance to freeze enemies it passes through. The projectile fades quickly, reducing damage and freezing chance until it runs out of time and dissipates completely.",
 	skillTypes = { [2] = true, [3] = true, [10] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, },
 	setupFunc = function(env, output)
-		env.modDB:NewMod("Damage", "MORE", -100, "Skill:Freezing Pulse", ModFlag.Spell, { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
-		env.modDB:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:Freezing Pulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
+		env.modDB:NewMod("Damage", "MORE", -100, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+		env.modDB:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
 	end,
 	baseFlags = {
 		spell = true,
@@ -2794,10 +2794,10 @@ skills["HeraldOfThunder"] = {
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
-		[2] = mod("LightningMin", "BASE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }), --"spell_minimum_added_lightning_damage"
-		[3] = mod("LightningMax", "BASE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }), --"spell_maximum_added_lightning_damage"
-		[4] = mod("LightningMin", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }), --"attack_minimum_added_lightning_damage"
-		[5] = mod("LightningMax", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }), --"attack_maximum_added_lightning_damage"
+		[2] = mod("LightningMin", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Buff" }), --"spell_minimum_added_lightning_damage"
+		[3] = mod("LightningMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Buff" }), --"spell_maximum_added_lightning_damage"
+		[4] = mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }), --"attack_minimum_added_lightning_damage"
+		[5] = mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }), --"attack_maximum_added_lightning_damage"
 		[6] = skill("LightningMin", nil), --"secondary_minimum_base_lightning_damage"
 		[7] = skill("LightningMax", nil), --"secondary_maximum_base_lightning_damage"
 	},
@@ -3094,7 +3094,7 @@ skills["Incinerate"] = {
 		--"base_is_projectile" = ?
 		mod("PierceChance", "BASE", 100), --"always_pierce" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
-		mod("Damage", "MORE", 150, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Damage", "MORE", 150, 0, 0, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("ProjectileSpeed", "INC", 2), --"base_projectile_speed_+%" = 2
@@ -5612,8 +5612,8 @@ skills["Wrath"] = {
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
-		[2] = mod("LightningMin", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_minimum_added_lightning_damage"
-		[3] = mod("LightningMax", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_maximum_added_lightning_damage"
+		[2] = mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }), --"attack_minimum_added_lightning_damage"
+		[3] = mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }), --"attack_maximum_added_lightning_damage"
 		[4] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 		[5] = mod("LightningDamage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"wrath_aura_spell_lightning_damage_+%_final"
 	},

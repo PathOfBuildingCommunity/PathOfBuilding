@@ -292,11 +292,11 @@ skills["Envy"] = {
 		skill("castTime", 1.2), 
 		skill("manaCost", 50), 
 		skill("cooldown", 1.2), 
-		mod("ChaosMin", "BASE", 58, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_minimum_added_chaos_damage" = 58
-		mod("ChaosMax", "BASE", 81, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_maximum_added_chaos_damage" = 81
+		mod("ChaosMin", "BASE", 58, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }), --"attack_minimum_added_chaos_damage" = 58
+		mod("ChaosMax", "BASE", 81, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }), --"attack_maximum_added_chaos_damage" = 81
 		mod("AreaOfEffect", "INC", 0), --"base_skill_area_of_effect_+%" = 0
-		mod("ChaosMin", "BASE", 52, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"spell_minimum_added_chaos_damage" = 52
-		mod("ChaosMax", "BASE", 69, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"spell_maximum_added_chaos_damage" = 69
+		mod("ChaosMin", "BASE", 52, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }), --"spell_minimum_added_chaos_damage" = 52
+		mod("ChaosMax", "BASE", 69, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }), --"spell_maximum_added_chaos_damage" = 69
 		--"base_deal_no_damage" = ?
 		skill("radius", 36), 
 	},

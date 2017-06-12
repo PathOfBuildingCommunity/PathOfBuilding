@@ -308,11 +308,11 @@ skills["Anger"] = {
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
-		[2] = mod("FireMin", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_minimum_added_fire_damage"
-		[3] = mod("FireMax", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_maximum_added_fire_damage"
+		[2] = mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }), --"attack_minimum_added_fire_damage"
+		[3] = mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }), --"attack_maximum_added_fire_damage"
 		[4] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
-		[5] = mod("FireMin", "BASE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"spell_minimum_added_fire_damage"
-		[6] = mod("FireMax", "BASE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }), --"spell_maximum_added_fire_damage"
+		[5] = mod("FireMin", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }), --"spell_minimum_added_fire_damage"
+		[6] = mod("FireMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }), --"spell_maximum_added_fire_damage"
 	},
 	levels = {
 		[1] = { 24, 12, 21, 0, 10, 16, },
@@ -381,8 +381,8 @@ skills["AnimateArmour"] = {
 		--[4] = "maximum_life_+%"
 		[5] = mod("PhysicalDamage", "INC", nil, ModFlag.Melee), --"melee_physical_damage_+%"
 		[6] = skill("minionLevel", nil), --"display_minion_monster_level"
-		[7] = mod("PhysicalMin", "BASE", nil, ModFlag.Attack, 0, nil), --"attack_minimum_added_physical_damage"
-		[8] = mod("PhysicalMax", "BASE", nil, ModFlag.Attack, 0, nil), --"attack_maximum_added_physical_damage"
+		[7] = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack, nil), --"attack_minimum_added_physical_damage"
+		[8] = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, nil), --"attack_maximum_added_physical_damage"
 	},
 	levels = {
 		[1] = { 28, 19, 33, 0, 0, 28, 22, 34, },
@@ -841,7 +841,7 @@ skills["Earthquake"] = {
 		skill("castTime", 1), 
 		skill("manaCost", 10), 
 		skill("duration", 1.5), --"base_skill_effect_duration" = 1500
-		mod("Damage", "MORE", 50, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), --"quake_slam_fully_charged_explosion_damage_+%_final" = 50
+		mod("Damage", "MORE", 50, 0, 0, { type = "SkillPart", skillPart = 2 }), --"quake_slam_fully_charged_explosion_damage_+%_final" = 50
 		--"is_area_damage" = ?
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }), 
 		skill("radius", 18, { type = "SkillPart", skillPart = 1 }), 
@@ -1554,8 +1554,8 @@ skills["IceCrash"] = {
 		skill("manaCost", 8), 
 		mod("PhysicalDamageConvertToCold", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_cold" = 50
 		mod("Speed", "MORE", -20, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = -20
-		mod("Damage", "MORE", -10, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), --"ice_crash_second_hit_damage_+%_final" = -10
-		mod("Damage", "MORE", -20, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 3 }), --"ice_crash_third_hit_damage_+%_final" = -20
+		mod("Damage", "MORE", -10, 0, 0, { type = "SkillPart", skillPart = 2 }), --"ice_crash_second_hit_damage_+%_final" = -10
+		mod("Damage", "MORE", -20, 0, 0, { type = "SkillPart", skillPart = 3 }), --"ice_crash_third_hit_damage_+%_final" = -20
 		--"is_area_damage" = ?
 		skill("radius", 24), 
 	},
@@ -2824,7 +2824,7 @@ skills["StaticStrike"] = {
 		skill("manaCost", 6), 
 		mod("SkillPhysicalDamageConvertToLightning", "BASE", 60), --"skill_physical_damage_%_to_convert_to_lightning" = 60
 		skill("duration", 0.75), --"base_skill_effect_duration" = 750
-		mod("Damage", "MORE", -40, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), --"static_strike_explosion_damage_+%_final" = -40
+		mod("Damage", "MORE", -40, 0, 0, { type = "SkillPart", skillPart = 2 }), --"static_strike_explosion_damage_+%_final" = -40
 		skill("radius", 19), 
 	},
 	qualityMods = {
@@ -3065,7 +3065,7 @@ skills["Sunder"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 8), 
-		mod("Damage", "MORE", -60, ModFlag.Attack, 0, { type = "SkillPart", skillPart = 2 }), --"shockwave_slam_explosion_damage_+%_final" = -60
+		mod("Damage", "MORE", -60, 0, 0, { type = "SkillPart", skillPart = 2 }), --"shockwave_slam_explosion_damage_+%_final" = -60
 		mod("Speed", "MORE", -15, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = -15
 		--"is_area_damage" = ?
 	},

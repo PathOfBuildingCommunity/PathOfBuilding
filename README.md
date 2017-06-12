@@ -53,6 +53,14 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.26 - 2017/06/12
+ * Added Bramble Cobra to the spectre library
+ * Added support for the Chaos degen from Forbidden Taste
+For 3.0 builds:
+ * Damage multipliers for skill parts (e.g Flameblast stages) should now correctly apply to Damaging Ailments
+ * Added damage from buffs (e.g Heralds, Anger) should now correctly apply to Damaging Ailments
+ * Fixed the multiplier on Remote Mine
+
 ### 1.4.25 - 2017/06/11
  * Added options to the Options dialog to show thousands separators in the sidebar or Calcs tab
  * Fixed error that could result from importing a character into a 3.0 build
