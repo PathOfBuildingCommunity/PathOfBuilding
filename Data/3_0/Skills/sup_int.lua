@@ -553,6 +553,124 @@ skills["SupportCurseOnHit"] = {
 		[30] = { 90, 8, },
 	},
 }
+skills["SupportDecay"] = {
+	name = "Decay",
+	gemTags = {
+		intelligence = true,
+		support = true,
+	},
+	gemTagString = "Support",
+	gemStr = 0,
+	gemDex = 40,
+	gemInt = 60,
+	color = 3,
+	support = true,
+	requireSkillTypes = { 10, 1, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 30), 
+	},
+	qualityMods = {
+		mod("ChaosDamage", "INC", 0.5), --"chaos_damage_+%" = 0.5
+	},
+	levelMods = {
+		[1] = nil, 
+		[2] = mod("SkillData", "LIST", { key = "decay", value = nil, merge = "MAX" }), --"deal_chaos_damage_per_second_for_10_seconds_on_hit"
+	},
+	levels = {
+		[1] = { 38, 234, },
+		[2] = { 40, 266, },
+		[3] = { 42, 302, },
+		[4] = { 44, 343, },
+		[5] = { 46, 388, },
+		[6] = { 48, 439, },
+		[7] = { 50, 496, },
+		[8] = { 52, 560, },
+		[9] = { 54, 632, },
+		[10] = { 56, 711, },
+		[11] = { 58, 800, },
+		[12] = { 60, 900, },
+		[13] = { 62, 1011, },
+		[14] = { 64, 1135, },
+		[15] = { 65, 1202, },
+		[16] = { 66, 1273, },
+		[17] = { 67, 1347, },
+		[18] = { 68, 1426, },
+		[19] = { 69, 1510, },
+		[20] = { 70, 1598, },
+		[21] = { 72, 1789, },
+		[22] = { 74, 2001, },
+		[23] = { 76, 2237, },
+		[24] = { 78, 2500, },
+		[25] = { 80, 2792, },
+		[26] = { 82, 3117, },
+		[27] = { 84, 3478, },
+		[28] = { 86, 3879, },
+		[29] = { 88, 4325, },
+		[30] = { 90, 4819, },
+	},
+}
+skills["SupportEfficacy"] = {
+	name = "Efficacy",
+	gemTags = {
+		intelligence = true,
+		support = true,
+	},
+	gemTagString = "Support",
+	gemStr = 0,
+	gemDex = 0,
+	gemInt = 100,
+	color = 3,
+	support = true,
+	requireSkillTypes = { 10, 1, 59, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 30), 
+	},
+	qualityMods = {
+		mod("Damage", "INC", 0.5, ModFlag.Dot), --"damage_over_time_+%" = 0.5
+	},
+	levelMods = {
+		[1] = nil, 
+		[2] = mod("Damage", "MORE", nil, ModFlag.Spell), --"support_efficacy_spell_damage_+%_final"
+		[3] = mod("Damage", "MORE", nil, ModFlag.Dot), --"support_efficacy_damage_over_time_+%_final"
+		[4] = mod("Duration", "INC", nil), --"skill_effect_duration_+%"
+	},
+	levels = {
+		[1] = { 31, 10, 15, 10, },
+		[2] = { 34, 11, 15, 10, },
+		[3] = { 36, 11, 16, 10, },
+		[4] = { 38, 12, 16, 11, },
+		[5] = { 40, 12, 17, 11, },
+		[6] = { 42, 13, 17, 11, },
+		[7] = { 44, 13, 18, 12, },
+		[8] = { 46, 14, 18, 12, },
+		[9] = { 48, 14, 19, 12, },
+		[10] = { 50, 15, 19, 13, },
+		[11] = { 52, 15, 20, 13, },
+		[12] = { 54, 16, 20, 13, },
+		[13] = { 56, 16, 21, 14, },
+		[14] = { 58, 17, 21, 14, },
+		[15] = { 60, 17, 22, 14, },
+		[16] = { 62, 18, 22, 15, },
+		[17] = { 64, 18, 23, 15, },
+		[18] = { 66, 19, 23, 15, },
+		[19] = { 68, 19, 24, 16, },
+		[20] = { 70, 20, 24, 16, },
+		[21] = { 72, 20, 25, 16, },
+		[22] = { 74, 21, 25, 17, },
+		[23] = { 76, 21, 26, 17, },
+		[24] = { 78, 22, 26, 17, },
+		[25] = { 80, 22, 27, 18, },
+		[26] = { 82, 23, 27, 18, },
+		[27] = { 84, 23, 28, 18, },
+		[28] = { 86, 24, 28, 19, },
+		[29] = { 88, 24, 29, 19, },
+		[30] = { 90, 30, 29, 19, },
+	},
+}
 skills["SupportElementalFocus"] = {
 	name = "Elemental Focus",
 	gemTags = {
@@ -570,11 +688,7 @@ skills["SupportElementalFocus"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 30), 
-		--"cannot_inflict_status_ailments" = ?
-		flag("CannotShock"), 
-		flag("CannotChill"), 
-		flag("CannotFreeze"), 
-		flag("CannotIgnite"), 
+		{ flag("CannotShock"), flag("CannotChill"), flag("CannotFreeze"), flag("CannotIgnite") }, --"cannot_inflict_status_ailments" = ?
 	},
 	qualityMods = {
 		mod("ElementalDamage", "INC", 0.5), --"elemental_damage_+%" = 0.5
@@ -776,6 +890,124 @@ skills["SupportFasterCast"] = {
 		[28] = { 86, 47, },
 		[29] = { 88, 48, },
 		[30] = { 90, 49, },
+	},
+}
+skills["SupportIgniteProliferation"] = {
+	name = "Ignite Proliferation",
+	gemTags = {
+		intelligence = true,
+		support = true,
+	},
+	gemTagString = "Support",
+	gemStr = 40,
+	gemDex = 0,
+	gemInt = 60,
+	color = 3,
+	support = true,
+	requireSkillTypes = { 10, 1, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 30), 
+	},
+	qualityMods = {
+		mod("FireDamage", "INC", 0.5), --"fire_damage_+%" = 0.5
+	},
+	levelMods = {
+		[1] = nil, 
+		--[2] = "base_ignite_proliferation_radius"
+		[3] = mod("FireDamage", "INC", nil), --"fire_damage_+%"
+	},
+	levels = {
+		[1] = { 38, 14, 0, },
+		[2] = { 40, 14, 1, },
+		[3] = { 42, 14, 2, },
+		[4] = { 44, 14, 3, },
+		[5] = { 46, 14, 4, },
+		[6] = { 48, 14, 5, },
+		[7] = { 50, 14, 6, },
+		[8] = { 52, 14, 7, },
+		[9] = { 54, 14, 8, },
+		[10] = { 56, 15, 9, },
+		[11] = { 58, 15, 10, },
+		[12] = { 60, 15, 11, },
+		[13] = { 62, 15, 12, },
+		[14] = { 64, 15, 13, },
+		[15] = { 65, 15, 14, },
+		[16] = { 66, 15, 15, },
+		[17] = { 67, 15, 16, },
+		[18] = { 68, 15, 17, },
+		[19] = { 69, 15, 18, },
+		[20] = { 70, 16, 19, },
+		[21] = { 72, 16, 20, },
+		[22] = { 74, 16, 21, },
+		[23] = { 76, 16, 22, },
+		[24] = { 78, 16, 23, },
+		[25] = { 80, 16, 24, },
+		[26] = { 82, 16, 25, },
+		[27] = { 84, 16, 26, },
+		[28] = { 86, 16, 27, },
+		[29] = { 88, 16, 28, },
+		[30] = { 90, 16, 29, },
+	},
+}
+skills["SupportImmolation"] = {
+	name = "Immolate",
+	gemTags = {
+		intelligence = true,
+		support = true,
+	},
+	gemTagString = "Support",
+	gemStr = 40,
+	gemDex = 0,
+	gemInt = 60,
+	color = 3,
+	support = true,
+	requireSkillTypes = { 10, 1, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 20), 
+	},
+	qualityMods = {
+		mod("FireDamage", "INC", 0.5), --"fire_damage_+%" = 0.5
+	},
+	levelMods = {
+		[1] = nil, 
+		[2] = mod("FireMin", "BASE", nil, ModFlag.Hit, 0, { type = "EnemyCondition", var = "Burning" }), --"support_minimum_added_fire_damage_vs_burning_enemies"
+		[3] = mod("FireMax", "BASE", nil, ModFlag.Hit, 0, { type = "EnemyCondition", var = "Burning" }), --"support_maximum_added_fire_damage_vs_burning_enemies"
+	},
+	levels = {
+		[1] = { 38, 47, 71, },
+		[2] = { 40, 53, 80, },
+		[3] = { 42, 60, 90, },
+		[4] = { 44, 67, 100, },
+		[5] = { 46, 75, 112, },
+		[6] = { 48, 84, 126, },
+		[7] = { 50, 94, 140, },
+		[8] = { 52, 104, 157, },
+		[9] = { 54, 116, 175, },
+		[10] = { 56, 130, 194, },
+		[11] = { 58, 144, 216, },
+		[12] = { 60, 160, 240, },
+		[13] = { 62, 178, 267, },
+		[14] = { 64, 197, 296, },
+		[15] = { 65, 208, 312, },
+		[16] = { 66, 219, 328, },
+		[17] = { 67, 230, 346, },
+		[18] = { 68, 242, 364, },
+		[19] = { 69, 255, 383, },
+		[20] = { 70, 268, 403, },
+		[21] = { 72, 297, 446, },
+		[22] = { 74, 329, 493, },
+		[23] = { 76, 363, 545, },
+		[24] = { 78, 401, 602, },
+		[25] = { 80, 443, 664, },
+		[26] = { 82, 489, 733, },
+		[27] = { 84, 539, 809, },
+		[28] = { 86, 594, 892, },
+		[29] = { 88, 655, 983, },
+		[30] = { 90, 722, 1083, },
 	},
 }
 skills["SupportIncreasedAreaOfEffect"] = {
@@ -1683,5 +1915,64 @@ skills["SupportMulticast"] = {
 		[28] = { 86, 78, },
 		[29] = { 88, 79, },
 		[30] = { 90, 80, },
+	},
+}
+skills["SupportAilments"] = {
+	name = "Unbound Ailments",
+	gemTags = {
+		dexterity = true,
+		support = true,
+	},
+	gemTagString = "Support",
+	gemStr = 0,
+	gemDex = 60,
+	gemInt = 40,
+	color = 2,
+	support = true,
+	requireSkillTypes = { 10, 1, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 10), 
+	},
+	qualityMods = {
+		{ mod("EnemyBleedDuration", "INC", 0.5), mod("EnemyPoisonDuration", "INC", 0.5), mod("EnemyIgniteDuration", "INC", 0.5), mod("EnemyShockDuration", "INC", 0.5), mod("EnemyChillDuration", "INC", 0.5), mod("EnemyFreezeDuration", "INC", 0.5) }, --"base_all_ailment_duration_+%" = 0.5
+	},
+	levelMods = {
+		[1] = nil, 
+		[2] = { mod("EnemyBleedDuration", "INC", nil), mod("EnemyPoisonDuration", "INC", nil), mod("EnemyIgniteDuration", "INC", nil), mod("EnemyShockDuration", "INC", nil), mod("EnemyChillDuration", "INC", nil), mod("EnemyFreezeDuration", "INC", nil) }, --"base_all_ailment_duration_+%"
+		[3] = mod("Damage", "INC", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)), --"support_ailments_effect_+%"
+	},
+	levels = {
+		[1] = { 8, 30, 20, },
+		[2] = { 10, 31, 21, },
+		[3] = { 13, 32, 21, },
+		[4] = { 17, 33, 22, },
+		[5] = { 21, 34, 22, },
+		[6] = { 25, 35, 23, },
+		[7] = { 29, 36, 23, },
+		[8] = { 33, 37, 24, },
+		[9] = { 37, 38, 24, },
+		[10] = { 40, 39, 25, },
+		[11] = { 43, 40, 25, },
+		[12] = { 46, 41, 26, },
+		[13] = { 49, 42, 26, },
+		[14] = { 52, 43, 27, },
+		[15] = { 55, 44, 27, },
+		[16] = { 58, 45, 28, },
+		[17] = { 61, 46, 28, },
+		[18] = { 64, 47, 29, },
+		[19] = { 67, 48, 29, },
+		[20] = { 70, 49, 30, },
+		[21] = { 72, 50, 30, },
+		[22] = { 74, 51, 31, },
+		[23] = { 76, 52, 31, },
+		[24] = { 78, 53, 32, },
+		[25] = { 80, 54, 32, },
+		[26] = { 82, 55, 33, },
+		[27] = { 84, 56, 33, },
+		[28] = { 86, 57, 34, },
+		[29] = { 88, 58, 34, },
+		[30] = { 90, 59, 35, },
 	},
 }

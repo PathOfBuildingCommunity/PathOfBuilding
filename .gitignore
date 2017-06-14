@@ -258,3 +258,4 @@ ModelManifest.xml
 /Export/data.ods
 /Export/lol.csv
 /Export/test.lua
+*.csv#

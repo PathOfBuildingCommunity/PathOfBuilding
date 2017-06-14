@@ -184,6 +184,65 @@ skills["SupportBloodlust"] = {
 		[30] = { 90, 69, },
 	},
 }
+skills["SupportBrutality"] = {
+	name = "Brutality",
+	gemTags = {
+		strength = true,
+		support = true,
+	},
+	gemTagString = "Support",
+	gemStr = 100,
+	gemDex = 0,
+	gemInt = 0,
+	color = 1,
+	support = true,
+	requireSkillTypes = { 10, 1, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 30), 
+		{ flag("DealNoFire"), flag("DealNoCold"), flag("DealNoLightning") }, --"deal_no_elemental_damage" = ?
+	},
+	qualityMods = {
+		mod("PhysicalDamage", "INC", 0.5), --"physical_damage_+%" = 0.5
+	},
+	levelMods = {
+		[1] = nil, 
+		[2] = mod("PhysicalDamage", "MORE", nil), --"support_brutality_physical_damage_+%_final"
+	},
+	levels = {
+		[1] = { 38, 35, },
+		[2] = { 40, 36, },
+		[3] = { 42, 37, },
+		[4] = { 44, 38, },
+		[5] = { 46, 39, },
+		[6] = { 48, 40, },
+		[7] = { 50, 41, },
+		[8] = { 52, 42, },
+		[9] = { 54, 43, },
+		[10] = { 56, 44, },
+		[11] = { 58, 45, },
+		[12] = { 60, 46, },
+		[13] = { 62, 47, },
+		[14] = { 64, 48, },
+		[15] = { 65, 49, },
+		[16] = { 66, 50, },
+		[17] = { 67, 51, },
+		[18] = { 68, 52, },
+		[19] = { 69, 53, },
+		[20] = { 70, 54, },
+		[21] = { 72, 55, },
+		[22] = { 74, 56, },
+		[23] = { 76, 57, },
+		[24] = { 78, 58, },
+		[25] = { 80, 59, },
+		[26] = { 82, 60, },
+		[27] = { 84, 61, },
+		[28] = { 86, 62, },
+		[29] = { 88, 63, },
+		[30] = { 90, 64, },
+	},
+}
 skills["SupportIncreasedBurningDamage"] = {
 	name = "Burning Damage",
 	gemTags = {
@@ -371,6 +430,66 @@ skills["SupportCastOnDamageTaken"] = {
 		[28] = { 86, 6800, 38, 86, },
 		[29] = { 88, 7380, 42, 88, },
 		[30] = { 90, 7990, 46, 90, },
+	},
+}
+skills["SupportChanceToBleed"] = {
+	name = "Chance to Bleed",
+	gemTags = {
+		strength = true,
+		support = true,
+	},
+	gemTagString = "Support",
+	gemStr = 100,
+	gemDex = 0,
+	gemInt = 0,
+	color = 1,
+	support = true,
+	requireSkillTypes = { 1, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 20), 
+		mod("BleedChance", "BASE", 25, ModFlag.Attack), --"bleed_on_hit_with_attacks_%" = 25
+	},
+	qualityMods = {
+		mod("Damage", "INC", 0.5, 0, KeywordFlag.Bleed), --"bleeding_damage_+%" = 0.5
+	},
+	levelMods = {
+		[1] = nil, 
+		[2] = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack, nil), --"attack_minimum_added_physical_damage"
+		[3] = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, nil), --"attack_maximum_added_physical_damage"
+	},
+	levels = {
+		[1] = { 8, 1, 2, },
+		[2] = { 10, 2, 3, },
+		[3] = { 13, 2, 3, },
+		[4] = { 17, 3, 4, },
+		[5] = { 21, 4, 6, },
+		[6] = { 25, 5, 7, },
+		[7] = { 29, 6, 9, },
+		[8] = { 33, 8, 12, },
+		[9] = { 37, 10, 15, },
+		[10] = { 40, 11, 17, },
+		[11] = { 43, 13, 20, },
+		[12] = { 46, 16, 24, },
+		[13] = { 49, 18, 27, },
+		[14] = { 52, 21, 32, },
+		[15] = { 55, 25, 37, },
+		[16] = { 58, 29, 43, },
+		[17] = { 61, 33, 49, },
+		[18] = { 64, 38, 57, },
+		[19] = { 67, 44, 65, },
+		[20] = { 70, 50, 75, },
+		[21] = { 72, 55, 82, },
+		[22] = { 74, 60, 90, },
+		[23] = { 76, 66, 99, },
+		[24] = { 78, 72, 108, },
+		[25] = { 80, 79, 118, },
+		[26] = { 82, 86, 129, },
+		[27] = { 84, 94, 141, },
+		[28] = { 86, 103, 154, },
+		[29] = { 88, 112, 168, },
+		[30] = { 90, 122, 183, },
 	},
 }
 skills["SupportColdToFire"] = {
@@ -1242,6 +1361,66 @@ skills["SupportLifeLeech"] = {
 		[28] = { 86, 54, },
 		[29] = { 88, 56, },
 		[30] = { 90, 58, },
+	},
+}
+skills["SupportMaim"] = {
+	name = "Maim",
+	gemTags = {
+		strength = true,
+		support = true,
+	},
+	gemTagString = "Support",
+	gemStr = 100,
+	gemDex = 0,
+	gemInt = 0,
+	color = 1,
+	support = true,
+	requireSkillTypes = { 1, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 15), 
+		--"maim_on_hit_%" = 30
+	},
+	qualityMods = {
+		mod("PhysicalDamage", "INC", 0.5), --"physical_damage_+%" = 0.5
+	},
+	levelMods = {
+		[1] = nil, 
+		[2] = mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "Maimed" }), --"support_maimed_enemies_physical_damage_taken_+%"
+		[3] = mod("PhysicalDamage", "MORE", nil), --"support_maim_chance_physical_damage_+%_final"
+	},
+	levels = {
+		[1] = { 8, 20, 10, },
+		[2] = { 10, 21, 10, },
+		[3] = { 13, 21, 11, },
+		[4] = { 17, 22, 11, },
+		[5] = { 21, 22, 12, },
+		[6] = { 25, 23, 12, },
+		[7] = { 29, 23, 13, },
+		[8] = { 33, 24, 13, },
+		[9] = { 37, 24, 14, },
+		[10] = { 40, 25, 14, },
+		[11] = { 43, 25, 15, },
+		[12] = { 46, 26, 15, },
+		[13] = { 49, 26, 16, },
+		[14] = { 52, 27, 16, },
+		[15] = { 55, 27, 17, },
+		[16] = { 58, 28, 17, },
+		[17] = { 61, 28, 18, },
+		[18] = { 64, 29, 18, },
+		[19] = { 67, 29, 19, },
+		[20] = { 70, 30, 19, },
+		[21] = { 72, 30, 20, },
+		[22] = { 74, 31, 20, },
+		[23] = { 76, 31, 21, },
+		[24] = { 78, 32, 21, },
+		[25] = { 80, 32, 22, },
+		[26] = { 82, 33, 22, },
+		[27] = { 84, 33, 23, },
+		[28] = { 86, 34, 23, },
+		[29] = { 88, 34, 24, },
+		[30] = { 90, 35, 24, },
 	},
 }
 skills["SupportMeleeDamageOnFullLife"] = {

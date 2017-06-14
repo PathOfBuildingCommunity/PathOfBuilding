@@ -39,6 +39,9 @@ local skills, mod, flag, skill = ...
 #skill SupportCullingStrike
 #mods
 
+#skill SupportDeadlyAilments
+#mods
+
 #skill SupportAdditionalQuality
 #mods
 
@@ -61,6 +64,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportLesserMultipleProjectiles
+#mods
+
+#skill SupportLesserPoison
 #mods
 
 #skill SupportManaLeech
@@ -100,6 +106,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportTrapAndMineDamage
+#mods
+
+#skill SupportDebilitate
 #mods
 
 #skill SupportVoidManipulation
