@@ -53,6 +53,11 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.28 - 2017/06/14
+For 3.0 builds:
+ * Deadly Ailments' Ailment Damage modifier should now correctly apply to Ignite
+ * Fixed error caused by setting quality on Unbound Ailments
+
 ### 1.4.27 - 2017/06/14
  * Added support for the additional totem modifier on Skirmish
 For 3.0 builds:
