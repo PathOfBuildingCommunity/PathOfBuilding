@@ -1414,7 +1414,7 @@ function calcs.offence(env, actor)
 					skillPart = skillCfg.skillPart,
 					slotName = skillCfg.slotName,
 					flags = ModFlag.Dot,
-					keywordFlags = skillCfg.keywordFlags,
+					keywordFlags = bor(skillCfg.keywordFlags, KeywordFlag.Ignite),
 					skillCond = { },
 				}
 			end

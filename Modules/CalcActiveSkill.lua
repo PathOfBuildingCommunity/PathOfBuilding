@@ -15,7 +15,7 @@ local bor = bit.bor
 local band = bit.band
 local bnot = bit.bnot
 
--- Merge level modifier with give mod list
+-- Merge level modifier with given mod list
 local function mergeLevelMod(modList, mod, value)
 	local newMod = copyTable(mod)
 	if type(newMod.value) == "table" then
@@ -30,6 +30,21 @@ local function mergeLevelMod(modList, mod, value)
 	modList:AddMod(newMod)
 end
 
+-- Merge quality modifier with given mod list
+local function mergeQualityMod(modList, mod, quality)
+	local scaledMod = copyTable(mod)
+	if type(scaledMod.value) == "table" then
+		if scaledMod.value.mod then
+			scaledMod.value.mod.value = m_floor(scaledMod.value.mod.value * quality)
+		else
+			scaledMod.value.value = m_floor(scaledMod.value.value * quality)
+		end
+	else
+		scaledMod.value = m_floor(scaledMod.value * quality)
+	end
+	modList:AddMod(scaledMod)
+end
+
 -- Merge gem modifiers with given mod list
 function calcs.mergeGemMods(modList, gem)
 	for _, mod in pairs(gem.grantedEffect.baseMods) do
@@ -42,18 +57,14 @@ function calcs.mergeGemMods(modList, gem)
 		end
 	end
 	if gem.quality > 0 then
-		for i = 1, #gem.grantedEffect.qualityMods do
-			local scaledMod = copyTable(gem.grantedEffect.qualityMods[i])
-			if type(scaledMod.value) == "table" then
-				if scaledMod.value.mod then
-					scaledMod.value.mod.value = m_floor(scaledMod.value.mod.value * gem.quality)
-				else
-					scaledMod.value.value = m_floor(scaledMod.value.value * gem.quality)
+		for _, mod in pairs(gem.grantedEffect.qualityMods) do
+			if mod[1] then
+				for _, subMod in ipairs(mod) do
+					mergeQualityMod(modList, subMod, gem.quality)
 				end
 			else
-				scaledMod.value = m_floor(scaledMod.value * gem.quality)
+				mergeQualityMod(modList, mod, gem.quality)
 			end
-			modList:AddMod(scaledMod)
 		end
 	end
 	calcLib.validateGemLevel(gem)
