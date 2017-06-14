@@ -32,11 +32,13 @@ local skills, mod, flag, skill = ...
 #skill SupportCurseOnHit
 #mods
 
+#skill SupportDecay
+#mods
+
+#skill SupportEfficacy
+#mods
+
 #skill SupportElementalFocus
-#baseMod flag("CannotShock")
-#baseMod flag("CannotChill")
-#baseMod flag("CannotFreeze")
-#baseMod flag("CannotIgnite")
 #mods
 
 #skill SupportElementalProliferation
@@ -46,6 +48,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportFasterCast
+#mods
+
+#skill SupportIgniteProliferation
+#mods
+
+#skill SupportImmolation
 #mods
 
 #skill SupportIncreasedAreaOfEffect
@@ -96,4 +104,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportMulticast
+#mods
+
+#skill SupportAilments
 #mods

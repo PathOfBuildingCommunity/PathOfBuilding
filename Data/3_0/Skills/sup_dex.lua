@@ -668,6 +668,65 @@ skills["SupportCullingStrike"] = {
 		[30] = { 90, 58, },
 	},
 }
+skills["SupportDeadlyAilments"] = {
+	name = "Deadly Ailments",
+	gemTags = {
+		dexterity = true,
+		support = true,
+	},
+	gemTagString = "Support",
+	gemStr = 0,
+	gemDex = 60,
+	gemInt = 40,
+	color = 2,
+	support = true,
+	requireSkillTypes = { 10, 1, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 30), 
+		mod("Damage", "MORE", -30, ModFlag.Hit), --"support_better_ailments_hit_damage_+%_final" = -30
+	},
+	qualityMods = {
+		mod("Damage", "INC", 0.5, ModFlag.Dot), --"damage_over_time_+%" = 0.5
+	},
+	levelMods = {
+		[1] = nil, 
+		[2] = mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)), --"support_better_ailments_ailment_damage_+%_final"
+	},
+	levels = {
+		[1] = { 18, 50, },
+		[2] = { 22, 52, },
+		[3] = { 26, 54, },
+		[4] = { 29, 56, },
+		[5] = { 32, 58, },
+		[6] = { 35, 60, },
+		[7] = { 38, 62, },
+		[8] = { 41, 64, },
+		[9] = { 44, 66, },
+		[10] = { 47, 68, },
+		[11] = { 50, 70, },
+		[12] = { 53, 72, },
+		[13] = { 56, 74, },
+		[14] = { 58, 76, },
+		[15] = { 60, 78, },
+		[16] = { 62, 80, },
+		[17] = { 64, 82, },
+		[18] = { 66, 84, },
+		[19] = { 68, 86, },
+		[20] = { 70, 88, },
+		[21] = { 72, 90, },
+		[22] = { 74, 92, },
+		[23] = { 76, 94, },
+		[24] = { 78, 96, },
+		[25] = { 80, 98, },
+		[26] = { 82, 100, },
+		[27] = { 84, 102, },
+		[28] = { 86, 104, },
+		[29] = { 88, 106, },
+		[30] = { 90, 108, },
+	},
+}
 skills["SupportAdditionalQuality"] = {
 	name = "Enhance",
 	gemTags = {
@@ -1129,6 +1188,66 @@ skills["SupportLesserMultipleProjectiles"] = {
 		[28] = { 86, -12, },
 		[29] = { 88, -11, },
 		[30] = { 90, -11, },
+	},
+}
+skills["SupportLesserPoison"] = {
+	name = "Lesser Poison",
+	gemTags = {
+		dexterity = true,
+		support = true,
+	},
+	gemTagString = "Support",
+	gemStr = 0,
+	gemDex = 100,
+	gemInt = 0,
+	color = 2,
+	support = true,
+	requireSkillTypes = { 10, 1, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 20), 
+		mod("PoisonChance", "BASE", 25), --"base_chance_to_poison_on_hit_%" = 25
+	},
+	qualityMods = {
+		mod("Damage", "INC", 0.5, 0, KeywordFlag.Poison), --"base_poison_damage_+%" = 0.5
+	},
+	levelMods = {
+		[1] = nil, 
+		[2] = mod("ChaosMin", "BASE", nil), --"global_minimum_added_chaos_damage"
+		[3] = mod("ChaosMax", "BASE", nil), --"global_maximum_added_chaos_damage"
+	},
+	levels = {
+		[1] = { 8, 1, 2, },
+		[2] = { 10, 2, 3, },
+		[3] = { 13, 2, 3, },
+		[4] = { 17, 3, 4, },
+		[5] = { 21, 4, 6, },
+		[6] = { 25, 5, 7, },
+		[7] = { 29, 6, 9, },
+		[8] = { 33, 8, 12, },
+		[9] = { 37, 10, 15, },
+		[10] = { 40, 11, 17, },
+		[11] = { 43, 13, 20, },
+		[12] = { 46, 16, 24, },
+		[13] = { 49, 18, 27, },
+		[14] = { 52, 21, 32, },
+		[15] = { 55, 25, 37, },
+		[16] = { 58, 28, 43, },
+		[17] = { 61, 33, 49, },
+		[18] = { 64, 38, 57, },
+		[19] = { 67, 44, 65, },
+		[20] = { 70, 50, 75, },
+		[21] = { 72, 55, 82, },
+		[22] = { 74, 60, 90, },
+		[23] = { 76, 66, 99, },
+		[24] = { 78, 72, 108, },
+		[25] = { 80, 79, 118, },
+		[26] = { 82, 86, 129, },
+		[27] = { 84, 94, 141, },
+		[28] = { 86, 103, 154, },
+		[29] = { 88, 112, 168, },
+		[30] = { 90, 122, 183, },
 	},
 }
 skills["SupportManaLeech"] = {
@@ -1802,6 +1921,66 @@ skills["SupportTrapAndMineDamage"] = {
 		[28] = { 86, 47, },
 		[29] = { 88, 48, },
 		[30] = { 90, 49, },
+	},
+}
+skills["SupportDebilitate"] = {
+	name = "Vile Toxins",
+	gemTags = {
+		strength = true,
+		support = true,
+	},
+	gemTagString = "Support",
+	gemStr = 0,
+	gemDex = 100,
+	gemInt = 0,
+	color = 1,
+	support = true,
+	requireSkillTypes = { 10, 1, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 20), 
+		--"support_debilitate_hit_damage_+%_final_per_poison_stack" = 5
+	},
+	qualityMods = {
+		mod("Damage", "INC", 1, 0, KeywordFlag.Poison), --"base_poison_damage_+%" = 1
+	},
+	levelMods = {
+		[1] = nil, 
+		[2] = mod("Damage", "MORE", nil, 0, KeywordFlag.Poison), --"support_debilitate_poison_damage_+%_final"
+		--[3] = "support_debilitate_hit_damage_max_poison_stacks"
+	},
+	levels = {
+		[1] = { 38, 30, 6, },
+		[2] = { 40, 31, 6, },
+		[3] = { 42, 32, 6, },
+		[4] = { 44, 33, 6, },
+		[5] = { 46, 34, 6, },
+		[6] = { 48, 35, 7, },
+		[7] = { 50, 36, 7, },
+		[8] = { 52, 37, 7, },
+		[9] = { 54, 38, 7, },
+		[10] = { 56, 39, 7, },
+		[11] = { 58, 40, 8, },
+		[12] = { 60, 41, 8, },
+		[13] = { 62, 42, 8, },
+		[14] = { 64, 43, 8, },
+		[15] = { 65, 44, 8, },
+		[16] = { 66, 45, 9, },
+		[17] = { 67, 46, 9, },
+		[18] = { 68, 47, 9, },
+		[19] = { 69, 48, 9, },
+		[20] = { 70, 49, 9, },
+		[21] = { 72, 50, 10, },
+		[22] = { 74, 51, 10, },
+		[23] = { 76, 52, 10, },
+		[24] = { 78, 53, 10, },
+		[25] = { 80, 54, 10, },
+		[26] = { 82, 55, 11, },
+		[27] = { 84, 56, 11, },
+		[28] = { 86, 57, 11, },
+		[29] = { 88, 58, 11, },
+		[30] = { 90, 59, 11, },
 	},
 }
 skills["SupportVoidManipulation"] = {

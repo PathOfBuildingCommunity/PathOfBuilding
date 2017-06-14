@@ -53,6 +53,12 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.27 - 2017/06/14
+ * Added support for the additional totem modifier on Skirmish
+For 3.0 builds:
+ * Added preliminary support for the 11 new support gems
+    * Note that these gems are still using pre-release data, so some stats may change once the beta patch is available
+
 ### 1.4.26 - 2017/06/12
  * Added Bramble Cobra to the spectre library
  * Added support for the Chaos degen from Forbidden Taste

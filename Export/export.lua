@@ -45,4 +45,5 @@ while true do
 			print(errMsg)
 		end
 	end
+	collectgarbage("collect")
 end
