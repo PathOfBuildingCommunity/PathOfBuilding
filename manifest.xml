@@ -7,7 +7,7 @@
 	<File sha1="2fb719ed2a9648b2dd13a137f650b3c0e48705fa" name="Launch.lua" part="program"/>
 	<File sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="99ee9fc3e4bbc140c69168a085c3dc76bfa86736" name="changelog.txt" part="program"/>
+	<File sha1="58ea4f4ddc2c7f0ff23d5fb2579583e44afa3f9e" name="changelog.txt" part="program"/>
 	<File sha1="3558da442f2fc18c3e1ea751b301be863dee56e8" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="dc2ffb55b4aae04b86886b25bbf219a301b21340" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="10c73542894d67bcd4ee90e05a3dbca1c3c326c9" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -64,8 +64,8 @@
 	<File sha1="54de4b28bbf5bcb0244a4c21b7d191ae5b1eb812" name="Modules/Data.lua" part="program"/>
 	<File sha1="7cde2cb67e0b5a5d19d438e714f94b0ffe64743f" name="Modules/ItemTools.lua" part="program"/>
 	<File sha1="3ef5bd3b74d9c11eb204e5bba978aa6f7ea585f8" name="Modules/Main.lua" part="program"/>
-	<File sha1="511e73b093ef2cb4a7f5e035c5597c3981254e76" name="Modules/ModParser-2_6.lua" part="program"/>
-	<File sha1="5311b65a90e0a6b4c60ef788a470ffcee1233439" name="Modules/ModParser-3_0.lua" part="program"/>
+	<File sha1="bafa1cd4fa30d2691d4fded1295c310c4812f2c6" name="Modules/ModParser-2_6.lua" part="program"/>
+	<File sha1="3556416fed90cbc29e8d568a532e6a4734f91469" name="Modules/ModParser-3_0.lua" part="program"/>
 	<File sha1="4e1067e5444062686cd06783034537e7ff4fbfe1" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="c345cdcf374d271411aa424ab150c0edbb5a362d" name="Assets/game_ui_small.png" part="program"/>
 	<File sha1="97b020d8213e09c313536a91528ba5d5ebc4ca0a" name="Assets/patreon_logo.png" part="program"/>

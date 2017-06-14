@@ -54,6 +54,7 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 
 ## Changelog
 ### 1.4.27 - 2017/06/14
+ * Added support for the additional totem modifier on Skirmish
 For 3.0 builds:
  * Added preliminary support for the 11 new support gems
     * Note that these gems are still using pre-release data, so some stats may change once the beta patch is available
