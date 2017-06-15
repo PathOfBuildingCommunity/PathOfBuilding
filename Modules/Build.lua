@@ -255,6 +255,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ },
 		{ stat = "TotalDegen", label = "Total Degen", fmt = ".1f", lowerIsBetter = true },
 		{ stat = "NetRegen", label = "Net Regen", fmt = "+.1f" },
+		{ stat = "NetLifeRegen", label = "Net Life Regen", fmt = "+.1f" },
+		{ stat = "NetManaRegen", label = "Net Mana Regen", fmt = "+.1f" },
 		{ },
 		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
 		{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", fmt = "d%%" },

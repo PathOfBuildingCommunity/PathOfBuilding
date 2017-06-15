@@ -53,6 +53,12 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.30 - 2017/06/16
+ * Mind over Matter is now displayed in the Damage Taken section of the Calcs tab, instead of Other Defences
+For 3.0 builds:
+ * Mind over Matter is now factored into the Net Regen calculation; Net Life Regen and Net Mana Regen are calculated
+   and displayed separately
+ 
 ### 1.4.29 - 2017/06/15
  * Fixed an error that occasionally appeared when editing gems in the Skills tab
 For 3.0 builds:

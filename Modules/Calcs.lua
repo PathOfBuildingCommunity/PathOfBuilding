@@ -17,7 +17,7 @@ calcs.breakdownModule = "Modules/CalcBreakdown"
 LoadModule("Modules/CalcSetup", calcs)
 LoadModule("Modules/CalcPerform", calcs)
 LoadModule("Modules/CalcActiveSkill", calcs)
-LoadModule("Modules/CalcDefence", calcs)
+LoadModule("Modules/CalcDefence-"..targetVersion, calcs)
 LoadModule("Modules/CalcOffence-"..targetVersion, calcs)
 
 -- Print various tables to the console
