@@ -1638,6 +1638,7 @@ function calcs.offence(env, actor)
 		skillFlags.decay = true
 		mainSkill.decayCfg = {
 			skillName = skillCfg.skillName,
+			skillPart = skillCfg.skillPart,
 			slotName = skillCfg.slotName,
 			flags = ModFlag.Dot,
 			keywordFlags = skillCfg.keywordFlags,

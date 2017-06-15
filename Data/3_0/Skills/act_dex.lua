@@ -448,9 +448,9 @@ skills["BladeVortex"] = {
 		--"action_ignores_crit_tracking" = ?
 		--"base_skill_show_average_damage_instead_of_dps" = ?
 		skill("radius", 15), 
-		mod("Damage", "MORE", 150, 0, 0, { type = "SkillPart", skillPart = 2 }), 
-		mod("Damage", "MORE", 300, 0, 0, { type = "SkillPart", skillPart = 3 }), 
-		mod("Damage", "MORE", 600, 0, 0, { type = "SkillPart", skillPart = 4 }), 
+		mod("Damage", "MORE", 150, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Damage", "MORE", 300, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 3 }), 
+		mod("Damage", "MORE", 600, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 4 }), 
 		skill("hitTimeOverride", 0.6, { type = "SkillPart", skillPart = 1 }), 
 		skill("hitTimeOverride", 0.4, { type = "SkillPart", skillPart = 2 }), 
 		skill("hitTimeOverride", 0.3, { type = "SkillPart", skillPart = 3 }), 
