@@ -123,7 +123,7 @@ function SkillListClass:AddValueTooltip(index, socketGroup)
 			elseif gem.grantedEffect.support then
 				if displayGem.superseded then
 					reason = "(Superseded)"
-				elseif not next(displayGem.isSupporting) and #socketGroup.displaySkillList > 0 then
+				elseif (not displayGem.isSupporting or not next(displayGem.isSupporting)) and #socketGroup.displaySkillList > 0 then
 					reason = "(Cannot apply to any of the active skills)"
 				end
 			end

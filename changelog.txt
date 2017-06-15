@@ -1,3 +1,7 @@
+VERSION[1.4.29][2017/06/15]
+ * Fixed an error that occasionally appeared when editing gems in the Skills tab
+For 3.0 builds:
+ * Damage multipliers for skill parts (e.g Flameblast stages) should now correctly apply to Decay
 VERSION[1.4.28][2017/06/14]
 For 3.0 builds:
  * Deadly Ailments' Ailment Damage modifier should now correctly apply to Ignite
