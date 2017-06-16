@@ -8,6 +8,7 @@ local launch, main = ...
 local pairs = pairs
 local t_insert = table.insert
 local m_floor = math.floor
+local m_min = math.min
 local m_modf = math.modf
 local band = bit.band
 local bor = bit.bor
@@ -69,6 +70,10 @@ function ModListClass:EvalMod(mod, cfg)
 	for _, tag in pairs(mod.tagList) do
 		if tag.type == "Multiplier" then
 			local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
+			if tag.limit or tag.limitVar then
+				local limit = tag.limit or ((self.multipliers[tag.limitVar] or 0) + self:Sum("BASE", cfg, multiplierName[tag.limitVar]))
+				mult = m_min(mult, limit)
+			end
 			if type(value) == "table" then
 				value = copyTable(value)
 				if value.mod then

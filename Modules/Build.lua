@@ -330,6 +330,15 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		self.targetVersion = targetVersion
 	end
 
+	if buildName == "~~temp~~" then
+		-- Remove temporary build file
+		os.remove(self.dbFileName)
+		self.buildName = "Unnamed build"
+		self.dbFileName = false
+		self.dbFileSubPath = nil
+		self.modFlag = true
+	end
+
 	-- Controls: Side bar
 	self.anchorSideBar = common.New("Control", nil, 4, 36, 0, 0)
 	self.controls.modeImport = common.New("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 0, 134, 20, "Import/Export Build", function()
@@ -518,8 +527,15 @@ function buildMode:CanExit(mode)
 end
 
 function buildMode:Shutdown()
-	if launch.devMode and not self.abortSave and self.dbFileName then
-		self:SaveDBFile()
+	if launch.devMode and self.targetVersion and not self.abortSave then
+		if self.dbFileName then
+			self:SaveDBFile()
+		elseif self.unsaved then		
+			self.dbFileName = main.buildPath.."~~temp~~.xml"
+			self.buildName = "~~temp~~"
+			self.dbFileSubPath = ""
+			self:SaveDBFile()
+		end
 	end
 	self.abortSave = nil
 

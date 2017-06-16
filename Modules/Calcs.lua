@@ -253,13 +253,15 @@ function calcs.buildOutput(build, mode)
 		end
 		for _, slot in ipairs(env.curseSlots) do
 			t_insert(curseList, slot.name)
-			for _, mod in ipairs(slot.modList) do
-				local value = env.enemy.modDB:EvalMod(mod)
-				if value and value ~= 0 then
-					t_insert(env.player.breakdown.SkillDebuffs.modList, {
-						mod = mod,
-						value = value,
-					})
+			if slot.modList then
+				for _, mod in ipairs(slot.modList) do
+					local value = env.enemy.modDB:EvalMod(mod)
+					if value and value ~= 0 then
+						t_insert(env.player.breakdown.SkillDebuffs.modList, {
+							mod = mod,
+							value = value,
+						})
+					end
 				end
 			end
 		end
