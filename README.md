@@ -53,6 +53,11 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.32 - 2017/06/17
+ * Fixed error caused by Punishment
+For 3.0 builds:
+ * The "# of Poison on Enemy" option in the Configuration tab now works for Vile Toxins
+
 ### 1.4.31 - 2017/06/16
  * The Buff/Debuff Skill lists in the Calcs tab now have breakdowns that list all the modifiers granted by those skills
  * Added an option to the Configuration tab for "Are you always on full Energy Shield?"

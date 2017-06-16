@@ -1,3 +1,7 @@
+VERSION[1.4.32][2017/06/17]
+ * Fixed error caused by Punishment
+For 3.0 builds:
+ * The "# of Poison on Enemy" option in the Configuration tab now works for Vile Toxins
 VERSION[1.4.31][2017/06/16]
  * The Buff/Debuff Skill lists in the Calcs tab now have breakdowns that list all the modifiers granted by those skills
  * Added an option to the Configuration tab for "Are you always on full Energy Shield?"

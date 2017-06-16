@@ -1941,7 +1941,7 @@ skills["SupportDebilitate"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 20), 
-		--"support_debilitate_hit_damage_+%_final_per_poison_stack" = 5
+		mod("Damage", "MORE", 5, ModFlag.Hit, 0, { type = "Multiplier", var = "PoisonOnEnemy", limitVar = "VileToxinsPoisonLimit" }), --"support_debilitate_hit_damage_+%_final_per_poison_stack" = 5
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, KeywordFlag.Poison), --"base_poison_damage_+%" = 1
@@ -1949,7 +1949,7 @@ skills["SupportDebilitate"] = {
 	levelMods = {
 		[1] = nil, 
 		[2] = mod("Damage", "MORE", nil, 0, KeywordFlag.Poison), --"support_debilitate_poison_damage_+%_final"
-		--[3] = "support_debilitate_hit_damage_max_poison_stacks"
+		[3] = mod("Multiplier:VileToxinsPoisonLimit", "BASE", nil), --"support_debilitate_hit_damage_max_poison_stacks"
 	},
 	levels = {
 		[1] = { 38, 30, 6, },

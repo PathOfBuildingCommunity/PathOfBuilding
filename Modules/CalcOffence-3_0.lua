@@ -1279,8 +1279,14 @@ function calcs.offence(env, actor)
 				end
 				local effectMod = calcLib.mod(modDB, dotCfg, "AilmentEffect")
 				output.BleedDPS = baseVal * effectMod * effMult
+				local durationBase
+				if skillData.bleedDurationIsSkillDuration then
+					durationBase = skillData.duration
+				else
+					durationBase = 5
+				end
 				local durationMod = calcLib.mod(modDB, dotCfg, "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
-				globalOutput.BleedDuration = 5 * durationMod * debuffDurationMult
+				globalOutput.BleedDuration = durationBase * durationMod * debuffDurationMult
 				if breakdown then
 					t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(bleed deals %d%% per second)", basePercent/100, basePercent))
 					if effectMod ~= 1 then
@@ -1294,9 +1300,9 @@ function calcs.offence(env, actor)
 						{ "%.3f ^8(effective DPS modifier)", effMult },
 						total = s_format("= %.1f ^8per second", output.BleedDPS),
 					})
-					if globalOutput.BleedDuration ~= 5 then
+					if globalOutput.BleedDuration ~= durationBase then
 						globalBreakdown.BleedDuration = {
-							"5.00s ^8(base duration)"
+							s_format("%.2fs ^8(base duration)", durationBase)
 						}
 						if durationMod ~= 1 then
 							t_insert(globalBreakdown.BleedDuration, s_format("x %.2f ^8(duration modifier)", durationMod))
@@ -1338,7 +1344,7 @@ function calcs.offence(env, actor)
 					totalMax = totalMax + max
 				end
 				if pass == 1 then
-					sourceCritDmg = (totalMin + totalMax) / 2  * output.CritDegenMultiplier * modDB:Sum("MORE", cfg, "PoisonDamageOnCrit")
+					sourceCritDmg = (totalMin + totalMax) / 2  * output.CritDegenMultiplier
 				else
 					sourceHitDmg = (totalMin + totalMax) / 2
 				end
