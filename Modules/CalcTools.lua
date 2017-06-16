@@ -40,14 +40,18 @@ end
 -- Validate the level of the given gem
 function calcLib.validateGemLevel(gem)
 	if not gem.grantedEffect.levels[gem.level] then
-		-- Try limiting to the level range of the gem
-		gem.level = m_max(1, gem.level)
-		if #gem.grantedEffect.levels > 0 then
-			gem.level = m_min(#gem.grantedEffect.levels, gem.level)
-		end
-		if not gem.grantedEffect.levels[gem.level] then
-			-- That failed, so just grab any level
-			gem.level = next(gem.grantedEffect.levels)
+		if gem.grantedEffect.defaultLevel then
+			gem.level = gem.grantedEffect.defaultLevel
+		else
+			-- Try limiting to the level range of the gem
+			gem.level = m_max(1, gem.level)
+			if #gem.grantedEffect.levels > 0 then
+				gem.level = m_min(#gem.grantedEffect.levels, gem.level)
+			end
+			if not gem.grantedEffect.levels[gem.level] then
+				-- That failed, so just grab any level
+				gem.level = next(gem.grantedEffect.levels)
+			end
 		end
 	end	
 end

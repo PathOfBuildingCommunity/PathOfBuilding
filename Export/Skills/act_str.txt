@@ -160,6 +160,7 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
+#setMod active_skill_damage_over_time_from_projectile_hits_+%_final==mod("Damage", "MORE", {val}, ModFlag.Dot, 0, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill Punishment

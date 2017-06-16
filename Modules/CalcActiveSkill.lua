@@ -90,6 +90,7 @@ function calcs.createActiveSkill(activeGem, supportList, summonSkill)
 		supportList = supportList,
 		summonSkill = summonSkill,
 		skillData = { },
+		buffList = { },
 	}
 	
 	-- Initialise skill types
@@ -268,6 +269,9 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 
 	-- Build skill keyword flag set
 	local skillKeywordFlags = 0
+	if skillFlags.hit then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Hit)
+	end
 	if skillFlags.aura then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Aura)
 	end
@@ -432,38 +436,43 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	-- Separate global effect modifiers (mods that can affect defensive stats or other skills)
 	local i = 1
 	while skillModList[i] do
-		local destList
+		local effectType, effectName
 		for _, tag in ipairs(skillModList[i].tagList) do
 			if tag.type == "GlobalEffect" then
-				if tag.effectType == "Buff" then
-					destList = "buffModList"
-				elseif tag.effectType == "Aura" then
-					destList = "auraModList"
-				elseif tag.effectType == "Debuff" then
-					destList = "debuffModList"
-				elseif tag.effectType == "Curse" then
-					destList = "curseModList"
-				end
+				effectType = tag.effectType
+				effectName = tag.effectName or activeSkill.activeGem.grantedEffect.name
 				break
 			end
 		end
-		if destList then
-			if not activeSkill[destList] then
-				activeSkill[destList] = { }
+		if effectType then
+			local buff
+			for _, skillBuff in ipairs(activeSkill.buffList) do
+				if skillBuff.type == effectType and skillBuff.name == effectName then
+					buff = skillBuff
+					break
+				end
+			end
+			if not buff then
+				buff = {
+					type = effectType,
+					name = effectName,
+					modList = { },
+				}
+				t_insert(activeSkill.buffList, buff)
 			end
 			local sig = modLib.formatModParams(skillModList[i])
-			for d = 1, #activeSkill[destList] do
-				local destMod = activeSkill[destList][d]
+			for d = 1, #buff.modList do
+				local destMod = buff.modList[d]
 				if sig == modLib.formatModParams(destMod) and (destMod.type == "BASE" or destMod.type == "INC") then
 					destMod = copyTable(destMod)
 					destMod.value = destMod.value + skillModList[i].value
-					activeSkill[destList][d] = destMod
+					buff.modList[d] = destMod
 					sig = nil
 					break
 				end
 			end
 			if sig then
-				t_insert(activeSkill[destList],  skillModList[i])
+				t_insert(buff.modList, skillModList[i])
 			end
 			t_remove(skillModList, i)
 		else
@@ -471,7 +480,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 		end
 	end
 
-	if activeSkill.buffModList or activeSkill.auraModList or activeSkill.debuffModList or activeSkill.curseModList then
+	if activeSkill.buffList[1] then
 		-- Add to auxillary skill list
 		t_insert(env.auxSkillList, activeSkill)
 	end

@@ -17,7 +17,7 @@ calcs.breakdownModule = "Modules/CalcBreakdown"
 LoadModule("Modules/CalcSetup", calcs)
 LoadModule("Modules/CalcPerform", calcs)
 LoadModule("Modules/CalcActiveSkill", calcs)
-LoadModule("Modules/CalcDefence", calcs)
+LoadModule("Modules/CalcDefence-"..targetVersion, calcs)
 LoadModule("Modules/CalcOffence-"..targetVersion, calcs)
 
 -- Print various tables to the console
@@ -219,24 +219,49 @@ function calcs.buildOutput(build, mode)
 		if env.modDB:Sum("FLAG", nil, "UnholyMight") then
 			t_insert(combatList, "Unholy Might")
 		end
-		for _, activeSkill in ipairs(env.activeSkillList) do
-			if activeSkill.buffSkill then
-				if activeSkill.skillFlags.multiPart then
-					t_insert(buffList, activeSkill.activeGem.grantedEffect.name .. " (" .. activeSkill.skillPartName .. ")")
-				else
-					t_insert(buffList, activeSkill.activeGem.grantedEffect.name)
+		for name in pairs(env.buffs) do
+			t_insert(buffList, name)
+		end
+		table.sort(buffList)
+		env.player.breakdown.SkillBuffs = { modList = { } }
+		for _, name in ipairs(buffList) do
+			for _, mod in ipairs(env.buffs[name]) do
+				local value = env.modDB:EvalMod(mod)
+				if value and value ~= 0 then
+					t_insert(env.player.breakdown.SkillBuffs.modList, {
+						mod = mod,
+						value = value,
+					})
 				end
 			end
-			if activeSkill.debuffSkill then
-				if activeSkill.skillFlags.multiPart then
-					t_insert(curseList, activeSkill.activeGem.grantedEffect.name .. " (" .. activeSkill.skillPartName .. ")")
-				else
-					t_insert(curseList, activeSkill.activeGem.grantedEffect.name)
+		end
+		env.player.breakdown.SkillDebuffs = { modList = { } }
+		for name in pairs(env.debuffs) do
+			t_insert(curseList, name)
+		end
+		table.sort(curseList)
+		for _, name in ipairs(curseList) do
+			for _, mod in ipairs(env.debuffs[name]) do
+				local value = env.enemy.modDB:EvalMod(mod)
+				if value and value ~= 0 then
+					t_insert(env.player.breakdown.SkillDebuffs.modList, {
+						mod = mod,
+						value = value,
+					})
 				end
 			end
 		end
 		for _, slot in ipairs(env.curseSlots) do
 			t_insert(curseList, slot.name)
+			for _, mod in ipairs(slot.modList) do
+				local value = env.enemy.modDB:EvalMod(mod)
+				if value and value ~= 0 then
+					t_insert(env.player.breakdown.SkillDebuffs.modList, {
+						mod = mod,
+						value = value,
+					})
+				end
+			end
 		end
 		output.BuffList = table.concat(buffList, ", ")
 		output.CombatList = table.concat(combatList, ", ")
@@ -262,15 +287,23 @@ function calcs.buildOutput(build, mode)
 			if env.minion.modDB:Sum("FLAG", nil, "UnholyMight") then
 				t_insert(combatList, "Unholy Might")
 			end
-			for _, activeSkill in ipairs(env.activeSkillList) do
-				if activeSkill.minionBuffSkill then
-					if activeSkill.skillFlags.multiPart then
-						t_insert(buffList, activeSkill.activeGem.grantedEffect.name .. " (" .. activeSkill.skillPartName .. ")")
-					else
-						t_insert(buffList, activeSkill.activeGem.grantedEffect.name)
+			for name in pairs(env.minionBuffs) do
+				t_insert(buffList, name)
+			end
+			table.sort(buffList)
+			env.minion.breakdown.SkillBuffs = { modList = { } }
+			for _, name in ipairs(buffList) do
+				for _, mod in ipairs(env.minionBuffs[name]) do
+					local value = env.minion.modDB:EvalMod(mod)
+					if value and value ~= 0 then
+						t_insert(env.minion.breakdown.SkillBuffs.modList, {
+							mod = mod,
+							value = value,
+						})
 					end
 				end
 			end
+			env.minion.breakdown.SkillDebuffs = env.player.breakdown.SkillDebuffs
 			output.Minion.BuffList = table.concat(buffList, ", ")
 			output.Minion.CombatList = table.concat(combatList, ", ")
 			output.Minion.CurseList = output.CurseList

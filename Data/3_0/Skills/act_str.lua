@@ -2115,6 +2115,7 @@ skills["MoltenStrike"] = {
 		mod("SkillPhysicalDamageConvertToFire", "BASE", 60), --"skill_physical_damage_%_to_convert_to_fire" = 60
 		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2
 		mod("Damage", "MORE", -40, ModFlag.Projectile), --"active_skill_projectile_damage_+%_final" = -40
+		mod("Damage", "MORE", -40, ModFlag.Dot, 0, { type = "SkillPart", skillPart = 2 }), --"active_skill_damage_over_time_from_projectile_hits_+%_final" = -40
 		--"show_number_of_projectiles" = ?
 	},
 	qualityMods = {
@@ -2188,14 +2189,14 @@ skills["Punishment"] = {
 		skill("radius", 22), 
 	},
 	qualityMods = {
-		mod("Speed", "INC", 0.25, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff"}), --"newpunishment_attack_speed_+%" = 0.25
+		mod("Speed", "INC", 0.25, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "CurseBuff" }), --"newpunishment_attack_speed_+%" = 0.25
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		[3] = skill("duration", nil), --"base_skill_effect_duration"
-		[4] = mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff"}), --"newpunishment_melee_damage_+%_final"
-		[5] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff"}), --"newpunishment_attack_speed_+%"
+		[4] = mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "CurseBuff" }), --"newpunishment_melee_damage_+%_final"
+		[5] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "CurseBuff" }), --"newpunishment_attack_speed_+%"
 		[6] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {

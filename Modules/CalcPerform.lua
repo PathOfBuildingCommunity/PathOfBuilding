@@ -511,8 +511,11 @@ function calcs.perform(env)
 	-- Combine buffs/debuffs 
 	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit")
 	local buffs = { }
+	env.buffs = buffs
 	local minionBuffs = { }
+	env.minionBuffs = minionBuffs
 	local debuffs = { }
+	env.debuffs = debuffs
 	local curses = { 
 		limit = output.EnemyCurseLimit,
 	}
@@ -523,123 +526,121 @@ function calcs.perform(env)
 	for _, activeSkill in ipairs(env.activeSkillList) do
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
-		if env.mode_buffs then
-			if activeSkill.buffModList and 
-			   not activeSkill.skillFlags.curse and
-			   (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff) then
-				if not activeSkill.skillData.buffNotPlayer then
-					activeSkill.buffSkill = true
-					local srcList = common.New("ModList")
-					local inc = modDB:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf")
-					local more = modDB:Sum("MORE", skillCfg, "BuffEffect", "BuffEffectOnSelf")
-					srcList:ScaleAddList(activeSkill.buffModList, (1 + inc / 100) * more)
-					mergeBuff(srcList, buffs, activeSkill.activeGem.grantedEffect.name)
+		for _, buff in ipairs(activeSkill.buffList) do
+			if buff.type == "Buff" then
+				if env.mode_buffs and (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff) then
+					if not activeSkill.skillData.buffNotPlayer then
+						activeSkill.buffSkill = true
+						local srcList = common.New("ModList")
+						local inc = modDB:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf")
+						local more = modDB:Sum("MORE", skillCfg, "BuffEffect", "BuffEffectOnSelf")
+						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						mergeBuff(srcList, buffs, buff.name)
+					end
+					if env.minion and (activeSkill.skillData.buffMinions or activeSkill.skillData.buffAllies) then
+						activeSkill.minionBuffSkill = true
+						local srcList = common.New("ModList")
+						local inc = modDB:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf")
+						local more = modDB:Sum("MORE", skillCfg, "BuffEffect") * env.minion.modDB:Sum("MORE", nil, "BuffEffectOnSelf")
+						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						mergeBuff(srcList, minionBuffs, buff.name)
+					end
 				end
-				if env.minion and (activeSkill.skillData.buffMinions or activeSkill.skillData.buffAllies) then
-					activeSkill.minionBuffSkill = true
-					local srcList = common.New("ModList")
-					local inc = modDB:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf")
-					local more = modDB:Sum("MORE", skillCfg, "BuffEffect") * env.minion.modDB:Sum("MORE", nil, "BuffEffectOnSelf")
-					srcList:ScaleAddList(activeSkill.buffModList, (1 + inc / 100) * more)
-					mergeBuff(srcList, minionBuffs, activeSkill.activeGem.grantedEffect.name)
+			elseif buff.type == "Aura" then
+				if env.mode_buffs then
+					if not activeSkill.skillData.auraCannotAffectSelf then
+						activeSkill.buffSkill = true
+						affectedByAura[env.player] = true
+						local srcList = common.New("ModList")
+						local inc = modDB:Sum("INC", skillCfg, "AuraEffect", "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
+						local more = modDB:Sum("MORE", skillCfg, "AuraEffect", "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
+						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
+						mergeBuff(srcList, buffs, buff.name)
+					end
+					if env.minion and not modDB:Sum("FLAG", nil, "YourAurasCannotAffectAllies") then
+						activeSkill.minionBuffSkill = true
+						affectedByAura[env.minion] = true
+						local srcList = common.New("ModList")
+						local inc = modDB:Sum("INC", skillCfg, "AuraEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
+						local more = modDB:Sum("MORE", skillCfg, "AuraEffect") * env.minion.modDB:Sum("MORE", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
+						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
+						mergeBuff(srcList, minionBuffs, buff.name)
+					end
 				end
-			end
-			if activeSkill.auraModList then
-				if not activeSkill.skillData.auraCannotAffectSelf then
-					activeSkill.buffSkill = true
-					affectedByAura[env.player] = true
+			elseif buff.type == "Debuff" then
+				if env.mode_effective then
+					activeSkill.debuffSkill = true
 					local srcList = common.New("ModList")
-					local inc = modDB:Sum("INC", skillCfg, "AuraEffect", "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
-					local more = modDB:Sum("MORE", skillCfg, "AuraEffect", "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
-					srcList:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
-					srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
-					mergeBuff(srcList, buffs, activeSkill.activeGem.grantedEffect.name)
+					srcList:ScaleAddList(buff.modList, activeSkill.skillData.stackCount or 1)
+					mergeBuff(srcList, debuffs, buff.name)
 				end
-				if env.minion and not modDB:Sum("FLAG", nil, "YourAurasCannotAffectAllies") then
-					activeSkill.minionBuffSkill = true
-					affectedByAura[env.minion] = true
-					local srcList = common.New("ModList")
-					local inc = modDB:Sum("INC", skillCfg, "AuraEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
-					local more = modDB:Sum("MORE", skillCfg, "AuraEffect") * env.minion.modDB:Sum("MORE", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
-					srcList:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
-					srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
-					mergeBuff(srcList, minionBuffs, activeSkill.activeGem.grantedEffect.name)
-				end
-			end
-			if activeSkill.minion then
-				for _, activeSkill in ipairs(activeSkill.minion.activeSkillList) do
-					local skillModList = activeSkill.skillModList
-					local skillCfg = activeSkill.skillCfg
-					if activeSkill.auraModList and activeSkill.skillData.enable then
-						if not modDB:Sum("FLAG", nil, "AlliesAurasCannotAffectSelf") then
-							local srcList = common.New("ModList")
-							local inc = modDB:Sum("INC", skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
-							local more = modDB:Sum("MORE", skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
-							srcList:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
-							mergeBuff(srcList, buffs, activeSkill.activeGem.grantedEffect.id)
-						end
-						if env.minion and (env.minion ~= activeSkill.minion or not activeSkill.skillData.auraCannotAffectSelf) then
-							local srcList = common.New("ModList")
-							local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
-							local more = env.minion.modDB:Sum("MORE", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
-							srcList:ScaleAddList(activeSkill.auraModList, (1 + inc / 100) * more)
-							mergeBuff(srcList, minionBuffs, activeSkill.activeGem.grantedEffect.id)
+			elseif buff.type == "Curse" or buff.type == "CurseBuff" then
+				if env.mode_effective and (not enemyDB:Sum("FLAG", nil, "Hexproof") or modDB:Sum("FLAG", nil, "CursesIgnoreHexproof")) then
+					local curse = {
+						name = buff.name,
+						fromPlayer = true,
+						priority = activeSkill.skillTypes[SkillType.Aura] and 3 or 1,
+					}
+					local inc = modDB:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") + skillModList:Sum("INC", skillCfg, "CurseEffect")
+					local more = modDB:Sum("MORE", skillCfg, "CurseEffect") * enemyDB:Sum("MORE", nil, "CurseEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "CurseEffect")
+					if buff.type == "Curse" then
+						curse.modList = common.New("ModList")
+						curse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+					else
+						-- Curse applies a buff; scale by curse effect, then buff effect
+						local temp = common.New("ModList")
+						temp:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						curse.buffModList = common.New("ModList")
+						local buffInc = modDB:Sum("INC", skillCfg, "BuffEffectOnSelf")
+						local buffMore = modDB:Sum("MORE", skillCfg, "BuffEffectOnSelf")
+						curse.buffModList:ScaleAddList(temp, (1 + buffInc / 100) * buffMore)
+						if env.minion then
+							curse.minionBuffModList = common.New("ModList")
+							local buffInc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf")
+							local buffMore = env.minion.modDB:Sum("MORE", nil, "BuffEffectOnSelf")
+							curse.minionBuffModList:ScaleAddList(temp, (1 + buffInc / 100) * buffMore)
 						end
 					end
+					t_insert(curses, curse)	
 				end
 			end
 		end
-		if env.mode_effective then
-			if activeSkill.debuffModList then
-				activeSkill.debuffSkill = true
-				local srcList = common.New("ModList")
-				srcList:ScaleAddList(activeSkill.debuffModList, activeSkill.skillData.stackCount or 1)
-				mergeBuff(srcList, debuffs, activeSkill.activeGem.grantedEffect.name)
-			end
-			if (activeSkill.curseModList or (activeSkill.skillFlags.curse and activeSkill.buffModList))
-			   and (not enemyDB:Sum("FLAG", nil, "Hexproof") or modDB:Sum("FLAG", nil, "CursesIgnoreHexproof")) then
-				local curse = {
-					name = activeSkill.activeGem.grantedEffect.name,
-					fromPlayer = true,
-					priority = activeSkill.skillTypes[SkillType.Aura] and 3 or 1,
-				}
-				local inc = modDB:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") + skillModList:Sum("INC", skillCfg, "CurseEffect")
-				local more = modDB:Sum("MORE", skillCfg, "CurseEffect") * enemyDB:Sum("MORE", nil, "CurseEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "CurseEffect")
-				if activeSkill.curseModList then
-					curse.modList = common.New("ModList")
-					curse.modList:ScaleAddList(activeSkill.curseModList, (1 + inc / 100) * more)
-				end
-				if activeSkill.buffModList then
-					-- Curse applies a buff; scale by curse effect, then buff effect
-					local temp = common.New("ModList")
-					temp:ScaleAddList(activeSkill.buffModList, (1 + inc / 100) * more)
-					curse.buffModList = common.New("ModList")
-					local buffInc = modDB:Sum("INC", skillCfg, "BuffEffectOnSelf")
-					local buffMore = modDB:Sum("MORE", skillCfg, "BuffEffectOnSelf")
-					curse.buffModList:ScaleAddList(temp, (1 + buffInc / 100) * buffMore)
-					if env.minion then
-						curse.minionBuffModList = common.New("ModList")
-						local buffInc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf")
-						local buffMore = env.minion.modDB:Sum("MORE", nil, "BuffEffectOnSelf")
-						curse.minionBuffModList:ScaleAddList(temp, (1 + buffInc / 100) * buffMore)
-					end
-				end
-				t_insert(curses, curse)
-			end
-			if activeSkill.minion then
-				for _, activeSkill in ipairs(activeSkill.minion.activeSkillList) do
-					local skillModList = activeSkill.skillModList
-					local skillCfg = activeSkill.skillCfg
-					if activeSkill.curseModList and activeSkill.skillData.enable and not enemyDB:Sum("FLAG", nil, "Hexproof") then
-						local curse = {
-							name = activeSkill.activeGem.grantedEffect.name,
-							priority = 1,
-						}
-						local inc = enemyDB:Sum("INC", nil, "CurseEffectOnSelf") + skillModList:Sum("INC", skillCfg, "CurseEffect")
-						local more = enemyDB:Sum("MORE", nil, "CurseEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "CurseEffect")
-						curse.modList = common.New("ModList")
-						curse.modList:ScaleAddList(activeSkill.curseModList, (1 + inc / 100) * more)
-						t_insert(minionCurses, curse)
+		if activeSkill.minion then
+			for _, activeSkill in ipairs(activeSkill.minion.activeSkillList) do
+				local skillModList = activeSkill.skillModList
+				local skillCfg = activeSkill.skillCfg
+				for _, buff in ipairs(activeSkill.buffList) do
+					if buff.type == "Aura" then
+						if env.mode_buffs and activeSkill.skillData.enable then
+							if not modDB:Sum("FLAG", nil, "AlliesAurasCannotAffectSelf") then
+								local srcList = common.New("ModList")
+								local inc = modDB:Sum("INC", skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
+								local more = modDB:Sum("MORE", skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
+								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+								mergeBuff(srcList, buffs, buff.name)
+							end
+							if env.minion and (env.minion ~= activeSkill.minion or not activeSkill.skillData.auraCannotAffectSelf) then
+								local srcList = common.New("ModList")
+								local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
+								local more = env.minion.modDB:Sum("MORE", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
+								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+								mergeBuff(srcList, minionBuffs, buff.name)
+							end
+						end
+					elseif buff.type == "Curse" then
+						if env.mode_effective and activeSkill.skillData.enable and not enemyDB:Sum("FLAG", nil, "Hexproof") then
+							local curse = {
+								name = buff.name,
+								priority = 1,
+							}
+							local inc = enemyDB:Sum("INC", nil, "CurseEffectOnSelf") + skillModList:Sum("INC", skillCfg, "CurseEffect")
+							local more = enemyDB:Sum("MORE", nil, "CurseEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "CurseEffect")
+							curse.modList = common.New("ModList")
+							curse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+							t_insert(minionCurses, curse)
+						end
 					end
 				end
 			end
