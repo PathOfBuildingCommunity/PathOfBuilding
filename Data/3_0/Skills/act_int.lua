@@ -1199,7 +1199,7 @@ skills["Discipline"] = {
 		skill("castTime", 1.2), 
 		skill("manaCost", 35), 
 		skill("cooldown", 1.2), 
-		--"energy_shield_recharge_rate_+%" = 30
+		mod("EnergyShieldRecharge", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"energy_shield_recharge_rate_+%" = 30
 		--"base_deal_no_damage" = ?
 		skill("radius", 36), 
 	},
@@ -1966,7 +1966,7 @@ skills["FlameWhip"] = {
 	baseMods = {
 		skill("castTime", 0.5), 
 		skill("CritChance", 6), 
-		mod("Damage", "MORE", 50, bit.bor(ModFlag.Spell, ModFlag.Hit), 0, { type = "EnemyCondition", var = "Burning" }), --"flame_whip_damage_+%_final_vs_burning_enemies" = 50
+		mod("Damage", "MORE", 50, ModFlag.Hit, 0, { type = "EnemyCondition", var = "Burning" }), --"flame_whip_damage_+%_final_vs_burning_enemies" = 50
 		flag("CannotIgnite"), --"never_ignite" = ?
 		--"is_area_damage" = ?
 		skill("radius", 30), 
@@ -2050,7 +2050,7 @@ skills["Flameblast"] = {
 		--"charged_blast_spell_damage_+%_final_per_stack" = 110
 		--"is_area_damage" = ?
 		--"base_skill_show_average_damage_instead_of_dps" = ?
-		mod("Damage", "MORE", 990, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Damage", "MORE", 990, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }), 
 		skill("dpsMultiplier", 0.1, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
@@ -3094,7 +3094,7 @@ skills["Incinerate"] = {
 		--"base_is_projectile" = ?
 		mod("PierceChance", "BASE", 100), --"always_pierce" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
-		mod("Damage", "MORE", 150, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Damage", "MORE", 150, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("ProjectileSpeed", "INC", 2), --"base_projectile_speed_+%" = 2
@@ -4446,7 +4446,7 @@ skills["ShockNova"] = {
 	gemInt = 100,
 	color = 3,
 	description = "Casts a ring of Lightning around you, followed by a larger Lightning nova. Each effect hits enemies caught in their area with Lightning Damage.",
-	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [45] = true, [35] = true, [43] = true, },
+	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [45] = true, [35] = true, },
 	parts = {
 		{
 			name = "Ring",

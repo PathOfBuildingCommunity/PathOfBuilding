@@ -110,9 +110,9 @@ Buffed: Aura and buff skills apply. This is equivelant to standing in your hideo
 In Combat: Charges and combat buffs such as Onslaught will also apply. This will show your character sheet stats in combat.
 Effective DPS: Curses and enemy properties (such as resistances and status conditions) will also apply. This estimates your true DPS.]]) 
 		}, },
-		{ label = "Aura and Buff Skills", flag = "buffs", textSize = 12, { format = "{output:BuffList}" }, },
+		{ label = "Aura and Buff Skills", flag = "buffs", textSize = 12, { format = "{output:BuffList}", { breakdown = "SkillBuffs" } }, },
 		{ label = "Combat Buffs", flag = "combat", textSize = 12, { format = "{output:CombatList}" }, },
-		{ label = "Curses and Debuffs", flag = "effective", textSize = 12, { format = "{output:CurseList}" }, },
+		{ label = "Curses and Debuffs", flag = "effective", textSize = 12, { format = "{output:CurseList}", { breakdown = "SkillDebuffs" } }, },
 	}, function(section)
 		self.build:RefreshSkillSelectControls(section.controls, self.input.skill_number, "Calcs")
 		section.controls.showMinion.state = self.input.showMinion

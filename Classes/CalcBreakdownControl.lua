@@ -190,10 +190,15 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 			end
 		end
 	end
+
+	if breakdown.modList and #breakdown.modList > 0 then
+		-- Provided mod list
+		self:AddModSection(sectionData, breakdown.modList)
+	end
 end
 
 -- Add a table section showing a list of modifiers
-function CalcBreakdownClass:AddModSection(sectionData)
+function CalcBreakdownClass:AddModSection(sectionData, modList)
 	local actor = self.calcsTab.input.showMinion and self.calcsTab.calcsEnv.minion or self.calcsTab.calcsEnv.player
 	local build = self.calcsTab.build
 
@@ -203,10 +208,14 @@ function CalcBreakdownClass:AddModSection(sectionData)
 	cfg.tabulate = true
 	local rowList
 	local modDB = sectionData.enemy and actor.enemy.modDB or actor.modDB
-	if type(sectionData.modName) == "table" then
-		rowList = modDB:Sum(sectionData.modType, cfg, unpack(sectionData.modName))
+	if modList then	
+		rowList = modList
 	else
-		rowList = modDB:Sum(sectionData.modType, cfg, sectionData.modName)
+		if type(sectionData.modName) == "table" then
+			rowList = modDB:Sum(sectionData.modType, cfg, unpack(sectionData.modName))
+		else
+			rowList = modDB:Sum(sectionData.modType, cfg, sectionData.modName)
+		end
 	end
 	if #rowList == 0 then
 		return
@@ -218,7 +227,7 @@ function CalcBreakdownClass:AddModSection(sectionData)
 		label = sectionData.label,
 		rowList = rowList,
 		colList = { 
-			{ label = "Value", key = "value" },
+			{ label = "Value", key = "displayValue" },
 			{ label = "Stat", key = "name" },
 			{ label = "Skill types", key = "flags" },
 			{ label = "Notes", key = "tags" },
@@ -228,9 +237,9 @@ function CalcBreakdownClass:AddModSection(sectionData)
 	}
 	t_insert(self.sectionList, section)
 
-	if not sectionData.modType then
+	if not modList and not sectionData.modType then
 		-- Sort modifiers by type
-		for i, row in pairs(rowList) do
+		for i, row in ipairs(rowList) do
 			row.index = i
 		end
 		table.sort(rowList, function(a, b)
@@ -243,11 +252,11 @@ function CalcBreakdownClass:AddModSection(sectionData)
 	end
 
 	local sourceTotals = { }
-	if not sectionData.modSource then
+	if not modList and not sectionData.modSource then
 		-- Build list of totals from each modifier source
 		local types = { }
 		local typeList = { }
-		for i, row in pairs(rowList) do
+		for i, row in ipairs(rowList) do
 			-- Find all the modifier types and source types that are present in the modifier lsit
 			if not types[row.mod.type] then
 				types[row.mod.type] = true
@@ -287,20 +296,20 @@ function CalcBreakdownClass:AddModSection(sectionData)
 	end
 
 	-- Process modifier data
-	for _, row in pairs(rowList) do
+	for _, row in ipairs(rowList) do
 		if not sectionData.modType then
 			-- No modifier type specified, so format the value to convey type
-			row.value = self:FormatModValue(row.value, row.mod.type)
+			row.displayValue = self:FormatModValue(row.value, row.mod.type)
 		else
 			section.colList[1].right = true
-			row.value = formatRound(row.value, 2)
+			row.displayValue = formatRound(row.value, 2)
 		end
-		if type(sectionData.modName) == "table" then
+		if modList or type(sectionData.modName) == "table" then
 			-- Multiple stat names specified, add this modifier's stat to the table
 			row.name = self:FormatModName(row.mod.name)
 		end
 		local sourceType = row.mod.source:match("[^:]+")
-		if not sectionData.modSource then
+		if not modList and not sectionData.modSource then
 			-- No modifier source specified, add the source type to the table
 			row.source = sourceType
 			row.sourceTooltip = function()
@@ -349,9 +358,10 @@ function CalcBreakdownClass:AddModSection(sectionData)
 			table.sort(flagNames)
 			row.flags = table.concat(flagNames, ", ")
 		end
+		row.tags = nil
 		if row.mod.tagList[1] then
 			-- Format modifier tags
-			local baseVal = (row.mod.type == "BASE" and string.format("%+g", math.abs(row.mod.value)) or math.abs(row.mod.value).."%")
+			local baseVal = type(row.mod.value) == "number" and (row.mod.type == "BASE" and string.format("%+g", math.abs(row.mod.value)) or math.abs(row.mod.value).."%")
 			for _, tag in ipairs(row.mod.tagList) do
 				local desc
 				if tag.type == "Condition" then

@@ -88,6 +88,160 @@ function ModDBClass:NewMod(...)
 	self:AddMod(mod_createMod(...))
 end
 
+function ModDBClass:EvalMod(mod, cfg)
+	local value = mod.value
+	for _, tag in pairs(mod.tagList) do
+		if tag.type == "Multiplier" then
+			local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
+			if type(value) == "table" then
+				value = copyTable(value)
+				if value.mod then
+					value.mod.value = value.mod.value * mult + (tag.base or 0)
+				else
+					value.value = value.value * mult + (tag.base or 0)
+				end
+			else
+				value = value * mult + (tag.base or 0)
+			end
+		elseif tag.type == "MultiplierThreshold" then
+			local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
+			if mult < tag.threshold then
+				return
+			end
+		elseif tag.type == "PerStat" then
+			local mult = m_floor((self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0) / tag.div + 0.0001)
+			if type(value) == "table" then
+				value = copyTable(value)
+				if value.mod then
+					value.mod.value = value.mod.value * mult + (tag.base or 0)
+				else
+					value.value = value.value * mult + (tag.base or 0)
+				end
+			else
+				value = value * mult + (tag.base or 0)
+			end
+		elseif tag.type == "StatThreshold" then
+			if (self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0) < tag.threshold then
+				return
+			end
+		elseif tag.type == "DistanceRamp" then
+			if not cfg or not cfg.skillDist then
+				return
+			end
+			if cfg.skillDist <= tag.ramp[1][1] then
+				value = value * tag.ramp[1][2]
+			elseif cfg.skillDist >= tag.ramp[#tag.ramp][1] then
+				value = value * tag.ramp[#tag.ramp][2]
+			else
+				for i, dat in ipairs(tag.ramp) do
+					local next = tag.ramp[i+1]
+					if cfg.skillDist <= next[1] then
+						value = value * (dat[2] + (next[2] - dat[2]) * (cfg.skillDist - dat[1]) / (next[1] - dat[1]))
+						break
+					end
+				end
+			end
+		elseif tag.type == "Condition" then
+			local match = false
+			if tag.varList then
+				for _, var in pairs(tag.varList) do
+					if self.conditions[var] or (cfg and cfg.skillCond and cfg.skillCond[var]) or self:Sum("FLAG", cfg, conditionName[var]) then
+						match = true
+						break
+					end
+				end
+			else
+				match = self.conditions[tag.var] or (cfg and cfg.skillCond and cfg.skillCond[tag.var]) or self:Sum("FLAG", cfg, conditionName[tag.var])
+			end
+			if tag.neg then
+				match = not match
+			end
+			if not match then
+				return
+			end
+		elseif tag.type == "EnemyCondition" then
+			local match = false
+			local enemy = self.actor.enemy
+			if enemy then
+				if tag.varList then
+					for _, var in pairs(tag.varList) do
+						if enemy.modDB.conditions[var] or enemy.modDB:Sum("FLAG", nil, conditionName[var]) then
+							match = true
+							break
+						end
+					end
+				else
+					match = enemy.modDB.conditions[tag.var] or enemy.modDB:Sum("FLAG", nil, conditionName[tag.var])
+				end
+				if tag.neg then
+					match = not match
+				end
+			end
+			if not match then
+				return
+			end
+		elseif tag.type == "ParentCondition" then
+			local match = false
+			local parent = self.actor.parent
+			if parent then
+				if tag.varList then
+					for _, var in pairs(tag.varList) do
+						if parent.modDB.conditions[var] or parent.modDB:Sum("FLAG", nil, conditionName[var]) then
+							match = true
+							break
+						end
+					end
+				else
+					match = parent.modDB.conditions[tag.var] or parent.modDB:Sum("FLAG", nil, conditionName[tag.var])
+				end
+			end
+			if tag.neg then
+				match = not match
+			end
+			if not match then
+				return
+			end
+		elseif tag.type == "SocketedIn" then
+			if not cfg or tag.slotName ~= cfg.slotName or (tag.keyword and (not cfg or not cfg.skillGem or not calcLib.gemIsType(cfg.skillGem, tag.keyword))) then
+				return
+			end
+		elseif tag.type == "SkillName" then
+			local match = false
+			local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName)
+			if tag.skillNameList then
+				for _, name in pairs(tag.skillNameList) do
+					if name == matchName then
+						match = true
+						break
+					end
+				end
+			else
+				match = (tag.skillName == matchName)
+			end
+			if not match then
+				return
+			end
+		elseif tag.type == "SkillId" then
+			if not cfg or not cfg.skillGem or cfg.skillGem.grantedEffect.id ~= tag.skillId then
+				return
+			end
+		elseif tag.type == "SkillPart" then
+			if not cfg or tag.skillPart ~= cfg.skillPart then
+				return
+			end
+		elseif tag.type == "SkillType" then
+			if not cfg or not cfg.skillTypes or not cfg.skillTypes[tag.skillType] then
+				return
+			end
+		elseif tag.type == "SlotName" then
+			if not cfg or tag.slotName ~= cfg.slotName then
+				return
+			end
+		end
+	end	
+	return value
+end
+
 function ModDBClass:Sum(modType, cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source, tabulate
@@ -121,168 +275,12 @@ function ModDBClass:Sum(modType, cfg, ...)
 			for i = 1, #modList do
 				local mod = modList[i]
 				if (not modType or mod.type == modType) and (mod.flags == 0 or band(flags, mod.flags) == mod.flags) and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
-					local value = mod.value
-					for _, tag in pairs(mod.tagList) do
-						if tag.type == "Multiplier" then
-							local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
-							if type(value) == "table" then
-								value = copyTable(value)
-								if value.mod then
-									value.mod.value = value.mod.value * mult + (tag.base or 0)
-								else
-									value.value = value.value * mult + (tag.base or 0)
-								end
-							else
-								value = value * mult + (tag.base or 0)
-							end
-						elseif tag.type == "MultiplierThreshold" then
-							local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
-							if mult < tag.threshold then
-								value = nullValue
-								break
-							end
-						elseif tag.type == "PerStat" then
-							local mult = m_floor((self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0) / tag.div + 0.0001)
-							if type(value) == "table" then
-								value = copyTable(value)
-								if value.mod then
-									value.mod.value = value.mod.value * mult + (tag.base or 0)
-								else
-									value.value = value.value * mult + (tag.base or 0)
-								end
-							else
-								value = value * mult + (tag.base or 0)
-							end
-						elseif tag.type == "StatThreshold" then
-							if (self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0) < tag.threshold then
-								value = nullValue
-								break
-							end
-						elseif tag.type == "DistanceRamp" then
-							if not cfg or not cfg.skillDist then
-								value = nullValue
-								break
-							end
-							if cfg.skillDist <= tag.ramp[1][1] then
-								value = value * tag.ramp[1][2]
-							elseif cfg.skillDist >= tag.ramp[#tag.ramp][1] then
-								value = value * tag.ramp[#tag.ramp][2]
-							else
-								for i, dat in ipairs(tag.ramp) do
-									local next = tag.ramp[i+1]
-									if cfg.skillDist <= next[1] then
-										value = value * (dat[2] + (next[2] - dat[2]) * (cfg.skillDist - dat[1]) / (next[1] - dat[1]))
-										break
-									end
-								end
-							end
-						elseif tag.type == "Condition" then
-							local match = false
-							if tag.varList then
-								for _, var in pairs(tag.varList) do
-									if self.conditions[var] or (cfg and cfg.skillCond and cfg.skillCond[var]) or self:Sum("FLAG", cfg, conditionName[var]) then
-										match = true
-										break
-									end
-								end
-							else
-								match = self.conditions[tag.var] or (cfg and cfg.skillCond and cfg.skillCond[tag.var]) or self:Sum("FLAG", cfg, conditionName[tag.var])
-							end
-							if tag.neg then
-								match = not match
-							end
-							if not match then
-								value = nullValue
-								break
-							end
-						elseif tag.type == "EnemyCondition" then
-							local match = false
-							local enemy = self.actor.enemy
-							if enemy then
-								if tag.varList then
-									for _, var in pairs(tag.varList) do
-										if enemy.modDB.conditions[var] or enemy.modDB:Sum("FLAG", nil, conditionName[var]) then
-											match = true
-											break
-										end
-									end
-								else
-									match = enemy.modDB.conditions[tag.var] or enemy.modDB:Sum("FLAG", nil, conditionName[tag.var])
-								end
-								if tag.neg then
-									match = not match
-								end
-							end
-							if not match then
-								value = nullValue
-								break
-							end
-						elseif tag.type == "ParentCondition" then
-							local match = false
-							local parent = self.actor.parent
-							if parent then
-								if tag.varList then
-									for _, var in pairs(tag.varList) do
-										if parent.modDB.conditions[var] or parent.modDB:Sum("FLAG", nil, conditionName[var]) then
-											match = true
-											break
-										end
-									end
-								else
-									match = parent.modDB.conditions[tag.var] or parent.modDB:Sum("FLAG", nil, conditionName[tag.var])
-								end
-							end
-							if tag.neg then
-								match = not match
-							end
-							if not match then
-								value = nullValue
-								break
-							end
-						elseif tag.type == "SocketedIn" then
-							if not cfg or tag.slotName ~= cfg.slotName or (tag.keyword and (not cfg or not cfg.skillGem or not calcLib.gemIsType(cfg.skillGem, tag.keyword))) then
-								value = nullValue
-								break
-							end
-						elseif tag.type == "SkillName" then
-							local match = false
-							local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName)
-							if tag.skillNameList then
-								for _, name in pairs(tag.skillNameList) do
-									if name == matchName then
-										match = true
-										break
-									end
-								end
-							else
-								match = (tag.skillName == matchName)
-							end
-							if not match then
-								value = nullValue
-								break
-							end
-						elseif tag.type == "SkillId" then
-							if not cfg or not cfg.skillGem or cfg.skillGem.grantedEffect.id ~= tag.skillId then
-								value = nullValue
-								break
-							end
-						elseif tag.type == "SkillPart" then
-							if not cfg or tag.skillPart ~= cfg.skillPart then
-								value = nullValue
-								break
-							end
-						elseif tag.type == "SkillType" then
-							if not cfg or not cfg.skillTypes or not cfg.skillTypes[tag.skillType] then
-								value = nullValue
-								break
-							end
-						elseif tag.type == "SlotName" then
-							if not cfg or tag.slotName ~= cfg.slotName then
-								value = nullValue
-								break
-							end
-						end
-						end
+					local value
+					if mod.tagList[1] then
+						value = self:EvalMod(mod, cfg) or nullValue
+					else
+						value = mod.value
+					end
 					if tabulate then
 						if value and value ~= 0 then
 							t_insert(result, { value = value, mod = mod })

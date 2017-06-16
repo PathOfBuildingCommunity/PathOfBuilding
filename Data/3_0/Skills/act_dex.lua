@@ -355,7 +355,7 @@ skills["ChargedAttack"] = {
 		--"base_skill_show_average_damage_instead_of_dps" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
 		skill("radius", 14), 
-		mod("Damage", "MORE", 120, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Damage", "MORE", 120, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }), 
 		skill("dpsMultiplier", 3, { type = "SkillPart", skillPart = 3 }), 
 	},
 	qualityMods = {
@@ -448,9 +448,9 @@ skills["BladeVortex"] = {
 		--"action_ignores_crit_tracking" = ?
 		--"base_skill_show_average_damage_instead_of_dps" = ?
 		skill("radius", 15), 
-		mod("Damage", "MORE", 150, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 2 }), 
-		mod("Damage", "MORE", 300, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 3 }), 
-		mod("Damage", "MORE", 600, ModFlag.Spell, 0, { type = "SkillPart", skillPart = 4 }), 
+		mod("Damage", "MORE", 150, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }), 
+		mod("Damage", "MORE", 300, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 }), 
+		mod("Damage", "MORE", 600, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 4 }), 
 		skill("hitTimeOverride", 0.6, { type = "SkillPart", skillPart = 1 }), 
 		skill("hitTimeOverride", 0.4, { type = "SkillPart", skillPart = 2 }), 
 		skill("hitTimeOverride", 0.3, { type = "SkillPart", skillPart = 3 }), 
@@ -584,7 +584,7 @@ skills["BlastRain"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Fires an arrow up in the air, which splits and rains down in a series of explosions over an area. The explosions will always overlap on the targeted area.",
-	skillTypes = { [1] = true, [11] = true, [14] = true, [22] = true, [17] = true, [19] = true, [33] = true, [48] = true, },
+	skillTypes = { [1] = true, [11] = true, [14] = true, [22] = true, [17] = true, [19] = true, [33] = true, [48] = true, [57] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -3176,6 +3176,7 @@ skills["LightningStrike"] = {
 		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
 		mod("Damage", "MORE", -25, ModFlag.Projectile), --"active_skill_projectile_damage_+%_final" = -25
 		--"total_projectile_spread_angle_override" = 70
+		mod("Damage", "MORE", -25, ModFlag.Dot, 0, { type = "SkillPart", skillPart = 2 }), --"active_skill_damage_over_time_from_projectile_hits_+%_final" = -25
 		--"show_number_of_projectiles" = ?
 	},
 	qualityMods = {
@@ -3508,7 +3509,7 @@ skills["PoachersMark"] = {
 		[2] = skill("manaCost", nil), 
 		[3] = skill("duration", nil), --"base_skill_effect_duration"
 		[4] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
-		[5] = mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse"}), --"evasion_rating_+%_final_from_poachers_mark"
+		[5] = mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"evasion_rating_+%_final_from_poachers_mark"
 		[6] = mod("SelfLifeOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }), --"life_granted_when_hit_by_attacks"
 		[7] = mod("SelfManaOnHit", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }), --"mana_granted_when_hit_by_attacks"
 		--[8] = "chance_to_grant_frenzy_charge_on_death_%"
@@ -3654,8 +3655,10 @@ skills["Puncture"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
+		skill("duration", 8), --"base_skill_effect_duration" = 8000
 		--"skill_can_fire_arrows" = ?
 		mod("BleedChance", "BASE", 100), --"global_bleed_on_hit" = ?
+		skill("bleedDurationIsSkillDuration", true), --"bleed_duration_is_skill_duration" = ?
 		skill("bleedIsSkillEffect", true), 
 	},
 	qualityMods = {

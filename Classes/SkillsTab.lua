@@ -481,7 +481,7 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 
 		-- Update the main controls
 		self.controls.groupLabel:SetText(socketGroup.label)
-		self.controls.groupSlot:SelByValue(socketGroup.slot or "None", "slotName")
+		self.controls.groupSlot:SelByValue(socketGroup.slot, "slotName")
 		self.controls.groupEnabled.state = socketGroup.enabled
 
 		-- Update the gem slot controls

@@ -446,7 +446,7 @@ skills["SupportChanceToBleed"] = {
 	support = true,
 	requireSkillTypes = { 1, },
 	addSkillTypes = { },
-	excludeSkillTypes = { },
+	excludeSkillTypes = { 9, },
 	baseMods = {
 		mod("ManaCost", "MORE", 20), 
 		mod("BleedChance", "BASE", 25, ModFlag.Attack), --"bleed_on_hit_with_attacks_%" = 25
@@ -456,8 +456,8 @@ skills["SupportChanceToBleed"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack, nil), --"attack_minimum_added_physical_damage"
-		[3] = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, nil), --"attack_maximum_added_physical_damage"
+		[2] = mod("PhysicalMin", "BASE", nil, ModFlag.Weapon, KeywordFlag.Attack, nil), --"attack_minimum_added_physical_damage_with_weapons"
+		[3] = mod("PhysicalMax", "BASE", nil, ModFlag.Weapon, KeywordFlag.Attack, nil), --"attack_maximum_added_physical_damage_with_weapons"
 	},
 	levels = {
 		[1] = { 8, 1, 2, },
@@ -1387,7 +1387,7 @@ skills["SupportMaim"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "Maimed" }), --"support_maimed_enemies_physical_damage_taken_+%"
+		[2] = mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Maim" }, { type = "Condition", var = "Maimed" }), --"support_maimed_enemies_physical_damage_taken_+%"
 		[3] = mod("PhysicalDamage", "MORE", nil), --"support_maim_chance_physical_damage_+%_final"
 	},
 	levels = {

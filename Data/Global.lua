@@ -86,6 +86,8 @@ KeywordFlag.Totem =		0x004000
 KeywordFlag.Minion =	0x008000
 KeywordFlag.Attack =	0x010000
 KeywordFlag.Spell =		0x020000
+KeywordFlag.Hit =		0x040000
+KeywordFlag.Ailment =	0x080000
 -- Other effects
 KeywordFlag.Poison =	0x100000
 KeywordFlag.Bleed =		0x200000

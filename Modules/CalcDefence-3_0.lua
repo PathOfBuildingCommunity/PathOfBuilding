@@ -200,8 +200,8 @@ function calcs.defence(env, actor)
 					s_format("Approximate evade chance: %d%%", output.EvadeChance),
 				}
 			end
-			output.MeleeEvadeChance = m_max(5, m_min(95, output.EvadeChance * calcLib.mod(modDB, nil, "MeleeEvadeChance")))
-			output.ProjectileEvadeChance = m_max(5, m_min(95, output.EvadeChance * calcLib.mod(modDB, nil, "ProjectileEvadeChance")))
+			output.MeleeEvadeChance = m_max(5, m_min(95, output.EvadeChance * calcLib.mod(modDB, nil, "EvadeChance", "MeleeEvadeChance")))
+			output.ProjectileEvadeChance = m_max(5, m_min(95, output.EvadeChance * calcLib.mod(modDB, nil, "EvadeChance", "ProjectileEvadeChance")))
 		end
 	end
 

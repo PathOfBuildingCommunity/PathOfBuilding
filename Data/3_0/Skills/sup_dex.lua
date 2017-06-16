@@ -1033,7 +1033,7 @@ skills["SupportDamageAgainstChilled"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "EnemyCondition", var = "Chilled" }), --"support_hypothermia_damage_+%_vs_chilled_enemies_final"
+		[2] = mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "EnemyCondition", var = "Chilled" }), --"support_hypothermia_damage_+%_vs_chilled_enemies_final"
 	},
 	levels = {
 		[1] = { 31, 20, },
@@ -1193,10 +1193,11 @@ skills["SupportLesserMultipleProjectiles"] = {
 skills["SupportLesserPoison"] = {
 	name = "Lesser Poison",
 	gemTags = {
+		chaos = true,
 		dexterity = true,
 		support = true,
 	},
-	gemTagString = "Support",
+	gemTagString = "Chaos, Support",
 	gemStr = 0,
 	gemDex = 100,
 	gemInt = 0,
@@ -1926,14 +1927,14 @@ skills["SupportTrapAndMineDamage"] = {
 skills["SupportDebilitate"] = {
 	name = "Vile Toxins",
 	gemTags = {
-		strength = true,
+		dexterity = true,
 		support = true,
 	},
 	gemTagString = "Support",
 	gemStr = 0,
 	gemDex = 100,
 	gemInt = 0,
-	color = 1,
+	color = 2,
 	support = true,
 	requireSkillTypes = { 10, 1, },
 	addSkillTypes = { },

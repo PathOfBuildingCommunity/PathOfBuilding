@@ -1245,7 +1245,7 @@ function calcs.offence(env, actor)
 					skillPart = skillCfg.skillPart,
 					slotName = skillCfg.slotName,
 					flags = ModFlag.Dot,
-					keywordFlags = bor(skillCfg.keywordFlags, KeywordFlag.Bleed),
+					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Bleed, KeywordFlag.Ailment),
 					skillCond = { },
 				}
 			end
@@ -1277,14 +1277,23 @@ function calcs.offence(env, actor)
 						globalBreakdown.BleedEffMult = breakdown.effMult("Physical", resist, 0, taken, effMult)
 					end
 				end
-				output.BleedDPS = baseVal * effMult
+				local effectMod = calcLib.mod(modDB, dotCfg, "AilmentEffect")
+				output.BleedDPS = baseVal * effectMod * effMult
 				local durationMod = calcLib.mod(modDB, dotCfg, "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
 				globalOutput.BleedDuration = 5 * durationMod * debuffDurationMult
 				if breakdown then
 					t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(bleed deals %d%% per second)", basePercent/100, basePercent))
+					if effectMod ~= 1 then
+						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ailment effect modifier)", effectMod))
+					end
 					t_insert(breakdown.BleedDPS, s_format("= %.1f", baseVal))
-					t_insert(breakdown.BleedDPS, "Bleed DPS:")
-					breakdown.dot(breakdown.BleedDPS, baseVal, 0, 1, nil, effMult, output.BleedDPS)
+					breakdown.multiChain(breakdown.BleedDPS, {
+						label = "Bleed DPS:",
+						base = s_format("%.1f ^8(base damage per second)", baseVal), 
+						{ "%.2f ^8(ailment effect modifier)", effectMod },
+						{ "%.3f ^8(effective DPS modifier)", effMult },
+						total = s_format("= %.1f ^8per second", output.BleedDPS),
+					})
 					if globalOutput.BleedDuration ~= 5 then
 						globalBreakdown.BleedDuration = {
 							"5.00s ^8(base duration)"
@@ -1309,7 +1318,7 @@ function calcs.offence(env, actor)
 					skillPart = skillCfg.skillPart,
 					slotName = skillCfg.slotName,
 					flags = ModFlag.Dot,
-					keywordFlags = bor(skillCfg.keywordFlags, KeywordFlag.Poison),
+					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Poison, KeywordFlag.Ailment),
 					skillCond = { },
 				}
 			end
@@ -1348,7 +1357,8 @@ function calcs.offence(env, actor)
 						globalBreakdown.PoisonEffMult = breakdown.effMult("Chaos", resist, 0, taken, effMult)
 					end
 				end
-				output.PoisonDPS = baseVal * effMult
+				local effectMod = calcLib.mod(modDB, dotCfg, "AilmentEffect")
+				output.PoisonDPS = baseVal * effectMod * effMult
 				local durationBase
 				if skillData.poisonDurationIsSkillDuration then
 					durationBase = skillData.duration
@@ -1367,8 +1377,13 @@ function calcs.offence(env, actor)
 				if breakdown then
 					t_insert(breakdown.PoisonDPS, "x 0.16 ^8(poison deals 16% per second)")
 					t_insert(breakdown.PoisonDPS, s_format("= %.1f", baseVal, 1))
-					t_insert(breakdown.PoisonDPS, "Poison DPS:")
-					breakdown.dot(breakdown.PoisonDPS, baseVal, 0, 1, nil, effMult, output.PoisonDPS)
+					breakdown.multiChain(breakdown.PoisonDPS, {
+						label = "Poison DPS:",
+						base = s_format("%.1f ^8(base damage per second)", baseVal), 
+						{ "%.2f ^8(ailment effect modifier)", effectMod },
+						{ "%.3f ^8(effective DPS modifier)", effMult },
+						total = s_format("= %.1f ^8per second", output.PoisonDPS),
+					})
 					if globalOutput.PoisonDuration ~= 2 then
 						globalBreakdown.PoisonDuration = {
 							s_format("%.2fs ^8(base duration)", durationBase)
@@ -1414,7 +1429,7 @@ function calcs.offence(env, actor)
 					skillPart = skillCfg.skillPart,
 					slotName = skillCfg.slotName,
 					flags = ModFlag.Dot,
-					keywordFlags = bor(skillCfg.keywordFlags, KeywordFlag.Ignite),
+					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Ignite, KeywordFlag.Ailment),
 					skillCond = { },
 				}
 			end
@@ -1461,8 +1476,9 @@ function calcs.offence(env, actor)
 						globalBreakdown.IgniteEffMult = breakdown.effMult("Fire", resist, 0, taken, effMult)
 					end
 				end
+				local effectMod = calcLib.mod(modDB, dotCfg, "AilmentEffect")
 				local burnRateMod = calcLib.mod(modDB, cfg, "IgniteBurnRate")
-				output.IgniteDPS = baseVal * burnRateMod * effMult
+				output.IgniteDPS = baseVal * effectMod * burnRateMod * effMult
 				local incDur = modDB:Sum("INC", dotCfg, "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration") + enemyDB:Sum("INC", nil, "SelfIgniteDuration")
 				local moreDur = enemyDB:Sum("MORE", nil, "SelfIgniteDuration")
 				globalOutput.IgniteDuration = 4 * (1 + incDur / 100) * moreDur / burnRateMod * debuffDurationMult
@@ -1478,8 +1494,14 @@ function calcs.offence(env, actor)
 				if breakdown then
 					t_insert(breakdown.IgniteDPS, "x 0.4 ^8(ignite deals 40% per second)")
 					t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
-					t_insert(breakdown.IgniteDPS, "Ignite DPS:")
-					breakdown.dot(breakdown.IgniteDPS, baseVal, 0, 1, burnRateMod, effMult, output.IgniteDPS)
+					breakdown.multiChain(breakdown.IgniteDPS, {
+						label = "Ignite DPS:",
+						base = s_format("%.1f ^8(base damage per second)", baseVal), 
+						{ "%.2f ^8(ailment effect modifier)", effectMod },
+						{ "%.2f ^8(burn rate modifier)", burnRateMod },
+						{ "%.3f ^8(effective DPS modifier)", effMult },
+						total = s_format("= %.1f ^8per second", output.IgniteDPS),
+					})
 					if skillFlags.igniteCanStack then
 						breakdown.IgniteDamage = { }
 						if isAttack then
@@ -1641,7 +1663,7 @@ function calcs.offence(env, actor)
 			skillPart = skillCfg.skillPart,
 			slotName = skillCfg.slotName,
 			flags = ModFlag.Dot,
-			keywordFlags = skillCfg.keywordFlags,
+			keywordFlags = band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)),
 		}
 		local dotCfg = mainSkill.decayCfg
 		local effMult = 1

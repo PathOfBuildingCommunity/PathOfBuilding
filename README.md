@@ -53,6 +53,23 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.31 - 2017/06/16
+ * The Buff/Debuff Skill lists in the Calcs tab now have breakdowns that list all the modifiers granted by those skills
+ * Added an option to the Configuration tab for "Are you always on full Energy Shield?"
+ * Fixed issue causing gems with a low maximum level to sometimes be assigned the wrong default level
+ * Fixed issue causing the slot dropdown in the Skills tab to fail to update correctly under some conditions
+For 3.0 builds:
+ * The new support gems have been updated with the new data from the beta patch
+ * Applied the following changes from the beta patch:
+    * Blade Vortex's per-blade damage multiplier now applies to Ailments
+    * Flameblast's per-stage damage multiplier no longer applies to Decay
+	* Incinerate's per-stage damage multiplier no longer applies to Decay
+	* Blade Flurry's per-stage damage multiplier no longer applies to Decay
+ * Minion's Decay DPS is now shown in the sidebar
+ * Immolate and Hypothermia's conditional modifiers now apply to Ailments
+ * Unbound Ailments's modifier to Effect of Ailments should now function correctly
+ * Fixed issue causing the "increased Physical Damage taken" stat from Maim Support to sometimes apply multiple times
+
 ### 1.4.30 - 2017/06/16
  * Mind over Matter is now displayed in the Damage Taken section of the Calcs tab, instead of Other Defences
 For 3.0 builds:

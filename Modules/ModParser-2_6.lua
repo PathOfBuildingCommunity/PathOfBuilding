@@ -88,6 +88,8 @@ local modNameList = {
 	["evasion and energy shield"] = "EvasionAndEnergyShield",
 	["armour, evasion and energy shield"] = "Defences",
 	["defences"] = "Defences",
+	["chance to evade"] = "EvadeChance",
+	["chance to evade attacks"] = "EvadeChance",
 	["chance to evade projectile attacks"] = "ProjectileEvadeChance",
 	["chance to evade melee attacks"] = "MeleeEvadeChance",
 	-- Resistances
@@ -488,6 +490,7 @@ local modTagList = {
 	["wh[ie][ln]e? not on full life"] = { tag = { type = "Condition", var = "FullLife", neg = true } },
 	["wh[ie][ln]e? no mana is reserved"] = { tag = { type = "Condition", var = "NoManaReserved" } },
 	["wh[ie][ln]e? on full energy shield"] = { tag = { type = "Condition", var = "FullEnergyShield" } },
+	["wh[ie][ln]e? not on full energy shield"] = { tag = { type = "Condition", var = "FullEnergyShield", neg = true } },
 	["while you have no power charges"] = { tag = { type = "Condition", var = "HaveNoPowerCharges" } },
 	["while you have no frenzy charges"] = { tag = { type = "Condition", var = "HaveNoFrenzyCharges" } },
 	["while you have no endurance charges"] = { tag = { type = "Condition", var = "HaveNoEnduranceCharges" } },
