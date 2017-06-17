@@ -163,6 +163,23 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 		t_insert(self.sectionList, section)
 	end
 
+	if breakdown.damageTypes and #breakdown.damageTypes > 0 then
+		local section = {
+			type = "TABLE",
+			rowList = breakdown.damageTypes,
+			colList = { 
+				{ label = "From", key = "source", right = true },
+				{ label = "Base", key = "base" },
+				{ label = "Inc/red", key = "inc" },
+				{ label = "More/less", key = "more" },
+				{ label = "Converted Damage", key = "convSrc" },
+				{ label = "Total", key = "total" },
+				{ label = "Conversion", key = "convDst" },
+			}
+		}
+		t_insert(self.sectionList, section)
+	end
+
 	if breakdown.slots and #breakdown.slots > 0 then
 		-- Slots table, used for armour/evasion/ES total breakdowns
 		local section = { 

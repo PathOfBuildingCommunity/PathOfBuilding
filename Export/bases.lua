@@ -1,3 +1,5 @@
+loadStatFile("stat_descriptions.txt")
+
 local directiveTable = { }
 
 directiveTable.type = function(state, args, out)

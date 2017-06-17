@@ -259,3 +259,5 @@ ModelManifest.xml
 /Export/lol.csv
 /Export/test.lua
 *.csv#
+/Export/passive_skill_stat_descriptions.txt
+/Export/passive_skill_aura_stat_descriptions.txt

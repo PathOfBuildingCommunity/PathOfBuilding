@@ -158,6 +158,8 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		data.rsq = size * size
 	end
 
+	local err, passives = PLoadModule("Data/"..targetVersion.."/Passives.lua")
+
 	ConPrintf("Processing tree...")
 	self.keystoneMap = { }
 	local nodeMap = { }
@@ -212,6 +214,11 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		local dist = orbitDist[node.o]
 		node.x = group.x + m_sin(node.angle) * dist
 		node.y = group.y - m_cos(node.angle) * dist
+
+		if passives then
+			-- Passive data is available, override the descriptions
+			node.sd = passives[node.id]
+		end
 
 		-- Parse node modifier lines
 		node.mods = { }
