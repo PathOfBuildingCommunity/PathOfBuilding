@@ -2859,7 +2859,7 @@ skills["IceNova"] = {
 		skill("castTime", 0.8), 
 		skill("damageEffectiveness", 0.7), 
 		skill("CritChance", 6), 
-		--"active_skill_if_used_through_frostbolt_damage_+%_final" = 40
+		mod("Damage", "MORE", 40, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }), --"active_skill_if_used_through_frostbolt_damage_+%_final" = 40
 		--"is_area_damage" = ?
 		skill("radius", 30), 
 	},
@@ -5367,7 +5367,7 @@ skills["FrostBoltNova"] = {
 		skill("castTime", 0.9), 
 		skill("CritChance", 5), 
 		skill("duration", 3), --"base_skill_effect_duration" = 3000
-		--"active_skill_if_used_through_frostbolt_damage_+%_final" = 40
+		mod("Damage", "MORE", 40, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }), --"active_skill_if_used_through_frostbolt_damage_+%_final" = 40
 		--"is_area_damage" = ?
 		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_skill_dot" = ?
 		skill("dotIsArea", true), 

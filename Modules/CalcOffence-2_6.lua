@@ -82,7 +82,7 @@ local function calcHitDamage(actor, source, cfg, breakdown, damageType, ...)
 	if baseMin == 0 and baseMax == 0 then
 		-- No base damage for this type, don't need to calculate modifiers
 		if breakdown and (addMin ~= 0 or addMax ~= 0) then
-			t_insert(breakdown.rowList, {
+			t_insert(breakdown.damageTypes, {
 				source = damageType,
 				convSrc = (addMin ~= 0 or addMax ~= 0) and (addMin .. " to " .. addMax),
 				total = addMin .. " to " .. addMax,
@@ -111,7 +111,7 @@ local function calcHitDamage(actor, source, cfg, breakdown, damageType, ...)
 	local more = m_floor(modDB:Sum("MORE", cfg, unpack(modNames)) * 100 + 0.50000001) / 100
 
 	if breakdown then
-		t_insert(breakdown.rowList, {
+		t_insert(breakdown.damageTypes, {
 			source = damageType,
 			base = baseMin .. " to " .. baseMax,
 			inc = (inc ~= 1 and "x "..inc),
@@ -727,18 +727,7 @@ function calcs.offence(env, actor)
 				local min, max
 				if skillFlags.hit and canDeal[damageType] then
 					if breakdown then
-						breakdown[damageType] = {
-							rowList = { },
-							colList = { 
-								{ label = "From", key = "source", right = true },
-								{ label = "Base", key = "base" },
-								{ label = "Inc/red", key = "inc" },
-								{ label = "More/less", key = "more" },
-								{ label = "Converted Damage", key = "convSrc" },
-								{ label = "Total", key = "total" },
-								{ label = "Conversion", key = "convDst" },
-							}
-						}
+						breakdown[damageType] = { damageTypes = { } }
 					end
 					min, max = calcHitDamage(actor, source, cfg, breakdown and breakdown[damageType], damageType)
 					local convMult = actor.conversionTable[damageType].mult

@@ -29,6 +29,7 @@ loadDat("Essences")
 loadDat("NPCs")
 loadDat("NPCMaster")
 loadDat("CraftingBenchOptions")
+loadDat("PassiveSkills")
 
 while true do
 	print("Enter export script name:")

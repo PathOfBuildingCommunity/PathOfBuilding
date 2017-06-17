@@ -1,3 +1,5 @@
+loadStatFile("stat_descriptions.txt")
+
 local itemClassMap = {
 	[4] = "Amulet",
 	[5] = "Ring",

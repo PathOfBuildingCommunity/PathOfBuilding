@@ -53,6 +53,19 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.33 - 2017/06/18
+For 3.0 builds:
+ * Updated the wording of various passives
+   * Many conditional modifiers on passives will now apply to Ailments
+ * Frostbolt and Ice Nova now have a "Cast on Frostbolt?" option in the Configuration tab to enable the 40% more Damage
+ * Updated poison and bleed damage ratios to 20% and 70% respectively
+ * The Bleed, Poison and Ignite sections of the Calcs tab now include breakdowns of the source damage for those ailments
+ * The breakdowns for Bleed, Poison and Ignite DPS have had some minor improvements in wording
+ * Damage Multiplier for Ailments from Critical Strikes is now displayed in the Crits section of the Calcs tab
+    * It should also now be calculated correctly
+ * All sources of added base damage should now apply to Ailments if they can also apply to the hit
+Also, for ZiggyD: "Double Dipping"
+
 ### 1.4.32 - 2017/06/17
  * Fixed error caused by Punishment
 For 3.0 builds:

@@ -1,11 +1,24 @@
 local nk = { }
 
-local statDescriptor = { }
-do
+local curFile
+local statDescriptor
+function loadStatFile(fileName)
+	if fileName == curFile then
+		return
+	end
+	curFile = fileName
+	statDescriptor = { }
 	local curLang
 	local curDescriptor = { }
 	local order = 1
-	for line in io.lines("stat_descriptions.txt") do
+	local function processLine(line)
+		local include = line:match('include "Metadata/StatDescriptions/(.+)"$')
+		if include then
+			for line in io.lines(include) do
+				processLine(line)
+			end
+			return
+		end
 		local noDesc = line:match("no_description ([%w_%+%-%%]+)")
 		if noDesc then
 			statDescriptor[noDesc] = { order = 0 }
@@ -58,6 +71,10 @@ do
 			end
 		end
 	end
+	for line in io.lines(fileName) do
+		processLine(line)
+	end
+	print(fileName.. " loaded.")
 end
 
 for k, v in pairs(nk) do
@@ -194,5 +211,3 @@ function describeMod(mod)
 	end
 	return describeStats(stats)
 end
-
-print("Stat descriptions loaded.")
