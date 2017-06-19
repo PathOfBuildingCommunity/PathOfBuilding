@@ -292,6 +292,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
 		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true },
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
+		{ stat = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true },
+		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true },
 		{ stat = "WithPoisonDPS", label = "DPS inc. Poison", fmt = ".1f", compPercent = true },
 		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },

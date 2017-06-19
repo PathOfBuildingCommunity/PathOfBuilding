@@ -53,6 +53,14 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.34 - 2017/06/18
+ * Bleed and Ignite DPS are now shown in the Minion section of the sidebar
+ * The Mana Regen calculation now correctly handles Recovery modifiers
+For 3.0 builds:
+ * The damage of Minion Ailments have been corrected; previously they were using the same damage ratios as players,
+   when in fact they now deal 50% less Poison and Ignite damage, and 86% less Bleeding against stationary targets
+    * Note that the player damage ratios were increased in 3.0, so this restores minions to their previous damage
+
 ### 1.4.33 - 2017/06/18
 For 3.0 builds:
  * Updated the wording of various passives

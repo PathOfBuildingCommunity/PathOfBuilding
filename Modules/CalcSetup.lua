@@ -157,7 +157,12 @@ function calcs.initEnv(build, mode, override)
 	modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
 	modDB:NewMod("PhysicalDamage", "MORE", 20, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
 	modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" })
-	
+	if build.targetVersion == "2_6" then
+		modDB:NewMod("Damage", "MORE", 500, "Base", 0, KeywordFlag.Bleed, { type = "EnemyCondition", var = "Moving" })
+	else
+		modDB:NewMod("Damage", "MORE", 100, "Base", 0, KeywordFlag.Bleed, { type = "EnemyCondition", var = "Moving" })
+	end	
+
 	-- Add bandit mods
 	if build.targetVersion == "2_6" then
 		if build.banditNormal == "Alira" then
