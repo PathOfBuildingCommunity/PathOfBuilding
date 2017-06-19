@@ -7,7 +7,7 @@
 	<File sha1="2fb719ed2a9648b2dd13a137f650b3c0e48705fa" name="Launch.lua" part="program"/>
 	<File sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="c892560fd8e4999d492b8513c0f7baf449fc7fe2" name="changelog.txt" part="program"/>
+	<File sha1="b0339e71532d7914dfb64849a797fd554476158a" name="changelog.txt" part="program"/>
 	<File sha1="3558da442f2fc18c3e1ea751b301be863dee56e8" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="dc2ffb55b4aae04b86886b25bbf219a301b21340" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="ddccb0e96095c203385d9a448d20ab1a72dc6b12" name="Classes/CalcBreakdownControl.lua" part="program"/>

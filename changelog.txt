@@ -1,6 +1,6 @@
-VERSION[1.4.34][2017/06/18]
+VERSION[1.4.34][2017/06/19]
  * Bleed and Ignite DPS are now shown in the Minion section of the sidebar
- * The Mana Regen calculation now correctly handles Recovery modifiers
+ * The Mana Regen and ES Recharge calculations now correctly handle Recovery modifiers
 For 3.0 builds:
  * The damage of Minion Ailments have been corrected; previously they were using the same damage ratios as players,
    when in fact they now deal 50% less Poison and Ignite damage, and 86% less Bleeding against stationary targets
