@@ -237,7 +237,7 @@ function GemSelectClass:Draw(viewPort)
 			   DrawImage(nil, x, y, width, height)
 			end
 		end
-		if mOver then
+		if mOver and (self.dropped or not self.skillsTab.selControl) then
 			local gem = self.skillsTab.displayGroup.gemList[self.index]
 			if gem and gem.grantedEffect then
 				SetDrawLayer(nil, 10)

@@ -104,19 +104,13 @@ end
 local function calcAilmentSourceDamage(actor, output, cfg, breakdown, damageType, ...)
 	local min, max = calcDamage(actor, output, cfg, breakdown, damageType, ...)
 	local convMult = actor.conversionTable[damageType].mult
-	if breakdown then
+	if breakdown and convMult ~= 1 then
 		t_insert(breakdown, "Source damage:")
 		t_insert(breakdown, s_format("%d to %d ^8(total damage)", min, max))
-		if convMult ~= 1 then
-			t_insert(breakdown, s_format("x %g ^8(%g%% converted to other damage types)", convMult, (1-convMult)*100))
-		end
+		t_insert(breakdown, s_format("x %g ^8(%g%% converted to other damage types)", convMult, (1-convMult)*100))
+		t_insert(breakdown, s_format("= %d to %d", min * convMult, max * convMult))
 	end
-	min = min * convMult
-	max = max * convMult
-	if breakdown then
-		t_insert(breakdown, s_format("= %d to %d", min, max))
-	end
-	return min, max
+	return min * convMult, max * convMult
 end
 
 -- Performs all offensive calculations

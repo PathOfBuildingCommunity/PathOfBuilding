@@ -157,7 +157,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 			local easy = curl.easy()
 			easy:setopt_url("https://pastebin.com/api/api_post.php")
 			easy:setopt(curl.OPT_POST, true)
-			easy:setopt(curl.OPT_POSTFIELDS, "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_option=paste&api_paste_code="..code)
+			easy:setopt(curl.OPT_POSTFIELDS, "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_paste_private=1&api_option=paste&api_paste_code="..code)
 			easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
 			if proxyURL then
 				easy:setopt(curl.OPT_PROXY, proxyURL)

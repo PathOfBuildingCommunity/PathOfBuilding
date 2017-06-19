@@ -328,12 +328,8 @@ local varList = {
 		modList:NewMod("CritChanceLucky", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "projectileDistance", type = "number", label = "Projectile travel distance:", ifFlag = "projectile" },
-	{ var = "conditionEnemyMoving", type = "check", label = "Is the enemy Moving?", ifFlag = "bleed", apply = function(val, modList, enemyModList, build)
-		if build.targetVersion == "2_6" then
-			modList:NewMod("Damage", "MORE", 500, "Movement", 0, KeywordFlag.Bleed)
-		else
-			modList:NewMod("Damage", "MORE", 100, "Movement", 0, KeywordFlag.Bleed)
-		end
+	{ var = "conditionEnemyMoving", type = "check", label = "Is the enemy Moving?", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:Moving", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyFullLife", type = "check", label = "Is the enemy on Full Life?", ifEnemyCond = "FullLife", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:FullLife", "FLAG", true, "Config", { type = "Condition", var = "Effective" })

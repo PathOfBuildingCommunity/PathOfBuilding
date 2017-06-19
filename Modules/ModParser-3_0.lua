@@ -927,6 +927,7 @@ local keystoneList = {
 	"Mind Over Matter",
 	"Minion Instability",
 	"Pain Attunement",
+	"Perfect Agony",
 	"Phase Acrobatics",
 	"Point Blank",
 	"Resolute Technique",
