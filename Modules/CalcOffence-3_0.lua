@@ -1350,7 +1350,7 @@ function calcs.offence(env, actor)
 			for pass = 1, 2 do
 				dotCfg.skillCond["CriticalStrike"] = (pass == 1)
 				local totalMin, totalMax = 0, 0
-				do
+				if canDeal.Physical then
 					local min, max = calcAilmentSourceDamage(actor, output, dotCfg, pass == 2 and breakdown and breakdown.PoisonPhysical, "Physical", "Chaos")
 					if env.mode == "CALCS" then
 						output.PoisonPhysicalMin = min

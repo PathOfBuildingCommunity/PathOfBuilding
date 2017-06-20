@@ -30,10 +30,12 @@ Chill and Freeze duration on you is based on 65% of Energy Shield
 ]],[[
 Auxium
 Crystal Belt
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 70
 +(60-80) to maximum Energy Shield
-(10-20)% increased Elemental Damage with Weapons
+{variant:1}(10-20)% increased Elemental Damage with Weapons
+{variant:2}(10-20)% increased Elemental Damage with Attack Skills
 +(45-55) to maximum Mana
 +(60-70) to maximum Energy Shield
 0.2% of Attack Damage Leeched as Mana per Power Charge
@@ -138,13 +140,16 @@ Adds 5 to 10 Physical Damage to Attacks
 ]],[[
 Headhunter
 Leather Belt
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Nemesis
 Requires Level 40
 +(25-40) to maximum Life
 +(40-55) to Strength
 +(40-55) to Dexterity
 +(50-60) to maximum Life
-(20-30)% increased Damage against Rare monsters
+{variant:1}(20-30)% increased Damage against Rare monsters
+{variant:2}(20-30)% increased Damage with Hits against Rare monsters
 When you Kill a Rare monster, you gain its mods for 20 seconds
 ]],[[
 Immortal Flesh
@@ -224,18 +229,21 @@ You have Onslaught while you have Fortify
 Prismweave
 Rustic Sash
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 25
 (12-24)% increased Physical Damage
-10% increased Elemental Damage with Weapons
+{variant:1,2}10% increased Elemental Damage with Weapons
+{variant:3}10% increased Elemental Damage with Attack Skills
 {variant:1}Adds (3-4) to (7-8) Fire Damage to Attacks
-{variant:2}Adds (7-8) to (15-16) Fire Damage to Attacks
+{variant:2,3}Adds (7-8) to (15-16) Fire Damage to Attacks
 {variant:1}Adds (2-3) to (5-7) Cold Damage to Attacks
-{variant:2}Adds (5-6) to (12-14) Cold Damage to Attacks
+{variant:2,3}Adds (5-6) to (12-14) Cold Damage to Attacks
 {variant:1}Adds 1 to (13-17) Lightning Damage to Attacks
-{variant:2}Adds 1 to (30-34) Lightning Damage to Attacks
+{variant:2,3}Adds 1 to (30-34) Lightning Damage to Attacks
 +(6-8)% to all Elemental Resistances
-30% increased Elemental Damage with Weapons while using a Flask
+{variant:1,2}30% increased Elemental Damage with Weapons while using a Flask
+{variant:3}30% increased Elemental Damage with Attack Skills while using a Flask
 ]],[[
 The Retch
 Rustic Sash
@@ -259,6 +267,18 @@ Adds 1 to (15–20) Physical Damage to Attacks
 Gain 50 Life when you Stun an Enemy 
 20% less Minimum Physical Attack Damage 
 20% more Maximum Physical Attack Damage
+]],[[
+Soul Tether
+Cloth Belt
+Unreleased: true
+Requires Level 16
+(15-25)% increased Stun and Block Recovery
+You cannot Recharge Energy Shield
+You cannot Regenerate Energy Shield
+You lose (4-6)% Energy Shield per second
+Life Leech is applied to Energy Shield instead when on Full Life
+Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
+Your Energy Shield starts at zero
 ]],[[
 Soulthirst
 Cloth Belt

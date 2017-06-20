@@ -222,14 +222,16 @@ Adds (10-15) to (20-25) Cold Damage
 The Searing Touch
 Lathi
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 60, 113 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:2,3}18% Chance to Block
 +2 to Level of Socketed Fire Gems
 (30-50)% increased Spell Damage
-(20-40)% increased Fire Damage
+{variant:1,2}(20-40)% increased Fire Damage
+{variant:3}(70–90)% increased Fire Damage
 10% increased Cast Speed
 70% increased Burning Damage
 ]],[[

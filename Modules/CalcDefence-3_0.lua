@@ -251,7 +251,6 @@ function calcs.defence(env, actor)
 			})				
 		end
 	end
-	output.TotalRegen = 0
 	if modDB:Sum("FLAG", nil, "NoLifeRegen") then
 		output.LifeRegen = 0
 	elseif modDB:Sum("FLAG", nil, "ZealotsOath") then
@@ -273,7 +272,6 @@ function calcs.defence(env, actor)
 		if lifeBase > 0 then
 			output.LifeRegen = lifeBase * calcLib.mod(modDB, nil, "LifeRecovery")
 			output.LifeRegenPercent = round(output.LifeRegen / output.Life * 100, 1)
-			output.TotalRegen = output.TotalRegen + output.LifeRegen
 		else
 			output.LifeRegen = 0
 		end
@@ -289,9 +287,6 @@ function calcs.defence(env, actor)
 		if esBase > 0 then
 			output.EnergyShieldRegen = esBase * calcLib.mod(modDB, nil, "EnergyShieldRecovery")
 			output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
-			if not modDB:Sum("FLAG", nil, "EnergyShieldProtectsMana") then
-				output.TotalRegen = output.TotalRegen + output.EnergyShieldRegen
-			end
 		else
 			output.EnergyShieldRegen = 0
 		end
@@ -410,25 +405,31 @@ function calcs.defence(env, actor)
 		end
 	end
 	if output.TotalDegen then
-		output.TotalLifeDegen = output.TotalDegen * (1 - output.MindOverMatter / 100)
-		output.TotalManaDegen = output.TotalDegen * output.MindOverMatter / 100
-		if output.TotalRegen > 0 or output.MindOverMatter > 0 then
-			output.NetLifeRegen = output.TotalRegen - output.TotalLifeDegen
+		if output.MindOverMatter > 0 and output.LifeRegen > output.EnergyShieldRegen then
+			local lifeDegen = output.TotalDegen * (1 - output.MindOverMatter / 100)
+			local manaDegen = output.TotalDegen * output.MindOverMatter / 100
+			output.NetLifeRegen = output.LifeRegen - lifeDegen
+			output.NetManaRegen = output.ManaRegen - manaDegen
 			if breakdown then
 				breakdown.NetLifeRegen = {
-					s_format("%.1f ^8(total life%s regen)", output.TotalRegen, modDB:Sum("FLAG", nil, "EnergyShieldProtectsMana") and "" or " + energy shield"),	
-					s_format("- %.1f ^8(total life degen)", output.TotalLifeDegen),
+					s_format("%.1f ^8(total life regen)", output.LifeRegen),
+					s_format("- %.1f ^8(total life degen)", lifeDegen),
 					s_format("= %.1f", output.NetLifeRegen),
 				}
-			end
-		end
-		if output.TotalManaDegen > 0 and output.ManaRegen > 0 then
-			output.NetManaRegen = output.ManaRegen - output.TotalManaDegen
-			if breakdown then
 				breakdown.NetManaRegen = {
 					s_format("%.1f ^8(total mana regen)", output.ManaRegen),
-					s_format("- %.1f ^8(total mana degen)", output.TotalManaDegen),
+					s_format("- %.1f ^8(total mana degen)", manaDegen),
 					s_format("= %.1f", output.NetManaRegen),
+				}
+			end
+		else
+			local totalRegen = output.LifeRegen + (modDB:Sum("FLAG", nil, "EnergyShieldProtectsMana") and 0 or output.EnergyShieldRegen)
+			output.NetLifeRegen = totalRegen - output.TotalDegen
+			if breakdown then
+				breakdown.NetLifeRegen = {
+					s_format("%.1f ^8(total life%s regen)", totalRegen, modDB:Sum("FLAG", nil, "EnergyShieldProtectsMana") and "" or " + energy shield"),	
+					s_format("- %.1f ^8(total degen)", output.TotalDegen),
+					s_format("= %.1f", output.NetLifeRegen),
 				}
 			end
 		end

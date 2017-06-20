@@ -47,14 +47,16 @@ Extra Gore
 The Consuming Dark
 Fiend Dagger
 Variant: Pre 2.2.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 53, 58 Dex, 123 Int
 40% increased Global Critical Strike Chance
 +1 to Level of Socketed Fire Gems
-(40-60)% increased Spell Damage
+{variant:1,2}(40-60)% increased Spell Damage
+{variant:3}(40–60)% increased Fire Damage
 +(20-40) to Intelligence
 {variant:1}45% of Fire Damage Converted to Chaos Damage
-{variant:2}30% of Fire Damage Converted to Chaos Damage
+{variant:2,3}30% of Fire Damage Converted to Chaos Damage
 Your Chaos Damage Poisons Enemies
 ]],[[
 Divinarius
@@ -135,9 +137,12 @@ Adds 3 to 30 Lightning Damage
 ]],[[
 Widowmaker
 Boot Blade
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 44, 63 Dex, 90 Int
 30% increased Global Critical Strike Chance
-Adds (15-25) to (35-45) Physical Damage
+{variant:1}Adds (15-25) to (35-45) Physical Damage
+{variant:1}Adds (35–40) to (55–60) Physical Damage
 (22-30)% increased Critical Strike Chance
 +(30-40)% to Global Critical Strike Multiplier
 100% increased Critical Strike Chance against Enemies on Full Life

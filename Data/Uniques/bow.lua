@@ -40,35 +40,41 @@ Implicits: 1
 Death's Harp
 Death Bow
 Variant: Pre 2.2.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 32, 107 Dex
 (30-50)% increased Critical Strike Chance
 (100-125)% increased Physical Damage
 10% increased Attack Speed
-{variant:1}+100% to Global Critical Strike Multiplier
+{variant:1,3}+100% to Global Critical Strike Multiplier
 {variant:2}+150% to Global Critical Strike Multiplier
 Adds an additional Arrow
 ]],[[
 Death's Opus
 Death Bow
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 44, 107 Dex
 (30-50)% increased Critical Strike Chance
 (100-125)% increased Physical Damage
 Adds (10-20) to (30-35) Physical Damage
 10% increased Attack Speed
-+150% to Global Critical Strike Multiplier
+{variant:1}+150% to Global Critical Strike Multiplier
+{variant:2}+100% to Global Critical Strike Multiplier
 2 additional Arrows
 ]],[[
 Doomfletch
 Royal Bow
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 28, 95 Dex
-Implicits: 2
+Implicits: 3
 {variant:1,2}(6-12)% increased Elemental Damage with Weapons
 {variant:3}(20-24)% increased Elemental Damage with Weapons
-{variant:2,3}Adds (8-12) to (16-20) Physical Damage
+{variant:4}(20-24)% increased Elemental Damage with Attack Skills
+{variant:2,3,4}Adds (8-12) to (16-20) Physical Damage
 (10-14)% increased Attack Speed
 (30-40)% increased Critical Strike Chance
 60% increased Mana Regeneration Rate
@@ -77,11 +83,13 @@ Gain 110% of Bow Physical Damage as Extra Damage of an Element
 Doomfletch's Prism
 Royal Bow
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 40, 95 Dex
-Implicits: 2
+Implicits: 3
 {variant:1}(6-12)% increased Elemental Damage with Weapons
 {variant:2}(20-24)% increased Elemental Damage with Weapons
+{variant:3}(20-24)% increased Elemental Damage with Attack Skills
 Adds (8-12) to (16-20) Physical Damage
 (10-14)% increased Attack Speed
 (30-40)% increased Critical Strike Chance
@@ -120,11 +128,13 @@ Lioneye's Glare
 Imperial Bow
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 66, 212 Dex
-Implicits: 2
+Implicits: 3
 {variant:2}(6-12)% increased Elemental Damage with Weapons
 {variant:3}(20-24)% increased Elemental Damage with Weapons
+{variant:4}(20-24)% increased Elemental Damage with Attack Skills
 (150-175)% increased Physical Damage
 Adds (6-12) to (20-32) Physical Damage
 (10-20)% increased Attack Speed
@@ -186,9 +196,12 @@ Requires Level 64, 212 Dex
 ]],[[
 Roth's Reach
 Recurve Bow
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 18, 71 Dex
 (60-80)% increased Physical Damage
-(20-40)% increased Elemental Damage with Weapons
+{variant:1}(20-40)% increased Elemental Damage with Weapons
+{variant:2}(20-40)% increased Elemental Damage with Attack Skills
 (4-8)% increased Attack Speed
 Skills Chain +1 times
 30% increased Projectile Speed
@@ -255,20 +268,22 @@ Windripper
 Imperial Bow
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 66, 212 Dex
-Implicits: 2
+Implicits: 3
 {variant:2}(6-12)% increased Elemental Damage with Weapons
 {variant:3}(20-24)% increased Elemental Damage with Weapons
+{variant:4}(20-24)% increased Elemental Damage with Attack Skills
 Adds (32-40) to (48-60) Cold Damage
 Adds 1 to (80-100) Lightning Damage
 (10-15)% increased Attack Speed
 {variant:1}(80-100)% increased Critical Strike Chance
-{variant:2,3}(60-80)% increased Critical Strike Chance
+{variant:2,3,4}(60-80)% increased Critical Strike Chance
 {variant:1}25% increased Quantity of Items Dropped by Slain Frozen enemies
-{variant:2,3}15% increased Quantity of Items Dropped by Slain Frozen Enemies
+{variant:2,3,4}15% increased Quantity of Items Dropped by Slain Frozen Enemies
 {variant:1}50% increased Rarity of Items Dropped by Slain Shocked enemies
-{variant:2,3}30% increased Rarity of Items Dropped by Slain Shocked Enemies
+{variant:2,3,4}30% increased Rarity of Items Dropped by Slain Shocked Enemies
 ]],[[
 Xoph's Inception
 Bone Bow

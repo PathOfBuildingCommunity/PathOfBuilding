@@ -81,16 +81,19 @@ Legion Sword
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 62, 122 Str, 104 Dex
 Implicits: 2
 {variant:1,2,3}18% increased Accuracy Rating
-{variant:4}40% increased Accuracy Rating
+{variant:4,5}40% increased Accuracy Rating
 {variant:1,2}Adds 1 to (500-600) Lightning Damage
 {variant:3,4}Adds 1 to (550-650) Lightning Damage
+{variant:5}Adds 1 to (650–750) Lightning Damage
 (7-10)% increased Attack Speed
 {variant:1}6% increased Damage taken per Frenzy Charge
 {variant:2,3,4}3% increased Damage taken per Frenzy Charge
+{variant:5}1% increased Damage taken per Frenzy Charge
 12% increased Lightning Damage per Frenzy Charge
 +20 Life gained on Kill per Frenzy Charge
 ]],[[
@@ -374,12 +377,14 @@ Adds (30-38) to (40-50) Cold Damage
 Ewar's Mirage
 Antique Rapier
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 26, 89 Dex
 Implicits: 2
 {variant:1}+30% to Global Critical Strike Multiplier
-{variant:2}+25% to Global Critical Strike Multiplier
-(40-55)% increased Elemental Damage with Weapons
+{variant:2,3}+25% to Global Critical Strike Multiplier
+{variant:1,2}(40-55)% increased Elemental Damage with Weapons
+{variant:3}(40-55)% increased Elemental Damage with Attack Skills
 Adds 1 to (45-55) Lightning Damage
 (16-22)% increased Attack Speed
 Attacks Chain an additional time when in Main Hand
@@ -444,15 +449,17 @@ Manifest Dancing Dervish dies when Rampage ends
 Doomsower
 Lion Sword
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 65, 104 Str, 122 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}+470 to Accuracy Rating
+{variant:2,3}+470 to Accuracy Rating
 Socketed Melee Gems have 15% increased Area of Effect
 Socketed Red Gems get 10% Physical Damage as Extra Fire Damage
 (50-70)% increased Physical Damage
-Adds (50-75) to (85-110) Physical Damage
+{variant:1,2}Adds (50-75) to (85-110) Physical Damage
+{variant:3}Adds (65–75) to (100–110) Physical Damage
 (6-12)% increased Attack Speed
 ]],[[
 Edge of Madness
@@ -521,34 +528,38 @@ Gain a Frenzy Charge if an Attack Ignites an Enemy
 Queen's Decree
 Ornate Sword
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 27, 56 Str, 54 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}+185 to Accuracy Rating
+{variant:2,3}+185 to Accuracy Rating
 Minions have (10-15)% increased maximum Life
 (150-200)% increased Skeleton Duration
 Minions deal (10-15)% increased Damage
 +1 to maximum number of Zombies
 +1 to maximum number of Spectres
-+2 to maximum number of Skeletons
+{variant:1,2}+2 to maximum number of Skeletons
+{variant:3}+1 to maximum number of Skeletons
 25% increased Strength Requirement
 ]],[[
 Queen's Escape
 Ornate Sword
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 38, 56 Str, 54 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}+185 to Accuracy Rating
+{variant:2,3}+185 to Accuracy Rating
 Minions have (10-15)% increased maximum Life
 Minions have (80-100)% increased Movement Speed
 (150-200)% increased Skeleton Duration
 Minions deal (10-15)% increased Damage
 +1 to maximum number of Zombies
 +1 to maximum number of Spectres
-+2 to maximum number of Skeletons
+{variant:1,2}+2 to maximum number of Skeletons
+{variant:3}+1 to maximum number of Skeletons
 25% increased Strength Requirement
 ]],[[
 Rigwald's Charge

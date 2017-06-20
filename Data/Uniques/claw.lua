@@ -37,24 +37,32 @@ Socketed Gems have 10% chance to cause Enemies to Flee on Hit
 ]],[[
 Allure
 Vaal Claw
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 66, 131 Dex, 95 Int
 2% of Physical Attack Damage Leeched as Life
-(80-100)% increased Physical Damage
+{variant:1}(80-100)% increased Physical Damage
+{variant:2}(110–130)% increased Physical Damage
 Adds (15-20) to (30-40) Physical Damage
 (8-12)% increased Attack Speed
 15% increased Movement Speed while Phasing
-You gain Phasing for 3 seconds on using a Vaal Skill
+{variant:1}You gain Phasing for 3 seconds on using a Vaal Skill
+{variant:2}You gain Phasing for 10 seconds on using a Vaal Skill
 ]],[[
 Bloodseeker
 Hellion's Paw
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 62, 131 Dex, 95 Int
 1.6% of Physical Attack Damage Leeched as Life
-(100-120)% increased Physical Damage
+{variant:1}(100-120)% increased Physical Damage
+{variant:2}(150–170)% increased Physical Damage
 Adds 10 to 12 Physical Damage
 5% increased Attack Speed
 1.2% of Physical Attack Damage Leeched as Life
 5% increased Movement Speed
-Life Leech from Hits with this Weapon applies instantly
+{variant:1}Life Leech from Hits with this Weapon applies instantly
+{variant:2}Gain Life from Leech instantly from Hits with this Weapon
 ]],[[
 Cybil's Paw
 Thresher Claw
@@ -93,7 +101,8 @@ Ghost Reaver
 ]],[[
 Essentia Sanguis
 Vaal Claw
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 66, 95 Dex, 131 Int
 2% of Physical Attack Damage Leeched as Life
 8% additional Chance to Block while Dual Wielding Claws
@@ -101,35 +110,42 @@ Requires Level 66, 95 Dex, 131 Int
 Adds 1 to 200 Lightning Damage
 (20-30)% increased Attack Speed
 +(30-40) to maximum Energy Shield
-Ghost Reaver
+{variant:1}Ghost Reaver
+{variant:2}Life Leech is applied to Energy Shield instead
 ]],[[
 Hand of Thought and Motion
 Blinder
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Breach
 Requires Level 22, 41 Dex, 41 Int
 Implicits: 2
 {variant:1}+10 Life gained for each Enemy hit by Attacks
-{variant:2}+12 Life gained for each Enemy hit by Attacks
-(20-25)% increased Elemental Damage with Weapons
+{variant:2,3}+12 Life gained for each Enemy hit by Attacks
+{variant:1,2}(20-25)% increased Elemental Damage with Weapons
+{variant:3}(20-25)% increased Elemental Damage with Attack Skills
 Adds 1 to (50-60) Lightning Damage
 (10-15)% increased Attack Speed
-Adds 1-3 Lightning Damage to Attacks per 10 Intelligence
+{variant:1,2}Adds 1 to 3 Lightning Damage to Attacks per 10 Intelligence
+{variant:3}Adds 1 to 5 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 ]],[[
 Hand of Wisdom and Action
 Imperial Claw
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Breach
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}+25 Life gained for each Enemy hit by Attacks
-{variant:2}+46 Life gained for each Enemy hit by Attacks
-(25-30)% increased Elemental Damage with Weapons
+{variant:2,3}+46 Life gained for each Enemy hit by Attacks
+{variant:1,2}(25-30)% increased Elemental Damage with Weapons
+{variant:3}(25-30)% increased Elemental Damage with Attack Skills
 (8-12)% increased Dexterity
 (8-12)% increased Intelligence
-Adds 1-6 Lightning Damage to Attacks per 10 Intelligence
+{variant:1,2}Adds 1 to 6 Lightning Damage to Attacks per 10 Intelligence
+{variant:3}Adds 1 to 10 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 1% increased Attack Speed per 25 Dexterity
 ]],[[
 Izaro's Dilemma
@@ -176,15 +192,18 @@ Poisonous Hit
 Ornament of the East
 Gut Ripper
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
 {variant:1}+21 Life gained for each Enemy hit by Attacks
-{variant:2}+44 Life gained for each Enemy hit by Attacks
-(100-120)% increased Physical Damage
+{variant:2,3}+44 Life gained for each Enemy hit by Attacks
++1 to Level of Socketed Dexterity Gems
+{variant:3}Socketed Gems are Supported by level 10 Faster Attacks
+{variant:1,2}(100-120)% increased Physical Damage
+{variant:3}(160–180)% increased Physical Damage
 (10-15)% increased Attack Speed
 25% increased Stun Recovery
-+1 to Level of Socketed Dexterity Gems
 Hits can't be Evaded
 ]],[[
 Rive

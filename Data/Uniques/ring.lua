@@ -154,14 +154,20 @@ Cannot be Frozen
 ]],[[
 Emberwake
 Ruby Ring
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 16
 +(20-30)% to Fire Resistance
-(15-25)% increased Fire Damage
+{variant:1}(15-25)% increased Fire Damage
+{variant:2}(30–40)% increased Fire Damage
 (5-10)% increased Cast Speed
-5% chance to Ignite
-You can inflict up to 300 Ignites on an Enemy
+{variant:1}5% chance to Ignite
+{variant:2}10% chance to Ignite
+{variant:1}You can inflict up to 300 Ignites on an Enemy
+{variant:2}You can inflict an additional Ignite on an Enemy
 Your Critical Strikes do not deal extra Damage
-80% less Burning Damage
+{variant:1}80% less Burning Damage
+{variant:2}50% reduced Ignite Duration
 ]],[[
 Essence Worm
 Unset Ring
@@ -276,13 +282,16 @@ Socketed Gems have Elemental Equilibrium
 Ming's Heart
 Amethyst Ring
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 69
 +(9-13)% to Chaos Resistance
 {variant:1}15% reduced maximum Life
 {variant:2}10% reduced maximum Life
+{variant:3}(5–10)% reduced maximum Life
 {variant:1}15% reduced maximum Energy Shield
 {variant:2}10% reduced maximum Energy Shield
+{variant:3}(5–10)% reduced maximum Energy Shield
 +(40-50)% to Chaos Resistance
 Gain 20% of Physical Damage as Extra Chaos Damage
 ]],[[
@@ -368,13 +377,15 @@ Requires Level 22
 Pyre
 Sapphire Ring
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 11
 +(20-30)% to Cold Resistance
 +(25-35)% to Fire Resistance
-(25-35)% increased Burning Damage
+{variant:1,2}(25-35)% increased Burning Damage
+{variant:3}(80–100)% increased Burning Damage
 {variant:1}100% of Cold Damage Converted to Fire Damage
-{variant:2}40% of Cold Damage Converted to Fire Damage
+{variant:2,3}40% of Cold Damage Converted to Fire Damage
 10% increased Light Radius
 Ignited Enemies you hit are destroyed on Kill
 ]],[[
@@ -445,17 +456,19 @@ Sibyl's Lament
 Coral Ring
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 45
 +(20-30) to maximum Life
-(20-30)% increased Elemental Damage with Weapons
+{variant:1,2,3}(20-30)% increased Elemental Damage with Weapons
+{variant:4}(20-30)% increased Elemental Damage with Attack Skills
 Adds (8-15) to (20-28) Fire Damage to Attacks
 {variant:1}(20-40)% reduced Rarity of Items found
-{variant:2,3}(10-20)% reduced Rarity of Items found
+{variant:2,3,4}(10-20)% reduced Rarity of Items found
 {variant:1,2}Left ring slot: 30% reduced Reflected Elemental Damage taken
-{variant:3}Left ring slot: 40% reduced Reflected Elemental Damage taken
+{variant:3,4}Left ring slot: 40% reduced Reflected Elemental Damage taken
 {variant:1,2}Right ring slot: 30% reduced Reflected Physical Damage taken
-{variant:3}Right ring slot: 40% reduced Reflected Physical Damage taken
+{variant:3,4}Right ring slot: 40% reduced Reflected Physical Damage taken
 ]],[[
 Snakepit 
 Sapphire Ring
@@ -467,14 +480,21 @@ Spells have an additional Projectile
 ]],[[
 The Taming
 Prismatic Ring
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Domination, Nemesis
 Requires Level 30
 +(8-10)% to all Elemental Resistances
-10% increased Damage per Freeze, Shock and Ignite on Enemy
-15% increased Elemental Damage with Weapons
-+(10-15)% to all Elemental Resistances
-15% increased Elemental Damage
-5% chance to Freeze, Shock and Ignite
+{variant:1}15% increased Elemental Damage with Weapons
+{variant:2}30% increased Elemental Damage with Attack Skills
+{variant:1}+(10-15)% to all Elemental Resistances
+{variant:2}+(20–30)% to all Elemental Resistances
+{variant:1}15% increased Elemental Damage
+{variant:2}30% increased Elemental Damage
+{variant:1}5% chance to Freeze, Shock and Ignite
+{variant:2}10% chance to Freeze, Shock and Ignite
+{variant:1}10% increased Damage per Freeze, Shock and Ignite on Enemy
+{variant:2}20% increased Damage per Freeze, Shock and Ignite on Enemy
 ]],[[
 Tasalio's Sign
 Sapphire Ring
@@ -533,17 +553,19 @@ Requires Level 22
 Valako's Sign
 Topaz Ring
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Bloodlines
 Requires Level 38
 +(20-30)% to Lightning Resistance
 {variant:1}15% increased Damage against Shocked Enemies
 {variant:2}40% increased Damage against Shocked Enemies
+{variant:3}40% increased Damage with Hits against Shocked Enemies
 20% increased Lightning Damage
 +(20-40) to maximum Mana
 0.2% of Damage Leeched as Life against Shocked Enemies
 {variant:1}5% chance to Shock
-{variant:2}10% chance to Shock
+{variant:2,3}10% chance to Shock
 ]],[[
 Valyrium 
 Moonstone Ring

@@ -5,12 +5,15 @@ return {
 [[
 Asphyxia's Wrath
 Two-Point Arrow Quiver
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 10
 (20-30)% increased Accuracy Rating
 (8-12)% increased Attack Speed
 +(30-40)% to Cold Resistance
 (30-40)% increased Chill Duration on Enemies
-20% of Physical Damage Converted to Cold Damage
+{variant:1}20% of Physical Damage Converted to Cold Damage
+{variant:2}Gain 20% of Physical Damage as Extra Cold Damage
 (7-10)% chance to Freeze
 40% reduced Area of Effect of Curse Skills
 Curses on Slain Enemies are transferred to a nearby Enemy
@@ -74,19 +77,21 @@ Requires Level 10
 Maloney's Nightfall
 Blunt Arrow Quiver
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 55
 (25-35)% increased Stun Duration on Enemies
 {variant:1}(8-10)% increased Attack Speed
-{variant:2}9% increased Attack Speed
+{variant:2,3}10% increased Attack Speed
 +(50-70) to maximum Life
 +(12-16)% to Chaos Resistance
 {variant:1}Adds (5-7) to (8-10) Physical Damage to Attacks with Bows
-{variant:2}Adds (8-10) to (14-16) Physical Damage to Attacks with Bows
+{variant:2,3}Adds (8-10) to (14-16) Physical Damage to Attacks with Bows
 {variant:1}10% chance to create a Smoke Cloud when Hit
-{variant:2}25% chance to create a Smoke Cloud when Hit
+{variant:2,3}25% chance to create a Smoke Cloud when Hit
 {variant:1}(20-40)% increased Damage against Blinded Enemies
 {variant:2}(40-60)% increased Damage against Blinded Enemies
+{variant:3}(40-60)% increased Damage with Hits and Ailments against Blinded Enemies
 ]],[[
 Rearguard
 Broadhead Arrow Quiver

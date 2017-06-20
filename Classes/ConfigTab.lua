@@ -311,13 +311,19 @@ local varList = {
 	{ var = "conditionTauntedEnemyRecently", type = "check", label = "Taunted an Enemy Recently?", ifCond = "TauntedEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:TauntedEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionUsedFireSkillInPast10Sec", type = "check", label = "Used a Fire Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
+	{ var = "conditionUsedFireSkillRecently", type = "check", label = "Have you used a Fire Skill Recently?", ifCond = "UsedFireSkillRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:UsedFireSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsedColdSkillRecently", type = "check", label = "Have you used a Cold Skill Recently?", ifCond = "UsedColdSkillRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:UsedColdSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsedFireSkillInPast10Sec", type = "check", label = "Have you used a Fire Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsedFireSkillInPast10Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionUsedColdSkillInPast10Sec", type = "check", label = "Used a Cold Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
+	{ var = "conditionUsedColdSkillInPast10Sec", type = "check", label = "Have you used a Cold Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsedColdSkillInPast10Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionUsedLightningSkillInPast10Sec", type = "check", label = "Used a Light. Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
+	{ var = "conditionUsedLightningSkillInPast10Sec", type = "check", label = "Have you used a Light. Skill in the past 10s?", ifNode = 61259, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsedLightningSkillInPast10Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionBlockedHitFromUniqueEnemyRecently", type = "check", label = "Blocked hit from a Unique Recently?", ifNode = 63490, apply = function(val, modList, enemyModList)
