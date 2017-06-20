@@ -79,17 +79,19 @@ Regenerate (6-8) Life over 1 second for each Spell you Cast
 Midnight Bargain
 Engraved Wand
 Variant: Pre 2.3.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 40, 131 Int
 Implicits: 2
 {variant:1}(12-16)% increased Spell Damage
-{variant:2}(22-26)% increased Spell Damage
+{variant:2,3}(22-26)% increased Spell Damage
 +(10-20) to Intelligence
 Minions have (10-20)% increased Movement Speed
 Minions deal (10-30)% increased Damage
 +1 to Maximum number of Zombies
 +1 to Maximum number of Spectres
-+2 to Maximum number of Skeletons
+{variant:1,2}+2 to Maximum number of Skeletons
+{variant:3}+1 to Maximum number of Skeletons
 Reserves 30% of Life
 Cannot be used with Chaos Inoculation
 ]],[[
@@ -97,15 +99,18 @@ Moonsorrow
 Imbued Wand
 Variant: Pre 2.0.0
 Variant: Pre 2.3.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 59, 188 Int
 Implicits: 2
 {variant:1,2}(15-19)% increased Spell Damage
-{variant:3}(33-37)% increased Spell Damage
-Socketed Gems are supported by level 5 Blind
+{variant:3,4}(33-37)% increased Spell Damage
+{variant:1,2,3}Socketed Gems are supported by level 5 Blind
+{variant:4}Socketed Gems are supported by level 20 Blind
 (30-40)% increased Spell Damage
 {variant:1}125% increased Physical Damage
 {variant:2,3}175% increased Physical Damage
+{variant:4}(250–275)% increased Physical Damage
 +10 to Intelligence
 (20-30)% increased Lightning Damage
 10% increased Cast Speed

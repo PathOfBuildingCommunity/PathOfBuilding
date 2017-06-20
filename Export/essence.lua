@@ -7,6 +7,7 @@ local colMap = {
 	["Body Armour"] = "BodyArmour2_ModsKey",
 	["Boots"] = "Boots2_ModsKey",
 	["Gloves"] = "Gloves2_ModsKey",
+	["Shield"] = "Shield2_ModsKey",
 	["Bow"] = "Bow_ModsKey",
 	["Claw"] = "1Hand_ModsKey2",
 	["Dagger"] = "1Hand_ModsKey2",

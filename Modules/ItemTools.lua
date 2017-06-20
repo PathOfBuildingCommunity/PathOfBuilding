@@ -194,6 +194,9 @@ function itemLib.parseItemRaw(item)
 			local specName, specVal = line:match("^([%a ]+): (%x+)$")
 			if not specName then
 				specName, specVal = line:match("^([%a ]+): %+?([%d%-%.]+)")
+				if not tonumber(specVal) then
+					specName = nil
+				end
 			end
 			if not specName then
 				specName, specVal = line:match("^([%a ]+): (.+)$")
@@ -231,7 +234,15 @@ function itemLib.parseItemRaw(item)
 					if not item.variantList then
 						item.variantList = { }
 					end
-					t_insert(item.variantList, specVal)
+					local ver, name = specVal:match("{([%w_]+)}(.+)")
+					if ver then
+						t_insert(item.variantList, name)
+						if ver == item.targetVersion then
+							item.defaultVariant = #item.variantList
+						end
+					else
+						t_insert(item.variantList, specVal)
+					end
 				elseif specName == "Requires" then
 					item.requirements.level = tonumber(specVal:match("Level (%d+)"))
 				elseif specName == "Level" then
@@ -374,7 +385,7 @@ function itemLib.parseItemRaw(item)
 		end
 	end
 	if item.variantList then
-		item.variant = m_min(#item.variantList, item.variant or #item.variantList)
+		item.variant = m_min(#item.variantList, item.variant or item.defaultVariant or #item.variantList)
 	end
 	if not item.quality then
 		itemLib.normaliseQuality(item)

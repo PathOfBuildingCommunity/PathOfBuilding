@@ -34,15 +34,17 @@ All Attack Damage Chills when you Stun
 Cameria's Maul
 Gavel
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 60, 212 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
-{variant:2}15% reduced Enemy Stun Threshold
+{variant:2,3}15% reduced Enemy Stun Threshold
 (140-180)% increased Physical Damage
 Adds (10-20) to (30-50) Cold Damage
 (15-40)% increased Critical Strike Chance
-(30-40)% increased Cold Damage with Weapons
+{variant:1,2}(30-40)% increased Cold Damage with Weapons
+{variant:3}(30-40)% increased Cold Damage with Attack Skills
 40% increased Rarity of Items Dropped by Frozen Enemies
 ]],[[
 Clayshaper
@@ -80,13 +82,16 @@ Adds 10 to 15 Physical Damage
 Frostbreath
 Ornate Mace
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 50, 161 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
-{variant:2}15% reduced Enemy Stun Threshold
-Adds (16-22) to (26-32) Physical Damage
-Adds (16-22) to (26-32) Cold Damage
+{variant:2,3}15% reduced Enemy Stun Threshold
+{variant:1,2}Adds (16-22) to (26-32) Physical Damage
+{variant:3}Adds (26–32) to (36–42) Physical Damage
+{variant:1,2}Adds (16-22) to (26-32) Cold Damage
+{variant:3}Adds (26–32) to (36–42) Cold Damage
 (8-14)% increased Attack Speed
 +(40-50)% to Fire Resistance
 (35-50)% increased Chill Duration on Enemies
@@ -126,19 +131,21 @@ Gavel
 Variant: Pre 2.0.0
 Variant: Pre 2.4.0
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 60, 412 Str, 300 Int
 Implicits: 2
 {variant:1,2,3}40% increased Stun Duration on Enemies
-{variant:4}15% reduced Enemy Stun Threshold
+{variant:4,5}15% reduced Enemy Stun Threshold
 (80-120)% increased Physical Damage
 Skills Chain +1 times
-(30-40)% increased Lightning Damage with Weapons
+{variant:1,2,3,4}(30-40)% increased Lightning Damage with Weapons
+{variant:5}(30-40)% increased Lightning Damage with Attack Skills
 +200 Strength Requirement
 +300 Intelligence Requirement
 {variant:1}50% chance to Cast a Socketed Lightning Spell on Hit
 {variant:2}30% chance to Cast a Socketed Lightning Spell on Hit
-{variant:3,4}Cast a Socketed Lightning Spell on Hit
+{variant:3,4,5}Cast a Socketed Lightning Spell on Hit
 Socketed Lightning Spells have 100% increased Spell Damage if Triggered
 ]],
 -- Weapon: Sceptre
@@ -186,15 +193,17 @@ Ritual Sceptre
 League: Torment
 Variant: Pre 2.3.0
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 28, 51 Str, 51 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
-{variant:2,3}16% increased Elemental Damage
+{variant:2,3,4}16% increased Elemental Damage
 20% increased Physical Damage
 {variant:1,2}Adds 15 to 25 Fire Damage against Ignited Enemies
 Adds (8-13) to (26-31) Physical Damage
 {variant:3}Adds 2 to 4 Fire Damage to Attacks per 10 Strength
+{variant:4}Adds 4 to 7 Fire Damage to Attacks with this Weapon per 10 Strength
 30% increased Fire Damage
 (15-20)% increased Attack Speed
 (30-40)% increased Critical Strike Chance
@@ -301,27 +310,31 @@ Socketed Gems are Supported by level 10 Fire Penetration
 Singularity
 Platinum Sceptre
 Variant: Pre 2.3.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 62, 113 Str, 113 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
-{variant:2}30% increased Elemental Damage
+{variant:2,3}30% increased Elemental Damage
 Adds (30-40) to (60-70) Lightning Damage to Spells
 (14-18)% increased Cast Speed
 (6-8)% reduced Mana Cost of Skills
 Nearby Enemies are Hindered, with 25% reduced Movement Speed
-(60-80)% increased Damage against Hindered Enemies
+{variant:1,2}(60-80)% increased Damage against Hindered Enemies
+{variant:3}(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
 ]],[[
 Spine of the First Claimant
 Iron Sceptre
 Variant: Pre 2.3.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 20, 38 Str, 38 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
-{variant:2}14% increased Elemental Damage
+{variant:2,3}14% increased Elemental Damage
 (100-140)% increased Physical Damage
-40% increased Damage against Frozen Enemies
+{variant:1,2}40% increased Damage against Frozen Enemies
+{variant:3}40% increased Damage with Hits against Frozen Enemies
 (30-50)% increased Cold Damage
 (5-10)% increased Attack Speed
 (4-8)% increased Cast Speed
@@ -365,14 +378,16 @@ Damage Penetrates 20% Lightning Resistance
 Chober Chaber
 Great Mallet
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 40, 104 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
-{variant:2}30% increased Stun Duration on Enemies
+{variant:2,3}30% increased Stun Duration on Enemies
 +1 to Level of Socketed Melee Gems
 +1 to Level of Socketed Minion Gems
-(100-120)% increased Physical Damage
+{variant:1,2}(100-120)% increased Physical Damage
+{variant:3}(200–220)% increased Physical Damage
 25% increased maximum Mana
 Minions have (20-40)% increased maximum Life
 15% increased Skill Effect Duration

@@ -5,7 +5,11 @@ return {
 [[
 Ahn's Heritage
 Colossal Tower Shield
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 67, 159 Str
+Implicits: 1
+{variant:2}+(10-20) to maximum Life
 (50-100)% increased Armour
 +(60-80) to maximum Life
 -1 to maximum Endurance Charges
@@ -16,8 +20,12 @@ You have Onslaught while at maximum Endurance Charges
 ]],[[
 The Anticipation
 Ezomyte Tower Shield
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Breach
 Requires Level 64, 159 Str
+Implicits: 1
+{variant:2}+(30-40) to maximum Life
 (120-160)% increased Armour
 +(50-70) to maximum Life
 +6% Chance to Block
@@ -26,8 +34,12 @@ Permanently Intimidate Enemies on Block
 ]],[[
 The Surrender
 Ezomyte Tower Shield
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Breach
 Requires Level 64, 159 Str
+Implicits: 1
+{variant:2}+(30-40) to maximum Life
 Grants level 30 Reckoning Skill
 (130-170)% increased Armour
 +(65-80) to maximum Life
@@ -39,26 +51,32 @@ Chernobog's Pillar
 Ebony Tower Shield
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 61, 159 Str
+Implicits: 1
+{variant:4}+(20-30) to maximum Life
 {variant:2}Adds (7-10) to (15-25) Fire Damage to Attacks
-{variant:3}Adds (12-15) to (30-35) Fire Damage to Spells and Attacks
+{variant:3,4}Adds (12-15) to (30-35) Fire Damage to Spells and Attacks
 (120-150)% increased Armour
-{variant:3}+(60-80) to maximum Life
+{variant:3,4}+(60-80) to maximum Life
 +(35-50)% to Fire Resistance
 25% of Physical Damage Converted to Fire Damage
 {variant:1}5% chance to Curse Enemies with Enfeeble on Hit
 {variant:2}10% chance to Curse Enemies with Enfeeble on Hit
-{variant:3}25% chance to Curse un-cursed Enemies with Enfeeble on Hit
+{variant:3,4}25% chance to Curse un-cursed Enemies with Enfeeble on Hit
 ]],[[
 Lioneye's Remorse
 Pinnacle Tower Shield
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 70, 159 Str
+Implicits: 1
+{variant:3}+(20-30) to maximum Life
 (200-250)% increased Armour
 {variant:1}+(80-100) to maximum Life
-{variant:2}+(160-180) to maximum Life
+{variant:2,3}+(160-180) to maximum Life
 5% reduced Movement Speed
 20% increased Stun Recovery
 −25 Physical Damage taken from Projectile Attacks
@@ -66,7 +84,11 @@ Requires Level 70, 159 Str
 ]],[[
 Lycosidae
 Rawhide Tower Shield
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 11, 33 Str
+Implicits: 1
+{variant:2}+(10-20) to maximum Life
 +(120-160) to Armour
 +(30-40) to maximum Life
 Your hits can't be Evaded
@@ -76,15 +98,18 @@ Adds 250 to 300 Cold Damage to Counterattacks
 Redblade Banner
 Painted Tower Shield
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Warbands
 Requires Level 35, 87 Str
+Implicits: 1
+{variant:3}+(20-30) to maximum Life
 {variant:1}+(20-60) to maximum Life
-{variant:2}+(50-60) to maximum Life
+{variant:2,3}+(50-60) to maximum Life
 {variant:1}+1 to Level of Socketed Warcry Gems
-{variant:2}(80-100)% increased Armour
-{variant:2}2% of Attack Damage Leeched as Life against Taunted Enemies
-{variant:2}50% increased Warcry Cooldown Recovery Speed
+{variant:2,3}(80-100)% increased Armour
+{variant:2,3}2% of Attack Damage Leeched as Life against Taunted Enemies
+{variant:2,3}50% increased Warcry Cooldown Recovery Speed
 +5% Chance to Block
 {variant:1}20% increased Endurance Charge Duration
 Gain +10 Life when you Taunt an Enemy
@@ -92,31 +117,41 @@ Gain +10 Life when you Taunt an Enemy
 Titucius' Span
 Reinforced Tower Shield
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 30, 76 Str
+Implicits: 1
+{variant:3}+(10-20) to maximum Life
 (60-80)% increased Armour
 +(30-50) to maximum Life
 {variant:1}−10 Physical Damage taken from Projectile Attacks
-{variant:2}−(50-80) Physical Damage taken from Projectile Attacks
+{variant:2,3}−(50-80) Physical Damage taken from Projectile Attacks
 200% increased Armour against Projectiles
 +25% additional Block Chance against Projectiles
 ]],[[
 Trolltimber Spire
 Cedar Tower Shield
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Tempest
 Requires Level 17, 46 Str
+Implicits: 1
+{variant:3}+(20-30) to maximum Life
 +(40-60) to maximum Life
-{variant:2}(130-150)% increased Armour
+{variant:2,3}(130-150)% increased Armour
 0.5% of Life Regenerated per Second
 15% increased Area of Effect for Skills used by Totems
 {variant:1}1% of Damage Leeched as Life for Skills used by Totems
-{variant:2}0.5% of Damage dealt by your Totems is Leeched to you as Life
+{variant:2,3}0.5% of Damage dealt by your Totems is Leeched to you as Life
 ]],[[
 Tukohama's Fortress
 Ebony Tower Shield
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 61, 159 Str
+Implicits: 1
+{variant:2}+(20-30) to maximum Life
 40% increased Totem Damage
 +(80-100) to maximum Life
 Can have up to 1 additional Totem summoned at a time
@@ -128,42 +163,75 @@ Blood Magic
 Atziri's Mirror
 Golden Buckler
 Variant: Pre 2.0.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 54, 130 Dex
+Implicits: 1
+{variant:3}6% increased Movement Speed
 +(40-60) to Intelligence
-(80-100)% increased Evasion Rating
+{variant:1,2}(80-100)% increased Evasion Rating
+{variant:3}(180–200)% increased Evasion Rating
 +(20-30) to all Elemental Resistances
-{variant:2}50% reduced Duration of Curses on you
+{variant:2,3}50% reduced Duration of Curses on you
+{variant:3}10% additional Block chance while not Cursed
+{variant:3}20% additional Spell Block chance while Cursed
 Curse Reflection
 ]],[[
 Chalice of Horrors
 War Buckler
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 29, 74 Dex
+Implicits: 1
+{variant:3}9% increased Movement Speed
 +1 to Level of Socketed Curse Gems
 (30-50)% increased Evasion Rating
-{variant:2}+(40-50) to maximum Life
-{variant:2}+(50-70) to maximum Energy Shield
+{variant:2,3}+(40-50) to maximum Life
+{variant:2,3}+(50-70) to maximum Energy Shield
 100% increased Curse Duration
 +5% Chance to Block
 10% Chance to Cause Monster to Flee on Block
 ]],[[
+Thirst for Horrors
+War Buckler
+Variant: Pre 2.6.0
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
+Requires Level 32, 74 Dex
+Implicits: 1
+{variant:3}9% increased Movement Speed
++1 to Level of Socketed Curse Gems
+(30-50)% increased Evasion Rating
+{variant:2,3}+(40-50) to maximum Life
+{variant:2,3}+(50-70) to maximum Energy Shield
+100% increased Curse Duration
++5% Chance to Block
+10% Chance to Cause Monster to Flee on Block
+1% of Damage Leeched as Life against Cursed Enemies
+]],[[
 Crest of Perandus
 Pine Buckler
 Variant: Pre 1.3.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 8, 26 Dex
+Implicits: 1
+{variant:3}3% increased Movement Speed
 +(60-80) to maximum Life
 (5-8) Life Regenerated per second
 +30% to Lightning Resistance
 0.6% of Physical Attack Damage Leeched as Life
 {variant:1}+10% Chance to Block
-{variant:2}+5% Chance to Block
+{variant:2,3}+5% Chance to Block
 ]],[[
 Great Old One's Ward
 Corrugated Buckler
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 46, 112 Dex
+Implicits: 1
+{variant:2}3% increased Movement Speed
 Adds (8-12) to (15-20) Physical Damage to Attacks
 (6-10)% increased Attack Speed
 +(50-70) to maximum Life
@@ -173,25 +241,31 @@ Kaltenhalt
 Painted Buckler
 Variant: Pre 1.0.0
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 16, 44 Dex
+Implicits: 1
+{variant:4}6% increased Movement Speed
 (60-100)% increased Evasion Rating
 +5% to maximum Cold Resistance
 +50% to Cold Resistance
-{variant:3}Gain (10-15)% of Physical Damage as Extra Cold Damage
+{variant:3,4}Gain (10-15)% of Physical Damage as Extra Cold Damage
 {variant:1}Reflects (5-10) Cold Damage to Melee Attackers
-{variant:2,3}Reflects (25-50) Cold Damage to Melee Attackers
+{variant:2,3,4}Reflects (25-50) Cold Damage to Melee Attackers
 +5% Chance to Block
 ]],[[
 Kaltensoul
 Painted Buckler
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 16, 44 Dex
+Implicits: 1
+{variant:3}6% increased Movement Speed
 (60-100)% increased Evasion Rating
 +5% to maximum Cold Resistance
 +50% to Cold Resistance
-{variant:2}Gain (10-15)% of Physical Damage as Extra Cold Damage
+{variant:2,3}Gain (10-15)% of Physical Damage as Extra Cold Damage
 Reflects (25-50) Cold Damage to Melee Attackers
 +5% Chance to Block
 20% of Fire Damage taken as Cold Damage
@@ -199,61 +273,56 @@ Reflects (25-50) Cold Damage to Melee Attackers
 Mutewind Pennant
 Enameled Buckler
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Warbands
 Requires Level 42, 103 Dex
+Implicits: 1
+{variant:3}6% increased Movement Speed
 +(20-40)% to Cold Resistance
 {variant:1}+1 to Level of Socketed Warcry Gems
-{variant:2}(80-100)% Increased Evasion Rating
+{variant:2,3}(80-100)% Increased Evasion Rating
 10% increased Area of Effect of Area Skills
 {variant:1}(20-30)% increased Chaos Damage
 {variant:1}You gain Onslaught for 2 seconds on Killing Taunted Enemies
-{variant:2}You gain Onslaught for 4 seconds on using a Warcry
-{variant:2}25% Increased Warcry Effect
-]],[[
-Thirst for Horrors
-War Buckler
-Variant: Pre 2.6.0
-Variant: Current
-Requires Level 32, 74 Dex
-+1 to Level of Socketed Curse Gems
-(30-50)% increased Evasion Rating
-{variant:2}+(40-50) to maximum Life
-{variant:2}+(50-70) to maximum Energy Shield
-100% increased Curse Duration
-+5% Chance to Block
-10% Chance to Cause Monster to Flee on Block
-1% of Damage Leeched as Life against Cursed Enemies
+{variant:2,3}You gain Onslaught for 4 seconds on using a Warcry
+{variant:2,3}25% Increased Warcry Effect
 ]],[[
 Thousand Teeth Temu
 Vaal Buckler
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 63, 159 Dex
+Implicits: 1
+{variant:3}3% increased Movement Speed
 (100-120)% increased Evasion Rating
 +(70-90) to maximum Life
 0.4% of Physical Attack Damage Leeched as Life
 +5% Chance to Block
 Reflects 1 to 1000 Physical Damage to Attackers on Block
-{variant:2}10% of Damage Reflected Gained as Life
+{variant:2,3}10% of Damage Reflected Gained as Life
 ]],
 -- Shield: Energy Shield
 [[
 Brinerot Flag
 Tarnished Spirit Shield
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Warbands
 Requires Level 23, 60 Int
-5% increased Spell Damage
+Implicits: 2
+{variant:1,2}5% increased Spell Damage
+{variant:3}(5-10)% increased Spell Damage
 +(70-90) to maximum Energy Shield
 {variant:1}(8-12)% increased Attack Speed
-{variant:2}(8-12)% increased Cast Speed
+{variant:2,3}(8-12)% increased Cast Speed
 (20-40)% increased Mana Regeneration Rate
 {variant:1}+1 to Level of Socketed Warcry Gems
-{variant:2}+3 to Level of Socketed Warcry Gems
+{variant:2,3}+3 to Level of Socketed Warcry Gems
 {variant:1}Gain +3 Mana when you hit a Taunted Enemy
-{variant:2}Gain 2 Power Charges on Using a Warcry
+{variant:2,3}Gain 2 Power Charges on Using a Warcry
 ]],[[
 Esh's Mirror
 Thorium Spirit Shield
@@ -263,14 +332,18 @@ Requires Level 53, 128 Int
 +(40-70) to maximum Life
 (80-100)% increased Energy Shield
 +(35-40)% to Lightning Resistance
-Adds 1-10 Lightning Damage for each Shocked Enemy you've Killed Recently
+Adds 1 to 10 Lightning Damage for each Shocked Enemy you've Killed Recently
 Shock Reflection
 ]],[[
 Esh's Visage
 Vaal Spirit Shield
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Breach
 Requires Level 62, 159 Int
-5% increased Spell Damage
+Implicits: 2
+{variant:1}5% increased Spell Damage
+{variant:2}(5-10)% increased Spell Damage
 +(40-70) to maximum Life
 (240-260)% increased Energy Shield
 +(30-40)% to Lightning Resistance
@@ -280,19 +353,28 @@ Reflect Shocks applied to you to all Nearby Enemies
 ]],[[
 Kongming's Stratagem
 Ivory Spirit Shield
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 41, 100 Int
-15% increased Spell Damage
+Implicits: 2
+{variant:1}15% increased Spell Damage
+{variant:2}(15-20)% increased Spell Damage
 +(20-30) to Intelligence
 (80-120)% increased Energy Shield
 Socketed Trap Skills create a Smoke Cloud when triggered
-30% increased Fire Damage against Blinded Enemies
+{variant:1}30% increased Fire Damage against Blinded Enemies
+{variant:2}30% increased Fire Damage with Hits and Ailments against Blinded Enemies
 30% reduced Spell Damage taken from Blinded Enemies
 No Block Chance
 ]],[[
 Light of Lunaris
 Jingling Spirit Shield
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 28, 71 Int
-10% increased Spell Damage
+Implicits: 2
+{variant:1}10% increased Spell Damage
+{variant:2}(10-15)% increased Spell Damage
 (60-80)% increased Critical Strike Chance for Spells
 (100-140)% increased Energy Shield
 +(3-5)% Chance to Block
@@ -302,11 +384,14 @@ Requires Level 28, 71 Int
 Malachai's Loop
 Harmonic Spirit Shield
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 65, 159 Int
-10% increased Spell Damage
+Implicits: 2
+{variant:1,2}10% increased Spell Damage
+{variant:3}(10-15)% increased Spell Damage
 {variant:1}(160-200)% increased Energy Shield
-{variant:2}(210-250)% increased Energy Shield
+{variant:2,3}(210-250)% increased Energy Shield
 +2 to Maximum Power Charges
 20% chance to gain a Power Charge on Hit
 6% increased Spell Damage per Power Charge
@@ -315,8 +400,12 @@ You are Shocked for 4 seconds on reaching Maximum Power Charges
 ]],[[
 Matua Tupuna
 Tarnished Spirit Shield
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 23, 60 Int
-5% increased Spell Damage
+Implicits: 2
+{variant:1}5% increased Spell Damage
+{variant:2}(5-10)% increased Spell Damage
 +2 to Level of Socketed Minion Gems
 +(15-25) to maximum Mana
 (40-80)% increased Energy Shield
@@ -391,15 +480,17 @@ Requires Level 5
 Aegis Aurora
 Champion Kite Shield
 Variant: Pre 1.1.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 62, 85 Str, 85 Int
-(10-20)% increased Elemental Damage with Weapons
+{variant:1,2}(10-20)% increased Elemental Damage with Weapons
+{variant:3}(10-20)% increased Elemental Damage with Attack Skills
 (80-100)% increased Armour and Energy Shield
 +10% to all Elemental Resistances
 +5% to maximum Cold Resistance
 +6% Chance to Block
 {variant:1}Replenishes Energy Shield by 4% of Armour when you Block
-{variant:2}Replenishes Energy Shield by 2% of Armour when you Block
+{variant:2,3}Replenishes Energy Shield by 2% of Armour when you Block
 ]],[[
 Broken Faith
 Archon Kite Shield
@@ -515,8 +606,12 @@ Requires Level 50, 64 Str, 64 Int
 [[
 Glitterdisc
 Burnished Spiked Shield
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 27, 36 Dex, 36 Int
-Reflects (10-23) Physical Damage to Melee Attackers
+Implicits: 2
+{variant:1}Reflects (10-23) Physical Damage to Melee Attackers
+{variant:2}4% chance to Dodge Attacks
 (120-140)% increased Evasion and Energy Shield
 +(30-50) to maximum Life
 +(20-30) to maximum Energy Shield
@@ -526,21 +621,28 @@ Reflects (10-23) Physical Damage to Melee Attackers
 Jaws of Agony
 Supreme Spiked Shield
 Variant: Pre 2.0.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 70, 85 Dex, 85 Int
-Reflects (221-260) Physical Damage to Melee Attackers
+Implicits: 2
+{variant:1,2}Reflects (221-260) Physical Damage to Melee Attackers
+{variant:3}4% chance to Dodge Spell Damage
 (18-28)% increased Trap Damage
 (15-25)% increased Physical Damage
 +(60-80) to maximum Life
 −(14-18) Physical Damage taken from Attacks
 {variant:1}15% chance to gain a Power Charge on Throwing a Trap
-{variant:2}25% chance to gain a Power Charge on Throwing a Trap
+{variant:2,3}25% chance to gain a Power Charge on Throwing a Trap
 Grants level 20 Bear Trap Skill
 ]],[[
 Maligaro's Lens
 Compound Spiked Shield
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 45, 58 Dex, 58 Int
-Reflects (51-70) Physical Damage to Melee Attackers
+Implicits: 2
+{variant:1}Reflects (51-70) Physical Damage to Melee Attackers
+{variant:2}2% chance to Dodge Spell Damage
 (10-15)% increased Attack Speed
 (10-20)% increased maximum Life
 −50% to all Elemental Resistances

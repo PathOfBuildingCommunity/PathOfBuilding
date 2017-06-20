@@ -23,8 +23,11 @@ Minions have (2-5)% additional chance to Dodge Attacks
 ]],[[
 Army of Bones
 Cobalt Jewel
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Minions deal (8-12)% increased Damage
-+2 to maximum number of Skeletons
+{variant:1}+2 to maximum number of Skeletons
+{variant:2}+1 to maximum number of Skeletons
 (10-20)% reduced Skeleton Duration
 ]],[[
 The Blue Dream
@@ -97,10 +100,12 @@ cone has a 50% chance to deal Double Damage
 ]],[[
 Dead Reckoning
 Cobalt Jewel
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Radius: Medium
 Minions have +(7-10)% to all Elemental Resistances
-With at least 40 Intelligence in Radius, can summon
-up to 3 Skeleton Mages with Summon Skeletons
+{variant:1}With at least 40 Intelligence in Radius, can summon up to 3 Skeleton Mages with Summon Skeletons
+{variant:2}With at least 40 Intelligence in Radius, can summon up to 5 Skeleton Mages with Summon Skeletons
 ]],[[
 Efficient Training
 Crimson Jewel
@@ -111,7 +116,7 @@ Intelligence from Passives in Radius is Transformed to Strength
 Eldritch Knowledge
 Cobalt Jewel
 Radius: Medium
-5% increased Chaos damage per 10 Intelligence from Allocated Passives in Radius
+5% increased Chaos Damage per 10 Intelligence from Allocated Passives in Radius
 ]],[[
 Energised Armour
 Crimson Jewel
@@ -185,18 +190,26 @@ Speed per second
 ]],[[
 Grand Spectrum
 Cobalt Jewel
-Gain 15 Mana per Grand Spectrum
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
+{variant:1}Gain 15 Mana per Grand Spectrum
+{variant:2}Gain 30 Mana per Grand Spectrum
 ]],[[
 Grand Spectrum
 Crimson Jewel
-Gain 75 Armour per Grand Spectrum
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
+{variant:1}Gain 75 Armour per Grand Spectrum
+{variant:2}Gain 200 Armour per Grand Spectrum
 ]],[[
 Grand Spectrum
 Viridian Jewel
 Variant: Pre 2.5.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 {variant:1}5% increased Elemental Damage per Grand Spectrum
 {variant:2}4% increased Elemental Damage per Grand Spectrum
+{variant:3}10% increased Elemental Damage per Grand Spectrum
 ]],[[
 The Green Dream
 Viridian Jewel
@@ -220,13 +233,14 @@ also grant an equal chance to gain a Frenzy Charge on Kill
 Growing Agony
 Viridian Jewel
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Limited to: 1
 Radius: Medium
 (4-12)% increased Damage over Time
-With at least 40 Dexterity in Radius,
-Viper Strike deals 2% increased Attack Damage for each Poison on the Enemy
-{variant:2}With at least 40 Dexterity in Radius, Viper Strike has a 10% chance per Poison on Enemy to grant Unholy Might for 4 seconds on Hit
+{variant:1,2}With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Attack Damage for each Poison on the Enemy
+{variant:3}With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage with Hits and Poison for each Poison on the Enemy
+{variant:2,3}With at least 40 Dexterity in Radius, Viper Strike has a 10% chance per Poison on Enemy to grant Unholy Might for 4 seconds on Hit
 ]],[[
 Hair Trigger
 Viridian Jewel
@@ -324,9 +338,12 @@ Dexterity and Intelligence from passives in Radius count towards Strength Melee 
 ]],[[
 Omen on the Winds
 Viridian Jewel
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Limited to: 2
 Radius: Medium
-(15-20)% increased Damage against Chilled Enemies
+{variant:1}(15-20)% increased Damage against Chilled Enemies
+{variant:2}(15-20)% increased Damage with Hits against Chilled Enemies
 With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect
 With at least 40 Dexterity in Radius, Ice Shot has 50% chance of Projectiles Piercing
 ]],[[
@@ -686,8 +703,11 @@ Limited to: 1
 ]],[[
 Conqueror's Longevity
 Viridian Jewel
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Limited to: 1
-3% chance to Avoid Elemental Status Ailments
+{variant:1}3% chance to Avoid Elemental Status Ailments
+{variant:2}3% chance to Avoid Elemental Ailments
 8% increased Life Recovery from Flasks
 2% chance to Dodge Attacks
 ]],[[

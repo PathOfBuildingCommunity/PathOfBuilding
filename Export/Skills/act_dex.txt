@@ -403,11 +403,37 @@ local skills, mod, flag, skill = ...
 #skill Reave
 #flags attack melee area
 #baseMod skill("radius", 14)
+	parts = {
+		{
+			name = "No stages",
+		},
+		{
+			name = "4 stages",
+		},
+		{ 
+			name = "8 stages",
+		},
+	},
+#baseMod mod("Multiplier:ReaveStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:ReaveStage", "BASE", 8, 0, 0, { type = "SkillPart", skillPart = 3 })
 #mods
 
 #skill VaalReave
 #flags attack melee area vaal
 #baseMod skill("radius", 12)
+	parts = {
+		{
+			name = "No stages",
+		},
+		{
+			name = "4 stages",
+		},
+		{ 
+			name = "8 stages",
+		},
+	},
+#baseMod mod("Multiplier:ReaveStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:ReaveStage", "BASE", 8, 0, 0, { type = "SkillPart", skillPart = 3 })
 #mods
 
 #skill Riposte

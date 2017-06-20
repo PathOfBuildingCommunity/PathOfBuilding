@@ -1,3 +1,5 @@
+loadStatFile("stat_descriptions.txt")
+
 local mode
 local ess = { }
 local curEss

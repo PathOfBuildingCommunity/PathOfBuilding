@@ -5,12 +5,15 @@ return {
 [[
 Atziri's Acuity
 Vaal Gauntlets
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 75, 100 Str
 +(60-80) to Intelligence
 +(60-75) to maximum Life
 (200-220)% increased Armour
 (25-35)% increased Global Critical Strike Chance
-Leech applies instantly on Critical Strike
+{variant:1}Leech applies instantly on Critical Strike
+{variant:2}Gain Life and Mana from Leech instantly on Critical Strike
 ]],[[
 Doryani's Fist
 Vaal Gauntlets
@@ -170,12 +173,14 @@ Adds 1 to 13 Lightning Damage to Attacks
 Voidbringer
 Conjurer Gloves
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 55, 79 Int
 (125-150)% increased Critical Strike Chance for Spells
-(280-350)% increased Energy Shield
+{variant:1,2}(280-350)% increased Energy Shield
+{variant:3}(180–250)% increased Energy Shield
 {variant:1}80% increased Mana Cost of Skills
-{variant:2}(40-80)% increased Mana Cost of Skills
+{variant:2,3}(40-80)% increased Mana Cost of Skills
 +(15-20) Energy Shield gained on Kill
 +1 to Level of Socketed Elemental Gems
 ]],
@@ -269,7 +274,7 @@ Requires Level 57, 44 Str, 44 Int
 (150-180)% increased Armour and Energy Shield
 +(50-70) to maximum Life
 (20-40)% increased Mana Regeneration Rate
-Dispels elemental Status Ailments on Rampage
+Dispels Elemental Ailments on Rampage
 Gain Immunity to Physical Damage for 1.5 seconds on Rampage
 Rampage
 ]],[[

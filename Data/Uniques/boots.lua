@@ -91,18 +91,20 @@ The Blood Dance
 Sharkskin Boots
 Variant: Pre 1.0.0
 Variant: Pre 2.1.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 44, 79 Dex
 +(30-40) to Dexterity
 20% increased Movement Speed
 2% increased Movement Speed per Frenzy Charge
 3% reduced Attack and Cast Speed per Frenzy Charge
 {variant:1,2}1% of Life Regenerated per Second per Frenzy Charge
-{variant:3}0.5% of Life Regenerated per Second per Frenzy Charge
+{variant:3,4}0.5% of Life Regenerated per Second per Frenzy Charge
 (20-30)% chance to gain a Frenzy Charge on Kill
 Gore Footprints
 {variant:1}3% increased Damage against Enemies on Low Life per Frenzy Charge
 {variant:2,3}6% increased Damage against Enemies on Low Life per Frenzy Charge
+{variant:4}6% increased Damage per Frenzy Charge with Hits against Enemies on Low Life
 ]],[[
 Deerstalker
 Deerskin Boots
@@ -245,9 +247,12 @@ Stun Threshold is based on 500% of your Mana instead of Life
 ]],[[
 Steppan Eard
 Sorcerer Boots
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Warbands
 Requires Level 67, 123 Int
-(110-140)% increased Energy Shield
+{variant:1}(110-140)% increased Energy Shield
+{variant:2}(50–80)% increased Energy Shield
 +(20-30) to maximum Energy Shield
 30% increased Movement Speed
 20% increased Movement Speed on Shocked Ground
@@ -350,12 +355,15 @@ Unaffected by Chilled Ground
 [[
 Alberon's Warpath
 Soldier Boots
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 49, 47 Str, 47 Int
 Adds 1 to 80 Chaos Damage to Attacks
 +(180-220) to Armour
 +(9-12)% to Chaos Resistance
 20% increased Movement Speed
-+2 to Maximum number of Skeletons
+{variant:1}+2 to Maximum number of Skeletons
+{variant:2}+1 to Maximum number of Skeletons
 (15-18)% increased Strength
 ]],[[
 Death's Door
@@ -366,7 +374,7 @@ Requires Level 64, 62 Str, 62 Int
 +(10-15)% to all Elemental Resistances
 25% increased Movement Speed
 +1 to Maximum Endurance Charges
-50% increased Elemental Status Ailment Duration on You
+50% increased Elemental Ailment Duration on You
 You are Immune to Bleeding
 ]],[[
 Gang's Momentum
@@ -398,14 +406,16 @@ Adds 1 to 120 Lightning Damage to Attacks
 Brinerot Whalers
 Trapper Boots
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Warbands
 Requires Level 41, 40 Dex, 40 Int
 {variant:1}+(60-80) to maximum Energy Shield
 {variant:2}+(120-150) to maximum Energy Shield
+{variant:3}+(80–100) to maximum Energy Shield
 20% increased Physical Damage
 {variant:1}20% increased Movement Speed
-{variant:2}25% increased Movement Speed
+{variant:2,3}25% increased Movement Speed
 +(20-30)% to Lightning Resistance
 (20-40)% increased Projectile Damage
 Unaffected by Shocked Ground

@@ -305,11 +305,14 @@ Corrupted
 ]],[[
 Rashkaldor's Patience
 Jade Amulet
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 61
 +(20-30) to Dexterity
 +(40-80) to maximum Life
 +(20-40) to maximum Mana
-20% increased Duration of Elemental Status Ailments on Enemies
+{variant:1}20% increased Duration of Elemental Status Ailments on Enemies
+{variant:2}20% increased Duration of Elemental Ailments on Enemies
 Items and Gems have 10% reduced Attribute Requirements
 5% chance to Freeze, Shock and Ignite
 Cannot gain Power Charges
@@ -380,7 +383,7 @@ Requires Level 20
 Grants level 10 Purity of Elements Skill
 +(5-10) to all Attributes
 +(20-40) to maximum Life
-5% chance to avoid Elemental Status Ailments
+5% chance to avoid Elemental Ailments
 ]],[[
 Ungil's Harmony
 Turquoise Amulet
@@ -420,13 +423,16 @@ Cast Level 12 Lightning Bolt when you deal a Critical Strike
 ]],[[
 Choir of the Storm
 Lapis Amulet
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Breach
 Requires Level 69
 +(20-30) to Intelligence
 (10-20)% increased maximum Mana
 -30% to Lightning Resistance
 Critical Strike Chance is increased by Uncapped Lightning Resistance
-Critical Strikes deal 50% increased Lightning Damage
+{variant:1}Critical Strikes deal 50% increased Lightning Damage
+{variant:2}50% increased Lightning Damage
 Cast Level 20 Lightning Bolt when you deal a Critical Strike
 ]],[[
 Voll's Devotion

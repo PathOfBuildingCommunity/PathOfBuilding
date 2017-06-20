@@ -232,10 +232,13 @@ Phase Acrobatics
 [[
 The Beast Fur Shawl
 Vaal Regalia
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 68, 194 Int
 40% increased Spell Damage
 (110-130)% increased Energy Shield
-+(50-65) to maximum Energy Shield
+{variant:1}+(50-65) to maximum Energy Shield
+{variant:2}+(15–25) to maximum Energy Shield
 10% increased Area of Effect of Area Skills
 5% increased Damage taken
 (30-40)% increased Energy Shield Recovery Rate
@@ -251,8 +254,11 @@ Reflects 15 Fire Damage to Melee Attackers
 ]],[[
 Cloak of Tawm'r Isley
 Savant's Robe
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 56, 152 Int
-(250-300)% increased Energy Shield
+{variant:1}(250-300)% increased Energy Shield
+{variant:2}(150–200)% increased Energy Shield
 Minions cannot be Blinded
 Minions have 15% chance to Blind Enemies on hit
 Socketed Minion Gems are Supported by Level 16 Life Leech
@@ -263,28 +269,33 @@ Spidersilk Robe
 Variant: Pre 1.0.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 49, 134 Int
 Socketed Gems are Supported by level 15 Added Chaos Damage
 +(20-30) to Intelligence
 {variant:1,2,3}20% reduced maximum Life
-{variant:4}10% increased maximum Life
+{variant:4,5}10% increased maximum Life
 {variant:1}(125-150)% increased Energy Shield
 {variant:2}(180-220)% increased Energy Shield
 {variant:3,4}(280-320)% increased Energy Shield
+{variant:5}(210–250)% increased Energy Shield
 {variant:1,2,3}Blood Magic
-{variant:4}Socketed Gems have Blood Magic
+{variant:4,5}Socketed Gems have Blood Magic
 ]],[[
 Infernal Mantle
 Widowsilk Robe
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 65, 187 Int
 +1 to Level of Socketed Fire Gems
 (25-35)% increased Fire Damage
 100% increased Global Critical Strike Chance
-(190-230)% increased Energy Shield
+{variant:1}(190-230)% increased Energy Shield
+{variant:2}(120–160)% increased Energy Shield
 15% of Fire Damage Converted to Chaos Damage
-100% increased Spell Damage taken when on Low Mana
+{variant:1}100% increased Spell Damage taken when on Low Mana
+{variant:2}25% increased Spell Damage taken when on Low Mana
 ]],[[
 Infernal Mantle
 Occultist's Vestment
@@ -301,11 +312,13 @@ Requires Level 65, 187 Int
 Shavronne's Wrappings
 Occultist's Vestment
 Variant: Pre 1.0.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 62, 180 Int
 (3-10)% increased Spell Damage
 {variant:1}(200-250)% increased Energy Shield
 {variant:2}(140-200)% increased Energy Shield
+{variant:3}(100–150)% increased Energy Shield
 10% faster start of Energy Shield Recharge
 +(30-40)% to Lightning Resistance
 Reflects 1 to 250 Lightning Damage to Melee Attackers
@@ -391,12 +404,16 @@ Simple Robe
 ]],[[
 Thousand Ribbons
 Simple Robe
-Requires 17 Intelligence
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Socketed Gems are Supported by level 5 Elemental Proliferation
-Adds 2 to 3 Fire Damage to Attacks
-Adds 2 to 3 Cold Damage to Attacks
-Adds 1 to 4 Lightning Damage to Attacks
-10% reduced Cast Speed
+{variant:1}Adds 2 to 3 Fire Damage to Attacks
+{variant:2}Adds 2 to 3 Fire Damage to Spells and Attacks
+{variant:1}Adds 2 to 3 Cold Damage to Attacks
+{variant:2}Adds 2 to 3 Cold Damage to Spells and Attacks
+{variant:1}Adds 1 to 4 Lightning Damage to Attacks
+{variant:2}Adds 1 to 4 Lightning Damage to Spells and Attacks
+{variant:1}10% reduced Cast Speed
 +(10-20) to Evasion Rating
 +6 to maximum Life
 +6 to maximum Mana
@@ -531,14 +548,16 @@ Share Endurance Charges with nearby party members
 Geofri's Sanctuary
 Elegant Ringmail
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 64, 90 Str, 105 Int
 (50-75)% increased Armour and Energy Shield
 +(50-70) to maximum Life
-+(70-80) to maximum Energy Shield
+{variant:1,2}+(70-80) to maximum Energy Shield
+{variant:3}+(30–40) to maximum Energy Shield
 +(14-18)% to all Elemental Resistances
 {variant:1}+1 maximum Energy Shield per 5 Strength
-{variant:2}+2 maximum Energy Shield per 5 Strength
+{variant:2,3}+2 maximum Energy Shield per 5 Strength
 Zealot's Oath
 ]],[[
 Icetomb
@@ -609,23 +628,30 @@ Gain a Power Charge for each Enemy you hit with a Critical Strike
 [[
 Carcass Jack
 Varnished Coat
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 62, 96 Dex, 96 Int
 (120-150)% increased Evasion and Energy Shield
 +(50-70) to maximum Life
 +(9-12)% to all Elemental Resistances
 20% increased Area of Effect of Area Skills
-12% increased Area Damage
+{variant:1}12% increased Area Damage
+{variant:2}(40–50)% increased Area Damage
 Extra gore
 ]],[[
 Cloak of Defiance
 Lacquered Garb
 Variant: Pre 1.3.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 52, 76 Dex, 76 Int
 (110-150)% increased Evasion and Energy Shield
-+(90-110) to maximum Mana
+{variant:1,2}+(90-110) to maximum Mana
+{variant:3}+(200–250) to maximum Mana
 (40-50)% increased Mana Regeneration Rate
 {variant:1}When hit, 10% of Damage is taken from Mana before Life
+{variant:3}20% of Damage is taken from Mana before Life
+{variant:3}1% of Mana Regenerated per second
 Mind Over Matter
 ]],[[
 The Restless Ward

@@ -673,6 +673,7 @@ function calcs.perform(env)
 			end
 			if value.applyToPlayer then
 				-- Sources for curses on the player don't usually respect any kind of limit, so there's little point bothering with slots
+				modDB.conditions["Cursed"] = true
 				modDB.multipliers["CurseOnSelf"] = (modDB.multipliers["CurseOnSelf"] or 0) + 1
 				modDB:ScaleAddList(curseModList, (1 + modDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * modDB:Sum("MORE", nil, "CurseEffectOnSelf"))
 			elseif not enemyDB:Sum("FLAG", nil, "Hexproof") or modDB:Sum("FLAG", nil, "CursesIgnoreHexproof") then

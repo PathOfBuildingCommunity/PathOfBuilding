@@ -53,6 +53,13 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.35 - 2017/06/21
+ * Added skill parts to Reave and Vaal Reave for selecting the stage count
+For 3.0 builds:
+ * Updated many uniques with changes from the 3.0 beta
+ * The split Net Regen calculation for Mind over Matter now only occurs when Life Regen is the dominant regen source
+    * This should fix the interaction between MoM and LL RF
+
 ### 1.4.34 - 2017/06/19
  * Bleed and Ignite DPS are now shown in the Minion section of the sidebar
  * The Mana Regen and ES Recharge calculations now correctly handle Recovery modifiers

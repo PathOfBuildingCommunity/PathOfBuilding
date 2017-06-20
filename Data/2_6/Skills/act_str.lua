@@ -2171,14 +2171,14 @@ skills["Punishment"] = {
 		skill("radius", 22), 
 	},
 	qualityMods = {
-		mod("Speed", "INC", 0.25, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff"}), --"newpunishment_attack_speed_+%" = 0.25
+		mod("Speed", "INC", 0.25, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "CurseBuff"}), --"newpunishment_attack_speed_+%" = 0.25
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		[3] = skill("duration", nil), --"base_skill_effect_duration"
-		[4] = mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff"}), --"newpunishment_melee_damage_+%_final"
-		[5] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff"}), --"newpunishment_attack_speed_+%"
+		[4] = mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "CurseBuff"}), --"newpunishment_melee_damage_+%_final"
+		[5] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "CurseBuff"}), --"newpunishment_attack_speed_+%"
 		[6] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {

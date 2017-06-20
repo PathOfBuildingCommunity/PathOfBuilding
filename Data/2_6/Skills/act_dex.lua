@@ -3924,6 +3924,17 @@ skills["Reave"] = {
 		["Dagger"] = true,
 		["Claw"] = true,
 	},
+	parts = {
+		{
+			name = "No stages",
+		},
+		{
+			name = "4 stages",
+		},
+		{ 
+			name = "8 stages",
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -3932,9 +3943,11 @@ skills["Reave"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
-		--"reave_area_of_effect_+%_final_per_stage" = 50
+		mod("AreaOfEffect", "MORE", 50, 0, 0, { type = "Multiplier", var = "ReaveStage" }), --"reave_area_of_effect_+%_final_per_stage" = 50
 		--"is_area_damage" = ?
 		skill("radius", 14), 
+		mod("Multiplier:ReaveStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Multiplier:ReaveStage", "BASE", 8, 0, 0, { type = "SkillPart", skillPart = 3 }), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
@@ -4000,6 +4013,17 @@ skills["VaalReave"] = {
 		["Dagger"] = true,
 		["Claw"] = true,
 	},
+	parts = {
+		{
+			name = "No stages",
+		},
+		{
+			name = "4 stages",
+		},
+		{ 
+			name = "8 stages",
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -4008,7 +4032,7 @@ skills["VaalReave"] = {
 	},
 	baseMods = {
 		skill("castTime", 1), 
-		--"reave_area_of_effect_+%_final_per_stage" = 50
+		mod("AreaOfEffect", "MORE", 50, 0, 0, { type = "Multiplier", var = "ReaveStage" }), --"reave_area_of_effect_+%_final_per_stage" = 50
 		--"reave_rotation_on_repeat" = 135
 		--"reave_additional_max_stacks" = 4
 		--"base_attack_repeat_count" = 7
@@ -4017,6 +4041,8 @@ skills["VaalReave"] = {
 		--"is_area_damage" = ?
 		skill("cannotBeEvaded", true), --"global_always_hit" = ?
 		skill("radius", 12), 
+		mod("Multiplier:ReaveStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Multiplier:ReaveStage", "BASE", 8, 0, 0, { type = "SkillPart", skillPart = 3 }), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5

@@ -107,13 +107,19 @@ Reflects 4 Physical Damage to Melee Attackers
 ]],[[
 Heatshiver
 Leather Hood
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 20, 46 Dex
-+1 to Level of Socketed Fire Gems
-+1 to Level of Socketed Cold Gems
+{variant:1}+1 to Level of Socketed Fire Gems
+{variant:1}+1 to Level of Socketed Cold Gems
+{variant:2}(20–30)% increased Cold Damage if you have used a Fire Skill Recently
+{variant:2}(20–30)% increased Fire Damage if you have used a Cold Skill Recently
 (80-100)% increased Evasion Rating
 60% increased Mana Regeneration Rate
-−(20-10)% to Fire Resistance
-−(20-10)% to Cold Resistance
+{variant:1}−(20-10)% to Fire Resistance
+{variant:2}+(20-30)% to Fire Resistance
+{variant:1}−(20-10)% to Cold Resistance
+{variant:2}+(20-30)% to Cold Resistance
 ]],[[
 Obscurantis 
 Lion Pelt
@@ -195,20 +201,25 @@ Pain Attunement
 Doedre's Scorn
 Lunaris Circlet
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 39, 83 Int
 {variant:1}+1 to Level of Socketed Curse Gems
-{variant:2}+2 to Level of Socketed Curse Gems
-{variant:2}+(100-120) to maximum Energy Shield
+{variant:2,3}+2 to Level of Socketed Curse Gems
+{variant:2,3}+(100-120) to maximum Energy Shield
 +(20-30) to Intelligence
 (30-50)% increased Curse Duration
 20% increased Elemental Damage
-(10-20)% increased Damage per Curse on Enemy
+{variant:1,2}(10-20)% increased Damage per Curse on Enemy
+{variant:3}(10–20)% increased Damage with Hits and Ailments per Curse on Enemy
 ]],[[
 Martyr's Crown
 Vine Circlet
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 52
-+(260-300) to maximum Energy Shield
+{variant:1}+(260-300) to maximum Energy Shield
+{variant:2}+(110–130) to maximum Energy Shield
 Reflects 5 Physical Damage to Melee Attackers
 Take 5 Physical Damage when hit by Attacks
 Pain Attunement
@@ -364,7 +375,8 @@ Cannot be Frozen
 The Broken Crown
 Prophet Crown
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 63, 85 Str, 62 Int
 Socketed Gems are supported by level 20 Cast on Death
 20% increased Damage when on Low Life
@@ -373,6 +385,7 @@ Socketed Gems are supported by level 20 Cast on Death
 20% reduced Mana Regeneration Rate
 {variant:1}+(20-30) to maximum Energy Shield
 {variant:2}+(70-90) to maximum Energy Shield
+{variant:3}+(50–70) to maximum Energy Shield
 +(43-61)% to Chaos Resistance
 ]],[[
 Geofri's Crest
@@ -405,9 +418,12 @@ you Spend at least 100 Mana to Use a Skill
 ]],[[
 Malachai's Vision
 Praetor Crown
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 68, 62 Str, 91 Int
 Adds (13-17) to (29-37) Chaos Damage
-+(200-250) to maximum Energy Shield
+{variant:1}+(200-250) to maximum Energy Shield
+{variant:2}+(150–200) to maximum Energy Shield
 +(32-40)% to Cold Resistance
 +(15-20)% to Lightning Resistance
 Regenerate 100 Energy Shield per second if all worn items are Corrupted
@@ -460,15 +476,17 @@ Reflects 100 to 150 Physical Damage to Melee Attackers
 The Gull
 Raven Mask
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Domination
 Requires Level 38, 44 Dex, 44 Int
-{variant:2}Cast level 1 Create Lesser Shrine when you Kill an Enemy
+{variant:2,3}Cast level 1 Create Lesser Shrine when you Kill an Enemy
 (120-150)% increased Evasion and Energy Shield
 {variant:2}+(40-65) to maximum Energy Shield
+{variant:3}+(30–45) to maximum Energy Shield
 {variant:1}+(30-40) to maximum Mana
-{variant:2}+(60-80) to maximum Life
-{variant:2}+(30-40)% to Cold Resistance
+{variant:2,3}+(60-80) to maximum Life
+{variant:2,3}+(30-40)% to Cold Resistance
 {variant:1}+(15-20) Life gained on Kill
 {variant:1}+(10-15) Energy Shield gained on Kill
 75% increased Effect of Shrine Buffs on you
@@ -477,12 +495,14 @@ Requires Level 38, 44 Dex, 44 Int
 Heretic's Veil
 Deicide Mask
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 67, 73 Dex, 88 Int
 +(40-50) to maximum Energy Shield
-(130-150)% increased Evasion and Energy Shield
+{variant:1,2}(130-150)% increased Evasion and Energy Shield
+{variant:3}(90–110)% increased Evasion and Energy Shield
 {variant:1}+2 to Level of Socketed Curse Gems
-{variant:2}+1 to Level of Socketed Curse Gems
+{variant:2,3}+1 to Level of Socketed Curse Gems
 Socketed Curse Gems are Supported by Level 22 Blasphemy
 Socketed Curse Gems have 12% reduced Mana Reservation
 ]],[[
