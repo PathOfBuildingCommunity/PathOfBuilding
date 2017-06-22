@@ -1115,6 +1115,7 @@ function calcs.offence(env, actor)
 			output.BleedChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "BleedChance"))
 		end
 		output.PoisonChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "PoisonChance"))
+		output.ChaosPoisonChance = m_min(100, modDB:Sum("BASE", cfg, "ChaosPoisonChance"))
 		if modDB:Sum("FLAG", cfg, "CannotIgnite") then
 			output.IgniteChanceOnHit = 0
 		else
@@ -1144,6 +1145,7 @@ function calcs.offence(env, actor)
 			local poisonMult = (1 - enemyDB:Sum("BASE", nil, "AvoidPoison") / 100)
 			output.PoisonChanceOnHit = output.PoisonChanceOnHit * poisonMult
 			output.PoisonChanceOnCrit = output.PoisonChanceOnCrit * poisonMult
+			output.ChaosPoisonChance = output.ChaosPoisonChance * poisonMult
 			local igniteMult = (1 - enemyDB:Sum("BASE", nil, "AvoidIgnite") / 100)
 			output.IgniteChanceOnHit = output.IgniteChanceOnHit * igniteMult
 			output.IgniteChanceOnCrit = output.IgniteChanceOnCrit * igniteMult
@@ -1273,9 +1275,23 @@ function calcs.offence(env, actor)
 		end
 
 		-- Calculate poison chance and damage
-		if canDeal.Chaos and (output.PoisonChanceOnHit + output.PoisonChanceOnCrit) > 0 then
-			local sourceHitDmg = output.PhysicalHitAverage + output.ChaosHitAverage
-			local sourceCritDmg = output.PhysicalCritAverage + output.ChaosCritAverage
+		if canDeal.Chaos and (output.PoisonChanceOnHit + output.PoisonChanceOnCrit + output.ChaosPoisonChance) > 0 then
+			local sourceHitDmg = output.ChaosHitAverage
+			if output.ChaosPoisonChance > 0 and sourceHitDmg > 0 then
+				-- Separate chance for poison; adjust Physical damage and inflict chance
+				sourceHitDmg = sourceHitDmg + output.PhysicalHitAverage * output.PoisonChanceOnHit / output.ChaosPoisonChance
+				output.PoisonChanceOnHit = output.ChaosPoisonChance
+			else
+				sourceHitDmg = sourceHitDmg + output.PhysicalHitAverage
+			end
+			local sourceCritDmg = output.ChaosCritAverage
+			if output.ChaosPoisonChance > 0 and sourceCritDmg > 0 then
+				-- Separate chance for poison; adjust Physical damage and inflict chance
+				sourceCritDmg = sourceCritDmg + output.PhysicalCritAverage * output.PoisonChanceOnCrit / output.ChaosPoisonChance
+				output.PoisonChanceOnCrit = output.ChaosPoisonChance
+			else
+				sourceCritDmg = sourceCritDmg + output.PhysicalCritAverage
+			end
 			local baseVal = calcSecondaryEffectBase("Poison", sourceHitDmg, sourceCritDmg * modDB:Sum("MORE", cfg, "PoisonDamageOnCrit")) * 0.08
 			if baseVal > 0 then
 				skillFlags.poison = true

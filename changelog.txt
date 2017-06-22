@@ -1,3 +1,7 @@
+VERSION[1.4.36][2017/06/22]
+ * The Consuming Dark is now properly supported; previously, both Chaos and Physical would Poison
+For 3.0 builds:
+ * Updated item affixes; this will correct various oddities, such as missing affix names or incorrect values
 VERSION[1.4.35][2017/06/21]
  * Added skill parts to Reave and Vaal Reave for selecting the stage count
 For 3.0 builds:
