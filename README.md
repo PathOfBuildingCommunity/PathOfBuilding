@@ -27,9 +27,10 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
   * Contains a searchable database of all uniques that are currently in game (and some that aren't yet!)
     * You can choose the modifier rolls when you add a unique to your build
     * Includes all league-specific items and legacy variants
-  * Features a basic item crafting system:
+  * Features an item crafting system:
     * You can select from any of the game's base item types
-	* For Flasks and Jewels you can select modifiers from lists; for other item types modifiers must be added manually at present
+	* You can select prefix/suffix modifiers from lists
+	* Custom modifiers can be added, with Master and Essence modifiers available
   * Also contains a database of rare item templates:
     * Allows you to create rare items for your build to approximate the gear you will be using
     * Choose which modifiers appear on each item, and the rolls for each modifier, to suit your needs
@@ -39,7 +40,6 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
   * Share builds with other users by generating a share code
   * Automatic updating; most updates will only take a couple of seconds to apply
   * Somewhat more open source than usual (look in %ProgramData%\Path of Building if you're interested)
-  * More to be added later if I'm not busy playing Atlas of Worlds ;)
   
 ## Download
 Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) page to download the installer.
@@ -53,6 +53,11 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.36 - 2017/06/22
+ * The Consuming Dark is now properly supported; previously, both Chaos and Physical would Poison
+For 3.0 builds:
+ * Updated item affixes; this will correct various oddities, such as missing affix names or incorrect values
+
 ### 1.4.35 - 2017/06/21
  * Added skill parts to Reave and Vaal Reave for selecting the stage count
 For 3.0 builds:

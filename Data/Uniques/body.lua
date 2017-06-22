@@ -350,6 +350,7 @@ Variant: Iron Reflexes
 Variant: Mind Over Matter
 Variant: Minion Instability
 Variant: Pain Attunement
+Variant: Perfect Agony
 Variant: Phase Acrobatics
 Variant: Point Blank
 Variant: Resolute Technique
@@ -376,12 +377,13 @@ You can only Socket Corrupted Gems in this item
 {variant:13}Mind Over Matter
 {variant:14}Minion Instability
 {variant:15}Pain Attunement
-{variant:16}Phase Acrobatics
-{variant:17}Point Blank
-{variant:18}Resolute Technique
-{variant:19}Unwavering Stance
-{variant:20}Vaal Pact
-{variant:21}Zealot's Oath
+{variant:16}Perfect Agony
+{variant:17}Phase Acrobatics
+{variant:18}Point Blank
+{variant:19}Resolute Technique
+{variant:20}Unwavering Stance
+{variant:21}Vaal Pact
+{variant:22}Zealot's Oath
 Corrupted
 ]],[[
 Soul Mantle

@@ -1142,6 +1142,7 @@ function calcs.offence(env, actor)
 			output.BleedChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "BleedChance"))
 		end
 		output.PoisonChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "PoisonChance"))
+		output.ChaosPoisonChance = m_min(100, modDB:Sum("BASE", cfg, "ChaosPoisonChance"))
 		if modDB:Sum("FLAG", cfg, "CannotIgnite") then
 			output.IgniteChanceOnHit = 0
 		else
@@ -1171,6 +1172,7 @@ function calcs.offence(env, actor)
 			local poisonMult = (1 - enemyDB:Sum("BASE", nil, "AvoidPoison") / 100)
 			output.PoisonChanceOnHit = output.PoisonChanceOnHit * poisonMult
 			output.PoisonChanceOnCrit = output.PoisonChanceOnCrit * poisonMult
+			output.ChaosPoisonChance = output.ChaosPoisonChance * poisonMult
 			local igniteMult = (1 - enemyDB:Sum("BASE", nil, "AvoidIgnite") / 100)
 			output.IgniteChanceOnHit = output.IgniteChanceOnHit * igniteMult
 			output.IgniteChanceOnCrit = output.IgniteChanceOnCrit * igniteMult
@@ -1265,10 +1267,8 @@ function calcs.offence(env, actor)
 			for pass = 1, 2 do
 				dotCfg.skillCond["CriticalStrike"] = (pass == 1)
 				local min, max = calcAilmentSourceDamage(actor, output, dotCfg, pass == 2 and breakdown and breakdown.BleedPhysical, "Physical")
-				if env.mode == "CALCS" then
-					output.BleedPhysicalMin = min
-					output.BleedPhysicalMax = max
-				end
+				output.BleedPhysicalMin = min
+				output.BleedPhysicalMax = max
 				if pass == 1 then
 					sourceCritDmg = (min + max) / 2  * output.CritDegenMultiplier
 				else
@@ -1330,7 +1330,7 @@ function calcs.offence(env, actor)
 		end
 
 		-- Calculate poison chance and damage
-		if canDeal.Chaos and (output.PoisonChanceOnHit + output.PoisonChanceOnCrit) > 0 then
+		if canDeal.Chaos and (output.PoisonChanceOnHit + output.PoisonChanceOnCrit + output.ChaosPoisonChance) > 0 then
 			if not mainSkill.poisonCfg then
 				mainSkill.poisonCfg = {
 					skillName = skillCfg.skillName,
@@ -1350,20 +1350,23 @@ function calcs.offence(env, actor)
 			for pass = 1, 2 do
 				dotCfg.skillCond["CriticalStrike"] = (pass == 1)
 				local totalMin, totalMax = 0, 0
-				if canDeal.Physical then
-					local min, max = calcAilmentSourceDamage(actor, output, dotCfg, pass == 2 and breakdown and breakdown.PoisonPhysical, "Physical", "Chaos")
-					if env.mode == "CALCS" then
-						output.PoisonPhysicalMin = min
-						output.PoisonPhysicalMax = max
-					end
+				do
+					local min, max = calcAilmentSourceDamage(actor, output, dotCfg, pass == 2 and breakdown and breakdown.PoisonChaos, "Chaos")
+					output.PoisonChaosMin = min
+					output.PoisonChaosMax = max
 					totalMin = totalMin + min
 					totalMax = totalMax + max
 				end
-				do
-					local min, max = calcAilmentSourceDamage(actor, output, dotCfg, pass == 2 and breakdown and breakdown.PoisonChaos, "Chaos")
-					if env.mode == "CALCS" then
-						output.PoisonChaosMin = min
-						output.PoisonChaosMax = max
+				if canDeal.Physical then
+					local min, max = calcAilmentSourceDamage(actor, output, dotCfg, pass == 2 and breakdown and breakdown.PoisonPhysical, "Physical", "Chaos")
+					output.PoisonPhysicalMin = min
+					output.PoisonPhysicalMax = max
+					if output.ChaosPoisonChance > 0 and output.PoisonChaosMax > 0 then
+						-- Separate chance for poison; adjust Physical damage and inflict chance
+						local chance = (pass == 1) and "PoisonChanceOnCrit" or "PoisonChanceOnHit"
+						min = min * output[chance] / output.ChaosPoisonChance
+						max = max * output[chance] / output.ChaosPoisonChance
+						output[chance] = output.ChaosPoisonChance
 					end
 					totalMin = totalMin + min
 					totalMax = totalMax + max
@@ -1475,19 +1478,15 @@ function calcs.offence(env, actor)
 				local totalMin, totalMax = 0, 0
 				if canDeal.Fire and not modDB:Sum("FLAG", cfg, "FireCannotIgnite") then
 					local min, max = calcAilmentSourceDamage(actor, output, dotCfg, pass == 2 and breakdown and breakdown.IgniteFire, "Fire")
-					if env.mode == "CALCS" then
-						output.IgniteFireMin = min
-						output.IgniteFireMax = max
-					end
+					output.IgniteFireMin = min
+					output.IgniteFireMax = max
 					totalMin = totalMin + min
 					totalMax = totalMax + max
 				end
 				if canDeal.Cold and modDB:Sum("FLAG", cfg, "ColdCanIgnite") then
 					local min, max = calcAilmentSourceDamage(actor, output, dotCfg, pass == 2 and breakdown and breakdown.IgniteCold, "Cold", "Fire")
-					if env.mode == "CALCS" then
-						output.IgniteColdMin = min
-						output.IgniteColdMax = max
-					end
+					output.IgniteColdMin = min
+					output.IgniteColdMax = max
 					totalMin = totalMin + min
 					totalMax = totalMax + max
 				end
