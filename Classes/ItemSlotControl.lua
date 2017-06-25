@@ -50,9 +50,13 @@ end)
 
 function ItemSlotClass:SetSelItemId(selItemId)
 	self.selItemId = selItemId
-	if self.nodeId and self.itemsTab.build.spec then
-		self.itemsTab.build.spec.jewels[self.nodeId] = selItemId
-		self.itemsTab.build.spec:BuildAllDependsAndPaths()
+	if self.nodeId then
+		if self.itemsTab.build.spec then
+			self.itemsTab.build.spec.jewels[self.nodeId] = selItemId
+			self.itemsTab.build.spec:BuildAllDependsAndPaths()
+		end
+	else
+		self.itemsTab.activeItemSet[self.slotName].selItemId = selItemId
 	end
 end
 
@@ -62,7 +66,7 @@ function ItemSlotClass:Populate()
 	self.items[1] = 0
 	self.list[1] = "None"
 	self.selIndex = 1
-	for _, item in pairs(self.itemsTab.list) do
+	for _, item in pairs(self.itemsTab.items) do
 		if self.itemsTab:IsItemValidForSlot(item, self.slotName) then
 			t_insert(self.items, item.id)
 			t_insert(self.list, colorCodes[item.rarity]..item.name)
@@ -71,7 +75,7 @@ function ItemSlotClass:Populate()
 			end
 		end
 	end
-	if not self.selItemId or not self.itemsTab.list[self.selItemId] or not self.itemsTab:IsItemValidForSlot(self.itemsTab.list[self.selItemId], self.slotName) then
+	if not self.selItemId or not self.itemsTab.items[self.selItemId] or not self.itemsTab:IsItemValidForSlot(self.itemsTab.items[self.selItemId], self.slotName) then
 		self:SetSelItemId(0)
 	end
 end
@@ -81,7 +85,7 @@ function ItemSlotClass:CanReceiveDrag(type, value)
 end
 
 function ItemSlotClass:ReceiveDrag(type, value, source)
-	if value.id and self.itemsTab.list[value.id] then
+	if value.id and self.itemsTab.items[value.id] then
 		self:SetSelItemId(value.id)
 	else
 		local newItem = itemLib.makeItemFromRaw(self.itemsTab.build.targetVersion, value.raw)
@@ -100,10 +104,6 @@ function ItemSlotClass:Draw(viewPort)
 	DrawString(x + self.labelOffset, y + 2, "RIGHT_X", height - 4, "VAR", "^7"..self.label..":")
 	self.DropDownControl:Draw(viewPort)
 	self:DrawControls(viewPort)
-	if self.otherDragSource then
-		SetDrawColor(0, 1, 0, 0.25)
-		DrawImage(nil, x, y, width, height)
-	end
 	if main.popups[1] then
 		return
 	end
@@ -131,10 +131,10 @@ function ItemSlotClass:Draw(viewPort)
 		local ttItem
 		if self.dropped then
 			if self.hoverSel then
-				ttItem = self.itemsTab.list[self.items[self.hoverSel]]
+				ttItem = self.itemsTab.items[self.items[self.hoverSel]]
 			end
 		elseif self.selItemId and (not self.itemsTab.selControl or self.itemsTab.selControl == self.controls.activate) then
-			ttItem = self.itemsTab.list[self.selItemId]
+			ttItem = self.itemsTab.items[self.selItemId]
 		end
 		if ttItem then
 			self.itemsTab:AddItemTooltip(ttItem, self)

@@ -417,6 +417,19 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			minion.itemList = { }
 			local attackTime = minion.minionData.attackTime * (1 - (minion.minionData.damageFixup or 0))
 			local damage = env.data.monsterDamageTable[minion.level] * minion.minionData.damage * attackTime
+			if activeGem.grantedEffect.minionHasItemSet then
+				if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
+					if not env.build.itemsTab.itemSets[activeGem.srcGem.skillMinionItemSetCalcs] then
+						activeGem.srcGem.skillMinionItemSetCalcs = env.build.itemsTab.itemSetOrderList[1]
+					end
+					minion.itemSet = env.build.itemsTab.itemSets[activeGem.srcGem.skillMinionItemSetCalcs]
+				else
+					if not env.build.itemsTab.itemSets[activeGem.srcGem.skillMinionItemSet] then
+						activeGem.srcGem.skillMinionItemSet = env.build.itemsTab.itemSetOrderList[1]
+					end
+					minion.itemSet = env.build.itemsTab.itemSets[activeGem.srcGem.skillMinionItemSet]
+				end
+			end
 			if activeSkill.skillData.minionUseBowAndQuiver and env.player.weaponData1.type == "Bow" then
 				minion.weaponData1 = env.player.weaponData1
 			else
@@ -430,6 +443,20 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 				}
 			end
 			minion.weaponData2 = { }
+			if minion.itemSet then
+				if activeGem.grantedEffect.minionUses["Weapon 1"] then
+					local item = env.build.itemsTab.items[minion.itemSet[minion.itemSet.useSecondWeaponSet and "Weapon 1 Swap" or "Weapon 1"].selItemId]
+					if item then
+						minion.weaponData1 = item.weaponData[1]
+					end
+				end
+				if activeGem.grantedEffect.minionUses["Weapon 2"] then
+					local item = env.build.itemsTab.items[minion.itemSet[minion.itemSet.useSecondWeaponSet and "Weapon 2 Swap" or "Weapon 2"].selItemId]
+					if item and item.weaponData then
+						minion.weaponData2 = item.weaponData[2]
+					end
+				end
+			end
 		end
 	end
 

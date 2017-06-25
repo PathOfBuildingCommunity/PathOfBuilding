@@ -255,7 +255,7 @@ function calcs.offence(env, actor)
 		end
 		if skillData.radius then
 			skillFlags.area = true
-			local baseRadius = skillData.radius + (skillData.radiusExtra or 0)
+			local baseRadius = skillData.radius + (skillData.radiusExtra or 0) + modDB:Sum("BASE", skillCfg, "AreaOfEffect")
 			output.AreaOfEffectRadius = m_floor(baseRadius * m_sqrt(output.AreaOfEffectMod))
 			if breakdown then
 				if output.AreaOfEffectRadius ~= baseRadius then

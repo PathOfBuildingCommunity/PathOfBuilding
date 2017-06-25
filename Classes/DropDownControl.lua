@@ -145,6 +145,10 @@ function DropDownClass:Draw(viewPort)
 		DrawImage(nil, x + 1, dropY + 1, width - 2, dropExtra - 2)
 		SetDrawLayer(nil, 0)
 	end
+	if self.otherDragSource then
+		SetDrawColor(0, 1, 0, 0.25)
+		DrawImage(nil, x, y, width, height)
+	end
 	if enabled then
 		if (mOver or self.dropped) and mOverComp ~= "DROP" then
 			local col, center = self.tooltipFunc(mOver and "BODY" or "OUT", self.selIndex, self.list[self.selIndex])

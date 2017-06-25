@@ -63,7 +63,7 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 			main:AddTooltipLine(16, "This will allow the skill to benefit from modifiers on the item that affect socketed gems.")
 		else
 			local slot = self.build.itemsTab.slots[value.slotName]
-			local ttItem = self.build.itemsTab.list[slot.selItemId]
+			local ttItem = self.build.itemsTab.items[slot.selItemId]
 			if ttItem then
 				self.build.itemsTab:AddItemTooltip(ttItem, slot)
 				return colorCodes[ttItem.rarity], true
@@ -135,6 +135,8 @@ function SkillsTabClass:Load(xml, fileName)
 				gem.skillPartCalcs = tonumber(child.attrib.skillPartCalcs)
 				gem.skillMinion = child.attrib.skillMinion
 				gem.skillMinionCalcs = child.attrib.skillMinionCalcs
+				gem.skillMinionItemSet = tonumber(child.attrib.skillMinionItemSet)
+				gem.skillMinionItemSetCalcs = tonumber(child.attrib.skillMinionItemSetCalcs)
 				gem.skillMinionSkill = tonumber(child.attrib.skillMinionSkill)
 				gem.skillMinionSkillCalcs = tonumber(child.attrib.skillMinionSkillCalcs)
 				t_insert(socketGroup.gemList, gem)
@@ -171,6 +173,8 @@ function SkillsTabClass:Save(xml)
 				skillPartCalcs = gem.skillPartCalcs and tostring(gem.skillPartCalcs),
 				skillMinion = gem.skillMinion,
 				skillMinionCalcs = gem.skillMinionCalcs,
+				skillMinionItemSet = gem.skillMinionItemSet and tostring(gem.skillMinionItemSet),
+				skillMinionItemSetCalcs = gem.skillMinionItemSetCalcs and tostring(gem.skillMinionItemSetCalcs),
 				skillMinionSkill = gem.skillMinionSkill and tostring(gem.skillMinionSkill),
 				skillMinionSkillCalcs = gem.skillMinionSkillCalcs and tostring(gem.skillMinionSkillCalcs),
 			} })

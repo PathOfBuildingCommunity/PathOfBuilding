@@ -6,7 +6,19 @@
 local skills, mod, flag, skill = ...
 
 #skill AnimateWeapon
-	unsupported = true,
+#flags spell minion duration
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	minionList = {
+		"AnimatedWeapon",
+	},
+#setMod base_movement_velocity_+%==mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", {val}) })
+#setMod active_skill_damage_+%_final==mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", {val}) })
+#setMod attack_speed_+%==mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", {val}, ModFlag.Attack) })
+#setMod attack_minimum_added_physical_damage==mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", {val}, 0, KeywordFlag.Attack) })
+#setMod attack_maximum_added_physical_damage==mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", {val}, 0, KeywordFlag.Attack) })
 #mods
 
 #skill NewArcticArmour

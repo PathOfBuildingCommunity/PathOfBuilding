@@ -199,7 +199,7 @@ function ItemDBClass:OnSelClick(index, item, doubleClick)
 		-- Equip item if able
 		local slotName = itemLib.getPrimarySlotForItem(newItem)
 		if slotName and self.itemsTab.slots[slotName] then
-			if self.itemsTab.slots[slotName].weaponSet == 1 and self.itemsTab.useSecondWeaponSet then
+			if self.itemsTab.slots[slotName].weaponSet == 1 and self.itemsTab.activeItemSet.useSecondWeaponSet then
 				-- Redirect to second weapon set
 				slotName = slotName .. " Swap"
 			end

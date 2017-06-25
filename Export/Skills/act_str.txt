@@ -25,7 +25,24 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AnimateArmour
-	unsupported = true,
+#flags spell minion 
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+		["Weapon 2"] = true,
+		["Helmet"] = true,
+		["Body Armour"] = true,
+		["Gloves"] = true,
+		["Boots"] = true,
+	},
+	minionList = {
+		"AnimatedArmour",
+	},
+#setMod maximum_life_+%==mod("MinionModifier", "LIST", { mod = mod("Life", "INC", {val}) })
+#setMod base_movement_velocity_+%==mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", {val}) })
+#setMod melee_physical_damage_+%==mod("MinionModifier", "LIST", { mod = mod("PhysicalDamage", "INC", {val}, ModFlag.Melee) })
+#setMod attack_minimum_added_physical_damage==mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", {val}, 0, KeywordFlag.Attack) })
+#setMod attack_maximum_added_physical_damage==mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", {val}, 0, KeywordFlag.Attack) })
 #mods
 
 #skill Cleave

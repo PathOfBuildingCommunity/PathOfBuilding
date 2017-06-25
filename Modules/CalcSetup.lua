@@ -267,9 +267,9 @@ function calcs.initEnv(build, mode, override)
 		if slotName == override.repSlotName then
 			item = override.repItem
 		elseif slot.nodeId and override.spec then
-			item = build.itemsTab.list[env.spec.jewels[slot.nodeId]]
+			item = build.itemsTab.items[env.spec.jewels[slot.nodeId]]
 		else
-			item = build.itemsTab.list[slot.selItemId]
+			item = build.itemsTab.items[slot.selItemId]
 		end
 		if item then
 			-- Find skills granted by this item
@@ -280,10 +280,10 @@ function calcs.initEnv(build, mode, override)
 				t_insert(env.itemGrantedSkills, grantedSkill)
 			end
 		end
-		if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.useSecondWeaponSet and 2 or 1) then			
+		if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then			
 			item = nil
 		end
-		if slot.weaponSet == 2 and build.itemsTab.useSecondWeaponSet then
+		if slot.weaponSet == 2 and build.itemsTab.activeItemSet.useSecondWeaponSet then
 			slotName = slotName:gsub(" Swap","")
 		end
 		if slot.nodeId then
@@ -476,7 +476,7 @@ function calcs.initEnv(build, mode, override)
 	for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
 		local socketGroupSkillList = { }
 		local slot = socketGroup.slot and build.itemsTab.slots[socketGroup.slot]
-		socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.useSecondWeaponSet and 2 or 1)
+		socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
 		if index == env.mainSocketGroup or (socketGroup.enabled and socketGroup.slotEnabled) then
 			groupCfg.slotName = socketGroup.slot
 			local propertyModList = env.modDB:Sum("LIST", groupCfg, "GemProperty")

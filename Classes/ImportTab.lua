@@ -339,7 +339,7 @@ function ImportTabClass:DownloadPassiveTree()
 		if self.controls.charImportTreeClearJewels.state then
 			for _, slot in pairs(self.build.itemsTab.slots) do
 				if slot.selItemId ~= 0 and slot.nodeId then
-					self.build.itemsTab:DeleteItem(self.build.itemsTab.list[slot.selItemId])
+					self.build.itemsTab:DeleteItem(self.build.itemsTab.items[slot.selItemId])
 				end
 			end
 		end
@@ -384,7 +384,7 @@ function ImportTabClass:DownloadItems()
 		if self.controls.charImportItemsClearItems.state then
 			for _, slot in pairs(self.build.itemsTab.slots) do
 				if slot.selItemId ~= 0 and not slot.nodeId then
-					self.build.itemsTab:DeleteItem(self.build.itemsTab.list[slot.selItemId])
+					self.build.itemsTab:DeleteItem(self.build.itemsTab.items[slot.selItemId])
 				end
 			end
 		end
@@ -611,7 +611,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 	local newItem = itemLib.makeItemFromRaw(self.build.targetVersion, item.raw)
 	if newItem then
 		local repIndex, repItem
-		for index, item in pairs(self.build.itemsTab.list) do
+		for index, item in pairs(self.build.itemsTab.items) do
 			if item.uniqueID == itemData.id then
 				repIndex = index
 				repItem = item
@@ -621,7 +621,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 		if repIndex then
 			-- Item already exists in the build, overwrite it
 			newItem.id = repItem.id
-			self.build.itemsTab.list[newItem.id] = newItem
+			self.build.itemsTab.items[newItem.id] = newItem
 			itemLib.buildItemModList(newItem)
 		else
 			self.build.itemsTab:AddItem(newItem, true)

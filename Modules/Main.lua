@@ -66,6 +66,8 @@ local classList = {
 	"SkillListControl",
 	"GemSelectControl",
 	"ItemsTab",
+	"ItemSetListControl",
+	"SharedItemSetListControl",
 	"ItemSlotControl",
 	"ItemListControl",
 	"ItemDBControl",
@@ -141,7 +143,8 @@ function main:Init()
 		end
 	end
 
-	self.sharedItems = { }
+	self.sharedItemList = { }
+	self.sharedItemSetList = { }
 
 	self.anchorMain = common.New("Control", nil, 4, 0, 0, 0)
 	self.anchorMain.y = function()
@@ -326,6 +329,17 @@ function main:OnFrame()
 		SetDrawLayer(0)
 	end
 
+	if self.showDragText then
+		local cursorX, cursorY = GetCursorPos()
+		local strWidth = DrawStringWidth(16, "VAR", self.showDragText)
+		SetDrawLayer(20, 0)
+		SetDrawColor(0.15, 0.15, 0.15, 0.75)
+		DrawImage(nil, cursorX, cursorY - 8, strWidth + 2, 18)
+		SetDrawColor(1, 1, 1)
+		DrawString(cursorX + 1, cursorY - 7, "LEFT", 16, "VAR", self.showDragText)
+		self.showDragText = nil
+	end
+
 	wipeTable(self.inputEvents)
 end
 
@@ -407,7 +421,29 @@ function main:LoadSettings()
 							itemLib.parseItemRaw(item)
 							verItem[targetVersion] = item
 						end
-						t_insert(self.sharedItems, verItem)
+						t_insert(self.sharedItemList, verItem)
+					elseif child.elem == "ItemSet" then
+						local sharedItemSet = { title = child.attrib.title, slots = { } }
+						for _, grandChild in ipairs(child) do
+							if grandChild.elem == "Item" then
+								local verItem = { raw = "" }
+								for _, subChild in ipairs(grandChild) do
+									if type(subChild) == "string" then
+										verItem.raw = subChild
+									end
+								end
+								for _, targetVersion in ipairs(targetVersionList) do			
+									local item = { 
+										targetVersion = targetVersion,
+										raw = verItem.raw,
+									}
+									itemLib.parseItemRaw(item)
+									verItem[targetVersion] = item
+								end
+								sharedItemSet.slots[grandChild.attrib.slotName] = verItem
+							end
+						end
+						t_insert(self.sharedItemSetList, sharedItemSet)
 					end
 				end
 			elseif node.elem == "Misc" then
@@ -448,11 +484,18 @@ function main:SaveSettings()
 		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = sessionID } })
 	end
 	t_insert(setXML, accounts)
-	local sharedItems = { elem = "SharedItems" }
-	for _, verItem in ipairs(self.sharedItems) do
-		t_insert(sharedItems, { elem = "Item", [1] = verItem.raw })
+	local sharedItemList = { elem = "SharedItems" }
+	for _, verItem in ipairs(self.sharedItemList) do
+		t_insert(sharedItemList, { elem = "Item", [1] = verItem.raw })
 	end
-	t_insert(setXML, sharedItems)
+	for _, sharedItemSet in ipairs(self.sharedItemSetList) do
+		local set = { elem = "ItemSet", attrib = { title = sharedItemSet.title } }
+		for slotName, verItem in pairs(sharedItemSet.slots) do
+			t_insert(set, { elem = "Item", attrib = { slotName = slotName }, [1] = verItem.raw })
+		end
+		t_insert(sharedItemList, set)
+	end
+	t_insert(setXML, sharedItemList)
 	t_insert(setXML, { elem = "Misc", attrib = { 
 		buildSortMode = self.buildSortMode, 
 		proxyURL = launch.proxyURL, 

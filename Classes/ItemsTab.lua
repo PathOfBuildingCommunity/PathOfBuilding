@@ -33,8 +33,8 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	
 	self.socketViewer = common.New("PassiveTreeView")
 
-	self.list = { }
-	self.orderList = { }
+	self.items = { }
+	self.itemOrderList = { }
 
 	-- Build lists of item bases, separated by type
 	self.baseLists = { }
@@ -69,11 +69,29 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	end
 	table.sort(self.baseTypeList)
 
+	-- Set selector
+	self.controls.setSelect = common.New("DropDownControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 8, 200, 20, nil, function(index, value)
+		self:SetActiveItemSet(self.itemSetOrderList[index])
+		self:AddUndoState()
+	end)
+	self.controls.setSelect.enabled = function()
+		return #self.itemSetOrderList > 1
+	end
+	self.controls.setSelect.tooltipFunc = function(mode, index, value)
+		if mode == "HOVER" then
+			self:AddItemSetTooltip(self.itemSets[self.itemSetOrderList[index]])
+		end
+	end
+	self.controls.setLabel = common.New("LabelControl", {"RIGHT",self.controls.setSelect,"LEFT"}, -2, 0, 0, 16, "^7Item set:")
+	self.controls.setManage = common.New("ButtonControl", {"LEFT",self.controls.setSelect,"RIGHT"}, 4, 0, 90, 20, "Manage...", function()
+		self:OpenItemSetManagePopup()
+	end)
+
 	-- Item slots
 	self.slots = { }
 	self.orderedSlots = { }
 	self.slotOrder = { }
-	self.slotAnchor = common.New("Control", {"TOPLEFT",self,"TOPLEFT"}, 96, 24, 310, 0)
+	self.slotAnchor = common.New("Control", {"TOPLEFT",self,"TOPLEFT"}, 96, 54, 310, 0)
 	for index, slotName in ipairs(baseSlots) do
 		local slot = common.New("ItemSlot", {"TOPLEFT",self.slotAnchor,"TOPLEFT"}, 0, (index - 1) * 20, self, slotName)
 		t_insert(self.controls, slot)
@@ -81,7 +99,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 		if slotName:match("Weapon") then
 			slot.weaponSet = 1
 			slot.shown = function()
-				return not self.useSecondWeaponSet
+				return not self.activeItemSet.useSecondWeaponSet
 			end
 			local swapSlot = common.New("ItemSlot", {"TOPLEFT",self.slotAnchor,"TOPLEFT"}, 0, (index - 1) * 20, self, slotName.." Swap", slotName)
 			t_insert(self.controls, swapSlot)
@@ -106,8 +124,8 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	end)
 	self.controls.slotHeader = common.New("LabelControl", {"BOTTOMLEFT",self.slotAnchor,"TOPLEFT"}, 0, -4, 0, 16, "^7Equipped items:")
 	self.controls.weaponSwap1 = common.New("ButtonControl", {"BOTTOMRIGHT",self.slotAnchor,"TOPRIGHT"}, -20, -2, 18, 18, "I", function()
-		if self.useSecondWeaponSet then
-			self.useSecondWeaponSet = false
+		if self.activeItemSet.useSecondWeaponSet then
+			self.activeItemSet.useSecondWeaponSet = false
 			self:AddUndoState()
 			self.build.buildFlag = true
 			local mainSocketGroup = self.build.skillsTab.socketGroupList[self.build.mainSocketGroup]
@@ -123,11 +141,11 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	end)
 	self.controls.weaponSwap1.overSizeText = 3
 	self.controls.weaponSwap1.locked = function()
-		return not self.useSecondWeaponSet
+		return not self.activeItemSet.useSecondWeaponSet
 	end
 	self.controls.weaponSwap2 = common.New("ButtonControl", {"BOTTOMRIGHT",self.slotAnchor,"TOPRIGHT"}, 0, -2, 18, 18, "II", function()
-		if not self.useSecondWeaponSet then
-			self.useSecondWeaponSet = true
+		if not self.activeItemSet.useSecondWeaponSet then
+			self.activeItemSet.useSecondWeaponSet = true
 			self:AddUndoState()
 			self.build.buildFlag = true
 			local mainSocketGroup = self.build.skillsTab.socketGroupList[self.build.mainSocketGroup]
@@ -143,18 +161,17 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	end)
 	self.controls.weaponSwap2.overSizeText = 3
 	self.controls.weaponSwap2.locked = function()
-		return self.useSecondWeaponSet
+		return self.activeItemSet.useSecondWeaponSet
 	end
 	self.controls.weaponSwapLabel = common.New("LabelControl", {"RIGHT",self.controls.weaponSwap1,"LEFT"}, -4, 0, 0, 14, "^7Weapon Set:")
-	self:PopulateSlots()
 
 	-- All items list
-	self.controls.itemList = common.New("ItemList", {"TOPLEFT",self.slotAnchor,"TOPRIGHT"}, 20, 0, 360, 308, self)
+	self.controls.itemList = common.New("ItemList", {"TOPLEFT",self.slotAnchor,"TOPRIGHT"}, 20, -20, 360, 308, self)
 
 	-- Database selector
 	self.controls.selectDBLabel = common.New("LabelControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 14, 0, 16, "^7Import from:")
 	self.controls.selectDBLabel.shown = function()
-		return self.height < 984
+		return self.height < 980
 	end
 	self.controls.selectDB = common.New("DropDownControl", {"LEFT",self.controls.selectDBLabel,"RIGHT"}, 4, 0, 150, 18, { "Uniques", "Rare Templates" })
 
@@ -204,7 +221,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		self:AddDisplayItem()
 	end)
 	self.controls.addDisplayItem.label = function()
-		return self.list[self.displayItem.id] and "Save" or "Add to build"
+		return self.items[self.displayItem.id] and "Save" or "Add to build"
 	end
 	self.controls.editDisplayItem = common.New("ButtonControl", {"LEFT",self.controls.addDisplayItem,"RIGHT"}, 8, 0, 60, 20, "Edit...", function()
 		self:EditDisplayItemText()
@@ -303,21 +320,35 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 
 	-- Initialise drag target lists
 	t_insert(self.controls.itemList.dragTargetList, self.controls.sharedItemList)
+	t_insert(self.controls.itemList.dragTargetList, build.controls.mainSkillMinion)
 	t_insert(self.controls.uniqueDB.dragTargetList, self.controls.itemList)
 	t_insert(self.controls.uniqueDB.dragTargetList, self.controls.sharedItemList)
+	t_insert(self.controls.uniqueDB.dragTargetList, build.controls.mainSkillMinion)
 	t_insert(self.controls.rareDB.dragTargetList, self.controls.itemList)
 	t_insert(self.controls.rareDB.dragTargetList, self.controls.sharedItemList)
+	t_insert(self.controls.rareDB.dragTargetList, build.controls.mainSkillMinion)
 	t_insert(self.controls.sharedItemList.dragTargetList, self.controls.itemList)
+	t_insert(self.controls.sharedItemList.dragTargetList, build.controls.mainSkillMinion)
 	for _, slot in pairs(self.slots) do
 		t_insert(self.controls.itemList.dragTargetList, slot)
 		t_insert(self.controls.uniqueDB.dragTargetList, slot)
 		t_insert(self.controls.rareDB.dragTargetList, slot)
 		t_insert(self.controls.sharedItemList.dragTargetList, slot)
 	end
+
+	-- Initialise item sets
+	self.itemSets = { }
+	self.itemSetOrderList = { 1 }
+	self:NewItemSet(1)
+	self:SetActiveItemSet(1)
+
+	self:PopulateSlots()
 end)
 
 function ItemsTabClass:Load(xml, dbFileName)
-	self.useSecondWeaponSet = xml.attrib.useSecondWeaponSet == "true"
+	self.activeItemSetId = 0
+	self.itemSets = { }
+	self.itemSetOrderList = { }
 	for _, node in ipairs(xml) do
 		if node.elem == "Item" then
 			local item = { }
@@ -339,8 +370,8 @@ function ItemsTabClass:Load(xml, dbFileName)
 				end
 			end
 			itemLib.buildItemModList(item)
-			self.list[item.id] = item
-			t_insert(self.orderList, item.id)
+			self.items[item.id] = item
+			t_insert(self.itemOrderList, item.id)
 		elseif node.elem == "Slot" then
 			local slot = self.slots[node.attrib.name or ""]
 			if slot then
@@ -350,18 +381,38 @@ function ItemsTabClass:Load(xml, dbFileName)
 					slot.controls.activate.state = slot.active
 				end
 			end
+		elseif node.elem == "ItemSet" then
+			local itemSet = self:NewItemSet(tonumber(node.attrib.id))
+			itemSet.title = node.attrib.title
+			itemSet.useSecondWeaponSet = node.attrib.useSecondWeaponSet == "true"
+			for _, child in ipairs(node) do
+				if child.elem == "Slot" then
+					local slotName = child.attrib.name or ""
+					if itemSet[slotName] then
+						itemSet[slotName].selItemId = tonumber(child.attrib.itemId)
+						itemSet[slotName].active = child.attrib.active == "true"
+					end
+				end
+			end
+			t_insert(self.itemSetOrderList, itemSet.id)
 		end
 	end
+	if not self.itemSetOrderList[1] then
+		self.activeItemSet = self:NewItemSet(1)
+		self.activeItemSet.useSecondWeaponSet = xml.attrib.useSecondWeaponSet == "true"
+		self.itemSetOrderList[1] = 1
+	end
+	self:SetActiveItemSet(tonumber(xml.attrib.activeItemSet) or 1)
 	self:ResetUndo()
-	self:PopulateSlots()
 end
 
 function ItemsTabClass:Save(xml)
 	xml.attrib = {
-		useSecondWeaponSet = tostring(self.useSecondWeaponSet)
+		activeItemSet = tostring(self.activeItemSetId),
+		useSecondWeaponSet = tostring(self.activeItemSet.useSecondWeaponSet),
 	}
-	for _, id in ipairs(self.orderList) do
-		local item = self.list[id]
+	for _, id in ipairs(self.itemOrderList) do
+		local item = self.items[id]
 		local child = { elem = "Item", attrib = { id = tostring(id), variant = item.variant and tostring(item.variant) } }
 		t_insert(child, item.raw)
 		for id, modLine in ipairs(item.modLines) do
@@ -371,10 +422,20 @@ function ItemsTabClass:Save(xml)
 		end
 		t_insert(xml, child)
 	end
-	for name, slot in pairs(self.slots) do
+	for slotName, slot in pairs(self.slots) do
 		if slot.selItemId ~= 0 and not slot.nodeId then
-			t_insert(xml, { elem = "Slot", attrib = { name = name, itemId = tostring(slot.selItemId), active = slot.active and "true" }})
+			t_insert(xml, { elem = "Slot", attrib = { name = slotName, itemId = tostring(slot.selItemId), active = slot.active and "true" }})
 		end
+	end
+	for _, itemSetId in ipairs(self.itemSetOrderList) do
+		local itemSet = self.itemSets[itemSetId]
+		local child = { elem = "ItemSet", attrib = { id = tostring(itemSetId), title = itemSet.title, useSecondWeaponSet = tostring(itemSet.useSecondWeaponSet) } }
+		for slotName, slot in pairs(self.slots) do
+			if not slot.nodeId then
+				t_insert(child, { elem = "Slot", attrib = { name = slotName, itemId = tostring(itemSet[slotName].selItemId), active = itemSet[slotName].active and "true" }})
+			end
+		end
+		t_insert(xml, child)
 	end
 	self.modFlag = false
 end
@@ -405,8 +466,8 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 				self:Redo()
 				self.build.buildFlag = true
 			elseif launch.devMode and event.key == "DELETE" and IsKeyDown("CTRL") then
-				while self.orderList[1] do
-					self:DeleteItem(self.list[self.orderList[1]])
+				while self.itemOrderList[1] do
+					self:DeleteItem(self.items[self.itemOrderList[1]])
 				end
 				self.build.buildFlag = true
 			end
@@ -425,6 +486,15 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 
 	main:DrawBackground(viewPort)
 
+	wipeTable(self.controls.setSelect.list)
+	for index, itemSetId in ipairs(self.itemSetOrderList) do
+		local itemSet = self.itemSets[itemSetId]
+		t_insert(self.controls.setSelect.list, itemSet.title or "Default")
+		if itemSetId == self.activeItemSetId then
+			self.controls.setSelect.selIndex = index
+		end
+	end
+
 	if self.displayItem then
 		self:AddItemTooltip(self.displayItem)
 		local x, y = self.controls.displayItemTooltipAnchor:GetPos()
@@ -434,6 +504,81 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 	self:UpdateSockets()
 
 	self:DrawControls(viewPort)
+end
+
+-- Creates a new item set
+function ItemsTabClass:NewItemSet(itemSetId)
+	local itemSet = { id = itemSetId }
+	if not itemSetId then
+		itemSet.id = 1
+		while self.itemSets[itemSet.id] do
+			itemSet.id = itemSet.id + 1
+		end
+	end
+	for slotName, slot in pairs(self.slots) do
+		if not slot.nodeId then
+			itemSet[slotName] = { selItemId = 0 }
+		end
+	end
+	self.itemSets[itemSet.id] = itemSet
+	return itemSet
+end
+
+-- Changes the active item set
+function ItemsTabClass:SetActiveItemSet(itemSetId)
+	local prevSet = self.activeItemSet
+	if not self.itemSets[itemSetId] then
+		itemSetId = self.itemSetOrderList[1]
+	end
+	self.activeItemSetId = itemSetId
+	self.activeItemSet = self.itemSets[itemSetId]
+	local curSet = self.activeItemSet
+	for slotName, slot in pairs(self.slots) do
+		if not slot.nodeId then
+			if prevSet then
+				-- Update the previous set
+				prevSet[slotName].selItemId = slot.selItemId
+				prevSet[slotName].active = slot.active
+			end
+			-- Equip the incoming set's item
+			slot.selItemId = curSet[slotName].selItemId
+			slot.active = curSet[slotName].active
+		end
+	end
+	self.build.buildFlag = true
+	self:PopulateSlots()
+end
+
+-- Equips the given item in the given item set
+function ItemsTabClass:EquipItemInSet(item, itemSetId)
+	local itemSet = self.itemSets[itemSetId]
+	local slotName = itemLib.getPrimarySlotForItem(item)
+	if self.slots[slotName].weaponSet == 1 and itemSet.useSecondWeaponSet then
+		-- Redirect to second weapon set
+		slotName = slotName .. " Swap"
+	end
+	if not item.id or not self.items[item.id] then
+		item = itemLib.makeItemFromRaw(self.targetVersion, item.raw)
+		self:AddItem(item, true)
+	end
+	local altSlot = slotName:gsub("1","2")
+	if IsKeyDown("SHIFT") then
+		-- Redirect to second slot if possible
+		if self:IsItemValidForSlot(item, altSlot, itemSet) then
+			slotName = altSlot
+		end
+	end
+	if itemSet == self.activeItemSet then
+		self.slots[slotName]:SetSelItemId(item.id)
+	else
+		itemSet[slotName].selItemId = item.id
+		if itemSet[altSlot].selItemId ~= 0 and not self:IsItemValidForSlot(self.items[itemSet[altSlot].selItemId], altSlot, itemSet) then
+			itemSet[altSlot].selItemId = 0
+		end
+	end
+	self:PopulateSlots()
+	self:AddUndoState()
+	self.build.buildFlag = true	
 end
 
 -- Update the item lists for all the slot controls
@@ -466,7 +611,7 @@ end
 
 -- Returns the slot control and equipped jewel for the given node ID
 function ItemsTabClass:GetSocketAndJewelForNodeID(nodeId)
-	return self.sockets[nodeId], self.list[self.sockets[nodeId].selItemId]
+	return self.sockets[nodeId], self.items[self.sockets[nodeId].selItemId]
 end
 
 -- Adds the given item to the build's item list
@@ -474,15 +619,15 @@ function ItemsTabClass:AddItem(item, noAutoEquip, index)
 	if not item.id then
 		-- Find an unused item ID
 		item.id = 1
-		while self.list[item.id] do
+		while self.items[item.id] do
 			item.id = item.id + 1
 		end
 
 		if index then
-			t_insert(self.orderList, index, item.id)
+			t_insert(self.itemOrderList, index, item.id)
 		else
 			-- Add it to the end of the display order list
-			t_insert(self.orderList, item.id)
+			t_insert(self.itemOrderList, item.id)
 		end
 
 		if not noAutoEquip then
@@ -497,7 +642,7 @@ function ItemsTabClass:AddItem(item, noAutoEquip, index)
 	end
 	
 	-- Add it to the list
-	self.list[item.id] = item
+	self.items[item.id] = item
 	itemLib.buildItemModList(item)
 end
 
@@ -514,9 +659,9 @@ end
 
 -- Sorts the build's item list
 function ItemsTabClass:SortItemList()
-	table.sort(self.orderList, function(a, b)
-		local itemA = self.list[a]
-		local itemB = self.list[b]
+	table.sort(self.itemOrderList, function(a, b)
+		local itemA = self.items[a]
+		local itemB = self.items[b]
 		local primSlotA = itemLib.getPrimarySlotForItem(itemA)
 		local primSlotB = itemLib.getPrimarySlotForItem(itemB)
 		if primSlotA ~= primSlotB then
@@ -527,10 +672,18 @@ function ItemsTabClass:SortItemList()
 			end
 			return self.slotOrder[primSlotA] < self.slotOrder[primSlotB]
 		end
-		local equipSlotA = self:GetEquippedSlotForItem(itemA)
-		local equipSlotB = self:GetEquippedSlotForItem(itemB)
+		local equipSlotA, equipSetA = self:GetEquippedSlotForItem(itemA)
+		local equipSlotB, equipSetB = self:GetEquippedSlotForItem(itemB)
 		if equipSlotA and equipSlotB then
-			return self.slotOrder[equipSlotA.slotName] < self.slotOrder[equipSlotB.slotName]
+			if equipSlotA ~= equipSlotB then
+				return self.slotOrder[equipSlotA.slotName] < self.slotOrder[equipSlotB.slotName]
+			elseif equipSetA and not equipSetB then
+				return false
+			elseif not equipSetA and equipSetB then
+				return true
+			elseif equipSetA and equipSetB then
+				return isValueInArray(self.itemSetOrderList, equipSetA.id) < isValueInArray(self.itemSetOrderList, equipSetB.id)
+			end
 		elseif equipSlotA then
 			return true
 		elseif equipSlotB then
@@ -543,15 +696,23 @@ end
 
 -- Deletes an item
 function ItemsTabClass:DeleteItem(item)
-	for _, slot in pairs(self.slots) do
+	for slotName, slot in pairs(self.slots) do
 		if slot.selItemId == item.id then
 			slot:SetSelItemId(0)
 			self.build.buildFlag = true
 		end
+		if not slot.nodeId then
+			for _, itemSet in pairs(self.itemSets) do
+				if itemSet[slotName].selItemId == item.id then
+					itemSet[slotName].selItemId = 0
+					self.build.buildFlag = true
+				end
+			end
+		end
 	end
-	for index, id in pairs(self.orderList) do
+	for index, id in pairs(self.itemOrderList) do
 		if id == item.id then
-			t_remove(self.orderList, index)
+			t_remove(self.itemOrderList, index)
 			break
 		end
 	end
@@ -562,7 +723,7 @@ function ItemsTabClass:DeleteItem(item)
 			end
 		end
 	end
-	self.list[item.id] = nil
+	self.items[item.id] = nil
 	self:PopulateSlots()
 	self:AddUndoState()
 end
@@ -725,22 +886,31 @@ end
 -- Returns the first slot in which the given item is equipped
 function ItemsTabClass:GetEquippedSlotForItem(item)
 	for _, slot in ipairs(self.orderedSlots) do
-		if not slot.inactive and slot.selItemId == item.id then
-			return slot
+		if not slot.inactive then
+			if slot.selItemId == item.id then
+				return slot
+			end
+			for _, itemSetId in ipairs(self.itemSetOrderList) do
+				local itemSet = self.itemSets[itemSetId]
+				if itemSetId ~= self.activeItemSetId and itemSet[slot.slotName] and itemSet[slot.slotName].selItemId == item.id then
+					return slot, itemSet
+				end
+			end
 		end
 	end
 end
 
 -- Check if the given item could be equipped in the given slot, taking into account possible conflicts with currently equipped items
 -- For example, a shield is not valid for Weapon 2 if Weapon 1 is a staff, and a wand is not valid for Weapon 2 if Weapon 1 is a dagger
-function ItemsTabClass:IsItemValidForSlot(item, slotName)
+function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
+	itemSet = itemSet or self.activeItemSet
 	if item.type == slotName:gsub(" %d+","") then
 		return true
 	elseif slotName == "Weapon 1" or slotName == "Weapon 1 Swap" or slotName == "Weapon" then
 		return item.base.weapon ~= nil
 	elseif slotName == "Weapon 2" or slotName == "Weapon 2 Swap" then
-		local weapon1Sel = self.slots[slotName == "Weapon 2" and "Weapon 1" or "Weapon 1 Swap"].selItemId or 0
-		local weapon1Type = weapon1Sel > 0 and self.list[weapon1Sel].base.type or "None"
+		local weapon1Sel = itemSet[slotName == "Weapon 2" and "Weapon 1" or "Weapon 1 Swap"].selItemId or 0
+		local weapon1Type = weapon1Sel > 0 and self.items[weapon1Sel].base.type or "None"
 		if weapon1Type == "None" then
 			return item.type == "Quiver" or item.type == "Shield" or (self.build.data.weaponTypeInfo[item.type] and self.build.data.weaponTypeInfo[item.type].oneHand)
 		elseif weapon1Type == "Bow" then
@@ -749,6 +919,19 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName)
 			return item.type == "Shield" or (self.build.data.weaponTypeInfo[item.type] and self.build.data.weaponTypeInfo[item.type].oneHand and ((weapon1Type == "Wand" and item.type == "Wand") or (weapon1Type ~= "Wand" and item.type ~= "Wand")))
 		end
 	end
+end
+
+-- Opens the item set manager
+function ItemsTabClass:OpenItemSetManagePopup()
+	local controls = { }
+	controls.setList = common.New("ItemSetList", nil, -155, 50, 300, 200, self)
+	controls.sharedList = common.New("SharedItemSetList", nil, 155, 50, 300, 200, self)
+	controls.setList.dragTargetList = { controls.sharedList }
+	controls.sharedList.dragTargetList = { controls.setList }
+	controls.close = common.New("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(630, 290, "Manage Item Sets", controls)
 end
 
 -- Opens the item crafting popup
@@ -1157,6 +1340,17 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	main:OpenPopup(710, 105, "Add Modifier to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")	
 end
 
+function ItemsTabClass:AddItemSetTooltip(itemSet)
+	for _, slot in ipairs(self.orderedSlots) do
+		if not slot.nodeId then
+			local item = self.items[itemSet[slot.slotName].selItemId]
+			if item then
+				main:AddTooltipLine(16, s_format("^7%s: %s%s", slot.label, colorCodes[item.rarity], item.name))
+			end
+		end
+	end
+end
+
 function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 	-- Item name
 	local rarityCode = colorCodes[item.rarity]
@@ -1405,15 +1599,15 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 		-- Build sorted list of slots to compare with
 		local compareSlots = { }
 		for slotName, slot in pairs(self.slots) do
-			if self:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.useSecondWeaponSet and 2 or 1)) then
+			if self:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.activeItemSet.useSecondWeaponSet and 2 or 1)) then
 				t_insert(compareSlots, slot)
 			end
 		end
 		table.sort(compareSlots, function(a, b)
 			if a.selItemId ~= b.selItemId then
-				if item == self.list[a.selItemId] then
+				if item == self.items[a.selItemId] then
 					return true
-				elseif item == self.list[b.selItemId] then
+				elseif item == self.items[b.selItemId] then
 					return false
 				end
 			end
@@ -1428,7 +1622,7 @@ function ItemsTabClass:AddItemTooltip(item, slot, dbMode)
 
 		-- Add comparisons for each slot
 		for _, slot in pairs(compareSlots) do
-			local selItem = self.list[slot.selItemId]
+			local selItem = self.items[slot.selItemId]
 			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item })
 			local header
 			if item == selItem then
@@ -1451,25 +1645,33 @@ end
 
 function ItemsTabClass:CreateUndoState()
 	local state = { }
-	state.useSecondWeaponSet = self.useSecondWeaponSet
-	state.list = copyTable(self.list)
-	state.orderList = copyTable(self.orderList)
+	state.activeItemSetId = self.activeItemSetId
+	state.items = copyTable(self.items)
+	state.itemOrderList = copyTable(self.itemOrderList)
 	state.slotSelItemId = { }
 	for slotName, slot in pairs(self.slots) do
 		state.slotSelItemId[slotName] = slot.selItemId
 	end
+	state.itemSets = copyTable(self.itemSets)
+	state.itemSetOrderList = copyTable(self.itemSetOrderList)
 	return state
 end
 
 function ItemsTabClass:RestoreUndoState(state)
-	self.useSecondWeaponSet = state.useSecondWeaponSet
-	self.list = state.list
-	wipeTable(self.orderList)
-	for k, v in pairs(state.orderList) do
-		self.orderList[k] = v
+	self.items = state.items
+	wipeTable(self.itemOrderList)
+	for k, v in pairs(state.itemOrderList) do
+		self.itemOrderList[k] = v
 	end
 	for slotName, selItemId in pairs(state.slotSelItemId) do
 		self.slots[slotName]:SetSelItemId(selItemId)
 	end
+	self.itemSets = state.itemSets
+	wipeTable(self.itemSetOrderList)
+	for k, v in pairs(state.itemSetOrderList) do
+		self.itemSetOrderList[k] = v
+	end
+	self.activeItemSetId = state.activeItemSetId
+	self.activeItemSet = self.itemSets[self.activeItemSetId]
 	self:PopulateSlots()
 end

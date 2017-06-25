@@ -403,7 +403,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		if node.type ~= "classStart" then
 			for nodeId, itemId in pairs(self.jewels) do
 				if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius[1][node.id] then
-					if itemId ~= 0 and self.build.itemsTab.list[itemId] and self.build.itemsTab.list[itemId].jewelData and self.build.itemsTab.list[itemId].jewelData.intuitiveLeap then
+					if itemId ~= 0 and self.build.itemsTab.items[itemId] and self.build.itemsTab.items[itemId].jewelData and self.build.itemsTab.items[itemId].jewelData.intuitiveLeap then
 						-- This node depends on Intuitive Leap
 						-- This flag:
 						-- 1. Prevents generation of paths from this node
@@ -456,7 +456,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				local prune = true
 				for nodeId, itemId in pairs(self.jewels) do
 					if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius[1][depNode.id] then
-						if itemId ~= 0 and (not self.build.itemsTab.list[itemId] or (self.build.itemsTab.list[itemId].jewelData and self.build.itemsTab.list[itemId].jewelData.intuitiveLeap)) then
+						if itemId ~= 0 and (not self.build.itemsTab.items[itemId] or (self.build.itemsTab.items[itemId].jewelData and self.build.itemsTab.items[itemId].jewelData.intuitiveLeap)) then
 							-- Hold off on the pruning; this node is within the radius of a jewel that is or could be Intuitive Leap
 							prune = false
 							t_insert(self.nodes[nodeId].depends, depNode)

@@ -361,8 +361,21 @@ skills["AnimateArmour"] = {
 	description = "Animates a melee weapon or armour, attaching it to an invisible Guardian that fights by your side. Animating multiple items attaches them to the same Guardian. You cannot animate unidentified weapons.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [18] = true, [36] = true, [49] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, },
-	unsupported = true,
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+		["Weapon 2"] = true,
+		["Helmet"] = true,
+		["Body Armour"] = true,
+		["Gloves"] = true,
+		["Boots"] = true,
+	},
+	minionList = {
+		"AnimatedArmour",
+	},
 	baseFlags = {
+		spell = true,
+		minion = true,
 	},
 	baseMods = {
 		skill("castTime", 0.6), 
@@ -370,17 +383,17 @@ skills["AnimateArmour"] = {
 		--"display_minion_monster_type" = 3
 	},
 	qualityMods = {
-		mod("MovementSpeed", "INC", 2, 0, 0, nil), --"base_movement_velocity_+%" = 2
+		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 2) }), --"base_movement_velocity_+%" = 2
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		--[3] = "animate_item_maximum_level_requirement"
-		--[4] = "maximum_life_+%"
-		[5] = mod("PhysicalDamage", "INC", nil, ModFlag.Melee), --"melee_physical_damage_+%"
+		[4] = mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }), --"maximum_life_+%"
+		[5] = mod("MinionModifier", "LIST", { mod = mod("PhysicalDamage", "INC", nil, ModFlag.Melee) }), --"melee_physical_damage_+%"
 		[6] = skill("minionLevel", nil), --"display_minion_monster_level"
-		[7] = mod("PhysicalMin", "BASE", nil, ModFlag.Attack, 0, nil), --"attack_minimum_added_physical_damage"
-		[8] = mod("PhysicalMax", "BASE", nil, ModFlag.Attack, 0, nil), --"attack_maximum_added_physical_damage"
+		[7] = mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack) }), --"attack_minimum_added_physical_damage"
+		[8] = mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack) }), --"attack_maximum_added_physical_damage"
 	},
 	levels = {
 		[1] = { 28, 19, 33, 0, 0, 28, 22, 34, },

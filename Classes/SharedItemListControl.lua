@@ -10,7 +10,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 
 local SharedItemListClass = common.NewClass("SharedItemList", "ListControl", function(self, anchor, x, y, width, height, itemsTab)
-	self.ListControl(anchor, x, y, width, height, 16, true, main.sharedItems)
+	self.ListControl(anchor, x, y, width, height, 16, true, main.sharedItemList)
 	self.itemsTab = itemsTab
 	self.label = "^7Shared items:"
 	self.defaultText = "^x7F7F7FThis is a list of items that will be shared between all of\nyour builds.\nYou can add items to this list by dragging them from\none of the other lists."
@@ -61,6 +61,7 @@ function SharedItemListClass:OnSelClick(index, verItem, doubleClick)
 	local item = verItem[self.itemsTab.build.targetVersion]
 	if doubleClick then
 		self.itemsTab:CreateDisplayItemFromRaw(item.raw, true)
+		self.selDragging = false
 	end
 end
 

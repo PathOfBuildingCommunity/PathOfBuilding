@@ -81,6 +81,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				self.showHeatMap = not self.showHeatMap
 			elseif event.key == "d" and IsKeyDown("CTRL") then
 				self.showStatDifferences = not self.showStatDifferences
+			elseif event.key == "PAGEUP" then
+				self:Zoom(IsKeyDown("SHIFT") and 3 or 1, viewPort)
+			elseif event.key == "PAGEDOWN" then
+				self:Zoom(IsKeyDown("SHIFT") and -3 or -1, viewPort)
 			end
 		elseif event.type == "KeyUp" then
 			if event.key == "LEFTBUTTON" then
@@ -560,9 +564,9 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 		end
 		main:AddTooltipSeparator(14)
 		if socket:IsEnabled() then
-			main:AddTooltipLine(14, "^x80A080Tip: Right click this socket to go to the items page and choose the jewel for this socket.")
+			main:AddTooltipLine(14, colorCodes.TIP.."Tip: Right click this socket to go to the items page and choose the jewel for this socket.")
 		end
-		main:AddTooltipLine(14, "^x80A080Tip: Hold Shift to hide this tooltip.")
+		main:AddTooltipLine(14, colorCodes.TIP.."Tip: Hold Shift to hide this tooltip.")
 		return
 	end
 	
@@ -635,10 +639,10 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 		if count == 0 then
 			main:AddTooltipLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
 		end
-		main:AddTooltipLine(14, "^x80A080Tip: Press Ctrl+D to disable the display of stat differences.")
+		main:AddTooltipLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to disable the display of stat differences.")
 	else
 		main:AddTooltipSeparator(14)
-		main:AddTooltipLine(14, "^x80A080Tip: Press Ctrl+D to enable the display of stat differences.")
+		main:AddTooltipLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to enable the display of stat differences.")
 	end
 
 	-- Pathing distance
@@ -650,13 +654,13 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 			main:AddTooltipLine(14, "^7"..#node.path .. " points to node")
 			if #node.path > 1 then
 				-- Handy hint!
-				main:AddTooltipLine(14, "^x80A080")
+				main:AddTooltipLine(14, colorCodes.TIP)
 				main:AddTooltipLine(14, "Tip: To reach this node by a different path, hold Shift, then trace the path and click this node")
 			end
 		end
 	end
 	if node.type == "socket" then
-		main:AddTooltipLine(14, "^x80A080Tip: Hold Shift to hide this tooltip.")
+		main:AddTooltipLine(14, colorCodes.TIP.."Tip: Hold Shift to hide this tooltip.")
 	end
 	if node.depends and #node.depends > 1 then
 		main:AddTooltipSeparator(14)

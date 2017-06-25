@@ -412,22 +412,45 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	end)
 	self.controls.mainSkillPart = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 150, 18, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillPart = index
+		local srcGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem
+		srcGem.skillPart = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.mainSkillMinion = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 178, 18, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillMinion = value.minionId
+		local srcGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem
+		if value.itemSetId then
+			srcGem.skillMinionItemSet = value.itemSetId
+		else
+			srcGem.skillMinion = value.minionId
+		end
 		self.modFlag = true
 		self.buildFlag = true
 	end)
+	function self.controls.mainSkillMinion.CanReceiveDrag(control, type, value)
+		if type == "Item" and control.list[control.selIndex] and control.list[control.selIndex].itemSetId then
+			local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+			return mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.grantedEffect.minionUses[itemLib.getPrimarySlotForItem(value)] -- O_O
+		end
+	end
+	function self.controls.mainSkillMinion.ReceiveDrag(control, type, value, source)
+		self.itemsTab:EquipItemInSet(value, control.list[control.selIndex].itemSetId)
+	end
+	function self.controls.mainSkillMinion.tooltipFunc(mode, index, value)
+		if value.itemSetId then
+			self.itemsTab:AddItemSetTooltip(self.itemsTab.itemSets[value.itemSetId])
+			main:AddTooltipSeparator(14)
+			main:AddTooltipLine(14, colorCodes.TIP.."Tip: You can drag items from the Items tab onto this dropdown to equip them onto the minion.")
+		end
+	end
 	self.controls.mainSkillMinionLibrary = common.New("ButtonControl", {"LEFT",self.controls.mainSkillMinion,"RIGHT"}, 2, 0, 120, 18, "Manage Spectres...", function()
 		self:OpenSpectreLibrary()
 	end)
 	self.controls.mainSkillMinionSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT"}, 0, 2, 200, 16, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem.skillMinionSkill = index
+		local srcGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem
+		srcGem.skillMinionSkill = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
@@ -895,23 +918,34 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 					end
 					controls.mainSkillPart.selIndex = activeGem.srcGem["skillPart"..suffix] or 1
 				elseif not activeSkill.skillFlags.disable and activeGem.grantedEffect.minionList then
-					local list
-					if activeGem.grantedEffect.minionList[1] then
-						list = activeGem.grantedEffect.minionList
-					else
-						list = self.spectreList 
-						controls.mainSkillMinionLibrary.shown = true
-					end
 					wipeTable(controls.mainSkillMinion.list)
-					for _, minionId in ipairs(list) do
-						t_insert(controls.mainSkillMinion.list, {
-							label = self.data.minions[minionId].name,
-							minionId = minionId,
-						})
+					if activeGem.grantedEffect.minionHasItemSet then
+						for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
+							local itemSet = self.itemsTab.itemSets[itemSetId]
+							t_insert(controls.mainSkillMinion.list, {
+								label = itemSet.title or "Default Item Set",
+								itemSetId = itemSetId,
+							})
+						end
+						controls.mainSkillMinion:SelByValue(activeGem.srcGem["skillMinionItemSet"..suffix] or 1, "itemSetId")
+					else
+						local list
+						if activeGem.grantedEffect.minionList[1] then
+							list = activeGem.grantedEffect.minionList
+						else
+							list = self.spectreList 
+							controls.mainSkillMinionLibrary.shown = true
+						end
+						for _, minionId in ipairs(list) do
+							t_insert(controls.mainSkillMinion.list, {
+								label = self.data.minions[minionId].name,
+								minionId = minionId,
+							})
+						end
+						controls.mainSkillMinion:SelByValue(activeGem.srcGem["skillMinion"..suffix] or controls.mainSkillMinion.list[1], "minionId")
 					end
 					controls.mainSkillMinion.enabled = #controls.mainSkillMinion.list > 1
 					controls.mainSkillMinion.shown = true
-					controls.mainSkillMinion:SelByValue(activeGem.srcGem["skillMinion"..suffix] or controls.mainSkillMinion.list[1], "minionId")
 					wipeTable(controls.mainSkillMinionSkill.list)
 					if activeSkill.minion then
 						for _, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
@@ -934,11 +968,12 @@ function buildMode:FormatStat(statData, statVal)
 	local color = (statVal >= 0 and "^7" or colorCodes.NEGATIVE)
 	local valStr = s_format("%"..statData.fmt, val)
 	if main.showThousandsSidebar then
-		return color..formatNumSep(valStr)
+		valStr = color .. formatNumSep(valStr)
 	else
-		return color..valStr
+		valStr = color .. valStr
 	end
 	self.lastShowThousandsSidebar = main.showThousandsSidebar
+	return valStr
 end
 
 -- Add stat list for given actor
