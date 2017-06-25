@@ -332,7 +332,7 @@ function calcs.perform(env)
 			env.minion.modDB:AddMod(mod)
 		end
 		if env.aegisModList then
-			env.minion.itemList["Weapon 2"] = env.player.itemList["Weapon 2"]
+			env.minion.itemList["Weapon 3"] = env.player.itemList["Weapon 2"]
 			env.player.itemList["Weapon 2"] = nil
 			env.minion.modDB:AddList(env.aegisModList)
 		end 
@@ -342,6 +342,20 @@ function calcs.perform(env)
 			end
 			if env.player.itemList["Weapon 2"] and env.player.itemList["Weapon 2"].type == "Quiver" then
 				env.minion.modDB:AddList(env.player.itemList["Weapon 2"].modList)
+			end
+		end
+		if env.minion.itemSet then
+			for slotName, slot in pairs(env.build.itemsTab.slots) do
+				if env.player.mainSkill.activeGem.grantedEffect.minionUses[slotName] then
+					if slot.weaponSet == 1 and env.minion.itemSet.useSecondWeaponSet then
+						slotName = slotName .. " Swap"
+					end
+					local item = env.build.itemsTab.items[env.minion.itemSet[slotName].selItemId]
+					if item then
+						env.minion.itemList[slotName] = item
+						env.minion.modDB:AddList(item.modList or item.slotModList[slot.slotNum])
+					end
+				end
 			end
 		end
 		if modDB:Sum("FLAG", nil, "StrengthAddedToMinions") then

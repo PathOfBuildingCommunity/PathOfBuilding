@@ -53,6 +53,18 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.37 - 2017/06/26
+This update adds support for item sets:
+ * Item sets allow you to easily switch between different gear configurations in your build
+ * In the Items tab, click "Manage..." above the item slots to add or manage item sets
+ * There's also a shared item set list, which allows you to share entire sets of items between your builds
+Other changes:
+ * Added support for Animate Weapon and Animate Guardian
+    * These skills utilise the new item set system; to equip items on Animated minions, create a new item set and
+	  equip the items, then select the item set in the dropdown in the sidebar
+ * You can now zoom the passive tree with Page Up/Down in addition to the scroll wheel and Ctrl+Left/Right Click
+ * Various minor tweaks and fixes
+
 ### 1.4.36 - 2017/06/22
  * The Consuming Dark is now properly supported; previously, both Chaos and Physical would Poison
 For 3.0 builds:

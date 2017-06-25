@@ -296,3 +296,37 @@ minions["SpiderMinion"] = {
 	modList = {
 	},
 }
+minions["AnimatedWeapon"] = {
+	name = "Animated Weapon",
+	life = 4,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 0,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 4,
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["AnimatedArmour"] = {
+	name = "Animated Guardian",
+	life = 4.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 0,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 4,
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}

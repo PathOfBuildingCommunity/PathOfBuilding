@@ -343,19 +343,21 @@ end
 directiveTable.setMod = function(state, args, out)
 	local gem = state.gem
 	local id, def = args:match("(.*)==(.*)")
-	for _, mod in ipairs(gem.mods) do
-		if mod.id == id then
-			local name, mult = def:match("(.*);mult=(.*)")
-			if name then
-				mod.def = name
-				mod.mult = tonumber(mult)
-			else
-				local name, div = def:match("(.*);div=(.*)")
+	for _, list in ipairs({gem.mods,gem.qualityMods}) do
+		for _, mod in ipairs(list) do
+			if mod.id == id then
+				local name, mult = def:match("(.*);mult=(.*)")
 				if name then
 					mod.def = name
-					mod.mult = 1 / tonumber(div)
+					mod.mult = tonumber(mult)
 				else
-					mod.def = def
+					local name, div = def:match("(.*);div=(.*)")
+					if name then
+						mod.def = name
+						mod.mult = 1 / tonumber(div)
+					else
+						mod.def = def
+					end
 				end
 			end
 		end

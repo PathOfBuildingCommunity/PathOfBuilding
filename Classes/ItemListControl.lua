@@ -9,7 +9,7 @@ local pairs = pairs
 local t_insert = table.insert
 
 local ItemListClass = common.NewClass("ItemList", "ListControl", function(self, anchor, x, y, width, height, itemsTab)
-	self.ListControl(anchor, x, y, width, height, 16, true, itemsTab.orderList)
+	self.ListControl(anchor, x, y, width, height, 16, true, itemsTab.itemOrderList)
 	self.itemsTab = itemsTab
 	self.label = "^7All items:"
 	self.defaultText = "^x7F7F7FThis is the list of items that have been added to this build.\nYou can add items to this list by dragging them from\none of the other lists, or by clicking 'Add to build' when\nviewing an item."
@@ -31,7 +31,7 @@ local ItemListClass = common.NewClass("ItemList", "ListControl", function(self, 
 				end
 			end
 			wipeTable(self.list)
-			wipeTable(self.itemsTab.list)
+			wipeTable(self.itemsTab.items)
 			itemsTab:PopulateSlots()
 			itemsTab:AddUndoState()
 			itemsTab.build.buildFlag = true
@@ -48,14 +48,21 @@ local ItemListClass = common.NewClass("ItemList", "ListControl", function(self, 
 end)
 
 function ItemListClass:GetRowValue(column, index, itemId)
-	local item = self.itemsTab.list[itemId]
+	local item = self.itemsTab.items[itemId]
 	if column == 1 then
-		return colorCodes[item.rarity] .. item.name .. (not self.itemsTab:GetEquippedSlotForItem(item) and "  ^9(Unused)" or "")
+		local used = ""
+		local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(item)
+		if not slot then
+			used = "  ^9(Unused)"
+		elseif itemSet then
+			used = "  ^9(Used in '" .. (itemSet.title or "Default") .. "')"
+		end
+		return colorCodes[item.rarity] .. item.name .. used
 	end
 end
 
 function ItemListClass:AddValueTooltip(index, itemId)
-	local item = self.itemsTab.list[itemId]
+	local item = self.itemsTab.items[itemId]
 	if not main.popups[1] then
 		self.itemsTab:AddItemTooltip(item)
 		return colorCodes[item.rarity], true
@@ -63,7 +70,7 @@ function ItemListClass:AddValueTooltip(index, itemId)
 end
 
 function ItemListClass:GetDragValue(index, itemId)
-	return "Item", self.itemsTab.list[itemId]
+	return "Item", self.itemsTab.items[itemId]
 end
 
 function ItemListClass:ReceiveDrag(type, value, source)
@@ -82,11 +89,11 @@ function ItemListClass:OnOrderChange()
 end
 
 function ItemListClass:OnSelClick(index, itemId, doubleClick)
-	local item = self.itemsTab.list[itemId]
+	local item = self.itemsTab.items[itemId]
 	if IsKeyDown("CTRL") then
 		local slotName = itemLib.getPrimarySlotForItem(item)
 		if slotName and self.itemsTab.slots[slotName] then
-			if self.itemsTab.slots[slotName].weaponSet == 1 and self.itemsTab.useSecondWeaponSet then
+			if self.itemsTab.slots[slotName].weaponSet == 1 and self.itemsTab.activeItemSet.useSecondWeaponSet then
 				-- Redirect to second weapon set
 				slotName = slotName .. " Swap"
 			end
@@ -112,15 +119,16 @@ function ItemListClass:OnSelClick(index, itemId, doubleClick)
 end
 
 function ItemListClass:OnSelCopy(index, itemId)
-	local item = self.itemsTab.list[itemId]
+	local item = self.itemsTab.items[itemId]
 	Copy(itemLib.createItemRaw(item):gsub("\n","\r\n"))
 end
 
 function ItemListClass:OnSelDelete(index, itemId)
-	local item = self.itemsTab.list[itemId]
-	local equipSlot = self.itemsTab:GetEquippedSlotForItem(item)
+	local item = self.itemsTab.items[itemId]
+	local equipSlot, equipSet = self.itemsTab:GetEquippedSlotForItem(item)
 	if equipSlot then
-		main:OpenConfirmPopup("Delete Item", item.name.." is currently equipped in "..equipSlot.label..".\nAre you sure you want to delete it?", "Delete", function()
+		local inSet = equipSet and (" in set '"..(equipSet.title or "Default").."'") or ""
+		main:OpenConfirmPopup("Delete Item", item.name.." is currently equipped in "..equipSlot.label..inSet..".\nAre you sure you want to delete it?", "Delete", function()
 			self.itemsTab:DeleteItem(item)
 			self.selIndex = nil
 			self.selValue = nil

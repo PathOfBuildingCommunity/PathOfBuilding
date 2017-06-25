@@ -4309,7 +4309,7 @@ skills["VaalRighteousFire"] = {
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
-		[2] = mod("Damage", "MORE", nil, ModFlag.Hit), --"active_skill_damage_+%_final"
+		[2] = mod("Damage", "MORE", nil), --"active_skill_damage_+%_final"
 	},
 	levels = {
 		[1] = { 16, 20, },

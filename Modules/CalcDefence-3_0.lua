@@ -104,7 +104,7 @@ function calcs.defence(env, actor)
 		local gearArmour = 0
 		local gearEvasion = 0
 		local slotCfg = wipeTable(tempTable1)
-		for _, slot in pairs({"Helmet","Body Armour","Gloves","Boots","Weapon 2"}) do
+		for _, slot in pairs({"Helmet","Body Armour","Gloves","Boots","Weapon 2","Weapon 3"}) do
 			local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
 			if armourData then
 				slotCfg.slotName = slot
@@ -405,7 +405,7 @@ function calcs.defence(env, actor)
 		end
 	end
 	if output.TotalDegen then
-		if output.MindOverMatter > 0 and output.LifeRegen > output.EnergyShieldRegen then
+		if output.MindOverMatter > 0 and output.LifeRegen >= output.EnergyShieldRegen then
 			local lifeDegen = output.TotalDegen * (1 - output.MindOverMatter / 100)
 			local manaDegen = output.TotalDegen * output.MindOverMatter / 100
 			output.NetLifeRegen = output.LifeRegen - lifeDegen

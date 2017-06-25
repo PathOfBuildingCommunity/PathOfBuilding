@@ -15,6 +15,7 @@ colorCodes = {
 	CUSTOM = "^x5CF0BB",
 	UNSUPPORTED = "^xF05050",
 	WARNING = "^xFF9922",
+	TIP = "^x80A080",
 	FIRE = "^xD02020",
 	COLD = "^x60A0E7",
 	LIGHTNING = "^xFFD700",

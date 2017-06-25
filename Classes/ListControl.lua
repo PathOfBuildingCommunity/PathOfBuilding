@@ -216,14 +216,7 @@ function ListClass:Draw(viewPort)
 	end
 	SetViewport()
 	if self.selDragActive and self.dragTargetList and (not self.isMutable or not self:IsMouseOver()) then
-		local text = self:GetRowValue(1, self.selIndex, self.selValue)
-		local strWidth = DrawStringWidth(16, "VAR", text)
-		SetDrawLayer(nil, 90)
-		SetDrawColor(0.15, 0.15, 0.15, 0.75)
-		DrawImage(nil, cursorX, cursorY - 8, strWidth + 2, 18)
-		SetDrawColor(1, 1, 1)
-		DrawString(cursorX + 1, cursorY - 7, "LEFT", 16, "VAR", text)
-		SetDrawLayer(nil, 0)
+		main.showDragText = self:GetRowValue(1, self.selIndex, self.selValue)
 	end
 	self.hoverIndex = ttIndex
 	self.hoverValue = ttValue
