@@ -31,6 +31,7 @@ local ItemSlotClass = common.NewClass("ItemSlot", "DropDownControl", function(se
 	if slotName:match("Flask") then
 		self.controls.activate = common.New("CheckBoxControl", {"RIGHT",self,"LEFT"}, -2, 0, 20, nil, function(state)
 			self.active = state
+			itemsTab.activeItemSet[self.slotName].active = state
 			itemsTab:AddUndoState()
 			itemsTab.build.buildFlag = true
 		end)
