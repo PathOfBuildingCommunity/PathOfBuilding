@@ -292,10 +292,10 @@ function calcs.offence(env, actor)
 	end
 	if skillFlags.trap then
 		output.ActiveTrapLimit = modDB:Sum("BASE", skillCfg, "ActiveTrapLimit")
-		output.TrapCooldown = (skillData.trapCooldown or 4) / calcLib.mod(modDB, skillCfg, "CooldownRecovery")
+		output.TrapCooldown = (skillData.trapCooldown or skillData.cooldown or 4) / calcLib.mod(modDB, skillCfg, "CooldownRecovery")
 		if breakdown then
 			breakdown.TrapCooldown = {
-				s_format("%.2fs ^8(base)", skillData.trapCooldown or 4),
+				s_format("%.2fs ^8(base)", skillData.trapCooldown or skillData.cooldown or 4),
 				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + modDB:Sum("INC", skillCfg, "CooldownRecovery") / 100),
 				s_format("= %.2fs", output.TrapCooldown)
 			}
@@ -868,6 +868,12 @@ function calcs.offence(env, actor)
 					totalHitMin = totalHitMin + min
 					totalHitMax = totalHitMax + max
 				end
+			end
+			if skillData.lifeLeechPerUse then
+				lifeLeechTotal = lifeLeechTotal + skillData.lifeLeechPerUse
+			end
+			if skillData.manaLeechPerUse then
+				manaLeechTotal = manaLeechTotal + skillData.manaLeechPerUse
 			end
 			local portion = (pass == 1) and (output.CritChance / 100) or (1 - output.CritChance / 100)
 			if modDB:Sum("FLAG", cfg, "InstantLifeLeech") and not modDB:Sum("FLAG", nil, "GhostReaver") then

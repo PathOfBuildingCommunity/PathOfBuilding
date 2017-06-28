@@ -72,7 +72,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ConversionTrap
-	unsupported = true,
+#flags spell duration trap
 #mods
 
 #skill Convocation
@@ -291,7 +291,6 @@ local skills, mod, flag, skill = ...
 
 #skill LightningTrap
 #flags spell trap projectile lightning
-#baseMod skill("trapCooldown", 2)
 #mods
 
 #skill VaalLightningTrap

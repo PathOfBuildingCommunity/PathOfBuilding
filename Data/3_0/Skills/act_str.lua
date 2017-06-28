@@ -672,8 +672,10 @@ skills["DevouringTotem"] = {
 	description = "Summons a totem that can consume nearby corpses. If you are hurt, it will destroy a corpse to leech life to you.",
 	skillTypes = { [2] = true, [17] = true, [12] = true, [19] = true, [30] = true, },
 	skillTotemId = 7,
-	unsupported = true,
 	baseFlags = {
+		spell = true,
+		totem = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -690,8 +692,8 @@ skills["DevouringTotem"] = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		[3] = skill("totemLevel", nil), --"base_active_skill_totem_level"
-		--[4] = "corpse_consumption_life_to_gain"
-		--[5] = "corpse_consumption_mana_to_gain"
+		[4] = skill("lifeLeechPerUse", nil), --"corpse_consumption_life_to_gain"
+		[5] = skill("manaLeechPerUse", nil), --"corpse_consumption_mana_to_gain"
 	},
 	levels = {
 		[1] = { 4, 20, 4, 30, 9, },
@@ -2208,7 +2210,7 @@ skills["Punishment"] = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		[3] = skill("duration", nil), --"base_skill_effect_duration"
-		[4] = mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "CurseBuff" }), --"newpunishment_melee_damage_+%_final"
+		[4] = mod("PhysicalDamage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "CurseBuff" }), --"newpunishment_melee_damage_+%_final"
 		[5] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "CurseBuff" }), --"newpunishment_attack_speed_+%"
 		[6] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},

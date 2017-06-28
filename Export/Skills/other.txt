@@ -70,6 +70,10 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+--skill TouchOfGod Lightning Slam
+--flags attack area lightning
+--mods
+
 #skill MerveilWarp Illusory Warp
 #flags spell area duration movement cold
 	fromItem = true,

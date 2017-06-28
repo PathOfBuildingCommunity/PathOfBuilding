@@ -66,7 +66,7 @@ Curse On Hit|SupportCurseOnHit|curse,trigger,intelligence,support
 Cyclone|Cyclone|dexterity,active_skill,attack,area,movement,melee
 Damage Infusion|DamageInfusion|intelligence,active_skill,spell,area
 Deadly Ailments|SupportDeadlyAilments|dexterity,support
-Decay|SupportDecay|intelligence,support
+Decay|SupportDecay|chaos,intelligence,support
 Decoy Totem|DecoyTotem|totem,strength,active_skill,spell,duration,area
 Desecrate|Desecrate|dexterity,active_skill,spell,area,duration,chaos
 Determination|Determination|aura,strength,active_skill,spell,area
@@ -79,7 +79,7 @@ Dominating Blow|DominatingBlow|strength,active_skill,attack,minion,duration,mele
 Double Strike|DoubleStrike|dexterity,active_skill,attack,melee
 Dual Strike|DualStrike|dexterity,active_skill,attack,melee
 Earthquake|Earthquake|strength,active_skill,attack,area,duration,melee
-Efficacy|SupportEfficacy|intelligence,support
+Efficacy|SupportEfficacy|intelligence,support,duration
 Elemental Damage with Attacks|SupportWeaponElementalDamage|attack,strength,support
 Elemental Focus|SupportElementalFocus|intelligence,support
 Elemental Hit|ElementalHit|dexterity,active_skill,attack,melee,fire,cold,lightning,bow
@@ -145,9 +145,9 @@ Ice Trap|IceTrap|trap,dexterity,active_skill,spell,area,cold,duration
 Icefire|Icefire|projectile,intelligence,active_skill,spell,area
 Icestorm|IcestormUniqueStaff12|
 Ignite|Ignite|intelligence,active_skill,spell,duration,fire
-Ignite Proliferation|SupportIgniteProliferation|intelligence,support
+Ignite Proliferation|SupportIgniteProliferation|fire,intelligence,support
 Illusory Warp|MerveilWarp|
-Immolate|SupportImmolation|intelligence,support
+Immolate|SupportImmolation|fire,intelligence,support
 Immortal Call|ImmortalCall|strength,active_skill,spell,duration
 Incinerate|Incinerate|projectile,intelligence,active_skill,spell,fire,channelling
 Increased Area of Effect|SupportIncreasedAreaOfEffect|intelligence,support,area
@@ -166,7 +166,7 @@ Lacerate|DoubleSlash|dexterity,active_skill,attack,area,melee
 Leap Slam|LeapSlam|strength,active_skill,attack,area,movement,melee
 Less Duration|SupportReducedDuration|strength,support,duration
 Lesser Multiple Projectiles|SupportLesserMultipleProjectiles|dexterity,support,projectile
-Lesser Poison|SupportLesserPoison|dexterity,support
+Lesser Poison|SupportLesserPoison|chaos,dexterity,support
 Lesser Reduced Mana Cost|SupportTutorial|strength,support
 Life Gain on Hit|SupportLifeGainOnHit|attack,strength,support
 Life Leech|SupportLifeLeech|strength,support
@@ -269,11 +269,11 @@ Sweep|Sweep|strength,active_skill,attack,area,melee
 Tempest Shield|TempestShield|intelligence,active_skill,spell,lightning,chaining,duration
 Temporal Chains|TemporalChains|curse,dexterity,active_skill,spell,area,duration
 Tornado Shot|TornadoShot|dexterity,active_skill,attack,bow
-Touch of God|TouchOfGod|strength,active_skill,attack,area,lightning,melee,bow
+Touch of God|TouchOfGod|strength,active_skill,attack,area,lightning,melee
 Trap|SupportTrap|dexterity,support,trap,duration
 Trap Cooldown|SupportTrapCooldown|trap,dexterity,support
 Trap and Mine Damage|SupportTrapAndMineDamage|dexterity,support,trap,mine
-Unbound Ailments|SupportAilments|dexterity,support
+Unbound Ailments|SupportAilments|intelligence,support
 Vaal Arc|VaalArcChain|intelligence,active_skill,vaal,spell,chaining,lightning
 Vaal Breach|VaalBreach|low_max_level,active_skill,vaal,spell
 Vaal Burning Arrow|VaalBurningArrow|dexterity,active_skill,vaal,attack,area,fire,bow
@@ -309,7 +309,7 @@ Vaal Summon Skeletons|VaalSummonSkeletons|intelligence,active_skill,vaal,spell,m
 Vaal Sweep|VaalSweep|strength,active_skill,vaal,attack,area,melee
 Vengeance|Vengeance|trigger,strength,active_skill,attack,area,melee
 Vigilant Strike|VigilantStrike|attack,strength,active_skill,melee
-Vile Toxins|SupportDebilitate|strength,support
+Vile Toxins|SupportDebilitate|dexterity,support
 Viper Strike|ViperStrike|dexterity,active_skill,attack,duration,melee,chaos
 Vitality|Vitality|aura,strength,active_skill,spell,area
 Void Manipulation|SupportVoidManipulation|chaos,dexterity,support

@@ -440,6 +440,10 @@ skills["IcestormUniqueStaff12"] = {
 		[1] = { 1, },
 	},
 }
+--skill TouchOfGod Lightning Slam
+--flags attack area lightning
+--mods
+
 skills["MerveilWarp"] = {
 	name = "Illusory Warp",
 	hidden = true,
