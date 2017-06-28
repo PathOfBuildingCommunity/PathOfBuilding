@@ -61,7 +61,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DevouringTotem
-	unsupported = true,
+#flags spell totem duration
 #mods
 
 #skill DominatingBlow

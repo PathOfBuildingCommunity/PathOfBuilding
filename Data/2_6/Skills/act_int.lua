@@ -969,8 +969,10 @@ skills["ConversionTrap"] = {
 	color = 3,
 	description = "Throws a trap that, when triggered by an enemy, converts that enemy to your side for a short duration. Does not affect unique monsters or players.",
 	skillTypes = { [2] = true, [12] = true, [19] = true, [37] = true, },
-	unsupported = true,
 	baseFlags = {
+		spell = true,
+		duration = true,
+		trap = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -3326,7 +3328,6 @@ skills["LightningTrap"] = {
 		--"base_skill_is_trapped" = ?
 		--"base_is_projectile" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
-		skill("trapCooldown", 2), 
 	},
 	qualityMods = {
 		mod("TrapThrowingSpeed", "INC", 0.5), --"trap_throwing_speed_+%" = 0.5

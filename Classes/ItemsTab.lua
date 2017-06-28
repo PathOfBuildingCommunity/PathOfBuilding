@@ -543,6 +543,9 @@ function ItemsTabClass:SetActiveItemSet(itemSetId)
 			-- Equip the incoming set's item
 			slot.selItemId = curSet[slotName].selItemId
 			slot.active = curSet[slotName].active
+			if slot.controls.activate then
+				slot.controls.activate.state = slot.active
+			end
 		end
 	end
 	self.build.buildFlag = true

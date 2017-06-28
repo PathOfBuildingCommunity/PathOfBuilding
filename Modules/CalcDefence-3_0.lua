@@ -514,11 +514,17 @@ function calcs.defence(env, actor)
 			output.MovementSpeedMod = m_max(output.MovementSpeedMod, 1)
 		end
 		output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
-		local shieldData = actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].armourData
-		output.BlockChance = m_min(((shieldData and shieldData.BlockChance or 0) + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
+		local baseBlockChance = 0
+		if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].armourData then
+			baseBlockChance = baseBlockChance + actor.itemList["Weapon 2"].armourData.BlockChance
+		end
+		if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
+			baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
+		end
+		output.BlockChance = m_min((baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
 		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance") + output.BlockChance * modDB:Sum("BASE", nil, "BlockChanceConv") / 100, output.BlockChanceMax) 
 		if breakdown then
-			breakdown.BlockChance = breakdown.simple(shieldData and shieldData.BlockChance, nil, output.BlockChance, "BlockChance")
+			breakdown.BlockChance = breakdown.simple(baseBlockChance, nil, output.BlockChance, "BlockChance")
 			breakdown.SpellBlockChance = breakdown.simple(output.BlockChance * modDB:Sum("BASE", nil, "BlockChanceConv") / 100, nil, output.SpellBlockChance, "SpellBlockChance")
 		end
 		if modDB:Sum("FLAG", nil, "CannotBlockAttacks") then

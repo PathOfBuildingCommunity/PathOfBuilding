@@ -243,7 +243,7 @@ local function doActorMisc(env, actor)
 	if env.mode_combat then
 		if modDB:Sum("FLAG", nil, "Fortify") then
 			local effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "FortifyEffectOnSelf", "BuffEffectOnSelf") / 100))
-			modDB:NewMod("DamageTakenWhenHit", "INC", -20, "Fortify")
+			modDB:NewMod("DamageTakenWhenHit", "INC", -effect, "Fortify")
 		end
 		if modDB:Sum("FLAG", nil, "Onslaught") then
 			local effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffectOnSelf") / 100))

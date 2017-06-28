@@ -1,3 +1,10 @@
+VERSION[1.4.38][2017/06/29]
+ * Added support for Devouring Totem
+ * Added basic support for Conversion Trap (calculations for mana cost, cooldown and duration)
+ * With the addition of support for those skills, the program now has support for all skill gems currently in-game
+ * Fixed issue introduced in 1.4.37 that prevented minions from gaining block chance from Necromantic Aegis shields
+ * The Melee Damage bonus from the Punisher buff is now correctly Physical-only
+ * Modifiers to the effect of Fortify should now apply correctly
 VERSION[1.4.37][2017/06/26]
 This update adds support for item sets:
  * Item sets allow you to easily switch between different gear configurations in your build

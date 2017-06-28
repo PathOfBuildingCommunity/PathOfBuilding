@@ -44,7 +44,6 @@ local skills, mod, flag, skill = ...
 
 #skill BearTrap
 #flags cast trap duration
-#baseMod skill("trapCooldown", 3)
 #mods
 
 #skill ChargedAttack
@@ -238,7 +237,6 @@ local skills, mod, flag, skill = ...
 
 #skill FireTrap
 #flags spell trap area duration fire
-#baseMod skill("trapCooldown", 3)
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radius", 15)
 #mods
@@ -319,7 +317,6 @@ local skills, mod, flag, skill = ...
 
 #skill IceTrap
 #flags spell trap area cold
-#baseMod skill("trapCooldown", 2)
 #mods
 
 #skill DoubleSlash

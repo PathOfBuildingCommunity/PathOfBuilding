@@ -272,7 +272,6 @@ skills["BearTrap"] = {
 		--"base_skill_is_trapped" = ?
 		--"display_skill_deals_secondary_damage" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
-		skill("trapCooldown", 3), 
 	},
 	qualityMods = {
 		mod("PhysicalDamage", "INC", 1), --"physical_damage_+%" = 1
@@ -1983,7 +1982,6 @@ skills["FireTrap"] = {
 		--"is_area_damage" = ?
 		--"base_skill_is_trapped" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
-		skill("trapCooldown", 3), 
 		skill("radius", 15), 
 	},
 	qualityMods = {
@@ -2914,7 +2912,6 @@ skills["IceTrap"] = {
 		--"base_skill_is_trapped" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"is_trap" = ?
-		skill("trapCooldown", 2), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
