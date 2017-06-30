@@ -328,6 +328,9 @@ minions["AnimatedArmour"] = {
 		"Melee",
 	},
 	modList = {
+		mod("Speed", "MORE", 10, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
+		mod("PhysicalDamage", "MORE", 20, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
+		mod("BlockChance", "BASE", 15, 0, 0, { type = "Condition", var = "DualWielding" }),
 	},
 }
 minions["IcyRagingSpirit"] = {
@@ -347,5 +350,23 @@ minions["IcyRagingSpirit"] = {
 	modList = {
 		mod("PhysicalDamageConvertToCold", "BASE", 50),
 		mod("Speed", "MORE", 40, ModFlag.Attack),
+	},
+}
+minions["UniqueAnimatedWeapon"] = {
+	name = "Dancing Dervish",
+	life = 4,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 0,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 60,
+	skillList = {
+		"Melee",
+		"DancingDervishCyclone",
+	},
+	modList = {
 	},
 }

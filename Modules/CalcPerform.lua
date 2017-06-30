@@ -333,7 +333,6 @@ function calcs.perform(env)
 		end
 		if env.aegisModList then
 			env.minion.itemList["Weapon 3"] = env.player.itemList["Weapon 2"]
-			env.player.itemList["Weapon 2"] = nil
 			env.minion.modDB:AddList(env.aegisModList)
 		end 
 		if env.player.mainSkill.skillData.minionUseBowAndQuiver then
@@ -366,6 +365,9 @@ function calcs.perform(env)
 		if modDB:Sum("FLAG", nil, "StrengthAddedToMinions") then
 			env.minion.modDB:NewMod("Str", "BASE", round(calcLib.val(modDB, "Str")), "Player")
 		end
+	end
+	if env.aegisModList then
+		env.player.itemList["Weapon 2"] = nil
 	end
 
 	local breakdown
@@ -790,6 +792,14 @@ function calcs.perform(env)
 		for actor in pairs(affectedByCurse) do
 			actor.modDB:AddMod(value.mod)
 		end
+	end
+
+	-- Special handling for Dancing Dervish
+	if modDB:Sum("FLAG", nil, "DisableWeapons") then
+		env.player.weaponData1 = copyTable(env.data.unarmedWeaponData[env.classId])
+		modDB.conditions["Unarmed"] = true
+	elseif env.weaponModList1 then
+		modDB:AddList(env.weaponModList1)
 	end
 
 	-- Process misc buffs/modifiers

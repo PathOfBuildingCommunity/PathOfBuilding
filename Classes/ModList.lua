@@ -9,6 +9,7 @@ local pairs = pairs
 local t_insert = table.insert
 local m_floor = math.floor
 local m_min = math.min
+local m_max = math.max
 local m_modf = math.modf
 local band = bit.band
 local bor = bit.bor
@@ -51,6 +52,7 @@ function ModListClass:ScaleAddList(modList, scale)
 	if scale == 1 then
 		self:AddList(modList)
 	else
+		scale = m_max(scale, 0)
 		for i = 1, #modList do
 			local scaledMod = copyTable(modList[i])
 			if type(scaledMod.value) == "number" then

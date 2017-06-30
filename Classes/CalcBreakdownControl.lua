@@ -429,7 +429,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 end
 
 function CalcBreakdownClass:FormatModName(modName)
-	return modName:gsub("([%l%d])(%u)","%1 %2"):gsub("(%l)(%d)","%1 %2")
+	return modName:gsub("([%l%d]:?)(%u)","%1 %2"):gsub("(%l)(%d)","%1 %2")
 end
 
 function CalcBreakdownClass:FormatModValue(value, modType)
