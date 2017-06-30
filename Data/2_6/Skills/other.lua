@@ -529,6 +529,45 @@ skills["LightningSpell"] = {
 		[30] = { 90, 1248, 3743, },
 	},
 }
+skills["UniqueAnimateWeapon"] = {
+	name = "Manifest Dancing Dervish",
+	hidden = true,
+	color = 4,
+	description = "Releases Dancing Dervish to fight by your side. While Dancing Dervish is manifested, you have Onslaught and cannot use Weapons.",
+	skillTypes = { [2] = true, [9] = true, [21] = true, [36] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [11] = true, [38] = true, [28] = true, },
+	fromItem = true,
+	minionList = {
+		"UniqueAnimatedWeapon",
+	},
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("cooldown", 0.5), 
+		--"disable_weapons" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 25, ModFlag.Attack) }), --"attack_speed_+%" = 25
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 110, ModFlag.Attack) }), --"attack_damage_+%" = 110
+		--"chance_to_cast_on_rampage_tier_%" = 100
+		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 30) }), --"minion_movement_speed_+%" = 30
+		mod("DisableWeapons", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), 
+		mod("Condition:Onslaught", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), 
+		skill("minionLevel", 59), 
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[15] = { 1, },
+	},
+}
 skills["TriggeredMoltenStrike"] = {
 	name = "Molten Burst",
 	hidden = true,

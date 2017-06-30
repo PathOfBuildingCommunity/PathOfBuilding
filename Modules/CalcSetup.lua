@@ -337,7 +337,7 @@ function calcs.initEnv(build, mode, override)
 				-- Special handling for Necromantic Aegis
 				env.aegisModList = common.New("ModList")
 				for _, mod in ipairs(srcList) do
-					-- Filter out mods that apply to socketed gems, or which add skills or supports
+					-- Filter out mods that apply to socketed gems, or which add supports
 					local add = true
 					for _, tag in ipairs(mod.tagList) do
 						if tag.type == "SocketedIn" then
@@ -347,6 +347,24 @@ function calcs.initEnv(build, mode, override)
 					end
 					if add then
 						env.aegisModList:AddMod(mod)
+					else
+						env.modDB:AddMod(mod)
+					end
+				end
+			elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].name == "UniqueAnimateWeapon" then
+				-- Special handling for The Dancing Dervish
+				env.weaponModList1 = common.New("ModList")
+				for _, mod in ipairs(srcList) do
+					-- Filter out mods that apply to socketed gems, or which add supports
+					local add = true
+					for _, tag in ipairs(mod.tagList) do
+						if tag.type == "SocketedIn" then
+							add = false
+							break
+						end
+					end
+					if add then
+						env.weaponModList1:AddMod(mod)
 					else
 						env.modDB:AddMod(mod)
 					end

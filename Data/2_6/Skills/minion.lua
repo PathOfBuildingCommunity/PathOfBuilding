@@ -359,6 +359,8 @@ skills["IceElementalIceCyclone"] = {
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
 		--"is_area_damage" = ?
 		--"cyclone_places_ground_ice" = ?
+		skill("dpsMultiplier", 2), 
+		skill("radiusIsWeaponRange", true), 
 	},
 	qualityMods = {
 	},
@@ -1103,6 +1105,52 @@ skills["SpiderMinionLeapSlam"] = {
 		--"active_skill_area_of_effect_radius_+%_final" = 0
 		--"is_area_damage" = ?
 		skill("castTimeOverridesAttackTime", true), --"cast_time_overrides_attack_duration" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[1] = { 1, },
+	},
+}
+skills["DancingDervishCyclone"] = {
+	name = "Cyclone",
+	hidden = true,
+	color = 2,
+	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location.",
+	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [38] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		mod("PhysicalDamage", "INC", 0), --"physical_damage_+%" = 0
+		mod("Speed", "INC", 20, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 20
+		--"skill_art_variation" = 0
+		mod("MovementSpeed", "MORE", 0), --"cyclone_movement_speed_+%_final" = 0
+		--"cyclone_extra_distance" = 25
+		mod("Damage", "MORE", 0, ModFlag.Hit), --"active_skill_damage_+%_final" = 0
+		--"is_area_damage" = ?
+		skill("dpsMultiplier", 2), 
+		skill("radiusIsWeaponRange", true), 
 	},
 	qualityMods = {
 	},
