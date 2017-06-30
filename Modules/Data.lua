@@ -12,6 +12,7 @@ local skillTypes = {
 	"act_dex",
 	"act_int",
 	"other",
+	"glove",
 	"minion",
 	"spectre",
 	"sup_str",
@@ -140,6 +141,7 @@ for _, targetVersion in ipairs(targetVersionList) do
 	data[targetVersion].enchantments = {
 		Helmet = dataModule("EnchantmentHelmet"),
 		Boots = dataModule("EnchantmentBoots"),
+		Gloves = dataModule("EnchantmentGloves"),
 	}
 	data[targetVersion].essences = dataModule("Essence")
 

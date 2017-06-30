@@ -12,7 +12,7 @@ Adds (5-15) to (20-25) Physical Damage
 Adds (5-15) to (20-25) Fire Damage
 5% increased Movement Speed
 (7-10)% Increased Attack Speed
-(15-25)% to Fire Resistance
++(15-25)% to Fire Resistance
 {variant:1}Curse Enemies with Flammability on Hit
 {variant:2}Curse Enemies with level 10 Flammability on Hit
 ]],[[
