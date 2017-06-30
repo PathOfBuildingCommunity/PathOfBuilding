@@ -114,6 +114,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.6", "2.6", "{C67A4D0E-AF9E-45AB-9900-0D72C974B6A5}"
 	ProjectSection(SolutionItems) = preProject
 		Data\2_6\EnchantmentBoots.lua = Data\2_6\EnchantmentBoots.lua
+		Data\2_6\EnchantmentGloves.lua = Data\2_6\EnchantmentGloves.lua
 		Data\2_6\EnchantmentHelmet.lua = Data\2_6\EnchantmentHelmet.lua
 		Data\2_6\Essence.lua = Data\2_6\Essence.lua
 		Data\2_6\Minions.lua = Data\2_6\Minions.lua
@@ -129,6 +130,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.0", "3.0", "{E58DF0B8-3886-4CF7-B6F7-5EC094049DCF}"
 	ProjectSection(SolutionItems) = preProject
 		Data\3_0\EnchantmentBoots.lua = Data\3_0\EnchantmentBoots.lua
+		Data\3_0\EnchantmentGloves.lua = Data\3_0\EnchantmentGloves.lua
 		Data\3_0\EnchantmentHelmet.lua = Data\3_0\EnchantmentHelmet.lua
 		Data\3_0\Essence.lua = Data\3_0\Essence.lua
 		Data\3_0\Minions.lua = Data\3_0\Minions.lua

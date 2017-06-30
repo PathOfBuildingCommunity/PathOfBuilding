@@ -102,7 +102,7 @@ function calcs.createActiveSkill(activeGem, supportList, summonSkill)
 	-- Initialise skill flag set ('attack', 'projectile', etc)
 	local skillFlags = copyTable(activeGem.grantedEffect.baseFlags)
 	activeSkill.skillFlags = skillFlags
-	skillFlags.hit = activeSkill.skillTypes[SkillType.Attack] or activeSkill.skillTypes[SkillType.Hit] or activeSkill.skillTypes[SkillType.Projectile]
+	skillFlags.hit = skillFlags.hit or activeSkill.skillTypes[SkillType.Attack] or activeSkill.skillTypes[SkillType.Hit] or activeSkill.skillTypes[SkillType.Projectile]
 
 	-- Process support skills
 	activeSkill.gemList = { activeGem }
@@ -415,6 +415,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			minion.minionData = env.data.minions[minionType]
 			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or activeSkill.skillData.minionLevel or activeSkill.skillData.levelRequirement
 			minion.itemList = { }
+			minion.uses = activeGem.grantedEffect.minionUses
 			local attackTime = minion.minionData.attackTime * (1 - (minion.minionData.damageFixup or 0))
 			local damage = env.data.monsterDamageTable[minion.level] * minion.minionData.damage * attackTime
 			if activeGem.grantedEffect.minionHasItemSet then
@@ -443,17 +444,25 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 				}
 			end
 			minion.weaponData2 = { }
-			if minion.itemSet then
-				if activeGem.grantedEffect.minionUses["Weapon 1"] then
-					local item = env.build.itemsTab.items[minion.itemSet[minion.itemSet.useSecondWeaponSet and "Weapon 1 Swap" or "Weapon 1"].selItemId]
-					if item then
-						minion.weaponData1 = item.weaponData[1]
+			if minion.uses then
+				if minion.uses["Weapon 1"] then
+					if minion.itemSet then
+						local item = env.build.itemsTab.items[minion.itemSet[minion.itemSet.useSecondWeaponSet and "Weapon 1 Swap" or "Weapon 1"].selItemId]
+						if item then
+							minion.weaponData1 = item.weaponData[1]
+						end
+					else
+						minion.weaponData1 = env.player.weaponData1
 					end
 				end
-				if activeGem.grantedEffect.minionUses["Weapon 2"] then
-					local item = env.build.itemsTab.items[minion.itemSet[minion.itemSet.useSecondWeaponSet and "Weapon 2 Swap" or "Weapon 2"].selItemId]
-					if item and item.weaponData then
-						minion.weaponData2 = item.weaponData[2]
+				if minion.uses["Weapon 2"] then	
+					if minion.itemSet then
+						local item = env.build.itemsTab.items[minion.itemSet[minion.itemSet.useSecondWeaponSet and "Weapon 2 Swap" or "Weapon 2"].selItemId]
+						if item and item.weaponData then
+							minion.weaponData2 = item.weaponData[2]
+						end
+					else
+						minion.weaponData2 = env.player.weaponData2
 					end
 				end
 			end

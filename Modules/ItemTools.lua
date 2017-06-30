@@ -303,7 +303,7 @@ function itemLib.parseItemRaw(item)
 				local modList, extra = modLib.parseMod[item.targetVersion](rangedLine or line)
 				if (not modList or extra) and item.rawLines[l+1] then
 					-- Try to combine it with the next line
-					modList, extra = modLib.parseMod[item.targetVersion](line.." "..item.rawLines[l+1])
+					modList, extra = modLib.parseMod[item.targetVersion](line.." "..item.rawLines[l+1], true)
 					if modList and not extra then
 						line = line.."\n"..item.rawLines[l+1]
 						l = l + 1

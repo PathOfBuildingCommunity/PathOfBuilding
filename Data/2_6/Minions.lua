@@ -330,3 +330,22 @@ minions["AnimatedArmour"] = {
 	modList = {
 	},
 }
+minions["IcyRagingSpirit"] = {
+	name = "Grave Spirit",
+	life = 3,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2,
+	damageSpread = 0.2,
+	attackTime = 0.855,
+	attackRange = 6,
+	skillList = {
+		"RagingSpiritMeleeAttack",
+	},
+	modList = {
+		mod("PhysicalDamageConvertToCold", "BASE", 50),
+		mod("Speed", "MORE", 40, ModFlag.Attack),
+	},
+}

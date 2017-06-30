@@ -53,6 +53,11 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.39 - 2017/06/30
+ * You can now apply enchantments to Gloves
+ * Added support for all Glove enchantment skills
+ * Various minor tweaks and fixes
+
 ### 1.4.38 - 2017/06/29
  * Added support for Devouring Totem
  * Added basic support for Conversion Trap (calculations for mana cost, cooldown and duration)

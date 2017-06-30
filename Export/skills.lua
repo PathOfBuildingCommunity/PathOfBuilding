@@ -162,6 +162,9 @@ directiveTable.skill = function(state, args, out)
 		out:write('\tgemDex = ', skillGem.Dex, ',\n')
 		out:write('\tgemInt = ', skillGem.Int, ',\n')
 	else
+		if displayName == args and not granted.IsSupport then
+			displayName = ActiveSkills[granted.ActiveSkillsKey].DisplayedName
+		end
 		out:write('\tname = "', displayName, '",\n')
 		out:write('\thidden = true,\n')
 	end
@@ -439,12 +442,13 @@ directiveTable.mods = function(state, args, out)
 	state.gem = nil
 end
 
-for _, name in pairs({"act_str","act_dex","act_int","other","minion","spectre","sup_str","sup_dex","sup_int"}) do
+for _, name in pairs({"act_str","act_dex","act_int","other","glove","minion","spectre","sup_str","sup_dex","sup_int"}) do
 	processTemplateFile("Skills/"..name, directiveTable)
 end
 
 os.execute("xcopy Skills\\act_*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
 os.execute("xcopy Skills\\sup_*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
 os.execute("xcopy Skills\\other.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
+os.execute("xcopy Skills\\glove.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
 
 print("Skill data exported.")

@@ -344,13 +344,18 @@ function calcs.perform(env)
 				env.minion.modDB:AddList(env.player.itemList["Weapon 2"].modList)
 			end
 		end
-		if env.minion.itemSet then
+		if env.minion.itemSet or env.minion.uses then
 			for slotName, slot in pairs(env.build.itemsTab.slots) do
-				if env.player.mainSkill.activeGem.grantedEffect.minionUses[slotName] then
-					if slot.weaponSet == 1 and env.minion.itemSet.useSecondWeaponSet then
-						slotName = slotName .. " Swap"
+				if env.minion.uses[slotName] then
+					local item
+					if env.minion.itemSet then
+						if slot.weaponSet == 1 and env.minion.itemSet.useSecondWeaponSet then
+							slotName = slotName .. " Swap"
+						end
+						item = env.build.itemsTab.items[env.minion.itemSet[slotName].selItemId]
+					else
+						item = env.player.itemList[slotName]
 					end
-					local item = env.build.itemsTab.items[env.minion.itemSet[slotName].selItemId]
 					if item then
 						env.minion.itemList[slotName] = item
 						env.minion.modDB:AddList(item.modList or item.slotModList[slot.slotNum])
