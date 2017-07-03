@@ -15,15 +15,21 @@ local itemBases = ...
 
 #subType Armour/Evasion
 #baseMatch Metadata/Items/Armours/Boots/BootsStrDex%d+
+#forceShow true
 #base Metadata/Items/Armours/Boots/BootsAtlas2 Two-Toned Boots (Armour/Evasion)
+#forceShow false
 
 #subType Armour/Energy Shield
 #baseMatch Metadata/Items/Armours/Boots/BootsStrInt%d+
+#forceShow true
 #base Metadata/Items/Armours/Boots/BootsAtlas3 Two-Toned Boots (Armour/Energy Shield)
+#forceShow false
 
 #subType Evasion/Energy Shield
 #baseMatch Metadata/Items/Armours/Boots/BootsDexInt%d+
+#forceShow true
 #base Metadata/Items/Armours/Boots/BootsAtlas1 Two-Toned Boots (Evasion/Energy Shield)
+#forceShow false
 
 #subType
 #base Metadata/Items/Armours/Boots/BootsDemigods1

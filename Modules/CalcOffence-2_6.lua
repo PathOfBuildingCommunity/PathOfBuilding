@@ -1385,13 +1385,25 @@ function calcs.offence(env, actor)
 		if canDeal.Fire and (output.IgniteChanceOnHit + output.IgniteChanceOnCrit) > 0 then
 			local sourceHitDmg = 0
 			local sourceCritDmg = 0
-			if canDeal.Fire and not modDB:Sum("FLAG", cfg, "FireCannotIgnite") then
-				sourceHitDmg = sourceHitDmg + output.FireHitAverage
-				sourceCritDmg = sourceCritDmg + output.FireCritAverage
+			if canDeal.Physical and modDB:Sum("FLAG", cfg, "PhysicalCanIgnite") then
+				sourceHitDmg = sourceHitDmg + output.PhysicalHitAverage
+				sourceCritDmg = sourceCritDmg + output.PhysicalCritAverage
+			end
+			if canDeal.Lightning and modDB:Sum("FLAG", cfg, "LightningCanIgnite") then
+				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
+				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
 			end
 			if canDeal.Cold and modDB:Sum("FLAG", cfg, "ColdCanIgnite") then
 				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
 				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
+			end
+			if canDeal.Fire and not modDB:Sum("FLAG", cfg, "FireCannotIgnite") then
+				sourceHitDmg = sourceHitDmg + output.FireHitAverage
+				sourceCritDmg = sourceCritDmg + output.FireCritAverage
+			end
+			if canDeal.Chaos and modDB:Sum("FLAG", cfg, "ChaosCanIgnite") then
+				sourceHitDmg = sourceHitDmg + output.ChaosHitAverage
+				sourceCritDmg = sourceCritDmg + output.ChaosCritAverage
 			end
 			local igniteMode = env.configInput.igniteMode or "AVERAGE"
 			if igniteMode == "CRIT" then
@@ -1494,13 +1506,17 @@ function calcs.offence(env, actor)
 		if (output.ShockChanceOnHit + output.ShockChanceOnCrit) > 0 then
 			local sourceHitDmg = 0
 			local sourceCritDmg = 0
+			if canDeal.Physical and modDB:Sum("FLAG", cfg, "PhysicalCanShock") then
+				sourceHitDmg = sourceHitDmg + output.PhysicalHitAverage
+				sourceCritDmg = sourceCritDmg + output.PhysicalCritAverage
+			end
 			if canDeal.Lightning and not modDB:Sum("FLAG", cfg, "LightningCannotShock") then
 				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
 				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
 			end
-			if canDeal.Physical and modDB:Sum("FLAG", cfg, "PhysicalCanShock") then
-				sourceHitDmg = sourceHitDmg + output.PhysicalHitAverage
-				sourceCritDmg = sourceCritDmg + output.PhysicalCritAverage
+			if canDeal.Cold and modDB:Sum("FLAG", cfg, "ColdCanShock") then
+				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
+				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
 			end
 			if canDeal.Fire and modDB:Sum("FLAG", cfg, "FireCanShock") then
 				sourceHitDmg = sourceHitDmg + output.FireHitAverage

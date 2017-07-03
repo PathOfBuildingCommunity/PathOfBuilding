@@ -254,7 +254,6 @@ itemBases["Dragonscale Boots"] = {
 itemBases["Two-Toned Boots (Armour/Evasion)"] = {
 	type = "Boots",
 	subType = "Armour/Evasion",
-	hidden = true,
 	tags = { default = true, armour = true, boots = true, not_for_sale = true, atlas_base_type = true, bootsatlas2 = true, str_dex_armour = true, },
 	implicit = "+(15-20)% to Fire and Cold Resistances",
 	armour = { ArmourBase = 126, EvasionBase = 126, },
@@ -320,7 +319,6 @@ itemBases["Crusader Boots"] = {
 itemBases["Two-Toned Boots (Armour/Energy Shield)"] = {
 	type = "Boots",
 	subType = "Armour/Energy Shield",
-	hidden = true,
 	tags = { default = true, armour = true, boots = true, not_for_sale = true, atlas_base_type = true, bootsatlas3 = true, str_int_armour = true, },
 	implicit = "+(15-20)% to Fire and Lightning Resistances",
 	armour = { ArmourBase = 126, EnergyShieldBase = 24, },
