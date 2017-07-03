@@ -136,6 +136,17 @@ function main:Init()
 			local newItem = itemLib.makeItemFromRaw(targetVersion, raw)
 			if newItem then
 				itemLib.normaliseQuality(newItem)
+				if newItem.crafted then
+					if newItem.base.implicit and (#newItem.modLines == 0 or newItem.modLines[1].custom) then
+						newItem.implicitLines = 0
+						for line in newItem.base.implicit:gmatch("[^\n]+") do
+							local modList, extra = modLib.parseMod[targetVersion](line)
+							newItem.implicitLines = newItem.implicitLines + 1
+							t_insert(newItem.modLines, newItem.implicitLines, { line = line, extra = extra, modList = modList or { } })
+						end
+					end
+					itemLib.craftItem(newItem)
+				end
 				self.rareDB[targetVersion].list[newItem.name] = newItem
 			else
 				ConPrintf("Rare DB unrecognised item:\n%s", raw)

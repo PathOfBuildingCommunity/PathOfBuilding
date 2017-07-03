@@ -53,6 +53,16 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.41 - 2017/07/03
+This update introduces a new style of rare template which utilises the item crafting system.
+These templates are available on the same set of bases and with the same sets of pre-selected modifiers as the
+old templates, but since they are crafted items they have access to all possible modifiers instead of a subset.
+These templates are only being trialed for 3.0 builds at present, but if the feedback is positive then they will be 
+back-ported to 2.6 as well.
+Other changes:
+ * Added support for the Conflux buffs granted by Shaper of Desolation, using a new option in the Configuration tab
+ * Fixed error that occured when trying to copy an item set
+
 ### 1.4.40 - 2017/07/01
  * Added support for Manifest Dancing Dervish
  * With that addition, the program should now support all active and support skills currently in-game

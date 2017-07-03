@@ -716,6 +716,11 @@ local specialModList = {
 	["you have onslaught while on full frenzy charges"] = { flag("Condition:Phasing", { type = "Condition", var = "AtMaxFrenzyCharges" }) },
 	["your minions spread caustic cloud on death, dealing 10%% of their maximum life as chaos damage per second"] = { flag("MinionCausticCloudOnDeath") },
 	["you and your minions have (%d+)%% physical damage reduction"] = function(num) return { mod("PhysicalDamageReduction", "BASE", num), mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", num) }) } end,
+	["every %d+ seconds:"] = { },
+	["gain chilling conflux for %d seconds"] = { },
+	["gain shocking conflux for %d seconds"] = { },
+	["gain igniting conflux for %d seconds"] = { },
+	["gain chilling, shocking and igniting conflux for %d seconds"] = { },
 	-- Item local modifiers
 	["has no sockets"] = { },
 	["has 1 socket"] = { },

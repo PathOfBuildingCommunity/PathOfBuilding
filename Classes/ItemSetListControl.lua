@@ -14,11 +14,12 @@ local ItemSetListClass = common.NewClass("ItemSetList", "ListControl", function(
 	self.ListControl(anchor, x, y, width, height, 16, true, itemsTab.itemSetOrderList)
 	self.itemsTab = itemsTab
 	self.controls.copy = common.New("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, 2, -4, 60, 18, "Copy", function()
-		local newSet = copytable(self.selValue)
+		local newSet = copyTable(itemsTab.itemSets[self.selValue])
 		newSet.id = 1
 		while itemsTab.itemSets[newSet.id] do
 			newSet.id = newSet.id + 1
 		end
+		itemsTab.itemSets[newSet.id] = newSet
 		self:RenameSet(newSet, true)
 	end)
 	self.controls.copy.enabled = function()

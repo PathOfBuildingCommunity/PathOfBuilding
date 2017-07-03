@@ -29,11 +29,11 @@ local varList = {
 	end },
 	{ var = "igniteMode", type = "list", label = "Ignite calculation mode:", tooltip = "Controls how the base damage for ignite is calculated:\nAverage Damage: Ignite is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ignite is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
 	{ section = "Skill Options", col = 2 },
-	{ label = "Detonate Dead", ifSkill = "Detonate Dead" },
+	{ label = "Detonate Dead:", ifSkill = "Detonate Dead" },
 	{ var = "detonateDeadCorpseLife", type = "number", label = "Corpse Life:", ifSkillList = { "Detonate Dead", "Vaal Detonate Dead" }, tooltip = "Sets the maximum life of the corpse that is being detonated.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base life, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config", { type = "SkillName", skillName = "Detonate Dead" })
 	end },
-	{ label = "Ice Nova", ifSkill = "Ice Nova" },
+	{ label = "Ice Nova:", ifSkill = "Ice Nova" },
 	{ var = "iceNovaCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Ice Nova", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Ice Nova" })
 	end },
@@ -52,7 +52,7 @@ local varList = {
 	{ var = "summonLightningGolemEnableWrath", type = "check", label = "Enable Wrath Aura:", ifSkill = "Summon Lightning Golem", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "LightningGolemWrath" })
 	end },
-	{ label = "Vortex", ifSkill = "Vortex" },
+	{ label = "Vortex:", ifSkill = "Vortex" },
 	{ var = "vortexCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Vortex", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Vortex" })
 	end },
@@ -295,6 +295,28 @@ local varList = {
 	end },
 	{ var = "buffPendulum", type = "check", label = "Is Pendulum of Destruction active?", ifNode = 57197, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:PendulumOfDestruction", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffConflux", type = "list", label = "Conflux Buff:", ifNode = 51391, list = {{val=0,label="None"},{val="CHILLING",label="Chilling"},{val="SHOCKING",label="Shocking"},{val="IGNITING",label="Igniting"},{val="ALL",label="Chill + Shock + Ignite"}}, apply = function(val, modList, enemyModList)
+		if val == "CHILLING" or val == "ALL" then
+			modList:NewMod("PhysicalCanChill", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+			modList:NewMod("LightningCanChill", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+			modList:NewMod("FireCanChill", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+			modList:NewMod("ChaosCanChill", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		end
+		if val == "SHOCKING" or val == "ALL" then
+			modList:NewMod("EnemyShockChance", "BASE", 100, "Config", { type = "Condition", var = "Combat" })
+			modList:NewMod("PhysicalCanShock", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+			modList:NewMod("ColdCanShock", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+			modList:NewMod("FireCanShock", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+			modList:NewMod("ChaosCanShock", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		end
+		if val == "IGNITING" or val == "ALL" then
+			modList:NewMod("EnemyIgniteChance", "BASE", 100, "Config", { type = "Condition", var = "Combat" })
+			modList:NewMod("PhysicalCanIgnite", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+			modList:NewMod("LightningCanIgnite", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+			modList:NewMod("ColdCanIgnite", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+			modList:NewMod("ChaosCanIgnite", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		end
 	end },
 	{ var = "conditionAttackedRecently", type = "check", label = "Have you Attacked Recently?", ifNode = 3154, tooltip = "You will automatically be considered to have Attacked Recently if your main skill is an attack,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AttackedRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })

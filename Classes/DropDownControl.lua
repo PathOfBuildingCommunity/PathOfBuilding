@@ -30,7 +30,7 @@ local DropDownClass = common.NewClass("DropDownControl", "Control", "ControlHost
 	self.tooltipFunc = function(mode, index, value)
 		local tooltip = self:GetProperty("tooltip")
 		if tooltip then
-			main:AddTooltipLine(14, self.tooltip)
+			main:AddTooltipLine(14, tooltip)
 		end
 	end
 end)

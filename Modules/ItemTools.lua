@@ -155,6 +155,7 @@ function itemLib.parseItemRaw(item)
 		item.enchantments = verData.enchantments[item.base.type]
 		item.corruptable = item.base.type ~= "Flask"
 	end
+	item.variantList = nil
 	item.prefixes = { }
 	item.suffixes = { }
 	item.requirements = { }
