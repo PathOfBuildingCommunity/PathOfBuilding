@@ -149,7 +149,7 @@
 	<File sha1="72fb83d5e5857de6391dae990f4cb7ea916aa7ef" name="Data/3_0/ModJewel.lua" part="program"/>
 	<File sha1="f4b723bc95e134bdd191e177f9c758ce4f1416cf" name="Data/3_0/ModMaster.lua" part="program"/>
 	<File sha1="8cde869cfe07ff56eac6ceda3625c71267b6b4a7" name="Data/3_0/Passives.lua" part="program"/>
-	<File sha1="780ca17246550937bf097fe732118a38d0a0fe44" name="Data/3_0/Rares.lua" part="program"/>
+	<File sha1="c2bc498aa4438ba3b263247c3e6457c5722b7be1" name="Data/3_0/Rares.lua" part="program"/>
 	<File sha1="d9e587395e84fdb6f1311a6bfba73c686408b432" name="Data/3_0/Spectres.lua" part="program"/>
 	<File sha1="4538254d9b6867e463d0c95022cd574c9a89c783" name="Data/3_0/Bases/amulet.lua" part="program"/>
 	<File sha1="dff23301bf45d55192813609fab4ff6b3d25706a" name="Data/3_0/Bases/axe.lua" part="program"/>
