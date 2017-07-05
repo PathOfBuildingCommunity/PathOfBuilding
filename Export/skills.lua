@@ -128,6 +128,12 @@ local weaponClassMap = {
 
 local directiveTable = { }
 
+-- #noGem
+-- Disables the gem component of the next skill
+directiveTable.noGem = function(state, args, out)
+	state.noGem = true
+end
+
 -- #skill <GrantedEffectId> [<Display name>]
 -- Initialises the gem data and emits the skill header
 directiveTable.skill = function(state, args, out)
@@ -145,7 +151,7 @@ directiveTable.skill = function(state, args, out)
 	local skillGemKey = SkillGems.GrantedEffectsKey(grantedKey)[1]
 	local gem = { }
 	state.gem = gem
-	if skillGemKey then
+	if skillGemKey and not state.noGem then
 		local skillGem = SkillGems[skillGemKey]
 		out:write('\tname = "', BaseItemTypes[skillGem.BaseItemTypesKey].Name:gsub(" Support",""), '",\n')
 		local tagNames = { }
@@ -168,6 +174,7 @@ directiveTable.skill = function(state, args, out)
 		out:write('\tname = "', displayName, '",\n')
 		out:write('\thidden = true,\n')
 	end
+	state.noGem = false
 	gem.baseFlags = { }
 	gem.mods = { }
 	local modMap = { }

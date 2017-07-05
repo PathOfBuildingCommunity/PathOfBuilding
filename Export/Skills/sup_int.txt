@@ -11,6 +11,9 @@ local skills, mod, flag, skill = ...
 #skill SupportAddedLightningDamage
 #mods
 
+#skill SupportArcaneSurge
+#mods
+
 #skill SupportBlasphemy
 #mods
 

@@ -75,6 +75,9 @@ local skills, mod, flag, skill = ...
 #skill SupportMultiTrap
 #mods
 
+#skill SupportOnslaught
+#mods
+
 #skill SupportPhysicalProjectileAttackDamage
 #mods
 

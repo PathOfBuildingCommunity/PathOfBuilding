@@ -1512,36 +1512,36 @@ skills["EssenceDrain"] = {
 		[5] = skill("ChaosMax", nil), --"spell_maximum_base_chaos_damage"
 	},
 	levels = {
-		[1] = { 12, 9, 21.383333333333, 6, 9, },
-		[2] = { 15, 10, 27.65, 8, 12, },
-		[3] = { 19, 11, 38.083333333333, 11, 16, },
-		[4] = { 23, 12, 51.45, 15, 22, },
-		[5] = { 27, 13, 68.483333333333, 20, 30, },
-		[6] = { 31, 14, 90.05, 26, 39, },
-		[7] = { 35, 16, 117.3, 34, 51, },
-		[8] = { 38, 16, 142.25, 41, 61, },
-		[9] = { 41, 17, 171.83333333333, 49, 74, },
-		[10] = { 44, 18, 206.83333333333, 60, 89, },
-		[11] = { 47, 19, 248.2, 71, 107, },
-		[12] = { 50, 20, 297, 86, 128, },
-		[13] = { 53, 21, 354.5, 102, 153, },
-		[14] = { 56, 22, 422.18333333333, 122, 182, },
-		[15] = { 59, 23, 501.71666666667, 144, 217, },
-		[16] = { 62, 24, 595.11666666667, 171, 257, },
-		[17] = { 64, 24, 666.2, 192, 288, },
-		[18] = { 66, 25, 745.23333333333, 215, 322, },
-		[19] = { 68, 26, 833.05, 240, 360, },
-		[20] = { 70, 27, 930.6, 268, 402, },
-		[21] = { 72, 28, 1038.9333333333, 299, 449, },
-		[22] = { 74, 29, 1159.1666666667, 334, 501, },
-		[23] = { 76, 29, 1292.5833333333, 372, 558, },
-		[24] = { 78, 30, 1440.5833333333, 415, 622, },
-		[25] = { 80, 30, 1604.6833333333, 462, 693, },
-		[26] = { 82, 31, 1786.5833333333, 515, 772, },
-		[27] = { 84, 32, 1988.1666666667, 573, 859, },
-		[28] = { 86, 33, 2211.5, 637, 955, },
-		[29] = { 88, 33, 2458.8333333333, 708, 1062, },
-		[30] = { 90, 34, 2732.6833333333, 787, 1181, },
+		[1] = { 12, 9, 21.333333333333, 6, 9, },
+		[2] = { 15, 10, 27.9, 8, 12, },
+		[3] = { 19, 11, 39.033333333333, 11, 17, },
+		[4] = { 23, 12, 53.533333333333, 15, 23, },
+		[5] = { 27, 13, 72.35, 21, 31, },
+		[6] = { 31, 14, 96.616666666667, 28, 42, },
+		[7] = { 35, 16, 127.78333333333, 37, 55, },
+		[8] = { 38, 16, 156.75, 45, 68, },
+		[9] = { 41, 17, 191.53333333333, 55, 83, },
+		[10] = { 44, 18, 233.21666666667, 67, 101, },
+		[11] = { 47, 19, 283.08333333333, 82, 122, },
+		[12] = { 50, 20, 342.65, 99, 148, },
+		[13] = { 53, 21, 413.71666666667, 119, 179, },
+		[14] = { 56, 22, 498.38333333333, 144, 215, },
+		[15] = { 59, 23, 599.13333333333, 173, 259, },
+		[16] = { 62, 24, 718.86666666667, 207, 311, },
+		[17] = { 64, 24, 810.9, 234, 350, },
+		[18] = { 66, 25, 914.06666666667, 263, 395, },
+		[19] = { 68, 26, 1029.6333333333, 297, 445, },
+		[20] = { 70, 27, 1159.0333333333, 334, 501, },
+		[21] = { 72, 28, 1303.8833333333, 376, 563, },
+		[22] = { 74, 29, 1465.9666666667, 422, 633, },
+		[23] = { 76, 29, 1647.25, 474, 712, },
+		[24] = { 78, 30, 1849.95, 533, 799, },
+		[25] = { 80, 30, 2076.5166666667, 598, 897, },
+		[26] = { 82, 31, 2329.6666666667, 671, 1006, },
+		[27] = { 84, 32, 2612.4333333333, 752, 1129, },
+		[28] = { 86, 33, 2928.2, 843, 1265, },
+		[29] = { 88, 33, 3280.7, 945, 1417, },
+		[30] = { 90, 34, 3674.1, 1058, 1587, },
 	},
 }
 skills["FireNovaMine"] = {
@@ -2049,10 +2049,11 @@ skills["Flameblast"] = {
 		skill("castTime", 0.2), 
 		skill("damageEffectiveness", 0.5), 
 		skill("CritChance", 5), 
-		--"charged_blast_spell_damage_+%_final_per_stack" = 110
+		mod("Damage", "MORE", 110, 0, KeywordFlag.Hit, { type = "Multiplier", var = "FlameblastStage" }), --"charged_blast_spell_damage_+%_final_per_stack" = 110
+		mod("Damage", "MORE", 55, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStage" }), --"flameblast_ailment_damage_+%_final_per_stack" = 55
 		--"is_area_damage" = ?
 		--"base_skill_show_average_damage_instead_of_dps" = ?
-		mod("Damage", "MORE", 990, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }), 
+		mod("Multiplier:FlameblastStage", "BASE", 9, 0, 0, { type = "SkillPart", skillPart = 2 }), 
 		skill("dpsMultiplier", 0.1, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
@@ -2124,10 +2125,11 @@ skills["VaalFlameblast"] = {
 		skill("castTime", 1), 
 		skill("damageEffectiveness", 0.6), 
 		skill("CritChance", 5), 
-		--"charged_blast_spell_damage_+%_final_per_stack" = 110
+		mod("Damage", "MORE", 110, 0, KeywordFlag.Hit, { type = "Multiplier", var = "FlameblastStage" }), --"charged_blast_spell_damage_+%_final_per_stack" = 110
+		mod("Damage", "MORE", 55, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStage" }), --"flameblast_ailment_damage_+%_final_per_stack" = 55
 		--"is_area_damage" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
-		mod("Damage", "MORE", 1100, ModFlag.Spell), 
+		mod("Multiplier:FlameblastStage", "BASE", 9), 
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, 0, nil), --"damage_+%" = 1
@@ -2346,7 +2348,7 @@ skills["FreezingPulse"] = {
 		skill("damageEffectiveness", 1.25), 
 		skill("CritChance", 6), 
 		--"base_is_projectile" = ?
-		mod("PierceChance", "BASE", 100), --"always_pierce" = ?
+		flag("PierceAllTargets"), --"always_pierce" = ?
 	},
 	qualityMods = {
 		mod("ProjectileSpeed", "INC", 2), --"base_projectile_speed_+%" = 2
@@ -2639,7 +2641,7 @@ skills["FrostBolt"] = {
 		skill("castTime", 0.75), 
 		skill("CritChance", 5), 
 		--"base_is_projectile" = ?
-		mod("PierceChance", "BASE", 100), --"always_pierce" = ?
+		flag("PierceAllTargets"), --"always_pierce" = ?
 	},
 	qualityMods = {
 		mod("ColdDamage", "INC", 1), --"cold_damage_+%" = 1
@@ -3094,7 +3096,7 @@ skills["Incinerate"] = {
 		skill("damageEffectiveness", 0.3), 
 		--"flamethrower_damage_+%_per_stage_final" = 50
 		--"base_is_projectile" = ?
-		mod("PierceChance", "BASE", 100), --"always_pierce" = ?
+		flag("PierceAllTargets"), --"always_pierce" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
 		mod("Damage", "MORE", 150, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }), 
 	},
@@ -4212,9 +4214,9 @@ skills["RighteousFire"] = {
 	skillTypes = { [2] = true, [5] = true, [11] = true, [18] = true, [29] = true, [36] = true, [40] = true, [33] = true, },
 	setupFunc = function(actor, output)
 		if actor.mainSkill.skillFlags.totem then
-			actor.mainSkill.skillData.FireDot = output.TotemLife * 0.5
+			actor.mainSkill.skillData.FireDot = output.TotemLife * 0.4
 		else
-			actor.mainSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.5
+			actor.mainSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.4
 		end
 	end,
 	baseFlags = {
@@ -4224,9 +4226,9 @@ skills["RighteousFire"] = {
 	},
 	baseMods = {
 		skill("castTime", 1), 
-		--"base_righteous_fire_%_of_max_life_to_deal_to_nearby_per_minute" = 3000
+		--"base_righteous_fire_%_of_max_life_to_deal_to_nearby_per_minute" = 2400
 		mod("FireDegen", "BASE", 0.9, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }), --"base_nonlethal_fire_damage_%_of_maximum_life_taken_per_minute" = 5400
-		--"base_righteous_fire_%_of_max_energy_shield_to_deal_to_nearby_per_minute" = 3000
+		--"base_righteous_fire_%_of_max_energy_shield_to_deal_to_nearby_per_minute" = 2400
 		mod("FireDegen", "BASE", 0.7, 0, 0, { type = "PerStat", stat = "EnergyShield", div = 1}, { type = "GlobalEffect", effectType = "Buff" }), --"base_nonlethal_fire_damage_%_of_maximum_energy_shield_taken_per_minute" = 4200
 		skill("dotIsArea", true), 
 		skill("radius", 18), 
@@ -4240,36 +4242,36 @@ skills["RighteousFire"] = {
 		[3] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
-		[1] = { 16, 40, 0, },
-		[2] = { 20, 41, 0, },
-		[3] = { 24, 42, 0, },
-		[4] = { 28, 43, 1, },
-		[5] = { 31, 44, 1, },
-		[6] = { 34, 45, 1, },
-		[7] = { 37, 46, 1, },
-		[8] = { 40, 47, 2, },
-		[9] = { 43, 48, 2, },
-		[10] = { 46, 49, 2, },
-		[11] = { 49, 50, 2, },
-		[12] = { 52, 51, 3, },
-		[13] = { 55, 52, 3, },
-		[14] = { 58, 53, 3, },
-		[15] = { 60, 54, 3, },
-		[16] = { 62, 55, 4, },
-		[17] = { 64, 56, 4, },
-		[18] = { 66, 57, 4, },
-		[19] = { 68, 58, 4, },
-		[20] = { 70, 59, 5, },
-		[21] = { 72, 60, 5, },
-		[22] = { 74, 61, 5, },
-		[23] = { 76, 62, 5, },
-		[24] = { 78, 63, 6, },
-		[25] = { 80, 64, 6, },
-		[26] = { 82, 65, 6, },
-		[27] = { 84, 66, 6, },
-		[28] = { 86, 67, 7, },
-		[29] = { 88, 68, 7, },
-		[30] = { 90, 69, 7, },
+		[1] = { 16, 20, 0, },
+		[2] = { 20, 21, 0, },
+		[3] = { 24, 22, 0, },
+		[4] = { 28, 23, 1, },
+		[5] = { 31, 24, 1, },
+		[6] = { 34, 25, 1, },
+		[7] = { 37, 26, 1, },
+		[8] = { 40, 27, 2, },
+		[9] = { 43, 28, 2, },
+		[10] = { 46, 29, 2, },
+		[11] = { 49, 30, 2, },
+		[12] = { 52, 31, 3, },
+		[13] = { 55, 32, 3, },
+		[14] = { 58, 33, 3, },
+		[15] = { 60, 34, 3, },
+		[16] = { 62, 35, 4, },
+		[17] = { 64, 36, 4, },
+		[18] = { 66, 37, 4, },
+		[19] = { 68, 38, 4, },
+		[20] = { 70, 39, 5, },
+		[21] = { 72, 40, 5, },
+		[22] = { 74, 41, 5, },
+		[23] = { 76, 42, 5, },
+		[24] = { 78, 43, 6, },
+		[25] = { 80, 44, 6, },
+		[26] = { 82, 45, 6, },
+		[27] = { 84, 46, 6, },
+		[28] = { 86, 47, 7, },
+		[29] = { 88, 48, 7, },
+		[30] = { 90, 49, 7, },
 	},
 }
 skills["VaalRighteousFire"] = {
@@ -4400,36 +4402,36 @@ skills["FireBeam"] = {
 		[3] = skill("FireDot", nil), --"base_fire_damage_to_deal_per_minute"
 	},
 	levels = {
-		[1] = { 12, 4, 9.6833333333333, },
-		[2] = { 15, 4, 12.65, },
-		[3] = { 19, 4, 17.683333333333, },
-		[4] = { 23, 5, 24.233333333333, },
-		[5] = { 27, 5, 32.716666666667, },
-		[6] = { 31, 5, 43.666666666667, },
-		[7] = { 35, 6, 57.7, },
-		[8] = { 38, 6, 70.75, },
-		[9] = { 41, 6, 86.4, },
-		[10] = { 44, 7, 105.13333333333, },
-		[11] = { 47, 7, 127.55, },
-		[12] = { 50, 7, 154.3, },
-		[13] = { 53, 8, 186.2, },
-		[14] = { 56, 8, 224.16666666667, },
-		[15] = { 59, 8, 269.33333333333, },
-		[16] = { 62, 9, 322.96666666667, },
-		[17] = { 64, 9, 364.18333333333, },
-		[18] = { 66, 9, 410.36666666667, },
-		[19] = { 68, 10, 462.06666666667, },
-		[20] = { 70, 10, 519.93333333333, },
-		[21] = { 72, 10, 584.7, },
-		[22] = { 74, 11, 657.13333333333, },
-		[23] = { 76, 11, 738.1, },
-		[24] = { 78, 11, 828.61666666667, },
-		[25] = { 80, 12, 929.73333333333, },
-		[26] = { 82, 12, 1042.6833333333, },
-		[27] = { 84, 12, 1168.8, },
-		[28] = { 86, 13, 1309.5833333333, },
-		[29] = { 88, 13, 1466.6666666667, },
-		[30] = { 90, 13, 1641.9, },
+		[1] = { 12, 4, 8.25, },
+		[2] = { 15, 4, 10.716666666667, },
+		[3] = { 19, 4, 14.85, },
+		[4] = { 23, 5, 20.166666666667, },
+		[5] = { 27, 5, 26.983333333333, },
+		[6] = { 31, 5, 35.666666666667, },
+		[7] = { 35, 6, 46.7, },
+		[8] = { 38, 6, 56.866666666667, },
+		[9] = { 41, 6, 68.966666666667, },
+		[10] = { 44, 7, 83.35, },
+		[11] = { 47, 7, 100.43333333333, },
+		[12] = { 50, 7, 120.66666666667, },
+		[13] = { 53, 8, 144.6, },
+		[14] = { 56, 8, 172.9, },
+		[15] = { 59, 8, 206.3, },
+		[16] = { 62, 9, 245.7, },
+		[17] = { 64, 9, 275.78333333333, },
+		[18] = { 66, 9, 309.31666666667, },
+		[19] = { 68, 10, 346.7, },
+		[20] = { 70, 10, 388.35, },
+		[21] = { 72, 10, 434.71666666667, },
+		[22] = { 74, 11, 486.33333333333, },
+		[23] = { 76, 11, 543.76666666667, },
+		[24] = { 78, 11, 607.63333333333, },
+		[25] = { 80, 12, 678.68333333333, },
+		[26] = { 82, 12, 757.65, },
+		[27] = { 84, 12, 845.4, },
+		[28] = { 86, 13, 942.88333333333, },
+		[29] = { 88, 13, 1051.15, },
+		[30] = { 90, 13, 1171.35, },
 	},
 }
 skills["ShockNova"] = {

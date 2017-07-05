@@ -6,12 +6,14 @@ return {
 Abyssus
 Ezomyte Burgonet
 Variant: Pre 2.2.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 60, 138 Str
 Adds 40 to 60 Physical Damage to Attacks
 +(20-25) to all Attributes
 {variant:1}+(100-150)% to Melee Critical Strike Multiplier
 {variant:2}+(150-225)% to Melee Critical Strike Multiplier
+{variant:3}+(100-125)% to Melee Critical Strike Multiplier
 (100-120)% increased Armour
 (40-50)% increased Physical Damage taken
 ]],[[
@@ -198,6 +200,17 @@ Reflects 5 Physical Damage to Melee Attackers
 Take 5 Physical Damage when hit by Attacks
 Pain Attunement
 ]],[[
+Martyr's Crown
+Vine Circlet
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
+Requires Level 52
+{variant:1}+(260-300) to maximum Energy Shield
+{variant:2}+(110–130) to maximum Energy Shield
+Reflects 5 Physical Damage to Melee Attackers
+Take 5 Physical Damage when hit by Attacks
+Pain Attunement
+]],[[
 Doedre's Scorn
 Lunaris Circlet
 Variant: Pre 2.6.0
@@ -212,17 +225,6 @@ Requires Level 39, 83 Int
 20% increased Elemental Damage
 {variant:1,2}(10-20)% increased Damage per Curse on Enemy
 {variant:3}(10–20)% increased Damage with Hits and Ailments per Curse on Enemy
-]],[[
-Martyr's Crown
-Vine Circlet
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
-Requires Level 52
-{variant:1}+(260-300) to maximum Energy Shield
-{variant:2}+(110–130) to maximum Energy Shield
-Reflects 5 Physical Damage to Melee Attackers
-Take 5 Physical Damage when hit by Attacks
-Pain Attunement
 ]],[[
 Rime Gaze
 Mind Cage

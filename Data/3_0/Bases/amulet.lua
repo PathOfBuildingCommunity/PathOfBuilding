@@ -263,7 +263,7 @@ itemBases["Horned Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { default = true, amulet = true, },
-	implicit = "(25-35)% chance of Projectiles Piercing",
+	implicit = "Projectiles Pierce 2 Targets",
 	req = { },
 }
 itemBases["Spinefuse Talisman"] = {

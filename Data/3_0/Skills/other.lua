@@ -275,6 +275,69 @@ skills["TriggeredSummonLesserShrine"] = {
 		[1] = { 1, },
 	},
 }
+skills["TouchOfGod"] = {
+	name = "Doryani's Touch",
+	hidden = true,
+	color = 1,
+	description = "The character slams the ground in front of them with their fist, with less attack speed, but more damage. This attack deals Lightning Damage to enemies in a large area, with a chance to Shock them. Cannot be used while weilding a Weapon.",
+	skillTypes = { [1] = true, [10] = true, [11] = true, [35] = true, },
+	weaponTypes = {
+		["None"] = true,
+	},
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		area = true,
+		lightning = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("damageEffectiveness", 2.5), 
+		mod("PhysicalDamageConvertToLightning", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_lightning" = 50
+		mod("Speed", "MORE", -30, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = -30
+		mod("EnemyShockChance", "BASE", 20), --"base_chance_to_shock_%" = 20
+		--"is_area_damage" = ?
+	},
+	qualityMods = {
+		mod("Damage", "INC", 0.5, ModFlag.Area), --"area_damage_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+	},
+	levels = {
+		[1] = { 31, 24, },
+		[2] = { 34, 24, },
+		[3] = { 36, 24, },
+		[4] = { 38, 24, },
+		[5] = { 40, 24, },
+		[6] = { 42, 25, },
+		[7] = { 44, 25, },
+		[8] = { 46, 25, },
+		[9] = { 48, 25, },
+		[10] = { 50, 25, },
+		[11] = { 52, 26, },
+		[12] = { 54, 26, },
+		[13] = { 56, 26, },
+		[14] = { 58, 26, },
+		[15] = { 60, 26, },
+		[16] = { 62, 27, },
+		[17] = { 64, 27, },
+		[18] = { 66, 27, },
+		[19] = { 68, 28, },
+		[20] = { 70, 28, },
+		[21] = { 72, 28, },
+		[22] = { 74, 29, },
+		[23] = { 76, 29, },
+		[24] = { 78, 29, },
+		[25] = { 80, 30, },
+		[26] = { 82, 30, },
+		[27] = { 84, 30, },
+		[28] = { 86, 31, },
+		[29] = { 88, 31, },
+		[30] = { 90, 31, },
+	},
+}
 skills["Envy"] = {
 	name = "Envy",
 	hidden = true,
@@ -440,10 +503,6 @@ skills["IcestormUniqueStaff12"] = {
 		[1] = { 1, },
 	},
 }
---skill TouchOfGod Lightning Slam
---flags attack area lightning
---mods
-
 skills["MerveilWarp"] = {
 	name = "Illusory Warp",
 	hidden = true,

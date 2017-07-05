@@ -53,6 +53,12 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.42 - 2017/07/06
+For 3.0 builds:
+ * Applied the skill, passive tree, and unique changes from the Beta patch
+ * Added the Doryani's Touch skill granted by Doryani's Fist
+ * Added Arcane Surge, Onslaught and Ruthless support gems
+
 ### 1.4.41 - 2017/07/03
 This update introduces a new style of rare template which utilises the item crafting system.
 These templates are available on the same set of bases and with the same sets of pre-selected modifiers as the

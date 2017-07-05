@@ -58,12 +58,15 @@ Has no Sockets
 ]],[[
 Lioneye's Vision
 Crusader Plate
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 59, 160 Str
 (200-250)% increased Armour
 +(60-100) to maximum Life
 0.4% of Physical Attack Damage Leeched as Mana
 Socketed Gems are Supported by level 15 Pierce
-+20% chance to be Pierced by Projectiles
+{variant:1}+20% chance to be Pierced by Projectiles
+{variant:2}Projectiles Pierce you
 ]],[[
 Solaris Lorica
 Copper Plate
@@ -652,7 +655,7 @@ Requires Level 52, 76 Dex, 76 Int
 {variant:3}+(200–250) to maximum Mana
 (40-50)% increased Mana Regeneration Rate
 {variant:1}When hit, 10% of Damage is taken from Mana before Life
-{variant:3}20% of Damage is taken from Mana before Life
+{variant:3}10% of Damage is taken from Mana before Life
 {variant:3}1% of Mana Regenerated per second
 Mind Over Matter
 ]],[[

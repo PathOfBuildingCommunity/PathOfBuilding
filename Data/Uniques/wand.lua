@@ -68,6 +68,7 @@ Nearby Enemies are Blinded
 ]],[[
 Lifesprig
 Driftwood Wand
+Requires Level 2
 (8-12)% increased Spell Damage
 +1 to Level of Socketed Spell Gems
 (20-28)% increased Spell Damage

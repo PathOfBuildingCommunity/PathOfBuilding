@@ -221,7 +221,13 @@ function calcs.offence(env, actor)
 			modDB:NewMod("Damage", "MORE", 50, "Point Blank", bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{10,1},{35,0},{150,-1}} })
 		end
 		output.ProjectileCount = modDB:Sum("BASE", skillCfg, "ProjectileCount")
-		output.PierceChance = m_min(100, modDB:Sum("BASE", skillCfg, "PierceChance"))
+		if modDB:Sum("FLAG", skillCfg, "PierceAllTargets") then
+			output.PierceCount = 100
+			output.PierceCountString = "All targets"
+		else
+			output.PierceCount = modDB:Sum("BASE", skillCfg, "PierceCount")
+			output.PierceCountString = output.PierceCount
+		end
 		output.ProjectileSpeedMod = calcLib.mod(modDB, skillCfg, "ProjectileSpeed")
 		if breakdown then
 			breakdown.ProjectileSpeedMod = breakdown.mod(skillCfg, "ProjectileSpeed")
@@ -713,6 +719,13 @@ function calcs.offence(env, actor)
 			end
 		end
 
+		-- Calculate Double Damage + Ruthless Blow chance/multipliers
+		output.DoubleDamageChance = m_min(modDB:Sum("BASE", cfg, "DoubleDamageChance"), 100)
+		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
+		output.RuthlessBlowChance = m_min(modDB:Sum("BASE", cfg, "RuthlessBlowChance"), 100)
+		output.RuthlessBlowMultiplier = 1 + modDB:Sum("BASE", cfg, "RuthlessBlowMultiplier") / 100
+		output.RuthlessBlowEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowMultiplier
+
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
 			local damageTypeMin = damageType.."Min"
@@ -767,28 +780,26 @@ function calcs.offence(env, actor)
 				if skillFlags.hit and canDeal[damageType] then
 					min, max = calcDamage(actor, output, cfg, pass == 2 and breakdown and breakdown[damageType], damageType, 0)
 					local convMult = actor.conversionTable[damageType].mult
-					local doubleChance = m_min(modDB:Sum("BASE", cfg, "DoubleDamageChance"), 100)
 					if pass == 2 and breakdown then
 						t_insert(breakdown[damageType], "Hit damage:")
 						t_insert(breakdown[damageType], s_format("%d to %d ^8(total damage)", min, max))
 						if convMult ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %g ^8(%g%% converted to other damage types)", convMult, (1-convMult)*100))
 						end
-						if doubleChance > 0 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(chance to deal double damage)", 1 + doubleChance / 100))
+						if output.DoubleDamageEffect ~= 1 then
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(chance to deal double damage)", output.DoubleDamageEffect))
+						end
+						if output.RuthlessBlowEffect ~= 1 then
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowEffect))
 						end
 					end
-					min = min * convMult
-					max = max * convMult
-					if doubleChance > 0 then
-						min = min * (1 + doubleChance / 100)
-						max = max * (1 + doubleChance / 100)
-					end
+					local allMult = convMult * output.DoubleDamageEffect * output.RuthlessBlowEffect
 					if pass == 1 then
 						-- Apply crit multiplier
-						min = min * output.CritMultiplier
-						max = max * output.CritMultiplier
-					end
+						allMult = allMult * output.CritMultiplier
+					end				
+					min = min * allMult
+					max = max * allMult
 					if (min ~= 0 or max ~= 0) and env.mode_effective then
 						-- Apply enemy resistances and damage taken modifiers
 						local preMult
@@ -1176,9 +1187,9 @@ function calcs.offence(env, actor)
 				output.FreezeChanceOnCrit = output.FreezeChanceOnHit
 			end
 		end
-		if skillFlags.attack and skillFlags.projectile and modDB:Sum("FLAG", cfg, "ArrowsThatPierceCauseBleeding") then
-			output.BleedChanceOnHit = 100 - (1 - output.BleedChanceOnHit / 100) * (1 - globalOutput.PierceChance / 100) * 100
-			output.BleedChanceOnCrit = 100 - (1 - output.BleedChanceOnCrit / 100) * (1 - globalOutput.PierceChance / 100) * 100
+		if skillFlags.attack and skillFlags.projectile and modDB:Sum("FLAG", cfg, "ArrowsThatPierceCauseBleeding") and globalOutput.PierceCount > 0 then
+			output.BleedChanceOnHit = 100
+			output.BleedChanceOnCrit = 100
 		end
 		if env.mode_effective then
 			local bleedMult = (1 - enemyDB:Sum("BASE", nil, "AvoidBleed") / 100)
@@ -1690,13 +1701,14 @@ function calcs.offence(env, actor)
 		else
 			output.EnemyStunThresholdMod = 1 - enemyStunThresholdRed / 100
 		end
+		local base = skillData.baseStunDuration or 0.35
 		local incDur = modDB:Sum("INC", cfg, "EnemyStunDuration")
 		local incRecov = enemyDB:Sum("INC", nil, "StunRecovery")
-		output.EnemyStunDuration = 0.35 * (1 + incDur / 100) / (1 + incRecov / 100)
+		output.EnemyStunDuration = base * (1 + incDur / 100) / (1 + incRecov / 100)
 		if breakdown then
-			if output.EnemyStunDuration ~= 0.35 then
+			if output.EnemyStunDuration ~= base then
 				breakdown.EnemyStunDuration = {
-					"0.35s ^8(base duration)"
+					s_format("%.2fs ^8(base duration)", base),
 				}
 				if incDur ~= 0 then
 					t_insert(breakdown.EnemyStunDuration, s_format("x %.2f ^8(increased/reduced stun duration)", 1 + incDur/100))
