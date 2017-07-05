@@ -103,7 +103,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 			if not spriteMap[name] then
 				spriteMap[name] = { }
 			end
-			spriteMap[name][type] = { 
+			spriteMap[name][type] = {
 				handle = sheet.handle,
 				width = coords.w,
 				height = coords.h,
@@ -218,6 +218,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		if passives then
 			-- Passive data is available, override the descriptions
 			node.sd = passives[node.id]
+			node.dn = passives[node.id].name
 		end
 
 		-- Parse node modifier lines

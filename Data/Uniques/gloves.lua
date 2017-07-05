@@ -17,7 +17,10 @@ Requires Level 75, 100 Str
 ]],[[
 Doryani's Fist
 Vaal Gauntlets
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 63, 100 Str
+{variant:2}Grants level 20 Doryani's Touch Skill
 +30 to maximum Energy Shield
 10% chance to Shock
 Adds (225-335) to (785-900) Lightning Damage to Attacks while Unarmed
@@ -113,13 +116,15 @@ Reflects 10 Cold Damage to Melee Attackers
 Maligaro's Virtuosity
 Deerskin Gloves
 Variant: Pre 1.1.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 21, 33 Dex
 +(20-30) to Dexterity
 5% increased Attack Speed
 50% increased Global Critical Strike Chance
 {variant:1}+(40-50)% to Global Critical Strike Multiplier
 {variant:2}+(28-36)% to Global Critical Strike Multiplier
+{variant:3}+(20-30)% to Global Critical Strike Multiplier
 (60-80)% increased Evasion Rating
 ]],
 -- Gloves: Energy Shield
@@ -338,14 +343,16 @@ Strapped Mitts
 Variant: Pre 1.0.0
 Variant: Pre 2.2.0
 Variant: Pre 2.5.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 16, 14 Dex, 14 Int
 {variant:1,2}+60% to Global Critical Strike Multiplier
 {variant:3}+90% to Global Critical Strike Multiplier
 {variant:4}+45% to Global Critical Strike Multiplier
+{variant:5}+30% to Global Critical Strike Multiplier
 10% reduced Enemy Stun Threshold
 {variant:1}(800-1000)% more Unarmed Physical Damage
-{variant:2,3,4}(600-800)% more Unarmed Physical Damage
+{variant:2,3,4,5}(600-800)% more Unarmed Physical Damage
 Extra gore
 ]],[[
 Ondar's Clasp
@@ -363,12 +370,14 @@ Adds 1 to 13 Lightning Damage to Attacks
 Shadows and Dust
 Clasped Mitts
 Variant: Pre 2.2.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Rampage
 Requires Level 31, 25 Dex, 25 Int
 (20-30)% increased Global Critical Strike Chance
 {variant:1}+(15-30)% to Global Critical Strike Multiplier
 {variant:2}+(25-45)% to Global Critical Strike Multiplier
+{variant:3}+(20-30)% to Global Critical Strike Multiplier
 (100-130)% increased Evasion and Energy Shield
 0.2% of Physical Attack Damage Leeched as Mana
 Creates a Smoke Cloud on Rampage

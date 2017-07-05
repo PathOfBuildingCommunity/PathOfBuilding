@@ -100,18 +100,20 @@ Infractem
 Decimation Bow
 Variant: Pre 1.2.0
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 53, 170 Dex
 (30-50)% increased Critical Strike Chance
 {variant:1,2}(90-100)% increased Physical Damage
-{variant:3}(110-125)% increased Physical Damage
-{variant:2,3}Adds (25-35) to (36-45) Physical Damage
+{variant:3,4}(110-125)% increased Physical Damage
+{variant:2,3,4}Adds (25-35) to (36-45) Physical Damage
 +(20-30) to Dexterity
 +(200-250) to Accuracy Rating
-Arrows always Pierce
+{variant:1,2,3}Arrows always Pierce
+{variant:4}Arrows Pierce all Targets
 10% increased Movement Speed
 {variant:1,2}Cannot Leech
-{variant:3}Cannot Leech Life
+{variant:3,4}Cannot Leech Life
 ]],[[
 Iron Commander
 Death Bow
@@ -221,6 +223,7 @@ Silverbranch
 Crude Bow
 Variant: Pre 2.0.0
 Variant: Current
+Requires Level 2
 +1 to Level of Socketed Bow Gems
 {variant:1}(50-80)% increased Physical Damage
 {variant:2}(80-100)% increased Physical Damage

@@ -209,6 +209,7 @@ Redbeak
 Rusted Sword
 Variant: Pre 2.6.0
 Variant: Current
+Requires Level 2
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Accuracy Rating
@@ -254,31 +255,35 @@ Adds (75-92) to (125-154) Physical Damage
 Severed in Sleep
 Cutlass
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Breach
 Requires Level 38, 55 Str, 79 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2,3}40% increased Accuracy Rating
 +(10-20) to all Attributes
 Minions deal (20-30)% increased Damage
 Minions have +17% to Chaos Resistance
-Minions Poison Enemies on Hit
+{variant:1,2}Minions Poison Enemies on Hit
+{variant:3}Minions have 60% chance to Poison Enemies on Hit
 Minions Recover 20% of Maximum Life on Killing a Poisoned Enemy
 ]],[[
 United in Dream
 Cutlass
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 League: Breach
 Requires Level 69, 55 Str, 79 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2,3}40% increased Accuracy Rating
 Grants level 15 Envy Skill
 Minions deal (30-40)% increased Damage
 Minions have +29% to Chaos Resistance
-Minions Poison Enemies on Hit
+{variant:1,2}Minions Poison Enemies on Hit
+{variant:3}Minions have 60% chance to Poison Enemies on Hit
 Minions Leech 5% of Damage as Life against Poisoned Enemies
 ]],[[
 The Tempestuous Steel

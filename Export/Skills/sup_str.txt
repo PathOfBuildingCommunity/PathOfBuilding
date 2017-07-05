@@ -98,6 +98,9 @@ local skills, mod, flag, skill = ...
 #skill SupportReducedMana
 #mods
 
+#skill SupportRuthless
+#mods
+
 #skill SupportSpellTotem
 	addFlags = {
 		totem = true,

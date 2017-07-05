@@ -36,6 +36,8 @@ local PassiveSpecListClass = common.NewClass("PassiveSpecList", "ListControl", f
 	end
 	self.controls.new = common.New("ButtonControl", {"RIGHT",self.controls.rename,"LEFT"}, -4, 0, 60, 18, "New", function()
 		local newSpec = common.New("PassiveSpec", treeTab.build)
+		newSpec:SelectClass(treeTab.build.spec.curClassId)
+		newSpec:SelectAscendClass(treeTab.build.spec.curAscendClassId)
 		self:RenameSpec(newSpec, true)
 	end)
 end)

@@ -175,13 +175,13 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #setMod base_skill_show_average_damage_instead_of_dps==nil
-#baseMod mod("Damage", "MORE", 990, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:FlameblastStage", "BASE", 9, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("dpsMultiplier", 0.1, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill VaalFlameblast
 #flags spell area fire vaal
-#baseMod mod("Damage", "MORE", 1100, ModFlag.Spell)
+#baseMod mod("Multiplier:FlameblastStage", "BASE", 9)
 #mods
 
 #skill Flammability
@@ -349,9 +349,9 @@ local skills, mod, flag, skill = ...
 #flags spell area fire
 	setupFunc = function(actor, output)
 		if actor.mainSkill.skillFlags.totem then
-			actor.mainSkill.skillData.FireDot = output.TotemLife * 0.5
+			actor.mainSkill.skillData.FireDot = output.TotemLife * 0.4
 		else
-			actor.mainSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.5
+			actor.mainSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.4
 		end
 	end,
 #baseMod skill("dotIsArea", true)

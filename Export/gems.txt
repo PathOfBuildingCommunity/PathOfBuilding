@@ -12,8 +12,9 @@ Anger|Anger|aura,strength,active_skill,spell,area,fire
 Animate Guardian|AnimateArmour|strength,active_skill,spell,minion
 Animate Weapon|AnimateWeapon|dexterity,active_skill,duration,minion,spell
 Arc|Arc|intelligence,active_skill,spell,chaining,lightning
-Arctic Armour|NewArcticArmour|dexterity,active_skill,spell,duration,cold
+Arcane Surge|SupportArcaneSurge|intelligence,support,duration
 Arctic Armour|ArcticArmour|dexterity,active_skill,spell,duration,cold
+Arctic Armour|NewArcticArmour|dexterity,active_skill,spell,duration,cold
 Arctic Breath|ArcticBreath|projectile,intelligence,active_skill,spell,duration,area,cold
 Assassin's Mark|AssassinsMark|curse,intelligence,active_skill,spell,area,duration
 Backstab|Backstab|dexterity,active_skill,attack,melee
@@ -45,7 +46,7 @@ Cast when Stunned|SupportCastOnStunned|intelligence,support,spell,trigger
 Cast while Channelling|SupportCastWhileChannelling|intelligence,support,channelling,spell
 Caustic Arrow|PoisonArrow|dexterity,active_skill,attack,area,duration,chaos,bow
 Chain|SupportChain|dexterity,support,chaining,projectile
-Chance to Bleed|SupportChanceToBleed|strength,support
+Chance to Bleed|SupportChanceToBleed|attack,strength,support
 Chance to Flee|SupportChanceToFlee|dexterity,support
 Chance to Ignite|SupportChanceToIgnite|fire,intelligence,support
 Charged Dash|ChargedDash|active_skill,movement,area,channelling
@@ -179,7 +180,7 @@ Lightning Tendrils|LightningTendrils|intelligence,active_skill,spell,area,lightn
 Lightning Trap|LightningTrap|projectile,trap,intelligence,active_skill,spell,duration,lightning
 Lightning Warp|LightningWarp|intelligence,active_skill,spell,area,duration,movement,lightning
 Magma Orb|MagmaOrb|projectile,intelligence,active_skill,spell,area,fire,chaining
-Maim|SupportMaim|strength,support
+Maim|SupportMaim|attack,strength,support
 Mana Leech|SupportManaLeech|dexterity,support
 Melee Damage on Full Life|SupportMeleeDamageOnFullLife|melee,strength,support,attack
 Melee Physical Damage|SupportMeleePhysicalDamage|melee,strength,support,attack
@@ -197,6 +198,7 @@ Multistrike|SupportMultistrike|attack,melee,strength,support
 New Blade Vortex|NewNewBladeVortex|dexterity,active_skill,spell,area,duration
 New Shock Nova|NewShockNova|intelligence,active_skill,spell,area,lightning
 NewPunishment|NewPunishment|curse,strength,active_skill,spell,area,duration
+Onslaught|SupportOnslaught|dexterity,support
 Orb of Storms|OrbOfStorms|lightning,intelligence,active_skill,spell,duration,area,chaining
 Phase Run|NewPhaseRun|dexterity,active_skill,spell,duration,movement
 Phase Run|NewPhaseRun|dexterity,active_skill,spell,duration,movement
@@ -232,6 +234,7 @@ Righteous Fire|RighteousFire|intelligence,active_skill,spell,area,fire
 Righteous Lightning|RighteousLightning|intelligence,active_skill,spell,area,lightning
 Riposte|Riposte|trigger,dexterity,active_skill,attack,melee
 Riptide|Riptide|intelligence,active_skill,spell,area,cold
+Ruthless|SupportRuthless|strength,support,melee,attack
 Scorching Ray|FireBeam|intelligence,active_skill,spell,fire,duration,channelling
 Searing Bond|SearingBond|totem,strength,active_skill,spell,duration,fire
 Shadow Blades|ShadowBlades|projectile,dexterity,active_skill,spell
@@ -316,8 +319,8 @@ Void Manipulation|SupportVoidManipulation|chaos,dexterity,support
 Vortex|FrostBoltNova|intelligence,active_skill,spell,area,cold,duration
 Vortex Mine|VortexMine|mine,dexterity,active_skill,spell,area,duration
 Vulnerability|Vulnerability|curse,intelligence,active_skill,spell,area,duration
-WIP|ThrownShield|projectile,strength,active_skill,attack,bow
 WIP|SupportCastLinkedCursesOnCurse|support,curse
+WIP|ThrownShield|projectile,strength,active_skill,attack,bow
 Wand Teleport|WandTeleport|active_skill,spell,movement
 Warlord's Mark|WarlordsMark|curse,strength,active_skill,spell,area,duration
 Whirling Blades|WhirlingBlades|dexterity,active_skill,attack,movement,melee

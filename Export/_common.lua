@@ -32,6 +32,45 @@ function processTemplateFile(name, directiveTable)
 	out:close()
 end
 
+local function qFmt(s)
+	return '"'..s:gsub("\n","\\n"):gsub("\"","\\\"")..'"'
+end
+function writeLuaTable(out, t, indent)
+	out:write('{')
+	if indent then
+		out:write('\n')
+	end
+	for k, v in pairs(t) do
+		if indent then
+			out:write(string.rep("\t", indent))
+		end
+		out:write('[')
+		if type(k) == "number" then
+			out:write(k)
+		else
+			out:write(qFmt(k))
+		end
+		out:write(']=')
+		if type(v) == "table" then
+			writeLuaTable(out, v, indent and indent + 1)
+		elseif type(v) == "string" then
+			out:write(qFmt(v))
+		else
+			out:write(tostring(v))
+		end
+		if next(t, k) ~= nil then
+			out:write(',')
+		end
+		if indent then
+			out:write('\n')
+		end
+	end
+	if indent then
+		out:write(string.rep("\t", indent-1))
+	end
+	out:write('}')
+end
+
 function loadDat(name)
 	if _G[name] then
 		return

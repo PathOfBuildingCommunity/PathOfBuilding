@@ -82,9 +82,9 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 15)
-#baseMod mod("Damage", "MORE", 150, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 })
-#baseMod mod("Damage", "MORE", 300, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 })
-#baseMod mod("Damage", "MORE", 600, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 4 })
+#baseMod mod("Multiplier:BladeVortexBlade", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:BladeVortexBlade", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("Multiplier:BladeVortexBlade", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 4 })
 #baseMod skill("hitTimeOverride", 0.6, { type = "SkillPart", skillPart = 1 })
 #baseMod skill("hitTimeOverride", 0.4, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("hitTimeOverride", 0.3, { type = "SkillPart", skillPart = 3 })

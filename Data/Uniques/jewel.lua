@@ -144,8 +144,8 @@ Viridian Jewel
 Limited to: 2
 Radius: Medium
 (10–15)% increased Cold Damage
-With at least 40 Dexterity in Radius, Frost
-Blades Melee Damage Penetrates 15% Cold Resistance
+With at least 40 Dexterity in Radius, Melee Damage 
+dealt by Frost Blades Penetrates 15% Cold Resistance
 With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile Speed
 ]],[[
 Fireborn
@@ -720,8 +720,11 @@ Limited to: 1
 ]],[[
 Poacher's Aim
 Viridian Jewel
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Limited to: 1
-15% chance of Projectiles Piercing
+{variant:1}15% chance of Projectiles Piercing
+{variant:2}Projectiles Pierce 1 Targets
 10% increased Projectile Damage
 ]],[[
 Survival Instincts

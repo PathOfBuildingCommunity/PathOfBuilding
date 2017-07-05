@@ -1009,7 +1009,7 @@ skills["FlameTotem"] = {
 		--"is_totem" = ?
 		--"base_skill_is_totemified" = ?
 		--"base_is_projectile" = ?
-		mod("PierceChance", "BASE", 100), --"always_pierce" = ?
+		flag("PierceAllTargets"), --"always_pierce" = ?
 	},
 	qualityMods = {
 		mod("TotemLife", "INC", 1), --"totem_life_+%" = 1

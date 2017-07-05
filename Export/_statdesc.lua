@@ -1,13 +1,14 @@
 local nk = { }
 
-local curFile
 local statDescriptor
+local statDescriptors = { }
 function loadStatFile(fileName)
-	if fileName == curFile then
+	if statDescriptors[fileName] then
+		statDescriptor = statDescriptors[fileName]
 		return
 	end
-	curFile = fileName
 	statDescriptor = { }
+	statDescriptors[fileName] = statDescriptor 
 	local curLang
 	local curDescriptor = { }
 	local order = 1

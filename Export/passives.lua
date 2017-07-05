@@ -6,6 +6,7 @@ out:write('-- Passive skill data (c) Grinding Gear Games\n\nreturn {\n')
 for passiveKey = 0, PassiveSkills.maxRow do
 	local passive = PassiveSkills[passiveKey]
 	out:write('\t[', passive.PassiveSkillGraphId, '] = { ')
+	out:write('name = "', passive.Name, '", ')
 	if passive.StatsKeys[1] > 0 then
 		if passive.GrantedBuff_BuffDefinitionsKey then
 			loadStatFile("passive_skill_aura_stat_descriptions.txt")

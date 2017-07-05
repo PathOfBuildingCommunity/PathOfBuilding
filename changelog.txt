@@ -1,3 +1,8 @@
+VERSION[1.4.42][2017/07/06]
+For 3.0 builds:
+ * Applied the skill, passive tree, and unique changes from the Beta patch
+ * Added the Doryani's Touch skill granted by Doryani's Fist
+ * Added Arcane Surge, Onslaught and Ruthless support gems
 VERSION[1.4.41][2017/07/03]
 This update introduces a new style of rare template which utilises the item crafting system.
 These templates are available on the same set of bases and with the same sets of pre-selected modifiers as the

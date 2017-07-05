@@ -25,12 +25,12 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill RepeatingShockwave Abberath's Fury
+#skill RepeatingShockwave
 #flags spell area
 	fromItem = true,
 #mods
 
-#skill TriggeredBoneNova Bone Nova
+#skill TriggeredBoneNova
 #flags attack projectile
 	fromItem = true,
 #mods
@@ -40,8 +40,14 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill TriggeredSummonLesserShrine Create Lesser Shrine
+#skill TriggeredSummonLesserShrine
 #flags spell duration
+	fromItem = true,
+#mods
+
+#noGem
+#skill TouchOfGod
+#flags attack area lightning
 	fromItem = true,
 #mods
 
@@ -51,18 +57,18 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill FireBurstOnHit Fire Burst
+#skill FireBurstOnHit
 #flags spell area fire
 	fromItem = true,
 #mods
 
-#skill VaalAuraElementalDamageHealing Gluttony of Elements
+#skill VaalAuraElementalDamageHealing
 #flags spell aura area duration vaal
 #baseMod skill("radius", 36)
 	fromItem = true,
 #mods
 
-#skill IcestormUniqueStaff12 Icestorm
+#skill IcestormUniqueStaff12
 #flags spell area duration cold
 #baseMod skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 })
 #baseMod skill("radius", 25)
@@ -70,16 +76,12 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
---skill TouchOfGod Lightning Slam
---flags attack area lightning
---mods
-
-#skill MerveilWarp Illusory Warp
+#skill MerveilWarp
 #flags spell area duration movement cold
 	fromItem = true,
 #mods
 
-#skill LightningSpell Lightning Bolt
+#skill LightningSpell
 #flags spell area lightning
 	fromItem = true,
 #mods
@@ -100,12 +102,12 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill TriggeredMoltenStrike Molten Burst
+#skill TriggeredMoltenStrike
 #flags attack projectile area fire
 	fromItem = true,
 #mods
 
-#skill TriggeredSummonSpider Raise Spiders
+#skill TriggeredSummonSpider
 #flags spell minion duration
 	fromItem = true,
 	minionList = {
@@ -113,12 +115,12 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill TriggeredShockedGround Shock Ground
+#skill TriggeredShockedGround
 #flags spell area duration lightning
 	fromItem = true,
 #mods
 
-#skill SummonEssenceSpirits Spectral Spirits
+#skill SummonEssenceSpirits
 #flags spell minion
 	fromItem = true,
 	minionList = {
@@ -126,7 +128,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SummonRigwaldsPack Summon Spectral Wolf
+#skill SummonRigwaldsPack
 #flags spell minion duration
 	fromItem = true,
 	minionList = {

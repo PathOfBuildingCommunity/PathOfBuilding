@@ -53,12 +53,17 @@ Adds 6 to 10 Physical Damage to Attacks with Bows
 Drillneck
 Penetrating Arrow Quiver
 Requires Level 36
-10% chance of Arrows Piercing
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
+Implicits: 2
+{variant:1}10% chance of Arrows Piercing
+{variant:2}Arrows Pierce one Target
 (8-12)% increased Attack Speed
 +350 to Evasion Rating
 +(40-50) to maximum Life
 Adds (10-14) to (19-24) Physical Damage to Attacks with Bows
-Projectile Damage increased by 50% of Arrow Pierce Chance
+{variant:1}Projectile Damage increased by 50% of Arrow Pierce Chance
+{variant:2}Arrows deal 50% increased Damage to Targets they Pierce
 ]],[[
 Hyrri's Bite
 Sharktooth Arrow Quiver
