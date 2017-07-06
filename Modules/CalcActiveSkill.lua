@@ -472,11 +472,12 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	-- Separate global effect modifiers (mods that can affect defensive stats or other skills)
 	local i = 1
 	while skillModList[i] do
-		local effectType, effectName
+		local effectType, effectName, allowTotemBuff
 		for _, tag in ipairs(skillModList[i].tagList) do
 			if tag.type == "GlobalEffect" then
 				effectType = tag.effectType
 				effectName = tag.effectName or activeSkill.activeGem.grantedEffect.name
+				allowTotemBuff = tag.allowTotemBuff
 				break
 			end
 		end
@@ -492,6 +493,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 				buff = {
 					type = effectType,
 					name = effectName,
+					allowTotemBuff = allowTotemBuff,
 					modList = { },
 				}
 				t_insert(activeSkill.buffList, buff)
