@@ -38,9 +38,12 @@ function SliderClass:IsMouseOver()
 end
 
 function SliderClass:SetValFromKnobX(knobX)
-	self.val = m_max(0, m_min(1, knobX / self.knobTravel))
-	if self.changeFunc then
-		self.changeFunc(self.val)
+	local newVal = m_max(0, m_min(1, knobX / self.knobTravel))
+	if newVal ~= self.val then
+		self.val = newVal
+		if self.changeFunc then
+			self.changeFunc(self.val)
+		end
 	end
 end
 

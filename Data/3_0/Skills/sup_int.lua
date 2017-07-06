@@ -152,7 +152,7 @@ skills["SupportArcaneSurge"] = {
 	levelMods = {
 		[1] = nil, 
 		--[2] = "support_arcane_surge_%_chance_to_gain_buff_on_skill_use"
-		[3] = mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }), --"support_arcane_surge_spell_damage_+%_final"
+		[3] = mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge", allowTotemBuff = true }), --"support_arcane_surge_spell_damage_+%_final"
 	},
 	levels = {
 		[1] = { 1, 30, 30, },

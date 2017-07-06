@@ -174,6 +174,7 @@ minions["SummonedEssenceSpirit"] = {
 	},
 	modList = {
 		mod("Speed", "MORE", 40, ModFlag.Attack),
+		mod("Condition:FullLife", "FLAG", true),
 	},
 }
 minions["SummonedSpectralWolf"] = {

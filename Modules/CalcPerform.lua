@@ -555,7 +555,7 @@ function calcs.perform(env)
 		local skillCfg = activeSkill.skillCfg
 		for _, buff in ipairs(activeSkill.buffList) do
 			if buff.type == "Buff" then
-				if env.mode_buffs and (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff) then
+				if env.mode_buffs and (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff or buff.allowTotemBuff) then
 					if not activeSkill.skillData.buffNotPlayer then
 						activeSkill.buffSkill = true
 						local srcList = common.New("ModList")

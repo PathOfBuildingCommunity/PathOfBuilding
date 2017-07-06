@@ -53,6 +53,12 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.43 - 2017/07/06
+ * Spectral Spirits (from Essence of Insanity) are now considered to always be on Full Life
+For 3.0 builds:
+ * Arcane Surge can now applied by Totem skills (as placing the totem can trigger the buff)
+ * Fixed error when trying to use the 3.0 version of Drillneck
+
 ### 1.4.42 - 2017/07/06
 For 3.0 builds:
  * Applied the skill, passive tree, and unique changes from the Beta patch
