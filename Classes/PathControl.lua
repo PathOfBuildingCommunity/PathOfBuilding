@@ -80,7 +80,7 @@ function PathClass:Draw(viewPort)
 		local buttonX, buttonY = folder.button:GetPos()
 		local buttonW, buttonH = folder.button:GetSize()
 		SetDrawColor(1, 1, 1)
-		main:DrawArrow(buttonX + buttonW + 6, y + height/2, 8, "RIGHT")
+		main:DrawArrow(buttonX + buttonW + 6, y + height/2, 8, 8, "RIGHT")
 		if self.otherDragSource and index < #self.folderList then
 			SetDrawColor(0, 1, 0, 0.25)
 			DrawImage(nil, buttonX, buttonY, buttonW, buttonH)

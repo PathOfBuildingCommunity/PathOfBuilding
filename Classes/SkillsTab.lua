@@ -57,18 +57,18 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
-	self.controls.groupSlot.tooltipFunc = function(mode, index, value)
+	self.controls.groupSlot.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
 		if mode == "OUT" or index == 1 then
-			main:AddTooltipLine(16, "Select the item in which this skill is socketed.")
-			main:AddTooltipLine(16, "This will allow the skill to benefit from modifiers on the item that affect socketed gems.")
+			tooltip:AddLine(16, "Select the item in which this skill is socketed.")
+			tooltip:AddLine(16, "This will allow the skill to benefit from modifiers on the item that affect socketed gems.")
 		else
 			local slot = self.build.itemsTab.slots[value.slotName]
 			local ttItem = self.build.itemsTab.items[slot.selItemId]
 			if ttItem then
-				self.build.itemsTab:AddItemTooltip(ttItem, slot)
-				return colorCodes[ttItem.rarity], true
+				self.build.itemsTab:AddItemTooltip(tooltip, ttItem, slot)
 			else
-				main:AddTooltipLine(16, "No item is equipped in this slot.")
+				tooltip:AddLine(16, "No item is equipped in this slot.")
 			end
 		end
 	end
@@ -277,11 +277,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		end
 		self.build.buildFlag = true
 	end)
-	if index == 1 then
-		slot.nameSpec:SetAnchor("TOPLEFT", self.anchorGroupDetail, "TOPLEFT", 0, 28 + 28 + 16)
-	else
-		slot.nameSpec:SetAnchor("TOPLEFT", self.gemSlots[index - 1].nameSpec, "TOPLEFT", 0, 22)
-	end
+	slot.nameSpec:SetAnchor("TOPLEFT", self.anchorGroupDetail, "TOPLEFT", 0, 28 + 28 + 16 + 22 * (index - 1))
 	slot.nameSpec:AddToTabGroup(self.controls.groupLabel)
 	slot.nameSpec.shown = function()
 		return index <= #self.displayGroup.gemList + 1 and self.displayGroup.source == nil
@@ -330,14 +326,15 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
-	slot.enabled.tooltipFunc = function()
+	slot.enabled.tooltipFunc = function(tooltip)
+		tooltip:Clear()
 		if self.displayGroup.gemList[index] then
 			local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 			if calcFunc then
 				self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
 				local output = calcFunc()
 				self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
-				self.build:AddStatComparesToTooltip(calcBase, output, self.displayGroup.gemList[index].enabled and "^7Disabling this gem will give you:" or "^7Enabling this gem will give you:")
+				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, self.displayGroup.gemList[index].enabled and "^7Disabling this gem will give you:" or "^7Enabling this gem will give you:")
 			end
 		end
 	end

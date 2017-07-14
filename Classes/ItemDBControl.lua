@@ -178,10 +178,13 @@ function ItemDBClass:GetRowValue(column, index, item)
 	end
 end
 
-function ItemDBClass:AddValueTooltip(index, item)
-	if not main.popups[1] then
-		self.itemsTab:AddItemTooltip(item, nil, true)
-		return colorCodes[item.rarity], true
+function ItemDBClass:AddValueTooltip(tooltip, index, item)
+	if main.popups[1] then
+		tooltip:Clear()
+		return
+	end
+	if tooltip:CheckForUpdate(item, IsKeyDown("SHIFT"), launch.devModeAlt, self.itemsTab.build.outputRevision) then
+		self.itemsTab:AddItemTooltip(tooltip, item, nil, true)
 	end
 end
 

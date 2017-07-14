@@ -965,14 +965,14 @@ skills["SupportKnockback"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	baseMods = {
-		--"knockback_distance_+%" = 50
+		mod("EnemyKnockbackDistance", "INC", 50), --"knockback_distance_+%" = 50
 	},
 	qualityMods = {
-		--"base_global_chance_to_knockback_%" = 0.5
+		mod("EnemyKnockbackChance", "BASE", 0.5), --"base_global_chance_to_knockback_%" = 0.5
 	},
 	levelMods = {
 		[1] = nil, 
-		--[2] = "base_global_chance_to_knockback_%"
+		[2] = mod("EnemyKnockbackChance", "BASE", nil), --"base_global_chance_to_knockback_%"
 	},
 	levels = {
 		[1] = { 8, 25, },

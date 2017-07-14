@@ -53,6 +53,16 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.44 - 2017/07/14
+ * The Item Crafting UI has been improved:
+    * Tiers of modifiers are now collapsed into a single entry in the affix selectors
+	* Sliders now appears below each affix selector that allow you to set both the tier and roll of the modifier
+ * The Items tab now shows a vertical scroll bar when necessary
+ * Knockback Chance/Distance calculations have been added to the Other Effects section of the Calcs tab
+ * Various minor tweaks and fixes
+For 3.0 builds:
+ * Applied the skill and passive tree changes from the Beta patch
+
 ### 1.4.43 - 2017/07/06
  * Spectral Spirits (from Essence of Insanity) are now considered to always be on Full Life
 For 3.0 builds:

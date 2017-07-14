@@ -1114,6 +1114,11 @@ function calcs.offence(env, actor)
 		else
 			output.FreezeChanceOnCrit = 100
 		end
+		if modDB:Sum("FLAG", cfg, "CannotKnockback") then
+			output.KnockbackChanceOnCrit = 0
+		else
+			output.KnockbackChanceOnCrit = modDB:Sum("BASE", cfg, "EnemyKnockbackChance")
+		end
 		cfg.skillCond["CriticalStrike"] = false
 		if modDB:Sum("FLAG", cfg, "CannotBleed") then
 			output.BleedChanceOnHit = 0
@@ -1139,6 +1144,11 @@ function calcs.offence(env, actor)
 			if modDB:Sum("FLAG", cfg, "CritsDontAlwaysFreeze") then
 				output.FreezeChanceOnCrit = output.FreezeChanceOnHit
 			end
+		end
+		if modDB:Sum("FLAG", cfg, "CannotKnockback") then
+			output.KnockbackChanceOnHit = 0
+		else
+			output.KnockbackChanceOnHit = modDB:Sum("BASE", cfg, "EnemyKnockbackChance")
 		end
 		if skillFlags.attack and skillFlags.projectile and modDB:Sum("FLAG", cfg, "ArrowsThatPierceCauseBleeding") then
 			output.BleedChanceOnHit = 100 - (1 - output.BleedChanceOnHit / 100) * (1 - globalOutput.PierceChance / 100) * 100
@@ -1553,6 +1563,17 @@ function calcs.offence(env, actor)
 				if breakdown then
 					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply, target must have no more than %d life.", baseVal * 20 * output.FreezeDurationMod))
 				end
+			end
+		end
+
+		-- Calculate knockback chance/distance
+		output.KnockbackChance = m_min(100, output.KnockbackChanceOnHit * (1 - output.CritChance / 100) + output.KnockbackChanceOnCrit * output.CritChance / 100)
+		if output.KnockbackChance > 0 then
+			output.KnockbackDistance = round(4 * calcLib.mod(modDB, cfg, "EnemyKnockbackDistance"))
+			if breakdown then
+				breakdown.KnockbackDistance = {
+					radius = output.KnockbackDistance,
+				}
 			end
 		end
 

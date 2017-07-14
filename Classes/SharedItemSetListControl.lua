@@ -52,13 +52,14 @@ function SharedItemSetListClass:GetRowValue(column, index, sharedItemSet)
 	end
 end
 
-function SharedItemSetListClass:AddValueTooltip(index, sharedItemSet)
+function SharedItemSetListClass:AddValueTooltip(tooltip, index, sharedItemSet)
+	tooltip:Clear()
 	for _, slot in ipairs(self.itemsTab.orderedSlots) do
 		if not slot.nodeId then
 			local slotName = slot.slotName
 			local item = sharedItemSet.slots[slotName] and sharedItemSet.slots[slotName][self.itemsTab.build.targetVersion]
 			if item then
-				main:AddTooltipLine(16, s_format("^7%s: %s%s", self.itemsTab.slots[slotName].label, colorCodes[item.rarity], item.name))
+				tooltip:AddLine(16, s_format("^7%s: %s%s", self.itemsTab.slots[slotName].label, colorCodes[item.rarity], item.name))
 			end
 		end
 	end

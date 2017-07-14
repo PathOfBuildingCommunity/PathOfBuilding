@@ -77,6 +77,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4
 		Classes\SkillsTab.lua = Classes\SkillsTab.lua
 		Classes\SliderControl.lua = Classes\SliderControl.lua
 		Classes\TextListControl.lua = Classes\TextListControl.lua
+		Classes\Tooltip.lua = Classes\Tooltip.lua
+		Classes\TooltipHost.lua = Classes\TooltipHost.lua
 		Classes\TreeTab.lua = Classes\TreeTab.lua
 		Classes\UndoHandler.lua = Classes\UndoHandler.lua
 	EndProjectSection

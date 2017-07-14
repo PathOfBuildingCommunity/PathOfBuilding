@@ -1635,7 +1635,7 @@ skills["SupportPoison"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		--[2] = "support_poison_poison_damage_+%_final"
+		[2] = mod("Damage", "MORE", nil, 0, KeywordFlag.Poison), --"support_poison_poison_damage_+%_final"
 	},
 	levels = {
 		[1] = { 31, 0, },

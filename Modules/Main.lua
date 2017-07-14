@@ -32,6 +32,8 @@ local main = common.New("ControlHost")
 
 local classList = {
 	"UndoHandler",
+	"Tooltip",
+	"TooltipHost",
 	-- Basic controls
 	"Control",
 	"LabelControl",
@@ -168,7 +170,7 @@ function main:Init()
 		OpenURL("https://www.patreon.com/openarl")
 	end)
 	self.controls.patreon:SetImage("Assets/patreon_logo.png")
-	self.controls.patreon.tooltip = "Help support the development of Path of Building by pledging a monthly donation!"
+	self.controls.patreon.tooltipText = "Help support the development of Path of Building by pledging a monthly donation!"
 	self.controls.about = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 228, 0, 70, 20, "About", function()
 		self:OpenAboutPopup()
 	end)
@@ -540,7 +542,7 @@ function main:OpenOptionsPopup()
 	if self.buildPath ~= self.defaultBuildPath then
 		controls.buildPath:SetText(self.buildPath)
 	end
-	controls.buildPath.tooltip = "Overrides the default save location for builds.\nThe default location is: '"..self.defaultBuildPath.."'"
+	controls.buildPath.tooltipText = "Overrides the default save location for builds.\nThe default location is: '"..self.defaultBuildPath.."'"
 	controls.nodePowerTheme = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 68, 100, 18, {
 		{ label = "Red & Blue", theme = "RED/BLUE" },
 		{ label = "Red & Green", theme = "RED/GREEN" },
@@ -549,7 +551,7 @@ function main:OpenOptionsPopup()
 		self.nodePowerTheme = value.theme
 	end)
 	controls.nodePowerThemeLabel = common.New("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, -4, 0, 0, 16, "^7Node Power colours:")
-	controls.nodePowerTheme.tooltip = "Changes the colour scheme used for the node power display on the passive tree."
+	controls.nodePowerTheme.tooltipText = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
 	controls.thousandsLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 200, 94, 0, 16, "^7Show thousands separators in:")
 	controls.thousandsSidebar = common.New("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 270, 92, 20, "Sidebar:", function(state)
@@ -623,7 +625,7 @@ function main:OpenUpdatePopup()
 		OpenURL("https://www.patreon.com/openarl")
 	end)
 	controls.patreon:SetImage("Assets/patreon_logo.png")
-	controls.patreon.tooltip = "Help support the development of Path of Building by pledging a monthly donation!"
+	controls.patreon.tooltipText = "Help support the development of Path of Building by pledging a monthly donation!"
 	self:OpenPopup(800, 250, "Update Available", controls)
 end
 
@@ -655,7 +657,7 @@ function main:OpenAboutPopup()
 		OpenURL("https://www.patreon.com/openarl")
 	end)
 	controls.patreon:SetImage("Assets/patreon_logo.png")
-	controls.patreon.tooltip = "Help support the development of Path of Building by pledging a monthly donation!"
+	controls.patreon.tooltipText = "Help support the development of Path of Building by pledging a monthly donation!"
 	controls.verLabel = common.New("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 82, 0, 18, "^7Version history:")
 	controls.changelog = common.New("TextListControl", nil, 0, 100, 630, 290, nil, changeList)
 	self:OpenPopup(650, 400, "About", controls)
@@ -668,12 +670,12 @@ function main:DrawBackground(viewPort)
 	SetDrawLayer(nil, 0)
 end
 
-function main:DrawArrow(x, y, size, dir)
-	local x1 = x - size / 2
-	local x2 = x + size / 2
+function main:DrawArrow(x, y, width, height, dir)
+	local x1 = x - width / 2
+	local x2 = x + width / 2
 	local xMid = (x1 + x2) / 2
-	local y1 = y - size / 2
-	local y2 = y + size / 2
+	local y1 = y - height / 2
+	local y2 = y + height / 2
 	local yMid = (y1 + y2) / 2
 	if dir == "UP" then
 		DrawImageQuad(nil, xMid, y1, xMid, y1, x2, y2, x1, y2)
@@ -923,85 +925,6 @@ do
 		end
 		return wrapTable
 	end
-end
-
-function main:AddTooltipLine(size, text)
-	if text then
-		for line in string.gmatch(text .. "\n", "([^\n]*)\n") do
-			t_insert(self.tooltipLines, { size = size, text = line })
-		end
-	end
-end
-
-function main:AddTooltipSeparator(size)
-	t_insert(self.tooltipLines, { size = size })
-end
-
-function main:DrawTooltip(x, y, w, h, viewPort, col, center)
-	if #self.tooltipLines == 0 then
-		return
-	end
-	local ttW, ttH = 0, 0
-	for i, data in ipairs(self.tooltipLines) do
-		if data.text or (self.tooltipLines[i - 1] and self.tooltipLines[i + 1] and self.tooltipLines[i + 1].text) then
-			ttH = ttH + data.size + 2
-		end
-		if data.text then
-			ttW = m_max(ttW, DrawStringWidth(data.size, "VAR", data.text))
-		end
-	end
-	ttW = ttW + 12
-	ttH = ttH + 10
-	local ttX = x
-	local ttY = y
-	if w and h then
-		ttX = ttX + w + 5
-		if ttX + ttW > viewPort.x + viewPort.width then
-			ttX = m_max(viewPort.x, x - 5 - ttW)
-			if ttX + ttW > x then
-				ttY = ttY + h
-			end
-		end
-		if ttY + ttH > viewPort.y + viewPort.height then
-			ttY = m_max(viewPort.y, y + h - ttH)
-		end
-	elseif center then
-		ttX = m_floor(x - ttW/2)
-	end
-	col = col or { 0.5, 0.3, 0 }
-	if type(col) == "string" then
-		SetDrawColor(col) 
-	else
-		SetDrawColor(unpack(col))
-	end
-	DrawImage(nil, ttX, ttY, ttW, 3)
-	DrawImage(nil, ttX, ttY, 3, ttH)
-	DrawImage(nil, ttX, ttY + ttH - 3, ttW, 3)
-	DrawImage(nil, ttX + ttW - 3, ttY, 3, ttH)
-	SetDrawColor(0, 0, 0, 0.75)
-	DrawImage(nil, ttX + 3, ttY + 3, ttW - 6, ttH - 6)
-	SetDrawColor(1, 1, 1)
-	local y = ttY + 6
-	for i, data in ipairs(self.tooltipLines) do
-		if data.text then
-			if center then
-				DrawString(ttX + ttW/2, y, "CENTER_X", data.size, "VAR", data.text)
-			else
-				DrawString(ttX + 6, y, "LEFT", data.size, "VAR", data.text)
-			end
-			y = y + data.size + 2
-		elseif self.tooltipLines[i + 1] and self.tooltipLines[i - 1] and self.tooltipLines[i + 1].text then
-			if type(col) == "string" then
-				SetDrawColor(col) 
-			else
-				SetDrawColor(unpack(col))
-			end
-			DrawImage(nil, ttX + 3, y - 1 + data.size / 2, ttW - 6, 2)
-			y = y + data.size + 2
-		end
-	end
-	self.tooltipLines = wipeTable(self.tooltipLines)
-	return ttW, ttH
 end
 
 return main

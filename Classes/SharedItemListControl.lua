@@ -30,11 +30,14 @@ function SharedItemListClass:GetRowValue(column, index, verItem)
 	end
 end
 
-function SharedItemListClass:AddValueTooltip(index, verItem)
+function SharedItemListClass:AddValueTooltip(tooltip, index, verItem)
+	if main.popups[1] then
+		tooltip:Clear()
+		return
+	end
 	local item = verItem[self.itemsTab.build.targetVersion]
-	if not main.popups[1] then
-		self.itemsTab:AddItemTooltip(item)
-		return colorCodes[item.rarity], true
+	if tooltip:CheckForUpdate(item, IsKeyDown("SHIFT"), launch.devModeAlt, self.itemsTab.build.outputRevision) then
+		self.itemsTab:AddItemTooltip(tooltip, item, nil, true)
 	end
 end
 
