@@ -36,10 +36,11 @@ local function newlineCount(str)
 	end
 end
 
-local EditClass = common.NewClass("EditControl", "ControlHost", "Control", "UndoHandler", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight)
+local EditClass = common.NewClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight)
 	self.ControlHost()
 	self.Control(anchor, x, y, width, height)
 	self.UndoHandler()
+	self.TooltipHost()
 	self:SetText(init or "")
 	self.prompt = prompt
 	self.filter = filter or "^%w%p "
@@ -81,12 +82,6 @@ local EditClass = common.NewClass("EditControl", "ControlHost", "Control", "Undo
 	if not lineHeight then
 		self.controls.scrollBarH.shown = false
 		self.controls.scrollBarV.shown = false
-	end
-	self.tooltipFunc = function()
-		local tooltip = self:GetProperty("tooltip")
-		if tooltip then
-			main:AddTooltipLine(14, tooltip)
-		end
 	end
 end)
 
@@ -230,8 +225,7 @@ function EditClass:Draw(viewPort)
 	end
 	if mOver then
 		SetDrawLayer(nil, 100)
-		local col, center = self.tooltipFunc()
-		main:DrawTooltip(x, y, width, height, viewPort, col, center)
+		self:DrawTooltip(x, y, width, height, viewPort)
 		SetDrawLayer(nil, 0)
 	end
 	self:UpdateScrollBars()

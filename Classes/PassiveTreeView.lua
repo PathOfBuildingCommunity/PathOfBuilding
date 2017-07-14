@@ -20,6 +20,8 @@ local PassiveTreeViewClass = common.NewClass("PassiveTreeView", function(self)
 	self.highlightRing = NewImageHandle()
 	self.highlightRing:Load("Assets/small_ring.png", "CLAMP")
 
+	self.tooltip = common.New("Tooltip")
+
 	self.zoomLevel = 3
 	self.zoom = 1.2 ^ self.zoomLevel
 	self.zoomX = 0
@@ -398,7 +400,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			else
 				SetDrawColor(1, 1, 1)
 			end
-		elseif launch.devMode and IsKeyDown("ALT") then
+		elseif launch.devModeAlt then
 			-- Debug display
 			if node.extra then
 				SetDrawColor(1, 0, 0)
@@ -448,9 +450,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if node == hoverNode and (node.type ~= "socket" or not IsKeyDown("SHIFT")) and not main.popups[1] then
 			-- Draw tooltip
 			SetDrawLayer(nil, 100)
-			local size = m_floor(hoverNode.size * scale)
-			self:AddNodeTooltip(hoverNode, build)
-			main:DrawTooltip(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
+			local size = m_floor(node.size * scale)
+			if self.tooltip:CheckForUpdate(node, launch.devModeAlt, build.outputRevision) then
+				self:AddNodeTooltip(self.tooltip, node, build)
+			end
+			self.tooltip:Draw(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
 		end
 	end
 
@@ -538,51 +542,53 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 	end
 end
 
-function PassiveTreeViewClass:AddNodeName(node)
-	main:AddTooltipLine(24, "^7"..node.dn..(launch.devMode and IsKeyDown("ALT") and " ["..node.id.."]" or ""))
+function PassiveTreeViewClass:AddNodeName(tooltip, node)
+	tooltip:AddLine(24, "^7"..node.dn..(launch.devModeAlt and " ["..node.id.."]" or ""))
 	if node.type == "socket" then
 		if node.attributesInRadius[2]["Str"] >= 40 then
-			main:AddTooltipLine(16, "^7Can support "..colorCodes.STRENGTH.."Strength ^7threshold jewels")
+			tooltip:AddLine(16, "^7Can support "..colorCodes.STRENGTH.."Strength ^7threshold jewels")
 		end
 		if node.attributesInRadius[2]["Dex"] >= 40 then
-			main:AddTooltipLine(16, "^7Can support "..colorCodes.DEXTERITY.."Dexterity ^7threshold jewels")
+			tooltip:AddLine(16, "^7Can support "..colorCodes.DEXTERITY.."Dexterity ^7threshold jewels")
 		end
 		if node.attributesInRadius[2]["Int"] >= 40 then
-			main:AddTooltipLine(16, "^7Can support "..colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels")
+			tooltip:AddLine(16, "^7Can support "..colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels")
 		end
 	end
 end
 
-function PassiveTreeViewClass:AddNodeTooltip(node, build)
+function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	-- Special case for sockets
 	if node.type == "socket" and node.alloc then
 		local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(node.id)
 		if jewel then
-			build.itemsTab:AddItemTooltip(jewel, { nodeId = node.id })
+			build.itemsTab:AddItemTooltip(tooltip, jewel, { nodeId = node.id })
 		else
-			self:AddNodeName(node)
+			self:AddNodeName(tooltip, node)
 		end
-		main:AddTooltipSeparator(14)
+		tooltip:AddSeparator(14)
 		if socket:IsEnabled() then
-			main:AddTooltipLine(14, colorCodes.TIP.."Tip: Right click this socket to go to the items page and choose the jewel for this socket.")
+			tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click this socket to go to the items page and choose the jewel for this socket.")
 		end
-		main:AddTooltipLine(14, colorCodes.TIP.."Tip: Hold Shift to hide this tooltip.")
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Shift to hide this tooltip.")
 		return
 	end
 	
 	-- Node name
-	self:AddNodeName(node)
-	if launch.devMode and IsKeyDown("ALT") and node.power and node.power.offence then
-		-- Power debugging info
-		main:AddTooltipLine(16, string.format("DPS power: %g   Defence power: %g", node.power.offence, node.power.defence))
+	self:AddNodeName(tooltip, node)
+	if launch.devModeAlt then
+		if node.power and node.power.offence then
+			-- Power debugging info
+			tooltip:AddLine(16, string.format("DPS power: %g   Defence power: %g", node.power.offence, node.power.defence))
+		end
 	end
 
 	-- Node description
 	if node.sd[1] then
-		main:AddTooltipLine(16, "")
+		tooltip:AddLine(16, "")
 		for i, line in ipairs(node.sd) do
 			if node.mods[i].list then
-				if launch.devMode and IsKeyDown("ALT") then
+				if launch.devModeAlt then
 					-- Modifier debugging info
 					local modStr
 					for _, mod in pairs(node.mods[i].list) do
@@ -596,22 +602,22 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 					end
 				end
 			end
-			main:AddTooltipLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+			tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
 		end
 	end
 
 	-- Reminder text
 	if node.reminderText then
-		main:AddTooltipSeparator(14)
+		tooltip:AddSeparator(14)
 		for _, line in ipairs(node.reminderText) do
-			main:AddTooltipLine(14, "^xA0A080"..line)
+			tooltip:AddLine(14, "^xA0A080"..line)
 		end
 	end
 
 	-- Mod differences
 	if self.showStatDifferences then
 		local calcFunc, calcBase = build.calcsTab:GetMiscCalculator(build)
-		main:AddTooltipSeparator(14)
+		tooltip:AddSeparator(14)
 		local path = (node.alloc and node.depends) or self.tracePath or node.path or { }
 		local pathLength = #path
 		local pathNodes = { }
@@ -632,38 +638,38 @@ function PassiveTreeViewClass:AddNodeTooltip(node, build)
 				pathOutput = calcFunc({ addNodes = pathNodes })
 			end
 		end
-		local count = build:AddStatComparesToTooltip(calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
+		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
 		if pathLength > 1 then
-			count = count + build:AddStatComparesToTooltip(calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
+			count = count + build:AddStatComparesToTooltip(tooltip, calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
 		end
 		if count == 0 then
-			main:AddTooltipLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
+			tooltip:AddLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
 		end
-		main:AddTooltipLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to disable the display of stat differences.")
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to disable the display of stat differences.")
 	else
-		main:AddTooltipSeparator(14)
-		main:AddTooltipLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to enable the display of stat differences.")
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to enable the display of stat differences.")
 	end
 
 	-- Pathing distance
-	main:AddTooltipSeparator(14)
+	tooltip:AddSeparator(14)
 	if node.path and #node.path > 0 then
 		if self.traceMode and isValueInArray(self.tracePath, node) then
-			main:AddTooltipLine(14, "^7"..#self.tracePath .. " nodes in trace path")
+			tooltip:AddLine(14, "^7"..#self.tracePath .. " nodes in trace path")
 		else
-			main:AddTooltipLine(14, "^7"..#node.path .. " points to node")
+			tooltip:AddLine(14, "^7"..#node.path .. " points to node")
 			if #node.path > 1 then
 				-- Handy hint!
-				main:AddTooltipLine(14, colorCodes.TIP)
-				main:AddTooltipLine(14, "Tip: To reach this node by a different path, hold Shift, then trace the path and click this node")
+				tooltip:AddLine(14, colorCodes.TIP)
+				tooltip:AddLine(14, "Tip: To reach this node by a different path, hold Shift, then trace the path and click this node")
 			end
 		end
 	end
 	if node.type == "socket" then
-		main:AddTooltipLine(14, colorCodes.TIP.."Tip: Hold Shift to hide this tooltip.")
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Shift to hide this tooltip.")
 	end
 	if node.depends and #node.depends > 1 then
-		main:AddTooltipSeparator(14)
-		main:AddTooltipLine(14, "^7"..#node.depends .. " points gained from unallocating these nodes")
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, "^7"..#node.depends .. " points gained from unallocating these nodes")
 	end
 end

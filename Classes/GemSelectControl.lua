@@ -196,6 +196,7 @@ function GemSelectClass:Draw(viewPort)
 		if self.hoverSel then
 			local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
 			if calcFunc then
+				self.tooltip:Clear()
 				local gemList = self.skillsTab.displayGroup.gemList
 				local oldGem
 				if gemList[self.index] then
@@ -215,8 +216,8 @@ function GemSelectClass:Draw(viewPort)
 				else
 					gemList[self.index] = nil
 				end
-				self.skillsTab.build:AddStatComparesToTooltip(calcBase, output, "^7Selecting this gem will give you:")
-				main:DrawTooltip(x, y + height + 2 + (self.hoverSel - 1) * (height - 4) - scrollBar.offset, width, height - 4, viewPort)
+				self.skillsTab.build:AddStatComparesToTooltip(self.tooltip, calcBase, output, "^7Selecting this gem will give you:")
+				self.tooltip:Draw(x, y + height + 2 + (self.hoverSel - 1) * (height - 4) - scrollBar.offset, width, height - 4, viewPort)
 			end
 		end
 		SetDrawLayer(nil, 0)
@@ -241,18 +242,21 @@ function GemSelectClass:Draw(viewPort)
 			local gem = self.skillsTab.displayGroup.gemList[self.index]
 			if gem and gem.grantedEffect then
 				SetDrawLayer(nil, 10)
-				main:AddTooltipLine(20, colorCodes.GEM..gem.grantedEffect.name)
-				main:AddTooltipSeparator(10)
-				main:AddTooltipLine(16, "^x7F7F7F"..gem.grantedEffect.gemTagString)
-				main:AddTooltipSeparator(10)
-				self.skillsTab.build:AddRequirementsToTooltip(gem.reqLevel, gem.reqStr, gem.reqDex, gem.reqInt)
+				self.tooltip:Clear()
+				self.tooltip.center = true
+				self.tooltip.color = colorCodes.GEM
+				self.tooltip:AddLine(20, colorCodes.GEM..gem.grantedEffect.name)
+				self.tooltip:AddSeparator(10)
+				self.tooltip:AddLine(16, "^x7F7F7F"..gem.grantedEffect.gemTagString)
+				self.tooltip:AddSeparator(10)
+				self.skillsTab.build:AddRequirementsToTooltip(self.tooltip, gem.reqLevel, gem.reqStr, gem.reqDex, gem.reqInt)
 				if gem.grantedEffect.description then
 					local wrap = main:WrapString(gem.grantedEffect.description, 16, m_max(DrawStringWidth(16, "VAR", gem.grantedEffect.gemTagString), 400))
 					for _, line in ipairs(wrap) do
-						main:AddTooltipLine(16, colorCodes.GEM..line)
+						self.tooltip:AddLine(16, colorCodes.GEM..line)
 					end
 				end
-				main:DrawTooltip(x, y, width, height, viewPort, colorCodes.GEM, true)
+				self.tooltip:Draw(x, y, width, height, viewPort)
 				SetDrawLayer(nil, 0)
 			end
 		end

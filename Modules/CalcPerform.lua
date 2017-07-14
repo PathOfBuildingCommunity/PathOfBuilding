@@ -442,7 +442,7 @@ function calcs.perform(env)
 			local more = modDB:Sum("MORE", skillCfg, "ManaReserved") * skillModList:Sum("MORE", skillCfg, "ManaReserved")
 			local inc = modDB:Sum("INC", skillCfg, "ManaReserved") + skillModList:Sum("INC", skillCfg, "ManaReserved")
 			local base = m_floor(baseVal * mult)
-			local cost = base - m_floor(base * -m_floor((100 + inc) * more - 100) / 100)
+			local cost = m_max(base - m_floor(base * -m_floor((100 + inc) * more - 100) / 100), 0)
 			local pool
 			if modDB:Sum("FLAG", skillCfg, "BloodMagic", "SkillBloodMagic") or skillModList:Sum("FLAG", skillCfg, "SkillBloodMagic") then
 				pool = "Life"
@@ -502,9 +502,8 @@ function calcs.perform(env)
 						if reqSource.source == "Item" then
 							local item = reqSource.sourceItem
 							row.sourceName = colorCodes[item.rarity]..item.name
-							row.sourceNameTooltip = function()
-								env.build.itemsTab:AddItemTooltip(item, reqSource.sourceSlot)
-								return colorCodes[item.rarity], true
+							row.sourceNameTooltip = function(tooltip)
+								env.build.itemsTab:AddItemTooltip(tooltip, item, reqSource.sourceSlot)
 							end
 						elseif reqSource.source == "Gem" then
 							row.sourceName = s_format("%s%s ^7%d/%d", reqSource.sourceGem.color, reqSource.sourceGem.grantedEffect.name, reqSource.sourceGem.level, reqSource.sourceGem.quality)

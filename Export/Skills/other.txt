@@ -47,7 +47,7 @@ local skills, mod, flag, skill = ...
 
 #noGem
 #skill TouchOfGod
-#flags attack area lightning
+#flags attack area melee
 	fromItem = true,
 #mods
 

@@ -36,6 +36,7 @@ local ListClass = common.NewClass("ListControl", "Control", "ControlHost", funct
 	self.rowHeight = rowHeight
 	self.isMutable = isMutable
 	self.list = list or { }
+	self.tooltip = common.New("Tooltip")
 	self.controls.scrollBar = common.New("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -1, 0, 16, 0, rowHeight * 2)
 	self.controls.scrollBar.height = function()
 		local width, height = self:GetSize()
@@ -221,9 +222,9 @@ function ListClass:Draw(viewPort)
 	self.hoverIndex = ttIndex
 	self.hoverValue = ttValue
 	if ttIndex and self.AddValueTooltip then
-		local col, center = self:AddValueTooltip(ttIndex, ttValue)
 		SetDrawLayer(nil, 100)
-		main:DrawTooltip(ttX, ttY, ttWidth, rowHeight, viewPort, col, center)
+		self:AddValueTooltip(self.tooltip, ttIndex, ttValue)
+		self.tooltip:Draw(ttX, ttY, ttWidth, rowHeight, viewPort)
 		SetDrawLayer(nil, 0)
 	end
 end

@@ -61,7 +61,7 @@ for g = 1, getInt(psg) do
 		x = getFloat(psg),
 		y = getFloat(psg),
 		oo = { },
-		nodes = { },
+		n = { },
 	}
 	table.insert(tree.groups, group)
 	for n = 1, getInt(psg) do
@@ -77,7 +77,7 @@ for g = 1, getInt(psg) do
 		}
 		table.insert(tree.nodes, node)
 		group.oo[node.o] = true
-		group.nodes[n] = node.id
+		group.n[n] = node.id
 		for o = 1, getInt(psg) do
 			node.out[o] = getInt(psg)
 		end
@@ -159,7 +159,7 @@ for i, group in ipairs(groups) do
 		end
 	end
 	out:write('},\n')
-	out:write('\t\tn = { ', table.concat(group.nodes, ', '), ' },\n')
+	out:write('\t\tn = { ', table.concat(group.n, ', '), ' },\n')
 	out:write('\t},\n')
 end
 out:write('}\n')

@@ -652,7 +652,7 @@ Variant: 3.0.0 Beta
 Requires Level 52, 76 Dex, 76 Int
 (110-150)% increased Evasion and Energy Shield
 {variant:1,2}+(90-110) to maximum Mana
-{variant:3}+(200–250) to maximum Mana
+{variant:3}+(100-150) to maximum Mana
 (40-50)% increased Mana Regeneration Rate
 {variant:1}When hit, 10% of Damage is taken from Mana before Life
 {variant:3}10% of Damage is taken from Mana before Life

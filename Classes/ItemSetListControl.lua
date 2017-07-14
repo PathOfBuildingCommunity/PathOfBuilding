@@ -75,9 +75,10 @@ function ItemSetListClass:GetRowValue(column, index, itemSetId)
 	end
 end
 
-function ItemSetListClass:AddValueTooltip(index, itemSetId)
+function ItemSetListClass:AddValueTooltip(tooltip, index, itemSetId)
 	local itemSet = self.itemsTab.itemSets[itemSetId]
-	self.itemsTab:AddItemSetTooltip(itemSet)
+	tooltip:Clear()
+	self.itemsTab:AddItemSetTooltip(tooltip, itemSet)
 end
 
 function ItemSetListClass:GetDragValue(index, itemSetId)

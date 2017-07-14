@@ -29,22 +29,23 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 			self:OpenSpecManagePopup()
 		end
 	end)
-	self.controls.specSelect.tooltipFunc = function(mode, selIndex, selVal)
+	self.controls.specSelect.tooltipFunc = function(tooltip, mode, selIndex, selVal)
+		tooltip:Clear()
 		if mode ~= "OUT" then
 			local spec = self.specList[selIndex]
 			if spec then
 				local used, ascUsed, sockets = spec:CountAllocNodes()
-				main:AddTooltipLine(16, "Class: "..spec.curClassName)
-				main:AddTooltipLine(16, "Ascendancy: "..spec.curAscendClassName)
-				main:AddTooltipLine(16, "Points used: "..used)
+				tooltip:AddLine(16, "Class: "..spec.curClassName)
+				tooltip:AddLine(16, "Ascendancy: "..spec.curAscendClassName)
+				tooltip:AddLine(16, "Points used: "..used)
 				if sockets > 0 then
-					main:AddTooltipLine(16, "Jewel sockets: "..sockets)
+					tooltip:AddLine(16, "Jewel sockets: "..sockets)
 				end
 				if selIndex ~= self.activeSpec then
 					local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 					if calcFunc then
 						local output = calcFunc({ spec = spec })
-						self.build:AddStatComparesToTooltip(calcBase, output, "^7Switching to this tree will give you:")
+						self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Switching to this tree will give you:")
 					end
 					if spec.curClassId == self.build.spec.curClassId then
 						local respec = 0
@@ -58,7 +59,7 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 							end
 						end
 						if respec > 0 then
-							main:AddTooltipLine(16, "^7Switching to this tree requires "..respec.." refund points.")
+							tooltip:AddLine(16, "^7Switching to this tree requires "..respec.." refund points.")
 						end
 					end
 				end
@@ -84,7 +85,7 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 	self.controls.treeHeatMap = common.New("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)	
 		self.viewer.showHeatMap = state
 	end)
-	self.controls.treeHeatMap.tooltip = function()
+	self.controls.treeHeatMap.tooltipText = function()
 		local offCol, defCol = main.nodePowerTheme:match("(%a+)/(%a+)")
 		return "When enabled, an estimate of the offensive and defensive strength of\neach unallocated passive is calculated and displayed visually.\nOffensive power shows as "..offCol:lower()..", defensive power as "..defCol:lower().."."
 	end

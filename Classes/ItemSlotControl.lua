@@ -38,10 +38,18 @@ local ItemSlotClass = common.NewClass("ItemSlot", "DropDownControl", function(se
 		self.controls.activate.enabled = function()
 			return self.selItemId ~= 0
 		end
-		self.controls.activate.tooltip = "Activate this flask."
+		self.controls.activate.tooltipText = "Activate this flask."
 		self.labelOffset = -24
 	else
 		self.labelOffset = -2
+	end
+	self.tooltipFunc = function(tooltip, mode, index, itemId)
+		local item = itemsTab.items[self.items[index]]
+		if main.popups[1] or mode == "OUT" or not item or (not self.dropped and itemsTab.selControl and itemsTab.selControl ~= self.controls.activate) then
+			tooltip:Clear()
+		elseif tooltip:CheckForUpdate(item, launch.devModeAlt, itemsTab.build.outputRevision) then
+			itemsTab:AddItemTooltip(tooltip, item, self)
+		end
 	end
 	self.label = slotLabel or slotName
 	self.nodeId = nodeId
@@ -105,10 +113,7 @@ function ItemSlotClass:Draw(viewPort)
 	DrawString(x + self.labelOffset, y + 2, "RIGHT_X", height - 4, "VAR", "^7"..self.label..":")
 	self.DropDownControl:Draw(viewPort)
 	self:DrawControls(viewPort)
-	if main.popups[1] then
-		return
-	end
-	if self.nodeId and (self.dropped or (self:IsMouseOver() and (self.otherDragSource or not self.itemsTab.selControl))) then
+	if not main.popups[1] and self.nodeId and (self.dropped or (self:IsMouseOver() and (self.otherDragSource or not self.itemsTab.selControl))) then
 		SetDrawLayer(nil, 15)
 		local viewerX = x + width + 5
 		local viewerY = m_min(y, viewPort.y + viewPort.height - 304)
@@ -127,22 +132,6 @@ function ItemSlotClass:Draw(viewPort)
 		DrawImage(nil, 0, 149, 300, 2)
 		SetViewport()
 		SetDrawLayer(nil, 0)
-	end
-	if self:IsMouseOver() then
-		local ttItem
-		if self.dropped then
-			if self.hoverSel then
-				ttItem = self.itemsTab.items[self.items[self.hoverSel]]
-			end
-		elseif self.selItemId and (not self.itemsTab.selControl or self.itemsTab.selControl == self.controls.activate) then
-			ttItem = self.itemsTab.items[self.selItemId]
-		end
-		if ttItem then
-			self.itemsTab:AddItemTooltip(ttItem, self)
-			SetDrawLayer(nil, 100)
-			main:DrawTooltip(x, y, width, height, viewPort, colorCodes[ttItem.rarity], true)
-			SetDrawLayer(nil, 0)
-		end
 	end
 end
 

@@ -115,7 +115,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 		return self.charImportMode == "SELECTCHAR"
 	end
 	self.controls.charImportTreeClearJewels = common.New("CheckBoxControl", {"LEFT",self.controls.charImportTree,"RIGHT"}, 90, 0, 18, "Delete jewels:")
-	self.controls.charImportTreeClearJewels.tooltip = "Delete all existing jewels when importing."
+	self.controls.charImportTreeClearJewels.tooltipText = "Delete all existing jewels when importing."
 	self.controls.charImportItems = common.New("ButtonControl", {"LEFT",self.controls.charImportTree, "LEFT"}, 0, 36, 110, 20, "Items and Skills", function()
 		self:DownloadItems()
 	end)
@@ -123,9 +123,9 @@ You can get this from your web browser's cookies while logged into the Path of E
 		return self.charImportMode == "SELECTCHAR"
 	end
 	self.controls.charImportItemsClearSkills = common.New("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 85, 0, 18, "Delete skills:")
-	self.controls.charImportItemsClearSkills.tooltip = "Delete all existing skills when importing."
+	self.controls.charImportItemsClearSkills.tooltipText = "Delete all existing skills when importing."
 	self.controls.charImportItemsClearItems = common.New("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:")
-	self.controls.charImportItemsClearItems.tooltip = "Delete all equipped items when importing."
+	self.controls.charImportItemsClearItems.tooltipText = "Delete all equipped items when importing."
 	self.controls.charBanditNote = common.New("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choices,\nas these cannot be imported.")
 	self.controls.charDone = common.New("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Done", function()
 		self.charImportMode = "GETACCOUNTNAME"

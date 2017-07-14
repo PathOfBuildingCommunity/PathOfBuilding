@@ -5,16 +5,11 @@
 --
 local launch, main = ...
 
-local ButtonClass = common.NewClass("ButtonControl", "Control", function(self, anchor, x, y, width, height, label, onClick)
+local ButtonClass = common.NewClass("ButtonControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, label, onClick)
 	self.Control(anchor, x, y, width, height)
+	self.TooltipHost()
 	self.label = label
 	self.onClick = onClick
-	self.tooltipFunc = function()
-		local tooltip = self:GetProperty("tooltip")
-		if tooltip then
-			main:AddTooltipLine(14, tooltip)
-		end
-	end
 end)
 
 function ButtonClass:Click()
@@ -95,8 +90,7 @@ function ButtonClass:Draw(viewPort)
 	end
 	if mOver then
 		SetDrawLayer(nil, 100)
-		local col, center = self.tooltipFunc()
-		main:DrawTooltip(x, y, width, height, viewPort, col, center)
+		self:DrawTooltip(x, y, width, height, viewPort)
 		SetDrawLayer(nil, 0)
 	end
 end

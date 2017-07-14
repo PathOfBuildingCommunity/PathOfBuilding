@@ -361,7 +361,7 @@ function CalcsTabClass:CheckFlag(obj)
 	if obj.haveOutput then
 		local ns, var = obj.haveOutput:match("^(%a+)%.(%a+)$")
 		if ns then
-			if not actor.output[ns][var] or actor.output[ns][var] == 0 then
+			if not actor.output[ns] or not actor.output[ns][var] or actor.output[ns][var] == 0 then
 				return
 			end
 		elseif not actor.output[obj.haveOutput] or actor.output[obj.haveOutput] == 0 then

@@ -523,7 +523,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 				control.shown = function()
 					return self.build.spec.allocNodes[varData.ifNode]
 				end
-				control.tooltip = function()
+				control.tooltipText = function()
 					return "This option is specific to '"..self.build.spec.nodes[varData.ifNode].dn.."'."..(varData.tooltip and "\n"..varData.tooltip or "")
 				end
 			elseif varData.ifCond or varData.ifEnemyCond then
@@ -534,8 +534,8 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 						return self.build.calcsTab.mainEnv.enemyConditionsUsed[varData.ifEnemyCond]
 					end
 				end
-				control.tooltip = function()
-					if launch.devMode and IsKeyDown("ALT") then
+				control.tooltipText = function()
+					if launch.devModeAlt then
 						local out = varData.tooltip or ""
 						local list
 						if varData.ifCond then
@@ -555,8 +555,8 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 				control.shown = function()
 					return self.build.calcsTab.mainEnv.multipliersUsed[varData.ifMult]
 				end
-				control.tooltip = function()
-					if launch.devMode and IsKeyDown("ALT") then
+				control.tooltipText = function()
+					if launch.devModeAlt then
 						local out = varData.tooltip or ""
 						for _, mod in ipairs(self.build.calcsTab.mainEnv.multipliersUsed[varData.ifMult]) do
 							out = (#out > 0 and out.."\n" or out) .. modLib.formatMod(mod) .. "|" .. mod.source
@@ -570,7 +570,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 				control.shown = function()
 					return self.build.calcsTab.mainEnv.player.mainSkill.skillFlags[varData.ifFlag] -- O_O
 				end
-				control.tooltip = varData.tooltip
+				control.tooltipText = varData.tooltip
 			elseif varData.ifSkill or varData.ifSkillList then
 				control.shown = function()
 					if varData.ifSkillList then
@@ -583,9 +583,9 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 						return self.build.calcsTab.mainEnv.skillsUsed[varData.ifSkill]
 					end
 				end
-				control.tooltip = varData.tooltip
+				control.tooltipText = varData.tooltip
 			else
-				control.tooltip = varData.tooltip
+				control.tooltipText = varData.tooltip
 			end
 			t_insert(self.controls, common.New("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label))
 			if varData.var then

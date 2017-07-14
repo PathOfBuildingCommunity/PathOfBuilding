@@ -1312,11 +1312,11 @@ skills["VaalGroundSlam"] = {
 	},
 	baseMods = {
 		skill("castTime", 1), 
-		--"knockback_distance_+%" = 100
+		mod("EnemyKnockbackDistance", "INC", 100), --"knockback_distance_+%" = 100
 		--"animation_effect_variation" = -1
 		mod("AreaOfEffect", "INC", 20), --"base_skill_area_of_effect_+%" = 20
 		--"always_stun" = ?
-		--"global_knockback" = ?
+		mod("EnemyKnockbackChance", "BASE", 100), --"global_knockback" = ?
 		--"is_area_damage" = ?
 		skill("cannotBeEvaded", true), --"global_always_hit" = ?
 	},
@@ -1393,7 +1393,7 @@ skills["HeavyStrike"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 5), 
-		--"global_knockback" = 1
+		mod("EnemyKnockbackChance", "BASE", 100), --"global_knockback" = 1
 		mod("EnemyStunThreshold", "INC", -25), --"base_stun_threshold_reduction_+%" = 25
 	},
 	qualityMods = {
@@ -1855,13 +1855,13 @@ skills["LeapSlam"] = {
 	baseMods = {
 		skill("castTime", 1.4), 
 		skill("manaCost", 15), 
-		--"base_global_chance_to_knockback_%" = 20
+		mod("EnemyKnockbackChance", "BASE", 20), --"base_global_chance_to_knockback_%" = 20
 		--"is_area_damage" = ?
 		skill("castTimeOverridesAttackTime", true), --"cast_time_overrides_attack_duration" = ?
 		skill("radius", 15), 
 	},
 	qualityMods = {
-		--"base_global_chance_to_knockback_%" = 0.5
+		mod("EnemyKnockbackChance", "BASE", 0.5), --"base_global_chance_to_knockback_%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
@@ -2718,7 +2718,7 @@ skills["ShockwaveTotem"] = {
 		skill("CritChance", 5), 
 		--"base_totem_duration" = 8000
 		--"base_totem_range" = 100
-		--"base_global_chance_to_knockback_%" = 25
+		mod("EnemyKnockbackChance", "BASE", 25), --"base_global_chance_to_knockback_%" = 25
 		--"is_totem" = ?
 		--"is_area_damage" = ?
 		--"base_skill_is_totemified" = ?
@@ -3144,7 +3144,7 @@ skills["Sweep"] = {
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
-		--[2] = "base_global_chance_to_knockback_%"
+		[2] = mod("EnemyKnockbackChance", "BASE", nil), --"base_global_chance_to_knockback_%"
 		[3] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 		[4] = mod("Damage", "MORE", nil, ModFlag.Attack), 
 	},

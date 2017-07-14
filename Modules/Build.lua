@@ -63,6 +63,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 
 	wipeTable(self.controls)
 
+	local miscTooltip = common.New("Tooltip")
+
 	-- Controls: top bar, left side
 	self.anchorTopBarLeft = common.New("Control", nil, 4, 4, 0, 20)
 	self.controls.back = common.New("ButtonControl", {"LEFT",self.anchorTopBarLeft,"RIGHT"}, 0, 0, 60, 20, "<< Back", function()
@@ -93,12 +95,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		SetViewport()
 		if control:IsMouseInBounds() then
 			SetDrawLayer(nil, 10)
+			miscTooltip:Clear()
 			if self.dbFileSubPath and self.dbFileSubPath ~= "" then
-				main:AddTooltipLine(16, self.dbFileSubPath..self.buildName)
+				miscTooltip:AddLine(16, self.dbFileSubPath..self.buildName)
 			elseif self.strLimited then
-				main:AddTooltipLine(16, self.buildName)
+				miscTooltip:AddLine(16, self.buildName)
 			end
-			main:DrawTooltip(x, y, width, height, main.viewPort)
+			miscTooltip:Draw(x, y, width, height, main.viewPort)
 			SetDrawLayer(nil, 0)
 		end
 	end
@@ -145,8 +148,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		DrawString(x + 4, y + 2, "LEFT", 16, "FIXED", control.str)
 		if control:IsMouseInBounds() then
 			SetDrawLayer(nil, 10)
-			main:AddTooltipLine(16, control.req)
-			main:DrawTooltip(x, y, width, height, main.viewPort)
+			miscTooltip:Clear()
+			miscTooltip:AddLine(16, control.req)
+			miscTooltip:Draw(x, y, width, height, main.viewPort)
 			SetDrawLayer(nil, 0)
 		end
 	end
@@ -155,28 +159,30 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.characterLevel.tooltipFunc = function()
-		main:AddTooltipLine(16, "Experience multiplier:")
-		local playerLevel = self.characterLevel
-		local safeZone = 3 + m_floor(playerLevel / 16)
-		for level, expLevel in ipairs(self.data.monsterExperienceLevelMap) do
-			local diff = m_abs(playerLevel - expLevel) - safeZone
-			local mult
-			if diff <= 0 then
-				mult = 1
-			else
-				mult = ((playerLevel + 5) / (playerLevel + 5 + diff ^ 2.5)) ^ 1.5
-			end
-			if playerLevel >= 95 then
-				mult = mult * (1 / (1 + 0.1 * (playerLevel - 94)))
-			end
-			if mult > 0.01 then
-				local line = level
-				if level >= 68 then 
-					line = line .. string.format(" (Tier %d)", level - 67)
+	self.controls.characterLevel.tooltipFunc = function(tooltip)
+		if tooltip:CheckForUpdate(self.characterLevel) then
+			tooltip:AddLine(16, "Experience multiplier:")
+			local playerLevel = self.characterLevel
+			local safeZone = 3 + m_floor(playerLevel / 16)
+			for level, expLevel in ipairs(self.data.monsterExperienceLevelMap) do
+				local diff = m_abs(playerLevel - expLevel) - safeZone
+				local mult
+				if diff <= 0 then
+					mult = 1
+				else
+					mult = ((playerLevel + 5) / (playerLevel + 5 + diff ^ 2.5)) ^ 1.5
 				end
-				line = line .. string.format(": %.1f%%", mult * 100)
-				main:AddTooltipLine(14, line)
+				if playerLevel >= 95 then
+					mult = mult * (1 / (1 + 0.1 * (playerLevel - 94)))
+				end
+				if mult > 0.01 then
+					local line = level
+					if level >= 68 then 
+						line = line .. string.format(" (Tier %d)", level - 67)
+					end
+					line = line .. string.format(": %.1f%%", mult * 100)
+					tooltip:AddLine(14, line)
+				end
 			end
 		end
 	end
@@ -437,11 +443,12 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	function self.controls.mainSkillMinion.ReceiveDrag(control, type, value, source)
 		self.itemsTab:EquipItemInSet(value, control.list[control.selIndex].itemSetId)
 	end
-	function self.controls.mainSkillMinion.tooltipFunc(mode, index, value)
+	function self.controls.mainSkillMinion.tooltipFunc(tooltip, mode, index, value)
+		tooltip:Clear()
 		if value.itemSetId then
-			self.itemsTab:AddItemSetTooltip(self.itemsTab.itemSets[value.itemSetId])
-			main:AddTooltipSeparator(14)
-			main:AddTooltipLine(14, colorCodes.TIP.."Tip: You can drag items from the Items tab onto this dropdown to equip them onto the minion.")
+			self.itemsTab:AddItemSetTooltip(tooltip, self.itemsTab.itemSets[value.itemSetId])
+			tooltip:AddSeparator(14)
+			tooltip:AddLine(14, colorCodes.TIP.."Tip: You can drag items from the Items tab onto this dropdown to equip them onto the minion.")
 		end
 	end
 	self.controls.mainSkillMinionLibrary = common.New("ButtonControl", {"LEFT",self.controls.mainSkillMinion,"RIGHT"}, 2, 0, 120, 18, "Manage Spectres...", function()
@@ -515,18 +522,22 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
 
 	-- Build calculation output tables
+	self.outputRevision = 1
 	self.calcsTab:BuildOutput()
 	self:RefreshStatList()
 	self.buildFlag = false
 
 	--[[
+	local testTooltip = common.New("Tooltip")
 	for _, item in pairs(main.uniqueDB.list) do
 		ConPrintf("%s", item.name)
-		self.itemsTab:AddItemTooltip(item)
+		self.itemsTab:AddItemTooltip(testTooltip, item)
+		testTooltip:Clear()
 	end
 	for _, item in pairs(main.rareDB.list) do
 		ConPrintf("%s", item.name)
-		self.itemsTab:AddItemTooltip(item)
+		self.itemsTab:AddItemTooltip(testTooltip, item)
+		testTooltip:Clear()
 	end
 	--]]
 
@@ -680,6 +691,7 @@ function buildMode:OnFrame(inputEvents)
 
 	if self.buildFlag then
 		-- Rebuild calculation output tables
+		self.outputRevision = self.outputRevision + 1
 		self.buildFlag = false
 		self.calcsTab:BuildOutput()
 		self:RefreshStatList()
@@ -1009,7 +1021,7 @@ function buildMode:RefreshStatList()
 	self:AddDisplayStatList(self.displayStats, self.calcsTab.mainEnv.player)
 end
 
-function buildMode:CompareStatList(statList, actor, baseOutput, compareOutput, header, nodeCount)
+function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)
 	local count = 0
 	for _, statData in ipairs(statList) do
 		if statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) then
@@ -1018,7 +1030,7 @@ function buildMode:CompareStatList(statList, actor, baseOutput, compareOutput, h
 			local diff = statVal1 - statVal2
 			if (diff > 0.001 or diff < -0.001) and (not statData.condFunc or statData.condFunc(statVal1,compareOutput) or statData.condFunc(statVal2,baseOutput)) then
 				if count == 0 then
-					main:AddTooltipLine(14, header)
+					tooltip:AddLine(14, header)
 				end
 				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and colorCodes.POSITIVE or colorCodes.NEGATIVE
 				local line = string.format("%s%+"..statData.fmt.." %s", color, diff * ((statData.pc or statData.mod) and 100 or 1), statData.label)
@@ -1033,7 +1045,7 @@ function buildMode:CompareStatList(statList, actor, baseOutput, compareOutput, h
 				if nodeCount then
 					line = line .. string.format(" ^8[%+"..statData.fmt.."%s per point]", diff * ((statData.pc or statData.mod) and 100 or 1) / nodeCount, pcPerPt)
 				end
-				main:AddTooltipLine(14, line)
+				tooltip:AddLine(14, line)
 				count = count + 1
 			end
 		end
@@ -1044,24 +1056,24 @@ end
 -- Compare values of all display stats between the two output tables, and add any changed stats to the tooltip
 -- Adds the provided header line before the first stat line, if any are added
 -- Returns the number of stat lines added
-function buildMode:AddStatComparesToTooltip(baseOutput, compareOutput, header, nodeCount)
+function buildMode:AddStatComparesToTooltip(tooltip, baseOutput, compareOutput, header, nodeCount)
 	local count = 0
 	if baseOutput.Minion and compareOutput.Minion then
-		count = count + self:CompareStatList(self.minionDisplayStats, self.calcsTab.mainEnv.minion, baseOutput.Minion, compareOutput.Minion, header.."\n^7Minion:", nodeCount)
+		count = count + self:CompareStatList(tooltip, self.minionDisplayStats, self.calcsTab.mainEnv.minion, baseOutput.Minion, compareOutput.Minion, header.."\n^7Minion:", nodeCount)
 		if count > 0 then
 			header = "^7Player:"
 		else
 			header = header.."\n^7Player:"
 		end
 	end
-	count = count + self:CompareStatList(self.displayStats, self.calcsTab.mainEnv.player, baseOutput, compareOutput, header, nodeCount)
+	count = count + self:CompareStatList(tooltip, self.displayStats, self.calcsTab.mainEnv.player, baseOutput, compareOutput, header, nodeCount)
 	return count
 end
 
 -- Add requirements to tooltip
 do
 	local req = { }
-	function buildMode:AddRequirementsToTooltip(level, str, dex, int, strBase, dexBase, intBase)
+	function buildMode:AddRequirementsToTooltip(tooltip, level, str, dex, int, strBase, dexBase, intBase)
 		if level and level > 0 then
 			t_insert(req, s_format("^x7F7F7FLevel %s%d", main:StatColor(level, nil, self.characterLevel), level))
 		end
@@ -1075,8 +1087,8 @@ do
 			t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
 		end
 		if req[1] then
-			main:AddTooltipLine(16, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "))
-			main:AddTooltipSeparator(10)
+			tooltip:AddLine(16, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "))
+			tooltip:AddSeparator(10)
 		end	
 		wipeTable(req)
 	end

@@ -58,25 +58,32 @@ function SkillListClass:GetRowValue(column, index, socketGroup)
 	end
 end
 
-function SkillListClass:AddValueTooltip(index, socketGroup)
+function SkillListClass:AddValueTooltip(tooltip, index, socketGroup)
 	if not socketGroup.displaySkillList then
+		tooltip:Clear()
 		return
 	end
+	if tooltip.socketGroup == socketGroup and tooltip.outputRevision == self.skillsTab.build.outputRevision then
+		return
+	end
+	tooltip:Clear()
+	tooltip.socketGroup = socketGroup
+	tooltip.outputRevision = self.skillsTab.build.outputRevision
 	if socketGroup.enabled and not socketGroup.slotEnabled then
-		main:AddTooltipLine(16, "^7Note: this group is disabled because it is socketed in the inactive weapon set.")
+		tooltip:AddLine(16, "^7Note: this group is disabled because it is socketed in the inactive weapon set.")
 	end
 	if socketGroup.sourceItem then
-		main:AddTooltipLine(18, "^7Source: "..colorCodes[socketGroup.sourceItem.rarity]..socketGroup.sourceItem.name)
-		main:AddTooltipSeparator(10)
+		tooltip:AddLine(18, "^7Source: "..colorCodes[socketGroup.sourceItem.rarity]..socketGroup.sourceItem.name)
+		tooltip:AddSeparator(10)
 	end
 	local gemShown = { }
 	for index, activeSkill in ipairs(socketGroup.displaySkillList) do
 		if index > 1 then
-			main:AddTooltipSeparator(10)
+			tooltip:AddSeparator(10)
 		end
-		main:AddTooltipLine(16, "^7Active Skill #"..index..":")
+		tooltip:AddLine(16, "^7Active Skill #"..index..":")
 		for _, gem in ipairs(activeSkill.gemList) do
-			main:AddTooltipLine(20, string.format("%s%s ^7%d%s/%d%s", 
+			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s", 
 				data.skillColorMap[gem.grantedEffect.color], 
 				gem.grantedEffect.name,
 				gem.level, 
@@ -89,10 +96,10 @@ function SkillListClass:AddValueTooltip(index, socketGroup)
 			end
 		end
 		if activeSkill.minion then
-			main:AddTooltipSeparator(10)
-			main:AddTooltipLine(16, "^7Active Skill #"..index.."'s Main Minion Skill:")
+			tooltip:AddSeparator(10)
+			tooltip:AddLine(16, "^7Active Skill #"..index.."'s Main Minion Skill:")
 			local gem = activeSkill.minion.mainSkill.gemList[1]
-			main:AddTooltipLine(20, string.format("%s%s ^7%d%s/%d%s", 
+			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s", 
 				data.skillColorMap[gem.grantedEffect.color], 
 				gem.grantedEffect.name, 
 				gem.level, 
@@ -110,8 +117,8 @@ function SkillListClass:AddValueTooltip(index, socketGroup)
 		if not gemShown[gem] then
 			if showOtherHeader then
 				showOtherHeader = false
-				main:AddTooltipSeparator(10)
-				main:AddTooltipLine(16, "^7Inactive Gems:")
+				tooltip:AddSeparator(10)
+				tooltip:AddLine(16, "^7Inactive Gems:")
 			end
 			local reason = ""
 			local displayGem = gem.displayGem or gem
@@ -127,7 +134,7 @@ function SkillListClass:AddValueTooltip(index, socketGroup)
 					reason = "(Cannot apply to any of the active skills)"
 				end
 			end
-			main:AddTooltipLine(20, string.format("%s%s ^7%d%s/%d%s %s", 
+			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s %s", 
 				gem.color, 
 				gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec, 
 				displayGem.level, 

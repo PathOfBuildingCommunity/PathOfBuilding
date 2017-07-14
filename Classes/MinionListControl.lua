@@ -47,24 +47,26 @@ function MinionListClass:GetRowValue(column, index, minionId)
 	end
 end
 
-function MinionListClass:AddValueTooltip(index, minionId)
-	local minion = self.data.minions[minionId]
-	main:AddTooltipLine(18, "^7"..minion.name)
-	main:AddTooltipLine(14, s_format("^7Life multiplier: x%.2f", minion.life))
-	if minion.energyShield then
-		main:AddTooltipLine(14, s_format("^7Energy Shield: %d%% of base Life", minion.energyShield * 100))
-	end
-	main:AddTooltipLine(14, s_format("^7Resistances: %s%d^7/%s%d^7/%s%d^7/%s%d", 
-		colorCodes.FIRE, minion.fireResist, 
-		colorCodes.COLD, minion.coldResist, 
-		colorCodes.LIGHTNING, minion.lightningResist, 
-		colorCodes.CHAOS, minion.chaosResist
-	))
-	main:AddTooltipLine(14, s_format("^7Base damage: x%.2f", minion.damage))
-	main:AddTooltipLine(14, s_format("^7Base attack speed: %.2f", 1 / minion.attackTime))
-	for _, skillId in ipairs(minion.skillList) do
-		if self.data.skills[skillId] then
-			main:AddTooltipLine(14, "^7Skill: "..self.data.skills[skillId].name)
+function MinionListClass:AddValueTooltip(tooltip, index, minionId)
+	if tooltip:CheckForUpdate(minionId) then
+		local minion = self.data.minions[minionId]
+		tooltip:AddLine(18, "^7"..minion.name)
+		tooltip:AddLine(14, s_format("^7Life multiplier: x%.2f", minion.life))
+		if minion.energyShield then
+			tooltip:AddLine(14, s_format("^7Energy Shield: %d%% of base Life", minion.energyShield * 100))
+		end
+		tooltip:AddLine(14, s_format("^7Resistances: %s%d^7/%s%d^7/%s%d^7/%s%d", 
+			colorCodes.FIRE, minion.fireResist, 
+			colorCodes.COLD, minion.coldResist, 
+			colorCodes.LIGHTNING, minion.lightningResist, 
+			colorCodes.CHAOS, minion.chaosResist
+		))
+		tooltip:AddLine(14, s_format("^7Base damage: x%.2f", minion.damage))
+		tooltip:AddLine(14, s_format("^7Base attack speed: %.2f", 1 / minion.attackTime))
+		for _, skillId in ipairs(minion.skillList) do
+			if self.data.skills[skillId] then
+				tooltip:AddLine(14, "^7Skill: "..self.data.skills[skillId].name)
+			end
 		end
 	end
 end
