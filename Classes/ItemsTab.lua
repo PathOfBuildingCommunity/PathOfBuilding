@@ -300,12 +300,38 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 			return i == 1 and 0 or 24 + (prev.slider:IsShown() and 18 or 0)
 		end
 		drop.tooltipFunc = function(tooltip, mode, index, value)
-			local mod = (mode ~= "OUT") and (not self.selControl or self.selControl == drop) and self.displayItem.affixes[value.modId]
-			local modList = value.modList and #value.modList > 1 and value.modList
-			if tooltip:CheckForUpdate(mod) and mod then
-				tooltip:AddLine(16, "^7"..mod.affix)
-				for _, line in ipairs(mod) do
-					tooltip:AddLine(14, "^7"..line)
+			local modList = value.modList
+			if not modList or main.popups[1] or mode == "OUT" or (self.selControl and self.selControl ~= drop) then
+				tooltip:Clear()
+			elseif tooltip:CheckForUpdate(modList) then
+				if value.modId or #modList == 1 then
+					local mod = self.displayItem.affixes[value.modId or modList[1]]
+					tooltip:AddLine(16, "^7Affix: "..mod.affix)
+					for _, line in ipairs(mod) do
+						tooltip:AddLine(14, "^7"..line)
+					end
+					if mod.level > 1 then
+						tooltip:AddLine(16, "Level: "..mod.level)
+					end
+				else
+					tooltip:AddLine(16, "^7"..#modList.." Tiers")
+					local minMod = self.displayItem.affixes[modList[1]]
+					local maxMod = self.displayItem.affixes[modList[#modList]]
+					for l, line in ipairs(minMod) do
+						local minLine = line:gsub("%((%d[%d%.]*)%-(%d[%d%.]*)%)", "%1")
+						local maxLine = maxMod[l]:gsub("%((%d[%d%.]*)%-(%d[%d%.]*)%)", "%2")
+						local start = 1
+						tooltip:AddLine(14, minLine:gsub("%d[%d%.]*", function(min)
+							local s, e, max = maxLine:find("(%d[%d%.]*)", start)
+							start = e + 1
+							if min == max then
+								return min
+							else
+								return "("..min.."-"..max..")"
+							end
+						end))
+					end
+					tooltip:AddLine(16, "Level: "..minMod.level.." to "..maxMod.level)
 				end
 			end
 		end
@@ -325,7 +351,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		end
 		slider.tooltipFunc = function(tooltip, val)
 			local modList = drop.list[drop.selIndex].modList
-			if not modList then
+			if not modList or main.popups[1] or (self.selControl and self.selControl ~= slider) then
 				tooltip:Clear()
 			elseif tooltip:CheckForUpdate(val, modList) then
 				local index, range = slider:GetDivVal(val)
@@ -1008,7 +1034,11 @@ function ItemsTabClass:UpdateCustomControls()
 						self.controls["displayItemCustomModifierRemove"..i] = common.New("ButtonControl", {"LEFT",self.controls["displayItemCustomModifier"..i],"RIGHT"}, 4, 0, 70, 20, "^7Remove")
 					end
 					self.controls["displayItemCustomModifier"..i].shown = true
-					self.controls["displayItemCustomModifier"..i].label = itemLib.formatModLine(modLine)
+					local label = itemLib.formatModLine(modLine)
+					if DrawStringCursorIndex(16, "VAR", label, 330, 10) < #label then
+						label = label:sub(1, DrawStringCursorIndex(16, "VAR", label, 310, 10)) .. "..."
+					end
+					self.controls["displayItemCustomModifier"..i].label = label
 					self.controls["displayItemCustomModifierLabel"..i].label = modLine.crafted and "^7Crafted:" or "^7Custom:"
 					self.controls["displayItemCustomModifierRemove"..i].onClick = function()
 						t_remove(item.modLines, index)
