@@ -53,6 +53,13 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.45 - 2017/04/17
+ * Fixed issue causing tooltips in the Shared Items list to display modifier ranges instead of specific values
+ * Fixed the node location display in the Items tab covering jewel tooltips
+ * Fixed issue preventing affixes on pre-1.4.18 crafted Flasks and Jewels from being recognised
+For 3.0 builds:
+ * Updated many uniques with changes from Beta
+
 ### 1.4.44 - 2017/07/14
  * The Item Crafting UI has been improved:
     * Tiers of modifiers are now collapsed into a single entry in the affix selectors

@@ -9,13 +9,14 @@ Variant: {2_6}Current
 Variant: 3.0.0 Beta
 Requires Level 10
 (20-30)% increased Accuracy Rating
+{variant:2}Grants level 5 Frostbite Skill
 (8-12)% increased Attack Speed
 +(30-40)% to Cold Resistance
 (30-40)% increased Chill Duration on Enemies
 {variant:1}20% of Physical Damage Converted to Cold Damage
 {variant:2}Gain 20% of Physical Damage as Extra Cold Damage
 (7-10)% chance to Freeze
-40% reduced Area of Effect of Curse Skills
+{variant:1}40% reduced Area of Effect of Curse Skills
 Curses on Slain Enemies are transferred to a nearby Enemy
 ]],[[
 Blackgleam
@@ -63,7 +64,7 @@ Implicits: 2
 +(40-50) to maximum Life
 Adds (10-14) to (19-24) Physical Damage to Attacks with Bows
 {variant:1}Projectile Damage increased by 50% of Arrow Pierce Chance
-{variant:2}Arrows deal 50% increased Damage to Targets they Pierce
+{variant:2}Arrows deal 50% increased Damage against Pierced Targets
 ]],[[
 Hyrri's Bite
 Sharktooth Arrow Quiver

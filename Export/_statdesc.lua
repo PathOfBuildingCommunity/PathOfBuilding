@@ -75,7 +75,7 @@ function loadStatFile(fileName)
 	for line in io.lines(fileName) do
 		processLine(line)
 	end
-	print(fileName.. " loaded.")
+	print(fileName.. " loaded. ("..order.." stats)")
 end
 
 for k, v in pairs(nk) do

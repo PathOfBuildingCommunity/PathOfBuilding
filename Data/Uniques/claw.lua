@@ -23,17 +23,19 @@ Al Dhih
 Timeworn Claw
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 26, 39 Dex, 56 Int
 Implicits: 3
 {variant:1}+8 Life gained for each Enemy hit by Attacks
 {variant:2}2% of Physical Attack Damage Leeched as Life
-{variant:3}+19 Life gained for each Enemy hit by Attacks
+{variant:3,4}+19 Life gained for each Enemy hit by Attacks
 {variant:1}(60-80)% increased Physical Damage
-{variant:2,3}(100-120)% increased Physical Damage
+{variant:2,3,4}(100-120)% increased Physical Damage
 3% of Physical Attack Damage Leeched as Life
 10% reduced Enemy Stun Threshold with this Weapon
 Socketed Gems have 10% chance to cause Enemies to Flee on Hit
+{variant:4}Use Level 1 Abyssal Cry on Hit
 ]],[[
 Allure
 Vaal Claw
@@ -175,18 +177,20 @@ Mortem Morsu
 Fright Claw
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 34, 61 Dex, 61 Int
 Implicits: 2
 {variant:1,2}2% of Physical Attack Damage Leeched as Life
-{variant:3}+20 Life gained for each Enemy hit by Attacks
+{variant:3,4}+20 Life gained for each Enemy hit by Attacks
 (75-100)% increased Physical Damage
 20% increased Attack Speed
 25% increased Critical Strike Chance
 {variant:1}+25% to Global Critical Strike Multiplier
-{variant:2,3}+40% to Global Critical Strike Multiplier
+{variant:2,3,4}+40% to Global Critical Strike Multiplier
 (10-20)% of Physical Damage Converted to Chaos Damage
-Poisonous Hit
+{variant:1,2,3}Poisonous Hit
+{variant:4}60% chance to Poison on Hit
 25% reduced Enemy Stun Threshold with this Weapon
 ]],[[
 Ornament of the East
