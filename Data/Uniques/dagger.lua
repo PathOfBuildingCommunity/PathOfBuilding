@@ -57,7 +57,8 @@ Requires Level 53, 58 Dex, 123 Int
 +(20-40) to Intelligence
 {variant:1}45% of Fire Damage Converted to Chaos Damage
 {variant:2,3}30% of Fire Damage Converted to Chaos Damage
-Your Chaos Damage Poisons Enemies
+{variant:1,2}Your Chaos Damage Poisons Enemies
+{variant:3}Your Chaos Damage has 60% chance to Poison Enemies
 ]],[[
 Divinarius
 Imperial Skean

@@ -385,7 +385,7 @@ function itemLib.parseItemRaw(item)
 								break
 							end
 						end
-						if not item.affixes[list[i]] then
+						if not item.affixes[list[i].modId] then
 							list[i].modId = "None"
 						end
 					end

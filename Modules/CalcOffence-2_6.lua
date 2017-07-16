@@ -1294,17 +1294,19 @@ function calcs.offence(env, actor)
 		if canDeal.Chaos and (output.PoisonChanceOnHit + output.PoisonChanceOnCrit + output.ChaosPoisonChance) > 0 then
 			local sourceHitDmg = output.ChaosHitAverage
 			if output.ChaosPoisonChance > 0 and sourceHitDmg > 0 then
-				-- Separate chance for poison; adjust Physical damage and inflict chance
-				sourceHitDmg = sourceHitDmg + output.PhysicalHitAverage * output.PoisonChanceOnHit / output.ChaosPoisonChance
-				output.PoisonChanceOnHit = output.ChaosPoisonChance
+				-- Additional chance for chaos; adjust Physical damage and inflict chance
+				local chaosChance = m_min(100, output.PoisonChanceOnHit + output.ChaosPoisonChance)
+				sourceHitDmg = sourceHitDmg + output.PhysicalHitAverage * output.PoisonChanceOnHit / chaosChance
+				output.PoisonChanceOnHit = chaosChance
 			else
 				sourceHitDmg = sourceHitDmg + output.PhysicalHitAverage
 			end
 			local sourceCritDmg = output.ChaosCritAverage
 			if output.ChaosPoisonChance > 0 and sourceCritDmg > 0 then
-				-- Separate chance for poison; adjust Physical damage and inflict chance
-				sourceCritDmg = sourceCritDmg + output.PhysicalCritAverage * output.PoisonChanceOnCrit / output.ChaosPoisonChance
-				output.PoisonChanceOnCrit = output.ChaosPoisonChance
+				-- Additional chance for chaos; adjust Physical damage and inflict chance
+				local chaosChance = m_min(100, output.PoisonChanceOnCrit + output.ChaosPoisonChance)
+				sourceCritDmg = sourceCritDmg + output.PhysicalCritAverage * output.PoisonChanceOnCrit / chaosChance
+				output.PoisonChanceOnCrit = chaosChance
 			else
 				sourceCritDmg = sourceCritDmg + output.PhysicalCritAverage
 			end

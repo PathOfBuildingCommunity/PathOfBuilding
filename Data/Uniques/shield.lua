@@ -617,6 +617,7 @@ Implicits: 2
 +(20-30) to maximum Energy Shield
 10% increased Rarity of Items found
 25% chance to avoid Fire Damage when Hit
+{variant:2}You always Ignite while Burning
 ]],[[
 Jaws of Agony
 Supreme Spiked Shield

@@ -725,7 +725,7 @@ Variant: {2_6}Current
 Variant: 3.0.0 Beta
 Limited to: 1
 {variant:1}15% chance of Projectiles Piercing
-{variant:2}Projectiles Pierce 1 Targets
+{variant:2}Projectiles Pierce an additional Target
 10% increased Projectile Damage
 ]],[[
 Survival Instincts

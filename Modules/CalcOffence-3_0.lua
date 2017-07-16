@@ -1398,11 +1398,12 @@ function calcs.offence(env, actor)
 					output.PoisonPhysicalMin = min
 					output.PoisonPhysicalMax = max
 					if output.ChaosPoisonChance > 0 and output.PoisonChaosMax > 0 then
-						-- Separate chance for poison; adjust Physical damage and inflict chance
+						-- Additional chance for chaos; adjust Physical damage and inflict chance
 						local chance = (pass == 1) and "PoisonChanceOnCrit" or "PoisonChanceOnHit"
-						min = min * output[chance] / output.ChaosPoisonChance
-						max = max * output[chance] / output.ChaosPoisonChance
-						output[chance] = output.ChaosPoisonChance
+						local chaosChance = m_min(100, chance + output.ChaosPoisonChance)
+						min = min * output[chance] / chaosChance
+						max = max * output[chance] / chaosChance
+						output[chance] = chaosChance
 					end
 					totalMin = totalMin + min
 					totalMax = totalMax + max

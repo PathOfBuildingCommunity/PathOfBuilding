@@ -37,7 +37,7 @@ function SharedItemListClass:AddValueTooltip(tooltip, index, verItem)
 	end
 	local item = verItem[self.itemsTab.build.targetVersion]
 	if tooltip:CheckForUpdate(item, IsKeyDown("SHIFT"), launch.devModeAlt, self.itemsTab.build.outputRevision) then
-		self.itemsTab:AddItemTooltip(tooltip, item, nil, true)
+		self.itemsTab:AddItemTooltip(tooltip, item)
 	end
 end
 

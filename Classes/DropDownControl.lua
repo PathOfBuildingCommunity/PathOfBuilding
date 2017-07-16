@@ -163,7 +163,7 @@ function DropDownClass:Draw(viewPort)
 	end
 	if enabled then
 		if (mOver or self.dropped) and mOverComp ~= "DROP" then
-			SetDrawLayer(nil, 10)
+			SetDrawLayer(nil, 100)
 			self:DrawTooltip(
 				x, y - (self.dropped and self.dropUp and dropExtra or 0), 
 				width, height + (self.dropped and dropExtra or 0), 

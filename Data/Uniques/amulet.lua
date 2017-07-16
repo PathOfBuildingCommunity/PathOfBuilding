@@ -347,12 +347,15 @@ Nearby Allies gain 40% increased Mana Regeneration Rate
 ]],[[
 Sidhebreath
 Paua Amulet
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 (20-30)% increased Mana Regeneration Rate
 +25% to Cold Resistance
 0.2% of Physical Attack Damage Leeched as Mana
 Minions have (10-15)% increased maximum Life
 Minions have (10-15)% increased Movement Speed
 Minions deal (10-15)% increased Damage
+{variant:2}(10-15)% reduced Mana Cost of Minion Skills
 ]],[[
 Star of Wraeclast
 Ruby Amulet

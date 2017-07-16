@@ -465,12 +465,16 @@ Requires Level 27, 27 Dex, 27 Int
 ]],[[
 Voidwalker
 Murder Boots
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 69, 82 Dex, 42 Int
 +(30-50) to Dexterity
 (140-180)% increased Evasion and Energy Shield
 30% increased Movement Speed
 20% chance to Avoid Projectiles while Phasing
 You have Phasing if you've Killed Recently
-Projectiles Pierce while Phasing
+{variant:1}Projectiles Pierce while Phasing
+{variant:2}Projectiles Pierce 5 additional Targets while you have Phasing
+Celestial Footprints
 ]],
 }

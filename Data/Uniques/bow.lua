@@ -142,6 +142,7 @@ Adds (6-12) to (20-32) Physical Damage
 (10-20)% increased Attack Speed
 +(80-100) to maximum Mana
 Hits can't be Evaded
+{variant:4}Far Shot
 ]],[[
 Null's Inclination
 Ranger Bow

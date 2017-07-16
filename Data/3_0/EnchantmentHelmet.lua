@@ -766,12 +766,12 @@ return {
 	["Glacial Cascade"] = {
 		["MERCILESS"] = {
 			"25% increased Glacial Cascade Damage",
-			"60% of Glacial Cascade Physical Damage converted to Cold Damage",
+			"30% of Glacial Cascade Physical Damage converted to Cold Damage",
 			"8% increased Glacial Cascade Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Glacial Cascade Damage",
-			"90% of Glacial Cascade Physical Damage converted to Cold Damage",
+			"40% of Glacial Cascade Physical Damage converted to Cold Damage",
 			"12% increased Glacial Cascade Area of Effect",
 		},
 	},
