@@ -94,13 +94,13 @@ Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2}+3 to Level of Socketed Golem Gems
 {variant:1}Socketed Gems are Supported by level 15 Concentrated Effect
-{variant:2}Socketed Golem Gems have 25% increased Buff Effect
+{variant:2}25% increased Effect of Buffs granted by Socketed Golem Skills
+{variant:2}Socketed Golem Skills gain 20% of Maximum Life as Extra Maximum Energy Shield
 {variant:1}(10-25)% increased Spell Damage
 {variant:2}(20-25)% increased Spell Damage
 +(15-25) to maximum Energy Shield
 +(20-40)% to Lightning Resistance
 {variant:1}Socketed Gems are Supported by level 15 Increased Minion Life
-{variant:2}Socketed Golem Gems have 20% of Golem Life added as Energy Shield
 ]],[[
 Call of the Brotherhood
 Two-Stone Ring
@@ -316,7 +316,7 @@ Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2}+3 to Level of Socketed Golem Gems
 {variant:1}Socketed Gems are Supported by level 13 Faster Attacks
-{variant:2}Socketed Golem Gems have 20% increased Attack and Cast Speed
+{variant:2}Socketed Golem Skills have 20% increased Attack and Cast Speed
 Adds (5-10) to (11-15) Physical Damage to Attacks
 (5-10)% increased Attack Speed
 {variant:1}(1-2)% chance to Dodge Attacks
@@ -403,9 +403,9 @@ Has 1 Socket
 {variant:1}Adds (8-12) to (20-30) Fire Damage to Attacks
 (20-30)% increased Fire Damage
 {variant:1}Socketed Gems are Supported by level 12 Lesser Multiple Projectiles
-{variant:2}Socketed Golem Gems have a 25% chance to Taunt on Hit
+{variant:2}Socketed Golem Skills have 25% chance to Taunt on Hit
 {variant:1}Socketed Gems are Supported by level 17 Increased Minion Damage
-{variant:2}Socketed Golem Gems have 5% of Life Regenerated per second
+{variant:2}Socketed Golem Skills have 5% Life Regenerated per second
 ]],[[
 Rigwald's Crest
 Two-Stone Ring

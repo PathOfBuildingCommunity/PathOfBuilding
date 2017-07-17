@@ -327,14 +327,15 @@ function SkillsTabClass:CreateGemSlot(index)
 		self.build.buildFlag = true
 	end)
 	slot.enabled.tooltipFunc = function(tooltip)
-		tooltip:Clear()
-		if self.displayGroup.gemList[index] then
-			local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
-			if calcFunc then
-				self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
-				local output = calcFunc()
-				self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
-				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, self.displayGroup.gemList[index].enabled and "^7Disabling this gem will give you:" or "^7Enabling this gem will give you:")
+		if tooltip:CheckForUpdate(self.build.outputRevision) then
+			if self.displayGroup.gemList[index] then
+				local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+				if calcFunc then
+					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
+					local output = calcFunc()
+					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
+					self.build:AddStatComparesToTooltip(tooltip, calcBase, output, self.displayGroup.gemList[index].enabled and "^7Disabling this gem will give you:" or "^7Enabling this gem will give you:")
+				end
 			end
 		end
 	end

@@ -331,6 +331,9 @@ function calcs.perform(env)
 		for _, mod in ipairs(env.minion.minionData.modList) do
 			env.minion.modDB:AddMod(mod)
 		end
+		for _, mod in ipairs(env.player.mainSkill.extraSkillModList) do
+			env.minion.modDB:AddMod(mod)
+		end
 		if env.aegisModList then
 			env.minion.itemList["Weapon 3"] = env.player.itemList["Weapon 2"]
 			env.minion.modDB:AddList(env.aegisModList)

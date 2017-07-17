@@ -595,8 +595,10 @@ function calcs.initEnv(build, mode, override)
 					socketGroup.mainActiveSkillCalcs = m_min(#socketGroupSkillList, socketGroup.mainActiveSkillCalcs or 1)
 					activeSkillIndex = socketGroup.mainActiveSkillCalcs
 				else
-					socketGroup.mainActiveSkill = m_min(#socketGroupSkillList, socketGroup.mainActiveSkill or 1)
-					activeSkillIndex = socketGroup.mainActiveSkill
+					activeSkillIndex = m_min(#socketGroupSkillList, socketGroup.mainActiveSkill or 1)
+					if env.mode == "MAIN" then
+						socketGroup.mainActiveSkill = activeSkillIndex
+					end
 				end
 				env.player.mainSkill = socketGroupSkillList[activeSkillIndex]
 			end

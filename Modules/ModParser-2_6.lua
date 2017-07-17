@@ -32,6 +32,7 @@ local formList = {
 	["penetrates (%d+)%% of"] = "PEN",
 	["penetrates (%d+)%% of enemy"] = "PEN",
 	["^([%d%.]+) (.+) regenerated per second"] = "REGENFLAT",
+	["^([%d%.]+)%% (.+) regenerated per second"] = "REGENPERCENT",
 	["^([%d%.]+)%% of (.+) regenerated per second"] = "REGENPERCENT",
 	["^regenerate ([%d%.]+) (.+) per second"] = "REGENFLAT",
 	["^regenerate ([%d%.]+)%% (.+) per second"] = "REGENPERCENT",
@@ -166,6 +167,7 @@ local modNameList = {
 	["buff effect"] = "BuffEffect",
 	["effect of buffs on you"] = "BuffEffectOnSelf",
 	["effect of buffs granted by your golems"] = { "BuffEffect", tag = { type = "SkillType", skillType = SkillType.Golem } },
+	["effect of buffs granted by socketed golem skills"] = { "BuffEffect", addToSkill = { type = "SocketedIn", keyword = "golem" } },
 	["effect of the buff granted by your stone golems"] = { "BuffEffect", tag = { type = "SkillName", skillName = "Summon Stone Golem" } },
 	["effect of the buff granted by your lightning golems"] = { "BuffEffect", tag = { type = "SkillName", skillName = "Summon Lightning Golem" } },
 	["effect of the buff granted by your ice golems"] = { "BuffEffect", tag = { type = "SkillName", skillName = "Summon Ice Golem" } },
@@ -382,6 +384,7 @@ local modFlagList = {
 	["zombie"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Raise Zombie" } },
 	["raised zombie"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Raise Zombie" } },
 	["raised spectre"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Raise Spectre" } },
+	["golem"] = { },
 	["chaos golem"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Summon Chaos Golem" } },
 	["flame golem"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Summon Flame Golem" } },
 	["increased flame golem"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Summon Flame Golem" } },
@@ -426,11 +429,11 @@ local preFlagList = {
 	["^trap and mine damage "] = { keywordFlags = bor(KeywordFlag.Trap, KeywordFlag.Mine) },
 	["^left ring slot: "] = { tag = { type = "SlotNumber", num = 1 } },
 	["^right ring slot: "] = { tag = { type = "SlotNumber", num = 2 } },
-	["^socketed gems have "] = { tag = { type = "SocketedIn" } },
-	["^socketed gems deal "] = { tag = { type = "SocketedIn" } },
-	["^socketed curse gems have "] = { tag = { type = "SocketedIn", keyword = "curse" } },
-	["^socketed melee gems have "] = { tag = { type = "SocketedIn", keyword = "melee" } },
-	["^socketed golem gems have "] = { tag = { type = "SocketedIn", keyword = "golem" } },
+	["^socketed gems [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn" } },
+	["^socketed curse gems [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", keyword = "curse" } },
+	["^socketed melee gems [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", keyword = "melee" } },
+	["^socketed golem gems [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", keyword = "golem" } },
+	["^socketed golem skills [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", keyword = "golem" } },
 	["^your flasks grant "] = { },
 	["^when hit, "] = { },
 	["^you and allies [hgd][ae][via][enl] "] = { },
@@ -687,10 +690,10 @@ local specialModList = {
 	} end,
 	["grants armour equal to (%d+)%% of your reserved life to you and nearby allies"] = function(num) return { mod("GrantReservedLifeAsAura", "LIST", { mod = mod("Armour", "BASE", num / 100) }) } end,
 	["grants maximum energy shield equal to (%d+)%% of your reserved mana to you and nearby allies"] = function(num) return { mod("GrantReservedManaAsAura", "LIST", { mod = mod("EnergyShield", "BASE", num / 100) }) } end,
-	["skills from your helmet penetrate (%d+)%% elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "SocketedIn", slotName = "Helmet" }) } end,
-	["skills from your gloves have (%d+)%% increased area of effect"] = function(num) return { mod("AreaOfEffect", "INC", num, { type = "SocketedIn", slotName = "Gloves" }) } end,
-	["skills from your boots leech (%d+)%% of damage as life"] = function(num) return { mod("DamageLifeLeech", "BASE", num, { type = "SocketedIn", slotName = "Boots" }) } end,
-	["skills in your helm can have up to (%d+) additional totems? summoned at a time"] = function(num) return { mod("ActiveTotemLimit", "BASE", num, { type = "SocketedIn", slotName = "Helmet" }) } end,
+	["skills from your helmet penetrate (%d+)%% elemental resistances"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("ElementalPenetration", "BASE", num) }, { type = "SocketedIn", slotName = "Helmet" }) } end,
+	["skills from your gloves have (%d+)%% increased area of effect"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("AreaOfEffect", "INC", num) }, { type = "SocketedIn", slotName = "Gloves" }) } end,
+	["skills from your boots leech (%d+)%% of damage as life"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("DamageLifeLeech", "BASE", num) }, { type = "SocketedIn", slotName = "Boots" }) } end,
+	["skills in your helm can have up to (%d+) additional totems? summoned at a time"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("ActiveTotemLimit", "BASE", num) }, { type = "SocketedIn", slotName = "Helmet" }) } end,
 	["(%d+)%% less totem damage per totem"] = function(num) return { mod("Damage", "MORE", -num, nil, 0, KeywordFlag.Totem, { type = "PerStat", stat = "ActiveTotemLimit", div = 1 }) } end,
 	["poison you inflict with critical strikes deals (%d+)%% more damage"] = function(num) return { mod("PoisonDamageOnCrit", "MORE", 100) } end,
 	["bleeding you inflict on maimed enemies deals (%d+)%% more damage"] = function(num) return { mod("Damage", "MORE", num, nil, 0, KeywordFlag.Bleed, { type = "EnemyCondition", var = "Maimed"}) } end,
@@ -745,13 +748,13 @@ local specialModList = {
 	["%+(%d+) to level of socketed (%a+) gems"] = function(num, _, type) return { mod("GemProperty", "LIST", { keyword = type, key = "level", value = num }, { type = "SocketedIn" }) } end,
 	["%+(%d+)%% to quality of socketed (%a+) gems"] = function(num, _, type) return { mod("GemProperty", "LIST", { keyword = type, key = "quality", value = num }, { type = "SocketedIn" }) } end,
 	["%+(%d+) to level of active socketed skill gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "active_skill", key = "level", value = num }, { type = "SocketedIn" }) } end,
-	["socketed gems fire an additional projectile"] = { mod("ProjectileCount", "BASE", 1, { type = "SocketedIn" }) },
-	["socketed gems fire (%d+) additional projectiles"] = function(num) return { mod("ProjectileCount", "BASE", num, { type = "SocketedIn" }) } end,
+	["socketed gems fire an additional projectile"] = { mod("ExtraSkillMod", "LIST", { mod = mod("ProjectileCount", "BASE", 1) }, { type = "SocketedIn" }) },
+	["socketed gems fire (%d+) additional projectiles"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("ProjectileCount", "BASE", num) }, { type = "SocketedIn" }) } end,
 	["socketed gems reserve no mana"] = { mod("ManaReserved", "MORE", -100, { type = "SocketedIn" }) },
 	["socketed skill gems get a (%d+)%% mana multiplier"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("ManaCost", "MORE", num - 100) }, { type = "SocketedIn" }) } end,
 	["socketed gems have blood magic"] = { flag("SkillBloodMagic", { type = "SocketedIn" }) },
-	["socketed gems gain (%d+)%% of physical damage as extra lightning damage"] = function(num) return { mod("PhysicalDamageGainAsLightning", "BASE", num, { type = "SocketedIn" }) } end,
-	["socketed red gems get (%d+)%% physical damage as extra fire damage"] = function(num) return { mod("PhysicalDamageGainAsFire", "BASE", num, { type = "SocketedIn", keyword = "strength" }) } end,
+	["socketed gems gain (%d+)%% of physical damage as extra lightning damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", num) }, { type = "SocketedIn" }) } end,
+	["socketed red gems get (%d+)%% physical damage as extra fire damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", num) }, { type = "SocketedIn", keyword = "strength" }) } end,
 	-- Extra skill/support
 	["grants level (%d+) (.+)"] = function(num, _, skill) return extraSkill(skill, num) end,
 	["casts level (%d+) (.+) when equipped"] = function(num, _, skill) return extraSkill(skill, num) end,
@@ -1010,6 +1013,7 @@ local suffixTypes = {
 	["converted to cold damage"] = "ConvertToCold",
 	["converted to fire damage"] = "ConvertToFire",
 	["converted to chaos damage"] = "ConvertToChaos",
+	["added as energy shield"] = "GainAsEnergyShield",
 	["as extra maximum energy shield"] = "GainAsEnergyShield",
 	["converted to energy shield"] = "ConvertToEnergyShield",
 	["as physical damage"] = "AsPhysical",
@@ -1240,8 +1244,8 @@ local function parseMod(line, order)
 	end
 
 	-- Check for a flag/tag specification at the start of the line
-	local modFlag
-	modFlag, line = scan(line, preFlagList)
+	local preFlag
+	preFlag, line = scan(line, preFlagList)
 
 	-- Check for skill name at the start of the line
 	local skillTag
@@ -1287,10 +1291,9 @@ local function parseMod(line, order)
 		skillTag, line = scan(line, skillNameList, true)
 	end
 	
-	-- Scan for flags if one hasn't been found already
-	if not modFlag then
-		modFlag, line = scan(line, modFlagList, true)
-	end
+	-- Scan for flags
+	local modFlag
+	modFlag, line = scan(line, modFlagList, true)
 
 	-- Find modifier value and type according to form
 	local modValue = num
@@ -1354,7 +1357,7 @@ local function parseMod(line, order)
 	local keywordFlags = 0
 	local tagList = { }
 	local misc = { }
-	for _, data in pairs({ modName, modFlag, modTag, modTag2, skillTag }) do
+	for _, data in pairs({ modName, preFlag, modFlag, modTag, modTag2, skillTag }) do
 		if type(data) == "table" then
 			flags = bor(flags, data.flags or 0)
 			keywordFlags = bor(keywordFlags, data.keywordFlags or 0)
@@ -1409,7 +1412,7 @@ local function parseMod(line, order)
 				modList[i] = mod("MinionModifier", "LIST", { mod = effectMod }, misc.addToMinionTag)
 			end
 		elseif misc.addToSkill then
-			-- Skill enchants that add additional effects
+			-- Skill enchants or socketed gem modifiers that add additional effects
 			for i, effectMod in ipairs(modList) do
 				modList[i] = mod("ExtraSkillMod", "LIST", { mod = effectMod }, misc.addToSkill)
 			end
@@ -1438,4 +1441,4 @@ return function(line)
 		end]]
 	end
 	return unpack(copyTable(cache[line]))
-end
+end, cache

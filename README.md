@@ -53,6 +53,13 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.46 - 2017/04/18
+ * The passive tree search field can now also match node type (keystone/notable/normal)
+ * Modifiers that apply to gems socketed in items can now apply to minions summoned by those gems
+ * Improved the program's startup time
+For 3.0 builds:
+ * Fixed error when using The Consuming Dark
+
 ### 1.4.45 - 2017/04/17
  * Fixed issue causing tooltips in the Shared Items list to display modifier ranges instead of specific values
  * Fixed the node location display in the Items tab covering jewel tooltips

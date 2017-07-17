@@ -1,3 +1,9 @@
+VERSION[1.4.46][2017/04/18]
+ * The passive tree search field can now also match node type (keystone/notable/normal)
+ * Modifiers that apply to gems socketed in items can now apply to minions summoned by those gems
+ * Improved the program's startup time
+For 3.0 builds:
+ * Fixed error when using The Consuming Dark
 VERSION[1.4.45][2017/04/17]
  * Fixed issue causing tooltips in the Shared Items list to display modifier ranges instead of specific values
  * Fixed the node location display in the Items tab covering jewel tooltips

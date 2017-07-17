@@ -3,6 +3,7 @@
 -- Module: Mod Tools
 -- Various functions for dealing with modifiers
 --
+local launch = ...
 
 local pairs = pairs
 local t_insert = table.insert
@@ -42,8 +43,9 @@ function modLib.createMod(modName, modType, modVal, ...)
 end
 
 modLib.parseMod = { }
+modLib.parseModCache = { }
 for _, targetVersion in pairs(targetVersionList) do
-	modLib.parseMod[targetVersion] = LoadModule("Modules/ModParser-"..targetVersion)
+	modLib.parseMod[targetVersion], modLib.parseModCache[targetVersion] = LoadModule("Modules/ModParser-"..targetVersion, launch)
 end
 
 function modLib.formatFlags(flags, src)
