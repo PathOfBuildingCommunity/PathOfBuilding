@@ -513,7 +513,7 @@ function PassiveTreeViewClass:Zoom(level, viewPort)
 end
 
 function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
-	if node.type == "mastery" then
+	if node.type == "classStart" or node.type == "mastery" then
 		return
 	end
 
@@ -539,6 +539,12 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 				end
 			end
 		end
+	end
+
+	-- Check node type
+	local errMsg, match = PCall(string.match, node.type:lower(), self.searchStr:lower())
+	if match then
+		return true
 	end
 end
 

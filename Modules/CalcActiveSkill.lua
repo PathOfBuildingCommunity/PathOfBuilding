@@ -382,8 +382,10 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	calcs.mergeGemMods(skillModList, activeGem)
 
 	-- Add extra modifiers
+	activeSkill.extraSkillModList = { }
 	for _, value in ipairs(env.modDB:Sum("LIST", activeSkill.skillCfg, "ExtraSkillMod")) do
 		skillModList:AddMod(value.mod)
+		t_insert(activeSkill.extraSkillModList, value.mod)
 	end
 
 	-- Extract skill data

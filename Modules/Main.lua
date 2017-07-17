@@ -111,6 +111,15 @@ function main:Init()
 	self.defaultBuildPath = self.userPath.."Builds/"
 	self.buildPath = self.defaultBuildPath
 	MakeDir(self.buildPath)
+
+	if launch.devMode and IsKeyDown("CTRL") then
+		self.rebuildModCache = true
+	else
+		-- Load mod caches
+		for _, targetVersion in ipairs(targetVersionList) do
+			LoadModule("Data/"..targetVersion.."/ModCache", modLib.parseModCache[targetVersion])
+		end
+	end
 	
 	self.tree = { }
 	for _, targetVersion in ipairs(targetVersionList) do
@@ -153,6 +162,30 @@ function main:Init()
 			else
 				ConPrintf("Rare DB unrecognised item:\n%s", raw)
 			end
+		end
+	end
+
+	if self.rebuildModCache then
+		-- Update mod caches
+		for _, targetVersion in ipairs(targetVersionList) do
+			local out = io.open("Data/"..targetVersion.."/ModCache.lua", "w")
+			out:write('local c=...')
+			for line, dat in pairs(modLib.parseModCache[targetVersion]) do
+				if not dat[1] or not dat[1][1] or dat[1][1].name ~= "JewelFunc" then
+					out:write('c["', line, '"]={')
+					if dat[1] then
+						writeLuaTable(out, dat[1])
+					else
+						out:write('nil')
+					end
+					if dat[2] then
+						out:write(',"', dat[2], '"}')
+					else
+						out:write(',nil}')
+					end
+				end
+			end
+			out:close()
 		end
 	end
 

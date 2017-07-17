@@ -144,6 +144,50 @@ function isMouseInRegion(region)
 	return cursorX >= region.x and cursorX < region.x + region.width and cursorY >= region.y and cursorY < region.y + region.height
 end
 
+-- Write a Lua table to file
+local function qFmt(s)
+	return '"'..s:gsub("\n","\\n"):gsub("\"","\\\"")..'"'
+end
+function writeLuaTable(out, t, indent)
+	out:write('{')
+	if indent then
+		out:write('\n')
+	end
+	for k, v in pairs(t) do
+		if indent then
+			out:write(string.rep("\t", indent))
+		end
+		if type(k) == "string" and k:match("^%a+$") then
+			out:write(k, '=')
+		else
+			out:write('[')
+			if type(k) == "number" then
+				out:write(k)
+			else
+				out:write(qFmt(k))
+			end
+			out:write(']=')
+		end
+		if type(v) == "table" then
+			writeLuaTable(out, v, indent and indent + 1)
+		elseif type(v) == "string" then
+			out:write(qFmt(v))
+		else
+			out:write(tostring(v))
+		end
+		if next(t, k) ~= nil then
+			out:write(',')
+		end
+		if indent then
+			out:write('\n')
+		end
+	end
+	if indent then
+		out:write(string.rep("\t", indent-1))
+	end
+	out:write('}')
+end
+
 -- Make a copy of a table and all subtables
 do
 	local subTableMap = { }
