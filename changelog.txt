@@ -1,4 +1,4 @@
-VERSION[1.4.46][2017/04/17]
+VERSION[1.4.46][2017/04/18]
  * The passive tree search field can now also match node type (keystone/notable/normal)
  * Modifiers that apply to gems socketed in items can now apply to minions summoned by those gems
  * Improved the program's startup time
