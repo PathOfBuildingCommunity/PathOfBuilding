@@ -12,7 +12,7 @@ Anger|Anger|aura,strength,active_skill,spell,area,fire
 Animate Guardian|AnimateArmour|strength,active_skill,spell,minion
 Animate Weapon|AnimateWeapon|dexterity,active_skill,duration,minion,spell
 Arc|Arc|intelligence,active_skill,spell,chaining,lightning
-Arcane Surge|SupportArcaneSurge|intelligence,support,duration
+Arcane Surge|SupportArcaneSurge|intelligence,support,spell,duration
 Arctic Armour|ArcticArmour|dexterity,active_skill,spell,duration,cold
 Arctic Armour|NewArcticArmour|dexterity,active_skill,spell,duration,cold
 Arctic Breath|ArcticBreath|projectile,intelligence,active_skill,spell,duration,area,cold

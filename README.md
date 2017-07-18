@@ -53,6 +53,12 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.47 - 2017/04/18
+ * Added support for Mantra of Flames
+    * Note that the buff count is not guaranteed to be correct under all conditions
+For 3.0 builds:
+ * Updated Arcane Surge with the changes from the Beta patch
+
 ### 1.4.46 - 2017/04/18
  * The passive tree search field can now also match node type (keystone/notable/normal)
  * Modifiers that apply to gems socketed in items can now apply to minions summoned by those gems

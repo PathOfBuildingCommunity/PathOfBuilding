@@ -131,6 +131,7 @@ skills["TotemMelee"] = {
 		--"base_skill_is_totemified" = ?
 		--"is_totem" = ?
 		skill("allowTotemBuff", true), 
+		skill("thisIsNotABuff", true), 
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, KeywordFlag.Totem), --"totem_damage_+%" = 1
@@ -229,6 +230,7 @@ skills["AncestorTotemSlam"] = {
 		--"base_skill_is_totemified" = ?
 		--"is_totem" = ?
 		skill("allowTotemBuff", true), 
+		skill("thisIsNotABuff", true), 
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, KeywordFlag.Totem), --"totem_damage_+%" = 1

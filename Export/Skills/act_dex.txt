@@ -120,6 +120,7 @@ local skills, mod, flag, skill = ...
 
 #skill BloodRage
 #flags spell duration
+#baseMod skill("thisIsNotABuff", true)
 #mods
 
 #skill BurningArrow

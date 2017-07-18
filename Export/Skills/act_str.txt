@@ -12,11 +12,13 @@ local skills, mod, flag, skill = ...
 #skill TotemMelee
 #flags attack melee totem duration forceMainHand
 #baseMod skill("allowTotemBuff", true)
+#baseMod skill("thisIsNotABuff", true)
 #mods
 
 #skill AncestorTotemSlam
 #flags attack melee totem area duration forceMainHand
 #baseMod skill("allowTotemBuff", true)
+#baseMod skill("thisIsNotABuff", true)
 #mods
 
 #skill Anger
