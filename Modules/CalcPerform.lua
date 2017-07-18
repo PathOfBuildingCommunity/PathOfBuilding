@@ -565,6 +565,9 @@ function calcs.perform(env)
 						local more = modDB:Sum("MORE", skillCfg, "BuffEffect", "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)
+						if activeSkill.skillData.thisIsNotABuff then
+							buffs[buff.name].notBuff = true
+						end
 					end
 					if env.minion and (activeSkill.skillData.buffMinions or activeSkill.skillData.buffAllies) then
 						activeSkill.minionBuffSkill = true
@@ -742,6 +745,9 @@ function calcs.perform(env)
 	-- Apply buff/debuff modifiers
 	for _, modList in pairs(buffs) do
 		modDB:AddList(modList)
+		if not modList.notBuff then
+			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
+		end
 	end
 	if env.minion then
 		for _, modList in pairs(minionBuffs) do
@@ -776,6 +782,9 @@ function calcs.perform(env)
 			local inc = modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 			local more = modDB:Sum("MORE", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 			modDB:ScaleAddList(modList, (1 + inc / 100) * more)
+			if not value.notBuff then
+				modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
+			end
 		end
 		if env.minion and not modDB:Sum("FLAG", nil, "SelfAurasCannotAffectAllies") then
 			local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
