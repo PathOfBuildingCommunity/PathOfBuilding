@@ -131,9 +131,9 @@
 	<File sha1="f1b9a6ee581d30ec3a3380c6ea91c540a78185e8" name="Data/2_6/Bases/staff.lua" part="program"/>
 	<File sha1="91a202d804eacd637151ccb6dc23db7cce2e2195" name="Data/2_6/Bases/sword.lua" part="program"/>
 	<File sha1="99424b16e6dbeea3cd995bb274d8317c0652bbb4" name="Data/2_6/Bases/wand.lua" part="program"/>
-	<File sha1="ca5062f19c4cabe4dad6eb09ca3b49cca18b7e96" name="Data/2_6/Skills/act_dex.lua" part="program"/>
+	<File sha1="43a7517fec2c0408be4f0a596d74abc7ac202e7a" name="Data/2_6/Skills/act_dex.lua" part="program"/>
 	<File sha1="8a896b6627bc009b1a68f80777117a8287b5a295" name="Data/2_6/Skills/act_int.lua" part="program"/>
-	<File sha1="544788b38c59340f6f2530ab224053f5affdbc0b" name="Data/2_6/Skills/act_str.lua" part="program"/>
+	<File sha1="5fd08b7e659aae7f0a55c53cc0b901ee925c314b" name="Data/2_6/Skills/act_str.lua" part="program"/>
 	<File sha1="6b68feb650596bdcc8f68a5679a7bdd5f946ce54" name="Data/2_6/Skills/glove.lua" part="program"/>
 	<File sha1="a0c065e857ee1d71f7e62a2d49f36a63f0027e91" name="Data/2_6/Skills/minion.lua" part="program"/>
 	<File sha1="3bb78265e9cac26d4104f328d0cd28e0aaf86dac" name="Data/2_6/Skills/other.lua" part="program"/>
