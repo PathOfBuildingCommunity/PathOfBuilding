@@ -53,7 +53,7 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
-### 1.4.48 - 2017/07/26
+### 1.4.48 - 2017/07/27
 This update brings several improvements to the Skills tab:
  * The gem selection list has been improved:
     * Compatible support gems are now sorted to the top of the list
