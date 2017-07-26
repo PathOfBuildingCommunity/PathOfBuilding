@@ -47,6 +47,7 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 	self.controls.sortGemsByDPS = common.New("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 70, 20, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
 	end)
+	self.controls.sortGemsByDPS.state = true
 	self.controls.defaultLevel = common.New("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 94, 60, 20, nil, nil, "%D", 2, function(buf)
 		self.defaultGemLevel = tonumber(buf)
 	end)

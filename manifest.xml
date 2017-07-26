@@ -44,7 +44,7 @@
 	<File sha1="0d7d2eaf3efb1ec40eada321331fbc248a68d8be" name="Classes/SharedItemListControl.lua" part="program"/>
 	<File sha1="b3bf0b096a9348900c926aef1b7a822a40df0480" name="Classes/SharedItemSetListControl.lua" part="program"/>
 	<File sha1="6e7435c7d65c4b7994b491af27579c5ba2ec47e1" name="Classes/SkillListControl.lua" part="program"/>
-	<File sha1="52558d5ade61d58ace009cc67ed0b19d1400d464" name="Classes/SkillsTab.lua" part="program"/>
+	<File sha1="4e9de55d4f75499e7f6e81b6e2be0fc69cb54d0b" name="Classes/SkillsTab.lua" part="program"/>
 	<File sha1="a28a04692f0b244ac648620618a1c43ed13d946a" name="Classes/SliderControl.lua" part="program"/>
 	<File sha1="eeff0df56df68c5942ba632d2862bc38cff346a9" name="Classes/TextListControl.lua" part="program"/>
 	<File sha1="2b16b2485f25462f129c575d9c8574cd2308938a" name="Classes/Tooltip.lua" part="program"/>
