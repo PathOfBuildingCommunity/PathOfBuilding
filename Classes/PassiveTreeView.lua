@@ -28,6 +28,7 @@ local PassiveTreeViewClass = common.NewClass("PassiveTreeView", function(self)
 	self.zoomY = 0
 
 	self.searchStr = ""
+	self.searchStrCached = ""
 	self.showStatDifferences = true
 end)
 
@@ -330,6 +331,14 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		build.calcsTab:BuildPower()
 	end
 
+	-- Update cached node data
+	if self.searchStrCached ~= self.searchStr then
+		self.searchStrCached = self.searchStr
+		for nodeId, node in pairs(spec.nodes) do
+			node.matchesSearchStr = #self.searchStr > 0 and self:DoesNodeMatchSearchStr(node)
+		end
+	end
+
 	-- Draw the nodes
 	for nodeId, node in pairs(spec.nodes) do
 		-- Determine the base and overlay images for this node based on type and state
@@ -440,7 +449,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			self:DrawAsset(tree.assets[overlay], scrX, scrY, scale)
 			SetDrawColor(1, 1, 1)
 		end
-		if #self.searchStr > 0 and self:DoesNodeMatchSearchStr(node) then
+		if node.matchesSearchStr then
 			-- Node matches the search string, show the highlight circle
 			SetDrawLayer(nil, 30)
 			SetDrawColor(1, 0, 0)
