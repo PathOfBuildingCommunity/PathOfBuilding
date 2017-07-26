@@ -1,6 +1,6 @@
 -- Item data (c) Grinding Gear Games
 
-local rares = {
+return {
 -- Helmet
 [[
 Armour Helmet
@@ -765,8 +765,3 @@ Cobalt Jewel
 Crafted: true
 ]],
 }
-
-for i, rare in pairs(rares) do
-	rares[i] = "Rarity: Rare\n"..rare
-end
-return rares

@@ -5,7 +5,9 @@
 --
 local launch, main = ...
 
+local ipairs = ipairs
 local pairs = pairs
+local select = select
 local t_insert = table.insert
 local m_floor = math.floor
 local m_min = math.min
@@ -69,7 +71,7 @@ end
 
 function ModListClass:EvalMod(mod, cfg)
 	local value = mod.value
-	for _, tag in pairs(mod.tagList) do
+	for _, tag in ipairs(mod) do
 		if tag.type == "Multiplier" then
 			local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
 			if tag.limit or tag.limitVar then
@@ -227,27 +229,22 @@ end
 
 function ModListClass:Sum(modType, cfg, ...)
 	local flags, keywordFlags = 0, 0
-	local source, tabulate
+	local source
 	if cfg then
 		flags = cfg.flags or 0
 		keywordFlags = cfg.keywordFlags or 0
 		source = cfg.source
-		tabulate = cfg.tabulate
-		if tabulate then
-			cfg = copyTable(cfg, true)
-			cfg.tabulate = false
-		end
 	end
 	local result
 	local nullValue = 0
-	if tabulate or modType == "LIST" then
-		result = { }
-		nullValue = nil
-	elseif modType == "MORE" then
+	if modType == "MORE" then
 		result = 1
 	elseif modType == "FLAG" then
 		result = false
 		nullValue = false
+	elseif modType == "LIST" then
+		result = { }
+		nullValue = nil
 	else
 		result = 0
 	end
@@ -255,18 +252,14 @@ function ModListClass:Sum(modType, cfg, ...)
 		local modName = select(i, ...)
 		for i = 1, #self do
 			local mod = self[i]
-			if mod.name == modName and (not modType or mod.type == modType) and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+			if mod.name == modName and mod.type == modType and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
 				local value
-				if mod.tagList[1] then
+				if mod[1] then
 					value = self:EvalMod(mod, cfg) or nullValue
 				else
 					value = mod.value
 				end
-				if tabulate then
-					if value and value ~= 0 then
-						t_insert(result, { value = value, mod = mod })
-					end
-				elseif modType == "MORE" then
+				if modType == "MORE" then
 					result = result * (1 + value / 100)
 				elseif modType == "FLAG" then
 					if value then

@@ -222,16 +222,15 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 	-- Build list of modifiers to display
 	local cfg = (sectionData.cfg and actor.mainSkill[sectionData.cfg.."Cfg"] and copyTable(actor.mainSkill[sectionData.cfg.."Cfg"], true)) or { }
 	cfg.source = sectionData.modSource
-	cfg.tabulate = true
 	local rowList
 	local modDB = sectionData.enemy and actor.enemy.modDB or actor.modDB
 	if modList then	
 		rowList = modList
 	else
 		if type(sectionData.modName) == "table" then
-			rowList = modDB:Sum(sectionData.modType, cfg, unpack(sectionData.modName))
+			rowList = modDB:Tabulate(sectionData.modType, cfg, unpack(sectionData.modName))
 		else
-			rowList = modDB:Sum(sectionData.modType, cfg, sectionData.modName)
+			rowList = modDB:Tabulate(sectionData.modType, cfg, sectionData.modName)
 		end
 	end
 	if #rowList == 0 then
@@ -284,7 +283,6 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 				sourceTotals[sourceType] = { }
 			end	
 		end
-		cfg.tabulate = false
 		for sourceType, lines in pairs(sourceTotals) do
 			cfg.source = sourceType
 			for _, modType in ipairs(typeList) do
@@ -374,10 +372,10 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			row.flags = table.concat(flagNames, ", ")
 		end
 		row.tags = nil
-		if row.mod.tagList[1] then
+		if row.mod[1] then
 			-- Format modifier tags
 			local baseVal = type(row.mod.value) == "number" and (row.mod.type == "BASE" and string.format("%+g", math.abs(row.mod.value)) or math.abs(row.mod.value).."%")
-			for _, tag in ipairs(row.mod.tagList) do
+			for _, tag in ipairs(row.mod) do
 				local desc
 				if tag.type == "Condition" then
 					desc = "Condition: "..(tag.neg and "Not " or "")..(tag.varList and table.concat(tag.varList, "/") or self:FormatModName(tag.var))

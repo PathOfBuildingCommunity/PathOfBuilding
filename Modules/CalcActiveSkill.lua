@@ -5,6 +5,7 @@
 --
 local calcs = ...
 
+local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
@@ -16,25 +17,38 @@ local band = bit.band
 local bnot = bit.bnot
 
 -- Merge level modifier with given mod list
+local mergeLevelCache = { }
 local function mergeLevelMod(modList, mod, value)
-	local newMod = copyTable(mod)
-	if type(newMod.value) == "table" then
-		if newMod.value.mod then
-			newMod.value.mod.value = value
-		else
-			newMod.value.value = value
-		end
-	else
-		newMod.value = value
+	if not mergeLevelCache[mod] then
+		mergeLevelCache[mod] = { }
 	end
-	modList:AddMod(newMod)
+	if mergeLevelCache[mod][value] then
+		modList:AddMod(mergeLevelCache[mod][value])
+	else
+		local newMod = copyTable(mod, true)
+		if type(newMod.value) == "table" then
+			newMod.value = copyTable(newMod.value, true)
+			if newMod.value.mod then
+				newMod.value.mod = copyTable(newMod.value.mod, true)
+				newMod.value.mod.value = value
+			else
+				newMod.value.value = value
+			end
+		else
+			newMod.value = value
+		end
+		mergeLevelCache[mod][value] = newMod
+		modList:AddMod(newMod)
+	end
 end
 
 -- Merge quality modifier with given mod list
 local function mergeQualityMod(modList, mod, quality)
-	local scaledMod = copyTable(mod)
+	local scaledMod = copyTable(mod, true)
 	if type(scaledMod.value) == "table" then
+		scaledMod.value = copyTable(scaledMod.value, true)
 		if scaledMod.value.mod then
+			scaledMod.value.mod = copyTable(scaledMod.value.mod, true)
 			scaledMod.value.mod.value = m_floor(scaledMod.value.mod.value * quality)
 		else
 			scaledMod.value.value = m_floor(scaledMod.value.value * quality)
@@ -48,22 +62,22 @@ end
 -- Merge gem modifiers with given mod list
 function calcs.mergeGemMods(modList, gem)
 	for _, mod in pairs(gem.grantedEffect.baseMods) do
-		if mod[1] then
+		if mod.name then
+			modList:AddMod(mod)
+		else
 			for _, subMod in ipairs(mod) do
 				modList:AddMod(subMod)
 			end
-		else
-			modList:AddMod(mod)
 		end
 	end
 	if gem.quality > 0 then
 		for _, mod in pairs(gem.grantedEffect.qualityMods) do
-			if mod[1] then
+			if mod.name then
+				mergeQualityMod(modList, mod, gem.quality)
+			else
 				for _, subMod in ipairs(mod) do
 					mergeQualityMod(modList, subMod, gem.quality)
 				end
-			else
-				mergeQualityMod(modList, mod, gem.quality)
 			end
 		end
 	end
@@ -71,12 +85,12 @@ function calcs.mergeGemMods(modList, gem)
 	local levelData = gem.grantedEffect.levels[gem.level]
 	for col, mod in pairs(gem.grantedEffect.levelMods) do
 		if levelData[col] then
-			if mod[1] then
+			if mod.name then
+				mergeLevelMod(modList, mod, levelData[col])
+			else
 				for _, subMod in ipairs(mod) do
 					mergeLevelMod(modList, subMod, levelData[col])
 				end
-			else
-				mergeLevelMod(modList, mod, levelData[col])
 			end
 		end
 	end
@@ -475,7 +489,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	local i = 1
 	while skillModList[i] do
 		local effectType, effectName, allowTotemBuff
-		for _, tag in ipairs(skillModList[i].tagList) do
+		for _, tag in ipairs(skillModList[i]) do
 			if tag.type == "GlobalEffect" then
 				effectType = tag.effectType
 				effectName = tag.effectName or activeSkill.activeGem.grantedEffect.name
@@ -500,18 +514,18 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 				}
 				t_insert(activeSkill.buffList, buff)
 			end
-			local sig = modLib.formatModParams(skillModList[i])
+			local match = false
 			for d = 1, #buff.modList do
 				local destMod = buff.modList[d]
-				if sig == modLib.formatModParams(destMod) and (destMod.type == "BASE" or destMod.type == "INC") then
+				if modLib.compareModParams(skillModList[i], destMod) and (destMod.type == "BASE" or destMod.type == "INC") then
 					destMod = copyTable(destMod)
 					destMod.value = destMod.value + skillModList[i].value
 					buff.modList[d] = destMod
-					sig = nil
+					match = true
 					break
 				end
 			end
-			if sig then
+			if not match then
 				t_insert(buff.modList, skillModList[i])
 			end
 			t_remove(skillModList, i)

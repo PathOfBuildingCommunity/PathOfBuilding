@@ -53,20 +53,39 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
-### 1.4.47 - 2017/04/18
+### 1.4.48 - 2017/07/27
+This update brings several improvements to the Skills tab:
+ * The gem selection list has been improved:
+    * Compatible support gems are now sorted to the top of the list
+	* Gems are sorted by DPS by default; this can be disabled per-build using a new option below the Socket Group list
+	* The check mark that designates compatible support gems is now coloured according to the effect it has on your DPS;
+	  green/red indicates a DPS increase/decrease, and yellow indicates no change 
+	* Aura, buff and curse skill gems are now marked with a plus sign that is coloured in the same way as the check mark
+ * Added two options below the Socket Group list for default gem level and quality; these are saved per-build
+ * Gem slots are no longer removed when empty, but can instead be removed using the new "X" button to the left of the slot
+Other changes:
+ * Added the recently announced 3.0 uniques 
+ * Added options to the Configuration tab for "Are you always stationary?" and "Are your minions always on Full Life?"
+ * Corrected the ranges on Mantra of Flames
+For 2.6 builds:
+ * Converted the rare templates to the new template style
+For 3.0 builds:
+ * The Decay modifier from Essence of Delirium should now be recognised correctly
+
+### 1.4.47 - 2017/07/18
  * Added support for Mantra of Flames
     * Note that the buff count is not guaranteed to be correct under all conditions
 For 3.0 builds:
  * Updated Arcane Surge with the changes from the Beta patch
 
-### 1.4.46 - 2017/04/18
+### 1.4.46 - 2017/07/18
  * The passive tree search field can now also match node type (keystone/notable/normal)
  * Modifiers that apply to gems socketed in items can now apply to minions summoned by those gems
  * Improved the program's startup time
 For 3.0 builds:
  * Fixed error when using The Consuming Dark
 
-### 1.4.45 - 2017/04/17
+### 1.4.45 - 2017/07/17
  * Fixed issue causing tooltips in the Shared Items list to display modifier ranges instead of specific values
  * Fixed the node location display in the Items tab covering jewel tooltips
  * Fixed issue preventing affixes on pre-1.4.18 crafted Flasks and Jewels from being recognised

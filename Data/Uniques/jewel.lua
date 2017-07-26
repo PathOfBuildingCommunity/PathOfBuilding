@@ -313,8 +313,8 @@ Cobalt Jewel
 Mantra of Flames
 Crimson Jewel
 Limited to: 1
-Adds (3-8) to (5-12) Fire Damage to Attacks per Buff on You
-Adds (2-5) to (3-8) Fire Damage to Spells per Buff on You
+Adds (3-5) to (8-12) Fire Attack Damage per Buff on You
+Adds (2-3) to (5-8) Fire Spell Damage per Buff on You
 ]],[[
 Martial Artistry
 Crimson Jewel

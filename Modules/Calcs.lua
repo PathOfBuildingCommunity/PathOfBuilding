@@ -145,6 +145,7 @@ function calcs.buildOutput(build, mode)
 		end
 
 		env.conditionsUsed = { }
+		env.minionConditionsUsed = { }
 		env.enemyConditionsUsed = { }
 		local function addCond(out, var, mod)
 			if not out[var] then
@@ -164,9 +165,13 @@ function calcs.buildOutput(build, mode)
 		for _, actor in ipairs({env.player, env.minion}) do
 			for modName, modList in pairs(actor.modDB.mods) do
 				for _, mod in ipairs(modList) do
-					for _, tag in ipairs(mod.tagList) do
-						if tag.type == "Condition" and actor == env.player then
-							addTag(env.conditionsUsed, tag, mod)
+					for _, tag in ipairs(mod) do
+						if tag.type == "Condition" then
+							if actor == env.player then
+								addTag(env.conditionsUsed, tag, mod)
+							else
+								addTag(env.minionConditionsUsed, tag, mod)
+							end
 						elseif tag.type == "EnemyCondition" then
 							addTag(env.enemyConditionsUsed, tag, mod)
 						end
@@ -176,7 +181,7 @@ function calcs.buildOutput(build, mode)
 		end
 		for modName, modList in pairs(env.enemyDB.mods) do
 			for _, mod in ipairs(modList) do
-				for _, tag in ipairs(mod.tagList) do
+				for _, tag in ipairs(mod) do
 					if tag.type == "Condition" then
 						addTag(env.enemyConditionsUsed, tag, mod)
 					end
@@ -187,7 +192,7 @@ function calcs.buildOutput(build, mode)
 		env.multipliersUsed = { }
 		for modName, modList in pairs(env.player.modDB.mods) do
 			for _, mod in ipairs(modList) do
-				for _, tag in ipairs(mod.tagList) do
+				for _, tag in ipairs(mod) do
 					if tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
 						if not env.multipliersUsed[tag.var] then
 							env.multipliersUsed[tag.var] = { }

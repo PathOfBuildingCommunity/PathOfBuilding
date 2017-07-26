@@ -23,17 +23,17 @@ local function mergeBuff(src, destTable, destKey)
 	end
 	local dest = destTable[destKey]
 	for _, mod in ipairs(src) do
-		local param = modLib.formatModParams(mod)
+		local match = false
 		for index, destMod in ipairs(dest) do
-			if param == modLib.formatModParams(destMod) then
+			if modLib.compareModParams(mod, destMod) then
 				if type(destMod.value) == "number" and mod.value > destMod.value then
 					dest[index] = mod
 				end
-				param = nil
+				match = true
 				break
 			end
 		end
-		if param then
+		if not match then
 			t_insert(dest, mod)
 		end
 	end
@@ -691,7 +691,7 @@ function calcs.perform(env)
 			})
 			local curseModList = { }
 			for _, mod in ipairs(gemModList) do
-				for _, tag in ipairs(mod.tagList) do
+				for _, tag in ipairs(mod) do
 					if tag.type == "GlobalEffect" and tag.effectType == "Curse" then
 						t_insert(curseModList, mod)
 						break

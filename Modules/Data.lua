@@ -48,7 +48,7 @@ local function makeSkillMod(modName, modType, modVal, flags, keywordFlags, ...)
 		value = modVal,
 		flags = flags or 0,
 		keywordFlags = keywordFlags or 0,
-		tagList = { ... }
+		...
 	}
 end
 local function makeFlagMod(modName, ...)
@@ -56,6 +56,18 @@ local function makeFlagMod(modName, ...)
 end
 local function makeSkillDataMod(dataKey, dataValue, ...)
 	return makeSkillMod("SkillData", "LIST", { key = dataKey, value = dataValue }, 0, 0, ...)
+end
+local function processMod(grantedEffect, mod)
+	mod.source = "Skill:"..grantedEffect.id
+	if type(mod.value) == "table" and mod.value.mod then
+		mod.value.mod.source = "Skill:"..grantedEffect.id
+	end
+	for _, tag in ipairs(mod) do
+		if tag.type == "GlobalEffect" then
+			grantedEffect.hasGlobalEffect = true
+			break
+		end
+	end
 end
 
 -----------------
@@ -152,20 +164,14 @@ for _, targetVersion in ipairs(targetVersionList) do
 	end
 	for skillId, grantedEffect in pairs(data[targetVersion].skills) do
 		grantedEffect.id = skillId
-		-- Add sources for skill mods
+		-- Add sources for skill mods, and check for global effects
 		for _, list in pairs({grantedEffect.baseMods, grantedEffect.qualityMods, grantedEffect.levelMods}) do
 			for _, mod in pairs(list) do
-				if mod[1] then
-					for _, mod in ipairs(mod) do
-						mod.source = "Skill:"..skillId
-						if type(mod.value) == "table" and mod.value.mod then
-							mod.value.mod.source = "Skill:"..skillId
-						end
-					end
+				if mod.name then
+					processMod(grantedEffect, mod)
 				else
-					mod.source = "Skill:"..skillId
-					if type(mod.value) == "table" and mod.value.mod then
-						mod.value.mod.source = "Skill:"..skillId
+					for _, mod in ipairs(mod) do
+						processMod(grantedEffect, mod)
 					end
 				end
 			end

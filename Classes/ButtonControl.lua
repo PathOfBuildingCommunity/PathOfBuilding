@@ -82,8 +82,8 @@ function ButtonClass:Draw(viewPort)
 	elseif label == "-" then
 		DrawImage(nil, x + width * 0.2, y + height * 0.45, width * 0.6, height * 0.1)
 	elseif label == "x" then
-		DrawImageQuad(nil, x + width * 0.1, y + height * 0.2, x + width * 0.2, y + height * 0.1, x + width * 0.9, y + height * 0.8, x + width * 0.8, y + height * 0.9)
-		DrawImageQuad(nil, x + width * 0.8, y + height * 0.1, x + width * 0.9, y + height * 0.2, x + width * 0.2, y + height * 0.9, x + width * 0.1, y + height * 0.8)
+		DrawImageQuad(nil, x + width * 0.2, y + height * 0.3, x + width * 0.3, y + height * 0.2, x + width * 0.8, y + height * 0.7, x + width * 0.7, y + height * 0.8)
+		DrawImageQuad(nil, x + width * 0.7, y + height * 0.2, x + width * 0.8, y + height * 0.3, x + width * 0.3, y + height * 0.8, x + width * 0.2, y + height * 0.7)
 	else
 		local overSize = self.overSizeText or 0
 		DrawString(x + width / 2, y + 2 - overSize, "CENTER_X", height - 4 + overSize * 2, "VAR",label )
