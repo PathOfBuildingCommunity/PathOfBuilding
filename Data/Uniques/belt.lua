@@ -268,18 +268,6 @@ Gain 50 Life when you Stun an Enemy
 20% less Minimum Physical Attack Damage 
 20% more Maximum Physical Attack Damage
 ]],[[
-Soul Tether
-Cloth Belt
-Unreleased: true
-Requires Level 16
-(15-25)% increased Stun and Block Recovery
-You cannot Recharge Energy Shield
-You cannot Regenerate Energy Shield
-You lose (4-6)% Energy Shield per second
-Life Leech is applied to Energy Shield instead when on Full Life
-Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
-Your Energy Shield starts at zero
-]],[[
 Soulthirst
 Cloth Belt
 Requires Level 45

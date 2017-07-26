@@ -5,7 +5,9 @@
 --
 local launch, main = ...
 
+local ipairs = ipairs
 local pairs = pairs
+local select = select
 local t_insert = table.insert
 local m_floor = math.floor
 local m_min = math.min
@@ -43,8 +45,7 @@ end
 
 function ModDBClass:AddList(modList)
 	local mods = self.mods
-	for i = 1, #modList do
-		local mod = modList[i]
+	for i, mod in ipairs(modList) do
 		local name = mod.name
 		if not mods[name] then
 			mods[name] = { }
@@ -93,7 +94,7 @@ end
 
 function ModDBClass:EvalMod(mod, cfg)
 	local value = mod.value
-	for _, tag in pairs(mod.tagList) do
+	for _, tag in ipairs(mod) do
 		if tag.type == "Multiplier" then
 			local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
 			if tag.limit or tag.limitVar then
@@ -251,48 +252,38 @@ end
 
 function ModDBClass:Sum(modType, cfg, ...)
 	local flags, keywordFlags = 0, 0
-	local source, tabulate
+	local source
 	if cfg then
 		flags = cfg.flags or 0
 		keywordFlags = cfg.keywordFlags or 0
 		source = cfg.source
-		tabulate = cfg.tabulate
-		if tabulate then
-			cfg = copyTable(cfg, true)
-			cfg.tabulate = false
-		end
 	end
 	local result
 	local nullValue = 0
-	if tabulate or modType == "LIST" then
-		result = { }
-		nullValue = nil
-	elseif modType == "MORE" then
+	if modType == "MORE" then
 		result = 1
 	elseif modType == "FLAG" then
 		result = false
 		nullValue = false
+	elseif modType == "LIST" then
+		result = { }
+		nullValue = nil
 	else
 		result = 0
 	end
 	for i = 1, select('#', ...) do
-		local modName = select(i, ...)
-		local modList = self.mods[modName]
+		local modList = self.mods[select(i, ...)]
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if (not modType or mod.type == modType) and (mod.flags == 0 or band(flags, mod.flags) == mod.flags) and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == modType and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
 					local value
-					if mod.tagList[1] then
+					if mod[1] then
 						value = self:EvalMod(mod, cfg) or nullValue
 					else
 						value = mod.value
 					end
-					if tabulate then
-						if value and value ~= 0 then
-							t_insert(result, { value = value, mod = mod })
-						end
-					elseif modType == "MORE" then
+					if modType == "MORE" then
 						result = result * (1 + value / 100)
 					elseif modType == "FLAG" then
 						if value then
@@ -312,6 +303,34 @@ function ModDBClass:Sum(modType, cfg, ...)
 	return result
 end
 
+function ModDBClass:Tabulate(modType, cfg, ...)
+	local flags = cfg.flags or 0
+	local keywordFlags = cfg.keywordFlags or 0
+	local source = cfg.source
+	local result = { }
+	for i = 1, select('#', ...) do
+		local modName = select(i, ...)
+		local modList = self.mods[modName]
+		if modList then
+			for i = 1, #modList do
+				local mod = modList[i]
+				if (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+					local value
+					if mod[1] then
+						value = self:EvalMod(mod, cfg)
+					else
+						value = mod.value
+					end
+					if value and value ~= 0 then
+						t_insert(result, { value = value, mod = mod })
+					end
+				end
+			end
+		end
+	end
+	return result
+end
+
 function ModDBClass:Print()
 	ConPrintf("=== Modifiers ===")
 	local modNames = { }
@@ -322,7 +341,7 @@ function ModDBClass:Print()
 	for _, modName in ipairs(modNames) do
 		ConPrintf("'%s' = {", modName)
 		for _, mod in ipairs(self.mods[modName]) do
-			ConPrintf("\t%s = %s|%s|%s|%s|%s", modLib.formatValue(mod.value), mod.type, modLib.formatFlags(mod.flags, ModFlag), modLib.formatFlags(mod.keywordFlags, KeywordFlag), modLib.formatTags(mod.tagList), mod.source or "?")
+			ConPrintf("\t%s = %s|%s|%s|%s|%s", modLib.formatValue(mod.value), mod.type, modLib.formatFlags(mod.flags, ModFlag), modLib.formatFlags(mod.keywordFlags, KeywordFlag), modLib.formatTags(mod), mod.source or "?")
 		end
 		ConPrintf("},")
 	end

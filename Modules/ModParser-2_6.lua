@@ -238,6 +238,7 @@ local modNameList = {
 	["radius of area skills"] = "AreaOfEffect",
 	["area of effect radius"] = "AreaOfEffect",
 	["area of effect"] = "AreaOfEffect",
+	["area of effect of skills"] = "AreaOfEffect",
 	["area of effect of area skills"] = "AreaOfEffect",
 	["duration"] = "Duration",
 	["skill effect duration"] = "Duration",
@@ -509,6 +510,7 @@ local modTagList = {
 	["wh[ie][ln]e? no mana is reserved"] = { tag = { type = "Condition", var = "NoManaReserved" } },
 	["wh[ie][ln]e? on full energy shield"] = { tag = { type = "Condition", var = "FullEnergyShield" } },
 	["wh[ie][ln]e? not on full energy shield"] = { tag = { type = "Condition", var = "FullEnergyShield", neg = true } },
+	["while stationary"] = { tag = { type = "Condition", var = "Stationary" } },
 	["while you have no power charges"] = { tag = { type = "Condition", var = "HaveNoPowerCharges" } },
 	["while you have no frenzy charges"] = { tag = { type = "Condition", var = "HaveNoFrenzyCharges" } },
 	["while you have no endurance charges"] = { tag = { type = "Condition", var = "HaveNoEnduranceCharges" } },
@@ -827,7 +829,7 @@ local specialModList = {
 	["allies' aura buffs do not affect you"] = { flag("AlliesAurasCannotAffectSelf") },
 	["enemies can have 1 additional curse"] = { mod("EnemyCurseLimit", "BASE", 1) },
 	["nearby enemies have (%d+)%% increased effect of curses on them"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("CurseEffectOnSelf", "INC", num) }) } end,
-	["your hits inflict decay, dealing (%d+) chaos damage per second for 10 seconds"] = function(num) return { mod("SkillData", "LIST", { key = "decay", value = num, merge = "MAX" }) } end,
+	["your hits inflict decay, dealing (%d+) chaos damage per second for %d+ seconds"] = function(num) return { mod("SkillData", "LIST", { key = "decay", value = num, merge = "MAX" }) } end,
 	-- Traps, Mines and Totems
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
@@ -1078,12 +1080,12 @@ local function getSimpleConv(srcList, dst, type, remove, factor)
 				for _, mod in ipairs(nodeMods) do
 					if mod.name == src and mod.type == type then
 						if remove then
-							out:NewMod(src, type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
+							out:NewMod(src, type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod))
 						end
 						if factor then
-							out:NewMod(dst, type, math.floor(mod.value * factor), "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
+							out:NewMod(dst, type, math.floor(mod.value * factor), "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod))
 						else
-							out:NewMod(dst, type, mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
+							out:NewMod(dst, type, mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod))
 						end
 					end
 				end	
@@ -1136,19 +1138,19 @@ local jewelFuncs = {
 			local mask3 = bor(ModFlag.Weapon2H, ModFlag.WeaponMelee)
 			for _, mod in ipairs(nodeMods) do
 				if band(mod.flags, mask1) ~= 0 or band(mod.flags, mask2) == mask2 or band(mod.flags, mask3) == mask3 then
-					out:NewMod(mod.name, mod.type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
-					out:NewMod(mod.name, mod.type, mod.value, "Tree:Jewel", bor(band(mod.flags, bnot(bor(mask1, mask2, mask3))), ModFlag.Bow), mod.keywordFlags, unpack(mod.tagList))
-				elseif mod.tagList[1] then
-					for _, tag in ipairs(mod.tagList) do
+					out:NewMod(mod.name, mod.type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod))
+					out:NewMod(mod.name, mod.type, mod.value, "Tree:Jewel", bor(band(mod.flags, bnot(bor(mask1, mask2, mask3))), ModFlag.Bow), mod.keywordFlags, unpack(mod))
+				elseif mod[1] then
+					for _, tag in ipairs(mod) do
 						if tag.type == "Condition" and tag.var == "UsingStaff" then
-							local newTagList = copyTable(mod.tagList)
+							local newTagList = copyTable(mod)
 							for _, tag in ipairs(newTagList) do
 								if tag.type == "Condition" and tag.var == "UsingStaff" then
 									tag.var = "UsingBow"
 									break
 								end
 							end
-							out:NewMod(mod.name, mod.type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod.tagList))
+							out:NewMod(mod.name, mod.type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod))
 							out:NewMod(mod.name, mod.type, mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(newTagList))
 							break
 						end
@@ -1389,7 +1391,7 @@ local function parseMod(line, order)
 			value = type(modValue) == "table" and modValue[i] or modValue,
 			flags = flags,
 			keywordFlags = keywordFlags,
-			tagList = tagList,
+			unpack(tagList)
 		}
 	end
 	if modList[1] then
@@ -1402,8 +1404,11 @@ local function parseMod(line, order)
 		elseif misc.newAura then
 			-- Modifiers that add extra auras
 			for i, effectMod in ipairs(modList) do
-				local tagList = effectMod.tagList
-				effectMod.tagList = { }
+				local tagList = { }
+				for i, tag in ipairs(effectMod) do
+					tagList[i] = tag
+					effectMod[i] = nil
+				end
 				modList[i] = mod("ExtraAura", "LIST", { mod = effectMod, onlyAllies = misc.newAuraOnlyAllies }, unpack(tagList))
 			end
 		elseif misc.affectedByAura then

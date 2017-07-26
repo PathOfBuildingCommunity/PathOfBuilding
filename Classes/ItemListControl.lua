@@ -117,7 +117,7 @@ function ItemListClass:OnSelClick(index, itemId, doubleClick)
 			self.itemsTab.build.buildFlag = true
 		end
 	elseif doubleClick then
-		self.itemsTab:SetDisplayItem(copyTable(item))
+		self.itemsTab:SetDisplayItem(copyTableSafe(item))
 	end
 end
 

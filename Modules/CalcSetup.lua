@@ -328,9 +328,9 @@ function calcs.initEnv(build, mode, override)
 					source = "Item",
 					sourceItem = item,
 					sourceSlot = slotName,
-					Str = item.requirements.str,
-					Dex = item.requirements.dex,
-					Int = item.requirements.int,
+					Str = item.requirements.strMod,
+					Dex = item.requirements.dexMod,
+					Int = item.requirements.intMod,
 				})
 			end
 			if item.type == "Shield" and nodes[45175] then
@@ -339,7 +339,7 @@ function calcs.initEnv(build, mode, override)
 				for _, mod in ipairs(srcList) do
 					-- Filter out mods that apply to socketed gems, or which add supports
 					local add = true
-					for _, tag in ipairs(mod.tagList) do
+					for _, tag in ipairs(mod) do
 						if tag.type == "SocketedIn" then
 							add = false
 							break
@@ -357,7 +357,7 @@ function calcs.initEnv(build, mode, override)
 				for _, mod in ipairs(srcList) do
 					-- Filter out mods that apply to socketed gems, or which add supports
 					local add = true
-					for _, tag in ipairs(mod.tagList) do
+					for _, tag in ipairs(mod) do
 						if tag.type == "SocketedIn" then
 							add = false
 							break

@@ -6,6 +6,7 @@
 
 local pairs = pairs
 local ipairs = ipairs
+local type = type
 local t_insert = table.insert
 local m_abs = math.abs
 local m_floor = math.floor
@@ -189,16 +190,27 @@ function writeLuaTable(out, t, indent)
 end
 
 -- Make a copy of a table and all subtables
+function copyTable(tbl, noRecurse)
+	local out = {}
+	for k, v in pairs(tbl) do
+		if not noRecurse and type(v) == "table" then
+			out[k] = copyTable(v)
+		else
+			out[k] = v
+		end
+	end
+	return out
+end
 do
 	local subTableMap = { }
-	function copyTable(tbl, noRecurse, isSubTable)
+	function copyTableSafe(tbl, noRecurse, isSubTable)
 		local out = {}
 		if not noRecurse then
 			subTableMap[tbl] = out
 		end
 		for k, v in pairs(tbl) do
 			if not noRecurse and type(v) == "table" then
-				out[k] = subTableMap[v] or copyTable(v, false, true)
+				out[k] = subTableMap[v] or copyTableSafe(v, false, true)
 			else
 				out[k] = v
 			end

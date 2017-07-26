@@ -594,7 +594,7 @@ local function sumLocal(modList, name, type, flags)
 	local i = 1
 	while modList[i] do
 		local mod = modList[i]
-		if mod.name == name and mod.type == type and mod.flags == flags and mod.keywordFlags == 0 and (not mod.tagList[1] or mod.tagList[1].type == "InSlot") then
+		if mod.name == name and mod.type == type and mod.flags == flags and mod.keywordFlags == 0 and (not mod[1] or mod[1].type == "InSlot") then
 			result = result + mod.value
 			t_remove(modList, i)
 		else
@@ -614,7 +614,7 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 	for _, baseMod in ipairs(baseList) do
 		local mod = copyTable(baseMod)
 		local add = true
-		for _, tag in pairs(mod.tagList) do
+		for _, tag in ipairs(mod) do
 			if tag.type == "SlotNumber" or tag.type == "InSlot" then
 				if tag.num ~= slotNum then
 					add = false
@@ -673,8 +673,8 @@ function itemLib.buildItemModListForSlotNum(item, baseList, slotNum)
 				(mod.name == "Accuracy" and mod.flags == 0) or
 				((mod.name == "LifeOnHit" or mod.name == "ManaOnHit") and mod.flags == ModFlag.Attack) or
 				((mod.name == "PhysicalDamageLifeLeech" or mod.name == "PhysicalDamageManaLeech") and mod.flags == ModFlag.Attack) 
-			   ) and mod.keywordFlags == 0 and not mod.tagList[1] then
-				mod.tagList[1] = { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" }
+			   ) and mod.keywordFlags == 0 and not mod[1] then
+				mod[1] = { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" }
 			end
 		end
 		weaponData.TotalDPS = 0

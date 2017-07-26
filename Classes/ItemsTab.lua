@@ -1832,13 +1832,13 @@ end
 function ItemsTabClass:CreateUndoState()
 	local state = { }
 	state.activeItemSetId = self.activeItemSetId
-	state.items = copyTable(self.items)
+	state.items = copyTableSafe(self.items)
 	state.itemOrderList = copyTable(self.itemOrderList)
 	state.slotSelItemId = { }
 	for slotName, slot in pairs(self.slots) do
 		state.slotSelItemId[slotName] = slot.selItemId
 	end
-	state.itemSets = copyTable(self.itemSets)
+	state.itemSets = copyTableSafe(self.itemSets)
 	state.itemSetOrderList = copyTable(self.itemSetOrderList)
 	return state
 end

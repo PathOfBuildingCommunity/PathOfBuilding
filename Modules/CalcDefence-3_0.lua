@@ -358,8 +358,8 @@ function calcs.defence(env, actor)
 		end
 		do
 			-- Hit
-			local takenInc = baseTakenInc + modDB:Sum("INC", nil, "DamageTakenWhenHit")
-			local takenMore = baseTakenMore * modDB:Sum("MORE", nil, "DamageTakenWhenHit")
+			local takenInc = baseTakenInc + modDB:Sum("INC", nil, "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
+			local takenMore = baseTakenMore * modDB:Sum("MORE", nil, "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
 			output[damageType.."TakenHit"] = (1 + takenInc / 100) * takenMore
 		end
 		do

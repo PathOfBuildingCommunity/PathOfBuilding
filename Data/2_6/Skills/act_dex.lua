@@ -119,8 +119,8 @@ skills["NewArcticArmour"] = {
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
-		--[2] = "new_arctic_armour_physical_damage_taken_when_hit_+%_final"
-		--[3] = "new_arctic_armour_fire_damage_taken_when_hit_+%_final"
+		[2] = mod("PhysicalDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "Condition", var = "Stationary" }, { type = "GlobalEffect", effectType = "Buff" }), --"new_arctic_armour_physical_damage_taken_when_hit_+%_final"
+		[3] = mod("FireDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "Condition", var = "Stationary" }, { type = "GlobalEffect", effectType = "Buff" }), --"new_arctic_armour_fire_damage_taken_when_hit_+%_final"
 		[4] = skill("duration", nil), --"base_skill_effect_duration"
 	},
 	levels = {

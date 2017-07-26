@@ -144,7 +144,7 @@ function main:Init()
 		end
 		self.rareDB[targetVersion] = { list = { } }
 		for _, raw in pairs(data[targetVersion].rares) do
-			local newItem = itemLib.makeItemFromRaw(targetVersion, raw)
+			local newItem = itemLib.makeItemFromRaw(targetVersion, "Rarity: Rare\n"..raw)
 			if newItem then
 				itemLib.normaliseQuality(newItem)
 				if newItem.crafted then
@@ -385,6 +385,26 @@ function main:OnFrame()
 		DrawString(cursorX + 1, cursorY - 7, "LEFT", 16, "VAR", self.showDragText)
 		self.showDragText = nil
 	end
+	
+	--[[local par = 300
+	for x = 0, 750 do
+		for y = 0, 750 do
+			local dpsCol = (x / par * 1.5) ^ 0.5
+			local defCol = (y / par * 1.5) ^ 0.5
+			local mixCol = (m_max(dpsCol - 0.5, 0) + m_max(defCol - 0.5, 0)) / 2
+			if main.nodePowerTheme == "RED/BLUE" then
+				SetDrawColor(dpsCol, mixCol, defCol)
+			elseif main.nodePowerTheme == "RED/GREEN" then
+				SetDrawColor(dpsCol, defCol, mixCol)
+			elseif main.nodePowerTheme == "GREEN/BLUE" then
+				SetDrawColor(mixCol, dpsCol, defCol)
+			end
+			DrawImage(nil, x + 500, y + 200, 1, 1)
+		end
+	end
+	SetDrawColor(0, 0, 0)
+	DrawImage(nil, par + 500, 200, 2, 750)
+	DrawImage(nil, 500, par + 200, 759, 2)]]
 
 	wipeTable(self.inputEvents)
 end

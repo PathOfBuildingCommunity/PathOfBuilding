@@ -7,6 +7,7 @@ local calcs = ...
 
 local pairs = pairs
 local ipairs = ipairs
+local unpack = unpack
 local t_insert = table.insert
 local m_floor = math.floor
 local m_min = math.min
@@ -74,8 +75,8 @@ local function calcDamage(actor, output, cfg, breakdown, damageType, typeFlags, 
 		addMax = round(addMax)
 	end
 
-	local baseMin = output["Base"..damageType.."Min"]
-	local baseMax = output["Base"..damageType.."Max"]
+	local baseMin = output[damageType.."MinBase"]
+	local baseMax = output[damageType.."MaxBase"]
 	if baseMin == 0 and baseMax == 0 then
 		-- No base damage for this type, don't need to calculate modifiers
 		if breakdown and (addMin ~= 0 or addMax ~= 0) then
@@ -179,7 +180,7 @@ function calcs.offence(env, actor)
 		-- Spell Damage conversion from Crown of Eyes
 		for i, mod in ipairs(modDB.mods.Damage or { }) do
 			if mod.type == "INC" and band(mod.flags, ModFlag.Spell) ~= 0 then
-				modDB:NewMod("Damage", "INC", mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(mod.tagList))
+				modDB:NewMod("Damage", "INC", mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
 			end
 		end
 	end
@@ -187,7 +188,7 @@ function calcs.offence(env, actor)
 		-- Claw Damage conversion from Rigwald's Curse
 		for i, mod in ipairs(modDB.mods.PhysicalDamage or { }) do
 			if band(mod.flags, ModFlag.Claw) ~= 0 then
-				modDB:NewMod("PhysicalDamage", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod.tagList))
+				modDB:NewMod("PhysicalDamage", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod))
 			end
 		end
 	end
@@ -195,7 +196,7 @@ function calcs.offence(env, actor)
 		-- Claw Attack Speed conversion from Rigwald's Curse
 		for i, mod in ipairs(modDB.mods.Speed or { }) do
 			if band(mod.flags, ModFlag.Claw) ~= 0 and band(mod.flags, ModFlag.Attack) ~= 0 then
-				modDB:NewMod("Speed", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod.tagList))
+				modDB:NewMod("Speed", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod))
 			end
 		end
 	end
@@ -203,7 +204,7 @@ function calcs.offence(env, actor)
 		-- Claw Crit Chance conversion from Rigwald's Curse
 		for i, mod in ipairs(modDB.mods.CritChance or { }) do
 			if band(mod.flags, ModFlag.Claw) ~= 0 then
-				modDB:NewMod("CritChance", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod.tagList))
+				modDB:NewMod("CritChance", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod))
 			end
 		end
 	end
@@ -736,8 +737,8 @@ function calcs.offence(env, actor)
 			local addedMax = modDB:Sum("BASE", cfg, damageTypeMax)
 			local baseMin = (source[damageTypeMin] or 0) * baseMultiplier + addedMin * damageEffectiveness
 			local baseMax = (source[damageTypeMax] or 0) * baseMultiplier + addedMax * damageEffectiveness
-			output["Base"..damageTypeMin] = baseMin
-			output["Base"..damageTypeMax] = baseMax
+			output[damageTypeMin.."Base"] = baseMin
+			output[damageTypeMax.."Base"] = baseMax
 			if breakdown then
 				breakdown[damageType] = { damageTypes = { } }
 				if baseMin ~= 0 and baseMax ~= 0 then
@@ -775,6 +776,8 @@ function calcs.offence(env, actor)
 			cfg.skillCond["CriticalStrike"] = (pass == 1)
 			local lifeLeechTotal = 0
 			local manaLeechTotal = 0
+			local noLifeLeech = modDB:Sum("FLAG", cfg, "CannotLeechLife") or enemyDB:Sum("FLAG", nil, "CannotLeechLifeFromSelf")
+			local noManaLeech = modDB:Sum("FLAG", cfg, "CannotLeechMana") or enemyDB:Sum("FLAG", nil, "CannotLeechManaFromSelf")
 			for _, damageType in ipairs(dmgTypeList) do
 				local min, max
 				if skillFlags.hit and canDeal[damageType] then
@@ -802,7 +805,6 @@ function calcs.offence(env, actor)
 					max = max * allMult
 					if (min ~= 0 or max ~= 0) and env.mode_effective then
 						-- Apply enemy resistances and damage taken modifiers
-						local preMult
 						local resist = 0
 						local pen = 0
 						local taken = enemyDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken")
@@ -838,14 +840,14 @@ function calcs.offence(env, actor)
 						t_insert(breakdown[damageType], s_format("= %d to %d", min, max))
 					end
 					if skillFlags.mine or skillFlags.trap or skillFlags.totem then
-						if not modDB:Sum("FLAG", cfg, "CannotLeechLife") and not enemyDB:Sum("FLAG", nil, "CannotLeechLifeFromSelf") then
+						if not noLifeLeech then
 							local lifeLeech = modDB:Sum("BASE", cfg, "DamageLifeLeechToPlayer")
 							if lifeLeech > 0 then
 								lifeLeechTotal = lifeLeechTotal + (min + max) / 2 * lifeLeech / 100
 							end
 						end
 					else
-						if not modDB:Sum("FLAG", cfg, "CannotLeechLife") and not enemyDB:Sum("FLAG", nil, "CannotLeechLifeFromSelf") then				
+						if not noLifeLeech then				
 							local lifeLeech
 							if modDB:Sum("FLAG", nil, "LifeLeechBasedOnChaosDamage") then
 								if damageType == "Chaos" then
@@ -860,7 +862,7 @@ function calcs.offence(env, actor)
 								lifeLeechTotal = lifeLeechTotal + (min + max) / 2 * lifeLeech / 100
 							end
 						end
-						if not modDB:Sum("FLAG", cfg, "CannotLeechMana") and not enemyDB:Sum("FLAG", nil, "CannotLeechManaFromSelf") then
+						if not noManaLeech then
 							local manaLeech = modDB:Sum("BASE", cfg, "DamageLeech", "DamageManaLeech", damageType.."DamageManaLeech", isElemental[damageType] and "ElementalDamageManaLeech" or nil) + enemyDB:Sum("BASE", nil, "SelfDamageManaLeech") / 100
 							if manaLeech > 0 then
 								manaLeechTotal = manaLeechTotal + (min + max) / 2 * manaLeech / 100

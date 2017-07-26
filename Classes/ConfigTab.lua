@@ -18,6 +18,9 @@ local varList = {
 	{ section = "General", col = 1 },
 	{ var = "enemyLevel", type = "number", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and evade chances.\nThe default level is your character level, capped at 84, which is the same value\nused in-game to calculate the stats on the character sheet." },
 	{ var = "enemyPhysicalHit", type = "number", label = "Enemy Physical Hit Damage:", tooltip = "This overrides the default damage amount used to estimate your physical damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet." },
+	{ var = "conditionStationary", type = "check", label = "Are you always stationary?", ifCond = "Stationary", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Stationary", "FLAG", true, "Config")
+	end },
 	{ var = "conditionLowLife", type = "check", label = "Are you always on Low Life?", ifCond = "LowLife", tooltip = "You will automatically be considered to be on Low Life if you have at least 65% life reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LowLife", "FLAG", true, "Config")
 	end },
@@ -26,6 +29,9 @@ local varList = {
 	end },
 	{ var = "conditionFullEnergyShield", type = "check", label = "Are you always on Full Energy Shield?", ifCond = "FullEnergyShield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FullEnergyShield", "FLAG", true, "Config")
+	end },
+	{ var = "minionsConditionFullLife", type = "check", label = "Are your minions always on Full Life?", ifMinionCond = "FullLife", apply = function(val, modList, enemyModList)
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:FullLife", "FLAG", true, "Config") }, "Config")
 	end },
 	{ var = "igniteMode", type = "list", label = "Ignite calculation mode:", tooltip = "Controls how the base damage for ignite is calculated:\nAverage Damage: Ignite is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ignite is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
 	{ section = "Skill Options", col = 2 },
@@ -526,10 +532,12 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 				control.tooltipText = function()
 					return "This option is specific to '"..self.build.spec.nodes[varData.ifNode].dn.."'."..(varData.tooltip and "\n"..varData.tooltip or "")
 				end
-			elseif varData.ifCond or varData.ifEnemyCond then
+			elseif varData.ifCond or varData.ifMinionCond or varData.ifEnemyCond then
 				control.shown = function()
 					if varData.ifCond then
 						return self.build.calcsTab.mainEnv.conditionsUsed[varData.ifCond]
+					elseif varData.ifMinionCond then
+						return self.build.calcsTab.mainEnv.minionConditionsUsed[varData.ifMinionCond]
 					else
 						return self.build.calcsTab.mainEnv.enemyConditionsUsed[varData.ifEnemyCond]
 					end
@@ -540,6 +548,8 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 						local list
 						if varData.ifCond then
 							list = self.build.calcsTab.mainEnv.conditionsUsed[varData.ifCond]
+						elseif varData.ifMinionCond then
+							list = self.build.calcsTab.mainEnv.minionConditionsUsed[varData.ifMinionCond]
 						else
 							list = self.build.calcsTab.mainEnv.enemyConditionsUsed[varData.ifEnemyCond]
 						end
