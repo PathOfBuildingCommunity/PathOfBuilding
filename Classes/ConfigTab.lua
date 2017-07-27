@@ -324,6 +324,9 @@ local varList = {
 			modList:NewMod("ChaosCanIgnite", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		end
 	end },
+	{ var = "buffBastionOfHope", type = "check", label = "Is Bastion of Hope active?", ifNode = 39728, apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BastionOfHope", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionAttackedRecently", type = "check", label = "Have you Attacked Recently?", ifNode = 3154, tooltip = "You will automatically be considered to have Attacked Recently if your main skill is an attack,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AttackedRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },

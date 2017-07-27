@@ -97,13 +97,16 @@ end
 
 function GemSelectClass:UpdateSortCache()
 	local sortCache = self.sortCache
-	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gem == self.skillsTab.displayGroup.gemList[self.index] and sortCache.outputRevision == self.skillsTab.build.outputRevision then
+	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gem == self.skillsTab.displayGroup.gemList[self.index] and 
+	  sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel and sortCache.defaultQuality == self.skillsTab.defaultGemQuality then
 		return
 	end
 	sortCache = {
 		socketGroup = self.skillsTab.displayGroup,
 		gem = self.skillsTab.displayGroup.gemList[self.index],
 		outputRevision = self.skillsTab.build.outputRevision,
+		defaultLevel = self.skillsTab.defaultGemLevel,
+		defaultQuality = self.skillsTab.defaultGemQuality,
 		canSupport = { },
 		dps = { },
 		dpsColor = { },
@@ -291,7 +294,7 @@ function GemSelectClass:Draw(viewPort)
 				if gemList[self.index] then
 					oldGem = copyTable(gemList[self.index], true)
 				else
-					gemList[self.index] = { level = 20, quality = 0, enabled = true }
+					gemList[self.index] = { level = self.skillsTab.defaultGemLevel or 20, quality = self.skillsTab.defaultGemQuality or 0, enabled = true }
 				end
 				local gem = gemList[self.index]
 				gem.grantedEffect = self.skillsTab.build.data.gems[self.list[self.hoverSel]]

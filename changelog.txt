@@ -1,3 +1,6 @@
+VERSION[1.4.49][2017/07/27]
+ * Added an option to the Configuration tab to activate the periodic Block chance buff from Bastion of Hope
+ * The stat difference tooltip shown in the gem list should now be correct when the default gem level or quality are set
 VERSION[1.4.48][2017/07/27]
 This update brings several improvements to the Skills tab:
  * The gem selection list has been improved:
@@ -116,7 +119,6 @@ For 3.0 builds:
  * Damage Multiplier for Ailments from Critical Strikes is now displayed in the Crits section of the Calcs tab
     * It should also now be calculated correctly
  * All sources of added base damage should now apply to Ailments if they can also apply to the hit
-Also, for ZiggyD: "Double Dipping"
 VERSION[1.4.32][2017/06/17]
  * Fixed error caused by Punishment
 For 3.0 builds:

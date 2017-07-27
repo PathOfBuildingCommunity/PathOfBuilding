@@ -735,6 +735,7 @@ local specialModList = {
 	["gain shocking conflux for %d seconds"] = { },
 	["gain igniting conflux for %d seconds"] = { },
 	["gain chilling, shocking and igniting conflux for %d seconds"] = { },
+	["(%d+)%% additional block chance for %d second every %d seconds"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "BastionOfHope" }) } end,
 	-- Item local modifiers
 	["has no sockets"] = { },
 	["has 1 socket"] = { },
