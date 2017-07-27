@@ -97,13 +97,16 @@ end
 
 function GemSelectClass:UpdateSortCache()
 	local sortCache = self.sortCache
-	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gem == self.skillsTab.displayGroup.gemList[self.index] and sortCache.outputRevision == self.skillsTab.build.outputRevision then
+	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gem == self.skillsTab.displayGroup.gemList[self.index] and 
+	  sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel and sortCache.defaultQuality == self.skillsTab.defaultGemQuality then
 		return
 	end
 	sortCache = {
 		socketGroup = self.skillsTab.displayGroup,
 		gem = self.skillsTab.displayGroup.gemList[self.index],
 		outputRevision = self.skillsTab.build.outputRevision,
+		defaultLevel = self.skillsTab.defaultGemLevel,
+		defaultQuality = self.skillsTab.defaultGemQuality,
 		canSupport = { },
 		dps = { },
 		dpsColor = { },
