@@ -29,6 +29,7 @@ local PassiveTreeViewClass = common.NewClass("PassiveTreeView", function(self)
 
 	self.searchStr = ""
 	self.searchStrCached = ""
+	self.searchStrResults = {}
 	self.showStatDifferences = true
 end)
 
@@ -335,7 +336,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	if self.searchStrCached ~= self.searchStr then
 		self.searchStrCached = self.searchStr
 		for nodeId, node in pairs(spec.nodes) do
-			node.matchesSearchStr = #self.searchStr > 0 and self:DoesNodeMatchSearchStr(node)
+			self.searchStrResults[nodeId] = #self.searchStr > 0 and self:DoesNodeMatchSearchStr(node)
 		end
 	end
 
@@ -449,7 +450,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			self:DrawAsset(tree.assets[overlay], scrX, scrY, scale)
 			SetDrawColor(1, 1, 1)
 		end
-		if node.matchesSearchStr then
+		if self.searchStrResults[nodeId] then
 			-- Node matches the search string, show the highlight circle
 			SetDrawLayer(nil, 30)
 			SetDrawColor(1, 0, 0)
