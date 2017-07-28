@@ -393,7 +393,7 @@ skills["SupportChain"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("Damage", "MORE", nil), --"support_chain_damage_+%_final"
+		[2] = mod("Damage", "MORE", nil, ModFlag.Hit), --"support_chain_hit_damage_+%_final"
 	},
 	levels = {
 		[1] = { 38, -50, },
@@ -1085,7 +1085,7 @@ skills["SupportFrenzyChargeOnSlayingFrozenEnemy"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	baseMods = {
-		mod("ManaCost", "MORE", 10), 
+		mod("ManaCost", "MORE", 30), 
 		mod("EnemyFreezeChance", "BASE", 15), --"base_chance_to_freeze_%" = 15
 	},
 	qualityMods = {
@@ -1094,38 +1094,42 @@ skills["SupportFrenzyChargeOnSlayingFrozenEnemy"] = {
 	levelMods = {
 		[1] = nil, 
 		--[2] = "chance_to_gain_frenzy_charge_on_killing_frozen_enemy_%"
+		[3] = mod("ColdMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }), --"minimum_added_cold_damage_per_frenzy_charge"
+		[4] = mod("ColdMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }), --"maximum_added_cold_damage_per_frenzy_charge"
+		[5] = mod("ColdMin", "BASE", nil), --"global_minimum_added_cold_damage"
+		[6] = mod("ColdMax", "BASE", nil), --"global_maximum_added_cold_damage"
 	},
 	levels = {
-		[1] = { 31, 50, },
-		[2] = { 34, 51, },
-		[3] = { 36, 52, },
-		[4] = { 38, 53, },
-		[5] = { 40, 54, },
-		[6] = { 42, 55, },
-		[7] = { 44, 56, },
-		[8] = { 46, 57, },
-		[9] = { 48, 58, },
-		[10] = { 50, 59, },
-		[11] = { 52, 60, },
-		[12] = { 54, 61, },
-		[13] = { 56, 62, },
-		[14] = { 58, 63, },
-		[15] = { 60, 64, },
-		[16] = { 62, 65, },
-		[17] = { 64, 66, },
-		[18] = { 66, 67, },
-		[19] = { 68, 68, },
-		[20] = { 70, 69, },
-		[21] = { 72, 70, },
-		[22] = { 74, 71, },
-		[23] = { 76, 72, },
-		[24] = { 78, 73, },
-		[25] = { 80, 74, },
-		[26] = { 82, 75, },
-		[27] = { 84, 76, },
-		[28] = { 86, 77, },
-		[29] = { 88, 78, },
-		[30] = { 90, 79, },
+		[1] = { 31, 50, 2, 3, 8, 12, },
+		[2] = { 34, 51, 2, 3, 10, 15, },
+		[3] = { 36, 52, 2, 4, 11, 17, },
+		[4] = { 38, 53, 3, 4, 13, 19, },
+		[5] = { 40, 54, 3, 5, 14, 21, },
+		[6] = { 42, 55, 4, 5, 16, 24, },
+		[7] = { 44, 56, 4, 6, 18, 27, },
+		[8] = { 46, 57, 4, 7, 20, 30, },
+		[9] = { 48, 58, 5, 7, 22, 33, },
+		[10] = { 50, 59, 5, 8, 25, 37, },
+		[11] = { 52, 60, 6, 9, 27, 41, },
+		[12] = { 54, 61, 7, 10, 30, 46, },
+		[13] = { 56, 62, 8, 11, 34, 51, },
+		[14] = { 58, 63, 8, 13, 38, 56, },
+		[15] = { 60, 64, 9, 14, 42, 62, },
+		[16] = { 62, 65, 10, 15, 46, 69, },
+		[17] = { 64, 66, 11, 17, 51, 77, },
+		[18] = { 66, 67, 13, 19, 56, 85, },
+		[19] = { 68, 68, 14, 21, 62, 94, },
+		[20] = { 70, 69, 15, 23, 69, 103, },
+		[21] = { 72, 70, 17, 25, 76, 114, },
+		[22] = { 74, 71, 19, 28, 84, 126, },
+		[23] = { 76, 72, 21, 31, 93, 139, },
+		[24] = { 78, 73, 23, 34, 102, 153, },
+		[25] = { 80, 74, 25, 37, 112, 168, },
+		[26] = { 82, 75, 27, 41, 124, 185, },
+		[27] = { 84, 76, 30, 45, 136, 204, },
+		[28] = { 86, 77, 33, 50, 150, 224, },
+		[29] = { 88, 78, 37, 55, 164, 247, },
+		[30] = { 90, 79, 40, 60, 181, 271, },
 	},
 }
 skills["SupportLesserMultipleProjectiles"] = {
@@ -1671,7 +1675,7 @@ skills["SupportPoison"] = {
 	},
 }
 skills["SupportRapidDecay"] = {
-	name = "Rapid Decay",
+	name = "Swift Demise",
 	gemTags = {
 		dexterity = true,
 		support = true,

@@ -263,7 +263,7 @@ itemBases["Horned Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { default = true, amulet = true, },
-	implicit = "Projectiles Pierce 2 Targets",
+	implicit = "Projectiles Pierce 2 additional Targets",
 	req = { },
 }
 itemBases["Spinefuse Talisman"] = {

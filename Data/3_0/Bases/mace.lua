@@ -6,8 +6,8 @@ itemBases["Driftwood Club"] = {
 	type = "One Handed Mace",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, },
 	implicit = "10% reduced Enemy Stun Threshold",
-	weapon = { PhysicalMin = 6, PhysicalMax = 9, CritChanceBase = 5, AttackRateBase = 1.45, },
-	req = { str = 17, },
+	weapon = { PhysicalMin = 6, PhysicalMax = 8, CritChanceBase = 5, AttackRateBase = 1.45, },
+	req = { str = 14, },
 }
 itemBases["Tribal Club"] = {
 	type = "One Handed Mace",
@@ -182,8 +182,8 @@ itemBases["Driftwood Sceptre"] = {
 	type = "Sceptre",
 	tags = { default = true, weapon = true, onehand = true, mace = true, one_hand_weapon = true, sceptre = true, },
 	implicit = "10% increased Elemental Damage",
-	weapon = { PhysicalMin = 7, PhysicalMax = 10, CritChanceBase = 6, AttackRateBase = 1.4, },
-	req = { str = 9, int = 9, },
+	weapon = { PhysicalMin = 6, PhysicalMax = 9, CritChanceBase = 6, AttackRateBase = 1.4, },
+	req = { str = 8, int = 8, },
 }
 itemBases["Darkwood Sceptre"] = {
 	type = "Sceptre",

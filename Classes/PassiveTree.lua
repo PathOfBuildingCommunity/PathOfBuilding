@@ -197,6 +197,10 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 
 		-- Assign node artwork assets
 		node.sprites = spriteMap[node.icon]
+		if not node.sprites then
+			--error("missing sprite "..node.icon)
+			node.sprites = { }
+		end
 		node.overlay = nodeOverlay[node.type]
 		if node.overlay then
 			node.rsq = node.overlay.rsq

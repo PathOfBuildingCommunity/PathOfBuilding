@@ -699,7 +699,7 @@ function ItemsTabClass:EquipItemInSet(item, itemSetId)
 		slotName = slotName .. " Swap"
 	end
 	if not item.id or not self.items[item.id] then
-		item = itemLib.makeItemFromRaw(self.targetVersion, item.raw)
+		item = itemLib.makeItemFromRaw(self.build.targetVersion, item.raw)
 		self:AddItem(item, true)
 	end
 	local altSlot = slotName:gsub("1","2")

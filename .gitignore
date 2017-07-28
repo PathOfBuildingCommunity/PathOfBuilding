@@ -260,3 +260,7 @@ ModelManifest.xml
 *.csv
 /Export/*stat_descriptions.txt
 /Export/Tree/PassiveSkillGraph.psg
+/Export/Tree/passives
+/Export/Tree/skills-3.jpg
+/Export/Tree/skills-disabled-3.jpg
+/Export/Tree/groups-3.png

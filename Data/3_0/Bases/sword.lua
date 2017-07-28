@@ -7,8 +7,8 @@ itemBases["Rusted Sword"] = {
 	type = "One Handed Sword",
 	tags = { default = true, weapon = true, onehand = true, sword = true, one_hand_weapon = true, },
 	implicit = "40% increased Accuracy Rating",
-	weapon = { PhysicalMin = 5, PhysicalMax = 11, CritChanceBase = 5, AttackRateBase = 1.45, },
-	req = { str = 9, dex = 9, },
+	weapon = { PhysicalMin = 4, PhysicalMax = 10, CritChanceBase = 5, AttackRateBase = 1.45, },
+	req = { str = 8, dex = 8, },
 }
 itemBases["Copper Sword"] = {
 	type = "One Handed Sword",

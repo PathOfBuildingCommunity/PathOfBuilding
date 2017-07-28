@@ -76,7 +76,7 @@ itemBases["Broadhead Arrow Quiver"] = {
 itemBases["Penetrating Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
-	implicit = "Arrows Pierce one Target",
+	implicit = "Arrows Pierce an additional Target",
 	req = { level = 36, },
 }
 itemBases["Spike-Point Arrow Quiver"] = {

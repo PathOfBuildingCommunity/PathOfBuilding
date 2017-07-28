@@ -6,8 +6,8 @@ itemBases["Glass Shank"] = {
 	type = "Dagger",
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 6, PhysicalMax = 12, CritChanceBase = 6, AttackRateBase = 1.5, },
-	req = { dex = 11, int = 7, },
+	weapon = { PhysicalMin = 6, PhysicalMax = 10, CritChanceBase = 6, AttackRateBase = 1.5, },
+	req = { dex = 9, int = 6, },
 }
 itemBases["Skinning Knife"] = {
 	type = "Dagger",
