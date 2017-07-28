@@ -5,8 +5,8 @@ local itemBases = ...
 itemBases["Crude Bow"] = {
 	type = "Bow",
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
-	weapon = { PhysicalMin = 6, PhysicalMax = 14, CritChanceBase = 5, AttackRateBase = 1.4, },
-	req = { dex = 17, },
+	weapon = { PhysicalMin = 5, PhysicalMax = 13, CritChanceBase = 5, AttackRateBase = 1.4, },
+	req = { dex = 14, },
 }
 itemBases["Short Bow"] = {
 	type = "Bow",

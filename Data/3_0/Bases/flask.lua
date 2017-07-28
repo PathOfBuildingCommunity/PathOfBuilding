@@ -282,7 +282,7 @@ itemBases["Basalt Flask"] = {
 	type = "Flask",
 	subType = "Utility",
 	tags = { default = true, flask = true, utility_flask = true, not_for_sale = true, },
-	flask = { duration = 5, chargesUsed = 40, chargesMax = 60, buff = { "20% additional Physical Damage Reduction", "20% of Melee Physical Damage taken reflected to Attacker" }, },
+	flask = { duration = 4.5, chargesUsed = 40, chargesMax = 60, buff = { "15% additional Physical Damage Reduction", "20% of Melee Physical Damage taken reflected to Attacker" }, },
 	req = { level = 40, },
 }
 itemBases["Aquamarine Flask"] = {

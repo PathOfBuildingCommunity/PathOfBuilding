@@ -6,8 +6,8 @@ itemBases["Driftwood Wand"] = {
 	type = "Wand",
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(8-12)% increased Spell Damage",
-	weapon = { PhysicalMin = 5, PhysicalMax = 9, CritChanceBase = 7, AttackRateBase = 1.4, },
-	req = { int = 17, },
+	weapon = { PhysicalMin = 4, PhysicalMax = 8, CritChanceBase = 7, AttackRateBase = 1.4, },
+	req = { int = 14, },
 }
 itemBases["Goat's Horn"] = {
 	type = "Wand",

@@ -53,6 +53,12 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.50 - 2017/07/29
+ * Fixed an error that could occur when dragging items into builds with Animate Weapon
+
+For 3.0 builds:
+ * Applied the passive tree, skill, charge and item base changes from the Beta patch
+
 ### 1.4.49 - 2017/07/27
  * Added an option to the Configuration tab to activate the periodic Block chance buff from Bastion of Hope
  * The stat difference tooltip shown in the gem list should now be correct when the default gem level or quality are set

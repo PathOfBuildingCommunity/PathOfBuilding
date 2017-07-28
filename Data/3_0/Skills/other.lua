@@ -279,8 +279,8 @@ skills["TouchOfGod"] = {
 	name = "Doryani's Touch",
 	hidden = true,
 	color = 1,
-	description = "The character uses their fist to slam the ground in front of them, with less attack speed, but more damage. This attack deals Lightning Damage to enemies in a large area, with a chance to Shock them. Cannot be used while weilding a Weapon.",
-	skillTypes = { [1] = true, [11] = true, [35] = true, [24] = true, [28] = true, },
+	description = "The character uses their fist to slam the ground in front of them, with less attack speed, but more damage. This attack deals Lightning Damage to enemies in a large area, with a chance to Shock them. Cannot be used while weilding a Weapon. Cannot be used with Multistrike.",
+	skillTypes = { [1] = true, [11] = true, [35] = true, [24] = true, },
 	weaponTypes = {
 		["None"] = true,
 	},

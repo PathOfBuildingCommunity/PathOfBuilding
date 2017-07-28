@@ -723,7 +723,12 @@ function calcs.offence(env, actor)
 		-- Calculate Double Damage + Ruthless Blow chance/multipliers
 		output.DoubleDamageChance = m_min(modDB:Sum("BASE", cfg, "DoubleDamageChance"), 100)
 		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
-		output.RuthlessBlowChance = m_min(modDB:Sum("BASE", cfg, "RuthlessBlowChance"), 100)
+		output.RuthlessBlowMaxCount = modDB:Sum("BASE", cfg, "RuthlessBlowMaxCount")
+		if output.RuthlessBlowMaxCount > 0 then
+			output.RuthlessBlowChance = round(100 / output.RuthlessBlowMaxCount)
+		else
+			output.RuthlessBlowChance = 0
+		end
 		output.RuthlessBlowMultiplier = 1 + modDB:Sum("BASE", cfg, "RuthlessBlowMultiplier") / 100
 		output.RuthlessBlowEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowMultiplier
 

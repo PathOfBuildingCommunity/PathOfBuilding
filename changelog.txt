@@ -1,3 +1,7 @@
+VERSION[1.4.50][2017/07/29]
+ * Fixed an error that could occur when dragging items into builds with Animate Weapon
+For 3.0 builds:
+ * Applied the passive tree, skill, charge and item base changes from the Beta patch
 VERSION[1.4.49][2017/07/27]
  * Added an option to the Configuration tab to activate the periodic Block chance buff from Bastion of Hope
  * The stat difference tooltip shown in the gem list should now be correct when the default gem level or quality are set
