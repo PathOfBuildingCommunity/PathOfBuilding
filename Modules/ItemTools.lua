@@ -312,7 +312,11 @@ function itemLib.parseItemRaw(item)
 				local modList, extra = modLib.parseMod[item.targetVersion](rangedLine or line)
 				if (not modList or extra) and item.rawLines[l+1] then
 					-- Try to combine it with the next line
-					modList, extra = modLib.parseMod[item.targetVersion](line.." "..item.rawLines[l+1], true)
+					local combLine = line.." "..item.rawLines[l+1]
+					if combLine:match("%(%d+%-%d+ to %d+%-%d+%)") or combLine:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or combLine:match("%(%-?[%d%.]+%-[%d%.]+%)") then
+						rangedLine = itemLib.applyRange(combLine, 1)
+					end
+					modList, extra = modLib.parseMod[item.targetVersion](rangedLine or combLine, true)
 					if modList and not extra then
 						line = line.."\n"..item.rawLines[l+1]
 						l = l + 1
@@ -772,7 +776,7 @@ function itemLib.buildItemModList(item)
 	for _, modLine in ipairs(item.modLines) do
 		if not modLine.extra and (not modLine.variantList or modLine.variantList[item.variant]) then
 			if modLine.range then
-				local line = itemLib.applyRange(modLine.line, modLine.range)
+				local line = itemLib.applyRange(modLine.line:gsub("\n"," "), modLine.range)
 				local list, extra = modLib.parseMod[item.targetVersion](line)
 				if list and not extra then
 					modLine.modList = list
