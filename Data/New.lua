@@ -50,5 +50,41 @@ Adds 85 to 186 Physical Damage
 +50% Global Critical Strike Multiplier while at Maximum Frenzy Charges
 15% increased Area of Effect of Skills while you have no Frenzy Charges
 Movement Attack Skills have 40% reduced Attack Speed
+]],[[
+Spreading Rot
+Cobalt Jewel
+Unreleased: true
+Limited to: 2
+Radius: Medium
+(10-15)% increased Chaos Damage
+With at least 40 Intelligence in Radius, Blight has 50% increased Hinder Duration
+With at least 40 Intelligence in Radius, Enemies Hindered by Blight take 25% increased Chaos Damage
+]],[[
+Hazardous Research
+Cobalt Jewel
+Unreleased: true
+Limited to: 2
+Radius: Medium
+(10-15)% increased Lightning Damage
+With at least 40 Intelligence in Radius, Spark fires 2 additional Projectiles
+With at least 40 Intelligence in Radius, Spark fires Projectiles in a Nova
+25% reduced Spark Duration
+]],[[
+Straight and True
+Viridian Jewel
+Unreleased: true
+Limited to: 2
+Radius: Medium
+(6-10)% increased Projectile Damage
+With at least 40 Dexterity in Radius, Split Arrow fires Projectiles in Parallel
+]],[[
+Choking Ash
+Viridian Jewel
+Unreleased: true
+Limited to: 2
+Radius: Medium
+(10-15)% increased Fire Damage
+Can have up to 1 additional Trap placed at a time
+With at least 40 Dexterity in Radius, Fire Trap throws an additional Trap
 ]],
 }

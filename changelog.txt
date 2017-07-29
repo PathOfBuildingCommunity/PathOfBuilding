@@ -1,3 +1,8 @@
+VERSION[1.4.51][2017/07/29]
+For 3.0 builds:
+ * Applied the unique flask changes from the Beta patch
+ * Added the new threshold jewels from the Beta patch
+ * The Ruthless Blow damage multiplier now correctly applies to Melee Damage only
 VERSION[1.4.50][2017/07/29]
  * Fixed an error that could occur when dragging items into builds with Animate Weapon
 For 3.0 builds:

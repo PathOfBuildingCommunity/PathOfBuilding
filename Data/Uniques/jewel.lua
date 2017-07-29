@@ -344,7 +344,7 @@ Limited to: 2
 Radius: Medium
 {variant:1}(15-20)% increased Damage against Chilled Enemies
 {variant:2}(15-20)% increased Damage with Hits against Chilled Enemies
-{variant:2}Ice Shot Pierces 5 additional Targets with 40 Dexterity in Radius
+{variant:2}With at least 40 Dexterity in Radius, Ice Shot Pierces 5 additional Targets
 With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect
 {variant:1}With at least 40 Dexterity in Radius, Ice Shot has 50% chance of Projectiles Piercing
 ]],[[
@@ -441,11 +441,14 @@ also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
 Ring of Blades
 Viridian Jewel
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Limited to: 1
 Radius: Medium
 (10–15)% increased Physical Damage 
 With at least 40 Dexterity in Radius, Ethereal Knives fires Projectiles in a Nova
-With at least 40 Dexterity in Radius, Ethereal Knives fires 10 additional Projectiles
+{variant:1}With at least 40 Dexterity in Radius, Ethereal Knives fires 10 additional Projectiles
+{variant:2}With at least 40 Dexterity in Radius, Ethereal Knives fires 5 additional Projectiles
 ]],[[
 Rolling Flames
 Cobalt Jewel

@@ -1829,7 +1829,7 @@ skills["SupportRuthless"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("RuthlessBlowMultiplier", "BASE", nil), --"support_ruthless_big_hit_damage_+%_final"
+		[2] = mod("RuthlessBlowMultiplier", "BASE", nil, ModFlag.Melee), --"support_ruthless_big_hit_damage_+%_final"
 	},
 	levels = {
 		[1] = { 1, 75, },

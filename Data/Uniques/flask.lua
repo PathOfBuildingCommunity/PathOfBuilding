@@ -72,9 +72,12 @@ Instant Recovery
 [[
 Atziri's Promise
 Amethyst Flask
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 68
 2% of Chaos Damage Leeched as Life during Flask effect
-Gain (22-25)% of Physical Damage as Extra Chaos Damage during effect
+{variant:1}Gain (22-25)% of Physical Damage as Extra Chaos Damage during effect
+{variant:2}Gain (15-20)% of Physical Damage as Extra Chaos Damage during effect
 Gain (13-15)% of Elemental Damage as Extra Chaos Damage during effect
 ]],[[
 Coruscating Elixir
@@ -90,9 +93,12 @@ Removed life is regenerated as Energy Shield over 2 seconds
 ]],[[
 Dying Sun
 Ruby Flask
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 68
 (-10-10)% increased Charges used
-30% increased Area of Effect during Flask Effect
+{variant:1}30% increased Area of Effect during Flask Effect
+{variant:2}(15-25)% increased Area of Effect during Flask Effect
 2 additional Projectiles during Flask Effect
 ]],[[
 Forbidden Taste
@@ -118,7 +124,8 @@ Immune to Freeze, Chill, Curses and Stuns during Flask Effect
 Lion's Roar
 Granite Flask
 Variant: Pre 2.2.0
-Variant: Current
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 27
 Implicits: 0
 Adds Knockback during Flask effect
@@ -126,6 +133,7 @@ Adds Knockback during Flask effect
 {variant:1}(70-100)% increased Charges used
 {variant:1}30% more Melee Physical Damage during effect
 {variant:2}(30-35)% more Melee Physical Damage during effect
+{variant:3}(20-25)% more Melee Physical Damage during effect
 Knocks Back Enemies in an Area on Flask use
 ]],[[
 Rotgut
@@ -204,37 +212,50 @@ Variant: Pre 2.2.0 (Conversion)
 Variant: Current (Penetration)
 Variant: Current (Spells)
 Variant: Current (Attacks)
-Variant: Current (Conversion)
+Variant: {2_6}Current (Conversion)
+Variant: 3.0.0 Beta (Penetration)
+Variant: 3.0.0 Beta (Spells)
+Variant: 3.0.0 Beta (Attacks)
+Variant: 3.0.0 Beta (Conversion)
 Requires Level 68
-{variant:5,6,7,8}(80-100)% increased Charges used
-Shocks nearby Enemies during Flask effect
-You are Shocked during Flask effect
+{variant:5,6,7,8,9,10,11,12}(80-100)% increased Charges used
+{variant:1,2,3,4,5,6,7,8}Shocks nearby Enemies during Flask effect
+{variant:9,10,11,12}Shocks nearby Enemies during Flask effect, causing 10% increased Damage taken
+{variant:1,2,3,4,5,6,7,8}You are Shocked during Flask effect
+{variant:9,10,11,12}You are Shocked during Flask effect, causing 50% increased Damage taken
 {variant:1,2,3,4}30% of Lightning Damage Leeched as Life during Flask effect
-{variant:5,6,7,8}20% of Lightning Damage Leeched as Life during Flask effect
+{variant:5,6,7,8,9,10,11,12}20% of Lightning Damage Leeched as Life during Flask effect
 {variant:1,2,3,4}30% of Lightning Damage Leeched as Mana during Flask effect
 {variant:5,6,7,8}20% of Lightning Damage Leeched as Mana during Flask effect
 {variant:1,2,3,4}Leech applies instantly during Flask effect
-{variant:1,5}Damage Penetrates 10% Lightning Resistance during Flask effect
-{variant:2,6}Adds (15-25) to (70-90) Lightning Damage to Spells during Flask effect
-{variant:3,7}Adds (25-35) to (110-130) Lightning Damage to Attacks during Flask effect
-{variant:4,8}20% of Physical Damage Converted to Lightning during Flask effect
+{variant:1,5,9}Damage Penetrates 10% Lightning Resistance during Flask effect
+{variant:2,6,10}Adds (15-25) to (70-90) Lightning Damage to Spells during Flask effect
+{variant:3,7,11}Adds (25-35) to (110-130) Lightning Damage to Attacks during Flask effect
+{variant:4,8,12}20% of Physical Damage Converted to Lightning during Flask effect
 ]],[[
 The Wise Oak
 Bismuth Flask
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 8
 Implicits: 0
 During Flask Effect, 10% reduced Damage taken of each Element for which your Uncapped
 Elemental Resistance is lowest
-During Flask Effect, Damage Penetrates 20% Resistance of each Element for which your
+{variant:1}During Flask Effect, Damage Penetrates 20% Resistance of each Element for which your
+Uncapped Elemental Resistance is highest
+{variant:2}During Flask Effect, Damage Penetrates (10-15)% Resistance of each Element for which your 
 Uncapped Elemental Resistance is highest
 ]],[[
 Witchfire Brew
 Stibnite Flask
+Variant: {2_6}Current
+Variant: 3.0.0 Beta
 Requires Level 48
 Implicits: 1
 Creates a Smoke Cloud on Use
 50% increased Charges used
-(50-70)% increased Damage Over Time during Flask Effect
+{variant:1}(50-70)% increased Damage Over Time during Flask Effect
+{variant:2}(25-40)% increased Damage Over Time during Flask Effect
 Grants level 21 Vulnerability Curse Aura during Flask Effect
 ]],
 }

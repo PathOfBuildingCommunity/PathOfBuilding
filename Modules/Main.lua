@@ -172,14 +172,14 @@ function main:Init()
 			out:write('local c=...')
 			for line, dat in pairs(modLib.parseModCache[targetVersion]) do
 				if not dat[1] or not dat[1][1] or dat[1][1].name ~= "JewelFunc" then
-					out:write('c["', line, '"]={')
+					out:write('c["', line:gsub("\n","\\n"), '"]={')
 					if dat[1] then
 						writeLuaTable(out, dat[1])
 					else
 						out:write('nil')
 					end
 					if dat[2] then
-						out:write(',"', dat[2], '"}')
+						out:write(',"', dat[2]:gsub("\n","\\n"), '"}')
 					else
 						out:write(',nil}')
 					end

@@ -53,6 +53,12 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.51 - 2017/07/29
+For 3.0 builds:
+ * Applied the unique flask changes from the Beta patch
+ * Added the new threshold jewels from the Beta patch
+ * The Ruthless Blow damage multiplier now correctly applies to Melee Damage only
+
 ### 1.4.50 - 2017/07/29
  * Fixed an error that could occur when dragging items into builds with Animate Weapon
 
