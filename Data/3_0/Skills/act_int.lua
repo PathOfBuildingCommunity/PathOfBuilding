@@ -1095,6 +1095,79 @@ skills["Convocation"] = {
 		[30] = { 90, 15, 321, },
 	},
 }
+skills["DarkPact"] = {
+	name = "Dark Pact",
+	gemTags = {
+		intelligence = true,
+		active_skill = true,
+		spell = true,
+		area = true,
+		chaining = true,
+		chaos = true,
+	},
+	gemTagString = "Spell, AoE, Chaining, Chaos",
+	gemStr = 0,
+	gemDex = 0,
+	gemInt = 0,
+	color = 3,
+	description = "Sacrifice a portion of your skeleton minion's life to deal chaos damage in an area around it. This effect will chain to your other neaby skeletons. If you control no skeletons in the targeted area, you will sacrifice a portion of your own life and deal greater chaos damage in a larger area.",
+	skillTypes = { [2] = true, [10] = true, [19] = true, [18] = true, [11] = true, [17] = true, [49] = true, [36] = true, [26] = true, [23] = true, [50] = true, },
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 0.5), 
+		skill("CritChance", 5), 
+		--"skeletal_chains_aoe_%_health_dealt_as_chaos_damage" = 6
+		mod("ChainCount", "BASE", 2), --"number_of_additional_projectiles_in_chain" = 2
+		--"skeletal_chains_no_minions_radius_+" = 4
+		--"is_area_damage" = ?
+		--"skeletal_chains_no_minions_targets_self" = ?
+	},
+	qualityMods = {
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+		[3] = skill("ChaosMin", nil), --"spell_minimum_base_chaos_damage"
+		[4] = skill("ChaosMax", nil), --"spell_maximum_base_chaos_damage"
+		--[5] = "skeletal_chains_no_minions_damage_+%_final"
+	},
+	levels = {
+		[1] = { 28, 7, 20, 30, 0, },
+		[2] = { 31, 8, 24, 36, 8, },
+		[3] = { 34, 8, 29, 43, 16, },
+		[4] = { 37, 9, 34, 52, 24, },
+		[5] = { 40, 9, 41, 61, 32, },
+		[6] = { 42, 10, 46, 69, 40, },
+		[7] = { 44, 10, 51, 77, 48, },
+		[8] = { 46, 11, 57, 86, 56, },
+		[9] = { 48, 11, 64, 96, 64, },
+		[10] = { 50, 12, 71, 107, 72, },
+		[11] = { 52, 12, 80, 119, 80, },
+		[12] = { 54, 13, 88, 133, 88, },
+		[13] = { 56, 13, 98, 147, 96, },
+		[14] = { 58, 13, 109, 164, 104, },
+		[15] = { 60, 13, 121, 182, 112, },
+		[16] = { 62, 13, 134, 201, 120, },
+		[17] = { 64, 13, 149, 223, 128, },
+		[18] = { 66, 13, 164, 247, 136, },
+		[19] = { 68, 14, 182, 273, 144, },
+		[20] = { 70, 14, 201, 301, 152, },
+		[21] = { 72, 14, 222, 333, 160, },
+		[22] = { 74, 14, 245, 368, 168, },
+		[23] = { 76, 15, 270, 405, 176, },
+		[24] = { 78, 15, 298, 447, 184, },
+		[25] = { 80, 15, 328, 493, 192, },
+		[26] = { 82, 15, 362, 543, 200, },
+		[27] = { 84, 15, 398, 597, 208, },
+		[28] = { 86, 15, 438, 657, 216, },
+		[29] = { 88, 16, 482, 723, 224, },
+		[30] = { 90, 16, 530, 795, 232, },
+	},
+}
 skills["Discharge"] = {
 	name = "Discharge",
 	gemTags = {
@@ -4732,6 +4805,87 @@ skills["SpiritOffering"] = {
 		[28] = { 86, 39, 33, 34, },
 		[29] = { 88, 40, 34, 34, },
 		[30] = { 90, 41, 34, 35, },
+	},
+}
+skills["StormBurst"] = {
+	name = "Storm Burst",
+	gemTags = {
+		projectile = true,
+		area = true,
+		intelligence = true,
+		active_skill = true,
+		spell = true,
+		lightning = true,
+		channelling = true,
+	},
+	gemTagString = "Projectile, AoE, Spell, Lightning, Channelling",
+	gemStr = 0,
+	gemDex = 0,
+	gemInt = 100,
+	color = 3,
+	skillTypes = { [2] = true, [3] = true, [10] = true, [18] = true, [35] = true, [58] = true, [11] = true, },
+	parts = {
+		{
+			name = "Projectile",
+			area = false,
+		},
+		{
+			name = "Explosion",
+			area = true,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 0.35), 
+		skill("damageEffectiveness", 0.25), 
+		skill("CritChance", 5), 
+		mod("Damage", "MORE", 300, ModFlag.Area), --"active_skill_area_damage_+%_final" = 300
+		--"base_is_projectile" = ?
+	},
+	qualityMods = {
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+		[3] = skill("LightningMin", nil), --"spell_minimum_base_lightning_damage"
+		[4] = skill("LightningMax", nil), --"spell_maximum_base_lightning_damage"
+	},
+	levels = {
+		[1] = { 28, 6, 20, 30, },
+		[2] = { 31, 6, 23, 35, },
+		[3] = { 34, 6, 27, 40, },
+		[4] = { 37, 7, 31, 46, },
+		[5] = { 40, 7, 35, 53, },
+		[6] = { 42, 8, 39, 58, },
+		[7] = { 44, 8, 42, 63, },
+		[8] = { 46, 8, 46, 69, },
+		[9] = { 48, 9, 50, 75, },
+		[10] = { 50, 9, 54, 81, },
+		[11] = { 52, 10, 59, 88, },
+		[12] = { 54, 10, 64, 96, },
+		[13] = { 56, 10, 69, 104, },
+		[14] = { 58, 10, 75, 112, },
+		[15] = { 60, 10, 81, 121, },
+		[16] = { 62, 10, 87, 131, },
+		[17] = { 64, 10, 94, 142, },
+		[18] = { 66, 10, 102, 153, },
+		[19] = { 68, 11, 110, 165, },
+		[20] = { 70, 11, 118, 178, },
+		[21] = { 72, 11, 128, 191, },
+		[22] = { 74, 11, 137, 206, },
+		[23] = { 76, 12, 148, 222, },
+		[24] = { 78, 12, 159, 238, },
+		[25] = { 80, 12, 171, 256, },
+		[26] = { 82, 12, 183, 275, },
+		[27] = { 84, 12, 197, 295, },
+		[28] = { 86, 12, 211, 317, },
+		[29] = { 88, 12, 226, 340, },
+		[30] = { 90, 12, 243, 364, },
 	},
 }
 skills["StormCall"] = {

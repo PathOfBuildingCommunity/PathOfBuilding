@@ -81,6 +81,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("buffNotPlayer", true)
 #mods
 
+#skill DarkPact
+#flags spell area
+#mods
+
 #skill Discharge
 #flags spell area lightning cold fire
 #baseMod skill("radius", 30)
@@ -411,6 +415,20 @@ local skills, mod, flag, skill = ...
 #flags spell duration
 #baseMod skill("buffMinions", true)
 #baseMod skill("buffNotPlayer", true)
+#mods
+
+#skill StormBurst
+#flags spell projectile area
+	parts = {
+		{
+			name = "Projectile",
+			area = false,
+		},
+		{
+			name = "Explosion",
+			area = true,
+		},
+	},
 #mods
 
 #skill StormCall

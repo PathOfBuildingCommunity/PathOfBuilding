@@ -326,8 +326,8 @@ function calcs.initEnv(build, mode, override)
 			end
 			item = nil
 		end
-		env.player.itemList[slotName] = item
 		if item then
+			env.player.itemList[slotName] = item
 			-- Merge mods for this item
 			local srcList = item.modList or item.slotModList[slot.slotNum]
 			if item.requirements then	
