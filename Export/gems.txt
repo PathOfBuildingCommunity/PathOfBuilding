@@ -49,7 +49,7 @@ Chain|SupportChain|dexterity,support,chaining,projectile
 Chance to Bleed|SupportChanceToBleed|attack,strength,support
 Chance to Flee|SupportChanceToFlee|dexterity,support
 Chance to Ignite|SupportChanceToIgnite|fire,intelligence,support
-Charged Dash|ChargedDash|active_skill,movement,area,channelling
+Charged Dash|ChargedDash|dexterity,active_skill,movement,area,channelling,attack,lightning,melee
 Clarity|Clarity|aura,intelligence,active_skill,spell,area
 Cleave|Cleave|strength,active_skill,attack,area,melee
 Cluster Traps|SupportClusterTrap|trap,dexterity,support
@@ -66,6 +66,7 @@ Culling Strike|SupportCullingStrike|dexterity,support
 Curse On Hit|SupportCurseOnHit|curse,trigger,intelligence,support
 Cyclone|Cyclone|dexterity,active_skill,attack,area,movement,melee
 Damage Infusion|DamageInfusion|intelligence,active_skill,spell,area
+Dark Pact|DarkPact|intelligence,active_skill,spell,area,chaining,chaos
 Deadly Ailments|SupportDeadlyAilments|dexterity,support
 Decay|SupportDecay|chaos,intelligence,support
 Decoy Totem|DecoyTotem|totem,strength,active_skill,spell,duration,area
@@ -156,7 +157,7 @@ Increased Critical Damage|SupportIncreasedCriticalDamage|intelligence,support
 Increased Critical Strikes|SupportIncreasedCriticalStrikes|intelligence,support
 Increased Duration|SupportIncreasedDuration|strength,support,duration
 Infernal Blow|InfernalBlow|strength,active_skill,attack,area,melee,fire
-Innervate|SupportOnslaughtOnSlayingShockedEnemy|lightning,intelligence,support
+Innervate|SupportOnslaughtOnSlayingShockedEnemy|lightning,intelligence,support,duration
 Iron Grip|SupportIronGrip|projectile,strength,support
 Iron Will|SupportIronWill|spell,strength,support
 Item Quantity|SupportItemQuantity|strength,support
@@ -223,7 +224,6 @@ Raise Spectre|RaiseSpectre|intelligence,active_skill,spell,minion
 Raise Zombie|RaiseZombie|intelligence,active_skill,spell,minion
 Rallying Cry|RallyingCry|warcry,strength,active_skill,area,duration
 Ranged Attack Totem|SupportRangedAttackTotem|bow,projectile,strength,support,totem,attack,duration
-Rapid Decay|SupportRapidDecay|dexterity,support,duration
 Reave|Reave|dexterity,active_skill,attack,area,melee
 Reckoning|Reckoning|trigger,strength,active_skill,attack,area,melee
 Reduced Mana|SupportReducedMana|strength,support
@@ -243,7 +243,6 @@ Shock Nova|ShockNova|intelligence,active_skill,spell,area,lightning
 Shockwave Totem|ShockwaveTotem|totem,strength,active_skill,spell,area,duration
 Shrapnel Shot|ShrapnelShot|lightning,dexterity,active_skill,attack,area,bow
 Siege Ballista|SiegeBallista|totem,dexterity,active_skill,attack,duration,bow
-Skeletal Chains|SkeletalChains|intelligence,active_skill,spell,area
 Slower Projectiles|SupportSlowerProjectiles|dexterity,support,projectile
 Smoke Mine|SmokeMine|mine,dexterity,active_skill,spell,area,duration,movement
 Snipe|Snipe|dexterity,active_skill,attack,bow
@@ -264,11 +263,12 @@ Summon Flame Golem|SummonFireGolem|strength,active_skill,fire,minion,spell,golem
 Summon Ice Golem|SummonIceGolem|dexterity,active_skill,cold,minion,spell,golem
 Summon Lightning Golem|SummonLightningGolem|intelligence,active_skill,lightning,minion,spell,golem
 Summon Raging Spirit|SummonRagingSpirit|intelligence,active_skill,spell,minion,duration,fire
-Summon Skeletons|SummonSkeletons|intelligence,active_skill,spell,minion,duration
+Summon Skeleton|SummonSkeletons|intelligence,active_skill,spell,minion,duration
 Summon Skeletons Channelled|SummonSkeletonsChannelled|intelligence,active_skill,spell,minion,duration,channelling
 Summon Stone Golem|SummonRockGolem|strength,active_skill,minion,spell,golem
 Sunder|Sunder|strength,active_skill,attack,area,melee
 Sweep|Sweep|strength,active_skill,attack,area,melee
+Swift Demise|SupportRapidDecay|dexterity,support,duration
 Tempest Shield|TempestShield|intelligence,active_skill,spell,lightning,chaining,duration
 Temporal Chains|TemporalChains|curse,dexterity,active_skill,spell,area,duration
 Tornado Shot|TornadoShot|dexterity,active_skill,attack,bow

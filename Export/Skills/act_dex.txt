@@ -137,6 +137,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dotIsArea", true)
 #mods
 
+#skill ChargedDash
+#flags attack melee area
+#mods
+
 #skill Cyclone
 #flags attack melee area movement
 #baseMod skill("dpsMultiplier", 2)
