@@ -55,6 +55,7 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ## Changelog
 ### 1.4.52 - 2016/07/30
  * Fixed an issue where attack skills could fail to utilise weapons in the second weapon set
+
 For 3.0 builds:
  * Added preliminary support for Charged Dash, Dark Pact, and Storm Burst
 
