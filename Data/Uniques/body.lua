@@ -27,7 +27,7 @@ Variant: Current
 Requires Level 62, 180 Str
 +(8-12)% to all Elemental Resistances
 +(40-50) to all Attributes
-{variant:1}+(60-70) to maximum Life
+{variant:3}+(60-70) to maximum Life
 (10-15)% increased Attack Speed
 (180-220)% increased Armour
 {variant:1}5% of Physical Attack Damage Leeched as Life

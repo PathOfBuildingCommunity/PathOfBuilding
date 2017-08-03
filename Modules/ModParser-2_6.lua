@@ -824,8 +824,9 @@ local specialModList = {
 	["critical strikes do not always freeze"] = { flag("CritsDontAlwaysFreeze") },
 	["you can inflict up to (%d+) ignites on an enemy"] = { flag("IgniteCanStack") },
 	["enemies chilled by you take (%d+)%% increased burning damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("FireDamageTakenOverTime", "INC", num) }, { type = "EnemyCondition", var = "Chilled" }) } end,
-	["ignited enemies burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnRate", "INC", num) } end,
-	["enemies ignited by an attack burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnRate", "INC", num, nil, ModFlag.Attack) } end,
+	["ignited enemies burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnRate", "INC", -num) } end,
+	["ignited enemies burn (%d+)%% slower"] = function(num) return { mod("IgniteBurnRate", "INC", num) } end,
+	["enemies ignited by an attack burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnRate", "INC", -num, nil, ModFlag.Attack) } end,
 	-- Bleed
 	["melee attacks cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee) },
 	["attacks cause bleeding when hitting cursed enemies"] = { mod("BleedChance", "BASE", 100, { type = "EnemyCondition", var = "Cursed" }) },
