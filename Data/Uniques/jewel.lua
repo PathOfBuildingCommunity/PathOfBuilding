@@ -23,11 +23,9 @@ Minions have (2-5)% additional chance to Dodge Attacks
 ]],[[
 Army of Bones
 Cobalt Jewel
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
 Minions deal (8-12)% increased Damage
-{variant:1}+2 to maximum number of Skeletons
-{variant:2}+1 to maximum number of Skeletons
++2 to maximum number of Skeletons
 (10-20)% reduced Skeleton Duration
 ]],[[
 The Blue Dream
@@ -100,8 +98,8 @@ cone has a 50% chance to deal Double Damage
 ]],[[
 Dead Reckoning
 Cobalt Jewel
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Radius: Medium
 Minions have +(7-10)% to all Elemental Resistances
 {variant:1}With at least 40 Intelligence in Radius, can summon up to 3 Skeleton Mages with Summon Skeletons
@@ -190,26 +188,29 @@ Speed per second
 ]],[[
 Grand Spectrum
 Cobalt Jewel
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Limited to: 3
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 {variant:1}Gain 15 Mana per Grand Spectrum
 {variant:2}Gain 30 Mana per Grand Spectrum
 ]],[[
 Grand Spectrum
 Crimson Jewel
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Limited to: 3
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 {variant:1}Gain 75 Armour per Grand Spectrum
 {variant:2}Gain 200 Armour per Grand Spectrum
 ]],[[
 Grand Spectrum
 Viridian Jewel
+Limited to: 3
 Variant: Pre 2.5.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 {variant:1}5% increased Elemental Damage per Grand Spectrum
 {variant:2}4% increased Elemental Damage per Grand Spectrum
-{variant:3}10% increased Elemental Damage per Grand Spectrum
+{variant:3}12% increased Elemental Damage per Grand Spectrum
 ]],[[
 The Green Dream
 Viridian Jewel
@@ -233,8 +234,8 @@ also grant an equal chance to gain a Frenzy Charge on Kill
 Growing Agony
 Viridian Jewel
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Limited to: 1
 Radius: Medium
 (4-12)% increased Damage over Time
@@ -338,8 +339,8 @@ Dexterity and Intelligence from passives in Radius count towards Strength Melee 
 ]],[[
 Omen on the Winds
 Viridian Jewel
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Limited to: 2
 Radius: Medium
 {variant:1}(15-20)% increased Damage against Chilled Enemies
@@ -441,8 +442,8 @@ also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
 Ring of Blades
 Viridian Jewel
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Limited to: 1
 Radius: Medium
 (10–15)% increased Physical Damage 
@@ -488,7 +489,7 @@ Cobalt Jewel
 Limited to: 2
 Radius: Medium
 (5-10)% increased maximum Mana
-With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana when Hit during Rallying Cry for you and Allies
+With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over 4 seconds when Hit during Rallying Cry for you and Allies
 ]],[[
 Static Electricity
 Viridian Jewel
@@ -512,6 +513,15 @@ Radius: Medium
 (10–15)% increased Fire Damage 
 With at least 40 Dexterity in Radius, Burning
 Arrow can inflict an additional Ignite on an Enemy
+]],[[
+To Dust
+Cobalt Jewel
+Variant: Current
+Minions deal (8-12)% increased Damage
+(10-20)% reduced Skeleton Duration
+(3-5)% increased Skeleton Movement Speed
+(7-10)% increased Skeleton Attack Speed
+(7-10)% increased Skeleton Cast speed
 ]],[[
 Unending Hunger 
 Cobalt Jewel
@@ -667,6 +677,7 @@ Corrupted
 ]],[[
 Sacrificial Harvest
 Viridian Jewel
+Limited to: 1
 (20-30)% chance to gain an additional Vaal Soul on Kill
 Corrupted
 ]],[[
@@ -707,8 +718,8 @@ Limited to: 1
 ]],[[
 Conqueror's Longevity
 Viridian Jewel
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Limited to: 1
 {variant:1}3% chance to Avoid Elemental Status Ailments
 {variant:2}3% chance to Avoid Elemental Ailments
@@ -724,8 +735,8 @@ Limited to: 1
 ]],[[
 Poacher's Aim
 Viridian Jewel
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Limited to: 1
 {variant:1}15% chance of Projectiles Piercing
 {variant:2}Projectiles Pierce an additional Target

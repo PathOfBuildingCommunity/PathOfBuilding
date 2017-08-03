@@ -5,8 +5,8 @@ return {
 [[
 Ahn's Heritage
 Colossal Tower Shield
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 67, 159 Str
 Implicits: 1
 {variant:2}+(10-20) to maximum Life
@@ -20,8 +20,8 @@ You have Onslaught while at maximum Endurance Charges
 ]],[[
 The Anticipation
 Ezomyte Tower Shield
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Breach
 Requires Level 64, 159 Str
 Implicits: 1
@@ -34,8 +34,8 @@ Permanently Intimidate Enemies on Block
 ]],[[
 The Surrender
 Ezomyte Tower Shield
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Breach
 Requires Level 64, 159 Str
 Implicits: 1
@@ -51,8 +51,8 @@ Chernobog's Pillar
 Ebony Tower Shield
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 61, 159 Str
 Implicits: 1
 {variant:4}+(20-30) to maximum Life
@@ -69,8 +69,8 @@ Implicits: 1
 Lioneye's Remorse
 Pinnacle Tower Shield
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 70, 159 Str
 Implicits: 1
 {variant:3}+(20-30) to maximum Life
@@ -84,8 +84,8 @@ Implicits: 1
 ]],[[
 Lycosidae
 Rawhide Tower Shield
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 11, 33 Str
 Implicits: 1
 {variant:2}+(10-20) to maximum Life
@@ -98,8 +98,8 @@ Adds 250 to 300 Cold Damage to Counterattacks
 Redblade Banner
 Painted Tower Shield
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Warbands
 Requires Level 35, 87 Str
 Implicits: 1
@@ -117,8 +117,8 @@ Gain +10 Life when you Taunt an Enemy
 Titucius' Span
 Reinforced Tower Shield
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 30, 76 Str
 Implicits: 1
 {variant:3}+(10-20) to maximum Life
@@ -132,8 +132,8 @@ Implicits: 1
 Trolltimber Spire
 Cedar Tower Shield
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Tempest
 Requires Level 17, 46 Str
 Implicits: 1
@@ -147,8 +147,8 @@ Implicits: 1
 ]],[[
 Tukohama's Fortress
 Ebony Tower Shield
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 61, 159 Str
 Implicits: 1
 {variant:2}+(20-30) to maximum Life
@@ -163,8 +163,8 @@ Blood Magic
 Atziri's Mirror
 Golden Buckler
 Variant: Pre 2.0.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 54, 130 Dex
 Implicits: 1
 {variant:3}6% increased Movement Speed
@@ -180,8 +180,8 @@ Curse Reflection
 Chalice of Horrors
 War Buckler
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 29, 74 Dex
 Implicits: 1
 {variant:3}9% increased Movement Speed
@@ -196,8 +196,8 @@ Implicits: 1
 Thirst for Horrors
 War Buckler
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 32, 74 Dex
 Implicits: 1
 {variant:3}9% increased Movement Speed
@@ -213,8 +213,8 @@ Implicits: 1
 Crest of Perandus
 Pine Buckler
 Variant: Pre 1.3.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 8, 26 Dex
 Implicits: 1
 {variant:3}3% increased Movement Speed
@@ -227,8 +227,8 @@ Implicits: 1
 ]],[[
 Great Old One's Ward
 Corrugated Buckler
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 46, 112 Dex
 Implicits: 1
 {variant:2}3% increased Movement Speed
@@ -241,8 +241,8 @@ Kaltenhalt
 Painted Buckler
 Variant: Pre 1.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 16, 44 Dex
 Implicits: 1
 {variant:4}6% increased Movement Speed
@@ -257,8 +257,8 @@ Implicits: 1
 Kaltensoul
 Painted Buckler
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 16, 44 Dex
 Implicits: 1
 {variant:3}6% increased Movement Speed
@@ -273,8 +273,8 @@ Reflects (25-50) Cold Damage to Melee Attackers
 Mutewind Pennant
 Enameled Buckler
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Warbands
 Requires Level 42, 103 Dex
 Implicits: 1
@@ -291,8 +291,8 @@ Implicits: 1
 Thousand Teeth Temu
 Vaal Buckler
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 63, 159 Dex
 Implicits: 1
 {variant:3}3% increased Movement Speed
@@ -308,8 +308,8 @@ Reflects 1 to 1000 Physical Damage to Attackers on Block
 Brinerot Flag
 Tarnished Spirit Shield
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Warbands
 Requires Level 23, 60 Int
 Implicits: 2
@@ -337,8 +337,8 @@ Shock Reflection
 ]],[[
 Esh's Visage
 Vaal Spirit Shield
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Breach
 Requires Level 62, 159 Int
 Implicits: 2
@@ -353,8 +353,8 @@ Reflect Shocks applied to you to all Nearby Enemies
 ]],[[
 Kongming's Stratagem
 Ivory Spirit Shield
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 41, 100 Int
 Implicits: 2
 {variant:1}15% increased Spell Damage
@@ -369,8 +369,8 @@ No Block Chance
 ]],[[
 Light of Lunaris
 Jingling Spirit Shield
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 28, 71 Int
 Implicits: 2
 {variant:1}10% increased Spell Damage
@@ -384,8 +384,8 @@ Implicits: 2
 Malachai's Loop
 Harmonic Spirit Shield
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 65, 159 Int
 Implicits: 2
 {variant:1,2}10% increased Spell Damage
@@ -400,8 +400,8 @@ You are Shocked for 4 seconds on reaching Maximum Power Charges
 ]],[[
 Matua Tupuna
 Tarnished Spirit Shield
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 23, 60 Int
 Implicits: 2
 {variant:1}5% increased Spell Damage
@@ -480,8 +480,8 @@ Requires Level 5
 Aegis Aurora
 Champion Kite Shield
 Variant: Pre 1.1.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 62, 85 Str, 85 Int
 {variant:1,2}(10-20)% increased Elemental Damage with Weapons
 {variant:3}(10-20)% increased Elemental Damage with Attack Skills
@@ -606,8 +606,8 @@ Requires Level 50, 64 Str, 64 Int
 [[
 Glitterdisc
 Burnished Spiked Shield
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 27, 36 Dex, 36 Int
 Implicits: 2
 {variant:1}Reflects (10-23) Physical Damage to Melee Attackers
@@ -622,8 +622,8 @@ Implicits: 2
 Jaws of Agony
 Supreme Spiked Shield
 Variant: Pre 2.0.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 70, 85 Dex, 85 Int
 Implicits: 2
 {variant:1,2}Reflects (221-260) Physical Damage to Melee Attackers
@@ -638,8 +638,8 @@ Grants level 20 Bear Trap Skill
 ]],[[
 Maligaro's Lens
 Compound Spiked Shield
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 45, 58 Dex, 58 Int
 Implicits: 2
 {variant:1}Reflects (51-70) Physical Damage to Melee Attackers

@@ -6,8 +6,8 @@ return {
 Abyssus
 Ezomyte Burgonet
 Variant: Pre 2.2.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 60, 138 Str
 Adds 40 to 60 Physical Damage to Attacks
 +(20-25) to all Attributes
@@ -109,8 +109,8 @@ Reflects 4 Physical Damage to Melee Attackers
 ]],[[
 Heatshiver
 Leather Hood
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 20, 46 Dex
 {variant:1}+1 to Level of Socketed Fire Gems
 {variant:1}+1 to Level of Socketed Cold Gems
@@ -202,8 +202,8 @@ Pain Attunement
 ]],[[
 Martyr's Crown
 Vine Circlet
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 52
 {variant:1}+(260-300) to maximum Energy Shield
 {variant:2}+(110–130) to maximum Energy Shield
@@ -214,8 +214,8 @@ Pain Attunement
 Doedre's Scorn
 Lunaris Circlet
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 39, 83 Int
 {variant:1}+1 to Level of Socketed Curse Gems
 {variant:2,3}+2 to Level of Socketed Curse Gems
@@ -377,8 +377,8 @@ Cannot be Frozen
 The Broken Crown
 Prophet Crown
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 63, 85 Str, 62 Int
 Socketed Gems are supported by level 20 Cast on Death
 20% increased Damage when on Low Life
@@ -420,8 +420,8 @@ you Spend at least 100 Mana to Use a Skill
 ]],[[
 Malachai's Vision
 Praetor Crown
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 68, 62 Str, 91 Int
 Adds (13-17) to (29-37) Chaos Damage
 {variant:1}+(200-250) to maximum Energy Shield
@@ -434,12 +434,16 @@ Corrupted
 ]],[[
 Mindspiral
 Aventail Helmet
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 37, 42 Str, 42 Int
 (10-15)% increased Cold Damage
 (10-15)% increased Lightning Damage
-+(100-150) to maximum Mana
+{variant:1}+(100-150) to maximum Mana
+{variant:2}+(100-120) to maximum Mana
+{variant:2}Gain (5-10)% of Maximum Mana as Extra Maximum Energy Shield
 Enemies Cannot Leech Mana From You
-(5-10)% of Damage taken Gained as Mana when Hit
+(5-10)% of Damage taken Gained as Mana over 4 seconds when Hit
 Cannot Leech Mana
 ]],[[
 Veil of the Night
@@ -478,8 +482,8 @@ Reflects 100 to 150 Physical Damage to Melee Attackers
 The Gull
 Raven Mask
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Domination
 Requires Level 38, 44 Dex, 44 Int
 {variant:2,3}Cast level 1 Create Lesser Shrine when you Kill an Enemy
@@ -497,8 +501,8 @@ Requires Level 38, 44 Dex, 44 Int
 Heretic's Veil
 Deicide Mask
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 67, 73 Dex, 88 Int
 +(40-50) to maximum Energy Shield
 {variant:1,2}(130-150)% increased Evasion and Energy Shield

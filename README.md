@@ -53,7 +53,21 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
-### 1.4.52 - 2016/07/30
+### 1.4.53 - 2017/08/03
+ * Added Inya's Epiphany, Volkuur's Guidance and The Coming Calamity
+ * Fixed an issue where the effect of the Conflux Buff option would persist after Shaper of Desolation is deallocted
+
+For 3.0 builds:
+ * Updated the passive tree to the final version
+ * Updated the charge bonuses
+ * Applied most of the unique changes that hadn't already been applied
+ 
+Still to be added:
+ * Some skill changes (waiting for the patch data to become available)
+ * The new skill granted by Death's Oath
+ * The changes to Shock and Chill
+
+### 1.4.52 - 2017/07/30
  * Fixed an issue where attack skills could fail to utilise weapons in the second weapon set
 
 For 3.0 builds:

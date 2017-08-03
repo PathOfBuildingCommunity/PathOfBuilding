@@ -36,7 +36,7 @@ local varList = {
 	{ var = "igniteMode", type = "list", label = "Ignite calculation mode:", tooltip = "Controls how the base damage for ignite is calculated:\nAverage Damage: Ignite is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ignite is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
 	{ section = "Skill Options", col = 2 },
 	{ label = "Detonate Dead:", ifSkill = "Detonate Dead" },
-	{ var = "detonateDeadCorpseLife", type = "number", label = "Corpse Life:", ifSkillList = { "Detonate Dead", "Vaal Detonate Dead" }, tooltip = "Sets the maximum life of the corpse that is being detonated.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base life, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
+	{ var = "detonateDeadCorpseLife", type = "number", label = "Corpse Life:", ifSkillList = { "Detonate Dead", "Vaal Detonate Dead" }, tooltip = "Sets the maximum life of the corpse that is being detonated.\nFor reference, a level 70 monster has "..data["3_0"].monsterLifeTable[70].." base life, and a level 80 monster has "..data["3_0"].monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config", { type = "SkillName", skillName = "Detonate Dead" })
 	end },
 	{ label = "Ice Nova:", ifSkill = "Ice Nova" },
@@ -304,24 +304,13 @@ local varList = {
 	end },
 	{ var = "buffConflux", type = "list", label = "Conflux Buff:", ifNode = 51391, list = {{val=0,label="None"},{val="CHILLING",label="Chilling"},{val="SHOCKING",label="Shocking"},{val="IGNITING",label="Igniting"},{val="ALL",label="Chill + Shock + Ignite"}}, apply = function(val, modList, enemyModList)
 		if val == "CHILLING" or val == "ALL" then
-			modList:NewMod("PhysicalCanChill", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("LightningCanChill", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("FireCanChill", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("ChaosCanChill", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+			modList:NewMod("Condition:ChillingConflux", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		end
 		if val == "SHOCKING" or val == "ALL" then
-			modList:NewMod("EnemyShockChance", "BASE", 100, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("PhysicalCanShock", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("ColdCanShock", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("FireCanShock", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("ChaosCanShock", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+			modList:NewMod("Condition:ShockingConflux", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		end
 		if val == "IGNITING" or val == "ALL" then
-			modList:NewMod("EnemyIgniteChance", "BASE", 100, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("PhysicalCanIgnite", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("LightningCanIgnite", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("ColdCanIgnite", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("ChaosCanIgnite", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+			modList:NewMod("Condition:IgnitingConflux", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		end
 	end },
 	{ var = "buffBastionOfHope", type = "check", label = "Is Bastion of Hope active?", ifNode = 39728, apply = function(val, modList, enemyModList)
@@ -482,7 +471,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 
 	self.sectionList = { }
 	self.varControls = { }
-
+	
 	self:BuildModList()
 
 	local lastSection

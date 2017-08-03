@@ -30,8 +30,8 @@ Chill and Freeze duration on you is based on 65% of Energy Shield
 ]],[[
 Auxium
 Crystal Belt
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 70
 +(60-80) to maximum Energy Shield
 {variant:1}(10-20)% increased Elemental Damage with Weapons
@@ -140,8 +140,8 @@ Adds 5 to 10 Physical Damage to Attacks
 ]],[[
 Headhunter
 Leather Belt
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Nemesis
 Requires Level 40
 +(25-40) to maximum Life
@@ -229,8 +229,8 @@ You have Onslaught while you have Fortify
 Prismweave
 Rustic Sash
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 25
 (12-24)% increased Physical Damage
 {variant:1,2}10% increased Elemental Damage with Weapons

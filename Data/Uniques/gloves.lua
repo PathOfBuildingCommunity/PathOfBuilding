@@ -5,8 +5,8 @@ return {
 [[
 Atziri's Acuity
 Vaal Gauntlets
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 75, 100 Str
 +(60-80) to Intelligence
 +(60-75) to maximum Life
@@ -17,8 +17,8 @@ Requires Level 75, 100 Str
 ]],[[
 Doryani's Fist
 Vaal Gauntlets
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 63, 100 Str
 {variant:2}Grants level 20 Doryani's Touch Skill
 +30 to maximum Energy Shield
@@ -116,8 +116,8 @@ Reflects 10 Cold Damage to Melee Attackers
 Maligaro's Virtuosity
 Deerskin Gloves
 Variant: Pre 1.1.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 21, 33 Dex
 +(20-30) to Dexterity
 5% increased Attack Speed
@@ -178,8 +178,8 @@ Adds 1 to 13 Lightning Damage to Attacks
 Voidbringer
 Conjurer Gloves
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 55, 79 Int
 (125-150)% increased Critical Strike Chance for Spells
 {variant:1,2}(280-350)% increased Energy Shield
@@ -343,8 +343,8 @@ Strapped Mitts
 Variant: Pre 1.0.0
 Variant: Pre 2.2.0
 Variant: Pre 2.5.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 16, 14 Dex, 14 Int
 {variant:1,2}+60% to Global Critical Strike Multiplier
 {variant:3}+90% to Global Critical Strike Multiplier
@@ -370,8 +370,8 @@ Adds 1 to 13 Lightning Damage to Attacks
 Shadows and Dust
 Clasped Mitts
 Variant: Pre 2.2.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Rampage
 Requires Level 31, 25 Dex, 25 Int
 (20-30)% increased Global Critical Strike Chance

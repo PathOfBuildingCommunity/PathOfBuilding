@@ -222,7 +222,7 @@ function calcs.offence(env, actor)
 			modDB:NewMod("Damage", "MORE", 50, "Point Blank", bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{10,1},{35,0},{150,-1}} })
 		end
 		output.ProjectileCount = modDB:Sum("BASE", skillCfg, "ProjectileCount")
-		if modDB:Sum("FLAG", skillCfg, "PierceAllTargets") then
+		if modDB:Sum("FLAG", skillCfg, "PierceAllTargets") or enemyDB:Sum("FLAG", nil, "AlwaysPierceSelf") then
 			output.PierceCount = 100
 			output.PierceCountString = "All targets"
 		else
@@ -413,8 +413,8 @@ function calcs.offence(env, actor)
 			-- Skill conversion exceeds 100%, scale it down and remove non-skill conversions
 			local factor = 100 / skillTotal
 			for type, val in pairs(skillConv) do
-				-- The game currently doesn't scale this down even though it is supposed to
-				--skillConv[type] = val * factor
+				-- Overconversion is fixed in 3.0, so I finally get to uncomment this line!
+				skillConv[type] = val * factor
 			end
 			for type, val in pairs(globalConv) do
 				globalConv[type] = 0
@@ -1147,7 +1147,7 @@ function calcs.offence(env, actor)
 
 		-- Calculate chance to inflict secondary dots/status effects
 		cfg.skillCond["CriticalStrike"] = true
-		if modDB:Sum("FLAG", cfg, "CannotBleed") then
+		if not skillFlags.attack or modDB:Sum("FLAG", cfg, "CannotBleed") then
 			output.BleedChanceOnCrit = 0
 		else
 			output.BleedChanceOnCrit = m_min(100, modDB:Sum("BASE", cfg, "BleedChance"))
@@ -1174,7 +1174,7 @@ function calcs.offence(env, actor)
 			output.KnockbackChanceOnCrit = modDB:Sum("BASE", cfg, "EnemyKnockbackChance")
 		end
 		cfg.skillCond["CriticalStrike"] = false
-		if modDB:Sum("FLAG", cfg, "CannotBleed") then
+		if not skillFlags.attack or modDB:Sum("FLAG", cfg, "CannotBleed") then
 			output.BleedChanceOnHit = 0
 		else
 			output.BleedChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "BleedChance"))
@@ -1203,10 +1203,6 @@ function calcs.offence(env, actor)
 			output.KnockbackChanceOnHit = 0
 		else
 			output.KnockbackChanceOnHit = modDB:Sum("BASE", cfg, "EnemyKnockbackChance")
-		end
-		if skillFlags.attack and skillFlags.projectile and modDB:Sum("FLAG", cfg, "ArrowsThatPierceCauseBleeding") and globalOutput.PierceCount > 0 then
-			output.BleedChanceOnHit = 100
-			output.BleedChanceOnCrit = 100
 		end
 		if env.mode_effective then
 			local bleedMult = (1 - enemyDB:Sum("BASE", nil, "AvoidBleed") / 100)
@@ -1297,7 +1293,7 @@ function calcs.offence(env, actor)
 					skillName = skillCfg.skillName,
 					skillPart = skillCfg.skillPart,
 					slotName = skillCfg.slotName,
-					flags = ModFlag.Dot,
+					flags = bor(ModFlag.Dot, ModFlag.Ailment),
 					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Bleed, KeywordFlag.Ailment),
 					skillCond = { },
 				}
@@ -1379,7 +1375,7 @@ function calcs.offence(env, actor)
 					skillName = skillCfg.skillName,
 					skillPart = skillCfg.skillPart,
 					slotName = skillCfg.slotName,
-					flags = ModFlag.Dot,
+					flags = bor(ModFlag.Dot, ModFlag.Ailment),
 					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Poison, KeywordFlag.Ailment),
 					skillCond = { },
 				}
@@ -1388,6 +1384,7 @@ function calcs.offence(env, actor)
 			local sourceHitDmg, sourceCritDmg
 			if breakdown then
 				breakdown.PoisonPhysical = { damageTypes = { } }
+				breakdown.PoisonCold = { damageTypes = { } }
 				breakdown.PoisonChaos = { damageTypes = { } }
 			end
 			for pass = 1, 2 do
@@ -1400,20 +1397,27 @@ function calcs.offence(env, actor)
 					totalMin = totalMin + min
 					totalMax = totalMax + max
 				end
+				local nonChaosMult = 1
+				if output.ChaosPoisonChance > 0 and output.PoisonChaosMax > 0 then
+					-- Additional chance for chaos
+					local chance = (pass == 1) and "PoisonChanceOnCrit" or "PoisonChanceOnHit"
+					local chaosChance = m_min(100, output[chance] + output.ChaosPoisonChance)
+					nonChaosMult = output[chance] / chaosChance
+					output[chance] = chaosChance
+				end
+				if canDeal.Cold and modDB:Sum("FLAG", cfg, "ColdCanPoison") then
+					local min, max = calcAilmentSourceDamage(actor, output, dotCfg, pass == 2 and breakdown and breakdown.PoisonCold, "Cold", dmgTypeFlags.Chaos)
+					output.PoisonColdMin = min
+					output.PoisonColdMax = max
+					totalMin = totalMin + min * nonChaosMult
+					totalMax = totalMax + max * nonChaosMult
+				end
 				if canDeal.Physical then
 					local min, max = calcAilmentSourceDamage(actor, output, dotCfg, pass == 2 and breakdown and breakdown.PoisonPhysical, "Physical", dmgTypeFlags.Chaos)
 					output.PoisonPhysicalMin = min
-					output.PoisonPhysicalMax = max
-					if output.ChaosPoisonChance > 0 and output.PoisonChaosMax > 0 then
-						-- Additional chance for chaos; adjust Physical damage and inflict chance
-						local chance = (pass == 1) and "PoisonChanceOnCrit" or "PoisonChanceOnHit"
-						local chaosChance = m_min(100, output[chance] + output.ChaosPoisonChance)
-						min = min * output[chance] / chaosChance
-						max = max * output[chance] / chaosChance
-						output[chance] = chaosChance
-					end
-					totalMin = totalMin + min
-					totalMax = totalMax + max
+					output.PoisonPhysicalMax = ma
+					totalMin = totalMin + min * nonChaosMult
+					totalMax = totalMax + max * nonChaosMult
 				end
 				if pass == 1 then
 					sourceCritDmg = (totalMin + totalMax) / 2  * output.CritDegenMultiplier
@@ -1506,7 +1510,7 @@ function calcs.offence(env, actor)
 					skillName = skillCfg.skillName,
 					skillPart = skillCfg.skillPart,
 					slotName = skillCfg.slotName,
-					flags = ModFlag.Dot,
+					flags = bor(ModFlag.Dot, ModFlag.Ailment),
 					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Ignite, KeywordFlag.Ailment),
 					skillCond = { },
 				}

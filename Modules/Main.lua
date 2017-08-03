@@ -770,7 +770,7 @@ function main:RenderCircle(x, y, width, height, oX, oY, radius)
 	local maxX = wipeTable(tempTable2)
 	local minY = height
 	local maxY = 0
-	for d = 0, 360, 0.2 do
+	for d = 0, 360, 0.15 do
 		local r = d / 180 * m_pi
 		local px, py = main:WorldToScreen(oX + m_sin(r) * radius, oY + m_cos(r) * radius, 0, width, height)
 		if py >= 0 and py < height then
@@ -782,7 +782,9 @@ function main:RenderCircle(x, y, width, height, oX, oY, radius)
 		end
 	end
 	for ly = minY, maxY do
-		DrawImage(nil, x + minX[ly], y + ly, maxX[ly] - minX[ly] + 1, 1)
+		if minX[ly] then
+			DrawImage(nil, x + minX[ly], y + ly, maxX[ly] - minX[ly] + 1, 1)
+		end
 	end
 end
 

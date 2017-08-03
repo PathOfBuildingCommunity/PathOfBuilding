@@ -86,7 +86,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F2327651-CAA5-4DA0-91DB-EFA5E0E07A51}"
 	ProjectSection(SolutionItems) = preProject
 		Data\Global.lua = Data\Global.lua
-		Data\Misc.lua = Data\Misc.lua
 		Data\New.lua = Data\New.lua
 	EndProjectSection
 EndProject
@@ -120,6 +119,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.6", "2.6", "{C67A4D0E-AF9
 		Data\2_6\EnchantmentHelmet.lua = Data\2_6\EnchantmentHelmet.lua
 		Data\2_6\Essence.lua = Data\2_6\Essence.lua
 		Data\2_6\Minions.lua = Data\2_6\Minions.lua
+		Data\2_6\Misc.lua = Data\2_6\Misc.lua
 		Data\2_6\ModCorrupted.lua = Data\2_6\ModCorrupted.lua
 		Data\2_6\ModFlask.lua = Data\2_6\ModFlask.lua
 		Data\2_6\ModItem.lua = Data\2_6\ModItem.lua
@@ -136,6 +136,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.0", "3.0", "{E58DF0B8-388
 		Data\3_0\EnchantmentHelmet.lua = Data\3_0\EnchantmentHelmet.lua
 		Data\3_0\Essence.lua = Data\3_0\Essence.lua
 		Data\3_0\Minions.lua = Data\3_0\Minions.lua
+		Data\3_0\Misc.lua = Data\3_0\Misc.lua
 		Data\3_0\ModCorrupted.lua = Data\3_0\ModCorrupted.lua
 		Data\3_0\ModFlask.lua = Data\3_0\ModFlask.lua
 		Data\3_0\ModItem.lua = Data\3_0\ModItem.lua

@@ -47,23 +47,40 @@ local function doActorAttribsPoolsConditions(env, actor)
 	local condList = modDB.conditions
 
 	-- Set conditions
-	if actor.weaponData1.type == "Staff" then
-		condList["UsingStaff"] = true
-	end
-	if actor.weaponData1.type == "Bow" then
-		condList["UsingBow"] = true
-	end
 	if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].type == "Shield" then
 		condList["UsingShield"] = true
+	end
+	if actor.weaponData1.type == "None" then
+		condList["Unarmed"] = true
+	else
+		local info = env.data.weaponTypeInfo[actor.weaponData1.type]
+		condList["Using"..info.flag] = true
+		if info.melee then
+			condList["UsingMeleeWeapon"] = true
+		end
+		if info.oneHand then
+			condList["UsingOneHandedWeapon"] = true
+		else
+			condList["UsingTwoHandedWeapon"] = true
+		end
+	end
+	if actor.weaponData2.type then
+		local info = env.data.weaponTypeInfo[actor.weaponData2.type]
+		condList["Using"..info.flag] = true
+		if info.melee then
+			condList["UsingMeleeWeapon"] = true
+		end
+		if info.oneHand then
+			condList["UsingOneHandedWeapon"] = true
+		else
+			condList["UsingTwoHandedWeapon"] = true
+		end
 	end
 	if actor.weaponData1.type and actor.weaponData2.type then
 		condList["DualWielding"] = true
 		if actor.weaponData1.type == "Claw" and actor.weaponData2.type == "Claw" then
 			condList["DualWieldingClaws"] = true
 		end
-	end
-	if actor.weaponData1.type == "None" then
-		condList["Unarmed"] = true
 	end
 	if (modDB.multipliers["NormalItem"] or 0) > 0 then
 		condList["UsingNormalItem"] = true
@@ -86,7 +103,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 		if not modDB:Sum("FLAG", nil, "NeverCrit") then
 			condList["CritInPast8Sec"] = true
 		end
-		if not actor.mainSkill.skillData.triggered then 
+		if not actor.mainSkill.skillData.triggered and not actor.mainSkill.skillFlags.trap and not actor.mainSkill.skillFlags.mine and not actor.mainSkill.skillFlags.totem then 
 			if actor.mainSkill.skillFlags.attack then
 				condList["AttackedRecently"] = true
 			elseif actor.mainSkill.skillFlags.spell then
@@ -440,13 +457,18 @@ function calcs.perform(env)
 		if activeSkill.skillTypes[SkillType.ManaCostReserved] and not activeSkill.skillFlags.totem then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
-			local baseVal = activeSkill.skillData.manaCostOverride or activeSkill.skillData.manaCost or 0
 			local suffix = activeSkill.skillTypes[SkillType.ManaCostPercent] and "Percent" or "Base"
+			local baseVal = activeSkill.skillData.manaCostOverride or activeSkill.skillData.manaCost or 0
 			local mult = skillModList:Sum("MORE", skillCfg, "ManaCost")
 			local more = modDB:Sum("MORE", skillCfg, "ManaReserved") * skillModList:Sum("MORE", skillCfg, "ManaReserved")
 			local inc = modDB:Sum("INC", skillCfg, "ManaReserved") + skillModList:Sum("INC", skillCfg, "ManaReserved")
 			local base = m_floor(baseVal * mult)
-			local cost = m_max(base - m_floor(base * -m_floor((100 + inc) * more - 100) / 100), 0)
+			local cost
+			if activeSkill.skillData.manaCostForced then
+				cost = activeSkill.skillData.manaCostForced
+			else
+				cost = m_max(base - m_floor(base * -m_floor((100 + inc) * more - 100) / 100), 0)
+			end
 			local pool
 			if modDB:Sum("FLAG", skillCfg, "BloodMagic", "SkillBloodMagic") or skillModList:Sum("FLAG", skillCfg, "SkillBloodMagic") then
 				pool = "Life"

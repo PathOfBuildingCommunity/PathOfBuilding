@@ -45,13 +45,16 @@ Adds (10-15) to (25-30) Physical Damage
 ]],[[
 Jack, the Axe
 Vaal Hatchet
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 65, 140 Str, 86 Dex
 (90-110)% increased Physical Damage
 Adds (11-14) to (18-23) Physical Damage
 (10-15)% increased Attack Speed
 2% of Physical Attack Damage Leeched as Life
 50% reduced Life Leeched per second
-Causes Bleeding on Hit
+{variant:1}Causes Bleeding on Hit
+{variant:2}25% chance to cause Bleeding on Hit
 ]],[[
 Moonbender's Wing
 Tomahawk
@@ -78,13 +81,16 @@ Cannot be Chilled while you have Onslaught
 ]],[[
 Rigwald's Savagery
 Royal Axe
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Talisman Standard, Talisman Hardcore
 Requires Level 67, 167 Str, 57 Dex
 Adds (50-70) to (135-165) Physical Damage
 40% increased Physical Weapon Damage while Dual Wielding
 (10-15)% increased Attack Speed
 35% increased Attack Speed with Swords
-Causes Bleeding on Hit
+{variant:1}Causes Bleeding on Hit
+{variant:2}25% chance to cause Bleeding on Hit
 ]],[[
 The Screaming Eagle
 Jade Hatchet
@@ -115,17 +121,20 @@ Your Physical Damage can Chill
 [[
 Atziri's Disfavour
 Vaal Axe
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 75, 158 Str, 76 Dex
 +2 to Level of Socketed Support Gems
 Adds (220-235) to (270-290) Physical Damage
 (12-16)% increased Attack Speed
-Causes Bleeding on Hit
+{variant:1}Causes Bleeding on Hit
+{variant:2}25% chance to cause Bleeding on Hit
 +2 to Weapon range
 ]],[[
 The Blood Reaper
 Headsman Axe
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 45, 99 Str, 57 Dex
 {variant:1}(100-120)% increased Physical Damage
 {variant:2}(180–200)% increased Physical Damage
@@ -133,7 +142,8 @@ Requires Level 45, 99 Str, 57 Dex
 10.0 Life Regenerated per second
 1% of Physical Attack Damage Leeched as Life
 50% increased Mana Cost of Skills
-Causes Bleeding on Hit
+{variant:1}Causes Bleeding on Hit
+{variant:2}50% chance to cause Bleeding on Hit
 ]],[[
 The Cauteriser
 Woodsplitter
@@ -225,20 +235,26 @@ Hits can't be Evaded
 ]],[[
 Uul-Netol's Kiss
 Labrys
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Breach
 Requires Level 49, 122 Str, 53 Dex
 (140-170)% increased Physical Damage
 15% reduced Attack Speed
 25% chance to Curse Enemies with level 10 Vulnerability on Hit
-Attacks Cause Bleeding when Hitting Cursed Enemies
+{variant:1}Attacks Cause Bleeding when Hitting Cursed Enemies
+{variant:2}Attacks have 25% chance to cause Bleeding when Hitting Cursed Enemies
 ]],[[
 Uul-Netol's Embrace
 Vaal Axe
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Breach
 Requires Level 64, 158 Str, 76 Dex
 (280-320)% increased Physical Damage
 (30-25)% reduced Attack Speed
-Attacks Cause Bleeding when Hitting Cursed Enemies
+{variant:1}Attacks Cause Bleeding when Hitting Cursed Enemies
+{variant:2}Attacks have 25% chance to cause Bleeding when Hitting Cursed Enemies
 Attack with level 20 Bone Nova when you Kill a Bleeding Enemy
 ]],[[
 Wideswing

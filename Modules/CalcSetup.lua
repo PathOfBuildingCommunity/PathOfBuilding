@@ -146,14 +146,12 @@ function calcs.initEnv(build, mode, override)
 	modDB:NewMod("ChaosResist", "BASE", -60, "Base")
 	if build.targetVersion == "2_6" then
 		modDB:NewMod("CritChance", "INC", 50, "Base", { type = "Multiplier", var = "PowerCharge" })
-		modDB:NewMod("Speed", "INC", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
-		modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
 	else
-		modDB:NewMod("CritChance", "INC", 30, "Base", { type = "Multiplier", var = "PowerCharge" })
-		modDB:NewMod("Damage", "MORE", 4, "Base", ModFlag.Spell, { type = "Multiplier", var = "PowerCharge" })
-		modDB:NewMod("Speed", "INC", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
-		modDB:NewMod("Damage", "MORE", 4, "Base", 0, KeywordFlag.Attack, { type = "Multiplier", var = "FrenzyCharge" })
+		modDB:NewMod("CritChance", "INC", 40, "Base", { type = "Multiplier", var = "PowerCharge" })
 	end
+	modDB:NewMod("Damage", "MORE", 4, "Base", ModFlag.Spell, { type = "Multiplier", var = "PowerCharge" })
+	modDB:NewMod("Speed", "INC", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
+	modDB:NewMod("Damage", "MORE", 4, "Base", 0, KeywordFlag.Attack, { type = "Multiplier", var = "FrenzyCharge" })
 	modDB:NewMod("PhysicalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 	modDB:NewMod("ElementalResist", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 	modDB:NewMod("ActiveTrapLimit", "BASE", 3, "Base")
@@ -167,7 +165,7 @@ function calcs.initEnv(build, mode, override)
 	if build.targetVersion == "2_6" then
 		modDB:NewMod("Damage", "MORE", 500, "Base", 0, KeywordFlag.Bleed, { type = "EnemyCondition", var = "Moving" })
 	else
-		modDB:NewMod("Damage", "MORE", 100, "Base", 0, KeywordFlag.Bleed, { type = "EnemyCondition", var = "Moving" })
+		modDB:NewMod("Damage", "MORE", 100, "Base", 0, KeywordFlag.Bleed, { type = "EnemyCondition", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
 	end	
 
 	-- Add bandit mods

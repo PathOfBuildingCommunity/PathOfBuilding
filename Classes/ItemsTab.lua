@@ -234,7 +234,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.removeDisplayItem = common.New("ButtonControl", {"LEFT",self.controls.editDisplayItem,"RIGHT"}, 8, 0, 60, 20, "Cancel", function()
 		self:SetDisplayItem()
 	end)
-	self.controls.displayItemVariant = common.New("DropDownControl", {"LEFT",self.controls.removeDisplayItem,"RIGHT"}, 8, 0, 200, 20, nil, function(index, value)
+	self.controls.displayItemVariant = common.New("DropDownControl", {"LEFT",self.controls.removeDisplayItem,"RIGHT"}, 8, 0, 214, 20, nil, function(index, value)
 		self.displayItem.variant = index
 		itemLib.buildItemModList(self.displayItem)
 		self:UpdateDisplayItemTooltip()

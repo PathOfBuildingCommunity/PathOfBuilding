@@ -81,15 +81,14 @@ Legion Sword
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 62, 122 Str, 104 Dex
 Implicits: 2
 {variant:1,2,3}18% increased Accuracy Rating
 {variant:4,5}40% increased Accuracy Rating
 {variant:1,2}Adds 1 to (500-600) Lightning Damage
-{variant:3,4}Adds 1 to (550-650) Lightning Damage
-{variant:5}Adds 1 to (650–750) Lightning Damage
+{variant:3,4,5}Adds 1 to (550-650) Lightning Damage
 (7-10)% increased Attack Speed
 {variant:1}6% increased Damage taken per Frenzy Charge
 {variant:2,3,4}3% increased Damage taken per Frenzy Charge
@@ -255,8 +254,8 @@ Adds (75-92) to (125-154) Physical Damage
 Severed in Sleep
 Cutlass
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Breach
 Requires Level 38, 55 Str, 79 Dex
 Implicits: 2
@@ -272,8 +271,8 @@ Minions Recover 20% of Maximum Life on Killing a Poisoned Enemy
 United in Dream
 Cutlass
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Breach
 Requires Level 69, 55 Str, 79 Dex
 Implicits: 2
@@ -382,8 +381,8 @@ Adds (30-38) to (40-50) Cold Damage
 Ewar's Mirage
 Antique Rapier
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 26, 89 Dex
 Implicits: 2
 {variant:1}+30% to Global Critical Strike Multiplier
@@ -454,8 +453,8 @@ Manifest Dancing Dervish dies when Rampage ends
 Doomsower
 Lion Sword
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 65, 104 Str, 122 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
@@ -533,8 +532,8 @@ Gain a Frenzy Charge if an Attack Ignites an Enemy
 Queen's Decree
 Ornate Sword
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 27, 56 Str, 54 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
@@ -551,8 +550,8 @@ Minions deal (10-15)% increased Damage
 Queen's Escape
 Ornate Sword
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 38, 56 Str, 54 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
