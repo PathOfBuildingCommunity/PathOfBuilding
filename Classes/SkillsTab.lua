@@ -388,7 +388,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		self.build.buildFlag = true
 	end)
 	slot.enabled.tooltipFunc = function(tooltip)
-		if tooltip:CheckForUpdate(self.build.outputRevision) then
+		if tooltip:CheckForUpdate(self.build.outputRevision, self.displayGroup) then
 			if self.displayGroup.gemList[index] then
 				local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 				if calcFunc then

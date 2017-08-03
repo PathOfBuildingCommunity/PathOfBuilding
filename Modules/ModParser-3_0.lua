@@ -560,6 +560,7 @@ local modTagList = {
 	["while frozen"] = { tag = { type = "Condition", var = "Frozen" } },
 	["while shocked"] = { tag = { type = "Condition", var = "Shocked" } },
 	["while not ignited, frozen or shocked"] = { tag = { type = "Condition", varList = { "Ignited", "Frozen", "Shocked" }, neg = true } },
+	["while bleeding"] = { tag = { type = "Condition", var = "Bleeding" } },
 	["while cursed"] = { tag = { type = "Condition", var = "Cursed" } },
 	["while not cursed"] = { tag = { type = "Condition", var = "Cursed", neg = true } },
 	["if you[' ]h?a?ve hit recently"] = { tag = { type = "Condition", var = "HitRecently" } },
@@ -1276,6 +1277,7 @@ local jewelFuncs = {
 	["With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Attack Damage for each Poison on the Enemy"] = getThreshold("Dex", "Damage", "INC", 2, ModFlag.Attack, { type = "SkillName", skillName = "Viper Strike" }, { type = "Multiplier", var = "PoisonOnEnemy" }),
 	["With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage with Hits and Poison for each Poison on the Enemy"] = getThreshold("Dex", "Damage", "INC", 2, 0, bor(KeywordFlag.Hit, KeywordFlag.Poison), { type = "SkillName", skillName = "Viper Strike" }, { type = "Multiplier", var = "PoisonOnEnemy" }),
 	["With at least 40 Intelligence in Radius, Spark fires 2 additional Projectiles"] = getThreshold("Int", "ProjectileCount", "BASE", 2, { type = "SkillName", skillName = "Spark" }),
+	["With at least 40 Intelligence in Radius, Enemies Hindered by Blight take 25% increased Chaos Damage"] = getThreshold("Int", "ExtraSkillMod", "LIST", { mod = mod("ChaosDamageTaken", "INC", 25, { type = "GlobalEffect", effectType = "Debuff" }) }, { type = "SkillName", skillName = "Blight" }, { type = "EnemyCondition", var = "Hindered" }),
 	--[""] = getThreshold("", "", "", , { type = "SkillName", skillName = "" }),
 }
 local jewelFuncList = { }

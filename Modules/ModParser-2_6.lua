@@ -534,6 +534,7 @@ local modTagList = {
 	["while frozen"] = { tag = { type = "Condition", var = "Frozen" } },
 	["while shocked"] = { tag = { type = "Condition", var = "Shocked" } },
 	["while not ignited, frozen or shocked"] = { tag = { type = "Condition", varList = { "Ignited", "Frozen", "Shocked" }, neg = true } },
+	["while bleeding"] = { tag = { type = "Condition", var = "Bleeding" } },
 	["if you[' ]h?a?ve hit recently"] = { tag = { type = "Condition", var = "HitRecently" } },
 	["if you[' ]h?a?ve crit recently"] = { tag = { type = "Condition", var = "CritRecently" } },
 	["if you[' ]h?a?ve dealt a critical strike recently"] = { tag = { type = "Condition", var = "CritRecently" } },

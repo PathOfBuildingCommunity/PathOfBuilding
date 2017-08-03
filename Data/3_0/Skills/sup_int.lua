@@ -1284,8 +1284,8 @@ skills["SupportOnslaughtOnSlayingShockedEnemy"] = {
 		[1] = nil, 
 		[2] = mod("LightningMin", "BASE", nil), --"global_minimum_added_lightning_damage"
 		[3] = mod("LightningMax", "BASE", nil), --"global_maximum_added_lightning_damage"
-		--[4] = "support_innervate_minimum_added_lightning_damage"
-		--[5] = "support_innervate_maximum_added_lightning_damage"
+		[4] = mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Innervation", effectCond = "Innervation" }), --"support_innervate_minimum_added_lightning_damage"
+		[5] = mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Innervation", effectCond = "Innervation" }), --"support_innervate_maximum_added_lightning_damage"
 	},
 	levels = {
 		[1] = { 31, 1, 25, 1, 17, },

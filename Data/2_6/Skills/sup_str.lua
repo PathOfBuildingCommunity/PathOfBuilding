@@ -554,7 +554,7 @@ skills["SupportFortify"] = {
 	excludeSkillTypes = { 47, },
 	baseMods = {
 		mod("ManaCost", "MORE", 10), 
-		flag("Condition:Fortify", { type = "Condition", var = "Combat" }), --"chance_to_fortify_on_melee_hit_+%" = 100
+		--"chance_to_fortify_on_melee_hit_+%" = 100
 		mod("FortifyDuration", "INC", 25), --"fortify_duration_+%" = 25
 	},
 	qualityMods = {

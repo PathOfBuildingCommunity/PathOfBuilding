@@ -92,12 +92,17 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	setupFunc = function(actor, output)
-		local add
+		local life
 		if actor.mainSkill.skillPart == 1 then
-			add = output.Life * actor.mainSkill.skillData.lifeDealtAsChaos / 100
+			if actor.mainSkill.skillFlags.totem then
+				life = output.TotemLife
+			else
+				life = output.Life
+			end
 		else
-			add = (actor.mainSkill.skillData.skeletonLife or 0) * actor.mainSkill.skillData.lifeDealtAsChaos / 100
+			life = actor.mainSkill.skillData.skeletonLife or 0
 		end
+		local add = life * actor.mainSkill.skillData.lifeDealtAsChaos / 100
 		actor.mainSkill.skillData.ChaosMin = actor.mainSkill.skillData.ChaosMin + add
 		actor.mainSkill.skillData.ChaosMax = actor.mainSkill.skillData.ChaosMax + add
 	end,

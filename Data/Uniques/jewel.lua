@@ -100,6 +100,7 @@ Dead Reckoning
 Cobalt Jewel
 Variant: {2_6}Pre 3.0.0
 Variant: Current
+Limited to: 3
 Radius: Medium
 Minions have +(7-10)% to all Elemental Resistances
 {variant:1}With at least 40 Intelligence in Radius, can summon up to 3 Skeleton Mages with Summon Skeletons
