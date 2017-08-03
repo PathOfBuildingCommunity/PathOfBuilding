@@ -229,6 +229,9 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		node.mods = { }
 		node.modKey = ""
 		local i = 1
+		if node.passivePointsGranted > 0 then
+			t_insert(node.sd, "Grants "..node.passivePointsGranted.." Passive Skill Point"..(node.passivePointsGranted > 1 and "s" or ""))
+		end
 		while node.sd[i] do
 			if node.sd[i]:match("\n") then
 				local line = node.sd[i]
@@ -291,9 +294,6 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 					node.modList:AddMod(mod)
 				end
 			end
-		end
-		if node.passivePointsGranted > 0 then
-			node.modList:NewMod("ExtraPoints", "BASE", node.passivePointsGranted, "Tree"..node.id)
 		end
 		if node.type == "keystone" then
 			node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree"..node.id)

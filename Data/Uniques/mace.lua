@@ -34,8 +34,8 @@ All Attack Damage Chills when you Stun
 Cameria's Maul
 Gavel
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 60, 212 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
@@ -82,8 +82,8 @@ Adds 10 to 15 Physical Damage
 Frostbreath
 Ornate Mace
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 50, 161 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
@@ -131,8 +131,8 @@ Gavel
 Variant: Pre 2.0.0
 Variant: Pre 2.4.0
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 60, 412 Str, 300 Int
 Implicits: 2
 {variant:1,2,3}40% increased Stun Duration on Enemies
@@ -181,10 +181,13 @@ Socketed Gems are Supported by level 1 Reduced Mana
 ]],[[
 Breath of the Council
 Carnal Sceptre
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 66, 113 Str, 113 Int
 32% increased Elemental Damage
 (260-310)% increased Physical Damage
-(60-80)% increased Chaos Damage
+{variant:1}(60-80)% increased Chaos Damage
+{variant:2}(80-100)% increased Chaos Damage
 10% increased Area of Effect of Area Skills
 40% increased Chaos Skill Effect Duration
 ]],[[
@@ -193,8 +196,8 @@ Ritual Sceptre
 League: Torment
 Variant: Pre 2.3.0
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 28, 51 Str, 51 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
@@ -212,15 +215,21 @@ The Dark Seer
 Shadow Sceptre
 League: Beyond
 Variant: Pre 2.3.0
-Variant: Current
+Variant: {2_6}Pre 3.0.0
+Variant: Current (Life/Mana)
+Variant: Current (Life/ES)
+Variant: Current (Mana/ES)
 Requires Level 32, 52 Str, 62 Int
 Implicits: 2
 {variant:1}15% increased Elemental Damage
-{variant:2}22% increased Elemental Damage
+{variant:2,3,4,5}22% increased Elemental Damage
 (30-50)% increased Damage
 7% Global chance to Blind Enemies on hit
-+1 Mana gained on Kill per Level
-+1 Energy Shield gained on Kill per Level
+{variant:1,2}+1 Mana gained on Kill per Level
+{variant:1,2}+1 Energy Shield gained on Kill per Level
+{variant:3,4}+1 to maximum Life per Level
+{variant:3,5}+1 to maximum Mana per Level
+{variant:4,5}+1 to maximum Energy Shield per Level
 Cannot be Blinded
 ]],[[
 Death's Hand
@@ -310,8 +319,8 @@ Socketed Gems are Supported by level 10 Fire Penetration
 Singularity
 Platinum Sceptre
 Variant: Pre 2.3.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 62, 113 Str, 113 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
@@ -326,8 +335,8 @@ Nearby Enemies are Hindered, with 25% reduced Movement Speed
 Spine of the First Claimant
 Iron Sceptre
 Variant: Pre 2.3.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 20, 38 Str, 38 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
@@ -378,8 +387,8 @@ Damage Penetrates 20% Lightning Resistance
 Chober Chaber
 Great Mallet
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 40, 104 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies

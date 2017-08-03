@@ -154,8 +154,8 @@ Cannot be Frozen
 ]],[[
 Emberwake
 Ruby Ring
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 16
 +(20-30)% to Fire Resistance
 {variant:1}(15-25)% increased Fire Damage
@@ -165,9 +165,9 @@ Requires Level 16
 {variant:2}10% chance to Ignite
 {variant:1}You can inflict up to 300 Ignites on an Enemy
 {variant:2}You can inflict an additional Ignite on an Enemy
-Your Critical Strikes do not deal extra Damage
+{variant:1}Your Critical Strikes do not deal extra Damage
 {variant:1}80% less Burning Damage
-{variant:2}50% reduced Ignite Duration
+{variant:2}Ignited Enemies Burn 65% slower
 ]],[[
 Essence Worm
 Unset Ring
@@ -282,8 +282,8 @@ Socketed Gems have Elemental Equilibrium
 Ming's Heart
 Amethyst Ring
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 69
 +(9-13)% to Chaos Resistance
 {variant:1}15% reduced maximum Life
@@ -372,13 +372,13 @@ Requires Level 22
 +(30-60) to maximum Mana
 (3-6) Mana Regenerated per second
 −(4-8) to Mana Cost of Skills
-8% of Damage taken gained as Mana when Hit
+8% of Damage taken gained as Mana over 4 seconds when Hit
 ]],[[
 Pyre
 Sapphire Ring
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 11
 +(20-30)% to Cold Resistance
 +(25-35)% to Fire Resistance
@@ -456,8 +456,8 @@ Sibyl's Lament
 Coral Ring
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 45
 +(20-30) to maximum Life
 {variant:1,2,3}(20-30)% increased Elemental Damage with Weapons
@@ -480,8 +480,8 @@ Spells have an additional Projectile
 ]],[[
 The Taming
 Prismatic Ring
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Domination, Nemesis
 Requires Level 30
 +(8-10)% to all Elemental Resistances
@@ -553,8 +553,8 @@ Requires Level 22
 Valako's Sign
 Topaz Ring
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Bloodlines
 Requires Level 38
 +(20-30)% to Lightning Resistance

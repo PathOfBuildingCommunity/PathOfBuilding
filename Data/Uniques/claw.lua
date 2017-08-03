@@ -23,8 +23,8 @@ Al Dhih
 Timeworn Claw
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 26, 39 Dex, 56 Int
 Implicits: 3
 {variant:1}+8 Life gained for each Enemy hit by Attacks
@@ -39,8 +39,8 @@ Socketed Gems have 10% chance to cause Enemies to Flee on Hit
 ]],[[
 Allure
 Vaal Claw
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 66, 131 Dex, 95 Int
 2% of Physical Attack Damage Leeched as Life
 {variant:1}(80-100)% increased Physical Damage
@@ -53,8 +53,8 @@ Adds (15-20) to (30-40) Physical Damage
 ]],[[
 Bloodseeker
 Hellion's Paw
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 62, 131 Dex, 95 Int
 1.6% of Physical Attack Damage Leeched as Life
 {variant:1}(100-120)% increased Physical Damage
@@ -103,8 +103,8 @@ Ghost Reaver
 ]],[[
 Essentia Sanguis
 Vaal Claw
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 66, 95 Dex, 131 Int
 2% of Physical Attack Damage Leeched as Life
 8% additional Chance to Block while Dual Wielding Claws
@@ -118,8 +118,8 @@ Adds 1 to 200 Lightning Damage
 Hand of Thought and Motion
 Blinder
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Breach
 Requires Level 22, 41 Dex, 41 Int
 Implicits: 2
@@ -135,8 +135,8 @@ Adds 1 to (50-60) Lightning Damage
 Hand of Wisdom and Action
 Imperial Claw
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Breach
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
@@ -177,8 +177,8 @@ Mortem Morsu
 Fright Claw
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 34, 61 Dex, 61 Int
 Implicits: 2
 {variant:1,2}2% of Physical Attack Damage Leeched as Life
@@ -196,8 +196,8 @@ Implicits: 2
 Ornament of the East
 Gut Ripper
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
 {variant:1}+21 Life gained for each Enemy hit by Attacks
@@ -212,11 +212,14 @@ Hits can't be Evaded
 ]],[[
 Rive
 Terror Claw
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 70, 113 Dex, 113 Int
 2% of Physical Attack Damage Leeched as Life
 (60-80)% increased Physical Damage
 Adds (25-35) to (50-65) Physical Damage
-Causes Bleeding on Hit
+{variant:1}Causes Bleeding on Hit
+{variant:2}25% chance to cause Bleeding on Hit
 2% increased Physical Damage over time per 10 Dexterity
 1% increased Bleed Duration per 12 Intelligence
 30% Chance to cause Bleeding Enemies to Flee on hit

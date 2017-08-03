@@ -22,17 +22,20 @@ Take no Extra Damage from Critical Strikes
 Death's Oath
 Astral Plate
 Variant: Pre 2.0.0
+Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 62, 180 Str
 +(8-12)% to all Elemental Resistances
 +(40-50) to all Attributes
+{variant:1}+(60-70) to maximum Life
 (10-15)% increased Attack Speed
 (180-220)% increased Armour
 {variant:1}5% of Physical Attack Damage Leeched as Life
 {variant:2}1% of Physical Attack Damage Leeched as Life
+{variant:3}1% of Attack Damage Leeched as Life
 Deals 450 Chaos Damage per second to nearby Enemies
 {variant:1}You take 450 Chaos Damage per second for 10 seconds on Kill
-{variant:2}You take 450 Chaos Damage per second for 3 seconds on Kill
+{variant:2,3}You take 450 Chaos Damage per second for 3 seconds on Kill
 Gore Footprints
 ]],[[
 Greed's Embrace
@@ -58,8 +61,8 @@ Has no Sockets
 ]],[[
 Lioneye's Vision
 Crusader Plate
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 59, 160 Str
 (200-250)% increased Armour
 +(60-100) to maximum Life
@@ -235,8 +238,8 @@ Phase Acrobatics
 [[
 The Beast Fur Shawl
 Vaal Regalia
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 68, 194 Int
 40% increased Spell Damage
 (110-130)% increased Energy Shield
@@ -257,8 +260,8 @@ Reflects 15 Fire Damage to Melee Attackers
 ]],[[
 Cloak of Tawm'r Isley
 Savant's Robe
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 56, 152 Int
 {variant:1}(250-300)% increased Energy Shield
 {variant:2}(150–200)% increased Energy Shield
@@ -272,8 +275,8 @@ Spidersilk Robe
 Variant: Pre 1.0.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 49, 134 Int
 Socketed Gems are Supported by level 15 Added Chaos Damage
 +(20-30) to Intelligence
@@ -288,8 +291,8 @@ Socketed Gems are Supported by level 15 Added Chaos Damage
 ]],[[
 Infernal Mantle
 Widowsilk Robe
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 65, 187 Int
 +1 to Level of Socketed Fire Gems
 (25-35)% increased Fire Damage
@@ -315,8 +318,8 @@ Requires Level 65, 187 Int
 Shavronne's Wrappings
 Occultist's Vestment
 Variant: Pre 1.0.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 62, 180 Int
 (3-10)% increased Spell Damage
 {variant:1}(200-250)% increased Energy Shield
@@ -409,8 +412,8 @@ Simple Robe
 ]],[[
 Thousand Ribbons
 Simple Robe
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Socketed Gems are Supported by level 5 Elemental Proliferation
 {variant:1}Adds 2 to 3 Fire Damage to Attacks
 {variant:2}Adds 2 to 3 Fire Damage to Spells and Attacks
@@ -553,8 +556,8 @@ Share Endurance Charges with nearby party members
 Geofri's Sanctuary
 Elegant Ringmail
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 64, 90 Str, 105 Int
 (50-75)% increased Armour and Energy Shield
 +(50-70) to maximum Life
@@ -633,8 +636,8 @@ Gain a Power Charge for each Enemy you hit with a Critical Strike
 [[
 Carcass Jack
 Varnished Coat
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 62, 96 Dex, 96 Int
 (120-150)% increased Evasion and Energy Shield
 +(50-70) to maximum Life
@@ -647,13 +650,13 @@ Extra gore
 Cloak of Defiance
 Lacquered Garb
 Variant: Pre 1.3.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 52, 76 Dex, 76 Int
 (110-150)% increased Evasion and Energy Shield
 {variant:1,2}+(90-110) to maximum Mana
 {variant:3}+(100-150) to maximum Mana
-(40-50)% increased Mana Regeneration Rate
+{variant:1,2}(40-50)% increased Mana Regeneration Rate
 {variant:1}When hit, 10% of Damage is taken from Mana before Life
 {variant:3}10% of Damage is taken from Mana before Life
 {variant:3}1% of Mana Regenerated per second
@@ -693,25 +696,35 @@ Requires Level 52, 76 Dex, 76 Int
 [[
 Atziri's Splendour
 Sacrificial Garb
-Variant: Armour
-Variant: Armour/Evasion
-Variant: Evasion
-Variant: Evasion/ES + Life
-Variant: Evasion/ES + ES
-Variant: Energy Shield
-Variant: Armour/ES + Life
-Variant: Armour/ES + ES
-Variant: Armour/Evasion/ES
+Variant: Pre 3.0.0 (Armour)
+Variant: Pre 3.0.0 (Armour/Evasion)
+Variant: Pre 3.0.0 (Evasion)
+Variant: Pre 3.0.0 (Evasion/ES + Life)
+Variant: Pre 3.0.0 (Evasion/ES + ES)
+Variant: Pre 3.0.0 (Energy Shield)
+Variant: Pre 3.0.0 (Armour/ES + Life)
+Variant: Pre 3.0.0 (Armour/ES + ES)
+Variant: {2_6}Pre 3.0.0 (Armour/Evasion/ES)
+Variant: Current (Armour)
+Variant: Current (Armour/Evasion)
+Variant: Current (Evasion)
+Variant: Current (Evasion/ES + Life)
+Variant: Current (Evasion/ES + ES)
+Variant: Current (Energy Shield)
+Variant: Current (Armour/ES + Life)
+Variant: Current (Armour/ES + ES)
+Variant: Current (Armour/Evasion/ES)
 Requires Level 75, 66 Str, 66 Dex, 66 Int
-{variant:1}(380-420)% increased Armour
-{variant:2}(200-220)% increased Evasion Rating and Armour
-{variant:3}(380-420)% increased Evasion Rating
-{variant:4,5}(200-220)% increased Evasion and Energy Shield
-{variant:6}(270-300)% increased Energy Shield
-{variant:7,8}(200-220)% increased Armour and Energy Shield
-{variant:9}(270-340)% increased Armour, Evasion and Energy Shield
-{variant:1,2,3,4,7}+(90-100) to Maximum Life
+{variant:1,10}(380-420)% increased Armour
+{variant:2,11}(200-220)% increased Evasion Rating and Armour
+{variant:3,12}(380-420)% increased Evasion Rating
+{variant:4,5,13,14}(200-220)% increased Evasion and Energy Shield
+{variant:6,15}(270-300)% increased Energy Shield
+{variant:7,8,16,17}(200-220)% increased Armour and Energy Shield
+{variant:9,18}(270-340)% increased Armour, Evasion and Energy Shield
+{variant:1,2,3,4,7,10,11,12,13,16}+(90-100) to Maximum Life
 {variant:5,6,8}+(90-100) to Maximum Energy Shield
+{variant:14,15,17}+(70-80) to Maximum Energy Shield
 +(20-24)% to all Elemental Resistances
 +100 Life Gained on Kill
 +100 Mana Gained on Kill

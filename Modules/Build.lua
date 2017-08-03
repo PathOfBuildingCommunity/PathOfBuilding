@@ -624,6 +624,24 @@ function buildMode:Save(xml)
 	for _, id in ipairs(self.spectreList) do
 		t_insert(xml, { elem = "Spectre", attrib = { id = id } })
 	end
+	for index, statData in ipairs(self.displayStats) do
+		if statData.stat then
+			local statVal = self.calcsTab.mainOutput[statData.stat]
+			if statVal then
+				t_insert(xml, { elem = "PlayerStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
+			end
+		end
+	end
+	if self.calcsTab.mainEnv.minion then
+		for index, statData in ipairs(self.minionDisplayStats) do
+			if statData.stat then
+				local statVal = self.calcsTab.mainOutput.Minion[statData.stat]
+				if statVal then
+					t_insert(xml, { elem = "MinionStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
+				end
+			end
+		end
+	end
 	self.modFlag = false
 end
 

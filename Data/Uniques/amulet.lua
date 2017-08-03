@@ -77,10 +77,14 @@ Requires Level 32
 ]],[[
 Bisco's Collar
 Gold Amulet
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 30
 (12-20)% increased Rarity of Items found
-150% increased Rarity of Items Dropped by Slain Magic Enemies
-100% increased Quantity of Items Dropped by Slain Normal Enemies
+{variant:1}150% increased Rarity of Items Dropped by Slain Magic Enemies
+{variant:2}(100-150)% increased Rarity of Items Dropped by Slain Magic Enemies
+{variant:1}100% increased Quantity of Items Dropped by Slain Normal Enemies
+{variant:2}(50-100)% increased Quantity of Items Dropped by Slain Normal Enemies
 ]],[[
 Blightwell
 Clutching Talisman
@@ -107,8 +111,20 @@ Corrupted
 ]],[[
 Bloodgrip
 Coral Amulet
+Variant: Pre 3.0.0
 Requires Level 55
 (2-4) Life Regenerated per second
+Adds 10 to 20 Physical Damage to Attacks
++(60-70) to maximum Life
+(8-12) Life Regenerated per second
+100% increased Life Recovery from Flasks
+Moving while Bleeding doesn't cause you to take extra Damage
+]],[[
+Bloodgrip
+Marble Amulet
+Variant: Current
+Requires Level 55
+(1.2-1.6)% of Life Regenerated per second
 Adds 10 to 20 Physical Damage to Attacks
 +(60-70) to maximum Life
 (8-12) Life Regenerated per second
@@ -305,8 +321,8 @@ Corrupted
 ]],[[
 Rashkaldor's Patience
 Jade Amulet
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 61
 +(20-30) to Dexterity
 +(40-80) to maximum Life
@@ -347,8 +363,8 @@ Nearby Allies gain 40% increased Mana Regeneration Rate
 ]],[[
 Sidhebreath
 Paua Amulet
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 (20-30)% increased Mana Regeneration Rate
 +25% to Cold Resistance
 0.2% of Physical Attack Damage Leeched as Mana
@@ -416,26 +432,29 @@ Requires Level 16
 ]],[[
 Voice of the Storm
 Lapis Amulet
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Breach
 Requires Level 40
 +(20-30) to Intelligence
 +(10-15) to all Attributes
 (10-20)% increased maximum Mana
-Critical Strike Chance is increased by Uncapped Lightning Resistance
+{variant:1}Critical Strike Chance is increased by Uncapped Lightning Resistance
+{variant:2}Critical Strike Chance is increased by Lightning Resistance
 Cast Level 12 Lightning Bolt when you deal a Critical Strike
 ]],[[
 Choir of the Storm
 Lapis Amulet
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Breach
 Requires Level 69
 +(20-30) to Intelligence
 (10-20)% increased maximum Mana
--30% to Lightning Resistance
-Critical Strike Chance is increased by Uncapped Lightning Resistance
-{variant:1}Critical Strikes deal 50% increased Lightning Damage
-{variant:2}50% increased Lightning Damage
+{variant:1}-30% to Lightning Resistance
+{variant:1}Critical Strike Chance is increased by Uncapped Lightning Resistance
+{variant:2}Critical Strike Chance is increased by Lightning Resistance
+Critical Strikes deal 50% increased Lightning Damage
 Cast Level 20 Lightning Bolt when you deal a Critical Strike
 ]],[[
 Voll's Devotion

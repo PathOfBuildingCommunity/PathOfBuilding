@@ -395,6 +395,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					else
 						desc = baseVal.." per "..tag.div.." "..self:FormatModName(tag.stat)
 					end
+				elseif tag.type == "StatThreshold" then
+					desc = "If "..self:FormatModName(tag.stat).." >= "..tag.threshold
 				elseif tag.type == "SkillName" then
 					desc = "Skill: "..tag.skillName
 				elseif tag.type == "SkillId" then

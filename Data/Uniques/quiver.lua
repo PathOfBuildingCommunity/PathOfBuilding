@@ -5,8 +5,8 @@ return {
 [[
 Asphyxia's Wrath
 Two-Point Arrow Quiver
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 10
 (20-30)% increased Accuracy Rating
 {variant:2}Grants level 5 Frostbite Skill
@@ -54,11 +54,11 @@ Adds 6 to 10 Physical Damage to Attacks with Bows
 Drillneck
 Penetrating Arrow Quiver
 Requires Level 36
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Implicits: 2
 {variant:1}10% chance of Arrows Piercing
-{variant:2}Arrows Pierce one Target
+{variant:2}Arrows Pierce an additional Target
 (8-12)% increased Attack Speed
 +350 to Evasion Rating
 +(40-50) to maximum Life
@@ -83,8 +83,8 @@ Requires Level 10
 Maloney's Nightfall
 Blunt Arrow Quiver
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 55
 (25-35)% increased Stun Duration on Enemies
 {variant:1}(8-10)% increased Attack Speed

@@ -52,6 +52,7 @@ ModFlag.Melee =		 0x00000100
 ModFlag.Area =		 0x00000200
 ModFlag.Projectile = 0x00000400
 ModFlag.SourceMask = 0x00000600
+ModFlag.Ailment =	 0x00000800
 -- Weapon types
 ModFlag.Axe =		 0x00001000
 ModFlag.Bow =		 0x00002000

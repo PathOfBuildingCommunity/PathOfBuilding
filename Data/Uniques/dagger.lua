@@ -47,8 +47,8 @@ Extra Gore
 The Consuming Dark
 Fiend Dagger
 Variant: Pre 2.2.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 53, 58 Dex, 123 Int
 40% increased Global Critical Strike Chance
 +1 to Level of Socketed Fire Gems
@@ -72,13 +72,16 @@ Requires Level 66, 95 Dex, 131 Int
 ]],[[
 Goredrill
 Skinning Knife
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 5, 16 Dex
 30% increased Global Critical Strike Chance
 +(10-15) to Dexterity
 (50-70)% increased Physical Damage
 Adds (1-2) to (3-5) Physical Damage
 30% increased Critical Strike Chance
-Melee Critical Strikes cause Bleeding
+{variant:1}Melee Critical Strikes cause Bleeding
+{variant:2}50% chance to cause Bleeding with Melee Critical Strikes with this Weapon
 40% increased Attack Damage against Bleeding Enemies
 ]],[[
 Heartbreaker
@@ -138,8 +141,8 @@ Adds 3 to 30 Lightning Damage
 ]],[[
 Widowmaker
 Boot Blade
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 44, 63 Dex, 90 Int
 30% increased Global Critical Strike Chance
 {variant:1}Adds (15-25) to (35-45) Physical Damage

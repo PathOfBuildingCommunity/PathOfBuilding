@@ -80,8 +80,8 @@ Regenerate (6-8) Life over 1 second for each Spell you Cast
 Midnight Bargain
 Engraved Wand
 Variant: Pre 2.3.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 40, 131 Int
 Implicits: 2
 {variant:1}(12-16)% increased Spell Damage
@@ -100,8 +100,8 @@ Moonsorrow
 Imbued Wand
 Variant: Pre 2.0.0
 Variant: Pre 2.3.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 59, 188 Int
 Implicits: 2
 {variant:1,2}(15-19)% increased Spell Damage

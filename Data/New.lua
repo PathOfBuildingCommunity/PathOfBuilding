@@ -70,21 +70,35 @@ With at least 40 Intelligence in Radius, Spark fires 2 additional Projectiles
 With at least 40 Intelligence in Radius, Spark fires Projectiles in a Nova
 25% reduced Spark Duration
 ]],[[
-Straight and True
-Viridian Jewel
+Inya's Epiphany
+Arcanist Slippers
 Unreleased: true
-Limited to: 2
-Radius: Medium
-(6-10)% increased Projectile Damage
-With at least 40 Dexterity in Radius, Split Arrow fires Projectiles in Parallel
+Requires Level 61
++63 to maximum Life
+25% increased Movement Speed
+5% increased Intelligence
+5% increased Damage per Power Charge
+25% chance that if you would gain Power Charges, you instead gain
+up to your maximum number of Power Charges
 ]],[[
-Choking Ash
-Viridian Jewel
+Volkuur's Guidance
+Zealot Gloves
 Unreleased: true
-Limited to: 2
-Radius: Medium
-(10-15)% increased Fire Damage
-Can have up to 1 additional Trap placed at a time
-With at least 40 Dexterity in Radius, Fire Trap throws an additional Trap
+Requires Level 43
+Adds 17 to 28 Cold Damage to Spells and Attacks
++67 to maximum Life
++37% to Cold Resistance
+50% less Poison Duration
+Cold Damage can Poison
+Cold Skills have 20% chance to Poison on Hit
+]],[[
+The Coming Calamity
+Destroyer Regalia
+Requires Level 53
+Unreleased: true
+86% increased Energy Shield
+35% chance to avoid being Stunned for each Herald Skill affecting you
+Mana Reservation of Herald Skills is always 45%
++2 to Level of Socketed Herald Gems
 ]],
 }

@@ -157,7 +157,7 @@ local function getWeaponFlags(env, weaponData, weaponTypes)
 		(not weaponData.countsAsAll1H or not (weaponTypes["Claw"] or weaponTypes["Dagger"] or weaponTypes["One Handed Axe"] or weaponTypes["One Handed Mace"] or weaponTypes["One Handed Sword"])) then
 		return
 	end
-	local flags = info.flag
+	local flags = ModFlag[info.flag]
 	if weaponData.countsAsAll1H then
 		flags = bor(ModFlag.Axe, ModFlag.Claw, ModFlag.Dagger, ModFlag.Mace, ModFlag.Sword)
 	end
@@ -227,7 +227,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 		local weapon1Flags, weapon1Info = getWeaponFlags(env, actor.weaponData1, weaponTypes)
 		if not weapon1Flags and activeSkill.summonSkill then
 			-- Minion skills seem to ignore weapon types
-			weapon1Flags, weapon1Info = env.data.weaponTypeInfo["None"].flag, env.data.weaponTypeInfo["None"]
+			weapon1Flags, weapon1Info = ModFlag[env.data.weaponTypeInfo["None"].flag], env.data.weaponTypeInfo["None"]
 		end
 		if weapon1Flags then
 			activeSkill.weapon1Flags = weapon1Flags

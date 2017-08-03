@@ -72,13 +72,14 @@ Instant Recovery
 [[
 Atziri's Promise
 Amethyst Flask
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 68
 2% of Chaos Damage Leeched as Life during Flask effect
 {variant:1}Gain (22-25)% of Physical Damage as Extra Chaos Damage during effect
 {variant:2}Gain (15-20)% of Physical Damage as Extra Chaos Damage during effect
-Gain (13-15)% of Elemental Damage as Extra Chaos Damage during effect
+{variant:1}Gain (13-15)% of Elemental Damage as Extra Chaos Damage during effect
+{variant:2}Gain (10-15% of Elemental Damage as Extra Chaos Damage during effect
 ]],[[
 Coruscating Elixir
 Ruby Flask
@@ -93,8 +94,8 @@ Removed life is regenerated as Energy Shield over 2 seconds
 ]],[[
 Dying Sun
 Ruby Flask
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 68
 (-10-10)% increased Charges used
 {variant:1}30% increased Area of Effect during Flask Effect
@@ -116,16 +117,19 @@ Requires Level 27
 ]],[[
 Kiara's Determination
 Silver Flask
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 22
 Implicits: 0
 Immune to Freeze, Chill, Curses and Stuns during Flask Effect
-50% reduced Duration
+{variant:1}50% reduced Duration
+{variant:2}60% reduced Duration
 ]],[[
 Lion's Roar
 Granite Flask
 Variant: Pre 2.2.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 27
 Implicits: 0
 Adds Knockback during Flask effect
@@ -177,11 +181,13 @@ Removes Burning on use
 Taste of Hate
 Sapphire Flask
 Variant: Pre 2.2.0
+Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 18
 {variant:1}30% of Physical Damage taken as Cold Damage during Flask effect
-{variant:2}20% of Physical Damage taken as Cold Damage during Flask effect
-Gain (20-30)% of Physical Damage as Extra Cold Damage during effect
+{variant:2,3}20% of Physical Damage taken as Cold Damage during Flask effect
+{variant:1,2}Gain (20-30)% of Physical Damage as Extra Cold Damage during effect
+{variant:3}Gain (15-20)% of Physical Damage as Extra Cold Damage during effect
 30% chance to Avoid being Chilled during Flask effect
 30% chance to Avoid being Frozen during Flask effect
 ]],[[
@@ -209,14 +215,14 @@ Variant: Pre 2.2.0 (Penetration)
 Variant: Pre 2.2.0 (Spells)
 Variant: Pre 2.2.0 (Attacks)
 Variant: Pre 2.2.0 (Conversion)
+Variant: Pre 3.0.0 (Penetration)
+Variant: Pre 3.0.0 (Spells)
+Variant: Pre 3.0.0 (Attacks)
+Variant: {2_6}Pre 3.0.0 (Conversion)
 Variant: Current (Penetration)
 Variant: Current (Spells)
 Variant: Current (Attacks)
-Variant: {2_6}Current (Conversion)
-Variant: 3.0.0 Beta (Penetration)
-Variant: 3.0.0 Beta (Spells)
-Variant: 3.0.0 Beta (Attacks)
-Variant: 3.0.0 Beta (Conversion)
+Variant: Current (Conversion)
 Requires Level 68
 {variant:5,6,7,8,9,10,11,12}(80-100)% increased Charges used
 {variant:1,2,3,4,5,6,7,8}Shocks nearby Enemies during Flask effect
@@ -235,8 +241,8 @@ Requires Level 68
 ]],[[
 The Wise Oak
 Bismuth Flask
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 8
 Implicits: 0
 During Flask Effect, 10% reduced Damage taken of each Element for which your Uncapped
@@ -248,8 +254,8 @@ Uncapped Elemental Resistance is highest
 ]],[[
 Witchfire Brew
 Stibnite Flask
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 48
 Implicits: 1
 Creates a Smoke Cloud on Use

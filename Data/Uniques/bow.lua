@@ -40,8 +40,8 @@ Implicits: 1
 Death's Harp
 Death Bow
 Variant: Pre 2.2.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 32, 107 Dex
 (30-50)% increased Critical Strike Chance
 (100-125)% increased Physical Damage
@@ -52,8 +52,8 @@ Adds an additional Arrow
 ]],[[
 Death's Opus
 Death Bow
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 44, 107 Dex
 (30-50)% increased Critical Strike Chance
 (100-125)% increased Physical Damage
@@ -67,8 +67,8 @@ Doomfletch
 Royal Bow
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 28, 95 Dex
 Implicits: 3
 {variant:1,2}(6-12)% increased Elemental Damage with Weapons
@@ -83,8 +83,8 @@ Gain 110% of Bow Physical Damage as Extra Damage of an Element
 Doomfletch's Prism
 Royal Bow
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 40, 95 Dex
 Implicits: 3
 {variant:1}(6-12)% increased Elemental Damage with Weapons
@@ -100,8 +100,8 @@ Infractem
 Decimation Bow
 Variant: Pre 1.2.0
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 53, 170 Dex
 (30-50)% increased Critical Strike Chance
 {variant:1,2}(90-100)% increased Physical Damage
@@ -130,8 +130,8 @@ Lioneye's Glare
 Imperial Bow
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 66, 212 Dex
 Implicits: 3
 {variant:2}(6-12)% increased Elemental Damage with Weapons
@@ -199,8 +199,8 @@ Requires Level 64, 212 Dex
 ]],[[
 Roth's Reach
 Recurve Bow
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 18, 71 Dex
 (60-80)% increased Physical Damage
 {variant:1}(20-40)% increased Elemental Damage with Weapons
@@ -234,11 +234,14 @@ Requires Level 2
 ]],[[
 Slivertongue 
 Harbinger Bow
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 68, 212 Dex
 (30-50)% increased Critical Strike Chance
 Adds (60-75) to (170-220) Physical Damage
 100% increased Critical Strike Chance with arrows that Fork
-Arrows that Pierce cause Bleeding
+{variant:1}Arrows that Pierce cause Bleeding
+{variant:2}Arrows that Pierce have 50% chance to cause Bleeding
 Arrows always Pierce after Chaining
 ]],[[
 Storm Cloud
@@ -272,8 +275,8 @@ Windripper
 Imperial Bow
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 66, 212 Dex
 Implicits: 3
 {variant:2}(6-12)% increased Elemental Damage with Weapons

@@ -91,8 +91,8 @@ The Blood Dance
 Sharkskin Boots
 Variant: Pre 1.0.0
 Variant: Pre 2.1.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 44, 79 Dex
 +(30-40) to Dexterity
 20% increased Movement Speed
@@ -172,7 +172,7 @@ Requires Level 12, 26 Dex
 {variant:1}30% increased Movement Speed when on Low Life
 {variant:2}15% increased Movement Speed
 {variant:2}You and nearby allies have 10% increased Movement Speed
-(5-10)% of Damage taken Gained as Mana when Hit
+(5-10)% of Damage taken Gained as Mana over 4 seconds when Hit
 ]],
 -- Boots: Energy Shield
 [[
@@ -247,8 +247,8 @@ Stun Threshold is based on 500% of your Mana instead of Life
 ]],[[
 Steppan Eard
 Sorcerer Boots
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Warbands
 Requires Level 67, 123 Int
 {variant:1}(110-140)% increased Energy Shield
@@ -355,8 +355,8 @@ Unaffected by Chilled Ground
 [[
 Alberon's Warpath
 Soldier Boots
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 49, 47 Str, 47 Int
 Adds 1 to 80 Chaos Damage to Attacks
 +(180-220) to Armour
@@ -406,8 +406,8 @@ Adds 1 to 120 Lightning Damage to Attacks
 Brinerot Whalers
 Trapper Boots
 Variant: Pre 2.6.0
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 League: Warbands
 Requires Level 41, 40 Dex, 40 Int
 {variant:1}+(60-80) to maximum Energy Shield
@@ -465,8 +465,8 @@ Requires Level 27, 27 Dex, 27 Int
 ]],[[
 Voidwalker
 Murder Boots
-Variant: {2_6}Current
-Variant: 3.0.0 Beta
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 69, 82 Dex, 42 Int
 +(30-50) to Dexterity
 (140-180)% increased Evasion and Energy Shield
