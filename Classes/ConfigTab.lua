@@ -35,6 +35,10 @@ local varList = {
 	end },
 	{ var = "igniteMode", type = "list", label = "Ignite calculation mode:", tooltip = "Controls how the base damage for ignite is calculated:\nAverage Damage: Ignite is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ignite is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
 	{ section = "Skill Options", col = 2 },
+	{ label = "Dark Pact:", ifSkill = "Dark Pact" },
+	{ var = "darkPactSkeletonLife", type = "number", label = "Skeleton Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum life of the skeleton that is being targeted.", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "skeletonLife", value = val }, "Config", { type = "SkillName", skillName = "Dark Pact" })
+	end },
 	{ label = "Detonate Dead:", ifSkill = "Detonate Dead" },
 	{ var = "detonateDeadCorpseLife", type = "number", label = "Corpse Life:", ifSkillList = { "Detonate Dead", "Vaal Detonate Dead" }, tooltip = "Sets the maximum life of the corpse that is being detonated.\nFor reference, a level 70 monster has "..data["3_0"].monsterLifeTable[70].." base life, and a level 80 monster has "..data["3_0"].monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config", { type = "SkillName", skillName = "Detonate Dead" })

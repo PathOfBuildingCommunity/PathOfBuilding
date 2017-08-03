@@ -1112,6 +1112,24 @@ skills["DarkPact"] = {
 	color = 3,
 	description = "Sacrifice a portion of your skeleton minion's life to deal chaos damage in an area around it. This effect will chain to your other neaby skeletons. If you control no skeletons in the targeted area, you will sacrifice a portion of your own life and deal greater chaos damage in a larger area.",
 	skillTypes = { [2] = true, [10] = true, [19] = true, [18] = true, [11] = true, [17] = true, [49] = true, [36] = true, [26] = true, [23] = true, [50] = true, },
+	parts = {
+		{
+			name = "Cast on Player",
+		},
+		{
+			name = "Cast on Skeleton",
+		},
+	},
+	setupFunc = function(actor, output)
+		local add
+		if actor.mainSkill.skillPart == 1 then
+			add = output.Life * actor.mainSkill.skillData.lifeDealtAsChaos / 100
+		else
+			add = (actor.mainSkill.skillData.skeletonLife or 0) * actor.mainSkill.skillData.lifeDealtAsChaos / 100
+		end
+		actor.mainSkill.skillData.ChaosMin = actor.mainSkill.skillData.ChaosMin + add
+		actor.mainSkill.skillData.ChaosMax = actor.mainSkill.skillData.ChaosMax + add
+	end,
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -1119,9 +1137,9 @@ skills["DarkPact"] = {
 	baseMods = {
 		skill("castTime", 0.5), 
 		skill("CritChance", 5), 
-		--"skeletal_chains_aoe_%_health_dealt_as_chaos_damage" = 6
+		skill("lifeDealtAsChaos", 6), --"skeletal_chains_aoe_%_health_dealt_as_chaos_damage" = 6
 		mod("ChainCount", "BASE", 2), --"number_of_additional_projectiles_in_chain" = 2
-		--"skeletal_chains_no_minions_radius_+" = 4
+		skill("radiusExtra", { type = "SkillPart", skillPart = 1 }), --"skeletal_chains_no_minions_radius_+" = 4
 		--"is_area_damage" = ?
 		--"skeletal_chains_no_minions_targets_self" = ?
 	},
@@ -1133,7 +1151,7 @@ skills["DarkPact"] = {
 		[2] = skill("manaCost", nil), 
 		[3] = skill("ChaosMin", nil), --"spell_minimum_base_chaos_damage"
 		[4] = skill("ChaosMax", nil), --"spell_maximum_base_chaos_damage"
-		--[5] = "skeletal_chains_no_minions_damage_+%_final"
+		[5] = mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 }), --"skeletal_chains_no_minions_damage_+%_final"
 	},
 	levels = {
 		[1] = { 28, 7, 20, 30, 0, },

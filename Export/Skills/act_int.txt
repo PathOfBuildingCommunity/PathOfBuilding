@@ -83,6 +83,24 @@ local skills, mod, flag, skill = ...
 
 #skill DarkPact
 #flags spell area
+	parts = {
+		{
+			name = "Cast on Player",
+		},
+		{
+			name = "Cast on Skeleton",
+		},
+	},
+	setupFunc = function(actor, output)
+		local add
+		if actor.mainSkill.skillPart == 1 then
+			add = output.Life * actor.mainSkill.skillData.lifeDealtAsChaos / 100
+		else
+			add = (actor.mainSkill.skillData.skeletonLife or 0) * actor.mainSkill.skillData.lifeDealtAsChaos / 100
+		end
+		actor.mainSkill.skillData.ChaosMin = actor.mainSkill.skillData.ChaosMin + add
+		actor.mainSkill.skillData.ChaosMax = actor.mainSkill.skillData.ChaosMax + add
+	end,
 #mods
 
 #skill Discharge

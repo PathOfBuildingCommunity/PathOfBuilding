@@ -79,7 +79,7 @@ Requires Level 68
 {variant:1}Gain (22-25)% of Physical Damage as Extra Chaos Damage during effect
 {variant:2}Gain (15-20)% of Physical Damage as Extra Chaos Damage during effect
 {variant:1}Gain (13-15)% of Elemental Damage as Extra Chaos Damage during effect
-{variant:2}Gain (10-15% of Elemental Damage as Extra Chaos Damage during effect
+{variant:2}Gain (10-15)% of Elemental Damage as Extra Chaos Damage during effect
 ]],[[
 Coruscating Elixir
 Ruby Flask

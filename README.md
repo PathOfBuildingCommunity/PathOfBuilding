@@ -53,6 +53,17 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.54 - 2017/08/03
+ * Modifiers to Burn rate should now be simulated correctly
+
+For 3.0 builds:
+ * Added support for the %-of-Life damage scaling for Dark Pact
+    * Note that the values are not final, and will change when the patch is released
+	* For Cast on Skeleton, the skeleton life must be input in the Configuration tab
+ * Corrected the charge bonuses which weren't reverted properly
+ * Fixed the "Elemental Damage added as Chaos" modifier on Atziri's Promise; re-import from the unique DB
+ * Fixed the new life modifier on Death's Oath
+
 ### 1.4.53 - 2017/08/03
  * Added Inya's Epiphany, Volkuur's Guidance and The Coming Calamity
  * Fixed an issue where the effect of the Conflux Buff option would persist after Shaper of Desolation is deallocted

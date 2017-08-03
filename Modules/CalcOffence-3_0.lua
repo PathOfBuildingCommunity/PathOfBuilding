@@ -1591,7 +1591,7 @@ function calcs.offence(env, actor)
 					end
 				end
 				local effectMod = calcLib.mod(modDB, dotCfg, "AilmentEffect")
-				local burnRateMod = calcLib.mod(modDB, cfg, "IgniteBurnRate")
+				local burnRateMod = 1 / calcLib.mod(modDB, cfg, "IgniteBurnRate")
 				output.IgniteDPS = baseVal * effectMod * burnRateMod * effMult
 				local incDur = modDB:Sum("INC", dotCfg, "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration") + enemyDB:Sum("INC", nil, "SelfIgniteDuration")
 				local moreDur = enemyDB:Sum("MORE", nil, "SelfIgniteDuration")
@@ -1650,7 +1650,7 @@ function calcs.offence(env, actor)
 							t_insert(globalBreakdown.IgniteDuration, s_format("x %.2f ^8(more/less duration)", moreDur))
 						end
 						if burnRateMod ~= 1 then
-							t_insert(globalBreakdown.IgniteDuration, s_format("/ %.2f ^8(rate modifier)", burnRateMod))
+							t_insert(globalBreakdown.IgniteDuration, s_format("/ %.2f ^8(burn rate modifier)", burnRateMod))
 						end
 						if debuffDurationMult ~= 1 then
 							t_insert(globalBreakdown.IgniteDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
