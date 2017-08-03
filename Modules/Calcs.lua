@@ -136,7 +136,9 @@ function calcs.buildOutput(build, mode)
 
 		env.skillsUsed = { }
 		for _, activeSkill in ipairs(env.activeSkillList) do
-			env.skillsUsed[activeSkill.activeGem.grantedEffect.name] = true
+			for _, gem in ipairs(activeSkill.gemList) do
+				env.skillsUsed[gem.grantedEffect.name] = true
+			end
 			if activeSkill.minion then
 				for	_, activeSkill in ipairs(activeSkill.minion.activeSkillList) do
 					env.skillsUsed[activeSkill.activeGem.grantedEffect.id] = true

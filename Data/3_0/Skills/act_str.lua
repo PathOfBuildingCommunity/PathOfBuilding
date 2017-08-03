@@ -858,7 +858,7 @@ skills["Earthquake"] = {
 		skill("castTime", 1), 
 		skill("manaCost", 10), 
 		skill("duration", 1.5), --"base_skill_effect_duration" = 1500
-		mod("Damage", "MORE", 50, 0, 0, { type = "SkillPart", skillPart = 2 }), --"quake_slam_fully_charged_explosion_damage_+%_final" = 50
+		mod("Damage", "MORE", 50, ModFlag.Hit, 0, { type = "SkillPart", skillPart = 2 }), --"quake_slam_fully_charged_explosion_damage_+%_final" = 50
 		--"is_area_damage" = ?
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }), 
 		skill("radius", 18, { type = "SkillPart", skillPart = 1 }), 
@@ -3326,7 +3326,7 @@ skills["VigilantStrike"] = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
 		skill("cooldown", 4), 
-		flag("Condition:Fortify", { type = "Condition", var = "Combat" }), --"chance_to_fortify_on_melee_hit_+%" = 100
+		--"chance_to_fortify_on_melee_hit_+%" = 100
 		skill("cannotBeEvaded", true), --"global_always_hit" = ?
 	},
 	qualityMods = {

@@ -579,9 +579,11 @@ function calcs.perform(env)
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
 		for _, buff in ipairs(activeSkill.buffList) do
-			if buff.type == "Buff" then
+			if buff.cond and not modDB:Sum("FLAG", nil, "Condition:"..buff.cond) then
+				-- Nothing!
+			elseif buff.type == "Buff" then
 				if env.mode_buffs and (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff or buff.allowTotemBuff) then
-					if not activeSkill.skillData.buffNotPlayer then
+				 	if not activeSkill.skillData.buffNotPlayer then
 						activeSkill.buffSkill = true
 						local srcList = common.New("ModList")
 						local inc = modDB:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf")
