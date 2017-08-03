@@ -338,7 +338,7 @@ function calcs.offence(env, actor)
 			breakdown.TotemLife = {
 				"Totem level: "..skillData.totemLevel,
 				env.data.monsterAllyLifeTable[skillData.totemLevel].." ^8(base life for a level "..skillData.totemLevel.." monster)",
-				"x "..data.totemLifeMult[mainSkill.skillTotemId].." ^8(life multiplier for this totem type)",
+				"x "..env.data.totemLifeMult[mainSkill.skillTotemId].." ^8(life multiplier for this totem type)",
 				"x "..output.TotemLifeMod.." ^8(totem life modifier)",
 				"= "..output.TotemLife,
 			}
