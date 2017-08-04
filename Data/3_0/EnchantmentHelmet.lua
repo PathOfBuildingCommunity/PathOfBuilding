@@ -999,12 +999,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Lightning Strike Damage",
 			"2 additional Lightning Strike Projectiles",
-			"+20% to Lightning Strike Pierce Chance",
+			"Lightning Strike pierces 2 additional Targets",
 		},
 		["ENDGAME"] = {
 			"40% increased Lightning Strike Damage",
 			"3 additional Lightning Strike Projectiles",
-			"+30% to Lightning Strike Pierce Chance",
+			"Lightning Strike pierces 3 additional Targets",
 		},
 	},
 	["Lightning Tendrils"] = {
@@ -1023,12 +1023,12 @@ return {
 		["MERCILESS"] = {
 			"20% increased Lightning Trap Cooldown Recovery Speed",
 			"25% increased Lightning Trap Damage",
-			"+20% Lightning Trap Pierce Chance",
+			"Lightning Trap pierces 2 additional Targets",
 		},
 		["ENDGAME"] = {
 			"30% increased Lightning Trap Cooldown Recovery Speed",
 			"40% increased Lightning Trap Damage",
-			"+30% Lightning Trap Pierce Chance",
+			"Lightning Trap pierces 3 additional Targets",
 		},
 	},
 	["Lightning Warp"] = {

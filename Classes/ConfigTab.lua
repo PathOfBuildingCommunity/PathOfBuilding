@@ -410,7 +410,7 @@ local varList = {
 	{ var = "conditionEnemyChilled", type = "check", label = "Is the enemy Chilled?", ifEnemyCond = "Chilled", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Chilled", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyFrozen", type = "check", label = "Is the enemy Frozen?", ifEnemyCond = "Frozen", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyFrozen", type = "check", label = "Is the enemy Frozen?", ifEnemyCond = "Frozen", tooltip = "This also implies that the enemy is Chilled.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Frozen", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyShocked", type = "check", label = "Is the enemy Shocked?", tooltip = "In addition to allowing any 'against Shocked Enemies' modifiers to apply,\nthis will apply Shock's Damage Taken modifier to the enemy.", apply = function(val, modList, enemyModList)

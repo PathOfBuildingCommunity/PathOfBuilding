@@ -108,6 +108,7 @@ end
 -- 61	Granted triggered skill (Prevents trigger supports, trap, mine, totem)
 -- 62	Golem
 -- 63	Herald
+-- 64	Aura Debuff
 
 local weaponClassMap = {
 	[6] = "Claw",
@@ -345,6 +346,28 @@ directiveTable.levelMod = function(state, args, out)
 		local s, e, val = vals:find("([%+%-]?[%d%.]+)", i)
 		mod.levels[level.level] = tonumber(val)
 		i = e + 1
+	end
+end
+
+-- #setLevelVals <index>==<val>[ <val>[...]]
+-- Overrides the values of the given level modifier
+directiveTable.setLevelVals = function(state, args, out)
+	local gem = state.gem
+	local index, vals = args:match("(.*)==(.*)")
+	index = tonumber(index)
+	for _, mod in ipairs(gem.mods) do
+		if mod.perLevel then
+			index = index - 1
+			if index == 0 then
+				local i = 1
+				for _, level in ipairs(gem.levels) do
+					local s, e, val = vals:find("([%+%-]?[%d%.]+)", i)
+					mod.levels[level.level] = tonumber(val)
+					i = e + 1
+				end
+				break
+			end
+		end
 	end
 end
 

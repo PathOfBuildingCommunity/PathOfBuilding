@@ -1126,6 +1126,10 @@ function calcs.offence(env, actor)
 			local inc = modDB:Sum("INC", dotCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
 			local more = round(modDB:Sum("MORE", dotCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil), 2)
 			local total = baseVal * (1 + inc/100) * more * effMult
+			if skillFlags.aura then
+				-- This might not be correct
+				total = total * calcLib.mod(modDB, dotCfg, "AuraEffect")
+			end
 			output[damageType.."Dot"] = total
 			output.TotalDot = output.TotalDot + total
 			if breakdown then
@@ -1315,7 +1319,7 @@ function calcs.offence(env, actor)
 				end
 			end
 			local basePercent = skillData.bleedBasePercent or 70
-			local baseVal = calcAilmentDamage("Bleed", sourceHitDmg, sourceCritDmg) * basePercent / 100
+			local baseVal = calcAilmentDamage("Bleed", sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowEffect
 			if baseVal > 0 then
 				skillFlags.bleed = true
 				skillFlags.duration = true

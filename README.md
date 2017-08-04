@@ -53,6 +53,18 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.56 - 2017/08/04
+ * AoE Radius is now shown in the sidebar and stat comparison tooltips
+ * The duration of Wither is now correctly affected by Temporal Chains
+ * Frozen enemies are now correctly considered to be chilled as well
+
+For 3.0 builds:
+ * Updated skills and item modifiers from the patch data
+ * Updated the Bleeding bonus damage against moving enemies
+ * Added support for the Death Aura skill granted by Death's Oath
+ * Equipping Varunastra now correctly allows "Ailment Damage while wielding X" modifiers of the appropriate types 
+   to apply (thanks Spawnbroker)
+
 ### 1.4.55 - 2017/08/04
  * Fixed an issue where the stat difference tooltip on the gem enable checkbox would sometimes fail to update
  * Added an option to the Configuration tab for "Are you Bleeding?"
@@ -60,7 +72,7 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 For 3.0 builds:
  * The Innervation buff can now be enabled using a new option to the Skill Options section of the Configuration tab
  * Dark Pact now uses the Totem's life when linked to Spell Totem
- * The increased Chaos Damage taken from the new Spreading Rot jewel now applies when "Is the enemy Hindered?" is enabled
+ * The increased Chaos Damage taken from the Spreading Rot jewel now applies when "Is the enemy Hindered?" is enabled
  
 ### 1.4.54 - 2017/08/03
  * Modifiers to Burn rate should now be simulated correctly

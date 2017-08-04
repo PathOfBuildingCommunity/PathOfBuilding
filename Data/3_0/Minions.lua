@@ -215,6 +215,7 @@ minions["RaisedSkeleton"] = {
 		"Melee",
 	},
 	modList = {
+		mod("BlockChance", "BASE", 20),
 	},
 }
 minions["RaisedSkeletonCaster"] = {

@@ -45,6 +45,12 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill ChaosDegenAuraUnique
+#flags spell aura
+#baseMod skill("dotIsArea", true)
+	fromItem = true,
+#mods
+
 #noGem
 #skill TouchOfGod
 #flags attack area melee

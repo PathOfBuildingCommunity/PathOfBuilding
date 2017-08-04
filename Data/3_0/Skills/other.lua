@@ -275,11 +275,38 @@ skills["TriggeredSummonLesserShrine"] = {
 		[1] = { 1, },
 	},
 }
+skills["ChaosDegenAuraUnique"] = {
+	name = "Death Aura",
+	hidden = true,
+	color = 4,
+	description = "Casts an aura that deals Chaos Damage over Time to nearby Enemies. This skill cannot be cast by Totems.",
+	skillTypes = { [2] = true, [5] = true, [11] = true, [40] = true, [44] = true, [64] = true, [50] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		aura = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("ChaosDot", 450), --"base_chaos_damage_to_deal_per_minute" = 27000
+		--"cast_on_gain_skill" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+		skill("dotIsArea", true), 
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 62, },
+	},
+}
 skills["TouchOfGod"] = {
 	name = "Doryani's Touch",
 	hidden = true,
 	color = 1,
-	description = "The character uses their fist to slam the ground in front of them, with less attack speed, but more damage. This attack deals Lightning Damage to enemies in a large area, with a chance to Shock them. Cannot be used while weilding a Weapon. Cannot be used with Multistrike.",
+	description = "The character uses their fist to slam the ground in front of them, with less attack speed, but more damage. This attack deals Lightning Damage to enemies in a large area, with a chance to Shock them. Cannot be used while wielding a Weapon. Cannot be supported by Multistrike.",
 	skillTypes = { [1] = true, [11] = true, [35] = true, [24] = true, },
 	weaponTypes = {
 		["None"] = true,
@@ -293,7 +320,7 @@ skills["TouchOfGod"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("damageEffectiveness", 2.5), 
-		mod("PhysicalDamageConvertToLightning", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_lightning" = 50
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
 		mod("Speed", "MORE", -30, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = -30
 		mod("EnemyShockChance", "BASE", 20), --"base_chance_to_shock_%" = 20
 		--"is_area_damage" = ?

@@ -1029,6 +1029,8 @@ local specialModList = {
 	["(%d+)%% increased ice spear critical strike chance in second form"] = function(num) return { mod("CritChance", "INC", num, { type = "SkillName", skillName = "Ice Spear" }, { type = "SkillPart", skillPart = 2 }) } end,
 	["(%d+)%% increased incinerate damage for each stage"] = function(num) return { mod("Damage", "INC", num * 3, { type = "SkillName", skillName = "Incinerate" }, { type = "SkillPart", skillPart = 2 }) } end,
 	["shock nova ring deals (%d+)%% increased damage"] = function(num) return { mod("Damage", "INC", num, { type = "SkillName", skillName = "Shock Nova" }, { type = "SkillPart", skillPart = 1 }) } end,
+	["lightning strike pierces (%d) additional targets?"] = function(num) return { mod("PierceCount", "BASE", num, { type = "SkillName", skillName = "Lightning Strike" }) } end,
+	["lightning trap pierces (%d) additional targets?"] = function(num) return { mod("PierceCount", "BASE", num, { type = "SkillName", skillName = "Lightning Trap" }) } end,
 	-- Display-only modifiers
 	["prefixes:"] = { },
 	["suffixes:"] = { },
