@@ -26,6 +26,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 62, 180 Str
 +(8-12)% to all Elemental Resistances
+{variant:3}Grants level 20 Death Aura Skill
 +(40-50) to all Attributes
 {variant:3}+(60-70) to maximum Life
 (10-15)% increased Attack Speed
@@ -33,7 +34,7 @@ Requires Level 62, 180 Str
 {variant:1}5% of Physical Attack Damage Leeched as Life
 {variant:2}1% of Physical Attack Damage Leeched as Life
 {variant:3}1% of Attack Damage Leeched as Life
-Deals 450 Chaos Damage per second to nearby Enemies
+{variant:1,2}Deals 450 Chaos Damage per second to nearby Enemies
 {variant:1}You take 450 Chaos Damage per second for 10 seconds on Kill
 {variant:2,3}You take 450 Chaos Damage per second for 3 seconds on Kill
 Gore Footprints

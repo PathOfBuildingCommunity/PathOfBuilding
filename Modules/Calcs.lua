@@ -168,7 +168,9 @@ function calcs.buildOutput(build, mode)
 			for modName, modList in pairs(actor.modDB.mods) do
 				for _, mod in ipairs(modList) do
 					for _, tag in ipairs(mod) do
-						if tag.type == "Condition" then
+						if tag.type == "IgnoreCond" then
+							break
+						elseif tag.type == "Condition" then
 							if actor == env.player then
 								addTag(env.conditionsUsed, tag, mod)
 							else
@@ -184,7 +186,9 @@ function calcs.buildOutput(build, mode)
 		for modName, modList in pairs(env.enemyDB.mods) do
 			for _, mod in ipairs(modList) do
 				for _, tag in ipairs(mod) do
-					if tag.type == "Condition" then
+					if tag.type == "IgnoreCond" then
+						break
+					elseif tag.type == "Condition" then
 						addTag(env.enemyConditionsUsed, tag, mod)
 					end
 				end

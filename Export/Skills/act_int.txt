@@ -452,6 +452,7 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
+#setMod base_skill_show_average_damage_instead_of_dps==nil
 #mods
 
 #skill StormCall
@@ -536,6 +537,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #global Debuff
+#baseMod skill("debuff", true)
 #baseMod skill("stackCount", 5, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("stackCount", 10, { type = "SkillPart", skillPart = 3 })
 #baseMod skill("stackCount", 20, { type = "SkillPart", skillPart = 4 })

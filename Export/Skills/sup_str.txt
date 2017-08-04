@@ -32,6 +32,9 @@ local skills, mod, flag, skill = ...
 #skill SupportColdToFire
 #mods
 
+#skill SupportMeleeDamageOnFullLife
+#mods
+
 #skill SupportWeaponElementalDamage
 #mods
 
@@ -75,9 +78,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportMaim
-#mods
-
-#skill SupportMeleeDamageOnFullLife
 #mods
 
 #skill SupportMeleePhysicalDamage

@@ -30,7 +30,8 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("DamageTaken", "INC", 50, "Base", { type = "Condition", var = "Shocked" })
 	modDB:NewMod("HitChance", "MORE", -50, "Base", { type = "Condition", var = "Blinded" })
 	modDB:NewMod("MovementSpeed", "INC", -30, "Base", { type = "Condition", var = "Maimed" })
-	modDB:NewMod("Condition:Burning", "FLAG", true, "Base", { type = "Condition", var = "Ignited" })
+	modDB:NewMod("Condition:Burning", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "Condition", var = "Ignited" })
+	modDB:NewMod("Condition:Chilled", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "Condition", var = "Frozen" })
 	modDB:NewMod("Fortify", "FLAG", true, "Base", { type = "Condition", var = "Fortify" })
 	modDB:NewMod("Onslaught", "FLAG", true, "Base", { type = "Condition", var = "Onslaught" })
 	modDB:NewMod("UnholyMight", "FLAG", true, "Base", { type = "Condition", var = "UnholyMight" })
@@ -164,7 +165,7 @@ function calcs.initEnv(build, mode, override)
 	if build.targetVersion == "2_6" then
 		modDB:NewMod("Damage", "MORE", 500, "Base", 0, KeywordFlag.Bleed, { type = "EnemyCondition", var = "Moving" })
 	else
-		modDB:NewMod("Damage", "MORE", 100, "Base", 0, KeywordFlag.Bleed, { type = "EnemyCondition", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
+		modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "EnemyCondition", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
 	end
 
 	-- Add bandit mods
@@ -586,7 +587,9 @@ function calcs.initEnv(build, mode, override)
 						})
 					end
 					local activeSkill = calcs.createActiveSkill(activeGem, supportList)
-					activeSkill.slotName = socketGroup.slot
+					if not gem.fromItem then
+						activeSkill.slotName = socketGroup.slot
+					end
 					t_insert(socketGroupSkillList, activeSkill)
 					t_insert(env.activeSkillList, activeSkill)
 				end

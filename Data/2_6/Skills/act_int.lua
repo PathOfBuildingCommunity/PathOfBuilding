@@ -5521,6 +5521,7 @@ skills["Wither"] = {
 		mod("ChaosDamageTaken", "INC", 7, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }), --"chaos_damage_taken_+%" = 7
 		nil, --"base_skill_effect_duration" = 500
 		skill("duration", 2), --"base_secondary_skill_effect_duration" = 2000
+		skill("debuff", true), 
 		skill("stackCount", 5, { type = "SkillPart", skillPart = 2 }), 
 		skill("stackCount", 10, { type = "SkillPart", skillPart = 3 }), 
 		skill("stackCount", 20, { type = "SkillPart", skillPart = 4 }), 

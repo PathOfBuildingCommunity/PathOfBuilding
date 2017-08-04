@@ -612,7 +612,7 @@ skills["BlastRain"] = {
 	},
 	baseMods = {
 		skill("castTime", 1), 
-		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_fire" = 50
+		mod("SkillPhysicalDamageConvertToFire", "BASE", 50), --"skill_physical_damage_%_to_convert_to_fire" = 50
 		mod("AreaOfEffect", "INC", 0), --"base_skill_area_of_effect_+%" = 0
 		--"blast_rain_number_of_blasts" = 4
 		--"blast_rain_arrow_delay_ms" = 80
@@ -846,7 +846,7 @@ skills["BurningArrow"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		mod("EnemyIgniteChance", "BASE", 20), --"base_chance_to_ignite_%" = 20
-		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_fire" = 50
+		mod("SkillPhysicalDamageConvertToFire", "BASE", 50), --"skill_physical_damage_%_to_convert_to_fire" = 50
 		--"skill_can_fire_arrows" = ?
 	},
 	qualityMods = {
@@ -923,7 +923,7 @@ skills["VaalBurningArrow"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		mod("EnemyIgniteChance", "BASE", 20), --"base_chance_to_ignite_%" = 20
-		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_fire" = 50
+		mod("SkillPhysicalDamageConvertToFire", "BASE", 50), --"skill_physical_damage_%_to_convert_to_fire" = 50
 		--"vaal_burning_arrow_explode_on_hit" = ?
 		skill("cannotBeEvaded", true), --"global_always_hit" = ?
 		--"skill_can_fire_arrows" = ?
@@ -1065,7 +1065,7 @@ skills["ChargedDash"] = {
 	gemDex = 100,
 	gemInt = 0,
 	color = 2,
-	description = "Channel to move a mirage forward in the direction you're facing. Release to teleport towards the mirage and deal area of effect damage multiple times along the way. The area of effect grows based on the distance you travel, and the number of effects increase with faster attack time.",
+	description = "Channel to project a mirage forward in the direction you're facing, based on your movement speed. Release to teleport to the mirage dealing area of effect damage multiple times along the way. Travelling further applies a bonus to the damage as well as dealing damage in larger areas. Faster attack speed and lower movement speed will both cause damage to be dealt more frequently along the path.",
 	skillTypes = { [38] = true, [11] = true, [10] = true, [58] = true, [1] = true, [6] = true, [24] = true, [35] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -1088,48 +1088,51 @@ skills["ChargedDash"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 4), 
-		mod("Speed", "MORE", 100, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = 100
-		mod("PhysicalDamageConvertToLightning", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_lightning" = 50
+		mod("Speed", "MORE", 40, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = 40
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
+		--"charged_dash_damage_+%_maximum" = 100
 		--"is_area_damage" = ?
+		--"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
-		[2] = skill("baseMultiplier", nil), 
+		[2] = skill("damageEffectiveness", nil), 
+		[3] = skill("baseMultiplier", nil), 
 	},
 	levels = {
-		[1] = { 28, 0.75, },
-		[2] = { 31, 0.76, },
-		[3] = { 34, 0.77, },
-		[4] = { 37, 0.78, },
-		[5] = { 40, 0.79, },
-		[6] = { 42, 0.8, },
-		[7] = { 44, 0.81, },
-		[8] = { 46, 0.82, },
-		[9] = { 48, 0.83, },
-		[10] = { 50, 0.84, },
-		[11] = { 52, 0.85, },
-		[12] = { 54, 0.86, },
-		[13] = { 56, 0.87, },
-		[14] = { 58, 0.88, },
-		[15] = { 60, 0.89, },
-		[16] = { 62, 0.9, },
-		[17] = { 64, 0.91, },
-		[18] = { 66, 0.92, },
-		[19] = { 68, 0.93, },
-		[20] = { 70, 0.94, },
-		[21] = { 72, 0.95, },
-		[22] = { 74, 0.96, },
-		[23] = { 76, 0.97, },
-		[24] = { 78, 0.98, },
-		[25] = { 80, 0.99, },
-		[26] = { 82, nil, },
-		[27] = { 84, 1.01, },
-		[28] = { 86, 1.02, },
-		[29] = { 88, 1.03, },
-		[30] = { 90, 1.04, },
+		[1] = { 28, 0.5, 0.5, },
+		[2] = { 31, 0.51, 0.51, },
+		[3] = { 34, 0.51, 0.51, },
+		[4] = { 37, 0.52, 0.52, },
+		[5] = { 40, 0.52, 0.52, },
+		[6] = { 42, 0.53, 0.53, },
+		[7] = { 44, 0.54, 0.54, },
+		[8] = { 46, 0.54, 0.54, },
+		[9] = { 48, 0.55, 0.55, },
+		[10] = { 50, 0.55, 0.55, },
+		[11] = { 52, 0.56, 0.56, },
+		[12] = { 54, 0.57, 0.57, },
+		[13] = { 56, 0.57, 0.57, },
+		[14] = { 58, 0.58, 0.58, },
+		[15] = { 60, 0.58, 0.58, },
+		[16] = { 62, 0.59, 0.59, },
+		[17] = { 64, 0.6, 0.6, },
+		[18] = { 66, 0.6, 0.6, },
+		[19] = { 68, 0.61, 0.61, },
+		[20] = { 70, 0.61, 0.61, },
+		[21] = { 72, 0.62, 0.62, },
+		[22] = { 74, 0.63, 0.63, },
+		[23] = { 76, 0.63, 0.63, },
+		[24] = { 78, 0.64, 0.64, },
+		[25] = { 80, 0.64, 0.64, },
+		[26] = { 82, 0.65, 0.65, },
+		[27] = { 84, 0.66, 0.66, },
+		[28] = { 86, 0.66, 0.66, },
+		[29] = { 88, 0.67, 0.67, },
+		[30] = { 90, 0.67, 0.67, },
 	},
 }
 skills["Cyclone"] = {
@@ -1147,7 +1150,7 @@ skills["Cyclone"] = {
 	gemDex = 60,
 	gemInt = 0,
 	color = 2,
-	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location.",
+	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Multistrike.",
 	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [38] = true, },
 	weaponTypes = {
 		["None"] = true,
@@ -2407,7 +2410,7 @@ skills["FrostBlades"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 6), 
-		mod("PhysicalDamageConvertToCold", "BASE", 60, 0, 0, nil), --"base_physical_damage_%_to_convert_to_cold" = 60
+		mod("SkillPhysicalDamageConvertToCold", "BASE", 60), --"skill_physical_damage_%_to_convert_to_cold" = 60
 		--"total_projectile_spread_angle_override" = 110
 		--"show_number_of_projectiles" = ?
 	},
@@ -3506,7 +3509,7 @@ skills["NewPhaseRun"] = {
 	gemDex = 100,
 	gemInt = 0,
 	color = 2,
-	description = "Gain a buff that makes you faster, harder to detect, and grants Phasing, letting you pass through enemies. Performing any skill replaces this buff with one that boosts melee damage. Consumes Frenzy Charges to increase duration.",
+	description = "Gain a buff that makes you faster, harder to detect, and grants Phasing, letting you pass through enemies. Performing any skill replaces this buff with one that boosts melee damage of skills you use yourself (it will not apply to your melee skills used by totems). Consumes Frenzy Charges to increase duration.",
 	skillTypes = { [2] = true, [5] = true, [12] = true, [36] = true, [38] = true, },
 	baseFlags = {
 		spell = true,
@@ -3729,7 +3732,7 @@ skills["Puncture"] = {
 	gemDex = 60,
 	gemInt = 40,
 	color = 2,
-	description = "Punctures the target, causing a bleeding debuff. While bleeding, they take damage over time based on how much damage was dealt in the initial hit. The bleeding deals more damage while they move. Puncture works with bows, daggers, claws or swords.",
+	description = "Punctures the target, causing a bleeding debuff, which will be affected by modifiers to skill duration. Puncture works with bows, daggers, claws or swords.",
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [12] = true, [17] = true, [19] = true, [22] = true, [25] = true, [28] = true, [24] = true, [40] = true, },
 	weaponTypes = {
 		["Bow"] = true,
@@ -4324,7 +4327,7 @@ skills["ShrapnelShot"] = {
 	},
 	baseMods = {
 		skill("castTime", 1), 
-		mod("PhysicalDamageConvertToLightning", "BASE", 40, 0, 0, nil), --"base_physical_damage_%_to_convert_to_lightning" = 40
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 40), --"skill_physical_damage_%_to_convert_to_lightning" = 40
 		--"base_is_projectile" = ?
 		--"skill_can_fire_arrows" = ?
 	},
@@ -5013,7 +5016,7 @@ skills["ViperStrike"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 5), 
-		mod("PhysicalDamageConvertToChaos", "BASE", 25, 0, 0, nil), --"base_physical_damage_%_to_convert_to_chaos" = 25
+		mod("SkillPhysicalDamageConvertToChaos", "BASE", 25), --"skill_physical_damage_%_to_convert_to_chaos" = 25
 		mod("PoisonChance", "BASE", 60), --"base_chance_to_poison_on_hit_%" = 60
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
 		skill("poisonDurationIsSkillDuration", true), --"poison_duration_is_skill_duration" = ?
@@ -5074,7 +5077,7 @@ skills["WhirlingBlades"] = {
 	gemDex = 60,
 	gemInt = 40,
 	color = 2,
-	description = "Dive through enemies, dealing weapon damage. Only works with daggers, claws and one handed swords.",
+	description = "Dive through enemies, dealing weapon damage. Only works with daggers, claws and one handed swords. Cannot be supported by Multistrike.",
 	skillTypes = { [1] = true, [6] = true, [24] = true, [38] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
@@ -5154,7 +5157,7 @@ skills["WildStrike"] = {
 	gemDex = 60,
 	gemInt = 0,
 	color = 2,
-	description = "Your melee weapon strikes an enemy, converting some of the damage to a random element. Then, depending on the element chosen, it releases an explosion, an arcing bolt of lightning, or an icy wave.",
+	description = "Your melee weapon strikes an enemy, converting physical damage to a random element. Then, depending on the element chosen, it releases a fiery explosion, an arcing bolt of lightning, or an icy wave.",
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [35] = true, [34] = true, [33] = true, [3] = true, [11] = true, [23] = true, [48] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,

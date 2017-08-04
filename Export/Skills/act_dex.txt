@@ -139,6 +139,9 @@ local skills, mod, flag, skill = ...
 
 #skill ChargedDash
 #flags attack melee area
+#setMod base_skill_show_average_damage_instead_of_dps==nil
+#setLevelVals 2==0.5 0.51 0.51 0.52 0.52 0.53 0.54 0.54 0.55 0.55 0.56 0.57 0.57 0.58 0.58 0.59 0.6 0.6 0.61 0.61 0.62 0.63 0.63 0.64 0.64 0.65 0.66 0.66 0.67 0.67
+#setLevelVals 3==0.5 0.51 0.51 0.52 0.52 0.53 0.54 0.54 0.55 0.55 0.56 0.57 0.57 0.58 0.58 0.59 0.6 0.6 0.61 0.61 0.62 0.63 0.63 0.64 0.64 0.65 0.66 0.66 0.67 0.67
 #mods
 
 #skill Cyclone
