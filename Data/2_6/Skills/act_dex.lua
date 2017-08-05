@@ -4676,6 +4676,7 @@ skills["SummonIceGolem"] = {
 		skill("cooldown", 6), 
 		mod("ActiveGolemLimit", "BASE", 1), --"base_number_of_golems_allowed" = 1
 		--"display_minion_monster_type" = 6
+		skill("allowTotemBuff", true), 
 		flag("Condition:HaveColdGolem", { type = "GlobalEffect", effectType = "Buff" }), 
 	},
 	qualityMods = {

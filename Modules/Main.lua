@@ -17,7 +17,7 @@ local m_cos = math.cos
 local m_pi = math.pi
 
 defaultTargetVersion = "2_6"
-liveTargetVersion = "2_6"
+liveTargetVersion = "3_0"
 targetVersionList = { "2_6", "3_0" }
 
 LoadModule("Modules/Common")

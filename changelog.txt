@@ -1,3 +1,8 @@
+VERSION[1.4.57][2017/08/05]
+ * Now that 3.0 is live, the warning that was shown before importing to 3.0 builds is now shown for 2.6 builds instead
+ * The program now behaves correctly when attempting to import from an account with a private profile
+For 3.0 builds:
+ * Lioneye's Fall now correctly transforms modifiers that grant Ailemnt Damage while wielding melee weapons
 VERSION[1.4.56][2017/08/04]
  * AoE Radius is now shown in the sidebar and stat comparison tooltips
  * The duration of Wither is now correctly affected by Temporal Chains

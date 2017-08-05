@@ -237,6 +237,7 @@ local skills, mod, flag, skill = ...
 
 #skill SummonFireGolem
 #flags spell minion golem fire
+#baseMod skill("allowTotemBuff", true)
 #baseMod flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" })
 	minionList = {
 		"SummonedFlameGolem",
@@ -245,6 +246,7 @@ local skills, mod, flag, skill = ...
 
 #skill SummonRockGolem
 #flags spell minion golem
+#baseMod skill("allowTotemBuff", true)
 #baseMod flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" })
 	minionList = {
 		"SummonedStoneGolem",
