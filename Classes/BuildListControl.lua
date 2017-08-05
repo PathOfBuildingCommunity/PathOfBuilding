@@ -17,6 +17,9 @@ local BuildListClass = common.NewClass("BuildList", "ListControl", function(self
 		listMode:BuildList()
 		self.selIndex = nil
 		self.selValue = nil
+		self.selDragging = false
+		self.selDragActive = false
+		self.otherDragSource = false
 	end)
 	function self.controls.path:CanReceiveDrag(type, build)
 		return type == "Build" and #self.folderList > 1
@@ -214,6 +217,7 @@ function BuildListClass:OnSelClick(index, build, doubleClick)
 	if doubleClick then
 		self:LoadBuild(build)
 		self.selDragging = false
+		self.selDragActive = false
 	end
 end
 

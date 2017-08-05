@@ -2922,6 +2922,7 @@ skills["SummonFireGolem"] = {
 		skill("cooldown", 6), 
 		mod("ActiveGolemLimit", "BASE", 1), --"base_number_of_golems_allowed" = 1
 		--"display_minion_monster_type" = 7
+		skill("allowTotemBuff", true), 
 		flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" }), 
 	},
 	qualityMods = {
@@ -2999,6 +3000,7 @@ skills["SummonRockGolem"] = {
 		skill("cooldown", 6), 
 		mod("ActiveGolemLimit", "BASE", 1), --"base_number_of_golems_allowed" = 1
 		--"display_minion_monster_type" = 10
+		skill("allowTotemBuff", true), 
 		flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" }), 
 	},
 	qualityMods = {

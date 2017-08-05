@@ -4904,6 +4904,7 @@ skills["SummonChaosGolem"] = {
 		skill("cooldown", 6), 
 		mod("ActiveGolemLimit", "BASE", 1), --"base_number_of_golems_allowed" = 1
 		--"display_minion_monster_type" = 5
+		skill("allowTotemBuff", true), 
 		flag("Condition:HaveChaosGolem", { type = "GlobalEffect", effectType = "Buff" }), 
 	},
 	qualityMods = {
@@ -4983,6 +4984,7 @@ skills["SummonLightningGolem"] = {
 		skill("cooldown", 6), 
 		mod("ActiveGolemLimit", "BASE", 1), --"base_number_of_golems_allowed" = 1
 		--"display_minion_monster_type" = 11
+		skill("allowTotemBuff", true), 
 		flag("Condition:HaveLightningGolem", { type = "GlobalEffect", effectType = "Buff" }), 
 	},
 	qualityMods = {

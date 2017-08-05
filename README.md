@@ -53,6 +53,13 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.57 - 2017/08/05
+ * Now that 3.0 is live, the warning that was shown before importing to 3.0 builds is now shown for 2.6 builds instead
+ * The program now behaves correctly when attempting to import from an account with a private profile
+
+For 3.0 builds:
+ * Lioneye's Fall now correctly transforms modifiers that grant Ailemnt Damage while wielding melee weapons
+
 ### 1.4.56 - 2017/08/04
  * AoE Radius is now shown in the sidebar and stat comparison tooltips
  * The duration of Wither is now correctly affected by Temporal Chains

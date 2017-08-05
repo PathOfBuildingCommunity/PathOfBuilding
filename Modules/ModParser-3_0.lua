@@ -1218,11 +1218,12 @@ local jewelFuncs = {
 					out:NewMod(mod.name, mod.type, -mod.value, "Tree:Jewel", mod.flags, mod.keywordFlags, unpack(mod))
 					out:NewMod(mod.name, mod.type, mod.value, "Tree:Jewel", bor(band(mod.flags, bnot(bor(mask1, mask2, mask3))), ModFlag.Bow), mod.keywordFlags, unpack(mod))
 				elseif mod[1] then
+					local using = { UsingAxe = true, UsingClaw = true, UsingDagger = true, UsingMace = true, UsingStaff = true, UsingSword = true, UsingMeleeWeapon = true }
 					for _, tag in ipairs(mod) do
-						if tag.type == "Condition" and tag.var == "UsingStaff" then
+						if tag.type == "Condition" and using[tag.var] then
 							local newTagList = copyTable(mod)
 							for _, tag in ipairs(newTagList) do
-								if tag.type == "Condition" and tag.var == "UsingStaff" then
+								if tag.type == "Condition" and using[tag.var] then
 									tag.var = "UsingBow"
 									break
 								end

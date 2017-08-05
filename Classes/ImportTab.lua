@@ -256,13 +256,17 @@ function ImportTabClass:DownloadCharacterList()
 	local accountName = self.controls.accountName.buf
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or main.accountSessionIDs[accountName]
 	launch:DownloadPage("https://www.pathofexile.com/character-window/get-characters?accountName="..accountName, function(page, errMsg)
-		if errMsg then
-			self.charImportStatus = colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
+		if errMsg == "Response code: 403" then
+			self.charImportStatus = colorCodes.NEGATIVE.."Account profile is private."
+			self.charImportMode = "GETSESSIONID"
+			return
+		elseif errMsg == "Response code: 404" then
+			self.charImportStatus = colorCodes.NEGATIVE.."Account name is incorrect."
 			self.charImportMode = "GETACCOUNTNAME"
 			return
-		elseif page == "false" then
-			self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character list."
-			self.charImportMode = "GETSESSIONID"
+		elseif errMsg then
+			self.charImportStatus = colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
+			self.charImportMode = "GETACCOUNTNAME"
 			return
 		end
 		local charList, errMsg = self:ProcessJSON(page)
