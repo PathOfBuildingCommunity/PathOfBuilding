@@ -35,7 +35,7 @@ Implicits: 3
 3% of Physical Attack Damage Leeched as Life
 10% reduced Enemy Stun Threshold with this Weapon
 Socketed Gems have 10% chance to cause Enemies to Flee on Hit
-{variant:4}Use Level 1 Abyssal Cry on Hit
+{variant:4}Trigger Level 1 Abyssal Cry on Hit
 ]],[[
 Allure
 Vaal Claw

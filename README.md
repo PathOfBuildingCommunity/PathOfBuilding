@@ -53,6 +53,21 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.58 - 2017/08/09
+ * Added all of the new uniques
+ * Added support for the Void Gaze skill granted by Eber's Unification
+ * Added support for the Storm Cascade skill granted by The Rippling Thoughts
+ * The other skills granted by the new uniques are only partially supported at the moment (no support for the minions)
+ * Charged Dash now has a "Travel distance" option in the Configuration tab
+ * Updated the total available passive skill points
+ * Burn faster/Burn slower should both now be calculated correctly
+ * Modifiers to life/mana/ES recovery rate should now only affect recovery over time
+ * The build list now uses natural sort order (so "Foo 50" comes before "Foo 100")
+ * The gem selection dropdown now accepts "active" as a filter keyword in additional to other gem tags (such as "support")
+
+For 2.6 builds:
+ * The link created when exporting the passive tree now opens in the 2.6.2 version of the offical passive tree viewer
+
 ### 1.4.57 - 2017/08/05
  * Now that 3.0 is live, the warning that was shown before importing to 3.0 builds is now shown for 2.6 builds instead
  * The program now behaves correctly when attempting to import from an account with a private profile

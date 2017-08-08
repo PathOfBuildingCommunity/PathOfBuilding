@@ -268,6 +268,40 @@ function prettyPrintTable(tbl, pre)
 	end
 end
 
+-- Natural sort comparator
+function naturalSortCompare(a, b)
+	local aIndex, bIndex = 1, 1
+	while true do
+		local aStr, aNum, aEnd = a:match("(.-)(%d+)()", aIndex)
+		local bStr, bNum, bEnd = b:match("(.-)(%d+)()", bIndex)
+		if not aStr or not bStr then
+			aStr = a:sub(aIndex)
+			bStr = b:sub(bIndex)
+		end
+		local al = aStr:upper()
+		local bl = bStr:upper()
+		if al ~= bl then
+			return al < bl
+		end
+		if aStr ~= bStr then
+			return aStr < bStr
+		end
+		if not aNum then
+			return a < b
+		end
+		local an = tonumber(aNum)
+		local bn = tonumber(bNum)
+		if an ~= bn then
+			return an < bn
+		end
+		if aNum ~= bNum then
+			return aNum < bNum
+		end
+		aIndex = aEnd
+		bIndex = bEnd
+	end
+end
+
 -- Rounds a number to the nearest <dec> decimal places
 function round(val, dec)
 	if dec then

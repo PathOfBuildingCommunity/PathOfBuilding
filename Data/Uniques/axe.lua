@@ -255,7 +255,7 @@ Requires Level 64, 158 Str, 76 Dex
 (30-25)% reduced Attack Speed
 {variant:1}Attacks Cause Bleeding when Hitting Cursed Enemies
 {variant:2}Attacks have 25% chance to cause Bleeding when Hitting Cursed Enemies
-Attack with level 20 Bone Nova when you Kill a Bleeding Enemy
+Trigger Level 20 Bone Nova when you Kill a Bleeding Enemy
 ]],[[
 Wideswing
 Poleaxe

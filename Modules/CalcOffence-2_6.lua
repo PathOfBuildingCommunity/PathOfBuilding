@@ -902,9 +902,9 @@ function calcs.offence(env, actor)
 			output.EnergyShieldOnHit = 0
 			output.ManaOnHit = 0
 		else
-			output.LifeOnHit = (modDB:Sum("BASE", skillCfg, "LifeOnHit") + enemyDB:Sum("BASE", skillCfg, "SelfLifeOnHit")) * calcLib.mod(modDB, nil, "LifeRecovery")
-			output.EnergyShieldOnHit = (modDB:Sum("BASE", skillCfg, "EnergyShieldOnHit") + enemyDB:Sum("BASE", skillCfg, "SelfEnergyShieldOnHit")) * calcLib.mod(modDB, nil, "EnergyShieldRecovery")
-			output.ManaOnHit = (modDB:Sum("BASE", skillCfg, "ManaOnHit") + enemyDB:Sum("BASE", skillCfg, "SelfManaOnHit")) * calcLib.mod(modDB, nil, "ManaRecovery")
+			output.LifeOnHit = (modDB:Sum("BASE", skillCfg, "LifeOnHit") + enemyDB:Sum("BASE", skillCfg, "SelfLifeOnHit")) * globalOutput.LifeRecoveryMod
+			output.EnergyShieldOnHit = (modDB:Sum("BASE", skillCfg, "EnergyShieldOnHit") + enemyDB:Sum("BASE", skillCfg, "SelfEnergyShieldOnHit")) * globalOutput.EnergyShieldRecoveryMod
+			output.ManaOnHit = (modDB:Sum("BASE", skillCfg, "ManaOnHit") + enemyDB:Sum("BASE", skillCfg, "SelfManaOnHit")) * globalOutput.ManaRecoveryMod
 		end
 		output.LifeOnHitRate = output.LifeOnHit * hitRate
 		output.EnergyShieldOnHitRate = output.EnergyShieldOnHit * hitRate
@@ -996,18 +996,20 @@ function calcs.offence(env, actor)
 		output.LifeLeechRate = 0
 		output.LifeLeechPerHit = 0
 		output.EnergyShieldLeechInstanceRate = output.EnergyShield * 0.02 * calcLib.mod(modDB, skillCfg, "LifeLeechRate")
-		output.EnergyShieldLeechRate = (output.LifeLeechInstantRate + m_min(output.LifeLeechInstances * output.EnergyShieldLeechInstanceRate, output.MaxEnergyShieldLeechRate)) * calcLib.mod(modDB, nil, "EnergyShieldRecovery")
-		output.EnergyShieldLeechPerHit = (m_min(output.EnergyShieldLeechInstanceRate, output.MaxEnergyShieldLeechRate) * output.LifeLeechDuration + output.LifeLeechInstant) * calcLib.mod(modDB, nil, "EnergyShieldRecovery")
+		output.EnergyShieldLeechRate = output.LifeLeechInstantRate * output.EnergyShieldRecoveryMod + m_min(output.LifeLeechInstances * output.EnergyShieldLeechInstanceRate, output.MaxEnergyShieldLeechRate) * output.EnergyShieldRecoveryRateMod
+		output.EnergyShieldLeechPerHit = output.LifeLeechInstant * output.EnergyShieldRecoveryMod + m_min(output.EnergyShieldLeechInstanceRate, output.MaxEnergyShieldLeechRate) * output.LifeLeechDuration * output.EnergyShieldRecoveryRateMod
 	else
 		output.LifeLeechInstanceRate = output.Life * 0.02 * calcLib.mod(modDB, skillCfg, "LifeLeechRate")
-		output.LifeLeechRate = (output.LifeLeechInstantRate + m_min(output.LifeLeechInstances * output.LifeLeechInstanceRate, output.MaxLifeLeechRate)) * calcLib.mod(modDB, nil, "LifeRecovery")
-		output.LifeLeechPerHit = (m_min(output.LifeLeechInstanceRate, output.MaxLifeLeechRate) * output.LifeLeechDuration + output.LifeLeechInstant) * calcLib.mod(modDB, nil, "LifeRecovery")
+		output.LifeLeechRate = output.LifeLeechInstantRate * output.LifeRecoveryMod + m_min(output.LifeLeechInstances * output.LifeLeechInstanceRate, output.MaxLifeLeechRate) * output.LifeRecoveryRateMod
+		output.LifeLeechPerHit = output.LifeLeechInstant * output.LifeRecoveryMod + m_min(output.LifeLeechInstanceRate, output.MaxLifeLeechRate) * output.LifeLeechDuration * output.LifeRecoveryRateMod
 		output.EnergyShieldLeechRate = 0
 		output.EnergyShieldLeechPerHit = 0
 	end
-	output.ManaLeechInstanceRate = output.Mana * 0.02 * calcLib.mod(modDB, skillCfg, "ManaLeechRate")
-	output.ManaLeechRate = (output.ManaLeechInstantRate + m_min(output.ManaLeechInstances * output.ManaLeechInstanceRate, output.MaxManaLeechRate)) * calcLib.mod(modDB, nil, "ManaRecovery")
-	output.ManaLeechPerHit = (m_min(output.ManaLeechInstanceRate, output.MaxManaLeechRate) * output.ManaLeechDuration + output.ManaLeechInstant) * calcLib.mod(modDB, nil, "ManaRecovery")
+	do
+		output.ManaLeechInstanceRate = output.Mana * 0.02 * calcLib.mod(modDB, skillCfg, "ManaLeechRate")
+		output.ManaLeechRate = output.ManaLeechInstantRate * output.ManaRecoveryMod + m_min(output.ManaLeechInstances * output.ManaLeechInstanceRate, output.MaxManaLeechRate) * output.ManaRecoveryRateMod
+		output.ManaLeechPerHit = output.ManaLeechInstant * output.ManaRecoveryMod  + m_min(output.ManaLeechInstanceRate, output.MaxManaLeechRate) * output.ManaLeechDuration * output.ManaRecoveryRateMod
+	end
 	skillFlags.leechES = output.EnergyShieldLeechRate > 0
 	skillFlags.leechLife = output.LifeLeechRate > 0
 	skillFlags.leechMana = output.ManaLeechRate > 0
@@ -1452,7 +1454,7 @@ function calcs.offence(env, actor)
 				end
 				local inc = modDB:Sum("INC", dotCfg, "Damage", "FireDamage", "ElementalDamage")
 				local more = round(modDB:Sum("MORE", dotCfg, "Damage", "FireDamage", "ElementalDamage"), 2)
-				local burnRateMod = 1 / calcLib.mod(modDB, cfg, "IgniteBurnRate")
+				local burnRateMod = calcLib.mod(modDB, cfg, "IgniteBurnFaster") / calcLib.mod(modDB, cfg, "IgniteBurnSlower")
 				output.IgniteDPS = baseVal * (1 + inc/100) * more * burnRateMod * effMult
 				local incDur = modDB:Sum("INC", dotCfg, "EnemyIgniteDuration") + enemyDB:Sum("INC", nil, "SelfIgniteDuration")
 				local moreDur = enemyDB:Sum("MORE", nil, "SelfIgniteDuration")

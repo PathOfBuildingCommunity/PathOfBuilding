@@ -255,7 +255,7 @@ Variant: Pre 2.6.0
 Variant: Current
 League: Tempest
 Requires Level 69, 154 Int
-{variant:2}Cast Level 10 Shock Ground when Hit
+{variant:2}Trigger Level 10 Shock Ground when Hit
 Adds 1 to (60-80) Lightning Damage to Spells and Attacks
 (130-170)% increased Energy Shield
 +(25-35)% to Lightning Resistance
@@ -486,7 +486,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Current
 League: Domination
 Requires Level 38, 44 Dex, 44 Int
-{variant:2,3}Cast level 1 Create Lesser Shrine when you Kill an Enemy
+{variant:2,3}Trigger level 1 Create Lesser Shrine when you Kill an Enemy
 (120-150)% increased Evasion and Energy Shield
 {variant:2}+(40-65) to maximum Energy Shield
 {variant:3}+(30–45) to maximum Energy Shield

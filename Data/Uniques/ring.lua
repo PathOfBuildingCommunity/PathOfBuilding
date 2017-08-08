@@ -184,7 +184,7 @@ Variant: Current
 League: Anarchy
 Requires Level 28
 (20-30)% increased Global Critical Strike Chance
-Cast level 10 Consecrate when you deal a Critical Strike
+{variant:2}Trigger level 10 Consecrate when you deal a Critical Strike
 (30-35)% increased Global Critical Strike Chance
 (10-15)% increased Light Radius
 {variant:1}Creates Consecrated Ground on Critical Strike

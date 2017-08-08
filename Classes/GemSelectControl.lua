@@ -70,6 +70,9 @@ function GemSelectClass:BuildList(buf)
 		local tagName = self.searchStr:match("^%s*(%a+)%s*$")
 		if tagName then
 			local matchList = { }
+			if tagName == "active" then
+				tagName = "active_skill"
+			end
 			for name, grantedEffect in pairs(gems) do
 				if not added[name] and grantedEffect.gemTags[tagName:lower()] == true then
 					t_insert(matchList, name)

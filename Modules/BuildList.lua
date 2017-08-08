@@ -186,7 +186,7 @@ function listMode:SortList()
 	local oldSelFileName = self.controls.buildList.selValue and self.controls.buildList.selValue.fileName
 	table.sort(self.list, function(a, b) 
 		if a.folderName and b.folderName then
-			return a.folderName:upper() < b.folderName:upper()
+			return naturalSortCompare(a.folderName, b.folderName)
 		elseif a.folderName and not b.folderName then
 			return true
 		elseif not a.folderName and b.folderName then
@@ -205,7 +205,7 @@ function listMode:SortList()
 				return a.ascendClassName < b.ascendClassName
 			end
 		end
-		return a.fileName:upper() < b.fileName:upper()
+		return naturalSortCompare(a.fileName, b.fileName)
 	end)
 	if oldSelFileName then
 		self.controls.buildList:SelByFileName(oldSelFileName)

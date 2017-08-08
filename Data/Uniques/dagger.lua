@@ -12,7 +12,7 @@ Requires Level 53, 58 Dex, 123 Int
 (170-200)% increased Physical Damage
 Adds (8-13) to (20-30) Physical Damage
 Adds 1 to 59 Chaos Damage
-20% chance to Cast level 1 Raise Spiders on Kill
+20% chance to Trigger Level 1 Raise Spiders on Kill
 15% chance to Poison on Hit
 ]],[[
 Bino's Kitchen Knife

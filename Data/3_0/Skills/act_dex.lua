@@ -1090,7 +1090,7 @@ skills["ChargedDash"] = {
 		skill("manaCost", 4), 
 		mod("Speed", "MORE", 40, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = 40
 		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
-		--"charged_dash_damage_+%_maximum" = 100
+		mod("Damage", "MORE", 100, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ChargedDashDistance" }), --"charged_dash_damage_+%_maximum" = 100
 		--"is_area_damage" = ?
 		--"base_skill_show_average_damage_instead_of_dps" = ?
 	},

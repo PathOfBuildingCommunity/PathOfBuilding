@@ -459,7 +459,7 @@ Implicits: 2
 (8-12)% increased Attack Speed
 30% less Animate Weapon Duration
 Weapons you Animate create an additional copy
-{variant:2}25% chance to cast level 20 Animate Weapon on Kill
+{variant:2}25% chance to Trigger level 20 Animate Weapon on Kill
 ]],[[
 Kongor's Undying Rage
 Terror Maul

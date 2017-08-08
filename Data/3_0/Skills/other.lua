@@ -756,6 +756,171 @@ skills["TriggeredShockedGround"] = {
 		[10] = { 1, },
 	},
 }
+skills["StormCascadeTriggered"] = {
+	name = "Storm Cascade",
+	hidden = true,
+	color = 3,
+	description = "Lightning crackles in a series of small bursts, each damaging enemies caught in the area.",
+	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 0.8), 
+		skill("damageEffectiveness", 0.6), 
+		skill("CritChance", 5), 
+		skill("cooldown", 1), 
+		--"upheaval_number_of_spikes" = 5
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 60), --"skill_physical_damage_%_to_convert_to_lightning" = 60
+		skill("radiusExtra", 3), --"active_skill_base_radius_+" = 3
+		--"cast_on_attack_use_%" = 100
+		--"is_area_damage" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("PhysicalMin", nil), --"spell_minimum_base_physical_damage"
+		[3] = skill("PhysicalMax", nil), --"spell_maximum_base_physical_damage"
+	},
+	levels = {
+		[1] = { 28, 48, 72, },
+		[2] = { 31, 57, 86, },
+		[3] = { 34, 68, 102, },
+		[4] = { 37, 81, 121, },
+		[5] = { 40, 95, 142, },
+		[6] = { 42, 106, 159, },
+		[7] = { 44, 117, 176, },
+		[8] = { 46, 130, 196, },
+		[9] = { 48, 145, 217, },
+		[10] = { 50, 160, 240, },
+		[11] = { 52, 177, 266, },
+		[12] = { 54, 196, 294, },
+		[13] = { 56, 216, 324, },
+		[14] = { 58, 238, 358, },
+		[15] = { 60, 263, 394, },
+		[16] = { 62, 289, 434, },
+		[17] = { 64, 318, 477, },
+		[18] = { 66, 350, 525, },
+		[19] = { 68, 384, 577, },
+		[20] = { 70, 422, 633, },
+		[21] = { 72, 463, 695, },
+		[22] = { 74, 508, 762, },
+		[23] = { 76, 556, 835, },
+		[24] = { 78, 610, 914, },
+		[25] = { 80, 667, 1001, },
+		[26] = { 82, 730, 1095, },
+		[27] = { 84, 799, 1198, },
+		[28] = { 86, 873, 1310, },
+		[29] = { 88, 954, 1431, },
+		[30] = { 90, 1042, 1563, },
+	},
+}
+skills["SummonBeastialRhoa"] = {
+	name = "Summon Beastial Rhoa",
+	hidden = true,
+	color = 3,
+	description = "Summons a Beastial Rhoa. In addition to its melee attack, the Beastial Rhoa uses a charge and has an aura that intimidates enemies. This minion's hits cannot be evaded.",
+	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [10] = true, [11] = true, [28] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("manaCost", 30), 
+		skill("cooldown", 5), 
+		--"base_actor_scale_+%" = 0
+		--"base_number_of_beast_minions_allowed" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 30) }), --"minion_maximum_life_+%" = 30
+		--"display_minion_monster_type" = 12
+		skill("minionLevel", 70), --"display_minion_monster_level" = 70
+		--"alternate_minion" = 0
+	},
+	qualityMods = {
+		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) }), --"minion_damage_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 70, },
+	},
+}
+skills["SummonBeastialSnake"] = {
+	name = "Summon Beastial Snake",
+	hidden = true,
+	color = 3,
+	description = "Summons a Beastial Snake. The Beastial Snake fires powerful chaos projectile attacks. This minion's hits cannot be evaded.",
+	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, [3] = true, [23] = true, [48] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("manaCost", 30), 
+		skill("cooldown", 5), 
+		--"base_actor_scale_+%" = 0
+		--"base_number_of_beast_minions_allowed" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 30) }), --"minion_maximum_life_+%" = 30
+		--"display_minion_monster_type" = 14
+		skill("minionLevel", 70), --"display_minion_monster_level" = 70
+		--"alternate_minion" = 2
+	},
+	qualityMods = {
+		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) }), --"minion_damage_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 70, },
+	},
+}
+skills["SummonBeastialUrsa"] = {
+	name = "Summon Beastial Ursa",
+	hidden = true,
+	color = 3,
+	description = "Summons a Beastial Ursa. In addition to its melee attack, the Beastial Ursa uses a powerful Ground Slam and Rallying Cry. This minion's hits cannot be evaded.",
+	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [10] = true, [11] = true, [28] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("manaCost", 30), 
+		skill("cooldown", 5), 
+		--"base_actor_scale_+%" = 0
+		--"base_number_of_beast_minions_allowed" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 30) }), --"minion_maximum_life_+%" = 30
+		--"display_minion_monster_type" = 13
+		skill("minionLevel", 70), --"display_minion_monster_level" = 70
+		--"alternate_minion" = 1
+	},
+	qualityMods = {
+		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1) }), --"minion_maximum_life_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) }), --"minion_damage_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 70, },
+	},
+}
 skills["SummonEssenceSpirits"] = {
 	name = "Spectral Spirits",
 	hidden = true,
@@ -818,6 +983,162 @@ skills["SummonEssenceSpirits"] = {
 		[30] = { 90, },
 	},
 }
+skills["SummonHarbingerOfTheArcane"] = {
+	name = "Summon Harbinger of the Arcane",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. The minion will occasionally cast Arcane Surge on you, granting More Spell Damage, Cast Speed and Mana Regeneration.",
+	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("cooldown", 6), 
+		--"alternate_minion" = 0
+		--"display_one_harbinger_allowed" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[1] = { 1, },
+	},
+}
+skills["SummonHarbingerOfBrutality"] = {
+	name = "Summon Harbinger of Brutality",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. The minion will occasionally grant you significantly increased Damage, Attack Speed, Movement Speed, and reduce the Damage you take.",
+	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("cooldown", 6), 
+		--"alternate_minion" = 5
+		--"display_one_harbinger_allowed" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[1] = { 1, },
+	},
+}
+skills["SummonHarbingerOfDirections"] = {
+	name = "Summon Harbinger of Directions",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. The minion will cast a random buff on you that grants one or all of the following: 1 additional Projectile, +1 Chain, Pierce 1 additional Target, and Projectiles Fork.",
+	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("cooldown", 6), 
+		--"alternate_minion" = 3
+		--"display_one_harbinger_allowed" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[1] = { 1, },
+	},
+}
+skills["SummonHarbingerOfFocus"] = {
+	name = "Summon Harbinger of Focus",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. While you are channelling, the minion will occasionally cast a buff on you that reduces the Damage you take, and makes you avoid all Stuns and Ailments.",
+	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("cooldown", 6), 
+		--"alternate_minion" = 2
+		--"display_one_harbinger_allowed" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[1] = { 1, },
+	},
+}
+skills["SummonHarbingerOfStorms"] = {
+	name = "Summon Harbinger of Storms",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. The minion will occasionally apply a Chill or Shock to an enemy that chains to other nearby enemies.",
+	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("cooldown", 6), 
+		--"alternate_minion" = 4
+		--"display_one_harbinger_allowed" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[1] = { 1, },
+	},
+}
+skills["SummonHarbingerOfTime"] = {
+	name = "Summon Harbinger of Time",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. The minion will occasionally create a Slipstream aura on you that increases the Action Speed of you, and all allies and enemies near you.",
+	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("cooldown", 6), 
+		--"alternate_minion" = 1
+		--"display_one_harbinger_allowed" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[1] = { 1, },
+	},
+}
 skills["SummonRigwaldsPack"] = {
 	name = "Summon Spectral Wolf",
 	hidden = true,
@@ -850,5 +1171,32 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[18] = { 66, },
+	},
+}
+skills["VoidGaze"] = {
+	name = "Void Gaze",
+	hidden = true,
+	color = 3,
+	description = "Applies a debuff to Enemies, removing some of their resistance to Chaos damage.",
+	skillTypes = { [2] = true, [50] = true, [11] = true, [18] = true, [58] = true, [12] = true, [61] = true, [36] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+		skill("castTime", 0.21), 
+		skill("cooldown", 3), 
+		mod("ChaosResist", "BASE", -10, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }), --"base_chaos_damage_resistance_%" = -10
+		skill("duration", 2.5), --"base_skill_effect_duration" = 2500
+		--"cast_on_skill_use_%" = 100
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[10] = { 40, },
 	},
 }
