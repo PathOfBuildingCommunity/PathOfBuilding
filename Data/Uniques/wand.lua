@@ -48,7 +48,7 @@ Adds (10-14) to (18-22) Fire Damage
 Adds (4-6) to (7-9) Fire Damage to Spells
 (40-50)% increased Burning Damage
 (16-22)% chance to Ignite
-10% chance to Cast Level 8 Summon Raging Spirit on Kill
+10% chance to Trigger Level 8 Summon Raging Spirit on Kill
 ]],[[
 Eclipse Solaris
 Crystal Wand

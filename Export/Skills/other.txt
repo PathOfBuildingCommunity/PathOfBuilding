@@ -126,6 +126,26 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill StormCascadeTriggered
+#flags spell area
+	fromItem = true,
+#mods
+
+#skill SummonBeastialRhoa
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonBeastialSnake
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonBeastialUrsa
+#flags spell minion
+	fromItem = true,
+#mods
+
 #skill SummonEssenceSpirits
 #flags spell minion
 	fromItem = true,
@@ -134,10 +154,46 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SummonHarbingerOfTheArcane
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfBrutality
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfDirections
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfFocus
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfStorms
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfTime
+#flags spell minion
+	fromItem = true,
+#mods
+
 #skill SummonRigwaldsPack
 #flags spell minion duration
 	fromItem = true,
 	minionList = {
 		"SummonedSpectralWolf",
 	},
+#mods
+
+#skill VoidGaze
+#flags spell
+#global Debuff
+	fromItem = true,
 #mods

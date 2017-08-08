@@ -193,6 +193,14 @@ function calcs.defence(env, actor)
 		end
 	end
 
+	-- Recovery modifiers
+	output.LifeRecoveryMod = calcLib.mod(modDB, nil, "LifeRecovery")
+	output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecovery", "LifeRecoveryRate")
+	output.ManaRecoveryMod = calcLib.mod(modDB, nil, "ManaRecovery")
+	output.ManaRecoveryRateMod = calcLib.mod(modDB, nil, "ManaRecovery", "ManaRecoveryRate")
+	output.EnergyShieldRecoveryMod = calcLib.mod(modDB, nil, "EnergyShieldRecovery")
+	output.EnergyShieldRecoveryRateMod = calcLib.mod(modDB, nil, "EnergyShieldRecovery", "EnergyShieldRecoveryRate")
+
 	-- Leech caps
 	if modDB:Sum("FLAG", nil, "GhostReaver") then
 		output.MaxEnergyShieldLeechRate = output.EnergyShield * modDB:Sum("BASE", nil, "MaxLifeLeechRate") / 100
@@ -230,9 +238,7 @@ function calcs.defence(env, actor)
 		local inc = modDB:Sum("INC", nil, "ManaRegen")
 		local more = modDB:Sum("MORE", nil, "ManaRegen")
 		local regen = base * (1 + inc/100) * more
-		local incRecov = modDB:Sum("INC", nil, "ManaRecovery")
-		local moreRecov = modDB:Sum("MORE", nil, "ManaRecovery")
-		output.ManaRegen = round(regen * (1 + incRecov/100) * moreRecov, 1)
+		output.ManaRegen = round(regen * output.ManaRecoveryRateMod, 1)
 		if breakdown then
 			breakdown.ManaRegen = { }
 			breakdown.multiChain(breakdown.ManaRegen, {
@@ -245,8 +251,7 @@ function calcs.defence(env, actor)
 			breakdown.multiChain(breakdown.ManaRegen, {
 				label = "Effective Mana Regeneration:",
 				base = s_format("%.1f", regen),
-				{ "%.2f ^8(increased/reduced recovery)", 1 + incRecov/100 },
-				{ "%.2f ^8(more/less recovery)", moreRecov },
+				{ "%.2f ^8(recovery rate modifier)", output.ManaRecoveryRateMod },
 				total = s_format("= %.1f ^8per second", output.ManaRegen),
 			})				
 		end
@@ -271,7 +276,7 @@ function calcs.defence(env, actor)
 			lifeBase = lifeBase + output.Life * lifePercent / 100
 		end
 		if lifeBase > 0 then
-			output.LifeRegen = lifeBase * calcLib.mod(modDB, nil, "LifeRecovery")
+			output.LifeRegen = lifeBase * output.LifeRecoveryRateMod
 			output.LifeRegenPercent = round(output.LifeRegen / output.Life * 100, 1)
 			output.TotalRegen = output.TotalRegen + output.LifeRegen
 		else
@@ -287,7 +292,7 @@ function calcs.defence(env, actor)
 			esBase = esBase + output.EnergyShield * esPercent / 100
 		end
 		if esBase > 0 then
-			output.EnergyShieldRegen = esBase * calcLib.mod(modDB, nil, "EnergyShieldRecovery")
+			output.EnergyShieldRegen = esBase * output.EnergyShieldRecoveryRateMod
 			output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
 			if not modDB:Sum("FLAG", nil, "EnergyShieldProtectsMana") then
 				output.TotalRegen = output.TotalRegen + output.EnergyShieldRegen
@@ -304,9 +309,7 @@ function calcs.defence(env, actor)
 		local inc = modDB:Sum("INC", nil, "EnergyShieldRecharge")
 		local more = modDB:Sum("MORE", nil, "EnergyShieldRecharge")
 		local recharge = output.EnergyShield * 0.2 * (1 + inc/100) * more
-		local incRecov = modDB:Sum("INC", nil, "EnergyShieldRecovery")
-		local moreRecov = modDB:Sum("MORE", nil, "EnergyShieldRecovery")
-		output.EnergyShieldRecharge = round(recharge * (1 + incRecov/100) * moreRecov)
+		output.EnergyShieldRecharge = round(recharge * output.EnergyShieldRecoveryRateMod)
 		output.EnergyShieldRechargeDelay = 2 / (1 + modDB:Sum("INC", nil, "EnergyShieldRechargeFaster") / 100)
 		if breakdown then
 			breakdown.EnergyShieldRecharge = { }
@@ -320,8 +323,7 @@ function calcs.defence(env, actor)
 			breakdown.multiChain(breakdown.EnergyShieldRecharge, {
 				label = "Effective Recharge rate:",
 				base = s_format("%.1f", recharge),
-				{ "%.2f ^8(increased/reduced recovery)", 1 + incRecov/100 },
-				{ "%.2f ^8(more/less recovery)", moreRecov },
+				{ "%.2f ^8(recovery rate modifier)", output.EnergyShieldRecoveryRateMod },
 				total = s_format("= %.1f ^8per second", output.EnergyShieldRecharge),
 			})				
 			if output.EnergyShieldRechargeDelay ~= 2 then

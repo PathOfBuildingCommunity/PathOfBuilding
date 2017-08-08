@@ -1115,6 +1115,7 @@ skills["DarkPact"] = {
 	color = 3,
 	description = "This spell removes some life from one of your Skeleton minions near you or the targeted location to deal chaos damage in an area around it. This effect will chain to your other nearby skeletons. If you have no skeletons near you or the targeted location, it will sacrifice your own life to deal damage instead.",
 	skillTypes = { [2] = true, [10] = true, [19] = true, [18] = true, [11] = true, [17] = true, [49] = true, [36] = true, [26] = true, [23] = true, [50] = true, },
+--baseMod skill("radius", 24)
 	parts = {
 		{
 			name = "Cast on Player",
@@ -1147,7 +1148,7 @@ skills["DarkPact"] = {
 		skill("CritChance", 5), 
 		skill("lifeDealtAsChaos", 6), --"skeletal_chains_aoe_%_health_dealt_as_chaos_damage" = 6
 		mod("ChainCount", "BASE", 2), --"number_of_additional_projectiles_in_chain" = 2
-		skill("radiusExtra", { type = "SkillPart", skillPart = 1 }), --"skeletal_chains_no_minions_radius_+" = 4
+		skill("radiusExtra", 4, { type = "SkillPart", skillPart = 1 }), --"skeletal_chains_no_minions_radius_+" = 4
 		--"is_area_damage" = ?
 		--"skeletal_chains_no_minions_targets_self" = ?
 	},

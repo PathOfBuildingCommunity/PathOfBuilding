@@ -131,7 +131,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	end
 	self.controls.pointDisplay.width = function(control)
 		local used, ascUsed = self.spec:CountAllocNodes()
-		local usedMax = 99 + (self.targetVersion == "2_6" and 21 or 21) + (self.calcsTab.mainOutput.ExtraPoints or 0)
+		local usedMax = 99 + (self.targetVersion == "2_6" and 21 or 22) + (self.calcsTab.mainOutput.ExtraPoints or 0)
 		local ascMax = 8
 		control.str = string.format("%s%3d / %3d   %s%d / %d", used > usedMax and "^1" or "^7", used, usedMax, ascUsed > ascMax and "^1" or "^7", ascUsed, ascMax)
 		control.req = "Required level: "..m_max(1, (100 + used - usedMax))

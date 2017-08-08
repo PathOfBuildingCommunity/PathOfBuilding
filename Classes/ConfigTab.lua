@@ -6,6 +6,7 @@
 local launch, main = ...
 
 local t_insert = table.insert
+local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
@@ -35,6 +36,10 @@ local varList = {
 	end },
 	{ var = "igniteMode", type = "list", label = "Ignite calculation mode:", tooltip = "Controls how the base damage for ignite is calculated:\nAverage Damage: Ignite is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ignite is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
 	{ section = "Skill Options", col = 2 },
+	{ label = "Charged Dash:", ifSkill = "Charged Dash" },
+	{ var = "chargedDashTravelDistance", type = "number", label = "Travel distance:", ifSkill = "Charged Dash", tooltip = "Sets the travel distance used to calculate the distance damage bonus.\nThe maximum distance is 60 units.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:ChargedDashDistance", "BASE", m_max(0, m_min(val, 60)) / 60, "Config")
+	end },
 	{ label = "Dark Pact:", ifSkill = "Dark Pact" },
 	{ var = "darkPactSkeletonLife", type = "number", label = "Skeleton Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum life of the skeleton that is being targeted.", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "skeletonLife", value = val }, "Config", { type = "SkillName", skillName = "Dark Pact" })

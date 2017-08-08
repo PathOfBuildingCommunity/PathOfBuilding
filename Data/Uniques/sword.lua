@@ -446,7 +446,7 @@ Implicits: 2
 (25-30)% increased Attack Speed
 5% increased Movement Speed
 Rampage
-Casts Level 15 Manifest Dancing Dervish on Rampage
+Triggers Level 15 Manifest Dancing Dervish on Rampage
 Manifest Dancing Dervish disables both weapon slots
 Manifest Dancing Dervish dies when Rampage ends
 ]],[[

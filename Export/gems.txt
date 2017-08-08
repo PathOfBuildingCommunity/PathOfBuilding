@@ -66,7 +66,8 @@ Culling Strike|SupportCullingStrike|dexterity,support
 Curse On Hit|SupportCurseOnHit|curse,trigger,intelligence,support
 Cyclone|Cyclone|dexterity,active_skill,attack,area,movement,melee
 Damage Infusion|DamageInfusion|intelligence,active_skill,spell,area
-Dark Pact|DarkPact|intelligence,active_skill,spell,area,chaining,chaos
+Damage on Full Life|SupportMeleeDamageOnFullLife|attack,strength,support
+Dark Pact|DarkPact|minion,intelligence,active_skill,spell,area,chaining,chaos
 Deadly Ailments|SupportDeadlyAilments|dexterity,support
 Decay|SupportDecay|chaos,intelligence,support
 Decoy Totem|DecoyTotem|totem,strength,active_skill,spell,duration,area
@@ -147,7 +148,7 @@ Ice Trap|IceTrap|trap,dexterity,active_skill,spell,area,cold,duration
 Icefire|Icefire|projectile,intelligence,active_skill,spell,area
 Icestorm|IcestormUniqueStaff12|
 Ignite|Ignite|intelligence,active_skill,spell,duration,fire
-Ignite Proliferation|SupportIgniteProliferation|fire,intelligence,support
+Ignite Proliferation|SupportIgniteProliferation|fire,intelligence,support,area
 Illusory Warp|MerveilWarp|
 Immolate|SupportImmolation|fire,intelligence,support
 Immortal Call|ImmortalCall|strength,active_skill,spell,duration
@@ -183,7 +184,6 @@ Lightning Warp|LightningWarp|intelligence,active_skill,spell,area,duration,movem
 Magma Orb|MagmaOrb|projectile,intelligence,active_skill,spell,area,fire,chaining
 Maim|SupportMaim|attack,strength,support
 Mana Leech|SupportManaLeech|dexterity,support
-Melee Damage on Full Life|SupportMeleeDamageOnFullLife|melee,strength,support,attack
 Melee Physical Damage|SupportMeleePhysicalDamage|melee,strength,support,attack
 Melee Splash|SupportMeleeSplash|strength,support,melee,attack,area
 Minefield|SupportMinefield|intelligence,support,mine
@@ -203,7 +203,7 @@ Onslaught|SupportOnslaught|dexterity,support
 Orb of Storms|OrbOfStorms|lightning,intelligence,active_skill,spell,duration,area,chaining
 Phase Run|NewPhaseRun|dexterity,active_skill,spell,duration,movement
 Phase Run|NewPhaseRun|dexterity,active_skill,spell,duration,movement
-Physical Projectile Attack Damage|SupportPhysicalProjectileAttackDamage|projectile,dexterity,support
+Physical Projectile Attack Damage|SupportPhysicalProjectileAttackDamage|projectile,attack,dexterity,support
 Physical to Lightning|SupportPhysicalToLightning|lightning,intelligence,support
 Pierce|SupportPierce|dexterity,support,projectile
 Poacher's Mark|PoachersMark|curse,dexterity,active_skill,spell,area,duration
@@ -268,7 +268,7 @@ Summon Skeletons Channelled|SummonSkeletonsChannelled|intelligence,active_skill,
 Summon Stone Golem|SummonRockGolem|strength,active_skill,minion,spell,golem
 Sunder|Sunder|strength,active_skill,attack,area,melee
 Sweep|Sweep|strength,active_skill,attack,area,melee
-Swift Demise|SupportRapidDecay|dexterity,support,duration
+Swift Affliction|SupportRapidDecay|dexterity,support,duration
 Tempest Shield|TempestShield|intelligence,active_skill,spell,lightning,chaining,duration
 Temporal Chains|TemporalChains|curse,dexterity,active_skill,spell,area,duration
 Tornado Shot|TornadoShot|dexterity,active_skill,attack,bow

@@ -83,6 +83,7 @@ local skills, mod, flag, skill = ...
 
 #skill DarkPact
 #flags spell area
+--baseMod skill("radius", 24)
 	parts = {
 		{
 			name = "Cast on Player",

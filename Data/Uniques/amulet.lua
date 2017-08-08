@@ -441,7 +441,7 @@ Requires Level 40
 (10-20)% increased maximum Mana
 {variant:1}Critical Strike Chance is increased by Uncapped Lightning Resistance
 {variant:2}Critical Strike Chance is increased by Lightning Resistance
-Cast Level 12 Lightning Bolt when you deal a Critical Strike
+Trigger Level 12 Lightning Bolt when you deal a Critical Strike
 ]],[[
 Choir of the Storm
 Lapis Amulet
@@ -455,7 +455,7 @@ Requires Level 69
 {variant:1}Critical Strike Chance is increased by Uncapped Lightning Resistance
 {variant:2}Critical Strike Chance is increased by Lightning Resistance
 Critical Strikes deal 50% increased Lightning Damage
-Cast Level 20 Lightning Bolt when you deal a Critical Strike
+Trigger Level 20 Lightning Bolt when you deal a Critical Strike
 ]],[[
 Voll's Devotion
 Agate Amulet
