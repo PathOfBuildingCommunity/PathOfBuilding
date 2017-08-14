@@ -146,7 +146,7 @@ Variant: Current
 Requires Level 44, 63 Dex, 90 Int
 30% increased Global Critical Strike Chance
 {variant:1}Adds (15-25) to (35-45) Physical Damage
-{variant:1}Adds (35–40) to (55–60) Physical Damage
+{variant:2}Adds (35–40) to (55–60) Physical Damage
 (22-30)% increased Critical Strike Chance
 +(30-40)% to Global Critical Strike Multiplier
 100% increased Critical Strike Chance against Enemies on Full Life

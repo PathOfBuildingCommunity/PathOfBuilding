@@ -85,7 +85,7 @@ data.jewelRadius = {
 }
 
 data.labyrinths = {
-	{ name = "ENDGAME", label = "Endgame" },
+	{ name = "ENDGAME", label = "Eternal" },
 	{ name = "MERCILESS", label = "Merciless" },
 	{ name = "CRUEL", label = "Cruel" },
 	{ name = "NORMAL", label = "Normal" },

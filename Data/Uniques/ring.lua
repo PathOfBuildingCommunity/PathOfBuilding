@@ -383,7 +383,7 @@ Requires Level 11
 +(20-30)% to Cold Resistance
 +(25-35)% to Fire Resistance
 {variant:1,2}(25-35)% increased Burning Damage
-{variant:3}(80–100)% increased Burning Damage
+{variant:3}(60–80)% increased Burning Damage
 {variant:1}100% of Cold Damage Converted to Fire Damage
 {variant:2,3}40% of Cold Damage Converted to Fire Damage
 10% increased Light Radius

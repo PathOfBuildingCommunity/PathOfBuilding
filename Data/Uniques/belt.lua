@@ -163,7 +163,7 @@ Requires Level 50
 (67-75) Life Regenerated per second
 (8-10) Mana Regenerated per second
 {variant:1}−40% to all Elemental Resistances
-{variant:3}−25% to all Elemental Resistances
+{variant:3}−(15-25)% to all Elemental Resistances
 {variant:1}−10% to all maximum Resistances
 {variant:2}−5% to all maximum Resistances
 −(50-40) Physical Damage taken from Attacks

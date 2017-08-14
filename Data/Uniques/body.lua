@@ -348,6 +348,7 @@ Variant: Arrow Dancing
 Variant: Avatar of Fire
 Variant: Blood Magic
 Variant: Conduit
+Variant: Crimson Dance
 Variant: Eldritch Battery
 Variant: Elemental Equilibrium
 Variant: Elemental Overload
@@ -375,22 +376,23 @@ You can only Socket Corrupted Gems in this item
 {variant:4}Avatar of Fire
 {variant:5}Blood Magic
 {variant:6}Conduit
-{variant:7}Eldritch Battery
-{variant:8}Elemental Equilibrium
-{variant:9}Elemental Overload
-{variant:10}Ghost Reaver
-{variant:11}Iron Grip
-{variant:12}Iron Reflexes
-{variant:13}Mind Over Matter
-{variant:14}Minion Instability
-{variant:15}Pain Attunement
-{variant:16}Perfect Agony
-{variant:17}Phase Acrobatics
-{variant:18}Point Blank
-{variant:19}Resolute Technique
-{variant:20}Unwavering Stance
-{variant:21}Vaal Pact
-{variant:22}Zealot's Oath
+{variant:7}Crimson Dance
+{variant:8}Eldritch Battery
+{variant:9}Elemental Equilibrium
+{variant:10}Elemental Overload
+{variant:11}Ghost Reaver
+{variant:12}Iron Grip
+{variant:13}Iron Reflexes
+{variant:14}Mind Over Matter
+{variant:15}Minion Instability
+{variant:16}Pain Attunement
+{variant:17}Perfect Agony
+{variant:18}Phase Acrobatics
+{variant:19}Point Blank
+{variant:20}Resolute Technique
+{variant:21}Unwavering Stance
+{variant:22}Vaal Pact
+{variant:23}Zealot's Oath
 Corrupted
 ]],[[
 Soul Mantle

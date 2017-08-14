@@ -54,9 +54,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	end
 
 	if not dbFileName and not targetVersion and not buildXML then
-		self.targetVersion = nil
-		self:OpenTargetVersionPopup(true)
-		return
+		targetVersion = liveTargetVersion
+		--self.targetVersion = nil
+		--self:OpenTargetVersionPopup(true)
+		--return
 	end
 
 	self.abortSave = true
@@ -1036,6 +1037,10 @@ function buildMode:RefreshStatList()
 		self:AddDisplayStatList(self.minionDisplayStats, self.calcsTab.mainEnv.minion)
 		t_insert(statBoxList, { height = 10 })
 		t_insert(statBoxList, { height = 18, "^7Player:" })
+	end
+	if self.calcsTab.mainEnv.player.mainSkill.skillFlags.disable then
+		t_insert(statBoxList, { height = 16, "^7Skill disabled:" })
+		t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, self.calcsTab.mainEnv.player.mainSkill.disableReason })
 	end
 	self:AddDisplayStatList(self.displayStats, self.calcsTab.mainEnv.player)
 end

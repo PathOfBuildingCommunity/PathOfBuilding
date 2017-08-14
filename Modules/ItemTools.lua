@@ -270,7 +270,7 @@ function itemLib.parseItemRaw(item)
 						range = tonumber(range),
 					})
 				elseif specName == "Implicits" then
-					item.implicitLines = tonumber(specVal)
+					item.implicitLines = tonumber(specVal) or 0
 					gameModeStage = "EXPLICIT"
 				elseif specName == "Unreleased" then
 					item.unreleased = (specVal == "true")

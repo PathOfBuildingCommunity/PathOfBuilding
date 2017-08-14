@@ -141,10 +141,10 @@ function calcs.initEnv(build, mode, override)
 	modDB:NewMod("Accuracy", "BASE", 2, "Base", { type = "Multiplier", var = "Level", base = -2 })
 	modDB:NewMod("CritMultiplier", "BASE", 50, "Base")
 	modDB:NewMod("CritDegenMultiplier", "BASE", 50, "Base")
-	modDB:NewMod("FireResist", "BASE", -60, "Base")
-	modDB:NewMod("ColdResist", "BASE", -60, "Base")
-	modDB:NewMod("LightningResist", "BASE", -60, "Base")
-	modDB:NewMod("ChaosResist", "BASE", -60, "Base")
+	modDB:NewMod("FireResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
+	modDB:NewMod("ColdResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
+	modDB:NewMod("LightningResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
+	modDB:NewMod("ChaosResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
 	if build.targetVersion == "2_6" then
 		modDB:NewMod("CritChance", "INC", 50, "Base", { type = "Multiplier", var = "PowerCharge" })
 	else
@@ -501,7 +501,7 @@ function calcs.initEnv(build, mode, override)
 		local slot = socketGroup.slot and build.itemsTab.slots[socketGroup.slot]
 		socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
 		if index == env.mainSocketGroup or (socketGroup.enabled and socketGroup.slotEnabled) then
-			groupCfg.slotName = socketGroup.slot
+			groupCfg.slotName = socketGroup.slot and socketGroup.slot:gsub(" Swap","")
 			local propertyModList = env.modDB:Sum("LIST", groupCfg, "GemProperty")
 
 			-- Build list of supports for this socket group
@@ -588,7 +588,7 @@ function calcs.initEnv(build, mode, override)
 					end
 					local activeSkill = calcs.createActiveSkill(activeGem, supportList)
 					if not gem.fromItem then
-						activeSkill.slotName = socketGroup.slot
+						activeSkill.slotName = groupCfg.slotName
 					end
 					t_insert(socketGroupSkillList, activeSkill)
 					t_insert(env.activeSkillList, activeSkill)
