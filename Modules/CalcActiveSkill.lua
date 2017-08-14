@@ -219,6 +219,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	if skillTypes[SkillType.Shield] and not activeSkill.summonSkill and (not actor.itemList["Weapon 2"] or actor.itemList["Weapon 2"].type ~= "Shield") then
 		-- Skill requires a shield to be equipped
 		skillFlags.disable = true
+		activeSkill.disableReason = "This skill requires a Shield"
 	end
 
 	if skillFlags.attack then
@@ -240,6 +241,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 		elseif skillTypes[SkillType.DualWield] or not skillTypes[SkillType.CanDualWield] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand then
 			-- Skill requires a compatible main hand weapon
 			skillFlags.disable = true
+			activeSkill.disableReason = "Main Hand weapon is not usable with this skill"
 		end
 		if skillTypes[SkillType.DualWield] or skillTypes[SkillType.CanDualWield] then
 			if not skillTypes[SkillType.MainHandOnly] and not skillFlags.forceMainHand then
@@ -247,14 +249,20 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 				if weapon2Flags then
 					activeSkill.weapon2Flags = weapon2Flags
 					skillFlags.weapon2Attack = true
-				elseif skillTypes[SkillType.DualWield] or not skillFlags.weapon1Attack then
+				elseif skillTypes[SkillType.DualWield] then
 					-- Skill requires a compatible off hand weapon
 					skillFlags.disable = true
+					activeSkill.disableReason = activeSkill.disableReason or "Off Hand weapon is not usable with this skill"
+				elseif not skillFlags.weapon1Attack then
+					-- Neither weapon is compatible
+					skillFlags.disable = true
+					activeSkill.disableReason = "No usable weapon equipped"
 				end
 			end
 		elseif actor.weaponData2.type then
 			-- Skill cannot be used while dual wielding
 			skillFlags.disable = true
+			activeSkill.disableReason = "This skill cannot be used while Dual Wielding"
 		end
 		skillFlags.bothWeaponAttack = skillFlags.weapon1Attack and skillFlags.weapon2Attack
 	end

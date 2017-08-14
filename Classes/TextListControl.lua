@@ -43,7 +43,7 @@ function TextListClass:Draw(viewPort)
 		local lineY = -scrollBar.offset
 		for _, lineInfo in ipairs(self.list) do
 			if lineInfo[colIndex] then
-				DrawString(colInfo.x, lineY, colInfo.align, lineInfo.height, lineInfo.font or "VAR", lineInfo[colIndex])
+				DrawString(lineInfo.x or colInfo.x, lineY, lineInfo.align or colInfo.align, lineInfo.height, lineInfo.font or "VAR", lineInfo[colIndex])
 			end
 			lineY = lineY + lineInfo.height
 		end

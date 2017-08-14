@@ -53,6 +53,19 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.59 - 2017/08/14
+With this update, new builds will default to 3.0, and the version selection dialog will no longer display.
+Builds can still be converted to 2.6 via the Configuration tab. All 2.6 builds will continue to work as normal, 
+however from this point some new features may only be available for 3.0 builds.
+ * The Helmet enchantments for the new skills are now available in the item enchanting system
+ * The resistance penalties from completing Act 5/10 can now be disabled using a new option in the Configuration tab
+ * Removed the attack rate cap for Blink/Mirror Arrow clones, which is no longer present in 3.0
+ * An explanatory message is now shown in the sidebar if the main skill is disabled (e.g if no compatible weapon is equipped)
+ * Fixed the Burning Damage roll on Pyre
+ * Fixed the flat Physical Damage rolls on Widowmaker
+ * Fixed the Elemental Resistances roll on Immortal Flesh
+ * Fixed issue preventing Socketed Gem modifiers from applying to gems socketed into the alternate weapon set
+
 ### 1.4.58 - 2017/08/09
  * Added all of the new uniques
  * Added support for the Void Gaze skill granted by Eber's Unification
@@ -73,7 +86,7 @@ For 2.6 builds:
  * The program now behaves correctly when attempting to import from an account with a private profile
 
 For 3.0 builds:
- * Lioneye's Fall now correctly transforms modifiers that grant Ailemnt Damage while wielding melee weapons
+ * Lioneye's Fall now correctly transforms modifiers that grant Ailment Damage while wielding melee weapons
 
 ### 1.4.56 - 2017/08/04
  * AoE Radius is now shown in the sidebar and stat comparison tooltips

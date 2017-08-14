@@ -261,6 +261,16 @@ return {
 			"12% increased Blade Flurry Area of Effect",
 		},
 	},
+	["Charged Dash"] = {
+		["MERCILESS"] = {
+			"25% increased Charged Dash Damage",
+			"4% chance to Dodge Attacks if you have finished Channelling Charged Dash Recently",
+		},
+		["ENDGAME"] = {
+			"40% increased Charged Dash Damage",
+			"6% chance to Dodge Attacks if you have finished Channelling Charged Dash Recently",
+		},
+	},
 	["Clarity"] = {
 		["MERCILESS"] = {
 			"20% reduced Clarity Mana Reservation",
@@ -343,6 +353,18 @@ return {
 		["ENDGAME"] = {
 			"15% increased Cyclone Attack Speed",
 			"40% increased Cyclone Damage",
+		},
+	},
+	["Dark Pact"] = {
+		["MERCILESS"] = {
+			"25% increased Dark Pact Damage",
+			"8% increased Dark Pact Cast Speed",
+			"8% increased Dark Pact Area of Effect",
+		},
+		["ENDGAME"] = {
+			"40% increased Dark Pact Damage",
+			"12% increased Dark Pact Cast Speed",
+			"12% increased Dark Pact Area of Effect",
 		},
 	},
 	["Decoy Totem"] = {
@@ -1443,6 +1465,18 @@ return {
 			"40% increased Static Strike Damage",
 			"45% reduced Static Strike Duration",
 			"12% increased Static Strike Area of Effect",
+		},
+	},
+	["Storm Burst"] = {
+		["MERCILESS"] = {
+			"25% increased Storm Burst Damage",
+			"8% increased Storm Burst Area of Effect",
+			"30% chance to Avoid interruption from Stuns while Casting Storm Burst",
+		},
+		["ENDGAME"] = {
+			"40% increased Storm Burst Damage",
+			"12% increased Storm Burst Area of Effect",
+			"45% chance to Avoid interruption from Stuns while Casting Storm Burst",
 		},
 	},
 	["Storm Call"] = {
