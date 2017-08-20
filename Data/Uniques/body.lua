@@ -139,13 +139,16 @@ Requires Level 53, 144 Dex
 ]],[[
 Cospri's Will
 Assassin's Garb
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 68, 183 Dex
 3% increased Movement Speed
 (120-160)% increased Evasion Rating
 +(17-29)% to Chaos Resistance
 Enemies can have 1 additional Curse
 Your Curses can apply to Hexproof Enemies
-Poison Cursed Enemies on hit
+{variant:1}Poison Cursed Enemies on hit
+{variant:2}60% chance to Poison on Hit against Cursed Enemies
 ]],[[
 Foxshade
 Wild Leather

@@ -761,7 +761,7 @@ skills["StormCascadeTriggered"] = {
 	hidden = true,
 	color = 3,
 	description = "Lightning crackles in a series of small bursts, each damaging enemies caught in the area.",
-	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, },
+	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, [61] = true, },
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -820,10 +820,10 @@ skills["StormCascadeTriggered"] = {
 	},
 }
 skills["SummonBeastialRhoa"] = {
-	name = "Summon Beastial Rhoa",
+	name = "Summon Bestial Rhoa",
 	hidden = true,
 	color = 3,
-	description = "Summons a Beastial Rhoa. In addition to its melee attack, the Beastial Rhoa uses a charge and has an aura that intimidates enemies. This minion's hits cannot be evaded.",
+	description = "Summons a Bestial Rhoa. In addition to its melee attack, the Bestial Rhoa uses a charge and has an aura that intimidates enemies. This minion's hits cannot be evaded.",
 	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [10] = true, [11] = true, [28] = true, },
 	fromItem = true,
@@ -854,10 +854,10 @@ skills["SummonBeastialRhoa"] = {
 	},
 }
 skills["SummonBeastialSnake"] = {
-	name = "Summon Beastial Snake",
+	name = "Summon Bestial Snake",
 	hidden = true,
 	color = 3,
-	description = "Summons a Beastial Snake. The Beastial Snake fires powerful chaos projectile attacks. This minion's hits cannot be evaded.",
+	description = "Summons a Bestial Snake. The Bestial Snake fires powerful chaos projectile attacks. This minion's hits cannot be evaded.",
 	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, [3] = true, [23] = true, [48] = true, },
 	fromItem = true,
@@ -888,10 +888,10 @@ skills["SummonBeastialSnake"] = {
 	},
 }
 skills["SummonBeastialUrsa"] = {
-	name = "Summon Beastial Ursa",
+	name = "Summon Bestial Ursa",
 	hidden = true,
 	color = 3,
-	description = "Summons a Beastial Ursa. In addition to its melee attack, the Beastial Ursa uses a powerful Ground Slam and Rallying Cry. This minion's hits cannot be evaded.",
+	description = "Summons a Bestial Ursa. In addition to its melee attack, the Bestial Ursa uses a powerful Ground Slam and Rallying Cry. This minion's hits cannot be evaded.",
 	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [10] = true, [11] = true, [28] = true, },
 	fromItem = true,

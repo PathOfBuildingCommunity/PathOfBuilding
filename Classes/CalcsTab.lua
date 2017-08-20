@@ -125,6 +125,12 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 		section.controls.showMinion.state = self.input.showMinion
 		section.controls.mode:SelByValue(self.input.misc_buffMode, "buffMode")
 	end)
+	self.sectionList[1].controls.mainSocketGroup.tooltipFunc = function(tooltip, mode, index, value)
+		local socketGroup = self.build.skillsTab.socketGroupList[index]
+		if tooltip:CheckForUpdate(socketGroup, self.build.outputRevision) then
+			self.build.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
+		end
+	end
 
 	-- Add sections from the CalcSections module
 	for _, section in ipairs(sectionData[build.targetVersion]) do

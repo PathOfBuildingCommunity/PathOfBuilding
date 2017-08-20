@@ -206,7 +206,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 52
 {variant:1}+(260-300) to maximum Energy Shield
-{variant:2}+(110–130) to maximum Energy Shield
+{variant:2}+(170–210) to maximum Energy Shield
 Reflects 5 Physical Damage to Melee Attackers
 Take 5 Physical Damage when hit by Attacks
 Pain Attunement

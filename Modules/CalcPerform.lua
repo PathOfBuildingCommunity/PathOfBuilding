@@ -47,7 +47,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 	local condList = modDB.conditions
 
 	-- Set conditions
-	if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].type == "Shield" then
+	if (actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].type == "Shield") or (actor == env.player and env.aegisModList) then
 		condList["UsingShield"] = true
 	end
 	if actor.weaponData1.type == "None" then

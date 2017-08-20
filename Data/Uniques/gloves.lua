@@ -386,13 +386,16 @@ Rampage
 ]],[[
 Snakebite
 Assassin's Mitts
+Variant: {2_6}Pre 3.0.0
+Variant: Current
 Requires Level 58, 45 Dex, 45 Int
 (150-180)% increased Evasion Rating
 +(60-70) to maximum Life
 2% increased Attack Speed per Frenzy Charge
 6% increased Accuracy Rating per Frenzy Charge
 10% reduced Frenzy Charge Duration per Frenzy Charge
-While at Maximum Frenzy Charges, Attacks Poison Enemies
+{variant:1}While at Maximum Frenzy Charges, Attacks Poison Enemies
+{variant:2}Attacks have 60% chance to Poison while at maximum Frenzy Charges
 ]],[[
 Thunderfist
 Murder Mitts

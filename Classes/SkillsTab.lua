@@ -534,6 +534,85 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 	end
 end
 
+function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
+	if socketGroup.enabled and not socketGroup.slotEnabled then
+		tooltip:AddLine(16, "^7Note: this group is disabled because it is socketed in the inactive weapon set.")
+	end
+	if socketGroup.sourceItem then
+		tooltip:AddLine(18, "^7Source: "..colorCodes[socketGroup.sourceItem.rarity]..socketGroup.sourceItem.name)
+		tooltip:AddSeparator(10)
+	end
+	local gemShown = { }
+	for index, activeSkill in ipairs(socketGroup.displaySkillList) do
+		if index > 1 then
+			tooltip:AddSeparator(10)
+		end
+		tooltip:AddLine(16, "^7Active Skill #"..index..":")
+		for _, gem in ipairs(activeSkill.gemList) do
+			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s", 
+				data.skillColorMap[gem.grantedEffect.color], 
+				gem.grantedEffect.name,
+				gem.level, 
+				(gem.srcGem and gem.level > gem.srcGem.level) and colorCodes.MAGIC.."+"..(gem.level - gem.srcGem.level).."^7" or "",
+				gem.quality,
+				(gem.srcGem and gem.quality > gem.srcGem.quality) and colorCodes.MAGIC.."+"..(gem.quality - gem.srcGem.quality).."^7" or ""
+			))
+			if gem.srcGem then
+				gemShown[gem.srcGem] = true
+			end
+		end
+		if activeSkill.minion then
+			tooltip:AddSeparator(10)
+			tooltip:AddLine(16, "^7Active Skill #"..index.."'s Main Minion Skill:")
+			local gem = activeSkill.minion.mainSkill.gemList[1]
+			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s", 
+				data.skillColorMap[gem.grantedEffect.color], 
+				gem.grantedEffect.name, 
+				gem.level, 
+				(gem.srcGem and gem.level > gem.srcGem.level) and colorCodes.MAGIC.."+"..(gem.level - gem.srcGem.level).."^7" or "",
+				gem.quality,
+				(gem.srcGem and gem.quality > gem.srcGem.quality) and colorCodes.MAGIC.."+"..(gem.quality - gem.srcGem.quality).."^7" or ""
+			))
+			if gem.srcGem then
+				gemShown[gem.srcGem] = true
+			end
+		end
+	end
+	local showOtherHeader = true
+	for _, gem in ipairs(socketGroup.gemList) do
+		if not gemShown[gem] then
+			if showOtherHeader then
+				showOtherHeader = false
+				tooltip:AddSeparator(10)
+				tooltip:AddLine(16, "^7Inactive Gems:")
+			end
+			local reason = ""
+			local displayGem = gem.displayGem or gem
+			if not gem.grantedEffect then
+				reason = "(Unsupported)"
+			elseif not gem.enabled then
+				reason = "(Disabled)"
+			elseif not socketGroup.enabled or not socketGroup.slotEnabled then
+			elseif gem.grantedEffect.support then
+				if displayGem.superseded then
+					reason = "(Superseded)"
+				elseif (not displayGem.isSupporting or not next(displayGem.isSupporting)) and #socketGroup.displaySkillList > 0 then
+					reason = "(Cannot apply to any of the active skills)"
+				end
+			end
+			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s %s", 
+				gem.color, 
+				gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec, 
+				displayGem.level, 
+				displayGem.level > gem.level and colorCodes.MAGIC.."+"..(displayGem.level - gem.level).."^7" or "",
+				displayGem.quality,
+				displayGem.quality > gem.quality and colorCodes.MAGIC.."+"..(displayGem.quality - gem.quality).."^7" or "",
+				reason
+			))
+		end
+	end
+end
+
 function SkillsTabClass:CreateUndoState()
 	local state = { }
 	state.socketGroupList = { }
