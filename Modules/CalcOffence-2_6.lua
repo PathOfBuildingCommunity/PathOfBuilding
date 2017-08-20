@@ -175,7 +175,7 @@ function calcs.offence(env, actor)
 	if modDB:Sum("FLAG", nil, "MinionDamageAppliesToPlayer") then
 		-- Minion Damage conversion from The Scourge
 		for _, value in ipairs(modDB:Sum("LIST", env.player.mainSkill.skillCfg, "MinionModifier")) do
-			if value.mod.name == "Damage" then
+			if value.mod.name == "Damage" and value.mod.type == "INC" then
 				modDB:AddMod(value.mod)
 			end
 		end
@@ -1686,14 +1686,12 @@ function calcs.offence(env, actor)
 	-- Calculate combined DPS estimate, including DoTs
 	local baseDPS = output[(skillData.showAverage and "AverageDamage") or "TotalDPS"] + output.TotalDot
 	output.CombinedDPS = baseDPS
-	if skillFlags.poison then
-		if skillData.showAverage then
-			output.CombinedDPS = output.CombinedDPS + output.TotalPoisonAverageDamage
-			output.WithPoisonAverageDamage = baseDPS + output.TotalPoisonAverageDamage
-		else
-			output.CombinedDPS = output.CombinedDPS + output.TotalPoisonDPS
-			output.WithPoisonDPS = baseDPS + output.TotalPoisonDPS
-		end
+	if skillData.showAverage then
+		output.CombinedDPS = output.CombinedDPS + (output.TotalPoisonAverageDamage or 0)
+		output.WithPoisonAverageDamage = baseDPS + (output.TotalPoisonAverageDamage or 0)
+	else
+		output.CombinedDPS = output.CombinedDPS + (output.TotalPoisonDPS or 0)
+		output.WithPoisonDPS = baseDPS + (output.TotalPoisonDPS or 0)
 	end
 	if skillFlags.ignite then
 		if skillFlags.igniteCanStack then

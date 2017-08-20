@@ -31,6 +31,7 @@ local skills, mod, flag, skill = ...
 
 #skill Blight
 #flags spell duration area chaos
+#baseMod skill("debuff", true)
 #baseMod skill("radius", 26)
 #mods
 
@@ -492,6 +493,7 @@ local skills, mod, flag, skill = ...
 
 #skill SummonSkeletons
 #flags spell minion duration
+#setMod damage_+%==mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) })
 	minionList = {
 		"RaisedSkeleton",
 		"RaisedSkeletonCaster",
@@ -500,6 +502,7 @@ local skills, mod, flag, skill = ...
 
 #skill VaalSummonSkeletons
 #flags spell minion duration
+#setMod damage_+%==mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) })
 	minionList = {
 		"RaisedSkeleton",
 		"RaisedSkeletonCaster",

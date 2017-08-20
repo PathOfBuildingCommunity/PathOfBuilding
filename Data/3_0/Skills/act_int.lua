@@ -401,6 +401,7 @@ skills["Blight"] = {
 		--"display_max_blight_stacks" = 20
 		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_skill_dot" = ?
 		--"is_area_damage" = ?
+		skill("debuff", true), 
 		skill("radius", 26), 
 	},
 	qualityMods = {
@@ -5341,7 +5342,7 @@ skills["SummonSkeletons"] = {
 		--"display_minion_monster_type" = 2
 	},
 	qualityMods = {
-		mod("Damage", "INC", 1, 0, 0, nil), --"damage_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) }), --"damage_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
@@ -5416,7 +5417,7 @@ skills["VaalSummonSkeletons"] = {
 		--"display_minion_monster_type" = 2
 	},
 	qualityMods = {
-		mod("Damage", "INC", 1, 0, 0, nil), --"damage_+%" = 1
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) }), --"damage_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 

@@ -53,6 +53,16 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.60 - 2017/08/21
+ * The main Socket Group selector in the sidebar now shows the Socket Group tooltip when you hover over it
+ * Updated the skill data for Charged Dash to reflect the changes made in 3.0.1
+ * Modifiers that apply when holding a Shield now correctly apply when Necromantic Aegis is allocated
+ * The stat comparison for Total DPS inc. Poison is now more intuitive when gaining or losing the ability to Poison
+ * Updated the "Is the enemy a Boss?" option to remove the Ailment Duration modifiers from Shaper/Guardian
+ * Corrected the base Energy Shield roll on Martyr's Crown
+ * Corrected the Critical Strike Multiplier penalty on Ungil's Harmony
+ * Updated the Poison Chance modifiers on Snakebite and Cospri's Will
+
 ### 1.4.59 - 2017/08/14
 With this update, new builds will default to 3.0, and the version selection dialog will no longer display.
 Builds can still be converted to 2.6 via the Configuration tab. All 2.6 builds will continue to work as normal, 
