@@ -111,9 +111,9 @@ Requires Level 64, 76 Dex, 149 Int
 10% reduced Attack Speed
 +(6-10)% to all Elemental Resistances
 {variant:1,2}Melee Critical Strikes have 25% chance to cause Bleeding
-{variant:3}Melee Critical Strikes have 50% chance to cause Bleeding
+{variant:3}50% chance to Cause Bleeding on Critical Strike
 {variant:1,2}Melee Critical Strikes have 25% chance to Poison the Enemy
-{variant:3}Melee Critical Strikes have 50% chance to Poison the Enemy
+{variant:3}50% chance to Cause Poison on Critical Strike
 ]],[[
 Mightflay
 Flaying Knife

@@ -396,12 +396,13 @@ skills["Blight"] = {
 	baseMods = {
 		skill("castTime", 0.3), 
 		skill("duration", 2.5), --"base_skill_effect_duration" = 2500
-		--"base_secondary_skill_effect_duration" = 800
+		skill("durationSecondary", 0.8), --"base_secondary_skill_effect_duration" = 800
 		mod("MovementSpeed", "INC", -80, 0, 0, nil), --"base_movement_velocity_+%" = -80
 		--"display_max_blight_stacks" = 20
 		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_skill_dot" = ?
 		--"is_area_damage" = ?
 		skill("debuff", true), 
+		skill("debuffSecondary", true), 
 		skill("radius", 26), 
 	},
 	qualityMods = {
@@ -2523,11 +2524,12 @@ skills["FrostBomb"] = {
 		skill("CritChance", 6), 
 		skill("cooldown", 2.5), 
 		skill("duration", 3.5), --"base_skill_effect_duration" = 3500
-		--"base_secondary_skill_effect_duration" = 2000
+		skill("durationSecondary", 2), --"base_secondary_skill_effect_duration" = 2000
 		mod("ColdResist", "BASE", -20, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }), --"base_cold_damage_resistance_%" = -20
 		--"life_regeneration_rate_+%" = -75
 		--"is_area_damage" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		skill("debuffSecondary", true), 
 	},
 	qualityMods = {
 		mod("ColdDamage", "INC", 1), --"cold_damage_+%" = 1

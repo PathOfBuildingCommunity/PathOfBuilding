@@ -8,6 +8,7 @@ local launch, main = ...
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
+local m_max = math.max
 
 local ItemDBClass = common.NewClass("ItemDB", "ListControl", function(self, anchor, x, y, width, height, itemsTab, db)
 	self.ListControl(anchor, x, y, width, height, 16, false)
@@ -16,7 +17,8 @@ local ItemDBClass = common.NewClass("ItemDB", "ListControl", function(self, anch
 	self.defaultText = "^7No items found that match those filters."
 	self.dragTargetList = { }
 	self.sortControl = { 
-		NAME = { key = "name", order = 1, dir = "ASCEND", func = function(a,b) return a:gsub("^The ","") < b:gsub("^The ","") end }
+		NAME = { key = "name", order = 2, dir = "ASCEND", func = function(a,b) return a:gsub("^The ","") < b:gsub("^The ","") end },
+		--DEEPS = { key = "CombinedDPS", order = 1, dir = "DESCEND" },
 	}
 	local leagueFlag = { }
 	local typeFlag = { }
@@ -149,6 +151,19 @@ function ItemDBClass:BuildList()
 			t_insert(self.list, item)
 		end
 	end
+	--[[if self.itemsTab.build.calcsTab then
+		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
+		local baseDPS = calcBase.Minion and calcBase.Minion.CombinedDPS or calcBase.CombinedDPS
+		for _, item in ipairs(self.list) do
+			item.CombinedDPS = 0
+			for slotName, slot in pairs(self.itemsTab.slots) do
+				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
+					local output = calcFunc({ repSlotName = slotName, repItem = item })
+					item.CombinedDPS = m_max(item.CombinedDPS, output.Minion and output.Minion.CombinedDPS or output.CombinedDPS)				
+				end
+			end
+		end
+	end]]
 	table.sort(self.list, function(a, b)
 		for _, data in ipairs(self.sortOrder) do
 			local aVal = a[data.key]

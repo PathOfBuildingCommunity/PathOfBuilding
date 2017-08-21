@@ -266,7 +266,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 		end
 		skillFlags.bothWeaponAttack = skillFlags.weapon1Attack and skillFlags.weapon2Attack
 	end
-	
+
 	-- Build skill mod flag set
 	local skillModFlags = 0
 	if skillFlags.hit then
@@ -377,6 +377,11 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	-- Initialise skill modifier list
 	local skillModList = common.New("ModList")
 	activeSkill.skillModList = skillModList
+
+	if actor.modDB and actor.modDB:Sum("FLAG", activeSkill.skillCfg, "DisableSkill") then
+		skillFlags.disable = true
+		activeSkill.disableReason = "Skills of this type are disabled"
+	end
 
 	if skillFlags.disable then
 		wipeTable(skillFlags)
@@ -496,13 +501,12 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	-- Separate global effect modifiers (mods that can affect defensive stats or other skills)
 	local i = 1
 	while skillModList[i] do
-		local effectType, effectName, allowTotemBuff, cond
+		local effectType, effectName, effectTag
 		for _, tag in ipairs(skillModList[i]) do
 			if tag.type == "GlobalEffect" then
 				effectType = tag.effectType
 				effectName = tag.effectName or activeSkill.activeGem.grantedEffect.name
-				allowTotemBuff = tag.allowTotemBuff
-				cond = tag.effectCond
+				effectTag = tag
 				break
 			end
 		end
@@ -518,10 +522,17 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 				buff = {
 					type = effectType,
 					name = effectName,
-					allowTotemBuff = allowTotemBuff,
-					cond = cond,
+					allowTotemBuff = effectTag.allowTotemBuff,
+					cond = effectTag.cond,
 					modList = { },
 				}
+				if not effectTag.effectName then
+					-- Inherit buff configuration from the active skill
+					buff.applyNotPlayer = activeSkill.skillData.buffNotPlayer
+					buff.applyMinions = activeSkill.skillData.buffMinions
+					buff.applyAllies = activeSkill.skillData.buffAllies
+					buff.allowTotemBuff = activeSkill.skillData.allowTotemBuff
+				end
 				t_insert(activeSkill.buffList, buff)
 			end
 			local match = false

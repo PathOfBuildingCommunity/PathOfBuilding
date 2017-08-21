@@ -177,10 +177,10 @@ skills["Barrage"] = {
 	},
 	parts = {
 		{
-			name = "1 Arrow",
+			name = "1 Projectile",
 		},
 		{
-			name = "All Arrows",
+			name = "All Projectiles",
 		},
 	},
 	setupFunc = function(actor, output)

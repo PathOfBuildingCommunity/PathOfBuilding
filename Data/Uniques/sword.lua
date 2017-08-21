@@ -500,17 +500,19 @@ Enemies you Attack Reflect 100 Physical Damage to you
 Kondo's Pride 
 Ezomyte Blade
 Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 61, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}+435 to Accuracy Rating
+{variant:2,3}+435 to Accuracy Rating
 (270-320)% increased Physical Damage
 0.6% of Physical Attack Damage Leeched as Life
 50% increased Melee Damage against Bleeding Enemies
 Cannot Leech Life from Critical Strikes
 30% chance to Blind Enemies on Critical Strike
-Causes Bleeding on Melee Critical Strike
+{variant:1,2}Causes Bleeding on Melee Critical Strike
+{variant:3}50% chance to cause Bleeding on Critical Strike
 ]],[[
 Oro's Sacrifice
 Infernal Sword
