@@ -57,6 +57,7 @@ If you'd like to help support the development of Path of Building, I have a [Pat
  * The Secondary Durations for Blight, Frost Bomb and Phase Run are now calculated and shown in the Calcs tab
  * Added an option to the Configuration tab for "# of Shocked Enemies Killed Recently"
  * Added support for the "Your Spells are disabled" modifier on Gruthkul's Pelt
+ * Poison/Bleed Chance on weapons is now correctly local
 
 ### 1.4.60 - 2017/08/21
  * The main Socket Group selector in the sidebar now shows the Socket Group tooltip when you hover over it
