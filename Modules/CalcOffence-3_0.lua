@@ -376,6 +376,26 @@ function calcs.offence(env, actor)
 				t_insert(breakdown.Duration, s_format("= %.2fs", output.Duration))
 			end
 		end
+		durationBase = skillData.durationSecondary or 0
+		if durationBase > 0 then
+			local durationMod = calcLib.mod(modDB, skillCfg, "Duration", "SecondaryDuration", "SkillAndDamagingAilmentDuration")
+			output.DurationSecondary = durationBase * durationMod
+			if skillData.debuffSecondary then
+				output.DurationSecondary = output.DurationSecondary * debuffDurationMult
+			end
+			if breakdown and output.DurationSecondary ~= durationBase then
+				breakdown.DurationSecondary = {
+					s_format("%.2fs ^8(base)", durationBase),
+				}
+				if output.DurationMod ~= 1 then
+					t_insert(breakdown.DurationSecondary, s_format("x %.2f ^8(duration modifier)", durationMod))
+				end
+				if skillData.debuffSecondary and debuffDurationMult ~= 1 then
+					t_insert(breakdown.DurationSecondary, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+				end
+				t_insert(breakdown.DurationSecondary, s_format("= %.2fs", output.DurationSecondary))
+			end
+		end
 	end
 
 	-- Run skill setup function

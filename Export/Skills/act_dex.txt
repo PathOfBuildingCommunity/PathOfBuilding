@@ -29,10 +29,10 @@ local skills, mod, flag, skill = ...
 #flags attack projectile
 	parts = {
 		{
-			name = "1 Arrow",
+			name = "1 Projectile",
 		},
 		{
-			name = "All Arrows",
+			name = "All Projectiles",
 		},
 	},
 	setupFunc = function(actor, output)

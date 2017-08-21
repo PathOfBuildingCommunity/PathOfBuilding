@@ -32,6 +32,7 @@ local skills, mod, flag, skill = ...
 #skill Blight
 #flags spell duration area chaos
 #baseMod skill("debuff", true)
+#baseMod skill("debuffSecondary", true)
 #baseMod skill("radius", 26)
 #mods
 
@@ -235,6 +236,7 @@ local skills, mod, flag, skill = ...
 
 #skill FrostBomb
 #flags spell area duration cold
+#baseMod skill("debuffSecondary", true)
 #global Debuff
 #mods
 

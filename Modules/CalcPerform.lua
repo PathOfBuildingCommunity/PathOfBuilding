@@ -596,8 +596,8 @@ function calcs.perform(env)
 			if buff.cond and not modDB:Sum("FLAG", nil, "Condition:"..buff.cond) then
 				-- Nothing!
 			elseif buff.type == "Buff" then
-				if env.mode_buffs and (not activeSkill.skillFlags.totem or activeSkill.skillData.allowTotemBuff or buff.allowTotemBuff) then
-				 	if not activeSkill.skillData.buffNotPlayer then
+				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then
+				 	if not buff.applyNotPlayer then
 						activeSkill.buffSkill = true
 						local srcList = common.New("ModList")
 						local inc = modDB:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf") + skillModList:Sum("INC", skillCfg, "BuffEffect")
@@ -608,7 +608,7 @@ function calcs.perform(env)
 							buffs[buff.name].notBuff = true
 						end
 					end
-					if env.minion and (activeSkill.skillData.buffMinions or activeSkill.skillData.buffAllies) then
+					if env.minion and (buff.applyMinions or buff.applyAllies) then
 						activeSkill.minionBuffSkill = true
 						local srcList = common.New("ModList")
 						local inc = modDB:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf") + skillModList:Sum("INC", skillCfg, "BuffEffect")

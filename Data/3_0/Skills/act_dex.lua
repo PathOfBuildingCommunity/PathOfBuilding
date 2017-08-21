@@ -176,10 +176,10 @@ skills["Barrage"] = {
 	},
 	parts = {
 		{
-			name = "1 Arrow",
+			name = "1 Projectile",
 		},
 		{
-			name = "All Arrows",
+			name = "All Projectiles",
 		},
 	},
 	setupFunc = function(actor, output)
@@ -3521,7 +3521,7 @@ skills["NewPhaseRun"] = {
 		skill("cooldown", 4), 
 		--"enemy_aggro_radius_+%" = -80
 		skill("duration", 1.8), --"base_skill_effect_duration" = 1800
-		--"base_secondary_skill_effect_duration" = 200
+		skill("durationSecondary", 0.2), --"base_secondary_skill_effect_duration" = 200
 		mod("Duration", "INC", 100, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }), --"skill_effect_duration_+%_per_frenzy_charge" = 100
 		--"phase_through_objects" = ?
 	},
