@@ -53,6 +53,11 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.62 - 2017/09/01
+ * The instant Leech modifier on Atziri's Acuity should now be recognised correctly
+ * Fixed issue preventing modifiers to the damage of Channelling skills from applying to Damage over Time
+ * Fixed issue causing the Innervation buff to apply regardless of the setting in the Configuration tab
+
 ### 1.4.61 - 2017/08/21
  * The Secondary Durations for Blight, Frost Bomb and Phase Run are now calculated and shown in the Calcs tab
  * Added an option to the Configuration tab for "# of Shocked Enemies Killed Recently"

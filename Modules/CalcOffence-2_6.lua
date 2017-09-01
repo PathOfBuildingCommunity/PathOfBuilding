@@ -1038,6 +1038,7 @@ function calcs.offence(env, actor)
 	local dotCfg = {
 		skillName = skillCfg.skillName,
 		skillPart = skillCfg.skillPart,
+		skillTypes = skillCfg.skillTypes,
 		slotName = skillCfg.slotName,
 		flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0, skillData.dotIsArea and ModFlag.Area or 0),
 		keywordFlags = skillCfg.keywordFlags
@@ -1252,6 +1253,7 @@ function calcs.offence(env, actor)
 				if not mainSkill.bleedCfg then
 					mainSkill.bleedCfg = {
 						skillName = skillCfg.skillName,
+						skillTypes = skillCfg.skillTypes,
 						slotName = skillCfg.slotName,
 						flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
 						keywordFlags = bor(skillCfg.keywordFlags, KeywordFlag.Bleed)
@@ -1321,6 +1323,7 @@ function calcs.offence(env, actor)
 				if not mainSkill.poisonCfg then
 					mainSkill.poisonCfg = {
 						skillName = skillCfg.skillName,
+						skillTypes = skillCfg.skillTypes,
 						slotName = skillCfg.slotName,
 						flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
 						keywordFlags = bor(skillCfg.keywordFlags, KeywordFlag.Poison)
@@ -1436,6 +1439,7 @@ function calcs.offence(env, actor)
 				if not mainSkill.igniteCfg then
 					mainSkill.igniteCfg = {
 						skillName = skillCfg.skillName,
+						skillTypes = skillCfg.skillTypes,
 						slotName = skillCfg.slotName,
 						flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
 						keywordFlags = skillCfg.keywordFlags,
@@ -1645,6 +1649,7 @@ function calcs.offence(env, actor)
 		skillFlags.decay = true
 		mainSkill.decayCfg = {
 			slotName = skillCfg.slotName,
+			skillTypes = skillCfg.skillTypes,
 			flags = bor(band(skillCfg.flags, ModFlag.SourceMask), ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0),
 			keywordFlags = skillCfg.keywordFlags,
 		}

@@ -127,7 +127,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 	end)
 	self.sectionList[1].controls.mainSocketGroup.tooltipFunc = function(tooltip, mode, index, value)
 		local socketGroup = self.build.skillsTab.socketGroupList[index]
-		if tooltip:CheckForUpdate(socketGroup, self.build.outputRevision) then
+		if socketGroup and tooltip:CheckForUpdate(socketGroup, self.build.outputRevision) then
 			self.build.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
 	end
