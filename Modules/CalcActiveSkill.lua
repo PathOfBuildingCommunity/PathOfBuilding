@@ -523,7 +523,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 					type = effectType,
 					name = effectName,
 					allowTotemBuff = effectTag.allowTotemBuff,
-					cond = effectTag.cond,
+					cond = effectTag.effectCond,
 					modList = { },
 				}
 				if not effectTag.effectName then
