@@ -1,3 +1,9 @@
+VERSION[1.4.63][2017/09/16]
+ * Added descriptions for support gems
+ * The Caustic Cloud from Beacon of Corruption is now correctly affected by Area Damage modifiers on the minion
+ * Gaining immunity to Curses now correctly prevents self-Curses from applying
+ * Buffs granted by support gems are no longer incorrectly affected by buff effect modifiers of the linked skill
+ * Fixed issue causing gem sorting and stat differences to be incorrect when Empower/Enhance/Enlighten are selected
 VERSION[1.4.62][2017/09/01]
  * The instant Leech modifier on Atziri's Acuity should now be recognised correctly
  * Fixed issue preventing modifiers to the damage of Channelling skills from applying to Damage over Time

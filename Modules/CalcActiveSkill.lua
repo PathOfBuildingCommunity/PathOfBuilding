@@ -528,6 +528,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 				}
 				if not effectTag.effectName then
 					-- Inherit buff configuration from the active skill
+					buff.activeSkillBuff = true
 					buff.applyNotPlayer = activeSkill.skillData.buffNotPlayer
 					buff.applyMinions = activeSkill.skillData.buffMinions
 					buff.applyAllies = activeSkill.skillData.buffAllies

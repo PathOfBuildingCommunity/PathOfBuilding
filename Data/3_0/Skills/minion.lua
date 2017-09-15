@@ -1197,6 +1197,7 @@ skills["BeaconCausticCloud"] = {
 	skillTypes = { },
 	baseMods = {
 		skill("ChaosDot", 1, { type = "PerStat", stat = "Life", div = 10 }),
+		skill("dotIsArea", true),
 	},
 	qualityMods = {
 	},

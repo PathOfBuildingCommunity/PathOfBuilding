@@ -455,7 +455,8 @@ Requires Level 69
 {variant:1}-30% to Lightning Resistance
 {variant:1}Critical Strike Chance is increased by Uncapped Lightning Resistance
 {variant:2}Critical Strike Chance is increased by Lightning Resistance
-Critical Strikes deal 50% increased Lightning Damage
+{variant:1}Critical Strikes deal 50% increased Lightning Damage
+{variant:2}50% increased Lightning Damage
 Trigger Level 20 Lightning Bolt when you deal a Critical Strike
 ]],[[
 Voll's Devotion

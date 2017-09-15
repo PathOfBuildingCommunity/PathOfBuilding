@@ -168,6 +168,9 @@ directiveTable.skill = function(state, args, out)
 		out:write('\tgemStr = ', skillGem.Str, ',\n')
 		out:write('\tgemDex = ', skillGem.Dex, ',\n')
 		out:write('\tgemInt = ', skillGem.Int, ',\n')
+		if #skillGem.Description > 0 then
+			out:write('\tdescription = "', skillGem.Description, '",\n')
+		end
 	else
 		if displayName == args and not granted.IsSupport then
 			displayName = ActiveSkills[granted.ActiveSkillsKey].DisplayedName

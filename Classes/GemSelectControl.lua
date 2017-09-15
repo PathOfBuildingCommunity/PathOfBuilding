@@ -141,6 +141,9 @@ function GemSelectClass:UpdateSortCache()
 				gemList[self.index] = { level = self.skillsTab.defaultGemLevel or 20, quality = self.skillsTab.defaultGemQuality or 0, enabled = true }
 			end
 			local gem = gemList[self.index]
+			if gem.grantedEffect and grantedEffect.defaultLevel ~= gem.grantedEffect.defaultLevel then
+				gem.level = self.skillsTab.defaultGemLevel or 20
+			end
 			gem.grantedEffect = grantedEffect
 			if not grantedEffect.levels[gem.level] then
 				gem.level = grantedEffect.defaultLevel
@@ -293,6 +296,7 @@ function GemSelectClass:Draw(viewPort)
 			if calcFunc then
 				self.tooltip:Clear()
 				local gemList = self.skillsTab.displayGroup.gemList
+				local grantedEffect = self.skillsTab.build.data.gems[self.list[self.hoverSel]]
 				local oldGem
 				if gemList[self.index] then
 					oldGem = copyTable(gemList[self.index], true)
@@ -300,7 +304,10 @@ function GemSelectClass:Draw(viewPort)
 					gemList[self.index] = { level = self.skillsTab.defaultGemLevel or 20, quality = self.skillsTab.defaultGemQuality or 0, enabled = true }
 				end
 				local gem = gemList[self.index]
-				gem.grantedEffect = self.skillsTab.build.data.gems[self.list[self.hoverSel]]
+				if gem.grantedEffect and grantedEffect.defaultLevel ~= gem.grantedEffect.defaultLevel then
+					gem.level = self.skillsTab.defaultGemLevel or 20
+				end
+				gem.grantedEffect = grantedEffect
 				if not gem.grantedEffect.levels[gem.level] then
 					gem.level = gem.grantedEffect.defaultLevel
 				end

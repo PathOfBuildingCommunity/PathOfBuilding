@@ -1179,23 +1179,27 @@ function calcs.offence(env, actor)
 		else
 			output.BleedChanceOnCrit = m_min(100, modDB:Sum("BASE", cfg, "BleedChance"))
 		end
-		output.PoisonChanceOnCrit = m_min(100, modDB:Sum("BASE", cfg, "PoisonChance"))
-		if modDB:Sum("FLAG", cfg, "CannotIgnite") then
+		if not skillFlags.hit or modDB:Sum("FLAG", cfg, "CannotPoison") then
+			output.PoisonChanceOnCrit = 0
+		else
+			output.PoisonChanceOnCrit = m_min(100, modDB:Sum("BASE", cfg, "PoisonChance"))
+		end
+		if not skillFlags.hit or modDB:Sum("FLAG", cfg, "CannotIgnite") then
 			output.IgniteChanceOnCrit = 0
 		else
 			output.IgniteChanceOnCrit = 100
 		end
-		if modDB:Sum("FLAG", cfg, "CannotShock") then
+		if not skillFlags.hit or modDB:Sum("FLAG", cfg, "CannotShock") then
 			output.ShockChanceOnCrit = 0
 		else
 			output.ShockChanceOnCrit = 100
 		end
-		if modDB:Sum("FLAG", cfg, "CannotFreeze") then
+		if not skillFlags.hit or modDB:Sum("FLAG", cfg, "CannotFreeze") then
 			output.FreezeChanceOnCrit = 0
 		else
 			output.FreezeChanceOnCrit = 100
 		end
-		if modDB:Sum("FLAG", cfg, "CannotKnockback") then
+		if not skillFlags.hit or modDB:Sum("FLAG", cfg, "CannotKnockback") then
 			output.KnockbackChanceOnCrit = 0
 		else
 			output.KnockbackChanceOnCrit = modDB:Sum("BASE", cfg, "EnemyKnockbackChance")
@@ -1206,19 +1210,24 @@ function calcs.offence(env, actor)
 		else
 			output.BleedChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "BleedChance"))
 		end
-		output.PoisonChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "PoisonChance"))
-		output.ChaosPoisonChance = m_min(100, modDB:Sum("BASE", cfg, "ChaosPoisonChance"))
-		if modDB:Sum("FLAG", cfg, "CannotIgnite") then
+		if not skillFlags.hit or modDB:Sum("FLAG", cfg, "CannotPoison") then
+			output.PoisonChanceOnHit = 0
+			output.ChaosPoisonChance = 0
+		else
+			output.PoisonChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "PoisonChance"))
+			output.ChaosPoisonChance = m_min(100, modDB:Sum("BASE", cfg, "ChaosPoisonChance"))
+		end
+		if not skillFlags.hit or modDB:Sum("FLAG", cfg, "CannotIgnite") then
 			output.IgniteChanceOnHit = 0
 		else
 			output.IgniteChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "EnemyIgniteChance") + enemyDB:Sum("BASE", nil, "SelfIgniteChance"))
 		end
-		if modDB:Sum("FLAG", cfg, "CannotShock") then
+		if not skillFlags.hit or modDB:Sum("FLAG", cfg, "CannotShock") then
 			output.ShockChanceOnHit = 0
 		else
 			output.ShockChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "EnemyShockChance") + enemyDB:Sum("BASE", nil, "SelfShockChance"))
 		end
-		if modDB:Sum("FLAG", cfg, "CannotFreeze") then
+		if not skillFlags.hit or modDB:Sum("FLAG", cfg, "CannotFreeze") then
 			output.FreezeChanceOnHit = 0
 		else
 			output.FreezeChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "EnemyFreezeChance") + enemyDB:Sum("BASE", nil, "SelfFreezeChance"))
@@ -1226,7 +1235,7 @@ function calcs.offence(env, actor)
 				output.FreezeChanceOnCrit = output.FreezeChanceOnHit
 			end
 		end
-		if modDB:Sum("FLAG", cfg, "CannotKnockback") then
+		if not skillFlags.hit or modDB:Sum("FLAG", cfg, "CannotKnockback") then
 			output.KnockbackChanceOnHit = 0
 		else
 			output.KnockbackChanceOnHit = modDB:Sum("BASE", cfg, "EnemyKnockbackChance")
