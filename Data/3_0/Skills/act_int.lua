@@ -5325,7 +5325,7 @@ skills["SummonSkeletons"] = {
 	color = 3,
 	description = "Summons a slow moving skeletal minion that dies after a duration. Does not require a corpse to be consumed.",
 	skillTypes = { [2] = true, [9] = true, [12] = true, [21] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [49] = true, },
-	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [54] = true, [28] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [54] = true, [28] = true, [65] = true, },
 	minionList = {
 		"RaisedSkeleton",
 		"RaisedSkeletonCaster",
@@ -5401,7 +5401,7 @@ skills["VaalSummonSkeletons"] = {
 	color = 3,
 	description = "Summons an army of skeletal warriors, archers and mages, led by a powerful general.",
 	skillTypes = { [2] = true, [9] = true, [12] = true, [21] = true, [17] = true, [18] = true, [19] = true, [43] = true, },
-	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [48] = true, [28] = true, [2] = true, [11] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [48] = true, [28] = true, [2] = true, [11] = true, [65] = true, },
 	minionList = {
 		"RaisedSkeleton",
 		"RaisedSkeletonCaster",

@@ -224,7 +224,7 @@ function itemLib.parseItemRaw(item)
 					end
 				elseif specName == "Radius" and item.type == "Jewel" then
 					for index, data in pairs(verData.jewelRadius) do
-						if specVal == data.label then
+						if specVal:match("^%a+") == data.label then
 							item.jewelRadiusIndex = index
 							break
 						end

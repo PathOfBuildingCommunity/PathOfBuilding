@@ -142,6 +142,7 @@ function breakdown.leech(instant, instantRate, instances, pool, rate, max, dur)
 		end
 	else
 		if instantRate > 0 then
+			t_insert(out, s_format("Instant Leech per hit: %.1f", instant))
 			t_insert(out, s_format("Instant Leech per second: %.1f", instantRate))
 		end
 		if instances > 0 then

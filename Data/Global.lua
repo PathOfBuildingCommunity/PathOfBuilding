@@ -162,4 +162,5 @@ SkillType = {
 	Golem = 62,
 	Herald = 63,
 	AuraDebuff = 64, -- Used by Death Aura, added by Blasphemy
+	Type65 = 65, -- Allows Summon Skeleton to be supported by Iron Will
 }
