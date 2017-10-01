@@ -53,6 +53,7 @@ function launch:OnInit()
 		-- Enable dev mode to disable updates and set user path to be the script path
 		self.devMode = true
 	end
+	RenderInit()
 	ConPrintf("Loading main script...")
 	local errMsg
 	errMsg, self.main = PLoadModule("Modules/Main", self)

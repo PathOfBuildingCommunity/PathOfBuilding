@@ -17,6 +17,10 @@ local skills, mod, flag, skill = ...
 #flags spell
 #mods
 
+#skill VaalBreach
+#flags spell
+#mods
+
 #skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner
 	fromItem = true,
 #mods

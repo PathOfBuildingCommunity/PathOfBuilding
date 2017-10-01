@@ -109,6 +109,7 @@ end
 -- 62	Golem
 -- 63	Herald
 -- 64	Aura Debuff
+-- 65	?? (Only on Summon Skeleton, allows Iron Will)
 
 local weaponClassMap = {
 	[6] = "Claw",

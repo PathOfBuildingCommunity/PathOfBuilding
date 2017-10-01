@@ -8,6 +8,7 @@ local modDB, output, actor = ...
 local unpack = unpack
 local ipairs = ipairs
 local t_insert = table.insert
+local m_sqrt = math.sqrt
 local s_format = string.format
 
 local breakdown = { }
@@ -89,6 +90,21 @@ function breakdown.slot(source, sourceName, cfg, base, total, ...)
 		sourceName = sourceName,
 		item = actor.itemList[source],
 	})
+end
+
+function breakdown.area(base, areaMod, total)
+	if base ~= total then
+		return {
+			s_format("%d ^8(base radius)", base),
+			s_format("x %.2f ^8(square root of area of effect modifier)", m_sqrt(areaMod)),
+			s_format("= %d", total),
+			radius = total
+		}
+	else
+		return {
+			radius = total
+		}
+	end
 end
 
 function breakdown.effMult(damageType, resist, pen, taken, mult)
