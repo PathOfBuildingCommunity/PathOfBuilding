@@ -274,31 +274,13 @@ function calcs.offence(env, actor)
 			local baseRadius = skillData.radius + (skillData.radiusExtra or 0) + modDB:Sum("BASE", skillCfg, "AreaOfEffect")
 			output.AreaOfEffectRadius = m_floor(baseRadius * m_sqrt(output.AreaOfEffectMod))
 			if breakdown then
-				if output.AreaOfEffectRadius ~= baseRadius then
-					breakdown.AreaOfEffectRadius = {
-						s_format("%d ^8(base radius)", baseRadius),
-						s_format("x %.2f ^8(square root of area of effect modifier)", m_sqrt(output.AreaOfEffectMod)),
-						s_format("= %d", output.AreaOfEffectRadius),
-					}
-				else
-					breakdown.AreaOfEffectRadius = { }
-				end
-				breakdown.AreaOfEffectRadius.radius = output.AreaOfEffectRadius
+				breakdown.AreaOfEffectRadius = breakdown.area(baseRadius, output.AreaOfEffectMod, output.AreaOfEffectRadius)
 			end
 			if skillData.radiusSecondary then
 				baseRadius = skillData.radiusSecondary + (skillData.radiusExtra or 0)
 				output.AreaOfEffectRadiusSecondary = m_floor(baseRadius * m_sqrt(output.AreaOfEffectMod))
 				if breakdown then
-					if output.AreaOfEffectRadiusSecondary ~= baseRadius then
-						breakdown.AreaOfEffectRadiusSecondary = {
-							s_format("%d ^8(base radius)", baseRadius),
-							s_format("x %.2f ^8(square root of area of effect modifier)", m_sqrt(output.AreaOfEffectMod)),
-							s_format("= %d", output.AreaOfEffectRadiusSecondary),
-						}
-					else
-						breakdown.AreaOfEffectRadiusSecondary = { }
-					end
-					breakdown.AreaOfEffectRadiusSecondary.radius = output.AreaOfEffectRadiusSecondary
+					breakdown.AreaOfEffectRadiusSecondary = breakdown.area(baseRadius, output.AreaOfEffectMod, output.AreaOfEffectRadiusSecondary)
 				end
 			end
 		end
@@ -307,6 +289,19 @@ function calcs.offence(env, actor)
 		end
 	end
 	if skillFlags.trap then
+		local baseSpeed = 1 / modDB:Sum("BASE", skillCfg, "TrapThrowingTime")
+		output.TrapThrowingSpeed = baseSpeed * calcLib.mod(modDB, skillCfg, "TrapThrowingSpeed")
+		output.TrapThrowingTime = 1 / output.TrapThrowingSpeed
+		if breakdown then
+			breakdown.TrapThrowingTime = { }
+			breakdown.multiChain(breakdown.TrapThrowingTime, {
+				label = "Throwing speed:",
+				base = s_format("%.2f ^8(base throwing speed)", baseSpeed),
+				{ "%.2f ^8(increased/reduced throwing speed)", 1 + modDB:Sum("INC", skillCfg, "TrapThrowingSpeed") / 100 },
+				{ "%.2f ^8(more/less throwing speed)", modDB:Sum("MORE", skillCfg, "TrapThrowingSpeed") },
+				total = s_format("= %.2f ^8per second", output.TrapThrowingSpeed),
+			})
+		end
 		output.ActiveTrapLimit = modDB:Sum("BASE", skillCfg, "ActiveTrapLimit")
 		output.TrapCooldown = (skillData.trapCooldown or skillData.cooldown or 4) / calcLib.mod(modDB, skillCfg, "CooldownRecovery")
 		if breakdown then
@@ -315,6 +310,11 @@ function calcs.offence(env, actor)
 				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + modDB:Sum("INC", skillCfg, "CooldownRecovery") / 100),
 				s_format("= %.2fs", output.TrapCooldown)
 			}
+		end
+		local areaMod = calcLib.mod(modDB, skillCfg, "TrapTriggerAreaOfEffect")
+		output.TrapTriggerRadius = 10 * m_sqrt(areaMod)
+		if breakdown then
+			breakdown.TrapTriggerRadius = breakdown.area(10, areaMod, output.TrapTriggerRadius)
 		end
 	elseif skillData.cooldown then
 		output.Cooldown = skillData.cooldown / calcLib.mod(modDB, skillCfg, "CooldownRecovery")
@@ -327,9 +327,40 @@ function calcs.offence(env, actor)
 		end
 	end
 	if skillFlags.mine then
+		local baseSpeed = 1 / modDB:Sum("BASE", skillCfg, "MineLayingTime")
+		output.MineLayingSpeed = baseSpeed * calcLib.mod(modDB, skillCfg, "MineLayingSpeed")
+		output.MineLayingTime = 1 / output.MineLayingSpeed
+		if breakdown then
+			breakdown.MineLayingTime = { }
+			breakdown.multiChain(breakdown.MineLayingTime, {
+				label = "Laying speed:",
+				base = s_format("%.2f ^8(base laying speed)", baseSpeed),
+				{ "%.2f ^8(increased/reduced laying speed)", 1 + modDB:Sum("INC", skillCfg, "MineLayingSpeed") / 100 },
+				{ "%.2f ^8(more/less laying speed)", modDB:Sum("MORE", skillCfg, "MineLayingSpeed") },
+				total = s_format("= %.2f ^8per second", output.MineLayingSpeed),
+			})
+		end
 		output.ActiveMineLimit = modDB:Sum("BASE", skillCfg, "ActiveMineLimit")
+		local areaMod = calcLib.mod(modDB, skillCfg, "MineDetonationAreaOfEffect")
+		output.MineDetonationRadius = 60 * m_sqrt(areaMod)
+		if breakdown then
+			breakdown.MineDetonationRadius = breakdown.area(60, areaMod, output.MineDetonationRadius)
+		end
 	end
 	if skillFlags.totem then
+		local baseSpeed = 1 / modDB:Sum("BASE", skillCfg, "TotemPlacementTime")
+		output.TotemPlacementSpeed = baseSpeed * calcLib.mod(modDB, skillCfg, "TotemPlacementSpeed")
+		output.TotemPlacementTime = 1 / output.TotemPlacementSpeed
+		if breakdown then
+			breakdown.TotemPlacementTime = { }
+			breakdown.multiChain(breakdown.TotemPlacementTime, {
+				label = "Placement speed:",
+				base = s_format("%.2f ^8(base placement speed)", baseSpeed),
+				{ "%.2f ^8(increased/reduced placement speed)", 1 + modDB:Sum("INC", skillCfg, "TotemPlacementSpeed") / 100 },
+				{ "%.2f ^8(more/less placement speed)", modDB:Sum("MORE", skillCfg, "TotemPlacementSpeed") },
+				total = s_format("= %.2f ^8per second", output.TotemPlacementSpeed),
+			})
+		end
 		output.ActiveTotemLimit = modDB:Sum("BASE", skillCfg, "ActiveTotemLimit")
 		output.TotemLifeMod = calcLib.mod(modDB, skillCfg, "TotemLife")
 		output.TotemLife = round(m_floor(env.data.monsterAllyLifeTable[skillData.totemLevel] * env.data.totemLifeMult[mainSkill.skillTotemId]) * output.TotemLifeMod)

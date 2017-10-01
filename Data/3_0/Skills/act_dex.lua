@@ -3532,7 +3532,7 @@ skills["NewPhaseRun"] = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		[3] = mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"base_movement_velocity_+%"
-		[4] = mod("PhysicalDamage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff" }), --"phase_run_melee_physical_damage_+%_final"
+		[4] = mod("PhysicalDamage", "MORE", nil, ModFlag.Melee, 0, { type = "SkillType", skillType = SkillType.Totem, neg = true }, { type = "GlobalEffect", effectType = "Buff" }), --"phase_run_melee_physical_damage_+%_final"
 	},
 	levels = {
 		[1] = { 34, 11, 30, 20, },
@@ -4862,6 +4862,7 @@ skills["TemporalChains"] = {
 		spell = true,
 		curse = true,
 		area = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 

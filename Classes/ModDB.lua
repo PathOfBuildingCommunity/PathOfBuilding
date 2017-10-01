@@ -238,7 +238,11 @@ function ModDBClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "SkillType" then
-			if not cfg or not cfg.skillTypes or not cfg.skillTypes[tag.skillType] then
+			local match = cfg and cfg.skillTypes and cfg.skillTypes[tag.skillType]
+			if tag.neg then
+				match = not match
+			end
+			if not match then
 				return
 			end
 		elseif tag.type == "SlotName" then

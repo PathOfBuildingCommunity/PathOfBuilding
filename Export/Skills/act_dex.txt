@@ -501,7 +501,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill TemporalChains
-#flags spell curse area
+#flags spell curse area duration
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
 #mods

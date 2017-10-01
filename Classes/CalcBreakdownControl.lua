@@ -404,12 +404,12 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 				elseif tag.type == "SkillType" then
 					for name, type in pairs(SkillType) do
 						if type == tag.skillType then
-							desc = "Skill type: "..self:FormatModName(name)
+							desc = "Skill type: "..(tag.neg and "Not " or "")..self:FormatModName(name)
 							break
 						end
 					end
 					if not desc then
-						desc = "Skill type: ?"
+						desc = "Skill type: ?"..(tag.neg and "Not " or "")
 					end
 				elseif tag.type == "SlotNumber" then
 					desc = "When in slot #"..tag.num

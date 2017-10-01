@@ -1762,7 +1762,7 @@ skills["SupportTrapAndMineDamage"] = {
 	baseMods = {
 		mod("ManaCost", "MORE", 30), 
 		mod("TrapThrowingSpeed", "INC", -10), --"trap_throwing_speed_+%" = -10
-		mod("MineLayingSpeed", "MORE", -10), --"mine_laying_speed_+%" = -10
+		mod("MineLayingSpeed", "INC", -10), --"mine_laying_speed_+%" = -10
 	},
 	qualityMods = {
 		mod("Damage", "INC", 0.5, 0, 0, nil), --"damage_+%" = 0.5

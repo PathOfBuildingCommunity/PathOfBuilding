@@ -111,6 +111,48 @@ skills["Portal"] = {
 		[10] = { 10, },
 	},
 }
+skills["VaalBreach"] = {
+	name = "Vaal Breach",
+	gemTags = {
+		low_max_level = true,
+		active_skill = true,
+		vaal = true,
+		spell = true,
+	},
+	gemTagString = "Vaal, Spell",
+	gemStr = 33,
+	gemDex = 33,
+	gemInt = 34,
+	color = 4,
+	description = "Creates a breach, making you vulnerable to its powerful inhabitants.",
+	skillTypes = { [2] = true, [17] = true, [18] = true, [19] = true, [27] = true, [43] = true, },
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+		skill("castTime", 2.5), 
+		--"base_deal_no_damage" = ?
+		--"display_vaal_breach_no_drops_xp" = ?
+	},
+	qualityMods = {
+		mod("Speed", "INC", 3, ModFlag.Cast), --"base_cast_speed_+%" = 3
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[1] = { 10, },
+		[2] = { 10, },
+		[3] = { 10, },
+		[4] = { 10, },
+		[5] = { 10, },
+		[6] = { 10, },
+		[7] = { 10, },
+		[8] = { 10, },
+		[9] = { 10, },
+		[10] = { 10, },
+	},
+}
 skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 	name = "Mjolner",
 	hidden = true,

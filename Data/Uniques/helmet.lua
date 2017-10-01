@@ -406,7 +406,7 @@ Requires Level 12, 16 Str, 16 Int
 Adds 1 to 13 Lightning Damage to Attacks
 (40-50)% increased Armour and Energy Shield
 +(10-20)% to all Elemental Resistances
-20% increased Elemental Resistances while on Low Life
++20% to all Elemental Resistances while on Low Life
 20% reduced Mana Cost of Skills when on Low Life
 ]],[[
 Kitava's Thirst 

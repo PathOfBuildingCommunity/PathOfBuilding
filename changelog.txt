@@ -1,3 +1,19 @@
+VERSION[1.4.64][2017/10/01]
+ * Trap Throwing Time, Mine Laying Time, and Totem Placement Time are now calculated and shown in the sidebar
+    * Special thanks to aggixx for measuring the base time of those animations
+ * Trap Cooldown is now shown in the sidebar (in addition to the Calcs tab)
+ * Trap Trigger Radius and Mine Detonation Radius are now calculated and shown in the Calcs tab
+ * Added support for Vaal Breach
+ * All Configuration tab options upon which any Support gems depend are now permanently visible, even if enabling
+   them would have no effect
+ * Corrected the "Elemental Resistances while on Low Life" stat on Honourhome
+ * The Melee Damage buff from Phase Run now correctly excludes Totem skills
+This update also reworked the program's window initialisation code.
+The most visible change is that the program's main window now opens while the program is initialising, but this
+rework is primarily intended to solve three uncommon issues:
+ * The program would crash when launched on a non-primary monitor on certain systems
+ * The program's UI would be offset when running on systems with certain Intel HD Graphics driver versions
+ * The program would crash when launched using Wine
 VERSION[1.4.63][2017/09/16]
  * Added descriptions for support gems
  * The Caustic Cloud from Beacon of Corruption is now correctly affected by Area Damage modifiers on the minion

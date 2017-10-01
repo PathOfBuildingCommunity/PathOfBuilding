@@ -1924,7 +1924,7 @@ skills["SupportRemoteMine"] = {
 		skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanMine }), --"base_skill_show_average_damage_instead_of_dps" = ?
 	},
 	qualityMods = {
-		mod("MineLayingSpeed", "MORE", 0.5), --"mine_laying_speed_+%" = 0.5
+		mod("MineLayingSpeed", "INC", 0.5), --"mine_laying_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = nil, 
