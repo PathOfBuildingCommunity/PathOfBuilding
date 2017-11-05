@@ -136,13 +136,15 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	-- Create functions that will convert coordinates between the screen and tree coordinate spaces
 	local scale = m_min(viewPort.width, viewPort.height) / tree.size * self.zoom
+	local offsetX = self.zoomX + viewPort.x + viewPort.width/2
+	local offsetY = self.zoomY + viewPort.y + viewPort.height/2
 	local function treeToScreen(x, y)
-		return x * scale + self.zoomX + viewPort.x + viewPort.width/2, 
-			   y * scale + self.zoomY + viewPort.y + viewPort.height/2
+		return x * scale + offsetX,
+		       y * scale + offsetY
 	end
 	local function screenToTree(x, y)
-		return (x - self.zoomX - viewPort.x - viewPort.width/2) / scale, 
-			   (y - self.zoomY - viewPort.y - viewPort.height/2) / scale 
+		return (x - offsetX) / scale,
+		       (y - offsetY) / scale
 	end
 
 	if IsKeyDown("SHIFT") then
