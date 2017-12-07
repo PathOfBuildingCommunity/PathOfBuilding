@@ -191,8 +191,11 @@ Requires Level 62, 170 Dex
 ]],[[
 Queen of the Forest
 Destiny Leather
+Variant: Pre 3.1.0
+Variant: Current
 Requires Level 59, 160 Dex
-(240-380)% increased Evasion Rating
+{variant:1}(240-380)% increased Evasion Rating
+{variant:2}(200-240)% increased Evasion Rating
 +(60-70) to maximum Life
 +(6-10)% to Fire Resistance
 +(26-40)% to Cold Resistance
