@@ -203,16 +203,16 @@ function calcs.defence(env, actor)
 
 	-- Leech caps
 	if modDB:Sum("FLAG", nil, "GhostReaver") then
-		output.MaxEnergyShieldLeechRate = output.EnergyShield * modDB:Sum("BASE", nil, "MaxLifeLeechRate") / 100
+		output.MaxEnergyShieldLeechRate = output.EnergyShield * calcLib.val(modDB, "MaxLifeLeechRate") / 100
 		if breakdown then
 			breakdown.MaxEnergyShieldLeechRate = {
 				s_format("%d ^8(maximum energy shield)", output.EnergyShield),
-				s_format("x %d%% ^8(percenage of life to maximum leech rate)", modDB:Sum("BASE", nil, "MaxLifeLeechRate")),
+				s_format("x %d%% ^8(percentage of life to maximum leech rate)", modDB:Sum("BASE", nil, "MaxLifeLeechRate")),
 				s_format("= %.1f", output.MaxEnergyShieldLeechRate)
 			}
 		end
 	else
-		output.MaxLifeLeechRate = output.Life * modDB:Sum("BASE", nil, "MaxLifeLeechRate") / 100
+		output.MaxLifeLeechRate = output.Life * calcLib.val(modDB, "MaxLifeLeechRate") / 100
 		if breakdown then
 			breakdown.MaxLifeLeechRate = {
 				s_format("%d ^8(maximum life)", output.Life),
@@ -221,7 +221,7 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-	output.MaxManaLeechRate = output.Mana * modDB:Sum("BASE", nil, "MaxManaLeechRate") / 100
+	output.MaxManaLeechRate = output.Mana * calcLib.val(modDB, "MaxManaLeechRate") / 100
 	if breakdown then
 		breakdown.MaxManaLeechRate = {
 			s_format("%d ^8(maximum mana)", output.Mana),

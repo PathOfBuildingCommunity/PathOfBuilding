@@ -1227,7 +1227,7 @@ skills["Discharge"] = {
 		skill("damageEffectiveness", 1.5), 
 		skill("CritChance", 7), 
 		--"skill_override_pvp_scaling_time_ms" = 1400
-		--"discharge_triggered_damage_+%_final" = -35
+		mod("Damage", "MORE", -35, ModFlag.Spell, 0, { type = "Condition", var = "SkillIsTriggered" }), --"discharge_triggered_damage_+%_final" = -35
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"is_area_damage" = ?
 		skill("radius", 30), 

@@ -73,16 +73,20 @@ function BuildListClass:RenameBuild(build, copyOnName)
 	controls.edit = common.New("EditControl", nil, 0, 40, 350, 20, build.folderName or build.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		controls.save.enabled = false
 		if build.folderName then
-			if buf:match("%S") and buf:lower() ~= build.folderName:lower() then
+			if buf:match("%S") then
 				controls.save.enabled = true
 			end
 		else
-			if buf:match("%S") and buf:lower() ~= build.buildName:lower() then
-				local newName = buf..".xml"
-				local newFile = io.open(main.buildPath..build.subPath..newName, "r")
-				if newFile then
-					newFile:close()
-				else
+			if buf:match("%S") then
+				if buf:lower() ~= build.buildName:lower() then
+					local newName = buf..".xml"
+					local newFile = io.open(main.buildPath..build.subPath..newName, "r")
+					if newFile then
+						newFile:close()
+					else
+						controls.save.enabled = true
+					end
+				elseif buf ~= build.buildName then
 					controls.save.enabled = true
 				end
 			end
@@ -210,7 +214,7 @@ function BuildListClass:ReceiveDrag(type, build, source)
 end
 
 function BuildListClass:CanDragToValue(index, build, source)
-	return build.folderName
+	return build.folderName and source.selValue ~= build
 end
 
 function BuildListClass:OnSelClick(index, build, doubleClick)
