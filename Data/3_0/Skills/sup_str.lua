@@ -1666,7 +1666,7 @@ skills["SupportMultistrike"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("Speed", "MORE", nil, ModFlag.Attack), --"support_multiple_attacks_melee_attack_speed_+%_final"
+		[2] = mod("Speed", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee)), --"support_multiple_attacks_melee_attack_speed_+%_final"
 	},
 	levels = {
 		[1] = { 38, 75, },

@@ -494,7 +494,7 @@ Requires Level 30
 {variant:1}5% chance to Freeze, Shock and Ignite
 {variant:2}10% chance to Freeze, Shock and Ignite
 {variant:1}10% increased Damage per Freeze, Shock and Ignite on Enemy
-{variant:2}20% increased Damage per Freeze, Shock and Ignite on Enemy
+{variant:2}20% increased Damage with Hits and Ailments per Freeze, Shock and Ignite on Enemy
 ]],[[
 Tasalio's Sign
 Sapphire Ring

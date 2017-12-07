@@ -375,6 +375,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						overlay = "JewelSocketActiveGreen"
 					elseif jewel.baseName == "Cobalt Jewel" then
 						overlay = "JewelSocketActiveBlue"
+					elseif jewel.baseName == "Prismatic Jewel" then
+						overlay = "JewelSocketActivePrismatic"
+					elseif jewel.baseName:match("Eye Jewel$") then
+						overlay = "JewelSocketActiveAbyss"
 					end
 				end
 			else
@@ -461,7 +465,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			-- Draw tooltip
 			SetDrawLayer(nil, 100)
 			local size = m_floor(node.size * scale)
-			if self.tooltip:CheckForUpdate(node, self.showStatDifferences, launch.devModeAlt, build.outputRevision) then
+			if self.tooltip:CheckForUpdate(node, self.showStatDifferences, self.tracePath, launch.devModeAlt, build.outputRevision) then
 				self:AddNodeTooltip(self.tooltip, node, build)
 			end
 			self.tooltip:Draw(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
@@ -496,6 +500,9 @@ end
 
 -- Draws the given asset at the given position
 function PassiveTreeViewClass:DrawAsset(data, x, y, scale, isHalf)
+	if not data then
+		return
+	end
 	local width = data.width * scale * 1.33
 	local height = data.height * scale * 1.33
 	if isHalf then

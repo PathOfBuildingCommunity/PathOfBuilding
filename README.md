@@ -53,6 +53,17 @@ If you'd like to help support the development of Path of Building, I have a [Pat
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
 
 ## Changelog
+### 1.4.65 - 2017/12/07
+Apologies for the lack of updates recently; I've been very busy. I'll try and manage a few more updates over the
+coming weeks, but I can't make any promises yet.
+ * Passive tree updated to 3.1
+ * You can now rename builds and folders to change only the case of letters
+ * Node tooltips now correctly update when cancelling alternate path tracing
+ * Fixed Discharge's damage penalty when triggered
+ * Fixed Multistrike's attack speed bonus to only apply to Melee attacks
+ * Fixed various Skeleton-related modifiers that were being recognised but were not functioning correctly
+ * Fixed issue where the program's UI wouldn't be correctly scaled when opened in a non-maximised state
+
 ### 1.4.64 - 2017/10/01
  * Trap Throwing Time, Mine Laying Time, and Totem Placement Time are now calculated and shown in the sidebar
     * Special thanks to aggixx for measuring the base time of those animations
