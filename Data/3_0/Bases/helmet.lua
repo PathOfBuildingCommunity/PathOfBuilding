@@ -377,7 +377,7 @@ itemBases["Bone Helmet"] = {
 	tags = { default = true, armour = true, helmet = true, not_for_sale = true, atlas_base_type = true, helmetatlas1 = true, str_int_armour = true, },
 	implicit = "Minions deal (30-40)% increased Damage",
 	armour = { ArmourBase = 197, EnergyShieldBase = 38, },
-	req = { level = 75, str = 76, int = 76, },
+	req = { level = 73, str = 76, int = 76, },
 }
 
 itemBases["Scare Mask"] = {

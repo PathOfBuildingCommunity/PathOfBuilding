@@ -22,7 +22,7 @@ skills["AnimateWeapon"] = {
 	color = 2,
 	description = "Animates a melee weapon to fight by your side. You cannot animate unidentified weapons.",
 	skillTypes = { [36] = true, [12] = true, [9] = true, [21] = true, [2] = true, [18] = true, [49] = true, },
-	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, [54] = true, [56] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, [54] = true, [68] = true, [56] = true, },
 	minionHasItemSet = true,
 	minionUses = {
 		["Weapon 1"] = true,
@@ -86,7 +86,7 @@ skills["AnimateWeapon"] = {
 		[30] = { 90, 45, 100, 232, 58, 48, 72, },
 	},
 }
-skills["NewArcticArmour"] = {
+skills["ArcticArmour"] = {
 	name = "Arctic Armour",
 	gemTags = {
 		dexterity = true,
@@ -169,7 +169,7 @@ skills["Barrage"] = {
 	gemInt = 0,
 	color = 2,
 	description = "After a short preparation time, you attack repeatedly with a ranged weapon. These attacks have a small randomised spread. Only works with Bows and Wands.",
-	skillTypes = { [1] = true, [48] = true, [6] = true, [3] = true, [22] = true, [17] = true, [19] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [6] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 		["Bow"] = true,
@@ -267,11 +267,11 @@ skills["BearTrap"] = {
 		skill("cooldown", 3), 
 		--"is_trap" = 1
 		--"base_trap_duration" = 16000
-		mod("MovementSpeed", "INC", -300, 0, 0, nil), --"base_movement_velocity_+%" = -300
 		--"trap_override_pvp_scaling_time_ms" = 750
 		--"base_skill_is_trapped" = ?
 		--"display_skill_deals_secondary_damage" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		--"no_movement_speed" = ?
 	},
 	qualityMods = {
 		mod("PhysicalDamage", "INC", 1), --"physical_damage_+%" = 1
@@ -521,7 +521,7 @@ skills["Bladefall"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Ethereal weapons rain from the sky, dealing damage to enemies in a sequence of five volleys, each wider but less damaging than the last. Enemies can be hit multiple times where these overlap.",
-	skillTypes = { [2] = true, [11] = true, [17] = true, [19] = true, [18] = true, [10] = true, [36] = true, [26] = true, },
+	skillTypes = { [2] = true, [11] = true, [17] = true, [19] = true, [18] = true, [10] = true, [36] = true, [26] = true, [67] = true, },
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -592,7 +592,7 @@ skills["BlastRain"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Fires an arrow up in the air, which splits and rains down in a series of explosions over an area. The explosions will always overlap on the targeted area.",
-	skillTypes = { [1] = true, [11] = true, [14] = true, [22] = true, [17] = true, [19] = true, [33] = true, [48] = true, [57] = true, },
+	skillTypes = { [1] = true, [11] = true, [14] = true, [22] = true, [17] = true, [19] = true, [33] = true, [48] = true, [69] = true, [57] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -834,7 +834,7 @@ skills["BurningArrow"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Fires an arrow that deals fire damage to its target and has an increased chance of igniting it.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [22] = true, [17] = true, [19] = true, [33] = true, [53] = true, [55] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, [33] = true, [53] = true, [55] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -858,38 +858,39 @@ skills["BurningArrow"] = {
 		[3] = skill("damageEffectiveness", nil), 
 		[4] = skill("baseMultiplier", nil), 
 		[5] = mod("FireDamage", "INC", nil, ModFlag.Dot), --"burn_damage_+%"
+		--[6] = "ignite_triggered_ground_fire_base_damage_per_minute"
 	},
 	levels = {
-		[1] = { 1, 5, 1.5, 1.5, 10, },
-		[2] = { 2, 5, 1.52, 1.518, 11, },
-		[3] = { 4, 5, 1.54, 1.536, 12, },
-		[4] = { 7, 5, 1.55, 1.554, 13, },
-		[5] = { 11, 5, 1.57, 1.572, 14, },
-		[6] = { 16, 6, 1.59, 1.59, 15, },
-		[7] = { 20, 6, 1.61, 1.608, 16, },
-		[8] = { 24, 6, 1.63, 1.626, 17, },
-		[9] = { 28, 6, 1.64, 1.644, 18, },
-		[10] = { 32, 6, 1.66, 1.662, 19, },
-		[11] = { 36, 7, 1.68, 1.68, 20, },
-		[12] = { 40, 7, 1.7, 1.698, 21, },
-		[13] = { 44, 7, 1.72, 1.716, 22, },
-		[14] = { 48, 7, 1.73, 1.734, 23, },
-		[15] = { 52, 7, 1.75, 1.752, 24, },
-		[16] = { 56, 8, 1.77, 1.77, 25, },
-		[17] = { 60, 8, 1.79, 1.788, 26, },
-		[18] = { 64, 8, 1.81, 1.806, 27, },
-		[19] = { 67, 8, 1.82, 1.824, 28, },
-		[20] = { 70, 8, 1.84, 1.842, 29, },
-		[21] = { 72, 9, 1.86, 1.86, 30, },
-		[22] = { 74, 9, 1.88, 1.878, 31, },
-		[23] = { 76, 9, 1.9, 1.896, 32, },
-		[24] = { 78, 9, 1.91, 1.914, 33, },
-		[25] = { 80, 9, 1.93, 1.932, 34, },
-		[26] = { 82, 10, 1.95, 1.95, 35, },
-		[27] = { 84, 10, 1.97, 1.968, 36, },
-		[28] = { 86, 10, 1.99, 1.986, 37, },
-		[29] = { 88, 10, 2, 2.004, 38, },
-		[30] = { 90, 10, 2.02, 2.022, 39, },
+		[1] = { 1, 5, 1.5, 1.5, 10, 180, },
+		[2] = { 2, 5, 1.52, 1.518, 11, 206, },
+		[3] = { 4, 5, 1.54, 1.536, 12, 266, },
+		[4] = { 7, 5, 1.55, 1.554, 13, 375, },
+		[5] = { 11, 5, 1.57, 1.572, 14, 565, },
+		[6] = { 16, 6, 1.59, 1.59, 15, 894, },
+		[7] = { 20, 6, 1.61, 1.608, 16, 1255, },
+		[8] = { 24, 6, 1.63, 1.626, 17, 1731, },
+		[9] = { 28, 6, 1.64, 1.644, 18, 2353, },
+		[10] = { 32, 6, 1.66, 1.662, 19, 3163, },
+		[11] = { 36, 7, 1.68, 1.68, 20, 4212, },
+		[12] = { 40, 7, 1.7, 1.698, 21, 5567, },
+		[13] = { 44, 7, 1.72, 1.716, 22, 7310, },
+		[14] = { 48, 7, 1.73, 1.734, 23, 9547, },
+		[15] = { 52, 7, 1.75, 1.752, 24, 12407, },
+		[16] = { 56, 8, 1.77, 1.77, 25, 16058, },
+		[17] = { 60, 8, 1.79, 1.788, 26, 20705, },
+		[18] = { 64, 8, 1.81, 1.806, 27, 26610, },
+		[19] = { 67, 8, 1.82, 1.824, 28, 32056, },
+		[20] = { 70, 8, 1.84, 1.842, 29, 38559, },
+		[21] = { 72, 9, 1.86, 1.86, 30, 43577, },
+		[22] = { 74, 9, 1.88, 1.878, 31, 49219, },
+		[23] = { 76, 9, 1.9, 1.896, 32, 55559, },
+		[24] = { 78, 9, 1.91, 1.914, 33, 62682, },
+		[25] = { 80, 9, 1.93, 1.932, 34, 70681, },
+		[26] = { 82, 10, 1.95, 1.95, 35, 79662, },
+		[27] = { 84, 10, 1.97, 1.968, 36, 89741, },
+		[28] = { 86, 10, 1.99, 1.986, 37, 101049, },
+		[29] = { 88, 10, 2, 2.004, 38, 113733, },
+		[30] = { 90, 10, 2.02, 2.022, 39, 127955, },
 	},
 }
 skills["VaalBurningArrow"] = {
@@ -909,7 +910,7 @@ skills["VaalBurningArrow"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Fires an arrow that explodes, dealing fire damage to its target and other nearby enemies, with an increased chance of igniting them.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [22] = true, [17] = true, [19] = true, [11] = true, [43] = true, [33] = true, [55] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, [11] = true, [43] = true, [33] = true, [55] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -936,38 +937,39 @@ skills["VaalBurningArrow"] = {
 		[2] = skill("damageEffectiveness", nil), 
 		[3] = skill("baseMultiplier", nil), 
 		[4] = mod("FireDamage", "INC", nil, ModFlag.Dot), --"burn_damage_+%"
+		--[5] = "ignite_triggered_ground_fire_base_damage_per_minute"
 	},
 	levels = {
-		[1] = { 1, 1.6, 1.6, 10, },
-		[2] = { 2, 1.62, 1.62, 11, },
-		[3] = { 4, 1.64, 1.64, 12, },
-		[4] = { 7, 1.66, 1.66, 13, },
-		[5] = { 11, 1.68, 1.68, 14, },
-		[6] = { 16, 1.7, 1.7, 15, },
-		[7] = { 20, 1.72, 1.72, 16, },
-		[8] = { 24, 1.74, 1.74, 17, },
-		[9] = { 28, 1.76, 1.76, 18, },
-		[10] = { 32, 1.78, 1.78, 19, },
-		[11] = { 36, 1.8, 1.8, 20, },
-		[12] = { 40, 1.82, 1.82, 21, },
-		[13] = { 44, 1.84, 1.84, 22, },
-		[14] = { 48, 1.86, 1.86, 23, },
-		[15] = { 52, 1.88, 1.88, 24, },
-		[16] = { 56, 1.9, 1.9, 25, },
-		[17] = { 60, 1.92, 1.92, 26, },
-		[18] = { 64, 1.94, 1.94, 27, },
-		[19] = { 67, 1.96, 1.96, 28, },
-		[20] = { 70, 1.98, 1.98, 29, },
-		[21] = { 72, 2, 2, 30, },
-		[22] = { 74, 2.02, 2.02, 31, },
-		[23] = { 76, 2.04, 2.04, 32, },
-		[24] = { 78, 2.06, 2.06, 33, },
-		[25] = { 80, 2.08, 2.08, 34, },
-		[26] = { 82, 2.1, 2.1, 35, },
-		[27] = { 84, 2.12, 2.12, 36, },
-		[28] = { 86, 2.14, 2.14, 37, },
-		[29] = { 88, 2.16, 2.16, 38, },
-		[30] = { 90, 2.18, 2.18, 39, },
+		[1] = { 1, 1.6, 1.6, 10, 192, },
+		[2] = { 2, 1.62, 1.62, 11, 220, },
+		[3] = { 4, 1.64, 1.64, 12, 284, },
+		[4] = { 7, 1.66, 1.66, 13, 401, },
+		[5] = { 11, 1.68, 1.68, 14, 603, },
+		[6] = { 16, 1.7, 1.7, 15, 955, },
+		[7] = { 20, 1.72, 1.72, 16, 1341, },
+		[8] = { 24, 1.74, 1.74, 17, 1848, },
+		[9] = { 28, 1.76, 1.76, 18, 2513, },
+		[10] = { 32, 1.78, 1.78, 19, 3378, },
+		[11] = { 36, 1.8, 1.8, 20, 4498, },
+		[12] = { 40, 1.82, 1.82, 21, 5946, },
+		[13] = { 44, 1.84, 1.84, 22, 7808, },
+		[14] = { 48, 1.86, 1.86, 23, 10196, },
+		[15] = { 52, 1.88, 1.88, 24, 13251, },
+		[16] = { 56, 1.9, 1.9, 25, 17150, },
+		[17] = { 60, 1.92, 1.92, 26, 22113, },
+		[18] = { 64, 1.94, 1.94, 27, 28419, },
+		[19] = { 67, 1.96, 1.96, 28, 34236, },
+		[20] = { 70, 1.98, 1.98, 29, 41181, },
+		[21] = { 72, 2, 2, 30, 46540, },
+		[22] = { 74, 2.02, 2.02, 31, 52566, },
+		[23] = { 76, 2.04, 2.04, 32, 59337, },
+		[24] = { 78, 2.06, 2.06, 33, 66944, },
+		[25] = { 80, 2.08, 2.08, 34, 75487, },
+		[26] = { 82, 2.1, 2.1, 35, 85079, },
+		[27] = { 84, 2.12, 2.12, 36, 95843, },
+		[28] = { 86, 2.14, 2.14, 37, 107921, },
+		[29] = { 88, 2.16, 2.16, 38, 121467, },
+		[30] = { 90, 2.18, 2.18, 39, 136656, },
 	},
 }
 skills["PoisonArrow"] = {
@@ -987,7 +989,7 @@ skills["PoisonArrow"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Fires an arrow which deals additional chaos damage to enemies it hits, and creates a caustic cloud. Enemies in the cloud take chaos damage over time.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [11] = true, [12] = true, [17] = true, [19] = true, [22] = true, [40] = true, [50] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [11] = true, [12] = true, [17] = true, [19] = true, [22] = true, [40] = true, [50] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -1135,6 +1137,84 @@ skills["ChargedDash"] = {
 		[30] = { 90, 1.19, 1.19, },
 	},
 }
+skills["CorpseEruption"] = {
+	name = "Cremation",
+	gemTags = {
+		projectile = true,
+		dexterity = true,
+		active_skill = true,
+		spell = true,
+		area = true,
+		fire = true,
+		duration = true,
+	},
+	gemTagString = "Projectile, Spell, AoE, Fire, Duration",
+	gemStr = 0,
+	gemDex = 60,
+	gemInt = 40,
+	color = 2,
+	description = "A targeted corpse explodes, dealing area damage and turning into a volcanic geyser, which will repeatedly unleash projectiles sequentially over the surrounding area for a duration. The explosion of the corpse is not affected by modifiers to spell damage, and cannot be reflected.",
+	skillTypes = { [2] = true, [11] = true, [33] = true, [12] = true, [3] = true, [26] = true, [17] = true, [18] = true, [19] = true, [36] = true, [10] = true, [67] = true, [3] = true, },
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		fire = true,
+	},
+	baseMods = {
+		skill("castTime", 0.6), 
+		skill("damageEffectiveness", 0.8), 
+		skill("CritChance", 5), 
+		skill("duration", 8), --"base_skill_effect_duration" = 8000
+		--"corpse_erruption_base_maximum_number_of_geyers" = 3
+		skill("corpseExplosionLifeMultiplier", 0.04), --"corpse_explosion_monster_life_%" = 4
+		mod("ProjectileCount", "BASE", 3), --"number_of_additional_projectiles" = 3
+		--"is_area_damage" = ?
+		--"show_number_of_projectiles" = ?
+		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		--"base_is_projectile" = ?
+	},
+	qualityMods = {
+		mod("FireDamage", "INC", 1), --"fire_damage_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+		[3] = skill("FireMin", nil), --"spell_minimum_base_fire_damage"
+		[4] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
+	},
+	levels = {
+		[1] = { 28, 14, 40, 60, },
+		[2] = { 31, 15, 48, 71, },
+		[3] = { 34, 16, 57, 85, },
+		[4] = { 37, 17, 67, 101, },
+		[5] = { 40, 18, 79, 119, },
+		[6] = { 42, 19, 88, 133, },
+		[7] = { 44, 20, 98, 147, },
+		[8] = { 46, 21, 109, 164, },
+		[9] = { 48, 22, 121, 182, },
+		[10] = { 50, 23, 134, 201, },
+		[11] = { 52, 24, 149, 223, },
+		[12] = { 54, 25, 164, 247, },
+		[13] = { 56, 25, 182, 272, },
+		[14] = { 58, 25, 201, 301, },
+		[15] = { 60, 26, 221, 332, },
+		[16] = { 62, 26, 244, 365, },
+		[17] = { 64, 26, 268, 402, },
+		[18] = { 66, 26, 295, 443, },
+		[19] = { 68, 27, 325, 487, },
+		[20] = { 70, 27, 357, 535, },
+		[21] = { 72, 28, 392, 587, },
+		[22] = { 74, 28, 430, 645, },
+		[23] = { 76, 29, 471, 707, },
+		[24] = { 78, 29, 517, 775, },
+		[25] = { 80, 30, 566, 849, },
+		[26] = { 82, 30, 620, 930, },
+		[27] = { 84, 30, 679, 1018, },
+		[28] = { 86, 30, 742, 1114, },
+		[29] = { 88, 31, 812, 1218, },
+		[30] = { 90, 31, 887, 1331, },
+	},
+}
 skills["Cyclone"] = {
 	name = "Cyclone",
 	gemTags = {
@@ -1150,8 +1230,8 @@ skills["Cyclone"] = {
 	gemDex = 60,
 	gemInt = 0,
 	color = 2,
-	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Multistrike.",
-	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [38] = true, },
+	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Multistrike or Ruthless.",
+	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [38] = true, [65] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -1241,8 +1321,8 @@ skills["VaalCyclone"] = {
 	gemDex = 60,
 	gemInt = 0,
 	color = 2,
-	description = "Spin and attack in place, damaging nearby enemies and pulling others towards you.",
-	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [12] = true, [43] = true, },
+	description = "Spin and attack in place, damaging nearby enemies and pulling others towards you. Cannot be supported by Ruthless.",
+	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [12] = true, [43] = true, [65] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -1330,8 +1410,8 @@ skills["Desecrate"] = {
 	gemDex = 60,
 	gemInt = 40,
 	color = 2,
-	description = "Desecrates the ground, summoning corpses and dealing chaos damage to all enemies in the area.",
-	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [36] = true, [40] = true, [26] = true, [50] = true, },
+	description = "Desecrates the ground, summoning corpses and dealing chaos damage to all enemies in the area. The corpses will be chosen from the monsters in the current area and any Spectres that have existed in this instance.",
+	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [36] = true, [40] = true, [26] = true, [50] = true, [67] = true, },
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -1339,10 +1419,11 @@ skills["Desecrate"] = {
 		chaos = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("cooldown", 5), 
+		skill("castTime", 0.8), 
+		skill("cooldown", 3), 
 		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		--"desecrate_number_of_corpses_to_create" = 3
+		--"desecrate_number_of_corpses_to_create" = 5
+		--"desecrate_maximum_number_of_corpses" = 15
 		--"is_area_damage" = ?
 		skill("dotIsArea", true), 
 	},
@@ -1358,23 +1439,23 @@ skills["Desecrate"] = {
 	levels = {
 		[1] = { 16, 8, 8.1666666666667, 20, },
 		[2] = { 20, 8, 11.316666666667, 24, },
-		[3] = { 24, 9, 15.383333333333, 26, },
-		[4] = { 28, 9, 20.633333333333, 29, },
-		[5] = { 31, 10, 25.533333333333, 32, },
-		[6] = { 34, 11, 31.416666666667, 35, },
-		[7] = { 37, 12, 38.466666666667, 38, },
-		[8] = { 40, 12, 46.916666666667, 41, },
-		[9] = { 43, 13, 57.016666666667, 44, },
-		[10] = { 46, 14, 69.05, 47, },
-		[11] = { 49, 15, 83.4, 50, },
-		[12] = { 52, 16, 100.46666666667, 53, },
-		[13] = { 55, 17, 120.73333333333, 56, },
-		[14] = { 58, 18, 144.76666666667, 59, },
-		[15] = { 60, 18, 163.23333333333, 63, },
-		[16] = { 62, 18, 183.88333333333, 67, },
-		[17] = { 64, 19, 207, 71, },
-		[18] = { 66, 19, 232.83333333333, 75, },
-		[19] = { 68, 20, 261.71666666667, 100, },
+		[3] = { 24, 9, 15.383333333333, 28, },
+		[4] = { 28, 9, 20.633333333333, 32, },
+		[5] = { 31, 10, 25.533333333333, 35, },
+		[6] = { 34, 11, 31.416666666667, 38, },
+		[7] = { 37, 12, 38.466666666667, 41, },
+		[8] = { 40, 12, 46.916666666667, 44, },
+		[9] = { 43, 13, 57.016666666667, 47, },
+		[10] = { 46, 14, 69.05, 50, },
+		[11] = { 49, 15, 83.4, 53, },
+		[12] = { 52, 16, 100.46666666667, 56, },
+		[13] = { 55, 17, 120.73333333333, 59, },
+		[14] = { 58, 18, 144.76666666667, 62, },
+		[15] = { 60, 18, 163.23333333333, 65, },
+		[16] = { 62, 18, 183.88333333333, 69, },
+		[17] = { 64, 19, 207, 73, },
+		[18] = { 66, 19, 232.83333333333, 77, },
+		[19] = { 68, 20, 261.71666666667, 81, },
 		[20] = { 70, 20, 294, 100, },
 		[21] = { 72, 21, 330.05, 100, },
 		[22] = { 74, 22, 370.3, 100, },
@@ -1393,17 +1474,17 @@ skills["DetonateDead"] = {
 	gemTags = {
 		dexterity = true,
 		active_skill = true,
-		cast = true,
+		spell = true,
 		area = true,
 		fire = true,
 	},
-	gemTagString = "Cast, AoE, Fire",
+	gemTagString = "Spell, AoE, Fire",
 	gemStr = 0,
 	gemDex = 60,
 	gemInt = 40,
 	color = 2,
-	description = "Explodes an unused corpse, dealing fire damage to nearby enemies.",
-	skillTypes = { [39] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, },
+	description = "Targets a corpse, and deals spell damage to enemies around the corpse, as well as causing the corpse to explode, dealing fire damage. The explosion is not affected by modifiers to spell damage and cannnot be reflected.",
+	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, [67] = true, },
 	setupFunc = function(actor, output)
 		local skillData = actor.mainSkill.skillData
 		if skillData.corpseLife then
@@ -1417,54 +1498,53 @@ skills["DetonateDead"] = {
 		fire = true,
 	},
 	baseMods = {
-		skill("castTime", 0.8), 
-		skill("CritChance", 5), 
+		skill("castTime", 0.6), 
+		skill("CritChance", 6), 
 		skill("corpseExplosionLifeMultiplier", 0.06), --"corpse_explosion_monster_life_%" = 6
-		--"is_area_damage" = 1
-		--"display_skill_deals_secondary_damage" = ?
-		--"damage_cannot_be_reflected" = ?
+		--"is_area_damage" = ?
 		skill("radius", 22), 
 	},
 	qualityMods = {
-		mod("Speed", "INC", 1, ModFlag.Cast), --"base_cast_speed_+%" = 1
+		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
-		[3] = skill("FireMin", nil), --"secondary_minimum_base_fire_damage"
-		[4] = skill("FireMax", nil), --"secondary_maximum_base_fire_damage"
+		[3] = skill("FireMin", nil), --"spell_minimum_base_fire_damage"
+		[4] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
+		[5] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
 	levels = {
-		[1] = { 4, 7, 4, 5, },
-		[2] = { 6, 8, 5, 8, },
-		[3] = { 9, 9, 8, 11, },
-		[4] = { 12, 10, 9, 14, },
-		[5] = { 16, 11, 13, 19, },
-		[6] = { 20, 12, 17, 25, },
-		[7] = { 24, 14, 22, 33, },
-		[8] = { 28, 15, 28, 43, },
-		[9] = { 32, 17, 36, 54, },
-		[10] = { 36, 19, 46, 69, },
-		[11] = { 40, 21, 58, 87, },
-		[12] = { 44, 22, 72, 108, },
-		[13] = { 48, 23, 90, 135, },
-		[14] = { 52, 24, 111, 167, },
-		[15] = { 55, 25, 130, 195, },
-		[16] = { 58, 26, 152, 227, },
-		[17] = { 61, 27, 176, 265, },
-		[18] = { 64, 28, 205, 308, },
-		[19] = { 67, 29, 238, 357, },
-		[20] = { 70, 30, 276, 414, },
-		[21] = { 72, 31, 304, 456, },
-		[22] = { 74, 32, 335, 502, },
-		[23] = { 76, 33, 369, 553, },
-		[24] = { 78, 34, 406, 609, },
-		[25] = { 80, 34, 446, 669, },
-		[26] = { 82, 35, 491, 736, },
-		[27] = { 84, 36, 539, 809, },
-		[28] = { 86, 37, 592, 888, },
-		[29] = { 88, 38, 650, 975, },
-		[30] = { 90, 38, 713, 1070, },
+		[1] = { 4, 7, 10, 14, 0, },
+		[2] = { 6, 8, 14, 21, 0, },
+		[3] = { 9, 9, 21, 28, 0, },
+		[4] = { 12, 10, 24, 37, 0, },
+		[5] = { 16, 11, 34, 51, 1, },
+		[6] = { 20, 12, 45, 68, 1, },
+		[7] = { 24, 14, 60, 90, 1, },
+		[8] = { 28, 15, 78, 117, 1, },
+		[9] = { 32, 17, 101, 151, 1, },
+		[10] = { 36, 19, 129, 193, 2, },
+		[11] = { 40, 21, 163, 245, 2, },
+		[12] = { 44, 22, 205, 308, 2, },
+		[13] = { 48, 23, 257, 385, 2, },
+		[14] = { 52, 24, 320, 480, 2, },
+		[15] = { 55, 25, 377, 565, 3, },
+		[16] = { 58, 26, 442, 663, 3, },
+		[17] = { 61, 27, 518, 776, 3, },
+		[18] = { 64, 28, 605, 908, 3, },
+		[19] = { 67, 29, 706, 1060, 3, },
+		[20] = { 70, 30, 823, 1235, 4, },
+		[21] = { 72, 31, 911, 1367, 4, },
+		[22] = { 74, 32, 1008, 1511, 4, },
+		[23] = { 76, 33, 1114, 1670, 4, },
+		[24] = { 78, 34, 1230, 1845, 4, },
+		[25] = { 80, 34, 1358, 2037, 5, },
+		[26] = { 82, 35, 1499, 2249, 5, },
+		[27] = { 84, 36, 1653, 2480, 5, },
+		[28] = { 86, 37, 1823, 2735, 5, },
+		[29] = { 88, 38, 2009, 3014, 5, },
+		[30] = { 90, 38, 2213, 3320, 6, },
 	},
 }
 skills["VaalDetonateDead"] = {
@@ -1482,7 +1562,7 @@ skills["VaalDetonateDead"] = {
 	gemDex = 60,
 	gemInt = 40,
 	color = 2,
-	description = "Explodes an unused corpse, dealing fire damage to nearby enemies. Nearby corpses will also explode in a chain reaction.",
+	description = "Explodes an unused corpse, dealing fire damage to nearby enemies. Nearby corpses will also explode in a chain reaction. The explosions are not affected by modifiers to spell damage.",
 	skillTypes = { [39] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [43] = true, [33] = true, },
 	setupFunc = function(actor, output)
 		local skillData = actor.mainSkill.skillData
@@ -1497,7 +1577,7 @@ skills["VaalDetonateDead"] = {
 		fire = true,
 	},
 	baseMods = {
-		skill("castTime", 0.8), 
+		skill("castTime", 0.6), 
 		skill("CritChance", 5), 
 		skill("corpseExplosionLifeMultiplier", 0.08), --"corpse_explosion_monster_life_%" = 8
 		--"is_area_damage" = 1
@@ -1801,7 +1881,7 @@ skills["ElementalHit"] = {
 	gemInt = 0,
 	color = 2,
 	description = "A standard attack (with any weapon) that adds damage of a random element.",
-	skillTypes = { [1] = true, [6] = true, [3] = true, [22] = true, [17] = true, [19] = true, [25] = true, [28] = true, [24] = true, [33] = true, [34] = true, [35] = true, [48] = true, },
+	skillTypes = { [1] = true, [6] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, [25] = true, [28] = true, [24] = true, [33] = true, [34] = true, [35] = true, [48] = true, [69] = true, },
 	parts = {
 		{
 			name = "Added fire",
@@ -1887,7 +1967,7 @@ skills["EtherealKnives"] = {
 	gemInt = 40,
 	color = 2,
 	description = "Fires an arc of knives in front of the caster which deals physical damage.",
-	skillTypes = { [2] = true, [10] = true, [3] = true, [18] = true, [17] = true, [19] = true, [26] = true, [36] = true, },
+	skillTypes = { [2] = true, [10] = true, [3] = true, [68] = true, [18] = true, [17] = true, [19] = true, [26] = true, [36] = true, },
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -1958,7 +2038,7 @@ skills["ExplosiveArrow"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Fires an arrow which acts as a short duration fuse. Applying additional arrows to an enemy extends the duration. When the target dies or the fuses expire, the arrows explode, dealing fire AoE damage to nearby enemies. The AoE radius is proportional to the number of arrows upon death.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [10] = true, [11] = true, [12] = true, [22] = true, [17] = true, [19] = true, [33] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [10] = true, [11] = true, [12] = true, [22] = true, [17] = true, [19] = true, [33] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -2304,7 +2384,7 @@ skills["Frenzy"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Performs an attack that gives the character a frenzy charge if it hits. Frenzy charges increase your attack speed.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [22] = true, [17] = true, [19] = true, [25] = true, [28] = true, [24] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [6] = true, [22] = true, [17] = true, [19] = true, [25] = true, [28] = true, [24] = true, },
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -2374,7 +2454,7 @@ skills["FrostBlades"] = {
 	gemDex = 100,
 	gemInt = 0,
 	color = 2,
-	description = "Attack with increased range, releasing icy blades from the struck enemy that fly at other enemies. Requires a Melee Weapon.",
+	description = "Attack an enemy with increased range, releasing icy blades from the targeted enemy which fly at other enemies. Requires a Melee Weapon.",
 	skillTypes = { [1] = true, [3] = true, [6] = true, [25] = true, [28] = true, [24] = true, [34] = true, [48] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -2911,7 +2991,7 @@ skills["IceShot"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Fires an arrow that converts some physical damage to cold on its target and converts all physical damage to cold in a cone behind that target. Creates a patch of ground ice under the target.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [11] = true, [12] = true, [22] = true, [17] = true, [19] = true, [34] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [11] = true, [12] = true, [22] = true, [17] = true, [19] = true, [34] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -3161,7 +3241,7 @@ skills["LightningArrow"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Fires a charged arrow at the target, causing them to be struck by a bolt of lightning which damages nearby enemies.",
-	skillTypes = { [1] = true, [48] = true, [11] = true, [3] = true, [22] = true, [17] = true, [19] = true, [35] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [11] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, [35] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -3427,7 +3507,7 @@ skills["MirrorArrow"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Fires an arrow at the target destination. When the arrow lands, a clone is summoned. The clone is a minion that uses your bow and quiver.",
-	skillTypes = { [14] = true, [1] = true, [9] = true, [48] = true, [21] = true, [12] = true, [22] = true, [17] = true, [19] = true, },
+	skillTypes = { [14] = true, [1] = true, [9] = true, [48] = true, [69] = true, [21] = true, [12] = true, [22] = true, [17] = true, [19] = true, },
 	minionSkillTypes = { [1] = true, [3] = true, [48] = true, },
 	weaponTypes = {
 		["Bow"] = true,
@@ -3583,7 +3663,7 @@ skills["PoachersMark"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Curses all targets in an area, making them less evasive. Hitting the cursed targets will grant life and mana, and killing them will result in more flask charges and a chance to gain a frenzy charge.",
-	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, },
+	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, [67] = true, },
 	baseFlags = {
 		spell = true,
 		curse = true,
@@ -3659,7 +3739,7 @@ skills["ProjectileWeakness"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Curses all targets in an area, making them easier to pierce and to knock back, and increasing the damage they take from projectiles.",
-	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, },
+	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, [67] = true, },
 	baseFlags = {
 		spell = true,
 		curse = true,
@@ -3733,7 +3813,7 @@ skills["Puncture"] = {
 	gemInt = 40,
 	color = 2,
 	description = "Punctures the target, causing a bleeding debuff, which will be affected by modifiers to skill duration. Puncture works with bows, daggers, claws or swords.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [12] = true, [17] = true, [19] = true, [22] = true, [25] = true, [28] = true, [24] = true, [40] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [6] = true, [12] = true, [17] = true, [19] = true, [22] = true, [25] = true, [28] = true, [24] = true, [40] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 		["Claw"] = true,
@@ -3885,7 +3965,7 @@ skills["RainOfArrows"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Fires a large number of arrows into the air, to land at the target after a short delay.",
-	skillTypes = { [1] = true, [48] = true, [11] = true, [14] = true, [22] = true, [17] = true, [19] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [11] = true, [14] = true, [22] = true, [17] = true, [19] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -3977,6 +4057,7 @@ skills["VaalRainOfArrows"] = {
 		--"is_area_damage" = ?
 		--"rain_of_arrows_pin" = ?
 		skill("cannotBeEvaded", true), --"global_always_hit" = ?
+		--"no_movement_speed" = ?
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -4305,7 +4386,7 @@ skills["ShrapnelShot"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Fires an arrow that pierces through enemies. Arrows are fired with such force that they create a burst of lightning, damaging all enemies in a cone in front of the archer.",
-	skillTypes = { [1] = true, [3] = true, [11] = true, [22] = true, [17] = true, [19] = true, [35] = true, [48] = true, },
+	skillTypes = { [1] = true, [3] = true, [68] = true, [11] = true, [22] = true, [17] = true, [19] = true, [35] = true, [48] = true, [69] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -4391,7 +4472,7 @@ skills["SiegeBallista"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Summons a totem that attacks with piercing arrows. It attacks slowly, but deals increased damage.",
-	skillTypes = { [1] = true, [3] = true, [48] = true, [17] = true, [19] = true, [30] = true, [12] = true, },
+	skillTypes = { [1] = true, [3] = true, [68] = true, [48] = true, [17] = true, [19] = true, [30] = true, [12] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -4545,7 +4626,7 @@ skills["ThrownWeapon"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Throws a spectral copy of your melee weapon. It flies out and then returns to you, in a spinning attack that strikes enemies in its path.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [6] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -4625,7 +4706,7 @@ skills["VaalThrownWeapon"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Throws a spectral copy of your melee weapon. It spirals out in a spinning attack that strikes enemies in its path.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [43] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [6] = true, [43] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -4705,7 +4786,7 @@ skills["SplitArrow"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Fires multiple arrows at different targets.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [22] = true, [17] = true, [19] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -4777,7 +4858,7 @@ skills["SummonIceGolem"] = {
 	color = 2,
 	description = "Summons an Ice Golem that grants you increased Critical Strike Chance and Accuracy. The Ice Golem can use an icy barrage spell and a chilling spinning dash in addition to its melee attack.",
 	skillTypes = { [36] = true, [34] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, [60] = true, [62] = true, },
-	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [2] = true, [10] = true, [38] = true, [28] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [68] = true, [2] = true, [10] = true, [38] = true, [28] = true, },
 	minionList = {
 		"SummonedIceGolem",
 	},
@@ -4857,7 +4938,7 @@ skills["TemporalChains"] = {
 	gemInt = 40,
 	color = 2,
 	description = "Curses all targets in an area, Slowing them, and making effects on them expire more slowly.",
-	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, },
+	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, [67] = true, },
 	baseFlags = {
 		spell = true,
 		curse = true,
@@ -4929,7 +5010,7 @@ skills["TornadoShot"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Fires a piercing shot that travels until it reaches the targeted location. It will then fire projectiles out in all directions from that point.",
-	skillTypes = { [1] = true, [3] = true, [17] = true, [19] = true, [22] = true, [48] = true, },
+	skillTypes = { [1] = true, [3] = true, [68] = true, [17] = true, [19] = true, [22] = true, [48] = true, [69] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -4983,6 +5064,76 @@ skills["TornadoShot"] = {
 		[28] = { 86, 12, 1.17, 1.17, },
 		[29] = { 88, 12, 1.18, 1.18, },
 		[30] = { 90, 12, 1.19, 1.19, },
+	},
+}
+skills["BoneLance"] = {
+	name = "Unearth",
+	gemTags = {
+		projectile = true,
+		dexterity = true,
+		active_skill = true,
+		spell = true,
+	},
+	gemTagString = "Projectile, Spell",
+	gemStr = 0,
+	gemDex = 60,
+	gemInt = 40,
+	color = 2,
+	description = "Fires a projectile that will pierce through enemies to impact the ground at the targeted location, creating a Bone Archer corpse where it lands.",
+	skillTypes = { [2] = true, [3] = true, [68] = true, [18] = true, [19] = true, [17] = true, [36] = true, [10] = true, [26] = true, },
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	baseMods = {
+		skill("castTime", 0.6), 
+		skill("damageEffectiveness", 1.2), 
+		skill("CritChance", 6), 
+		--"desecrate_maximum_number_of_corpses" = 10
+		--"base_is_projectile" = ?
+		flag("PierceAllTargets"), --"always_pierce" = ?
+	},
+	qualityMods = {
+		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+		[3] = skill("PhysicalMin", nil), --"spell_minimum_base_physical_damage"
+		[4] = skill("PhysicalMax", nil), --"spell_maximum_base_physical_damage"
+		--[5] = "unearth_base_corpse_level"
+	},
+	levels = {
+		[1] = { 10, 8, 13, 19, 12, },
+		[2] = { 13, 8, 17, 25, 15, },
+		[3] = { 17, 9, 23, 35, 19, },
+		[4] = { 21, 10, 31, 46, 24, },
+		[5] = { 25, 11, 41, 61, 28, },
+		[6] = { 29, 11, 53, 80, 32, },
+		[7] = { 33, 12, 69, 103, 37, },
+		[8] = { 36, 13, 82, 124, 40, },
+		[9] = { 39, 14, 99, 148, 43, },
+		[10] = { 42, 15, 118, 177, 47, },
+		[11] = { 45, 16, 140, 210, 50, },
+		[12] = { 48, 17, 166, 249, 53, },
+		[13] = { 51, 18, 196, 295, 57, },
+		[14] = { 54, 19, 232, 347, 60, },
+		[15] = { 57, 20, 272, 409, 64, },
+		[16] = { 60, 20, 320, 480, 67, },
+		[17] = { 63, 21, 375, 563, 71, },
+		[18] = { 66, 22, 439, 658, 74, },
+		[19] = { 68, 23, 487, 731, 77, },
+		[20] = { 70, 23, 540, 810, 80, },
+		[21] = { 72, 23, 598, 898, 81, },
+		[22] = { 74, 24, 663, 994, 82, },
+		[23] = { 76, 25, 733, 1100, 83, },
+		[24] = { 78, 26, 811, 1217, 84, },
+		[25] = { 80, 26, 897, 1345, 85, },
+		[26] = { 82, 26, 991, 1487, 86, },
+		[27] = { 84, 27, 1095, 1642, 87, },
+		[28] = { 86, 28, 1209, 1813, 88, },
+		[29] = { 88, 29, 1334, 2001, 89, },
+		[30] = { 90, 29, 1471, 2207, 90, },
 	},
 }
 skills["ViperStrike"] = {
@@ -5063,6 +5214,77 @@ skills["ViperStrike"] = {
 		[28] = { 86, 1.53, 1.528, },
 		[29] = { 88, 1.54, 1.542, },
 		[30] = { 90, 1.56, 1.556, },
+	},
+}
+skills["VolatileDead"] = {
+	name = "Volatile Dead",
+	gemTags = {
+		dexterity = true,
+		active_skill = true,
+		spell = true,
+		area = true,
+		fire = true,
+	},
+	gemTagString = "Spell, AoE, Fire",
+	gemStr = 0,
+	gemDex = 60,
+	gemInt = 40,
+	color = 2,
+	description = "Corpses near the targeted location explode, dealing damage in a small area and creating an orb which moves towards nearby enemies before dealing spell damage in a larger area. The explosion of the corpse is not affected by modifiers to spell damage, and cannot be reflected.",
+	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, [67] = true, },
+	baseFlags = {
+		spell = true,
+		area = true,
+		fire = true,
+	},
+	baseMods = {
+		skill("castTime", 0.8), 
+		skill("damageEffectiveness", 1.2), 
+		skill("CritChance", 5), 
+		--"volatile_dead_base_number_of_corpses_to_consume" = 3
+		skill("corpseExplosionLifeMultiplier", 0.03), --"corpse_explosion_monster_life_%" = 3
+		--"is_area_damage" = ?
+	},
+	qualityMods = {
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+		[3] = skill("FireMin", nil), --"spell_minimum_base_fire_damage"
+		[4] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
+	},
+	levels = {
+		[1] = { 12, 10, 20, 30, },
+		[2] = { 15, 11, 25, 38, },
+		[3] = { 19, 13, 33, 50, },
+		[4] = { 23, 14, 44, 65, },
+		[5] = { 27, 16, 56, 84, },
+		[6] = { 31, 17, 71, 107, },
+		[7] = { 35, 19, 90, 135, },
+		[8] = { 38, 20, 107, 160, },
+		[9] = { 41, 21, 126, 188, },
+		[10] = { 44, 22, 147, 221, },
+		[11] = { 47, 23, 173, 259, },
+		[12] = { 50, 24, 201, 302, },
+		[13] = { 53, 25, 235, 352, },
+		[14] = { 56, 26, 272, 409, },
+		[15] = { 59, 27, 316, 474, },
+		[16] = { 62, 28, 365, 548, },
+		[17] = { 64, 29, 402, 604, },
+		[18] = { 66, 30, 443, 664, },
+		[19] = { 68, 30, 487, 730, },
+		[20] = { 70, 31, 535, 802, },
+		[21] = { 72, 32, 587, 881, },
+		[22] = { 74, 33, 645, 967, },
+		[23] = { 76, 34, 707, 1060, },
+		[24] = { 78, 34, 775, 1163, },
+		[25] = { 80, 34, 849, 1274, },
+		[26] = { 82, 34, 930, 1395, },
+		[27] = { 84, 35, 1018, 1527, },
+		[28] = { 86, 35, 1114, 1670, },
+		[29] = { 88, 35, 1218, 1827, },
+		[30] = { 90, 35, 1331, 1997, },
 	},
 }
 skills["WhirlingBlades"] = {
@@ -5160,7 +5382,7 @@ skills["WildStrike"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Your melee weapon strikes an enemy, converting physical damage to a random element. Then, depending on the element chosen, it releases a fiery explosion, an arcing bolt of lightning, or an icy wave.",
-	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [35] = true, [34] = true, [33] = true, [3] = true, [11] = true, [23] = true, [48] = true, },
+	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [35] = true, [34] = true, [33] = true, [3] = true, [68] = true, [11] = true, [23] = true, [48] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,

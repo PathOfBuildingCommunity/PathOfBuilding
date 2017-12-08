@@ -1,5 +1,35 @@
-### 1.4.66 - 2017/12/07
- * Applied changes to Rise of the Phoenix (thanks twiz-ahk)
+### 1.4.66 - 2017/12/09
+ * Added support for the new skill gems
+    * Most should be fully or almost fully functional, with the exception of Mirrage Archer
+ * Added the following new uniques:
+    * Arborix
+    * Cane of Unravelling
+    * Doedre's Skin
+    * Giantsbane
+    * Leper's Alms
+    * Memory Vault
+    * Pure Talent
+    * Ralakesh's Impatience
+    * Stormcharger
+    * The Hungry Loop
+       * Note that it may not be fully functional for a while due to the difficulty involved in handling it
+    * The Poet's Pen
+    * Vix Lunaris
+    * White Wind
+    * Wraithlord
+    * Yoke of Suffering
+ * Applied the 3.1 changes to the following uniques:
+	* Rise of the Phoenix (thanks twiz-ahk)
+    * Queen of the Forest (thanks xmesaj2)
+	* Atziri's Acuity
+	* The Baron
+	* Doomfletch/Doomfletch's Prism
+	* Lion's Roar
+    * Omen on the Winds
+	* Witchfire Brew
+	* Other uniques are awaiting confirmation of wording changes
+ * Added Dialla's Malefaction and Malachai's Mark
+    * Note that Dialla's Malefaction is non-functional as it requires significant changes to support it
 
 The following changes are courtesy of eps1lon:
  * Added an option to the Configuration tab for "Used a Movement Skill Recently"

@@ -6,5 +6,6 @@ local itemBases = ...
 #baseMatch Metadata/Items/Belts/Belt%d+
 #base Metadata/Items/Belts/BeltAtlas1
 #base Metadata/Items/Belts/BeltAtlas2
+#base Metadata/Items/Belts/BeltAbyss
 
 #base Metadata/Items/Belts/BeltDemigods1

@@ -594,12 +594,21 @@ end
 -- To be considered local, a modifier must be an exact flag match, and cannot have any tags (e.g conditions, multipliers)
 -- Only the InSlot tag is allowed (for Adds x to x X Damage in X Hand modifiers)
 local function sumLocal(modList, name, type, flags)
-	local result = 0
+	local result
+	if type == "FLAG" then
+		result = false
+	else
+		result = 0
+	end
 	local i = 1
 	while modList[i] do
 		local mod = modList[i]
 		if mod.name == name and mod.type == type and mod.flags == flags and mod.keywordFlags == 0 and (not mod[1] or mod[1].type == "InSlot") then
-			result = result + mod.value
+			if type == "FLAG" then
+				result = result or mod.value
+			else	
+				result = result + mod.value
+			end
 			t_remove(modList, i)
 		else
 			i = i + 1
@@ -798,9 +807,15 @@ function itemLib.buildItemModList(item)
 			end
 		end
 	end
-	item.requirements.strMod = m_floor((item.requirements.str + sumLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "StrRequirement", "INC", 0) / 100))
-	item.requirements.dexMod = m_floor((item.requirements.dex + sumLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "DexRequirement", "INC", 0) / 100))
-	item.requirements.intMod = m_floor((item.requirements.int + sumLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "IntRequirement", "INC", 0) / 100))
+	if sumLocal(baseList, "NoAttributeRequirements", "FLAG", 0) then
+		item.requirements.strMod = 0
+		item.requirements.dexMod = 0
+		item.requirements.intMod = 0
+	else
+		item.requirements.strMod = m_floor((item.requirements.str + sumLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "StrRequirement", "INC", 0) / 100))
+		item.requirements.dexMod = m_floor((item.requirements.dex + sumLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "DexRequirement", "INC", 0) / 100))
+		item.requirements.intMod = m_floor((item.requirements.int + sumLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "IntRequirement", "INC", 0) / 100))
+	end
 	item.grantedSkills = { }
 	for _, skill in ipairs(baseList:Sum("LIST", nil, "ExtraSkill")) do
 		if skill.name ~= "Unknown" then

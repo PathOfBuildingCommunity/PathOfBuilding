@@ -283,6 +283,12 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 36)
 #mods
 
+#skill Vulnerability
+#flags spell curse area duration
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#mods
+
 #skill WarlordsMark
 #flags spell curse area duration
 #baseMod skill("debuff", true)

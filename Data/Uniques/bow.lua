@@ -68,33 +68,39 @@ Royal Bow
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.1.0
 Variant: Current
 Requires Level 28, 95 Dex
 Implicits: 3
 {variant:1,2}(6-12)% increased Elemental Damage with Weapons
 {variant:3}(20-24)% increased Elemental Damage with Weapons
-{variant:4}(20-24)% increased Elemental Damage with Attack Skills
+{variant:4,5}(20-24)% increased Elemental Damage with Attack Skills
 {variant:2,3,4}Adds (8-12) to (16-20) Physical Damage
+{variant:5}Adds (12-16) to (20-24) Physical Damage
 (10-14)% increased Attack Speed
-(30-40)% increased Critical Strike Chance
+{variant:1,2,3,4}(30-40)% increased Critical Strike Chance
 60% increased Mana Regeneration Rate
-Gain 110% of Bow Physical Damage as Extra Damage of an Element
+{variant:1,2,3,4}Gain 110% of Bow Physical Damage as Extra Damage of an Element
+{variant:5}Gain 100% of Bow Physical Damage as Extra Damage of an Element
 ]],[[
 Doomfletch's Prism
 Royal Bow
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.1.0
 Variant: Current
 Requires Level 40, 95 Dex
 Implicits: 3
 {variant:1}(6-12)% increased Elemental Damage with Weapons
 {variant:2}(20-24)% increased Elemental Damage with Weapons
-{variant:3}(20-24)% increased Elemental Damage with Attack Skills
-Adds (8-12) to (16-20) Physical Damage
+{variant:3,4}(20-24)% increased Elemental Damage with Attack Skills
+{variant:1,2,3}Adds (8-12) to (16-20) Physical Damage
+{variant:4}Adds (12-16) to (20-24) Physical Damage
 (10-14)% increased Attack Speed
-(30-40)% increased Critical Strike Chance
+{variant:1,2,3}(30-40)% increased Critical Strike Chance
 60% increased Mana Regeneration Rate
-Gain 110% of Bow Physical Damage as Extra Damage of each Element
+{variant:1,2,3}Gain 110% of Bow Physical Damage as Extra Damage of each Element
+{variant:4}Gain 100% of Bow Physical Damage as Extra Damage of each Element
 ]],[[
 Infractem
 Decimation Bow

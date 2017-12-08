@@ -1208,12 +1208,12 @@ function calcs.offence(env, actor)
 		if not skillFlags.attack or modDB:Sum("FLAG", cfg, "CannotBleed") then
 			output.BleedChanceOnCrit = 0
 		else
-			output.BleedChanceOnCrit = m_min(100, modDB:Sum("BASE", cfg, "BleedChance"))
+			output.BleedChanceOnCrit = m_min(100, modDB:Sum("BASE", cfg, "BleedChance") + enemyDB:Sum("BASE", nil, "SelfBleedChance"))
 		end
 		if not skillFlags.hit or modDB:Sum("FLAG", cfg, "CannotPoison") then
 			output.PoisonChanceOnCrit = 0
 		else
-			output.PoisonChanceOnCrit = m_min(100, modDB:Sum("BASE", cfg, "PoisonChance"))
+			output.PoisonChanceOnCrit = m_min(100, modDB:Sum("BASE", cfg, "PoisonChance") + enemyDB:Sum("BASE", nil, "SelfPoisonChance"))
 		end
 		if not skillFlags.hit or modDB:Sum("FLAG", cfg, "CannotIgnite") then
 			output.IgniteChanceOnCrit = 0
@@ -1239,13 +1239,13 @@ function calcs.offence(env, actor)
 		if not skillFlags.attack or modDB:Sum("FLAG", cfg, "CannotBleed") then
 			output.BleedChanceOnHit = 0
 		else
-			output.BleedChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "BleedChance"))
+			output.BleedChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "BleedChance") + enemyDB:Sum("BASE", nil, "SelfBleedChance"))
 		end
 		if not skillFlags.hit or modDB:Sum("FLAG", cfg, "CannotPoison") then
 			output.PoisonChanceOnHit = 0
 			output.ChaosPoisonChance = 0
 		else
-			output.PoisonChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "PoisonChance"))
+			output.PoisonChanceOnHit = m_min(100, modDB:Sum("BASE", cfg, "PoisonChance") + enemyDB:Sum("BASE", nil, "SelfPoisonChance"))
 			output.ChaosPoisonChance = m_min(100, modDB:Sum("BASE", cfg, "ChaosPoisonChance"))
 		end
 		if not skillFlags.hit or modDB:Sum("FLAG", cfg, "CannotIgnite") then

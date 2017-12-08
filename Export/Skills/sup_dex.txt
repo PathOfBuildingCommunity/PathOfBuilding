@@ -72,6 +72,9 @@ local skills, mod, flag, skill = ...
 #skill SupportManaLeech
 #mods
 
+#skill SupportGemMirageArcher
+#mods
+
 #skill SupportMultiTrap
 #mods
 
@@ -115,4 +118,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportVoidManipulation
+#mods
+
+#skill SupportParallelProjectiles
 #mods

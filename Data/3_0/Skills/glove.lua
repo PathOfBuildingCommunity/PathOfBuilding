@@ -1204,7 +1204,7 @@ skills["EnchantmentOfReflectionWhenHit"] = {
 	color = 4,
 	description = "Creates a clone of you that attacks with your weapon.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [42] = true, [12] = true, [36] = true, },
-	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [28] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [68] = true, [28] = true, },
 	minionList = {
 		"Clone",
 	},
@@ -1244,7 +1244,7 @@ skills["EnchantmentOfReflectionWhenHit2"] = {
 	color = 4,
 	description = "Creates a clone of you that attacks with your weapon.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [42] = true, [12] = true, [36] = true, },
-	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [28] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [68] = true, [28] = true, },
 	minionList = {
 		"Clone",
 	},
@@ -1284,7 +1284,7 @@ skills["EnchantmentOfReflectionWhenHit3"] = {
 	color = 4,
 	description = "Creates a clone of you that attacks with your weapon.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [42] = true, [12] = true, [36] = true, },
-	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [28] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [68] = true, [28] = true, },
 	minionList = {
 		"Clone",
 	},
@@ -1324,7 +1324,7 @@ skills["EnchantmentOfReflectionWhenHit4"] = {
 	color = 4,
 	description = "Creates a clone of you that attacks with your weapon.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [42] = true, [12] = true, [36] = true, },
-	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [28] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [68] = true, [28] = true, },
 	minionList = {
 		"Clone",
 	},
@@ -1731,6 +1731,7 @@ skills["EnchantmentOfTheGraveOnKill"] = {
 		--"display_minion_monster_type" = 10
 		skill("minionLevel", 32), --"display_minion_monster_level" = 32
 		--"minions_explode_on_death_for_%_max_life_at_end_of_duration" = 20
+		--"minions_cannot_taunt_enemies" = ?
 	},
 	qualityMods = {
 	},
@@ -1766,6 +1767,7 @@ skills["EnchantmentOfTheGraveOnKill2"] = {
 		--"display_minion_monster_type" = 10
 		skill("minionLevel", 53), --"display_minion_monster_level" = 53
 		--"minions_explode_on_death_for_%_max_life_at_end_of_duration" = 20
+		--"minions_cannot_taunt_enemies" = ?
 	},
 	qualityMods = {
 	},
@@ -1801,6 +1803,7 @@ skills["EnchantmentOfTheGraveOnKill3"] = {
 		--"display_minion_monster_type" = 10
 		skill("minionLevel", 66), --"display_minion_monster_level" = 66
 		--"minions_explode_on_death_for_%_max_life_at_end_of_duration" = 20
+		--"minions_cannot_taunt_enemies" = ?
 	},
 	qualityMods = {
 	},
@@ -1836,6 +1839,7 @@ skills["EnchantmentOfTheGraveOnKill4"] = {
 		--"display_minion_monster_type" = 10
 		skill("minionLevel", 75), --"display_minion_monster_level" = 75
 		--"minions_explode_on_death_for_%_max_life_at_end_of_duration" = 20
+		--"minions_cannot_taunt_enemies" = ?
 	},
 	qualityMods = {
 	},
@@ -2147,7 +2151,7 @@ skills["EnchantmentOfWinterWhenHit"] = {
 	hidden = true,
 	color = 4,
 	description = "Unleashes an icy projectile that pulses with cold as it travels.",
-	skillTypes = { [3] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [42] = true, },
+	skillTypes = { [3] = true, [68] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [42] = true, },
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -2180,7 +2184,7 @@ skills["EnchantmentOfWinterWhenHit2"] = {
 	hidden = true,
 	color = 4,
 	description = "Unleashes an icy projectile that pulses with cold as it travels.",
-	skillTypes = { [3] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [42] = true, },
+	skillTypes = { [3] = true, [68] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [42] = true, },
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -2213,7 +2217,7 @@ skills["EnchantmentOfWinterWhenHit3"] = {
 	hidden = true,
 	color = 4,
 	description = "Unleashes an icy projectile that pulses with cold as it travels.",
-	skillTypes = { [3] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [42] = true, },
+	skillTypes = { [3] = true, [68] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [42] = true, },
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -2246,7 +2250,7 @@ skills["EnchantmentOfWinterWhenHit4"] = {
 	hidden = true,
 	color = 4,
 	description = "Unleashes an icy projectile that pulses with cold as it travels.",
-	skillTypes = { [3] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [42] = true, },
+	skillTypes = { [3] = true, [68] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [42] = true, },
 	fromItem = true,
 	baseFlags = {
 		spell = true,

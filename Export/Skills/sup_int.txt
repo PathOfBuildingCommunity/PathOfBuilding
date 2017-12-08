@@ -106,7 +106,13 @@ local skills, mod, flag, skill = ...
 #setMod base_skill_show_average_damage_instead_of_dps==skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanMine })
 #mods
 
+#skill SupportSpellCascade
+#mods
+
 #skill SupportMulticast
+#mods
+
+#skill SupportStormBarrier
 #mods
 
 #skill SupportAilments

@@ -50,6 +50,12 @@ itemBases["Crystal Belt"] = {
 	implicit = "+(60-80) to maximum Energy Shield",
 	req = { level = 79, },
 }
+itemBases["Stygian Vise"] = {
+	type = "Belt",
+	tags = { default = true, belt = true, not_for_sale = true, },
+	implicit = "Has 1 Abyssal Socket",
+	req = { },
+}
 
 itemBases["Golden Obi"] = {
 	type = "Belt",

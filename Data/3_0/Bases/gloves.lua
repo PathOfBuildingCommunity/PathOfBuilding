@@ -72,7 +72,7 @@ itemBases["Spiked Gloves"] = {
 	tags = { default = true, armour = true, gloves = true, not_for_sale = true, atlas_base_type = true, glovesatlasstr = true, str_armour = true, },
 	implicit = "(16-20)% increased Melee Damage",
 	armour = { ArmourBase = 220, },
-	req = { level = 73, str = 95, },
+	req = { level = 70, str = 95, },
 }
 
 itemBases["Rawhide Gloves"] = {
@@ -144,7 +144,7 @@ itemBases["Gripped Gloves"] = {
 	tags = { default = true, armour = true, gloves = true, not_for_sale = true, atlas_base_type = true, glovesatlasdex = true, dex_armour = true, },
 	implicit = "(14-18)% increased Projectile Attack Damage",
 	armour = { EvasionBase = 220, },
-	req = { level = 73, dex = 95, },
+	req = { level = 70, dex = 95, },
 }
 
 itemBases["Wool Gloves"] = {
@@ -216,7 +216,7 @@ itemBases["Fingerless Silk Gloves"] = {
 	tags = { default = true, armour = true, gloves = true, not_for_sale = true, atlas_base_type = true, glovesatlasint = true, int_armour = true, },
 	implicit = "(12-16)% increased Spell Damage",
 	armour = { EnergyShieldBase = 43, },
-	req = { level = 73, int = 95, },
+	req = { level = 70, int = 95, },
 }
 
 itemBases["Fishscale Gauntlets"] = {

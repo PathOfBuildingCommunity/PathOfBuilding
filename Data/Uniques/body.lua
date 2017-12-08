@@ -191,7 +191,7 @@ Requires Level 62, 170 Dex
 ]],[[
 Queen of the Forest
 Destiny Leather
-Variant: Pre 3.1.0
+Variant: {2_6}Pre 3.1.0
 Variant: Current
 Requires Level 59, 160 Dex
 {variant:1}(240-380)% increased Evasion Rating
@@ -201,7 +201,7 @@ Requires Level 59, 160 Dex
 +(26-40)% to Cold Resistance
 +(11-25)% to Lightning Resistance
 25% reduced Movement Speed
-1% increased Movement Speed per 450 Evasion Rating
+1% increased Movement Speed per 450 Evasion Rating, up to 100%
 −(50-40) Physical Damage taken when hit by Animals
 ]],[[
 The Rat Cage

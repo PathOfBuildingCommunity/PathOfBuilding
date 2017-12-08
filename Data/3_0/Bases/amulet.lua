@@ -284,7 +284,7 @@ itemBases["Monkey Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { default = true, amulet = true, },
-	implicit = "(5-8)% increased Area of Effect of Area Skills",
+	implicit = "(5-8)% increased Area of Effect",
 	req = { },
 }
 itemBases["Longtooth Talisman"] = {

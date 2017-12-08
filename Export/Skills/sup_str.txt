@@ -8,6 +8,9 @@ local skills, mod, flag, skill = ...
 #skill SupportAddedFireDamage
 #mods
 
+#skill SupportSpiritStrike
+#mods
+
 #skill SupportBloodMagic
 #mods
 

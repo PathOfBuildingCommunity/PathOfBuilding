@@ -129,15 +129,17 @@ Lion's Roar
 Granite Flask
 Variant: Pre 2.2.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.1.0
 Variant: Current
 Requires Level 27
 Implicits: 0
-Adds Knockback during Flask effect
+{variant:1,2,3}Adds Knockback during Flask effect
+{variant:4}Adds Knockback to Melee Attacks during Flask effect
 75% chance to cause Enemies to Flee on use
 {variant:1}(70-100)% increased Charges used
 {variant:1}30% more Melee Physical Damage during effect
 {variant:2}(30-35)% more Melee Physical Damage during effect
-{variant:3}(20-25)% more Melee Physical Damage during effect
+{variant:3,4}(20-25)% more Melee Physical Damage during effect
 Knocks Back Enemies in an Area on Flask use
 ]],[[
 Rotgut
@@ -262,6 +264,6 @@ Creates a Smoke Cloud on Use
 50% increased Charges used
 {variant:1}(50-70)% increased Damage Over Time during Flask Effect
 {variant:2}(25-40)% increased Damage Over Time during Flask Effect
-Grants level 21 Vulnerability Curse Aura during Flask Effect
+Grants level 21 Despair Curse Aura during Flask Effect
 ]],
 }
