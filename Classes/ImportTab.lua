@@ -454,7 +454,6 @@ function ImportTabClass:DownloadItems()
 end
 
 local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC" }
-local colorMap = { S = "R", D = "G", I = "B", G = "W" }
 local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Belt"] = "Belt" }
 
 function ImportTabClass:ImportItem(itemData, sockets)
@@ -556,10 +555,10 @@ function ImportTabClass:ImportItem(itemData, sockets)
 	if itemData.corrupted then
 		item.corrupted = true
 	end
-	if itemData.sockets[1] then
+	if itemData.sockets and itemData.sockets[1] then
 		item.sockets = { }
 		for i, socket in pairs(itemData.sockets) do
-			item.sockets[i] = { group = socket.group, color = colorMap[socket.attr] }
+			item.sockets[i] = { group = socket.group, color = socket.sColour }
 		end
 	end
 	if itemData.socketedItems then
@@ -611,7 +610,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 
 	-- Add and equip the new item
 	item.raw = itemLib.createItemRaw(item)
---	ConPrintf("%s", item.raw)
+	--ConPrintf("%s", item.raw)
 	local newItem = itemLib.makeItemFromRaw(self.build.targetVersion, item.raw)
 	if newItem then
 		local repIndex, repItem

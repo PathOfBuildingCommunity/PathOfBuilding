@@ -177,7 +177,6 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 			local class = self.classes[node.spc[0]]
 			class.startNodeId = node.id
 			node.startArt = classArt[node.spc[0]]
-			ConPrintTable(node)
 		elseif node.isAscendancyStart then
 			node.type = "ascendClassStart"
 			local ascendClass = self.ascendNameMap[node.ascendancyName].ascendClass
