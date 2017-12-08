@@ -1,3 +1,5 @@
+VERSION[1.4.67][2017/12/09]
+ * Fixed error that occurs when trying to import a character's items
 VERSION[1.4.66][2017/12/09]
  * Added support for the new skill gems
     * Most should be fully or almost fully functional, with the exception of Mirrage Archer

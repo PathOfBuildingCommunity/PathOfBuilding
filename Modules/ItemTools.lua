@@ -216,7 +216,7 @@ function itemLib.parseItemRaw(item)
 					local group = 0
 					item.sockets = { }
 					for c in specVal:gmatch(".") do
-						if c:match("[RGBW]") then
+						if c:match("[RGBWA]") then
 							t_insert(item.sockets, { color = c, group = group })
 						elseif c == " " then
 							group = group + 1
