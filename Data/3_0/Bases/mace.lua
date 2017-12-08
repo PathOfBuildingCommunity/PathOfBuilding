@@ -406,7 +406,7 @@ itemBases["Fright Maul"] = {
 itemBases["Morning Star"] = {
 	type = "Two Handed Mace",
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "4% increased Area of Effect of Area Skills",
+	implicit = "4% increased Area of Effect",
 	weapon = { PhysicalMin = 39, PhysicalMax = 58, CritChanceBase = 5, AttackRateBase = 1.25, },
 	req = { level = 34, str = 118, },
 }
@@ -455,7 +455,7 @@ itemBases["Dread Maul"] = {
 itemBases["Solar Maul"] = {
 	type = "Two Handed Mace",
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "4% increased Area of Effect of Area Skills",
+	implicit = "4% increased Area of Effect",
 	weapon = { PhysicalMin = 64, PhysicalMax = 97, CritChanceBase = 5, AttackRateBase = 1.25, },
 	req = { level = 56, str = 187, },
 }
@@ -504,7 +504,7 @@ itemBases["Terror Maul"] = {
 itemBases["Coronal Maul"] = {
 	type = "Two Handed Mace",
 	tags = { default = true, weapon = true, twohand = true, mace = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "6% increased Area of Effect of Area Skills",
+	implicit = "6% increased Area of Effect",
 	weapon = { PhysicalMin = 74, PhysicalMax = 110, CritChanceBase = 5, AttackRateBase = 1.25, },
 	req = { level = 69, str = 220, },
 }

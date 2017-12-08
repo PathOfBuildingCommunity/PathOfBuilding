@@ -177,6 +177,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 			local class = self.classes[node.spc[0]]
 			class.startNodeId = node.id
 			node.startArt = classArt[node.spc[0]]
+			ConPrintTable(node)
 		elseif node.isAscendancyStart then
 			node.type = "ascendClassStart"
 			local ascendClass = self.ascendNameMap[node.ascendancyName].ascendClass
@@ -331,6 +332,16 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 			t_insert(other.linkedId, node.id)
 			if node.type ~= "classStart" and other.type ~= "classStart" and node.type ~= "mastery" and other.type ~= "mastery" and node.ascendancyName == other.ascendancyName then
 				t_insert(self.connectors, self:BuildConnector(node, other))
+			end
+		end
+	end
+
+	for classId, class in pairs(self.classes) do
+		local startNode = nodeMap[class.startNodeId]
+		for _, nodeId in ipairs(startNode.linkedId) do
+			local node = nodeMap[nodeId]
+			if node.type == "normal" then
+				node.modList:NewMod("Condition:ConnectedTo"..class.name.."Start", "FLAG", true, "Tree:"..nodeId)
 			end
 		end
 	end

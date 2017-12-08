@@ -341,12 +341,14 @@ Dexterity and Intelligence from passives in Radius count towards Strength Melee 
 Omen on the Winds
 Viridian Jewel
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.1.0
 Variant: Current
 Limited to: 2
 Radius: Medium
 {variant:1}(15-20)% increased Damage against Chilled Enemies
-{variant:2}(15-20)% increased Damage with Hits against Chilled Enemies
+{variant:2,3}(15-20)% increased Damage with Hits against Chilled Enemies
 {variant:2}With at least 40 Dexterity in Radius, Ice Shot Pierces 5 additional Targets
+{variant:3}With at least 40 Dexterity in Radius, Ice Shot Pierces 3 additional Targets
 With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect
 {variant:1}With at least 40 Dexterity in Radius, Ice Shot has 50% chance of Projectiles Piercing
 ]],[[

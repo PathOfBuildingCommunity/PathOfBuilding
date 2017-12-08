@@ -44,5 +44,6 @@ You can now use the shortcut to run the program from the repository. Running the
   * Passives also show node ID and node power values.
   * Conditional options in the Configuration tab show the list of dependant modifiers.
 * While in the Tree tab, holding `Alt` also highlights nodes that have unrecognised modifiers.
+* Holding `Ctrl` while launching the program will rebuild the `ModCache`
 
 Note that the updates system is disabled in Dev Mode, so you must update manually.

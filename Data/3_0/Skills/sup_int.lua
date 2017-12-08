@@ -140,12 +140,12 @@ skills["SupportArcaneSurge"] = {
 	gemStr = 0,
 	gemDex = 0,
 	gemInt = 100,
-	description = "Each supported spell will track how much mana you spend on it, granting a buff when the total mana spent reaches a threshold. Cannot support totems, traps, or mines.",
+	description = "Each supported spell will track how much mana you spend on it, granting a buff when the total mana spent reaches a threshold. Cannot support skills used by totems, traps, or mines.",
 	color = 3,
 	support = true,
 	requireSkillTypes = { 2, 39, },
 	addSkillTypes = { 12, },
-	excludeSkillTypes = { 37, 41, 30, },
+	excludeSkillTypes = { 37, 41, 30, 42, },
 	baseMods = {
 		mod("ManaCost", "MORE", 10), 
 		--"support_arcane_surge_base_duration_ms" = 4000
@@ -268,7 +268,7 @@ skills["SupportCastOnStunned"] = {
 	gemStr = 0,
 	gemDex = 40,
 	gemInt = 60,
-	description = "Each supported spell skill will have a chance to be triggered when you are stunned. Cannot support Totems, Traps, or Mines. Vaal skills and skills that reserve mana cannot be triggered.",
+	description = "Each supported spell skill will have a chance to be triggered when you are stunned. Cannot support skills used by totems, traps, or mines. Vaal skills and skills that reserve mana cannot be triggered.",
 	color = 3,
 	support = true,
 	requireSkillTypes = { 36, },
@@ -331,7 +331,7 @@ skills["SupportCastWhileChannelling"] = {
 	gemStr = 0,
 	gemDex = 40,
 	gemInt = 60,
-	description = "Must support both a channelling skill and a non-channelling spell skill to work. The channelling skill will trigger a spell periodically while channelling.  Cannot support totems, traps, or mines. Vaal skills and skills that reserve mana cannot be triggered.",
+	description = "Must support both a channelling skill and a non-channelling spell skill to work. The channelling skill will trigger a spell periodically while channelling.  Cannot support skills used by totems, traps, or mines. Vaal skills and skills that reserve mana cannot be triggered.",
 	color = 3,
 	support = true,
 	requireSkillTypes = { 58, 36, },
@@ -701,7 +701,7 @@ skills["SupportEfficacy"] = {
 	description = "Supports any skill that deals damage or has a duration.",
 	color = 3,
 	support = true,
-	requireSkillTypes = { 10, 1, 59, 12, 55, },
+	requireSkillTypes = { 10, 1, 59, 12, 55, 40, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	baseMods = {
@@ -886,7 +886,7 @@ skills["SupportAdditionalXP"] = {
 	gemStr = 0,
 	gemDex = 0,
 	gemInt = 100,
-	description = "Supports any skill gem. Once this gem reaches level 2 or above, will apply a mana multiplier to supported gems. Cannot support skills that don&#39;t come from gems.",
+	description = "Supports any skill gem. Once this gem reaches level 2 or above, will apply a mana multiplier to supported gems. Cannot support skills that don't come from gems.",
 	color = 3,
 	support = true,
 	requireSkillTypes = { },
@@ -1288,7 +1288,7 @@ skills["SupportOnslaughtOnSlayingShockedEnemy"] = {
 	gemStr = 0,
 	gemDex = 0,
 	gemInt = 100,
-	description = "Supports any skill that hits enemies.",
+	description = "Supports any skill you use to hit enemies yourself. Cannot support skills used by totems, traps, or mines",
 	color = 3,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -1608,7 +1608,7 @@ skills["SupportMinionLife"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }), --"minion_maximum_life_+%"
+		--[2] = "support_minion_maximum_life_+%_final"
 	},
 	levels = {
 		[1] = { 18, 30, },
@@ -1963,6 +1963,69 @@ skills["SupportRemoteMine"] = {
 		[30] = { 90, 59, },
 	},
 }
+skills["SupportSpellCascade"] = {
+	name = "Spell Cascade",
+	gemTags = {
+		area = true,
+		spell = true,
+		intelligence = true,
+		support = true,
+	},
+	gemTagString = "AoE, Spell, Support",
+	gemStr = 0,
+	gemDex = 0,
+	gemInt = 100,
+	description = "Supports spell skills that apply an effect to an area around a targeted location. Cannot support Vaal skills, minion skills, or skills used by totems, traps, or mines.",
+	color = 3,
+	support = true,
+	requireSkillTypes = { 67, },
+	addSkillTypes = { },
+	excludeSkillTypes = { 30, 37, 41, 42, 15, 43, 9, },
+	baseMods = {
+		mod("ManaCost", "MORE", 40), 
+		--"support_spell_cascade_number_of_cascades_per_side" = 1
+	},
+	qualityMods = {
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+	},
+	levelMods = {
+		[1] = nil, 
+		[2] = mod("AreaOfEffect", "MORE", nil), --"support_spell_cascade_area_of_effect_+%_final"
+		[3] = mod("Damage", "MORE", nil), --"support_spell_cascade_damage_+%_final"
+	},
+	levels = {
+		[1] = { 4, -25, -50, },
+		[2] = { 6, -25, -49, },
+		[3] = { 9, -24, -48, },
+		[4] = { 12, -24, -47, },
+		[5] = { 16, -23, -46, },
+		[6] = { 20, -23, -45, },
+		[7] = { 24, -22, -44, },
+		[8] = { 28, -22, -43, },
+		[9] = { 32, -21, -42, },
+		[10] = { 36, -21, -41, },
+		[11] = { 40, -20, -40, },
+		[12] = { 44, -20, -39, },
+		[13] = { 48, -19, -38, },
+		[14] = { 52, -19, -37, },
+		[15] = { 55, -18, -36, },
+		[16] = { 58, -18, -35, },
+		[17] = { 61, -17, -34, },
+		[18] = { 64, -17, -33, },
+		[19] = { 67, -16, -32, },
+		[20] = { 70, -16, -31, },
+		[21] = { 72, -15, -30, },
+		[22] = { 74, -15, -29, },
+		[23] = { 76, -14, -28, },
+		[24] = { 78, -14, -27, },
+		[25] = { 80, -13, -26, },
+		[26] = { 82, -13, -25, },
+		[27] = { 84, -12, -24, },
+		[28] = { 86, -12, -23, },
+		[29] = { 88, -11, -22, },
+		[30] = { 90, -11, -21, },
+	},
+}
 skills["SupportMulticast"] = {
 	name = "Spell Echo",
 	gemTags = {
@@ -2023,6 +2086,69 @@ skills["SupportMulticast"] = {
 		[28] = { 86, 78, },
 		[29] = { 88, 79, },
 		[30] = { 90, 80, },
+	},
+}
+skills["SupportStormBarrier"] = {
+	name = "Storm Barrier",
+	gemTags = {
+		lightning = true,
+		intelligence = true,
+		support = true,
+		channelling = true,
+	},
+	gemTagString = "Lightning, Support, Channelling",
+	gemStr = 0,
+	gemDex = 0,
+	gemInt = 100,
+	description = "Supports any channelling skill, protecting you from damage while you channel it.",
+	color = 3,
+	support = true,
+	requireSkillTypes = { 58, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 10), 
+	},
+	qualityMods = {
+		--"support_storm_barrier_gain_power_charge_when_hit_%" = 1
+	},
+	levelMods = {
+		[1] = nil, 
+		[2] = mod("PhysicalDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Storm Barrier" }), --"support_storm_barrier_physical_damage_taken_when_hit_+%_final"
+		[3] = mod("LightningDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Storm Barrier" }), --"support_storm_barrier_lightning_damage_taken_when_hit_+%_final"
+		--[4] = "support_storm_barrier_gain_power_charge_when_hit_%"
+	},
+	levels = {
+		[1] = { 4, -8, -8, 50, },
+		[2] = { 6, -8, -8, 51, },
+		[3] = { 9, -9, -8, 52, },
+		[4] = { 12, -9, -8, 53, },
+		[5] = { 16, -9, -9, 54, },
+		[6] = { 20, -9, -9, 55, },
+		[7] = { 24, -10, -9, 56, },
+		[8] = { 28, -10, -9, 57, },
+		[9] = { 32, -10, -10, 58, },
+		[10] = { 36, -10, -10, 59, },
+		[11] = { 40, -11, -10, 60, },
+		[12] = { 44, -11, -10, 61, },
+		[13] = { 48, -11, -11, 62, },
+		[14] = { 52, -11, -11, 63, },
+		[15] = { 55, -12, -11, 64, },
+		[16] = { 58, -12, -11, 65, },
+		[17] = { 61, -12, -12, 66, },
+		[18] = { 64, -12, -12, 67, },
+		[19] = { 67, -13, -12, 68, },
+		[20] = { 70, -13, -12, 69, },
+		[21] = { 72, -13, -13, 70, },
+		[22] = { 74, -13, -13, 71, },
+		[23] = { 76, -14, -13, 72, },
+		[24] = { 78, -14, -13, 73, },
+		[25] = { 80, -14, -14, 74, },
+		[26] = { 82, -14, -14, 75, },
+		[27] = { 84, -15, -14, 76, },
+		[28] = { 86, -15, -14, 77, },
+		[29] = { 88, -15, -15, 78, },
+		[30] = { 90, -15, -15, 79, },
 	},
 }
 skills["SupportAilments"] = {

@@ -305,6 +305,7 @@ local modNameList = {
 	["ignite duration"] = "EnemyIgniteDuration",
 	["duration of elemental ailments"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration" },
 	["duration of elemental status ailments"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration" },
+	["duration of ailments"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration", "EnemyPoisonDuration", "EnemyBleedDuration" },
 	-- Other ailments
 	["to poison"] = "PoisonChance",
 	["to cause poison"] = "PoisonChance",
@@ -411,6 +412,7 @@ local modFlagList = {
 	["zombie"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Raise Zombie" } },
 	["raised zombie"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Raise Zombie" } },
 	["skeleton"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Summon Skeleton" } },
+	["spectre"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Raise Spectre" } },
 	["raised spectre"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Raise Spectre" } },
 	["golem"] = { },
 	["chaos golem"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Summon Chaos Golem" } },
@@ -478,6 +480,13 @@ local preFlagList = {
 	["^nearby allies [hgd][ae][via][enl] "] = { newAura = true, newAuraOnlyAllies = true },
 	["^you and allies affected by your auras have "] = { affectedByAura = true },
 	["^take "] = { modSuffix = "Taken" },
+	["^marauder: melee skills have "] = { flags = ModFlag.Melee, tag = { type = "Condition", var = "ConnectedToMarauderStart" } },
+	["^duelist: "] = { tag = { type = "Condition", var = "ConnectedToDuelistStart" } },
+	["^ranger: "] = { tag = { type = "Condition", var = "ConnectedToRangerStart" } },
+	["^shadow: "] = { tag = { type = "Condition", var = "ConnectedToShadowStart" } },
+	["^witch: "] = { tag = { type = "Condition", var = "ConnectedToWitchStart" } },
+	["^templar: "] = { tag = { type = "Condition", var = "ConnectedToTemplarStart" } },
+	["^scion: "] = { tag = { type = "Condition", var = "ConnectedToScionStart" } },
 }
 
 -- List of modifier tags
@@ -491,6 +500,7 @@ local modTagList = {
 	["per frenzy charge"] = { tag = { type = "Multiplier", var = "FrenzyCharge" } },
 	["per endurance charge"] = { tag = { type = "Multiplier", var = "EnduranceCharge" } },
 	["per level"] = { tag = { type = "Multiplier", var = "Level" } },
+	["per (%d+) player levels"] = function(num) return { tag = { type = "Multiplier", var = "Level", div = num } } end,
 	["for each normal item you have equipped"] = { tag = { type = "Multiplier", var = "NormalItem" } },
 	["for each magic item you have equipped"] = { tag = { type = "Multiplier", var = "MagicItem" } },
 	["for each rare item you have equipped"] = { tag = { type = "Multiplier", var = "RareItem" } },
@@ -505,6 +515,7 @@ local modTagList = {
 	["per (%d+) dexterity"] = function(num) return { tag = { type = "PerStat", stat = "Dex", div = num } } end,
 	["per (%d+) intelligence"] = function(num) return { tag = { type = "PerStat", stat = "Int", div = num } } end,
 	["per (%d+) evasion rating"] = function(num) return { tag = { type = "PerStat", stat = "Evasion", div = num } } end,
+	["per (%d+) evasion rating, up to (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "Evasion", div = num, limit = tonumber(limit) } } end,
 	["per (%d+) accuracy rating"] = function(num) return { tag = { type = "PerStat", stat = "Accuracy", div = num } } end,
 	["per (%d+)%% block chance"] = function(num) return { tag = { type = "PerStat", stat = "BlockChance", div = num } } end,
 	["per (%d+) of the lowest of armour and evasion rating"] = function(num) return { tag = { type = "PerStat", stat = "LowestOfArmourAndEvasion", div = num } } end,
@@ -814,6 +825,7 @@ local specialModList = {
 	-- Item local modifiers
 	["has no sockets"] = { },
 	["has 1 socket"] = { },
+	["has 1 abyssal socket"] = { },
 	["no physical damage"] = { mod("WeaponData", "LIST", { key = "PhysicalMin" }), mod("WeaponData", "LIST", { key = "PhysicalMax" }), mod("WeaponData", "LIST", { key = "PhysicalDPS" }) },
 	["all attacks with this weapon are critical strikes"] = { mod("WeaponData", "LIST", { key = "CritChance", value = 100 }) },
 	["counts as dual wielding"] = { mod("WeaponData", "LIST", { key = "countsAsDualWielding", value = true}) },
@@ -827,11 +839,14 @@ local specialModList = {
 	["gain life from leech instantly from hits with this weapon"] = { flag("InstantLifeLeech", { type = "Condition", var = "XHandAttack" }) },
 	["instant recovery"] = {  mod("FlaskInstantRecovery", "BASE", 100) },
 	["(%d+)%% of recovery applied instantly"] = function(num) return { mod("FlaskInstantRecovery", "BASE", num) } end,
+	["has no attribute requirements"] = { flag("NoAttributeRequirements") },
 	-- Socketed gem modifiers
 	["%+(%d+) to level of socketed gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "level", value = num }, { type = "SocketedIn" }) } end,
 	["%+(%d+) to level of socketed (%a+) gems"] = function(num, _, type) return { mod("GemProperty", "LIST", { keyword = type, key = "level", value = num }, { type = "SocketedIn" }) } end,
 	["%+(%d+)%% to quality of socketed (%a+) gems"] = function(num, _, type) return { mod("GemProperty", "LIST", { keyword = type, key = "quality", value = num }, { type = "SocketedIn" }) } end,
 	["%+(%d+) to level of active socketed skill gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "active_skill", key = "level", value = num }, { type = "SocketedIn" }) } end,
+	["%+(%d+) to level of socketed active skill gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "active_skill", key = "level", value = num }, { type = "SocketedIn" }) } end,
+	["%+(%d+) to level of socketed active skill gems per (%d+) player levels"] = function(num, _, div) return { mod("GemProperty", "LIST", { keyword = "active_skill", key = "level", value = num }, { type = "SocketedIn" }, { type = "Multiplier", var = "Level", div = tonumber(div) }) } end,
 	["socketed gems fire an additional projectile"] = { mod("ExtraSkillMod", "LIST", { mod = mod("ProjectileCount", "BASE", 1) }, { type = "SocketedIn" }) },
 	["socketed gems fire (%d+) additional projectiles"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("ProjectileCount", "BASE", num) }, { type = "SocketedIn" }) } end,
 	["socketed gems reserve no mana"] = { mod("ManaReserved", "MORE", -100, { type = "SocketedIn" }) },
@@ -880,6 +895,7 @@ local specialModList = {
 	["critical strike chance is increased by lightning resistance"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "LightningResist", div = 1 }) },
 	["non%-critical strikes deal (%d+)%% damage"] = function(num) return { mod("Damage", "MORE", -100+num, nil, ModFlag.Hit, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
 	-- Elemental Ailments
+	["your elemental damage can shock"] = { flag("ColdCanShock"), flag("FireCanShock") },
 	["your cold damage can ignite"] = { flag("ColdCanIgnite") },
 	["your fire damage can shock but not ignite"] = { flag("FireCanShock"), flag("FireCannotIgnite") },
 	["your cold damage can ignite but not freeze or chill"] = { flag("ColdCanIgnite"), flag("ColdCannotFreeze"), flag("ColdCannotChill") },
@@ -932,7 +948,8 @@ local specialModList = {
 	["totems fire (%d+) additional projectiles"] = function(num) return { mod("ProjectileCount", "BASE", num, nil, 0, KeywordFlag.Totem) } end,
 	["([%d%.]+)%% of damage dealt by y?o?u?r? ?totems is leeched to you as life"] = function(num) return { mod("DamageLifeLeechToPlayer", "BASE", num, nil, 0, KeywordFlag.Totem) } end,
 	-- Minions
-	["your strength is added to your minions"] = { flag("StrengthAddedToMinions") },
+	["your strength is added to your minions"] = { flag("HalfStrengthAddedToMinions") },
+	["half of your strength is added to your minions"] = { flag("HalfStrengthAddedToMinions") },
 	["minions poison enemies on hit"] = { mod("MinionModifier", "LIST", { mod = mod("PoisonChance", "BASE", 100) }) },
 	["minions have (%d+)%% chance to poison enemies on hit"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PoisonChance", "BASE", num) }) } end,
 	["(%d+)%% increased minion damage if you have hit recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "Condition", var = "HitRecently" }) } end,
@@ -981,6 +998,7 @@ local specialModList = {
 	["leech applies instantly during flask effect"] = { flag("InstantLifeLeech", { type = "Condition", var = "UsingFlask" }), flag("InstantManaLeech", { type = "Condition", var = "UsingFlask" }) },
 	["gain life and mana from leech instantly during flask effect"] = { flag("InstantLifeLeech", { type = "Condition", var = "UsingFlask" }), flag("InstantManaLeech", { type = "Condition", var = "UsingFlask" }) },
 	["with 5 corrupted items equipped: life leech recovers based on your chaos damage instead"] = { flag("LifeLeechBasedOnChaosDamage", { type = "MultiplierThreshold", var = "CorruptedItem", threshold = 5 }) },
+	["you have vaal pact if you've dealt a critical strike recently"] = { mod("Keystone", "LIST", "Vaal Pact", { type = "Condition", var = "CritRecently" }) },
 	-- Defences
 	["cannot evade enemy attacks"] = { flag("CannotEvade") },
 	["cannot block attacks"] = { flag("CannotBlockAttacks") },
@@ -990,6 +1008,7 @@ local specialModList = {
 	["evasion rating is increased by uncapped cold resistance"] = { mod("Evasion", "INC", 1, { type = "PerStat", stat = "ColdResistTotal", div = 1 }) },
 	["reflects (%d+) physical damage to melee attackers"] = { },
 	["ignore all movement penalties from armour"] = { flag("Condition:IgnoreMovementPenalties") },
+	["gain armour equal to your reserved mana"] = { mod("Armour", "BASE", 1, { type = "PerStat", stat = "ManaReserved", div = 1 }) },
 	["cannot be stunned"] = { mod("AvoidStun", "BASE", 100) },
 	["cannot be shocked"] = { mod("AvoidShock", "BASE", 100) },
 	["cannot be frozen"] = { mod("AvoidFreeze", "BASE", 100) },
@@ -1078,6 +1097,7 @@ local specialModList = {
 	-- Display-only modifiers
 	["prefixes:"] = { },
 	["suffixes:"] = { },
+	["while your passive skill tree connects to a class' starting location, you gain:"] = { },
 	["socketed lightning spells [hd][ae][va][el] (%d+)%% increased spell damage if triggered"] = { },
 	["manifest dancing dervish disables both weapon slots"] = { },
 	["manifest dancing dervish dies when rampage ends"] = { },
@@ -1173,6 +1193,7 @@ local regenTypes = {
 	["maximum life"] = "LifeRegen",
 	["life and mana"] = { "LifeRegen", "ManaRegen" },
 	["mana"] = "ManaRegen",
+	["maximum mana"] = "ManaRegen",
 	["energy shield"] = "EnergyShieldRegen",
 	["maximum mana and energy shield"] = { "ManaRegen", "EnergyShieldRegen" },
 }

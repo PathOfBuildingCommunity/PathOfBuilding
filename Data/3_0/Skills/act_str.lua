@@ -993,7 +993,7 @@ skills["FlameTotem"] = {
 	gemInt = 40,
 	color = 1,
 	description = "Summons a totem that fires a stream of flame at nearby enemies.",
-	skillTypes = { [2] = true, [3] = true, [10] = true, [12] = true, [17] = true, [19] = true, [30] = true, [33] = true, },
+	skillTypes = { [2] = true, [3] = true, [68] = true, [10] = true, [12] = true, [17] = true, [19] = true, [30] = true, [33] = true, },
 	skillTotemId = 8,
 	baseFlags = {
 		spell = true,
@@ -1478,6 +1478,7 @@ skills["HeraldOfAsh"] = {
 		skill("cooldown", 1), 
 		mod("PhysicalDamageGainAsFire", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"physical_damage_%_to_add_as_fire" = 15
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
+		--"herald_of_ash_burning_%_overkill_damage_per_minute" = 1500
 		--"is_area_damage" = ?
 		skill("radius", 10), 
 	},
@@ -2907,7 +2908,7 @@ skills["SummonFireGolem"] = {
 	color = 1,
 	description = "Summons a Flame Golem that grants you increased Damage. The Flame Golem can use a fire spray, a wave of fire damage, and an explosive arcing projectile.",
 	skillTypes = { [36] = true, [33] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, [62] = true, },
-	minionSkillTypes = { [10] = true, [11] = true, [3] = true, [2] = true, },
+	minionSkillTypes = { [10] = true, [11] = true, [3] = true, [68] = true, [2] = true, },
 	minionList = {
 		"SummonedFlameGolem",
 	},
@@ -3445,6 +3446,81 @@ skills["Vitality"] = {
 		[30] = { 90, 2.15, 29, },
 	},
 }
+skills["Vulnerability"] = {
+	name = "Vulnerability",
+	gemTags = {
+		curse = true,
+		strength = true,
+		active_skill = true,
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	gemTagString = "Curse, Spell, AoE, Duration",
+	gemStr = 100,
+	gemDex = 0,
+	gemInt = 0,
+	color = 1,
+	description = "Curse all targets in an area, causing them to take increased physical damage and further increased physical damage over time. Attacks against cursed enemies have a chance to inflict bleeding and maim.",
+	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, [67] = true, },
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 0.5), 
+		skill("duration", 9), --"base_skill_effect_duration" = 9000
+		mod("SelfBleedChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"receive_bleeding_chance_%_when_hit_by_attack" = 20
+		--"chance_to_be_maimed_when_hit_%" = 20
+		mod("PhysicalDamageTakenOverTime", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"base_physical_damage_over_time_taken_+%" = 30
+		--"base_deal_no_damage" = ?
+		skill("debuff", true), 
+		skill("radius", 22), 
+	},
+	qualityMods = {
+		mod("SelfBleedChance", "BASE", 0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"receive_bleeding_chance_%_when_hit_by_attack" = 0.5
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+		[3] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
+		[4] = mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"physical_damage_taken_+%"
+	},
+	levels = {
+		[1] = { 24, 24, 0, 30, },
+		[2] = { 27, 26, 1, 30, },
+		[3] = { 30, 27, 1, 31, },
+		[4] = { 33, 29, 2, 31, },
+		[5] = { 36, 30, 2, 32, },
+		[6] = { 39, 32, 3, 32, },
+		[7] = { 42, 34, 3, 33, },
+		[8] = { 45, 35, 4, 33, },
+		[9] = { 48, 37, 4, 34, },
+		[10] = { 50, 38, 5, 34, },
+		[11] = { 52, 39, 5, 35, },
+		[12] = { 54, 40, 6, 35, },
+		[13] = { 56, 42, 6, 36, },
+		[14] = { 58, 43, 7, 36, },
+		[15] = { 60, 44, 7, 37, },
+		[16] = { 62, 45, 8, 37, },
+		[17] = { 64, 46, 8, 38, },
+		[18] = { 66, 47, 9, 38, },
+		[19] = { 68, 48, 9, 39, },
+		[20] = { 70, 50, 10, 39, },
+		[21] = { 72, 51, 10, 40, },
+		[22] = { 74, 52, 11, 40, },
+		[23] = { 76, 53, 11, 41, },
+		[24] = { 78, 54, 12, 41, },
+		[25] = { 80, 56, 12, 42, },
+		[26] = { 82, 57, 13, 42, },
+		[27] = { 84, 58, 13, 43, },
+		[28] = { 86, 59, 14, 43, },
+		[29] = { 88, 60, 14, 44, },
+		[30] = { 90, 61, 15, 44, },
+	},
+}
 skills["WarlordsMark"] = {
 	name = "Warlord's Mark",
 	gemTags = {
@@ -3461,7 +3537,7 @@ skills["WarlordsMark"] = {
 	gemInt = 0,
 	color = 1,
 	description = "Curses all targets in an area, making them more vulnerable to stuns. Hitting the cursed targets will leech life and mana, and killing them will result in a chance to gain an endurance charge.",
-	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, },
+	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, [67] = true, },
 	baseFlags = {
 		spell = true,
 		curse = true,

@@ -21,7 +21,7 @@ local skills, mod, flag, skill = ...
 #setMod attack_maximum_added_physical_damage==mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", {val}, 0, KeywordFlag.Attack) })
 #mods
 
-#skill NewArcticArmour
+#skill ArcticArmour
 #flags spell duration cold
 #mods
 
@@ -140,6 +140,10 @@ local skills, mod, flag, skill = ...
 #skill ChargedDash
 #flags attack melee area
 #setMod base_skill_show_average_damage_instead_of_dps==nil
+#mods
+
+#skill CorpseEruption
+#flags spell projectile fire
 #mods
 
 #skill Cyclone
@@ -510,9 +514,17 @@ local skills, mod, flag, skill = ...
 #flags attack projectile
 #mods
 
+#skill BoneLance
+#flags spell projectile
+#mods
+
 #skill ViperStrike
 #flags attack melee duration chaos
 #baseMod skill("poisonIsSkillEffect", true)
+#mods
+
+#skill VolatileDead
+#flags spell area fire
 #mods
 
 #skill WhirlingBlades

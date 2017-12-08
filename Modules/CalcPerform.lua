@@ -400,6 +400,9 @@ function calcs.perform(env)
 		if modDB:Sum("FLAG", nil, "StrengthAddedToMinions") then
 			env.minion.modDB:NewMod("Str", "BASE", round(calcLib.val(modDB, "Str")), "Player")
 		end
+		if modDB:Sum("FLAG", nil, "HalfStrengthAddedToMinions") then
+			env.minion.modDB:NewMod("Str", "BASE", round(calcLib.val(modDB, "Str") * 0.5), "Player")
+		end
 	end
 	if env.aegisModList then
 		env.player.itemList["Weapon 2"] = nil

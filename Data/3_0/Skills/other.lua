@@ -11,7 +11,7 @@ skills["Melee"] = {
 	hidden = true,
 	color = 4,
 	description = "Strike your foes down with a powerful blow.",
-	skillTypes = { [1] = true, [48] = true, [6] = true, [3] = true, [25] = true, [28] = true, [24] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [6] = true, [3] = true, [25] = true, [28] = true, [24] = true, },
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -235,7 +235,7 @@ skills["TriggeredBoneNova"] = {
 	hidden = true,
 	color = 4,
 	description = "A spiral of bones erupts around you, dealing physical damage.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [10] = true, [57] = true, [47] = true, [61] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [10] = true, [57] = true, [47] = true, [61] = true, },
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -536,7 +536,7 @@ skills["IcestormUniqueStaff12"] = {
 	hidden = true,
 	color = 3,
 	description = "Icy bolts rain down over the targeted area. They explode when landing, dealing damage to nearby enemies and chilling them, as well as causing patches of chilled ground. Skill damage is based on Intelligence.",
-	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, },
+	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, [67] = true, },
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -687,6 +687,7 @@ skills["UniqueAnimateWeapon"] = {
 		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 110, ModFlag.Attack) }), --"attack_damage_+%" = 110
 		--"chance_to_cast_on_rampage_tier_%" = 100
 		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 30) }), --"minion_movement_speed_+%" = 30
+		--"minion_grants_rampage_kill_to_parent_on_hitting_unique_enemy_%" = 25
 		mod("DisableWeapons", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), 
 		mod("Condition:Onslaught", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), 
 		skill("minionLevel", 59), 
@@ -758,6 +759,7 @@ skills["TriggeredSummonSpider"] = {
 		--"take_no_actions_while_parent_dead" = ?
 		--"minion_dies_when_parent_dies" = ?
 		skill("minionLevelIsEnemyLevel", true), --"display_skill_minions_level_is_corpse_level" = ?
+		--"minions_cannot_taunt_enemies" = ?
 	},
 	qualityMods = {
 	},
@@ -901,7 +903,7 @@ skills["SummonBeastialSnake"] = {
 	color = 3,
 	description = "Summons a Bestial Snake. The Bestial Snake fires powerful chaos projectile attacks. This minion's hits cannot be evaded.",
 	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
-	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, [3] = true, [23] = true, [48] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, [3] = true, [68] = true, [23] = true, [48] = true, },
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -986,6 +988,7 @@ skills["SummonEssenceSpirits"] = {
 		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 		--"take_no_actions_while_parent_dead" = ?
 		--"minion_dies_when_parent_dies" = ?
+		--"minions_cannot_taunt_enemies" = ?
 	},
 	qualityMods = {
 	},
@@ -1220,7 +1223,7 @@ skills["VoidGaze"] = {
 	hidden = true,
 	color = 3,
 	description = "Applies a debuff to Enemies, removing some of their resistance to Chaos damage.",
-	skillTypes = { [2] = true, [50] = true, [11] = true, [18] = true, [58] = true, [12] = true, [61] = true, [36] = true, },
+	skillTypes = { [2] = true, [50] = true, [11] = true, [18] = true, [12] = true, [61] = true, [36] = true, },
 	fromItem = true,
 	baseFlags = {
 		spell = true,

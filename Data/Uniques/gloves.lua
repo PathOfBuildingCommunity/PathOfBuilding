@@ -6,6 +6,7 @@ return {
 Atziri's Acuity
 Vaal Gauntlets
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.1.0
 Variant: Current
 Requires Level 75, 100 Str
 +(60-80) to Intelligence
@@ -14,6 +15,7 @@ Requires Level 75, 100 Str
 (25-35)% increased Global Critical Strike Chance
 {variant:1}Leech applies instantly on Critical Strike
 {variant:2}Gain Life and Mana from Leech instantly on Critical Strike
+{variant:3}You have Vaal Pact if you've dealt a Critical Strike Recently
 ]],[[
 Doryani's Fist
 Vaal Gauntlets

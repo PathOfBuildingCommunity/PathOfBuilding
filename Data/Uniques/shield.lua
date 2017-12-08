@@ -541,14 +541,18 @@ Socketed Gems have 25% reduced Mana Reservation
 Rise of the Phoenix
 Mosaic Kite Shield
 Variant: Pre 1.1.0
+Variant: {2_6}Pre 3.1.0
 Variant: Current
 Requires Level 65, 85 Str, 85 Int
 Implicits: 2
 {variant:1}+16% to all Elemental Resistances
-{variant:2}+8% to all Elemental Resistances
+{variant:2,3}+8% to all Elemental Resistances
+{variant:3}+(40-60) Maximum Life
 (80-100)% increased Armour and Energy Shield
-6 Life Regenerated per second
-+8% to maximum Fire Resistance
+{variant:1,2}6 Life Regenerated per second 
+{variant:3}(15-20) Life Regenerated per second
+{variant:1,2}+8% to maximum Fire Resistance 
+{variant:3}+5% to maximum Fire Resistance
 +(20-25)% to Fire Resistance
 25% increased Fire Resistance while on Low Life
 10% increased Movement Speed when on Low Life
