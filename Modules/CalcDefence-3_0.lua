@@ -180,7 +180,7 @@ function calcs.defence(env, actor)
 			output.ProjectileEvadeChance = 0
 		else
 			local enemyAccuracy = round(calcLib.val(enemyDB, "Accuracy"))
-			output.EvadeChance = 100 - calcLib.hitChance(output.Evasion, enemyAccuracy) * calcLib.mod(enemyDB, nil, "HitChance")
+			output.EvadeChance = 100 - (calcLib.hitChance(output.Evasion, enemyAccuracy) - modDB:Sum("BASE", nil, "EvadeChance")) * calcLib.mod(enemyDB, nil, "HitChance")
 			if breakdown then
 				breakdown.EvadeChance = {
 					s_format("Enemy level: %d ^8(%s the Configuration tab)", env.enemyLevel, env.configInput.enemyLevel and "overridden from" or "can be overridden in"),

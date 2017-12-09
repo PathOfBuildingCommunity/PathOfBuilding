@@ -336,7 +336,6 @@ local skills, mod, flag, skill = ...
 
 #skill LightningTendrilsChannelled
 #flags spell area lightning
-#baseMod skill("dpsMultiplier", 4)
 #baseMod skill("radius", 22)
 #mods
 

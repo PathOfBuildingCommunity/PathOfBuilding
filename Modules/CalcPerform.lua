@@ -159,6 +159,11 @@ local function doActorAttribsPoolsConditions(env, actor)
 		end
 	end
 
+	output.LowestAttribute = m_min(output.Str, output.Dex, output.Int)
+	condList["DexHigherThanInt"] = output.Dex > output.Int
+	condList["StrHigherThanDex"] = output.Str > output.Dex
+	condList["IntHigherThanStr"] = output.Int > output.Str
+
 	-- Add attribute bonuses
 	modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
 	local strDmgBonusRatioOverride = modDB:Sum("BASE", nil, "StrDmgBonusRatioOverride")
@@ -641,6 +646,7 @@ function calcs.perform(env)
 					if not activeSkill.skillData.auraCannotAffectSelf then
 						activeSkill.buffSkill = true
 						affectedByAura[env.player] = true
+						modDB.conditions["AffectedBy"..buff.name] = true
 						local srcList = common.New("ModList")
 						local inc = modDB:Sum("INC", skillCfg, "AuraEffect", "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
 						local more = modDB:Sum("MORE", skillCfg, "AuraEffect", "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")
@@ -651,6 +657,7 @@ function calcs.perform(env)
 					if env.minion and not modDB:Sum("FLAG", nil, "YourAurasCannotAffectAllies") then
 						activeSkill.minionBuffSkill = true
 						affectedByAura[env.minion] = true
+						env.minion.modDB.conditions["AffectedBy"..buff.name] = true
 						local srcList = common.New("ModList")
 						local inc = modDB:Sum("INC", skillCfg, "AuraEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
 						local more = modDB:Sum("MORE", skillCfg, "AuraEffect") * env.minion.modDB:Sum("MORE", nil, "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")

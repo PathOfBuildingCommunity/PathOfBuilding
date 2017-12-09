@@ -38,6 +38,8 @@ local formList = {
 	["^regenerate ([%d%.]+)%% (.+) per second"] = "REGENPERCENT",
 	["^regenerate ([%d%.]+)%% of (.+) per second"] = "REGENPERCENT",
 	["^regenerate ([%d%.]+)%% of your (.+) per second"] = "REGENPERCENT",
+	["^([%d%.]+) (%a+) damage taken per second"] = "DEGEN",
+	["^([%d%.]+) (%a+) damage per second"] = "DEGEN",
 	["(%d+) to (%d+) added (%a+) damage"] = "DMG",
 	["(%d+)%-(%d+) added (%a+) damage"] = "DMG",
 	["(%d+) to (%d+) additional (%a+) damage"] = "DMG",
@@ -96,7 +98,9 @@ local modNameList = {
 	["evasion and energy shield"] = "EvasionAndEnergyShield",
 	["armour, evasion and energy shield"] = "Defences",
 	["defences"] = "Defences",
+	["to evade"] = "EvadeChance",
 	["chance to evade"] = "EvadeChance",
+	["to evade attacks"] = "EvadeChance",
 	["chance to evade attacks"] = "EvadeChance",
 	["chance to evade projectile attacks"] = "ProjectileEvadeChance",
 	["chance to evade melee attacks"] = "MeleeEvadeChance",
@@ -119,13 +123,20 @@ local modNameList = {
 	["all maximum resistances"] = { "FireResistMax", "ColdResistMax", "LightningResistMax", "ChaosResistMax" },
 	-- Damage taken
 	["damage taken"] = "DamageTaken",
-	["physical damage taken"] = "PhysicalDamageTaken",
-	["lightning damage taken"] = "LightningDamageTaken",
-	["cold damage taken"] = "ColdDamageTaken",
-	["fire damage taken"] = "FireDamageTaken",
-	["chaos damage taken"] = "ChaosDamageTaken",
-	["elemental damage taken"] = "ElementalDamageTaken",
+	["damage taken when hit"] = "DamageTakenWhenHit",
 	["damage taken from damage over time"] = "DamageTakenOverTime",
+	["physical damage taken"] = "PhysicalDamageTaken",
+	["physical damage taken when hit"] = "PhysicalDamageTakenWhenHit",
+	["lightning damage taken"] = "LightningDamageTaken",
+	["lightning damage taken when hit"] = "LightningDamageTakenWhenHit",
+	["cold damage taken"] = "ColdDamageTaken",
+	["cold damage taken when hit"] = "ColdDamageTakenWhenHit",
+	["fire damage taken"] = "FireDamageTaken",
+	["fire damage taken when hit"] = "FireDamageTakenWhenHit",
+	["chaos damage taken"] = "ChaosDamageTaken",
+	["chaos damage taken when hit"] = "ChaosDamageTakenWhenHit",
+	["elemental damage taken"] = "ElementalDamageTaken",
+	["elemental damage taken when hit"] = "ElementalDamageTakenWhenHit",
 	["chaos damage taken over time"] = "ChaosDamageTakenOverTime",
 	-- Other defences
 	["to dodge attacks"] = "AttackDodgeChance",
@@ -518,6 +529,7 @@ local modTagList = {
 	["per (%d+) strength"] = function(num) return { tag = { type = "PerStat", stat = "Str", div = num } } end,
 	["per (%d+) dexterity"] = function(num) return { tag = { type = "PerStat", stat = "Dex", div = num } } end,
 	["per (%d+) intelligence"] = function(num) return { tag = { type = "PerStat", stat = "Int", div = num } } end,
+	["per (%d+) of your lowest attribute"] = function(num) return { tag = { type = "PerStat", stat = "LowestAttribute", div = num } } end,
 	["per (%d+) evasion rating"] = function(num) return { tag = { type = "PerStat", stat = "Evasion", div = num } } end,
 	["per (%d+) evasion rating, up to (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "Evasion", div = num, limit = tonumber(limit) } } end,
 	["per (%d+) accuracy rating"] = function(num) return { tag = { type = "PerStat", stat = "Accuracy", div = num } } end,
@@ -578,6 +590,7 @@ local modTagList = {
 	["while at maximum power charges"] = { tag = { type = "Condition", var = "AtMaxPowerCharges" } },
 	["while at maximum frenzy charges"] = { tag = { type = "Condition", var = "AtMaxFrenzyCharges" } },
 	["while at maximum endurance charges"] = { tag = { type = "Condition", var = "AtMaxEnduranceCharges" } },
+	["while affected by (%a+)"] = function(_, buff) return { tag = { type = "Condition", var = "AffectedBy"..buff:sub(1,1):upper()..buff:sub(2) } } end,
 	["while you have a totem"] = { tag = { type = "Condition", var = "HaveTotem" } },
 	["while you have fortify"] = { tag = { type = "Condition", var = "Fortify" } },
 	["during onslaught"] = { tag = { type = "Condition", var = "Onslaught" } },
@@ -1020,6 +1033,9 @@ local specialModList = {
 	["cannot be frozen"] = { mod("AvoidFreeze", "BASE", 100) },
 	["cannot be chilled"] = { mod("AvoidChill", "BASE", 100) },
 	["cannot be ignited"] = { mod("AvoidIgnite", "BASE", 100) },
+	["cannot be shocked if intelligence is higher than strength"] = { mod("AvoidShock", "BASE", 100, { type = "Condition", var = "IntHigherThanStr" }) },
+	["cannot be frozen if dexterity is higher than intelligence"] = { mod("AvoidFreeze", "BASE", 100, { type = "Condition", var = "DexHigherThanInt" }) },
+	["cannot be ignited if strength is higher than dexterity"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "StrHigherThanDex" }) },
 	["you are immune to bleeding"] = { mod("AvoidBleed", "BASE", 100) },
 	["immunity to shock during flask effect"] = { mod("AvoidShock", "BASE", 100, { type = "Condition", var = "UsingFlask" }) },
 	["immunity to freeze and chill during flask effect"] = { 
@@ -1063,7 +1079,6 @@ local specialModList = {
 		mod("FirePenetration", "BASE", num, { type = "Condition", var = "UncappedFireResistIsHighest" }),
 	} end,
 	["(%d+)%% of maximum life taken as chaos damage per second"] = function(num) return { mod("ChaosDegen", "BASE", num/100, { type = "PerStat", stat = "Life", div = 1 }) } end,
-	["take (%d+) chaos damage per second during flask effect"] = function(num) return { mod("ChaosDegen", "BASE", num) } end,
 	["your critical strikes do not deal extra damage during flask effect"] = { flag("NoCritMultiplier", { type = "Condition", var = "UsingFlask" }) },
 	["grants perfect agony during flask effect"] = { mod("Keystone", "LIST", "Perfect Agony", { type = "Condition", var = "UsingFlask" }) },
 	-- Jewels
@@ -1084,6 +1099,7 @@ local specialModList = {
 	["spectres have a base duration of (%d+) seconds"] = function(num) return { mod("SkillData", "LIST", { key = "duration", value = 6 }, { type = "SkillName", skillName = "Raise Spectre" }) } end,
 	-- Misc
 	["iron will"] = { flag("IronWill") },
+	["iron reflexes while stationary"] = { mod("Keystone", "LIST", "Iron Reflexes", { type = "Condition", var = "Stationary" }) },
 	["deal no physical damage"] = { flag("DealNoPhysical") },
 	["deal no elemental damage"] = { flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoFire") },
 	["attacks have blood magic"] = { flag("SkillBloodMagic", nil, ModFlag.Attack) },
@@ -1488,6 +1504,13 @@ local function parseMod(line, order)
 		modSuffix = "Percent"
 	elseif modForm == "REGENFLAT" then
 		modName = regenTypes[formCap[2]]
+	elseif modForm == "DEGEN" then
+		local damageType = dmgTypes[formCap[2]]
+		if not damageType then
+			return { }, line
+		end
+		modName = damageType .. "Degen"
+		modSuffix = ""
 	elseif modForm == "DMG" then
 		local damageType = dmgTypes[formCap[3]]
 		if not damageType then

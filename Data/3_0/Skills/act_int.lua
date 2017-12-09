@@ -3517,7 +3517,6 @@ skills["LightningTendrilsChannelled"] = {
 		--"lightning_tendrils_channelled_larger_pulse_damage_+%_final" = 50
 		--"lightning_tendrils_channelled_larger_pulse_interval" = 4
 		--"is_area_damage" = ?
-		skill("dpsMultiplier", 4), 
 		skill("radius", 22), 
 	},
 	qualityMods = {
