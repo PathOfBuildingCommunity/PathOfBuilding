@@ -41,11 +41,11 @@ local skills, mod, flag, skill = ...
 	setupFunc = function(actor, output)
 		local skillData = actor.mainSkill.skillData
 		if actor.mainSkill.skillFlags.totem then
-			skillData.FireMin = skillData.FireMin + output.TotemLife * skillData.selfFireExplosionLifeMultiplier
-			skillData.FireMax = skillData.FireMax + output.TotemLife * skillData.selfFireExplosionLifeMultiplier
+			skillData.FireBonusMin = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
+			skillData.FireBonusMax = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
 		else
-			skillData.FireMin = skillData.FireMin + output.Life * skillData.selfFireExplosionLifeMultiplier
-			skillData.FireMax = skillData.FireMax + output.Life * skillData.selfFireExplosionLifeMultiplier
+			skillData.FireBonusMin = output.Life * skillData.selfFireExplosionLifeMultiplier
+			skillData.FireBonusMax = output.Life * skillData.selfFireExplosionLifeMultiplier
 		end
 	end,
 #mods
@@ -384,7 +384,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill RaiseSpectre
-#flags spell minion spectre
+#flags spell minion spectre duration
 #setMod accuracy_rating==mod("MinionModifier", "LIST", { mod = mod("Accuracy", "BASE", nil) })
 	minionList = {
 	},

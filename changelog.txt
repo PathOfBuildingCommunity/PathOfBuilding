@@ -1,3 +1,18 @@
+VERSION[1.4.68][2017/12/09]
+ * Added the following new uniques:
+    * Bloodbond (including partial support for the Blood Offering skill; only the damage bonus works at present)
+	* Bubonic Trail (including the Death Walk skill)
+    * Coralito's Signature
+	* The Golden Rule
+	* Invictus Solaris
+    * Iron Heart
+	* Kalisa's Grace
+	* The Long Winter
+	* Oskarm
+	* Soul's Wick
+ * The "Corpse Life" option has been moved from the Skill Options section to the General section of the
+   Configuration tab, as it is now used by several skills
+ * Added an option to the Configuration tab for "# of Poison on You"
 VERSION[1.4.67][2017/12/09]
  * Fixed error that occurs when trying to import a character's items
 VERSION[1.4.66][2017/12/09]

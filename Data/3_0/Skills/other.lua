@@ -230,6 +230,39 @@ skills["RepeatingShockwave"] = {
 		[7] = { 1, },
 	},
 }
+skills["BloodOffering"] = {
+	name = "Blood Offering",
+	hidden = true,
+	color = 3,
+	description = "Consumes a corpse, and sacrifices a portion of your life, granting your minions life regeneration based on the life sacrificed, and a bonus to damage. The skill consumes other nearby corpses, increasing the duration and life regeneration for each corpse consumed.",
+	skillTypes = { [2] = true, [5] = true, [12] = true, [36] = true, [9] = true, [49] = true, [17] = true, [19] = true, [18] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("duration", 3), --"base_skill_effect_duration" = 3000
+		--"offering_skill_effect_duration_per_corpse" = 500
+		--"blood_offering_%_of_life_to_lose" = 20
+		--"blood_offering_%_of_lost_life_to_regenerate_as_life_per_second" = 35
+		--"blood_offering_life_regenerated_+%_final_per_corpse" = 5
+		mod("Damage", "INC", 50, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"damage_+%" = 50
+		--"base_deal_no_damage" = ?
+		skill("buffMinions", true), 
+		skill("buffNotPlayer", true), 
+	},
+	qualityMods = {
+		mod("Duration", "INC", 0.5), --"skill_effect_duration_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[15] = { 12, },
+	},
+}
 skills["TriggeredBoneNova"] = {
 	name = "Bone Nova",
 	hidden = true,
@@ -251,6 +284,32 @@ skills["TriggeredBoneNova"] = {
 		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 		--"base_is_projectile" = ?
 		flag("CannotBleed"), --"cannot_cause_bleeding" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 1, },
+	},
+}
+skills["ColdAegis"] = {
+	name = "Cold Aegis",
+	hidden = true,
+	color = 4,
+	description = "Calls forth a protective aegis which takes cold damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking cold damage from hits.",
+	skillTypes = { [2] = true, [36] = true, [42] = true, [61] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		--"aegis_unique_shield_max_value" = 1000
+		--"active_skill_display_aegis_variation" = 1
+		--"cast_on_gain_skill" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 	},
 	qualityMods = {
 	},
@@ -342,6 +401,39 @@ skills["ChaosDegenAuraUnique"] = {
 	},
 	levels = {
 		[20] = { 62, },
+	},
+}
+skills["DeathWalk"] = {
+	name = "Death Walk",
+	hidden = true,
+	color = 4,
+	description = "While you walk, this skill causes corpses near your steps to explode, dealing fire damage in an area. The explosions of the corpses are not affected by modifiers to spell damage, and cannot be reflected.",
+	skillTypes = { [11] = true, [36] = true, [42] = true, [2] = true, [10] = true, [61] = true, [33] = true, },
+	fromItem = true,
+	baseFlags = {
+		cast = true,
+		area = true,
+		chaos = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("corpseExplosionLifeMultiplier", 0.05), --"corpse_explosion_monster_life_%" = 5
+		--"cast_on_gain_skill" = ?
+		--"cannot_knockback" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+		--"is_area_damage" = ?
+		--"skill_can_add_multiple_charges_per_action" = ?
+		--"damage_cannot_be_reflected" = ?
+		skill("explodeCorpse", true), 
+		skill("showAverage", true), 
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 60, },
 	},
 }
 skills["TouchOfGod"] = {
@@ -439,6 +531,32 @@ skills["Envy"] = {
 	},
 	levels = {
 		[15] = { 60, },
+	},
+}
+skills["FireAegis"] = {
+	name = "Fire Aegis",
+	hidden = true,
+	color = 4,
+	description = "Calls forth a protective aegis which takes fire damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking fire damage from hits.",
+	skillTypes = { [2] = true, [36] = true, [42] = true, [61] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		--"aegis_unique_shield_max_value" = 1000
+		--"active_skill_display_aegis_variation" = 0
+		--"cast_on_gain_skill" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 1, },
 	},
 }
 skills["FireBurstOnHit"] = {

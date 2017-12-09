@@ -1485,13 +1485,6 @@ skills["DetonateDead"] = {
 	color = 2,
 	description = "Targets a corpse, and deals spell damage to enemies around the corpse, as well as causing the corpse to explode, dealing fire damage. The explosion is not affected by modifiers to spell damage and cannnot be reflected.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, [67] = true, },
-	setupFunc = function(actor, output)
-		local skillData = actor.mainSkill.skillData
-		if skillData.corpseLife then
-			skillData.FireMin = skillData.FireMin + skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
-			skillData.FireMax = skillData.FireMax + skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
-		end
-	end,
 	baseFlags = {
 		cast = true,
 		area = true,
@@ -1503,6 +1496,7 @@ skills["DetonateDead"] = {
 		skill("corpseExplosionLifeMultiplier", 0.06), --"corpse_explosion_monster_life_%" = 6
 		--"is_area_damage" = ?
 		skill("radius", 22), 
+		skill("explodeCorpse", true), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
@@ -1564,13 +1558,6 @@ skills["VaalDetonateDead"] = {
 	color = 2,
 	description = "Explodes an unused corpse, dealing fire damage to nearby enemies. Nearby corpses will also explode in a chain reaction. The explosions are not affected by modifiers to spell damage.",
 	skillTypes = { [39] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [43] = true, [33] = true, },
-	setupFunc = function(actor, output)
-		local skillData = actor.mainSkill.skillData
-		if skillData.corpseLife then
-			skillData.FireMin = skillData.FireMin + skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
-			skillData.FireMax = skillData.FireMax + skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
-		end
-	end,
 	baseFlags = {
 		cast = true,
 		area = true,
@@ -1584,6 +1571,7 @@ skills["VaalDetonateDead"] = {
 		--"display_skill_deals_secondary_damage" = ?
 		--"detonate_dead_chain_explode" = ?
 		--"damage_cannot_be_reflected" = ?
+		skill("explodeCorpse", true), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 1, ModFlag.Cast), --"base_cast_speed_+%" = 1

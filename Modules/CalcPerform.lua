@@ -39,6 +39,18 @@ local function mergeBuff(src, destTable, destKey)
 	end
 end
 
+-- Merge keystone modifiers
+local function mergeKeystones(env)
+	local modDB = env.modDB
+
+	for _, name in ipairs(modDB:Sum("LIST", nil, "Keystone")) do
+		if not env.keystonesAdded[name] then
+			env.keystonesAdded[name] = true
+			modDB:AddList(env.build.tree.keystoneMap[name].modList)
+		end
+	end
+end
+
 -- Calculate attributes and life/mana pools, and set conditions
 local function doActorAttribsPoolsConditions(env, actor)
 	local modDB = actor.modDB
@@ -149,7 +161,12 @@ local function doActorAttribsPoolsConditions(env, actor)
 
 	-- Add attribute bonuses
 	modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
-	actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) / 5)
+	local strDmgBonusRatioOverride = modDB:Sum("BASE", nil, "StrDmgBonusRatioOverride")
+	if strDmgBonusRatioOverride > 0 then
+		actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) * strDmgBonusRatioOverride)
+	else
+		actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) / 5)
+	end
 	modDB:NewMod("PhysicalDamage", "INC", actor.strDmgBonus, "Strength", ModFlag.Melee)
 	modDB:NewMod("Accuracy", "BASE", output.Dex * 2, "Dexterity")
 	if not modDB:Sum("FLAG", nil, "IronReflexes") then
@@ -304,15 +321,8 @@ function calcs.perform(env)
 	local enemyDB = env.enemyDB
 
 	-- Merge keystone modifiers
-	do
-		local keystoneList = wipeTable(tempTable1)
-		for _, name in ipairs(modDB:Sum("LIST", nil, "Keystone")) do
-			keystoneList[name] = true
-		end
-		for name in pairs(keystoneList) do
-			modDB:AddList(env.build.tree.keystoneMap[name].modList)
-		end
-	end
+	env.keystonesAdded = { }
+	mergeKeystones(env)
 
 	-- Build minion skills
 	for _, activeSkill in ipairs(env.activeSkillList) do
@@ -460,6 +470,9 @@ function calcs.perform(env)
 			end
 		end
 	end
+
+	-- Merge keystones again to catch any that were added by flasks
+	mergeKeystones(env)
 
 	-- Calculate skill life and mana reservations
 	env.player.reserved_LifeBase = 0
