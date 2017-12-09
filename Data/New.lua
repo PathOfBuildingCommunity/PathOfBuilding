@@ -157,7 +157,7 @@ Trigger a Socketed Spell when you Attack
 ]],[[
 Pure Talent
 Viridian Jewel
-Requires Level: 20
+Implicits: 0
 While your Passive Skill Tree connects to a class' Starting location, you gain:
 Marauder: Melee Skills have 15% increased Area of Effect
 Duelist: 1% of Attack Damage Leeched as Life
