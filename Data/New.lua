@@ -16,6 +16,16 @@ Every 16 seconds you gain iron Reflexes for 8 seconds
 30% increased Attack, Cast and Movements Speed while you do not have Iron Reflexes
 You have Far Shot while you do not have Iron Reflexes
 ]],[[
+Balefire
+Opal Sceptre
+Requires Level 60
+40% increased Elemental Damage
+Grants Level 25 Scorching Ray Skill
+16% increased Cast Speed
+Recover 3% of Maximum Life on Kill
+Recover 3% of Maximum Mana on Kill
+10% increased Scorching Ray beam length
+]],[[
 Bloodbond
 Bone Armour
 Requires Level: 35
@@ -45,6 +55,17 @@ Your Critical Strikes do not deal extra Damage during Flask effect
 (50–75)% increased Duration of Poisons you inflict during Flask effect 
 Grants Perfect Agony during Flask effect 
 ]],[[
+Cyclopean Coil
+Leather Belt
+Requires Level 68
++(25-40) to maximum Life
++80 to maximum Life
+13% increased Attributes
+Cannot be Frozen if Dexterity is higher than Intelligence
+Cannot be Ignited if Strength is higher than Dexterity
+Cannot be Shocked if Intelligence is higher than Strength
+1% increased Damage per 5 of your lowest Attribute
+]],[[
 Doedre's Skin
 Widowsilk Robe
 Requires Level: 65
@@ -64,12 +85,33 @@ Adds 4 to 12 Physical Damage to Attacks
 90% increased Armour
 Iron Grip
 ]],[[
+Gloomfang
+Blue Pearl Amulet
+Requires 77
+(48-56)% increased Mana Regeneration Rate
+0.5% of Chaos Damage Leeched as Life
+Lose 10 Life for each Enemy hit by your Spells
+Lose 20 Life for each Enemy hit by your Attacks
+Skills Chain +1 times
+Projectiles gain 19% of Non-Chaos Damage as Extra Chaos Damage per Chain
+]],[[
 The Golden Rule
 Viridian Jewel
 (30–40)% increased Armour while Bleeding 
 Bleeding you inflict is Reflected to you 
 +1% to Chaos Resistance per Poison on you 
 Poison you inflict is Reflected to you 
+]],[[
+Grelwood Shank
+Eternal Sword
+Requires Level 66
++475 to Accuracy Rating
+186% increased Physical Damage
+16% increased Attack Speed
+80% increased Armour while stationary
+2 additional Projectiles if you've been Hit Recently
+Point Blank
+Iron Reflexes while stationary
 ]],[[
 The Hungry Loop
 Unset Ring
@@ -78,6 +120,17 @@ Has 1 Socket
 Consumes Socketed Support Gems when they reach Maximum Level
 Can Consume 4 Support Gems
 Has not Consumed any Gems 
+]],[[
+Impresence
+Onyx Amulet
+Requires Level 64
++(10-16) to all Attributes
+Adds 21 to 35 Cold Damage
++59 to maximum Life
+46% increased Mana Regeneration Rate
++25% to Cold Resistance
+100% reduced Frostbite Mana Reservation
+Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy
 ]],[[
 Invictus Solaris
 Archon Kite Shield
@@ -135,6 +188,18 @@ Requires Level: 68
 +24% to Fire Resistance
 10% increased Mana Reserved
 Gain Armour equal to your Reserved Mana
+]],[[
+Nebuloch
+Nightmare Mace
+Requires Level 68
+10% reduced Enemy Stun Threshold
+Adds 47 to 116 Physical Damage
+Gain 32% of Physical Attack Damage as Extra Fire Damage
++4% to Chaos Resistance per Endurance Charge
+1% reduced Elemental Damage taken when Hit per Endurance Charge
+Adds 5 to 8 Physical Damage per Endurance Charge
++500 to Armour per Endurance Charge
+400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
 ]],[[
 Oskarm
 Nubuck Gloves
@@ -201,6 +266,15 @@ Triggers level 20 Cold Aegis when equipped
 229% increased Armour and Evasion
 +61 to maximum Life
 Cannot be Frozen
+]],[[
+Watcher's Eye
+Prismatic Jewel
+Limited to: 1
+5% increased maximum Energy Shield
+5% increased maximum Life
+6% increased maximum Mana
+29% of Physical Damage Converted to Cold Damage while affected by Hatred
++7% chance to Evade Attacks while affected by Grace
 ]],[[
 White Wind
 Imperial Skean
@@ -274,11 +348,12 @@ Midnight Blade
 Requires Level 68, 313 Str, 113 Dex
 40% increased Accuracy Rating
 Adds (80-100) to (160-190) Physical Damage
+19% increased Critical Strike Chance
 -1 to Maximum Frenzy Charges
-+200 Strength Requirement
-+50% Global Critical Strike Multiplier while at Maximum Frenzy Charges
-15% increased Area of Effect of Skills while you have no Frenzy Charges
-Movement Attack Skills have 40% reduced Attack Speed
+10% increased Area of Effect
++100 Strength Requirement
++50% Global Critical Strike Multiplier while you have no Frenzy Charges
++492 to Accuracy Rating while at Maximum Frenzy Charges
 ]],[[
 Allelopathy
 Sorcerer Gloves

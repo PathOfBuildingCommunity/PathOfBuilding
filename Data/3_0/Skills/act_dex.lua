@@ -1483,7 +1483,7 @@ skills["DetonateDead"] = {
 	gemDex = 60,
 	gemInt = 40,
 	color = 2,
-	description = "Targets a corpse, and deals spell damage to enemies around the corpse, as well as causing the corpse to explode, dealing fire damage. The explosion is not affected by modifiers to spell damage and cannnot be reflected.",
+	description = "Targets a corpse, and deals spell damage to enemies around the corpse, as well as causing the corpse to explode, dealing fire damage. The explosion is not affected by modifiers to spell damage and cannot be reflected.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, [67] = true, },
 	baseFlags = {
 		cast = true,

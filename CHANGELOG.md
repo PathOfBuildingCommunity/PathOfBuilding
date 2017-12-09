@@ -1,3 +1,15 @@
+### 1.4.69 - 2017/12/09
+ * Added the following new uniques:
+    * Balefire
+	* Cyclopean Coil
+	* Gloomfang
+	* Grelwood Shank
+	* Impresence
+	* Nebuloch
+	* Watcher's Eye
+ * Updated Ahn's Might with its final mods
+ * Removed the obsolete 4x DPS multiplier from Lightning Tendrils
+
 ### 1.4.68 - 2017/12/09
  * Added the following new uniques:
     * Bloodbond (including partial support for the Blood Offering skill; only the damage bonus works at present)
