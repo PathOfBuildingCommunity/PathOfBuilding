@@ -532,6 +532,9 @@ function calcs.defence(env, actor)
 		if modDB:Sum("FLAG", nil, "CannotBlockAttacks") then
 			output.BlockChance = 0
 		end
+		if modDB:Sum("FLAG", nil, "CannotBlockSpells") then
+			output.SpellBlockChance = 0
+		end
 		output.AttackDodgeChance = m_min(modDB:Sum("BASE", nil, "AttackDodgeChance"), 75)
 		output.SpellDodgeChance = m_min(modDB:Sum("BASE", nil, "SpellDodgeChance"), 75)
 		if env.mode_effective and modDB:Sum("FLAG", nil, "DodgeChanceIsUnlucky") then

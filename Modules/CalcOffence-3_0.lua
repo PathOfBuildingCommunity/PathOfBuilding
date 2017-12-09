@@ -437,6 +437,13 @@ function calcs.offence(env, actor)
 		end
 	end
 
+	-- Handle corpse explosions
+	if skillData.explodeCorpse and skillData.corpseLife then
+		local damageType = skillData.corpseExplosionDamageType or "Fire"
+		skillData[damageType.."BonusMin"] = skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
+		skillData[damageType.."BonusMax"] = skillData.corpseLife * skillData.corpseExplosionLifeMultiplier
+	end
+
 	-- Cache global damage disabling flags
 	local canDeal = { }
 	for _, damageType in pairs(dmgTypeList) do
@@ -791,8 +798,8 @@ function calcs.offence(env, actor)
 			local damageEffectiveness = skillData.damageEffectiveness or 1
 			local addedMin = modDB:Sum("BASE", cfg, damageTypeMin)
 			local addedMax = modDB:Sum("BASE", cfg, damageTypeMax)
-			local baseMin = (source[damageTypeMin] or 0) * baseMultiplier + addedMin * damageEffectiveness
-			local baseMax = (source[damageTypeMax] or 0) * baseMultiplier + addedMax * damageEffectiveness
+			local baseMin = ((source[damageTypeMin] or 0) + (source[damageType.."BonusMin"] or 0)) * baseMultiplier + addedMin * damageEffectiveness
+			local baseMax = ((source[damageTypeMax] or 0) + (source[damageType.."BonusMax"] or 0)) * baseMultiplier + addedMin * damageEffectiveness
 			output[damageTypeMin.."Base"] = baseMin
 			output[damageTypeMax.."Base"] = baseMax
 			if breakdown then

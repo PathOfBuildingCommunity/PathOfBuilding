@@ -467,11 +467,11 @@ skills["CorpseWarp"] = {
 	setupFunc = function(actor, output)
 		local skillData = actor.mainSkill.skillData
 		if actor.mainSkill.skillFlags.totem then
-			skillData.FireMin = skillData.FireMin + output.TotemLife * skillData.selfFireExplosionLifeMultiplier
-			skillData.FireMax = skillData.FireMax + output.TotemLife * skillData.selfFireExplosionLifeMultiplier
+			skillData.FireBonusMin = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
+			skillData.FireBonusMax = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
 		else
-			skillData.FireMin = skillData.FireMin + output.Life * skillData.selfFireExplosionLifeMultiplier
-			skillData.FireMax = skillData.FireMax + output.Life * skillData.selfFireExplosionLifeMultiplier
+			skillData.FireBonusMin = output.Life * skillData.selfFireExplosionLifeMultiplier
+			skillData.FireBonusMax = output.Life * skillData.selfFireExplosionLifeMultiplier
 		end
 	end,
 	baseFlags = {
@@ -4339,6 +4339,7 @@ skills["RaiseSpectre"] = {
 		spell = true,
 		minion = true,
 		spectre = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 

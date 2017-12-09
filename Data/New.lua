@@ -16,6 +16,16 @@ Every 16 seconds you gain iron Reflexes for 8 seconds
 30% increased Attack, Cast and Movements Speed while you do not have Iron Reflexes
 You have Far Shot while you do not have Iron Reflexes
 ]],[[
+Bloodbond
+Bone Armour
+Requires Level: 35
+Grants Level 15 Blood Offering Skill 
+(100–120)% increased Evasion and Energy Shield 
+(15–25)% increased maximum Life 
+Minions have (20–30)% increased maximum Life 
+1% of Life Regenerated per second 
+Minions have (6–10)% chance to Dodge Attacks 
+]],[[
 Cane of Unravelling
 Ezomyte Staff
 Requires Level: 62
@@ -25,6 +35,15 @@ Requires Level: 62
 2% increased Cast Speed per Power Charge
 Gain a Power Charge after spending a total of 200 Mana
 2 Mana Regenerated per Second per Power Charge
+]],[[
+Coralito's Signature
+Diamond Flask
+Requires Level: 27
+Take 30 Chaos Damage per Second during Flask effect 
+25% chance to Poison on Hit during Flask effect 
+Your Critical Strikes do not deal extra Damage during Flask effect 
+(50–75)% increased Duration of Poisons you inflict during Flask effect 
+Grants Perfect Agony during Flask effect 
 ]],[[
 Doedre's Skin
 Widowsilk Robe
@@ -45,6 +64,49 @@ Adds 4 to 12 Physical Damage to Attacks
 90% increased Armour
 Iron Grip
 ]],[[
+The Golden Rule
+Viridian Jewel
+(30–40)% increased Armour while Bleeding 
+Bleeding you inflict is Reflected to you 
++1% to Chaos Resistance per Poison on you 
+Poison you inflict is Reflected to you 
+]],[[
+The Hungry Loop
+Unset Ring
+Requires Level: 45
+Has 1 Socket 
+Consumes Socketed Support Gems when they reach Maximum Level
+Can Consume 4 Support Gems
+Has not Consumed any Gems 
+]],[[
+Invictus Solaris
+Archon Kite Shield
+Requires Level: 68
++12% to all Elemental Resistances
++2 to Level of Socketed Gems 
+Triggers Level 20 Fire Aegis when Equipped 
+(200–250)% increased Armour and Energy Shield 
++(60–80) to maximum Life 
+Cannot be Ignited 
+]],[[
+Iron Heart
+Crusader Plate
+Requires Level: 59
+80% increased Armour
+10% reduced Movement Speed
+12% Chance to Block
+Cannot Block Spells
+Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
+]],[[
+Kalisa's Grace
+Samite Gloves
+Requires Level: 47
+Socketed Gems are Supported by Level 18 Faster Casting
++21 to Intelligence
++67 to maximum Energy Shield
++65 to maximum Life
+Gain +2% to Critical Strike Chance for 2 seconds when you Spend a total of 800 Mana
+]],[[
 Leper's Alms
 Mirrored Spiked Shield
 Requires Level: 66
@@ -54,6 +116,15 @@ Requires Level: 66
 40% increased Duration of Ailments on Enemies 
 +(3–4)% Chance to Block 
 Shared Suffering
+]],[[
+The Long Winter
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+(10–15)% increased Cold Damage 
+With 40 Intelligence in Radius, 20% of Glacial Cascade Physical Damage
+Converted to Cold Damage
+With 40 Intelligence in Radius, Glacial Cascade has an additional Burst 
 ]],[[
 Memory Vault
 Praetor Crown
@@ -65,9 +136,28 @@ Requires Level: 68
 10% increased Mana Reserved
 Gain Armour equal to your Reserved Mana
 ]],[[
+Oskarm
+Nubuck Gloves
+Requires Level: 33
+39% increased Accuracy Rating
++50 to maximum Life
+-15% to Chaos Resistance
+7% chance to Dodge Spell Damage
+Curse Enemies with level 10 Assassin's Mark on Hit
+2% increased Attack Critical Strike Chance per 200 Accuracy Rating
+]],[[
+The Poet's Pen
+Carved Wand
+Requires Level: 12
+(11–15)% increased Spell Damage 
++1 to Level of Socketed Active Skill Gems per 25 Player Levels 
+Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels 
+(8–12)% increased Attack Speed 
+Trigger a Socketed Spell when you Attack
+]],[[
 Pure Talent
 Viridian Jewel
-Requires Level: 20
+Implicits: 0
 While your Passive Skill Tree connects to a class' Starting location, you gain:
 Marauder: Melee Skills have 15% increased Area of Effect
 Duelist: 1% of Attack Damage Leeched as Life
@@ -86,6 +176,15 @@ Requires Level: 36
 Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
 Lose all Frenzy, Endurance, and Power Charges when you Move
 ]],[[
+Soul's Wick
+Cobalt Jewel
+Limited to: 1
++2 to maximum number of Spectres
+41% reduced Mana Cost of Raise Spectre
+Spectres have (800–1000)% increased Critical Strike Chance 
+Spectres have a Base Duration of 20 seconds
+Spectres do not travel between Areas 
+]],[[
 Stormcharger
 Plated Greaves
 Requires Level: 23
@@ -93,23 +192,6 @@ Requires Level: 23
 50% increased Shock Duration on Enemies
 25% of Physical Damage Converted to Lightning Damage
 24% increased Effect of Shock
-]],[[
-The Hungry Loop
-Unset Ring
-Requires Level: 45
-Has 1 Socket 
-Consumes Socketed Support Gems when they reach Maximum Level
-Can Consume 4 Support Gems
-Has not Consumed any Gems 
-]],[[
-The Poet's Pen
-Carved Wand
-Requires Level: 12
-(11–15)% increased Spell Damage 
-+1 to Level of Socketed Active Skill Gems per 25 Player Levels 
-Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels 
-(8–12)% increased Attack Speed 
-Trigger a Socketed Spell when you Attack
 ]],[[
 Vix Lunaris
 Cardinal Round Shield
@@ -151,6 +233,18 @@ Enemies take 5% increased Damage for each type of Ailment you have inflicted on 
 Your Elemental Damage can Shock
 ]],
 -- Abyss
+[[
+Bubonic Trail
+Murder Boots
+League: Abyss
+Requires Level 69, 82 Dex, 42 Int
+Has 1 Abyssal Socket
+Triggers level 20 Death Walk when Equipped
+4% increased maximum Life
+30% increased Movement Speed
+10% increased Damage for each type of Abyssal Jewel affecting you
+]],
+
 
 -- 3.0 (will be moved at some point...)
 -- New

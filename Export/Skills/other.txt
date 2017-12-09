@@ -34,8 +34,20 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill BloodOffering
+#flags spell duration
+#baseMod skill("buffMinions", true)
+#baseMod skill("buffNotPlayer", true)
+	fromItem = true,
+#mods
+
 #skill TriggeredBoneNova
 #flags attack projectile
+	fromItem = true,
+#mods
+
+#skill ColdAegis
+#flags spell
 	fromItem = true,
 #mods
 
@@ -55,6 +67,13 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill DeathWalk
+#flags cast area chaos
+#baseMod skill("explodeCorpse", true)
+#baseMod skill("showAverage", true)
+	fromItem = true,
+#mods
+
 #noGem
 #skill TouchOfGod
 #flags attack area melee
@@ -64,6 +83,11 @@ local skills, mod, flag, skill = ...
 #skill Envy
 #flags spell aura area chaos
 #baseMod skill("radius", 36)
+	fromItem = true,
+#mods
+
+#skill FireAegis
+#flags spell
 	fromItem = true,
 #mods
 

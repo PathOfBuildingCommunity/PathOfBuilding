@@ -87,25 +87,6 @@ Radius: Large
 Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage
 Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage
 ]],[[
-Collateral Damage
-Viridian Jewel
-Limited to: 2
-Radius: Medium
-(10–15)% increased Physical Damage
-With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect
-With at least 40 Dexterity in Radius, Shrapnel Shot's
-cone has a 50% chance to deal Double Damage
-]],[[
-Dead Reckoning
-Cobalt Jewel
-Variant: {2_6}Pre 3.0.0
-Variant: Current
-Limited to: 3
-Radius: Medium
-Minions have +(7-10)% to all Elemental Resistances
-{variant:1}With at least 40 Intelligence in Radius, can summon up to 3 Skeleton Mages with Summon Skeletons
-{variant:2}With at least 40 Intelligence in Radius, can summon up to 5 Skeleton Mages with Summon Skeletons
-]],[[
 Efficient Training
 Crimson Jewel
 Radius: Large
@@ -138,28 +119,10 @@ Radius: Large
 +(16-24) to Intelligence
 Dexterity from Passives in Radius is Transformed to Intelligence
 ]],[[
-Fight for Survival
-Viridian Jewel
-Limited to: 2
-Radius: Medium
-(10–15)% increased Cold Damage
-With at least 40 Dexterity in Radius, Melee Damage 
-dealt by Frost Blades Penetrates 15% Cold Resistance
-With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile Speed
-]],[[
 Fireborn
 Crimson Jewel
 Radius: Medium
 Increases and Reductions to other Damage Types in Radius are Transformed to apply to Fire Damage
-]],[[
-First Snow
-Cobalt Jewel
-Limited to: 2
-Radius: Medium
-(7–10)% increased Projectile Damage 
-With at least 40 Intelligence in Radius, Freezing Pulse fires 2 additional Projectiles
-With at least 40 Intelligence in Radius, 25% increased Freezing Pulse Damage if
-you've Shattered an Enemy Recently
 ]],[[
 Fluid Motion
 Viridian Jewel
@@ -177,15 +140,6 @@ Fragile Bloom
 Crimson Jewel
 2% of Life Regenerated per Second
 10% increased Damage taken
-]],[[
-Frozen Trail
-Cobalt Jewel
-Limited to: 2
-Radius: Medium
-(7–10)% increased Projectile Damage
-With at least 40 Intelligence in Radius, Frostbolt fires 2 additional Projectiles
-With at least 40 Intelligence in Radius, Frostbolt Projectiles gain 40% increased Projectile
-Speed per second
 ]],[[
 Grand Spectrum
 Cobalt Jewel
@@ -232,18 +186,6 @@ also grant Chance to Dodge Attacks at 35% of its value
 Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
-Growing Agony
-Viridian Jewel
-Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
-Variant: Current
-Limited to: 1
-Radius: Medium
-(4-12)% increased Damage over Time
-{variant:1,2}With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Attack Damage for each Poison on the Enemy
-{variant:3}With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage with Hits and Poison for each Poison on the Enemy
-{variant:2,3}With at least 40 Dexterity in Radius, Viper Strike has a 10% chance per Poison on Enemy to grant Unholy Might for 4 seconds on Hit
-]],[[
 Hair Trigger
 Viridian Jewel
 Variant: Pre 2.6.0
@@ -273,15 +215,6 @@ Crimson Jewel
 Radius: Large
 +(16-24) to Strength
 Dexterity from Passives in Radius is Transformed to Strength
-]],[[
-Inevitability
-Cobalt Jewel
-Limited to: 2
-Radius: Medium
-(10–15)% increased Fire Damage
-With at least 40 Intelligence in Radius, Magma Orb fires an additional Projectile
-With at least 40 Intelligence in Radius, Magma Orb
-has 10% increased Area of Effect per Chain
 ]],[[
 Inspired Learning
 Crimson Jewel
@@ -323,50 +256,10 @@ Crimson Jewel
 Limited to: 1
 (10-15)% increased Area of Effect while Unarmed
 ]],[[
-Might and Influence
-Viridian Jewel
-Limited to: 1
-Radius: Medium
-(10–15)% increased Physical Damage
-With at least 40 Dexterity in Radius, Dual Strike has a 20% chance
-to deal Double Damage with the Main-Hand Weapon
-With at least 40 Dexterity in Radius, Dual Strike deals Off-Hand Splash Damage
-to surrounding targets
-]],[[
 Might in All Forms
 Crimson Jewel
 Radius: Medium
 Dexterity and Intelligence from passives in Radius count towards Strength Melee Damage bonus
-]],[[
-Omen on the Winds
-Viridian Jewel
-Variant: {2_6}Pre 3.0.0
-Variant: Pre 3.1.0
-Variant: Current
-Limited to: 2
-Radius: Medium
-{variant:1}(15-20)% increased Damage against Chilled Enemies
-{variant:2,3}(15-20)% increased Damage with Hits against Chilled Enemies
-{variant:2}With at least 40 Dexterity in Radius, Ice Shot Pierces 5 additional Targets
-{variant:3}With at least 40 Dexterity in Radius, Ice Shot Pierces 3 additional Targets
-With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect
-{variant:1}With at least 40 Dexterity in Radius, Ice Shot has 50% chance of Projectiles Piercing
-]],[[
-Overwhelming Odds
-Crimson Jewel
-Limited to: 2
-Radius: Medium
-(10-15)% increased Physical Damage
-With at least 40 Strength in Radius, Cleave grants Fortify on Hit
-With at least 40 Strength in Radius, Cleave has 3% increased Area of
-Effect per Nearby Enemy
-]],[[
-Pitch Darkness
-Viridian Jewel
-Radius: Medium
-(5-15)% increased Fire Damage
-With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy.
-With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
 ]],[[
 Primordial Eminence
 Viridian Jewel
@@ -407,17 +300,6 @@ Limited to: 1
 (30-50)% reduced Totem Damage
 Totems Fire 2 additional Projectiles
 ]],[[
-Rapid Expansion
-Crimson Jewel
-Variant: Pre 2.6.0
-Variant: Current
-Limited to: 3
-Radius: Medium
-(4-12)% increased Physical Damage
-{variant:1}With at least 40 Strength in Radius, Ground Slam has a 20% increased angle
-{variant:2}With at least 40 Strength in Radius, Ground Slam has a 35% increased angle
-{variant:2}With at least 40 Strength in Radius, Ground Slam has a 25% chance to grant an Endurance Charge when you Stun an Enemy
-]],[[
 Reckless Defence
 Cobalt Jewel
 20% of Block Chance applied to Spells
@@ -442,6 +324,152 @@ Passives granting Fire Resistance or all Elemental Resistances in Radius
 also grant Chance to Block at 35% of its value
 Passives granting Fire Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain an Endurance Charge on Kill
+]],[[
+Spire of Stone
+Crimson Jewel
+Limited to: 1
+Radius: Large
+3% increased Totem Life per 10 Strength Allocated in Radius
+Totems cannot be Stunned
+]],[[
+Static Electricity
+Viridian Jewel
+Radius: Large
+Adds 1 maximum Lightning Damage to Attacks per 1 Dexterity Allocated in Radius
+Adds 1 to 2 Lightning Damage to Attacks
+]],[[
+To Dust
+Cobalt Jewel
+Variant: Current
+Minions deal (8-12)% increased Damage
+(10-20)% reduced Skeleton Duration
+(3-5)% increased Skeleton Movement Speed
+(7-10)% increased Skeleton Attack Speed
+(7-10)% increased Skeleton Cast speed
+]],[[
+Unstable Payload
+Cobalt Jewel
+(8-12)% Chance for Traps to Trigger an additional time
+]],
+-- Jewel: Threshold
+[[
+Collateral Damage
+Viridian Jewel
+Limited to: 2
+Radius: Medium
+(10–15)% increased Physical Damage
+With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect
+With at least 40 Dexterity in Radius, Shrapnel Shot's
+cone has a 50% chance to deal Double Damage
+]],[[
+Dead Reckoning
+Cobalt Jewel
+Variant: {2_6}Pre 3.0.0
+Variant: Current
+Limited to: 3
+Radius: Medium
+Minions have +(7-10)% to all Elemental Resistances
+{variant:1}With at least 40 Intelligence in Radius, can summon up to 3 Skeleton Mages with Summon Skeletons
+{variant:2}With at least 40 Intelligence in Radius, can summon up to 5 Skeleton Mages with Summon Skeletons
+]],[[
+Fight for Survival
+Viridian Jewel
+Limited to: 2
+Radius: Medium
+(10–15)% increased Cold Damage
+With at least 40 Dexterity in Radius, Melee Damage 
+dealt by Frost Blades Penetrates 15% Cold Resistance
+With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile Speed
+]],[[
+First Snow
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+(7–10)% increased Projectile Damage 
+With at least 40 Intelligence in Radius, Freezing Pulse fires 2 additional Projectiles
+With at least 40 Intelligence in Radius, 25% increased Freezing Pulse Damage if
+you've Shattered an Enemy Recently
+]],[[
+Frozen Trail
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+(7–10)% increased Projectile Damage
+With at least 40 Intelligence in Radius, Frostbolt fires 2 additional Projectiles
+With at least 40 Intelligence in Radius, Frostbolt Projectiles gain 40% increased Projectile
+Speed per second
+]],[[
+Growing Agony
+Viridian Jewel
+Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.0.0
+Variant: Current
+Limited to: 1
+Radius: Medium
+(4-12)% increased Damage over Time
+{variant:1,2}With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Attack Damage for each Poison on the Enemy
+{variant:3}With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage with Hits and Poison for each Poison on the Enemy
+{variant:2,3}With at least 40 Dexterity in Radius, Viper Strike has a 10% chance per Poison on Enemy to grant Unholy Might for 4 seconds on Hit
+]],[[
+Inevitability
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+(10–15)% increased Fire Damage
+With at least 40 Intelligence in Radius, Magma Orb fires an additional Projectile
+With at least 40 Intelligence in Radius, Magma Orb
+has 10% increased Area of Effect per Chain
+]],[[
+Might and Influence
+Viridian Jewel
+Limited to: 1
+Radius: Medium
+(10–15)% increased Physical Damage
+With at least 40 Dexterity in Radius, Dual Strike has a 20% chance
+to deal Double Damage with the Main-Hand Weapon
+With at least 40 Dexterity in Radius, Dual Strike deals Off-Hand Splash Damage
+to surrounding targets
+]],[[
+Omen on the Winds
+Viridian Jewel
+Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.1.0
+Variant: Current
+Limited to: 2
+Radius: Medium
+{variant:1}(15-20)% increased Damage against Chilled Enemies
+{variant:2,3}(15-20)% increased Damage with Hits against Chilled Enemies
+{variant:2}With at least 40 Dexterity in Radius, Ice Shot Pierces 5 additional Targets
+{variant:3}With at least 40 Dexterity in Radius, Ice Shot Pierces 3 additional Targets
+With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect
+{variant:1}With at least 40 Dexterity in Radius, Ice Shot has 50% chance of Projectiles Piercing
+]],[[
+Overwhelming Odds
+Crimson Jewel
+Limited to: 2
+Radius: Medium
+(10-15)% increased Physical Damage
+With at least 40 Strength in Radius, Cleave grants Fortify on Hit
+With at least 40 Strength in Radius, Cleave has 3% increased Area of
+Effect per Nearby Enemy
+]],[[
+Pitch Darkness
+Viridian Jewel
+Radius: Medium
+(5-15)% increased Fire Damage
+With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy.
+With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
+]],[[
+Rapid Expansion
+Crimson Jewel
+Variant: Pre 2.6.0
+Variant: Current
+Limited to: 3
+Radius: Medium
+(4-12)% increased Physical Damage
+{variant:1}With at least 40 Strength in Radius, Ground Slam has a 20% increased angle
+{variant:2}With at least 40 Strength in Radius, Ground Slam has a 35% increased angle
+{variant:2}With at least 40 Strength in Radius, Ground Slam has a 25% chance to grant an Endurance Charge when you Stun an Enemy
 ]],[[
 Ring of Blades
 Viridian Jewel
@@ -470,13 +498,6 @@ Radius: Medium
 (5-15)% increased Cold Damage
 With at least 40 Strength in Radius, 20% increased Rarity of Items dropped by Enemies Shattered by Glacial Hammer
 ]],[[
-Spire of Stone
-Crimson Jewel
-Limited to: 1
-Radius: Large
-3% increased Totem Life per 10 Strength Allocated in Radius
-Totems cannot be Stunned
-]],[[
 Spirit Guards
 Viridian Jewel
 Variant: Pre 2.6.0
@@ -493,12 +514,6 @@ Limited to: 2
 Radius: Medium
 (5-10)% increased maximum Mana
 With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over 4 seconds when Hit during Rallying Cry for you and Allies
-]],[[
-Static Electricity
-Viridian Jewel
-Radius: Large
-Adds 1 maximum Lightning Damage to Attacks per 1 Dexterity Allocated in Radius
-Adds 1 to 2 Lightning Damage to Attacks
 ]],[[
 Steel Spirit
 Viridian Jewel
@@ -517,25 +532,12 @@ Radius: Medium
 With at least 40 Dexterity in Radius, Burning
 Arrow can inflict an additional Ignite on an Enemy
 ]],[[
-To Dust
-Cobalt Jewel
-Variant: Current
-Minions deal (8-12)% increased Damage
-(10-20)% reduced Skeleton Duration
-(3-5)% increased Skeleton Movement Speed
-(7-10)% increased Skeleton Attack Speed
-(7-10)% increased Skeleton Cast speed
-]],[[
 Unending Hunger 
 Cobalt Jewel
 Limited to: 2
 Radius: Medium
 Minions have (5-8)% increased Area of Effect of Area Skills
 With at least 40 Intelligence in Radius, Raised Spectres have a 50% chance to gain Soul Eater for 30 seconds on Kill
-]],[[
-Unstable Payload
-Cobalt Jewel
-(8-12)% Chance for Traps to Trigger an additional time
 ]],[[
 The Vigil
 Crimson Jewel
