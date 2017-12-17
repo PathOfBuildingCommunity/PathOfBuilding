@@ -1,3 +1,32 @@
+### 1.4.70 - 2017/12/17
+ * Added the following new uniques:
+    * Ahn's Contempt
+	* Augyre
+	* Beltimer Blade
+	* Blasphemer's Grasp
+	   * Detection/counting of equipped of Elder Items does not work yet
+	* Darkness Enthroned
+	   * Does not function, as support for socketing Abyss Jewels in items is not implemented yet
+	* Hopeshredder
+	* Impresence (non-Cold variants)
+	* Inpulsa's Broken Heart (mostly non-functional for now)
+	* Lightpoacher (mostly non-functional; however Spirit Burst is supported)
+	* Magna Eclipsis
+	* Shimmeron
+	* Shroud of the Lightless
+	* Tombfist (mostly non-functional for now)
+	* Vulconus
+ * Added Corpse Explosion skill parts to the following skills:
+    * Bodyswap
+    * Cremation
+    * Detonate Dead (this allows the Spell part to benefit from Spell modifiers)
+	* Volatile Dead
+ * Updated rolls on many of the new uniques
+ * Added an option to the Configuration tab for "Are you always moving?"
+ * Corrected the maximum stack count for Wither (thanks DragoonZ)
+ * "Adds X to Y <Type> Damage to <Weapon> Attacks" stats should now be recognised correctly
+ * The "more Life" stat on Minion Life Support should now work correctly
+
 ### 1.4.69 - 2017/12/09
  * Added the following new uniques:
     * Balefire

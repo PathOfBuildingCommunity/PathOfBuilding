@@ -464,14 +464,28 @@ skills["CorpseWarp"] = {
 	color = 3,
 	description = "Your body explodes, dealing spell damage in an area around you, and a targeted corpse also explodes, dealing damage around it. Your body is recreated at the location of the corpse. The explosion of the corpse is not affected by modifiers to spell damage, and cannot be reflected. This spell cannot be repeated.",
 	skillTypes = { [38] = true, [2] = true, [10] = true, [11] = true, [18] = true, [19] = true, [17] = true, [36] = true, [33] = true, },
+	parts = {
+		{
+			name = "Self Explosion",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Corpse Explosion",
+			spell = false,
+			cast =  true,
+		},
+	},
 	setupFunc = function(actor, output)
-		local skillData = actor.mainSkill.skillData
-		if actor.mainSkill.skillFlags.totem then
-			skillData.FireBonusMin = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
-			skillData.FireBonusMax = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
-		else
-			skillData.FireBonusMin = output.Life * skillData.selfFireExplosionLifeMultiplier
-			skillData.FireBonusMax = output.Life * skillData.selfFireExplosionLifeMultiplier
+		if actor.mainSkill.skillPart == 2 then
+			local skillData = actor.mainSkill.skillData
+			if actor.mainSkill.skillFlags.totem then
+				skillData.FireBonusMin = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
+				skillData.FireBonusMax = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
+			else
+				skillData.FireBonusMin = output.Life * skillData.selfFireExplosionLifeMultiplier
+				skillData.FireBonusMax = output.Life * skillData.selfFireExplosionLifeMultiplier
+			end
 		end
 	end,
 	baseFlags = {
@@ -486,6 +500,7 @@ skills["CorpseWarp"] = {
 		skill("corpseExplosionLifeMultiplier", 0.04), --"corpse_explosion_monster_life_%" = 4
 		skill("selfFireExplosionLifeMultiplier", 0.03), --"spell_base_fire_damage_%_maximum_life" = 3
 		--"is_area_damage" = ?
+		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
@@ -2973,7 +2988,7 @@ skills["GlacialCascade"] = {
 		--"upheaval_number_of_spikes" = 5
 		mod("SkillPhysicalDamageConvertToCold", "BASE", 60), --"skill_physical_damage_%_to_convert_to_cold" = 60
 		--"is_area_damage" = ?
-		skill("radius", 14), 
+		skill("radius", 12), 
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, 0, nil), --"damage_+%" = 1
@@ -5803,7 +5818,7 @@ skills["Wither"] = {
 			name = "10 Stacks",
 		},
 		{
-			name = "20 Stacks",
+			name = "15 Stacks",
 		},
 	},
 	baseFlags = {
@@ -5820,7 +5835,7 @@ skills["Wither"] = {
 		skill("debuff", true), 
 		skill("stackCount", 5, { type = "SkillPart", skillPart = 2 }), 
 		skill("stackCount", 10, { type = "SkillPart", skillPart = 3 }), 
-		skill("stackCount", 20, { type = "SkillPart", skillPart = 4 }), 
+		skill("stackCount", 15, { type = "SkillPart", skillPart = 4 }), 
 	},
 	qualityMods = {
 		mod("Duration", "INC", 1), --"skill_effect_duration_+%" = 1

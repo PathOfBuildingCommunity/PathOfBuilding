@@ -1608,7 +1608,7 @@ skills["SupportMinionLife"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		--[2] = "support_minion_maximum_life_+%_final"
+		[2] = mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }), --"support_minion_maximum_life_+%_final"
 	},
 	levels = {
 		[1] = { 18, 30, },

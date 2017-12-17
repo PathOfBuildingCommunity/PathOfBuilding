@@ -1155,6 +1155,18 @@ skills["CorpseEruption"] = {
 	color = 2,
 	description = "A targeted corpse explodes, dealing area damage and turning into a volcanic geyser, which will repeatedly unleash projectiles sequentially over the surrounding area for a duration. The explosion of the corpse is not affected by modifiers to spell damage, and cannot be reflected.",
 	skillTypes = { [2] = true, [11] = true, [33] = true, [12] = true, [3] = true, [26] = true, [17] = true, [18] = true, [19] = true, [36] = true, [10] = true, [67] = true, [3] = true, },
+	parts = {
+		{
+			name = "Spell",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Corpse Explosion",
+			spell = false,
+			cast =  true,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -1172,6 +1184,7 @@ skills["CorpseEruption"] = {
 		--"show_number_of_projectiles" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"base_is_projectile" = ?
+		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("FireDamage", "INC", 1), --"fire_damage_+%" = 1
@@ -1485,8 +1498,20 @@ skills["DetonateDead"] = {
 	color = 2,
 	description = "Targets a corpse, and deals spell damage to enemies around the corpse, as well as causing the corpse to explode, dealing fire damage. The explosion is not affected by modifiers to spell damage and cannot be reflected.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, [67] = true, },
+	parts = {
+		{
+			name = "Spell",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Corpse Explosion",
+			spell = false,
+			cast =  true,
+		},
+	},
 	baseFlags = {
-		cast = true,
+		spell = true,
 		area = true,
 		fire = true,
 	},
@@ -1496,7 +1521,7 @@ skills["DetonateDead"] = {
 		skill("corpseExplosionLifeMultiplier", 0.06), --"corpse_explosion_monster_life_%" = 6
 		--"is_area_damage" = ?
 		skill("radius", 22), 
-		skill("explodeCorpse", true), 
+		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
@@ -5220,6 +5245,18 @@ skills["VolatileDead"] = {
 	color = 2,
 	description = "Corpses near the targeted location explode, dealing damage in a small area and creating an orb which moves towards nearby enemies before dealing spell damage in a larger area. The explosion of the corpse is not affected by modifiers to spell damage, and cannot be reflected.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, [67] = true, },
+	parts = {
+		{
+			name = "Spell",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Corpse Explosion",
+			spell = false,
+			cast =  true,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -5232,6 +5269,7 @@ skills["VolatileDead"] = {
 		--"volatile_dead_base_number_of_corpses_to_consume" = 3
 		skill("corpseExplosionLifeMultiplier", 0.03), --"corpse_explosion_monster_life_%" = 3
 		--"is_area_damage" = ?
+		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5

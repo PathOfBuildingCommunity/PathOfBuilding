@@ -26,6 +26,9 @@ local varList = {
 	{ var = "conditionStationary", type = "check", label = "Are you always stationary?", ifCond = "Stationary", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Stationary", "FLAG", true, "Config")
 	end },
+	{ var = "conditionMoving", type = "check", label = "Are you always moving?", ifCond = "Moving", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Moving", "FLAG", true, "Config")
+	end },
 	{ var = "conditionFullLife", type = "check", label = "Are you always on Full Life?", --[[ifCond = "FullLife", ]]tooltip = "You will automatically be considered to be on Full Life if you have Chaos Innoculation,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FullLife", "FLAG", true, "Config")
 	end },

@@ -80,6 +80,11 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill ElementalAegis
+#flags spell
+	fromItem = true,
+#mods
+
 #skill Envy
 #flags spell aura area chaos
 #baseMod skill("radius", 36)
@@ -149,8 +154,19 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill ShadeForm
+#flags spell duration
+	fromItem = true,
+#mods
+
 #skill TriggeredShockedGround
 #flags spell area duration lightning
+	fromItem = true,
+#mods
+
+#skill SpiritBurst
+#flags spell projectile
+#baseMod skill("showAverage", true)
 	fromItem = true,
 #mods
 

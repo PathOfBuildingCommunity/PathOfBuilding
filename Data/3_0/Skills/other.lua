@@ -499,6 +499,32 @@ skills["TouchOfGod"] = {
 		[30] = { 90, 31, },
 	},
 }
+skills["ElementalAegis"] = {
+	name = "Elemental Aegis",
+	hidden = true,
+	color = 4,
+	description = "Calls forth a protective aegis which takes elemental damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking elemental damage from hits.",
+	skillTypes = { [2] = true, [36] = true, [42] = true, [61] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		--"aegis_unique_shield_max_value" = 1000
+		--"active_skill_display_aegis_variation" = 2
+		--"cast_on_gain_skill" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 1, },
+	},
+}
 skills["Envy"] = {
 	name = "Envy",
 	hidden = true,
@@ -888,6 +914,33 @@ skills["TriggeredSummonSpider"] = {
 		[1] = { 1, },
 	},
 }
+skills["ShadeForm"] = {
+	name = "Shade Form",
+	hidden = true,
+	color = 4,
+	description = "Makes you immune to physical damage, and harder for enemies to detect, for a duration.",
+	skillTypes = { [2] = true, [12] = true, [5] = true, [36] = true, [42] = true, [61] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("cooldown", 45), 
+		skill("duration", 3), --"base_skill_effect_duration" = 3000
+		--"enemy_aggro_radius_+%" = -50
+		--"trigger_on_skill_use_from_chest_%" = 20
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 1, },
+	},
+}
 skills["TriggeredShockedGround"] = {
 	name = "Shock Ground",
 	hidden = true,
@@ -916,6 +969,40 @@ skills["TriggeredShockedGround"] = {
 	},
 	levels = {
 		[10] = { 1, },
+	},
+}
+skills["SpiritBurst"] = {
+	name = "Spirit Burst",
+	hidden = true,
+	color = 3,
+	description = "Consumes a spirit charge to fire projectiles which deals physical damage.",
+	skillTypes = { [2] = true, [10] = true, [36] = true, [42] = true, [61] = true, [3] = true, [68] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("damageEffectiveness", 1.2), 
+		skill("CritChance", 7), 
+		--"trigger_on_skill_use_%_if_you_have_a_spirit_charge" = 100
+		skill("PhysicalMin", 861), --"spell_minimum_base_physical_damage" = 861
+		skill("PhysicalMax", 1291), --"spell_maximum_base_physical_damage" = 1291
+		mod("ProjectileCount", "BASE", 6), --"number_of_additional_projectiles" = 6
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+		--"base_is_projectile" = ?
+		--"projectiles_nova" = ?
+		flag("PierceAllTargets"), --"always_pierce" = ?
+		skill("showAverage", true), 
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 70, },
 	},
 }
 skills["StormCascadeTriggered"] = {
