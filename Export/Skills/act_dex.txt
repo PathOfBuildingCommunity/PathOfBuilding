@@ -144,6 +144,19 @@ local skills, mod, flag, skill = ...
 
 #skill CorpseEruption
 #flags spell projectile fire
+#baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
+	parts = {
+		{
+			name = "Spell",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Corpse Explosion",
+			spell = false,
+			cast =  true,
+		},
+	},
 #mods
 
 #skill Cyclone
@@ -162,9 +175,21 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DetonateDead
-#flags cast area fire
+#flags spell area fire
 #baseMod skill("radius", 22)
-#baseMod skill("explodeCorpse", true)
+#baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
+	parts = {
+		{
+			name = "Spell",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Corpse Explosion",
+			spell = false,
+			cast =  true,
+		},
+	},
 #mods
 
 #skill VaalDetonateDead
@@ -513,6 +538,19 @@ local skills, mod, flag, skill = ...
 
 #skill VolatileDead
 #flags spell area fire
+#baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
+	parts = {
+		{
+			name = "Spell",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Corpse Explosion",
+			spell = false,
+			cast =  true,
+		},
+	},
 #mods
 
 #skill WhirlingBlades
