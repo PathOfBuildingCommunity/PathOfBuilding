@@ -327,10 +327,12 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemShaperElder = common.New("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, 0, 0, 100, 20, {"Normal","Shaper","Elder"}, function(index, value)
 		self.displayItem.shaper = (index == 2)
 		self.displayItem.elder = (index == 3)
-		for i = 1, 6 do
-			-- Force affix selectors to update
-			local drop = self.controls["displayItemAffix"..i]
-			drop.selFunc(drop.selIndex, drop.list[drop.selIndex])
+		if self.displayItem.crafted then
+			for i = 1, 6 do
+				-- Force affix selectors to update
+				local drop = self.controls["displayItemAffix"..i]
+				drop.selFunc(drop.selIndex, drop.list[drop.selIndex])
+			end
 		end
 	end)
 	self.controls.displayItemShaperElder.shown = function()
