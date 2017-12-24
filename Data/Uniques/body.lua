@@ -418,6 +418,7 @@ Inflicts a random level 20 Curse on you when your Totems die
 ]],[[
 Tabula Rasa
 Simple Robe
+Sockets: W-W-W-W-W-W
 ]],[[
 Thousand Ribbons
 Simple Robe

@@ -82,7 +82,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
-#baseMod skill("radius", 25, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radius", 28, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill EnduringCry
@@ -133,7 +133,7 @@ local skills, mod, flag, skill = ...
 			name = "Third Hit",
 		},
 	},
-#baseMod skill("radius", 24)
+#baseMod skill("radius", 26)
 #mods
 
 #skill ImmortalCall
@@ -232,7 +232,7 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
-#baseMod skill("radius", 19)
+#baseMod skill("radius", 20)
 #mods
 
 #skill SummonFireGolem

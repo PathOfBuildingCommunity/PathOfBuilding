@@ -4,6 +4,7 @@ local itemBases = ...
 
 itemBases["Nailed Fist"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+3 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 4, PhysicalMax = 11, CritChanceBase = 6.2, AttackRateBase = 1.6, },
@@ -11,6 +12,7 @@ itemBases["Nailed Fist"] = {
 }
 itemBases["Sharktooth Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+6 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 7, PhysicalMax = 18, CritChanceBase = 6.5, AttackRateBase = 1.4, },
@@ -18,6 +20,7 @@ itemBases["Sharktooth Claw"] = {
 }
 itemBases["Awl"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+7 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 7, PhysicalMax = 24, CritChanceBase = 6.3, AttackRateBase = 1.5, },
@@ -25,6 +28,7 @@ itemBases["Awl"] = {
 }
 itemBases["Cat's Paw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+8 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 12, PhysicalMax = 22, CritChanceBase = 6, AttackRateBase = 1.6, },
@@ -32,6 +36,7 @@ itemBases["Cat's Paw"] = {
 }
 itemBases["Blinder"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+12 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 12, PhysicalMax = 32, CritChanceBase = 6.3, AttackRateBase = 1.5, },
@@ -39,6 +44,7 @@ itemBases["Blinder"] = {
 }
 itemBases["Timeworn Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+19 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 16, PhysicalMax = 43, CritChanceBase = 6.5, AttackRateBase = 1.3, },
@@ -46,6 +52,7 @@ itemBases["Timeworn Claw"] = {
 }
 itemBases["Sparkling Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+15 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 14, PhysicalMax = 38, CritChanceBase = 6, AttackRateBase = 1.6, },
@@ -53,6 +60,7 @@ itemBases["Sparkling Claw"] = {
 }
 itemBases["Fright Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+20 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 12, PhysicalMax = 46, CritChanceBase = 6.3, AttackRateBase = 1.5, },
@@ -60,6 +68,7 @@ itemBases["Fright Claw"] = {
 }
 itemBases["Double Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "+15 Life gained for each Enemy hit by Attacks\n+6 Mana gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 15, PhysicalMax = 44, CritChanceBase = 6.3, AttackRateBase = 1.5, },
@@ -67,6 +76,7 @@ itemBases["Double Claw"] = {
 }
 itemBases["Thresher Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+25 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 20, PhysicalMax = 53, CritChanceBase = 6.5, AttackRateBase = 1.3, },
@@ -74,6 +84,7 @@ itemBases["Thresher Claw"] = {
 }
 itemBases["Gouger"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+24 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 15, PhysicalMax = 51, CritChanceBase = 6.3, AttackRateBase = 1.5, },
@@ -81,6 +92,7 @@ itemBases["Gouger"] = {
 }
 itemBases["Tiger's Paw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "1.6% of Physical Attack Damage Leeched as Life",
 	weapon = { PhysicalMin = 23, PhysicalMax = 43, CritChanceBase = 6, AttackRateBase = 1.6, },
@@ -88,6 +100,7 @@ itemBases["Tiger's Paw"] = {
 }
 itemBases["Gut Ripper"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+44 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 20, PhysicalMax = 53, CritChanceBase = 6.3, AttackRateBase = 1.5, },
@@ -95,6 +108,7 @@ itemBases["Gut Ripper"] = {
 }
 itemBases["Prehistoric Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "2% of Physical Attack Damage Leeched as Life",
 	weapon = { PhysicalMin = 26, PhysicalMax = 68, CritChanceBase = 6.5, AttackRateBase = 1.3, },
@@ -102,6 +116,7 @@ itemBases["Prehistoric Claw"] = {
 }
 itemBases["Noble Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+40 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 21, PhysicalMax = 56, CritChanceBase = 6, AttackRateBase = 1.6, },
@@ -109,6 +124,7 @@ itemBases["Noble Claw"] = {
 }
 itemBases["Eagle Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "2% of Physical Attack Damage Leeched as Life",
 	weapon = { PhysicalMin = 17, PhysicalMax = 69, CritChanceBase = 6.3, AttackRateBase = 1.5, },
@@ -116,6 +132,7 @@ itemBases["Eagle Claw"] = {
 }
 itemBases["Twin Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "+28 Life gained for each Enemy hit by Attacks\n+10 Mana gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 21, PhysicalMax = 64, CritChanceBase = 6.3, AttackRateBase = 1.5, },
@@ -123,6 +140,7 @@ itemBases["Twin Claw"] = {
 }
 itemBases["Great White Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+46 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 30, PhysicalMax = 78, CritChanceBase = 6.5, AttackRateBase = 1.3, },
@@ -130,6 +148,7 @@ itemBases["Great White Claw"] = {
 }
 itemBases["Throat Stabber"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+40 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 21, PhysicalMax = 73, CritChanceBase = 6.3, AttackRateBase = 1.5, },
@@ -137,6 +156,7 @@ itemBases["Throat Stabber"] = {
 }
 itemBases["Hellion's Paw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "1.6% of Physical Attack Damage Leeched as Life",
 	weapon = { PhysicalMin = 29, PhysicalMax = 55, CritChanceBase = 6, AttackRateBase = 1.6, },
@@ -144,6 +164,7 @@ itemBases["Hellion's Paw"] = {
 }
 itemBases["Eye Gouger"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+50 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 26, PhysicalMax = 68, CritChanceBase = 6.3, AttackRateBase = 1.5, },
@@ -151,6 +172,7 @@ itemBases["Eye Gouger"] = {
 }
 itemBases["Vaal Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "2% of Physical Attack Damage Leeched as Life",
 	weapon = { PhysicalMin = 29, PhysicalMax = 76, CritChanceBase = 6.5, AttackRateBase = 1.3, },
@@ -158,6 +180,7 @@ itemBases["Vaal Claw"] = {
 }
 itemBases["Imperial Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "+46 Life gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 25, PhysicalMax = 65, CritChanceBase = 6, AttackRateBase = 1.6, },
@@ -165,6 +188,7 @@ itemBases["Imperial Claw"] = {
 }
 itemBases["Terror Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, },
 	implicit = "2% of Physical Attack Damage Leeched as Life",
 	weapon = { PhysicalMin = 18, PhysicalMax = 71, CritChanceBase = 6.3, AttackRateBase = 1.5, },
@@ -172,6 +196,7 @@ itemBases["Terror Claw"] = {
 }
 itemBases["Gemini Claw"] = {
 	type = "Claw",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, claw = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "+38 Life gained for each Enemy hit by Attacks\n+14 Mana gained for each Enemy hit by Attacks",
 	weapon = { PhysicalMin = 23, PhysicalMax = 68, CritChanceBase = 6.3, AttackRateBase = 1.5, },

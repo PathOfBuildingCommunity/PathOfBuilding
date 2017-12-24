@@ -85,6 +85,10 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SupportElementalPenetration Elemental Penetration
+	fromItem = true,
+#mods
+
 #skill Envy
 #flags spell aura area chaos
 #baseMod skill("radius", 36)
@@ -237,7 +241,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VoidGaze
-#flags spell
+#flags spell duration
 #global Debuff
 	fromItem = true,
 #mods

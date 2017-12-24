@@ -122,6 +122,31 @@ data.unarmedWeaponData = {
 	[6] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Shadow
 }
 
+data.specialBaseTags = {
+	["Amulet"] = { shaper = "amulet_shaper", elder = "amulet_elder", },
+	["Ring"] = { shaper = "ring_shaper", elder = "ring_elder", },
+	["Claw"] = { shaper = "claw_shaper", elder = "claw_elder", },
+	["Dagger"] = { shaper = "dagger_shaper", elder = "dagger_elder", },
+	["Wand"] = { shaper = "wand_shaper", elder = "wand_elder", },
+	["One Handed Sword"] = { shaper = "sword_shaper", elder = "sword_elder", },
+	["Thrusting One Handed Sword"] = { shaper = "sword_shaper", elder = "sword_elder", },
+	["One Handed Axe"] = { shaper = "axe_shaper", elder = "axe_elder", },
+	["One Handed Mace"] = { shaper = "mace_shaper", elder = "mace_elder", },
+	["Bow"] = { shaper = "bow_shaper", elder = "bow_elder", },
+	["Staff"] = { shaper = "staff_shaper", elder = "staff_elder", },
+	["Two Handed Sword"] = { shaper = "2h_sword_shaper", elder = "2h_sword_elder", },
+	["Two Handed Axe"] = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", },
+	["Two Handed Mace"] = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", },
+	["Quiver"] = { shaper = "quiver_shaper", elder = "quiver_elder", },
+	["Belt"] = { shaper = "belt_shaper", elder = "belt_elder", },
+	["Gloves"] = { shaper = "gloves_shaper", elder = "gloves_elder", },
+	["Boots"] = { shaper = "boots_shaper", elder = "boots_elder", },
+	["Body Armour"] = { shaper = "body_armour_shaper", elder = "body_armour_elder", },
+	["Helmet"] = { shaper = "helmet_shaper", elder = "helmet_elder", },
+	["Shield"] = { shaper = "shield_shaper", elder = "shield_selder", },
+	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", },
+}
+
 -- Uniques
 data.uniques = { }
 for _, type in pairs(itemTypes) do
@@ -147,6 +172,7 @@ for _, targetVersion in ipairs(targetVersionList) do
 		Item = dataModule("ModItem"),
 		Flask = dataModule("ModFlask"),
 		Jewel = dataModule("ModJewel"),
+		JewelAbyss = targetVersion ~= "2_6" and dataModule("ModJewelAbyss") or { },
 	}
 	data[targetVersion].corruptedMods = dataModule("ModCorrupted")
 	data[targetVersion].masterMods = dataModule("ModMaster")

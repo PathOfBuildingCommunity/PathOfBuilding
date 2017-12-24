@@ -7,31 +7,35 @@ local function writeMods(outName, condFunc)
 	for modKey = 0, Mods.maxRow do
 		local mod = Mods[modKey]
 		if condFunc(mod) then
-			out:write('\t["', mod.Id, '"] = { ')
-			if mod.GenerationType == 1 then
-				out:write('type = "Prefix", ')
-			elseif mod.GenerationType == 2 then
-				out:write('type = "Suffix", ')
-			end
-			out:write('affix = "', mod.Name, '", ')
 			local stats, orders = describeMod(mod)
-			out:write('"', table.concat(stats, '", "'), '", ')
-			out:write('statOrderKey = "', table.concat(orders, ','), '", ')
-			out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
-			out:write('level = ', mod.Level, ', group = "', mod.CorrectGroup, '", ')
-			out:write('weightKey = { ')
-			for _, tagKey in ipairs(mod.SpawnWeight_TagsKeys) do
-				out:write('"', Tags[tagKey].Id, '", ')
-			end
-			out:write('}, weightVal = { ', table.concat(mod.SpawnWeight_Values, ', '), ', }, ')
-			if mod.TagsKeys[1] then
-				out:write('tags = { ')
-				for _, tagKey in ipairs(mod.TagsKeys) do
+			if #orders > 0 then
+				out:write('\t["', mod.Id, '"] = { ')
+				if mod.GenerationType == 1 then
+					out:write('type = "Prefix", ')
+				elseif mod.GenerationType == 2 then
+					out:write('type = "Suffix", ')
+				end
+				out:write('affix = "', mod.Name, '", ')
+				out:write('"', table.concat(stats, '", "'), '", ')
+				out:write('statOrderKey = "', table.concat(orders, ','), '", ')
+				out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
+				out:write('level = ', mod.Level, ', group = "', mod.CorrectGroup, '", ')
+				out:write('weightKey = { ')
+				for _, tagKey in ipairs(mod.SpawnWeight_TagsKeys) do
 					out:write('"', Tags[tagKey].Id, '", ')
 				end
-				out:write('}, ')
+				out:write('}, weightVal = { ', table.concat(mod.SpawnWeight_Values, ', '), ', }, ')
+				if mod.TagsKeys[1] then
+					out:write('tags = { ')
+					for _, tagKey in ipairs(mod.TagsKeys) do
+						out:write('"', Tags[tagKey].Id, '", ')
+					end
+					out:write('}, ')
+				end
+				out:write('},\n')
+			else
+				print("Mod '"..mod.Id.."' has no stats")
 			end
-			out:write('},\n')
 		end
 	end
 	out:write('}')
@@ -46,6 +50,9 @@ writeMods("../Data/3_0/ModFlask.lua", function(mod)
 end)
 writeMods("../Data/3_0/ModJewel.lua", function(mod)
 	return mod.Domain == 11 and (mod.GenerationType == 1 or mod.GenerationType == 2)
+end)
+writeMods("../Data/3_0/ModJewelAbyss.lua", function(mod)
+	return mod.Domain == 14 and (mod.GenerationType == 1 or mod.GenerationType == 2)
 end)
 writeMods("../Data/3_0/ModCorrupted.lua", function(mod)
 	return mod.GenerationType == 5

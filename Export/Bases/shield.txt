@@ -3,6 +3,7 @@ local itemBases = ...
 
 #type Shield
 #baseTags armour shield
+#socketLimit 3
 
 #subType Armour
 #baseMatch Metadata/Items/Armours/Shields/ShieldStr%d+

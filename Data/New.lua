@@ -308,6 +308,17 @@ Adds 5 to 8 Physical Damage per Endurance Charge
 +500 to Armour per Endurance Charge 
 400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
 ]],[[
+Oni-Goroshi
+Charan's Sword
+Sockets: R-R-R-R-R-R
+Requires Level: 2
+40% increased Accuracy Rating
+Uses both hand slots
+(70–90)% increased Critical Strike Chance
+Adds 2 to 3 Physical Damage to Attacks per Level
+Gain Her Embrace for 3 seconds when you Ignite an Enemy
+While in Her Embrace, take 0.5% of your total Maximum Life and Energy Shield as Fire Damage per second per Level
+]],[[
 Oskarm
 Nubuck Gloves
 Requires Level: 33
@@ -355,7 +366,7 @@ Requires Level: 65
 (20–45)% increased Spell Damage 
 Adds (26–35) to (95–105) Lightning Damage to Spells 
 +(6–10)% to Critical Strike Multiplier per Power Charge 
-+0% Critical Strike Chance per Power Charge 
++0.3% Critical Strike Chance per Power Charge 
 2% additional Chance to Block Spells per Power Charge 
 Adds 3 to 9 Lightning Damage to Spells per Power Charge 
 400 Lightning Damage taken per second per Power Charge if you've dealt a Critical Strike Recently
@@ -411,11 +422,11 @@ Limited to: 1
 White Wind
 Imperial Skean
 Requires Level: 66
-30% increased Global Critical Strike Chance 
-Adds (160–190) to (280–320) Cold Damage 
-(10–15)% increased Attack Speed 
-+(300–400) to Evasion Rating 
-20% chance to Dodge Attacks while your Off Hand is empty 
+30% increased Global Critical Strike Chance
+Adds (160–190) to (280–320) Cold Damage
+(10–15)% increased Attack Speed
++(300–400) to Evasion Rating
+20% chance to Dodge Attacks while your Off Hand is empty
 100% increased Cold Damage while your Off Hand is empty
 ]],[[
 Wraithlord

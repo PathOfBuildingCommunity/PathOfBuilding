@@ -862,7 +862,7 @@ skills["Earthquake"] = {
 		--"is_area_damage" = ?
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }), 
 		skill("radius", 18, { type = "SkillPart", skillPart = 1 }), 
-		skill("radius", 25, { type = "SkillPart", skillPart = 2 }), 
+		skill("radius", 28, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("PhysicalDamage", "INC", 1), --"physical_damage_+%" = 1
@@ -1576,7 +1576,7 @@ skills["IceCrash"] = {
 		mod("Damage", "MORE", -10, 0, 0, { type = "SkillPart", skillPart = 2 }), --"ice_crash_second_hit_damage_+%_final" = -10
 		mod("Damage", "MORE", -20, 0, 0, { type = "SkillPart", skillPart = 3 }), --"ice_crash_third_hit_damage_+%_final" = -20
 		--"is_area_damage" = ?
-		skill("radius", 24), 
+		skill("radius", 26), 
 	},
 	qualityMods = {
 		mod("ColdDamage", "INC", 1), --"cold_damage_+%" = 1
@@ -2846,7 +2846,7 @@ skills["StaticStrike"] = {
 		skill("duration", 0.75), --"base_skill_effect_duration" = 750
 		mod("Damage", "MORE", -40, 0, 0, { type = "SkillPart", skillPart = 2 }), --"static_strike_explosion_damage_+%_final" = -40
 		mod("EnemyShockChance", "BASE", 10), --"base_chance_to_shock_%" = 10
-		skill("radius", 19), 
+		skill("radius", 20), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5

@@ -525,6 +525,28 @@ skills["ElementalAegis"] = {
 		[20] = { 1, },
 	},
 }
+skills["SupportElementalPenetration"] = {
+	name = "Elemental Penetration",
+	hidden = true,
+	color = 3,
+	support = true,
+	requireSkillTypes = { 10, 1, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	fromItem = true,
+	baseMods = {
+		mod("ManaCost", "MORE", 40), 
+		mod("ElementalPenetration", "BASE", 37), --"reduce_enemy_elemental_resistance_%" = 37
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = nil, 
+	},
+	levels = {
+		[20] = { 70, },
+	},
+}
 skills["Envy"] = {
 	name = "Envy",
 	hidden = true,
@@ -1432,6 +1454,7 @@ skills["VoidGaze"] = {
 	fromItem = true,
 	baseFlags = {
 		spell = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("castTime", 0.21), 

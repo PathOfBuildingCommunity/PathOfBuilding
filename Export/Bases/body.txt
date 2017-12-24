@@ -3,6 +3,7 @@ local itemBases = ...
 
 #type Body Armour
 #baseTags armour body_armour
+#socketLimit 6
 
 #subType Armour
 #baseMatch Metadata/Items/Armours/BodyArmours/BodyStr%d+

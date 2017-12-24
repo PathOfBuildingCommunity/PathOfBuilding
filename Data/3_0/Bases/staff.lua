@@ -4,6 +4,7 @@ local itemBases = ...
 
 itemBases["Gnarled Branch"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, small_staff = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 8, PhysicalMax = 17, CritChanceBase = 6, AttackRateBase = 1.3, },
@@ -11,6 +12,7 @@ itemBases["Gnarled Branch"] = {
 }
 itemBases["Primitive Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 9, PhysicalMax = 28, CritChanceBase = 6.2, AttackRateBase = 1.25, },
@@ -18,6 +20,7 @@ itemBases["Primitive Staff"] = {
 }
 itemBases["Long Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 17, PhysicalMax = 28, CritChanceBase = 6, AttackRateBase = 1.3, },
@@ -25,6 +28,7 @@ itemBases["Long Staff"] = {
 }
 itemBases["Iron Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 16, PhysicalMax = 47, CritChanceBase = 6.4, AttackRateBase = 1.2, },
@@ -32,6 +36,7 @@ itemBases["Iron Staff"] = {
 }
 itemBases["Coiled Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "20% Chance to Block",
 	weapon = { PhysicalMin = 23, PhysicalMax = 48, CritChanceBase = 6, AttackRateBase = 1.2, },
@@ -39,6 +44,7 @@ itemBases["Coiled Staff"] = {
 }
 itemBases["Royal Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 23, PhysicalMax = 70, CritChanceBase = 6.5, AttackRateBase = 1.15, },
@@ -46,6 +52,7 @@ itemBases["Royal Staff"] = {
 }
 itemBases["Vile Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 33, PhysicalMax = 62, CritChanceBase = 6.1, AttackRateBase = 1.25, },
@@ -53,6 +60,7 @@ itemBases["Vile Staff"] = {
 }
 itemBases["Crescent Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "80% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 35, PhysicalMax = 73, CritChanceBase = 6, AttackRateBase = 1.2, },
@@ -60,6 +68,7 @@ itemBases["Crescent Staff"] = {
 }
 itemBases["Woodful Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 29, PhysicalMax = 88, CritChanceBase = 6.2, AttackRateBase = 1.15, },
@@ -67,6 +76,7 @@ itemBases["Woodful Staff"] = {
 }
 itemBases["Quarterstaff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 41, PhysicalMax = 68, CritChanceBase = 6, AttackRateBase = 1.3, },
@@ -74,6 +84,7 @@ itemBases["Quarterstaff"] = {
 }
 itemBases["Military Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 34, PhysicalMax = 101, CritChanceBase = 6.4, AttackRateBase = 1.2, },
@@ -81,6 +92,7 @@ itemBases["Military Staff"] = {
 }
 itemBases["Serpentine Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "20% Chance to Block",
 	weapon = { PhysicalMin = 46, PhysicalMax = 95, CritChanceBase = 6, AttackRateBase = 1.2, },
@@ -88,6 +100,7 @@ itemBases["Serpentine Staff"] = {
 }
 itemBases["Highborn Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 42, PhysicalMax = 125, CritChanceBase = 6.5, AttackRateBase = 1.15, },
@@ -95,6 +108,7 @@ itemBases["Highborn Staff"] = {
 }
 itemBases["Foul Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 55, PhysicalMax = 103, CritChanceBase = 6.1, AttackRateBase = 1.25, },
@@ -102,6 +116,7 @@ itemBases["Foul Staff"] = {
 }
 itemBases["Moon Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "80% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 57, PhysicalMax = 118, CritChanceBase = 6, AttackRateBase = 1.2, },
@@ -109,6 +124,7 @@ itemBases["Moon Staff"] = {
 }
 itemBases["Primordial Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 47, PhysicalMax = 141, CritChanceBase = 6.2, AttackRateBase = 1.15, },
@@ -116,6 +132,7 @@ itemBases["Primordial Staff"] = {
 }
 itemBases["Lathi"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 62, PhysicalMax = 103, CritChanceBase = 6, AttackRateBase = 1.3, },
@@ -123,6 +140,7 @@ itemBases["Lathi"] = {
 }
 itemBases["Ezomyte Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 46, PhysicalMax = 138, CritChanceBase = 6.4, AttackRateBase = 1.2, },
@@ -130,6 +148,7 @@ itemBases["Ezomyte Staff"] = {
 }
 itemBases["Maelström Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "20% Chance to Block",
 	weapon = { PhysicalMin = 57, PhysicalMax = 119, CritChanceBase = 6, AttackRateBase = 1.2, },
@@ -137,6 +156,7 @@ itemBases["Maelström Staff"] = {
 }
 itemBases["Imperial Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 49, PhysicalMax = 147, CritChanceBase = 6.5, AttackRateBase = 1.15, },
@@ -144,6 +164,7 @@ itemBases["Imperial Staff"] = {
 }
 itemBases["Judgement Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "18% Chance to Block",
 	weapon = { PhysicalMin = 61, PhysicalMax = 113, CritChanceBase = 6.1, AttackRateBase = 1.25, },
@@ -151,6 +172,7 @@ itemBases["Judgement Staff"] = {
 }
 itemBases["Eclipse Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "100% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 60, PhysicalMax = 125, CritChanceBase = 6, AttackRateBase = 1.2, },
@@ -158,6 +180,7 @@ itemBases["Eclipse Staff"] = {
 }
 itemBases["Maelstrom Staff"] = {
 	type = "Staff",
+	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
 	implicit = "20% Chance to Block",
 	weapon = { PhysicalMin = 57, PhysicalMax = 119, CritChanceBase = 6, AttackRateBase = 1.2, },

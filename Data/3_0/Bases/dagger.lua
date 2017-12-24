@@ -4,6 +4,7 @@ local itemBases = ...
 
 itemBases["Glass Shank"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 6, PhysicalMax = 10, CritChanceBase = 6, AttackRateBase = 1.5, },
@@ -11,6 +12,7 @@ itemBases["Glass Shank"] = {
 }
 itemBases["Skinning Knife"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 5, PhysicalMax = 19, CritChanceBase = 6, AttackRateBase = 1.3, },
@@ -18,6 +20,7 @@ itemBases["Skinning Knife"] = {
 }
 itemBases["Carving Knife"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 3, PhysicalMax = 27, CritChanceBase = 6.3, AttackRateBase = 1.4, },
@@ -25,6 +28,7 @@ itemBases["Carving Knife"] = {
 }
 itemBases["Stiletto"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 7, PhysicalMax = 27, CritChanceBase = 6.1, AttackRateBase = 1.5, },
@@ -32,6 +36,7 @@ itemBases["Stiletto"] = {
 }
 itemBases["Boot Knife"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 9, PhysicalMax = 35, CritChanceBase = 6.3, AttackRateBase = 1.4, },
@@ -39,6 +44,7 @@ itemBases["Boot Knife"] = {
 }
 itemBases["Copper Kris"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "50% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 12, PhysicalMax = 46, CritChanceBase = 6.5, AttackRateBase = 1.2, },
@@ -46,6 +52,7 @@ itemBases["Copper Kris"] = {
 }
 itemBases["Skean"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 11, PhysicalMax = 43, CritChanceBase = 6.3, AttackRateBase = 1.45, },
@@ -53,6 +60,7 @@ itemBases["Skean"] = {
 }
 itemBases["Imp Dagger"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "40% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 15, PhysicalMax = 59, CritChanceBase = 6.5, AttackRateBase = 1.2, },
@@ -60,6 +68,7 @@ itemBases["Imp Dagger"] = {
 }
 itemBases["Prong Dagger"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "4% Chance to Block",
 	weapon = { PhysicalMin = 14, PhysicalMax = 57, CritChanceBase = 6.2, AttackRateBase = 1.3, },
@@ -67,6 +76,7 @@ itemBases["Prong Dagger"] = {
 }
 itemBases["Flaying Knife"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 16, PhysicalMax = 64, CritChanceBase = 6, AttackRateBase = 1.2, },
@@ -74,6 +84,7 @@ itemBases["Flaying Knife"] = {
 }
 itemBases["Butcher Knife"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 7, PhysicalMax = 59, CritChanceBase = 6.3, AttackRateBase = 1.4, },
@@ -81,6 +92,7 @@ itemBases["Butcher Knife"] = {
 }
 itemBases["Poignard"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 13, PhysicalMax = 52, CritChanceBase = 6.1, AttackRateBase = 1.5, },
@@ -88,6 +100,7 @@ itemBases["Poignard"] = {
 }
 itemBases["Boot Blade"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 15, PhysicalMax = 59, CritChanceBase = 6.3, AttackRateBase = 1.4, },
@@ -95,6 +108,7 @@ itemBases["Boot Blade"] = {
 }
 itemBases["Golden Kris"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "50% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 19, PhysicalMax = 75, CritChanceBase = 6.5, AttackRateBase = 1.2, },
@@ -102,6 +116,7 @@ itemBases["Golden Kris"] = {
 }
 itemBases["Royal Skean"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 16, PhysicalMax = 64, CritChanceBase = 6.3, AttackRateBase = 1.45, },
@@ -109,6 +124,7 @@ itemBases["Royal Skean"] = {
 }
 itemBases["Fiend Dagger"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "40% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 22, PhysicalMax = 87, CritChanceBase = 6.5, AttackRateBase = 1.2, },
@@ -116,6 +132,7 @@ itemBases["Fiend Dagger"] = {
 }
 itemBases["Trisula"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "4% Chance to Block",
 	weapon = { PhysicalMin = 21, PhysicalMax = 83, CritChanceBase = 6.2, AttackRateBase = 1.3, },
@@ -123,6 +140,7 @@ itemBases["Trisula"] = {
 }
 itemBases["Gutting Knife"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 24, PhysicalMax = 97, CritChanceBase = 6, AttackRateBase = 1.2, },
@@ -130,6 +148,7 @@ itemBases["Gutting Knife"] = {
 }
 itemBases["Slaughter Knife"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 10, PhysicalMax = 86, CritChanceBase = 6.3, AttackRateBase = 1.4, },
@@ -137,6 +156,7 @@ itemBases["Slaughter Knife"] = {
 }
 itemBases["Ambusher"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 19, PhysicalMax = 74, CritChanceBase = 6.1, AttackRateBase = 1.5, },
@@ -144,6 +164,7 @@ itemBases["Ambusher"] = {
 }
 itemBases["Ezomyte Dagger"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 20, PhysicalMax = 79, CritChanceBase = 6.3, AttackRateBase = 1.4, },
@@ -151,6 +172,7 @@ itemBases["Ezomyte Dagger"] = {
 }
 itemBases["Platinum Kris"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "50% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 24, PhysicalMax = 95, CritChanceBase = 6.5, AttackRateBase = 1.2, },
@@ -158,6 +180,7 @@ itemBases["Platinum Kris"] = {
 }
 itemBases["Imperial Skean"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 19, PhysicalMax = 76, CritChanceBase = 6.3, AttackRateBase = 1.45, },
@@ -165,6 +188,7 @@ itemBases["Imperial Skean"] = {
 }
 itemBases["Demon Dagger"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "40% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 24, PhysicalMax = 97, CritChanceBase = 6.5, AttackRateBase = 1.2, },
@@ -172,6 +196,7 @@ itemBases["Demon Dagger"] = {
 }
 itemBases["Sai"] = {
 	type = "Dagger",
+	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "6% Chance to Block",
 	weapon = { PhysicalMin = 23, PhysicalMax = 90, CritChanceBase = 6.2, AttackRateBase = 1.3, },
