@@ -1,3 +1,6 @@
+### 1.4.73 - 2017/12/25
+ * Fixed error that occured when changing some items to Shaper or Elder
+
 ### 1.4.72 - 2017/12/25
  * Added 2 Abyssal Socket variants to the Abyss league uniques
  * Cremation now correctly benefits from modifiers to Area Damage
