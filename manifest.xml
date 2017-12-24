@@ -26,7 +26,7 @@
 	<File sha1="871e86615455574024070657599aec2004b48b24" name="Classes/ItemListControl.lua" part="program"/>
 	<File sha1="b8b647d7ceeb6aad268a57be099ddd91194ab9f5" name="Classes/ItemSetListControl.lua" part="program"/>
 	<File sha1="f75539b022576ba1fd3b36402b6d7a766e453add" name="Classes/ItemSlotControl.lua" part="program"/>
-	<File sha1="ec8f872eba86c063c833bf32b4f0a06ebdc70479" name="Classes/ItemsTab.lua" part="program"/>
+	<File sha1="b22a2878c1fbaf0b07eb3d829efb3460703ea479" name="Classes/ItemsTab.lua" part="program"/>
 	<File sha1="62138c7db82d57d638a16610a26acd0de75d3486" name="Classes/LabelControl.lua" part="program"/>
 	<File sha1="d04c75e81b9c1aec76e1bcd54e6c967f8b84b938" name="Classes/ListControl.lua" part="program"/>
 	<File sha1="e49ea5dbedf4ad0e71dc3331693636ac51e90ba5" name="Classes/MinionListControl.lua" part="program"/>
