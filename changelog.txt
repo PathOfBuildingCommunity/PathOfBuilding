@@ -1,4 +1,7 @@
-VERSION[1.4.71][2017/12/23]
+VERSION[1.4.72][2017/12/25]
+ * Added 2 Abyssal Socket variants to the Abyss league uniques
+ * Cremation now correctly benefits from modifiers to Area Damage
+VERSION[1.4.71][2017/12/25]
 This update adds full support for Abyss Jewels:
  * You can now socket Abyss Jewels in items that have Abyssal Sockets
  * Item modifiers that interact with Abyss Jewels are now supported
