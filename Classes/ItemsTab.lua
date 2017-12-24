@@ -24,6 +24,13 @@ local rarityDropList = {
 	{ label = colorCodes.RELIC.."Relic", rarity = "RELIC" }
 }
 
+local socketDropList = {
+	{ label = colorCodes.STRENGTH.."R", color = "R" },
+	{ label = colorCodes.DEXTERITY.."G", color = "G" },
+	{ label = colorCodes.INTELLIGENCE.."B", color = "B" },
+	{ label = colorCodes.SCION.."W", color = "W" }
+}
+
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
 local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
@@ -95,36 +102,55 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.orderedSlots = { }
 	self.slotOrder = { }
 	self.slotAnchor = common.New("Control", {"TOPLEFT",self,"TOPLEFT"}, 96, 54, 310, 0)
+	local prevSlot = self.slotAnchor
 	for index, slotName in ipairs(baseSlots) do
-		local slot = common.New("ItemSlot", {"TOPLEFT",self.slotAnchor,"TOPLEFT"}, 0, (index - 1) * 20, self, slotName)
+		local slot = common.New("ItemSlot", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName)
+		prevSlot = slot
 		t_insert(self.controls, slot)
 		self.slotOrder[slotName] = #self.orderedSlots
 		if slotName:match("Weapon") then
+			-- Add alternate weapon slot
 			slot.weaponSet = 1
 			slot.shown = function()
 				return not self.activeItemSet.useSecondWeaponSet
 			end
-			local swapSlot = common.New("ItemSlot", {"TOPLEFT",self.slotAnchor,"TOPLEFT"}, 0, (index - 1) * 20, self, slotName.." Swap", slotName)
+			local swapSlot = common.New("ItemSlot", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName.." Swap", slotName)
+			prevSlot = swapSlot
 			t_insert(self.controls, swapSlot)
 			self.slotOrder[swapSlot.slotName] = #self.orderedSlots
 			swapSlot.weaponSet = 2
 			swapSlot.shown = function()
 				return not slot:IsShown()
 			end
+		elseif slotName == "Helmet" or slotName == "Gloves" or slotName == "Body Armour" or slotName == "Boots" or slotName == "Belt" then
+			-- Add Abyssal Socket slots
+			for i = 1, 2 do
+				local abyssal = common.New("ItemSlot", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName.." Abyssal Socket "..i, "Abyssal #"..i)			
+				prevSlot = abyssal
+				abyssal.parentSlot = slot
+				t_insert(self.controls, abyssal)
+				slot.abyssalSocketList[i] = abyssal
+				self.slotOrder[abyssal.slotName] = #self.orderedSlots
+			end
 		end
 	end
 	self.sockets = { }
+	local socketOrder = { }
 	for _, node in pairs(build.tree.nodes) do
 		if node.type == "socket" then
-			local socketControl = common.New("ItemSlot", {"TOPLEFT",self.slotAnchor,"TOPLEFT"}, 0, 0, self, "Jewel "..node.id, "Socket", node.id)
-			self.controls["socket"..node.id] = socketControl
-			self.sockets[node.id] = socketControl
-			self.slotOrder["Jewel "..node.id] = #baseSlots + 1 + node.id
+			t_insert(socketOrder, node)
 		end
 	end
-	table.sort(self.orderedSlots, function(a, b)
-		return self.slotOrder[a.slotName] < self.slotOrder[b.slotName]
+	table.sort(socketOrder, function(a, b)
+		return a.id < b.id
 	end)
+	for _, node in ipairs(socketOrder) do
+		local socketControl = common.New("ItemSlot", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, "Jewel "..node.id, "Socket", node.id)
+		prevSlot = socketControl
+		self.controls["socket"..node.id] = socketControl
+		self.sockets[node.id] = socketControl
+		self.slotOrder["Jewel "..node.id] = #self.orderedSlots
+	end
 	self.controls.slotHeader = common.New("LabelControl", {"BOTTOMLEFT",self.slotAnchor,"TOPLEFT"}, 0, -4, 0, 16, "^7Equipped items:")
 	self.controls.weaponSwap1 = common.New("ButtonControl", {"BOTTOMRIGHT",self.slotAnchor,"TOPRIGHT"}, -20, -2, 18, 18, "I", function()
 		if self.activeItemSet.useSecondWeaponSet then
@@ -243,22 +269,84 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemVariant.shown = function()
 		return self.displayItem.variantList and #self.displayItem.variantList > 1
 	end
+
+	-- Section: Sockets and Links
+	self.controls.displayItemSectionSockets = common.New("Control", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 0, function()
+		return self.displayItem.selectableSocketCount > 0 and 28 or 0
+	end)
+	for i = 1, 6 do
+		local drop = common.New("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionSockets,"TOPLEFT"}, (i-1) * 64, 0, 36, 20, socketDropList, function(index, value)
+			self.displayItem.sockets[i].color = value.color
+			itemLib.buildItemModList(self.displayItem)
+			self:UpdateDisplayItemTooltip()
+		end)
+		drop.shown = function()
+			return self.displayItem.selectableSocketCount >= i and self.displayItem.sockets[i] and self.displayItem.sockets[i].color ~= "A"
+		end
+		self.controls["displayItemSocket"..i] = drop
+		if i < 6 then
+			local link = common.New("CheckBoxControl", {"LEFT",drop,"RIGHT"}, 4, 0, 20, nil, function(state)
+				if state and self.displayItem.sockets[i].group ~= self.displayItem.sockets[i+1].group then
+					for s = i + 1, #self.displayItem.sockets do
+						self.displayItem.sockets[s].group = self.displayItem.sockets[s].group - 1
+					end
+				elseif not state and self.displayItem.sockets[i].group == self.displayItem.sockets[i+1].group then
+					for s = i + 1, #self.displayItem.sockets do
+						self.displayItem.sockets[s].group = self.displayItem.sockets[s].group + 1
+					end
+				end
+				self:UpdateDisplayItemTooltip()
+			end)
+			link.shown = function()
+				return self.displayItem.selectableSocketCount > i and self.displayItem.sockets[i+1] and self.displayItem.sockets[i+1].color ~= "A"
+			end
+			self.controls["displayItemLink"..i] = link
+		end
+	end
+	self.controls.displayItemAddSocket = common.New("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionSockets,"TOPLEFT"}, function() return (#self.displayItem.sockets - self.displayItem.abyssalSocketCount) * 64 - 12 end, 0, 20, 20, "+", function()
+		local insertIndex = #self.displayItem.sockets - self.displayItem.abyssalSocketCount + 1
+		t_insert(self.displayItem.sockets, insertIndex, {
+			color = self.displayItem.defaultSocketColor,
+			group = self.displayItem.sockets[insertIndex - 1].group + 1
+		})
+		for s = insertIndex + 1, #self.displayItem.sockets do
+			self.displayItem.sockets[s].group = self.displayItem.sockets[s].group + 1
+		end
+		itemLib.buildItemModList(self.displayItem)
+		self:UpdateSocketControls()
+		self:UpdateDisplayItemTooltip()
+	end)
+	self.controls.displayItemAddSocket.shown = function()
+		return #self.displayItem.sockets < self.displayItem.selectableSocketCount + self.displayItem.abyssalSocketCount
+	end
 	
 	-- Section: Apply Implicit
-	self.controls.displayItemSectionImplicit = common.New("Control", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 0, function()
-		return (self.controls.displayItemEnchant:IsShown() or self.controls.displayItemCorrupt:IsShown()) and 28 or 0
+	self.controls.displayItemSectionImplicit = common.New("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT"}, 0, 0, 0, function()
+		return (self.controls.displayItemShaperElder:IsShown() or self.controls.displayItemEnchant:IsShown() or self.controls.displayItemCorrupt:IsShown()) and 28 or 0
 	end)
-	self.controls.displayItemEnchant = common.New("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, 0, 0, 160, 20, "Apply Enchantment...", function()
+	self.controls.displayItemShaperElder = common.New("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, 0, 0, 100, 20, {"Normal","Shaper","Elder"}, function(index, value)
+		self.displayItem.shaper = (index == 2)
+		self.displayItem.elder = (index == 3)
+		for i = 1, 6 do
+			-- Force affix selectors to update
+			local drop = self.controls["displayItemAffix"..i]
+			drop.selFunc(drop.selIndex, drop.list[drop.selIndex])
+		end
+	end)
+	self.controls.displayItemShaperElder.shown = function()
+		return self.displayItem and self.displayItem.canBeShaperElder
+	end
+	self.controls.displayItemEnchant = common.New("ButtonControl", {"TOPLEFT",self.controls.displayItemShaperElder,"TOPRIGHT",true}, 8, 0, 160, 20, "Apply Enchantment...", function()
 		self:EnchantDisplayItem()
 	end)
 	self.controls.displayItemEnchant.shown = function()
-		return self.displayItem.enchantments
+		return self.displayItem and self.displayItem.enchantments
 	end
-	self.controls.displayItemCorrupt = common.New("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, function() return self.controls.displayItemEnchant:IsShown() and 168 or 0 end, 0, 100, 20, "Corrupt...", function()
+	self.controls.displayItemCorrupt = common.New("ButtonControl", {"TOPLEFT",self.controls.displayItemEnchant,"TOPRIGHT",true}, 8, 0, 100, 20, "Corrupt...", function()
 		self:CorruptDisplayItem()
 	end)
 	self.controls.displayItemCorrupt.shown = function()
-		return self.displayItem.corruptable
+		return self.displayItem and self.displayItem.corruptable
 	end
 
 	-- Section: Affix Selection
@@ -743,11 +831,10 @@ function ItemsTabClass:UpdateSockets()
 	end
 	table.sort(activeSocketList)
 
-	-- Update the position of the active socket controls
+	-- Update the state of the active socket controls
 	self.lastSlot = self.slots[baseSlots[#baseSlots]]
 	for index, nodeId in ipairs(activeSocketList) do
 		self.sockets[nodeId].label = "Socket #"..index
-		self.sockets[nodeId].y = (#baseSlots + index - 1) * 20
 		self.lastSlot = self.sockets[nodeId]
 	end
 end
@@ -892,6 +979,8 @@ function ItemsTabClass:SetDisplayItem(item)
 		self.snapHScroll = "RIGHT"
 		self.controls.displayItemVariant.list = item.variantList
 		self.controls.displayItemVariant.selIndex = item.variant
+		self.controls.displayItemShaperElder:SetSel((item.shaper and 2) or (item.elder and 3) or 1)
+		self:UpdateSocketControls()
 		if item.crafted then
 			self:UpdateAffixControls()
 		end
@@ -906,6 +995,16 @@ function ItemsTabClass:UpdateDisplayItemTooltip()
 	self.displayItemTooltip:Clear()
 	self:AddItemTooltip(self.displayItemTooltip, self.displayItem)
 	self.displayItemTooltip.center = false
+end
+
+function ItemsTabClass:UpdateSocketControls()
+	local sockets = self.displayItem.sockets
+	for i = 1, #sockets - self.displayItem.abyssalSocketCount do
+		self.controls["displayItemSocket"..i]:SelByValue(sockets[i].color, "color")
+		if i > 1 then
+			self.controls["displayItemLink"..(i-1)].state = sockets[i].group == sockets[i-1].group
+		end
+	end
 end
 
 -- Update affix selection controls
@@ -967,7 +1066,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	control.slider.shown = false
 	control.slider.val = 0.5
 	local selAffix = item[outputTable][outputIndex].modId
-	if item.type == "Flask" or item.type == "Jewel" then
+	if item.type == "Flask" or (item.type == "Jewel" and item.base.subType ~= "Abyss") then
 		for i, modId in pairs(affixList) do
 			local mod = item.affixes[modId]
 			if selAffix == modId then
@@ -1092,6 +1191,8 @@ end
 function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 	itemSet = itemSet or self.activeItemSet
 	if item.type == slotName:gsub(" %d+","") then
+		return true
+	elseif item.type == "Jewel" and item.base.subType == "Abyss" and slotName:match("Abyssal Socket") then
 		return true
 	elseif slotName == "Weapon 1" or slotName == "Weapon 1 Swap" or slotName == "Weapon" then
 		return item.base.weapon ~= nil
@@ -1546,6 +1647,12 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	else
 		tooltip:AddLine(20, rarityCode..item.namePrefix..item.baseName:gsub(" %(.+%)","")..item.nameSuffix)
 	end
+	if item.shaper then
+		tooltip:AddLine(16, colorCodes.SHAPER.."Shaper Item")
+	end
+	if item.elder then
+		tooltip:AddLine(16, colorCodes.ELDER.."Elder Item")
+	end
 	tooltip:AddSeparator(10)
 
 	-- Special fields for database items
@@ -1664,7 +1771,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if item.jewelRadiusData and slot and item.jewelRadiusData[slot.nodeId] then
 			local radiusData = item.jewelRadiusData[slot.nodeId]
 			local line
-			local codes = { colorCodes.MARAUDER, colorCodes.RANGER, colorCodes.WITCH }
+			local codes = { colorCodes.STRENGTH, colorCodes.DEXTERITY, colorCodes.INTELLIGENCE }
 			for i, stat in ipairs({"Str","Dex","Int"}) do
 				if radiusData[stat] and radiusData[stat] ~= 0 then
 					line = (line and line .. ", " or "") .. s_format("%s%d %s^7", codes[i], radiusData[stat], stat)
@@ -1674,6 +1781,35 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				tooltip:AddLine(16, "^x7F7F7FAllocated in Radius: "..line)
 			end
 		end
+	end
+	if #item.sockets > 0 then
+		-- Sockets/links
+		local group = 0
+		local line = ""
+		for i, socket in ipairs(item.sockets) do
+			if i > 1 then
+				if socket.group == group then
+					line = line .. "^7="
+				else
+					line = line .. "  "
+				end
+				group = socket.group
+			end
+			local code
+			if socket.color == "R" then
+				code = colorCodes.STRENGTH
+			elseif socket.color == "G" then
+				code = colorCodes.DEXTERITY
+			elseif socket.color == "B" then
+				code = colorCodes.INTELLIGENCE
+			elseif socket.color == "W" then
+				code = colorCodes.SCION
+			elseif socket.color == "A" then
+				code = "^xB0B0B0"
+			end
+			line = line .. code .. socket.color
+		end
+		tooltip:AddLine(16, "^x7F7F7FSockets: "..line)
 	end
 	tooltip:AddSeparator(10)
 

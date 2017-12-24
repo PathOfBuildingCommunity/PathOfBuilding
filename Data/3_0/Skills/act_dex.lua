@@ -4158,7 +4158,7 @@ skills["Reave"] = {
 		skill("manaCost", 6), 
 		mod("AreaOfEffect", "MORE", 50, 0, 0, { type = "Multiplier", var = "ReaveStage" }), --"reave_area_of_effect_+%_final_per_stage" = 50
 		--"is_area_damage" = ?
-		skill("radius", 14), 
+		skill("radius", 20), 
 		mod("Multiplier:ReaveStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 }), 
 		mod("Multiplier:ReaveStage", "BASE", 8, 0, 0, { type = "SkillPart", skillPart = 3 }), 
 	},

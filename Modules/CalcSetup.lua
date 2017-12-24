@@ -270,7 +270,8 @@ function calcs.initEnv(build, mode, override)
 	env.itemGrantedSkills = { }
 	env.flasks = { }
 	env.modDB.conditions["UsingAllCorruptedItems"] = true
-	for slotName, slot in pairs(build.itemsTab.slots) do
+	for _, slot in pairs(build.itemsTab.orderedSlots) do
+		local slotName = slot.slotName
 		local item
 		if slotName == override.repSlotName then
 			item = override.repItem
@@ -327,6 +328,16 @@ function calcs.initEnv(build, mode, override)
 			end
 			item = nil
 		end
+		local scale = 1
+		if item and item.type == "Jewel" and item.base.subType == "Abyss" and slot.parentSlot then
+			-- Check if the item in the parent slot has enough Abyssal Sockets
+			local parentItem = env.player.itemList[slot.parentSlot.slotName]
+			if not parentItem or parentItem.abyssalSocketCount < slot.slotNum then
+				item = nil
+			else
+				scale = parentItem.socketedJewelEffectModifier
+			end
+		end
 		if item then
 			env.player.itemList[slotName] = item
 			-- Merge mods for this item
@@ -341,6 +352,15 @@ function calcs.initEnv(build, mode, override)
 					Int = item.requirements.intMod,
 				})
 			end
+			if item.type == "Jewel" and item.base.subType == "Abyss" then
+				-- Update Abyss Jewel conditions/multipliers
+				local cond = "Have"..item.baseName:gsub(" ","")
+				if not env.modDB.conditions[cond] then
+					env.modDB.conditions[cond] = true
+					env.modDB.multipliers["AbyssJewelType"] = (env.modDB.multipliers["AbyssJewelType"] or 0) + 1
+				end
+				env.modDB.multipliers["AbyssJewel"] = (env.modDB.multipliers["AbyssJewel"] or 0) + 1
+			end
 			if item.type == "Shield" and nodes[45175] then
 				-- Special handling for Necromantic Aegis
 				env.aegisModList = common.New("ModList")
@@ -354,9 +374,9 @@ function calcs.initEnv(build, mode, override)
 						end
 					end
 					if add then
-						env.aegisModList:AddMod(mod)
+						env.aegisModList:ScaleAddMod(mod, scale)
 					else
-						env.modDB:AddMod(mod)
+						env.modDB:ScaleAddMod(mod, scale)
 					end
 				end
 			elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].name == "UniqueAnimateWeapon" then
@@ -372,13 +392,13 @@ function calcs.initEnv(build, mode, override)
 						end
 					end
 					if add then
-						env.weaponModList1:AddMod(mod)
+						env.weaponModList1:ScaleAddMod(mod, scale)
 					else
-						env.modDB:AddMod(mod)
+						env.modDB:ScaleAddMod(mod, scale)
 					end
 				end
 			else
-				env.modDB:AddList(srcList)
+				env.modDB:ScaleAddList(srcList, scale)
 			end
 			if item.type ~= "Jewel" and item.type ~= "Flask" then
 				-- Update item counts

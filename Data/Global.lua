@@ -35,6 +35,8 @@ colorCodes = {
 	MAINHANDBG = "^x071907",
 	OFFHAND = "^xB7B7FF",
 	OFFHANDBG = "^x070719",
+	SHAPER = "^x55BBFF",
+	ELDER = "^xAA77CC",
 }
 colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER

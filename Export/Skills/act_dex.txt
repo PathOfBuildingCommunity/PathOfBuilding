@@ -434,7 +434,7 @@ local skills, mod, flag, skill = ...
 
 #skill Reave
 #flags attack melee area
-#baseMod skill("radius", 14)
+#baseMod skill("radius", 20)
 	parts = {
 		{
 			name = "No stages",

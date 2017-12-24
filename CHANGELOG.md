@@ -1,3 +1,28 @@
+### 1.4.71 - 2017/12/23
+This update adds full support for Abyss Jewels:
+ * You can now socket Abyss Jewels in items that have Abyssal Sockets
+ * Item modifiers that interact with Abyss Jewels are now supported
+ * Abyss Jewels can now be crafted using the "Craft item..." option
+ * Abyss Jewels socketed in items will now be imported when importing a character's Items and Skills
+ 
+This update also adds support for item sockets:
+ * An item's sockets are now shown in the tooltip
+ * When editing an item you can now edit the sockets and links
+ * Item modifiers that interact with socket colours are now supported (e.g Prismatic Eclipse)
+
+This update also adds support for Shaper/Elder items:
+ * Item tooltips now indicate if an item is a Shaper or Elder Item
+    * These items will need to be re-imported to be recognised as such
+ * When editing a Normal, Magic or Rare item you can set the item to be Shaper or Elder
+ * When crafting an item, setting it to Shaper or Elder will enable the corresponding modifiers
+
+Other changes:
+ * Added Oni-Goroshi
+ * Added support for the Elemental Penetration support provided by Shroud of the Lightless
+ * Corrected the Critical Strike Chance per Power Charge modifier on Shimmeron
+ * Corrected the radius values of several skills that were updated in 3.1
+ * Fixed exported passive tree links to use the correct tree version
+
 ### 1.4.70 - 2017/12/17
  * Added the following new uniques:
     * Ahn's Contempt

@@ -18,6 +18,7 @@ local ItemSlotClass = common.NewClass("ItemSlot", "DropDownControl", function(se
 			itemsTab.build.buildFlag = true
 		end
 	end)
+	self.anchor.collapse = true
 	self.enabled = function()
 		return #self.items > 1
 	end
@@ -43,6 +44,7 @@ local ItemSlotClass = common.NewClass("ItemSlot", "DropDownControl", function(se
 	else
 		self.labelOffset = -2
 	end
+	self.abyssalSocketList = { }
 	self.tooltipFunc = function(tooltip, mode, index, itemId)
 		local item = itemsTab.items[self.items[index]]
 		if main.popups[1] or mode == "OUT" or not item or (not self.dropped and itemsTab.selControl and itemsTab.selControl ~= self.controls.activate) then
@@ -86,6 +88,16 @@ function ItemSlotClass:Populate()
 	end
 	if not self.selItemId or not self.itemsTab.items[self.selItemId] or not self.itemsTab:IsItemValidForSlot(self.itemsTab.items[self.selItemId], self.slotName) then
 		self:SetSelItemId(0)
+	end
+
+	-- Update Abyssal Sockets
+	local abyssalSocketCount = 0
+	if self.selItemId > 0 then
+		local selItem = self.itemsTab.items[self.selItemId]
+		abyssalSocketCount = selItem.abyssalSocketCount or 0
+	end
+	for i, abyssalSocket in ipairs(self.abyssalSocketList) do
+		abyssalSocket.inactive = i > abyssalSocketCount
 	end
 end
 

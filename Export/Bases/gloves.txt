@@ -3,6 +3,7 @@ local itemBases = ...
 
 #type Gloves
 #baseTags armour gloves
+#socketLimit 4
 
 #subType Armour
 #baseMatch Metadata/Items/Armours/Gloves/GlovesStr%d+

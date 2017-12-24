@@ -21,6 +21,10 @@ directiveTable.forceShow = function(state, args, out)
 	state.forceShow = (args == "true")
 end
 
+directiveTable.socketLimit = function(state, args, out)
+	state.socketLimit = tonumber(args)
+end
+
 directiveTable.base = function(state, args, out)
 	local baseTypeId, displayName = args:match("([%w/]+) (.+)")
 	if not baseTypeId then
@@ -42,6 +46,9 @@ directiveTable.base = function(state, args, out)
 	end
 	if baseItemType.Flag0 and not baseTypeId:match("Talisman") and not state.forceShow then
 		out:write('\thidden = true,\n')
+	end
+	if state.socketLimit then	
+		out:write('\tsocketLimit = ', state.socketLimit, ',\n')
 	end
 	out:write('\ttags = { ')
 	for _, tag in ipairs(state.baseTags) do

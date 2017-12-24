@@ -38,6 +38,19 @@ function ModListClass:AddMod(mod)
 	t_insert(self, mod)
 end
 
+function ModListClass:ScaleAddMod(mod, scale)
+	if scale == 1 then
+		self:AddMod(mod)
+	else
+		scale = m_max(scale, 0)
+		local scaledMod = copyTable(mod)
+		if type(scaledMod.value) == "number" then
+			scaledMod.value = (m_floor(scaledMod.value) == scaledMod.value) and m_modf(scaledMod.value * scale) or scaledMod.value * scale
+		end
+		self:AddMod(scaledMod)
+	end
+end
+
 function ModListClass:AddList(modList)
 	for i = 1, #modList do
 		t_insert(self, modList[i])

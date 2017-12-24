@@ -267,6 +267,7 @@ Malachai's Artifice
 Unset Ring
 Variant: Pre 2.6.0
 Variant: Current
+Sockets: W
 Requires Level 5
 Has 1 Socket
 {variant:1}−25% to all Elemental Resistances

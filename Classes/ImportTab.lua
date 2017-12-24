@@ -456,14 +456,15 @@ end
 local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC" }
 local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Belt"] = "Belt" }
 
-function ImportTabClass:ImportItem(itemData, sockets)
-	local slotName
-	if itemData.inventoryId == "PassiveJewels" and sockets then
-		slotName = "Jewel "..sockets[itemData.x + 1]
-	elseif itemData.inventoryId == "Flask" then
-		slotName = "Flask "..(itemData.x + 1)
-	else
-		slotName = slotMap[itemData.inventoryId]
+function ImportTabClass:ImportItem(itemData, sockets, slotName)
+	if not slotName then
+		if itemData.inventoryId == "PassiveJewels" and sockets then
+			slotName = "Jewel "..sockets[itemData.x + 1]
+		elseif itemData.inventoryId == "Flask" then
+			slotName = "Flask "..(itemData.x + 1)
+		else
+			slotName = slotMap[itemData.inventoryId]
+		end
 	end
 	if not slotName then
 		-- Ignore any items that won't go into known slots
@@ -518,6 +519,8 @@ function ImportTabClass:ImportItem(itemData, sockets)
 
 	-- Import item data
 	item.uniqueID = itemData.id
+	item.shaper = itemData.shaper
+	item.elder = itemData.elder
 	if itemData.ilvl > 0 then
 		item.itemLevel = itemData.ilvl
 	end
@@ -562,7 +565,7 @@ function ImportTabClass:ImportItem(itemData, sockets)
 		end
 	end
 	if itemData.socketedItems then
-		self:ImportSocketedSkills(item, itemData.socketedItems, slotName)
+		self:ImportSocketedItems(item, itemData.socketedItems, slotName)
 	end
 	if itemData.requirements and (not itemData.socketedItems or not itemData.socketedItems[1]) then
 		-- Requirements cannot be trusted if there are socketed gems, as they may override the item's natural requirements
@@ -633,30 +636,36 @@ function ImportTabClass:ImportItem(itemData, sockets)
 	end
 end
 
-function ImportTabClass:ImportSocketedSkills(item, socketedItems, slotName)
+function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	-- Build socket group list
 	local itemSocketGroupList = { }
+	local abyssalSocketId = 1
 	for _, socketedItem in ipairs(socketedItems) do
-		local gem = { level = 20, quality = 0, enabled = true}
-		gem.nameSpec = socketedItem.typeLine:gsub(" Support","")
-		gem.support = socketedItem.support
-		for _, property in pairs(socketedItem.properties) do
-			if property.name == "Level" then
-				gem.level = tonumber(property.values[1][1]:match("%d+"))
-			elseif property.name == "Quality" then
-				gem.quality = tonumber(property.values[1][1]:match("%d+"))
-			end
-		end
-		local groupID = item.sockets[socketedItem.socket + 1].group
-		if not itemSocketGroupList[groupID] then
-			itemSocketGroupList[groupID] = { label = "", enabled = true, gemList = { }, slot = slotName }
-		end
-		local socketGroup = itemSocketGroupList[groupID]
-		if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support then
-			-- If the first gem is a support gem, put the first active gem before it
-			t_insert(socketGroup.gemList, 1, gem)
+		if socketedItem.abyssJewel then
+			self:ImportItem(socketedItem, nil, slotName .. " Abyssal Socket "..abyssalSocketId)
+			abyssalSocketId = abyssalSocketId + 1
 		else
-			t_insert(socketGroup.gemList, gem)
+			local gem = { level = 20, quality = 0, enabled = true}
+			gem.nameSpec = socketedItem.typeLine:gsub(" Support","")
+			gem.support = socketedItem.support
+			for _, property in pairs(socketedItem.properties) do
+				if property.name == "Level" then
+					gem.level = tonumber(property.values[1][1]:match("%d+"))
+				elseif property.name == "Quality" then
+					gem.quality = tonumber(property.values[1][1]:match("%d+"))
+				end
+			end
+			local groupID = item.sockets[socketedItem.socket + 1].group
+			if not itemSocketGroupList[groupID] then
+				itemSocketGroupList[groupID] = { label = "", enabled = true, gemList = { }, slot = slotName }
+			end
+			local socketGroup = itemSocketGroupList[groupID]
+			if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support then
+				-- If the first gem is a support gem, put the first active gem before it
+				t_insert(socketGroup.gemList, 1, gem)
+			else
+				t_insert(socketGroup.gemList, gem)
+			end
 		end
 	end
 
