@@ -453,9 +453,12 @@ Your Elemental Damage can Shock
 [[
 Bubonic Trail
 Murder Boots
+Variant: One Abyssal Socket
+Variant: Two Abyssal Sockets
 League: Abyss
 Requires Level 69, 82 Dex, 42 Int
-Has 1 Abyssal Socket
+{variant:1}Has 1 Abyssal Socket
+{variant:2}Has 2 Abyssal Sockets
 Triggers level 20 Death Walk when Equipped
 4% increased maximum Life
 30% increased Movement Speed
@@ -470,8 +473,11 @@ Has 1 Abyssal Socket
 ]],[[
 Lightpoacher
 Great Crown
+Variant: One Abyssal Socket
+Variant: Two Abyssal Sockets
 League: Abyss
-Has 1 Abyssal Socket 
+{variant:1}Has 1 Abyssal Socket
+{variant:2}Has 2 Abyssal Sockets
 Trigger Level 20 Spirit Burst when you Use a Skill while you have a Spirit Charge 
 +(10–15)% to all Elemental Resistances 
 Recover (4–5)% of Life when a Spirit Charge expires or is consumed 
@@ -480,10 +486,13 @@ Recover (4–5)% of Life when a Spirit Charge expires or is consumed
 ]],[[
 Shroud of the Lightless
 Carnal Armour
+Variant: One Abyssal Socket
+Variant: Two Abyssal Sockets
 League: Abyss
 Requires Level: 71
 +(20–25) to maximum Mana 
-Has 1 Abyssal Socket 
+{variant:1}Has 1 Abyssal Socket
+{variant:2}Has 2 Abyssal Sockets
 Socketed Gems are Supported by Level 20 Elemental Penetration 
 20% chance to Trigger Level 20 Shade Form when you Use a Socketed Skill 
 (160–180)% increased Evasion and Energy Shield 
@@ -494,9 +503,12 @@ Socketed Gems are Supported by Level 20 Elemental Penetration
 ]],[[
 Tombfist
 Steelscale Gauntlets
+Variant: One Abyssal Socket
+Variant: Two Abyssal Sockets
 League: Abyss
 Requires Level: 36
-Has 1 Abyssal Socket 
+{variant:1}Has 1 Abyssal Socket
+{variant:2}Has 2 Abyssal Sockets
 (6–10)% increased Attack Speed 
 (4–6)% increased maximum Life 
 With a Murderous Eye Jewel Socketed, Intimidate Enemies for 4 seconds on Hit with Attacks 

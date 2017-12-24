@@ -1171,6 +1171,7 @@ skills["CorpseEruption"] = {
 		spell = true,
 		projectile = true,
 		fire = true,
+		area = true,
 	},
 	baseMods = {
 		skill("castTime", 0.6), 
