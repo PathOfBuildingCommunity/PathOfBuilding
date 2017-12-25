@@ -412,12 +412,115 @@ Every 8 seconds, gain Avatar of Fire for 4 seconds
 ]],[[
 Watcher's Eye
 Prismatic Jewel
+Has Alt Variant: true
+Variant: Anger: Fire Leech
+Variant: Anger: Fire Pen
+Variant: Anger: Physical Add Fire
+Variant: Anger: Physical Convert Fire
+Variant: Clarity: Dmg. Mana before Life
+Variant: Clarity: Mana Add Energy Shield
+Variant: Clarity: Recover Mana
+Variant: Clarity: Mana Cost
+Variant: Determination: Block
+Variant: Determination: Phys Dmg Reduct
+Variant: Determination: Red. Crit Dmg
+Variant: Determination: Vuln. Immune
+Variant: Discipline: Spell Block
+Variant: Discipline: Energy Shield on Hit
+Variant: Discipline: Energy Shield Regen
+Variant: Discipline: Faster Rchrg. Start
+Variant: Grace: Additional Evade
+Variant: Grace: Dodge Chance
+Variant: Grace: Movement Speed
+Variant: Grace: Enfeeble Immune
+Variant: Haste: Spell Dodge Chance
+Variant: Haste: Onslaught on Kill
+Variant: Haste: Phasing
+Variant: Haste: Temp. Chains Immune
+Variant: Hatred: Added Cold Damage
+Variant: Hatred: Crit Chance
+Variant: Hatred: Cold Pen
+Variant: Hatred: Physical Convert Cold
+Variant: Purity of Elements: Phys as Cold
+Variant: Purity of Elements: Phys as Fire
+Variant: Purity of Elements: Phys as Light
+Variant: Purity of Elements: EW Immune
+Variant: Purity of Fire: Ignite Immune
+Variant: Purity of Fire: Phys as Fire
+Variant: Purity of Fire: Bur.Gr Immune
+Variant: Purity of Fire: Flamm. Immune
+Variant: Purity of Ice: Freeze Immune
+Variant: Purity of Ice: Phys as Cold
+Variant: Purity of Ice: Chl.Gr Immune
+Variant: Purity of Ice: Frostbite Immune
+Variant: Purity of Lightning: Shock Immune
+Variant: Purity of Lightning: Phys as Light
+Variant: Purity of Lightning: Cond. Immune
+Variant: Purity of Lightning: Shk.Gr Immune
+Variant: Vitality: Life Leech
+Variant: Vitality: Life Regen
+Variant: Vitality: Life on Hit
+Variant: Vitality: Life Recovery
+Variant: Wrath: Light Leech
+Variant: Wrath: Light Pen
+Variant: Wrath: Phys Add Light
+Variant: Wrath: Phys Convert Light
 Limited to: 1
 (4–6)% increased maximum Energy Shield
 (4–6)% increased maximum Life 
 (4–6)% increased maximum Mana
-29% of Physical Damage Converted to Cold Damage while affected by Hatred
-+7% chance to Evade Attacks while affected by Grace
+{variant:1}(1-1.5)% of Fire Damage Leeched as Life while affected by Anger
+{variant:2}Damage Penetrates (10-15)% Fire Resistance while affected by Anger
+{variant:3}Gain (15-25)% of Physical Damage as Extra Fire Damage while affected by Anger
+{variant:4}(25-40)% of Physical Damage Converted to Fire Damage while affected by Anger
+{variant:5}(6-10)% of Damage taken from Mana before Life while affected by Clarity
+{variant:6}Gain (12-18)% of Maximum Mana as Extra Maximum Energy Shield while affected by Clarity
+{variant:7}(10-15)% chance to Recover 10% of Maximum Mana when you use a Skill while affected by Clarity
+{variant:8}-(10-5) to Total Mana Cost of Skills while affected by Clarity
+{variant:9}(5-8)% chance to Block while affected by Determination
+{variant:10}(5-8)% additional Physical Damage Reduction while affected by Determination
+{variant:11}You take (60-40)% reduced Extra Damage from Critical Strikes while affected by Determination
+{variant:12}Unaffected by Vulnerability while affected by Determination
+{variant:13}(5-8)% chance to Block Spells while affected by Discipline
+{variant:14}(20-30) Energy Shield gained for each Enemy Hit while affected by Discipline
+{variant:15}(1.5-2.5)% of Maximum Energy Shield Regenerated per Second while affected by Discipline
+{variant:16}(30-40)% faster start of Energy Shield Recharge while affected by Discipline
+{variant:17}+(5-8)% chance to Evade Attacks while affected by Grace
+{variant:18}(6-10)% chance to Dodge Attacks while affected by Grace
+{variant:19}(10-15)% increased Movement Speed while affected by Grace
+{variant:20}Unaffected by Enfeeble while affected by Grace
+{variant:21}(5-8)% chance to Dodge Spells while affected by Haste
+{variant:22}You gain Onslaught for 4 seconds on Kill while affected by Haste
+{variant:23}You have Phasing while affected by Haste
+{variant:24}Unaffected by Temporal Chains while affected by Haste
+{variant:25}Adds (58-70) to (88-104) Cold Damage while affected by Hatred
+{variant:26}+(1.2-1.8)% to Critical Strike Chance while affected by Hatred
+{variant:27}Damage Penetrates (10-15)% Cold Resistance while affected by Hatred
+{variant:28}(25-40)% of Physical Damage Converted to Cold Damage while affected by Hatred
+{variant:29}(8-12)% of Physical Damage taken as Cold Damage while affected by Purity of Elements
+{variant:30}(8-12)% of Physical Damage taken as Fire Damage while affected by Purity of Elements
+{variant:31}(8-12)% of Physical Damage taken as Lightning Damage while affected by Purity of Elements
+{variant:32}Unaffected by Elemental Weakness while affected by Purity of Elements
+{variant:33}Immune to Ignite while affected by Purity of Fire
+{variant:34}(6-10)% of Physical Damage taken as Fire Damage while affected by Purity of Fire
+{variant:35}Unaffected by Burning Ground while affected by Purity of Fire
+{variant:36}Unaffected by Flammability while affected by Purity of Fire
+{variant:37}Immune to Freeze while affected by Purity of Ice
+{variant:38}(6-10)% of Physical Damage taken as Cold Damage while affected by Purity of Ice
+{variant:39}Unaffected by Chilled Ground while affected by Purity of Ice
+{variant:40}Unaffected by Frostbite while affected by Purity of Ice
+{variant:41}Immune to Shock while affected by Purity of Lightning
+{variant:42}(6-10)% of Physical Damage taken as Lightning Damage while affected by Purity of Lightning
+{variant:43}Unaffected by Conductivity while affected by Purity of Lightning
+{variant:44}Unaffected by Shocked Ground while affected by Purity of Lightning
+{variant:45}(1-1.5)% of Damage leeched as Life while affected by Vitality
+{variant:46}(100-140) Life Regenerated per Second while affected by Vitality
+{variant:47}(20-30) Life gained for each Enemy Hit while affected by Vitality
+{variant:48}(20-30)% increased Life Recovery Rate while affected by Vitality
+{variant:49}(1-1.5)% of Lightning Damage is Leeched as Mana while affected by Wrath
+{variant:50}Damage Penetrates (10-15)% Lightning Resistance while affected by Wrath
+{variant:51}Gain (15-25)% of Physical Damage as Extra Lightning Damage while affected by Wrath
+{variant:52}(25-40)% of Physical Damage Converted to Lightning Damage while affected by Wrath
 ]],[[
 White Wind
 Imperial Skean
@@ -694,9 +797,9 @@ Requires Level 43, 34 Str, 34 Int
 {variant:2}+(30-40)% to Cold Resistance
 {variant:3}+(30-40)% to Lightning Resistance
 50% less Poison Duration
-{variant:1}Fire Damage can Poison
-{variant:2}Cold Damage can Poison
-{variant:3}Lightning Damage can Poison
+{variant:1}Your Fire Damage can Poison
+{variant:2}Your Cold Damage can Poison
+{variant:3}Your Lightning Damage can Poison
 {variant:1}Fire Skills have 20% chance to Poison on Hit
 {variant:2}Cold Skills have 20% chance to Poison on Hit
 {variant:3}Lightning Skills have 20% chance to Poison on Hit

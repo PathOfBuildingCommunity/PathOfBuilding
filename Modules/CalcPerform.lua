@@ -135,12 +135,15 @@ local function doActorAttribsPoolsConditions(env, actor)
 			elseif actor.mainSkill.skillFlags.spell then
 				condList["CastSpellRecently"] = true
 			end
+			if actor.mainSkill.skillFlags.movement then
+				condList["UsedMovementSkillRecently"] = true
+			end
+			if actor.mainSkill.skillFlags.minion then
+				condList["UsedMinionSkillRecently"] = true
+			end
 		end
 		if actor.mainSkill.skillFlags.hit and not actor.mainSkill.skillFlags.trap and not actor.mainSkill.skillFlags.mine and not actor.mainSkill.skillFlags.totem then
 			condList["HitRecently"] = true
-		end
-		if actor.mainSkill.skillFlags.movement then
-			condList["UsedMovementSkillRecently"] = true
 		end
 		if actor.mainSkill.skillFlags.totem then
 			condList["HaveTotem"] = true
@@ -307,6 +310,16 @@ local function doActorMisc(env, actor)
 		if modDB:Sum("FLAG", nil, "UnholyMight") then
 			local effect = m_floor(30 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
 			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", effect, "Unholy Might")
+		end
+		if modDB:Sum("FLAG", nil, "HerEmbrace") then
+			condList["HerEmbrace"] = true
+			modDB:NewMod("AvoidStun", "BASE", 100, "Her Embrace")
+			modDB:NewMod("PhysicalDamageGainAsFire", "BASE", 123, "Her Embrace", ModFlag.Sword)
+			modDB:NewMod("AvoidFreeze", "BASE", 100, "Her Embrace")
+			modDB:NewMod("AvoidChill", "BASE", 100, "Her Embrace")
+			modDB:NewMod("AvoidIgnite", "BASE", 100, "Her Embrace")
+			modDB:NewMod("Speed", "INC", 20, "Her Embrace")
+			modDB:NewMod("MovementSpeed", "INC", 20, "Her Embrace")
 		end
 	end	
 end
@@ -646,7 +659,7 @@ function calcs.perform(env)
 					if not activeSkill.skillData.auraCannotAffectSelf then
 						activeSkill.buffSkill = true
 						affectedByAura[env.player] = true
-						modDB.conditions["AffectedBy"..buff.name] = true
+						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = common.New("ModList")
 						local inc = modDB:Sum("INC", skillCfg, "AuraEffect", "BuffEffectOnSelf", "AuraEffectOnSelf") + skillModList:Sum("INC", skillCfg, "AuraEffect")
 						local more = modDB:Sum("MORE", skillCfg, "AuraEffect", "BuffEffectOnSelf", "AuraEffectOnSelf") * skillModList:Sum("MORE", skillCfg, "AuraEffect")

@@ -82,6 +82,7 @@ local modNameList = {
 	["mana cost"] = "ManaCost",
 	["mana cost of"] = "ManaCost",
 	["mana cost of skills"] = "ManaCost",
+	["total mana cost of skills"] = "ManaCost",
 	["mana reserved"] = "ManaReserved",
 	["mana reservation"] = "ManaReserved",
 	-- Primary defences
@@ -144,6 +145,7 @@ local modNameList = {
 	["to dodge attacks"] = "AttackDodgeChance",
 	["to dodge spells"] = "SpellDodgeChance",
 	["to dodge spell damage"] = "SpellDodgeChance",
+	["to dodge attacks and spells"] = { "AttackDodgeChance", "SpellDodgeChance" },
 	["to block"] = "BlockChance",
 	["to block attacks"] = "BlockChance",
 	["block chance"] = "BlockChance",
@@ -162,6 +164,7 @@ local modNameList = {
 	["to avoid elemental ailments"] = { "AvoidShock", "AvoidFrozen", "AvoidChilled", "AvoidIgnite" },
 	["to avoid elemental status ailments"] = { "AvoidShock", "AvoidFrozen", "AvoidChilled", "AvoidIgnite" },
 	["damage is taken from mana before life"] = "DamageTakenFromManaBeforeLife",
+	["damage taken from mana before life"] = "DamageTakenFromManaBeforeLife",
 	["effect of curses on you"] = "CurseEffectOnSelf",
 	["life recovery rate"] = "LifeRecoveryRate",
 	["mana recovery rate"] = "ManaRecoveryRate",
@@ -214,12 +217,14 @@ local modNameList = {
 	-- On hit/kill/leech effects
 	["life gained on kill"] = "LifeOnKill",
 	["mana gained on kill"] = "ManaOnKill",
+	["life gained for each enemy hit"] = { "LifeOnHit" },
 	["life gained for each enemy hit by attacks"] = { "LifeOnHit", flags = ModFlag.Attack },
 	["life gained for each enemy hit by your attacks"] = { "LifeOnHit", flags = ModFlag.Attack },
 	["life gained for each enemy hit by spells"] = { "LifeOnHit", flags = ModFlag.Spell },
 	["life gained for each enemy hit by your spells"] = { "LifeOnHit", flags = ModFlag.Spell },
 	["mana gained for each enemy hit by attacks"] = { "ManaOnHit", flags = ModFlag.Attack },
 	["mana gained for each enemy hit by your attacks"] = { "ManaOnHit", flags = ModFlag.Attack },
+	["energy shield gained for each enemy hit"] = { "EnergyShieldOnHit" },
 	["energy shield gained for each enemy hit by attacks"] = { "EnergyShieldOnHit", flags = ModFlag.Attack },
 	["energy shield gained for each enemy hit by your attacks"] = { "EnergyShieldOnHit", flags = ModFlag.Attack },
 	["life and mana gained for each enemy hit"] = { "LifeOnHit", "ManaOnHit", flags = ModFlag.Attack },
@@ -612,7 +617,6 @@ local modTagList = {
 	["while at maximum power charges"] = { tag = { type = "Condition", var = "AtMaxPowerCharges" } },
 	["while at maximum frenzy charges"] = { tag = { type = "Condition", var = "AtMaxFrenzyCharges" } },
 	["while at maximum endurance charges"] = { tag = { type = "Condition", var = "AtMaxEnduranceCharges" } },
-	["while affected by (%a+)"] = function(_, buff) return { tag = { type = "Condition", var = "AffectedBy"..buff:sub(1,1):upper()..buff:sub(2) } } end,
 	["while you have a totem"] = { tag = { type = "Condition", var = "HaveTotem" } },
 	["while you have fortify"] = { tag = { type = "Condition", var = "Fortify" } },
 	["during onslaught"] = { tag = { type = "Condition", var = "Onslaught" } },
@@ -650,6 +654,7 @@ local modTagList = {
 	["if you[' ]h?a?ve killed an enemy affected by your damage over time recently"] = { tag = { type = "Condition", var = "KilledAffectedByDotRecently" } },
 	["if you[' ]h?a?ve frozen an enemy recently"] = { tag = { type = "Condition", var = "FrozenEnemyRecently" } },
 	["if you[' ]h?a?ve ignited an enemy recently"] = { tag = { type = "Condition", var = "IgnitedEnemyRecently" } },
+	["if you[' ]h?a?ve shocked an enemy recently"] = { tag = { type = "Condition", var = "ShockedEnemyRecently" } },
 	["if you[' ]h?a?ve been hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
 	["if you were hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
 	["if you were damaged by a hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
@@ -672,6 +677,7 @@ local modTagList = {
 	["if you[' ]h?a?ve used a cold skill in the past 10 seconds"] = { tag = { type = "Condition", var = "UsedColdSkillInPast10Sec" } },
 	["if you[' ]h?a?ve used a lightning skill in the past 10 seconds"] = { tag = { type = "Condition", var = "UsedLightningSkillInPast10Sec" } },
 	["if you[' ]h?a?ve summoned a totem recently"] = { tag = { type = "Condition", var = "SummonedTotemRecently" } },
+	["if you[' ]h?a?ve used a minion skill recently"] = { tag = { type = "Condition", var = "UsedMinionSkillRecently" } },
 	["if you[' ]h?a?ve used a movement skill recently"] = { tag = { type = "Condition", var = "UsedMovementSkillRecently" } },
 	["if you detonated mines recently"] = { tag = { type = "Condition", var = "DetonatedMinesRecently" } },
 	["if you[' ]h?a?ve crit in the past 8 seconds"] = { tag = { type = "Condition", var = "CritInPast8Sec" } },
@@ -963,9 +969,9 @@ local specialModList = {
 	["causes bleeding on melee critical strike"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee, { type = "Condition", var = "CriticalStrike" }) },
 	["melee critical strikes have (%d+)%% chance to cause bleeding"] = function(num) return { mod("BleedChance", "BASE", num, nil, ModFlag.Melee, { type = "Condition", var = "CriticalStrike" }) } end,
 	-- Poison
-	["fire damage can poison"] = { flag("FireCanPoison") },
-	["cold damage can poison"] = { flag("ColdCanPoison") },
-	["lightning damage can poison"] = { flag("LightningCanPoison") },
+	["y?o?u?r? ?fire damage can poison"] = { flag("FireCanPoison") },
+	["y?o?u?r? ?cold damage can poison"] = { flag("ColdCanPoison") },
+	["y?o?u?r? ?lightning damage can poison"] = { flag("LightningCanPoison") },
 	["your chaos damage poisons enemies"] = { mod("ChaosPoisonChance", "BASE", 100) },
 	["your chaos damage has (%d+)%% chance to poison enemies"] = function(num) return { mod("ChaosPoisonChance", "BASE", num) } end,
 	["melee attacks poison on hit"] = { mod("PoisonChance", "BASE", 100, nil, ModFlag.Melee) },
@@ -978,6 +984,7 @@ local specialModList = {
 	["phasing"] = { flag("Condition:Phasing") },
 	["onslaught"] = { flag("Condition:Onslaught") },
 	["you have phasing if you've killed recently"] = { flag("Condition:Phasing", { type = "Condition", var = "KilledRecently" }) },
+	["you have phasing while affected by haste"] = { flag("Condition:Phasing", { type = "Condition", var = "AffectedByHaste" }) },
 	["your aura buffs do not affect allies"] = { flag("SelfAurasCannotAffectAllies") },
 	["allies' aura buffs do not affect you"] = { flag("AlliesAurasCannotAffectSelf") },
 	["enemies can have 1 additional curse"] = { mod("EnemyCurseLimit", "BASE", 1) },
@@ -999,6 +1006,7 @@ local specialModList = {
 	["minions poison enemies on hit"] = { mod("MinionModifier", "LIST", { mod = mod("PoisonChance", "BASE", 100) }) },
 	["minions have (%d+)%% chance to poison enemies on hit"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PoisonChance", "BASE", num) }) } end,
 	["(%d+)%% increased minion damage if you have hit recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "Condition", var = "HitRecently" }) } end,
+	["(%d+)%% increased minion damage if you've used a minion skill recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "Condition", var = "UsedMinionSkillRecently" }) } end,
 	["(%d+)%% increased minion attack speed per (%d+) dexterity"] = function(num, _, div) return { mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", num, nil, ModFlag.Attack) }, { type = "PerStat", stat = "Dex", div = tonumber(div) }) } end,
 	["(%d+)%% increased minion movement speed per (%d+) dexterity"] = function(num, _, div) return { mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", num) }, { type = "PerStat", stat = "Dex", div = tonumber(div) }) } end,
 	["minions deal (%d+)%% increased damage per (%d+) dexterity"] = function(num, _, div) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "PerStat", stat = "Dex", div = tonumber(div) }) } end,
@@ -1142,6 +1150,10 @@ local specialModList = {
 	["mana reservation of herald skills is always (%d+)%%"] = function(num) return { mod("SkillData", "LIST", { key = "manaCostForced", value = num }, { type = "SkillType", skillType = SkillType.Herald }) } end,
 	["your spells are disabled"] = { flag("DisableSkill", { type = "SkillType", skillType = SkillType.Spell }) },
 	["strength's damage bonus instead grants (%d+)%% increased melee physical damage per (%d+) strength"] = function(num, _, perStr) return { mod("StrDmgBonusRatioOverride", "BASE", num / tonumber(perStr)) } end,
+	["while in her embrace, take ([%d%.]+)%% of your total maximum life and energy shield as fire damage per second per level"] = function(num) return { 
+		mod("FireDegen", "BASE", 0.005, { type = "PerStat", stat = "Life" }, { type = "Multiplier", var = "Level" }, { type = "Condition", var = "HerEmbrace" }),
+		mod("FireDegen", "BASE", 0.005, { type = "PerStat", stat = "EnergyShield" }, { type = "Multiplier", var = "Level" }, { type = "Condition", var = "HerEmbrace" }),
+	} end,
 	-- Skill-specific enchantment modifiers
 	["(%d+)%% increased decoy totem life"] = function(num) return { mod("TotemLife", "INC", num, { type = "SkillName", skillName = "Decoy Totem" }) } end,
 	["(%d+)%% increased ice spear critical strike chance in second form"] = function(num) return { mod("CritChance", "INC", num, { type = "SkillName", skillName = "Ice Spear" }, { type = "SkillPart", skillPart = 2 }) } end,
@@ -1227,7 +1239,9 @@ local suffixTypes = {
 	["as chaos damage"] = "AsChaos",
 	["leeched as life and mana"] = "Leech",
 	["leeched as life"] = "LifeLeech",
+	["is leeched as life"] = "LifeLeech",
 	["leeched as mana"] = "ManaLeech",
+	["is leeched as mana"] = "ManaLeech",
 }
 local dmgTypes = {
 	["physical"] = "Physical",
@@ -1250,6 +1264,7 @@ local regenTypes = {
 	["mana"] = "ManaRegen",
 	["maximum mana"] = "ManaRegen",
 	["energy shield"] = "EnergyShieldRegen",
+	["maximum energy shield"] = "EnergyShieldRegen",
 	["maximum mana and energy shield"] = { "ManaRegen", "EnergyShieldRegen" },
 }
 
@@ -1267,6 +1282,9 @@ for skillName, grantedEffect in pairs(data["3_0"].gems) do
 		if grantedEffect.skillTypes[SkillType.Buff] or grantedEffect.baseFlags.buff then
 			preSkillNameList["^"..skillName:lower().." grants "] = { addToSkill = { type = "SkillName", skillName = skillName }, tag = { type = "GlobalEffect", effectType = "Buff" } }
 			preSkillNameList["^"..skillName:lower().." grants a?n? ?additional "] = { addToSkill = { type = "SkillName", skillName = skillName }, tag = { type = "GlobalEffect", effectType = "Buff" } }
+		end
+		if grantedEffect.gemTags.aura then
+			skillNameList["while affected by "..skillName:lower()] = { tag = { type = "Condition", var = "AffectedBy"..skillName:gsub(" ","") } }
 		end
 	end	
 end

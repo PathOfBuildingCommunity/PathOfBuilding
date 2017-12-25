@@ -1,3 +1,12 @@
+VERSION[1.4.74][2017/12/25]
+ * Added support for the Her Embrace buff granted by Oni-Goroshi
+    * It can be enabled using a new option in the Combat section of the Configuration tab
+ * You can now choose the aura modifiers on Watcher's Eye
+ * Added an option to the Configuration tab for "Have you Shocked an Enemy Recently?"
+ * Added an option to the Configuration tab for "Have you used a Minion Skill Recently?"
+ * The "Your X Damage can Poison" stats on Volkuur's Guidance should now be correctly recognised
+ * Fixed issue with the damage calculations for Bodyswap
+ * Fixed error caused by setting the travel distance option for Charged Dash
 VERSION[1.4.73][2017/12/25]
  * Fixed error that occured when changing some items to Shaper or Elder
 VERSION[1.4.72][2017/12/25]
