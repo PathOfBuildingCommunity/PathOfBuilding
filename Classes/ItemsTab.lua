@@ -260,7 +260,12 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.removeDisplayItem = common.New("ButtonControl", {"LEFT",self.controls.editDisplayItem,"RIGHT"}, 8, 0, 60, 20, "Cancel", function()
 		self:SetDisplayItem()
 	end)
-	self.controls.displayItemVariant = common.New("DropDownControl", {"LEFT",self.controls.removeDisplayItem,"RIGHT"}, 8, 0, 214, 20, nil, function(index, value)
+
+	-- Section: Variant(s)
+	self.controls.displayItemSectionVariant = common.New("Control", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 0, function()
+		return (self.displayItem.variantList and #self.displayItem.variantList > 1) and 28 or 0
+	end)
+	self.controls.displayItemVariant = common.New("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, 0, 0, 224, 20, nil, function(index, value)
 		self.displayItem.variant = index
 		itemLib.buildItemModList(self.displayItem)
 		self:UpdateDisplayItemTooltip()
@@ -269,9 +274,18 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemVariant.shown = function()
 		return self.displayItem.variantList and #self.displayItem.variantList > 1
 	end
+	self.controls.displayItemAltVariant = common.New("DropDownControl", {"LEFT",self.controls.displayItemVariant,"RIGHT"}, 8, 0, 224, 20, nil, function(index, value)
+		self.displayItem.variantAlt = index
+		itemLib.buildItemModList(self.displayItem)
+		self:UpdateDisplayItemTooltip()
+		self:UpdateDisplayItemRangeLines()
+	end)
+	self.controls.displayItemAltVariant.shown = function()
+		return self.displayItem.hasAltVariant
+	end
 
 	-- Section: Sockets and Links
-	self.controls.displayItemSectionSockets = common.New("Control", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 0, function()
+	self.controls.displayItemSectionSockets = common.New("Control", {"TOPLEFT",self.controls.displayItemSectionVariant,"BOTTOMLEFT"}, 0, 0, 0, function()
 		return self.displayItem.selectableSocketCount > 0 and 28 or 0
 	end)
 	for i = 1, 6 do
@@ -981,6 +995,10 @@ function ItemsTabClass:SetDisplayItem(item)
 		self.snapHScroll = "RIGHT"
 		self.controls.displayItemVariant.list = item.variantList
 		self.controls.displayItemVariant.selIndex = item.variant
+		if item.hasAltVariant then
+			self.controls.displayItemAltVariant.list = item.variantList
+			self.controls.displayItemAltVariant.selIndex = item.variantAlt
+		end
 		self.controls.displayItemShaperElder:SetSel((item.shaper and 2) or (item.elder and 3) or 1)
 		self:UpdateSocketControls()
 		if item.crafted then
@@ -1823,7 +1841,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	-- Implicit/explicit modifiers
 	if item.modLines[1] then
 		for index, modLine in pairs(item.modLines) do
-			if not modLine.buff and (not modLine.variantList or modLine.variantList[item.variant]) then
+			if not modLine.buff and itemLib.checkModLineVariant(item, modLine) then
 				tooltip:AddLine(16, itemLib.formatModLine(modLine, dbMode))
 			end
 			if index == item.implicitLines + item.buffLines and item.modLines[index + 1] then

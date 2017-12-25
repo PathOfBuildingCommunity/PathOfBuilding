@@ -391,9 +391,9 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					end
 				elseif tag.type == "PerStat" then
 					if tag.base then
-						desc = (row.mod.type == "BASE" and string.format("%+g", tag.base) or tag.base.."%").." + "..math.abs(row.mod.value).." per "..tag.div.." "..self:FormatModName(tag.var)
+						desc = (row.mod.type == "BASE" and string.format("%+g", tag.base) or tag.base.."%").." + "..math.abs(row.mod.value).." per "..(tag.div or 1).." "..self:FormatModName(tag.var)
 					else
-						desc = baseVal.." per "..tag.div.." "..self:FormatModName(tag.stat)
+						desc = baseVal.." per "..(tag.div or 1).." "..self:FormatModName(tag.stat)
 					end
 				elseif tag.type == "StatThreshold" then
 					desc = "If "..self:FormatModName(tag.stat).." >= "..tag.threshold

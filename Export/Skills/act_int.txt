@@ -39,6 +39,8 @@ local skills, mod, flag, skill = ...
 #skill CorpseWarp
 #flags spell area fire movement
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
+#setMod spell_minimum_base_fire_damage==skill("FireMin", nil, { type = "SkillPart", skillPart = 1 })
+#setMod spell_maximum_base_fire_damage==skill("FireMax", nil, { type = "SkillPart", skillPart = 1 })
 	parts = {
 		{
 			name = "Self Explosion",
@@ -52,7 +54,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	setupFunc = function(actor, output)
-		if actor.mainSkill.skillPart == 2 then
+		if actor.mainSkill.skillPart == 1 then
 			local skillData = actor.mainSkill.skillData
 			if actor.mainSkill.skillFlags.totem then
 				skillData.FireBonusMin = output.TotemLife * skillData.selfFireExplosionLifeMultiplier

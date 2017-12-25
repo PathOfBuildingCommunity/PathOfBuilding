@@ -477,7 +477,7 @@ skills["CorpseWarp"] = {
 		},
 	},
 	setupFunc = function(actor, output)
-		if actor.mainSkill.skillPart == 2 then
+		if actor.mainSkill.skillPart == 1 then
 			local skillData = actor.mainSkill.skillData
 			if actor.mainSkill.skillFlags.totem then
 				skillData.FireBonusMin = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
@@ -508,8 +508,8 @@ skills["CorpseWarp"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
-		[3] = skill("FireMin", nil), --"spell_minimum_base_fire_damage"
-		[4] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
+		[3] = skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }), --"spell_minimum_base_fire_damage"
+		[4] = skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }), --"spell_maximum_base_fire_damage"
 	},
 	levels = {
 		[1] = { 10, 10, 13, 19, },

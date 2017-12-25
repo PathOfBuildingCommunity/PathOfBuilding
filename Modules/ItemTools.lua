@@ -261,8 +261,12 @@ function itemLib.parseItemRaw(item)
 					importedLevelReq = tonumber(specVal)
 				elseif specName == "LevelReq" then
 					item.requirements.level = tonumber(specVal)
+				elseif specName == "Has Alt Variant" then
+					item.hasAltVariant = true
 				elseif specName == "Selected Variant" then
 					item.variant = tonumber(specVal)
+				elseif specName == "Selected Alt Variant" then
+					item.variantAlt = tonumber(specVal)
 				elseif specName == "League" then
 					item.league = specVal
 				elseif specName == "Crafted" then
@@ -420,6 +424,9 @@ function itemLib.parseItemRaw(item)
 	item.abyssalSocketCount = 0
 	if item.variantList then
 		item.variant = m_min(#item.variantList, item.variant or item.defaultVariant or #item.variantList)
+		if item.hasAltVariant then
+			item.variantAlt = m_min(#item.variantList, item.variantAlt or item.defaultVariant or #item.variantList)
+		end
 	end
 	if not item.quality then
 		itemLib.normaliseQuality(item)
@@ -490,6 +497,10 @@ function itemLib.createItemRaw(item)
 			t_insert(rawLines, "Variant: "..variantName)
 		end
 		t_insert(rawLines, "Selected Variant: "..item.variant)
+		if item.hasAltVariant then
+			t_insert(rawLines, "Has Alt Variant: true")
+			t_insert(rawLines, "Selected Alt Variant: "..item.variantAlt)
+		end
 	end
 	if item.quality then
 		t_insert(rawLines, "Quality: "..item.quality)
@@ -600,6 +611,12 @@ function itemLib.craftItem(item)
 	end
 	item.raw = itemLib.createItemRaw(item)
 	itemLib.parseItemRaw(item)
+end
+
+function itemLib.checkModLineVariant(item, modLine)
+	return not modLine.variantList 
+		or modLine.variantList[item.variant]
+		or (item.hasAltVariant and modLine.variantList[item.variantAlt])
 end
 
 -- Return the name of the slot this item is equipped in
@@ -827,7 +844,7 @@ function itemLib.buildItemModList(item)
 	item.rangeLineList = { }
 	item.modSource = "Item:"..(item.id or -1)..":"..item.name
 	for _, modLine in ipairs(item.modLines) do
-		if not modLine.extra and (not modLine.variantList or modLine.variantList[item.variant]) then
+		if not modLine.extra and itemLib.checkModLineVariant(item, modLine) then
 			if modLine.range then
 				local line = itemLib.applyRange(modLine.line:gsub("\n"," "), modLine.range)
 				local list, extra = modLib.parseMod[item.targetVersion](line)
@@ -871,7 +888,7 @@ function itemLib.buildItemModList(item)
 	end
 	local socketCount = sumLocal(baseList, "SocketCount", "BASE", 0)
 	item.abyssalSocketCount = sumLocal(baseList, "AbyssalSocketCount", "BASE", 0)
-	item.selectableSocketCount = (item.base.socketLimit or 0) - item.abyssalSocketCount
+	item.selectableSocketCount = m_max(item.base.socketLimit or 0, #item.sockets) - item.abyssalSocketCount
 	if sumLocal(baseList, "NoSockets", "FLAG", 0) then
 		-- Remove all sockets
 		wipeTable(item.sockets)
