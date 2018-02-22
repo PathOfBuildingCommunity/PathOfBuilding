@@ -3,6 +3,105 @@
 --
 
 data.uniques.new = {
+-- 3.2 General
+[[
+Disintegrator
+Maelstrom Staff
+Requires Level 64
+20% Chance to Block
+Adds 284 to 340 Physical Damage to Spells
++1 to Maximum Siphoning Charges per Elder or Shaper Item Equipped
+25% chance to gain a Siphoning Charge when you use a Skill
+Adds 14 to 15 Physical Damage to Attacks and Spells per Siphoning Charge
+Gain 2% of Non-Chaos Damage as Extra Chaos Damage per Siphoning Charge
+1% additional Physical Damage Reduction from Hits per Siphoning Charge
+0.2% of Damage Leeched as Life per Siphoning Charge
+Take 150 Physical Damage per Second per Siphoning Charge if you've used a Skill Recently
+Elder Item
+]],[[
+Gorgon's Gaze
+Regicide Mask
+Requires Level 52
+Implicits: 0
+Grants Level 20 Summon Petrification Statue Skill
+211% increased Energy Shield
++78 to maximum Life
+7% increased Attack and Cast Speed
+5% additional Physical Damage Reduction while Moving
+5% reduced Elemental Damage Taken while stationary
+]],[[
+Voidfletcher
+Penetrating Arrow Quiver
+Unreleased: true
+Requires Level 68
+Arrows Pierce an additional Target
+Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows
+Adds 37 to 100 Chaos Damage to Attacks
++113 to maximum Energy Shield
++22% to Cold Resistance
++27 Mana gained on Kill
+30% increased Projectile Speed
+5 Maximum Void Charges
+Elder Item
+]],[[
+]],
+-- 3.2 Fated
+[[
+Doedre's Malevolence
+Velvet Gloves
+Rquires Level 64
+58% increased Spell Damage
++20 to Intelligence
+Adds 54 to 79 Chaos Damage to Spells
+15% reduced Cast Speed
++67 to maximum Energy Shield
++50 to Total Mana Cost of Skills
+]],[[
+Fox's Fortune
+Wild Leather
+Requiresd level 54
+Adds 5 to 12 Physical Damage to Attacks
++22 to Dexterity
+You gain 1500 Evasion Rating when on Full Life
++500 to Evasion Rating
+147% increased Evasion Rating
+10% increased Movement Speed
+Enemies are Unlucky when Damaging you while you are on Full Life
+]],[[
+Greedtrap
+Velvet Slippers
+Requires Level 52
++7 to Strength
++9 to Dexterity
++10 to Intelligence
++108 to maximum Energy Shield
+12% increased Quantity of Items found when on Low Life
+20% increased Movement Speed
+]],[[
+Panquetzaliztli
+Jagged Maul
+Requires Level 61
+30% increased Stun Duration on Enemies
+96% increased Physical Damage
+Adds 122 to 138 Physical Damage
++34 to all Attributes
+Enemies killed explode dealing 10% of their Life as Fire Damage
+Recover 5% of Maximum Life on Kill
+]],[[
+The Stormwall
+Royal Staff
+Requires Level 60
+18% Chance to Block
+15% Chance to Block
+Adds 185 to 212 Physical Damage
+35% increased Critical Strike Chance
+50% of Physical Damage Converted to Cold Damage
+50% of Physical Damage Converted to Lightning Damage
+Cannot be Shocked while Chilled
+30% chance to Chill Attackers for 4 seconds on Block
+35% chance to Shock Attackers for 4 seconds on Block
+]],
+
 -- 3.1 General
 [[
 Ahn's Contempt
@@ -37,6 +136,7 @@ Every 16 seconds you gain iron Reflexes for 8 seconds
 30% more Bow Damage at Close Range while you have iron Reflexes
 30% increased Attack, Cast and Movements Speed while you do not have Iron Reflexes
 You have Far Shot while you do not have Iron Reflexes
+Elder Item
 ]],[[
 Augyre
 Void Sceptre
@@ -48,6 +148,7 @@ Requires Level 68
 50% of Physical Damage Converted to Lightning Damage 
 Every 16 seconds you gain Elemental Overload for 8 seconds 
 You have Resolute Technique while you do not have Elemental Overload
+Elder Item
 ]],[[
 Balefire
 Opal Sceptre
@@ -59,7 +160,7 @@ Recover (1–3)% of Maximum Life on Kill
 Recover (1–3)% of Maximum Mana on Kill
 10% increased Scorching Ray beam length
 ]],[[
-Beltimer Blade
+Beltimber Blade
 Eternal Sword
 Requires Level 66
 +475 to Accuracy Rating 
@@ -68,6 +169,7 @@ Requires Level 66
 80% increased Evasion Rating while moving 
 2 additional Projectiles if you've used a Movement Skill Recently 
 Far Shot
+Elder Item
 ]],[[
 Blasphemer's Grasp
 Assassin's Mitts
@@ -79,6 +181,7 @@ Requires Level: 58
 +6 to Maximum Life per Elder Item Equipped 
 8% increased Effect of non-Damaging Ailments per Elder Item Equipped 
 Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
+Elder Item
 ]],[[
 Bloodbond
 Bone Armour
@@ -119,6 +222,7 @@ Cannot be Frozen if Dexterity is higher than Intelligence
 Cannot be Ignited if Strength is higher than Dexterity
 Cannot be Shocked if Intelligence is higher than Strength
 1% increased Damage per 5 of your lowest Attribute
+Elder Item
 ]],[[
 Doedre's Skin
 Widowsilk Robe
@@ -166,6 +270,7 @@ Requires Level 66
 2 additional Projectiles if you've been Hit Recently
 Point Blank
 Iron Reflexes while stationary
+Elder Item
 ]],[[
 Hopeshredder
 Ranger Bow
@@ -177,6 +282,7 @@ Adds (130–150) to (270–300) Cold Damage
 2% chance to Avoid Elemental Damage when Hit per Frenzy Charge 
 0.5% of Attack Damage Leeched as Life per Frenzy Charge 
 400 Cold Damage taken per second per Frenzy Charge while moving
+Elder Item
 ]],[[
 The Hungry Loop
 Unset Ring
@@ -205,8 +311,7 @@ Requires Level 64
 {variant:3}(45–50)% increased Mana Regeneration Rate
 {variant:4}1% of Energy Shield Regenerated per second
 {variant:5}(30–40)% increased Damage over Time
-{variant:1}+(40–50) to maximum Life
-{variant:2,3,4,5}+(50–70) to maximum Life
++(50–70) to maximum Life
 {variant:1}(30–40)% increased Stun and Block Recovery
 {variant:2}+(20–25)% to Fire Resistance
 {variant:3}+(20–25)% to Cold Resistance
@@ -218,6 +323,7 @@ Requires Level 64
 {variant:4}100% reduced Conductivity Mana Reservation
 {variant:5}100% reduced Despair Mana Reservation
 Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy
+Elder Item
 ]],[[
 Inpulsa's Broken Heart
 Sadist Garb
@@ -307,6 +413,7 @@ Gain (30–40)% of Physical Attack Damage as Extra Fire Damage
 Adds 5 to 8 Physical Damage per Endurance Charge 
 +500 to Armour per Endurance Charge 
 400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
+Elder Item
 ]],[[
 Oni-Goroshi
 Charan's Sword
@@ -370,6 +477,7 @@ Adds (26–35) to (95–105) Lightning Damage to Spells
 2% additional Chance to Block Spells per Power Charge 
 Adds 3 to 9 Lightning Damage to Spells per Power Charge 
 400 Lightning Damage taken per second per Power Charge if you've dealt a Critical Strike Recently
+Elder Item
 ]],[[
 Soul's Wick
 Cobalt Jewel

@@ -244,7 +244,7 @@ function main:Init()
 	self.mainBarHeight = 58
 	self.toastMessages = { }
 
-	if launch.devMode and GetTime() < 15000 then
+	if launch.devMode and GetTime() >= 0 and GetTime() < 15000 then
 		t_insert(self.toastMessages, [[
 ^xFF7700Warning: ^7Developer Mode active!
 The program is currently running in developer

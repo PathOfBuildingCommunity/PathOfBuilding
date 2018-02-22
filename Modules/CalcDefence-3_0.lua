@@ -34,6 +34,7 @@ function calcs.defence(env, actor)
 
 	-- Resistances
 	output.PhysicalResist = m_min(90, modDB:Sum("BASE", nil, "PhysicalDamageReduction"))
+	output.PhysicalResistWhenHit = m_min(90, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
 	for _, elem in ipairs(resistTypeList) do
 		local max, total
 		if elem == "Chaos" and modDB:Sum("FLAG", nil, "ChaosInoculation") then
@@ -362,12 +363,20 @@ function calcs.defence(env, actor)
 			-- Hit
 			local takenInc = baseTakenInc + modDB:Sum("INC", nil, "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
 			local takenMore = baseTakenMore * modDB:Sum("MORE", nil, "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
+			if isElemental[damageType] then
+				takenInc = takenInc + modDB:Sum("INC", nil, "ElementalDamageTakenWhenHit")
+				takenMore = takenMore * modDB:Sum("MORE", nil, "ElementalDamageTakenWhenHit")
+			end
 			output[damageType.."TakenHit"] = (1 + takenInc / 100) * takenMore
 		end
 		do
 			-- Dot
 			local takenInc = baseTakenInc + modDB:Sum("INC", nil, "DamageTakenOverTime", damageType.."DamageTakenOverTime")
 			local takenMore = baseTakenMore * modDB:Sum("MORE", nil, "DamageTakenOverTime", damageType.."DamageTakenOverTime")
+			if isElemental[damageType] then
+				takenInc = takenInc + modDB:Sum("INC", nil, "ElementalDamageTakenOverTime")
+				takenMore = takenMore * modDB:Sum("MORE", nil, "ElementalDamageTakenOverTime")
+			end
 			local resist = output[damageType.."Resist"]
 			output[damageType.."TakenDotMult"] = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 			if breakdown then
@@ -476,7 +485,7 @@ function calcs.defence(env, actor)
 		for _, destType in ipairs(dmgTypeList) do
 			local portion = shiftTable[destType]
 			if portion > 0 then
-				local resist = output[destType.."Resist"]
+				local resist = output[destType.."ResistWhenHit"] or output[destType.."Resist"]
 				if damageType == "Physical" and destType == "Physical" then
 					-- Factor in armour for Physical taken as Physical
 					local damage = env.configInput.enemyPhysicalHit or env.data.monsterDamageTable[env.enemyLevel] * 1.5

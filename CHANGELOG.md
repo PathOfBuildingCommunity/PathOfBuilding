@@ -1,3 +1,29 @@
+### 1.4.75 - 2018/02/22
+I apologise for the lack of updates recently; I hadn't had time to work on this, but I will be
+putting in a fair bit of work over the coming weeks.
+ * Added the following uniques announced for 3.2:
+   * Disintegrator (including Siphoning Charge support)
+   * Gorgon's Gaze (excluding the Summon Petrification Statue skill)
+   * Voidfletcher (partial)
+   * Doedre's Malevolence
+   * Fox's Fortune
+   * Greedtrap
+   * Panquetzalitzibitzipretzeliztli
+   * The Stormwall
+   * Craiceann's items will be implemented once I find out what the hell Crab Barriers are
+ * Added Helmet enchantments for the new skills added in 3.1
+ * Elder modifiers now correctly appear on crafted Shields
+ * Reservation calculations should now always be accurate when you have increased Mana Reserved
+ * Fixed error that could appear when editing certain Elder or Shaper items
+ * Intimidate's increased Damage bonus now correctly applies to Attack Damage only
+ * Oni-Goroshi's Her Embrace no longer persists after the item is unequipped
+ * Added support for the added Critical Strike Chance to Socketed Attacks/Spells stats on Shaper/Elder helmets
+ * The reduced Elemental Damage taken modifier on Nebuloch now functions correctly
+ * Hidden Potential's increased Damage modifier should now be correctly recognised
+ * Fixed the missing defences on Magna Eclipsis
+ * Fixed the typo in Beltimber Blade's name
+ * Corrected the Life roll on the Physical variant of Impresence
+
 ### 1.4.74 - 2017/12/25
  * Added support for the Her Embrace buff granted by Oni-Goroshi
     * It can be enabled using a new option in the Combat section of the Configuration tab

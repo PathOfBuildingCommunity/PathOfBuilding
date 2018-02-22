@@ -476,5 +476,6 @@ You have Phasing if you've Killed Recently
 {variant:1}Projectiles Pierce while Phasing
 {variant:2}Projectiles Pierce 5 additional Targets while you have Phasing
 Celestial Footprints
+Shaper Item
 ]],
 }

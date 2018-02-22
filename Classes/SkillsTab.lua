@@ -318,6 +318,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		local gem = self.displayGroup.gemList[index]
 		if not gem then
 			if not buf:match("%S") then
+				gem.skillId = nil
 				return
 			end
 			gem = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true }

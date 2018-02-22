@@ -143,7 +143,7 @@ data.specialBaseTags = {
 	["Boots"] = { shaper = "boots_shaper", elder = "boots_elder", },
 	["Body Armour"] = { shaper = "body_armour_shaper", elder = "body_armour_elder", },
 	["Helmet"] = { shaper = "helmet_shaper", elder = "helmet_elder", },
-	["Shield"] = { shaper = "shield_shaper", elder = "shield_selder", },
+	["Shield"] = { shaper = "shield_shaper", elder = "shield_elder", },
 	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", },
 }
 

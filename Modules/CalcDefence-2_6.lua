@@ -367,12 +367,20 @@ function calcs.defence(env, actor)
 			-- Hit
 			local takenInc = baseTakenInc + modDB:Sum("INC", nil, "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
 			local takenMore = baseTakenMore * modDB:Sum("MORE", nil, "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
+			if isElemental[damageType] then
+				takenInc = takenInc + modDB:Sum("INC", nil, "ElementalDamageTakenWhenHit")
+				takenMore = takenMore * modDB:Sum("MORE", nil, "ElementalDamageTakenWhenHit")
+			end
 			output[damageType.."TakenHit"] = (1 + takenInc / 100) * takenMore
 		end
 		do
 			-- Dot
 			local takenInc = baseTakenInc + modDB:Sum("INC", nil, "DamageTakenOverTime", damageType.."DamageTakenOverTime")
 			local takenMore = baseTakenMore * modDB:Sum("MORE", nil, "DamageTakenOverTime", damageType.."DamageTakenOverTime")
+			if isElemental[damageType] then
+				takenInc = takenInc + modDB:Sum("INC", nil, "ElementalDamageTakenOverTime")
+				takenMore = takenMore * modDB:Sum("MORE", nil, "ElementalDamageTakenOverTime")
+			end
 			local resist = output[damageType.."Resist"]
 			output[damageType.."TakenDotMult"] = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 			if breakdown then

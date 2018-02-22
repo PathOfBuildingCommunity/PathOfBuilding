@@ -123,7 +123,7 @@ Moving while Bleeding doesn't cause you to take extra Damage
 Bloodgrip
 Marble Amulet
 Variant: Current
-Requires Level 55
+Requires Level 74
 (1.2-1.6)% of Life Regenerated per second
 Adds 10 to 20 Physical Damage to Attacks
 +(60-70) to maximum Life

@@ -461,11 +461,11 @@ function calcs.offence(env, actor)
 		for otherTypeIndex = damageTypeIndex + 1, 5 do
 			-- For all possible destination types, check for global and skill conversions
 			otherType = dmgTypeList[otherTypeIndex]
-			globalConv[otherType] = modDB:Sum("BASE", skillCfg, damageType.."DamageConvertTo"..otherType, isElemental[damageType] and "ElementalDamageConvertTo"..otherType or nil)
+			globalConv[otherType] = modDB:Sum("BASE", skillCfg, damageType.."DamageConvertTo"..otherType, isElemental[damageType] and "ElementalDamageConvertTo"..otherType or nil, damageType ~= "Chaos" and "NonChaosDamageConvertTo"..otherType or nil)
 			globalTotal = globalTotal + globalConv[otherType]
 			skillConv[otherType] = modDB:Sum("BASE", skillCfg, "Skill"..damageType.."DamageConvertTo"..otherType)
 			skillTotal = skillTotal + skillConv[otherType]
-			add[otherType] = modDB:Sum("BASE", skillCfg, damageType.."DamageGainAs"..otherType, isElemental[damageType] and "ElementalDamageGainAs"..otherType or nil)
+			add[otherType] = modDB:Sum("BASE", skillCfg, damageType.."DamageGainAs"..otherType, isElemental[damageType] and "ElementalDamageGainAs"..otherType or nil, damageType ~= "Chaos" and "NonChaosDamageGainAs"..otherType or nil)
 		end
 		if skillTotal > 100 then
 			-- Skill conversion exceeds 100%, scale it down and remove non-skill conversions
@@ -870,7 +870,7 @@ function calcs.offence(env, actor)
 						-- Apply enemy resistances and damage taken modifiers
 						local resist = 0
 						local pen = 0
-						local taken = enemyDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken")
+						local taken = enemyDB:Sum("INC", cfg, "DamageTaken", damageType.."DamageTaken")
 						if damageType == "Physical" then
 							resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
 						else
