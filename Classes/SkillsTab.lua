@@ -318,7 +318,6 @@ function SkillsTabClass:CreateGemSlot(index)
 		local gem = self.displayGroup.gemList[index]
 		if not gem then
 			if not buf:match("%S") then
-				gem.skillId = nil
 				return
 			end
 			gem = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true }
@@ -508,7 +507,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 				end
 			end
 		else
-			gem.errMsg, gem.grantedEffect = nil
+			gem.errMsg, gem.grantedEffect, gem.skillId = nil
 		end
 	end
 end
