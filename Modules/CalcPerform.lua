@@ -12,6 +12,7 @@ local m_min = math.min
 local m_max = math.max
 local m_ceil = math.ceil
 local m_floor = math.floor
+local m_modf = math.modf
 local s_format = string.format
 
 local tempTable1 = { }
@@ -253,6 +254,7 @@ local function doActorMisc(env, actor)
 	output.PowerChargesMax = modDB:Sum("BASE", nil, "PowerChargesMax")
 	output.FrenzyChargesMax = modDB:Sum("BASE", nil, "FrenzyChargesMax")
 	output.EnduranceChargesMax = modDB:Sum("BASE", nil, "EnduranceChargesMax")
+	output.SiphoningChargesMax = modDB:Sum("BASE", nil, "SiphoningChargesMax")
 	if modDB:Sum("FLAG", nil, "UsePowerCharges") then
 		output.PowerCharges = output.PowerChargesMax
 	else
@@ -268,9 +270,15 @@ local function doActorMisc(env, actor)
 	else
 		output.EnduranceCharges = 0
 	end
+	if modDB:Sum("FLAG", nil, "UseSiphoningCharges") then
+		output.SiphoningCharges = output.SiphoningChargesMax
+	else
+		output.SiphoningCharges = 0
+	end
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
 	modDB.multipliers["FrenzyCharge"] = output.FrenzyCharges
 	modDB.multipliers["EnduranceCharge"] = output.EnduranceCharges
+	modDB.multipliers["SiphoningCharge"] = output.SiphoningCharges
 	if output.PowerCharges == 0 then
 		condList["HaveNoPowerCharges"] = true
 	end
@@ -288,6 +296,12 @@ local function doActorMisc(env, actor)
 	end
 	if output.EnduranceCharges == output.EnduranceChargesMax then
 		condList["AtMaxEnduranceCharges"] = true
+	end
+	if output.SiphoningCharges == 0 then
+		condList["HaveNoSiphoningCharges"] = true
+	end
+	if output.SiphoningCharges == output.SiphoningChargesMax then
+		condList["AtMaxSiphoningCharges"] = true
 	end
 
 	-- Process enemy modifiers 
@@ -515,7 +529,7 @@ function calcs.perform(env)
 			if activeSkill.skillData.manaCostForced then
 				cost = activeSkill.skillData.manaCostForced
 			else
-				cost = m_max(base - m_floor(base * -m_floor((100 + inc) * more - 100) / 100), 0)
+				cost = m_max(base - m_modf(base * -m_floor((100 + inc) * more - 100) / 100), 0)
 			end
 			local pool
 			if modDB:Sum("FLAG", skillCfg, "BloodMagic", "SkillBloodMagic") or skillModList:Sum("FLAG", skillCfg, "SkillBloodMagic") then

@@ -153,7 +153,7 @@ function listMode:BuildList()
 		build.modified = handle:GetFileModifiedTime()
 		build.buildName = fileName:gsub("%.xml$","")
 		local dbXML = common.xml.LoadXMLFile(build.fullFileName)
-		if dbXML and dbXML[1].elem == "PathOfBuilding" then
+		if dbXML and dbXML[1] and dbXML[1].elem == "PathOfBuilding" then
 			for _, node in ipairs(dbXML[1]) do
 				if type(node) == "table" and node.elem == "Build" then
 					build.level = tonumber(node.attrib.level)

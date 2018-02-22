@@ -604,6 +604,7 @@ Requires Level 67, 113 Str, 113 Dex
 20% increased Area of Effect for Attacks
 Deal no Elemental Damage
 Your Physical Damage can Shock
+Shaper Item
 ]],[[
 Terminus Est
 Tiger Sword

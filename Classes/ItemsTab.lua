@@ -577,9 +577,11 @@ function ItemsTabClass:Load(xml, dbFileName)
 					end
 				end
 			end
-			itemLib.buildItemModList(item)
-			self.items[item.id] = item
-			t_insert(self.itemOrderList, item.id)
+			if item.base then
+				itemLib.buildItemModList(item)
+				self.items[item.id] = item
+				t_insert(self.itemOrderList, item.id)
+			end
 		elseif node.elem == "Slot" then
 			local slot = self.slots[node.attrib.name or ""]
 			if slot then
@@ -999,11 +1001,11 @@ function ItemsTabClass:SetDisplayItem(item)
 			self.controls.displayItemAltVariant.list = item.variantList
 			self.controls.displayItemAltVariant.selIndex = item.variantAlt
 		end
-		self.controls.displayItemShaperElder:SetSel((item.shaper and 2) or (item.elder and 3) or 1)
 		self:UpdateSocketControls()
 		if item.crafted then
 			self:UpdateAffixControls()
 		end
+		self.controls.displayItemShaperElder:SetSel((item.shaper and 2) or (item.elder and 3) or 1)
 		self:UpdateCustomControls()
 		self:UpdateDisplayItemRangeLines()
 	else

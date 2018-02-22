@@ -325,6 +325,7 @@ Requires Level 66, 51 Str, 51 Int
 {variant:2}2% increased Evasion Rating per 10 Intelligence
 {variant:1}1% increased Melee Physical Damage per 10 Dexterity
 {variant:2}2% increased Melee Physical Damage per 10 Dexterity
+Shaper Item
 ]],[[
 Southbound
 Soldier Gloves

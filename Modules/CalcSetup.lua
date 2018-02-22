@@ -270,6 +270,8 @@ function calcs.initEnv(build, mode, override)
 	env.itemGrantedSkills = { }
 	env.flasks = { }
 	env.modDB.conditions["UsingAllCorruptedItems"] = true
+	env.modDB.conditions["UsingAllShaperItems"] = true
+	env.modDB.conditions["UsingAllElderItems"] = true
 	for _, slot in pairs(build.itemsTab.orderedSlots) do
 		local slotName = slot.slotName
 		local item
@@ -417,6 +419,16 @@ function calcs.initEnv(build, mode, override)
 					env.modDB.multipliers.CorruptedItem = (env.modDB.multipliers.CorruptedItem or 0) + 1
 				else
 					env.modDB.conditions["UsingAllCorruptedItems"] = false
+				end
+				if item.shaper then
+					env.modDB.multipliers.ShaperItem = (env.modDB.multipliers.ShaperItem or 0) + 1
+				else
+					env.modDB.conditions["UsingAllShaperItems"] = false
+				end
+				if item.elder then
+					env.modDB.multipliers.ElderItem = (env.modDB.multipliers.ElderItem or 0) + 1
+				else
+					env.modDB.conditions["UsingAllElderItems"] = false
 				end
 			end
 		end

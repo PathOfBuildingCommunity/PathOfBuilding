@@ -109,7 +109,14 @@ function ModDBClass:EvalMod(mod, cfg)
 	local value = mod.value
 	for _, tag in ipairs(mod) do
 		if tag.type == "Multiplier" then
-			local base = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
+			local base = 0
+			if tag.varList then
+				for _, var in pairs(tag.varList) do
+					base = base + (self.multipliers[var] or 0) + self:Sum("BASE", cfg, multiplierName[var])
+				end
+			else
+				base = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
+			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			if tag.limit or tag.limitVar then
 				local limit = tag.limit or ((self.multipliers[tag.limitVar] or 0) + self:Sum("BASE", cfg, multiplierName[tag.limitVar]))
@@ -126,7 +133,14 @@ function ModDBClass:EvalMod(mod, cfg)
 				value = value * mult + (tag.base or 0)
 			end
 		elseif tag.type == "MultiplierThreshold" then
-			local mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
+			local mult = 0
+			if tag.varList then
+				for _, var in pairs(tag.varList) do
+					mult = mult + (self.multipliers[var] or 0) + self:Sum("BASE", cfg, multiplierName[var])
+				end
+			else
+				mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
+			end
 			if mult < tag.threshold then
 				return
 			end

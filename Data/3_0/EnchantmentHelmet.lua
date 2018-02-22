@@ -215,6 +215,16 @@ return {
 			"Blood Rage grants additional 30% chance to gain a Frenzy Charge on Kill",
 		},
 	},
+	["Bodyswap"] = {
+		["MERCILESS"] = {
+			"25% increased Bodyswap Damage",
+			"8% increased Bodyswap Cast Speed",
+		},
+		["ENDGAME"] = {
+			"40% increased Bodyswap Damage",
+			"12% increased Bodyswap Cast Speed",
+		},
+	},
 	["Bone Offering"] = {
 		["MERCILESS"] = {
 			"Bone Offering grants an additional +6% Block Chance",
@@ -345,6 +355,17 @@ return {
 			"36% increased Convocation Buff Effect",
 		},
 	},
+	["Cremation"] = {
+		["MERCILESS"] = {
+			"8% increased Corpse Cremation cast speed",
+			"25% increased Corpse Cremation damage",
+			"Cremation can have up to 1 additional Geyser at a time",
+		},
+		["ENDGAME"] = {
+			"12% increased Corpse Cremation cast speed",
+			"40% increased Corpse Cremation damage",
+		},
+	},
 	["Cyclone"] = {
 		["MERCILESS"] = {
 			"10% increased Cyclone Attack Speed",
@@ -385,6 +406,16 @@ return {
 		["ENDGAME"] = {
 			"Desecrate summons 3 additional corpses",
 			"30% increased Desecrate Cooldown Recovery Speed",
+		},
+	},
+	["Despair"] = {
+		["MERCILESS"] = {
+			"20% increased Despair Curse Effect",
+			"30% increased Despair Duration",
+		},
+		["ENDGAME"] = {
+			"30% increased Despair Curse Effect",
+			"45% increased Despair Duration",
 		},
 	},
 	["Determination"] = {
@@ -447,18 +478,6 @@ return {
 			"36% increased Dominating Blow Damage",
 			"30% increased Dominating Blow Duration",
 			"Dominated Minions deal 30% increased Damage",
-		},
-	},
-	["Lacerate"] = {
-		["MERCILESS"] = {
-			"40% increased Lacerate Critical Strike Chance",
-			"25% increased Lacerate Damage",
-			"8% increased Lacerate Area of Effect",
-		},
-		["ENDGAME"] = {
-			"60% increased Lacerate Critical Strike Chance",
-			"40% increased Lacerate Damage",
-			"12% increased Lacerate Area of Effect",
 		},
 	},
 	["Double Strike"] = {
@@ -991,6 +1010,18 @@ return {
 			"40% increased Kinetic Blast Damage",
 			"Kinetic Blast has a 75% chance for an additional explosion",
 			"12% increased Kinetic Blast Area of Effect",
+		},
+	},
+	["Lacerate"] = {
+		["MERCILESS"] = {
+			"40% increased Lacerate Critical Strike Chance",
+			"25% increased Lacerate Damage",
+			"8% increased Lacerate Area of Effect",
+		},
+		["ENDGAME"] = {
+			"60% increased Lacerate Critical Strike Chance",
+			"40% increased Lacerate Damage",
+			"12% increased Lacerate Area of Effect",
 		},
 	},
 	["Leap Slam"] = {
@@ -1629,6 +1660,18 @@ return {
 			"2 secondary Tornado Shot Projectiles",
 		},
 	},
+	["Unearth"] = {
+		["MERCILESS"] = {
+			"8% increased Unearth cast speed",
+			"Unearth Creates Corpses with +3 Level",
+			"25% increased Unearth damage",
+		},
+		["ENDGAME"] = {
+			"12% increased Unearth cast speed",
+			"Unearth Creates Corpses with +5 Level",
+			"40% increased Unearth damage",
+		},
+	},
 	["Vengeance"] = {
 		["MERCILESS"] = {
 			"20% increased Vengeance Cooldown Recovery Speed",
@@ -1667,6 +1710,18 @@ return {
 		},
 		["ENDGAME"] = {
 			"20% reduced Vitality Mana Reservation",
+		},
+	},
+	["Volatile Dead"] = {
+		["MERCILESS"] = {
+			"8% increased Volatile Dead cast speed",
+			"25% increased Volatile Dead damage",
+			"Volatile Dead destroys up to 2 additional Corpses",
+		},
+		["ENDGAME"] = {
+			"12% increased Volatile Dead cast speed",
+			"40% increased Volatile Dead damage",
+			"Volatile Dead destroys up to 3 additional Corpses",
 		},
 	},
 	["Vortex"] = {

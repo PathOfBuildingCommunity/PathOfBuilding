@@ -202,6 +202,9 @@ You can get this from your web browser's cookies while logged into the Path of E
 		if not xmlText then
 			return
 		end
+		if launch.devMode and IsKeyDown("SHIFT") then
+			Copy(xmlText)
+		end
 		self.importCodeState = "VALID"
 		self.importCodeXML = xmlText
 		if not self.build.dbFileName then
@@ -705,14 +708,14 @@ end
 function ImportTabClass:OpenPastebinImportPopup()
 	local controls = { }
 	controls.editLabel = common.New("LabelControl", nil, 0, 20, 0, 16, "Enter Pastebin.com link:")
-	controls.edit = common.New("EditControl", nil, 0, 40, 250, 18, "", nil, nil, nil, function(buf)
+	controls.edit = common.New("EditControl", nil, 0, 40, 250, 18, "", nil, "^%w%p%s", nil, function(buf)
 		controls.msg.label = ""
 	end)
 	controls.msg = common.New("LabelControl", nil, 0, 58, 0, 16, "")
 	controls.import = common.New("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
 		controls.import.enabled = false
 		controls.msg.label = "Retrieving paste..."
-		launch:DownloadPage(controls.edit.buf:gsub("pastebin%.com/(%w+)$","pastebin.com/raw/%1"), function(page, errMsg)
+		launch:DownloadPage(controls.edit.buf:gsub("pastebin%.com/(%w+)%s*$","pastebin.com/raw/%1"), function(page, errMsg)
 			if errMsg then
 				controls.msg.label = "^1"..errMsg
 				controls.import.enabled = true

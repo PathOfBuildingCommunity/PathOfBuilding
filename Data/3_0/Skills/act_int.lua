@@ -3519,7 +3519,7 @@ skills["LightningTendrilsChannelled"] = {
 	gemInt = 100,
 	color = 3,
 	description = "While you channel this skill, it releases pulses of electrical energy, dealing lightning damage in a semicircular area in front of you.",
-	skillTypes = { [2] = true, [10] = true, [11] = true, [18] = true, [26] = true, [35] = true, [58] = true, },
+	skillTypes = { [2] = true, [10] = true, [11] = true, [18] = true, [35] = true, [58] = true, },
 	baseFlags = {
 		spell = true,
 		area = true,
