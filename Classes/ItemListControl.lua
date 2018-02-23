@@ -78,8 +78,8 @@ end
 
 function ItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
-		local newItem = itemLib.makeItemFromRaw(self.itemsTab.build.targetVersion, value.raw)
-		itemLib.normaliseQuality(newItem)
+		local newItem = common.New("Item", self.itemsTab.build.targetVersion, value.raw)
+		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true, self.selDragIndex)
 		self.itemsTab:PopulateSlots()
 		self.itemsTab:AddUndoState()
@@ -94,7 +94,7 @@ end
 function ItemListClass:OnSelClick(index, itemId, doubleClick)
 	local item = self.itemsTab.items[itemId]
 	if IsKeyDown("CTRL") then
-		local slotName = itemLib.getPrimarySlotForItem(item)
+		local slotName = item:GetPrimarySlot()
 		if slotName and self.itemsTab.slots[slotName] then
 			if self.itemsTab.slots[slotName].weaponSet == 1 and self.itemsTab.activeItemSet.useSecondWeaponSet then
 				-- Redirect to second weapon set
@@ -117,13 +117,15 @@ function ItemListClass:OnSelClick(index, itemId, doubleClick)
 			self.itemsTab.build.buildFlag = true
 		end
 	elseif doubleClick then
-		self.itemsTab:SetDisplayItem(copyTableSafe(item))
+		local newItem = common.New("Item", item.targetVersion, item:BuildRaw())
+		newItem.id = item.id
+		self.itemsTab:SetDisplayItem(newItem)
 	end
 end
 
 function ItemListClass:OnSelCopy(index, itemId)
 	local item = self.itemsTab.items[itemId]
-	Copy(itemLib.createItemRaw(item):gsub("\n","\r\n"))
+	Copy(item:BuildRaw():gsub("\n","\r\n"))
 end
 
 function ItemListClass:OnSelDelete(index, itemId)

@@ -159,36 +159,37 @@ LoadModule("Data/New")
 ---------------------------
 
 for _, targetVersion in ipairs(targetVersionList) do
-	data[targetVersion] = setmetatable({ }, { __index = data })
+	local verData = setmetatable({ }, { __index = data })
+	data[targetVersion] = verData
 	local function dataModule(mod, ...)
 		return LoadModule("Data/"..targetVersion.."/"..mod, ...)
 	end
 
 	-- Misc data tables
-	dataModule("Misc", data[targetVersion])
+	dataModule("Misc", verData)
 
 	-- Load item modifiers
-	data[targetVersion].itemMods = {
+	verData.itemMods = {
 		Item = dataModule("ModItem"),
 		Flask = dataModule("ModFlask"),
 		Jewel = dataModule("ModJewel"),
 		JewelAbyss = targetVersion ~= "2_6" and dataModule("ModJewelAbyss") or { },
 	}
-	data[targetVersion].corruptedMods = dataModule("ModCorrupted")
-	data[targetVersion].masterMods = dataModule("ModMaster")
-	data[targetVersion].enchantments = {
+	verData.corruptedMods = dataModule("ModCorrupted")
+	verData.masterMods = dataModule("ModMaster")
+	verData.enchantments = {
 		Helmet = dataModule("EnchantmentHelmet"),
 		Boots = dataModule("EnchantmentBoots"),
 		Gloves = dataModule("EnchantmentGloves"),
 	}
-	data[targetVersion].essences = dataModule("Essence")
+	verData.essences = dataModule("Essence")
 
 	-- Load skills
-	data[targetVersion].skills = { }
+	verData.skills = { }
 	for _, type in pairs(skillTypes) do
-		dataModule("Skills/"..type, data[targetVersion].skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
+		dataModule("Skills/"..type, verData.skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
 	end
-	for skillId, grantedEffect in pairs(data[targetVersion].skills) do
+	for skillId, grantedEffect in pairs(verData.skills) do
 		grantedEffect.id = skillId
 		-- Add sources for skill mods, and check for global effects
 		for _, list in pairs({grantedEffect.baseMods, grantedEffect.qualityMods, grantedEffect.levelMods}) do
@@ -205,27 +206,27 @@ for _, targetVersion in ipairs(targetVersionList) do
 	end
 
 	-- Build gem list
-	data[targetVersion].gems = { }
-	for _, grantedEffect in pairs(data[targetVersion].skills) do
+	verData.gems = { }
+	for _, grantedEffect in pairs(verData.skills) do
 		if grantedEffect.gemTags then
-			data[targetVersion].gems[grantedEffect.name] = grantedEffect
+			verData.gems[grantedEffect.name] = grantedEffect
 			grantedEffect.defaultLevel = (grantedEffect.levels[20] and 20) or (grantedEffect.levels[3][2] and 3) or 1
 		end
 	end
 
 	-- Load minions
-	data[targetVersion].minions = { }
-	dataModule("Minions", data[targetVersion].minions, makeSkillMod)
-	data[targetVersion].spectres = { }
-	dataModule("Spectres", data[targetVersion].spectres, makeSkillMod)
-	for name, spectre in pairs(data[targetVersion].spectres) do
+	verData.minions = { }
+	dataModule("Minions", verData.minions, makeSkillMod)
+	verData.spectres = { }
+	dataModule("Spectres", verData.spectres, makeSkillMod)
+	for name, spectre in pairs(verData.spectres) do
 		spectre.limit = "ActiveSpectreLimit"
-		data[targetVersion].minions[name] = spectre
+		verData.minions[name] = spectre
 	end
 	local missing = { }
-	for _, minion in pairs(data[targetVersion].minions) do
+	for _, minion in pairs(verData.minions) do
 		for _, skillId in ipairs(minion.skillList) do
-			if launch.devMode and not data[targetVersion].skills[skillId] and not missing[skillId] then
+			if launch.devMode and not verData.skills[skillId] and not missing[skillId] then
 				ConPrintf("'%s' missing skill '%s'", minion.name, skillId)
 				missing[skillId] = true
 			end
@@ -236,11 +237,44 @@ for _, targetVersion in ipairs(targetVersionList) do
 	end
 
 	-- Item bases
-	data[targetVersion].itemBases = { }
+	verData.itemBases = { }
 	for _, type in pairs(itemTypes) do
-		dataModule("Bases/"..type, data[targetVersion].itemBases)
+		dataModule("Bases/"..type, verData.itemBases)
 	end
 
+	-- Build lists of item bases, separated by type
+	verData.itemBaseLists = { }
+	for name, base in pairs(verData.itemBases) do
+		if not base.hidden then
+			local type = base.type
+			if base.subType then
+				type = type .. ": " .. base.subType
+			end
+			verData.itemBaseLists[type] = verData.itemBaseLists[type] or { }
+			table.insert(verData.itemBaseLists[type], { label = name:gsub(" %(.+%)",""), name = name, base = base })
+		end
+	end
+	verData.itemBaseTypeList = { }
+	for type, list in pairs(verData.itemBaseLists) do
+		table.insert(verData.itemBaseTypeList, type)
+		table.sort(list, function(a, b) 
+			if a.base.req and b.base.req then
+				if a.base.req.level == b.base.req.level then
+					return a.name < b.name
+				else
+					return (a.base.req.level or 1) > (b.base.req.level or 1)
+				end
+			elseif a.base.req and not b.base.req then
+				return true
+			elseif b.base.req and not a.base.req then
+				return false
+			else
+				return a.name < b.name
+			end
+		end)
+	end
+	table.sort(verData.itemBaseTypeList)
+
 	-- Rare templates
-	data[targetVersion].rares = dataModule("Rares")
+	verData.rares = dataModule("Rares")
 end

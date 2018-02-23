@@ -95,8 +95,8 @@ function ItemSetListClass:ReceiveDrag(type, value, source)
 		itemSet.title = value.title
 		for slotName, verItem in pairs(value.slots) do
 			local item = verItem[self.itemsTab.build.targetVersion]
-			local newItem = itemLib.makeItemFromRaw(self.itemsTab.build.targetVersion, item.raw)
-			itemLib.normaliseQuality(newItem)
+			local newItem = common.New("Item", self.itemsTab.build.targetVersion, item.raw)
+			newItem:NormaliseQuality()
 			self.itemsTab:AddItem(newItem, true)
 			itemSet[slotName].selItemId = newItem.id
 		end

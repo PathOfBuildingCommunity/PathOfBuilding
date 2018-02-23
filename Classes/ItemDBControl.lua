@@ -72,7 +72,7 @@ end)
 
 function ItemDBClass:DoesItemMatchFilters(item)
 	if self.controls.slot.selIndex > 1 then
-		local primarySlot = itemLib.getPrimarySlotForItem(item)
+		local primarySlot = item:GetPrimarySlot()
 		if primarySlot ~= self.slotList[self.controls.slot.selIndex] and primarySlot:gsub(" %d","") ~= self.slotList[self.controls.slot.selIndex] then
 			return false
 		end
@@ -210,12 +210,12 @@ end
 function ItemDBClass:OnSelClick(index, item, doubleClick)
 	if IsKeyDown("CTRL") then
 		-- Add item
-		local newItem = itemLib.makeItemFromRaw(self.itemsTab.build.targetVersion, item.raw)
-		itemLib.normaliseQuality(newItem)
+		local newItem = common.New("Item", self.itemsTab.build.targetVersion, item.raw)
+		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true)
 
 		-- Equip item if able
-		local slotName = itemLib.getPrimarySlotForItem(newItem)
+		local slotName = newItem:GetPrimarySlot()
 		if slotName and self.itemsTab.slots[slotName] then
 			if self.itemsTab.slots[slotName].weaponSet == 1 and self.itemsTab.activeItemSet.useSecondWeaponSet then
 				-- Redirect to second weapon set

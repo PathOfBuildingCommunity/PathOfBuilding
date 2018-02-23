@@ -251,9 +251,14 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	-- Draw the background artwork
 	local bg = tree.assets.Background1
-	local bgSize = bg.width * scale * 1.33 * 2.5
-	SetDrawColor(1, 1, 1)
-	DrawImage(bg.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, (self.zoomX + viewPort.width/2) / -bgSize, (self.zoomY + viewPort.height/2) / -bgSize, (viewPort.width/2 - self.zoomX) / bgSize, (viewPort.height/2 - self.zoomY) / bgSize)
+	if bg.width == 0 then
+		bg.width, bg.height = bg.handle:ImageSize()
+	end
+	if bg.width > 0 then
+		local bgSize = bg.width * scale * 1.33 * 2.5
+		SetDrawColor(1, 1, 1)
+		DrawImage(bg.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, (self.zoomX + viewPort.width/2) / -bgSize, (self.zoomY + viewPort.height/2) / -bgSize, (viewPort.width/2 - self.zoomX) / bgSize, (viewPort.height/2 - self.zoomY) / bgSize)
+	end
 
 	-- Hack to draw class background art, the position data doesn't seem to be in the tree JSON yet
 	if build.spec.curClassId == 1 then
@@ -504,6 +509,12 @@ end
 function PassiveTreeViewClass:DrawAsset(data, x, y, scale, isHalf)
 	if not data then
 		return
+	end
+	if data.width == 0 then
+		data.width, data.height = data.handle:ImageSize()
+		if data.width == 0 then
+			return
+		end
 	end
 	local width = data.width * scale * 1.33
 	local height = data.height * scale * 1.33

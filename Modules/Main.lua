@@ -49,6 +49,7 @@ local classList = {
 	"PathControl",
 	-- Misc
 	"PopupDialog",
+	"Item",
 	-- Mode: Build list
 	"BuildListControl",
 	"FolderListControl",
@@ -83,9 +84,9 @@ for _, className in pairs(classList) do
 end
 
 --[[if launch.devMode then
-	for skillName, skill in pairs(data.enchantments.Helmet) do
+	for skillName, skill in pairs(data["3_0"].enchantments.Helmet) do
 		for _, mod in ipairs(skill.ENDGAME) do
-			local modList, extra = modLib.parseMod(mod)
+			local modList, extra = modLib.parseMod["3_0"](mod)
 			if not modList or extra then
 				ConPrintf("%s: '%s' '%s'", skillName, mod, extra or "")
 			end
@@ -133,9 +134,9 @@ function main:Init()
 		self.uniqueDB[targetVersion] = { list = { } }
 		for type, typeList in pairs(data.uniques) do
 			for _, raw in pairs(typeList) do
-				local newItem = itemLib.makeItemFromRaw(targetVersion, "Rarity: Unique\n"..raw)
-				if newItem then
-					itemLib.normaliseQuality(newItem)
+				local newItem = common.New("Item", targetVersion, "Rarity: Unique\n"..raw)
+				if newItem.base then
+					newItem:NormaliseQuality()
 					self.uniqueDB[targetVersion].list[newItem.name] = newItem
 				elseif launch.devMode then
 					ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
@@ -144,19 +145,18 @@ function main:Init()
 		end
 		self.rareDB[targetVersion] = { list = { } }
 		for _, raw in pairs(data[targetVersion].rares) do
-			local newItem = itemLib.makeItemFromRaw(targetVersion, "Rarity: Rare\n"..raw)
-			if newItem then
-				itemLib.normaliseQuality(newItem)
+			local newItem = common.New("Item", targetVersion, "Rarity: Rare\n"..raw)
+			if newItem.base then
+				newItem:NormaliseQuality()
 				if newItem.crafted then
 					if newItem.base.implicit and (#newItem.modLines == 0 or newItem.modLines[1].custom) then
 						newItem.implicitLines = 0
 						for line in newItem.base.implicit:gmatch("[^\n]+") do
-							local modList, extra = modLib.parseMod[targetVersion](line)
 							newItem.implicitLines = newItem.implicitLines + 1
-							t_insert(newItem.modLines, newItem.implicitLines, { line = line, extra = extra, modList = modList or { } })
+							t_insert(newItem.modLines, newItem.implicitLines, { line = line })
 						end
 					end
-					itemLib.craftItem(newItem)
+					newItem:Craft()
 				end
 				self.rareDB[targetVersion].list[newItem.name] = newItem
 			elseif launch.devMode then
@@ -480,12 +480,7 @@ function main:LoadSettings()
 							end
 						end
 						for _, targetVersion in ipairs(targetVersionList) do			
-							local item = { 
-								targetVersion = targetVersion,
-								raw = verItem.raw,
-							}
-							itemLib.parseItemRaw(item)
-							verItem[targetVersion] = item
+							verItem[targetVersion] = common.New("Item", targetVersion, verItem.raw)
 						end
 						t_insert(self.sharedItemList, verItem)
 					elseif child.elem == "ItemSet" then
@@ -499,12 +494,7 @@ function main:LoadSettings()
 									end
 								end
 								for _, targetVersion in ipairs(targetVersionList) do			
-									local item = { 
-										targetVersion = targetVersion,
-										raw = verItem.raw,
-									}
-									itemLib.parseItemRaw(item)
-									verItem[targetVersion] = item
+									verItem[targetVersion] = common.New("Item", targetVersion, verItem.raw)
 								end
 								sharedItemSet.slots[grandChild.attrib.slotName] = verItem
 							end

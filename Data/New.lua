@@ -47,6 +47,18 @@ Elder Item
 ]],
 -- 3.2 Fated
 [[
+Atziri's Reflection
+Golden Buckler
+Requires Level 68
+6% increased Movement Speed
++52 to Intelligence
+197% increased Evasion Rating
++187 to maximum Energy Shield
++23% to all Elemental Resistances
+Curse Reflection
+Unaffected by Curses
+16% increased Effect of your Curses
+]],[[
 Doedre's Malevolence
 Velvet Gloves
 Rquires Level 64
@@ -118,13 +130,13 @@ Ahn's Might
 Midnight Blade
 Requires Level 68, 313 Str, 113 Dex
 40% increased Accuracy Rating
-Adds (80-100) to (160-190) Physical Damage
-19% increased Critical Strike Chance
+Adds (80-115) to (150-205) Physical Damage
+(15-25)% increased Critical Strike Chance
 -1 to Maximum Frenzy Charges
 10% increased Area of Effect
 +100 Strength Requirement
 +50% Global Critical Strike Multiplier while you have no Frenzy Charges
-+492 to Accuracy Rating while at Maximum Frenzy Charges
++(400-500) to Accuracy Rating while at Maximum Frenzy Charges
 ]],[[
 Arborix
 Assassin Bow

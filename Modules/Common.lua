@@ -204,14 +204,17 @@ function copyTable(tbl, noRecurse)
 end
 do
 	local subTableMap = { }
-	function copyTableSafe(tbl, noRecurse, isSubTable)
+	function copyTableSafe(tbl, noRecurse, preserveMeta, isSubTable)
 		local out = {}
 		if not noRecurse then
 			subTableMap[tbl] = out
 		end
+		if preserveMeta then
+			setmetatable(out, getmetatable(tbl))
+		end
 		for k, v in pairs(tbl) do
 			if not noRecurse and type(v) == "table" then
-				out[k] = subTableMap[v] or copyTableSafe(v, false, true)
+				out[k] = subTableMap[v] or copyTableSafe(v, false, preserveMeta, true)
 			else
 				out[k] = v
 			end
