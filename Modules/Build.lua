@@ -450,7 +450,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		if type == "Item" and control.list[control.selIndex] and control.list[control.selIndex].itemSetId then
 			local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 			local minionUses = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.grantedEffect.minionUses
-			return minionUses and minionUses[itemLib.getPrimarySlotForItem(value)] -- O_O
+			return minionUses and minionUses[value:GetPrimarySlot()] -- O_O
 		end
 	end
 	function self.controls.mainSkillMinion.ReceiveDrag(control, type, value, source)

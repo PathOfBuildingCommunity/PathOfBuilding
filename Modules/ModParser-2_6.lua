@@ -265,6 +265,7 @@ local modNameList = {
 	["cooldown recovery"] = "CooldownRecovery",
 	["cooldown recovery speed"] = "CooldownRecovery",
 	["weapon range"] = "WeaponRange",
+	["melee weapon range"] = "MeleeWeaponRange",
 	["melee weapon and unarmed range"] = { "MeleeWeaponRange", "UnarmedRange" },
 	["to deal double damage"] = "DoubleDamageChance",
 	-- Buffs
@@ -952,6 +953,7 @@ local specialModList = {
 	["immunity to bleeding during flask effect"] = { mod("AvoidBleed", "BASE", 100, { type = "Condition", var = "UsingFlask" }) },
 	["immune to poison during flask effect"] = { mod("AvoidPoison", "BASE", 100, { type = "Condition", var = "UsingFlask" }) },
 	["immune to curses during flask effect"] = { mod("AvoidCurse", "BASE", 100, { type = "Condition", var = "UsingFlask" }) },
+	["unaffected by curses"] = { mod("CurseEffectOnSelf", "MORE", -100) },
 	-- Knockback
 	["cannot knock enemies back"] = { flag("CannotKnockback") },
 	["knocks back enemies if you get a critical strike with a staff"] = { mod("EnemyKnockbackChance", "BASE", 100, nil, ModFlag.Staff, { type = "Condition", var = "CriticalStrike" }) },

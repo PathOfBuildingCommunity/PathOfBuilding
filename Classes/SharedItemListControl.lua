@@ -48,11 +48,11 @@ end
 
 function SharedItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
-		local verItem = { raw = itemLib.createItemRaw(value) }
+		local verItem = { raw = value:BuildRaw() }
 		for _, targetVersion in ipairs(targetVersionList) do
-			local newItem = itemLib.makeItemFromRaw(targetVersion, verItem.raw)
+			local newItem = common.New("Item", targetVersion, verItem.raw)
 			if not value.id then
-				itemLib.normaliseQuality(newItem)
+				newItem:NormaliseQuality()
 			end
 			verItem[targetVersion] = newItem
 		end
@@ -70,7 +70,7 @@ end
 
 function SharedItemListClass:OnSelCopy(index, verItem)
 	local item = verItem[self.itemsTab.build.targetVersion]
-	Copy(itemLib.createItemRaw(item):gsub("\n","\r\n"))
+	Copy(item:BuildRaw():gsub("\n","\r\n"))
 end
 
 function SharedItemListClass:OnSelDelete(index, verItem)

@@ -85,7 +85,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
-		self:LoadImage(name..".png", data[0.3835] or data[1], data)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
+		self:LoadImage(name..".png", data[0.3835] or data[1], data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
 	end
 
 	-- Load sprite sheets and build sprite map
@@ -126,6 +126,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 	}
 	local nodeOverlay = {
 		normal = {
+			artWidth = 40,
 			alloc = "PSSkillFrameActive",
 			path = "PSSkillFrameHighlighted",
 			unalloc = "PSSkillFrame",
@@ -134,6 +135,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 			unallocAscend = "PassiveSkillScreenAscendancyFrameSmallNormal"
 		},
 		notable = {
+			artWidth = 58,
 			alloc = "NotableFrameAllocated",
 			path = "NotableFrameCanAllocate",
 			unalloc = "NotableFrameUnallocated",
@@ -142,18 +144,20 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 			unallocAscend = "PassiveSkillScreenAscendancyFrameLargeNormal"
 		},
 		keystone = { 
+			artWidth = 84,
 			alloc = "KeystoneFrameAllocated",
 			path = "KeystoneFrameCanAllocate",
 			unalloc = "KeystoneFrameUnallocated"
 		},
 		socket = {
+			artWidth = 58, 
 			alloc = "JewelFrameAllocated",
 			path = "JewelFrameCanAllocate",
 			unalloc = "JewelFrameUnallocated"
 		}
 	}
 	for type, data in pairs(nodeOverlay) do
-		local size = self.assets[data.unalloc].width * 1.33
+		local size = data.artWidth * 1.33
 		data.size = size
 		data.rsq = size * size
 	end

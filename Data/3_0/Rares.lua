@@ -105,7 +105,6 @@ Prefix: IncreasedLife6
 ]],[[
 Armour/Energy Shield Gloves
 Crusader Gloves
-Prefixes:
 Crafted: true
 Prefix: LocalBaseArmourAndEnergyShield2_
 Prefix: LocalIncreasedArmourAndEnergyShield5

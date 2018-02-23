@@ -474,7 +474,7 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 		return
 	end
 
-	local item = { }
+	local item = common.New("Item", self.build.targetVersion)
 
 	-- Determine rarity, display name and base type of the item
 	item.rarity = rarityMap[itemData.frameType]
@@ -615,10 +615,9 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 	end
 
 	-- Add and equip the new item
-	item.raw = itemLib.createItemRaw(item)
+	item:BuildAndParseRaw()
 	--ConPrintf("%s", item.raw)
-	local newItem = itemLib.makeItemFromRaw(self.build.targetVersion, item.raw)
-	if newItem then
+	if item.base then
 		local repIndex, repItem
 		for index, item in pairs(self.build.itemsTab.items) do
 			if item.uniqueID == itemData.id then
@@ -629,13 +628,13 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 		end
 		if repIndex then
 			-- Item already exists in the build, overwrite it
-			newItem.id = repItem.id
-			self.build.itemsTab.items[newItem.id] = newItem
-			itemLib.buildItemModList(newItem)
+			item.id = repItem.id
+			self.build.itemsTab.items[item.id] = item
+			item:BuildModList()
 		else
-			self.build.itemsTab:AddItem(newItem, true)
+			self.build.itemsTab:AddItem(item, true)
 		end
-		self.build.itemsTab.slots[slotName]:SetSelItemId(newItem.id)
+		self.build.itemsTab.slots[slotName]:SetSelItemId(item.id)
 	end
 end
 

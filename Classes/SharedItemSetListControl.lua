@@ -83,11 +83,11 @@ function SharedItemSetListClass:ReceiveDrag(type, value, source)
 				end
 				if slot.selItemId ~= 0 then
 					local item = self.itemsTab.items[slot.selItemId]
-					local verItem = { raw = itemLib.createItemRaw(item) }
+					local verItem = { raw = item:BuildRaw() }
 					for _, targetVersion in ipairs(targetVersionList) do
-						local newItem = itemLib.makeItemFromRaw(targetVersion, verItem.raw)
+						local newItem = common.New("Item", targetVersion, verItem.raw)
 						if not value.id then
-							itemLib.normaliseQuality(newItem)
+							newItem:NormaliseQuality()
 						end
 						verItem[targetVersion] = newItem
 					end

@@ -45,39 +45,6 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.items = { }
 	self.itemOrderList = { }
 
-	-- Build lists of item bases, separated by type
-	self.baseLists = { }
-	for name, base in pairs(self.build.data.itemBases) do
-		if not base.hidden then
-			local type = base.type
-			if base.subType then
-				type = type .. ": " .. base.subType
-			end
-			self.baseLists[type] = self.baseLists[type] or { }
-			t_insert(self.baseLists[type], { label = name:gsub(" %(.+%)",""), name = name, base = base })
-		end
-	end
-	self.baseTypeList = { }
-	for type, list in pairs(self.baseLists) do
-		t_insert(self.baseTypeList, type)
-		table.sort(list, function(a, b) 
-			if a.base.req and b.base.req then
-				if a.base.req.level == b.base.req.level then
-					return a.name < b.name
-				else
-					return (a.base.req.level or 1) > (b.base.req.level or 1)
-				end
-			elseif a.base.req and not b.base.req then
-				return true
-			elseif b.base.req and not a.base.req then
-				return false
-			else
-				return a.name < b.name
-			end
-		end)
-	end
-	table.sort(self.baseTypeList)
-
 	-- Set selector
 	self.controls.setSelect = common.New("DropDownControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 8, 200, 20, nil, function(index, value)
 		self:SetActiveItemSet(self.itemSetOrderList[index])
@@ -267,7 +234,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	end)
 	self.controls.displayItemVariant = common.New("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, 0, 0, 224, 20, nil, function(index, value)
 		self.displayItem.variant = index
-		itemLib.buildItemModList(self.displayItem)
+		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
@@ -276,7 +243,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	end
 	self.controls.displayItemAltVariant = common.New("DropDownControl", {"LEFT",self.controls.displayItemVariant,"RIGHT"}, 8, 0, 224, 20, nil, function(index, value)
 		self.displayItem.variantAlt = index
-		itemLib.buildItemModList(self.displayItem)
+		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
@@ -291,7 +258,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	for i = 1, 6 do
 		local drop = common.New("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionSockets,"TOPLEFT"}, (i-1) * 64, 0, 36, 20, socketDropList, function(index, value)
 			self.displayItem.sockets[i].color = value.color
-			itemLib.buildItemModList(self.displayItem)
+			self.displayItem:BuildAndParseRaw()
 			self:UpdateDisplayItemTooltip()
 		end)
 		drop.shown = function()
@@ -309,6 +276,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 						self.displayItem.sockets[s].group = self.displayItem.sockets[s].group + 1
 					end
 				end
+				self.displayItem:BuildAndParseRaw()
 				self:UpdateDisplayItemTooltip()
 			end)
 			link.shown = function()
@@ -326,7 +294,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		for s = insertIndex + 1, #self.displayItem.sockets do
 			self.displayItem.sockets[s].group = self.displayItem.sockets[s].group + 1
 		end
-		itemLib.buildItemModList(self.displayItem)
+		self.displayItem:BuildAndParseRaw()
 		self:UpdateSocketControls()
 		self:UpdateDisplayItemTooltip()
 	end)
@@ -348,6 +316,8 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 				drop.selFunc(drop.selIndex, drop.list[drop.selIndex])
 			end
 		end
+		self.displayItem:BuildAndParseRaw()
+		self:UpdateDisplayItemTooltip()
 	end)
 	self.controls.displayItemShaperElder.shown = function()
 		return self.displayItem and self.displayItem.canBeShaperElder
@@ -396,7 +366,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 				affix.range = range
 			end
 			self.displayItem[drop.outputTable][drop.outputIndex] = affix
-			itemLib.craftItem(self.displayItem)
+			self.displayItem:Craft()
 			self:UpdateDisplayItemTooltip()
 			self:UpdateAffixControls()
 		end)
@@ -447,7 +417,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 			local index, range = slider:GetDivVal()
 			affix.modId = drop.list[drop.selIndex].modList[index]
 			affix.range = range
-			itemLib.craftItem(self.displayItem)
+			self.displayItem:Craft()
 			self:UpdateDisplayItemTooltip()
 		end)
 		slider.width = function()
@@ -513,7 +483,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	end
 	self.controls.displayItemRangeSlider = common.New("SliderControl", {"LEFT",self.controls.displayItemRangeLine,"RIGHT"}, 8, 0, 100, 18, function(val)
 		self.displayItem.rangeLineList[self.controls.displayItemRangeLine.selIndex].range = val
-		itemLib.buildItemModList(self.displayItem)
+		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
 		self:UpdateCustomControls()
 	end)
@@ -559,16 +529,16 @@ function ItemsTabClass:Load(xml, dbFileName)
 	self.itemSetOrderList = { }
 	for _, node in ipairs(xml) do
 		if node.elem == "Item" then
-			local item = { }
-			item.raw = ""
-			item.targetVersion = self.build.targetVersion
+			local item = common.New("Item", self.build.targetVersion, "")
 			item.id = tonumber(node.attrib.id)
 			item.variant = tonumber(node.attrib.variant)
-			itemLib.parseItemRaw(item)
+			if node.attrib.variantAlt then
+				item.hasAltVariant = true
+				item.variantAlt = tonumber(node.attrib.variantAlt)
+			end
 			for _, child in ipairs(node) do
 				if type(child) == "string" then
-					item.raw = child
-					itemLib.parseItemRaw(item)
+					item:ParseRaw(child)
 				elseif child.elem == "ModRange" then
 					local id = tonumber(child.attrib.id) or 0
 					local range = tonumber(child.attrib.range) or 1
@@ -578,7 +548,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 				end
 			end
 			if item.base then
-				itemLib.buildItemModList(item)
+				item:BuildModList()
 				self.items[item.id] = item
 				t_insert(self.itemOrderList, item.id)
 			end
@@ -623,7 +593,7 @@ function ItemsTabClass:Save(xml)
 	}
 	for _, id in ipairs(self.itemOrderList) do
 		local item = self.items[id]
-		local child = { elem = "Item", attrib = { id = tostring(id), variant = item.variant and tostring(item.variant) } }
+		local child = { elem = "Item", attrib = { id = tostring(id), variant = item.variant and tostring(item.variant), variantAlt = item.variantAlt and tostring(item.variantAlt) } }
 		t_insert(child, item.raw)
 		for id, modLine in ipairs(item.modLines) do
 			if modLine.range then
@@ -799,13 +769,13 @@ end
 -- Equips the given item in the given item set
 function ItemsTabClass:EquipItemInSet(item, itemSetId)
 	local itemSet = self.itemSets[itemSetId]
-	local slotName = itemLib.getPrimarySlotForItem(item)
+	local slotName = item:GetPrimarySlot()
 	if self.slots[slotName].weaponSet == 1 and itemSet.useSecondWeaponSet then
 		-- Redirect to second weapon set
 		slotName = slotName .. " Swap"
 	end
 	if not item.id or not self.items[item.id] then
-		item = itemLib.makeItemFromRaw(self.build.targetVersion, item.raw)
+		item = common.New("Item", self.build.targetVersion, item.raw)
 		self:AddItem(item, true)
 	end
 	local altSlot = slotName:gsub("1","2")
@@ -891,7 +861,7 @@ function ItemsTabClass:AddItem(item, noAutoEquip, index)
 	
 	-- Add it to the list
 	self.items[item.id] = item
-	itemLib.buildItemModList(item)
+	item:BuildModList()
 end
 
 -- Adds the current display item to the build's item list
@@ -910,8 +880,8 @@ function ItemsTabClass:SortItemList()
 	table.sort(self.itemOrderList, function(a, b)
 		local itemA = self.items[a]
 		local itemB = self.items[b]
-		local primSlotA = itemLib.getPrimarySlotForItem(itemA)
-		local primSlotB = itemLib.getPrimarySlotForItem(itemB)
+		local primSlotA = itemA:GetPrimarySlot()
+		local primSlotB = itemB:GetPrimarySlot()
 		if primSlotA ~= primSlotB then
 			if not self.slotOrder[primSlotA] then
 				return false
@@ -978,11 +948,11 @@ end
 
 -- Attempt to create a new item from the given item raw text and sets it as the new display item
 function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
-	local newItem = itemLib.makeItemFromRaw(self.build.targetVersion, itemRaw)
-	if newItem then
+	local newItem = common.New("Item", self.build.targetVersion, itemRaw)
+	if newItem.base then
 		if normalise then
-			itemLib.normaliseQuality(newItem)
-			itemLib.buildItemModList(newItem)
+			newItem:NormaliseQuality()
+			newItem:BuildModList()
 		end
 		self:SetDisplayItem(newItem)
 	end
@@ -1060,7 +1030,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	end
 	local affixList = { }
 	for modId, mod in pairs(item.affixes) do
-		if mod.type == type and not excludeGroups[mod.group] and itemLib.getModSpawnWeight(item, mod, extraTags) > 0 then
+		if mod.type == type and not excludeGroups[mod.group] and item:GetModSpawnWeight(mod, extraTags) > 0 then
 			t_insert(affixList, modId)
 		end
 	end
@@ -1164,7 +1134,7 @@ function ItemsTabClass:UpdateCustomControls()
 					self.controls["displayItemCustomModifierRemove"..i].onClick = function()
 						t_remove(item.modLines, index)
 						local id = item.id
-						self:CreateDisplayItemFromRaw(itemLib.createItemRaw(item))
+						self:CreateDisplayItemFromRaw(item:BuildRaw())
 						self.displayItem.id = id
 					end				
 					i = i + 1
@@ -1248,7 +1218,12 @@ end
 function ItemsTabClass:CraftItem()
 	local controls = { }
 	local function makeItem(base)
-		local item = { name = base.name, base = base.base, baseName = base.name, modLines = { }, quality = 0 }
+		local item = common.New("Item", self.build.targetVersion)
+		item.name = base.name
+		item.base = base.base
+		item.baseName = base.name
+		item.modLines = { }
+		item.quality = 0
 		local raritySel = controls.rarity.selIndex
 		if base.base.flask then
 			if raritySel == 3 then
@@ -1270,8 +1245,9 @@ function ItemsTabClass:CraftItem()
 				item.implicitLines = item.implicitLines + 1
 			end
 		end
-		itemLib.normaliseQuality(item)
-		return itemLib.makeItemFromRaw(self.build.targetVersion, itemLib.createItemRaw(item))
+		item:NormaliseQuality()
+		item:BuildAndParseRaw()
+		return item
 	end
 	controls.rarityLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 20, 0, 16, "Rarity:")
 	controls.rarity = common.New("DropDownControl", nil, -80, 20, 100, 18, rarityDropList)
@@ -1281,13 +1257,13 @@ function ItemsTabClass:CraftItem()
 		return controls.rarity.selIndex >= 3
 	end
 	controls.typeLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 45, 0, 16, "Type:")
-	controls.type = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 45, 295, 18, self.baseTypeList, function(index, value)
-		controls.base.list = self.baseLists[self.baseTypeList[index]]
+	controls.type = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 45, 295, 18, self.build.data.itemBaseTypeList, function(index, value)
+		controls.base.list = self.build.data.itemBaseLists[self.build.data.itemBaseTypeList[index]]
 		controls.base.selIndex = 1
 	end)
 	controls.type.selIndex = self.lastCraftTypeSel or 1
 	controls.baseLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 50, 70, 0, 16, "Base:")
-	controls.base = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 70, 200, 18, self.baseLists[self.baseTypeList[controls.type.selIndex]])
+	controls.base = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 55, 70, 200, 18, self.build.data.itemBaseLists[self.build.data.itemBaseTypeList[controls.type.selIndex]])
 	controls.base.selIndex = self.lastCraftBaseSel or 1
 	controls.base.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
@@ -1326,7 +1302,7 @@ function ItemsTabClass:EditDisplayItemText()
 	controls.rarity = common.New("DropDownControl", nil, -190, 10, 100, 18, rarityDropList)
 	controls.edit = common.New("EditControl", nil, 0, 40, 480, 420, "", nil, "^%C\t\n", nil, nil, 14)
 	if self.displayItem then
-		controls.edit:SetText(itemLib.createItemRaw(self.displayItem):gsub("Rarity: %w+\n",""))
+		controls.edit:SetText(self.displayItem:BuildRaw():gsub("Rarity: %w+\n",""))
 		controls.rarity:SelByValue(self.displayItem.rarity, "rarity")
 	else
 		controls.rarity.selIndex = 3
@@ -1342,13 +1318,13 @@ function ItemsTabClass:EditDisplayItemText()
 		main:ClosePopup()
 	end)
 	controls.save.enabled = function()
-		local item = itemLib.makeItemFromRaw(self.build.targetVersion, buildRaw())
-		return item ~= nil
+		local item = common.New("Item", self.build.targetVersion, buildRaw())
+		return item.base ~= nil
 	end
 	controls.save.tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		local item = itemLib.makeItemFromRaw(self.build.targetVersion, buildRaw())
-		if item then
+		local item = common.New("Item", self.build.targetVersion, buildRaw())
+		if item.base then
 			self:AddItemTooltip(tooltip, item, nil, true)
 		else
 			tooltip:AddLine(14, "The item is invalid.")
@@ -1415,7 +1391,7 @@ function ItemsTabClass:EnchantDisplayItem()
 	buildLabyrinthList()
 	buildEnchantmentList()
 	local function enchantItem()
-		local item = itemLib.makeItemFromRaw(self.build.targetVersion, itemLib.createItemRaw(self.displayItem))
+		local item = common.New("Item", self.build.targetVersion, self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
 		for i = 1, item.implicitLines do 
 			t_remove(item.modLines, 1)
@@ -1423,8 +1399,7 @@ function ItemsTabClass:EnchantDisplayItem()
 		local list = haveSkills and enchantments[controls.skill.list[controls.skill.selIndex]] or enchantments
 		t_insert(item.modLines, 1, { crafted = true, line = list[controls.labyrinth.list[controls.labyrinth.selIndex].name][controls.enchantment.selIndex] })
 		item.implicitLines = 1
-		item.raw = itemLib.createItemRaw(item)
-		itemLib.parseItemRaw(item)
+		item:BuildAndParseRaw()
 		return item
 	end
 	if haveSkills then
@@ -1471,7 +1446,7 @@ function ItemsTabClass:CorruptDisplayItem()
 	local controls = { } 
 	local implicitList = { }
 	for modId, mod in pairs(self.build.data.corruptedMods) do
-		if itemLib.getModSpawnWeight(self.displayItem, mod) > 0 then
+		if self.displayItem:GetModSpawnWeight(mod) > 0 then
 			t_insert(implicitList, mod)
 		end
 	end
@@ -1485,7 +1460,7 @@ function ItemsTabClass:CorruptDisplayItem()
 		end
 	end)
 	local function corruptItem()
-		local item = itemLib.makeItemFromRaw(self.build.targetVersion, itemLib.createItemRaw(self.displayItem))
+		local item = common.New("Item", self.build.targetVersion, self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
 		item.corrupted = true
 		if controls.implicit.selIndex > 1 then
@@ -1498,8 +1473,7 @@ function ItemsTabClass:CorruptDisplayItem()
 			end
 			item.implicitLines = #mod
 		end
-		item.raw = itemLib.createItemRaw(item)
-		itemLib.parseItemRaw(item)
+		item:BuildAndParseRaw()
 		return item
 	end
 	controls.implicitLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 65, 20, 0, 16, "^7Implicit:")
@@ -1558,7 +1532,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			end)
 		elseif sourceId == "PREFIX" or sourceId == "SUFFIX" then
 			for _, mod in pairs(self.displayItem.affixes) do
-				if sourceId:lower() == mod.type:lower() and itemLib.getModSpawnWeight(self.displayItem, mod) > 0 then
+				if sourceId:lower() == mod.type:lower() and self.displayItem:GetModSpawnWeight(self.displayItem) > 0 then
 					t_insert(modList, {
 						label = mod.affix .. "   ^8[" .. table.concat(mod, "/") .. "]",
 						mod = mod,
@@ -1593,7 +1567,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
 	buildMods(sourceList[1].sourceId)
 	local function addModifier()
-		local item = itemLib.makeItemFromRaw(self.build.targetVersion, itemLib.createItemRaw(self.displayItem))
+		local item = common.New("Item", self.build.targetVersion, self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
 		local sourceId = sourceList[controls.source.selIndex].sourceId
 		if sourceId == "CUSTOM" then
@@ -1606,8 +1580,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 				t_insert(item.modLines, { line = line, [listMod.type] = true })
 			end
 		end
-		item.raw = itemLib.createItemRaw(item)
-		itemLib.parseItemRaw(item)
+		item:BuildAndParseRaw()
 		return item
 	end
 	controls.sourceLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Source:")
@@ -1843,7 +1816,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	-- Implicit/explicit modifiers
 	if item.modLines[1] then
 		for index, modLine in pairs(item.modLines) do
-			if not modLine.buff and itemLib.checkModLineVariant(item, modLine) then
+			if not modLine.buff and item:CheckModLineVariant(modLine) then
 				tooltip:AddLine(16, itemLib.formatModLine(modLine, dbMode))
 			end
 			if index == item.implicitLines + item.buffLines and item.modLines[index + 1] then
@@ -1991,7 +1964,7 @@ end
 function ItemsTabClass:CreateUndoState()
 	local state = { }
 	state.activeItemSetId = self.activeItemSetId
-	state.items = copyTableSafe(self.items)
+	state.items = copyTableSafe(self.items, false, true)
 	state.itemOrderList = copyTable(self.itemOrderList)
 	state.slotSelItemId = { }
 	for slotName, slot in pairs(self.slots) do

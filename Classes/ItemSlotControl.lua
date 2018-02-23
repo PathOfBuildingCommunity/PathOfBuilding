@@ -109,8 +109,8 @@ function ItemSlotClass:ReceiveDrag(type, value, source)
 	if value.id and self.itemsTab.items[value.id] then
 		self:SetSelItemId(value.id)
 	else
-		local newItem = itemLib.makeItemFromRaw(self.itemsTab.build.targetVersion, value.raw)
-		itemLib.normaliseQuality(newItem)
+		local newItem = common.New("Item", self.itemsTab.build.targetVersion, value.raw)
+		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true)
 		self:SetSelItemId(newItem.id)
 	end
