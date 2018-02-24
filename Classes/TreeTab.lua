@@ -50,7 +50,7 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 					if spec.curClassId == self.build.spec.curClassId then
 						local respec = 0
 						for nodeId, node in pairs(self.build.spec.allocNodes) do
-							if node.type ~= "classStart" and node.type ~= "ascendClassStart" and not spec.allocNodes[nodeId] then
+							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and not spec.allocNodes[nodeId] then
 								if node.ascendancyName then
 									respec = respec + 5
 								else

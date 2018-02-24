@@ -1,3 +1,8 @@
+### 1.4.77 - 2018/02/24
+ * Added Might of the Meek
+ * Improved the handling of radius jewels; this mainly addresses issues with overlapping jewels
+    * Notably, threshold jewels will now correctly handle nearby nodes that have converted attributes
+
 ### 1.4.76 - 2018/02/23
  * Added Atziri's Reflection
  * Unique items can now be made Elder/Shaper

@@ -96,7 +96,7 @@ end
 function calcs.getNodeCalculator(build)
 	return getCalculator(build, true, function(env, nodeList)
 		-- Build and merge modifiers for these nodes
-		env.modDB:AddList(calcs.buildNodeModList(env, nodeList))
+		env.modDB:AddList(calcs.buildModListForNodeList(env, nodeList))
 	end)
 end
 

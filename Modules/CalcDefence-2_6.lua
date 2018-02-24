@@ -54,12 +54,6 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-	condList.UncappedLightningResistIsLowest = (output.LightningResistTotal <= output.ColdResistTotal and output.LightningResistTotal <= output.FireResistTotal)
-	condList.UncappedColdResistIsLowest = (output.ColdResistTotal <= output.LightningResistTotal and output.ColdResistTotal <= output.FireResistTotal)
-	condList.UncappedFireResistIsLowest = (output.FireResistTotal <= output.LightningResistTotal and output.FireResistTotal <= output.ColdResistTotal)
-	condList.UncappedLightningResistIsHighest = (output.LightningResistTotal >= output.ColdResistTotal and output.LightningResistTotal >= output.FireResistTotal)
-	condList.UncappedColdResistIsHighest = (output.ColdResistTotal >= output.LightningResistTotal and output.ColdResistTotal >= output.FireResistTotal)
-	condList.UncappedFireResistIsHighest = (output.FireResistTotal >= output.LightningResistTotal and output.FireResistTotal >= output.ColdResistTotal)
 
 	-- Primary defences: Energy shield, evasion and armour
 	do

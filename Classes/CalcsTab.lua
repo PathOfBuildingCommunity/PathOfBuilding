@@ -391,6 +391,11 @@ function CalcsTabClass:BuildOutput()
 	ConPrintf("Calc time: %d msec", GetTime() - start)
 	--]]
 
+	for _, node in pairs(self.build.spec.nodes) do
+		-- Set default final mod list for all nodes; some may not be set during the main pass
+		node.finalModList = node.modList
+	end
+
 	self.mainEnv = self.calcs.buildOutput(self.build, "MAIN")
 	self.mainOutput = self.mainEnv.player.output
 	self.calcsEnv = self.calcs.buildOutput(self.build, "CALCS")

@@ -178,7 +178,7 @@ end
 function PassiveSpecClass:EncodeURL(prefix)
 	local a = { 0, 0, 0, 4, self.curClassId, self.curAscendClassId, 0 }
 	for id, node in pairs(self.allocNodes) do
-		if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
+		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
 			t_insert(a, m_floor(id / 256))
 			t_insert(a, id % 256)
 		end
@@ -263,7 +263,7 @@ end
 -- Clear the allocated status of all non-class-start nodes
 function PassiveSpecClass:ResetNodes()
 	for id, node in pairs(self.nodes) do
-		if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
+		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
 			node.alloc = false
 			self.allocNodes[id] = nil
 		end
@@ -320,7 +320,7 @@ end
 function PassiveSpecClass:CountAllocNodes()
 	local used, ascUsed, sockets = 0, 0, 0
 	for _, node in pairs(self.allocNodes) do
-		if node.type ~= "classStart" and node.type ~= "ascendClassStart" then
+		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
 			if node.ascendancyName then
 				if not node.isMultipleChoiceOption then
 					ascUsed = ascUsed + 1
@@ -328,7 +328,7 @@ function PassiveSpecClass:CountAllocNodes()
 			else
 				used = used + 1
 			end
-			if node.type == "socket" then
+			if node.type == "Socket" then
 				sockets = sockets + 1
 			end
 		end
@@ -348,8 +348,8 @@ function PassiveSpecClass:FindStartFromNode(node, visited, noAscend)
 		-- Either:
 		--  - the other node is a start node, or
 		--  - there is a path to a start node through the other node which didn't pass through any nodes which have already been visited
-		if other.alloc and (other.type == "classStart" or other.type == "ascendClassStart" or (not other.visited and self:FindStartFromNode(other, visited, noAscend))) then
-			if not noAscend or other.type ~= "ascendClassStart" then
+		if other.alloc and (other.type == "ClassStart" or other.type == "AscendClassStart" or (not other.visited and self:FindStartFromNode(other, visited, noAscend))) then
+			if not noAscend or other.type ~= "AscendClassStart" then
 				return true
 			end
 		end
@@ -375,7 +375,7 @@ function PassiveSpecClass:BuildPathFromNode(root)
 			-- 2. They cannot pass between different ascendancy classes or between an ascendancy class and the main tree
 			--    The one exception to that rule is that a path may start from an ascendancy node and pass into the main tree
 			--    This permits pathing from the Ascendant 'Path of the X' nodes into the respective class start areas
-			if other.type ~= "classStart" and other.type ~= "ascendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
+			if other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
 				-- The shortest path to the other node is through the current node
 				other.pathDist = curDist
 				other.path = wipeTable(other.path)
@@ -400,7 +400,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	for id, node in pairs(self.nodes) do
 		node.depends = wipeTable(node.depends)
 		node.dependsOnIntuitiveLeap = false
-		if node.type ~= "classStart" then
+		if node.type ~= "ClassStart" then
 			for nodeId, itemId in pairs(self.jewels) do
 				if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius[1][node.id] then
 					if itemId ~= 0 and self.build.itemsTab.items[itemId] and self.build.itemsTab.items[itemId].jewelData and self.build.itemsTab.items[itemId].jewelData.intuitiveLeap then
@@ -422,11 +422,11 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	for id, node in pairs(self.allocNodes) do
 		node.visited = true
 
-		local anyStartFound = (node.type == "classStart" or node.type == "ascendClassStart")
+		local anyStartFound = (node.type == "ClassStart" or node.type == "AscendClassStart")
 		for _, other in ipairs(node.linked) do
 			if other.alloc and not isValueInArray(node.depends, other) then
 				-- The other node is allocated and isn't already dependant on this node, so try and find a path to a start node through it
-				if other.type == "classStart" or other.type == "ascendClassStart" then
+				if other.type == "ClassStart" or other.type == "AscendClassStart" then
 					-- Well that was easy!
 					anyStartFound = true
 				elseif self:FindStartFromNode(other, visited) then
