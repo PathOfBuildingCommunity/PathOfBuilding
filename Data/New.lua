@@ -30,6 +30,12 @@ Grants Level 20 Summon Petrification Statue Skill
 5% additional Physical Damage Reduction while Moving
 5% reduced Elemental Damage Taken while stationary
 ]],[[
+Might of the Meek
+Crimson Jewel
+Radius: Large
+50% increased Effect of non-Keystone Passive Skills in Radius
+Notable Passive Skills in Radius grant nothing
+]],[[
 Voidfletcher
 Penetrating Arrow Quiver
 Unreleased: true

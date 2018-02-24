@@ -38,6 +38,19 @@ function ModListClass:AddMod(mod)
 	t_insert(self, mod)
 end
 
+function ModListClass:MergeMod(mod)
+	if mod.type == "BASE" or mod.type == "INC" then
+		for i = 1, #self do
+			if modLib.compareModParams(self[i], mod) then
+				self[i] = copyTable(self[i], true)
+				self[i].value = self[i].value + mod.value
+				return
+			end
+		end
+	end
+	self:AddMod(mod)
+end
+
 function ModListClass:ScaleAddMod(mod, scale)
 	if scale == 1 then
 		self:AddMod(mod)
@@ -82,6 +95,10 @@ function ModListClass:NewMod(...)
 	self:AddMod(mod_createMod(...))
 end
 
+function ModListClass:MergeNewMod(...)
+	self:MergeMod(mod_createMod(...))
+end
+
 function ModListClass:EvalMod(mod, cfg)
 	local value = mod.value
 	for _, tag in ipairs(mod) do
@@ -118,7 +135,8 @@ function ModListClass:EvalMod(mod, cfg)
 			else
 				mult = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
 			end
-			if mult < tag.threshold then
+			local threshold = tag.threshold or ((self.multipliers[tag.thresholdVar] or 0) + self:Sum("BASE", cfg, multiplierName[tag.thresholdVar]))
+			if (tag.upper and mult > tag.threshold) or (not tag.upper and mult < tag.threshold) then
 				return
 			end
 		elseif tag.type == "PerStat" then
@@ -139,7 +157,9 @@ function ModListClass:EvalMod(mod, cfg)
 				value = value * mult + (tag.base or 0)
 			end
 		elseif tag.type == "StatThreshold" then
-			if (self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0) < tag.threshold then
+			local stat = self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0
+			local threshold = tag.threshold or (self.actor.output[tag.thresholdStat] or (cfg and cfg.skillStats and cfg.skillStats[tag.thresholdStat]) or 0)
+			if (tag.upper and stat > threshold) or (not tag.upper and stat < threshold) then
 				return
 			end
 		elseif tag.type == "DistanceRamp" then

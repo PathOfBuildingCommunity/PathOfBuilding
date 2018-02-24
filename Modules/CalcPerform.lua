@@ -109,23 +109,6 @@ local function doActorAttribsPoolsConditions(env, actor)
 			condList["DualWieldingClaws"] = true
 		end
 	end
-	if (modDB.multipliers["NormalItem"] or 0) > 0 then
-		condList["UsingNormalItem"] = true
-	end
-	if (modDB.multipliers["MagicItem"] or 0) > 0 then
-		condList["UsingMagicItem"] = true
-	end
-	if (modDB.multipliers["RareItem"] or 0) > 0 then
-		condList["UsingRareItem"] = true
-	end
-	if (modDB.multipliers["UniqueItem"] or 0) > 0 then
-		condList["UsingUniqueItem"] = true
-	end
-	if (modDB.multipliers["CorruptedItem"] or 0) > 0 then
-		condList["UsingCorruptedItem"] = true
-	else
-		condList["NotUsingCorruptedItem"] = true
-	end
 	if env.mode_combat then		
 		if not modDB:Sum("FLAG", nil, "NeverCrit") then
 			condList["CritInPast8Sec"] = true
@@ -232,9 +215,6 @@ local function doActorAttribsPoolsConditions(env, actor)
 		else
 			reserved = 0
 		end
-		if reserved == 0 then
-			condList["No"..pool.."Reserved"] = true
-		end
 		for _, value in ipairs(modDB:Sum("LIST", nil, "GrantReserved"..pool.."AsAura")) do
 			local auraMod = copyTable(value.mod)
 			auraMod.value = m_floor(auraMod.value * m_min(reserved, max))
@@ -279,30 +259,6 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["FrenzyCharge"] = output.FrenzyCharges
 	modDB.multipliers["EnduranceCharge"] = output.EnduranceCharges
 	modDB.multipliers["SiphoningCharge"] = output.SiphoningCharges
-	if output.PowerCharges == 0 then
-		condList["HaveNoPowerCharges"] = true
-	end
-	if output.PowerCharges == output.PowerChargesMax then
-		condList["AtMaxPowerCharges"] = true
-	end
-	if output.FrenzyCharges == 0 then
-		condList["HaveNoFrenzyCharges"] = true
-	end
-	if output.FrenzyCharges == output.FrenzyChargesMax then
-		condList["AtMaxFrenzyCharges"] = true
-	end
-	if output.EnduranceCharges == 0 then
-		condList["HaveNoEnduranceCharges"] = true
-	end
-	if output.EnduranceCharges == output.EnduranceChargesMax then
-		condList["AtMaxEnduranceCharges"] = true
-	end
-	if output.SiphoningCharges == 0 then
-		condList["HaveNoSiphoningCharges"] = true
-	end
-	if output.SiphoningCharges == output.SiphoningChargesMax then
-		condList["AtMaxSiphoningCharges"] = true
-	end
 
 	-- Process enemy modifiers 
 	for _, value in ipairs(modDB:Sum("LIST", nil, "EnemyModifier")) do

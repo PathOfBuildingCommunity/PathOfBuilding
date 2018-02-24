@@ -43,35 +43,73 @@ function calcs.initModDB(env, modDB)
 	modDB.conditions["Effective"] = env.mode_effective
 end
 
+function calcs.buildModListForNode(env, node)
+	local modList = common.New("ModList")
+	if node.type == "Keystone" then
+		modList:AddMod(node.keystoneMod)
+	else
+		modList:AddList(node.modList)
+	end
+
+	-- Run first pass radius jewels
+	for _, rad in pairs(env.radiusJewelList) do
+		if rad.type == "Other" and rad.nodes[node.id] then
+			rad.func(node, modList, rad.data)
+		end
+	end
+
+	if modList:Sum("FLAG", nil, "PassiveSkillHasNoEffect") then
+		wipeTable(modList)
+	end
+
+	-- Apply effect scaling
+	local scale = calcLib.mod(modList, nil, "PassiveSkillEffect")
+	if scale ~= 1 then
+		local scaledList = common.New("ModList")
+		scaledList:ScaleAddList(modList, scale)
+		modList = scaledList
+	end
+
+	-- Run second pass radius jewels
+	for _, rad in pairs(env.radiusJewelList) do
+		if rad.nodes[node.id] and (rad.type == "Threshold" or (rad.type == "Self" and node.alloc)) then
+			rad.func(node, modList, rad.data)
+		end
+	end
+
+	return modList
+end
+
 -- Build list of modifiers from the listed tree nodes
-function calcs.buildNodeModList(env, nodeList, finishJewels)
+function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 	-- Initialise radius jewels
 	for _, rad in pairs(env.radiusJewelList) do
 		wipeTable(rad.data)
+		rad.data.modSource = "Tree:"..rad.nodeId
 	end
 
 	-- Add node modifers
 	local modList = common.New("ModList")
 	for _, node in pairs(nodeList) do
-		-- Merge with output list
-		if node.type == "keystone" then
-			modList:AddMod(node.keystoneMod)
-		else
-			modList:AddList(node.modList)
-		end
-
-		-- Run radius jewels
-		for _, rad in pairs(env.radiusJewelList) do
-			if rad.nodes[node.id] then
-				rad.func(node.modList, modList, rad.data)
-			end
+		local nodeModList = calcs.buildModListForNode(env, node)
+		modList:AddList(nodeModList)
+		if env.mode == "MAIN" then	
+			node.finalModList = nodeModList
 		end
 	end
 
 	if finishJewels then
+		-- Process extra radius nodes; these are unallocated nodes near conversion or threshold jewels that need to be processed
+		for _, node in pairs(env.extraRadiusNodeList) do
+			local nodeModList = calcs.buildModListForNode(env, node)
+			if env.mode == "MAIN" then	
+				node.finalModList = nodeModList
+			end
+		end
+		
 		-- Finalise radius jewels
 		for _, rad in pairs(env.radiusJewelList) do
-			rad.func(nil, modList, rad.data, rad.attributes)
+			rad.func(nil, modList, rad.data)
 			if env.mode == "MAIN" then
 				if not rad.item.jewelRadiusData then
 					rad.item.jewelRadiusData = { }
@@ -233,7 +271,6 @@ function calcs.initEnv(build, mode, override)
 	-- Create player/enemy actors
 	env.player = {
 		modDB = modDB,
-		enemy = env.enemy,
 	}
 	modDB.actor = env.player
 	env.enemy = {
@@ -266,12 +303,10 @@ function calcs.initEnv(build, mode, override)
 
 	-- Build and merge item modifiers, and create list of radius jewels
 	env.radiusJewelList = wipeTable(env.radiusJewelList)
+	env.extraRadiusNodeList = wipeTable(env.extraRadiusNodeList)
 	env.player.itemList = { }
 	env.itemGrantedSkills = { }
 	env.flasks = { }
-	env.modDB.conditions["UsingAllCorruptedItems"] = true
-	env.modDB.conditions["UsingAllShaperItems"] = true
-	env.modDB.conditions["UsingAllElderItems"] = true
 	for _, slot in pairs(build.itemsTab.orderedSlots) do
 		local slotName = slot.slotName
 		local item
@@ -303,24 +338,33 @@ function calcs.initEnv(build, mode, override)
 				item = nil
 			elseif item and item.jewelRadiusIndex then
 				-- Jewel has a radius,  add it to the list
-				local funcList = item.jewelData.funcList or { function(nodeMods, out, data)
+				local funcList = item.jewelData.funcList or { { type = "Self", func = function(node, out, data)
 					-- Default function just tallies all stats in radius
-					if nodeMods then
+					if node then
 						for _, stat in pairs({"Str","Dex","Int"}) do
-							data[stat] = (data[stat] or 0) + nodeMods:Sum("BASE", nil, stat)
+							data[stat] = (data[stat] or 0) + out:Sum("BASE", nil, stat)
 						end
 					end
-				end }
+				end } }
 				for _, func in ipairs(funcList) do
 					local node = build.spec.nodes[slot.nodeId]
 					t_insert(env.radiusJewelList, {
 						nodes = node.nodesInRadius[item.jewelRadiusIndex],
-						func = func,
+						func = func.func,
+						type = func.type,
 						item = item,
 						nodeId = slot.nodeId,
 						attributes = node.attributesInRadius[item.jewelRadiusIndex],
 						data = { }
 					})
+					if func.type ~= "Self" then
+						-- Add nearby unallocated nodes to the extra node list
+						for nodeId, node in pairs(node.nodesInRadius[item.jewelRadiusIndex]) do
+							if not nodes[nodeId] then
+								env.extraRadiusNodeList[nodeId] = env.spec.nodes[nodeId]
+							end
+						end
+					end
 				end
 			end
 		end
@@ -418,17 +462,17 @@ function calcs.initEnv(build, mode, override)
 				if item.corrupted then
 					env.modDB.multipliers.CorruptedItem = (env.modDB.multipliers.CorruptedItem or 0) + 1
 				else
-					env.modDB.conditions["UsingAllCorruptedItems"] = false
+					env.modDB.multipliers.NonCorruptedItem = (env.modDB.multipliers.NonCorruptedItem or 0) + 1
 				end
 				if item.shaper then
 					env.modDB.multipliers.ShaperItem = (env.modDB.multipliers.ShaperItem or 0) + 1
 				else
-					env.modDB.conditions["UsingAllShaperItems"] = false
+					env.modDB.multipliers.NonShaperItem = (env.modDB.multipliers.NonShaperItem or 0) + 1
 				end
 				if item.elder then
 					env.modDB.multipliers.ElderItem = (env.modDB.multipliers.ElderItem or 0) + 1
 				else
-					env.modDB.conditions["UsingAllElderItems"] = false
+					env.modDB.multipliers.NonElderItem = (env.modDB.multipliers.NonElderItem or 0) + 1
 				end
 			end
 		end
@@ -517,7 +561,7 @@ function calcs.initEnv(build, mode, override)
 	end
 
 	-- Merge modifiers for allocated passives
-	env.modDB:AddList(calcs.buildNodeModList(env, nodes, true))
+	env.modDB:AddList(calcs.buildModListForNodeList(env, nodes, true))
 
 	-- Determine main skill group
 	if env.mode == "CALCS" then

@@ -104,7 +104,7 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.sockets = { }
 	local socketOrder = { }
 	for _, node in pairs(build.tree.nodes) do
-		if node.type == "socket" then
+		if node.type == "Socket" then
 			t_insert(socketOrder, node)
 		end
 	end
@@ -1773,7 +1773,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				end
 			end
 			if line then
-				tooltip:AddLine(16, "^x7F7F7FAllocated in Radius: "..line)
+				tooltip:AddLine(16, "^x7F7F7FAttributes in Radius: "..line)
 			end
 		end
 	end
