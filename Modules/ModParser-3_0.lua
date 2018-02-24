@@ -1428,11 +1428,12 @@ local jewelSelfFuncs = {
 
 -- Radius jewels with bonuses conditional upon attributes of nearby nodes
 local function getThreshold(attrib, name, modType, value, ...)
-	local mod = mod(name, modType, value, "", ...)
+	local baseMod = mod(name, modType, value, "", ...)
 	return function(node, out, data)
 		if node then
 			data[attrib] = (data[attrib] or 0) + out:Sum("BASE", nil, attrib)
 		elseif (data[attrib] or 0) >= 40 then
+			local mod = copyTable(baseMod)
 			mod.source = data.modSource
 			if type(value) == "table" and value.mod then
 				value.mod.source = data.modSource
