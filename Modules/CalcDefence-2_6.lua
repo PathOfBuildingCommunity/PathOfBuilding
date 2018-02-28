@@ -32,6 +32,12 @@ function calcs.defence(env, actor)
 
 	local condList = modDB.conditions
 
+	-- Action Speed
+	output.ActionSpeedMod = 1 + (m_max(-75, modDB:Sum("INC", nil, "TemporalChainsActionSpeed")) + modDB:Sum("INC", nil, "ActionSpeed")) / 100
+	if modDB:Sum("FLAG", nil, "ActionSpeedCannotBeBelowBase") then
+		output.ActionSpeedMod = m_max(1, output.ActionSpeedMod)
+	end
+
 	-- Resistances
 	output.PhysicalResist = m_min(90, modDB:Sum("BASE", nil, "PhysicalDamageReduction"))
 	for _, elem in ipairs(resistTypeList) do
@@ -501,6 +507,15 @@ function calcs.defence(env, actor)
 		output.MovementSpeedMod = calcLib.mod(modDB, nil, "MovementSpeed")
 		if modDB:Sum("FLAG", nil, "MovementSpeedCannotBeBelowBase") then
 			output.MovementSpeedMod = m_max(output.MovementSpeedMod, 1)
+		end
+		output.EffectiveMovementSpeedMod = output.MovementSpeedMod * output.ActionSpeedMod
+		if breakdown then
+			breakdown.EffectiveMovementSpeedMod = { }
+			breakdown.multiChain(breakdown.EffectiveMovementSpeedMod, {
+				{ "%.2f ^8(movement speed modifier)", output.MovementSpeedMod },
+				{ "%.2f ^8(action speed modifier)", output.ActionSpeedMod },
+				total = s_format("= %.2f ^8(effective movement speed modifier)", output.EffectiveMovementSpeedMod)
+			})
 		end
 		output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
 		local baseBlockChance = 0

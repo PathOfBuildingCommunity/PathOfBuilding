@@ -3471,7 +3471,7 @@ skills["SkeletonTemporalChains"] = {
 		skill("manaCost", 20), 
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
 		--"active_skill_area_of_effect_radius_+%_final" = 0
-		--"temporal_chains_action_speed_+%_final" = -20
+		mod("TemporalChainsActionSpeed", "INC", -20, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"temporal_chains_action_speed_+%_final" = -20
 		mod("BuffExpireFaster", "MORE", -40, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"buff_time_passed_-%" = 40
 		--"skill_art_variation" = 0
 	},

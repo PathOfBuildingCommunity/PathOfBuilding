@@ -36,6 +36,16 @@ Radius: Large
 50% increased Effect of non-Keystone Passive Skills in Radius
 Notable Passive Skills in Radius grant nothing
 ]],[[
+Stormfire
+Opal Ring
+Requires Level 80
+(15-25)% increased Elemental Damage
+28% increased Mana Regeneration Rate
++28% to Fire and Lightning Resistances
+5% increased Burning Damage for each Enemy you have Shocked Recently
+Adds 1 to 65 Lightning Damage to Hits against Ignited Enemies
+Your Lightning Damage can Ignite
+]],[[
 Voidfletcher
 Penetrating Arrow Quiver
 Unreleased: true
@@ -64,6 +74,29 @@ Requires Level 68
 Curse Reflection
 Unaffected by Curses
 16% increased Effect of your Curses
+]],[[
+Cameria's Avarice
+Gavel
+Requires Level 60
+15% reduced Enemy Stun Threshold
+Adds 12 to 14 Physical Damage
+37% increased Critical Strike Chance
+40% increased Rarity of Items Dropped by Frozen Enemies
+31% increased Cold Damage with Attack Skills
+Trigger Level 20 Icicle Nova when you Kill a Frozen Enemy
+]],[[
+The Dancing Duo
+Reaver Sword
+Requires Level 65
+40% increased Accuracy Rating
+(160-190)% increased Physical Damage
+(25-30)% increased Attack Speed
+5% increased Movement Speed
+Rampage
+Triggers Level 15 Manifest Dancing Dervish on Rampage
+Manifested Dancing Dervish disables both weapon slots
+Manifested Dancing Dervish dies when Rampage ends
+Manifested Dancing Dervish also manifests a copy of Dancing Dervish
 ]],[[
 Doedre's Malevolence
 Velvet Gloves

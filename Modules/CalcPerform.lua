@@ -265,7 +265,7 @@ local function doActorMisc(env, actor)
 		enemyDB:AddMod(value.mod)
 	end
 
-	-- Add misc buffs
+	-- Add misc buffs/debuffs
 	if env.mode_combat then
 		if modDB:Sum("FLAG", nil, "Fortify") then
 			local effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "FortifyEffectOnSelf", "BuffEffectOnSelf") / 100))
@@ -281,6 +281,17 @@ local function doActorMisc(env, actor)
 			local effect = m_floor(30 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
 			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", effect, "Unholy Might")
 		end
+		if modDB:Sum("FLAG", nil, "Tailwind") then
+			local effect = m_floor(10 * (1 + modDB:Sum("INC", nil, "TailwindEffectOnSelf", "BuffEffectOnSelf") / 100))
+			modDB:NewMod("ActionSpeed", "INC", effect, "Tailwind")
+		end
+		if modDB:Sum("FLAG", nil, "Adrenaline") then
+			local effectMod = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
+			modDB:NewMod("Damage", "INC", m_floor(100 * effectMod), "Adrenaline")
+			modDB:NewMod("Speed", "INC", m_floor(25 * effectMod), "Adrenaline")
+			modDB:NewMod("MovementSpeed", "INC", m_floor(25 * effectMod), "Adrenaline")
+			modDB:NewMod("PhysicalDamageReduction", "BASE", m_floor(10 * effectMod), "Adrenaline")
+		end
 		if modDB:Sum("FLAG", nil, "HerEmbrace") then
 			condList["HerEmbrace"] = true
 			modDB:NewMod("AvoidStun", "BASE", 100, "Her Embrace")
@@ -290,6 +301,14 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("AvoidIgnite", "BASE", 100, "Her Embrace")
 			modDB:NewMod("Speed", "INC", 20, "Her Embrace")
 			modDB:NewMod("MovementSpeed", "INC", 20, "Her Embrace")
+		end
+		if modDB:Sum("FLAG", nil, "Chill") then
+			local effect = m_max(m_floor(30 * calcLib.mod(modDB, nil, "SelfChillEffect")), 0)
+			modDB:NewMod("ActionSpeed", "INC", -effect, "Chill")
+		end
+		if modDB:Sum("FLAG", nil, "Freeze") then
+			local effect = m_max(m_floor(70 * calcLib.mod(modDB, nil, "SelfChillEffect")), 0)
+			modDB:NewMod("ActionSpeed", "INC", -effect, "Freeze")
 		end
 	end	
 end
@@ -606,8 +625,9 @@ function calcs.perform(env)
 					local moreSkill = buff.activeSkillBuff and skillModList:Sum("MORE", skillCfg, "BuffEffect") or 1
 				 	if not buff.applyNotPlayer then
 						activeSkill.buffSkill = true
+						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = common.New("ModList")
-						local inc = modDB:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf") + incSkill
+						local inc = modDB:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf") + incSkill + (buff.activeSkillBuff and skillModList:Sum("INC", skillCfg, "BuffEffectOnPlayer") or 0)
 						local more = modDB:Sum("MORE", skillCfg, "BuffEffect", "BuffEffectOnSelf") * moreSkill
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)
@@ -617,6 +637,7 @@ function calcs.perform(env)
 					end
 					if env.minion and (buff.applyMinions or buff.applyAllies) then
 						activeSkill.minionBuffSkill = true
+						env.minion.modDB.conditions["AffectedBy"..buff.name] = true
 						local srcList = common.New("ModList")
 						local inc = modDB:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf") + incSkill
 						local more = modDB:Sum("MORE", skillCfg, "BuffEffect") * env.minion.modDB:Sum("MORE", nil, "BuffEffectOnSelf") * moreSkill
@@ -750,7 +771,9 @@ function calcs.perform(env)
 				if modDB:Sum("BASE", nil, "AvoidCurse") < 100 then
 					modDB.conditions["Cursed"] = true
 					modDB.multipliers["CurseOnSelf"] = (modDB.multipliers["CurseOnSelf"] or 0) + 1
-					modDB:ScaleAddList(curseModList, (1 + modDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * modDB:Sum("MORE", nil, "CurseEffectOnSelf"))
+					local inc = modDB:Sum("INC", nil, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
+					local more = modDB:Sum("MORE", nil, "CurseEffectOnSelf")
+					modDB:ScaleAddList(curseModList, (1 + inc / 100) * more)
 				end
 			elseif not enemyDB:Sum("FLAG", nil, "Hexproof") or modDB:Sum("FLAG", nil, "CursesIgnoreHexproof") then
 				local curse = {

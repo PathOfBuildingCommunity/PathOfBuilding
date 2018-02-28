@@ -32,6 +32,12 @@ function calcs.defence(env, actor)
 
 	local condList = modDB.conditions
 
+	-- Action Speed
+	output.ActionSpeedMod = 1 + (m_max(-75, modDB:Sum("INC", nil, "TemporalChainsActionSpeed")) + modDB:Sum("INC", nil, "ActionSpeed")) / 100
+	if modDB:Sum("FLAG", nil, "ActionSpeedCannotBeBelowBase") then
+		output.ActionSpeedMod = m_max(1, output.ActionSpeedMod)
+	end
+
 	-- Resistances
 	output.PhysicalResist = m_min(90, modDB:Sum("BASE", nil, "PhysicalDamageReduction"))
 	output.PhysicalResistWhenHit = m_min(90, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
@@ -67,34 +73,7 @@ function calcs.defence(env, actor)
 			breakdown.Armour = { slots = { } }
 			breakdown.Evasion = { slots = { } }
 		end
-		local energyShieldBase = modDB:Sum("BASE", nil, "EnergyShield")
-		if energyShieldBase > 0 then
-			energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, nil, "EnergyShield", "Defences")
-			if breakdown then
-				breakdown.slot("Global", nil, nil, energyShieldBase, nil, "EnergyShield", "Defences")
-			end
-		end
-		local armourBase = modDB:Sum("BASE", nil, "Armour", "ArmourAndEvasion")
-		if armourBase > 0 then
-			armour = armour + armourBase * calcLib.mod(modDB, nil, "Armour", "ArmourAndEvasion", "Defences")
-			if breakdown then
-				breakdown.slot("Global", nil, nil, armourBase, nil, "Armour", "ArmourAndEvasion", "Defences")
-			end
-		end
-		local evasionBase = modDB:Sum("BASE", nil, "Evasion", "ArmourAndEvasion")
-		if evasionBase > 0 then
-			if ironReflexes then
-				armour = armour + evasionBase * calcLib.mod(modDB, nil, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
-				if breakdown then
-					breakdown.slot("Conversion", "Evasion to Armour", nil, evasionBase, nil, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
-				end
-			else
-				evasion = evasion + evasionBase * calcLib.mod(modDB, nil, "Evasion", "ArmourAndEvasion", "Defences")
-				if breakdown then
-					breakdown.slot("Global", nil, nil, evasionBase, nil, "Evasion", "ArmourAndEvasion", "Defences")
-				end
-			end
-		end
+		local energyShieldBase, armourBase, evasionBase
 		local gearEnergyShield = 0
 		local gearArmour = 0
 		local gearEvasion = 0
@@ -105,6 +84,7 @@ function calcs.defence(env, actor)
 				slotCfg.slotName = slot
 				energyShieldBase = armourData.EnergyShield or 0
 				if energyShieldBase > 0 then
+					output["EnergyShieldOn"..slot] = energyShieldBase
 					energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, slotCfg, "EnergyShield", "Defences")
 					gearEnergyShield = gearEnergyShield + energyShieldBase
 					if breakdown then
@@ -113,6 +93,7 @@ function calcs.defence(env, actor)
 				end
 				armourBase = armourData.Armour or 0
 				if armourBase > 0 then
+					output["ArmourOn"..slot] = armourBase
 					if slot == "Body Armour" and modDB:Sum("FLAG", nil, "Unbreakable") then
 						armourBase = armourBase * 2
 					end
@@ -124,6 +105,7 @@ function calcs.defence(env, actor)
 				end
 				evasionBase = armourData.Evasion or 0
 				if evasionBase > 0 then
+					output["EvasionOn"..slot] = evasionBase
 					if ironReflexes then
 						armour = armour + evasionBase * calcLib.mod(modDB, slotCfg, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
 						gearArmour = gearArmour + evasionBase
@@ -137,6 +119,34 @@ function calcs.defence(env, actor)
 							breakdown.slot(slot, nil, slotCfg, evasionBase, nil, "Evasion", "ArmourAndEvasion", "Defences")
 						end
 					end
+				end
+			end
+		end
+		energyShieldBase = modDB:Sum("BASE", nil, "EnergyShield")
+		if energyShieldBase > 0 then
+			energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, nil, "EnergyShield", "Defences")
+			if breakdown then
+				breakdown.slot("Global", nil, nil, energyShieldBase, nil, "EnergyShield", "Defences")
+			end
+		end
+		armourBase = modDB:Sum("BASE", nil, "Armour", "ArmourAndEvasion")
+		if armourBase > 0 then
+			armour = armour + armourBase * calcLib.mod(modDB, nil, "Armour", "ArmourAndEvasion", "Defences")
+			if breakdown then
+				breakdown.slot("Global", nil, nil, armourBase, nil, "Armour", "ArmourAndEvasion", "Defences")
+			end
+		end
+		evasionBase = modDB:Sum("BASE", nil, "Evasion", "ArmourAndEvasion")
+		if evasionBase > 0 then
+			if ironReflexes then
+				armour = armour + evasionBase * calcLib.mod(modDB, nil, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
+				if breakdown then
+					breakdown.slot("Conversion", "Evasion to Armour", nil, evasionBase, nil, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
+				end
+			else
+				evasion = evasion + evasionBase * calcLib.mod(modDB, nil, "Evasion", "ArmourAndEvasion", "Defences")
+				if breakdown then
+					breakdown.slot("Global", nil, nil, evasionBase, nil, "Evasion", "ArmourAndEvasion", "Defences")
 				end
 			end
 		end
@@ -518,6 +528,15 @@ function calcs.defence(env, actor)
 		if modDB:Sum("FLAG", nil, "MovementSpeedCannotBeBelowBase") then
 			output.MovementSpeedMod = m_max(output.MovementSpeedMod, 1)
 		end
+		output.EffectiveMovementSpeedMod = output.MovementSpeedMod * output.ActionSpeedMod
+		if breakdown then
+			breakdown.EffectiveMovementSpeedMod = { }
+			breakdown.multiChain(breakdown.EffectiveMovementSpeedMod, {
+				{ "%.2f ^8(movement speed modifier)", output.MovementSpeedMod },
+				{ "%.2f ^8(action speed modifier)", output.ActionSpeedMod },
+				total = s_format("= %.2f ^8(effective movement speed modifier)", output.EffectiveMovementSpeedMod)
+			})
+		end
 		output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
 		local baseBlockChance = 0
 		if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].armourData then
@@ -569,7 +588,7 @@ function calcs.defence(env, actor)
 				total = s_format("= %d%% ^8(chance to be hit by a spell)", 100 - output.SpellAvoidChance),
 			})
 		end
-		local stunChance = 100 - modDB:Sum("BASE", nil, "AvoidStun")
+		local stunChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
 		if output.EnergyShield > output.Life * 2 then
 			stunChance = stunChance * 0.5
 		end

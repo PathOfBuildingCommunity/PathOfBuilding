@@ -112,19 +112,33 @@ function ModListClass:EvalMod(mod, cfg)
 				base = (self.multipliers[tag.var] or 0) + self:Sum("BASE", cfg, multiplierName[tag.var])
 			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
+			local limitTotal
 			if tag.limit or tag.limitVar then
 				local limit = tag.limit or ((self.multipliers[tag.limitVar] or 0) + self:Sum("BASE", cfg, multiplierName[tag.limitVar]))
-				mult = m_min(mult, limit)
+				if tag.limitTotal then
+					limitTotal = limit
+				else
+					mult = m_min(mult, limit)
+				end
 			end
 			if type(value) == "table" then
 				value = copyTable(value)
 				if value.mod then
 					value.mod.value = value.mod.value * mult + (tag.base or 0)
+					if limitTotal then
+						value.mod.value = m_min(value.mod.value, limitTotal)
+					end
 				else
 					value.value = value.value * mult + (tag.base or 0)
+					if limitTotal then
+						value.value = m_min(value.value, limitTotal)
+					end
 				end
 			else
 				value = value * mult + (tag.base or 0)
+				if limitTotal then
+					value = m_min(value, limitTotal)
+				end
 			end
 		elseif tag.type == "MultiplierThreshold" then
 			local mult = 0
@@ -142,19 +156,33 @@ function ModListClass:EvalMod(mod, cfg)
 		elseif tag.type == "PerStat" then
 			local base = self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
+			local limitTotal
 			if tag.limit or tag.limitVar then
 				local limit = tag.limit or ((self.multipliers[tag.limitVar] or 0) + self:Sum("BASE", cfg, multiplierName[tag.limitVar]))
-				mult = m_min(mult, limit)
+				if tag.limitTotal then
+					limitTotal = limit
+				else
+					mult = m_min(mult, limit)
+				end 
 			end
 			if type(value) == "table" then
 				value = copyTable(value)
 				if value.mod then
 					value.mod.value = value.mod.value * mult + (tag.base or 0)
+					if limitTotal then
+						value.mod.value = m_min(value.mod.value, limitTotal)
+					end
 				else
 					value.value = value.value * mult + (tag.base or 0)
+					if limitTotal then
+						value.value = m_min(value.value, limitTotal)
+					end
 				end
 			else
 				value = value * mult + (tag.base or 0)
+				if limitTotal then
+					value = m_min(value, limitTotal)
+				end
 			end
 		elseif tag.type == "StatThreshold" then
 			local stat = self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0

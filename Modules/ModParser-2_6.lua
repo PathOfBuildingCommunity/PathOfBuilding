@@ -740,6 +740,8 @@ local specialModList = {
 	["critical strikes ignore enemy monster elemental resistances"] = { flag("IgnoreElementalResistances", { type = "Condition", var = "CriticalStrike" }) },
 	["non%-critical strikes penetrate (%d+)%% of enemy elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
 	["movement speed cannot be modified to below base value"] = { flag("MovementSpeedCannotBeBelowBase") },
+	["you cannot be slowed to below base speed"] = { flag("ActionSpeedCannotBeBelowBase") },
+	["cannot be slowed to below base speed"] = { flag("ActionSpeedCannotBeBelowBase") },
 	["your offering skills also affect you"] = { mod("ExtraSkillMod", "LIST", { mod = mod("SkillData", "LIST", { key = "buffNotPlayer", value = false }) }, { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering" } }) },
 	["consecrated ground you create grants (%d+)%% increased damage to you and allies"] = function(num) return { mod("Damage", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) } end,
 	["for each element you've been hit by damage of recently, (%d+)%% increased damage of that element"] = function(num) return { 
@@ -1018,8 +1020,8 @@ local specialModList = {
 	["prefixes:"] = { },
 	["suffixes:"] = { },
 	["socketed lightning spells have (%d+)%% increased spell damage if triggered"] = { },
-	["manifest dancing dervish disables both weapon slots"] = { },
-	["manifest dancing dervish dies when rampage ends"] = { },
+	["manifeste?d? dancing dervish disables both weapon slots"] = { },
+	["manifeste?d? dancing dervish dies when rampage ends"] = { },
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques
