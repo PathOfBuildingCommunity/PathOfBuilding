@@ -385,7 +385,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					if tag.base then
 						desc = (row.mod.type == "BASE" and string.format("%+g", tag.base) or tag.base.."%").." + "..math.abs(row.mod.value).." per "..self:FormatModName(tag.var)
 					else
-						desc = baseVal.." per "..self:FormatModName(tag.var)
+						desc = baseVal.." per "..(tag.div and (tag.div.." ") or "")..self:FormatModName(tag.var)
 					end
 				elseif tag.type == "MultiplierThreshold" then
 					desc = "If "..self:FormatModName(tag.var)..(tag.upper and " <= " or " >= ")..(tag.threshold or self:FormatModName(tag.thresholdVar))

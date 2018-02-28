@@ -283,7 +283,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "Armour", label = "Armour", fmt = "d", compPercent = true },
 		{ stat = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
 		{ stat = "PhysicalDamageReduction", label = "Phys. Damage Reduction", fmt = "d%%" },
-		{ stat = "MovementSpeedMod", label = "Movement Speed Modifier", fmt = "+d%%", mod = true },
+		{ stat = "EffectiveMovementSpeedMod", label = "Movement Speed Modifier", fmt = "+d%%", mod = true, condFunc = function() return true end },
 		{ stat = "BlockChance", label = "Block Chance", fmt = "d%%" },
 		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%" },
 		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%" },

@@ -921,7 +921,7 @@ return {
 	{ label = "Net Mana Regen", haveOutput = "NetManaRegen", { format = "{1:output:NetManaRegen}", { breakdown = "NetManaRegen" }, }, },
 } },
 { 1, "MiscDefences", 3, "Other Defences", colorCodes.DEFENCE, {
-	{ label = "Movement Speed", { format = "x {2:output:MovementSpeedMod}", { modName = "MovementSpeed" }, }, },
+	{ label = "Movement Speed", { format = "x {2:output:EffectiveMovementSpeedMod}", { breakdown = "EffectiveMovementSpeedMod" }, { modName = "MovementSpeed" }, }, },
 	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}%", { modName = "AttackDodgeChance" }, }, },
 	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}%", { modName = "SpellDodgeChance" }, }, }, 
 	{ label = "Block Chance", { format = "{0:output:BlockChance}%",

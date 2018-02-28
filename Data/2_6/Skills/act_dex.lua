@@ -4750,20 +4750,20 @@ skills["TemporalChains"] = {
 	baseMods = {
 		skill("castTime", 0.5), 
 		mod("BuffExpireFaster", "MORE", -40, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"buff_time_passed_-%" = 40
-		--"curse_effect_+%_vs_players" = -40
+		mod("CurseEffectAgainstPlayer", "INC", -40), --"curse_effect_+%_vs_players" = -40
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
 		skill("radius", 22), 
 	},
 	qualityMods = {
-		--"temporal_chains_action_speed_+%_final" = -0.5
+		mod("TemporalChainsActionSpeed", "INC", -0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"temporal_chains_action_speed_+%_final" = -0.5
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("manaCost", nil), 
 		[3] = skill("duration", nil), --"base_skill_effect_duration"
 		[4] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
-		--[5] = "temporal_chains_action_speed_+%_final"
+		[5] = mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"temporal_chains_action_speed_+%_final"
 	},
 	levels = {
 		[1] = { 24, 24, 5, 0, -20, },

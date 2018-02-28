@@ -447,8 +447,8 @@ Implicits: 2
 5% increased Movement Speed
 Rampage
 Triggers Level 15 Manifest Dancing Dervish on Rampage
-Manifest Dancing Dervish disables both weapon slots
-Manifest Dancing Dervish dies when Rampage ends
+Manifested Dancing Dervish disables both weapon slots
+Manifested Dancing Dervish dies when Rampage ends
 ]],[[
 Doomsower
 Lion Sword

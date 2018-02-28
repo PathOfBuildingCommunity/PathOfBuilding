@@ -1,3 +1,13 @@
+VERSION[1.4.78][2018/03/01]
+ * Passive tree updated to 3.2; most of the new nodes and mechanics are supported, with the notable exceptions being:
+    * Hierophant's Arcane Surge nodes
+	* Elementalist's Golem nodes
+ * Added support for action speed modifiers (Tailwind, Temporal Chains, Chill/Freeze)
+ * Added the following new uniques:
+    * Cameria's Avarice
+	* The Dancing Duo
+	* Stormfire
+ * Corrected the tooltip for the Intimidate option in 3.0 builds
 VERSION[1.4.77][2018/02/24]
  * Added Might of the Meek
  * Improved the handling of radius jewels; this mainly addresses issues with overlapping jewels

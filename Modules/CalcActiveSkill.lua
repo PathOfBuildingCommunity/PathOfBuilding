@@ -327,6 +327,8 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Trap)
 	elseif skillFlags.mine then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Mine)
+	else
+		skillFlags.selfCast = true
 	end
 	if skillTypes[SkillType.Attack] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Attack)
@@ -441,6 +443,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			activeSkill.minion = minion
 			skillFlags.haveMinion = true
 			minion.parent = env.player
+			minion.type = minionType
 			minion.minionData = env.data.minions[minionType]
 			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or activeSkill.skillData.minionLevel or activeSkill.skillData.levelRequirement
 			minion.itemList = { }
@@ -578,8 +581,8 @@ function calcs.createMinionSkills(env, activeSkill)
 	if env.modDB:Sum("FLAG", nil, "MinionInstability") then
 		t_insert(skillIdList, "MinionInstability")
 	end
-	if env.modDB:Sum("FLAG", nil, "MinionCausticCloudOnDeath") then
-		t_insert(skillIdList, "BeaconCausticCloud")
+	if minion.type == "RaisedZombie" and env.modDB:Sum("FLAG", nil, "ZombieCausticCloudOnDeath") then
+		t_insert(skillIdList, "BeaconZombieCausticCloud")
 	end
 	for _, skillId in ipairs(skillIdList) do
 		local gem = {
