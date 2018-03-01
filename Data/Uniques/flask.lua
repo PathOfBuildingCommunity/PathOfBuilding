@@ -81,6 +81,15 @@ Requires Level 68
 {variant:1}Gain (13-15)% of Elemental Damage as Extra Chaos Damage during effect
 {variant:2}Gain (10-15)% of Elemental Damage as Extra Chaos Damage during effect
 ]],[[
+Coralito's Signature
+Diamond Flask
+Requires Level: 27
+Take 30 Chaos Damage per Second during Flask effect 
+25% chance to Poison on Hit during Flask effect 
+Your Critical Strikes do not deal extra Damage during Flask effect 
+(50–75)% increased Duration of Poisons you inflict during Flask effect 
+Grants Perfect Agony during Flask effect 
+]],[[
 Coruscating Elixir
 Ruby Flask
 Variant: Pre 2.6.0

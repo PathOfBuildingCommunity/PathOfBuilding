@@ -147,9 +147,34 @@ Skills Chain +1 times
 {variant:2}30% chance to Cast a Socketed Lightning Spell on Hit
 {variant:3,4,5}Trigger a Socketed Lightning Spell on Hit
 Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
+]],[[
+Nebuloch
+Nightmare Mace
+Requires Level 68
+10% reduced Enemy Stun Threshold
+Adds (45–60) to (100–120) Physical Damage 
+Gain (30–40)% of Physical Attack Damage as Extra Fire Damage 
++4% to Chaos Resistance per Endurance Charge 
+1% reduced Elemental Damage taken when Hit per Endurance Charge 
+Adds 5 to 8 Physical Damage per Endurance Charge 
++500 to Armour per Endurance Charge 
+400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
+Elder Item
 ]],
 -- Weapon: Sceptre
 [[
+Augyre
+Void Sceptre
+Requires Level 68
+40% increased Elemental Damage 
+(180–200)% increased Physical Damage 
+(10–15)% increased Attack Speed 
+(80–100)% increased Critical Strike Chance 
+50% of Physical Damage Converted to Lightning Damage 
+Every 16 seconds you gain Elemental Overload for 8 seconds 
+You have Resolute Technique while you do not have Elemental Overload
+Elder Item
+]],[[
 Axiom Perpetuum
 Bronze Sceptre
 Variant: Pre 2.3.0
@@ -163,6 +188,16 @@ Implicits: 2
 Adds (2-3) to (5-6) Fire Damage to Spells
 Adds (2-3) to (5-6) Cold Damage to Spells
 Adds 1 to (10-12) Lightning Damage to Spells
+]],[[
+Balefire
+Opal Sceptre
+Requires Level 60
+40% increased Elemental Damage
+Grants Level 25 Scorching Ray Skill
+(12–20)% increased Cast Speed 
+Recover (1–3)% of Maximum Life on Kill 
+Recover (1–3)% of Maximum Mana on Kill
+10% increased Scorching Ray beam length
 ]],[[
 Bitterdream
 Shadow Sceptre

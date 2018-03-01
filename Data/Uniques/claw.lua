@@ -251,6 +251,18 @@ Skills Chain an additional time while at maximum Frenzy Charges
 10% chance to Freeze
 Critical Strikes do not always Freeze
 ]],[[
+The Wasp Nest
+Throat Stabber
+Requires Level 60, 113 Dex, 113 Int
++40 Life gained for each Enemy hit by Attacks
+(150-170)% increased Physical Damage
+(20-25)% increased Attack Speed
+(20-25)% increased Critical Strike Chance
++(180-200) to Accuracy Rating
+20% chance to Poison on Hit
+Attacks with this Weapon deal 80-120 added Chaos Damage against
+Enemies affected by 5 or more Poisons
+]],[[
 Wildslash
 Awl
 Variant: Pre 2.6.0

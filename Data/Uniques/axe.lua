@@ -155,6 +155,14 @@ Adds (35-45) to (80-90) Physical Damage
 Gain 70% of Physical Damage as Extra Fire Damage
 Culling Strike
 ]],[[
+Debeon's Dirge
+Despot Axe
+Requires Level 66, 140 Str, 86 Dex
+Adds (310-350) to (460-500) Cold Damage
+15% increased Movement Speed if you've used a Warcry Recently
+150% increased Elemental Damage if you've used a Warcry Recently
+Warcries Knock Enemies Back in an Area
+]],[[
 The Harvest
 Jasper Chopper
 League: Beyond

@@ -80,6 +80,16 @@ Implicits: 2
 Reflects (22-44) Physical Damage to Attackers on Block
 Curse Enemies with level 5 Vulnerability on Block
 ]],[[
+Cane of Unravelling
+Ezomyte Staff
+Requires Level: 62
+18% Chance to Block 
++2 to Level of Socketed Chaos Gems
+(60–80)% increased Chaos Damage
+2% increased Cast Speed per Power Charge
+Gain a Power Charge after spending a total of 200 Mana
+2 Mana Regenerated per Second per Power Charge
+]],[[
 Duskdawn
 Maelström Staff
 Variant: Pre 2.6.0
@@ -110,6 +120,17 @@ Implicits: 2
 Nearby Enemies have 18% increased Effect of Curses on them
 Nearby allies gain 18% increased Damage
 18% increased effect of Non-Curse Auras you Cast
+]],[[
+The Enmity Divine
+Imperial Staff
+League: Harbinger
+Requires Level 66, 113 Str, 113 Int
+18% Chance to Block
+Socketed Gems are supported by level 10 Life Leech
+Grants Summon Harbinger of Brutality Skill
+5% Chance to Block
+Adds (160-185) to (200-225) Physical Damage
+(30-40)% increased Critical Strike Chance
 ]],[[
 Femurs of the Saints
 Primordial Staff

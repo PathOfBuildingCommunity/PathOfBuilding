@@ -63,6 +63,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 	if (actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].type == "Shield") or (actor == env.player and env.aegisModList) then
 		condList["UsingShield"] = true
 	end
+	if not actor.itemList["Weapon 2"] then
+		condList["OffHandIsEmpty"] = true
+	end
 	if actor.weaponData1.type == "None" then
 		condList["Unarmed"] = true
 	else

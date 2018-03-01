@@ -147,6 +147,15 @@ No Physical Damage
 Attacks with this Weapon have (100-115)% increased Elemental Damage
 {variant:3}Attacks with this Weapon Penetrate 5% Elemental Resistances
 ]],[[
+The Poet's Pen
+Carved Wand
+Requires Level: 12
+(11–15)% increased Spell Damage 
++1 to Level of Socketed Active Skill Gems per 25 Player Levels 
+Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels 
+(8–12)% increased Attack Speed 
+Trigger a Socketed Spell when you Attack
+]],[[
 Reverberation Rod
 Spiraled Wand
 Variant: Pre 2.3.0
@@ -166,6 +175,19 @@ Requires Level 30, 119 Int
 Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 Critical Strikes deal no Damage
 120% increased Spell Damage if you've dealt a Critical Strike Recently
+]],[[
+Shimmeron
+Tornado Wand
+Requires Level: 65
+(35–39)% increased Spell Damage 
+(20–45)% increased Spell Damage 
+Adds (26–35) to (95–105) Lightning Damage to Spells 
++(6–10)% to Critical Strike Multiplier per Power Charge 
++0.3% Critical Strike Chance per Power Charge 
+2% additional Chance to Block Spells per Power Charge 
+Adds 3 to 9 Lightning Damage to Spells per Power Charge 
+400 Lightning Damage taken per second per Power Charge if you've dealt a Critical Strike Recently
+Elder Item
 ]],[[
 Storm Prison
 Carved Wand

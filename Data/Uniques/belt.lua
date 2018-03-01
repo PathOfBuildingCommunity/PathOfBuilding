@@ -76,6 +76,25 @@ Requires Level 30
 Rampage
 1% increased Rarity of Items found per 15 Rampage Kills
 ]],[[
+Cyclopean Coil
+Leather Belt
+Requires Level 68
++(25-40) to maximum Life
++(60–80) to maximum Life 
+(5–15)% increased Attributes
+Cannot be Frozen if Dexterity is higher than Intelligence
+Cannot be Ignited if Strength is higher than Dexterity
+Cannot be Shocked if Intelligence is higher than Strength
+1% increased Damage per 5 of your lowest Attribute
+Elder Item
+]],[[
+Darkness Enthroned
+Stygian Vise
+League: Abyss
+Has 1 Abyssal Socket
+Has 1 Abyssal Socket
+50% increased Effect of Socketed Jewels
+]],[[
 Doryani's Invitation
 Heavy Belt
 Variant: Physical
@@ -137,6 +156,18 @@ Adds 5 to 10 Physical Damage to Attacks
 0.2% of Physical Attack Damage Leeched as Life
 50% increased Flask Charges gained while using a Flask
 50% increased Mana Regeneration while using a Flask
+]],[[
+The Flow Untethered
+Cloth Belt
+League: Harbinger
+Requires Level 60
+(15-25)% increased Stun and Block Recovery
+Grants Summon Harbinger of Time Skill
+(10-15)% increased Attack and Cast Speed
+(15-20)% increased Life Recovery rate
+(15-20)% increased Energy Shield Recovery rate
+(15-20)% increased Cooldown Recovery Speed
+Debuffs on you expire (15-20)% faster
 ]],[[
 Headhunter
 Leather Belt
@@ -267,6 +298,18 @@ Adds 1 to (15–20) Physical Damage to Attacks
 Gain 50 Life when you Stun an Enemy 
 20% less Minimum Physical Attack Damage 
 20% more Maximum Physical Attack Damage
+]],[[
+Soul Tether
+Cloth Belt
+Requires Level 48
+(15-25)% increased Stun and Block Recovery
++(20-40) to Intelligence
+Your Energy Shield starts at zero
+You cannot Recharge Energy Shield
+You cannot Regenerate Energy Shield
+You lose 5% of Energy Shield per second
+Life Leech is applied to Energy Shield instead while on Full Life
+Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
 ]],[[
 Soulthirst
 Cloth Belt

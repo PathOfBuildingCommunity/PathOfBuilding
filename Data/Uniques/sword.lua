@@ -3,6 +3,29 @@
 return {
 -- Weapon: One Handed Sword
 [[
+Ahn's Might
+Midnight Blade
+Requires Level 68, 313 Str, 113 Dex
+40% increased Accuracy Rating
+Adds (80-115) to (150-205) Physical Damage
+(15-25)% increased Critical Strike Chance
+-1 to Maximum Frenzy Charges
+10% increased Area of Effect
++100 Strength Requirement
++50% Global Critical Strike Multiplier while you have no Frenzy Charges
++(400-500) to Accuracy Rating while at Maximum Frenzy Charges
+]],[[
+Beltimber Blade
+Eternal Sword
+Requires Level 66
++475 to Accuracy Rating 
+(170–190)% increased Physical Damage 
+(10–15)% increased Attack Speed 
+80% increased Evasion Rating while moving 
+2 additional Projectiles if you've used a Movement Skill Recently 
+Far Shot
+Elder Item
+]],[[
 Dreamfeather
 Eternal Sword
 Variant: Pre 2.0.0
@@ -76,6 +99,18 @@ Gain Her Blessing for 3 seconds when you Ignite an Enemy
 Cannot be Frozen, Chilled or Ignited with Her Blessing
 20% increased Attack and Movement Speed with Her Blessing
 ]],[[
+Grelwood Shank
+Eternal Sword
+Requires Level 66
++475 to Accuracy Rating
+(170–190)% increased Physical Damage 
+(15–20)% increased Attack Speed
+80% increased Armour while stationary
+2 additional Projectiles if you've been Hit Recently
+Point Blank
+Iron Reflexes while stationary
+Elder Item
+]],[[
 Hyaon's Fury
 Legion Sword
 Variant: Pre 1.3.0
@@ -142,6 +177,17 @@ Adds (5-8) to (10-14) Physical Damage
 (30-40)% reduced Stun Recovery
 20% chance to Avoid being Stunned
 Socketed Gems are supported by level 1 Multistrike
+]],[[
+Oni-Goroshi
+Charan's Sword
+Sockets: R-R-R-R-R-R
+Requires Level: 2
+40% increased Accuracy Rating
+Uses both hand slots
+(70–90)% increased Critical Strike Chance
+Adds 2 to 3 Physical Damage to Attacks per Level
+Gain Her Embrace for 3 seconds when you Ignite an Enemy
+While in Her Embrace, take 0.5% of your total Maximum Life and Energy Shield as Fire Damage per second per Level
 ]],[[
 The Princess
 Sabre
@@ -233,6 +279,19 @@ Adds (60-80) to (150-180) Physical Damage
 80% increased Physical Damage with Axes
 +(350-400) to Accuracy Rating
 15% chance to gain a Frenzy Charge on Kill
+]],[[
+The Rippling Thoughts
+Legion Sword
+League: Harbinger
+Requires Level 62, 122 Str, 104 Dex
+40% increased Accuracy Rating
+Grants Summon Harbinger of the Arcane Skill
+Trigger level 20 Storm Cascade when you Attack
+(75-90)% increased Spell Damage
+(140-160)% increased Physical Damage
+Adds 1 to (60-70) Lightning Damage
+Adds 1 to (60-70) Lightning Damage to Spells
+10% increased Area of Effect of Area Skills
 ]],[[
 Scaeva
 Gladius

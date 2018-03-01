@@ -53,6 +53,15 @@ Adds (2-5) to (7-10) Physical Damage to Attacks
 {variant:2}25% increased Movement Speed
 Unaffected by Burning Ground
 ]],[[
+Stormcharger
+Plated Greaves
+Requires Level: 23
++(1–50)% to Lightning Resistance 
+20% increased Movement Speed 
+50% increased Shock Duration on Enemies 
+30% of Physical Damage Converted to Lightning Damage 
+(15–25)% increased Effect of Shock
+]],[[
 Windscream
 Reinforced Greaves
 Variant: Pre 2.6.0
@@ -185,6 +194,16 @@ Requires Level 22, 42 Int
 (5-15)% increased Movement Speed
 +1 to Maximum number of Zombies
 +1 to Maximum number of Spectres
+]],[[
+Inya's Epiphany
+Arcanist Slippers
+Requires Level 61, 119 Int
++(50-70) to maximum Life
+25% increased Movement Speed
+(5-8)% increased Intelligence
+5% increased Damage per Power Charge
+25% chance that if you would gain Power Charges, you instead gain up to
+your maximum number of Power Charges
 ]],[[
 Rainbowstride
 Conjurer Boots
@@ -390,6 +409,15 @@ Requires Level 58, 54 Str, 54 Int
 {variant:1}15% increased Damage against Ignited Enemies
 {variant:2}(25-40)% increased Damage against Ignited Enemies
 ]],[[
+Ralakesh's Impatience
+Riveted Boots
+Requires Level: 36
++(15–25)% to Cold Resistance 
++(15–25)% to Chaos Resistance 
+20% increased Movement Speed 
+Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary 
+Lose all Frenzy, Endurance, and Power Charges when you Move
+]],[[
 Wake of Destruction
 Mesh Boots
 Variant: Pre 2.6.0
@@ -419,6 +447,19 @@ Requires Level 41, 40 Dex, 40 Int
 +(20-30)% to Lightning Resistance
 (20-40)% increased Projectile Damage
 Unaffected by Shocked Ground
+]],[[
+Bubonic Trail
+Murder Boots
+Variant: One Abyssal Socket
+Variant: Two Abyssal Sockets
+League: Abyss
+Requires Level 69, 82 Dex, 42 Int
+{variant:1}Has 1 Abyssal Socket
+{variant:2}Has 2 Abyssal Sockets
+Triggers level 20 Death Walk when Equipped
+4% increased maximum Life
+30% increased Movement Speed
+10% increased Damage for each type of Abyssal Jewel affecting you
 ]],[[
 Nomic's Storm
 Strapped Boots

@@ -36,6 +36,14 @@ Requires Level 53, 76 Str
 Knockback direction is reversed
 Socketed Gems are Supported by level 10 Knockback
 ]],[[
+Giantsbane
+Bronze Gauntlets
+Requires Level: 23
+Adds (3–6) to (10–12) Physical Damage to Attacks 
++(30–40) to Strength 
+(80–100)% increased Armour 
+Iron Grip
+]],[[
 Lochtonial Caress
 Iron Gauntlets
 Variant: Pre 2.6.0
@@ -84,6 +92,18 @@ Requires Level 47, 68 Str
 ]],
 -- Gloves: Evasion
 [[
+Blasphemer's Grasp
+Assassin's Mitts
+Requires Level: 58
++(40–50) to Dexterity 
+(150–200)% increased Evasion and Energy Shield 
++(50–60) to maximum Life 
+15% increased Damage with Ailments per Elder Item Equipped 
++6 to Maximum Life per Elder Item Equipped 
+8% increased Effect of non-Damaging Ailments per Elder Item Equipped 
+Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
+Elder Item
+]],[[
 Hrimburn
 Goathide Gloves
 Variant: Pre 2.6.0
@@ -128,9 +148,29 @@ Requires Level 21, 33 Dex
 {variant:2}+(28-36)% to Global Critical Strike Multiplier
 {variant:3}+(20-30)% to Global Critical Strike Multiplier
 (60-80)% increased Evasion Rating
+]],[[
+Oskarm
+Nubuck Gloves
+Requires Level: 33
+(30–40)% increased Accuracy Rating 
++(40–50) to maximum Life 
++(-20–-10)% to Chaos Resistance 
+(7–8)% chance to Dodge Spell Damage 
+Curse Enemies with Level 10 Assassin's Mark on Hit 
+2% increased Attack Critical Strike Chance per 200 Accuracy Rating
 ]],
 -- Gloves: Energy Shield
 [[
+Allelopathy
+Sorcerer Gloves
+Requires Level 69, 97 Int
+Grants level 22 Blight Skill
+(20-30)% increased Damage over Time
+(100-120)% increased Energy Shield
+10% increased Area of Effect of Area Skills
+Blight has (20-30)% increased Hinder Duration
+You cannot be Hindered
+]],[[
 Asenath's Gentle Touch
 Silk Gloves
 Variant: Pre 2.6.0
@@ -165,6 +205,15 @@ Requires Level 60, 95 Int
 Minions have 10% reduced Movement Speed
 Minions have +40% to Cold Resistance
 Minions gain 20% of Physical Damage as Extra Cold Damage
+]],[[
+Kalisa's Grace
+Samite Gloves
+Requires Level: 47
+Socketed Gems are Supported by Level 18 Faster Casting
++(20–30) to Intelligence 
++(50–80) to maximum Energy Shield 
++(50–70) to maximum Life 
+Gain +2% to Critical Strike Chance for 2 seconds when you Spend a total of 800 Mana
 ]],[[
 Sadima's Touch
 Wool Gloves
@@ -246,6 +295,19 @@ Requires Level 67, 51 Str, 51 Dex
 (4-7)% increased Spell Damage per Power Charge
 10% chance to Steal Power, Frenzy, and Endurance Charges on Hit
 {variant:1}(10-30)% reduced Endurance, Frenzy and Power Charge Duration
+]],[[
+Tombfist
+Steelscale Gauntlets
+Variant: One Abyssal Socket
+Variant: Two Abyssal Sockets
+League: Abyss
+Requires Level: 36
+{variant:1}Has 1 Abyssal Socket
+{variant:2}Has 2 Abyssal Sockets
+(6–10)% increased Attack Speed 
+(4–6)% increased maximum Life 
+With a Murderous Eye Jewel Socketed, Intimidate Enemies for 4 seconds on Hit with Attacks 
+With a Searching Eye Jewel Socketed, Maim Enemies for 4 seconds on Hit with Attacks
 ]],[[
 Vaal Caress
 Bronzescale Gauntlets
@@ -338,9 +400,39 @@ Adds (30-36) to (44-50) Cold Damage to Attacks
 {variant:2}50% increased Herald of Ice Damage
 25% increased Freeze Duration on Enemies
 Your Hits can only Kill Frozen enemies
+]],[[
+Volkuur's Guidance
+Zealot Gloves
+Variant: Fire
+Variant: Cold
+Variant: Lightning
+Requires Level 43, 34 Str, 34 Int
+{variant:1}Adds (16-20) to (25-30) Fire Damage to Spells and Attacks
+{variant:2}Adds (16-20) to (25-30) Cold Damage to Spells and Attacks
+{variant:3}Adds (1-3) to (42-47) Lightning Damage to Spells and Attacks
++(50-70) to maximum Life
+{variant:1}+(30-40)% to Fire Resistance
+{variant:2}+(30-40)% to Cold Resistance
+{variant:3}+(30-40)% to Lightning Resistance
+50% less Poison Duration
+{variant:1}Your Fire Damage can Poison
+{variant:2}Your Cold Damage can Poison
+{variant:3}Your Lightning Damage can Poison
+{variant:1}Fire Skills have 20% chance to Poison on Hit
+{variant:2}Cold Skills have 20% chance to Poison on Hit
+{variant:3}Lightning Skills have 20% chance to Poison on Hit
 ]],
 -- Gloves: Evasion/Energy Shield
 [[
+The Embalmer
+Carnal Mitts
+Requires Level 50, 39 Dex, 39 Int
+Socketed Gems are Supported by Level 20 Vile Toxins
+Adds (13-17) to (23-29) Chaos Damage
++(50-70) to maximum Life
++(17-29)% to Chaos Resistance
+(20-25)% increased Poison Duration
+]],[[
 Facebreaker
 Strapped Mitts
 Variant: Pre 1.0.0
@@ -369,6 +461,15 @@ Adds 1 to 13 Lightning Damage to Attacks
 +(50-80) to Accuracy Rating
 {variant:1}(10-15)% increased Movement Speed when on Low Life
 {variant:2}20% increased Movement Speed when on Low Life
+]],[[
+Malachai's Mark
+Murder Mitts
+Requires Level 67, 51 Dex, 51 Int
+(80-100)% increased Evasion and Energy Shield
++(60-80) to maximum Life
++(15-25) Life gained on Kill
++(15-25) Energy Shield gained on Kill
+Grants Malachai's Endurance, Frenzy and Power for 6 seconds each, in sequence
 ]],[[
 Shadows and Dust
 Clasped Mitts
