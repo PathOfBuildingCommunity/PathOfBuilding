@@ -78,13 +78,15 @@ Requires Level 32
 Bisco's Collar
 Gold Amulet
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.2.0
 Variant: Current
 Requires Level 30
 (12-20)% increased Rarity of Items found
 {variant:1}150% increased Rarity of Items Dropped by Slain Magic Enemies
-{variant:2}(100-150)% increased Rarity of Items Dropped by Slain Magic Enemies
+{variant:2,3}(100-150)% increased Rarity of Items Dropped by Slain Magic Enemies
 {variant:1}100% increased Quantity of Items Dropped by Slain Normal Enemies
 {variant:2}(50-100)% increased Quantity of Items Dropped by Slain Normal Enemies
+{variant:3}(35-50)% increased Quantity of Items Dropped by Slain Normal Enemies
 ]],[[
 Blightwell
 Clutching Talisman
@@ -196,6 +198,16 @@ Requires Level 68
 Take 100 Fire Damage when you Ignite an Enemy
 2% of Fire Damage Leeched as Life while Ignited
 ]],[[
+Gloomfang
+Blue Pearl Amulet
+Requires 77
+(48–56)% increased Mana Regeneration Rate 
+0.5% of Chaos Damage Leeched as Life 
+Lose (10–15) Life for each Enemy hit by your Spells 
+Lose (20–25) Life for each Enemy hit by your Attacks 
+Skills Chain +1 times 
+Projectiles gain (15–20)% of Non-Chaos Damage as extra Chaos Damage per Chain
+]],[[
 The Halcyon
 Jade Amulet
 League: Breach
@@ -237,6 +249,39 @@ Adds 12 to 24 Fire Damage to Attacks
 +(100-150) to Evasion Rating
 +20% to Fire Resistance
 ]],[[
+Impresence
+Onyx Amulet
+Variant: Physical
+Variant: Fire
+Variant: Cold
+Variant: Lightning
+Variant: Chaos
+Requires Level 64
++(10-16) to all Attributes
+{variant:1}Adds (12–16) to (20–25) Physical Damage
+{variant:2}Adds (20–24) to (33–36) Fire Damage
+{variant:3}Adds (20–24) to (33–36) Cold Damage
+{variant:4}Adds (10–13) to (43–47) Lightning Damage
+{variant:5}Adds (17–19) to (23–29) Chaos Damage
+{variant:1}+(450–500) to Armour
+{variant:2}1% of Life Regenerated per second
+{variant:3}(45–50)% increased Mana Regeneration Rate
+{variant:4}1% of Energy Shield Regenerated per second
+{variant:5}(30–40)% increased Damage over Time
++(50–70) to maximum Life
+{variant:1}(30–40)% increased Stun and Block Recovery
+{variant:2}+(20–25)% to Fire Resistance
+{variant:3}+(20–25)% to Cold Resistance
+{variant:4}+(20–25)% to Lightning Resistance
+{variant:5}+(17–23)% to Chaos Resistance
+{variant:1}100% reduced Vulnerability Mana Reservation
+{variant:2}100% reduced Flammability Mana Reservation
+{variant:3}100% reduced Frostbite Mana Reservation
+{variant:4}100% reduced Conductivity Mana Reservation
+{variant:5}100% reduced Despair Mana Reservation
+Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy
+Elder Item
+]],[[
 Karui Charge
 Jade Amulet
 Variant: Pre 2.6.0
@@ -262,6 +307,16 @@ Requires Level 5
 {variant:2}30% increased Projectile Damage
 30% increased Projectile Speed
 10% increased Movement Speed
+]],[[
+Maligaro's Cruelty
+Turquoise Amulet
+Requires Level 20
++(16-24) to Dexterity and Intelligence
+(4-8)% increased maximum Life
+(25-30)% chance to gain a Frenzy Charge on Killing an Enemy affected by 5 or more Poisons
+(12-15)% chance to gain a Power Charge on Killing an Enemy affected by fewer than 5 Poisons
+10% increased Damage with Poison per Frenzy Charge
+3% increased Poison Duration per Power Charge
 ]],[[
 Marylene's Fallacy
 Lapis Amulet
@@ -514,5 +569,17 @@ Requires Level 64
 Damage Penetrates 10% Fire Resistance
 Cover Enemies in Ash when they Hit you
 Avatar of Fire
+]],[[
+Yoke of Suffering
+Onyx Amulet
+Requires Level: 25
++(10–16) to all Attributes 
++(10–20)% to Fire Resistance 
++(10–20)% to Cold Resistance 
++(20–40)% to Lightning Resistance 
+30% reduced Duration of Ailments on Enemies 
+(5–10)% chance to Shock 
+Enemies take 5% increased Damage for each type of Ailment you have inflicted on them 
+Your Elemental Damage can Shock
 ]],
 }

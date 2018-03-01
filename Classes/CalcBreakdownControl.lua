@@ -372,7 +372,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 		row.tags = nil
 		if row.mod[1] then
 			-- Format modifier tags
-			local baseVal = type(row.mod.value) == "number" and (row.mod.type == "BASE" and string.format("%+g", math.abs(row.mod.value)) or math.abs(row.mod.value).."%")
+			local baseVal = type(row.mod.value) == "number" and (row.mod.type == "BASE" and string.format("%+g ", math.abs(row.mod.value)) or math.abs(row.mod.value).."% ")
 			for _, tag in ipairs(row.mod) do
 				local desc
 				if tag.type == "Condition" then
@@ -385,16 +385,18 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					if tag.base then
 						desc = (row.mod.type == "BASE" and string.format("%+g", tag.base) or tag.base.."%").." + "..math.abs(row.mod.value).." per "..self:FormatModName(tag.var)
 					else
-						desc = baseVal.." per "..(tag.div and (tag.div.." ") or "")..self:FormatModName(tag.var)
+						desc = baseVal.."per "..(tag.div and (tag.div.." ") or "")..self:FormatModName(tag.var)
 					end
+					baseVal = ""
 				elseif tag.type == "MultiplierThreshold" then
 					desc = "If "..self:FormatModName(tag.var)..(tag.upper and " <= " or " >= ")..(tag.threshold or self:FormatModName(tag.thresholdVar))
 				elseif tag.type == "PerStat" then
 					if tag.base then
 						desc = (row.mod.type == "BASE" and string.format("%+g", tag.base) or tag.base.."%").." + "..math.abs(row.mod.value).." per "..(tag.div or 1).." "..self:FormatModName(tag.var)
 					else
-						desc = baseVal.." per "..(tag.div or 1).." "..self:FormatModName(tag.stat)
+						desc = baseVal.."per "..(tag.div or 1).." "..self:FormatModName(tag.stat)
 					end
+					baseVal = ""
 				elseif tag.type == "StatThreshold" then
 					desc = "If "..self:FormatModName(tag.stat)..(tag.upper and " <= " or " >= ")..(tag.threshold or self:FormatModName(tag.thresholdStat))
 				elseif tag.type == "SkillName" then

@@ -1,3 +1,13 @@
+VERSION[1.4.79][2018/03/01]
+ * Added an option to the Configuration tab for "Is there only one nearby Enemy?"
+ * Updated Gladiator's "Blocked a Hit from a Unique Enemy" option to reflect the 3.2 change ("Recently" -> "past 10 seconds")
+ * Added support for White Wind's "while your off hand is empty" condition (thanks chollinger)
+ * Rage is now correctly enabled when taking War Bringer
+ * The life loss from Rage is now factored into Life Regen
+ * Fixed the missing increased Physical Damage modifier on Cameria's Avarice
+ * Fixed the missing flat Physical Damage modifier on Disintegrator
+ * Vaal Summon Skeletons now correctly benefits from modifiers that apply to Summon Skeleton
+ * Updated the passive tree export links to 3.2.0
 VERSION[1.4.78][2018/03/01]
  * Passive tree updated to 3.2; most of the new nodes and mechanics are supported, with the notable exceptions being:
     * Hierophant's Arcane Surge nodes

@@ -72,6 +72,15 @@ Socketed Gems are Supported by level 15 Pierce
 {variant:1}+20% chance to be Pierced by Projectiles
 {variant:2}Projectiles Pierce you
 ]],[[
+Iron Heart
+Crusader Plate
+Requires Level: 59
+(80–100)% increased Armour 
+10% reduced Movement Speed 
+(8–12)% Chance to Block 
+Cannot Block Spells 
+Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
+]],[[
 Solaris Lorica
 Copper Plate
 Variant: Pre 2.6.0
@@ -240,6 +249,26 @@ Requires Level 65, 197 Dex
 100% reduced Arctic Armour Mana Reservation
 Evasion Rating is increased by Uncapped Cold Resistance
 Phase Acrobatics
+]],[[
+Yriel's Fostering
+Exquisite Leather
+Variant: Rhoa
+Variant: Snake
+Variant: Ursa
+Requires Level 62, 170 Dex
+{variant:1}Grants level 20 Summon Beastial Rhoa Skill
+{variant:2}Grants level 20 Summon Beastial Snake Skill
+{variant:3}Grants level 20 Summon Beastial Ursa Skill
++(300-400) to Accuracy Rating
+(130-150)% increased Evasion Rating
++(90-100) to maximum Life
+Projectile Attack Skills have (40-60)% increased Critical Strike Chance
+{variant:1}Projectiles from Attacks have 20% chance to Maim on Hit while you have a Beastial Minion
+{variant:2}Projectiles from Attacks have 20% chance to Poison on Hit while you have a Beastial Minion
+{variant:3}Projectiles from Attacks have 20% chance to inflict Bleeding on Hit while you have a Beastial Minion
+{variant:1}(10-15)% increased Attack and Movement Speed while you have a Beastial Minion
+{variant:2}Adds (13-19)-(23-29) Chaos Damage to Attacks while you have a Beastial Minion
+{variant:3}Adds (11-16)-(21-25) Physical Damage to Attacks while you have a Beastial Minion
 ]],
 -- Body: Energy Shield
 [[
@@ -277,6 +306,14 @@ Minions have 15% chance to Blind Enemies on hit
 Socketed Minion Gems are Supported by Level 16 Life Leech
 Found Magic Items drop Identified
 ]],[[
+The Coming Calamity
+Destroyer Regalia
+Requires Level 53, 144 Int
++2 to Level of Socketed Herald Gems
+(80-100)% increased Energy Shield
+35% chance to avoid being Stunned for each Herald Skill affecting you
+Mana Reservation of Herald Skills is always 45%
+]],[[
 The Covenant
 Spidersilk Robe
 Variant: Pre 1.0.0
@@ -295,6 +332,26 @@ Socketed Gems are Supported by level 15 Added Chaos Damage
 {variant:5}(210–250)% increased Energy Shield
 {variant:1,2,3}Blood Magic
 {variant:4,5}Socketed Gems have Blood Magic
+]],[[
+Dialla's Malefaction
+Sage's Robe
+Requires Level 37
+Gems can be Socketed in this Item ignoring Socket Colour 
+Gems Socketed in Red Sockets have +1 to Level 
+Gems Socketed in Green Sockets have +10% to Quality 
+Gems Socketed in Blue Sockets gain 25% increased Experience 
+Has no Attribute Requirements
+]],[[
+Doedre's Skin
+Widowsilk Robe
+Requires Level: 65
+Socketed Curse Gems are Supported by Level 20 Blasphemy 
+Grants Level 20 Summon Doedre's Effigy Skill
+Socketed Curse Skills are Triggered by Doedre's Effigy when Summoned
+Socketed Curse Skills ignore Curse Limit 
++(30–40) to Intelligence 
+(130–150)% increased Energy Shield 
+(25–33)% reduced Effect of your Curses
 ]],[[
 Infernal Mantle
 Widowsilk Robe
@@ -644,6 +701,16 @@ Gain a Power Charge for each Enemy you hit with a Critical Strike
 ]],
 -- Body: Evasion/Energy Shield
 [[
+Bloodbond
+Bone Armour
+Requires Level: 35
+Grants Level 15 Blood Offering Skill 
+(100–120)% increased Evasion and Energy Shield 
+(15–25)% increased maximum Life 
+Minions have (20–30)% increased maximum Life 
+1% of Life Regenerated per second 
+Minions have (6–10)% chance to Dodge Attacks 
+]],[[
 Carcass Jack
 Varnished Coat
 Variant: {2_6}Pre 3.0.0
@@ -672,6 +739,26 @@ Requires Level 52, 76 Dex, 76 Int
 {variant:3}1% of Mana Regenerated per second
 Mind Over Matter
 ]],[[
+Dendrobate
+Sentinel Jacket
+Requires Level 59, 86 Dex, 86 Int
+Socketed Gems are Supported by Level 10 Lesser Poison
+(130-150)% increased Evasion and Energy Shield
++40 to maximum Energy Shield
++(15-25)% to all Elemental Resistances
+(75-100)% increased Damage with Poison if you have at least 300 Dexterity
+(15-25)% increased Poison Duration at least 150 Intelligence
+]],[[
+Inpulsa's Broken Heart
+Sadist Garb
+Requires Level: 68
++(60–80) to maximum Life 
+(20–50)% increased Damage if you have Shocked an Enemy Recently 
+(25–40)% increased Effect of Shock 
+Unaffected by Shock 
+Shocked Enemies you Kill Explode, dealing (5–10)% of
+their Maximum Life as Lightning Damage which cannot Shock
+]],[[
 The Restless Ward
 Carnal Armour
 Variant: Pre 2.6.0
@@ -686,6 +773,34 @@ Requires Level 71, 88 Dex, 122 Int
 100% increased Endurance, Frenzy and Power Charge Duration
 {variant:1}(15-20) Life Regenerated per second per Endurance Charge
 {variant:2}(20-30) Life Regenerated per second per Endurance Charge
+]],[[
+Shroud of the Lightless
+Carnal Armour
+Variant: One Abyssal Socket
+Variant: Two Abyssal Sockets
+League: Abyss
+Requires Level: 71
++(20–25) to maximum Mana 
+{variant:1}Has 1 Abyssal Socket
+{variant:2}Has 2 Abyssal Sockets
+Socketed Gems are Supported by Level 20 Elemental Penetration 
+20% chance to Trigger Level 20 Shade Form when you Use a Socketed Skill 
+(160–180)% increased Evasion and Energy Shield 
+(6–10)% increased maximum Life 
+(9–15)% increased maximum Mana 
+1% increased Maximum Life per Abyss Jewel affecting you 
+1% increased Maximum Mana per Abyss Jewel affecting you
+]],[[
+Tinkerskin
+Sadist Garb
+Requires Level 68, 103 Dex, 109 Int
+(140-170)% increased Evasion and Energy Shield
++(60-90) to maximum Life
+(20-30)% increased Cooldown Recovery Speed for throwing Traps
+15% chance to gain a Frenzy Charge when your Trap is triggered by an Enemy
+30% chance to gain Phasing for 4 seconds when your Trap is triggered by an Enemy
+Recover 100 Life when your Trap is triggered by an Enemy
+Recover 50 Energy Shield when your Trap is triggered by an Enemy
 ]],[[
 Victario's Influence
 Lacquered Garb

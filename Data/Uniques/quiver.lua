@@ -66,6 +66,17 @@ Adds (10-14) to (19-24) Physical Damage to Attacks with Bows
 {variant:1}Projectile Damage increased by 50% of Arrow Pierce Chance
 {variant:2}Arrows deal 50% increased Damage against Pierced Targets
 ]],[[
+The Fracturing Spinner
+Blunt Arrow Quiver
+League: Harbinger
+Requires Level 60
+(25-35)% increased Stun Duration on Enemies
+Grants Summon Harbinger of Directions Skill
+Adds (19-22) to (30-35) Fire Damage to Spells and Attacks
+Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
++(30-50) to Strength and Dexterity
++(15-25)% to Fire and Cold Resistances
+]],[[
 Hyrri's Bite
 Sharktooth Arrow Quiver
 Variant: Pre 2.6.0

@@ -714,6 +714,7 @@ function ImportTabClass:OpenPastebinImportPopup()
 	controls.import = common.New("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
 		controls.import.enabled = false
 		controls.msg.label = "Retrieving paste..."
+		controls.edit.buf = controls.edit.buf:gsub("^%s+", ""):gsub("%s+$", "") -- Quick Trim
 		launch:DownloadPage(controls.edit.buf:gsub("pastebin%.com/(%w+)%s*$","pastebin.com/raw/%1"), function(page, errMsg)
 			if errMsg then
 				controls.msg.label = "^1"..errMsg

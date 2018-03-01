@@ -226,6 +226,16 @@ Requires Level 39, 83 Int
 {variant:1,2}(10-20)% increased Damage per Curse on Enemy
 {variant:3}(10–20)% increased Damage with Hits and Ailments per Curse on Enemy
 ]],[[
+Eber's Unification
+Hubris Circlet
+Requires Level 69, 154 Int
+Implicits: 0
+Trigger level 10 Void Gaze when you use a Skill
++(50-80) to maximum Mana
+(120-150)% increased Energy Shield
+50% increased Stun and Block Recovery
+Gain (5-8)% of Elemental Damage as Extra Chaos Damage
+]],[[
 Rime Gaze
 Mind Cage
 Variant: Pre 2.6.0
@@ -248,6 +258,14 @@ Requires Level 65, 138 Int
 15% reduced Cast Speed
 +(30-60) to maximum Mana
 Your Skills deal you 400% of Mana Cost as Physical Damage
+]],[[
+Wraithlord
+Bone Circlet
+Requires Level: 34
++2 to Level of Socketed Minion Gems 
+(120–150)% increased Energy Shield 
+Minions Regenerate 1% Life per second 
++1000 to Spectre maximum Life
 ]],[[
 Ylfeban's Trickery
 Hubris Circlet
@@ -363,6 +381,16 @@ Minions Regenerate 2% Life per Second
 ]],
 -- Helmet: Armour/Energy Shield
 [[
+Ahn's Contempt
+Praetor Crown
+Requires Level 68
++(15–20) to all Attributes 
+(60–140)% increased Armour and Energy Shield 
++(60–70) to maximum Life 
+-1 to Maximum Power Charges 
+Gain (8–12)% of Physical Damage as Extra Chaos Damage while at maximum Power Charges 
+You take 50% reduced Extra Damage from Critical Strikes while you have no Power Charges
+]],[[
 The Brine Crown
 Prophet Crown
 Requires Level 63, 85 Str, 62 Int
@@ -418,6 +446,19 @@ Requires Level 44, 50 Str, 50 Int
 30% chance to Cast Socketed Spells when 
 you Spend at least 100 Mana to Use a Skill
 ]],[[
+Lightpoacher
+Great Crown
+Variant: One Abyssal Socket
+Variant: Two Abyssal Sockets
+League: Abyss
+{variant:1}Has 1 Abyssal Socket
+{variant:2}Has 2 Abyssal Sockets
+Trigger Level 20 Spirit Burst when you Use a Skill while you have a Spirit Charge 
++(10–15)% to all Elemental Resistances 
+Recover (4–5)% of Life when a Spirit Charge expires or is consumed 
+(15–20)% chance to gain a Spirit Charge on Kill 
++1 to Maximum Spirit Charges per Abyss Jewel affecting you
+]],[[
 Malachai's Vision
 Praetor Crown
 Variant: {2_6}Pre 3.0.0
@@ -432,6 +473,16 @@ Regenerate 100 Energy Shield per second if all worn items are Corrupted
 Regenerate 35 Mana per second if all worn items are Corrupted
 Corrupted
 ]],[[
+Memory Vault
+Praetor Crown
+Requires Level: 68
++(130–160) to maximum Energy Shield 
++(150–200) to maximum Mana 
+(30–40)% increased Mana Regeneration Rate 
++(20–25)% to Fire Resistance 
+10% increased Mana Reserved 
+Gain Armour equal to your Reserved Mana
+]],[[
 Mindspiral
 Aventail Helmet
 Variant: {2_6}Pre 3.0.0
@@ -445,6 +496,18 @@ Requires Level 37, 42 Str, 42 Int
 Enemies Cannot Leech Mana From You
 (5-10)% of Damage taken Gained as Mana over 4 seconds when Hit
 Cannot Leech Mana
+]],[[
+Speaker's Wreath
+Prophet Crown
+Quality: +20%
+Armour: 268
+Energy Shield: 36
+Requires Level 63, 85 Str, 62 Int
++(20-40) to Dexterity
+(10-15)% increased Skill Effect Duration
+2% increased Minion Attack Speed per 50 Dexterity
+2% increased Minion Movement Speed per 50 Dexterity
+Minions' Hits can only Kill Ignited Enemies
 ]],[[
 Veil of the Night
 Great Helmet
@@ -544,6 +607,18 @@ Requires Level 57, 64 Dex, 64 Int
 +20% chance to be Shocked
 30% of Lightning Damage is taken from Mana before Life when Hit
 Recover 3% of Maximum Mana when you Shock an Enemy
+]],[[
+The Tempest's Binding
+Callous Mask
+League: Harbinger
+Requires Level 45, 51 Dex, 51 Int
+Socketed Gems are Supported by Level 18 Ice Bite
+Socketed Gems are Supported by Level 18 Innervate
+Grants Summon Harbinger of Storms Skill
++(100-150) to Evasion Rating
++(60-80) to maximum Life
++(40-60) to maximum Energy Shield
++(10-15)% to all Elemental Resistances
 ]],[[
 The Three Dragons
 Golden Mask

@@ -124,6 +124,18 @@ Adds 12 to 24 Physical Damage
 +25 to Strength
 +10 Life gained for each Enemy hit by your Attacks
 ]],[[
+Taproot
+Ambusher
+Requires Level 60, 113 Dex, 113 Int
+30% increased Global Critical Strike Chance
+(180-200)% increased Physical Damage
+(10-15)% increased Attack Speed
+(15-20)% increased Poison Duration
+0.5% of Attack Damage Leeched as Mana against Poisoned Enemies
+0.5% of Attack Damage Leeched as Life against Maimed Enemies
+(15-20)% chance to Maim on Hit
+20% chance to Poison on Hit
+]],[[
 Ungil's Gauche
 Boot Knife
 Variant: Pre 1.1.0
@@ -138,6 +150,28 @@ Requires Level 20, 31 Dex, 45 Int
 Adds 3 to 30 Lightning Damage
 10% increased Attack Speed
 50% increased Global Critical Strike Chance
+]],[[
+Vulconus
+Demon Dagger
+Requires Level: 68
+40% increased Global Critical Strike Chance 
+Attacks with this Weapon deal (80–100) to (160–200) added Fire Damage to Bleeding Enemies 
+Attacks with this Weapon deal (80–100) to (160–200) added Physical Damage to Ignited Enemies 
+Attacks with this Weapon have 25% chance to inflict Bleeding against Ignited Enemies 
+Every 8 seconds, gain Avatar of Fire for 4 seconds 
+(80–120)% increased Critical Strike Chance while you have Avatar of Fire 
+50% of Physical Damage Converted to Fire while you have Avatar of Fire 
++1000 Armour while you do not have Avatar of Fire
+]],[[
+White Wind
+Imperial Skean
+Requires Level: 66
+30% increased Global Critical Strike Chance
+Adds (160–190) to (280–320) Cold Damage
+(10–15)% increased Attack Speed
++(300–400) to Evasion Rating
+20% chance to Dodge Attacks while your Off Hand is empty
+100% increased Cold Damage while your Off Hand is empty
 ]],[[
 Widowmaker
 Boot Blade

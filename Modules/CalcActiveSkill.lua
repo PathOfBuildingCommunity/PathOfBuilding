@@ -356,7 +356,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	activeSkill.skillCfg = {
 		flags = bor(skillModFlags, activeSkill.weapon1Flags or activeSkill.weapon2Flags or 0),
 		keywordFlags = skillKeywordFlags,
-		skillName = activeGem.grantedEffect.name:gsub("^Vaal ",""), -- This allows modifiers that target specific skills to also apply to their Vaal counterpart
+		skillName = activeGem.grantedEffect.name:gsub("^Vaal ",""):gsub("Summon Skeletons","Summon Skeleton"), -- This allows modifiers that target specific skills to also apply to their Vaal counterpart
 		summonSkillName = activeSkill.summonSkill and activeSkill.summonSkill.activeGem.grantedEffect.name,
 		skillGem = activeGem,
 		skillPart = activeSkill.skillPart,

@@ -3,6 +3,18 @@
 return {
 -- Weapon: Bow
 [[
+Arborix
+Assassin Bow
+Requires Level: 62
+Adds (60–70) to (180–210) Physical Damage 
+(80–100)% increased Evasion Rating
+2 Additional Arrows
+Every 16 seconds you gain iron Reflexes for 8 seconds
+30% more Bow Damage at Close Range while you have iron Reflexes
+30% increased Attack, Cast and Movements Speed while you do not have Iron Reflexes
+You have Far Shot while you do not have Iron Reflexes
+Elder Item
+]],[[
 Chin Sol
 Assassin Bow
 Variant: Pre 1.2.0
@@ -101,6 +113,18 @@ Implicits: 3
 60% increased Mana Regeneration Rate
 {variant:1,2,3}Gain 110% of Bow Physical Damage as Extra Damage of each Element
 {variant:4}Gain 100% of Bow Physical Damage as Extra Damage of each Element
+]],[[
+Hopeshredder
+Ranger Bow
+Requires Level: 60
+Adds (130–150) to (270–300) Cold Damage 
+4% increased Movement Speed per Frenzy Charge 
++(400–500) to Accuracy Rating 
+12 to 14 Cold Damage per Frenzy Charge 
+2% chance to Avoid Elemental Damage when Hit per Frenzy Charge 
+0.5% of Attack Damage Leeched as Life per Frenzy Charge 
+400 Cold Damage taken per second per Frenzy Charge while moving
+Elder Item
 ]],[[
 Infractem
 Decimation Bow
