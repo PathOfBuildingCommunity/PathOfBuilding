@@ -428,14 +428,14 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillPart = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 150, 18, nil, function(index, value)
+	self.controls.mainSkillPart = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkill,"BOTTOMLEFT",true}, 0, 2, 150, 18, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem
 		srcGem.skillPart = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillMinion = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 20, 178, 18, nil, function(index, value)
+	self.controls.mainSkillMinion = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillPart,"BOTTOMLEFT",true}, 0, 2, 178, 18, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem
 		if value.itemSetId then
@@ -467,14 +467,15 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self.controls.mainSkillMinionLibrary = common.New("ButtonControl", {"LEFT",self.controls.mainSkillMinion,"RIGHT"}, 2, 0, 120, 18, "Manage Spectres...", function()
 		self:OpenSpectreLibrary()
 	end)
-	self.controls.mainSkillMinionSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT"}, 0, 2, 200, 16, nil, function(index, value)
+	self.controls.mainSkillMinionSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT",true}, 0, 2, 200, 16, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem
 		srcGem.skillMinionSkill = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.statBox = common.New("TextListControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 62, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
+	self.controls.statBoxAnchor = common.New("Control", {"TOPLEFT",self.controls.mainSkillMinionSkill,"BOTTOMLEFT",true}, 0, 2, 0, 0)
+	self.controls.statBox = common.New("TextListControl", {"TOPLEFT",self.controls.statBoxAnchor,"BOTTOMLEFT"}, 0, 2, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
 	self.controls.statBox.height = function(control)
 		local x, y = control:GetPos()
 		return main.screenH - main.mainBarHeight - 4 - y
@@ -959,7 +960,8 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 						t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
 					end
 					controls.mainSkillPart.selIndex = activeGem.srcGem["skillPart"..suffix] or 1
-				elseif not activeSkill.skillFlags.disable and (activeGem.grantedEffect.minionList or activeSkill.minionList[1]) then
+				end
+				if not activeSkill.skillFlags.disable and (activeGem.grantedEffect.minionList or activeSkill.minionList[1]) then
 					wipeTable(controls.mainSkillMinion.list)
 					if activeGem.grantedEffect.minionHasItemSet then
 						for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do

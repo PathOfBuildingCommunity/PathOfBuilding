@@ -1,3 +1,6 @@
+VERSION[1.4.82][2018/03/03]
+ * Fixed a few odd UI glitches when using Summon Phantasm on Kill with an active skill that has multiple parts
+    * A side effect is that the sidebar stat box now expands upwards to fill any empty space below the main skill selector
 VERSION[1.4.81][2018/03/02]
  * Added the 3 new skill gems introduced in 3.2
     * Summoned Phantasms are not fully supported, as their projectile spell cannot be added yet
