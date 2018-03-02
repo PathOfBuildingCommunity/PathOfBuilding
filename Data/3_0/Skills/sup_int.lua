@@ -143,7 +143,7 @@ skills["SupportArcaneSurge"] = {
 	description = "Each supported spell will track how much mana you spend on it, granting a buff when the total mana spent reaches a threshold. Cannot support skills used by totems, traps, or mines.",
 	color = 3,
 	support = true,
-	requireSkillTypes = { 2, 39, },
+	requireSkillTypes = { 2, },
 	addSkillTypes = { 12, },
 	excludeSkillTypes = { 37, 41, 30, 42, },
 	baseMods = {
@@ -928,7 +928,7 @@ skills["SupportFasterCast"] = {
 	description = "Supports spell skills.",
 	color = 3,
 	support = true,
-	requireSkillTypes = { 2, 39, },
+	requireSkillTypes = { 2, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	baseMods = {
@@ -2100,7 +2100,7 @@ skills["SupportStormBarrier"] = {
 	gemStr = 0,
 	gemDex = 0,
 	gemInt = 100,
-	description = "Supports any channelling skill, protecting you from damage while you channel it.",
+	description = "Supports any channelling skill, protecting you from damage while you channel it. Cannot support Minions that channel skills.",
 	color = 3,
 	support = true,
 	requireSkillTypes = { 58, },
@@ -2151,6 +2151,75 @@ skills["SupportStormBarrier"] = {
 		[30] = { 90, -15, -15, 79, },
 	},
 }
+skills["SupportSummonGhostOnKill"] = {
+	name = "Summon Phantasm on Kill",
+	gemTags = {
+		intelligence = true,
+		support = true,
+		minion = true,
+	},
+	gemTagString = "Support, Minion",
+	gemStr = 0,
+	gemDex = 0,
+	gemInt = 100,
+	description = "Supports skills that can hit enemies, or create minions. When those skills or minions kill enemies, they will have a chance to summon a Phantasm minion, which uses a piercing projectile spell that deals physical damage.",
+	color = 3,
+	support = true,
+	requireSkillTypes = { 1, 10, 9, },
+	addSkillTypes = { 9, 21, },
+	excludeSkillTypes = { },
+	addFlags = {
+		minion = true,
+	},
+	addMinionList = {
+		"SummonedPhantasm"
+	},
+	baseMods = {
+		mod("ManaCost", "MORE", 20), 
+		--"support_ghost_base_duration" = 15000
+		--"skill_can_own_support_ghosts" = ?
+	},
+	qualityMods = {
+		--"chance_to_summon_support_ghost_on_killing_blow_%" = 0.5
+	},
+	levelMods = {
+		[1] = nil, 
+		--[2] = "chance_to_summon_support_ghost_on_killing_blow_%"
+		--[3] = "base_number_of_support_ghosts_allowed"
+	},
+	levels = {
+		[1] = { 4, 50, 5, },
+		[2] = { 6, 51, 5, },
+		[3] = { 9, 52, 5, },
+		[4] = { 12, 53, 6, },
+		[5] = { 16, 54, 6, },
+		[6] = { 20, 55, 6, },
+		[7] = { 24, 56, 7, },
+		[8] = { 28, 57, 7, },
+		[9] = { 32, 58, 7, },
+		[10] = { 36, 59, 8, },
+		[11] = { 40, 60, 8, },
+		[12] = { 44, 61, 8, },
+		[13] = { 48, 62, 9, },
+		[14] = { 52, 63, 9, },
+		[15] = { 55, 64, 9, },
+		[16] = { 58, 65, 9, },
+		[17] = { 61, 66, 10, },
+		[18] = { 64, 67, 10, },
+		[19] = { 67, 68, 10, },
+		[20] = { 70, 69, 10, },
+		[21] = { 72, 70, 11, },
+		[22] = { 74, 71, 11, },
+		[23] = { 76, 72, 11, },
+		[24] = { 78, 73, 11, },
+		[25] = { 80, 74, 11, },
+		[26] = { 82, 75, 12, },
+		[27] = { 84, 76, 12, },
+		[28] = { 86, 77, 12, },
+		[29] = { 88, 78, 12, },
+		[30] = { 90, 79, 12, },
+	},
+}
 skills["SupportAilments"] = {
 	name = "Unbound Ailments",
 	gemTags = {
@@ -2164,7 +2233,7 @@ skills["SupportAilments"] = {
 	description = "Supports any skill that hits enemies.",
 	color = 3,
 	support = true,
-	requireSkillTypes = { 10, 1, },
+	requireSkillTypes = { 10, 1, 20, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	baseMods = {

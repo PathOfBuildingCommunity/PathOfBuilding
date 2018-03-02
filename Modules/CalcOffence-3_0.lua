@@ -548,9 +548,20 @@ function calcs.offence(env, actor)
 				breakdown.OffHand = LoadModule(calcs.breakdownModule, modDB, output.OffHand)
 			end
 			mainSkill.weapon2Cfg.skillStats = output.OffHand
+			local source = copyTable(actor.weaponData2)
+			if skillData.setOffHandBaseCritChance then
+				source.CritChance = skillData.setOffHandBaseCritChance
+			end
+			if skillData.setOffHandPhysicalMin and skillData.setOffHandPhysicalMax then
+				source.PhysicalMin = skillData.setOffHandPhysicalMin
+				source.PhysicalMax = skillData.setOffHandPhysicalMax
+			end
+			if skillData.setOffHandAttackTime then
+				source.AttackRate = 1000 / skillData.setOffHandAttackTime
+			end
 			t_insert(passList, {
 				label = "Off Hand",
-				source = actor.weaponData2,
+				source = source,
 				cfg = mainSkill.weapon2Cfg,
 				output = output.OffHand,
 				breakdown = breakdown and breakdown.OffHand,

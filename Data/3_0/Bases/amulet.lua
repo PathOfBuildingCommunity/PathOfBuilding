@@ -130,7 +130,7 @@ itemBases["Breakrib Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { default = true, amulet = true, },
-	implicit = "(20-30)% increased Physical Damage",
+	implicit = "(20-30)% increased Global Physical Damage",
 	req = { },
 }
 itemBases["Deadhand Talisman"] = {
@@ -214,42 +214,42 @@ itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { default = true, amulet = true, },
-	implicit = "50% of Fire Damage taken as Cold Damage",
+	implicit = "50% of Fire Damage from Hits taken as Cold Damage",
 	req = { },
 }
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { default = true, amulet = true, },
-	implicit = "50% of Fire Damage taken as Lightning Damage",
+	implicit = "50% of Fire Damage from Hits taken as Lightning Damage",
 	req = { },
 }
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { default = true, amulet = true, },
-	implicit = "50% of Cold Damage taken as Fire Damage",
+	implicit = "50% of Cold Damage from Hits taken as Fire Damage",
 	req = { },
 }
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { default = true, amulet = true, },
-	implicit = "50% of Cold Damage taken as Lightning Damage",
+	implicit = "50% of Cold Damage from Hits taken as Lightning Damage",
 	req = { },
 }
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { default = true, amulet = true, },
-	implicit = "50% of Lightning Damage taken as Cold Damage",
+	implicit = "50% of Lightning Damage from Hits taken as Cold Damage",
 	req = { },
 }
 itemBases["Avian Twins Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { default = true, amulet = true, },
-	implicit = "50% of Lightning Damage taken as Fire Damage",
+	implicit = "50% of Lightning Damage from Hits taken as Fire Damage",
 	req = { },
 }
 itemBases["Fangjaw Talisman"] = {

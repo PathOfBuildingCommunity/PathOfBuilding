@@ -21,7 +21,7 @@ Assassin's Mark|AssassinsMark|curse,intelligence,active_skill,spell,area,duratio
 Backstab|Backstab|dexterity,active_skill,attack,melee
 Ball Lightning|BallLightning|projectile,intelligence,active_skill,spell,area,lightning
 Barrage|Barrage|dexterity,active_skill,attack,bow
-Bear Trap|BearTrap|trap,dexterity,active_skill,duration,cast
+Bear Trap|BearTrap|trap,dexterity,active_skill,spell,duration
 Blade Flurry|ChargedAttack|dexterity,active_skill,attack,area,channelling,melee
 Blade Trap|BladeTrap|active_skill,attack,area,melee,bow
 Blade Vortex|BladeVortex|dexterity,active_skill,spell,area,duration
@@ -40,6 +40,7 @@ Bone Offering|BoneOffering|minion,intelligence,active_skill,spell,duration
 Brutality|SupportBrutality|strength,support
 Burning Arrow|BurningArrow|dexterity,active_skill,attack,fire,bow
 Burning Damage|SupportIncreasedBurningDamage|fire,strength,support
+Capture Monster|CaptureMonster|low_max_level,active_skill
 Cast On Critical Strike|SupportCastOnCrit|dexterity,support,spell,trigger
 Cast on Death|SupportCastOnDeath|dexterity,support,spell,trigger
 Cast on Melee Kill|SupportCastOnMeleeKill|strength,support,melee,attack,spell,trigger
@@ -95,7 +96,6 @@ Elemental Projectiles|ElementalProjectiles|intelligence,active_skill,spell,area
 Elemental Proliferation|SupportElementalProliferation|cold,fire,lightning,intelligence,support,area
 Elemental Weakness|ElementalWeakness|curse,intelligence,active_skill,spell,area,duration
 Empower|SupportAdditionalLevel|low_max_level,strength,support
-Endurance Charge Slam|EnduranceChargeSlam|strength,active_skill,attack,area,melee
 Endurance Charge on Melee Stun|EnduranceChargeOnMeleeStun|strength,support,melee,attack
 Enduring Cry|EnduringCry|warcry,strength,active_skill,area,duration
 Enfeeble|Enfeeble|curse,intelligence,active_skill,spell,area,duration
@@ -141,9 +141,9 @@ Haste|Haste|aura,dexterity,active_skill,spell,area
 Hatred|Hatred|aura,dexterity,active_skill,spell,area,cold
 Heavy Strike|HeavyStrike|strength,active_skill,attack,melee
 Herald of Ash|HeraldOfAsh|strength,active_skill,spell,area,fire,herald,duration
-Herald of Blood|HeraldOfBlood|strength,active_skill,cast,area,duration,herald
-Herald of Ice|HeraldOfIce|dexterity,active_skill,cast,area,cold,herald
-Herald of Thunder|HeraldOfThunder|intelligence,active_skill,cast,area,duration,lightning,herald
+Herald of Blood|HeraldOfBlood|strength,active_skill,spell,area,duration,herald
+Herald of Ice|HeraldOfIce|dexterity,active_skill,spell,area,cold,herald
+Herald of Thunder|HeraldOfThunder|intelligence,active_skill,spell,area,duration,lightning,herald
 Hypothermia|SupportDamageAgainstChilled|cold,dexterity,support
 Ice Bite|SupportFrenzyChargeOnSlayingFrozenEnemy|cold,dexterity,support
 Ice Crash|IceCrash|strength,active_skill,attack,area,cold,melee
@@ -256,6 +256,7 @@ Slower Projectiles|SupportSlowerProjectiles|dexterity,support,projectile
 Smoke Mine|SmokeMine|mine,dexterity,active_skill,spell,area,duration,movement
 Snipe|Snipe|dexterity,active_skill,attack,bow
 Spark|Spark|projectile,intelligence,active_skill,spell,duration,lightning
+Spectral Shield Throw|ThrownShield|projectile,dexterity,active_skill,attack
 Spectral Spinning Weapon|SpectralSpinningWeapon|projectile,active_skill,spell,channelling,area
 Spectral Throw|ThrownWeapon|projectile,dexterity,active_skill,attack
 Spell Cascade|SupportSpellCascade|area,spell,intelligence,support
@@ -274,7 +275,7 @@ Summon Chaos Golem|SummonChaosGolem|intelligence,active_skill,chaos,minion,spell
 Summon Flame Golem|SummonFireGolem|strength,active_skill,fire,minion,spell,golem
 Summon Ice Golem|SummonIceGolem|dexterity,active_skill,cold,minion,spell,golem
 Summon Lightning Golem|SummonLightningGolem|intelligence,active_skill,lightning,minion,spell,golem
-Summon Phantasm on Kill|SupportSummonGhostOnKill|intelligence,support,minion,duration
+Summon Phantasm on Kill|SupportSummonGhostOnKill|intelligence,support,minion
 Summon Raging Spirit|SummonRagingSpirit|intelligence,active_skill,spell,minion,duration,fire
 Summon Skeleton|SummonSkeletons|intelligence,active_skill,spell,minion,duration
 Summon Skeletons Channelled|SummonSkeletonsChannelled|intelligence,active_skill,spell,minion,duration,channelling
@@ -282,6 +283,7 @@ Summon Stone Golem|SummonRockGolem|strength,active_skill,minion,spell,golem
 Sunder|Sunder|strength,active_skill,attack,area,melee
 Sweep|Sweep|strength,active_skill,attack,area,melee
 Swift Affliction|SupportRapidDecay|dexterity,support,duration
+Tectonic Slam|EnduranceChargeSlam|fire,strength,active_skill,attack,area,melee
 Tempest Shield|TempestShield|intelligence,active_skill,spell,lightning,chaining,duration
 Temporal Chains|TemporalChains|curse,dexterity,active_skill,spell,area,duration
 Tornado Shot|TornadoShot|dexterity,active_skill,attack,bow
@@ -297,7 +299,7 @@ Vaal Burning Arrow|VaalBurningArrow|dexterity,active_skill,vaal,attack,area,fire
 Vaal Clarity|VaalClarity|aura,intelligence,active_skill,vaal,spell,area,duration
 Vaal Cold Snap|VaalColdSnap|intelligence,active_skill,vaal,spell,area,duration,cold
 Vaal Cyclone|VaalCyclone|dexterity,active_skill,vaal,attack,area,duration,melee
-Vaal Detonate Dead|VaalDetonateDead|dexterity,active_skill,vaal,cast,area,fire
+Vaal Detonate Dead|VaalDetonateDead|dexterity,active_skill,vaal,spell,area,fire
 Vaal Discipline|VaalDiscipline|aura,intelligence,active_skill,vaal,spell,area,duration
 Vaal Double Strike|VaalDoubleStrike|dexterity,active_skill,vaal,attack,melee,duration
 Vaal FireTrap|VaalFireTrap|trap,dexterity,active_skill,vaal,spell,duration,area,fire
@@ -336,7 +338,6 @@ Vortex|FrostBoltNova|intelligence,active_skill,spell,area,cold,duration
 Vortex Mine|VortexMine|mine,dexterity,active_skill,spell,area,duration
 Vulnerability|Vulnerability|curse,strength,active_skill,spell,area,duration
 WIP|SupportCastLinkedCursesOnCurse|support,curse
-WIP|ThrownShield|projectile,strength,active_skill,attack,bow
 Wand Teleport|WandTeleport|active_skill,spell,movement
 Warlord's Mark|WarlordsMark|curse,strength,active_skill,spell,area,duration
 Whirling Blades|WhirlingBlades|dexterity,active_skill,attack,movement,melee

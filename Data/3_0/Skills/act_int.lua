@@ -1081,9 +1081,10 @@ skills["ConversionTrap"] = {
 		skill("castTime", 1), 
 		skill("cooldown", 8), 
 		--"is_trap" = 1
-		--"base_trap_duration" = 16000
+		--"base_trap_duration" = 8000
 		--"base_skill_is_trapped" = ?
 		--"base_deal_no_damage" = ?
+		--"traps_do_not_explode_on_timeout" = ?
 	},
 	qualityMods = {
 		mod("Duration", "INC", 1), --"skill_effect_duration_+%" = 1
@@ -1997,7 +1998,7 @@ skills["VaalFireballSpiralNova"] = {
 	gemInt = 100,
 	color = 3,
 	description = "Launches a series of fireballs in all directions around the caster.",
-	skillTypes = { [3] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [43] = true, [33] = true, },
+	skillTypes = { [3] = true, [68] = true, [70] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [43] = true, [33] = true, },
 	parts = {
 		{
 			name = "Projectile",
@@ -2557,7 +2558,7 @@ skills["FleshOffering"] = {
 		[2] = skill("manaCost", nil), 
 		[3] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }), --"attack_speed_+%"
 		[4] = mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"base_movement_velocity_+%"
-		[5] = mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }), --"cast_speed_+%_from_haste_aura"
+		[5] = mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }), --"cast_speed_+%_granted_from_skill"
 	},
 	levels = {
 		[1] = { 12, 16, 20, 20, 20, },
@@ -3038,19 +3039,19 @@ skills["HeraldOfThunder"] = {
 	gemTags = {
 		intelligence = true,
 		active_skill = true,
-		cast = true,
+		spell = true,
 		area = true,
 		duration = true,
 		lightning = true,
 		herald = true,
 	},
-	gemTagString = "Cast, AoE, Duration, Lightning, Herald",
+	gemTagString = "Spell, AoE, Duration, Lightning, Herald",
 	gemStr = 0,
 	gemDex = 0,
 	gemInt = 100,
 	color = 3,
-	description = "Channel lightning through your hands, adding lightning damage to spells and attacks. If you kill a shocked enemy, lightning bolts will strike enemies around you for a short duration.",
-	skillTypes = { [39] = true, [5] = true, [15] = true, [16] = true, [10] = true, [11] = true, [12] = true, [35] = true, [27] = true, [63] = true, },
+	description = "Channel lightning through your hands, adding lightning damage to spells and attacks. If you kill a shocked enemy, lightning bolts will strike enemies around you for a short duration. The lightning bolt damage inflicted by this skill is not affected by modifiers to spell damage.",
+	skillTypes = { [2] = true, [5] = true, [15] = true, [16] = true, [10] = true, [11] = true, [12] = true, [35] = true, [27] = true, [63] = true, },
 	baseFlags = {
 		cast = true,
 		duration = true,
@@ -3433,7 +3434,7 @@ skills["ClusterBurst"] = {
 	gemInt = 100,
 	color = 3,
 	description = "Fires a projectile from a Wand that causes a series of small explosions surrounding its point of impact, each damaging enemies caught in the area.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [6] = true, [11] = true, [17] = true, [19] = true, [22] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [11] = true, [17] = true, [19] = true, [22] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 	},
@@ -3606,7 +3607,7 @@ skills["LightningTrap"] = {
 		skill("damageEffectiveness", 0.9), 
 		skill("CritChance", 5), 
 		skill("cooldown", 2), 
-		--"base_trap_duration" = 16000
+		--"base_trap_duration" = 4000
 		mod("ProjectileCount", "BASE", 8), --"number_of_additional_projectiles" = 8
 		mod("EnemyShockChance", "BASE", 20), --"base_chance_to_shock_%" = 20
 		--"projectiles_nova" = ?
@@ -3689,7 +3690,7 @@ skills["VaalLightningTrap"] = {
 		skill("castTime", 1), 
 		skill("damageEffectiveness", 0.9), 
 		skill("CritChance", 5), 
-		--"base_trap_duration" = 16000
+		--"base_trap_duration" = 4000
 		mod("ProjectileCount", "BASE", 8), --"number_of_additional_projectiles" = 8
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
 		--"shocked_ground_base_magnitude_override" = 15
@@ -4060,7 +4061,7 @@ skills["PowerSiphon"] = {
 	gemInt = 100,
 	color = 3,
 	description = "Fires your wand, dealing increased damage and granting you a power charge if an enemy is killed by, or soon after, the hit.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [6] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 	},
@@ -4130,7 +4131,7 @@ skills["VaalPowerSiphon"] = {
 	gemInt = 100,
 	color = 3,
 	description = "Fires your wand simultaneously at all nearby enemies, culling those close to death and granting you a power charge for each. Cannot be supported by Volley.",
-	skillTypes = { [1] = true, [48] = true, [6] = true, [3] = true, [22] = true, [17] = true, [19] = true, [43] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [22] = true, [17] = true, [19] = true, [43] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 	},
@@ -4420,7 +4421,7 @@ skills["RaiseZombie"] = {
 	gemDex = 0,
 	gemInt = 100,
 	color = 3,
-	description = "Raises a zombie minion from a corpse, which will follow you and attack enemies with a melee attack and an area of effect slam.",
+	description = "Raises a zombie minion from a corpse, which will follow you and attack enemies with a melee attack and an area of effect slam which cannot be evaded.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [49] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, [11] = true, },
 	minionList = {
@@ -4887,7 +4888,7 @@ skills["VaalSparkSpiralNova"] = {
 	gemInt = 100,
 	color = 3,
 	description = "Continuously launches unpredictable sparks in all directions that move randomly until they hit an enemy or expire.",
-	skillTypes = { [2] = true, [3] = true, [68] = true, [10] = true, [12] = true, [17] = true, [18] = true, [19] = true, [43] = true, [35] = true, },
+	skillTypes = { [2] = true, [3] = true, [68] = true, [70] = true, [10] = true, [12] = true, [17] = true, [18] = true, [19] = true, [43] = true, [35] = true, },
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -5577,7 +5578,7 @@ skills["VaalSummonSkeletons"] = {
 	color = 3,
 	description = "Summons an army of skeletal warriors, archers and mages, led by a powerful general.",
 	skillTypes = { [2] = true, [9] = true, [12] = true, [21] = true, [17] = true, [18] = true, [19] = true, [43] = true, },
-	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [48] = true, [28] = true, [2] = true, [11] = true, [66] = true, },
+	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [48] = true, [68] = true, [28] = true, [2] = true, [11] = true, [66] = true, },
 	minionList = {
 		"RaisedSkeleton",
 		"RaisedSkeletonCaster",

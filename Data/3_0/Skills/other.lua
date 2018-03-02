@@ -11,7 +11,7 @@ skills["Melee"] = {
 	hidden = true,
 	color = 4,
 	description = "Strike your foes down with a powerful blow.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [6] = true, [3] = true, [25] = true, [28] = true, [24] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [25] = true, [28] = true, [24] = true, },
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -267,7 +267,7 @@ skills["TriggeredBoneNova"] = {
 	name = "Bone Nova",
 	hidden = true,
 	color = 4,
-	description = "A spiral of bones erupts around you, dealing physical damage.",
+	description = "A nova of bones erupts around you, dealing physical damage.",
 	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [10] = true, [57] = true, [47] = true, [61] = true, },
 	fromItem = true,
 	baseFlags = {
@@ -1007,15 +1007,14 @@ skills["SpiritBurst"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("damageEffectiveness", 1.2), 
-		skill("CritChance", 7), 
+		skill("CritChance", 6), 
 		--"trigger_on_skill_use_%_if_you_have_a_spirit_charge" = 100
-		skill("PhysicalMin", 861), --"spell_minimum_base_physical_damage" = 861
-		skill("PhysicalMax", 1291), --"spell_maximum_base_physical_damage" = 1291
+		skill("PhysicalMin", 646), --"spell_minimum_base_physical_damage" = 646
+		skill("PhysicalMax", 968), --"spell_maximum_base_physical_damage" = 968
 		mod("ProjectileCount", "BASE", 6), --"number_of_additional_projectiles" = 6
 		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 		--"base_is_projectile" = ?
 		--"projectiles_nova" = ?
-		flag("PierceAllTargets"), --"always_pierce" = ?
 		skill("showAverage", true), 
 	},
 	qualityMods = {

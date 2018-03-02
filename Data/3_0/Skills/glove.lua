@@ -271,7 +271,7 @@ skills["EnchantmentOfForceOnHit"] = {
 	hidden = true,
 	color = 4,
 	description = "Release an arc of force from your weapon or fists, damaging enemies in front of you.",
-	skillTypes = { [1] = true, [11] = true, [10] = true, [6] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [11] = true, [10] = true, [47] = true, [57] = true, },
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -300,7 +300,7 @@ skills["EnchantmentOfForceOnHit2"] = {
 	hidden = true,
 	color = 4,
 	description = "Release an arc of force from your weapon or fists, damaging enemies in front of you.",
-	skillTypes = { [1] = true, [11] = true, [10] = true, [6] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [11] = true, [10] = true, [47] = true, [57] = true, },
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -329,7 +329,7 @@ skills["EnchantmentOfForceOnHit3"] = {
 	hidden = true,
 	color = 4,
 	description = "Release an arc of force from your weapon or fists, damaging enemies in front of you.",
-	skillTypes = { [1] = true, [11] = true, [10] = true, [6] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [11] = true, [10] = true, [47] = true, [57] = true, },
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -358,7 +358,7 @@ skills["EnchantmentOfForceOnHit4"] = {
 	hidden = true,
 	color = 4,
 	description = "Release an arc of force from your weapon or fists, damaging enemies in front of you.",
-	skillTypes = { [1] = true, [11] = true, [10] = true, [6] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [11] = true, [10] = true, [47] = true, [57] = true, },
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -523,7 +523,7 @@ skills["EnchantmentOfFuryOnHit"] = {
 	hidden = true,
 	color = 4,
 	description = "Repeatedly fires a piercing projectile based on your weapon, converting some physical damage to fire. The projectiles form an arc in front of you.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [6] = true, [57] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -576,7 +576,7 @@ skills["EnchantmentOfFuryOnHit2"] = {
 	hidden = true,
 	color = 4,
 	description = "Repeatedly fires a piercing projectile based on your weapon, converting some physical damage to fire. The projectiles form an arc in front of you.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [6] = true, [57] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -629,7 +629,7 @@ skills["EnchantmentOfFuryOnHit3"] = {
 	hidden = true,
 	color = 4,
 	description = "Repeatedly fires a piercing projectile based on your weapon, converting some physical damage to fire. The projectiles form an arc in front of you.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [6] = true, [57] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -682,7 +682,7 @@ skills["EnchantmentOfFuryOnHit4"] = {
 	hidden = true,
 	color = 4,
 	description = "Repeatedly fires a piercing projectile based on your weapon, converting some physical damage to fire. The projectiles form an arc in front of you.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [6] = true, [57] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -875,7 +875,7 @@ skills["EnchantmentOfIreWhenHit"] = {
 	hidden = true,
 	color = 2,
 	description = "Release a lightning charged spinning copy of your weapon or its projectiles that rotates around a point, damaging enemies in an area.",
-	skillTypes = { [1] = true, [10] = true, [11] = true, [12] = true, [18] = true, [47] = true, [6] = true, [57] = true, },
+	skillTypes = { [1] = true, [10] = true, [11] = true, [12] = true, [18] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -925,7 +925,7 @@ skills["EnchantmentOfIreWhenHit2"] = {
 	hidden = true,
 	color = 2,
 	description = "Release a lightning charged spinning copy of your weapon or its projectiles that rotates around a point, damaging enemies in an area.",
-	skillTypes = { [1] = true, [10] = true, [11] = true, [12] = true, [18] = true, [47] = true, [6] = true, [57] = true, },
+	skillTypes = { [1] = true, [10] = true, [11] = true, [12] = true, [18] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -975,7 +975,7 @@ skills["EnchantmentOfIreWhenHit3"] = {
 	hidden = true,
 	color = 2,
 	description = "Release a lightning charged spinning copy of your weapon or its projectiles that rotates around a point, damaging enemies in an area.",
-	skillTypes = { [1] = true, [10] = true, [11] = true, [12] = true, [18] = true, [47] = true, [6] = true, [57] = true, },
+	skillTypes = { [1] = true, [10] = true, [11] = true, [12] = true, [18] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1025,7 +1025,7 @@ skills["EnchantmentOfIreWhenHit4"] = {
 	hidden = true,
 	color = 2,
 	description = "Release a lightning charged spinning copy of your weapon or its projectiles that rotates around a point, damaging enemies in an area.",
-	skillTypes = { [1] = true, [10] = true, [11] = true, [12] = true, [18] = true, [47] = true, [6] = true, [57] = true, },
+	skillTypes = { [1] = true, [10] = true, [11] = true, [12] = true, [18] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1075,7 +1075,7 @@ skills["EnchantmentOfLightWhenCrit"] = {
 	hidden = true,
 	color = 4,
 	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
-	skillTypes = { [1] = true, [11] = true, [12] = true, [6] = true, [7] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [11] = true, [12] = true, [7] = true, [47] = true, [57] = true, },
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -1107,7 +1107,7 @@ skills["EnchantmentOfLightWhenCrit2"] = {
 	hidden = true,
 	color = 4,
 	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
-	skillTypes = { [1] = true, [11] = true, [12] = true, [6] = true, [7] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [11] = true, [12] = true, [7] = true, [47] = true, [57] = true, },
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -1139,7 +1139,7 @@ skills["EnchantmentOfLightWhenCrit3"] = {
 	hidden = true,
 	color = 4,
 	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
-	skillTypes = { [1] = true, [11] = true, [12] = true, [6] = true, [7] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [11] = true, [12] = true, [7] = true, [47] = true, [57] = true, },
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -1171,7 +1171,7 @@ skills["EnchantmentOfLightWhenCrit4"] = {
 	hidden = true,
 	color = 4,
 	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
-	skillTypes = { [1] = true, [11] = true, [12] = true, [6] = true, [7] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [11] = true, [12] = true, [7] = true, [47] = true, [57] = true, },
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -1363,7 +1363,7 @@ skills["EnchantmentOfSpiteWhenHit"] = {
 	hidden = true,
 	color = 4,
 	description = "Releases a nova of projectiles based on your weapon, leaving chilling ground in their wake.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [6] = true, [57] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1416,7 +1416,7 @@ skills["EnchantmentOfSpiteWhenHit2"] = {
 	hidden = true,
 	color = 4,
 	description = "Releases a nova of projectiles based on your weapon, leaving chilling ground in their wake.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [6] = true, [57] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1469,7 +1469,7 @@ skills["EnchantmentOfSpiteWhenHit3"] = {
 	hidden = true,
 	color = 4,
 	description = "Releases a nova of projectiles based on your weapon, leaving chilling ground in their wake.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [6] = true, [57] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1522,7 +1522,7 @@ skills["EnchantmentOfSpiteWhenHit4"] = {
 	hidden = true,
 	color = 4,
 	description = "Releases a nova of projectiles based on your weapon, leaving chilling ground in their wake.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [6] = true, [57] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1979,7 +1979,7 @@ skills["EnchantmentOfWarOnKill"] = {
 	hidden = true,
 	color = 4,
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
-	skillTypes = { [1] = true, [6] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2022,7 +2022,7 @@ skills["EnchantmentOfWarOnKill2"] = {
 	hidden = true,
 	color = 4,
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
-	skillTypes = { [1] = true, [6] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2065,7 +2065,7 @@ skills["EnchantmentOfWarOnKill3"] = {
 	hidden = true,
 	color = 4,
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
-	skillTypes = { [1] = true, [6] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2108,7 +2108,7 @@ skills["EnchantmentOfWarOnKill4"] = {
 	hidden = true,
 	color = 4,
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
-	skillTypes = { [1] = true, [6] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,

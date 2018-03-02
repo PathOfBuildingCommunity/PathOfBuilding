@@ -100,8 +100,8 @@ skills["ArcticArmour"] = {
 	gemDex = 60,
 	gemInt = 40,
 	color = 2,
-	description = "Summons an icy barrier that chills enemies when they hit you. You drop chilled ground while moving, and take less Fire and Physical damage while stationary.",
-	skillTypes = { [2] = true, [5] = true, [18] = true, [12] = true, [15] = true, [27] = true, [34] = true, [16] = true, },
+	description = "Conjures an icy barrier that chills enemies when they hit you. You drop chilled ground while moving, and take less Fire and Physical damage while stationary.",
+	skillTypes = { [2] = true, [5] = true, [18] = true, [12] = true, [15] = true, [27] = true, [34] = true, [16] = true, [20] = true, },
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -169,7 +169,7 @@ skills["Barrage"] = {
 	gemInt = 0,
 	color = 2,
 	description = "After a short preparation time, you attack repeatedly with a ranged weapon. These attacks have a small randomised spread. Only works with Bows and Wands.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [6] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 		["Bow"] = true,
@@ -245,16 +245,16 @@ skills["BearTrap"] = {
 		trap = true,
 		dexterity = true,
 		active_skill = true,
+		spell = true,
 		duration = true,
-		cast = true,
 	},
-	gemTagString = "Trap, Duration, Cast",
+	gemTagString = "Trap, Spell, Duration",
 	gemStr = 0,
 	gemDex = 100,
 	gemInt = 0,
 	color = 2,
 	description = "Throws a trap that damages and immobilises a single enemy.",
-	skillTypes = { [12] = true, [19] = true, [37] = true, [39] = true, [10] = true, },
+	skillTypes = { [2] = true, [12] = true, [19] = true, [37] = true, [10] = true, },
 	baseFlags = {
 		cast = true,
 		trap = true,
@@ -266,12 +266,13 @@ skills["BearTrap"] = {
 		skill("CritChance", 5), 
 		skill("cooldown", 3), 
 		--"is_trap" = 1
-		--"base_trap_duration" = 16000
+		--"base_trap_duration" = 8000
 		--"trap_override_pvp_scaling_time_ms" = 750
 		--"base_skill_is_trapped" = ?
 		--"display_skill_deals_secondary_damage" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"no_movement_speed" = ?
+		--"traps_do_not_explode_on_timeout" = ?
 	},
 	qualityMods = {
 		mod("PhysicalDamage", "INC", 1), --"physical_damage_+%" = 1
@@ -331,7 +332,7 @@ skills["ChargedAttack"] = {
 	gemInt = 40,
 	color = 2,
 	description = "Repeatedly strike at enemies in a circle in front of you while channelling, dealing damage to and around the struck enemy. The damage is continually boosted while channelling. You unleash an additional strike for each stage reached once the channelling ends. Requires a Dagger, Claw or One-Handed Sword.",
-	skillTypes = { [1] = true, [11] = true, [6] = true, [58] = true, [24] = true, },
+	skillTypes = { [1] = true, [11] = true, [58] = true, [24] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
 		["One Handed Sword"] = true,
@@ -1068,7 +1069,7 @@ skills["ChargedDash"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Channel to project a mirage forward in the direction you're facing, based on your movement speed. Release to teleport to the mirage dealing area of effect damage multiple times along the way. Travelling further applies a bonus to the damage as well as dealing damage in larger areas. Faster attack speed and lower movement speed will both cause damage to be dealt more frequently along the path.",
-	skillTypes = { [38] = true, [11] = true, [10] = true, [58] = true, [1] = true, [6] = true, [24] = true, [35] = true, },
+	skillTypes = { [38] = true, [11] = true, [10] = true, [58] = true, [1] = true, [24] = true, [35] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1245,7 +1246,7 @@ skills["Cyclone"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Multistrike or Ruthless.",
-	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [38] = true, [65] = true, },
+	skillTypes = { [1] = true, [11] = true, [24] = true, [38] = true, [65] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -1336,7 +1337,7 @@ skills["VaalCyclone"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Spin and attack in place, damaging nearby enemies and pulling others towards you. Cannot be supported by Ruthless.",
-	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [12] = true, [43] = true, [65] = true, },
+	skillTypes = { [1] = true, [11] = true, [24] = true, [12] = true, [43] = true, [65] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -1573,17 +1574,17 @@ skills["VaalDetonateDead"] = {
 		dexterity = true,
 		active_skill = true,
 		vaal = true,
-		cast = true,
+		spell = true,
 		area = true,
 		fire = true,
 	},
-	gemTagString = "Vaal, Cast, AoE, Fire",
+	gemTagString = "Vaal, Spell, AoE, Fire",
 	gemStr = 0,
 	gemDex = 60,
 	gemInt = 40,
 	color = 2,
 	description = "Explodes an unused corpse, dealing fire damage to nearby enemies. Nearby corpses will also explode in a chain reaction. The explosions are not affected by modifiers to spell damage.",
-	skillTypes = { [39] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [43] = true, [33] = true, },
+	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [43] = true, [33] = true, },
 	baseFlags = {
 		cast = true,
 		area = true,
@@ -1654,7 +1655,7 @@ skills["DoubleStrike"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Performs two fast attacks on target enemy with your main hand melee weapon.",
-	skillTypes = { [1] = true, [6] = true, [7] = true, [25] = true, [28] = true, [24] = true, },
+	skillTypes = { [1] = true, [7] = true, [25] = true, [28] = true, [24] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1735,7 +1736,7 @@ skills["VaalDoubleStrike"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Performs two fast attacks on target enemy with your main hand melee weapon, and summons your double for a duration to continuously attack monsters in this fashion.",
-	skillTypes = { [1] = true, [6] = true, [7] = true, [25] = true, [24] = true, [12] = true, [43] = true, },
+	skillTypes = { [1] = true, [7] = true, [25] = true, [24] = true, [12] = true, [43] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1895,7 +1896,7 @@ skills["ElementalHit"] = {
 	gemInt = 0,
 	color = 2,
 	description = "A standard attack (with any weapon) that adds damage of a random element.",
-	skillTypes = { [1] = true, [6] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, [25] = true, [28] = true, [24] = true, [33] = true, [34] = true, [35] = true, [48] = true, [69] = true, },
+	skillTypes = { [1] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, [25] = true, [28] = true, [24] = true, [33] = true, [34] = true, [35] = true, [48] = true, [69] = true, },
 	parts = {
 		{
 			name = "Added fire",
@@ -2169,7 +2170,7 @@ skills["FireTrap"] = {
 		skill("CritChance", 6), 
 		skill("cooldown", 3), 
 		--"is_trap" = 1
-		--"base_trap_duration" = 16000
+		--"base_trap_duration" = 4000
 		skill("duration", 8), --"base_skill_effect_duration" = 8000
 		--"is_area_damage" = ?
 		--"base_skill_is_trapped" = ?
@@ -2236,7 +2237,7 @@ skills["FlickerStrike"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Teleports the character to a nearby monster and attacks it with a melee weapon. If no specific monster is chosen, one is picked at random. The cooldown can be bypassed by expending a Frenzy Charge.",
-	skillTypes = { [1] = true, [6] = true, [24] = true, [25] = true, [28] = true, [38] = true, },
+	skillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, [38] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2398,7 +2399,7 @@ skills["Frenzy"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Performs an attack that gives the character a frenzy charge if it hits. Frenzy charges increase your attack speed.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [6] = true, [22] = true, [17] = true, [19] = true, [25] = true, [28] = true, [24] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, [25] = true, [28] = true, [24] = true, },
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -2469,7 +2470,7 @@ skills["FrostBlades"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Attack an enemy with increased range, releasing icy blades from the targeted enemy which fly at other enemies. Requires a Melee Weapon.",
-	skillTypes = { [1] = true, [3] = true, [6] = true, [25] = true, [28] = true, [24] = true, [34] = true, [48] = true, },
+	skillTypes = { [1] = true, [3] = true, [25] = true, [28] = true, [24] = true, [34] = true, [48] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2728,7 +2729,7 @@ skills["Haste"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_speed_+%"
-		[3] = mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cast_speed_+%_from_haste_aura"
+		[3] = mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cast_speed_+%_granted_from_skill"
 		[4] = mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_movement_velocity_+%"
 		[5] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
@@ -2802,7 +2803,7 @@ skills["VaalHaste"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }), --"attack_speed_+%"
-		[3] = mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cast_speed_+%_from_haste_aura"
+		[3] = mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cast_speed_+%_granted_from_skill"
 		[4] = mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_movement_velocity_+%"
 		[5] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 	},
@@ -2915,18 +2916,18 @@ skills["HeraldOfIce"] = {
 	gemTags = {
 		dexterity = true,
 		active_skill = true,
-		cast = true,
+		spell = true,
 		area = true,
 		cold = true,
 		herald = true,
 	},
-	gemTagString = "Cast, AoE, Cold, Herald",
+	gemTagString = "Spell, AoE, Cold, Herald",
 	gemStr = 0,
 	gemDex = 60,
 	gemInt = 40,
 	color = 2,
-	description = "Channel ice through your hands, adding cold damage to spells and attacks. If you shatter an enemy, they explode and deal AoE cold damage to enemies near them.",
-	skillTypes = { [39] = true, [5] = true, [15] = true, [16] = true, [10] = true, [11] = true, [34] = true, [27] = true, [63] = true, },
+	description = "Channel ice through your hands, adding cold damage to spells and attacks. If you shatter an enemy, they explode and deal AoE cold damage to enemies near them. The AoE cold damage inflicted by this skill is not affected by modifiers to spell damage.",
+	skillTypes = { [2] = true, [5] = true, [15] = true, [16] = true, [10] = true, [11] = true, [34] = true, [27] = true, [63] = true, },
 	baseFlags = {
 		cast = true,
 		area = true,
@@ -3105,7 +3106,7 @@ skills["IceTrap"] = {
 		skill("damageEffectiveness", 1.1), 
 		skill("CritChance", 5), 
 		skill("cooldown", 2), 
-		--"base_trap_duration" = 16000
+		--"base_trap_duration" = 4000
 		--"is_area_damage" = ?
 		--"base_skill_is_trapped" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
@@ -3168,7 +3169,7 @@ skills["DoubleSlash"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Slashes twice, releasing waves of force that damage enemies they hit. Enemies in the middle of the slashes can be hit by both. If you are dual wielding, you attack with your Main Hand, then your Off Hand. Can be used with Axes and Swords.",
-	skillTypes = { [1] = true, [6] = true, [11] = true, [28] = true, [24] = true, },
+	skillTypes = { [1] = true, [11] = true, [28] = true, [24] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -3328,7 +3329,7 @@ skills["LightningStrike"] = {
 	gemInt = 40,
 	color = 2,
 	description = "Infuses your melee weapon with electrical energies as you swing. In addition to converting some of your physical damage to lightning damage, the stored energy is released from the weapon as projectiles as you strike, flying out behind your target to hit farther-away enemies. The projectiles cannot miss if the melee attack hit its target.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [25] = true, [28] = true, [24] = true, [35] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [25] = true, [28] = true, [24] = true, [35] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -3428,7 +3429,7 @@ skills["VaalLightningStrike"] = {
 	gemInt = 40,
 	color = 2,
 	description = "Infuses your melee weapon with electrical energies as you swing. In addition to converting some of your physical damage to lightning damage, the stored energy is forced into the enemy as you strike, electrically charging them for a duration, during which lightning will arc between them and other nearby enemies, dealing damage. This occurs even if the attack is dodged.",
-	skillTypes = { [1] = true, [6] = true, [25] = true, [24] = true, [12] = true, [43] = true, [35] = true, },
+	skillTypes = { [1] = true, [25] = true, [24] = true, [12] = true, [43] = true, [35] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -3827,7 +3828,7 @@ skills["Puncture"] = {
 	gemInt = 40,
 	color = 2,
 	description = "Punctures the target, causing a bleeding debuff, which will be affected by modifiers to skill duration. Puncture works with bows, daggers, claws or swords.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [6] = true, [12] = true, [17] = true, [19] = true, [22] = true, [25] = true, [28] = true, [24] = true, [40] = true, },
+	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [12] = true, [17] = true, [19] = true, [22] = true, [25] = true, [28] = true, [24] = true, [40] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 		["Claw"] = true,
@@ -4131,7 +4132,7 @@ skills["Reave"] = {
 	gemInt = 40,
 	color = 2,
 	description = "Attacks a small area in front of you. Each Reave that hits an enemy increases the area of effect. The area is reset after a short period without hitting anything. Only works with Daggers, Claws, and One-Handed Swords.",
-	skillTypes = { [1] = true, [6] = true, [11] = true, [28] = true, [24] = true, },
+	skillTypes = { [1] = true, [11] = true, [28] = true, [24] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
 		["One Handed Sword"] = true,
@@ -4221,7 +4222,7 @@ skills["VaalReave"] = {
 	gemInt = 40,
 	color = 2,
 	description = "Repeatedly attacks a large area in different directions. Each Vaal Reave that hits an enemy increases the area of effect. The area is reset after a short period without hitting anything. Only works with Daggers, Claws, and One-Handed Swords.",
-	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [43] = true, },
+	skillTypes = { [1] = true, [11] = true, [24] = true, [43] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
 		["One Handed Sword"] = true,
@@ -4316,7 +4317,7 @@ skills["Riposte"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Perform a deadly counter-attack when you block. Uses both weapons while you're dual wielding.",
-	skillTypes = { [1] = true, [24] = true, [25] = true, [6] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [24] = true, [25] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -4422,7 +4423,7 @@ skills["ShrapnelShot"] = {
 	},
 	baseMods = {
 		skill("castTime", 1), 
-		mod("SkillPhysicalDamageConvertToLightning", "BASE", 40), --"skill_physical_damage_%_to_convert_to_lightning" = 40
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
 		--"base_is_projectile" = ?
 		--"skill_can_fire_arrows" = ?
 	},
@@ -4626,6 +4627,88 @@ skills["SmokeMine"] = {
 		[30] = { 90, 15, 6.9, },
 	},
 }
+skills["ThrownShield"] = {
+	name = "Spectral Shield Throw",
+	gemTags = {
+		projectile = true,
+		dexterity = true,
+		active_skill = true,
+		attack = true,
+	},
+	gemTagString = "Projectile, Attack",
+	gemStr = 40,
+	gemDex = 60,
+	gemInt = 0,
+	color = 2,
+	description = "Throws a spectral copy of your shield as a projectile which cannot pierce, and deals off-hand damage augmented by the defences of the shield. When it collides with something it will shatter, launching a number of smaller shards as projectiles in all directions. Modifiers that cause additional projectiles to be fired will add more shards, not more copies of the shield.",
+	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [71] = true, },
+	parts = {
+		{
+			name = "Shield",
+		},
+		{
+			name = "Shards",
+		},
+	},
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		shieldAttack = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		mod("PhysicalMin", "BASE", 2, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15 }), --"off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating" = 2
+		mod("PhysicalMax", "BASE", 3, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15 }), --"off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating" = 3
+		mod("ProjectileCount", "BASE", 8), --"number_of_additional_projectiles" = 8
+		mod("Damage", "MORE", -25, 0, 0, { type = "SkillPart", skillPart = 2 }), --"thrown_shield_secondary_projectile_damage_+%_final" = -25
+		mod("CritChance", "BASE", 0.1, 0, 0, { type = "PerStat", stat = "EnergyShieldOnWeapon 2", div = 10 }), --"additional_critical_strike_chance_per_10_shield_maximum_energy_shield_permyriad" = 10
+		--"base_is_projectile" = ?
+		--"thrown_shield_projectile_fire_random_directions" = ?
+		skill("setOffHandBaseCritChance", 5), --"override_off_hand_base_critical_strike_chance_to_5%" = ?
+	},
+	qualityMods = {
+		mod("Damage", "INC", 1, ModFlag.Projectile), --"projectile_damage_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+		[3] = skill("setOffHandPhysicalMin", nil), --"off_hand_local_minimum_added_physical_damage"
+		[4] = skill("setOffHandPhysicalMax", nil), --"off_hand_local_maximum_added_physical_damage"
+		[5] = skill("setOffHandAttackTime", nil), --"off_hand_base_weapon_attack_duration_ms"
+	},
+	levels = {
+		[1] = { 12, 7, 13, 19, 700, },
+		[2] = { 15, 7, 16, 23, 700, },
+		[3] = { 19, 7, 19, 29, 690, },
+		[4] = { 23, 7, 24, 36, 690, },
+		[5] = { 27, 7, 29, 43, 680, },
+		[6] = { 31, 7, 34, 51, 680, },
+		[7] = { 35, 8, 40, 60, 670, },
+		[8] = { 38, 8, 45, 67, 670, },
+		[9] = { 41, 8, 50, 76, 660, },
+		[10] = { 44, 8, 56, 84, 660, },
+		[11] = { 47, 8, 63, 94, 650, },
+		[12] = { 50, 8, 70, 104, 650, },
+		[13] = { 53, 9, 77, 115, 640, },
+		[14] = { 56, 9, 85, 128, 640, },
+		[15] = { 59, 9, 94, 141, 630, },
+		[16] = { 62, 9, 103, 155, 630, },
+		[17] = { 64, 9, 110, 165, 620, },
+		[18] = { 66, 9, 117, 175, 620, },
+		[19] = { 68, 10, 124, 186, 610, },
+		[20] = { 70, 10, 132, 198, 610, },
+		[21] = { 72, 10, 140, 210, 610, },
+		[22] = { 74, 10, 149, 223, 600, },
+		[23] = { 76, 10, 158, 237, 600, },
+		[24] = { 78, 10, 167, 251, 590, },
+		[25] = { 80, 11, 177, 266, 590, },
+		[26] = { 82, 11, 188, 282, 580, },
+		[27] = { 84, 11, 199, 298, 580, },
+		[28] = { 86, 11, 210, 315, 580, },
+		[29] = { 88, 11, 222, 334, 570, },
+		[30] = { 90, 11, 235, 353, 570, },
+	},
+}
 skills["ThrownWeapon"] = {
 	name = "Spectral Throw",
 	gemTags = {
@@ -4640,7 +4723,7 @@ skills["ThrownWeapon"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Throws a spectral copy of your melee weapon. It flies out and then returns to you, in a spinning attack that strikes enemies in its path.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [6] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -4720,7 +4803,7 @@ skills["VaalThrownWeapon"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Throws a spectral copy of your melee weapon. It spirals out in a spinning attack that strikes enemies in its path.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [6] = true, [43] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [43] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -4744,6 +4827,7 @@ skills["VaalThrownWeapon"] = {
 		--"projectiles_nova" = ?
 		--"base_is_projectile" = ?
 		skill("cannotBeEvaded", true), --"global_always_hit" = ?
+		--"projectiles_not_offset" = ?
 	},
 	qualityMods = {
 		mod("Speed", "INC", 0.5, ModFlag.Attack, 0, nil), --"attack_speed_+%" = 0.5
@@ -5166,7 +5250,7 @@ skills["ViperStrike"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Hits the enemy, adding some of your physical damage as chaos damage and applying poison. Requires a claw, dagger or sword.",
-	skillTypes = { [1] = true, [6] = true, [12] = true, [28] = true, [24] = true, [25] = true, [40] = true, [50] = true, },
+	skillTypes = { [1] = true, [12] = true, [28] = true, [24] = true, [25] = true, [40] = true, [50] = true, },
 	weaponTypes = {
 		["Claw"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -5270,6 +5354,7 @@ skills["VolatileDead"] = {
 		--"volatile_dead_base_number_of_corpses_to_consume" = 3
 		skill("corpseExplosionLifeMultiplier", 0.03), --"corpse_explosion_monster_life_%" = 3
 		--"is_area_damage" = ?
+		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
@@ -5329,7 +5414,7 @@ skills["WhirlingBlades"] = {
 	gemInt = 40,
 	color = 2,
 	description = "Dive through enemies, dealing weapon damage. Only works with daggers, claws and one handed swords. Cannot be supported by Multistrike.",
-	skillTypes = { [1] = true, [6] = true, [24] = true, [38] = true, },
+	skillTypes = { [1] = true, [24] = true, [38] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
 		["Claw"] = true,
@@ -5409,7 +5494,7 @@ skills["WildStrike"] = {
 	gemInt = 0,
 	color = 2,
 	description = "Your melee weapon strikes an enemy, converting physical damage to a random element. Then, depending on the element chosen, it releases a fiery explosion, an arcing bolt of lightning, or an icy wave.",
-	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [35] = true, [34] = true, [33] = true, [3] = true, [68] = true, [11] = true, [23] = true, [48] = true, },
+	skillTypes = { [1] = true, [25] = true, [28] = true, [24] = true, [35] = true, [34] = true, [33] = true, [3] = true, [11] = true, [23] = true, [48] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,

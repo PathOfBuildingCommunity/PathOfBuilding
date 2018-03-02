@@ -1,3 +1,8 @@
+### 1.4.81 - 2018/03/02
+ * Added the 3 new skill gems introduced in 3.2
+    * Summoned Phantasms are not fully supported, as their projectile spell cannot be added yet
+ * Applied the minion changes for 3.2
+
 ### 1.4.80 - 2018/03/02
  * The maximum Chain count for chaining skills is now shown in the "Skill type-specific Stats" section of the Calcs tab
  * Added an option to the Configuration tab for "# of times Skill has Chained"

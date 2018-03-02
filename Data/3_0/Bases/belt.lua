@@ -5,7 +5,7 @@ local itemBases = ...
 itemBases["Rustic Sash"] = {
 	type = "Belt",
 	tags = { default = true, belt = true, },
-	implicit = "(12-24)% increased Physical Damage",
+	implicit = "(12-24)% increased Global Physical Damage",
 	req = { },
 }
 itemBases["Chain Belt"] = {

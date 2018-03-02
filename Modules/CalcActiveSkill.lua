@@ -216,13 +216,17 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 		skillFlags.multiPart = #activeGemParts > 1
 	end
 
-	if skillTypes[SkillType.Shield] and not activeSkill.summonSkill and (not actor.itemList["Weapon 2"] or actor.itemList["Weapon 2"].type ~= "Shield") then
+	if (skillTypes[SkillType.Shield] or skillFlags.shieldAttack) and not activeSkill.summonSkill and (not actor.itemList["Weapon 2"] or actor.itemList["Weapon 2"].type ~= "Shield") then
 		-- Skill requires a shield to be equipped
 		skillFlags.disable = true
 		activeSkill.disableReason = "This skill requires a Shield"
 	end
 
-	if skillFlags.attack then
+	if skillFlags.shieldAttack then
+		-- Special handling for Spectral Shield Throw
+		skillFlags.weapon2Attack = true
+		activeSkill.weapon2Flags = 0
+	elseif skillFlags.attack then
 		-- Set weapon flags
 		local weaponTypes = activeGem.grantedEffect.weaponTypes
 		local weapon1Flags, weapon1Info = getWeaponFlags(env, actor.weaponData1, weaponTypes)
@@ -238,31 +242,25 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			elseif not weapon1Info.melee and skillFlags.projectile then
 				skillFlags.melee = nil
 			end
-		elseif skillTypes[SkillType.DualWield] or not skillTypes[SkillType.CanDualWield] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand then
+		elseif skillTypes[SkillType.DualWield] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand then
 			-- Skill requires a compatible main hand weapon
 			skillFlags.disable = true
 			activeSkill.disableReason = "Main Hand weapon is not usable with this skill"
 		end
-		if skillTypes[SkillType.DualWield] or skillTypes[SkillType.CanDualWield] then
-			if not skillTypes[SkillType.MainHandOnly] and not skillFlags.forceMainHand then
-				local weapon2Flags = getWeaponFlags(env, actor.weaponData2, weaponTypes)
-				if weapon2Flags then
-					activeSkill.weapon2Flags = weapon2Flags
-					skillFlags.weapon2Attack = true
-				elseif skillTypes[SkillType.DualWield] then
-					-- Skill requires a compatible off hand weapon
-					skillFlags.disable = true
-					activeSkill.disableReason = activeSkill.disableReason or "Off Hand weapon is not usable with this skill"
-				elseif not skillFlags.weapon1Attack then
-					-- Neither weapon is compatible
-					skillFlags.disable = true
-					activeSkill.disableReason = "No usable weapon equipped"
-				end
+		if not skillTypes[SkillType.MainHandOnly] and not skillFlags.forceMainHand then
+			local weapon2Flags = getWeaponFlags(env, actor.weaponData2, weaponTypes)
+			if weapon2Flags then
+				activeSkill.weapon2Flags = weapon2Flags
+				skillFlags.weapon2Attack = true
+			elseif skillTypes[SkillType.DualWield] then
+				-- Skill requires a compatible off hand weapon
+				skillFlags.disable = true
+				activeSkill.disableReason = activeSkill.disableReason or "Off Hand weapon is not usable with this skill"
+			elseif not skillFlags.weapon1Attack then
+				-- Neither weapon is compatible
+				skillFlags.disable = true
+				activeSkill.disableReason = "No usable weapon equipped"
 			end
-		elseif actor.weaponData2.type then
-			-- Skill cannot be used while dual wielding
-			skillFlags.disable = true
-			activeSkill.disableReason = "This skill cannot be used while Dual Wielding"
 		end
 		skillFlags.bothWeaponAttack = skillFlags.weapon1Attack and skillFlags.weapon2Attack
 	end
@@ -427,9 +425,26 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	end
 
 	-- Create minion
+	local minionList
 	if activeGem.grantedEffect.minionList then
+		if activeGem.grantedEffect.minionList[1] then
+			minionList = copyTable(activeGem.grantedEffect.minionList)
+		else
+			minionList = copyTable(env.build.spectreList)
+		end
+	else
+		minionList = { }
+	end
+	for _, supportGem in ipairs(activeSkill.supportList) do
+		if supportGem.grantedEffect.addMinionList then
+			for _, minionType in ipairs(supportGem.grantedEffect.addMinionList) do
+				t_insert(minionList, minionType)
+			end
+		end
+	end
+	activeSkill.minionList = minionList
+	if minionList[1] and not actor.minionData then
 		local minionType
-		local minionList = activeGem.grantedEffect.minionList[1] and activeGem.grantedEffect.minionList or env.build.spectreList
 		if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
 			local index = isValueInArray(minionList, activeGem.srcGem.skillMinionCalcs) or 1
 			minionType = minionList[index]

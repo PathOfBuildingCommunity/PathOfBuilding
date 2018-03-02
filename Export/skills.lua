@@ -50,66 +50,80 @@ end
 -- 3	Fires projectiles
 -- 4	Dual wield skill (Only on Dual Strike)
 -- 5	Buff
--- 6	Can use while dual wielding
--- 7	Only uses main hand
--- 8	Combines both weapons? (Only on Cleave)
--- 9	Minion skill
--- 10	Spell with hit damage
--- 11	Area
--- 12	Duration
--- 13	Shield skill
--- 14	Projectile damage
--- 15	Mana cost is reservation
--- 16	Mana cost is percentage
--- 17	Skill can be trap?
--- 18	Spell can be totem?
--- 19	Skill can be mine?
--- 20	Causes status effects (Only on Herald of Ash, allows Elemental Proliferation)
--- 21	Creates minions
--- 22	Attack can be totem?
--- 23	Chaining
--- 24	Melee
--- 25	Single target melee
--- 26	Spell can multicast
--- 27	?? (On auras, searing bond, tempest shield, blade vortex and others)
--- 28	Attack can multistrike
--- 29	Burning
--- 30	Totem
--- 31	?? (On Molten Shell + Glove Thunder, applied by Blasphemy)
--- 32	Curse
--- 33	Fire skill
--- 34	Cold skill
--- 35	Lightning skill
--- 36	Triggerable spell
--- 37	Trap
--- 38	Movement
--- 39	Cast
--- 40	Damage over Time
--- 41	Mine
--- 42	Triggered spell
--- 43	Vaal
--- 44	Aura
--- 45	Lightning spell
--- 46	?? (Not on any skills or supports)
--- 47	Triggered attack
--- 48	Projectile attack
--- 49	Minion spell
--- 50	Chaos skill
--- 51	?? (Not on any skills, excluded by Faster/Slower Projectiles)
--- 52	?? (Only on Contagion, allows Iron Will)
--- 53	?? (Only on Burning Arrow/Vigilant Strike, allows Inc AoE + Conc Effect)
--- 54	Projectile? (Not on any skills, allows all projectile supports)
--- 55	?? (Only on Burning Arrow/VBA, allows Inc/Red Duration + Rapid Decay)
--- 56	Projectile attack? (Not on any skills, allows projectile attack supports)
--- 57	?? Same as 47
--- 58	Channelled
--- 59	?? (Only on Contagion, allows Controlled Destruction)
--- 60	Cold spell
--- 61	Granted triggered skill (Prevents trigger supports, trap, mine, totem)
--- 62	Golem
--- 63	Herald
--- 64	Aura Debuff
--- 65	?? (Only on Summon Skeleton, allows Iron Will)
+-- 6	Only uses main hand
+-- 7	Combines both weapons? (Only on Cleave)
+-- 8	Minion skill
+-- 9	Spell with hit damage
+-- 10	Area
+-- 11	Duration
+-- 12	Shield skill
+-- 13	Projectile damage
+-- 14	Mana cost is reservation
+-- 15	Mana cost is percentage
+-- 16	Skill can be trap?
+-- 17	Spell can be totem?
+-- 18	Skill can be mine?
+-- 19	Causes status effects (Only on Arctic Armour, allows Elemental Proliferation)
+-- 20	Creates minions
+-- 21	Attack can be totem?
+-- 22	Chaining
+-- 23	Melee
+-- 24	Single target melee
+-- 25	Spell can multicast
+-- 26	?? (On auras, searing bond, tempest shield, blade vortex and others)
+-- 27	Attack can multistrike
+-- 28	Burning
+-- 29	Totem
+-- 30	?? (On Molten Shell + Glove Thunder, applied by Blasphemy)
+-- 31	Curse
+-- 32	Fire skill
+-- 33	Cold skill
+-- 34	Lightning skill
+-- 35	Triggerable spell
+-- 36	Trap
+-- 37	Movement
+-- 38	Damage over Time
+-- 39	Mine
+-- 40	Triggered spell
+-- 41	Vaal
+-- 42	Aura
+-- 43	Lightning spell
+-- 44	?? (Not on any skills or supports)
+-- 45	Triggered attack
+-- 46	Projectile attack
+-- 47	Minion spell
+-- 48	Chaos skill
+-- 49	?? (Not on any skills, excluded by Faster/Slower Projectiles)
+-- 50	?? (Only on Contagion, allows Iron Will)
+-- 51	?? (Only on Burning Arrow/Vigilant Strike, allows Inc AoE + Conc Effect)
+-- 52	Projectile? (Not on any skills, allows all projectile supports)
+-- 53	?? (Only on Burning Arrow/VBA, allows Inc/Red Duration + Rapid Decay)
+-- 54	Projectile attack? (Not on any skills, allows projectile attack supports)
+-- 55	?? Same as 47
+-- 56	Channelled
+-- 57	?? (Only on Contagion, allows Controlled Destruction)
+-- 58	Cold spell
+-- 59	Granted triggered skill (Prevents trigger supports, trap, mine, totem)
+-- 60	Golem
+-- 61	Herald
+-- 62	Aura Debuff
+-- 63	?? (Excludes Ruthless from Cyclone)
+-- 64	?? (Allows Iron Will)
+-- 65	Spell can cascade
+-- 66	Skill can Volley
+-- 67	Skill can Mirage Archer
+-- 68	?? (Excludes Volley on Vaal Fireball/Spark)
+-- 69	?? (Excludes Volley on Spectral Shield Throw)
+
+local function mapAST(ast)
+	if ast >= 38 then
+		return ast + 2
+	elseif ast >= 6 then
+		return ast + 1
+	else
+		return ast
+	end
+end
 
 local weaponClassMap = {
 	[6] = "Claw",
@@ -192,17 +206,17 @@ directiveTable.skill = function(state, args, out)
 		out:write('\tsupport = true,\n')
 		out:write('\trequireSkillTypes = { ')
 		for _, type in ipairs(granted.Data0) do
-			out:write(type, ', ')
+			out:write(mapAST(type), ', ')
 		end
 		out:write('},\n')
 		out:write('\taddSkillTypes = { ')
 		for _, type in ipairs(granted.Data1) do
-			out:write(type, ', ')
+			out:write(mapAST(type), ', ')
 		end
 		out:write('},\n')
 		out:write('\texcludeSkillTypes = { ')
 		for _, type in ipairs(granted.Data2) do
-			out:write(type, ', ')
+			out:write(mapAST(type), ', ')
 		end
 		out:write('},\n')
 	else
@@ -212,13 +226,13 @@ directiveTable.skill = function(state, args, out)
 		end
 		out:write('\tskillTypes = { ')
 		for _, type in ipairs(activeSkill.ActiveSkillTypes) do
-			out:write('[', type, '] = true, ')
+			out:write('[', mapAST(type), '] = true, ')
 		end
 		out:write('},\n')
 		if activeSkill.Unknown19[1] then
 			out:write('\tminionSkillTypes = { ')
 			for _, type in ipairs(activeSkill.Unknown19) do
-				out:write('[', type, '] = true, ')
+				out:write('[', mapAST(type), '] = true, ')
 			end
 			out:write('},\n')
 		end
@@ -240,7 +254,7 @@ directiveTable.skill = function(state, args, out)
 		end
 		local typeFlag = { }
 		for _, type in ipairs(activeSkill.ActiveSkillTypes) do
-			typeFlag[type] = true
+			typeFlag[mapAST(type)] = true
 		end
 		if typeFlag[32] then
 			gem.global = '{ type = "GlobalEffect", effectType = "Curse" }'
