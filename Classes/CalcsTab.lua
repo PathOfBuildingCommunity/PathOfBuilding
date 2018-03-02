@@ -60,7 +60,7 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 				self.build.buildFlag = true
 			end)
 		}, },
-		{ label = "Skill Part", flag = "multiPart", { controlName = "mainSkillPart", 
+		{ label = "Skill Part", playerFlag = "multiPart", { controlName = "mainSkillPart", 
 			control = common.New("DropDownControl", nil, 0, 0, 130, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcGem = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeGem.srcGem
@@ -353,6 +353,9 @@ function CalcsTabClass:CheckFlag(obj)
 				return
 			end
 		end
+	end
+	if obj.playerFlag and not self.calcsEnv.player.mainSkill.skillFlags[obj.playerFlag] then
+		return
 	end
 	if obj.notFlag and skillFlags[obj.notFlag] then
 		return
