@@ -221,6 +221,11 @@ function calcs.offence(env, actor)
 			output.ActiveMinionLimit = m_floor(calcLib.val(modDB, mainSkill.minion.minionData.limit, skillCfg))
 		end
 	end
+	if skillFlags.chaining then
+		output.ChainMax = modDB:Sum("BASE", skillCfg, "ChainCountMax")
+		output.Chain = m_min(output.ChainMax, modDB:Sum("BASE", skillCfg, "ChainCount"))
+		output.ChainRemaining = m_max(0, output.ChainMax - output.Chain)
+	end
 	if skillFlags.projectile then
 		if modDB:Sum("FLAG", nil, "PointBlank") then
 			modDB:NewMod("Damage", "MORE", 50, "Point Blank", bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{10,1},{35,0},{150,-1}} })

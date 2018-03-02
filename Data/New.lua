@@ -131,6 +131,15 @@ Requires Level 52
 12% increased Quantity of Items found when on Low Life
 20% increased Movement Speed
 ]],[[
+The Nomad
+Studded Belt
+(20-30)% increased Stun Duration on Enemies
+(25-40)% increased Global Physical Damage
++(40-50) to Strength
++(40-50) to Dexterity
++(20-25)% to all Elemental Resistances while you have at least 200 Strength
+47% increased Projectile Attack Damage while you have at least 200 Dexterity
+]],[[
 Panquetzaliztli
 Jagged Maul
 Requires Level 61
@@ -153,5 +162,25 @@ Adds 185 to 212 Physical Damage
 Cannot be Shocked while Chilled
 30% chance to Chill Attackers for 4 seconds on Block
 35% chance to Shock Attackers for 4 seconds on Block
+]],[[
+The Tactician
+Studded Belt
+(20-30)% increased Stun Duration on Enemies
+(25-40)% increased Global Physical Damage
++(40-50) to Strength
++(40-50) to Intelligence
+50% increased Flask Charges gained
++(20-25)% to all Elemental Resistances while you have at least 200 Strength
+60% increased Critical Strike Chance while you have at least 200 Intelligence
+]],[[
+Windshriek
+Reinforced Greaves
+Requires Level 60
+217% increased Armour
++(10-15)% to all Elemental Resistances
+25% increased Movement Speed
+(10-20)% increased Elemental Damage
+Enemies can have 1 additional Curse
+60% increased Area of Effect of Curse Skills
 ]],
 }

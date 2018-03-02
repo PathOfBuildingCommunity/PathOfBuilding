@@ -41,7 +41,7 @@ skills["Arc"] = {
 		[2] = skill("manaCost", nil), 
 		[3] = skill("LightningMin", nil), --"spell_minimum_base_lightning_damage"
 		[4] = skill("LightningMax", nil), --"spell_maximum_base_lightning_damage"
-		[5] = mod("ChainCount", "BASE", nil), --"number_of_additional_projectiles_in_chain"
+		[5] = mod("ChainCountMax", "BASE", nil), --"number_of_additional_projectiles_in_chain"
 	},
 	levels = {
 		[1] = { 12, 9, 2, 35, 2, },
@@ -103,7 +103,7 @@ skills["VaalArcChain"] = {
 		skill("damageEffectiveness", 0.8), 
 		skill("CritChance", 5), 
 		mod("EnemyShockChance", "BASE", 100), --"base_chance_to_shock_%" = 100
-		mod("ChainCount", "BASE", 40), --"number_of_additional_projectiles_in_chain" = 40
+		mod("ChainCountMax", "BASE", 40), --"number_of_additional_projectiles_in_chain" = 40
 	},
 	qualityMods = {
 		mod("EnemyShockDuration", "INC", 1.5), --"shock_duration_+%" = 1.5
@@ -3647,7 +3647,7 @@ skills["MagmaOrb"] = {
 		[2] = skill("manaCost", nil), 
 		[3] = skill("FireMin", nil), --"spell_minimum_base_fire_damage"
 		[4] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
-		[5] = mod("ChainCount", "BASE", nil), --"number_of_additional_projectiles_in_chain"
+		[5] = mod("ChainCountMax", "BASE", nil), --"number_of_additional_projectiles_in_chain"
 	},
 	levels = {
 		[1] = { 1, 5, 6, 9, 1, },
@@ -3712,7 +3712,7 @@ skills["OrbOfStorms"] = {
 		skill("CritChance", 5), 
 		skill("cooldown", 0.5), 
 		skill("duration", 6), --"base_skill_effect_duration" = 6000
-		mod("ChainCount", "BASE", 0), --"number_of_additional_projectiles_in_chain" = 0
+		mod("ChainCountMax", "BASE", 0), --"number_of_additional_projectiles_in_chain" = 0
 		--"storm_cloud_charged_damage_+%_final" = 0
 		--"skill_can_add_multiple_charges_per_action" = ?
 	},
@@ -5288,7 +5288,7 @@ skills["TempestShield"] = {
 		skill("CritChance", 6), 
 		mod("BlockChance", "BASE", 3, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"shield_block_%" = 3
 		--"skill_override_pvp_scaling_time_ms" = 700
-		mod("ChainCount", "BASE", 1), --"number_of_additional_projectiles_in_chain" = 1
+		mod("ChainCountMax", "BASE", 1), --"number_of_additional_projectiles_in_chain" = 1
 		skill("duration", 12), --"base_skill_effect_duration" = 12000
 		--"skill_can_add_multiple_charges_per_action" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?

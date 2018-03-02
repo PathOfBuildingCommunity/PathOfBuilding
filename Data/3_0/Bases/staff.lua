@@ -146,7 +146,7 @@ itemBases["Ezomyte Staff"] = {
 	weapon = { PhysicalMin = 46, PhysicalMax = 138, CritChanceBase = 6.4, AttackRateBase = 1.2, },
 	req = { level = 62, str = 113, int = 113, },
 }
-itemBases["Maelström Staff"] = {
+itemBases["Maelstrom Staff"] = {
 	type = "Staff",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
@@ -177,12 +177,4 @@ itemBases["Eclipse Staff"] = {
 	implicit = "100% increased Global Critical Strike Chance",
 	weapon = { PhysicalMin = 60, PhysicalMax = 125, CritChanceBase = 6, AttackRateBase = 1.2, },
 	req = { level = 70, str = 117, int = 117, },
-}
-itemBases["Maelstrom Staff"] = {
-	type = "Staff",
-	socketLimit = 6,
-	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },
-	implicit = "20% Chance to Block",
-	weapon = { PhysicalMin = 57, PhysicalMax = 119, CritChanceBase = 6, AttackRateBase = 1.2, },
-	req = { level = 64, str = 113, int = 113, },
 }

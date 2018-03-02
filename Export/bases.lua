@@ -39,6 +39,7 @@ directiveTable.base = function(state, args, out)
 	if not displayName then
 		displayName = baseItemType.Name
 	end
+	displayName = displayName:gsub("\195\182","o")
 	out:write('itemBases["', displayName, '"] = {\n')
 	out:write('\ttype = "', state.type, '",\n')
 	if state.subType and #state.subType > 0 then

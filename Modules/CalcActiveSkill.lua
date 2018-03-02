@@ -284,6 +284,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 		skillModFlags = bor(skillModFlags, ModFlag.Melee)
 	elseif skillFlags.projectile then
 		skillModFlags = bor(skillModFlags, ModFlag.Projectile)
+		skillFlags.chaining = true
 	end
 	if skillFlags.area then
 		skillModFlags = bor(skillModFlags, ModFlag.Area)

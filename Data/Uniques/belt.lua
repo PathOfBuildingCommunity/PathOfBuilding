@@ -209,7 +209,7 @@ Requires Level 16
 (25-40)% increased Physical Damage
 +(40-50) to Strength
 50% increased Flask Charges gained
-{variant:2}+(20-25)% to all Elemental Resistances with 200 or more Strength
+{variant:2}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
 ]],[[
 Maligaro's Restraint
 Chain Belt
