@@ -329,6 +329,9 @@ return {
 	{ var = "conditionShockedEnemyRecently", type = "check", label = "Have you Shocked an Enemy Recently?", ifCond = "ShockedEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ShockedEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "multiplierPoisonAppliedRecently", type = "number", label = "# of Poisons applied Recently:", ifMult = "PoisonAppliedRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:PoisonAppliedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionBeenHitRecently", type = "check", label = "Have you been Hit Recently?", ifCond = "BeenHitRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BeenHitRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -448,6 +451,9 @@ return {
 	{ section = "For Effective DPS", col = 1 },
 	{ var = "critChanceLucky", type = "check", label = "Is your Crit Chance Lucky?", apply = function(val, modList, enemyModList)
 		modList:NewMod("CritChanceLucky", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "skillChainCount", type = "number", label = "# of times Skill has Chained:", ifFlag = "chaining", apply = function(val, modList, enemyModList)
+		modList:NewMod("ChainCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "projectileDistance", type = "number", label = "Projectile travel distance:", ifFlag = "projectile" },
 	{ var = "conditionEnemyMoving", type = "check", label = "Is the enemy Moving?", apply = function(val, modList, enemyModList)

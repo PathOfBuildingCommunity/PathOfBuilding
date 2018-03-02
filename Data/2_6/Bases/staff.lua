@@ -146,7 +146,7 @@ itemBases["Ezomyte Staff"] = {
 	weapon = { PhysicalMin = 46, PhysicalMax = 138, CritChanceBase = 6.4, AttackRateBase = 1.2, },
 	req = { level = 62, str = 113, int = 113, },
 }
-itemBases["Maelström Staff"] = {
+itemBases["Maelstrom Staff"] = {
 	type = "Staff",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, staff = true, two_hand_weapon = true, },

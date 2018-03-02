@@ -710,7 +710,7 @@ skills["GoatmanFireMagmaOrb"] = {
 		mod("ProjectileCount", "BASE", 0), --"number_of_additional_projectiles" = 0
 		--"fire_mortar_second_hit_damage_+%_final" = -60
 		mod("Speed", "INC", 30, ModFlag.Cast), --"base_cast_speed_+%" = 30
-		mod("ChainCount", "BASE", 2), --"number_of_additional_projectiles_in_chain" = 2
+		mod("ChainCountMax", "BASE", 2), --"number_of_additional_projectiles_in_chain" = 2
 		--"is_area_damage" = ?
 		--"base_is_projectile" = ?
 	},
@@ -842,7 +842,7 @@ skills["GuardianArc"] = {
 		skill("damageEffectiveness", 0.7), 
 		skill("CritChance", 5), 
 		mod("EnemyShockChance", "BASE", 5), --"base_chance_to_shock_%" = 5
-		mod("ChainCount", "BASE", 0), --"number_of_additional_projectiles_in_chain" = 0
+		mod("ChainCountMax", "BASE", 0), --"number_of_additional_projectiles_in_chain" = 0
 		mod("Speed", "MORE", -80, ModFlag.Cast), --"active_skill_cast_speed_+%_final" = -80
 		--"spell_maximum_action_distance_+%" = -50
 		--"skill_art_variation" = 1
@@ -1352,7 +1352,7 @@ skills["MonsterArc"] = {
 		skill("damageEffectiveness", 0.7), 
 		skill("CritChance", 5), 
 		mod("EnemyShockChance", "BASE", 10), --"base_chance_to_shock_%" = 10
-		mod("ChainCount", "BASE", 1), --"number_of_additional_projectiles_in_chain" = 1
+		mod("ChainCountMax", "BASE", 1), --"number_of_additional_projectiles_in_chain" = 1
 		--"skill_range_+%" = -50
 	},
 	qualityMods = {

@@ -386,7 +386,7 @@ skills["SupportChain"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 50), 
-		mod("ChainCount", "BASE", 2), --"number_of_additional_projectiles_in_chain" = 2
+		mod("ChainCountMax", "BASE", 2), --"number_of_additional_projectiles_in_chain" = 2
 	},
 	qualityMods = {
 		mod("ProjectileSpeed", "INC", 1), --"base_projectile_speed_+%" = 1

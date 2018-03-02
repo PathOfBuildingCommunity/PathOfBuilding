@@ -1,3 +1,12 @@
+VERSION[1.4.80][2018/03/02]
+ * The maximum Chain count for chaining skills is now shown in the "Skill type-specific Stats" section of the Calcs tab
+ * Added an option to the Configuration tab for "# of times Skill has Chained"
+    * This allows all per-Chain modifiers to work, including Ricochet
+ * Added an option to the Configuration tab for "# of Poisons applied Recently"
+ * Added the following new uniques:
+    * The Nomad
+	* The Tactician
+    * Windshriek
 VERSION[1.4.79][2018/03/01]
  * Added an option to the Configuration tab for "Is there only one nearby Enemy?"
  * Updated Gladiator's "Blocked a Hit from a Unique Enemy" option to reflect the 3.2 change ("Recently" -> "past 10 seconds")

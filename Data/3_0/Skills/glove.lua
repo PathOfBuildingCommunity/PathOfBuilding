@@ -23,7 +23,7 @@ skills["EnchantmentOfBladesOnHit"] = {
 		skill("cooldown", 5), 
 		skill("PhysicalMin", 79), --"spell_minimum_base_physical_damage" = 79
 		skill("PhysicalMax", 126), --"spell_maximum_base_physical_damage" = 126
-		mod("ChainCount", "BASE", 3), --"number_of_additional_projectiles_in_chain" = 3
+		mod("ChainCountMax", "BASE", 3), --"number_of_additional_projectiles_in_chain" = 3
 		--"cast_on_hit_%" = 100
 		--"skill_art_variation" = 0
 		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2
@@ -57,7 +57,7 @@ skills["EnchantmentOfBladesOnHit2"] = {
 		skill("cooldown", 5), 
 		skill("PhysicalMin", 381), --"spell_minimum_base_physical_damage" = 381
 		skill("PhysicalMax", 585), --"spell_maximum_base_physical_damage" = 585
-		mod("ChainCount", "BASE", 3), --"number_of_additional_projectiles_in_chain" = 3
+		mod("ChainCountMax", "BASE", 3), --"number_of_additional_projectiles_in_chain" = 3
 		--"cast_on_hit_%" = 100
 		--"skill_art_variation" = 0
 		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2
@@ -91,7 +91,7 @@ skills["EnchantmentOfBladesOnHit3"] = {
 		skill("cooldown", 5), 
 		skill("PhysicalMin", 985), --"spell_minimum_base_physical_damage" = 985
 		skill("PhysicalMax", 1477), --"spell_maximum_base_physical_damage" = 1477
-		mod("ChainCount", "BASE", 3), --"number_of_additional_projectiles_in_chain" = 3
+		mod("ChainCountMax", "BASE", 3), --"number_of_additional_projectiles_in_chain" = 3
 		--"cast_on_hit_%" = 100
 		--"skill_art_variation" = 0
 		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2
@@ -125,7 +125,7 @@ skills["EnchantmentOfBladesOnHit4"] = {
 		skill("cooldown", 5), 
 		skill("PhysicalMin", 1833), --"spell_minimum_base_physical_damage" = 1833
 		skill("PhysicalMax", 2903), --"spell_maximum_base_physical_damage" = 2903
-		mod("ChainCount", "BASE", 4), --"number_of_additional_projectiles_in_chain" = 4
+		mod("ChainCountMax", "BASE", 4), --"number_of_additional_projectiles_in_chain" = 4
 		--"cast_on_hit_%" = 100
 		--"skill_art_variation" = 0
 		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2

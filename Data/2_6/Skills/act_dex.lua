@@ -5128,7 +5128,7 @@ skills["WildStrike"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = mod("Damage", "MORE", nil, ModFlag.Attack), 
-		[3] = mod("ChainCount", "BASE", nil), --"number_of_additional_projectiles_in_chain"
+		[3] = mod("ChainCountMax", "BASE", nil), --"number_of_additional_projectiles_in_chain"
 		[4] = mod("AreaOfEffect", "INC", nil), --"base_skill_area_of_effect_+%"
 	},
 	levels = {

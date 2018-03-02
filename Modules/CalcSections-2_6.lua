@@ -382,6 +382,7 @@ return {
 		{ modName = "Duration", cfg = "skill" }, 
 	}, },
 	{ label = "Skill Duration", flag = "duration", haveOutput = "Duration", { format = "{2:output:Duration}s", { breakdown = "Duration" }, }, },
+	{ label = "Max Chain Count", flag = "chaining", { format = "{0:output:ChainMax}", { modName = "ChainCountMax", cfg = "skill" }, }, }, 
 	{ label = "Projectile Count", flag = "projectile", { format = "{0:output:ProjectileCount}", { modName = "ProjectileCount", cfg = "skill" }, }, },
 	{ label = "Pierce Chance", flag = "projectile", { format = "{0:output:PierceChance}%", { modName = "PierceChance", cfg = "skill" }, }, },
 	{ label = "Proj. Speed Mod", flag = "projectile", { format = "x {2:output:ProjectileSpeedMod}",

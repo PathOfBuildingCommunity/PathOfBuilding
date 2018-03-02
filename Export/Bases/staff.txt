@@ -5,4 +5,3 @@ local itemBases = ...
 #baseTags weapon twohand staff two_hand_weapon
 #socketLimit 6
 #baseMatch Metadata/Items/Weapons/TwoHandWeapons/Staves/Staff
-#base Metadata/Items/Weapons/TwoHandWeapons/Staves/Staff17 Maelstrom Staff

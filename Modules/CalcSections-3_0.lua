@@ -423,6 +423,7 @@ return {
 	}, },
 	{ label = "Skill Duration", flag = "duration", haveOutput = "Duration", { format = "{2:output:Duration}s", { breakdown = "Duration" }, }, },
 	{ label = "Secondary Duration", flag = "duration", haveOutput = "DurationSecondary", { format = "{2:output:DurationSecondary}s", { breakdown = "DurationSecondary" }, }, },
+	{ label = "Max Chain Count", flag = "chaining", { format = "{0:output:ChainMax}", { modName = "ChainCountMax", cfg = "skill" }, }, }, 
 	{ label = "Projectile Count", flag = "projectile", { format = "{0:output:ProjectileCount}", { modName = "ProjectileCount", cfg = "skill" }, }, },
 	{ label = "Pierce Count", flag = "projectile", { format = "{output:PierceCountString}", { modName = { "PierceCount", "PierceAllTargets" }, cfg = "skill" }, }, },
 	{ label = "Proj. Speed Mod", flag = "projectile", { format = "x {2:output:ProjectileSpeedMod}",
