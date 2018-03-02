@@ -62,7 +62,7 @@ itemBases["Etched Hatchet"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, axe = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "8% increased Physical Damage",
+	implicit = "8% increased Global Physical Damage",
 	weapon = { PhysicalMin = 26, PhysicalMax = 46, CritChanceBase = 5, AttackRateBase = 1.35, },
 	req = { level = 35, str = 93, dex = 43, },
 }
@@ -119,7 +119,7 @@ itemBases["Engraved Hatchet"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, axe = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "8% increased Physical Damage",
+	implicit = "8% increased Global Physical Damage",
 	weapon = { PhysicalMin = 40, PhysicalMax = 71, CritChanceBase = 5, AttackRateBase = 1.35, },
 	req = { level = 56, str = 143, dex = 66, },
 }
@@ -176,7 +176,7 @@ itemBases["Runic Hatchet"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, axe = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "12% increased Physical Damage",
+	implicit = "12% increased Global Physical Damage",
 	weapon = { PhysicalMin = 44, PhysicalMax = 79, CritChanceBase = 5, AttackRateBase = 1.35, },
 	req = { level = 71, str = 163, dex = 82, },
 }

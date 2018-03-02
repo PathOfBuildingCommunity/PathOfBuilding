@@ -270,6 +270,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 26)
 #mods
 
+#skill EnduranceChargeSlam
+#flags attack melee area
+#mods
+
 #skill Vengeance
 #flags attack melee area
 #mods

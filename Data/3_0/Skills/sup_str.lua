@@ -78,12 +78,12 @@ skills["SupportSpiritStrike"] = {
 	gemStr = 100,
 	gemDex = 0,
 	gemInt = 0,
-	description = "Supports single-target melee attack skills, causing them to attack multiple targets simultaneously. If supporting a minion attack skill, the minion's skills will not also attack multiple targets.",
+	description = "Supports single-target melee attack skills, causing them to attack multiple targets simultaneously. If supporting a minion attack skill, the minion's skills will not also attack multiple targets. Cannot support triggered skills.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { 25, },
 	addSkillTypes = { },
-	excludeSkillTypes = { },
+	excludeSkillTypes = { 47, },
 	baseMods = {
 		mod("ManaCost", "MORE", 40), 
 		--"melee_attack_number_of_spirit_strikes" = 2
@@ -808,6 +808,7 @@ skills["EnduranceChargeOnMeleeStun"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 10), 
+		mod("Damage", "MORE", 3, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }), --"endurance_charge_on_melee_stun_damage_+%_final_per_endurance_charge" = 3
 		--"gain_endurance_charge_on_melee_stun" = ?
 	},
 	qualityMods = {

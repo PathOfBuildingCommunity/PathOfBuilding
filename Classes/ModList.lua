@@ -154,7 +154,15 @@ function ModListClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "PerStat" then
-			local base = self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0
+			local base
+			if tag.statList then
+				base = 0
+				for _, stat in ipairs(tag.statList) do
+					base = base + (self.actor.output[stat] or (cfg and cfg.skillStats and cfg.skillStats[stat]) or 0)
+				end
+			else
+				base = self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0
+			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
 			if tag.limit or tag.limitVar then
@@ -185,7 +193,15 @@ function ModListClass:EvalMod(mod, cfg)
 				end
 			end
 		elseif tag.type == "StatThreshold" then
-			local stat = self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0
+			local stat
+			if tag.statList then
+				stat = 0
+				for _, stat in ipairs(tag.statList) do
+					stat = stat + (self.actor.output[stat] or (cfg and cfg.skillStats and cfg.skillStats[stat]) or 0)
+				end
+			else
+				stat = self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0
+			end
 			local threshold = tag.threshold or (self.actor.output[tag.thresholdStat] or (cfg and cfg.skillStats and cfg.skillStats[tag.thresholdStat]) or 0)
 			if (tag.upper and stat > threshold) or (not tag.upper and stat < threshold) then
 				return

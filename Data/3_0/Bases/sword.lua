@@ -206,7 +206,6 @@ itemBases["Tiger Hook"] = {
 
 itemBases["Charan's Sword"] = {
 	type = "One Handed Sword",
-	hidden = true,
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, sword = true, one_hand_weapon = true, not_for_sale = true, },
 	implicit = "40% increased Accuracy Rating",

@@ -115,5 +115,14 @@ local skills, mod, flag, skill = ...
 #skill SupportStormBarrier
 #mods
 
+#skill SupportSummonGhostOnKill
+	addFlags = {
+		minion = true,
+	},
+	addMinionList = {
+		"SummonedPhantasm"
+	},
+#mods
+
 #skill SupportAilments
 #mods
