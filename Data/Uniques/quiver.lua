@@ -64,7 +64,7 @@ Implicits: 2
 +(40-50) to maximum Life
 Adds (10-14) to (19-24) Physical Damage to Attacks with Bows
 {variant:1}Projectile Damage increased by 50% of Arrow Pierce Chance
-{variant:2}Arrows deal 50% increased Damage against Pierced Targets
+{variant:2}Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce
 ]],[[
 The Fracturing Spinner
 Blunt Arrow Quiver
