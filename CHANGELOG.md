@@ -1,3 +1,21 @@
+### 1.4.83 - 2018/03/03
+ * Added the following new uniques:
+    * Crystal Vault
+	* Dreadbeak
+	* Dreadsurge
+	* Duskblight
+	* Frostferno
+    * Geofri's Devotion
+	* Mark of the Elder
+	* Mark of the Red Covenant
+	* Mark of the Shaper
+	* Mirebough
+	* Sunspite
+    * Timetwist
+	* Wildwrap
+    * Winterweave
+ * Updated Doryani's Fist with the new stat wording; this stops it from incorrectly benefiting Spectral Shield Throw
+
 ### 1.4.82 - 2018/03/03
  * Fixed a few odd UI glitches when using Summon Phantasm on Kill with an active skill that has multiple parts
     * A side effect is that the sidebar stat box now expands upwards to fill any empty space below the main skill selector

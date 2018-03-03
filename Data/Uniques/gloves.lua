@@ -25,7 +25,7 @@ Requires Level 63, 100 Str
 {variant:2}Grants level 20 Doryani's Touch Skill
 +30 to maximum Energy Shield
 10% chance to Shock
-Adds (225-335) to (785-900) Lightning Damage to Attacks while Unarmed
+Adds (225-335) to (785-900) Lightning Damage to Unarmed Attacks
 Adds (60-90) to (210-240) Lightning Damage to Spells while Unarmed
 +30 Energy Shield gained on Killing a Shocked Enemy
 ]],[[

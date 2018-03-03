@@ -89,6 +89,25 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill OnHitWhileCursedTriggeredCurseNova
+#flags spell projectile duration
+	fromItem = true,
+	parts = {
+		{
+			name = "Convert to fire",
+		},
+		{
+			name = "Convert to cold",
+		},
+		{
+			name = "Convert to lightning",
+		},
+	},
+	#baseMod mod("SkillPhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 })
+	#baseMod mod("SkillPhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 2 })
+	#baseMod mod("SkillPhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 3 })
+#mods
+
 #skill Envy
 #flags spell aura area chaos
 #baseMod skill("radius", 36)
@@ -238,6 +257,16 @@ local skills, mod, flag, skill = ...
 	minionList = {
 		"SummonedSpectralWolf",
 	},
+#mods
+
+#skill SummonVoidSphere Summon Volatile Anomaly
+#flags spell area duration
+	fromItem = true,
+#mods
+
+#skill TentacleSmash
+#flags attack area
+	fromItem = true,
 #mods
 
 #skill VoidGaze
