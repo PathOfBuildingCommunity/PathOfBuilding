@@ -634,6 +634,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				if type(v) == "string" then
 					tag[k] = v:gsub("{SlotName}", slotName)
 							  :gsub("{Hand}", (slotNum == 1) and "MainHand" or "OffHand")
+							  :gsub("{OtherSlotNum}", slotNum == 1 and "2" or "1")
 				end
 			end
 		end

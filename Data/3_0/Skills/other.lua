@@ -547,6 +547,55 @@ skills["SupportElementalPenetration"] = {
 		[20] = { 70, },
 	},
 }
+skills["OnHitWhileCursedTriggeredCurseNova"] = {
+	name = "Elemental Warding",
+	hidden = true,
+	color = 4,
+	description = "Fires projectiles in a nova, converting all their physical damage to a random element, and grants a buff which makes you immune to curses for a duration.",
+	skillTypes = { [2] = true, [10] = true, [36] = true, [42] = true, [61] = true, [3] = true, [68] = true, [33] = true, [34] = true, [35] = true, [45] = true, [60] = true, [12] = true, [5] = true, },
+	fromItem = true,
+	parts = {
+		{
+			name = "Convert to fire",
+		},
+		{
+			name = "Convert to cold",
+		},
+		{
+			name = "Convert to lightning",
+		},
+	},
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("CritChance", 7), 
+		skill("cooldown", 10), 
+		skill("PhysicalMin", 1999), --"spell_minimum_base_physical_damage" = 1999
+		skill("PhysicalMax", 2998), --"spell_maximum_base_physical_damage" = 2998
+		mod("ProjectileCount", "BASE", 16), --"number_of_additional_projectiles" = 16
+		--"elemental_strike_physical_damage_%_to_convert" = 100
+		--"cast_on_hit_if_cursed_%" = 100
+		skill("duration", 3), --"base_skill_effect_duration" = 3000
+		--"base_is_projectile" = ?
+		--"projectiles_nova" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+		mod("SkillPhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }), 
+		mod("SkillPhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 3 }), 
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 70, },
+	},
+}
 skills["Envy"] = {
 	name = "Envy",
 	hidden = true,
@@ -1442,6 +1491,71 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[18] = { 66, },
+	},
+}
+skills["SummonVoidSphere"] = {
+	name = "Summon Volatile Anomaly",
+	hidden = true,
+	color = 3,
+	description = "Creates an orb which moves towards nearby enemies, exploding after a duration or when it gets close enough. The explosion deals cold spell damage in an area, and leaves behind a Vortex on the ground for a secondary duration which continues to deal cold damage over time and chill enemies caught in it.",
+	skillTypes = { [2] = true, [36] = true, [42] = true, [61] = true, [12] = true, [11] = true, [10] = true, [34] = true, [60] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("cooldown", 2), 
+		--"chance_to_cast_on_kill_%" = 20
+		skill("duration", 8), --"base_skill_effect_duration" = 8000
+		skill("durationSecondary", 4), --"base_secondary_skill_effect_duration" = 4000
+		--"ground_maelstrom_art_variation" = 5
+		--"chilled_ground_base_magnitude_override" = 10
+		skill("ColdMin", 895), --"spell_minimum_base_cold_damage" = 895
+		skill("ColdMax", 1342), --"spell_maximum_base_cold_damage" = 1342
+		skill("ColdDot", 1553.2666666667), --"base_cold_damage_to_deal_per_minute" = 93196
+		--"is_area_damage" = ?
+		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_skill_dot" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 70, },
+	},
+}
+skills["TentacleSmash"] = {
+	name = "Tentacle Whip",
+	hidden = true,
+	color = 4,
+	description = "This attack causes three otherworldly tentacles to strike the ground around you, each dealing your attack damage in an area.",
+	skillTypes = { [1] = true, [10] = true, [11] = true, [7] = true, [57] = true, [47] = true, [61] = true, },
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("baseMultiplier", 2.5), 
+		skill("cooldown", 2), 
+		--"attack_trigger_on_kill_%" = 20
+		--"is_area_damage" = ?
+		--"attack_unusable_if_triggerable" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 70, },
 	},
 }
 skills["VoidGaze"] = {

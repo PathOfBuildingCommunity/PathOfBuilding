@@ -924,7 +924,7 @@ function calcs.offence(env, actor)
 							taken = taken + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
 						end
 						local effMult = (1 + taken / 100)
-						if not isElemental[damageType] or not modDB:Sum("FLAG", cfg, "IgnoreElementalResistances") then
+						if not isElemental[damageType] or not modDB:Sum("FLAG", cfg, "IgnoreElementalResistances", "Ignore"..damageType.."Resistance") then
 							effMult = effMult * (1 - (resist - pen) / 100)
 						end
 						min = min * effMult

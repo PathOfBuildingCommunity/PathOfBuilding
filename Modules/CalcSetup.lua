@@ -475,11 +475,13 @@ function calcs.initEnv(build, mode, override)
 				end
 				if item.shaper then
 					env.modDB.multipliers.ShaperItem = (env.modDB.multipliers.ShaperItem or 0) + 1
+					env.modDB.conditions["ShaperItemIn"..slotName] = true
 				else
 					env.modDB.multipliers.NonShaperItem = (env.modDB.multipliers.NonShaperItem or 0) + 1
 				end
 				if item.elder then
 					env.modDB.multipliers.ElderItem = (env.modDB.multipliers.ElderItem or 0) + 1
+					env.modDB.conditions["ElderItemIn"..slotName] = true
 				else
 					env.modDB.multipliers.NonElderItem = (env.modDB.multipliers.NonElderItem or 0) + 1
 				end

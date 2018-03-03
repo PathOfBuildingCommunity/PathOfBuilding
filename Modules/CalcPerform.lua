@@ -307,7 +307,7 @@ local function doActorMisc(env, actor)
 		end
 		if modDB:Sum("FLAG", nil, "Chill") then
 			local effect = m_max(m_floor(30 * calcLib.mod(modDB, nil, "SelfChillEffect")), 0)
-			modDB:NewMod("ActionSpeed", "INC", -effect, "Chill")
+			modDB:NewMod("ActionSpeed", "INC", effect * (modDB:Sum("FLAG", nil, "SelfChillEffectIsReversed") and 1 or -1), "Chill")
 		end
 		if modDB:Sum("FLAG", nil, "Freeze") then
 			local effect = m_max(m_floor(70 * calcLib.mod(modDB, nil, "SelfChillEffect")), 0)
@@ -774,8 +774,9 @@ function calcs.perform(env)
 				if modDB:Sum("BASE", nil, "AvoidCurse") < 100 then
 					modDB.conditions["Cursed"] = true
 					modDB.multipliers["CurseOnSelf"] = (modDB.multipliers["CurseOnSelf"] or 0) + 1
-					local inc = modDB:Sum("INC", nil, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
-					local more = modDB:Sum("MORE", nil, "CurseEffectOnSelf")
+					local cfg = { skillName = value.name }
+					local inc = modDB:Sum("INC", cfg, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
+					local more = modDB:Sum("MORE", cfg, "CurseEffectOnSelf")
 					modDB:ScaleAddList(curseModList, (1 + inc / 100) * more)
 				end
 			elseif not enemyDB:Sum("FLAG", nil, "Hexproof") or modDB:Sum("FLAG", nil, "CursesIgnoreHexproof") then
