@@ -329,6 +329,7 @@ skills["SpiderAspect"] = {
 	fromItem = true,
 	baseFlags = {
 		cast = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 

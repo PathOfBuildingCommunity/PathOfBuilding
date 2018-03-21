@@ -57,7 +57,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SpiderAspect
-#flags cast
+#flags cast duration
 #setMod base_movement_velocity_+%==nil
 #setMod base_damage_taken_+%==mod("DamageTaken", "INC", {val}, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Spider's Web" })
 #baseMod skill("debuff", true)

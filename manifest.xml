@@ -183,7 +183,7 @@
 	<File sha1="0558cea1f967fab3a09ce87d03769f0254d92eac" name="Data/3_0/Skills/act_str.lua" part="program"/>
 	<File sha1="cf18f3c4c26df1ed5cb5a9e9254c2a78388ad955" name="Data/3_0/Skills/glove.lua" part="program"/>
 	<File sha1="5bc63cc97cbf26c3a2bafea570b2ac5a22ed1388" name="Data/3_0/Skills/minion.lua" part="program"/>
-	<File sha1="e1d695c830c2dd9183b516955ba8d5e60487fce2" name="Data/3_0/Skills/other.lua" part="program"/>
+	<File sha1="00197c8d025137ca0485611e3abdda6e6ba24930" name="Data/3_0/Skills/other.lua" part="program"/>
 	<File sha1="828e0e615ea163e33c1a3dcbbcbe543467c34461" name="Data/3_0/Skills/spectre.lua" part="program"/>
 	<File sha1="5ad58571bfb4314106a05a5d009270e99b1b809c" name="Data/3_0/Skills/sup_dex.lua" part="program"/>
 	<File sha1="a3d2c3b0b5c2c5648013ee795917542f74bf4f2f" name="Data/3_0/Skills/sup_int.lua" part="program"/>
