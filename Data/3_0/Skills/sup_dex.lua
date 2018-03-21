@@ -1052,7 +1052,7 @@ skills["SupportDamageAgainstChilled"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Condition", actor = "enemy", var = "Chilled" }), --"support_hypothermia_damage_+%_vs_chilled_enemies_final"
+		[2] = mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "Chilled" }), --"support_hypothermia_damage_+%_vs_chilled_enemies_final"
 	},
 	levels = {
 		[1] = { 31, 20, },

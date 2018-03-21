@@ -310,7 +310,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		self.displayItem.shaper = (index == 2)
 		self.displayItem.elder = (index == 3)
 		if self.displayItem.crafted then
-			for i = 1, 6 do
+			for i = 1, self.displayItem.affixLimit do
 				-- Force affix selectors to update
 				local drop = self.controls["displayItemAffix"..i]
 				drop.selFunc(drop.selIndex, drop.list[drop.selIndex])
@@ -1423,6 +1423,7 @@ function ItemsTabClass:EnchantDisplayItem()
 	controls.labyrinthLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Labyrinth:")
 	controls.labyrinth = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 100, 18, labyrinthList, function(index, value)
 		buildEnchantmentList()
+		controls.enchantment:SetSel(m_min(controls.enchantment.selIndex, #enchantmentList))
 	end)
 	controls.enchantmentLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 70, 0, 16, "^7Enchantment:")
 	controls.enchantment = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 70, 440, 18, enchantmentList)
