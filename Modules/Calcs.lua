@@ -167,10 +167,10 @@ function calcs.buildOutput(build, mode)
 			end
 		end
 		local function addMult(out, var, mod)
-			if not env.multipliersUsed[var] then
-				env.multipliersUsed[var] = { }
+			if not out[var] then
+				out[var] = { }
 			end
-			t_insert(env.multipliersUsed[var], mod)
+			t_insert(out[var], mod)
 		end
 		local function addMultTag(out, tag, mod)
 			if tag.varList then

@@ -889,6 +889,9 @@ function calcs.perform(env)
 		end
 	end
 
+	-- Merge keystones again to catch any that were added by buffs
+	mergeKeystones(env)
+
 	-- Special handling for Dancing Dervish
 	if modDB:Sum("FLAG", nil, "DisableWeapons") then
 		env.player.weaponData1 = copyTable(env.data.unarmedWeaponData[env.classId])
