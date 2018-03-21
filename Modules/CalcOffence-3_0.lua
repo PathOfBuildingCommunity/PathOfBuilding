@@ -389,11 +389,11 @@ function calcs.offence(env, actor)
 		debuffDurationMult = 1
 	end
 	do
-		output.DurationMod = calcLib.mod(modDB, skillCfg, "Duration", "SkillAndDamagingAilmentDuration")
+		output.DurationMod = calcLib.mod(modDB, skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration")
 		if breakdown then
-			breakdown.DurationMod = breakdown.mod(skillCfg, "Duration", "SkillAndDamagingAilmentDuration")
+			breakdown.DurationMod = breakdown.mod(skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration")
 		end
-		local durationBase = skillData.duration or 0
+		local durationBase = (skillData.duration or 0) + modDB:Sum("BASE", skillCfg, "Duration", "PrimaryDuration")
 		if durationBase > 0 then
 			output.Duration = durationBase * output.DurationMod
 			if skillData.debuff then
@@ -412,7 +412,7 @@ function calcs.offence(env, actor)
 				t_insert(breakdown.Duration, s_format("= %.2fs", output.Duration))
 			end
 		end
-		durationBase = skillData.durationSecondary or 0
+		durationBase = (skillData.durationSecondary or 0) + modDB:Sum("BASE", skillCfg, "Duration", "SecondaryDuration")
 		if durationBase > 0 then
 			local durationMod = calcLib.mod(modDB, skillCfg, "Duration", "SecondaryDuration", "SkillAndDamagingAilmentDuration")
 			output.DurationSecondary = durationBase * durationMod
@@ -1226,7 +1226,6 @@ function calcs.offence(env, actor)
 			local more = round(modDB:Sum("MORE", dotCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil), 2)
 			local total = baseVal * (1 + inc/100) * more * effMult
 			if skillFlags.aura then
-				-- This might not be correct
 				total = total * calcLib.mod(modDB, dotCfg, "AuraEffect")
 			end
 			output[damageType.."Dot"] = total

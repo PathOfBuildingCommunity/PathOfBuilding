@@ -332,7 +332,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	if skillTypes[SkillType.Attack] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Attack)
 	end
-	if skillTypes[SkillType.Spell] then
+	if skillTypes[SkillType.Spell] and not skillFlags.cast then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Spell)
 	end
 
@@ -545,7 +545,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 					cond = effectTag.effectCond,
 					modList = { },
 				}
-				if not effectTag.effectName then
+				if skillModList[i].source == activeGem.grantedEffect.modSource then
 					-- Inherit buff configuration from the active skill
 					buff.activeSkillBuff = true
 					buff.applyNotPlayer = activeSkill.skillData.buffNotPlayer

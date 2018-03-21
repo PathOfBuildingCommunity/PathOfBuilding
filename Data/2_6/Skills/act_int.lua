@@ -1965,7 +1965,7 @@ skills["FlameWhip"] = {
 	baseMods = {
 		skill("castTime", 0.5), 
 		skill("CritChance", 6), 
-		mod("Damage", "MORE", 50, bit.bor(ModFlag.Spell, ModFlag.Hit), 0, { type = "EnemyCondition", var = "Burning" }), --"flame_whip_damage_+%_final_vs_burning_enemies" = 50
+		mod("Damage", "MORE", 50, bit.bor(ModFlag.Spell, ModFlag.Hit), 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }), --"flame_whip_damage_+%_final_vs_burning_enemies" = 50
 		flag("CannotIgnite"), --"never_ignite" = ?
 		--"is_area_damage" = ?
 		skill("radius", 30), 
@@ -4378,6 +4378,7 @@ skills["FireBeam"] = {
 		mod("FireResist", "BASE", -3, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }), --"fire_beam_enemy_fire_resistance_%_per_stack" = -3
 		--"fire_beam_enemy_fire_resistance_%_maximum" = -24
 		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_damage_over_time" = ?
+		skill("stackCount", 1, { type = "SkillPart", skillPart = 1 }), 
 		skill("stackCount", 4, { type = "SkillPart", skillPart = 2 }), 
 		skill("stackCount", 8, { type = "SkillPart", skillPart = 3 }), 
 		mod("Damage", "MORE", 180, 0, 0, { type = "SkillPart", skillPart = 2 }), 
@@ -5525,6 +5526,7 @@ skills["Wither"] = {
 		nil, --"base_skill_effect_duration" = 500
 		skill("duration", 2), --"base_secondary_skill_effect_duration" = 2000
 		skill("debuff", true), 
+		skill("stackCount", 1, { type = "SkillPart", skillPart = 1 }), 
 		skill("stackCount", 5, { type = "SkillPart", skillPart = 2 }), 
 		skill("stackCount", 10, { type = "SkillPart", skillPart = 3 }), 
 		skill("stackCount", 20, { type = "SkillPart", skillPart = 4 }), 

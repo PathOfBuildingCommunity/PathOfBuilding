@@ -478,7 +478,7 @@ Curse Enemies with level 5 Vulnerability on Block
 Vix Lunaris
 Cardinal Round Shield
 Requires Level: 66
-+2 to Level of Socketed Fire Gems 
++2 to Level of Socketed Gems 
 Triggers Level 20 Cold Aegis when Equipped 
 (200–250)% increased Armour and Evasion 
 +(60–80) to maximum Life 

@@ -967,14 +967,14 @@ skills["SupportDamageAgainstChilled"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 20), 
-		mod("EnemyFreezeChance", "BASE", 10, ModFlag.Hit, 0, { type = "EnemyCondition", var = "Chilled" }), --"additional_chance_to_freeze_chilled_enemies_%" = 10
+		mod("EnemyFreezeChance", "BASE", 10, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }), --"additional_chance_to_freeze_chilled_enemies_%" = 10
 	},
 	qualityMods = {
 		mod("EnemyChillDuration", "INC", 1.5), --"chill_duration_+%" = 1.5
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "EnemyCondition", var = "Chilled" }), --"support_hypothermia_damage_+%_vs_chilled_enemies_final"
+		[2] = mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }), --"support_hypothermia_damage_+%_vs_chilled_enemies_final"
 	},
 	levels = {
 		[1] = { 31, 20, },
@@ -1030,7 +1030,7 @@ skills["SupportFrenzyChargeOnSlayingFrozenEnemy"] = {
 		mod("EnemyFreezeChance", "BASE", 15), --"base_chance_to_freeze_%" = 15
 	},
 	qualityMods = {
-		mod("Damage", "INC", 1, ModFlag.Hit, 0, { type = "EnemyCondition", var = "Frozen" }), --"damage_+%_vs_frozen_enemies" = 1
+		mod("Damage", "INC", 1, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }), --"damage_+%_vs_frozen_enemies" = 1
 	},
 	levelMods = {
 		[1] = nil, 

@@ -1,3 +1,22 @@
+VERSION[1.4.84][2018/03/21]
+ * Added the following new uniques:
+	* All 16 uniques from the Beastiary bosses (including all granted skills and associated mechanics)
+    * Asenath's Chant
+	* The Effigon
+	* Hyrri's Demise
+	* Indigon (partial)
+	* Loreweave
+	* Malachai's Awakening
+	* Sanguine Gambol
+	* Voidforge (partial; the random extra damage cannot be simulated yet)
+ * Updated the modifier rolls on Panquetzalibizapizzatli
+ * Updated the modifier rolls on several other new uniques
+ * Updated the stat parsing to account for various stat wording changes made in 3.2
+    * Notably, this fixes the various additional Arrow/Projectile stats that were no longer being recognised
+ * Added support for the Icicle Burst skill granted by Cameria's Avarice
+ * Added options to the Configuration tab to override the number of Power/Frenzy/Endurance Charges used when they are enabled
+ * Added an option to the Configuration tab for "Energy Shield Recharge started Recently?"
+ * Fixed error caused by Zizaran trying to add mods onto an item
 VERSION[1.4.83][2018/03/03]
  * Added the following new uniques:
     * Crystal Vault

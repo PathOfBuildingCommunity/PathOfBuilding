@@ -64,6 +64,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4
 		Classes\MinionListControl.lua = Classes\MinionListControl.lua
 		Classes\ModDB.lua = Classes\ModDB.lua
 		Classes\ModList.lua = Classes\ModList.lua
+		Classes\ModStore.lua = Classes\ModStore.lua
 		Classes\NotesTab.lua = Classes\NotesTab.lua
 		Classes\PassiveSpec.lua = Classes\PassiveSpec.lua
 		Classes\PassiveSpecListControl.lua = Classes\PassiveSpecListControl.lua

@@ -47,8 +47,8 @@ function calcs.defence(env, actor)
 			max = 100
 			total = 100
 		else
-			max = modDB:Sum("BASE", nil, elem.."ResistMax")
-			total = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
+			max = modDB:Sum("OVERRIDE", nil, elem.."ResistMax") or modDB:Sum("BASE", nil, elem.."ResistMax")
+			total = modDB:Sum("OVERRIDE", nil, elem.."Resist") or modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
 		end
 		output[elem.."Resist"] = m_min(total, max)
 		output[elem.."ResistTotal"] = total
@@ -57,7 +57,6 @@ function calcs.defence(env, actor)
 			breakdown[elem.."Resist"] = {
 				"Max: "..max.."%",
 				"Total: "..total.."%",
-				"In hideout: "..(total + 60).."%",
 			}
 		end
 	end
