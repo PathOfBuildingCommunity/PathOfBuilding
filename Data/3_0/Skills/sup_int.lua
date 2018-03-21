@@ -1061,8 +1061,8 @@ skills["SupportImmolation"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("FireMin", "BASE", nil, 0, 0, { type = "EnemyCondition", var = "Burning" }), --"support_minimum_added_fire_damage_vs_burning_enemies"
-		[3] = mod("FireMax", "BASE", nil, 0, 0, { type = "EnemyCondition", var = "Burning" }), --"support_maximum_added_fire_damage_vs_burning_enemies"
+		[2] = mod("FireMin", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }), --"support_minimum_added_fire_damage_vs_burning_enemies"
+		[3] = mod("FireMax", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }), --"support_maximum_added_fire_damage_vs_burning_enemies"
 	},
 	levels = {
 		[1] = { 38, 42, 63, },
@@ -1307,8 +1307,8 @@ skills["SupportOnslaughtOnSlayingShockedEnemy"] = {
 		[1] = nil, 
 		[2] = mod("LightningMin", "BASE", nil), --"global_minimum_added_lightning_damage"
 		[3] = mod("LightningMax", "BASE", nil), --"global_maximum_added_lightning_damage"
-		[4] = mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Innervation", effectCond = "Innervation" }), --"support_innervate_minimum_added_lightning_damage"
-		[5] = mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Innervation", effectCond = "Innervation" }), --"support_innervate_maximum_added_lightning_damage"
+		[4] = mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Innervation", effectCond = "InnervationActive" }), --"support_innervate_minimum_added_lightning_damage"
+		[5] = mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Innervation", effectCond = "InnervationActive" }), --"support_innervate_maximum_added_lightning_damage"
 	},
 	levels = {
 		[1] = { 31, 1, 25, 1, 17, },

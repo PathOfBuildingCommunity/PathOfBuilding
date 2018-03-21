@@ -1044,7 +1044,7 @@ skills["SupportDamageAgainstChilled"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 20), 
-		mod("EnemyFreezeChance", "BASE", 10, ModFlag.Hit, 0, { type = "EnemyCondition", var = "Chilled" }), --"additional_chance_to_freeze_chilled_enemies_%" = 10
+		mod("EnemyFreezeChance", "BASE", 10, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }), --"additional_chance_to_freeze_chilled_enemies_%" = 10
 		mod("EnemyChillEffect", "INC", 20), --"chill_effect_+%" = 20
 	},
 	qualityMods = {
@@ -1052,7 +1052,7 @@ skills["SupportDamageAgainstChilled"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "EnemyCondition", var = "Chilled" }), --"support_hypothermia_damage_+%_vs_chilled_enemies_final"
+		[2] = mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Condition", actor = "enemy", var = "Chilled" }), --"support_hypothermia_damage_+%_vs_chilled_enemies_final"
 	},
 	levels = {
 		[1] = { 31, 20, },
@@ -1109,7 +1109,7 @@ skills["SupportFrenzyChargeOnSlayingFrozenEnemy"] = {
 		mod("EnemyFreezeChance", "BASE", 15), --"base_chance_to_freeze_%" = 15
 	},
 	qualityMods = {
-		mod("Damage", "INC", 1, ModFlag.Hit, 0, { type = "EnemyCondition", var = "Frozen" }), --"damage_+%_vs_frozen_enemies" = 1
+		mod("Damage", "INC", 1, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }), --"damage_+%_vs_frozen_enemies" = 1
 	},
 	levelMods = {
 		[1] = nil, 
@@ -2109,7 +2109,7 @@ skills["SupportDebilitate"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 20), 
-		mod("Damage", "MORE", 5, ModFlag.Hit, 0, { type = "Multiplier", var = "PoisonOnEnemy", limitVar = "VileToxinsPoisonLimit" }), --"support_debilitate_hit_damage_+%_final_per_poison_stack" = 5
+		mod("Damage", "MORE", 5, ModFlag.Hit, 0, { type = "Multiplier", actor = "enemy", var = "PoisonStack", limitVar = "VileToxinsPoisonLimit" }), --"support_debilitate_hit_damage_+%_final_per_poison_stack" = 5
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, 0, KeywordFlag.Poison), --"base_poison_damage_+%" = 1

@@ -34,6 +34,37 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill BirdAspect
+#flags cast duration
+#setMod chance_to_deal_double_damage_%==mod("DoubleDamageChance", "BASE", {val}, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Might", effectCond = "AviansMightActive" })
+#setMod base_movement_velocity_+%==mod("MovementSpeed", "INC", {val}, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Flight", effectCond = "AviansFlightActive" })
+#setMod minion_movement_speed_+%==nil
+#baseMod skill("buffMinions", true)
+	fromItem = true,
+#mods
+
+#skill CatAspect
+#flags cast duration
+#setMod critical_strike_chance_+%==mod("CritChance", "INC", {val}, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Stealth", effectCond = "CatsStealthActive" })
+#setMod attack_speed_+%==mod("Speed", "INC", {val}, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" })
+#setMod base_cast_speed_+%==mod("Speed", "INC", {val}, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" })
+	fromItem = true,
+#mods
+
+#skill CrabAspect
+#flags cast
+	fromItem = true,
+#mods
+
+#skill SpiderAspect
+#flags cast duration
+#setMod base_movement_velocity_+%==nil
+#setMod base_damage_taken_+%==mod("DamageTaken", "INC", {val}, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Spider's Web" })
+#baseMod skill("debuff", true)
+#baseMod skill("stackCount", 1, { type = "Multiplier", var = "SpiderWebApplyStack", limitVar = "SpiderWebApplyStackMax" })
+	fromItem = true,
+#mods
+
 #skill BloodOffering
 #flags spell duration
 #baseMod skill("buffMinions", true)
@@ -135,6 +166,12 @@ local skills, mod, flag, skill = ...
 #baseMod skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 })
 #baseMod skill("radius", 25)
 #baseMod skill("radiusSecondary", 10)
+	fromItem = true,
+#mods
+
+#skill TriggeredIcicleNova
+#flags attack projectile
+#baseMod skill("showAverage", true)
 	fromItem = true,
 #mods
 
@@ -266,6 +303,11 @@ local skills, mod, flag, skill = ...
 
 #skill TentacleSmash
 #flags attack area
+	fromItem = true,
+#mods
+
+#skill AvianTornado
+#flags spell projectile duration
 	fromItem = true,
 #mods
 

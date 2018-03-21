@@ -261,7 +261,7 @@ Requires Level 60, 113 Dex, 113 Int
 +(180-200) to Accuracy Rating
 20% chance to Poison on Hit
 Attacks with this Weapon deal 80-120 added Chaos Damage against
-Enemies affected by 5 or more Poisons
+Enemies affected by at least 5 Poisons
 ]],[[
 Wildslash
 Awl

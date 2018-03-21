@@ -58,7 +58,7 @@ local function makeSkillDataMod(dataKey, dataValue, ...)
 	return makeSkillMod("SkillData", "LIST", { key = dataKey, value = dataValue }, 0, 0, ...)
 end
 local function processMod(grantedEffect, mod)
-	mod.source = "Skill:"..grantedEffect.id
+	mod.source = grantedEffect.modSource
 	if type(mod.value) == "table" and mod.value.mod then
 		mod.value.mod.source = "Skill:"..grantedEffect.id
 	end
@@ -191,6 +191,7 @@ for _, targetVersion in ipairs(targetVersionList) do
 	end
 	for skillId, grantedEffect in pairs(verData.skills) do
 		grantedEffect.id = skillId
+		grantedEffect.modSource = "Skill:"..skillId
 		-- Add sources for skill mods, and check for global effects
 		for _, list in pairs({grantedEffect.baseMods, grantedEffect.qualityMods, grantedEffect.levelMods}) do
 			for _, mod in pairs(list) do

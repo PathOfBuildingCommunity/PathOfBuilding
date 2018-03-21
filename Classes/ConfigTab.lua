@@ -57,8 +57,8 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 					self:BuildModList()
 					self.build.buildFlag = true
 				end) 
-			elseif varData.type == "number" then
-				control = common.New("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, "^%-%d", 6, function(buf)
+			elseif varData.type == "count" or varData.type == "integer" then
+				control = common.New("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 6, function(buf)
 					self.input[varData.var] = tonumber(buf)
 					self:AddUndoState()
 					self:BuildModList()
@@ -81,14 +81,26 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 				control.tooltipText = function()
 					return "This option is specific to '"..self.build.spec.nodes[varData.ifNode].dn.."'."..(varData.tooltip and "\n"..varData.tooltip or "")
 				end
+			elseif varData.ifOption then
+				control.shown = function()
+					return self.input[varData.ifOption]
+				end
 			elseif varData.ifCond or varData.ifMinionCond or varData.ifEnemyCond then
 				control.shown = function()
+					local mainEnv = self.build.calcsTab.mainEnv
+					if self.input[varData.var] then
+						if (varData.implyCond and mainEnv.conditionsUsed[varData.implyCond]) or
+						   (varData.implyMinionCond and mainEnv.minionConditionsUsed[varData.implyMinionCond]) or
+						   (varData.implyEnemyCond and mainEnv.enemyConditionsUsed[varData.implyEnemyCond]) then
+							return true
+						end
+					end
 					if varData.ifCond then
-						return self.build.calcsTab.mainEnv.conditionsUsed[varData.ifCond]
+						return mainEnv.conditionsUsed[varData.ifCond]
 					elseif varData.ifMinionCond then
-						return self.build.calcsTab.mainEnv.minionConditionsUsed[varData.ifMinionCond]
+						return mainEnv.minionConditionsUsed[varData.ifMinionCond]
 					else
-						return self.build.calcsTab.mainEnv.enemyConditionsUsed[varData.ifEnemyCond]
+						return mainEnv.enemyConditionsUsed[varData.ifEnemyCond]
 					end
 				end
 				control.tooltipText = function()
@@ -110,9 +122,21 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 						return varData.tooltip
 					end
 				end
-			elseif varData.ifMult then
+			elseif varData.ifMult or varData.ifEnemyMult then
 				control.shown = function()
-					return self.build.calcsTab.mainEnv.multipliersUsed[varData.ifMult]
+					local mainEnv = self.build.calcsTab.mainEnv
+					if self.input[varData.var] then
+						if (varData.implyCond and mainEnv.conditionsUsed[varData.implyCond]) or
+						   (varData.implyMinionCond and mainEnv.minionConditionsUsed[varData.implyMinionCond]) or
+						   (varData.implyEnemyCond and mainEnv.enemyConditionsUsed[varData.implyEnemyCond]) then
+							return true
+						end
+					end
+					if varData.ifMult then
+						return mainEnv.multipliersUsed[varData.ifMult]
+					else
+						return mainEnv.enemyMultipliersUsed[varData.ifEnemyMult]
+					end
 				end
 				control.tooltipText = function()
 					if launch.devModeAlt then
@@ -326,7 +350,7 @@ function ConfigTabClass:BuildModList()
 				if input[varData.var] then
 					varData.apply(true, modList, enemyModList, self.build)
 				end
-			elseif varData.type == "number" then
+			elseif varData.type == "count" or varData.type == "integer" then
 				if input[varData.var] and input[varData.var] ~= 0 then
 					varData.apply(input[varData.var], modList, enemyModList, self.build)
 				end

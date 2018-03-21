@@ -230,6 +230,128 @@ skills["RepeatingShockwave"] = {
 		[7] = { 1, },
 	},
 }
+skills["BirdAspect"] = {
+	name = "Aspect of the Avian",
+	hidden = true,
+	color = 4,
+	description = "While active, grants the Avian's Might and Avian's Flight buffs in sequence. Avian's Might grants you and your minions a chance to deal Double Damage with hits for a duration. Avian's Flight grants you and your minions increased Movement Speed for a secondary duration.",
+	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, },
+	fromItem = true,
+	baseFlags = {
+		cast = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("manaCost", 25), 
+		skill("cooldown", 0.5), 
+		mod("DoubleDamageChance", "BASE", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Might", effectCond = "AviansMightActive" }), --"chance_to_deal_double_damage_%" = 10
+		--"minion_chance_to_deal_double_damage_%" = 10
+		mod("MovementSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Flight", effectCond = "AviansFlightActive" }), --"base_movement_velocity_+%" = 10
+		--"minion_movement_speed_+%" = 10
+		skill("duration", 4), --"base_skill_effect_duration" = 4000
+		skill("durationSecondary", 4), --"base_secondary_skill_effect_duration" = 4000
+		skill("buffMinions", true), 
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 1, },
+	},
+}
+skills["CatAspect"] = {
+	name = "Aspect of the Cat",
+	hidden = true,
+	color = 4,
+	description = "While active, grants the Cat's Stealth and Cat's Agility buffs in sequence. Cat's Stealth increases your critical strike chance, makes you harder to see, and gives you a chance to avoid damage for a short duration. Cat's Agility increases your attack and cast speed for a longer secondary duration.",
+	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, },
+	fromItem = true,
+	baseFlags = {
+		cast = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("manaCost", 25), 
+		skill("cooldown", 0.5), 
+		mod("CritChance", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Stealth", effectCond = "CatsStealthActive" }), --"critical_strike_chance_+%" = 100
+		--"avoid_damage_%" = 15
+		--"enemy_aggro_radius_+%" = -50
+		mod("Speed", "INC", 10, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" }), --"attack_speed_+%" = 10
+		mod("Speed", "INC", 10, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" }), --"base_cast_speed_+%" = 10
+		skill("duration", 4), --"base_skill_effect_duration" = 4000
+		skill("durationSecondary", 6), --"base_secondary_skill_effect_duration" = 6000
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 1, },
+	},
+}
+skills["CrabAspect"] = {
+	name = "Aspect of the Crab",
+	hidden = true,
+	color = 4,
+	description = "While active, periodically adds Crab Barriers to you, and grants additional Physical Damage reduction for each Crab Barrier you have. All Crab Barriers are lost when you take physical damage from a hit.",
+	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, },
+	fromItem = true,
+	baseFlags = {
+		cast = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("manaCost", 25), 
+		skill("cooldown", 0.5), 
+		mod("PhysicalDamageReduction", "BASE", 2, 0, 0, { type = "Multiplier", var = "CrabBarrier" }, { type = "GlobalEffect", effectType = "Buff" }), --"physical_damage_reduction_%_per_crab_aspect_stack" = 2
+		mod("CrabBarriersMax", "BASE", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff" }), --"max_crab_aspect_stacks" = 10
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 1, },
+	},
+}
+skills["SpiderAspect"] = {
+	name = "Aspect of the Spider",
+	hidden = true,
+	color = 4,
+	description = "While active, periodically applies a Spider's Web debuff to nearby Enemies, and Hinders them. Each Spider's Web on an Enemy increases the Damage they take. Hinder reduces their movement speed.",
+	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, },
+	fromItem = true,
+	baseFlags = {
+		cast = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("manaCost", 25), 
+		skill("cooldown", 0.5), 
+		--"base_movement_velocity_+%" = -30
+		mod("DamageTaken", "INC", 5, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Spider's Web" }), --"base_damage_taken_+%" = 5
+		skill("duration", 6), --"base_skill_effect_duration" = 6000
+		--"spider_aspect_web_interval_ms" = 1000
+		mod("Multiplier:SpiderWebApplyStackMax", "BASE", 3), --"spider_aspect_max_web_count" = 3
+		skill("debuff", true), 
+		skill("stackCount", 1, { type = "Multiplier", var = "SpiderWebApplyStack", limitVar = "SpiderWebApplyStackMax" }), 
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 1, },
+	},
+}
 skills["BloodOffering"] = {
 	name = "Blood Offering",
 	hidden = true,
@@ -785,6 +907,39 @@ skills["IcestormUniqueStaff12"] = {
 	},
 	levels = {
 		[1] = { 1, },
+	},
+}
+skills["TriggeredIcicleNova"] = {
+	name = "Icicle Burst",
+	hidden = true,
+	color = 4,
+	description = "This attack fires icy projectiles in a nova around you, dealing attack damage with all physical damage converted to cold.",
+	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [10] = true, [57] = true, [47] = true, [61] = true, [34] = true, },
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("cooldown", 0.5), 
+		mod("ProjectileCount", "BASE", 8), --"number_of_additional_projectiles" = 8
+		--"trigger_on_kill_vs_frozen_enemy_%" = 100
+		--"monster_projectile_variation" = 38
+		mod("SkillPhysicalDamageConvertToCold", "BASE", 100), --"skill_physical_damage_%_to_convert_to_cold" = 100
+		--"projectiles_nova" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
+		--"base_is_projectile" = ?
+		flag("CannotFreeze"), --"never_freeze" = ?
+		skill("showAverage", true), 
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 1, },
 	},
 }
 skills["MerveilWarp"] = {
@@ -1548,6 +1703,40 @@ skills["TentacleSmash"] = {
 		--"attack_trigger_on_kill_%" = 20
 		--"is_area_damage" = ?
 		--"attack_unusable_if_triggerable" = ?
+	},
+	qualityMods = {
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+	},
+	levels = {
+		[20] = { 70, },
+	},
+}
+skills["AvianTornado"] = {
+	name = "Tornado",
+	hidden = true,
+	color = 3,
+	description = "Launches an unpredictable, piercing tornado projectile that moves randomly for a duration, repeatedly dealing damage to enemies it intersects.",
+	skillTypes = { [2] = true, [3] = true, [68] = true, [10] = true, [12] = true, [36] = true, [42] = true, [61] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 0.65), 
+		skill("CritChance", 6), 
+		skill("PhysicalMin", 280), --"spell_minimum_base_physical_damage" = 280
+		skill("PhysicalMax", 420), --"spell_maximum_base_physical_damage" = 420
+		skill("duration", 2.5), --"base_skill_effect_duration" = 2500
+		--"cast_on_gain_avians_flight_or_avians_might_%" = 25
+		--"global_chance_to_blind_on_hit_%" = 25
+		--"base_is_projectile" = ?
+		--"projectiles_nova" = ?
+		flag("PierceAllTargets"), --"always_pierce" = ?
+		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
 	},
 	qualityMods = {
 	},

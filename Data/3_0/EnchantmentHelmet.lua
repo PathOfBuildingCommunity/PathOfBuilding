@@ -127,12 +127,11 @@ return {
 		["MERCILESS"] = {
 			"10% increased Barrage Attack Speed",
 			"25% increased Barrage Damage",
-			"1 additional Barrage Projectile",
 		},
 		["ENDGAME"] = {
 			"15% increased Barrage Attack Speed",
 			"40% increased Barrage Damage",
-			"2 additional Barrage Projectiles",
+			"Barrage fires an additional projectile",
 		},
 	},
 	["Bear Trap"] = {
@@ -663,12 +662,12 @@ return {
 	["Flame Totem"] = {
 		["MERCILESS"] = {
 			"25% increased Flame Totem Damage",
-			"1 additional Flame Totem Projectile",
+			"Flame Totem fires an additional Projectile",
 			"20% increased Flame Totem Projectile Speed",
 		},
 		["ENDGAME"] = {
 			"40% increased Flame Totem Damage",
-			"2 additional Flame Totem Projectiles",
+			"Flame Totem fires 2 additional Projectiles",
 			"30% increased Flame Totem Projectile Speed",
 		},
 	},
@@ -1051,12 +1050,12 @@ return {
 	["Lightning Strike"] = {
 		["MERCILESS"] = {
 			"25% increased Lightning Strike Damage",
-			"2 additional Lightning Strike Projectiles",
+			"Lightning Strike fires 2 additional Projectiles",
 			"Lightning Strike pierces 2 additional Targets",
 		},
 		["ENDGAME"] = {
 			"40% increased Lightning Strike Damage",
-			"3 additional Lightning Strike Projectiles",
+			"Lightning Strike fires 3 additional Projectiles",
 			"Lightning Strike pierces 3 additional Targets",
 		},
 	},
@@ -1133,12 +1132,12 @@ return {
 	["Molten Strike"] = {
 		["MERCILESS"] = {
 			"25% increased Molten Strike Damage",
-			"2 additional Molten Strike Projectiles",
+			"Molten Strike fires 2 additional Projectiles",
 			"8% increased Molten Strike Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Molten Strike Damage",
-			"3 additional Molten Strike Projectiles",
+			"Molten Strike fires 3 additional Projectiles",
 			"12% increased Molten Strike Area of Effect",
 		},
 	},
@@ -1443,12 +1442,12 @@ return {
 	["Spark"] = {
 		["MERCILESS"] = {
 			"25% increased Spark Damage",
-			"2 additional Spark Projectiles",
+			"Spark fires 2 additional Projectiles",
 			"20% increased Spark Projectile Speed",
 		},
 		["ENDGAME"] = {
 			"40% increased Spark Damage",
-			"3 additional Spark Projectiles",
+			"Spark fires 3 additional Projectiles",
 			"30% increased Spark Projectile Speed",
 		},
 	},
@@ -1478,12 +1477,12 @@ return {
 		["MERCILESS"] = {
 			"60% increased Split Arrow Critical Strike Chance",
 			"25% increased Split Arrow Damage",
-			"2 additional Split Arrow Projectiles",
+			"Split Arrow fires 2 additional Projectiles",
 		},
 		["ENDGAME"] = {
 			"90% increased Split Arrow Critical Strike Chance",
 			"40% increased Split Arrow Damage",
-			"3 additional Split Arrow Projectiles",
+			"Split Arrow fires 3 additional Projectiles",
 		},
 	},
 	["Static Strike"] = {
@@ -1652,12 +1651,12 @@ return {
 		["MERCILESS"] = {
 			"60% increased Tornado Shot Critical Strike Chance",
 			"25% increased Tornado Shot Damage",
-			"1 secondary Tornado Shot Projectile",
+			"Tornado Shot fires an additional secondary Projectile",
 		},
 		["ENDGAME"] = {
 			"90% increased Tornado Shot Critical Strike Chance",
 			"40% increased Tornado Shot Damage",
-			"2 secondary Tornado Shot Projectiles",
+			"Tornado Shot fires 2 additional secondary Projectiles",
 		},
 	},
 	["Unearth"] = {

@@ -399,9 +399,9 @@ Implicits: 2
 {variant:1}+(16-24)% to Global Critical Strike Multiplier
 {variant:2}+(24-36)% to Global Critical Strike Multiplier
 +7% Base Unarmed Critical Strike Chance
-Modifiers to Claw Damage also apply to Unarmed
-Modifiers to Claw Attack Speed also apply to Unarmed
-Modifiers to Claw Critical Strike Chance also apply to Unarmed
+Modifiers to Claw Damage also apply to Unarmed Attack Damage
+Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed
+Modifiers to Claw Critical Strike Chance also apply to Unarmed Attack Critical Strike Chance
 Corrupted
 ]],[[
 Shaper's Seed

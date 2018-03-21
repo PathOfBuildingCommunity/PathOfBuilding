@@ -293,7 +293,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 						if modType == "MORE" then
 							total = round((total - 1) * 100)
 						end
-						if total ~= 0 then
+						if total and total ~= 0 then
 							t_insert(lines, self:FormatModValue(total, modType) .. " " .. modName:gsub("(%l)(%u)","%1 %2"))
 						end
 					end
@@ -302,7 +302,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					if modType == "MORE" then
 						total = round((total - 1) * 100)
 					end
-					if total ~= 0 then
+					if total and total ~= 0 then
 						t_insert(lines, self:FormatModValue(total, modType))
 					end
 				end
@@ -377,10 +377,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 				local desc
 				if tag.type == "Condition" then
 					desc = "Condition: "..(tag.neg and "Not " or "")..(tag.varList and table.concat(tag.varList, "/") or self:FormatModName(tag.var))
-				elseif tag.type == "EnemyCondition" then
-					desc = "Enemy Condition: "..(tag.neg and "Not " or "")..(tag.varList and table.concat(tag.varList, "/") or self:FormatModName(tag.var))
-				elseif tag.type == "ParentCondition" then
-					desc = "Player Condition: "..(tag.neg and "Not " or "")..(tag.varList and table.concat(tag.varList, "/") or self:FormatModName(tag.var))
+				elseif tag.type == "ActorCondition" then
+					desc = tag.actor:sub(1,1):upper()..tag.actor:sub(2).." Condition: "..(tag.neg and "Not " or "")..(tag.varList and table.concat(tag.varList, "/") or self:FormatModName(tag.var))
 				elseif tag.type == "Multiplier" then
 					if tag.base then
 						desc = (row.mod.type == "BASE" and string.format("%+g", tag.base) or tag.base.."%").." + "..math.abs(row.mod.value).." per "..self:FormatModName(tag.var)
@@ -439,7 +437,7 @@ function CalcBreakdownClass:FormatModValue(value, modType)
 		if value >= 0 then
 			return value.."% increased"
 		else
-			return -value.."% decreased"
+			return -value.."% reduced"
 		end
 	elseif modType == "MORE" then
 		if value >= 0 then
@@ -447,6 +445,8 @@ function CalcBreakdownClass:FormatModValue(value, modType)
 		else
 			return -value.."% less"
 		end
+	elseif modType == "OVERRIDE" then
+		return "Override: "..value
 	elseif modType == "FLAG" then
 		return value and "True" or "False"
 	else

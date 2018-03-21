@@ -313,6 +313,16 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
 		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", compPercent = true },
 	}
+	self.extraSaveStats = {
+		"PowerCharges",
+		"PowerChargesMax",
+		"FrenzyCharges",
+		"FrenzyChargesMax",
+		"EnduranceCharges",
+		"EnduranceChargesMax",
+		"ActiveTotemLimit",
+		"ActiveMinionLimit",
+	}
 
 	self.viewMode = "TREE"
 
@@ -643,6 +653,12 @@ function buildMode:Save(xml)
 			if statVal then
 				t_insert(xml, { elem = "PlayerStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
 			end
+		end
+	end
+	for index, stat in ipairs(self.extraSaveStats) do
+		local statVal = self.calcsTab.mainOutput[stat]
+		if statVal then
+			t_insert(xml, { elem = "PlayerStat", attrib = { stat = stat, value = tostring(statVal) } })
 		end
 	end
 	if self.calcsTab.mainEnv.minion then

@@ -54,6 +54,7 @@ local classList = {
 	"BuildListControl",
 	"FolderListControl",
 	-- Mode: Build
+	"ModStore",
 	"ModList",
 	"ModDB",
 	"MinionListControl",
