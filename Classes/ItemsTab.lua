@@ -310,7 +310,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		self.displayItem.shaper = (index == 2)
 		self.displayItem.elder = (index == 3)
 		if self.displayItem.crafted then
-			for i = 1, 6 do
+			for i = 1, self.displayItem.affixLimit do
 				-- Force affix selectors to update
 				local drop = self.controls["displayItemAffix"..i]
 				drop.selFunc(drop.selIndex, drop.list[drop.selIndex])

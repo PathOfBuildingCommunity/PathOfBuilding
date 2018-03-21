@@ -589,5 +589,9 @@ function calcs.defence(env, actor)
 				}
 			end
 		end
+		output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
+		if breakdown then
+			breakdown.LightRadiusMod = breakdown.mod(nil, "LightRadius")
+		end
 	end
 end

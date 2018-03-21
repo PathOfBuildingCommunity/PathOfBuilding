@@ -1451,6 +1451,18 @@ return {
 			"30% increased Spark Projectile Speed",
 		},
 	},
+	["Spectral Shield Throw"] = {
+		["MERCILESS"] = {
+			"25% increased Spectral Shield Throw Damage",
+			"Spectral Shield Throw fires 3 additional Shard Projectiles",
+			"20% increased Spectral Shield Throw Projectile Speed",
+		},
+		["ENDGAME"] = {
+			"40% increased Spectral Shield Throw Damage",
+			"Spectral Shield Throw fires 5 additional Shard Projectiles",
+			"30% increased Spectral Shield Throw Projectile Speed",
+		},
+	},
 	["Spectral Throw"] = {
 		["MERCILESS"] = {
 			"25% increased Spectral Throw Damage",
@@ -1625,6 +1637,18 @@ return {
 			"40% increased Sweep Damage",
 			"+30% Sweep Knockback Chance",
 			"12% increased Sweep Area of Effect",
+		},
+	},
+	["Tectonic Slam"] = {
+		["MERCILESS"] = {
+			"8% increased Tectonic Slam Area of Effect",
+			"25% chance for Tectonic Slam to not consume an Endurance Charge",
+			"25% increased Tectonic Slam Damage",
+		},
+		["ENDGAME"] = {
+			"12% increased Tectonic Slam Area of Effect",
+			"40% chance for Tectonic Slam to not consume an Endurance Charge",
+			"40% increased Tectonic Slam Damage",
 		},
 	},
 	["Tempest Shield"] = {

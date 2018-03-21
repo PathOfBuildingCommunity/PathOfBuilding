@@ -1,3 +1,10 @@
+### 1.4.85 - 2018/03/22
+ * Added Helmet enchantments for Spectral Shield Throw and Tectonic Slam
+ * Added Light Radius Mod to the Other Defences section of the Calcs tab
+ * Fixed issue preventing additional Projectile enchantments for Bow skills from being recognised
+ * Fixed the conditional damage multiplier on Hypothermia
+ * Fixed an error that sometimes occurred when trying to craft a jewel
+
 ### 1.4.84 - 2018/03/21
  * Added the following new uniques:
 	* All 16 uniques from the Beastiary bosses (including all granted skills and associated mechanics)

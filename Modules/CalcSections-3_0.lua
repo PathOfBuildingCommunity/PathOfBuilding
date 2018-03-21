@@ -945,5 +945,6 @@ return {
 		{ breakdown = "BlockDuration" },
 		{ modName = { "StunRecovery", "BlockRecovery" }, }, 
 	}, },
+	{ label = "Light Radius Mod", { format = "x {2:output:LightRadiusMod}", { breakdown = "LightRadiusMod" }, { modName = "LightRadius" }, }, },
 } },
 }
