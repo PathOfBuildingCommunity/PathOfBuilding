@@ -391,52 +391,71 @@ Prismatic Jewel
 Has Alt Variant: true
 Variant: Anger: Fire Leech
 Variant: Anger: Fire Pen
+Variant: Anger: Crit Multi
+Variant: Anger: Inc. Fire
 Variant: Anger: Physical Add Fire
 Variant: Anger: Physical Convert Fire
 Variant: Clarity: Dmg. Mana before Life
+Variant: Clarity: Dmg. gain as Mana
 Variant: Clarity: Mana Add Energy Shield
-Variant: Clarity: Recover Mana
+Variant: Clarity: Mana Recovery
+Variant: Clarity: Recover Mana on Skill
 Variant: Clarity: Mana Cost
+Variant: Determination: Additional Armour
 Variant: Determination: Block
 Variant: Determination: Phys Dmg Reduct
 Variant: Determination: Red. Crit Dmg
+Variant: Determination: Red. Reflected Phys
 Variant: Determination: Vuln. Immune
 Variant: Discipline: Spell Block
 Variant: Discipline: Energy Shield on Hit
+Variant: Discipline: Energy Shield Recovery
 Variant: Discipline: Energy Shield Regen
 Variant: Discipline: Faster Rchrg. Start
 Variant: Grace: Additional Evade
+Variant: Grace: Blind when Hit
 Variant: Grace: Dodge Chance
 Variant: Grace: Movement Speed
 Variant: Grace: Enfeeble Immune
 Variant: Haste: Spell Dodge Chance
+Variant: Haste: Movement Skill Cooldown
+Variant: Haste: Debuffs Exire Faster
 Variant: Haste: Onslaught on Kill
 Variant: Haste: Phasing
 Variant: Haste: Temp. Chains Immune
 Variant: Hatred: Added Cold Damage
 Variant: Hatred: Crit Chance
 Variant: Hatred: Cold Pen
+Variant: Hatred: Inc. Cold Dmg
 Variant: Hatred: Physical Convert Cold
+Variant: Purity of Elements: Chaos Resistance
+Variant: Purity of Elements: Red. Reflected Ele.
 Variant: Purity of Elements: Phys as Cold
 Variant: Purity of Elements: Phys as Fire
 Variant: Purity of Elements: Phys as Light
 Variant: Purity of Elements: EW Immune
 Variant: Purity of Fire: Ignite Immune
+Variant: Purity of Fire: Red. Reflected Fire
 Variant: Purity of Fire: Phys as Fire
 Variant: Purity of Fire: Bur.Gr Immune
 Variant: Purity of Fire: Flamm. Immune
 Variant: Purity of Ice: Freeze Immune
+Variant: Purity of Ice: Red. Reflected Cold
 Variant: Purity of Ice: Phys as Cold
 Variant: Purity of Ice: Chl.Gr Immune
 Variant: Purity of Ice: Frostbite Immune
 Variant: Purity of Lightning: Shock Immune
 Variant: Purity of Lightning: Phys as Light
+Variant: Purity of Lightning: Red. Reflected Light
 Variant: Purity of Lightning: Cond. Immune
 Variant: Purity of Lightning: Shk.Gr Immune
 Variant: Vitality: Life Leech
 Variant: Vitality: Life Regen
 Variant: Vitality: Life on Hit
+Variant: Vitality: Life from Flasks
 Variant: Vitality: Life Recovery
+Variant: Wrath: Crit Chance
+Variant: Wrath: Inc. Light Damage
 Variant: Wrath: Light Leech
 Variant: Wrath: Light Pen
 Variant: Wrath: Phys Add Light
@@ -447,56 +466,75 @@ Limited to: 1
 (4–6)% increased maximum Mana
 {variant:1}(1-1.5)% of Fire Damage Leeched as Life while affected by Anger
 {variant:2}Damage Penetrates (10-15)% Fire Resistance while affected by Anger
-{variant:3}Gain (15-25)% of Physical Damage as Extra Fire Damage while affected by Anger
-{variant:4}(25-40)% of Physical Damage Converted to Fire Damage while affected by Anger
-{variant:5}(6-10)% of Damage taken from Mana before Life while affected by Clarity
-{variant:6}Gain (12-18)% of Maximum Mana as Extra Maximum Energy Shield while affected by Clarity
-{variant:7}(10-15)% chance to Recover 10% of Maximum Mana when you use a Skill while affected by Clarity
-{variant:8}-(10-5) to Total Mana Cost of Skills while affected by Clarity
-{variant:9}(5-8)% chance to Block while affected by Determination
-{variant:10}(5-8)% additional Physical Damage Reduction while affected by Determination
-{variant:11}You take (60-40)% reduced Extra Damage from Critical Strikes while affected by Determination
-{variant:12}Unaffected by Vulnerability while affected by Determination
-{variant:13}(5-8)% chance to Block Spells while affected by Discipline
-{variant:14}(20-30) Energy Shield gained for each Enemy Hit while affected by Discipline
-{variant:15}(1.5-2.5)% of Maximum Energy Shield Regenerated per Second while affected by Discipline
-{variant:16}(30-40)% faster start of Energy Shield Recharge while affected by Discipline
-{variant:17}+(5-8)% chance to Evade Attacks while affected by Grace
-{variant:18}(6-10)% chance to Dodge Attacks while affected by Grace
-{variant:19}(10-15)% increased Movement Speed while affected by Grace
-{variant:20}Unaffected by Enfeeble while affected by Grace
-{variant:21}(5-8)% chance to Dodge Spells while affected by Haste
-{variant:22}You gain Onslaught for 4 seconds on Kill while affected by Haste
-{variant:23}You have Phasing while affected by Haste
-{variant:24}Unaffected by Temporal Chains while affected by Haste
-{variant:25}Adds (58-70) to (88-104) Cold Damage while affected by Hatred
-{variant:26}+(1.2-1.8)% to Critical Strike Chance while affected by Hatred
-{variant:27}Damage Penetrates (10-15)% Cold Resistance while affected by Hatred
-{variant:28}(25-40)% of Physical Damage Converted to Cold Damage while affected by Hatred
-{variant:29}(8-12)% of Physical Damage taken as Cold Damage while affected by Purity of Elements
-{variant:30}(8-12)% of Physical Damage taken as Fire Damage while affected by Purity of Elements
-{variant:31}(8-12)% of Physical Damage taken as Lightning Damage while affected by Purity of Elements
-{variant:32}Unaffected by Elemental Weakness while affected by Purity of Elements
-{variant:33}Immune to Ignite while affected by Purity of Fire
-{variant:34}(6-10)% of Physical Damage taken as Fire Damage while affected by Purity of Fire
-{variant:35}Unaffected by Burning Ground while affected by Purity of Fire
-{variant:36}Unaffected by Flammability while affected by Purity of Fire
-{variant:37}Immune to Freeze while affected by Purity of Ice
-{variant:38}(6-10)% of Physical Damage taken as Cold Damage while affected by Purity of Ice
-{variant:39}Unaffected by Chilled Ground while affected by Purity of Ice
-{variant:40}Unaffected by Frostbite while affected by Purity of Ice
-{variant:41}Immune to Shock while affected by Purity of Lightning
-{variant:42}(6-10)% of Physical Damage taken as Lightning Damage while affected by Purity of Lightning
-{variant:43}Unaffected by Conductivity while affected by Purity of Lightning
-{variant:44}Unaffected by Shocked Ground while affected by Purity of Lightning
-{variant:45}(1-1.5)% of Damage leeched as Life while affected by Vitality
-{variant:46}(100-140) Life Regenerated per Second while affected by Vitality
-{variant:47}(20-30) Life gained for each Enemy Hit while affected by Vitality
-{variant:48}(20-30)% increased Life Recovery Rate while affected by Vitality
-{variant:49}(1-1.5)% of Lightning Damage is Leeched as Mana while affected by Wrath
-{variant:50}Damage Penetrates (10-15)% Lightning Resistance while affected by Wrath
-{variant:51}Gain (15-25)% of Physical Damage as Extra Lightning Damage while affected by Wrath
-{variant:52}(25-40)% of Physical Damage Converted to Lightning Damage while affected by Wrath
+{variant:3}+(30-50)% to Critical Strike Multiplier while affected by Anger
+{variant:4}(40-60)% increased Fire Damage while affected by Anger
+{variant:5}Gain (15-25)% of Physical Damage as Extra Fire Damage while affected by Anger
+{variant:6}(25-40)% of Physical Damage Converted to Fire Damage while affected by Anger
+{variant:7}(6-10)% of Damage taken from Mana before Life while affected by Clarity
+{variant:8}(15-20)% of Damage taken gained as Mana over 4 seconds when Hit while affected by Clarity
+{variant:9}Gain (12-18)% of Maximum Mana as Extra Maximum Energy Shield while affected by Clarity
+{variant:10}(20-30)% increased Mana Recovery Rate while affected by Clarity
+{variant:11}(10-15)% chance to Recover 10% of Maximum Mana when you use a Skill while affected by Clarity
+{variant:12}-(10-5) to Total Mana Cost of Skills while affected by Clarity
+{variant:13}+(600-1000) to Armour while affected by Determination
+{variant:14}(5-8)% chance to Block while affected by Determination
+{variant:15}(5-8)% additional Physical Damage Reduction while affected by Determination
+{variant:16}You take (60-40)% reduced Extra Damage from Critical Strikes while affected by Determination
+{variant:17}(50-40)% reduced Reflected Physical Damage taken while affected by Determination
+{variant:18}Unaffected by Vulnerability while affected by Determination
+{variant:19}(5-8)% chance to Block Spells while affected by Discipline
+{variant:20}+(20-30) Energy Shield gained for each Enemy Hit while affected by Discipline
+{variant:21}(20-30)% increased Energy Shield Recovery Rate while affected by Discipline
+{variant:22}(1.5-2.5)% of Maximum Energy Shield Regenerated per Second while affected by Discipline
+{variant:23}(30-40)% faster start of Energy Shield Recharge while affected by Discipline
+{variant:24}+(5-8)% chance to Evade Attacks while affected by Grace
+{variant:25}(30-50)% chance to Blind Enemies which Hit you while affected by Grace
+{variant:26}(6-10)% chance to Dodge Attacks while affected by Grace
+{variant:27}(10-15)% increased Movement Speed while affected by Grace
+{variant:28}Unaffected by Enfeeble while affected by Grace
+{variant:29}(5-8)% chance to Dodge Spells while affected by Haste
+{variant:30}(30-50)% increased cooldown recovery speed of Movement Skills used while affected by Haste
+{variant:31}Debuffs on you expire (20-15)% faster while affected by Haste
+{variant:32}You gain Onslaught for 4 seconds on Kill while affected by Haste
+{variant:33}You have Phasing while affected by Haste
+{variant:34}Unaffected by Temporal Chains while affected by Haste
+{variant:35}Adds (58-70) to (88-104) Cold Damage while affected by Hatred
+{variant:36}+(1.2-1.8)% to Critical Strike Chance while affected by Hatred
+{variant:37}Damage Penetrates (10-15)% Cold Resistance while affected by Hatred
+{variant:38}(40-60)% increased Cold Damage while affected by Hatred
+{variant:39}(25-40)% of Physical Damage Converted to Cold Damage while affected by Hatred
+{variant:40}+(30-50)% to Chaos Resistance while affected by Purity of Elements
+{variant:41}(50-40)% reduced Reflected Elemental Damage taken while affected by Purity of Elements
+{variant:42}(8-12)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Elements
+{variant:43}(8-12)% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Elements
+{variant:44}(8-12)% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Elements
+{variant:45}Unaffected by Elemental Weakness while affected by Purity of Elements
+{variant:46}Immune to Ignite while affected by Purity of Fire
+{variant:47}(50-40)% reduced Reflected Fire Damage taken while affected by Purity of Fire
+{variant:48}(6-10)% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Fire
+{variant:49}Unaffected by Burning Ground while affected by Purity of Fire
+{variant:50}Unaffected by Flammability while affected by Purity of Fire
+{variant:51}Immune to Freeze while affected by Purity of Ice
+{variant:52}(50-40)% reduced Reflected Cold Damage taken while affected by Purity of Ice
+{variant:53}(6-10)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Ice
+{variant:54}Unaffected by Chilled Ground while affected by Purity of Ice
+{variant:55}Unaffected by Frostbite while affected by Purity of Ice
+{variant:56}Immune to Shock while affected by Purity of Lightning
+{variant:57}(50-40)% reduced Reflected Lightning Damage taken while affected by Purity of Lightning
+{variant:58}(6-10)% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Lightning
+{variant:59}Unaffected by Conductivity while affected by Purity of Lightning
+{variant:60}Unaffected by Shocked Ground while affected by Purity of Lightning
+{variant:61}(1-1.5)% of Damage leeched as Life while affected by Vitality
+{variant:62}(100-140) Life Regenerated per Second while affected by Vitality
+{variant:63}+(20-30) Life gained for each Enemy Hit while affected by Vitality
+{variant:64}(50-70)% increased Life Recovery from Flasks while affected by Vitality
+{variant:65}(20-30)% increased Life Recovery Rate while affected by Vitality
+{variant:66}(70-100)% increased Critical Strike Chance while affected by Wrath
+{variant:67}(40-60)% increased Lightning Damage while affected by Wrath
+{variant:68}(1-1.5)% of Lightning Damage is Leeched as Mana while affected by Wrath
+{variant:69}Damage Penetrates (10-15)% Lightning Resistance while affected by Wrath
+{variant:70}Gain (15-25)% of Physical Damage as Extra Lightning Damage while affected by Wrath
+{variant:71}(25-40)% of Physical Damage Converted to Lightning Damage while affected by Wrath
 ]],
 -- Jewel: Threshold
 [[
