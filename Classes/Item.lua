@@ -212,10 +212,16 @@ function ItemClass:ParseRaw(raw)
 					self.requirements.level = tonumber(specVal)
 				elseif specName == "Has Alt Variant" then
 					self.hasAltVariant = true
+				elseif specName == "Has Third Variant" then
+					self.has3rdVariant = true
+				elseif specName == "Can Have Third Variant" then
+					self.canHave3rdVariant = true
 				elseif specName == "Selected Variant" then
 					self.variant = tonumber(specVal)
 				elseif specName == "Selected Alt Variant" then
 					self.variantAlt = tonumber(specVal)
+				elseif specName == "Selected Third Variant" then
+					self.variant3rd = tonumber(specVal)
 				elseif specName == "League" then
 					self.league = specVal
 				elseif specName == "Crafted" then
@@ -376,6 +382,9 @@ function ItemClass:ParseRaw(raw)
 		if self.hasAltVariant then
 			self.variantAlt = m_min(#self.variantList, self.variantAlt or self.defaultVariant or #self.variantList)
 		end
+		if self.has3rdVariant then
+			self.variant3rd = m_min(#self.variantList, self.variant3rd or self.defaultVariant or #self.variantList)
+		end
 	end
 	if not self.quality then
 		self:NormaliseQuality()
@@ -448,6 +457,13 @@ function ItemClass:BuildRaw()
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
 			t_insert(rawLines, "Selected Alt Variant: "..self.variantAlt)
+		end
+		if self.has3rdVariant then
+			t_insert(rawLines, "Has Third Variant: true")
+			t_insert(rawLines, "Selected Third Variant: "..self.variant3rd)
+		end
+		if self.canHave3rdVariant then
+			t_insert(rawLines, "Can Have Third Variant: true")
 		end
 	end
 	if self.quality then
@@ -569,6 +585,7 @@ function ItemClass:CheckModLineVariant(modLine)
 	return not modLine.variantList 
 		or modLine.variantList[self.variant]
 		or (self.hasAltVariant and modLine.variantList[self.variantAlt])
+		or (self.has3rdVariant and modLine.variantList[self.variant3rd])
 end
 
 -- Return the name of the slot this item is equipped in

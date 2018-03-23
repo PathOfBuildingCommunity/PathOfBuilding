@@ -389,6 +389,7 @@ Cobalt Jewel
 Watcher's Eye
 Prismatic Jewel
 Has Alt Variant: true
+Can Have Third Variant: true
 Variant: Anger: Fire Leech
 Variant: Anger: Fire Pen
 Variant: Anger: Crit Multi
