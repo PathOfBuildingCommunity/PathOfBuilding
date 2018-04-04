@@ -390,6 +390,7 @@ Watcher's Eye
 Prismatic Jewel
 Has Alt Variant: true
 Has Third Variant: true
+Selected Third Variant: 1
 Variant: None
 Variant: Anger: Fire Leech
 Variant: Anger: Fire Pen
