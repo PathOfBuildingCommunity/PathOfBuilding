@@ -214,8 +214,6 @@ function ItemClass:ParseRaw(raw)
 					self.hasAltVariant = true
 				elseif specName == "Has Third Variant" then
 					self.has3rdVariant = true
-				elseif specName == "Can Have Third Variant" then
-					self.canHave3rdVariant = true
 				elseif specName == "Selected Variant" then
 					self.variant = tonumber(specVal)
 				elseif specName == "Selected Alt Variant" then
@@ -461,9 +459,6 @@ function ItemClass:BuildRaw()
 		if self.has3rdVariant then
 			t_insert(rawLines, "Has Third Variant: true")
 			t_insert(rawLines, "Selected Third Variant: "..self.variant3rd)
-		end
-		if self.canHave3rdVariant then
-			t_insert(rawLines, "Can Have Third Variant: true")
 		end
 	end
 	if self.quality then

@@ -232,17 +232,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemSectionVariant = common.New("Control", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 0, function()
 		return (self.displayItem.variantList and #self.displayItem.variantList > 1) and 28 or 0
 	end)
-	self.controls.isUberElderBox = common.New("CheckBoxControl", {"TOPLEFT",self.controls.displayItemSectionVariant,"TOPLEFT"}, 35, 0, 18, "Uber:", function(state)
-		self.displayItem.has3rdVariant = state
-		self.displayItem.variant3rd = 1
-		self.displayItem:BuildAndParseRaw()
-		self:UpdateDisplayItemTooltip()
-		self:UpdateDisplayItemRangeLines()
-	end, "Watcher's Eyes dropped by Uber Elder have 3 aura modifiers")
-	self.controls.isUberElderBox.enabled = function()
-		return self.displayItem.canHave3rdVariant
-	end
-	self.controls.displayItemVariant = common.New("DropDownControl", {"LEFT", self.controls.isUberElderBox,"RIGHT"}, 8, 0, 224, 20, nil, function(index, value)
+	self.controls.displayItemVariant = common.New("DropDownControl", {"LEFT", self.controls.displayItemSectionVariant,"RIGHT"}, 0, 0, 224, 20, nil, function(index, value)
 		self.displayItem.variant = index
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
@@ -994,7 +984,7 @@ function ItemsTabClass:SetDisplayItem(item)
 			self.controls.displayItemAltVariant.list = item.variantList
 			self.controls.displayItemAltVariant.selIndex = item.variantAlt
 		end
-		if item.canHave3rdVariant then
+		if item.has3rdVariant then
 			self.controls.displayItem3rdVariant.list = item.variantList
 		end
 		self:UpdateSocketControls()
