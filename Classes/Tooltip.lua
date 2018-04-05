@@ -83,6 +83,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	local ttW, ttH = self:GetSize()
 	local ttX = x
 	local ttY = y
+	local tiles = 1
 	if w and h then
 		ttX = ttX + w + 5
 		if ttX + ttW > viewPort.x + viewPort.width then
@@ -91,31 +92,42 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 				ttY = ttY + h
 			end
 		end
+		local balancedHeight = ttH
+		while balancedHeight > viewPort.height do -- does it fit with the borders?
+			tiles = tiles + 1
+			balancedHeight = ttH / tiles + tiles * 10
+		end
+		ttH = balancedHeight
 		if ttY + ttH > viewPort.y + viewPort.height then
 			ttY = m_max(viewPort.y, y + h - ttH)
 		end
 	elseif self.center then
 		ttX = m_floor(x - ttW/2)
 	end
+
+	SetDrawColor(0, 0, 0, 0.75)
+	DrawImage(nil, ttX + 3, ttY + 3, ttW * tiles - 6, ttH - 6) -- background shading
 	if type(self.color) == "string" then
 		SetDrawColor(self.color) 
 	else
 		SetDrawColor(unpack(self.color))
 	end
-	DrawImage(nil, ttX, ttY, ttW, 3)
-	DrawImage(nil, ttX, ttY, 3, ttH)
-	DrawImage(nil, ttX, ttY + ttH - 3, ttW, 3)
-	DrawImage(nil, ttX + ttW - 3, ttY, 3, ttH)
-	SetDrawColor(0, 0, 0, 0.75)
-	DrawImage(nil, ttX + 3, ttY + 3, ttW - 6, ttH - 6)
+	for i=0,tiles do
+		DrawImage(nil, ttX + ttW * i - 3 * math.ceil(i^2 / (i^2 + 1)), ttY, 3, ttH) -- borders
+	end
+	DrawImage(nil, ttX, ttY, ttW * tiles, 3) -- top border
+	DrawImage(nil, ttX, ttY + ttH - 3, ttW * tiles, 3) -- bottom border
+	
 	SetDrawColor(1, 1, 1)
 	local y = ttY + 6
+	local x = ttX
+	local currentTile = 1
 	for i, data in ipairs(self.lines) do
 		if data.text then
 			if self.center then
-				DrawString(ttX + ttW/2, y, "CENTER_X", data.size, "VAR", data.text)
+				DrawString(x + ttW/2, y, "CENTER_X", data.size, "VAR", data.text)
 			else
-				DrawString(ttX + 6, y, "LEFT", data.size, "VAR", data.text)
+				DrawString(x + 6, y, "LEFT", data.size, "VAR", data.text)
 			end
 			y = y + data.size + 2
 		elseif self.lines[i + 1] and self.lines[i - 1] and self.lines[i + 1].text then
@@ -124,8 +136,13 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			else
 				SetDrawColor(unpack(self.color))
 			end
-			DrawImage(nil, ttX + 3, y - 1 + data.size / 2, ttW - 6, 2)
+			DrawImage(nil, x + 3, y - 1 + data.size / 2, ttW - 6, 2)
 			y = y + data.size + 2
+		end
+		if y + data.size + 2 > ttY + ttH then
+			y = ttY + 6
+			x = ttX + ttW * currentTile
+			currentTile = currentTile + 1
 		end
 	end
 	return ttW, ttH
