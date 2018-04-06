@@ -102,11 +102,13 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		end
 		
 		local balancedHeight = ttH
-		while balancedHeight > viewPort.height do -- does it fit with the borders?
+		while balancedHeight > viewPort.height do -- does it fit with the viewport?
 			columns = columns + 1
-			balancedHeight = ttH / columns
+			balancedHeight = balancedHeight - viewPort.height
 		end
-		ttH = balancedHeight
+		if columns > 1 then
+			ttH = viewPort.height
+		end
 		if ttY + ttH > viewPort.y + viewPort.height then
 			ttY = m_max(viewPort.y, y + h - ttH)
 		end
@@ -119,23 +121,16 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	local x = ttX
 	columns = 1 -- reset to count columns by block heights
 	local currentBlock = 1
+	local maxColumnHeight = 0
 	for i, data in ipairs(self.lines) do
 		if data.text then
 			--DrawString(400, 600 + 10 * i/5, "LEFT", data.size, "VAR", "y" .. y .. "x" .. x .. "ttY" .. ttY)
-			--DrawString(x + 3, y, "LEFT", data.size, "VAR", "y" .. y .. "x" .. x .. "ttY" .. ttY .. "==" .. tostring(y == ttY + 6))
+			--DrawString(x + 3, y, "LEFT", data.size, "VAR", "y" .. y .. "h" ..  self.blocks[data.block].height .. "x" .. x .. "cp" .. self.blocks[data.block].height + y .. " > " .. ttY + ttH)
+			--DrawString(x + 3, y, "LEFT", data.size, "VAR", self.blocks[data.block].height + y .. " > " .. ttY + ttH )
 			if currentBlock ~= data.block and self.blocks[data.block].height + y > ttY + ttH then
 				y = ttY + 6
 				x = ttX + ttW * columns
 				columns = columns + 1
-			end
-			if y == ttY + 6 then
-				SetDrawColor(0, 0, 0, 0.75)
-				DrawImage(nil, x, ttY + 3, ttW - 3, ttH - 6) -- background shading
-				if type(self.color) == "string" then
-					SetDrawColor(self.color) 
-				else
-					SetDrawColor(unpack(self.color))
-				end
 			end
 			currentBlock = data.block
 			if self.center then
@@ -153,18 +148,23 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			DrawImage(nil, x + 3, y - 1 + data.size / 2, ttW - 6, 2)
 			y = y + data.size + 2
 		end
+		maxColumnHeight = m_max(y - ttY + 6, maxColumnHeight)
 	end
 
+	SetDrawColor(0, 0, 0, 0.75)
+	SetDrawLayer(nil, 95)
+	DrawImage(nil, ttX, ttY + 3, ttW * columns - 3, maxColumnHeight - 6) -- background shading
+	SetDrawLayer(nil, 100)
 	if type(self.color) == "string" then
 		SetDrawColor(self.color) 
 	else
 		SetDrawColor(unpack(self.color))
 	end
 	for i=0,columns do
-		DrawImage(nil, ttX + ttW * i - 3 * math.ceil(i^2 / (i^2 + 1)), ttY, 3, ttH) -- borders
+		DrawImage(nil, ttX + ttW * i - 3 * math.ceil(i^2 / (i^2 + 1)), ttY, 3, maxColumnHeight) -- borders
 	end
 	DrawImage(nil, ttX, ttY, ttW * columns, 3) -- top border
-	DrawImage(nil, ttX, ttY + ttH - 3, ttW * columns, 3) -- bottom border
+	DrawImage(nil, ttX, ttY + maxColumnHeight - 3, ttW * columns, 3) -- bottom border
 
 	return ttW, ttH
 end
