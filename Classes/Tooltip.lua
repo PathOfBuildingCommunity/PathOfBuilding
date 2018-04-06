@@ -124,9 +124,6 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	local maxColumnHeight = 0
 	for i, data in ipairs(self.lines) do
 		if data.text then
-			--DrawString(400, 600 + 10 * i/5, "LEFT", data.size, "VAR", "y" .. y .. "x" .. x .. "ttY" .. ttY)
-			--DrawString(x + 3, y, "LEFT", data.size, "VAR", "y" .. y .. "h" ..  self.blocks[data.block].height .. "x" .. x .. "cp" .. self.blocks[data.block].height + y .. " > " .. ttY + ttH)
-			--DrawString(x + 3, y, "LEFT", data.size, "VAR", self.blocks[data.block].height + y .. " > " .. ttY + ttH )
 			if currentBlock ~= data.block and self.blocks[data.block].height + y > ttY + ttH then
 				y = ttY + 6
 				x = ttX + ttW * columns
