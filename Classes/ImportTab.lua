@@ -336,34 +336,7 @@ function ImportTabClass:DownloadPassiveTree()
 			self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
 			return
 		end
-		local charPassiveData, errMsg = self:ProcessJSON(page)
-		if errMsg then
-			self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
-			return
-		end
-		self.charImportStatus = colorCodes.POSITIVE.."Passive tree and jewels successfully imported."
-		--ConPrintTable(charPassiveData)
-		if self.controls.charImportTreeClearJewels.state then
-			for _, slot in pairs(self.build.itemsTab.slots) do
-				if slot.selItemId ~= 0 and slot.nodeId then
-					self.build.itemsTab:DeleteItem(self.build.itemsTab.items[slot.selItemId])
-				end
-			end
-		end
-		local sockets = { }
-		for i, slot in pairs(charPassiveData.jewel_slots) do
-			sockets[i] = tonumber(slot.passiveSkill.hash)
-		end
-		for _, itemData in pairs(charPassiveData.items) do
-			self:ImportItem(itemData, sockets)
-		end
-		self.build.itemsTab:PopulateSlots()
-		self.build.itemsTab:AddUndoState()
-		self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes)
-		self.build.spec:AddUndoState()
-		self.build.characterLevel = charData.level
-		self.build.controls.characterLevel:SetText(charData.level)
-		self.build.buildFlag = true
+		self:ImportPassiveTreeAndJewels(page, charData)
 	end, sessionID and "POESESSID="..sessionID)
 end
 
@@ -383,77 +356,121 @@ function ImportTabClass:DownloadItems()
 			self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
 			return
 		end
-		local charItemData, errMsg = self:ProcessJSON(page)
-		if errMsg then
-			self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
-			return
-		end
-		if self.controls.charImportItemsClearItems.state then
-			for _, slot in pairs(self.build.itemsTab.slots) do
-				if slot.selItemId ~= 0 and not slot.nodeId then
-					self.build.itemsTab:DeleteItem(self.build.itemsTab.items[slot.selItemId])
-				end
-			end
-		end
-		local skillOrder
-		if self.controls.charImportItemsClearSkills.state then
-			skillOrder = { }
-			for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
-				for _, gem in ipairs(socketGroup.gemList) do
-					if gem.grantedEffect and not gem.grantedEffect.support then
-						t_insert(skillOrder, gem.grantedEffect.name)
-					end
-				end
-			end
-			wipeTable(self.build.skillsTab.socketGroupList)
-		end
-		self.charImportStatus = colorCodes.POSITIVE.."Items and skills successfully imported."
-		--ConPrintTable(charItemData)
-		for _, itemData in pairs(charItemData.items) do
-			self:ImportItem(itemData)
-		end
-		if skillOrder then
-			local groupOrder = { }
-			for index, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
-				groupOrder[socketGroup] = index
-			end
-			table.sort(self.build.skillsTab.socketGroupList, function(a, b)
-				local orderA
-				for _, gem in ipairs(a.gemList) do
-					if gem.grantedEffect and not gem.grantedEffect.support then
-						local i = isValueInArray(skillOrder, gem.grantedEffect.name)
-						if i and (not orderA or i < orderA) then
-							orderA = i
-						end
-					end
-				end
-				local orderB
-				for _, gem in ipairs(b.gemList) do
-					if gem.grantedEffect and not gem.grantedEffect.support then
-						local i = isValueInArray(skillOrder, gem.grantedEffect.name)
-						if i and (not orderB or i < orderB) then
-							orderB = i
-						end
-					end
-				end
-				if orderA and orderB then
-					if orderA ~= orderB then
-						return orderA < orderB
-					else
-						return groupOrder[a] < groupOrder[b]
-					end
-				elseif not orderA and not orderB then
-					return groupOrder[a] < groupOrder[b]
-				else
-					return orderA
-				end
-			end)
-		end
-		self.build.itemsTab:PopulateSlots()
-		self.build.itemsTab:AddUndoState()
-		self.build.skillsTab:AddUndoState()
-		self.build.buildFlag = true
+		self:ImportItemsAndSkills(page)
 	end, sessionID and "POESESSID="..sessionID)
+end
+
+function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
+	--local out = io.open("get-passive-skills.json", "w")
+	--out:write(json)
+	--out:close()
+	local charPassiveData, errMsg = self:ProcessJSON(json)
+	if errMsg then
+		self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
+		return
+	end
+	self.charImportStatus = colorCodes.POSITIVE.."Passive tree and jewels successfully imported."
+	--ConPrintTable(charPassiveData)
+	if self.controls.charImportTreeClearJewels.state then
+		for _, slot in pairs(self.build.itemsTab.slots) do
+			if slot.selItemId ~= 0 and slot.nodeId then
+				self.build.itemsTab:DeleteItem(self.build.itemsTab.items[slot.selItemId])
+			end
+		end
+	end
+	local sockets = { }
+	for i, slot in pairs(charPassiveData.jewel_slots) do
+		sockets[i] = tonumber(slot.passiveSkill.hash)
+	end
+	for _, itemData in pairs(charPassiveData.items) do
+		self:ImportItem(itemData, sockets)
+	end
+	self.build.itemsTab:PopulateSlots()
+	self.build.itemsTab:AddUndoState()
+	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes)
+	self.build.spec:AddUndoState()
+	self.build.characterLevel = charData.level
+	self.build.controls.characterLevel:SetText(charData.level)
+	self.build.buildFlag = true
+end
+
+function ImportTabClass:ImportItemsAndSkills(json)
+	--local out = io.open("get-items.json", "w")
+	--out:write(json)
+	--out:close()
+	local charItemData, errMsg = self:ProcessJSON(json)
+	if errMsg then
+		self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
+		return
+	end
+	if self.controls.charImportItemsClearItems.state then
+		for _, slot in pairs(self.build.itemsTab.slots) do
+			if slot.selItemId ~= 0 and not slot.nodeId then
+				self.build.itemsTab:DeleteItem(self.build.itemsTab.items[slot.selItemId])
+			end
+		end
+	end
+	local skillOrder
+	if self.controls.charImportItemsClearSkills.state then
+		skillOrder = { }
+		for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+			for _, gem in ipairs(socketGroup.gemList) do
+				if gem.grantedEffect and not gem.grantedEffect.support then
+					t_insert(skillOrder, gem.grantedEffect.name)
+				end
+			end
+		end
+		wipeTable(self.build.skillsTab.socketGroupList)
+	end
+	self.charImportStatus = colorCodes.POSITIVE.."Items and skills successfully imported."
+	--ConPrintTable(charItemData)
+	for _, itemData in pairs(charItemData.items) do
+		self:ImportItem(itemData)
+	end
+	if skillOrder then
+		local groupOrder = { }
+		for index, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+			groupOrder[socketGroup] = index
+		end
+		table.sort(self.build.skillsTab.socketGroupList, function(a, b)
+			local orderA
+			for _, gem in ipairs(a.gemList) do
+				if gem.grantedEffect and not gem.grantedEffect.support then
+					local i = isValueInArray(skillOrder, gem.grantedEffect.name)
+					if i and (not orderA or i < orderA) then
+						orderA = i
+					end
+				end
+			end
+			local orderB
+			for _, gem in ipairs(b.gemList) do
+				if gem.grantedEffect and not gem.grantedEffect.support then
+					local i = isValueInArray(skillOrder, gem.grantedEffect.name)
+					if i and (not orderB or i < orderB) then
+						orderB = i
+					end
+				end
+			end
+			if orderA and orderB then
+				if orderA ~= orderB then
+					return orderA < orderB
+				else
+					return groupOrder[a] < groupOrder[b]
+				end
+			elseif not orderA and not orderB then
+				return groupOrder[a] < groupOrder[b]
+			else
+				return orderA
+			end
+		end)
+	end
+	self.build.itemsTab:PopulateSlots()
+	self.build.itemsTab:AddUndoState()
+	self.build.skillsTab:AddUndoState()
+	self.build.characterLevel = charItemData.character.level
+	self.build.controls.characterLevel:SetText(charItemData.character.level)
+	self.build.buildFlag = true
+	return charItemData.character -- For the wrapper
 end
 
 local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC" }

@@ -78,6 +78,10 @@ local skills, mod, flag, skill = ...
 #flags attack melee area movement
 #mods
 
+#skill SummonPhantasmFadingProjectile Physical Projectile
+#flags spell projectile
+#mods
+
 skills["MinionInstability"] = {
 	name = "Minion Instability",
 	hidden = true,
