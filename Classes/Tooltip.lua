@@ -91,7 +91,6 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	local ttW, ttH = self:GetSize()
 	local ttX = x
 	local ttY = y
-	local columns = 1
 	if w and h then
 		ttX = ttX + w + 5
 		if ttX + ttW > viewPort.x + viewPort.width then
@@ -99,15 +98,6 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			if ttX + ttW > x then
 				ttY = ttY + h
 			end
-		end
-		
-		local balancedHeight = ttH
-		while balancedHeight > viewPort.height do -- does it fit with the viewport?
-			columns = columns + 1
-			balancedHeight = balancedHeight - viewPort.height
-		end
-		if columns > 1 then
-			ttH = viewPort.height
 		end
 		if ttY + ttH > viewPort.y + viewPort.height then
 			ttY = m_max(viewPort.y, y + h - ttH)
@@ -119,39 +109,49 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	SetDrawColor(1, 1, 1)
 	local y = ttY + 6
 	local x = ttX
-	columns = 1 -- reset to count columns by block heights
+	local columns = 1 -- reset to count columns by block heights
 	local currentBlock = 1
 	local maxColumnHeight = 0
+	local drawStack = {}
 	for i, data in ipairs(self.lines) do
 		if data.text then
-			if currentBlock ~= data.block and self.blocks[data.block].height + y > ttY + ttH then
+			if currentBlock ~= data.block and self.blocks[data.block].height + y > ttY + math.min(ttH, viewPort.height) then
 				y = ttY + 6
 				x = ttX + ttW * columns
 				columns = columns + 1
 			end
 			currentBlock = data.block
 			if self.center then
-				DrawString(x + ttW/2, y, "CENTER_X", data.size, "VAR", data.text)
+				t_insert(drawStack, {x + ttW/2, y, "CENTER_X", data.size, "VAR", data.text})
 			else
-				DrawString(x + 6, y, "LEFT", data.size, "VAR", data.text)
+				t_insert(drawStack, {x + 6, y, "LEFT", data.size, "VAR", data.text})
 			end
 			y = y + data.size + 2
 		elseif self.lines[i + 1] and self.lines[i - 1] and self.lines[i + 1].text then
-			if type(self.color) == "string" then
-				SetDrawColor(self.color) 
-			else
-				SetDrawColor(unpack(self.color))
-			end
-			DrawImage(nil, x + 3, y - 1 + data.size / 2, ttW - 6, 2)
+			t_insert(drawStack, {nil, x, y - 1 + data.size / 2, ttW - 3, 2})
 			y = y + data.size + 2
 		end
 		maxColumnHeight = m_max(y - ttY + 6, maxColumnHeight)
 	end
 
-	SetDrawColor(0, 0, 0, 0.75)
-	SetDrawLayer(nil, 95)
-	DrawImage(nil, ttX, ttY + 3, ttW * columns - 3, maxColumnHeight - 6) -- background shading
-	SetDrawLayer(nil, 100)
+	-- background shading currently must be drawn before text lines.  API change will allow something like the commented lines below
+	SetDrawColor(0, 0, 0, .85)
+	--SetDrawLayer(nil, GetDrawLayer() - 5)
+	DrawImage(nil, ttX, ttY + 3, ttW * columns - 3, maxColumnHeight - 6)
+	--SetDrawLayer(nil, GetDrawLayer())
+	SetDrawColor(1, 1, 1)
+	for i, lines in ipairs(drawStack) do 
+		if #lines < 6 then
+			if(type(self.color) == "string") then
+				SetDrawColor(self.color) 
+			else
+				SetDrawColor(unpack(self.color))
+			end
+			DrawImage(unpack(lines))
+		else
+			DrawString(unpack(lines))
+		end
+	end
 	if type(self.color) == "string" then
 		SetDrawColor(self.color) 
 	else
