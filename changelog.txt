@@ -1,3 +1,7 @@
+VERSION[1.4.86][2018/05/08]
+ * Fixed the importing of character passive trees
+ * The "no/all equipped items are corrupted" modifiers on Voll's/Malachai's Vision are now recognised correctly
+ * Fixed error when setting Spectre level above 100 (thanks Faust)
 VERSION[1.4.85][2018/03/22]
  * Added Helmet enchantments for Spectral Shield Throw and Tectonic Slam
  * Added Light Radius Mod to the Other Defences section of the Calcs tab

@@ -118,7 +118,7 @@ function LoadModule(fileName, ...)
 	if func then
 		return func(...)
 	else
-		error("LoadModule() error loading '"..fileName.."': %s", err)
+		error("LoadModule() error loading '"..fileName.."': "..err)
 	end
 end
 function PLoadModule(fileName, ...)
@@ -129,7 +129,7 @@ function PLoadModule(fileName, ...)
 	if func then
 		return PCall(func, ...)
 	else
-		error("PLoadModule() error loading '"..fileName.."': %s", err)
+		error("PLoadModule() error loading '"..fileName.."': "..err)
 	end
 end
 function PCall(func, ...)
@@ -168,6 +168,13 @@ dofile("Launch.lua")
 
 runCallback("OnInit")
 runCallback("OnFrame") -- Need at least one frame for everything to initialise
+
+if mainObject.promptMsg then
+	-- Something went wrong during startup
+	print(mainObject.promptMsg)
+	io.read("*l")
+	return
+end
 
 -- The build module; once a build is loaded, you can find all the good stuff in here
 local build = mainObject.main.modes["BUILD"]

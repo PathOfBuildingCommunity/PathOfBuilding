@@ -380,7 +380,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	end
 	local sockets = { }
 	for i, slot in pairs(charPassiveData.jewel_slots) do
-		sockets[i] = tonumber(slot.passiveSkill.hash)
+		sockets[i] = tonumber(type(slot) == "number" and slot or slot.passiveSkill.hash)
 	end
 	for _, itemData in pairs(charPassiveData.items) do
 		self:ImportItem(itemData, sockets)
