@@ -10,6 +10,7 @@ local ipairs = ipairs
 local unpack = unpack
 local t_insert = table.insert
 local m_floor = math.floor
+local m_modf = math.modf
 local m_min = math.min
 local m_max = math.max
 local m_sqrt = math.sqrt
