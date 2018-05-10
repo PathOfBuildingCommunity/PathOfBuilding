@@ -469,8 +469,8 @@ Adds (13-17) to (29-37) Chaos Damage
 {variant:2}+(150–200) to maximum Energy Shield
 +(32-40)% to Cold Resistance
 +(15-20)% to Lightning Resistance
-Regenerate 100 Energy Shield per second if all worn items are Corrupted
-Regenerate 35 Mana per second if all worn items are Corrupted
+Regenerate 100 Energy Shield per second if all Equipped Items are Corrupted
+Regenerate 35 Mana per second if all Equipped Items are Corrupted
 Corrupted
 ]],[[
 Memory Vault
@@ -525,8 +525,8 @@ Requires Level 68, 62 Str, 91 Int
 +(26-32)% to Fire Resistance
 +(8-16)% to Chaos Resistance
 20% increased Light Radius
-(8-12)% increased maximum Life if no worn Items are Corrupted
-Regenerate 100 Life per second if no worn Items are Corrupted
+(8-12)% increased maximum Life if no Equipped Items are Corrupted
+Regenerate 100 Life per second if no Equipped Items are Corrupted
 ]],
 -- Helmet: Evasion/Energy Shield
 [[

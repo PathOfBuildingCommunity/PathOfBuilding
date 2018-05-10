@@ -462,9 +462,12 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			minion.type = minionType
 			minion.minionData = env.data.minions[minionType]
 			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or activeSkill.skillData.minionLevel or activeSkill.skillData.levelRequirement
+			-- fix minion level between 1 and 100
+			minion.level = m_min(m_max(minion.level,1),100) 
 			minion.itemList = { }
 			minion.uses = activeGem.grantedEffect.minionUses
 			local attackTime = minion.minionData.attackTime * (1 - (minion.minionData.damageFixup or 0))
+
 			local damage = env.data.monsterDamageTable[minion.level] * minion.minionData.damage * attackTime
 			if activeGem.grantedEffect.minionHasItemSet then
 				if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
