@@ -698,6 +698,7 @@ skills["SupportAdditionalXP"] = {
 	requireSkillTypes = { },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
+	supportGemsOnly = true,
 	baseMods = {
 	},
 	qualityMods = {

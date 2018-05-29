@@ -85,6 +85,7 @@ local skills, mod, flag, skill = ...
 
 #skill ColdSnap
 #flags spell area cold
+#baseMod skill("showAverage", false)
 #baseMod skill("radius", 16)
 #mods
 

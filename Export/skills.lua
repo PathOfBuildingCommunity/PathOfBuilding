@@ -219,6 +219,9 @@ directiveTable.skill = function(state, args, out)
 			out:write(mapAST(type), ', ')
 		end
 		out:write('},\n')
+		if granted.Flag0 then
+			out:write('\tsupportGemsOnly = true,\n')
+		end
 	else
 		local activeSkill = ActiveSkills[granted.ActiveSkillsKey]
 		if #activeSkill.Description > 0 then

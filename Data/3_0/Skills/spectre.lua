@@ -2227,7 +2227,7 @@ skills["MonsterProjectileWeakness"] = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
 		[3] = mod("SelfPierceChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"chance_to_be_pierced_%"
-		--[4] = "chance_to_be_knocked_back_%"
+		[4] = mod("SelfKnockbackChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"chance_to_be_knocked_back_%"
 		[5] = mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"projectile_damage_taken_+%"
 	},
 	levels = {
@@ -2794,7 +2794,7 @@ skills["NecromancerProjectileWeakness"] = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("duration", nil), --"base_skill_effect_duration"
 		[3] = mod("SelfPierceChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"chance_to_be_pierced_%"
-		--[4] = "chance_to_be_knocked_back_%"
+		[4] = mod("SelfKnockbackChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"chance_to_be_knocked_back_%"
 		[5] = mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"projectile_damage_taken_+%"
 	},
 	levels = {

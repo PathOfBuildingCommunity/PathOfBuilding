@@ -5,6 +5,18 @@
 data.uniques.new = {
 -- 3.2 General
 [[
+Chains of Command
+Saintly Chainmail
+Requires Level 70, 99 Str, 115 Int
+(150-190)% increased Armour and Energy Shield
++(60-90) to maximum Life
+Animated Guardian deals 5% increased Damage per Animated Weapon
+Animated Minions' Melee Attacks deal Splash Damage to surrounding targets
+Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets
+Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
+10% chance to Trigger Level 20 Animate Guardian's Weapon when Animated Weapon Kills an Enemy
+You cannot have non-Animated Minions
+]],[[
 Disintegrator
 Maelstrom Staff
 Requires Level 64
@@ -19,6 +31,16 @@ Gain 4% of Non-Chaos Damage as extra Chaos Damage per Siphoning Charge
 0.2% of Damage Leeched as Life per Siphoning Charge
 Take 150 Physical Damage per Second per Siphoning Charge if you've used a Skill Recently
 Elder Item
+]],[[
+Gluttony
+Leather Belt
+Requires Level 48
++(25-40) to maximum Life
++(60-80) to maximum Life
+Culling Strike against Enemies Cursed with Poacher's Mark
+Curse Enemies with Level 30 Poacher's Mark on Hit, which can apply to Hexproof Enemies
+Take (100-200) Physical Damage when you use a Movement Skill
+You have no Armour or Energy Shield
 ]],[[
 Gorgon's Gaze
 Regicide Mask
@@ -134,10 +156,11 @@ Gain 300% of Weapon Physical Damage as Extra Damage of an Element
 Deal no Non-Elemental Damage
 ]],
 
--- 3.2 Beastiary
+-- 3.2 Bestiary
 [[
 Craiceann's Carapace
 Golden Plate
+League: Bestiary
 Requires Level 56
 Grants Level 20 Aspect of the Crab Skill
 (300–350)% increased Armour
@@ -148,6 +171,7 @@ Cannot be inflicted with Bleeding
 ]],[[
 Craiceann's Chitin
 Magistrate Crown
+League: Bestiary
 Requires Level 58
 (25–30)% of Block Chance applied to Spells
 (140–180)% increased Armour and Energy Shield
@@ -158,6 +182,7 @@ Cannot lose Crab Barriers if you have lost Crab Barriers Recently
 ]],[[
 Craiceann's Pincers
 Titan Gauntlets
+League: Bestiary
 Requires Level 69
 (150–200)% increased Armour
 (50–70) Life Regenerated per second
@@ -168,6 +193,7 @@ your maximum number of Crab Barriers
 ]],[[
 Craiceann's Tracks
 Goliath Greaves
+League: Bestiary
 Requires Level 54
 (150–180)% increased Armour
 +(50–70) to maximum Life
@@ -178,6 +204,7 @@ You only lose (5–7) Crab Barriers when you take Physical Damage from a Hit
 ]],[[
 Farrul's Bite
 Harlequin Mask
+League: Bestiary
 Requires Level 57
 Grants Level 20 Aspect of the Cat Skill
 (180–220)% increased Evasion and Energy Shield
@@ -188,6 +215,7 @@ Critical Strikes have (10–20)% chance to Blind Enemies while you have Cat's St
 ]],[[
 Farrul's Chase
 Slink Boots
+League: Bestiary
 Requires Level 69
 Trigger Level 20 Intimidating Cry when you lose Cat's Stealth
 (110–150)% increased Evasion Rating
@@ -198,6 +226,7 @@ Trigger Level 20 Intimidating Cry when you lose Cat's Stealth
 ]],[[
 Farrul's Fur
 Triumphant Lamellar
+League: Bestiary
 Requires Level 69
 (100–150)% increased Armour and Evasion
 +(90–100) to maximum Life
@@ -208,6 +237,7 @@ You have Phasing while you have Cat's Stealth
 ]],[[
 Farrul's Pounce
 Hydrascale Gauntlets
+League: Bestiary
 Requires Level 59
 (100–140)% increased Armour and Evasion
 +(50–70) to maximum Life
@@ -218,6 +248,7 @@ You have Crimson Dance while you have Cat's Stealth
 ]],[[
 Fenumus' Shroud
 Widowsilk Robe
+League: Bestiary
 Requires Level 65
 +(30–40) to Intelligence
 (120–140)% increased Energy Shield
@@ -228,6 +259,7 @@ Enemies affected by your Spider's Webs have -10% to All Resistances
 ]],[[
 Fenumus' Spinnerets
 Assassin's Boots
+League: Bestiary
 Requires Level 63
 (160–200)% increased Evasion and Energy Shield
 +(20–30)% to Lightning Resistance
@@ -239,6 +271,7 @@ Gain (15–20) Energy Shield for each Enemy you Hit which is affected by a Spide
 ]],[[
 Fenumus' Toxins
 Necromancer Circlet
+League: Bestiary
 Requires Level 54
 Adds (16–21) to (31–36) Chaos Damage to Spells
 (220–250)% increased Energy Shield
@@ -249,6 +282,7 @@ Aspect of the Spider inflicts Spider's Webs and Hinder every 0.5 Seconds instead
 ]],[[
 Fenumus' Weave
 Carnal Mitts
+League: Bestiary
 Requires Level 50
 Grants Level 20 Aspect of the Spider Skill
 (120–170)% increased Evasion and Energy Shield
@@ -259,6 +293,7 @@ Adds (8–10) to (13–15) Chaos Damage for each Spider's Web on the Enemy
 ]],[[
 Saqawal's Flock
 Silken Hood
+League: Bestiary
 Requires Level 60
 25% chance to Trigger Level 20 Tornado when you gain Avian's Might or Avian's Flight
 (60–80)% increased Evasion Rating
@@ -268,6 +303,7 @@ Requires Level 60
 ]],[[
 Saqawal's Nest
 Blood Raiment
+League: Bestiary
 Requires Level 65
 +(25–75) to all Attributes
 +(30–40)% to Lightning Resistance
@@ -278,6 +314,7 @@ Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allie
 ]],[[
 Saqawal's Talons
 Hydrascale Boots
+League: Bestiary
 Requires Level 59
 Grants Level 20 Aspect of the Avian Skill
 (100–150)% increased Armour and Evasion
@@ -288,6 +325,7 @@ Grants Level 20 Aspect of the Avian Skill
 ]],[[
 Saqawal's Winds
 Soldier Gloves
+League: Bestiary
 Requires Level 51
 (140–180)% increased Armour and Energy Shield
 +(30–60) to maximum Life
@@ -333,6 +371,18 @@ Adds (11–14) to (17–21) Physical Damage
 40% increased Rarity of Items Dropped by Frozen Enemies
 (30–40)% increased Cold Damage with Attack Skills
 Trigger Level 20 Icicle Burst when you Kill a Frozen Enemy
+]],[[
+Corona Solaris
+Crystal Wand
+Requires Level 63, 146 Int
+(29-33)% increased Spell Damage
+Triggers Level 20 Blinding Aura when Equipped
+Adds (18-22) to (36-44) Physical Damage
++(27-33)% to Global Critical Strike Multiplier
+20% increased Light Radius
+(120-140)% increased Critical Strike Chance against Blinded Enemies
+Increases and Reductions to Light Radius also apply to Accuracy
+Adds (145-157) to (196-210) Fire Damage to Hits with this Weapon against Blinded Enemies
 ]],[[
 Crystal Vault
 Latticed Ringmail

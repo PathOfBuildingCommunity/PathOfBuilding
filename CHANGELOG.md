@@ -1,3 +1,17 @@
+### 1.4.87 - 2018/05/30
+ * Passive tree updated to 3.3
+ * Added the following uniques from mid-3.2:
+    * Chains of Commander
+	* Corona Solaris
+	* Gluttony
+ * Added an option to the Configuration tab for "Have you Shattered an Enemy Recently"
+ * Added the missing league tags on the Bestiary uniques
+ * Modifiers to Action Speed (e.g Tailwind) now correctly affect Trap Throwing Speed, Mine Laying Speed, and Totem Placement speed
+ * Projectile Weakness's added Knockback chance is now factored into the Knockback calculations
+ * The damage-per-Ailment-type modifier on Yoke of Suffering is now supported (thanks chollinger)
+ * The Global Physical Damage stat on Prismatic Eclipse is now correctly recognised
+ * Enlighten no longer incorrectly applies to skills granted by items
+ 
 ### 1.4.86 - 2018/05/08
  * Fixed the importing of character passive trees
  * The "no/all equipped items are corrupted" modifiers on Voll's/Malachai's Vision are now recognised correctly
@@ -12,7 +26,7 @@
 
 ### 1.4.84 - 2018/03/21
  * Added the following new uniques:
-	* All 16 uniques from the Beastiary bosses (including all granted skills and associated mechanics)
+	* All 16 uniques from the Bestiary bosses (including all granted skills and associated mechanics)
     * Asenath's Chant
 	* The Effigon
 	* Hyrri's Demise

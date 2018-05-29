@@ -3764,7 +3764,7 @@ skills["ProjectileWeakness"] = {
 	baseMods = {
 		skill("castTime", 0.5), 
 		flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }), --"projectiles_always_pierce_you" = 1
-		--"chance_to_be_knocked_back_%" = 25
+		mod("SelfKnockbackChance", "BASE", 25, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), --"chance_to_be_knocked_back_%" = 25
 		--"base_deal_no_damage" = ?
 		skill("debuff", true), 
 		skill("radius", 22), 

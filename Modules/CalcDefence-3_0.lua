@@ -47,7 +47,7 @@ function calcs.defence(env, actor)
 			max = 100
 			total = 100
 		else
-			max = modDB:Sum("OVERRIDE", nil, elem.."ResistMax") or modDB:Sum("BASE", nil, elem.."ResistMax")
+			max = modDB:Sum("OVERRIDE", nil, elem.."ResistMax") or m_min(100, modDB:Sum("BASE", nil, elem.."ResistMax"))
 			total = modDB:Sum("OVERRIDE", nil, elem.."Resist") or modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
 		end
 		output[elem.."Resist"] = m_min(total, max)
@@ -480,7 +480,7 @@ function calcs.defence(env, actor)
 				rowList = { },
 				colList = {
 					{ label = "Type", key = "type" },
-					{ label = "Migitation", key = "resist" },
+					{ label = "Mitigation", key = "resist" },
 					{ label = "Taken", key = "taken" },
 					{ label = "Final", key = "final" },
 				},

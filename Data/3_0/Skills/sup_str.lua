@@ -765,6 +765,7 @@ skills["SupportAdditionalLevel"] = {
 	requireSkillTypes = { },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
+	supportGemsOnly = true,
 	baseMods = {
 		mod("ManaCost", "MORE", 25), 
 	},
