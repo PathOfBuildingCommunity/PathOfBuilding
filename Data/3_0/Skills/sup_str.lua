@@ -335,7 +335,7 @@ skills["SupportIncreasedBurningDamage"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("FireDamage", "MORE", nil, ModFlag.Dot), --"support_burning_damage_+%_final"
+		[2] = mod("Damage", "MORE", nil, 0, KeywordFlag.Burning), --"support_burning_damage_+%_final"
 	},
 	levels = {
 		[1] = { 31, 35, },

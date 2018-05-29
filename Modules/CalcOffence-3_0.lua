@@ -1214,6 +1214,11 @@ function calcs.offence(env, actor)
 		end
 		if baseVal > 0 then
 			skillFlags.dot = true
+			if damageType == "Fire" then
+				dotCfg.keywordFlags = bor(dotCfg.keywordFlags, KeywordFlag.Burning)
+			else
+				dotCfg.keywordFlags = band(dotCfg.keywordFlags, bnot(KeywordFlag.Burning))
+			end
 			local effMult = 1
 			if env.mode_effective then
 				local resist = 0
@@ -1656,7 +1661,7 @@ function calcs.offence(env, actor)
 					skillTypes = skillCfg.skillTypes,
 					slotName = skillCfg.slotName,
 					flags = bor(ModFlag.Dot, ModFlag.Ailment),
-					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Ignite, KeywordFlag.Ailment),
+					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Ignite, KeywordFlag.Ailment, KeywordFlag.Burning),
 					skillCond = { },
 				}
 			end

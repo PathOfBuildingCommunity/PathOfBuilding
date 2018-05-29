@@ -11,6 +11,7 @@
  * The damage-per-Ailment-type modifier on Yoke of Suffering is now supported (thanks chollinger)
  * The Global Physical Damage stat on Prismatic Eclipse is now correctly recognised
  * Enlighten no longer incorrectly applies to skills granted by items
+ * Modifiers to Burning Damage no longer incorrectly apply to Poison sourced from Fire Damage
  
 ### 1.4.86 - 2018/05/08
  * Fixed the importing of character passive trees
