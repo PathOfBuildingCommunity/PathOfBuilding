@@ -77,7 +77,7 @@ function calcs.buildModListForNode(env, node)
 
 	-- Run second pass radius jewels
 	for _, rad in pairs(env.radiusJewelList) do
-		if rad.nodes[node.id] and (rad.type == "Threshold" or (rad.type == "Self" and node.alloc)) then
+		if rad.nodes[node.id] and (rad.type == "Threshold" or (rad.type == "Self" and env.allocNodes[node.id]) or (rad.type == "SelfUnalloc" and not env.allocNodes[node.id])) then
 			rad.func(node, modList, rad.data)
 		end
 	end
@@ -307,6 +307,7 @@ function calcs.initEnv(build, mode, override)
 	else
 		nodes = env.spec.allocNodes
 	end
+	env.allocNodes = nodes
 
 	-- Set up requirements tracking
 	env.requirementsTable = { }
@@ -347,7 +348,7 @@ function calcs.initEnv(build, mode, override)
 			if not nodes[slot.nodeId] then
 				item = nil
 			elseif item and item.jewelRadiusIndex then
-				-- Jewel has a radius,  add it to the list
+				-- Jewel has a radius, add it to the list
 				local funcList = item.jewelData.funcList or { { type = "Self", func = function(node, out, data)
 					-- Default function just tallies all stats in radius
 					if node then

@@ -3,6 +3,198 @@
 --
 
 data.uniques.new = {
+-- 3.3 General
+[[
+Combat Focus
+Crimson Jewel
+Limited to: 2
+Radius: Medium
+Elemental Hit deals 10% increased Damage
+With 40 total Strength and Intelligence in Radius, Elemental Hit cannot choose Cold
+]],[[
+Combat Focus
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+Elemental Hit deals 10% increased Damage
+With 40 total Intelligence and Dexterity in Radius, Elemental Hit cannot choose Fire
+]],[[
+Combat Focus
+Viridian Jewel
+Limited to: 2
+Radius: Medium
+Elemental Hit deals 10% increased Damage
+With 40 total Dexterity and Strength in Radius, Elemental Hit cannot choose Lightning
+]],[[
+Earendel's Embrace
+Grinning Fetish
+Requires Level 35
+18% increased Elemental Damage
++23 to all Attributes
+Minions deal 37% increased Damage
+Summoned Skeletons Cover Enemies in Ash on Hit
+Summoned Skeletons take 23.4% of their Maximum Life per second as Fire Damage
+Summoned Skeletons have Avatar of Fire
+]],[[
+Slavedriver's Hand
+Ambush Mitts
+Requires Level 45
++35 to Dexterity
+217% increased Evasion and Energy Shield
+30% reduced Trap Throwing Speed
+10% increased Area of Effect for Traps
+Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
+10% chance to gain an Endurance, Frenzy or Power Charge when a Trap is Triggered by an Enemy
+Skills which throw Traps have Blood Magic
+]],[[
+Tempered Flesh
+Crimson Jewel
+Radius: Medium
+-1 Strength per 1 Strength on Allocated Passives in Radius
++5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+]],
+
+-- 3.3 Incursion
+[[
+Apep's Slumber
+Ancient Spirit Shield
+League: Incursion
+Requires Level 45
+(5–10)% increased Spell Damage
+Adds 22 to 35 Chaos Damage
++96 to maximum Energy Shield
++25% chance to be Poisoned
++3% to all maximum Resistances while Poisoned
+50 Energy Shield Regenerated per Second per Poison on you, up to 250 per second
+Poisons on you expire 50% slower
+]],[[
+Apep's Supremacy
+Vaal Spirit Shield
+League: Incursion
+Requires Level 62
+(5–10)% increased Spell Damage
+Adds 55 to 76 Chaos Damage
++144 to maximum Energy Shield
+45% faster start of Energy Shield Recharge
+You take Chaos Damage instead of Physical Damage from Bleeding
++25% chance to be Poisoned
++3% to all maximum Resistances while Poisoned
+Poisons on you expire 50% slower
+]],[[
+Coward's Chains
+Chain Belt
+League: Incursion
+Requires Level 22
++(9–20) to maximum Energy Shield
+22% increased Damage
++14 to all Attributes
+7% increased Movement Speed
+Enemies are Unlucky when Damaging you while you are Cursed with Vulnerability
+You are cursed with Level 10 Vulnerability
+]],[[
+Coward's Legacy
+Chain Belt
+League: Incursion
+Requires Level 52
++(9–20) to maximum Energy Shield
++20 to all Attributes
+5% increased Movement Speed
+50% increased Effect of Curses on you
+You are Cursed with Level 20 Vulnerability
+You count as on Low Life while you are Cursed with Vulnerability
+]],[[
+Dance of the Offered
+Shackled Boots
+League: Incursion
+Requires Level 34
++51 to maximum Mana
++15% to Lightning Resistance
+25% increased Movement Speed
+You have Onslaught while not on Low Mana
+Lose 33.5 Mana per Second
+]],[[
+Omeyocan
+Carnal Boots
+League: Incursion
+Requires Level 55
+19% increased maximum Mana
++28% to Lightning Resistance
+30% increased Movement Speed
+2% chance to Dodge Attack and Spell Hits per 500 Maximum Mana, up to 20%
+You have Onslaught while not on Low Mana
+Lose 7% of maximum Mana per Second
+]],[[
+Story of the Vaal
+Variscite Blade
+Requires Level 35
++240 to Accuracy Rating
+116% increased Physical Damage
+12% increased Attack Speed
++26 Life gained on Kill
+50% of Physical Damage from Hits with this Weapon is Converted to a random Element
+Hits with this Weapon always inflict Elemental Ailments
+]],[[
+Fate of the Vaal
+Gemstone Sword
+League: Incursion
+Requires Level 56
++400 to Accuracy Rating
+178% increased Physical Damage
+11% increased Attack Speed
+100% of Physical Damage from Hits with this Weapon is Converted to a random Element
+Hits with this Weapon always inflict Elemental Ailments
+Hits with this Weapon deal 57% increased Damage to Ignited Enemies
+Hits with this Weapon deal 52% increased Damage to Frozen Enemies
+Hits with this Weapon deal 46% increased Damage to Shocked Enemies
+]],[[
+Mask of the Spirit Drinker
+Crusader Helmet
+League: Incursion
+Requires Level 31
+65% increased Armour and Energy Shield
++46 to maximum Life
+Your Energy Shield starts at zero
+Cannot gain Energy Shield
+50 Life Regenerated per second if you have at least 500 Maximum Energy Shield
+100 Life Regenerated per second if you have at least 1000 Maximum Energy Shield
+150 Life Regenerated per second if you have at least 1500 Maximum Energy Shield
+]],[[
+Mask of the Stitched Demon
+Magistrate Crown
+League: Incursion
+Requires Level 58
++45 to Intelligence
++180 to maximum Energy Shield
+Strength provides no bonus to Maximum Life
+Intelligence provides no bonus to Maximum Mana
++1 to Maximum Life per 2 Intelligence
+Your Energy Shield starts at zero
+Cannot gain Energy Shield
+1% of Life Regenerated per second per 500 Maximum Energy Shield
+]],[[
+Sacrificial Heart
+Paua Amulet
+League: Incursion
+Requires Level 32
+(20–30)% increased Mana Regeneration Rate
+Adds 25 to 38 Fire Damage
+Adds 21 to 35 Cold Damage
+Adds 1 to 51 Lightning Damage
+Gain a Power Charge when you use a Vaal Skill
+10 Life gained for each Enemy Hit if you have used a Vaal Skill Recently
+10% increased Movement Speed if you have used a Vaal Skill Recently
+]],[[
+Zerphi's Heart
+Paua Amulet
+League: Incursion
+Requires Level 70
+(20–30)% increased Mana Regeneration Rate
+Adds 51 to 59 Chaos Damage
+Items and Gems have 50% increased Attribute Requirements
+Chaos Damage can Ignite, Chill and Shock
+Gain Soul Eater for 10 seconds when you use a Vaal Skill
+]],
+
 -- 3.2 General
 [[
 Chains of Command

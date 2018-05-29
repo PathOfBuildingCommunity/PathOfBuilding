@@ -242,7 +242,7 @@ function calcs.defence(env, actor)
 		local inc = modDB:Sum("INC", nil, "ManaRegen")
 		local more = modDB:Sum("MORE", nil, "ManaRegen")
 		local regen = base * (1 + inc/100) * more
-		output.ManaRegen = round(regen * output.ManaRecoveryRateMod, 1)
+		output.ManaRegen = round(regen * output.ManaRecoveryRateMod, 1) - modDB:Sum("BASE", nil, "ManaDegen")
 		if breakdown then
 			breakdown.ManaRegen = { }
 			breakdown.multiChain(breakdown.ManaRegen, {

@@ -128,6 +128,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 			if actor.mainSkill.skillFlags.minion then
 				condList["UsedMinionSkillRecently"] = true
 			end
+			if actor.mainSkill.skillFlags.vaal then
+				condList["UsedVaalSkillRecently"] = true
+			end
 		end
 		if actor.mainSkill.skillFlags.hit and not actor.mainSkill.skillFlags.trap and not actor.mainSkill.skillFlags.mine and not actor.mainSkill.skillFlags.totem then
 			condList["HitRecently"] = true
@@ -155,7 +158,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 	condList["IntHigherThanStr"] = output.Int > output.Str
 
 	-- Add attribute bonuses
-	modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
+	if not modDB:Sum("FLAG", nil, "NoStrBonusToLife") then
+		modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
+	end
 	local strDmgBonusRatioOverride = modDB:Sum("BASE", nil, "StrDmgBonusRatioOverride")
 	if strDmgBonusRatioOverride > 0 then
 		actor.strDmgBonus = round((output.Str + modDB:Sum("BASE", nil, "DexIntToMeleeBonus")) * strDmgBonusRatioOverride)
@@ -167,7 +172,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 	if not modDB:Sum("FLAG", nil, "IronReflexes") then
 		modDB:NewMod("Evasion", "INC", round(output.Dex / 5), "Dexterity")
 	end
-	modDB:NewMod("Mana", "BASE", round(output.Int / 2), "Intelligence")
+	if not modDB:Sum("FLAG", nil, "NoIntBonusToMana") then
+		modDB:NewMod("Mana", "BASE", round(output.Int / 2), "Intelligence")
+	end
 	modDB:NewMod("EnergyShield", "INC", round(output.Int / 5), "Intelligence")
 
 	-- Life/mana pools
@@ -540,6 +547,9 @@ function calcs.perform(env)
 				env.minion.modDB:AddMod(value.mod)
 			end
 		end
+		for _, name in ipairs(env.minion.modDB:Sum("LIST", nil, "Keystone")) do
+			env.minion.modDB:AddList(env.build.tree.keystoneMap[name].modList)
+		end
 		doActorAttribsPoolsConditions(env, env.minion)
 	end
 
@@ -781,6 +791,7 @@ function calcs.perform(env)
 				if modDB:Sum("BASE", nil, "AvoidCurse") < 100 then
 					modDB.conditions["Cursed"] = true
 					modDB.multipliers["CurseOnSelf"] = (modDB.multipliers["CurseOnSelf"] or 0) + 1
+					modDB.conditions["AffectedBy"..value.name:gsub(" ","")] = true
 					local cfg = { skillName = value.name }
 					local inc = modDB:Sum("INC", cfg, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
 					local more = modDB:Sum("MORE", cfg, "CurseEffectOnSelf")

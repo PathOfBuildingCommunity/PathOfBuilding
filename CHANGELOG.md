@@ -1,5 +1,21 @@
 ### 1.4.87 - 2018/05/30
  * Passive tree updated to 3.3
+ * Added the following announced uniques for 3.3:
+    * Combat Focus
+    * Earendel's Embrace
+	* Slavedriver's Hand
+	* Tempered Flesh
+	* Apep's Slumber
+	* Apep's Supremacy
+	* Coward's Chains
+	* Coward's Legacy
+	* Dance of the Offered
+	* Omeyocan
+	* Story of the Vaal (partial; random conversion is not supported)
+	* Fate of the Vaal (partial; random conversion is not supported)
+	* Mask of the Spirit Drinker
+	* Mask of the Stitched Demon
+	* Sacrificial Heart
  * Added the following uniques from mid-3.2:
     * Chains of Commander
 	* Corona Solaris
@@ -10,6 +26,7 @@
  * Projectile Weakness's added Knockback chance is now factored into the Knockback calculations
  * The damage-per-Ailment-type modifier on Yoke of Suffering is now supported (thanks chollinger)
  * The Global Physical Damage stat on Prismatic Eclipse is now correctly recognised
+ * The increased Damage to Pierced targets modifier on Drillneck is now correctly recognised
  * Enlighten no longer incorrectly applies to skills granted by items
  * Modifiers to Burning Damage no longer incorrectly apply to Poison sourced from Fire Damage
  
