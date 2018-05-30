@@ -1,3 +1,8 @@
+### 1.4.88 - 2018/05/30
+ * Sorting unique flasks by DPS now works correctly
+ * Fixed issue where Slavedriver's Hand was granting Blood Magic to all skills
+ * Fixed a rare issue in which nodes in Ascendant could be unallocated without properly removing dependant nodes
+
 ### 1.4.87 - 2018/05/30
  * Passive tree updated to 3.3
  * The unique items list can now be sorted by DPS

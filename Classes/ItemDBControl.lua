@@ -176,7 +176,7 @@ function ItemDBClass:ListBuilder()
 			item.CombinedDPS = 0
 			for slotName, slot in pairs(self.itemsTab.slots) do
 				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
-					local output = calcFunc({ repSlotName = slotName, repItem = item })
+					local output = calcFunc(item.base.flask and { toggleFlask = item } or { repSlotName = slotName, repItem = item })
 					item.CombinedDPS = m_max(item.CombinedDPS, output.Minion and output.Minion.CombinedDPS or output.CombinedDPS)				
 				end
 			end
