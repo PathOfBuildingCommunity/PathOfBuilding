@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.88"/>
+	<Version number="1.4.89"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="16ea2d48919334a5c49b48ac18d456f8f121b09c" name="Launch.lua" part="program"/>
 	<File sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="475f9809559fb3bda8e74ebefe931a4d38fe7a4c" name="changelog.txt" part="program"/>
+	<File sha1="6224ccbcf54720af81114cbd6731f3e3c3559a03" name="changelog.txt" part="program"/>
 	<File sha1="51a3c1027381bb36666568aaceec843164f8c957" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="f85e8b60ff9bb41a3cc4ba8044f7a49163fdedd3" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="87d6d7258d2ac744c75205375418d3e9bf730562" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -35,7 +35,7 @@
 	<File sha1="afd15b62431790e77ad40640c7a005b4e9baaed2" name="Classes/ModList.lua" part="program"/>
 	<File sha1="dbbc79511bd8867726fd0a10658927dd55ef4487" name="Classes/ModStore.lua" part="program"/>
 	<File sha1="9bc0d8791e7825e52070e96e7894d29fad70cf98" name="Classes/NotesTab.lua" part="program"/>
-	<File sha1="88256053e4cbc5ae131fc3badc2e1cc42d7f183e" name="Classes/PassiveSpec.lua" part="program"/>
+	<File sha1="ed0fa3b89bc332825e7c78b7c9cb053656e1f11f" name="Classes/PassiveSpec.lua" part="program"/>
 	<File sha1="1080dfd1b2ff05b367e7da76e4223d13746ed5e6" name="Classes/PassiveSpecListControl.lua" part="program"/>
 	<File sha1="1f39203843b433dbf41917d013a9037e929ddd8e" name="Classes/PassiveTree.lua" part="program"/>
 	<File sha1="2a2df42102e9e0d6cc9dcc77170e17627737a428" name="Classes/PassiveTreeView.lua" part="program"/>
