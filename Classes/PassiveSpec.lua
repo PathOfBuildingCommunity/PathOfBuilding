@@ -13,6 +13,14 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
+local nodeMigrate32_33 = {
+	[17788] = 38129,
+	[38807] = 63639,
+	[5607] = 62069,
+	[61547] = 31583,
+	[29619] = 1600,
+}
+
 local PassiveSpecClass = common.NewClass("PassiveSpec", "UndoHandler", function(self, build)
 	self.UndoHandler()
 
@@ -96,11 +104,20 @@ function PassiveSpecClass:Save(xml)
 	self.modFlag = false
 end
 
+function PassiveSpecClass:MigrateNodeId(nodeId)
+	if self.build.targetVersion == "3_0" then
+		-- Migration for 3.2 -> 3.3
+		return nodeMigrate32_33[nodeId] or nodeId
+	end
+	return nodeId
+end
+
 -- Import passive spec from the provided class IDs and node hash list
 function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
 	self:ResetNodes()
 	self:SelectClass(classId)
 	for _, id in pairs(hashList) do
+		id = self:MigrateNodeId(id)
 		local node = self.nodes[id]
 		if node then
 			node.alloc = true
@@ -152,7 +169,7 @@ function PassiveSpecClass:DecodeURL(url)
 	self:ResetNodes()
 	self:SelectClass(classId)
 	for i = 1, #nodes - 1, 2 do
-		local id = nodes:byte(i) * 256 + nodes:byte(i + 1)
+		local id = self:MigrateNodeId(nodes:byte(i) * 256 + nodes:byte(i + 1))
 		local node = self.nodes[id]
 		if node then
 			node.alloc = true
