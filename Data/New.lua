@@ -126,6 +126,7 @@ Lose 7% of maximum Mana per Second
 ]],[[
 Story of the Vaal
 Variscite Blade
+League: Incursion
 Requires Level 35
 +240 to Accuracy Rating
 116% increased Physical Damage

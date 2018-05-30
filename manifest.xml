@@ -81,7 +81,7 @@
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
 	<File sha1="9a320bfe629b1cf3f14fc77fbbf2508d0a5b2841" name="Assets/small_ring.png" part="program"/>
 	<File sha1="9d724a9cdb95e3156de6185afab2822810425309" name="Data/Global.lua" part="program"/>
-	<File sha1="b5771dabc13aa5ceeeecf04534100bcff7919ba1" name="Data/New.lua" part="program"/>
+	<File sha1="822930e340fe562a47e554f2aa67214114603cf6" name="Data/New.lua" part="program"/>
 	<File sha1="9428cc298f57f6e3a8bcf6cb04289a763ba6987d" name="Data/Uniques/amulet.lua" part="program"/>
 	<File sha1="93ce0fcdb29e156b5c9b9a61f865d5cd2b8a9199" name="Data/Uniques/axe.lua" part="program"/>
 	<File sha1="82cab57e12d46ce8a9fd4e4f32823b2b814a5afe" name="Data/Uniques/belt.lua" part="program"/>
