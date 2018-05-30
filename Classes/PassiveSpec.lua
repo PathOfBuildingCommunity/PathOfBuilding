@@ -348,8 +348,18 @@ function PassiveSpecClass:FindStartFromNode(node, visited, noAscend)
 		-- Either:
 		--  - the other node is a start node, or
 		--  - there is a path to a start node through the other node which didn't pass through any nodes which have already been visited
-		if other.alloc and (other.type == "ClassStart" or other.type == "AscendClassStart" or (not other.visited and self:FindStartFromNode(other, visited, noAscend))) then
-			if not noAscend or other.type ~= "AscendClassStart" then
+		local startIndex = #visited + 1
+		if other.alloc and 
+		  (other.type == "ClassStart" or other.type == "AscendClassStart" or 
+		    (not other.visited and self:FindStartFromNode(other, visited, noAscend))
+		  ) then
+			if node.ascendancyName and not other.ascendancyName then
+				-- Pathing out of Ascendant, un-visit the outside nodes
+				for i = startIndex, #visited do
+					visited[i].visited = false
+					visited[i] = nil
+				end
+			elseif not noAscend or other.type ~= "AscendClassStart" then
 				return true
 			end
 		end
