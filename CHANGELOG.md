@@ -1,5 +1,6 @@
 ### 1.4.87 - 2018/05/30
  * Passive tree updated to 3.3
+ * The unique items list can now be sorted by DPS
  * Added the following announced uniques for 3.3:
     * Combat Focus
     * Earendel's Embrace
@@ -16,6 +17,7 @@
 	* Mask of the Spirit Drinker
 	* Mask of the Stitched Demon
 	* Sacrificial Heart
+	* Zerphi's Heart
  * Added the following uniques from mid-3.2:
     * Chains of Commander
 	* Corona Solaris

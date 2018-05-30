@@ -172,18 +172,18 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.controls.selectDB = common.New("DropDownControl", {"LEFT",self.controls.selectDBLabel,"RIGHT"}, 4, 0, 150, 18, { "Uniques", "Rare Templates" })
 
 	-- Unique database
-	self.controls.uniqueDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end, self, main.uniqueDB[build.targetVersion])
+	self.controls.uniqueDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(244, self.maxY - select(2, c:GetPos())) end, self, main.uniqueDB[build.targetVersion], "UNIQUE")
 	self.controls.uniqueDB.y = function()
-		return self.controls.selectDBLabel:IsShown() and 76 or 54
+		return self.controls.selectDBLabel:IsShown() and 98 or 76
 	end
 	self.controls.uniqueDB.shown = function()
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 1
 	end
 
 	-- Rare template database
-	self.controls.rareDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end, self, main.rareDB[build.targetVersion])
+	self.controls.rareDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end, self, main.rareDB[build.targetVersion], "RARE")
 	self.controls.rareDB.y = function()
-		return self.controls.selectDBLabel:IsShown() and 76 or 370
+		return self.controls.selectDBLabel:IsShown() and 78 or 376
 	end
 	self.controls.rareDB.shown = function()
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2

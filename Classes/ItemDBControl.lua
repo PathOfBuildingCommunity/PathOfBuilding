@@ -9,17 +9,24 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 local m_max = math.max
+local m_floor = math.floor
 
-local ItemDBClass = common.NewClass("ItemDB", "ListControl", function(self, anchor, x, y, width, height, itemsTab, db)
+local sortDropList = { 
+	{ label = "Sort by name", sortMode = "NAME" },
+	{ label = "Sort by DPS", sortMode = "DPS" },
+}
+
+local ItemDBClass = common.NewClass("ItemDB", "ListControl", function(self, anchor, x, y, width, height, itemsTab, db, dbType)
 	self.ListControl(anchor, x, y, width, height, 16, false)
 	self.itemsTab = itemsTab
 	self.db = db
-	self.defaultText = "^7No items found that match those filters."
+	self.dbType = dbType
 	self.dragTargetList = { }
 	self.sortControl = { 
-		NAME = { key = "name", order = 2, dir = "ASCEND", func = function(a,b) return a:gsub("^The ","") < b:gsub("^The ","") end },
-		--DEEPS = { key = "CombinedDPS", order = 1, dir = "DESCEND" },
+		NAME = { key = "name", dir = "ASCEND", func = function(a,b) return a:gsub("^The ","") < b:gsub("^The ","") end },
+		DPS = { key = "CombinedDPS", dir = "DESCEND" },
 	}
+	self.sortMode = "NAME"
 	local leagueFlag = { }
 	local typeFlag = { }
 	for _, item in pairs(db.list) do
@@ -48,26 +55,31 @@ local ItemDBClass = common.NewClass("ItemDB", "ListControl", function(self, anch
 	t_insert(self.typeList, 4, "One Handed Melee")
 	t_insert(self.typeList, 5, "Two Handed Melee")
 	self.slotList = { "Any slot", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring", "Belt", "Jewel" }
-	self.controls.slot = common.New("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -22, 95, 18, self.slotList, function(index, value)
-		self:BuildList()
+	local baseY = dbType == "RARE" and -22 or -42
+	self.controls.slot = common.New("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, baseY, 179, 18, self.slotList, function(index, value)
+		self.listBuildFlag = true
 	end)
-	self.controls.type = common.New("DropDownControl", {"LEFT",self.controls.slot,"RIGHT"}, 2, 0, 135, 18, self.typeList, function(index, value)
-		self:BuildList()
+	self.controls.type = common.New("DropDownControl", {"LEFT",self.controls.slot,"RIGHT"}, 2, 0, 179, 18, self.typeList, function(index, value)
+		self.listBuildFlag = true
 	end)
-	self.controls.league = common.New("DropDownControl", {"LEFT",self.controls.type,"RIGHT"}, 2, 0, 126, 18, self.leagueList, function(index, value)
-		self:BuildList()
-	end)
-	self.controls.league.shown = function()
-		return #self.leagueList > 2
+	if dbType == "UNIQUE" then
+		self.controls.sort = common.New("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, baseY + 20, 179, 18, sortDropList, function(index, value)
+			self.sortMode = value.sortMode
+			self:BuildSortOrder()
+			self.listBuildFlag = true
+		end)
+		self.controls.league = common.New("DropDownControl", {"LEFT",self.controls.sort,"RIGHT"}, 2, 0, 179, 18, self.leagueList, function(index, value)
+			self.listBuildFlag = true
+		end)
 	end
 	self.controls.search = common.New("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -2, 258, 18, "", "Search", "%c", 100, function()
-		self:BuildList()
+		self.listBuildFlag = true
 	end)
 	self.controls.searchMode = common.New("DropDownControl", {"LEFT",self.controls.search,"RIGHT"}, 2, 0, 100, 18, { "Anywhere", "Names", "Modifiers" }, function(index, value)
-		self:BuildList()
+		self.listBuildFlag = true
 	end)
 	self:BuildSortOrder()
-	self:BuildList()
+	self.listBuildFlag = true
 end)
 
 function ItemDBClass:DoesItemMatchFilters(item)
@@ -96,7 +108,7 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			return false
 		end
 	end
-	if self.controls.league.selIndex > 1 then
+	if self.dbType == "UNIQUE" and self.controls.league.selIndex > 1 then
 		if (self.controls.league.selIndex == 2 and item.league) or (self.controls.league.selIndex > 2 and (not item.league or not item.league:match(self.leagueList[self.controls.league.selIndex]))) then
 			return false
 		end
@@ -134,27 +146,33 @@ function ItemDBClass:DoesItemMatchFilters(item)
 	return true
 end
 
-function ItemDBClass:BuildSortOrder()
-	self.sortOrder = wipeTable(self.sortOrder)
-	for field, data in pairs(self.sortControl) do
-		t_insert(self.sortOrder, data)
-	end
-	table.sort(self.sortOrder, function(a, b)
-		return a.order < b.order
-	end)
+function ItemDBClass:SetSortMode(sortMode)
+	self.sortMode = sortMode
+	self:BuildSortOrder()
+	self.listBuildFlag = true
 end
 
-function ItemDBClass:BuildList()
-	wipeTable(self.list)
+function ItemDBClass:BuildSortOrder()
+	self.sortOrder = wipeTable(self.sortOrder)
+	t_insert(self.sortOrder, self.sortControl[self.sortMode])
+	if self.controls.sort then
+		self.controls.sort:SelByValue(self.sortMode, "sortMode")
+	end
+end
+
+function ItemDBClass:ListBuilder()
+	local list = { }
 	for id, item in pairs(self.db.list) do
 		if self:DoesItemMatchFilters(item) then
-			t_insert(self.list, item)
+			t_insert(list, item)
 		end
 	end
-	--[[if self.itemsTab.build.calcsTab then
+
+	if self.sortMode == "DPS" then
+		local start = GetTime()
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
 		local baseDPS = calcBase.Minion and calcBase.Minion.CombinedDPS or calcBase.CombinedDPS
-		for _, item in ipairs(self.list) do
+		for itemIndex, item in ipairs(list) do
 			item.CombinedDPS = 0
 			for slotName, slot in pairs(self.itemsTab.slots) do
 				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
@@ -162,9 +180,16 @@ function ItemDBClass:BuildList()
 					item.CombinedDPS = m_max(item.CombinedDPS, output.Minion and output.Minion.CombinedDPS or output.CombinedDPS)				
 				end
 			end
+			local now = GetTime()
+			if now - start > 50 then
+				self.defaultText = "^7Sorting... ("..m_floor(itemIndex/#list*100).."%)"
+				coroutine.yield()
+				start = now
+			end
 		end
-	end]]
-	table.sort(self.list, function(a, b)
+	end
+
+	table.sort(list, function(a, b)
 		for _, data in ipairs(self.sortOrder) do
 			local aVal = a[data.key]
 			local bVal = b[data.key]
@@ -185,6 +210,31 @@ function ItemDBClass:BuildList()
 			end
 		end
 	end)
+
+	self.list = list
+	self.defaultText = "^7No items found that match those filters."
+end
+
+function ItemDBClass:Draw(viewPort)
+	if self.itemsTab.build.outputRevision ~= self.listOutputRevision then
+		self.listBuildFlag = true
+	end
+	if self.listBuildFlag then
+		self.listBuildFlag = false
+		wipeTable(self.list)
+		self.listBuilder = coroutine.create(self.ListBuilder)
+		self.listOutputRevision = self.itemsTab.build.outputRevision
+	end
+	if self.listBuilder then
+		local res, errMsg = coroutine.resume(self.listBuilder, self)
+		if launch.devMode and not res then
+			error(errMsg)
+		end
+		if coroutine.status(self.listBuilder) == "dead" then
+			self.listBuilder = nil
+		end
+	end
+	self.ListControl.Draw(self, viewPort)
 end
 
 function ItemDBClass:GetRowValue(column, index, item)
