@@ -684,6 +684,7 @@ skills["SupportAdditionalQuality"] = {
 	requireSkillTypes = { },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
+	supportGemsOnly = true,
 	baseMods = {
 		mod("ManaCost", "MORE", 15), 
 	},

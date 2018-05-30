@@ -79,6 +79,9 @@ function calcLib.gemCanSupport(gem, activeSkill)
 	if gem.grantedEffect.unsupported then
 		return false
 	end
+	if gem.grantedEffect.supportGemsOnly and activeSkill.activeGem.fromItem then
+		return false
+	end
 	if activeSkill.summonSkill then
 		return calcLib.gemCanSupport(gem, activeSkill.summonSkill)
 	end

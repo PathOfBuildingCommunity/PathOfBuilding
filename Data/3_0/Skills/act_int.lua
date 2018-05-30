@@ -787,6 +787,7 @@ skills["ColdSnap"] = {
 		mod("EnemyChillDuration", "INC", 110), --"chill_duration_+%" = 110
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"is_area_damage" = ?
+		skill("showAverage", false), 
 		skill("radius", 16), 
 	},
 	qualityMods = {

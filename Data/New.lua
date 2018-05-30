@@ -3,8 +3,213 @@
 --
 
 data.uniques.new = {
+-- 3.3 General
+[[
+Combat Focus
+Crimson Jewel
+Limited to: 2
+Radius: Medium
+Elemental Hit deals 10% increased Damage
+With 40 total Strength and Intelligence in Radius, Elemental Hit cannot choose Cold
+]],[[
+Combat Focus
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+Elemental Hit deals 10% increased Damage
+With 40 total Intelligence and Dexterity in Radius, Elemental Hit cannot choose Fire
+]],[[
+Combat Focus
+Viridian Jewel
+Limited to: 2
+Radius: Medium
+Elemental Hit deals 10% increased Damage
+With 40 total Dexterity and Strength in Radius, Elemental Hit cannot choose Lightning
+]],[[
+Earendel's Embrace
+Grinning Fetish
+Requires Level 35
+18% increased Elemental Damage
++23 to all Attributes
+Minions deal 37% increased Damage
+Summoned Skeletons Cover Enemies in Ash on Hit
+Summoned Skeletons take 23.4% of their Maximum Life per second as Fire Damage
+Summoned Skeletons have Avatar of Fire
+]],[[
+Slavedriver's Hand
+Ambush Mitts
+Requires Level 45
++35 to Dexterity
+217% increased Evasion and Energy Shield
+30% reduced Trap Throwing Speed
+10% increased Area of Effect for Traps
+Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
+10% chance to gain an Endurance, Frenzy or Power Charge when a Trap is Triggered by an Enemy
+Skills which throw Traps have Blood Magic
+]],[[
+Tempered Flesh
+Crimson Jewel
+Radius: Medium
+-1 Strength per 1 Strength on Allocated Passives in Radius
++5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+]],
+
+-- 3.3 Incursion
+[[
+Apep's Slumber
+Ancient Spirit Shield
+League: Incursion
+Requires Level 45
+(5–10)% increased Spell Damage
+Adds 22 to 35 Chaos Damage
++96 to maximum Energy Shield
++25% chance to be Poisoned
++3% to all maximum Resistances while Poisoned
+50 Energy Shield Regenerated per Second per Poison on you, up to 250 per second
+Poisons on you expire 50% slower
+]],[[
+Apep's Supremacy
+Vaal Spirit Shield
+League: Incursion
+Requires Level 62
+(5–10)% increased Spell Damage
+Adds 55 to 76 Chaos Damage
++144 to maximum Energy Shield
+45% faster start of Energy Shield Recharge
+You take Chaos Damage instead of Physical Damage from Bleeding
++25% chance to be Poisoned
++3% to all maximum Resistances while Poisoned
+Poisons on you expire 50% slower
+]],[[
+Coward's Chains
+Chain Belt
+League: Incursion
+Requires Level 22
++(9–20) to maximum Energy Shield
+22% increased Damage
++14 to all Attributes
+7% increased Movement Speed
+Enemies are Unlucky when Damaging you while you are Cursed with Vulnerability
+You are cursed with Level 10 Vulnerability
+]],[[
+Coward's Legacy
+Chain Belt
+League: Incursion
+Requires Level 52
++(9–20) to maximum Energy Shield
++20 to all Attributes
+5% increased Movement Speed
+50% increased Effect of Curses on you
+You are Cursed with Level 20 Vulnerability
+You count as on Low Life while you are Cursed with Vulnerability
+]],[[
+Dance of the Offered
+Shackled Boots
+League: Incursion
+Requires Level 34
++51 to maximum Mana
++15% to Lightning Resistance
+25% increased Movement Speed
+You have Onslaught while not on Low Mana
+Lose 33.5 Mana per Second
+]],[[
+Omeyocan
+Carnal Boots
+League: Incursion
+Requires Level 55
+19% increased maximum Mana
++28% to Lightning Resistance
+30% increased Movement Speed
+2% chance to Dodge Attack and Spell Hits per 500 Maximum Mana, up to 20%
+You have Onslaught while not on Low Mana
+Lose 7% of maximum Mana per Second
+]],[[
+Story of the Vaal
+Variscite Blade
+League: Incursion
+Requires Level 35
++240 to Accuracy Rating
+116% increased Physical Damage
+12% increased Attack Speed
++26 Life gained on Kill
+50% of Physical Damage from Hits with this Weapon is Converted to a random Element
+Hits with this Weapon always inflict Elemental Ailments
+]],[[
+Fate of the Vaal
+Gemstone Sword
+League: Incursion
+Requires Level 56
++400 to Accuracy Rating
+178% increased Physical Damage
+11% increased Attack Speed
+100% of Physical Damage from Hits with this Weapon is Converted to a random Element
+Hits with this Weapon always inflict Elemental Ailments
+Hits with this Weapon deal 57% increased Damage to Ignited Enemies
+Hits with this Weapon deal 52% increased Damage to Frozen Enemies
+Hits with this Weapon deal 46% increased Damage to Shocked Enemies
+]],[[
+Mask of the Spirit Drinker
+Crusader Helmet
+League: Incursion
+Requires Level 31
+65% increased Armour and Energy Shield
++46 to maximum Life
+Your Energy Shield starts at zero
+Cannot gain Energy Shield
+50 Life Regenerated per second if you have at least 500 Maximum Energy Shield
+100 Life Regenerated per second if you have at least 1000 Maximum Energy Shield
+150 Life Regenerated per second if you have at least 1500 Maximum Energy Shield
+]],[[
+Mask of the Stitched Demon
+Magistrate Crown
+League: Incursion
+Requires Level 58
++45 to Intelligence
++180 to maximum Energy Shield
+Strength provides no bonus to Maximum Life
+Intelligence provides no bonus to Maximum Mana
++1 to Maximum Life per 2 Intelligence
+Your Energy Shield starts at zero
+Cannot gain Energy Shield
+1% of Life Regenerated per second per 500 Maximum Energy Shield
+]],[[
+Sacrificial Heart
+Paua Amulet
+League: Incursion
+Requires Level 32
+(20–30)% increased Mana Regeneration Rate
+Adds 25 to 38 Fire Damage
+Adds 21 to 35 Cold Damage
+Adds 1 to 51 Lightning Damage
+Gain a Power Charge when you use a Vaal Skill
+10 Life gained for each Enemy Hit if you have used a Vaal Skill Recently
+10% increased Movement Speed if you have used a Vaal Skill Recently
+]],[[
+Zerphi's Heart
+Paua Amulet
+League: Incursion
+Requires Level 70
+(20–30)% increased Mana Regeneration Rate
+Adds 51 to 59 Chaos Damage
+Items and Gems have 50% increased Attribute Requirements
+Chaos Damage can Ignite, Chill and Shock
+Gain Soul Eater for 10 seconds when you use a Vaal Skill
+]],
+
 -- 3.2 General
 [[
+Chains of Command
+Saintly Chainmail
+Requires Level 70, 99 Str, 115 Int
+(150-190)% increased Armour and Energy Shield
++(60-90) to maximum Life
+Animated Guardian deals 5% increased Damage per Animated Weapon
+Animated Minions' Melee Attacks deal Splash Damage to surrounding targets
+Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets
+Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
+10% chance to Trigger Level 20 Animate Guardian's Weapon when Animated Weapon Kills an Enemy
+You cannot have non-Animated Minions
+]],[[
 Disintegrator
 Maelstrom Staff
 Requires Level 64
@@ -19,6 +224,16 @@ Gain 4% of Non-Chaos Damage as extra Chaos Damage per Siphoning Charge
 0.2% of Damage Leeched as Life per Siphoning Charge
 Take 150 Physical Damage per Second per Siphoning Charge if you've used a Skill Recently
 Elder Item
+]],[[
+Gluttony
+Leather Belt
+Requires Level 48
++(25-40) to maximum Life
++(60-80) to maximum Life
+Culling Strike against Enemies Cursed with Poacher's Mark
+Curse Enemies with Level 30 Poacher's Mark on Hit, which can apply to Hexproof Enemies
+Take (100-200) Physical Damage when you use a Movement Skill
+You have no Armour or Energy Shield
 ]],[[
 Gorgon's Gaze
 Regicide Mask
@@ -134,10 +349,11 @@ Gain 300% of Weapon Physical Damage as Extra Damage of an Element
 Deal no Non-Elemental Damage
 ]],
 
--- 3.2 Beastiary
+-- 3.2 Bestiary
 [[
 Craiceann's Carapace
 Golden Plate
+League: Bestiary
 Requires Level 56
 Grants Level 20 Aspect of the Crab Skill
 (300–350)% increased Armour
@@ -148,6 +364,7 @@ Cannot be inflicted with Bleeding
 ]],[[
 Craiceann's Chitin
 Magistrate Crown
+League: Bestiary
 Requires Level 58
 (25–30)% of Block Chance applied to Spells
 (140–180)% increased Armour and Energy Shield
@@ -158,6 +375,7 @@ Cannot lose Crab Barriers if you have lost Crab Barriers Recently
 ]],[[
 Craiceann's Pincers
 Titan Gauntlets
+League: Bestiary
 Requires Level 69
 (150–200)% increased Armour
 (50–70) Life Regenerated per second
@@ -168,6 +386,7 @@ your maximum number of Crab Barriers
 ]],[[
 Craiceann's Tracks
 Goliath Greaves
+League: Bestiary
 Requires Level 54
 (150–180)% increased Armour
 +(50–70) to maximum Life
@@ -178,6 +397,7 @@ You only lose (5–7) Crab Barriers when you take Physical Damage from a Hit
 ]],[[
 Farrul's Bite
 Harlequin Mask
+League: Bestiary
 Requires Level 57
 Grants Level 20 Aspect of the Cat Skill
 (180–220)% increased Evasion and Energy Shield
@@ -188,6 +408,7 @@ Critical Strikes have (10–20)% chance to Blind Enemies while you have Cat's St
 ]],[[
 Farrul's Chase
 Slink Boots
+League: Bestiary
 Requires Level 69
 Trigger Level 20 Intimidating Cry when you lose Cat's Stealth
 (110–150)% increased Evasion Rating
@@ -198,6 +419,7 @@ Trigger Level 20 Intimidating Cry when you lose Cat's Stealth
 ]],[[
 Farrul's Fur
 Triumphant Lamellar
+League: Bestiary
 Requires Level 69
 (100–150)% increased Armour and Evasion
 +(90–100) to maximum Life
@@ -208,6 +430,7 @@ You have Phasing while you have Cat's Stealth
 ]],[[
 Farrul's Pounce
 Hydrascale Gauntlets
+League: Bestiary
 Requires Level 59
 (100–140)% increased Armour and Evasion
 +(50–70) to maximum Life
@@ -218,6 +441,7 @@ You have Crimson Dance while you have Cat's Stealth
 ]],[[
 Fenumus' Shroud
 Widowsilk Robe
+League: Bestiary
 Requires Level 65
 +(30–40) to Intelligence
 (120–140)% increased Energy Shield
@@ -228,6 +452,7 @@ Enemies affected by your Spider's Webs have -10% to All Resistances
 ]],[[
 Fenumus' Spinnerets
 Assassin's Boots
+League: Bestiary
 Requires Level 63
 (160–200)% increased Evasion and Energy Shield
 +(20–30)% to Lightning Resistance
@@ -239,6 +464,7 @@ Gain (15–20) Energy Shield for each Enemy you Hit which is affected by a Spide
 ]],[[
 Fenumus' Toxins
 Necromancer Circlet
+League: Bestiary
 Requires Level 54
 Adds (16–21) to (31–36) Chaos Damage to Spells
 (220–250)% increased Energy Shield
@@ -249,6 +475,7 @@ Aspect of the Spider inflicts Spider's Webs and Hinder every 0.5 Seconds instead
 ]],[[
 Fenumus' Weave
 Carnal Mitts
+League: Bestiary
 Requires Level 50
 Grants Level 20 Aspect of the Spider Skill
 (120–170)% increased Evasion and Energy Shield
@@ -259,6 +486,7 @@ Adds (8–10) to (13–15) Chaos Damage for each Spider's Web on the Enemy
 ]],[[
 Saqawal's Flock
 Silken Hood
+League: Bestiary
 Requires Level 60
 25% chance to Trigger Level 20 Tornado when you gain Avian's Might or Avian's Flight
 (60–80)% increased Evasion Rating
@@ -268,6 +496,7 @@ Requires Level 60
 ]],[[
 Saqawal's Nest
 Blood Raiment
+League: Bestiary
 Requires Level 65
 +(25–75) to all Attributes
 +(30–40)% to Lightning Resistance
@@ -278,6 +507,7 @@ Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allie
 ]],[[
 Saqawal's Talons
 Hydrascale Boots
+League: Bestiary
 Requires Level 59
 Grants Level 20 Aspect of the Avian Skill
 (100–150)% increased Armour and Evasion
@@ -288,6 +518,7 @@ Grants Level 20 Aspect of the Avian Skill
 ]],[[
 Saqawal's Winds
 Soldier Gloves
+League: Bestiary
 Requires Level 51
 (140–180)% increased Armour and Energy Shield
 +(30–60) to maximum Life
@@ -333,6 +564,18 @@ Adds (11–14) to (17–21) Physical Damage
 40% increased Rarity of Items Dropped by Frozen Enemies
 (30–40)% increased Cold Damage with Attack Skills
 Trigger Level 20 Icicle Burst when you Kill a Frozen Enemy
+]],[[
+Corona Solaris
+Crystal Wand
+Requires Level 63, 146 Int
+(29-33)% increased Spell Damage
+Triggers Level 20 Blinding Aura when Equipped
+Adds (18-22) to (36-44) Physical Damage
++(27-33)% to Global Critical Strike Multiplier
+20% increased Light Radius
+(120-140)% increased Critical Strike Chance against Blinded Enemies
+Increases and Reductions to Light Radius also apply to Accuracy
+Adds (145-157) to (196-210) Fire Damage to Hits with this Weapon against Blinded Enemies
 ]],[[
 Crystal Vault
 Latticed Ringmail
