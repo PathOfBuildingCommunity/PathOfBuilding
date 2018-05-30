@@ -19,7 +19,7 @@
 	* Sacrificial Heart
 	* Zerphi's Heart
  * Added the following uniques from mid-3.2:
-    * Chains of Commander
+    * Chains of Command
 	* Corona Solaris
 	* Gluttony
  * Added an option to the Configuration tab for "Have you Shattered an Enemy Recently"
