@@ -76,7 +76,13 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 			end
 			if varData.ifNode then
 				control.shown = function()
-					return self.build.spec.allocNodes[varData.ifNode]
+					if self.build.spec.allocNodes[varData.ifNode] then
+						return true
+					end
+					local node = self.build.spec.nodes[varData.ifNode]
+					if node.type == "Keystone" then
+						return self.build.calcsTab.mainEnv.keystonesAdded[node.dn]
+					end
 				end
 				control.tooltipText = function()
 					return "This option is specific to '"..self.build.spec.nodes[varData.ifNode].dn.."'."..(varData.tooltip and "\n"..varData.tooltip or "")

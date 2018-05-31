@@ -198,6 +198,77 @@ Requires Level 68
 Take 100 Fire Damage when you Ignite an Enemy
 2% of Fire Damage Leeched as Life while Ignited
 ]],[[
+Eyes of the Greatwolf
+Greatwolf Talisman
+Requires Level 52
+Has Alt Variant: true
+Variant: Attributes
+Variant: Global Defences
+Variant: Chaos Damage
+Variant: Attack Damage
+Variant: Cold Damage
+Variant: Fire Damage
+Variant: Lightning Damage
+Variant: Spell Damage
+Variant: Global Physical Damage
+Variant: Mana
+Variant: Damage
+Variant: Physical Damage Reduction
+Variant: Chance to Freeze, Shock and Ignite
+Variant: Crit Chance
+Variant: Area of Effect
+Variant: Attack/Cast Speed
+Variant: Item Quantity
+Variant: Life
+Variant: Crit Multiplier
+Variant: Maximum number of Zombies
+Variant: Frenzy Charge on Kill
+Variant: Power Charge on Kill
+Variant: Endurance Charge on Kill
+Variant: Life Regen
+Variant: Cold taken as Fire
+Variant: Cold taken as Lightning
+Variant: Fire taken as Cold
+Variant: Fire taken as Lightning
+Variant: Lightning taken as Cold
+Variant: Lightning taken as Fire
+Variant: Gain Physical as random Element
+Variant: Extra Pierces
+Implicits: 32
+{variant:1}(24-32)% increased Attributes
+{variant:2}(30-50)% increased Global Defences
+{variant:3}(38-62)% increased Chaos Damage
+{variant:4}(40-60)% increased Attack Damage
+{variant:5}(40-60)% increased Cold Damage
+{variant:6}(40-60)% increased Fire Damage
+{variant:7}(40-60)% increased Lightning Damage
+{variant:8}(40-60)% increased Spell Damage
+{variant:9}(40-60)% increased Global Physical Damage
+{variant:10}(40-60)% increased maximum Mana
+{variant:11}(50-70)% increased Damage
+{variant:12}(8-12)% increased Physical Damage Reduction
+{variant:13}(8-12)% chance to Freeze, Shock and Ignite
+{variant:14}(80-100)% increased Global Critical Strike Chance
+{variant:15}(10-16)% increased Area of Effect
+{variant:16}(12-20)% increased Attack and Cast Speed
+{variant:17}(12-20)% increased Quantity of Items found
+{variant:18}(16-24)% increased maximum Life
+{variant:19}+(48-72)% to Global Critical Strike Multiplier
+{variant:20}+2 to maximum number of Zombies
+{variant:21}20% chance to gain a Frenzy Charge on Kill
+{variant:22}20% chance to gain a Power Charge on Kill
+{variant:23}20% chance to gain a Endurance Charge on Kill
+{variant:24}4% of Life Regenerated per second
+{variant:25}100% of Cold Damage from Hits taken as Fire Damage
+{variant:26}100% of Cold Damage from Hits taken as Lightning Damage
+{variant:27}100% of Fire Damage from Hits taken as Cold Damage
+{variant:28}100% of Fire Damage from Hits taken as Lightning Damage
+{variant:29}100% of Lightning Damage from Hits taken as Cold Damage
+{variant:30}100% of Lightning Damage from Hits taken as Fire Damage
+{variant:31}Gain (12-24)% of Physical Damage as Extra Damage of a random Element
+{variant:32}Projectiles Pierce (4-6) additional Targets
+Implicit Modifier magnitudes are doubled
+]],[[
 Gloomfang
 Blue Pearl Amulet
 Requires 77

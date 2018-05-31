@@ -52,6 +52,16 @@ Crimson Jewel
 Radius: Medium
 -1 Strength per 1 Strength on Allocated Passives in Radius
 +5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+]],[[
+Zeel's Amplifier
+Polished Spiked Shield
+Requires Level 49
+4% chance to Dodge Attacks
+44% increased Spell Damage
++76 to maximum Energy Shield
++67 to maximum Life
+1% increased Area of Effect per Enemy killed recently, up to 50%
+You have Zealot's Oath if you haven't been hit recently
 ]],
 
 -- 3.3 Incursion
@@ -184,6 +194,22 @@ Adds 1 to 51 Lightning Damage
 Gain a Power Charge when you use a Vaal Skill
 10 Life gained for each Enemy Hit if you have used a Vaal Skill Recently
 10% increased Movement Speed if you have used a Vaal Skill Recently
+]],[[
+Soul Catcher
+Quartz Flask
+Requires Level 27
+Cannot gain Mana during effect
+Vaal Skills deal 69% increased Damage during effect
+Vaal Skills have 25% reduced Soul Cost during effect
+Vaal Skills used during effect have 31% reduced Soul Gain Prevention Duration
+]],[[
+Soul Ripper
+Quartz Flask
+Requires Level 27
+100% increased Charges used
+Vaal Skills deal 33% more Damage during effect
+Vaal Skills used during effect do not apply Soul Gain Prevention
+Gains no Charges During effect of any Soul Ripper Flask
 ]],[[
 Zerphi's Heart
 Paua Amulet

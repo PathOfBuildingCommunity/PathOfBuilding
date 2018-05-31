@@ -16,7 +16,7 @@ local ImportTabClass = common.NewClass("ImportTab", "ControlHost", "Control", fu
 
 	self.charImportMode = build.targetVersion == liveTargetVersion and "GETACCOUNTNAME" or "VERSIONWARNING"
 	self.charImportStatus = "Idle"
-	self.controls.sectionCharImport = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 600, 230, "Character Import")
+	self.controls.sectionCharImport = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 600, 250, "Character Import")
 	self.controls.charImportVersionWarning = common.New("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 20, 0, 16, colorCodes.WARNING..[[
 Warning:^7 Characters may not import into this build correctly, 
 as the build's game version is different from the live game version.
@@ -97,7 +97,11 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charSelectHeader.shown = function()
 		return self.charImportMode == "SELECTCHAR" or self.charImportMode == "IMPORTING"
 	end
-	self.controls.charSelect = common.New("DropDownControl", {"TOPLEFT",self.controls.charSelectHeader,"BOTTOMLEFT"}, 0, 4, 400, 18)
+	self.controls.charSelectLeagueLabel = common.New("LabelControl", {"TOPLEFT",self.controls.charSelectHeader,"BOTTOMLEFT"}, 0, 6, 0, 14, "^7League:")
+	self.controls.charSelectLeague = common.New("DropDownControl", {"LEFT",self.controls.charSelectLeagueLabel,"RIGHT"}, 4, 0, 150, 18, nil, function(index, value)
+		self:BuildCharacterList(value.league)
+	end)
+	self.controls.charSelect = common.New("DropDownControl", {"TOPLEFT",self.controls.charSelectHeader,"BOTTOMLEFT"}, 0, 24, 400, 18)
 	self.controls.charSelect.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
@@ -240,6 +244,25 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 end)
 
+function ImportTabClass:Load(xml, fileName)
+	self.lastAccountHash = xml.attrib.lastAccountHash
+	if self.lastAccountHash then
+		for accountName in pairs(main.gameAccounts) do
+			if common.sha1(accountName) == self.lastAccountHash then
+				self.controls.accountName:SetText(accountName)
+			end
+		end
+	end
+	self.lastCharacterHash = xml.attrib.lastCharacterHash
+end
+
+function ImportTabClass:Save(xml)
+	xml.attrib = {
+		lastAccountHash = self.lastAccountHash,
+		lastCharacterHash = self.lastCharacterHash,
+	}
+end
+
 function ImportTabClass:Draw(viewPort, inputEvents)
 	self.x = viewPort.x
 	self.y = viewPort.y
@@ -257,7 +280,7 @@ function ImportTabClass:DownloadCharacterList()
 	self.charImportMode = "DOWNLOADCHARLIST"
 	self.charImportStatus = "Retrieving character list..."
 	local accountName = self.controls.accountName.buf
-	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or main.accountSessionIDs[accountName]
+	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	launch:DownloadPage("https://www.pathofexile.com/character-window/get-characters?accountName="..accountName, function(page, errMsg)
 		if errMsg == "Response code: 403" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Account profile is private."
@@ -302,29 +325,62 @@ function ImportTabClass:DownloadCharacterList()
 			accountName = realAccountName
 			self.charImportStatus = "Character list successfully retrieved."
 			self.charImportMode = "SELECTCHAR"
+			self.lastAccountHash = common.sha1(accountName)
 			main.lastAccountName = accountName
-			if sessionID then
-				main.accountSessionIDs[accountName] = sessionID
-			end
-			wipeTable(self.controls.charSelect.list)
+			main.gameAccounts[accountName] = main.gameAccounts[accountName] or { }
+			main.gameAccounts[accountName].sessionID = sessionID
+			local leagueList = { }
 			for i, char in ipairs(charList) do
-				t_insert(self.controls.charSelect.list, {
-					label = string.format("%s: Level %d %s in %s", char.name or "?", char.level or 0, char.class or "?", char.league or "?"),
-					char = char,
-				})
+				if not isValueInArray(leagueList, char.league) then
+					t_insert(leagueList, char.league)
+				end
 			end
-			table.sort(self.controls.charSelect.list, function(a,b)
-				return a.char.name:lower() < b.char.name:lower()
-			end)
+			table.sort(leagueList)
+			wipeTable(self.controls.charSelectLeague.list)
+			t_insert(self.controls.charSelectLeague.list, {
+				label = "All",
+			})
+			for _, league in ipairs(leagueList) do
+				t_insert(self.controls.charSelectLeague.list, {
+					label = league,
+					league = league,
+				})
+			end				
+			self.lastCharList = charList
+			self:BuildCharacterList()
 		end, sessionID and "POESESSID="..sessionID)
 	end, sessionID and "POESESSID="..sessionID)
+end
+
+function ImportTabClass:BuildCharacterList(league)
+	wipeTable(self.controls.charSelect.list)
+	for i, char in ipairs(self.lastCharList) do
+		if not league or char.league == league then
+			t_insert(self.controls.charSelect.list, {
+				label = string.format("%s: Level %d %s in %s", char.name or "?", char.level or 0, char.class or "?", char.league or "?"),
+				char = char,
+			})
+		end
+	end
+	table.sort(self.controls.charSelect.list, function(a,b)
+		return a.char.name:lower() < b.char.name:lower()
+	end)
+	self.controls.charSelect.selIndex = 1
+	if self.lastCharacterHash then
+		for i, char in ipairs(self.controls.charSelect.list) do
+			if common.sha1(char.char.name) == self.lastCharacterHash then
+				self.controls.charSelect.selIndex = i
+				break
+			end
+		end
+	end
 end
 
 function ImportTabClass:DownloadPassiveTree()
 	self.charImportMode = "IMPORTING"
 	self.charImportStatus = "Retrieving character passive tree..."
 	local accountName = self.controls.accountName.buf
-	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or main.accountSessionIDs[accountName]
+	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
 	launch:DownloadPage("https://www.pathofexile.com/character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name, function(page, errMsg)
@@ -336,6 +392,7 @@ function ImportTabClass:DownloadPassiveTree()
 			self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
 			return
 		end
+		self.lastCharacterHash = common.sha1(charData.name)
 		self:ImportPassiveTreeAndJewels(page, charData)
 	end, sessionID and "POESESSID="..sessionID)
 end
@@ -344,7 +401,7 @@ function ImportTabClass:DownloadItems()
 	self.charImportMode = "IMPORTING"
 	self.charImportStatus = "Retrieving character items..."
 	local accountName = self.controls.accountName.buf
-	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or main.accountSessionIDs[accountName]
+	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
 	launch:DownloadPage("https://www.pathofexile.com/character-window/get-items?accountName="..accountName.."&character="..charData.name, function(page, errMsg)
@@ -356,6 +413,7 @@ function ImportTabClass:DownloadItems()
 			self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
 			return
 		end
+		self.lastCharacterHash = common.sha1(charData.name)
 		self:ImportItemsAndSkills(page)
 	end, sessionID and "POESESSID="..sessionID)
 end

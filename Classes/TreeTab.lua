@@ -105,6 +105,8 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 				self.build.spec:Redo()
 				self.build.buildFlag = true
 				inputEvents[id] = nil
+			elseif event.key == "f" and IsKeyDown("CTRL") then
+				self:SelectControl(self.controls.treeSearch)
 			end
 		end
 	end
