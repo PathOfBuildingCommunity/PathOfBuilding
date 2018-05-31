@@ -511,6 +511,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		["Items"] = self.itemsTab,
 		["Skills"] = self.skillsTab,
 		["Calcs"] = self.calcsTab,
+		["Import"] = self.importTab,
 	}
 	self.legacyLoaders = { -- Special loaders for legacy sections
 		["Spec"] = self.treeTab,
