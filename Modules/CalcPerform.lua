@@ -528,7 +528,7 @@ function calcs.perform(env)
 			env.player["reserved_"..pool..suffix] = env.player["reserved_"..pool..suffix] + cost
 			if breakdown then
 				t_insert(breakdown[pool.."Reserved"].reservations, {
-					skillName = activeSkill.activeGem.grantedEffect.name,
+					skillName = activeSkill.activeEffect.grantedEffect.name,
 					base = baseVal .. (activeSkill.skillTypes[SkillType.ManaCostPercent] and "%" or ""),
 					mult = mult ~= 1 and ("x "..mult),
 					more = more ~= 1 and ("x "..more),
@@ -585,7 +585,7 @@ function calcs.perform(env)
 								env.build.itemsTab:AddItemTooltip(tooltip, item, reqSource.sourceSlot)
 							end
 						elseif reqSource.source == "Gem" then
-							row.sourceName = s_format("%s%s ^7%d/%d", reqSource.sourceGem.color, reqSource.sourceGem.grantedEffect.name, reqSource.sourceGem.level, reqSource.sourceGem.quality)
+							row.sourceName = s_format("%s%s ^7%d/%d", reqSource.sourceGem.color, reqSource.sourceGem.nameSpec, reqSource.sourceGem.level, reqSource.sourceGem.quality)
 						end
 						t_insert(breakdown["Req"..attr].rowList, row)
 					end

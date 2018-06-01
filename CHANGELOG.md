@@ -1,3 +1,6 @@
+### 1.4.92 - 2018/06/01
+ * 
+
 ### 1.4.91 - 2018/06/01
  * Added the missing limit to Pure Talent
  * Slavedriver's hand no longer incorrectly converts Attack Speed modifiers to Trap Throwing Speed for Attack traps

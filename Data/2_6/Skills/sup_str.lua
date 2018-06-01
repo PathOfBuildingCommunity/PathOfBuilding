@@ -8,15 +8,6 @@ local skills, mod, flag, skill = ...
 
 skills["SupportAddedFireDamage"] = {
 	name = "Added Fire Damage",
-	gemTags = {
-		fire = true,
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Fire, Support",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -67,14 +58,6 @@ skills["SupportAddedFireDamage"] = {
 }
 skills["SupportBloodMagic"] = {
 	name = "Blood Magic",
-	gemTags = {
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { },
@@ -125,16 +108,6 @@ skills["SupportBloodMagic"] = {
 }
 skills["SupportBloodlust"] = {
 	name = "Bloodlust",
-	gemTags = {
-		attack = true,
-		strength = true,
-		support = true,
-		melee = true,
-	},
-	gemTagString = "Attack, Support, Melee",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 24, },
@@ -186,18 +159,6 @@ skills["SupportBloodlust"] = {
 }
 skills["SupportCastOnMeleeKill"] = {
 	name = "Cast on Melee Kill",
-	gemTags = {
-		strength = true,
-		support = true,
-		melee = true,
-		attack = true,
-		spell = true,
-		trigger = true,
-	},
-	gemTagString = "Support, Melee, Attack, Spell, Trigger",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 24, 36, },
@@ -251,16 +212,6 @@ skills["SupportCastOnMeleeKill"] = {
 }
 skills["SupportCastOnDamageTaken"] = {
 	name = "Cast when Damage Taken",
-	gemTags = {
-		strength = true,
-		support = true,
-		spell = true,
-		trigger = true,
-	},
-	gemTagString = "Support, Spell, Trigger",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 36, },
@@ -316,16 +267,6 @@ skills["SupportCastOnDamageTaken"] = {
 }
 skills["SupportColdToFire"] = {
 	name = "Cold to Fire",
-	gemTags = {
-		cold = true,
-		fire = true,
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Cold, Fire, Support",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -378,15 +319,6 @@ skills["SupportColdToFire"] = {
 }
 skills["SupportAdditionalLevel"] = {
 	name = "Empower",
-	gemTags = {
-		low_max_level = true,
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { },
@@ -418,16 +350,6 @@ skills["SupportAdditionalLevel"] = {
 }
 skills["EnduranceChargeOnMeleeStun"] = {
 	name = "Endurance Charge on Melee Stun",
-	gemTags = {
-		strength = true,
-		support = true,
-		melee = true,
-		attack = true,
-	},
-	gemTagString = "Support, Melee, Attack",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 24, },
@@ -479,15 +401,6 @@ skills["EnduranceChargeOnMeleeStun"] = {
 }
 skills["SupportFirePenetration"] = {
 	name = "Fire Penetration",
-	gemTags = {
-		fire = true,
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Fire, Support",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -538,16 +451,6 @@ skills["SupportFirePenetration"] = {
 }
 skills["SupportFortify"] = {
 	name = "Fortify",
-	gemTags = {
-		attack = true,
-		strength = true,
-		support = true,
-		melee = true,
-	},
-	gemTagString = "Attack, Support, Melee",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 24, },
@@ -600,15 +503,6 @@ skills["SupportFortify"] = {
 }
 skills["SupportGenerosity"] = {
 	name = "Generosity",
-	gemTags = {
-		strength = true,
-		support = true,
-		aura = true,
-	},
-	gemTagString = "Support, Aura",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 44, },
@@ -659,15 +553,6 @@ skills["SupportGenerosity"] = {
 }
 skills["SupportIncreasedBurningDamage"] = {
 	name = "Increased Burning Damage",
-	gemTags = {
-		fire = true,
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Fire, Support",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 10, 1, 29, },
@@ -718,15 +603,6 @@ skills["SupportIncreasedBurningDamage"] = {
 }
 skills["SupportIncreasedDuration"] = {
 	name = "Increased Duration",
-	gemTags = {
-		strength = true,
-		support = true,
-		duration = true,
-	},
-	gemTagString = "Support, Duration",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 12, 55, },
@@ -777,15 +653,6 @@ skills["SupportIncreasedDuration"] = {
 }
 skills["SupportIronGrip"] = {
 	name = "Iron Grip",
-	gemTags = {
-		projectile = true,
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Projectile, Support",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 48, 56, },
@@ -836,15 +703,6 @@ skills["SupportIronGrip"] = {
 }
 skills["SupportIronWill"] = {
 	name = "Iron Will",
-	gemTags = {
-		spell = true,
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Spell, Support",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 10, 52, 59, },
@@ -895,14 +753,6 @@ skills["SupportIronWill"] = {
 }
 skills["SupportItemQuantity"] = {
 	name = "Item Quantity",
-	gemTags = {
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 10, 1, 40, },
@@ -952,14 +802,6 @@ skills["SupportItemQuantity"] = {
 }
 skills["SupportKnockback"] = {
 	name = "Knockback",
-	gemTags = {
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -1010,15 +852,6 @@ skills["SupportKnockback"] = {
 }
 skills["SupportReducedDuration"] = {
 	name = "Less Duration",
-	gemTags = {
-		strength = true,
-		support = true,
-		duration = true,
-	},
-	gemTagString = "Support, Duration",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 12, 55, },
@@ -1070,15 +903,6 @@ skills["SupportReducedDuration"] = {
 }
 skills["SupportLifeGainOnHit"] = {
 	name = "Life Gain on Hit",
-	gemTags = {
-		attack = true,
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Attack, Support",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 1, 56, },
@@ -1129,14 +953,6 @@ skills["SupportLifeGainOnHit"] = {
 }
 skills["SupportLifeLeech"] = {
 	name = "Life Leech",
-	gemTags = {
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -1188,16 +1004,6 @@ skills["SupportLifeLeech"] = {
 }
 skills["SupportMeleeDamageOnFullLife"] = {
 	name = "Melee Damage on Full Life",
-	gemTags = {
-		melee = true,
-		strength = true,
-		support = true,
-		attack = true,
-	},
-	gemTagString = "Melee, Support, Attack",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 24, },
@@ -1248,16 +1054,6 @@ skills["SupportMeleeDamageOnFullLife"] = {
 }
 skills["SupportMeleePhysicalDamage"] = {
 	name = "Melee Physical Damage",
-	gemTags = {
-		melee = true,
-		strength = true,
-		support = true,
-		attack = true,
-	},
-	gemTagString = "Melee, Support, Attack",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 24, },
@@ -1308,17 +1104,6 @@ skills["SupportMeleePhysicalDamage"] = {
 }
 skills["SupportMeleeSplash"] = {
 	name = "Melee Splash",
-	gemTags = {
-		strength = true,
-		support = true,
-		melee = true,
-		attack = true,
-		area = true,
-	},
-	gemTagString = "Support, Melee, Attack, AoE",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 25, },
@@ -1372,16 +1157,6 @@ skills["SupportMeleeSplash"] = {
 }
 skills["SupportMultistrike"] = {
 	name = "Multistrike",
-	gemTags = {
-		attack = true,
-		melee = true,
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Attack, Melee, Support",
-	gemStr = 60,
-	gemDex = 40,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 28, },
@@ -1434,19 +1209,6 @@ skills["SupportMultistrike"] = {
 }
 skills["SupportRangedAttackTotem"] = {
 	name = "Ranged Attack Totem",
-	gemTags = {
-		bow = true,
-		projectile = true,
-		strength = true,
-		support = true,
-		totem = true,
-		attack = true,
-		duration = true,
-	},
-	gemTagString = "Bow, Projectile, Support, Totem, Attack, Duration",
-	gemStr = 60,
-	gemDex = 40,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 22, },
@@ -1507,14 +1269,6 @@ skills["SupportRangedAttackTotem"] = {
 }
 skills["SupportReducedMana"] = {
 	name = "Reduced Mana",
-	gemTags = {
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { },
@@ -1564,16 +1318,6 @@ skills["SupportReducedMana"] = {
 }
 skills["SupportSpellTotem"] = {
 	name = "Spell Totem",
-	gemTags = {
-		strength = true,
-		support = true,
-		totem = true,
-		duration = true,
-	},
-	gemTagString = "Support, Totem, Duration",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 18, },
@@ -1633,14 +1377,6 @@ skills["SupportSpellTotem"] = {
 }
 skills["SupportStun"] = {
 	name = "Stun",
-	gemTags = {
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -1690,15 +1426,6 @@ skills["SupportStun"] = {
 }
 skills["SupportWeaponElementalDamage"] = {
 	name = "Weapon Elemental Damage",
-	gemTags = {
-		attack = true,
-		strength = true,
-		support = true,
-	},
-	gemTagString = "Attack, Support",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	support = true,
 	requireSkillTypes = { 1, 56, },

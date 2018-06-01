@@ -523,15 +523,14 @@ function calcs.initEnv(build, mode, override)
 
 			-- Update the group
 			group.sourceItem = grantedSkill.sourceItem
-			local activeGem = group.gemList[1] or {
-				nameSpec = grantedSkill.name,
+			local activeGemInstance = group.gemList[1] or {
+				skillId = grantedSkill.skillId,
 				quality = 0,
 				enabled = true,
 			}
-			activeGem.level = grantedSkill.level
-			activeGem.fromItem = true
+			activeGemInstance.level = grantedSkill.level
 			wipeTable(group.gemList)
-			t_insert(group.gemList, activeGem)
+			t_insert(group.gemList, activeGemInstance)
 			if grantedSkill.noSupports then
 				group.noSupports = true
 			else
@@ -539,9 +538,9 @@ function calcs.initEnv(build, mode, override)
 					-- Look for other groups that are socketed in the item
 					if socketGroup.slot == grantedSkill.slotName and not socketGroup.source then
 						-- Add all support gems to the skill's group
-						for _, gem in ipairs(socketGroup.gemList) do
-							if gem.grantedEffect and gem.grantedEffect.support then
-								t_insert(group.gemList, gem)
+						for _, gemInstance in ipairs(socketGroup.gemList) do
+							if gemInstance.gemData and gemInstance.gemData.grantedEffect.support then
+								t_insert(group.gemList, gemInstance)
 							end
 						end
 					end
@@ -601,7 +600,7 @@ function calcs.initEnv(build, mode, override)
 			if not socketGroup.source then
 				-- Add extra supports from the item this group is socketed in
 				for _, value in ipairs(env.modDB:Sum("LIST", groupCfg, "ExtraSupport")) do
-					local grantedEffect = env.data.gems[value.name] or env.data.skills[value.name]
+					local grantedEffect = env.data.skills[value.name]
 					if grantedEffect then
 						t_insert(supportList, { 
 							grantedEffect = grantedEffect,
@@ -612,78 +611,91 @@ function calcs.initEnv(build, mode, override)
 					end
 				end
 			end
-			for _, gem in ipairs(socketGroup.gemList) do
+			for _, gemInstance in ipairs(socketGroup.gemList) do
 				-- Add support gems from this group
 				if env.mode == "MAIN" then
-					gem.displayGem = nil
+					gemInstance.displayEffect = nil
 				end
-				if gem.enabled and gem.grantedEffect and gem.grantedEffect.support then
-					local supportGem = copyTable(gem, true)
-					supportGem.srcGem = gem
-					supportGem.superseded = false
-					supportGem.isSupporting = { }
+				local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
+				if gemInstance.enabled and grantedEffect and grantedEffect.support then
+					local supportEffect = {
+						grantedEffect = grantedEffect,
+						level = gemInstance.level,
+						quality = gemInstance.quality,
+						srcInstance = gemInstance,
+						gemData = gemInstance.gemData,
+						superseded = false,
+						isSupporting = { },
+					}
 					if env.mode == "MAIN" then
-						gem.displayGem = supportGem
+						gemInstance.displayEffect = supportEffect
 					end
-					for _, value in ipairs(propertyModList) do
-						if calcLib.gemIsType(supportGem, value.keyword) then
-							supportGem[value.key] = (supportGem[value.key] or 0) + value.value
+					if gemInstance.gemData then
+						for _, value in ipairs(propertyModList) do
+							if calcLib.gemIsType(supportEffect.gemData, value.keyword) then
+								supportEffect[value.key] = (supportEffect[value.key] or 0) + value.value
+							end
 						end
 					end
 					local add = true
-					for index, otherGem in ipairs(supportList) do
+					for index, otherSupport in ipairs(supportList) do
 						-- Check if there's another support with the same name already present
-						if supportGem.grantedEffect == otherGem.grantedEffect then
+						if grantedEffect == otherSupport.grantedEffect then
 							add = false
-							if supportGem.level > otherGem.level or (supportGem.level == otherGem.level and supportGem.quality > otherGem.quality) then
+							if supportEffect.level > otherSupport.level or (supportEffect.level == otherSupport.level and supportEffect.quality > otherSupport.quality) then
 								if env.mode == "MAIN" then
-									otherGem.superseded = true
+									otherSupport.superseded = true
 								end
-								supportList[index] = supportGem
+								supportList[index] = supportEffect
 							else
-								supportGem.superseded = true
+								supportEffect.superseded = true
 							end
 							break
 						end
 					end
 					if add then
-						t_insert(env.requirementsTable, {
-							source = "Gem",
-							sourceGem = gem,
-							Str = gem.reqStr,
-							Dex = gem.reqDex,
-							Int = gem.reqInt,
-						})
-						t_insert(supportList, supportGem)
+						t_insert(supportList, supportEffect)
 					end
 				end
 			end
 
 			-- Create active skills
-			for _, gem in ipairs(socketGroup.gemList) do
-				if gem.enabled and gem.grantedEffect and not gem.grantedEffect.support and not gem.grantedEffect.unsupported then
-					local activeGem = copyTable(gem, true)
-					activeGem.srcGem = gem
-					if not gem.fromItem then
-						for _, value in ipairs(propertyModList) do
-							if calcLib.gemIsType(activeGem, value.keyword) then
-								activeGem[value.key] = (activeGem[value.key] or 0) + value.value
+			for _, gemInstance in ipairs(socketGroup.gemList) do	
+				if gemInstance.enabled and (gemInstance.gemData or gemInstance.grantedEffect) then
+					local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
+					for _, grantedEffect in ipairs(grantedEffectList) do
+						if not grantedEffect.support and not grantedEffect.unsupported then
+							local activeEffect = {
+								grantedEffect = grantedEffect,
+								level = gemInstance.level,
+								quality = gemInstance.quality,
+								srcInstance = gemInstance,
+								gemData = gemInstance.gemData,
+							}
+							if gemInstance.gemData then
+								for _, value in ipairs(propertyModList) do
+									if calcLib.gemIsType(activeEffect.gemData, value.keyword) then
+										activeEffect[value.key] = (activeEffect[value.key] or 0) + value.value
+									end
+								end
 							end
+							local activeSkill = calcs.createActiveSkill(activeEffect, supportList)
+							if gemInstance.gemData then
+								activeSkill.slotName = groupCfg.slotName
+							end
+							t_insert(socketGroupSkillList, activeSkill)
+							t_insert(env.activeSkillList, activeSkill)
 						end
+					end
+					if gemInstance.gemData then
 						t_insert(env.requirementsTable, {
 							source = "Gem",
-							sourceGem = gem,
-							Str = gem.reqStr,
-							Dex = gem.reqDex,
-							Int = gem.reqInt,
+							sourceGem = gemInstance,
+							Str = gemInstance.reqStr,
+							Dex = gemInstance.reqDex,
+							Int = gemInstance.reqInt,
 						})
 					end
-					local activeSkill = calcs.createActiveSkill(activeGem, supportList)
-					if not gem.fromItem then
-						activeSkill.slotName = groupCfg.slotName
-					end
-					t_insert(socketGroupSkillList, activeSkill)
-					t_insert(env.activeSkillList, activeSkill)
 				end
 			end
 
@@ -709,10 +721,8 @@ function calcs.initEnv(build, mode, override)
 				socketGroup.displayLabel = socketGroup.label
 			else
 				socketGroup.displayLabel = nil
-				for _, gem in ipairs(socketGroup.gemList) do
-					if gem.enabled and gem.grantedEffect and not gem.grantedEffect.support then
-						socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. gem.grantedEffect.name
-					end
+				for _, activeSkill in ipairs(socketGroupSkillList) do
+					socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. activeSkill.activeEffect.grantedEffect.name
 				end
 				socketGroup.displayLabel = socketGroup.displayLabel or "<No active skills>"
 			end
@@ -726,13 +736,13 @@ function calcs.initEnv(build, mode, override)
 
 	if not env.player.mainSkill then
 		-- Add a default main skill if none are specified
-		local defaultGem = {
+		local defaultEffect = {
+			grantedEffect = env.data.skills.Melee,
 			level = 1,
 			quality = 0,
 			enabled = true,
-			grantedEffect = env.data.skills.Melee
 		}
-		env.player.mainSkill = calcs.createActiveSkill(defaultGem, { })
+		env.player.mainSkill = calcs.createActiveSkill(defaultEffect, { })
 		t_insert(env.activeSkillList, env.player.mainSkill)
 	end
 

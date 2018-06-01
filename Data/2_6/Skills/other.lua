@@ -33,15 +33,6 @@ skills["Melee"] = {
 }
 skills["GemDetonateMines"] = {
 	name = "Detonate Mines",
-	gemTags = {
-		low_max_level = true,
-		active_skill = true,
-		spell = true,
-	},
-	gemTagString = "Spell",
-	gemStr = 33,
-	gemDex = 33,
-	gemInt = 34,
 	color = 4,
 	description = "Detonates all the Remote Mines you have placed.",
 	skillTypes = { [2] = true, [17] = true, [18] = true, [36] = true, },
@@ -73,15 +64,6 @@ skills["GemDetonateMines"] = {
 }
 skills["Portal"] = {
 	name = "Portal",
-	gemTags = {
-		low_max_level = true,
-		active_skill = true,
-		spell = true,
-	},
-	gemTagString = "Spell",
-	gemStr = 33,
-	gemDex = 33,
-	gemInt = 34,
 	color = 4,
 	description = "Creates a portal to the current area's town.",
 	skillTypes = { [2] = true, [17] = true, [18] = true, [19] = true, [36] = true, [27] = true, },
@@ -113,16 +95,6 @@ skills["Portal"] = {
 }
 skills["VaalBreach"] = {
 	name = "Vaal Breach",
-	gemTags = {
-		low_max_level = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-	},
-	gemTagString = "Vaal, Spell",
-	gemStr = 33,
-	gemDex = 33,
-	gemInt = 34,
 	color = 4,
 	description = "Creates a breach, making you vulnerable to its powerful inhabitants.",
 	skillTypes = { [2] = true, [17] = true, [18] = true, [19] = true, [27] = true, [43] = true, },
