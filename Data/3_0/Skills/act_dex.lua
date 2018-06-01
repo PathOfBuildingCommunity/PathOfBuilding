@@ -254,7 +254,7 @@ skills["BearTrap"] = {
 		--"is_trap" = 1
 		--"base_trap_duration" = 4000
 		--"trap_override_pvp_scaling_time_ms" = 750
-		--"bear_trap_damage_taken_+%_from_traps_and_mines" = 15
+		mod("TrapMineDamageTaken", "INC", 15, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }), --"bear_trap_damage_taken_+%_from_traps_and_mines" = 15
 		--"bear_trap_movement_speed_+%_final" = -80
 		skill("duration", 3), --"base_skill_effect_duration" = 3000
 		--"base_skill_is_trapped" = ?

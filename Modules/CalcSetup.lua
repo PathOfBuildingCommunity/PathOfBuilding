@@ -667,8 +667,8 @@ function calcs.initEnv(build, mode, override)
 			for _, gemInstance in ipairs(socketGroup.gemList) do	
 				if gemInstance.enabled and (gemInstance.gemData or gemInstance.grantedEffect) then
 					local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
-					for _, grantedEffect in ipairs(grantedEffectList) do
-						if not grantedEffect.support and not grantedEffect.unsupported then
+					for index, grantedEffect in ipairs(grantedEffectList) do
+						if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index]) then
 							local activeEffect = {
 								grantedEffect = grantedEffect,
 								level = gemInstance.level,
@@ -725,8 +725,11 @@ function calcs.initEnv(build, mode, override)
 				socketGroup.displayLabel = socketGroup.label
 			else
 				socketGroup.displayLabel = nil
-				for _, activeSkill in ipairs(socketGroupSkillList) do
-					socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. activeSkill.activeEffect.grantedEffect.name
+				for _, gemInstance in ipairs(socketGroup.gemList) do
+					local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
+					if grantedEffect and gemInstance.enabled then
+						socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. grantedEffect.name
+					end
 				end
 				socketGroup.displayLabel = socketGroup.displayLabel or "<No active skills>"
 			end

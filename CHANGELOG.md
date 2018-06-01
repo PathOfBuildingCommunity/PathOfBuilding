@@ -1,5 +1,6 @@
 ### 1.4.92 - 2018/06/02
  * Added/updated all skill gems for 3.3
+ * Aura/buff/curse skills can now be enabled/disabled in the Skills tab independantly of the skill gem itself
  * Fixed the "Onslaught on Low Mana" modifier on Dance of the Offered and Omeyocan (thanks ExaltedShard)
  * Quartz Infusion now correctly enables Phasing when you have Onslaught
  * The "Used a Movement Skill Recently" option now correctly enables for all Movement skills

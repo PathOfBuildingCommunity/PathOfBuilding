@@ -117,6 +117,7 @@ will automatically apply to the skill.]]
 	end
 
 	-- Skill gem slots
+	self.anchorGemSlots = common.New("Control", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 28 + 28 + 16, 0, 0)
 	self.gemSlots = { }
 	self:CreateGemSlot(1)
 	self.controls.gemNameHeader = common.New("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].nameSpec,"TOPLEFT"}, 0, -2, 0, 16, "^7Gem name:")
@@ -165,6 +166,8 @@ function SkillsTabClass:Load(xml, fileName)
 				gemInstance.level = tonumber(child.attrib.level)
 				gemInstance.quality = tonumber(child.attrib.quality)
 				gemInstance.enabled = not child.attrib.enabled and true or child.attrib.enabled == "true"
+				gemInstance.enableGlobal1 = child.attrib.enableGlobal1 == "true"
+				gemInstance.enableGlobal2 = child.attrib.enableGlobal2 == "true"
 				gemInstance.skillPart = tonumber(child.attrib.skillPart)
 				gemInstance.skillPartCalcs = tonumber(child.attrib.skillPartCalcs)
 				gemInstance.skillMinion = child.attrib.skillMinion
@@ -209,6 +212,8 @@ function SkillsTabClass:Save(xml)
 				level = tostring(gemInstance.level),
 				quality = tostring(gemInstance.quality),
 				enabled = tostring(gemInstance.enabled),
+				enableGlobal1 = tostring(gemInstance.enableGlobal1),
+				enableGlobal2 = tostring(gemInstance.enableGlobal2),
 				skillPart = gemInstance.skillPart and tostring(gemInstance.skillPart),
 				skillPartCalcs = gemInstance.skillPartCalcs and tostring(gemInstance.skillPartCalcs),
 				skillMinion = gemInstance.skillMinion,
@@ -298,7 +303,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.gemSlots[index] = slot
 
 	-- Delete gem
-	slot.delete = common.New("ButtonControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 28 + 28 + 16 + 22 * (index - 1), 20, 20, "x", function()
+	slot.delete = common.New("ButtonControl", nil, 0, 0, 20, 20, "x", function()
 		t_remove(self.displayGroup.gemList, index)
 		for index2 = index, #self.displayGroup.gemList do
 			-- Update the other gem slot controls
@@ -311,6 +316,14 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
+	if index == 1 then
+		slot.delete:SetAnchor("TOPLEFT", self.anchorGemSlots, "TOPLEFT", 0, 0)
+	else
+		local prevSlot = self.gemSlots[index-1]
+		slot.delete:SetAnchor("TOPLEFT", prevSlot.delete, "BOTTOMLEFT", 0, function()
+			return (prevSlot.enableGlobal1:IsShown() or prevSlot.enableGlobal2:IsShown()) and 24 or 2
+		end)
+	end
 	slot.delete.shown = function()
 		return index <= #self.displayGroup.gemList + 1 and self.displayGroup.source == nil
 	end
@@ -318,7 +331,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		return index <= #self.displayGroup.gemList
 	end
 	slot.delete.tooltipText = "Remove this gem."
-	self.controls["gemSlotDelete"..index] = slot.delete
+	self.controls["gemSlot"..index.."Delete"] = slot.delete
 
 	-- Gem name specification
 	slot.nameSpec = common.New("GemSelectControl", {"LEFT",slot.delete,"RIGHT"}, 2, 0, 300, 20, self, index, function(gemId, addUndo)
@@ -330,11 +343,12 @@ function SkillsTabClass:CreateGemSlot(index)
 			if not gemId then
 				return
 			end
-			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true }
+			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
 			self.displayGroup.gemList[index] = gemInstance
 			slot.level:SetText(gemInstance.level)
 			slot.quality:SetText(gemInstance.quality)
 			slot.enabled.state = true
+			slot.enableGlobal1.state = true
 		elseif gemId == gemInstance.gemId then
 			return
 		end
@@ -348,16 +362,17 @@ function SkillsTabClass:CreateGemSlot(index)
 		self.build.buildFlag = true
 	end)
 	slot.nameSpec:AddToTabGroup(self.controls.groupLabel)
-	self.controls["gemSlotName"..index] = slot.nameSpec
+	self.controls["gemSlot"..index.."Name"] = slot.nameSpec
 
 	-- Gem level
 	slot.level = common.New("EditControl", {"LEFT",slot.nameSpec,"RIGHT"}, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
-			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true }
+			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
 			self.displayGroup.gemList[index] = gemInstance
 			slot.quality:SetText(gemInstance.quality)
 			slot.enabled.state = true
+			slot.enableGlobal1.state = true
 		end
 		gemInstance.level = tonumber(buf) or self.displayGroup.gemList[index].defaultLevel or self.defaultGemLevel or 20
 		self:ProcessSocketGroup(self.displayGroup)
@@ -365,16 +380,17 @@ function SkillsTabClass:CreateGemSlot(index)
 		self.build.buildFlag = true
 	end)
 	slot.level:AddToTabGroup(self.controls.groupLabel)
-	self.controls["gemSlotLevel"..index] = slot.level
+	self.controls["gemSlot"..index.."Level"] = slot.level
 
 	-- Gem quality
 	slot.quality = common.New("EditControl", {"LEFT",slot.level,"RIGHT"}, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
-			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true }
+			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
 			self.displayGroup.gemList[index] = gemInstance
 			slot.level:SetText(gemInstance.level)
 			slot.enabled.state = true
+			slot.enableGlobal1.state = true
 		end
 		gemInstance.quality = tonumber(buf) or self.defaultGemQuality or 0
 		self:ProcessSocketGroup(self.displayGroup)
@@ -382,16 +398,17 @@ function SkillsTabClass:CreateGemSlot(index)
 		self.build.buildFlag = true
 	end)
 	slot.quality:AddToTabGroup(self.controls.groupLabel)
-	self.controls["gemSlotQuality"..index] = slot.quality
+	self.controls["gemSlot"..index.."Quality"] = slot.quality
 
 	-- Enable gem
 	slot.enabled = common.New("CheckBoxControl", {"LEFT",slot.quality,"RIGHT"}, 18, 0, 20, nil, function(state)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
-			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true }
+			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
 			self.displayGroup.gemList[index] = gemInstance
 			slot.level:SetText(gemInstance.level)
 			slot.quality:SetText(gemInstance.quality)
+			slot.enableGlobal1.state = true
 		end
 		gemInstance.enabled = state
 		self:ProcessSocketGroup(self.displayGroup)
@@ -411,14 +428,52 @@ function SkillsTabClass:CreateGemSlot(index)
 			end
 		end
 	end
-	self.controls["gemSlotEnable"..index] = slot.enabled
+	self.controls["gemSlot"..index.."Enable"] = slot.enabled
 
 	-- Parser/calculator error message
 	slot.errMsg = common.New("LabelControl", {"LEFT",slot.enabled,"RIGHT"}, 2, 2, 0, 16, function()
 		local gemInstance = self.displayGroup.gemList[index]
 		return "^1"..(gemInstance and gemInstance.errMsg or "")
 	end)
-	self.controls["gemSlotErrMsg"..index] = slot.errMsg
+	self.controls["gemSlot"..index.."ErrMsg"] = slot.errMsg
+
+	-- Enable global-effect skill 1
+	slot.enableGlobal1 = common.New("CheckBoxControl", {"TOPLEFT",slot.delete,"BOTTOMLEFT"}, 0, 2, 20, "", function(state)
+		local gemInstance = self.displayGroup.gemList[index]
+		gemInstance.enableGlobal1 = state
+		self:AddUndoState()
+		self.build.buildFlag = true
+	end)
+	slot.enableGlobal1.shown = function()
+		local gemInstance = self.displayGroup.gemList[index]
+		return gemInstance and gemInstance.gemData and gemInstance.gemData.grantedEffectList[1] and gemInstance.gemData.grantedEffectList[1].hasGlobalEffect
+	end
+	slot.enableGlobal1.x = function()
+		return self:IsShown() and (DrawStringWidth(16, "VAR", slot.enableGlobal1:GetProperty("label")) + 5) or 0
+	end
+	slot.enableGlobal1.label = function()
+		return "Enable "..self.displayGroup.gemList[index].gemData.grantedEffectList[1].name..":"
+	end
+	self.controls["gemSlot"..index.."EnableGlobal1"] = slot.enableGlobal1
+
+	-- Enable global-effect skill 2
+	slot.enableGlobal2 = common.New("CheckBoxControl", {"LEFT",slot.enableGlobal1,"RIGHT",true}, 0, 0, 20, "", function(state)
+		local gemInstance = self.displayGroup.gemList[index]
+		gemInstance.enableGlobal2 = state
+		self:AddUndoState()
+		self.build.buildFlag = true
+	end)
+	slot.enableGlobal2.shown = function()
+		local gemInstance = self.displayGroup.gemList[index]
+		return gemInstance and gemInstance.gemData and gemInstance.gemData.grantedEffectList[2] and gemInstance.gemData.grantedEffectList[2].hasGlobalEffect
+	end
+	slot.enableGlobal2.x = function()
+		return self:IsShown() and (DrawStringWidth(16, "VAR", slot.enableGlobal2:GetProperty("label")) + 12) or 0
+	end
+	slot.enableGlobal2.label = function()
+		return "Enable "..self.displayGroup.gemList[index].gemData.grantedEffectList[2].name..":"
+	end
+	self.controls["gemSlot"..index.."EnableGlobal2"] = slot.enableGlobal2
 end
 
 -- Update the gem slot controls to reflect the currently displayed socket group
@@ -557,6 +612,8 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 			self.gemSlots[index].level:SetText(gemInstance.level)
 			self.gemSlots[index].quality:SetText(gemInstance.quality)
 			self.gemSlots[index].enabled.state = gemInstance.enabled
+			self.gemSlots[index].enableGlobal1.state = gemInstance.enableGlobal1
+			self.gemSlots[index].enableGlobal2.state = gemInstance.enableGlobal2
 		end
 	end
 end

@@ -943,6 +943,9 @@ function calcs.offence(env, actor)
 						if skillFlags.projectile then
 							taken = taken + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
 						end
+						if skillFlags.trap or skillFlags.mine then
+							taken = taken + enemyDB:Sum("INC", nil, "TrapMineDamageTaken")
+						end
 						local effMult = (1 + taken / 100)
 						if not isElemental[damageType] or not (modDB:Sum("FLAG", cfg, "IgnoreElementalResistances", "Ignore"..damageType.."Resistance") or enemyDB:Sum("FLAG", nil, "SelfIgnore"..damageType.."Resistance")) then
 							effMult = effMult * (1 - (resist - pen) / 100)
@@ -1764,7 +1767,7 @@ function calcs.offence(env, actor)
 					end
 				end
 				if breakdown then
-					t_insert(breakdown.IgniteDPS, "x 0.4 ^8(ignite deals 40% per second)")
+					t_insert(breakdown.IgniteDPS, "x 0.5 ^8(ignite deals 40% per second)")
 					t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
 					breakdown.multiChain(breakdown.IgniteDPS, {
 						label = "Ignite DPS:",
