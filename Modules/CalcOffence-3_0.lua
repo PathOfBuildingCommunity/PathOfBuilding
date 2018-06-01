@@ -1767,7 +1767,7 @@ function calcs.offence(env, actor)
 					end
 				end
 				if breakdown then
-					t_insert(breakdown.IgniteDPS, "x 0.5 ^8(ignite deals 40% per second)")
+					t_insert(breakdown.IgniteDPS, "x 0.5 ^8(ignite deals 50% per second)")
 					t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
 					breakdown.multiChain(breakdown.IgniteDPS, {
 						label = "Ignite DPS:",

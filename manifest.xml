@@ -60,7 +60,7 @@
 	<File sha1="38e81ff8ca19729eb180470173afd3bda0b4cf59" name="Modules/CalcDefence-2_6.lua" part="program"/>
 	<File sha1="6e9020a58c287bf095337c514f9ff00f54f7e56e" name="Modules/CalcDefence-3_0.lua" part="program"/>
 	<File sha1="d47657bc351ddd077e93b86d7641e1d0941dede8" name="Modules/CalcOffence-2_6.lua" part="program"/>
-	<File sha1="b45276a787d42651f462d59294c6add73ffdf067" name="Modules/CalcOffence-3_0.lua" part="program"/>
+	<File sha1="6d613074fae1de0b61b5d17e680ec42615ab886c" name="Modules/CalcOffence-3_0.lua" part="program"/>
 	<File sha1="57988458500fff036fcde98e26efe9a4cf568c34" name="Modules/CalcPerform.lua" part="program"/>
 	<File sha1="20b4fedd9c2382f7c0038363ce385b6d52429255" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="32da2a949a5fe0ab10d54078a96caff0dccb5f3f" name="Modules/CalcSections-2_6.lua" part="program"/>
@@ -180,7 +180,7 @@
 	<File sha1="5184648419f226d73506df27ecc5fd647a0856d5" name="Data/3_0/Bases/staff.lua" part="program"/>
 	<File sha1="0975430e0fabf3bf5ac1c6cb210a2c74d0e875cf" name="Data/3_0/Bases/sword.lua" part="program"/>
 	<File sha1="b872184ec1d81b224cacaa9ee815ba219b08590e" name="Data/3_0/Bases/wand.lua" part="program"/>
-	<File sha1="5e1de7b3fb1b8d00e90b0c5d51c19321f2ade3bf" name="Data/3_0/Skills/act_dex.lua" part="program"/>
+	<File sha1="30b6080496f286a86115a1278100dababbb85ef8" name="Data/3_0/Skills/act_dex.lua" part="program"/>
 	<File sha1="28bf37d2b7a43b8ec2ce2054bd1cba6bd883a2d8" name="Data/3_0/Skills/act_int.lua" part="program"/>
 	<File sha1="b23701489490edb7d6d78a2c1c1bb524943185b4" name="Data/3_0/Skills/act_str.lua" part="program"/>
 	<File sha1="cf18f3c4c26df1ed5cb5a9e9254c2a78388ad955" name="Data/3_0/Skills/glove.lua" part="program"/>
