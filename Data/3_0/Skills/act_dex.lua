@@ -432,7 +432,7 @@ skills["BladeVortex"] = {
 		skill("CritChance", 6), 
 		skill("duration", 5), --"base_skill_effect_duration" = 5000
 		--"maximum_number_of_spinning_blades" = 10
-		--"blade_vortex_critical_strike_chance_+%_per_blade" = 10
+		mod("CritChance", "INC", 10, 0, 0, { type = "Multiplier", var = "BladeVortexBlade" }), --"blade_vortex_critical_strike_chance_+%_per_blade" = 10
 		--"blade_vortex_hit_rate_+%_per_blade" = 35
 		mod("Damage", "MORE", 35, 0, KeywordFlag.Hit, { type = "Multiplier", var = "BladeVortexBlade" }), --"blade_vortex_damage_+%_per_blade_final" = 35
 		--"is_area_damage" = ?
