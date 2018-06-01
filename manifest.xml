@@ -55,17 +55,17 @@
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
 	<File sha1="01f6361f67a0cf9ee1ffdf0cf86df0f040248e4c" name="Modules/Build.lua" part="program"/>
 	<File sha1="2ff499ce5931e0b2a40ad16da316899d4859c257" name="Modules/BuildList.lua" part="program"/>
-	<File sha1="a979fe292b366b8b75dfe78855954a7f74fd0276" name="Modules/CalcActiveSkill.lua" part="program"/>
+	<File sha1="0781da621b6b12be0ae225d56bfe62bf2c8f25d3" name="Modules/CalcActiveSkill.lua" part="program"/>
 	<File sha1="b31dca8bf6238a35b75429ab19dae7cc1fdf2207" name="Modules/CalcBreakdown.lua" part="program"/>
 	<File sha1="38e81ff8ca19729eb180470173afd3bda0b4cf59" name="Modules/CalcDefence-2_6.lua" part="program"/>
 	<File sha1="6e9020a58c287bf095337c514f9ff00f54f7e56e" name="Modules/CalcDefence-3_0.lua" part="program"/>
 	<File sha1="d47657bc351ddd077e93b86d7641e1d0941dede8" name="Modules/CalcOffence-2_6.lua" part="program"/>
 	<File sha1="84e92bb886dd3f23ace70db3bd418b62d4753927" name="Modules/CalcOffence-3_0.lua" part="program"/>
-	<File sha1="e1305b9766eaba8fd8269ea01ff80425095083ae" name="Modules/CalcPerform.lua" part="program"/>
+	<File sha1="4e51489625be3baf1d426d300edf7afe9777ca2f" name="Modules/CalcPerform.lua" part="program"/>
 	<File sha1="20b4fedd9c2382f7c0038363ce385b6d52429255" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="32da2a949a5fe0ab10d54078a96caff0dccb5f3f" name="Modules/CalcSections-2_6.lua" part="program"/>
 	<File sha1="38e0734e32aa9afb20c6d9ffd5a99685d3e8f787" name="Modules/CalcSections-3_0.lua" part="program"/>
-	<File sha1="fbcbed4460f3d2534824a4c21e4440e10779463c" name="Modules/CalcSetup.lua" part="program"/>
+	<File sha1="49a598a3849cd473330353f77fa392dfd56b0d70" name="Modules/CalcSetup.lua" part="program"/>
 	<File sha1="984013b89c3a09f627633d8bb4e0ec9780e62cef" name="Modules/CalcTools.lua" part="program"/>
 	<File sha1="43236539f9eaccb818fc0e2faf7ef035aa9ee427" name="Modules/Common.lua" part="program"/>
 	<File sha1="56b4f7f16a16c3d3b83c18f62d127e0abcf8c815" name="Modules/ConfigOptions.lua" part="program"/>

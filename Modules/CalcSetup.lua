@@ -600,7 +600,7 @@ function calcs.initEnv(build, mode, override)
 			if not socketGroup.source then
 				-- Add extra supports from the item this group is socketed in
 				for _, value in ipairs(env.modDB:Sum("LIST", groupCfg, "ExtraSupport")) do
-					local grantedEffect = env.data.skills[value.name]
+					local grantedEffect = env.data.skills[value.skillId]
 					if grantedEffect then
 						t_insert(supportList, { 
 							grantedEffect = grantedEffect,
