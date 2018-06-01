@@ -434,7 +434,7 @@ skills["BladeVortex"] = {
 		--"maximum_number_of_spinning_blades" = 10
 		mod("CritChance", "INC", 10, 0, 0, { type = "Multiplier", var = "BladeVortexBlade" }), --"blade_vortex_critical_strike_chance_+%_per_blade" = 10
 		--"blade_vortex_hit_rate_+%_per_blade" = 35
-		mod("Damage", "MORE", 35, 0, KeywordFlag.Hit, { type = "Multiplier", var = "BladeVortexBlade" }), --"blade_vortex_damage_+%_per_blade_final" = 35
+		mod("Damage", "MORE", 35, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "BladeVortexBlade" }), --"blade_vortex_damage_+%_per_blade_final" = 35
 		--"is_area_damage" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
 		--"action_ignores_crit_tracking" = ?
