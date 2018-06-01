@@ -187,7 +187,7 @@
 	<File sha1="2ed436be339c430720714ca6bd73fda1a81013bb" name="Data/3_0/Skills/minion.lua" part="program"/>
 	<File sha1="847e165c952c4f47852ad4faba98ba26934eefca" name="Data/3_0/Skills/other.lua" part="program"/>
 	<File sha1="33e511512e2ba29bf58c84c4eba84a6414170279" name="Data/3_0/Skills/spectre.lua" part="program"/>
-	<File sha1="1e0d9cae576934cb189c20af50cba2001b6f7c88" name="Data/3_0/Skills/sup_dex.lua" part="program"/>
+	<File sha1="e1f8fe07183f8366ee016b6a563506ee8a904efe" name="Data/3_0/Skills/sup_dex.lua" part="program"/>
 	<File sha1="aac170a9596de88e48ec597d674d39f4432f4318" name="Data/3_0/Skills/sup_int.lua" part="program"/>
 	<File sha1="770a43cbed10629ac82482d9c8e38ad3802cce9d" name="Data/3_0/Skills/sup_str.lua" part="program"/>
 	<File platform="win32" sha1="7e5a3242c9a4296dc8377feb4c9d824f3f0a3cc1" name="Path of Building.exe" part="runtime"/>
