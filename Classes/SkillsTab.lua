@@ -432,7 +432,7 @@ function SkillsTabClass:CreateGemSlot(index)
 
 	-- Parser/calculator error message
 	slot.errMsg = common.New("LabelControl", {"LEFT",slot.enabled,"RIGHT"}, 2, 2, 0, 16, function()
-		local gemInstance = self.displayGroup.gemList[index]
+		local gemInstance = self.displayGroup and self.displayGroup.gemList[index]
 		return "^1"..(gemInstance and gemInstance.errMsg or "")
 	end)
 	self.controls["gemSlot"..index.."ErrMsg"] = slot.errMsg
@@ -445,7 +445,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		self.build.buildFlag = true
 	end)
 	slot.enableGlobal1.shown = function()
-		local gemInstance = self.displayGroup.gemList[index]
+		local gemInstance = self.displayGroup and self.displayGroup.gemList[index]
 		return gemInstance and gemInstance.gemData and gemInstance.gemData.grantedEffectList[1] and gemInstance.gemData.grantedEffectList[1].hasGlobalEffect
 	end
 	slot.enableGlobal1.x = function()
@@ -464,7 +464,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		self.build.buildFlag = true
 	end)
 	slot.enableGlobal2.shown = function()
-		local gemInstance = self.displayGroup.gemList[index]
+		local gemInstance = self.displayGroup and self.displayGroup.gemList[index]
 		return gemInstance and gemInstance.gemData and gemInstance.gemData.grantedEffectList[2] and gemInstance.gemData.grantedEffectList[2].hasGlobalEffect
 	end
 	slot.enableGlobal2.x = function()
