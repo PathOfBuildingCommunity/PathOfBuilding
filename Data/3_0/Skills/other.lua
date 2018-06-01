@@ -281,7 +281,7 @@ skills["CatAspect"] = {
 		--"avoid_damage_%" = 15
 		--"enemy_aggro_radius_+%" = -50
 		mod("Speed", "INC", 10, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" }), --"attack_speed_+%" = 10
-		mod("Speed", "INC", 10, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" }), --"base_cast_speed_+%" = 10
+		mod("Speed", "INC", 10, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" }), --"cast_speed_+%_granted_from_skill" = 10
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
 		skill("durationSecondary", 6), --"base_secondary_skill_effect_duration" = 6000
 	},
@@ -788,7 +788,6 @@ skills["FireBurstOnHit"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -851,7 +850,6 @@ skills["VaalAuraElementalDamageHealing"] = {
 		aura = true,
 		area = true,
 		duration = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -879,7 +877,6 @@ skills["IcestormUniqueStaff12"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -953,8 +950,6 @@ skills["MerveilWarp"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		movement = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.6), 
@@ -981,7 +976,6 @@ skills["LightningSpell"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1035,8 +1029,8 @@ skills["UniqueAnimateWeapon"] = {
 	name = "Manifest Dancing Dervish",
 	hidden = true,
 	color = 4,
-	description = "Releases Dancing Dervish to fight by your side. While Dancing Dervish is manifested, you have Onslaught and cannot use Weapons.",
-	skillTypes = { [2] = true, [9] = true, [21] = true, [36] = true, [61] = true, },
+	description = "Manifests Dancing Dervish to fight by your side. While Dancing Dervish is manifested, you have Onslaught and cannot use Weapons. Cannot be supported by supports that would create other minions.",
+	skillTypes = { [2] = true, [9] = true, [21] = true, [36] = true, [61] = true, [72] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [11] = true, [38] = true, [28] = true, },
 	fromItem = true,
 	minionList = {
@@ -1082,7 +1076,6 @@ skills["TriggeredMoltenStrike"] = {
 		attack = true,
 		projectile = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1178,7 +1171,6 @@ skills["TriggeredShockedGround"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 

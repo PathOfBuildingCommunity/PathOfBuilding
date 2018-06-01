@@ -22,7 +22,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Anger
-#flags spell aura area fire
+#flags spell aura area
 #baseMod skill("radius", 36)
 #mods
 
@@ -91,15 +91,15 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FlameTotem
-#flags spell totem projectile duration fire
+#flags spell totem projectile duration
 #mods
 
 #skill GlacialHammer
-#flags attack melee cold
+#flags attack melee
 #mods
 
 #skill VaalGlacialHammer
-#flags attack melee area duration cold vaal
+#flags attack melee area duration
 #mods
 
 #skill GroundSlam
@@ -108,7 +108,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalGroundSlam
-#flags attack melee area vaal
+#flags attack melee area
 #mods
 
 #skill HeavyStrike
@@ -116,12 +116,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill HeraldOfAsh
-#flags spell area fire
+#flags spell area
 #baseMod skill("radius", 10)
 #mods
 
 #skill IceCrash
-#flags attack melee area cold
+#flags attack melee area
 	parts = {
 		{
 			name = "First Hit",
@@ -141,30 +141,30 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalImmortalCall
-#flags spell duration vaal
+#flags spell duration
 #mods
 
 #skill InfernalBlow
-#flags attack melee fire
+#flags attack melee
 #baseMod skill("radius", 15)
 #mods
 
 #skill LeapSlam
-#flags attack melee area movement
+#flags attack melee area
 #baseMod skill("radius", 15)
 #mods
 
 #skill MoltenShell
-#flags spell area duration fire
+#flags spell area duration
 #baseMod skill("radius", 15)
 #mods
 
 #skill VaalMoltenShell
-#flags spell area duration fire vaal
+#flags spell area duration
 #mods
 
 #skill MoltenStrike
-#flags attack melee projectile area fire
+#flags attack melee projectile area
 	parts = {
 		{
 			name = "Melee Hit",
@@ -189,7 +189,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FireResistAura
-#flags spell aura area fire
+#flags spell aura area
 #baseMod skill("radius", 36)
 #mods
 
@@ -208,11 +208,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SearingBond
-#flags spell totem duration fire
+#flags spell totem duration
 #mods
 
 #skill NewShieldCharge
-#flags attack melee area movement
+#flags attack melee area
 #mods
 
 #skill ShockwaveTotem
@@ -221,7 +221,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill StaticStrike
-#flags attack melee area duration lightning
+#flags attack melee area duration
 	parts = {
 		{
 			name = "Melee hit",
@@ -236,7 +236,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonFireGolem
-#flags spell minion golem fire
+#flags spell minion golem
 #baseMod skill("allowTotemBuff", true)
 #baseMod flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" })
 	minionList = {

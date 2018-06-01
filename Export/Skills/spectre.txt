@@ -6,7 +6,7 @@
 local skills, mod, flag, skill = ...
 
 #skill BanditExplosiveArrow Explosive Arrow
-#flags cast projectile area duration fire
+#flags cast projectile area duration
 #baseMod skill("showAverage", true)
 #mods
 
@@ -44,7 +44,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ExperimenterDetonateDead Detonate Dead
-#flags cast area fire
+#flags cast area
 #mods
 
 #skill FireMonsterWhirlingBlades Fire Roll
@@ -52,7 +52,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FlamebearerFlameBlue Blue Flame
-#flags spell projectile duration fire
+#flags spell projectile duration
 #mods
 
 #skill GhostPirateBladeVortexSpectre Blade Vortex
@@ -61,11 +61,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill GoatmanFireMagmaOrb Magma Orb
-#flags spell area projectile fire
+#flags spell area projectile
 #mods
 
 #skill GoatmanMoltenShell Molten Shell
-#flags spell area duration fire
+#flags spell area duration
 #mods
 
 #skill GuardianArc Arc
@@ -94,7 +94,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill KaomWarriorMoltenStrike Molten Strike
-#flags attack melee fire
+#flags attack melee
 #mods
 
 #skill MassFrenzy Mass Frenzy
@@ -102,7 +102,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MinerThrowFireSpectre Throw Fire
-#flags spell projectile area fire duration
+#flags spell projectile area duration
 #mods
 
 #skill MonsterArc Arc
@@ -118,7 +118,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterDischarge Discharge
-#flags spell area fire cold lightning
+#flags spell area lightning
 #mods
 
 #skill MonsterEnduringCry Enduring Cry
@@ -130,11 +130,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterFireball Fireball
-#flags spell projectile area fire
+#flags spell projectile area
 #mods
 
 #skill MonsterFireBomb Fire Bomb
-#flags spell trap area duration fire
+#flags spell trap area duration
 #mods
 
 #skill MonsterFlickerStrike Flicker Strike
@@ -142,7 +142,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterFlameRedCannibal Incinerate
-#flags spell projectile fire
+#flags spell projectile
 #mods
 
 #skill MonsterLeapSlam Leap Slam
@@ -150,7 +150,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterLesserMultiFireballSpectre Lesser Multi Fireball
-#flags spell projectile area fire
+#flags spell projectile area
 #mods
 
 #skill MonsterLightningArrow Lightning Arrow
@@ -162,7 +162,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterMultiFireballSpectre Multi Fireball
-#flags spell projectile area fire
+#flags spell projectile area
 #mods
 
 #skill MonsterProjectileWeakness Projectile Weakness
@@ -179,7 +179,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterRighteousFireWhileSpectred Unrighteous Fire
-#flags spell area fire
+#flags spell area
 #mods
 
 #skill MonsterShockNova Shock Nova
@@ -191,7 +191,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterSplitFireballSpectre Split Fireball
-#flags spell projectile area fire
+#flags spell projectile area
 #mods
 
 #skill MonsterWarlordsMark Warlord's Mark
@@ -211,11 +211,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill NecromancerFlammability Flammability
-#flags spell curse area duration fire
+#flags spell curse area duration
 #mods
 
 #skill NecromancerFrostbite Frostbite
-#flags spell curse area duration cold
+#flags spell curse area duration
 #mods
 
 #skill NecromancerProjectileWeakness Projectile Weakness
@@ -231,11 +231,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill PyroChaosFireball Chaos Fireball
-#flags spell projectile area fire
+#flags spell projectile area
 #mods
 
 #skill PyroFireball Fireball
-#flags spell projectile area fire
+#flags spell projectile area
 #mods
 
 #skill PyroSuicideExplosion Suicide Explosion
@@ -247,7 +247,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SeawitchFrostbolt Frostbolt
-#flags spell projectile cold
+#flags spell projectile
 #mods
 
 #skill SeaWitchScreech Screech

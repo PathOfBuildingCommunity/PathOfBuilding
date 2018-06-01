@@ -20,7 +20,6 @@ skills["BanditExplosiveArrow"] = {
 		projectile = true,
 		area = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -438,7 +437,6 @@ skills["ExperimenterDetonateDead"] = {
 	baseFlags = {
 		cast = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -505,7 +503,6 @@ skills["FireMonsterWhirlingBlades"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
-		movement = true,
 		duration = true,
 	},
 	baseMods = {
@@ -570,7 +567,6 @@ skills["FlamebearerFlameBlue"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.25), 
@@ -700,7 +696,6 @@ skills["GoatmanFireMagmaOrb"] = {
 		spell = true,
 		area = true,
 		projectile = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.7), 
@@ -769,7 +764,6 @@ skills["GoatmanMoltenShell"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -835,7 +829,6 @@ skills["GuardianArc"] = {
 	skillTypes = { [2] = true, [10] = true, [17] = true, [18] = true, [19] = true, [23] = true, [26] = true, [36] = true, [45] = true, [35] = true, },
 	baseFlags = {
 		spell = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -1196,7 +1189,6 @@ skills["KaomWarriorMoltenStrike"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1282,7 +1274,6 @@ skills["MinerThrowFireSpectre"] = {
 		spell = true,
 		projectile = true,
 		area = true,
-		fire = true,
 		duration = true,
 	},
 	baseMods = {
@@ -1345,7 +1336,6 @@ skills["MonsterArc"] = {
 	skillTypes = { [2] = true, [10] = true, [17] = true, [18] = true, [19] = true, [23] = true, [26] = true, [36] = true, [45] = true, [35] = true, },
 	baseFlags = {
 		spell = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -1551,9 +1541,6 @@ skills["MonsterDischarge"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
-		cold = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1713,7 +1700,6 @@ skills["MonsterFireball"] = {
 		spell = true,
 		projectile = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -1777,7 +1763,6 @@ skills["MonsterFireBomb"] = {
 		trap = true,
 		area = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1858,7 +1843,6 @@ skills["MonsterFlickerStrike"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
-		movement = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1889,7 +1873,6 @@ skills["MonsterFlameRedCannibal"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.25), 
@@ -1997,7 +1980,6 @@ skills["MonsterLesserMultiFireballSpectre"] = {
 		spell = true,
 		projectile = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -2063,7 +2045,6 @@ skills["MonsterLightningArrow"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2089,7 +2070,6 @@ skills["MonsterLightningThorns"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2151,7 +2131,6 @@ skills["MonsterMultiFireballSpectre"] = {
 		spell = true,
 		projectile = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -2308,7 +2287,6 @@ skills["MonsterRighteousFireWhileSpectred"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2372,7 +2350,6 @@ skills["MonsterShockNova"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.75), 
@@ -2433,7 +2410,6 @@ skills["MonsterSpark"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.65), 
@@ -2501,7 +2477,6 @@ skills["MonsterSplitFireballSpectre"] = {
 		spell = true,
 		projectile = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -2598,7 +2573,6 @@ skills["NecromancerConductivity"] = {
 		curse = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2706,7 +2680,6 @@ skills["NecromancerFlammability"] = {
 		curse = true,
 		area = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2744,7 +2717,6 @@ skills["NecromancerFrostbite"] = {
 		curse = true,
 		area = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2886,7 +2858,6 @@ skills["PyroChaosFireball"] = {
 		spell = true,
 		projectile = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -2955,7 +2926,6 @@ skills["PyroFireball"] = {
 		spell = true,
 		projectile = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -3144,7 +3114,6 @@ skills["SeawitchFrostbolt"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.75), 
@@ -3396,7 +3365,6 @@ skills["SkeletonSpark"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.65), 
@@ -3645,7 +3613,6 @@ skills["UndyingWhirlingBlades"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
-		movement = true,
 	},
 	baseMods = {
 		skill("castTime", 2.6), 

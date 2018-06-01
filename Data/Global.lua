@@ -172,4 +172,5 @@ SkillType = {
 	SkillCanMirageArcher = 69, -- Skill can be supported by Mirage Archer
 	Type70 = 70, -- Excludes Volley from Vaal Fireball and Vaal Spark
 	Type71 = 71, -- Excludes Volley from Spectral Shield Throw
+	Type72 = 72, -- Excludes Summon Phantasm on Kill from Manifest Dancing Dervish
 }

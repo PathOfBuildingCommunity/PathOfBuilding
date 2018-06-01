@@ -47,7 +47,7 @@ local skills, mod, flag, skill = ...
 #flags cast duration
 #setMod critical_strike_chance_+%==mod("CritChance", "INC", {val}, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Stealth", effectCond = "CatsStealthActive" })
 #setMod attack_speed_+%==mod("Speed", "INC", {val}, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" })
-#setMod base_cast_speed_+%==mod("Speed", "INC", {val}, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" })
+#setMod cast_speed_+%_granted_from_skill==mod("Speed", "INC", {val}, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" })
 	fromItem = true,
 #mods
 
@@ -151,18 +151,18 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FireBurstOnHit
-#flags spell area fire
+#flags spell area
 	fromItem = true,
 #mods
 
 #skill VaalAuraElementalDamageHealing
-#flags spell aura area duration vaal
+#flags spell aura area duration
 #baseMod skill("radius", 36)
 	fromItem = true,
 #mods
 
 #skill IcestormUniqueStaff12
-#flags spell area duration cold
+#flags spell area duration
 #baseMod skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 })
 #baseMod skill("radius", 25)
 #baseMod skill("radiusSecondary", 10)
@@ -176,12 +176,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MerveilWarp
-#flags spell area duration movement cold
+#flags spell area duration
 	fromItem = true,
 #mods
 
 #skill LightningSpell
-#flags spell area lightning
+#flags spell area
 	fromItem = true,
 #mods
 
@@ -202,7 +202,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill TriggeredMoltenStrike
-#flags attack projectile area fire
+#flags attack projectile area
 	fromItem = true,
 #mods
 
@@ -220,7 +220,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill TriggeredShockedGround
-#flags spell area duration lightning
+#flags spell area duration
 	fromItem = true,
 #mods
 

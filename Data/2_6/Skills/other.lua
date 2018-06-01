@@ -361,7 +361,6 @@ skills["FireBurstOnHit"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -424,7 +423,6 @@ skills["VaalAuraElementalDamageHealing"] = {
 		aura = true,
 		area = true,
 		duration = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -452,7 +450,6 @@ skills["IcestormUniqueStaff12"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -493,8 +490,6 @@ skills["MerveilWarp"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		movement = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.6), 
@@ -521,7 +516,6 @@ skills["LightningSpell"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -621,7 +615,6 @@ skills["TriggeredMoltenStrike"] = {
 		attack = true,
 		projectile = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -689,7 +682,6 @@ skills["TriggeredShockedGround"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 

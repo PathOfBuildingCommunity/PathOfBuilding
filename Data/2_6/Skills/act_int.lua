@@ -25,7 +25,6 @@ skills["Arc"] = {
 	baseFlags = {
 		spell = true,
 		chaining = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -95,8 +94,6 @@ skills["VaalArcChain"] = {
 	skillTypes = { [2] = true, [10] = true, [17] = true, [18] = true, [19] = true, [23] = true, [26] = true, [43] = true, [35] = true, },
 	baseFlags = {
 		spell = true,
-		lightning = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -169,7 +166,6 @@ skills["ArcticBreath"] = {
 		area = true,
 		projectile = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -316,7 +312,6 @@ skills["BallLightning"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -608,7 +603,6 @@ skills["VaalClarity"] = {
 		aura = true,
 		area = true,
 		duration = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.6), 
@@ -676,7 +670,6 @@ skills["ColdSnap"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -755,8 +748,6 @@ skills["VaalColdSnap"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		cold = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -830,7 +821,6 @@ skills["Conductivity"] = {
 		curse = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -1115,9 +1105,6 @@ skills["Discharge"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
-		cold = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1267,7 +1254,6 @@ skills["VaalDiscipline"] = {
 		aura = true,
 		area = true,
 		duration = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.6), 
@@ -1565,7 +1551,6 @@ skills["FireNovaMine"] = {
 		mine = true,
 		area = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.4), 
@@ -1652,7 +1637,6 @@ skills["Fireball"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -1735,8 +1719,6 @@ skills["VaalFireballSpiralNova"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		fire = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -1810,7 +1792,6 @@ skills["Firestorm"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.9), 
@@ -1887,8 +1868,6 @@ skills["FlameDash"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		movement = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.75), 
@@ -1960,7 +1939,6 @@ skills["FlameWhip"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2040,7 +2018,6 @@ skills["Flameblast"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.2), 
@@ -2114,8 +2091,6 @@ skills["VaalFlameblast"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2190,7 +2165,6 @@ skills["Flammability"] = {
 		curse = true,
 		area = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2336,7 +2310,6 @@ skills["FreezingPulse"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.65), 
@@ -2409,7 +2382,6 @@ skills["FrostBomb"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2484,7 +2456,6 @@ skills["FrostWall"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2559,7 +2530,6 @@ skills["Frostbite"] = {
 		curse = true,
 		area = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2630,7 +2600,6 @@ skills["FrostBolt"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.75), 
@@ -2699,7 +2668,6 @@ skills["GlacialCascade"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -2773,7 +2741,6 @@ skills["HeraldOfThunder"] = {
 	baseFlags = {
 		cast = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2851,7 +2818,6 @@ skills["IceNova"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -2923,8 +2889,6 @@ skills["VaalIceNova"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		cold = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -3002,7 +2966,6 @@ skills["IceSpear"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -3083,7 +3046,6 @@ skills["Incinerate"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.2), 
@@ -3239,7 +3201,6 @@ skills["LightningTendrils"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -3315,7 +3276,6 @@ skills["LightningTrap"] = {
 		spell = true,
 		trap = true,
 		projectile = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -3396,8 +3356,6 @@ skills["VaalLightningTrap"] = {
 		trap = true,
 		projectile = true,
 		duration = true,
-		lightning = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -3477,8 +3435,6 @@ skills["LightningWarp"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		movement = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -3554,8 +3510,6 @@ skills["VaalLightningWarpInstant"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		lightning = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -3630,7 +3584,6 @@ skills["MagmaOrb"] = {
 		projectile = true,
 		area = true,
 		chaining = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.7), 
@@ -3704,7 +3657,6 @@ skills["OrbOfStorms"] = {
 		spell = true,
 		chaining = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -3849,7 +3801,6 @@ skills["VaalPowerSiphon"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -4213,7 +4164,6 @@ skills["RighteousFire"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -4288,8 +4238,6 @@ skills["VaalRighteousFire"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -4368,7 +4316,6 @@ skills["FireBeam"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -4452,7 +4399,6 @@ skills["ShockNova"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.75), 
@@ -4526,7 +4472,6 @@ skills["Spark"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.65), 
@@ -4600,8 +4545,6 @@ skills["VaalSparkSpiralNova"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
-		lightning = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.65), 
@@ -4746,7 +4689,6 @@ skills["StormCall"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -4822,8 +4764,6 @@ skills["VaalStormCall"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		lightning = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -4979,7 +4919,6 @@ skills["SummonLightningGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -5059,7 +4998,6 @@ skills["SummonRagingSpirit"] = {
 		spell = true,
 		minion = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -5281,7 +5219,6 @@ skills["TempestShield"] = {
 		spell = true,
 		duration = true,
 		chaining = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -5357,7 +5294,6 @@ skills["FrostBoltNova"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.9), 
@@ -5594,7 +5530,6 @@ skills["Wrath"] = {
 		spell = true,
 		aura = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1.2), 

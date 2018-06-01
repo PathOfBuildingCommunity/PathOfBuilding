@@ -302,10 +302,10 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	if skillFlags.warcry then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Warcry)
 	end
-	if skillFlags.movement then
+	if skillTypes[SkillType.MovementSkill] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Movement)
 	end
-	if skillFlags.vaal then
+	if skillTypes[SkillType.Vaal] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Vaal)
 	end
 	if skillTypes[SkillType.LightningSkill] then
