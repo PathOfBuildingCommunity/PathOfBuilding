@@ -402,7 +402,7 @@ skills["SupportChanceToIgnite"] = {
 		[1] = nil, 
 		[2] = mod("EnemyIgniteChance", "BASE", nil), --"base_chance_to_ignite_%"
 		[3] = mod("FireDamage", "MORE", nil), --"support_chance_to_ignite_fire_damage_+%_final"
-		--[4] = "ignites_apply_fire_resistance_+"
+		[4] = mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Combustion" }, { type = "Condition", var = "Ignited" }), --"ignites_apply_fire_resistance_+"
 	},
 	levels = {
 		[1] = { 8, 30, 10, -10, },
@@ -1053,8 +1053,8 @@ skills["SupportImmolation"] = {
 	},
 	levelMods = {
 		[1] = nil, 
-		--[2] = "global_minimum_added_fire_damage_vs_burning_enemies"
-		--[3] = "global_maximum_added_fire_damage_vs_burning_enemies"
+		[2] = mod("FireMin", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }), --"global_minimum_added_fire_damage_vs_burning_enemies"
+		[3] = mod("FireMax", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }), --"global_maximum_added_fire_damage_vs_burning_enemies"
 	},
 	levels = {
 		[1] = { 38, 42, 63, },
@@ -1858,7 +1858,7 @@ skills["SupportPowerChargeOnCrit"] = {
 	excludeSkillTypes = { },
 	baseMods = {
 		mod("ManaCost", "MORE", 10), 
-		--"support_power_charge_on_crit_damage_+%_final_per_power_charge" = 4
+		mod("Damage", "MORE", 4, 0, 0, { type = "Multiplier", var = "PowerCharge" }), --"support_power_charge_on_crit_damage_+%_final_per_power_charge" = 4
 	},
 	qualityMods = {
 		mod("CritChance", "INC", 1, 0, 0, nil), --"critical_strike_chance_+%" = 1
@@ -1920,7 +1920,6 @@ skills["SupportRemoteMine"] = {
 	excludeSkillTypes = { 61, },
 	addFlags = {
 		mine = true,
-		duration = true,
 	},
 	baseMods = {
 		mod("ManaCost", "MORE", 50), 

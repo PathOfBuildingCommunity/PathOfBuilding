@@ -420,9 +420,6 @@ skills["BladeVortex"] = {
 		{
 			name = "10 Blades",
 		},
-		{
-			name = "20 Blades",
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -445,11 +442,9 @@ skills["BladeVortex"] = {
 		skill("radius", 15), 
 		mod("Multiplier:BladeVortexBlade", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 }), 
 		mod("Multiplier:BladeVortexBlade", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 3 }), 
-		mod("Multiplier:BladeVortexBlade", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 4 }), 
 		skill("hitTimeOverride", 0.6, { type = "SkillPart", skillPart = 1 }), 
-		skill("hitTimeOverride", 0.4, { type = "SkillPart", skillPart = 2 }), 
-		skill("hitTimeOverride", 0.3, { type = "SkillPart", skillPart = 3 }), 
-		skill("hitTimeOverride", 0.2, { type = "SkillPart", skillPart = 4 }), 
+		skill("hitTimeOverride", 0.6 / (1+5*0.35), { type = "SkillPart", skillPart = 2 }), 
+		skill("hitTimeOverride", 0.6 / (1+10*0.35), { type = "SkillPart", skillPart = 3 }), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -502,6 +497,81 @@ skills["BladeVortex"] = {
 		[38] = { 98, 30, 365, 548, 6, },
 		[39] = { 99, 31, 379, 569, 6, },
 		[40] = { 100, 31, 394, 590, 7, },
+	},
+}
+skills["VaalBladeVortex"] = {
+	name = "Vaal Blade Vortex",
+	color = 2,
+	description = "Creates an independently-moving vortex of ethereal blades which lasts for a duration. The vortex moves toward nearby enemies, repeatedly damaging enemies that it passes through.",
+	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [18] = true, [27] = true, [43] = true, },
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 0.8), 
+		skill("damageEffectiveness", 0.8), 
+		skill("CritChance", 6), 
+		skill("duration", 3), --"base_skill_effect_duration" = 3000
+		--"extra_gore_chance_override_%" = 15
+		--"base_blade_vortex_hit_rate_ms" = 133
+		mod("CritChance", "INC", 100, 0, 0, nil), --"critical_strike_chance_+%" = 100
+		--"is_area_damage" = ?
+		--"skill_can_add_multiple_charges_per_action" = ?
+		--"vaal_blade_vortex_has_10_spinning_blades" = ?
+		skill("hitTimeOverride", 0.133), 
+	},
+	qualityMods = {
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("PhysicalMin", nil), --"spell_minimum_base_physical_damage"
+		[3] = skill("PhysicalMax", nil), --"spell_maximum_base_physical_damage"
+		[4] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
+	},
+	levels = {
+		[1] = { 12, 20, 30, 8, },
+		[2] = { 15, 24, 37, 8, },
+		[3] = { 19, 32, 48, 8, },
+		[4] = { 23, 41, 61, 8, },
+		[5] = { 27, 51, 76, 9, },
+		[6] = { 31, 63, 95, 9, },
+		[7] = { 35, 78, 116, 9, },
+		[8] = { 38, 90, 135, 9, },
+		[9] = { 41, 104, 156, 10, },
+		[10] = { 44, 120, 180, 10, },
+		[11] = { 47, 138, 207, 10, },
+		[12] = { 50, 158, 237, 10, },
+		[13] = { 53, 180, 270, 11, },
+		[14] = { 56, 205, 308, 11, },
+		[15] = { 59, 234, 351, 11, },
+		[16] = { 62, 265, 398, 11, },
+		[17] = { 64, 288, 433, 12, },
+		[18] = { 66, 313, 470, 12, },
+		[19] = { 68, 340, 510, 12, },
+		[20] = { 70, 369, 554, 12, },
+		[21] = { 72, 400, 601, 13, },
+		[22] = { 74, 434, 651, 13, },
+		[23] = { 76, 470, 705, 13, },
+		[24] = { 78, 509, 763, 13, },
+		[25] = { 80, 550, 826, 14, },
+		[26] = { 82, 595, 893, 14, },
+		[27] = { 84, 643, 965, 14, },
+		[28] = { 86, 695, 1042, 14, },
+		[29] = { 88, 750, 1126, 15, },
+		[30] = { 90, 810, 1215, 15, },
+		[31] = { 91, 842, 1262, 15, },
+		[32] = { 92, 874, 1311, 15, },
+		[33] = { 93, 908, 1362, 15, },
+		[34] = { 94, 943, 1414, 15, },
+		[35] = { 95, 979, 1469, 15, },
+		[36] = { 96, 1017, 1525, 16, },
+		[37] = { 97, 1055, 1583, 16, },
+		[38] = { 98, 1096, 1643, 16, },
+		[39] = { 99, 1137, 1706, 16, },
+		[40] = { 100, 1181, 1771, 16, },
 	},
 }
 skills["Bladefall"] = {
@@ -838,7 +908,7 @@ skills["BurningArrow"] = {
 		[3] = skill("damageEffectiveness", nil), 
 		[4] = skill("baseMultiplier", nil), 
 		[5] = mod("EnemyIgniteChance", "BASE", nil), --"base_chance_to_ignite_%"
-		--[6] = "active_skill_ignite_damage_+%_final"
+		[6] = mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite), --"active_skill_ignite_damage_+%_final"
 		--[7] = "ignite_triggered_ground_fire_base_damage_per_minute"
 	},
 	levels = {
@@ -914,7 +984,7 @@ skills["VaalBurningArrow"] = {
 		[2] = skill("damageEffectiveness", nil), 
 		[3] = skill("baseMultiplier", nil), 
 		[4] = mod("EnemyIgniteChance", "BASE", nil), --"base_chance_to_ignite_%"
-		--[5] = "active_skill_ignite_damage_+%_final"
+		[5] = mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite), --"active_skill_ignite_damage_+%_final"
 		--[6] = "ignite_triggered_ground_fire_base_damage_per_minute"
 	},
 	levels = {
@@ -1543,6 +1613,18 @@ skills["VaalDetonateDead"] = {
 	color = 2,
 	description = "Targets a corpse, and deals spell damage to enemies around the corpse, as well as causing the corpse to explode, dealing fire damage. The explosion is not affected by modifiers to spell damage and cannot be reflected. This will continue to target other corpses in the area, with an increasing delay between each one, until it runs out of corpses or has destroyed 22 corpses.",
 	skillTypes = { [11] = true, [10] = true, [43] = true, },
+	parts = {
+		{
+			name = "Spell",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Corpse Explosion",
+			spell = false,
+			cast =  true,
+		},
+	},
 	baseFlags = {
 		cast = true,
 		area = true,
@@ -1552,7 +1634,7 @@ skills["VaalDetonateDead"] = {
 		skill("damageEffectiveness", 1.5), 
 		skill("CritChance", 5), 
 		skill("corpseExplosionLifeMultiplier", 0.09), --"corpse_explosion_monster_life_%" = 9
-		skill("explodeCorpse", true), 
+		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
 		mod("Damage", "INC", 1, ModFlag.Area), --"area_damage_+%" = 1
@@ -1641,8 +1723,8 @@ skills["DoubleStrike"] = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("damageEffectiveness", nil), 
 		[3] = skill("baseMultiplier", nil), 
-		--[4] = "global_minimum_added_physical_damage_vs_bleeding_enemies"
-		--[5] = "global_maximum_added_physical_damage_vs_bleeding_enemies"
+		[4] = mod("PhysicalMin", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding"}), --"global_minimum_added_physical_damage_vs_bleeding_enemies"
+		[5] = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding"}), --"global_maximum_added_physical_damage_vs_bleeding_enemies"
 		[6] = { mod("MeleeWeaponRange", "BASE", nil), mod("UnarmedRange", "BASE", nil) }, --"melee_range_+"
 	},
 	levels = {
@@ -1727,8 +1809,8 @@ skills["VaalDoubleStrike"] = {
 		[2] = skill("damageEffectiveness", nil), 
 		[3] = skill("baseMultiplier", nil), 
 		--[4] = "doubles_have_movement_speed_+%"
-		--[5] = "global_minimum_added_physical_damage_vs_bleeding_enemies"
-		--[6] = "global_maximum_added_physical_damage_vs_bleeding_enemies"
+		[5] = mod("PhysicalMin", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding"}), --"global_minimum_added_physical_damage_vs_bleeding_enemies"
+		[6] = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding"}), --"global_maximum_added_physical_damage_vs_bleeding_enemies"
 		[7] = { mod("MeleeWeaponRange", "BASE", nil), mod("UnarmedRange", "BASE", nil) }, --"melee_range_+"
 	},
 	levels = {
@@ -1856,13 +1938,13 @@ skills["ElementalHit"] = {
 	skillTypes = { [1] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, [25] = true, [28] = true, [24] = true, [33] = true, [34] = true, [35] = true, [48] = true, [69] = true, [11] = true, },
 	parts = {
 		{
-			name = "Added fire",
+			name = "Fire",
 		},
 		{
-			name = "Added cold",
+			name = "Cold",
 		},
 		{
-			name = "Added lightning",
+			name = "Lightning",
 		},
 	},
 	baseFlags = {
@@ -1878,6 +1960,23 @@ skills["ElementalHit"] = {
 		--"elemental_hit_damage_+10%_final_per_enemy_elemental_ailment" = ?
 		--"elemental_hit_area_of_effect_+100%_final_vs_enemy_with_associated_ailment" = ?
 		--"elemental_hit_no_physical_chaos_damage" = ?
+		flag("DealNoPhysical"), 
+		flag("DealNoChaos"), 
+		flag("DealNoFire", { type = "SkillPart", skillPart = 2 }), 
+		flag("DealNoFire", { type = "SkillPart", skillPart = 3 }), 
+		flag("DealNoCold", { type = "SkillPart", skillPart = 1 }), 
+		flag("DealNoCold", { type = "SkillPart", skillPart = 3 }), 
+		flag("DealNoLightning", { type = "SkillPart", skillPart = 1 }), 
+		flag("DealNoLightning", { type = "SkillPart", skillPart = 2 }), 
+		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }, { type = "SkillPart", skillPart = 1 }), 
+		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }, { type = "SkillPart", skillPart = 2 }), 
+		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }, { type = "SkillPart", skillPart = 2 }), 
+		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }, { type = "SkillPart", skillPart = 3 }), 
+		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }), 
+		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }), 
+		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }), 
+		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }), 
+		mod("Damage", "MORE", 10, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }), 
 	},
 	qualityMods = {
 		mod("ElementalDamage", "INC", 1), --"elemental_damage_+%" = 1
@@ -2104,6 +2203,80 @@ skills["ExplosiveArrow"] = {
 		[40] = { 100, 35, 3019, 4529, },
 	},
 }
+skills["ShrapnelTrap"] = {
+	name = "Explosive Trap",
+	color = 2,
+	description = "Throws a trap that creates a large explosion when triggered, dealing spell damage in an area. A number of smaller explosions occur around this area in quick succession after the first.",
+	skillTypes = { [2] = true, [10] = true, [19] = true, [11] = true, [37] = true, [33] = true, [52] = true, },
+	baseFlags = {
+		spell = true,
+		trap = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("damageEffectiveness", 0.5), 
+		skill("CritChance", 6), 
+		--"base_trap_duration" = 4000
+		mod("SkillPhysicalDamageConvertToFire", "BASE", 50), --"skill_physical_damage_%_to_convert_to_fire" = 50
+		--"is_area_damage" = ?
+		--"base_skill_is_trapped" = ?
+		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		--"is_trap" = ?
+	},
+	qualityMods = {
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+		[3] = skill("PhysicalMin", nil), --"spell_minimum_base_physical_damage"
+		[4] = skill("PhysicalMax", nil), --"spell_maximum_base_physical_damage"
+		--[5] = "shrapnel_trap_number_of_secondary_explosions"
+	},
+	levels = {
+		[1] = { 1, 6, 5, 7, 4, },
+		[2] = { 2, 6, 5, 8, 4, },
+		[3] = { 4, 7, 6, 9, 4, },
+		[4] = { 7, 8, 8, 12, 4, },
+		[5] = { 11, 9, 11, 17, 4, },
+		[6] = { 16, 10, 16, 24, 5, },
+		[7] = { 20, 11, 21, 31, 5, },
+		[8] = { 24, 12, 26, 40, 5, },
+		[9] = { 28, 13, 33, 49, 5, },
+		[10] = { 32, 14, 40, 61, 5, },
+		[11] = { 36, 14, 49, 74, 6, },
+		[12] = { 40, 15, 60, 90, 6, },
+		[13] = { 44, 16, 72, 108, 6, },
+		[14] = { 48, 16, 86, 130, 6, },
+		[15] = { 52, 17, 103, 154, 6, },
+		[16] = { 56, 18, 122, 183, 7, },
+		[17] = { 60, 18, 145, 217, 7, },
+		[18] = { 64, 19, 170, 255, 7, },
+		[19] = { 67, 19, 192, 288, 7, },
+		[20] = { 70, 20, 217, 325, 7, },
+		[21] = { 72, 20, 235, 352, 8, },
+		[22] = { 74, 21, 254, 381, 8, },
+		[23] = { 76, 21, 274, 411, 8, },
+		[24] = { 78, 21, 296, 444, 8, },
+		[25] = { 80, 22, 320, 480, 8, },
+		[26] = { 82, 23, 345, 518, 9, },
+		[27] = { 84, 23, 372, 559, 9, },
+		[28] = { 86, 23, 402, 602, 9, },
+		[29] = { 88, 24, 433, 649, 9, },
+		[30] = { 90, 24, 466, 700, 9, },
+		[31] = { 91, 25, 484, 726, 9, },
+		[32] = { 92, 25, 502, 753, 10, },
+		[33] = { 93, 25, 521, 782, 10, },
+		[34] = { 94, 26, 541, 811, 10, },
+		[35] = { 95, 27, 561, 841, 10, },
+		[36] = { 96, 27, 582, 873, 10, },
+		[37] = { 97, 27, 603, 905, 10, },
+		[38] = { 98, 28, 626, 939, 10, },
+		[39] = { 99, 28, 649, 974, 10, },
+		[40] = { 100, 29, 673, 1009, 10, },
+	},
+}
 skills["FireTrap"] = {
 	name = "Fire Trap",
 	color = 2,
@@ -2139,8 +2312,8 @@ skills["FireTrap"] = {
 		[4] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
 		[5] = skill("FireDot", nil), --"base_fire_damage_to_deal_per_minute"
 		[6] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
-		--[7] = "global_minimum_added_fire_damage_vs_burning_enemies"
-		--[8] = "global_maximum_added_fire_damage_vs_burning_enemies"
+		[7] = mod("FireMin", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }), --"global_minimum_added_fire_damage_vs_burning_enemies"
+		[8] = mod("FireMax", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }), --"global_maximum_added_fire_damage_vs_burning_enemies"
 	},
 	levels = {
 		[1] = { 12, 8, 7, 11, 24.133333333333, 0, 2, 3, },
@@ -2183,6 +2356,83 @@ skills["FireTrap"] = {
 		[38] = { 98, 30, 2077, 3116, 6897.1833333333, 11, 649, 974, },
 		[39] = { 99, 30, 2198, 3297, 7297.3833333333, 11, 687, 1030, },
 		[40] = { 100, 31, 2325, 3488, 7720.1833333333, 11, 727, 1090, },
+	},
+}
+skills["FlamethrowerTrap"] = {
+	name = "Flamethrower Trap",
+	color = 2,
+	description = "Throws a trap that releases a number of flames in different directions around it when triggered. The flames last for a duration, rotating around the trap and repeatedly dealing damage. Burning enemies are dealt more damage.",
+	skillTypes = { [2] = true, [12] = true, [10] = true, [19] = true, [11] = true, [37] = true, [33] = true, [52] = true, },
+	baseFlags = {
+		spell = true,
+		trap = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("damageEffectiveness", 0.3), 
+		skill("CritChance", 5), 
+		skill("cooldown", 8), 
+		--"base_trap_duration" = 4000
+		skill("duration", 3.5), --"base_skill_effect_duration" = 3500
+		mod("Damage", "MORE", 25, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }), --"flamethrower_trap_damage_+%_final_vs_burning_enemies" = 25
+		--"flamethrower_tower_trap_number_of_flamethrowers" = 4
+		--"is_area_damage" = ?
+		--"base_skill_is_trapped" = ?
+		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		--"is_trap" = ?
+		--"flamethrower_tower_trap_display_cast_speed_affects_rotation" = ?
+	},
+	qualityMods = {
+		mod("FireDamage", "INC", 1), --"fire_damage_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+		[3] = skill("FireMin", nil), --"spell_minimum_base_fire_damage"
+		[4] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
+	},
+	levels = {
+		[1] = { 28, 13, 5, 7, },
+		[2] = { 31, 13, 6, 9, },
+		[3] = { 34, 14, 8, 12, },
+		[4] = { 37, 16, 11, 16, },
+		[5] = { 40, 17, 14, 21, },
+		[6] = { 42, 17, 17, 25, },
+		[7] = { 44, 18, 20, 30, },
+		[8] = { 46, 18, 24, 37, },
+		[9] = { 48, 19, 29, 44, },
+		[10] = { 50, 19, 35, 52, },
+		[11] = { 52, 19, 42, 63, },
+		[12] = { 54, 20, 50, 75, },
+		[13] = { 56, 20, 59, 89, },
+		[14] = { 58, 22, 70, 106, },
+		[15] = { 60, 22, 83, 125, },
+		[16] = { 62, 23, 99, 149, },
+		[17] = { 64, 23, 117, 176, },
+		[18] = { 66, 24, 138, 208, },
+		[19] = { 68, 24, 163, 245, },
+		[20] = { 70, 25, 192, 289, },
+		[21] = { 72, 25, 221, 333, },
+		[22] = { 74, 26, 254, 383, },
+		[23] = { 76, 26, 292, 441, },
+		[24] = { 78, 28, 336, 507, },
+		[25] = { 80, 28, 386, 582, },
+		[26] = { 82, 29, 444, 669, },
+		[27] = { 84, 29, 509, 768, },
+		[28] = { 86, 30, 585, 881, },
+		[29] = { 88, 30, 670, 1011, },
+		[30] = { 90, 31, 769, 1159, },
+		[31] = { 91, 32, 823, 1241, },
+		[32] = { 92, 32, 881, 1328, },
+		[33] = { 93, 33, 943, 1422, },
+		[34] = { 94, 33, 1009, 1521, },
+		[35] = { 95, 34, 1080, 1628, },
+		[36] = { 96, 35, 1156, 1742, },
+		[37] = { 97, 35, 1237, 1864, },
+		[38] = { 98, 36, 1324, 1995, },
+		[39] = { 99, 36, 1416, 2134, },
+		[40] = { 100, 37, 1515, 2283, },
 	},
 }
 skills["FlickerStrike"] = {
@@ -3112,8 +3362,8 @@ skills["DoubleSlash"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 8), 
-		--"bleed_on_melee_attack_chance_%" = 25
-		--"lacerate_hit_and_ailment_damage_+%_final_vs_bleeding_enemies" = 25
+		mod("BleedChance", "BASE", 25, ModFlag.Melee), --"bleed_on_melee_attack_chance_%" = 25
+		mod("Damage", "MORE", 25, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "Bleeding" }), --"lacerate_hit_and_ailment_damage_+%_final_vs_bleeding_enemies" = 25
 		--"is_area_damage" = ?
 		skill("radius", 38), 
 		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }), 
@@ -3873,6 +4123,77 @@ skills["ColdResistAura"] = {
 		[40] = { 100, 56, 5, 34, },
 	},
 }
+skills["ColdImpurity"] = {
+	name = "Vaal Impurity of Ice",
+	color = 2,
+	description = "Casts an aura that reduces cold damage taken and provides freeze and chill immunity to you and nearby allies, and makes hits against nearby enemies ignore their cold resistance. ",
+	skillTypes = { [2] = true, [5] = true, [11] = true, [18] = true, [27] = true, [12] = true, [43] = true, [44] = true, },
+	baseFlags = {
+		spell = true,
+		aura = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 0.5), 
+		mod("ColdDamageTaken", "INC", -25, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"cold_damage_taken_+%" = -25
+		skill("duration", 3), --"base_skill_effect_duration" = 3000
+		--"base_deal_no_damage" = ?
+		--"base_immune_to_freeze" = ?
+		flag("SelfIgnoreColdResistance", { type = "GlobalEffect", effectType = "Debuff" }), --"hits_ignore_my_cold_resistance" = ?
+		--"base_immune_to_chill" = ?
+	},
+	qualityMods = {
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
+		[3] = mod("AuraEffect", "INC", nil), --"aura_effect_+%"
+	},
+	levels = {
+		[1] = { 24, 14, 0, },
+		[2] = { 27, 14, 5, },
+		[3] = { 30, 14, 10, },
+		[4] = { 33, 15, 15, },
+		[5] = { 36, 15, 20, },
+		[6] = { 39, 15, 25, },
+		[7] = { 42, 16, 30, },
+		[8] = { 45, 16, 35, },
+		[9] = { 48, 16, 40, },
+		[10] = { 50, 17, 45, },
+		[11] = { 52, 17, 50, },
+		[12] = { 54, 17, 55, },
+		[13] = { 56, 18, 60, },
+		[14] = { 58, 18, 65, },
+		[15] = { 60, 18, 70, },
+		[16] = { 62, 19, 75, },
+		[17] = { 64, 19, 80, },
+		[18] = { 66, 19, 85, },
+		[19] = { 68, 20, 90, },
+		[20] = { 70, 20, 95, },
+		[21] = { 72, 20, 100, },
+		[22] = { 74, 21, 105, },
+		[23] = { 76, 21, 110, },
+		[24] = { 78, 21, 115, },
+		[25] = { 80, 22, 120, },
+		[26] = { 82, 22, 125, },
+		[27] = { 84, 22, 130, },
+		[28] = { 86, 23, 135, },
+		[29] = { 88, 23, 140, },
+		[30] = { 90, 23, 145, },
+		[31] = { 91, 23, 150, },
+		[32] = { 92, 24, 155, },
+		[33] = { 93, 24, 160, },
+		[34] = { 94, 24, 165, },
+		[35] = { 95, 24, 170, },
+		[36] = { 96, 24, 175, },
+		[37] = { 97, 24, 180, },
+		[38] = { 98, 25, 185, },
+		[39] = { 99, 25, 190, },
+		[40] = { 100, 25, 195, },
+	},
+}
 skills["RainOfArrows"] = {
 	name = "Rain of Arrows",
 	color = 2,
@@ -4291,6 +4612,82 @@ skills["Riposte"] = {
 		[40] = { 100, 1.68, 1.68, },
 	},
 }
+skills["PhysCascadeTrap"] = {
+	name = "Seismic Trap",
+	color = 2,
+	description = "Throws a trap which, once triggered, repeatedly releases a number of waves for a duration. Each wave deals damage in a series of small bursts in a line, ending with a larger burst. Modifiers to cast speed affects how frequently it releases waves.",
+	skillTypes = { [2] = true, [12] = true, [10] = true, [19] = true, [11] = true, [37] = true, },
+	baseFlags = {
+		spell = true,
+		area = true,
+		trap = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("CritChance", 5), 
+		skill("cooldown", 8), 
+		--"base_trap_duration" = 4000
+		skill("duration", 3.5), --"base_skill_effect_duration" = 3500
+		--"phys_cascade_trap_number_of_cascades" = 5
+		--"phys_cascade_trap_base_interval_duration_ms" = 900
+		--"is_area_damage" = ?
+		--"base_skill_is_trapped" = ?
+		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		--"is_trap" = ?
+	},
+	qualityMods = {
+		mod("PhysicalDamage", "INC", 1), --"physical_damage_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+		[3] = skill("PhysicalMin", nil), --"spell_minimum_base_physical_damage"
+		[4] = skill("PhysicalMax", nil), --"spell_maximum_base_physical_damage"
+	},
+	levels = {
+		[1] = { 28, 13, 42, 64, },
+		[2] = { 31, 13, 52, 77, },
+		[3] = { 34, 14, 62, 93, },
+		[4] = { 37, 16, 75, 112, },
+		[5] = { 40, 17, 89, 134, },
+		[6] = { 42, 17, 101, 151, },
+		[7] = { 44, 18, 113, 169, },
+		[8] = { 46, 18, 127, 190, },
+		[9] = { 48, 19, 142, 213, },
+		[10] = { 50, 19, 159, 238, },
+		[11] = { 52, 19, 177, 266, },
+		[12] = { 54, 20, 198, 297, },
+		[13] = { 56, 20, 221, 331, },
+		[14] = { 58, 22, 246, 369, },
+		[15] = { 60, 22, 274, 410, },
+		[16] = { 62, 23, 304, 456, },
+		[17] = { 64, 23, 338, 507, },
+		[18] = { 66, 24, 375, 563, },
+		[19] = { 68, 24, 417, 625, },
+		[20] = { 70, 25, 462, 693, },
+		[21] = { 72, 25, 512, 768, },
+		[22] = { 74, 26, 567, 851, },
+		[23] = { 76, 26, 628, 942, },
+		[24] = { 78, 28, 695, 1042, },
+		[25] = { 80, 28, 768, 1152, },
+		[26] = { 82, 29, 849, 1274, },
+		[27] = { 84, 29, 938, 1407, },
+		[28] = { 86, 30, 1036, 1554, },
+		[29] = { 88, 30, 1143, 1715, },
+		[30] = { 90, 31, 1261, 1892, },
+		[31] = { 91, 32, 1325, 1987, },
+		[32] = { 92, 32, 1391, 2087, },
+		[33] = { 93, 33, 1461, 2191, },
+		[34] = { 94, 33, 1534, 2300, },
+		[35] = { 95, 34, 1610, 2415, },
+		[36] = { 96, 35, 1690, 2535, },
+		[37] = { 97, 35, 1774, 2661, },
+		[38] = { 98, 36, 1862, 2793, },
+		[39] = { 99, 36, 1954, 2931, },
+		[40] = { 100, 37, 2050, 3075, },
+	},
+}
 skills["ShrapnelShot"] = {
 	name = "Shrapnel Shot",
 	color = 2,
@@ -4462,7 +4859,6 @@ skills["SmokeMine"] = {
 		spell = true,
 		mine = true,
 		area = true,
-		duration = true,
 		buff = true,
 	},
 	baseMods = {

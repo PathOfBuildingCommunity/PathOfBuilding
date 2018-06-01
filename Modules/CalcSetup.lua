@@ -205,7 +205,11 @@ function calcs.initEnv(build, mode, override)
 	modDB:NewMod("Speed", "INC", 1, "Base", ModFlag.Attack, { type = "Multiplier", var = "Rage", limit = 25, div = 2 }, { type = "Multiplier", var = "RageEffect" })
 	modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rage", limit = 10, div = 5 }, { type = "Multiplier", var = "RageEffect" })
 	modDB:NewMod("LifeDegen", "BASE", 0.001, "Base", { type = "PerStat", stat = "Life" }, { type = "Multiplier", var = "Rage", limit = 50 }, { type = "Multiplier", var = "RageEffect" })
-	modDB:NewMod("ActiveTrapLimit", "BASE", 3, "Base")
+	if build.targetVersion == "2_6" then
+		modDB:NewMod("ActiveTrapLimit", "BASE", 3, "Base")
+	else
+		modDB:NewMod("ActiveTrapLimit", "BASE", 15, "Base")
+	end
 	modDB:NewMod("ActiveMineLimit", "BASE", 5, "Base")
 	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
 	modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")

@@ -501,6 +501,70 @@ skills["SupportChanceToFlee"] = {
 		[40] = { 100, 59, },
 	},
 }
+skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
+	name = "Charged Traps",
+	description = "Supports skills which throw traps.",
+	color = 2,
+	support = true,
+	requireSkillTypes = { 37, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 30), 
+		mod("TrapThrowingSpeed", "INC", 6, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }), --"trap_throwing_speed_+%_per_frenzy_charge" = 6
+		mod("CritMultiplier", "BASE", 12, 0, KeywordFlag.Trap, { type = "Multiplier", var = "PowerCharge" }), --"trap_critical_strike_multiplier_+_per_power_charge" = 12
+	},
+	qualityMods = {
+		mod("Damage", "INC", 0.5, 0, KeywordFlag.Trap), --"trap_damage_+%" = 0.5
+	},
+	levelMods = {
+		[1] = nil, 
+		--[2] = "%_chance_to_gain_power_charge_on_trap_triggered_by_an_enemy"
+		--[3] = "%_chance_to_gain_frenzy_charge_on_trap_triggered_by_an_enemy"
+	},
+	levels = {
+		[1] = { 31, 20, 20, },
+		[2] = { 34, 21, 21, },
+		[3] = { 36, 21, 21, },
+		[4] = { 38, 22, 22, },
+		[5] = { 40, 22, 22, },
+		[6] = { 42, 23, 23, },
+		[7] = { 44, 23, 23, },
+		[8] = { 46, 24, 24, },
+		[9] = { 48, 24, 24, },
+		[10] = { 50, 25, 25, },
+		[11] = { 52, 25, 25, },
+		[12] = { 54, 26, 26, },
+		[13] = { 56, 26, 26, },
+		[14] = { 58, 27, 27, },
+		[15] = { 60, 27, 27, },
+		[16] = { 62, 28, 28, },
+		[17] = { 64, 28, 28, },
+		[18] = { 66, 29, 29, },
+		[19] = { 68, 29, 29, },
+		[20] = { 70, 30, 30, },
+		[21] = { 72, 30, 30, },
+		[22] = { 74, 31, 31, },
+		[23] = { 76, 31, 31, },
+		[24] = { 78, 32, 32, },
+		[25] = { 80, 32, 32, },
+		[26] = { 82, 33, 33, },
+		[27] = { 84, 33, 33, },
+		[28] = { 86, 34, 34, },
+		[29] = { 88, 34, 34, },
+		[30] = { 90, 35, 35, },
+		[31] = { 91, 35, 35, },
+		[32] = { 92, 35, 35, },
+		[33] = { 93, 35, 35, },
+		[34] = { 94, 36, 36, },
+		[35] = { 95, 36, 36, },
+		[36] = { 96, 36, 36, },
+		[37] = { 97, 36, 36, },
+		[38] = { 98, 37, 37, },
+		[39] = { 99, 37, 37, },
+		[40] = { 100, 37, 37, },
+	},
+}
 skills["SupportClusterTrap"] = {
 	name = "Cluster Traps",
 	description = "Supports traps skills, making them throw extra traps randomly around the targeted location.",
@@ -1054,7 +1118,7 @@ skills["SupportDamageAgainstChilled"] = {
 	levelMods = {
 		[1] = nil, 
 		[2] = mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "Chilled" }), --"support_hypothermia_damage_+%_vs_chilled_enemies_final"
-		--[3] = "support_hypothermia_cold_damage_over_time_+%_final"
+		[3] = mod("Damage", "MORE", nil, ModFlag.Dot), --"support_hypothermia_cold_damage_over_time_+%_final"
 	},
 	levels = {
 		[1] = { 31, 20, 20, },
@@ -1928,7 +1992,6 @@ skills["SupportTrap"] = {
 	excludeSkillTypes = { 61, },
 	addFlags = {
 		trap = true,
-		duration = true,
 	},
 	baseMods = {
 		mod("ManaCost", "MORE", 10), 

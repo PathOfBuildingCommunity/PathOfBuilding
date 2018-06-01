@@ -20,7 +20,7 @@ skills["Arc"] = {
 		skill("damageEffectiveness", 0.9), 
 		skill("CritChance", 5), 
 		mod("EnemyShockChance", "BASE", 10), --"base_chance_to_shock_%" = 10
-		--"arc_damage_+%_final_for_each_remaining_chain" = 15
+		mod("Damage", "MORE", 15, 0, 0, { type = "PerStat", stat = "ChainRemaining" }), --"arc_damage_+%_final_for_each_remaining_chain" = 15
 		--"arc_enhanced_behaviour" = ?
 	},
 	qualityMods = {
@@ -92,7 +92,7 @@ skills["VaalArcChain"] = {
 		mod("EnemyShockChance", "BASE", 100), --"base_chance_to_shock_%" = 100
 		mod("EnemyShockEffect", "INC", 100), --"shock_effect_+%" = 100
 		mod("EnemyShockDuration", "INC", 100), --"shock_duration_+%" = 100
-		--"arc_damage_+%_final_for_each_remaining_chain" = 15
+		mod("Damage", "MORE", 15, 0, 0, { type = "PerStat", stat = "ChainRemaining" }), --"arc_damage_+%_final_for_each_remaining_chain" = 15
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
 	},
 	qualityMods = {
@@ -306,7 +306,7 @@ skills["BallLightning"] = {
 		skill("CritChance", 5), 
 		--"ball_lightning_projectile_speed_and_hit_frequency_+%_final" = 33
 		--"base_is_projectile" = ?
-		skill("radius", 20), 
+		skill("radius", 22), 
 	},
 	qualityMods = {
 		mod("LightningDamage", "INC", 1), --"lightning_damage_+%" = 1
@@ -369,7 +369,6 @@ skills["Blight"] = {
 		spell = true,
 		duration = true,
 		area = true,
-		chaos = true,
 	},
 	baseMods = {
 		skill("castTime", 0.3), 
@@ -433,6 +432,77 @@ skills["Blight"] = {
 		[38] = { 98, 5, 882.83333333333, 6, },
 		[39] = { 99, 5, 927.91666666667, 6, },
 		[40] = { 100, 5, 975.21666666667, 7, },
+	},
+}
+skills["VaalBlight"] = {
+	name = "Vaal Blight",
+	color = 3,
+	description = "Apply a powerful debuff to enemies around you which deals chaos damage over time. Then applies two additional layers in a larger area, growing greatly in size each time. Enemies are also substantially hindered for a shorter secondary duration, slowing their movement.",
+	skillTypes = { [2] = true, [50] = true, [11] = true, [18] = true, [12] = true, [40] = true, [59] = true, [52] = true, [43] = true, },
+	baseFlags = {
+		spell = true,
+		duration = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 0.6), 
+		skill("duration", 6), --"base_skill_effect_duration" = 6000
+		skill("durationSecondary", 3), --"base_secondary_skill_effect_duration" = 3000
+		mod("MovementSpeed", "INC", -80, 0, 0, nil), --"base_movement_velocity_+%" = -80
+		--"display_max_blight_stacks" = 20
+		mod("ChaosDamageTaken", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }), --"hinder_enemy_chaos_damage_taken_+%" = 20
+		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_skill_dot" = ?
+		--"is_area_damage" = ?
+	},
+	qualityMods = {
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("ChaosDot", nil), --"base_chaos_damage_to_deal_per_minute"
+		[3] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
+	},
+	levels = {
+		[1] = { 1, 4.3166666666667, 0, },
+		[2] = { 2, 4.9166666666667, 0, },
+		[3] = { 4, 6.2333333333333, 1, },
+		[4] = { 7, 8.5666666666667, 1, },
+		[5] = { 11, 12.483333333333, 2, },
+		[6] = { 16, 18.966666666667, 2, },
+		[7] = { 20, 25.766666666667, 3, },
+		[8] = { 24, 34.383333333333, 3, },
+		[9] = { 28, 45.216666666667, 4, },
+		[10] = { 32, 58.816666666667, 4, },
+		[11] = { 36, 75.8, 5, },
+		[12] = { 40, 96.95, 5, },
+		[13] = { 44, 123.18333333333, 6, },
+		[14] = { 48, 155.66666666667, 6, },
+		[15] = { 52, 195.76666666667, 7, },
+		[16] = { 56, 245.16666666667, 7, },
+		[17] = { 60, 305.88333333333, 8, },
+		[18] = { 64, 380.4, 8, },
+		[19] = { 67, 447.08333333333, 9, },
+		[20] = { 70, 524.66666666667, 9, },
+		[21] = { 72, 583.28333333333, 10, },
+		[22] = { 74, 648.05, 10, },
+		[23] = { 76, 719.58333333333, 11, },
+		[24] = { 78, 798.6, 11, },
+		[25] = { 80, 885.83333333333, 12, },
+		[26] = { 82, 982.08333333333, 12, },
+		[27] = { 84, 1088.3, 13, },
+		[28] = { 86, 1205.45, 13, },
+		[29] = { 88, 1334.6166666667, 14, },
+		[30] = { 90, 1477.0166666667, 14, },
+		[31] = { 91, 1553.5833333333, 14, },
+		[32] = { 92, 1633.95, 15, },
+		[33] = { 93, 1718.3166666667, 15, },
+		[34] = { 94, 1806.8666666667, 15, },
+		[35] = { 95, 1899.8, 15, },
+		[36] = { 96, 1997.3333333333, 16, },
+		[37] = { 97, 2099.6833333333, 16, },
+		[38] = { 98, 2207.0833333333, 16, },
+		[39] = { 99, 2319.7833333333, 16, },
+		[40] = { 100, 2438.0333333333, 17, },
 	},
 }
 skills["CorpseWarp"] = {
@@ -1774,7 +1844,6 @@ skills["FireNovaMine"] = {
 		spell = true,
 		mine = true,
 		area = true,
-		duration = true,
 	},
 	baseMods = {
 		skill("castTime", 0.4), 
@@ -1877,7 +1946,7 @@ skills["Fireball"] = {
 		[4] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
 		[5] = mod("EnemyIgniteChance", "BASE", nil), --"base_chance_to_ignite_%"
 		[6] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
-		--[7] = "active_skill_ignite_damage_+%_final"
+		[7] = mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite), --"active_skill_ignite_damage_+%_final"
 	},
 	levels = {
 		[1] = { 1, 6, 7, 10, 20, 0, 50, },
@@ -1959,7 +2028,7 @@ skills["VaalFireballSpiralNova"] = {
 		[3] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
 		[4] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
 		[5] = mod("EnemyIgniteChance", "BASE", nil), --"base_chance_to_ignite_%"
-		--[6] = "active_skill_ignite_damage_+%_final"
+		[6] = mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite), --"active_skill_ignite_damage_+%_final"
 	},
 	levels = {
 		[1] = { 1, 7, 10, 0, 20, 50, },
@@ -2243,7 +2312,7 @@ skills["Flameblast"] = {
 		skill("CritChance", 5), 
 		mod("Damage", "MORE", 110, 0, KeywordFlag.Hit, { type = "Multiplier", var = "FlameblastStage" }), --"charged_blast_spell_damage_+%_final_per_stack" = 110
 		mod("Damage", "MORE", 90, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStage" }), --"flameblast_ailment_damage_+%_final_per_stack" = 90
-		--"flameblast_ignite_chance_+%_per_stage" = 5
+		mod("EnemyIgniteChance", "BASE", 5, 0, 0, { type = "Multiplier", var = "FlameblastStage" }), --"flameblast_ignite_chance_+%_per_stage" = 5
 		--"is_area_damage" = ?
 		--"base_skill_show_average_damage_instead_of_dps" = ?
 		mod("Multiplier:FlameblastStage", "BASE", 9, 0, 0, { type = "SkillPart", skillPart = 2 }), 
@@ -2316,7 +2385,7 @@ skills["VaalFlameblast"] = {
 		skill("CritChance", 5), 
 		mod("Damage", "MORE", 110, 0, KeywordFlag.Hit, { type = "Multiplier", var = "FlameblastStage" }), --"charged_blast_spell_damage_+%_final_per_stack" = 110
 		mod("Damage", "MORE", 90, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStage" }), --"flameblast_ailment_damage_+%_final_per_stack" = 90
-		--"flameblast_ignite_chance_+%_per_stage" = 5
+		mod("EnemyIgniteChance", "BASE", 5, 0, 0, { type = "Multiplier", var = "FlameblastStage" }), --"flameblast_ignite_chance_+%_per_stage" = 5
 		--"vaal_flameblast_radius_+_per_stage" = -1
 		--"is_area_damage" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
@@ -2520,7 +2589,7 @@ skills["FreezingPulse"] = {
 	description = "An icy projectile which has a chance to freeze enemies it passes through. The projectile fades quickly, reducing damage and freezing chance until it dissipates.",
 	skillTypes = { [2] = true, [3] = true, [68] = true, [10] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, },
 	setupFunc = function(env, output)
-		env.modDB:NewMod("Damage", "MORE", -100, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+		env.modDB:NewMod("Damage", "MORE", -50, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
 		env.modDB:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
 	end,
 	baseFlags = {
@@ -3232,35 +3301,48 @@ skills["IceSpear"] = {
 		[40] = { 100, 37, 2444, 3667, 108, 44, },
 	},
 }
-skills["Incinerate"] = {
+skills["ExpandingFireCone"] = {
 	name = "Incinerate",
-	hidden = true,
 	color = 3,
-	description = "Continuously launches a torrent of fire from your hand. The longer you channel this spell, the larger and more damaging the flames become.",
-	skillTypes = { [2] = true, [3] = true, [68] = true, [10] = true, [18] = true, [33] = true, [58] = true, },
+	description = "Continuously launches a torrent of fire from your hand, repeatedly damaging enemies. As you channel this spell longer, the flames spread wider close to you and spread longer directly in front of you. When you stop channelling you release a wave of fire damage over a wide and long area that will apply a powerful Ignite.",
+	skillTypes = { [2] = true, [10] = true, [18] = true, [33] = true, [58] = true, [11] = true, },
 	parts = {
 		{
-			name = "Base damage",
+			name = "0 stages",
 		},
 		{
-			name = "Fully charged",
+			name = "4 stages",
+		},
+		{
+			name = "8 stages",
+		},
+		{
+			name = "Release"
 		},
 	},
 	baseFlags = {
 		spell = true,
-		projectile = true,
+		area = true,
 	},
 	baseMods = {
 		skill("castTime", 0.2), 
 		skill("damageEffectiveness", 0.3), 
-		--"flamethrower_damage_+%_per_stage_final" = 50
-		--"base_is_projectile" = ?
-		flag("PierceAllTargets"), --"always_pierce" = ?
+		skill("CritChance", 5), 
+		--"expanding_fire_cone_maximum_number_of_stages" = 8
+		mod("Damage", "MORE", 500, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPart = 4 }), --"grant_expanding_fire_cone_release_ignite_damage_+%_final" = 500
+		mod("Damage", "MORE", 500, 0, KeywordFlag.Hit, { type = "SkillPart", skillPart = 4 }), --"expanding_fire_cone_release_hit_damage_+%_final" = 500
+		mod("Damage", "MORE", 25, 0, 0, { type = "Multiplier", var = "IncinerateStage" }), --"flamethrower_damage_+%_per_stage_final" = 25
+		skill("radiusExtra", 4, { type = "Multiplier", var = "IncinerateStage" }), --"expanding_fire_cone_radius_+_per_stage" = 4
+		--"expanding_fire_cone_angle_+%_per_stage" = 100
+		--"is_area_damage" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
-		mod("Damage", "MORE", 150, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }), 
+		mod("EnemyIgniteChance", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 4 }), --"expanding_fire_cone_final_wave_always_ignite" = ?
+		mod("Multiplier:IncinerateStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Multiplier:IncinerateStage", "BASE", 8, 0, 0, { type = "SkillPart", skillPart = 3 }), 
+		skill("showAverage", true, { type = "SkillPart", skillPart = 4 }), 
 	},
 	qualityMods = {
-		mod("ProjectileSpeed", "INC", 2), --"base_projectile_speed_+%" = 2
+		mod("FireDamage", "INC", 1), --"fire_damage_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
@@ -3269,46 +3351,46 @@ skills["Incinerate"] = {
 		[4] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
 	},
 	levels = {
-		[1] = { 12, 6, 6, 9, },
-		[2] = { 15, 6, 7, 11, },
-		[3] = { 19, 6, 10, 15, },
-		[4] = { 23, 6, 13, 19, },
-		[5] = { 27, 6, 16, 24, },
-		[6] = { 31, 6, 20, 31, },
-		[7] = { 35, 6, 25, 38, },
-		[8] = { 38, 6, 30, 45, },
-		[9] = { 41, 7, 35, 52, },
-		[10] = { 44, 7, 41, 61, },
-		[11] = { 47, 7, 47, 71, },
-		[12] = { 50, 7, 54, 82, },
-		[13] = { 53, 7, 63, 94, },
-		[14] = { 56, 7, 72, 108, },
-		[15] = { 59, 8, 83, 125, },
-		[16] = { 62, 8, 95, 143, },
-		[17] = { 64, 8, 104, 157, },
-		[18] = { 66, 8, 114, 171, },
-		[19] = { 68, 8, 125, 187, },
-		[20] = { 70, 9, 136, 205, },
-		[21] = { 72, 9, 149, 223, },
-		[22] = { 74, 9, 162, 244, },
-		[23] = { 76, 9, 177, 266, },
-		[24] = { 78, 9, 193, 289, },
-		[25] = { 80, 9, 210, 315, },
-		[26] = { 82, 10, 229, 343, },
-		[27] = { 84, 10, 249, 374, },
-		[28] = { 86, 10, 271, 406, },
-		[29] = { 88, 10, 295, 442, },
-		[30] = { 90, 10, 320, 480, },
-		[31] = { 91, 10, 334, 501, },
-		[32] = { 92, 10, 348, 522, },
-		[33] = { 93, 11, 362, 544, },
-		[34] = { 94, 11, 378, 567, },
-		[35] = { 95, 11, 394, 590, },
-		[36] = { 96, 11, 410, 615, },
-		[37] = { 97, 11, 427, 641, },
-		[38] = { 98, 11, 445, 667, },
-		[39] = { 99, 12, 463, 695, },
-		[40] = { 100, 12, 483, 724, },
+		[1] = { 12, 3, 3, 4, },
+		[2] = { 15, 3, 4, 6, },
+		[3] = { 19, 3, 5, 8, },
+		[4] = { 23, 3, 7, 10, },
+		[5] = { 27, 3, 9, 14, },
+		[6] = { 31, 3, 12, 18, },
+		[7] = { 35, 3, 16, 24, },
+		[8] = { 38, 4, 19, 29, },
+		[9] = { 41, 4, 23, 35, },
+		[10] = { 44, 4, 28, 42, },
+		[11] = { 47, 4, 34, 51, },
+		[12] = { 50, 4, 41, 61, },
+		[13] = { 53, 4, 49, 73, },
+		[14] = { 56, 4, 58, 87, },
+		[15] = { 59, 5, 69, 104, },
+		[16] = { 62, 5, 82, 123, },
+		[17] = { 64, 5, 92, 138, },
+		[18] = { 66, 5, 103, 155, },
+		[19] = { 68, 5, 115, 173, },
+		[20] = { 70, 5, 129, 194, },
+		[21] = { 72, 5, 144, 216, },
+		[22] = { 74, 6, 161, 242, },
+		[23] = { 76, 6, 180, 270, },
+		[24] = { 78, 6, 201, 301, },
+		[25] = { 80, 6, 224, 336, },
+		[26] = { 82, 6, 250, 374, },
+		[27] = { 84, 6, 278, 417, },
+		[28] = { 86, 6, 310, 465, },
+		[29] = { 88, 7, 345, 517, },
+		[30] = { 90, 7, 384, 575, },
+		[31] = { 91, 7, 405, 607, },
+		[32] = { 92, 7, 427, 640, },
+		[33] = { 93, 7, 450, 675, },
+		[34] = { 94, 7, 474, 711, },
+		[35] = { 95, 7, 500, 750, },
+		[36] = { 96, 7, 527, 791, },
+		[37] = { 97, 7, 556, 833, },
+		[38] = { 98, 7, 586, 878, },
+		[39] = { 99, 7, 617, 926, },
+		[40] = { 100, 7, 650, 975, },
 	},
 }
 skills["ClusterBurst"] = {
@@ -3393,6 +3475,84 @@ skills["ClusterBurst"] = {
 		[38] = { 98, 18, 1.66, 1.662, 33, },
 		[39] = { 99, 18, 1.67, 1.669, 33, },
 		[40] = { 100, 18, 1.68, 1.676, 34, },
+	},
+}
+skills["LightningTowerTrap"] = {
+	name = "Lightning Spire Trap",
+	color = 3,
+	description = "Throws a trap which, once triggered, will repeatedly strike multiple areas around it for a duration, dealing lightning damage. Modifiers to cast speed will affect how frequently it strikes. Has a higher chance to critically strike Shocked enemies.",
+	skillTypes = { [2] = true, [12] = true, [10] = true, [19] = true, [11] = true, [37] = true, [35] = true, [52] = true, },
+	baseFlags = {
+		spell = true,
+		trap = true,
+		duration = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("damageEffectiveness", 0.85), 
+		skill("CritChance", 6), 
+		skill("cooldown", 8), 
+		--"base_trap_duration" = 4000
+		skill("duration", 3.5), --"base_skill_effect_duration" = 3500
+		--"lightning_tower_trap_base_interval_duration_ms" = 350
+		--"lightning_tower_trap_number_of_beams" = 3
+		--"is_area_damage" = ?
+		--"base_skill_is_trapped" = ?
+		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
+		--"is_trap" = ?
+	},
+	qualityMods = {
+		mod("EnemyShockChance", "BASE", 1), --"base_chance_to_shock_%" = 1
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+		[3] = skill("LightningMin", nil), --"spell_minimum_base_lightning_damage"
+		[4] = skill("LightningMax", nil), --"spell_maximum_base_lightning_damage"
+		[5] = mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }), --"critical_strike_chance_+%_vs_shocked_enemies"
+	},
+	levels = {
+		[1] = { 28, 13, 17, 51, 100, },
+		[2] = { 31, 13, 21, 62, 102, },
+		[3] = { 34, 14, 25, 76, 104, },
+		[4] = { 37, 16, 31, 92, 106, },
+		[5] = { 40, 17, 37, 112, 108, },
+		[6] = { 42, 17, 42, 127, 110, },
+		[7] = { 44, 18, 48, 143, 112, },
+		[8] = { 46, 18, 54, 162, 114, },
+		[9] = { 48, 19, 61, 183, 116, },
+		[10] = { 50, 19, 69, 206, 118, },
+		[11] = { 52, 19, 78, 233, 120, },
+		[12] = { 54, 20, 87, 262, 122, },
+		[13] = { 56, 20, 98, 294, 124, },
+		[14] = { 58, 22, 110, 330, 126, },
+		[15] = { 60, 22, 124, 371, 128, },
+		[16] = { 62, 23, 139, 416, 130, },
+		[17] = { 64, 23, 155, 466, 132, },
+		[18] = { 66, 24, 174, 521, 134, },
+		[19] = { 68, 24, 194, 583, 136, },
+		[20] = { 70, 25, 217, 652, 138, },
+		[21] = { 72, 25, 243, 728, 140, },
+		[22] = { 74, 26, 271, 813, 142, },
+		[23] = { 76, 26, 303, 908, 144, },
+		[24] = { 78, 28, 337, 1012, 146, },
+		[25] = { 80, 28, 376, 1129, 148, },
+		[26] = { 82, 29, 419, 1257, 150, },
+		[27] = { 84, 29, 467, 1400, 152, },
+		[28] = { 86, 30, 520, 1559, 154, },
+		[29] = { 88, 30, 578, 1735, 156, },
+		[30] = { 90, 31, 643, 1929, 158, },
+		[31] = { 91, 32, 678, 2034, 159, },
+		[32] = { 92, 32, 715, 2145, 160, },
+		[33] = { 93, 33, 754, 2261, 161, },
+		[34] = { 94, 33, 795, 2384, 162, },
+		[35] = { 95, 34, 838, 2513, 163, },
+		[36] = { 96, 35, 883, 2648, 164, },
+		[37] = { 97, 35, 930, 2791, 165, },
+		[38] = { 98, 36, 980, 2941, 166, },
+		[39] = { 99, 36, 1033, 3099, 167, },
+		[40] = { 100, 37, 1088, 3265, 168, },
 	},
 }
 skills["LightningTendrilsChannelled"] = {
@@ -3498,7 +3658,7 @@ skills["LightningTrap"] = {
 		[3] = skill("LightningMin", nil), --"spell_minimum_base_lightning_damage"
 		[4] = skill("LightningMax", nil), --"spell_maximum_base_lightning_damage"
 		[5] = mod("EnemyShockEffect", "INC", nil), --"shock_effect_+%"
-		--[6] = "critical_strike_chance_+%_vs_shocked_enemies"
+		[6] = mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }), --"critical_strike_chance_+%_vs_shocked_enemies"
 	},
 	levels = {
 		[1] = { 12, 8, 14, 41, 0, 80, },
@@ -3562,7 +3722,7 @@ skills["VaalLightningTrap"] = {
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
 		--"shocked_ground_base_magnitude_override" = 15
 		--"skill_repeat_count" = 0
-		--"critical_strike_chance_+%_vs_shocked_enemies" = 0
+		mod("CritChance", "INC", 0, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }), --"critical_strike_chance_+%_vs_shocked_enemies" = 0
 		--"projectiles_nova" = ?
 		--"is_trap" = ?
 		--"base_skill_is_trapped" = ?
@@ -3925,8 +4085,8 @@ skills["PowerSiphon"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		--"chance_to_gain_power_charge_on_rare_or_unique_enemy_hit_%" = 20
-		--"critical_strike_multiplier_+_per_power_charge" = 10
-		--"critical_strike_chance_+%_per_power_charge" = 20
+		mod("CritMultiplier", "BASE", 10, 0, 0, { type = "Multiplier", var = "PowerCharge" }), --"critical_strike_multiplier_+_per_power_charge" = 10
+		mod("CritChance", "INC", 20, 0, 0, { type = "Multiplier", var = "PowerCharge" }), --"critical_strike_chance_+%_per_power_charge" = 20
 		--"kill_enemy_on_hit_if_under_10%_life" = ?
 		--"skill_can_fire_wand_projectiles" = ?
 	},
@@ -3998,8 +4158,8 @@ skills["VaalPowerSiphon"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		--"chance_to_gain_power_charge_on_rare_or_unique_enemy_hit_%" = 100
-		--"critical_strike_multiplier_+_per_power_charge" = 10
-		--"critical_strike_chance_+%_per_power_charge" = 20
+		mod("CritMultiplier", "BASE", 10, 0, 0, { type = "Multiplier", var = "PowerCharge" }), --"critical_strike_multiplier_+_per_power_charge" = 10
+		mod("CritChance", "INC", 20, 0, 0, { type = "Multiplier", var = "PowerCharge" }), --"critical_strike_chance_+%_per_power_charge" = 20
 		--"power_siphon_fire_at_all_targets" = ?
 		--"skill_can_add_multiple_charges_per_action" = ?
 		skill("cannotBeEvaded", true), --"global_always_hit" = ?
@@ -4195,6 +4355,76 @@ skills["LightningResistAura"] = {
 		[38] = { 98, 55, 5, 33, },
 		[39] = { 99, 55, 5, 33, },
 		[40] = { 100, 56, 5, 34, },
+	},
+}
+skills["LightningImpurity"] = {
+	name = "Vaal Impurity of Lightning",
+	color = 3,
+	description = "Casts an aura that reduces lightning damage taken and provides shock immunity to you and nearby allies, and makes hits against nearby enemies ignore their lightning resistance. ",
+	skillTypes = { [2] = true, [5] = true, [11] = true, [18] = true, [27] = true, [12] = true, [43] = true, [44] = true, },
+	baseFlags = {
+		spell = true,
+		aura = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 0.5), 
+		mod("LightningDamageTaken", "INC", -25, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"lightning_damage_taken_+%" = -25
+		skill("duration", 3), --"base_skill_effect_duration" = 3000
+		--"base_deal_no_damage" = ?
+		--"base_immune_to_shock" = ?
+		flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "Debuff" }), --"hits_ignore_my_lightning_resistance" = ?
+	},
+	qualityMods = {
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
+		[3] = mod("AuraEffect", "INC", nil), --"aura_effect_+%"
+	},
+	levels = {
+		[1] = { 24, 14, 0, },
+		[2] = { 27, 14, 5, },
+		[3] = { 30, 14, 10, },
+		[4] = { 33, 15, 15, },
+		[5] = { 36, 15, 20, },
+		[6] = { 39, 15, 25, },
+		[7] = { 42, 16, 30, },
+		[8] = { 45, 16, 35, },
+		[9] = { 48, 16, 40, },
+		[10] = { 50, 17, 45, },
+		[11] = { 52, 17, 50, },
+		[12] = { 54, 17, 55, },
+		[13] = { 56, 18, 60, },
+		[14] = { 58, 18, 65, },
+		[15] = { 60, 18, 70, },
+		[16] = { 62, 19, 75, },
+		[17] = { 64, 19, 80, },
+		[18] = { 66, 19, 85, },
+		[19] = { 68, 20, 90, },
+		[20] = { 70, 20, 95, },
+		[21] = { 72, 20, 100, },
+		[22] = { 74, 21, 105, },
+		[23] = { 76, 21, 110, },
+		[24] = { 78, 21, 115, },
+		[25] = { 80, 22, 120, },
+		[26] = { 82, 22, 125, },
+		[27] = { 84, 22, 130, },
+		[28] = { 86, 23, 135, },
+		[29] = { 88, 23, 140, },
+		[30] = { 90, 23, 145, },
+		[31] = { 91, 23, 150, },
+		[32] = { 92, 24, 155, },
+		[33] = { 93, 24, 160, },
+		[34] = { 94, 24, 165, },
+		[35] = { 95, 24, 170, },
+		[36] = { 96, 24, 175, },
+		[37] = { 97, 24, 180, },
+		[38] = { 98, 25, 185, },
+		[39] = { 99, 25, 190, },
+		[40] = { 100, 25, 195, },
 	},
 }
 skills["RaiseSpectre"] = {
@@ -4425,10 +4655,6 @@ skills["VaalRighteousFire"] = {
 	color = 3,
 	description = "Sacrifices a portion of your Life and Energy Shield to engulf you in magical fire that rapidly burns nearby enemies for a duration. Your spell damage is substantially increased while under this effect.",
 	skillTypes = { [2] = true, [5] = true, [11] = true, [29] = true, [40] = true, [33] = true, [43] = true, [12] = true, },
-	setupFunc = function(actor, output)
-		actor.mainSkill.skillData.FireMin = output.EnergyShield + output.Life - 1
-		actor.mainSkill.skillData.FireMax = output.EnergyShield + output.Life - 1
-	end,
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -4444,50 +4670,50 @@ skills["VaalRighteousFire"] = {
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
-		--[2] = "vaal_righteous_fire_life_and_es_%_as_damage_per_second"
-		--[3] = "vaal_righteous_fire_spell_damage_+%_final"
+		[2] = skill("FireDot", nil, { type = "PerStat", statList = { "Life", "EnergyShield" } }), --"vaal_righteous_fire_life_and_es_%_as_damage_per_second"
+		[3] = mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }), --"vaal_righteous_fire_spell_damage_+%_final"
 	},
 	levels = {
-		[1] = { 16, 161, 20, },
-		[2] = { 20, 162, 21, },
-		[3] = { 24, 163, 22, },
-		[4] = { 28, 164, 23, },
-		[5] = { 31, 165, 24, },
-		[6] = { 34, 166, 25, },
-		[7] = { 37, 167, 26, },
-		[8] = { 40, 168, 27, },
-		[9] = { 43, 169, 28, },
-		[10] = { 46, 170, 29, },
-		[11] = { 49, 171, 30, },
-		[12] = { 52, 172, 31, },
-		[13] = { 55, 173, 32, },
-		[14] = { 58, 174, 33, },
-		[15] = { 60, 175, 34, },
-		[16] = { 62, 176, 35, },
-		[17] = { 64, 177, 36, },
-		[18] = { 66, 178, 37, },
-		[19] = { 68, 179, 38, },
-		[20] = { 70, 180, 39, },
-		[21] = { 72, 181, 40, },
-		[22] = { 74, 182, 41, },
-		[23] = { 76, 183, 42, },
-		[24] = { 78, 184, 43, },
-		[25] = { 80, 185, 44, },
-		[26] = { 82, 186, 45, },
-		[27] = { 84, 187, 46, },
-		[28] = { 86, 188, 47, },
-		[29] = { 88, 189, 48, },
-		[30] = { 90, 190, 49, },
-		[31] = { 91, 191, 49, },
-		[32] = { 92, 192, 50, },
-		[33] = { 93, 193, 50, },
-		[34] = { 94, 194, 51, },
-		[35] = { 95, 195, 51, },
-		[36] = { 96, 196, 52, },
-		[37] = { 97, 197, 52, },
-		[38] = { 98, 198, 53, },
-		[39] = { 99, 199, 53, },
-		[40] = { 100, 200, 54, },
+		[1] = { 16, 1.61, 20, },
+		[2] = { 20, 1.62, 21, },
+		[3] = { 24, 1.63, 22, },
+		[4] = { 28, 1.64, 23, },
+		[5] = { 31, 1.65, 24, },
+		[6] = { 34, 1.66, 25, },
+		[7] = { 37, 1.67, 26, },
+		[8] = { 40, 1.68, 27, },
+		[9] = { 43, 1.69, 28, },
+		[10] = { 46, 1.7, 29, },
+		[11] = { 49, 1.71, 30, },
+		[12] = { 52, 1.72, 31, },
+		[13] = { 55, 1.73, 32, },
+		[14] = { 58, 1.74, 33, },
+		[15] = { 60, 1.75, 34, },
+		[16] = { 62, 1.76, 35, },
+		[17] = { 64, 1.77, 36, },
+		[18] = { 66, 1.78, 37, },
+		[19] = { 68, 1.79, 38, },
+		[20] = { 70, 1.8, 39, },
+		[21] = { 72, 1.81, 40, },
+		[22] = { 74, 1.82, 41, },
+		[23] = { 76, 1.83, 42, },
+		[24] = { 78, 1.84, 43, },
+		[25] = { 80, 1.85, 44, },
+		[26] = { 82, 1.86, 45, },
+		[27] = { 84, 1.87, 46, },
+		[28] = { 86, 1.88, 47, },
+		[29] = { 88, 1.89, 48, },
+		[30] = { 90, 1.9, 49, },
+		[31] = { 91, 1.91, 49, },
+		[32] = { 92, 1.92, 50, },
+		[33] = { 93, 1.93, 50, },
+		[34] = { 94, 1.94, 51, },
+		[35] = { 95, 1.95, 51, },
+		[36] = { 96, 1.96, 52, },
+		[37] = { 97, 1.97, 52, },
+		[38] = { 98, 1.98, 53, },
+		[39] = { 99, 1.99, 53, },
+		[40] = { 100, 2, 54, },
 	},
 }
 skills["FireBeam"] = {
@@ -4652,6 +4878,81 @@ skills["ShockNova"] = {
 		[38] = { 98, 34, 1082, 3245, 53, },
 		[39] = { 99, 35, 1134, 3402, 53, },
 		[40] = { 100, 35, 1189, 3567, 54, },
+	},
+}
+skills["IceSiphonTrap"] = {
+	name = "Siphoning Trap",
+	color = 3,
+	description = "Throws a trap that applies debuff beams to a number of nearby enemies for a duration. The beams chill enemies and deal cold damage over time. A beam is also applied to you, granting life and mana regeneration based on the number of debuff beams affecting enemies.",
+	skillTypes = { [2] = true, [12] = true, [19] = true, [11] = true, [37] = true, [34] = true, [40] = true, [59] = true, },
+	baseFlags = {
+		spell = true,
+		trap = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("cooldown", 4), 
+		--"base_trap_duration" = 4000
+		skill("duration", 3), --"base_skill_effect_duration" = 3000
+		--"ice_siphon_trap_max_beam_targets" = 10
+		--"base_skill_is_trapped" = ?
+		--"is_trap" = ?
+		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_skill_dot" = ?
+	},
+	qualityMods = {
+		mod("EnemyChillEffect", "INC", 1), --"chill_effect_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+		[3] = skill("ColdDot", nil), --"base_cold_damage_to_deal_per_minute"
+		[4] = mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "Multiplier", var = "EnemyAffectedBySiphoningTrap", limit = 10 }), --"skill_life_regeneration_per_minute_per_affected_enemy"
+		[5] = mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "Multiplier", var = "EnemyAffectedBySiphoningTrap", limit = 10 }), --"skill_mana_regeneration_per_minute_per_affected_enemy"
+		[6] = mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "MultiplierThreshold", threshold = 1, var = "EnemyAffectedBySiphoningTrap" }), --"skill_life_regeneration_per_minute_with_at_least_1_affected_enemy"
+		[7] = mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "MultiplierThreshold", threshold = 1, var = "EnemyAffectedBySiphoningTrap" }), --"skill_mana_regeneration_per_minute_with_at_least_1_affected_enemy"
+	},
+	levels = {
+		[1] = { 10, 7, 4.2666666666667, 1.2666666666667, 0.28333333333333, 12.7, 2.9333333333333, },
+		[2] = { 13, 8, 5.6666666666667, 1.7333333333333, 0.4, 17.366666666667, 4.0333333333333, },
+		[3] = { 17, 9, 8.0333333333333, 2.4666666666667, 0.5, 24.733333333333, 5.1, },
+		[4] = { 21, 10, 11.15, 3.2, 0.6, 32, 6.1, },
+		[5] = { 25, 11, 15.216666666667, 4.2, 0.7, 42.066666666667, 7.0333333333333, },
+		[6] = { 29, 12, 20.483333333333, 5.25, 0.78333333333333, 52.6, 7.9333333333333, },
+		[7] = { 33, 13, 27.3, 6.45, 0.86666666666667, 64.5, 8.7666666666667, },
+		[8] = { 36, 14, 33.65, 7.8666666666667, 0.95, 78.733333333333, 9.5666666666667, },
+		[9] = { 39, 14, 41.3, 9.2166666666667, 1.0333333333333, 92.233333333333, 10.333333333333, },
+		[10] = { 42, 16, 50.5, 10.733333333333, 1.1, 107.4, 11.066666666667, },
+		[11] = { 45, 17, 61.55, 12.35, 1.1666666666667, 123.63333333333, 11.733333333333, },
+		[12] = { 48, 18, 74.8, 14.55, 1.2333333333333, 145.6, 12.4, },
+		[13] = { 51, 19, 90.633333333333, 16.533333333333, 1.3, 165.43333333333, 13.033333333333, },
+		[14] = { 54, 20, 109.56666666667, 18.533333333333, 1.3666666666667, 185.33333333333, 13.666666666667, },
+		[15] = { 57, 21, 132.16666666667, 20.566666666667, 1.4166666666667, 205.7, 14.266666666667, },
+		[16] = { 60, 22, 159.1, 22.783333333333, 1.4833333333333, 227.96666666667, 14.866666666667, },
+		[17] = { 63, 22, 191.15, 24.583333333333, 1.5333333333333, 245.9, 15.433333333333, },
+		[18] = { 66, 23, 229.28333333333, 27.116666666667, 1.6, 271.2, 16.033333333333, },
+		[19] = { 68, 24, 258.61666666667, 29.8, 1.65, 298.06666666667, 16.6, },
+		[20] = { 70, 24, 291.51666666667, 32.433333333333, 1.7166666666667, 324.4, 17.2, },
+		[21] = { 72, 25, 328.38333333333, 33.716666666667, 1.7666666666667, 337.23333333333, 17.766666666667, },
+		[22] = { 74, 26, 369.7, 35.4, 1.8333333333333, 354.06666666667, 18.366666666667, },
+		[23] = { 76, 26, 415.98333333333, 36.416666666667, 1.8833333333333, 364.2, 18.966666666667, },
+		[24] = { 78, 27, 467.78333333333, 38.233333333333, 1.95, 382.4, 19.566666666667, },
+		[25] = { 80, 27, 525.78333333333, 40.133333333333, 2.0166666666667, 401.33333333333, 20.166666666667, },
+		[26] = { 82, 28, 590.66666666667, 41.2, 2.0666666666667, 412.06666666667, 20.766666666667, },
+		[27] = { 84, 29, 663.25, 43.483333333333, 2.1333333333333, 434.86666666667, 21.366666666667, },
+		[28] = { 86, 30, 744.4, 45.583333333333, 2.2, 455.9, 22, },
+		[29] = { 88, 30, 835.13333333333, 48.233333333333, 2.25, 482.43333333333, 22.6, },
+		[30] = { 90, 30, 936.53333333333, 48.716666666667, 2.3166666666667, 487.3, 23.233333333333, },
+		[31] = { 91, 31, 991.6, 49.25, 2.3333333333333, 492.66666666667, 23.533333333333, },
+		[32] = { 92, 32, 1049.8166666667, 49.783333333333, 2.3666666666667, 498.03333333333, 23.833333333333, },
+		[33] = { 93, 32, 1111.3333333333, 50.933333333333, 2.4, 509.43333333333, 24.133333333333, },
+		[34] = { 94, 33, 1176.3333333333, 52.066666666667, 2.4333333333333, 520.83333333333, 24.433333333333, },
+		[35] = { 95, 34, 1245.0333333333, 53.116666666667, 2.4666666666667, 531.36666666667, 24.766666666667, },
+		[36] = { 96, 34, 1317.6333333333, 54.166666666667, 2.5, 541.86666666667, 25.066666666667, },
+		[37] = { 97, 35, 1394.3333333333, 55.5, 2.5333333333333, 555.13333333333, 25.366666666667, },
+		[38] = { 98, 36, 1475.3666666667, 56.816666666667, 2.55, 568.4, 25.666666666667, },
+		[39] = { 99, 36, 1560.9666666667, 57.066666666667, 2.5833333333333, 570.83333333333, 26, },
+		[40] = { 100, 37, 1651.4, 57.3, 2.6166666666667, 573.26666666667, 26.3, },
 	},
 }
 skills["Spark"] = {

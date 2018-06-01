@@ -886,6 +886,93 @@ skills["Earthquake"] = {
 		[40] = { 100, 1.24, 1.24, 84, },
 	},
 }
+skills["VaalEarthquake"] = {
+	name = "Vaal Earthquake",
+	color = 1,
+	description = "Smashes the ground with an Axe, Mace or Staff, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. After using this skill, your steps will deal damage around you, cracking the earth if the previous cracks have erupted. This effect ends after a secondary duration, or after a maximum number of aftershocks.",
+	skillTypes = { [1] = true, [11] = true, [24] = true, [7] = true, [10] = true, [12] = true, [43] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Two Handed Axe"] = true,
+		["Staff"] = true,
+	},
+	parts = {
+		{
+			name = "Initial impact",
+		},
+		{
+			name = "Aftershock",
+		},
+	},
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("duration", 1), --"base_skill_effect_duration" = 1000
+		skill("durationSecondary", 12), --"base_secondary_skill_effect_duration" = 12000
+		--"vaal_earthquake_maximum_aftershocks" = 7
+		--"is_area_damage" = ?
+		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }), 
+	},
+	qualityMods = {
+		mod("PhysicalDamage", "INC", 1), --"physical_damage_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("damageEffectiveness", nil), 
+		[3] = skill("baseMultiplier", nil), 
+		[4] = mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "SkillPart", skillPart = 2 }), --"quake_slam_fully_charged_explosion_damage_+%_final"
+	},
+	levels = {
+		[1] = { 28, 0.5, 0.5, 350, },
+		[2] = { 31, 0.51, 0.506, 353, },
+		[3] = { 34, 0.51, 0.512, 356, },
+		[4] = { 37, 0.52, 0.518, 359, },
+		[5] = { 40, 0.52, 0.524, 362, },
+		[6] = { 42, 0.53, 0.53, 365, },
+		[7] = { 44, 0.54, 0.536, 368, },
+		[8] = { 46, 0.54, 0.542, 371, },
+		[9] = { 48, 0.55, 0.548, 374, },
+		[10] = { 50, 0.55, 0.554, 377, },
+		[11] = { 52, 0.56, 0.56, 380, },
+		[12] = { 54, 0.57, 0.566, 383, },
+		[13] = { 56, 0.57, 0.572, 386, },
+		[14] = { 58, 0.58, 0.578, 389, },
+		[15] = { 60, 0.58, 0.584, 392, },
+		[16] = { 62, 0.59, 0.59, 395, },
+		[17] = { 64, 0.6, 0.596, 398, },
+		[18] = { 66, 0.6, 0.602, 401, },
+		[19] = { 68, 0.61, 0.608, 404, },
+		[20] = { 70, 0.61, 0.614, 407, },
+		[21] = { 72, 0.62, 0.62, 410, },
+		[22] = { 74, 0.63, 0.626, 413, },
+		[23] = { 76, 0.63, 0.632, 416, },
+		[24] = { 78, 0.64, 0.638, 419, },
+		[25] = { 80, 0.64, 0.644, 422, },
+		[26] = { 82, 0.65, 0.65, 425, },
+		[27] = { 84, 0.66, 0.656, 428, },
+		[28] = { 86, 0.66, 0.662, 431, },
+		[29] = { 88, 0.67, 0.668, 434, },
+		[30] = { 90, 0.67, 0.674, 437, },
+		[31] = { 91, 0.68, 0.677, 437, },
+		[32] = { 92, 0.68, 0.68, 440, },
+		[33] = { 93, 0.68, 0.683, 440, },
+		[34] = { 94, 0.69, 0.686, 443, },
+		[35] = { 95, 0.69, 0.689, 443, },
+		[36] = { 96, 0.69, 0.692, 446, },
+		[37] = { 97, 0.69, 0.695, 446, },
+		[38] = { 98, 0.7, 0.698, 449, },
+		[39] = { 99, 0.7, 0.701, 449, },
+		[40] = { 100, 0.7, 0.704, 452, },
+	},
+}
 skills["EnduringCry"] = {
 	name = "Enduring Cry",
 	color = 1,
@@ -2260,6 +2347,76 @@ skills["FireResistAura"] = {
 		[38] = { 98, 55, 5, 33, },
 		[39] = { 99, 55, 5, 33, },
 		[40] = { 100, 56, 5, 34, },
+	},
+}
+skills["FireImpurity"] = {
+	name = "Vaal Impurity of Fire",
+	color = 1,
+	description = "Casts an aura that reduces fire damage taken and provides ignite immunity to you and nearby allies, and makes hits against nearby enemies ignore their fire resistance. ",
+	skillTypes = { [2] = true, [5] = true, [11] = true, [18] = true, [27] = true, [12] = true, [43] = true, [44] = true, },
+	baseFlags = {
+		spell = true,
+		aura = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 0.5), 
+		mod("FireDamageTaken", "INC", -25, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"fire_damage_taken_+%" = -25
+		skill("duration", 3), --"base_skill_effect_duration" = 3000
+		--"base_deal_no_damage" = ?
+		--"base_immune_to_ignite" = ?
+		flag("SelfIgnoreFireResistance", { type = "GlobalEffect", effectType = "Debuff" }), --"hits_ignore_my_fire_resistance" = ?
+	},
+	qualityMods = {
+		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("radiusExtra", nil), --"active_skill_base_radius_+"
+		[3] = mod("AuraEffect", "INC", nil), --"aura_effect_+%"
+	},
+	levels = {
+		[1] = { 24, 14, 0, },
+		[2] = { 27, 14, 5, },
+		[3] = { 30, 14, 10, },
+		[4] = { 33, 15, 15, },
+		[5] = { 36, 15, 20, },
+		[6] = { 39, 15, 25, },
+		[7] = { 42, 16, 30, },
+		[8] = { 45, 16, 35, },
+		[9] = { 48, 16, 40, },
+		[10] = { 50, 17, 45, },
+		[11] = { 52, 17, 50, },
+		[12] = { 54, 17, 55, },
+		[13] = { 56, 18, 60, },
+		[14] = { 58, 18, 65, },
+		[15] = { 60, 18, 70, },
+		[16] = { 62, 19, 75, },
+		[17] = { 64, 19, 80, },
+		[18] = { 66, 19, 85, },
+		[19] = { 68, 20, 90, },
+		[20] = { 70, 20, 95, },
+		[21] = { 72, 20, 100, },
+		[22] = { 74, 21, 105, },
+		[23] = { 76, 21, 110, },
+		[24] = { 78, 21, 115, },
+		[25] = { 80, 22, 120, },
+		[26] = { 82, 22, 125, },
+		[27] = { 84, 22, 130, },
+		[28] = { 86, 23, 135, },
+		[29] = { 88, 23, 140, },
+		[30] = { 90, 23, 145, },
+		[31] = { 91, 23, 150, },
+		[32] = { 92, 24, 155, },
+		[33] = { 93, 24, 160, },
+		[34] = { 94, 24, 165, },
+		[35] = { 95, 24, 170, },
+		[36] = { 96, 24, 175, },
+		[37] = { 97, 24, 180, },
+		[38] = { 98, 25, 185, },
+		[39] = { 99, 25, 190, },
+		[40] = { 100, 25, 195, },
 	},
 }
 skills["RallyingCry"] = {

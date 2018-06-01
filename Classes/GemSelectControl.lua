@@ -91,7 +91,7 @@ function GemSelectClass:BuildList(buf)
 		self:SortGemList(self.list)
 	end
 	if not self.list[1] then
-		self.list[1] = "<No matches>"
+		self.list[1] = ""
 		self.noMatches = true
 	else
 		self.noMatches = false
@@ -272,8 +272,8 @@ function GemSelectClass:Draw(viewPort)
 					SetDrawColor(colorCodes.INTELLIGENCE)
 				end
 			end
+			DrawString(0, y, "LEFT", height - 4, "VAR", gemData and gemData.name or "<No matches>")
 			if gemData then
-				DrawString(0, y, "LEFT", height - 4, "VAR", gemData.name)
 				if gemData.grantedEffect.support and self.skillsTab.displayGroup.displaySkillList then
 					for _, activeSkill in ipairs(self.skillsTab.displayGroup.displaySkillList) do
 						if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
