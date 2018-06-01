@@ -166,7 +166,7 @@ function SkillsTabClass:Load(xml, fileName)
 				gemInstance.level = tonumber(child.attrib.level)
 				gemInstance.quality = tonumber(child.attrib.quality)
 				gemInstance.enabled = not child.attrib.enabled and true or child.attrib.enabled == "true"
-				gemInstance.enableGlobal1 = child.attrib.enableGlobal1 == "true"
+				gemInstance.enableGlobal1 = not child.attrib.enableGlobal1 or child.attrib.enableGlobal1 == "true"
 				gemInstance.enableGlobal2 = child.attrib.enableGlobal2 == "true"
 				gemInstance.skillPart = tonumber(child.attrib.skillPart)
 				gemInstance.skillPartCalcs = tonumber(child.attrib.skillPartCalcs)
