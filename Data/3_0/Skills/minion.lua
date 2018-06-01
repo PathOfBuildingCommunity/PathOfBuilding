@@ -15,7 +15,6 @@ skills["ChaosElementalCascadeSummoned"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -149,7 +148,6 @@ skills["FireElementalFlameRedSummoned"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.25), 
@@ -275,7 +273,6 @@ skills["FireElementalConeSummoned"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.935), 
@@ -347,7 +344,6 @@ skills["IceElementalIceCyclone"] = {
 		attack = true,
 		area = true,
 		melee = true,
-		movement = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -441,7 +437,6 @@ skills["LightningGolemArcSummoned"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		lightning = true,
 		duration = true,
 	},
 	baseMods = {
@@ -582,7 +577,6 @@ skills["LightningGolemWrath"] = {
 		aura = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -759,7 +753,6 @@ skills["SpectralSkullShieldCharge"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
-		movement = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1027,7 +1020,6 @@ skills["RockGolemWhirlingBlades"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
-		movement = true,
 	},
 	baseMods = {
 		skill("castTime", 2.6), 
@@ -1095,7 +1087,6 @@ skills["SpiderMinionLeapSlam"] = {
 		attack = true,
 		melee = true,
 		area = true,
-		movement = true,
 	},
 	baseMods = {
 		skill("castTime", 1.4), 

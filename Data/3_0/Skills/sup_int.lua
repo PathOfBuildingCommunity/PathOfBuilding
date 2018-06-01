@@ -2168,7 +2168,7 @@ skills["SupportSummonGhostOnKill"] = {
 	support = true,
 	requireSkillTypes = { 1, 10, 9, },
 	addSkillTypes = { 9, 21, },
-	excludeSkillTypes = { },
+	excludeSkillTypes = { 72, },
 	addFlags = {
 		minion = true,
 	},

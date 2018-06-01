@@ -6,15 +6,15 @@
 local skills, mod, flag, skill = ...
 
 #skill Arc
-#flags spell chaining lightning
+#flags spell chaining
 #mods
 
 #skill VaalArcChain
-#flags spell lightning vaal
+#flags spell
 #mods
 
 #skill ArcticBreath
-#flags spell area projectile duration cold
+#flags spell area projectile duration
 #baseMod skill("radius", 12)
 #mods
 
@@ -25,7 +25,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill BallLightning
-#flags spell projectile lightning
+#flags spell projectile
 #baseMod skill("radius", 20)
 #mods
 
@@ -37,7 +37,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill CorpseWarp
-#flags spell area fire movement
+#flags spell area
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
 #setMod spell_minimum_base_fire_damage==skill("FireMin", nil, { type = "SkillPart", skillPart = 1 })
 #setMod spell_maximum_base_fire_damage==skill("FireMax", nil, { type = "SkillPart", skillPart = 1 })
@@ -79,22 +79,22 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalClarity
-#flags spell aura area duration vaal
+#flags spell aura area duration
 #baseMod skill("radius", 36)
 #mods
 
 #skill ColdSnap
-#flags spell area cold
+#flags spell area
 #baseMod skill("showAverage", false)
 #baseMod skill("radius", 16)
 #mods
 
 #skill VaalColdSnap
-#flags spell area duration cold vaal
+#flags spell area duration
 #mods
 
 #skill Conductivity
-#flags spell curse area duration lightning
+#flags spell curse area duration
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
 #mods
@@ -150,7 +150,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Discharge
-#flags spell area lightning cold fire
+#flags spell area
 #baseMod skill("radius", 30)
 #mods
 
@@ -160,7 +160,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalDiscipline
-#flags spell aura area duration vaal
+#flags spell aura area duration
 #baseMod skill("radius", 36)
 #mods
 
@@ -183,12 +183,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FireNovaMine
-#flags spell mine area duration fire
+#flags spell mine area duration
 #baseMod skill("radius", 30)
 #mods
 
 #skill Fireball
-#flags spell projectile fire
+#flags spell projectile
 	parts = {
 		{
 			name = "Projectile",
@@ -203,7 +203,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalFireballSpiralNova
-#flags spell projectile fire vaal
+#flags spell projectile
 	parts = {
 		{
 			name = "Projectile",
@@ -217,23 +217,23 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Firestorm
-#flags spell area duration fire
+#flags spell area duration
 #baseMod skill("radius", 25)
 #baseMod skill("radiusSecondary", 10)
 #mods
 
 #skill FlameDash
-#flags spell area duration movement fire
+#flags spell area duration
 #baseMod skill("dotIsArea", true)
 #mods
 
 #skill FlameWhip
-#flags spell area fire
+#flags spell area
 #baseMod skill("radius", 30)
 #mods
 
 #skill Flameblast
-#flags spell area fire
+#flags spell area
 	parts = {
 		{
 			name = "1 Stage",
@@ -248,12 +248,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalFlameblast
-#flags spell area fire vaal
+#flags spell area
 #baseMod mod("Multiplier:FlameblastStage", "BASE", 9)
 #mods
 
 #skill Flammability
-#flags spell curse area duration fire
+#flags spell curse area duration
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
 #mods
@@ -265,7 +265,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FreezingPulse
-#flags spell projectile cold
+#flags spell projectile
 	setupFunc = function(env, output)
 		env.modDB:NewMod("Damage", "MORE", -100, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
 		env.modDB:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
@@ -273,46 +273,46 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FrostBomb
-#flags spell area duration cold
+#flags spell area duration
 #baseMod skill("debuffSecondary", true)
 #global Debuff
 #mods
 
 #skill FrostWall
-#flags spell duration cold
+#flags spell duration
 #mods
 
 #skill Frostbite
-#flags spell curse area duration cold
+#flags spell curse area duration
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
 #mods
 
 #skill FrostBolt
-#flags spell projectile cold
+#flags spell projectile
 #mods
 
 #skill GlacialCascade
-#flags spell area cold
+#flags spell area
 #baseMod skill("radius", 12)
 #mods
 
 #skill HeraldOfThunder
-#flags cast duration lightning
+#flags cast duration
 #baseMod skill("radius", 32)
 #mods
 
 #skill IceNova
-#flags spell area cold
+#flags spell area
 #baseMod skill("radius", 30)
 #mods
 
 #skill VaalIceNova
-#flags spell area cold vaal
+#flags spell area
 #mods
 
 #skill IceSpear
-#flags spell projectile cold
+#flags spell projectile
 	parts = {
 		{
 			name = "First Form",
@@ -325,7 +325,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Incinerate
-#flags spell projectile fire
+#flags spell projectile
 	parts = {
 		{
 			name = "Base damage",
@@ -353,33 +353,33 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill LightningTendrilsChannelled
-#flags spell area lightning
+#flags spell area
 #baseMod skill("radius", 22)
 #mods
 
 #skill LightningTrap
-#flags spell trap projectile lightning
+#flags spell trap projectile
 #mods
 
 #skill VaalLightningTrap
-#flags spell trap projectile duration lightning vaal
+#flags spell trap projectile duration
 #mods
 
 #skill LightningWarp
-#flags spell area duration movement lightning
+#flags spell area duration
 #baseMod skill("radius", 16)
 #mods
 
 #skill VaalLightningWarpInstant
-#flags spell area duration lightning vaal
+#flags spell area duration
 #mods
 
 #skill MagmaOrb
-#flags spell projectile area chaining fire
+#flags spell projectile area chaining
 #mods
 
 #skill OrbOfStorms
-#flags spell chaining duration lightning
+#flags spell chaining duration
 #mods
 
 #skill PowerSiphon
@@ -387,7 +387,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalPowerSiphon
-#flags attack projectile vaal
+#flags attack projectile
 #mods
 
 #skill Purity
@@ -415,7 +415,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill RighteousFire
-#flags spell area fire
+#flags spell area
 	setupFunc = function(actor, output)
 		if actor.mainSkill.skillFlags.totem then
 			actor.mainSkill.skillData.FireDot = output.TotemLife * 0.4
@@ -428,7 +428,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalRighteousFire
-#flags spell area fire vaal
+#flags spell area
 	setupFunc = function(actor, output)
 		actor.mainSkill.skillData.FireMin = output.EnergyShield + output.Life - 1
 		actor.mainSkill.skillData.FireMax = output.EnergyShield + output.Life - 1
@@ -436,7 +436,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FireBeam
-#flags spell duration fire
+#flags spell duration
 	parts = {
 		{
 			name = "1 Stage",
@@ -457,7 +457,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ShockNova
-#flags spell area lightning
+#flags spell area
 	parts = {
 		{
 			name = "Ring",
@@ -470,11 +470,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Spark
-#flags spell projectile duration lightning
+#flags spell projectile duration
 #mods
 
 #skill VaalSparkSpiralNova
-#flags spell projectile duration lightning vaal
+#flags spell projectile duration
 #mods
 
 #skill SpiritOffering
@@ -499,12 +499,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill StormCall
-#flags spell area duration lightning
+#flags spell area duration
 #baseMod skill("radius", 20)
 #mods
 
 #skill VaalStormCall
-#flags spell area duration lightning vaal
+#flags spell area duration
 #mods
 
 #skill SummonChaosGolem
@@ -517,7 +517,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonLightningGolem
-#flags spell minion golem lightning
+#flags spell minion golem
 #baseMod skill("allowTotemBuff", true)
 #baseMod flag("Condition:HaveLightningGolem", { type = "GlobalEffect", effectType = "Buff" })
 	minionList = {
@@ -526,7 +526,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonRagingSpirit
-#flags spell minion duration fire
+#flags spell minion duration
 	minionList = {
 		"SummonedRagingSpirit",
 	},
@@ -552,12 +552,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill TempestShield
-#flags spell duration chaining lightning
+#flags spell duration chaining
 #setMod shield_block_%==mod("BlockChance", "BASE", {val}, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill FrostBoltNova
-#flags spell area duration cold
+#flags spell area duration
 #baseMod skill("dotIsArea", true)
 #mods
 
@@ -588,6 +588,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Wrath
-#flags spell aura area lightning
+#flags spell aura area
 #baseMod skill("radius", 36)
 #mods

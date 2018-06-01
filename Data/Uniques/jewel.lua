@@ -310,6 +310,7 @@ Radius: Large
 ]],[[
 Pure Talent
 Viridian Jewel
+Limited to: 1
 Implicits: 0
 While your Passive Skill Tree connects to a class' Starting location, you gain:
 Marauder: Melee Skills have 15% increased Area of Effect

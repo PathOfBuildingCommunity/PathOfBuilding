@@ -71,19 +71,40 @@ function writeLuaTable(out, t, indent)
 	out:write('}')
 end
 
+local outJson
+
 function loadDat(name)
 	if _G[name] then
 		return
 	end
 	printf("Loading '%s'...", name)
-	local f = io.open(name..".json", "r")
-	if not f then
-		os.execute("pypoe_exporter dat json "..name..".json --files "..name..".dat")
-		f = io.open(name..".json", "r")
+	local t
+	if not outJson then
+		local f = io.open("out.json", "r")
+		if f then
+			local text = f:read("*a")
+			f:close()
+			outJson = json.decode(text)
+		end
 	end
-	local text = f:read("*a")
-	f:close()
-	local t = json.decode(text)[1]
+	if outJson then
+		for _, jt in ipairs(outJson) do
+			if jt.filename == name..".dat" then
+				t = jt
+				break
+			end
+		end
+	end
+	if not t then
+		f = io.open(name..".json", "r")
+		if not f then
+			os.execute("pypoe_exporter dat json "..name..".json --files "..name..".dat")
+			f = io.open(name..".json", "r")
+		end
+		local text = f:read("*a")
+		f:close()
+		t = json.decode(text)[1]
+	end
 	local headerMap = { }
 	for i, header in pairs(t.header) do
 		headerMap[header.name] = i

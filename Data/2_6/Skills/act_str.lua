@@ -294,7 +294,6 @@ skills["Anger"] = {
 		spell = true,
 		aura = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1.2), 
@@ -995,7 +994,6 @@ skills["FlameTotem"] = {
 		totem = true,
 		projectile = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.25), 
@@ -1077,7 +1075,6 @@ skills["GlacialHammer"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1157,8 +1154,6 @@ skills["VaalGlacialHammer"] = {
 		melee = true,
 		area = true,
 		duration = true,
-		cold = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1310,7 +1305,6 @@ skills["VaalGroundSlam"] = {
 		attack = true,
 		melee = true,
 		area = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1457,7 +1451,6 @@ skills["HeraldOfAsh"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1551,7 +1544,6 @@ skills["IceCrash"] = {
 		attack = true,
 		melee = true,
 		area = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1688,7 +1680,6 @@ skills["VaalImmortalCall"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -1769,7 +1760,6 @@ skills["InfernalBlow"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1852,7 +1842,6 @@ skills["LeapSlam"] = {
 		attack = true,
 		melee = true,
 		area = true,
-		movement = true,
 	},
 	baseMods = {
 		skill("castTime", 1.4), 
@@ -1923,7 +1912,6 @@ skills["MoltenShell"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2002,8 +1990,6 @@ skills["VaalMoltenShell"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		fire = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2108,7 +2094,6 @@ skills["MoltenStrike"] = {
 		melee = true,
 		projectile = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2252,7 +2237,6 @@ skills["FireResistAura"] = {
 		spell = true,
 		aura = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1.2), 
@@ -2555,7 +2539,6 @@ skills["SearingBond"] = {
 		spell = true,
 		totem = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2638,7 +2621,6 @@ skills["NewShieldCharge"] = {
 		attack = true,
 		melee = true,
 		area = true,
-		movement = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2815,7 +2797,6 @@ skills["StaticStrike"] = {
 		melee = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2891,7 +2872,6 @@ skills["SummonFireGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
