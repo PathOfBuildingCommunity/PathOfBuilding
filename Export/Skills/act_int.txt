@@ -26,14 +26,19 @@ local skills, mod, flag, skill = ...
 
 #skill BallLightning
 #flags spell projectile
-#baseMod skill("radius", 20)
+#baseMod skill("radius", 22)
 #mods
 
 #skill Blight
-#flags spell duration area chaos
+#flags spell duration area
 #baseMod skill("debuff", true)
 #baseMod skill("debuffSecondary", true)
 #baseMod skill("radius", 26)
+#mods
+
+#skill VaalBlight
+#flags spell duration area
+#setMod hinder_enemy_chaos_damage_taken_+%==mod("ChaosDamageTaken", "INC", {val}, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" })
 #mods
 
 #skill CorpseWarp
@@ -183,7 +188,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FireNovaMine
-#flags spell mine area duration
+#flags spell mine area
 #baseMod skill("radius", 30)
 #mods
 
@@ -267,7 +272,7 @@ local skills, mod, flag, skill = ...
 #skill FreezingPulse
 #flags spell projectile
 	setupFunc = function(env, output)
-		env.modDB:NewMod("Damage", "MORE", -100, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+		env.modDB:NewMod("Damage", "MORE", -50, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
 		env.modDB:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
 	end,
 #mods
@@ -324,17 +329,25 @@ local skills, mod, flag, skill = ...
 #baseMod mod("PierceChance", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 })
 #mods
 
-#skill Incinerate
-#flags spell projectile
+#skill ExpandingFireCone
+#flags spell area
 	parts = {
 		{
-			name = "Base damage",
+			name = "0 stages",
 		},
 		{
-			name = "Fully charged",
+			name = "4 stages",
+		},
+		{
+			name = "8 stages",
+		},
+		{
+			name = "Release"
 		},
 	},
-#baseMod mod("Damage", "MORE", 150, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:IncinerateStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:IncinerateStage", "BASE", 8, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 4 })
 #mods
 
 #skill ClusterBurst
@@ -350,6 +363,10 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 14)
+#mods
+
+#skill LightningTowerTrap
+#flags spell trap duration area
 #mods
 
 #skill LightningTendrilsChannelled
@@ -400,6 +417,11 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 36)
 #mods
 
+#skill LightningImpurity
+#flags spell aura area duration
+#setMod hits_ignore_my_lightning_resistance==flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "Debuff" })
+#mods
+
 #skill RaiseSpectre
 #flags spell minion spectre duration
 #setMod accuracy_rating==mod("MinionModifier", "LIST", { mod = mod("Accuracy", "BASE", nil) })
@@ -429,10 +451,6 @@ local skills, mod, flag, skill = ...
 
 #skill VaalRighteousFire
 #flags spell area
-	setupFunc = function(actor, output)
-		actor.mainSkill.skillData.FireMin = output.EnergyShield + output.Life - 1
-		actor.mainSkill.skillData.FireMax = output.EnergyShield + output.Life - 1
-	end,
 #mods
 
 #skill FireBeam
@@ -467,6 +485,14 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 26)
+#mods
+
+#skill IceSiphonTrap
+#flags spell trap duration
+#setMod skill_life_regeneration_per_minute_per_affected_enemy==mod("LifeRegen", "BASE", {val}, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "Multiplier", var = "EnemyAffectedBySiphoningTrap", limit = 10 });div=60
+#setMod skill_mana_regeneration_per_minute_per_affected_enemy==mod("ManaRegen", "BASE", {val}, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "Multiplier", var = "EnemyAffectedBySiphoningTrap", limit = 10 });div=60
+#setMod skill_life_regeneration_per_minute_with_at_least_1_affected_enemy==mod("LifeRegen", "BASE", {val}, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "MultiplierThreshold", threshold = 1, var = "EnemyAffectedBySiphoningTrap" });div=60
+#setMod skill_mana_regeneration_per_minute_with_at_least_1_affected_enemy==mod("ManaRegen", "BASE", {val}, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "MultiplierThreshold", threshold = 1, var = "EnemyAffectedBySiphoningTrap" });div=60
 #mods
 
 #skill Spark

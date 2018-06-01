@@ -8,15 +8,6 @@ local skills, mod, flag, skill = ...
 
 skills["SupportAddedColdDamage"] = {
 	name = "Added Cold Damage",
-	gemTags = {
-		cold = true,
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Cold, Support",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 1, 10, },
@@ -68,15 +59,6 @@ skills["SupportAddedColdDamage"] = {
 }
 skills["SupportAdditionalAccuracy"] = {
 	name = "Additional Accuracy",
-	gemTags = {
-		attack = true,
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Attack, Support",
-	gemStr = 40,
-	gemDex = 60,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 1, 56, },
@@ -126,14 +108,6 @@ skills["SupportAdditionalAccuracy"] = {
 }
 skills["SupportBlind"] = {
 	name = "Blind",
-	gemTags = {
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -184,14 +158,6 @@ skills["SupportBlind"] = {
 }
 skills["SupportBlockReduction"] = {
 	name = "Block Chance Reduction",
-	gemTags = {
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 0,
-	gemDex = 60,
-	gemInt = 40,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -242,16 +208,6 @@ skills["SupportBlockReduction"] = {
 }
 skills["SupportCastOnCrit"] = {
 	name = "Cast On Critical Strike",
-	gemTags = {
-		dexterity = true,
-		support = true,
-		spell = true,
-		trigger = true,
-	},
-	gemTagString = "Support, Spell, Trigger",
-	gemStr = 0,
-	gemDex = 60,
-	gemInt = 40,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 1, 36, },
@@ -306,16 +262,6 @@ skills["SupportCastOnCrit"] = {
 }
 skills["SupportCastOnDeath"] = {
 	name = "Cast on Death",
-	gemTags = {
-		dexterity = true,
-		support = true,
-		spell = true,
-		trigger = true,
-	},
-	gemTagString = "Support, Spell, Trigger",
-	gemStr = 0,
-	gemDex = 60,
-	gemInt = 40,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 36, },
@@ -369,16 +315,6 @@ skills["SupportCastOnDeath"] = {
 }
 skills["SupportChain"] = {
 	name = "Chain",
-	gemTags = {
-		dexterity = true,
-		support = true,
-		chaining = true,
-		projectile = true,
-	},
-	gemTagString = "Support, Chaining, Projectile",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 23, 3, 54, 56, },
@@ -430,14 +366,6 @@ skills["SupportChain"] = {
 }
 skills["SupportChanceToFlee"] = {
 	name = "Chance to Flee",
-	gemTags = {
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 0,
-	gemDex = 60,
-	gemInt = 40,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 1, 10, },
@@ -487,15 +415,6 @@ skills["SupportChanceToFlee"] = {
 }
 skills["SupportClusterTrap"] = {
 	name = "Cluster Traps",
-	gemTags = {
-		trap = true,
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Trap, Support",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 37, },
@@ -549,15 +468,6 @@ skills["SupportClusterTrap"] = {
 }
 skills["SupportColdPenetration"] = {
 	name = "Cold Penetration",
-	gemTags = {
-		cold = true,
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Cold, Support",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -608,14 +518,6 @@ skills["SupportColdPenetration"] = {
 }
 skills["SupportCullingStrike"] = {
 	name = "Culling Strike",
-	gemTags = {
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -670,15 +572,6 @@ skills["SupportCullingStrike"] = {
 }
 skills["SupportAdditionalQuality"] = {
 	name = "Enhance",
-	gemTags = {
-		low_max_level = true,
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { },
@@ -710,15 +603,6 @@ skills["SupportAdditionalQuality"] = {
 }
 skills["SupportFasterAttack"] = {
 	name = "Faster Attacks",
-	gemTags = {
-		attack = true,
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Attack, Support",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 1, 56, },
@@ -769,15 +653,6 @@ skills["SupportFasterAttack"] = {
 }
 skills["SupportFasterProjectiles"] = {
 	name = "Faster Projectiles",
-	gemTags = {
-		dexterity = true,
-		support = true,
-		projectile = true,
-	},
-	gemTagString = "Support, Projectile",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 3, 14, 54, 56, },
@@ -830,15 +705,6 @@ skills["SupportFasterProjectiles"] = {
 }
 skills["SupportFork"] = {
 	name = "Fork",
-	gemTags = {
-		dexterity = true,
-		support = true,
-		projectile = true,
-	},
-	gemTagString = "Support, Projectile",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 3, 54, 56, },
@@ -890,15 +756,6 @@ skills["SupportFork"] = {
 }
 skills["SupportGreaterMultipleProjectiles"] = {
 	name = "Greater Multiple Projectiles",
-	gemTags = {
-		dexterity = true,
-		support = true,
-		projectile = true,
-	},
-	gemTagString = "Support, Projectile",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 3, 54, 56, },
@@ -952,15 +809,6 @@ skills["SupportGreaterMultipleProjectiles"] = {
 }
 skills["SupportDamageAgainstChilled"] = {
 	name = "Hypothermia",
-	gemTags = {
-		cold = true,
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Cold, Support",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -1012,15 +860,6 @@ skills["SupportDamageAgainstChilled"] = {
 }
 skills["SupportFrenzyChargeOnSlayingFrozenEnemy"] = {
 	name = "Ice Bite",
-	gemTags = {
-		cold = true,
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Cold, Support",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -1072,15 +911,6 @@ skills["SupportFrenzyChargeOnSlayingFrozenEnemy"] = {
 }
 skills["SupportLesserMultipleProjectiles"] = {
 	name = "Lesser Multiple Projectiles",
-	gemTags = {
-		dexterity = true,
-		support = true,
-		projectile = true,
-	},
-	gemTagString = "Support, Projectile",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 3, 54, 56, },
@@ -1134,14 +964,6 @@ skills["SupportLesserMultipleProjectiles"] = {
 }
 skills["SupportManaLeech"] = {
 	name = "Mana Leech",
-	gemTags = {
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -1192,15 +1014,6 @@ skills["SupportManaLeech"] = {
 }
 skills["SupportMultiTrap"] = {
 	name = "Multiple Traps",
-	gemTags = {
-		dexterity = true,
-		support = true,
-		trap = true,
-	},
-	gemTagString = "Support, Trap",
-	gemStr = 0,
-	gemDex = 60,
-	gemInt = 40,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 37, },
@@ -1253,15 +1066,6 @@ skills["SupportMultiTrap"] = {
 }
 skills["SupportPhysicalProjectileAttackDamage"] = {
 	name = "Physical Projectile Attack Damage",
-	gemTags = {
-		projectile = true,
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Projectile, Support",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 48, 56, },
@@ -1313,15 +1117,6 @@ skills["SupportPhysicalProjectileAttackDamage"] = {
 }
 skills["SupportPierce"] = {
 	name = "Pierce",
-	gemTags = {
-		dexterity = true,
-		support = true,
-		projectile = true,
-	},
-	gemTagString = "Support, Projectile",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 3, 54, 56, },
@@ -1373,16 +1168,6 @@ skills["SupportPierce"] = {
 }
 skills["SupportPointBlank"] = {
 	name = "Point Blank",
-	gemTags = {
-		projectile = true,
-		attack = true,
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Projectile, Attack, Support",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 48, 56, },
@@ -1434,15 +1219,6 @@ skills["SupportPointBlank"] = {
 }
 skills["SupportPoison"] = {
 	name = "Poison",
-	gemTags = {
-		chaos = true,
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Chaos, Support",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -1494,15 +1270,6 @@ skills["SupportPoison"] = {
 }
 skills["SupportRapidDecay"] = {
 	name = "Rapid Decay",
-	gemTags = {
-		dexterity = true,
-		support = true,
-		duration = true,
-	},
-	gemTagString = "Support, Duration",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 12, 55, },
@@ -1554,15 +1321,6 @@ skills["SupportRapidDecay"] = {
 }
 skills["SupportSlowerProjectiles"] = {
 	name = "Slower Projectiles",
-	gemTags = {
-		dexterity = true,
-		support = true,
-		projectile = true,
-	},
-	gemTagString = "Support, Projectile",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 3, 14, 54, 56, },
@@ -1614,16 +1372,6 @@ skills["SupportSlowerProjectiles"] = {
 }
 skills["SupportTrap"] = {
 	name = "Trap",
-	gemTags = {
-		dexterity = true,
-		support = true,
-		trap = true,
-		duration = true,
-	},
-	gemTagString = "Support, Trap, Duration",
-	gemStr = 0,
-	gemDex = 60,
-	gemInt = 40,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 17, },
@@ -1686,15 +1434,6 @@ skills["SupportTrap"] = {
 }
 skills["SupportTrapCooldown"] = {
 	name = "Trap Cooldown",
-	gemTags = {
-		trap = true,
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Trap, Support",
-	gemStr = 0,
-	gemDex = 100,
-	gemInt = 0,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 37, },
@@ -1745,16 +1484,6 @@ skills["SupportTrapCooldown"] = {
 }
 skills["SupportTrapAndMineDamage"] = {
 	name = "Trap and Mine Damage",
-	gemTags = {
-		dexterity = true,
-		support = true,
-		trap = true,
-		mine = true,
-	},
-	gemTagString = "Support, Trap, Mine",
-	gemStr = 0,
-	gemDex = 60,
-	gemInt = 40,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 37, 41, },
@@ -1807,15 +1536,6 @@ skills["SupportTrapAndMineDamage"] = {
 }
 skills["SupportVoidManipulation"] = {
 	name = "Void Manipulation",
-	gemTags = {
-		chaos = true,
-		dexterity = true,
-		support = true,
-	},
-	gemTagString = "Chaos, Support",
-	gemStr = 0,
-	gemDex = 60,
-	gemInt = 40,
 	color = 2,
 	support = true,
 	requireSkillTypes = { 10, 1, 40, },

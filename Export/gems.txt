@@ -5,10 +5,11 @@ Added Cold Damage|SupportAddedColdDamage|cold,dexterity,support
 Added Fire Damage|SupportAddedFireDamage|fire,strength,support
 Added Lightning Damage|SupportAddedLightningDamage|lightning,intelligence,support
 Additional Accuracy|SupportAdditionalAccuracy|attack,dexterity,support
-Ancestral Blademaster|AncestorTotemSlash|totem,strength,active_skill,attack,duration,area,melee
+Advanced Traps|SupportTrapCooldown|trap,dexterity,support
+Ancestral Blademaster|AncestorTotemSlash|totem,strength,active_skill,attack,area,melee
 Ancestral Call|SupportSpiritStrike|strength,support,melee,attack
-Ancestral Protector|TotemMelee|totem,strength,active_skill,attack,duration,melee
-Ancestral Warchief|AncestorTotemSlam|totem,strength,active_skill,attack,duration,area,melee
+Ancestral Protector|TotemMelee|totem,strength,active_skill,attack,melee
+Ancestral Warchief|AncestorTotemSlam|totem,strength,active_skill,attack,area,melee
 Anger|Anger|aura,strength,active_skill,spell,area,fire
 Animate Guardian|AnimateArmour|strength,active_skill,spell,minion
 Animate Weapon|AnimateWeapon|dexterity,active_skill,duration,minion,spell
@@ -51,14 +52,15 @@ Caustic Arrow|PoisonArrow|dexterity,active_skill,attack,area,duration,chaos,bow
 Chain|SupportChain|dexterity,support,chaining,projectile
 Chance to Bleed|SupportChanceToBleed|attack,strength,support
 Chance to Flee|SupportChanceToFlee|dexterity,support
-Chance to Ignite|SupportChanceToIgnite|fire,intelligence,support
 Charged Dash|ChargedDash|dexterity,active_skill,movement,area,channelling,attack,lightning,melee
+Charged Traps|SupportGemFrenzyPowerOnTrapTrigger|dexterity,support,trap
 Clarity|Clarity|aura,intelligence,active_skill,spell,area
 Cleave|Cleave|strength,active_skill,attack,area,melee
 Cluster Traps|SupportClusterTrap|trap,dexterity,support
 Cold Penetration|SupportColdPenetration|cold,dexterity,support
-Cold Snap|ColdSnap|intelligence,active_skill,spell,area,cold
+Cold Snap|ColdSnap|intelligence,active_skill,spell,area,cold,duration
 Cold to Fire|SupportColdToFire|cold,fire,strength,support
+Combustion|SupportChanceToIgnite|fire,intelligence,support
 Concentrated Effect|SupportConcentratedEffect|intelligence,support,area
 Conductivity|Conductivity|curse,intelligence,active_skill,spell,area,duration,lightning
 Contagion|Contagion|intelligence,active_skill,spell,area,duration,chaos
@@ -74,13 +76,13 @@ Damage on Full Life|SupportMeleeDamageOnFullLife|attack,strength,support
 Dark Pact|DarkPact|minion,intelligence,active_skill,spell,area,chaining,chaos
 Deadly Ailments|SupportDeadlyAilments|dexterity,support
 Decay|SupportDecay|chaos,intelligence,support
-Decoy Totem|DecoyTotem|totem,strength,active_skill,spell,duration,area
+Decoy Totem|DecoyTotem|totem,strength,active_skill,spell,area
 Desecrate|Desecrate|dexterity,active_skill,spell,area,duration,chaos
 Despair|Despair|curse,intelligence,active_skill,spell,area,duration,chaos
 Determination|Determination|aura,strength,active_skill,spell,area
 Detonate Dead|DetonateDead|dexterity,active_skill,spell,area,fire
 Detonate Mines|GemDetonateMines|low_max_level,active_skill,spell
-Devouring Totem|DevouringTotem|totem,strength,active_skill,spell,duration
+Devouring Totem|DevouringTotem|totem,strength,active_skill,spell
 Discharge|Discharge|intelligence,active_skill,spell,area,fire,cold,lightning
 Discipline|Discipline|aura,intelligence,active_skill,spell,area
 Discorectangle Slam|DiscorectangleSlam|strength,active_skill,attack,area,melee
@@ -91,7 +93,7 @@ Earthquake|Earthquake|strength,active_skill,attack,area,duration,melee
 Efficacy|SupportEfficacy|intelligence,support,duration
 Elemental Damage with Attacks|SupportWeaponElementalDamage|attack,strength,support
 Elemental Focus|SupportElementalFocus|intelligence,support
-Elemental Hit|ElementalHit|dexterity,active_skill,attack,melee,fire,cold,lightning,bow
+Elemental Hit|ElementalHit|dexterity,active_skill,attack,melee,fire,cold,lightning,area,bow
 Elemental Projectiles|ElementalProjectiles|intelligence,active_skill,spell,area
 Elemental Proliferation|SupportElementalProliferation|cold,fire,lightning,intelligence,support,area
 Elemental Weakness|ElementalWeakness|curse,intelligence,active_skill,spell,area,duration
@@ -104,10 +106,11 @@ Enlighten|SupportAdditionalXP|low_max_level,intelligence,support
 Essence Drain|EssenceDrain|projectile,intelligence,active_skill,spell,duration,chaos
 Ethereal Knives|EtherealKnives|projectile,dexterity,active_skill,spell
 Explosive Arrow|ExplosiveArrow|fire,dexterity,active_skill,attack,area,duration,bow
+Explosive Trap|ShrapnelTrap|trap,dexterity,active_skill,spell,area,fire
 Faster Attacks|SupportFasterAttack|attack,dexterity,support
 Faster Casting|SupportFasterCast|intelligence,support,spell
 Faster Projectiles|SupportFasterProjectiles|dexterity,support,projectile
-Fire Nova Mine|FireNovaMine|area,mine,intelligence,active_skill,spell,fire,duration
+Fire Nova Mine|FireNovaMine|area,mine,intelligence,active_skill,spell,fire
 Fire Penetration|SupportFirePenetration|fire,strength,support
 Fire Trap|FireTrap|trap,dexterity,active_skill,spell,duration,area,fire
 Fire Weapon|FireWeapon|intelligence,active_skill,spell,duration,fire
@@ -115,14 +118,15 @@ Fireball|Fireball|projectile,intelligence,active_skill,spell,area,fire
 Firestorm|Firestorm|intelligence,active_skill,spell,area,duration,fire
 Flame Dash|FlameDash|intelligence,active_skill,spell,movement,duration,fire
 Flame Surge|FlameWhip|intelligence,active_skill,spell,area,fire
-Flame Totem|FlameTotem|projectile,totem,strength,active_skill,spell,duration,fire
+Flame Totem|FlameTotem|projectile,totem,strength,active_skill,spell,fire
 Flameblast|Flameblast|intelligence,active_skill,spell,area,fire,channelling
+Flamethrower Trap|FlamethrowerTrap|trap,dexterity,active_skill,spell,duration,area,fire
 Flammability|Flammability|curse,intelligence,active_skill,spell,area,duration,fire
 Flesh Offering|FleshOffering|minion,intelligence,active_skill,spell,duration
 Flicker Strike|FlickerStrike|dexterity,active_skill,attack,melee,movement
 Fork|SupportFork|dexterity,support,projectile
 Fortify|SupportFortify|attack,strength,support,melee
-Freeze Mine|FreezeMine|mine,dexterity,active_skill,spell,area,duration,cold
+Freeze Mine|FreezeMine|mine,dexterity,active_skill,spell,area,cold
 Freezing Pulse|FreezingPulse|projectile,intelligence,active_skill,spell,cold
 Frenzy|Frenzy|dexterity,active_skill,attack,melee,bow
 Frost Blades|FrostBlades|projectile,dexterity,active_skill,attack,melee,cold
@@ -150,7 +154,7 @@ Ice Crash|IceCrash|strength,active_skill,attack,area,cold,melee
 Ice Nova|IceNova|intelligence,active_skill,spell,area,cold
 Ice Shot|IceShot|dexterity,active_skill,attack,area,duration,cold,bow
 Ice Spear|IceSpear|projectile,intelligence,active_skill,spell,cold
-Ice Trap|IceTrap|trap,dexterity,active_skill,spell,area,cold,duration
+Ice Trap|IceTrap|trap,dexterity,active_skill,spell,area,cold
 Icefire|Icefire|projectile,intelligence,active_skill,spell,area
 Icestorm|IcestormUniqueStaff12|
 Ignite|Ignite|intelligence,active_skill,spell,duration,fire
@@ -158,12 +162,12 @@ Ignite Proliferation|SupportIgniteProliferation|fire,intelligence,support,area
 Illusory Warp|MerveilWarp|
 Immolate|SupportImmolation|fire,intelligence,support
 Immortal Call|ImmortalCall|strength,active_skill,spell,duration
-Incinerate|Incinerate|projectile,intelligence,active_skill,spell,fire,channelling
+Incinerate|ExpandingFireCone|intelligence,active_skill,spell,fire,channelling,area
 Increased Area of Effect|SupportIncreasedAreaOfEffect|intelligence,support,area
 Increased Critical Damage|SupportIncreasedCriticalDamage|intelligence,support
 Increased Critical Strikes|SupportIncreasedCriticalStrikes|intelligence,support
 Increased Duration|SupportIncreasedDuration|strength,support,duration
-Infernal Blow|InfernalBlow|strength,active_skill,attack,area,melee,fire
+Infernal Blow|InfernalBlow|strength,active_skill,attack,area,melee,fire,duration
 Infernal Sweep|InfernalSweep|strength,active_skill,attack,area,fire,melee
 Innervate|SupportOnslaughtOnSlayingShockedEnemy|lightning,intelligence,support,duration
 Iron Grip|SupportIronGrip|projectile,strength,support
@@ -184,10 +188,11 @@ Lightning Arrow|LightningArrow|dexterity,active_skill,attack,area,lightning,bow
 Lightning Channel|LightningChannel|intelligence,active_skill,spell,area,lightning
 Lightning Circle|LightningCircle|intelligence,active_skill,spell,area,lightning
 Lightning Penetration|SupportLightningPenetration|lightning,intelligence,support
+Lightning Spire Trap|LightningTowerTrap|trap,intelligence,active_skill,spell,duration,area,lightning
 Lightning Strike|LightningStrike|projectile,dexterity,active_skill,attack,melee,lightning
 Lightning Tendrils|LightningTendrilsChannelled|intelligence,active_skill,spell,area,lightning,channelling
 Lightning Tendrils|LightningTendrilsChannelled|intelligence,active_skill,spell,area,lightning,channelling
-Lightning Trap|LightningTrap|projectile,trap,intelligence,active_skill,spell,duration,lightning
+Lightning Trap|LightningTrap|projectile,trap,intelligence,active_skill,spell,lightning
 Lightning Warp|LightningWarp|intelligence,active_skill,spell,area,duration,movement,lightning
 Magma Orb|MagmaOrb|projectile,intelligence,active_skill,spell,area,fire,chaining
 Maim|SupportMaim|attack,strength,support
@@ -232,12 +237,12 @@ Rain of Arrows|RainOfArrows|dexterity,active_skill,attack,area,bow
 Raise Spectre|RaiseSpectre|intelligence,active_skill,spell,minion
 Raise Zombie|RaiseZombie|intelligence,active_skill,spell,minion
 Rallying Cry|RallyingCry|warcry,strength,active_skill,area,duration
-Ranged Attack Totem|SupportRangedAttackTotem|bow,projectile,strength,support,totem,attack,duration
+Ranged Attack Totem|SupportRangedAttackTotem|bow,projectile,strength,support,totem,attack
 Reave|Reave|dexterity,active_skill,attack,area,melee
 Reckoning|Reckoning|trigger,strength,active_skill,attack,area,melee
 Reduced Mana|SupportReducedMana|strength,support
-Rejuvenation Totem|RejuvenationTotem|totem,aura,strength,active_skill,spell,area,duration
-Remote Mine|SupportRemoteMine|intelligence,support,mine,duration
+Rejuvenation Totem|RejuvenationTotem|totem,aura,strength,active_skill,spell,area
+Remote Mine|SupportRemoteMine|intelligence,support,mine
 Return Projectiles|SupportReturn|dexterity,support,projectile
 Righteous Fire|RighteousFire|intelligence,active_skill,spell,area,fire
 Righteous Lightning|RighteousLightning|intelligence,active_skill,spell,area,lightning
@@ -245,13 +250,15 @@ Riposte|Riposte|trigger,dexterity,active_skill,attack,melee
 Riptide|Riptide|intelligence,active_skill,spell,area,cold
 Ruthless|SupportRuthless|strength,support,melee,attack
 Scorching Ray|FireBeam|intelligence,active_skill,spell,fire,duration,channelling
-Searing Bond|SearingBond|totem,strength,active_skill,spell,duration,fire
+Searing Bond|SearingBond|totem,strength,active_skill,spell,fire
+Seismic Trap|PhysCascadeTrap|trap,dexterity,active_skill,spell,duration,area
 Shadow Blades|ShadowBlades|projectile,dexterity,active_skill,spell
 Shield Charge|NewShieldCharge|strength,active_skill,attack,area,movement,melee
 Shock Nova|ShockNova|intelligence,active_skill,spell,area,lightning
-Shockwave Totem|ShockwaveTotem|totem,strength,active_skill,spell,area,duration
+Shockwave Totem|ShockwaveTotem|totem,strength,active_skill,spell,area
 Shrapnel Shot|ShrapnelShot|lightning,dexterity,active_skill,attack,area,bow
-Siege Ballista|SiegeBallista|totem,dexterity,active_skill,attack,duration,bow
+Siege Ballista|SiegeBallista|totem,dexterity,active_skill,attack,bow
+Siphoning Trap|IceSiphonTrap|trap,intelligence,active_skill,spell,duration,area,cold
 Slower Projectiles|SupportSlowerProjectiles|dexterity,support,projectile
 Smoke Mine|SmokeMine|mine,dexterity,active_skill,spell,area,duration,movement
 Snipe|Snipe|dexterity,active_skill,attack,bow
@@ -261,7 +268,7 @@ Spectral Spinning Weapon|SpectralSpinningWeapon|projectile,active_skill,spell,ch
 Spectral Throw|ThrownWeapon|projectile,dexterity,active_skill,attack
 Spell Cascade|SupportSpellCascade|area,spell,intelligence,support
 Spell Echo|SupportMulticast|spell,intelligence,support
-Spell Totem|SupportSpellTotem|strength,support,totem,duration
+Spell Totem|SupportSpellTotem|strength,support,totem
 Spirit Offering|SpiritOffering|minion,intelligence,active_skill,spell,duration
 Split Arrow|SplitArrow|dexterity,active_skill,attack,bow
 Split Projectiles|SupportSplit|dexterity,support,projectile
@@ -288,23 +295,27 @@ Tempest Shield|TempestShield|intelligence,active_skill,spell,lightning,chaining,
 Temporal Chains|TemporalChains|curse,dexterity,active_skill,spell,area,duration
 Tornado Shot|TornadoShot|dexterity,active_skill,attack,bow
 Touch of God|TouchOfGod|strength,active_skill,attack,area,lightning,melee
-Trap|SupportTrap|dexterity,support,trap,duration
-Trap Cooldown|SupportTrapCooldown|trap,dexterity,support
+Trap|SupportTrap|dexterity,support,trap
 Trap and Mine Damage|SupportTrapAndMineDamage|dexterity,support,trap,mine
 Unbound Ailments|SupportAilments|intelligence,support
 Unearth|BoneLance|projectile,dexterity,active_skill,spell
-Vaal Arc|VaalArcChain|intelligence,active_skill,vaal,spell,chaining,lightning
+Vaal Ancestral Warchief|VaalAncestralWarchief|totem,strength,active_skill,attack,area,melee
+Vaal Arc|VaalArcChain|intelligence,active_skill,vaal,spell,chaining,lightning,duration
+Vaal Blade Vortex|VaalBladeVortex|dexterity,active_skill,vaal,spell,area,duration
+Vaal Blight|VaalBlight|intelligence,active_skill,vaal,spell,chaos,area,duration,channelling
 Vaal Breach|VaalBreach|low_max_level,active_skill,vaal,spell
 Vaal Burning Arrow|VaalBurningArrow|dexterity,active_skill,vaal,attack,area,fire,bow
 Vaal Clarity|VaalClarity|aura,intelligence,active_skill,vaal,spell,area,duration
 Vaal Cold Snap|VaalColdSnap|intelligence,active_skill,vaal,spell,area,duration,cold
-Vaal Cyclone|VaalCyclone|dexterity,active_skill,vaal,attack,area,duration,melee
-Vaal Detonate Dead|VaalDetonateDead|dexterity,active_skill,vaal,spell,area,fire
+Vaal Cyclone|VaalCyclone|dexterity,active_skill,vaal,attack,area,duration,melee,movement
+Vaal Detonate Dead|VaalDetonateDead|dexterity,active_skill,vaal,area,spell,fire
 Vaal Discipline|VaalDiscipline|aura,intelligence,active_skill,vaal,spell,area,duration
 Vaal Double Strike|VaalDoubleStrike|dexterity,active_skill,vaal,attack,melee,duration
+Vaal Earthquake|VaalEarthquake|strength,active_skill,vaal,attack,area,duration,melee
 Vaal FireTrap|VaalFireTrap|trap,dexterity,active_skill,vaal,spell,duration,area,fire
 Vaal Fireball|VaalFireballSpiralNova|projectile,intelligence,active_skill,vaal,spell,area,fire
-Vaal Flameblast|VaalFlameblast|intelligence,active_skill,vaal,spell,area,fire
+Vaal Flameblast|VaalFlameblast|intelligence,active_skill,vaal,spell,area,fire,channelling
+Vaal Flesh Offering|VaalFleshOffering|minion,intelligence,active_skill,vaal,spell,duration
 Vaal Glacial Hammer|VaalGlacialHammer|strength,active_skill,vaal,attack,melee,duration,area,cold
 Vaal Grace|VaalGrace|aura,dexterity,active_skill,vaal,spell,area,duration
 Vaal Ground Slam|VaalGroundSlam|strength,active_skill,vaal,attack,area,melee
@@ -312,14 +323,17 @@ Vaal Haste|VaalHaste|aura,dexterity,active_skill,vaal,spell,area,duration
 Vaal Heavy Strike|VaalHeavyStrike|strength,active_skill,vaal,attack,melee
 Vaal Ice Nova|VaalIceNova|intelligence,active_skill,vaal,spell,area,cold
 Vaal Immortal Call|VaalImmortalCall|strength,active_skill,vaal,spell,duration
-Vaal Lightning Strike|VaalLightningStrike|dexterity,active_skill,vaal,attack,melee,duration,lightning
+Vaal Impurity of Fire|FireImpurity|aura,strength,active_skill,vaal,spell,area,duration,fire
+Vaal Impurity of Ice|ColdImpurity|aura,dexterity,active_skill,vaal,spell,area,duration,cold
+Vaal Impurity of Lightning|LightningImpurity|aura,intelligence,active_skill,vaal,spell,area,duration,lightning
+Vaal Lightning Strike|VaalLightningStrike|projectile,dexterity,active_skill,vaal,attack,melee,duration,lightning
 Vaal Lightning Trap|VaalLightningTrap|projectile,trap,intelligence,active_skill,vaal,spell,duration,lightning
-Vaal Lightning Warp|VaalLightningWarpInstant|intelligence,active_skill,vaal,spell,area,duration,lightning
+Vaal Lightning Warp|VaalLightningWarpInstant|intelligence,active_skill,vaal,spell,area,duration,lightning,movement
 Vaal Molten Shell|VaalMoltenShell|strength,active_skill,vaal,spell,area,duration,fire
 Vaal Power Siphon|VaalPowerSiphon|intelligence,active_skill,vaal,attack,projectile
-Vaal Rain of Arrows|VaalRainOfArrows|dexterity,active_skill,vaal,attack,area,duration,bow
+Vaal Rain of Arrows|VaalRainOfArrows|dexterity,active_skill,vaal,attack,area,bow
 Vaal Reave|VaalReave|dexterity,active_skill,vaal,attack,area,melee
-Vaal Righteous Fire|VaalRighteousFire|intelligence,active_skill,vaal,spell,area,fire
+Vaal Righteous Fire|VaalRighteousFire|intelligence,active_skill,vaal,spell,area,fire,duration
 Vaal Soul Harvesting|VaalSoulHarvesting|support
 Vaal Spark|VaalSparkSpiralNova|projectile,intelligence,active_skill,vaal,spell,duration,lightning
 Vaal Spectral Throw|VaalThrownWeapon|projectile,dexterity,active_skill,vaal,attack

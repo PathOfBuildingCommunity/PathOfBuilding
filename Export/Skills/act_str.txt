@@ -85,6 +85,19 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 28, { type = "SkillPart", skillPart = 2 })
 #mods
 
+#skill VaalEarthquake
+#flags attack melee area duration
+	parts = {
+		{
+			name = "Initial impact",
+		},
+		{
+			name = "Aftershock",
+		},
+	},
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
+#mods
+
 #skill EnduringCry
 #flags warcry area duration
 #baseMod skill("radius", 60)
@@ -191,6 +204,11 @@ local skills, mod, flag, skill = ...
 #skill FireResistAura
 #flags spell aura area
 #baseMod skill("radius", 36)
+#mods
+
+#skill FireImpurity
+#flags spell aura area duration
+#setMod hits_ignore_my_fire_resistance==flag("SelfIgnoreFireResistance", { type = "GlobalEffect", effectType = "Debuff" })
 #mods
 
 #skill RallyingCry

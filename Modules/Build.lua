@@ -440,18 +440,18 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	end)
 	self.controls.mainSkillPart = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkill,"BOTTOMLEFT",true}, 0, 2, 150, 18, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		local srcGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem
-		srcGem.skillPart = index
+		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
+		srcInstance.skillPart = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.mainSkillMinion = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillPart,"BOTTOMLEFT",true}, 0, 2, 178, 18, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		local srcGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem
+		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		if value.itemSetId then
-			srcGem.skillMinionItemSet = value.itemSetId
+			srcInstance.skillMinionItemSet = value.itemSetId
 		else
-			srcGem.skillMinion = value.minionId
+			srcInstance.skillMinion = value.minionId
 		end
 		self.modFlag = true
 		self.buildFlag = true
@@ -459,7 +459,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	function self.controls.mainSkillMinion.CanReceiveDrag(control, type, value)
 		if type == "Item" and control.list[control.selIndex] and control.list[control.selIndex].itemSetId then
 			local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-			local minionUses = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.grantedEffect.minionUses
+			local minionUses = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.grantedEffect.minionUses
 			return minionUses and minionUses[value:GetPrimarySlot()] -- O_O
 		end
 	end
@@ -479,8 +479,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	end)
 	self.controls.mainSkillMinionSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT",true}, 0, 2, 200, 16, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		local srcGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem
-		srcGem.skillMinionSkill = index
+		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
+		srcInstance.skillMinionSkill = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
@@ -957,7 +957,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		local mainActiveSkill = mainSocketGroup["mainActiveSkill"..suffix] or 1
 		wipeTable(controls.mainSkill.list)
 		for i, activeSkill in ipairs(displaySkillList) do
-			t_insert(controls.mainSkill.list, { val = i, label = activeSkill.activeGem.grantedEffect.name })
+			t_insert(controls.mainSkill.list, { val = i, label = activeSkill.activeEffect.grantedEffect.name })
 		end
 		controls.mainSkill.enabled = #displaySkillList > 1
 		controls.mainSkill.selIndex = mainActiveSkill
@@ -968,19 +968,19 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		controls.mainSkillMinionSkill.shown = false
 		if displaySkillList[1] then
 			local activeSkill = displaySkillList[mainActiveSkill]
-			local activeGem = activeSkill.activeGem
-			if activeGem then
-				if activeGem.grantedEffect.parts and #activeGem.grantedEffect.parts > 1 then
+			local activeEffect = activeSkill.activeEffect
+			if activeEffect then
+				if activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1 then
 					controls.mainSkillPart.shown = true
 					wipeTable(controls.mainSkillPart.list)
-					for i, part in ipairs(activeGem.grantedEffect.parts) do
+					for i, part in ipairs(activeEffect.grantedEffect.parts) do
 						t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
 					end
-					controls.mainSkillPart.selIndex = activeGem.srcGem["skillPart"..suffix] or 1
+					controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
 				end
-				if not activeSkill.skillFlags.disable and (activeGem.grantedEffect.minionList or activeSkill.minionList[1]) then
+				if not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or activeSkill.minionList[1]) then
 					wipeTable(controls.mainSkillMinion.list)
-					if activeGem.grantedEffect.minionHasItemSet then
+					if activeEffect.grantedEffect.minionHasItemSet then
 						for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
 							local itemSet = self.itemsTab.itemSets[itemSetId]
 							t_insert(controls.mainSkillMinion.list, {
@@ -988,25 +988,25 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 								itemSetId = itemSetId,
 							})
 						end
-						controls.mainSkillMinion:SelByValue(activeGem.srcGem["skillMinionItemSet"..suffix] or 1, "itemSetId")
+						controls.mainSkillMinion:SelByValue(activeEffect.srcInstance["skillMinionItemSet"..suffix] or 1, "itemSetId")
 					else
-						controls.mainSkillMinionLibrary.shown = (activeGem.grantedEffect.minionList and not activeGem.grantedEffect.minionList[1])
+						controls.mainSkillMinionLibrary.shown = (activeEffect.grantedEffect.minionList and not activeEffect.grantedEffect.minionList[1])
 						for _, minionId in ipairs(activeSkill.minionList) do
 							t_insert(controls.mainSkillMinion.list, {
 								label = self.data.minions[minionId].name,
 								minionId = minionId,
 							})
 						end
-						controls.mainSkillMinion:SelByValue(activeGem.srcGem["skillMinion"..suffix] or controls.mainSkillMinion.list[1], "minionId")
+						controls.mainSkillMinion:SelByValue(activeEffect.srcInstance["skillMinion"..suffix] or controls.mainSkillMinion.list[1], "minionId")
 					end
 					controls.mainSkillMinion.enabled = #controls.mainSkillMinion.list > 1
 					controls.mainSkillMinion.shown = true
 					wipeTable(controls.mainSkillMinionSkill.list)
 					if activeSkill.minion then
 						for _, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
-							t_insert(controls.mainSkillMinionSkill.list, minionSkill.activeGem.grantedEffect.name)
+							t_insert(controls.mainSkillMinionSkill.list, minionSkill.activeEffect.grantedEffect.name)
 						end
-						controls.mainSkillMinionSkill.selIndex = activeGem.srcGem["skillMinionSkill"..suffix] or 1
+						controls.mainSkillMinionSkill.selIndex = activeEffect.srcInstance["skillMinionSkill"..suffix] or 1
 						controls.mainSkillMinionSkill.shown = true
 						controls.mainSkillMinionSkill.enabled = #controls.mainSkillMinionSkill.list > 1
 					else

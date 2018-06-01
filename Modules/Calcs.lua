@@ -31,8 +31,8 @@ local function infoDump(env, output)
 	env.enemyDB:Print()
 	local mainSkill = env.minion and env.minion.mainSkill or env.player.mainSkill
 	ConPrintf("=== Main Skill ===")
-	for _, gem in ipairs(mainSkill.gemList) do
-		ConPrintf("%s %d/%d", gem.grantedEffect.name, gem.level, gem.quality)
+	for _, skillEffect in ipairs(mainSkill.effectList) do
+		ConPrintf("%s %d/%d", skillEffect.grantedEffect.name, skillEffect.level, skillEffect.quality)
 	end
 	ConPrintf("=== Main Skill Flags ===")
 	ConPrintf("Mod: %s", modLib.formatFlags(mainSkill.skillCfg.flags, ModFlag))
@@ -42,8 +42,8 @@ local function infoDump(env, output)
 	ConPrintf("== Aux Skills ==")
 	for i, aux in ipairs(env.auxSkillList) do
 		ConPrintf("Skill #%d:", i)
-		for _, gem in ipairs(aux.gemList) do
-			ConPrintf("  %s %d/%d", gem.grantedEffect.name, gem.level, gem.quality)
+		for _, skillEffect in ipairs(aux.effectList) do
+			ConPrintf("  %s %d/%d", skillEffect.grantedEffect.name, skillEffect.level, skillEffect.quality)
 		end
 	end
 --	ConPrintf("== Conversion Table ==")
@@ -136,12 +136,12 @@ function calcs.buildOutput(build, mode)
 
 		env.skillsUsed = { }
 		for _, activeSkill in ipairs(env.activeSkillList) do
-			for _, gem in ipairs(activeSkill.gemList) do
-				env.skillsUsed[gem.grantedEffect.name] = true
+			for _, skillEffect in ipairs(activeSkill.effectList) do
+				env.skillsUsed[skillEffect.grantedEffect.name] = true
 			end
 			if activeSkill.minion then
 				for	_, activeSkill in ipairs(activeSkill.minion.activeSkillList) do
-					env.skillsUsed[activeSkill.activeGem.grantedEffect.id] = true
+					env.skillsUsed[activeSkill.activeEffect.grantedEffect.id] = true
 				end
 			end
 		end

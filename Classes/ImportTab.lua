@@ -722,14 +722,14 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			self:ImportItem(socketedItem, nil, slotName .. " Abyssal Socket "..abyssalSocketId)
 			abyssalSocketId = abyssalSocketId + 1
 		else
-			local gem = { level = 20, quality = 0, enabled = true}
-			gem.nameSpec = socketedItem.typeLine:gsub(" Support","")
-			gem.support = socketedItem.support
+			local gemInstance = { level = 20, quality = 0, enabled = true}
+			gemInstance.nameSpec = socketedItem.typeLine:gsub(" Support","")
+			gemInstance.support = socketedItem.support
 			for _, property in pairs(socketedItem.properties) do
 				if property.name == "Level" then
-					gem.level = tonumber(property.values[1][1]:match("%d+"))
+					gemInstance.level = tonumber(property.values[1][1]:match("%d+"))
 				elseif property.name == "Quality" then
-					gem.quality = tonumber(property.values[1][1]:match("%d+"))
+					gemInstance.quality = tonumber(property.values[1][1]:match("%d+"))
 				end
 			end
 			local groupID = item.sockets[socketedItem.socket + 1].group
@@ -738,10 +738,10 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			end
 			local socketGroup = itemSocketGroupList[groupID]
 			if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support then
-				-- If the first gem is a support gem, put the first active gem before it
-				t_insert(socketGroup.gemList, 1, gem)
+				-- If the first gemInstance is a support gemInstance, put the first active gemInstance before it
+				t_insert(socketGroup.gemList, 1, gemInstance)
 			else
-				t_insert(socketGroup.gemList, gem)
+				t_insert(socketGroup.gemList, gemInstance)
 			end
 		end
 	end

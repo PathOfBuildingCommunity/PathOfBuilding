@@ -8,15 +8,6 @@ local skills, mod, flag, skill = ...
 
 skills["SupportAddedChaosDamage"] = {
 	name = "Added Chaos Damage",
-	gemTags = {
-		chaos = true,
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Chaos, Support",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -68,15 +59,6 @@ skills["SupportAddedChaosDamage"] = {
 }
 skills["SupportAddedLightningDamage"] = {
 	name = "Added Lightning Damage",
-	gemTags = {
-		lightning = true,
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Lightning, Support",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 1, 10, },
@@ -128,16 +110,6 @@ skills["SupportAddedLightningDamage"] = {
 }
 skills["SupportBlasphemy"] = {
 	name = "Blasphemy",
-	gemTags = {
-		intelligence = true,
-		support = true,
-		curse = true,
-		aura = true,
-	},
-	gemTagString = "Support, Curse, Aura",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 32, },
@@ -190,16 +162,6 @@ skills["SupportBlasphemy"] = {
 }
 skills["SupportCastOnStunned"] = {
 	name = "Cast when Stunned",
-	gemTags = {
-		intelligence = true,
-		support = true,
-		spell = true,
-		trigger = true,
-	},
-	gemTagString = "Support, Spell, Trigger",
-	gemStr = 0,
-	gemDex = 40,
-	gemInt = 60,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 36, },
@@ -252,16 +214,6 @@ skills["SupportCastOnStunned"] = {
 }
 skills["SupportCastWhileChannelling"] = {
 	name = "Cast while Channelling",
-	gemTags = {
-		intelligence = true,
-		support = true,
-		channelling = true,
-		spell = true,
-	},
-	gemTagString = "Support, Channelling, Spell",
-	gemStr = 0,
-	gemDex = 40,
-	gemInt = 60,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 58, 36, },
@@ -314,15 +266,6 @@ skills["SupportCastWhileChannelling"] = {
 }
 skills["SupportChanceToIgnite"] = {
 	name = "Chance to Ignite",
-	gemTags = {
-		fire = true,
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Fire, Support",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -373,15 +316,6 @@ skills["SupportChanceToIgnite"] = {
 }
 skills["SupportConcentratedEffect"] = {
 	name = "Concentrated Effect",
-	gemTags = {
-		intelligence = true,
-		support = true,
-		area = true,
-	},
-	gemTagString = "Support, AoE",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 11, 21, 53, },
@@ -433,15 +367,6 @@ skills["SupportConcentratedEffect"] = {
 }
 skills["SupportControlledDestruction"] = {
 	name = "Controlled Destruction",
-	gemTags = {
-		spell = true,
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Spell, Support",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 10, 1, 59, },
@@ -493,16 +418,6 @@ skills["SupportControlledDestruction"] = {
 }
 skills["SupportCurseOnHit"] = {
 	name = "Curse On Hit",
-	gemTags = {
-		curse = true,
-		trigger = true,
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Curse, Trigger, Support",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 1, 10, 32, },
@@ -554,14 +469,6 @@ skills["SupportCurseOnHit"] = {
 }
 skills["SupportElementalFocus"] = {
 	name = "Elemental Focus",
-	gemTags = {
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 10, 1, 29, },
@@ -617,18 +524,6 @@ skills["SupportElementalFocus"] = {
 }
 skills["SupportElementalProliferation"] = {
 	name = "Elemental Proliferation",
-	gemTags = {
-		cold = true,
-		fire = true,
-		lightning = true,
-		intelligence = true,
-		support = true,
-		area = true,
-	},
-	gemTagString = "Cold, Fire, Lightning, Support, AoE",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 10, 1, 20, },
@@ -684,15 +579,6 @@ skills["SupportElementalProliferation"] = {
 }
 skills["SupportAdditionalXP"] = {
 	name = "Enlighten",
-	gemTags = {
-		low_max_level = true,
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { },
@@ -723,15 +609,6 @@ skills["SupportAdditionalXP"] = {
 }
 skills["SupportFasterCast"] = {
 	name = "Faster Casting",
-	gemTags = {
-		intelligence = true,
-		support = true,
-		spell = true,
-	},
-	gemTagString = "Support, Spell",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 2, 39, },
@@ -782,15 +659,6 @@ skills["SupportFasterCast"] = {
 }
 skills["SupportIncreasedAreaOfEffect"] = {
 	name = "Increased Area of Effect",
-	gemTags = {
-		intelligence = true,
-		support = true,
-		area = true,
-	},
-	gemTagString = "Support, AoE",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 11, 21, 53, },
@@ -841,14 +709,6 @@ skills["SupportIncreasedAreaOfEffect"] = {
 }
 skills["SupportIncreasedCriticalDamage"] = {
 	name = "Increased Critical Damage",
-	gemTags = {
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -899,14 +759,6 @@ skills["SupportIncreasedCriticalDamage"] = {
 }
 skills["SupportIncreasedCriticalStrikes"] = {
 	name = "Increased Critical Strikes",
-	gemTags = {
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -958,15 +810,6 @@ skills["SupportIncreasedCriticalStrikes"] = {
 }
 skills["SupportOnslaughtOnSlayingShockedEnemy"] = {
 	name = "Innervate",
-	gemTags = {
-		lightning = true,
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Lightning, Support",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -1018,14 +861,6 @@ skills["SupportOnslaughtOnSlayingShockedEnemy"] = {
 }
 skills["SupportItemRarity"] = {
 	name = "Item Rarity",
-	gemTags = {
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 10, 1, 40, },
@@ -1075,15 +910,6 @@ skills["SupportItemRarity"] = {
 }
 skills["SupportLightningPenetration"] = {
 	name = "Lightning Penetration",
-	gemTags = {
-		lightning = true,
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Lightning, Support",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -1134,15 +960,6 @@ skills["SupportLightningPenetration"] = {
 }
 skills["SupportMinefield"] = {
 	name = "Minefield",
-	gemTags = {
-		intelligence = true,
-		support = true,
-		mine = true,
-	},
-	gemTagString = "Support, Mine",
-	gemStr = 0,
-	gemDex = 40,
-	gemInt = 60,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 41, },
@@ -1195,15 +1012,6 @@ skills["SupportMinefield"] = {
 }
 skills["SupportMinionDamage"] = {
 	name = "Minion Damage",
-	gemTags = {
-		intelligence = true,
-		support = true,
-		minion = true,
-	},
-	gemTagString = "Support, Minion",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 9, },
@@ -1254,15 +1062,6 @@ skills["SupportMinionDamage"] = {
 }
 skills["SupportMinionLife"] = {
 	name = "Minion Life",
-	gemTags = {
-		intelligence = true,
-		support = true,
-		minion = true,
-	},
-	gemTagString = "Support, Minion",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 9, },
@@ -1313,16 +1112,6 @@ skills["SupportMinionLife"] = {
 }
 skills["SupportMinionSpeed"] = {
 	name = "Minion Speed",
-	gemTags = {
-		movement = true,
-		intelligence = true,
-		support = true,
-		minion = true,
-	},
-	gemTagString = "Movement, Support, Minion",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 9, },
@@ -1375,15 +1164,6 @@ skills["SupportMinionSpeed"] = {
 }
 skills["SupportSummonElementalResistances"] = {
 	name = "Minion and Totem Elemental Resistance",
-	gemTags = {
-		intelligence = true,
-		support = true,
-		minion = true,
-	},
-	gemTagString = "Support, Minion",
-	gemStr = 40,
-	gemDex = 0,
-	gemInt = 60,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 9, 30, },
@@ -1439,15 +1219,6 @@ skills["SupportSummonElementalResistances"] = {
 }
 skills["SupportPhysicalToLightning"] = {
 	name = "Physical to Lightning",
-	gemTags = {
-		lightning = true,
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Lightning, Support",
-	gemStr = 40,
-	gemDex = 0,
-	gemInt = 60,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -1500,14 +1271,6 @@ skills["SupportPhysicalToLightning"] = {
 }
 skills["SupportPowerChargeOnCrit"] = {
 	name = "Power Charge On Critical",
-	gemTags = {
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Support",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 10, 1, },
@@ -1558,16 +1321,6 @@ skills["SupportPowerChargeOnCrit"] = {
 }
 skills["SupportRemoteMine"] = {
 	name = "Remote Mine",
-	gemTags = {
-		intelligence = true,
-		support = true,
-		mine = true,
-		duration = true,
-	},
-	gemTagString = "Support, Mine, Duration",
-	gemStr = 0,
-	gemDex = 40,
-	gemInt = 60,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 19, },
@@ -1628,15 +1381,6 @@ skills["SupportRemoteMine"] = {
 }
 skills["SupportMulticast"] = {
 	name = "Spell Echo",
-	gemTags = {
-		spell = true,
-		intelligence = true,
-		support = true,
-	},
-	gemTagString = "Spell, Support",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	support = true,
 	requireSkillTypes = { 26, },

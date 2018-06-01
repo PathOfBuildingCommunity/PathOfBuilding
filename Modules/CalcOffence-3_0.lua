@@ -456,7 +456,7 @@ function calcs.offence(env, actor)
 
 	-- Run skill setup function
 	do
-		local setupFunc = mainSkill.activeGem.grantedEffect.setupFunc
+		local setupFunc = mainSkill.activeEffect.grantedEffect.setupFunc
 		if setupFunc then
 			setupFunc(actor, output)
 		end
@@ -943,8 +943,11 @@ function calcs.offence(env, actor)
 						if skillFlags.projectile then
 							taken = taken + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
 						end
+						if skillFlags.trap or skillFlags.mine then
+							taken = taken + enemyDB:Sum("INC", nil, "TrapMineDamageTaken")
+						end
 						local effMult = (1 + taken / 100)
-						if not isElemental[damageType] or not modDB:Sum("FLAG", cfg, "IgnoreElementalResistances", "Ignore"..damageType.."Resistance") then
+						if not isElemental[damageType] or not (modDB:Sum("FLAG", cfg, "IgnoreElementalResistances", "Ignore"..damageType.."Resistance") or enemyDB:Sum("FLAG", nil, "SelfIgnore"..damageType.."Resistance")) then
 							effMult = effMult * (1 - (resist - pen) / 100)
 						end
 						min = min * effMult
@@ -1209,7 +1212,7 @@ function calcs.offence(env, actor)
 		skillTypes = skillCfg.skillTypes,
 		slotName = skillCfg.slotName,
 		flags = bor(ModFlag.Dot, skillData.dotIsSpell and ModFlag.Spell or 0, skillData.dotIsArea and ModFlag.Area or 0, skillData.dotIsProjectile and ModFlag.Projectile or 0),
-		keywordFlags = skillCfg.keywordFlags
+		keywordFlags = band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)),
 	}
 	mainSkill.dotCfg = dotCfg
 	output.TotalDot = 0
@@ -1735,7 +1738,7 @@ function calcs.offence(env, actor)
 					s_format("Ignite mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crit Damage" or "Average Damage")
 				}
 			end
-			local baseVal = calcAilmentDamage("Ignite", sourceHitDmg, sourceCritDmg) * 0.4
+			local baseVal = calcAilmentDamage("Ignite", sourceHitDmg, sourceCritDmg) * 0.5
 			if baseVal > 0 then
 				skillFlags.ignite = true
 				local effMult = 1
@@ -1764,7 +1767,7 @@ function calcs.offence(env, actor)
 					end
 				end
 				if breakdown then
-					t_insert(breakdown.IgniteDPS, "x 0.4 ^8(ignite deals 40% per second)")
+					t_insert(breakdown.IgniteDPS, "x 0.5 ^8(ignite deals 40% per second)")
 					t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
 					breakdown.multiChain(breakdown.IgniteDPS, {
 						label = "Ignite DPS:",

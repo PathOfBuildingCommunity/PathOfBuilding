@@ -835,7 +835,7 @@ function ItemClass:BuildModList()
 	for _, skill in ipairs(baseList:Sum("LIST", nil, "ExtraSkill")) do
 		if skill.name ~= "Unknown" then
 			t_insert(self.grantedSkills, {
-				name = skill.name,
+				skillId = skill.skillId,
 				level = skill.level,
 				noSupports = skill.noSupports,
 				source = self.modSource,

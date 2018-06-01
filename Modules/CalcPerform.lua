@@ -122,13 +122,13 @@ local function doActorAttribsPoolsConditions(env, actor)
 			elseif actor.mainSkill.skillFlags.spell then
 				condList["CastSpellRecently"] = true
 			end
-			if actor.mainSkill.skillFlags.movement then
+			if actor.mainSkill.skillTypes[SkillType.MovementSkill] then
 				condList["UsedMovementSkillRecently"] = true
 			end
 			if actor.mainSkill.skillFlags.minion then
 				condList["UsedMinionSkillRecently"] = true
 			end
-			if actor.mainSkill.skillFlags.vaal then
+			if actor.mainSkill.skillTypes[SkillType.Vaal] then
 				condList["UsedVaalSkillRecently"] = true
 			end
 		end
@@ -528,7 +528,7 @@ function calcs.perform(env)
 			env.player["reserved_"..pool..suffix] = env.player["reserved_"..pool..suffix] + cost
 			if breakdown then
 				t_insert(breakdown[pool.."Reserved"].reservations, {
-					skillName = activeSkill.activeGem.grantedEffect.name,
+					skillName = activeSkill.activeEffect.grantedEffect.name,
 					base = baseVal .. (activeSkill.skillTypes[SkillType.ManaCostPercent] and "%" or ""),
 					mult = mult ~= 1 and ("x "..mult),
 					more = more ~= 1 and ("x "..more),
@@ -585,7 +585,7 @@ function calcs.perform(env)
 								env.build.itemsTab:AddItemTooltip(tooltip, item, reqSource.sourceSlot)
 							end
 						elseif reqSource.source == "Gem" then
-							row.sourceName = s_format("%s%s ^7%d/%d", reqSource.sourceGem.color, reqSource.sourceGem.grantedEffect.name, reqSource.sourceGem.level, reqSource.sourceGem.quality)
+							row.sourceName = s_format("%s%s ^7%d/%d", reqSource.sourceGem.color, reqSource.sourceGem.nameSpec, reqSource.sourceGem.level, reqSource.sourceGem.quality)
 						end
 						t_insert(breakdown["Req"..attr].rowList, row)
 					end
@@ -772,10 +772,11 @@ function calcs.perform(env)
 	for dest, modDB in pairs({[curses] = modDB, [minionCurses] = env.minion and env.minion.modDB}) do
 		for _, value in ipairs(modDB:Sum("LIST", nil, "ExtraCurse")) do
 			local gemModList = common.New("ModList")
-			calcs.mergeGemMods(gemModList, {
+			local grantedEffect = env.data.skills[value.skillId]
+			calcs.mergeSkillInstanceMods(gemModList, {
+				grantedEffect = grantedEffect,
 				level = value.level,
 				quality = 0,
-				grantedEffect = env.data.gems[value.name],
 			})
 			local curseModList = { }
 			for _, mod in ipairs(gemModList) do
@@ -791,15 +792,15 @@ function calcs.perform(env)
 				if modDB:Sum("BASE", nil, "AvoidCurse") < 100 then
 					modDB.conditions["Cursed"] = true
 					modDB.multipliers["CurseOnSelf"] = (modDB.multipliers["CurseOnSelf"] or 0) + 1
-					modDB.conditions["AffectedBy"..value.name:gsub(" ","")] = true
-					local cfg = { skillName = value.name }
+					modDB.conditions["AffectedBy"..grantedEffect.name:gsub(" ","")] = true
+					local cfg = { skillName = grantedEffect.name }
 					local inc = modDB:Sum("INC", cfg, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
 					local more = modDB:Sum("MORE", cfg, "CurseEffectOnSelf")
 					modDB:ScaleAddList(curseModList, (1 + inc / 100) * more)
 				end
 			elseif not enemyDB:Sum("FLAG", nil, "Hexproof") or modDB:Sum("FLAG", nil, "CursesIgnoreHexproof") then
 				local curse = {
-					name = value.name,
+					name = grantedEffect.name,
 					fromPlayer = (dest == curses),
 					priority = 2,
 				}

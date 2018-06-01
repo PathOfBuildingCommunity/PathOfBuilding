@@ -30,6 +30,9 @@ local skills, mod, flag, skill = ...
 #skill SupportChanceToFlee
 #mods
 
+#skill SupportGemFrenzyPowerOnTrapTrigger
+#mods
+
 #skill SupportClusterTrap
 #mods
 
@@ -102,7 +105,6 @@ local skills, mod, flag, skill = ...
 #skill SupportTrap
 	addFlags = {
 		trap = true,
-		duration = true,
 	},
 #baseMod skill("trapCooldown", 4)
 #setMod base_skill_show_average_damage_instead_of_dps==skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanTrap })
