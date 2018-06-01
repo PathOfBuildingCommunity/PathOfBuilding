@@ -65,7 +65,7 @@
 	<File sha1="20b4fedd9c2382f7c0038363ce385b6d52429255" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="32da2a949a5fe0ab10d54078a96caff0dccb5f3f" name="Modules/CalcSections-2_6.lua" part="program"/>
 	<File sha1="38e0734e32aa9afb20c6d9ffd5a99685d3e8f787" name="Modules/CalcSections-3_0.lua" part="program"/>
-	<File sha1="a3e36fce53cf3d4b443691e17238482400b1dfd2" name="Modules/CalcSetup.lua" part="program"/>
+	<File sha1="15fb16c03a1b0ac680ae2368360f527469889925" name="Modules/CalcSetup.lua" part="program"/>
 	<File sha1="984013b89c3a09f627633d8bb4e0ec9780e62cef" name="Modules/CalcTools.lua" part="program"/>
 	<File sha1="43236539f9eaccb818fc0e2faf7ef035aa9ee427" name="Modules/Common.lua" part="program"/>
 	<File sha1="d828d6f694bff9371bfd1ab5419b711cb0d917c5" name="Modules/ConfigOptions.lua" part="program"/>

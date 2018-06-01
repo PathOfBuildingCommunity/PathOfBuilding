@@ -511,7 +511,7 @@ function calcs.initEnv(build, mode, override)
 			local group
 			for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
 				if socketGroup.source == grantedSkill.source and socketGroup.slot == grantedSkill.slotName then
-					if socketGroup.gemList[1] and socketGroup.gemList[1].nameSpec == grantedSkill.name then
+					if socketGroup.gemList[1] and socketGroup.gemList[1].skillId == grantedSkill.skillId then
 						group = socketGroup
 						markList[socketGroup] = true
 						break
