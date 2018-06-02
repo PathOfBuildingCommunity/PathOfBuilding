@@ -1,5 +1,35 @@
 local nk = { }
 
+local function codePointToUTF8(codePoint)
+	if codePoint <= 0x7F then
+		return string.char(codePoint)
+	elseif codePoint <= 0x07FF then
+		return string.char(0xC0 + bit.rshift(codePoint, 6), 0x80 + bit.band(codePoint, 0x3F))
+	elseif codePoint <= 0xFFFF then
+		return string.char(0xE0 + bit.rshift(codePoint, 12), 0x80 + bit.band(bit.rshift(codePoint, 6), 0x3F), 0x80 + bit.band(codePoint, 0x3f))
+	else
+		return "?"
+	end
+end
+local function convertUTF16to8(text)
+	local out = { }
+	local highSurr
+	for i = 1, #text - 1, 2 do
+		local codeUnit = text:byte(i) + text:byte(i+1) * 256
+		if codeUnit >= 0xD800 and codeUnit <= 0xDBFF then
+			highSurr = codeUnit - 0xD800
+		elseif codeUnit >= 0xDC00 and codeUnit <= 0xDFFF then
+			if highSurr then
+				table.insert(out, codePointToUTF8(highSurr * 1024 + codeUnit - 0xDC00 + 0x010000))
+				highSurr = nil
+			end
+		else
+			table.insert(out, codePointToUTF8(codeUnit))
+		end
+	end
+	return table.concat(out)
+end
+
 local statDescriptor
 local statDescriptors = { }
 function loadStatFile(fileName)
@@ -72,7 +102,10 @@ function loadStatFile(fileName)
 			end
 		end
 	end
-	for line in io.lines(fileName) do
+	local f = io.open(fileName, "rb")
+	local text = convertUTF16to8(f:read("*a"))
+	f:close()
+	for line in text:gmatch("[^\r\n]+") do
 		processLine(line)
 	end
 	print(fileName.. " loaded. ("..order.." stats)")

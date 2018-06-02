@@ -25,4 +25,5 @@ local itemBases = ...
 
 #subType Armour/Evasion/Energy Shield
 #baseMatch Metadata/Items/Armours/BodyArmours/BodyStrDexInt%d+
+#forceHide true
 #base Metadata/Items/Armours/BodyArmours/BodyDemigods1

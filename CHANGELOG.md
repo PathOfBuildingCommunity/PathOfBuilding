@@ -1,3 +1,11 @@
+### 1.4.93 - 2018/06/02
+ * Applied the 3.3 changes to:
+    * Item bases and modifiers, including corrupted implicits
+    * Skill enchantments
+    * Unique items
+ * Fire, Ice, and Lightning Traps no longer incorrectly show a cooldown
+ * Removed non-functional option for Charged Dash
+
 ### 1.4.92 - 2018/06/02
  * Added/updated all skill gems for 3.3
  * Aura/buff/curse skills can now be enabled/disabled in the Skills tab independantly of the skill gem itself

@@ -21,6 +21,10 @@ directiveTable.forceShow = function(state, args, out)
 	state.forceShow = (args == "true")
 end
 
+directiveTable.forceHide = function(state, args, out)
+	state.forceHide = (args == "true")
+end
+
 directiveTable.socketLimit = function(state, args, out)
 	state.socketLimit = tonumber(args)
 end
@@ -45,7 +49,7 @@ directiveTable.base = function(state, args, out)
 	if state.subType and #state.subType > 0 then
 		out:write('\tsubType = "', state.subType, '",\n')
 	end
-	if baseItemType.Flag0 and not baseTypeId:match("Talisman") and not state.forceShow then
+	if (baseItemType.Flag0 or state.forceHide) and not baseTypeId:match("Talisman") and not state.forceShow then
 		out:write('\thidden = true,\n')
 	end
 	if state.socketLimit then	

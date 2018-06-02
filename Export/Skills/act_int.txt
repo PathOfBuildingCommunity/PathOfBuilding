@@ -333,13 +333,13 @@ local skills, mod, flag, skill = ...
 #flags spell area
 	parts = {
 		{
-			name = "0 stages",
+			name = "No stages",
 		},
 		{
-			name = "4 stages",
+			name = "Half stages",
 		},
 		{
-			name = "8 stages",
+			name = "Maximum stages",
 		},
 		{
 			name = "Release"

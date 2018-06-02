@@ -1455,8 +1455,8 @@ end
 function ItemsTabClass:CorruptDisplayItem()
 	local controls = { } 
 	local implicitList = { }
-	for modId, mod in pairs(self.build.data.corruptedMods) do
-		if self.displayItem:GetModSpawnWeight(mod) > 0 then
+	for modId, mod in pairs(self.displayItem.affixes) do
+		if mod.type == "Corrupted" and self.displayItem:GetModSpawnWeight(mod) > 0 then
 			t_insert(implicitList, mod)
 		end
 	end

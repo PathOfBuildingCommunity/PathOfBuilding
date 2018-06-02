@@ -140,7 +140,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.0", "3.0", "{E58DF0B8-388
 		Data\3_0\Essence.lua = Data\3_0\Essence.lua
 		Data\3_0\Minions.lua = Data\3_0\Minions.lua
 		Data\3_0\Misc.lua = Data\3_0\Misc.lua
-		Data\3_0\ModCorrupted.lua = Data\3_0\ModCorrupted.lua
 		Data\3_0\ModFlask.lua = Data\3_0\ModFlask.lua
 		Data\3_0\ModItem.lua = Data\3_0\ModItem.lua
 		Data\3_0\ModJewel.lua = Data\3_0\ModJewel.lua
