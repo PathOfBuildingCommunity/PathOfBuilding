@@ -175,7 +175,6 @@ for _, targetVersion in ipairs(targetVersionList) do
 		Jewel = dataModule("ModJewel"),
 		JewelAbyss = targetVersion ~= "2_6" and dataModule("ModJewelAbyss") or { },
 	}
-	verData.corruptedMods = dataModule("ModCorrupted")
 	verData.masterMods = dataModule("ModMaster")
 	verData.enchantments = {
 		Helmet = dataModule("EnchantmentHelmet"),

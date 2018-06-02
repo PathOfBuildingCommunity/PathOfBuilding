@@ -299,10 +299,11 @@ function calcs.offence(env, actor)
 				breakdown.AreaOfEffectRadius = breakdown.area(baseRadius, output.AreaOfEffectMod, output.AreaOfEffectRadius)
 			end
 			if skillData.radiusSecondary then
+				output.AreaOfEffectModSecondary = calcLib.mod(modDB, skillCfg, "AreaOfEffect", "AreaOfEffectSecondary")
 				baseRadius = skillData.radiusSecondary + (skillData.radiusExtra or 0)
-				output.AreaOfEffectRadiusSecondary = m_floor(baseRadius * m_sqrt(output.AreaOfEffectMod))
+				output.AreaOfEffectRadiusSecondary = m_floor(baseRadius * m_sqrt(output.AreaOfEffectModSecondary))
 				if breakdown then
-					breakdown.AreaOfEffectRadiusSecondary = breakdown.area(baseRadius, output.AreaOfEffectMod, output.AreaOfEffectRadiusSecondary)
+					breakdown.AreaOfEffectRadiusSecondary = breakdown.area(baseRadius, output.AreaOfEffectModSecondary, output.AreaOfEffectRadiusSecondary)
 				end
 			end
 		end
@@ -326,13 +327,16 @@ function calcs.offence(env, actor)
 			})
 		end
 		output.ActiveTrapLimit = modDB:Sum("BASE", skillCfg, "ActiveTrapLimit")
-		output.TrapCooldown = (skillData.trapCooldown or skillData.cooldown or 4) / calcLib.mod(modDB, skillCfg, "CooldownRecovery")
-		if breakdown then
-			breakdown.TrapCooldown = {
-				s_format("%.2fs ^8(base)", skillData.trapCooldown or skillData.cooldown or 4),
-				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + modDB:Sum("INC", skillCfg, "CooldownRecovery") / 100),
-				s_format("= %.2fs", output.TrapCooldown)
-			}
+		local baseCooldown = skillData.trapCooldown or skillData.cooldown
+		if baseCooldown then
+			output.TrapCooldown = baseCooldown / calcLib.mod(modDB, skillCfg, "CooldownRecovery")
+			if breakdown then
+				breakdown.TrapCooldown = {
+					s_format("%.2fs ^8(base)", skillData.trapCooldown or skillData.cooldown or 4),
+					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + modDB:Sum("INC", skillCfg, "CooldownRecovery") / 100),
+					s_format("= %.2fs", output.TrapCooldown)
+				}
+			end
 		end
 		local areaMod = calcLib.mod(modDB, skillCfg, "TrapTriggerAreaOfEffect")
 		output.TrapTriggerRadius = 10 * m_sqrt(areaMod)

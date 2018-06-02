@@ -442,7 +442,7 @@ return {
 		{ modName = "TrapThrowingSpeed", cfg = "skill" }, 
 	}, },
 	{ label = "Active Trap Limit", flag = "trap", { format = "{0:output:ActiveTrapLimit}", { modName = "ActiveTrapLimit", cfg = "skill" }, }, },
-	{ label = "Trap Cooldown", flag = "trap", { format = "{2:output:TrapCooldown}s", 
+	{ label = "Trap Cooldown", haveOutput = "TrapCooldown", { format = "{2:output:TrapCooldown}s", 
 		{ breakdown = "TrapCooldown" }, 
 		{ modName = "CooldownRecovery", cfg = "skill" },
 	}, },

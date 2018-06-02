@@ -285,9 +285,12 @@ Primordial
 ]],[[
 Primordial Harmony
 Cobalt Jewel
+Variant: Pre 3.3.0
+Variant: Current
 Implicits: 0
 Golem Skills have (20-30)% increased Cooldown Recovery Speed
-Golems have (10-15)% increased Cooldown Recovery Speed
+{variant:1}Golems have (10-15)% increased Cooldown Recovery Speed
+{variant:2}Golems have (30-45)% increased Cooldown Recovery Speed
 (16-20)% increased Golem Damage for each Type of Golem you have Summoned
 Golems regenerate 2% of their Maximum Life per second
 Primordial
@@ -629,13 +632,16 @@ With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread T
 Rapid Expansion
 Crimson Jewel
 Variant: Pre 2.6.0
+Variant: Pre 3.3.0
 Variant: Current
-Limited to: 3
+Limited to: 2
 Radius: Medium
 (4-12)% increased Physical Damage
 {variant:1}With at least 40 Strength in Radius, Ground Slam has a 20% increased angle
 {variant:2}With at least 40 Strength in Radius, Ground Slam has a 35% increased angle
+{variant:3}With at least 40 Strength in Radius, Ground Slam has a 50% increased angle
 {variant:2}With at least 40 Strength in Radius, Ground Slam has a 25% chance to grant an Endurance Charge when you Stun an Enemy
+{variant:3}With at least 40 Strength in Radius, Ground Slam has a 35% chance to grant an Endurance Charge when you Stun an Enemy
 ]],[[
 Ring of Blades
 Viridian Jewel
@@ -758,12 +764,15 @@ With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Eff
 Winter's Bounty
 Cobalt Jewel
 Variant: Pre 2.6.0
+Variant: Pre 3.3.0
 Variant: Current
-Limited to: 2
+Limited to: 1
 Radius: Medium
 (5-15)% increased Cold Damage
 {variant:1}With at least 40 Intelligence in Radius, Cold Snap has a 25% chance to grant a Power Charge on Kill
 {variant:2}With at least 40 Intelligence in Radius, Cold Snap has a 50% chance to grant a Power Charge on Kill
+{variant:3}With at least 40 Intelligence in Radius, Cold Snap grants Power Charges instead of Frenzy Charges when Enemies die in it's Area
+{variant:3}With at least 40 Intelligence in Radius, Cold Snap Cooldown can be bypassed by Power Charges instead of Frenzy Charges
 ]],[[
 Winter Burial
 Crimson Jewel
@@ -785,6 +794,7 @@ Corrupted
 ]],[[
 Atziri's Reign
 Crimson Jewel
+Limited to: 2
 (15-20)% increased Vaal Skill Effect Duration
 Corrupted
 ]],[[

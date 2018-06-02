@@ -19,18 +19,20 @@ Adds (5-15) to (20-25) Fire Damage
 Dyadus
 Infernal Axe
 Variant: Pre 2.6.0
+Variant: Pre 3.3.0
 Variant: Current
 Requires Level 69, 158 Str, 76 Dex
 {variant:1}Adds (170-190) to (200-220) Fire Damage in Main Hand
-{variant:2}Adds (255-285) to (300-330) Fire Damage in Main Hand
+{variant:2,3}Adds (255-285) to (300-330) Fire Damage in Main Hand
 {variant:1}Adds (170-190) to (200-220) Cold Damage in Off Hand
-{variant:2}Adds (255-285) to (300-330) Cold Damage in Off Hand
+{variant:2,3}Adds (255-285) to (300-330) Cold Damage in Off Hand
 (10-15)% increased Attack Speed
 {variant:1}Enemies Chilled by you take 40% increased Burning Damage
 {variant:2}Enemies Chilled by you take 100% increased Burning Damage
+{variant:3}100% increased Damage with Ignites inflicted on Chilled Enemies
 25% Chance to Ignite when in Main Hand
 {variant:1}100% increased Chill Duration on Enemies when in Off Hand
-{variant:2}Chill Enemies for 1 second on Hit with this Weapon when in Off Hand
+{variant:2,3}Chill Enemies for 1 second on Hit with this Weapon when in Off Hand
 ]],[[
 The Gryphon
 Jade Hatchet

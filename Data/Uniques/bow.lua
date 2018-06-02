@@ -333,12 +333,15 @@ Gain 20% of Physical Damage as Extra Fire Damage
 ]],[[
 Xoph's Nurture
 Citadel Bow
+Variant: Pre 3.3.0
+Variant: Current
 League: Breach
 Requires Level 64, 185 Dex
 (250-300)% increased Physical Damage
 50% of Physical Damage Converted to Fire Damage
 10% chance to Ignite
-Ignites your Skills cause spread to other Enemies within a Radius of 12
+{variant:1}Ignites your Skills cause spread to other Enemies within a Radius of 12
+{variant:2}Ignites your Skills cause spread to other Enemies within a Radius of 15
 Recover (40-60) Life when you Ignite an Enemy
 ]],
 }

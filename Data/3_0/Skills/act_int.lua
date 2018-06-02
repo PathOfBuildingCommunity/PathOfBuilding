@@ -3308,13 +3308,13 @@ skills["ExpandingFireCone"] = {
 	skillTypes = { [2] = true, [10] = true, [18] = true, [33] = true, [58] = true, [11] = true, },
 	parts = {
 		{
-			name = "0 stages",
+			name = "No stages",
 		},
 		{
-			name = "4 stages",
+			name = "Half stages",
 		},
 		{
-			name = "8 stages",
+			name = "Maximum stages",
 		},
 		{
 			name = "Release"
