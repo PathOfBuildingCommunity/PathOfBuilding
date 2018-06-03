@@ -2000,7 +2000,6 @@ skills["SupportTrap"] = {
 		--"base_skill_is_trapped" = ?
 		--"disable_skill_if_melee_attack" = ?
 		skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanTrap }), --"base_skill_show_average_damage_instead_of_dps" = ?
-		skill("trapCooldown", 4), 
 	},
 	qualityMods = {
 		mod("TrapThrowingSpeed", "INC", 0.5), --"trap_throwing_speed_+%" = 0.5

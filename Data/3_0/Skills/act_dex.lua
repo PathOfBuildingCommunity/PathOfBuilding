@@ -2366,6 +2366,7 @@ skills["FlamethrowerTrap"] = {
 	baseFlags = {
 		spell = true,
 		trap = true,
+		area = true,
 		duration = true,
 	},
 	baseMods = {

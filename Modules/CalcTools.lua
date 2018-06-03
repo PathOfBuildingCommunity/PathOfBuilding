@@ -41,7 +41,7 @@ end
 function calcLib.validateGemLevel(gemInstance)
 	local grantedEffect = gemInstance.grantedEffect or gemInstance.gemData.grantedEffect
 	if not grantedEffect.levels[gemInstance.level] then
-		if gemInstance.gemData.defaultLevel then
+		if gemInstance.gemData and gemInstance.gemData.defaultLevel then
 			gemInstance.level = gemInstance.gemData.defaultLevel
 		else
 			-- Try limiting to the level range of the skill
