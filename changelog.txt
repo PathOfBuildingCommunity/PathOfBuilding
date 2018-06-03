@@ -1,3 +1,10 @@
+VERSION[1.4.94][2018/06/03]
+ * Fixed several issues with sorting gems by DPS
+ * Updated the game version selector
+ * Trap Support no longer incorrectly has a cooldown
+ * Flamethrower Trap is now correctly affected by Area Damage modifiers
+ * Fixed issue preventing certain item-granted skills from working correctly
+ * Fixed error that could occur when adding item-granted skills (such as Aspects)
 VERSION[1.4.93][2018/06/02]
  * Applied the 3.3 changes to:
     * Item bases and modifiers, including corrupted implicits

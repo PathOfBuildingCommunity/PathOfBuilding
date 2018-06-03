@@ -533,6 +533,7 @@ function calcs.initEnv(build, mode, override)
 				enabled = true,
 			}
 			activeGemInstance.level = grantedSkill.level
+			activeGemInstance.enableGlobal1 = true
 			wipeTable(group.gemList)
 			t_insert(group.gemList, activeGemInstance)
 			if grantedSkill.noSupports then
@@ -727,7 +728,7 @@ function calcs.initEnv(build, mode, override)
 				socketGroup.displayLabel = nil
 				for _, gemInstance in ipairs(socketGroup.gemList) do
 					local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
-					if grantedEffect and gemInstance.enabled then
+					if grantedEffect and not grantedEffect.support and gemInstance.enabled then
 						socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. grantedEffect.name
 					end
 				end

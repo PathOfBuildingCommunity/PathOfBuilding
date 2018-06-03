@@ -298,7 +298,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FlamethrowerTrap
-#flags spell trap duration
+#flags spell trap area duration
 #mods
 
 #skill FlickerStrike
