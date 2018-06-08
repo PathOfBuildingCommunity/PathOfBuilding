@@ -20,9 +20,11 @@ You have Onslaught while at maximum Endurance Charges
 ]],[[
 The Anticipation
 Ezomyte Tower Shield
+League: Breach
+Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
+Upgrade: Upgrades to unique{} using currency{Blessing of Uul-Netol}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Breach
 Requires Level 64, 159 Str
 Implicits: 1
 {variant:2}+(30-40) to maximum Life
@@ -34,9 +36,10 @@ Permanently Intimidate Enemies on Block
 ]],[[
 The Surrender
 Ezomyte Tower Shield
+League: Breach
+Source: Upgraded from unique{} using currency{Blessing of Uul-Netol}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Breach
 Requires Level 64, 159 Str
 Implicits: 1
 {variant:2}+(30-40) to maximum Life
@@ -97,7 +100,8 @@ Adds 250 to 300 Cold Damage to Counterattacks
 ]],[[
 Magna Eclipsis
 Pinnacle Tower Shield
-Requires Level: 70
+Source: Vendor recipe
+Requires Level 70
 +(20–30) to maximum Life 
 +2 to Level of Socketed Gems 
 Triggers Level 20 Elemental Aegis when Equipped 
@@ -107,10 +111,10 @@ Triggers Level 20 Elemental Aegis when Equipped
 ]],[[
 Redblade Banner
 Painted Tower Shield
+League: Warbands
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Warbands
 Requires Level 35, 87 Str
 Implicits: 1
 {variant:3}+(20-30) to maximum Life
@@ -141,10 +145,10 @@ Implicits: 1
 ]],[[
 Trolltimber Spire
 Cedar Tower Shield
+League: Tempest
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Tempest
 Requires Level 17, 46 Str
 Implicits: 1
 {variant:3}+(20-30) to maximum Life
@@ -172,6 +176,7 @@ Blood Magic
 [[
 Atziri's Mirror
 Golden Buckler
+Upgrade: Upgrades to unique{Atziri's Reflection} via prophecy{The Queen's Sacrifice}
 Variant: Pre 2.0.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
@@ -187,8 +192,22 @@ Implicits: 1
 {variant:3}20% additional Spell Block chance while Cursed
 Curse Reflection
 ]],[[
+Atziri's Reflection
+Golden Buckler
+Source: Upgraded from unique{Atziri's Mirror} via prophecy{The Queen's Sacrifice}
+Requires Level 68
+6% increased Movement Speed
++(40–60) to Intelligence
+(180–200)% increased Evasion Rating
++(180–200) to maximum Energy Shield
++(20–30)% to all Elemental Resistances
+Curse Reflection
+Unaffected by Curses
+(15–20)% increased Effect of your Curses
+]],[[
 Chalice of Horrors
 War Buckler
+Upgrade: Upgrades to unique{Thirst for Horrors} via prophecy{Mouth of Horrors}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
@@ -205,6 +224,7 @@ Implicits: 1
 ]],[[
 Thirst for Horrors
 War Buckler
+Source: Upgraded from unique{Chalice of Horrors} using prophecy{Mouth of Horrors}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
@@ -249,6 +269,7 @@ Adds (8-12) to (15-20) Physical Damage to Attacks
 ]],[[
 Kaltenhalt
 Painted Buckler
+Upgrade: Upgrades to unique{Kaltensoul} via prophecy{The Snuffed Flame}
 Variant: Pre 1.0.0
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
@@ -266,6 +287,7 @@ Implicits: 1
 ]],[[
 Kaltensoul
 Painted Buckler
+Source: Upgraded from unique{Kaltenhalt} using prophecy{The Snuffed Flame}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
@@ -282,10 +304,10 @@ Reflects (25-50) Cold Damage to Melee Attackers
 ]],[[
 Mutewind Pennant
 Enameled Buckler
+League: Warbands
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Warbands
 Requires Level 42, 103 Dex
 Implicits: 1
 {variant:3}6% increased Movement Speed
@@ -317,10 +339,10 @@ Reflects 1 to 1000 Physical Damage to Attackers on Block
 [[
 Brinerot Flag
 Tarnished Spirit Shield
+League: Warbands
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Warbands
 Requires Level 23, 60 Int
 Implicits: 2
 {variant:1,2}5% increased Spell Damage
@@ -337,6 +359,8 @@ Implicits: 2
 Esh's Mirror
 Thorium Spirit Shield
 League: Breach
+Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
+Upgrade: Upgrades to unique{Esh's Visage} using currency{Blessing of Esh}
 Requires Level 53, 128 Int
 +(20-30) to Intelligence
 +(40-70) to maximum Life
@@ -347,9 +371,10 @@ Shock Reflection
 ]],[[
 Esh's Visage
 Vaal Spirit Shield
+League: Breach
+Source: Upgraded from unique{Esh's Mirror} using currency{Blessing of Esh}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Breach
 Requires Level 62, 159 Int
 Implicits: 2
 {variant:1}5% increased Spell Damage
@@ -513,9 +538,9 @@ Requires Level 62, 85 Str, 85 Int
 ]],[[
 Broken Faith
 Archon Kite Shield
+League: Warbands
 Variant: Pre 2.6.0
 Variant: Current
-League: Warbands
 Requires Level 68, 85 Str, 85 Int
 +12% to all Elemental Resistances
 0.4% of Chaos Damage Leeched as Life
@@ -536,20 +561,6 @@ Triggers Level 20 Fire Aegis when Equipped
 (200–250)% increased Armour and Energy Shield 
 +(60–80) to maximum Life 
 Cannot be Ignited
-]],[[
-The Oak
-Plank Kite Shield
-Variant: Pre 2.6.0
-Variant: Current
-Requires Level 40
-+4% to all Elemental Resistances
-(80-120)% increased Armour and Energy Shield
-+(100-150) to maximum Life
-50% reduced Freeze Duration on You
-{variant:1}1% of Life Regenerated per Second
-{variant:2}3% of Life Regenerated per Second
-{variant:1}5% of Life Regenerated per Second while on Low Life
-{variant:2}3% of Life Regenerated per Second while on Low Life
 ]],[[
 Prism Guardian
 Archon Kite Shield
@@ -605,6 +616,7 @@ Cannot Block Attacks
 ]],[[
 Springleaf
 Plank Kite Shield
+Upgrade: Upgrades to unique{The Oak} via prophecy{Nature's Resilience}
 Variant: Pre 1.1.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
@@ -620,6 +632,21 @@ Implicits: 2
 {variant:1,2}6% of Life Regenerated per Second while on Low Life
 {variant:3}5% of Life Regenerated per Second while on Low Life
 {variant:4}3% of Life Regenerated per Second while on Low Life
+]],[[
+The Oak
+Plank Kite Shield
+Source: Upgraded from unique{Springleaf} using prophecy{Nature's Resilience}
+Variant: Pre 2.6.0
+Variant: Current
+Requires Level 40
++4% to all Elemental Resistances
+(80-120)% increased Armour and Energy Shield
++(100-150) to maximum Life
+50% reduced Freeze Duration on You
+{variant:1}1% of Life Regenerated per Second
+{variant:2}3% of Life Regenerated per Second
+{variant:1}5% of Life Regenerated per Second while on Low Life
+{variant:2}3% of Life Regenerated per Second while on Low Life
 ]],[[
 The Unshattered Will
 Archon Kite Shield
@@ -683,7 +710,8 @@ Grants level 20 Bear Trap Skill
 ]],[[
 Leper's Alms
 Mirrored Spiked Shield
-Requires Level: 66
+Source: Drops from unique{The Eradicator}
+Requires Level 66
 4% chance to Dodge Attacks 
 (130–150)% increased Evasion and Energy Shield 
 +(60–80) to maximum Life 

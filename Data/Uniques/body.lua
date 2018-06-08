@@ -5,19 +5,43 @@ return {
 [[
 Bramblejack
 Plate Vest
+Upgrade: Upgrades to unique{Wall of Brambles} via prophecy{The King and the Brambles}
 Adds 2 to 4 Physical Damage to Attacks
++(12-20) to maximum Life
+−2 Physical Damage taken from Attacks
+40% of Melee Physical Damage taken reflected to Attacker
+]],[[
+Wall of Brambles
+Plate Vest
+Source: Upgraded from unique{Bramblejack} using prophecy{The King and the Brambles}
+Requires Level 30
+Adds 2 to 4 Physical Damage to Attacks
++2000 to Armour
 +(12-20) to maximum Life
 −2 Physical Damage taken from Attacks
 40% of Melee Physical Damage taken reflected to Attacker
 ]],[[
 The Brass Dome
 Gladiator Plate
+Source: Drops from unique{Guardian of the Minotaur}
 Requires Level 65, 177 Str
 30% reduced Chance to Block Attacks and Spells
 (600-650)% increased Armour
 10% reduced Movement Speed
 50% increased Shock Duration on You
 Take no Extra Damage from Critical Strikes
+]],[[
+Craiceann's Carapace
+Golden Plate
+League: Bestiary
+Source: Drops from unique{Craiceann, First of the Deep}
+Requires Level 56
+Grants Level 20 Aspect of the Crab Skill
+(300–350)% increased Armour
++(100–120) to maximum Life
++(25–30)% to Fire and Cold Resistances
+Cannot be inflicted with Bleeding
++5 to Maximum number of Crab Barriers
 ]],[[
 Death's Oath
 Astral Plate
@@ -93,15 +117,6 @@ Chaos Damage does not bypass Energy Shield
 {variant:1}−10 Chaos Damage taken
 {variant:2}-(30-40) Chaos Damage taken
 {variant:2}25% reduced Chaos Damage Taken Over Time
-]],[[
-Wall of Brambles
-Plate Vest
-Requires Level 30
-Adds 2 to 4 Physical Damage to Attacks
-+2000 to Armour
-+(12-20) to maximum Life
-−2 Physical Damage taken from Attacks
-40% of Melee Physical Damage taken reflected to Attacker
 ]],
 -- Body: Evasion
 [[
@@ -120,6 +135,7 @@ Cannot be Ignited
 ]],[[
 Briskwrap
 Strapped Leather
+Upgrade: Upgrades to unique{Wildwrap} via prophecy{Last of the Wildmen}
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
@@ -132,6 +148,18 @@ Requires Level 9, 32 Dex
 (20-25)% increased Mana Recovery from Flasks
 {variant:1}5% increased Dexterity
 {variant:2,3}15% increased Dexterity
+]],[[
+Wildwrap
+Strapped Leather
+Source: Upgraded from unique{Briskwrap} via prophecy{Last of the Wildmen}
+Requires Level 57
+(5–8)% increased Attack Speed
++(600–700) to Evasion Rating
++(30–40)% to Cold Resistance
+5% increased Movement Speed
+(20–25)% increased Mana Recovery from Flasks
+15% increased Dexterity
+1% increased Damage per 15 Dexterity
 ]],[[
 Bronn's Lithe
 Cutthroat's Garb
@@ -161,6 +189,7 @@ Your Curses can apply to Hexproof Enemies
 ]],[[
 Foxshade
 Wild Leather
+Upgrade: Upgrades to unique{Fox's Fortune} via prophecy{Dark Instincts}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 25, 73 Dex
@@ -170,6 +199,18 @@ Adds 5 to 12 Physical Damage to Attacks
 {variant:2}You gain 500 Evasion Rating when on Full Life
 (50-70)% increased Evasion Rating
 10% increased Movement Speed
+]],[[
+Fox's Fortune
+Wild Leather
+Source: Upgraded from unique{Foxshade} via prophecy{Dark Instincts}
+Requires level 54
+Adds 5 to 12 Physical Damage to Attacks
++(20–30) to Dexterity
++1500 to Evasion Rating while on Full Life
++(400–500) to Evasion Rating
+(120–150)% increased Evasion Rating
+10% increased Movement Speed
+Enemies are Unlucky when Damaging you while you are on Full Life
 ]],[[
 Hyrri's Ire
 Zodiac Leather
@@ -191,6 +232,7 @@ Requires Level 65, 197 Dex
 ]],[[
 Kintsugi
 Exquisite Leather
+Source: prophecy{Deadly Rivalry V}
 Requires Level 62, 170 Dex
 (100-120)% increased Evasion Rating
 +(60-80) to maximum Life
@@ -215,9 +257,9 @@ Requires Level 59, 160 Dex
 ]],[[
 The Rat Cage
 Sharkskin Tunic
+League: Torment
 Variant: Pre 2.6.0
 Variant: Current
-League: Torment
 Requires Level 56, 152 Dex
 (100-120)% increased Evasion Rating
 +(160-200) to maximum Life
@@ -230,6 +272,8 @@ Requires Level 56, 152 Dex
 The Snowblind Grace
 Coronal Leather
 League: Breach
+Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
+Upgrade: Upgrades to unique{The Perfect Form} using currency{Blessing of Tul}
 Requires Level 49, 134 Dex
 +(30-40) to Dexterity
 (30-50)% increased Evasion Rating
@@ -241,6 +285,7 @@ Evasion Rating is increased by Uncapped Cold Resistance
 The Perfect Form
 Zodiac Leather
 League: Breach
+Source: Upgraded from unique{The Snowblind Grace} using currency{Blessing of Tul}
 Requires Level 65, 197 Dex
 (30-50)% increased Evasion Rating
 +(50-80) to maximum Life
@@ -252,6 +297,7 @@ Phase Acrobatics
 ]],[[
 Yriel's Fostering
 Exquisite Leather
+Source: Drops from The Pale Council
 Variant: Rhoa
 Variant: Snake
 Variant: Ursa
@@ -296,6 +342,7 @@ Reflects 15 Fire Damage to Melee Attackers
 ]],[[
 Cloak of Tawm'r Isley
 Savant's Robe
+Source: Level 8 Master
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 56, 152 Int
@@ -353,6 +400,18 @@ Socketed Curse Skills ignore Curse Limit
 (130–150)% increased Energy Shield 
 (25–33)% reduced Effect of your Curses
 ]],[[
+Fenumus' Shroud
+Widowsilk Robe
+League: Bestiary
+Source: Drops from unique{Fenumus, First of the Night}
+Requires Level 65
++(30–40) to Intelligence
+(120–140)% increased Energy Shield
+(80–100) Energy Shield Regenerated per second
+Enemies affected by your Spider's Webs deal 10% reduced Damage
+Enemies affected by your Spider's Webs have -10% to All Resistances
+(50–70)% increased Aspect of the Spider Area of Effect
+]],[[
 Infernal Mantle
 Widowsilk Robe
 Variant: {2_6}Pre 3.0.0
@@ -397,6 +456,8 @@ Chaos Damage does not bypass Energy Shield
 Skin of the Loyal
 Simple Robe
 League: Breach
+Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
+Upgrade: Upgrades to unique{Skin of the Lords} using currency{Blessing of Chayula}
 Implicits: 0
 Sockets cannot be modified
 +1 to Level of Socketed Gems
@@ -405,6 +466,7 @@ Sockets cannot be modified
 Skin of the Lords
 Simple Robe
 League: Breach
+Source: Upgraded from unique{Skin of the Loyal} using currency{Blessing of Chayula}
 Variant: Acrobatics
 Variant: Ancestral Bond
 Variant: Arrow Dancing
@@ -567,6 +629,18 @@ You gain an Endurance Charge on Kill
 {variant:1}You gain Onslaught for 1 second per Endurance Charge when Hit
 {variant:2}You gain Onslaught for 2 second per Endurance Charge when Hit
 ]],[[
+Farrul's Fur
+Triumphant Lamellar
+League: Bestiary
+Source: Drops from unique{Farrul, First of the Plains}
+Requires Level 69
+(100–150)% increased Armour and Evasion
++(90–100) to maximum Life
+Aspect of the Cat Reserves no Mana
++2 seconds to Cat's Stealth Duration
+Gain up to your maximum number of Frenzy and Power Charges when you gain Cat's Stealth
+You have Phasing while you have Cat's Stealth
+]],[[
 Gruthkul's Pelt
 Wyrmscale Doublet
 Requires Level 38, 57 Str, 57 Dex
@@ -592,6 +666,7 @@ Adds 1 to (20-30) Lightning Damage to Attacks
 ]],[[
 Viper's Scales
 Full Scale Armour
+Source: Drops in The Lord's Labyrinth
 Requires Level 28, 43 Str, 43 Dex
 (80-100)% increased Armour and Evasion
 +(30-40) to maximum Life
@@ -620,6 +695,18 @@ Gain an Endurance Charge when you take a Critical Strike
 {variant:4}2% of Life Regenerated per Second if you've been Hit Recently
 Share Endurance Charges with nearby party members
 ]],[[
+Chains of Command
+Saintly Chainmail
+Requires Level 70, 99 Str, 115 Int
+(150-190)% increased Armour and Energy Shield
++(60-90) to maximum Life
+Animated Guardian deals 5% increased Damage per Animated Weapon
+Animated Minions' Melee Attacks deal Splash Damage to surrounding targets
+Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets
+Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
+10% chance to Trigger Level 20 Animate Guardian's Weapon when Animated Weapon Kills an Enemy
+You cannot have non-Animated Minions
+]],[[
 Geofri's Sanctuary
 Elegant Ringmail
 Variant: Pre 2.6.0
@@ -637,6 +724,7 @@ Zealot's Oath
 ]],[[
 Icetomb
 Latticed Ringmail
+Upgrade: Upgrades to unique{Crystal Vault} via prophecy{End of the Light}
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 39, 59 Str, 59 Int
@@ -648,6 +736,20 @@ Requires Level 39, 59 Str, 59 Int
 +(50-75)% to Cold Resistance
 Cannot be Chilled
 150% increased Chill Duration on Enemies
+]],[[
+Crystal Vault
+Latticed Ringmail
+Source: Upgraded from unique{Icetomb} via prophecy{End of the Light}
+Requires Level 49
++(30–40) to Strength
++(30–40) to Intelligence
+(140–160)% increased Armour and Energy Shield
++(50–75)% to Cold Resistance
+Cannot be Chilled
+Cannot be Frozen
+20% of Physical Damage from Hits taken as Cold Damage
+30% of Fire Damage from Hits taken as Cold Damage
+(15–20)% increased Effect of Chill
 ]],[[
 Incandescent Heart
 Saintly Chainmail
@@ -692,6 +794,21 @@ Requires Level 47, 69 Str, 69 Int
 {variant:2}50% chance on Block to create Desecrated Ground
 {variant:3,4}100% chance on Block to create Desecrated Ground
 ]],[[
+Loreweave
+Elegant Ringmail
+Source: Vendor Recipe
+Requires Level 64
+Has 6 Sockets
+Adds (4–10) to (14–36) Physical Damage to Attacks
++(8–24) to all Attributes
+(20–60)% increased Global Critical Strike Chance
++(15–50) to maximum Energy Shield
++(20–60) to maximum Life
++(20–50) to maximum Mana
+(6–30)% increased Rarity of Items found
+(15–50)% increased Elemental Damage
+Your Maximum Resistances are (76–80)%
+]],[[
 Voll's Protector
 Holy Chainmail
 Requires Level 35, 53 Str, 53 Int
@@ -703,7 +820,7 @@ Gain a Power Charge for each Enemy you hit with a Critical Strike
 [[
 Bloodbond
 Bone Armour
-Requires Level: 35
+Requires Level 35
 Grants Level 15 Blood Offering Skill 
 (100–120)% increased Evasion and Energy Shield 
 (15–25)% increased maximum Life 
@@ -751,7 +868,7 @@ Socketed Gems are Supported by Level 10 Lesser Poison
 ]],[[
 Inpulsa's Broken Heart
 Sadist Garb
-Requires Level: 68
+Requires Level 68
 +(60–80) to maximum Life 
 (20–50)% increased Damage if you have Shocked an Enemy Recently 
 (25–40)% increased Effect of Shock 
@@ -774,11 +891,24 @@ Requires Level 71, 88 Dex, 122 Int
 {variant:1}(15-20) Life Regenerated per second per Endurance Charge
 {variant:2}(20-30) Life Regenerated per second per Endurance Charge
 ]],[[
+Saqawal's Nest
+Blood Raiment
+League: Bestiary
+Source: Drops from unique{Saqawal, First of the Sky}
+Requires Level 65
++(25–75) to all Attributes
++(30–40)% to Lightning Resistance
+(6–10)% reduced Mana Reserved
+100% increased Aspect of the Avian Buff Effect
+Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies
++(120–150) to Evasion Rating and Energy Shield
+]],[[
 Shroud of the Lightless
 Carnal Armour
+League: Abyss
+Source: Drops from Abyssal Liches
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
-League: Abyss
 Requires Level: 71
 +(20–25) to maximum Mana 
 {variant:1}Has 1 Abyssal Socket
@@ -796,7 +926,7 @@ Sadist Garb
 Requires Level 68, 103 Dex, 109 Int
 (140-170)% increased Evasion and Energy Shield
 +(60-90) to maximum Life
-(20-30)% increased Cooldown Recovery Speed for throwing Traps
+(10-15)% increased Cooldown Recovery Speed for throwing Traps
 15% chance to gain a Frenzy Charge when your Trap is triggered by an Enemy
 30% chance to gain Phasing for 4 seconds when your Trap is triggered by an Enemy
 Recover 100 Life when your Trap is triggered by an Enemy
@@ -821,6 +951,7 @@ Requires Level 52, 76 Dex, 76 Int
 [[
 Atziri's Splendour
 Sacrificial Garb
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Variant: Pre 3.0.0 (Armour)
 Variant: Pre 3.0.0 (Armour/Evasion)
 Variant: Pre 3.0.0 (Evasion)

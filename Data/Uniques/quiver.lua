@@ -21,6 +21,7 @@ Curses on Slain Enemies are transferred to a nearby Enemy
 ]],[[
 Blackgleam
 Fire Arrow Quiver
+Upgrade: Upgrades to unique{The Signal Fire} via prophecy{Fire and Brimstone}
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 22
@@ -32,8 +33,31 @@ Adds 4 to 8 Fire Damage to Attacks with Bows
 {variant:2}50% of Physical Damage Converted to Fire Damage
 Adds 5 to 10 Fire Damage to Attacks with Bows
 ]],[[
+The Signal Fire
+Fire Arrow Quiver
+Source: Upgraded from unique{Blackgleam} using prophecy{Fire and Brimstone}
+Requires Level 24
+Adds 4 to 8 Fire Damage to Attacks with Bows
+10% increased Attack Speed
++(80-100) to Evasion Rating
++(10-30) to maximum Mana
+Gain (25-35)% of Physical Damage as Extra Fire Damage
+50% of Physical Damage Converted to Fire Damage
+Adds 5 to 10 Fire Damage to Attacks with Bows
+]],[[
+Craghead
+Serrated Arrow Quiver
+Upgrade: Upgrades to unique{Cragfall} via prophecy{Heavy Blows}
+Requires Level 5
+Adds 1 to 4 Physical Damage to Attacks with Bows
+(20-25)% reduced Enemy Stun Threshold
+25% reduced Projectile Speed
+(60-80)% increased Stun Duration on Enemies
+Adds 6 to 10 Physical Damage to Attacks with Bows
+]],[[
 Cragfall
 Serrated Arrow Quiver
+Source: Upgraded from unique{Craghead} using prophecy{Heavy Blows}
 Requires Level 5
 Adds 1 to 4 Physical Damage to Attacks with Bows
 (20-25)% reduced Enemy Stun Threshold
@@ -41,15 +65,6 @@ Adds 1 to 4 Physical Damage to Attacks with Bows
 (60-80)% increased Stun Duration on Enemies
 Adds 6 to 10 Physical Damage to Attacks with Bows
 50% chance to double Stun Duration
-]],[[
-Craghead
-Serrated Arrow Quiver
-Requires Level 5
-Adds 1 to 4 Physical Damage to Attacks with Bows
-(20-25)% reduced Enemy Stun Threshold
-25% reduced Projectile Speed
-(60-80)% increased Stun Duration on Enemies
-Adds 6 to 10 Physical Damage to Attacks with Bows
 ]],[[
 Drillneck
 Penetrating Arrow Quiver
@@ -79,6 +94,7 @@ Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
 ]],[[
 Hyrri's Bite
 Sharktooth Arrow Quiver
+Upgrade: Upgrades to unique{Hyrri's Demise} via prophecy{A Dishonourable Death}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 10
@@ -90,6 +106,19 @@ Requires Level 10
 (7-10)% increased Attack Speed
 +(2-3) Life gained for each Enemy hit by your Attacks
 10% increased Area of Effect of Area Skills
+]],[[
+Hyrri's Demise
+Sharktooth Arrow Quiver
+Source: Upgraded from unique{Hyrri's Bite} via prophecy{A Dishonourable Death}
+Requires Level 45
++(3–4) Life gained for each Enemy hit by your Attacks
++(15–30) to all Attributes
+(7–10)% increased Attack Speed
++(2–3) Life gained for each Enemy hit by your Attacks
+10% increased Area of Effect
+Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity
+Adds 1 to 2 Fire Damage to Attacks per 10 Strength
+Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
 ]],[[
 Maloney's Nightfall
 Blunt Arrow Quiver
@@ -124,6 +153,7 @@ Adds 6 to 12 Physical Damage to Attacks with Bows
 Rigwald's Quills
 Two-Point Arrow Quiver
 League: Talisman Standard, Talisman Hardcore
+Source: Drops from unique{Rigwald, The Wolven King} (Level 70+)
 Requires Level 56
 (20-30)% increased Accuracy Rating
 −10% to Fire Resistance
@@ -143,17 +173,6 @@ Requires Level 45
 +(20-40)% to Lightning Resistance
 20% chance to Avoid being Stunned
 1% increased Lightning Damage per 10 Intelligence
-]],[[
-The Signal Fire
-Fire Arrow Quiver
-Requires Level 24
-Adds 4 to 8 Fire Damage to Attacks with Bows
-10% increased Attack Speed
-+(80-100) to Evasion Rating
-+(10-30) to maximum Mana
-Gain (25-35)% of Physical Damage as Extra Fire Damage
-50% of Physical Damage Converted to Fire Damage
-Adds 5 to 10 Fire Damage to Attacks with Bows
 ]],[[
 Skirmish
 Two-Point Arrow Quiver
@@ -178,5 +197,20 @@ Adds (13-18) to (26-32) Chaos Damage to Attacks
 40% reduced Energy Shield Recharge Rate
 {variant:1}150% faster start of Energy Shield Recharge
 {variant:2}80% faster start of Energy Shield Recharge
+]],[[
+Voidfletcher
+Penetrating Arrow Quiver
+Source: Drops from unique{The Elder} (Uber)
+Requires Level 68
+Arrows Pierce an additional Target
+Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows
+Adds (30–40) to (80–100) Cold Damage to Attacks
++(80–120) to maximum Energy Shield
++(20–30)% to Cold Resistance
++(20–40) Mana gained on Kill
+30% increased Projectile Speed
+5 Maximum Void Charges
+Gain a Void Charge every second
+Elder Item
 ]],
 }

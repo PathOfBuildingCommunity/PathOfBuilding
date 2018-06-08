@@ -1469,29 +1469,54 @@ function ItemsTabClass:CorruptDisplayItem()
 			return a.level < b.level
 		end
 	end)
+	local function buildList(control, other)
+		local selfMod = control.selIndex and control.selIndex > 1 and control.list[control.selIndex].mod
+		local otherMod = other.selIndex and other.selIndex > 1 and other.list[other.selIndex].mod
+		wipeTable(control.list)
+		t_insert(control.list, { label = "None" })
+		for _, mod in ipairs(implicitList) do
+			if not otherMod or mod.group ~= otherMod.group then
+				t_insert(control.list, { label = table.concat(mod, "/"), mod = mod })
+			end
+		end
+		control:SelByValue(selfMod, "mod")
+	end
 	local function corruptItem()
 		local item = common.New("Item", self.build.targetVersion, self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
 		item.corrupted = true
-		if controls.implicit.selIndex > 1 then
+		local newImplicit = { }
+		for _, control in ipairs{controls.implicit, controls.implicit2} do
+			if control.selIndex > 1 then
+				local mod = control.list[control.selIndex].mod
+				for _, modLine in ipairs(mod) do
+					t_insert(newImplicit, { line = modLine })
+				end
+			end
+		end
+		if #newImplicit > 0 then
 			for i = 1, item.implicitLines do 
 				t_remove(item.modLines, 1)
 			end
-			local mod = implicitList[controls.implicit.selIndex - 1]
-			for _, modLine in ipairs(mod) do
-				t_insert(item.modLines, 1, { line = modLine })
+			for i, implicit in ipairs(newImplicit) do
+				t_insert(item.modLines, i, implicit)
 			end
-			item.implicitLines = #mod
+			item.implicitLines = #newImplicit
 		end
 		item:BuildAndParseRaw()
 		return item
 	end
-	controls.implicitLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 65, 20, 0, 16, "^7Implicit:")
-	controls.implicit = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 70, 20, 450, 18, { "None" })
-	for _, mod in ipairs(implicitList) do
-		t_insert(controls.implicit.list, table.concat(mod, "/"))
-	end
-	controls.save = common.New("ButtonControl", nil, -45, 50, 80, 20, "Corrupt", function()
+	controls.implicitLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 20, 0, 16, "^7Implicit #1:")
+	controls.implicit = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 20, 440, 18, nil, function()
+		buildList(controls.implicit2, controls.implicit)
+	end)
+	controls.implicit2Label = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 40, 0, 16, "^7Implicit #2:")
+	controls.implicit2 = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 40, 440, 18, nil, function()
+		buildList(controls.implicit, controls.implicit2)
+	end)
+	buildList(controls.implicit, controls.implicit2)
+	buildList(controls.implicit2, controls.implicit)
+	controls.save = common.New("ButtonControl", nil, -45, 70, 80, 20, "Corrupt", function()
 		self:SetDisplayItem(corruptItem())
 		main:ClosePopup()
 	end)
@@ -1499,10 +1524,10 @@ function ItemsTabClass:CorruptDisplayItem()
 		tooltip:Clear()
 		self:AddItemTooltip(tooltip, corruptItem(), nil, true)
 	end	
-	controls.close = common.New("ButtonControl", nil, 45, 50, 80, 20, "Cancel", function()
+	controls.close = common.New("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(540, 80, "Corrupt Item", controls)
+	main:OpenPopup(540, 100, "Corrupt Item", controls)
 end
 
 -- Opens the custom modifier popup
@@ -1641,6 +1666,13 @@ function ItemsTabClass:AddItemSetTooltip(tooltip, itemSet)
 	end
 end
 
+function ItemsTabClass:FormatItemSource(text)
+	return text:gsub("unique{([^}]+)}",colorCodes.UNIQUE.."%1"..colorCodes.SOURCE)
+			   :gsub("normal{([^}]+)}",colorCodes.NORMAL.."%1"..colorCodes.SOURCE)
+			   :gsub("currency{([^}]+)}",colorCodes.CURRENCY.."%1"..colorCodes.SOURCE)
+			   :gsub("prophecy{([^}]+)}",colorCodes.PROPHECY.."%1"..colorCodes.SOURCE)
+end
+
 function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	-- Item name
 	local rarityCode = colorCodes[item.rarity]
@@ -1674,6 +1706,14 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		end
 		if item.unreleased then
 			tooltip:AddLine(16, "^1Not yet available")
+		end
+		if item.source then
+			tooltip:AddLine(16, colorCodes.SOURCE.."Source: "..self:FormatItemSource(item.source))
+		end
+		if item.upgradePaths then
+			for _, path in ipairs(item.upgradePaths) do
+				tooltip:AddLine(16, colorCodes.SOURCE..self:FormatItemSource(path))
+			end
 		end
 		tooltip:AddSeparator(10)
 	end

@@ -5,6 +5,7 @@ return {
 [[
 Dreadarc
 Cleaver
+Upgrade: Upgrades to unique{Dreadsurge} via prophecy{Burning Dread}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 16, 48 Str
@@ -15,6 +16,17 @@ Adds (5-15) to (20-25) Fire Damage
 +(15-25)% to Fire Resistance
 {variant:1}Curse Enemies with Flammability on Hit
 {variant:2}Curse Enemies with level 10 Flammability on Hit
+]],[[
+Dreadsurge
+Cleaver
+Source: Upgraded from unique{Dreadarc} via prophecy{Burning Dread}
+Requires Level 60
+Adds (5-15) to (20-25) Physical Damage
+Adds (223–250) to (264–280) Fire Damage
+5% increased Movement Speed
+(7–10)% increased Attack Speed
++(15–25)% to Fire Resistance
+Hits ignore Enemy Monster Fire Resistance while you are Ignited
 ]],[[
 Dyadus
 Infernal Axe
@@ -34,8 +46,22 @@ Requires Level 69, 158 Str, 76 Dex
 {variant:1}100% increased Chill Duration on Enemies when in Off Hand
 {variant:2,3}Chill Enemies for 1 second on Hit with this Weapon when in Off Hand
 ]],[[
+The Screaming Eagle
+Jade Hatchet
+Upgrade: Upgrades to unique{The Gryphon} via prophecy{The Apex Predator}
+Variant: Pre 2.0.0
+Variant: Current
+Requires Level 6, 21 Str
+{variant:1}Adds (8-12) to (18-22) Physical Damage
+{variant:2}Adds (10-15) to (25-30) Physical Damage
++(10-15) to maximum Life
++(5-7) Life gained on Kill
+10% increased Movement Speed
+Socketed Gems are supported by level 2 Chance to Flee
+]],[[
 The Gryphon
 Jade Hatchet
+Source: Upgraded from unique{The Gryphon} via prophecy{The Apex Predator}
 Requires Level 32, 21 Str
 Socketed Gems are supported by level 2 Chance to Flee
 (170-190)% increased Physical Damage
@@ -83,9 +109,10 @@ Cannot be Chilled while you have Onslaught
 ]],[[
 Rigwald's Savagery
 Royal Axe
+League: Talisman Standard, Talisman Hardcore
+Source: Drops from unique{Rigwald, the Wolven King} (Level 75+)
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Talisman Standard, Talisman Hardcore
 Requires Level 67, 167 Str, 57 Dex
 Adds (50-70) to (135-165) Physical Damage
 40% increased Physical Weapon Damage while Dual Wielding
@@ -93,18 +120,6 @@ Adds (50-70) to (135-165) Physical Damage
 35% increased Attack Speed with Swords
 {variant:1}Causes Bleeding on Hit
 {variant:2}25% chance to cause Bleeding on Hit
-]],[[
-The Screaming Eagle
-Jade Hatchet
-Variant: Pre 2.0.0
-Variant: Current
-Requires Level 6, 21 Str
-{variant:1}Adds (8-12) to (18-22) Physical Damage
-{variant:2}Adds (10-15) to (25-30) Physical Damage
-+(10-15) to maximum Life
-+(5-7) Life gained on Kill
-10% increased Movement Speed
-Socketed Gems are supported by level 2 Chance to Flee
 ]],[[
 Soul Taker
 Siege Axe
@@ -123,6 +138,7 @@ Your Physical Damage can Chill
 [[
 Atziri's Disfavour
 Vaal Axe
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 75, 158 Str, 76 Dex
@@ -146,16 +162,6 @@ Requires Level 45, 99 Str, 57 Dex
 50% increased Mana Cost of Skills
 {variant:1}Causes Bleeding on Hit
 {variant:2}50% chance to cause Bleeding on Hit
-]],[[
-The Cauteriser
-Woodsplitter
-Requires Level 40, 36 Str, 17 Dex
-+1 to Level of Socketed Strength Gems
-(80-100)% increased Physical Damage
-Adds (35-45) to (80-90) Physical Damage
-+(15-30) to Strength
-Gain 70% of Physical Damage as Extra Fire Damage
-Culling Strike
 ]],[[
 Debeon's Dirge
 Despot Axe
@@ -193,6 +199,7 @@ Culling Strike
 ]],[[
 Kingmaker
 Despot Axe
+Source: Vendor recipe
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 66, 140 Str, 86 Dex
@@ -217,11 +224,23 @@ Enemies you hit are destroyed on Kill
 ]],[[
 Limbsplit
 Woodsplitter
+Upgrade: Upgrades to unique{The Cauteriser} via prophecy{Severed Limbs}
 Requires Level 13, 36 Str, 17 Dex
 +1 to Level of Socketed Strength Gems
 (80-100)% increased Physical Damage
 Adds 5 to 10 Physical Damage
 +(15-30) to Strength
+Culling Strike
+]],[[
+The Cauteriser
+Woodsplitter
+Source: Upgraded from unique{Limbsplit} using prophecy{Severed Limbs}
+Requires Level 40, 36 Str, 17 Dex
++1 to Level of Socketed Strength Gems
+(80-100)% increased Physical Damage
+Adds (35-45) to (80-90) Physical Damage
++(15-30) to Strength
+Gain 70% of Physical Damage as Extra Fire Damage
 Culling Strike
 ]],[[
 Ngamahu's Flame
@@ -245,9 +264,11 @@ Hits can't be Evaded
 ]],[[
 Uul-Netol's Kiss
 Labrys
+League: Breach
+Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
+Upgrade: Upgrades to unique{Uul-Netol's Embrace} using currency{Blessing of Uul-Netol}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Breach
 Requires Level 49, 122 Str, 53 Dex
 (140-170)% increased Physical Damage
 15% reduced Attack Speed
@@ -257,9 +278,10 @@ Requires Level 49, 122 Str, 53 Dex
 ]],[[
 Uul-Netol's Embrace
 Vaal Axe
+League: Breach
+Source: Upgraded from unique{Uul-Netol's Kiss} using currency{Blessing of Uul-Netol}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Breach
 Requires Level 64, 158 Str, 76 Dex
 (280-320)% increased Physical Damage
 (30-25)% reduced Attack Speed

@@ -27,24 +27,28 @@ Half of your Strength is added to your Minions
 +1 to maximum number of Zombies per 300 Strength
 With 1000 or more Strength 2% of Damage dealt by your Zombies is Leeched to you as Life
 ]],[[
+Ezomyte Peak
+Iron Hat
+Upgrade: Upgrades to unique{Ezomyte Hold} via prophecy{The Bloody Flowers Redux}
+20% increased Physical Damage
++(15-25) to Armour
++(25-50) to maximum Life
+Cannot Evade Enemy Attacks
+]],[[
 Ezomyte Hold
 Iron Hat
+Source: Upgraded from unique{Ezomyte Peak} using prophecy{The Bloody Flowers Redux}
 20% increased Physical Damage
 +(15-25) to Armour
 +(25-50) to maximum Life
 Cannot Evade Enemy Attacks
 Cannot be Stunned
 ]],[[
-Ezomyte Peak
-Iron Hat
-20% increased Physical Damage
-+(15-25) to Armour
-+(25-50) to maximum Life
-Cannot Evade Enemy Attacks
-]],[[
 The Formless Flame
 Siege Helmet
 League: Breach
+Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
+Upgrade: Upgrades to unique{The Formless Inferno} using currency{Blessing of Xoph}
 Requires Level 48, 101 Str
 +(100-120) to Armour
 +(40-50) to maximum Life
@@ -54,6 +58,7 @@ Armour is increased by Uncapped Fire Resistance
 The Formless Inferno
 Royal Burgonet
 League: Breach
+Source: Upgraded from unique{The Formless Flame} using currency{Blessing of Xoph}
 Requires Level 65, 148 Str
 (80-120)% increased Armour
 +(40-50) to maximum Life
@@ -109,6 +114,7 @@ Reflects 4 Physical Damage to Melee Attackers
 ]],[[
 Heatshiver
 Leather Hood
+Upgrade: Upgrades to unique{Frostferno} via prophecy{A Vision of Ice and Fire}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 20, 46 Dex
@@ -123,8 +129,20 @@ Requires Level 20, 46 Dex
 {variant:1}−(20-10)% to Cold Resistance
 {variant:2}+(20-30)% to Cold Resistance
 ]],[[
+Frostferno
+Leather Hood
+Source: Upgraded from unique{Heatshiver} via prophecy{A Vision of Ice and Fire}
+Requires Level 60
++2 to Level of Socketed Fire Gems
++2 to Level of Socketed Cold Gems
+Socketed Gems are Supported by Level 30 Cold to Fire
+(450–500)% increased Evasion Rating
+60% increased Mana Regeneration Rate
++(20–30)% to Fire and Cold Resistances
+]],[[
 Obscurantis 
 Lion Pelt
+Source: Drops from unique{Guardian of the Chimera}
 Requires Level 70, 150 Dex
 +(300-500) to Accuracy Rating
 (100-120)% increased Evasion Rating
@@ -140,6 +158,17 @@ Requires Level 55, 114 Dex
 (20-25)% increased Rarity of Items found
 10% increased Movement Speed
 10% reduced Character Size
+]],[[
+Saqawal's Flock
+Silken Hood
+League: Bestiary
+Source: Drops from unique{Saqawal, First of the Sky}
+Requires Level 60
+25% chance to Trigger Level 20 Tornado when you gain Avian's Might or Avian's Flight
+(60–80)% increased Evasion Rating
++(40–60) to maximum Life
++(30–40)% to Lightning Resistance
+(10–15)% increased Movement Speed
 ]],[[
 Starkonja's Head
 Silken Hood
@@ -160,6 +189,7 @@ Requires Level 60, 138 Dex
 [[
 Asenath's Mark
 Iron Circlet
+Upgrade: Upgrades to unique{Asenath's Chant} via prophecy{Song of the Sekhema}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 8, 23 Int
@@ -170,6 +200,19 @@ Requires Level 8, 23 Int
 {variant:2}+(30-50) to maximum Energy Shield
 5% increased Movement Speed
 (10-15)% increased Stun Recovery
+]],[[
+Asenath's Chant
+Iron Circlet
+Source: Upgraded from unique{Asenath's Mark} via prophecy{Song of the Sekhema}
+Requires Level 45
+Implicits: 0
+25% chance to Trigger a Socketed Spell when you Attack with a Bow
+(10–15)% increased Attack Speed
+(10–15)% increased Cast Speed
++(100–120) to maximum Energy Shield
+(30–40)% increased Stun and Block Recovery
+30% increased Mana Regeneration Rate
+5% increased Movement Speed
 ]],[[
 Chitus' Apex
 Necromancer Circlet
@@ -192,6 +235,7 @@ Increases and Reductions to Spell Damage also apply to Attacks
 ]],[[
 Crown of Thorns
 Vine Circlet
+Upgrade: Upgrades to unique{Martyr's Crown} via prophecy{Pleasure and Pain}
 Variant: Pre 1.2.0
 Variant: Current
 {variant:1}+(12-24) to maximum Energy Shield
@@ -202,6 +246,7 @@ Pain Attunement
 ]],[[
 Martyr's Crown
 Vine Circlet
+Source: Upgraded from unique{Crown of Thorns} using prophecy{Pleasure and Pain}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 52
@@ -228,6 +273,7 @@ Requires Level 39, 83 Int
 ]],[[
 Eber's Unification
 Hubris Circlet
+Source: Drops from The Pale Council
 Requires Level 69, 154 Int
 Implicits: 0
 Trigger level 10 Void Gaze when you use a Skill
@@ -235,6 +281,40 @@ Trigger level 10 Void Gaze when you use a Skill
 (120-150)% increased Energy Shield
 50% increased Stun and Block Recovery
 Gain (5-8)% of Elemental Damage as Extra Chaos Damage
+]],[[
+Fenumus' Toxins
+Necromancer Circlet
+League: Bestiary
+Source: Drops from unique{Fenumus, First of the Night}
+Requires Level 54
+Adds (16–21) to (31–36) Chaos Damage to Spells
+(220–250)% increased Energy Shield
+10% chance to gain a Power Charge on hitting an Enemy affected by a Spider's Web
+(6–10)% chance to Poison per Power Charge
+(15–20)% increased Damage with Poison per Power Charge
+Aspect of the Spider inflicts Spider's Webs and Hinder every 0.5 Seconds instead
+]],[[
+Indigon
+Hubris Circlet
+Source: Drops from unique{The Elder} (Uber)
+Requires Level 69
+(150–180)% increased Energy Shield
+(6–10)% increased maximum Mana
+Recover (8–10)% of maximum Life when you use a Mana Flask
+Non-instant Mana recovery from Flasks is also recovered as Life
+(50–60)% increased Mana Cost of Skills for each 200 total Mana you have Spent Recently
+(50–60)% increased Spell Damage for each 200 total Mana you have Spent Recently
+Shaper Item
+]],[[
+Mark of the Red Covenant
+Tribal Circlet
+Requires Level 26
++(30–50) to maximum Energy Shield
+Minions have (10–15)% increased Movement Speed
+Raging Spirits have (130–150)% increased Damage
+75% reduced Maximum number of Summoned Raging Spirits
+Raging Spirits' Hits always Ignite
+Raging Spirits refresh their Duration when they Kill an Ignited Enemy
 ]],[[
 Rime Gaze
 Mind Cage
@@ -269,9 +349,9 @@ Minions Regenerate 1% Life per second
 ]],[[
 Ylfeban's Trickery
 Hubris Circlet
+League: Tempest
 Variant: Pre 2.6.0
 Variant: Current
-League: Tempest
 Requires Level 69, 154 Int
 {variant:2}Trigger Level 10 Shock Ground when Hit
 Adds 1 to (60-80) Lightning Damage to Spells and Attacks
@@ -317,6 +397,7 @@ Can't use Chest armour
 ]],[[
 Deidbell
 Gilded Sallet
+Upgrade: Upgrades to unique{Deidbellow} via prophecy{Dying Cry}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 33, 38 Str, 38 Dex
@@ -329,6 +410,7 @@ Cannot Leech when on Low Life
 ]],[[
 Deidbellow
 Gilded Sallet
+Source: Upgraded from unique{Deidbell} using prophecy{Dying Cry}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 33, 38 Str, 38 Dex
@@ -418,6 +500,18 @@ Socketed Gems are supported by level 20 Cast on Death
 {variant:3}+(50–70) to maximum Energy Shield
 +(43-61)% to Chaos Resistance
 ]],[[
+Craiceann's Chitin
+Magistrate Crown
+League: Bestiary
+Source: Drops from unique{Craiceann, First of the Deep}
+Requires Level 58
+(25–30)% of Block Chance applied to Spells
+(140–180)% increased Armour and Energy Shield
+(4–7)% increased maximum Life
+Cannot lose Crab Barriers if you have lost Crab Barriers Recently
+3% additional Chance to Block while you have at least 5 Crab Barriers
+5% additional Chance to Block while you have at least 10 Crab Barriers
+]],[[
 Geofri's Crest
 Great Crown
 Requires Level 53, 59 Str, 59 Int
@@ -448,9 +542,10 @@ you Spend at least 100 Mana to Use a Skill
 ]],[[
 Lightpoacher
 Great Crown
+League: Abyss
+Source: Drops from Abyssal Liches
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
-League: Abyss
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
 Trigger Level 20 Spirit Burst when you Use a Skill while you have a Spirit Charge 
@@ -461,6 +556,7 @@ Recover (4–5)% of Life when a Spirit Charge expires or is consumed
 ]],[[
 Malachai's Vision
 Praetor Crown
+Source: Use currency{Vaal Orb} on unique{Voll's Vision}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 68, 62 Str, 91 Int
@@ -475,7 +571,8 @@ Corrupted
 ]],[[
 Memory Vault
 Praetor Crown
-Requires Level: 68
+Source: Drops from unique{The Enslaver}
+Requires Level 68
 +(130–160) to maximum Energy Shield 
 +(150–200) to maximum Mana 
 (30–40)% increased Mana Regeneration Rate 
@@ -532,9 +629,9 @@ Regenerate 100 Life per second if no Equipped Items are Corrupted
 [[
 Crown of the Pale King
 Regicide Mask
+League: Tempest
 Variant: Pre 2.6.0
 Variant: Current
-League: Tempest
 Requires Level 52, 58 Dex, 58 Int
 {variant:2}+(60-80) to maximum Life
 (150-200)% increased Evasion and Energy Shield
@@ -542,12 +639,35 @@ Requires Level 52, 58 Dex, 58 Int
 Reflects 100 to 150 Physical Damage to Melee Attackers
 30% of Damage you Reflect to enemies is gained as Life
 ]],[[
+Farrul's Bite
+Harlequin Mask
+League: Bestiary
+Source: Drops from unique{Farrul, First of the Plains}
+Requires Level 57
+Grants Level 20 Aspect of the Cat Skill
+(180–220)% increased Evasion and Energy Shield
++(25–35)% to Cold Resistance
++1% to Critical Strike Chance while affected by Aspect of the Cat
+Critical Strikes have (10–20)% chance to Blind Enemies while you have Cat's Stealth
+(40–50)% increased Damage with Hits and Ailments against Blinded Enemies
+]],[[
+Gorgon's Gaze
+Regicide Mask
+Requires Level 52
+Implicits: 0
+Grants Level 20 Summon Petrification Statue Skill
+(200–250)% increased Energy Shield
++(60–80) to maximum Life
+(5–10)% increased Attack and Cast Speed
+5% additional Physical Damage Reduction while moving
+5% reduced Elemental Damage taken while stationary
+]],[[
 The Gull
 Raven Mask
+League: Domination
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Domination
 Requires Level 38, 44 Dex, 44 Int
 {variant:2,3}Trigger level 1 Create Lesser Shrine when you Kill an Enemy
 (120-150)% increased Evasion and Energy Shield
@@ -586,6 +706,7 @@ You and nearby allies gain 15% increased Damage
 ]],[[
 Malachai's Simula
 Iron Mask
+Upgrade: Upgrades to unique{Malachai's Awakening} via prophecy{The Nightmare Awakens}
 Variant: Pre 1.0.0
 Variant: Pre 2.0.0
 Variant: Current
@@ -598,8 +719,21 @@ Requires Level 17, 21 Dex, 21 Int
 {variant:2}20% increased Mana Cost of Skills
 Blood Magic
 ]],[[
+Malachai's Awakening
+Iron Mask
+Source: Upgraded from unique{Malachai's Simula} via prophecy{The Nightmare Awakens}
+Requires Level 60
+(15–30)% increased Spell Damage
++20 to Strength
++10% to all Elemental Resistances
+Adds (42–54) to (78–88) Cold Damage to Spells while no Life is Reserved
+Adds (54–64) to (96–107) Fire Damage to Spells while no Life is Reserved
+Adds (5–14) to (160–173) Lightning Damage to Spells while no Life is Reserved
+Blood Magic
+]],[[
 Mind of the Council
 Harlequin Mask
+Source: prophecy{Unbearable Whispers V}
 Requires Level 57, 64 Dex, 64 Int
 (230-260)% increased Evasion and Energy Shield
 (20-30)% increased maximum Mana
@@ -630,6 +764,7 @@ Your Lightning Damage can Freeze but not Shock
 ]],[[
 The Vertex
 Vaal Mask
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Requires Level 62, 79 Dex, 72 Int
 +1 to Level of Socketed Gems
 (245-280)% increased Evasion and Energy Shield

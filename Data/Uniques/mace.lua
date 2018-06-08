@@ -33,6 +33,7 @@ All Attack Damage Chills when you Stun
 ]],[[
 Cameria's Maul
 Gavel
+Upgrade: Upgrades to unique{Cameria's Avarice} via prophecy{Cold Greed}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
@@ -46,6 +47,18 @@ Adds (10-20) to (30-50) Cold Damage
 {variant:1,2}(30-40)% increased Cold Damage with Weapons
 {variant:3}(30-40)% increased Cold Damage with Attack Skills
 40% increased Rarity of Items Dropped by Frozen Enemies
+]],[[
+Cameria's Avarice
+Gavel
+Source: Upgraded from unique{Cameria's Maul} via prophecy{Cold Greed}
+Requires Level 60
+15% reduced Enemy Stun Threshold
+(140–180)% increased Physical Damage
+Adds (11–14) to (17–21) Physical Damage
+(15–40)% increased Critical Strike Chance
+40% increased Rarity of Items Dropped by Frozen Enemies
+(30–40)% increased Cold Damage with Attack Skills
+Trigger Level 20 Icicle Burst when you Kill a Frozen Enemy
 ]],[[
 Clayshaper
 Rock Breaker
@@ -150,6 +163,7 @@ Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
 ]],[[
 Nebuloch
 Nightmare Mace
+Source: Drops from unique{The Elder} (Tier 6+)
 Requires Level 68
 10% reduced Enemy Stun Threshold
 Adds (45–60) to (100–120) Physical Damage 
@@ -165,6 +179,7 @@ Elder Item
 [[
 Augyre
 Void Sceptre
+Source: Drops from unique{The Purifier} (Tier 11+)
 Requires Level 68
 40% increased Elemental Damage 
 (180–200)% increased Physical Damage 
@@ -216,6 +231,7 @@ Socketed Gems are Supported by level 1 Reduced Mana
 ]],[[
 Breath of the Council
 Carnal Sceptre
+Source: prophecy{The Plaguemaw V}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 66, 113 Str, 113 Int
@@ -297,6 +313,7 @@ Socketed Gems are Supported by level 30 Iron Will
 ]],[[
 Doryani's Catalyst
 Vaal Sceptre
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
 Variant: Pre 2.3.0
 Variant: Current
 Requires Level 75, 113 Str, 113 Int
@@ -369,6 +386,7 @@ Nearby Enemies are Hindered, with 25% reduced Movement Speed
 ]],[[
 Spine of the First Claimant
 Iron Sceptre
+Source: Drops in The Lord's Labyrinth
 Variant: Pre 2.3.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
@@ -405,6 +423,7 @@ Implicits: 2
 [[
 Brain Rattler 
 Meatgrinder
+Source: Drops from unique{Guardian of the Minotaur}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 63, 212 Str
@@ -439,6 +458,7 @@ Minions have (20-40)% increased maximum Life
 ]],[[
 Geofri's Baptism
 Brass Maul
+Upgrade: Upgrades to unique{Geofri's Devotion} via prophecy{Black Devotion}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 27, 92 Str
@@ -450,8 +470,21 @@ Adds 11 to 23 Cold Damage
 (10-20)% increased Stun Duration on Enemies
 Never deal Critical Strikes
 ]],[[
+Geofri's Devotion
+Brass Maul
+Source: Upgraded from unique{Geofri's Baptism} via prophecy{Black Devotion}
+Requires Level 61
+20% increased Stun Duration on Enemies
+Trigger Level 20 Elemental Warding when you Hit an Enemy while Cursed
+200% increased Physical Damage
+Adds (50–56) to (73–78) Physical Damage
+Adds 11 to 23 Cold Damage
+(10–20)% increased Stun Duration on Enemies
+Never deal Critical Strikes
+]],[[
 Hrimnor's Dirge
 Sledgehammer
+Upgrade: Upgrades to unique{Hrimnor's Hymn} via prophecy{Winter's Mournful Melodies}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 36, 62 Str
@@ -468,6 +501,7 @@ Gain 50% of Physical Damage as Extra Cold Damage
 ]],[[
 Hrimnor's Hymn
 Sledgehammer
+Source: Upgraded from unique{Hrimnor's Dirge} using prophecy{Winter's Mournful Melodies}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 17, 62 Str
@@ -482,9 +516,9 @@ Implicits: 2
 ]],[[
 Jorrhast's Blacksteel
 Steelhead
+League: Tempest
 Variant: Pre 2.6.0
 Variant: Current
-League: Tempest
 Requires Level 44, 143 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
@@ -532,6 +566,7 @@ Adds 10 to 20 Physical Damage
 ]],[[
 Quecholli
 Jagged Maul
+Upgrade: Upgrades to unique{Panquetzaliztli} via prophecy{The Fall of an Empire}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 22, 77 Str
@@ -543,6 +578,17 @@ Adds 5 to 25 Physical Damage
 +(25-50) to all Attributes
 +10 Life gained on Kill
 Enemies killed explode dealing 10% of their Life as Fire Damage
+]],[[
+Panquetzaliztli
+Jagged Maul
+Source: Upgraded from unique{Quecholli} via prophecy{The Fall of an Empire}
+Requires Level 61
+30% increased Stun Duration on Enemies
+(80-100)% increased Physical Damage
+Adds (94-98) to (115-121) Physical Damage
++(25-50) to all Attributes
+Enemies killed explode dealing 10% of their Life as Fire Damage
+Recover 5% of Maximum Life on Kill
 ]],[[
 Tidebreaker
 Imperial Maul
@@ -556,9 +602,9 @@ Adds (60–70) to (300–350) Physical Damage
 ]],[[
 Trypanon
 Great Mallet
+League: Perandus
 Variant: Pre 2.6.0
 Variant: Current
-League: Perandus
 Requires Level 40, 131 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
