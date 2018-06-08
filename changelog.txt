@@ -1,3 +1,19 @@
+VERSION[1.4.95][2018/06/08]
+ * Added the following new uniques:
+	* Sinvicta's Mettle
+	* Unyielding Flame
+    * Architect's Hand
+	* Transcendent Flesh
+	* Tempered Mind
+	* Transcendent Mind
+	* Tempered Spirit
+	* Transcendent Spirit
+ * Updated the rolls on many new uniques
+ * Updated the passive tree; in particular, this corrects the positioning of the Overcharged cluster
+ * You can now apply 2 corrupted implicits to an item
+ * Uniques in the unique database now show their source (if drop-limited) and upgrades (e.g Prophecy/Blessing/Vial)
+ * Aura/buff/curse skills are now correctly enabled by default when importing
+ * Slavedriver's Hand now correctly converts Attack and Cast Speed modifiers to Trap Throwing Speed
 VERSION[1.4.94][2018/06/03]
  * Fixed several issues with sorting gems by DPS
  * Updated the game version selector

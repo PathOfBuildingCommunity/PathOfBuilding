@@ -72,6 +72,7 @@ Requires Level 66, 95 Dex, 131 Int
 ]],[[
 Goredrill
 Skinning Knife
+Upgrade: Upgrades to unique{Sanguine Gambol} via prophecy{Crimson Hues}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 5, 16 Dex
@@ -83,6 +84,19 @@ Adds (1-2) to (3-5) Physical Damage
 {variant:1}Melee Critical Strikes cause Bleeding
 {variant:2}50% chance to cause Bleeding with Melee Critical Strikes with this Weapon
 40% increased Attack Damage against Bleeding Enemies
+]],[[
+Sanguine Gambol
+Skinning Knife
+Source: Upgraded from unique{Goredrill} via prophecy{Crimson Hues}
+Requires Level 5
+30% increased Global Critical Strike Chance
+(50–70)% increased Physical Damage
+Adds (70–85) to (110–118) Physical Damage
++(10–15) to Dexterity
+30% increased Critical Strike Chance
+50% chance to cause Bleeding on Critical Strike
+40% increased Attack Damage against Bleeding Enemies
+You have Crimson Dance if you have dealt a Critical Strike Recently
 ]],[[
 Heartbreaker
 Royal Skean
@@ -153,7 +167,8 @@ Adds 3 to 30 Lightning Damage
 ]],[[
 Vulconus
 Demon Dagger
-Requires Level: 68
+Source: Drops from unique{The Enslaver} (Tier 11+)
+Requires Level 68
 40% increased Global Critical Strike Chance 
 Attacks with this Weapon deal (80–100) to (160–200) added Fire Damage to Bleeding Enemies 
 Attacks with this Weapon deal (80–100) to (160–200) added Physical Damage to Ignited Enemies 
@@ -165,7 +180,7 @@ Every 8 seconds, gain Avatar of Fire for 4 seconds
 ]],[[
 White Wind
 Imperial Skean
-Requires Level: 66
+Requires Level 66
 30% increased Global Critical Strike Chance
 Adds (160–190) to (280–320) Cold Damage
 (10–15)% increased Attack Speed

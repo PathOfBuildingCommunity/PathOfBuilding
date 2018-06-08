@@ -5,6 +5,7 @@ return {
 [[
 Atziri's Acuity
 Vaal Gauntlets
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.1.0
 Variant: Current
@@ -16,6 +17,18 @@ Requires Level 75, 100 Str
 {variant:1}Leech applies instantly on Critical Strike
 {variant:2}Gain Life and Mana from Leech instantly on Critical Strike
 {variant:3}You have Vaal Pact if you've dealt a Critical Strike Recently
+]],[[
+Craiceann's Pincers
+Titan Gauntlets
+League: Bestiary
+Source: Drops from unique{Craiceann, First of the Deep}
+Requires Level 69
+(150–200)% increased Armour
+(50–70) Life Regenerated per second
++(30–40)% to Fire Resistance
+3% increased Damage per Crab Barrier
+10% chance that if you would gain a Crab Barrier, you instead gain up to
+your maximum number of Crab Barriers
 ]],[[
 Doryani's Fist
 Vaal Gauntlets
@@ -80,6 +93,7 @@ You cannot be Shocked while at maximum Endurance Charges
 ]],[[
 Winds of Change
 Ancient Gauntlets
+Source: Drops in The Lord's Labyrinth
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 47, 68 Str
@@ -94,7 +108,8 @@ Requires Level 47, 68 Str
 [[
 Blasphemer's Grasp
 Assassin's Mitts
-Requires Level: 58
+Source: Drops from unique{The Elder}
+Requires Level 58
 +(40–50) to Dexterity 
 (150–200)% increased Evasion and Energy Shield 
 +(50–60) to maximum Life 
@@ -106,6 +121,7 @@ Elder Item
 ]],[[
 Hrimburn
 Goathide Gloves
+Upgrade: Upgrades to unique{Hrimsorrow} via prophecy{Fire and Ice}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24, 17 Dex
@@ -122,6 +138,7 @@ Your Cold Damage can Ignite
 ]],[[
 Hrimsorrow
 Goathide Gloves
+Source: Upgraded from unique{Hrimburn} using prophecy{Fire and Ice}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 9, 17 Dex
@@ -151,7 +168,7 @@ Requires Level 21, 33 Dex
 ]],[[
 Oskarm
 Nubuck Gloves
-Requires Level: 33
+Requires Level 33
 (30–40)% increased Accuracy Rating 
 +(40–50) to maximum Life 
 +(-20–-10)% to Chaos Resistance 
@@ -184,6 +201,7 @@ Requires Level 25, 39 Int
 ]],[[
 Doedre's Tenure
 Velvet Gloves
+Upgrade: Upgrades to unique{Doedre's Malevolence} via prophecy{The Malevolent Witch}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 12, 21 Int
@@ -196,8 +214,20 @@ Requires Level 12, 21 Int
 {variant:1}+16 to maximum Energy Shield
 {variant:2}+32 to maximum Energy Shield
 ]],[[
+Doedre's Malevolence
+Velvet Gloves
+Source: Upgraded from unique{Doedre's Tenure} via prophecy{The Malevolent Witch}
+Requires Level 64
+(50–60)% increased Spell Damage
++20 to Intelligence
+Adds (48–56) to (73–84) Chaos Damage to Spells
+15% reduced Cast Speed
++(64–96) to maximum Energy Shield
++50 to Total Mana Cost of Skills
+]],[[
 Grip of the Council
 Arcanist Gloves
+Source: prophecy{The Unbreathing Queen V}
 Requires Level 60, 95 Int
 +30 to Strength
 +(30-50) to maximum Life
@@ -208,7 +238,7 @@ Minions gain 20% of Physical Damage as Extra Cold Damage
 ]],[[
 Kalisa's Grace
 Samite Gloves
-Requires Level: 47
+Requires Level 47
 Socketed Gems are Supported by Level 18 Faster Casting
 +(20–30) to Intelligence 
 +(50–80) to maximum Energy Shield 
@@ -249,6 +279,18 @@ Requires Level 36, 29 Str, 29 Dex
 +15% to all Elemental Resistances
 (40-50)% increased Rarity of Items found
 5% reduced Movement Speed
+]],[[
+Farrul's Pounce
+Hydrascale Gauntlets
+League: Bestiary
+Source: Drops from unique{Farrul, First of the Plains}
+Requires Level 59
+(100–140)% increased Armour and Evasion
++(50–70) to maximum Life
++(400–500) to Accuracy against Bleeding Enemies
+Attacks always inflict Bleeding while you have Cat's Stealth
+(40–50)% increased Damage with Hits and Ailments against Bleeding Enemies
+You have Crimson Dance while you have Cat's Stealth
 ]],[[
 Flesh and Spirit
 Ironscale Gauntlets
@@ -298,9 +340,10 @@ Requires Level 67, 51 Str, 51 Dex
 ]],[[
 Tombfist
 Steelscale Gauntlets
+League: Abyss
+Source: Drops from Abyssal Liches
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
-League: Abyss
 Requires Level: 36
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
@@ -311,9 +354,9 @@ With a Searching Eye Jewel Socketed, Maim Enemies for 4 seconds on Hit with Atta
 ]],[[
 Vaal Caress
 Bronzescale Gauntlets
+League: Ambush, Invasion
 Variant: Pre 2.6.0
 Variant: Current
-League: Ambush, Invasion
 Requires Level 27, 22 Str, 22 Dex
 +2 to Level of Socketed Vaal Gems
 (120-140)% increased Armour and Evasion
@@ -356,6 +399,18 @@ Requires Level 66, 306 Str, 306 Int
 500% increased Attribute Requirements
 Iron Will
 ]],[[
+Saqawal's Winds
+Soldier Gloves
+League: Bestiary
+Source: Drops from unique{Saqawal, First of the Sky}
+Requires Level 51
+(140–180)% increased Armour and Energy Shield
++(30–60) to maximum Life
++(20–25)% to Cold and Lightning Resistances
++(-2–2) seconds to Avian's Might Duration
+Adds (20–25) to (37–40) Cold Damage while you have Avian's Might
+Adds (1–3) to (55–62) Lightning Damage while you have Avian's Might
+]],[[
 Shackles of the Wretched
 Chain Gloves
 Variant: Pre 1.2.0
@@ -372,6 +427,7 @@ You grant (4-6) Frenzy Charges to allies on Death
 ]],[[
 Shaper's Touch 
 Crusader Gloves
+Source: Drops from unique{The Shaper}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 66, 51 Str, 51 Int
@@ -403,6 +459,7 @@ Your Hits can only Kill Frozen enemies
 ]],[[
 Volkuur's Guidance
 Zealot Gloves
+Source: Drops from The Pale Council
 Variant: Fire
 Variant: Cold
 Variant: Lightning
@@ -450,6 +507,18 @@ Requires Level 16, 14 Dex, 14 Int
 {variant:2,3,4,5}(600-800)% more Unarmed Physical Damage
 Extra gore
 ]],[[
+Fenumus' Weave
+Carnal Mitts
+League: Bestiary
+Source: Drops from unique{Fenumus, First of the Night}
+Requires Level 50
+Grants Level 20 Aspect of the Spider Skill
+(120–170)% increased Evasion and Energy Shield
++(40–50) to maximum Life
+(6–9)% increased Attack and Cast Speed
+(40–60)% increased Damage with Hits and Ailments against Enemies affected by 3 Spider's Webs
+Adds (8–10) to (13–15) Chaos Damage for each Spider's Web on the Enemy
+]],[[
 Ondar's Clasp
 Wrapped Mitts
 Variant: Pre 1.1.0
@@ -473,10 +542,10 @@ Grants Malachai's Endurance, Frenzy and Power for 6 seconds each, in sequence
 ]],[[
 Shadows and Dust
 Clasped Mitts
+League: Rampage
 Variant: Pre 2.2.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Rampage
 Requires Level 31, 25 Dex, 25 Int
 (20-30)% increased Global Critical Strike Chance
 {variant:1}+(15-30)% to Global Critical Strike Multiplier

@@ -220,7 +220,7 @@ function calcs.offence(env, actor)
 	if modDB:Sum("FLAG", nil, "CastSpeedAppliesToTrapThrowingSpeed") then
 		-- Cast Speed conversion from Slavedriver's Hand
 		for i, mod in ipairs(modDB.mods.Speed or { }) do
-			if mod.type == "INC" and band(mod.flags, ModFlag.Cast) ~= 0 then
+			if mod.type == "INC" and (mod.flags == 0 or band(mod.flags, ModFlag.Cast) ~= 0) then
 				modDB:NewMod("TrapThrowingSpeed", "INC", mod.value, mod.source, band(mod.flags, bnot(ModFlag.Cast), bnot(ModFlag.Attack)), mod.keywordFlags, unpack(mod))
 			end
 		end

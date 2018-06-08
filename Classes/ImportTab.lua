@@ -722,7 +722,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			self:ImportItem(socketedItem, nil, slotName .. " Abyssal Socket "..abyssalSocketId)
 			abyssalSocketId = abyssalSocketId + 1
 		else
-			local gemInstance = { level = 20, quality = 0, enabled = true}
+			local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true }
 			gemInstance.nameSpec = socketedItem.typeLine:gsub(" Support","")
 			gemInstance.support = socketedItem.support
 			for _, property in pairs(socketedItem.properties) do

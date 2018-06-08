@@ -17,16 +17,6 @@ Adds (4-6) to (8-12) Fire Damage to Spells
 +10 Life Gained on Killing Ignited Enemies
 25% reduced Ignite Duration on Enemies
 ]],[[
-Amplification Rod
-Spiraled Wand
-Requires Level 36, 83 Int
-(15-19)% increased Spell Damage
-+1 to Level of Socketed Gems
-Socketed Gems are Supported by level 1 Spell Echo
-Socketed Gems are Supported by level 1 Increased Area of Effect
-Socketed Gems are Supported by level 1 Controlled Destruction
-+(10-30) to Intelligence
-]],[[
 Apep's Rage
 Opal Wand
 Variant: Pre 2.3.0
@@ -52,6 +42,7 @@ Adds (4-6) to (7-9) Fire Damage to Spells
 ]],[[
 Eclipse Solaris
 Crystal Wand
+Upgrade: Upgrades to unique{Corona Solaris} via prophecy{Blinding Light}
 Variant: Pre 2.2.0
 Variant: Pre 2.3.0
 Variant: Current
@@ -65,6 +56,19 @@ Adds (18-22) to (36-44) Physical Damage
 20% increased Light Radius
 Nearby Enemies are Blinded
 (120-140)% increased Critical Strike Chance against Blinded Enemies
+]],[[
+Corona Solaris
+Crystal Wand
+Source: Upgraded from unique{Eclipse Solaris} via prophecy{Blinding Light}
+Requires Level 63, 146 Int
+(29-33)% increased Spell Damage
+Triggers Level 20 Blinding Aura when Equipped
+Adds (18-22) to (36-44) Physical Damage
++(27-33)% to Global Critical Strike Multiplier
+20% increased Light Radius
+(120-140)% increased Critical Strike Chance against Blinded Enemies
+Increases and Reductions to Light Radius also apply to Accuracy
+Adds (145-157) to (196-210) Fire Damage to Hits with this Weapon against Blinded Enemies
 ]],[[
 Lifesprig
 Driftwood Wand
@@ -149,7 +153,7 @@ Attacks with this Weapon have (100-115)% increased Elemental Damage
 ]],[[
 The Poet's Pen
 Carved Wand
-Requires Level: 12
+Requires Level 12
 (11–15)% increased Spell Damage 
 +1 to Level of Socketed Active Skill Gems per 25 Player Levels 
 Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels 
@@ -158,6 +162,7 @@ Trigger a Socketed Spell when you Attack
 ]],[[
 Reverberation Rod
 Spiraled Wand
+Upgrade: Upgrades to unique{Amplification Rod} via prophecy{Power Magnified}
 Variant: Pre 2.3.0
 Variant: Current
 Requires Level 24, 83 Int
@@ -166,6 +171,17 @@ Implicits: 2
 {variant:2}(15-19)% increased Spell Damage
 +1 to Level of Socketed Gems
 Socketed Gems are Supported by level 1 Spell Echo
++(10-30) to Intelligence
+]],[[
+Amplification Rod
+Spiraled Wand
+Source: Upgraded from unique{Reverberation Rod} using prophecy{Power Magnified}
+Requires Level 36, 83 Int
+(15-19)% increased Spell Damage
++1 to Level of Socketed Gems
+Socketed Gems are Supported by level 1 Spell Echo
+Socketed Gems are Supported by level 1 Increased Area of Effect
+Socketed Gems are Supported by level 1 Controlled Destruction
 +(10-30) to Intelligence
 ]],[[
 Shade of Solaris
@@ -178,7 +194,8 @@ Critical Strikes deal no Damage
 ]],[[
 Shimmeron
 Tornado Wand
-Requires Level: 65
+Source: Drops from unique{The Elder} (Tier 6+)
+Requires Level 65
 (35–39)% increased Spell Damage 
 (20–45)% increased Spell Damage 
 Adds (26–35) to (95–105) Lightning Damage to Spells 
@@ -206,6 +223,8 @@ Adds 1 to (35-45) Lightning Damage
 Tulborn
 Spiraled Wand
 League: Breach
+Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
+Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
 Requires Level 24, 83 Int
 (15-19)% increased Spell Damage
 (10-15)% increased Cast Speed
@@ -216,6 +235,7 @@ Adds 10 to 20 Cold Damage to Spells per Power Charge
 Tulfall
 Tornado Wand
 League: Breach
+Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
 Requires Level 65, 212 Int
 (35-39)% increased Spell Damage
 (10-15)% increased Cast Speed

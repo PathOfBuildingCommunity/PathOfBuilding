@@ -237,6 +237,11 @@ function ItemClass:ParseRaw(raw)
 					gameModeStage = "EXPLICIT"
 				elseif specName == "Unreleased" then
 					self.unreleased = (specVal == "true")
+				elseif specName == "Upgrade" then
+					self.upgradePaths = self.upgradePaths or { }
+					t_insert(self.upgradePaths, specVal)
+				elseif specName == "Source" then
+					self.source = specVal
 				elseif specName == "Evasion Rating" then
 					if self.baseName == "Two-Toned Boots (Armour/Energy Shield)" then
 						-- Another hack for Two-Toned Boots
