@@ -92,10 +92,12 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #baseMod skill("showAverage", false)
 #baseMod skill("radius", 16)
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill VaalColdSnap
 #flags spell area duration
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill Conductivity

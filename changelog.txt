@@ -1,3 +1,10 @@
+VERSION[1.4.96][2018/06/11]
+ * Fixed an issue preventing certain skill-specific modifiers from applying; particularly for skills used by Minions
+    * Notably, this fixes the Zombie Slam modifiers from Flesh Binder and Violent Dead
+ * The "+ to Level of Socketed AoE Gems" modifier now applies correctly
+ * Corrected the level requirement on Stormwall
+ * Cold Snap's DoT is now correctly affected by Area Damage modifiers
+ In other news, Path of Building has now been downloaded over 1,000,000 times!
 VERSION[1.4.95][2018/06/08]
  * Added the following new uniques:
 	* Sinvicta's Mettle
