@@ -334,7 +334,7 @@ Adds (1-10) to (70-90) Lightning Damage
 The Stormwall
 Royal Staff
 Source: Upgraded from unique{The Stormheart} via prophecy{The Storm Spire}
-Requires Level 28
+Requires Level 60
 18% Chance to Block
 15% Chance to Block
 Adds (242–260) to (268–285) Physical Damage

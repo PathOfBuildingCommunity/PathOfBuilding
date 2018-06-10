@@ -825,6 +825,7 @@ skills["ColdSnap"] = {
 		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_skill_dot" = ?
 		skill("showAverage", false), 
 		skill("radius", 16), 
+		skill("dotIsArea", true), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -901,6 +902,7 @@ skills["VaalColdSnap"] = {
 		--"is_area_damage" = ?
 		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_skill_dot" = ?
 		--"vaal_cold_snap_gain_frenzy_charge_every_second_if_enemy_in_aura" = ?
+		skill("dotIsArea", true), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
