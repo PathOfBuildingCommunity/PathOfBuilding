@@ -1,3 +1,7 @@
+### 1.4.98 - 2018/08/29
+ * Modifiers to Damage over Time with Bow Skills now work correctly
+ * Acrobatics now works correctly
+
 ### 1.4.97 - 2018/08/29
  * Passive tree updated to 3.4
  * Other changes for 3.4 are still to come

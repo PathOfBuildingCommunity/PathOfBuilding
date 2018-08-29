@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.97"/>
+	<Version number="1.4.98"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="16ea2d48919334a5c49b48ac18d456f8f121b09c" name="Launch.lua" part="program"/>
 	<File sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="f0b9c7463de4c9f0abf24bfedb6473f232756dd8" name="changelog.txt" part="program"/>
+	<File sha1="aadda29f72f42e54891a3e97ccbfde3b208059aa" name="changelog.txt" part="program"/>
 	<File sha1="51a3c1027381bb36666568aaceec843164f8c957" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="f85e8b60ff9bb41a3cc4ba8044f7a49163fdedd3" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="3052ae531f6bc1405ea5f61dde6bd636f094c74a" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -55,7 +55,7 @@
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
 	<File sha1="01f6361f67a0cf9ee1ffdf0cf86df0f040248e4c" name="Modules/Build.lua" part="program"/>
 	<File sha1="2ff499ce5931e0b2a40ad16da316899d4859c257" name="Modules/BuildList.lua" part="program"/>
-	<File sha1="cf242f43959bf4ec8107a541acb45343b53a2567" name="Modules/CalcActiveSkill.lua" part="program"/>
+	<File sha1="257bd62d60b4b28a48d07131e4f498f48bf6efb6" name="Modules/CalcActiveSkill.lua" part="program"/>
 	<File sha1="b31dca8bf6238a35b75429ab19dae7cc1fdf2207" name="Modules/CalcBreakdown.lua" part="program"/>
 	<File sha1="38e81ff8ca19729eb180470173afd3bda0b4cf59" name="Modules/CalcDefence-2_6.lua" part="program"/>
 	<File sha1="5b711cf3bce72a015fafbad24f702729fc1d1f7c" name="Modules/CalcDefence-3_0.lua" part="program"/>
@@ -73,7 +73,7 @@
 	<File sha1="66b7b1c462ec2539d4fe2bdc64b538c3b892be11" name="Modules/ItemTools.lua" part="program"/>
 	<File sha1="44ed93833ea7af6057f7fa913075e15b7081ccfa" name="Modules/Main.lua" part="program"/>
 	<File sha1="76b0b284d884fd4af0ec2448556bd8feb3a0939b" name="Modules/ModParser-2_6.lua" part="program"/>
-	<File sha1="2f5640bea47ce6558d153233a55ba451683d10cf" name="Modules/ModParser-3_0.lua" part="program"/>
+	<File sha1="fa8608c6bad9663eeffe537849cc646a4cef394c" name="Modules/ModParser-3_0.lua" part="program"/>
 	<File sha1="cb75f9e44070a209e5dcec3ad550f8e31f22162f" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="c345cdcf374d271411aa424ab150c0edbb5a362d" name="Assets/game_ui_small.png" part="program"/>
 	<File sha1="97b020d8213e09c313536a91528ba5d5ebc4ca0a" name="Assets/patreon_logo.png" part="program"/>
@@ -151,7 +151,7 @@
 	<File sha1="6a700262e5dd5fe88e9406666e6904b59f2c927d" name="Data/3_0/Gems.lua" part="program"/>
 	<File sha1="a39a287828b8fe0a04da2ed9e282d2f2eb7ea198" name="Data/3_0/Minions.lua" part="program"/>
 	<File sha1="fcc6febeec256c8a8e4ff0e5a410d1738eb916fc" name="Data/3_0/Misc.lua" part="program"/>
-	<File sha1="47d475a89ca8fe99f042e7678bcd711e28ddd669" name="Data/3_0/ModCache.lua" part="program"/>
+	<File sha1="11acd217d70f1bb9793fb9adacd20f388b960834" name="Data/3_0/ModCache.lua" part="program"/>
 	<File sha1="e906c868fc749e8bfdc4db964456c7f25f7a9388" name="Data/3_0/ModFlask.lua" part="program"/>
 	<File sha1="15042c0895ee967b556e03563fc5c9d76f471018" name="Data/3_0/ModItem.lua" part="program"/>
 	<File sha1="84d4380ec7299dde719208468e8c1317b7457363" name="Data/3_0/ModJewel.lua" part="program"/>
