@@ -502,8 +502,8 @@ for skillGemKey = 0, SkillGems.maxRow do
 		out:write('\t["', baseItemType.Id, '"] = {\n')
 		out:write('\t\tname = "', baseItemType.Name:gsub(" Support",""), '",\n')
 		out:write('\t\tgrantedEffectId = "', GrantedEffects[skillGem.GrantedEffectsKey].Id, '",\n')
-		if skillGem.Key0 then
-			out:write('\t\tsecondaryGrantedEffectId = "', GrantedEffects[skillGem.Key0].Id, '",\n')
+		if skillGem.GrantedEffectsKey2 then
+			out:write('\t\tsecondaryGrantedEffectId = "', GrantedEffects[skillGem.GrantedEffectsKey2].Id, '",\n')
 		end
 		local tagNames = { }
 		out:write('\t\ttags = {\n')

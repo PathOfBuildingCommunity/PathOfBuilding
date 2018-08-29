@@ -10,7 +10,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalArcChain
-#flags spell
+#flags spell chaining
 #mods
 
 #skill ArcticBreath
@@ -453,6 +453,7 @@ local skills, mod, flag, skill = ...
 
 #skill VaalRighteousFire
 #flags spell area
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill FireBeam

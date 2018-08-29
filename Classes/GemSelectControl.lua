@@ -446,7 +446,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 				if self.selIndex == 0 then
 					self:SetText(self.searchStr)
 				else
-					self:SetText(self.list[self.selIndex])
+					self:SetText(self.gems[self.list[self.selIndex]].name)
 				end
 				self:UpdateGem()
 				self:ScrollSelIntoView()

@@ -86,6 +86,7 @@ KeywordFlag.Cold =		0x000020
 KeywordFlag.Lightning =	0x000040
 KeywordFlag.Chaos =		0x000080
 KeywordFlag.Vaal =		0x000100
+KeywordFlag.Bow =		0x000200
 -- Skill types
 KeywordFlag.Trap =		0x001000
 KeywordFlag.Mine =		0x002000

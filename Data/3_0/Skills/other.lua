@@ -138,6 +138,7 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 		skill("cooldown", 0.25), 
 		mod("Damage", "INC", 100, ModFlag.Spell, 0, { type = "Condition", var = "SkillIsTriggered" }), --"triggered_spell_spell_damage_+%" = 100
 		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"unique_mjolner_lightning_spells_triggered" = ?
+		skill("showAverage", true), 
 	},
 	qualityMods = {
 	},

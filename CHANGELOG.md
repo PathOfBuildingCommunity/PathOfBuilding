@@ -1,3 +1,11 @@
+### 1.4.97 - 2018/08/29
+ * Passive tree updated to 3.4
+ * Other changes for 3.4 are still to come
+ * Vaal Righteous Fire is now correctly affected by modifiers to Area Damage
+ * Corrected the range of the explicit increased Spell Damage stat on Shimmeron
+ * Armour/Evasion/ES can no longer be negative
+ * Bubbling Flasks' Instant Recovery percentage is no longer incorrectly affected by Flask Effect modifiers (as in 2.6)
+
 ### 1.4.96 - 2018/06/11
  * Fixed an issue preventing certain skill-specific modifiers from applying; particularly for skills used by Minions
     * Notably, this fixes the Zombie Slam modifiers from Flesh Binder and Violent Dead

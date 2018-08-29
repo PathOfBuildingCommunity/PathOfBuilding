@@ -482,9 +482,24 @@ Adds 11 to 23 Cold Damage
 (10–20)% increased Stun Duration on Enemies
 Never deal Critical Strikes
 ]],[[
+Hrimnor's Hymn
+Sledgehammer
+Upgrade: Upgrades to unique{Hrimnor's Dirge} via prophecy{Winter's Mournful Melodies}
+Variant: Pre 2.6.0
+Variant: Current
+Requires Level 17, 62 Str
+Implicits: 2
+{variant:1}40% increased Stun Duration on Enemies
+{variant:2}45% increased Stun Duration on Enemies
+(140-200)% increased Physical Damage
++10 to Strength
+15% reduced Enemy Stun Threshold
+1% of Physical Attack Damage Leeched as Life
+(40-50)% increased Stun Duration on Enemies
+]],[[
 Hrimnor's Dirge
 Sledgehammer
-Upgrade: Upgrades to unique{Hrimnor's Hymn} via prophecy{Winter's Mournful Melodies}
+Source: Upgraded from unique{Hrimnor's Hymn} using prophecy{Winter's Mournful Melodies}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 36, 62 Str
@@ -498,21 +513,6 @@ Adds (10-20) to (30-40) Physical Damage
 1% of Physical Attack Damage Leeched as Life
 (40-50)% increased Stun Duration on Enemies
 Gain 50% of Physical Damage as Extra Cold Damage
-]],[[
-Hrimnor's Hymn
-Sledgehammer
-Source: Upgraded from unique{Hrimnor's Dirge} using prophecy{Winter's Mournful Melodies}
-Variant: Pre 2.6.0
-Variant: Current
-Requires Level 17, 62 Str
-Implicits: 2
-{variant:1}40% increased Stun Duration on Enemies
-{variant:2}45% increased Stun Duration on Enemies
-(140-200)% increased Physical Damage
-+10 to Strength
-15% reduced Enemy Stun Threshold
-1% of Physical Attack Damage Leeched as Life
-(40-50)% increased Stun Duration on Enemies
 ]],[[
 Jorrhast's Blacksteel
 Steelhead

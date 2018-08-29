@@ -23,6 +23,7 @@ local skills, mod, flag, skill = ...
 
 #skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner
 	fromItem = true,
+#baseMod skill("showAverage", true)
 #mods
 
 #skill SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike Cospri's Malice

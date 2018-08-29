@@ -21,6 +21,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("LightningResistMax", "BASE", 75, "Base")
 	modDB:NewMod("ChaosResistMax", "BASE", 75, "Base")
 	modDB:NewMod("BlockChanceMax", "BASE", 75, "Base")
+	modDB:NewMod("SpellBlockChanceMax", "BASE", 75, "Base")
 	modDB:NewMod("PowerChargesMax", "BASE", 3, "Base")
 	modDB:NewMod("FrenzyChargesMax", "BASE", 3, "Base")
 	modDB:NewMod("EnduranceChargesMax", "BASE", 3, "Base")
@@ -440,7 +441,7 @@ function calcs.initEnv(build, mode, override)
 						env.modDB:ScaleAddMod(mod, scale)
 					end
 				end
-			elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].name == "UniqueAnimateWeapon" then
+			elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].skillId == "UniqueAnimateWeapon" then
 				-- Special handling for The Dancing Dervish
 				env.weaponModList1 = common.New("ModList")
 				for _, mod in ipairs(srcList) do

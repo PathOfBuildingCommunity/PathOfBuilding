@@ -119,9 +119,25 @@ Requires Level 58
 Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
 Elder Item
 ]],[[
+Hrimsorrow
+Goathide Gloves
+Upgrade: Upgrades to unique{Hrimburn} via prophecy{Fire and Ice}
+Variant: Pre 2.6.0
+Variant: Current
+Requires Level 9, 17 Dex
++(20-30) to Strength
+{variant:1}50% increased Evasion Rating
+{variant:2}+(40-50) to Evasion Rating
+{variant:1}+(10-20)% to Cold Resistance
+{variant:2}+(20-30)% to Cold Resistance
+{variant:2}Adds (5-7) to (13-15) Cold Damage to Spells and Attacks
+{variant:1}25% of Physical Damage Converted to Cold Damage
+{variant:2}50% of Physical Damage Converted to Cold Damage
+Reflects 10 Cold Damage to Melee Attackers
+]],[[
 Hrimburn
 Goathide Gloves
-Upgrade: Upgrades to unique{Hrimsorrow} via prophecy{Fire and Ice}
+Source: Upgraded from unique{Hrimsorrow} via prophecy{Fire and Ice}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24, 17 Dex
@@ -135,22 +151,6 @@ Requires Level 24, 17 Dex
 {variant:2}50% of Physical Damage Converted to Cold Damage
 Reflects 10 Cold Damage to Melee Attackers
 Your Cold Damage can Ignite
-]],[[
-Hrimsorrow
-Goathide Gloves
-Source: Upgraded from unique{Hrimburn} using prophecy{Fire and Ice}
-Variant: Pre 2.6.0
-Variant: Current
-Requires Level 9, 17 Dex
-+(20-30) to Strength
-{variant:1}50% increased Evasion Rating
-{variant:2}+(40-50) to Evasion Rating
-{variant:1}+(10-20)% to Cold Resistance
-{variant:2}+(20-30)% to Cold Resistance
-{variant:2}Adds (5-7) to (13-15) Cold Damage to Spells and Attacks
-{variant:1}25% of Physical Damage Converted to Cold Damage
-{variant:2}50% of Physical Damage Converted to Cold Damage
-Reflects 10 Cold Damage to Melee Attackers
 ]],[[
 Maligaro's Virtuosity
 Deerskin Gloves
