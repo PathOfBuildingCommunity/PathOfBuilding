@@ -61,7 +61,7 @@ Socketed Gems are supported by level 2 Chance to Flee
 ]],[[
 The Gryphon
 Jade Hatchet
-Source: Upgraded from unique{The Gryphon} via prophecy{The Apex Predator}
+Source: Upgraded from unique{The Screaming Eagle} via prophecy{The Apex Predator}
 Requires Level 32, 21 Str
 Socketed Gems are supported by level 2 Chance to Flee
 (170-190)% increased Physical Damage

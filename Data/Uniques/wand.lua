@@ -197,7 +197,7 @@ Tornado Wand
 Source: Drops from unique{The Elder} (Tier 6+)
 Requires Level 65
 (35–39)% increased Spell Damage 
-(20–45)% increased Spell Damage 
+(30–40)% increased Spell Damage 
 Adds (26–35) to (95–105) Lightning Damage to Spells 
 +(6–10)% to Critical Strike Multiplier per Power Charge 
 +0.3% Critical Strike Chance per Power Charge 

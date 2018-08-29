@@ -704,7 +704,7 @@ Animated Guardian deals 5% increased Damage per Animated Weapon
 Animated Minions' Melee Attacks deal Splash Damage to surrounding targets
 Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets
 Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
-10% chance to Trigger Level 20 Animate Guardian's Weapon when Animated Weapon Kills an Enemy
+10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy
 You cannot have non-Animated Minions
 ]],[[
 Geofri's Sanctuary

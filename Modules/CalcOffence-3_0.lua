@@ -177,6 +177,14 @@ function calcs.offence(env, actor)
 			end
 		end
 	end
+	if modDB:Sum("FLAG", nil, "MinionAttackSpeedAppliesToPlayer") then
+		-- Minion Attack Speed conversion from Spiritual Command
+		for _, value in ipairs(modDB:Sum("LIST", env.player.mainSkill.skillCfg, "MinionModifier")) do
+			if value.mod.name == "Speed" and value.mod.type == "INC" and band(value.mod.flags, ModFlag.Attack) ~= 0 then
+				modDB:AddMod(value.mod)
+			end
+		end
+	end
 	if modDB:Sum("FLAG", nil, "SpellDamageAppliesToAttacks") then
 		-- Spell Damage conversion from Crown of Eyes
 		for i, mod in ipairs(modDB.mods.Damage or { }) do

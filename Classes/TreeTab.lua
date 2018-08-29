@@ -284,7 +284,7 @@ function TreeTabClass:OpenImportPopup()
 end
 
 function TreeTabClass:OpenExportPopup()
-	local treeLink = self.build.spec:EncodeURL("https://www.pathofexile.com/passive-skill-tree/"..(self.build.targetVersion == "2_6" and "2.6.2/" or "3.2.0/"))
+	local treeLink = self.build.spec:EncodeURL("https://www.pathofexile.com/passive-skill-tree/"..(self.build.targetVersion == "2_6" and "2.6.2/" or "3.3.0/"))
 	local popup
 	local controls = { }
 	controls.label = common.New("LabelControl", nil, 0, 20, 0, 16, "Passive tree link:")

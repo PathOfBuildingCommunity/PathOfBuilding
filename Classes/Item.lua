@@ -690,7 +690,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		for _, value in ipairs(modList:Sum("LIST", nil, "WeaponData")) do
 			weaponData[value.key] = value.value
 		end
-		if self.targetVersion ~= "2_6" then
+		if self.targetVersion == "2_6" then
 			local accuracyInc = sumLocal(modList, "Accuracy", "INC", 0)
 			if accuracyInc > 0 then
 				modList:NewMod("Accuracy", "MORE", accuracyInc, self.modSource, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })

@@ -239,7 +239,7 @@ skills["Barrage"] = {
 skills["BearTrap"] = {
 	name = "Bear Trap",
 	color = 2,
-	description = "Throws a trap that damages and immobilises a single enemy for a duration based on how much damage was dealt. After the immobilise expires, a debuff remains on the enemy for a duration, lowering their movement speed by an amount which lessens over time. The affected enemy will take increased damage from traps and mines until the debuff expires.",
+	description = "Throws a trap that damages and immobilises a single enemy for a duration based on how much damage was dealt. After the immobilise expires, a debuff remains on the enemy for a duration, lowering their movement speed by an amount which lessens over time. The affected enemy will take increased damage from traps and mines until the debuff expires. Modifiers to spell damage do not affect this skill's damage.",
 	skillTypes = { [2] = true, [12] = true, [19] = true, [37] = true, [10] = true, },
 	baseFlags = {
 		cast = true,
@@ -1612,7 +1612,7 @@ skills["VaalDetonateDead"] = {
 	name = "Vaal Detonate Dead",
 	color = 2,
 	description = "Targets a corpse, and deals spell damage to enemies around the corpse, as well as causing the corpse to explode, dealing fire damage. The explosion is not affected by modifiers to spell damage and cannot be reflected. This will continue to target other corpses in the area, with an increasing delay between each one, until it runs out of corpses or has destroyed 22 corpses.",
-	skillTypes = { [11] = true, [10] = true, [43] = true, },
+	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [43] = true, [33] = true, },
 	parts = {
 		{
 			name = "Spell",
@@ -3363,7 +3363,7 @@ skills["DoubleSlash"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		skill("manaCost", 8), 
-		mod("BleedChance", "BASE", 25, ModFlag.Melee), --"bleed_on_melee_attack_chance_%" = 25
+		mod("BleedChance", "BASE", 25, ModFlag.Attack), --"bleed_on_hit_with_attacks_%" = 25
 		mod("Damage", "MORE", 25, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "Bleeding" }), --"lacerate_hit_and_ailment_damage_+%_final_vs_bleeding_enemies" = 25
 		--"is_area_damage" = ?
 		skill("radius", 38), 

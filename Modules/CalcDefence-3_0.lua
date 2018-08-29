@@ -171,9 +171,9 @@ function calcs.defence(env, actor)
 				breakdown.slot("Conversion", "Life to Energy Shield", nil, energyShieldBase, total, "EnergyShield", "Defences", "Life")
 			end
 		end
-		output.EnergyShield = round(energyShield)
-		output.Armour = round(armour)
-		output.Evasion = round(evasion)
+		output.EnergyShield = m_max(round(energyShield), 0)
+		output.Armour = m_max(round(armour), 0)
+		output.Evasion = m_max(round(evasion), 0)
 		output.LowestOfArmourAndEvasion = m_min(output.Armour, output.Evasion)
 		output["Gear:EnergyShield"] = gearEnergyShield
 		output["Gear:Armour"] = gearArmour
@@ -546,10 +546,19 @@ function calcs.defence(env, actor)
 			baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
 		end
 		output.BlockChance = m_min((baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
-		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance") + output.BlockChance * modDB:Sum("BASE", nil, "BlockChanceConv") / 100, output.BlockChanceMax) 
+		if modDB:Sum("FLAG", nil, "SpellBlockChanceMaxIsBlockChanceMax") then
+			output.SpellBlockChanceMax = output.BlockChanceMax
+		else
+			output.SpellBlockChanceMax = modDB:Sum("BASE", nil, "SpellBlockChanceMax")
+		end
+		if modDB:Sum("FLAG", nil, "SpellBlockChanceIsBlockChance") then
+			output.SpellBlockChance = output.BlockChance
+		else
+			output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax) 
+		end
 		if breakdown then
 			breakdown.BlockChance = breakdown.simple(baseBlockChance, nil, output.BlockChance, "BlockChance")
-			breakdown.SpellBlockChance = breakdown.simple(output.BlockChance * modDB:Sum("BASE", nil, "BlockChanceConv") / 100, nil, output.SpellBlockChance, "SpellBlockChance")
+			breakdown.SpellBlockChance = breakdown.simple(0, nil, output.SpellBlockChance, "SpellBlockChance")
 		end
 		if modDB:Sum("FLAG", nil, "CannotBlockAttacks") then
 			output.BlockChance = 0

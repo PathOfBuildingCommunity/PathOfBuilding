@@ -282,7 +282,7 @@ Requires Level 32, 54 Int
 ]],[[
 Shavronne's Gambit
 Scholar Boots
-Source: Upgraded from unique{Shavronne's Pace} using prophecy{The Flow of Energy}
+Source: Upgraded from unique{Shavronne's Pace} via prophecy{The Flow of Energy}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 32, 54 Int
