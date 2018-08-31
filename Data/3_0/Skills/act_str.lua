@@ -3241,17 +3241,17 @@ skills["StaticStrike"] = {
 	parts = {
 		{
 			name = "Melee hit",
-			area = false,
 		},
 		{
-			name = "Explosion",
-			area = true,
+			name = "Beams - 1 Stack",
+		},
+		{
+			name = "Beams - 3 Stacks",
 		},
 	},
 	baseFlags = {
 		attack = true,
 		melee = true,
-		area = true,
 		duration = true,
 	},
 	baseMods = {
@@ -3261,7 +3261,8 @@ skills["StaticStrike"] = {
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
 		--"static_strike_base_zap_frequency_ms" = 400
 		--"static_strike_zap_speed_+%_per_stack" = 10
-		skill("radius", 20), 
+		skill("hitTimeOverride", 0.4 / (1+1*0.1), { type = "SkillPart", skillPart = 2 }), 
+		skill("hitTimeOverride", 0.4 / (1+3*0.1), { type = "SkillPart", skillPart = 3 }), 
 	},
 	qualityMods = {
 		mod("EnemyShockChance", "BASE", 1), --"base_chance_to_shock_%" = 1
@@ -3270,8 +3271,8 @@ skills["StaticStrike"] = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = { mod("MeleeWeaponRange", "BASE", nil), mod("UnarmedRange", "BASE", nil) }, --"melee_range_+"
 		--[3] = "static_strike_number_of_beam_targets"
-		--[4] = "static_strike_beam_damage_+%_final"
-		--[5] = "static_strike_beam_damage_+%_final_while_moving"
+		[4] = mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "Moving", neg = true }, { type = "SkillPart", skillPartList = { 2, 3 }}), --"static_strike_beam_damage_+%_final"
+		[5] = mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "Moving" }, { type = "SkillPart", skillPartList = { 2, 3 }}), --"static_strike_beam_damage_+%_final_while_moving"
 		[6] = skill("damageEffectiveness", nil), 
 		[7] = skill("baseMultiplier", nil), 
 	},

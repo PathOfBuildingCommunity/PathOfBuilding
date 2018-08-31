@@ -729,6 +729,7 @@ function calcs.offence(env, actor)
 		-- Combine hit chance and attack speed
 		combineStat("HitChance", "AVERAGE")
 		combineStat("Speed", "AVERAGE")
+		combineStat("HitSpeed", "AVERAGE")
 		if output.Speed == 0 then
 			output.Time = 0
 		else

@@ -1,3 +1,6 @@
+### 1.4.101 - 2018/09/01
+ * Static Strike is now fully updated for 3.4
+
 ### 1.4.100 - 2018/09/01
  * Consecrated Path and Smite are now correctly affected by Melee modifiers
  * Earthquake's Aftershock damage multiplier now works correctly

@@ -257,18 +257,20 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill StaticStrike
-#flags attack melee area duration
+#flags attack melee duration
 	parts = {
 		{
 			name = "Melee hit",
-			area = false,
 		},
 		{
-			name = "Explosion",
-			area = true,
+			name = "Beams - 1 Stack",
+		},
+		{
+			name = "Beams - 3 Stacks",
 		},
 	},
-#baseMod skill("radius", 20)
+#baseMod skill("hitTimeOverride", 0.4 / (1+1*0.1), { type = "SkillPart", skillPart = 2 })
+#baseMod skill("hitTimeOverride", 0.4 / (1+3*0.1), { type = "SkillPart", skillPart = 3 })
 #mods
 
 #skill SummonFireGolem
