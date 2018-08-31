@@ -22,7 +22,7 @@ function actWithType(skillType)
 	end
 end
 function supWithType(skillType)
-	for _, data in ipairs({"Data0","Data1","Data2"}) do
+	for _, data in ipairs({"AllowedActiveSkillTypes","AddedActiveSkillTypes","ExcludedActiveSkillTypes"}) do
 		print(data..":")
 		for _, k in ipairs(GrantedEffects[data](skillType)) do
 			print(GrantedEffects[k].Id)

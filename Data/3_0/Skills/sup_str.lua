@@ -1849,7 +1849,7 @@ skills["SupportRangedAttackTotem"] = {
 }
 skills["SupportReducedMana"] = {
 	name = "Reduced Mana",
-	description = "Supports any skill with a mana cost. Does not support skills that reserve mana.",
+	description = "Supports any skill, reducing its mana cost. Does not affect skills that reserve mana.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { },

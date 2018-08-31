@@ -95,6 +95,7 @@ skills["VaalArcChain"] = {
 		mod("EnemyShockDuration", "INC", 100), --"shock_duration_+%" = 100
 		mod("Damage", "MORE", 15, 0, 0, { type = "PerStat", stat = "ChainRemaining" }), --"arc_damage_+%_final_for_each_remaining_chain" = 15
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
+		--"modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration" = ?
 	},
 	qualityMods = {
 		mod("EnemyShockDuration", "INC", 1.5), --"shock_duration_+%" = 1.5
@@ -452,6 +453,7 @@ skills["VaalBlight"] = {
 		--"display_max_blight_stacks" = 20
 		mod("ChaosDamageTaken", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }), --"hinder_enemy_chaos_damage_taken_+%" = 20
 		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_skill_dot" = ?
+		--"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration" = ?
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -671,14 +673,14 @@ skills["Clarity"] = {
 	name = "Clarity",
 	color = 3,
 	description = "Casts an aura that grants mana regeneration to you and your allies.",
-	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [18] = true, [44] = true, },
+	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [18] = true, [44] = true, [75] = true, },
 	baseFlags = {
 		spell = true,
 		aura = true,
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1.2), 
+		skill("castTime", 0), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?
 		skill("radius", 36), 
@@ -750,6 +752,7 @@ skills["VaalClarity"] = {
 		skill("castTime", 0.6), 
 		mod("ManaCost", "MORE", -100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"no_mana_cost" = ?
 		--"base_deal_no_damage" = ?
+		--"modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration" = ?
 		skill("radius", 36), 
 	},
 	qualityMods = {
@@ -901,6 +904,7 @@ skills["VaalColdSnap"] = {
 		--"is_area_damage" = ?
 		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_skill_dot" = ?
 		--"vaal_cold_snap_gain_frenzy_charge_every_second_if_enemy_in_aura" = ?
+		--"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration" = ?
 		skill("dotIsArea", true), 
 	},
 	qualityMods = {
@@ -1172,13 +1176,13 @@ skills["Convocation"] = {
 	name = "Convocation",
 	color = 3,
 	description = "Recalls all minions that are following you to your location, and grants them a temporary life regeneration effect.",
-	skillTypes = { [2] = true, [5] = true, [12] = true, [36] = true, [9] = true, [49] = true, },
+	skillTypes = { [2] = true, [5] = true, [12] = true, [36] = true, [9] = true, [49] = true, [75] = true, },
 	baseFlags = {
 		spell = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 0.8), 
+		skill("castTime", 0), 
 		skill("cooldown", 8), 
 		skill("duration", 2), --"base_skill_effect_duration" = 2000
 		--"base_deal_no_damage" = ?
@@ -1483,14 +1487,14 @@ skills["Discipline"] = {
 	name = "Discipline",
 	color = 3,
 	description = "Casts an aura that grants additional energy shield and increased energy shield recharge rate to you and your allies.",
-	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, },
+	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [75] = true, },
 	baseFlags = {
 		spell = true,
 		aura = true,
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1.2), 
+		skill("castTime", 0), 
 		skill("manaCost", 35), 
 		skill("cooldown", 1.2), 
 		mod("EnergyShieldRecharge", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"energy_shield_recharge_rate_+%" = 30
@@ -1565,6 +1569,7 @@ skills["VaalDiscipline"] = {
 		skill("duration", 3), --"base_skill_effect_duration" = 3000
 		--"energy_shield_recharge_not_delayed_by_damage" = ?
 		--"base_deal_no_damage" = ?
+		--"modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration" = ?
 		skill("radius", 36), 
 	},
 	qualityMods = {
@@ -1869,46 +1874,46 @@ skills["FireNovaMine"] = {
 		--[5] = "fire_nova_damage_+%_per_repeat_final"
 	},
 	levels = {
-		[1] = { 12, 12, 6, 9, 20, },
-		[2] = { 15, 13, 7, 11, 20, },
-		[3] = { 19, 15, 10, 14, 21, },
-		[4] = { 23, 17, 12, 18, 21, },
-		[5] = { 27, 18, 16, 23, 22, },
-		[6] = { 31, 20, 20, 29, 22, },
-		[7] = { 35, 22, 24, 36, 23, },
-		[8] = { 38, 23, 28, 43, 23, },
-		[9] = { 41, 24, 33, 50, 24, },
-		[10] = { 44, 25, 39, 58, 24, },
-		[11] = { 47, 27, 45, 67, 25, },
-		[12] = { 50, 28, 52, 77, 25, },
-		[13] = { 53, 29, 60, 89, 26, },
-		[14] = { 56, 31, 68, 103, 26, },
-		[15] = { 59, 32, 79, 118, 27, },
-		[16] = { 62, 33, 90, 135, 27, },
-		[17] = { 64, 34, 98, 148, 28, },
-		[18] = { 66, 35, 108, 161, 28, },
-		[19] = { 68, 36, 117, 176, 29, },
-		[20] = { 70, 36, 128, 192, 29, },
-		[21] = { 72, 37, 140, 210, 30, },
-		[22] = { 74, 38, 152, 228, 30, },
-		[23] = { 76, 39, 166, 249, 31, },
-		[24] = { 78, 40, 181, 271, 31, },
-		[25] = { 80, 41, 197, 295, 32, },
-		[26] = { 82, 41, 214, 321, 32, },
-		[27] = { 84, 42, 232, 349, 33, },
-		[28] = { 86, 43, 253, 379, 33, },
-		[29] = { 88, 44, 274, 412, 34, },
-		[30] = { 90, 45, 298, 447, 34, },
-		[31] = { 91, 46, 310, 466, 34, },
-		[32] = { 92, 46, 323, 485, 35, },
-		[33] = { 93, 47, 337, 505, 35, },
-		[34] = { 94, 48, 351, 526, 35, },
-		[35] = { 95, 49, 365, 548, 35, },
-		[36] = { 96, 50, 380, 571, 36, },
-		[37] = { 97, 51, 396, 594, 36, },
-		[38] = { 98, 51, 412, 619, 36, },
-		[39] = { 99, 52, 429, 644, 36, },
-		[40] = { 100, 53, 447, 671, 37, },
+		[1] = { 12, 12, 7, 11, 20, },
+		[2] = { 15, 13, 9, 14, 20, },
+		[3] = { 19, 15, 12, 18, 21, },
+		[4] = { 23, 17, 15, 23, 21, },
+		[5] = { 27, 18, 19, 29, 22, },
+		[6] = { 31, 20, 24, 37, 22, },
+		[7] = { 35, 22, 30, 46, 23, },
+		[8] = { 38, 23, 36, 53, 23, },
+		[9] = { 41, 24, 41, 62, 24, },
+		[10] = { 44, 25, 48, 72, 24, },
+		[11] = { 47, 27, 56, 84, 25, },
+		[12] = { 50, 28, 65, 97, 25, },
+		[13] = { 53, 29, 74, 112, 26, },
+		[14] = { 56, 31, 86, 128, 26, },
+		[15] = { 59, 32, 98, 147, 27, },
+		[16] = { 62, 33, 112, 169, 27, },
+		[17] = { 64, 34, 123, 184, 28, },
+		[18] = { 66, 35, 134, 202, 28, },
+		[19] = { 68, 36, 147, 220, 29, },
+		[20] = { 70, 36, 160, 240, 29, },
+		[21] = { 72, 37, 175, 262, 30, },
+		[22] = { 74, 38, 190, 286, 30, },
+		[23] = { 76, 39, 207, 311, 31, },
+		[24] = { 78, 40, 226, 339, 31, },
+		[25] = { 80, 41, 246, 369, 32, },
+		[26] = { 82, 41, 267, 401, 32, },
+		[27] = { 84, 42, 291, 436, 33, },
+		[28] = { 86, 43, 316, 474, 33, },
+		[29] = { 88, 44, 343, 515, 34, },
+		[30] = { 90, 45, 372, 559, 34, },
+		[31] = { 91, 46, 388, 582, 34, },
+		[32] = { 92, 46, 404, 606, 35, },
+		[33] = { 93, 47, 421, 632, 35, },
+		[34] = { 94, 48, 439, 658, 35, },
+		[35] = { 95, 49, 457, 685, 35, },
+		[36] = { 96, 50, 476, 713, 36, },
+		[37] = { 97, 51, 495, 743, 36, },
+		[38] = { 98, 51, 516, 773, 36, },
+		[39] = { 99, 52, 537, 805, 36, },
+		[40] = { 100, 53, 559, 838, 37, },
 	},
 }
 skills["Fireball"] = {
@@ -2159,7 +2164,7 @@ skills["FlameDash"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 0.75), 
+		skill("castTime", 0.7), 
 		skill("CritChance", 6), 
 		skill("cooldown", 3), 
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
@@ -2168,7 +2173,7 @@ skills["FlameDash"] = {
 		skill("dotIsArea", true), 
 	},
 	qualityMods = {
-		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
+		mod("CooldownRecovery", "INC", 1), --"base_cooldown_speed_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
@@ -2176,48 +2181,49 @@ skills["FlameDash"] = {
 		[3] = skill("FireMin", nil), --"spell_minimum_base_fire_damage"
 		[4] = skill("FireMax", nil), --"spell_maximum_base_fire_damage"
 		[5] = skill("FireDot", nil), --"base_fire_damage_to_deal_per_minute"
+		[6] = mod("CooldownRecovery", "INC", nil), --"base_cooldown_speed_+%"
 	},
 	levels = {
-		[1] = { 10, 10, 6, 9, 10.9, },
-		[2] = { 13, 11, 8, 11, 14.3, },
-		[3] = { 17, 12, 11, 16, 20.016666666667, },
-		[4] = { 21, 13, 15, 22, 27.366666666667, },
-		[5] = { 25, 14, 20, 29, 36.816666666667, },
-		[6] = { 29, 15, 26, 39, 48.866666666667, },
-		[7] = { 33, 16, 34, 51, 64.15, },
-		[8] = { 36, 17, 42, 63, 78.233333333333, },
-		[9] = { 39, 18, 51, 76, 94.983333333333, },
-		[10] = { 42, 20, 61, 92, 114.9, },
-		[11] = { 45, 21, 74, 111, 138.51666666667, },
-		[12] = { 48, 22, 89, 133, 166.48333333333, },
-		[13] = { 51, 24, 106, 160, 199.55, },
-		[14] = { 54, 25, 127, 191, 238.61666666667, },
-		[15] = { 57, 26, 152, 228, 284.7, },
-		[16] = { 60, 27, 181, 271, 339, },
-		[17] = { 63, 28, 215, 322, 402.91666666667, },
-		[18] = { 66, 29, 255, 382, 478.05, },
-		[19] = { 68, 30, 286, 428, 535.31666666667, },
-		[20] = { 70, 30, 319, 479, 599.03333333333, },
-		[21] = { 72, 31, 357, 536, 669.91666666667, },
-		[22] = { 74, 32, 399, 599, 748.73333333333, },
-		[23] = { 76, 33, 446, 669, 836.35, },
-		[24] = { 78, 34, 498, 747, 933.71666666667, },
-		[25] = { 80, 34, 556, 834, 1041.8833333333, },
-		[26] = { 82, 35, 620, 930, 1161.9833333333, },
-		[27] = { 84, 36, 691, 1036, 1295.3333333333, },
-		[28] = { 86, 37, 770, 1155, 1443.3166666667, },
-		[29] = { 88, 38, 857, 1286, 1607.5, },
-		[30] = { 90, 38, 954, 1432, 1789.6333333333, },
-		[31] = { 91, 38, 1007, 1510, 1888, },
-		[32] = { 92, 39, 1062, 1593, 1991.5833333333, },
-		[33] = { 93, 39, 1120, 1681, 2100.65, },
-		[34] = { 94, 40, 1182, 1772, 2215.4666666667, },
-		[35] = { 95, 40, 1246, 1869, 2336.35, },
-		[36] = { 96, 41, 1314, 1971, 2463.6166666667, },
-		[37] = { 97, 41, 1385, 2078, 2597.5666666667, },
-		[38] = { 98, 42, 1461, 2191, 2738.5666666667, },
-		[39] = { 99, 42, 1540, 2310, 2886.9666666667, },
-		[40] = { 100, 42, 1623, 2435, 3043.1666666667, },
+		[1] = { 10, 10, 6, 9, 10.9, 0, },
+		[2] = { 13, 11, 8, 11, 14.3, 4, },
+		[3] = { 17, 12, 11, 16, 20.016666666667, 8, },
+		[4] = { 21, 13, 15, 22, 27.366666666667, 12, },
+		[5] = { 25, 14, 20, 29, 36.816666666667, 16, },
+		[6] = { 29, 15, 26, 39, 48.866666666667, 20, },
+		[7] = { 33, 16, 34, 51, 64.15, 24, },
+		[8] = { 36, 17, 42, 63, 78.233333333333, 28, },
+		[9] = { 39, 18, 51, 76, 94.983333333333, 32, },
+		[10] = { 42, 20, 61, 92, 114.9, 36, },
+		[11] = { 45, 21, 74, 111, 138.51666666667, 40, },
+		[12] = { 48, 22, 89, 133, 166.48333333333, 44, },
+		[13] = { 51, 24, 106, 160, 199.55, 48, },
+		[14] = { 54, 25, 127, 191, 238.61666666667, 52, },
+		[15] = { 57, 26, 152, 228, 284.7, 56, },
+		[16] = { 60, 27, 181, 271, 339, 60, },
+		[17] = { 63, 28, 215, 322, 402.91666666667, 64, },
+		[18] = { 66, 29, 255, 382, 478.05, 68, },
+		[19] = { 68, 30, 286, 428, 535.31666666667, 72, },
+		[20] = { 70, 30, 319, 479, 599.03333333333, 76, },
+		[21] = { 72, 31, 357, 536, 669.91666666667, 80, },
+		[22] = { 74, 32, 399, 599, 748.73333333333, 84, },
+		[23] = { 76, 33, 446, 669, 836.35, 88, },
+		[24] = { 78, 34, 498, 747, 933.71666666667, 92, },
+		[25] = { 80, 34, 556, 834, 1041.8833333333, 96, },
+		[26] = { 82, 35, 620, 930, 1161.9833333333, 100, },
+		[27] = { 84, 36, 691, 1036, 1295.3333333333, 104, },
+		[28] = { 86, 37, 770, 1155, 1443.3166666667, 108, },
+		[29] = { 88, 38, 857, 1286, 1607.5, 112, },
+		[30] = { 90, 38, 954, 1432, 1789.6333333333, 116, },
+		[31] = { 91, 38, 1007, 1510, 1888, 120, },
+		[32] = { 92, 39, 1062, 1593, 1991.5833333333, 124, },
+		[33] = { 93, 39, 1120, 1681, 2100.65, 128, },
+		[34] = { 94, 40, 1182, 1772, 2215.4666666667, 132, },
+		[35] = { 95, 40, 1246, 1869, 2336.35, 136, },
+		[36] = { 96, 41, 1314, 1971, 2463.6166666667, 140, },
+		[37] = { 97, 41, 1385, 2078, 2597.5666666667, 144, },
+		[38] = { 98, 42, 1461, 2191, 2738.5666666667, 148, },
+		[39] = { 99, 42, 1540, 2310, 2886.9666666667, 152, },
+		[40] = { 100, 42, 1623, 2435, 3043.1666666667, 156, },
 	},
 }
 skills["FlameWhip"] = {
@@ -2660,7 +2666,7 @@ skills["FreezingPulse"] = {
 skills["FrostBomb"] = {
 	name = "Frost Bomb",
 	color = 3,
-	description = "Creates a crystal that pulses with cold for a duration. Each pulse applies a debuff to nearby enemies that reduces their cold resistance and life regeneration. When its duration ends, the crystal explodes, dealing heavy cold damage to enemies around it.",
+	description = "Creates a crystal that pulses with cold for a duration. Each pulse applies a debuff to nearby enemies for a secondary duration which lowers their cold resistance, reduces life and energy shield regeneration rate, and reduces energy shield recharge rate. When the crystal's duration ends, it explodes, dealing heavy cold damage to enemies around it.",
 	skillTypes = { [2] = true, [11] = true, [12] = true, [34] = true, [10] = true, [26] = true, [18] = true, [17] = true, [19] = true, [36] = true, [60] = true, [67] = true, },
 	baseFlags = {
 		spell = true,
@@ -2676,6 +2682,8 @@ skills["FrostBomb"] = {
 		skill("durationSecondary", 5), --"base_secondary_skill_effect_duration" = 5000
 		mod("ColdResist", "BASE", -25, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }), --"base_cold_damage_resistance_%" = -25
 		--"life_regeneration_rate_+%" = -75
+		--"energy_shield_regeneration_rate_+%" = -75
+		mod("EnergyShieldRecharge", "INC", -25, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }), --"energy_shield_recharge_rate_+%" = -25
 		--"is_area_damage" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		skill("debuffSecondary", true), 
@@ -3014,13 +3022,13 @@ skills["HeraldOfThunder"] = {
 	name = "Herald of Thunder",
 	color = 3,
 	description = "Channel lightning through your hands, adding lightning damage to spells and attacks. If you kill a shocked enemy, lightning bolts will strike enemies around you for a short duration. The lightning bolt damage inflicted by this skill is not affected by modifiers to spell damage.",
-	skillTypes = { [2] = true, [5] = true, [15] = true, [16] = true, [10] = true, [11] = true, [12] = true, [35] = true, [27] = true, [63] = true, },
+	skillTypes = { [2] = true, [5] = true, [15] = true, [16] = true, [10] = true, [11] = true, [12] = true, [35] = true, [27] = true, [63] = true, [75] = true, },
 	baseFlags = {
 		cast = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
+		skill("castTime", 0), 
 		skill("manaCost", 25), 
 		skill("damageEffectiveness", 1.2), 
 		skill("cooldown", 1), 
@@ -3420,7 +3428,7 @@ skills["ClusterBurst"] = {
 	baseMods = {
 		skill("castTime", 1), 
 		--"cluster_burst_spawn_amount" = 4
-		mod("Damage", "MORE", -25, ModFlag.Area), --"active_skill_area_damage_+%_final" = -25
+		mod("Damage", "MORE", -35, ModFlag.Area), --"active_skill_area_damage_+%_final" = -35
 		--"base_is_projectile" = ?
 		--"skill_can_fire_wand_projectiles" = ?
 		skill("radius", 14), 
@@ -3662,46 +3670,46 @@ skills["LightningTrap"] = {
 		[6] = mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }), --"critical_strike_chance_+%_vs_shocked_enemies"
 	},
 	levels = {
-		[1] = { 12, 8, 14, 41, 0, 80, },
-		[2] = { 15, 8, 17, 51, 1, 82, },
-		[3] = { 19, 9, 22, 67, 2, 84, },
-		[4] = { 23, 10, 29, 86, 3, 86, },
-		[5] = { 27, 10, 36, 108, 4, 88, },
-		[6] = { 31, 11, 45, 135, 5, 90, },
-		[7] = { 35, 11, 56, 167, 6, 92, },
-		[8] = { 38, 12, 65, 195, 7, 94, },
-		[9] = { 41, 13, 75, 226, 8, 96, },
-		[10] = { 44, 14, 87, 262, 9, 98, },
-		[11] = { 47, 14, 101, 302, 10, 100, },
-		[12] = { 50, 15, 116, 348, 11, 102, },
-		[13] = { 53, 16, 133, 399, 12, 104, },
-		[14] = { 56, 16, 152, 457, 13, 106, },
-		[15] = { 59, 17, 174, 522, 14, 108, },
-		[16] = { 62, 18, 199, 596, 15, 110, },
-		[17] = { 64, 18, 216, 649, 16, 112, },
-		[18] = { 66, 19, 236, 708, 17, 114, },
-		[19] = { 68, 19, 257, 771, 18, 116, },
-		[20] = { 70, 20, 279, 838, 19, 118, },
-		[21] = { 72, 20, 304, 912, 20, 120, },
-		[22] = { 74, 21, 330, 991, 21, 122, },
-		[23] = { 76, 21, 359, 1076, 22, 124, },
-		[24] = { 78, 21, 390, 1169, 23, 126, },
-		[25] = { 80, 22, 423, 1268, 24, 128, },
-		[26] = { 82, 23, 458, 1375, 25, 130, },
-		[27] = { 84, 23, 497, 1491, 26, 132, },
-		[28] = { 86, 23, 538, 1615, 27, 134, },
-		[29] = { 88, 24, 583, 1750, 28, 136, },
-		[30] = { 90, 24, 631, 1894, 29, 138, },
-		[31] = { 91, 26, 657, 1970, 29, 139, },
-		[32] = { 92, 26, 683, 2050, 30, 140, },
-		[33] = { 93, 27, 711, 2132, 30, 141, },
-		[34] = { 94, 27, 739, 2217, 31, 142, },
-		[35] = { 95, 28, 769, 2306, 31, 143, },
-		[36] = { 96, 29, 799, 2398, 32, 144, },
-		[37] = { 97, 29, 831, 2493, 32, 145, },
-		[38] = { 98, 30, 864, 2592, 33, 146, },
-		[39] = { 99, 30, 898, 2694, 33, 147, },
-		[40] = { 100, 31, 934, 2801, 34, 148, },
+		[1] = { 12, 8, 19, 58, 0, 80, },
+		[2] = { 15, 8, 24, 72, 1, 82, },
+		[3] = { 19, 9, 31, 94, 2, 84, },
+		[4] = { 23, 10, 40, 120, 3, 86, },
+		[5] = { 27, 10, 51, 152, 4, 88, },
+		[6] = { 31, 11, 63, 189, 5, 90, },
+		[7] = { 35, 11, 78, 234, 6, 92, },
+		[8] = { 38, 12, 91, 273, 7, 94, },
+		[9] = { 41, 13, 106, 317, 8, 96, },
+		[10] = { 44, 14, 122, 367, 9, 98, },
+		[11] = { 47, 14, 141, 423, 10, 100, },
+		[12] = { 50, 15, 162, 487, 11, 102, },
+		[13] = { 53, 16, 186, 559, 12, 104, },
+		[14] = { 56, 16, 213, 640, 13, 106, },
+		[15] = { 59, 17, 244, 731, 14, 108, },
+		[16] = { 62, 18, 278, 834, 15, 110, },
+		[17] = { 64, 18, 303, 909, 16, 112, },
+		[18] = { 66, 19, 330, 991, 17, 114, },
+		[19] = { 68, 19, 360, 1079, 18, 116, },
+		[20] = { 70, 20, 391, 1174, 19, 118, },
+		[21] = { 72, 20, 426, 1277, 20, 120, },
+		[22] = { 74, 21, 462, 1387, 21, 122, },
+		[23] = { 76, 21, 502, 1507, 22, 124, },
+		[24] = { 78, 21, 545, 1636, 23, 126, },
+		[25] = { 80, 22, 592, 1775, 24, 128, },
+		[26] = { 82, 23, 642, 1925, 25, 130, },
+		[27] = { 84, 23, 696, 2087, 26, 132, },
+		[28] = { 86, 23, 754, 2262, 27, 134, },
+		[29] = { 88, 24, 816, 2449, 28, 136, },
+		[30] = { 90, 24, 884, 2652, 29, 138, },
+		[31] = { 91, 26, 920, 2759, 29, 139, },
+		[32] = { 92, 26, 957, 2870, 30, 140, },
+		[33] = { 93, 27, 995, 2985, 30, 141, },
+		[34] = { 94, 27, 1035, 3104, 31, 142, },
+		[35] = { 95, 28, 1076, 3228, 31, 143, },
+		[36] = { 96, 29, 1119, 3357, 32, 144, },
+		[37] = { 97, 29, 1163, 3490, 32, 145, },
+		[38] = { 98, 30, 1209, 3628, 33, 146, },
+		[39] = { 99, 30, 1257, 3772, 33, 147, },
+		[40] = { 100, 31, 1307, 3921, 34, 148, },
 	},
 }
 skills["VaalLightningTrap"] = {
@@ -3731,6 +3739,7 @@ skills["VaalLightningTrap"] = {
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"lightning_trap_projectiles_leave_shocking_ground" = ?
 		flag("PierceAllTargets"), --"always_pierce" = ?
+		--"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration" = ?
 	},
 	qualityMods = {
 		--"shocked_ground_base_magnitude_override" = 0.25
@@ -3741,46 +3750,46 @@ skills["VaalLightningTrap"] = {
 		[3] = skill("LightningMax", nil), --"spell_maximum_base_lightning_damage"
 	},
 	levels = {
-		[1] = { 12, 14, 41, },
-		[2] = { 15, 17, 51, },
-		[3] = { 19, 22, 67, },
-		[4] = { 23, 29, 86, },
-		[5] = { 27, 36, 108, },
-		[6] = { 31, 45, 135, },
-		[7] = { 35, 56, 167, },
-		[8] = { 38, 65, 195, },
-		[9] = { 41, 75, 226, },
-		[10] = { 44, 87, 262, },
-		[11] = { 47, 101, 302, },
-		[12] = { 50, 116, 348, },
-		[13] = { 53, 133, 399, },
-		[14] = { 56, 152, 457, },
-		[15] = { 59, 174, 522, },
-		[16] = { 62, 199, 596, },
-		[17] = { 64, 216, 649, },
-		[18] = { 66, 236, 708, },
-		[19] = { 68, 257, 771, },
-		[20] = { 70, 279, 838, },
-		[21] = { 72, 304, 912, },
-		[22] = { 74, 330, 991, },
-		[23] = { 76, 359, 1076, },
-		[24] = { 78, 390, 1169, },
-		[25] = { 80, 423, 1268, },
-		[26] = { 82, 458, 1375, },
-		[27] = { 84, 497, 1491, },
-		[28] = { 86, 538, 1615, },
-		[29] = { 88, 583, 1750, },
-		[30] = { 90, 631, 1894, },
-		[31] = { 91, 657, 1970, },
-		[32] = { 92, 683, 2050, },
-		[33] = { 93, 711, 2132, },
-		[34] = { 94, 739, 2217, },
-		[35] = { 95, 769, 2306, },
-		[36] = { 96, 799, 2398, },
-		[37] = { 97, 831, 2493, },
-		[38] = { 98, 864, 2592, },
-		[39] = { 99, 898, 2694, },
-		[40] = { 100, 934, 2801, },
+		[1] = { 12, 19, 58, },
+		[2] = { 15, 24, 72, },
+		[3] = { 19, 31, 94, },
+		[4] = { 23, 40, 120, },
+		[5] = { 27, 51, 152, },
+		[6] = { 31, 63, 189, },
+		[7] = { 35, 78, 234, },
+		[8] = { 38, 91, 273, },
+		[9] = { 41, 106, 317, },
+		[10] = { 44, 122, 367, },
+		[11] = { 47, 141, 423, },
+		[12] = { 50, 162, 487, },
+		[13] = { 53, 186, 559, },
+		[14] = { 56, 213, 640, },
+		[15] = { 59, 244, 731, },
+		[16] = { 62, 278, 834, },
+		[17] = { 64, 303, 909, },
+		[18] = { 66, 330, 991, },
+		[19] = { 68, 360, 1079, },
+		[20] = { 70, 391, 1174, },
+		[21] = { 72, 426, 1277, },
+		[22] = { 74, 462, 1387, },
+		[23] = { 76, 502, 1507, },
+		[24] = { 78, 545, 1636, },
+		[25] = { 80, 592, 1775, },
+		[26] = { 82, 642, 1925, },
+		[27] = { 84, 696, 2087, },
+		[28] = { 86, 754, 2262, },
+		[29] = { 88, 816, 2449, },
+		[30] = { 90, 884, 2652, },
+		[31] = { 91, 920, 2759, },
+		[32] = { 92, 957, 2870, },
+		[33] = { 93, 995, 2985, },
+		[34] = { 94, 1035, 3104, },
+		[35] = { 95, 1076, 3228, },
+		[36] = { 96, 1119, 3357, },
+		[37] = { 97, 1163, 3490, },
+		[38] = { 98, 1209, 3628, },
+		[39] = { 99, 1257, 3772, },
+		[40] = { 100, 1307, 3921, },
 	},
 }
 skills["LightningWarp"] = {
@@ -3794,7 +3803,7 @@ skills["LightningWarp"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
+		skill("castTime", 0.85), 
 		skill("damageEffectiveness", 0.6), 
 		skill("CritChance", 5), 
 		--"is_area_damage" = 1
@@ -3813,46 +3822,46 @@ skills["LightningWarp"] = {
 		[5] = mod("Duration", "INC", nil), --"skill_effect_duration_+%"
 	},
 	levels = {
-		[1] = { 10, 15, 1, 19, 0, },
-		[2] = { 13, 16, 1, 24, -2, },
-		[3] = { 17, 17, 2, 33, -4, },
-		[4] = { 21, 18, 2, 44, -6, },
-		[5] = { 25, 18, 3, 58, -8, },
-		[6] = { 29, 20, 4, 75, -10, },
-		[7] = { 33, 21, 5, 96, -12, },
-		[8] = { 36, 22, 6, 115, -14, },
-		[9] = { 39, 23, 7, 137, -16, },
-		[10] = { 42, 24, 9, 162, -18, },
-		[11] = { 45, 26, 10, 192, -20, },
-		[12] = { 48, 26, 12, 226, -22, },
-		[13] = { 51, 27, 14, 266, -24, },
-		[14] = { 54, 28, 16, 312, -26, },
-		[15] = { 57, 29, 19, 365, -28, },
-		[16] = { 60, 30, 22, 426, -30, },
-		[17] = { 63, 30, 26, 497, -32, },
-		[18] = { 66, 31, 30, 579, -34, },
-		[19] = { 68, 32, 34, 640, -36, },
-		[20] = { 70, 33, 37, 707, -38, },
+		[1] = { 10, 15, 1, 19, -20, },
+		[2] = { 13, 16, 1, 24, -21, },
+		[3] = { 17, 17, 2, 33, -22, },
+		[4] = { 21, 18, 2, 44, -23, },
+		[5] = { 25, 18, 3, 58, -24, },
+		[6] = { 29, 20, 4, 75, -25, },
+		[7] = { 33, 21, 5, 96, -26, },
+		[8] = { 36, 22, 6, 115, -27, },
+		[9] = { 39, 23, 7, 137, -28, },
+		[10] = { 42, 24, 9, 162, -29, },
+		[11] = { 45, 26, 10, 192, -30, },
+		[12] = { 48, 26, 12, 226, -31, },
+		[13] = { 51, 27, 14, 266, -32, },
+		[14] = { 54, 28, 16, 312, -33, },
+		[15] = { 57, 29, 19, 365, -34, },
+		[16] = { 60, 30, 22, 426, -35, },
+		[17] = { 63, 30, 26, 497, -36, },
+		[18] = { 66, 31, 30, 579, -37, },
+		[19] = { 68, 32, 34, 640, -38, },
+		[20] = { 70, 33, 37, 707, -39, },
 		[21] = { 72, 34, 41, 780, -40, },
-		[22] = { 74, 34, 45, 861, -42, },
-		[23] = { 76, 34, 50, 949, -44, },
-		[24] = { 78, 34, 55, 1046, -46, },
-		[25] = { 80, 35, 61, 1152, -48, },
-		[26] = { 82, 35, 67, 1269, -50, },
-		[27] = { 84, 36, 73, 1396, -52, },
-		[28] = { 86, 37, 81, 1536, -54, },
-		[29] = { 88, 37, 89, 1689, -56, },
-		[30] = { 90, 37, 98, 1856, -58, },
-		[31] = { 91, 38, 102, 1945, -59, },
-		[32] = { 92, 39, 107, 2039, -60, },
-		[33] = { 93, 39, 112, 2137, -61, },
-		[34] = { 94, 39, 118, 2239, -62, },
-		[35] = { 95, 39, 123, 2346, -63, },
-		[36] = { 96, 40, 129, 2458, -64, },
-		[37] = { 97, 40, 136, 2575, -65, },
-		[38] = { 98, 40, 142, 2697, -66, },
-		[39] = { 99, 41, 149, 2825, -67, },
-		[40] = { 100, 41, 156, 2959, -68, },
+		[22] = { 74, 34, 45, 861, -41, },
+		[23] = { 76, 34, 50, 949, -42, },
+		[24] = { 78, 34, 55, 1046, -43, },
+		[25] = { 80, 35, 61, 1152, -44, },
+		[26] = { 82, 35, 67, 1269, -45, },
+		[27] = { 84, 36, 73, 1396, -46, },
+		[28] = { 86, 37, 81, 1536, -47, },
+		[29] = { 88, 37, 89, 1689, -48, },
+		[30] = { 90, 37, 98, 1856, -49, },
+		[31] = { 91, 38, 102, 1945, -50, },
+		[32] = { 92, 39, 107, 2039, -51, },
+		[33] = { 93, 39, 112, 2137, -52, },
+		[34] = { 94, 39, 118, 2239, -53, },
+		[35] = { 95, 39, 123, 2346, -54, },
+		[36] = { 96, 40, 129, 2458, -55, },
+		[37] = { 97, 40, 136, 2575, -56, },
+		[38] = { 98, 40, 142, 2697, -57, },
+		[39] = { 99, 41, 149, 2825, -58, },
+		[40] = { 100, 41, 156, 2959, -59, },
 	},
 }
 skills["VaalLightningWarpInstant"] = {
@@ -4000,8 +4009,8 @@ skills["MagmaOrb"] = {
 skills["OrbOfStorms"] = {
 	name = "Orb of Storms",
 	color = 3,
-	description = "Creates a stationary electrical orb that frequently unleashes a splitting bolt of lightning at a nearby enemy. Modifers to cast speed will increase how frequently it does this. Using a lightning skill while inside the orb's cloud unleashes additional bolts. Casting this skill again will replace the previous orb. You can only cast this spell yourself, directly.",
-	skillTypes = { [2] = true, [10] = true, [35] = true, [12] = true, [11] = true, [23] = true, },
+	description = "Creates a stationary electrical orb that frequently unleashes a splitting bolt of lightning at a nearby enemy. Modifers to cast speed will increase how frequently it does this. Using a lightning skill while inside the orb's cloud unleashes additional bolts. Casting this skill again will replace the previous orb.",
+	skillTypes = { [2] = true, [10] = true, [35] = true, [12] = true, [11] = true, [23] = true, [36] = true, [18] = true, [17] = true, [19] = true, },
 	baseFlags = {
 		spell = true,
 		chaining = true,
@@ -4222,14 +4231,14 @@ skills["Purity"] = {
 	name = "Purity of Elements",
 	color = 3,
 	description = "Casts an aura that grants elemental resistances to you and your allies.",
-	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, },
+	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [75] = true, },
 	baseFlags = {
 		spell = true,
 		aura = true,
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1.2), 
+		skill("castTime", 0), 
 		skill("manaCost", 35), 
 		skill("cooldown", 1.2), 
 		mod("FireResistMax", "BASE", 0, 0, 0, { type = "GlobalEffect", effectType = "Aura" }), --"base_maximum_fire_damage_resistance_%" = 0
@@ -4293,14 +4302,14 @@ skills["LightningResistAura"] = {
 	name = "Purity of Lightning",
 	color = 3,
 	description = "Casts an aura that grants lightning resistance to you and your allies.",
-	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [35] = true, },
+	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [35] = true, [75] = true, },
 	baseFlags = {
 		spell = true,
 		aura = true,
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1.2), 
+		skill("castTime", 0), 
 		skill("manaCost", 35), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?
@@ -4376,6 +4385,7 @@ skills["LightningImpurity"] = {
 		--"base_deal_no_damage" = ?
 		--"base_immune_to_shock" = ?
 		flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "Debuff" }), --"hits_ignore_my_lightning_resistance" = ?
+		--"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration" = ?
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 1), --"base_skill_area_of_effect_+%" = 1
@@ -4579,7 +4589,7 @@ skills["RighteousFire"] = {
 	name = "Righteous Fire",
 	color = 3,
 	description = "Engulfs you in magical fire that rapidly burns you and nearby enemies. Your spell damage is substantially increased while under this effect. The effect ends when you have 1 life remaining.",
-	skillTypes = { [2] = true, [5] = true, [11] = true, [29] = true, [40] = true, [33] = true, [18] = true, [36] = true, },
+	skillTypes = { [2] = true, [5] = true, [11] = true, [29] = true, [40] = true, [33] = true, [18] = true, [36] = true, [75] = true, },
 	setupFunc = function(actor, output)
 		if actor.mainSkill.skillFlags.totem then
 			actor.mainSkill.skillData.FireDot = output.TotemLife * 0.4
@@ -4592,7 +4602,8 @@ skills["RighteousFire"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
+		skill("castTime", 0), 
+		skill("cooldown", 1), 
 		--"base_righteous_fire_%_of_max_life_to_deal_to_nearby_per_minute" = 2400
 		mod("FireDegen", "BASE", 0.9, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }), --"base_nonlethal_fire_damage_%_of_maximum_life_taken_per_minute" = 5400
 		--"base_righteous_fire_%_of_max_energy_shield_to_deal_to_nearby_per_minute" = 2400
@@ -4665,6 +4676,7 @@ skills["VaalRighteousFire"] = {
 		--"vaal_righteous_fire_life_and_es_%_to_lose_on_use" = 30
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
 		--"is_area_damage" = ?
+		--"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration" = ?
 		skill("dotIsArea", true), 
 	},
 	qualityMods = {
@@ -5046,6 +5058,7 @@ skills["VaalSparkSpiralNova"] = {
 		--"projectile_spiral_nova_time_ms" = 3000
 		--"projectile_spiral_nova_angle" = 0
 		--"base_is_projectile" = ?
+		--"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration" = ?
 	},
 	qualityMods = {
 		mod("ProjectileSpeed", "INC", 1), --"base_projectile_speed_+%" = 1
@@ -5341,6 +5354,7 @@ skills["VaalStormCall"] = {
 		--"is_area_damage" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		--"monster_stormcall_individually_trigger" = ?
+		--"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration" = ?
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -5470,6 +5484,71 @@ skills["SummonChaosGolem"] = {
 		[38] = { 98, 64, 17, 6, 96, 98, },
 		[39] = { 99, 64, 17, 6, 97, 99, },
 		[40] = { 100, 64, 17, 6, 98, 100, },
+	},
+}
+skills["SummonRelic"] = {
+	name = "Summon Holy Relic",
+	color = 3,
+	description = "Summons a Holy Relic that stays close to you. When you hit an enemy with an attack, the Holy Relic triggers a nova spell that deals physical damage to enemies and grants life regeneration to allies. This life regeneration has a significantly higher value when applied to minions. The relic's nova spell has a very short cooldown.",
+	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
+	minionSkillTypes = { [10] = true, [2] = true, [11] = true, [42] = true, [52] = true, },
+	baseFlags = {
+	},
+	baseMods = {
+		skill("castTime", 1), 
+		skill("cooldown", 2), 
+		--"base_number_of_relics_allowed" = 1
+		--"minions_cannot_taunt_enemies" = ?
+	},
+	qualityMods = {
+		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil), 
+		[2] = skill("manaCost", nil), 
+		[3] = mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "MORE", nil) }), --"active_skill_minion_movement_velocity_+%_final"
+	},
+	levels = {
+		[1] = { 4, 11, 0, },
+		[2] = { 6, 12, 4, },
+		[3] = { 9, 13, 8, },
+		[4] = { 12, 14, 12, },
+		[5] = { 16, 15, 16, },
+		[6] = { 20, 16, 20, },
+		[7] = { 24, 17, 24, },
+		[8] = { 28, 18, 28, },
+		[9] = { 32, 19, 32, },
+		[10] = { 36, 20, 36, },
+		[11] = { 40, 21, 40, },
+		[12] = { 44, 22, 44, },
+		[13] = { 48, 23, 48, },
+		[14] = { 52, 24, 52, },
+		[15] = { 55, 25, 56, },
+		[16] = { 58, 26, 60, },
+		[17] = { 61, 26, 64, },
+		[18] = { 64, 27, 68, },
+		[19] = { 67, 27, 72, },
+		[20] = { 70, 28, 76, },
+		[21] = { 72, 28, 80, },
+		[22] = { 74, 29, 84, },
+		[23] = { 76, 29, 88, },
+		[24] = { 78, 30, 92, },
+		[25] = { 80, 30, 96, },
+		[26] = { 82, 30, 100, },
+		[27] = { 84, 30, 104, },
+		[28] = { 86, 31, 108, },
+		[29] = { 88, 31, 112, },
+		[30] = { 90, 32, 116, },
+		[31] = { 91, 33, 118, },
+		[32] = { 92, 33, 120, },
+		[33] = { 93, 33, 122, },
+		[34] = { 94, 33, 124, },
+		[35] = { 95, 34, 126, },
+		[36] = { 96, 34, 128, },
+		[37] = { 97, 34, 130, },
+		[38] = { 98, 34, 132, },
+		[39] = { 99, 35, 134, },
+		[40] = { 100, 35, 136, },
 	},
 }
 skills["SummonLightningGolem"] = {
@@ -5918,7 +5997,7 @@ skills["FrostBoltNova"] = {
 skills["Wither"] = {
 	name = "Wither",
 	color = 3,
-	description = "Casts a debilitating debuff on enemies in an area, hindering their movement and also applies a secondary debuff which increases the Chaos Damage they take and can stack up to 15 times.",
+	description = "Casts a debilitating debuff on enemies in an area, hindering their movement and also inflicts the Withered debuff, which increases the Chaos Damage they take and can stack up to 15 times.",
 	skillTypes = { [2] = true, [11] = true, [12] = true, [18] = true, [50] = true, [58] = true, },
 	parts = {
 		{
@@ -5944,7 +6023,7 @@ skills["Wither"] = {
 		skill("castTime", 0.28), 
 		mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }), --"chaos_damage_taken_+%" = 6
 		--"base_skill_effect_duration" = 500
-		skill("duration", 2), --"base_secondary_skill_effect_duration" = 2000
+		skill("duration", 2), --"active_skill_withered_base_duration_ms" = 2000
 		skill("debuff", true), 
 		skill("stackCount", 1, { type = "SkillPart", skillPart = 1 }), 
 		skill("stackCount", 5, { type = "SkillPart", skillPart = 2 }), 
@@ -6007,14 +6086,14 @@ skills["Wrath"] = {
 	name = "Wrath",
 	color = 3,
 	description = "Casts an aura that adds lightning damage to the attacks of you and your allies, and makes your spells deal more lightning damage.",
-	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [35] = true, },
+	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [35] = true, [75] = true, },
 	baseFlags = {
 		spell = true,
 		aura = true,
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1.2), 
+		skill("castTime", 0), 
 		skill("manaCost", 50), 
 		skill("cooldown", 1.2), 
 		--"base_deal_no_damage" = ?

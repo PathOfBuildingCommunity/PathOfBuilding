@@ -99,6 +99,10 @@ return {
 	{ var = "vortexCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Vortex", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Vortex" })
 	end },
+	{ label = "Withering Touch:", ifSkill = "Withering Touch" },
+	{ var = "witheringTouchWitheredStackCount", type = "count", label = "# of Withered Stacks:", ifSkill = "Withering Touch", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:WitheringTouchWitheredStackCount", "BASE", val, "Config")
+	end },
 
 	-- Section: Map modifiers/curses
 	{ section = "Map Modifiers and Player Debuffs", col = 2 },

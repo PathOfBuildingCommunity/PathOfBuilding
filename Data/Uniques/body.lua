@@ -864,7 +864,7 @@ Socketed Gems are Supported by Level 10 Lesser Poison
 +40 to maximum Energy Shield
 +(15-25)% to all Elemental Resistances
 (75-100)% increased Damage with Poison if you have at least 300 Dexterity
-(15-25)% increased Poison Duration at least 150 Intelligence
+(15-25)% increased Poison Duration if you have at least 150 Intelligence
 ]],[[
 Inpulsa's Broken Heart
 Sadist Garb

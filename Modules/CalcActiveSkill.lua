@@ -551,6 +551,9 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 					name = effectName,
 					allowTotemBuff = effectTag.allowTotemBuff,
 					cond = effectTag.effectCond,
+					stackVar = effectTag.effectStackVar,
+					stackLimit = effectTag.effectStackLimit,
+					stackLimitVar = effectTag.effectStackLimitVar,
 					modList = { },
 				}
 				if skillModList[i].source == activeGrantedEffect.modSource then
