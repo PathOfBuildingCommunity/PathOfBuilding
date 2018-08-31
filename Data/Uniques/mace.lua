@@ -440,6 +440,7 @@ Damage Penetrates 20% Lightning Resistance
 ]],[[
 Chober Chaber
 Great Mallet
+Upgrade: Upgrades to unique{Chaber Cairn} via prophecy{Faith Exhumed}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current

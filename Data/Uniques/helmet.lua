@@ -514,6 +514,7 @@ Cannot lose Crab Barriers if you have lost Crab Barriers Recently
 ]],[[
 Geofri's Crest
 Great Crown
+Upgrade: Upgrades to unique{Geofri's Legacy} via prophecy{The Bishop's Legacy}
 Requires Level 53, 59 Str, 59 Int
 +1 to Level of Socketed Gems
 (60-80)% increased Armour and Energy Shield
