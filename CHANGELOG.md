@@ -1,3 +1,7 @@
+### 1.4.102 - 2018/09/01
+ * Fixed issue preventing Total DPS from being calculated for dual wielding attack builds
+ * Toxic Rain's DoT is now affected by modifiers to Area Damage
+
 ### 1.4.101 - 2018/09/01
  * Static Strike is now fully updated for 3.4
 
