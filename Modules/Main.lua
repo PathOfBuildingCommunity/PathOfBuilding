@@ -429,7 +429,7 @@ end
 
 function main:CallMode(func, ...)
 	local modeTbl = self.modes[self.mode]
-	if modeTbl[func] then
+	if modeTbl and modeTbl[func] then
 		return modeTbl[func](modeTbl, ...)
 	end
 end
