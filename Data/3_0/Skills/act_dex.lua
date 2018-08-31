@@ -5367,6 +5367,7 @@ skills["RainOfSpores"] = {
 		--"skill_can_fire_arrows" = ?
 		--"cannot_pierce" = ?
 		skill("dotIsProjectile", true), --"projectile_damage_modifiers_apply_to_skill_dot" = ?
+		skill("dotIsArea", true), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5

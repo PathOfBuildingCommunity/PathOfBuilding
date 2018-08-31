@@ -586,6 +586,7 @@ local skills, mod, flag, skill = ...
 
 #skill RainOfSpores
 #flags attack projectile area
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill SplitArrow
