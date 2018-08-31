@@ -1,3 +1,7 @@
+### 1.4.100 - 2018/09/01
+ * Consecrated Path and Smite are now correctly affected by Melee modifiers
+ * Earthquake's Aftershock damage multiplier now works correctly
+
 ### 1.4.99 - 2018/09/01
  * Added the new skills for 3.4:
     * Vaal Ancestral Warchief

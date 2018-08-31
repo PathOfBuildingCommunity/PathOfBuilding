@@ -613,6 +613,7 @@ skills["ConsecratedPath"] = {
 	},
 	baseFlags = {
 		attack = true,
+		melee = true,
 		area = true,
 		duration = true,
 	},
@@ -1010,7 +1011,7 @@ skills["Earthquake"] = {
 		skill("castTime", 1), 
 		skill("manaCost", 10), 
 		skill("duration", 1), --"base_skill_effect_duration" = 1000
-		mod("Damage", "MORE", 70, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), 0, { type = "SkillPart", skillPart = 2 }), --"quake_slam_fully_charged_explosion_damage_+%_final" = 70
+		mod("Damage", "MORE", 70, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }), --"quake_slam_fully_charged_explosion_damage_+%_final" = 70
 		--"is_area_damage" = ?
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }), 
 		skill("radius", 18, { type = "SkillPart", skillPart = 1 }), 
@@ -1110,7 +1111,7 @@ skills["VaalEarthquake"] = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("damageEffectiveness", nil), 
 		[3] = skill("baseMultiplier", nil), 
-		[4] = mod("Damage", "MORE", nil, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), 0, { type = "SkillPart", skillPart = 2 }), --"quake_slam_fully_charged_explosion_damage_+%_final"
+		[4] = mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }), --"quake_slam_fully_charged_explosion_damage_+%_final"
 	},
 	levels = {
 		[1] = { 28, 0.5, 0.5, 350, },
@@ -3152,6 +3153,7 @@ skills["Smite"] = {
 	},
 	baseFlags = {
 		attack = true,
+		melee = true,
 		duration = true,
 		area = true,
 	},

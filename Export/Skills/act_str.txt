@@ -59,7 +59,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ConsecratedPath
-#flags attack area duration
+#flags attack melee area duration
 #mods
 
 #skill DecoyTotem
@@ -253,7 +253,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Smite
-#flags attack duration area
+#flags attack melee duration area
 #mods
 
 #skill StaticStrike
