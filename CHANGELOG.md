@@ -1,3 +1,27 @@
+### 1.4.103 - 2018/09/01
+ * Added the following new uniques: 
+    * Aul's Uprising
+	* Cerberus Limb
+	* Chaber Cairn
+	* Curtain Call
+	* Demon Stitcher
+	* The Eternal Apple
+	* Geofri's Legacy
+	* The Grey Spire
+	* Mark of Submission
+	* Perquil's Toe
+	* The Primordial Chain
+	* Soulwrest (except the Summon Phantasm skill)
+	* Unnatural Instinct
+	* Command of the Pit
+	* Crown of the Tyrant
+	* Doryani's Delusion
+	* Hale Negator
+ * Updated item modifiers for crafting
+ * Added support for the "40% chance to deal 100% more Poison" modifier on Master Toxicist
+ * Gathering Winds now applies Tailwind to your Minions
+ * Modifiers to Minion Attack and Cast Speed are now correctly converted by Spiritual Command
+
 ### 1.4.102 - 2018/09/01
  * Fixed issue preventing Total DPS from being calculated for dual wielding attack builds
  * Toxic Rain's DoT is now affected by modifiers to Area Damage

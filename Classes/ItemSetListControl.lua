@@ -62,7 +62,9 @@ function ItemSetListClass:RenameSet(itemSet, addOnName)
 	end)
 	controls.save.enabled = false
 	controls.cancel = common.New("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
-		self.itemsTab.itemSets[itemSet.id] = nil
+		if addOnName then
+			self.itemsTab.itemSets[itemSet.id] = nil
+		end
 		main:ClosePopup()
 	end)
 	main:OpenPopup(370, 100, itemSet.title and "Rename" or "Set Name", controls, "save", "edit", "cancel")

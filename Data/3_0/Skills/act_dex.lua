@@ -4707,7 +4707,7 @@ skills["Riposte"] = {
 skills["ScourgeArrow"] = {
 	name = "Scourge Arrow",
 	color = 2,
-	description = "Channel this skill to draw an arrow and infuse it with chaos, gaining stages while it is held. Release to fire this as a single piercing arrow, which drops a spore pod along it's path for each stage reached while channelling. Each spore pod will bloom, firing a nova of thorn arrows. Modifiers that cause additional projectiles to be fired will only apply to these thorn arrows.",
+	description = "Channel this skill to draw an arrow and infuse it with chaos, gaining stages while it is held. Release to fire this as a single piercing arrow, which drops a spore pod along its path for each stage reached while channelling. Each spore pod will bloom, firing a nova of thorn arrows. Modifiers that cause additional projectiles to be fired will only apply to these thorn arrows.",
 	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [22] = true, [10] = true, [58] = true, },
 	weaponTypes = {
 		["Bow"] = true,

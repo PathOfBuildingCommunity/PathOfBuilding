@@ -421,6 +421,9 @@ function calcs.initEnv(build, mode, override)
 					env.modDB.conditions[cond] = true
 					env.modDB.multipliers["AbyssJewelType"] = (env.modDB.multipliers["AbyssJewelType"] or 0) + 1
 				end
+				if slot.parentSlot then
+					env.modDB.conditions[cond.."In"..slot.parentSlot.slotName] = true
+				end
 				env.modDB.multipliers["AbyssJewel"] = (env.modDB.multipliers["AbyssJewel"] or 0) + 1
 			end
 			if item.type == "Shield" and nodes[45175] then
