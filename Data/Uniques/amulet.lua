@@ -27,7 +27,19 @@ Requires Level 45
 ]],[[
 Araku Tiki
 Coral Amulet
+Upgrade: Upgrades to unique{Ngamahu Tiki} via prophecy{A Forest of False Idols}
 (2-4) Life Regenerated per second
+You gain 100 Evasion Rating when on Low Life
++(30-50) to maximum Life
++(20-30)% to Fire Resistance
+1% of Life Regenerated per Second while on Low Life
+]],[[
+Ngamahu Tiki
+Coral Amulet
+Source: Upgraded from unique{Araku Tiki} via prophecy{A Forest of False Idols}
+Requires Level 36
+(2-4) Life Regenerated per second
+(50-70)% increased Fire Damage
 You gain 100 Evasion Rating when on Low Life
 +(30-50) to maximum Life
 +(20-30)% to Fire Resistance
@@ -35,6 +47,7 @@ You gain 100 Evasion Rating when on Low Life
 ]],[[
 The Ascetic
 Gold Amulet
+Source: prophecy{The Ambitious Bandit III}
 Requires Level 8
 (12-20)% increased Rarity of Items found
 (80-100)% increased Rarity of Items found with a Normal Item equipped
@@ -103,6 +116,7 @@ Corrupted
 ]],[[
 Blood of Corruption
 Amber Amulet
+Source: Use currency{Vaal Orb} on unique{Tear of Purity}
 Requires Level 20
 +(20-30) to Strength
 Grants level 10 Gluttony of Elements Skill
@@ -173,6 +187,7 @@ Recover 1% of Maximum Life on Kill
 ]],[[
 Eye of Chayula
 Onyx Amulet
+Upgrade: Upgrades to unique{Presence of Chayula} using currency{Blessing of Chayula}
 Requires Level 20
 +(10-16) to all Attributes
 20% reduced maximum Life
@@ -182,6 +197,7 @@ Cannot be Stunned
 Presence of Chayula
 Onyx Amulet
 League: Breach
+Source: Upgraded from unique{Eye of Chayula} using currency{Blessing of Chayula}
 Requires Level 60
 +(10-16) to all Attributes
 30% increased Rarity of Items found
@@ -191,6 +207,7 @@ Cannot be Stunned
 ]],[[
 Eye of Innocence 
 Citrine Amulet
+Source: Drops from unique{Guardian of the Phoenix}
 Requires Level 68
 +(16-24) to Strength and Dexterity
 10% chance to Ignite
@@ -198,8 +215,80 @@ Requires Level 68
 Take 100 Fire Damage when you Ignite an Enemy
 2% of Fire Damage Leeched as Life while Ignited
 ]],[[
+Eyes of the Greatwolf
+Greatwolf Talisman
+Requires Level 52
+Has Alt Variant: true
+Variant: Attributes
+Variant: Global Defences
+Variant: Chaos Damage
+Variant: Attack Damage
+Variant: Cold Damage
+Variant: Fire Damage
+Variant: Lightning Damage
+Variant: Spell Damage
+Variant: Global Physical Damage
+Variant: Mana
+Variant: Damage
+Variant: Physical Damage Reduction
+Variant: Chance to Freeze, Shock and Ignite
+Variant: Crit Chance
+Variant: Area of Effect
+Variant: Attack/Cast Speed
+Variant: Item Quantity
+Variant: Life
+Variant: Crit Multiplier
+Variant: Maximum number of Zombies
+Variant: Frenzy Charge on Kill
+Variant: Power Charge on Kill
+Variant: Endurance Charge on Kill
+Variant: Life Regen
+Variant: Cold taken as Fire
+Variant: Cold taken as Lightning
+Variant: Fire taken as Cold
+Variant: Fire taken as Lightning
+Variant: Lightning taken as Cold
+Variant: Lightning taken as Fire
+Variant: Gain Physical as random Element
+Variant: Extra Pierces
+Implicits: 32
+{variant:1}(24-32)% increased Attributes
+{variant:2}(30-50)% increased Global Defences
+{variant:3}(38-62)% increased Chaos Damage
+{variant:4}(40-60)% increased Attack Damage
+{variant:5}(40-60)% increased Cold Damage
+{variant:6}(40-60)% increased Fire Damage
+{variant:7}(40-60)% increased Lightning Damage
+{variant:8}(40-60)% increased Spell Damage
+{variant:9}(40-60)% increased Global Physical Damage
+{variant:10}(40-60)% increased maximum Mana
+{variant:11}(50-70)% increased Damage
+{variant:12}(8-12)% increased Physical Damage Reduction
+{variant:13}(8-12)% chance to Freeze, Shock and Ignite
+{variant:14}(80-100)% increased Global Critical Strike Chance
+{variant:15}(10-16)% increased Area of Effect
+{variant:16}(12-20)% increased Attack and Cast Speed
+{variant:17}(12-20)% increased Quantity of Items found
+{variant:18}(16-24)% increased maximum Life
+{variant:19}+(48-72)% to Global Critical Strike Multiplier
+{variant:20}+2 to maximum number of Zombies
+{variant:21}20% chance to gain a Frenzy Charge on Kill
+{variant:22}20% chance to gain a Power Charge on Kill
+{variant:23}20% chance to gain a Endurance Charge on Kill
+{variant:24}4% of Life Regenerated per second
+{variant:25}100% of Cold Damage from Hits taken as Fire Damage
+{variant:26}100% of Cold Damage from Hits taken as Lightning Damage
+{variant:27}100% of Fire Damage from Hits taken as Cold Damage
+{variant:28}100% of Fire Damage from Hits taken as Lightning Damage
+{variant:29}100% of Lightning Damage from Hits taken as Cold Damage
+{variant:30}100% of Lightning Damage from Hits taken as Fire Damage
+{variant:31}Gain (12-24)% of Physical Damage as Extra Damage of a random Element
+{variant:32}Projectiles Pierce (4-6) additional Targets
+Implicit Modifier magnitudes are doubled
+]],[[
 Gloomfang
 Blue Pearl Amulet
+Source: Drops from unique{The Purifier}
 Requires 77
 (48–56)% increased Mana Regeneration Rate 
 0.5% of Chaos Damage Leeched as Life 
@@ -211,6 +300,8 @@ Projectiles gain (15–20)% of Non-Chaos Damage as extra Chaos Damage per Chain
 The Halcyon
 Jade Amulet
 League: Breach
+Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
+Upgrade: Upgrades to unique{The Pandemonius} using currency{Blessing of Tul}
 Requires Level 35
 +(20-30) to Dexterity
 (10-20)% increased Cold Damage
@@ -222,6 +313,7 @@ Requires Level 35
 The Pandemonius
 Jade Amulet
 League: Breach
+Source: Upgraded from unique{The Halcyon} using currency{Blessing of Tul}
 Requires Level 64
 +(20-30) to Dexterity
 (20-30)% increased Cold Damage
@@ -232,6 +324,7 @@ Damage Penetrates 20% Cold Resistance against Chilled Enemies
 ]],[[
 Hinekora's Sight
 Onyx Amulet
+Source: Any prophecy{Prophecy} enemy
 Requires Level 20
 +(10-16) to all Attributes
 +1000 to Accuracy Rating
@@ -241,6 +334,7 @@ Cannot be Blinded
 ]],[[
 The Ignomon
 Gold Amulet
+Upgrade: Upgrades to unique{The Effigon} via prophecy{Blind Faith}
 Requires Level 8
 (12-20)% increased Rarity of Items found
 +10 to Dexterity
@@ -249,8 +343,22 @@ Adds 12 to 24 Fire Damage to Attacks
 +(100-150) to Evasion Rating
 +20% to Fire Resistance
 ]],[[
+The Effigon
+Gold Amulet
+Source: Upgraded from unique{The Ignomon} via prophecy{Blind Faith}
+Requires Level 57
+(12–20)% increased Rarity of Items found
++10 to Dexterity
+Adds 12 to 24 Fire Damage to Attacks
++(100–150) to Accuracy Rating
++(100–150) to Evasion Rating
++20% to Fire Resistance
+Your Hits can't be Evaded by Blinded Enemies
+Damage Penetrates 10% Fire Resistance against Blinded Enemies
+]],[[
 Impresence
 Onyx Amulet
+Source: Drops from unique{The Elder} (Tier 11+)
 Variant: Physical
 Variant: Fire
 Variant: Cold
@@ -282,8 +390,22 @@ Requires Level 64
 Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy
 Elder Item
 ]],[[
+Karui Ward
+Jade Amulet
+Upgrade: Upgrades to unique{Karui Charge} via prophecy{The Karui Rebellion}
+Variant: Pre 2.6.0
+Variant: Current
+Requires Level 5
++(20-30) to Dexterity
++(20-30) to Strength
++100 to Accuracy Rating
+{variant:2}30% increased Projectile Damage
+30% increased Projectile Speed
+10% increased Movement Speed
+]],[[
 Karui Charge
 Jade Amulet
+Source: Upgraded from unique{Karui Ward} via prophecy{The Karui Rebellion}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24
@@ -291,18 +413,6 @@ Requires Level 24
 +(20-30) to Strength
 {variant:1}(15-20)% increased Attack Speed
 {variant:2}(5-10)% increased Attack Speed
-+100 to Accuracy Rating
-{variant:2}30% increased Projectile Damage
-30% increased Projectile Speed
-10% increased Movement Speed
-]],[[
-Karui Ward
-Jade Amulet
-Variant: Pre 2.6.0
-Variant: Current
-Requires Level 5
-+(20-30) to Dexterity
-+(20-30) to Strength
 +100 to Accuracy Rating
 {variant:2}30% increased Projectile Damage
 30% increased Projectile Speed
@@ -352,16 +462,6 @@ Talisman Tier: 3
 (30-35)% increased Chaos Damage
 Corrupted
 ]],[[
-Ngamahu Tiki
-Coral Amulet
-Requires Level 36
-(2-4) Life Regenerated per second
-(50-70)% increased Fire Damage
-You gain 100 Evasion Rating when on Low Life
-+(30-50) to maximum Life
-+(20-30)% to Fire Resistance
-1% of Life Regenerated per Second while on Low Life
-]],[[
 Night's Hold
 Black Maw Talisman
 League: Talisman Standard, Talisman Hardcore
@@ -390,9 +490,9 @@ Cannot gain Power Charges
 ]],[[
 Rigwald's Curse
 Wereclaw Talisman
+League: Talisman Standard
 Variant: Pre 2.2.0
 Variant: Current
-League: Talisman Standard
 Requires Level 28
 Talisman Tier: 2
 Implicits: 2
@@ -430,6 +530,7 @@ Minions deal (10-15)% increased Damage
 ]],[[
 Star of Wraeclast
 Ruby Amulet
+Source: Vendor recipe
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 28
@@ -488,9 +589,11 @@ Requires Level 16
 ]],[[
 Voice of the Storm
 Lapis Amulet
+League: Breach
+Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
+Upgrade: Upgrades to unique{Choir of the Storm} using currency{Blessing of Esh}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Breach
 Requires Level 40
 +(20-30) to Intelligence
 +(10-15) to all Attributes
@@ -501,9 +604,10 @@ Trigger Level 12 Lightning Bolt when you deal a Critical Strike
 ]],[[
 Choir of the Storm
 Lapis Amulet
+League: Breach
+Source: Upgraded from unique{Voice of the Storm} using currency{Blessing of Esh}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Breach
 Requires Level 69
 +(20-30) to Intelligence
 (10-20)% increased maximum Mana
@@ -550,6 +654,8 @@ Cannot be Chilled
 Xoph's Heart
 Amber Amulet
 League: Breach
+Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
+Upgrade: Upgrades to unique{Xoph's Blood} using currency{Blessing of Xoph}
 Requires Level 35
 +(20-30) to Strength
 +(20-30) to Strength
@@ -561,6 +667,7 @@ Cover Enemies in Ash when they Hit you
 Xoph's Blood
 Amber Amulet
 League: Breach
+Source: Upgraded from unique{Xoph's Heart} using currency{Blessing of Xoph}
 Requires Level 64
 +(20-30) to Strength
 10% increased maximum Life
@@ -572,7 +679,8 @@ Avatar of Fire
 ]],[[
 Yoke of Suffering
 Onyx Amulet
-Requires Level: 25
+Source: Drops from unique{The Eradicator} (Tier 11+)
+Requires Level 25
 +(10–16) to all Attributes 
 +(10–20)% to Fire Resistance 
 +(10–20)% to Cold Resistance 

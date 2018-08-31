@@ -268,7 +268,7 @@ itemBases["Quartz Flask"] = {
 	type = "Flask",
 	subType = "Utility",
 	tags = { default = true, flask = true, utility_flask = true, not_for_sale = true, },
-	flask = { duration = 4, chargesUsed = 30, chargesMax = 60, buff = { "10% chance to Dodge Attacks", "10% chance to Dodge Spell Damage", "Phasing" }, },
+	flask = { duration = 4, chargesUsed = 30, chargesMax = 60, buff = { "10% chance to Dodge Attack Hits", "10% chance to Dodge Spell Hits", "Phasing" }, },
 	req = { level = 27, },
 }
 itemBases["Jade Flask"] = {

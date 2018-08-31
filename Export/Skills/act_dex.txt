@@ -22,7 +22,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ArcticArmour
-#flags spell duration cold
+#flags spell duration
 #mods
 
 #skill Barrage
@@ -77,19 +77,19 @@ local skills, mod, flag, skill = ...
 		{
 			name = "10 Blades",
 		},
-		{
-			name = "20 Blades",
-		},
 	},
 #baseMod skill("radius", 15)
 #baseMod mod("Multiplier:BladeVortexBlade", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod mod("Multiplier:BladeVortexBlade", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 3 })
-#baseMod mod("Multiplier:BladeVortexBlade", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 4 })
 #baseMod skill("hitTimeOverride", 0.6, { type = "SkillPart", skillPart = 1 })
-#baseMod skill("hitTimeOverride", 0.4, { type = "SkillPart", skillPart = 2 })
-#baseMod skill("hitTimeOverride", 0.3, { type = "SkillPart", skillPart = 3 })
-#baseMod skill("hitTimeOverride", 0.2, { type = "SkillPart", skillPart = 4 })
+#baseMod skill("hitTimeOverride", 0.6 / (1+5*0.35), { type = "SkillPart", skillPart = 2 })
+#baseMod skill("hitTimeOverride", 0.6 / (1+10*0.35), { type = "SkillPart", skillPart = 3 })
 #setMod base_skill_show_average_damage_instead_of_dps==nil
+#mods
+
+#skill VaalBladeVortex
+#flags spell area duration
+#baseMod skill("hitTimeOverride", 0.133)
 #mods
 
 #skill Bladefall
@@ -97,7 +97,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill BlastRain
-#flags attack projectile area fire
+#flags attack projectile area
 	parts = {
 		{
 			name = "1 explosion",
@@ -111,7 +111,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill BlinkArrow
-#flags attack projectile minion movement duration
+#flags attack projectile minion duration
 	minionList = {
 		"Clone",
 	},
@@ -124,16 +124,17 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill BurningArrow
-#flags attack projectile fire
+#flags attack projectile
 #mods
 
 #skill VaalBurningArrow
-#flags attack projectile area fire vaal
+#flags attack projectile area vaal
 #mods
 
 #skill PoisonArrow
-#flags attack projectile duration chaos
+#flags attack projectile area duration chaos
 #baseMod skill("radius", 20)
+#baseMod skill("radiusSecondary", 12)
 #baseMod skill("dotIsArea", true)
 #mods
 
@@ -143,7 +144,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill CorpseEruption
-#flags spell projectile fire area
+#flags spell projectile area
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
 	parts = {
 		{
@@ -160,7 +161,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Cyclone
-#flags attack melee area movement
+#flags attack melee area
 #baseMod skill("dpsMultiplier", 2)
 #baseMod skill("radiusIsWeaponRange", true)
 #mods
@@ -175,7 +176,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DetonateDead
-#flags spell area fire
+#flags spell area
 #baseMod skill("radius", 22)
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
 	parts = {
@@ -193,8 +194,20 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalDetonateDead
-#flags cast area fire
-#baseMod skill("explodeCorpse", true)
+#flags cast area
+#baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
+	parts = {
+		{
+			name = "Spell",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Corpse Explosion",
+			spell = false,
+			cast =  true,
+		},
+	},
 #mods
 
 #skill DoubleStrike
@@ -211,16 +224,33 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ElementalHit
-#flags attack melee projectile cold fire lightning
+#flags attack melee projectile
+#baseMod flag("DealNoPhysical")
+#baseMod flag("DealNoChaos")
+#baseMod flag("DealNoFire", { type = "SkillPart", skillPart = 2 })
+#baseMod flag("DealNoFire", { type = "SkillPart", skillPart = 3 })
+#baseMod flag("DealNoCold", { type = "SkillPart", skillPart = 1 })
+#baseMod flag("DealNoCold", { type = "SkillPart", skillPart = 3 })
+#baseMod flag("DealNoLightning", { type = "SkillPart", skillPart = 1 })
+#baseMod flag("DealNoLightning", { type = "SkillPart", skillPart = 2 })
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }, { type = "SkillPart", skillPart = 1 })
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" })
+#baseMod mod("Damage", "MORE", 10, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" })
 	parts = {
 		{
-			name = "Added fire",
+			name = "Fire",
 		},
 		{
-			name = "Added cold",
+			name = "Cold",
 		},
 		{
-			name = "Added lightning",
+			name = "Lightning",
 		},
 	},
 #mods
@@ -230,7 +260,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ExplosiveArrow
-#flags attack projectile area duration fire
+#flags attack projectile area duration
 	parts = {
 		{
 			name = "Explosion (1 fuse)",
@@ -258,19 +288,27 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 })
 #mods
 
+#skill ShrapnelTrap
+#flags spell trap area
+#mods
+
 #skill FireTrap
-#flags spell trap area duration fire
+#flags spell trap area duration
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radius", 15)
 #mods
 
+#skill FlamethrowerTrap
+#flags spell trap area duration
+#mods
+
 #skill FlickerStrike
-#flags attack melee movement
+#flags attack melee
 #setMod base_skill_show_average_damage_instead_of_dps==nil
 #mods
 
 #skill FreezeMine
-#flags spell mine area cold
+#flags spell mine area
 #mods
 
 #skill Frenzy
@@ -278,7 +316,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FrostBlades
-#flags attack melee projectile cold
+#flags attack melee projectile
 	parts = {
 		{
 			name = "Melee hit",
@@ -314,16 +352,20 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Hatred
-#flags spell aura area cold
+#flags spell aura area
 #baseMod skill("radius", 36)
 #mods
 
+#skill HeraldOfAgony
+#flags cast
+#mods
+
 #skill HeraldOfIce
-#flags cast area cold
+#flags cast area
 #mods
 
 #skill IceShot
-#flags attack projectile area duration cold
+#flags attack projectile area duration
 	parts = {
 		{
 			name = "Arrow",
@@ -339,7 +381,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill IceTrap
-#flags spell trap area cold
+#flags spell trap area
 #mods
 
 #skill DoubleSlash
@@ -357,11 +399,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill LightningArrow
-#flags attack projectile lightning
+#flags attack projectile
 #mods
 
 #skill LightningStrike
-#flags attack melee projectile lightning
+#flags attack melee projectile
 	parts = {
 		{
 			name = "Melee hit",
@@ -378,7 +420,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalLightningStrike
-#flags attack melee duration lightning vaal
+#flags attack melee duration vaal
 	parts = {
 		{
 			name = "Strike",
@@ -390,7 +432,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MirrorArrow
-#flags attack projectile minion movement duration
+#flags attack projectile minion duration
 	minionList = {
 		"Clone",
 	},
@@ -398,7 +440,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill NewPhaseRun
-#flags spell duration movement
+#flags spell duration
 #mods
 
 #skill PoachersMark
@@ -419,8 +461,13 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ColdResistAura
-#flags spell aura area cold
+#flags spell aura area
 #baseMod skill("radius", 36)
+#mods
+
+#skill ColdImpurity
+#flags spell aura area duration
+#setMod hits_ignore_my_cold_resistance==flag("SelfIgnoreColdResistance", { type = "GlobalEffect", effectType = "Debuff" })
 #mods
 
 #skill RainOfArrows
@@ -455,13 +502,13 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 12)
 	parts = {
 		{
-			name = "No stages",
+			name = "No Stages",
 		},
 		{
-			name = "4 stages",
+			name = "4 Stages",
 		},
 		{ 
-			name = "8 stages",
+			name = "8 Stages",
 		},
 	},
 #baseMod mod("Multiplier:ReaveStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 })
@@ -472,8 +519,29 @@ local skills, mod, flag, skill = ...
 #flags attack melee
 #mods
 
+#skill ScourgeArrow
+#flags attack projectile
+	parts = {
+		{
+			name = "No stages",
+		},
+		{
+			name = "Release at 5 Stages",
+		},
+		{ 
+			name = "Thorn Arrows"
+		},
+	},
+#baseMod mod("Multiplier:ScourgeArrowStage", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("dpsMultiplier", 0.2, { type = "SkillPart", skillPart = 2 })
+#mods
+
+#skill PhysCascadeTrap
+#flags spell area trap duration
+#mods
+
 #skill ShrapnelShot
-#flags attack projectile area lightning
+#flags attack projectile area
 	parts = {
 		{
 			name = "Arrow",
@@ -491,7 +559,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SmokeMine
-#flags spell mine area duration movement buff
+#flags spell mine area buff
 #global Buff
 #mods
 
@@ -516,12 +584,16 @@ local skills, mod, flag, skill = ...
 #flags attack projectile vaal
 #mods
 
+#skill RainOfSpores
+#flags attack projectile area
+#mods
+
 #skill SplitArrow
 #flags attack projectile
 #mods
 
 #skill SummonIceGolem
-#flags spell minion golem cold
+#flags spell minion golem
 #baseMod skill("allowTotemBuff", true)
 #baseMod flag("Condition:HaveColdGolem", { type = "GlobalEffect", effectType = "Buff" })
 	minionList = {
@@ -549,7 +621,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VolatileDead
-#flags spell area fire
+#flags spell area
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
 	parts = {
 		{
@@ -566,11 +638,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill WhirlingBlades
-#flags attack melee movement
+#flags attack melee
 #mods
 
 #skill WildStrike
-#flags attack melee projectile chaining area lightning cold fire
+#flags attack melee projectile chaining area
 	parts = {
 		{
 			name = "Fire hit",

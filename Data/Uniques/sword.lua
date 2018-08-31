@@ -17,6 +17,7 @@ Adds (80-115) to (150-205) Physical Damage
 ]],[[
 Beltimber Blade
 Eternal Sword
+Source: Drops from unique{The Constrictor} (Tier 11+)
 Requires Level 66
 +475 to Accuracy Rating 
 (170–190)% increased Physical Damage 
@@ -24,7 +25,6 @@ Requires Level 66
 80% increased Evasion Rating while moving 
 2 additional Projectiles if you've used a Movement Skill Recently 
 Far Shot
-Elder Item
 ]],[[
 Dreamfeather
 Eternal Sword
@@ -63,6 +63,7 @@ Implicits: 2
 ]],[[
 The Goddess Scorned
 Elegant Sword
+Source: Vendor Recipe
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
@@ -83,6 +84,7 @@ You can only deal Damage with this Weapon and Ignite
 ]],[[
 The Goddess Unleashed
 Eternal Sword
+Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 51, 104 Str, 122 Dex
@@ -101,6 +103,7 @@ Cannot be Frozen, Chilled or Ignited with Her Blessing
 ]],[[
 Grelwood Shank
 Eternal Sword
+Source: Drops from unique{The Constrictor}
 Requires Level 66
 +475 to Accuracy Rating
 (170–190)% increased Physical Damage 
@@ -109,7 +112,6 @@ Requires Level 66
 2 additional Projectiles if you've been Hit Recently
 Point Blank
 Iron Reflexes while stationary
-Elder Item
 ]],[[
 Hyaon's Fury
 Legion Sword
@@ -180,6 +182,7 @@ Socketed Gems are supported by level 1 Multistrike
 ]],[[
 Oni-Goroshi
 Charan's Sword
+Source: Drops from unique{Hillock}
 Sockets: R-R-R-R-R-R
 Requires Level: 2
 40% increased Accuracy Rating
@@ -224,6 +227,7 @@ Adds (20-30) to (31-40) Physical Damage
 ]],[[
 Razor of the Seventh Sun 
 Midnight Blade
+Source: Drops from unique{Guardian of the Phoenix}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Dex
@@ -252,6 +256,7 @@ Adds (19-28) to (31-40) Chaos Damage
 ]],[[
 Redbeak
 Rusted Sword
+Upgrade: Upgrades to unique{Dreadbeak} via prophecy{The Dreaded Rhoa}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 2
@@ -265,11 +270,25 @@ Adds 2 to 6 Physical Damage
 +(20-30) to maximum Life
 +2 Life Gained for each Enemy hit by Attacks
 ]],[[
+Dreadbeak
+Rusted Sword
+Source: Upgraded from unique{Redbeak} via prophecy{The Dreaded Rhoa}
+Requires Level 61
+18% increased Accuracy Rating
+100% increased Damage when on Low Life
+50% increased Physical Damage
+Adds (90–98) to (133–140) Physical Damage
+10% increased Attack Speed
++(20–30) to maximum Life
++2 Life gained for each Enemy hit by Attacks
+You have Onslaught while on Low Life
+]],[[
 Rigwald's Command
 Midnight Blade
+League: Talisman Standard, Talisman Hardcore
+Source: Drops from unique{Rigwald, the Wolven King} (Level 75+)
 Variant: Pre 2.6.0
 Variant: Current
-League: Talisman Standard, Talisman Hardcore
 Requires Level 68, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
@@ -312,10 +331,12 @@ Adds (75-92) to (125-154) Physical Damage
 ]],[[
 Severed in Sleep
 Cutlass
+League: Breach
+Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
+Upgrade: Upgrades to unique{United in Dream} using currency{Blessing of Chayula}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Breach
 Requires Level 38, 55 Str, 79 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
@@ -329,6 +350,7 @@ Minions Recover 20% of Maximum Life on Killing a Poisoned Enemy
 ]],[[
 United in Dream
 Cutlass
+Source: Upgraded from unique{Severed in Sleep} using currency{Blessing of Chayula}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
@@ -361,9 +383,9 @@ Attacks with this Weapon Penetrate 30% Elemental Resistances
 ]],[[
 Varunastra
 Vaal Blade
+League: Perandus
 Variant: Pre 2.6.0
 Variant: Current
-League: Perandus
 Requires Level 64, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
@@ -495,6 +517,7 @@ Adds 3 to 7 Fire Damage
 [[
 The Dancing Dervish
 Reaver Sword
+Upgrade: Upgrades to unique{The Dancing Duo} via prophecy{Dance of Steel}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 59, 82 Str, 119 Dex
@@ -508,6 +531,20 @@ Rampage
 Triggers Level 15 Manifest Dancing Dervish on Rampage
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends
+]],[[
+The Dancing Duo
+Reaver Sword
+Source: Upgraded from unique{The Dancing Dervish} via prophecy{Dance of Steel}
+Requires Level 65
+40% increased Accuracy Rating
+(160-190)% increased Physical Damage
+(25-30)% increased Attack Speed
+5% increased Movement Speed
+Rampage
+Triggers Level 15 Manifest Dancing Dervish on Rampage
+Manifested Dancing Dervish disables both weapon slots
+Manifested Dancing Dervish dies when Rampage ends
+Manifested Dancing Dervish also manifests a copy of Dancing Dervish
 ]],[[
 Doomsower
 Lion Sword
@@ -527,9 +564,9 @@ Socketed Red Gems get 10% Physical Damage as Extra Fire Damage
 ]],[[
 Edge of Madness
 Etched Greatsword
+League: Beyond
 Variant: Pre 2.6.0
 Variant: Current
-League: Beyond
 Requires Level 22, 45 Str, 38 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
@@ -592,6 +629,7 @@ Gain a Frenzy Charge if an Attack Ignites an Enemy
 ]],[[
 Queen's Decree
 Ornate Sword
+Upgrade: Upgrades to unique{Queen's Escape} via prophecy{The Misunderstood Queen}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
@@ -610,6 +648,7 @@ Minions deal (10-15)% increased Damage
 ]],[[
 Queen's Escape
 Ornate Sword
+Source: Upgraded from unique{Queen's Decree} using prophecy{The Misunderstood Queen}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
@@ -655,6 +694,7 @@ Cannot be Frozen
 ]],[[
 Starforge 
 Infernal Sword
+Source: Drops from unique{The Shaper}
 Requires Level 67, 113 Str, 113 Dex
 30% increased Accuracy Rating
 (400-500)% increased Physical Damage
@@ -680,5 +720,19 @@ Implicits: 2
 +10 Mana Gained on Kill
 10% increased Movement Speed
 Gain a Frenzy Charge on Critical Strike
+]],[[
+Voidforge
+Infernal Sword
+Source: Drops from unique{The Elder} (Uber)
+Requires Level 67
+30% increased Accuracy Rating
+(50–100)% increased Physical Damage
+(5–8)% increased Attack Speed
++(90–100) to maximum Life
+Your Elemental Damage can Shock
+Gain 300% of Weapon Physical Damage as Extra Damage of an Element
+20% increased Area of Effect for Attacks
+Deal no Non-Elemental Damage
+Elder Item
 ]],
 }

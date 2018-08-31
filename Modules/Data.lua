@@ -175,7 +175,6 @@ for _, targetVersion in ipairs(targetVersionList) do
 		Jewel = dataModule("ModJewel"),
 		JewelAbyss = targetVersion ~= "2_6" and dataModule("ModJewelAbyss") or { },
 	}
-	verData.corruptedMods = dataModule("ModCorrupted")
 	verData.masterMods = dataModule("ModMaster")
 	verData.enchantments = {
 		Helmet = dataModule("EnchantmentHelmet"),
@@ -206,13 +205,19 @@ for _, targetVersion in ipairs(targetVersionList) do
 		end
 	end
 
-	-- Build gem list
-	verData.gems = { }
-	for _, grantedEffect in pairs(verData.skills) do
-		if grantedEffect.gemTags then
-			verData.gems[grantedEffect.name] = grantedEffect
-			grantedEffect.defaultLevel = (grantedEffect.levels[20] and 20) or (grantedEffect.levels[3][2] and 3) or 1
-		end
+	-- Load gems
+	verData.gems = dataModule("Gems")
+	verData.gemForSkill = { }
+	for gemId, gem in pairs(verData.gems) do
+		gem.id = gemId
+		gem.grantedEffect = verData.skills[gem.grantedEffectId]
+		verData.gemForSkill[gem.grantedEffect] = gemId
+		gem.secondaryGrantedEffect = gem.secondaryGrantedEffectId and verData.skills[gem.secondaryGrantedEffectId]
+		gem.grantedEffectList = {
+			gem.grantedEffect,
+			gem.secondaryGrantedEffect
+		}
+		gem.defaultLevel = (gem.grantedEffect.levels[20] and 20) or (gem.grantedEffect.levels[3][2] and 3) or 1
 	end
 
 	-- Load minions

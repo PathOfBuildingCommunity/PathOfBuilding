@@ -38,35 +38,36 @@ function calcLib.armourReduction(armour, raw)
 end
 
 -- Validate the level of the given gem
-function calcLib.validateGemLevel(gem)
-	if not gem.grantedEffect.levels[gem.level] then
-		if gem.grantedEffect.defaultLevel then
-			gem.level = gem.grantedEffect.defaultLevel
+function calcLib.validateGemLevel(gemInstance)
+	local grantedEffect = gemInstance.grantedEffect or gemInstance.gemData.grantedEffect
+	if not grantedEffect.levels[gemInstance.level] then
+		if gemInstance.gemData and gemInstance.gemData.defaultLevel then
+			gemInstance.level = gemInstance.gemData.defaultLevel
 		else
-			-- Try limiting to the level range of the gem
-			gem.level = m_max(1, gem.level)
-			if #gem.grantedEffect.levels > 0 then
-				gem.level = m_min(#gem.grantedEffect.levels, gem.level)
+			-- Try limiting to the level range of the skill
+			gemInstance.level = m_max(1, gemInstance.level)
+			if #grantedEffect.levels > 0 then
+				gemInstance.level = m_min(#grantedEffect.levels, gemInstance.level)
 			end
-			if not gem.grantedEffect.levels[gem.level] then
+			if not grantedEffect.levels[gemInstance.level] then
 				-- That failed, so just grab any level
-				gem.level = next(gem.grantedEffect.levels)
+				gemInstance.level = next(grantedEffect.levels)
 			end
 		end
 	end	
 end
 
--- Check if given support gem can support the given skill types
-function calcLib.gemCanSupportTypes(gem, skillTypes)
-	for _, skillType in pairs(gem.grantedEffect.excludeSkillTypes) do
+-- Check if given support skill can support the given skill types
+function calcLib.canGrantedEffectSupportTypes(grantedEffect, skillTypes)
+	for _, skillType in pairs(grantedEffect.excludeSkillTypes) do
 		if skillTypes[skillType] then
 			return false
 		end
 	end
-	if not gem.grantedEffect.requireSkillTypes[1] then
+	if not grantedEffect.requireSkillTypes[1] then
 		return true
 	end
-	for _, skillType in pairs(gem.grantedEffect.requireSkillTypes) do
+	for _, skillType in pairs(grantedEffect.requireSkillTypes) do
 		if skillTypes[skillType] then
 			return true
 		end
@@ -74,28 +75,34 @@ function calcLib.gemCanSupportTypes(gem, skillTypes)
 	return false
 end
 
--- Check if given support gem can support the given active skill
-function calcLib.gemCanSupport(gem, activeSkill)
-	if gem.grantedEffect.unsupported then
+-- Check if given support skill can support the given active skill
+function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
+	if grantedEffect.unsupported then
+		return false
+	end
+	if grantedEffect.supportGemsOnly and not activeSkill.activeEffect.gemData then
 		return false
 	end
 	if activeSkill.summonSkill then
-		return calcLib.gemCanSupport(gem, activeSkill.summonSkill)
+		return calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill.summonSkill)
 	end
-	if activeSkill.minionSkillTypes and calcLib.gemCanSupportTypes(gem, activeSkill.minionSkillTypes) then
+	if activeSkill.minionSkillTypes and calcLib.canGrantedEffectSupportTypes(grantedEffect, activeSkill.minionSkillTypes) then
 		return true
 	end
-	return calcLib.gemCanSupportTypes(gem, activeSkill.skillTypes)
+	return calcLib.canGrantedEffectSupportTypes(grantedEffect, activeSkill.skillTypes)
 end
 
 -- Check if given gem is of the given type ("all", "strength", "melee", etc)
 function calcLib.gemIsType(gem, type)
-	local tags = gem.grantedEffect.gemTags
-	return tags and (type == "all" or (type == "elemental" and (tags.fire or tags.cold or tags.lightning)) or tags[type])
+	return (type == "all" or 
+			(type == "elemental" and (gem.tags.fire or gem.tags.cold or gem.tags.lightning)) or 
+			(type == "aoe" and gem.tags.area) or
+			(type == "trap or mine" and (gem.tags.trap or gem.tags.mine)) or
+			gem.tags[type])
 end
 
 -- From PyPoE's formula.py
-function calcLib.gemStatRequirement(level, isSupport, multi)
+function calcLib.getGemStatRequirement(level, isSupport, multi)
 	if multi == 0 then
 		return 0
 	end

@@ -172,18 +172,18 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.controls.selectDB = common.New("DropDownControl", {"LEFT",self.controls.selectDBLabel,"RIGHT"}, 4, 0, 150, 18, { "Uniques", "Rare Templates" })
 
 	-- Unique database
-	self.controls.uniqueDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end, self, main.uniqueDB[build.targetVersion])
+	self.controls.uniqueDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(244, self.maxY - select(2, c:GetPos())) end, self, main.uniqueDB[build.targetVersion], "UNIQUE")
 	self.controls.uniqueDB.y = function()
-		return self.controls.selectDBLabel:IsShown() and 76 or 54
+		return self.controls.selectDBLabel:IsShown() and 98 or 76
 	end
 	self.controls.uniqueDB.shown = function()
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 1
 	end
 
 	-- Rare template database
-	self.controls.rareDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end, self, main.rareDB[build.targetVersion])
+	self.controls.rareDB = common.New("ItemDB", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, 0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end, self, main.rareDB[build.targetVersion], "RARE")
 	self.controls.rareDB.y = function()
-		return self.controls.selectDBLabel:IsShown() and 76 or 370
+		return self.controls.selectDBLabel:IsShown() and 78 or 376
 	end
 	self.controls.rareDB.shown = function()
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
@@ -593,6 +593,7 @@ function ItemsTabClass:Save(xml)
 	for _, id in ipairs(self.itemOrderList) do
 		local item = self.items[id]
 		local child = { elem = "Item", attrib = { id = tostring(id), variant = item.variant and tostring(item.variant), variantAlt = item.variantAlt and tostring(item.variantAlt) } }
+		item:BuildAndParseRaw()
 		t_insert(child, item.raw)
 		for id, modLine in ipairs(item.modLines) do
 			if modLine.range then
@@ -670,6 +671,16 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 			elseif event.key == "y" and IsKeyDown("CTRL") then
 				self:Redo()
 				self.build.buildFlag = true
+			elseif event.key == "f" and IsKeyDown("CTRL") then
+				local selUnique = self.selControl == self.controls.uniqueDB.controls.search
+				local selRare = self.selControl == self.controls.rareDB.controls.search
+				if selUnique or (self.controls.selectDB:IsShown() and not selRare and self.controls.selectDB.selIndex == 2) then
+					self:SelectControl(self.controls.rareDB.controls.search)
+					self.controls.selectDB.selIndex = 2
+				else
+					self:SelectControl(self.controls.uniqueDB.controls.search)
+					self.controls.selectDB.selIndex = 1
+				end
 			end
 		end
 	end
@@ -1350,9 +1361,9 @@ function ItemsTabClass:EnchantDisplayItem()
 	local skillsUsed = { }
 	if haveSkills then
 		for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
-			for _, gem in ipairs(socketGroup.gemList) do
-				if gem.grantedEffect and not gem.grantedEffect.support and enchantments[gem.grantedEffect.name] then
-					skillsUsed[gem.grantedEffect.name] = true
+			for _, gemInstance in ipairs(socketGroup.gemList) do
+				if gemInstance.gemData and not gemInstance.gemData.grantedEffect.support and enchantments[gemInstance.nameSpec] then
+					skillsUsed[gemInstance.nameSpec] = true
 				end
 			end
 		end
@@ -1445,8 +1456,8 @@ end
 function ItemsTabClass:CorruptDisplayItem()
 	local controls = { } 
 	local implicitList = { }
-	for modId, mod in pairs(self.build.data.corruptedMods) do
-		if self.displayItem:GetModSpawnWeight(mod) > 0 then
+	for modId, mod in pairs(self.displayItem.affixes) do
+		if mod.type == "Corrupted" and self.displayItem:GetModSpawnWeight(mod) > 0 then
 			t_insert(implicitList, mod)
 		end
 	end
@@ -1459,29 +1470,54 @@ function ItemsTabClass:CorruptDisplayItem()
 			return a.level < b.level
 		end
 	end)
+	local function buildList(control, other)
+		local selfMod = control.selIndex and control.selIndex > 1 and control.list[control.selIndex].mod
+		local otherMod = other.selIndex and other.selIndex > 1 and other.list[other.selIndex].mod
+		wipeTable(control.list)
+		t_insert(control.list, { label = "None" })
+		for _, mod in ipairs(implicitList) do
+			if not otherMod or mod.group ~= otherMod.group then
+				t_insert(control.list, { label = table.concat(mod, "/"), mod = mod })
+			end
+		end
+		control:SelByValue(selfMod, "mod")
+	end
 	local function corruptItem()
 		local item = common.New("Item", self.build.targetVersion, self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
 		item.corrupted = true
-		if controls.implicit.selIndex > 1 then
+		local newImplicit = { }
+		for _, control in ipairs{controls.implicit, controls.implicit2} do
+			if control.selIndex > 1 then
+				local mod = control.list[control.selIndex].mod
+				for _, modLine in ipairs(mod) do
+					t_insert(newImplicit, { line = modLine })
+				end
+			end
+		end
+		if #newImplicit > 0 then
 			for i = 1, item.implicitLines do 
 				t_remove(item.modLines, 1)
 			end
-			local mod = implicitList[controls.implicit.selIndex - 1]
-			for _, modLine in ipairs(mod) do
-				t_insert(item.modLines, 1, { line = modLine })
+			for i, implicit in ipairs(newImplicit) do
+				t_insert(item.modLines, i, implicit)
 			end
-			item.implicitLines = #mod
+			item.implicitLines = #newImplicit
 		end
 		item:BuildAndParseRaw()
 		return item
 	end
-	controls.implicitLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 65, 20, 0, 16, "^7Implicit:")
-	controls.implicit = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 70, 20, 450, 18, { "None" })
-	for _, mod in ipairs(implicitList) do
-		t_insert(controls.implicit.list, table.concat(mod, "/"))
-	end
-	controls.save = common.New("ButtonControl", nil, -45, 50, 80, 20, "Corrupt", function()
+	controls.implicitLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 20, 0, 16, "^7Implicit #1:")
+	controls.implicit = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 20, 440, 18, nil, function()
+		buildList(controls.implicit2, controls.implicit)
+	end)
+	controls.implicit2Label = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 40, 0, 16, "^7Implicit #2:")
+	controls.implicit2 = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 40, 440, 18, nil, function()
+		buildList(controls.implicit, controls.implicit2)
+	end)
+	buildList(controls.implicit, controls.implicit2)
+	buildList(controls.implicit2, controls.implicit)
+	controls.save = common.New("ButtonControl", nil, -45, 70, 80, 20, "Corrupt", function()
 		self:SetDisplayItem(corruptItem())
 		main:ClosePopup()
 	end)
@@ -1489,10 +1525,10 @@ function ItemsTabClass:CorruptDisplayItem()
 		tooltip:Clear()
 		self:AddItemTooltip(tooltip, corruptItem(), nil, true)
 	end	
-	controls.close = common.New("ButtonControl", nil, 45, 50, 80, 20, "Cancel", function()
+	controls.close = common.New("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(540, 80, "Corrupt Item", controls)
+	main:OpenPopup(540, 100, "Corrupt Item", controls)
 end
 
 -- Opens the custom modifier popup
@@ -1631,6 +1667,13 @@ function ItemsTabClass:AddItemSetTooltip(tooltip, itemSet)
 	end
 end
 
+function ItemsTabClass:FormatItemSource(text)
+	return text:gsub("unique{([^}]+)}",colorCodes.UNIQUE.."%1"..colorCodes.SOURCE)
+			   :gsub("normal{([^}]+)}",colorCodes.NORMAL.."%1"..colorCodes.SOURCE)
+			   :gsub("currency{([^}]+)}",colorCodes.CURRENCY.."%1"..colorCodes.SOURCE)
+			   :gsub("prophecy{([^}]+)}",colorCodes.PROPHECY.."%1"..colorCodes.SOURCE)
+end
+
 function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	-- Item name
 	local rarityCode = colorCodes[item.rarity]
@@ -1664,6 +1707,14 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		end
 		if item.unreleased then
 			tooltip:AddLine(16, "^1Not yet available")
+		end
+		if item.source then
+			tooltip:AddLine(16, colorCodes.SOURCE.."Source: "..self:FormatItemSource(item.source))
+		end
+		if item.upgradePaths then
+			for _, path in ipairs(item.upgradePaths) do
+				tooltip:AddLine(16, colorCodes.SOURCE..self:FormatItemSource(path))
+			end
 		end
 		tooltip:AddSeparator(10)
 	end
@@ -1847,7 +1898,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
 		if item.base.flask.life or item.base.flask.mana then
 			local rateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
-			local instantPerc = flaskData.instantPerc > 0 and m_min(flaskData.instantPerc + effectInc, 100) or 0
+			local instantPerc = flaskData.instantPerc
+			if self.build.targetVersion == "2_6" and instantPerc > 0 then
+				instantPerc = m_min(instantPerc + effectInc, 100)
+			end
 			if item.base.flask.life then
 				local lifeInc = modDB:Sum("INC", nil, "FlaskLifeRecovery")
 				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")

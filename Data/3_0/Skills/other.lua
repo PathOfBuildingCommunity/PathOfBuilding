@@ -33,15 +33,6 @@ skills["Melee"] = {
 }
 skills["GemDetonateMines"] = {
 	name = "Detonate Mines",
-	gemTags = {
-		low_max_level = true,
-		active_skill = true,
-		spell = true,
-	},
-	gemTagString = "Spell",
-	gemStr = 33,
-	gemDex = 33,
-	gemInt = 34,
 	color = 4,
 	description = "Detonates all the Remote Mines you have placed.",
 	skillTypes = { [2] = true, [17] = true, [18] = true, [36] = true, },
@@ -50,6 +41,7 @@ skills["GemDetonateMines"] = {
 	},
 	baseMods = {
 		skill("castTime", 0.2), 
+		skill("cooldown", 0.2), 
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
@@ -73,15 +65,6 @@ skills["GemDetonateMines"] = {
 }
 skills["Portal"] = {
 	name = "Portal",
-	gemTags = {
-		low_max_level = true,
-		active_skill = true,
-		spell = true,
-	},
-	gemTagString = "Spell",
-	gemStr = 33,
-	gemDex = 33,
-	gemInt = 34,
 	color = 4,
 	description = "Creates a portal to the current area's town.",
 	skillTypes = { [2] = true, [17] = true, [18] = true, [19] = true, [36] = true, [27] = true, },
@@ -113,16 +96,6 @@ skills["Portal"] = {
 }
 skills["VaalBreach"] = {
 	name = "Vaal Breach",
-	gemTags = {
-		low_max_level = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-	},
-	gemTagString = "Vaal, Spell",
-	gemStr = 33,
-	gemDex = 33,
-	gemInt = 34,
 	color = 4,
 	description = "Creates a breach, making you vulnerable to its powerful inhabitants.",
 	skillTypes = { [2] = true, [17] = true, [18] = true, [19] = true, [27] = true, [43] = true, },
@@ -166,6 +139,7 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 		skill("cooldown", 0.25), 
 		mod("Damage", "INC", 100, ModFlag.Spell, 0, { type = "Condition", var = "SkillIsTriggered" }), --"triggered_spell_spell_damage_+%" = 100
 		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"unique_mjolner_lightning_spells_triggered" = ?
+		skill("showAverage", true), 
 	},
 	qualityMods = {
 	},
@@ -235,14 +209,14 @@ skills["BirdAspect"] = {
 	hidden = true,
 	color = 4,
 	description = "While active, grants the Avian's Might and Avian's Flight buffs in sequence. Avian's Might grants you and your minions a chance to deal Double Damage with hits for a duration. Avian's Flight grants you and your minions increased Movement Speed for a secondary duration.",
-	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, },
+	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, [75] = true, },
 	fromItem = true,
 	baseFlags = {
 		cast = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
+		skill("castTime", 0), 
 		skill("manaCost", 25), 
 		skill("cooldown", 0.5), 
 		mod("DoubleDamageChance", "BASE", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Might", effectCond = "AviansMightActive" }), --"chance_to_deal_double_damage_%" = 10
@@ -267,21 +241,21 @@ skills["CatAspect"] = {
 	hidden = true,
 	color = 4,
 	description = "While active, grants the Cat's Stealth and Cat's Agility buffs in sequence. Cat's Stealth increases your critical strike chance, makes you harder to see, and gives you a chance to avoid damage for a short duration. Cat's Agility increases your attack and cast speed for a longer secondary duration.",
-	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, },
+	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, [75] = true, },
 	fromItem = true,
 	baseFlags = {
 		cast = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
+		skill("castTime", 0), 
 		skill("manaCost", 25), 
 		skill("cooldown", 0.5), 
 		mod("CritChance", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Stealth", effectCond = "CatsStealthActive" }), --"critical_strike_chance_+%" = 100
 		--"avoid_damage_%" = 15
 		--"enemy_aggro_radius_+%" = -50
 		mod("Speed", "INC", 10, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" }), --"attack_speed_+%" = 10
-		mod("Speed", "INC", 10, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" }), --"base_cast_speed_+%" = 10
+		mod("Speed", "INC", 10, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" }), --"cast_speed_+%_granted_from_skill" = 10
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
 		skill("durationSecondary", 6), --"base_secondary_skill_effect_duration" = 6000
 	},
@@ -299,13 +273,13 @@ skills["CrabAspect"] = {
 	hidden = true,
 	color = 4,
 	description = "While active, periodically adds Crab Barriers to you, and grants additional Physical Damage reduction for each Crab Barrier you have. All Crab Barriers are lost when you take physical damage from a hit.",
-	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, },
+	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [75] = true, },
 	fromItem = true,
 	baseFlags = {
 		cast = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
+		skill("castTime", 0), 
 		skill("manaCost", 25), 
 		skill("cooldown", 0.5), 
 		mod("PhysicalDamageReduction", "BASE", 2, 0, 0, { type = "Multiplier", var = "CrabBarrier" }, { type = "GlobalEffect", effectType = "Buff" }), --"physical_damage_reduction_%_per_crab_aspect_stack" = 2
@@ -325,14 +299,14 @@ skills["SpiderAspect"] = {
 	hidden = true,
 	color = 4,
 	description = "While active, periodically applies a Spider's Web debuff to nearby Enemies, and Hinders them. Each Spider's Web on an Enemy increases the Damage they take. Hinder reduces their movement speed.",
-	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, },
+	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, [75] = true, },
 	fromItem = true,
 	baseFlags = {
 		cast = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
+		skill("castTime", 0), 
 		skill("manaCost", 25), 
 		skill("cooldown", 0.5), 
 		--"base_movement_velocity_+%" = -30
@@ -562,8 +536,8 @@ skills["TouchOfGod"] = {
 	name = "Doryani's Touch",
 	hidden = true,
 	color = 1,
-	description = "The character uses their fist to slam the ground in front of them, with less attack speed, but more damage. This attack deals Lightning Damage to enemies in a large area, with a chance to Shock them. Cannot be used while wielding a Weapon. Cannot be supported by Multistrike.",
-	skillTypes = { [1] = true, [11] = true, [35] = true, [24] = true, },
+	description = "The character uses their fist to slam the ground in front of them, with less attack speed, but more damage. This attack deals Lightning Damage to enemies in a large area, with a chance to Shock them. Cannot be used while wielding a Weapon.",
+	skillTypes = { [1] = true, [11] = true, [35] = true, [24] = true, [28] = true, },
 	weaponTypes = {
 		["None"] = true,
 	},
@@ -619,6 +593,16 @@ skills["TouchOfGod"] = {
 		[28] = { 86, 31, },
 		[29] = { 88, 31, },
 		[30] = { 90, 31, },
+		[31] = { 91, 32, },
+		[32] = { 92, 32, },
+		[33] = { 93, 32, },
+		[34] = { 94, 33, },
+		[35] = { 95, 33, },
+		[36] = { 96, 33, },
+		[37] = { 97, 34, },
+		[38] = { 98, 34, },
+		[39] = { 99, 34, },
+		[40] = { 100, 35, },
 	},
 }
 skills["ElementalAegis"] = {
@@ -723,7 +707,7 @@ skills["Envy"] = {
 	hidden = true,
 	color = 3,
 	description = "Casts an aura that adds chaos damage to the attacks and spells of you and your allies.",
-	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [50] = true, },
+	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [50] = true, [75] = true, },
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -732,7 +716,7 @@ skills["Envy"] = {
 		chaos = true,
 	},
 	baseMods = {
-		skill("castTime", 1.2), 
+		skill("castTime", 0), 
 		skill("manaCost", 50), 
 		skill("cooldown", 1.2), 
 		mod("ChaosMin", "BASE", 58, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }), --"attack_minimum_added_chaos_damage" = 58
@@ -788,7 +772,6 @@ skills["FireBurstOnHit"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -828,7 +811,7 @@ skills["FireBurstOnHit"] = {
 		[19] = { 67, 605, 908, },
 		[20] = { 70, 703, 1055, },
 		[21] = { 72, 777, 1165, },
-		[22] = { 74, 858, 1286, },
+		[22] = { 74, 857, 1286, },
 		[23] = { 76, 946, 1419, },
 		[24] = { 78, 1043, 1564, },
 		[25] = { 80, 1149, 1724, },
@@ -851,12 +834,12 @@ skills["VaalAuraElementalDamageHealing"] = {
 		aura = true,
 		area = true,
 		duration = true,
-		vaal = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("duration", 6), --"base_skill_effect_duration" = 6000
+		skill("castTime", 0.5), 
+		skill("duration", 5), --"base_skill_effect_duration" = 5000
 		--"base_elemental_damage_heals" = ?
+		--"modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration" = ?
 		skill("radius", 36), 
 	},
 	qualityMods = {
@@ -879,7 +862,6 @@ skills["IcestormUniqueStaff12"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -953,8 +935,6 @@ skills["MerveilWarp"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		movement = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.6), 
@@ -981,7 +961,6 @@ skills["LightningSpell"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1035,8 +1014,8 @@ skills["UniqueAnimateWeapon"] = {
 	name = "Manifest Dancing Dervish",
 	hidden = true,
 	color = 4,
-	description = "Releases Dancing Dervish to fight by your side. While Dancing Dervish is manifested, you have Onslaught and cannot use Weapons.",
-	skillTypes = { [2] = true, [9] = true, [21] = true, [36] = true, [61] = true, },
+	description = "Manifests Dancing Dervish to fight by your side. While Dancing Dervish is manifested, you have Onslaught and cannot use Weapons. Cannot be supported by supports that would create other minions.",
+	skillTypes = { [2] = true, [9] = true, [21] = true, [36] = true, [61] = true, [72] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [11] = true, [38] = true, [28] = true, },
 	fromItem = true,
 	minionList = {
@@ -1082,7 +1061,6 @@ skills["TriggeredMoltenStrike"] = {
 		attack = true,
 		projectile = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1178,7 +1156,6 @@ skills["TriggeredShockedGround"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1670,7 +1647,7 @@ skills["SummonVoidSphere"] = {
 		--"chilled_ground_base_magnitude_override" = 10
 		skill("ColdMin", 895), --"spell_minimum_base_cold_damage" = 895
 		skill("ColdMax", 1342), --"spell_maximum_base_cold_damage" = 1342
-		skill("ColdDot", 1553.2666666667), --"base_cold_damage_to_deal_per_minute" = 93196
+		skill("ColdDot", 1553.25), --"base_cold_damage_to_deal_per_minute" = 93195
 		--"is_area_damage" = ?
 		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
 		skill("dotIsSpell", true), --"spell_damage_modifiers_apply_to_skill_dot" = ?

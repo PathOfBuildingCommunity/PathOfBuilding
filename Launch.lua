@@ -126,6 +126,10 @@ end
 function launch:OnKeyDown(key, doubleClick)
 	if key == "F5" and self.devMode then
 		self.doRestart = "Restarting..."
+	elseif key == "F6" and self.devMode then
+		local before = collectgarbage("count")
+		collectgarbage("collect")
+		ConPrintf("%dkB => %dkB", before, collectgarbage("count"))
 	elseif key == "u" and IsKeyDown("CTRL") then
 		if not self.devMode then
 			self:CheckForUpdate()

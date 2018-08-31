@@ -11,6 +11,7 @@ Adds 1 to Maximum Life per 3 Intelligence Allocated in Radius
 ]],[[
 The Anima Stone
 Prismatic Jewel
+Source: Vendor Recipe
 Limited to: 1
 Implicits: 0
 Can Summon up to 1 additional Golem at a time
@@ -31,6 +32,8 @@ Minions deal (8-12)% increased Damage
 The Blue Dream
 Cobalt Jewel
 League: Breach
+Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
+Upgrade: Upgrades to unique{The Blue Nightmare} using currency{Blessing of Chayula}
 Radius: Large
 Gain 5% of Lightning Damage as Extra Chaos Damage
 Passives granting Lightning Resistance or all Elemental Resistances in Radius
@@ -39,6 +42,7 @@ also grant an equal chance to gain a Power Charge on Kill
 The Blue Nightmare
 Cobalt Jewel
 League: Breach
+Source: Upgraded from unique{The Blue Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
 Gain 5% of Lightning Damage as Extra Chaos Damage
@@ -184,6 +188,8 @@ Variant: Current
 The Green Dream
 Viridian Jewel
 League: Breach
+Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
+Upgrade: Upgrades to unique{The Green Nightmare} using currency{Blessing of Chayula}
 Radius: Large
 Gain 5% of Cold Damage as Extra Chaos Damage
 Passives granting Cold Resistance or all Elemental Resistances in Radius
@@ -192,6 +198,7 @@ also grant an equal chance to gain a Frenzy Charge on Kill
 The Green Nightmare
 Viridian Jewel
 League: Breach
+Source: Upgraded from unique{The Green Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
 Gain 5% of Cold Damage as Extra Chaos Damage
@@ -245,6 +252,7 @@ Passives in Radius can be Allocated without being connected to your tree
 ]],[[
 Izaro's Turmoil
 Crimson Jewel
+Source: Drops in The Lord's Labyrinth
 (18-25)% increased Fire Damage
 (18-25)% increased Cold Damage
 2% chance to Freeze
@@ -275,6 +283,12 @@ Crimson Jewel
 Radius: Medium
 Dexterity and Intelligence from passives in Radius count towards Strength Melee Damage bonus
 ]],[[
+Might of the Meek
+Crimson Jewel
+Radius: Large
+50% increased Effect of non-Keystone Passive Skills in Radius
+Notable Passive Skills in Radius grant nothing
+]],[[
 Primordial Eminence
 Viridian Jewel
 Implicits: 0
@@ -285,9 +299,12 @@ Primordial
 ]],[[
 Primordial Harmony
 Cobalt Jewel
+Variant: Pre 3.3.0
+Variant: Current
 Implicits: 0
 Golem Skills have (20-30)% increased Cooldown Recovery Speed
-Golems have (10-15)% increased Cooldown Recovery Speed
+{variant:1}Golems have (10-15)% increased Cooldown Recovery Speed
+{variant:2}Golems have (30-45)% increased Cooldown Recovery Speed
 (16-20)% increased Golem Damage for each Type of Golem you have Summoned
 Golems regenerate 2% of their Maximum Life per second
 Primordial
@@ -310,6 +327,7 @@ Radius: Large
 ]],[[
 Pure Talent
 Viridian Jewel
+Limited to: 1
 Implicits: 0
 While your Passive Skill Tree connects to a class' Starting location, you gain:
 Marauder: Melee Skills have 15% increased Area of Effect
@@ -335,6 +353,8 @@ Cobalt Jewel
 The Red Dream
 Crimson Jewel
 League: Breach
+Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
+Upgrade: Upgrades to unique{The Red Nightmare} using currency{Blessing of Chayula}
 Radius: Large
 Gain 5% of Fire Damage as Extra Chaos Damage
 Passives granting Fire Resistance or all Elemental Resistances in Radius
@@ -343,6 +363,7 @@ also grant an equal chance to gain an Endurance Charge on Kill
 The Red Nightmare
 Crimson Jewel
 League: Breach
+Source: Upgraded from unique{The Red Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
 Gain 5% of Fire Damage as Extra Chaos Damage
@@ -388,6 +409,7 @@ Cobalt Jewel
 ]],[[
 Watcher's Eye
 Prismatic Jewel
+Source: Drops from unique{The Elder}
 Has Alt Variant: true
 Variant: Anger: Fire Leech
 Variant: Anger: Fire Pen
@@ -628,13 +650,16 @@ With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread T
 Rapid Expansion
 Crimson Jewel
 Variant: Pre 2.6.0
+Variant: Pre 3.3.0
 Variant: Current
-Limited to: 3
+Limited to: 2
 Radius: Medium
 (4-12)% increased Physical Damage
 {variant:1}With at least 40 Strength in Radius, Ground Slam has a 20% increased angle
 {variant:2}With at least 40 Strength in Radius, Ground Slam has a 35% increased angle
+{variant:3}With at least 40 Strength in Radius, Ground Slam has a 50% increased angle
 {variant:2}With at least 40 Strength in Radius, Ground Slam has a 25% chance to grant an Endurance Charge when you Stun an Enemy
+{variant:3}With at least 40 Strength in Radius, Ground Slam has a 35% chance to grant an Endurance Charge when you Stun an Enemy
 ]],[[
 Ring of Blades
 Viridian Jewel
@@ -757,12 +782,15 @@ With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Eff
 Winter's Bounty
 Cobalt Jewel
 Variant: Pre 2.6.0
+Variant: Pre 3.3.0
 Variant: Current
-Limited to: 2
+Limited to: 1
 Radius: Medium
 (5-15)% increased Cold Damage
 {variant:1}With at least 40 Intelligence in Radius, Cold Snap has a 25% chance to grant a Power Charge on Kill
 {variant:2}With at least 40 Intelligence in Radius, Cold Snap has a 50% chance to grant a Power Charge on Kill
+{variant:3}With at least 40 Intelligence in Radius, Cold Snap grants Power Charges instead of Frenzy Charges when Enemies die in it's Area
+{variant:3}With at least 40 Intelligence in Radius, Cold Snap Cooldown can be bypassed by Power Charges instead of Frenzy Charges
 ]],[[
 Winter Burial
 Crimson Jewel
@@ -784,6 +812,7 @@ Corrupted
 ]],[[
 Atziri's Reign
 Crimson Jewel
+Limited to: 2
 (15-20)% increased Vaal Skill Effect Duration
 Corrupted
 ]],[[
@@ -948,6 +977,7 @@ Limited to: 1
 [[
 Emperor's Cunning
 Viridian Jewel
+Source: Fastest Normal Labyrinth
 Limited to: 1
 20% increased Accuracy Rating
 3% increased Character Size
@@ -955,6 +985,7 @@ Limited to: 1
 ]],[[
 Emperor's Mastery
 Prismatic Jewel
+Source: Fastest Eternal Labyrinth
 Limited to: 1
 4% increased maximum Life
 3% increased Character Size
@@ -963,6 +994,7 @@ Limited to: 1
 ]],[[
 Emperor's Might
 Crimson Jewel
+Source: Fastest Merciless Labyrinth
 Limited to: 1
 10% increased Damage
 3% increased Character Size
@@ -970,6 +1002,7 @@ Limited to: 1
 ]],[[
 Emperor's Wit
 Cobalt Jewel
+Source: Fastest Cruel Labyrinth
 Limited to: 1
 30% increased Global Critical Strike Chance
 3% increased Character Size

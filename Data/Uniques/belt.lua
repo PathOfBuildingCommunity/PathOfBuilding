@@ -5,6 +5,7 @@ return {
 [[
 Ascent From Flesh
 Chain Belt
+Source: prophecy{Thaumaturgical History IV}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 44
@@ -78,6 +79,7 @@ Rampage
 ]],[[
 Cyclopean Coil
 Leather Belt
+Source: Drops from unique{The Elder}
 Requires Level 68
 +(25-40) to maximum Life
 +(60–80) to maximum Life 
@@ -91,12 +93,14 @@ Elder Item
 Darkness Enthroned
 Stygian Vise
 League: Abyss
+Source: Drops from Abyssal Liches
 Has 1 Abyssal Socket
 Has 1 Abyssal Socket
 50% increased Effect of Socketed Jewels
 ]],[[
 Doryani's Invitation
 Heavy Belt
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
 Variant: Physical
 Variant: Fire
 Variant: Cold
@@ -169,11 +173,21 @@ Grants Summon Harbinger of Time Skill
 (15-20)% increased Cooldown Recovery Speed
 Debuffs on you expire (15-20)% faster
 ]],[[
+Gluttony
+Leather Belt
+Requires Level 48
++(25-40) to maximum Life
++(60-80) to maximum Life
+Culling Strike against Enemies Cursed with Poacher's Mark
+Curse Enemies with Level 30 Poacher's Mark on Hit, which can apply to Hexproof Enemies
+Take (100-200) Physical Damage when you use a Movement Skill
+You have no Armour or Energy Shield
+]],[[
 Headhunter
 Leather Belt
+League: Nemesis
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Nemesis
 Requires Level 40
 +(25-40) to maximum Life
 +(40-55) to Strength
@@ -202,6 +216,8 @@ Requires Level 50
 ]],[[
 The Magnate
 Studded Belt
+Upgrade: Upgrades to unique{The Nomad} via prophecy{The Great Leader of the North}
+Upgrade: Upgrades to unique{The Tactician} via prophecy{The Great Mind of the North}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 16
@@ -210,6 +226,29 @@ Requires Level 16
 +(40-50) to Strength
 50% increased Flask Charges gained
 {variant:2}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
+]],[[
+The Nomad
+Studded Belt
+Source: Upgraded from unique{The Magnate} via prophecy{The Great Leader of the North}
+Requires Level 48
+(20-30)% increased Stun Duration on Enemies
+(25-40)% increased Global Physical Damage
++(40-50) to Strength
++(40-50) to Dexterity
++(20-25)% to all Elemental Resistances while you have at least 200 Strength
+(40–50)% increased Projectile Attack Damage while you have at least 200 Dexterity
+]],[[
+The Tactician
+Studded Belt
+Source: Upgraded from unique{The Magnate} via prophecy{The Great Mind of the North}
+Requires Level 48
+(20-30)% increased Stun Duration on Enemies
+(25-40)% increased Global Physical Damage
++(40-50) to Strength
++(40-50) to Intelligence
+50% increased Flask Charges gained
++(20-25)% to all Elemental Resistances while you have at least 200 Strength
+(50–60)% increased Critical Strike Chance while you have at least 200 Intelligence
 ]],[[
 Maligaro's Restraint
 Chain Belt
@@ -279,6 +318,7 @@ Requires Level 25
 The Retch
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
+Source: Vendor recipe
 Requires Level 44
 (12-24)% increased Physical Damage
 +(60-80) to maximum Life

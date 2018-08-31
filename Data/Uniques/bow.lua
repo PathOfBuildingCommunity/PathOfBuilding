@@ -5,7 +5,8 @@ return {
 [[
 Arborix
 Assassin Bow
-Requires Level: 62
+Requires Level 62
+Source: Vendor recipe
 Adds (60–70) to (180–210) Physical Damage 
 (80–100)% increased Evasion Rating
 2 Additional Arrows
@@ -13,7 +14,6 @@ Every 16 seconds you gain iron Reflexes for 8 seconds
 30% more Bow Damage at Close Range while you have iron Reflexes
 30% increased Attack, Cast and Movements Speed while you do not have Iron Reflexes
 You have Far Shot while you do not have Iron Reflexes
-Elder Item
 ]],[[
 Chin Sol
 Assassin Bow
@@ -51,6 +51,7 @@ Implicits: 1
 ]],[[
 Death's Harp
 Death Bow
+Upgrade: Upgrades to unique{Death's Opus} via prophecy{The Bowstring's Music}
 Variant: Pre 2.2.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
@@ -64,6 +65,7 @@ Adds an additional Arrow
 ]],[[
 Death's Opus
 Death Bow
+Source: Upgraded from unique{Death's Harp} via prophecy{The Bowstring's Music}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 44, 107 Dex
@@ -77,6 +79,7 @@ Adds (10-20) to (30-35) Physical Damage
 ]],[[
 Doomfletch
 Royal Bow
+Upgrade: Upgrades to unique{Doomfletch's Prism} via prophecy{Ancient Doom}
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
@@ -97,6 +100,7 @@ Implicits: 3
 ]],[[
 Doomfletch's Prism
 Royal Bow
+Source: Upgraded from unique{Doomfletch} via prophecy{Ancient Doom}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.1.0
@@ -116,7 +120,8 @@ Implicits: 3
 ]],[[
 Hopeshredder
 Ranger Bow
-Requires Level: 60
+Source: Drops from unique{The Elder} (Tier 6+)
+Requires Level 60
 Adds (130–150) to (270–300) Cold Damage 
 4% increased Movement Speed per Frenzy Charge 
 +(400–500) to Accuracy Rating 
@@ -214,6 +219,7 @@ Requires Level 5, 26 Dex
 ]],[[
 Reach of the Council
 Spine Bow
+Source: prophecy{The Feral Lord V}
 Variant: Pre 2.4.0
 Variant: Pre 2.6.0
 Variant: Current
@@ -239,19 +245,9 @@ Requires Level 18, 71 Dex
 Skills Chain +1 times
 30% increased Projectile Speed
 ]],[[
-Silverbough
-Crude Bow
-Requires Level 36
-+1 to Level of Socketed Gems
-+1 to Level of Socketed Bow Gems
-(80-100)% increased Physical Damage
-Adds (15-25) to (50-60) Physical Damage
-10% increased Attack Speed
-+30 to Accuracy Rating
-+10 Mana gained on Kill
-]],[[
 Silverbranch
 Crude Bow
+Upgrade: Upgrades to unique{Silverbough} via prophecy{The Silverwood}
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 2
@@ -262,8 +258,21 @@ Requires Level 2
 +30 to Accuracy Rating
 +10 Mana gained on Kill
 ]],[[
+Silverbough
+Crude Bow
+Source: Upgraded from unique{Silverbranch} using prophecy{The Silverwood}
+Requires Level 36
++1 to Level of Socketed Gems
++1 to Level of Socketed Bow Gems
+(80-100)% increased Physical Damage
+Adds (15-25) to (50-60) Physical Damage
+10% increased Attack Speed
++30 to Accuracy Rating
++10 Mana gained on Kill
+]],[[
 Slivertongue 
 Harbinger Bow
+Source: Drops from unique{Guardian of the Hydra}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 68, 212 Dex
@@ -276,6 +285,7 @@ Arrows always Pierce after Chaining
 ]],[[
 Storm Cloud
 Long Bow
+Upgrade: Upgrades to unique{The Tempest} via prophecy{The Servant's Heart}
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 9, 38 Dex
@@ -286,6 +296,7 @@ No Physical Damage
 ]],[[
 The Tempest
 Long Bow
+Source: Upgraded from unique{Storm Cloud} using prophecy{The Servant's Heart}
 Requires Level 32, 38 Dex
 No Physical Damage
 100% increased Lightning Damage
@@ -325,6 +336,8 @@ Adds 1 to (80-100) Lightning Damage
 Xoph's Inception
 Bone Bow
 League: Breach
+Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
+Upgrade: Upgrades to unique{Xoph's Nurture} using currency{Blessing of Xoph}
 Requires Level 23, 80 Dex
 (70-90)% increased Physical Damage
 +(20-30) Life gained on Killing Ignited Enemies
@@ -334,11 +347,15 @@ Gain 20% of Physical Damage as Extra Fire Damage
 Xoph's Nurture
 Citadel Bow
 League: Breach
+Source: Upgraded from unique{Xoph's Inception} using currency{Blessing of Xoph}
+Variant: Pre 3.3.0
+Variant: Current
 Requires Level 64, 185 Dex
 (250-300)% increased Physical Damage
 50% of Physical Damage Converted to Fire Damage
 10% chance to Ignite
-Ignites your Skills cause spread to other Enemies within a Radius of 12
+{variant:1}Ignites your Skills cause spread to other Enemies within a Radius of 12
+{variant:2}Ignites your Skills cause spread to other Enemies within a Radius of 15
 Recover (40-60) Life when you Ignite an Enemy
 ]],
 }

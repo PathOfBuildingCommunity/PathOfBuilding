@@ -312,7 +312,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 			socket.nodesInRadius[radiusIndex] = { }
 			socket.attributesInRadius[radiusIndex] = { }
 			local rSq = radiusInfo.rad * radiusInfo.rad
-			for _, node in ipairs(self.nodes) do
+			for _, node in pairs(self.nodes) do
 				if node ~= socket then
 					local vX, vY = node.x - socket.x, node.y - socket.y
 					if vX * vX + vY * vY <= rSq then 
@@ -325,7 +325,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 
 	-- Pregenerate the polygons for the node connector lines
 	self.connectors = { }
-	for _, node in ipairs(self.nodes) do
+	for _, node in pairs(self.nodes) do
 		for _, otherId in pairs(node.out) do
 			local other = nodeMap[otherId]
 			t_insert(node.linkedId, otherId)

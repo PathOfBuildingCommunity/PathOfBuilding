@@ -14,6 +14,8 @@ local function writeMods(outName, condFunc)
 					out:write('type = "Prefix", ')
 				elseif mod.GenerationType == 2 then
 					out:write('type = "Suffix", ')
+				elseif mod.GenerationType == 5 then
+					out:write('type = "Corrupted", ')
 				end
 				out:write('affix = "', mod.Name, '", ')
 				out:write('"', table.concat(stats, '", "'), '", ')
@@ -43,19 +45,16 @@ local function writeMods(outName, condFunc)
 end
 
 writeMods("../Data/3_0/ModItem.lua", function(mod)
-	return mod.Domain == 1 and (mod.GenerationType == 1 or mod.GenerationType == 2)
+	return mod.Domain == 1 and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
 end)
 writeMods("../Data/3_0/ModFlask.lua", function(mod)
 	return mod.Domain == 2 and (mod.GenerationType == 1 or mod.GenerationType == 2)
 end)
 writeMods("../Data/3_0/ModJewel.lua", function(mod)
-	return mod.Domain == 11 and (mod.GenerationType == 1 or mod.GenerationType == 2)
+	return mod.Domain == 10 and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
 end)
 writeMods("../Data/3_0/ModJewelAbyss.lua", function(mod)
-	return mod.Domain == 14 and (mod.GenerationType == 1 or mod.GenerationType == 2)
-end)
-writeMods("../Data/3_0/ModCorrupted.lua", function(mod)
-	return mod.GenerationType == 5
+	return mod.Domain == 13 and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
 end)
 
 print("Mods exported.")

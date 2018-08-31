@@ -20,6 +20,7 @@ common = { }
 common.curl = require("lcurl.safe")
 common.xml = require("xml")
 common.base64 = require("base64")
+common.sha1 = require("sha1")
 
 -- Class library
 common.classes = { }
@@ -64,23 +65,6 @@ function common.NewClass(className, ...)
 				end
 			end
 		})
-		--[[if #class._parents == 1 then
-			-- Single inheritance
-			setmetatable(class, class._parents[1]) 
-		else
-			-- Multiple inheritance
-			setmetatable(class, {
-				__index = setmetatable({ }, { __index = function(self, key)
-					for _, parent in ipairs(class._parents) do
-						local val = parent[key]
-						if val ~= nil then
-							self[key] = val
-							return val
-						end
-					end
-				end })
-			})
-		end]]
 	end
 	return class
 end

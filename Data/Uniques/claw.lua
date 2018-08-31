@@ -117,10 +117,12 @@ Adds 1 to 200 Lightning Damage
 ]],[[
 Hand of Thought and Motion
 Blinder
+League: Breach
+Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
+Upgrade: Upgrades to unique{Hand of Wisdom and Action} using currency{Blessing of Esh}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Breach
 Requires Level 22, 41 Dex, 41 Int
 Implicits: 2
 {variant:1}+10 Life gained for each Enemy hit by Attacks
@@ -134,10 +136,11 @@ Adds 1 to (50-60) Lightning Damage
 ]],[[
 Hand of Wisdom and Action
 Imperial Claw
+League: Breach
+Source: Upgraded from unique{Hand of Thought and Motion} using currency{Blessing of Esh}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Breach
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}+25 Life gained for each Enemy hit by Attacks
@@ -152,6 +155,7 @@ Implicits: 2
 ]],[[
 Izaro's Dilemma
 Imperial Claw
+Source: Drops in The Lord's Labyrinth
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
@@ -226,6 +230,7 @@ Adds (25-35) to (50-65) Physical Damage
 ]],[[
 The Scourge
 Terror Claw
+Source: Drops from unique{Guardian of the Chimera}
 Requires Level 70, 113 Dex, 113 Int
 2% of Physical Attack Damage Leeched as Life
 Adds (35-50) to (100-125) Physical Damage

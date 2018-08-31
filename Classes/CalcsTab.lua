@@ -63,8 +63,8 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 		{ label = "Skill Part", playerFlag = "multiPart", { controlName = "mainSkillPart", 
 			control = common.New("DropDownControl", nil, 0, 0, 130, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
-				local srcGem = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeGem.srcGem
-				srcGem.skillPartCalcs = index
+				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
+				srcInstance.skillPartCalcs = index
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end)
@@ -78,11 +78,11 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 		{ label = "Minion", flag = "minion", { controlName = "mainSkillMinion",
 			control = common.New("DropDownControl", nil, 0, 0, 160, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
-				local srcGem = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeGem.srcGem
+				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				if value.itemSetId then
-					srcGem.skillMinionItemSetCalcs = value.itemSetId
+					srcInstance.skillMinionItemSetCalcs = value.itemSetId
 				else
-					srcGem.skillMinionCalcs = value.minionId
+					srcInstance.skillMinionCalcs = value.minionId
 				end
 				self:AddUndoState()
 				self.build.buildFlag = true
@@ -96,8 +96,8 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 		{ label = "Minion Skill", flag = "haveMinion", { controlName = "mainSkillMinionSkill",
 			control = common.New("DropDownControl", nil, 0, 0, 200, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
-				local srcGem = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeGem.srcGem
-				srcGem.skillMinionSkillCalcs = index
+				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
+				srcInstance.skillMinionSkillCalcs = index
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end)

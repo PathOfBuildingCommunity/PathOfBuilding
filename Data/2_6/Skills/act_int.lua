@@ -8,24 +8,12 @@ local skills, mod, flag, skill = ...
 
 skills["Arc"] = {
 	name = "Arc",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		chaining = true,
-		lightning = true,
-	},
-	gemTagString = "Spell, Chaining, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "An arc of lightning stretches from the caster to a targeted nearby enemy and chains on to additional targets.",
 	skillTypes = { [2] = true, [10] = true, [17] = true, [18] = true, [19] = true, [23] = true, [26] = true, [36] = true, [45] = true, [35] = true, },
 	baseFlags = {
 		spell = true,
 		chaining = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -78,25 +66,11 @@ skills["Arc"] = {
 }
 skills["VaalArcChain"] = {
 	name = "Vaal Arc",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		chaining = true,
-		lightning = true,
-	},
-	gemTagString = "Vaal, Spell, Chaining, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "An arc of lightning stretches from the caster to a targeted nearby enemy and chains on to many additional targets.",
 	skillTypes = { [2] = true, [10] = true, [17] = true, [18] = true, [19] = true, [23] = true, [26] = true, [43] = true, [35] = true, },
 	baseFlags = {
 		spell = true,
-		lightning = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -148,19 +122,6 @@ skills["VaalArcChain"] = {
 }
 skills["ArcticBreath"] = {
 	name = "Arctic Breath",
-	gemTags = {
-		projectile = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-		area = true,
-		cold = true,
-	},
-	gemTagString = "Projectile, Spell, Duration, AoE, Cold",
-	gemStr = 0,
-	gemDex = 40,
-	gemInt = 60,
 	color = 3,
 	description = "Fires a frozen skull projectile that leaves a trail of ground ice behind it. It explodes on impact, creating more ground ice and damaging targets within an area.",
 	skillTypes = { [2] = true, [3] = true, [10] = true, [17] = true, [18] = true, [19] = true, [12] = true, [11] = true, [26] = true, [36] = true, [34] = true, [60] = true, },
@@ -169,7 +130,6 @@ skills["ArcticBreath"] = {
 		area = true,
 		projectile = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -222,18 +182,6 @@ skills["ArcticBreath"] = {
 }
 skills["AssassinsMark"] = {
 	name = "Assassin's Mark",
-	gemTags = {
-		curse = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-	},
-	gemTagString = "Curse, Spell, AoE, Duration",
-	gemStr = 0,
-	gemDex = 40,
-	gemInt = 60,
 	color = 3,
 	description = "Curses all targets in an area, making them more vulnerable to Critical Strikes. Killing the cursed targets will grant life and mana, and a chance to gain a power charge.",
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, },
@@ -298,25 +246,12 @@ skills["AssassinsMark"] = {
 }
 skills["BallLightning"] = {
 	name = "Ball Lightning",
-	gemTags = {
-		projectile = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		lightning = true,
-	},
-	gemTagString = "Projectile, Spell, AoE, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Fires a slow-moving projectile that periodically damages enemies in an area around it with bolts of lightning.",
 	skillTypes = { [2] = true, [10] = true, [3] = true, [11] = true, [18] = true, [17] = true, [19] = true, [26] = true, [36] = true, [45] = true, [35] = true, },
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -370,19 +305,6 @@ skills["BallLightning"] = {
 }
 skills["Blight"] = {
 	name = "Blight",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		chaos = true,
-		area = true,
-		channelling = true,
-		duration = true,
-	},
-	gemTagString = "Spell, Chaos, AoE, Channelling, Duration",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Apply a debuff to enemies in front of you which deals chaos damage over time. Enemies who aren't already debuffed by Blight are also hindered for a shorter secondary duration, slowing their movement. Continued channelling adds layers of damage to the debuff, each with their own duration.",
 	skillTypes = { [2] = true, [50] = true, [11] = true, [18] = true, [58] = true, [12] = true, [40] = true, [59] = true, [52] = true, },
@@ -447,17 +369,6 @@ skills["Blight"] = {
 }
 skills["BoneOffering"] = {
 	name = "Bone Offering",
-	gemTags = {
-		minion = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-	},
-	gemTagString = "Minion, Spell, Duration",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Consumes a corpse, granting all of your minions the power to block both attacks and spells. The skill consumes other nearby corpses, increasing the duration for each corpse consumed.",
 	skillTypes = { [2] = true, [5] = true, [12] = true, [36] = true, [9] = true, [49] = true, [17] = true, [19] = true, [18] = true, },
@@ -518,17 +429,6 @@ skills["BoneOffering"] = {
 }
 skills["Clarity"] = {
 	name = "Clarity",
-	gemTags = {
-		aura = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-	},
-	gemTagString = "Aura, Spell, AoE",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Casts an aura that grants mana regeneration to you and your allies.",
 	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [18] = true, [44] = true, },
@@ -587,19 +487,6 @@ skills["Clarity"] = {
 }
 skills["VaalClarity"] = {
 	name = "Vaal Clarity",
-	gemTags = {
-		aura = true,
-		intelligence = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		area = true,
-		duration = true,
-	},
-	gemTagString = "Aura, Vaal, Spell, AoE, Duration",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Casts a temporary aura that lets you and your allies cast skills without paying their mana costs.",
 	skillTypes = { [2] = true, [5] = true, [11] = true, [18] = true, [27] = true, [12] = true, [43] = true, [44] = true, },
@@ -608,7 +495,6 @@ skills["VaalClarity"] = {
 		aura = true,
 		area = true,
 		duration = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.6), 
@@ -659,24 +545,12 @@ skills["VaalClarity"] = {
 }
 skills["ColdSnap"] = {
 	name = "Cold Snap",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		cold = true,
-	},
-	gemTagString = "Spell, AoE, Cold",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Ice crystals protrude from the ground at target location. Monsters in this area take damage and become frozen. The cooldown can be bypassed by expending a Power Charge.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, },
 	baseFlags = {
 		spell = true,
 		area = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -735,19 +609,6 @@ skills["ColdSnap"] = {
 }
 skills["VaalColdSnap"] = {
 	name = "Vaal Cold Snap",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		area = true,
-		duration = true,
-		cold = true,
-	},
-	gemTagString = "Vaal, Spell, AoE, Duration, Cold",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "A sequence of ice crystals erupts from the ground around the caster, damaging enemies and leaving the ground chilled.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [12] = true, [43] = true, [34] = true, },
@@ -755,8 +616,6 @@ skills["VaalColdSnap"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		cold = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -809,19 +668,6 @@ skills["VaalColdSnap"] = {
 }
 skills["Conductivity"] = {
 	name = "Conductivity",
-	gemTags = {
-		curse = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-		lightning = true,
-	},
-	gemTagString = "Curse, Spell, AoE, Duration, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Curses all targets in an area, making them less resistant to lightning damage and giving them a chance to be shocked by lightning damage.",
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, [45] = true, [35] = true, },
@@ -830,7 +676,6 @@ skills["Conductivity"] = {
 		curse = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -884,18 +729,6 @@ skills["Conductivity"] = {
 }
 skills["Contagion"] = {
 	name = "Contagion",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-		chaos = true,
-	},
-	gemTagString = "Spell, AoE, Duration, Chaos",
-	gemStr = 0,
-	gemDex = 40,
-	gemInt = 60,
 	color = 3,
 	description = "Unleashes a vile contagion on enemies, dealing chaos damage over time. If an enemy dies while affected by Contagion, it spreads to other enemies.",
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [40] = true, [50] = true, [26] = true, [36] = true, [19] = true, [52] = true, [59] = true, },
@@ -956,17 +789,6 @@ skills["Contagion"] = {
 }
 skills["ConversionTrap"] = {
 	name = "Conversion Trap",
-	gemTags = {
-		trap = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-	},
-	gemTagString = "Trap, Spell, Duration",
-	gemStr = 0,
-	gemDex = 40,
-	gemInt = 60,
 	color = 3,
 	description = "Throws a trap that, when triggered by an enemy, converts that enemy to your side for a short duration. Does not affect unique monsters or players.",
 	skillTypes = { [2] = true, [12] = true, [19] = true, [37] = true, },
@@ -1026,17 +848,6 @@ skills["ConversionTrap"] = {
 }
 skills["Convocation"] = {
 	name = "Convocation",
-	gemTags = {
-		minion = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-	},
-	gemTagString = "Minion, Spell, Duration",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Recalls all minions that are following you to your location, and grants them a temporary life regeneration effect.",
 	skillTypes = { [2] = true, [5] = true, [12] = true, [36] = true, [9] = true, [49] = true, },
@@ -1096,28 +907,12 @@ skills["Convocation"] = {
 }
 skills["Discharge"] = {
 	name = "Discharge",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		fire = true,
-		cold = true,
-		lightning = true,
-	},
-	gemTagString = "Spell, AoE, Fire, Cold, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Discharge all the character's charges to deal elemental damage to all nearby monsters.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [18] = true, [26] = true, [36] = true, [45] = true, [33] = true, [34] = true, [35] = true, [60] = true, },
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
-		cold = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1177,17 +972,6 @@ skills["Discharge"] = {
 }
 skills["Discipline"] = {
 	name = "Discipline",
-	gemTags = {
-		aura = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-	},
-	gemTagString = "Aura, Spell, AoE",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Casts an aura that grants energy shield to you and your allies.",
 	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, },
@@ -1246,19 +1030,6 @@ skills["Discipline"] = {
 }
 skills["VaalDiscipline"] = {
 	name = "Vaal Discipline",
-	gemTags = {
-		aura = true,
-		intelligence = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		area = true,
-		duration = true,
-	},
-	gemTagString = "Aura, Vaal, Spell, AoE, Duration",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Casts a temporary aura that prevents energy shield recharge being delayed by damage taken for you and your allies.",
 	skillTypes = { [2] = true, [5] = true, [11] = true, [18] = true, [27] = true, [12] = true, [43] = true, [44] = true, },
@@ -1267,7 +1038,6 @@ skills["VaalDiscipline"] = {
 		aura = true,
 		area = true,
 		duration = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.6), 
@@ -1319,18 +1089,6 @@ skills["VaalDiscipline"] = {
 }
 skills["ElementalWeakness"] = {
 	name = "Elemental Weakness",
-	gemTags = {
-		curse = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-	},
-	gemTagString = "Curse, Spell, AoE, Duration",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Curses all targets in an area, making them less resistant to elemental damage.",
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, },
@@ -1391,18 +1149,6 @@ skills["ElementalWeakness"] = {
 }
 skills["Enfeeble"] = {
 	name = "Enfeeble",
-	gemTags = {
-		curse = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-	},
-	gemTagString = "Curse, Spell, AoE, Duration",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Curses all targets in an area, making their attacks and spells less effective.",
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, },
@@ -1467,18 +1213,6 @@ skills["Enfeeble"] = {
 }
 skills["EssenceDrain"] = {
 	name = "Essence Drain",
-	gemTags = {
-		projectile = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-		chaos = true,
-	},
-	gemTagString = "Projectile, Spell, Duration, Chaos",
-	gemStr = 0,
-	gemDex = 40,
-	gemInt = 60,
 	color = 3,
 	description = "Fires a projectile that applies a damage over time debuff when it hits. You are healed for a portion of the debuff damage. The debuff is spread by Contagion.",
 	skillTypes = { [2] = true, [3] = true, [12] = true, [18] = true, [26] = true, [40] = true, [50] = true, [10] = true, [36] = true, },
@@ -1544,19 +1278,6 @@ skills["EssenceDrain"] = {
 }
 skills["FireNovaMine"] = {
 	name = "Fire Nova Mine",
-	gemTags = {
-		area = true,
-		mine = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		fire = true,
-		duration = true,
-	},
-	gemTagString = "AoE, Mine, Spell, Fire, Duration",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Lay a remote mine that you can detonate to create a series of fire novas. Each sequential nova from the same mine will do higher damage than the previous.",
 	skillTypes = { [2] = true, [10] = true, [36] = true, [11] = true, [33] = true, [26] = true, [41] = true, [12] = true, },
@@ -1565,7 +1286,6 @@ skills["FireNovaMine"] = {
 		mine = true,
 		area = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.4), 
@@ -1624,18 +1344,6 @@ skills["FireNovaMine"] = {
 }
 skills["Fireball"] = {
 	name = "Fireball",
-	gemTags = {
-		projectile = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		fire = true,
-	},
-	gemTagString = "Projectile, Spell, AoE, Fire",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Unleashes a ball of fire towards a target which explodes, damaging nearby foes.",
 	skillTypes = { [3] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, },
@@ -1652,7 +1360,6 @@ skills["Fireball"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -1706,19 +1413,6 @@ skills["Fireball"] = {
 }
 skills["VaalFireballSpiralNova"] = {
 	name = "Vaal Fireball",
-	gemTags = {
-		projectile = true,
-		intelligence = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		area = true,
-		fire = true,
-	},
-	gemTagString = "Projectile, Vaal, Spell, AoE, Fire",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Launches a series of fireballs in all directions around the caster.",
 	skillTypes = { [3] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [43] = true, [33] = true, },
@@ -1735,8 +1429,6 @@ skills["VaalFireballSpiralNova"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		fire = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -1791,18 +1483,6 @@ skills["VaalFireballSpiralNova"] = {
 }
 skills["Firestorm"] = {
 	name = "Firestorm",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-		fire = true,
-	},
-	gemTagString = "Spell, AoE, Duration, Fire",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Flaming bolts rain down over the targeted area. They explode when landing, dealing damage to nearby enemies.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, },
@@ -1810,7 +1490,6 @@ skills["Firestorm"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.9), 
@@ -1868,18 +1547,6 @@ skills["Firestorm"] = {
 }
 skills["FlameDash"] = {
 	name = "Flame Dash",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		movement = true,
-		duration = true,
-		fire = true,
-	},
-	gemTagString = "Spell, Movement, Duration, Fire",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Teleport to a location, damaging enemies and leaving a trail of burning ground in your wake.",
 	skillTypes = { [2] = true, [38] = true, [10] = true, [40] = true, [12] = true, [18] = true, [36] = true, [33] = true, [17] = true, [19] = true, },
@@ -1887,8 +1554,6 @@ skills["FlameDash"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		movement = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.75), 
@@ -1943,24 +1608,12 @@ skills["FlameDash"] = {
 }
 skills["FlameWhip"] = {
 	name = "Flame Surge",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		fire = true,
-	},
-	gemTagString = "Spell, AoE, Fire",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Strikes enemies in front of you with a surge of flame. Burning enemies are dealt more damage.",
 	skillTypes = { [2] = true, [10] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [11] = true, [33] = true, },
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2014,18 +1667,6 @@ skills["FlameWhip"] = {
 }
 skills["Flameblast"] = {
 	name = "Flameblast",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		fire = true,
-		channelling = true,
-	},
-	gemTagString = "Spell, AoE, Fire, Channelling",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Channels to build up a large explosion, which is released when you stop using the skill. The longer you channel, the larger the area of effect and damage of the explosion.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [18] = true, [33] = true, [58] = true, },
@@ -2040,7 +1681,6 @@ skills["Flameblast"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.2), 
@@ -2096,26 +1736,12 @@ skills["Flameblast"] = {
 }
 skills["VaalFlameblast"] = {
 	name = "Vaal Flameblast",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		area = true,
-		fire = true,
-	},
-	gemTagString = "Vaal, Spell, AoE, Fire",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Targets an area and builds up a large explosion. The build-up speed is based on cast speed. The explosion occurs after it reaches 10 stacks.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [18] = true, [43] = true, [33] = true, },
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2169,19 +1795,6 @@ skills["VaalFlameblast"] = {
 }
 skills["Flammability"] = {
 	name = "Flammability",
-	gemTags = {
-		curse = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-		fire = true,
-	},
-	gemTagString = "Curse, Spell, AoE, Duration, Fire",
-	gemStr = 40,
-	gemDex = 0,
-	gemInt = 60,
 	color = 3,
 	description = "Curses all targets in an area, making them less resistant to fire damage and giving them a chance to be ignited by fire damage.",
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, [33] = true, },
@@ -2190,7 +1803,6 @@ skills["Flammability"] = {
 		curse = true,
 		area = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2244,17 +1856,6 @@ skills["Flammability"] = {
 }
 skills["FleshOffering"] = {
 	name = "Flesh Offering",
-	gemTags = {
-		minion = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-	},
-	gemTagString = "Minion, Spell, Duration",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Consumes a corpse, which temporarily empowers your minions with swiftness. The skill consumes other nearby corpses, increasing the duration for each corpse consumed.",
 	skillTypes = { [2] = true, [5] = true, [12] = true, [36] = true, [9] = true, [49] = true, [17] = true, [19] = true, [18] = true, },
@@ -2315,17 +1916,6 @@ skills["FleshOffering"] = {
 }
 skills["FreezingPulse"] = {
 	name = "Freezing Pulse",
-	gemTags = {
-		projectile = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		cold = true,
-	},
-	gemTagString = "Projectile, Spell, Cold",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "An icy projectile which has a chance to freeze enemies it passes through. The projectile fades quickly, reducing damage and freezing chance until it runs out of time and dissipates completely.",
 	skillTypes = { [2] = true, [3] = true, [10] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, },
@@ -2336,7 +1926,6 @@ skills["FreezingPulse"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.65), 
@@ -2390,18 +1979,6 @@ skills["FreezingPulse"] = {
 }
 skills["FrostBomb"] = {
 	name = "Frost Bomb",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-		cold = true,
-	},
-	gemTagString = "Spell, AoE, Duration, Cold",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Creates a crystal that pulses with cold for a duration. Each pulse applies a debuff to nearby enemies that reduces their cold resistance and life regeneration. When its duration ends, the crystal explodes, dealing heavy cold damage to enemies around it.",
 	skillTypes = { [2] = true, [11] = true, [12] = true, [34] = true, [10] = true, [26] = true, [18] = true, [17] = true, [19] = true, [36] = true, [60] = true, },
@@ -2409,7 +1986,6 @@ skills["FrostBomb"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2467,24 +2043,12 @@ skills["FrostBomb"] = {
 }
 skills["FrostWall"] = {
 	name = "Frost Wall",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-		cold = true,
-	},
-	gemTagString = "Spell, Duration, Cold",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Creates a wall of ice which holds back enemies. Targets under the wall are damaged and pushed back.",
 	skillTypes = { [2] = true, [10] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, },
 	baseFlags = {
 		spell = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2538,19 +2102,6 @@ skills["FrostWall"] = {
 }
 skills["Frostbite"] = {
 	name = "Frostbite",
-	gemTags = {
-		curse = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-		cold = true,
-	},
-	gemTagString = "Curse, Spell, AoE, Duration, Cold",
-	gemStr = 0,
-	gemDex = 40,
-	gemInt = 60,
 	color = 3,
 	description = "Curses all targets in an area, making them less resistant to cold damage and giving them a chance to be frozen by cold damage.",
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, [34] = true, [60] = true, },
@@ -2559,7 +2110,6 @@ skills["Frostbite"] = {
 		curse = true,
 		area = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2613,24 +2163,12 @@ skills["Frostbite"] = {
 }
 skills["FrostBolt"] = {
 	name = "Frostbolt",
-	gemTags = {
-		projectile = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		cold = true,
-	},
-	gemTagString = "Projectile, Spell, Cold",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Fires a slow-moving projectile that pierces through enemies, dealing cold damage.",
 	skillTypes = { [2] = true, [3] = true, [10] = true, [17] = true, [18] = true, [19] = true, [26] = true, [34] = true, [36] = true, [60] = true, },
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.75), 
@@ -2682,24 +2220,12 @@ skills["FrostBolt"] = {
 }
 skills["GlacialCascade"] = {
 	name = "Glacial Cascade",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		cold = true,
-	},
-	gemTagString = "Spell, AoE, Cold",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Icicles emerge from the ground in a series of small bursts, each damaging enemies caught in the area.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, },
 	baseFlags = {
 		spell = true,
 		area = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -2755,25 +2281,12 @@ skills["GlacialCascade"] = {
 }
 skills["HeraldOfThunder"] = {
 	name = "Herald of Thunder",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		cast = true,
-		area = true,
-		duration = true,
-		lightning = true,
-	},
-	gemTagString = "Cast, AoE, Duration, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Channel lightning through your hands, adding lightning damage to spells and attacks. If you kill a shocked enemy, lightning bolts will strike enemies around you for a short duration.",
 	skillTypes = { [39] = true, [5] = true, [15] = true, [16] = true, [10] = true, [11] = true, [12] = true, [35] = true, [27] = true, },
 	baseFlags = {
 		cast = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2834,24 +2347,12 @@ skills["HeraldOfThunder"] = {
 }
 skills["IceNova"] = {
 	name = "Ice Nova",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		cold = true,
-	},
-	gemTagString = "Spell, AoE, Cold",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "A chilling circle of ice expands from the caster. If the caster targets near one of their Frostbolt projectiles, it will expand from the projectile instead.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, },
 	baseFlags = {
 		spell = true,
 		area = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -2905,26 +2406,12 @@ skills["IceNova"] = {
 }
 skills["VaalIceNova"] = {
 	name = "Vaal Ice Nova",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		area = true,
-		cold = true,
-	},
-	gemTagString = "Vaal, Spell, AoE, Cold",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "A chilling circle of ice expands from the caster, repeating from every enemy it hits. If the caster targets near one of their Frostbolt projectiles, it will expand from the projectile instead.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [43] = true, [34] = true, },
 	baseFlags = {
 		spell = true,
 		area = true,
-		cold = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -2977,17 +2464,6 @@ skills["VaalIceNova"] = {
 }
 skills["IceSpear"] = {
 	name = "Ice Spear",
-	gemTags = {
-		projectile = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		cold = true,
-	},
-	gemTagString = "Projectile, Spell, Cold",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Launches a shard of ice that pierces close enemies, before exploding on a distant enemy with a much higher critical strike chance.",
 	skillTypes = { [2] = true, [3] = true, [10] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, },
@@ -3002,7 +2478,6 @@ skills["IceSpear"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -3057,18 +2532,6 @@ skills["IceSpear"] = {
 }
 skills["Incinerate"] = {
 	name = "Incinerate",
-	gemTags = {
-		projectile = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		fire = true,
-		channelling = true,
-	},
-	gemTagString = "Projectile, Spell, Fire, Channelling",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Continuously launches a torrent of fire from your hand. The longer you channel this spell, the larger and more damaging the flames become.",
 	skillTypes = { [2] = true, [3] = true, [10] = true, [18] = true, [33] = true, [58] = true, },
@@ -3083,7 +2546,6 @@ skills["Incinerate"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.2), 
@@ -3138,17 +2600,6 @@ skills["Incinerate"] = {
 }
 skills["ClusterBurst"] = {
 	name = "Kinetic Blast",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		attack = true,
-		area = true,
-		projectile = true,
-	},
-	gemTagString = "Attack, AoE, Projectile",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Fires a projectile from a Wand that causes a series of small explosions surrounding its point of impact, each damaging enemies caught in the area.",
 	skillTypes = { [1] = true, [48] = true, [3] = true, [6] = true, [11] = true, [17] = true, [19] = true, [22] = true, },
@@ -3222,24 +2673,12 @@ skills["ClusterBurst"] = {
 }
 skills["LightningTendrils"] = {
 	name = "Lightning Tendrils",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		lightning = true,
-	},
-	gemTagString = "Spell, AoE, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Lightning is released from your hands four times in quick succession, damaging all enemies in an arc in front of you.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [18] = true, [26] = true, [35] = true, },
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.8), 
@@ -3295,19 +2734,6 @@ skills["LightningTendrils"] = {
 }
 skills["LightningTrap"] = {
 	name = "Lightning Trap",
-	gemTags = {
-		projectile = true,
-		trap = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-		lightning = true,
-	},
-	gemTagString = "Projectile, Trap, Spell, Duration, Lightning",
-	gemStr = 0,
-	gemDex = 40,
-	gemInt = 60,
 	color = 3,
 	description = "Throws a trap that launches a ring of projectiles through the enemy that set it off, dealing lightning damage to them and subsequent targets.",
 	skillTypes = { [2] = true, [10] = true, [3] = true, [37] = true, [19] = true, [12] = true, [35] = true, },
@@ -3315,7 +2741,6 @@ skills["LightningTrap"] = {
 		spell = true,
 		trap = true,
 		projectile = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -3374,20 +2799,6 @@ skills["LightningTrap"] = {
 }
 skills["VaalLightningTrap"] = {
 	name = "Vaal Lightning Trap",
-	gemTags = {
-		projectile = true,
-		trap = true,
-		intelligence = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		duration = true,
-		lightning = true,
-	},
-	gemTagString = "Projectile, Trap, Vaal, Spell, Duration, Lightning",
-	gemStr = 0,
-	gemDex = 40,
-	gemInt = 60,
 	color = 3,
 	description = "Throws a trap that launches a ring of projectiles through the enemy that set it off, dealing lightning damage to them and subsequent targets and leaving a trail of shocking ground.",
 	skillTypes = { [2] = true, [10] = true, [3] = true, [37] = true, [19] = true, [12] = true, [43] = true, [35] = true, },
@@ -3396,8 +2807,6 @@ skills["VaalLightningTrap"] = {
 		trap = true,
 		projectile = true,
 		duration = true,
-		lightning = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -3457,19 +2866,6 @@ skills["VaalLightningTrap"] = {
 }
 skills["LightningWarp"] = {
 	name = "Lightning Warp",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-		movement = true,
-		lightning = true,
-	},
-	gemTagString = "Spell, AoE, Duration, Movement, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Casts a delayed teleport to a target destination. When the teleport occurs, lightning damage is dealt to the area around both where the player was and where they teleported to.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [36] = true, [38] = true, [45] = true, [35] = true, },
@@ -3477,8 +2873,6 @@ skills["LightningWarp"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		movement = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -3534,19 +2928,6 @@ skills["LightningWarp"] = {
 }
 skills["VaalLightningWarpInstant"] = {
 	name = "Vaal Lightning Warp",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		area = true,
-		duration = true,
-		lightning = true,
-	},
-	gemTagString = "Vaal, Spell, AoE, Duration, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Casts a delayed teleport for nearby enemies to a target destination. When the teleport occurs, lightning damage is dealt to the enemies both before and after they teleport.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [43] = true, [35] = true, },
@@ -3554,8 +2935,6 @@ skills["VaalLightningWarpInstant"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		lightning = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -3609,19 +2988,6 @@ skills["VaalLightningWarpInstant"] = {
 }
 skills["MagmaOrb"] = {
 	name = "Magma Orb",
-	gemTags = {
-		projectile = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		fire = true,
-		chaining = true,
-	},
-	gemTagString = "Projectile, Spell, AoE, Fire, Chaining",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Lob a fiery orb that explodes as it strikes the ground. The skill chains, releasing another fiery orb that repeats this effect.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [19] = true, [18] = true, [36] = true, [33] = true, [3] = true, [26] = true, [23] = true, },
@@ -3630,7 +2996,6 @@ skills["MagmaOrb"] = {
 		projectile = true,
 		area = true,
 		chaining = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.7), 
@@ -3684,19 +3049,6 @@ skills["MagmaOrb"] = {
 }
 skills["OrbOfStorms"] = {
 	name = "Orb of Storms",
-	gemTags = {
-		lightning = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-		area = true,
-		chaining = true,
-	},
-	gemTagString = "Lightning, Spell, Duration, AoE, Chaining",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Creates a stationary electrical orb that frequently unleashes a splitting bolt of lightning at a nearby enemy. Using another lightning skill while inside the orb's cloud unleashes additional bolts. Casting this skill again will replace the previous orb. You can only cast this spell yourself, directly.",
 	skillTypes = { [2] = true, [10] = true, [35] = true, [12] = true, [11] = true, [23] = true, },
@@ -3704,7 +3056,6 @@ skills["OrbOfStorms"] = {
 		spell = true,
 		chaining = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -3761,16 +3112,6 @@ skills["OrbOfStorms"] = {
 }
 skills["PowerSiphon"] = {
 	name = "Power Siphon",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		attack = true,
-		projectile = true,
-	},
-	gemTagString = "Attack, Projectile",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Fires your wand, dealing increased damage and granting you a power charge if an enemy is killed by, or soon after, the hit.",
 	skillTypes = { [1] = true, [48] = true, [6] = true, [3] = true, [22] = true, [17] = true, [19] = true, },
@@ -3829,17 +3170,6 @@ skills["PowerSiphon"] = {
 }
 skills["VaalPowerSiphon"] = {
 	name = "Vaal Power Siphon",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		vaal = true,
-		attack = true,
-		projectile = true,
-	},
-	gemTagString = "Vaal, Attack, Projectile",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Fires your wand simultaneously at all nearby enemies, culling those close to death and granting you a power charge for each.",
 	skillTypes = { [1] = true, [48] = true, [6] = true, [3] = true, [22] = true, [17] = true, [19] = true, [43] = true, },
@@ -3849,7 +3179,6 @@ skills["VaalPowerSiphon"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -3901,17 +3230,6 @@ skills["VaalPowerSiphon"] = {
 }
 skills["Purity"] = {
 	name = "Purity of Elements",
-	gemTags = {
-		aura = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-	},
-	gemTagString = "Aura, Spell, AoE",
-	gemStr = 40,
-	gemDex = 0,
-	gemInt = 60,
 	color = 3,
 	description = "Casts an aura that grants elemental resistances to you and your allies.",
 	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, },
@@ -3973,18 +3291,6 @@ skills["Purity"] = {
 }
 skills["LightningResistAura"] = {
 	name = "Purity of Lightning",
-	gemTags = {
-		aura = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		lightning = true,
-	},
-	gemTagString = "Aura, Spell, AoE, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Casts an aura that grants lightning resistance to you and your allies.",
 	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [35] = true, },
@@ -4044,16 +3350,6 @@ skills["LightningResistAura"] = {
 }
 skills["RaiseSpectre"] = {
 	name = "Raise Spectre",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		minion = true,
-	},
-	gemTagString = "Spell, Minion",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Raises a spectral version of a defeated foe as a minion to fight for you in battle.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [49] = true, },
@@ -4118,16 +3414,6 @@ skills["RaiseSpectre"] = {
 }
 skills["RaiseZombie"] = {
 	name = "Raise Zombie",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		minion = true,
-	},
-	gemTagString = "Spell, Minion",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Raises a zombie minion from a corpse, which will follow you and attack enemies with a melee attack and an area of effect slam.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [49] = true, },
@@ -4189,17 +3475,6 @@ skills["RaiseZombie"] = {
 }
 skills["RighteousFire"] = {
 	name = "Righteous Fire",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		fire = true,
-	},
-	gemTagString = "Spell, AoE, Fire",
-	gemStr = 40,
-	gemDex = 0,
-	gemInt = 60,
 	color = 3,
 	description = "Engulfs you in magical fire that rapidly burns you and nearby enemies. Your spell damage is substantially increased while under this effect. The effect ends when you have 1 life remaining.",
 	skillTypes = { [2] = true, [5] = true, [11] = true, [18] = true, [29] = true, [36] = true, [40] = true, [33] = true, },
@@ -4213,7 +3488,6 @@ skills["RighteousFire"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -4266,18 +3540,6 @@ skills["RighteousFire"] = {
 }
 skills["VaalRighteousFire"] = {
 	name = "Vaal Righteous Fire",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		area = true,
-		fire = true,
-	},
-	gemTagString = "Vaal, Spell, AoE, Fire",
-	gemStr = 40,
-	gemDex = 0,
-	gemInt = 60,
 	color = 3,
 	description = "A fiery blast removes your energy shield and all but 1 life, exploding outwards to deal fire damage to nearby enemies based on the life and energy shield lost.",
 	skillTypes = { [2] = true, [11] = true, [10] = true, [43] = true, [33] = true, },
@@ -4288,8 +3550,6 @@ skills["VaalRighteousFire"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -4339,18 +3599,6 @@ skills["VaalRighteousFire"] = {
 }
 skills["FireBeam"] = {
 	name = "Scorching Ray",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		fire = true,
-		duration = true,
-		channelling = true,
-	},
-	gemTagString = "Spell, Fire, Duration, Channelling",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Unleash a beam of fire that burns enemies it touches, and decreases their fire resistance. Remaining in the beam intensifies the burning, adding a portion of the beam's damage in stages. Enemies who leave the beam continue to burn for a duration. Increasing cast speed also increases the rate at which the beam can turn.",
 	skillTypes = { [2] = true, [18] = true, [40] = true, [33] = true, [29] = true, [12] = true, [58] = true, [59] = true, [52] = true, },
@@ -4368,7 +3616,6 @@ skills["FireBeam"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -4427,17 +3674,6 @@ skills["FireBeam"] = {
 }
 skills["ShockNova"] = {
 	name = "Shock Nova",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		lightning = true,
-	},
-	gemTagString = "Spell, AoE, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Casts a ring of Lightning around you, followed by a larger Lightning nova. Each effect hits enemies caught in their area with Lightning Damage.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [45] = true, [35] = true, [43] = true, },
@@ -4452,7 +3688,6 @@ skills["ShockNova"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.75), 
@@ -4507,18 +3742,6 @@ skills["ShockNova"] = {
 }
 skills["Spark"] = {
 	name = "Spark",
-	gemTags = {
-		projectile = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-		lightning = true,
-	},
-	gemTagString = "Projectile, Spell, Duration, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Launches unpredictable sparks that move randomly until they hit an enemy or expire.",
 	skillTypes = { [2] = true, [3] = true, [10] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [45] = true, [35] = true, },
@@ -4526,7 +3749,6 @@ skills["Spark"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.65), 
@@ -4580,19 +3802,6 @@ skills["Spark"] = {
 }
 skills["VaalSparkSpiralNova"] = {
 	name = "Vaal Spark",
-	gemTags = {
-		projectile = true,
-		intelligence = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		duration = true,
-		lightning = true,
-	},
-	gemTagString = "Projectile, Vaal, Spell, Duration, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Continuously launches unpredictable sparks in all directions that move randomly until they hit an enemy or expire.",
 	skillTypes = { [2] = true, [3] = true, [10] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [43] = true, [35] = true, },
@@ -4600,8 +3809,6 @@ skills["VaalSparkSpiralNova"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
-		lightning = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.65), 
@@ -4656,17 +3863,6 @@ skills["VaalSparkSpiralNova"] = {
 }
 skills["SpiritOffering"] = {
 	name = "Spirit Offering",
-	gemTags = {
-		minion = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-	},
-	gemTagString = "Minion, Spell, Duration",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Consumes a corpse, granting energy shield, extra chaos damage and elemental resistances to your minions. The new energy shield is recovered as it's granted. The skill consumes other nearby corpses, increasing the duration and amount of energy shield granted for each corpse consumed.",
 	skillTypes = { [2] = true, [5] = true, [12] = true, [36] = true, [9] = true, [49] = true, [17] = true, [19] = true, [18] = true, },
@@ -4727,18 +3923,6 @@ skills["SpiritOffering"] = {
 }
 skills["StormCall"] = {
 	name = "Storm Call",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-		lightning = true,
-	},
-	gemTagString = "Spell, AoE, Duration, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Sets a marker at a location. After a short duration, lightning strikes the marker, dealing damage around it. When this happens, it will also set off the lightning at any other markers you've cast.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [36] = true, [26] = true, [45] = true, [35] = true, },
@@ -4746,7 +3930,6 @@ skills["StormCall"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -4802,19 +3985,6 @@ skills["StormCall"] = {
 }
 skills["VaalStormCall"] = {
 	name = "Vaal Storm Call",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		area = true,
-		duration = true,
-		lightning = true,
-	},
-	gemTagString = "Vaal, Spell, AoE, Duration, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Sets a marker at a location. While the marker remains, lightning strikes random enemies near it, dealing damage to them. After a short duration, a large bolt of lightning strikes the marker, dealing damage around it. When this happens, it will also set off the lightning at any other markers from this skill.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [43] = true, [35] = true, },
@@ -4822,8 +3992,6 @@ skills["VaalStormCall"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		lightning = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -4876,18 +4044,6 @@ skills["VaalStormCall"] = {
 }
 skills["SummonChaosGolem"] = {
 	name = "Summon Chaos Golem",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		chaos = true,
-		minion = true,
-		spell = true,
-		golem = true,
-	},
-	gemTagString = "Chaos, Minion, Spell, Golem",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Summons a Chaos Golem that grants you Physical Damage Reduction. The Chaos Golem can use a damage over time Chaos aura and a cascade of Chaos spikes in addition to its melee attack.",
 	skillTypes = { [36] = true, [50] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, [62] = true, },
@@ -4956,18 +4112,6 @@ skills["SummonChaosGolem"] = {
 }
 skills["SummonLightningGolem"] = {
 	name = "Summon Lightning Golem",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		lightning = true,
-		minion = true,
-		spell = true,
-		golem = true,
-	},
-	gemTagString = "Lightning, Minion, Spell, Golem",
-	gemStr = 0,
-	gemDex = 40,
-	gemInt = 60,
 	color = 3,
 	description = "Summons a Lightning Golem that grants you increased Attack and Cast speed. The Lightning Golem fires a projectile spell, creates orbs of Lightning that zap nearby enemies, and casts a temporary aura that grants added Lightning Damage to the Golem and its nearby allies.",
 	skillTypes = { [36] = true, [35] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, [45] = true, [62] = true, },
@@ -4979,7 +4123,6 @@ skills["SummonLightningGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -5036,18 +4179,6 @@ skills["SummonLightningGolem"] = {
 }
 skills["SummonRagingSpirit"] = {
 	name = "Summon Raging Spirit",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		minion = true,
-		duration = true,
-		fire = true,
-	},
-	gemTagString = "Spell, Minion, Duration, Fire",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Summons a short-lived flaming skull that rushes at nearby enemies and attacks them rapidly. Enemies will not directly engage these spirits, and can pass through them.",
 	skillTypes = { [2] = true, [9] = true, [12] = true, [21] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [49] = true, [33] = true, },
@@ -5059,7 +4190,6 @@ skills["SummonRagingSpirit"] = {
 		spell = true,
 		minion = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -5109,17 +4239,6 @@ skills["SummonRagingSpirit"] = {
 }
 skills["SummonSkeletons"] = {
 	name = "Summon Skeletons",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		minion = true,
-		duration = true,
-	},
-	gemTagString = "Spell, Minion, Duration",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Summons slow moving skeletal minions that decay over time. Does not require a corpse to be consumed.",
 	skillTypes = { [2] = true, [9] = true, [12] = true, [21] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [49] = true, },
@@ -5184,18 +4303,6 @@ skills["SummonSkeletons"] = {
 }
 skills["VaalSummonSkeletons"] = {
 	name = "Vaal Summon Skeletons",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		minion = true,
-		duration = true,
-	},
-	gemTagString = "Vaal, Spell, Minion, Duration",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Summons an army of skeletal warriors, archers and mages, led by a powerful general.",
 	skillTypes = { [2] = true, [9] = true, [12] = true, [21] = true, [17] = true, [18] = true, [19] = true, [26] = true, [43] = true, },
@@ -5262,18 +4369,6 @@ skills["VaalSummonSkeletons"] = {
 }
 skills["TempestShield"] = {
 	name = "Tempest Shield",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		lightning = true,
-		chaining = true,
-		duration = true,
-	},
-	gemTagString = "Spell, Lightning, Chaining, Duration",
-	gemStr = 40,
-	gemDex = 0,
-	gemInt = 60,
 	color = 3,
 	description = "Enchants your shield with the power of storms, which lashes out to deal arcing lightning damage to attackers when you block them. Blocking refreshes the duration of Tempest Shield.",
 	skillTypes = { [2] = true, [10] = true, [13] = true, [27] = true, [35] = true, [23] = true, [45] = true, [36] = true, [12] = true, },
@@ -5281,7 +4376,6 @@ skills["TempestShield"] = {
 		spell = true,
 		duration = true,
 		chaining = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -5338,18 +4432,6 @@ skills["TempestShield"] = {
 }
 skills["FrostBoltNova"] = {
 	name = "Vortex",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		cold = true,
-		duration = true,
-	},
-	gemTagString = "Spell, AoE, Cold, Duration",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "An icy blast explodes around the caster, dealing cold damage to enemies, and leaving behind a whirling vortex that continues to deal cold damage over time and chill enemies caught in it. If the caster targets near one of their Frostbolt projectiles, it will explode from the projectile instead, destroying it.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [34] = true, [36] = true, [12] = true, [60] = true, },
@@ -5357,7 +4439,6 @@ skills["FrostBoltNova"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.9), 
@@ -5411,18 +4492,6 @@ skills["FrostBoltNova"] = {
 }
 skills["Vulnerability"] = {
 	name = "Vulnerability",
-	gemTags = {
-		curse = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-	},
-	gemTagString = "Curse, Spell, AoE, Duration",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Curses all targets in an area, making them take increased physical damage and degeneration.",
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, },
@@ -5484,19 +4553,6 @@ skills["Vulnerability"] = {
 }
 skills["Wither"] = {
 	name = "Wither",
-	gemTags = {
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-		chaos = true,
-		channelling = true,
-	},
-	gemTagString = "Spell, AoE, Duration, Chaos, Channelling",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Casts a debilitating effect on enemies in an area, Hindering their movement and applying a stacking debuff that increases the Chaos Damage they take. This effect can stack up to 20 times.",
 	skillTypes = { [2] = true, [11] = true, [12] = true, [18] = true, [50] = true, [58] = true, },
@@ -5575,18 +4631,6 @@ skills["Wither"] = {
 }
 skills["Wrath"] = {
 	name = "Wrath",
-	gemTags = {
-		aura = true,
-		intelligence = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		lightning = true,
-	},
-	gemTagString = "Aura, Spell, AoE, Lightning",
-	gemStr = 0,
-	gemDex = 0,
-	gemInt = 100,
 	color = 3,
 	description = "Casts an aura that adds lightning damage to the attacks of you and your allies, and makes your spells deal more lightning damage.",
 	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [35] = true, },
@@ -5594,7 +4638,6 @@ skills["Wrath"] = {
 		spell = true,
 		aura = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1.2), 

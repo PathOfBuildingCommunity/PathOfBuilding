@@ -261,7 +261,7 @@ the "Releases" section of the GitHub page.]])
 	self.popups = { }
 	self.tooltipLines = { }
 
-	self.accountSessionIDs = { }
+	self.gameAccounts = { }
 
 	self.buildSortMode = "NAME"
 	self.nodePowerTheme = "RED/BLUE"
@@ -429,7 +429,7 @@ end
 
 function main:CallMode(func, ...)
 	local modeTbl = self.modes[self.mode]
-	if modeTbl[func] then
+	if modeTbl and modeTbl[func] then
 		return modeTbl[func](modeTbl, ...)
 	end
 end
@@ -468,7 +468,9 @@ function main:LoadSettings()
 				self.lastAccountName = node.attrib.lastAccountName
 				for _, child in ipairs(node) do
 					if child.elem == "Account" then
-						self.accountSessionIDs[child.attrib.accountName] = child.attrib.sessionID
+						self.gameAccounts[child.attrib.accountName] = {
+							sessionID = child.attrib.sessionID,
+						}
 					end
 				end
 			elseif node.elem == "SharedItems" then
@@ -537,8 +539,8 @@ function main:SaveSettings()
 	end
 	t_insert(setXML, mode)
 	local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName } }
-	for accountName, sessionID in pairs(self.accountSessionIDs) do
-		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = sessionID } })
+	for accountName, account in pairs(self.gameAccounts) do
+		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = account.sessionID } })
 	end
 	t_insert(setXML, accounts)
 	local sharedItemList = { elem = "SharedItems" }

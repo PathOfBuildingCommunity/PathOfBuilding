@@ -77,6 +77,9 @@ function SliderClass:Draw(viewPort)
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
 	local knobTravel = self:GetKnobTravel()
+	if self.dragging and not IsKeyDown("LEFTBUTTON") then
+		self.dragging = false
+	end
 	if self.dragging then
 		local cursorX, cursorY = GetCursorPos()
 		self:SetValFromKnobX((cursorX - self.dragCX) + self.dragKnobX)
