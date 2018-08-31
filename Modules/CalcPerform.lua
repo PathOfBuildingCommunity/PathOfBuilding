@@ -687,7 +687,17 @@ function calcs.perform(env)
 					end
 				end
 			elseif buff.type == "Debuff" then
-				local stackCount = activeSkill.skillData.stackCount or 1
+				local stackCount
+				if buff.stackVar then
+					stackCount = modDB:Sum("BASE", skillCfg, "Multiplier:"..buff.stackVar)
+					if buff.stackLimit then
+						stackCount = m_min(stackCount, buff.stackLimit)
+					elseif buff.stackLimitVar then
+						stackCount = m_min(stackCount, modDB:Sum("BASE", skillCfg, "Multiplier:"..buff.stackLimitVar))
+					end
+				else
+					stackCount = activeSkill.skillData.stackCount or 1
+				end
 				if env.mode_effective and stackCount > 0 then
 					activeSkill.debuffSkill = true
 					local srcList = common.New("ModList")

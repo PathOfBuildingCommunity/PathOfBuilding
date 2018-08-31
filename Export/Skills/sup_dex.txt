@@ -123,3 +123,7 @@ local skills, mod, flag, skill = ...
 
 #skill SupportParallelProjectiles
 #mods
+
+#skill SupportChaosAttacks
+#baseMod mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Wither", effectStackVar = "WitheringTouchWitheredStackCount", effectStackLimit = 15 })
+#mods

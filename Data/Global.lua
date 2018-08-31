@@ -177,4 +177,7 @@ SkillType = {
 	Type70 = 70, -- Excludes Volley from Vaal Fireball and Vaal Spark
 	Type71 = 71, -- Excludes Volley from Spectral Shield Throw
 	Type72 = 72, -- Excludes Summon Phantasm on Kill from Manifest Dancing Dervish
+	Type73 = 73, -- Allows LMP/GMP on Rain of Arrows and Toxic Rain
+	Warcry = 74, -- Warcry
+	Instant = 75, -- Instant cast skill
 }

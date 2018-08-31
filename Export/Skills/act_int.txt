@@ -545,6 +545,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SummonRelic
+#flags
+#mods
+
 #skill SummonLightningGolem
 #flags spell minion golem
 #baseMod skill("allowTotemBuff", true)
@@ -613,7 +617,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("stackCount", 10, { type = "SkillPart", skillPart = 3 })
 #baseMod skill("stackCount", 15, { type = "SkillPart", skillPart = 4 })
 #setMod base_skill_effect_duration==nil
-#setMod base_secondary_skill_effect_duration==skill("duration", {val});div=1000
+#setMod active_skill_withered_base_duration_ms==skill("duration", {val});div=1000
 #mods
 
 #skill Wrath

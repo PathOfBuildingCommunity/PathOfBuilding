@@ -41,6 +41,7 @@ skills["GemDetonateMines"] = {
 	},
 	baseMods = {
 		skill("castTime", 0.2), 
+		skill("cooldown", 0.2), 
 		--"base_deal_no_damage" = ?
 	},
 	qualityMods = {
@@ -208,14 +209,14 @@ skills["BirdAspect"] = {
 	hidden = true,
 	color = 4,
 	description = "While active, grants the Avian's Might and Avian's Flight buffs in sequence. Avian's Might grants you and your minions a chance to deal Double Damage with hits for a duration. Avian's Flight grants you and your minions increased Movement Speed for a secondary duration.",
-	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, },
+	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, [75] = true, },
 	fromItem = true,
 	baseFlags = {
 		cast = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
+		skill("castTime", 0), 
 		skill("manaCost", 25), 
 		skill("cooldown", 0.5), 
 		mod("DoubleDamageChance", "BASE", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Might", effectCond = "AviansMightActive" }), --"chance_to_deal_double_damage_%" = 10
@@ -240,14 +241,14 @@ skills["CatAspect"] = {
 	hidden = true,
 	color = 4,
 	description = "While active, grants the Cat's Stealth and Cat's Agility buffs in sequence. Cat's Stealth increases your critical strike chance, makes you harder to see, and gives you a chance to avoid damage for a short duration. Cat's Agility increases your attack and cast speed for a longer secondary duration.",
-	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, },
+	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, [75] = true, },
 	fromItem = true,
 	baseFlags = {
 		cast = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
+		skill("castTime", 0), 
 		skill("manaCost", 25), 
 		skill("cooldown", 0.5), 
 		mod("CritChance", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Stealth", effectCond = "CatsStealthActive" }), --"critical_strike_chance_+%" = 100
@@ -272,13 +273,13 @@ skills["CrabAspect"] = {
 	hidden = true,
 	color = 4,
 	description = "While active, periodically adds Crab Barriers to you, and grants additional Physical Damage reduction for each Crab Barrier you have. All Crab Barriers are lost when you take physical damage from a hit.",
-	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, },
+	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [75] = true, },
 	fromItem = true,
 	baseFlags = {
 		cast = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
+		skill("castTime", 0), 
 		skill("manaCost", 25), 
 		skill("cooldown", 0.5), 
 		mod("PhysicalDamageReduction", "BASE", 2, 0, 0, { type = "Multiplier", var = "CrabBarrier" }, { type = "GlobalEffect", effectType = "Buff" }), --"physical_damage_reduction_%_per_crab_aspect_stack" = 2
@@ -298,14 +299,14 @@ skills["SpiderAspect"] = {
 	hidden = true,
 	color = 4,
 	description = "While active, periodically applies a Spider's Web debuff to nearby Enemies, and Hinders them. Each Spider's Web on an Enemy increases the Damage they take. Hinder reduces their movement speed.",
-	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, },
+	skillTypes = { [5] = true, [16] = true, [2] = true, [15] = true, [12] = true, [75] = true, },
 	fromItem = true,
 	baseFlags = {
 		cast = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
+		skill("castTime", 0), 
 		skill("manaCost", 25), 
 		skill("cooldown", 0.5), 
 		--"base_movement_velocity_+%" = -30
@@ -706,7 +707,7 @@ skills["Envy"] = {
 	hidden = true,
 	color = 3,
 	description = "Casts an aura that adds chaos damage to the attacks and spells of you and your allies.",
-	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [50] = true, },
+	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [50] = true, [75] = true, },
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -715,7 +716,7 @@ skills["Envy"] = {
 		chaos = true,
 	},
 	baseMods = {
-		skill("castTime", 1.2), 
+		skill("castTime", 0), 
 		skill("manaCost", 50), 
 		skill("cooldown", 1.2), 
 		mod("ChaosMin", "BASE", 58, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }), --"attack_minimum_added_chaos_damage" = 58
@@ -838,6 +839,7 @@ skills["VaalAuraElementalDamageHealing"] = {
 		skill("castTime", 0.5), 
 		skill("duration", 5), --"base_skill_effect_duration" = 5000
 		--"base_elemental_damage_heals" = ?
+		--"modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration" = ?
 		skill("radius", 36), 
 	},
 	qualityMods = {

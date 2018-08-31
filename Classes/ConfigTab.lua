@@ -12,7 +12,7 @@ local m_floor = math.floor
 
 local gameVersionDropList = {
 	{ label = "2.6 (Atlas of Worlds)", version = "2_6", versionPretty = "2.6" },
-	{ label = "3.3 (War for the Atlas)", version = "3_0", versionPretty = "3.3" },
+	{ label = "3.4 (War for the Atlas)", version = "3_0", versionPretty = "3.4" },
 }
 
 local varList = LoadModule("Modules/ConfigOptions")

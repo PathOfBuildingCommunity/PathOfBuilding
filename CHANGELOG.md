@@ -1,3 +1,17 @@
+### 1.4.99 - 2018/09/01
+ * Added the new skills for 3.4:
+    * Vaal Ancestral Warchief
+	* Consecrated Path
+	* Herald of Agony (except the Minion, sorry!)
+	* Herald of Purity (except the Minion)
+	* Smite
+	* Scourge Arrow
+	* Summon Holy Relic (except... the Minion)
+	* Toxic Rain
+	* Withering Touch
+ * Applied all changes to existing skills for 3.4
+ * Flesh Binder's Caustic Ground effect now works correctly
+
 ### 1.4.98 - 2018/08/29
  * Modifiers to Damage over Time with Bow Skills now work correctly
  * Acrobatics now works correctly

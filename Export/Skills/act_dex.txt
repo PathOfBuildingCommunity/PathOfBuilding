@@ -132,8 +132,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill PoisonArrow
-#flags attack projectile duration chaos
+#flags attack projectile area duration chaos
 #baseMod skill("radius", 20)
+#baseMod skill("radiusSecondary", 12)
 #baseMod skill("dotIsArea", true)
 #mods
 
@@ -355,6 +356,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 36)
 #mods
 
+#skill HeraldOfAgony
+#flags cast
+#mods
+
 #skill HeraldOfIce
 #flags cast area
 #mods
@@ -497,13 +502,13 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 12)
 	parts = {
 		{
-			name = "No stages",
+			name = "No Stages",
 		},
 		{
-			name = "4 stages",
+			name = "4 Stages",
 		},
 		{ 
-			name = "8 stages",
+			name = "8 Stages",
 		},
 	},
 #baseMod mod("Multiplier:ReaveStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 })
@@ -512,6 +517,23 @@ local skills, mod, flag, skill = ...
 
 #skill Riposte
 #flags attack melee
+#mods
+
+#skill ScourgeArrow
+#flags attack projectile
+	parts = {
+		{
+			name = "No stages",
+		},
+		{
+			name = "Release at 5 Stages",
+		},
+		{ 
+			name = "Thorn Arrows"
+		},
+	},
+#baseMod mod("Multiplier:ScourgeArrowStage", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("dpsMultiplier", 0.2, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill PhysCascadeTrap
@@ -560,6 +582,10 @@ local skills, mod, flag, skill = ...
 
 #skill VaalThrownWeapon
 #flags attack projectile vaal
+#mods
+
+#skill RainOfSpores
+#flags attack projectile area
 #mods
 
 #skill SplitArrow

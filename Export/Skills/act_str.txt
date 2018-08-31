@@ -21,6 +21,12 @@ local skills, mod, flag, skill = ...
 #baseMod skill("thisIsNotABuff", true)
 #mods
 
+#skill VaalAncestralWarchief
+#flags attack melee totem area duration
+#baseMod skill("allowTotemBuff", true)
+#baseMod skill("thisIsNotABuff", true)
+#mods
+
 #skill Anger
 #flags spell aura area
 #baseMod skill("radius", 36)
@@ -50,6 +56,10 @@ local skills, mod, flag, skill = ...
 #skill Cleave
 #flags attack melee area
 #baseMod skill("radius", 20)
+#mods
+
+#skill ConsecratedPath
+#flags attack area duration
 #mods
 
 #skill DecoyTotem
@@ -131,6 +141,10 @@ local skills, mod, flag, skill = ...
 #skill HeraldOfAsh
 #flags spell area
 #baseMod skill("radius", 10)
+#mods
+
+#skill HeraldOfPurity
+#flags spell
 #mods
 
 #skill IceCrash
@@ -236,6 +250,10 @@ local skills, mod, flag, skill = ...
 #skill ShockwaveTotem
 #flags spell totem area duration
 #baseMod skill("radius", 24)
+#mods
+
+#skill Smite
+#flags attack duration area
 #mods
 
 #skill StaticStrike
