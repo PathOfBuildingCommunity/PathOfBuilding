@@ -1,3 +1,6 @@
+### 1.4.107 - 2018/09/01
+ * The per-stage bonus for Scourge Arrow now correctly applies to the thorn arrows
+
 ### 1.4.106 - 2018/09/01
  * Added support for the "50% less X Damage" modifiers on the Combat Focus jewels
 

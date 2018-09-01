@@ -4736,7 +4736,7 @@ skills["ScourgeArrow"] = {
 		mod("Damage", "MORE", 150, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ScourgeArrowStage" }), --"virulent_arrow_damage_+%_final_per_stage" = 150
 		--"override_turn_duration_ms" = 100
 		--"skill_can_fire_arrows" = ?
-		mod("Multiplier:ScourgeArrowStage", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Multiplier:ScourgeArrowStage", "BASE", 5, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } }), 
 		skill("dpsMultiplier", 0.2, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
