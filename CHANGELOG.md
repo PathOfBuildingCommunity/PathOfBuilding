@@ -1,3 +1,6 @@
+### 1.4.104 - 2018/09/01
+ * Fixed error message caused by Spiritual Command
+
 ### 1.4.103 - 2018/09/01
  * Added the following new uniques: 
     * Aul's Uprising
