@@ -1722,8 +1722,18 @@ local function getThreshold(attrib, name, modType, value, ...)
 	local baseMod = mod(name, modType, value, "", ...)
 	return function(node, out, data)
 		if node then
-			data[attrib] = (data[attrib] or 0) + out:Sum("BASE", nil, attrib)
-		elseif (data[attrib] or 0) >= 40 then
+			if type(attrib) == "table" then
+				for _, att in ipairs(attrib) do
+					local nodeVal = out:Sum("BASE", nil, att)
+					data[att] = (data[att] or 0) + nodeVal
+					data.total = (data.total or 0) + nodeVal
+				end
+			else
+				local nodeVal = out:Sum("BASE", nil, attrib)
+				data[attrib] = (data[attrib] or 0) + nodeVal
+				data.total = (data.total or 0) + nodeVal
+			end
+		elseif (data.total or 0) >= 40 then
 			local mod = copyTable(baseMod)
 			mod.source = data.modSource
 			if type(value) == "table" and value.mod then
@@ -1765,6 +1775,9 @@ local jewelThresholdFuncs = {
 	["With at least 40 Intelligence in Radius, Enemies Hindered by Blight take 25% increased Chaos Damage"] = getThreshold("Int", "ExtraSkillMod", "LIST", { mod = mod("ChaosDamageTaken", "INC", 25, { type = "GlobalEffect", effectType = "Debuff" }) }, { type = "SkillName", skillName = "Blight" }, { type = "ActorCondition", actor = "enemy", var = "Hindered" }),
 	["With 40 Intelligence in Radius, 20% of Glacial Cascade Physical Damage Converted to Cold Damage"] = getThreshold("Int", "SkillPhysicalDamageConvertToCold", "BASE", 20, { type = "SkillName", skillName = "Glacial Cascade" }),
 	["With at least 40 Intelligence in Radius, 20% of Glacial Cascade Physical Damage Converted to Cold Damage"] = getThreshold("Int", "SkillPhysicalDamageConvertToCold", "BASE", 20, { type = "SkillName", skillName = "Glacial Cascade" }),
+	["With 40 total Intelligence and Dexterity in Radius, Elemental Hit deals 50% less Fire Damage"] = getThreshold({"Int","Dex"}, "FireDamage", "MORE", -50, { type = "SkillName", skillName = "Elemental Hit" }),
+	["With 40 total Strength and Intelligence in Radius, Elemental Hit deals 50% less Cold Damage"] = getThreshold({"Str","Int"}, "ColdDamage", "MORE", -50, { type = "SkillName", skillName = "Elemental Hit" }),
+	["With 40 total Dexterity and Strength in Radius, Elemental Hit deals 50% less Lightning Damage"] = getThreshold({"Dex","Str"}, "LightningDamage", "MORE", -50, { type = "SkillName", skillName = "Elemental Hit" }),
 	--[""] = getThreshold("", "", "", , { type = "SkillName", skillName = "" }),
 }
 
