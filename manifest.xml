@@ -92,7 +92,7 @@
 	<File sha1="d9465ec9e2c524cf722b7f51b7e1cea79f9aba41" name="Data/Uniques/dagger.lua" part="program"/>
 	<File sha1="86d5f28e556a0c5df775edab496545d3b15aaf58" name="Data/Uniques/flask.lua" part="program"/>
 	<File sha1="a800864d4d254ca89d394528222e904f34f241c2" name="Data/Uniques/gloves.lua" part="program"/>
-	<File sha1="855e24e5be16f3ce3a6222161278c7b7d28573c4" name="Data/Uniques/helmet.lua" part="program"/>
+	<File sha1="5f387206064966f508218b9baaeaeb9fdec4ca6b" name="Data/Uniques/helmet.lua" part="program"/>
 	<File sha1="ee49797f9f8b5a3006928132149b3474601fa4c2" name="Data/Uniques/jewel.lua" part="program"/>
 	<File sha1="20fd4d74b3edd931c8f34cb4af719872e87f9866" name="Data/Uniques/mace.lua" part="program"/>
 	<File sha1="14ccc13198301dc1e80c8ee3516226481ebdc8d1" name="Data/Uniques/quiver.lua" part="program"/>
@@ -108,7 +108,7 @@
 	<File sha1="0d124348e8ec0aa3944c68e2789aea2e82dbd740" name="Data/2_6/Gems.lua" part="program"/>
 	<File sha1="2611aa555e5793e7c1de36c7bc0e7a3fe17f6e5e" name="Data/2_6/Minions.lua" part="program"/>
 	<File sha1="9a5c9b0a3f75ba2c573376d53a8cf87a54ac8a96" name="Data/2_6/Misc.lua" part="program"/>
-	<File sha1="e898e7fc14247f28b06be5c445790e284bce73a5" name="Data/2_6/ModCache.lua" part="program"/>
+	<File sha1="5e56096cfd3f27b3c6639de0f0bd5aee17d4b57a" name="Data/2_6/ModCache.lua" part="program"/>
 	<File sha1="d96fc1e31349cb8aba1336c1f356b69ff436269b" name="Data/2_6/ModFlask.lua" part="program"/>
 	<File sha1="19036f1ef6a61d5cb673ef1fd4eef1ddb8bed1e3" name="Data/2_6/ModItem.lua" part="program"/>
 	<File sha1="0671f7f062f06c68ec6c659d2121620a1782fecf" name="Data/2_6/ModJewel.lua" part="program"/>
@@ -151,7 +151,7 @@
 	<File sha1="02ba3390777f9b880bd1fe35456fd468dac7e8fe" name="Data/3_0/Gems.lua" part="program"/>
 	<File sha1="a39a287828b8fe0a04da2ed9e282d2f2eb7ea198" name="Data/3_0/Minions.lua" part="program"/>
 	<File sha1="2c1456797cd1defb47df9158ef048e2a81e14f0a" name="Data/3_0/Misc.lua" part="program"/>
-	<File sha1="fc87a5d92e063d495c6da11d676c6a6be4f1d3da" name="Data/3_0/ModCache.lua" part="program"/>
+	<File sha1="4f47131b118ad087d13fc0b7604495b2d9d674d1" name="Data/3_0/ModCache.lua" part="program"/>
 	<File sha1="b79c9d9c7b55f5088c565250a159c0d38896a48e" name="Data/3_0/ModFlask.lua" part="program"/>
 	<File sha1="2b5afad9c5b94c1abb167259979165e7fe515a32" name="Data/3_0/ModItem.lua" part="program"/>
 	<File sha1="e7308811d6ba763469ec3ad7dd1b69301336d7cd" name="Data/3_0/ModJewel.lua" part="program"/>
