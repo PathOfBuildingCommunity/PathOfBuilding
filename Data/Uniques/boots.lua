@@ -251,17 +251,21 @@ Conjurer Boots
 Variant: Pre 1.0.0
 Variant: Pre 1.1.0
 Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.4.0
 Variant: Current
 Requires Level 53, 94 Int
-(20-25)% of Block Chance applied to Spells
+{variant:1,2,3,4}(20-25)% of Block Chance applied to Spells
+{variant:5}+(6-7)% chance to Block Spell Damage
+{variant:6}+(4-6)% chance to Block Spell Damage
 {variant:1,2}+(80-100) to maximum Mana
-{variant:3,4}+(40-60) to maximum Mana
+{variant:3,4,5,6}+(40-60) to maximum Mana
 {variant:1,2}(150-200)% increased Energy Shield
-{variant:3,4}(140-180)% increased Energy Shield
+{variant:3,4,5,6}(140-180)% increased Energy Shield
 {variant:2}+8% to all Elemental Resistances
-{variant:1,3,4}+20% to all Elemental Resistances
+{variant:1,3,4,5,6}+20% to all Elemental Resistances
 {variant:1,2,3}20% increased Movement Speed
-{variant:4}25% increased Movement Speed
+{variant:4,5,6}25% increased Movement Speed
 ]],[[
 Shavronne's Pace
 Scholar Boots

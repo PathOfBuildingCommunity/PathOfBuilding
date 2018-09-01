@@ -15,7 +15,7 @@ Source: Vendor Recipe
 Limited to: 1
 Implicits: 0
 Can Summon up to 1 additional Golem at a time
-If you have 3 Primordial Jewels, can Summon up to 1 additional Golem at a time
++1 to maximum number of Summoned Golems if you have 3 Primordial Items Socketed or Equipped
 ]],[[
 Apparitions
 Viridian Jewel
@@ -346,8 +346,13 @@ Totems Fire 2 additional Projectiles
 ]],[[
 Reckless Defence
 Cobalt Jewel
-20% of Block Chance applied to Spells
-(2-4)% additional Block Chance
+Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.4.0
+Variant: Current
+{variant:1}20% of Block Chance applied to Spells
+{variant:2}+6% chance to Block Spell Damage
+{variant:3}+(2-4)% chance to Block Spell Damage
+(2-4)% chance to Block Attack Damage
 (7-10)% additional Chance to receive a Critical Strike
 ]],[[
 The Red Dream

@@ -196,10 +196,6 @@ Recover (2–3)% of Life when you lose a Spirit Charge
 Gain a Spirit Charge every second
 You lose all Spirit Charges when taking a Savage Hit
 +1 to Maximum Spirit Charges per Abyss Jewel affecting you
-]],[[
-]],[[
-]],[[
-]],[[
 ]],
 
 

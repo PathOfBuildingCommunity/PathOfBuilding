@@ -505,7 +505,7 @@ Magistrate Crown
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 58
-(25–30)% of Block Chance applied to Spells
++(4-6)% chance to Block Spell Damage
 (140–180)% increased Armour and Energy Shield
 (4–7)% increased maximum Life
 Cannot lose Crab Barriers if you have lost Crab Barriers Recently
