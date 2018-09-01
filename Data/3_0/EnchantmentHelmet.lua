@@ -245,11 +245,11 @@ return {
 	["Bone Offering"] = {
 		["MERCILESS"] = {
 			"30% increased Bone Offering Duration",
-			"Bone Offering grants an additional +6% Block Chance",
+			"Bone Offering grants an additional +6% Chance to Block Attack Damage",
 		},
 		["ENDGAME"] = {
 			"45% increased Bone Offering Duration",
-			"Bone Offering grants an additional +9% Block Chance",
+			"Bone Offering grants an additional +9% Chance to Block Attack Damage",
 		},
 	},
 	["Burning Arrow"] = {
@@ -269,11 +269,13 @@ return {
 			"25% increased Caustic Arrow Damage",
 			"20% increased Caustic Arrow Duration",
 			"8% increased Caustic Arrow Area of Effect",
+			"Caustic Arrow has 14% chance to inflict Withered on Hit for 2 seconds base Duration",
 		},
 		["ENDGAME"] = {
 			"40% increased Caustic Arrow Damage",
 			"30% increased Caustic Arrow Duration",
 			"12% increased Caustic Arrow Area of Effect",
+			"Caustic Arrow has 20% chance to inflict Withered on Hit for 2 seconds base Duration",
 		},
 	},
 	["Charged Dash"] = {
@@ -330,6 +332,18 @@ return {
 		["ENDGAME"] = {
 			"30% increased Conductivity Curse Effect",
 			"45% increased Conductivity Duration",
+		},
+	},
+	["Consecrated Path"] = {
+		["MERCILESS"] = {
+			"Consecrated Path deals 25% increased Damage",
+			"Consecrated Path has 10% increased teleport range",
+			"Consecrated Path has 8% increased Area of Effect",
+		},
+		["ENDGAME"] = {
+			"Consecrated Path deals 40% increased Damage",
+			"Consecrated Path has 15% increased teleport range",
+			"Consecrated Path has 12% increased Area of Effect",
 		},
 	},
 	["Contagion"] = {
@@ -390,13 +404,9 @@ return {
 			"25% increased Dark Pact Damage",
 			"8% increased Dark Pact Cast Speed",
 			"8% increased Dark Pact Area of Effect",
-			"8% increased Dark Pact Cast Speed",
-			"8% increased Dark Pact Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Dark Pact Damage",
-			"12% increased Dark Pact Cast Speed",
-			"12% increased Dark Pact Area of Effect",
 			"12% increased Dark Pact Cast Speed",
 			"12% increased Dark Pact Area of Effect",
 		},
@@ -484,13 +494,12 @@ return {
 	["Dominating Blow"] = {
 		["MERCILESS"] = {
 			"20% increased Dominating Blow Duration",
-			"Dominated Minions deal 20% increased Damage",
-			"24% increased Dominating Blow Damage",
+			"Dominating Blow can summon 2 additional Magic Sentinels of Dominance",
 		},
 		["ENDGAME"] = {
 			"30% increased Dominating Blow Duration",
-			"Dominated Minions deal 30% increased Damage",
-			"36% increased Dominating Blow Damage",
+			"Dominating Blow can summon 3 additional Magic Sentinels of Dominance",
+			"Dominating Blow can summon an additional Rare Sentinel of Dominance",
 		},
 	},
 	["Double Strike"] = {
@@ -922,6 +931,15 @@ return {
 			"Heavy Strike has a 12% chance to deal Double Damage",
 		},
 	},
+	["Herald of Agony"] = {
+		["MERCILESS"] = {
+			"Herald of Agony has 20% reduced Mana Reservation",
+		},
+		["ENDGAME"] = {
+			"Herald of Agony has 30% reduced Mana Reservation",
+			"Summoned Agony Crawler fires 2 additional Projectiles",
+		},
+	},
 	["Herald of Ash"] = {
 		["MERCILESS"] = {
 			"25% increased Herald of Ash Damage",
@@ -940,6 +958,15 @@ return {
 		["ENDGAME"] = {
 			"40% increased Herald of Ice Damage",
 			"30% reduced Herald of Ice Mana Reservation",
+		},
+	},
+	["Herald of Purity"] = {
+		["MERCILESS"] = {
+			"Herald of Purity has 20% reduced Mana Reservation",
+		},
+		["ENDGAME"] = {
+			"Herald of Purity has 30% reduced Mana Reservation",
+			"+1 to maximum number of Sentinels of Purity",
 		},
 	},
 	["Herald of Thunder"] = {
@@ -1026,12 +1053,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Incinerate Damage",
 			"Incinerate has 8% increased Area of Effect",
-			"Incinerate has +2 to maximum stages",
+			"Incinerate has +1 to maximum stages",
 		},
 		["ENDGAME"] = {
 			"40% increased Incinerate Damage",
 			"Incinerate has 12% increased Area of Effect",
-			"Incinerate has +4 to maximum stages",
+			"Incinerate has +2 to maximum stages",
 			"10% increased Incinerate Damage for each stage",
 		},
 	},
@@ -1434,6 +1461,17 @@ return {
 			"15% increased Scorching Ray beam length",
 		},
 	},
+	["Scourge Arrow"] = {
+		["MERCILESS"] = {
+			"Scourge Arrow deals 25% increased Damage",
+			"Scourge Arrow has 6% chance to Poison per Stage",
+		},
+		["ENDGAME"] = {
+			"Scourge Arrow deals 40% increased Damage",
+			"Scourge Arrow has 8% chance to Poison per Stage",
+			"Scourge Arrow creates an additional spore pod at Maximum Stages",
+		},
+	},
 	["Searing Bond"] = {
 		["MERCILESS"] = {
 			"25% increased Searing Bond Damage",
@@ -1530,6 +1568,18 @@ return {
 			"Siphoning Trap has 40% increased Chill Effect",
 		},
 	},
+	["Smite"] = {
+		["MERCILESS"] = {
+			"Smite deals 25% increased Damage",
+			"Smite has a 10% chance for lightning to strike another target",
+			"Smite has 20% increased Aura Effect",
+		},
+		["ENDGAME"] = {
+			"Smite deals 40% increased Damage",
+			"Smite has a 15% chance for lightning to strike another target",
+			"Smite has 30% increased Aura Effect",
+		},
+	},
 	["Smoke Mine"] = {
 		["MERCILESS"] = {
 			"20% increased Smoke Mine Duration",
@@ -1601,13 +1651,15 @@ return {
 	["Static Strike"] = {
 		["MERCILESS"] = {
 			"25% increased Static Strike Damage",
-			"30% reduced Static Strike Duration",
+			"30% increased Static Strike Duration",
 			"8% increased Static Strike Area of Effect",
+			"Static Strike has +1 maximum Beam Targets",
 		},
 		["ENDGAME"] = {
 			"40% increased Static Strike Damage",
-			"45% reduced Static Strike Duration",
+			"45% increased Static Strike Duration",
 			"12% increased Static Strike Area of Effect",
+			"Static Strike has +2 maximum Beam Targets",
 		},
 	},
 	["Storm Burst"] = {
@@ -1655,6 +1707,14 @@ return {
 			"Flame Golems have 40% increased Damage",
 			"+36% to increased Flame Golem Elemental Resistances",
 			"150% increased Effect of the Buff granted by your Flame Golems",
+		},
+	},
+	["Summon Holy Relic"] = {
+		["MERCILESS"] = {
+			"Summoned Holy Relic has 15% increased Buff Effect",
+		},
+		["ENDGAME"] = {
+			"Summoned Holy Relic has 20% increased Buff Effect",
 		},
 	},
 	["Summon Ice Golem"] = {
@@ -1783,6 +1843,17 @@ return {
 			"Tornado Shot fires 2 additional secondary Projectiles",
 		},
 	},
+	["Toxic Rain"] = {
+		["MERCILESS"] = {
+			"Toxic Rain deals 25% increased Damage",
+			"Toxic Rain gains 6% of Physical Damage as Extra Chaos Damage",
+		},
+		["ENDGAME"] = {
+			"Toxic Rain deals 40% increased Damage",
+			"Toxic Rain gains 10% of Physical Damage as Extra Chaos Damage",
+			"Toxic Rain fires 1 additional Arrow",
+		},
+	},
 	["Unearth"] = {
 		["MERCILESS"] = {
 			"Unearth Creates Corpses with +3 Level",
@@ -1904,12 +1975,12 @@ return {
 	},
 	["Wither"] = {
 		["MERCILESS"] = {
-			"24% increased Wither Duration",
-			"8% increased Wither Area of Effect",
+			"Wither 24% increased Duration",
+			"Wither has 8% increased Area of Effect",
 		},
 		["ENDGAME"] = {
-			"36% increased Wither Duration",
-			"12% increased Wither Area of Effect",
+			"Wither 36% increased Duration",
+			"Wither has 12% increased Area of Effect",
 		},
 	},
 	["Wrath"] = {

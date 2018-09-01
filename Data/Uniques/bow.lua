@@ -121,14 +121,18 @@ Implicits: 3
 Hopeshredder
 Ranger Bow
 Source: Drops from unique{The Elder} (Tier 6+)
+Variant: Pre 3.4.0
+Variant: Current
 Requires Level 60
 Adds (130–150) to (270–300) Cold Damage 
 4% increased Movement Speed per Frenzy Charge 
 +(400–500) to Accuracy Rating 
+{variant:2}(15–25)% increased Attack Speed
 12 to 14 Cold Damage per Frenzy Charge 
 2% chance to Avoid Elemental Damage when Hit per Frenzy Charge 
 0.5% of Attack Damage Leeched as Life per Frenzy Charge 
-400 Cold Damage taken per second per Frenzy Charge while moving
+{variant:1}400 Cold Damage taken per second per Frenzy Charge while moving
+{variant:2}200 Cold Damage taken per second per Frenzy Charge while moving
 Elder Item
 ]],[[
 Infractem

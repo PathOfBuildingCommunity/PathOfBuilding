@@ -86,6 +86,12 @@ local skillMap = {
 	["BoneLance"] = "Unearth",
 	["CorpseEruption"] = "Cremation",
 	["PowerSiphon"] = "Power Siphon",
+	["Smite"] = "Smite",
+	["ConsecratedPath"] = "Consecrated Path",
+	["ScourgeArrow"] = "Scourge Arrow",
+	["HolyRelic"] = "Summon Holy Relic",
+	["HeraldOfAgony"] = "Herald of Agony",
+	["HeraldOfPurity"] = "Herald of Purity",
 }
 
 local bySkill = { }
@@ -119,7 +125,7 @@ for _, modKey in ipairs(Mods.GenerationType(10)) do
 			end
 		end
 		local stats, orders = describeMod(mod)
-		if not skill then
+		if not skill or not stats[1] then
 			printf("%s\n%s", mod.Id, stats[1])
 		else
 			bySkill[skill] = bySkill[skill] or { }

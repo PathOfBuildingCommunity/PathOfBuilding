@@ -1,3 +1,8 @@
+### 1.4.105 - 2018/09/01
+ * Added Helmet enchantments for the new skills
+ * Applied balance changes to existing unique items
+ * Applied the change to base Trap Throwing Time from 3.4
+
 ### 1.4.104 - 2018/09/01
  * Fixed error message caused by Spiritual Command
 

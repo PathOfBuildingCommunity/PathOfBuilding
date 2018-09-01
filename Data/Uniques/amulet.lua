@@ -545,9 +545,14 @@ Corrupted
 ]],[[
 Stone of Lazhwar
 Lapis Amulet
+Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.4.0
+Variant: Current
 Requires Level 5
 +(20-30) to Intelligence
-50% of Block Chance applied to Spells
+{variant:1}50% of Block Chance applied to Spells
+{variant:2}+15% chance to Block Spell Damage
+{variant:3}+(12-15)% chance to Block Spell Damage
 (10-15)% increased Cast Speed
 +(30-50) to maximum Mana
 ]],[[
