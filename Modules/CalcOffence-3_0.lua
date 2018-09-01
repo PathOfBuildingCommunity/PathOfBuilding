@@ -181,7 +181,7 @@ function calcs.offence(env, actor)
 		-- Minion Attack Speed conversion from Spiritual Command
 		for _, value in ipairs(modDB:Sum("LIST", env.player.mainSkill.skillCfg, "MinionModifier")) do
 			if value.mod.name == "Speed" and value.mod.type == "INC" and (value.mod.flags == 0 or band(value.mod.flags, ModFlag.Attack) ~= 0) then
-				modDB:NewMod("Speed", "INC", mod.value, mod.source, ModFlag.Attack, mod.keywordFlags, unpack(mod))
+				modDB:NewMod("Speed", "INC", value.mod.value, value.mod.source, ModFlag.Attack, value.mod.keywordFlags, unpack(value.mod))
 			end
 		end
 	end
