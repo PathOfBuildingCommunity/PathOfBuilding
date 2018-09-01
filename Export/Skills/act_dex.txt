@@ -532,7 +532,7 @@ local skills, mod, flag, skill = ...
 			name = "Thorn Arrows"
 		},
 	},
-#baseMod mod("Multiplier:ScourgeArrowStage", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:ScourgeArrowStage", "BASE", 5, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } })
 #baseMod skill("dpsMultiplier", 0.2, { type = "SkillPart", skillPart = 2 })
 #mods
 
