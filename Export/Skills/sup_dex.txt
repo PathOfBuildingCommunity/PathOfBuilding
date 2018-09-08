@@ -84,9 +84,6 @@ local skills, mod, flag, skill = ...
 #skill SupportOnslaught
 #mods
 
-#skill SupportPhysicalProjectileAttackDamage
-#mods
-
 #skill SupportPierce
 #mods
 
@@ -113,6 +110,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportTrapAndMineDamage
+#mods
+
+#skill SupportPhysicalProjectileAttackDamage
 #mods
 
 #skill SupportDebilitate

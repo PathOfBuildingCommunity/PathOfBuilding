@@ -327,11 +327,11 @@ skills["SupportIncreasedBurningDamage"] = {
 		mod("ManaCost", "MORE", 20), 
 	},
 	qualityMods = {
-		mod("FireDamage", "INC", 0.5, ModFlag.Dot), --"burn_damage_+%" = 0.5
+		mod("FireDamage", "INC", 0.5, 0, KeywordFlag.FireDot), --"burn_damage_+%" = 0.5
 	},
 	levelMods = {
 		[1] = nil, 
-		[2] = mod("Damage", "MORE", nil, 0, KeywordFlag.Burning), --"support_burning_damage_+%_final"
+		[2] = mod("FireDamage", "MORE", nil, 0, KeywordFlag.FireDot), --"support_burning_damage_+%_final"
 	},
 	levels = {
 		[1] = { 31, 35, },

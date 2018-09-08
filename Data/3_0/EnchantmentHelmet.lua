@@ -1711,10 +1711,14 @@ return {
 	},
 	["Summon Holy Relic"] = {
 		["MERCILESS"] = {
-			"Summoned Holy Relic has 15% increased Buff Effect",
+			"Summoned Holy Relics deal 25% increased Damage",
+			"Summoned Holy Relics have 15% increased Area of Effect",
+			"Summoned Holy Relics have 75% increased Buff Effect",
 		},
 		["ENDGAME"] = {
-			"Summoned Holy Relic has 20% increased Buff Effect",
+			"Summoned Holy Relics deal 40% increased Damage",
+			"Summoned Holy Relics have 20% increased Area of Effect",
+			"Summoned Holy Relics have 100% increased Buff Effect",
 		},
 	},
 	["Summon Ice Golem"] = {

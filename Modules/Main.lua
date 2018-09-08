@@ -80,7 +80,7 @@ local classList = {
 	"CalcSectionControl",
 	"CalcBreakdownControl",
 }
-for _, className in pairs(classList) do
+for _, className in ipairs(classList) do
 	LoadModule("Classes/"..className, launch, main)
 end
 

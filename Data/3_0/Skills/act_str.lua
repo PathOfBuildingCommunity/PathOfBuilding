@@ -220,7 +220,7 @@ skills["AncestorTotemSlam"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("totemLevel", nil), --"base_active_skill_totem_level"
-		[3] = mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff" }), --"slam_ancestor_totem_grant_owner_melee_damage_+%_final"
+		[3] = mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ancestral Warchief" }), --"slam_ancestor_totem_grant_owner_melee_damage_+%_final"
 		[4] = skill("damageEffectiveness", nil), 
 		[5] = skill("baseMultiplier", nil), 
 	},
@@ -300,7 +300,7 @@ skills["VaalAncestralWarchief"] = {
 		--"base_totem_range" = 50
 		--"ancestor_totem_parent_activiation_range" = 120
 		mod("TotemPlacementSpeed", "INC", 50), --"summon_totem_cast_speed_+%" = 50
-		mod("Damage", "MORE", 32, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff" }), --"slam_ancestor_totem_grant_owner_melee_damage_+%_final" = 32
+		mod("Damage", "MORE", 32, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ancestral Warchief" }), --"slam_ancestor_totem_grant_owner_melee_damage_+%_final" = 32
 		mod("ActiveTotemLimit", "BASE", 1), --"number_of_additional_totems_allowed" = 1
 		mod("Speed", "MORE", -20, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = -20
 		--"is_area_damage" = ?

@@ -1118,7 +1118,7 @@ skills["SupportDamageAgainstChilled"] = {
 	levelMods = {
 		[1] = nil, 
 		[2] = mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "Chilled" }), --"support_hypothermia_damage_+%_vs_chilled_enemies_final"
-		[3] = mod("ColdDamage", "MORE", nil, ModFlag.Dot), --"support_hypothermia_cold_damage_over_time_+%_final"
+		[3] = mod("ColdDamage", "MORE", nil, 0, KeywordFlag.ColdDot), --"support_hypothermia_cold_damage_over_time_+%_final"
 	},
 	levels = {
 		[1] = { 31, 20, 20, },
@@ -1607,70 +1607,6 @@ skills["SupportOnslaught"] = {
 		[38] = { 98, 58, },
 		[39] = { 99, 58, },
 		[40] = { 100, 59, },
-	},
-}
-skills["SupportPhysicalProjectileAttackDamage"] = {
-	name = "Vicious Projectiles",
-	description = "Supports projectile attack skills.",
-	color = 2,
-	support = true,
-	requireSkillTypes = { 48, 56, },
-	addSkillTypes = { },
-	excludeSkillTypes = { },
-	baseMods = {
-		mod("ManaCost", "MORE", 20), 
-		mod("Speed", "MORE", -10, bit.bor(ModFlag.Attack, ModFlag.Projectile)), --"support_projectile_attack_speed_+%_final" = -10
-	},
-	qualityMods = {
-		mod("PhysicalDamage", "INC", 0.5), --"physical_damage_+%" = 0.5
-	},
-	levelMods = {
-		[1] = nil, 
-		[2] = mod("PhysicalDamage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile)), --"support_projectile_attack_physical_damage_+%_final"
-		[3] = mod("PhysicalDamage", "MORE", nil, ModFlag.Dot), --"support_phys_chaos_projectile_physical_damage_over_time_+%_final"
-		[4] = mod("ChaosDamage", "MORE", nil, ModFlag.Dot), --"support_phys_chaos_projectile_chaos_damage_over_time_+%_final"
-	},
-	levels = {
-		[1] = { 18, 30, 30, 30, },
-		[2] = { 22, 31, 31, 31, },
-		[3] = { 26, 32, 32, 32, },
-		[4] = { 29, 33, 33, 33, },
-		[5] = { 32, 34, 34, 34, },
-		[6] = { 35, 35, 35, 35, },
-		[7] = { 38, 36, 36, 36, },
-		[8] = { 41, 37, 37, 37, },
-		[9] = { 44, 38, 38, 38, },
-		[10] = { 47, 39, 39, 39, },
-		[11] = { 50, 40, 40, 40, },
-		[12] = { 53, 41, 41, 41, },
-		[13] = { 56, 42, 42, 42, },
-		[14] = { 58, 43, 43, 43, },
-		[15] = { 60, 44, 44, 44, },
-		[16] = { 62, 45, 45, 45, },
-		[17] = { 64, 46, 46, 46, },
-		[18] = { 66, 47, 47, 47, },
-		[19] = { 68, 48, 48, 48, },
-		[20] = { 70, 49, 49, 49, },
-		[21] = { 72, 50, 50, 50, },
-		[22] = { 74, 51, 51, 51, },
-		[23] = { 76, 52, 52, 52, },
-		[24] = { 78, 53, 53, 53, },
-		[25] = { 80, 54, 54, 54, },
-		[26] = { 82, 55, 55, 55, },
-		[27] = { 84, 56, 56, 56, },
-		[28] = { 86, 57, 57, 57, },
-		[29] = { 88, 58, 58, 58, },
-		[30] = { 90, 59, 59, 59, },
-		[31] = { 91, 59, 59, 59, },
-		[32] = { 92, 60, 60, 60, },
-		[33] = { 93, 60, 60, 60, },
-		[34] = { 94, 61, 61, 61, },
-		[35] = { 95, 61, 61, 61, },
-		[36] = { 96, 62, 62, 62, },
-		[37] = { 97, 62, 62, 62, },
-		[38] = { 98, 63, 63, 63, },
-		[39] = { 99, 63, 63, 63, },
-		[40] = { 100, 64, 64, 64, },
 	},
 }
 skills["SupportPierce"] = {
@@ -2176,6 +2112,70 @@ skills["SupportTrapAndMineDamage"] = {
 		[38] = { 98, 63, },
 		[39] = { 99, 63, },
 		[40] = { 100, 64, },
+	},
+}
+skills["SupportPhysicalProjectileAttackDamage"] = {
+	name = "Vicious Projectiles",
+	description = "Supports projectile attack skills.",
+	color = 2,
+	support = true,
+	requireSkillTypes = { 48, 56, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	baseMods = {
+		mod("ManaCost", "MORE", 20), 
+		mod("Speed", "MORE", -10, bit.bor(ModFlag.Attack, ModFlag.Projectile)), --"support_projectile_attack_speed_+%_final" = -10
+	},
+	qualityMods = {
+		mod("PhysicalDamage", "INC", 0.5), --"physical_damage_+%" = 0.5
+	},
+	levelMods = {
+		[1] = nil, 
+		[2] = mod("PhysicalDamage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile)), --"support_projectile_attack_physical_damage_+%_final"
+		[3] = mod("PhysicalDamage", "MORE", nil, 0, KeywordFlag.PhysicalDot), --"support_phys_chaos_projectile_physical_damage_over_time_+%_final"
+		[4] = mod("ChaosDamage", "MORE", nil, 0, KeywordFlag.ChaosDot), --"support_phys_chaos_projectile_chaos_damage_over_time_+%_final"
+	},
+	levels = {
+		[1] = { 18, 30, 30, 30, },
+		[2] = { 22, 31, 31, 31, },
+		[3] = { 26, 32, 32, 32, },
+		[4] = { 29, 33, 33, 33, },
+		[5] = { 32, 34, 34, 34, },
+		[6] = { 35, 35, 35, 35, },
+		[7] = { 38, 36, 36, 36, },
+		[8] = { 41, 37, 37, 37, },
+		[9] = { 44, 38, 38, 38, },
+		[10] = { 47, 39, 39, 39, },
+		[11] = { 50, 40, 40, 40, },
+		[12] = { 53, 41, 41, 41, },
+		[13] = { 56, 42, 42, 42, },
+		[14] = { 58, 43, 43, 43, },
+		[15] = { 60, 44, 44, 44, },
+		[16] = { 62, 45, 45, 45, },
+		[17] = { 64, 46, 46, 46, },
+		[18] = { 66, 47, 47, 47, },
+		[19] = { 68, 48, 48, 48, },
+		[20] = { 70, 49, 49, 49, },
+		[21] = { 72, 50, 50, 50, },
+		[22] = { 74, 51, 51, 51, },
+		[23] = { 76, 52, 52, 52, },
+		[24] = { 78, 53, 53, 53, },
+		[25] = { 80, 54, 54, 54, },
+		[26] = { 82, 55, 55, 55, },
+		[27] = { 84, 56, 56, 56, },
+		[28] = { 86, 57, 57, 57, },
+		[29] = { 88, 58, 58, 58, },
+		[30] = { 90, 59, 59, 59, },
+		[31] = { 91, 59, 59, 59, },
+		[32] = { 92, 60, 60, 60, },
+		[33] = { 93, 60, 60, 60, },
+		[34] = { 94, 61, 61, 61, },
+		[35] = { 95, 61, 61, 61, },
+		[36] = { 96, 62, 62, 62, },
+		[37] = { 97, 62, 62, 62, },
+		[38] = { 98, 63, 63, 63, },
+		[39] = { 99, 63, 63, 63, },
+		[40] = { 100, 64, 64, 64, },
 	},
 }
 skills["SupportDebilitate"] = {

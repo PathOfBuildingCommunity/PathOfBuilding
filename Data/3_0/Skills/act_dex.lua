@@ -4740,6 +4740,7 @@ skills["ScourgeArrow"] = {
 		skill("dpsMultiplier", 0.2, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
+		mod("ProjectileSpeed", "INC", 1), --"base_projectile_speed_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
