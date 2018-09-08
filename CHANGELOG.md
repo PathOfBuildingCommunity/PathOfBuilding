@@ -1,3 +1,11 @@
+### 1.4.108 - 2018/09/08
+ * Applied the skill and enchantment fixes from 3.4.1
+ * The "more Physical Damage over Time" stat on Vicious Projectiles no longer incorrectly applies to Poison
+    * This issue resulted in significantly overstated DPS for most Projectile Poison builds; I apologise for any inconvenience
+	   and/or shattered dreams resulting from this oversight
+ * The buffs from the Vaal and non-Vaal Ancestral Warchief skills no longer stack
+ * The passive tree can do longer be dragged infinitely in any direction
+ 
 ### 1.4.107 - 2018/09/01
  * The per-stage bonus for Scourge Arrow now correctly applies to the thorn arrows
 
@@ -11,7 +19,7 @@
 
 ### 1.4.104 - 2018/09/01
  * Fixed error message caused by Spiritual Command
-
+ 
 ### 1.4.103 - 2018/09/01
  * Added the following new uniques: 
     * Aul's Uprising
