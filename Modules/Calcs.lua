@@ -334,6 +334,9 @@ function calcs.buildOutput(build, mode)
 			if env.minion.modDB:Sum("FLAG", nil, "UnholyMight") then
 				t_insert(combatList, "Unholy Might")
 			end
+			if env.minion.modDB:Sum("FLAG", nil, "Tailwind") then
+				t_insert(combatList, "Tailwind")
+			end
 			for name in pairs(env.minionBuffs) do
 				t_insert(buffList, name)
 			end

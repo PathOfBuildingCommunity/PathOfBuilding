@@ -1191,7 +1191,7 @@ skills["Convocation"] = {
 	},
 	qualityMods = {
 		mod("Duration", "INC", 1), --"skill_effect_duration_+%" = 1
-		mod("Speed", "INC", 0.5, ModFlag.Cast), --"base_cast_speed_+%" = 0.5
+		mod("CooldownRecovery", "INC", 1), --"base_cooldown_speed_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
@@ -4010,7 +4010,7 @@ skills["OrbOfStorms"] = {
 	name = "Orb of Storms",
 	color = 3,
 	description = "Creates a stationary electrical orb that frequently unleashes a splitting bolt of lightning at a nearby enemy. Modifers to cast speed will increase how frequently it does this. Using a lightning skill while inside the orb's cloud unleashes additional bolts. Casting this skill again will replace the previous orb.",
-	skillTypes = { [2] = true, [10] = true, [35] = true, [12] = true, [11] = true, [23] = true, [36] = true, [18] = true, [17] = true, [19] = true, },
+	skillTypes = { [2] = true, [10] = true, [35] = true, [12] = true, [11] = true, [23] = true, [36] = true, [17] = true, [19] = true, [18] = true, },
 	baseFlags = {
 		spell = true,
 		chaining = true,
@@ -4680,7 +4680,7 @@ skills["VaalRighteousFire"] = {
 		skill("dotIsArea", true), 
 	},
 	qualityMods = {
-		mod("FireDamage", "INC", 1, ModFlag.Dot), --"burn_damage_+%" = 1
+		mod("FireDamage", "INC", 1, 0, KeywordFlag.FireDot), --"burn_damage_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 

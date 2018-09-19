@@ -77,30 +77,35 @@ ModFlag.Weapon2H =	 0x02000000
 
 KeywordFlag = { }
 -- Skill keywords
-KeywordFlag.Aura =		0x000001
-KeywordFlag.Curse =		0x000002
-KeywordFlag.Warcry =	0x000004
-KeywordFlag.Movement =	0x000008
-KeywordFlag.Fire =		0x000010
-KeywordFlag.Cold =		0x000020
-KeywordFlag.Lightning =	0x000040
-KeywordFlag.Chaos =		0x000080
-KeywordFlag.Vaal =		0x000100
-KeywordFlag.Bow =		0x000200
+KeywordFlag.Aura =		0x00000001
+KeywordFlag.Curse =		0x00000002
+KeywordFlag.Warcry =	0x00000004
+KeywordFlag.Movement =	0x00000008
+KeywordFlag.Fire =		0x00000010
+KeywordFlag.Cold =		0x00000020
+KeywordFlag.Lightning =	0x00000040
+KeywordFlag.Chaos =		0x00000080
+KeywordFlag.Vaal =		0x00000100
+KeywordFlag.Bow =		0x00000200
 -- Skill types
-KeywordFlag.Trap =		0x001000
-KeywordFlag.Mine =		0x002000
-KeywordFlag.Totem =		0x004000
-KeywordFlag.Minion =	0x008000
-KeywordFlag.Attack =	0x010000
-KeywordFlag.Spell =		0x020000
-KeywordFlag.Hit =		0x040000
-KeywordFlag.Ailment =	0x080000
+KeywordFlag.Trap =		0x00001000
+KeywordFlag.Mine =		0x00002000
+KeywordFlag.Totem =		0x00004000
+KeywordFlag.Minion =	0x00008000
+KeywordFlag.Attack =	0x00010000
+KeywordFlag.Spell =		0x00020000
+KeywordFlag.Hit =		0x00040000
+KeywordFlag.Ailment =	0x00080000
 -- Other effects
-KeywordFlag.Poison =	0x100000
-KeywordFlag.Bleed =		0x200000
-KeywordFlag.Ignite =	0x400000
-KeywordFlag.Burning =	0x800000
+KeywordFlag.Poison =	0x00100000
+KeywordFlag.Bleed =		0x00200000
+KeywordFlag.Ignite =	0x00400000
+-- Damage over Time types
+KeywordFlag.PhysicalDot=0x01000000
+KeywordFlag.LightningDot=0x02000000
+KeywordFlag.ColdDot =	0x04000000
+KeywordFlag.FireDot =	0x08000000
+KeywordFlag.ChaosDot =	0x10000000
 
 -- Active skill types, used in ActiveSkills.dat and GrantedEffects.dat
 -- Had to reverse engineer this, not sure what all of the values mean

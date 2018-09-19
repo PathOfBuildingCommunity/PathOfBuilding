@@ -502,10 +502,13 @@ Socketed Gems are supported by level 20 Cast on Death
 ]],[[
 Craiceann's Chitin
 Magistrate Crown
+Variant: Pre 3.4.0
+Variant: Current
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 58
-(25–30)% of Block Chance applied to Spells
+{variant:1}+(7-9)% chance to Block Spell Damage
+{variant:2}+(4-6)% chance to Block Spell Damage
 (140–180)% increased Armour and Energy Shield
 (4–7)% increased maximum Life
 Cannot lose Crab Barriers if you have lost Crab Barriers Recently
@@ -514,6 +517,7 @@ Cannot lose Crab Barriers if you have lost Crab Barriers Recently
 ]],[[
 Geofri's Crest
 Great Crown
+Upgrade: Upgrades to unique{Geofri's Legacy} via prophecy{The Bishop's Legacy}
 Requires Level 53, 59 Str, 59 Int
 +1 to Level of Socketed Gems
 (60-80)% increased Armour and Energy Shield

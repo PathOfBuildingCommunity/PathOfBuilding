@@ -70,7 +70,7 @@ itemBases["Prong Dagger"] = {
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "4% Chance to Block",
+	implicit = "4% Chance to Block Attack Damage",
 	weapon = { PhysicalMin = 14, PhysicalMax = 57, CritChanceBase = 6.2, AttackRateBase = 1.3, },
 	req = { level = 36, dex = 55, int = 77, },
 }
@@ -134,7 +134,7 @@ itemBases["Trisula"] = {
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "4% Chance to Block",
+	implicit = "4% Chance to Block Attack Damage",
 	weapon = { PhysicalMin = 21, PhysicalMax = 83, CritChanceBase = 6.2, AttackRateBase = 1.3, },
 	req = { level = 55, dex = 89, int = 106, },
 }
@@ -198,7 +198,7 @@ itemBases["Sai"] = {
 	type = "Dagger",
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "6% Chance to Block",
+	implicit = "6% Chance to Block Attack Damage",
 	weapon = { PhysicalMin = 23, PhysicalMax = 90, CritChanceBase = 6.2, AttackRateBase = 1.3, },
 	req = { level = 70, dex = 121, int = 121, },
 }

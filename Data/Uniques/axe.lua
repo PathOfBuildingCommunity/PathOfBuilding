@@ -303,13 +303,15 @@ Wings of Entropy
 Sundering Axe
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
+Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 60, 149 Str, 76 Dex
-25% of Block Chance applied to Spells
+{variant:1,2,3}25% of Block Chance applied to Spells
+{variant:4}+7% chance to Block Spell Damage
 {variant:1}10% additional Chance to Block while Dual Wielding
-{variant:2,3}8% additional Chance to Block while Dual Wielding
+{variant:2,3,4}8% additional Chance to Block while Dual Wielding
 {variant:1,2}(80-120)% increased Physical Damage
-{variant:3}(100-120)% increased Physical Damage
+{variant:3,4}(100-120)% increased Physical Damage
 Adds (55-65) to (100-120) Fire Damage in Main Hand
 Adds (55-65) to (100-120) Chaos Damage in Off Hand
 Counts as Dual Wielding

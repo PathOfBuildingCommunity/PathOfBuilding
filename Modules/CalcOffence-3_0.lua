@@ -180,8 +180,8 @@ function calcs.offence(env, actor)
 	if modDB:Sum("FLAG", nil, "MinionAttackSpeedAppliesToPlayer") then
 		-- Minion Attack Speed conversion from Spiritual Command
 		for _, value in ipairs(modDB:Sum("LIST", env.player.mainSkill.skillCfg, "MinionModifier")) do
-			if value.mod.name == "Speed" and value.mod.type == "INC" and band(value.mod.flags, ModFlag.Attack) ~= 0 then
-				modDB:AddMod(value.mod)
+			if value.mod.name == "Speed" and value.mod.type == "INC" and (value.mod.flags == 0 or band(value.mod.flags, ModFlag.Attack) ~= 0) then
+				modDB:NewMod("Speed", "INC", value.mod.value, value.mod.source, ModFlag.Attack, value.mod.keywordFlags, unpack(value.mod))
 			end
 		end
 	end
@@ -729,6 +729,7 @@ function calcs.offence(env, actor)
 		-- Combine hit chance and attack speed
 		combineStat("HitChance", "AVERAGE")
 		combineStat("Speed", "AVERAGE")
+		combineStat("HitSpeed", "OR")
 		if output.Speed == 0 then
 			output.Time = 0
 		else
@@ -1232,6 +1233,9 @@ function calcs.offence(env, actor)
 	mainSkill.dotCfg = dotCfg
 	output.TotalDot = 0
 	for _, damageType in ipairs(dmgTypeList) do
+		local dotTypeCfg = copyTable(dotCfg, true)
+		dotTypeCfg.keywordFlags = bor(dotTypeCfg.keywordFlags, KeywordFlag[damageType.."Dot"])
+		mainSkill["dot"..damageType.."Cfg"] = dotTypeCfg
 		local baseVal 
 		if canDeal[damageType] then
 			baseVal = skillData[damageType.."Dot"] or 0
@@ -1240,11 +1244,6 @@ function calcs.offence(env, actor)
 		end
 		if baseVal > 0 then
 			skillFlags.dot = true
-			if damageType == "Fire" then
-				dotCfg.keywordFlags = bor(dotCfg.keywordFlags, KeywordFlag.Burning)
-			else
-				dotCfg.keywordFlags = band(dotCfg.keywordFlags, bnot(KeywordFlag.Burning))
-			end
 			local effMult = 1
 			if env.mode_effective then
 				local resist = 0
@@ -1265,11 +1264,11 @@ function calcs.offence(env, actor)
 					breakdown[damageType.."DotEffMult"] = breakdown.effMult(damageType, resist, 0, taken, effMult)
 				end
 			end
-			local inc = modDB:Sum("INC", dotCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
-			local more = round(modDB:Sum("MORE", dotCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil), 2)
+			local inc = modDB:Sum("INC", dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
+			local more = round(modDB:Sum("MORE", dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil), 2)
 			local total = baseVal * (1 + inc/100) * more * effMult
 			if skillFlags.aura then
-				total = total * calcLib.mod(modDB, dotCfg, "AuraEffect")
+				total = total * calcLib.mod(modDB, dotTypeCfg, "AuraEffect")
 			end
 			output[damageType.."Dot"] = total
 			output.TotalDot = output.TotalDot + total
@@ -1449,7 +1448,7 @@ function calcs.offence(env, actor)
 					skillTypes = skillCfg.skillTypes,
 					slotName = skillCfg.slotName,
 					flags = bor(ModFlag.Dot, ModFlag.Ailment),
-					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Bleed, KeywordFlag.Ailment),
+					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Bleed, KeywordFlag.Ailment, KeywordFlag.PhysicalDot),
 					skillCond = { },
 				}
 			end
@@ -1535,7 +1534,7 @@ function calcs.offence(env, actor)
 					skillTypes = skillCfg.skillTypes,
 					slotName = skillCfg.slotName,
 					flags = bor(ModFlag.Dot, ModFlag.Ailment),
-					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Poison, KeywordFlag.Ailment),
+					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Poison, KeywordFlag.Ailment, KeywordFlag.ChaosDot),
 					skillCond = { },
 				}
 			end
@@ -1687,7 +1686,7 @@ function calcs.offence(env, actor)
 					skillTypes = skillCfg.skillTypes,
 					slotName = skillCfg.slotName,
 					flags = bor(ModFlag.Dot, ModFlag.Ailment),
-					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Ignite, KeywordFlag.Ailment, KeywordFlag.Burning),
+					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Ignite, KeywordFlag.Ailment, KeywordFlag.FireDot),
 					skillCond = { },
 				}
 			end
@@ -1969,7 +1968,7 @@ function calcs.offence(env, actor)
 			skillTypes = skillCfg.skillTypes,
 			slotName = skillCfg.slotName,
 			flags = ModFlag.Dot,
-			keywordFlags = band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)),
+			keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.ChaosDot),
 		}
 		local dotCfg = mainSkill.decayCfg
 		local effMult = 1

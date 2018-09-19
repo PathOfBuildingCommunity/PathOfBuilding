@@ -532,7 +532,7 @@ local skills, mod, flag, skill = ...
 			name = "Thorn Arrows"
 		},
 	},
-#baseMod mod("Multiplier:ScourgeArrowStage", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:ScourgeArrowStage", "BASE", 5, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } })
 #baseMod skill("dpsMultiplier", 0.2, { type = "SkillPart", skillPart = 2 })
 #mods
 
@@ -586,6 +586,7 @@ local skills, mod, flag, skill = ...
 
 #skill RainOfSpores
 #flags attack projectile area
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill SplitArrow
@@ -687,10 +688,7 @@ local skills, mod, flag, skill = ...
 			area = false,
 		},
 	},
-#baseMod mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 })
-#baseMod mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 2 })
-#baseMod mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 3 })
-#baseMod mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 4 })
-#baseMod mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 5 })
-#baseMod mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 6 })
+#baseMod mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 1, 2 } })
+#baseMod mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 3, 4 } })
+#baseMod mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 5, 6 } })
 #mods

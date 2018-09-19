@@ -450,8 +450,13 @@ Spreads Tar when you take a Critical Strike
 ]],[[
 Rathpith Globe
 Titanium Spirit Shield
+Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.4.0
+Variant: Current
 Requires Level 68, 159 Int
-(40-60)% of Block Chance applied to Spells
+{variant:1}(40-60)% of Block Chance applied to Spells
+{variant:2}+(12-18)% chance to Block Spell Damage
+{variant:3}+(10-15)% chance to Block Spell Damage
 (40-60)% increased Spell Damage
 10% increased maximum Life
 (120-160)% increased Energy Shield
@@ -459,8 +464,13 @@ Requires Level 68, 159 Int
 ]],[[
 Sentari's Answer
 Brass Spirit Shield
+Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.4.0
+Variant: Current
 Requires Level 33, 82 Int
-25% of Block Chance applied to Spells
+{variant:1}25% of Block Chance applied to Spells
+{variant:2}+7% chance to Block Spell Damage
+{variant:3}+10% chance to Block Spell Damage
 +(20-30) to Intelligence
 (4-8)% increased Quantity of Items found
 +5% Chance to Block
@@ -473,6 +483,8 @@ Applies level 15 Elemental Weakness on Blocking a Spell
 Daresso's Courage
 Baroque Round Shield
 Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.4.0
 Variant: Current
 Requires Level 54, 70 Str, 70 Dex
 120% increased Block Recovery
@@ -481,11 +493,13 @@ Requires Level 54, 70 Str, 70 Dex
 {variant:1}+(10-20)% to Fire Resistance
 {variant:1}+(10-20)% to Cold Resistance
 {variant:1}+(10-20)% to Lightning Resistance
-{variant:2}+(10-20)% to all Elemental Resistances
-120% of Block Chance applied to Spells when on Low Life
+{variant:2,3,4}+(10-20)% to all Elemental Resistances
+{variant:1,2}120% of Block Chance applied to Spells when on Low Life
+{variant:3}+36% chance to Block Spell Damage while on Low Life
+{variant:4}+30% chance to Block Spell Damage while on Low Life
 +(3-6)% Chance to Block
-{variant:2}20% chance to Block Spells if you've Blocked an Attack Recently
-{variant:2}20% chance to Block Attacks if you've Blocked a Spell Recently
+{variant:2,3,4}20% chance to Block Spells if you've Blocked an Attack Recently
+{variant:2,3,4}20% chance to Block Attacks if you've Blocked a Spell Recently
 ]],[[
 The Deep One's Hide
 Studded Round Shield
@@ -601,17 +615,21 @@ Cannot be Ignited while on Low Life
 Saffell's Frame
 Branded Kite Shield
 Variant: Pre 1.1.0
+Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.4.0
 Variant: Current
 Requires Level 59, 76 Str, 76 Int
 Implicits: 2
 {variant:1}+8% to all Elemental Resistances
-{variant:2}+4% to all Elemental Resistances
+{variant:2,3,4}+4% to all Elemental Resistances
 {variant:1}(100-120)% of Block Chance applied to Spells
 {variant:2}(70-80)% of Block Chance applied to Spells
+{variant:3}+(21-24)% chance to Block Spell Damage
+{variant:4}+(15-20)% chance to Block Spell Damage
 (20-30)% increased Spell Damage
 +10% to all Elemental Resistances
 {variant:1}+5% to all maximum Resistances
-{variant:2}+4% to all maximum Resistances
+{variant:2,3,4}+4% to all maximum Resistances
 Cannot Block Attacks
 ]],[[
 Springleaf

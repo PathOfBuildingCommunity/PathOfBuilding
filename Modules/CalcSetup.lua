@@ -28,7 +28,11 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("MaxLifeLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("MaxManaLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("MineLayingTime", "BASE", 0.5, "Base")
-	modDB:NewMod("TrapThrowingTime", "BASE", 0.5, "Base")
+	if env.build.targetVersion == "2_6" then
+		modDB:NewMod("TrapThrowingTime", "BASE", 0.5, "Base")
+	else
+		modDB:NewMod("TrapThrowingTime", "BASE", 0.6, "Base")
+	end
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
 	modDB:NewMod("LifeRegenPercent", "BASE", 6, "Base", { type = "Condition", var = "OnConsecratedGround" })
 	modDB:NewMod("DamageTaken", "INC", 50, "Base", { type = "Condition", var = "Shocked" })
@@ -420,6 +424,9 @@ function calcs.initEnv(build, mode, override)
 				if not env.modDB.conditions[cond] then
 					env.modDB.conditions[cond] = true
 					env.modDB.multipliers["AbyssJewelType"] = (env.modDB.multipliers["AbyssJewelType"] or 0) + 1
+				end
+				if slot.parentSlot then
+					env.modDB.conditions[cond.."In"..slot.parentSlot.slotName] = true
 				end
 				env.modDB.multipliers["AbyssJewel"] = (env.modDB.multipliers["AbyssJewel"] or 0) + 1
 			end

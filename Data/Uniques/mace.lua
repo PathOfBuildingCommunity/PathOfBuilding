@@ -164,6 +164,8 @@ Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
 Nebuloch
 Nightmare Mace
 Source: Drops from unique{The Elder} (Tier 6+)
+Variant: Pre 3.4.0
+Variant: Current
 Requires Level 68
 10% reduced Enemy Stun Threshold
 Adds (45–60) to (100–120) Physical Damage 
@@ -172,7 +174,8 @@ Gain (30–40)% of Physical Attack Damage as Extra Fire Damage
 1% reduced Elemental Damage taken when Hit per Endurance Charge 
 Adds 5 to 8 Physical Damage per Endurance Charge 
 +500 to Armour per Endurance Charge 
-400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
+{variant:1}400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
+{variant:2}200 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
 Elder Item
 ]],
 -- Weapon: Sceptre
@@ -440,6 +443,7 @@ Damage Penetrates 20% Lightning Resistance
 ]],[[
 Chober Chaber
 Great Mallet
+Upgrade: Upgrades to unique{Chaber Cairn} via prophecy{Faith Exhumed}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current

@@ -146,7 +146,8 @@ local gems = { }
 
 local directiveTable = { }
 
-local gemMap = dofile("Gems.lua")
+-- I'll leave all this here as a monument to how badly I got screwed by BIT being absent in the prepatch
+--local gemMap = dofile("Gems.lua")
 local wildAssGuessAtNewGemInfo = {
 	["SupportPhysicalProjectileAttackDamage"] = {
 		"Metadata/Items/Gems/SupportGemPhysicalProjectileAttackDamage", "Vicious Projectiles" 
@@ -191,6 +192,19 @@ function dammitChris(grantedId)
 	error("GrantedId '"..grantedId.."' no gem")
 end
 
+local wellShitIGotThoseWrong = { 
+	-- Serves me right for not paying attention (not that I've gotten them all right anyway)
+	-- Let's just sweep these under the carpet so we don't break everyone's shiny new builds
+	["Metadata/Items/Gems/SkillGemSmite"] = "Metadata/Items/Gems/Smite",
+	["Metadata/Items/Gems/SkillGemConsecratedPath"] = "Metadata/Items/Gems/ConsecratedPath",
+	["Metadata/Items/Gems/SkillGemVaalAncestralWarchief"] = "Metadata/Items/Gems/VaalAncestralWarchief",
+	["Metadata/Items/Gems/SkillGemHeraldOfAgony"] = "Metadata/Items/Gems/HeraldOfAgony",
+	["Metadata/Items/Gems/SkillGemHeraldOfPurity"] = "Metadata/Items/Gems/HeraldOfPurity",
+	["Metadata/Items/Gems/SkillGemScourgeArrow"] = "Metadata/Items/Gems/ScourgeArrow",
+	["Metadata/Items/Gems/SkillGemToxicRain"] = "Metadata/Items/Gems/RainOfSpores",
+	["Metadata/Items/Gems/SkillGemSummonRelic"] = "Metadata/Items/Gems/SummonRelic",
+}
+
 -- #noGem
 -- Disables the gem component of the next skill
 directiveTable.noGem = function(state, args, out)
@@ -218,10 +232,10 @@ directiveTable.skill = function(state, args, out)
 		gems[skillGemKey] = true
 		if granted.IsSupport then
 			local skillGem = SkillGems[skillGemKey]
-			--local baseItemType = BaseItemTypes[skillGem.BaseItemTypesKey]
-			--out:write('\tname = "', baseItemType.Name:gsub(" Support",""), '",\n')
-			local gemId, gemName = dammitChris(grantedId)
-			out:write('\tname = "', gemName, '",\n')
+			local baseItemType = BaseItemTypes[skillGem.BaseItemTypesKey]
+			out:write('\tname = "', baseItemType.Name:gsub(" Support",""), '",\n')
+			--local gemId, gemName = dammitChris(grantedId)
+			--out:write('\tname = "', gemName, '",\n')
 			if #skillGem.Description > 0 then
 				out:write('\tdescription = "', skillGem.Description, '",\n')
 			end
@@ -545,12 +559,12 @@ out:write('-- Gem data (c) Grinding Gear Games\n\nreturn {\n')
 for skillGemKey = 0, SkillGems.maxRow do
 	if gems[skillGemKey] then
 		local skillGem = SkillGems[skillGemKey] 
-		--local baseItemType = BaseItemTypes[skillGem.BaseItemTypesKey]
-		--out:write('\t["', baseItemType.Id, '"] = {\n')
-		--out:write('\t\tname = "', baseItemType.Name:gsub(" Support",""), '",\n')
-		local gemId, gemName = dammitChris(GrantedEffects[skillGem.GrantedEffectsKey].Id)
-		out:write('\t["', gemId, '"] = {\n')
-		out:write('\t\tname = "', gemName, '",\n')
+		local baseItemType = BaseItemTypes[skillGem.BaseItemTypesKey]
+		out:write('\t["', wellShitIGotThoseWrong[baseItemType.Id] or baseItemType.Id, '"] = {\n')
+		out:write('\t\tname = "', baseItemType.Name:gsub(" Support",""), '",\n')
+		--local gemId, gemName = dammitChris(GrantedEffects[skillGem.GrantedEffectsKey].Id)
+		--out:write('\t["', gemId, '"] = {\n')
+		--out:write('\t\tname = "', gemName, '",\n')
 		out:write('\t\tgrantedEffectId = "', GrantedEffects[skillGem.GrantedEffectsKey].Id, '",\n')
 		if skillGem.GrantedEffectsKey2 then
 			out:write('\t\tsecondaryGrantedEffectId = "', GrantedEffects[skillGem.GrantedEffectsKey2].Id, '",\n')

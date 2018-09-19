@@ -4707,7 +4707,7 @@ skills["Riposte"] = {
 skills["ScourgeArrow"] = {
 	name = "Scourge Arrow",
 	color = 2,
-	description = "Channel this skill to draw an arrow and infuse it with chaos, gaining stages while it is held. Release to fire this as a single piercing arrow, which drops a spore pod along it's path for each stage reached while channelling. Each spore pod will bloom, firing a nova of thorn arrows. Modifiers that cause additional projectiles to be fired will only apply to these thorn arrows.",
+	description = "Channel this skill to draw an arrow and infuse it with chaos, gaining stages while it is held. Release to fire this as a single piercing arrow, which drops a spore pod along its path for each stage reached while channelling. Each spore pod will bloom, firing a nova of thorn arrows. Modifiers that cause additional projectiles to be fired will only apply to these thorn arrows.",
 	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [22] = true, [10] = true, [58] = true, },
 	weaponTypes = {
 		["Bow"] = true,
@@ -4736,10 +4736,11 @@ skills["ScourgeArrow"] = {
 		mod("Damage", "MORE", 150, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ScourgeArrowStage" }), --"virulent_arrow_damage_+%_final_per_stage" = 150
 		--"override_turn_duration_ms" = 100
 		--"skill_can_fire_arrows" = ?
-		mod("Multiplier:ScourgeArrowStage", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 }), 
+		mod("Multiplier:ScourgeArrowStage", "BASE", 5, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } }), 
 		skill("dpsMultiplier", 0.2, { type = "SkillPart", skillPart = 2 }), 
 	},
 	qualityMods = {
+		mod("ProjectileSpeed", "INC", 1), --"base_projectile_speed_+%" = 1
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
@@ -5367,6 +5368,7 @@ skills["RainOfSpores"] = {
 		--"skill_can_fire_arrows" = ?
 		--"cannot_pierce" = ?
 		skill("dotIsProjectile", true), --"projectile_damage_modifiers_apply_to_skill_dot" = ?
+		skill("dotIsArea", true), 
 	},
 	qualityMods = {
 		mod("AreaOfEffect", "INC", 0.5), --"base_skill_area_of_effect_+%" = 0.5
@@ -6092,12 +6094,9 @@ skills["WildStrike"] = {
 		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2
 		--"show_number_of_projectiles" = ?
 		flag("PierceAllTargets"), --"always_pierce" = ?
-		mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }), 
-		mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 2 }), 
-		mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 3 }), 
-		mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 4 }), 
-		mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 5 }), 
-		mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 6 }), 
+		mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 1, 2 } }), 
+		mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 3, 4 } }), 
+		mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 5, 6 } }), 
 	},
 	qualityMods = {
 		mod("ElementalDamage", "INC", 1), --"elemental_damage_+%" = 1

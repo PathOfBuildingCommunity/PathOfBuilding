@@ -220,7 +220,7 @@ skills["AncestorTotemSlam"] = {
 	levelMods = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = skill("totemLevel", nil), --"base_active_skill_totem_level"
-		[3] = mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff" }), --"slam_ancestor_totem_grant_owner_melee_damage_+%_final"
+		[3] = mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ancestral Warchief" }), --"slam_ancestor_totem_grant_owner_melee_damage_+%_final"
 		[4] = skill("damageEffectiveness", nil), 
 		[5] = skill("baseMultiplier", nil), 
 	},
@@ -300,7 +300,7 @@ skills["VaalAncestralWarchief"] = {
 		--"base_totem_range" = 50
 		--"ancestor_totem_parent_activiation_range" = 120
 		mod("TotemPlacementSpeed", "INC", 50), --"summon_totem_cast_speed_+%" = 50
-		mod("Damage", "MORE", 32, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff" }), --"slam_ancestor_totem_grant_owner_melee_damage_+%_final" = 32
+		mod("Damage", "MORE", 32, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ancestral Warchief" }), --"slam_ancestor_totem_grant_owner_melee_damage_+%_final" = 32
 		mod("ActiveTotemLimit", "BASE", 1), --"number_of_additional_totems_allowed" = 1
 		mod("Speed", "MORE", -20, ModFlag.Attack), --"active_skill_attack_speed_+%_final" = -20
 		--"is_area_damage" = ?
@@ -3241,17 +3241,17 @@ skills["StaticStrike"] = {
 	parts = {
 		{
 			name = "Melee hit",
-			area = false,
 		},
 		{
-			name = "Explosion",
-			area = true,
+			name = "Beams - 1 Stack",
+		},
+		{
+			name = "Beams - 3 Stacks",
 		},
 	},
 	baseFlags = {
 		attack = true,
 		melee = true,
-		area = true,
 		duration = true,
 	},
 	baseMods = {
@@ -3261,7 +3261,8 @@ skills["StaticStrike"] = {
 		skill("duration", 4), --"base_skill_effect_duration" = 4000
 		--"static_strike_base_zap_frequency_ms" = 400
 		--"static_strike_zap_speed_+%_per_stack" = 10
-		skill("radius", 20), 
+		skill("hitTimeOverride", 0.4 / (1+1*0.1), { type = "SkillPart", skillPart = 2 }), 
+		skill("hitTimeOverride", 0.4 / (1+3*0.1), { type = "SkillPart", skillPart = 3 }), 
 	},
 	qualityMods = {
 		mod("EnemyShockChance", "BASE", 1), --"base_chance_to_shock_%" = 1
@@ -3270,8 +3271,8 @@ skills["StaticStrike"] = {
 		[1] = skill("levelRequirement", nil), 
 		[2] = { mod("MeleeWeaponRange", "BASE", nil), mod("UnarmedRange", "BASE", nil) }, --"melee_range_+"
 		--[3] = "static_strike_number_of_beam_targets"
-		--[4] = "static_strike_beam_damage_+%_final"
-		--[5] = "static_strike_beam_damage_+%_final_while_moving"
+		[4] = mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "Moving", neg = true }, { type = "SkillPart", skillPartList = { 2, 3 }}), --"static_strike_beam_damage_+%_final"
+		[5] = mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "Moving" }, { type = "SkillPart", skillPartList = { 2, 3 }}), --"static_strike_beam_damage_+%_final_while_moving"
 		[6] = skill("damageEffectiveness", nil), 
 		[7] = skill("baseMultiplier", nil), 
 	},

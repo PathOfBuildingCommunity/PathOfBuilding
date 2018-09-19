@@ -3,6 +3,204 @@
 --
 
 data.uniques.new = {
+-- 3.4 General
+[[
+Aul's Uprising
+Onyx Amulet
+Requires Level 55
++(10–16) to all Attributes
++(20–30) to Intelligence
+(15–20)% increased maximum Energy Shield
++(50–70) to maximum Life
+2% additional Chance to receive a Critical Strike
+Nearby Enemies have an additional 2% chance to receive a Critical Strike
+Wrath Reserves no Mana
+]],[[
+Cerberus Limb
+Blood Sceptre
+Requires Level 47
+24% increased Elemental Damage
+(70–100)% increased Spell Damage
+(15–20)% increased Cast Speed
+0.5% of Spell Damage Leeched as Life if Equipped Shield has at least 30% Chance to Block
++1 to Maximum Energy Shield per 5 Armour on Equipped Shield
++5 to Armour per 5 Evasion Rating on Equipped Shield
++20 to Evasion Rating per 5 Maximum Energy Shield on Equipped Shield
+]],[[
+Chaber Cairn
+Great Mallet
+Source: Upgraded from unique{Chober Chaber} using prophecy{Faith Exhumed}
+Requires Level 60
+30% increased Stun Duration on Enemies
++1 to Level of Socketed Melee Gems
++2 to Level of Socketed Minion Gems
+(200–220)% increased Physical Damage
+Adds (25–35) to (45–55) Physical Damage
+25% increased maximum Mana
+Minions have (20–40)% increased maximum Life
+30% increased Skill Effect Duration
+]],[[
+Curtain Call
+Plague Mask
+Requires Level 20
++23 to maximum Life
+Skills which Place Mines place up to 1 additional Mine if you have at least 500 Intelligence
+Skills which Place Mines place up to 1 additional Mine if you have at least 500 Dexterity
+(10–15)% reduced Mine Laying Speed
+(40–50)% increased Mine Arming Speed
+]],[[
+Demon Stitcher
+Satin Gloves
+Requires Level 41
+(15–20)% increased Cast Speed
++(50–70) to maximum Energy Shield
++(50–70) to maximum Life
+Sacrifice 5% of Life to gain that much Energy Shield when you Cast a Spell
+]],[[
+The Eternal Apple
+Chiming Spirit Shield
+Requires Level 49
+(10–15)% increased Spell Damage
+You lose all Endurance Charges at maximum Endurance Charges
+Trigger a Socketed Warcry Skill when you lose Endurance Charges
++(60–80) to maximum Life
++(17–23)% to Chaos Resistance
+50% increased Warcry Cooldown Recovery Speed
+Cannot Block
+]],[[
+Geofri's Legacy
+Great Crown
+Source: Upgraded from unique{Geofri's Crest} using prophecy{The Bishop's Legacy}
+Requires Level 62
++1 to Level of Socketed Gems
+(60–80)% increased Armour and Energy Shield
++(15–20)% to Fire Resistance
++(15–20)% to Cold Resistance
++(15–20)% to Lightning Resistance
++(20–30)% to Chaos Resistance
++1 to maximum number of Summoned Holy Relics
+Summoned Holy Relics have (20–25)% reduced Cooldown Recovery Speed
+]],[[
+The Grey Spire
+Judgement Staff
+Requires Level 68
++18% Chance to Block Attack Damage while wielding a Staff
+Has no Sockets
+(250–300)% increased Global Damage
+(20–30)% increased Attack Speed
++(1–4)% to all maximum Resistances
+]],[[
+The Iron Fortress
+Crusader Plate
+Requires Level 68
+Source: Upgraded from unique{Iron Heart} using prophecy{Battle Hardened}
+Strength's Damage Bonus instead grants 3% increased Melee
+Physical Damage per 10 Strength
+10% reduced Movement Speed
+(80–100)% increased Armour
++1% Chance to Block Attack Damage per 50 Strength
+Chance to Block Spell Damage is Unlucky
++(60–120) to Strength
+]],[[
+Mark of Submission
+Unset Ring
+Requires Level 24
+Has 1 Socket
+Curse Enemies with Socketed Curse Gem on Hit
+]],[[
+Perquil's Toe
+Gold Amulet
+Requires Level 29
+(12–20)% increased Rarity of Items found
+Lightning Damage from Enemies Hitting you is Lucky
++(40–50) to Dexterity
+Nearby Allies' Damage with Hits is Lucky
+(5–8)% increased Movement Speed
+]],[[
+The Primordial Chain
+Coral Amulet
+Requires Level 34
+(2–4) Life Regenerated per second
+Can Summon up to 3 additional Golems at a time
+You cannot have non-Golem Minions
+25% reduced Golem Size
+Golems Deal (35–45)% less Damage
+Golems have (35–45)% less Life
+Golems have (80–100)% increased Movement Speed
+Primordial
+]],[[
+Soulwrest
+Ezomyte Staff
+Requires Level 62
++18% Chance to Block Attack Damage while wielding a Staff
+Trigger Level 20 Summon Phantasm Skill when you Consume a Corpse
+(100–140)% increased Spell Damage
+(25–30)% increased Cast Speed
+(80–100)% increased Mana Regeneration Rate
+Minions deal (45–51) to (66–78) additional Physical Damage
+If you Consumed a Corpse Recently, you and nearby Allies regenerate 5% of Life per second
+]],[[
+Unnatural Instinct
+Viridian Jewel
+Limited to: 1
+Radius: Small
+Allocated Small Passive Skills in Radius grant nothing
+Grants all bonuses of Unallocated Small Passive Skills in Radius
+]],
+
+-- 3.4 Delve
+[[
+Command of the Pit
+Riveted Gloves
+League: Delve
+Variant: One Abyssal Socket
+Variant: Two Abyssal Sockets
+Requires Level 37
+{variant:1}Has 1 Abyssal Socket
+{variant:2}Has 2 Abyssal Sockets
+(6–10)% increased Cast Speed
+(4–6)% increased maximum Life
+With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
+With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
+]],[[
+Crown of the Tyrant
+Magistrate Crown
+League: Delve
+Requires Level 58
+Has 1 Socket
++(50–100) to maximum Life
+Nearby Enemies have -10% to all Resistances
+You and Nearby Allies have 64 to 96 added Fire Damage per Red Socket
+You and Nearby Allies have 56 to 88 added Cold Damage per Green Socket
+You and Nearby Allies have 16 to 144 added Lightning Damage per Blue Socket
+You and Nearby Allies have 47 to 61 added Chaos Damage per White Socket
+]],[[
+Doryani's Delusion
+Titan Greaves
+League: Delve
+Requires Level 68
+Grants Level 25 Purity of Fire Skill
+Adds (25–30) to (40–45) Fire Damage to Spells and Attacks
+(100–120)% increased Armour
++(50–70) to maximum Life
+30% increased Movement Speed
+]],[[
+Hale Negator
+Mind Cage
+Requires Level 65
+League: Delve
+Has 1 Abyssal Socket
+(6–8)% increased maximum Life
+Recover (2–3)% of Energy Shield when you lose a Spirit Charge
+Recover (2–3)% of Life when you lose a Spirit Charge
+Gain a Spirit Charge every second
+You lose all Spirit Charges when taking a Savage Hit
++1 to Maximum Spirit Charges per Abyss Jewel affecting you
+]],
+
+
+
+
 -- 3.3 General
 [[
 Combat Focus
@@ -11,6 +209,7 @@ Limited to: 2
 Radius: Medium
 Elemental Hit deals (10–15)% increased Damage
 With 40 total Strength and Intelligence in Radius, Elemental Hit cannot choose Cold
+With 40 total Strength and Intelligence in Radius, Elemental Hit deals 50% less Cold Damage
 ]],[[
 Combat Focus
 Cobalt Jewel
@@ -18,6 +217,7 @@ Limited to: 2
 Radius: Medium
 Elemental Hit deals (10–15)% increased Damage
 With 40 total Intelligence and Dexterity in Radius, Elemental Hit cannot choose Fire
+With 40 total Intelligence and Dexterity in Radius, Elemental Hit deals 50% less Fire Damage
 ]],[[
 Combat Focus
 Viridian Jewel
@@ -25,6 +225,7 @@ Limited to: 2
 Radius: Medium
 Elemental Hit deals (10–15)% increased Damage
 With 40 total Dexterity and Strength in Radius, Elemental Hit cannot choose Lightning
+With 40 total Dexterity and Strength in Radius, Elemental Hit deals 50% less Lightning Damage
 ]],[[
 Earendel's Embrace
 Grinning Fetish

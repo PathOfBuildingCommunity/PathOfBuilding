@@ -1,3 +1,56 @@
+### 1.4.108 - 2018/09/08
+ * Applied the skill and enchantment fixes from 3.4.1
+ * The "more Physical Damage over Time" stat on Vicious Projectiles no longer incorrectly applies to Poison
+    * This issue resulted in significantly overstated DPS for most Projectile Poison builds; I apologise for any inconvenience
+	   and/or shattered dreams resulting from this oversight
+ * The buffs from the Vaal and non-Vaal Ancestral Warchief skills no longer stack
+ * The passive tree can do longer be dragged infinitely in any direction
+ 
+### 1.4.107 - 2018/09/01
+ * The per-stage bonus for Scourge Arrow now correctly applies to the thorn arrows
+
+### 1.4.106 - 2018/09/01
+ * Added support for the "50% less X Damage" modifiers on the Combat Focus jewels
+
+### 1.4.105 - 2018/09/01
+ * Added Helmet enchantments for the new skills
+ * Applied balance changes to existing unique items
+ * Applied the change to base Trap Throwing Time from 3.4
+
+### 1.4.104 - 2018/09/01
+ * Fixed error message caused by Spiritual Command
+ 
+### 1.4.103 - 2018/09/01
+ * Added the following new uniques: 
+    * Aul's Uprising
+	* Cerberus Limb
+	* Chaber Cairn
+	* Curtain Call
+	* Demon Stitcher
+	* The Eternal Apple
+	* Geofri's Legacy
+	* The Grey Spire
+	* Mark of Submission
+	* Perquil's Toe
+	* The Primordial Chain
+	* Soulwrest (except the Summon Phantasm skill)
+	* Unnatural Instinct
+	* Command of the Pit
+	* Crown of the Tyrant
+	* Doryani's Delusion
+	* Hale Negator
+ * Updated item modifiers for crafting
+ * Added support for the "40% chance to deal 100% more Poison" modifier on Master Toxicist
+ * Gathering Winds now applies Tailwind to your Minions
+ * Modifiers to Minion Attack and Cast Speed are now correctly converted by Spiritual Command
+
+### 1.4.102 - 2018/09/01
+ * Fixed issue preventing Total DPS from being calculated for dual wielding attack builds
+ * Toxic Rain's DoT is now affected by modifiers to Area Damage
+
+### 1.4.101 - 2018/09/01
+ * Static Strike is now fully updated for 3.4
+
 ### 1.4.100 - 2018/09/01
  * Consecrated Path and Smite are now correctly affected by Melee modifiers
  * Earthquake's Aftershock damage multiplier now works correctly
