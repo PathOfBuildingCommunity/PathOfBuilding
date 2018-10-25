@@ -18,13 +18,31 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCastOnCrit
+	statMap = {
+		["support_cast_on_crit_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell),
+		},
+	},
 #baseMod skill("showAverage", true, { type = "SkillType", skillType = SkillType.TriggerableSpell })
 #mods
 
 #skill SupportCastOnDeath
+	statMap = {
+		["area_of_effect_+%_while_dead"] = {
+			mod("AreaOfEffect", "INC", nil),
+		},
+		["cast_on_death_damage_+%_final_while_dead"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportChain
+	statMap = {
+		["support_chain_hit_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit),
+		},
+	},
 #mods
 
 #skill SupportChanceToFlee
@@ -34,6 +52,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportClusterTrap
+	statMap = {
+		["support_clustertrap_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportColdPenetration
@@ -43,9 +66,22 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportDeadlyAilments
+	statMap = {
+		["support_better_ailments_hit_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit),
+		},
+		["support_better_ailments_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)),
+		},
+	},
 #mods
 
 #skill SupportAdditionalQuality
+	statMap = {
+		["supported_active_skill_gem_quality_%"] = {
+			mod("GemProperty", "LIST", { keyword = "active_skill", key = "quality", value = nil }),
+		},
+	},
 #mods
 
 #skill SupportFasterAttack
@@ -55,18 +91,41 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportFork
+	statMap = {
+		["support_fork_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		},
+	},
 #mods
 
 #skill SupportGreaterMultipleProjectiles
+	statMap = {
+		["support_multiple_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		},
+	},
 #mods
 
 #skill SupportDamageAgainstChilled
+	statMap = {
+		["support_hypothermia_damage_+%_vs_chilled_enemies_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
+		},
+		["support_hypothermia_cold_damage_over_time_+%_final"] = {
+			mod("ColdDamage", "MORE", nil, 0, KeywordFlag.ColdDot),
+		},
+	},
 #mods
 
 #skill SupportFrenzyChargeOnSlayingFrozenEnemy
 #mods
 
 #skill SupportLesserMultipleProjectiles
+	statMap = {
+		["support_lesser_multiple_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		},
+	},
 #mods
 
 #skill SupportLesserPoison
@@ -79,51 +138,134 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportMultiTrap
+	statMap = {	
+		["support_multithrow_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportOnslaught
 #mods
 
 #skill SupportPierce
+	statMap = {
+		["support_pierce_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		},
+	},
 #mods
 
 #skill SupportPointBlank
+	statMap = {
+		["keystone_point_blank"] = {
+			flag("PointBlank"),
+		},
+	},
 #mods
 
 #skill SupportPoison
+	statMap = {
+		["support_poison_poison_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
+		},
+	},
 #mods
 
 #skill SupportRapidDecay
+	statMap = {
+		["support_rapid_decay_damage_over_time_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Dot),
+		},
+	},
 #mods
 
 #skill SupportSlowerProjectiles
+	statMap = {
+		["support_slower_projectiles_projectile_speed_+%_final"] = {
+			mod("ProjectileSpeed", "MORE", nil),
+		},
+		["support_slower_projectiles_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		},
+	},
 #mods
 
 #skill SupportTrap
 	addFlags = {
 		trap = true,
 	},
-#setMod base_skill_show_average_damage_instead_of_dps==skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanTrap })
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+			skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanTrap }),
+		},
+		["support_trap_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Trap),
+		},
+		["support_trap_hit_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, KeywordFlag.Trap),
+		},
+	},
 #mods
 
 #skill SupportTrapCooldown
 #mods
 
 #skill SupportTrapAndMineDamage
+	statMap = {
+		["support_trap_and_mine_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Trap, KeywordFlag.Mine)),
+		},
+	},
 #mods
 
 #skill SupportPhysicalProjectileAttackDamage
+	statMap = {
+		["support_projectile_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile)),
+		},
+		["support_projectile_attack_physical_damage_+%_final"] = {
+			mod("PhysicalDamage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile)),
+		},
+		["support_phys_chaos_projectile_physical_damage_over_time_+%_final"] = {
+			mod("PhysicalDamage", "MORE", nil, 0, KeywordFlag.PhysicalDot),
+		},
+		["support_phys_chaos_projectile_chaos_damage_over_time_+%_final"] = {
+			mod("ChaosDamage", "MORE", nil, 0, KeywordFlag.ChaosDot),
+		},
+	},
 #mods
 
 #skill SupportDebilitate
+	statMap = {
+		["support_debilitate_poison_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
+		},
+		["support_debilitate_hit_damage_+%_final_per_poison_stack"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", actor = "enemy", var = "PoisonStack", limitVar = "VileToxinsPoisonLimit" }),
+		},
+		["support_debilitate_hit_damage_max_poison_stacks"] = {
+			mod("Multiplier:VileToxinsPoisonLimit", "BASE", nil),
+		},
+	},
 #mods
 
 #skill SupportVoidManipulation
+	statMap = {
+		["support_void_manipulation_chaos_damage_+%_final"] = {
+			mod("ChaosDamage", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportParallelProjectiles
+	statMap = {
+		["support_parallel_projectiles_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		},
+	},
 #mods
 
 #skill SupportChaosAttacks
-#baseMod mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Wither", effectStackVar = "WitheringTouchWitheredStackCount", effectStackLimit = 15 })
+#baseMod mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheringTouchWitheredStackCount", effectStackLimit = 15 })
 #mods

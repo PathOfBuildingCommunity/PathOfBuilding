@@ -278,6 +278,9 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 				types[row.mod.type] = true
 				t_insert(typeList, row.mod.type)
 			end
+			if not row.mod.source then
+				ConPrintTable(row.mod)
+			end
 			local sourceType = row.mod.source:match("[^:]+")
 			if not sourceTotals[sourceType] then
 				sourceTotals[sourceType] = { }

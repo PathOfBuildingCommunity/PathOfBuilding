@@ -19,6 +19,10 @@ local bnot = bit.bnot
 -- Merge level modifier with given mod list
 local mergeLevelCache = { }
 local function mergeLevelMod(modList, mod, value)
+	if not value then
+		modList:AddMod(mod)
+		return
+	end
 	if not mergeLevelCache[mod] then
 		mergeLevelCache[mod] = { }
 	end
@@ -43,24 +47,24 @@ local function mergeLevelMod(modList, mod, value)
 end
 
 -- Merge quality modifier with given mod list
-local function mergeQualityMod(modList, mod, quality)
+local function mergeQualityMod(modList, mod, quality, value)
 	local scaledMod = copyTable(mod, true)
 	if type(scaledMod.value) == "table" then
 		scaledMod.value = copyTable(scaledMod.value, true)
 		if scaledMod.value.mod then
 			scaledMod.value.mod = copyTable(scaledMod.value.mod, true)
-			scaledMod.value.mod.value = m_floor(scaledMod.value.mod.value * quality)
+			scaledMod.value.mod.value = m_floor(value or scaledMod.value.mod.value * quality)
 		else
-			scaledMod.value.value = m_floor(scaledMod.value.value * quality)
+			scaledMod.value.value = m_floor(value or scaledMod.value.value * quality)
 		end
 	else
-		scaledMod.value = m_floor(scaledMod.value * quality)
+		scaledMod.value = m_floor(value or scaledMod.value * quality)
 	end
 	modList:AddMod(scaledMod)
 end
 
 -- Merge skill modifiers with given mod list
-function calcs.mergeSkillInstanceMods(modList, skillEffect)
+function calcs.mergeSkillInstanceMods(env, modList, skillEffect)
 	for _, mod in pairs(skillEffect.grantedEffect.baseMods) do
 		if mod.name then
 			modList:AddMod(mod)
@@ -71,12 +75,24 @@ function calcs.mergeSkillInstanceMods(modList, skillEffect)
 		end
 	end
 	if skillEffect.quality > 0 then
-		for _, mod in pairs(skillEffect.grantedEffect.qualityMods) do
-			if mod.name then
-				mergeQualityMod(modList, mod, skillEffect.quality)
-			else
-				for _, subMod in ipairs(mod) do
-					mergeQualityMod(modList, subMod, skillEffect.quality)
+		if skillEffect.grantedEffect.qualityStats then
+			for _, stat in pairs(skillEffect.grantedEffect.qualityStats) do
+				local map = skillEffect.grantedEffect.statMap[stat[1]]
+				if map then
+					local statValue = stat[2] * (map.mult or 1) / (map.div or 1)
+					for _, mod in ipairs(map) do
+						mergeQualityMod(modList, mod, skillEffect.quality, statValue)
+					end
+				end
+			end
+		else
+			for _, mod in pairs(skillEffect.grantedEffect.qualityMods) do
+				if mod.name then
+					mergeQualityMod(modList, mod, skillEffect.quality)
+				else
+					for _, subMod in ipairs(mod) do
+						mergeQualityMod(modList, subMod, skillEffect.quality)
+					end
 				end
 			end
 		end
@@ -90,6 +106,30 @@ function calcs.mergeSkillInstanceMods(modList, skillEffect)
 			else
 				for _, subMod in ipairs(mod) do
 					mergeLevelMod(modList, subMod, levelData[col])
+				end
+			end
+		end
+	end
+	if skillEffect.grantedEffect.stats then
+		local statLevels = skillEffect.grantedEffect.statLevels[skillEffect.level]
+		local availableEffectiveness
+		for index, stat in ipairs(skillEffect.grantedEffect.stats) do
+			local map = skillEffect.grantedEffect.statMap[stat]
+			if map then
+				local statValue
+				if skillEffect.actorLevel and skillEffect.grantedEffect.statUseEffectiveness[index] then
+					if not availableEffectiveness then
+						availableEffectiveness = 
+							(env.data.skillDamageBaseEffectiveness + env.data.skillDamageIncrementalEffectiveness * (skillEffect.actorLevel - 1)) 
+							* skillEffect.grantedEffect.baseEffectiveness
+							* (1 + skillEffect.grantedEffect.incrementalEffectiveness) ^ (skillEffect.actorLevel - 1)
+					end
+					statValue = round(availableEffectiveness * statLevels[index]) * (map.mult or 1) / (map.div or 1)
+				elseif statLevels[index] then
+					statValue = statLevels[index] * (map.mult or 1) / (map.div or 1)
+				end
+				for _, mod in ipairs(map) do
+					mergeLevelMod(modList, mod, statValue)
 				end
 			end
 		end
@@ -400,7 +440,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	-- Add support gem modifiers to skill mod list
 	for _, skillEffect in pairs(activeSkill.effectList) do
 		if skillEffect.grantedEffect.support then
-			calcs.mergeSkillInstanceMods(skillModList, skillEffect)
+			calcs.mergeSkillInstanceMods(env, skillModList, skillEffect)
 		end
 	end
 
@@ -412,7 +452,8 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	end
 
 	-- Add active gem modifiers
-	calcs.mergeSkillInstanceMods(skillModList, activeEffect)
+	activeEffect.actorLevel = actor.level
+	calcs.mergeSkillInstanceMods(env, skillModList, activeEffect)
 
 	-- Add extra modifiers
 	activeSkill.extraSkillModList = { }

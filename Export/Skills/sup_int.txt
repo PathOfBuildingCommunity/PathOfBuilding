@@ -12,6 +12,18 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportArcaneSurge
+	statMap = {
+		["support_arcane_surge_cast_speed_+%"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
+		},
+		["support_arcane_surge_mana_regeneration_rate_per_minute_%"] = {
+			mod("ManaRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
+			div = 60,
+		},
+		["support_arcane_surge_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
+		},
+	},
 #mods
 
 #skill SupportBlasphemy
@@ -21,15 +33,45 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCastWhileChannelling
+	statMap = {
+		["cast_while_channelling_time_ms"] = {
+			skill("timeOverride", nil, { type = "SkillType", skillType = SkillType.TriggerableSpell }),
+			div = 1000,
+		},
+		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.TriggerableSpell }),
+		},
+	},
 #mods
 
 #skill SupportChanceToIgnite
+	statMap = {
+		["support_chance_to_ignite_fire_damage_+%_final"] = {
+			mod("FireDamage", "MORE", nil),
+		},
+		["ignites_apply_fire_resistance_+"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Combustion" }, { type = "Condition", var = "Ignited" }),
+		},
+	},
 #mods
 
 #skill SupportConcentratedEffect
+	statMap = {
+		["support_concentrated_effect_skill_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
+		["support_area_concentrate_area_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Area),
+		},
+	},
 #mods
 
 #skill SupportControlledDestruction
+	statMap = {
+		["support_controlled_destruction_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell),
+		},
+	},
 #mods
 
 #skill SupportCurseOnHit
@@ -39,12 +81,30 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportEfficacy
+	statMap = {
+		["support_efficacy_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell),
+		},
+		["support_efficacy_damage_over_time_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Dot),
+		},
+	},
 #mods
 
 #skill SupportElementalFocus
+	statMap = {
+		["support_gem_elemental_damage_+%_final"] = {
+			mod("ElementalDamage", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportElementalProliferation
+	statMap = {
+		["support_elemental_proliferation_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportAdditionalXP
@@ -54,6 +114,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportIgniteProliferation
+	statMap = {
+		["support_ignite_prolif_ignite_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite),
+		},
+	},
 #mods
 
 #skill SupportImmolation
@@ -69,6 +134,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportOnslaughtOnSlayingShockedEnemy
+	statMap = {
+		["support_innervate_minimum_added_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Innervation", effectCond = "InnervationActive" }),
+		},
+		["support_innervate_maximum_added_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Innervation", effectCond = "InnervationActive" }),
+		},
+	},
 #mods
 
 #skill SupportItemRarity
@@ -78,40 +151,100 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportMinefield
+	statMap = {
+		["support_minefield_mine_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportMinionDamage
+	statMap = {
+		["support_minion_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+	},
 #mods
 
 #skill SupportMinionLife
+	statMap = {
+		["support_minion_maximum_life_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
+		},
+	},
 #mods
 
 #skill SupportMinionSpeed
 #mods
 
 #skill SupportSummonElementalResistances
+	statMap = {
+		["support_minion_totem_resistance_elemental_damage_+%_final"] = {
+			mod("ElementalDamage", "MORE", nil, 0, KeywordFlag.Totem), 
+			mod("MinionModifier", "LIST", { mod = mod("ElementalDamage", "MORE", nil) }),
+		},
+	},
 #mods
 
 #skill SupportPhysicalToLightning
 #mods
 
 #skill SupportPowerChargeOnCrit
+	statMap = {
+		["support_power_charge_on_crit_damage_+%_final_per_power_charge"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
+		},
+	},
 #mods
 
 #skill SupportRemoteMine
 	addFlags = {
 		mine = true,
 	},
-#setMod base_skill_show_average_damage_instead_of_dps==skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanMine })
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+			skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanMine }),
+		},
+		["support_gem_mine_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Mine),
+		},
+		["support_remote_mine_hit_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, KeywordFlag.Mine),
+		},
+	},
 #mods
 
 #skill SupportSpellCascade
+	statMap = {
+		["support_spell_cascade_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
+		["support_spell_cascade_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportMulticast
+	statMap = {
+		["support_echo_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_multicast_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+	},
 #mods
 
 #skill SupportStormBarrier
+	statMap = {
+		["support_storm_barrier_physical_damage_taken_when_hit_+%_final"] = {
+			mod("PhysicalDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Storm Barrier" }),
+		},
+		["support_storm_barrier_lightning_damage_taken_when_hit_+%_final"] = {
+			mod("LightningDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Storm Barrier" }),
+		},
+	},
 #mods
 
 #skill SupportSummonGhostOnKill
@@ -124,4 +257,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAilments
+	statMap = {
+		["support_unbound_ailments_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)),
+		},
+	},
 #mods

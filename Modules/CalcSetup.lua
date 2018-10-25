@@ -290,10 +290,12 @@ function calcs.initEnv(build, mode, override)
 	-- Create player/enemy actors
 	env.player = {
 		modDB = modDB,
+		level = build.characterLevel,
 	}
 	modDB.actor = env.player
 	env.enemy = {
 		modDB = enemyDB,
+		level = env.enemyLevel,
 	}
 	enemyDB.actor = env.enemy
 	env.player.enemy = env.enemy

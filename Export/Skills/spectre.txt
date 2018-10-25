@@ -49,6 +49,12 @@ local skills, mod, flag, skill = ...
 
 #skill FireMonsterWhirlingBlades Fire Roll
 #flags attack melee movement duration
+	statMap = {
+		["whirling_blades_base_ground_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil),
+			div = 60,
+		},
+	},
 #mods
 
 #skill FlamebearerFlameBlue Blue Flame
@@ -252,7 +258,6 @@ local skills, mod, flag, skill = ...
 
 #skill SeaWitchScreech Screech
 #flags spell duration area
-#global Debuff
 #mods
 
 #skill SeaWitchWave Wave
