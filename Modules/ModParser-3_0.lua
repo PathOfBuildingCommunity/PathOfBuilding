@@ -509,6 +509,7 @@ local modFlagList = {
 	-- Other
 	["global"] = { tag = { type = "Global" } },
 	["from equipped shield"] = { tag = { type = "SlotName", slotName = "Weapon 2" } },
+	["from body armour"] = { tag = { type = "SlotName", slotName = "Body Armour" } },
 }
 
 -- List of modifier flags/tags that appear at the start of a line
@@ -638,6 +639,7 @@ local modTagList = {
 	["per (%d+) maximum mana, up to (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "Mana", div = num, limit = tonumber(limit), limitTotal = true } } end,
 	["per (%d+) accuracy rating"] = function(num) return { tag = { type = "PerStat", stat = "Accuracy", div = num } } end,
 	["per (%d+)%% block chance"] = function(num) return { tag = { type = "PerStat", stat = "BlockChance", div = num } } end,
+	["per (%d+)%% chance to block attack damage"] = function(num) return { tag = { type = "PerStat", stat = "BlockChance", div = num } } end,
 	["per (%d+) of the lowest of armour and evasion rating"] = function(num) return { tag = { type = "PerStat", stat = "LowestOfArmourAndEvasion", div = num } } end,
 	["per (%d+) maximum energy shield on helmet"] = function(num) return { tag = { type = "PerStat", stat = "EnergyShieldOnHelmet", div = num } } end,
 	["per (%d+) evasion rating on body armour"] = function(num) return { tag = { type = "PerStat", stat = "EvasionOnBody Armour", div = num } } end,
@@ -726,6 +728,7 @@ local modTagList = {
 	["while you have onslaught"] = { tag = { type = "Condition", var = "Onslaught" } },
 	["while phasing"] = { tag = { type = "Condition", var = "Phasing" } },
 	["while you have tailwind"] = { tag = { type = "Condition", var = "Tailwind" } },
+	["while you have arcane surge"] = { tag = { type = "Condition", var = "AffectedByArcaneSurge" } },
 	["while you have cat's stealth"] = { tag = { type = "Condition", var = "AffectedByCat'sStealth" } },
 	["while you have avian's might"] = { tag = { type = "Condition", var = "AffectedByAvian'sMight" } },
 	["while you have avian's flight"] = { tag = { type = "Condition", var = "AffectedByAvian'sFlight" } },

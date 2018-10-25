@@ -70,11 +70,16 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	self.slotOrder = { }
 	self.slotAnchor = common.New("Control", {"TOPLEFT",self,"TOPLEFT"}, 96, 54, 310, 0)
 	local prevSlot = self.slotAnchor
+	local function addSlot(slot)
+		prevSlot = slot
+		self.slots[slot.slotName] = slot
+		t_insert(self.orderedSlots, slot)
+		self.slotOrder[slot.slotName] = #self.orderedSlots
+		t_insert(self.controls, slot)
+	end
 	for index, slotName in ipairs(baseSlots) do
 		local slot = common.New("ItemSlot", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName)
-		prevSlot = slot
-		t_insert(self.controls, slot)
-		self.slotOrder[slotName] = #self.orderedSlots
+		addSlot(slot)
 		if slotName:match("Weapon") then
 			-- Add alternate weapon slot
 			slot.weaponSet = 1
@@ -82,22 +87,35 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 				return not self.activeItemSet.useSecondWeaponSet
 			end
 			local swapSlot = common.New("ItemSlot", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName.." Swap", slotName)
-			prevSlot = swapSlot
-			t_insert(self.controls, swapSlot)
-			self.slotOrder[swapSlot.slotName] = #self.orderedSlots
+			addSlot(swapSlot)
 			swapSlot.weaponSet = 2
 			swapSlot.shown = function()
-				return not slot:IsShown()
+				return self.activeItemSet.useSecondWeaponSet
 			end
-		elseif slotName == "Helmet" or slotName == "Gloves" or slotName == "Body Armour" or slotName == "Boots" or slotName == "Belt" then
+			for i = 1, 2 do
+				local abyssal = common.New("ItemSlot", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName.."Swap Abyssal Socket "..i, "Abyssal #"..i)			
+				addSlot(abyssal)
+				abyssal.parentSlot = swapSlot
+				abyssal.weaponSet = 2
+				abyssal.shown = function()
+					return not abyssal.inactive and self.activeItemSet.useSecondWeaponSet
+				end
+				swapSlot.abyssalSocketList[i] = abyssal
+			end
+		end
+		if slotName == "Weapon 1" or slotName == "Weapon 2" or slotName == "Helmet" or slotName == "Gloves" or slotName == "Body Armour" or slotName == "Boots" or slotName == "Belt" then
 			-- Add Abyssal Socket slots
 			for i = 1, 2 do
 				local abyssal = common.New("ItemSlot", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName.." Abyssal Socket "..i, "Abyssal #"..i)			
-				prevSlot = abyssal
+				addSlot(abyssal)
 				abyssal.parentSlot = slot
-				t_insert(self.controls, abyssal)
+				if slotName:match("Weapon") then
+					abyssal.weaponSet = 1
+					abyssal.shown = function()
+						return not abyssal.inactive and not self.activeItemSet.useSecondWeaponSet
+					end
+				end
 				slot.abyssalSocketList[i] = abyssal
-				self.slotOrder[abyssal.slotName] = #self.orderedSlots
 			end
 		end
 	end
@@ -113,10 +131,8 @@ local ItemsTabClass = common.NewClass("ItemsTab", "UndoHandler", "ControlHost", 
 	end)
 	for _, node in ipairs(socketOrder) do
 		local socketControl = common.New("ItemSlot", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, "Jewel "..node.id, "Socket", node.id)
-		prevSlot = socketControl
-		self.controls["socket"..node.id] = socketControl
 		self.sockets[node.id] = socketControl
-		self.slotOrder["Jewel "..node.id] = #self.orderedSlots
+		addSlot(socketControl)
 	end
 	self.controls.slotHeader = common.New("LabelControl", {"BOTTOMLEFT",self.slotAnchor,"TOPLEFT"}, 0, -4, 0, 16, "^7Equipped items:")
 	self.controls.weaponSwap1 = common.New("ButtonControl", {"BOTTOMRIGHT",self.slotAnchor,"TOPRIGHT"}, -20, -2, 18, 18, "I", function()

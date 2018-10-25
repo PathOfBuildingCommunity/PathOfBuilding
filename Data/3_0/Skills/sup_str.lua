@@ -383,7 +383,7 @@ skills["SupportCastOnMeleeKill"] = {
 	support = true,
 	requireSkillTypes = { 24, 36, },
 	addSkillTypes = { 42, },
-	excludeSkillTypes = { 37, 41, 30, 44, 61, },
+	excludeSkillTypes = { 37, 41, 30, 15, 61, },
 	baseMods = {
 		mod("ManaCost", "MORE", 40), 
 		skill("cooldown", 0.25), 
