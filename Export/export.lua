@@ -33,6 +33,8 @@ loadDat("PassiveSkills")
 loadDat("Ascendancy")
 loadDat("Characters")
 loadDat("ClientStrings")
+loadDat("GameConstants")
+loadDat("EffectivenessCostConstants")
 
 while true do
 	print("Enter export script name:")

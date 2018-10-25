@@ -1,3 +1,10 @@
+### 1.4.109 - 2019/10/25
+ * Applied the skill changes from 3.4.2
+ * Updated the passive tree export links to 3.4
+ * Added support for Hierophant's Illuminated Devotion
+ * The increased Damage per Block Chance Elder Shield modifier is now correctly recognised
+ * Fixed error that occurred when importing weapons with Abyssal Sockets
+
 ### 1.4.108 - 2018/09/08
  * Applied the skill and enchantment fixes from 3.4.1
  * The "more Physical Damage over Time" stat on Vicious Projectiles no longer incorrectly applies to Poison

@@ -4603,7 +4603,7 @@ skills["RighteousFire"] = {
 	},
 	baseMods = {
 		skill("castTime", 0), 
-		skill("cooldown", 1), 
+		skill("cooldown", 0.3), 
 		--"base_righteous_fire_%_of_max_life_to_deal_to_nearby_per_minute" = 2400
 		mod("FireDegen", "BASE", 0.9, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }), --"base_nonlethal_fire_damage_%_of_maximum_life_taken_per_minute" = 5400
 		--"base_righteous_fire_%_of_max_energy_shield_to_deal_to_nearby_per_minute" = 2400
