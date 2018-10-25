@@ -747,7 +747,6 @@ Requires Level 49
 (140–160)% increased Armour and Energy Shield
 +(50–75)% to Cold Resistance
 Cannot be Chilled
-Cannot be Frozen
 20% of Physical Damage from Hits taken as Cold Damage
 30% of Fire Damage from Hits taken as Cold Damage
 (15–20)% increased Effect of Chill
