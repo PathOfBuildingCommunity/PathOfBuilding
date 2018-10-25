@@ -369,8 +369,11 @@ function calcs.perform(env)
 		if env.minion.minionData.energyShield then
 			env.minion.modDB:NewMod("EnergyShield", "BASE", m_floor(env.data.monsterAllyLifeTable[env.minion.level] * env.minion.minionData.life * env.minion.minionData.energyShield), "Base")
 		end
+		if env.minion.minionData.armour then
+			env.minion.modDB:NewMod("Armour", "BASE", m_floor((10 + 2 * env.minion.level) * env.minion.minionData.armour * 1.038 ^ env.minion.level), "Base")
+		end
 		env.minion.modDB:NewMod("Evasion", "BASE", env.data.monsterEvasionTable[env.minion.level], "Base")
-		env.minion.modDB:NewMod("Accuracy", "BASE", env.data.monsterAccuracyTable[env.minion.level], "Base")
+		env.minion.modDB:NewMod("Accuracy", "BASE", env.data.monsterAccuracyTable[env.minion.level] * (env.minion.minionData.accuracy or 1), "Base")
 		env.minion.modDB:NewMod("CritMultiplier", "BASE", 30, "Base")
 		env.minion.modDB:NewMod("CritDegenMultiplier", "BASE", 30, "Base")
 		env.minion.modDB:NewMod("FireResist", "BASE", env.minion.minionData.fireResist, "Base")
@@ -783,7 +786,7 @@ function calcs.perform(env)
 		for _, value in ipairs(modDB:Sum("LIST", nil, "ExtraCurse")) do
 			local gemModList = common.New("ModList")
 			local grantedEffect = env.data.skills[value.skillId]
-			calcs.mergeSkillInstanceMods(gemModList, {
+			calcs.mergeSkillInstanceMods(env, gemModList, {
 				grantedEffect = grantedEffect,
 				level = value.level,
 				quality = 0,

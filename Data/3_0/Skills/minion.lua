@@ -805,6 +805,114 @@ skills["SummonPhantasmFadingProjectile"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, nil, nil, },
 	},
 }
+skills["HeraldOfAgonyMinionMortar"] = {
+	name = "Mortar",
+	hidden = true,
+	color = 4,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [3] = true, [68] = true, [1] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [57] = true, },
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 2),
+		skill("damageEffectiveness", 0.4),
+		skill("baseMultiplier", 0.4),
+		skill("cooldown", 7.5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"projectile_spread_radius",
+		"projectile_minimum_range",
+		"number_of_additional_projectiles",
+		"active_skill_attack_speed_+%_final",
+		"main_hand_base_maximum_attack_distance",
+		"is_area_damage",
+		"base_is_projectile",
+		"distribute_additional_projectiles_over_contact_points",
+	},
+	statUseEffectiveness = { false, false, false, false, false, },
+	statLevels = {
+		[1] = { 20, 10, 5, -35, 50, nil, nil, nil, },
+	},
+}
+skills["HeraldOfAgonyMinionTailSpike"] = {
+	name = "Tail Spike",
+	hidden = true,
+	color = 4,
+	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [10] = true, [57] = true, },
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	baseMods = {
+		skill("castTime", 1.3),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"monster_projectile_variation",
+		"base_projectile_speed_+%",
+		"active_skill_attack_speed_+%_final",
+		"number_of_additional_projectiles",
+		"base_is_projectile",
+	},
+	statUseEffectiveness = { false, false, false, false, },
+	statLevels = {
+		[1] = { 39, 0, 0, 4, nil, },
+	},
+}
+skills["HeraldOfAgonyMinionCleave"] = {
+	name = "Cleave",
+	hidden = true,
+	color = 1,
+	description = "The character swings their weapon (or both weapons if dual wielding) in an arc towards the target. Also does damage to other nearby monsters. Only works with Axes and Swords.",
+	skillTypes = { [1] = true, [8] = true, [11] = true, [28] = true, [24] = true, [53] = true, },
+	weaponTypes = {
+		["Two Handed Axe"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["One Handed Axe"] = true,
+		["Two Handed Sword"] = true,
+		["One Handed Sword"] = true,
+	},
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 1),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"is_area_damage",
+	},
+	statUseEffectiveness = { },
+	statLevels = {
+		[1] = { nil, },
+	},
+}
 skills["MinionInstability"] = {
 	name = "Minion Instability",
 	hidden = true,

@@ -1,3 +1,8 @@
+VERSION[1.4.110][2019/10/26]
+As of this update I am once again able to add and update minions, which hasn't been possible since 3.0:
+ * Added the following minions:
+    * Agony Crawler (Herald of Agony)
+ * Added proper DPS calculation for Summoned Phantasm
 VERSION[1.4.109][2019/10/25]
  * Applied the skill changes from 3.4.2
  * Updated the passive tree export links to 3.4

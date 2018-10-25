@@ -8,6 +8,7 @@ local minions, mod = ...
 minions["RaisedZombie"] = {
 	name = "Raised Zombie",
 	life = 2.55,
+	armour = 0.7,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -81,6 +82,7 @@ minions["SummonedIceGolem"] = {
 	damageSpread = 0.2,
 	attackTime = 0.85,
 	attackRange = 4,
+	accuracy = 1.4,
 	limit = "ActiveGolemLimit",
 	skillList = {
 		"Melee",
@@ -115,6 +117,7 @@ minions["SummonedLightningGolem"] = {
 minions["SummonedStoneGolem"] = {
 	name = "Stone Golem",
 	life = 5.25,
+	armour = 0.6,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -123,6 +126,7 @@ minions["SummonedStoneGolem"] = {
 	damageSpread = 0.2,
 	attackTime = 1,
 	attackRange = 8,
+	accuracy = 1.4,
 	weaponType1 = "One Handed Sword",
 	limit = "ActiveGolemLimit",
 	skillList = {
@@ -313,6 +317,7 @@ minions["AnimatedWeapon"] = {
 minions["AnimatedArmour"] = {
 	name = "Animated Guardian",
 	life = 4.5,
+	armour = 0.5,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -380,8 +385,31 @@ minions["SummonedPhantasm"] = {
 	attackTime = 1.17,
 	attackRange = 4,
 	skillList = {
-		"Melee",
+		"SummonPhantasmFadingProjectile",
 	},
 	modList = {
+	},
+}
+minions["HeraldOfAgonySpiderPlated"] = {
+	name = "Agony Crawler",
+	life = 1.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.3,
+	attackRange = 10,
+	accuracy = 3,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"HeraldOfAgonyMinionMortar",
+		"HeraldOfAgonyMinionTailSpike",
+		"HeraldOfAgonyMinionCleave",
+	},
+	modList = {
+		mod("PhysicalDamageConvertToChaos", "BASE", 40),
+		mod("Condition:FullLife", "FLAG", true),
 	},
 }

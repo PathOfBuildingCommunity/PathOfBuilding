@@ -117,8 +117,11 @@ function calcs.mergeSkillInstanceMods(env, modList, skillEffect)
 			local map = skillEffect.grantedEffect.statMap[stat]
 			if map then
 				local statValue
-				if skillEffect.actorLevel and skillEffect.grantedEffect.statUseEffectiveness[index] then
+				if skillEffect.grantedEffect.statUseEffectiveness[index] then
 					if not availableEffectiveness then
+						if not skillEffect.actorLevel then
+							skillEffect.actorLevel = levelData[1]
+						end
 						availableEffectiveness = 
 							(env.data.skillDamageBaseEffectiveness + env.data.skillDamageIncrementalEffectiveness * (skillEffect.actorLevel - 1)) 
 							* skillEffect.grantedEffect.baseEffectiveness
@@ -452,7 +455,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	end
 
 	-- Add active gem modifiers
-	activeEffect.actorLevel = actor.level
+	activeEffect.actorLevel = actor.minionData and actor.level
 	calcs.mergeSkillInstanceMods(env, skillModList, activeEffect)
 
 	-- Add extra modifiers

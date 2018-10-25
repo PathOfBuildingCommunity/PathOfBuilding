@@ -82,6 +82,18 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 #mods
 
+#skill HeraldOfAgonyMinionMortar Mortar
+#flags attack projectile area
+#mods
+
+#skill HeraldOfAgonyMinionTailSpike Tail Spike
+#flags attack projectile
+#mods
+
+#skill HeraldOfAgonyMinionCleave Cleave
+#flags attack area
+#mods
+
 skills["MinionInstability"] = {
 	name = "Minion Instability",
 	hidden = true,
