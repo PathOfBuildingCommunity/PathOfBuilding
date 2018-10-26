@@ -34,6 +34,7 @@ function calcs.initModDB(env, modDB)
 		modDB:NewMod("TrapThrowingTime", "BASE", 0.6, "Base")
 	end
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
+	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
 	modDB:NewMod("LifeRegenPercent", "BASE", 6, "Base", { type = "Condition", var = "OnConsecratedGround" })
 	modDB:NewMod("DamageTaken", "INC", 50, "Base", { type = "Condition", var = "Shocked" })
 	modDB:NewMod("HitChance", "MORE", -50, "Base", { type = "Condition", var = "Blinded" })
@@ -216,7 +217,6 @@ function calcs.initEnv(build, mode, override)
 		modDB:NewMod("ActiveTrapLimit", "BASE", 15, "Base")
 	end
 	modDB:NewMod("ActiveMineLimit", "BASE", 5, "Base")
-	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
 	modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
 	modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
 	modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
@@ -290,10 +290,12 @@ function calcs.initEnv(build, mode, override)
 	-- Create player/enemy actors
 	env.player = {
 		modDB = modDB,
+		level = build.characterLevel,
 	}
 	modDB.actor = env.player
 	env.enemy = {
 		modDB = enemyDB,
+		level = env.enemyLevel,
 	}
 	enemyDB.actor = env.enemy
 	env.player.enemy = env.enemy

@@ -148,6 +148,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.0", "3.0", "{E58DF0B8-388
 		Data\3_0\ModJewelAbyss.lua = Data\3_0\ModJewelAbyss.lua
 		Data\3_0\ModMaster.lua = Data\3_0\ModMaster.lua
 		Data\3_0\Rares.lua = Data\3_0\Rares.lua
+		Data\3_0\SkillStatMap.lua = Data\3_0\SkillStatMap.lua
 		Data\3_0\Spectres.lua = Data\3_0\Spectres.lua
 	EndProjectSection
 EndProject

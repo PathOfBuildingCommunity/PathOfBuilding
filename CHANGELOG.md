@@ -1,3 +1,27 @@
+### 1.4.110 - 2019/10/26
+As of this update I am once again able to add and update minions/spectres, which hadn't been possible since 3.0:
+ * Added the following minions:
+    * Agony Crawler (Herald of Agony)
+	   * You can set the Virulence stack count in the Skill Options section of the Configuration tab
+	* Sentinel of Purity (Herald of Purity)
+	* Sentinel of Dominance (Dominating Blow; only the Normal variant)
+	* Holy Relic
+	    * You can enable the regeneration aura in the Skill Options section of the Configuration tab
+	* Summoned Phantasm (including Soulwrest's Summon Phantasm skill)
+ * Added the following spectres to the spectre library:
+	* Alpine Shaman
+	* Frost Sentinel
+	* Kitava's Herald
+	* Risen Vaal Advocate (Lightning)
+	* Sandworn Slaves
+	* Solar Guard
+	* Solaris Champion
+	* Tukohama's Vanguard
+	   * The stage count for the Scorching Ray Totem can be set in the Skill Options section of the Configuration tab
+	* Wicker Man
+ * Minion Accuracy values are now more correct
+ * Minion Armour values are now calculated and displayed in the Calcs tab
+
 ### 1.4.109 - 2019/10/25
  * Applied the skill changes from 3.4.2
  * Updated the passive tree export links to 3.4

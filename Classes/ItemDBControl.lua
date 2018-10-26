@@ -174,6 +174,7 @@ function ItemDBClass:ListBuilder()
 		local baseDPS = calcBase.Minion and calcBase.Minion.CombinedDPS or calcBase.CombinedDPS
 		for itemIndex, item in ipairs(list) do
 			item.CombinedDPS = 0
+			ConPrintf("%s", item.name)
 			for slotName, slot in pairs(self.itemsTab.slots) do
 				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
 					local output = calcFunc(item.base.flask and { toggleFlask = item } or { repSlotName = slotName, repItem = item })

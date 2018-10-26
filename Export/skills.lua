@@ -1,49 +1,3 @@
-local statMap = { }
-do
-	local lastStat
-	for line in io.lines("Skills/statmap.ini") do
-		local statName = line:match("^%[([^]]+)%]$")
-		if statName then
-			if lastStat and not lastStat.def then
-				statMap[statName] = lastStat
-			else
-				statMap[statName] = { mult = 1 }
-				lastStat = statMap[statName]
-			end
-		else
-			local key, value = line:match("^(%a+) = (.+)$")
-			if key == "mod" then
-				lastStat.def = value
-			elseif key == "mult" then
-				lastStat.mult = tonumber(value)
-			elseif key == "div" then
-				lastStat.mult = 1 / tonumber(value)
-			end
-		end
-	end
-end
-
-local function addMod(mods, statKey, value)
-	local mod = {
-		key = statKey, 
-		id = Stats[statKey] and Stats[statKey].Id,
-		mult = 1,
-		val = value,
-		levels = { value },
-	}
-	if mod.id then
-		local map = statMap[mod.id]
-		if map then
-			mod.def = map.def
-			mod.mult = map.mult
-		end
-	else
-		mod.def = statKey
-	end
-	table.insert(mods, mod)
-	return mod
-end
-
 -- Skill types:
 -- 1	Attack
 -- 2	Spell
@@ -123,6 +77,17 @@ local function mapAST(ast)
 	else
 		return ast
 	end
+end
+
+local function addMod(mods, modDef, value)
+	local mod = {
+		mult = 1,
+		val = value,
+		levels = { value },
+		def = modDef,
+	}
+	table.insert(mods, mod)
+	return mod
 end
 
 local weaponClassMap = {
@@ -251,12 +216,19 @@ directiveTable.skill = function(state, args, out)
 	end
 	state.noGem = false
 	skill.baseFlags = { }
-	skill.mods = { }
 	local modMap = { }
+	skill.mods = { }
 	skill.levels = { }
+	local statMap = { }
+	skill.stats = { }
+	skill.statInterpolation = { }
 	skill.global = "nil"
 	skill.curse = "nil"
 	out:write('\tcolor = ', granted.Unknown0, ',\n')
+	if granted.Multiplier2 ~= 0 then
+		out:write('\tbaseEffectiveness = ', granted.Multiplier1, ',\n')
+		out:write('\tincrementalEffectiveness = ', granted.Multiplier2, ',\n')
+	end
 	if granted.IsSupport then
 		skill.isSupport = true
 		out:write('\tsupport = true,\n')
@@ -311,18 +283,6 @@ directiveTable.skill = function(state, args, out)
 		if activeSkill.SkillTotemId ~= 17 then
 			out:write('\tskillTotemId = ', activeSkill.SkillTotemId, ',\n')
 		end
-		local typeFlag = { }
-		for _, type in ipairs(activeSkill.ActiveSkillTypes) do
-			typeFlag[mapAST(type)] = true
-		end
-		if typeFlag[32] then
-			skill.global = '{ type = "GlobalEffect", effectType = "Curse" }'
-			skill.curse = skill.global
-		elseif typeFlag[44] then
-			skill.global = '{ type = "GlobalEffect", effectType = "Aura" }'
-		elseif typeFlag[5] or typeFlag[31] then
-			skill.global = '{ type = "GlobalEffect", effectType = "Buff" }'
-		end
 		addMod(skill.mods, 'skill("castTime", {val})', granted.CastTime / 1000)
 	end
 	for _, key in ipairs(GrantedEffectsPerLevel.GrantedEffectsKey(grantedKey)) do
@@ -330,16 +290,16 @@ directiveTable.skill = function(state, args, out)
 		local levelRow = GrantedEffectsPerLevel[key]
 		level.level = levelRow.Level
 		table.insert(skill.levels, level)
-		local function addLevelMod(statKey, value, forcePerLevel)
-			local mod = skill.mods[modMap[statKey]]
+		local function addLevelMod(modDef, value, forcePerLevel)
+			local mod = skill.mods[modMap[modDef]]
 			if mod then
 				if value ~= mod.val then
 					mod.perLevel = true
 				end
 			else
-				modMap[statKey] = #skill.mods + 1
-				addMod(skill.mods, statKey)
-				mod = skill.mods[modMap[statKey]]
+				modMap[modDef] = #skill.mods + 1
+				addMod(skill.mods, modDef)
+				mod = skill.mods[modMap[modDef]]
 				mod.val = value
 			end
 			if forcePerLevel then
@@ -374,25 +334,32 @@ directiveTable.skill = function(state, args, out)
 			addLevelMod('skill("cooldown", {val})', levelRow.Cooldown / 1000)
 		end
 		for i, statKey in ipairs(levelRow.StatsKeys) do
-			addLevelMod(statKey, levelRow["Stat"..i.."Value"])
+			local statId = Stats[statKey].Id
+			if not statMap[statId] then
+				statMap[statId] = #skill.stats + 1
+				table.insert(skill.stats, { id = statId })
+			end
+			skill.statInterpolation[i] = levelRow.StatData[i]
+			if skill.statInterpolation[i] == 3 then
+				table.insert(skill.stats[statMap[statId]], levelRow["Stat"..i.."Float"] / EffectivenessCostConstants[levelRow.EffectivenessCostConstantsKeys[i]].Multiplier)
+			else
+				table.insert(skill.stats[statMap[statId]], levelRow["Stat"..i.."Value"])
+			end
 		end
 		for i, statKey in ipairs(levelRow.StatsKeys2) do
-			addLevelMod(statKey)
+			local statId = Stats[statKey].Id
+			if not statMap[statId] then
+				statMap[statId] = #skill.stats + 1
+				table.insert(skill.stats, { id = statId })
+			end
 		end
-		if not skill.qualityMods then
-			skill.qualityMods = { }
+		if not skill.qualityStats then
+			skill.qualityStats = { }
 			for i, statKey in ipairs(levelRow.Quality_StatsKeys) do
-				addMod(skill.qualityMods, statKey, levelRow.Quality_Values[i] / 1000)
+				table.insert(skill.qualityStats, { Stats[statKey].Id, levelRow.Quality_Values[i] / 1000 })
 			end
 		end
 	end
-end
-
--- #global <Buff|Aura|Debuff|Curse>
--- Sets the global effect tag for this skill
-directiveTable.global = function(state, args, out)
-	local skill = state.skill
-	skill.global = '{ type = "GlobalEffect", effectType = "'..args..'" }'
 end
 
 -- #flags <flag>[ <flag>[...]]
@@ -448,32 +415,6 @@ directiveTable.setLevelVals = function(state, args, out)
 	end
 end
 
--- #setMod <StatId>==<mod definition[;<mult|div>=<val>]
--- Sets or overrides the mapping of the given stat
-directiveTable.setMod = function(state, args, out)
-	local skill = state.skill
-	local id, def = args:match("(.*)==(.*)")
-	for _, list in ipairs({skill.mods,skill.qualityMods}) do
-		for _, mod in ipairs(list) do
-			if mod.id == id then
-				local name, mult = def:match("(.*);mult=(.*)")
-				if name then
-					mod.def = name
-					mod.mult = tonumber(mult)
-				else
-					local name, div = def:match("(.*);div=(.*)")
-					if name then
-						mod.def = name
-						mod.mult = 1 / tonumber(div)
-					else
-						mod.def = def
-					end
-				end
-			end
-		end
-	end
-end
-
 -- #mods
 -- Emits the skill modifiers
 directiveTable.mods = function(state, args, out)
@@ -488,43 +429,15 @@ directiveTable.mods = function(state, args, out)
 	out:write('\tbaseMods = {\n')
 	for _, mod in ipairs(skill.mods) do
 		if not mod.perLevel then
-			out:write('\t\t')
-			if mod.def and mod.def ~= "nil" then
-				out:write(mod.def:gsub("{val}",(mod.val or 0)*mod.mult):gsub("{global}",skill.global):gsub("{curse}",skill.curse), ', ')
-			end
-			if mod.id then
-				out:write('--"', mod.id, '" = ', (mod.val or "?"))
-			end
-			out:write('\n')
+			out:write('\t\t', mod.def:gsub("{val}",(mod.val or 0)*mod.mult), ',\n')
 		end
-	end
-	out:write('\t},\n')
-	out:write('\tqualityMods = {\n')
-	for _, mod in ipairs(skill.qualityMods) do
-		out:write('\t\t')
-		if mod.def then
-			out:write(mod.def:gsub("{val}",mod.levels[1]*mod.mult):gsub("{global}",skill.global):gsub("{curse}",skill.curse), ', ')
-		end
-		if mod.id then
-			out:write('--"', mod.id, '" = ', mod.levels[1])
-		end
-		out:write('\n')
 	end
 	out:write('\t},\n')
 	out:write('\tlevelMods = {\n')
 	local lcol = 1
 	for _, mod in ipairs(skill.mods) do
 		if mod.perLevel then
-			out:write('\t\t')
-			if mod.def then
-				out:write('[', lcol, '] = ', mod.def:gsub("{val}","nil"):gsub("{global}",skill.global):gsub("{curse}",skill.curse), ', ')
-				if mod.id then
-					out:write('--"', mod.id, '"')
-				end
-				out:write('\n')
-			else
-				out:write('--[', lcol, '] = "', mod.id, '"\n')
-			end
+			out:write('\t\t[', lcol, '] = ', mod.def:gsub("{val}","nil"), ',\n')
 			mod.col = lcol
 			lcol = lcol + 1
 		end
@@ -541,6 +454,30 @@ directiveTable.mods = function(state, args, out)
 					out:write('nil, ')
 				end
 			end
+		end
+		out:write('},\n')
+	end
+	out:write('\t},\n')
+	out:write('\tqualityStats = {\n')
+	for _, stat in ipairs(skill.qualityStats) do
+		out:write('\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+	end
+	out:write('\t},\n')
+	out:write('\tstats = {\n')
+	for _, stat in ipairs(skill.stats) do
+		out:write('\t\t"', stat.id, '",\n')
+	end
+	out:write('\t},\n')
+	out:write('\tstatInterpolation = { ')
+	for _, type in ipairs(skill.statInterpolation) do
+		out:write(type, ', ')
+	end
+	out:write('},\n')
+	out:write('\tstatLevels = {\n')
+	for index, level in ipairs(skill.levels) do
+		out:write('\t\t[', level.level, '] = { ')
+		for _, stat in ipairs(skill.stats) do
+			out:write(tostring(stat[index]), ', ')
 		end
 		out:write('},\n')
 	end
@@ -587,9 +524,10 @@ for skillGemKey = 0, SkillGems.maxRow do
 end
 out:write('}')
 
-os.execute("xcopy Skills\\act_*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
-os.execute("xcopy Skills\\sup_*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
-os.execute("xcopy Skills\\other.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
-os.execute("xcopy Skills\\glove.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
+os.execute("xcopy Skills\\*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
+--os.execute("xcopy Skills\\act_*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
+--os.execute("xcopy Skills\\sup_*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
+--os.execute("xcopy Skills\\other.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
+--os.execute("xcopy Skills\\glove.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
 
 print("Skill data exported.")

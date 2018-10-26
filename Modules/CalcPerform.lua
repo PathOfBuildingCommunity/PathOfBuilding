@@ -369,8 +369,11 @@ function calcs.perform(env)
 		if env.minion.minionData.energyShield then
 			env.minion.modDB:NewMod("EnergyShield", "BASE", m_floor(env.data.monsterAllyLifeTable[env.minion.level] * env.minion.minionData.life * env.minion.minionData.energyShield), "Base")
 		end
-		env.minion.modDB:NewMod("Evasion", "BASE", env.data.monsterEvasionTable[env.minion.level], "Base")
-		env.minion.modDB:NewMod("Accuracy", "BASE", env.data.monsterAccuracyTable[env.minion.level], "Base")
+		if env.minion.minionData.armour then
+			env.minion.modDB:NewMod("Armour", "BASE", m_floor((10 + env.minion.level * 2) * env.minion.minionData.armour * 1.038 ^ env.minion.level), "Base")
+		end
+		env.minion.modDB:NewMod("Evasion", "BASE", round((30 + env.minion.level * 5) * 1.03 ^ env.minion.level), "Base")
+		env.minion.modDB:NewMod("Accuracy", "BASE", round((17 + env.minion.level / 2) * (env.minion.minionData.accuracy or 1) * 1.03 ^ env.minion.level), "Base")
 		env.minion.modDB:NewMod("CritMultiplier", "BASE", 30, "Base")
 		env.minion.modDB:NewMod("CritDegenMultiplier", "BASE", 30, "Base")
 		env.minion.modDB:NewMod("FireResist", "BASE", env.minion.minionData.fireResist, "Base")
@@ -772,6 +775,30 @@ function calcs.perform(env)
 							curse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 							t_insert(minionCurses, curse)
 						end
+					elseif buff.type == "Debuff" then
+						local stackCount
+						if buff.stackVar then
+							stackCount = modDB:Sum("BASE", skillCfg, "Multiplier:"..buff.stackVar)
+							if buff.stackLimit then
+								stackCount = m_min(stackCount, buff.stackLimit)
+							elseif buff.stackLimitVar then
+								stackCount = m_min(stackCount, modDB:Sum("BASE", skillCfg, "Multiplier:"..buff.stackLimitVar))
+							end
+						else
+							stackCount = activeSkill.skillData.stackCount or 1
+						end
+						if env.mode_effective and stackCount > 0 then
+							activeSkill.debuffSkill = true
+							local srcList = common.New("ModList")
+							ConPrintTable(buff)
+							ConPrintTable(activeSkill.skillData)
+							ConPrintf("%d", stackCount)
+							srcList:ScaleAddList(buff.modList, stackCount)
+							if activeSkill.skillData.stackCount then
+								srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", activeSkill.skillData.stackCount, buff.name)
+							end
+							mergeBuff(srcList, debuffs, buff.name)
+						end
 					end
 				end
 			end
@@ -783,7 +810,7 @@ function calcs.perform(env)
 		for _, value in ipairs(modDB:Sum("LIST", nil, "ExtraCurse")) do
 			local gemModList = common.New("ModList")
 			local grantedEffect = env.data.skills[value.skillId]
-			calcs.mergeSkillInstanceMods(gemModList, {
+			calcs.mergeSkillInstanceMods(env, gemModList, {
 				grantedEffect = grantedEffect,
 				level = value.level,
 				quality = 0,

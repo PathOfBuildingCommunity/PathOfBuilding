@@ -5,6 +5,11 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill AxisDoubleStrikeTrigger
+#flags attack melee
+#baseMod skill("dpsMultiplier", 2)
+#mods
+
 #skill BanditExplosiveArrow Explosive Arrow
 #flags cast projectile area duration
 #baseMod skill("showAverage", true)
@@ -22,8 +27,20 @@ local skills, mod, flag, skill = ...
 #flags spell
 #mods
 
+#skill BreachCleave
+#flags attack melee area
+#mods
+
 #skill BullCharge Charge
 #flags attack melee
+#mods
+
+#skill CageSpiderCycloneTriggerSandstorms
+#flags attack melee area
+#mods
+
+#skill CageSpiderSandSpark Sandstorm
+#flags spell projectile duration
 #mods
 
 #skill ChaosDegenAura Chaos Aura
@@ -47,8 +64,18 @@ local skills, mod, flag, skill = ...
 #flags cast area
 #mods
 
+#skill FireballIncusionLightning Lightning Ball
+#flags spell projectile area
+#mods
+
 #skill FireMonsterWhirlingBlades Fire Roll
 #flags attack melee movement duration
+	statMap = {
+		["whirling_blades_base_ground_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil),
+			div = 60,
+		},
+	},
 #mods
 
 #skill FlamebearerFlameBlue Blue Flame
@@ -77,6 +104,10 @@ local skills, mod, flag, skill = ...
 #baseMod mod("BleedChance", "BASE", 100)
 #mods
 
+#skill HolyFireElementalFireball
+#flags spell projectile area
+#mods
+
 #skill IguanaProjectile Ranged Attack
 #flags attack projectile
 #mods
@@ -89,12 +120,38 @@ local skills, mod, flag, skill = ...
 #flags attack projectile
 #mods
 
+#skill KaomFireBeamTotemSpectre Scorching Ray Totem
+#flags spell totem duration
+	statMap = {
+		["fire_beam_enemy_fire_resistance_%_per_stack"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectStackVar = "KaomFireBeamTotemStage", effectStackLimit = 24 }),
+		},
+	},
+#baseMod mod("Damage", "MORE", 60, 0, 0, { type = "Multiplier", actor = "parent", var = "KaomFireBeamTotemStage", base = -60, limit = 8 })
+#mods
+
 #skill KaomWarriorGroundSlam Ground Slam
 #flags attack melee area
 #mods
 
 #skill KaomWarriorMoltenStrike Molten Strike
 #flags attack melee
+#mods
+
+#skill KitavaDemonLeapSlam
+#flags attack melee area
+#mods
+
+#skill KitavaDemonCleave
+#flags attack melee area
+#mods
+
+#skill KitavaDemonWhirlingBlades
+#flags attack melee 
+#mods
+
+#skill KitavaDemonXMortar Mortar
+#flags spell projectile area
 #mods
 
 #skill MassFrenzy Mass Frenzy
@@ -145,12 +202,20 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 #mods
 
+#skill MountainGoatmanIceSpear
+#flags spell projectile
+#mods
+
 #skill MonsterLeapSlam Leap Slam
 #flags attack melee area
 #mods
 
 #skill MonsterLesserMultiFireballSpectre Lesser Multi Fireball
 #flags spell projectile area
+#mods
+
+#skill MonsterLesserMultiIceSpear Lesser Multi Ice Spear
+#flags spell projectile
 #mods
 
 #skill MonsterLightningArrow Lightning Arrow
@@ -163,6 +228,10 @@ local skills, mod, flag, skill = ...
 
 #skill MonsterMultiFireballSpectre Multi Fireball
 #flags spell projectile area
+#mods
+
+#skill MonsterMultiIceSpear Multi Ice Spear
+#flags spell projectile
 #mods
 
 #skill MonsterProjectileWeakness Projectile Weakness
@@ -192,6 +261,10 @@ local skills, mod, flag, skill = ...
 
 #skill MonsterSplitFireballSpectre Split Fireball
 #flags spell projectile area
+#mods
+
+#skill MonsterSplitIceSpear Split Ice Spear
+#flags spell projectile
 #mods
 
 #skill MonsterWarlordsMark Warlord's Mark
@@ -252,7 +325,6 @@ local skills, mod, flag, skill = ...
 
 #skill SeaWitchScreech Screech
 #flags spell duration area
-#global Debuff
 #mods
 
 #skill SeaWitchWave Wave
@@ -280,10 +352,22 @@ local skills, mod, flag, skill = ...
 #flags attack projectile
 #mods
 
+#skill SolarisChampionFlameVortex Flame Vortex
+#flags spell projectile duration
+#mods
+
+#skill SpecialBeamCannon Beam
+#flags spell area
+#mods
+
 #skill TarMortarTaster Tar Projectile
 #flags spell projectile area
 #mods
 
 #skill UndyingWhirlingBlades Whirling Blades
 #flags attack melee movement
+#mods
+
+#skill WickerManMoltenStrike
+#flags attack melee
 #mods
