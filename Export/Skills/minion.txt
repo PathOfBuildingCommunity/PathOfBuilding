@@ -49,6 +49,10 @@ local skills, mod, flag, skill = ...
 #flags attack melee movement
 #mods
 
+#skill RagingSpiritMeleeAttack
+#flags attack melee
+#mods
+
 #skill SkeletonProjectileCold Cold Projectile
 #flags spell projectile
 #mods

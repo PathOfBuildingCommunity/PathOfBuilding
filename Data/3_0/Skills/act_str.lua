@@ -1750,6 +1750,11 @@ skills["VaalEarthquake"] = {
 			name = "Aftershock",
 		},
 	},
+	statMap = {
+		["quake_slam_fully_charged_explosion_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,

@@ -340,7 +340,7 @@ directiveTable.skill = function(state, args, out)
 				table.insert(skill.stats, { id = statId })
 			end
 			skill.statInterpolation[i] = levelRow.StatData[i]
-			if skill.statInterpolation[i] == 3 then
+			if skill.statInterpolation[i] == 3 and levelRow.EffectivenessCostConstantsKeys[i] ~= 2 then
 				table.insert(skill.stats[statMap[statId]], levelRow["Stat"..i.."Float"] / EffectivenessCostConstants[levelRow.EffectivenessCostConstantsKeys[i]].Multiplier)
 			else
 				table.insert(skill.stats[statMap[statId]], levelRow["Stat"..i.."Value"])
