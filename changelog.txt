@@ -1,3 +1,5 @@
+VERSION[1.4.112][2019/10/26]
+ * Fixed a bug preventing certain buff/aura affects from applying; this affected Herald of Agony, Haste, and Vaal RF
 VERSION[1.4.111][2019/10/26]
  * Vaal Earthquake's DPS should now be calculated correctly
  * Fixed error with "X of the Grave" glove enchantments

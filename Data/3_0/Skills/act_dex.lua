@@ -4687,7 +4687,7 @@ skills["Haste"] = {
 	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [75] = true, },
 	statMap = {
 		["cast_speed_+%_from_haste_aura"] = {
-			mod("Speed", "INC", nil, ModFlag.Cast, 0, {global}),
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["attack_speed_+%"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -4813,7 +4813,7 @@ skills["VaalHaste"] = {
 	skillTypes = { [2] = true, [5] = true, [11] = true, [18] = true, [27] = true, [12] = true, [43] = true, [44] = true, },
 	statMap = {
 		["cast_speed_+%_from_haste_aura"] = {
-			mod("Speed", "INC", nil, ModFlag.Cast, 0, {global}),
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["attack_speed_+%"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -5067,10 +5067,10 @@ skills["HeraldOfAgony"] = {
 	},
 	statMap = {
 		["skill_buff_grants_chance_to_poison_%"] = {
-			mod("PoisonChance", "BASE", nil, 0, 0, {global}),
+			mod("PoisonChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["herald_of_agony_poison_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison, {global}),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["scorpion_minion_damage_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
