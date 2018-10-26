@@ -1,10 +1,18 @@
-VERSION[1.4.112][2019/10/26]
+VERSION[1.4.113][2018/10/26]
+ * Added the following spectres to the spectre library:
+    * Host Chieftain
+    * Risen Vaal Advocate (Physical)
+	* Risen Vaal Advocate (Fire)
+	* Risen Vaal Advocate (Chaos)
+ * Fixed the missing Cyclone skill on Dancing Dervish
+ * Fixed more instances of buff effects not applying (Vaal Ancestral Warchief, Lightning Golem's Wrath)
+VERSION[1.4.112][2018/10/26]
  * Fixed a bug preventing certain buff/aura affects from applying; this affected Herald of Agony, Haste, and Vaal RF
-VERSION[1.4.111][2019/10/26]
+VERSION[1.4.111][2018/10/26]
  * Vaal Earthquake's DPS should now be calculated correctly
  * Fixed error with "X of the Grave" glove enchantments
  * Fixed error when loading a build with Vaal Double Strike
-VERSION[1.4.110][2019/10/26]
+VERSION[1.4.110][2018/10/26]
 As of this update I am once again able to add and update minions/spectres, which hadn't been possible since 3.0:
  * Added the following minions:
     * Agony Crawler (Herald of Agony)
@@ -27,7 +35,7 @@ As of this update I am once again able to add and update minions/spectres, which
 	* Wicker Man
  * Minion Accuracy values are now more correct
  * Minion Armour values are now calculated and displayed in the Calcs tab
-VERSION[1.4.109][2019/10/25]
+VERSION[1.4.109][2018/10/25]
  * Applied the skill changes from 3.4.2
  * Updated the passive tree export links to 3.4
  * Added support for Hierophant's Illuminated Devotion

@@ -43,6 +43,20 @@ local skills, mod, flag, skill = ...
 
 #skill LightningGolemWrath Wrath
 #flags spell aura area duration
+	statMap = {
+		["attack_minimum_added_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["attack_maximum_added_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["spell_minimum_added_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["spell_maximum_added_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
 #mods
 
 #skill SpectralSkullShieldCharge Charge
@@ -80,6 +94,12 @@ local skills, mod, flag, skill = ...
 
 #skill SpiderMinionLeapSlam Leap Slam
 #flags attack melee area movement
+#mods
+
+#skill DancingDervishCyclone
+#flags attack area melee
+#baseMod skill("dpsMultiplier", 2)
+#baseMod skill("radiusIsWeaponRange", true)
 #mods
 
 #skill SummonPhantasmFadingProjectile Physical Projectile

@@ -37,6 +37,11 @@ local skills, mod, flag, skill = ...
 
 #skill VaalAncestralWarchief
 #flags attack melee totem area duration
+	statMap = {
+		["slam_ancestor_totem_grant_owner_melee_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ancestral Warchief" }),
+		},
+	},
 #baseMod skill("allowTotemBuff", true)
 #baseMod skill("thisIsNotABuff", true)
 #mods

@@ -436,6 +436,11 @@ skills["VaalAncestralWarchief"] = {
 		["One Handed Sword"] = true,
 	},
 	skillTotemId = 16,
+	statMap = {
+		["slam_ancestor_totem_grant_owner_melee_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ancestral Warchief" }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
