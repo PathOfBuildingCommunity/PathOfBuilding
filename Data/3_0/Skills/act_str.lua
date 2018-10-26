@@ -5156,15 +5156,6 @@ skills["Smite"] = {
 	},
 	statMap = {
 		["base_chance_to_shock_%_from_skill"] = {
-			mod("EnemyShockChance", "BASE", nil, 0, 0, {global}),
-		},
-		["minimum_added_lightning_damage_from_skill"] = {
-			mod("LightningMin", "BASE", nil, 0, 0, {global}),
-		},
-		["maximum_added_lightning_damage_from_skill"] = {
-			mod("LightningMax", "BASE", nil, 0, 0, {global}),
-		},
-		["base_chance_to_shock_%_from_skill"] = {
 			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["minimum_added_lightning_damage_from_skill"] = {

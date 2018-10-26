@@ -447,7 +447,7 @@ local skills, mod, flag, skill = ...
 #flags spell aura area
 	statMap = {
 		["cast_speed_+%_from_haste_aura"] = {
-			mod("Speed", "INC", nil, ModFlag.Cast, 0, {global}),
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["attack_speed_+%"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -463,7 +463,7 @@ local skills, mod, flag, skill = ...
 #flags spell aura area duration vaal
 	statMap = {
 		["cast_speed_+%_from_haste_aura"] = {
-			mod("Speed", "INC", nil, ModFlag.Cast, 0, {global}),
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["attack_speed_+%"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -492,10 +492,10 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["skill_buff_grants_chance_to_poison_%"] = {
-			mod("PoisonChance", "BASE", nil, 0, 0, {global}),
+			mod("PoisonChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["herald_of_agony_poison_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison, {global}),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["scorpion_minion_damage_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})

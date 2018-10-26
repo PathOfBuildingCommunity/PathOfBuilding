@@ -7864,7 +7864,7 @@ skills["VaalRighteousFire"] = {
 	skillTypes = { [2] = true, [5] = true, [11] = true, [29] = true, [40] = true, [33] = true, [18] = true, [43] = true, [12] = true, },
 	statMap = {
 		["vaal_righteous_fire_spell_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Spell, 0, {global}),
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["vaal_righteous_fire_life_and_es_%_as_damage_per_second"] = {
 			skill("FireDot", nil, { type = "PerStat", statList = { "Life", "EnergyShield" } }),

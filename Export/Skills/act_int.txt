@@ -726,7 +726,7 @@ local skills, mod, flag, skill = ...
 #flags spell area
 	statMap = {
 		["vaal_righteous_fire_spell_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Spell, 0, {global}),
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["vaal_righteous_fire_life_and_es_%_as_damage_per_second"] = {
 			skill("FireDot", nil, { type = "PerStat", statList = { "Life", "EnergyShield" } }),
