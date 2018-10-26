@@ -64,6 +64,14 @@ local skills, mod, flag, skill = ...
 #flags cast area
 #mods
 
+#skill FireballIncursionChaos Chaos Ball
+#flags spell projectile area
+#mods
+
+#skill FireballIncusionFire Fireball
+#flags spell projectile area
+#mods
+
 #skill FireballIncusionLightning Lightning Ball
 #flags spell projectile area
 #mods
@@ -114,6 +122,10 @@ local skills, mod, flag, skill = ...
 
 #skill IncaMinionProjectile Chaos Projectile
 #flags spell projectile
+#mods
+
+#skill IncursionMeteorUpheaval Chaos Spikes
+#flags spell area
 #mods
 
 #skill InsectSpawnerSpit Spit
@@ -370,4 +382,17 @@ local skills, mod, flag, skill = ...
 
 #skill WickerManMoltenStrike
 #flags attack melee
+#mods
+
+#skill VaalincursionMortar Physical Mortar
+#flags spell projectile area
+#mods
+
+#skill VaalIncursionFirestorm Firestorm
+#flags spell area duration
+#baseMod skill("showAverage", true)
+#mods
+
+#skill VaalIncursionSpecialBeamCannonBlood Physical Beam
+#flags spell area
 #mods

@@ -21,6 +21,7 @@ local minions, mod = ...
 #monster Metadata/Monsters/Beasts/BeastCleaveEnduringCry
 -- Blood apes
 #monster Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage
+#monster Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite
 -- Bull
 #monster Metadata/Monsters/Bull/Bull
 -- Cage Spider
@@ -68,6 +69,9 @@ local minions, mod = ...
 #monster Metadata/Monsters/KaomWarrior/KaomWarrior3
 #monster Metadata/Monsters/KaomWarrior/KaomWarrior7
 -- Kitava's Cultist
+#monster Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve
+#monster Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve
+#monster Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_
 #monster Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_
 -- Kitava's Herald
 #monster Metadata/Monster/KitavaDemon/KitavaDemon

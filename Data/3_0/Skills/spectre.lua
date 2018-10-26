@@ -554,6 +554,78 @@ skills["ExperimenterDetonateDead"] = {
 		[3] = { 4, 0.80000001192093, 1.2000000476837, 1, -70, 0, -25, },
 	},
 }
+skills["FireballIncursionChaos"] = {
+	name = "Chaos Ball",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 2,
+	incrementalEffectiveness = 0.025000000372529,
+	description = "Unleashes a ball of fire towards a target which explodes, damaging nearby foes.",
+	skillTypes = { [3] = true, [68] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, },
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 1.2),
+		skill("CritChance", 6),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 0, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_chaos_damage",
+		"spell_maximum_base_chaos_damage",
+		"spell_maximum_action_distance_+%",
+		"base_is_projectile",
+	},
+	statInterpolation = { 3, 3, 1, },
+	statLevels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -40, nil, },
+	},
+}
+skills["FireballIncusionFire"] = {
+	name = "Fireball",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 0.97219997644424,
+	incrementalEffectiveness = 0.050000000745058,
+	description = "Unleashes a ball of fire towards a target which explodes, damaging nearby foes.",
+	skillTypes = { [3] = true, [68] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, },
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 1.2),
+		skill("CritChance", 6),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 0, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"spell_maximum_action_distance_+%",
+		"base_is_projectile",
+	},
+	statInterpolation = { 3, 3, 1, },
+	statLevels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -40, nil, },
+	},
+}
 skills["FireballIncusionLightning"] = {
 	name = "Lightning Ball",
 	hidden = true,
@@ -1075,6 +1147,43 @@ skills["IncaMinionProjectile"] = {
 		[1] = { 0.26669999957085, 0.40000000596046, 0.40000000596046, 0.60000002384186, 1, -75, },
 		[2] = { 0.26669999957085, 0.40000000596046, 0.40000000596046, 0.60000002384186, 1, -75, },
 		[3] = { 0.67330002784729, 1.0132999420166, 1.0099999904633, 1.5199999809265, 1, -75, },
+	},
+}
+skills["IncursionMeteorUpheaval"] = {
+	name = "Chaos Spikes",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.25,
+	incrementalEffectiveness = 0.02250000089407,
+	skillTypes = { [2] = true, [10] = true, [33] = true, [36] = true, },
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 2.5),
+		skill("CritChance", 5),
+		skill("cooldown", 8),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"upheaval_number_of_spikes",
+		"monster_penalty_against_minions_damage_+%_final_vs_player_minions",
+		"skill_physical_damage_%_to_convert_to_chaos",
+		"is_area_damage",
+	},
+	statInterpolation = { 3, 3, 1, 1, 1, },
+	statLevels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 8, 0, 30, nil, },
 	},
 }
 skills["InsectSpawnerSpit"] = {
@@ -3696,5 +3805,116 @@ skills["WickerManMoltenStrike"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 60, 4, 20, 10, -40, },
+	},
+}
+skills["VaalincursionMortar"] = {
+	name = "Physical Mortar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.5,
+	incrementalEffectiveness = 0.029999999329448,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [3] = true, [68] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, },
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 1.2),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"projectile_spread_radius",
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"skill_physical_damage_%_to_convert_to_chaos",
+		"spell_maximum_action_distance_+%",
+		"is_area_damage",
+		"base_is_projectile",
+	},
+	statInterpolation = { 1, 3, 3, 1, 1, },
+	statLevels = {
+		[1] = { 10, 0.80000001192093, 1.2000000476837, 0, -40, nil, nil, },
+	},
+}
+skills["VaalIncursionFirestorm"] = {
+	name = "Firestorm",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 4.4443998336792,
+	incrementalEffectiveness = 0.03999999910593,
+	description = "Flaming bolts rain down over the targeted area. They explode when landing, dealing damage to nearby enemies.",
+	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, [67] = true, },
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1.2),
+		skill("cooldown", 6),
+		skill("showAverage", true),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_skill_effect_duration",
+		"fire_storm_fireball_delay_ms",
+		"firestorm_base_area_of_effect_+%",
+		"monster_penalty_against_minions_damage_+%_final_vs_player_minions",
+		"is_area_damage",
+	},
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
+	statLevels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 600, 200, 100, 0, nil, },
+	},
+}
+skills["VaalIncursionSpecialBeamCannonBlood"] = {
+	name = "Physical Beam",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2,
+	incrementalEffectiveness = 0.035000000149012,
+	skillTypes = { [2] = true, [10] = true, },
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 1.5),
+		skill("cooldown", 8),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 83, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+	},
+	statInterpolation = { 3, 3, },
+	statLevels = {
+		[1] = { 0.80000001192093, 1.2000000476837, nil, },
 	},
 }

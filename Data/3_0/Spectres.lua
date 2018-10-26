@@ -298,6 +298,32 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
 		-- MonsterCastsMassFrenzyText
 	},
 }
+minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite"] = {
+	name = "Host Chieftain",
+	life = 1.5,
+	armour = 0.2,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.905,
+	attackRange = 5,
+	accuracy = 1,
+	damageFixup = 0.22,
+	weaponType1 = "One Handed Mace",
+	skillList = {
+		"Melee",
+		"BloodChieftainSummonParasiteMonkeys",
+		"MassPower",
+	},
+	modList = {
+		-- MonsterSpeedAndDamageFixupLarge
+		-- MonsterSummonsMonkeysText
+		-- MonsterUsesMassPowerText
+	},
+}
 -- Bull
 minions["Metadata/Monsters/Bull/Bull"] = {
 	name = "Fighting Bull",
@@ -999,6 +1025,73 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior7"] = {
 	},
 }
 -- Kitava's Cultist
+minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = {
+	name = "Risen Vaal Advocate",
+	life = 5.4,
+	armour = 0.2,
+	fireResist = 35,
+	coldResist = 35,
+	lightningResist = 35,
+	chaosResist = 35,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"VaalincursionMortar",
+		"VaalIncursionSpecialBeamCannonBlood",
+	},
+	modList = {
+		-- MonsterDelveDropModifiers
+	},
+}
+minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = {
+	name = "Risen Vaal Advocate",
+	life = 5.4,
+	armour = 0.2,
+	fireResist = 35,
+	coldResist = 35,
+	lightningResist = 35,
+	chaosResist = 35,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"FireballIncursionChaos",
+		"IncursionSummonPhantasms",
+		"IncursionMeteorUpheaval",
+	},
+	modList = {
+		-- MonsterDelveDropModifiers
+	},
+}
+minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = {
+	name = "Risen Vaal Advocate",
+	life = 5.4,
+	armour = 0.2,
+	fireResist = 35,
+	coldResist = 35,
+	lightningResist = 35,
+	chaosResist = 35,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"FireballIncusionFire",
+		"VaalIncursionFirestorm",
+	},
+	modList = {
+		-- MonsterDelveDropModifiers
+	},
+}
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_"] = {
 	name = "Risen Vaal Advocate",
 	life = 5.4,
