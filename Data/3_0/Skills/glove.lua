@@ -43,7 +43,7 @@ skills["EnchantmentOfBladesOnHit"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, 1.6000000238419, 3, 100, 0, 2, nil, nil, nil, },
 	},
@@ -85,7 +85,7 @@ skills["EnchantmentOfBladesOnHit2"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1.5, 2.2999999523163, 3, 100, 0, 2, nil, nil, nil, },
 	},
@@ -127,7 +127,7 @@ skills["EnchantmentOfBladesOnHit3"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2, 3, 3, 100, 0, 2, nil, nil, nil, },
 	},
@@ -169,7 +169,7 @@ skills["EnchantmentOfBladesOnHit4"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2.4000000953674, 3.7999999523163, 4, 100, 0, 2, nil, nil, nil, },
 	},
@@ -208,7 +208,7 @@ skills["EnchantmentOfFlamesOnHit"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 1.2000000476837, 1.7999999523163, 100, nil, nil, nil, },
 	},
@@ -247,7 +247,7 @@ skills["EnchantmentOfFlamesOnHit2"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 1.7000000476837, 2.5, 100, nil, nil, nil, },
 	},
@@ -286,7 +286,7 @@ skills["EnchantmentOfFlamesOnHit3"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 2.2000000476837, 3.2000000476837, 100, nil, nil, nil, },
 	},
@@ -325,7 +325,7 @@ skills["EnchantmentOfFlamesOnHit4"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 2.5999999046326, 4, 100, nil, nil, nil, },
 	},
@@ -360,7 +360,7 @@ skills["EnchantmentOfForceOnHit"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 100, nil, nil, },
 	},
@@ -395,7 +395,7 @@ skills["EnchantmentOfForceOnHit2"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 100, nil, nil, },
 	},
@@ -430,7 +430,7 @@ skills["EnchantmentOfForceOnHit3"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 100, nil, nil, },
 	},
@@ -465,7 +465,7 @@ skills["EnchantmentOfForceOnHit4"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 100, nil, nil, },
 	},
@@ -507,7 +507,7 @@ skills["EnchantmentOfFrostOnKill"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, 1.6000000238419, 1, 100, 8, nil, nil, nil, nil, },
 	},
@@ -549,7 +549,7 @@ skills["EnchantmentOfFrostOnKill2"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1.5, 2.2999999523163, 1, 100, 8, nil, nil, nil, nil, },
 	},
@@ -591,7 +591,7 @@ skills["EnchantmentOfFrostOnKill3"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2, 3, 1, 100, 8, nil, nil, nil, nil, },
 	},
@@ -633,7 +633,7 @@ skills["EnchantmentOfFrostOnKill4"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2.4000000953674, 3.7999999523163, 1, 100, 8, nil, nil, nil, nil, },
 	},
@@ -694,7 +694,7 @@ skills["EnchantmentOfFuryOnHit"] = {
 		"skill_can_fire_wand_projectiles",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 800, 180, 10, 1, 50, -90, 2, nil, nil, nil, nil, },
 	},
@@ -755,7 +755,7 @@ skills["EnchantmentOfFuryOnHit2"] = {
 		"skill_can_fire_wand_projectiles",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 800, 180, 10, 1, 50, -90, 3, nil, nil, nil, nil, },
 	},
@@ -816,7 +816,7 @@ skills["EnchantmentOfFuryOnHit3"] = {
 		"skill_can_fire_wand_projectiles",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 800, 180, 10, 1, 50, -90, 4, nil, nil, nil, nil, },
 	},
@@ -877,7 +877,7 @@ skills["EnchantmentOfFuryOnHit4"] = {
 		"skill_can_fire_wand_projectiles",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 800, 180, 10, 1, 50, -90, 5, nil, nil, nil, nil, },
 	},
@@ -920,7 +920,7 @@ skills["EnchantmentOfInfernoOnKill"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, 1.6000000238419, 2000, 100, 450, 100, nil, nil, nil, },
 	},
@@ -963,7 +963,7 @@ skills["EnchantmentOfInfernoOnKill2"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1.5, 2.2999999523163, 2000, 100, 450, 100, nil, nil, nil, },
 	},
@@ -1006,7 +1006,7 @@ skills["EnchantmentOfInfernoOnKill3"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2, 3, 2000, 100, 450, 100, nil, nil, nil, },
 	},
@@ -1049,7 +1049,7 @@ skills["EnchantmentOfInfernoOnKill4"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2.4000000953674, 3.7999999523163, 2000, 100, 450, 100, nil, nil, nil, },
 	},
@@ -1107,7 +1107,7 @@ skills["EnchantmentOfIreWhenHit"] = {
 		"attack_is_not_melee_override",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 30, 100, 50, nil, nil, nil, nil, },
 	},
@@ -1165,7 +1165,7 @@ skills["EnchantmentOfIreWhenHit2"] = {
 		"attack_is_not_melee_override",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 30, 100, 50, nil, nil, nil, nil, },
 	},
@@ -1223,7 +1223,7 @@ skills["EnchantmentOfIreWhenHit3"] = {
 		"attack_is_not_melee_override",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 30, 100, 50, nil, nil, nil, nil, },
 	},
@@ -1281,7 +1281,7 @@ skills["EnchantmentOfIreWhenHit4"] = {
 		"attack_is_not_melee_override",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 30, 100, 50, nil, nil, nil, nil, },
 	},
@@ -1319,7 +1319,7 @@ skills["EnchantmentOfLightWhenCrit"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 360, 100, nil, nil, },
 	},
@@ -1357,7 +1357,7 @@ skills["EnchantmentOfLightWhenCrit2"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 360, 100, nil, nil, },
 	},
@@ -1395,7 +1395,7 @@ skills["EnchantmentOfLightWhenCrit3"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 360, 100, nil, nil, },
 	},
@@ -1433,7 +1433,7 @@ skills["EnchantmentOfLightWhenCrit4"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 360, 100, nil, nil, },
 	},
@@ -1479,7 +1479,7 @@ skills["EnchantmentOfReflectionWhenHit"] = {
 		"cast_when_hit_%",
 		"active_skill_minion_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 1, 80, 150, 4, 32, 100, 100, },
 	},
@@ -1525,7 +1525,7 @@ skills["EnchantmentOfReflectionWhenHit2"] = {
 		"cast_when_hit_%",
 		"active_skill_minion_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 1, 100, 150, 4, 53, 100, 200, },
 	},
@@ -1571,7 +1571,7 @@ skills["EnchantmentOfReflectionWhenHit3"] = {
 		"cast_when_hit_%",
 		"active_skill_minion_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 1, 120, 150, 4, 66, 100, 300, },
 	},
@@ -1617,7 +1617,7 @@ skills["EnchantmentOfReflectionWhenHit4"] = {
 		"cast_when_hit_%",
 		"active_skill_minion_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 1, 140, 150, 4, 75, 100, 400, },
 	},
@@ -1678,7 +1678,7 @@ skills["EnchantmentOfSpiteWhenHit"] = {
 		"skill_can_fire_wand_projectiles",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2000, 9, 100, 2, 50, nil, nil, nil, nil, nil, nil, nil, },
 	},
@@ -1739,7 +1739,7 @@ skills["EnchantmentOfSpiteWhenHit2"] = {
 		"skill_can_fire_wand_projectiles",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2000, 9, 100, 2, 50, nil, nil, nil, nil, nil, nil, nil, },
 	},
@@ -1800,7 +1800,7 @@ skills["EnchantmentOfSpiteWhenHit3"] = {
 		"skill_can_fire_wand_projectiles",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2000, 9, 100, 2, 50, nil, nil, nil, nil, nil, nil, nil, },
 	},
@@ -1861,7 +1861,7 @@ skills["EnchantmentOfSpiteWhenHit4"] = {
 		"skill_can_fire_wand_projectiles",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2000, 9, 100, 2, 50, nil, nil, nil, nil, nil, nil, nil, },
 	},
@@ -1903,7 +1903,7 @@ skills["EnchantmentOfTempestOnHit"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, 1.6000000238419, 0, 0, 100, 2000, nil, nil, },
 	},
@@ -1945,7 +1945,7 @@ skills["EnchantmentOfTempestOnHit2"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1.5, 2.2999999523163, 0, 0, 100, 2000, nil, nil, },
 	},
@@ -1987,7 +1987,7 @@ skills["EnchantmentOfTempestOnHit3"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2, 3, 0, 0, 100, 2000, nil, nil, },
 	},
@@ -2029,7 +2029,7 @@ skills["EnchantmentOfTempestOnHit4"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2.4000000953674, 3.7999999523163, 0, 0, 100, 2000, nil, nil, },
 	},
@@ -2071,7 +2071,7 @@ skills["EnchantmentOfTheGraveOnKill"] = {
 		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
 		"minions_cannot_taunt_enemies",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 5000, 3, 10, 32, 20, nil, },
 	},
@@ -2113,7 +2113,7 @@ skills["EnchantmentOfTheGraveOnKill2"] = {
 		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
 		"minions_cannot_taunt_enemies",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 5000, 3, 10, 53, 20, nil, },
 	},
@@ -2155,7 +2155,7 @@ skills["EnchantmentOfTheGraveOnKill3"] = {
 		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
 		"minions_cannot_taunt_enemies",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 5000, 3, 10, 66, 20, nil, },
 	},
@@ -2197,7 +2197,7 @@ skills["EnchantmentOfTheGraveOnKill4"] = {
 		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
 		"minions_cannot_taunt_enemies",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 5000, 3, 10, 75, 20, nil, },
 	},
@@ -2236,7 +2236,7 @@ skills["EnchantmentOfThunderOnKill"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 1, 1.6000000238419, 100, nil, nil, },
 	},
@@ -2275,7 +2275,7 @@ skills["EnchantmentOfThunderOnKill2"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 1.5, 2.2999999523163, 100, nil, nil, },
 	},
@@ -2314,7 +2314,7 @@ skills["EnchantmentOfThunderOnKill3"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 2, 3, 100, nil, nil, },
 	},
@@ -2353,7 +2353,7 @@ skills["EnchantmentOfThunderOnKill4"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 2.4000000953674, 3.7999999523163, 100, nil, nil, },
 	},
@@ -2402,7 +2402,7 @@ skills["EnchantmentOfWarOnKill"] = {
 		"attack_trigger_on_kill_%",
 		"active_skill_minion_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 10000, 1, 100, 50, },
 	},
@@ -2451,7 +2451,7 @@ skills["EnchantmentOfWarOnKill2"] = {
 		"attack_trigger_on_kill_%",
 		"active_skill_minion_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 10000, 1, 100, 100, },
 	},
@@ -2500,7 +2500,7 @@ skills["EnchantmentOfWarOnKill3"] = {
 		"attack_trigger_on_kill_%",
 		"active_skill_minion_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 10000, 1, 100, 150, },
 	},
@@ -2549,7 +2549,7 @@ skills["EnchantmentOfWarOnKill4"] = {
 		"attack_trigger_on_kill_%",
 		"active_skill_minion_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 10000, 1, 100, 200, },
 	},
@@ -2590,7 +2590,7 @@ skills["EnchantmentOfWinterWhenHit"] = {
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, },
+	statInterpolation = { 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 1, 1.6000000238419, 1, 100, nil, nil, nil, },
 	},
@@ -2631,7 +2631,7 @@ skills["EnchantmentOfWinterWhenHit2"] = {
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, },
+	statInterpolation = { 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 1.5, 2.2999999523163, 1, 100, nil, nil, nil, },
 	},
@@ -2672,7 +2672,7 @@ skills["EnchantmentOfWinterWhenHit3"] = {
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, },
+	statInterpolation = { 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 2, 3, 1, 100, nil, nil, nil, },
 	},
@@ -2713,7 +2713,7 @@ skills["EnchantmentOfWinterWhenHit4"] = {
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { true, true, false, false, },
+	statInterpolation = { 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 2.4000000953674, 3.7999999523163, 1, 100, nil, nil, nil, },
 	},

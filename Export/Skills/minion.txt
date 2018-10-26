@@ -94,6 +94,28 @@ local skills, mod, flag, skill = ...
 #flags attack area
 #mods
 
+#skill HeraldOfLightMinionSlam Slam
+#flags attack area
+#mods
+
+#skill SentinelHolySlam Crusade Slam
+#flags attack area
+#mods
+
+#skill RelicTriggeredNova Nova
+#flags spell
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", effectName = "Holy Relic's Boon"}),
+			div = 60,
+		},
+	},
+#mods
+
+#skill DominatingBlowMinionCharge
+#flags attack
+#mods
+
 skills["MinionInstability"] = {
 	name = "Minion Instability",
 	hidden = true,

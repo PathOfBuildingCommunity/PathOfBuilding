@@ -254,6 +254,11 @@ local skills, mod, flag, skill = ...
 	addMinionList = {
 		"SummonedPhantasm"
 	},
+	statMap = {
+		["base_number_of_support_ghosts_allowed"] = {
+			mod("ActivePhantasmLimit", "BASE", nil),
+		},
+	},
 #mods
 
 #skill SupportAilments

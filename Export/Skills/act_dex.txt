@@ -162,18 +162,18 @@ local skills, mod, flag, skill = ...
 #flags spell duration
 	statMap = {
 		["life_leech_from_physical_attack_damage_permyriad"] = {
-			mod("PhysicalDamageLifeLeech", "BASE", 1.2, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("PhysicalDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["base_physical_damage_%_of_maximum_life_to_deal_per_minute"] = {
-			mod("PhysicalDegen", "BASE", 0.04, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 6000,
 		},
 		["base_physical_damage_%_of_maximum_energy_shield_to_deal_per_minute"] = {
-			mod("PhysicalDegen", "BASE", 0.04, 0, 0, { type = "PerStat", stat = "EnergyShield", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 6000,
 		},
 		["attack_speed_+%"] = {
-			mod("Speed", "INC", 0.25, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod skill("thisIsNotABuff", true)
@@ -292,6 +292,17 @@ local skills, mod, flag, skill = ...
 
 #skill ElementalHit
 #flags attack melee projectile
+	parts = {
+		{
+			name = "Fire",
+		},
+		{
+			name = "Cold",
+		},
+		{
+			name = "Lightning",
+		},
+	},
 #baseMod flag("DealNoPhysical")
 #baseMod flag("DealNoChaos")
 #baseMod flag("DealNoFire", { type = "SkillPart", skillPart = 2 })
@@ -309,17 +320,6 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" })
 #baseMod mod("Damage", "MORE", 10, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" })
-	parts = {
-		{
-			name = "Fire",
-		},
-		{
-			name = "Cold",
-		},
-		{
-			name = "Lightning",
-		},
-	},
 #mods
 
 #skill EtherealKnives
@@ -486,13 +486,28 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill HeraldOfAgony
-#flags cast
+#flags cast minion
+	minionList = {
+		"HeraldOfAgonySpiderPlated",
+	},
 	statMap = {
 		["skill_buff_grants_chance_to_poison_%"] = {
 			mod("PoisonChance", "BASE", nil, 0, 0, {global}),
 		},
 		["herald_of_agony_poison_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison, {global}),
+		},
+		["scorpion_minion_damage_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+		},
+		["scorpion_minion_attack_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+		},
+		["scorpion_minion_minimum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+		},
+		["scorpion_minion_maximum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
 		},
 	},
 #mods
@@ -643,7 +658,7 @@ local skills, mod, flag, skill = ...
 			flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["chance_to_be_knocked_back_%"] = {
-			mod("SelfKnockbackChance", "BASE", 25, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfKnockbackChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["projectile_damage_taken_+%"] = {
 			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -678,7 +693,7 @@ local skills, mod, flag, skill = ...
 			flag("SelfIgnoreColdResistance", { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 		["cold_damage_taken_+%"] = {
-			mod("ColdDamageTaken", "INC", -25, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ColdDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #mods
@@ -788,7 +803,7 @@ local skills, mod, flag, skill = ...
 #flags spell mine area buff
 	statMap = {
 		["base_movement_velocity_+%"] = {
-			mod("MovementSpeed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #mods
@@ -874,10 +889,10 @@ local skills, mod, flag, skill = ...
 			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["buff_time_passed_-%"] = {
-			mod("BuffExpireFaster", "MORE", -40, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["curse_effect_+%_vs_players"] = {
-			mod("CurseEffectAgainstPlayer", "INC", -40),
+			mod("CurseEffectAgainstPlayer", "INC", nil),
 		},
 	},
 #baseMod skill("debuff", true)

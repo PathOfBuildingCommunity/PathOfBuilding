@@ -8,6 +8,7 @@ local minions, mod = ...
 -- Blackguard
 #monster Metadata/Monsters/Axis/AxisCaster
 #monster Metadata/Monsters/Axis/AxisCasterArc
+#monster Metadata/Monsters/Axis/AxisEliteSoldier3Champion
 #monster Metadata/Monsters/Axis/AxisExperimenter
 #monster Metadata/Monsters/Axis/AxisExperimenter2
 #monster Metadata/Monsters/Axis/AxisExperimenterRaiseZombie
@@ -22,6 +23,8 @@ local minions, mod = ...
 #monster Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage
 -- Bull
 #monster Metadata/Monsters/Bull/Bull
+-- Cage Spider
+#monster Metadata/Monster/CageSpider/CageSpider2
 -- Cannibals
 #monster Metadata/Monsters/Cannibal/CannibalMaleChampion
 -- Goatmen
@@ -30,6 +33,7 @@ local minions, mod = ...
 #monster Metadata/Monsters/Goatman/GoatmanShamanFireball
 #monster Metadata/Monsters/Goatman/GoatmanShamanFireChampion
 #monster Metadata/Monsters/Goatman/GoatmanShamanLightning
+#monster Metadata/Monsters/Goatman/MountainGoatmanShamanIceSpear
 -- Miscreation
 #monster Metadata/Monsters/DemonFemale/DemonFemale
 #monster Metadata/Monsters/DemonModular/DemonFemaleRanged
@@ -49,9 +53,12 @@ local minions, mod = ...
 #monster Metadata/Monsters/Grappler/GrapplerLabyrinth
 -- Ribbon
 #monster Metadata/Monsters/Guardians/GuardianFire
+#monster Metadata/Monsters/Guardians/GuardianFire_BlueMaps
 #monster Metadata/Monsters/Guardians/GuardianLightning
 -- Gut flayer
 #monster Metadata/Monsters/HalfSkeleton/HalfSkeleton
+-- Solar Guard
+#monster Metadata/Monsters/HolyFireElemental/HolyFireElementalSolarisBeam
 -- Construct
 #monster Metadata/Monsters/incaminion/Fragment
 -- Carrion queen
@@ -59,6 +66,11 @@ local minions, mod = ...
 -- Kaom's Warriors
 #monster Metadata/Monsters/KaomWarrior/KaomWarrior2
 #monster Metadata/Monsters/KaomWarrior/KaomWarrior3
+#monster Metadata/Monsters/KaomWarrior/KaomWarrior7
+-- Kitava's Cultist
+#monster Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_
+-- Kitava's Herald
+#monster Metadata/Monster/KitavaDemon/KitavaDemon
 -- Birdman
 #monster Metadata/Monsters/Kiweth/Kiweth
 #monster Metadata/Monsters/Kiweth/KiwethSeagull
@@ -117,3 +129,5 @@ local minions, mod = ...
 #monster Metadata/Monsters/Undying/CityStalkerMaleCasterArmour
 #monster Metadata/Monsters/Undying/UndyingOutcastPuncture
 #monster Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades
+-- Wicker Man
+#monster Metadata/Monsters/WickerMan/WickerMan

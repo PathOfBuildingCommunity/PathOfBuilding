@@ -107,7 +107,7 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 	statMap = {
 		["damage_+%"] = {
-			mod("Damage", "INC", 50, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod skill("buffMinions", true)
@@ -186,16 +186,16 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 	statMap = {
 		["attack_minimum_added_chaos_damage"] = {
-			mod("ChaosMin", "BASE", 58, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ChaosMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["attack_maximum_added_chaos_damage"] = {
-			mod("ChaosMax", "BASE", 81, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["spell_minimum_added_chaos_damage"] = {
-			mod("ChaosMin", "BASE", 52, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ChaosMin", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["spell_maximum_added_chaos_damage"] = {
-			mod("ChaosMax", "BASE", 69, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #baseMod skill("radius", 36)
@@ -348,6 +348,19 @@ local skills, mod, flag, skill = ...
 #skill SummonHarbingerOfTime
 #flags spell minion
 	fromItem = true,
+#mods
+
+#skill TriggeredSummonGhostOnKill
+#flags spell minion
+	fromItem = true,
+	minionList = {
+		"SummonedPhantasm",
+	},
+	statMap = {
+		["base_number_of_support_ghosts_allowed"] = {
+			mod("ActivePhantasmLimit", "BASE", nil),
+		},
+	},
 #mods
 
 #skill SummonRigwaldsPack

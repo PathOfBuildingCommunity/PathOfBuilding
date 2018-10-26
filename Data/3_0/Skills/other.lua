@@ -32,7 +32,7 @@ skills["Melee"] = {
 		"skill_can_fire_arrows",
 		"skill_can_fire_wand_projectiles",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 1, 1, },
 	},
@@ -70,7 +70,7 @@ skills["GemDetonateMines"] = {
 	stats = {
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { },
+	statInterpolation = { },
 	statLevels = {
 		[1] = { nil, },
 		[2] = { nil, },
@@ -116,7 +116,7 @@ skills["Portal"] = {
 	stats = {
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { },
+	statInterpolation = { },
 	statLevels = {
 		[1] = { nil, },
 		[2] = { nil, },
@@ -163,7 +163,7 @@ skills["VaalBreach"] = {
 		"base_deal_no_damage",
 		"display_vaal_breach_no_drops_xp",
 	},
-	statUseEffectiveness = { },
+	statInterpolation = { },
 	statLevels = {
 		[1] = { nil, nil, },
 		[2] = { nil, nil, },
@@ -207,7 +207,7 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 		"triggered_spell_spell_damage_+%",
 		"unique_mjolner_lightning_spells_triggered",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 100, nil, },
 	},
@@ -235,7 +235,7 @@ skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
 	stats = {
 		"unique_cospris_malice_cold_spells_triggered",
 	},
-	statUseEffectiveness = { },
+	statInterpolation = { },
 	statLevels = {
 		[1] = { nil, },
 	},
@@ -273,7 +273,7 @@ skills["RepeatingShockwave"] = {
 		"is_area_damage",
 		"skill_can_add_multiple_charges_per_action",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[7] = { 50, 75, 10, nil, nil, nil, nil, nil, },
 	},
@@ -321,7 +321,7 @@ skills["BirdAspect"] = {
 		"base_skill_effect_duration",
 		"base_secondary_skill_effect_duration",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[20] = { 10, 10, 10, 10, 4000, 4000, },
 	},
@@ -370,7 +370,7 @@ skills["CatAspect"] = {
 		"base_skill_effect_duration",
 		"base_secondary_skill_effect_duration",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[20] = { 100, 15, -50, 10, 10, 4000, 6000, },
 	},
@@ -410,7 +410,7 @@ skills["CrabAspect"] = {
 		"physical_damage_reduction_%_per_crab_aspect_stack",
 		"max_crab_aspect_stacks",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[20] = { 2, 10, },
 	},
@@ -458,7 +458,7 @@ skills["SpiderAspect"] = {
 		"spider_aspect_web_interval_ms",
 		"spider_aspect_max_web_count",
 	},
-	statUseEffectiveness = { false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[20] = { -30, 5, 6000, 1000, 3, },
 	},
@@ -472,7 +472,7 @@ skills["BloodOffering"] = {
 	fromItem = true,
 	statMap = {
 		["damage_+%"] = {
-			mod("Damage", "INC", 50, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 	baseFlags = {
@@ -502,7 +502,7 @@ skills["BloodOffering"] = {
 		"damage_+%",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[15] = { 3000, 500, 20, 35, 5, 50, nil, },
 	},
@@ -539,7 +539,7 @@ skills["TriggeredBoneNova"] = {
 		"base_is_projectile",
 		"cannot_cause_bleeding",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[20] = { 8, 100, 15, nil, nil, nil, nil, },
 	},
@@ -571,7 +571,7 @@ skills["ColdAegis"] = {
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[20] = { 1000, 1, nil, nil, },
 	},
@@ -606,7 +606,7 @@ skills["TriggeredConsecrate"] = {
 		"cast_on_crit_%",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[10] = { 5000, 360, 100, nil, },
 	},
@@ -639,7 +639,7 @@ skills["TriggeredSummonLesserShrine"] = {
 		"base_skill_effect_duration",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 100, 10000, nil, },
 	},
@@ -672,7 +672,7 @@ skills["ChaosDegenAuraUnique"] = {
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[20] = { 27000, nil, nil, },
 	},
@@ -711,7 +711,7 @@ skills["DeathWalk"] = {
 		"skill_can_add_multiple_charges_per_action",
 		"damage_cannot_be_reflected",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[20] = { 5, nil, nil, nil, nil, nil, nil, },
 	},
@@ -790,7 +790,7 @@ skills["TouchOfGod"] = {
 		"base_chance_to_shock_%",
 		"is_area_damage",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 50, -30, 20, nil, },
 		[2] = { 50, -30, 20, nil, },
@@ -861,7 +861,7 @@ skills["ElementalAegis"] = {
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[20] = { 1000, 2, nil, nil, },
 	},
@@ -889,7 +889,7 @@ skills["SupportElementalPenetration"] = {
 	stats = {
 		"reduce_enemy_elemental_resistance_%",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[20] = { 37, },
 	},
@@ -946,7 +946,7 @@ skills["OnHitWhileCursedTriggeredCurseNova"] = {
 		"projectiles_nova",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[20] = { 0.80000001192093, 1.2000000476837, 16, 100, 100, 3000, nil, nil, nil, },
 	},
@@ -962,16 +962,16 @@ skills["Envy"] = {
 	fromItem = true,
 	statMap = {
 		["attack_minimum_added_chaos_damage"] = {
-			mod("ChaosMin", "BASE", 58, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ChaosMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["attack_maximum_added_chaos_damage"] = {
-			mod("ChaosMax", "BASE", 81, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["spell_minimum_added_chaos_damage"] = {
-			mod("ChaosMin", "BASE", 52, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ChaosMin", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["spell_maximum_added_chaos_damage"] = {
-			mod("ChaosMax", "BASE", 69, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -1002,7 +1002,7 @@ skills["Envy"] = {
 		"spell_maximum_added_chaos_damage",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { true, true, false, true, true, },
+	statInterpolation = { 3, 3, 1, 3, 3, },
 	statLevels = {
 		[15] = { 0.5, 0.69999998807907, 0, 0.44999998807907, 0.60000002384186, nil, },
 	},
@@ -1034,7 +1034,7 @@ skills["FireAegis"] = {
 		"cast_on_gain_skill",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[20] = { 1000, 0, nil, nil, },
 	},
@@ -1102,7 +1102,7 @@ skills["FireBurstOnHit"] = {
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 10, nil, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 10, nil, nil, },
@@ -1166,7 +1166,7 @@ skills["VaalAuraElementalDamageHealing"] = {
 		"base_elemental_damage_heals",
 		"modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[20] = { 5000, nil, nil, },
 	},
@@ -1212,7 +1212,7 @@ skills["IcestormUniqueStaff12"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_area_damage",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, 3, 1500, 100, 450, 500, 4, 150, nil, nil, },
 	},
@@ -1251,7 +1251,7 @@ skills["TriggeredIcicleNova"] = {
 		"base_is_projectile",
 		"never_freeze",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[20] = { 8, 100, 38, 100, nil, nil, nil, nil, },
 	},
@@ -1284,7 +1284,7 @@ skills["MerveilWarp"] = {
 	stats = {
 		"base_skill_effect_duration",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[20] = { 1500, },
 	},
@@ -1351,7 +1351,7 @@ skills["LightningSpell"] = {
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 0.5, 1.5, 100, nil, nil, },
 		[2] = { 0.5, 1.5, 100, nil, nil, },
@@ -1434,7 +1434,7 @@ skills["UniqueAnimateWeapon"] = {
 		"minion_movement_speed_+%",
 		"minion_grants_rampage_kill_to_parent_on_hitting_unique_enemy_%",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[15] = { 1, 25, 110, 100, 30, 25, },
 	},
@@ -1471,7 +1471,7 @@ skills["TriggeredMoltenStrike"] = {
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[16] = { 2, 20, nil, nil, nil, nil, },
 	},
@@ -1514,7 +1514,7 @@ skills["TriggeredSummonSpider"] = {
 		"display_skill_minions_level_is_corpse_level",
 		"minions_cannot_taunt_enemies",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 20, 8000, 20, nil, nil, nil, nil, nil, },
 	},
@@ -1547,7 +1547,7 @@ skills["ShadeForm"] = {
 		"enemy_aggro_radius_+%",
 		"trigger_on_skill_use_from_chest_%",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[20] = { 3000, -50, 20, },
 	},
@@ -1582,7 +1582,7 @@ skills["TriggeredShockedGround"] = {
 		"base_skill_effect_duration",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[10] = { 100, 7, 5000, nil, },
 	},
@@ -1623,7 +1623,7 @@ skills["SpiritBurst"] = {
 		"base_is_projectile",
 		"projectiles_nova",
 	},
-	statUseEffectiveness = { false, true, true, false, },
+	statInterpolation = { 1, 3, 3, 1, },
 	statLevels = {
 		[20] = { 100, 0.80000001192093, 1.2000000476837, 6, nil, nil, nil, },
 	},
@@ -1694,7 +1694,7 @@ skills["StormCascadeTriggered"] = {
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 5, 60, 3, 100, nil, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 5, 60, 3, 100, nil, nil, },
@@ -1763,7 +1763,7 @@ skills["SummonBeastialRhoa"] = {
 		"display_minion_monster_level",
 		"alternate_minion",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[20] = { 0, 1, 30, 12, 70, 0, },
 	},
@@ -1803,7 +1803,7 @@ skills["SummonBeastialSnake"] = {
 		"display_minion_monster_level",
 		"alternate_minion",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[20] = { 0, 1, 30, 14, 70, 2, },
 	},
@@ -1843,7 +1843,7 @@ skills["SummonBeastialUrsa"] = {
 		"display_minion_monster_level",
 		"alternate_minion",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[20] = { 0, 1, 30, 13, 70, 1, },
 	},
@@ -1912,7 +1912,7 @@ skills["SummonEssenceSpirits"] = {
 		"minion_dies_when_parent_dies",
 		"minions_cannot_taunt_enemies",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { -15, 3, nil, nil, nil, nil, nil, },
 		[2] = { -15, 3, nil, nil, nil, nil, nil, },
@@ -1973,7 +1973,7 @@ skills["SummonHarbingerOfTheArcane"] = {
 		"alternate_minion",
 		"display_one_harbinger_allowed",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 0, nil, },
 	},
@@ -2005,7 +2005,7 @@ skills["SummonHarbingerOfBrutality"] = {
 		"alternate_minion",
 		"display_one_harbinger_allowed",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 5, nil, },
 	},
@@ -2037,7 +2037,7 @@ skills["SummonHarbingerOfDirections"] = {
 		"alternate_minion",
 		"display_one_harbinger_allowed",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 3, nil, },
 	},
@@ -2069,7 +2069,7 @@ skills["SummonHarbingerOfFocus"] = {
 		"alternate_minion",
 		"display_one_harbinger_allowed",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 2, nil, },
 	},
@@ -2101,7 +2101,7 @@ skills["SummonHarbingerOfStorms"] = {
 		"alternate_minion",
 		"display_one_harbinger_allowed",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 4, nil, },
 	},
@@ -2133,9 +2133,54 @@ skills["SummonHarbingerOfTime"] = {
 		"alternate_minion",
 		"display_one_harbinger_allowed",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 1, nil, },
+	},
+}
+skills["TriggeredSummonGhostOnKill"] = {
+	name = "Summon Phantasm",
+	hidden = true,
+	color = 3,
+	description = "Summons a Phantasm minion, which uses a piercing projectile spell that deals physical damage.",
+	skillTypes = { [2] = true, [9] = true, [12] = true, [61] = true, [36] = true, [42] = true, },
+	minionSkillTypes = { [12] = true, [3] = true, [2] = true, [10] = true, [52] = true, },
+	fromItem = true,
+	minionList = {
+		"SummonedPhantasm",
+	},
+	statMap = {
+		["base_number_of_support_ghosts_allowed"] = {
+			mod("ActivePhantasmLimit", "BASE", nil),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	baseMods = {
+		skill("castTime", 1),
+		mod("ManaCost", "MORE", 20),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 70, },
+	},
+	qualityStats = {
+		{ "chance_to_summon_support_ghost_on_killing_blow_%", 0.5 },
+	},
+	stats = {
+		"trigger_on_corpse_consume_%_chance",
+		"base_skill_effect_duration",
+		"base_number_of_support_ghosts_allowed",
+		"skill_can_own_support_ghosts",
+		"skill_has_trigger_from_unique_item",
+	},
+	statInterpolation = { 1, 1, 1, },
+	statLevels = {
+		[20] = { 100, 15000, 10, nil, nil, },
 	},
 }
 skills["SummonRigwaldsPack"] = {
@@ -2173,7 +2218,7 @@ skills["SummonRigwaldsPack"] = {
 		"display_minion_monster_level",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[18] = { 30000, 20, 10, 8, 65, nil, },
 	},
@@ -2218,7 +2263,7 @@ skills["SummonVoidSphere"] = {
 		"spell_damage_modifiers_apply_to_skill_dot",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { false, false, false, false, false, true, true, true, },
+	statInterpolation = { 1, 1, 1, 1, 1, 3, 3, 3, },
 	statLevels = {
 		[20] = { 20, 8000, 4000, 5, 10, 0.80000001192093, 1.2000000476837, 83.333335195979, nil, nil, nil, nil, },
 	},
@@ -2252,7 +2297,7 @@ skills["TentacleSmash"] = {
 		"is_area_damage",
 		"attack_unusable_if_triggerable",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[20] = { 20, nil, nil, },
 	},
@@ -2294,7 +2339,7 @@ skills["AvianTornado"] = {
 		"always_pierce",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[20] = { 0.80000001192093, 1.2000000476837, 2500, 25, 25, nil, nil, nil, nil, },
 	},
@@ -2333,7 +2378,7 @@ skills["VoidGaze"] = {
 		"cast_on_skill_use_%",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[10] = { -10, 2500, 100, nil, },
 	},

@@ -85,7 +85,7 @@ skills["Arc"] = {
 		"arc_damage_+%_final_for_each_remaining_chain",
 		"arc_enhanced_behaviour",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.30000001192093, 1.7000000476837, 10, 4, 10, 15, nil, },
 		[2] = { 0.30000001192093, 1.7000000476837, 10, 4, 11, 15, nil, },
@@ -204,7 +204,7 @@ skills["VaalArcChain"] = {
 		"base_skill_effect_duration",
 		"modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.75, 1.25, 100, 5, 100, 100, 15, 4000, nil, },
 		[2] = { 0.75, 1.25, 100, 5, 100, 100, 15, 4000, nil, },
@@ -321,7 +321,7 @@ skills["ArcticBreath"] = {
 		"base_is_projectile",
 		"base_skill_effect_duration",
 	},
-	statUseEffectiveness = { true, true, false, false, },
+	statInterpolation = { 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 1, 880, },
 		[2] = { 0.80000001192093, 1.2000000476837, 1, 940, },
@@ -454,7 +454,7 @@ skills["AssassinsMark"] = {
 		"chance_to_grant_power_charge_on_death_%",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 6000, 0, -20, 5, 16, 16, 21, nil, },
 		[2] = { 6200, 1, -20, 5, 16, 16, 21, nil, },
@@ -570,7 +570,7 @@ skills["BallLightning"] = {
 		"ball_lightning_projectile_speed_and_hit_frequency_+%_final",
 		"base_is_projectile",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 0.10000000149012, 1.8999999761581, 33, nil, },
 		[2] = { 0.10000000149012, 1.8999999761581, 33, nil, },
@@ -695,7 +695,7 @@ skills["Blight"] = {
 		"active_skill_base_radius_+",
 		"spell_damage_modifiers_apply_to_skill_dot",
 	},
-	statUseEffectiveness = { true, false, false, false, false, false, },
+	statInterpolation = { 3, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 16.666667039196, 2500, 800, -80, 20, 0, nil, },
 		[2] = { 16.666667039196, 2500, 800, -80, 20, 0, nil, },
@@ -818,7 +818,7 @@ skills["VaalBlight"] = {
 		"spell_damage_modifiers_apply_to_skill_dot",
 		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
 	},
-	statUseEffectiveness = { true, false, false, false, false, false, false, },
+	statInterpolation = { 3, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 16.666667039196, 6000, 3000, -80, 20, 0, 20, nil, nil, },
 		[2] = { 16.666667039196, 6000, 3000, -80, 20, 0, 20, nil, nil, },
@@ -966,7 +966,7 @@ skills["CorpseWarp"] = {
 		"spell_base_fire_damage_%_maximum_life",
 		"is_area_damage",
 	},
-	statUseEffectiveness = { false, true, true, false, },
+	statInterpolation = { 1, 3, 3, 1, },
 	statLevels = {
 		[1] = { 4, 0.80000001192093, 1.2000000476837, 3, nil, },
 		[2] = { 4, 0.80000001192093, 1.2000000476837, 3, nil, },
@@ -1089,7 +1089,7 @@ skills["BoneOffering"] = {
 		"minion_recover_X_life_on_block",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 3000, 25, 25, 500, 11, nil, },
 		[2] = { 3000, 26, 25, 500, 14, nil, },
@@ -1208,7 +1208,7 @@ skills["Clarity"] = {
 		"active_skill_base_radius_+",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 176, 0, nil, },
 		[2] = { 242, 1, nil, },
@@ -1327,7 +1327,7 @@ skills["VaalClarity"] = {
 		"base_deal_no_damage",
 		"modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 0, 8000, nil, nil, nil, },
 		[2] = { 1, 8100, nil, nil, nil, },
@@ -1451,7 +1451,7 @@ skills["ColdSnap"] = {
 		"is_area_damage",
 		"spell_damage_modifiers_apply_to_skill_dot",
 	},
-	statUseEffectiveness = { true, true, false, false, true, false, },
+	statInterpolation = { 3, 3, 1, 1, 3, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 5000, 0, 40.000002483527, 25, nil, nil, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 5000, 1, 41.666667597989, 25, nil, nil, nil, },
@@ -1575,7 +1575,7 @@ skills["VaalColdSnap"] = {
 		"vaal_cold_snap_gain_frenzy_charge_every_second_if_enemy_in_aura",
 		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
 	},
-	statUseEffectiveness = { true, true, false, false, false, true, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 3, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 4000, 100, 100, 40.000002483527, 0, nil, nil, nil, nil, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 4000, 100, 100, 41.666667597989, 1, nil, nil, nil, nil, nil, },
@@ -1702,7 +1702,7 @@ skills["Conductivity"] = {
 		"chance_to_be_shocked_%",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 9000, 0, -25, 10, nil, },
 		[2] = { 9100, 1, -26, 10, nil, },
@@ -1820,7 +1820,7 @@ skills["Contagion"] = {
 		"is_area_damage",
 		"spell_damage_modifiers_apply_to_skill_dot",
 	},
-	statUseEffectiveness = { true, false, false, },
+	statInterpolation = { 3, 1, 1, },
 	statLevels = {
 		[1] = { 16.666667039196, 5000, 0, nil, nil, },
 		[2] = { 16.666667039196, 5000, 0, nil, nil, },
@@ -1935,7 +1935,7 @@ skills["ConversionTrap"] = {
 		"base_deal_no_damage",
 		"traps_do_not_explode_on_timeout",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, 4000, 5300, nil, nil, nil, },
 		[2] = { 1, 4000, 5500, nil, nil, nil, },
@@ -2055,7 +2055,7 @@ skills["Convocation"] = {
 		"base_life_regeneration_rate_per_minute",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 2000, 1155, nil, },
 		[2] = { 2000, 1379, nil, },
@@ -2207,7 +2207,7 @@ skills["DarkPact"] = {
 		"is_area_damage",
 		"skeletal_chains_no_minions_targets_self",
 	},
-	statUseEffectiveness = { false, true, true, false, false, },
+	statInterpolation = { 1, 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 6, 0.80000001192093, 1.2000000476837, 2, 0, nil, nil, },
 		[2] = { 6, 0.80000001192093, 1.2000000476837, 2, 4, nil, nil, },
@@ -2260,7 +2260,7 @@ skills["Despair"] = {
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, [67] = true, [50] = true, },
 	statMap = {
 		["degen_effect_+%"] = {
-			mod("DamageTakenOverTime", "INC", 0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("DamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["base_chaos_damage_resistance_%"] = {
 			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -2335,7 +2335,7 @@ skills["Despair"] = {
 		"maximum_added_chaos_damage_taken",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, false, false, true, true, },
+	statInterpolation = { 1, 1, 1, 1, 3, 3, },
 	statLevels = {
 		[1] = { 9000, 0, -20, 15, 0.80000001192093, 1, nil, },
 		[2] = { 9100, 1, -20, 16, 0.80000001192093, 1, nil, },
@@ -2462,7 +2462,7 @@ skills["Discharge"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_area_damage",
 	},
-	statUseEffectiveness = { true, true, true, true, true, true, false, false, },
+	statInterpolation = { 3, 3, 3, 3, 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 0.11249999701977, 2.1375000476837, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, -35, nil, nil, },
 		[2] = { 0.11249999701977, 2.1375000476837, 0.80000001192093, 1.2000000476837, 0.65450000762939, 0.98180001974106, 1400, -35, nil, nil, },
@@ -2513,7 +2513,7 @@ skills["Discipline"] = {
 	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [75] = true, },
 	statMap = {
 		["energy_shield_recharge_rate_+%"] = {
-			mod("EnergyShieldRecharge", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("EnergyShieldRecharge", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_maximum_energy_shield"] = {
 			mod("EnergyShield", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -2584,7 +2584,7 @@ skills["Discipline"] = {
 		"energy_shield_recharge_rate_+%",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 60, 0, 30, nil, },
 		[2] = { 69, 1, 30, nil, },
@@ -2704,7 +2704,7 @@ skills["VaalDiscipline"] = {
 		"base_deal_no_damage",
 		"modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 0, 0, 3000, nil, nil, nil, },
 		[2] = { 0, 1, 3000, nil, nil, nil, },
@@ -2755,7 +2755,7 @@ skills["ElementalWeakness"] = {
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, [67] = true, },
 	statMap = {
 		["base_resist_all_elements_%"] = {
-			mod("ElementalResist", "BASE", -0.25, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {
@@ -2824,7 +2824,7 @@ skills["ElementalWeakness"] = {
 		"base_resist_all_elements_%",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 9000, 0, -20, nil, },
 		[2] = { 9100, 1, -21, nil, },
@@ -2878,10 +2878,10 @@ skills["Enfeeble"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["critical_strike_chance_+%"] = {
-			mod("CritChance", "INC", -25, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["accuracy_rating_+%"] = {
-			mod("Accuracy", "INC", -0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["base_critical_strike_multiplier_+"] = {
 			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -2957,7 +2957,7 @@ skills["Enfeeble"] = {
 		"base_critical_strike_multiplier_+",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 9000, 0, -18, -25, -21, -21, nil, },
 		[2] = { 9100, 1, -19, -25, -21, -21, nil, },
@@ -3079,7 +3079,7 @@ skills["EssenceDrain"] = {
 		"spell_damage_modifiers_apply_to_skill_dot",
 		"base_is_projectile",
 	},
-	statUseEffectiveness = { true, false, false, true, true, },
+	statInterpolation = { 3, 1, 1, 3, 3, },
 	statLevels = {
 		[1] = { 33.333334078391, 50, 3800, 0.15999999642372, 0.23999999463558, nil, nil, },
 		[2] = { 33.333334078391, 50, 3800, 0.15999999642372, 0.23999999463558, nil, nil, },
@@ -3201,7 +3201,7 @@ skills["FireNovaMine"] = {
 		"is_remote_mine",
 		"is_area_damage",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 16000, 3, 20, nil, nil, nil, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 16000, 3, 20, nil, nil, nil, nil, },
@@ -3329,7 +3329,7 @@ skills["Fireball"] = {
 		"active_skill_ignite_damage_+%_final",
 		"base_is_projectile",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 20, 0, 50, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 21, 0, 52, nil, },
@@ -3458,7 +3458,7 @@ skills["VaalFireballSpiralNova"] = {
 		"active_skill_ignite_damage_+%_final",
 		"base_is_projectile",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 32, 2000, -720, 0, 20, 50, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 32, 2000, -720, 0, 21, 52, nil, },
@@ -3579,7 +3579,7 @@ skills["Firestorm"] = {
 		"skill_override_pvp_scaling_time_ms",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1.2000000476837, 3, 2000, 100, 1, 450, nil, },
 		[2] = { 2, 3, 2000, 100, 1, 450, nil, },
@@ -3699,7 +3699,7 @@ skills["FlameDash"] = {
 		"is_area_damage",
 		"firestorm_use_server_effects",
 	},
-	statUseEffectiveness = { true, true, true, false, false, },
+	statInterpolation = { 3, 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 90.000003601114, 4000, 0, nil, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 90.000003601114, 4000, 4, nil, nil, },
@@ -3821,7 +3821,7 @@ skills["FlameWhip"] = {
 		"never_ignite",
 		"is_area_damage",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 50, nil, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 52, nil, nil, },
@@ -3962,7 +3962,7 @@ skills["Flameblast"] = {
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 110, 90, 5, nil, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 110, 90, 5, nil, nil, },
@@ -4081,7 +4081,7 @@ skills["VaalFlameblast"] = {
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 110, 90, 5, -1, nil, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 110, 90, 5, -1, nil, nil, },
@@ -4138,7 +4138,7 @@ skills["Flammability"] = {
 			mod("SelfIgniteChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["base_self_ignite_duration_-%"] = {
-			mod("SelfIgniteDuration", "INC", 0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfIgniteDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {
@@ -4208,7 +4208,7 @@ skills["Flammability"] = {
 		"chance_to_be_ignited_%",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 9000, 0, -25, 10, nil, },
 		[2] = { 9100, 1, -26, 10, nil, },
@@ -4334,7 +4334,7 @@ skills["FleshOffering"] = {
 		"offering_skill_effect_duration_per_corpse",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 3000, 20, 20, 20, 500, nil, },
 		[2] = { 3000, 21, 20, 21, 500, nil, },
@@ -4454,7 +4454,7 @@ skills["FreezingPulse"] = {
 		"base_is_projectile",
 		"always_pierce",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 0.69999998807907, 1.1000000238419, 0, nil, nil, },
 		[2] = { 0.75, 1.1499999761581, 1, nil, nil, },
@@ -4507,10 +4507,10 @@ skills["FrostBomb"] = {
 	skillTypes = { [2] = true, [11] = true, [12] = true, [34] = true, [10] = true, [26] = true, [18] = true, [17] = true, [19] = true, [36] = true, [60] = true, [67] = true, },
 	statMap = {
 		["base_cold_damage_resistance_%"] = {
-			mod("ColdResist", "BASE", -25, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 		["energy_shield_recharge_rate_+%"] = {
-			mod("EnergyShieldRecharge", "INC", -25, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+			mod("EnergyShieldRecharge", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 	},
 	baseFlags = {
@@ -4586,7 +4586,7 @@ skills["FrostBomb"] = {
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 2000, 5000, -25, -75, -75, -25, nil, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 2000, 5000, -25, -75, -75, -25, nil, nil, },
@@ -4702,7 +4702,7 @@ skills["FrostWall"] = {
 		"spell_maximum_base_cold_damage",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { false, false, false, true, true, },
+	statInterpolation = { 1, 1, 1, 3, 3, },
 	statLevels = {
 		[1] = { 3000, 150, 28, 0.69999998807907, 1.1000000238419, nil, },
 		[2] = { 3100, 150, 28, 0.69999998807907, 1.2000000476837, nil, },
@@ -4759,7 +4759,7 @@ skills["Frostbite"] = {
 			mod("SelfFreezeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["base_self_freeze_duration_-%"] = {
-			mod("SelfFreezeDuration", "INC", 1, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfFreezeDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {
@@ -4829,7 +4829,7 @@ skills["Frostbite"] = {
 		"chance_to_be_frozen_%",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 9000, 0, -25, 10, nil, },
 		[2] = { 9100, 1, -26, 10, nil, },
@@ -4943,7 +4943,7 @@ skills["FrostBolt"] = {
 		"base_is_projectile",
 		"always_pierce",
 	},
-	statUseEffectiveness = { true, true, },
+	statInterpolation = { 3, 3, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, nil, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, nil, nil, },
@@ -5061,7 +5061,7 @@ skills["GlacialCascade"] = {
 		"active_skill_base_radius_+",
 		"is_area_damage",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 5, 60, 0, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 5, 60, 0, nil, },
@@ -5201,7 +5201,7 @@ skills["HeraldOfThunder"] = {
 		"display_skill_deals_secondary_damage",
 		"skill_can_add_multiple_charges_per_action",
 	},
-	statUseEffectiveness = { true, true, true, true, false, false, false, },
+	statInterpolation = { 3, 3, 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.10000000149012, 0.40000000596046, 0.10000000149012, 0.40000000596046, 1, 34, 6000, nil, nil, nil, nil, },
 		[2] = { 0.10000000149012, 0.40000000596046, 0.10000000149012, 0.40000000596046, 1, 47, 6000, nil, nil, nil, nil, },
@@ -5317,7 +5317,7 @@ skills["IceNova"] = {
 		"active_skill_if_used_through_frostbolt_damage_+%_final",
 		"is_area_damage",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 0.85000002384186, 1.25, 40, nil, },
 		[2] = { 0.85000002384186, 1.25, 40, nil, },
@@ -5432,7 +5432,7 @@ skills["VaalIceNova"] = {
 		"ice_nova_radius_+%_per_repeat",
 		"is_area_damage",
 	},
-	statUseEffectiveness = { true, true, false, false, },
+	statInterpolation = { 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.25, 5, -20, nil, },
 		[2] = { 0.80000001192093, 1.25, 5, -20, nil, },
@@ -5563,7 +5563,7 @@ skills["IceSpear"] = {
 		"chill_effect_+%",
 		"base_is_projectile",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.87999999523163, 1.3500000238419, 40, 600, 10, nil, },
 		[2] = { 0.86000001430511, 1.2799999713898, 42, 600, 11, nil, },
@@ -5719,7 +5719,7 @@ skills["ExpandingFireCone"] = {
 		"skill_can_add_multiple_charges_per_action",
 		"expanding_fire_cone_final_wave_always_ignite",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 8, 500, 500, 25, 4, 100, nil, nil, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 8, 500, 500, 25, 4, 100, nil, nil, nil, },
@@ -5848,7 +5848,7 @@ skills["ClusterBurst"] = {
 		"base_is_projectile",
 		"skill_can_fire_wand_projectiles",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 4, -35, 0, nil, nil, },
 		[2] = { 4, -35, 1, nil, nil, },
@@ -5973,7 +5973,7 @@ skills["LightningTowerTrap"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_trap",
 	},
-	statUseEffectiveness = { false, false, true, true, false, false, false, },
+	statInterpolation = { 1, 1, 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 4000, 3500, 0.5, 1.5, 100, 350, 3, nil, nil, nil, nil, },
 		[2] = { 4000, 3500, 0.5, 1.5, 102, 350, 3, nil, nil, nil, nil, },
@@ -6091,7 +6091,7 @@ skills["LightningTendrilsChannelled"] = {
 		"lightning_tendrils_channelled_larger_pulse_interval",
 		"is_area_damage",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.10000000149012, 1.7000000476837, 0, 50, 4, nil, },
 		[2] = { 0.10000000149012, 1.8999999761581, 0, 50, 4, nil, },
@@ -6215,7 +6215,7 @@ skills["LightningTrap"] = {
 		"base_is_projectile",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.5, 1.5, 4000, 8, 20, 0, 80, nil, nil, nil, nil, nil, },
 		[2] = { 0.5, 1.5, 4000, 8, 20, 1, 82, nil, nil, nil, nil, nil, },
@@ -6342,7 +6342,7 @@ skills["VaalLightningTrap"] = {
 		"always_pierce",
 		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.5, 1.5, 4000, 8, 4000, 15, 0, 0, nil, nil, nil, nil, nil, nil, nil, nil, },
 		[2] = { 0.5, 1.5, 4000, 8, 4000, 15, 0, 0, nil, nil, nil, nil, nil, nil, nil, nil, },
@@ -6461,7 +6461,7 @@ skills["LightningWarp"] = {
 		"skill_effect_duration_+%",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.10000000149012, 1.8999999761581, 1, 1000, -20, nil, },
 		[2] = { 0.10000000149012, 1.8999999761581, 1, 1000, -21, nil, },
@@ -6578,7 +6578,7 @@ skills["VaalLightningWarpInstant"] = {
 		"skill_effect_duration_+%",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.10000000149012, 1.8999999761581, 1, 1000, 0, nil, },
 		[2] = { 0.10000000149012, 1.8999999761581, 1, 1000, -2, nil, },
@@ -6697,7 +6697,7 @@ skills["MagmaOrb"] = {
 		"is_area_damage",
 		"base_is_projectile",
 	},
-	statUseEffectiveness = { true, true, false, false, },
+	statInterpolation = { 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 0.89999997615814, 1.2000000476837, 1, 1, nil, nil, },
 		[2] = { 0.89999997615814, 1.2000000476837, 1, 1, nil, nil, },
@@ -6818,7 +6818,7 @@ skills["OrbOfStorms"] = {
 		"orb_of_storms_base_bolt_frequency_ms",
 		"skill_can_add_multiple_charges_per_action",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.5, 1.5, 6000, 0, 2, 0, 1000, nil, },
 		[2] = { 0.5, 1.5, 6000, 0, 2, 0, 1000, nil, },
@@ -6936,7 +6936,7 @@ skills["PowerSiphon"] = {
 		"kill_enemy_on_hit_if_under_10%_life",
 		"skill_can_fire_wand_projectiles",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 4, 20, 10, 20, nil, nil, },
 		[2] = { 4, 20, 10, 20, nil, nil, },
@@ -7055,7 +7055,7 @@ skills["VaalPowerSiphon"] = {
 		"kill_enemy_on_hit_if_under_10%_life",
 		"skill_can_fire_wand_projectiles",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 10, 20, nil, nil, nil, nil, nil, },
 		[2] = { 100, 10, 20, nil, nil, nil, nil, nil, },
@@ -7106,13 +7106,13 @@ skills["Purity"] = {
 	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [75] = true, },
 	statMap = {
 		["base_maximum_fire_damage_resistance_%"] = {
-			mod("FireResistMax", "BASE", 0, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_maximum_cold_damage_resistance_%"] = {
-			mod("ColdResistMax", "BASE", 0, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_maximum_lightning_damage_resistance_%"] = {
-			mod("LightningResistMax", "BASE", 0, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_resist_all_elements_%"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -7185,7 +7185,7 @@ skills["Purity"] = {
 		"active_skill_base_radius_+",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 12, 0, 0, 0, 0, nil, },
 		[2] = { 13, 0, 0, 0, 1, nil, },
@@ -7307,7 +7307,7 @@ skills["LightningResistAura"] = {
 		"active_skill_base_radius_+",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 22, 0, 0, nil, },
 		[2] = { 23, 0, 1, nil, },
@@ -7361,7 +7361,7 @@ skills["LightningImpurity"] = {
 			flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "Debuff" })
 		},
 		["lightning_damage_taken_+%"] = {
-			mod("LightningDamageTaken", "INC", -25, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("LightningDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -7431,7 +7431,7 @@ skills["LightningImpurity"] = {
 		"hits_ignore_my_lightning_resistance",
 		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { -25, 14, 3000, 0, nil, nil, nil, nil, },
 		[2] = { -25, 14, 3000, 5, nil, nil, nil, nil, },
@@ -7557,7 +7557,7 @@ skills["RaiseSpectre"] = {
 		"accuracy_rating",
 		"minion_elemental_resistance_30%",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, -30, -20, -20, 55, -53, 32, 142, nil, },
 		[2] = { 1, -25, -19, -19, 55, -53, 35, 162, nil, },
@@ -7673,7 +7673,7 @@ skills["RaiseZombie"] = {
 		"display_minion_monster_type",
 		"display_minion_monster_level",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 3, 0, 1, 1, },
 		[2] = { 3, 0, 1, 2, },
@@ -7813,7 +7813,7 @@ skills["RighteousFire"] = {
 		"base_nonlethal_fire_damage_%_of_maximum_energy_shield_taken_per_minute",
 		"active_skill_base_radius_+",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 20, 2400, 5400, 2400, 4200, 0, },
 		[2] = { 21, 2400, 5400, 2400, 4200, 0, },
@@ -7935,7 +7935,7 @@ skills["VaalRighteousFire"] = {
 		"is_area_damage",
 		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 30, 161, 4000, 20, nil, nil, },
 		[2] = { 30, 162, 4000, 21, nil, nil, },
@@ -8072,7 +8072,7 @@ skills["FireBeam"] = {
 		"fire_beam_enemy_fire_resistance_%_maximum",
 		"spell_damage_modifiers_apply_to_skill_dot",
 	},
-	statUseEffectiveness = { true, false, false, false, false, false, },
+	statInterpolation = { 3, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 16.666667039196, 1500, -40, 8, -3, -24, nil, },
 		[2] = { 16.666667039196, 1500, -40, 8, -3, -24, nil, },
@@ -8203,7 +8203,7 @@ skills["ShockNova"] = {
 		"shock_effect_+%",
 		"is_area_damage",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.5, 1.5, -80, 20, 20, nil, },
 		[2] = { 0.5, 1.5, -80, 20, 21, nil, },
@@ -8343,7 +8343,7 @@ skills["IceSiphonTrap"] = {
 		"is_trap",
 		"spell_damage_modifiers_apply_to_skill_dot",
 	},
-	statUseEffectiveness = { false, false, true, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 3, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 4000, 3000, 16.666667039196, 76, 17, 10, 762, 176, nil, nil, nil, },
 		[2] = { 4000, 3000, 16.666667039196, 104, 24, 10, 1042, 242, nil, nil, nil, },
@@ -8460,7 +8460,7 @@ skills["Spark"] = {
 		"base_projectile_speed_+%",
 		"base_is_projectile",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.10000000149012, 1.8999999761581, 2000, 4, 0, nil, },
 		[2] = { 0.10000000149012, 1.8999999761581, 2000, 4, 1, nil, },
@@ -8580,7 +8580,7 @@ skills["VaalSparkSpiralNova"] = {
 		"base_is_projectile",
 		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.10000000149012, 1.8999999761581, 2000, 100, 3000, 0, 0, nil, nil, },
 		[2] = { 0.10000000149012, 1.8999999761581, 2000, 100, 3000, 0, 1, nil, nil, },
@@ -8703,7 +8703,7 @@ skills["SpiritOffering"] = {
 		"base_resist_all_elements_%",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 3000, 500, 2, 20, 20, nil, },
 		[2] = { 3000, 500, 2, 20, 21, nil, },
@@ -8835,7 +8835,7 @@ skills["StormBurst"] = {
 		"base_is_projectile",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 31, 47, 65, 1, nil, nil, },
 		[2] = { 36, 55, 65, 1, nil, nil, },
@@ -8955,7 +8955,7 @@ skills["StormCall"] = {
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.69999998807907, 1.2999999523163, 1500, 0, 10, nil, nil, },
 		[2] = { 0.69999998807907, 1.2999999523163, 1500, 0, 11, nil, nil, },
@@ -9074,7 +9074,7 @@ skills["VaalStormCall"] = {
 		"monster_stormcall_individually_trigger",
 		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
 	},
-	statUseEffectiveness = { true, true, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.69999998807907, 1.2999999523163, 6000, 10, 250, nil, nil, nil, nil, },
 		[2] = { 0.69999998807907, 1.2999999523163, 6000, 11, 250, nil, nil, nil, nil, },
@@ -9202,7 +9202,7 @@ skills["SummonChaosGolem"] = {
 		"display_minion_monster_type",
 		"display_minion_monster_level",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0, 1, 3, 30, 5, 34, },
 		[2] = { 1, 1, 3, 32, 5, 36, },
@@ -9252,7 +9252,17 @@ skills["SummonRelic"] = {
 	description = "Summons a Holy Relic that stays close to you. When you hit an enemy with an attack, the Holy Relic triggers a nova spell that deals physical damage to enemies and grants life regeneration to allies. This life regeneration has a significantly higher value when applied to minions. The relic's nova spell has a very short cooldown.",
 	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
 	minionSkillTypes = { [10] = true, [2] = true, [11] = true, [42] = true, [52] = true, },
+	minionList = {
+		"HolyLivingRelic",
+	},
+	statMap = {
+		["base_number_of_relics_allowed"] = {
+			mod("ActiveHolyRelicLimit", "BASE", nil)
+		},
+	},
 	baseFlags = {
+		spell = true,
+		minion = true,
 	},
 	baseMods = {
 		skill("castTime", 1),
@@ -9312,7 +9322,7 @@ skills["SummonRelic"] = {
 		"active_skill_minion_movement_velocity_+%_final",
 		"minions_cannot_taunt_enemies",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 1, 0, nil, },
 		[2] = { 1, 4, nil, },
@@ -9439,7 +9449,7 @@ skills["SummonLightningGolem"] = {
 		"display_minion_monster_type",
 		"display_minion_monster_level",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0, 1, 6, 30, 11, 34, },
 		[2] = { 1, 1, 6, 32, 11, 36, },
@@ -9555,7 +9565,7 @@ skills["SummonRagingSpirit"] = {
 		"active_skill_minion_added_damage_+%_final",
 		"minions_cannot_taunt_enemies",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 20, -15, nil, },
 		[2] = { 5000, 20, -15, nil, },
@@ -9679,7 +9689,7 @@ skills["SummonSkeletons"] = {
 		"display_minion_monster_type",
 		"display_minion_monster_level",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, 5, 20000, 50, 2, 10, },
 		[2] = { 1, 5, 20000, 50, 2, 13, },
@@ -9805,7 +9815,7 @@ skills["VaalSummonSkeletons"] = {
 		"display_minion_monster_type",
 		"display_minion_monster_level",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 14, 2, 0, 1, 17, 20000, 2, 10, },
 		[2] = { 15, 2, 0, 1, 18, 20000, 2, 13, },
@@ -9930,7 +9940,7 @@ skills["TempestShield"] = {
 		"skill_can_add_multiple_charges_per_action",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { true, true, false, false, false, false, },
+	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 3, 700, 1, 12000, nil, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 3, 700, 1, 12000, nil, nil, },
@@ -10049,7 +10059,7 @@ skills["FrostBoltNova"] = {
 		"is_area_damage",
 		"spell_damage_modifiers_apply_to_skill_dot",
 	},
-	statUseEffectiveness = { true, true, false, true, false, },
+	statInterpolation = { 3, 3, 1, 3, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 3000, 40.000002483527, 40, nil, nil, },
 		[2] = { 0.80000001192093, 1.2000000476837, 3000, 41.666667597989, 40, nil, nil, },
@@ -10120,7 +10130,7 @@ skills["Wither"] = {
 			div = 1000,
 		},
 		["chaos_damage_taken_+%"] = {
-			mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered" }),
+			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered" }),
 		},
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered" }),
@@ -10196,7 +10206,7 @@ skills["Wither"] = {
 		"active_skill_withered_base_duration_ms",
 		"base_skill_area_of_effect_+%",
 	},
-	statUseEffectiveness = { false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { -30, 6, 500, 2000, 0, },
 		[2] = { -30, 6, 500, 2000, 1, },
@@ -10324,7 +10334,7 @@ skills["Wrath"] = {
 		"wrath_aura_spell_lightning_damage_+%_final",
 		"base_deal_no_damage",
 	},
-	statUseEffectiveness = { true, true, false, false, },
+	statInterpolation = { 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 0.050000000745058, 0.80000001192093, 0, 15, nil, },
 		[2] = { 0.050000000745058, 0.80000001192093, 1, 15, nil, },

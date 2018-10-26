@@ -68,7 +68,7 @@ skills["SupportAddedFireDamage"] = {
 	stats = {
 		"physical_damage_%_to_add_as_fire",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 25, },
 		[2] = { 26, },
@@ -180,7 +180,7 @@ skills["SupportSpiritStrike"] = {
 		"melee_attack_number_of_spirit_strikes",
 		"support_spirit_strike_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 2, -25, },
 		[2] = { 2, -25, },
@@ -286,7 +286,7 @@ skills["SupportBloodMagic"] = {
 	stats = {
 		"base_use_life_in_place_of_mana",
 	},
-	statUseEffectiveness = { },
+	statInterpolation = { },
 	statLevels = {
 		[1] = { nil, },
 		[2] = { nil, },
@@ -398,7 +398,7 @@ skills["SupportBloodlust"] = {
 		"support_bloodlust_melee_physical_damage_+%_final_vs_bleeding_enemies",
 		"cannot_cause_bleeding",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 40, nil, },
 		[2] = { 41, nil, },
@@ -511,7 +511,7 @@ skills["SupportBrutality"] = {
 		"deal_no_elemental_damage",
 		"base_deal_no_chaos_damage",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 40, nil, nil, },
 		[2] = { 41, nil, nil, },
@@ -622,7 +622,7 @@ skills["SupportIncreasedBurningDamage"] = {
 	stats = {
 		"support_burning_damage_+%_final",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 35, },
 		[2] = { 36, },
@@ -736,7 +736,7 @@ skills["SupportCastOnMeleeKill"] = {
 		"support_cast_on_melee_kill_spell_damage_+%_final",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 100, 20, nil, },
 		[2] = { 100, 21, nil, },
@@ -852,7 +852,7 @@ skills["SupportCastOnDamageTaken"] = {
 		"spell_uncastable_if_triggerable",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 528, -70, 38, nil, nil, },
 		[2] = { 100, 583, -66, 40, nil, nil, },
@@ -968,7 +968,7 @@ skills["SupportChanceToBleed"] = {
 		"attack_maximum_added_physical_damage_with_weapons",
 		"support_chance_to_bleed_bleeding_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 25, 1, 2, 10, },
 		[2] = { 25, 1, 3, 11, },
@@ -1076,7 +1076,7 @@ skills["SupportColdToFire"] = {
 		"skill_cold_damage_%_to_convert_to_fire",
 		"cold_damage_%_to_add_as_fire",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 50, 10, },
 		[2] = { 50, 11, },
@@ -1187,7 +1187,7 @@ skills["SupportMeleeDamageOnFullLife"] = {
 	stats = {
 		"support_damage_while_on_full_life_+%_final",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 30, },
 		[2] = { 31, },
@@ -1298,7 +1298,7 @@ skills["SupportWeaponElementalDamage"] = {
 	stats = {
 		"support_attack_skills_elemental_damage_+%_final",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 35, },
 		[2] = { 36, },
@@ -1380,7 +1380,7 @@ skills["SupportAdditionalLevel"] = {
 	stats = {
 		"supported_active_skill_gem_level_+",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 0, },
 		[2] = { 1, },
@@ -1463,7 +1463,7 @@ skills["EnduranceChargeOnMeleeStun"] = {
 		"endurance_charge_on_melee_stun_damage_+%_final_per_endurance_charge",
 		"gain_endurance_charge_on_melee_stun",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 0, 4, nil, },
 		[2] = { 1, 4, nil, },
@@ -1569,7 +1569,7 @@ skills["SupportFirePenetration"] = {
 	stats = {
 		"base_reduce_enemy_fire_resistance_%",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 18, },
 		[2] = { 19, },
@@ -1677,7 +1677,7 @@ skills["SupportFortify"] = {
 		"melee_physical_damage_+%",
 		"fortify_duration_+%",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 25, 25, },
 		[2] = { 100, 26, 25, },
@@ -1788,7 +1788,7 @@ skills["SupportGenerosity"] = {
 		"non_curse_aura_effect_+%",
 		"aura_cannot_affect_self",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 20, nil, },
 		[2] = { 21, nil, },
@@ -1894,7 +1894,7 @@ skills["SupportIncreasedDuration"] = {
 	stats = {
 		"skill_effect_duration_+%",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 45, },
 		[2] = { 46, },
@@ -2000,7 +2000,7 @@ skills["SupportIronGrip"] = {
 		"projectile_damage_+%",
 		"keystone_strong_bowman",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 0, nil, },
 		[2] = { 2, nil, },
@@ -2106,7 +2106,7 @@ skills["SupportIronWill"] = {
 		"spell_damage_+%",
 		"strong_casting",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 0, nil, },
 		[2] = { 2, nil, },
@@ -2211,7 +2211,7 @@ skills["SupportItemQuantity"] = {
 	stats = {
 		"base_killed_monster_dropped_item_quantity_+%",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 17, },
 		[2] = { 18, },
@@ -2317,7 +2317,7 @@ skills["SupportKnockback"] = {
 		"base_global_chance_to_knockback_%",
 		"knockback_distance_+%",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 25, 50, },
 		[2] = { 26, 50, },
@@ -2432,7 +2432,7 @@ skills["SupportReducedDuration"] = {
 		"support_reduced_duration_skill_effect_duration_+%_final",
 		"support_reduced_duration_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { -40, 10, },
 		[2] = { -40, 10, },
@@ -2538,7 +2538,7 @@ skills["SupportLifeGainOnHit"] = {
 	stats = {
 		"base_life_gain_per_target",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 6, },
 		[2] = { 8, },
@@ -2645,7 +2645,7 @@ skills["SupportLifeLeech"] = {
 		"life_leech_from_any_damage_permyriad",
 		"life_leech_speed_+%",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 200, 0, },
 		[2] = { 200, 2, },
@@ -2761,7 +2761,7 @@ skills["SupportMaim"] = {
 		"support_maimed_enemies_physical_damage_taken_+%",
 		"support_maim_chance_physical_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 30, 10, 15, },
 		[2] = { 30, 10, 16, },
@@ -2876,7 +2876,7 @@ skills["SupportMeleePhysicalDamage"] = {
 		"support_melee_physical_damage_+%_final",
 		"support_melee_physical_damage_poison_and_bleeding_damage_+%_final_from_melee_hits",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 30, 30, },
 		[2] = { 31, 31, },
@@ -2985,7 +2985,7 @@ skills["SupportMeleeSplash"] = {
 		"melee_splash_area_of_effect_+%_final",
 		"melee_splash",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 0, -35, 0, nil, },
 		[2] = { 0, -35, 3, nil, },
@@ -3101,7 +3101,7 @@ skills["SupportMultistrike"] = {
 		"support_multiple_attacks_melee_attack_speed_+%_final",
 		"support_multiple_attack_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 2, 75, -30, },
 		[2] = { 2, 76, -30, },
@@ -3225,7 +3225,7 @@ skills["SupportRangedAttackTotem"] = {
 		"base_skill_is_totemified",
 		"disable_skill_if_melee_attack",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, 8000, 60, 8, -35, -30, nil, nil, },
 		[2] = { 1, 8000, 60, 10, -35, -30, nil, nil, },
@@ -3330,7 +3330,7 @@ skills["SupportReducedMana"] = {
 	stats = {
 		"base_mana_cost_-%",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 25, },
 		[2] = { 25, },
@@ -3451,7 +3451,7 @@ skills["SupportRuthless"] = {
 		"support_ruthless_big_hit_stun_base_duration_override_ms",
 		"support_ruthless_blow_bleeding_damage_from_melee_hits_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 3, 75, 800, 75, },
 		[2] = { 3, 77, 800, 77, },
@@ -3571,7 +3571,7 @@ skills["SupportSpellTotem"] = {
 		"support_spell_totem_cast_speed_+%_final",
 		"base_skill_is_totemified",
 	},
-	statUseEffectiveness = { false, false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, 8000, 60, 8, -35, -30, nil, },
 		[2] = { 1, 8000, 60, 10, -35, -30, nil, },
@@ -3676,7 +3676,7 @@ skills["SupportStun"] = {
 	stats = {
 		"base_stun_threshold_reduction_+%",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 30, },
 		[2] = { 31, },

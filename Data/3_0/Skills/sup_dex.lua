@@ -71,7 +71,7 @@ skills["SupportAddedColdDamage"] = {
 		"global_minimum_added_cold_damage",
 		"global_maximum_added_cold_damage",
 	},
-	statUseEffectiveness = { true, true, },
+	statInterpolation = { 3, 3, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, },
 		[2] = { 0.80000001192093, 1.2000000476837, },
@@ -176,7 +176,7 @@ skills["SupportAdditionalAccuracy"] = {
 	stats = {
 		"accuracy_rating",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 74, },
 		[2] = { 100, },
@@ -282,7 +282,7 @@ skills["SupportBlind"] = {
 		"global_chance_to_blind_on_hit_%",
 		"blind_duration_+%",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 10, 0, },
 		[2] = { 10, 2, },
@@ -388,7 +388,7 @@ skills["SupportBlockReduction"] = {
 		"global_reduce_enemy_block_%",
 		"reduce_enemy_dodge_%",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 20, 20, },
 		[2] = { 21, 20, },
@@ -503,7 +503,7 @@ skills["SupportCastOnCrit"] = {
 		"support_cast_on_crit_spell_damage_+%_final",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 100, 20, nil, },
 		[2] = { 100, 21, nil, },
@@ -620,7 +620,7 @@ skills["SupportCastOnDeath"] = {
 		"spell_only_castable_on_death",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 100, 0, nil, nil, nil, },
 		[2] = { 100, 16, nil, nil, nil, },
@@ -732,7 +732,7 @@ skills["SupportChain"] = {
 		"number_of_additional_projectiles_in_chain",
 		"support_chain_hit_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 2, -50, },
 		[2] = { 2, -49, },
@@ -837,7 +837,7 @@ skills["SupportChanceToFlee"] = {
 	stats = {
 		"global_hit_causes_monster_flee_%",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 25, },
 		[2] = { 26, },
@@ -946,7 +946,7 @@ skills["SupportGemFrenzyPowerOnTrapTrigger"] = {
 		"trap_throwing_speed_+%_per_frenzy_charge",
 		"trap_critical_strike_multiplier_+_per_power_charge",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 20, 20, 6, 12, },
 		[2] = { 21, 21, 6, 12, },
@@ -1060,7 +1060,7 @@ skills["SupportClusterTrap"] = {
 		"throw_traps_in_circle_radius",
 		"support_clustertrap_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2, 5, 20, -55, },
 		[2] = { 2, 5, 20, -54, },
@@ -1166,7 +1166,7 @@ skills["SupportColdPenetration"] = {
 	stats = {
 		"base_reduce_enemy_cold_resistance_%",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 18, },
 		[2] = { 19, },
@@ -1276,7 +1276,7 @@ skills["SupportCullingStrike"] = {
 		"base_cast_speed_+%",
 		"damage_+%",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, 0, 0, 0, },
 		[2] = { 1, 0, 0, 2, },
@@ -1391,7 +1391,7 @@ skills["SupportDeadlyAilments"] = {
 		"support_better_ailments_ailment_damage_+%_final",
 		"support_better_ailments_hit_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 45, -10, },
 		[2] = { 46, -10, },
@@ -1473,7 +1473,7 @@ skills["SupportAdditionalQuality"] = {
 	stats = {
 		"supported_active_skill_gem_quality_%",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 0, },
 		[2] = { 8, },
@@ -1549,7 +1549,7 @@ skills["SupportFasterAttack"] = {
 	stats = {
 		"attack_speed_+%",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 25, },
 		[2] = { 26, },
@@ -1657,7 +1657,7 @@ skills["SupportFasterProjectiles"] = {
 		"base_projectile_speed_+%",
 		"projectile_damage_+%",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 50, 20, },
 		[2] = { 51, 20, },
@@ -1769,7 +1769,7 @@ skills["SupportFork"] = {
 		"support_fork_projectile_damage_+%_final",
 		"projectiles_fork",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { -30, nil, },
 		[2] = { -29, nil, },
@@ -1883,7 +1883,7 @@ skills["SupportGreaterMultipleProjectiles"] = {
 		"support_multiple_projectile_damage_+%_final",
 		"projectile_damage_+%",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 4, -35, 0, },
 		[2] = { 4, -35, 0, },
@@ -2000,7 +2000,7 @@ skills["SupportDamageAgainstChilled"] = {
 		"chill_effect_+%",
 		"support_hypothermia_cold_damage_over_time_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 20, 10, 20, 20, },
 		[2] = { 21, 10, 20, 21, },
@@ -2113,7 +2113,7 @@ skills["SupportFrenzyChargeOnSlayingFrozenEnemy"] = {
 		"global_minimum_added_cold_damage",
 		"global_maximum_added_cold_damage",
 	},
-	statUseEffectiveness = { false, false, true, true, true, true, },
+	statInterpolation = { 1, 1, 3, 3, 3, 3, },
 	statLevels = {
 		[1] = { 50, 15, 0.079999998211861, 0.11999999731779, 0.36000001430511, 0.54000002145767, },
 		[2] = { 51, 15, 0.079999998211861, 0.11999999731779, 0.36000001430511, 0.54000002145767, },
@@ -2227,7 +2227,7 @@ skills["SupportLesserMultipleProjectiles"] = {
 		"support_lesser_multiple_projectile_damage_+%_final",
 		"projectile_damage_+%",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 2, -25, 0, },
 		[2] = { 2, -25, 0, },
@@ -2337,7 +2337,7 @@ skills["SupportLesserPoison"] = {
 		"global_maximum_added_chaos_damage",
 		"base_chance_to_poison_on_hit_%",
 	},
-	statUseEffectiveness = { true, true, false, },
+	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.5, 40, },
 		[2] = { 0.80000001192093, 2.2000000476837, 40, },
@@ -2443,7 +2443,7 @@ skills["SupportManaLeech"] = {
 		"mana_leech_from_any_damage_permyriad",
 		"mana_leech_speed_+%",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 200, 0, },
 		[2] = { 200, 2, },
@@ -2555,7 +2555,7 @@ skills["SupportGemMirageArcher"] = {
 		"summon_mirage_archer_on_hit",
 		"disable_skill_if_weapon_not_bow",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 4000, -30, -60, -138, nil, nil, nil, },
 		[2] = { 4000, -29, -60, -138, nil, nil, nil, },
@@ -2668,7 +2668,7 @@ skills["SupportMultiTrap"] = {
 		"number_of_additional_traps_allowed",
 		"support_multithrow_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 2, 3, -50, },
 		[2] = { 2, 3, -49, },
@@ -2775,7 +2775,7 @@ skills["SupportOnslaught"] = {
 		"support_scion_onslaught_on_killing_blow_%_chance",
 		"support_scion_onslaught_on_killing_blow_duration_ms",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 25, 8000, },
 		[2] = { 26, 8000, },
@@ -2887,7 +2887,7 @@ skills["SupportPierce"] = {
 		"projectile_base_number_of_targets_to_pierce",
 		"support_pierce_projectile_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 2, 0, },
 		[2] = { 2, 1, },
@@ -2999,7 +2999,7 @@ skills["SupportPointBlank"] = {
 		"keystone_point_blank",
 		"projectile_damage_+%",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 1, 0, },
 		[2] = { 1, 2, },
@@ -3111,7 +3111,7 @@ skills["SupportPoison"] = {
 		"base_chance_to_poison_on_hit_%",
 		"support_poison_poison_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 60, 0, },
 		[2] = { 60, 1, },
@@ -3223,7 +3223,7 @@ skills["SupportRapidDecay"] = {
 		"support_rapid_decay_damage_over_time_+%_final",
 		"skill_effect_and_damaging_ailment_duration_+%",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 25, -15, },
 		[2] = { 26, -15, },
@@ -3338,7 +3338,7 @@ skills["SupportSlowerProjectiles"] = {
 		"support_slower_projectiles_projectile_speed_+%_final",
 		"support_slower_projectiles_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { -30, 20, },
 		[2] = { -31, 20, },
@@ -3463,7 +3463,7 @@ skills["SupportTrap"] = {
 		"disable_skill_if_melee_attack",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, 4000, 0, nil, nil, nil, },
 		[2] = { 1, 4000, 1, nil, nil, nil, },
@@ -3571,7 +3571,7 @@ skills["SupportTrapCooldown"] = {
 		"skill_effect_duration_+%",
 		"trap_throwing_speed_+%",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 15, 10, 15, },
 		[2] = { 16, 11, 16, },
@@ -3684,7 +3684,7 @@ skills["SupportTrapAndMineDamage"] = {
 		"trap_throwing_speed_+%",
 		"mine_laying_speed_+%",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 30, -10, -10, },
 		[2] = { 31, -10, -10, },
@@ -3807,7 +3807,7 @@ skills["SupportPhysicalProjectileAttackDamage"] = {
 		"support_phys_chaos_projectile_physical_damage_over_time_+%_final",
 		"support_phys_chaos_projectile_chaos_damage_over_time_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 30, -10, 30, 30, },
 		[2] = { 31, -10, 31, 31, },
@@ -3926,7 +3926,7 @@ skills["SupportDebilitate"] = {
 		"support_debilitate_hit_damage_+%_final_per_poison_stack",
 		"support_debilitate_hit_damage_max_poison_stacks",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 30, 5, 6, },
 		[2] = { 31, 5, 6, },
@@ -4038,7 +4038,7 @@ skills["SupportVoidManipulation"] = {
 		"support_void_manipulation_chaos_damage_+%_final",
 		"elemental_damage_+%",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 20, -25, },
 		[2] = { 21, -25, },
@@ -4152,7 +4152,7 @@ skills["SupportParallelProjectiles"] = {
 		"number_of_additional_projectiles",
 		"support_parallel_projectiles_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2, 80, 2, -25, },
 		[2] = { 2, 80, 2, -25, },
@@ -4261,7 +4261,7 @@ skills["SupportChaosAttacks"] = {
 		"withered_on_hit_chance_%",
 		"physical_damage_%_to_add_as_chaos",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 2000, 25, 10, },
 		[2] = { 2000, 25, 11, },

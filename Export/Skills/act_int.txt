@@ -235,7 +235,7 @@ local skills, mod, flag, skill = ...
 #flags spell curse area duration
 	statMap = {
 		["degen_effect_+%"] = {
-			mod("DamageTakenOverTime", "INC", 0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("DamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["base_chaos_damage_resistance_%"] = {
 			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -259,7 +259,7 @@ local skills, mod, flag, skill = ...
 #flags spell aura area
 	statMap = {
 		["energy_shield_recharge_rate_+%"] = {
-			mod("EnergyShieldRecharge", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("EnergyShieldRecharge", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_maximum_energy_shield"] = {
 			mod("EnergyShield", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -282,7 +282,7 @@ local skills, mod, flag, skill = ...
 #flags spell curse area duration
 	statMap = {
 		["base_resist_all_elements_%"] = {
-			mod("ElementalResist", "BASE", -0.25, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #baseMod skill("debuff", true)
@@ -296,10 +296,10 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["critical_strike_chance_+%"] = {
-			mod("CritChance", "INC", -25, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["accuracy_rating_+%"] = {
-			mod("Accuracy", "INC", -0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["base_critical_strike_multiplier_+"] = {
 			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -412,7 +412,7 @@ local skills, mod, flag, skill = ...
 			mod("SelfIgniteChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["base_self_ignite_duration_-%"] = {
-			mod("SelfIgniteDuration", "INC", 0.5, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfIgniteDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #baseMod skill("debuff", true)
@@ -448,10 +448,10 @@ local skills, mod, flag, skill = ...
 #flags spell area duration
 	statMap = {
 		["base_cold_damage_resistance_%"] = {
-			mod("ColdResist", "BASE", -25, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 		["energy_shield_recharge_rate_+%"] = {
-			mod("EnergyShieldRecharge", "INC", -25, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+			mod("EnergyShieldRecharge", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 	},
 #baseMod skill("debuffSecondary", true)
@@ -471,7 +471,7 @@ local skills, mod, flag, skill = ...
 			mod("SelfFreezeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["base_self_freeze_duration_-%"] = {
-			mod("SelfFreezeDuration", "INC", 1, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfFreezeDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #baseMod skill("debuff", true)
@@ -635,13 +635,13 @@ local skills, mod, flag, skill = ...
 #flags spell aura area
 	statMap = {
 		["base_maximum_fire_damage_resistance_%"] = {
-			mod("FireResistMax", "BASE", 0, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_maximum_cold_damage_resistance_%"] = {
-			mod("ColdResistMax", "BASE", 0, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_maximum_lightning_damage_resistance_%"] = {
-			mod("LightningResistMax", "BASE", 0, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_resist_all_elements_%"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -670,7 +670,7 @@ local skills, mod, flag, skill = ...
 			flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "Debuff" })
 		},
 		["lightning_damage_taken_+%"] = {
-			mod("LightningDamageTaken", "INC", -25, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("LightningDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #mods
@@ -865,7 +865,15 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonRelic
-#flags
+#flags spell minion
+	minionList = {
+		"HolyLivingRelic",
+	},
+	statMap = {
+		["base_number_of_relics_allowed"] = {
+			mod("ActiveHolyRelicLimit", "BASE", nil)
+		},
+	},
 #mods
 
 #skill SummonLightningGolem
@@ -954,7 +962,7 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		},
 		["chaos_damage_taken_+%"] = {
-			mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered" }),
+			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered" }),
 		},
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered" }),

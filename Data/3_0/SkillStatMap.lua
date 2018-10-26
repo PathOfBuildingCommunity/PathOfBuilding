@@ -96,10 +96,10 @@ return {
 	skill("ColdMax", nil, { type = "Multiplier", var = "FrenzyCharge" }),
 },
 ["spell_minimum_base_cold_damage_+_per_10_intelligence"] = {
-	skill("ColdMin", nil, { type = "PerStat", stat = "Int", 	div = 10, }),
+	skill("ColdMin", nil, { type = "PerStat", stat = "Int", div = 10 }),
 },
 ["spell_maximum_base_cold_damage_+_per_10_intelligence"] = {
-	skill("ColdMax", nil, { type = "PerStat", stat = "Int", 	div = 10, }),
+	skill("ColdMax", nil, { type = "PerStat", stat = "Int", div = 10 }),
 },
 ["base_cold_damage_to_deal_per_minute"] = {
 	skill("ColdDot", nil),
@@ -739,19 +739,19 @@ return {
 },
 -- Degen
 ["base_physical_damage_%_of_maximum_life_to_deal_per_minute"] = {
-	mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life", 	div = 1,}),
+	mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life", div = 1 }),
 	div = 6000,
 },
 ["base_physical_damage_%_of_maximum_energy_shield_to_deal_per_minute"] = {
-	mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield", 	div = 1,}),
+	mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield", div = 1 }),
 	div = 6000,
 },
 ["base_nonlethal_fire_damage_%_of_maximum_life_taken_per_minute"] = {
-	mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life", 	div = 1,}),
+	mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life", div = 1 }),
 	div = 6000,
 },
 ["base_nonlethal_fire_damage_%_of_maximum_energy_shield_taken_per_minute"] = {
-	mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield", 	div = 1,}),
+	mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield", div = 1 }),
 	div = 6000,
 },
 
@@ -994,7 +994,6 @@ return {
 -- Aura
 ["non_curse_aura_effect_+%"] = {
 	mod("AuraEffect", "INC", nil),
-
 },
 
 }

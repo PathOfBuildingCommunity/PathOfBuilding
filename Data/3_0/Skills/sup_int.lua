@@ -71,7 +71,7 @@ skills["SupportAddedChaosDamage"] = {
 		"global_minimum_added_chaos_damage",
 		"global_maximum_added_chaos_damage",
 	},
-	statUseEffectiveness = { true, true, },
+	statInterpolation = { 3, 3, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, },
 		[2] = { 0.80000001192093, 1.2000000476837, },
@@ -180,7 +180,7 @@ skills["SupportAddedLightningDamage"] = {
 		"global_minimum_added_lightning_damage",
 		"global_maximum_added_lightning_damage",
 	},
-	statUseEffectiveness = { true, true, },
+	statInterpolation = { 3, 3, },
 	statLevels = {
 		[1] = { 0.10000000149012, 1.8999999761581, },
 		[2] = { 0.10000000149012, 1.8999999761581, },
@@ -302,7 +302,7 @@ skills["SupportArcaneSurge"] = {
 		"support_arcane_surge_mana_regeneration_rate_per_minute_%",
 		"support_arcane_surge_gain_buff_on_mana_use_threshold",
 	},
-	statUseEffectiveness = { false, false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 10, 4000, 10, 30, 15, },
 		[2] = { 11, 4000, 10, 30, 16, },
@@ -411,7 +411,7 @@ skills["SupportBlasphemy"] = {
 		"curse_apply_as_aura",
 		"base_skill_is_instant",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 0, nil, nil, },
 		[2] = { 4, nil, nil, },
@@ -519,7 +519,7 @@ skills["SupportCastOnStunned"] = {
 		"spell_uncastable_if_triggerable",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 50, nil, nil, },
 		[2] = { 51, nil, nil, },
@@ -636,7 +636,7 @@ skills["SupportCastWhileChannelling"] = {
 		"support_cast_while_channelling_triggered_skill_damage_+%_final",
 		"spell_uncastable_if_triggerable",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 450, 0, nil, },
 		[2] = { 440, 0, nil, },
@@ -752,7 +752,7 @@ skills["SupportChanceToIgnite"] = {
 		"support_chance_to_ignite_fire_damage_+%_final",
 		"ignites_apply_fire_resistance_+",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 30, 10, -10, },
 		[2] = { 31, 11, -10, },
@@ -867,7 +867,7 @@ skills["SupportConcentratedEffect"] = {
 		"support_concentrated_effect_skill_area_of_effect_+%_final",
 		"support_area_concentrate_area_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { -30, 35, },
 		[2] = { -30, 36, },
@@ -979,7 +979,7 @@ skills["SupportControlledDestruction"] = {
 		"support_controlled_destruction_spell_damage_+%_final",
 		"critical_strike_chance_+%",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 25, -100, },
 		[2] = { 26, -100, },
@@ -1086,7 +1086,7 @@ skills["SupportCurseOnHit"] = {
 		"base_curse_duration_+%",
 		"cannot_cast_curses",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 100, -50, nil, },
 		[2] = { 100, -48, nil, },
@@ -1194,7 +1194,7 @@ skills["SupportDecay"] = {
 	stats = {
 		"deal_chaos_damage_per_second_for_10_seconds_on_hit",
 	},
-	statUseEffectiveness = { true, },
+	statInterpolation = { 3, },
 	statLevels = {
 		[1] = { 1, },
 		[2] = { 1, },
@@ -1310,7 +1310,7 @@ skills["SupportEfficacy"] = {
 		"support_efficacy_damage_over_time_+%_final",
 		"skill_effect_duration_+%",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 10, 15, 10, },
 		[2] = { 11, 15, 10, },
@@ -1422,7 +1422,7 @@ skills["SupportElementalFocus"] = {
 		"support_gem_elemental_damage_+%_final",
 		"cannot_inflict_status_ailments",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 30, nil, },
 		[2] = { 31, nil, },
@@ -1536,7 +1536,7 @@ skills["SupportElementalProliferation"] = {
 		"base_elemental_status_ailment_duration_+%",
 		"display_what_elemental_proliferation_does",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 12, 20, 0, nil, },
 		[2] = { 12, 20, 1, nil, },
@@ -1612,7 +1612,7 @@ skills["SupportAdditionalXP"] = {
 	},
 	stats = {
 	},
-	statUseEffectiveness = { },
+	statInterpolation = { },
 	statLevels = {
 		[1] = { },
 		[2] = { },
@@ -1688,7 +1688,7 @@ skills["SupportFasterCast"] = {
 	stats = {
 		"base_cast_speed_+%",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 20, },
 		[2] = { 21, },
@@ -1800,7 +1800,7 @@ skills["SupportIgniteProliferation"] = {
 		"support_ignite_proliferation_radius",
 		"support_ignite_prolif_ignite_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 14, 20, },
 		[2] = { 14, 21, },
@@ -1909,7 +1909,7 @@ skills["SupportImmolation"] = {
 		"global_minimum_added_fire_damage_vs_burning_enemies",
 		"global_maximum_added_fire_damage_vs_burning_enemies",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 42, 63, },
 		[2] = { 47, 70, },
@@ -2015,7 +2015,7 @@ skills["SupportIncreasedAreaOfEffect"] = {
 	stats = {
 		"base_skill_area_of_effect_+%",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 30, },
 		[2] = { 31, },
@@ -2121,7 +2121,7 @@ skills["SupportIncreasedCriticalDamage"] = {
 	stats = {
 		"base_critical_strike_multiplier_+",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 75, },
 		[2] = { 76, },
@@ -2228,7 +2228,7 @@ skills["SupportIncreasedCriticalStrikes"] = {
 		"critical_strike_chance_+%",
 		"additional_base_critical_strike_chance",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 50, 100, },
 		[2] = { 52, 100, },
@@ -2350,7 +2350,7 @@ skills["SupportOnslaughtOnSlayingShockedEnemy"] = {
 		"support_innervate_buff_base_duration_ms",
 		"support_innervate_gain_buff_on_killing_shocked_enemy",
 	},
-	statUseEffectiveness = { true, true, false, true, true, false, },
+	statInterpolation = { 3, 3, 1, 3, 3, 1, },
 	statLevels = {
 		[1] = { 0.11999999731779, 2.2799999713898, 20, 0.079999998211861, 1.5199999809265, 4000, nil, },
 		[2] = { 0.11999999731779, 2.2799999713898, 20, 0.079999998211861, 1.5199999809265, 4000, nil, },
@@ -2455,7 +2455,7 @@ skills["SupportItemRarity"] = {
 	stats = {
 		"base_killed_monster_dropped_item_rarity_+%",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 40, },
 		[2] = { 41, },
@@ -2561,7 +2561,7 @@ skills["SupportLightningPenetration"] = {
 	stats = {
 		"base_reduce_enemy_lightning_resistance_%",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 18, },
 		[2] = { 19, },
@@ -2674,7 +2674,7 @@ skills["SupportMinefield"] = {
 		"support_minefield_mine_damage_+%_final",
 		"number_of_additional_remote_mines_allowed",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 2, -55, 2, },
 		[2] = { 2, -54, 2, },
@@ -2785,7 +2785,7 @@ skills["SupportMinionDamage"] = {
 	stats = {
 		"support_minion_damage_+%_final",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 30, },
 		[2] = { 31, },
@@ -2896,7 +2896,7 @@ skills["SupportMinionLife"] = {
 	stats = {
 		"support_minion_maximum_life_+%_final",
 	},
-	statUseEffectiveness = { false, },
+	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 30, },
 		[2] = { 31, },
@@ -3004,7 +3004,7 @@ skills["SupportMinionSpeed"] = {
 		"minion_attack_speed_+%",
 		"minion_cast_speed_+%",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 25, 10, 10, },
 		[2] = { 26, 10, 10, },
@@ -3121,7 +3121,7 @@ skills["SupportSummonElementalResistances"] = {
 		"summon_lightning_resistance_+",
 		"support_minion_totem_resistance_elemental_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 25, 25, 25, 10, },
 		[2] = { 26, 26, 26, 10, },
@@ -3229,7 +3229,7 @@ skills["SupportPhysicalToLightning"] = {
 		"skill_physical_damage_%_to_convert_to_lightning",
 		"physical_damage_%_to_add_as_lightning",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 50, 10, },
 		[2] = { 50, 11, },
@@ -3341,7 +3341,7 @@ skills["SupportPowerChargeOnCrit"] = {
 		"add_power_charge_on_critical_strike_%",
 		"support_power_charge_on_crit_damage_+%_final_per_power_charge",
 	},
-	statUseEffectiveness = { false, false, },
+	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 35, 4, },
 		[2] = { 36, 4, },
@@ -3467,7 +3467,7 @@ skills["SupportRemoteMine"] = {
 		"disable_skill_if_melee_attack",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
-	statUseEffectiveness = { false, false, false, false, },
+	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, 16000, 30, 900, nil, nil, nil, },
 		[2] = { 1, 16000, 31, 900, nil, nil, nil, },
@@ -3583,7 +3583,7 @@ skills["SupportSpellCascade"] = {
 		"support_spell_cascade_area_of_effect_+%_final",
 		"support_spell_cascade_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, -25, -50, },
 		[2] = { 1, -25, -49, },
@@ -3699,7 +3699,7 @@ skills["SupportMulticast"] = {
 		"support_multicast_cast_speed_+%_final",
 		"support_echo_damage_+%_final",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, 51, -10, },
 		[2] = { 1, 52, -10, },
@@ -3815,7 +3815,7 @@ skills["SupportStormBarrier"] = {
 		"support_storm_barrier_lightning_damage_taken_when_hit_+%_final",
 		"support_storm_barrier_gain_power_charge_when_hit_%",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { -8, -8, 50, },
 		[2] = { -8, -8, 51, },
@@ -3872,6 +3872,11 @@ skills["SupportSummonGhostOnKill"] = {
 	},
 	addMinionList = {
 		"SummonedPhantasm"
+	},
+	statMap = {
+		["base_number_of_support_ghosts_allowed"] = {
+			mod("ActivePhantasmLimit", "BASE", nil),
+		},
 	},
 	baseMods = {
 		mod("ManaCost", "MORE", 20),
@@ -3930,7 +3935,7 @@ skills["SupportSummonGhostOnKill"] = {
 		"base_number_of_support_ghosts_allowed",
 		"skill_can_own_support_ghosts",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 50, 15000, 5, nil, },
 		[2] = { 51, 15000, 5, nil, },
@@ -4043,7 +4048,7 @@ skills["SupportAilments"] = {
 		"support_unbound_ailments_ailment_damage_+%_final",
 		"non_damaging_ailment_effect_+%",
 	},
-	statUseEffectiveness = { false, false, false, },
+	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 25, 20, 20, },
 		[2] = { 26, 21, 21, },

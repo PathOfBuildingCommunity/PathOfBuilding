@@ -33,10 +33,6 @@ end
 out:write('-- From MonsterVarieties.dat combined with SkillTotemVariations.dat\n')
 out:write('data.totemLifeMult = { '..totemMult..'}\n')
 
-out:write('-- From GameConstants.dat\n')
-out:write('data.skillDamageBaseEffectiveness = '..(GameConstants[GameConstants.Id"SkillDamageBaseEffectiveness"[1]].Value / 1000000)..'\n')
-out:write('data.skillDamageIncrementalEffectiveness = '..(GameConstants[GameConstants.Id"SkillDamageIncrementalEffectiveness"[1]].Value / 1000000)..'\n')
-
 out:close()
 
 print("Misc data exported.")

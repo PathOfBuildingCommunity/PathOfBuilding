@@ -221,7 +221,7 @@ directiveTable.skill = function(state, args, out)
 	skill.levels = { }
 	local statMap = { }
 	skill.stats = { }
-	skill.statEffectiveness = { }
+	skill.statInterpolation = { }
 	skill.global = "nil"
 	skill.curse = "nil"
 	out:write('\tcolor = ', granted.Unknown0, ',\n')
@@ -339,8 +339,8 @@ directiveTable.skill = function(state, args, out)
 				statMap[statId] = #skill.stats + 1
 				table.insert(skill.stats, { id = statId })
 			end
-			skill.statEffectiveness[i] = (levelRow.StatData[i] == 3)
-			if skill.statEffectiveness[i] then
+			skill.statInterpolation[i] = levelRow.StatData[i]
+			if skill.statInterpolation[i] == 3 then
 				table.insert(skill.stats[statMap[statId]], levelRow["Stat"..i.."Float"] / EffectivenessCostConstants[levelRow.EffectivenessCostConstantsKeys[i]].Multiplier)
 			else
 				table.insert(skill.stats[statMap[statId]], levelRow["Stat"..i.."Value"])
@@ -468,9 +468,9 @@ directiveTable.mods = function(state, args, out)
 		out:write('\t\t"', stat.id, '",\n')
 	end
 	out:write('\t},\n')
-	out:write('\tstatUseEffectiveness = { ')
-	for _, state in ipairs(skill.statEffectiveness) do
-		out:write(tostring(state), ', ')
+	out:write('\tstatInterpolation = { ')
+	for _, type in ipairs(skill.statInterpolation) do
+		out:write(type, ', ')
 	end
 	out:write('},\n')
 	out:write('\tstatLevels = {\n')
