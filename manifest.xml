@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.110"/>
+	<Version number="1.4.111"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="16ea2d48919334a5c49b48ac18d456f8f121b09c" name="Launch.lua" part="program"/>
 	<File sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="1acd01ec2598ee890e3534ad56ffd87b9d74399e" name="changelog.txt" part="program"/>
+	<File sha1="33076eacd02220914e7737aa6e0f09b32d09c12c" name="changelog.txt" part="program"/>
 	<File sha1="51a3c1027381bb36666568aaceec843164f8c957" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="f85e8b60ff9bb41a3cc4ba8044f7a49163fdedd3" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="8b19aefe4faa8441b0b64dbddeb1db2c1d35fcd1" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -55,7 +55,7 @@
 	<File sha1="4b7675c8b4fe71cade7dd3d70793df1ed8022d01" name="Classes/UndoHandler.lua" part="program"/>
 	<File sha1="01f6361f67a0cf9ee1ffdf0cf86df0f040248e4c" name="Modules/Build.lua" part="program"/>
 	<File sha1="2ff499ce5931e0b2a40ad16da316899d4859c257" name="Modules/BuildList.lua" part="program"/>
-	<File sha1="2acc5080e16f468baca701e02403e2811e9de00d" name="Modules/CalcActiveSkill.lua" part="program"/>
+	<File sha1="046eb182ec5931b05288a3efbd213c3f83104c64" name="Modules/CalcActiveSkill.lua" part="program"/>
 	<File sha1="b31dca8bf6238a35b75429ab19dae7cc1fdf2207" name="Modules/CalcBreakdown.lua" part="program"/>
 	<File sha1="38e81ff8ca19729eb180470173afd3bda0b4cf59" name="Modules/CalcDefence-2_6.lua" part="program"/>
 	<File sha1="4d8ba1761fc02dd3dd208a19a10cddd6c64f1ec0" name="Modules/CalcDefence-3_0.lua" part="program"/>
@@ -179,11 +179,11 @@
 	<File sha1="b16f0467a7f39fa87d7bb91a3d9b5206724e5112" name="Data/3_0/Bases/staff.lua" part="program"/>
 	<File sha1="5936f14122b2ea77e0cc162c47ad1074c1d1d7eb" name="Data/3_0/Bases/sword.lua" part="program"/>
 	<File sha1="b872184ec1d81b224cacaa9ee815ba219b08590e" name="Data/3_0/Bases/wand.lua" part="program"/>
-	<File sha1="9bb7ab50656319cf9fedbf2550dd157f350480f0" name="Data/3_0/Skills/act_dex.lua" part="program"/>
+	<File sha1="f4889a8b2f89f67fb9a8a7a2c8bdd4269f2307e7" name="Data/3_0/Skills/act_dex.lua" part="program"/>
 	<File sha1="4350dd4b47db0129497813d9bbe3c155a1a1bf36" name="Data/3_0/Skills/act_int.lua" part="program"/>
-	<File sha1="6600738957537fa9aefeaef83e4446217cfaacd2" name="Data/3_0/Skills/act_str.lua" part="program"/>
+	<File sha1="eb010d4768a6712aa0190f595cc7f82707780a9c" name="Data/3_0/Skills/act_str.lua" part="program"/>
 	<File sha1="0f9e78737b7324bcfa5aa486768bd67381196e18" name="Data/3_0/Skills/glove.lua" part="program"/>
-	<File sha1="785377a9de323140ea48ac92d71838223803cd85" name="Data/3_0/Skills/minion.lua" part="program"/>
+	<File sha1="42f21a156ef3326d1c64c0afad8835e0a919285f" name="Data/3_0/Skills/minion.lua" part="program"/>
 	<File sha1="d366841ef9e086491b9b79a1f1fe39e473f16696" name="Data/3_0/Skills/other.lua" part="program"/>
 	<File sha1="640234647d94516640188642f6c6fbbb5e73988a" name="Data/3_0/Skills/spectre.lua" part="program"/>
 	<File sha1="223e54ffb9a01cbbcb3074438d567cbe75fbaa4a" name="Data/3_0/Skills/sup_dex.lua" part="program"/>

@@ -1,3 +1,8 @@
+### 1.4.111 - 2019/10/26
+ * Vaal Earthquake's DPS should now be calculated correctly
+ * Fixed error with "X of the Grave" glove enchantments
+ * Fixed error when loading a build with Vaal Double Strike
+
 ### 1.4.110 - 2019/10/26
 As of this update I am once again able to add and update minions/spectres, which hadn't been possible since 3.0:
  * Added the following minions:
