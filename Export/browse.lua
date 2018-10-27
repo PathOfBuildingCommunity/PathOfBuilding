@@ -57,6 +57,7 @@ function spectre(name)
 	for i, key in ipairs(MV.Name(name)) do
 		local mon = MV[key]
 		print("#"..i..": "..mon.Id.." ["..key.."]")
+		print("AIS: "..mon.AISFile)
 		print("life = "..mon.LifeMultiplier/100)
 		if MT[mon.MonsterTypesKey].EnergyShieldFromLife ~= 0 then
 			print("energyShield = "..(0.4 * MT[mon.MonsterTypesKey].EnergyShieldFromLife / 100))

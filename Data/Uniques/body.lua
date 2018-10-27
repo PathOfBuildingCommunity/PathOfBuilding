@@ -303,19 +303,19 @@ Variant: Rhoa
 Variant: Snake
 Variant: Ursa
 Requires Level 62, 170 Dex
-{variant:1}Grants level 20 Summon Beastial Rhoa Skill
-{variant:2}Grants level 20 Summon Beastial Snake Skill
-{variant:3}Grants level 20 Summon Beastial Ursa Skill
+{variant:1}Grants level 20 Summon Bestial Rhoa Skill
+{variant:2}Grants level 20 Summon Bestial Snake Skill
+{variant:3}Grants level 20 Summon Bestial Ursa Skill
 +(300-400) to Accuracy Rating
 (130-150)% increased Evasion Rating
 +(90-100) to maximum Life
 Projectile Attack Skills have (40-60)% increased Critical Strike Chance
-{variant:1}Projectiles from Attacks have 20% chance to Maim on Hit while you have a Beastial Minion
-{variant:2}Projectiles from Attacks have 20% chance to Poison on Hit while you have a Beastial Minion
-{variant:3}Projectiles from Attacks have 20% chance to inflict Bleeding on Hit while you have a Beastial Minion
-{variant:1}(10-15)% increased Attack and Movement Speed while you have a Beastial Minion
-{variant:2}Adds (13-19)-(23-29) Chaos Damage to Attacks while you have a Beastial Minion
-{variant:3}Adds (11-16)-(21-25) Physical Damage to Attacks while you have a Beastial Minion
+{variant:1}Projectiles from Attacks have 20% chance to Maim on Hit while you have a Bestial Minion
+{variant:2}Projectiles from Attacks have 20% chance to Poison on Hit while you have a Bestial Minion
+{variant:3}Projectiles from Attacks have 20% chance to inflict Bleeding on Hit while you have a Bestial Minion
+{variant:1}(10-15)% increased Attack and Movement Speed while you have a Bestial Minion
+{variant:2}Adds (13-19)-(23-29) Chaos Damage to Attacks while you have a Bestial Minion
+{variant:3}Adds (11-16)-(21-25) Physical Damage to Attacks while you have a Bestial Minion
 ]],
 -- Body: Energy Shield
 [[

@@ -746,7 +746,29 @@ function calcs.perform(env)
 				local skillModList = activeSkill.skillModList
 				local skillCfg = activeSkill.skillCfg
 				for _, buff in ipairs(activeSkill.buffList) do
-					if buff.type == "Aura" then
+					if buff.type == "Buff" then
+						if env.mode_buffs and activeSkill.skillData.enable then
+							local skillCfg = buff.activeSkillBuff and skillCfg
+							local incSkill = buff.activeSkillBuff and skillModList:Sum("INC", skillCfg, "BuffEffect") or 0
+							local moreSkill = buff.activeSkillBuff and skillModList:Sum("MORE", skillCfg, "BuffEffect") or 1
+							if buff.applyAllies then
+								modDB.conditions["AffectedBy"..buff.name] = true
+								local srcList = common.New("ModList")
+								local inc = modDB:Sum("INC", skillCfg, "BuffEffect") + modDB:Sum("INC", nil, "BuffEffectOnSelf") + incSkill
+								local more = modDB:Sum("MORE", skillCfg, "BuffEffect") * modDB:Sum("MORE", nil, "BuffEffectOnSelf") * moreSkill
+								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+								mergeBuff(srcList, buffs, buff.name)
+							end
+							if env.minion == activeSkill.minion or buff.applyAllies then
+				 				env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+								local srcList = common.New("ModList")
+								local inc = env.minion.modDB:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf") + incSkill
+								local more = env.minion.modDB:Sum("MORE", skillCfg, "BuffEffect", "BuffEffectOnSelf") * moreSkill
+								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+								mergeBuff(srcList, minionBuffs, buff.name)
+							end
+						end
+					elseif buff.type == "Aura" then
 						if env.mode_buffs and activeSkill.skillData.enable then
 							if not modDB:Sum("FLAG", nil, "AlliesAurasCannotAffectSelf") then
 								local srcList = common.New("ModList")

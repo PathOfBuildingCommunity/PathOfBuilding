@@ -1,3 +1,17 @@
+VERSION[1.4.114][2018/10/27]
+ * Added the following minions:
+    * Bestial Rhoa
+	* Bestial Snek
+	* Bestial Ursa
+	   * You can enable the Rallying Cry skill in the Skill Options section of the Configuration tab
+ * Added the following spectres to the spectre library:
+	* Enhanced Vaal Fallen (the DPS for their Elemental Hit skill might not be correct)
+    * Kiln Mother
+ * Fixed the Cast Speed from Haste not applying correctly
+ * Fixed Spectre's Curse skills not working correctly
+ * Fixed Assassin's Mark's Crit Multiplier stat
+ * Fixed the missing DPS multiplier on Ice Golem's Cyclone skill
+ * Fixed the interaction between Unnatural Instinct and Might of the Meek
 VERSION[1.4.113][2018/10/26]
  * Added the following spectres to the spectre library:
     * Host Chieftain

@@ -282,6 +282,7 @@ skills["IceElementalIceCyclone"] = {
 	baseMods = {
 		skill("castTime", 1),
 		skill("cooldown", 6),
+		skill("dpsMultiplier", 2),
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil),
@@ -1030,7 +1031,8 @@ skills["HeraldOfAgonyMinionCleave"] = {
 		["One Handed Sword"] = true,
 	},
 	baseFlags = {
-		attack = true,
+		attackk = true,
+		melee = true,
 		area = true,
 	},
 	baseMods = {
@@ -1058,7 +1060,8 @@ skills["HeraldOfLightMinionSlam"] = {
 	color = 4,
 	skillTypes = { [1] = true, [11] = true, [57] = true, [36] = true, },
 	baseFlags = {
-		attack = true,
+		attackk = true,
+		melee = true,
 		area = true,
 	},
 	baseMods = {
@@ -1087,7 +1090,8 @@ skills["SentinelHolySlam"] = {
 	color = 1,
 	skillTypes = { [1] = true, [11] = true, [57] = true, [36] = true, },
 	baseFlags = {
-		attack = true,
+		attackk = true,
+		melee = true,
 		area = true,
 	},
 	baseMods = {
@@ -1251,6 +1255,7 @@ skills["DominatingBlowMinionCharge"] = {
 	},
 	baseFlags = {
 		attack = true,
+		melee = true,
 	},
 	baseMods = {
 		skill("castTime", 1),
@@ -1274,6 +1279,159 @@ skills["DominatingBlowMinionCharge"] = {
 	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 25, 400, 30, nil, nil, },
+	},
+}
+skills["SummonedRhoaShieldCharge"] = {
+	name = "Shield Charge",
+	hidden = true,
+	color = 4,
+	description = "Charges at a targeted location or enemy, pushing away enemies in your path and repeatedly dealing damage in a small area in front of you. You deal damage in a larger area when you reach the target. The further you travel, the more damage you deal, and the greater your chance of stunning enemies. Cannot be supported by Multistrike.",
+	skillTypes = { [1] = true, [7] = true, [13] = true, [24] = true, [11] = true, [38] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["Claw"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["One Handed Axe"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 3),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"shield_charge_scaling_stun_threshold_reduction_+%_at_maximum_range",
+		"base_movement_velocity_+%",
+		"shield_charge_damage_+%_maximum",
+		"attack_speed_+%",
+		"physical_damage_%_to_add_as_lightning",
+		"shield_charge_extra_distance",
+		"ignores_proximity_shield",
+	},
+	statInterpolation = { 1, 1, 1, 1, 1, 1, },
+	statLevels = {
+		[1] = { 50, 100, 10, 20, 15, 0, nil, },
+	},
+}
+skills["SummonedSnakeProjectile"] = {
+	name = "Chaos Projectile",
+	hidden = true,
+	color = 4,
+	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [10] = true, [57] = true, },
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	baseMods = {
+		skill("castTime", 0.8),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"monster_projectile_variation",
+		"base_is_projectile",
+	},
+	statInterpolation = { 1, },
+	statLevels = {
+		[1] = { 1, nil, },
+	},
+}
+skills["DropBearSummonedGroundSlam"] = {
+	name = "Ground Slam",
+	hidden = true,
+	color = 4,
+	description = "The character slams the ground in front of them with their main hand weapon, creating a wave that travels forward and damages enemies with an increased chance to stun. Only works with Staves or Maces.",
+	skillTypes = { [1] = true, [7] = true, [11] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["Two Handed Mace"] = true,
+		["Staff"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+	},
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 3),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_stun_threshold_reduction_+%",
+		"is_area_damage",
+	},
+	statInterpolation = { 1, },
+	statLevels = {
+		[1] = { 0, nil, },
+	},
+}
+skills["DropBearSummonedRallyingCry"] = {
+	name = "Rallying Cry",
+	hidden = true,
+	color = 1,
+	description = "Performs a warcry, granting increased damage and mana regeneration to the user and nearby allies if there are nearby enemies. The damage increase is proportional to the number of surrounding enemies. Taunts all nearby enemies to attack the user. Shares a cooldown with other Warcry skills.",
+	skillTypes = { [5] = true, [11] = true, [12] = true, [74] = true, },
+	statMap = {
+		["damage_+%"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+	baseFlags = {
+		warcry = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 0.25),
+		skill("cooldown", 5),
+		skill("buffAllies", true),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"damage_+%",
+		"base_skill_effect_duration",
+		"base_deal_no_damage",
+	},
+	statInterpolation = { 1, 1, },
+	statLevels = {
+		[1] = { 25, 4000, nil, },
 	},
 }
 skills["MinionInstability"] = {

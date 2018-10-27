@@ -4686,7 +4686,7 @@ skills["Haste"] = {
 	description = "Casts an aura that increases the movement speed, attack speed and cast speed of you and your allies.",
 	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [75] = true, },
 	statMap = {
-		["cast_speed_+%_from_haste_aura"] = {
+		["cast_speed_+%_granted_from_skill"] = {
 			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["attack_speed_+%"] = {
