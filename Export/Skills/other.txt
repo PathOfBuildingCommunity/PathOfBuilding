@@ -300,16 +300,46 @@ local skills, mod, flag, skill = ...
 #skill SummonBeastialRhoa
 #flags spell minion
 	fromItem = true,
+	minionList = {
+		"RhoaUniqueSummoned",
+	},
+	statMap = {
+		["base_number_of_beast_minions_allowed"] = {
+			mod("ActiveBeastMinionLimit", "BASE", nil),
+		},
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill SummonBeastialSnake
 #flags spell minion
 	fromItem = true,
+	minionList = {
+		"SnakeSpitUniqueSummoned",
+	},
+	statMap = {
+		["base_number_of_beast_minions_allowed"] = {
+			mod("ActiveBeastMinionLimit", "BASE", nil),
+		},
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill SummonBeastialUrsa
 #flags spell minion
 	fromItem = true,
+	minionList = {
+		"DropBearUniqueSummoned",
+	},
+	statMap = {
+		["base_number_of_beast_minions_allowed"] = {
+			mod("ActiveBeastMinionLimit", "BASE", nil),
+		},
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill SummonEssenceSpirits

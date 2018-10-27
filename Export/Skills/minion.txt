@@ -27,6 +27,7 @@ local skills, mod, flag, skill = ...
 
 #skill IceElementalIceCyclone Cyclone
 #flags attack area melee movement
+#baseMod skill("dpsMultiplier", 2)
 #mods
 
 #skill IceElementalSpearSummoned Ice Spear
@@ -115,15 +116,15 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill HeraldOfAgonyMinionCleave Cleave
-#flags attack area
+#flags attackk melee area
 #mods
 
 #skill HeraldOfLightMinionSlam Slam
-#flags attack area
+#flags attackk melee area
 #mods
 
 #skill SentinelHolySlam Crusade Slam
-#flags attack area
+#flags attackk melee area
 #mods
 
 #skill RelicTriggeredNova Nova
@@ -137,7 +138,29 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DominatingBlowMinionCharge
-#flags attack
+#flags attack melee
+#mods
+
+#skill SummonedRhoaShieldCharge
+#flags attack melee area
+#mods
+
+#skill SummonedSnakeProjectile Chaos Projectile
+#flags attack projectile
+#mods
+
+#skill DropBearSummonedGroundSlam
+#flags attack melee area
+#mods
+
+#skill DropBearSummonedRallyingCry
+#flags warcry area duration
+	statMap = {
+		["damage_+%"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod skill("buffAllies", true)
 #mods
 
 skills["MinionInstability"] = {

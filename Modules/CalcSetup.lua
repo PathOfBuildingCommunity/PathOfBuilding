@@ -69,7 +69,7 @@ function calcs.buildModListForNode(env, node)
 		end
 	end
 
-	if modList:Sum("FLAG", nil, "PassiveSkillHasNoEffect") then
+	if modList:Sum("FLAG", nil, "PassiveSkillHasNoEffect") or (env.allocNodes[node.id] and modList:Sum("FLAG", nil, "AllocatedPassiveSkillHasNoEffect")) then
 		wipeTable(modList)
 	end
 

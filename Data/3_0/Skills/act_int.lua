@@ -373,6 +373,7 @@ skills["AssassinsMark"] = {
 	statMap = {
 		["base_self_critical_strike_multiplier_-%"] = {
 			mod("SelfCritMultiplier", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mult = -1,
 		},
 		["additional_chance_to_take_critical_strike_%"] = {
 			mod("SelfExtraCritChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),

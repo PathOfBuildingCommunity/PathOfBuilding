@@ -89,6 +89,8 @@ local minions, mod = ...
 #monster Metadata/Monsters/Monkeys/FlameBearer
 -- Stone golem
 #monster Metadata/Monsters/MossMonster/FireMonster
+-- Mother of Flames
+#monster Metadata/Monsters/MotherOfFlames/MotherOfFlamesZombie
 -- Necromancer
 #monster Metadata/Monsters/Necromancer/NecromancerConductivity
 #monster Metadata/Monsters/Necromancer/NecromancerEnfeebleCurse
@@ -120,6 +122,7 @@ local minions, mod = ...
 #monster Metadata/Monsters/Skeletons/SkeletonBowLightning4
 #monster Metadata/Monsters/Skeletons/SkeletonCasterLightningSpark
 #monster Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse
+#monster Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampionDelve
 -- Snake
 #monster Metadata/Monsters/Snake/SnakeMeleeSpit
 #monster Metadata/Monsters/Snake/SnakeScorpionMultiShot

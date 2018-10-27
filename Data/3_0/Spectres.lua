@@ -1322,6 +1322,27 @@ minions["Metadata/Monsters/MossMonster/FireMonster"] = {
 		-- ImmuneToLavaDamage
 	},
 }
+-- Mother of Flames
+minions["Metadata/Monsters/MotherOfFlames/MotherOfFlamesZombie"] = {
+	name = "Kiln Mother",
+	life = 0.9,
+	energyShield = 0.28,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.8,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"MotherOfFlamesMagmaOrb3",
+		"Melee",
+	},
+	modList = {
+	},
+}
 -- Necromancer
 minions["Metadata/Monsters/Necromancer/NecromancerConductivity"] = {
 	name = "Sin Lord",
@@ -1921,6 +1942,29 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
 	modList = {
 		-- MonsterNecromancerRaisable
 		-- MonsterCastsProjectileWeaknessCurseText
+	},
+}
+minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampionDelve"] = {
+	name = "Enhanced Vaal Fallen",
+	life = 6,
+	armour = 1,
+	fireResist = 35,
+	coldResist = 35,
+	lightningResist = 35,
+	chaosResist = 35,
+	damage = 1.5,
+	damageSpread = 0.3,
+	attackTime = 1.605,
+	attackRange = 7,
+	accuracy = 1,
+	weaponType1 = "Two Handed Sword",
+	skillList = {
+		"Melee",
+		"ElementalHitSkeletonKnightIncursion",
+		"IncursionLeapSlamChampion",
+	},
+	modList = {
+		-- MonsterCastsElementalHitText
 	},
 }
 -- Snake

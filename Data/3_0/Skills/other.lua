@@ -1736,6 +1736,14 @@ skills["SummonBeastialRhoa"] = {
 	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [10] = true, [11] = true, [28] = true, },
 	fromItem = true,
+	minionList = {
+		"RhoaUniqueSummoned",
+	},
+	statMap = {
+		["base_number_of_beast_minions_allowed"] = {
+			mod("ActiveBeastMinionLimit", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -1744,6 +1752,8 @@ skills["SummonBeastialRhoa"] = {
 		skill("castTime", 1),
 		skill("manaCost", 30),
 		skill("cooldown", 5),
+		skill("allowTotemBuff", true),
+		flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil),
@@ -1776,6 +1786,14 @@ skills["SummonBeastialSnake"] = {
 	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, [3] = true, [68] = true, [23] = true, [48] = true, },
 	fromItem = true,
+	minionList = {
+		"SnakeSpitUniqueSummoned",
+	},
+	statMap = {
+		["base_number_of_beast_minions_allowed"] = {
+			mod("ActiveBeastMinionLimit", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -1784,6 +1802,8 @@ skills["SummonBeastialSnake"] = {
 		skill("castTime", 1),
 		skill("manaCost", 30),
 		skill("cooldown", 5),
+		skill("allowTotemBuff", true),
+		flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil),
@@ -1816,6 +1836,14 @@ skills["SummonBeastialUrsa"] = {
 	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [10] = true, [11] = true, [28] = true, },
 	fromItem = true,
+	minionList = {
+		"DropBearUniqueSummoned",
+	},
+	statMap = {
+		["base_number_of_beast_minions_allowed"] = {
+			mod("ActiveBeastMinionLimit", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -1824,6 +1852,8 @@ skills["SummonBeastialUrsa"] = {
 		skill("castTime", 1),
 		skill("manaCost", 30),
 		skill("cooldown", 5),
+		skill("allowTotemBuff", true),
+		flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil),

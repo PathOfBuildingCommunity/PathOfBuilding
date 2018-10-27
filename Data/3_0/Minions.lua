@@ -479,3 +479,71 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 		mod("BlockChance", "BASE", 30),
 	},
 }
+minions["RhoaUniqueSummoned"] = {
+	name = "Summoned Rhoa",
+	life = 7.5,
+	armour = 0.2,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 3.42,
+	damageSpread = 0.2,
+	attackTime = 0.93,
+	attackRange = 10,
+	accuracy = 1,
+	limit = "ActiveBeastMinionLimit",
+	skillList = {
+		"Melee",
+		"SummonedRhoaShieldCharge",
+	},
+	modList = {
+		mod("CannotBeEvaded", "FLAG", true),
+	},
+}
+minions["SnakeSpitUniqueSummoned"] = {
+	name = "Summoned Cobra",
+	life = 7.5,
+	armour = 0.15,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.55,
+	damageSpread = 0.2,
+	attackTime = 1.1,
+	attackRange = 7,
+	accuracy = 1,
+	limit = "ActiveBeastMinionLimit",
+	skillList = {
+		"SummonedSnakeProjectile",
+	},
+	modList = {
+		mod("PhysicalDamageConvertToChaos", "BASE", 30),
+		mod("CannotBeEvaded", "FLAG", true),
+	},
+}
+minions["DropBearUniqueSummoned"] = {
+	name = "Summoned Ursa",
+	life = 7.5,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.55,
+	damageSpread = 0.2,
+	attackTime = 1.1,
+	attackRange = 4,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	limit = "ActiveBeastMinionLimit",
+	skillList = {
+		"Melee",
+		"DropBearSummonedGroundSlam",
+		"DropBearSummonedRallyingCry",
+	},
+	modList = {
+		mod("CannotBeEvaded", "FLAG", true),
+	},
+}

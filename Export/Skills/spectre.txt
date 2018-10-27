@@ -60,6 +60,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("hitTimeOverride", 1)
 #mods
 
+#skill ElementalHitSkeletonKnightIncursion
+#flags attack melee area
+#mods
+
 #skill ExperimenterDetonateDead Detonate Dead
 #flags cast area
 #mods
@@ -122,6 +126,10 @@ local skills, mod, flag, skill = ...
 
 #skill IncaMinionProjectile Chaos Projectile
 #flags spell projectile
+#mods
+
+#skill IncursionLeapSlamChampion
+#flags attack melee area
 #mods
 
 #skill IncursionMeteorUpheaval Chaos Spikes
@@ -196,6 +204,20 @@ local skills, mod, flag, skill = ...
 
 #skill MonsterEnfeeble Enfeeble
 #flags spell curse area duration
+	statMap = {
+		["enfeeble_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill MonsterFireball Fireball
@@ -248,6 +270,17 @@ local skills, mod, flag, skill = ...
 
 #skill MonsterProjectileWeakness Projectile Weakness
 #flags spell curse area duration
+	statMap = {
+		["projectiles_always_pierce_you"] = {
+			flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_knocked_back_%"] = {
+			mod("SelfKnockbackChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["projectile_damage_taken_+%"] = {
+			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill MonsterProximityShield Proximity Shield
@@ -281,30 +314,99 @@ local skills, mod, flag, skill = ...
 
 #skill MonsterWarlordsMark Warlord's Mark
 #flags spell curse area duration
+	statMap = {
+		["life_leech_on_any_damage_when_hit_permyriad"] = {
+			mod("SelfDamageLifeLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["mana_leech_on_any_damage_when_hit_permyriad"] = {
+			mod("SelfDamageManaLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_stun_recovery_+%"] = {
+			mod("StunRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#mods
+
+#skill MotherOfFlamesMagmaOrb3
+#flags spell projectile area
 #mods
 
 #skill NecromancerConductivity Conductivity
 #flags spell curse area duration lightning
+	statMap = {
+		["base_lightning_damage_resistance_%"] = {
+			mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_shocked_%"] = {
+			mod("SelfShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill NecromancerElementalWeakness Elemental Weakness
 #flags spell curse area duration
+	statMap = {
+		["base_resist_all_elements_%"] = {
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill NecromancerEnfeeble Enfeeble
 #flags spell curse area duration
+	statMap = {
+		["enfeeble_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill NecromancerFlammability Flammability
 #flags spell curse area duration
+	statMap = {
+		["base_fire_damage_resistance_%"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_ignited_%"] = {
+			mod("SelfIgniteChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill NecromancerFrostbite Frostbite
 #flags spell curse area duration
+	statMap = {
+		["base_cold_damage_resistance_%"] = {
+			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_frozen_%"] = {
+			mod("SelfFreezeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill NecromancerProjectileWeakness Projectile Weakness
 #flags spell curse area duration
+	statMap = {
+		["projectiles_always_pierce_you"] = {
+			flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_knocked_back_%"] = {
+			mod("SelfKnockbackChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["projectile_damage_taken_+%"] = {
+			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill NecromancerRaiseZombie Raise Zombie
@@ -313,6 +415,17 @@ local skills, mod, flag, skill = ...
 
 #skill NecromancerVulnerability Vulnerability
 #flags spell curse area duration
+	statMap = {
+		["receive_bleeding_chance_%_when_hit_by_attack"] = {
+			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_physical_damage_over_time_taken_+%"] = {
+			mod("PhysicalDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["physical_damage_taken_+%"] = {
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill PyroChaosFireball Chaos Fireball
@@ -354,10 +467,29 @@ local skills, mod, flag, skill = ...
 
 #skill SkeletonTemporalChains Temporal Chains
 #flags spell curse area duration
+	statMap = {
+		["temporal_chains_action_speed_+%_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["buff_time_passed_-%"] = {
+			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill SkeletonVulnerability Vulnerability
 #flags spell curse area duration
+	statMap = {
+		["receive_bleeding_chance_%_when_hit_by_attack"] = {
+			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_physical_damage_over_time_taken_+%"] = {
+			mod("PhysicalDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["physical_damage_taken_+%"] = {
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill SnakeSpineProjectile Spine Attack
