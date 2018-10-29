@@ -116,15 +116,15 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill HeraldOfAgonyMinionCleave Cleave
-#flags attackk melee area
+#flags attack melee area
 #mods
 
 #skill HeraldOfLightMinionSlam Slam
-#flags attackk melee area
+#flags attack melee area
 #mods
 
 #skill SentinelHolySlam Crusade Slam
-#flags attackk melee area
+#flags attack melee area
 #mods
 
 #skill RelicTriggeredNova Nova

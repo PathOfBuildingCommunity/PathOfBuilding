@@ -1031,7 +1031,7 @@ skills["HeraldOfAgonyMinionCleave"] = {
 		["One Handed Sword"] = true,
 	},
 	baseFlags = {
-		attackk = true,
+		attack = true,
 		melee = true,
 		area = true,
 	},
@@ -1060,7 +1060,7 @@ skills["HeraldOfLightMinionSlam"] = {
 	color = 4,
 	skillTypes = { [1] = true, [11] = true, [57] = true, [36] = true, },
 	baseFlags = {
-		attackk = true,
+		attack = true,
 		melee = true,
 		area = true,
 	},
@@ -1090,7 +1090,7 @@ skills["SentinelHolySlam"] = {
 	color = 1,
 	skillTypes = { [1] = true, [11] = true, [57] = true, [36] = true, },
 	baseFlags = {
-		attackk = true,
+		attack = true,
 		melee = true,
 		area = true,
 	},

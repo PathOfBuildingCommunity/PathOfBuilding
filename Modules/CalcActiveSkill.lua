@@ -485,12 +485,13 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	end
 
 	-- Create minion
-	local minionList
+	local minionList, isSpectre
 	if activeGrantedEffect.minionList then
 		if activeGrantedEffect.minionList[1] then
 			minionList = copyTable(activeGrantedEffect.minionList)
 		else
 			minionList = copyTable(env.build.spectreList)
+			--isSpectre = true
 		end
 	else
 		minionList = { }
@@ -526,8 +527,8 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			minion.level = m_min(m_max(minion.level,1),100) 
 			minion.itemList = { }
 			minion.uses = activeGrantedEffect.minionUses
+			minion.lifeTable = isSpectre and env.data.monsterLifeTable or env.data.monsterAllyLifeTable
 			local attackTime = minion.minionData.attackTime * (1 - (minion.minionData.damageFixup or 0))
-
 			local damage = env.data.monsterDamageTable[minion.level] * minion.minionData.damage * attackTime
 			if activeGrantedEffect.minionHasItemSet then
 				if env.mode == "CALCS" and activeSkill == env.player.mainSkill then

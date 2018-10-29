@@ -1,3 +1,15 @@
+### 1.4.115 - 2018/10/29
+ * Added the following spectres to the spectre library:
+    * Bone Husk
+	* Bone Stalker
+	* Colossus Crusher
+	* Risen Vaal Fanatic (all variants)
+	* Stoneskin Flayer
+ * Fixed the Slam and Crusade Slam abilities used by Sentinels
+ * Fixed Temporal Chains' Effects Expire Slower stat
+ * Fixed error when using Summoned Ursa's Rallying Cry skill
+ * Fixed an issue where modifiers from skills sometimes had the wrong source in the Calcs tab
+ 
 ### 1.4.114 - 2018/10/27
  * Added the following minions:
     * Bestial Rhoa

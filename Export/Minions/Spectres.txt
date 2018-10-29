@@ -22,6 +22,8 @@ local minions, mod = ...
 -- Blood apes
 #monster Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage
 #monster Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite
+-- Bone Stalker
+#monster Metadata/Monsters/BoneStalker/BoneStalker
 -- Bull
 #monster Metadata/Monsters/Bull/Bull
 -- Cage Spider
@@ -34,6 +36,7 @@ local minions, mod = ...
 #monster Metadata/Monsters/Goatman/GoatmanShamanFireball
 #monster Metadata/Monsters/Goatman/GoatmanShamanFireChampion
 #monster Metadata/Monsters/Goatman/GoatmanShamanLightning
+#monster Metadata/Monsters/Goatman/MountainGoatmanChampion
 #monster Metadata/Monsters/Goatman/MountainGoatmanShamanIceSpear
 -- Miscreation
 #monster Metadata/Monsters/DemonFemale/DemonFemale
@@ -69,15 +72,21 @@ local minions, mod = ...
 #monster Metadata/Monsters/KaomWarrior/KaomWarrior3
 #monster Metadata/Monsters/KaomWarrior/KaomWarrior7
 -- Kitava's Cultist
+#monster Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodDelve
 #monster Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve
+#monster Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve
 #monster Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve
+#monster Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve
 #monster Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_
+#monster Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve
 #monster Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_
 -- Kitava's Herald
 #monster Metadata/Monster/KitavaDemon/KitavaDemon
 -- Birdman
 #monster Metadata/Monsters/Kiweth/Kiweth
 #monster Metadata/Monsters/Kiweth/KiwethSeagull
+-- Delve League
+#monster Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite
 -- Helion
 #monster Metadata/Monsters/Lion/LionDesertSkinPuncture
 -- Knitted horror
@@ -123,6 +132,7 @@ local minions, mod = ...
 #monster Metadata/Monsters/Skeletons/SkeletonCasterLightningSpark
 #monster Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse
 #monster Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampionDelve
+#monster Metadata/Monsters/SkeletonCannon/SkeletonCannon1
 -- Snake
 #monster Metadata/Monsters/Snake/SnakeMeleeSpit
 #monster Metadata/Monsters/Snake/SnakeScorpionMultiShot

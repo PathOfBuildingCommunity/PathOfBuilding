@@ -27,6 +27,10 @@ local skills, mod, flag, skill = ...
 #flags spell
 #mods
 
+#skill BoneStalkerEarthquake
+#flags attack melee area duration
+#mods
+
 #skill BreachCleave
 #flags attack melee area
 #mods
@@ -49,6 +53,10 @@ local skills, mod, flag, skill = ...
 
 #skill DelayedBlastSpectre Delayed Blast
 #flags spell area
+#mods
+
+#skill DelveProtovaalWhirlingCharge Whirling Charge
+#flags attack melee area hit
 #mods
 
 #skill DemonFemaleRangedProjectile Ranged Attack
@@ -99,12 +107,20 @@ local skills, mod, flag, skill = ...
 #baseMod skill("hitTimeOverride", 1)
 #mods
 
+#skill GoatmanEarthquake
+#flags attack melee area duration
+#mods
+
 #skill GoatmanFireMagmaOrb Magma Orb
 #flags spell area projectile
 #mods
 
 #skill GoatmanMoltenShell Molten Shell
 #flags spell area duration
+#mods
+
+#skill GoatmanMonsterSlam Slam
+#flags attack melee area
 #mods
 
 #skill GuardianArc Arc
@@ -456,6 +472,18 @@ local skills, mod, flag, skill = ...
 #flags spell 
 #mods
 
+#skill SkeletonCannonMortar Mortar
+#flags spell projectile area
+#mods
+
+#skill SkeletonCannonBoneMortar
+#flags spell projectile area duration
+#mods
+
+#skill SkeletonCannonBoneNova Bone Nova
+#flags attack projectile
+#mods
+
 #skill SkeletonMassBowProjectile Puncture
 #flags attack projectile
 #baseMod mod("BleedChance", "BASE", 100)
@@ -473,6 +501,7 @@ local skills, mod, flag, skill = ...
 		},
 		["buff_time_passed_-%"] = {
 			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mult = -1,
 		},
 	},
 #mods
@@ -510,6 +539,10 @@ local skills, mod, flag, skill = ...
 
 #skill UndyingWhirlingBlades Whirling Blades
 #flags attack melee movement
+#mods
+
+#skill WalkingDoubleSlash Double Slash
+#flags attack melee area
 #mods
 
 #skill WickerManMoltenStrike

@@ -191,7 +191,7 @@ for _, targetVersion in ipairs(targetVersionList) do
 			__index = function(t, key)
 				local map = verData.skillStatMap[key]
 				if map then
-					t[key] = map
+					t[key] = copyTable(map, true)
 					for _, mod in ipairs(map) do
 						processMod(t._grantedEffect, mod)
 					end
