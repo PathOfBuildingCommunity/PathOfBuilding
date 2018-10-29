@@ -324,6 +324,29 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite"] = {
 		-- MonsterUsesMassPowerText
 	},
 }
+-- Bone Stalker
+minions["Metadata/Monsters/BoneStalker/BoneStalker"] = {
+	name = "Bone Stalker",
+	life = 2.1,
+	armour = 0.75,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.12,
+	damageSpread = 0.2,
+	attackTime = 1.8,
+	attackRange = 10,
+	accuracy = 1,
+	weaponType1 = "One Handed Axe",
+	skillList = {
+		"Melee",
+		"BoneStalkerEarthquake",
+		"WalkingDoubleSlash",
+	},
+	modList = {
+	},
+}
 -- Bull
 minions["Metadata/Monsters/Bull/Bull"] = {
 	name = "Fighting Bull",
@@ -514,6 +537,30 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanLightning"] = {
 		mod("Speed", "INC", -50, ModFlag.Cast), -- MonsterGoatmanShamanCastSpeed
 		-- MonsterCastsShockNovaText
 		-- MonsterCastsSparkText
+	},
+}
+minions["Metadata/Monsters/Goatman/MountainGoatmanChampion"] = {
+	name = "Colossus Crusher",
+	life = 2.1,
+	armour = 0.15,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.28,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	damageFixup = 0.11,
+	weaponType1 = "Two Handed Mace",
+	skillList = {
+		"Melee",
+		"GoatmanEarthquake",
+		"GoatmanMonsterSlam",
+	},
+	modList = {
+		-- MonsterSpeedAndDamageFixupSmall
 	},
 }
 minions["Metadata/Monsters/Goatman/MountainGoatmanShamanIceSpear"] = {
@@ -1025,6 +1072,27 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior7"] = {
 	},
 }
 -- Kitava's Cultist
+minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodDelve"] = {
+	name = "Risen Vaal Fanatic",
+	life = 2.88,
+	armour = 0.2,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"VaalincursionMortar",
+	},
+	modList = {
+		-- MonsterDelveDropModifiers
+	},
+}
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = {
 	name = "Risen Vaal Advocate",
 	life = 5.4,
@@ -1042,6 +1110,27 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = 
 	skillList = {
 		"VaalincursionMortar",
 		"VaalIncursionSpecialBeamCannonBlood",
+	},
+	modList = {
+		-- MonsterDelveDropModifiers
+	},
+}
+minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve"] = {
+	name = "Risen Vaal Fanatic",
+	life = 2.88,
+	armour = 0.2,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"FireballIncursionChaos",
 	},
 	modList = {
 		-- MonsterDelveDropModifiers
@@ -1070,6 +1159,27 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = 
 		-- MonsterDelveDropModifiers
 	},
 }
+minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve"] = {
+	name = "Risen Vaal Fanatic",
+	life = 2.88,
+	armour = 0.2,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"FireballIncusionFire",
+	},
+	modList = {
+		-- MonsterDelveDropModifiers
+	},
+}
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = {
 	name = "Risen Vaal Advocate",
 	life = 5.4,
@@ -1087,6 +1197,27 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = 
 	skillList = {
 		"FireballIncusionFire",
 		"VaalIncursionFirestorm",
+	},
+	modList = {
+		-- MonsterDelveDropModifiers
+	},
+}
+minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve"] = {
+	name = "Risen Vaal Fanatic",
+	life = 2.88,
+	armour = 0.2,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"FireballIncusionLightning",
 	},
 	modList = {
 		-- MonsterDelveDropModifiers
@@ -1190,6 +1321,30 @@ minions["Metadata/Monsters/Kiweth/KiwethSeagull"] = {
 	modList = {
 		-- MonsterSpeedAndDamageFixupSmall
 		-- MonsterLesserFarShot
+	},
+}
+-- Delve League
+minions["Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite"] = {
+	name = "Stoneskin Flayer",
+	life = 8,
+	armour = 1,
+	fireResist = 35,
+	coldResist = 35,
+	lightningResist = 35,
+	chaosResist = 35,
+	damage = 1.34,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 10,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "One Handed Sword",
+	skillList = {
+		"Melee",
+		"DelveProtovaalWhirlingCharge",
+	},
+	modList = {
+		-- MonsterDelveDropModifiers
 	},
 }
 -- Helion
@@ -1965,6 +2120,28 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionC
 	},
 	modList = {
 		-- MonsterCastsElementalHitText
+	},
+}
+minions["Metadata/Monsters/SkeletonCannon/SkeletonCannon1"] = {
+	name = "Bone Husk",
+	life = 2.07,
+	armour = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 0.9,
+	damageSpread = 0.2,
+	attackTime = 1.8,
+	attackRange = 4,
+	accuracy = 1,
+	skillList = {
+		"SkeletonCannonMortar",
+		"SkeletonCannonBoneMortar",
+		"SkeletonCannonBoneNova",
+	},
+	modList = {
+		-- MonsterNecromancerRaisable
 	},
 }
 -- Snake

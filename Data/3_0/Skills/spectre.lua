@@ -215,6 +215,49 @@ skills["BirdmanConsumeCorpse"] = {
 		[1] = { },
 	},
 }
+skills["BoneStalkerEarthquake"] = {
+	name = "Earthquake",
+	hidden = true,
+	color = 1,
+	description = "Smashes the ground with an Axe, Mace or Staff, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Earthquakes created before the first one has erupted will not generate their own aftershocks.",
+	skillTypes = { [1] = true, [11] = true, [24] = true, [7] = true, [28] = true, [12] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Two Handed Axe"] = true,
+		["Staff"] = true,
+	},
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("damageEffectiveness", 0.5),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"quake_slam_fully_charged_explosion_damage_+%_final",
+		"is_area_damage",
+	},
+	statInterpolation = { 1, 1, },
+	statLevels = {
+		[1] = { 1800, 25, nil, },
+	},
+}
 skills["BreachCleave"] = {
 	name = "Cleave",
 	hidden = true,
@@ -439,6 +482,40 @@ skills["DelayedBlastSpectre"] = {
 	statInterpolation = { 3, 3, },
 	statLevels = {
 		[1] = { 0.80000001192093, 1.2000000476837, nil, },
+	},
+}
+skills["DelveProtovaalWhirlingCharge"] = {
+	name = "Whirling Charge",
+	hidden = true,
+	color = 4,
+	skillTypes = { },
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+		hit = true,
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("baseMultiplier", 0.56),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_attack_speed_+%_final",
+		"combo_attack_first_hit_damage_+%_final",
+		"is_area_damage",
+	},
+	statInterpolation = { 1, 1, },
+	statLevels = {
+		[1] = { 100, 150, nil, },
 	},
 }
 skills["DemonFemaleRangedProjectile"] = {
@@ -839,6 +916,49 @@ skills["GhostPirateBladeVortexSpectre"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, 5000, 5, 0, 2, nil, nil, },
 	},
 }
+skills["GoatmanEarthquake"] = {
+	name = "Earthquake",
+	hidden = true,
+	color = 1,
+	description = "Smashes the ground with an Axe, Mace or Staff, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Earthquakes created before the first one has erupted will not generate their own aftershocks.",
+	skillTypes = { [1] = true, [11] = true, [24] = true, [7] = true, [28] = true, [12] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Two Handed Axe"] = true,
+		["Staff"] = true,
+	},
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("damageEffectiveness", 0.5),
+		skill("cooldown", 4),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"quake_slam_fully_charged_explosion_damage_+%_final",
+		"is_area_damage",
+	},
+	statInterpolation = { 1, 1, },
+	statLevels = {
+		[1] = { 1800, 25, nil, },
+	},
+}
 skills["GoatmanFireMagmaOrb"] = {
 	name = "Magma Orb",
 	hidden = true,
@@ -988,6 +1108,39 @@ skills["GoatmanMoltenShell"] = {
 		[31] = { 0.80000001192093, 1.2000000476837, 4110, 18195, 0, 1, 5000, 0, nil, },
 		[32] = { 0.80000001192093, 1.2000000476837, 4230, 18790, 0, 1, 5000, 0, nil, },
 		[33] = { 0.80000001192093, 1.2000000476837, 4334, 19399, 0, 1, 5000, 0, nil, },
+	},
+}
+skills["GoatmanMonsterSlam"] = {
+	name = "Slam",
+	hidden = true,
+	color = 1,
+	skillTypes = { [1] = true, [11] = true, [57] = true, [36] = true, },
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("damageEffectiveness", 1.75),
+		skill("baseMultiplier", 1.75),
+		skill("cooldown", 6),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_attack_speed_+%_final",
+		"is_area_damage",
+	},
+	statInterpolation = { 1, },
+	statLevels = {
+		[1] = { -20, nil, },
 	},
 }
 skills["GuardianArc"] = {
@@ -3640,6 +3793,127 @@ skills["SeaWitchWave"] = {
 		[2] = { 2.2400000095367, 3.3599998950958, 1, },
 	},
 }
+skills["SkeletonCannonMortar"] = {
+	name = "Mortar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.5,
+	incrementalEffectiveness = 0.014000000432134,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [3] = true, [68] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, },
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 1.5),
+		skill("CritChance", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 45, },
+		[2] = { 68, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"projectile_spread_radius",
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"projectile_speed_variation_+%",
+		"spell_maximum_action_distance_+%",
+		"projectile_minimum_range",
+		"projectile_spread_radius_per_additional_projectile",
+		"is_area_damage",
+		"base_is_projectile",
+		"projectiles_not_offset",
+	},
+	statInterpolation = { 1, 3, 3, 1, 1, 1, 1, },
+	statLevels = {
+		[1] = { 5, 0.87999999523163, 1.3200000524521, 15, -40, 8, 5, nil, nil, nil, },
+		[2] = { 5, 0.80000001192093, 1.2000000476837, 15, -40, 8, 5, nil, nil, nil, },
+	},
+}
+skills["SkeletonCannonBoneMortar"] = {
+	name = "Bone Mortar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.5,
+	incrementalEffectiveness = 0.014000000432134,
+	skillTypes = { [3] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, },
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("castTime", 1.5),
+		skill("CritChance", 5),
+		skill("cooldown", 4),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 45, },
+		[2] = { 68, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"projectile_spread_radius",
+		"projectile_minimum_range",
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"number_of_additional_projectiles",
+		"mortar_cone_angle",
+		"base_skill_effect_duration",
+		"monster_projectile_variation",
+		"is_area_damage",
+		"base_is_projectile",
+	},
+	statInterpolation = { 1, 1, 3, 3, 1, 1, 1, 1, },
+	statLevels = {
+		[1] = { 543, 217, 0.87999999523163, 1.3200000524521, 1, 30, 10000, 3, nil, nil, },
+		[2] = { 543, 217, 0.80000001192093, 1.2000000476837, 1, 30, 10000, 3, nil, nil, },
+	},
+}
+skills["SkeletonCannonBoneNova"] = {
+	name = "Bone Nova",
+	hidden = true,
+	color = 4,
+	skillTypes = { [1] = true, [11] = true, [10] = true, },
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	baseMods = {
+		skill("castTime", 1.5),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"number_of_additional_projectiles",
+		"active_skill_damage_+%_final",
+		"main_hand_base_maximum_attack_distance",
+		"projectiles_nova",
+	},
+	statInterpolation = { 1, 1, 1, },
+	statLevels = {
+		[1] = { 10, 40, 30, nil, },
+	},
+}
 skills["SkeletonMassBowProjectile"] = {
 	name = "Puncture",
 	hidden = true,
@@ -3738,6 +4012,7 @@ skills["SkeletonTemporalChains"] = {
 		},
 		["buff_time_passed_-%"] = {
 			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mult = -1,
 		},
 	},
 	baseFlags = {
@@ -4005,6 +4280,47 @@ skills["UndyingWhirlingBlades"] = {
 	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, -40, 1, nil, nil, },
+	},
+}
+skills["WalkingDoubleSlash"] = {
+	name = "Double Slash",
+	hidden = true,
+	color = 2,
+	skillTypes = { [1] = true, [11] = true, [28] = true, [24] = true, },
+	weaponTypes = {
+		["Two Handed Axe"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Sword"] = true,
+	},
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("damageEffectiveness", 0.95),
+		skill("baseMultiplier", 0.7),
+		skill("cooldown", 6),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 12, },
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_attack_speed_+%_final",
+		"active_skill_base_radius_+",
+		"is_area_damage",
+	},
+	statInterpolation = { 1, 1, },
+	statLevels = {
+		[1] = { -22, 0, nil, },
 	},
 }
 skills["WickerManMoltenStrike"] = {

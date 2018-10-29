@@ -9082,6 +9082,7 @@ skills["TemporalChains"] = {
 		},
 		["buff_time_passed_-%"] = {
 			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mult = -1,
 		},
 		["curse_effect_+%_vs_players"] = {
 			mod("CurseEffectAgainstPlayer", "INC", nil),
