@@ -16,6 +16,11 @@ local skills, mod, flag, skill = ...
 
 #skill VaalArcChain
 #flags spell chaining
+	statMap = {
+		["arc_damage_+%_final_for_each_remaining_chain"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ChainRemaining" }),
+		},
+	},
 #mods
 
 #skill ArcticBreath

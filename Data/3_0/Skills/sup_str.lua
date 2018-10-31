@@ -3510,6 +3510,9 @@ skills["SupportSpellTotem"] = {
 		["support_spell_totem_cast_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
+		["support_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
 	},
 	baseMods = {
 		mod("ManaCost", "MORE", 100),
