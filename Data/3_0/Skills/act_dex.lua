@@ -1328,6 +1328,7 @@ skills["BloodRage"] = {
 	statMap = {
 		["life_leech_from_physical_attack_damage_permyriad"] = {
 			mod("PhysicalDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 100,
 		},
 		["base_physical_damage_%_of_maximum_life_to_deal_per_minute"] = {
 			mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
@@ -4812,7 +4813,7 @@ skills["VaalHaste"] = {
 	description = "Casts a temporary aura that increases the movement speed, attack speed and cast speed of you and your allies.",
 	skillTypes = { [2] = true, [5] = true, [11] = true, [18] = true, [27] = true, [12] = true, [43] = true, [44] = true, },
 	statMap = {
-		["cast_speed_+%_from_haste_aura"] = {
+		["cast_speed_+%_granted_from_skill"] = {
 			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["attack_speed_+%"] = {

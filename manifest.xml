@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.115"/>
+	<Version number="1.4.116"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="16ea2d48919334a5c49b48ac18d456f8f121b09c" name="Launch.lua" part="program"/>
 	<File sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="0f753dca75e9a335d20da1f4ce7e2a01d238eed6" name="changelog.txt" part="program"/>
+	<File sha1="ae9d0b688d902c038c9e503418743b60c0ad43d5" name="changelog.txt" part="program"/>
 	<File sha1="51a3c1027381bb36666568aaceec843164f8c957" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="f85e8b60ff9bb41a3cc4ba8044f7a49163fdedd3" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="8b19aefe4faa8441b0b64dbddeb1db2c1d35fcd1" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -179,8 +179,8 @@
 	<File sha1="b16f0467a7f39fa87d7bb91a3d9b5206724e5112" name="Data/3_0/Bases/staff.lua" part="program"/>
 	<File sha1="5936f14122b2ea77e0cc162c47ad1074c1d1d7eb" name="Data/3_0/Bases/sword.lua" part="program"/>
 	<File sha1="b872184ec1d81b224cacaa9ee815ba219b08590e" name="Data/3_0/Bases/wand.lua" part="program"/>
-	<File sha1="3f261b35732fac17353da2617a1a3b8c8fef4547" name="Data/3_0/Skills/act_dex.lua" part="program"/>
-	<File sha1="fb07d390920ffb8621996037780796f3c3bf9b0f" name="Data/3_0/Skills/act_int.lua" part="program"/>
+	<File sha1="3b586297f9d9c7245e2bb4b40909f7c075c348c0" name="Data/3_0/Skills/act_dex.lua" part="program"/>
+	<File sha1="5f46d85c32407111e3d786f201155e822894a54e" name="Data/3_0/Skills/act_int.lua" part="program"/>
 	<File sha1="c69f2d5b34c0e6c0340763530bf946e8494c475e" name="Data/3_0/Skills/act_str.lua" part="program"/>
 	<File sha1="0f9e78737b7324bcfa5aa486768bd67381196e18" name="Data/3_0/Skills/glove.lua" part="program"/>
 	<File sha1="2b74d2ec9bc3df850da04ba929214fa1361ca629" name="Data/3_0/Skills/minion.lua" part="program"/>
@@ -188,7 +188,7 @@
 	<File sha1="5691b9f986b6b48e52525a6921a2be4f0fe49d28" name="Data/3_0/Skills/spectre.lua" part="program"/>
 	<File sha1="223e54ffb9a01cbbcb3074438d567cbe75fbaa4a" name="Data/3_0/Skills/sup_dex.lua" part="program"/>
 	<File sha1="da40a96bb11bcdbce6f0e328aec25be0daa614b9" name="Data/3_0/Skills/sup_int.lua" part="program"/>
-	<File sha1="18dad3378bfd30de98edc6fb1970435a263230e9" name="Data/3_0/Skills/sup_str.lua" part="program"/>
+	<File sha1="678fd2d360a6c596c659584ff236736ccb8f2aa6" name="Data/3_0/Skills/sup_str.lua" part="program"/>
 	<File platform="win32" sha1="7e5a3242c9a4296dc8377feb4c9d824f3f0a3cc1" name="Path of Building.exe" part="runtime"/>
 	<File platform="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" name="lua51.dll" part="runtime"/>
 	<File platform="win32" sha1="d852ae6eafc9be62aa41d3cb74fb986d0e5b40e5" name="SimpleGraphic.dll" part="runtime"/>

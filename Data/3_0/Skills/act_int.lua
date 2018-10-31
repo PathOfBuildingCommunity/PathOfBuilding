@@ -136,6 +136,11 @@ skills["VaalArcChain"] = {
 	incrementalEffectiveness = 0.032999999821186,
 	description = "A shocking arc of lightning stretches from the caster to a targeted enemy and chains to other nearby enemies. Each time the beam chains it will also chain simultaneously to a second enemy, but no enemy can be hit twice by the beams. Also grants a buff making you lucky when damaging enemies with Arc for a short duration.",
 	skillTypes = { [2] = true, [10] = true, [17] = true, [18] = true, [19] = true, [23] = true, [43] = true, [35] = true, [12] = true, },
+	statMap = {
+		["arc_damage_+%_final_for_each_remaining_chain"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ChainRemaining" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		chaining = true,

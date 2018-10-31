@@ -1,3 +1,8 @@
+### 1.4.116 - 2018/10/31
+ * Vaal Arc's Chain damage bonus now works correctly
+ * Fixed the leech percentage on Blood Rage
+ * Fixed the Damage penalty on Spell Totem Support
+ 
 ### 1.4.115 - 2018/10/29
  * Added the following spectres to the spectre library:
     * Bone Husk

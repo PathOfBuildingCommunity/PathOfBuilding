@@ -163,6 +163,7 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["life_leech_from_physical_attack_damage_permyriad"] = {
 			mod("PhysicalDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 100,
 		},
 		["base_physical_damage_%_of_maximum_life_to_deal_per_minute"] = {
 			mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
@@ -462,7 +463,7 @@ local skills, mod, flag, skill = ...
 #skill VaalHaste
 #flags spell aura area duration vaal
 	statMap = {
-		["cast_speed_+%_from_haste_aura"] = {
+		["cast_speed_+%_granted_from_skill"] = {
 			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["attack_speed_+%"] = {
