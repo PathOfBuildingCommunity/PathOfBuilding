@@ -773,7 +773,7 @@ Weight of the Empire
 Crimson Jewel
 Limited to: 2
 Radius: Medium
-(4-12)% increased Physical Damage
+(8-12)% increased Physical Damage
 With at least 40 Strength in Radius, Heavy Strike has a 20% chance to deal Double Damage
 ]],[[
 Wildfire

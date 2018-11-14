@@ -47,6 +47,9 @@ directiveTable.monster = function(state, args, out)
 	if MonsterType.EnergyShieldFromLife ~= 0 then
 		out:write('\tenergyShield = ', (0.4 * MonsterType.EnergyShieldFromLife / 100), ',\n')
 	end
+	if MonsterType.Armour ~= 0 then
+		out:write('\tarmour = ', MonsterType.Armour / 100, ',\n')
+	end
 	local Resist = MonsterResistances[MonsterType.MonsterResistancesKey]
 	out:write('\tfireResist = ', Resist.FireMerciless, ',\n')
 	out:write('\tcoldResist = ', Resist.ColdMerciless, ',\n')
@@ -56,6 +59,7 @@ directiveTable.monster = function(state, args, out)
 	out:write('\tdamageSpread = ', (MonsterType.DamageSpread / 100), ',\n')
 	out:write('\tattackTime = ', (MonsterVariety.AttackSpeed/1000), ',\n')
 	out:write('\tattackRange = ', MonsterVariety.MaximumAttackDistance, ',\n')
+	out:write('\taccuracy = ', MonsterType.Unknown1 / 100, ',\n')
 	for _, key in ipairs(MonsterVariety.ModsKeys) do
 		local Mod = Mods[key]
 		if Mod.Id == "MonsterSpeedAndDamageFixupSmall" then

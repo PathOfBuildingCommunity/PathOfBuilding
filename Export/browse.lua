@@ -57,9 +57,13 @@ function spectre(name)
 	for i, key in ipairs(MV.Name(name)) do
 		local mon = MV[key]
 		print("#"..i..": "..mon.Id.." ["..key.."]")
+		print("AIS: "..mon.AISFile)
 		print("life = "..mon.LifeMultiplier/100)
 		if MT[mon.MonsterTypesKey].EnergyShieldFromLife ~= 0 then
 			print("energyShield = "..(0.4 * MT[mon.MonsterTypesKey].EnergyShieldFromLife / 100))
+		end
+		if MT[mon.MonsterTypesKey].Armour ~= 0 then
+			print("armour = "..MT[mon.MonsterTypesKey].Armour / 100)
 		end
 		print("fireResist = "..MR[MT[mon.MonsterTypesKey].MonsterResistancesKey].FireMerciless)
 		print("coldResist = "..MR[MT[mon.MonsterTypesKey].MonsterResistancesKey].ColdMerciless)
@@ -69,6 +73,7 @@ function spectre(name)
 		print("damageSpread = "..(MT[mon.MonsterTypesKey].DamageSpread / 100))
 		print("attackTime = "..mon.AttackSpeed/1000)
 		print("attackRange = "..mon.MaximumAttackDistance)
+		print("accuracy = "..MT[mon.MonsterTypesKey].Unknown1 / 100)
 		if mon.MainHand_ItemClassesKey then
 			print("weaponType1 = "..IC[mon.MainHand_ItemClassesKey].Name)
 		end

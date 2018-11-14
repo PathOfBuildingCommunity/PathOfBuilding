@@ -285,6 +285,7 @@ local modNameList = {
 	["maximum number of golems"] = "ActiveGolemLimit",
 	["maximum number of summoned golems"] = "ActiveGolemLimit",
 	["maximum number of summoned raging spirits"] = "ActiveRagingSpiritLimit",
+	["maximum number of summoned holy relics"] = "ActiveHolyRelicLimit",
 	["minion duration"] = { "Duration", tag = { type = "SkillType", skillType = SkillType.CreateMinion } },
 	["skeleton duration"] = { "Duration", tag = { type = "SkillName", skillName = "Summon Skeleton" } },
 	-- Other skill modifiers
@@ -354,6 +355,7 @@ local modNameList = {
 	["attack speed"] = { "Speed", flags = ModFlag.Attack },
 	["cast speed"] = { "Speed", flags = ModFlag.Cast },
 	["attack and cast speed"] = "Speed",
+	["attack and movement speed"] = { "Speed", "MovementSpeed" },
 	-- Elemental ailments
 	["to shock"] = "EnemyShockChance",
 	["shock chance"] = "EnemyShockChance",
@@ -380,8 +382,9 @@ local modNameList = {
 	["poison duration"] = { "EnemyPoisonDuration" },
 	["duration of poisons you inflict"] = { "EnemyPoisonDuration" },
 	["to cause bleeding"] = "BleedChance",
-	["to inflict bleeding"] = "BleedChance",
 	["to cause bleeding on hit"] = "BleedChance",
+	["to inflict bleeding"] = "BleedChance",
+	["to inflict bleeding on hit"] = "BleedChance",
 	["bleed duration"] = { "EnemyBleedDuration" },
 	["bleeding duration"] = { "EnemyBleedDuration" },
 	-- Misc modifiers
@@ -509,6 +512,7 @@ local modFlagList = {
 	-- Other
 	["global"] = { tag = { type = "Global" } },
 	["from equipped shield"] = { tag = { type = "SlotName", slotName = "Weapon 2" } },
+	["from body armour"] = { tag = { type = "SlotName", slotName = "Body Armour" } },
 }
 
 -- List of modifier flags/tags that appear at the start of a line
@@ -534,6 +538,7 @@ local preFlagList = {
 	["^mirror arrow and mirror arrow clones [hd][ae][va][el] "] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Mirror Arrow" } },
 	["^animated weapons [hd][ae][va][el] "] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Animate Weapon" } },
 	["^animated guardians [hd][ae][va][el] "] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Animate Guardian" } },
+	["^summoned holy relics [hd][ae][va][el] "] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Summon Holy Relic" } },
 	["^raised zombies' slam attack has "] = { addToMinion = true, tag = { type = "SkillId", skillId = "ZombieSlam" } },
 	["^attacks used by totems have "] = { keywordFlags = KeywordFlag.Totem },
 	["^spells cast by totems have "] = { keywordFlags = KeywordFlag.Totem },
@@ -544,6 +549,7 @@ local preFlagList = {
 	["^attack skills [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Attack },
 	["^spells [hd][ae][va][el] "] = { flags = ModFlag.Spell },
 	["^projectile attack skills [hd][ae][va][el] "] = { tagList = { { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Projectile } } },
+	["^projectiles from attacks [hd][ae][va][el] "] = { tagList = { { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Projectile } } },
 	["^arrows [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Bow },
 	["^bow attacks [hdf][aei][var][el] "] = { keywordFlags = KeywordFlag.Bow },
 	["^projectiles [hdf][aei][var][el] "] = { flags = ModFlag.Projectile },
@@ -560,6 +566,7 @@ local preFlagList = {
 	["^left ring slot: "] = { tag = { type = "SlotNumber", num = 1 } },
 	["^right ring slot: "] = { tag = { type = "SlotNumber", num = 2 } },
 	["^socketed gems [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}" } },
+	["^socketed skills [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}" } },
 	["^socketed attacks [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}", keyword = "attack" } },
 	["^socketed spells [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}", keyword = "spell" } },
 	["^socketed curse gems [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}", keyword = "curse" } },
@@ -638,6 +645,7 @@ local modTagList = {
 	["per (%d+) maximum mana, up to (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "Mana", div = num, limit = tonumber(limit), limitTotal = true } } end,
 	["per (%d+) accuracy rating"] = function(num) return { tag = { type = "PerStat", stat = "Accuracy", div = num } } end,
 	["per (%d+)%% block chance"] = function(num) return { tag = { type = "PerStat", stat = "BlockChance", div = num } } end,
+	["per (%d+)%% chance to block attack damage"] = function(num) return { tag = { type = "PerStat", stat = "BlockChance", div = num } } end,
 	["per (%d+) of the lowest of armour and evasion rating"] = function(num) return { tag = { type = "PerStat", stat = "LowestOfArmourAndEvasion", div = num } } end,
 	["per (%d+) maximum energy shield on helmet"] = function(num) return { tag = { type = "PerStat", stat = "EnergyShieldOnHelmet", div = num } } end,
 	["per (%d+) evasion rating on body armour"] = function(num) return { tag = { type = "PerStat", stat = "EvasionOnBody Armour", div = num } } end,
@@ -726,10 +734,12 @@ local modTagList = {
 	["while you have onslaught"] = { tag = { type = "Condition", var = "Onslaught" } },
 	["while phasing"] = { tag = { type = "Condition", var = "Phasing" } },
 	["while you have tailwind"] = { tag = { type = "Condition", var = "Tailwind" } },
+	["while you have arcane surge"] = { tag = { type = "Condition", var = "AffectedByArcaneSurge" } },
 	["while you have cat's stealth"] = { tag = { type = "Condition", var = "AffectedByCat'sStealth" } },
 	["while you have avian's might"] = { tag = { type = "Condition", var = "AffectedByAvian'sMight" } },
 	["while you have avian's flight"] = { tag = { type = "Condition", var = "AffectedByAvian'sFlight" } },
 	["while affected by aspect of the cat"] = { tag = { type = "Condition", varList = { "AffectedByCat'sStealth", "AffectedByCat'sAgility" } } },
+	["while you have a bestial minion"] = { tag = { type = "Condition", var = "HaveBestialMinion" } },
 	["while leeching"] = { tag = { type = "Condition", var = "Leeching" } },
 	["while using a flask"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["during effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
@@ -906,7 +916,7 @@ local specialModList = {
 	end,
 	["projectile attack hits deal up to 50%% more damage to targets at the start of their movement, dealing less damage to targets as the projectile travels farther"] = { flag("PointBlank") },
 	["life leech is applied to energy shield instead"] = { flag("GhostReaver") },
-	["minions explode when reduced to low life, dealing 33%% of their maximum life as fire damage to surrounding enemies"] = { flag("MinionInstability") },
+	["minions explode when reduced to low life, dealing 33%% of their maximum life as fire damage to surrounding enemies"] = { mod("ExtraMinionSkill", "LIST", { skillId = "MinionInstability" }) },
 	["all bonuses from an equipped shield apply to your minions instead of you"] = { }, -- The node itself is detected by the code that handles it
 	["spend energy shield before mana for skill costs"] = { },
 	["energy shield protects mana instead of life"] = { flag("EnergyShieldProtectsMana") },
@@ -995,6 +1005,7 @@ local specialModList = {
 	["%+(%d+)%% chance to block attack damage for %d seconds? every %d seconds"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "BastionOfHopeActive" }) } end,
 	["if you've attacked recently, you and nearby allies have %+(%d+)%% chance to block attack damage"] = function(num) return { mod("ExtraAura", "LIST", { mod = mod("BlockChance", "BASE", num) }, { type = "Condition", var = "AttackedRecently" }) } end,
 	["if you've cast a spell recently, you and nearby allies have %+(%d+)%% chance to block spell damage"] = function(num) return { mod("ExtraAura", "LIST", { mod = mod("SpellBlockChance", "BASE", num) }, { type = "Condition", var = "CastSpellRecently" }) } end,
+	["summoned sentinels use crusade slam"] = { mod("ExtraMinionSkill", "LIST", { skillId = "SentinelHolySlam", minionList = { "AxisEliteSoldierHeraldOfLight", "AxisEliteSoldierDominatingBlow" } }) },
 	-- Hierophant
 	-- Inquisitor
 	["critical strikes ignore enemy monster elemental resistances"] = { flag("IgnoreElementalResistances", { type = "Condition", var = "CriticalStrike" }) },
@@ -1010,7 +1021,7 @@ local specialModList = {
 	-- Necromancer
 	["your offering skills also affect you"] = { mod("ExtraSkillMod", "LIST", { mod = mod("SkillData", "LIST", { key = "buffNotPlayer", value = false }) }, { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering" } }) },
 	["your offerings have (%d+)%% reduced effect on you"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("BuffEffectOnPlayer", "INC", -num) }, { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering" } }) } end,
-	["your raised zombies spread caustic ground on death, dealing 50%% of their maximum life as chaos damage per second"] = { flag("ZombieCausticCloudOnDeath") },
+	["your raised zombies spread caustic ground on death, dealing 50%% of their maximum life as chaos damage per second"] = { mod("ExtraMinionSkill", "LIST", { skillId = "BeaconZombieCausticCloud", minionList = { "RaisedZombie" } }) },
 	["you and your minions have (%d+)%% physical damage reduction"] = function(num) return { mod("PhysicalDamageReduction", "BASE", num), mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", num) }) } end,
 	["minions have (%d+)%% increased attack and cast speed if you or your minions have killed recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", num) }, { type = "Condition", varList = { "KilledRecently", "MinionsKilledRecently" } }) } end,
 	["summoned skeletons' hits can't be evaded"] = { mod("MinionModifier", "LIST", { mod = flag("CannotBeEvaded") }, { type = "SkillName", skillName = "Summon Skeleton" }) },
@@ -1080,6 +1091,7 @@ local specialModList = {
 	["trigger level (%d+) (.+) when you use a skill while you have a spirit charge"] = function(num, _, skill) return extraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you hit an enemy while cursed"] = function(num, _, skill) return extraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you kill a frozen enemy"] = function(num, _, skill) return extraSkill(skill, num) end,
+	["trigger level (%d+) (.+) when you consume a corpse"] = function(num, _, skill) return extraSkill(skill, num) end,
 	["%d+%% chance to attack with level (%d+) (.+) on melee hit"] = function(num, _, skill) return extraSkill(skill, num) end,
 	["%d+%% chance to trigger level (%d+) (.+) on melee hit"] = function(num, _, skill) return extraSkill(skill, num) end,
 	["%d+%% chance to trigger level (%d+) (.+) on kill"] = function(num, _, skill) return extraSkill(skill, num) end,
@@ -1188,6 +1200,7 @@ local specialModList = {
 	["your aura buffs do not affect allies"] = { flag("SelfAurasCannotAffectAllies") },
 	["allies' aura buffs do not affect you"] = { flag("AlliesAurasCannotAffectSelf") },
 	["enemies can have 1 additional curse"] = { mod("EnemyCurseLimit", "BASE", 1) },
+	["you can apply an additional curse"] = { mod("EnemyCurseLimit", "BASE", 1) },
 	["nearby enemies have (%d+)%% increased effect of curses on them"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("CurseEffectOnSelf", "INC", num) }) } end,
 	["nearby enemies have an additional (%d+)%% chance to receive a critical strike"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("SelfExtraCritChance", "BASE", num) }) } end,
 	["nearby enemies have (%-%d+)%% to all resistances"] = function(num) return {
@@ -1661,7 +1674,7 @@ local jewelOtherFuncs = {
 	end,
 	["Allocated Small Passive Skills in Radius grant nothing"] = function(node, out, data)
 		if node and node.type == "Normal" then
-			out:NewMod("PassiveSkillHasNoEffect", "FLAG", true, data.modSource)
+			out:NewMod("AllocatedPassiveSkillHasNoEffect", "FLAG", true, data.modSource)
 		end
 	end,
 }
@@ -1709,7 +1722,7 @@ local jewelSelfUnallocFuncs = {
 		if node then
 			if node.type == "Normal" then
 				data.modList = data.modList or common.New("ModList")
-				data.modList:AddList(node.modList)
+				data.modList:AddList(out)
 			end
 		elseif data.modList then
 			out:AddList(data.modList)
@@ -1772,7 +1785,7 @@ local jewelThresholdFuncs = {
 	["With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage with Hits and Poison for each Poison on the Enemy"] = getThreshold("Dex", "Damage", "INC", 2, 0, bor(KeywordFlag.Hit, KeywordFlag.Poison), { type = "SkillName", skillName = "Viper Strike" }, { type = "Multiplier", actor = "enemy", var = "PoisonStack" }),
 	["With at least 40 Intelligence in Radius, Spark fires 2 additional Projectiles"] = getThreshold("Int", "ProjectileCount", "BASE", 2, { type = "SkillName", skillName = "Spark" }),
 	["With at least 40 Intelligence in Radius, Blight has 50% increased Hinder Duration"] = getThreshold("Int", "SecondaryDuration", "INC", 50, { type = "SkillName", skillName = "Blight" }),
-	["With at least 40 Intelligence in Radius, Enemies Hindered by Blight take 25% increased Chaos Damage"] = getThreshold("Int", "ExtraSkillMod", "LIST", { mod = mod("ChaosDamageTaken", "INC", 25, { type = "GlobalEffect", effectType = "Debuff" }) }, { type = "SkillName", skillName = "Blight" }, { type = "ActorCondition", actor = "enemy", var = "Hindered" }),
+	["With at least 40 Intelligence in Radius, Enemies Hindered by Blight take 25% increased Chaos Damage"] = getThreshold("Int", "ExtraSkillMod", "LIST", { mod = mod("ChaosDamageTaken", "INC", 25, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }) }, { type = "SkillName", skillName = "Blight" }, { type = "ActorCondition", actor = "enemy", var = "Hindered" }),
 	["With 40 Intelligence in Radius, 20% of Glacial Cascade Physical Damage Converted to Cold Damage"] = getThreshold("Int", "SkillPhysicalDamageConvertToCold", "BASE", 20, { type = "SkillName", skillName = "Glacial Cascade" }),
 	["With at least 40 Intelligence in Radius, 20% of Glacial Cascade Physical Damage Converted to Cold Damage"] = getThreshold("Int", "SkillPhysicalDamageConvertToCold", "BASE", 20, { type = "SkillName", skillName = "Glacial Cascade" }),
 	["With 40 total Intelligence and Dexterity in Radius, Elemental Hit deals 50% less Fire Damage"] = getThreshold({"Int","Dex"}, "FireDamage", "MORE", -50, { type = "SkillName", skillName = "Elemental Hit" }),

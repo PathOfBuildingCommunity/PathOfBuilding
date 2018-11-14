@@ -365,12 +365,15 @@ function calcs.perform(env)
 		env.minion.modDB.actor = env.minion
 		env.minion.modDB.multipliers["Level"] = env.minion.level
 		calcs.initModDB(env, env.minion.modDB)
-		env.minion.modDB:NewMod("Life", "BASE", m_floor(env.data.monsterAllyLifeTable[env.minion.level] * env.minion.minionData.life), "Base")
+		env.minion.modDB:NewMod("Life", "BASE", m_floor(env.minion.lifeTable[env.minion.level] * env.minion.minionData.life), "Base")
 		if env.minion.minionData.energyShield then
 			env.minion.modDB:NewMod("EnergyShield", "BASE", m_floor(env.data.monsterAllyLifeTable[env.minion.level] * env.minion.minionData.life * env.minion.minionData.energyShield), "Base")
 		end
-		env.minion.modDB:NewMod("Evasion", "BASE", env.data.monsterEvasionTable[env.minion.level], "Base")
-		env.minion.modDB:NewMod("Accuracy", "BASE", env.data.monsterAccuracyTable[env.minion.level], "Base")
+		if env.minion.minionData.armour then
+			env.minion.modDB:NewMod("Armour", "BASE", m_floor((10 + env.minion.level * 2) * env.minion.minionData.armour * 1.038 ^ env.minion.level), "Base")
+		end
+		env.minion.modDB:NewMod("Evasion", "BASE", round((30 + env.minion.level * 5) * 1.03 ^ env.minion.level), "Base")
+		env.minion.modDB:NewMod("Accuracy", "BASE", round((17 + env.minion.level / 2) * (env.minion.minionData.accuracy or 1) * 1.03 ^ env.minion.level), "Base")
 		env.minion.modDB:NewMod("CritMultiplier", "BASE", 30, "Base")
 		env.minion.modDB:NewMod("CritDegenMultiplier", "BASE", 30, "Base")
 		env.minion.modDB:NewMod("FireResist", "BASE", env.minion.minionData.fireResist, "Base")
@@ -739,11 +742,34 @@ function calcs.perform(env)
 			end
 		end
 		if activeSkill.minion then
+			local castingMinion = activeSkill.minion
 			for _, activeSkill in ipairs(activeSkill.minion.activeSkillList) do
 				local skillModList = activeSkill.skillModList
 				local skillCfg = activeSkill.skillCfg
 				for _, buff in ipairs(activeSkill.buffList) do
-					if buff.type == "Aura" then
+					if buff.type == "Buff" then
+						if env.mode_buffs and activeSkill.skillData.enable then
+							local skillCfg = buff.activeSkillBuff and skillCfg
+							local incSkill = buff.activeSkillBuff and skillModList:Sum("INC", skillCfg, "BuffEffect") or 0
+							local moreSkill = buff.activeSkillBuff and skillModList:Sum("MORE", skillCfg, "BuffEffect") or 1
+							if buff.applyAllies then
+								modDB.conditions["AffectedBy"..buff.name] = true
+								local srcList = common.New("ModList")
+								local inc = modDB:Sum("INC", skillCfg, "BuffEffect") + modDB:Sum("INC", nil, "BuffEffectOnSelf") + incSkill
+								local more = modDB:Sum("MORE", skillCfg, "BuffEffect") * modDB:Sum("MORE", nil, "BuffEffectOnSelf") * moreSkill
+								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+								mergeBuff(srcList, buffs, buff.name)
+							end
+							if env.minion and (env.minion == castingMinion or buff.applyAllies) then
+				 				env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+								local srcList = common.New("ModList")
+								local inc = env.minion.modDB:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf") + incSkill
+								local more = env.minion.modDB:Sum("MORE", skillCfg, "BuffEffect", "BuffEffectOnSelf") * moreSkill
+								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+								mergeBuff(srcList, minionBuffs, buff.name)
+							end
+						end
+					elseif buff.type == "Aura" then
 						if env.mode_buffs and activeSkill.skillData.enable then
 							if not modDB:Sum("FLAG", nil, "AlliesAurasCannotAffectSelf") then
 								local srcList = common.New("ModList")
@@ -772,6 +798,30 @@ function calcs.perform(env)
 							curse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 							t_insert(minionCurses, curse)
 						end
+					elseif buff.type == "Debuff" then
+						local stackCount
+						if buff.stackVar then
+							stackCount = modDB:Sum("BASE", skillCfg, "Multiplier:"..buff.stackVar)
+							if buff.stackLimit then
+								stackCount = m_min(stackCount, buff.stackLimit)
+							elseif buff.stackLimitVar then
+								stackCount = m_min(stackCount, modDB:Sum("BASE", skillCfg, "Multiplier:"..buff.stackLimitVar))
+							end
+						else
+							stackCount = activeSkill.skillData.stackCount or 1
+						end
+						if env.mode_effective and stackCount > 0 then
+							activeSkill.debuffSkill = true
+							local srcList = common.New("ModList")
+							ConPrintTable(buff)
+							ConPrintTable(activeSkill.skillData)
+							ConPrintf("%d", stackCount)
+							srcList:ScaleAddList(buff.modList, stackCount)
+							if activeSkill.skillData.stackCount then
+								srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", activeSkill.skillData.stackCount, buff.name)
+							end
+							mergeBuff(srcList, debuffs, buff.name)
+						end
 					end
 				end
 			end
@@ -783,7 +833,7 @@ function calcs.perform(env)
 		for _, value in ipairs(modDB:Sum("LIST", nil, "ExtraCurse")) do
 			local gemModList = common.New("ModList")
 			local grantedEffect = env.data.skills[value.skillId]
-			calcs.mergeSkillInstanceMods(gemModList, {
+			calcs.mergeSkillInstanceMods(env, gemModList, {
 				grantedEffect = grantedEffect,
 				level = value.level,
 				quality = 0,

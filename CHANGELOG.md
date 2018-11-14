@@ -1,3 +1,83 @@
+### 1.4.116 - 2018/10/31
+ * Vaal Arc's Chain damage bonus now works correctly
+ * Fixed the leech percentage on Blood Rage
+ * Fixed the Damage penalty on Spell Totem Support
+ 
+### 1.4.115 - 2018/10/29
+ * Added the following spectres to the spectre library:
+    * Bone Husk
+	* Bone Stalker
+	* Colossus Crusher
+	* Risen Vaal Fanatic (all variants)
+	* Stoneskin Flayer
+ * Fixed the Slam and Crusade Slam abilities used by Sentinels
+ * Fixed Temporal Chains' Effects Expire Slower stat
+ * Fixed error when using Summoned Ursa's Rallying Cry skill
+ * Fixed an issue where modifiers from skills sometimes had the wrong source in the Calcs tab
+ 
+### 1.4.114 - 2018/10/27
+ * Added the following minions:
+    * Bestial Rhoa
+	* Bestial Snek
+	* Bestial Ursa
+	   * You can enable the Rallying Cry skill in the Skill Options section of the Configuration tab
+ * Added the following spectres to the spectre library:
+	* Enhanced Vaal Fallen (the DPS for their Elemental Hit skill might not be correct)
+    * Kiln Mother
+ * Fixed the Cast Speed from Haste not applying correctly
+ * Fixed Spectre's Curse skills not working correctly
+ * Fixed Assassin's Mark's Crit Multiplier stat
+ * Fixed the missing DPS multiplier on Ice Golem's Cyclone skill
+ * Fixed the interaction between Unnatural Instinct and Might of the Meek
+
+### 1.4.113 - 2018/10/26
+ * Added the following spectres to the spectre library:
+    * Host Chieftain
+    * Risen Vaal Advocate (Physical)
+	* Risen Vaal Advocate (Fire)
+	* Risen Vaal Advocate (Chaos)
+ * Fixed the missing Cyclone skill on Dancing Dervish
+ * Fixed more instances of buff effects not applying (Vaal Ancestral Warchief, Lightning Golem's Wrath)
+
+### 1.4.112 - 2018/10/26
+ * Fixed a bug preventing certain buff/aura affects from applying; this affected Herald of Agony, Haste, and Vaal RF
+
+### 1.4.111 - 2018/10/26
+ * Vaal Earthquake's DPS should now be calculated correctly
+ * Fixed error with "X of the Grave" glove enchantments
+ * Fixed error when loading a build with Vaal Double Strike
+
+### 1.4.110 - 2018/10/26
+As of this update I am once again able to add and update minions/spectres, which hadn't been possible since 3.0:
+ * Added the following minions:
+    * Agony Crawler (Herald of Agony)
+	   * You can set the Virulence stack count in the Skill Options section of the Configuration tab
+	* Sentinel of Purity (Herald of Purity)
+	* Sentinel of Dominance (Dominating Blow; only the Normal variant)
+	* Holy Relic
+	    * You can enable the regeneration aura in the Skill Options section of the Configuration tab
+	* Summoned Phantasm (including Soulwrest's Summon Phantasm skill)
+ * Added the following spectres to the spectre library:
+	* Alpine Shaman
+	* Frost Sentinel
+	* Kitava's Herald
+	* Risen Vaal Advocate (Lightning)
+	* Sandworn Slaves
+	* Solar Guard
+	* Solaris Champion
+	* Tukohama's Vanguard
+	   * The stage count for the Scorching Ray Totem can be set in the Skill Options section of the Configuration tab
+	* Wicker Man
+ * Minion Accuracy values are now more correct
+ * Minion Armour values are now calculated and displayed in the Calcs tab
+
+### 1.4.109 - 2018/10/25
+ * Applied the skill changes from 3.4.2
+ * Updated the passive tree export links to 3.4
+ * Added support for Hierophant's Illuminated Devotion
+ * The increased Damage per Block Chance Elder Shield modifier is now correctly recognised
+ * Fixed error that occurred when importing weapons with Abyssal Sockets
+
 ### 1.4.108 - 2018/09/08
  * Applied the skill and enchantment fixes from 3.4.1
  * The "more Physical Damage over Time" stat on Vicious Projectiles no longer incorrectly applies to Poison

@@ -698,7 +698,7 @@ local specialModList = {
 	end,
 	["projectile attacks deal up to 50%% more damage to targets at the start of their movement, dealing less damage to targets as the projectile travels farther"] = { flag("PointBlank") },
 	["life leech is applied to energy shield instead"] = { flag("GhostReaver") },
-	["minions explode when reduced to low life, dealing 33%% of their maximum life as fire damage to surrounding enemies"] = { flag("MinionInstability") },
+	["minions explode when reduced to low life, dealing 33%% of their maximum life as fire damage to surrounding enemies"] = { mod("ExtraMinionSkill", "LIST", { skillId = "MinionInstability" }) },
 	["all bonuses from an equipped shield apply to your minions instead of you"] = { }, -- The node itself is detected by the code that handles it
 	["spend energy shield before mana for skill costs"] = { },
 	["energy shield protects mana instead of life"] = { flag("EnergyShieldProtectsMana") },
@@ -767,7 +767,7 @@ local specialModList = {
 	["you have phasing while at maximum frenzy charges"] = { flag("Condition:Phasing", { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }) },
 	["you have phasing while you have onslaught"] = { flag("Condition:Phasing", { type = "Condition", var = "Onlaught" }) },
 	["you have onslaught while on full frenzy charges"] = { flag("Condition:Phasing", { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }) },
-	["your minions spread caustic cloud on death, dealing 10%% of their maximum life as chaos damage per second"] = { flag("MinionCausticCloudOnDeath") },
+	["your minions spread caustic cloud on death, dealing 10%% of their maximum life as chaos damage per second"] = { mod("ExtraMinionSkill", "LIST", { skillId = "BeaconCausticCloud" }) },
 	["you and your minions have (%d+)%% physical damage reduction"] = function(num) return { mod("PhysicalDamageReduction", "BASE", num), mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", num) }) } end,
 	["every %d+ seconds:"] = { },
 	["gain chilling conflux for %d seconds"] = { 

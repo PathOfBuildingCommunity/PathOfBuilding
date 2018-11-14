@@ -608,7 +608,7 @@ Implicits: 2
 {variant:1,2}+8% to maximum Fire Resistance 
 {variant:3}+5% to maximum Fire Resistance
 +(20-25)% to Fire Resistance
-25% increased Fire Resistance while on Low Life
++25% to Fire Resistance while on Low Life
 10% increased Movement Speed when on Low Life
 Cannot be Ignited while on Low Life
 ]],[[

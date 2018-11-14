@@ -5,6 +5,11 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill AxisDoubleStrikeTrigger
+#flags attack melee
+#baseMod skill("dpsMultiplier", 2)
+#mods
+
 #skill BanditExplosiveArrow Explosive Arrow
 #flags cast projectile area duration
 #baseMod skill("showAverage", true)
@@ -22,8 +27,24 @@ local skills, mod, flag, skill = ...
 #flags spell
 #mods
 
+#skill BoneStalkerEarthquake
+#flags attack melee area duration
+#mods
+
+#skill BreachCleave
+#flags attack melee area
+#mods
+
 #skill BullCharge Charge
 #flags attack melee
+#mods
+
+#skill CageSpiderCycloneTriggerSandstorms
+#flags attack melee area
+#mods
+
+#skill CageSpiderSandSpark Sandstorm
+#flags spell projectile duration
 #mods
 
 #skill ChaosDegenAura Chaos Aura
@@ -32,6 +53,10 @@ local skills, mod, flag, skill = ...
 
 #skill DelayedBlastSpectre Delayed Blast
 #flags spell area
+#mods
+
+#skill DelveProtovaalWhirlingCharge Whirling Charge
+#flags attack melee area hit
 #mods
 
 #skill DemonFemaleRangedProjectile Ranged Attack
@@ -43,12 +68,34 @@ local skills, mod, flag, skill = ...
 #baseMod skill("hitTimeOverride", 1)
 #mods
 
+#skill ElementalHitSkeletonKnightIncursion
+#flags attack melee area
+#mods
+
 #skill ExperimenterDetonateDead Detonate Dead
 #flags cast area
 #mods
 
+#skill FireballIncursionChaos Chaos Ball
+#flags spell projectile area
+#mods
+
+#skill FireballIncusionFire Fireball
+#flags spell projectile area
+#mods
+
+#skill FireballIncusionLightning Lightning Ball
+#flags spell projectile area
+#mods
+
 #skill FireMonsterWhirlingBlades Fire Roll
 #flags attack melee movement duration
+	statMap = {
+		["whirling_blades_base_ground_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil),
+			div = 60,
+		},
+	},
 #mods
 
 #skill FlamebearerFlameBlue Blue Flame
@@ -60,12 +107,20 @@ local skills, mod, flag, skill = ...
 #baseMod skill("hitTimeOverride", 1)
 #mods
 
+#skill GoatmanEarthquake
+#flags attack melee area duration
+#mods
+
 #skill GoatmanFireMagmaOrb Magma Orb
 #flags spell area projectile
 #mods
 
 #skill GoatmanMoltenShell Molten Shell
 #flags spell area duration
+#mods
+
+#skill GoatmanMonsterSlam Slam
+#flags attack melee area
 #mods
 
 #skill GuardianArc Arc
@@ -77,6 +132,10 @@ local skills, mod, flag, skill = ...
 #baseMod mod("BleedChance", "BASE", 100)
 #mods
 
+#skill HolyFireElementalFireball
+#flags spell projectile area
+#mods
+
 #skill IguanaProjectile Ranged Attack
 #flags attack projectile
 #mods
@@ -85,8 +144,26 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 #mods
 
+#skill IncursionLeapSlamChampion
+#flags attack melee area
+#mods
+
+#skill IncursionMeteorUpheaval Chaos Spikes
+#flags spell area
+#mods
+
 #skill InsectSpawnerSpit Spit
 #flags attack projectile
+#mods
+
+#skill KaomFireBeamTotemSpectre Scorching Ray Totem
+#flags spell totem duration
+	statMap = {
+		["fire_beam_enemy_fire_resistance_%_per_stack"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectStackVar = "KaomFireBeamTotemStage", effectStackLimit = 24 }),
+		},
+	},
+#baseMod mod("Damage", "MORE", 60, 0, 0, { type = "Multiplier", actor = "parent", var = "KaomFireBeamTotemStage", base = -60, limit = 8 })
 #mods
 
 #skill KaomWarriorGroundSlam Ground Slam
@@ -95,6 +172,22 @@ local skills, mod, flag, skill = ...
 
 #skill KaomWarriorMoltenStrike Molten Strike
 #flags attack melee
+#mods
+
+#skill KitavaDemonLeapSlam
+#flags attack melee area
+#mods
+
+#skill KitavaDemonCleave
+#flags attack melee area
+#mods
+
+#skill KitavaDemonWhirlingBlades
+#flags attack melee 
+#mods
+
+#skill KitavaDemonXMortar Mortar
+#flags spell projectile area
 #mods
 
 #skill MassFrenzy Mass Frenzy
@@ -127,6 +220,20 @@ local skills, mod, flag, skill = ...
 
 #skill MonsterEnfeeble Enfeeble
 #flags spell curse area duration
+	statMap = {
+		["enfeeble_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill MonsterFireball Fireball
@@ -145,12 +252,20 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 #mods
 
+#skill MountainGoatmanIceSpear
+#flags spell projectile
+#mods
+
 #skill MonsterLeapSlam Leap Slam
 #flags attack melee area
 #mods
 
 #skill MonsterLesserMultiFireballSpectre Lesser Multi Fireball
 #flags spell projectile area
+#mods
+
+#skill MonsterLesserMultiIceSpear Lesser Multi Ice Spear
+#flags spell projectile
 #mods
 
 #skill MonsterLightningArrow Lightning Arrow
@@ -165,8 +280,23 @@ local skills, mod, flag, skill = ...
 #flags spell projectile area
 #mods
 
+#skill MonsterMultiIceSpear Multi Ice Spear
+#flags spell projectile
+#mods
+
 #skill MonsterProjectileWeakness Projectile Weakness
 #flags spell curse area duration
+	statMap = {
+		["projectiles_always_pierce_you"] = {
+			flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_knocked_back_%"] = {
+			mod("SelfKnockbackChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["projectile_damage_taken_+%"] = {
+			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill MonsterProximityShield Proximity Shield
@@ -194,32 +324,105 @@ local skills, mod, flag, skill = ...
 #flags spell projectile area
 #mods
 
+#skill MonsterSplitIceSpear Split Ice Spear
+#flags spell projectile
+#mods
+
 #skill MonsterWarlordsMark Warlord's Mark
 #flags spell curse area duration
+	statMap = {
+		["life_leech_on_any_damage_when_hit_permyriad"] = {
+			mod("SelfDamageLifeLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["mana_leech_on_any_damage_when_hit_permyriad"] = {
+			mod("SelfDamageManaLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_stun_recovery_+%"] = {
+			mod("StunRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#mods
+
+#skill MotherOfFlamesMagmaOrb3
+#flags spell projectile area
 #mods
 
 #skill NecromancerConductivity Conductivity
 #flags spell curse area duration lightning
+	statMap = {
+		["base_lightning_damage_resistance_%"] = {
+			mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_shocked_%"] = {
+			mod("SelfShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill NecromancerElementalWeakness Elemental Weakness
 #flags spell curse area duration
+	statMap = {
+		["base_resist_all_elements_%"] = {
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill NecromancerEnfeeble Enfeeble
 #flags spell curse area duration
+	statMap = {
+		["enfeeble_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill NecromancerFlammability Flammability
 #flags spell curse area duration
+	statMap = {
+		["base_fire_damage_resistance_%"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_ignited_%"] = {
+			mod("SelfIgniteChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill NecromancerFrostbite Frostbite
 #flags spell curse area duration
+	statMap = {
+		["base_cold_damage_resistance_%"] = {
+			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_frozen_%"] = {
+			mod("SelfFreezeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill NecromancerProjectileWeakness Projectile Weakness
 #flags spell curse area duration
+	statMap = {
+		["projectiles_always_pierce_you"] = {
+			flag("AlwaysPierceSelf", { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_knocked_back_%"] = {
+			mod("SelfKnockbackChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["projectile_damage_taken_+%"] = {
+			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill NecromancerRaiseZombie Raise Zombie
@@ -228,6 +431,17 @@ local skills, mod, flag, skill = ...
 
 #skill NecromancerVulnerability Vulnerability
 #flags spell curse area duration
+	statMap = {
+		["receive_bleeding_chance_%_when_hit_by_attack"] = {
+			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_physical_damage_over_time_taken_+%"] = {
+			mod("PhysicalDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["physical_damage_taken_+%"] = {
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill PyroChaosFireball Chaos Fireball
@@ -252,11 +466,22 @@ local skills, mod, flag, skill = ...
 
 #skill SeaWitchScreech Screech
 #flags spell duration area
-#global Debuff
 #mods
 
 #skill SeaWitchWave Wave
 #flags spell 
+#mods
+
+#skill SkeletonCannonMortar Mortar
+#flags spell projectile area
+#mods
+
+#skill SkeletonCannonBoneMortar
+#flags spell projectile area duration
+#mods
+
+#skill SkeletonCannonBoneNova Bone Nova
+#flags attack projectile
 #mods
 
 #skill SkeletonMassBowProjectile Puncture
@@ -270,14 +495,42 @@ local skills, mod, flag, skill = ...
 
 #skill SkeletonTemporalChains Temporal Chains
 #flags spell curse area duration
+	statMap = {
+		["temporal_chains_action_speed_+%_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["buff_time_passed_-%"] = {
+			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mult = -1,
+		},
+	},
 #mods
 
 #skill SkeletonVulnerability Vulnerability
 #flags spell curse area duration
+	statMap = {
+		["receive_bleeding_chance_%_when_hit_by_attack"] = {
+			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_physical_damage_over_time_taken_+%"] = {
+			mod("PhysicalDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["physical_damage_taken_+%"] = {
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill SnakeSpineProjectile Spine Attack
 #flags attack projectile
+#mods
+
+#skill SolarisChampionFlameVortex Flame Vortex
+#flags spell projectile duration
+#mods
+
+#skill SpecialBeamCannon Beam
+#flags spell area
 #mods
 
 #skill TarMortarTaster Tar Projectile
@@ -286,4 +539,25 @@ local skills, mod, flag, skill = ...
 
 #skill UndyingWhirlingBlades Whirling Blades
 #flags attack melee movement
+#mods
+
+#skill WalkingDoubleSlash Double Slash
+#flags attack melee area
+#mods
+
+#skill WickerManMoltenStrike
+#flags attack melee
+#mods
+
+#skill VaalincursionMortar Physical Mortar
+#flags spell projectile area
+#mods
+
+#skill VaalIncursionFirestorm Firestorm
+#flags spell area duration
+#baseMod skill("showAverage", true)
+#mods
+
+#skill VaalIncursionSpecialBeamCannonBlood Physical Beam
+#flags spell area
 #mods
