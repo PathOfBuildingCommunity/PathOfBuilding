@@ -60,7 +60,7 @@
 	<File sha1="38e81ff8ca19729eb180470173afd3bda0b4cf59" name="Modules/CalcDefence-2_6.lua" part="program"/>
 	<File sha1="4d8ba1761fc02dd3dd208a19a10cddd6c64f1ec0" name="Modules/CalcDefence-3_0.lua" part="program"/>
 	<File sha1="e85e0ec08888434527fb8a730615f83eee60790f" name="Modules/CalcOffence-2_6.lua" part="program"/>
-	<File sha1="806de8edeefe43ce6ff5fc0ec7ea9837d8e2ce9d" name="Modules/CalcOffence-3_0.lua" part="program"/>
+	<File sha1="31057f7102b4855f4a720996e1cb1b73ece47e0a" name="Modules/CalcOffence-3_0.lua" part="program"/>
 	<File sha1="26053cced4d9b861e3276c4e76b80704fb24f05c" name="Modules/CalcPerform.lua" part="program"/>
 	<File sha1="ce5237b51c72a4a49146c5053d01abd3effa98fd" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="32da2a949a5fe0ab10d54078a96caff0dccb5f3f" name="Modules/CalcSections-2_6.lua" part="program"/>

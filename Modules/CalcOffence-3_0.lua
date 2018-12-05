@@ -1987,7 +1987,7 @@ function calcs.offence(env, actor)
 		end
 		local inc = modDB:Sum("INC", dotCfg, "Damage", "ChaosDamage")
 		local more = round(modDB:Sum("MORE", dotCfg, "Damage", "ChaosDamage"), 2)
-		local mult = modDB:Sum("BASE", dotTypeCfg, damageType.."DotMultiplier")
+		local mult = modDB:Sum("BASE", dotTypeCfg, "ChaosDotMultiplier")
 		output.DecayDPS = skillData.decay * (1 + inc/100) * more * (1 + mult/100) * effMult
 		local durationMod = calcLib.mod(modDB, dotCfg, "Duration", "SkillAndDamagingAilmentDuration")
 		output.DecayDuration = 10 * durationMod * debuffDurationMult
