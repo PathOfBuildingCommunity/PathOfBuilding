@@ -251,6 +251,9 @@ function calcs.offence(env, actor)
 		if modDB:Sum("FLAG", nil, "PointBlank") then
 			modDB:NewMod("Damage", "MORE", 50, "Point Blank", bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{10,1},{35,0},{150,-1}} })
 		end
+		if modDB:Sum("FLAG", nil, "FarShot") then
+			modDB:NewMod("Damage", "MORE", 30, "Far Shot", bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{35,0},{70,1}} })
+		end
 		output.ProjectileCount = modDB:Sum("BASE", skillCfg, "ProjectileCount")
 		if modDB:Sum("FLAG", skillCfg, "PierceAllTargets") or enemyDB:Sum("FLAG", nil, "AlwaysPierceSelf") then
 			output.PierceCount = 100
@@ -1266,7 +1269,8 @@ function calcs.offence(env, actor)
 			end
 			local inc = modDB:Sum("INC", dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
 			local more = round(modDB:Sum("MORE", dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil), 2)
-			local total = baseVal * (1 + inc/100) * more * effMult
+			local mult = modDB:Sum("BASE", dotTypeCfg, damageType.."DotMultiplier")
+			local total = baseVal * (1 + inc/100) * more * (1 + mult/100) * effMult
 			if skillFlags.aura then
 				total = total * calcLib.mod(modDB, dotTypeCfg, "AuraEffect")
 			end
@@ -1274,7 +1278,7 @@ function calcs.offence(env, actor)
 			output.TotalDot = output.TotalDot + total
 			if breakdown then
 				breakdown[damageType.."Dot"] = { }
-				breakdown.dot(breakdown[damageType.."Dot"], baseVal, inc, more, nil, effMult, total)
+				breakdown.dot(breakdown[damageType.."Dot"], baseVal, inc, more, mult, nil, effMult, total)
 			end
 		end
 	end
@@ -1983,13 +1987,14 @@ function calcs.offence(env, actor)
 		end
 		local inc = modDB:Sum("INC", dotCfg, "Damage", "ChaosDamage")
 		local more = round(modDB:Sum("MORE", dotCfg, "Damage", "ChaosDamage"), 2)
-		output.DecayDPS = skillData.decay * (1 + inc/100) * more * effMult
+		local mult = modDB:Sum("BASE", dotTypeCfg, damageType.."DotMultiplier")
+		output.DecayDPS = skillData.decay * (1 + inc/100) * more * (1 + mult/100) * effMult
 		local durationMod = calcLib.mod(modDB, dotCfg, "Duration", "SkillAndDamagingAilmentDuration")
 		output.DecayDuration = 10 * durationMod * debuffDurationMult
 		if breakdown then
 			breakdown.DecayDPS = { }
 			t_insert(breakdown.DecayDPS, "Decay DPS:")
-			breakdown.dot(breakdown.DecayDPS, skillData.decay, inc, more, nil, effMult, output.DecayDPS)
+			breakdown.dot(breakdown.DecayDPS, skillData.decay, inc, more, mult, nil, effMult, output.DecayDPS)
 			if output.DecayDuration ~= 2 then
 				breakdown.DecayDuration = {
 					s_format("%.2fs ^8(base duration)", 10)

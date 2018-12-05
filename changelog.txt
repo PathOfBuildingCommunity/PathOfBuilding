@@ -1,3 +1,6 @@
+VERSION[1.4.117][2018/12/06]
+ * Passive tree updated to 3.5
+ * Added support for Far Shot, and the related Ascendant Deadeye projectile damage scaling
 VERSION[1.4.116][2018/10/31]
  * Vaal Arc's Chain damage bonus now works correctly
  * Fixed the leech percentage on Blood Rage
