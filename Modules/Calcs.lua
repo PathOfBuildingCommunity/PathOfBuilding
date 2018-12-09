@@ -21,7 +21,10 @@ LoadModule("Modules/CalcDefence-"..targetVersion, calcs)
 LoadModule("Modules/CalcOffence-"..targetVersion, calcs)
 
 -- Print various tables to the console
-local function infoDump(env, output)
+local function infoDump(env)
+	if env.modDB.parent then
+		env.modDB.parent:Print()
+	end
 	env.modDB:Print()
 	if env.minion then
 		ConPrintf("=== Minion Mod DB ===")
@@ -58,10 +61,12 @@ local function getCalculator(build, fullInit, modFunc)
 	-- Save a copy of the initial mod database
 	local initModDB = new("ModDB")
 	initModDB:AddDB(env.modDB)
+	initModDB.actor = env.player
 	initModDB.conditions = copyTable(env.modDB.conditions)
 	initModDB.multipliers = copyTable(env.modDB.multipliers)
 	local initEnemyDB = new("ModDB")
 	initEnemyDB:AddDB(env.enemyDB)
+	initEnemyDB.actor = env.enemy
 	initEnemyDB.conditions = copyTable(env.enemyDB.conditions)
 	initEnemyDB.multipliers = copyTable(env.enemyDB.multipliers)
 
@@ -69,17 +74,18 @@ local function getCalculator(build, fullInit, modFunc)
 	calcs.perform(env)
 	local baseOutput = env.player.output
 
+	env.modDB.parent = initModDB
+	env.enemyDB.parent = initEnemyDB
+
 	return function(...)
-		-- Restore initial mod database
-		env.modDB.mods = wipeTable(env.modDB.mods)
-		env.modDB:AddDB(initModDB)
-		env.modDB.conditions = copyTable(initModDB.conditions)
-		env.modDB.multipliers = copyTable(initModDB.multipliers)
-		env.enemyDB.mods = wipeTable(env.enemyDB.mods)
-		env.enemyDB:AddDB(initEnemyDB)
-		env.enemyDB.conditions = copyTable(initEnemyDB.conditions)
-		env.enemyDB.multipliers = copyTable(initEnemyDB.multipliers)
-		
+		-- Remove mods added during the last pass
+		wipeTable(env.modDB.mods)
+		wipeTable(env.modDB.conditions)
+		wipeTable(env.modDB.multipliers)
+		wipeTable(env.enemyDB.mods)
+		wipeTable(env.enemyDB.conditions)
+		wipeTable(env.enemyDB.multipliers)
+
 		-- Call function to make modifications to the enviroment
 		modFunc(env, ...)
 		
@@ -265,7 +271,7 @@ function calcs.buildOutput(build, mode)
 		env.player.breakdown.SkillBuffs = { modList = { } }
 		for _, name in ipairs(buffList) do
 			for _, mod in ipairs(env.buffs[name]) do
-				local value = env.modDB:EvalMod(mod)
+				local value = env.modDB:EvalMod(env.modDB, mod)
 				if value and value ~= 0 then
 					t_insert(env.player.breakdown.SkillBuffs.modList, {
 						mod = mod,
@@ -281,7 +287,7 @@ function calcs.buildOutput(build, mode)
 		table.sort(curseList)
 		for index, name in ipairs(curseList) do
 			for _, mod in ipairs(env.debuffs[name]) do
-				local value = env.enemy.modDB:EvalMod(mod)
+				local value = env.enemy.modDB:EvalMod(env.enemy.modDB, mod)
 				if value and value ~= 0 then
 					t_insert(env.player.breakdown.SkillDebuffs.modList, {
 						mod = mod,
@@ -298,7 +304,7 @@ function calcs.buildOutput(build, mode)
 			t_insert(curseList, slot.name)
 			if slot.modList then
 				for _, mod in ipairs(slot.modList) do
-					local value = env.enemy.modDB:EvalMod(mod)
+					local value = env.enemy.modDB:EvalMod(env.enemy.modDB, mod)
 					if value and value ~= 0 then
 						t_insert(env.player.breakdown.SkillDebuffs.modList, {
 							mod = mod,
@@ -342,7 +348,7 @@ function calcs.buildOutput(build, mode)
 			env.minion.breakdown.SkillBuffs = { modList = { } }
 			for _, name in ipairs(buffList) do
 				for _, mod in ipairs(env.minionBuffs[name]) do
-					local value = env.minion.modDB:EvalMod(mod)
+					local value = env.minion.modDB:EvalMod(env.minion.modDB, mod)
 					if value and value ~= 0 then
 						t_insert(env.minion.breakdown.SkillBuffs.modList, {
 							mod = mod,

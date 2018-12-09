@@ -1,3 +1,11 @@
+### 1.4.119 - 2018/12/09
+ * Added additional skill parts to Ice Spear to simulate all projectiles hitting the target
+ * Added support for the various Brand and Banner-related passive skills
+ * Fixed issue with node power generating incorrectly for certain builds
+ * Fixed Vortex showing an infinite cast rate
+ * Fixed removable charge counts being incorrectly calculated; this affected Discharge's DPS
+ * Fixed Vile Toxins' damage bonus not applying
+
 ### 1.4.118 - 2018/12/09
  * Added the following new gems:
     * Armageddon Brand
