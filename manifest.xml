@@ -31,8 +31,8 @@
 	<File sha1="d2ffe0071641c07b63d152c0f48b691eba0cffb0" name="Classes/LabelControl.lua" part="program"/>
 	<File sha1="075b986fe07f2c5d33eea4c1b6984198adf62fa4" name="Classes/ListControl.lua" part="program"/>
 	<File sha1="f7281f889c87c8de45d5af4243c49d9998d4a272" name="Classes/MinionListControl.lua" part="program"/>
-	<File sha1="56793d07790cbe7c2d5f9e13a71e6c691866a9e2" name="Classes/ModDB.lua" part="program"/>
-	<File sha1="0004a4acff6077da1374e880a712e978f5fe4478" name="Classes/ModList.lua" part="program"/>
+	<File sha1="11563b4a1734688bbe4d8dbae30f8fa488c131c1" name="Classes/ModDB.lua" part="program"/>
+	<File sha1="2b39217be7a60070484d0b77e322d6f532074dba" name="Classes/ModList.lua" part="program"/>
 	<File sha1="e63cb335a773917f457764d26d484a44b7b7ca46" name="Classes/ModStore.lua" part="program"/>
 	<File sha1="cc7c5eff58c2868cdc7d4c1bf9a967aa8c448c9e" name="Classes/NotesTab.lua" part="program"/>
 	<File sha1="733b4a91d80b4054a30cfe953e08c3194d7c108a" name="Classes/PassiveSpec.lua" part="program"/>
