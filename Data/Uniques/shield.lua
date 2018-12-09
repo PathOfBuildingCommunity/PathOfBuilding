@@ -396,8 +396,7 @@ Implicits: 2
 {variant:2}(15-20)% increased Spell Damage
 +(20-30) to Intelligence
 (80-120)% increased Energy Shield
-{Variant:1}Socketed Trap Skills create a Smoke Cloud when triggered
-{Variant:2}Trigger Level 20 Fog of War when your Trap is triggered
+Socketed Trap Skills create a Smoke Cloud when triggered
 {variant:1}30% increased Fire Damage against Blinded Enemies
 {variant:2}30% increased Fire Damage with Hits and Ailments against Blinded Enemies
 30% reduced Spell Damage taken from Blinded Enemies
