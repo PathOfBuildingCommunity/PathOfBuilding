@@ -678,7 +678,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		-- Calculate attack/cast speed
-		if activeSkill.skillTypes[SkillType.Instant] then
+		if activeSkill.skillTypes[SkillType.Instant] or skillFlags.forceInstant then
 			output.Time = 0
 			output.Speed = 0
 		elseif skillData.timeOverride then

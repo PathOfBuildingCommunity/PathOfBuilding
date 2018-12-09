@@ -400,6 +400,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	-- Initialise skill modifier list
 	local skillModList = new("ModList", actor.modDB)
 	activeSkill.skillModList = skillModList
+	activeSkill.baseSkillModList = skillModList
 
 	if skillModList:Flag(activeSkill.skillCfg, "DisableSkill") then
 		skillFlags.disable = true

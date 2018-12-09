@@ -549,20 +549,31 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 	parts = {
 		{
-			name = "First Form",
+			name = "First Form, 1 Projectile",
 		},
 		{
-			name = "Second Form",
+			name = "Second Form, 1 Projectile",
+		},
+		{
+			name = "First Form, All Projectiles",
+		},
+		{
+			name = "Second Form, All Projectiles",
 		},
 	},
 	statMap = {
 		["ice_spear_second_form_critical_strike_chance_+%"] = {
-			mod("CritChance", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("CritChance", "INC", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 4 } }),
 		},
 		["ice_spear_second_form_critical_strike_multiplier_+"] = {
-			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 4 } }),
 		},
 	},
+	setupFunc = function(actor, output)
+		if actor.mainSkill.skillPart == 3 or actor.mainSkill.skillPart == 4 then
+			actor.mainSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
 #baseMod mod("PierceChance", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 })
 #mods
 
@@ -982,7 +993,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FrostBoltNova
-#flags spell area duration
+#flags spell area duration forceInstant
 #baseMod skill("dotIsArea", true)
 #mods
 

@@ -48,14 +48,7 @@ function ModListClass:MergeNewMod(...)
 end
 
 
-function ModListClass:Sum(modType, cfg, ...)
-	local flags, keywordFlags = 0, 0
-	local source
-	if cfg then
-		flags = cfg.flags or 0
-		keywordFlags = cfg.keywordFlags or 0
-		source = cfg.source
-	end
+function ModListClass:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
 	local result = 0
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
@@ -63,7 +56,7 @@ function ModListClass:Sum(modType, cfg, ...)
 			local mod = self[i]
 			if mod.name == modName and mod.type == modType and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
 				if mod[1] then
-					result = result + (self:EvalMod(mod, cfg) or 0)
+					result = result + (self:EvalMod(context, mod, cfg) or 0)
 				else
 					result = result + mod.value
 				end
@@ -71,21 +64,12 @@ function ModListClass:Sum(modType, cfg, ...)
 		end
 	end
 	if self.parent then
-		self.parent.context = self.context
-		result = result + self.parent:Sum(modType, cfg, ...)
-		self.parent.context = self.parent
+		result = result + self.parent:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
 	end
 	return result
 end
 
-function ModListClass:More(cfg, ...)
-	local flags, keywordFlags = 0, 0
-	local source
-	if cfg then
-		flags = cfg.flags or 0
-		keywordFlags = cfg.keywordFlags or 0
-		source = cfg.source
-	end
+function ModListClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	local result = 1
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
@@ -93,7 +77,7 @@ function ModListClass:More(cfg, ...)
 			local mod = self[i]
 			if mod.name == modName and mod.type == "MORE" and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
 				if mod[1] then
-					result = result * (1 + (self:EvalMod(mod, cfg) or 1) / 100)
+					result = result * (1 + (self:EvalMod(context, mod, cfg) or 1) / 100)
 				else
 					result = result * (1 + mod.value / 100)
 				end
@@ -101,21 +85,12 @@ function ModListClass:More(cfg, ...)
 		end
 	end
 	if self.parent then
-		self.parent.context = self.context
-		result = result * self.parent:More(cfg, ...)
-		self.parent.context = self.parent
+		result = result * self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	end
 	return result
 end
 
-function ModListClass:Flag(cfg, ...)
-	local flags, keywordFlags = 0, 0
-	local source
-	if cfg then
-		flags = cfg.flags or 0
-		keywordFlags = cfg.keywordFlags or 0
-		source = cfg.source
-	end
+function ModListClass:FlagInternal(context, cfg, flags, keywordFlags, source, ...)
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
@@ -132,21 +107,11 @@ function ModListClass:Flag(cfg, ...)
 		end
 	end
 	if self.parent then
-		self.parent.context = self.context
-		local result = self.parent:Flag(cfg, ...)
-		self.parent.context = self.parent
-		return result
+		return self.parent:FlagInternal(context, cfg, flags, keywordFlags, source, ...)
 	end
 end
 
-function ModListClass:Override(cfg, ...)
-	local flags, keywordFlags = 0, 0
-	local source
-	if cfg then
-		flags = cfg.flags or 0
-		keywordFlags = cfg.keywordFlags or 0
-		source = cfg.source
-	end
+function ModListClass:OverrideInternal(context, cfg, flags, keywordFlags, source, ...)
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
@@ -164,22 +129,11 @@ function ModListClass:Override(cfg, ...)
 		end
 	end
 	if self.parent then
-		self.parent.context = self.context
-		local result = self.parent:Override(cfg, ...)
-		self.parent.context = self.parent
-		return result
+		return self.parent:OverrideInternal(context, cfg, flags, keywordFlags, source, ...)
 	end
 end
 
-function ModListClass:List(cfg, ...)
-	local flags, keywordFlags = 0, 0
-	local source
-	if cfg then
-		flags = cfg.flags or 0
-		keywordFlags = cfg.keywordFlags or 0
-		source = cfg.source
-	end
-	local result = { }
+function ModListClass:ListInternal(context, result, cfg, flags, keywordFlags, source, ...)
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
@@ -198,20 +152,11 @@ function ModListClass:List(cfg, ...)
 		end
 	end
 	if self.parent then
-		self.parent.context = self.context
-		for _, v in ipairs(self.parent:List(cfg, ...)) do
-			t_insert(result, v)
-		end
-		self.parent.context = self.parent
+		self.parent:ListInternal(context, result, cfg, flags, keywordFlags, source, ...)
 	end
-	return result
 end
 
-function ModListClass:Tabulate(modType, cfg, ...)
-	local flags = cfg.flags or 0
-	local keywordFlags = cfg.keywordFlags or 0
-	local source = cfg.source
-	local result = { }
+function ModListClass:TabulateInternal(context, result, modType, cfg, flags, keywordFlags, source, ...)
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
@@ -230,13 +175,8 @@ function ModListClass:Tabulate(modType, cfg, ...)
 		end
 	end
 	if self.parent then
-		self.parent.context = self.context
-		for _, v in ipairs(self.parent:Tabulate(modType, cfg, ...)) do
-			t_insert(result, v)
-		end
-		self.parent.context = self.parent
+		self.parent:TabulateInternal(context, result, modType, cfg, flags, keywordFlags, source, ...)
 	end
-	return result
 end
 
 function ModListClass:Print()

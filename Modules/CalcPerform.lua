@@ -241,8 +241,11 @@ local function doActorMisc(env, actor)
 	local condList = modDB.conditions
 
 	-- Calculate current and maximum charges
+	output.PowerChargesMin = modDB:Sum("BASE", nil, "PowerChargesMin")
 	output.PowerChargesMax = modDB:Sum("BASE", nil, "PowerChargesMax")
+	output.FrenzyChargesMin = modDB:Sum("BASE", nil, "FrenzyChargesMin")
 	output.FrenzyChargesMax = modDB:Sum("BASE", nil, "FrenzyChargesMax")
+	output.EnduranceChargesMin = modDB:Sum("BASE", nil, "EnduranceChargesMin")
 	output.EnduranceChargesMax = modDB:Sum("BASE", nil, "EnduranceChargesMax")
 	output.SiphoningChargesMax = modDB:Sum("BASE", nil, "SiphoningChargesMax")
 	output.CrabBarriersMax = modDB:Sum("BASE", nil, "CrabBarriersMax")
@@ -251,22 +254,22 @@ local function doActorMisc(env, actor)
 	else
 		output.PowerCharges = 0
 	end
-	output.PowerCharges = m_max(output.PowerCharges, modDB:Sum("BASE", nil, "PowerChargesMin"))
-	output.RemovablePowerCharges = output.PowerChargesMax - output.PowerCharges
+	output.PowerCharges = m_max(output.PowerCharges, output.PowerChargesMin)
+	output.RemovablePowerCharges = output.PowerCharges - output.PowerChargesMin
 	if modDB:Flag(nil, "UseFrenzyCharges") then
 		output.FrenzyCharges = modDB:Override(nil, "FrenzyCharges") or output.FrenzyChargesMax
 	else
 		output.FrenzyCharges = 0
 	end
-	output.FrenzyCharges = m_max(output.FrenzyCharges, modDB:Sum("BASE", nil, "FrenzyChargesMin"))
-	output.RemovableFrenzyCharges = output.FrenzyChargesMax - output.FrenzyCharges
+	output.FrenzyCharges = m_max(output.FrenzyCharges, output.FrenzyChargesMin)
+	output.RemovableFrenzyCharges = output.FrenzyCharges - output.FrenzyChargesMin
 	if modDB:Flag(nil, "UseEnduranceCharges") then
 		output.EnduranceCharges = modDB:Override(nil, "EnduranceCharges") or output.EnduranceChargesMax
 	else
 		output.EnduranceCharges = 0
 	end
-	output.EnduranceCharges = m_max(output.EnduranceCharges, modDB:Sum("BASE", nil, "EnduranceChargesMin"))
-	output.RemovableEnduranceCharges = output.EnduranceChargesMax - output.EnduranceCharges
+	output.EnduranceCharges = m_max(output.EnduranceCharges, output.FrenzyChargesMin)
+	output.RemovableEnduranceCharges = output.EnduranceCharges - output.EnduranceChargesMin
 	if modDB:Flag(nil, "UseSiphoningCharges") then
 		output.SiphoningCharges = modDB:Override(nil, "SiphoningCharges") or output.SiphoningChargesMax
 	else
@@ -355,6 +358,7 @@ function calcs.perform(env)
 
 	-- Build minion skills
 	for _, activeSkill in ipairs(env.activeSkillList) do
+		activeSkill.skillModList = new("ModList", activeSkill.baseSkillModList)
 		if activeSkill.minion then
 			calcs.createMinionSkills(env, activeSkill)
 		end
