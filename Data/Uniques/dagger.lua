@@ -88,7 +88,7 @@ Adds (1-2) to (3-5) Physical Damage
 Sanguine Gambol
 Skinning Knife
 Source: Upgraded from unique{Goredrill} via prophecy{Crimson Hues}
-Requires Level 5
+Requires Level 59
 30% increased Global Critical Strike Chance
 (50–70)% increased Physical Damage
 Adds (70–85) to (110–118) Physical Damage
