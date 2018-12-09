@@ -7,17 +7,58 @@ data.uniques.new = {
 [[
 Aul's Uprising
 Onyx Amulet
+League: Delve
+Source: Drops from unique{Aul, the Crystal King}
+Variant: Strength: Anger
+Variant: Strength: Determination
+Variant: Strength: Purity of Fire
+Variant: Strength: Vitality
+Variant: Dexterity: Grace
+Variant: Dexterity: Haste
+Variant: Dexterity: Hatred
+Variant: Dexterity: Purity of Ice
+Variant: Intelligence: Clarity
+Variant: Intelligence: Discipline
+Variant: Intelligence: Purity of Elements
+Variant: Intelligence: Purity of Lightning
+Variant: Intelligence: Wrath
+Variant: Envy
 Requires Level 55
 +(10–16) to all Attributes
-+(20–30) to Intelligence
-(15–20)% increased maximum Energy Shield
+{variant:1,2,3,4}+(20-30) to Strength
+{variant:5,6,7,8}+(20-30) to Dexterity
+{variant:9,10,11,12,13}+(20–30) to Intelligence
+{variant:14}Grants Level 15 Envy Skill
+{variant:1,2,3,4}(15-20)% increased Armour
+{variant:5,6,7,8}(15-20)% increased Evasion Rating
+{variant:9,10,11,12,13}(15–20)% increased maximum Energy Shield
+{variant:14}+(15-20) to all Attributes
 +(50–70) to maximum Life
-2% additional Chance to receive a Critical Strike
-Nearby Enemies have an additional 2% chance to receive a Critical Strike
-Wrath Reserves no Mana
+{variant:1,2,3,4}10% reduced Stun and Block Recovery
+{variant:5,6,7,8}Nearby Enemies grant 25% increased Flask Charges
+{variant:9,10,11,12,13}2% additional Chance to receive a Critical Strike
+{variant:1,2,3,4}Nearby Enemies have 10% reduced Stun and Block Recovery
+{variant:9,10,11,12,13}Nearby Enemies have an additional 2% chance to receive a Critical Strike
+{variant:14}(15-20)% increased Global Defences
+{variant:1}Anger Reserves no Mana
+{variant:2}Determination Reserves no Mana
+{variant:3}Purity of Fire Reserves no Mana
+{variant:4}Vitality Reserves no Mana
+{variant:5}Grace Reserves no Mana
+{variant:6}Haste Reserves no Mana
+{variant:7}Hatred Reserves no Mana
+{variant:8}Purity of Ice Reserves no Mana
+{variant:9}Clarity Reserves no Mana
+{variant:10}Discipline Reserves no Mana
+{variant:11}Purity of Elements Reserves no Mana
+{variant:12}Purity of Lightning Reserves no Mana
+{variant:13}Wrath Reserves no Mana
+{variant:14}Envy Reserves no Mana
 ]],[[
 Cerberus Limb
 Blood Sceptre
+League: Delve
+Source: Drops from unique{Ahuatotli, the Blind}
 Requires Level 47
 24% increased Elemental Damage
 (70–100)% increased Spell Damage
@@ -29,7 +70,7 @@ Requires Level 47
 ]],[[
 Chaber Cairn
 Great Mallet
-Source: Upgraded from unique{Chober Chaber} using prophecy{Faith Exhumed}
+Source: Upgraded from unique{Chober Chaber} via prophecy{Faith Exhumed}
 Requires Level 60
 30% increased Stun Duration on Enemies
 +1 to Level of Socketed Melee Gems
@@ -44,13 +85,14 @@ Curtain Call
 Plague Mask
 Requires Level 20
 +23 to maximum Life
-Skills which Place Mines place up to 1 additional Mine if you have at least 500 Intelligence
-Skills which Place Mines place up to 1 additional Mine if you have at least 500 Dexterity
 (10–15)% reduced Mine Laying Speed
 (40–50)% increased Mine Arming Speed
+Skills which Place Mines place up to 1 additional Mine if you have at least 500 Dexterity
+Skills which Place Mines place up to 1 additional Mine if you have at least 500 Intelligence
 ]],[[
 Demon Stitcher
 Satin Gloves
+League: Delve
 Requires Level 41
 (15–20)% increased Cast Speed
 +(50–70) to maximum Energy Shield
@@ -61,16 +103,16 @@ The Eternal Apple
 Chiming Spirit Shield
 Requires Level 49
 (10–15)% increased Spell Damage
-You lose all Endurance Charges at maximum Endurance Charges
 Trigger a Socketed Warcry Skill when you lose Endurance Charges
 +(60–80) to maximum Life
 +(17–23)% to Chaos Resistance
-50% increased Warcry Cooldown Recovery Speed
+You lose all Endurance Charges at maximum Endurance Charges
 Cannot Block
+50% increased Warcry Cooldown Recovery Speed
 ]],[[
 Geofri's Legacy
 Great Crown
-Source: Upgraded from unique{Geofri's Crest} using prophecy{The Bishop's Legacy}
+Source: Upgraded from unique{Geofri's Crest} via prophecy{The Bishop's Legacy}
 Requires Level 62
 +1 to Level of Socketed Gems
 (60–80)% increased Armour and Energy Shield
@@ -92,15 +134,14 @@ Has no Sockets
 ]],[[
 The Iron Fortress
 Crusader Plate
+Source: Upgraded from unique{Iron Heart} via prophecy{Battle Hardened}
 Requires Level 68
-Source: Upgraded from unique{Iron Heart} using prophecy{Battle Hardened}
-Strength's Damage Bonus instead grants 3% increased Melee
-Physical Damage per 10 Strength
-10% reduced Movement Speed
-(80–100)% increased Armour
 +1% Chance to Block Attack Damage per 50 Strength
 Chance to Block Spell Damage is Unlucky
 +(60–120) to Strength
+(80–100)% increased Armour
+10% reduced Movement Speed
+Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
 ]],[[
 Mark of Submission
 Unset Ring
@@ -112,13 +153,14 @@ Perquil's Toe
 Gold Amulet
 Requires Level 29
 (12–20)% increased Rarity of Items found
-Lightning Damage from Enemies Hitting you is Lucky
 +(40–50) to Dexterity
-Nearby Allies' Damage with Hits is Lucky
 (5–8)% increased Movement Speed
+Lightning Damage from Enemies Hitting you is Lucky
+Nearby Allies' Damage with Hits is Lucky
 ]],[[
 The Primordial Chain
 Coral Amulet
+League: Delve
 Requires Level 34
 (2–4) Life Regenerated per second
 Can Summon up to 3 additional Golems at a time
@@ -153,6 +195,7 @@ Grants all bonuses of Unallocated Small Passive Skills in Radius
 Command of the Pit
 Riveted Gloves
 League: Delve
+Source: Drops from unique{Kurgal, the Blackblooded}
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
 Requires Level 37
@@ -166,6 +209,7 @@ With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
 Crown of the Tyrant
 Magistrate Crown
 League: Delve
+Source: Drops from unique{Aul, the Crystal King}
 Requires Level 58
 Has 1 Socket
 +(50–100) to maximum Life
@@ -176,26 +220,182 @@ You and Nearby Allies have 16 to 144 added Lightning Damage per Blue Socket
 You and Nearby Allies have 47 to 61 added Chaos Damage per White Socket
 ]],[[
 Doryani's Delusion
+Sorcerer Boots
+League: Delve
+Source: Drops from unique{The Apex Assembly} in unique{Doryani's Machinarium}
+Variant: Purity of Fire: Fire
+Variant: Purity of Fire: Cold
+Variant: Purity of Fire: Lightning
+Variant: Purity of Ice: Fire
+Variant: Purity of Ice: Cold
+Variant: Purity of Ice: Lightning
+Variant: Purity of Lightning: Fire
+Variant: Purity of Lightning: Cold
+Variant: Purity of Lightning: Lightning
+Requires Level 67
+{variant:1,2,3}Grants Level 25 Purity of Fire Skill
+{variant:4,5,6}Grants Level 25 Purity of Ice Skill
+{variant:7,8,9}Grants Level 25 Purity of Lightning Skill
+{variant:1,4,7}Adds (25–30) to (40–45) Fire Damage to Spells and Attacks
+{variant:2,5,8}Adds (25–30) to (40–45) Cold Damage to Spells and Attacks
+{variant:3,6,9}Adds (1–3) to (68–72) Lightning Damage to Spells and Attacks
+(180–220)% increased Energy Shield
++(60–70) to maximum Life
+30% increased Movement Speed
+]],[[
+Doryani's Delusion
 Titan Greaves
 League: Delve
+Source: Drops from unique{The Apex Assembly} in unique{Doryani's Machinarium}
+Variant: Purity of Fire: Fire
+Variant: Purity of Fire: Cold
+Variant: Purity of Fire: Lightning
+Variant: Purity of Ice: Fire
+Variant: Purity of Ice: Cold
+Variant: Purity of Ice: Lightning
+Variant: Purity of Lightning: Fire
+Variant: Purity of Lightning: Cold
+Variant: Purity of Lightning: Lightning
 Requires Level 68
-Grants Level 25 Purity of Fire Skill
-Adds (25–30) to (40–45) Fire Damage to Spells and Attacks
+{variant:1,2,3}Grants Level 25 Purity of Fire Skill
+{variant:4,5,6}Grants Level 25 Purity of Ice Skill
+{variant:7,8,9}Grants Level 25 Purity of Lightning Skill
+{variant:1,4,7}Adds (25–30) to (40–45) Fire Damage to Spells and Attacks
+{variant:2,5,8}Adds (25–30) to (40–45) Cold Damage to Spells and Attacks
+{variant:3,6,9}Adds (1–3) to (68–72) Lightning Damage to Spells and Attacks
 (100–120)% increased Armour
-+(50–70) to maximum Life
++(60–70) to maximum Life
+30% increased Movement Speed
+]],[[
+Doryani's Delusion
+Slink Boots
+League: Delve
+Source: Drops from unique{The Apex Assembly} in unique{Doryani's Machinarium}
+Variant: Purity of Fire: Fire
+Variant: Purity of Fire: Cold
+Variant: Purity of Fire: Lightning
+Variant: Purity of Ice: Fire
+Variant: Purity of Ice: Cold
+Variant: Purity of Ice: Lightning
+Variant: Purity of Lightning: Fire
+Variant: Purity of Lightning: Cold
+Variant: Purity of Lightning: Lightning
+Requires Level 69
+{variant:1,2,3}Grants Level 25 Purity of Fire Skill
+{variant:4,5,6}Grants Level 25 Purity of Ice Skill
+{variant:7,8,9}Grants Level 25 Purity of Lightning Skill
+{variant:1,4,7}Adds (25–30) to (40–45) Fire Damage to Spells and Attacks
+{variant:2,5,8}Adds (25–30) to (40–45) Cold Damage to Spells and Attacks
+{variant:3,6,9}Adds (1–3) to (68–72) Lightning Damage to Spells and Attacks
+(100–120)% increased Evasion Rating
++(60–70) to maximum Life
 30% increased Movement Speed
 ]],[[
 Hale Negator
 Mind Cage
-Requires Level 65
 League: Delve
-Has 1 Abyssal Socket
+Source: Drops from unique{Kurgal, the Blackblooded}
+Variant: One Abyssal Socket
+Variant: Two Abyssal Sockets
+Requires Level 65
+{variant:1}Has 1 Abyssal Socket
+{variant:2}Has 2 Abyssal Sockets
 (6–8)% increased maximum Life
-Recover (2–3)% of Energy Shield when you lose a Spirit Charge
-Recover (2–3)% of Life when you lose a Spirit Charge
++1 to Maximum Spirit Charges per Abyss Jewel affecting you
 Gain a Spirit Charge every second
 You lose all Spirit Charges when taking a Savage Hit
-+1 to Maximum Spirit Charges per Abyss Jewel affecting you
+Recover (2–3)% of Life when you lose a Spirit Charge
+Recover (2–3)% of Energy Shield when you lose a Spirit Charge
+]],[[
+Ahkeli's Meadow
+Ruby Ring
+League: Delve
+Source: Drops from unique{Aul, the Crystal King}
+Requires Level 49
++(20-30)% to Fire Resistance
++20 to Strength
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
+Ahkeli's Mountain
+Ruby Ring
+League: Delve
+Source: Drops from unique{Ahuatotli, the Blind}
+Requires Level 49
++(20-30)% to Fire Resistance
++20 to Strength
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
+Ahkeli's Valley
+Ruby Ring
+League: Delve
+Source: Drops from unique{Kurgal, the Blackblooded}
+Requires Level 49
++(20-30)% to Fire Resistance
++20 to Strength
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
+Putembo's Meadow
+Topaz Ring
+League: Delve
+Source: Drops from unique{Kurgal, the Blackblooded}
+Requires Level 49
++(20-30)% to Lightning Resistance
++20 to Intelligence
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
+Putembo's Mountain
+Topaz Ring
+League: Delve
+Source: Drops from unique{Aul, the Crystal King}
+Requires Level 49
++(20-30)% to Lightning Resistance
++20 to Intelligence
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
+Putembo's Valley
+Topaz Ring
+League: Delve
+Source: Drops from unique{Ahuatotli, the Blind}
+Requires Level 49
++(20-30)% to Lightning Resistance
++20 to Intelligence
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
+Uzaza's Meadow
+Sapphire Ring
+League: Delve
+Source: Drops from unique{Ahuatotli, the Blind}
+Requires Level 49
++(20-30)% to Cold Resistance
++20 to Dexterity
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
+Uzaza's Mountain
+Sapphire Ring
+League: Delve
+Source: Drops from unique{Kurgal, the Blackblooded}
+Requires Level 49
++(20-30)% to Cold Resistance
++20 to Dexterity
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
+Uzaza's Valley
+Sapphire Ring
+League: Delve
+Source: Drops from unique{Aul, the Crystal King}
+Requires Level 49
++(20-30)% to Cold Resistance
++20 to Dexterity
+5% increased maximum Energy Shield
+5% increased maximum Life
 ]],
 
 
@@ -248,11 +448,12 @@ Gain a Frenzy Charge on every 50th Rampage Kill
 ]],[[
 Unyielding Flame
 Archon Kite Shield
+Source: Drops in The Lord's Labyrinth
 Requires Level 68
 +12% to all Elemental Resistances
 Trigger Commandment of Inferno on Critical Strike
 (50–70)% increased Global Critical Strike Chance
-+(50–70) to maximum Life
++(60–80) to maximum Life
 +(20–30)% to Fire Resistance
 (8–12)% increased Attack Speed if you've dealt a Critical Strike Recently
 (8–12)% increased Cast Speed if you've dealt a Critical Strike Recently
@@ -260,7 +461,7 @@ Trigger Commandment of Inferno on Critical Strike
 Zeel's Amplifier
 Polished Spiked Shield
 Requires Level 49
-4% chance to Dodge Attacks
+4% chance to Dodge Attack Hits
 (40–50)% increased Spell Damage
 +(60–80) to maximum Energy Shield
 +(50–70) to maximum Life
@@ -276,8 +477,8 @@ League: Incursion
 Upgrade: Upgrades to unique{Apep's Supremacy} via currency{Vial of Awakening}
 Requires Level 45
 (5–10)% increased Spell Damage
-Adds 22 to 35 Chaos Damage
-+96 to maximum Energy Shield
+Adds (20-22) to (30-37) Chaos Damage
++(80-100) to maximum Energy Shield
 +25% chance to be Poisoned
 +3% to all maximum Resistances while Poisoned
 50 Energy Shield Regenerated per Second per Poison on you, up to 250 per second
@@ -289,9 +490,9 @@ League: Incursion
 Source: Upgraded from unique{Apep's Slumber} via currency{Vial of Awakening}
 Requires Level 62
 (5–10)% increased Spell Damage
-Adds 55 to 76 Chaos Damage
-+144 to maximum Energy Shield
-45% faster start of Energy Shield Recharge
+Adds (50-55) to (72-80) Chaos Damage
++(130-150) to maximum Energy Shield
+(30-50)% faster start of Energy Shield Recharge
 You take Chaos Damage instead of Physical Damage from Bleeding
 +25% chance to be Poisoned
 +3% to all maximum Resistances while Poisoned
@@ -313,13 +514,13 @@ Ambush Mitts
 League: Incursion
 Source: Upgraded from unique{Architect's Hand} via currency{Vial of Dominance}
 Requires Level 45
-+35 to Dexterity
-217% increased Evasion and Energy Shield
-30% reduced Trap Throwing Speed
-10% increased Area of Effect for Traps
-Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
-10% chance to gain an Endurance, Frenzy or Power Charge when a Trap is Triggered by an Enemy
++(30-40) to Dexterity
+(200-250)% increased Evasion and Energy Shield
+(20-30)% reduced Trap Throwing Speed
 Skills which throw Traps have Blood Magic
+Skills used by Traps have (10-20)% increased Area of Effect
+Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
+10% chance to gain an Endurance, Frenzy or Power Charge when any of your Traps is Triggered by an Enemy
 ]],[[
 Coward's Chains
 Chain Belt
@@ -327,10 +528,10 @@ League: Incursion
 Upgrade: Upgrades to unique{Coward's Legacy} via currency{Vial of Consequence}
 Requires Level 22
 +(9–20) to maximum Energy Shield
-22% increased Damage
-+14 to all Attributes
-7% increased Movement Speed
-Enemies are Unlucky when Damaging you while you are Cursed with Vulnerability
+(20-25)% increased Damage
++(10-15) to all Attributes
+(5-10)% increased Movement Speed
+Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
 You are cursed with Level 10 Vulnerability
 ]],[[
 Coward's Legacy
@@ -339,30 +540,30 @@ League: Incursion
 Source: Upgraded from unique{Coward's Chains} via currency{Vial of Consequence}
 Requires Level 52
 +(9–20) to maximum Energy Shield
-+20 to all Attributes
-5% increased Movement Speed
++(15-20) to all Attributes
+(5-10)% increased Movement Speed
 50% increased Effect of Curses on you
-You are Cursed with Level 20 Vulnerability
 You count as on Low Life while you are Cursed with Vulnerability
+You are Cursed with Level 20 Vulnerability
 ]],[[
 Dance of the Offered
 Shackled Boots
 League: Incursion
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
 Requires Level 34
-+51 to maximum Mana
-+15% to Lightning Resistance
++(50-60) to maximum Mana
++(15-20)% to Lightning Resistance
 25% increased Movement Speed
 You have Onslaught while not on Low Mana
-Lose 33.5 Mana per Second
+Lose (30-40) Mana per Second
 ]],[[
 Omeyocan
 Carnal Boots
 League: Incursion
 Source: Upgraded from unique{Dance of the Offered} via currency{Vial of the Ritual}
 Requires Level 55
-19% increased maximum Mana
-+28% to Lightning Resistance
+(15-20)% increased maximum Mana
++(25-30)% to Lightning Resistance
 30% increased Movement Speed
 2% chance to Dodge Attack and Spell Hits per 500 Maximum Mana, up to 20%
 You have Onslaught while not on Low Mana
@@ -374,9 +575,9 @@ League: Incursion
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
 Requires Level 35
 +240 to Accuracy Rating
-116% increased Physical Damage
-12% increased Attack Speed
-+26 Life gained on Kill
+(110-120)% increased Physical Damage
+(10-15)% increased Attack Speed
++(20-30) Life gained on Kill
 50% of Physical Damage from Hits with this Weapon is Converted to a random Element
 Hits with this Weapon always inflict Elemental Ailments
 ]],[[
@@ -386,21 +587,21 @@ League: Incursion
 Source: Upgraded from unique{Story of the Vaal} via currency{Vial of Fate}
 Requires Level 56
 +400 to Accuracy Rating
-178% increased Physical Damage
-11% increased Attack Speed
+(160-180)% increased Physical Damage
+(10-15)% increased Attack Speed
 100% of Physical Damage from Hits with this Weapon is Converted to a random Element
 Hits with this Weapon always inflict Elemental Ailments
-Hits with this Weapon deal 57% increased Damage to Ignited Enemies
-Hits with this Weapon deal 52% increased Damage to Frozen Enemies
-Hits with this Weapon deal 46% increased Damage to Shocked Enemies
+Hits with this Weapon deal (30-60)% increased Damage to Ignited Enemies
+Hits with this Weapon deal (30-60)% increased Damage to Frozen Enemies
+Hits with this Weapon deal (30-60)% increased Damage to Shocked Enemies
 ]],[[
 Mask of the Spirit Drinker
 Crusader Helmet
 League: Incursion
 Upgrade: Upgrades to unique{Mask of the Stitched Demon} via currency{Vial of Summoning}
 Requires Level 31
-65% increased Armour and Energy Shield
-+46 to maximum Life
+(60-80)% increased Armour and Energy Shield
++(30-50) to maximum Life
 Your Energy Shield starts at zero
 Cannot gain Energy Shield
 50 Life Regenerated per second if you have at least 500 Maximum Energy Shield
@@ -412,8 +613,8 @@ Magistrate Crown
 League: Incursion
 Source: Upgraded from unique{Mask of the Spirit Drinker} via currency{Vial of Summoning}
 Requires Level 58
-+45 to Intelligence
-+180 to maximum Energy Shield
++(40-50) to Intelligence
++(160-180) to maximum Energy Shield
 Strength provides no bonus to Maximum Life
 Intelligence provides no bonus to Maximum Mana
 +1 to Maximum Life per 2 Intelligence
@@ -424,12 +625,13 @@ Cannot gain Energy Shield
 Sacrificial Heart
 Paua Amulet
 League: Incursion
+Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Zerphi's Heart} via currency{Vial of Sacrifice}
 Requires Level 32
 (20–30)% increased Mana Regeneration Rate
-Adds 25 to 38 Fire Damage
-Adds 21 to 35 Cold Damage
-Adds 1 to 51 Lightning Damage
+Adds (22-27) to (34-38) Fire Damage
+Adds (20-23) to (31-35) Cold Damage
+Adds (1-3) to (47-52) Lightning Damage
 Gain a Power Charge when you use a Vaal Skill
 10 Life gained for each Enemy Hit if you have used a Vaal Skill Recently
 10% increased Movement Speed if you have used a Vaal Skill Recently
@@ -440,7 +642,7 @@ League: Incursion
 Source: Upgraded from unique{Sacrificial Heart} via currency{Vial of Sacrifice}
 Requires Level 70
 (20–30)% increased Mana Regeneration Rate
-Adds 51 to 59 Chaos Damage
+Adds (48-53) to (58-60) Chaos Damage
 Items and Gems have 50% increased Attribute Requirements
 Chaos Damage can Ignite, Chill and Shock
 Gain Soul Eater for 10 seconds when you use a Vaal Skill
@@ -462,12 +664,13 @@ Corrupted
 Soul Catcher
 Quartz Flask
 League: Incursion
+Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Soul Ripper} via currency{Vial of the Ghost}
 Requires Level 27
 Cannot gain Mana during effect
-Vaal Skills deal 69% increased Damage during effect
+Vaal Skills deal (60-100)% increased Damage during effect
 Vaal Skills have 25% reduced Soul Cost during effect
-Vaal Skills used during effect have 31% reduced Soul Gain Prevention Duration
+Vaal Skills used during effect have (20-40)% reduced Soul Gain Prevention Duration
 ]],[[
 Soul Ripper
 Quartz Flask
@@ -475,13 +678,14 @@ League: Incursion
 Source: Upgraded from unique{Soul Catcher} via currency{Vial of the Ghost}
 Requires Level 27
 100% increased Charges used
-Vaal Skills deal 33% more Damage during effect
+Vaal Skills deal (30-40)% more Damage during effect
 Vaal Skills used during effect do not apply Soul Gain Prevention
 Gains no Charges During effect of any Soul Ripper Flask
 ]],[[
 Tempered Flesh
 Crimson Jewel
 League: Incursion
+Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Transcendent Flesh} via currency{Vial of Transcendence}
 Radius: Medium
 -1 Strength per 1 Strength on Allocated Passives in Radius
@@ -499,6 +703,7 @@ Radius: Medium
 Tempered Mind
 Cobalt Jewel
 League: Incursion
+Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Transcendent Mind} via currency{Vial of Transcendence}
 Radius: Medium
 -1 Intelligence per 1 Intelligence on Allocated Passives in Radius
@@ -517,6 +722,7 @@ every 10 Intelligence on Allocated Passives in Radius
 Tempered Spirit
 Viridian Jewel
 League: Incursion
+Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Transcendent Spirit} via currency{Vial of Transcendence}
 Radius: Medium
 -1 Dexterity per 1 Dexterity on Allocated Passives in Radius
@@ -530,5 +736,58 @@ Radius: Medium
 -1 Dexterity per 1 Dexterity on Allocated Passives in Radius
 2% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
 +15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
+]],[[
+String of Servitude
+Heavy Belt
+League: Incursion
+Source: Drops from unique{The Vaal Omnitect}
+Variant: Area of Effect
+Variant: Crit Multi during Flask Effect
+Variant: Attack Speed during Flask Effect
+Variant: Cast Speed during Flask Effect
+Variant: Crit Chance during Flask Effect
+Variant: Effect Duration
+Variant: Energy Shield
+Variant: Life
+Variant: Movement Speed during Flask Effect
+Variant: Item Rarity
+Variant: Item Quantity
+Variant: Wrath Aura Effect
+Variant: Anger Aura Effect
+Variant: Hatred Aura Effect
+Variant: Determination Aura Effect
+Variant: Discipline Aura Effect
+Variant: Grace Aura Effect
+Variant: Intelligence/Dexterity
+Variant: Dexterity/Strength
+Variant: Strength/Intelligence
+Variant: Elemental Resistances
+Implicits: 24
+{variant:1}(24–30)% increased Area of Effect
+{variant:2}+(60–75)% to Critical Strike Multiplier during any Flask Effect
+{variant:3}(24–36)% increased Attack Speed during any Flask Effect
+{variant:4}(24–36)% increased Cast Speed during any Flask Effect
+{variant:5}(105–120)% increased Critical Strike Chance during any Flask Effect
+{variant:6}(36–45)% increased Skill Effect Duration
+{variant:7}(24–30)% increased maximum Energy Shield
+{variant:8}(18–24)% increased maximum Life
+{variant:9}(24–36)% increased Movement Speed during any Flask Effect
+{variant:10}(60–90)% increased Rarity of Items found
+{variant:11}(9–15)% increased Quantity of Items found
+{variant:12}Wrath has (45–60)% increased Aura Effect
+{variant:13}Anger has (45–60)% increased Aura Effect
+{variant:14}Hatred has (45–60)% increased Aura Effect
+{variant:15}Determination has (45–60)% increased Aura Effect
+{variant:16}Discipline has (45–60)% increased Aura Effect
+{variant:17}Grace has (45–60)% increased Aura Effect
+{variant:18}(12–18)% increased Intelligence
+{variant:18}(12–18)% increased Dexterity
+{variant:19}(12–18)% increased Dexterity
+{variant:19}(12–18)% increased Strength
+{variant:20}(12–18)% increased Strength
+{variant:20}(12–18)% increased Intelligence
+{variant:21}+(42–48)% to all Elemental Resistances
+Implicit Modifier magnitudes are tripled
+Corrupted
 ]],
 }
