@@ -371,7 +371,7 @@ Requires Level 64
 {variant:3}Adds (20–24) to (33–36) Cold Damage
 {variant:4}Adds (10–13) to (43–47) Lightning Damage
 {variant:5}Adds (17–19) to (23–29) Chaos Damage
-{variant:1}+(450–500) to Armour
+{variant:1}+(400–500) to Armour
 {variant:2}1% of Life Regenerated per second
 {variant:3}(45–50)% increased Mana Regeneration Rate
 {variant:4}1% of Energy Shield Regenerated per second

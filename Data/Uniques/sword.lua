@@ -6,7 +6,7 @@ return {
 Ahn's Might
 Midnight Blade
 Requires Level 68, 313 Str, 113 Dex
-40% increased Accuracy Rating
+40% increased Global Accuracy Rating
 Adds (80-115) to (150-205) Physical Damage
 (15-25)% increased Critical Strike Chance
 -1 to Maximum Frenzy Charges
@@ -52,7 +52,7 @@ Variant: Current
 Requires Level 32, 57 Str, 57 Dex
 Implicits: 2
 {variant:1,2}18% increased Accuracy Rating
-{variant:3}40% increased Accuracy Rating
+{variant:3}40% increased Global Accuracy Rating
 {variant:1}100% increased Physical Damage
 {variant:2,3}150% increased Physical Damage
 +10 to Intelligence
@@ -123,7 +123,7 @@ Variant: Current
 Requires Level 62, 122 Str, 104 Dex
 Implicits: 2
 {variant:1,2,3}18% increased Accuracy Rating
-{variant:4,5}40% increased Accuracy Rating
+{variant:4,5}40% increased Global Accuracy Rating
 {variant:1,2}Adds 1 to (500-600) Lightning Damage
 {variant:3,4,5}Adds 1 to (550-650) Lightning Damage
 (7-10)% increased Attack Speed
@@ -140,7 +140,7 @@ Variant: Current
 Requires Level 58, 81 Str, 117 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 Adds (5-10) to (13-20) Physical Damage
 {variant:1}(60-80)% increased Physical Damage
 {variant:2}(80-95)% increased Physical Damage
@@ -158,7 +158,7 @@ Variant: Current
 Requires Level 47, 81 Str, 81 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}+330 to Accuracy Rating
 (100-140)% increased Physical Damage
 (17-25)% increased Attack Speed
 0.2% of Chaos Damage Leeched as Life
@@ -185,7 +185,7 @@ Charan's Sword
 Source: Drops from unique{Hillock}
 Sockets: R-R-R-R-R-R
 Requires Level: 2
-40% increased Accuracy Rating
+40% increased Global Accuracy Rating
 Uses both hand slots
 (70–90)% increased Critical Strike Chance
 Adds 2 to 3 Physical Damage to Attacks per Level
@@ -199,7 +199,7 @@ Variant: Current
 Requires Level 10, 18 Str, 26 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 (20-50)% increased Physical Damage
 Adds (3-4) to (5-8) Physical Damage
 15% increased Attack Speed
@@ -216,7 +216,7 @@ Variant: Current
 Requires Level 53, 91 Str, 91 Dex
 Implicits: 2
 {variant:1,2}18% increased Accuracy Rating
-{variant:3}40% increased Accuracy Rating
+{variant:3}40% increased Global Accuracy Rating
 {variant:1}10% additional Chance to Block while Dual Wielding
 {variant:2,3}8% additional Chance to Block while Dual Wielding
 Adds (20-30) to (31-40) Physical Damage
@@ -233,7 +233,7 @@ Variant: Current
 Requires Level 68, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 Adds (65-75) to (110-130) Physical Damage
 100% increased Burning Damage if you've Ignited an Enemy Recently
 Recover 1% of Maximum Life when you Ignite an Enemy
@@ -262,7 +262,7 @@ Variant: Current
 Requires Level 2
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 100% increased Damage when on Low Life
 50% increased Physical Damage
 Adds 2 to 6 Physical Damage
@@ -274,7 +274,7 @@ Dreadbeak
 Rusted Sword
 Source: Upgraded from unique{Redbeak} via prophecy{The Dreaded Rhoa}
 Requires Level 61
-18% increased Accuracy Rating
+40% increased Global Accuracy Rating
 100% increased Damage when on Low Life
 50% increased Physical Damage
 Adds (90–98) to (133–140) Physical Damage
@@ -292,7 +292,7 @@ Variant: Current
 Requires Level 68, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 10% additional Block Chance while Dual Wielding
 Adds (60-80) to (150-180) Physical Damage
 80% increased Physical Damage with Axes
@@ -303,7 +303,7 @@ The Rippling Thoughts
 Legion Sword
 League: Harbinger
 Requires Level 62, 122 Str, 104 Dex
-40% increased Accuracy Rating
+40% increased Global Accuracy Rating
 Grants Summon Harbinger of the Arcane Skill
 Trigger level 20 Storm Cascade when you Attack
 (75-90)% increased Spell Damage
@@ -319,7 +319,7 @@ Variant: Current
 Requires Level 60, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 Adds (75-92) to (125-154) Physical Damage
 (15-25)% increased Critical Strike Chance
 0.3% of Physical Attack Damage Leeched as Life per Red Socket
@@ -340,7 +340,7 @@ Variant: Current
 Requires Level 38, 55 Str, 79 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2,3}40% increased Accuracy Rating
+{variant:2,3}40% increased Global Accuracy Rating
 +(10-20) to all Attributes
 Minions deal (20-30)% increased Damage
 Minions have +17% to Chaos Resistance
@@ -358,7 +358,7 @@ League: Breach
 Requires Level 69, 55 Str, 79 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2,3}40% increased Accuracy Rating
+{variant:2,3}40% increased Global Accuracy Rating
 Grants level 15 Envy Skill
 Minions deal (30-40)% increased Damage
 Minions have +29% to Chaos Resistance
@@ -373,7 +373,7 @@ Variant: Current
 Requires Level 20, 41 Str, 35 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 Adds (5-8) to (15-20) Physical Damage
 (8-14)% increased Attack Speed
 Hits can't be Evaded
@@ -523,7 +523,7 @@ Variant: Current
 Requires Level 59, 82 Str, 119 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 (160-190)% increased Physical Damage
 (25-30)% increased Attack Speed
 5% increased Movement Speed
@@ -536,7 +536,7 @@ The Dancing Duo
 Reaver Sword
 Source: Upgraded from unique{The Dancing Dervish} via prophecy{Dance of Steel}
 Requires Level 65
-40% increased Accuracy Rating
+40% increased Global Accuracy Rating
 (160-190)% increased Physical Damage
 (25-30)% increased Attack Speed
 5% increased Movement Speed
@@ -570,7 +570,7 @@ Variant: Current
 Requires Level 22, 45 Str, 38 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 +1 to Level of Active Socketed Skill Gems
 (40-60)% increased Physical Damage
 Adds (60-65) to (90-105) Chaos Damage
@@ -586,7 +586,7 @@ Variant: Current
 Requires Level 59, 82 Str, 119 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 Socketed Gems are Supported by level 1 Blood Magic
 Adds (90-115) to (230-260) Physical Damage
 (40-50)% increased Critical Strike Chance
@@ -686,7 +686,7 @@ Variant: Current
 Requires Level 14, 21 Str, 30 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 (80-100)% increased Physical Damage
 Adds 35 to 70 Cold Damage
 0.6% of Physical Attack Damage Leeched as Mana
