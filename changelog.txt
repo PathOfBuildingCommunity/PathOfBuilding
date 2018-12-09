@@ -12,6 +12,10 @@ VERSION[1.4.118][2018/12/09]
 	* Multiple Totems
  * Applied all skill balance changes for 3.5
  * Applied all item base balance changes for 3.5
+ * Updated/added many uniques from Incursion and Delve (thanks PJacek)
+ * Corrected the implicits on a number of unique swords (thanks baranio)
+ * Fixed the rolls on Impresence's Armour modifier (thanks nathanrobb)
+ * Removed errant "Cannot be Frozen" modifier from Crystal Vault (thanks bblarney)
  * Fixed certain curse stats having the wrong sign (positive instead of negative, or vice versa)
  * Fixed some remaining cases of modifiers being attributed to the wrong skill gem in the Calcs tab
  * The Virulence bonuses for Herald of Agony's Agony Crawler no longer incorrectly apply to Phantasms
