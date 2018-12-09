@@ -3,21 +3,19 @@
 -- Class: Minion List
 -- Minion list control.
 --
-local launch, main = ...
-
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
 local s_format = string.format
 
-local MinionListClass = common.NewClass("MinionList", "ListControl", function(self, anchor, x, y, width, height, data, list, dest)
-	self.ListControl(anchor, x, y, width, height, 16, not dest, list)
+local MinionListClass = newClass("MinionListControl", "ListControl", function(self, anchor, x, y, width, height, data, list, dest)
+	self.ListControl(anchor, x, y, width, height, 16, false, not dest, list)
 	self.data = data
 	self.dest = dest
 	if dest then
 		self.dragTargetList = { dest }
 		self.label = "^7Available Spectres:"
-		self.controls.add = common.New("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Add", function()
+		self.controls.add = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Add", function()
 			self:AddSel()
 		end)
 		self.controls.add.enabled = function()
@@ -25,7 +23,7 @@ local MinionListClass = common.NewClass("MinionList", "ListControl", function(se
 		end
 	else
 		self.label = "^7Spectres in Build:"
-		self.controls.delete = common.New("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Remove", function()
+		self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Remove", function()
 			self:OnSelDelete(self.selIndex, self.selValue)
 		end)
 		self.controls.delete.enabled = function()

@@ -19,23 +19,12 @@ skills["EnchantmentOfBladesOnHit"] = {
 		spell = true,
 		projectile = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 7),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 32, },
-	},
 	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
-		"number_of_additional_projectiles_in_chain",
+		"number_of_chains",
 		"cast_on_hit_%",
 		"skill_art_variation",
 		"number_of_additional_projectiles",
@@ -46,6 +35,17 @@ skills["EnchantmentOfBladesOnHit"] = {
 	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1, 1.6000000238419, 3, 100, 0, 2, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 7),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 32, },
 	},
 }
 skills["EnchantmentOfBladesOnHit2"] = {
@@ -61,23 +61,12 @@ skills["EnchantmentOfBladesOnHit2"] = {
 		spell = true,
 		projectile = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 7),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 53, },
-	},
 	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
-		"number_of_additional_projectiles_in_chain",
+		"number_of_chains",
 		"cast_on_hit_%",
 		"skill_art_variation",
 		"number_of_additional_projectiles",
@@ -88,6 +77,17 @@ skills["EnchantmentOfBladesOnHit2"] = {
 	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 1.5, 2.2999999523163, 3, 100, 0, 2, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 7),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 53, },
 	},
 }
 skills["EnchantmentOfBladesOnHit3"] = {
@@ -103,23 +103,12 @@ skills["EnchantmentOfBladesOnHit3"] = {
 		spell = true,
 		projectile = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 7),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 66, },
-	},
 	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
-		"number_of_additional_projectiles_in_chain",
+		"number_of_chains",
 		"cast_on_hit_%",
 		"skill_art_variation",
 		"number_of_additional_projectiles",
@@ -130,6 +119,17 @@ skills["EnchantmentOfBladesOnHit3"] = {
 	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2, 3, 3, 100, 0, 2, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 7),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 66, },
 	},
 }
 skills["EnchantmentOfBladesOnHit4"] = {
@@ -145,23 +145,12 @@ skills["EnchantmentOfBladesOnHit4"] = {
 		spell = true,
 		projectile = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 7),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 75, },
-	},
 	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
-		"number_of_additional_projectiles_in_chain",
+		"number_of_chains",
 		"cast_on_hit_%",
 		"skill_art_variation",
 		"number_of_additional_projectiles",
@@ -172,6 +161,17 @@ skills["EnchantmentOfBladesOnHit4"] = {
 	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2.4000000953674, 3.7999999523163, 4, 100, 0, 2, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 7),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 75, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit"] = {
@@ -187,17 +187,6 @@ skills["EnchantmentOfFlamesOnHit"] = {
 		spell = true,
 		area = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 5),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 32, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -211,6 +200,17 @@ skills["EnchantmentOfFlamesOnHit"] = {
 	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 1.2000000476837, 1.7999999523163, 100, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 5),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 32, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit2"] = {
@@ -226,17 +226,6 @@ skills["EnchantmentOfFlamesOnHit2"] = {
 		spell = true,
 		area = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 5),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 53, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -250,6 +239,17 @@ skills["EnchantmentOfFlamesOnHit2"] = {
 	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 1.7000000476837, 2.5, 100, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 5),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 53, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit3"] = {
@@ -265,17 +265,6 @@ skills["EnchantmentOfFlamesOnHit3"] = {
 		spell = true,
 		area = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 5),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 66, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -289,6 +278,17 @@ skills["EnchantmentOfFlamesOnHit3"] = {
 	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 2.2000000476837, 3.2000000476837, 100, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 5),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 66, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit4"] = {
@@ -304,17 +304,6 @@ skills["EnchantmentOfFlamesOnHit4"] = {
 		spell = true,
 		area = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 5),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 75, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -329,6 +318,17 @@ skills["EnchantmentOfFlamesOnHit4"] = {
 	statLevels = {
 		[1] = { 2.5999999046326, 4, 100, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 5),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 75, },
+	},
 }
 skills["EnchantmentOfForceOnHit"] = {
 	name = "Word of Force",
@@ -340,6 +340,17 @@ skills["EnchantmentOfForceOnHit"] = {
 	baseFlags = {
 		attack = true,
 		area = true,
+	},
+	qualityStats = {
+	},
+	stats = {
+		"attack_trigger_on_hit_%",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
+	},
+	statInterpolation = { 1, },
+	statLevels = {
+		[1] = { 100, nil, nil, },
 	},
 	baseMods = {
 		skill("castTime", 1),
@@ -353,17 +364,6 @@ skills["EnchantmentOfForceOnHit"] = {
 	levels = {
 		[1] = { 32, },
 	},
-	qualityStats = {
-	},
-	stats = {
-		"attack_trigger_on_hit_%",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
-	},
-	statInterpolation = { 1, },
-	statLevels = {
-		[1] = { 100, nil, nil, },
-	},
 }
 skills["EnchantmentOfForceOnHit2"] = {
 	name = "Edict of Force",
@@ -375,6 +375,17 @@ skills["EnchantmentOfForceOnHit2"] = {
 	baseFlags = {
 		attack = true,
 		area = true,
+	},
+	qualityStats = {
+	},
+	stats = {
+		"attack_trigger_on_hit_%",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
+	},
+	statInterpolation = { 1, },
+	statLevels = {
+		[1] = { 100, nil, nil, },
 	},
 	baseMods = {
 		skill("castTime", 1),
@@ -388,17 +399,6 @@ skills["EnchantmentOfForceOnHit2"] = {
 	levels = {
 		[1] = { 53, },
 	},
-	qualityStats = {
-	},
-	stats = {
-		"attack_trigger_on_hit_%",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
-	},
-	statInterpolation = { 1, },
-	statLevels = {
-		[1] = { 100, nil, nil, },
-	},
 }
 skills["EnchantmentOfForceOnHit3"] = {
 	name = "Decree of Force",
@@ -410,6 +410,17 @@ skills["EnchantmentOfForceOnHit3"] = {
 	baseFlags = {
 		attack = true,
 		area = true,
+	},
+	qualityStats = {
+	},
+	stats = {
+		"attack_trigger_on_hit_%",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
+	},
+	statInterpolation = { 1, },
+	statLevels = {
+		[1] = { 100, nil, nil, },
 	},
 	baseMods = {
 		skill("castTime", 1),
@@ -423,17 +434,6 @@ skills["EnchantmentOfForceOnHit3"] = {
 	levels = {
 		[1] = { 66, },
 	},
-	qualityStats = {
-	},
-	stats = {
-		"attack_trigger_on_hit_%",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
-	},
-	statInterpolation = { 1, },
-	statLevels = {
-		[1] = { 100, nil, nil, },
-	},
 }
 skills["EnchantmentOfForceOnHit4"] = {
 	name = "Commandment of Force",
@@ -446,6 +446,17 @@ skills["EnchantmentOfForceOnHit4"] = {
 		attack = true,
 		area = true,
 	},
+	qualityStats = {
+	},
+	stats = {
+		"attack_trigger_on_hit_%",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
+	},
+	statInterpolation = { 1, },
+	statLevels = {
+		[1] = { 100, nil, nil, },
+	},
 	baseMods = {
 		skill("castTime", 1),
 		skill("damageEffectiveness", 2.97),
@@ -457,17 +468,6 @@ skills["EnchantmentOfForceOnHit4"] = {
 	},
 	levels = {
 		[1] = { 75, },
-	},
-	qualityStats = {
-	},
-	stats = {
-		"attack_trigger_on_hit_%",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
-	},
-	statInterpolation = { 1, },
-	statLevels = {
-		[1] = { 100, nil, nil, },
 	},
 }
 skills["EnchantmentOfFrostOnKill"] = {
@@ -482,17 +482,6 @@ skills["EnchantmentOfFrostOnKill"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 5),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 32, },
 	},
 	qualityStats = {
 	},
@@ -511,6 +500,17 @@ skills["EnchantmentOfFrostOnKill"] = {
 	statLevels = {
 		[1] = { 1, 1.6000000238419, 1, 100, 8, nil, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 5),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 32, },
+	},
 }
 skills["EnchantmentOfFrostOnKill2"] = {
 	name = "Edict of Frost",
@@ -524,17 +524,6 @@ skills["EnchantmentOfFrostOnKill2"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 5),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 53, },
 	},
 	qualityStats = {
 	},
@@ -553,6 +542,17 @@ skills["EnchantmentOfFrostOnKill2"] = {
 	statLevels = {
 		[1] = { 1.5, 2.2999999523163, 1, 100, 8, nil, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 5),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 53, },
+	},
 }
 skills["EnchantmentOfFrostOnKill3"] = {
 	name = "Decree of Frost",
@@ -566,17 +566,6 @@ skills["EnchantmentOfFrostOnKill3"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 5),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 66, },
 	},
 	qualityStats = {
 	},
@@ -595,6 +584,17 @@ skills["EnchantmentOfFrostOnKill3"] = {
 	statLevels = {
 		[1] = { 2, 3, 1, 100, 8, nil, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 5),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 66, },
+	},
 }
 skills["EnchantmentOfFrostOnKill4"] = {
 	name = "Commandment of Frost",
@@ -608,17 +608,6 @@ skills["EnchantmentOfFrostOnKill4"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 5),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 75, },
 	},
 	qualityStats = {
 	},
@@ -636,6 +625,17 @@ skills["EnchantmentOfFrostOnKill4"] = {
 	statInterpolation = { 3, 3, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2.4000000953674, 3.7999999523163, 1, 100, 8, nil, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 5),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 75, },
 	},
 }
 skills["EnchantmentOfFuryOnHit"] = {
@@ -666,18 +666,6 @@ skills["EnchantmentOfFuryOnHit"] = {
 		attack = true,
 		projectile = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("damageEffectiveness", 1.5),
-		skill("baseMultiplier", 1.5),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 32, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -697,6 +685,18 @@ skills["EnchantmentOfFuryOnHit"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 800, 180, 10, 1, 50, -90, 2, nil, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("damageEffectiveness", 1.5),
+		skill("baseMultiplier", 1.5),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 32, },
 	},
 }
 skills["EnchantmentOfFuryOnHit2"] = {
@@ -727,18 +727,6 @@ skills["EnchantmentOfFuryOnHit2"] = {
 		attack = true,
 		projectile = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("damageEffectiveness", 2.1),
-		skill("baseMultiplier", 2.1),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 53, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -758,6 +746,18 @@ skills["EnchantmentOfFuryOnHit2"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 800, 180, 10, 1, 50, -90, 3, nil, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("damageEffectiveness", 2.1),
+		skill("baseMultiplier", 2.1),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 53, },
 	},
 }
 skills["EnchantmentOfFuryOnHit3"] = {
@@ -788,18 +788,6 @@ skills["EnchantmentOfFuryOnHit3"] = {
 		attack = true,
 		projectile = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("damageEffectiveness", 2.7),
-		skill("baseMultiplier", 2.7),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 66, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -819,6 +807,18 @@ skills["EnchantmentOfFuryOnHit3"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 800, 180, 10, 1, 50, -90, 4, nil, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("damageEffectiveness", 2.7),
+		skill("baseMultiplier", 2.7),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 66, },
 	},
 }
 skills["EnchantmentOfFuryOnHit4"] = {
@@ -849,18 +849,6 @@ skills["EnchantmentOfFuryOnHit4"] = {
 		attack = true,
 		projectile = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("damageEffectiveness", 3.3),
-		skill("baseMultiplier", 3.3),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 75, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -881,6 +869,18 @@ skills["EnchantmentOfFuryOnHit4"] = {
 	statLevels = {
 		[1] = { 100, 800, 180, 10, 1, 50, -90, 5, nil, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("damageEffectiveness", 3.3),
+		skill("baseMultiplier", 3.3),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 75, },
+	},
 }
 skills["EnchantmentOfInfernoOnKill"] = {
 	name = "Word of Inferno",
@@ -895,17 +895,6 @@ skills["EnchantmentOfInfernoOnKill"] = {
 		spell = true,
 		area = true,
 		hit = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 5),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 32, },
 	},
 	qualityStats = {
 	},
@@ -924,6 +913,17 @@ skills["EnchantmentOfInfernoOnKill"] = {
 	statLevels = {
 		[1] = { 1, 1.6000000238419, 2000, 100, 450, 100, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 5),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 32, },
+	},
 }
 skills["EnchantmentOfInfernoOnKill2"] = {
 	name = "Edict of Inferno",
@@ -938,17 +938,6 @@ skills["EnchantmentOfInfernoOnKill2"] = {
 		spell = true,
 		area = true,
 		hit = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 5),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 53, },
 	},
 	qualityStats = {
 	},
@@ -967,6 +956,17 @@ skills["EnchantmentOfInfernoOnKill2"] = {
 	statLevels = {
 		[1] = { 1.5, 2.2999999523163, 2000, 100, 450, 100, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 5),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 53, },
+	},
 }
 skills["EnchantmentOfInfernoOnKill3"] = {
 	name = "Decree of Inferno",
@@ -981,17 +981,6 @@ skills["EnchantmentOfInfernoOnKill3"] = {
 		spell = true,
 		area = true,
 		hit = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 5),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 66, },
 	},
 	qualityStats = {
 	},
@@ -1010,6 +999,17 @@ skills["EnchantmentOfInfernoOnKill3"] = {
 	statLevels = {
 		[1] = { 2, 3, 2000, 100, 450, 100, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 5),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 66, },
+	},
 }
 skills["EnchantmentOfInfernoOnKill4"] = {
 	name = "Commandment of Inferno",
@@ -1024,17 +1024,6 @@ skills["EnchantmentOfInfernoOnKill4"] = {
 		spell = true,
 		area = true,
 		hit = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 5),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 75, },
 	},
 	qualityStats = {
 	},
@@ -1052,6 +1041,17 @@ skills["EnchantmentOfInfernoOnKill4"] = {
 	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2.4000000953674, 3.7999999523163, 2000, 100, 450, 100, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 5),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 75, },
 	},
 }
 skills["EnchantmentOfIreWhenHit"] = {
@@ -1083,18 +1083,6 @@ skills["EnchantmentOfIreWhenHit"] = {
 		area = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 0.5),
-		skill("damageEffectiveness", 0.6),
-		skill("baseMultiplier", 0.6),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 32, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -1110,6 +1098,18 @@ skills["EnchantmentOfIreWhenHit"] = {
 	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 30, 100, 50, nil, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 0.5),
+		skill("damageEffectiveness", 0.6),
+		skill("baseMultiplier", 0.6),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 32, },
 	},
 }
 skills["EnchantmentOfIreWhenHit2"] = {
@@ -1141,18 +1141,6 @@ skills["EnchantmentOfIreWhenHit2"] = {
 		area = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 0.5),
-		skill("damageEffectiveness", 0.9),
-		skill("baseMultiplier", 0.9),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 53, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -1168,6 +1156,18 @@ skills["EnchantmentOfIreWhenHit2"] = {
 	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 30, 100, 50, nil, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 0.5),
+		skill("damageEffectiveness", 0.9),
+		skill("baseMultiplier", 0.9),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 53, },
 	},
 }
 skills["EnchantmentOfIreWhenHit3"] = {
@@ -1199,18 +1199,6 @@ skills["EnchantmentOfIreWhenHit3"] = {
 		area = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 0.5),
-		skill("damageEffectiveness", 1.2),
-		skill("baseMultiplier", 1.2),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 66, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -1226,6 +1214,18 @@ skills["EnchantmentOfIreWhenHit3"] = {
 	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 30, 100, 50, nil, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 0.5),
+		skill("damageEffectiveness", 1.2),
+		skill("baseMultiplier", 1.2),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 66, },
 	},
 }
 skills["EnchantmentOfIreWhenHit4"] = {
@@ -1257,18 +1257,6 @@ skills["EnchantmentOfIreWhenHit4"] = {
 		area = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 0.5),
-		skill("damageEffectiveness", 1.5),
-		skill("baseMultiplier", 1.5),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 75, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -1285,18 +1273,43 @@ skills["EnchantmentOfIreWhenHit4"] = {
 	statLevels = {
 		[1] = { 5000, 30, 100, 50, nil, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 0.5),
+		skill("damageEffectiveness", 1.5),
+		skill("baseMultiplier", 1.5),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 75, },
+	},
 }
 skills["EnchantmentOfLightWhenCrit"] = {
 	name = "Word of Light",
 	hidden = true,
 	color = 4,
 	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
-	skillTypes = { [1] = true, [11] = true, [12] = true, [7] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [11] = true, [12] = true, [47] = true, [57] = true, },
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		area = true,
 		duration = true,
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"life_regeneration_rate_per_minute_%",
+		"attack_trigger_when_critically_hit_%",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
+	},
+	statInterpolation = { 1, 1, 1, },
+	statLevels = {
+		[1] = { 5000, 360, 100, nil, nil, },
 	},
 	baseMods = {
 		skill("castTime", 1),
@@ -1310,6 +1323,19 @@ skills["EnchantmentOfLightWhenCrit"] = {
 	levels = {
 		[1] = { 32, },
 	},
+}
+skills["EnchantmentOfLightWhenCrit2"] = {
+	name = "Edict of Light",
+	hidden = true,
+	color = 4,
+	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
+	skillTypes = { [1] = true, [11] = true, [12] = true, [47] = true, [57] = true, },
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		area = true,
+		duration = true,
+	},
 	qualityStats = {
 	},
 	stats = {
@@ -1322,19 +1348,6 @@ skills["EnchantmentOfLightWhenCrit"] = {
 	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 360, 100, nil, nil, },
-	},
-}
-skills["EnchantmentOfLightWhenCrit2"] = {
-	name = "Edict of Light",
-	hidden = true,
-	color = 4,
-	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
-	skillTypes = { [1] = true, [11] = true, [12] = true, [7] = true, [47] = true, [57] = true, },
-	fromItem = true,
-	baseFlags = {
-		attack = true,
-		area = true,
-		duration = true,
 	},
 	baseMods = {
 		skill("castTime", 1),
@@ -1348,6 +1361,19 @@ skills["EnchantmentOfLightWhenCrit2"] = {
 	levels = {
 		[1] = { 53, },
 	},
+}
+skills["EnchantmentOfLightWhenCrit3"] = {
+	name = "Decree of Light",
+	hidden = true,
+	color = 4,
+	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
+	skillTypes = { [1] = true, [11] = true, [12] = true, [47] = true, [57] = true, },
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		area = true,
+		duration = true,
+	},
 	qualityStats = {
 	},
 	stats = {
@@ -1360,19 +1386,6 @@ skills["EnchantmentOfLightWhenCrit2"] = {
 	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 360, 100, nil, nil, },
-	},
-}
-skills["EnchantmentOfLightWhenCrit3"] = {
-	name = "Decree of Light",
-	hidden = true,
-	color = 4,
-	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
-	skillTypes = { [1] = true, [11] = true, [12] = true, [7] = true, [47] = true, [57] = true, },
-	fromItem = true,
-	baseFlags = {
-		attack = true,
-		area = true,
-		duration = true,
 	},
 	baseMods = {
 		skill("castTime", 1),
@@ -1386,6 +1399,19 @@ skills["EnchantmentOfLightWhenCrit3"] = {
 	levels = {
 		[1] = { 66, },
 	},
+}
+skills["EnchantmentOfLightWhenCrit4"] = {
+	name = "Commandment of Light",
+	hidden = true,
+	color = 4,
+	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
+	skillTypes = { [1] = true, [11] = true, [12] = true, [47] = true, [57] = true, },
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		area = true,
+		duration = true,
+	},
 	qualityStats = {
 	},
 	stats = {
@@ -1398,19 +1424,6 @@ skills["EnchantmentOfLightWhenCrit3"] = {
 	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 360, 100, nil, nil, },
-	},
-}
-skills["EnchantmentOfLightWhenCrit4"] = {
-	name = "Commandment of Light",
-	hidden = true,
-	color = 4,
-	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
-	skillTypes = { [1] = true, [11] = true, [12] = true, [7] = true, [47] = true, [57] = true, },
-	fromItem = true,
-	baseFlags = {
-		attack = true,
-		area = true,
-		duration = true,
 	},
 	baseMods = {
 		skill("castTime", 1),
@@ -1423,19 +1436,6 @@ skills["EnchantmentOfLightWhenCrit4"] = {
 	},
 	levels = {
 		[1] = { 75, },
-	},
-	qualityStats = {
-	},
-	stats = {
-		"base_skill_effect_duration",
-		"life_regeneration_rate_per_minute_%",
-		"attack_trigger_when_critically_hit_%",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
-	},
-	statInterpolation = { 1, 1, 1, },
-	statLevels = {
-		[1] = { 5000, 360, 100, nil, nil, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit"] = {
@@ -1457,16 +1457,6 @@ skills["EnchantmentOfReflectionWhenHit"] = {
 		minion = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 32, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -1482,6 +1472,16 @@ skills["EnchantmentOfReflectionWhenHit"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 1, 80, 150, 4, 32, 100, 100, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 32, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit2"] = {
@@ -1503,16 +1503,6 @@ skills["EnchantmentOfReflectionWhenHit2"] = {
 		minion = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 53, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -1528,6 +1518,16 @@ skills["EnchantmentOfReflectionWhenHit2"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 1, 100, 150, 4, 53, 100, 200, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 53, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit3"] = {
@@ -1549,16 +1549,6 @@ skills["EnchantmentOfReflectionWhenHit3"] = {
 		minion = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 66, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -1574,6 +1564,16 @@ skills["EnchantmentOfReflectionWhenHit3"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 5000, 1, 120, 150, 4, 66, 100, 300, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 66, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit4"] = {
@@ -1595,16 +1595,6 @@ skills["EnchantmentOfReflectionWhenHit4"] = {
 		minion = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 75, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -1621,6 +1611,16 @@ skills["EnchantmentOfReflectionWhenHit4"] = {
 	statLevels = {
 		[1] = { 5000, 1, 140, 150, 4, 75, 100, 400, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 75, },
+	},
 }
 skills["EnchantmentOfSpiteWhenHit"] = {
 	name = "Word of Spite",
@@ -1629,7 +1629,7 @@ skills["EnchantmentOfSpiteWhenHit"] = {
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Releases a nova of projectiles based on your weapon, leaving chilling ground in their wake.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, [79] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1649,6 +1649,26 @@ skills["EnchantmentOfSpiteWhenHit"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_projectile_ground_effect_duration",
+		"number_of_additional_projectiles",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_art_variation",
+		"skill_physical_damage_%_to_convert_to_cold",
+		"projectiles_drop_ground_ice",
+		"projectiles_drop_ground_effects_on_client",
+		"base_is_projectile",
+		"projectiles_nova",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"damage_cannot_be_reflected",
+	},
+	statInterpolation = { 1, 1, 1, 1, 1, },
+	statLevels = {
+		[1] = { 2000, 9, 100, 2, 50, nil, nil, nil, nil, nil, nil, nil, },
 	},
 	baseMods = {
 		skill("castTime", 1),
@@ -1662,26 +1682,6 @@ skills["EnchantmentOfSpiteWhenHit"] = {
 	levels = {
 		[1] = { 32, },
 	},
-	qualityStats = {
-	},
-	stats = {
-		"base_projectile_ground_effect_duration",
-		"number_of_additional_projectiles",
-		"melee_counterattack_trigger_on_hit_%",
-		"skill_art_variation",
-		"skill_physical_damage_%_to_convert_to_cold",
-		"projectiles_drop_ground_ice",
-		"projectiles_drop_ground_effects_on_client",
-		"base_is_projectile",
-		"projectiles_nova",
-		"skill_can_fire_arrows",
-		"skill_can_fire_wand_projectiles",
-		"damage_cannot_be_reflected",
-	},
-	statInterpolation = { 1, 1, 1, 1, 1, },
-	statLevels = {
-		[1] = { 2000, 9, 100, 2, 50, nil, nil, nil, nil, nil, nil, nil, },
-	},
 }
 skills["EnchantmentOfSpiteWhenHit2"] = {
 	name = "Edict of Spite",
@@ -1690,7 +1690,7 @@ skills["EnchantmentOfSpiteWhenHit2"] = {
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Releases a nova of projectiles based on your weapon, leaving chilling ground in their wake.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, [79] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1710,6 +1710,26 @@ skills["EnchantmentOfSpiteWhenHit2"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_projectile_ground_effect_duration",
+		"number_of_additional_projectiles",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_art_variation",
+		"skill_physical_damage_%_to_convert_to_cold",
+		"projectiles_drop_ground_ice",
+		"projectiles_drop_ground_effects_on_client",
+		"base_is_projectile",
+		"projectiles_nova",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"damage_cannot_be_reflected",
+	},
+	statInterpolation = { 1, 1, 1, 1, 1, },
+	statLevels = {
+		[1] = { 2000, 9, 100, 2, 50, nil, nil, nil, nil, nil, nil, nil, },
 	},
 	baseMods = {
 		skill("castTime", 1),
@@ -1723,26 +1743,6 @@ skills["EnchantmentOfSpiteWhenHit2"] = {
 	levels = {
 		[1] = { 53, },
 	},
-	qualityStats = {
-	},
-	stats = {
-		"base_projectile_ground_effect_duration",
-		"number_of_additional_projectiles",
-		"melee_counterattack_trigger_on_hit_%",
-		"skill_art_variation",
-		"skill_physical_damage_%_to_convert_to_cold",
-		"projectiles_drop_ground_ice",
-		"projectiles_drop_ground_effects_on_client",
-		"base_is_projectile",
-		"projectiles_nova",
-		"skill_can_fire_arrows",
-		"skill_can_fire_wand_projectiles",
-		"damage_cannot_be_reflected",
-	},
-	statInterpolation = { 1, 1, 1, 1, 1, },
-	statLevels = {
-		[1] = { 2000, 9, 100, 2, 50, nil, nil, nil, nil, nil, nil, nil, },
-	},
 }
 skills["EnchantmentOfSpiteWhenHit3"] = {
 	name = "Decree of Spite",
@@ -1751,7 +1751,7 @@ skills["EnchantmentOfSpiteWhenHit3"] = {
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Releases a nova of projectiles based on your weapon, leaving chilling ground in their wake.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, [79] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1771,6 +1771,26 @@ skills["EnchantmentOfSpiteWhenHit3"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_projectile_ground_effect_duration",
+		"number_of_additional_projectiles",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_art_variation",
+		"skill_physical_damage_%_to_convert_to_cold",
+		"projectiles_drop_ground_ice",
+		"projectiles_drop_ground_effects_on_client",
+		"base_is_projectile",
+		"projectiles_nova",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"damage_cannot_be_reflected",
+	},
+	statInterpolation = { 1, 1, 1, 1, 1, },
+	statLevels = {
+		[1] = { 2000, 9, 100, 2, 50, nil, nil, nil, nil, nil, nil, nil, },
 	},
 	baseMods = {
 		skill("castTime", 1),
@@ -1784,26 +1804,6 @@ skills["EnchantmentOfSpiteWhenHit3"] = {
 	levels = {
 		[1] = { 66, },
 	},
-	qualityStats = {
-	},
-	stats = {
-		"base_projectile_ground_effect_duration",
-		"number_of_additional_projectiles",
-		"melee_counterattack_trigger_on_hit_%",
-		"skill_art_variation",
-		"skill_physical_damage_%_to_convert_to_cold",
-		"projectiles_drop_ground_ice",
-		"projectiles_drop_ground_effects_on_client",
-		"base_is_projectile",
-		"projectiles_nova",
-		"skill_can_fire_arrows",
-		"skill_can_fire_wand_projectiles",
-		"damage_cannot_be_reflected",
-	},
-	statInterpolation = { 1, 1, 1, 1, 1, },
-	statLevels = {
-		[1] = { 2000, 9, 100, 2, 50, nil, nil, nil, nil, nil, nil, nil, },
-	},
 }
 skills["EnchantmentOfSpiteWhenHit4"] = {
 	name = "Commandment of Spite",
@@ -1812,7 +1812,7 @@ skills["EnchantmentOfSpiteWhenHit4"] = {
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Releases a nova of projectiles based on your weapon, leaving chilling ground in their wake.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [48] = true, [3] = true, [47] = true, [57] = true, [79] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1833,18 +1833,6 @@ skills["EnchantmentOfSpiteWhenHit4"] = {
 		attack = true,
 		projectile = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("damageEffectiveness", 3.3),
-		skill("baseMultiplier", 3.3),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 75, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -1864,6 +1852,18 @@ skills["EnchantmentOfSpiteWhenHit4"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2000, 9, 100, 2, 50, nil, nil, nil, nil, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("damageEffectiveness", 3.3),
+		skill("baseMultiplier", 3.3),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 75, },
 	},
 }
 skills["EnchantmentOfTempestOnHit"] = {
@@ -1879,17 +1879,6 @@ skills["EnchantmentOfTempestOnHit"] = {
 		spell = true,
 		area = true,
 		duration = true,
-	},
-	baseMods = {
-		skill("castTime", 4),
-		skill("CritChance", 7),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 32, },
 	},
 	qualityStats = {
 	},
@@ -1907,6 +1896,17 @@ skills["EnchantmentOfTempestOnHit"] = {
 	statLevels = {
 		[1] = { 1, 1.6000000238419, 0, 0, 100, 2000, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 4),
+		skill("CritChance", 7),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 32, },
+	},
 }
 skills["EnchantmentOfTempestOnHit2"] = {
 	name = "Edict of the Tempest",
@@ -1921,17 +1921,6 @@ skills["EnchantmentOfTempestOnHit2"] = {
 		spell = true,
 		area = true,
 		duration = true,
-	},
-	baseMods = {
-		skill("castTime", 4),
-		skill("CritChance", 7),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 53, },
 	},
 	qualityStats = {
 	},
@@ -1949,6 +1938,17 @@ skills["EnchantmentOfTempestOnHit2"] = {
 	statLevels = {
 		[1] = { 1.5, 2.2999999523163, 0, 0, 100, 2000, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 4),
+		skill("CritChance", 7),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 53, },
+	},
 }
 skills["EnchantmentOfTempestOnHit3"] = {
 	name = "Decree of the Tempest",
@@ -1963,17 +1963,6 @@ skills["EnchantmentOfTempestOnHit3"] = {
 		spell = true,
 		area = true,
 		duration = true,
-	},
-	baseMods = {
-		skill("castTime", 4),
-		skill("CritChance", 7),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 66, },
 	},
 	qualityStats = {
 	},
@@ -1991,6 +1980,17 @@ skills["EnchantmentOfTempestOnHit3"] = {
 	statLevels = {
 		[1] = { 2, 3, 0, 0, 100, 2000, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 4),
+		skill("CritChance", 7),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 66, },
+	},
 }
 skills["EnchantmentOfTempestOnHit4"] = {
 	name = "Commandment of the Tempest",
@@ -2005,17 +2005,6 @@ skills["EnchantmentOfTempestOnHit4"] = {
 		spell = true,
 		area = true,
 		duration = true,
-	},
-	baseMods = {
-		skill("castTime", 4),
-		skill("CritChance", 7),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 75, },
 	},
 	qualityStats = {
 	},
@@ -2032,6 +2021,17 @@ skills["EnchantmentOfTempestOnHit4"] = {
 	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 2.4000000953674, 3.7999999523163, 0, 0, 100, 2000, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 4),
+		skill("CritChance", 7),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 75, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill"] = {
@@ -2050,16 +2050,6 @@ skills["EnchantmentOfTheGraveOnKill"] = {
 		minion = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 32, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2074,6 +2064,16 @@ skills["EnchantmentOfTheGraveOnKill"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 5000, 3, 10, 32, 20, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 32, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill2"] = {
@@ -2092,16 +2092,6 @@ skills["EnchantmentOfTheGraveOnKill2"] = {
 		minion = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 53, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2116,6 +2106,16 @@ skills["EnchantmentOfTheGraveOnKill2"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 5000, 3, 10, 53, 20, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 53, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill3"] = {
@@ -2134,16 +2134,6 @@ skills["EnchantmentOfTheGraveOnKill3"] = {
 		minion = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 66, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2158,6 +2148,16 @@ skills["EnchantmentOfTheGraveOnKill3"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 5000, 3, 10, 66, 20, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 66, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill4"] = {
@@ -2176,16 +2176,6 @@ skills["EnchantmentOfTheGraveOnKill4"] = {
 		minion = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 75, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2200,6 +2190,16 @@ skills["EnchantmentOfTheGraveOnKill4"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 100, 5000, 3, 10, 75, 20, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 75, },
 	},
 }
 skills["EnchantmentOfThunderOnKill"] = {
@@ -2216,17 +2216,6 @@ skills["EnchantmentOfThunderOnKill"] = {
 		area = true,
 		hit = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 7),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 32, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2239,6 +2228,17 @@ skills["EnchantmentOfThunderOnKill"] = {
 	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 1, 1.6000000238419, 100, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 7),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 32, },
 	},
 }
 skills["EnchantmentOfThunderOnKill2"] = {
@@ -2255,17 +2255,6 @@ skills["EnchantmentOfThunderOnKill2"] = {
 		area = true,
 		hit = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 7),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 53, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2278,6 +2267,17 @@ skills["EnchantmentOfThunderOnKill2"] = {
 	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 1.5, 2.2999999523163, 100, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 7),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 53, },
 	},
 }
 skills["EnchantmentOfThunderOnKill3"] = {
@@ -2294,17 +2294,6 @@ skills["EnchantmentOfThunderOnKill3"] = {
 		area = true,
 		hit = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 7),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 66, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2317,6 +2306,17 @@ skills["EnchantmentOfThunderOnKill3"] = {
 	statInterpolation = { 3, 3, 1, },
 	statLevels = {
 		[1] = { 2, 3, 100, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 7),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 66, },
 	},
 }
 skills["EnchantmentOfThunderOnKill4"] = {
@@ -2333,17 +2333,6 @@ skills["EnchantmentOfThunderOnKill4"] = {
 		area = true,
 		hit = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 7),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 75, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2357,13 +2346,24 @@ skills["EnchantmentOfThunderOnKill4"] = {
 	statLevels = {
 		[1] = { 2.4000000953674, 3.7999999523163, 100, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 7),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 75, },
+	},
 }
 skills["EnchantmentOfWarOnKill"] = {
 	name = "Word of War",
 	hidden = true,
 	color = 4,
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
-	skillTypes = { [1] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2383,16 +2383,6 @@ skills["EnchantmentOfWarOnKill"] = {
 	baseFlags = {
 		attack = true,
 		duration = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 32, },
 	},
 	qualityStats = {
 	},
@@ -2406,13 +2396,23 @@ skills["EnchantmentOfWarOnKill"] = {
 	statLevels = {
 		[1] = { 10000, 1, 100, 50, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 32, },
+	},
 }
 skills["EnchantmentOfWarOnKill2"] = {
 	name = "Edict of War",
 	hidden = true,
 	color = 4,
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
-	skillTypes = { [1] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2432,16 +2432,6 @@ skills["EnchantmentOfWarOnKill2"] = {
 	baseFlags = {
 		attack = true,
 		duration = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 53, },
 	},
 	qualityStats = {
 	},
@@ -2455,13 +2445,23 @@ skills["EnchantmentOfWarOnKill2"] = {
 	statLevels = {
 		[1] = { 10000, 1, 100, 100, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 53, },
+	},
 }
 skills["EnchantmentOfWarOnKill3"] = {
 	name = "Decree of War",
 	hidden = true,
 	color = 4,
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
-	skillTypes = { [1] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2481,16 +2481,6 @@ skills["EnchantmentOfWarOnKill3"] = {
 	baseFlags = {
 		attack = true,
 		duration = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 66, },
 	},
 	qualityStats = {
 	},
@@ -2504,13 +2494,23 @@ skills["EnchantmentOfWarOnKill3"] = {
 	statLevels = {
 		[1] = { 10000, 1, 100, 150, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 66, },
+	},
 }
 skills["EnchantmentOfWarOnKill4"] = {
 	name = "Commandment of War",
 	hidden = true,
 	color = 4,
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
-	skillTypes = { [1] = true, [7] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
+	skillTypes = { [1] = true, [25] = true, [28] = true, [24] = true, [12] = true, [47] = true, [57] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2531,16 +2531,6 @@ skills["EnchantmentOfWarOnKill4"] = {
 		attack = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 75, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2552,6 +2542,16 @@ skills["EnchantmentOfWarOnKill4"] = {
 	statInterpolation = { 1, 1, 1, 1, },
 	statLevels = {
 		[1] = { 10000, 1, 100, 200, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 75, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit"] = {
@@ -2568,17 +2568,6 @@ skills["EnchantmentOfWinterWhenHit"] = {
 		projectile = true,
 		area = true,
 	},
-	baseMods = {
-		skill("castTime", 1.4),
-		skill("CritChance", 5),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 32, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2593,6 +2582,17 @@ skills["EnchantmentOfWinterWhenHit"] = {
 	statInterpolation = { 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 1, 1.6000000238419, 1, 100, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1.4),
+		skill("CritChance", 5),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 32, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit2"] = {
@@ -2609,17 +2609,6 @@ skills["EnchantmentOfWinterWhenHit2"] = {
 		projectile = true,
 		area = true,
 	},
-	baseMods = {
-		skill("castTime", 1.4),
-		skill("CritChance", 5),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 53, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2634,6 +2623,17 @@ skills["EnchantmentOfWinterWhenHit2"] = {
 	statInterpolation = { 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 1.5, 2.2999999523163, 1, 100, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1.4),
+		skill("CritChance", 5),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 53, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit3"] = {
@@ -2650,17 +2650,6 @@ skills["EnchantmentOfWinterWhenHit3"] = {
 		projectile = true,
 		area = true,
 	},
-	baseMods = {
-		skill("castTime", 1.4),
-		skill("CritChance", 5),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 66, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2675,6 +2664,17 @@ skills["EnchantmentOfWinterWhenHit3"] = {
 	statInterpolation = { 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 2, 3, 1, 100, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1.4),
+		skill("CritChance", 5),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 66, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit4"] = {
@@ -2691,17 +2691,6 @@ skills["EnchantmentOfWinterWhenHit4"] = {
 		projectile = true,
 		area = true,
 	},
-	baseMods = {
-		skill("castTime", 1.4),
-		skill("CritChance", 5),
-		skill("cooldown", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 75, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2716,5 +2705,16 @@ skills["EnchantmentOfWinterWhenHit4"] = {
 	statInterpolation = { 3, 3, 1, 1, },
 	statLevels = {
 		[1] = { 2.4000000953674, 3.7999999523163, 1, 100, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1.4),
+		skill("CritChance", 5),
+		skill("cooldown", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 75, },
 	},
 }

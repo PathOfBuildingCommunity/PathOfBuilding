@@ -105,7 +105,7 @@ for _, modKey in ipairs(Mods.GenerationType(10)) do
 				local activeSkill = ActiveSkills[activeSkillsKey]
 				local isVaal = false
 				for _, skillType in ipairs(activeSkill.ActiveSkillTypes) do
-					if skillType == 41 then
+					if skillType == 39 then
 						isVaal = true
 						break
 					end

@@ -28,6 +28,21 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 12)
 #mods
 
+#skill CataclysmSigil
+#flags spell area duration
+	setupFunc = function(actor, output)
+		actor.mainSkill.skillData.hitTimeOverride = actor.mainSkill.skillData.repeatFrequency / (1 + actor.mainSkill.skillModList:Sum("INC", actor.mainSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["base_sigil_repeat_frequency_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+	},
+#mods
+
 #skill AssassinsMark
 #flags spell curse area duration
 	statMap = {
@@ -56,11 +71,6 @@ local skills, mod, flag, skill = ...
 
 #skill Blight
 #flags spell duration area
-	statMap = {
-		["hinder_enemy_chaos_damage_taken_+%"] = {
-			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }),
-		},
-	},
 #baseMod skill("debuff", true)
 #baseMod skill("debuffSecondary", true)
 #baseMod skill("radius", 26)
@@ -126,6 +136,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("buffNotPlayer", true)
 #mods
 
+#skill SigilRecall
+#flags spell
+#mods
+
 #skill Clarity
 #flags spell aura area
 	statMap = {
@@ -170,6 +184,7 @@ local skills, mod, flag, skill = ...
 		},
 		["base_self_shock_duration_-%"] = {
 			mod("SelfShockDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			div = -1,
 		},
 	},
 #baseMod skill("debuff", true)
@@ -200,7 +215,6 @@ local skills, mod, flag, skill = ...
 
 #skill DarkPact
 #flags spell area
---baseMod skill("radius", 24)
 	parts = {
 		{
 			name = "Cast on Player",
@@ -405,6 +419,11 @@ local skills, mod, flag, skill = ...
 
 #skill VaalFlameblast
 #flags spell area
+	statMap = {
+		["charged_blast_spell_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "FlameblastStage" }),
+		},
+	},
 #baseMod mod("Multiplier:FlameblastStage", "BASE", 9)
 #mods
 
@@ -419,6 +438,7 @@ local skills, mod, flag, skill = ...
 		},
 		["base_self_ignite_duration_-%"] = {
 			mod("SelfIgniteDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mult = -1,
 		},
 	},
 #baseMod skill("debuff", true)
@@ -428,7 +448,7 @@ local skills, mod, flag, skill = ...
 #skill FleshOffering
 #flags spell duration
 	statMap = {
-		["attack_speed_+%"] = {
+		["attack_speed_+%_granted_from_skill"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["base_movement_velocity_+%"] = {
@@ -478,6 +498,7 @@ local skills, mod, flag, skill = ...
 		},
 		["base_self_freeze_duration_-%"] = {
 			mod("SelfFreezeDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mult = -1,
 		},
 	},
 #baseMod skill("debuff", true)
@@ -537,6 +558,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["ice_spear_second_form_critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["ice_spear_second_form_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 	},
 #baseMod mod("PierceChance", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 })
@@ -829,6 +853,21 @@ local skills, mod, flag, skill = ...
 #baseMod skill("buffNotPlayer", true)
 #mods
 
+#skill ConduitSigil
+#flags spell area duration
+	setupFunc = function(actor, output)
+		actor.mainSkill.skillData.hitTimeOverride = actor.mainSkill.skillData.repeatFrequency / (1 + actor.mainSkill.skillModList:Sum("INC", actor.mainSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["base_sigil_repeat_frequency_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+	},
+#mods
+
 #skill StormBurst
 #flags spell projectile area
 	parts = {
@@ -936,12 +975,36 @@ local skills, mod, flag, skill = ...
 		["shield_block_%"] = {
 			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["shield_spell_block_%"] = {
+			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 #mods
 
 #skill FrostBoltNova
 #flags spell area duration
 #baseMod skill("dotIsArea", true)
+#mods
+
+#skill FrostFury
+#flags spell projectile area duration
+	setupFunc = function(actor, output)
+		actor.mainSkill.skillData.hitTimeOverride = actor.mainSkill.skillData.repeatFrequency / (1 + actor.mainSkill.skillModList:Sum("INC", actor.mainSkill.skillCfg, "HitRate") / 100)
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["frost_fury_fire_speed_+%_per_stage"] = {
+			mod("HitRate", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStage", limitVar = "WinterOrbMaxStage" }),
+		},
+		["frost_fury_max_number_of_stages"] = {
+			mod("Multiplier:WinterOrbMaxStage", "BASE", nil),
+		},
+		["frost_fury_base_fire_interval_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+	},
 #mods
 
 #skill Wither

@@ -3,8 +3,6 @@
 -- Module: Item Tools
 -- Various functions for dealing with items.
 --
-local launch = ...
-
 local t_insert = table.insert
 local t_remove = table.remove
 local m_min = math.min

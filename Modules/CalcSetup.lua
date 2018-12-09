@@ -55,7 +55,7 @@ function calcs.initModDB(env, modDB)
 end
 
 function calcs.buildModListForNode(env, node)
-	local modList = common.New("ModList")
+	local modList = new("ModList")
 	if node.type == "Keystone" then
 		modList:AddMod(node.keystoneMod)
 	else
@@ -69,14 +69,14 @@ function calcs.buildModListForNode(env, node)
 		end
 	end
 
-	if modList:Sum("FLAG", nil, "PassiveSkillHasNoEffect") or (env.allocNodes[node.id] and modList:Sum("FLAG", nil, "AllocatedPassiveSkillHasNoEffect")) then
+	if modList:Flag(nil, "PassiveSkillHasNoEffect") or (env.allocNodes[node.id] and modList:Flag(nil, "AllocatedPassiveSkillHasNoEffect")) then
 		wipeTable(modList)
 	end
 
 	-- Apply effect scaling
 	local scale = calcLib.mod(modList, nil, "PassiveSkillEffect")
 	if scale ~= 1 then
-		local scaledList = common.New("ModList")
+		local scaledList = new("ModList")
 		scaledList:ScaleAddList(modList, scale)
 		modList = scaledList
 	end
@@ -100,7 +100,7 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 	end
 
 	-- Add node modifers
-	local modList = common.New("ModList")
+	local modList = new("ModList")
 	for _, node in pairs(nodeList) do
 		local nodeModList = calcs.buildModListForNode(env, node)
 		modList:AddList(nodeModList)
@@ -178,7 +178,7 @@ function calcs.initEnv(build, mode, override)
 	end
 
 	-- Initialise modifier database with base values
-	local modDB = common.New("ModDB")
+	local modDB = new("ModDB")
 	env.modDB = modDB
 	local classStats = build.tree.characterData[env.classId]
 	for _, stat in pairs({"Str","Dex","Int"}) do
@@ -276,7 +276,7 @@ function calcs.initEnv(build, mode, override)
 	end
 
 	-- Initialise enemy modifier database
-	local enemyDB = common.New("ModDB")
+	local enemyDB = new("ModDB")
 	env.enemyDB = enemyDB
 	env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, 84)))
 	calcs.initModDB(env, enemyDB)
@@ -434,7 +434,7 @@ function calcs.initEnv(build, mode, override)
 			end
 			if item.type == "Shield" and nodes[45175] then
 				-- Special handling for Necromantic Aegis
-				env.aegisModList = common.New("ModList")
+				env.aegisModList = new("ModList")
 				for _, mod in ipairs(srcList) do
 					-- Filter out mods that apply to socketed gems, or which add supports
 					local add = true
@@ -452,7 +452,7 @@ function calcs.initEnv(build, mode, override)
 				end
 			elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].skillId == "UniqueAnimateWeapon" then
 				-- Special handling for The Dancing Dervish
-				env.weaponModList1 = common.New("ModList")
+				env.weaponModList1 = new("ModList")
 				for _, mod in ipairs(srcList) do
 					-- Filter out mods that apply to socketed gems, or which add supports
 					local add = true
@@ -608,13 +608,13 @@ function calcs.initEnv(build, mode, override)
 		socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
 		if index == env.mainSocketGroup or (socketGroup.enabled and socketGroup.slotEnabled) then
 			groupCfg.slotName = socketGroup.slot and socketGroup.slot:gsub(" Swap","")
-			local propertyModList = env.modDB:Sum("LIST", groupCfg, "GemProperty")
+			local propertyModList = env.modDB:List(groupCfg, "GemProperty")
 
 			-- Build list of supports for this socket group
 			local supportList = { }
 			if not socketGroup.source then
 				-- Add extra supports from the item this group is socketed in
-				for _, value in ipairs(env.modDB:Sum("LIST", groupCfg, "ExtraSupport")) do
+				for _, value in ipairs(env.modDB:List(groupCfg, "ExtraSupport")) do
 					local grantedEffect = env.data.skills[value.skillId]
 					if grantedEffect then
 						t_insert(supportList, { 

@@ -3,11 +3,9 @@
 -- Class: Calc Section Control
 -- Section control used in the Calcs tab
 --
-local launch, main = ...
-
 local t_insert = table.insert
 
-local CalcSectionClass = common.NewClass("CalcSection", "Control", "ControlHost", function(self, calcsTab, width, id, group, label, col, data, updateFunc)
+local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost", function(self, calcsTab, width, id, group, label, col, data, updateFunc)
 	self.Control(calcsTab, 0, 0, width, 0)
 	self.ControlHost()
 	self.calcsTab = calcsTab
@@ -31,7 +29,7 @@ local CalcSectionClass = common.NewClass("CalcSection", "Control", "ControlHost"
 			end
 		end
 	end
-	self.controls.toggle = common.New("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, -3, 3, 16, 16, function()
+	self.controls.toggle = new("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, -3, 3, 16, 16, function()
 		return self.collapsed and "+" or "-"
 	end, function()
 		self.collapsed = not self.collapsed
@@ -165,10 +163,11 @@ function CalcSectionClass:FormatStr(str, actor, colData)
 			modCfg.source = sectionData.modSource
 		end
 		local modVal
+		local modStore = sectionData.cfg and actor.mainSkill.skillModList or actor.modDB
 		if type(sectionData.modName) == "table" then
-			modVal = actor.modDB:Sum(sectionData.modType, modCfg, unpack(sectionData.modName))
+			modVal = modStore:Combine(sectionData.modType, modCfg, unpack(sectionData.modName))
 		else
-			modVal = actor.modDB:Sum(sectionData.modType, modCfg, sectionData.modName)
+			modVal = modStore:Combine(sectionData.modType, modCfg, sectionData.modName)
 		end
 		if sectionData.modType == "MORE" then
 			modVal = (modVal - 1) * 100

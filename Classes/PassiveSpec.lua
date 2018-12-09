@@ -4,8 +4,6 @@
 -- Passive tree spec class.
 -- Manages node allocation and pathing for a given passive spec
 --
-local launch, main = ...
-
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
@@ -21,7 +19,7 @@ local nodeMigrate32_33 = {
 	[29619] = 1600,
 }
 
-local PassiveSpecClass = common.NewClass("PassiveSpec", "UndoHandler", function(self, build)
+local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build)
 	self.UndoHandler()
 
 	self.build = build

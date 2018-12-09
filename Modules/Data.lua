@@ -3,7 +3,6 @@
 -- Module: Data
 -- Contains static data used by other modules.
 --
-local launch = ...
 
 LoadModule("Data/Global")
 
@@ -185,21 +184,19 @@ for _, targetVersion in ipairs(targetVersionList) do
 
 	-- Load skills
 	verData.skills = { }
-	if targetVersion ~= "2_6" then
-		verData.skillStatMap = dataModule("SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)
-		verData.skillStatMapMeta = {
-			__index = function(t, key)
-				local map = verData.skillStatMap[key]
-				if map then
-					t[key] = copyTable(map, true)
-					for _, mod in ipairs(map) do
-						processMod(t._grantedEffect, mod)
-					end
-					return map
+	verData.skillStatMap = dataModule("SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)
+	verData.skillStatMapMeta = {
+		__index = function(t, key)
+			local map = verData.skillStatMap[key]
+			if map then
+				t[key] = copyTable(map, true)
+				for _, mod in ipairs(map) do
+					processMod(t._grantedEffect, mod)
 				end
+				return map
 			end
-		}
-	end
+		end
+	}
 	for _, type in pairs(skillTypes) do
 		dataModule("Skills/"..type, verData.skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
 	end
@@ -219,14 +216,12 @@ for _, targetVersion in ipairs(targetVersionList) do
 			end
 		end
 		-- Install stat map metatable
-		if verData.skillStatMap then
-			grantedEffect.statMap = grantedEffect.statMap or { }
-			setmetatable(grantedEffect.statMap, verData.skillStatMapMeta)
-			grantedEffect.statMap._grantedEffect = grantedEffect
-			for _, map in pairs(grantedEffect.statMap) do
-				for _, mod in ipairs(map) do
-					processMod(grantedEffect, mod)
-				end
+		grantedEffect.statMap = grantedEffect.statMap or { }
+		setmetatable(grantedEffect.statMap, verData.skillStatMapMeta)
+		grantedEffect.statMap._grantedEffect = grantedEffect
+		for _, map in pairs(grantedEffect.statMap) do
+			for _, mod in ipairs(map) do
+				processMod(grantedEffect, mod)
 			end
 		end
 	end

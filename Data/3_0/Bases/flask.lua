@@ -226,21 +226,21 @@ itemBases["Ruby Flask"] = {
 	type = "Flask",
 	subType = "Utility",
 	tags = { default = true, flask = true, utility_flask = true, not_for_sale = true, },
-	flask = { duration = 4, chargesUsed = 30, chargesMax = 60, buff = { "+6% to maximum Fire Resistance", "+50% to Fire Resistance" }, },
+	flask = { duration = 4, chargesUsed = 30, chargesMax = 60, buff = { "+50% to Fire Resistance", "20% less Fire Damage taken" }, },
 	req = { level = 18, },
 }
 itemBases["Sapphire Flask"] = {
 	type = "Flask",
 	subType = "Utility",
 	tags = { default = true, flask = true, utility_flask = true, not_for_sale = true, },
-	flask = { duration = 4, chargesUsed = 30, chargesMax = 60, buff = { "+6% to maximum Cold Resistance", "+50% to Cold Resistance" }, },
+	flask = { duration = 4, chargesUsed = 30, chargesMax = 60, buff = { "+50% to Cold Resistance", "20% less Cold Damage taken" }, },
 	req = { level = 18, },
 }
 itemBases["Topaz Flask"] = {
 	type = "Flask",
 	subType = "Utility",
 	tags = { default = true, flask = true, utility_flask = true, not_for_sale = true, },
-	flask = { duration = 4, chargesUsed = 30, chargesMax = 60, buff = { "+6% to maximum Lightning Resistance", "+50% to Lightning Resistance" }, },
+	flask = { duration = 4, chargesUsed = 30, chargesMax = 60, buff = { "+50% to Lightning Resistance", "20% less Lightning Damage taken" }, },
 	req = { level = 18, },
 }
 itemBases["Granite Flask"] = {

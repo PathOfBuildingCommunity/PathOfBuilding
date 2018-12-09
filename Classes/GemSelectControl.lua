@@ -4,17 +4,15 @@
 -- Gem selection combobox
 --
 
-local launch, main = ...
-
 local t_insert = table.insert
 local t_sort = table.sort
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local GemSelectClass = common.NewClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc)
+local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc)
 	self.EditControl(anchor, x, y, width, height, nil, nil, "^ %a'")
-	self.controls.scrollBar = common.New("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
+	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
 	self.controls.scrollBar.y = function()
 		local width, height = self:GetSize()
 		return height + 1

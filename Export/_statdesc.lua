@@ -102,7 +102,7 @@ function loadStatFile(fileName)
 			end
 		end
 	end
-	local f = io.open(fileName, "rb")
+	local f = io.open("StatDescriptions/"..fileName, "rb")
 	local text = convertUTF16to8(f:read("*a"))
 	f:close()
 	for line in text:gmatch("[^\r\n]+") do

@@ -3,7 +3,6 @@
 -- Module: Calc Tools
 -- Various functions used by the calculation modules
 --
-
 local pairs = pairs
 local m_floor = math.floor
 local m_min = math.min
@@ -13,7 +12,7 @@ calcLib = { }
 
 -- Calculate and combine INC/MORE modifiers for the given modifier names
 function calcLib.mod(modDB, cfg, ...)
-	return (1 + (modDB:Sum("INC", cfg, ...)) / 100) * modDB:Sum("MORE", cfg, ...)
+	return (1 + (modDB:Sum("INC", cfg, ...)) / 100) * modDB:More(cfg, ...)
 end
 
 -- Calculate value

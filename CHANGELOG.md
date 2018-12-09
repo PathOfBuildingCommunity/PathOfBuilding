@@ -1,3 +1,26 @@
+### 1.4.118 - 2018/12/09
+ * Added the following new gems:
+    * Armageddon Brand
+	* Storm Brand
+	* Brand Recall
+	* Dread Banner
+	* War Banner
+	* Lancing Steel
+	* Shattering Steel
+	* Winter Orb
+	* Bonechill (partial; only the Cold Damage Taken over Time portion works)
+	* Multiple Totems
+ * Applied all skill balance changes for 3.5
+ * Applied all item base balance changes for 3.5
+ * Updated/added many uniques from Incursion and Delve (thanks PJacek)
+ * Corrected the implicits on a number of unique swords (thanks baranio)
+ * Fixed the rolls on Impresence's Armour modifier (thanks nathanrobb)
+ * Removed errant "Cannot be Frozen" modifier from Crystal Vault (thanks bblarney)
+ * Fixed certain curse stats having the wrong sign (positive instead of negative, or vice versa)
+ * Fixed some remaining cases of modifiers being attributed to the wrong skill gem in the Calcs tab
+ * The Virulence bonuses for Herald of Agony's Agony Crawler no longer incorrectly apply to Phantasms
+ * Fixed loading of 2.6 builds
+ 
 ### 1.4.117 - 2018/12/06
  * Passive tree updated to 3.5
  * Added support for Far Shot, and the related Ascendant Deadeye projectile damage scaling

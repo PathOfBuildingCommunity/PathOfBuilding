@@ -3,8 +3,6 @@
 -- Class: Calc Breakdown Control
 -- Calculation breakdown control used in the Calcs tab
 --
-local launch, main = ...
-
 local t_insert = table.insert
 local m_max = math.max
 local m_min = math.min
@@ -15,18 +13,18 @@ local m_cos = math.cos
 local m_pi = math.pi
 local band = bit.band
 
-local CalcBreakdownClass = common.NewClass("CalcBreakdown", "Control", "ControlHost", function(self, calcsTab)
+local CalcBreakdownClass = newClass("CalcBreakdownControl", "Control", "ControlHost", function(self, calcsTab)
 	self.Control()
 	self.ControlHost()
 	self.calcsTab = calcsTab
 	self.shown = false
-	self.tooltip = common.New("Tooltip")
-	self.nodeViewer = common.New("PassiveTreeView")
+	self.tooltip = new("Tooltip")
+	self.nodeViewer = new("PassiveTreeView")
 	self.rangeGuide = NewImageHandle()
 	self.rangeGuide:Load("Assets/range_guide.png")
 	self.uiOverlay = NewImageHandle()
 	self.uiOverlay:Load("Assets/game_ui_small.png")
-	self.controls.scrollBar = common.New("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -2, 0, 18, 0, 80, "VERTICAL", true)
+	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -2, 0, 18, 0, 80, "VERTICAL", true)
 end)
 
 function CalcBreakdownClass:IsMouseOver()
@@ -223,14 +221,14 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 	local cfg = (sectionData.cfg and actor.mainSkill[sectionData.cfg.."Cfg"] and copyTable(actor.mainSkill[sectionData.cfg.."Cfg"], true)) or { }
 	cfg.source = sectionData.modSource
 	local rowList
-	local modDB = sectionData.enemy and actor.enemy.modDB or actor.modDB
+	local modStore = (sectionData.enemy and actor.enemy.modDB) or (sectionData.cfg and actor.mainSkill.skillModList) or actor.modDB
 	if modList then	
 		rowList = modList
 	else
 		if type(sectionData.modName) == "table" then
-			rowList = modDB:Tabulate(sectionData.modType, cfg, unpack(sectionData.modName))
+			rowList = modStore:Tabulate(sectionData.modType, cfg, unpack(sectionData.modName))
 		else
-			rowList = modDB:Tabulate(sectionData.modType, cfg, sectionData.modName)
+			rowList = modStore:Tabulate(sectionData.modType, cfg, sectionData.modName)
 		end
 	end
 	if #rowList == 0 then
@@ -292,7 +290,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 				if type(sectionData.modName) == "table" then
 					-- Multiple stats, show each separately
 					for _, modName in ipairs(sectionData.modName) do
-						local total = modDB:Sum(modType, cfg, modName)
+						local total = modStore:Combine(modType, cfg, modName)
 						if modType == "MORE" then
 							total = round((total - 1) * 100)
 						end
@@ -301,7 +299,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 						end
 					end
 				else
-					local total = modDB:Sum(modType, cfg, sectionData.modName)
+					local total = modStore:Combine(modType, cfg, sectionData.modName)
 					if modType == "MORE" then
 						total = round((total - 1) * 100)
 					end
@@ -407,7 +405,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 				elseif tag.type == "SlotNumber" then
 					desc = "When in slot #"..tag.num
 				elseif tag.type == "GlobalEffect" then
-					desc = tag.effectType
+					desc = self:FormatModName(tag.effectType)
 				else
 					desc = self:FormatModName(tag.type)
 				end

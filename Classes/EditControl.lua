@@ -3,8 +3,6 @@
 -- Class: Edit Control
 -- Basic edit control.
 --
-local launch, main = ...
-
 local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
@@ -36,7 +34,7 @@ local function newlineCount(str)
 	end
 end
 
-local EditClass = common.NewClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight)
+local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight)
 	self.ControlHost()
 	self.Control(anchor, x, y, width, height)
 	self.UndoHandler()
@@ -62,19 +60,19 @@ local EditClass = common.NewClass("EditControl", "ControlHost", "Control", "Undo
 			local width, height = self:GetSize()
 			return height - 4
 		end
-		self.controls.buttonDown = common.New("ButtonControl", {"RIGHT",self,"RIGHT"}, -2, 0, buttonSize, buttonSize, "-", function()
+		self.controls.buttonDown = new("ButtonControl", {"RIGHT",self,"RIGHT"}, -2, 0, buttonSize, buttonSize, "-", function()
 			self:OnKeyUp("DOWN")
 		end)
-		self.controls.buttonUp = common.New("ButtonControl", {"RIGHT",self.controls.buttonDown,"LEFT"}, -1, 0, buttonSize, buttonSize, "+", function()
+		self.controls.buttonUp = new("ButtonControl", {"RIGHT",self.controls.buttonDown,"LEFT"}, -1, 0, buttonSize, buttonSize, "+", function()
 			self:OnKeyUp("UP")
 		end)
 	end
-	self.controls.scrollBarH = common.New("ScrollBarControl", {"BOTTOMLEFT",self,"BOTTOMLEFT"}, 1, -1, 0, 14, 60, "HORIZONTAL", true)
+	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOMLEFT",self,"BOTTOMLEFT"}, 1, -1, 0, 14, 60, "HORIZONTAL", true)
 	self.controls.scrollBarH.width = function()
 		local width, height = self:GetSize()
 		return width - (self.controls.scrollBarV.enabled and 16 or 2)
 	end
-	self.controls.scrollBarV = common.New("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 1, 14, 0, (lineHeight or 0) * 3, "VERTICAL", true)
+	self.controls.scrollBarV = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 1, 14, 0, (lineHeight or 0) * 3, "VERTICAL", true)
 	self.controls.scrollBarV.height = function()
 		local width, height = self:GetSize()
 		return height - (self.controls.scrollBarH.enabled and 16 or 2)
@@ -567,13 +565,13 @@ function EditClass:OnKeyUp(key)
 		local cur = tonumber(self.buf)
 		if key == "WHEELUP" or key == "UP" then
 			if cur then
-				self:SetText(tostring(cur + 1), true)
+				self:SetText(tostring(cur + (self.numberInc or 1)), true)
 			else
 				self:SetText("1", true)
 			end
 		elseif key == "WHEELDOWN" or key == "DOWN" then
 			if cur and (self.filter ~= "%D" or cur > 0 )then
-				self:SetText(tostring(cur - 1), true)
+				self:SetText(tostring(cur - (self.numberInc or 1)), true)
 			else
 				self:SetText("0", true)
 			end

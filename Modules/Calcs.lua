@@ -46,8 +46,6 @@ local function infoDump(env, output)
 			ConPrintf("  %s %d/%d", skillEffect.grantedEffect.name, skillEffect.level, skillEffect.quality)
 		end
 	end
---	ConPrintf("== Conversion Table ==")
---	prettyPrintTable(env.player.conversionTable)
 	ConPrintf("== Output Table ==")
 	prettyPrintTable(env.player.output)
 end
@@ -58,11 +56,11 @@ local function getCalculator(build, fullInit, modFunc)
 	local env = calcs.initEnv(build, "CALCULATOR")
 
 	-- Save a copy of the initial mod database
-	local initModDB = common.New("ModDB")
+	local initModDB = new("ModDB")
 	initModDB:AddDB(env.modDB)
 	initModDB.conditions = copyTable(env.modDB.conditions)
 	initModDB.multipliers = copyTable(env.modDB.multipliers)
-	local initEnemyDB = common.New("ModDB")
+	local initEnemyDB = new("ModDB")
 	initEnemyDB:AddDB(env.enemyDB)
 	initEnemyDB.conditions = copyTable(env.enemyDB.conditions)
 	initEnemyDB.multipliers = copyTable(env.enemyDB.multipliers)
@@ -242,22 +240,22 @@ function calcs.buildOutput(build, mode)
 		if output.CrabBarriers > 0 then
 			t_insert(combatList, s_format("%d Crab Barriers", output.CrabBarriers))
 		end
-		if env.modDB:Sum("FLAG", nil, "Fortify") then
+		if env.modDB:Flag(nil, "Fortify") then
 			t_insert(combatList, "Fortify")
 		end
-		if env.modDB:Sum("FLAG", nil, "Onslaught") then
+		if env.modDB:Flag(nil, "Onslaught") then
 			t_insert(combatList, "Onslaught")
 		end
-		if env.modDB:Sum("FLAG", nil, "UnholyMight") then
+		if env.modDB:Flag(nil, "UnholyMight") then
 			t_insert(combatList, "Unholy Might")
 		end
-		if env.modDB:Sum("FLAG", nil, "Tailwind") then
+		if env.modDB:Flag(nil, "Tailwind") then
 			t_insert(combatList, "Tailwind")
 		end
-		if env.modDB:Sum("FLAG", nil, "Adrenaline") then
+		if env.modDB:Flag(nil, "Adrenaline") then
 			t_insert(combatList, "Adrenaline")
 		end
-		if env.modDB:Sum("FLAG", nil, "HerEmbrace") then
+		if env.modDB:Flag(nil, "HerEmbrace") then
 			t_insert(combatList, "Her Embrace")
 		end
 		for name in pairs(env.buffs) do
@@ -325,16 +323,16 @@ function calcs.buildOutput(build, mode)
 			if output.Minion.EnduranceCharges > 0 then
 				t_insert(combatList, s_format("%d Endurance Charges", output.Minion.EnduranceCharges))
 			end
-			if env.minion.modDB:Sum("FLAG", nil, "Fortify") then
+			if env.minion.modDB:Flag(nil, "Fortify") then
 				t_insert(combatList, "Fortify")
 			end
-			if env.minion.modDB:Sum("FLAG", nil, "Onslaught") then
+			if env.minion.modDB:Flag(nil, "Onslaught") then
 				t_insert(combatList, "Onslaught")
 			end
-			if env.minion.modDB:Sum("FLAG", nil, "UnholyMight") then
+			if env.minion.modDB:Flag(nil, "UnholyMight") then
 				t_insert(combatList, "Unholy Might")
 			end
-			if env.minion.modDB:Sum("FLAG", nil, "Tailwind") then
+			if env.minion.modDB:Flag(nil, "Tailwind") then
 				t_insert(combatList, "Tailwind")
 			end
 			for name in pairs(env.minionBuffs) do

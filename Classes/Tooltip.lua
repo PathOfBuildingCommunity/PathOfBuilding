@@ -3,15 +3,13 @@
 -- Class: Tooltip
 -- Tooltip
 --
-local launch, main = ...
-
 local ipairs = ipairs
 local t_insert = table.insert
 local m_max = math.max
 local m_floor = math.floor
 local s_gmatch = string.gmatch
 
-local TooltipClass = common.NewClass("Tooltip", function(self)
+local TooltipClass = newClass("Tooltip", function(self)
 	self.lines = { }
 	self:Clear()
 end)
