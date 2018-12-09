@@ -85,7 +85,7 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 				local mod = modList[i]
 				if mod.type == "MORE" and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
 					if mod[1] then
-						result = result * (1 + (self:EvalMod(context, mod, cfg) or 1) / 100)
+						result = result * (1 + (self:EvalMod(context, mod, cfg) or 0) / 100)
 					else
 						result = result * (1 + mod.value / 100)
 					end

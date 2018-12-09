@@ -77,7 +77,7 @@ function ModListClass:MoreInternal(context, cfg, flags, keywordFlags, source, ..
 			local mod = self[i]
 			if mod.name == modName and mod.type == "MORE" and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
 				if mod[1] then
-					result = result * (1 + (self:EvalMod(context, mod, cfg) or 1) / 100)
+					result = result * (1 + (self:EvalMod(context, mod, cfg) or 0) / 100)
 				else
 					result = result * (1 + mod.value / 100)
 				end
@@ -141,7 +141,7 @@ function ModListClass:ListInternal(context, result, cfg, flags, keywordFlags, so
 			if mod.name == modName and mod.type == "LIST" and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
 				local value
 				if mod[1] then
-					local value = self:EvalMod(mod, cfg) or nullValue
+					local value = self:EvalMod(context, mod, cfg) or nullValue
 					if value then
 						t_insert(result, value)
 					end
@@ -164,7 +164,7 @@ function ModListClass:TabulateInternal(context, result, modType, cfg, flags, key
 			if mod.name == modName and (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
 				local value
 				if mod[1] then
-					value = self:EvalMod(mod, cfg)
+					value = self:EvalMod(context, mod, cfg)
 				else
 					value = mod.value
 				end
