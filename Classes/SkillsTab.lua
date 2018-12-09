@@ -3,8 +3,6 @@
 -- Module: Skills Tab
 -- Skills tab for the current build.
 --
-local launch, main = ...
-
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
@@ -27,7 +25,7 @@ local groupSlotDropList = {
 	{ label = "Ring 2", slotName = "Ring 2" },
 }
 
-local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
+local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
 	self.ControlHost()
 	self.Control()
@@ -39,37 +37,37 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 	self.sortGemsByDPS = true
 
 	-- Socket group list
-	self.controls.groupList = common.New("SkillList", {"TOPLEFT",self,"TOPLEFT"}, 20, 24, 360, 300, self)
-	self.controls.groupTip = common.New("LabelControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 8, 0, 14, "^7Tip: You can copy/paste socket groups using Ctrl+C and Ctrl+V.")
+	self.controls.groupList = new("SkillListControl", {"TOPLEFT",self,"TOPLEFT"}, 20, 24, 360, 300, self)
+	self.controls.groupTip = new("LabelControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 8, 0, 14, "^7Tip: You can copy/paste socket groups using Ctrl+C and Ctrl+V.")
 
 	-- Gem options
-	self.controls.optionSection = common.New("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 50, 250, 100, "Gem Options")
-	self.controls.sortGemsByDPS = common.New("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 70, 20, "Sort gems by DPS:", function(state)
+	self.controls.optionSection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 50, 250, 100, "Gem Options")
+	self.controls.sortGemsByDPS = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 70, 20, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
 	end)
 	self.controls.sortGemsByDPS.state = true
-	self.controls.defaultLevel = common.New("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 94, 60, 20, nil, nil, "%D", 2, function(buf)
+	self.controls.defaultLevel = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 94, 60, 20, nil, nil, "%D", 2, function(buf)
 		self.defaultGemLevel = tonumber(buf)
 	end)
-	self.controls.defaultLevelLabel = common.New("LabelControl", {"RIGHT",self.controls.defaultLevel,"LEFT"}, -4, 0, 0, 16, "^7Default gem level:")
-	self.controls.defaultQuality = common.New("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 118, 60, 20, nil, nil, "%D", 2, function(buf)
+	self.controls.defaultLevelLabel = new("LabelControl", {"RIGHT",self.controls.defaultLevel,"LEFT"}, -4, 0, 0, 16, "^7Default gem level:")
+	self.controls.defaultQuality = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 150, 118, 60, 20, nil, nil, "%D", 2, function(buf)
 		self.defaultGemQuality = tonumber(buf)
 	end)
-	self.controls.defaultQualityLabel = common.New("LabelControl", {"RIGHT",self.controls.defaultQuality,"LEFT"}, -4, 0, 0, 16, "^7Default gem quality:")
+	self.controls.defaultQualityLabel = new("LabelControl", {"RIGHT",self.controls.defaultQuality,"LEFT"}, -4, 0, 0, 16, "^7Default gem quality:")
 
 	-- Socket group details
-	self.anchorGroupDetail = common.New("Control", {"TOPLEFT",self.controls.groupList,"TOPRIGHT"}, 20, 0, 0, 0)
+	self.anchorGroupDetail = new("Control", {"TOPLEFT",self.controls.groupList,"TOPRIGHT"}, 20, 0, 0, 0)
 	self.anchorGroupDetail.shown = function()
 		return self.displayGroup ~= nil
 	end
-	self.controls.groupLabel = common.New("EditControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 0, 380, 20, nil, "Label", "%c", 50, function(buf)
+	self.controls.groupLabel = new("EditControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 0, 380, 20, nil, "Label", "%c", 50, function(buf)
 		self.displayGroup.label = buf
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
-	self.controls.groupSlotLabel = common.New("LabelControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 30, 0, 16, "^7Socketed in:")
-	self.controls.groupSlot = common.New("DropDownControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 85, 28, 130, 20, groupSlotDropList, function(index, value)
+	self.controls.groupSlotLabel = new("LabelControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 30, 0, 16, "^7Socketed in:")
+	self.controls.groupSlot = new("DropDownControl", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 85, 28, 130, 20, groupSlotDropList, function(index, value)
 		self.displayGroup.slot = value.slotName
 		self:AddUndoState()
 		self.build.buildFlag = true
@@ -92,12 +90,12 @@ local SkillsTabClass = common.NewClass("SkillsTab", "UndoHandler", "ControlHost"
 	self.controls.groupSlot.enabled = function()
 		return self.displayGroup.source == nil
 	end
-	self.controls.groupEnabled = common.New("CheckBoxControl", {"LEFT",self.controls.groupSlot,"RIGHT"}, 70, 0, 20, "Enabled:", function(state)
+	self.controls.groupEnabled = new("CheckBoxControl", {"LEFT",self.controls.groupSlot,"RIGHT"}, 70, 0, 20, "Enabled:", function(state)
 		self.displayGroup.enabled = state
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
-	self.controls.sourceNote = common.New("LabelControl", {"TOPLEFT",self.controls.groupSlotLabel,"TOPLEFT"}, 0, 30, 0, 16)
+	self.controls.sourceNote = new("LabelControl", {"TOPLEFT",self.controls.groupSlotLabel,"TOPLEFT"}, 0, 30, 0, 16)
 	self.controls.sourceNote.shown = function()
 		return self.displayGroup.source ~= nil
 	end
@@ -117,13 +115,13 @@ will automatically apply to the skill.]]
 	end
 
 	-- Skill gem slots
-	self.anchorGemSlots = common.New("Control", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 28 + 28 + 16, 0, 0)
+	self.anchorGemSlots = new("Control", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 28 + 28 + 16, 0, 0)
 	self.gemSlots = { }
 	self:CreateGemSlot(1)
-	self.controls.gemNameHeader = common.New("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].nameSpec,"TOPLEFT"}, 0, -2, 0, 16, "^7Gem name:")
-	self.controls.gemLevelHeader = common.New("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].level,"TOPLEFT"}, 0, -2, 0, 16, "^7Level:")
-	self.controls.gemQualityHeader = common.New("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].quality,"TOPLEFT"}, 0, -2, 0, 16, "^7Quality:")
-	self.controls.gemEnableHeader = common.New("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].enabled,"TOPLEFT"}, -16, -2, 0, 16, "^7Enabled:")
+	self.controls.gemNameHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].nameSpec,"TOPLEFT"}, 0, -2, 0, 16, "^7Gem name:")
+	self.controls.gemLevelHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].level,"TOPLEFT"}, 0, -2, 0, 16, "^7Level:")
+	self.controls.gemQualityHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].quality,"TOPLEFT"}, 0, -2, 0, 16, "^7Quality:")
+	self.controls.gemEnableHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].enabled,"TOPLEFT"}, -16, -2, 0, 16, "^7Enabled:")
 end)
 
 function SkillsTabClass:Load(xml, fileName)
@@ -303,7 +301,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.gemSlots[index] = slot
 
 	-- Delete gem
-	slot.delete = common.New("ButtonControl", nil, 0, 0, 20, 20, "x", function()
+	slot.delete = new("ButtonControl", nil, 0, 0, 20, 20, "x", function()
 		t_remove(self.displayGroup.gemList, index)
 		for index2 = index, #self.displayGroup.gemList do
 			-- Update the other gem slot controls
@@ -334,7 +332,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Delete"] = slot.delete
 
 	-- Gem name specification
-	slot.nameSpec = common.New("GemSelectControl", {"LEFT",slot.delete,"RIGHT"}, 2, 0, 300, 20, self, index, function(gemId, addUndo)
+	slot.nameSpec = new("GemSelectControl", {"LEFT",slot.delete,"RIGHT"}, 2, 0, 300, 20, self, index, function(gemId, addUndo)
 		if not self.displayGroup then
 			return
 		end
@@ -365,7 +363,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Name"] = slot.nameSpec
 
 	-- Gem level
-	slot.level = common.New("EditControl", {"LEFT",slot.nameSpec,"RIGHT"}, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
+	slot.level = new("EditControl", {"LEFT",slot.nameSpec,"RIGHT"}, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
 			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
@@ -383,7 +381,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Level"] = slot.level
 
 	-- Gem quality
-	slot.quality = common.New("EditControl", {"LEFT",slot.level,"RIGHT"}, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
+	slot.quality = new("EditControl", {"LEFT",slot.level,"RIGHT"}, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
 			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
@@ -401,7 +399,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Quality"] = slot.quality
 
 	-- Enable gem
-	slot.enabled = common.New("CheckBoxControl", {"LEFT",slot.quality,"RIGHT"}, 18, 0, 20, nil, function(state)
+	slot.enabled = new("CheckBoxControl", {"LEFT",slot.quality,"RIGHT"}, 18, 0, 20, nil, function(state)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
 			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
@@ -431,14 +429,14 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Enable"] = slot.enabled
 
 	-- Parser/calculator error message
-	slot.errMsg = common.New("LabelControl", {"LEFT",slot.enabled,"RIGHT"}, 2, 2, 0, 16, function()
+	slot.errMsg = new("LabelControl", {"LEFT",slot.enabled,"RIGHT"}, 2, 2, 0, 16, function()
 		local gemInstance = self.displayGroup and self.displayGroup.gemList[index]
 		return "^1"..(gemInstance and gemInstance.errMsg or "")
 	end)
 	self.controls["gemSlot"..index.."ErrMsg"] = slot.errMsg
 
 	-- Enable global-effect skill 1
-	slot.enableGlobal1 = common.New("CheckBoxControl", {"TOPLEFT",slot.delete,"BOTTOMLEFT"}, 0, 2, 20, "", function(state)
+	slot.enableGlobal1 = new("CheckBoxControl", {"TOPLEFT",slot.delete,"BOTTOMLEFT"}, 0, 2, 20, "", function(state)
 		local gemInstance = self.displayGroup.gemList[index]
 		gemInstance.enableGlobal1 = state
 		self:AddUndoState()
@@ -457,7 +455,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."EnableGlobal1"] = slot.enableGlobal1
 
 	-- Enable global-effect skill 2
-	slot.enableGlobal2 = common.New("CheckBoxControl", {"LEFT",slot.enableGlobal1,"RIGHT",true}, 0, 0, 20, "", function(state)
+	slot.enableGlobal2 = new("CheckBoxControl", {"LEFT",slot.enableGlobal1,"RIGHT",true}, 0, 0, 20, "", function(state)
 		local gemInstance = self.displayGroup.gemList[index]
 		gemInstance.enableGlobal2 = state
 		self:AddUndoState()

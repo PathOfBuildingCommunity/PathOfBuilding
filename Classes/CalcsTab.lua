@@ -3,8 +3,6 @@
 -- Module: Calcs Tab
 -- Calculations breakdown tab for the current build.
 --
-local launch, main = ...
-
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
@@ -28,7 +26,7 @@ local buffModeDropList = {
 	{ label = "Effective DPS", buffMode = "EFFECTIVE" } 
 }
 
-local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
+local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
 	self.ControlHost()
 	self.Control()
@@ -47,21 +45,21 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 	-- Special section for skill/mode selection
 	self:NewSection(3, "SkillSelect", 1, "View Skill Details", colorCodes.NORMAL, {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
-			control = common.New("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value) 
+			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value) 
 				self.input.skill_number = index 
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end)
 		}, },
 		{ label = "Active Skill", { controlName = "mainSkill", 
-			control = common.New("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				mainSocketGroup.mainActiveSkillCalcs = index
 				self.build.buildFlag = true
 			end)
 		}, },
 		{ label = "Skill Part", playerFlag = "multiPart", { controlName = "mainSkillPart", 
-			control = common.New("DropDownControl", nil, 0, 0, 130, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, 0, 0, 130, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillPartCalcs = index
@@ -70,13 +68,13 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 			end)
 		}, },
 		{ label = "Show Minion Stats", flag = "haveMinion", { controlName = "showMinion", 
-			control = common.New("CheckBoxControl", nil, 0, 0, 18, nil, function(state)
+			control = new("CheckBoxControl", nil, 0, 0, 18, nil, function(state)
 				self.input.showMinion = state
 				self:AddUndoState()
 			end, "Show stats for the minion instead of the player.")
 		}, },
 		{ label = "Minion", flag = "minion", { controlName = "mainSkillMinion",
-			control = common.New("DropDownControl", nil, 0, 0, 160, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, 0, 0, 160, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				if value.itemSetId then
@@ -89,12 +87,12 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 			end)
 		} },
 		{ label = "Spectre Library", flag = "spectre", { controlName = "mainSkillMinionLibrary",
-			control = common.New("ButtonControl", nil, 0, 0, 100, 16, "Manage Spectres...", function()
+			control = new("ButtonControl", nil, 0, 0, 100, 16, "Manage Spectres...", function()
 				self.build:OpenSpectreLibrary()
 			end)
 		} },
 		{ label = "Minion Skill", flag = "haveMinion", { controlName = "mainSkillMinionSkill",
-			control = common.New("DropDownControl", nil, 0, 0, 200, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, 0, 0, 200, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillMinionSkillCalcs = index
@@ -104,7 +102,7 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 		} },
 		{ label = "Calculation Mode", { 
 			controlName = "mode", 
-			control = common.New("DropDownControl", nil, 0, 0, 100, 16, buffModeDropList, function(index, value) 
+			control = new("DropDownControl", nil, 0, 0, 100, 16, buffModeDropList, function(index, value) 
 				self.input.misc_buffMode = value.buffMode 
 				self:AddUndoState()
 				self.build.buildFlag = true
@@ -137,9 +135,9 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 		self:NewSection(unpack(section))
 	end
 
-	self.controls.breakdown = common.New("CalcBreakdown", self)
+	self.controls.breakdown = new("CalcBreakdownControl", self)
 
-	self.controls.scrollBar = common.New("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
+	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
 end)
 
 function CalcsTabClass:Load(xml, dbFileName)
@@ -320,7 +318,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 end
 
 function CalcsTabClass:NewSection(width, ...)
-	local section = common.New("CalcSection", self, width * self.colWidth + 8 * (width - 1), ...)
+	local section = new("CalcSectionControl", self, width * self.colWidth + 8 * (width - 1), ...)
 	section.widthCols = width
 	t_insert(self.controls, section)
 	t_insert(self.sectionList, section)

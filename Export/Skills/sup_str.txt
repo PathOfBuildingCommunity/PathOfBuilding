@@ -184,6 +184,14 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportMultiTotem
+	statMap = {
+		["support_additional_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
 #skill SupportRangedAttackTotem
 	addFlags = {
 		totem = true,

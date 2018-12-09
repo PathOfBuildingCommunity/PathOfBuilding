@@ -48,103 +48,64 @@ local function mergeLevelMod(modList, mod, value)
 	end
 end
 
--- Merge quality modifier with given mod list
-local function mergeQualityMod(modList, mod, quality, value)
-	local scaledMod = copyTable(mod, true)
-	if type(scaledMod.value) == "table" then
-		scaledMod.value = copyTable(scaledMod.value, true)
-		if scaledMod.value.mod then
-			scaledMod.value.mod = copyTable(scaledMod.value.mod, true)
-			scaledMod.value.mod.value = m_floor((value or scaledMod.value.mod.value) * quality)
-		else
-			scaledMod.value.value = m_floor((value or scaledMod.value.value) * quality)
+-- Build table of stats for the given skill effect
+function calcs.buildSkillInstanceStats(env, skillEffect)
+	local stats = { }
+	local grantedEffect = skillEffect.grantedEffect
+	if skillEffect.quality > 0 then
+		for _, stat in ipairs(grantedEffect.qualityStats) do
+			stats[stat[1]] = (stats[stat[1]] or 0) + m_floor(stat[2] * skillEffect.quality)
 		end
-	else
-		scaledMod.value = m_floor((value or scaledMod.value) * quality)
 	end
-	modList:AddMod(scaledMod)
+	local statLevels = grantedEffect.statLevels[skillEffect.level]
+	local availableEffectiveness
+	if not skillEffect.actorLevel then
+		skillEffect.actorLevel = skillEffect.grantedEffect.levels[skillEffect.level][1]
+	end
+	for index, stat in ipairs(grantedEffect.stats) do
+		local statValue
+		if grantedEffect.statInterpolation[index] == 3 then
+			-- Effectiveness interpolation
+			if not availableEffectiveness then
+				availableEffectiveness = 
+					(3.885209 + 0.360246 * (skillEffect.actorLevel - 1)) * grantedEffect.baseEffectiveness
+					* (1 + grantedEffect.incrementalEffectiveness) ^ (skillEffect.actorLevel - 1)
+			end
+			statValue = round(availableEffectiveness * statLevels[index])
+		elseif grantedEffect.statInterpolation[index] == 2 then
+			-- Linear interpolation; I'm actually just guessing how this works
+			local nextLevel = m_min(skillEffect.level + 1, #grantedEffect.statLevels)
+			local nextReq = grantedEffect.levels[nextLevel][1]
+			local prevReq = grantedEffect.levels[nextLevel - 1][1]
+			local nextStat = grantedEffect.statLevels[nextLevel][index]
+			local prevStat = grantedEffect.statLevels[nextLevel - 1][index]
+			statValue = round(prevStat + (nextStat - prevStat) * (skillEffect.actorLevel - prevReq) / (nextReq - prevReq))
+		else
+			-- Static value
+			statValue = statLevels[index] or 1
+		end
+		stats[stat] = (stats[stat] or 0) + statValue
+	end
+	return stats
 end
 
 -- Merge skill modifiers with given mod list
 function calcs.mergeSkillInstanceMods(env, modList, skillEffect)
-	for _, mod in pairs(skillEffect.grantedEffect.baseMods) do
-		if mod.name then
-			modList:AddMod(mod)
-		else
-			for _, subMod in ipairs(mod) do
-				modList:AddMod(subMod)
-			end
-		end
-	end
-	if skillEffect.quality > 0 then
-		if skillEffect.grantedEffect.qualityStats then
-			for _, stat in ipairs(skillEffect.grantedEffect.qualityStats) do
-				local map = skillEffect.grantedEffect.statMap[stat[1]]
-				if map then
-					local statValue = stat[2] * (map.mult or 1) / (map.div or 1)
-					for _, mod in ipairs(map) do
-						mergeQualityMod(modList, mod, skillEffect.quality, statValue)
-					end
-				end
-			end
-		else
-			for _, mod in ipairs(skillEffect.grantedEffect.qualityMods) do
-				if mod.name then
-					mergeQualityMod(modList, mod, skillEffect.quality)
-				else
-					for _, subMod in ipairs(mod) do
-						mergeQualityMod(modList, subMod, skillEffect.quality)
-					end
-				end
-			end
-		end
-	end
 	calcLib.validateGemLevel(skillEffect)
-	local levelData = skillEffect.grantedEffect.levels[skillEffect.level]
-	for col, mod in pairs(skillEffect.grantedEffect.levelMods) do
+	local grantedEffect = skillEffect.grantedEffect
+	modList:AddList(grantedEffect.baseMods)
+	local levelData = grantedEffect.levels[skillEffect.level]
+	for col, mod in pairs(grantedEffect.levelMods) do
 		if levelData[col] then
-			if mod.name then
-				mergeLevelMod(modList, mod, levelData[col])
-			else
-				for _, subMod in ipairs(mod) do
-					mergeLevelMod(modList, subMod, levelData[col])
-				end
-			end
+			mergeLevelMod(modList, mod, levelData[col])
 		end
 	end
-	if skillEffect.grantedEffect.stats then
-		local statLevels = skillEffect.grantedEffect.statLevels[skillEffect.level]
-		local availableEffectiveness
-		if not skillEffect.actorLevel then
-			skillEffect.actorLevel = levelData[1]
-		end
-		for index, stat in ipairs(skillEffect.grantedEffect.stats) do
-			local map = skillEffect.grantedEffect.statMap[stat]
-			if map then
-				local statValue
-				if skillEffect.grantedEffect.statInterpolation[index] == 3 then
-					-- Effectiveness interpolation
-					if not availableEffectiveness then
-						availableEffectiveness = 
-							(3.885209 + 0.360246 * (skillEffect.actorLevel - 1)) * skillEffect.grantedEffect.baseEffectiveness
-							* (1 + skillEffect.grantedEffect.incrementalEffectiveness) ^ (skillEffect.actorLevel - 1)
-					end
-					statValue = round(availableEffectiveness * statLevels[index]) * (map.mult or 1) / (map.div or 1)
-				elseif skillEffect.grantedEffect.statInterpolation[index] == 2 then
-					-- Linear interpolation; I'm actually just guessing how this works
-					local nextLevel = m_min(skillEffect.level + 1, #skillEffect.grantedEffect.statLevels)
-					local nextReq = skillEffect.grantedEffect.levels[nextLevel][1]
-					local prevReq = skillEffect.grantedEffect.levels[nextLevel - 1][1]
-					local nextStat = skillEffect.grantedEffect.statLevels[nextLevel][index]
-					local prevStat = skillEffect.grantedEffect.statLevels[nextLevel - 1][index]
-					statValue = round(prevStat + (nextStat - prevStat) * (skillEffect.actorLevel - prevReq) / (nextReq - prevReq)) * (map.mult or 1) / (map.div or 1)
-				elseif statLevels[index] then
-					-- Static value
-					statValue = statLevels[index] * (map.mult or 1) / (map.div or 1)
-				end
-				for _, mod in ipairs(map) do
-					mergeLevelMod(modList, mod, statValue)
-				end
+	local stats = calcs.buildSkillInstanceStats(env, skillEffect)
+	for stat, statValue in pairs(stats) do
+		local map = grantedEffect.statMap[stat]
+		if map then
+			for _, mod in ipairs(map) do
+				mergeLevelMod(modList, mod, statValue * (map.mult or 1) / (map.div or 1))
 			end
 		end
 	end
@@ -437,10 +398,10 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	end
 
 	-- Initialise skill modifier list
-	local skillModList = common.New("ModList")
+	local skillModList = new("ModList", actor.modDB)
 	activeSkill.skillModList = skillModList
 
-	if actor.modDB and actor.modDB:Sum("FLAG", activeSkill.skillCfg, "DisableSkill") then
+	if skillModList:Flag(activeSkill.skillCfg, "DisableSkill") then
 		skillFlags.disable = true
 		activeSkill.disableReason = "Skills of this type are disabled"
 	end
@@ -459,7 +420,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	end
 
 	-- Apply gem/quality modifiers from support gems
-	for _, value in ipairs(skillModList:Sum("LIST", activeSkill.skillCfg, "GemProperty")) do
+	for _, value in ipairs(skillModList:List(activeSkill.skillCfg, "GemProperty")) do
 		if value.keyword == "active_skill" then
 			activeEffect[value.key] = activeEffect[value.key] + value.value
 		end
@@ -471,16 +432,13 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 
 	-- Add extra modifiers
 	activeSkill.extraSkillModList = { }
-	for _, value in ipairs(env.modDB:Sum("LIST", activeSkill.skillCfg, "ExtraSkillMod")) do
+	for _, value in ipairs(skillModList:List(activeSkill.skillCfg, "ExtraSkillMod")) do
 		skillModList:AddMod(value.mod)
 		t_insert(activeSkill.extraSkillModList, value.mod)
 	end
 
 	-- Extract skill data
-	for _, value in ipairs(env.modDB:Sum("LIST", activeSkill.skillCfg, "SkillData")) do
-		activeSkill.skillData[value.key] = value.value
-	end
-	for _, value in ipairs(skillModList:Sum("LIST", activeSkill.skillCfg, "SkillData")) do
+	for _, value in ipairs(skillModList:List(activeSkill.skillCfg, "SkillData")) do
 		activeSkill.skillData[value.key] = value.value
 	end
 
@@ -520,6 +478,9 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			activeSkill.minion = minion
 			skillFlags.haveMinion = true
 			minion.parent = env.player
+			minion.enemy = env.enemy
+			minion.modDB = new("ModDB")
+			minion.modDB.actor = minion
 			minion.type = minionType
 			minion.minionData = env.data.minions[minionType]
 			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or activeSkill.skillData.minionLevel or activeSkill.skillData.levelRequirement
@@ -607,6 +568,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 					name = effectName,
 					allowTotemBuff = effectTag.allowTotemBuff,
 					cond = effectTag.effectCond,
+					enemyCond = effectTag.effectEnemyCond,
 					stackVar = effectTag.effectStackVar,
 					stackLimit = effectTag.effectStackLimit,
 					stackLimitVar = effectTag.effectStackLimitVar,
@@ -661,7 +623,7 @@ function calcs.createMinionSkills(env, activeSkill)
 			t_insert(skillIdList, skillId)
 		end
 	end
-	for _, skill in ipairs(env.modDB:Sum("LIST", activeSkill.skillCfg, "ExtraMinionSkill")) do
+	for _, skill in ipairs(env.modDB:List(activeSkill.skillCfg, "ExtraMinionSkill")) do
 		if not skill.minionList or isValueInArray(skill.minionList, minion.type) then
 			t_insert(skillIdList, skill.skillId)
 		end

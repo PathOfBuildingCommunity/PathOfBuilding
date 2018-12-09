@@ -29,6 +29,14 @@ local skills, mod, flag, skill = ...
 #skill SupportBlasphemy
 #mods
 
+#skill SupportBonechill
+	statMap = {
+		["support_chills_also_grant_cold_damage_taken_per_minute_+%"] = {
+			mod("ColdDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Bonechill", effectEnemyCond = "Chilled" }),
+		},
+	},
+#mods
+
 #skill SupportCastOnStunned
 #mods
 
@@ -207,9 +215,6 @@ local skills, mod, flag, skill = ...
 		},
 		["support_gem_mine_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Mine),
-		},
-		["support_remote_mine_hit_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, KeywordFlag.Mine),
 		},
 	},
 #mods

@@ -17,15 +17,6 @@ skills["Melee"] = {
 		melee = true,
 		projectile = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 1, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -36,6 +27,15 @@ skills["Melee"] = {
 	statLevels = {
 		[1] = { 1, 1, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
 }
 skills["GemDetonateMines"] = {
 	name = "Detonate Mines",
@@ -44,25 +44,6 @@ skills["GemDetonateMines"] = {
 	skillTypes = { [2] = true, [17] = true, [18] = true, [36] = true, },
 	baseFlags = {
 		spell = true,
-	},
-	baseMods = {
-		skill("castTime", 0.2),
-		skill("cooldown", 0.2),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 8, },
-		[2] = { 8, },
-		[3] = { 8, },
-		[4] = { 8, },
-		[5] = { 8, },
-		[6] = { 8, },
-		[7] = { 8, },
-		[8] = { 8, },
-		[9] = { 8, },
-		[10] = { 8, },
 	},
 	qualityStats = {
 		{ "base_cast_speed_+%", 5 },
@@ -83,6 +64,25 @@ skills["GemDetonateMines"] = {
 		[9] = { nil, },
 		[10] = { nil, },
 	},
+	baseMods = {
+		skill("castTime", 0.2),
+		skill("cooldown", 0.2),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 8, },
+		[2] = { 8, },
+		[3] = { 8, },
+		[4] = { 8, },
+		[5] = { 8, },
+		[6] = { 8, },
+		[7] = { 8, },
+		[8] = { 8, },
+		[9] = { 8, },
+		[10] = { 8, },
+	},
 }
 skills["Portal"] = {
 	name = "Portal",
@@ -91,24 +91,6 @@ skills["Portal"] = {
 	skillTypes = { [2] = true, [17] = true, [18] = true, [19] = true, [36] = true, [27] = true, },
 	baseFlags = {
 		spell = true,
-	},
-	baseMods = {
-		skill("castTime", 2.5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 10, },
-		[2] = { 10, },
-		[3] = { 10, },
-		[4] = { 10, },
-		[5] = { 10, },
-		[6] = { 10, },
-		[7] = { 10, },
-		[8] = { 10, },
-		[9] = { 10, },
-		[10] = { 10, },
 	},
 	qualityStats = {
 		{ "base_cast_speed_+%", 3 },
@@ -129,15 +111,6 @@ skills["Portal"] = {
 		[9] = { nil, },
 		[10] = { nil, },
 	},
-}
-skills["VaalBreach"] = {
-	name = "Vaal Breach",
-	color = 4,
-	description = "Creates a breach, making you vulnerable to its powerful inhabitants.",
-	skillTypes = { [2] = true, [17] = true, [18] = true, [19] = true, [27] = true, [43] = true, },
-	baseFlags = {
-		spell = true,
-	},
 	baseMods = {
 		skill("castTime", 2.5),
 	},
@@ -155,6 +128,15 @@ skills["VaalBreach"] = {
 		[8] = { 10, },
 		[9] = { 10, },
 		[10] = { 10, },
+	},
+}
+skills["VaalBreach"] = {
+	name = "Vaal Breach",
+	color = 4,
+	description = "Creates a breach, making you vulnerable to its powerful inhabitants.",
+	skillTypes = { [2] = true, [17] = true, [18] = true, [19] = true, [27] = true, [43] = true, },
+	baseFlags = {
+		spell = true,
 	},
 	qualityStats = {
 		{ "base_cast_speed_+%", 3 },
@@ -176,6 +158,24 @@ skills["VaalBreach"] = {
 		[9] = { nil, nil, },
 		[10] = { nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 2.5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 10, },
+		[2] = { 10, },
+		[3] = { 10, },
+		[4] = { 10, },
+		[5] = { 10, },
+		[6] = { 10, },
+		[7] = { 10, },
+		[8] = { 10, },
+		[9] = { 10, },
+		[10] = { 10, },
+	},
 }
 skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 	name = "Mjolner",
@@ -191,8 +191,19 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "Condition", var = "SkillIsTriggered" }),
 		},
 	},
+	qualityStats = {
+	},
+	stats = {
+		"triggered_spell_spell_damage_+%",
+		"unique_mjolner_lightning_spells_triggered",
+		"socketed_triggered_skills_use_weapon_attack_time_for_pvp_scaling",
+	},
+	statInterpolation = { 1, },
+	statLevels = {
+		[1] = { 100, nil, nil, },
+	},
 	baseMods = {
-		skill("cooldown", 0.25),
+		skill("cooldown", 0.15),
 		skill("showAverage", true),
 	},
 	levelMods = {
@@ -200,16 +211,6 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 	},
 	levels = {
 		[1] = { 0, },
-	},
-	qualityStats = {
-	},
-	stats = {
-		"triggered_spell_spell_damage_+%",
-		"unique_mjolner_lightning_spells_triggered",
-	},
-	statInterpolation = { 1, },
-	statLevels = {
-		[1] = { 100, nil, },
 	},
 }
 skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
@@ -221,23 +222,24 @@ skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { 37, 41, 30, 44, 61, },
 	fromItem = true,
+	qualityStats = {
+	},
+	stats = {
+		"unique_cospris_malice_cold_spells_triggered",
+		"socketed_triggered_skills_use_weapon_attack_time_for_pvp_scaling",
+	},
+	statInterpolation = { },
+	statLevels = {
+		[1] = { nil, nil, },
+	},
 	baseMods = {
-		skill("cooldown", 0.25),
+		skill("cooldown", 0.15),
 	},
 	levelMods = {
 		[1] = nil,
 	},
 	levels = {
 		[1] = { 1, },
-	},
-	qualityStats = {
-	},
-	stats = {
-		"unique_cospris_malice_cold_spells_triggered",
-	},
-	statInterpolation = { },
-	statLevels = {
-		[1] = { nil, },
 	},
 }
 skills["RepeatingShockwave"] = {
@@ -250,16 +252,6 @@ skills["RepeatingShockwave"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[7] = { 1, },
 	},
 	qualityStats = {
 	},
@@ -276,6 +268,16 @@ skills["RepeatingShockwave"] = {
 	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[7] = { 50, 75, 10, nil, nil, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[7] = { 1, },
 	},
 }
 skills["BirdAspect"] = {
@@ -299,18 +301,6 @@ skills["BirdAspect"] = {
 		cast = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 0),
-		skill("manaCost", 25),
-		skill("cooldown", 0.5),
-		skill("buffMinions", true),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 1, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -325,6 +315,18 @@ skills["BirdAspect"] = {
 	statLevels = {
 		[20] = { 10, 10, 10, 10, 4000, 4000, },
 	},
+	baseMods = {
+		skill("castTime", 0),
+		skill("manaCost", 25),
+		skill("cooldown", 0.5),
+		skill("buffMinions", true),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 1, },
+	},
 }
 skills["CatAspect"] = {
 	name = "Aspect of the Cat",
@@ -337,7 +339,7 @@ skills["CatAspect"] = {
 		["critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Stealth", effectCond = "CatsStealthActive" }),
 		},
-		["attack_speed_+%"] = {
+		["attack_speed_+%_granted_from_skill"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" }),
 		},
 		["cast_speed_+%_granted_from_skill"] = {
@@ -347,6 +349,21 @@ skills["CatAspect"] = {
 	baseFlags = {
 		cast = true,
 		duration = true,
+	},
+	qualityStats = {
+	},
+	stats = {
+		"critical_strike_chance_+%",
+		"avoid_damage_%",
+		"enemy_aggro_radius_+%",
+		"attack_speed_+%_granted_from_skill",
+		"cast_speed_+%_granted_from_skill",
+		"base_skill_effect_duration",
+		"base_secondary_skill_effect_duration",
+	},
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, },
+	statLevels = {
+		[20] = { 100, 15, -50, 10, 10, 4000, 6000, },
 	},
 	baseMods = {
 		skill("castTime", 0),
@@ -358,21 +375,6 @@ skills["CatAspect"] = {
 	},
 	levels = {
 		[20] = { 1, },
-	},
-	qualityStats = {
-	},
-	stats = {
-		"critical_strike_chance_+%",
-		"avoid_damage_%",
-		"enemy_aggro_radius_+%",
-		"attack_speed_+%",
-		"cast_speed_+%_granted_from_skill",
-		"base_skill_effect_duration",
-		"base_secondary_skill_effect_duration",
-	},
-	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, },
-	statLevels = {
-		[20] = { 100, 15, -50, 10, 10, 4000, 6000, },
 	},
 }
 skills["CrabAspect"] = {
@@ -393,6 +395,16 @@ skills["CrabAspect"] = {
 	baseFlags = {
 		cast = true,
 	},
+	qualityStats = {
+	},
+	stats = {
+		"physical_damage_reduction_%_per_crab_aspect_stack",
+		"max_crab_aspect_stacks",
+	},
+	statInterpolation = { 1, 1, },
+	statLevels = {
+		[20] = { 2, 10, },
+	},
 	baseMods = {
 		skill("castTime", 0),
 		skill("manaCost", 25),
@@ -403,16 +415,6 @@ skills["CrabAspect"] = {
 	},
 	levels = {
 		[20] = { 1, },
-	},
-	qualityStats = {
-	},
-	stats = {
-		"physical_damage_reduction_%_per_crab_aspect_stack",
-		"max_crab_aspect_stacks",
-	},
-	statInterpolation = { 1, 1, },
-	statLevels = {
-		[20] = { 2, 10, },
 	},
 }
 skills["SpiderAspect"] = {
@@ -436,19 +438,6 @@ skills["SpiderAspect"] = {
 		cast = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 0),
-		skill("manaCost", 25),
-		skill("cooldown", 0.5),
-		skill("debuff", true),
-		skill("stackCount", 1, { type = "Multiplier", var = "SpiderWebApplyStack", limitVar = "SpiderWebApplyStackMax" }),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 1, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -461,6 +450,19 @@ skills["SpiderAspect"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, },
 	statLevels = {
 		[20] = { -30, 5, 6000, 1000, 3, },
+	},
+	baseMods = {
+		skill("castTime", 0),
+		skill("manaCost", 25),
+		skill("cooldown", 0.5),
+		skill("debuff", true),
+		skill("stackCount", 1, { type = "Multiplier", var = "SpiderWebApplyStack", limitVar = "SpiderWebApplyStackMax" }),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 1, },
 	},
 }
 skills["BloodOffering"] = {
@@ -479,17 +481,6 @@ skills["BloodOffering"] = {
 		spell = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("buffMinions", true),
-		skill("buffNotPlayer", true),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[15] = { 12, },
-	},
 	qualityStats = {
 		{ "skill_effect_duration_+%", 0.5 },
 	},
@@ -506,6 +497,17 @@ skills["BloodOffering"] = {
 	statLevels = {
 		[15] = { 3000, 500, 20, 35, 5, 50, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("buffMinions", true),
+		skill("buffNotPlayer", true),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[15] = { 12, },
+	},
 }
 skills["TriggeredBoneNova"] = {
 	name = "Bone Nova",
@@ -517,16 +519,6 @@ skills["TriggeredBoneNova"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 0.5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 1, },
 	},
 	qualityStats = {
 	},
@@ -543,6 +535,16 @@ skills["TriggeredBoneNova"] = {
 	statLevels = {
 		[20] = { 8, 100, 15, nil, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 0.5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 1, },
+	},
 }
 skills["ColdAegis"] = {
 	name = "Cold Aegis",
@@ -553,15 +555,6 @@ skills["ColdAegis"] = {
 	fromItem = true,
 	baseFlags = {
 		spell = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 1, },
 	},
 	qualityStats = {
 	},
@@ -574,6 +567,15 @@ skills["ColdAegis"] = {
 	statInterpolation = { 1, 1, },
 	statLevels = {
 		[20] = { 1000, 1, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 1, },
 	},
 }
 skills["TriggeredConsecrate"] = {
@@ -588,16 +590,6 @@ skills["TriggeredConsecrate"] = {
 		duration = true,
 		area = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[10] = { 1, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -609,6 +601,16 @@ skills["TriggeredConsecrate"] = {
 	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[10] = { 5000, 360, 100, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[10] = { 1, },
 	},
 }
 skills["TriggeredSummonLesserShrine"] = {
@@ -622,16 +624,6 @@ skills["TriggeredSummonLesserShrine"] = {
 		spell = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 20),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 1, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -642,6 +634,16 @@ skills["TriggeredSummonLesserShrine"] = {
 	statInterpolation = { 1, 1, },
 	statLevels = {
 		[1] = { 100, 10000, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 20),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
 	},
 }
 skills["ChaosDegenAuraUnique"] = {
@@ -655,16 +657,6 @@ skills["ChaosDegenAuraUnique"] = {
 		spell = true,
 		aura = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("dotIsArea", true),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 62, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -675,6 +667,16 @@ skills["ChaosDegenAuraUnique"] = {
 	statInterpolation = { 1, },
 	statLevels = {
 		[20] = { 27000, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("dotIsArea", true),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 62, },
 	},
 }
 skills["DeathWalk"] = {
@@ -688,17 +690,6 @@ skills["DeathWalk"] = {
 		cast = true,
 		area = true,
 		chaos = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("explodeCorpse", true),
-		skill("showAverage", true),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 60, },
 	},
 	qualityStats = {
 	},
@@ -715,12 +706,23 @@ skills["DeathWalk"] = {
 	statLevels = {
 		[20] = { 5, nil, nil, nil, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("explodeCorpse", true),
+		skill("showAverage", true),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 60, },
+	},
 }
 skills["TouchOfGod"] = {
 	name = "Doryani's Touch",
 	hidden = true,
 	color = 1,
-	description = "The character uses their fist to slam the ground in front of them, with less attack speed, but more damage. This attack deals Lightning Damage to enemies in a large area, with a chance to Shock them. Cannot be used while wielding a Weapon.",
+	description = "The character uses their fist to slam the ground in front of them, with less attack speed, but more damage. This attack deals Lightning Damage to enemies in a large area, with a chance to Shock them. Cannot be used while wielding a Weapon. Cannot be Evaded.",
 	skillTypes = { [1] = true, [11] = true, [35] = true, [24] = true, [28] = true, },
 	weaponTypes = {
 		["None"] = true,
@@ -731,56 +733,6 @@ skills["TouchOfGod"] = {
 		area = true,
 		melee = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("damageEffectiveness", 2.5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-		[2] = skill("manaCost", nil),
-	},
-	levels = {
-		[1] = { 31, 24, },
-		[2] = { 34, 24, },
-		[3] = { 36, 24, },
-		[4] = { 38, 24, },
-		[5] = { 40, 24, },
-		[6] = { 42, 25, },
-		[7] = { 44, 25, },
-		[8] = { 46, 25, },
-		[9] = { 48, 25, },
-		[10] = { 50, 25, },
-		[11] = { 52, 26, },
-		[12] = { 54, 26, },
-		[13] = { 56, 26, },
-		[14] = { 58, 26, },
-		[15] = { 60, 26, },
-		[16] = { 62, 27, },
-		[17] = { 64, 27, },
-		[18] = { 66, 27, },
-		[19] = { 68, 28, },
-		[20] = { 70, 28, },
-		[21] = { 72, 28, },
-		[22] = { 74, 29, },
-		[23] = { 76, 29, },
-		[24] = { 78, 29, },
-		[25] = { 80, 30, },
-		[26] = { 82, 30, },
-		[27] = { 84, 30, },
-		[28] = { 86, 31, },
-		[29] = { 88, 31, },
-		[30] = { 90, 31, },
-		[31] = { 91, 32, },
-		[32] = { 92, 32, },
-		[33] = { 93, 32, },
-		[34] = { 94, 33, },
-		[35] = { 95, 33, },
-		[36] = { 96, 33, },
-		[37] = { 97, 34, },
-		[38] = { 98, 34, },
-		[39] = { 99, 34, },
-		[40] = { 100, 35, },
-	},
 	qualityStats = {
 		{ "area_damage_+%", 0.5 },
 	},
@@ -789,49 +741,100 @@ skills["TouchOfGod"] = {
 		"active_skill_attack_speed_+%_final",
 		"base_chance_to_shock_%",
 		"is_area_damage",
+		"global_always_hit",
 	},
 	statInterpolation = { 1, 1, 1, },
 	statLevels = {
-		[1] = { 50, -30, 20, nil, },
-		[2] = { 50, -30, 20, nil, },
-		[3] = { 50, -30, 20, nil, },
-		[4] = { 50, -30, 20, nil, },
-		[5] = { 50, -30, 20, nil, },
-		[6] = { 50, -30, 20, nil, },
-		[7] = { 50, -30, 20, nil, },
-		[8] = { 50, -30, 20, nil, },
-		[9] = { 50, -30, 20, nil, },
-		[10] = { 50, -30, 20, nil, },
-		[11] = { 50, -30, 20, nil, },
-		[12] = { 50, -30, 20, nil, },
-		[13] = { 50, -30, 20, nil, },
-		[14] = { 50, -30, 20, nil, },
-		[15] = { 50, -30, 20, nil, },
-		[16] = { 50, -30, 20, nil, },
-		[17] = { 50, -30, 20, nil, },
-		[18] = { 50, -30, 20, nil, },
-		[19] = { 50, -30, 20, nil, },
-		[20] = { 50, -30, 20, nil, },
-		[21] = { 50, -30, 20, nil, },
-		[22] = { 50, -30, 20, nil, },
-		[23] = { 50, -30, 20, nil, },
-		[24] = { 50, -30, 20, nil, },
-		[25] = { 50, -30, 20, nil, },
-		[26] = { 50, -30, 20, nil, },
-		[27] = { 50, -30, 20, nil, },
-		[28] = { 50, -30, 20, nil, },
-		[29] = { 50, -30, 20, nil, },
-		[30] = { 50, -30, 20, nil, },
-		[31] = { 50, -30, 20, nil, },
-		[32] = { 50, -30, 20, nil, },
-		[33] = { 50, -30, 20, nil, },
-		[34] = { 50, -30, 20, nil, },
-		[35] = { 50, -30, 20, nil, },
-		[36] = { 50, -30, 20, nil, },
-		[37] = { 50, -30, 20, nil, },
-		[38] = { 50, -30, 20, nil, },
-		[39] = { 50, -30, 20, nil, },
-		[40] = { 50, -30, 20, nil, },
+		[1] = { 100, -50, 20, nil, nil, },
+		[2] = { 100, -50, 20, nil, nil, },
+		[3] = { 100, -50, 20, nil, nil, },
+		[4] = { 100, -50, 20, nil, nil, },
+		[5] = { 100, -50, 20, nil, nil, },
+		[6] = { 100, -50, 20, nil, nil, },
+		[7] = { 100, -50, 20, nil, nil, },
+		[8] = { 100, -50, 20, nil, nil, },
+		[9] = { 100, -50, 20, nil, nil, },
+		[10] = { 100, -50, 20, nil, nil, },
+		[11] = { 100, -50, 20, nil, nil, },
+		[12] = { 100, -50, 20, nil, nil, },
+		[13] = { 100, -50, 20, nil, nil, },
+		[14] = { 100, -50, 20, nil, nil, },
+		[15] = { 100, -50, 20, nil, nil, },
+		[16] = { 100, -50, 20, nil, nil, },
+		[17] = { 100, -50, 20, nil, nil, },
+		[18] = { 100, -50, 20, nil, nil, },
+		[19] = { 100, -50, 20, nil, nil, },
+		[20] = { 100, -50, 20, nil, nil, },
+		[21] = { 100, -50, 20, nil, nil, },
+		[22] = { 100, -50, 20, nil, nil, },
+		[23] = { 100, -50, 20, nil, nil, },
+		[24] = { 100, -50, 20, nil, nil, },
+		[25] = { 100, -50, 20, nil, nil, },
+		[26] = { 100, -50, 20, nil, nil, },
+		[27] = { 100, -50, 20, nil, nil, },
+		[28] = { 100, -50, 20, nil, nil, },
+		[29] = { 100, -50, 20, nil, nil, },
+		[30] = { 100, -50, 20, nil, nil, },
+		[31] = { 100, -50, 20, nil, nil, },
+		[32] = { 100, -50, 20, nil, nil, },
+		[33] = { 100, -50, 20, nil, nil, },
+		[34] = { 100, -50, 20, nil, nil, },
+		[35] = { 100, -50, 20, nil, nil, },
+		[36] = { 100, -50, 20, nil, nil, },
+		[37] = { 100, -50, 20, nil, nil, },
+		[38] = { 100, -50, 20, nil, nil, },
+		[39] = { 100, -50, 20, nil, nil, },
+		[40] = { 100, -50, 20, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("manaCost", 8),
+		skill("damageEffectiveness", 6),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 28, },
+		[2] = { 31, },
+		[3] = { 34, },
+		[4] = { 37, },
+		[5] = { 40, },
+		[6] = { 42, },
+		[7] = { 44, },
+		[8] = { 46, },
+		[9] = { 48, },
+		[10] = { 50, },
+		[11] = { 52, },
+		[12] = { 54, },
+		[13] = { 56, },
+		[14] = { 58, },
+		[15] = { 60, },
+		[16] = { 62, },
+		[17] = { 64, },
+		[18] = { 66, },
+		[19] = { 68, },
+		[20] = { 70, },
+		[21] = { 72, },
+		[22] = { 74, },
+		[23] = { 76, },
+		[24] = { 78, },
+		[25] = { 80, },
+		[26] = { 82, },
+		[27] = { 84, },
+		[28] = { 86, },
+		[29] = { 88, },
+		[30] = { 90, },
+		[31] = { 91, },
+		[32] = { 92, },
+		[33] = { 93, },
+		[34] = { 94, },
+		[35] = { 95, },
+		[36] = { 96, },
+		[37] = { 97, },
+		[38] = { 98, },
+		[39] = { 99, },
+		[40] = { 100, },
 	},
 }
 skills["ElementalAegis"] = {
@@ -843,15 +846,6 @@ skills["ElementalAegis"] = {
 	fromItem = true,
 	baseFlags = {
 		spell = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 1, },
 	},
 	qualityStats = {
 	},
@@ -865,6 +859,15 @@ skills["ElementalAegis"] = {
 	statLevels = {
 		[20] = { 1000, 2, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 1, },
+	},
 }
 skills["SupportElementalPenetration"] = {
 	name = "Elemental Penetration",
@@ -875,15 +878,6 @@ skills["SupportElementalPenetration"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	fromItem = true,
-	baseMods = {
-		mod("ManaCost", "MORE", 40),
-	},
-	levelMods = {
-		[1] = nil,
-	},
-	levels = {
-		[20] = { 70, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -892,6 +886,15 @@ skills["SupportElementalPenetration"] = {
 	statInterpolation = { 1, },
 	statLevels = {
 		[20] = { 37, },
+	},
+	baseMods = {
+		mod("ManaCost", "MORE", 40),
+	},
+	levelMods = {
+		[1] = nil,
+	},
+	levels = {
+		[20] = { 70, },
 	},
 }
 skills["OnHitWhileCursedTriggeredCurseNova"] = {
@@ -919,20 +922,6 @@ skills["OnHitWhileCursedTriggeredCurseNova"] = {
 		projectile = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 7),
-		skill("cooldown", 10),
-		mod("SkillPhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }),
-		mod("SkillPhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("SkillPhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 3 }),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 70, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -949,6 +938,20 @@ skills["OnHitWhileCursedTriggeredCurseNova"] = {
 	statInterpolation = { 3, 3, 1, 1, 1, 1, },
 	statLevels = {
 		[20] = { 0.80000001192093, 1.2000000476837, 16, 100, 100, 3000, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 7),
+		skill("cooldown", 10),
+		mod("SkillPhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		mod("SkillPhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("SkillPhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 3 }),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 70, },
 	},
 }
 skills["Envy"] = {
@@ -980,18 +983,6 @@ skills["Envy"] = {
 		area = true,
 		chaos = true,
 	},
-	baseMods = {
-		skill("castTime", 0),
-		skill("manaCost", 50),
-		skill("cooldown", 1.2),
-		skill("radius", 36),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[15] = { 60, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -1006,6 +997,18 @@ skills["Envy"] = {
 	statLevels = {
 		[15] = { 0.5, 0.69999998807907, 0, 0.44999998807907, 0.60000002384186, nil, },
 	},
+	baseMods = {
+		skill("castTime", 0),
+		skill("manaCost", 50),
+		skill("cooldown", 1.2),
+		skill("radius", 36),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[15] = { 60, },
+	},
 }
 skills["FireAegis"] = {
 	name = "Fire Aegis",
@@ -1016,15 +1019,6 @@ skills["FireAegis"] = {
 	fromItem = true,
 	baseFlags = {
 		spell = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 1, },
 	},
 	qualityStats = {
 	},
@@ -1037,6 +1031,15 @@ skills["FireAegis"] = {
 	statInterpolation = { 1, 1, },
 	statLevels = {
 		[20] = { 1000, 0, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 1, },
 	},
 }
 skills["FireBurstOnHit"] = {
@@ -1051,47 +1054,6 @@ skills["FireBurstOnHit"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("damageEffectiveness", 0.5),
-		skill("CritChance", 5),
-		skill("cooldown", 0.5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 1, },
-		[2] = { 2, },
-		[3] = { 4, },
-		[4] = { 7, },
-		[5] = { 11, },
-		[6] = { 16, },
-		[7] = { 20, },
-		[8] = { 24, },
-		[9] = { 28, },
-		[10] = { 32, },
-		[11] = { 36, },
-		[12] = { 40, },
-		[13] = { 44, },
-		[14] = { 48, },
-		[15] = { 52, },
-		[16] = { 56, },
-		[17] = { 60, },
-		[18] = { 64, },
-		[19] = { 67, },
-		[20] = { 70, },
-		[21] = { 72, },
-		[22] = { 74, },
-		[23] = { 76, },
-		[24] = { 78, },
-		[25] = { 80, },
-		[26] = { 82, },
-		[27] = { 84, },
-		[28] = { 86, },
-		[29] = { 88, },
-		[30] = { 90, },
 	},
 	qualityStats = {
 	},
@@ -1135,176 +1097,10 @@ skills["FireBurstOnHit"] = {
 		[29] = { 0.80000001192093, 1.2000000476837, 10, nil, nil, },
 		[30] = { 0.80000001192093, 1.2000000476837, 10, nil, nil, },
 	},
-}
-skills["VaalAuraElementalDamageHealing"] = {
-	name = "Gluttony of Elements",
-	hidden = true,
-	color = 4,
-	description = "Casts an aura that causes taking elemental damage to heal you and nearby allies instead.",
-	skillTypes = { [2] = true, [5] = true, [11] = true, [12] = true, [18] = true, [43] = true, [44] = true, },
-	fromItem = true,
-	baseFlags = {
-		spell = true,
-		aura = true,
-		area = true,
-		duration = true,
-	},
-	baseMods = {
-		skill("castTime", 0.5),
-		skill("radius", 36),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 1, },
-	},
-	qualityStats = {
-	},
-	stats = {
-		"base_skill_effect_duration",
-		"base_elemental_damage_heals",
-		"modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration",
-	},
-	statInterpolation = { 1, },
-	statLevels = {
-		[20] = { 5000, nil, nil, },
-	},
-}
-skills["IcestormUniqueStaff12"] = {
-	name = "Icestorm",
-	hidden = true,
-	color = 3,
-	description = "Icy bolts rain down over the targeted area. They explode when landing, dealing damage to nearby enemies and chilling them, as well as causing patches of chilled ground. Skill damage is based on Intelligence.",
-	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, [67] = true, },
-	fromItem = true,
-	baseFlags = {
-		spell = true,
-		area = true,
-		duration = true,
-	},
 	baseMods = {
 		skill("castTime", 1),
-		skill("manaCost", 22),
-		skill("damageEffectiveness", 0.3),
+		skill("damageEffectiveness", 0.5),
 		skill("CritChance", 5),
-		skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 }),
-		skill("radius", 25),
-		skill("radiusSecondary", 10),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 1, },
-	},
-	qualityStats = {
-	},
-	stats = {
-		"spell_minimum_base_cold_damage_+_per_10_intelligence",
-		"spell_maximum_base_cold_damage_+_per_10_intelligence",
-		"base_skill_effect_duration",
-		"fire_storm_fireball_delay_ms",
-		"skill_override_pvp_scaling_time_ms",
-		"firestorm_drop_ground_ice_duration_ms",
-		"skill_art_variation",
-		"skill_effect_duration_per_100_int",
-		"base_skill_show_average_damage_instead_of_dps",
-		"is_area_damage",
-	},
-	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
-	statLevels = {
-		[1] = { 1, 3, 1500, 100, 450, 500, 4, 150, nil, nil, },
-	},
-}
-skills["TriggeredIcicleNova"] = {
-	name = "Icicle Burst",
-	hidden = true,
-	color = 4,
-	description = "This attack fires icy projectiles in a nova around you, dealing attack damage with all physical damage converted to cold.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [10] = true, [57] = true, [47] = true, [61] = true, [34] = true, },
-	fromItem = true,
-	baseFlags = {
-		attack = true,
-		projectile = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 0.5),
-		skill("showAverage", true),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 1, },
-	},
-	qualityStats = {
-	},
-	stats = {
-		"number_of_additional_projectiles",
-		"trigger_on_kill_vs_frozen_enemy_%",
-		"monster_projectile_variation",
-		"skill_physical_damage_%_to_convert_to_cold",
-		"projectiles_nova",
-		"spell_uncastable_if_triggerable",
-		"base_is_projectile",
-		"never_freeze",
-	},
-	statInterpolation = { 1, 1, 1, 1, },
-	statLevels = {
-		[20] = { 8, 100, 38, 100, nil, nil, nil, nil, },
-	},
-}
-skills["MerveilWarp"] = {
-	name = "Illusory Warp",
-	hidden = true,
-	color = 4,
-	description = "Teleport to a target destination. Chilled ground is spread in an area around both where the caster was and where they teleported to.",
-	skillTypes = { [2] = true, [38] = true, [12] = true, [34] = true, [11] = true, },
-	fromItem = true,
-	baseFlags = {
-		spell = true,
-		area = true,
-		duration = true,
-	},
-	baseMods = {
-		skill("castTime", 0.6),
-		skill("manaCost", 20),
-		skill("cooldown", 3),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 1, },
-	},
-	qualityStats = {
-	},
-	stats = {
-		"base_skill_effect_duration",
-	},
-	statInterpolation = { 1, },
-	statLevels = {
-		[20] = { 1500, },
-	},
-}
-skills["LightningSpell"] = {
-	name = "Lightning Bolt",
-	hidden = true,
-	color = 3,
-	baseEffectiveness = 5,
-	incrementalEffectiveness = 0.029999999329448,
-	description = "A bolt of lightning strikes an area, dealing lightning damage.",
-	skillTypes = { [2] = true, [42] = true, [35] = true, [11] = true, [10] = true, [45] = true, [61] = true, },
-	fromItem = true,
-	baseFlags = {
-		spell = true,
-		area = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("CritChance", 6),
 		skill("cooldown", 0.5),
 	},
 	levelMods = {
@@ -1341,6 +1137,175 @@ skills["LightningSpell"] = {
 		[28] = { 86, },
 		[29] = { 88, },
 		[30] = { 90, },
+	},
+}
+skills["VaalAuraElementalDamageHealing"] = {
+	name = "Gluttony of Elements",
+	hidden = true,
+	color = 4,
+	description = "Casts an aura that causes taking elemental damage to heal you and nearby allies instead.",
+	skillTypes = { [2] = true, [5] = true, [11] = true, [12] = true, [18] = true, [43] = true, [44] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		aura = true,
+		area = true,
+		duration = true,
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"base_elemental_damage_heals",
+		"cannot_gain_souls",
+		"modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration",
+	},
+	statInterpolation = { 1, },
+	statLevels = {
+		[20] = { 5000, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 0),
+		skill("cooldown", 0.5),
+		skill("radius", 36),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 1, },
+	},
+}
+skills["IcestormUniqueStaff12"] = {
+	name = "Icestorm",
+	hidden = true,
+	color = 3,
+	description = "Icy bolts rain down over the targeted area. They explode when landing, dealing damage to nearby enemies and chilling them, as well as causing patches of chilled ground. Skill damage is based on Intelligence.",
+	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, [67] = true, [79] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_cold_damage_+_per_10_intelligence",
+		"spell_maximum_base_cold_damage_+_per_10_intelligence",
+		"base_skill_effect_duration",
+		"fire_storm_fireball_delay_ms",
+		"skill_override_pvp_scaling_time_ms",
+		"firestorm_drop_ground_ice_duration_ms",
+		"skill_art_variation",
+		"skill_effect_duration_per_100_int",
+		"base_skill_show_average_damage_instead_of_dps",
+		"is_area_damage",
+	},
+	statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, },
+	statLevels = {
+		[1] = { 1, 3, 1500, 100, 450, 500, 4, 150, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("manaCost", 22),
+		skill("damageEffectiveness", 0.3),
+		skill("CritChance", 5),
+		skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 }),
+		skill("radius", 25),
+		skill("radiusSecondary", 10),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+	},
+}
+skills["TriggeredIcicleNova"] = {
+	name = "Icicle Burst",
+	hidden = true,
+	color = 4,
+	description = "This attack fires icy projectiles in a nova around enemies you kill, dealing attack damage with all physical damage converted to cold.",
+	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [10] = true, [57] = true, [47] = true, [61] = true, [34] = true, },
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	qualityStats = {
+	},
+	stats = {
+		"number_of_additional_projectiles",
+		"trigger_on_kill_vs_frozen_enemy_%",
+		"monster_projectile_variation",
+		"skill_physical_damage_%_to_convert_to_cold",
+		"projectiles_nova",
+		"spell_uncastable_if_triggerable",
+		"base_is_projectile",
+		"never_freeze",
+	},
+	statInterpolation = { 1, 1, 1, 1, },
+	statLevels = {
+		[20] = { 8, 100, 38, 100, nil, nil, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 0.5),
+		skill("showAverage", true),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 1, },
+	},
+}
+skills["MerveilWarp"] = {
+	name = "Illusory Warp",
+	hidden = true,
+	color = 4,
+	description = "Teleport to a target destination. Chilled ground is spread in an area around both where the caster was and where they teleported to.",
+	skillTypes = { [2] = true, [38] = true, [12] = true, [34] = true, [11] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+	},
+	statInterpolation = { 1, },
+	statLevels = {
+		[20] = { 1500, },
+	},
+	baseMods = {
+		skill("castTime", 0.6),
+		skill("manaCost", 20),
+		skill("cooldown", 3),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 1, },
+	},
+}
+skills["LightningSpell"] = {
+	name = "Lightning Bolt",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 5,
+	incrementalEffectiveness = 0.029999999329448,
+	description = "A bolt of lightning strikes an area, dealing lightning damage.",
+	skillTypes = { [2] = true, [42] = true, [35] = true, [11] = true, [10] = true, [45] = true, [61] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		area = true,
 	},
 	qualityStats = {
 	},
@@ -1384,6 +1349,46 @@ skills["LightningSpell"] = {
 		[29] = { 0.5, 1.5, 100, nil, nil, },
 		[30] = { 0.5, 1.5, 100, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("CritChance", 6),
+		skill("cooldown", 0.5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+		[2] = { 2, },
+		[3] = { 4, },
+		[4] = { 7, },
+		[5] = { 11, },
+		[6] = { 16, },
+		[7] = { 20, },
+		[8] = { 24, },
+		[9] = { 28, },
+		[10] = { 32, },
+		[11] = { 36, },
+		[12] = { 40, },
+		[13] = { 44, },
+		[14] = { 48, },
+		[15] = { 52, },
+		[16] = { 56, },
+		[17] = { 60, },
+		[18] = { 64, },
+		[19] = { 67, },
+		[20] = { 70, },
+		[21] = { 72, },
+		[22] = { 74, },
+		[23] = { 76, },
+		[24] = { 78, },
+		[25] = { 80, },
+		[26] = { 82, },
+		[27] = { 84, },
+		[28] = { 86, },
+		[29] = { 88, },
+		[30] = { 90, },
+	},
 }
 skills["UniqueAnimateWeapon"] = {
 	name = "Manifest Dancing Dervish",
@@ -1411,19 +1416,6 @@ skills["UniqueAnimateWeapon"] = {
 		spell = true,
 		minion = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 0.5),
-		mod("DisableWeapons", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		mod("Condition:Onslaught", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		skill("minionLevel", 59),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[15] = { 1, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -1438,6 +1430,19 @@ skills["UniqueAnimateWeapon"] = {
 	statLevels = {
 		[15] = { 1, 25, 110, 100, 30, 25, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 0.5),
+		mod("DisableWeapons", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		mod("Condition:Onslaught", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		skill("minionLevel", 59),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[15] = { 1, },
+	},
 }
 skills["TriggeredMoltenStrike"] = {
 	name = "Molten Burst",
@@ -1450,16 +1455,6 @@ skills["TriggeredMoltenStrike"] = {
 		attack = true,
 		projectile = true,
 		area = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 0.15),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[16] = { 1, },
 	},
 	qualityStats = {
 	},
@@ -1475,12 +1470,22 @@ skills["TriggeredMoltenStrike"] = {
 	statLevels = {
 		[16] = { 2, 20, nil, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 0.15),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[16] = { 1, },
+	},
 }
 skills["TriggeredSummonSpider"] = {
 	name = "Raise Spiders",
 	hidden = true,
 	color = 3,
-	description = "Raise two spectral spiders from each nearby corpse that will leap towards and attack your enemies. Enemies will not engage the spiders directly.",
+	description = "Raise two spectral spiders from each nearby corpse that will attack your enemies with Viper Strike. Each raised spider grants you increased Attack Speed and increased Damage with Poison. Enemies will not engage the spiders directly, and they are immune to damage.",
 	skillTypes = { [2] = true, [9] = true, [36] = true, [49] = true, [42] = true, [61] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, },
 	fromItem = true,
@@ -1492,6 +1497,24 @@ skills["TriggeredSummonSpider"] = {
 		minion = true,
 		duration = true,
 	},
+	qualityStats = {
+	},
+	stats = {
+		"chance_to_cast_on_kill_%_target_self",
+		"base_skill_effect_duration",
+		"number_of_spider_minions_allowed",
+		"summoned_spider_grants_attack_speed_+%",
+		"summoned_spider_grants_poison_damage_+%",
+		"spell_uncastable_if_triggerable",
+		"take_no_actions_while_parent_dead",
+		"minion_dies_when_parent_dies",
+		"display_skill_minions_level_is_corpse_level",
+		"minions_cannot_taunt_enemies",
+	},
+	statInterpolation = { 1, 1, 1, 1, 1, },
+	statLevels = {
+		[1] = { 100, 30000, 20, 2, 12, nil, nil, nil, nil, nil, },
+	},
 	baseMods = {
 		skill("castTime", 1),
 		skill("cooldown", 2),
@@ -1500,23 +1523,7 @@ skills["TriggeredSummonSpider"] = {
 		[1] = skill("levelRequirement", nil),
 	},
 	levels = {
-		[1] = { 1, },
-	},
-	qualityStats = {
-	},
-	stats = {
-		"chance_to_cast_on_kill_%_target_self",
-		"base_skill_effect_duration",
-		"number_of_spider_minions_allowed",
-		"spell_uncastable_if_triggerable",
-		"take_no_actions_while_parent_dead",
-		"minion_dies_when_parent_dies",
-		"display_skill_minions_level_is_corpse_level",
-		"minions_cannot_taunt_enemies",
-	},
-	statInterpolation = { 1, 1, 1, },
-	statLevels = {
-		[1] = { 20, 8000, 20, nil, nil, nil, nil, nil, },
+		[1] = { 75, },
 	},
 }
 skills["ShadeForm"] = {
@@ -1530,16 +1537,6 @@ skills["ShadeForm"] = {
 		spell = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 45),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 1, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -1550,6 +1547,16 @@ skills["ShadeForm"] = {
 	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[20] = { 3000, -50, 20, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 45),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 1, },
 	},
 }
 skills["TriggeredShockedGround"] = {
@@ -1564,16 +1571,6 @@ skills["TriggeredShockedGround"] = {
 		area = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 5),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[10] = { 1, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -1585,6 +1582,16 @@ skills["TriggeredShockedGround"] = {
 	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[10] = { 100, 7, 5000, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 5),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[10] = { 1, },
 	},
 }
 skills["SpiritBurst"] = {
@@ -1599,18 +1606,6 @@ skills["SpiritBurst"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("damageEffectiveness", 1.2),
-		skill("CritChance", 6),
-		skill("showAverage", true),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 70, },
 	},
 	qualityStats = {
 	},
@@ -1627,6 +1622,18 @@ skills["SpiritBurst"] = {
 	statLevels = {
 		[20] = { 100, 0.80000001192093, 1.2000000476837, 6, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("damageEffectiveness", 1.2),
+		skill("CritChance", 6),
+		skill("showAverage", true),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 70, },
+	},
 }
 skills["StormCascadeTriggered"] = {
 	name = "Storm Cascade",
@@ -1640,47 +1647,6 @@ skills["StormCascadeTriggered"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-	},
-	baseMods = {
-		skill("castTime", 0.8),
-		skill("damageEffectiveness", 0.6),
-		skill("CritChance", 5),
-		skill("cooldown", 1),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 28, },
-		[2] = { 31, },
-		[3] = { 34, },
-		[4] = { 37, },
-		[5] = { 40, },
-		[6] = { 42, },
-		[7] = { 44, },
-		[8] = { 46, },
-		[9] = { 48, },
-		[10] = { 50, },
-		[11] = { 52, },
-		[12] = { 54, },
-		[13] = { 56, },
-		[14] = { 58, },
-		[15] = { 60, },
-		[16] = { 62, },
-		[17] = { 64, },
-		[18] = { 66, },
-		[19] = { 68, },
-		[20] = { 70, },
-		[21] = { 72, },
-		[22] = { 74, },
-		[23] = { 76, },
-		[24] = { 78, },
-		[25] = { 80, },
-		[26] = { 82, },
-		[27] = { 84, },
-		[28] = { 86, },
-		[29] = { 88, },
-		[30] = { 90, },
 	},
 	qualityStats = {
 	},
@@ -1727,6 +1693,47 @@ skills["StormCascadeTriggered"] = {
 		[29] = { 0.80000001192093, 1.2000000476837, 5, 60, 3, 100, nil, nil, },
 		[30] = { 0.80000001192093, 1.2000000476837, 5, 60, 3, 100, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 0.8),
+		skill("damageEffectiveness", 0.6),
+		skill("CritChance", 5),
+		skill("cooldown", 1),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 28, },
+		[2] = { 31, },
+		[3] = { 34, },
+		[4] = { 37, },
+		[5] = { 40, },
+		[6] = { 42, },
+		[7] = { 44, },
+		[8] = { 46, },
+		[9] = { 48, },
+		[10] = { 50, },
+		[11] = { 52, },
+		[12] = { 54, },
+		[13] = { 56, },
+		[14] = { 58, },
+		[15] = { 60, },
+		[16] = { 62, },
+		[17] = { 64, },
+		[18] = { 66, },
+		[19] = { 68, },
+		[20] = { 70, },
+		[21] = { 72, },
+		[22] = { 74, },
+		[23] = { 76, },
+		[24] = { 78, },
+		[25] = { 80, },
+		[26] = { 82, },
+		[27] = { 84, },
+		[28] = { 86, },
+		[29] = { 88, },
+		[30] = { 90, },
+	},
 }
 skills["SummonBeastialRhoa"] = {
 	name = "Summon Bestial Rhoa",
@@ -1748,19 +1755,6 @@ skills["SummonBeastialRhoa"] = {
 		spell = true,
 		minion = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("manaCost", 30),
-		skill("cooldown", 5),
-		skill("allowTotemBuff", true),
-		flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" }),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 70, },
-	},
 	qualityStats = {
 		{ "minion_maximum_life_+%", 1 },
 		{ "minion_damage_+%", 1 },
@@ -1776,6 +1770,19 @@ skills["SummonBeastialRhoa"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[20] = { 0, 1, 30, 12, 70, 0, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("manaCost", 30),
+		skill("cooldown", 5),
+		skill("allowTotemBuff", true),
+		flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" }),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 70, },
 	},
 }
 skills["SummonBeastialSnake"] = {
@@ -1798,19 +1805,6 @@ skills["SummonBeastialSnake"] = {
 		spell = true,
 		minion = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("manaCost", 30),
-		skill("cooldown", 5),
-		skill("allowTotemBuff", true),
-		flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" }),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 70, },
-	},
 	qualityStats = {
 		{ "minion_maximum_life_+%", 1 },
 		{ "minion_damage_+%", 1 },
@@ -1826,6 +1820,19 @@ skills["SummonBeastialSnake"] = {
 	statInterpolation = { 1, 1, 1, 1, 1, 1, },
 	statLevels = {
 		[20] = { 0, 1, 30, 14, 70, 2, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("manaCost", 30),
+		skill("cooldown", 5),
+		skill("allowTotemBuff", true),
+		flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" }),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 70, },
 	},
 }
 skills["SummonBeastialUrsa"] = {
@@ -1848,19 +1855,6 @@ skills["SummonBeastialUrsa"] = {
 		spell = true,
 		minion = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("manaCost", 30),
-		skill("cooldown", 5),
-		skill("allowTotemBuff", true),
-		flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" }),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 70, },
-	},
 	qualityStats = {
 		{ "minion_maximum_life_+%", 1 },
 		{ "minion_damage_+%", 1 },
@@ -1877,6 +1871,19 @@ skills["SummonBeastialUrsa"] = {
 	statLevels = {
 		[20] = { 0, 1, 30, 13, 70, 1, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("manaCost", 30),
+		skill("cooldown", 5),
+		skill("allowTotemBuff", true),
+		flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" }),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 70, },
+	},
 }
 skills["SummonEssenceSpirits"] = {
 	name = "Spectral Spirits",
@@ -1892,44 +1899,6 @@ skills["SummonEssenceSpirits"] = {
 	baseFlags = {
 		spell = true,
 		minion = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 1, },
-		[2] = { 2, },
-		[3] = { 4, },
-		[4] = { 7, },
-		[5] = { 11, },
-		[6] = { 16, },
-		[7] = { 20, },
-		[8] = { 24, },
-		[9] = { 28, },
-		[10] = { 32, },
-		[11] = { 36, },
-		[12] = { 40, },
-		[13] = { 44, },
-		[14] = { 48, },
-		[15] = { 52, },
-		[16] = { 56, },
-		[17] = { 60, },
-		[18] = { 64, },
-		[19] = { 67, },
-		[20] = { 70, },
-		[21] = { 72, },
-		[22] = { 74, },
-		[23] = { 76, },
-		[24] = { 78, },
-		[25] = { 80, },
-		[26] = { 82, },
-		[27] = { 84, },
-		[28] = { 86, },
-		[29] = { 88, },
-		[30] = { 90, },
 	},
 	qualityStats = {
 	},
@@ -1975,6 +1944,44 @@ skills["SummonEssenceSpirits"] = {
 		[29] = { -15, 3, nil, nil, nil, nil, nil, },
 		[30] = { -15, 3, nil, nil, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
+		[2] = { 2, },
+		[3] = { 4, },
+		[4] = { 7, },
+		[5] = { 11, },
+		[6] = { 16, },
+		[7] = { 20, },
+		[8] = { 24, },
+		[9] = { 28, },
+		[10] = { 32, },
+		[11] = { 36, },
+		[12] = { 40, },
+		[13] = { 44, },
+		[14] = { 48, },
+		[15] = { 52, },
+		[16] = { 56, },
+		[17] = { 60, },
+		[18] = { 64, },
+		[19] = { 67, },
+		[20] = { 70, },
+		[21] = { 72, },
+		[22] = { 74, },
+		[23] = { 76, },
+		[24] = { 78, },
+		[25] = { 80, },
+		[26] = { 82, },
+		[27] = { 84, },
+		[28] = { 86, },
+		[29] = { 88, },
+		[30] = { 90, },
+	},
 }
 skills["SummonHarbingerOfTheArcane"] = {
 	name = "Summon Harbinger of the Arcane",
@@ -1987,16 +1994,6 @@ skills["SummonHarbingerOfTheArcane"] = {
 		spell = true,
 		minion = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 6),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 1, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2006,6 +2003,16 @@ skills["SummonHarbingerOfTheArcane"] = {
 	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 0, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 6),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
 	},
 }
 skills["SummonHarbingerOfBrutality"] = {
@@ -2019,16 +2026,6 @@ skills["SummonHarbingerOfBrutality"] = {
 		spell = true,
 		minion = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 6),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 1, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2038,6 +2035,16 @@ skills["SummonHarbingerOfBrutality"] = {
 	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 5, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 6),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
 	},
 }
 skills["SummonHarbingerOfDirections"] = {
@@ -2051,16 +2058,6 @@ skills["SummonHarbingerOfDirections"] = {
 		spell = true,
 		minion = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 6),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 1, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2070,6 +2067,16 @@ skills["SummonHarbingerOfDirections"] = {
 	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 3, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 6),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
 	},
 }
 skills["SummonHarbingerOfFocus"] = {
@@ -2083,16 +2090,6 @@ skills["SummonHarbingerOfFocus"] = {
 		spell = true,
 		minion = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 6),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 1, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2103,18 +2100,6 @@ skills["SummonHarbingerOfFocus"] = {
 	statLevels = {
 		[1] = { 2, nil, },
 	},
-}
-skills["SummonHarbingerOfStorms"] = {
-	name = "Summon Harbinger of Storms",
-	hidden = true,
-	color = 4,
-	description = "Summons an immortal Harbinger minion. The minion will occasionally apply a Chill or Shock to an enemy that chains to other nearby enemies.",
-	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
-	fromItem = true,
-	baseFlags = {
-		spell = true,
-		minion = true,
-	},
 	baseMods = {
 		skill("castTime", 1),
 		skill("cooldown", 6),
@@ -2125,6 +2110,19 @@ skills["SummonHarbingerOfStorms"] = {
 	levels = {
 		[1] = { 1, },
 	},
+}
+skills["SummonHarbingerOfStorms"] = {
+	name = "Summon Harbinger of Storms",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal Harbinger minion. The minion will occasionally apply a Chill or Shock to an enemy that chains to other nearby enemies.",
+	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, },
+	minionSkillTypes = { [78] = true, },
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
 	qualityStats = {
 	},
 	stats = {
@@ -2134,6 +2132,16 @@ skills["SummonHarbingerOfStorms"] = {
 	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 4, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 6),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
 	},
 }
 skills["SummonHarbingerOfTime"] = {
@@ -2147,16 +2155,6 @@ skills["SummonHarbingerOfTime"] = {
 		spell = true,
 		minion = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 6),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[1] = { 1, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2166,6 +2164,16 @@ skills["SummonHarbingerOfTime"] = {
 	statInterpolation = { 1, },
 	statLevels = {
 		[1] = { 1, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("cooldown", 6),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 1, },
 	},
 }
 skills["TriggeredSummonGhostOnKill"] = {
@@ -2188,16 +2196,6 @@ skills["TriggeredSummonGhostOnKill"] = {
 		spell = true,
 		minion = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-		mod("ManaCost", "MORE", 20),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 70, },
-	},
 	qualityStats = {
 		{ "chance_to_summon_support_ghost_on_killing_blow_%", 0.5 },
 	},
@@ -2211,6 +2209,16 @@ skills["TriggeredSummonGhostOnKill"] = {
 	statInterpolation = { 1, 1, 1, },
 	statLevels = {
 		[20] = { 100, 15000, 10, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		mod("ManaCost", "MORE", 20),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 70, },
 	},
 }
 skills["SummonRigwaldsPack"] = {
@@ -2229,15 +2237,6 @@ skills["SummonRigwaldsPack"] = {
 		minion = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 1),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[18] = { 66, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2252,6 +2251,15 @@ skills["SummonRigwaldsPack"] = {
 	statLevels = {
 		[18] = { 30000, 20, 10, 8, 65, nil, },
 	},
+	baseMods = {
+		skill("castTime", 1),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[18] = { 66, },
+	},
 }
 skills["SummonVoidSphere"] = {
 	name = "Summon Volatile Anomaly",
@@ -2260,22 +2268,12 @@ skills["SummonVoidSphere"] = {
 	baseEffectiveness = 3.4818000793457,
 	incrementalEffectiveness = 0.035599999129772,
 	description = "Creates an orb which moves towards nearby enemies, exploding after a duration or when it gets close enough. The explosion deals cold spell damage in an area, and leaves behind a Vortex on the ground for a secondary duration which continues to deal cold damage over time and chill enemies caught in it.",
-	skillTypes = { [2] = true, [36] = true, [42] = true, [61] = true, [12] = true, [11] = true, [10] = true, [34] = true, [60] = true, },
+	skillTypes = { [2] = true, [36] = true, [42] = true, [61] = true, [12] = true, [11] = true, [10] = true, [34] = true, [60] = true, [79] = true, },
 	fromItem = true,
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
-	},
-	baseMods = {
-		skill("castTime", 1),
-		skill("cooldown", 2),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 70, },
 	},
 	qualityStats = {
 	},
@@ -2297,21 +2295,8 @@ skills["SummonVoidSphere"] = {
 	statLevels = {
 		[20] = { 20, 8000, 4000, 5, 10, 0.80000001192093, 1.2000000476837, 83.333335195979, nil, nil, nil, nil, },
 	},
-}
-skills["TentacleSmash"] = {
-	name = "Tentacle Whip",
-	hidden = true,
-	color = 4,
-	description = "This attack causes three otherworldly tentacles to strike the ground around you, each dealing your attack damage in an area.",
-	skillTypes = { [1] = true, [10] = true, [11] = true, [7] = true, [57] = true, [47] = true, [61] = true, },
-	fromItem = true,
-	baseFlags = {
-		attack = true,
-		area = true,
-	},
 	baseMods = {
 		skill("castTime", 1),
-		skill("baseMultiplier", 2.5),
 		skill("cooldown", 2),
 	},
 	levelMods = {
@@ -2319,6 +2304,18 @@ skills["TentacleSmash"] = {
 	},
 	levels = {
 		[20] = { 70, },
+	},
+}
+skills["TentacleSmash"] = {
+	name = "Tentacle Whip",
+	hidden = true,
+	color = 4,
+	description = "This attack causes three otherworldly tentacles to strike the ground around you, each dealing your attack damage in an area.",
+	skillTypes = { [1] = true, [10] = true, [11] = true, [57] = true, [47] = true, [61] = true, },
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		area = true,
 	},
 	qualityStats = {
 	},
@@ -2330,6 +2327,17 @@ skills["TentacleSmash"] = {
 	statInterpolation = { 1, },
 	statLevels = {
 		[20] = { 20, nil, nil, },
+	},
+	baseMods = {
+		skill("castTime", 1),
+		skill("baseMultiplier", 2.5),
+		skill("cooldown", 2),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 70, },
 	},
 }
 skills["AvianTornado"] = {
@@ -2345,16 +2353,6 @@ skills["AvianTornado"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
-	},
-	baseMods = {
-		skill("castTime", 0.65),
-		skill("CritChance", 6),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[20] = { 70, },
 	},
 	qualityStats = {
 	},
@@ -2373,6 +2371,16 @@ skills["AvianTornado"] = {
 	statLevels = {
 		[20] = { 0.80000001192093, 1.2000000476837, 2500, 25, 25, nil, nil, nil, nil, },
 	},
+	baseMods = {
+		skill("castTime", 0.65),
+		skill("CritChance", 6),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[20] = { 70, },
+	},
 }
 skills["VoidGaze"] = {
 	name = "Void Gaze",
@@ -2390,16 +2398,6 @@ skills["VoidGaze"] = {
 		spell = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("castTime", 0.21),
-		skill("cooldown", 3),
-	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil),
-	},
-	levels = {
-		[10] = { 40, },
-	},
 	qualityStats = {
 	},
 	stats = {
@@ -2410,6 +2408,16 @@ skills["VoidGaze"] = {
 	},
 	statInterpolation = { 1, 1, 1, },
 	statLevels = {
-		[10] = { -10, 2500, 100, nil, },
+		[10] = { -20, 10000, 100, nil, },
+	},
+	baseMods = {
+		skill("castTime", 0.21),
+		skill("cooldown", 2),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[10] = { 40, },
 	},
 }

@@ -173,7 +173,7 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 6000,
 		},
-		["attack_speed_+%"] = {
+		["attack_speed_+%_granted_from_skill"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
@@ -450,7 +450,7 @@ local skills, mod, flag, skill = ...
 		["cast_speed_+%_granted_from_skill"] = {
 			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["attack_speed_+%"] = {
+		["attack_speed_+%_granted_from_skill"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_movement_velocity_+%"] = {
@@ -466,7 +466,7 @@ local skills, mod, flag, skill = ...
 		["cast_speed_+%_granted_from_skill"] = {
 			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["attack_speed_+%"] = {
+		["attack_speed_+%_granted_from_skill"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_movement_velocity_+%"] = {
@@ -498,17 +498,17 @@ local skills, mod, flag, skill = ...
 		["herald_of_agony_poison_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		["scorpion_minion_damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+		["scorpion_minion_physical_damage_+%"] = {
+			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalDamage", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
 		},
 		["scorpion_minion_attack_speed_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("Speed", "INC", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
 		},
 		["scorpion_minion_minimum_added_physical_damage"] = {
-			mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
 		},
 		["scorpion_minion_maximum_added_physical_damage"] = {
-			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
+			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack" })})
 		},
 	},
 #mods
@@ -571,6 +571,10 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 38)
 #baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 })
+#mods
+
+#skill LancingSteel
+#flags attack projectile
 #mods
 
 #skill LightningArrow
@@ -745,6 +749,11 @@ local skills, mod, flag, skill = ...
 			name = "8 Stages",
 		},
 	},
+	statMap = {
+		["reave_area_of_effect_+%_final_per_stage"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
+		},
+	},
 #baseMod mod("Multiplier:ReaveStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod mod("Multiplier:ReaveStage", "BASE", 8, 0, 0, { type = "SkillPart", skillPart = 3 })
 #mods
@@ -776,6 +785,10 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod mod("Multiplier:ScourgeArrowStage", "BASE", 5, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } })
 #baseMod skill("dpsMultiplier", 0.2, { type = "SkillPart", skillPart = 2 })
+#mods
+
+#skill ShatteringSteel
+#flags attack projectile area
 #mods
 
 #skill PhysCascadeTrap
@@ -889,9 +902,8 @@ local skills, mod, flag, skill = ...
 		["temporal_chains_action_speed_+%_final"] = {
 			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["buff_time_passed_-%"] = {
+		["buff_time_passed_+%_other_than_temporal_chains"] = {
 			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mult = -1,
 		},
 		["curse_effect_+%_vs_players"] = {
 			mod("CurseEffectAgainstPlayer", "INC", nil),

@@ -101,6 +101,19 @@ return {
 			"40% increased Arctic Breath Damage",
 			"36% increased Arctic Breath Duration",
 			"12% increased Arctic Breath Area of Effect",
+			"Arctic Breath's Chilling Area has 38% increased Movement Speed",
+		},
+	},
+	["Armageddon Brand"] = {
+		["MERCILESS"] = {
+			"Armageddon Brand deals 25% increased Damage",
+			"Armageddon Brand has 8% increased Activation Frequency",
+			"Armageddon Brand Damage Penetrates 8% of Branded Enemy's Fire Resistance",
+		},
+		["ENDGAME"] = {
+			"Armageddon Brand deals 40% increased Damage",
+			"Armageddon Brand has 12% increased Activation Frequency",
+			"Armageddon Brand Damage Penetrates 12% of Branded Enemy's Fire Resistance",
 		},
 	},
 	["Assassin's Mark"] = {
@@ -474,12 +487,12 @@ return {
 	["Discharge"] = {
 		["MERCILESS"] = {
 			"5% increased Discharge Radius",
-			"20% chance for Discharge not to consume Charges",
+			"20% chance for Discharge to deal Damage without removing Charges",
 			"25% increased Discharge Damage",
 		},
 		["ENDGAME"] = {
 			"8% increased Discharge Radius",
-			"30% chance for Discharge not to consume Charges",
+			"30% chance for Discharge to deal Damage without removing Charges",
 			"40% increased Discharge Damage",
 		},
 	},
@@ -493,11 +506,11 @@ return {
 	},
 	["Dominating Blow"] = {
 		["MERCILESS"] = {
-			"20% increased Dominating Blow Duration",
+			"20% increased Sentinel of Dominance Duration",
 			"Dominating Blow can summon 2 additional Magic Sentinels of Dominance",
 		},
 		["ENDGAME"] = {
-			"30% increased Dominating Blow Duration",
+			"30% increased Sentinel of Dominance Duration",
 			"Dominating Blow can summon 3 additional Magic Sentinels of Dominance",
 			"Dominating Blow can summon an additional Rare Sentinel of Dominance",
 		},
@@ -514,6 +527,14 @@ return {
 			"15% increased Double Strike Attack Speed",
 			"90% increased Double Strike Critical Strike Chance",
 			"Double Strike has a 15% chance to deal Double Damage to Bleeding Enemies",
+		},
+	},
+	["Dread Banner"] = {
+		["MERCILESS"] = {
+			"Dread Banner has 16% increased Aura Effect",
+		},
+		["ENDGAME"] = {
+			"Dread Banner has 24% increased Aura Effect",
 		},
 	},
 	["Dual Strike"] = {
@@ -996,11 +1017,13 @@ return {
 			"25% increased Ice Nova Damage",
 			"Ice Nova has +20% chance to Freeze",
 			"8% increased Ice Nova Area of Effect",
+			"Chills from Ice Nova Hits always reduce Action Speed by at least 6%",
 		},
 		["ENDGAME"] = {
 			"40% increased Ice Nova Damage",
 			"Ice Nova has +30% chance to Freeze",
 			"12% increased Ice Nova Area of Effect",
+			"Chills from Ice Nova Hits always reduce Action Speed by at least 8%",
 		},
 	},
 	["Ice Shot"] = {
@@ -1017,14 +1040,15 @@ return {
 	},
 	["Ice Spear"] = {
 		["MERCILESS"] = {
-			"25% increased Ice Spear Damage",
 			"10% Chance to gain a Power Charge on Critical Strike with Ice Spear",
 			"200% increased Ice Spear Critical Strike Chance in second form",
+			"Ice Spear travels 20% reduced distance before changing forms",
 		},
 		["ENDGAME"] = {
-			"40% increased Ice Spear Damage",
 			"15% Chance to gain a Power Charge on Critical Strike with Ice Spear",
 			"300% increased Ice Spear Critical Strike Chance in second form",
+			"Ice Spear fires an additional Projectile",
+			"Ice Spear travels 30% reduced distance before changing forms",
 		},
 	},
 	["Ice Trap"] = {
@@ -1041,11 +1065,11 @@ return {
 	},
 	["Immortal Call"] = {
 		["MERCILESS"] = {
-			"20% chance for Immortal Call to not consume Endurance Charges",
+			"20% chance for Immortal Call to increase Duration without removing Endurance Charges",
 			"34% increased Immortal Call Duration",
 		},
 		["ENDGAME"] = {
-			"30% chance for Immortal Call to not consume Endurance Charges",
+			"30% chance for Immortal Call to increase Duration without removing Endurance Charges",
 			"36% increased Immortal Call Duration",
 		},
 	},
@@ -1100,6 +1124,18 @@ return {
 			"60% increased Lacerate Critical Strike Chance",
 			"12% increased Lacerate Area of Effect",
 			"Lacerate deals (14-18) to (20-25) added Physical Damage against Bleeding Enemies",
+		},
+	},
+	["Lancing Steel"] = {
+		["MERCILESS"] = {
+			"Lancing Steel deals 25% increased Damage",
+			"Lancing Steel's primary Projectile Pierces 3 additional Targets",
+			"Lancing Steel's additional Projectiles have +20% chance to Impale Enemies",
+		},
+		["ENDGAME"] = {
+			"Lancing Steel deals 40% increased Damage",
+			"Lancing Steel's primary Projectile Pierces 5 additional Targets",
+			"Lancing Steel's additional Projectiles have +30% chance to Impale Enemies",
 		},
 	},
 	["Leap Slam"] = {
@@ -1228,12 +1264,12 @@ return {
 	["Molten Strike"] = {
 		["MERCILESS"] = {
 			"25% increased Molten Strike Damage",
-			"Molten Strike fires 2 additional Projectiles",
+			"Molten Strike fires an additional Projectile",
 			"8% increased Molten Strike Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Molten Strike Damage",
-			"Molten Strike fires 3 additional Projectiles",
+			"Molten Strike fires 2 additional Projectiles",
 			"12% increased Molten Strike Area of Effect",
 		},
 	},
@@ -1253,11 +1289,11 @@ return {
 	},
 	["Phase Run"] = {
 		["MERCILESS"] = {
-			"20% chance for Phase Run to not consume Frenzy Charges",
+			"20% chance for Phase Run to increase Duration without removing Frenzy Charges",
 			"24% increased Phase Run Duration",
 		},
 		["ENDGAME"] = {
-			"30% chance for Phase Run to not consume Frenzy Charges",
+			"30% chance for Phase Run to increase Duration without removing Frenzy Charges",
 			"36% increased Phase Run Duration",
 		},
 	},
@@ -1497,6 +1533,16 @@ return {
 			"Seismic Trap releases an additional Wave",
 		},
 	},
+	["Shattering Steel"] = {
+		["MERCILESS"] = {
+			"Shattering Steel deals 25% increased Damage",
+		},
+		["ENDGAME"] = {
+			"Shattering Steel deals 40% increased Damage",
+			"Shattering Steel fires an additional Projectile",
+			"Shattering Steel grants Fortify on Hitting an Enemy at Close Range",
+		},
+	},
 	["Shield Charge"] = {
 		["MERCILESS"] = {
 			"25% increased Shield Charge Damage",
@@ -1662,6 +1708,18 @@ return {
 			"Static Strike has +2 maximum Beam Targets",
 		},
 	},
+	["Storm Brand"] = {
+		["MERCILESS"] = {
+			"Storm Brand deals 25% increased Damage",
+			"Storm Brand has a 12% chance to Chain an additional time",
+			"Storm Brand Damage Penetrates 8% of Branded Enemy's Lightning Resistance",
+		},
+		["ENDGAME"] = {
+			"Storm Brand deals 40% increased Damage",
+			"Storm Brand has a 18% chance to Chain an additional time",
+			"Storm Brand Damage Penetrates 12% of Branded Enemy's Lightning Resistance",
+		},
+	},
 	["Storm Burst"] = {
 		["MERCILESS"] = {
 			"25% increased Storm Burst Damage",
@@ -1807,12 +1865,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Tectonic Slam Damage",
 			"8% increased Tectonic Slam Area of Effect",
-			"25% chance for Tectonic Slam to not consume an Endurance Charge",
+			"12% chance to create a Charged Slam",
 		},
 		["ENDGAME"] = {
 			"40% increased Tectonic Slam Damage",
 			"12% increased Tectonic Slam Area of Effect",
-			"40% chance for Tectonic Slam to not consume an Endurance Charge",
+			"20% chance to create a Charged Slam",
 		},
 	},
 	["Tempest Shield"] = {
@@ -1924,15 +1982,15 @@ return {
 	["Vortex"] = {
 		["MERCILESS"] = {
 			"25% increased Vortex Damage",
-			"8% increased Vortex Area of Effect",
 			"20% increased Vortex Duration",
 			"Vortex has 30% increased Area of Effect when Cast on Frostbolt",
+			"Vortex has 20% increased Cooldown Recovery Speed",
 		},
 		["ENDGAME"] = {
 			"40% increased Vortex Damage",
-			"12% increased Vortex Area of Effect",
 			"30% increased Vortex Duration",
 			"Vortex has 45% increased Area of Effect when Cast on Frostbolt",
+			"Vortex has 30% increased Cooldown Recovery Speed",
 		},
 	},
 	["Vulnerability"] = {
@@ -1943,6 +2001,14 @@ return {
 		["ENDGAME"] = {
 			"30% increased Vulnerability Curse Effect",
 			"45% increased Vulnerability Duration",
+		},
+	},
+	["War Banner"] = {
+		["MERCILESS"] = {
+			"War Banner has 16% increased Aura Effect",
+		},
+		["ENDGAME"] = {
+			"War Banner has 24% increased Aura Effect",
 		},
 	},
 	["Warlord's Mark"] = {
@@ -1975,6 +2041,17 @@ return {
 			"40% increased Wild Strike Damage",
 			"Wild Strike Chains an additional 6 times",
 			"36% increased Wild Strike Area of Effect",
+		},
+	},
+	["Winter Orb"] = {
+		["MERCILESS"] = {
+			"Winter Orb deals 25% increased Damage",
+			"Winter Orb has 2% increased Area of Effect per Stage",
+		},
+		["ENDGAME"] = {
+			"Winter Orb deals 40% increased Damage",
+			"Winter Orb has +2 Maximum Stages",
+			"Winter Orb has 3% increased Area of Effect per Stage",
 		},
 	},
 	["Wither"] = {

@@ -3,7 +3,6 @@
 -- Module: Common
 -- Libaries, functions and classes used by various modules.
 --
-
 local pairs = pairs
 local ipairs = ipairs
 local type = type
@@ -32,11 +31,26 @@ local function addSuperParents(class, parent)
 		end
 	end
 end
--- NewClass("<className>"[, "<parentClassName>"[, "<parentClassName>" ...]], constructorFunc)
-function common.NewClass(className, ...)
+local function getClass(className)
+	local class = common.classes[className]
+	if not class then
+		LoadModule("Classes/"..className)
+		class = common.classes[className]
+	end
+	assert(class, "Class '"..className.."' not defined in class file")
+	return class
+end
+-- newClass("<className>"[, "<parentClassName>"[, "<parentClassName>" ...]], constructorFunc)
+function newClass(className, ...)
 	local class = { }
 	common.classes[className] = class
 	class.__index = class
+	class.__call = function(obj, mix)
+		for k, v in pairs(mix) do
+			obj[k] = v
+		end
+		return obj
+	end
 	class._className = className
 	local numVarArg = select("#", ...)
 	class._constructor = select(numVarArg, ...)
@@ -44,11 +58,7 @@ function common.NewClass(className, ...)
 		-- Build list of parent classes
 		class._parents = { }
 		for i = 1, numVarArg - 1 do
-			local parentName = select(i, ...)
-			if not common.classes[parentName] then
-				error("Parent class '"..parentName.."' of class '"..className.."' not defined")
-			end
-			class._parents[i] = common.classes[parentName]
+			class._parents[i] = getClass(select(i, ...))
 		end
 		-- Build list of all classes directly or indirectly inherited by this class
 		class._superParents = { }
@@ -68,14 +78,8 @@ function common.NewClass(className, ...)
 	end
 	return class
 end
-function common.New(className, ...)
-	local class = common.classes[className]
-	if not class then
-		error("Class '"..className.."' not defined")
-	end
-	if not class._constructor then
-		error("Class '"..className.."' has no constructor")
-	end
+function new(className, ...)
+	local class = getClass(className)
 	local object = setmetatable({ }, class)
 	object.Object = object
 	if class._parents then
@@ -105,7 +109,9 @@ function common.New(className, ...)
 			})
 		end
 	end
-	class._constructor(object, ...)
+	if class._constructor then
+		class._constructor(object, ...)
+	end
 	if class._parents then
 		-- Check that the contructors for all parent and superparent classes have been called
 		for parent in pairs(class._superParents) do
@@ -127,6 +133,51 @@ function codePointToUTF8(codePoint)
 	else
 		return "?"
 	end
+end
+function convertUTF16to8(text, offset)
+	offset = offset or 1
+	local out = { }
+	local highSurr
+	for i = offset, #text - 1, 2 do
+		local codeUnit = text:byte(i) + text:byte(i+1) * 256
+		if codeUnit == 0 then
+			break
+		elseif codeUnit >= 0xD800 and codeUnit <= 0xDBFF then
+			highSurr = codeUnit - 0xD800
+		elseif codeUnit >= 0xDC00 and codeUnit <= 0xDFFF then
+			if highSurr then
+				table.insert(out, codePointToUTF8(highSurr * 1024 + codeUnit - 0xDC00 + 0x010000))
+				highSurr = nil
+			end
+		else
+			table.insert(out, codePointToUTF8(codeUnit))
+		end
+	end
+	return table.concat(out)
+end
+
+local function bits(int, s, e)
+	return bit.band(bit.rshift(int, s), 2 ^ (e - s + 1) - 1)
+end
+function bytesToInt(b, o)
+	return bit.tobit(bytesToUInt(b, o))
+end
+function bytesToUInt(b, o)
+	o = o or 1
+	return b:byte(o + 0) + b:byte(o + 1) * 256 + b:byte(o + 2) * 65536 + b:byte(o + 3) * 16777216
+end
+function bytesToFloat(b, o)
+	local int = bytesToInt(b, o)
+	local s = (-1) ^ bits(int, 31, 31)
+	local e = bits(int, 23, 30) - 127
+	if e == -127 then
+		return 0 * s
+	end
+	local m = 1
+	for i = 0, 22 do
+		m = m + bits(int, i, i) * 2 ^ (i - 23)
+	end
+	return s * m * 2 ^ e
 end
 
 -- Quick hack to convert JSON to valid lua

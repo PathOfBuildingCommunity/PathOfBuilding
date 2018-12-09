@@ -70,10 +70,10 @@
 -- 69	?? (Excludes Volley on Spectral Shield Throw)
 
 local function mapAST(ast)
-	if ast >= 38 then
-		return ast + 2
+	if ast >= 36 then
+		return ast + 4
 	elseif ast >= 6 then
-		return ast + 1
+		return ast + 3
 	else
 		return ast
 	end
@@ -222,12 +222,10 @@ directiveTable.skill = function(state, args, out)
 	local statMap = { }
 	skill.stats = { }
 	skill.statInterpolation = { }
-	skill.global = "nil"
-	skill.curse = "nil"
 	out:write('\tcolor = ', granted.Unknown0, ',\n')
-	if granted.Multiplier2 ~= 0 then
-		out:write('\tbaseEffectiveness = ', granted.Multiplier1, ',\n')
-		out:write('\tincrementalEffectiveness = ', granted.Multiplier2, ',\n')
+	if granted.IncrementalEffectiveness ~= 0 then
+		out:write('\tbaseEffectiveness = ', granted.BaseEffectiveness, ',\n')
+		out:write('\tincrementalEffectiveness = ', granted.IncrementalEffectiveness, ',\n')
 	end
 	if granted.IsSupport then
 		skill.isSupport = true
@@ -339,7 +337,7 @@ directiveTable.skill = function(state, args, out)
 				statMap[statId] = #skill.stats + 1
 				table.insert(skill.stats, { id = statId })
 			end
-			skill.statInterpolation[i] = levelRow.StatData[i]
+			skill.statInterpolation[i] = levelRow.StatInterpolationTypesKeys[i]
 			if skill.statInterpolation[i] == 3 and levelRow.EffectivenessCostConstantsKeys[i] ~= 2 then
 				table.insert(skill.stats[statMap[statId]], levelRow["Stat"..i.."Float"] / EffectivenessCostConstants[levelRow.EffectivenessCostConstantsKeys[i]].Multiplier)
 			else
@@ -426,6 +424,30 @@ directiveTable.mods = function(state, args, out)
 		end		
 		out:write('\t},\n')
 	end
+	out:write('\tqualityStats = {\n')
+	for _, stat in ipairs(skill.qualityStats) do
+		out:write('\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+	end
+	out:write('\t},\n')
+	out:write('\tstats = {\n')
+	for _, stat in ipairs(skill.stats) do
+		out:write('\t\t"', stat.id, '",\n')
+	end
+	out:write('\t},\n')
+	out:write('\tstatInterpolation = { ')
+	for _, type in ipairs(skill.statInterpolation) do
+		out:write(type, ', ')
+	end
+	out:write('},\n')
+	out:write('\tstatLevels = {\n')
+	for index, level in ipairs(skill.levels) do
+		out:write('\t\t[', level.level, '] = { ')
+		for _, stat in ipairs(skill.stats) do
+			out:write(tostring(stat[index]), ', ')
+		end
+		out:write('},\n')
+	end
+	out:write('\t},\n')
 	out:write('\tbaseMods = {\n')
 	for _, mod in ipairs(skill.mods) do
 		if not mod.perLevel then
@@ -454,30 +476,6 @@ directiveTable.mods = function(state, args, out)
 					out:write('nil, ')
 				end
 			end
-		end
-		out:write('},\n')
-	end
-	out:write('\t},\n')
-	out:write('\tqualityStats = {\n')
-	for _, stat in ipairs(skill.qualityStats) do
-		out:write('\t\t{ "', stat[1], '", ', stat[2], ' },\n')
-	end
-	out:write('\t},\n')
-	out:write('\tstats = {\n')
-	for _, stat in ipairs(skill.stats) do
-		out:write('\t\t"', stat.id, '",\n')
-	end
-	out:write('\t},\n')
-	out:write('\tstatInterpolation = { ')
-	for _, type in ipairs(skill.statInterpolation) do
-		out:write(type, ', ')
-	end
-	out:write('},\n')
-	out:write('\tstatLevels = {\n')
-	for index, level in ipairs(skill.levels) do
-		out:write('\t\t[', level.level, '] = { ')
-		for _, stat in ipairs(skill.stats) do
-			out:write(tostring(stat[index]), ', ')
 		end
 		out:write('},\n')
 	end
@@ -525,9 +523,5 @@ end
 out:write('}')
 
 os.execute("xcopy Skills\\*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
---os.execute("xcopy Skills\\act_*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
---os.execute("xcopy Skills\\sup_*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
---os.execute("xcopy Skills\\other.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
---os.execute("xcopy Skills\\glove.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
 
 print("Skill data exported.")

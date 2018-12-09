@@ -4,7 +4,7 @@
 -- Host for UI controls
 --
 
-local ControlHostClass = common.NewClass("ControlHost", function(self)
+local ControlHostClass = newClass("ControlHost", function(self)
 	self.controls = { }
 end)
 

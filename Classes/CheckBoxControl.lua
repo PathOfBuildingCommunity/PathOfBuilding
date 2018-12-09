@@ -3,9 +3,7 @@
 -- Class: Check Box Control
 -- Basic check box control.
 --
-local launch, main = ...
-
-local CheckBoxClass = common.NewClass("CheckBoxControl", "Control", "TooltipHost", function(self, anchor, x, y, size, label, changeFunc, tooltipText)
+local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost", function(self, anchor, x, y, size, label, changeFunc, tooltipText)
 	self.Control(anchor, x, y, size, size)
 	self.TooltipHost(tooltipText)
 	self.label = label

@@ -3,12 +3,10 @@
 -- Class: Path Control
 -- Path control.
 --
-local launch, main = ...
-
 local ipairs = ipairs
 local t_insert = table.insert
 
-local PathClass = common.NewClass("PathControl", "Control", "ControlHost", "UndoHandler", function(self, anchor, x, y, width, height, basePath, subPath, onChange)
+local PathClass = newClass("PathControl", "Control", "ControlHost", "UndoHandler", function(self, anchor, x, y, width, height, basePath, subPath, onChange)
 	self.Control(anchor, x, y, width, height)
 	self.ControlHost()
 	self.UndoHandler()
@@ -35,7 +33,7 @@ function PathClass:SetSubPath(subPath, noUndo)
 	for index, folder in ipairs(self.folderList) do
 		local button = self.controls["folder"..i]
 		if not button then
-			button = common.New("ButtonControl", {"LEFT",self,"LEFT"}, 0, 0, 0, self.height - 4)
+			button = new("ButtonControl", {"LEFT",self,"LEFT"}, 0, 0, 0, self.height - 4)
 			self.controls["folder"..i] = button
 		end
 		button.shown = true
