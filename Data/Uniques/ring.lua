@@ -3,6 +3,36 @@
 return {
 -- Ring
 [[
+Ahkeli's Meadow
+Ruby Ring
+League: Delve
+Source: Drops from unique{Aul, the Crystal King}
+Requires Level 49
++(20-30)% to Fire Resistance
++20 to Strength
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
+Ahkeli's Mountain
+Ruby Ring
+League: Delve
+Source: Drops from unique{Ahuatotli, the Blind}
+Requires Level 49
++(20-30)% to Fire Resistance
++20 to Strength
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
+Ahkeli's Valley
+Ruby Ring
+League: Delve
+Source: Drops from unique{Kurgal, the Blackblooded}
+Requires Level 49
++(20-30)% to Fire Resistance
++20 to Strength
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
 Andvarius
 Gold Ring
 Requires Level 20
@@ -321,6 +351,12 @@ Socketed Gems have Elemental Equilibrium
 {variant:1}Socketed Gems have 40% reduced Elemental Equilibrium effect
 {variant:2}Socketed Gems have 25% reduced Elemental Equilibrium effect
 ]],[[
+Mark of Submission
+Unset Ring
+Requires Level 24
+Has 1 Socket
+Curse Enemies with Socketed Curse Gem on Hit
+]],[[
 Mark of the Elder
 Steel Ring
 Source: Drops from unique{The Elder} (Uber)
@@ -441,6 +477,36 @@ Requires Level 22
 (3-6) Mana Regenerated per second
 −(4-8) to Mana Cost of Skills
 8% of Damage taken gained as Mana over 4 seconds when Hit
+]],[[
+Putembo's Meadow
+Topaz Ring
+League: Delve
+Source: Drops from unique{Kurgal, the Blackblooded}
+Requires Level 49
++(20-30)% to Lightning Resistance
++20 to Intelligence
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
+Putembo's Mountain
+Topaz Ring
+League: Delve
+Source: Drops from unique{Aul, the Crystal King}
+Requires Level 49
++(20-30)% to Lightning Resistance
++20 to Intelligence
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
+Putembo's Valley
+Topaz Ring
+League: Delve
+Source: Drops from unique{Ahuatotli, the Blind}
+Requires Level 49
++(20-30)% to Lightning Resistance
++20 to Intelligence
+5% increased maximum Energy Shield
+5% increased maximum Life
 ]],[[
 Pyre
 Sapphire Ring
@@ -643,6 +709,36 @@ Requires Level 64
 15% increased Mana Regeneration Rate
 (-10–10)% increased Skill Effect Duration
 Unaffected by Temporal Chains
+]],[[
+Uzaza's Meadow
+Sapphire Ring
+League: Delve
+Source: Drops from unique{Ahuatotli, the Blind}
+Requires Level 49
++(20-30)% to Cold Resistance
++20 to Dexterity
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
+Uzaza's Mountain
+Sapphire Ring
+League: Delve
+Source: Drops from unique{Kurgal, the Blackblooded}
+Requires Level 49
++(20-30)% to Cold Resistance
++20 to Dexterity
+5% increased maximum Energy Shield
+5% increased maximum Life
+]],[[
+Uzaza's Valley
+Sapphire Ring
+League: Delve
+Source: Drops from unique{Aul, the Crystal King}
+Requires Level 49
++(20-30)% to Cold Resistance
++20 to Dexterity
+5% increased maximum Energy Shield
+5% increased maximum Life
 ]],[[
 Valako's Sign
 Topaz Ring

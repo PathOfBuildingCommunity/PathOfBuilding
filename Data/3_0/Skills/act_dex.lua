@@ -7938,6 +7938,16 @@ skills["ShatteringSteel"] = {
 		["One Handed Axe"] = true,
 		["One Handed Sword"] = true,
 	},
+	parts = {
+		{
+			name = "Projectile",
+			area = false,
+		},
+		{
+			name = "Cone",
+			area = true,
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,

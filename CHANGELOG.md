@@ -1,3 +1,8 @@
+### 1.4.120 - 2018/12/11
+ * Added skill parts to Shattering Steel to show both projectile and cone damage
+ * Fixed Claw Crit Chance conversion from Rigwald's Curse
+ * Fixed node power calculations for minion builds
+
 ### 1.4.119 - 2018/12/09
  * Added additional skill parts to Ice Spear to simulate all projectiles hitting the target
  * Added support for the various Brand and Banner-related passive skills
