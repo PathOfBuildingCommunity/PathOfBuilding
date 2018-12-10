@@ -69,6 +69,17 @@ Implicits: 1
 {variant:2}10% chance to Curse Enemies with Enfeeble on Hit
 {variant:3,4}25% chance to Curse un-cursed Enemies with Enfeeble on Hit
 ]],[[
+The Eternal Apple
+Chiming Spirit Shield
+Requires Level 49
+(10–15)% increased Spell Damage
+Trigger a Socketed Warcry Skill when you lose Endurance Charges
++(60–80) to maximum Life
++(17–23)% to Chaos Resistance
+You lose all Endurance Charges at maximum Endurance Charges
+Cannot Block
+50% increased Warcry Cooldown Recovery Speed
+]],[[
 Lioneye's Remorse
 Pinnacle Tower Shield
 Variant: Pre 2.6.0
@@ -337,6 +348,33 @@ Reflects 1 to 1000 Physical Damage to Attackers on Block
 ]],
 -- Shield: Energy Shield
 [[
+Apep's Slumber
+Ancient Spirit Shield
+League: Incursion
+Upgrade: Upgrades to unique{Apep's Supremacy} via currency{Vial of Awakening}
+Requires Level 45
+(5–10)% increased Spell Damage
+Adds (20-22) to (30-37) Chaos Damage
++(80-100) to maximum Energy Shield
++25% chance to be Poisoned
++3% to all maximum Resistances while Poisoned
+50 Energy Shield Regenerated per Second per Poison on you, up to 250 per second
+Poisons on you expire 50% slower
+]],[[
+Apep's Supremacy
+Vaal Spirit Shield
+League: Incursion
+Source: Upgraded from unique{Apep's Slumber} via currency{Vial of Awakening}
+Requires Level 62
+(5–10)% increased Spell Damage
+Adds (50-55) to (72-80) Chaos Damage
++(130-150) to maximum Energy Shield
+(30-50)% faster start of Energy Shield Recharge
+You take Chaos Damage instead of Physical Damage from Bleeding
++25% chance to be Poisoned
++3% to all maximum Resistances while Poisoned
+Poisons on you expire 50% slower
+]],[[
 Brinerot Flag
 Tarnished Spirit Shield
 League: Warbands
@@ -678,6 +716,18 @@ Grants Summon Harbinger of Focus Skill
 +5% Chance to Block
 (50-70)% increased Damage with Channelling Skills
 ]],[[
+Unyielding Flame
+Archon Kite Shield
+Source: Drops in The Lord's Labyrinth
+Requires Level 68
++12% to all Elemental Resistances
+Trigger Commandment of Inferno on Critical Strike
+(50–70)% increased Global Critical Strike Chance
++(60–80) to maximum Life
++(20–30)% to Fire Resistance
+(8–12)% increased Attack Speed if you've dealt a Critical Strike Recently
+(8–12)% increased Cast Speed if you've dealt a Critical Strike Recently
+]],[[
 Victario's Charity
 Laminated Kite Shield
 Variant: Pre 2.6.0
@@ -750,5 +800,15 @@ Implicits: 2
 −50% to all Elemental Resistances
 10% increased Area of Effect of Area Skills
 Nearby allies Recover 2% of your maximum Life when you Die
+]],[[
+Zeel's Amplifier
+Polished Spiked Shield
+Requires Level 49
+4% chance to Dodge Attack Hits
+(40–50)% increased Spell Damage
++(60–80) to maximum Energy Shield
++(50–70) to maximum Life
+1% increased Area of Effect per Enemy killed recently, up to 50%
+You have Zealot's Oath if you haven't been hit recently
 ]],
 }

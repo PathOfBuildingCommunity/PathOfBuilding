@@ -360,6 +360,8 @@ function calcs.perform(env)
 	for _, activeSkill in ipairs(env.activeSkillList) do
 		activeSkill.skillModList = new("ModList", activeSkill.baseSkillModList)
 		if activeSkill.minion then
+			activeSkill.minion.modDB = new("ModDB")
+			activeSkill.minion.modDB.actor = activeSkill.minion
 			calcs.createMinionSkills(env, activeSkill)
 		end
 	end

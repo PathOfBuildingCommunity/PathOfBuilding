@@ -789,6 +789,16 @@ local skills, mod, flag, skill = ...
 
 #skill ShatteringSteel
 #flags attack projectile area
+	parts = {
+		{
+			name = "Projectile",
+			area = false,
+		},
+		{
+			name = "Cone",
+			area = true,
+		},
+	},
 #mods
 
 #skill PhysCascadeTrap

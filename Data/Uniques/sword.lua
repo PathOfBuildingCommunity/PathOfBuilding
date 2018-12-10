@@ -366,6 +366,32 @@ Minions have +29% to Chaos Resistance
 {variant:3}Minions have 60% chance to Poison Enemies on Hit
 Minions Leech 5% of Damage as Life against Poisoned Enemies
 ]],[[
+Story of the Vaal
+Variscite Blade
+League: Incursion
+Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
+Requires Level 35
++240 to Accuracy Rating
+(110-120)% increased Physical Damage
+(10-15)% increased Attack Speed
++(20-30) Life gained on Kill
+50% of Physical Damage from Hits with this Weapon is Converted to a random Element
+Hits with this Weapon always inflict Elemental Ailments
+]],[[
+Fate of the Vaal
+Gemstone Sword
+League: Incursion
+Source: Upgraded from unique{Story of the Vaal} via currency{Vial of Fate}
+Requires Level 56
++400 to Accuracy Rating
+(160-180)% increased Physical Damage
+(10-15)% increased Attack Speed
+100% of Physical Damage from Hits with this Weapon is Converted to a random Element
+Hits with this Weapon always inflict Elemental Ailments
+Hits with this Weapon deal (30-60)% increased Damage to Ignited Enemies
+Hits with this Weapon deal (30-60)% increased Damage to Frozen Enemies
+Hits with this Weapon deal (30-60)% increased Damage to Shocked Enemies
+]],[[
 The Tempestuous Steel
 War Sword
 Variant: Pre 2.6.0

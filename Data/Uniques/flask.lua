@@ -191,6 +191,27 @@ Gain Unholy Might during Flask Effect
 Immunity to Ignite during Flask effect
 Removes Burning on use
 ]],[[
+Soul Catcher
+Quartz Flask
+League: Incursion
+Source: Drops from unique{The Vaal Omnitect}
+Upgrade: Upgrades to unique{Soul Ripper} via currency{Vial of the Ghost}
+Requires Level 27
+Cannot gain Mana during effect
+Vaal Skills deal (60-100)% increased Damage during effect
+Vaal Skills have 25% reduced Soul Cost during effect
+Vaal Skills used during effect have (20-40)% reduced Soul Gain Prevention Duration
+]],[[
+Soul Ripper
+Quartz Flask
+League: Incursion
+Source: Upgraded from unique{Soul Catcher} via currency{Vial of the Ghost}
+Requires Level 27
+100% increased Charges used
+Vaal Skills deal (30-40)% more Damage during effect
+Vaal Skills used during effect do not apply Soul Gain Prevention
+Gains no Charges During effect of any Soul Ripper Flask
+]],[[
 Taste of Hate
 Sapphire Flask
 Variant: Pre 2.2.0

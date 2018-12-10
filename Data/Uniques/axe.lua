@@ -262,6 +262,15 @@ Requires Level 33, 80 Str, 37 Dex
 Culling Strike
 Hits can't be Evaded
 ]],[[
+Sinvicta's Mettle
+Ezomyte Axe
+Requires Level 62
+(200–212)% increased Physical Damage
+(8–12)% increased Attack Speed
+Rampage
+2% increased Area of Effect per 25 Rampage Kills
+Gain a Frenzy Charge on every 50th Rampage Kill
+]],[[
 Uul-Netol's Kiss
 Labrys
 League: Breach

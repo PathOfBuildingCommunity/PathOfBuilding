@@ -480,8 +480,6 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			skillFlags.haveMinion = true
 			minion.parent = env.player
 			minion.enemy = env.enemy
-			minion.modDB = new("ModDB")
-			minion.modDB.actor = minion
 			minion.type = minionType
 			minion.minionData = env.data.minions[minionType]
 			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or activeSkill.skillData.minionLevel or activeSkill.skillData.levelRequirement

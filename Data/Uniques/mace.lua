@@ -265,6 +265,19 @@ Adds (8-13) to (26-31) Physical Damage
 (15-20)% increased Attack Speed
 (30-40)% increased Critical Strike Chance
 ]],[[
+Cerberus Limb
+Blood Sceptre
+League: Delve
+Source: Drops from unique{Ahuatotli, the Blind}
+Requires Level 47
+24% increased Elemental Damage
+(70–100)% increased Spell Damage
+(15–20)% increased Cast Speed
+0.5% of Spell Damage Leeched as Life if Equipped Shield has at least 30% Chance to Block
++1 to Maximum Energy Shield per 5 Armour on Equipped Shield
++5 to Armour per 5 Evasion Rating on Equipped Shield
++20 to Evasion Rating per 5 Maximum Energy Shield on Equipped Shield
+]],[[
 The Dark Seer
 Shadow Sceptre
 League: Beyond
@@ -330,6 +343,16 @@ Adds (65-85) to (100-160) Physical Damage
 (30-40)% increased Global Critical Strike Chance
 0.2% of Elemental Damage Leeched as Life
 (80-100)% increased Elemental Damage
+]],[[
+Earendel's Embrace
+Grinning Fetish
+Requires Level 35
+18% increased Elemental Damage
++(20–30) to all Attributes
+Minions deal (30–40)% increased Damage
+Summoned Skeletons Cover Enemies in Ash on Hit
+Summoned Skeletons take (15–30)% of their Maximum Life per second as Fire Damage
+Summoned Skeletons have Avatar of Fire
 ]],[[
 Mon'tregul's Grasp
 Void Sceptre
@@ -459,6 +482,19 @@ Implicits: 2
 Minions have (20-40)% increased maximum Life
 15% increased Skill Effect Duration
 20% reduced Strength Requirement
+]],[[
+Chaber Cairn
+Great Mallet
+Source: Upgraded from unique{Chober Chaber} via prophecy{Faith Exhumed}
+Requires Level 60
+30% increased Stun Duration on Enemies
++1 to Level of Socketed Melee Gems
++2 to Level of Socketed Minion Gems
+(200–220)% increased Physical Damage
+Adds (25–35) to (45–55) Physical Damage
+25% increased maximum Mana
+Minions have (20–40)% increased maximum Life
+30% increased Skill Effect Duration
 ]],[[
 Geofri's Baptism
 Brass Maul

@@ -77,6 +77,30 @@ Requires Level 30
 Rampage
 1% increased Rarity of Items found per 15 Rampage Kills
 ]],[[
+Coward's Chains
+Chain Belt
+League: Incursion
+Upgrade: Upgrades to unique{Coward's Legacy} via currency{Vial of Consequence}
+Requires Level 22
++(9–20) to maximum Energy Shield
+(20-25)% increased Damage
++(10-15) to all Attributes
+(5-10)% increased Movement Speed
+Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
+You are cursed with Level 10 Vulnerability
+]],[[
+Coward's Legacy
+Chain Belt
+League: Incursion
+Source: Upgraded from unique{Coward's Chains} via currency{Vial of Consequence}
+Requires Level 52
++(9–20) to maximum Energy Shield
++(15-20) to all Attributes
+(5-10)% increased Movement Speed
+50% increased Effect of Curses on you
+You count as on Low Life while you are Cursed with Vulnerability
+You are Cursed with Level 20 Vulnerability
+]],[[
 Cyclopean Coil
 Leather Belt
 Source: Drops from unique{The Elder}
@@ -361,6 +385,59 @@ Requires Level 45
 (20-30)% reduced Flask effect duration
 Gain Soul Eater during Flask Effect
 Lose Souls gained from Soul Eater on Flask Use
+]],[[
+String of Servitude
+Heavy Belt
+League: Incursion
+Source: Drops from unique{The Vaal Omnitect}
+Variant: Area of Effect
+Variant: Crit Multi during Flask Effect
+Variant: Attack Speed during Flask Effect
+Variant: Cast Speed during Flask Effect
+Variant: Crit Chance during Flask Effect
+Variant: Effect Duration
+Variant: Energy Shield
+Variant: Life
+Variant: Movement Speed during Flask Effect
+Variant: Item Rarity
+Variant: Item Quantity
+Variant: Wrath Aura Effect
+Variant: Anger Aura Effect
+Variant: Hatred Aura Effect
+Variant: Determination Aura Effect
+Variant: Discipline Aura Effect
+Variant: Grace Aura Effect
+Variant: Intelligence/Dexterity
+Variant: Dexterity/Strength
+Variant: Strength/Intelligence
+Variant: Elemental Resistances
+Implicits: 24
+{variant:1}(24–30)% increased Area of Effect
+{variant:2}+(60–75)% to Critical Strike Multiplier during any Flask Effect
+{variant:3}(24–36)% increased Attack Speed during any Flask Effect
+{variant:4}(24–36)% increased Cast Speed during any Flask Effect
+{variant:5}(105–120)% increased Critical Strike Chance during any Flask Effect
+{variant:6}(36–45)% increased Skill Effect Duration
+{variant:7}(24–30)% increased maximum Energy Shield
+{variant:8}(18–24)% increased maximum Life
+{variant:9}(24–36)% increased Movement Speed during any Flask Effect
+{variant:10}(60–90)% increased Rarity of Items found
+{variant:11}(9–15)% increased Quantity of Items found
+{variant:12}Wrath has (45–60)% increased Aura Effect
+{variant:13}Anger has (45–60)% increased Aura Effect
+{variant:14}Hatred has (45–60)% increased Aura Effect
+{variant:15}Determination has (45–60)% increased Aura Effect
+{variant:16}Discipline has (45–60)% increased Aura Effect
+{variant:17}Grace has (45–60)% increased Aura Effect
+{variant:18}(12–18)% increased Intelligence
+{variant:18}(12–18)% increased Dexterity
+{variant:19}(12–18)% increased Dexterity
+{variant:19}(12–18)% increased Strength
+{variant:20}(12–18)% increased Strength
+{variant:20}(12–18)% increased Intelligence
+{variant:21}+(42–48)% to all Elemental Resistances
+Implicit Modifier magnitudes are tripled
+Corrupted
 ]],[[
 Sunblast
 Cloth Belt

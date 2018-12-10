@@ -106,6 +106,17 @@ Requires Level 59
 Cannot Block Spells 
 Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
 ]],[[
+The Iron Fortress
+Crusader Plate
+Source: Upgraded from unique{Iron Heart} via prophecy{Battle Hardened}
+Requires Level 68
++1% Chance to Block Attack Damage per 50 Strength
+Chance to Block Spell Damage is Unlucky
++(60–120) to Strength
+(80–100)% increased Armour
+10% reduced Movement Speed
+Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
+]],[[
 Solaris Lorica
 Copper Plate
 Variant: Pre 2.6.0
@@ -984,5 +995,19 @@ Requires Level 75, 66 Str, 66 Dex, 66 Int
 +(20-24)% to all Elemental Resistances
 +100 Life Gained on Kill
 +100 Mana Gained on Kill
+]],[[
+Shadowstitch
+Sacrificial Garb
+League: Incursion
+Requires Level 72
+Implicits: 0
+Has an additional Implicit Mod
++(20–30) to all Attributes
+Recover (3–5)% of Maximum Life on Kill
+Recover (3–5)% of Maximum Energy Shield on Kill
+-(6-4)% to all Resistances for each Equipped Corrupted Item
+8% increased Maximum Energy Shield for each Equipped Corrupted Item
+6% increased Maximum Life for each Equipped Corrupted Item
+Corrupted
 ]],
 }

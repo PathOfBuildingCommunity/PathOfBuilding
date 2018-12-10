@@ -199,6 +199,15 @@ Requires Level 25, 39 Int
 {variant:1}Curse Enemies with Temporal Chains on Hit
 {variant:2}Curse Enemies with level 10 Temporal Chains on Hit
 ]],[[
+Demon Stitcher
+Satin Gloves
+League: Delve
+Requires Level 41
+(15–20)% increased Cast Speed
++(50–70) to maximum Energy Shield
++(50–70) to maximum Life
+Sacrifice 5% of Life to gain that much Energy Shield when you Cast a Spell
+]],[[
 Doedre's Tenure
 Velvet Gloves
 Upgrade: Upgrades to unique{Doedre's Malevolence} via prophecy{The Malevolent Witch}
@@ -378,6 +387,20 @@ Lose all Endurance Charges when Rampage ends
 ]],
 -- Gloves: Armour/Energy Shield
 [[
+Command of the Pit
+Riveted Gloves
+League: Delve
+Source: Drops from unique{Kurgal, the Blackblooded}
+Variant: One Abyssal Socket
+Variant: Two Abyssal Sockets
+Requires Level 37
+{variant:1}Has 1 Abyssal Socket
+{variant:2}Has 2 Abyssal Sockets
+(6–10)% increased Cast Speed
+(4–6)% increased maximum Life
+With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
+With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
+]],[[
 Null and Void
 Legion Gloves
 League: Rampage
@@ -481,6 +504,30 @@ Requires Level 43, 34 Str, 34 Int
 ]],
 -- Gloves: Evasion/Energy Shield
 [[
+Architect's Hand
+Strapped Mitts
+League: Incursion
+Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
+Requires Level 16
++(30–40) to Dexterity
+(100–125)% increased Evasion and Energy Shield
+(20–30)% reduced Trap Throwing Speed
+Skills used by Traps have (10–20)% increased Area of Effect
+Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
+]],[[
+Slavedriver's Hand
+Ambush Mitts
+League: Incursion
+Source: Upgraded from unique{Architect's Hand} via currency{Vial of Dominance}
+Requires Level 45
++(30-40) to Dexterity
+(200-250)% increased Evasion and Energy Shield
+(20-30)% reduced Trap Throwing Speed
+Skills which throw Traps have Blood Magic
+Skills used by Traps have (10-20)% increased Area of Effect
+Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
+10% chance to gain an Endurance, Frenzy or Power Charge when any of your Traps is Triggered by an Enemy
+]],[[
 The Embalmer
 Carnal Mitts
 Requires Level 50, 39 Dex, 39 Int

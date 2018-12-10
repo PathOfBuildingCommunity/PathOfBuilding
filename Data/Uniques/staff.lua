@@ -188,6 +188,15 @@ Socketed Gems are Supported by Level 16 Trap and Mine Damage
 (10–20)% increased maximum Life
 (40–50)% increased Damage
 ]],[[
+The Grey Spire
+Judgement Staff
+Requires Level 68
++18% Chance to Block Attack Damage while wielding a Staff
+Has no Sockets
+(250–300)% increased Global Damage
+(20–30)% increased Attack Speed
++(1–4)% to all maximum Resistances
+]],[[
 Hegemony's Era
 Judgement Staff
 Variant: Pre 2.6.0
@@ -313,6 +322,17 @@ Implicits: 2
 20% increased Light Radius
 Socketed Gems fire 4 additional Projectiles
 Socketed Gems fire Projectiles in a Nova
+]],[[
+Soulwrest
+Ezomyte Staff
+Requires Level 62
++18% Chance to Block Attack Damage while wielding a Staff
+Trigger Level 20 Summon Phantasm Skill when you Consume a Corpse
+(100–140)% increased Spell Damage
+(25–30)% increased Cast Speed
+(80–100)% increased Mana Regeneration Rate
+Minions deal (45–51) to (66–78) additional Physical Damage
+If you Consumed a Corpse Recently, you and nearby Allies regenerate 5% of Life per second
 ]],[[
 The Stormheart
 Royal Staff

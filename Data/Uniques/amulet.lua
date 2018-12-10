@@ -74,6 +74,56 @@ Requires Level 16
 {variant:2}(80-100)% increased Mana Regeneration Rate
 Items and Gems have 25% reduced Attribute Requirements
 ]],[[
+Aul's Uprising
+Onyx Amulet
+League: Delve
+Source: Drops from unique{Aul, the Crystal King}
+Variant: Strength: Anger
+Variant: Strength: Determination
+Variant: Strength: Purity of Fire
+Variant: Strength: Vitality
+Variant: Dexterity: Grace
+Variant: Dexterity: Haste
+Variant: Dexterity: Hatred
+Variant: Dexterity: Purity of Ice
+Variant: Intelligence: Clarity
+Variant: Intelligence: Discipline
+Variant: Intelligence: Purity of Elements
+Variant: Intelligence: Purity of Lightning
+Variant: Intelligence: Wrath
+Variant: Envy
+Requires Level 55
++(10–16) to all Attributes
+{variant:1,2,3,4}+(20-30) to Strength
+{variant:5,6,7,8}+(20-30) to Dexterity
+{variant:9,10,11,12,13}+(20–30) to Intelligence
+{variant:14}Grants Level 15 Envy Skill
+{variant:1,2,3,4}(15-20)% increased Armour
+{variant:5,6,7,8}(15-20)% increased Evasion Rating
+{variant:9,10,11,12,13}(15–20)% increased maximum Energy Shield
+{variant:14}+(15-20) to all Attributes
++(50–70) to maximum Life
+{variant:1,2,3,4}10% reduced Stun and Block Recovery
+{variant:5,6,7,8}Nearby Enemies grant 25% increased Flask Charges
+{variant:9,10,11,12,13}2% additional Chance to receive a Critical Strike
+{variant:1,2,3,4}Nearby Enemies have 10% reduced Stun and Block Recovery
+{variant:9,10,11,12,13}Nearby Enemies have an additional 2% chance to receive a Critical Strike
+{variant:14}(15-20)% increased Global Defences
+{variant:1}Anger Reserves no Mana
+{variant:2}Determination Reserves no Mana
+{variant:3}Purity of Fire Reserves no Mana
+{variant:4}Vitality Reserves no Mana
+{variant:5}Grace Reserves no Mana
+{variant:6}Haste Reserves no Mana
+{variant:7}Hatred Reserves no Mana
+{variant:8}Purity of Ice Reserves no Mana
+{variant:9}Clarity Reserves no Mana
+{variant:10}Discipline Reserves no Mana
+{variant:11}Purity of Elements Reserves no Mana
+{variant:12}Purity of Lightning Reserves no Mana
+{variant:13}Wrath Reserves no Mana
+{variant:14}Envy Reserves no Mana
+]],[[
 The Aylardex
 Agate Amulet
 Variant: Pre 2.5.0
@@ -474,6 +524,28 @@ Socketed Gems are Supported by level 10 Blind
 Socketed Gems are Supported by level 10 Cast When Stunned
 Corrupted
 ]],[[
+Perquil's Toe
+Gold Amulet
+Requires Level 29
+(12–20)% increased Rarity of Items found
++(40–50) to Dexterity
+(5–8)% increased Movement Speed
+Lightning Damage from Enemies Hitting you is Lucky
+Nearby Allies' Damage with Hits is Lucky
+]],[[
+The Primordial Chain
+Coral Amulet
+League: Delve
+Requires Level 34
+(2–4) Life Regenerated per second
+Can Summon up to 3 additional Golems at a time
+You cannot have non-Golem Minions
+25% reduced Golem Size
+Golems Deal (35–45)% less Damage
+Golems have (35–45)% less Life
+Golems have (80–100)% increased Movement Speed
+Primordial
+]],[[
 Rashkaldor's Patience
 Jade Amulet
 Variant: {2_6}Pre 3.0.0
@@ -503,6 +575,31 @@ Modifiers to Claw Damage also apply to Unarmed Attack Damage
 Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed
 Modifiers to Claw Critical Strike Chance also apply to Unarmed Attack Critical Strike Chance
 Corrupted
+]],[[
+Sacrificial Heart
+Paua Amulet
+League: Incursion
+Source: Drops from unique{The Vaal Omnitect}
+Upgrade: Upgrades to unique{Zerphi's Heart} via currency{Vial of Sacrifice}
+Requires Level 32
+(20–30)% increased Mana Regeneration Rate
+Adds (22-27) to (34-38) Fire Damage
+Adds (20-23) to (31-35) Cold Damage
+Adds (1-3) to (47-52) Lightning Damage
+Gain a Power Charge when you use a Vaal Skill
+10 Life gained for each Enemy Hit if you have used a Vaal Skill Recently
+10% increased Movement Speed if you have used a Vaal Skill Recently
+]],[[
+Zerphi's Heart
+Paua Amulet
+League: Incursion
+Source: Upgraded from unique{Sacrificial Heart} via currency{Vial of Sacrifice}
+Requires Level 70
+(20–30)% increased Mana Regeneration Rate
+Adds (48-53) to (58-60) Chaos Damage
+Items and Gems have 50% increased Attribute Requirements
+Chaos Damage can Ignite, Chill and Shock
+Gain Soul Eater for 10 seconds when you use a Vaal Skill
 ]],[[
 Shaper's Seed
 Agate Amulet
