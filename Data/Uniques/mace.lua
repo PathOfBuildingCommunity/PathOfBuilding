@@ -183,6 +183,8 @@ Elder Item
 Augyre
 Void Sceptre
 Source: Drops from unique{The Purifier} (Tier 11+)
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 68
 40% increased Elemental Damage 
 (180–200)% increased Physical Damage 
@@ -191,6 +193,7 @@ Requires Level 68
 50% of Physical Damage Converted to Lightning Damage 
 Every 16 seconds you gain Elemental Overload for 8 seconds 
 You have Resolute Technique while you do not have Elemental Overload
+{variant:2}100% increased Physical Damage while you have Resolute Technique
 Elder Item
 ]],[[
 Axiom Perpetuum
@@ -415,15 +418,17 @@ Iron Sceptre
 Source: Drops in The Lord's Labyrinth
 Variant: Pre 2.3.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 20, 38 Str, 38 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
-{variant:2,3}14% increased Elemental Damage
+{variant:2,3,4}14% increased Elemental Damage
 (100-140)% increased Physical Damage
 {variant:1,2}40% increased Damage against Frozen Enemies
-{variant:3}40% increased Damage with Hits against Frozen Enemies
+{variant:3,4}40% increased Damage with Hits against Frozen Enemies
 (30-50)% increased Cold Damage
+{variant:4}+(25-35)% to Cold Damage over Time Multiplier
 (5-10)% increased Attack Speed
 (4-8)% increased Cast Speed
 5% chance to Freeze
@@ -632,10 +637,13 @@ Recover 5% of Maximum Life on Kill
 ]],[[
 Tidebreaker
 Imperial Maul
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 65, 212 Str
 30% increased Stun Duration on Enemies
 Socketed Gems are Supported by Level 20 Endurance Charge on Melee Stun
-Adds (60–70) to (300–350) Physical Damage
+{variant:1}Adds (60–70) to (300–350) Physical Damage
+{variant:2}Adds (70-80) to (340-375) Physical Damage
 +40 to Intelligence
 10% increased Physical Damage per Endurance Charge
 (20–30)% reduced Enemy Stun Threshold with this Weapon

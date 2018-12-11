@@ -337,12 +337,13 @@ While on Low Life, Enemies are Unlucky when Damaging you
 Malachai's Artifice
 Unset Ring
 Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.5.0
 Variant: Current
 Sockets: W
 Requires Level 5
 Has 1 Socket
 {variant:1}−25% to all Elemental Resistances
-{variant:2}−20% to all Elemental Resistances
+{variant:2,3}−20% to all Elemental Resistances
 +(75-100)% to Fire Resistance when Socketed with a Red Gem
 +(75-100)% to Cold Resistance when Socketed with a Green Gem
 +(75-100)% to Lightning Resistance when Socketed with a Blue Gem
@@ -550,7 +551,7 @@ Requires Level 49
 (20-30)% increased Fire Damage
 (20-30)% increased Cold Damage
 (20-30)% increased Mana Regeneration Rate
-5% Chance to summon a Spectral Wolf on Kill
+10% Chance to summon a Spectral Wolf on Kill
 ]],[[
 Romira's Banquet
 Diamond Ring
@@ -607,12 +608,19 @@ Adds (8-15) to (20-28) Fire Damage to Attacks
 ]],[[
 Snakepit 
 Sapphire Ring
+Variant: Pre {2_6}3.5.0
+Variant: Current
 Source: Drops from unique{Guardian of the Hydra}
 Requires Level 68
 +(20-30)% to Cold Resistance
 (20-40)% increased Cold Damage
 (5-10)% increased Cast Speed
-Spells have an additional Projectile
+{variant:1}Spells have an additional Projectile
+{variant:2}Left ring slot: Projectiles from Spells cannot Chain
+{variant:2}Left ring slot: Projectiles from Spells Fork
+{variant:2}Right ring slot: Projectiles from Spells Chain +1 times
+{variant:2}Right ring slot: Projectiles from Spells cannot Fork
+{variant:2}Projectiles from Spells cannot Pierce
 ]],[[
 Stormfire
 Opal Ring

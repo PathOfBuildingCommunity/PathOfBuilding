@@ -18,9 +18,12 @@ Adds (80-115) to (150-205) Physical Damage
 Beltimber Blade
 Eternal Sword
 Source: Drops from unique{The Constrictor} (Tier 11+)
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 66
 +475 to Accuracy Rating 
-(170–190)% increased Physical Damage 
+{variant:1}(170–190)% increased Physical Damage
+{variant:2}(185-215)% increased Physical Damage
 (10–15)% increased Attack Speed 
 80% increased Evasion Rating while moving 
 2 additional Projectiles if you've used a Movement Skill Recently 
@@ -104,9 +107,12 @@ Cannot be Frozen, Chilled or Ignited with Her Blessing
 Grelwood Shank
 Eternal Sword
 Source: Drops from unique{The Constrictor}
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 66
 +475 to Accuracy Rating
-(170–190)% increased Physical Damage 
+{variant:1}(170–190)% increased Physical Damage
+{variant:2}(185-215)% increased Physical Damage
 (15–20)% increased Attack Speed
 80% increased Armour while stationary
 2 additional Projectiles if you've been Hit Recently
@@ -229,12 +235,16 @@ Razor of the Seventh Sun
 Midnight Blade
 Source: Drops from unique{Guardian of the Phoenix}
 Variant: Pre 2.6.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Global Accuracy Rating
-Adds (65-75) to (110-130) Physical Damage
+{variant:2,3}40% increased Global Accuracy Rating
+{variant:1,2}Adds (65-75) to (110-130) Physical Damage
+{variant:3}Adds (90-110) to (145-170) Physical Damage
+{variant:3}25% of Physical Damage Converted to Fire Damage
+{variant:3}25% chance to Ignite
 100% increased Burning Damage if you've Ignited an Enemy Recently
 Recover 1% of Maximum Life when you Ignite an Enemy
 100% increased Melee Physical Damage against Ignited Enemies

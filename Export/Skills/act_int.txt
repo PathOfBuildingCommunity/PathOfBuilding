@@ -41,6 +41,8 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		},
 	},
+#baseMod skill("radius", 18)
+#baseMod skill("radiusSecondary", 8)
 #mods
 
 #skill AssassinsMark
@@ -1016,6 +1018,7 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		},
 	},
+#baseMod skill("radius", 16)
 #mods
 
 #skill Wither

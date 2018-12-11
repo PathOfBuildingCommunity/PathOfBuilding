@@ -143,8 +143,11 @@ Socketed Gems are Supported by Level 30 Cold to Fire
 Obscurantis 
 Lion Pelt
 Source: Drops from unique{Guardian of the Chimera}
+Variant: {2_6}Pre 3.5.0
+Variant: Current
 Requires Level 70, 150 Dex
-+(300-500) to Accuracy Rating
+{variant:1}+(300-500) to Accuracy Rating
+{variant:2}+(800-1000) to Accuracy Rating
 (100-120)% increased Evasion Rating
 +(50-80) to maximum Life
 1% increased Projectile Attack Damage per 200 Accuracy Rating
@@ -225,12 +228,16 @@ Requires Level 54, 112 Int
 ]],[[
 Crown of Eyes
 Hubris Circlet
+Variant: {2_6}Pre 3.5.0
+Variant: Current
 Requires Level 69, 154 Int
 +(200-250) to Accuracy Rating
 (120-150)% increased Energy Shield
 −30% to Fire Resistance
-(0.4-0.8)% of Physical Attack Damage Leeched as Life
-(0.2-0.4)% of Physical Attack Damage Leeched as Mana
+{variant:1}(0.4-0.8)% of Physical Attack Damage Leeched as Life
+{variant:2}(0.4-0.8)% of Attack Damage Leeched as Life
+{variant:1}(0.2-0.4)% of Physical Attack Damage Leeched as Mana
+{variant:2}(0.2-0.4)% of Attack Damage Leeched as Mana
 Increases and Reductions to Spell Damage also apply to Attacks
 ]],[[
 Crown of Thorns
@@ -313,13 +320,16 @@ Recover (2–3)% of Energy Shield when you lose a Spirit Charge
 Indigon
 Hubris Circlet
 Source: Drops from unique{The Elder} (Uber)
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 69
 (150–180)% increased Energy Shield
 (6–10)% increased maximum Mana
 Recover (8–10)% of maximum Life when you use a Mana Flask
 Non-instant Mana recovery from Flasks is also recovered as Life
 (50–60)% increased Mana Cost of Skills for each 200 total Mana you have Spent Recently
-(50–60)% increased Spell Damage for each 200 total Mana you have Spent Recently
+{variant:1}(50–60)% increased Spell Damage for each 200 total Mana you have Spent Recently
+{variant:2}(20-25)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 Shaper Item
 ]],[[
 Mark of the Red Covenant
@@ -335,16 +345,18 @@ Raging Spirits refresh their Duration when they Kill an Ignited Enemy
 Rime Gaze
 Mind Cage
 Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 65, 138 Int
 {variant:1}Socketed Gems are Supported by level 15 Concentrated Effect
-{variant:2}Socketed Gems are Supported by level 20 Concentrated Effect
+{variant:2,3}Socketed Gems are Supported by level 20 Concentrated Effect
 30% increased Cold Damage
 +(40-60) to maximum Mana
 {variant:1}(100-120)% increased Energy Shield
-{variant:2}(180-200)% increased Energy Shield
+{variant:2,3}(180-200)% increased Energy Shield
 {variant:1}50% slower start of Energy Shield Recharge
-{variant:2}50% reduced Energy Shield Recharge Rate
+{variant:2,3}50% reduced Energy Shield Recharge Rate
+{variant:3}+(16-22)% to Cold Damage over Time Multiplier
 ]],[[
 Scold's Bridle
 Mind Cage
@@ -393,19 +405,20 @@ The Bringer of Rain
 Nightmare Bascinet
 Variant: Pre 1.1.0
 Variant: Pre 1.3.0
+Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 67, 62 Str, 85 Dex
 Socketed Gems are Supported by level 18 Melee Physical Damage
-{variant:1}Socketed Gems are Supported by level 18 Faster Attacks
+{variant:1,4}Socketed Gems are Supported by level 18 Faster Attacks
 {variant:2,3}Socketed Gems are Supported by level 12 Faster Attacks
-{variant:1}Socketed Gems are Supported by level 18 Blind
+{variant:1,4}Socketed Gems are Supported by level 18 Blind
 {variant:2,3}Socketed Gems are Supported by level 6 Blind
 Adds 20 to 30 Physical Damage to Attacks
 (200-300)% increased Armour and Evasion
-{variant:1}+(200-220) to maximum Life
+{variant:1,4}+(200-220) to maximum Life
 {variant:2,3}+(120-160) to maximum Life
 {variant:1,2}10% chance to gain an Endurance Charge when you Block
-{variant:3}20% chance to gain an Endurance Charge when you Block
+{variant:3,4}20% chance to gain an Endurance Charge when you Block
 Extra gore
 Can't use Chest armour
 {variant:1,2}15% Chance to Block
@@ -491,12 +504,18 @@ You take 50% reduced Extra Damage from Critical Strikes while you have no Power 
 ]],[[
 The Brine Crown
 Prophet Crown
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 63, 85 Str, 62 Int
-(100-120)% increased Armour and Energy Shield
-+(50-70) to maximum Life
+{variant:1}(100-120)% increased Armour and Energy Shield
+{variant:2}(240-300)% increased Armour and Energy Shield
+{variant:1}+(50-70) to maximum Life
+{variant:2}+(80-100) to maximum Life
 +(30-50)% to Cold Resistance
 Cannot be Frozen
-+800 Armour while stationary
+{variant:1}+800 Armour while stationary
+{variant:2}+1500 Armour while stationary
+{variant:2}5% reduced Cold Damage taken
 60% increased Mana Regeneration Rate while stationary
 15% chance to create Chilled Ground when Hit with an Attack
 ]],[[

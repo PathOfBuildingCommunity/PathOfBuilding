@@ -242,6 +242,42 @@ skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
 		[1] = { 1, },
 	},
 }
+skills["UniqueSupportGreaterVolley"] = {
+	name = "Greater Volley",
+	hidden = true,
+	color = 2,
+	support = true,
+	requireSkillTypes = { 68, },
+	addSkillTypes = { },
+	excludeSkillTypes = { 70, 71, },
+	fromItem = true,
+	statMap = {
+		["support_greater_volley_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		},
+	},
+	qualityStats = {
+	},
+	stats = {
+		"support_parallel_projectile_number_of_points_per_side",
+		"greater_volley_additional_projectiles_fire_parallel_x_dist",
+		"number_of_additional_projectiles",
+		"support_greater_volley_projectile_damage_+%_final",
+	},
+	statInterpolation = { 1, 1, 1, 1, },
+	statLevels = {
+		[20] = { 4, 80, 4, -26, },
+	},
+	baseMods = {
+		mod("ManaCost", "MORE", 40),
+	},
+	levelMods = {
+		[1] = nil,
+	},
+	levels = {
+		[20] = { 70, },
+	},
+}
 skills["RepeatingShockwave"] = {
 	name = "Abberath's Fury",
 	hidden = true,
@@ -1491,6 +1527,14 @@ skills["TriggeredSummonSpider"] = {
 	fromItem = true,
 	minionList = {
 		"SpiderMinion",
+	},
+	statMap = {
+		["summoned_spider_grants_attack_speed_+%"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "RaisedSpider" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Raised Spider" }),
+		},
+		["summoned_spider_grants_poison_damage_+%"] = {
+			mod("Damage", "INC", nil, 0, KeywordFlag.Poison, { type = "Multiplier", var = "RaisedSpider" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Raised Spider" }),
+		},
 	},
 	baseFlags = {
 		spell = true,

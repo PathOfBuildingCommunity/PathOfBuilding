@@ -226,13 +226,17 @@ Requires Level 16
 ]],[[
 Extractor Mentis
 Agate Amulet
+Variant: {2_6}Pre 3.5.0
+Variant: Current
 Requires Level 16
 +(16-24) to Strength and Intelligence
 +(30-50) to Strength
 5% chance to grant Unholy Might to nearby Enemies on Kill
 5% chance to grant Onslaught to nearby Enemies on Kill
-5% chance to gain Unholy Might for 3 seconds on Kill
-5% chance to gain Onslaught for 3 seconds on Kill
+{variant:1}5% chance to gain Unholy Might for 3 seconds on Kill
+{variant:2}10% chance to gain Unholy Might for 10 seconds on Kill
+{variant:1}5% chance to gain Onslaught for 3 seconds on Kill
+{variant:2}10% chance to gain Onslaught for 10 seconds on Kill
 Recover 1% of Maximum Life on Kill
 ]],[[
 Eye of Chayula

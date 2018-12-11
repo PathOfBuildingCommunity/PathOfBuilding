@@ -35,6 +35,15 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill UniqueSupportGreaterVolley Greater Volley
+	fromItem = true,
+	statMap = {
+		["support_greater_volley_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		},
+	},
+#mods
+
 #skill RepeatingShockwave
 #flags spell area
 	fromItem = true,
@@ -273,6 +282,14 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 	minionList = {
 		"SpiderMinion",
+	},
+	statMap = {
+		["summoned_spider_grants_attack_speed_+%"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "RaisedSpider" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Raised Spider" }),
+		},
+		["summoned_spider_grants_poison_damage_+%"] = {
+			mod("Damage", "INC", nil, 0, KeywordFlag.Poison, { type = "Multiplier", var = "RaisedSpider" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Raised Spider" }),
+		},
 	},
 #mods
 

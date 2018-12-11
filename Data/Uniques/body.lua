@@ -87,6 +87,7 @@ Has no Sockets
 Lioneye's Vision
 Crusader Plate
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 59, 160 Str
 (200-250)% increased Armour
@@ -94,7 +95,8 @@ Requires Level 59, 160 Str
 0.4% of Physical Attack Damage Leeched as Mana
 Socketed Gems are Supported by level 15 Pierce
 {variant:1}+20% chance to be Pierced by Projectiles
-{variant:2}Projectiles Pierce you
+{variant:2,3}Projectiles Pierce you
+{Variant:3}+160 Dexterity Requirement
 ]],[[
 Iron Heart
 Crusader Plate
@@ -229,18 +231,20 @@ Zodiac Leather
 Variant: Pre 1.0.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 65, 197 Dex
 {variant:1,2,3}+(20-30) to Dexterity
-{variant:4}+(40-50) to Dexterity
+{variant:4.5}+(40-50) to Dexterity
 {variant:1,2,3}Adds 13 to 24 Cold Damage to Attacks
 {variant:4}Adds (50-60) to (70-80) Cold Damage to Attacks
+{variant:5}Adds (173-188) to (240-262) Cold Damage to Bow Attacks
 {variant:1}(80-120)% increased Evasion Rating
-{variant:2,3,4}(140-220)% increased Evasion Rating
+{variant:2,3,4,5}(140-220)% increased Evasion Rating
 25% increased Chill Duration on Enemies
 {variant:1,2}Acrobatics
-{variant:3,4}10% chance to Dodge Attacks
-{variant:3,4}10% chance to Dodge Spell Damage
+{variant:3,4,5}10% chance to Dodge Attacks
+{variant:3,4,5}10% chance to Dodge Spell Damage
 ]],[[
 Kintsugi
 Exquisite Leather
@@ -264,7 +268,7 @@ Requires Level 59, 160 Dex
 +(26-40)% to Cold Resistance
 +(11-25)% to Lightning Resistance
 25% reduced Movement Speed
-1% increased Movement Speed per 450 Evasion Rating, up to 100%
+1% increased Movement Speed per 600 Evasion Rating, up to 75%
 −(50-40) Physical Damage taken when hit by Animals
 ]],[[
 The Rat Cage
@@ -403,14 +407,16 @@ Has no Attribute Requirements
 ]],[[
 Doedre's Skin
 Widowsilk Robe
-Requires Level: 65
+Variant: Pre 3.5.0
+Variant: Current
+Requires Level 65
 Socketed Curse Gems are Supported by Level 20 Blasphemy 
 Grants Level 20 Summon Doedre's Effigy Skill
 Socketed Curse Skills are Triggered by Doedre's Effigy when Summoned
 Socketed Curse Skills ignore Curse Limit 
 +(30–40) to Intelligence 
 (130–150)% increased Energy Shield 
-(25–33)% reduced Effect of your Curses
+{variant:1}(25–33)% reduced Effect of your Curses
 ]],[[
 Fenumus' Shroud
 Widowsilk Robe
@@ -630,16 +636,20 @@ Requires Level 69, 95 Str, 116 Dex
 Daresso's Defiance
 Full Dragonscale
 Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 63, 115 Str, 94 Dex
 (160-200)% increased Armour and Evasion
-+(40-60) to maximum Life
+{variant:1,2}+(40-60) to maximum Life
+{variant:3}+(60-90) to maximum Life
 (0.4-0.6)% of Physical Attack Damage Leeched as Life
 6% Chance to Dodge Attacks
 You lose all Endurance Charges when Hit
 You gain an Endurance Charge on Kill
 {variant:1}You gain Onslaught for 1 second per Endurance Charge when Hit
 {variant:2}You gain Onslaught for 2 second per Endurance Charge when Hit
+{variant:3}You gain Onslaught for 5 second per Endurance Charge when Hit
+{variant:3}(60-100)% increased Onslaught Effect
 ]],[[
 Farrul's Fur
 Triumphant Lamellar
@@ -655,11 +665,16 @@ You have Phasing while you have Cat's Stealth
 ]],[[
 Gruthkul's Pelt
 Wyrmscale Doublet
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 38, 57 Str, 57 Dex
-(60-100)% increased Physical Damage
-+(130-160) to maximum Life
+{variant:1}(60-100)% increased Physical Damage
+{variant:2}100% increased Physical Damage
+{variant:1}+(130-160) to maximum Life
+{variant:2}+(200-240) to maximum Life
 +(20-40)% to Cold Resistance
-2% of Life Regenerated per second
+{variant:1}2% of Life Regenerated per second
+{variant:2}5% of Life Regenerated per second
 15% increased Character Size
 Spell Skills deal no Damage
 Your Spells are disabled
@@ -842,29 +857,33 @@ Minions have (6–10)% chance to Dodge Attacks
 Carcass Jack
 Varnished Coat
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 62, 96 Dex, 96 Int
 (120-150)% increased Evasion and Energy Shield
 +(50-70) to maximum Life
 +(9-12)% to all Elemental Resistances
-20% increased Area of Effect of Area Skills
+{variant:1,2}20% increased Area of Effect of Area Skills
+{variant:3}(40-50)% increased Area of Effect of Area Skills
 {variant:1}12% increased Area Damage
-{variant:2}(40–50)% increased Area Damage
+{variant:2,3}(40–50)% increased Area Damage
 Extra gore
 ]],[[
 Cloak of Defiance
 Lacquered Garb
 Variant: Pre 1.3.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 52, 76 Dex, 76 Int
-(110-150)% increased Evasion and Energy Shield
+{variant:1,2,3}(110-150)% increased Evasion and Energy Shield
+{variant:4}(300-400)% increased Evasion and Energy Shield
 {variant:1,2}+(90-110) to maximum Mana
-{variant:3}+(100-150) to maximum Mana
+{variant:3,4}+(100-150) to maximum Mana
 {variant:1,2}(40-50)% increased Mana Regeneration Rate
 {variant:1}When hit, 10% of Damage is taken from Mana before Life
-{variant:3}10% of Damage is taken from Mana before Life
-{variant:3}1% of Mana Regenerated per second
+{variant:3,4}10% of Damage is taken from Mana before Life
+{variant:3,4}1% of Mana Regenerated per second
 Mind Over Matter
 ]],[[
 Dendrobate
@@ -879,12 +898,15 @@ Socketed Gems are Supported by Level 10 Lesser Poison
 ]],[[
 Inpulsa's Broken Heart
 Sadist Garb
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 68
 +(60–80) to maximum Life 
 (20–50)% increased Damage if you have Shocked an Enemy Recently 
 (25–40)% increased Effect of Shock 
 Unaffected by Shock 
-Shocked Enemies you Kill Explode, dealing (5–10)% of
+{variant:1}Shocked Enemies you Kill Explode, dealing (5–10)% of
+{variant:2}Shocked Enemies you Kill Explode, dealing 5% of
 their Maximum Life as Lightning Damage which cannot Shock
 ]],[[
 The Restless Ward

@@ -284,15 +284,14 @@ minions["SpiderMinion"] = {
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 1.32,
+	damage = 1.76,
 	damageSpread = 0.2,
 	attackTime = 0.96,
-	attackRange = 3,
+	attackRange = 5,
 	weaponType1 = "One Handed Sword",
 	limit = "ActiveSpiderLimit",
 	skillList = {
-		"Melee",
-		"SpiderMinionLeapSlam",
+		"SummonedSpiderViperStrike",
 	},
 	modList = {
 	},
