@@ -32,15 +32,18 @@ Chill and Freeze duration on you is based on 65% of Energy Shield
 Auxium
 Crystal Belt
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 70
 +(60-80) to maximum Energy Shield
 {variant:1}(10-20)% increased Elemental Damage with Weapons
 {variant:2}(10-20)% increased Elemental Damage with Attack Skills
+{variant:3}(20-25)% increased Elemental Damage with Attack Skills per Power Charge
 +(45-55) to maximum Mana
 +(60-70) to maximum Energy Shield
 0.2% of Attack Damage Leeched as Mana per Power Charge
-Chill and Freeze duration on you is based on 65% of Energy Shield
+{variant:1,2}Chill Effect and Freeze duration on you is based on 65% of Energy Shield
+{variant:3}Chill Effect and Freeze duration on you is based on 100% of Energy Shield
 ]],[[
 Bated Breath
 Chain Belt
@@ -355,13 +358,18 @@ Requires Level 44
 ]],[[
 Ryslatha's Coil
 Studded Belt
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 20
 (20–30)% increased Stun Duration on Enemies 
+{variant:2}+(80-100) to maximum Life
 +(20–40) to Strength 
 Adds 1 to (15–20) Physical Damage to Attacks 
 Gain 50 Life when you Stun an Enemy 
-20% less Minimum Physical Attack Damage 
-20% more Maximum Physical Attack Damage
+{variant:1}20% less Minimum Physical Attack Damage 
+{variant:2}(30-40)% less Minimum Physical Attack Damage 
+{variant:1}20% more Maximum Physical Attack Damage
+{variant:2}(30-40)% more Maximum Physical Attack Damage
 ]],[[
 Soul Tether
 Cloth Belt

@@ -461,6 +461,8 @@ skills["CataclysmSigil"] = {
 		skill("castTime", 0.4),
 		skill("damageEffectiveness", 0.9),
 		skill("CritChance", 6),
+		skill("radius", 18),
+		skill("radiusSecondary", 8),
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil),
@@ -10452,6 +10454,7 @@ skills["FrostBoltNova"] = {
 		skill("CritChance", 6.5),
 		skill("cooldown", 1.8),
 		skill("dotIsArea", true),
+		skill("radius", 20),
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil),
@@ -10595,6 +10598,7 @@ skills["FrostFury"] = {
 		skill("castTime", 0.25),
 		skill("damageEffectiveness", 0.6),
 		skill("CritChance", 6),
+		skill("radius", 16),
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil),

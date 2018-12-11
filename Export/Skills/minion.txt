@@ -93,8 +93,8 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 18)
 #mods
 
-#skill SpiderMinionLeapSlam Leap Slam
-#flags attack melee area movement
+#skill SummonedSpiderViperStrike
+#flags attack melee
 #mods
 
 #skill DancingDervishCyclone

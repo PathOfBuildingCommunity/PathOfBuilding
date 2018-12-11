@@ -153,6 +153,7 @@ local skills, mod, flag, skill = ...
 			mod("Accuracy", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 	},
+#baseMod skill("radius", 40)
 #baseMod skill("manaCost", 0, { type = "Condition", var = "BannerPlanted" })
 #mods
 
@@ -604,5 +605,6 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" })
 		},
 	},
+#baseMod skill("radius", 40)
 #baseMod skill("manaCost", 0, { type = "Condition", var = "BannerPlanted" })
 #mods

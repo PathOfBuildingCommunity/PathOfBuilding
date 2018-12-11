@@ -27,7 +27,7 @@ local conditionName = setmetatable({ }, { __index = function(t, var)
 end })
 
 local ModStoreClass = newClass("ModStore", function(self, parent)
-	self.parent = parent
+	self.parent = parent or false
 	self.actor = parent and parent.actor or { }
 	self.multipliers = { }
 	self.conditions = { }
@@ -167,11 +167,11 @@ function ModStoreClass:GetStat(stat, cfg)
 	return (self.actor.output and self.actor.output[stat]) or (cfg and cfg.skillStats and cfg.skillStats[stat]) or 0
 end
 
-function ModStoreClass:EvalMod(context, mod, cfg)
+function ModStoreClass:EvalMod(mod, cfg)
 	local value = mod.value
 	for _, tag in ipairs(mod) do
 		if tag.type == "Multiplier" then
-			local target = context
+			local target = self
 			if tag.actor then
 				if self.actor[tag.actor] then
 					target = self.actor[tag.actor].modDB
@@ -190,7 +190,7 @@ function ModStoreClass:EvalMod(context, mod, cfg)
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
 			if tag.limit or tag.limitVar then
-				local limit = tag.limit or context:GetMultiplier(tag.limitVar, cfg)
+				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
 				else
@@ -217,7 +217,7 @@ function ModStoreClass:EvalMod(context, mod, cfg)
 				end
 			end
 		elseif tag.type == "MultiplierThreshold" then
-			local target = context
+			local target = self
 			if tag.actor then
 				if self.actor[tag.actor] then
 					target = self.actor[tag.actor].modDB
@@ -242,15 +242,15 @@ function ModStoreClass:EvalMod(context, mod, cfg)
 			if tag.statList then
 				base = 0
 				for _, stat in ipairs(tag.statList) do
-					base = base + context:GetStat(stat, cfg)
+					base = base + self:GetStat(stat, cfg)
 				end
 			else
-				base = context:GetStat(tag.stat, cfg)
+				base = self:GetStat(tag.stat, cfg)
 			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
 			if tag.limit or tag.limitVar then
-				local limit = tag.limit or context:GetMultiplier(tag.limitVar, cfg)
+				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
 				else
@@ -281,12 +281,12 @@ function ModStoreClass:EvalMod(context, mod, cfg)
 			if tag.statList then
 				stat = 0
 				for _, stat in ipairs(tag.statList) do
-					stat = stat + context:GetStat(stat, cfg)
+					stat = stat + self:GetStat(stat, cfg)
 				end
 			else
-				stat = context:GetStat(tag.stat, cfg)
+				stat = self:GetStat(tag.stat, cfg)
 			end
-			local threshold = tag.threshold or context:GetStat(tag.thresholdStat, cfg)
+			local threshold = tag.threshold or self:GetStat(tag.thresholdStat, cfg)
 			if (tag.upper and stat > threshold) or (not tag.upper and stat < threshold) then
 				return
 			end
@@ -311,13 +311,13 @@ function ModStoreClass:EvalMod(context, mod, cfg)
 			local match = false
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
-					if context:GetCondition(var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
+					if self:GetCondition(var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
 						match = true
 						break
 					end
 				end
 			else
-				match = context:GetCondition(tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
+				match = self:GetCondition(tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
 			end
 			if tag.neg then
 				match = not match
@@ -327,7 +327,7 @@ function ModStoreClass:EvalMod(context, mod, cfg)
 			end
 		elseif tag.type == "ActorCondition" then
 			local match = false
-			local target = context
+			local target = self
 			if tag.actor then
 				target = self.actor[tag.actor] and self.actor[tag.actor].modDB
 			end

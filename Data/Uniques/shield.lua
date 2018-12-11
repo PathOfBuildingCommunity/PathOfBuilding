@@ -443,14 +443,18 @@ No Block Chance
 Light of Lunaris
 Jingling Spirit Shield
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 28, 71 Int
 Implicits: 2
 {variant:1}10% increased Spell Damage
-{variant:2}(10-15)% increased Spell Damage
+{variant:2,3}(10-15)% increased Spell Damage
 (60-80)% increased Critical Strike Chance for Spells
-(100-140)% increased Energy Shield
-+(3-5)% Chance to Block
+{variant:1,2}(100-140)% increased Energy Shield
+{variant:3}(475-600)% increased Energy Shield
+{variant:1,2}+(3-5)% Chance to Block
+{variant:3}+(6-10)% Chance to Block
+{variant:3}Adds (35-39) to (54-60) Cold Damage to Spells
 +1% to Critical Strike Multiplier per 1% Block Chance
 +25% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently
 ]],[[
@@ -577,16 +581,18 @@ Aegis Aurora
 Champion Kite Shield
 Variant: Pre 1.1.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 62, 85 Str, 85 Int
 {variant:1,2}(10-20)% increased Elemental Damage with Weapons
-{variant:3}(10-20)% increased Elemental Damage with Attack Skills
-(80-100)% increased Armour and Energy Shield
+{variant:3,4}(10-20)% increased Elemental Damage with Attack Skills
+{variant:1,2,3}(80-100)% increased Armour and Energy Shield
+{variant:4}(300-400)% increased Armour and Energy Shield
 +10% to all Elemental Resistances
 +5% to maximum Cold Resistance
 +6% Chance to Block
 {variant:1}Replenishes Energy Shield by 4% of Armour when you Block
-{variant:2,3}Replenishes Energy Shield by 2% of Armour when you Block
+{variant:2,3,4}Replenishes Energy Shield by 2% of Armour when you Block
 ]],[[
 Broken Faith
 Archon Kite Shield
@@ -779,9 +785,12 @@ Grants level 20 Bear Trap Skill
 Leper's Alms
 Mirrored Spiked Shield
 Source: Drops from unique{The Eradicator}
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 66
 4% chance to Dodge Attacks 
-(130–150)% increased Evasion and Energy Shield 
+{variant:1}(130–150)% increased Evasion and Energy Shield 
+{variant:2}(500-600)% increased Evasion and Energy Shield 
 +(60–80) to maximum Life 
 40% increased Duration of Ailments on Enemies 
 +(3–4)% Chance to Block 

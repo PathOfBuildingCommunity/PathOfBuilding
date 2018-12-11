@@ -229,13 +229,17 @@ Requires Level 34, 62 Dex
 ]],[[
 Garukhan's Flight
 Stealth Boots
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 62, 117 Dex
 +(30-40) to Dexterity
-(80-120)% increased Evasion Rating
+{variant:1}(80-120)% increased Evasion Rating
+{variant:2}(320-380)% increased Evasion Rating
 30% increased Movement Speed
 Immune to Burning Ground, Shocked Ground and Chilled Ground
 Regenerate 100 Life per second while moving
-+1 to Maximum Life per 10 Dexterity
+{variant:1}+1 to Maximum Life per 10 Dexterity
+{variant:2}+2 to Maximum Life per 10 Dexterity
 ]],[[
 Seven-League Step
 Rawhide Boots
@@ -675,6 +679,7 @@ Sin Trek
 Stealth Boots
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 62, 117 Dex
 +(20-30) to Dexterity
@@ -683,6 +688,7 @@ Requires Level 62, 117 Dex
 {variant:1}+(50-70) to maximum Energy Shield
 {variant:2}+(70-100) to maximum Energy Shield
 {variant:3}+(100-160) to maximum Energy Shield
+{variant:4}+(100-150) to maximum Energy Shield
 30% increased Movement Speed
 Enemies Cannot Leech Life From You
 ]],[[

@@ -36,8 +36,8 @@ local function getClass(className)
 	if not class then
 		LoadModule("Classes/"..className)
 		class = common.classes[className]
+		assert(class, "Class '"..className.."' not defined in class file")
 	end
-	assert(class, "Class '"..className.."' not defined in class file")
 	return class
 end
 -- newClass("<className>"[, "<parentClassName>"[, "<parentClassName>" ...]], constructorFunc)
@@ -86,7 +86,7 @@ function new(className, ...)
 		-- Add parent and superparent class proxies
 		object._parentInit = { }
 		for parent in pairs(class._superParents) do
-			object[parent._className] = setmetatable({ }, {
+			local proxyMeta = {
 				__index = function(self, key)
 					local v = rawget(object, key)
 					if v ~= nil then
@@ -106,7 +106,8 @@ function new(className, ...)
 					parent._constructor(...)
 					object._parentInit[parent] = true
 				end,
-			})
+			}
+			object[parent._className] = setmetatable(proxyMeta, proxyMeta)
 		end
 	end
 	if class._constructor then

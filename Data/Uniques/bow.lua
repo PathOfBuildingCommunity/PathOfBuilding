@@ -5,9 +5,12 @@ return {
 [[
 Arborix
 Assassin Bow
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 62
 Source: Vendor recipe
-Adds (60–70) to (180–210) Physical Damage 
+{variant:1}Adds (60–70) to (180–210) Physical Damage 
+{variant:2}Adds (95-115) to (240-265) Physical Damage 
 (80–100)% increased Evasion Rating
 2 Additional Arrows
 Every 16 seconds you gain iron Reflexes for 8 seconds
@@ -19,16 +22,20 @@ Chin Sol
 Assassin Bow
 Variant: Pre 1.2.0
 Variant: Pre 2.0.0
+Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 62, 212 Dex
+Implicits: 1
 {variant:1,2}(6-12)% increased Elemental Damage with Weapons
 {variant:1}(75-100)% increased Physical Damage
 {variant:2,3}(150-180)% increased Physical Damage
+{variant:4}(200-260)% increased Physical Damage
 +(10-20) to Dexterity
 Adds 25 to 50 Fire Damage
 {variant:1}5% increased Attack Speed
-{variant:2,3}(10-14)% increased Attack Speed
-100% More Bow Damage at Close Range
+{variant:2,3,4}(10-14)% increased Attack Speed
+{variant:1,2,3}100% More Bow Damage at Close Range
+{variant:4}50% More Bow Damage at Close Range
 Bow Knockback at Close Range
 ]],[[
 Darkscorn
@@ -210,28 +217,33 @@ Create Consecrated Ground when you Shatter an Enemy
 Quill Rain
 Short Bow
 Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 5, 26 Dex
 +(10-20) to Dexterity
-{variant:2}100% increased Physical Damage
+{variant:2,3}100% increased Physical Damage
 100% increased Attack Speed
 +(25-50) to Accuracy Rating
 (50-100)% increased Projectile Speed
 {variant:1}50% less Weapon Damage
 {variant:2}40% less Weapon Damage
-{variant:2}+2 Mana gained for each Enemy hit by Attacks
+{variant:3}40% less Damage
+{variant:2,3}+2 Mana gained for each Enemy hit by Attacks
 ]],[[
 Reach of the Council
 Spine Bow
 Source: prophecy{The Feral Lord V}
 Variant: Pre 2.4.0
 Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 64, 212 Dex
+{variant:4}Socketed Gems are Supported by Level 20 Greater Volley
 {variant:1}(50-70)% increased Physical Damage
 {variant:2,3}(40-50)% increased Physical Damage
+{variant:4}(50-75)% increased Physical Damage
 {variant:1}Adds (25-40) to (100-115) Physical Damage
-{variant:2,3}Adds (15-30) to (70-95) Physical Damage
+{variant:2,3,4}Adds (15-30) to (70-95) Physical Damage
 (8-12)% increased Attack Speed
 {variant:1,2}4 additional Arrows
 {variant:3}2 additional Arrows
@@ -278,14 +290,19 @@ Slivertongue
 Harbinger Bow
 Source: Drops from unique{Guardian of the Hydra}
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 68, 212 Dex
 (30-50)% increased Critical Strike Chance
-Adds (60-75) to (170-220) Physical Damage
-100% increased Critical Strike Chance with arrows that Fork
+{variant:1,2}Adds (60-75) to (170-220) Physical Damage
+{variant:3}Adds (110-125) to (245-265) Physical Damage
+{variant:1,2}100% increased Critical Strike Chance with arrows that Fork
+{variant:3}(150-200)% increased Critical Strike Chance with arrows that Fork
 {variant:1}Arrows that Pierce cause Bleeding
 {variant:2}Arrows that Pierce have 50% chance to cause Bleeding
-Arrows always Pierce after Chaining
+{variant:3}Arrows that Pierce have +50% to Critical Strike Multiplier
+{variant:1,2}Arrows Pierce all Targets after Chaining
+{variant:3}Arrows Pierce all Targets after Forking
 ]],[[
 Storm Cloud
 Long Bow
@@ -321,21 +338,25 @@ Imperial Bow
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 66, 212 Dex
 Implicits: 3
 {variant:2}(6-12)% increased Elemental Damage with Weapons
 {variant:3}(20-24)% increased Elemental Damage with Weapons
-{variant:4}(20-24)% increased Elemental Damage with Attack Skills
-Adds (32-40) to (48-60) Cold Damage
-Adds 1 to (80-100) Lightning Damage
+{variant:4,5}(20-24)% increased Elemental Damage with Attack Skills
+{variant:1,2,3,4}Adds (32-40) to (48-60) Cold Damage
+{variant:5}Adds (48-60) to (72-90) Cold Damage
+{variant:1,2,3,4}Adds 1 to (80-100) Lightning Damage
+{variant:5}Adds 1 to (120-150) Lightning Damage
 (10-15)% increased Attack Speed
 {variant:1}(80-100)% increased Critical Strike Chance
 {variant:2,3,4}(60-80)% increased Critical Strike Chance
+{variant:5}(30-40)% increased Critical Strike Chance
 {variant:1}25% increased Quantity of Items Dropped by Slain Frozen enemies
-{variant:2,3,4}15% increased Quantity of Items Dropped by Slain Frozen Enemies
+{variant:2,3,4,5}15% increased Quantity of Items Dropped by Slain Frozen Enemies
 {variant:1}50% increased Rarity of Items Dropped by Slain Shocked enemies
-{variant:2,3,4}30% increased Rarity of Items Dropped by Slain Shocked Enemies
+{variant:2,3,4,5}30% increased Rarity of Items Dropped by Slain Shocked Enemies
 ]],[[
 Xoph's Inception
 Bone Bow

@@ -1,3 +1,8 @@
+VERSION[1.4.121][2018/12/12]
+ * Applied the unique balance changes for 3.5
+ * Added base radius values for Vortex (20), Armageddon Brand (18/8), Winter Orb (16), and the Banner skills (40)
+ * Fixed issue with certain conditional skill stats not working correctly
+    * This notably caused Elemental Hit to deal all elements at once
 VERSION[1.4.120][2018/12/11]
  * Added skill parts to Shattering Steel to show both projectile and cone damage
  * Fixed Claw Crit Chance conversion from Rigwald's Curse
