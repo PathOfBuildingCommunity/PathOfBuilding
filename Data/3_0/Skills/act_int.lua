@@ -10452,6 +10452,7 @@ skills["FrostBoltNova"] = {
 		skill("CritChance", 6.5),
 		skill("cooldown", 1.8),
 		skill("dotIsArea", true),
+		skill("radius", 20),
 	},
 	levelMods = {
 		[1] = skill("levelRequirement", nil),
