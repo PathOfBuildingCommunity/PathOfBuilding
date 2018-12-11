@@ -997,6 +997,7 @@ local skills, mod, flag, skill = ...
 #skill FrostBoltNova
 #flags spell area duration forceInstant
 #baseMod skill("dotIsArea", true)
+#baseMod skill("radius", 20)
 #mods
 
 #skill FrostFury
