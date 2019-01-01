@@ -127,6 +127,9 @@ local modNameList = {
 	["all resistances"] = { "ElementalResist", "ChaosResist" },
 	["all maximum elemental resistances"] = { "FireResistMax", "ColdResistMax", "LightningResistMax" },
 	["all maximum resistances"] = { "FireResistMax", "ColdResistMax", "LightningResistMax", "ChaosResistMax" },
+	["fire and chaos resistances"] = { "FireResist", "ChaosResist" },
+	["cold and chaos resistances"] = { "ColdResist", "ChaosResist" },
+	["lightning and chaos resistances"] = { "LightningResist", "ChaosResist" },
 	-- Damage taken
 	["damage taken"] = "DamageTaken",
 	["damage taken when hit"] = "DamageTakenWhenHit",
