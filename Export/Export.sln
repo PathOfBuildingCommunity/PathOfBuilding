@@ -36,7 +36,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skills", "Skills", "{740FE3
 		Skills\other.txt = Skills\other.txt
 		Skills\spectre.lua = Skills\spectre.lua
 		Skills\spectre.txt = Skills\spectre.txt
-		Skills\statmap.ini = Skills\statmap.ini
 		Skills\sup_dex.lua = Skills\sup_dex.lua
 		Skills\sup_dex.txt = Skills\sup_dex.txt
 		Skills\sup_int.lua = Skills\sup_int.lua

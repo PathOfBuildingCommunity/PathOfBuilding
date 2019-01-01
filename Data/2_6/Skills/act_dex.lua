@@ -127,7 +127,6 @@ skills["AnimateWeapon"] = {
 		[30] = { 90, 45, },
 	},
 }
-
 skills["NewArcticArmour"] = {
 	name = "Arctic Armour",
 	color = 2,
@@ -245,9 +244,9 @@ skills["Barrage"] = {
 			name = "All Projectiles",
 		},
 	},
-	setupFunc = function(actor, output)
-		if actor.mainSkill.skillPart == 2 then
-			actor.mainSkill.skillData.dpsMultiplier = output.ProjectileCount
+	setupFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
 		end
 	end,
 	baseFlags = {
@@ -1718,8 +1717,8 @@ skills["DetonateDead"] = {
 	color = 2,
 	description = "Explodes an unused corpse, dealing fire damage to nearby enemies.",
 	skillTypes = { [39] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, },
-	setupFunc = function(actor, output)
-		local skillData = actor.mainSkill.skillData
+	setupFunc = function(activeSkill, output)
+		local skillData = activeSkill.skillData
 		if skillData.corpseLife then
 			skillData.FireMin = skillData.FireMin + skillData.corpseLife * 0.06
 			skillData.FireMax = skillData.FireMax + skillData.corpseLife * 0.06
@@ -1820,8 +1819,8 @@ skills["VaalDetonateDead"] = {
 	color = 2,
 	description = "Explodes an unused corpse, dealing fire damage to nearby enemies. Nearby corpses will also explode in a chain reaction.",
 	skillTypes = { [39] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [43] = true, [33] = true, },
-	setupFunc = function(actor, output)
-		local skillData = actor.mainSkill.skillData
+	setupFunc = function(activeSkill, output)
+		local skillData = activeSkill.skillData
 		if skillData.corpseLife then
 			skillData.FireMin = skillData.FireMin + skillData.corpseLife * 0.08
 			skillData.FireMax = skillData.FireMax + skillData.corpseLife * 0.08

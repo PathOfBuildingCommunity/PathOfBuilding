@@ -382,8 +382,8 @@ skills["CataclysmSigil"] = {
 	incrementalEffectiveness = 0.045200001448393,
 	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, causing a fiery meteor to fall from the sky. The brand will detach if the enemy dies.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [33] = true, [12] = true, [18] = true, [17] = true, [19] = true, [36] = true, [26] = true, [76] = true, },
-	setupFunc = function(actor, output)
-		actor.mainSkill.skillData.hitTimeOverride = actor.mainSkill.skillData.repeatFrequency / (1 + actor.mainSkill.skillModList:Sum("INC", actor.mainSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
+	setupFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
@@ -1023,10 +1023,10 @@ skills["CorpseWarp"] = {
 			cast =  true,
 		},
 	},
-	setupFunc = function(actor, output)
-		if actor.mainSkill.skillPart == 1 then
-			local skillData = actor.mainSkill.skillData
-			if actor.mainSkill.skillFlags.totem then
+	setupFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 1 then
+			local skillData = activeSkill.skillData
+			if activeSkill.skillFlags.totem then
 				skillData.FireBonusMin = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
 				skillData.FireBonusMax = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
 			else
@@ -2341,20 +2341,20 @@ skills["DarkPact"] = {
 			name = "Cast on Skeleton",
 		},
 	},
-	setupFunc = function(actor, output)
+	setupFunc = function(activeSkill, output)
 		local life
-		if actor.mainSkill.skillPart == 1 then
-			if actor.mainSkill.skillFlags.totem then
+		if activeSkill.skillPart == 1 then
+			if activeSkill.skillFlags.totem then
 				life = output.TotemLife
 			else
 				life = output.Life
 			end
 		else
-			life = actor.mainSkill.skillData.skeletonLife or 0
+			life = activeSkill.skillData.skeletonLife or 0
 		end
-		local add = life * actor.mainSkill.skillData.lifeDealtAsChaos / 100
-		actor.mainSkill.skillData.ChaosMin = actor.mainSkill.skillData.ChaosMin + add
-		actor.mainSkill.skillData.ChaosMax = actor.mainSkill.skillData.ChaosMax + add
+		local add = life * activeSkill.skillData.lifeDealtAsChaos / 100
+		activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + add
+		activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + add
 	end,
 	statMap = {
 		["skeletal_chains_aoe_%_health_dealt_as_chaos_damage"] = {
@@ -4617,9 +4617,9 @@ skills["FreezingPulse"] = {
 	incrementalEffectiveness = 0.038499999791384,
 	description = "An icy projectile which has a chance to freeze enemies it passes through. The projectile fades quickly, reducing damage and freezing chance until it dissipates.",
 	skillTypes = { [2] = true, [3] = true, [68] = true, [10] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, },
-	setupFunc = function(env, output)
-		env.modDB:NewMod("Damage", "MORE", -50, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
-		env.modDB:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
+	setupFunc = function(activeSkill, output)
+		activeSkill.skillModList:NewMod("Damage", "MORE", -50, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+		activeSkill.skillModList:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
 	end,
 	baseFlags = {
 		spell = true,
@@ -5743,9 +5743,9 @@ skills["IceSpear"] = {
 			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 4 } }),
 		},
 	},
-	setupFunc = function(actor, output)
-		if actor.mainSkill.skillPart == 3 or actor.mainSkill.skillPart == 4 then
-			actor.mainSkill.skillData.dpsMultiplier = output.ProjectileCount
+	setupFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 3 or activeSkill.skillPart == 4 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
 		end
 	end,
 	baseFlags = {
@@ -7979,11 +7979,11 @@ skills["RighteousFire"] = {
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Engulfs you in magical fire that rapidly burns you and nearby enemies. Your spell damage is substantially increased while under this effect. The effect ends when you have 1 life remaining.",
 	skillTypes = { [2] = true, [5] = true, [11] = true, [29] = true, [40] = true, [33] = true, [18] = true, [36] = true, [75] = true, },
-	setupFunc = function(actor, output)
-		if actor.mainSkill.skillFlags.totem then
-			actor.mainSkill.skillData.FireDot = output.TotemLife * 0.4
+	setupFunc = function(activeSkill, output)
+		if activeSkill.skillFlags.totem then
+			activeSkill.skillData.FireDot = output.TotemLife * 0.4
 		else
-			actor.mainSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.4
+			activeSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.4
 		end
 	end,
 	statMap = {
@@ -9010,8 +9010,8 @@ skills["ConduitSigil"] = {
 	incrementalEffectiveness = 0.03999999910593,
 	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, firing beams which deal damage to nearby enemies and those around them. The brand will detach if the enemy dies.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [35] = true, [23] = true, [12] = true, [18] = true, [17] = true, [19] = true, [36] = true, [45] = true, [26] = true, [76] = true, },
-	setupFunc = function(actor, output)
-		actor.mainSkill.skillData.hitTimeOverride = actor.mainSkill.skillData.repeatFrequency / (1 + actor.mainSkill.skillModList:Sum("INC", actor.mainSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
+	setupFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
@@ -10510,8 +10510,8 @@ skills["FrostFury"] = {
 	incrementalEffectiveness = 0.041000001132488,
 	description = "Channel to conjure an orb above you, which pelts nearby enemies with projectiles that impact the ground and explode. Channelling for longer builds up stages on the skill. When you stop channelling, the stages decay over a duration.",
 	skillTypes = { [2] = true, [58] = true, [34] = true, [10] = true, [11] = true, [12] = true, [3] = true, [18] = true, },
-	setupFunc = function(actor, output)
-		actor.mainSkill.skillData.hitTimeOverride = actor.mainSkill.skillData.repeatFrequency / (1 + actor.mainSkill.skillModList:Sum("INC", actor.mainSkill.skillCfg, "HitRate") / 100)
+	setupFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HitRate") / 100)
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {

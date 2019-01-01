@@ -286,9 +286,9 @@ skills["Barrage"] = {
 			name = "All Projectiles",
 		},
 	},
-	setupFunc = function(actor, output)
-		if actor.mainSkill.skillPart == 2 then
-			actor.mainSkill.skillData.dpsMultiplier = output.ProjectileCount
+	setupFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
 		end
 	end,
 	baseFlags = {

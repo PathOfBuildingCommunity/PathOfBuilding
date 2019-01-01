@@ -98,7 +98,7 @@ function loadDat(name)
 	if not t then
 		f = io.open(name..".json", "r")
 		if not f then
-			os.execute("pypoe_exporter dat json "..name..".json --files "..name..".dat -dp "..arg[0]:gsub("[^\\/]+.lua","Data\\"))
+			os.execute("pypoe_exporter dat json "..name..".json --files "..name..".dat")-- -dp "..arg[0]:gsub("[^\\/]+.lua","Data\\"))
 			f = io.open(name..".json", "r")
 		end
 		local text = f:read("*a")

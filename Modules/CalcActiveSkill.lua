@@ -172,7 +172,7 @@ local function getWeaponFlags(env, weaponData, weaponTypes)
 	end
 	if weaponTypes and not weaponTypes[weaponData.type] and 
 		(not weaponData.countsAsAll1H or not (weaponTypes["Claw"] or weaponTypes["Dagger"] or weaponTypes["One Handed Axe"] or weaponTypes["One Handed Mace"] or weaponTypes["One Handed Sword"])) then
-		return
+		return nil, info
 	end
 	local flags = ModFlag[info.flag]
 	if weaponData.countsAsAll1H then
@@ -260,17 +260,17 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 			elseif not weapon1Info.melee and skillFlags.projectile then
 				skillFlags.melee = nil
 			end
-		elseif skillTypes[SkillType.DualWield] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand then
+		elseif skillTypes[SkillType.DualWield] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand or (env.build.targetVersion ~= "2_6" and weapon1Info) then
 			-- Skill requires a compatible main hand weapon
 			skillFlags.disable = true
 			activeSkill.disableReason = "Main Hand weapon is not usable with this skill"
 		end
 		if not skillTypes[SkillType.MainHandOnly] and not skillFlags.forceMainHand then
-			local weapon2Flags = getWeaponFlags(env, actor.weaponData2, weaponTypes)
+			local weapon2Flags, weapon2Info = getWeaponFlags(env, actor.weaponData2, weaponTypes)
 			if weapon2Flags then
 				activeSkill.weapon2Flags = weapon2Flags
 				skillFlags.weapon2Attack = true
-			elseif skillTypes[SkillType.DualWield] then
+			elseif skillTypes[SkillType.DualWield] or (env.build.targetVersion ~= "2_6" and weapon2Info) then
 				-- Skill requires a compatible off hand weapon
 				skillFlags.disable = true
 				activeSkill.disableReason = activeSkill.disableReason or "Off Hand weapon is not usable with this skill"
@@ -421,7 +421,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	end
 
 	-- Apply gem/quality modifiers from support gems
-	for _, value in ipairs(skillModList:List(activeSkill.skillCfg, "GemProperty")) do
+	for _, value in ipairs(skillModList:List(activeSkill.skillCfg, "SupportedGemProperty")) do
 		if value.keyword == "active_skill" then
 			activeEffect[value.key] = activeEffect[value.key] + value.value
 		end

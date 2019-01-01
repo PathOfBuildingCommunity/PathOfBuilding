@@ -336,6 +336,7 @@ Socketed Gems fire Projectiles in a Nova
 ]],[[
 Soulwrest
 Ezomyte Staff
+League: Delve
 Requires Level 62
 +18% Chance to Block Attack Damage while wielding a Staff
 Trigger Level 20 Summon Phantasm Skill when you Consume a Corpse

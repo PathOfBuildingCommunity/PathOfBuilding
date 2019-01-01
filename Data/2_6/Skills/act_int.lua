@@ -3125,9 +3125,9 @@ skills["FreezingPulse"] = {
 	color = 3,
 	description = "An icy projectile which has a chance to freeze enemies it passes through. The projectile fades quickly, reducing damage and freezing chance until it runs out of time and dissipates completely.",
 	skillTypes = { [2] = true, [3] = true, [10] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [34] = true, [60] = true, },
-	setupFunc = function(env, output)
-		env.modDB:NewMod("Damage", "MORE", -100, "Skill:Freezing Pulse", ModFlag.Spell, { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
-		env.modDB:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:Freezing Pulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
+	setupFunc = function(activeSkill, output)
+		activeSkill.skillModList:NewMod("Damage", "MORE", -100, "Skill:Freezing Pulse", ModFlag.Spell, { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+		activeSkill.skillModList:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:Freezing Pulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
 	end,
 	baseFlags = {
 		spell = true,
@@ -5620,11 +5620,11 @@ skills["RighteousFire"] = {
 	color = 3,
 	description = "Engulfs you in magical fire that rapidly burns you and nearby enemies. Your spell damage is substantially increased while under this effect. The effect ends when you have 1 life remaining.",
 	skillTypes = { [2] = true, [5] = true, [11] = true, [18] = true, [29] = true, [36] = true, [40] = true, [33] = true, },
-	setupFunc = function(actor, output)
-		if actor.mainSkill.skillFlags.totem then
-			actor.mainSkill.skillData.FireDot = output.TotemLife * 0.5
+	setupFunc = function(activeSkill, output)
+		if activeSkill.skillFlags.totem then
+			activeSkill.skillData.FireDot = output.TotemLife * 0.5
 		else
-			actor.mainSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.5
+			activeSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.5
 		end
 	end,
 	statMap = {
@@ -5736,9 +5736,9 @@ skills["VaalRighteousFire"] = {
 	color = 3,
 	description = "A fiery blast removes your energy shield and all but 1 life, exploding outwards to deal fire damage to nearby enemies based on the life and energy shield lost.",
 	skillTypes = { [2] = true, [11] = true, [10] = true, [43] = true, [33] = true, },
-	setupFunc = function(actor, output)
-		actor.mainSkill.skillData.FireMin = output.EnergyShield + output.Life - 1
-		actor.mainSkill.skillData.FireMax = output.EnergyShield + output.Life - 1
+	setupFunc = function(activeSkill, output)
+		activeSkill.skillData.FireMin = output.EnergyShield + output.Life - 1
+		activeSkill.skillData.FireMax = output.EnergyShield + output.Life - 1
 	end,
 	baseFlags = {
 		spell = true,

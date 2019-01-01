@@ -125,12 +125,16 @@ function new(className, ...)
 end
 
 function codePointToUTF8(codePoint)
-	if codePoint <= 0x7F then
+	if codePoint >= 0xD800 and codePoint <= 0xDFFF then
+		return "?"
+	elseif codePoint <= 0x7F then
 		return string.char(codePoint)
 	elseif codePoint <= 0x07FF then
 		return string.char(0xC0 + bit.rshift(codePoint, 6), 0x80 + bit.band(codePoint, 0x3F))
 	elseif codePoint <= 0xFFFF then
-		return string.char(0xE0 + bit.rshift(codePoint, 12), 0x80 + bit.band(bit.rshift(codePoint, 6), 0x3F), 0x80 + bit.band(codePoint, 0x3f))
+		return string.char(0xE0 + bit.rshift(codePoint, 12), 0x80 + bit.band(bit.rshift(codePoint, 6), 0x3F), 0x80 + bit.band(codePoint, 0x3F))
+	elseif codePoint <= 0x10FFFF then
+		return string.char(0xF0 + bit.rshift(codePoint, 18), 0x80 + bit.band(bit.rshift(codePoint, 12), 0x3F), 0x80 + bit.band(bit.rshift(codePoint, 6), 0x3F), 0x80 + bit.band(codePoint, 0x3F))
 	else
 		return "?"
 	end
@@ -156,6 +160,89 @@ function convertUTF16to8(text, offset)
 	end
 	return table.concat(out)
 end
+function codePointToUTF16(codePoint)
+	if codePoint >= 0xD800 and codePoint <= 0xDFFF then
+		return "?\z"
+	elseif codePoint <= 0xFFFF then
+		return string.char(bit.band(codePoint, 0xFF), bit.rshift(codePoint, 8))
+	elseif codePoint <= 0x10FFFF then
+		local highSurr = 0xD800 + bit.rshift(codePoint - 0x10000, 10)
+		local lowSurr = 0xDC00 + bit.band(codePoint - 0x10000, 0x2FF)
+		return string.char(bit.band(highSurr, 0xFF), bit.rshift(highSurr, 8), bit.band(lowSurr, 0xFF), bit.rshift(lowSurr, 8))
+	else
+		return "?\z"
+	end
+end
+function convertUTF8to16(text, offset)
+	offset = offset or 1
+	local out = { }
+	local codePoint = 0
+	local codeUnitRemaining
+	for i = offset, #text do
+		local codeUnit = text:byte(i)
+		if codeUnit == 0 then
+			break
+		elseif codeUnit <= 0x7F then
+			table.insert(out, string.char(codeUnit, 0))
+		elseif codeUnit >= 0xC2 and codeUnit <= 0xDF then
+			codeUnitRemaining = 1
+			codePoint = bit.band(codeUnit, 0x1F)
+		elseif codeUnit >= 0xE0 and codeUnit <= 0xEF then
+			codeUnitRemaining = 2
+			codePoint = bit.band(codeUnit, 0x0F)
+		elseif codeUnit >= 0xF0 and codeUnit <= 0xF4 then
+			codeUnitRemaining = 3
+			codePoint = bit.band(codeUnit, 0x03)
+		elseif codeUnit >= 0x80 and codeUnit <= 0xBF then
+			if codeUnitRemaining then
+				codePoint = bit.lshift(codePoint, 6) + bit.band(codeUnit, 0x3F)
+				codeUnitRemaining = codeUnitRemaining - 1
+				if codeUnitRemaining == 0 then
+					table.insert(out, codePointToUTF16(codePoint))
+					codeUnitRemaining = nil
+				end
+			else
+				table.insert(out, "?\z")
+			end
+		else 
+			table.insert(out, "?\z")
+		end
+	end
+	return table.concat(out)
+end
+
+do
+	local function toUnsigned(val)
+		return val < 0 and val + 0x100000000 or val
+	end
+	local function murmurMix(val)
+		val = toUnsigned(val)
+		return bit.tobit(val * 0xE995 + bit.band(val * 0x5BD1, 0xFFFF) * 0x10000)
+	end
+	function murmurHash2(key, seed)
+		local len = #key
+		local h = bit.bxor(seed or 0, len)
+		local o = 1
+		while len >= 4 do
+			local k = bytesToInt(key, o)
+			k = murmurMix(k)
+			k = bit.bxor(k, bit.rshift(k, 24))
+			k = murmurMix(k)
+			h = murmurMix(h)
+			h = bit.bxor(h, k)
+			o = o + 4
+			len = len - 4
+		end
+		if len > 0 then
+			h = bit.bxor(h, bytesToInt(key, o))
+			h = murmurMix(h)
+		end
+		h = bit.bxor(h, bit.rshift(h, 13))
+		h = murmurMix(h)
+		h = bit.bxor(h, bit.rshift(h, 15))
+		return toUnsigned(h)
+	end
+end
 
 local function bits(int, s, e)
 	return bit.band(bit.rshift(int, s), 2 ^ (e - s + 1) - 1)
@@ -165,7 +252,11 @@ function bytesToInt(b, o)
 end
 function bytesToUInt(b, o)
 	o = o or 1
-	return b:byte(o + 0) + b:byte(o + 1) * 256 + b:byte(o + 2) * 65536 + b:byte(o + 3) * 16777216
+	return (b:byte(o + 0) or 0) + (b:byte(o + 1) or 0) * 256 + (b:byte(o + 2) or 0) * 65536 + (b:byte(o + 3) or 0) * 16777216
+end
+function bytesToULong(b, o)
+	o = o or 1
+	return bytesToUInt(b, o) + bytesToUInt(b, o + 4) * 4294967296
 end
 function bytesToFloat(b, o)
 	local int = bytesToInt(b, o)

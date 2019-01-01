@@ -1555,8 +1555,14 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		if sourceId == "MASTER" then
 			for _, craft in ipairs(self.build.data.masterMods) do
 				if craft.types[self.displayItem.type] then
+					local label
+					if craft.master then
+						label = craft.master .. " " .. craft.masterLevel .. "   "..craft.type:sub(1,3).."^8[" .. table.concat(craft, "/") .. "]"
+					else
+						label = table.concat(craft, "/")
+					end
 					t_insert(modList, {
-						label = craft.master .. " " .. craft.masterLevel .. "   "..craft.type:sub(1,3).."^8[" .. table.concat(craft, "/") .. "]",
+						label = label,
 						mod = craft,
 						type = "crafted",
 					})
@@ -1606,8 +1612,10 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			end)
 		end
 	end
+	if self.build.targetVersion ~= "2_6" or (self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask") then
+		t_insert(sourceList, { label = "Crafting Bench", sourceId = "MASTER" })
+	end
 	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
-		t_insert(sourceList, { label = "Master", sourceId = "MASTER" })
 		t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
 	end
 	if not self.displayItem.crafted then
@@ -1634,7 +1642,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		return item
 	end
 	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Source:")
-	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 100, 18, sourceList, function(index, value)
+	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 150, 18, sourceList, function(index, value)
 		buildMods(value.sourceId)
 		controls.modSelect:SetSel(1)
 	end)
