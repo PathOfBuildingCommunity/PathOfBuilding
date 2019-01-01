@@ -1,7 +1,8 @@
-### 1.4.122 - 2019/01/02
+### 1.4.122 - 2019/01/01
  * Updated the crafting bench options for 3.5
  * Added support for most of the new craft modifiers
  * Applied the weapon restriction changes from 3.5
+ * Adrenaline can now always be enabled (as it is no longer exclusive to Champion)
  * Fixed issue with modifiers to socketed gem level applying twice
 
 ### 1.4.121 - 2018/12/12
