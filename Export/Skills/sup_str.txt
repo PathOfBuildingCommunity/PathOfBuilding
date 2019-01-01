@@ -89,7 +89,7 @@ local skills, mod, flag, skill = ...
 #skill SupportAdditionalLevel
 	statMap = {
 		["supported_active_skill_gem_level_+"] = {
-			mod("GemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }),
+			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }),
 		},
 	},
 #mods

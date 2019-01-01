@@ -1801,6 +1801,34 @@ skills["MassFrenzy"] = {
 		[1] = { 0, },
 	},
 }
+skills["MassPower"] = {
+	name = "Mass Power",
+	hidden = true,
+	color = 4,
+	skillTypes = { [2] = true, [11] = true, },
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	qualityStats = {
+	},
+	stats = {
+	},
+	statInterpolation = { },
+	statLevels = {
+		[1] = { },
+	},
+	baseMods = {
+		skill("castTime", 2),
+		skill("manaCost", 100),
+	},
+	levelMods = {
+		[1] = skill("levelRequirement", nil),
+	},
+	levels = {
+		[1] = { 0, },
+	},
+}
 skills["MinerThrowFireSpectre"] = {
 	name = "Throw Fire",
 	hidden = true,

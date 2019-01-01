@@ -983,7 +983,7 @@ Self-Flagellation
 Viridian Jewel
 Limited to: 1
 Implicits: 0
-You can have one additional Curse
+An additional Curse can be applied to you
 (10-20)% increased Damage per Curse on you
 Corrupted
 ]],[[

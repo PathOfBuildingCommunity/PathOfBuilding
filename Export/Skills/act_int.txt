@@ -30,8 +30,8 @@ local skills, mod, flag, skill = ...
 
 #skill CataclysmSigil
 #flags spell area duration
-	setupFunc = function(actor, output)
-		actor.mainSkill.skillData.hitTimeOverride = actor.mainSkill.skillData.repeatFrequency / (1 + actor.mainSkill.skillModList:Sum("INC", actor.mainSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
+	setupFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
@@ -101,10 +101,10 @@ local skills, mod, flag, skill = ...
 			cast =  true,
 		},
 	},
-	setupFunc = function(actor, output)
-		if actor.mainSkill.skillPart == 1 then
-			local skillData = actor.mainSkill.skillData
-			if actor.mainSkill.skillFlags.totem then
+	setupFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 1 then
+			local skillData = activeSkill.skillData
+			if activeSkill.skillFlags.totem then
 				skillData.FireBonusMin = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
 				skillData.FireBonusMax = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
 			else
@@ -225,20 +225,20 @@ local skills, mod, flag, skill = ...
 			name = "Cast on Skeleton",
 		},
 	},
-	setupFunc = function(actor, output)
+	setupFunc = function(activeSkill, output)
 		local life
-		if actor.mainSkill.skillPart == 1 then
-			if actor.mainSkill.skillFlags.totem then
+		if activeSkill.skillPart == 1 then
+			if activeSkill.skillFlags.totem then
 				life = output.TotemLife
 			else
 				life = output.Life
 			end
 		else
-			life = actor.mainSkill.skillData.skeletonLife or 0
+			life = activeSkill.skillData.skeletonLife or 0
 		end
-		local add = life * actor.mainSkill.skillData.lifeDealtAsChaos / 100
-		actor.mainSkill.skillData.ChaosMin = actor.mainSkill.skillData.ChaosMin + add
-		actor.mainSkill.skillData.ChaosMax = actor.mainSkill.skillData.ChaosMax + add
+		local add = life * activeSkill.skillData.lifeDealtAsChaos / 100
+		activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + add
+		activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + add
 	end,
 	statMap = {
 		["skeletal_chains_aoe_%_health_dealt_as_chaos_damage"] = {
@@ -466,9 +466,9 @@ local skills, mod, flag, skill = ...
 
 #skill FreezingPulse
 #flags spell projectile
-	setupFunc = function(env, output)
-		env.modDB:NewMod("Damage", "MORE", -50, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
-		env.modDB:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
+	setupFunc = function(activeSkill, output)
+		activeSkill.skillModList:NewMod("Damage", "MORE", -50, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+		activeSkill.skillModList:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
 	end,
 #mods
 
@@ -571,9 +571,9 @@ local skills, mod, flag, skill = ...
 			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 4 } }),
 		},
 	},
-	setupFunc = function(actor, output)
-		if actor.mainSkill.skillPart == 3 or actor.mainSkill.skillPart == 4 then
-			actor.mainSkill.skillData.dpsMultiplier = output.ProjectileCount
+	setupFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 3 or activeSkill.skillPart == 4 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
 		end
 	end,
 #baseMod mod("PierceChance", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 })
@@ -738,11 +738,11 @@ local skills, mod, flag, skill = ...
 
 #skill RighteousFire
 #flags spell area
-	setupFunc = function(actor, output)
-		if actor.mainSkill.skillFlags.totem then
-			actor.mainSkill.skillData.FireDot = output.TotemLife * 0.4
+	setupFunc = function(activeSkill, output)
+		if activeSkill.skillFlags.totem then
+			activeSkill.skillData.FireDot = output.TotemLife * 0.4
 		else
-			actor.mainSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.4
+			activeSkill.skillData.FireDot = (output.Life + output.EnergyShield) * 0.4
 		end
 	end,
 	statMap = {
@@ -868,8 +868,8 @@ local skills, mod, flag, skill = ...
 
 #skill ConduitSigil
 #flags spell area duration
-	setupFunc = function(actor, output)
-		actor.mainSkill.skillData.hitTimeOverride = actor.mainSkill.skillData.repeatFrequency / (1 + actor.mainSkill.skillModList:Sum("INC", actor.mainSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
+	setupFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
@@ -1002,8 +1002,8 @@ local skills, mod, flag, skill = ...
 
 #skill FrostFury
 #flags spell projectile area duration
-	setupFunc = function(actor, output)
-		actor.mainSkill.skillData.hitTimeOverride = actor.mainSkill.skillData.repeatFrequency / (1 + actor.mainSkill.skillModList:Sum("INC", actor.mainSkill.skillCfg, "HitRate") / 100)
+	setupFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HitRate") / 100)
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {

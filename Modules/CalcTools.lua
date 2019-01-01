@@ -11,15 +11,15 @@ local m_max = math.max
 calcLib = { }
 
 -- Calculate and combine INC/MORE modifiers for the given modifier names
-function calcLib.mod(modDB, cfg, ...)
-	return (1 + (modDB:Sum("INC", cfg, ...)) / 100) * modDB:More(cfg, ...)
+function calcLib.mod(modStore, cfg, ...)
+	return (1 + (modStore:Sum("INC", cfg, ...)) / 100) * modStore:More(cfg, ...)
 end
 
 -- Calculate value
-function calcLib.val(modDB, name, cfg)
-	local baseVal = modDB:Sum("BASE", cfg, name)
+function calcLib.val(modStore, name, cfg)
+	local baseVal = modStore:Sum("BASE", cfg, name)
 	if baseVal ~= 0 then
-		return baseVal * calcLib.mod(modDB, cfg, name)
+		return baseVal * calcLib.mod(modStore, cfg, name)
 	else
 		return 0
 	end

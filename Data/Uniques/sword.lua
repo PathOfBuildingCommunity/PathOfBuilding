@@ -24,7 +24,7 @@ Requires Level 66
 +475 to Accuracy Rating 
 {variant:1}(170–190)% increased Physical Damage
 {variant:2}(185-215)% increased Physical Damage
-(10–15)% increased Attack Speed 
+(15–20)% increased Attack Speed 
 80% increased Evasion Rating while moving 
 2 additional Projectiles if you've used a Movement Skill Recently 
 Far Shot

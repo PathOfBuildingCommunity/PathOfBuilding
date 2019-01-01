@@ -1,3 +1,9 @@
+### 1.4.122 - 2019/01/02
+ * Updated the crafting bench options for 3.5
+ * Added support for most of the new craft modifiers
+ * Applied the weapon restriction changes from 3.5
+ * Fixed issue with modifiers to socketed gem level applying twice
+
 ### 1.4.121 - 2018/12/12
  * Applied the unique balance changes for 3.5
  * Added base radius values for Vortex (20), Armageddon Brand (18/8), Winter Orb (16), and the Banner skills (40)

@@ -419,7 +419,7 @@ function calcs.offence(env, actor, activeSkill)
 	do
 		local setupFunc = activeSkill.activeEffect.grantedEffect.setupFunc
 		if setupFunc then
-			setupFunc(actor, output)
+			setupFunc(activeSkill, output)
 		end
 	end
 

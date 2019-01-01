@@ -238,7 +238,7 @@ for _, targetVersion in ipairs(targetVersionList) do
 			gem.grantedEffect,
 			gem.secondaryGrantedEffect
 		}
-		gem.defaultLevel = (gem.grantedEffect.levels[20] and 20) or (gem.grantedEffect.levels[3][2] and 3) or 1
+		gem.defaultLevel = (gem.grantedEffect.levels[20] and 20) or (gem.grantedEffect.levels[3][1] and 3) or 1
 	end
 
 	-- Load minions

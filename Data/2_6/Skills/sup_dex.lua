@@ -988,7 +988,7 @@ skills["SupportAdditionalQuality"] = {
 	supportGemsOnly = true,
 	statMap = {
 		["supported_active_skill_gem_quality_%"] = {
-			mod("GemProperty", "LIST", { keyword = "active_skill", key = "quality", value = nil }),
+			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "quality", value = nil }),
 		},
 	},
 	qualityStats = {
