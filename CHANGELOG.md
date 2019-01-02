@@ -1,3 +1,7 @@
+### 1.4.123 - 2019/01/02
+ * Fixed issue causing Configuration tab options to sometimes fail to appear when appropriate
+ * Fixed error when adding crafted modifiers to items
+
 ### 1.4.122 - 2019/01/01
  * Updated the crafting bench options for 3.5
  * Added support for most of the new craft modifiers
