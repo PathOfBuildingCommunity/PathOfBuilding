@@ -184,31 +184,46 @@ function calcs.buildOutput(build, mode)
 				addMult(out, tag.var, mod)
 			end
 		end
+		local function addModTags(mod)
+			for _, tag in ipairs(mod) do
+				if tag.type == "IgnoreCond" then
+					break
+				elseif tag.type == "Condition" then
+					if actor == env.player then
+						addCondTag(env.conditionsUsed, tag, mod)
+					else
+						addCondTag(env.minionConditionsUsed, tag, mod)
+					end
+				elseif tag.type == "ActorCondition" and tag.actor == "enemy" then
+					addCondTag(env.enemyConditionsUsed, tag, mod)
+				elseif tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
+					if not tag.actor then
+						if actor == env.player then
+							addMultTag(env.multipliersUsed, tag, mod)
+						end
+					elseif tag.actor == "enemy" then
+						addMultTag(env.enemyMultipliersUsed, tag, mod)
+					end
+				end
+			end
+		end
 		for _, actor in ipairs({env.player, env.minion}) do
 			for modName, modList in pairs(actor.modDB.mods) do
 				for _, mod in ipairs(modList) do
-					for _, tag in ipairs(mod) do
-						if tag.type == "IgnoreCond" then
-							break
-						elseif tag.type == "Condition" then
-							if actor == env.player then
-								addCondTag(env.conditionsUsed, tag, mod)
-							else
-								addCondTag(env.minionConditionsUsed, tag, mod)
-							end
-						elseif tag.type == "ActorCondition" and tag.actor == "enemy" then
-							addCondTag(env.enemyConditionsUsed, tag, mod)
-						elseif tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
-							if not tag.actor then
-								if actor == env.player then
-									addMultTag(env.multipliersUsed, tag, mod)
-								end
-							elseif tag.actor == "enemy" then
-								addMultTag(env.enemyMultipliersUsed, tag, mod)
-							end
-						end
-					end
+					addModTags(mod)
 				end		
+			end
+		end
+		for _, activeSkill in pairs(env.activeSkillList) do
+			for _, mod in ipairs(activeSkill.skillModList) do
+				addModTags(mod)
+			end
+			if activeSkill.minion then
+				for _, activeSkill in pairs(activeSkill.minion.activeSkillList) do
+					for _, mod in ipairs(activeSkill.skillModList) do
+						addModTags(mod)
+					end
+				end
 			end
 		end
 		for modName, modList in pairs(env.enemyDB.mods) do
