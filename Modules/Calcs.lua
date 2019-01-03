@@ -184,7 +184,7 @@ function calcs.buildOutput(build, mode)
 				addMult(out, tag.var, mod)
 			end
 		end
-		local function addModTags(mod)
+		local function addModTags(actor, mod)
 			for _, tag in ipairs(mod) do
 				if tag.type == "IgnoreCond" then
 					break
@@ -210,18 +210,18 @@ function calcs.buildOutput(build, mode)
 		for _, actor in ipairs({env.player, env.minion}) do
 			for modName, modList in pairs(actor.modDB.mods) do
 				for _, mod in ipairs(modList) do
-					addModTags(mod)
+					addModTags(actor, mod)
 				end		
 			end
 		end
 		for _, activeSkill in pairs(env.activeSkillList) do
 			for _, mod in ipairs(activeSkill.skillModList) do
-				addModTags(mod)
+				addModTags(env.player, mod)
 			end
 			if activeSkill.minion then
 				for _, activeSkill in pairs(activeSkill.minion.activeSkillList) do
 					for _, mod in ipairs(activeSkill.skillModList) do
-						addModTags(mod)
+						addModTags(env.minion, mod)
 					end
 				end
 			end
@@ -241,6 +241,16 @@ function calcs.buildOutput(build, mode)
 				end
 			end
 		end
+		ConPrintf("=== Cond ===")
+		ConPrintTable(env.conditionsUsed)
+		ConPrintf("=== Mult ===")
+		ConPrintTable(env.multipliersUsed)
+		ConPrintf("=== Minion Cond ===")
+		ConPrintTable(env.minionConditionsUsed)
+		ConPrintf("=== Enemy Cond ===")
+		ConPrintTable(env.enemyConditionsUsed)
+		ConPrintf("=== Enemy Mult ===")
+		ConPrintTable(env.enemyMultipliersUsed)
 	elseif mode == "CALCS" then
 		local buffList = { }
 		local combatList = { }
@@ -377,7 +387,7 @@ function calcs.buildOutput(build, mode)
 			output.Minion.CurseList = output.CurseList
 		end
 
-		infoDump(env)
+		--infoDump(env)
 	end
 
 	return env

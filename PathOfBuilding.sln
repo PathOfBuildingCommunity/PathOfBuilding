@@ -35,6 +35,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{35D8
 		Modules\ModParser-2_6.lua = Modules\ModParser-2_6.lua
 		Modules\ModParser-3_0.lua = Modules\ModParser-3_0.lua
 		Modules\ModTools.lua = Modules\ModTools.lua
+		Modules\StatDescriber.lua = Modules\StatDescriber.lua
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4DE67-DABD-4A3C-8772-37D4A9DB6D59}"

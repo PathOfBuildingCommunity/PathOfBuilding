@@ -548,13 +548,14 @@ function calcs.offence(env, actor, activeSkill)
 		local more = m_floor(skillModList:More(skillCfg, "ManaCost") * 100 + 0.0001) / 100
 		local inc = skillModList:Sum("INC", skillCfg, "ManaCost")
 		local base = skillModList:Sum("BASE", skillCfg, "ManaCost")
-		output.ManaCost = m_floor(m_max(0, (skillData.manaCost or 0) * more * (1 + inc / 100) + base))
+		local manaCost = activeSkill.activeEffect.grantedEffectLevel.manaCost or 0
+		output.ManaCost = m_floor(m_max(0, manaCost * more * (1 + inc / 100) + base))
 		if activeSkill.skillTypes[SkillType.ManaCostPercent] and skillFlags.totem then
 			output.ManaCost = m_floor(output.Mana * output.ManaCost / 100)
 		end
-		if breakdown and output.ManaCost ~= (skillData.manaCost or 0) then
+		if breakdown and output.ManaCost ~= manaCost then
 			breakdown.ManaCost = {
-				s_format("%d ^8(base mana cost)", skillData.manaCost or 0)
+				s_format("%d ^8(base mana cost)", manaCost)
 			}
 			if more ~= 1 then
 				t_insert(breakdown.ManaCost, s_format("x %.2f ^8(mana cost multiplier)", more))
@@ -698,12 +699,12 @@ function calcs.offence(env, actor, activeSkill)
 			if isAttack then
 				if skillData.castTimeOverridesAttackTime then
 					-- Skill is overriding weapon attack speed
-					baseTime = skillData.castTime / (1 + (source.AttackSpeedInc or 0) / 100)
+					baseTime = activeSkill.activeEffect.grantedEffect.castTime / (1 + (source.AttackSpeedInc or 0) / 100)
 				else
 					baseTime = 1 / ( source.AttackRate or 1 ) + skillModList:Sum("BASE", cfg, "Speed")
 				end
 			else
-				baseTime = skillData.castTime or 1
+				baseTime = activeSkill.activeEffect.grantedEffect.castTime or 1
 			end
 			local inc = skillModList:Sum("INC", cfg, "Speed")
 			local more = skillModList:More(cfg, "Speed")
@@ -880,8 +881,8 @@ function calcs.offence(env, actor, activeSkill)
 		for _, damageType in ipairs(dmgTypeList) do
 			local damageTypeMin = damageType.."Min"
 			local damageTypeMax = damageType.."Max"
-			local baseMultiplier = skillData.baseMultiplier or 1
-			local damageEffectiveness = skillData.damageEffectiveness or 1
+			local baseMultiplier = activeSkill.activeEffect.grantedEffectLevel.baseMultiplier or 1
+			local damageEffectiveness = activeSkill.activeEffect.grantedEffectLevel.damageEffectiveness or skillData.damageEffectiveness or 1
 			local addedMin = skillModList:Sum("BASE", cfg, damageTypeMin)
 			local addedMax = skillModList:Sum("BASE", cfg, damageTypeMax)
 			local baseMin = ((source[damageTypeMin] or 0) + (source[damageType.."BonusMin"] or 0)) * baseMultiplier + addedMin * damageEffectiveness

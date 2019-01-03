@@ -336,28 +336,115 @@ function GemSelectClass:Draw(viewPort)
 			   DrawImage(nil, x, y, width, height)
 			end
 		end
-		if mOver and (self.dropped or not self.skillsTab.selControl) then
+		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) then
 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
 			if gemInstance and gemInstance.gemData then
-				local grantedEffect = gemInstance.gemData.grantedEffect
 				SetDrawLayer(nil, 10)
 				self.tooltip:Clear()
-				self.tooltip.center = true
-				self.tooltip.color = colorCodes.GEM
-				self.tooltip:AddLine(20, colorCodes.GEM..grantedEffect.name)
-				self.tooltip:AddSeparator(10)
-				self.tooltip:AddLine(16, "^x7F7F7F"..gemInstance.gemData.tagString)
-				self.tooltip:AddSeparator(10)
-				self.skillsTab.build:AddRequirementsToTooltip(self.tooltip, gemInstance.reqLevel, gemInstance.reqStr, gemInstance.reqDex, gemInstance.reqInt)
-				if grantedEffect.description then
-					local wrap = main:WrapString(grantedEffect.description, 16, m_max(DrawStringWidth(16, "VAR", gemInstance.gemData.tagString), 400))
-					for _, line in ipairs(wrap) do
-						self.tooltip:AddLine(16, colorCodes.GEM..line)
-					end
-				end
+				self:AddGemTooltip(gemInstance)
 				self.tooltip:Draw(x, y, width, height, viewPort)
 				SetDrawLayer(nil, 0)
 			end
+		end
+	end
+end
+
+function GemSelectClass:AddGemTooltip(gemInstance)
+	self.tooltip.center = true
+	self.tooltip.color = colorCodes.GEM
+	if gemInstance.gemData.secondaryGrantedEffect then
+		local grantedEffect = gemInstance.gemData.secondaryGrantedEffect
+		local grantedEffectVaal = gemInstance.gemData.grantedEffect
+		self.tooltip:AddLine(20, colorCodes.GEM..grantedEffect.name)
+		self.tooltip:AddSeparator(10)
+		self.tooltip:AddLine(16, "^x7F7F7F"..gemInstance.gemData.tagString)
+		self:AddCommonGemInfo(gemInstance, grantedEffect, true)
+		self.tooltip:AddSeparator(10)
+		self.tooltip:AddLine(20, colorCodes.GEM..grantedEffectVaal.name)
+		self.tooltip:AddSeparator(10)
+		self:AddCommonGemInfo(gemInstance, grantedEffectVaal)
+	else
+		local grantedEffect = gemInstance.gemData.grantedEffect
+		self.tooltip:AddLine(20, colorCodes.GEM..grantedEffect.name)
+		self.tooltip:AddSeparator(10)
+		self.tooltip:AddLine(16, "^x7F7F7F"..gemInstance.gemData.tagString)
+		self:AddCommonGemInfo(gemInstance, grantedEffect, true)
+	end
+end
+
+function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq)
+	local displayInstance = gemInstance.displayEffect or gemInstance
+	local grantedEffectLevel = grantedEffect.levels[displayInstance.level]
+	if addReq then
+		self.tooltip:AddLine(16, string.format("^x7F7F7FLevel: ^7%d%s",
+			gemInstance.level, 
+			(displayInstance.level > gemInstance.level) and " ("..colorCodes.MAGIC.."+"..(displayInstance.level - gemInstance.level).."^7)" or ""
+		))
+	end
+	if grantedEffect.support then
+		if grantedEffectLevel.manaMultiplier then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Multiplier: ^7%d%%", grantedEffectLevel.manaMultiplier + 100))
+		end
+		if grantedEffectLevel.manaCostOverride then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FMana Reservation Override: ^7%d%%", grantedEffectLevel.manaCostOverride))
+		end
+		if grantedEffectLevel.cooldown then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown))
+		end
+	else
+		if grantedEffectLevel.manaCost then
+			if grantedEffect.skillTypes[SkillType.ManaCostReserved] then
+				if grantedEffect.skillTypes[SkillType.ManaCostPercent] then
+					self.tooltip:AddLine(16, string.format("^x7F7F7FMana Reserved: ^7%d%%", grantedEffectLevel.manaCost))
+				else
+					self.tooltip:AddLine(16, string.format("^x7F7F7FMana Reserved: ^7%d", grantedEffectLevel.manaCost))
+				end
+			else
+				self.tooltip:AddLine(16, string.format("^x7F7F7FMana Cost: ^7%d", grantedEffectLevel.manaCost))
+			end
+		end
+		if grantedEffectLevel.cooldown then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown))
+		end
+		if not gemInstance.gemData.tags.attack then
+			if grantedEffect.castTime > 0 then
+				self.tooltip:AddLine(16, string.format("^x7F7F7FCast Time: ^7%.2f sec", grantedEffect.castTime))
+			else
+				self.tooltip:AddLine(16, "^x7F7F7FCast Time: ^7Instant")
+			end
+			if grantedEffectLevel.critChance then
+				self.tooltip:AddLine(16, string.format("^x7F7F7FCritical Strike Chance: ^7%.2f%%", grantedEffectLevel.critChance))
+			end
+		end
+		if grantedEffectLevel.damageEffectiveness then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FEffectiveness of Added Damage: ^7%d%%", grantedEffectLevel.damageEffectiveness * 100))
+		end
+	end
+	if addReq and displayInstance.quality > 0 then
+		self.tooltip:AddLine(16, string.format("^x7F7F7FQuality: "..colorCodes.MAGIC.."+%d%%^7%s",
+			gemInstance.quality,
+			(displayInstance.quality > gemInstance.quality) and " ("..colorCodes.MAGIC.."+"..(displayInstance.quality - gemInstance.quality).."^7)" or ""
+		))
+	end
+	self.tooltip:AddSeparator(10)
+	if addReq then
+		self.skillsTab.build:AddRequirementsToTooltip(self.tooltip, gemInstance.reqLevel, gemInstance.reqStr, gemInstance.reqDex, gemInstance.reqInt)
+	end
+	if grantedEffect.description then
+		local wrap = main:WrapString(grantedEffect.description, 16, m_max(DrawStringWidth(16, "VAR", gemInstance.gemData.tagString), 400))
+		for _, line in ipairs(wrap) do
+			self.tooltip:AddLine(16, colorCodes.GEM..line)
+		end
+	end
+	if self.skillsTab.build.data.describeStats then
+		self.tooltip:AddSeparator(10)
+		local stats = calcLib.buildSkillInstanceStats(displayInstance, grantedEffect)
+		if grantedEffectLevel.baseMultiplier then
+			stats["active_skill_attack_damage_final_permyriad"] = (grantedEffectLevel.baseMultiplier - 1) * 10000
+		end
+		local descriptions = self.skillsTab.build.data.describeStats(stats, grantedEffect.statDescriptionScope)
+		for _, line in ipairs(descriptions) do
+			self.tooltip:AddLine(16, colorCodes.MAGIC..line)
 		end
 	end
 end

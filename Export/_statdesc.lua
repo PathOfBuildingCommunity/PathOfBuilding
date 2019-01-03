@@ -1,35 +1,5 @@
 local nk = { }
 
-local function codePointToUTF8(codePoint)
-	if codePoint <= 0x7F then
-		return string.char(codePoint)
-	elseif codePoint <= 0x07FF then
-		return string.char(0xC0 + bit.rshift(codePoint, 6), 0x80 + bit.band(codePoint, 0x3F))
-	elseif codePoint <= 0xFFFF then
-		return string.char(0xE0 + bit.rshift(codePoint, 12), 0x80 + bit.band(bit.rshift(codePoint, 6), 0x3F), 0x80 + bit.band(codePoint, 0x3f))
-	else
-		return "?"
-	end
-end
-local function convertUTF16to8(text)
-	local out = { }
-	local highSurr
-	for i = 1, #text - 1, 2 do
-		local codeUnit = text:byte(i) + text:byte(i+1) * 256
-		if codeUnit >= 0xD800 and codeUnit <= 0xDBFF then
-			highSurr = codeUnit - 0xD800
-		elseif codeUnit >= 0xDC00 and codeUnit <= 0xDFFF then
-			if highSurr then
-				table.insert(out, codePointToUTF8(highSurr * 1024 + codeUnit - 0xDC00 + 0x010000))
-				highSurr = nil
-			end
-		else
-			table.insert(out, codePointToUTF8(codeUnit))
-		end
-	end
-	return table.concat(out)
-end
-
 local statDescriptor
 local statDescriptors = { }
 function loadStatFile(fileName)
@@ -45,7 +15,10 @@ function loadStatFile(fileName)
 	local function processLine(line)
 		local include = line:match('include "Metadata/StatDescriptions/(.+)"$')
 		if include then
-			for line in io.lines(include) do
+			local f = io.open(include, "rb")
+			local text = convertUTF16to8(f:read("*a"))
+			f:close()
+			for line in text:gmatch("[^\r\n]+") do
 				processLine(line)
 			end
 			return
@@ -54,8 +27,9 @@ function loadStatFile(fileName)
 		if noDesc then
 			statDescriptor[noDesc] = { order = 0 }
 		elseif line:match("description") then	
+			local name = line:match("description ([%w_]+)")
 			curLang = { }
-			curDescriptor = { lang = { ["English"] = curLang }, order = order }
+			curDescriptor = { lang = { ["English"] = curLang }, order = order, name = name }
 			order = order + 1
 		elseif not curDescriptor.stats then
 			local stats = line:match("%d+%s+([%w_%+%-%% ]+)")
@@ -67,31 +41,31 @@ function loadStatFile(fileName)
 				end
 			end
 		else
-			local langName = line:match('lang ".+"')
+			local langName = line:match('lang "(.+)"')
 			if langName then
 				curLang = { }
 				curDescriptor.lang[langName] = curLang
 			else
 				local statLimits, text, special = line:match('([%d%-#| ]+) "(.-)"%s*(.*)')
 				if statLimits then
-					local desc = { text = text, special = { }, limit = { } }
+					local desc = { text = text, limit = { } }
 					for statLimit in statLimits:gmatch("[%d%-#|]+") do
 						local limit = { }
 						if statLimit == "#" then
-							limit.min = "#"
-							limit.max = "#"
+							limit[1] = "#"
+							limit[2] = "#"
 						elseif statLimit:match("^%d+$") then
-							limit.min = tonumber(statLimit)
-							limit.max = tonumber(statLimit)
+							limit[1] = tonumber(statLimit)
+							limit[2] = tonumber(statLimit)
 						else
-							limit.min, limit.max = statLimit:match("([%d%-#]+)|([%d%-#]+)")
-							limit.min = tonumber(limit.min) or limit.min
-							limit.max = tonumber(limit.max) or limit.max
+							limit[1], limit[2] = statLimit:match("([%d%-#]+)|([%d%-#]+)")
+							limit[1] = tonumber(limit[1]) or limit[1]
+							limit[2] = tonumber(limit[2]) or limit[2]
 						end
 						table.insert(desc.limit, limit)
 					end
 					for k, v in special:gmatch("([%w%%_]+) (%w+)") do
-						table.insert(desc.special, {
+						table.insert(desc, {
 							k = k,
 							v = tonumber(v) or v,
 						})
@@ -112,14 +86,14 @@ function loadStatFile(fileName)
 end
 
 for k, v in pairs(nk) do
-	--print("'"..k.."' = '"..v.."'")
+	print("'"..k.."' = '"..v.."'")
 end
 
 local function matchLimit(lang, val) 
 	for _, desc in ipairs(lang) do
 		local match = true
 		for i, limit in ipairs(desc.limit) do
-			if (limit.max ~= "#" and val[i].min > limit.max) or (limit.min ~= "#" and val[i].min < limit.min) then
+			if (limit[2] ~= "#" and val[i].min > limit[2]) or (limit[1] ~= "#" and val[i].min < limit[1]) then
 				match = false
 				break
 			end
@@ -152,7 +126,7 @@ function describeStats(stats)
 		end
 		local desc = matchLimit(descriptor.lang["English"], val)
 		if desc then
-			for _, spec in ipairs(desc.special) do
+			for _, spec in ipairs(desc) do
 				if spec.k == "negate" then
 					val[spec.v].max, val[spec.v].min = -val[spec.v].min, -val[spec.v].max
 				elseif spec.k == "divide_by_one_hundred" then
@@ -181,6 +155,10 @@ function describeStats(stats)
 				elseif spec.k == "milliseconds_to_seconds_0dp" then
 					val[spec.v].min = val[spec.v].min / 1000
 					val[spec.v].max = val[spec.v].max / 1000
+				elseif spec.k == "milliseconds_to_seconds_2dp_if_required" then
+					val[spec.v].min = round(val[spec.v].min / 1000, 2)
+					val[spec.v].max = round(val[spec.v].max / 1000, 2)
+					val[spec.v].fmt = "g"	
 				elseif spec.k == "deciseconds_to_seconds" then
 					val[spec.v].min = val[spec.v].min / 10
 					val[spec.v].max = val[spec.v].max / 10

@@ -36,7 +36,7 @@ local function calcHitDamage(activeSkill, source, cfg, breakdown, damageType, ..
 	local damageTypeMax = damageType.."Max"
 
 	-- Calculate base values
-	local damageEffectiveness = activeSkill.skillData.damageEffectiveness or 1
+	local damageEffectiveness = activeSkill.activeEffect.grantedEffectLevel.damageEffectiveness or activeSkill.skillData.damageEffectiveness or 1
 	local addedMin = skillModList:Sum("BASE", cfg, damageTypeMin)
 	local addedMax = skillModList:Sum("BASE", cfg, damageTypeMax)
 	local baseMin = (source[damageTypeMin] or 0) + addedMin * damageEffectiveness
@@ -478,13 +478,14 @@ function calcs.offence(env, actor, activeSkill)
 		local more = m_floor(skillModList:More(skillCfg, "ManaCost") * 100 + 0.0001) / 100
 		local inc = skillModList:Sum("INC", skillCfg, "ManaCost")
 		local base = skillModList:Sum("BASE", skillCfg, "ManaCost")
-		output.ManaCost = m_floor(m_max(0, (skillData.manaCost or 0) * more * (1 + inc / 100) + base))
+		local manaCost = activeSkill.activeEffect.grantedEffectLevel.manaCost or 0
+		output.ManaCost = m_floor(m_max(0, manaCost * more * (1 + inc / 100) + base))
 		if activeSkill.skillTypes[SkillType.ManaCostPercent] and skillFlags.totem then
 			output.ManaCost = m_floor(output.Mana * output.ManaCost / 100)
 		end
-		if breakdown and output.ManaCost ~= (skillData.manaCost or 0) then
+		if breakdown and output.ManaCost ~= manaCost then
 			breakdown.ManaCost = {
-				s_format("%d ^8(base mana cost)", skillData.manaCost or 0)
+				s_format("%d ^8(base mana cost)", manaCost)
 			}
 			if more ~= 1 then
 				t_insert(breakdown.ManaCost, s_format("x %.2f ^8(mana cost multiplier)", more))
