@@ -1,3 +1,6 @@
+VERSION[1.4.125][2019/01/04]
+ * Fixed Blasphemy mana reservation
+ * Fixed error that sometimes occurred when adding gems
 VERSION[1.4.124][2019/01/03]
  * Hovering over a gem in the Skills tab will now show the gem's full tooltip, including stats
  * Fixed new issue causing Configuration tab options to not appear

@@ -330,8 +330,7 @@ function GemSelectClass:Draw(viewPort)
 			local thisGem = self.skillsTab.displayGroup.gemList[self.index]
 			local hoverGem = self.skillsTab.displayGroup.gemList[hoverControl.index]
 			if thisGem and hoverGem and thisGem.enabled and hoverGem.enabled and thisGem.gemData and hoverGem.gemData and
-			  ((hoverGem.gemData.grantedEffect.support and not thisGem.gemData.grantedEffect.support and hoverGem.displayEffect and hoverGem.displayEffect.isSupporting[thisGem]) or
-			   (thisGem.gemData.grantedEffect.support and not hoverGem.gemData.grantedEffect.support and thisGem.displayEffect and thisGem.displayEffect.isSupporting[hoverGem])) then
+			  (self:CheckSupporting(thisGem, hoverGem) or self:CheckSupporting(hoverGem, thisGem)) then
 			   SetDrawColor(0.33, 1, 0.33, 0.25)
 			   DrawImage(nil, x, y, width, height)
 			end
@@ -347,6 +346,10 @@ function GemSelectClass:Draw(viewPort)
 			end
 		end
 	end
+end
+
+function GemSelectClass:CheckSupporting(gemA, gemB)
+	return gemA.gemData.grantedEffect.support and not gemB.gemData.grantedEffect.support and gemA.displayEffect and gemA.displayEffect.isSupporting and gemA.displayEffect.isSupporting[gemB]
 end
 
 function GemSelectClass:AddGemTooltip(gemInstance)
