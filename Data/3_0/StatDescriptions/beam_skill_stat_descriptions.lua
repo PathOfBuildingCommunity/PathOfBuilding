@@ -1,0 +1,1 @@
+return {[1]={["stats"]={[1]="projectile_number_to_split"},["name"]="split_num",["lang"]={["English"]={[1]={["limit"]={[1]={[1]=1,[2]=1}},["text"]="Beams Split to hit %1% extra target"},[2]={["limit"]={[1]={[1]="#",[2]="#"}},["text"]="Beams Split to hit %1% extra targets"}}}},["parent"]="skill_stat_descriptions",["projectile_number_to_split"]=1}

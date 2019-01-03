@@ -583,7 +583,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			end
 			calcLib.validateGemLevel(gemInstance)
 			if gemInstance.gemData then
-				gemInstance.reqLevel = grantedEffect.levels[gemInstance.level][1]
+				gemInstance.reqLevel = grantedEffect.levels[gemInstance.level].levelRequirement
 				gemInstance.reqStr = calcLib.getGemStatRequirement(gemInstance.reqLevel, grantedEffect.support, gemInstance.gemData.reqStr)
 				gemInstance.reqDex = calcLib.getGemStatRequirement(gemInstance.reqLevel, grantedEffect.support, gemInstance.gemData.reqDex)
 				gemInstance.reqInt = calcLib.getGemStatRequirement(gemInstance.reqLevel, grantedEffect.support, gemInstance.gemData.reqInt)

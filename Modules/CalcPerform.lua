@@ -523,7 +523,7 @@ function calcs.perform(env)
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
 			local suffix = activeSkill.skillTypes[SkillType.ManaCostPercent] and "Percent" or "Base"
-			local baseVal = activeSkill.skillData.manaCostOverride or activeSkill.skillData.manaCost or 0
+			local baseVal = activeSkill.skillData.manaCostOverride or activeSkill.activeEffect.grantedEffectLevel.manaCost or 0
 			local mult = skillModList:More(skillCfg, "ManaCost")
 			local more = skillModList:More(skillCfg, "ManaReserved")
 			local inc = skillModList:Sum("INC", skillCfg, "ManaReserved")

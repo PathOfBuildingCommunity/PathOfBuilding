@@ -1,3 +1,7 @@
+### 1.4.124 - 2019/01/03
+ * Hovering over a gem in the Skills tab will now show the gem's full tooltip, including stats
+ * Fixed new issue causing Configuration tab options to not appear
+
 ### 1.4.123 - 2019/01/02
  * Fixed issue causing Configuration tab options to sometimes fail to appear when appropriate
  * Fixed error when adding crafted modifiers to items

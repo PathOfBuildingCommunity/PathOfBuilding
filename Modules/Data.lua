@@ -167,6 +167,11 @@ for _, targetVersion in ipairs(targetVersionList) do
 	-- Misc data tables
 	dataModule("Misc", verData)
 
+	-- Stat descriptions
+	if targetVersion ~= "2_6" then
+		verData.describeStats = LoadModule("Modules/StatDescriber", targetVersion)
+	end
+
 	-- Load item modifiers
 	verData.itemMods = {
 		Item = dataModule("ModItem"),
