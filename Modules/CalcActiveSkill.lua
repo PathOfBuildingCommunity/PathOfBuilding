@@ -376,7 +376,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 				skillModList:NewMod("ManaCost", "MORE", level.manaMult, skillEffect.grantedEffect.modSource)
 			end
 			if level.manaCostOverride then
-				activeSkill.skillData.manaCostOVerride = level.manaCostOverride
+				activeSkill.skillData.manaCostOverride = level.manaCostOverride
 			end
 			if level.cooldown then
 				activeSkill.skillData.cooldown = level.cooldown
