@@ -1,3 +1,6 @@
+### 1.4.126 - 2019/01/04
+ * Fixed mana cost multipliers on support gems not applying
+
 ### 1.4.125 - 2019/01/04
  * Fixed Blasphemy mana reservation
  * Fixed error that sometimes occurred when adding gems

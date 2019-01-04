@@ -372,8 +372,8 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 		if skillEffect.grantedEffect.support then
 			calcs.mergeSkillInstanceMods(env, skillModList, skillEffect)
 			local level = skillEffect.grantedEffectLevel
-			if level.manaMult then
-				skillModList:NewMod("ManaCost", "MORE", level.manaMult, skillEffect.grantedEffect.modSource)
+			if level.manaMultiplier then
+				skillModList:NewMod("ManaCost", "MORE", level.manaMultiplier, skillEffect.grantedEffect.modSource)
 			end
 			if level.manaCostOverride then
 				activeSkill.skillData.manaCostOverride = level.manaCostOverride
