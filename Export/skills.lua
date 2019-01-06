@@ -161,37 +161,25 @@ directiveTable.skill = function(state, args, out)
 		level.level = levelRow.Level
 		table.insert(skill.levels, level)
 		level.extra.levelRequirement = levelRow.LevelRequirement
-		if not granted.IsSupport then
---			addLevelMod('skill("levelRequirement", {val})', levelRow.LevelRequirement, true)
-		else
---			addLevelMod("nil", levelRow.LevelRequirement, true)
-		end
 		if levelRow.ManaCost and levelRow.ManaCost ~= 0 then
-			--addLevelMod('skill("manaCost", {val})', levelRow.ManaCost)
 			level.extra.manaCost = levelRow.ManaCost
 		end
 		if levelRow.ManaMultiplier ~= 100 then
-			--addLevelMod('mod("ManaCost", "MORE", {val})', levelRow.ManaMultiplier - 100)
 			level.extra.manaMultiplier = levelRow.ManaMultiplier - 100
 		end
 		if levelRow.DamageEffectiveness ~= 0 then
-			--addLevelMod('skill("damageEffectiveness", {val})', levelRow.DamageEffectiveness / 100 + 1)
 			level.extra.damageEffectiveness = levelRow.DamageEffectiveness / 100 + 1
 		end
 		if levelRow.CriticalStrikeChance ~= 0 then
-			--addLevelMod('skill("CritChance", {val})', levelRow.CriticalStrikeChance / 100)
 			level.extra.critChance = levelRow.CriticalStrikeChance / 100
 		end
 		if levelRow.DamageMultiplier and levelRow.DamageMultiplier ~= 0 then
-			--addLevelMod('skill("baseMultiplier", {val})', levelRow.DamageMultiplier / 10000 + 1)
 			level.extra.baseMultiplier = levelRow.DamageMultiplier / 10000 + 1
 		end
 		if levelRow.ManaReservationOverride ~= 0 then
-			--addLevelMod('skill("manaCostOverride", {val})', levelRow.ManaReservationOverride)
 			level.extra.manaCostOverride = levelRow.ManaReservationOverride
 		end
 		if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
-			--addLevelMod('skill("cooldown", {val})', levelRow.Cooldown / 1000)
 			level.extra.cooldown = levelRow.Cooldown / 1000
 		end
 		for i, statKey in ipairs(levelRow.StatsKeys) do

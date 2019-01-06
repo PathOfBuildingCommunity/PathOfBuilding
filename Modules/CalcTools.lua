@@ -162,8 +162,8 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 			local nextLevel = m_min(skillInstance.level + 1, #grantedEffect.levels)
 			local nextReq = grantedEffect.levels[nextLevel].levelRequirement
 			local prevReq = grantedEffect.levels[nextLevel - 1].levelRequirement
-			local nextStat = grantedEffect.level[nextLevel][index]
-			local prevStat = grantedEffect.level[nextLevel - 1][index]
+			local nextStat = grantedEffect.levels[nextLevel][index]
+			local prevStat = grantedEffect.levels[nextLevel - 1][index]
 			statValue = round(prevStat + (nextStat - prevStat) * (skillInstance.actorLevel - prevReq) / (nextReq - prevReq))
 		else
 			-- Static value

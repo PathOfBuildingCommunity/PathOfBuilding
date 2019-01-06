@@ -241,16 +241,16 @@ function calcs.buildOutput(build, mode)
 				end
 			end
 		end
-		ConPrintf("=== Cond ===")
-		ConPrintTable(env.conditionsUsed)
-		ConPrintf("=== Mult ===")
-		ConPrintTable(env.multipliersUsed)
-		ConPrintf("=== Minion Cond ===")
-		ConPrintTable(env.minionConditionsUsed)
-		ConPrintf("=== Enemy Cond ===")
-		ConPrintTable(env.enemyConditionsUsed)
-		ConPrintf("=== Enemy Mult ===")
-		ConPrintTable(env.enemyMultipliersUsed)
+--		ConPrintf("=== Cond ===")
+--		ConPrintTable(env.conditionsUsed)
+--		ConPrintf("=== Mult ===")
+--		ConPrintTable(env.multipliersUsed)
+--		ConPrintf("=== Minion Cond ===")
+--		ConPrintTable(env.minionConditionsUsed)
+--		ConPrintf("=== Enemy Cond ===")
+--		ConPrintTable(env.enemyConditionsUsed)
+--		ConPrintf("=== Enemy Mult ===")
+--		ConPrintTable(env.enemyMultipliersUsed)
 	elseif mode == "CALCS" then
 		local buffList = { }
 		local combatList = { }
@@ -387,7 +387,7 @@ function calcs.buildOutput(build, mode)
 			output.Minion.CurseList = output.CurseList
 		end
 
-		--infoDump(env)
+		infoDump(env)
 	end
 
 	return env
