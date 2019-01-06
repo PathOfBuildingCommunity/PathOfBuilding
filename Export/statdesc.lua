@@ -44,7 +44,7 @@ function processStatFile(name)
 							if statLimit == "#" then
 								limit[1] = "#"
 								limit[2] = "#"
-							elseif statLimit:match("^%d+$") then
+							elseif statLimit:match("^%-?%d+$") then
 								limit[1] = tonumber(statLimit)
 								limit[2] = tonumber(statLimit)
 							else

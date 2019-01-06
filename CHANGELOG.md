@@ -1,3 +1,8 @@
+### 1.4.127 - 2019/01/06
+ * Fixed error when showing tooltip for Abyssal Cry
+ * Fixed error when Gruthkul's Pelt is used in builds that contain spells
+ * Fixed error when opening builds containing certain Spectres
+
 ### 1.4.126 - 2019/01/04
  * Fixed mana cost multipliers on support gems not applying
 
