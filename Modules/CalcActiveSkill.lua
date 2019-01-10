@@ -153,8 +153,6 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	local skillFlags = activeSkill.skillFlags
 	local activeEffect = activeSkill.activeEffect
 	local activeGrantedEffect = activeEffect.grantedEffect
-	calcLib.validateGemLevel(activeEffect)
-	activeEffect.grantedEffectLevel = activeGrantedEffect.levels[activeEffect.level]
 
 	-- Set mode flags
 	if env.mode_buffs then
@@ -365,6 +363,8 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	if skillFlags.disable then
 		wipeTable(skillFlags)
 		skillFlags.disable = true
+		calcLib.validateGemLevel(activeEffect)
+		activeEffect.grantedEffectLevel = activeGrantedEffect.levels[activeEffect.level]
 		return
 	end
 
@@ -395,6 +395,7 @@ function calcs.buildActiveSkillModList(env, actor, activeSkill)
 	-- Add active gem modifiers
 	activeEffect.actorLevel = actor.minionData and actor.level
 	calcs.mergeSkillInstanceMods(env, skillModList, activeEffect)
+	activeEffect.grantedEffectLevel = activeGrantedEffect.levels[activeEffect.level]
 
 	-- Add extra modifiers from granted effect level
 	local level = activeEffect.grantedEffectLevel

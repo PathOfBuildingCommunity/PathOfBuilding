@@ -1,3 +1,6 @@
+### 1.4.128 - 2019/01/11
+ * Fixed issue preventing Empower and Enhance supports from working
+
 ### 1.4.127 - 2019/01/06
  * Fixed error when showing tooltip for Abyssal Cry
  * Fixed error when Gruthkul's Pelt is used in builds that contain spells
