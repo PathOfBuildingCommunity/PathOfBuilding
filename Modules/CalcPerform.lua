@@ -268,7 +268,7 @@ local function doActorMisc(env, actor)
 	else
 		output.EnduranceCharges = 0
 	end
-	output.EnduranceCharges = m_max(output.EnduranceCharges, output.FrenzyChargesMin)
+	output.EnduranceCharges = m_max(output.EnduranceCharges, output.EnduranceChargesMin)
 	output.RemovableEnduranceCharges = output.EnduranceCharges - output.EnduranceChargesMin
 	if modDB:Flag(nil, "UseSiphoningCharges") then
 		output.SiphoningCharges = modDB:Override(nil, "SiphoningCharges") or output.SiphoningChargesMax

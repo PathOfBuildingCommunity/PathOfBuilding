@@ -1,3 +1,7 @@
+### 1.4.129 - 2019/01/13
+ * "while Focussed" modifiers are now correctly recognised
+ * "+X to minimum Endurance Charges" now works correctly
+
 ### 1.4.128 - 2019/01/11
  * Fixed issue preventing Empower and Enhance supports from working
 
