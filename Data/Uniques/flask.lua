@@ -109,7 +109,7 @@ Removed life is regenerated as Energy Shield over 2 seconds
 ]],[[
 Cinderswallow Urn
 Silver Flask
-League: Betryal
+League: Betrayal
 Source: Drops from unique{Catarina, Master of Undeath}
 Variant: Crit Chance
 Variant: Damage Taken is Leeched as Life
