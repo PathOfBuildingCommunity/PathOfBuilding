@@ -242,7 +242,7 @@ Requires Level 60
 Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
 Focus has (15–25)% increased Cooldown Recovery Speed
 (50–70)% increased Damage with Hits and Ailments against Chilled Enemies
-{variant:1}{crafted}(1-2)% of Life Regenerated per second during any Flask Effect
+{variant:1}{crafted}(1.0-2.0)% of Life Regenerated per second during any Flask Effect
 {variant:2}{crafted}+(8-15)% to Cold and Chaos Resistances
 {variant:3}{crafted}+(8-15)% to Lightning and Chaos Resistances
 {variant:4}{crafted}+(8-15)% to Fire and Chaos Resistances
