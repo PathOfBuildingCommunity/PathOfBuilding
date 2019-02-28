@@ -787,7 +787,7 @@ Requires Level 65
 ]],[[
 Vivinsect
 Unset Ring
-League: Betryal
+League: Betrayal
 Variant: Fire and Chaos Resistances
 Variant: Cold and Chaos Resistances
 Variant: Lightning and Chaos Resistances
