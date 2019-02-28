@@ -227,12 +227,12 @@ When you Kill a Rare monster, you gain its mods for 20 seconds
 Hyperboreus
 Leather Belt
 Variant: Life Regen
-Variant: Cold and Chaos Resistances
-Variant: Lightning and Chaos Resistances
 Variant: Fire and Chaos Resistances
-Variant: Strength and Intelligence
-Variant: Dexterity and Intelligence
+Variant: Cold and Chaos Resistances
+Variant: Light and Chaos Resistances
 Variant: Strength and Dexterity
+Variant: Dexterity and Intelligence
+Variant: Strength and Intelligence
 Variant: Trap Throwing Speed
 Variant: Energy Shield Regen
 Variant: Lucky Crit Chance while Focussed
@@ -243,12 +243,12 @@ Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
 Focus has (15–25)% increased Cooldown Recovery Speed
 (50–70)% increased Damage with Hits and Ailments against Chilled Enemies
 {variant:1}{crafted}(1.0-2.0)% of Life Regenerated per second during any Flask Effect
-{variant:2}{crafted}+(8-15)% to Cold and Chaos Resistances
-{variant:3}{crafted}+(8-15)% to Lightning and Chaos Resistances
-{variant:4}{crafted}+(8-15)% to Fire and Chaos Resistances
-{variant:5}{crafted}+(6-17) to Strength and Intelligence
+{variant:2}{crafted}+(8-15)% to Fire and Chaos Resistances
+{variant:3}{crafted}+(8-15)% to Cold and Chaos Resistances
+{variant:4}{crafted}+(8-15)% to Lightning and Chaos Resistances
+{variant:5}{crafted}+(6-17) to Strength and Dexterity
 {variant:6}{crafted}+(6-17) to Dexterity and Intelligence
-{variant:7}{crafted}+(6-17) to Strength and Dexterity
+{variant:7}{crafted}+(6-17) to Strength and Intelligence
 {variant:8}{crafted}(7-12)% increased Trap Throwing Speed
 {variant:9}{crafted}(15-120) Energy Shield Regenerated per second while a Rare or Unique Enemy is Nearby
 {variant:10}{crafted}Your Critical Strike Chance is Lucky while Focussed

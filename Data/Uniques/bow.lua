@@ -42,8 +42,8 @@ The Crimson Storm
 Steelwood Bow
 Variant: Crit Multi while Rare/Unique Nearby
 Variant: Attack Speed while Rare/Unique Nearby
-Variant: Damage per Frenzy Charge
 Variant: Damage per Power Charge
+Variant: Damage per Frenzy Charge
 Variant: Damage per Endurance Charge
 Variant: Accuracy and Quality
 Variant: Attack Speed and Quality
@@ -62,13 +62,12 @@ Adds (100–120) to (150–165) Physical Damage against Bleeding Enemies
 50% chance to Maim Enemies on Critical Strike with Attacks
 {variant:1}{crafted}+(18-45)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
 {variant:2}{crafted}(11-22)% increased Attack Speed while a Rare or Unique Enemy is Nearby
-{variant:3}{crafted}(5-6)% increased Damage per Frenzy Charge
-{variant:4}{crafted}(5-6)% increased Damage per Power Charge
+{variant:3}{crafted}(5-6)% increased Damage per Power Charge
+{variant:4}{crafted}(5-6)% increased Damage per Frenzy Charge
 {variant:5}{crafted}(5-6)% increased Damage per Endurance Charge
 {variant:6}{crafted}+(30-250) to Accuracy Rating
-{variant:6}{crafted}+(7-18)% to Quality
 {variant:7}{crafted}(8-16)% increased Attack Speed
-{variant:7}{crafted}+(7-18)% to Quality
+{variant:6,7}{crafted}+(7-18)% to Quality
 {variant:8}{crafted}(8-16)% increased Attack Speed
 {variant:8}{crafted}10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
 {variant:9}{crafted}(7-13)% increased Cast Speed

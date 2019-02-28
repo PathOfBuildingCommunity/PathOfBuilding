@@ -265,17 +265,18 @@ Pain Attunement
 ]],[[
 The Devouring Diadem
 Necromancer Circlet
+League: Betrayal
 Source: Drops from unique{Catarina, Master of Undeath}
 Requires Level 54, 112 Int
-Variant: Intelligence and Quality
-Variant: Dexterity and Quality
 Variant: Strength and Quality
+Variant: Dexterity and Quality
+Variant: Intelligence and Quality
+Variant: Fire and Chaos Resistances
 Variant: Cold and Chaos Resistances
 Variant: Lightning and Chaos Resistances
-Variant: Fire and Chaos Resistances
-Variant: Strength and Intelligence
-Variant: Dexterity and Intelligence
 Variant: Strength and Dexterity
+Variant: Dexterity and Intelligence
+Variant: Strength and Intelligence
 Variant: Mine Laying Speed
 Variant: Focus Spell Trigger
 Variant: Focus Ailment Duration
@@ -285,18 +286,16 @@ Trigger Level 15 Feast of Flesh every 5 seconds
 (180-220)% increased Energy Shield
 10% chance for Energy Shield Recharge to start when you use a Skill
 Eldritch Battery
-{variant:1}{crafted}+(10-25) to Intelligence
-{variant:1}{crafted}+(7-18) to Quality
+{variant:1}{crafted}+(10-25) to Strength
 {variant:2}{crafted}+(10-25) to Dexterity
-{variant:2}{crafted}+(7-18) to Quality
-{variant:3}{crafted}+(10-25) to Strength
-{variant:3}{crafted}+(7-18) to Quality
-{variant:4}{crafted}+(8-15)% to Cold and Chaos Resistances
-{variant:5}{crafted}+(8-15)% to Lightning and Chaos Resistances
-{variant:6}{crafted}+(8-15)% to Fire and Chaos Resistances
-{variant:7}{crafted}+(6-17) to Strength and Intelligence
+{variant:3}{crafted}+(10-25) to Intelligence
+{variant:1,2,3}{crafted}+(7-18) to Quality
+{variant:4}{crafted}+(8-15)% to Fire and Chaos Resistances
+{variant:5}{crafted}+(8-15)% to Cold and Chaos Resistances
+{variant:6}{crafted}+(8-15)% to Lightning and Chaos Resistances
+{variant:7}{crafted}+(6-17) to Strength and Dexterity
 {variant:8}{crafted}+(6-17) to Dexterity and Intelligence
-{variant:9}{crafted}+(6-17) to Strength and Dexterity
+{variant:9}{crafted}+(6-17) to Strength and Intelligence
 {variant:10}{crafted}(7-12)% increased Mine Laying Speed
 {variant:11}{crafted}Trigger Socketed Spells when you Focus
 {variant:12}{crafted}(81-140)% increased Duration of Ailments you inflict while Focussed

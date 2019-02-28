@@ -377,26 +377,27 @@ Poisons on you expire 50% slower
 ]],[[
 Bitterbind Point
 Titanium Spirit Shield
+League: Betrayal
 Source: Drops from unique{Catarina, Master of Undeath}
-Requires Level 68, 159 Int
+Variant: Fire and Cold Damage
 Variant: Cold and Lightning Damage
 Variant: Fire and Lightning Damage
-Variant: Fire and Cold Damage
 Variant: Energy Shield and Life
 Variant: Armour during Soul Gain Prevention
 Variant: Level of Socketed Support Gems
+Requires Level 68, 159 Int
 (30–50)% increased Spell Damage
 (180–220)% increased Energy Shield
 Spectres have (50–100)% increased maximum Life
 Gain Arcane Surge when you deal a Critical Strike
 Your Raised Spectres also gain Arcane Surge when you do
 (40–50)% increased Critical Strike Chance for Spells per Raised Spectre
+{variant:1}{crafted}Adds (3-12) to (5-16) Fire Damage
 {variant:1}{crafted}Adds (3-12) to (5-16) Cold Damage
-{variant:1}{crafted}Adds 1 to (7-24) Lightning Damage
-{variant:2}{crafted}Adds (3-12) to (5-16) Fire Damage
+{variant:2}{crafted}Adds (3-12) to (5-16) Cold Damage
 {variant:2}{crafted}Adds 1 to (7-24) Lightning Damage
 {variant:3}{crafted}Adds (3-12) to (5-16) Fire Damage
-{variant:3}{crafted}Adds (3-12) to (5-16) Cold Damage
+{variant:3}{crafted}Adds 1 to (7-24) Lightning Damage
 {variant:4}{crafted}(20-40)% increased Energy Shield
 {variant:4}{crafted}+(10-28) to maximum Life
 {variant:5}{crafted}+(500-3000) to Armour during Soul Gain Prevention

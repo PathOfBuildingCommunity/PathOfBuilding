@@ -787,12 +787,12 @@ Requires Level 65
 ]],[[
 Vivinsect
 Unset Ring
+Variant: Fire and Chaos Resistances
 Variant: Cold and Chaos Resistances
 Variant: Lightning and Chaos Resistances
-Variant: Fire and Chaos Resistances
-Variant: Strength and Intelligence
-Variant: Dexterity and Intelligence
 Variant: Strength and Dexterity
+Variant: Dexterity and Intelligence
+Variant: Strength and Intelligence
 Variant: Effect of non-Damaging Ailments
 Variant: Focus Shock Nearby Enemies
 Variant: Minimum Frenzy Charges
@@ -806,12 +806,12 @@ Socketed Gems have 10% increased Mana Reservation
 +(15–25) to all Attributes
 15 Life Regenerated per second for each Uncorrupted Item Equipped
 -2 to Total Mana Cost of Skills for each Corrupted Item Equipped
-{variant:1}{crafted}+(8-15)% to Cold and Chaos Resistances
-{variant:2}{crafted}+(8-15)% to Lightning and Chaos Resistances
-{variant:3}{crafted}+(8-15)% to Fire and Chaos Resistances
-{variant:4}{crafted}+(6-17) to Strength and Intelligence
+{variant:1}{crafted}+(8-15)% to Fire and Chaos Resistances
+{variant:2}{crafted}+(8-15)% to Cold and Chaos Resistances
+{variant:3}{crafted}+(8-15)% to Lightning and Chaos Resistances
+{variant:4}{crafted}+(6-17) to Strength and Dexterity
 {variant:5}{crafted}+(6-17) to Dexterity and Intelligence
-{variant:6}{crafted}+(6-17) to Strength and Dexterity
+{variant:6}{crafted}+(6-17) to Strength and Intelligence
 {variant:7}{crafted}(11-30)% increased Effect of non-Damaging Ailments on Enemies
 {variant:8}{crafted}Shock nearby Enemies for (2-4) Seconds when you Focus
 {variant:9}{crafted}+1 to Minimum Frenzy Charges
