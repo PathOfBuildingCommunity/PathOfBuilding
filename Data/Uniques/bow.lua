@@ -65,7 +65,7 @@ Adds (100–120) to (150–165) Physical Damage against Bleeding Enemies
 {variant:4}{crafted}(5-6)% increased Damage per Power Charge
 {variant:5}{crafted}(5-6)% increased Damage per Endurance Charge
 {variant:6}{crafted}+(30-250) to Accuracy Rating
-{variant:6}{crafted}+(10-18)% to Quality
+{variant:6}{crafted}+(7-18)% to Quality
 {variant:7}{crafted}(8-16)% increased Attack Speed
 {variant:7}{crafted}+(7-18)% to Quality
 {variant:8}{crafted}(8-16)% increased Attack Speed
