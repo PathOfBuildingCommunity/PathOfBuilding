@@ -70,7 +70,7 @@ Adds (100–120) to (150–165) Physical Damage against Bleeding Enemies
 {variant:7}{crafted}+(7-18)% to Quality
 {variant:8}{crafted}(8-16)% increased Attack Speed
 {variant:8}{crafted}10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
-{variant:9}{crafted}Minions have (16-21)% increased Attack Speed
+{variant:9}{crafted}Minions have (16-28)% increased Attack Speed
 {variant:9}{crafted}Minions have (16-21)% increased Cast Speed
 {variant:10}{crafted}(4-12)% chance to deal Double Damage
 {variant:11}{crafted}(13-36)% chance to deal Double Damage while Focussed
