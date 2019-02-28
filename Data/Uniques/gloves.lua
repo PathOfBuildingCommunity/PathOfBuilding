@@ -174,7 +174,7 @@ Nubuck Gloves
 Requires Level 33
 (30-40)% increased Accuracy Rating
 +(40-50) to maximum Life
-+(-20--10)% to Chaos Resistance
++(-20-10)% to Chaos Resistance
 (7-8)% chance to Dodge Spell Damage
 Curse Enemies with Level 10 Assassin's Mark on Hit
 2% increased Attack Critical Strike Chance per 200 Accuracy Rating
@@ -390,8 +390,8 @@ Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
 +(200–300) to Accuracy Rating
 (120–150)% increased Armour and Evasion
 +(60–80) to maximum Life
-3% increased Attack Speed for each Map Item Modifier affecting the Area
 6% increased Attack Damage for each Map Item Modifier affecting the Area
+3% increased Attack Speed for each Map Item Modifier affecting the Area
 ]],[[
 Wyrmsign
 Wyrmscale Gauntlets
