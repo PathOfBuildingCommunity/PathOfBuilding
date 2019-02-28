@@ -787,6 +787,7 @@ Requires Level 65
 ]],[[
 Vivinsect
 Unset Ring
+League: Betryal
 Variant: Fire and Chaos Resistances
 Variant: Cold and Chaos Resistances
 Variant: Lightning and Chaos Resistances
@@ -798,7 +799,6 @@ Variant: Focus Shock Nearby Enemies
 Variant: Minimum Frenzy Charges
 Variant: Minimum Power Charges
 Variant: Minimum Endurance Charges
-Variant: Attack and Cast Speed
 Requires Level 45
 Has 1 Socket
 +5 to Level of Socketed Aura Gems
@@ -817,7 +817,6 @@ Socketed Gems have 10% increased Mana Reservation
 {variant:9}{crafted}+1 to Minimum Frenzy Charges
 {variant:10}{crafted}+1 to Minimum Power Charges
 {variant:11}{crafted}+1 to Minimum Endurance Charges
-{variant:12}{crafted}(3-6)% increased Attack and Cast Speed
 ]],[[
 Voideye
 Unset Ring

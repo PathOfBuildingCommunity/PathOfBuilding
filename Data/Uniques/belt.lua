@@ -226,6 +226,7 @@ When you Kill a Rare monster, you gain its mods for 20 seconds
 ]],[[
 Hyperboreus
 Leather Belt
+League: Betryal
 Variant: Life Regen
 Variant: Fire and Chaos Resistances
 Variant: Cold and Chaos Resistances

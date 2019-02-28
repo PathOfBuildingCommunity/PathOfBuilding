@@ -40,6 +40,7 @@ Bow Knockback at Close Range
 ]],[[
 The Crimson Storm
 Steelwood Bow
+League: Betryal
 Variant: Crit Multi while Rare/Unique Nearby
 Variant: Attack Speed while Rare/Unique Nearby
 Variant: Damage per Power Charge
