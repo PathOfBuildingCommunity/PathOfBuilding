@@ -81,6 +81,15 @@ Triggers Level 20 Lightning Aegis when Equipped
 320% increased Evasion and Energy Shield
 +47 to maximum Mana
 6% increased Movement Speed
+]],[[
+Vixen's Entrapment 
+Embroidered Gloves
+Requires Level: 36
++64 to maximum Energy Shield
+You can apply an additional Curse
+16% increased Cast Speed with Curse Skills
+0.2% of Spell Damage Leeched as Energy Shield for each Curse on Enemy
+Trigger Socketed Curse Spells when you cast a Curse
 ]],
 
 }

@@ -612,6 +612,9 @@ return {
 	{ var = "multiplierPoisonOnEnemy", type = "count", label = "# of Poison on Enemy:", implyCond = "Poisoned", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:PoisonStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "multiplierCurseOnEnemy", type = "count", label = "# of Curses on Enemy:", implyCond = "Cursed", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Multiplier:CurseStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "conditionEnemyMaimed", type = "check", label = "Is the enemy Maimed?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Maimed", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
