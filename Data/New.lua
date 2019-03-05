@@ -69,6 +69,18 @@ Socketed Gems are Supported by Level 25 Blessing
 259% increased Armour and Energy Shield
 +14% to all Elemental Resistances
 28% increased Movement Speed
+]],[[
+Perepiteia
+Ezomyte Spiked Shield
+Requires Level 62, 85 Dex, 85 Int
+2% chance to Dodge Spell Hits
++2 to Level of Socketed Lightning Gems
+Triggers Level 20 Lightning Aegis when Equipped
+20% increased Attack Speed
+7% increased Cast Speed
+320% increased Evasion and Energy Shield
++47 to maximum Mana
+6% increased Movement Speed
 ]],
 
 }
