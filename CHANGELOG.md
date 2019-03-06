@@ -11,12 +11,13 @@
 	* Storm's Gift
  * Added most 3.5 uniques (thanks Patchumz and PJacek)
  * Added support for Energy Shield Leech
- * Added base radius values for Dark Pact (24), Vaal Blight (20), and Wither (18)
- * Fixed issue preventing local life on hit modifiers from working correctly
  * The stat comparisons in tooltips for non-equipped two handed weapons now show the changes from replacing both
    weapons if you are dual wielding, rather than your main hand weapon only
+ * Added base radius values for Dark Pact (24), Vaal Blight (20), and Wither (18)
+ * Fixed issue preventing local life on hit modifiers from working correctly
  * Storm Call now shows DPS as well as average damage
  * Decay DPS is now only shown if the skill can deal Chaos Damage
+ * Fixed error when trying to add a custom modifier to Abyss Jewels
 
 ### 1.4.129 - 2019/01/13
  * "while Focussed" modifiers are now correctly recognised
