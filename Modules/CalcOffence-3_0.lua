@@ -1115,13 +1115,13 @@ function calcs.offence(env, actor, activeSkill)
 			output.LifeLeech = 0
 			output.LifeLeechInstant = 0
 		end
-		output.LifeLeech = m_min(output.LifeLeech, output.MaxLifeLeechInstance)
+		output.LifeLeech = m_min(output.LifeLeech, globalOutput.MaxLifeLeechInstance)
 		output.LifeLeechDuration, output.LifeLeechInstances = getLeechInstances(output.LifeLeech, globalOutput.Life)
 		output.LifeLeechInstantRate = output.LifeLeechInstant * hitRate
-		output.EnergyShieldLeech = m_min(output.EnergyShieldLeech, output.MaxEnergyShieldLeechInstance)
+		output.EnergyShieldLeech = m_min(output.EnergyShieldLeech, globalOutput.MaxEnergyShieldLeechInstance)
 		output.EnergyShieldLeechDuration, output.EnergyShieldLeechInstances = getLeechInstances(output.EnergyShieldLeech, globalOutput.EnergyShield)
 		output.EnergyShieldLeechInstantRate = output.EnergyShieldLeechInstant * hitRate
-		output.ManaLeech = m_min(output.ManaLeech, output.MaxManaLeechInstance)
+		output.ManaLeech = m_min(output.ManaLeech, globalOutput.MaxManaLeechInstance)
 		output.ManaLeechDuration, output.ManaLeechInstances = getLeechInstances(output.ManaLeech, globalOutput.Mana)
 		output.ManaLeechInstantRate = output.ManaLeechInstant * hitRate
 
