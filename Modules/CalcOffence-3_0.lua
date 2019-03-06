@@ -782,9 +782,9 @@ function calcs.offence(env, actor, activeSkill)
 				local enemyExtra = env.mode_effective and enemyDB:Sum("BASE", nil, "SelfExtraCritChance") or 0
 				output.CritChance = (baseCrit + base) * (1 + inc / 100) * more
 				local preCapCritChance = output.CritChance
-				output.CritChance = m_min(output.CritChance, 95)
+				output.CritChance = m_min(output.CritChance, 100)
 				if (baseCrit + base) > 0 then
-					output.CritChance = m_max(output.CritChance, 5)
+					output.CritChance = m_max(output.CritChance, 0)
 				end
 				output.PreEffectiveCritChance = output.CritChance
 				if enemyExtra ~= 0 then
@@ -812,8 +812,8 @@ function calcs.offence(env, actor, activeSkill)
 						t_insert(breakdown.CritChance, s_format("x %.2f", more).." ^8(more/less)")
 					end
 					t_insert(breakdown.CritChance, s_format("= %.2f%% ^8(crit chance)", output.PreEffectiveCritChance))
-					if preCapCritChance > 95 then
-						local overCap = preCapCritChance - 95
+					if preCapCritChance > 100 then
+						local overCap = preCapCritChance - 100
 						t_insert(breakdown.CritChance, s_format("Crit is overcapped by %.2f%% (%d%% increased Critical Strike Chance)", overCap, overCap / more / (baseCrit + base) * 100))
 					end
 					if enemyExtra ~= 0 then
