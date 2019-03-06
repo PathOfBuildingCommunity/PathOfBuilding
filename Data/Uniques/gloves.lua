@@ -23,9 +23,9 @@ Titan Gauntlets
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 69
-(150–200)% increased Armour
-(50–70) Life Regenerated per second
-+(30–40)% to Fire Resistance
+(150-200)% increased Armour
+(50-70) Life Regenerated per second
++(30-40)% to Fire Resistance
 3% increased Damage per Crab Barrier
 10% chance that if you would gain a Crab Barrier, you instead gain up to
 your maximum number of Crab Barriers
@@ -55,9 +55,9 @@ Socketed Gems are Supported by level 10 Knockback
 Giantsbane
 Bronze Gauntlets
 Requires Level: 23
-Adds (3–6) to (10–12) Physical Damage to Attacks 
-+(30–40) to Strength 
-(80–100)% increased Armour 
+Adds (3-6) to (10-12) Physical Damage to Attacks
++(30-40) to Strength
+(80-100)% increased Armour
 Iron Grip
 ]],[[
 Lochtonial Caress
@@ -113,12 +113,12 @@ Blasphemer's Grasp
 Assassin's Mitts
 Source: Drops from unique{The Elder}
 Requires Level 58
-+(40–50) to Dexterity 
-(150–200)% increased Evasion and Energy Shield 
-+(50–60) to maximum Life 
-15% increased Damage with Ailments per Elder Item Equipped 
-+6 to Maximum Life per Elder Item Equipped 
-8% increased Effect of non-Damaging Ailments per Elder Item Equipped 
++(40-50) to Dexterity
+(150-200)% increased Evasion and Energy Shield
++(50-60) to maximum Life
+15% increased Damage with Ailments per Elder Item Equipped
++6 to Maximum Life per Elder Item Equipped
+8% increased Effect of non-Damaging Ailments per Elder Item Equipped
 Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
 Elder Item
 ]],[[
@@ -172,11 +172,11 @@ Requires Level 21, 33 Dex
 Oskarm
 Nubuck Gloves
 Requires Level 33
-(30–40)% increased Accuracy Rating 
-+(40–50) to maximum Life 
-+(-20–-10)% to Chaos Resistance 
-(7–8)% chance to Dodge Spell Damage 
-Curse Enemies with Level 10 Assassin's Mark on Hit 
+(30-40)% increased Accuracy Rating
++(40-50) to maximum Life
++(-20-10)% to Chaos Resistance
+(7-8)% chance to Dodge Spell Damage
+Curse Enemies with Level 10 Assassin's Mark on Hit
 2% increased Attack Critical Strike Chance per 200 Accuracy Rating
 ]],
 -- Gloves: Energy Shield
@@ -206,9 +206,9 @@ Demon Stitcher
 Satin Gloves
 League: Delve
 Requires Level 41
-(15–20)% increased Cast Speed
-+(50–70) to maximum Energy Shield
-+(50–70) to maximum Life
+(15-20)% increased Cast Speed
++(50-70) to maximum Energy Shield
++(50-70) to maximum Life
 Sacrifice 5% of Life to gain that much Energy Shield when you Cast a Spell
 ]],[[
 Doedre's Tenure
@@ -230,11 +230,11 @@ Doedre's Malevolence
 Velvet Gloves
 Source: Upgraded from unique{Doedre's Tenure} via prophecy{The Malevolent Witch}
 Requires Level 64
-(50–60)% increased Spell Damage
+(50-60)% increased Spell Damage
 +20 to Intelligence
-Adds (48–56) to (73–84) Chaos Damage to Spells
+Adds (48-56) to (73-84) Chaos Damage to Spells
 15% reduced Cast Speed
-+(64–96) to maximum Energy Shield
++(64-96) to maximum Energy Shield
 +50 to Total Mana Cost of Skills
 ]],[[
 Grip of the Council
@@ -252,9 +252,9 @@ Kalisa's Grace
 Samite Gloves
 Requires Level 47
 Socketed Gems are Supported by Level 18 Faster Casting
-+(20–30) to Intelligence 
-+(50–80) to maximum Energy Shield 
-+(50–70) to maximum Life 
++(20-30) to Intelligence
++(50-80) to maximum Energy Shield
++(50-70) to maximum Life
 Gain +2% to Critical Strike Chance for 2 seconds when you Spend a total of 800 Mana
 ]],[[
 Sadima's Touch
@@ -278,7 +278,7 @@ Variant: Current
 Requires Level 55, 79 Int
 (125-150)% increased Critical Strike Chance for Spells
 {variant:1,2}(280-350)% increased Energy Shield
-{variant:3}(180–250)% increased Energy Shield
+{variant:3}(180-250)% increased Energy Shield
 {variant:1}80% increased Mana Cost of Skills
 {variant:2,3}(40-80)% increased Mana Cost of Skills
 +(15-20) Energy Shield gained on Kill
@@ -299,11 +299,11 @@ Hydrascale Gauntlets
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
 Requires Level 59
-(100–140)% increased Armour and Evasion
-+(50–70) to maximum Life
-+(400–500) to Accuracy against Bleeding Enemies
+(100-140)% increased Armour and Evasion
++(50-70) to maximum Life
++(400-500) to Accuracy against Bleeding Enemies
 Attacks always inflict Bleeding while you have Cat's Stealth
-(40–50)% increased Damage with Hits and Ailments against Bleeding Enemies
+(40-50)% increased Damage with Hits and Ailments against Bleeding Enemies
 You have Crimson Dance while you have Cat's Stealth
 ]],[[
 Flesh and Spirit
@@ -323,12 +323,12 @@ Rampage
 Haemophilia
 Serpentscale Gauntlets
 Requires Level 43, 34 Str, 34 Dex
-+(20–30) to Strength 
-25% increased Damage over Time 
-Attacks have 25% chance to cause Bleeding 
-(25–40)% increased Attack Damage against Bleeding Enemies 
++(20-30) to Strength
+25% increased Damage over Time
+Attacks have 25% chance to cause Bleeding
+(25-40)% increased Attack Damage against Bleeding Enemies
 Bleeding Enemies you Kill Explode, dealing 5% of
-their Maximum Life as Physical Damage 
+their Maximum Life as Physical Damage
 25% reduced Bleed duration
 ]],[[
 Slitherpinch
@@ -364,9 +364,9 @@ Variant: Two Abyssal Sockets
 Requires Level: 36
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
-(6–10)% increased Attack Speed 
-(4–6)% increased maximum Life 
-With a Murderous Eye Jewel Socketed, Intimidate Enemies for 4 seconds on Hit with Attacks 
+(6-10)% increased Attack Speed
+(4-6)% increased maximum Life
+With a Murderous Eye Jewel Socketed, Intimidate Enemies for 4 seconds on Hit with Attacks
 With a Searching Eye Jewel Socketed, Maim Enemies for 4 seconds on Hit with Attacks
 ]],[[
 Vaal Caress
@@ -382,6 +382,16 @@ Requires Level 27, 22 Str, 22 Dex
 {variant:1}+30% to Cold Resistance
 {variant:2}+40% to Cold Resistance
 You gain Onslaught for 5 seconds on using a Vaal Skill
+]],[[
+Worldcarver
+Dragonscale Gauntlets
+Requires Level 67, 51 Str, 51 Dex
+Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
++(200â€“300) to Accuracy Rating
+(120â€“150)% increased Armour and Evasion
++(60â€“80) to maximum Life
+6% increased Attack Damage for each Map Item Modifier affecting the Area
+3% increased Attack Speed for each Map Item Modifier affecting the Area
 ]],[[
 Wyrmsign
 Wyrmscale Gauntlets
@@ -404,8 +414,8 @@ Variant: Two Abyssal Sockets
 Requires Level 37
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
-(6–10)% increased Cast Speed
-(4–6)% increased maximum Life
+(6-10)% increased Cast Speed
+(4-6)% increased maximum Life
 With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
 With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
 ]],[[
@@ -435,12 +445,12 @@ Soldier Gloves
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
 Requires Level 51
-(140–180)% increased Armour and Energy Shield
-+(30–60) to maximum Life
-+(20–25)% to Cold and Lightning Resistances
-+(-2–2) seconds to Avian's Might Duration
-Adds (20–25) to (37–40) Cold Damage while you have Avian's Might
-Adds (1–3) to (55–62) Lightning Damage while you have Avian's Might
+(140-180)% increased Armour and Energy Shield
++(30-60) to maximum Life
++(20-25)% to Cold and Lightning Resistances
++(-2-2) seconds to Avian's Might Duration
+Adds (20-25) to (37-40) Cold Damage while you have Avian's Might
+Adds (1-3) to (55-62) Lightning Damage while you have Avian's Might
 ]],[[
 Shackles of the Wretched
 Chain Gloves
@@ -456,7 +466,7 @@ You cannot be Ignited for 3 seconds after being Ignited
 {variant:2}You cannot be Shocked for 3 seconds after being Shocked
 You grant (4-6) Frenzy Charges to allies on Death
 ]],[[
-Shaper's Touch 
+Shaper's Touch
 Crusader Gloves
 Source: Drops from unique{The Shaper}
 Variant: Pre 2.6.0
@@ -517,10 +527,10 @@ Strapped Mitts
 League: Incursion
 Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
 Requires Level 16
-+(30–40) to Dexterity
-(100–125)% increased Evasion and Energy Shield
-(20–30)% reduced Trap Throwing Speed
-Skills used by Traps have (10–20)% increased Area of Effect
++(30-40) to Dexterity
+(100-125)% increased Evasion and Energy Shield
+(20-30)% reduced Trap Throwing Speed
+Skills used by Traps have (10-20)% increased Area of Effect
 Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
 ]],[[
 Slavedriver's Hand
@@ -568,11 +578,11 @@ League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
 Requires Level 50
 Grants Level 20 Aspect of the Spider Skill
-(120–170)% increased Evasion and Energy Shield
-+(40–50) to maximum Life
-(6–9)% increased Attack and Cast Speed
-(40–60)% increased Damage with Hits and Ailments against Enemies affected by 3 Spider's Webs
-Adds (8–10) to (13–15) Chaos Damage for each Spider's Web on the Enemy
+(120-170)% increased Evasion and Energy Shield
++(40-50) to maximum Life
+(6-9)% increased Attack and Cast Speed
+(40-60)% increased Damage with Hits and Ailments against Enemies affected by 3 Spider's Webs
+Adds (8-10) to (13-15) Chaos Damage for each Spider's Web on the Enemy
 ]],[[
 Ondar's Clasp
 Wrapped Mitts

@@ -266,10 +266,10 @@ Minions have 10% increased Area of Effect of Area Skills
 The Hungry Loop
 Unset Ring
 Requires Level: 45
-Has 1 Socket 
+Has 1 Socket
 Consumes Socketed Support Gems when they reach Maximum Level
 Can Consume 4 Support Gems
-Has not Consumed any Gems 
+Has not Consumed any Gems
 ]],[[
 Kaom's Sign
 Coral Ring
@@ -470,7 +470,7 @@ Variant: Current
 {variant:2}2% increased Intelligence for each Unique Item you have equipped
 3% additional chance for Slain monsters to drop Scrolls of Wisdom
 ]],[[
-Praxis 
+Praxis
 Paua Ring
 Requires Level 22
 +(20-25) to maximum Mana
@@ -606,7 +606,7 @@ Adds (8-15) to (20-28) Fire Damage to Attacks
 {variant:1,2}Right ring slot: 30% reduced Reflected Physical Damage taken
 {variant:3,4}Right ring slot: 40% reduced Reflected Physical Damage taken
 ]],[[
-Snakepit 
+Snakepit
 Sapphire Ring
 Variant: Pre {2_6}3.5.0
 Variant: Current
@@ -765,7 +765,7 @@ Requires Level 38
 {variant:1}5% chance to Shock
 {variant:2,3}10% chance to Shock
 ]],[[
-Valyrium 
+Valyrium
 Moonstone Ring
 Requires Level 38
 +(15-25) to maximum Energy Shield
@@ -785,6 +785,39 @@ Requires Level 65
 +(−25 to 50)% to Cold Resistance
 +(−25 to 50)% to Lightning Resistance
 ]],[[
+Vivinsect
+Unset Ring
+League: Betrayal
+Variant: Fire and Chaos Resistances
+Variant: Cold and Chaos Resistances
+Variant: Lightning and Chaos Resistances
+Variant: Strength and Dexterity
+Variant: Dexterity and Intelligence
+Variant: Strength and Intelligence
+Variant: Effect of non-Damaging Ailments
+Variant: Focus Shock Nearby Enemies
+Variant: Minimum Frenzy Charges
+Variant: Minimum Power Charges
+Variant: Minimum Endurance Charges
+Requires Level 45
+Has 1 Socket
++5 to Level of Socketed Aura Gems
+Socketed Gems have 10% increased Mana Reservation
++(15–25) to all Attributes
+15 Life Regenerated per second for each Uncorrupted Item Equipped
+-2 to Total Mana Cost of Skills for each Corrupted Item Equipped
+{variant:1}{crafted}+(8-15)% to Fire and Chaos Resistances
+{variant:2}{crafted}+(8-15)% to Cold and Chaos Resistances
+{variant:3}{crafted}+(8-15)% to Lightning and Chaos Resistances
+{variant:4}{crafted}+(6-17) to Strength and Dexterity
+{variant:5}{crafted}+(6-17) to Dexterity and Intelligence
+{variant:6}{crafted}+(6-17) to Strength and Intelligence
+{variant:7}{crafted}(11-30)% increased Effect of non-Damaging Ailments on Enemies
+{variant:8}{crafted}Shock nearby Enemies for (2-4) Seconds when you Focus
+{variant:9}{crafted}+1 to Minimum Frenzy Charges
+{variant:10}{crafted}+1 to Minimum Power Charges
+{variant:11}{crafted}+1 to Minimum Endurance Charges
+]],[[
 Voideye
 Unset Ring
 League: Ambush, Invasion
@@ -792,7 +825,7 @@ Requires Level 45
 Has 1 Socket
 +5 to Level of Socketed Gems
 ]],[[
-The Warden's Brand 
+The Warden's Brand
 Iron Ring
 Requires Level 30
 Adds 1 to 4 Physical Damage to Attacks

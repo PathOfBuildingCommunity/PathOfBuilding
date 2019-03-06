@@ -140,7 +140,7 @@ Socketed Gems are Supported by Level 30 Cold to Fire
 60% increased Mana Regeneration Rate
 +(20–30)% to Fire and Cold Resistances
 ]],[[
-Obscurantis 
+Obscurantis
 Lion Pelt
 Source: Drops from unique{Guardian of the Chimera}
 Variant: {2_6}Pre 3.5.0
@@ -263,6 +263,43 @@ Reflects 5 Physical Damage to Melee Attackers
 Take 5 Physical Damage when hit by Attacks
 Pain Attunement
 ]],[[
+The Devouring Diadem
+Necromancer Circlet
+League: Betrayal
+Source: Drops from unique{Catarina, Master of Undeath}
+Requires Level 54, 112 Int
+Variant: Strength and Quality
+Variant: Dexterity and Quality
+Variant: Intelligence and Quality
+Variant: Fire and Chaos Resistances
+Variant: Cold and Chaos Resistances
+Variant: Lightning and Chaos Resistances
+Variant: Strength and Dexterity
+Variant: Dexterity and Intelligence
+Variant: Strength and Intelligence
+Variant: Mine Laying Speed
+Variant: Focus Spell Trigger
+Variant: Focus Ailment Duration
++1 to Level of Socketed Gems
+Socketed Gems have 20% reduced Mana Reservation
+Trigger Level 15 Feast of Flesh every 5 seconds
+(180-220)% increased Energy Shield
+10% chance for Energy Shield Recharge to start when you use a Skill
+Eldritch Battery
+{variant:1}{crafted}+(10-25) to Strength
+{variant:2}{crafted}+(10-25) to Dexterity
+{variant:3}{crafted}+(10-25) to Intelligence
+{variant:1,2,3}{crafted}+(7-18) to Quality
+{variant:4}{crafted}+(8-15)% to Fire and Chaos Resistances
+{variant:5}{crafted}+(8-15)% to Cold and Chaos Resistances
+{variant:6}{crafted}+(8-15)% to Lightning and Chaos Resistances
+{variant:7}{crafted}+(6-17) to Strength and Dexterity
+{variant:8}{crafted}+(6-17) to Dexterity and Intelligence
+{variant:9}{crafted}+(6-17) to Strength and Intelligence
+{variant:10}{crafted}(7-12)% increased Mine Laying Speed
+{variant:11}{crafted}Trigger Socketed Spells when you Focus
+{variant:12}{crafted}(81-140)% increased Duration of Ailments you inflict while Focussed
+]],[[
 Doedre's Scorn
 Lunaris Circlet
 Variant: Pre 2.6.0
@@ -300,6 +337,26 @@ Adds (16–21) to (31–36) Chaos Damage to Spells
 (6–10)% chance to Poison per Power Charge
 (15–20)% increased Damage with Poison per Power Charge
 Aspect of the Spider inflicts Spider's Webs and Hinder every 0.5 Seconds instead
+]],[[
+Flamesight
+Solaris Circlet
+Requires Level 59, 122 Int
+(240–280)% increased Energy Shield
++(30–40)% to Fire Resistance
+(30–40)% increased Elemental Damage
+25% chance to Scorch Enemies
+Cannot inflict Ignite
+10% increased Elemental Damage per Sextant affecting the area
+]],[[
+Galesight
+Solaris Circlet
+Requires Level 59, 122 Int
+(240–280)% increased Energy Shield
++(30–40)% to Cold Resistance
+(30–40)% increased Elemental Damage
+25% chance to inflict Brittle
+Cannot inflict Freeze or Chill
+10% increased Elemental Damage per Sextant affecting the area
 ]],[[
 Hale Negator
 Mind Cage
@@ -367,12 +424,22 @@ Requires Level 65, 138 Int
 +(30-60) to maximum Mana
 Your Skills deal you 400% of Mana Cost as Physical Damage
 ]],[[
+Thundersight
+Solaris Circlet
+Requires Level 59, 122 Int
+(240–280)% increased Energy Shield
++(30–40)% to Lightning Resistance
+(30–40)% increased Elemental Damage
+25% chance to Sap Enemies
+Cannot inflict Shock
+10% increased Elemental Damage per Sextant affecting the area
+]],[[
 Wraithlord
 Bone Circlet
 Requires Level: 34
-+2 to Level of Socketed Minion Gems 
-(120–150)% increased Energy Shield 
-Minions Regenerate 1% Life per second 
++2 to Level of Socketed Minion Gems
+(120–150)% increased Energy Shield
+Minions Regenerate 1% Life per second
 +1000 to Spectre maximum Life
 ]],[[
 Ylfeban's Trickery
@@ -495,11 +562,11 @@ Minions Regenerate 2% Life per Second
 Ahn's Contempt
 Praetor Crown
 Requires Level 68
-+(15–20) to all Attributes 
-(60–140)% increased Armour and Energy Shield 
-+(60–70) to maximum Life 
--1 to Maximum Power Charges 
-Gain (8–12)% of Physical Damage as Extra Chaos Damage while at maximum Power Charges 
++(15–20) to all Attributes
+(60–140)% increased Armour and Energy Shield
++(60–70) to maximum Life
+-1 to Maximum Power Charges
+Gain (8–12)% of Physical Damage as Extra Chaos Damage while at maximum Power Charges
 You take 50% reduced Extra Damage from Critical Strikes while you have no Power Charges
 ]],[[
 The Brine Crown
@@ -596,13 +663,13 @@ Adds 1 to 13 Lightning Damage to Attacks
 +20% to all Elemental Resistances while on Low Life
 20% reduced Mana Cost of Skills when on Low Life
 ]],[[
-Kitava's Thirst 
+Kitava's Thirst
 Zealot Helmet
 Requires Level 44, 50 Str, 50 Int
 15% reduced Cast Speed
 (70-80)% increased Armour and Energy Shield
 +(30-50) to maximum Mana
-30% chance to Cast Socketed Spells when 
+30% chance to Cast Socketed Spells when
 you Spend at least 100 Mana to Use a Skill
 ]],[[
 Lightpoacher
@@ -613,10 +680,10 @@ Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
-Trigger Level 20 Spirit Burst when you Use a Skill while you have a Spirit Charge 
-+(10–15)% to all Elemental Resistances 
-Recover (4–5)% of Life when a Spirit Charge expires or is consumed 
-(15–20)% chance to gain a Spirit Charge on Kill 
+Trigger Level 20 Spirit Burst when you Use a Skill while you have a Spirit Charge
++(10–15)% to all Elemental Resistances
+Recover (4–5)% of Life when a Spirit Charge expires or is consumed
+(15–20)% chance to gain a Spirit Charge on Kill
 +1 to Maximum Spirit Charges per Abyss Jewel affecting you
 ]],[[
 Malachai's Vision
@@ -665,11 +732,11 @@ Memory Vault
 Praetor Crown
 Source: Drops from unique{The Enslaver}
 Requires Level 68
-+(130–160) to maximum Energy Shield 
-+(150–200) to maximum Mana 
-(30–40)% increased Mana Regeneration Rate 
-+(20–25)% to Fire Resistance 
-10% increased Mana Reserved 
++(130–160) to maximum Energy Shield
++(150–200) to maximum Mana
+(30–40)% increased Mana Regeneration Rate
++(20–25)% to Fire Resistance
+10% increased Mana Reserved
 Gain Armour equal to your Reserved Mana
 ]],[[
 Mindspiral

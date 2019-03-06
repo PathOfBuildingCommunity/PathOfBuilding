@@ -259,7 +259,7 @@ Requires Level 60
 Cannot be Stunned
 20% of Maximum Life Converted to Energy Shield
 ]],[[
-Eye of Innocence 
+Eye of Innocence
 Citrine Amulet
 Source: Drops from unique{Guardian of the Phoenix}
 Requires Level 68
@@ -344,11 +344,11 @@ Gloomfang
 Blue Pearl Amulet
 Source: Drops from unique{The Purifier}
 Requires 77
-(48–56)% increased Mana Regeneration Rate 
-0.5% of Chaos Damage Leeched as Life 
-Lose (10–15) Life for each Enemy hit by your Spells 
-Lose (20–25) Life for each Enemy hit by your Attacks 
-Skills Chain +1 times 
+(48–56)% increased Mana Regeneration Rate
+0.5% of Chaos Damage Leeched as Life
+Lose (10–15) Life for each Enemy hit by your Spells
+Lose (20–25) Life for each Enemy hit by your Attacks
+Skills Chain +1 times
 Projectiles gain (15–20)% of Non-Chaos Damage as extra Chaos Damage per Chain
 ]],[[
 The Halcyon
@@ -629,6 +629,17 @@ Minions have (10-15)% increased Movement Speed
 Minions deal (10-15)% increased Damage
 {variant:2}(10-15)% reduced Mana Cost of Minion Skills
 ]],[[
+Solstice Vigil
+Onyx Amulet
+Source: Drops from unique{The Shaper}
+Requires Level 64
++(10–16) to all Attributes
+(20–25)% increased Damage
++(50–70) to maximum Life
+(2–3) Mana Regenerated per second
+Temporal Chains has 100% reduced Mana Reservation
+Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
+]],[[
 Star of Wraeclast
 Ruby Amulet
 Source: Vendor recipe
@@ -787,13 +798,13 @@ Yoke of Suffering
 Onyx Amulet
 Source: Drops from unique{The Eradicator} (Tier 11+)
 Requires Level 25
-+(10–16) to all Attributes 
-+(10–20)% to Fire Resistance 
-+(10–20)% to Cold Resistance 
-+(20–40)% to Lightning Resistance 
-30% reduced Duration of Ailments on Enemies 
-(5–10)% chance to Shock 
-Enemies take 5% increased Damage for each type of Ailment you have inflicted on them 
++(10–16) to all Attributes
++(10–20)% to Fire Resistance
++(10–20)% to Cold Resistance
++(20–40)% to Lightning Resistance
+30% reduced Duration of Ailments on Enemies
+(5–10)% chance to Shock
+Enemies take 5% increased Damage for each type of Ailment you have inflicted on them
 Your Elemental Damage can Shock
 ]],
 }

@@ -113,11 +113,11 @@ Magna Eclipsis
 Pinnacle Tower Shield
 Source: Vendor recipe
 Requires Level 70
-+(20–30) to maximum Life 
-+2 to Level of Socketed Gems 
-Triggers Level 20 Elemental Aegis when Equipped 
-(180–220)% increased Armour 
-+(60–80) to maximum Life 
++(20–30) to maximum Life
++2 to Level of Socketed Gems
+Triggers Level 20 Elemental Aegis when Equipped
+(180–220)% increased Armour
++(60–80) to maximum Life
 +(80–100) to Evasion Rating and Energy Shield
 ]],[[
 Redblade Banner
@@ -375,6 +375,34 @@ You take Chaos Damage instead of Physical Damage from Bleeding
 +3% to all maximum Resistances while Poisoned
 Poisons on you expire 50% slower
 ]],[[
+Bitterbind Point
+Titanium Spirit Shield
+League: Betrayal
+Source: Drops from unique{Catarina, Master of Undeath}
+Variant: Fire and Cold Damage
+Variant: Cold and Lightning Damage
+Variant: Fire and Lightning Damage
+Variant: Energy Shield and Life
+Variant: Armour during Soul Gain Prevention
+Variant: Level of Socketed Support Gems
+Requires Level 68, 159 Int
+(30–50)% increased Spell Damage
+(180–220)% increased Energy Shield
+Spectres have (50–100)% increased maximum Life
+Gain Arcane Surge when you deal a Critical Strike
+Your Raised Spectres also gain Arcane Surge when you do
+(40–50)% increased Critical Strike Chance for Spells per Raised Spectre
+{variant:1}{crafted}Adds (3-12) to (5-16) Fire Damage
+{variant:1}{crafted}Adds (3-12) to (5-16) Cold Damage
+{variant:2}{crafted}Adds (3-12) to (5-16) Cold Damage
+{variant:2}{crafted}Adds 1 to (7-24) Lightning Damage
+{variant:3}{crafted}Adds (3-12) to (5-16) Fire Damage
+{variant:3}{crafted}Adds 1 to (7-24) Lightning Damage
+{variant:4}{crafted}(20-40)% increased Energy Shield
+{variant:4}{crafted}+(10-28) to maximum Life
+{variant:5}{crafted}+(500-3000) to Armour during Soul Gain Prevention
+{variant:6}{crafted}+(1-2) to Level of Socketed Support Gems
+]],[[
 Brinerot Flag
 Tarnished Spirit Shield
 League: Warbands
@@ -477,6 +505,7 @@ You are Shocked for 4 seconds on reaching Maximum Power Charges
 ]],[[
 Matua Tupuna
 Tarnished Spirit Shield
+Source: Upgrades to unique{Matua Tupuna} via prophecy{The Mentor}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 23, 60 Int
@@ -489,6 +518,20 @@ Implicits: 2
 10% increased Effect of Auras on You
 10% increased Effect of Auras on your Minions
 Spreads Tar when you take a Critical Strike
+]],[[
+Whakatutuki o Matua
+Tarnished Spirit Shield
+Source: Upgraded from unique{Matua Tupuna} via prophecy{The Mentor}
+Requires Level 63, 60 Int
+(5–10)% increased Spell Damage
++3 to Level of Socketed Minion Gems
++(40–80) to maximum Energy Shield
+(40–80)% increased Energy Shield
++(15–25) to maximum Mana
+20% increased Effect of Auras on you
+20% increased Effect of Auras on your Minions
+Spreads Tar when you Block
+If you have Blocked Recently, you and nearby Allies Regenerate 5% of Life per second
 ]],[[
 Rathpith Globe
 Titanium Spirit Shield
@@ -559,10 +602,10 @@ Curse Enemies with level 5 Vulnerability on Block
 Vix Lunaris
 Cardinal Round Shield
 Requires Level: 66
-+2 to Level of Socketed Gems 
-Triggers Level 20 Cold Aegis when Equipped 
-(200–250)% increased Armour and Evasion 
-+(60–80) to maximum Life 
++2 to Level of Socketed Gems
+Triggers Level 20 Cold Aegis when Equipped
+(200–250)% increased Armour and Evasion
++(60–80) to maximum Life
 Cannot be Frozen
 ]],[[
 Wheel of the Stormsail
@@ -614,10 +657,10 @@ Invictus Solaris
 Archon Kite Shield
 Requires Level: 68
 +12% to all Elemental Resistances
-+2 to Level of Socketed Gems 
-Triggers Level 20 Fire Aegis when Equipped 
-(200–250)% increased Armour and Energy Shield 
-+(60–80) to maximum Life 
++2 to Level of Socketed Gems
+Triggers Level 20 Fire Aegis when Equipped
+(200–250)% increased Armour and Energy Shield
++(60–80) to maximum Life
 Cannot be Ignited
 ]],[[
 Prism Guardian
@@ -647,9 +690,9 @@ Implicits: 2
 {variant:2,3}+8% to all Elemental Resistances
 {variant:3}+(40-60) Maximum Life
 (80-100)% increased Armour and Energy Shield
-{variant:1,2}6 Life Regenerated per second 
+{variant:1,2}6 Life Regenerated per second
 {variant:3}(15-20) Life Regenerated per second
-{variant:1,2}+8% to maximum Fire Resistance 
+{variant:1,2}+8% to maximum Fire Resistance
 {variant:3}+5% to maximum Fire Resistance
 +(20-25)% to Fire Resistance
 +25% to Fire Resistance while on Low Life
@@ -788,12 +831,12 @@ Source: Drops from unique{The Eradicator}
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 66
-4% chance to Dodge Attacks 
-{variant:1}(130–150)% increased Evasion and Energy Shield 
-{variant:2}(500-600)% increased Evasion and Energy Shield 
-+(60–80) to maximum Life 
-40% increased Duration of Ailments on Enemies 
-+(3–4)% Chance to Block 
+4% chance to Dodge Attacks
+{variant:1}(130–150)% increased Evasion and Energy Shield
+{variant:2}(500-600)% increased Evasion and Energy Shield
++(60–80) to maximum Life
+40% increased Duration of Ailments on Enemies
++(3–4)% Chance to Block
 Shared Suffering
 ]],[[
 Maligaro's Lens
