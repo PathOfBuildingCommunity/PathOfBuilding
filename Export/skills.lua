@@ -69,8 +69,6 @@ directiveTable.skill = function(state, args, out)
 			local skillGem = SkillGems[skillGemKey]
 			local baseItemType = BaseItemTypes[skillGem.BaseItemTypesKey]
 			out:write('\tname = "', baseItemType.Name:gsub(" Support",""), '",\n')
-			--local gemId, gemName = dammitChris(grantedId)
-			--out:write('\tname = "', gemName, '",\n')
 			if #skillGem.Description > 0 then
 				out:write('\tdescription = "', skillGem.Description, '",\n')
 			end

@@ -27,7 +27,12 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("EnduranceChargesMax", "BASE", 3, "Base")
 	modDB:NewMod("MaxLifeLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("MaxManaLeechRate", "BASE", 20, "Base")
-	modDB:NewMod("MaxEnergyShieldLeechRate", "BASE", 10, "Base")
+	if env.build.targerVersion ~= "2_6" then
+		modDB:NewMod("MaxEnergyShieldLeechRate", "BASE", 10, "Base")
+		modDB:NewMod("MaxLifeLeechInstance", "BASE", 10, "Base")
+		modDB:NewMod("MaxManaLeechInstance", "BASE", 10, "Base")
+		modDB:NewMod("MaxEnergyShieldLeechInstance", "BASE", 10, "Base")
+	end
 	modDB:NewMod("MineLayingTime", "BASE", 0.5, "Base")
 	if env.build.targetVersion == "2_6" then
 		modDB:NewMod("TrapThrowingTime", "BASE", 0.5, "Base")
@@ -335,6 +340,8 @@ function calcs.initEnv(build, mode, override)
 		local item
 		if slotName == override.repSlotName then
 			item = override.repItem
+		elseif override.repItem and override.repSlotName:match("^Weapon 1") and slotName:match("^Weapon 2") then
+			item = nil
 		elseif slot.nodeId and override.spec then
 			item = build.itemsTab.items[env.spec.jewels[slot.nodeId]]
 		else
@@ -349,7 +356,7 @@ function calcs.initEnv(build, mode, override)
 				t_insert(env.itemGrantedSkills, grantedSkill)
 			end
 		end
-		if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then			
+		if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then
 			item = nil
 		end
 		if slot.weaponSet == 2 and build.itemsTab.activeItemSet.useSecondWeaponSet then

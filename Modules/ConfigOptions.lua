@@ -335,6 +335,9 @@ return {
 	{ var = "conditionLeeching", type = "check", label = "Are you Leeching?", ifCond = "Leeching", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Leeching", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionLeechingEnergyShield", type = "check", label = "Are you Leeching Energy Shield?", ifCond = "LeechingEnergyShield", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:LeechingEnergyShield", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionUsingFlask", type = "check", label = "Do you have a Flask active?", ifCond = "UsingFlask", tooltip = "This is automatically enabled if you have a flask active,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsingFlask", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -676,15 +679,15 @@ return {
 			enemyModList:NewMod("SelfIgniteDuration", "MORE", -50, "Boss")
 		end
 	end },
-	{ var = "enemyIsBoss", type = "list", ifVer = "3_0", label = "Is the enemy a Boss?", tooltip = "Standard Boss adds the following modifiers:\n60% less Effect of your Curses\n+30% to enemy Elemental Resistances\n+15% to enemy Chaos Resistance\n\nShaper/Guardian adds the following modifiers:\n80% less Effect of your Curses\n+40% to enemy Elemental Resistances\n+25% to enemy Chaos Resistance", list = {{val="NONE",label="No"},{val=true,label="Standard Boss"},{val="SHAPER",label="Shaper/Guardian"}}, apply = function(val, modList, enemyModList)
+	{ var = "enemyIsBoss", type = "list", ifVer = "3_0", label = "Is the enemy a Boss?", tooltip = "Standard Boss adds the following modifiers:\n33% less Effect of your Curses\n+30% to enemy Elemental Resistances\n+15% to enemy Chaos Resistance\n\nShaper/Guardian adds the following modifiers:\n66% less Effect of your Curses\n+40% to enemy Elemental Resistances\n+25% to enemy Chaos Resistance", list = {{val="NONE",label="No"},{val=true,label="Standard Boss"},{val="SHAPER",label="Shaper/Guardian"}}, apply = function(val, modList, enemyModList)
 		if val == true then
 			modList:NewMod("Condition:EnemyRareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
-			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -60, "Boss")
+			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
 			enemyModList:NewMod("ElementalResist", "BASE", 30, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 15, "Boss")
 		elseif val == "SHAPER" then
 			modList:NewMod("Condition:EnemyRareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
-			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -80, "Boss")
+			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
 			enemyModList:NewMod("ElementalResist", "BASE", 40, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 25, "Boss")
 		end

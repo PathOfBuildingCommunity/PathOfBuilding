@@ -1,3 +1,24 @@
+### 1.4.130 - 2019/03/07
+ * Passive tree updated to 3.6
+ * Added the following 3.6 uniques: (thanks PJacek)
+    * Bottled Faith
+    * Circle of Nostalgia
+    * Hyrri's Truth (except the Precision skill)
+    * March of the Legion (except the Blessing support)
+	* Mask of the Tribunal
+	* Nebulis
+    * Perepiteia (except the Lightning Aegis skill)
+	* Storm's Gift
+ * Added most 3.5 uniques (thanks Patchumz and PJacek)
+ * Added support for Energy Shield Leech
+ * The stat comparisons in tooltips for non-equipped two handed weapons now show the changes from replacing both
+   weapons if you are dual wielding, rather than your main hand weapon only
+ * Added base radius values for Dark Pact (24), Vaal Blight (20), and Wither (18)
+ * Fixed issue preventing local life on hit modifiers from working correctly
+ * Storm Call now shows DPS as well as average damage
+ * Decay DPS is now only shown if the skill can deal Chaos Damage
+ * Fixed error when trying to add a custom modifier to Abyss Jewels
+
 ### 1.4.129 - 2019/01/13
  * "while Focussed" modifiers are now correctly recognised
  * "+X to minimum Endurance Charges" now works correctly
