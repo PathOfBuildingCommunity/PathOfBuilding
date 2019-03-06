@@ -506,6 +506,7 @@ local modFlagList = {
 	["for skills used by totems"] = { keywordFlags = KeywordFlag.Totem },
 	["of aura skills"] = { tag = { type = "SkillType", skillType = SkillType.Aura } },
 	["of curse skills"] = { keywordFlags = KeywordFlag.Curse },
+	["with curse skills"] = { keywordFlags = KeywordFlag.Curse },
 	["of herald skills"] = { tag = { type = "SkillType", skillType = SkillType.Herald } },
 	["of minion skills"] = { tag = { type = "SkillType", skillType = SkillType.Minion } },
 	["for curses"] = { keywordFlags = KeywordFlag.Curse },
