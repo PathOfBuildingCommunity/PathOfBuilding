@@ -9,9 +9,9 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 62
 Source: Vendor recipe
-{variant:1}Adds (60–70) to (180–210) Physical Damage 
-{variant:2}Adds (95-115) to (240-265) Physical Damage 
-(80–100)% increased Evasion Rating
+{variant:1}Adds (60-70) to (180-210) Physical Damage
+{variant:2}Adds (95-115) to (240-265) Physical Damage
+(80-100)% increased Evasion Rating
 2 Additional Arrows
 Every 16 seconds you gain iron Reflexes for 8 seconds
 30% more Bow Damage at Close Range while you have iron Reflexes
@@ -37,6 +37,47 @@ Adds 25 to 50 Fire Damage
 {variant:1,2,3}100% More Bow Damage at Close Range
 {variant:4}50% More Bow Damage at Close Range
 Bow Knockback at Close Range
+]],[[
+The Crimson Storm
+Steelwood Bow
+League: Betrayal
+Variant: Crit Multi while Rare/Unique Nearby
+Variant: Attack Speed while Rare/Unique Nearby
+Variant: Damage per Power Charge
+Variant: Damage per Frenzy Charge
+Variant: Damage per Endurance Charge
+Variant: Accuracy and Quality
+Variant: Attack Speed and Quality
+Variant: Attack Speed/Trigger Blood Rage on Kill
+Variant: Cast Speed/Trigger Arcane Surge on Kill
+Variant: Minion Attack and Cast Speed
+Variant: Double Damage
+Variant: Double Damage while Foccused
+Variant: Socketed Spell Trigger
+Requires Level 57, 190 Dex
+(140â€“170)% increased Physical Damage
+(25â€“35)% increased Critical Strike Chance
+50% chance to inflict Bleeding on Critical Strike with Attacks
+Enemies you inflict Bleeding on grant (60â€“100)% increased Flask Charges
+Adds (100â€“120) to (150â€“165) Physical Damage against Bleeding Enemies
+50% chance to Maim Enemies on Critical Strike with Attacks
+{variant:1}{crafted}+(18-45)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
+{variant:2}{crafted}(11-22)% increased Attack Speed while a Rare or Unique Enemy is Nearby
+{variant:3}{crafted}(5-6)% increased Damage per Power Charge
+{variant:4}{crafted}(5-6)% increased Damage per Frenzy Charge
+{variant:5}{crafted}(5-6)% increased Damage per Endurance Charge
+{variant:6}{crafted}+(30-250) to Accuracy Rating
+{variant:7}{crafted}(8-16)% increased Attack Speed
+{variant:6,7}{crafted}+(7-18)% to Quality
+{variant:8}{crafted}(8-16)% increased Attack Speed
+{variant:8}{crafted}10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
+{variant:9}{crafted}(7-13)% increased Cast Speed
+{variant:9}{crafted}10% chance to gain Arcane Surge when you Kill an Enemy
+{variant:10}{crafted}Minions have (16-28)% increased Attack Speed
+{variant:10}{crafted}Minions have (16-28)% increased Cast Speed
+{variant:11}{crafted}(4-12)% chance to deal Double Damage
+{variant:12}{crafted}(13-36)% chance to deal Double Damage while Focussed
+{variant:13}{crafted}Trigger a Socketed Spell when you Use a Skill
 ]],[[
 Darkscorn
 Assassin Bow
@@ -131,13 +172,13 @@ Source: Drops from unique{The Elder} (Tier 6+)
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 60
-Adds (130–150) to (270–300) Cold Damage 
-4% increased Movement Speed per Frenzy Charge 
-+(400–500) to Accuracy Rating 
-{variant:2}(15–25)% increased Attack Speed
-12 to 14 Cold Damage per Frenzy Charge 
-2% chance to Avoid Elemental Damage when Hit per Frenzy Charge 
-0.5% of Attack Damage Leeched as Life per Frenzy Charge 
+Adds (130-150) to (270-300) Cold Damage
+4% increased Movement Speed per Frenzy Charge
++(400-500) to Accuracy Rating
+{variant:2}(15-25)% increased Attack Speed
+12 to 14 Cold Damage per Frenzy Charge
+2% chance to Avoid Elemental Damage when Hit per Frenzy Charge
+0.5% of Attack Damage Leeched as Life per Frenzy Charge
 {variant:1}400 Cold Damage taken per second per Frenzy Charge while moving
 {variant:2}200 Cold Damage taken per second per Frenzy Charge while moving
 Elder Item
@@ -286,7 +327,7 @@ Adds (15-25) to (50-60) Physical Damage
 +30 to Accuracy Rating
 +10 Mana gained on Kill
 ]],[[
-Slivertongue 
+Slivertongue
 Harbinger Bow
 Source: Drops from unique{Guardian of the Hydra}
 Variant: {2_6}Pre 3.0.0
