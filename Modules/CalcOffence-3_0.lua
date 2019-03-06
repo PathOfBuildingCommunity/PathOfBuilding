@@ -966,6 +966,8 @@ function calcs.offence(env, actor, activeSkill)
 								resist = resist + enemyDB:Sum("BASE", nil, "ElementalResist")
 								pen = skillModList:Sum("BASE", cfg, damageType.."Penetration", "ElementalPenetration")
 								taken = taken + enemyDB:Sum("INC", nil, "ElementalDamageTaken")
+							elseif damageType == "Chaos" then
+								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
 							end
 							resist = m_min(resist, 75)
 						end
