@@ -1,5 +1,16 @@
 ### 1.4.130 - 2019/03/07
  * Passive tree updated to 3.6
+ * Added the following 3.6 uniques: (thanks PJacek)
+    * Bottled Faith
+    * Circle of Nostalgia
+    * Hyrri's Truth (except the Precision skill)
+    * March of the Legion (except the Blessing support)
+	* Mask of the Tribunal
+	* Nebulis
+    * Perepiteia (except the Lightning Aegis skill)
+	* Storm's Gift
+ * Added most 3.5 uniques (thanks Patchumz and PJacek)
+ * Added support for Energy Shield Leech
  * Added base radius values for Dark Pact (24), Vaal Blight (20), and Wither (18)
  * Fixed issue preventing local life on hit modifiers from working correctly
  * The stat comparisons in tooltips for non-equipped two handed weapons now show the changes from replacing both
