@@ -633,6 +633,8 @@ local modTagList = {
 	["per shaper item equipped"] = { tag = { type = "Multiplier", var = "ShaperItem" } },
 	["per elder or shaper item equipped"] = { tag = { type = "Multiplier", varList = { "ElderItem", "ShaperItem" } } },
 	["for each equipped corrupted item"] = { tag = { type = "Multiplier", var = "CorruptedItem" } },
+	["for each corrupted item equipped"] = { tag = { type = "Multiplier", var = "CorruptedItem" } },
+	["for each uncorrupted item equipped"] = { tag = { type = "Multiplier", var = "NonCorruptedItem" } },
 	["per abyssa?l? jewel affecting you"] = { tag = { type = "Multiplier", var = "AbyssJewel" } },
 	["for each type of abyssa?l? jewel affecting you"] = { tag = { type = "Multiplier", var = "AbyssJewelType" } },
 	["per buff on you"] = { tag = { type = "Multiplier", var = "BuffOnSelf" } },
