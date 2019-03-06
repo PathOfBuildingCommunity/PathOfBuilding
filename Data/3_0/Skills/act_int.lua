@@ -577,6 +577,7 @@ skills["VaalBlight"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 20),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -1516,6 +1517,7 @@ skills["DarkPact"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 24),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -5876,6 +5878,8 @@ skills["StormCall"] = {
 	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [36] = true, [26] = true, [45] = true, [35] = true, [67] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
+	["base_skill_show_average_damage_instead_of_dps"] = {
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -6783,6 +6787,7 @@ skills["Wither"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
+		skill("radius", 18),
 		skill("stackCount", 1, { type = "SkillPart", skillPart = 1 }),
 		skill("stackCount", 5, { type = "SkillPart", skillPart = 2 }),
 		skill("stackCount", 10, { type = "SkillPart", skillPart = 3 }),

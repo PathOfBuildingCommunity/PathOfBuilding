@@ -1102,9 +1102,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.EnergyShieldOnHit = 0
 			output.ManaOnHit = 0
 		else
-			output.LifeOnHit = (skillModList:Sum("BASE", skillCfg, "LifeOnHit") + enemyDB:Sum("BASE", skillCfg, "SelfLifeOnHit")) * globalOutput.LifeRecoveryMod
-			output.EnergyShieldOnHit = (skillModList:Sum("BASE", skillCfg, "EnergyShieldOnHit") + enemyDB:Sum("BASE", skillCfg, "SelfEnergyShieldOnHit")) * globalOutput.EnergyShieldRecoveryMod
-			output.ManaOnHit = (skillModList:Sum("BASE", skillCfg, "ManaOnHit") + enemyDB:Sum("BASE", skillCfg, "SelfManaOnHit")) * globalOutput.ManaRecoveryMod
+			output.LifeOnHit = (skillModList:Sum("BASE", cfg, "LifeOnHit") + enemyDB:Sum("BASE", cfg, "SelfLifeOnHit")) * globalOutput.LifeRecoveryMod
+			output.EnergyShieldOnHit = (skillModList:Sum("BASE", cfg, "EnergyShieldOnHit") + enemyDB:Sum("BASE", cfg, "SelfEnergyShieldOnHit")) * globalOutput.EnergyShieldRecoveryMod
+			output.ManaOnHit = (skillModList:Sum("BASE", cfg, "ManaOnHit") + enemyDB:Sum("BASE", cfg, "SelfManaOnHit")) * globalOutput.ManaRecoveryMod
 		end
 		output.LifeOnHitRate = output.LifeOnHit * hitRate
 		output.EnergyShieldOnHitRate = output.EnergyShieldOnHit * hitRate
@@ -1973,7 +1973,7 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("FreezeDurationMod", "AVERAGE")
 	end
 
-	if skillFlags.hit and skillData.decay then
+	if skillFlags.hit and skillData.decay and canDeal.Chaos then
 		-- Calculate DPS for Essence of Delirium's Decay effect
 		skillFlags.decay = true
 		activeSkill.decayCfg = {

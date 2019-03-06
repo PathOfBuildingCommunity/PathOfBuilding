@@ -334,6 +334,8 @@ function calcs.initEnv(build, mode, override)
 		local item
 		if slotName == override.repSlotName then
 			item = override.repItem
+		elseif override.repItem and override.repSlotName:match("^Weapon 1") and slotName:match("^Weapon 2") then
+			item = nil
 		elseif slot.nodeId and override.spec then
 			item = build.itemsTab.items[env.spec.jewels[slot.nodeId]]
 		else
@@ -348,7 +350,7 @@ function calcs.initEnv(build, mode, override)
 				t_insert(env.itemGrantedSkills, grantedSkill)
 			end
 		end
-		if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then			
+		if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then
 			item = nil
 		end
 		if slot.weaponSet == 2 and build.itemsTab.activeItemSet.useSecondWeaponSet then

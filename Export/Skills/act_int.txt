@@ -85,6 +85,7 @@ local skills, mod, flag, skill = ...
 			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }),
 		},
 	},
+#baseMod skill("radius", 20)
 #mods
 
 #skill CorpseWarp
@@ -251,6 +252,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 }),
 		},
 	},
+#baseMod skill("radius", 24)
 #mods
 
 #skill Despair
@@ -901,6 +903,8 @@ local skills, mod, flag, skill = ...
 
 #skill StormCall
 #flags spell area duration
+	["base_skill_show_average_damage_instead_of_dps"] = {
+	},
 #baseMod skill("radius", 20)
 #mods
 
@@ -1053,6 +1057,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("debuff", true)
+#baseMod skill("radius", 18)
 #baseMod skill("stackCount", 1, { type = "SkillPart", skillPart = 1 })
 #baseMod skill("stackCount", 5, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("stackCount", 10, { type = "SkillPart", skillPart = 3 })

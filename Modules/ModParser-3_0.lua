@@ -878,7 +878,9 @@ local function flag(name, ...)
 	return mod(name, "FLAG", true, ...)
 end
 
-local gemIdLookup = { }
+local gemIdLookup = { 
+	["power charge on critical strike"] = "SupportPowerChargeOnCrit"
+}
 for name, grantedEffect in pairs(data["3_0"].skills) do
 	if not grantedEffect.hidden or grantedEffect.fromItem then
 		gemIdLookup[grantedEffect.name:lower()] = grantedEffect.id
