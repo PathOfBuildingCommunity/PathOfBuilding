@@ -27,7 +27,7 @@ Requires Level 35
 Creates Consecrated Ground on Use
 36% increased Duration
 Consecrated Ground created by this Flask has Tripled Radius
-+2% to Critical Strike Chance against Enemies on Consecrated ground during Effect
++2% to Critical Strike Chance against Enemies on Consecrated Ground during Effect
 Enemies on Consecrated Ground you create during Effect take 10% increased Damage
 ]],[[
 Mask of the Tribunal
