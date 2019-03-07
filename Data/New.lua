@@ -93,6 +93,7 @@ Trigger Socketed Curse Spells when you cast a Curse
 ]],[[
 The Eternity Shroud
 Blood Raiment
+Shaper Item
 Requires Level 65, 107 Dex, 90 Int
 Implicits: 0
 Trigger Level 20 Glimpse of Eternity when Hit
