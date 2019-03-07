@@ -193,6 +193,8 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("radius", 28, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill EnduringCry
