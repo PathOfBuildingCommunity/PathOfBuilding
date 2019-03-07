@@ -112,6 +112,16 @@ Trigger a Socketed Bow Skill when you Attack with a Bow
 8% increased Attack Speed
 +67 to maximum Life
 5% chance to Blind Enemies on Hit with Attacks
+]],[[
+Offering of the Serpent
+Legion Gloves
+Requires Level 57, 44 Str, 44 Int
++21 to all Attributes
+157% increased Armour and Energy Shield
+50% reduced Maximum Recovery per Life Leech
+6% increased Attack and Cast Speed
+22% increased Damage while Leeching
+Life Leech effects are not removed at Full Life
 ]],
 
 }
