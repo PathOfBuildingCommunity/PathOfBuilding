@@ -130,8 +130,9 @@ function ItemSlotClass:Draw(viewPort)
 		local viewer = self.itemsTab.socketViewer
 		local node = self.itemsTab.build.spec.nodes[self.nodeId]
 		viewer.zoom = 5
-		viewer.zoomX = -node.x / 11.85
-		viewer.zoomY = -node.y / 11.85
+		local scale = self.itemsTab.build.targetVersion == "2_6" and 11.85 or 12.42
+		viewer.zoomX = -node.x / scale
+		viewer.zoomY = -node.y / scale
 		SetViewport(viewerX + 2, viewerY + 2, 300, 300)
 		viewer:Draw(self.itemsTab.build, { x = 0, y = 0, width = 300, height = 300 }, { })
 		SetDrawLayer(nil, 30)

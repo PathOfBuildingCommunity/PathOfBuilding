@@ -1,3 +1,7 @@
+VERSION[1.4.131][2019/03/08]
+ * Updated boss curse effect penalty
+ * Removed min/max Crit Chance limits
+ * Fixed the passive tree node location popup showing the wrong locations
 VERSION[1.4.130][2019/03/07]
  * Passive tree updated to 3.6
  * Added the following 3.6 uniques: (thanks PJacek)
