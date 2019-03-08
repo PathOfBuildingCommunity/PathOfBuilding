@@ -27,7 +27,7 @@ Requires Level 35
 Creates Consecrated Ground on Use
 36% increased Duration
 Consecrated Ground created by this Flask has Tripled Radius
-+2% to Critical Strike Chance against Enemies on Consecrated ground during Effect
++2% to Critical Strike Chance against Enemies on Consecrated Ground during Effect
 Enemies on Consecrated Ground you create during Effect take 10% increased Damage
 ]],[[
 Mask of the Tribunal
@@ -81,6 +81,47 @@ Triggers Level 20 Lightning Aegis when Equipped
 320% increased Evasion and Energy Shield
 +47 to maximum Mana
 6% increased Movement Speed
+]],[[
+Vixen's Entrapment
+Embroidered Gloves
+Requires Level 36, 54 Int
++64 to maximum Energy Shield
+You can apply an additional Curse
+16% increased Cast Speed with Curse Skills
+0.2% of Spell Damage Leeched as Energy Shield for each Curse on Enemy
+Trigger Socketed Curse Spells when you cast a Curse
+]],[[
+The Eternity Shroud
+Blood Raiment
+Shaper Item
+Requires Level 65, 107 Dex, 90 Int
+Implicits: 0
+Trigger Level 20 Glimpse of Eternity when Hit
+144% increased Evasion and Energy Shield
++79 to maximum Life
++21% to Chaos Resistance
+Gain 5% of Elemental Damage as Extra Chaos Damage per Shaper Item Equipped
+Hits ignore Enemy Monster Chaos Resistance if all Equipped Items are Shaper Items
+]],[[
+Maloney's Mechanism
+Ornate Quiver
+Requires Level 45
+Has 1 Socket
+Has 2 Sockets
+Trigger a Socketed Bow Skill when you Attack with a Bow
+8% increased Attack Speed
++67 to maximum Life
+5% chance to Blind Enemies on Hit with Attacks
+]],[[
+Offering of the Serpent
+Legion Gloves
+Requires Level 57, 44 Str, 44 Int
++21 to all Attributes
+157% increased Armour and Energy Shield
+50% reduced Maximum Recovery per Life Leech
+6% increased Attack and Cast Speed
+22% increased Damage while Leeching
+Life Leech effects are not removed at Full Life
 ]],
 
 }
