@@ -31,6 +31,20 @@ local skills, mod, flag, skill = ...
 #baseMod skill("showAverage", true)
 #mods
 
+#skill SupportAuraDuration Blessing
+	fromItem = true,
+	statMap = {
+		["support_aura_duration_base_buff_duration"] = {
+			skill("auraDuration", nil),
+			div = 1000,
+		},
+		["support_aura_duration_base_reserve_duration"] = {
+			skill("reserveDuration", nil),
+			div = 1000,
+		},
+	},
+#mods
+
 #skill SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike Cospri's Malice
 	fromItem = true,
 #mods
@@ -245,6 +259,11 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill LightningAegis
+#flags spell
+	fromItem = true,
+#mods
+
 #skill LightningSpell
 #flags spell area
 	fromItem = true,
@@ -275,6 +294,20 @@ local skills, mod, flag, skill = ...
 #skill TriggeredMoltenStrike
 #flags attack projectile area
 	fromItem = true,
+#mods
+
+#skill AccuracyAndCritsAura
+#flags spell aura area
+	fromItem = true,
+	statMap = {
+		["accuracy_rating"] = {
+			mod("Accuracy", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 36)
 #mods
 
 #skill TriggeredSummonSpider

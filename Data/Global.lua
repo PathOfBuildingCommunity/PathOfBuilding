@@ -189,4 +189,11 @@ SkillType = {
 	DestroysCorpse = 77, -- Consumes corpses on use
 	NonHitChill = 78,
 	ChillingArea = 79,
+	AppliesCurse = 80,
+	CanRapidFire = 81,
+	AuraDuration = 82,
+	AreaSpell = 83,
+	OR = 84,
+	AND = 85,
+	NOT = 86,
 }

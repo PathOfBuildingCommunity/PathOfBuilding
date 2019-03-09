@@ -40,10 +40,10 @@ return {
 	},
 	["Anger"] = {
 		["MERCILESS"] = {
-			"10% reduced Anger Mana Reservation",
+			"Anger has 10% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
-			"15% reduced Anger Mana Reservation",
+			"Anger has 15% reduced Mana Reservation",
 		},
 	},
 	["Animate Guardian"] = {
@@ -84,11 +84,11 @@ return {
 	["Arctic Armour"] = {
 		["MERCILESS"] = {
 			"24% increased Arctic Armour Buff Effect",
-			"20% reduced Arctic Armour Mana Reservation",
+			"Arctic Armour has 20% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
 			"36% increased Arctic Armour Buff Effect",
-			"30% reduced Arctic Armour Mana Reservation",
+			"Arctic Armour has 30% reduced Mana Reservation",
 		},
 	},
 	["Arctic Breath"] = {
@@ -135,6 +135,18 @@ return {
 			"40% increased Ball Lightning Damage",
 			"12% increased Ball Lightning Area of Effect",
 			"Ball Lightning fires an additional Projectile",
+		},
+	},
+	["Bane"] = {
+		["MERCILESS"] = {
+			"Bane deals 25% increased Damage",
+			"Bane has 10% increased Area of Effect",
+			"10% increased Effect of Curses applied by Bane",
+		},
+		["ENDGAME"] = {
+			"Bane deals 40% increased Damage",
+			"Bane has 15% increased Area of Effect",
+			"15% increased Effect of Curses applied by Bane",
 		},
 	},
 	["Barrage"] = {
@@ -307,10 +319,10 @@ return {
 	},
 	["Clarity"] = {
 		["MERCILESS"] = {
-			"20% reduced Clarity Mana Reservation",
+			"Clarity has 20% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
-			"30% reduced Clarity Mana Reservation",
+			"Clarity has 30% reduced Mana Reservation",
 		},
 	},
 	["Cleave"] = {
@@ -456,10 +468,10 @@ return {
 	},
 	["Determination"] = {
 		["MERCILESS"] = {
-			"10% reduced Determination Mana Reservation",
+			"Determination has 10% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
-			"15% reduced Determination Mana Reservation",
+			"Determination has 15% reduced Mana Reservation",
 		},
 	},
 	["Detonate Dead"] = {
@@ -498,10 +510,22 @@ return {
 	},
 	["Discipline"] = {
 		["MERCILESS"] = {
-			"14% reduced Discipline Mana Reservation",
+			"Discipline has 14% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
-			"20% reduced Discipline Mana Reservation",
+			"Discipline has 20% reduced Mana Reservation",
+		},
+	},
+	["Divine Ire"] = {
+		["MERCILESS"] = {
+			"Divine Ire deals 25% increased Damage",
+			"Divine Ire's beam has 10% increased width",
+			"Divine Ire Damages an additional nearby Enemy when gaining Stages",
+		},
+		["ENDGAME"] = {
+			"Divine Ire deals 40% increased Damage",
+			"Divine Ire's beam has 15% increased width",
+			"Divine Ire Damages 2 additional nearby Enemies when gaining Stages",
 		},
 	},
 	["Dominating Blow"] = {
@@ -531,10 +555,10 @@ return {
 	},
 	["Dread Banner"] = {
 		["MERCILESS"] = {
-			"Dread Banner has 16% increased Aura Effect",
+			"Dread Banner has 25% increased Aura Effect",
 		},
 		["ENDGAME"] = {
-			"Dread Banner has 24% increased Aura Effect",
+			"Dread Banner has 40% increased Aura Effect",
 		},
 	},
 	["Dual Strike"] = {
@@ -718,18 +742,6 @@ return {
 			"60% increased Flame Surge Damage against Burning Enemies",
 		},
 	},
-	["Flame Totem"] = {
-		["MERCILESS"] = {
-			"25% increased Flame Totem Damage",
-			"Flame Totem fires an additional Projectile",
-			"20% increased Flame Totem Projectile Speed",
-		},
-		["ENDGAME"] = {
-			"40% increased Flame Totem Damage",
-			"Flame Totem fires 2 additional Projectiles",
-			"30% increased Flame Totem Projectile Speed",
-		},
-	},
 	["Flameblast"] = {
 		["MERCILESS"] = {
 			"25% increased Flameblast Damage",
@@ -906,10 +918,10 @@ return {
 	},
 	["Grace"] = {
 		["MERCILESS"] = {
-			"10% reduced Grace Mana Reservation",
+			"Grace has 10% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
-			"15% reduced Grace Mana Reservation",
+			"Grace has 15% reduced Mana Reservation",
 		},
 	},
 	["Ground Slam"] = {
@@ -926,18 +938,18 @@ return {
 	},
 	["Haste"] = {
 		["MERCILESS"] = {
-			"10% reduced Haste Mana Reservation",
+			"Haste has 10% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
-			"15% reduced Haste Mana Reservation",
+			"Haste has 15% reduced Mana Reservation",
 		},
 	},
 	["Hatred"] = {
 		["MERCILESS"] = {
-			"10% reduced Hatred Mana Reservation",
+			"Hatred has 10% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
-			"15% reduced Hatred Mana Reservation",
+			"Hatred has 15% reduced Mana Reservation",
 		},
 	},
 	["Heavy Strike"] = {
@@ -964,21 +976,21 @@ return {
 	["Herald of Ash"] = {
 		["MERCILESS"] = {
 			"25% increased Herald of Ash Damage",
-			"20% reduced Herald of Ash Mana Reservation",
+			"Herald of Ash has 20% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
 			"40% increased Herald of Ash Damage",
-			"30% reduced Herald of Ash Mana Reservation",
+			"Herald of Ash has 30% reduced Mana Reservation",
 		},
 	},
 	["Herald of Ice"] = {
 		["MERCILESS"] = {
 			"25% increased Herald of Ice Damage",
-			"20% reduced Herald of Ice Mana Reservation",
+			"Herald of Ice has 20% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
 			"40% increased Herald of Ice Damage",
-			"30% reduced Herald of Ice Mana Reservation",
+			"Herald of Ice has 30% reduced Mana Reservation",
 		},
 	},
 	["Herald of Purity"] = {
@@ -993,11 +1005,25 @@ return {
 	["Herald of Thunder"] = {
 		["MERCILESS"] = {
 			"25% increased Herald of Thunder Damage",
-			"20% reduced Herald of Thunder Mana Reservation",
+			"Herald of Thunder has 20% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
 			"40% increased Herald of Thunder Damage",
-			"30% reduced Herald of Thunder Mana Reservation",
+			"Herald of Thunder has 30% reduced Mana Reservation",
+		},
+	},
+	["Holy Flame Totem"] = {
+		["MERCILESS"] = {
+			"25% increased Flame Totem Damage",
+			"Flame Totem fires an additional Projectile",
+			"20% increased Flame Totem Projectile Speed",
+			"Consecrated Ground created with Holy Flame Totem applies 6% increased Damage taken to Enemies",
+		},
+		["ENDGAME"] = {
+			"40% increased Flame Totem Damage",
+			"Flame Totem fires 2 additional Projectiles",
+			"30% increased Flame Totem Projectile Speed",
+			"Consecrated Ground created with Holy Flame Totem applies 9% increased Damage taken to Enemies",
 		},
 	},
 	["Ice Crash"] = {
@@ -1239,6 +1265,14 @@ return {
 			"12% increased Magma Orb Area of Effect",
 		},
 	},
+	["Malevolence"] = {
+		["MERCILESS"] = {
+			"Malevolence has 10% reduced Mana Reservation",
+		},
+		["ENDGAME"] = {
+			"Malevolence has 15% reduced Mana Reservation",
+		},
+	},
 	["Mirror Arrow"] = {
 		["MERCILESS"] = {
 			"Mirror Arrow and Mirror Arrow Clones deal 25% increased Damage",
@@ -1353,36 +1387,48 @@ return {
 			"45% increased Punishment Duration",
 		},
 	},
-	["Purity of Elements"] = {
+	["Purifying Flame"] = {
 		["MERCILESS"] = {
-			"14% reduced Purity of Elements Mana Reservation",
+			"Purifying Flame deals 25% increased Damage",
+			"Purifying Flame has 20% increased Area of Effect if targeting Consecrated Ground",
+			"Consecrated Ground created with Sanctify applies 6% increased Damage taken to Enemies",
 		},
 		["ENDGAME"] = {
-			"20% reduced Purity of Elements Mana Reservation",
+			"Purifying Flame deals 40% increased Damage",
+			"Purifying Flame has 30% increased Area of Effect if targeting Consecrated Ground",
+			"Consecrated Ground created with Sanctify applies 9% increased Damage taken to Enemies",
+		},
+	},
+	["Purity of Elements"] = {
+		["MERCILESS"] = {
+			"Purity of Elements has 14% reduced Mana Reservation",
+		},
+		["ENDGAME"] = {
+			"Purity of Elements has 20% reduced Mana Reservation",
 		},
 	},
 	["Purity of Fire"] = {
 		["MERCILESS"] = {
-			"14% reduced Purity of Fire Mana Reservation",
+			"Purity of Fire has 14% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
-			"20% reduced Purity of Fire Mana Reservation",
+			"Purity of Fire has 20% reduced Mana Reservation",
 		},
 	},
 	["Purity of Ice"] = {
 		["MERCILESS"] = {
-			"14% reduced Purity of Ice Mana Reservation",
+			"Purity of Ice has 14% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
-			"20% reduced Purity of Ice Mana Reservation",
+			"Purity of Ice has 20% reduced Mana Reservation",
 		},
 	},
 	["Purity of Lightning"] = {
 		["MERCILESS"] = {
-			"14% reduced Purity of Lightning Mana Reservation",
+			"Purity of Lightning has 14% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
-			"20% reduced Purity of Lightning Mana Reservation",
+			"Purity of Lightning has 20% reduced Mana Reservation",
 		},
 	},
 	["Rain of Arrows"] = {
@@ -1636,6 +1682,17 @@ return {
 			"Smoke Mine grants additional 30% increased Movement Speed",
 		},
 	},
+	["Soulrend"] = {
+		["MERCILESS"] = {
+			"Soulrend deals 25% increased Damage",
+			"Soulrend also Hinders Enemies, with 25% reduced Movement Speed",
+		},
+		["ENDGAME"] = {
+			"Soulrend deals 40% increased Damage",
+			"Soulrend also Hinders Enemies, with 40% reduced Movement Speed",
+			"Soulrend fires an additional Projectile",
+		},
+	},
 	["Spark"] = {
 		["MERCILESS"] = {
 			"25% increased Spark Damage",
@@ -1724,11 +1781,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Storm Burst Damage",
 			"8% increased Storm Burst Area of Effect",
+			"Storm Burst has a 10% chance to create an additional Orb",
 		},
 		["ENDGAME"] = {
 			"40% increased Storm Burst Damage",
 			"12% increased Storm Burst Area of Effect",
-			"Storm Burst fires an additional Projectile",
+			"Storm Burst has a 15% chance to create an additional Orb",
 		},
 	},
 	["Storm Call"] = {
@@ -1865,12 +1923,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Tectonic Slam Damage",
 			"8% increased Tectonic Slam Area of Effect",
-			"12% chance to create a Charged Slam",
+			"Tectonic Slam has 12% chance to create a Charged Slam",
 		},
 		["ENDGAME"] = {
 			"40% increased Tectonic Slam Damage",
 			"12% increased Tectonic Slam Area of Effect",
-			"20% chance to create a Charged Slam",
+			"Tectonic Slam has 20% chance to create a Charged Slam",
 		},
 	},
 	["Tempest Shield"] = {
@@ -1962,10 +2020,10 @@ return {
 	},
 	["Vitality"] = {
 		["MERCILESS"] = {
-			"14% reduced Vitality Mana Reservation",
+			"Vitality has 14% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
-			"20% reduced Vitality Mana Reservation",
+			"Vitality has 20% reduced Mana Reservation",
 		},
 	},
 	["Volatile Dead"] = {
@@ -2005,10 +2063,10 @@ return {
 	},
 	["War Banner"] = {
 		["MERCILESS"] = {
-			"War Banner has 16% increased Aura Effect",
+			"War Banner has 25% increased Aura Effect",
 		},
 		["ENDGAME"] = {
-			"War Banner has 24% increased Aura Effect",
+			"War Banner has 40% increased Aura Effect",
 		},
 	},
 	["Warlord's Mark"] = {
@@ -2019,6 +2077,18 @@ return {
 		["ENDGAME"] = {
 			"30% increased Warlord's Mark Curse Effect",
 			"45% increased Warlord's Mark Duration",
+		},
+	},
+	["Wave of Conviction"] = {
+		["MERCILESS"] = {
+			"Wave of Conviction deals 25% increased Damage",
+			"Wave of Conviction's Exposure applies -4% Elemental Resistance",
+			"Wave of Conviction has 20% increased Duration",
+		},
+		["ENDGAME"] = {
+			"Wave of Conviction deals 40% increased Damage",
+			"Wave of Conviction's Exposure applies -6% Elemental Resistance",
+			"Wave of Conviction has 30% increased Duration",
 		},
 	},
 	["Whirling Blades"] = {
@@ -2066,10 +2136,18 @@ return {
 	},
 	["Wrath"] = {
 		["MERCILESS"] = {
-			"10% reduced Wrath Mana Reservation",
+			"Wrath has 10% reduced Mana Reservation",
 		},
 		["ENDGAME"] = {
-			"15% reduced Wrath Mana Reservation",
+			"Wrath has 15% reduced Mana Reservation",
+		},
+	},
+	["Zealotry"] = {
+		["MERCILESS"] = {
+			"Zealotry has 10% reduced Mana Reservation",
+		},
+		["ENDGAME"] = {
+			"Zealotry has 15% reduced Mana Reservation",
 		},
 	},
 }

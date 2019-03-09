@@ -1,3 +1,6 @@
+if not loadStatFile then
+	dofile("statdesc.lua")
+end
 loadStatFile("stat_descriptions.txt")
 
 local lab = {
@@ -10,9 +13,8 @@ local labOrder = { "NORMAL", "CRUEL", "MERCILESS", "ENDGAME" }
 
 local function doOtherEnchantment(fileName, group)
 	local byDiff = { }
-	for _, modKey in ipairs(Mods.GenerationType(10)) do
-		local mod = Mods[modKey]
-		if mod.CorrectGroup == group and mod.SpawnWeight_Values[1] > 0 then
+	for _, mod in ipairs(dat"Mods":GetRowList("GenerationType", 10)) do
+		if mod.Family == group and mod.SpawnWeights[1] > 0 then
 			local stats, orders = describeMod(mod)
 			local diff = lab[mod.Level]
 			byDiff[diff] = byDiff[diff] or { }
@@ -92,26 +94,29 @@ local skillMap = {
 	["HolyRelic"] = "Summon Holy Relic",
 	["HeraldOfAgony"] = "Herald of Agony",
 	["HeraldOfPurity"] = "Herald of Purity",
+	["Bane"] = "Bane",
+	["DivineIre"] = "Divine Ire",
+	["PurifyingFlame"] = "Purifying Flame",
+	["Soulrend"] = "Soulrend",
+	["StormBurst"] = "Storm Burst",
 }
 
 local bySkill = { }
-for _, modKey in ipairs(Mods.GenerationType(10)) do
-	local mod = Mods[modKey]
-	if mod.CorrectGroup == "SkillEnchantment" and mod.SpawnWeight_Values[1] > 0 then
-		local statKeys = { mod.StatsKey1, mod.StatsKey2, mod.StatsKey3, mod.StatsKey4, mod.StatsKey5, mod.StatsKey6 }
+for _, mod in ipairs(dat"Mods":GetRowList("GenerationType", 10)) do
+	if mod.Family == "SkillEnchantment" and mod.SpawnWeights[1] > 0 then
+		local stats = { mod.Stat1, mod.Stat2, mod.Stat3, mod.Stat4, mod.Stat5, mod.Stat6 }
 		local skill
-		for _, statsKey in pairs(statKeys) do
-			for _, activeSkillsKey in ipairs(ActiveSkills.Input_StatKeys(statsKey)) do
-				local activeSkill = ActiveSkills[activeSkillsKey]
+		for _, stat in pairs(stats) do
+			for _, activeSkill in ipairs(dat"ActiveSkills":GetRowList("SkillSpecificStat", stat)) do
 				local isVaal = false
-				for _, skillType in ipairs(activeSkill.ActiveSkillTypes) do
+				for _, skillType in ipairs(activeSkill.SkillTypes) do
 					if skillType == 39 then
 						isVaal = true
 						break
 					end
 				end
-				if not isVaal and activeSkill.DisplayedName ~= "" then
-					skill = activeSkill.DisplayedName
+				if not isVaal and activeSkill.DisplayName ~= "" then
+					skill = activeSkill.DisplayName
 					break
 				end
 			end

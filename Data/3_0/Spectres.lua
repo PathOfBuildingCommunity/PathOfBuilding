@@ -291,7 +291,7 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
 		"Melee",
 		"BloodChieftainSummonMonkeys",
 		"MassFrenzy",
-		"EmptyActionMonkeyThrow",
+		"MonkeyThrow",
 		"TriggeredMonkeyBomb",
 	},
 	modList = {

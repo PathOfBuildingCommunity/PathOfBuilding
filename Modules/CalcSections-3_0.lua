@@ -426,6 +426,8 @@ return {
 	}, },
 	{ label = "Skill Duration", flag = "duration", haveOutput = "Duration", { format = "{2:output:Duration}s", { breakdown = "Duration" }, }, },
 	{ label = "Secondary Duration", flag = "duration", haveOutput = "DurationSecondary", { format = "{2:output:DurationSecondary}s", { breakdown = "DurationSecondary" }, }, },
+	{ label = "Aura Duration", haveOutput = "AuraDuration", { format = "{2:output:AuraDuration}s", { breakdown = "AuraDuration" }, }, },
+	{ label = "Reserve Duration", haveOutput = "ReserveDuration", { format = "{2:output:ReserveDuration}s", { breakdown = "ReserveDuration" }, }, },
 	{ label = "Max Chain Count", flag = "chaining", { format = "{output:ChainMaxString}", { modName = { "CannotChain", "ChainCountMax" }, cfg = "skill" }, }, }, 
 	{ label = "Projectile Count", flag = "projectile", { format = "{0:output:ProjectileCount}", { modName = "ProjectileCount", cfg = "skill" }, }, },
 	{ label = "Pierce Count", flag = "projectile", { format = "{output:PierceCountString}", { modName = { "CannotPierce", "PierceCount", "PierceAllTargets" }, cfg = "skill" }, }, },

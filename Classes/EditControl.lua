@@ -411,6 +411,9 @@ function EditClass:OnKeyDown(key, doubleClick)
 		if self.lineHeight then
 			self:Insert("\n")
 		else
+			if self.enterFunc then
+				self.enterFunc(self.buf)
+			end
 			return
 		end
 	elseif key == "a" and ctrl then

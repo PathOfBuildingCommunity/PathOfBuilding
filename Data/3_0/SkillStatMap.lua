@@ -185,6 +185,10 @@ return {
 ["deal_chaos_damage_per_second_for_10_seconds_on_hit"] = {
 	mod("SkillData", "LIST", { key = "decay", value = nil, merge = "MAX" }),
 },
+["base_spell_cast_time_ms_override"] = {
+	skill("castTimeOverride", nil),
+	div = 1000,
+},
 
 --
 -- Defensive modifiers
@@ -273,15 +277,26 @@ return {
 	mod("DamageManaLeech", "BASE", nil),
 	div = 100,
 },
+["energy_shield_leech_from_any_damage_permyriad"] = {
+	mod("DamageEnergyShieldLeech", "BASE", nil),
+	div = 100,
+},
 ["life_leech_from_physical_attack_damage_permyriad"] = {
 	mod("PhysicalDamageLifeLeech", "BASE", nil, ModFlag.Attack),
 	div = 100,
 },
-["life_leech_speed_+%"] = {
-	mod("LifeLeechRate", "INC", nil),
+["base_energy_shield_leech_from_spell_damage_permyriad"] = {
+	mod("DamageEnergyShieldLeech", "BASE", nil, ModFlag.Spell),
+	div = 100,
 },
-["mana_leech_speed_+%"] = {
-	mod("ManaLeechRate", "INC", nil),
+["damage_+%_while_life_leeching"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LeechingLife" }),
+},
+["damage_+%_while_mana_leeching"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LeechingMana" }),
+},
+["damage_+%_while_es_leeching"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LeechingEnergyShield" }),
 },
 ["aura_effect_+%"] = {
 	mod("AuraEffect", "INC", nil),

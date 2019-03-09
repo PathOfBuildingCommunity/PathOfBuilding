@@ -23,6 +23,9 @@ local skills, mod, flag, skill = ...
 		["support_arcane_surge_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
 		},
+		["support_arcane_surge_spell_damage_+%_final_while_you_have_arcane_surge"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "Condition", var = "AffectedByArcaneSurge" }),
+		},
 	},
 #mods
 
@@ -115,6 +118,17 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportEnergyShieldLeech
+	statMap = {
+		["support_energy_shield_leech_damage_+%_on_full_energy_shield_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "FullEnergyShield" }),
+		},
+		["support_energy_shield_leech_damage_+%_while_leeching_energy_shield_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "LeechingEnergyShield" }),
+		},
+	},
+#mods
+
 #skill SupportAdditionalXP
 #mods
 
@@ -141,6 +155,33 @@ local skills, mod, flag, skill = ...
 #skill SupportIncreasedCriticalStrikes
 #mods
 
+#skill SupportStormBarrier
+	statMap = {
+		["support_storm_barrier_physical_damage_taken_when_hit_+%_final"] = {
+			mod("PhysicalDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling" }),
+		},
+		["support_storm_barrier_skill_type_damage_taken_when_hit_+%_final"] = {
+			mod("FireDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "FireInfusion" }),
+			mod("ColdDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "ColdInfusion" }),
+			mod("LightningDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "LightningInfusion" }),
+			mod("ChaosDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "ChaosInfusion" }),
+		},
+		["support_storm_barrier_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_storm_barrier_skill_type_damage_+%_final"] = {
+			mod("FireDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "FireInfusion" }),
+			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ColdInfusion" }),
+			mod("LightningDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "LightningInfusion" }),
+			mod("ChaosDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ChaosInfusion" }),
+		},
+	},
+#baseMod flag("Condition:FireInfusion", { type = "SkillType", skillType = SkillType.FireSkill })
+#baseMod flag("Condition:ColdInfusion", { type = "SkillType", skillType = SkillType.ColdSkill })
+#baseMod flag("Condition:LightningInfusion", { type = "SkillType", skillType = SkillType.LightningSkill })
+#baseMod flag("Condition:ChaosInfusion", { type = "SkillType", skillType = SkillType.ChaosSkill })
+#mods
+
 #skill SupportOnslaughtOnSlayingShockedEnemy
 	statMap = {
 		["support_innervate_minimum_added_lightning_damage"] = {
@@ -148,6 +189,17 @@ local skills, mod, flag, skill = ...
 		},
 		["support_innervate_maximum_added_lightning_damage"] = {
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Innervation", effectCond = "InnervationActive" }),
+		},
+	},
+#mods
+
+#skill SupportHandcastSpellBoost
+	statMap = {
+		["support_spell_boost_area_damage_+%_final_per_charge"] = {
+			mod("Damage", "MORE", nil, ModFlag.Area, 0, { type = "Multiplier", var = "Intensity" }),
+		},
+		["support_spell_boost_area_of_effect_+%_final_per_charge"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity" }),
 		},
 	},
 #mods
@@ -241,17 +293,6 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportStormBarrier
-	statMap = {
-		["support_storm_barrier_physical_damage_taken_when_hit_+%_final"] = {
-			mod("PhysicalDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Storm Barrier" }),
-		},
-		["support_storm_barrier_lightning_damage_taken_when_hit_+%_final"] = {
-			mod("LightningDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Storm Barrier" }),
-		},
-	},
-#mods
-
 #skill SupportSummonGhostOnKill
 	addFlags = {
 		minion = true,
@@ -272,4 +313,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)),
 		},
 	},
+#mods
+
+#skill SupportHandcastAnticipation
 #mods

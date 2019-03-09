@@ -482,6 +482,9 @@ local skills, mod, flag, skill = ...
 		["physical_damage_%_to_add_as_cold"] = {
 			mod("PhysicalDamageGainAsCold", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["hatred_aura_cold_damage_+%_final"] = {
+			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 #baseMod skill("radius", 36)
 #mods
@@ -697,8 +700,8 @@ local skills, mod, flag, skill = ...
 		["hits_ignore_my_cold_resistance"] = {
 			flag("SelfIgnoreColdResistance", { type = "GlobalEffect", effectType = "Debuff" }),
 		},
-		["cold_damage_taken_+%"] = {
-			mod("ColdDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["impurity_cold_damage_taken_+%_final"] = {
+			mod("ColdDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #mods
@@ -910,13 +913,16 @@ local skills, mod, flag, skill = ...
 #flags spell curse area duration
 	statMap = {
 		["temporal_chains_action_speed_+%_final"] = {
-			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
 		},
 		["buff_time_passed_+%_other_than_temporal_chains"] = {
 			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["curse_effect_+%_vs_players"] = {
 			mod("CurseEffectAgainstPlayer", "INC", nil),
+		},
+		["temporal_chains_action_speed_+%_vs_rare_or_unique_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
 		},
 	},
 #baseMod skill("debuff", true)

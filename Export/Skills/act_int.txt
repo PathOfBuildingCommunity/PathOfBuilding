@@ -52,8 +52,8 @@ local skills, mod, flag, skill = ...
 			mod("SelfCritMultiplier", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 			mult = -1,
 		},
-		["additional_chance_to_take_critical_strike_%"] = {
-			mod("SelfExtraCritChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		["enemy_additional_critical_strike_chance_against_self"] = {
+			mod("SelfCritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["life_granted_when_killed"] = {
 			mod("SelfLifeOnKill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -69,6 +69,39 @@ local skills, mod, flag, skill = ...
 #skill BallLightning
 #flags spell projectile
 #baseMod skill("radius", 22)
+#mods
+
+#skill DarkRitual
+#flags spell duration area
+	setupFunc = function(activeSkill, output)
+		local curseCount = 0
+		for _, skill in ipairs(activeSkill.actor.activeSkillList) do
+			if skill.socketGroup == activeSkill.socketGroup and skill.skillModList:GetCondition("AppliedByBane") then
+				curseCount = curseCount + 1
+				if curseCount == output.EnemyCurseLimit then
+					break
+				end
+			end
+		end
+		activeSkill.skillModList:NewMod("Multiplier:CurseApplied", "BASE", curseCount, "Base")
+	end,
+	statMap = {
+		["dark_ritual_damage_+%_final_per_curse_applied"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "CurseApplied" }),
+		},
+		["dark_ritual_skill_effect_duration_+%_per_curse_applied"] = {
+			mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseApplied" }),
+		},
+	},
+#baseMod skill("radius", 21)
+#mods
+
+#skill SupportDarkRitual Bane
+	statMap = {
+		["apply_linked_curses_with_dark_ritual"] = {
+			flag("Condition:AppliedByBane"),
+		},
+	},
 #mods
 
 #skill Blight
@@ -302,6 +335,39 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 36)
 #mods
 
+#skill DivineTempest
+#flags spell area
+	parts = {
+		{
+			name = "Channelling",
+			area = false,
+		},
+		{
+			name = "Release at 10 Stages",
+			area = true,
+		},
+		{
+			name = "Release at 20 Stages",
+			area = true,
+		},
+	},
+	statMap = {
+		["divine_tempest_damage_+%_final_while_channelling"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+		["divine_tempest_hit_damage_+%_final_per_stage"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "StageAfterFirst" }),
+		},
+		["divine_tempest_ailment_damage_+%_final_per_stage"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "StageAfterFirst" }),
+		},
+	},
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 2, 3 } })
+#baseMod mod("Multiplier:StageAfterFirst", "BASE", 9, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:StageAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod skill("radius", 38)
+#mods
+
 #skill ElementalWeakness
 #flags spell curse area duration
 	statMap = {
@@ -317,7 +383,10 @@ local skills, mod, flag, skill = ...
 #flags spell curse area duration
 	statMap = {
 		["enfeeble_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
 		},
 		["critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -664,6 +733,19 @@ local skills, mod, flag, skill = ...
 #flags spell projectile area chaining
 #mods
 
+#skill DamageOverTimeAura
+#flags spell aura area
+	statMap = {
+		["delirium_aura_damage_over_time_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["delirium_skill_effect_duration_+%"] = {
+			mod("Duration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 36)
+#mods
+
 #skill OrbOfStorms
 #flags spell chaining duration
 #mods
@@ -674,6 +756,25 @@ local skills, mod, flag, skill = ...
 
 #skill VaalPowerSiphon
 #flags attack projectile
+#mods
+
+#skill Sanctify
+#flags spell area duration
+	parts = {
+		{
+			name = "Initial hit",
+		},
+		{
+			name = "Shockwave",
+		},
+	},
+	statMap = {
+		["sanctify_wave_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#baseMod skill("radius", 18)
+#baseMod skill("radiusSecondary", 50)
 #mods
 
 #skill Purity
@@ -714,8 +815,8 @@ local skills, mod, flag, skill = ...
 		["hits_ignore_my_lightning_resistance"] = {
 			flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "Debuff" })
 		},
-		["lightning_damage_taken_+%"] = {
-			mod("LightningDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["impurity_lightning_damage_taken_+%_final"] = {
+			mod("LightningDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #mods
@@ -795,13 +896,11 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
-		["fire_beam_enemy_fire_resistance_%_per_stack"] = {
-			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+		["base_fire_damage_resistance_%"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
 		},
 	},
-#baseMod skill("stackCount", 1, { type = "SkillPart", skillPart = 1 })
-#baseMod skill("stackCount", 4, { type = "SkillPart", skillPart = 2 })
-#baseMod skill("stackCount", 8, { type = "SkillPart", skillPart = 3 })
+#baseMod flag("Condition:ScorchingRayMaxStages", { type = "SkillPart", skillPart = 3 })
 #baseMod mod("Damage", "MORE", 180, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod mod("Damage", "MORE", 420, 0, 0, { type = "SkillPart", skillPart = 3 })
 #mods
@@ -846,6 +945,11 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill Soulrend
+#flags spell projectile duration
+#baseMod skill("radius", 13)
+#mods
+
 #skill Spark
 #flags spell projectile duration
 #mods
@@ -883,22 +987,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill StormBurst
-#flags spell projectile area
-	parts = {
-		{
-			name = "Projectile",
-			area = false,
-		},
-		{
-			name = "Explosion",
-			area = true,
-		},
-	},
-	statMap = {
-		["base_skill_show_average_damage_instead_of_dps"] = {
-		},
-	},
+#skill StormBurstNew
+#flags spell area duration
+#baseMod skill("radius", 16)
+#baseMod skill("radiusSecondary", 22)
 #mods
 
 #skill StormCall
@@ -1004,10 +1096,23 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 20)
 #mods
 
+#skill Purge
+#flags spell area duration
+	statMap = {
+		["purge_expose_resist_%_matching_highest_element_damage"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "WaveOfConvictionFireExposureActive" }),
+			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Cold Exposure", effectCond = "WaveOfConvictionColdExposureActive" }),
+			mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Lightning Exposure", effectCond = "WaveOfConvictionLightningExposureActive" }),
+		},
+	},
+#mods
+
 #skill FrostFury
 #flags spell projectile area duration
 	setupFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HitRate") / 100)
+		local rateMod = (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HitRate") / 100)
+		local speedMod = calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Speed")
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / rateMod / speedMod
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
@@ -1075,6 +1180,19 @@ local skills, mod, flag, skill = ...
 		},
 		["attack_maximum_added_lightning_damage"] = {
 			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 36)
+#mods
+
+#skill SpellDamageAura
+#flags spell aura area
+	statMap = {
+		["spell_damage_aura_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["spell_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #baseMod skill("radius", 36)

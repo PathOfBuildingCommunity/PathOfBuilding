@@ -10,27 +10,25 @@ local function mapAST(ast)
 end
 
 local weaponClassMap = {
-	[6] = "Claw",
-	[7] = "Dagger",
-	[8] = "Wand",
-	[9] = "One Handed Sword",
-	[10] = "Thrusting One Handed Sword",
-	[11] = "One Handed Axe",
-	[12] = "One Handed Mace",
-	[13] = "Bow",
-	[14] = "Staff",
-	[15] = "Two Handed Sword",
-	[16] = "Two Handed Axe",
-	[17] = "Two Handed Mace",
-	[32] = "Sceptre",
-	[36] = "None",
+	["Claw"] = "Claw",
+	["Dagger"] = "Dagger",
+	["Wand"] = "Wand",
+	["One Hand Sword"] = "One Handed Sword",
+	["Thrusting One Hand Sword"] = "Thrusting One Handed Sword",
+	["One Hand Axe"] = "One Handed Axe",
+	["One Hand Mace"] = "One Handed Mace",
+	["Bow"] = "Bow",
+	["Staff"] = "Staff",
+	["Two Hand Sword"] = "Two Handed Sword",
+	["Two Hand Axe"] = "Two Handed Axe",
+	["Two Hand Mace"] = "Two Handed Mace",
+	["Sceptre"] = "Sceptre",
+	["Unarmed"] = "None",
 }
 
 local skillStatScope = { }
 do
-	local f = io.open("StatDescriptions/skillpopup_stat_filters.txt", "rb")
-	local text = convertUTF16to8(f:read("*a"))
-	f:close()
+	local text = convertUTF16to8(getFile("Metadata/StatDescriptions/skillpopup_stat_filters.txt"))
 	for skillName, scope in text:gmatch('([%w_]+) "Metadata/StatDescriptions/([%w_]+)%.txt"') do
 		skillStatScope[skillName] = scope
 	end
@@ -55,29 +53,26 @@ directiveTable.skill = function(state, args, out)
 		displayName = args
 	end
 	out:write('skills["', grantedId, '"] = {\n')
-	local grantedKey = GrantedEffects.Id(grantedId)[1]
-	local granted = GrantedEffects[grantedKey]
+	local granted = dat"GrantedEffects":GetRow("Id", grantedId)
 	if not granted then
 		print('Unknown GE: "'..grantedId..'"')
 	end
-	local skillGemKey = SkillGems.GrantedEffectsKey(grantedKey)[1]
+	local skillGem = dat"SkillGems":GetRow("GrantedEffect", granted)
 	local skill = { }
 	state.skill = skill
-	if skillGemKey and not state.noGem then
-		gems[skillGemKey] = true
+	if skillGem and not state.noGem then
+		gems[skillGem] = true
 		if granted.IsSupport then
-			local skillGem = SkillGems[skillGemKey]
-			local baseItemType = BaseItemTypes[skillGem.BaseItemTypesKey]
-			out:write('\tname = "', baseItemType.Name:gsub(" Support",""), '",\n')
+			out:write('\tname = "', skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
 			if #skillGem.Description > 0 then
 				out:write('\tdescription = "', skillGem.Description, '",\n')
 			end
 		else
-			out:write('\tname = "', ActiveSkills[granted.ActiveSkillsKey].DisplayedName, '",\n')
+			out:write('\tname = "', granted.ActiveSkill.DisplayName, '",\n')
 		end
 	else
 		if displayName == args and not granted.IsSupport then
-			displayName = ActiveSkills[granted.ActiveSkillsKey].DisplayedName
+			displayName = granted.ActiveSkill.DisplayName
 		end
 		out:write('\tname = "', displayName, '",\n')
 		out:write('\thidden = true,\n')
@@ -90,7 +85,7 @@ directiveTable.skill = function(state, args, out)
 	local statMap = { }
 	skill.stats = { }
 	skill.statInterpolation = { }
-	out:write('\tcolor = ', granted.Unknown0, ',\n')
+	out:write('\tcolor = ', granted.Attribute, ',\n')
 	if granted.IncrementalEffectiveness ~= 0 then
 		out:write('\tbaseEffectiveness = ', granted.BaseEffectiveness, ',\n')
 		out:write('\tincrementalEffectiveness = ', granted.IncrementalEffectiveness, ',\n')
@@ -99,45 +94,44 @@ directiveTable.skill = function(state, args, out)
 		skill.isSupport = true
 		out:write('\tsupport = true,\n')
 		out:write('\trequireSkillTypes = { ')
-		for _, type in ipairs(granted.AllowedActiveSkillTypes) do
+		for _, type in ipairs(granted.SupportTypes) do
 			out:write(mapAST(type), ', ')
 		end
 		out:write('},\n')
 		out:write('\taddSkillTypes = { ')
-		for _, type in ipairs(granted.AddedActiveSkillTypes) do
+		for _, type in ipairs(granted.AddTypes) do
 			out:write(mapAST(type), ', ')
 		end
 		out:write('},\n')
 		out:write('\texcludeSkillTypes = { ')
-		for _, type in ipairs(granted.ExcludedActiveSkillTypes) do
+		for _, type in ipairs(granted.ExcludeTypes) do
 			out:write(mapAST(type), ', ')
 		end
 		out:write('},\n')
-		if granted.SupportsGemsOnly then
+		if granted.SupportGemsOnly then
 			out:write('\tsupportGemsOnly = true,\n')
 		end
 		out:write('\tstatDescriptionScope = "gem_stat_descriptions",\n')
 	else
-		local activeSkill = ActiveSkills[granted.ActiveSkillsKey]
-		if #activeSkill.Description > 0 then
-			out:write('\tdescription = "', activeSkill.Description, '",\n')
+		if #granted.ActiveSkill.Description > 0 then
+			out:write('\tdescription = "', granted.ActiveSkill.Description, '",\n')
 		end
 		out:write('\tskillTypes = { ')
-		for _, type in ipairs(activeSkill.ActiveSkillTypes) do
+		for _, type in ipairs(granted.ActiveSkill.SkillTypes) do
 			out:write('[', mapAST(type), '] = true, ')
 		end
 		out:write('},\n')
-		if activeSkill.MinionActiveSkillTypes[1] then
+		if granted.ActiveSkill.MinionSkillTypes[1] then
 			out:write('\tminionSkillTypes = { ')
-			for _, type in ipairs(activeSkill.MinionActiveSkillTypes) do
+			for _, type in ipairs(granted.ActiveSkill.MinionSkillTypes) do
 				out:write('[', mapAST(type), '] = true, ')
 			end
 			out:write('},\n')
 		end
 		local weaponTypes = { }
-		for _, classKey in ipairs(activeSkill.WeaponRestriction_ItemClassesKeys) do
-			if weaponClassMap[classKey] then
-				weaponTypes[weaponClassMap[classKey]] = true
+		for _, class in ipairs(granted.ActiveSkill.WeaponRestrictions) do
+			if weaponClassMap[class.Id] then
+				weaponTypes[weaponClassMap[class.Id]] = true
 			end
 		end
 		if next(weaponTypes) then
@@ -147,18 +141,17 @@ directiveTable.skill = function(state, args, out)
 			end
 			out:write('\t},\n')
 		end
-		out:write('\tstatDescriptionScope = "', skillStatScope[activeSkill.Id] or "skill_stat_descriptions", '",\n')
-		if activeSkill.SkillTotemId ~= 17 then
-			out:write('\tskillTotemId = ', activeSkill.SkillTotemId, ',\n')
+		out:write('\tstatDescriptionScope = "', skillStatScope[granted.ActiveSkill.Id] or "skill_stat_descriptions", '",\n')
+		if granted.ActiveSkill.SkillTotem <= dat"SkillTotems".rowCount then
+			out:write('\tskillTotemId = ', granted.ActiveSkill.SkillTotem, ',\n')
 		end
 		out:write('\tcastTime = ', granted.CastTime / 1000, ',\n')
 	end
-	for _, key in ipairs(GrantedEffectsPerLevel.GrantedEffectsKey(grantedKey)) do
+	for _, levelRow in ipairs(dat"GrantedEffectsPerLevel":GetRowList("GrantedEffect", granted)) do
 		local level = { extra = { } }
-		local levelRow = GrantedEffectsPerLevel[key]
 		level.level = levelRow.Level
 		table.insert(skill.levels, level)
-		level.extra.levelRequirement = levelRow.LevelRequirement
+		level.extra.levelRequirement = levelRow.PlayerLevel
 		if levelRow.ManaCost and levelRow.ManaCost ~= 0 then
 			level.extra.manaCost = levelRow.ManaCost
 		end
@@ -168,42 +161,43 @@ directiveTable.skill = function(state, args, out)
 		if levelRow.DamageEffectiveness ~= 0 then
 			level.extra.damageEffectiveness = levelRow.DamageEffectiveness / 100 + 1
 		end
-		if levelRow.CriticalStrikeChance ~= 0 then
-			level.extra.critChance = levelRow.CriticalStrikeChance / 100
+		if levelRow.SpellCritChance ~= 0 then
+			level.extra.critChance = levelRow.SpellCritChance / 100
 		end
 		if levelRow.DamageMultiplier and levelRow.DamageMultiplier ~= 0 then
 			level.extra.baseMultiplier = levelRow.DamageMultiplier / 10000 + 1
 		end
-		if levelRow.ManaReservationOverride ~= 0 then
-			level.extra.manaCostOverride = levelRow.ManaReservationOverride
+		if levelRow.ManaCostOverride ~= 0 then
+			level.extra.manaCostOverride = levelRow.ManaCostOverride
 		end
 		if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
 			level.extra.cooldown = levelRow.Cooldown / 1000
 		end
-		for i, statKey in ipairs(levelRow.StatsKeys) do
-			local statId = Stats[statKey].Id
-			if not statMap[statId] then
-				statMap[statId] = #skill.stats + 1
-				table.insert(skill.stats, { id = statId })
+		if levelRow.Duration and levelRow.Duration ~= 0 then
+			level.extra.duration = levelRow.Duration / 1000
+		end
+		for i, stat in ipairs(levelRow.Stats) do
+			if not statMap[stat.Id] then
+				statMap[stat.Id] = #skill.stats + 1
+				table.insert(skill.stats, { id = stat.Id })
 			end
-			skill.statInterpolation[i] = levelRow.StatInterpolationTypesKeys[i]
-			if skill.statInterpolation[i] == 3 and levelRow.EffectivenessCostConstantsKeys[i] ~= 2 then
-				table.insert(level, levelRow["Stat"..i.."Float"] / EffectivenessCostConstants[levelRow.EffectivenessCostConstantsKeys[i]].Multiplier)
+			skill.statInterpolation[i] = levelRow.InterpolationTypes[i]
+			if skill.statInterpolation[i] == 3 and levelRow.EffectivenessCost[i].Value ~= 0 then
+				table.insert(level, levelRow["StatEff"..i] / levelRow.EffectivenessCost[i].Value)
 			else
-				table.insert(level, levelRow["Stat"..i.."Value"])
+				table.insert(level, levelRow["Stat"..i])
 			end
 		end
-		for i, statKey in ipairs(levelRow.StatsKeys2) do
-			local statId = Stats[statKey].Id
-			if not statMap[statId] then
-				statMap[statId] = #skill.stats + 1
-				table.insert(skill.stats, { id = statId })
+		for i, stat in ipairs(levelRow.BooleanStats) do
+			if not statMap[stat.Id] then
+				statMap[stat.Id] = #skill.stats + 1
+				table.insert(skill.stats, { id = stat.Id })
 			end
 		end
 		if not skill.qualityStats then
 			skill.qualityStats = { }
-			for i, statKey in ipairs(levelRow.Quality_StatsKeys) do
-				table.insert(skill.qualityStats, { Stats[statKey].Id, levelRow.Quality_Values[i] / 1000 })
+			for i, stat in ipairs(levelRow.QualityStats) do
+				table.insert(skill.qualityStats, { stat.Id, levelRow.QualityStatValues[i] / 1000 })
 			end
 		end
 	end
@@ -273,7 +267,7 @@ directiveTable.mods = function(state, args, out)
 end
 
 for _, name in pairs({"act_str","act_dex","act_int","other","glove","minion","spectre","sup_str","sup_dex","sup_int"}) do
-	processTemplateFile("Skills/"..name, directiveTable)
+	processTemplateFile(name, "Skills/", "../Data/3_0/Skills/", directiveTable)
 end
 
 local wellShitIGotThoseWrong = { 
@@ -292,22 +286,20 @@ local wellShitIGotThoseWrong = {
 local out = io.open("../Data/3_0/Gems.lua", "w")
 out:write('-- This file is automatically generated, do not edit!\n')
 out:write('-- Gem data (c) Grinding Gear Games\n\nreturn {\n')
-for skillGemKey = 0, SkillGems.maxRow do
-	if gems[skillGemKey] then
-		local skillGem = SkillGems[skillGemKey] 
-		local baseItemType = BaseItemTypes[skillGem.BaseItemTypesKey]
-		out:write('\t["', wellShitIGotThoseWrong[baseItemType.Id] or baseItemType.Id, '"] = {\n')
-		out:write('\t\tname = "', baseItemType.Name:gsub(" Support",""), '",\n')
-		out:write('\t\tgrantedEffectId = "', GrantedEffects[skillGem.GrantedEffectsKey].Id, '",\n')
-		if skillGem.GrantedEffectsKey2 then
-			out:write('\t\tsecondaryGrantedEffectId = "', GrantedEffects[skillGem.GrantedEffectsKey2].Id, '",\n')
+for skillGem in dat"SkillGems":Rows() do
+	if gems[skillGem] then
+		out:write('\t["', wellShitIGotThoseWrong[skillGem.BaseItemType.Id] or skillGem.BaseItemType.Id, '"] = {\n')
+		out:write('\t\tname = "', skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
+		out:write('\t\tgrantedEffectId = "', skillGem.GrantedEffect.Id, '",\n')
+		if skillGem.SecondaryGrantedEffect then
+			out:write('\t\tsecondaryGrantedEffectId = "', skillGem.SecondaryGrantedEffect.Id, '",\n')
 		end
 		local tagNames = { }
 		out:write('\t\ttags = {\n')
-		for i, tagKey in ipairs(skillGem.GemTagsKeys) do
-			out:write('\t\t\t', GemTags[tagKey].Id, ' = true,\n')
-			if #GemTags[tagKey].Tag > 0 then
-				table.insert(tagNames, GemTags[tagKey].Tag)
+		for _, tag in ipairs(skillGem.Tags) do
+			out:write('\t\t\t', tag.Id, ' = true,\n')
+			if #tag.Name > 0 then
+				table.insert(tagNames, tag.Name)
 			end
 		end
 		out:write('\t\t},\n')
@@ -319,7 +311,6 @@ for skillGemKey = 0, SkillGems.maxRow do
 	end
 end
 out:write('}')
-
-os.execute("xcopy Skills\\*.lua ..\\Data\\3_0\\Skills\\ /Y /Q")
+out:close()
 
 print("Skill data exported.")

@@ -345,6 +345,9 @@ function ListClass:OnKeyDown(key, doubleClick)
 				self:OnSelKeyDown(self.selIndex, self.selValue, key)
 			end
 		end
+		if self.OnAnyKeyDown then
+			self:OnAnyKeyDown(key)
+		end
 	end
 	return self
 end

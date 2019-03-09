@@ -4,6 +4,8 @@
 -- Various functions used by the calculation modules
 --
 local pairs = pairs
+local t_insert = table.insert
+local t_remove = table.remove
 local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
@@ -66,8 +68,23 @@ function calcLib.canGrantedEffectSupportTypes(grantedEffect, skillTypes)
 	if not grantedEffect.requireSkillTypes[1] then
 		return true
 	end
+	-- Check for required types using a boolean postfix expression
+	local stack = { }
 	for _, skillType in pairs(grantedEffect.requireSkillTypes) do
-		if skillTypes[skillType] then
+		if skillType == SkillType.OR then
+			local other = t_remove(stack)
+			stack[#stack] = stack[#stack] or other
+		elseif skillType == SkillType.AND then
+			local other = t_remove(stack)
+			stack[#stack] = stack[#stack] and other
+		elseif skillType == SkillType.NOT then
+			stack[#stack] = not stack[#stack]
+		else
+			t_insert(stack, skillTypes[skillType] == true)
+		end
+	end
+	for _, val in ipairs(stack) do
+		if val then
 			return true
 		end
 	end

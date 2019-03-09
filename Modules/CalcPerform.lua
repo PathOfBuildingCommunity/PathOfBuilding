@@ -357,7 +357,7 @@ function calcs.perform(env)
 	mergeKeystones(env)
 
 	-- Build minion skills
-	for _, activeSkill in ipairs(env.activeSkillList) do
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		activeSkill.skillModList = new("ModList", activeSkill.baseSkillModList)
 		if activeSkill.minion then
 			activeSkill.minion.modDB = new("ModDB")
@@ -518,7 +518,7 @@ function calcs.perform(env)
 		breakdown.LifeReserved = { reservations = { } }
 		breakdown.ManaReserved = { reservations = { } }
 	end
-	for _, activeSkill in ipairs(env.activeSkillList) do
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillTypes[SkillType.ManaCostReserved] and not activeSkill.skillFlags.totem then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
@@ -643,7 +643,7 @@ function calcs.perform(env)
 		limit = 1,
 	}
 	local affectedByAura = { }
-	for _, activeSkill in ipairs(env.activeSkillList) do
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
 		for _, buff in ipairs(activeSkill.buffList) do

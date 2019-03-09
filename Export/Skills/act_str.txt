@@ -206,10 +206,6 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 60)
 #mods
 
-#skill FlameTotem
-#flags spell totem projectile duration
-#mods
-
 #skill GlacialHammer
 #flags attack melee
 #mods
@@ -269,6 +265,11 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalMax", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
+#mods
+
+#skill FlameTotem
+#flags spell totem projectile duration
+#baseMod skill("radius", 16)
 #mods
 
 #skill IceCrash
@@ -394,8 +395,8 @@ local skills, mod, flag, skill = ...
 		["hits_ignore_my_fire_resistance"] = {
 			flag("SelfIgnoreFireResistance", { type = "GlobalEffect", effectType = "Debuff" })
 		},
-		["fire_damage_taken_+%"] = {
-			mod("FireDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["impurity_fire_damage_taken_+%_final"] = {
+			mod("FireDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},	
 #mods

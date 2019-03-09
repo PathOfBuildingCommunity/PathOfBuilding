@@ -1,3 +1,34 @@
+VERSION[1.4.132][2019/03/10]
+ * Added the following new gems:
+    * Bane
+	* Divine Ire
+	* Purifying Flame
+	* Malevolence
+	* Soulrend
+	* Wave of Conviction (the type of Exposure being applied can be set in the Configuration tab)
+	* Zealotry
+	* Energy Leech
+	* Intensify (Intensity stacks can be set in the Configuration tab)
+	* Unleash (does not currently affect DPS)
+ * Applied the reworks for the following gems:
+    * Holy Flame Totem
+	* Storm Burst (DPS calculation isn't currently accurate)
+	* Infused Channelling (Infusion can be enabled in the Configuration tab)
+ * Added the following skills and supports from uniques:
+    * Lightning Aegis
+	* Precision
+	* Blessing (the aura and reservation durations for supported skills can be found in the Calcs tab)
+ * Applied all skill balance changes for 3.6
+ * Added the following 3.6 uniques: (thanks PJacek)
+    * Circle of Regret
+    * The Eternity Shroud
+	* Garb of the Ephemeral
+	* Maloney's Mechanism
+	* Offering of the Serpent
+    * Vixen's Entrapment
+ * Updated the passive tree
+ * Updated item bases and mods for 3.6
+ * Winter Orb's hit rate is now correctly affected by modifiers to Cast Speed
 VERSION[1.4.131][2019/03/08]
  * Updated boss curse effect penalty
  * Removed min/max Crit Chance limits

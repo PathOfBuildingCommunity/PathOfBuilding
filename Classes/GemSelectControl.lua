@@ -349,13 +349,14 @@ function GemSelectClass:Draw(viewPort)
 end
 
 function GemSelectClass:CheckSupporting(gemA, gemB)
-	return gemA.gemData.grantedEffect.support and not gemB.gemData.grantedEffect.support and gemA.displayEffect and gemA.displayEffect.isSupporting and gemA.displayEffect.isSupporting[gemB]
+	return (gemA.gemData.grantedEffect.support and not gemB.gemData.grantedEffect.support and gemA.supportEffect and gemA.supportEffect.isSupporting and gemA.supportEffect.isSupporting[gemB]) or
+		(gemA.gemData.secondaryGrantedEffect and gemA.gemData.secondaryGrantedEffect.support and not gemB.gemData.grantedEffect.support and gemA.supportEffect and gemA.supportEffect.isSupporting and gemA.supportEffect.isSupporting[gemB])
 end
 
 function GemSelectClass:AddGemTooltip(gemInstance)
 	self.tooltip.center = true
 	self.tooltip.color = colorCodes.GEM
-	if gemInstance.gemData.secondaryGrantedEffect then
+	if gemInstance.gemData.secondaryGrantedEffect and not gemInstance.gemData.secondaryGrantedEffect.support then
 		local grantedEffect = gemInstance.gemData.secondaryGrantedEffect
 		local grantedEffectVaal = gemInstance.gemData.grantedEffect
 		self.tooltip:AddLine(20, colorCodes.GEM..grantedEffect.name)

@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87760D8B-5D2D-4C32-8625-49292C0A2A02}"
+	ProjectSection(SolutionItems) = preProject
+		Common.lua = Common.lua
+		Launch.lua = Launch.lua
+		Main.lua = Main.lua
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{A517B8FF-61D0-4FD5-9037-1437259A0166}"
+	ProjectSection(SolutionItems) = preProject
+		DatFile.lua = DatFile.lua
+		DatListControl.lua = DatListControl.lua
+		GGPKFile.lua = GGPKFile.lua
+		RowListControl.lua = RowListControl.lua
+		SpecColListControl.lua = SpecColListControl.lua
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A517B8FF-61D0-4FD5-9037-1437259A0166} = {87760D8B-5D2D-4C32-8625-49292C0A2A02}
+	EndGlobalSection
+EndGlobal
