@@ -122,6 +122,28 @@ Requires Level 57, 44 Str, 44 Int
 6% increased Attack and Cast Speed
 22% increased Damage while Leeching
 Life Leech effects are not removed at Full Life
+]],[[
+Garb of the Ephemeral
+Savant's Robe
+Requires Level 56, 152 Int
+204% increased Energy Shield
++600 Strength and Intelligence Requirement
++10 to maximum Divine Charges
+Gain a Divine Charge on Hit
+You gain Divinity for 10 seconds on reaching maximum Divine Charges
+Lose all Divine Charges when you gain Divinity
+Nearby Allies' Action Speed cannot be modified to below base value
+Nearby Enemies cannot deal Critical Strikes
+]],[[
+Circle of Regret
+Topaz Ring
+Requires Level 52
++29% to Lightning Resistance
++30 to Intelligence
+Adds 1 to 53 Lightning Damage
++30% to Lightning Resistance
+Herald of Thunder has 74% increased Buff Effect
+When used in the Synthesiser, the new item will have an additional Herald Modifier
 ]],
 
 }
