@@ -999,7 +999,7 @@ function calcs.offence(env, actor, activeSkill)
 							taken = taken + enemyDB:Sum("INC", nil, "TrapMineDamageTaken")
 						end
 						local effMult = (1 + taken / 100)
-						if not isElemental[damageType] or not (skillModList:Flag(cfg, "IgnoreElementalResistances", "Ignore"..damageType.."Resistance") or enemyDB:Flag(nil, "SelfIgnore"..damageType.."Resistance")) then
+						if not skillModList:Flag(cfg, "Ignore"..damageType.."Resistance", isElemental[damageType] and "IgnoreElementalResistances" or nil) and not enemyDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") then
 							effMult = effMult * (1 - (resist - pen) / 100)
 						end
 						min = min * effMult

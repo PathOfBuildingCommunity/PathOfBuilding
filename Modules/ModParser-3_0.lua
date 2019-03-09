@@ -270,13 +270,14 @@ local modNameList = {
 	["life leeched per second"] = "LifeLeechRate",
 	["mana leeched per second"] = "ManaLeechRate",
 	["total recovery per second from life leech"] = "LifeLeechRate",
-	["total recovery per second from mana leech"] = "ManaLeechRate",
 	["total recovery per second from energy shield leech"] = "EnergyShieldLeechRate",
-	["maximum life per second to maximum life leech rate"] = "MaxLifeLeechRate",
-	["maximum mana per second to maximum mana leech rate"] = "MaxManaLeechRate",
+	["total recovery per second from mana leech"] = "ManaLeechRate",
+	["maximum recovery per life leech"] = "MaxLifeLeechInstance",
+	["maximum recovery per energy shield leech"] = "MaxEnergyShieldLeechInstance",
+	["maximum recovery per mana leech"] = "MaxManaLeechInstance",
 	["maximum total recovery per second from life leech"] = "MaxLifeLeechRate",
-	["maximum total recovery per second from mana leech"] = "MaxManaLeechRate",
 	["maximum total recovery per second from energy shield leech"] = "MaxEnergyShieldLeechRate",
+	["maximum total recovery per second from mana leech"] = "MaxManaLeechRate",
 	-- Projectile modifiers
 	["projectile"] = "ProjectileCount",
 	["projectiles"] = "ProjectileCount",
@@ -421,6 +422,7 @@ local modNameList = {
 	["strength requirement"] = "StrRequirement",
 	["dexterity requirement"] = "DexRequirement",
 	["intelligence requirement"] = "IntRequirement",
+	["strength and intelligence requirement"] = { "StrRequirement", "IntRequirement" },
 	["attribute requirements"] = { "StrRequirement", "DexRequirement", "IntRequirement" },
 	["effect of socketed jewels"] = "SocketedJewelEffect",
 	-- Flask modifiers
@@ -1292,6 +1294,10 @@ local specialModList = {
 	["nearby allies have (%d+)%% increased defences per (%d+) strength you have"] = function(num, _, div) return { mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("Defences", "INC", num) }, { type = "PerStat", stat = "Str", div = tonumber(div) }) } end,
 	["nearby allies have %+(%d+)%% to critical strike multiplier per (%d+) dexterity you have"] = function(num, _, div) return { mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("CritMultiplier", "BASE", num) }, { type = "PerStat", stat = "Dex", div = tonumber(div) }) } end,
 	["nearby allies have (%d+)%% increased cast speed per (%d+) intelligence you have"] = function(num, _, div) return { mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("Speed", "INC", num, nil, ModFlag.Cast ) }, { type = "PerStat", stat = "Int", div = tonumber(div) }) } end,
+	["you gain divinity for %d+ seconds on reaching maximum divine charges"] = { 
+		mod("ElementalDamage", "MORE", 50, { type = "Condition", var = "Divinity" }),
+		mod("ElementalDamageTaken", "MORE", -20, { type = "Condition", var = "Divinity" }),
+	},
 	-- Traps, Mines and Totems
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
@@ -1507,6 +1513,7 @@ local specialModList = {
 	["strength provides no bonus to maximum life"] = { flag("NoStrBonusToLife") },
 	["intelligence provides no bonus to maximum mana"] = { flag("NoIntBonusToMana") },
 	["with a ghastly eye jewel socketed, minions have %+(%d+) to accuracy rating"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Accuracy", "BASE", num) }, { type = "Condition", var = "HaveGhastlyEyeJewelIn{SlotName}" }) } end,
+	["hits ignore enemy monster chaos resistance if all equipped items are shaper items"] = { flag("IgnoreChaosResistance", { type = "MultiplierThreshold", var = "NonShaperItem", upper = true, threshold = 0 }) },
 	-- Skill-specific enchantment modifiers
 	["(%d+)%% increased decoy totem life"] = function(num) return { mod("TotemLife", "INC", num, { type = "SkillName", skillName = "Decoy Totem" }) } end,
 	["(%d+)%% increased ice spear critical strike chance in second form"] = function(num) return { mod("CritChance", "INC", num, { type = "SkillName", skillName = "Ice Spear" }, { type = "SkillPart", skillPart = 2 }) } end,

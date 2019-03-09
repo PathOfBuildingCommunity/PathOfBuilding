@@ -234,7 +234,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 				mult = target:GetMultiplier(tag.var, cfg)
 			end
 			local threshold = tag.threshold or target:GetMultiplier(tag.thresholdVar, cfg)
-			if (tag.upper and mult > tag.threshold) or (not tag.upper and mult < tag.threshold) then
+			if (tag.upper and mult > threshold) or (not tag.upper and mult < threshold) then
 				return
 			end
 		elseif tag.type == "PerStat" then

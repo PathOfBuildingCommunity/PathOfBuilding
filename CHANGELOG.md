@@ -22,7 +22,7 @@
  * Added the following 3.6 uniques: (thanks PJacek)
     * Circle of Regret
     * The Eternity Shroud
-	* Garb of the Ephemeral
+	* Garb of the Ephemeral (Divinity can be enabled in the Configuration tab)
 	* Maloney's Mechanism
 	* Offering of the Serpent
     * Vixen's Entrapment
