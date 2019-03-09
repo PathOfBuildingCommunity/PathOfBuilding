@@ -63,7 +63,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, targetVersion)
 		self[k] = v
 	end
 
-	local cdnRoot = targetVersion == "2_6" and "" or "https://web.poecdn.com"
+	local cdnRoot = targetVersion == "2_6" and "" or ""--https://web.poecdn.com"
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
 
