@@ -518,6 +518,7 @@ skills["DarkRitual"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("debuff", true),
 		skill("radius", 21),
 	},
 	qualityStats = {
@@ -5925,6 +5926,7 @@ skills["Soulrend"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("debuff", true),
 		skill("radius", 13),
 	},
 	qualityStats = {

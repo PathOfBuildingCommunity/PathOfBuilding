@@ -93,6 +93,7 @@ local skills, mod, flag, skill = ...
 			mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseApplied" }),
 		},
 	},
+#baseMod skill("debuff", true)
 #baseMod skill("radius", 21)
 #mods
 
@@ -947,6 +948,7 @@ local skills, mod, flag, skill = ...
 
 #skill Soulrend
 #flags spell projectile duration
+#baseMod skill("debuff", true)
 #baseMod skill("radius", 13)
 #mods
 

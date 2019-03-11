@@ -553,7 +553,7 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 	item.rarity = rarityMap[itemData.frameType]
 	if #itemData.name > 0 then
 		item.title = itemLib.sanitiseItemText(itemData.name)
-		item.baseName = itemLib.sanitiseItemText(itemData.typeLine)
+		item.baseName = itemLib.sanitiseItemText(itemData.typeLine):gsub("Synthesised ","")
 		item.name = item.title .. ", " .. item.baseName
 		if item.baseName == "Two-Toned Boots" then
 			-- Hack for Two-Toned Boots

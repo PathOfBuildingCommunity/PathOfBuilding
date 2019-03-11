@@ -347,7 +347,7 @@ return {
 	{ var = "buffAdrenaline", type = "check", label = "Do you have Adrenaline?", tooltip = "This will enable the Adrenaline buff:\n100% increased Damage\n25% increased Attack, Cast and Movement Speed\n10% additional Physical Damage Reduction", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Adrenaline", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffDivinity", type = "check", label = "Do you have Divinity?", tooltip = "This will enable the Divinity buff:\n100% more Elemental Damage\n20% less Elemental Damage Taken", apply = function(val, modList, enemyModList)
+	{ var = "buffDivinity", type = "check", label = "Do you have Divinity?", ifCond = "Divinity", tooltip = "This will enable the Divinity buff:\n50% more Elemental Damage\n20% less Elemental Damage Taken", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Divinity", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierRage", type = "count", label = "Rage:", ifCond = "CanGainRage", apply = function(val, modList, enemyModList)

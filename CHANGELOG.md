@@ -1,3 +1,8 @@
+### 1.4.133 - 2019/03/12
+ * The debuff durations of Bane and Soulrend are now correctly affected by Temporal Chains
+ * Bane is now correctly affected by modifiers to Curse Skills
+ * Synthesised items can now be imported
+
 ### 1.4.132 - 2019/03/10
  * Added the following new gems:
     * Bane

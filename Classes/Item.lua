@@ -85,11 +85,12 @@ function ItemClass:ParseRaw(raw)
 		if self.rawLines[l] == "Two-Toned Boots" then
 			self.rawLines[l] = "Two-Toned Boots (Armour/Energy Shield)"
 		end
-		if verData.itemBases[self.rawLines[l]] then
-			self.baseName = self.rawLines[l]
+		local baseName = self.rawLines[l]:gsub("Synthesised ","")
+		if verData.itemBases[baseName] then
+			self.baseName = baseName
 			self.title = self.name
-			self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)","")
-			self.type = verData.itemBases[self.baseName].type
+			self.name = self.title .. ", " .. baseName:gsub(" %(.+%)","")
+			self.type = verData.itemBases[baseName].type
 			l = l + 1
 		end
 	end
