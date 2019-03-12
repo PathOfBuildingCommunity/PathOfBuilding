@@ -1,3 +1,7 @@
+### 1.4.134 - 2019/03/12
+ * Fixed various issues with importing fractured and synthesised items
+ * Fixed issues with stat comparisons in weapon tooltips
+
 ### 1.4.133 - 2019/03/12
  * The debuff durations of Bane and Soulrend are now correctly affected by Temporal Chains
  * Bane is now correctly affected by modifiers to Curse Skills

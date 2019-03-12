@@ -631,9 +631,9 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 			end
 		end
 	end
-	if itemData.corrupted then
-		item.corrupted = true
-	end
+	item.corrupted = itemData.corrupted
+	item.fractured = itemData.fractured
+	item.synthesised = itemData.synthesised
 	if itemData.sockets and itemData.sockets[1] then
 		item.sockets = { }
 		for i, socket in pairs(itemData.sockets) do
@@ -654,6 +654,14 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 	end
 	item.modLines = { }
 	item.implicitLines = 0
+	if itemData.enchantMods then
+		item.implicitLines = item.implicitLines + #itemData.enchantMods
+		for _, line in ipairs(itemData.enchantMods) do
+			line = line:gsub("\n"," ")
+			local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+		end
+	end
 	if itemData.implicitMods then
 		item.implicitLines = item.implicitLines + #itemData.implicitMods
 		for _, line in ipairs(itemData.implicitMods) do
@@ -662,12 +670,12 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { } })
 		end
 	end
-	if itemData.enchantMods then
-		item.implicitLines = item.implicitLines + #itemData.enchantMods
-		for _, line in ipairs(itemData.enchantMods) do
-			line = line:gsub("\n"," ")
-			local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+	if itemData.fracturedMods then
+		for _, line in ipairs(itemData.fracturedMods) do
+			for line in line:gmatch("[^\n]+") do
+				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, fractured = true })
+			end
 		end
 	end
 	if itemData.explicitMods then

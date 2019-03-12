@@ -340,7 +340,9 @@ function calcs.initEnv(build, mode, override)
 		local item
 		if slotName == override.repSlotName then
 			item = override.repItem
-		elseif override.repItem and override.repSlotName:match("^Weapon 1") and slotName:match("^Weapon 2") then
+		elseif override.repItem and override.repSlotName:match("^Weapon 1") and slotName:match("^Weapon 2") and 
+		  (override.repItem.base.type == "Staff" or override.repItem.base.type == "Two Handed Sword" or override.repItem.base.type == "Two Handed Axe" or override.repItem.base.type == "Two Handed Mace" 
+		  or (override.repItem.base.type == "Bow" and item and item.base.type ~= "Quiver")) then
 			item = nil
 		elseif slot.nodeId and override.spec then
 			item = build.itemsTab.items[env.spec.jewels[slot.nodeId]]

@@ -1713,6 +1713,12 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	if item.elder then
 		tooltip:AddLine(16, colorCodes.ELDER.."Elder Item")
 	end
+	if item.fractured then
+		tooltip:AddLine(16, colorCodes.FRACTURED.."Fractured Item")
+	end
+	if item.synthesised then
+		tooltip:AddLine(16, colorCodes.CRAFTED.."Synthesised Item")
+	end
 	tooltip:AddSeparator(10)
 
 	-- Special fields for database items

@@ -40,6 +40,7 @@ colorCodes = {
 	OFFHANDBG = "^x070719",
 	SHAPER = "^x55BBFF",
 	ELDER = "^xAA77CC",
+	FRACTURED = "^xA29160",
 }
 colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER
