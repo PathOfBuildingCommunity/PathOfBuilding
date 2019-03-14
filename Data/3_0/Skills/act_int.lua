@@ -6380,7 +6380,9 @@ skills["StormCall"] = {
 	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [36] = true, [26] = true, [45] = true, [35] = true, [67] = true, [81] = true, [83] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
-	["base_skill_show_average_damage_instead_of_dps"] = {
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
 	},
 	baseFlags = {
 		spell = true,

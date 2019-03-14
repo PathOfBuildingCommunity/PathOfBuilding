@@ -1,3 +1,7 @@
+### 1.4.135 - 2019/03/14
+ * Fixed crafted mods on imported items not being recognised
+ * Storm Call now correctly shows DPS instead of just average damage
+
 ### 1.4.134 - 2019/03/12
  * Fixed various issues with importing fractured and synthesised items
  * Fixed issues with stat comparisons in weapon tooltips

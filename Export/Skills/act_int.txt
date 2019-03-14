@@ -997,7 +997,9 @@ local skills, mod, flag, skill = ...
 
 #skill StormCall
 #flags spell area duration
-	["base_skill_show_average_damage_instead_of_dps"] = {
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
 	},
 #baseMod skill("radius", 20)
 #mods

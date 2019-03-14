@@ -4,18 +4,18 @@ return {
 	BetrayalChoices={
 	},
 	GemTags={
-		[1]={
-			width=150,
-			list=false,
-			type="String",
-			name="Id",
-			refTo=""
-		},
 		[2]={
 			width=150,
 			list=false,
 			type="String",
 			name="Name",
+			refTo=""
+		},
+		[1]={
+			width=150,
+			list=false,
+			type="String",
+			name="Id",
 			refTo=""
 		}
 	},
@@ -39,7 +39,7 @@ return {
 	},
 	DelveLevelScaling={
 	},
-	MapSeriesTiers={
+	QuestStates={
 	},
 	DelveResourcePerLevel={
 	},
@@ -171,11 +171,11 @@ return {
 			name="Stat2",
 			refTo=""
 		},
-		[49]={
-			width=150,
+		[47]={
+			width=80,
 			list=false,
 			type="Int",
-			name="Stat9",
+			name="Duration",
 			refTo=""
 		},
 		[48]={
@@ -234,6 +234,20 @@ return {
 			name="StatEff5",
 			refTo=""
 		},
+		[41]={
+			width=50,
+			list=false,
+			type="Int",
+			name="",
+			refTo=""
+		},
+		[3]={
+			width=520,
+			list=true,
+			type="Key",
+			name="Stats",
+			refTo="Stats"
+		},
 		[17]={
 			width=60,
 			list=false,
@@ -241,32 +255,18 @@ return {
 			name="Stat5",
 			refTo=""
 		},
-		[18]={
-			width=60,
+		[34]={
+			width=40,
 			list=false,
-			type="Int",
-			name="Stat6",
+			type="Bool",
+			name="",
 			refTo=""
 		},
-		[7]={
+		[6]={
 			width=60,
 			list=false,
 			type="Float",
-			name="StatEff4",
-			refTo=""
-		},
-		[39]={
-			width=50,
-			list=false,
-			type="Int",
-			name="",
-			refTo=""
-		},
-		[44]={
-			width=50,
-			list=false,
-			type="Int",
-			name="",
+			name="StatEff3",
 			refTo=""
 		},
 		[36]={
@@ -283,39 +283,18 @@ return {
 			name="PlayerLevel",
 			refTo=""
 		},
-		[25]={
-			width=150,
-			list=true,
-			type="Key",
-			name="QualityStats",
-			refTo="Stats"
+		[29]={
+			width=120,
+			list=false,
+			type="Int",
+			name="DamageEffectiveness",
+			refTo=""
 		},
 		[5]={
 			width=60,
 			list=false,
 			type="Float",
 			name="StatEff2",
-			refTo=""
-		},
-		[30]={
-			width=90,
-			list=false,
-			type="Int",
-			name="CooldownCount",
-			refTo=""
-		},
-		[26]={
-			width=100,
-			list=true,
-			type="Int",
-			name="QualityStatValues",
-			refTo=""
-		},
-		[4]={
-			width=60,
-			list=false,
-			type="Float",
-			name="StatEff1",
 			refTo=""
 		},
 		[43]={
@@ -325,12 +304,33 @@ return {
 			name="InterpolationTypes",
 			refTo="StatInterpolationTypes"
 		},
-		[29]={
-			width=120,
+		[4]={
+			width=60,
+			list=false,
+			type="Float",
+			name="StatEff1",
+			refTo=""
+		},
+		[26]={
+			width=100,
+			list=true,
+			type="Int",
+			name="QualityStatValues",
+			refTo=""
+		},
+		[30]={
+			width=90,
 			list=false,
 			type="Int",
-			name="DamageEffectiveness",
+			name="CooldownCount",
 			refTo=""
+		},
+		[25]={
+			width=150,
+			list=true,
+			type="Key",
+			name="QualityStats",
+			refTo="Stats"
 		},
 		[22]={
 			width=80,
@@ -339,32 +339,32 @@ return {
 			name="ManaMultiplier",
 			refTo=""
 		},
-		[6]={
-			width=60,
-			list=false,
-			type="Float",
-			name="StatEff3",
-			refTo=""
-		},
-		[34]={
-			width=40,
-			list=false,
-			type="Bool",
-			name="",
-			refTo=""
-		},
-		[3]={
-			width=520,
-			list=true,
-			type="Key",
-			name="Stats",
-			refTo="Stats"
-		},
-		[41]={
+		[44]={
 			width=50,
 			list=false,
 			type="Int",
 			name="",
+			refTo=""
+		},
+		[39]={
+			width=50,
+			list=false,
+			type="Int",
+			name="",
+			refTo=""
+		},
+		[18]={
+			width=60,
+			list=false,
+			type="Int",
+			name="Stat6",
+			refTo=""
+		},
+		[7]={
+			width=60,
+			list=false,
+			type="Float",
+			name="StatEff4",
 			refTo=""
 		},
 		[42]={
@@ -381,11 +381,11 @@ return {
 			name="Stat3",
 			refTo=""
 		},
-		[47]={
-			width=80,
+		[49]={
+			width=150,
 			list=false,
 			type="Int",
-			name="Duration",
+			name="Stat9",
 			refTo=""
 		}
 	},
@@ -458,9 +458,9 @@ return {
 	},
 	SummonedSpecificMonsters={
 	},
-	MonsterSkillsHull={
+	WeaponDamageScaling={
 	},
-	ActiveSkillType={
+	RelativeImportanceConstants={
 	},
 	HideoutNPCs={
 		[1]={
@@ -587,27 +587,34 @@ return {
 	},
 	MicrotransactionSocialFrameVariations={
 	},
-	ExperienceLevels={
+	ProphecyChain={
 	},
-	QuestStates={
+	MonsterSkillsHull={
 	},
-	RelativeImportanceConstants={
+	ArmourTypes={
+		[1]={
+			width=330,
+			list=false,
+			type="Key",
+			name="",
+			refTo="BaseItemTypes"
+		}
 	},
 	ApplyDamageFunctions={
 	},
 	ComponentAttributeRequirements={
-		[4]={
-			width=40,
-			list=false,
-			type="Int",
-			name="Int",
-			refTo=""
-		},
 		[1]={
 			width=310,
 			list=false,
 			type="String",
 			name="BaseItemType",
+			refTo=""
+		},
+		[4]={
+			width=40,
+			list=false,
+			type="Int",
+			name="Int",
 			refTo=""
 		},
 		[2]={
@@ -631,23 +638,23 @@ return {
 	},
 	MicrotransactionCharacterPortraitVariations={
 	},
-	BetrayalDialogueCue={
+	ModAuraFlags={
 	},
 	AreaTransitionAnimations={
 	},
 	GameConstants={
-		[2]={
-			width=150,
-			list=false,
-			type="Int",
-			name="Value",
-			refTo=""
-		},
 		[1]={
 			width=250,
 			list=false,
 			type="String",
 			name="Id",
+			refTo=""
+		},
+		[2]={
+			width=150,
+			list=false,
+			type="Int",
+			name="Value",
 			refTo=""
 		}
 	},
@@ -750,25 +757,32 @@ return {
 	},
 	QuestRewards={
 	},
-	DivinationCardStashTabLayout={
+	BloodTypes={
 	},
-	ModGenerationType={
+	LeagueQuestFlags={
 	},
-	BestiaryRecipeItemCreation={
+	SynthesisAreaSize={
 	},
 	ProjectileVariations={
 	},
-	UITalkText={
+	WarbandsPackMonsters={
 	},
 	MonsterPacks={
 	},
-	SynthesisBrackets={
+	EssenceType={
 	},
-	RecipeUnlockObjects={
+	ShopPaymentPackageItems={
 	},
-	LabyrinthSection={
+	MultiPartAchievements={
+		[1]={
+			width=350,
+			list=false,
+			type="String",
+			name="Id",
+			refTo=""
+		}
 	},
-	VoteState={
+	PassiveSkillBuffs={
 	},
 	DelveBiomes={
 	},
@@ -795,55 +809,195 @@ return {
 			refTo="Tags"
 		}
 	},
-	GroundEffects={
+	NPCFollowerVariations={
 	},
 	ChestClusters={
 	},
 	BestiaryNets={
 	},
-	BuffMergeModes={
+	ShopCountry={
 	},
-	MapFragmentMods={
+	Projectiles={
 	},
-	SynthesisAreaSize={
+	UniqueStashLayout={
 	},
-	DelveFeatureRewards={
+	GroundEffects={
 	},
 	BuffCategories={
 	},
 	BetrayalForts={
 	},
-	ShopPaymentPackageItems={
+	DamageParticleEffectTypes={
 	},
-	FixedMissions={
+	MissionTileMap={
 	},
-	NPCAudio={
+	BestiaryRecipeItemCreation={
 	},
-	Projectiles={
+	LabyrinthSection={
 	},
 	Languages={
 	},
-	UniqueStashLayout={
+	GrantedEffects={
+		[14]={
+			width=50,
+			list=false,
+			type="Int",
+			name="",
+			refTo=""
+		},
+		[2]={
+			width=60,
+			list=false,
+			type="Bool",
+			name="IsSupport",
+			refTo=""
+		},
+		[12]={
+			width=60,
+			list=true,
+			type="Enum",
+			name="",
+			refTo=""
+		},
+		[11]={
+			width=100,
+			list=false,
+			type="UInt",
+			name="Hash",
+			refTo=""
+		},
+		[10]={
+			width=100,
+			list=false,
+			type="Bool",
+			name="SupportGemsOnly",
+			refTo=""
+		},
+		[9]={
+			width=200,
+			list=true,
+			type="Enum",
+			name="ExcludeTypes",
+			refTo="ActiveSkillType"
+		},
+		[8]={
+			width=90,
+			list=true,
+			type="Enum",
+			name="AddTypes",
+			refTo="ActiveSkillType"
+		},
+		[19]={
+			width=150,
+			list=true,
+			type="Enum",
+			name="AddMinionTypes",
+			refTo="ActiveSkillType"
+		},
+		[7]={
+			width=60,
+			list=false,
+			type="Int",
+			name="Attribute",
+			refTo=""
+		},
+		[1]={
+			width=200,
+			list=false,
+			type="String",
+			name="Id",
+			refTo=""
+		},
+		[6]={
+			width=100,
+			list=false,
+			type="String",
+			name="SupportGemLetter",
+			refTo=""
+		},
+		[5]={
+			width=150,
+			list=false,
+			type="Float",
+			name="IncrementalEffectiveness",
+			refTo=""
+		},
+		[4]={
+			width=150,
+			list=false,
+			type="Float",
+			name="BaseEffectiveness",
+			refTo=""
+		},
+		[3]={
+			width=170,
+			list=true,
+			type="Enum",
+			name="SupportTypes",
+			refTo="ActiveSkillType"
+		},
+		[20]={
+			width=120,
+			list=false,
+			type="Key",
+			name="Animation",
+			refTo="Animation"
+		},
+		[18]={
+			width=50,
+			list=false,
+			type="Bool",
+			name="",
+			refTo=""
+		},
+		[17]={
+			width=50,
+			list=false,
+			type="Bool",
+			name="",
+			refTo=""
+		},
+		[16]={
+			width=110,
+			list=false,
+			type="Key",
+			name="ActiveSkill",
+			refTo="ActiveSkills"
+		},
+		[15]={
+			width=70,
+			list=false,
+			type="Int",
+			name="CastTime",
+			refTo=""
+		},
+		[13]={
+			width=50,
+			list=false,
+			type="Bool",
+			name="",
+			refTo=""
+		}
 	},
-	SummonedSpecificBarrels={
+	SynthesisBonuses={
 	},
-	IncursionChestRewards={
+	MapFragmentMods={
 	},
 	NetTiers={
 	},
 	Flasks={
-		[8]={
-			width=90,
-			list=true,
-			type="Int",
-			name="BuffMagnitudes",
-			refTo=""
-		},
 		[2]={
 			width=150,
 			list=false,
 			type="String",
 			name="Name",
+			refTo=""
+		},
+		[8]={
+			width=90,
+			list=true,
+			type="Int",
+			name="BuffMagnitudes",
 			refTo=""
 		},
 		[5]={
@@ -889,19 +1043,19 @@ return {
 			refTo=""
 		}
 	},
-	IncursionUniqueUpgrades={
+	UniqueMapInfo={
 	},
-	MonsterConditions={
+	Default={
 	},
 	MapPurchaseCosts={
 	},
-	UniqueMapInfo={
+	LabyrinthAreas={
 	},
-	PerandusDaemons={
+	AccountQuestFlags={
 	},
 	ArmourSurfaceTypes={
 	},
-	LabyrinthAreas={
+	MonsterConditions={
 	},
 	DelveUpgrades={
 	},
@@ -941,21 +1095,25 @@ return {
 	},
 	PerandusGuards={
 	},
-	ChestItemTemplates={
+	Strongboxes={
+	},
+	SynthesisMonsterExperiencePerLevel={
+	},
+	Grandmasters={
 	},
 	BuffVisuals={
-		[8]={
-			width=150,
-			list=true,
-			type="Key",
-			name="",
-			refTo=""
-		},
 		[2]={
 			width=150,
 			list=false,
 			type="String",
 			name="Icon",
+			refTo=""
+		},
+		[8]={
+			width=150,
+			list=true,
+			type="Key",
+			name="",
 			refTo=""
 		},
 		[5]={
@@ -1001,230 +1159,13 @@ return {
 			refTo=""
 		}
 	},
-	Strongboxes={
+	MonsterScalingByLevel={
 	},
-	ImpactSoundData={
-	},
-	Grandmasters={
-	},
-	MonsterBonuses={
+	SkillSurgeEffects={
 	},
 	MissionTransitionTiles={
 	},
-	FlavourText={
-	},
-	StatDescriptionFunctions={
-	},
-	SigilDisplay={
-	},
-	PreloadPriorities={
-	},
-	BetrayalTargetJobAchievements={
-	},
-	ShrineSounds={
-	},
-	HarbingerMaps={
-	},
-	AbyssTheme={
-	},
-	ShaperOrbs={
-	},
-	BackendErrors={
-	},
-	MinimapIcons={
-	},
-	BreachstoneUpgrades={
-	},
-	SuicideExplosion={
-	},
-	CraftingBenchCustomActions={
-	},
-	PantheonSouls={
-	},
-	ComponentCharges={
-		[1]={
-			width=250,
-			list=false,
-			type="String",
-			name="BaseItemType",
-			refTo=""
-		},
-		[2]={
-			width=50,
-			list=false,
-			type="Int",
-			name="Max",
-			refTo=""
-		},
-		[3]={
-			width=50,
-			list=false,
-			type="Int",
-			name="PerUse",
-			refTo=""
-		}
-	},
-	BetrayalTargetFlags={
-	},
-	InvasionMonsterRoles={
-	},
-	UITalkCategories={
-	},
-	IncursionArchitect={
-	},
-	BestiaryRecipeComponent={
-	},
-	SynthesisRewardCategories={
-	},
-	JobRaidBrackets={
-	},
-	ExpandingPulse={
-	},
-	GemTypes={
-	},
-	FlavourTextImages={
-	},
-	LeagueFlag={
-	},
-	IncursionChests={
-	},
-	LabyrinthNodeOverrides={
-	},
-	QuestFlags={
-	},
-	EndlessLedgeChests={
-	},
-	ShopPackagePlatform={
-	},
-	MiscObjects={
-	},
-	BetrayalRelationshipState={
-	},
-	ClientStrings={
-		[2]={
-			width=270,
-			list=false,
-			type="String",
-			name="Text",
-			refTo=""
-		},
-		[5]={
-			width=150,
-			list=false,
-			type="String",
-			name="",
-			refTo=""
-		},
-		[3]={
-			width=150,
-			list=false,
-			type="String",
-			name="",
-			refTo=""
-		},
-		[1]={
-			width=180,
-			list=false,
-			type="String",
-			name="Id",
-			refTo=""
-		},
-		[4]={
-			width=90,
-			list=false,
-			type="UInt",
-			name="Hash",
-			refTo=""
-		}
-	},
-	Maps={
-	},
-	Essences={
-	},
-	BestiaryCapturableMonsters={
-	},
-	AchievementSetRewards={
-	},
-	MicrotransactionCombineForumula={
-	},
-	MapFragmentFamilies={
-	},
-	NPCShop={
-	},
-	MonsterSpawnerGroupsPerLevel={
-	},
-	CharacterStartStateSet={
-	},
-	InvasionMonsterGroups={
-	},
-	WeaponSoundTypes={
-	},
-	LeagueCategory={
-	},
-	DelveFeatures={
-	},
-	SpawnAdditionalChestsOrClusters={
-	},
-	StartingPassiveSkills={
-	},
-	SynthesisAreas={
-	},
-	AreaType={
-	},
-	ComponentArmour={
-		[2]={
-			width=70,
-			list=false,
-			type="Int",
-			name="Armour",
-			refTo=""
-		},
-		[5]={
-			width=100,
-			list=false,
-			type="Int",
-			name="MovementPenalty",
-			refTo=""
-		},
-		[3]={
-			width=70,
-			list=false,
-			type="Int",
-			name="Evasion",
-			refTo=""
-		},
-		[1]={
-			width=320,
-			list=false,
-			type="String",
-			name="BaseItemType",
-			refTo=""
-		},
-		[4]={
-			width=70,
-			list=false,
-			type="Int",
-			name="EnergyShield",
-			refTo=""
-		}
-	},
-	DaressoPitFights={
-	},
-	ModDomains={
-	},
-	PathOfEndurance={
-	},
-	NPCMasterLevels={
-	},
-	SoundEffects={
-	},
-	SummonedSpecificMonstersOnDeath={
-	},
-	SkillTotems={
-	},
-	Harbingers={
-	},
-	LeagueTrophy={
+	SpecialTiles={
 	},
 	BaseItemTypes={
 		[14]={
@@ -1311,11 +1252,11 @@ return {
 			name="Height",
 			refTo=""
 		},
-		[13]={
+		[18]={
 			width=50,
-			list=true,
-			type="Int",
-			name="",
+			list=false,
+			type="Bool",
+			name="Hidden",
 			refTo=""
 		},
 		[3]={
@@ -1346,13 +1287,177 @@ return {
 			name="",
 			refTo=""
 		},
-		[18]={
+		[13]={
 			width=50,
-			list=false,
-			type="Bool",
-			name="Hidden",
+			list=true,
+			type="Int",
+			name="",
 			refTo=""
 		}
+	},
+	AbyssObjects={
+	},
+	PreloadPriorities={
+	},
+	TalismanMonsterMods={
+	},
+	ShrineSounds={
+	},
+	PassiveSkills={
+	},
+	AbyssTheme={
+	},
+	DelveFlares={
+	},
+	BestiaryFamilies={
+	},
+	MinimapIcons={
+	},
+	BreachstoneUpgrades={
+	},
+	SuicideExplosion={
+	},
+	LeagueInfo={
+	},
+	PantheonSouls={
+	},
+	ComponentCharges={
+		[1]={
+			width=250,
+			list=false,
+			type="String",
+			name="BaseItemType",
+			refTo=""
+		},
+		[2]={
+			width=50,
+			list=false,
+			type="Int",
+			name="Max",
+			refTo=""
+		},
+		[3]={
+			width=50,
+			list=false,
+			type="Int",
+			name="PerUse",
+			refTo=""
+		}
+	},
+	BetrayalTargetFlags={
+	},
+	InvasionMonsterRoles={
+	},
+	UITalkCategories={
+	},
+	IncursionArchitect={
+	},
+	BestiaryRecipeComponent={
+	},
+	ShieldTypes={
+		[2]={
+			width=60,
+			list=false,
+			type="Int",
+			name="Block",
+			refTo=""
+		},
+		[1]={
+			width=290,
+			list=false,
+			type="Key",
+			name="BaseItemType",
+			refTo="BaseItemTypes"
+		}
+	},
+	MonsterChanceToDropItemTemplate={
+	},
+	ExpandingPulse={
+	},
+	LabyrinthNodeOverrides={
+	},
+	FlavourTextImages={
+	},
+	LeagueFlag={
+	},
+	SoundEffects={
+	},
+	QuestAchievements={
+	},
+	MusicCategories={
+	},
+	OldMapStashTabLayout={
+	},
+	ShopPackagePlatform={
+	},
+	MiscObjects={
+	},
+	BetrayalRelationshipState={
+	},
+	DelveFeatures={
+	},
+	ItemVisualIdentity={
+		[1]={
+			width=150,
+			list=false,
+			type="String",
+			name="Id",
+			refTo=""
+		}
+	},
+	Essences={
+	},
+	BestiaryCapturableMonsters={
+	},
+	LeagueCategory={
+	},
+	MicrotransactionCombineForumula={
+	},
+	MapFragmentFamilies={
+	},
+	Maps={
+	},
+	MonsterSpawnerGroupsPerLevel={
+	},
+	RunicCircles={
+	},
+	InvasionMonsterGroups={
+	},
+	WeaponSoundTypes={
+	},
+	AchievementSetRewards={
+	},
+	QuestFlags={
+	},
+	SpawnAdditionalChestsOrClusters={
+	},
+	StartingPassiveSkills={
+	},
+	TreasureHunterMissions={
+	},
+	AreaType={
+	},
+	ItemClassCategories={
+	},
+	DaressoPitFights={
+	},
+	ModDomains={
+	},
+	StrDexIntMissionExtraRequirement={
+	},
+	NPCMasterLevels={
+	},
+	JobRaidBrackets={
+	},
+	SummonedSpecificMonstersOnDeath={
+	},
+	SkillTotems={
+	},
+	Harbingers={
+	},
+	CharacterPanelStatContexts={
+	},
+	UniqueSetNames={
 	},
 	Rarity={
 	},
@@ -1448,7 +1553,7 @@ return {
 			name="",
 			refTo=""
 		},
-		[13]={
+		[25]={
 			width=50,
 			list=false,
 			type="Int",
@@ -1462,12 +1567,12 @@ return {
 			name="",
 			refTo=""
 		},
-		[4]={
-			width=150,
-			list=true,
-			type="Key",
-			name="",
-			refTo="BaseItemTypes"
+		[26]={
+			width=100,
+			list=false,
+			type="String",
+			name="Affix",
+			refTo=""
 		},
 		[28]={
 			width=100,
@@ -1476,12 +1581,12 @@ return {
 			name="",
 			refTo=""
 		},
-		[26]={
-			width=100,
-			list=false,
-			type="String",
-			name="Affix",
-			refTo=""
+		[4]={
+			width=150,
+			list=true,
+			type="Key",
+			name="",
+			refTo="BaseItemTypes"
 		},
 		[21]={
 			width=750,
@@ -1504,12 +1609,12 @@ return {
 			name="",
 			refTo=""
 		},
-		[17]={
-			width=50,
+		[3]={
+			width=130,
 			list=false,
-			type="Bool",
-			name="",
-			refTo=""
+			type="Key",
+			name="Mod",
+			refTo="Mods"
 		},
 		[20]={
 			width=150,
@@ -1525,12 +1630,12 @@ return {
 			name="",
 			refTo=""
 		},
-		[3]={
-			width=130,
+		[17]={
+			width=50,
 			list=false,
-			type="Key",
-			name="Mod",
-			refTo="Mods"
+			type="Bool",
+			name="",
+			refTo=""
 		},
 		[16]={
 			width=70,
@@ -1546,7 +1651,7 @@ return {
 			name="Description",
 			refTo=""
 		},
-		[25]={
+		[13]={
 			width=50,
 			list=false,
 			type="Int",
@@ -1554,9 +1659,9 @@ return {
 			refTo=""
 		}
 	},
-	InvasionMonsterRestrictions={
+	PassiveJewelSlots={
 	},
-	MonsterChanceToDropItemTemplate={
+	BetrayalTargetJobAchievements={
 	},
 	ItemVisualEffect={
 	},
@@ -1869,12 +1974,12 @@ return {
 			name="",
 			refTo=""
 		},
-		[63]={
+		[38]={
 			width=150,
 			list=true,
 			type="Key",
-			name="ModsPart1",
-			refTo="Mods"
+			name="OffHandItem",
+			refTo="ItemVisualIdentity"
 		},
 		[73]={
 			width=150,
@@ -1897,13 +2002,6 @@ return {
 			name="",
 			refTo=""
 		},
-		[12]={
-			width=50,
-			list=false,
-			type="String",
-			name="",
-			refTo=""
-		},
 		[72]={
 			width=50,
 			list=false,
@@ -1911,19 +2009,26 @@ return {
 			name="",
 			refTo=""
 		},
-		[44]={
+		[12]={
+			width=50,
+			list=false,
+			type="String",
+			name="",
+			refTo=""
+		},
+		[60]={
+			width=50,
+			list=false,
+			type="Key",
+			name="",
+			refTo=""
+		},
+		[75]={
 			width=50,
 			list=false,
 			type="Int",
 			name="",
 			refTo=""
-		},
-		[47]={
-			width=150,
-			list=true,
-			type="Key",
-			name="",
-			refTo="AchievementItems"
 		},
 		[25]={
 			width=50,
@@ -1981,6 +2086,13 @@ return {
 			name="",
 			refTo=""
 		},
+		[59]={
+			width=50,
+			list=false,
+			type="Key",
+			name="",
+			refTo=""
+		},
 		[36]={
 			width=100,
 			list=false,
@@ -1988,25 +2100,18 @@ return {
 			name="AttackDuration",
 			refTo=""
 		},
-		[6]={
-			width=110,
+		[4]={
+			width=60,
 			list=false,
-			type="Int",
-			name="MaximumAttackRange",
+			type="Enum",
+			name="ObjectSize",
 			refTo=""
 		},
-		[43]={
-			width=150,
-			list=false,
-			type="Key",
-			name="HelmetItem",
-			refTo="ItemVisualIdentity"
-		},
-		[51]={
+		[55]={
 			width=50,
 			list=false,
 			type="Int",
-			name="",
+			name="Hash",
 			refTo=""
 		},
 		[30]={
@@ -2023,25 +2128,25 @@ return {
 			name="",
 			refTo=""
 		},
-		[55]={
+		[51]={
 			width=50,
 			list=false,
 			type="Int",
-			name="Hash",
+			name="",
 			refTo=""
 		},
-		[4]={
-			width=60,
-			list=false,
-			type="Enum",
-			name="ObjectSize",
-			refTo=""
-		},
-		[59]={
-			width=50,
+		[43]={
+			width=150,
 			list=false,
 			type="Key",
-			name="",
+			name="HelmetItem",
+			refTo="ItemVisualIdentity"
+		},
+		[6]={
+			width=110,
+			list=false,
+			type="Int",
+			name="MaximumAttackRange",
 			refTo=""
 		},
 		[58]={
@@ -2058,17 +2163,17 @@ return {
 			name="",
 			refTo=""
 		},
-		[75]={
+		[47]={
+			width=150,
+			list=true,
+			type="Key",
+			name="",
+			refTo="AchievementItems"
+		},
+		[44]={
 			width=50,
 			list=false,
 			type="Int",
-			name="",
-			refTo=""
-		},
-		[60]={
-			width=50,
-			list=false,
-			type="Key",
 			name="",
 			refTo=""
 		},
@@ -2079,12 +2184,12 @@ return {
 			name="MovementSpeed",
 			refTo=""
 		},
-		[38]={
+		[63]={
 			width=150,
 			list=true,
 			type="Key",
-			name="OffHandItem",
-			refTo="ItemVisualIdentity"
+			name="ModsPart1",
+			refTo="Mods"
 		},
 		[42]={
 			width=50,
@@ -2108,104 +2213,21 @@ return {
 			refTo=""
 		}
 	},
-	TalismanMonsterMods={
+	IncursionChestRewards={
 	},
-	TreasureHunterMissions={
-	},
-	DelveCraftingModifiers={
-	},
-	ItemClassCategories={
-	},
-	MonsterScalingByLevel={
-	},
-	MonsterSpawnerOverrides={
-	},
-	NPCShopAdditionalItems={
-	},
-	BetrayalFlags={
-	},
-	UniqueFragments={
-	},
-	PassiveSkillBuffs={
-	},
-	MapDevices={
-	},
-	EventSeason={
-	},
-	SynthesisGlobalMods={
-	},
-	MonsterPackEntries={
-	},
-	LeagueFlags={
-	},
-	CustomLeagueMods={
-	},
-	WarbandsGraph={
-	},
-	CurrencyUseTypes={
-	},
-	DefaultMonsterStats={
-		[14]={
-			width=70,
-			list=false,
-			type="Int",
-			name="",
-			refTo=""
-		},
+	ComponentArmour={
 		[2]={
 			width=70,
 			list=false,
-			type="Float",
-			name="Damage",
+			type="Int",
+			name="Armour",
 			refTo=""
 		},
 		[5]={
-			width=70,
+			width=100,
 			list=false,
 			type="Int",
-			name="MonsterLife",
-			refTo=""
-		},
-		[12]={
-			width=70,
-			list=false,
-			type="Float",
-			name="",
-			refTo=""
-		},
-		[11]={
-			width=70,
-			list=false,
-			type="Int",
-			name="",
-			refTo=""
-		},
-		[4]={
-			width=70,
-			list=false,
-			type="Int",
-			name="Accuracy",
-			refTo=""
-		},
-		[10]={
-			width=70,
-			list=false,
-			type="Float",
-			name="",
-			refTo=""
-		},
-		[9]={
-			width=70,
-			list=false,
-			type="Int",
-			name="",
-			refTo=""
-		},
-		[8]={
-			width=70,
-			list=false,
-			type="Int",
-			name="",
+			name="MovementPenalty",
 			refTo=""
 		},
 		[3]={
@@ -2215,66 +2237,100 @@ return {
 			name="Evasion",
 			refTo=""
 		},
-		[7]={
-			width=70,
-			list=false,
-			type="Int",
-			name="MinionLife",
-			refTo=""
-		},
 		[1]={
-			width=50,
+			width=320,
 			list=false,
 			type="String",
-			name="Level",
+			name="BaseItemType",
 			refTo=""
 		},
-		[13]={
-			width=70,
-			list=false,
-			type="Float",
-			name="",
-			refTo=""
-		},
-		[6]={
+		[4]={
 			width=70,
 			list=false,
 			type="Int",
-			name="",
+			name="EnergyShield",
 			refTo=""
 		}
 	},
+	DelveCraftingModifiers={
+	},
+	ImpactSoundData={
+	},
+	ChestItemTemplates={
+	},
+	MonsterSpawnerOverrides={
+	},
+	SkillGemInfo={
+	},
+	BetrayalFlags={
+	},
+	ItemVisualHeldBodyModel={
+	},
+	AtlasFog={
+	},
+	MapDevices={
+	},
+	EventSeason={
+	},
+	ShopPaymentPackage={
+	},
+	ShopCurrency={
+	},
+	CharacterAudioEvents={
+	},
+	CharacterTextAudio={
+	},
+	Dances={
+	},
+	CurrencyUseTypes={
+	},
+	ActiveSkillType={
+	},
 	MonsterSkillsAttackSpell={
-	},
-	AbyssRegions={
-	},
-	BloodTypes={
-	},
-	ModAuraFlags={
 	},
 	DropEffects={
 	},
-	MapStashTabLayout={
+	SummonedSpecificBarrels={
+	},
+	ModGenerationType={
+	},
+	BetrayalDialogueCue={
+	},
+	NPCMaster={
 	},
 	DisplayMinionMonsterType={
-		[2]={
-			width=390,
-			list=false,
-			type="Key",
-			name="",
-			refTo="MonsterVarieties"
-		},
 		[1]={
 			width=40,
 			list=false,
 			type="Int",
 			name="Id",
 			refTo=""
+		},
+		[2]={
+			width=390,
+			list=false,
+			type="Key",
+			name="",
+			refTo="MonsterVarieties"
 		}
 	},
 	LabyrinthExclusionGroups={
 	},
-	WeaponDamageScaling={
+	EffectivenessCostConstants={
+		[1]={
+			width=150,
+			list=false,
+			type="String",
+			name="Id",
+			refTo=""
+		},
+		[2]={
+			width=150,
+			list=false,
+			type="Float",
+			name="Value",
+			refTo=""
+		}
 	},
 	BuffDefinitions={
 		[14]={
@@ -2347,12 +2403,12 @@ return {
 			name="MergeMode",
 			refTo=""
 		},
-		[13]={
-			width=60,
+		[29]={
+			width=40,
 			list=false,
-			type="Enum",
-			name="Catagory",
-			refTo="BuffCatagory"
+			type="Bool",
+			name="",
+			refTo=""
 		},
 		[19]={
 			width=40,
@@ -2389,11 +2445,11 @@ return {
 			name="Stats",
 			refTo="Stats"
 		},
-		[5]={
-			width=170,
+		[30]={
+			width=80,
 			list=false,
-			type="String",
-			name="Name",
+			type="Int",
+			name="UIStackMode",
 			refTo=""
 		},
 		[32]={
@@ -2403,18 +2459,18 @@ return {
 			name="IsSkillBuff",
 			refTo=""
 		},
-		[30]={
-			width=80,
+		[5]={
+			width=170,
 			list=false,
-			type="Int",
-			name="UIStackMode",
+			type="String",
+			name="Name",
 			refTo=""
 		},
-		[17]={
-			width=50,
+		[4]={
+			width=60,
 			list=false,
-			type="Enum",
-			name="",
+			type="Bool",
+			name="Removable",
 			refTo=""
 		},
 		[28]={
@@ -2431,11 +2487,11 @@ return {
 			name="",
 			refTo=""
 		},
-		[3]={
-			width=50,
+		[18]={
+			width=40,
 			list=false,
 			type="Bool",
-			name="Invisible",
+			name="",
 			refTo=""
 		},
 		[24]={
@@ -2466,18 +2522,18 @@ return {
 			name="",
 			refTo=""
 		},
-		[18]={
-			width=40,
+		[3]={
+			width=50,
 			list=false,
 			type="Bool",
-			name="",
+			name="Invisible",
 			refTo=""
 		},
-		[4]={
-			width=60,
+		[17]={
+			width=50,
 			list=false,
-			type="Bool",
-			name="Removable",
+			type="Enum",
+			name="",
 			refTo=""
 		},
 		[16]={
@@ -2494,17 +2550,17 @@ return {
 			name="",
 			refTo=""
 		},
-		[29]={
-			width=40,
+		[13]={
+			width=60,
 			list=false,
-			type="Bool",
-			name="",
-			refTo=""
+			type="Enum",
+			name="Catagory",
+			refTo="BuffCatagory"
 		}
 	},
 	MiscBeams={
 	},
-	LabyrinthTrials={
+	PerLevelValues={
 	},
 	MonsterTypes={
 		[2]={
@@ -2587,15 +2643,153 @@ return {
 	},
 	Effectiveness={
 	},
-	SkillGemInfo={
+	BestiaryEncounters={
 	},
 	UniqueChests={
 	},
 	Words={
 	},
-	PerLevelValues={
+	SynthesisBrackets={
 	},
-	AccountQuestFlags={
+	IncursionRoomAdditionalBossDrops={
+	},
+	CharacterPanelStats={
+	},
+	TriggerSpawners={
+	},
+	ShopPaymentPackagePrice={
+	},
+	DelveAzuriteShop={
+	},
+	DivinationCardArt={
+	},
+	FlaskType={
+	},
+	SafehouseCraftingSpreeCurrencies={
+	},
+	Orientations={
+	},
+	ZanaQuests={
+	},
+	Stats={
+		[14]={
+			width=150,
+			list=true,
+			type="String",
+			name="Skills",
+			refTo=""
+		},
+		[2]={
+			width=50,
+			list=false,
+			type="Bool",
+			name="",
+			refTo=""
+		},
+		[5]={
+			width=50,
+			list=false,
+			type="Enum",
+			name="",
+			refTo=""
+		},
+		[12]={
+			width=50,
+			list=false,
+			type="Bool",
+			name="",
+			refTo=""
+		},
+		[11]={
+			width=150,
+			list=false,
+			type="Enum",
+			name="Off Hand Stat",
+			refTo="Stats"
+		},
+		[4]={
+			width=50,
+			list=false,
+			type="Bool",
+			name="Proxied",
+			refTo=""
+		},
+		[10]={
+			width=150,
+			list=false,
+			type="Enum",
+			name="Main Hand Stat",
+			refTo="Stats"
+		},
+		[9]={
+			width=50,
+			list=false,
+			type="Bool",
+			name="Virtual",
+			refTo=""
+		},
+		[13]={
+			width=80,
+			list=false,
+			type="UInt",
+			name="Hash",
+			refTo=""
+		},
+		[8]={
+			width=50,
+			list=false,
+			type="Bool",
+			name="",
+			refTo=""
+		},
+		[1]={
+			width=310,
+			list=false,
+			type="String",
+			name="Id",
+			refTo=""
+		},
+		[3]={
+			width=50,
+			list=false,
+			type="Bool",
+			name="Local",
+			refTo=""
+		},
+		[7]={
+			width=160,
+			list=false,
+			type="String",
+			name="",
+			refTo=""
+		},
+		[16]={
+			width=50,
+			list=false,
+			type="Bool",
+			name="",
+			refTo=""
+		},
+		[15]={
+			width=110,
+			list=false,
+			type="Key",
+			name="",
+			refTo=""
+		},
+		[6]={
+			width=50,
+			list=false,
+			type="Bool",
+			name="",
+			refTo=""
+		}
+	},
+	DelveMonsterSpawners={
+	},
+	MoveDaemon={
+	},
+	MultiPartAchievementAreas={
 	},
 	ActiveSkills={
 		[14]={
@@ -2689,11 +2883,11 @@ return {
 			name="ActionName",
 			refTo=""
 		},
-		[13]={
-			width=40,
+		[3]={
+			width=500,
 			list=false,
-			type="Bool",
-			name="",
+			type="String",
+			name="Description",
 			refTo=""
 		},
 		[20]={
@@ -2731,171 +2925,400 @@ return {
 			name="",
 			refTo=""
 		},
-		[3]={
-			width=500,
-			list=false,
-			type="String",
-			name="Description",
-			refTo=""
-		}
-	},
-	TriggerSpawners={
-	},
-	ShopPaymentPackagePrice={
-	},
-	CooldownBypassTypes={
-	},
-	DivinationCardArt={
-	},
-	FlaskType={
-	},
-	MoveDaemon={
-	},
-	Orientations={
-	},
-	ShopPaymentPackageProxy={
-	},
-	Stats={
-		[14]={
-			width=150,
-			list=true,
-			type="String",
-			name="Skills",
-			refTo=""
-		},
-		[2]={
-			width=50,
-			list=false,
-			type="Bool",
-			name="",
-			refTo=""
-		},
-		[5]={
-			width=50,
-			list=false,
-			type="Enum",
-			name="",
-			refTo=""
-		},
-		[12]={
-			width=50,
-			list=false,
-			type="Bool",
-			name="",
-			refTo=""
-		},
-		[11]={
-			width=150,
-			list=false,
-			type="Enum",
-			name="Off Hand Stat",
-			refTo="Stats"
-		},
-		[4]={
-			width=50,
-			list=false,
-			type="Bool",
-			name="Proxied",
-			refTo=""
-		},
-		[10]={
-			width=150,
-			list=false,
-			type="Enum",
-			name="Main Hand Stat",
-			refTo="Stats"
-		},
-		[9]={
-			width=50,
-			list=false,
-			type="Bool",
-			name="Virtual",
-			refTo=""
-		},
 		[13]={
-			width=80,
-			list=false,
-			type="UInt",
-			name="Hash",
-			refTo=""
-		},
-		[8]={
-			width=50,
-			list=false,
-			type="Bool",
-			name="",
-			refTo=""
-		},
-		[16]={
-			width=50,
-			list=false,
-			type="Bool",
-			name="",
-			refTo=""
-		},
-		[3]={
-			width=50,
-			list=false,
-			type="Bool",
-			name="Local",
-			refTo=""
-		},
-		[7]={
-			width=160,
-			list=false,
-			type="String",
-			name="",
-			refTo=""
-		},
-		[1]={
-			width=310,
-			list=false,
-			type="String",
-			name="Id",
-			refTo=""
-		},
-		[15]={
-			width=110,
-			list=false,
-			type="Key",
-			name="",
-			refTo=""
-		},
-		[6]={
-			width=50,
+			width=40,
 			list=false,
 			type="Bool",
 			name="",
 			refTo=""
 		}
-	},
-	AdditionalLifeScaling={
-	},
-	SafehouseCraftingSpreeCurrencies={
-	},
-	QuestVendorRewards={
-	},
-	DelveMonsterSpawners={
 	},
 	Notifications={
 	},
 	TableMonsterSpawners={
 	},
-	Topologies={
+	BetrayalTargets={
 	},
-	CraftingItemClassCategories={
+	KillstreakThresholds={
+	},
+	RaceTimes={
+	},
+	StatSemantics={
+	},
+	WarbandsPackNumbers={
+	},
+	NPCs={
 		[1]={
-			width=110,
+			width=360,
+			list=false,
+			type="String",
+			name="",
+			refTo=""
+		}
+	},
+	CharacterStartItems={
+	},
+	Labyrinths={
+	},
+	ExecuteGEAL={
+	},
+	WeaponTypes={
+		[2]={
+			width=70,
+			list=false,
+			type="Int",
+			name="CritChance",
+			refTo=""
+		},
+		[5]={
+			width=80,
+			list=false,
+			type="Int",
+			name="DamageMax",
+			refTo=""
+		},
+		[3]={
+			width=50,
+			list=false,
+			type="Int",
+			name="Speed",
+			refTo=""
+		},
+		[7]={
+			width=50,
+			list=false,
+			type="Int",
+			name="",
+			refTo=""
+		},
+		[1]={
+			width=490,
+			list=false,
+			type="Key",
+			name="BaseItemType",
+			refTo="BaseItemTypes"
+		},
+		[4]={
+			width=70,
+			list=false,
+			type="Int",
+			name="DamageMin",
+			refTo=""
+		},
+		[6]={
+			width=50,
+			list=false,
+			type="Int",
+			name="Range",
+			refTo=""
+		}
+	},
+	Tags={
+		[1]={
+			width=150,
 			list=false,
 			type="String",
 			name="Id",
 			refTo=""
 		},
+		[2]={
+			width=150,
+			list=false,
+			type="UInt",
+			name="Hash",
+			refTo=""
+		},
+		[3]={
+			width=210,
+			list=false,
+			type="String",
+			name="DisplayText",
+			refTo=""
+		}
+	},
+	MonsterSkillsReference={
+	},
+	QuestVendorRewards={
+	},
+	EclipseMods={
+	},
+	MonsterSkillsClientInstance={
+	},
+	AtlasQuadrant={
+	},
+	WorldAreas={
+	},
+	BuffVisualOrbTypes={
+	},
+	AtlasInfluenceOutcomes={
+	},
+	CharacterStartQuestState={
+	},
+	Realms={
+	},
+	UniqueJewelLimits={
+	},
+	JobAssassinationSpawnerGroups={
+	},
+	BetrayalTargetLifeScalingPerLevel={
+	},
+	StrDexIntMissions={
+	},
+	HideoutDoodads={
+	},
+	Music={
+	},
+	MissionFavourPerLevel={
+	},
+	ItemExperiencePerLevel={
+	},
+	ItemThemes={
+	},
+	ItemShopType={
+	},
+	BetrayalChoiceActions={
+	},
+	StatInterpolationTypes={
+	},
+	AchievementSets={
+	},
+	ModSellPriceTypes={
+	},
+	DamageParticleEffects={
+	},
+	DescentRewardChests={
+	},
+	ShopToken={
+	},
+	Environments={
+	},
+	MapInhabitants={
+	},
+	PreloadGroups={
+	},
+	MonsterPackCounts={
+	},
+	MicroMigrationData={
+	},
+	NPCTextAudio={
+	},
+	Hideouts={
+	},
+	BestiaryGenus={
+	},
+	EnvironmentTransitions={
+	},
+	PerandusBosses={
+	},
+	PassiveSkillTreeTutorial={
+	},
+	AdditionalLifeScalingPerLevel={
+	},
+	MonsterArmours={
+	},
+	Attributes={
+	},
+	AreaTransitionInfo={
+	},
+	BestiaryGroups={
+	},
+	Tutorial={
+	},
+	MapDeviceRecipes={
+	},
+	MonsterSpawnerGroups={
+	},
+	DelveDynamite={
+	},
+	SpawnObject={
+	},
+	Footprints={
+	},
+	PVPTypes={
+	},
+	SupporterPackSets={
+	},
+	GrantedEffectGroups={
+	},
+	LabyrinthIzaroChests={
+	},
+	GeometryAttack={
+	},
+	ArchitectLifeScalingPerLevel={
+	},
+	ItemSynthesisCorruptedMods={
+	},
+	ActiveSkillTargetTypes={
+	},
+	MicrotransactionPortalVariations={
+	},
+	DropModifiers={
+	},
+	EinharMissions={
+	},
+	TerrainPlugins={
+	},
+	Pet={
+	},
+	MicrotransactionFireworksVariations={
+	},
+	ItemTradeData={
+	},
+	Characters={
+	},
+	TormentSpirits={
+	},
+	PantheonPanelLayout={
+	},
+	GlobalAudioConfig={
+	},
+	DescentExiles={
+	},
+	LabyrinthSecretLocations={
+	},
+	QuestStaticRewards={
+	},
+	UniqueMaps={
+	},
+	MonsterSkillsAliveDead={
+	},
+	MonsterFleeConditions={
+	},
+	MonsterGroupEntries={
+	},
+	AtlasSector={
+	},
+	Melee={
+	},
+	AreaTransitionAnimationTypes={
+	},
+	ItemClasses={
+		[1]={
+			width=150,
+			list=false,
+			type="String",
+			name="Id",
+			refTo=""
+		},
+		[2]={
+			width=150,
+			list=false,
+			type="String",
+			name="Name",
+			refTo=""
+		}
+	},
+	FragmentStashTabLayout={
+	},
+	ProphecyType={
+	},
+	EinharPackFallback={
+	},
+	LabyrinthRewardTypes={
+	},
+	IncursionRoomBossFightEvents={
+	},
+	AdvancedSkillsTutorial={
+	},
+	CraftingBenchUnlockCategories={
+		[1]={
+			width=280,
+			list=false,
+			type="String",
+			name="Id",
+			refTo=""
+		}
+	},
+	ExplodingStormBuffs={
+	},
+	ItemSetNames={
+	},
+	MonsterProjectileSpell={
+	},
+	MonsterSize={
+	},
+	ArmourClasses={
+	},
+	BestiaryRecipes={
+	},
+	BetrayalWallLifeScalingPerLevel={
+	},
+	MonsterMortar={
+	},
+	Synthesis={
+	},
+	BetrayalUpgradeSlots={
+	},
+	NPCTalkCategory={
+	},
+	ElderMapBossOverride={
+	},
+	EvergreenAchievements={
+	},
+	AchievementSetsDisplay={
+	},
+	EssenceStashTabLayout={
+	},
+	MicrotransactionPeriodicCharacterEffectVariations={
+	},
+	HideoutRarity={
+	},
+	CurrencyItems={
+	},
+	Chests={
+	},
+	Bloodlines={
+	},
+	ExtraTerrainFeatureFamily={
+	},
+	MonsterMapDifficulty={
+	},
+	Tips={
+	},
+	QuestType={
+	},
+	LabyrinthTrinkets={
+	},
+	MonsterSkillsSequenceMode={
+	},
+	SkillTrapVariations={
+	},
+	CooldownGroups={
+	},
+	DelveUpgradeType={
+	},
+	Animation={
+		[1]={
+			width=150,
+			list=false,
+			type="String",
+			name="Id",
+			refTo=""
+		}
+	},
+	IncursionUniqueUpgradeComponents={
+	},
+	ArchetypeRewards={
+	},
+	Topologies={
+	},
+	ElderBossArenas={
+	},
+	SafehouseBYOCrafting={
+	},
+	CraftingItemClassCategories={
 		[4]={
 			width=130,
 			list=false,
 			type="String",
 			name="",
+			refTo=""
+		},
+		[1]={
+			width=110,
+			list=false,
+			type="String",
+			name="Id",
 			refTo=""
 		},
 		[2]={
@@ -2912,25 +3335,6 @@ return {
 			name="",
 			refTo=""
 		}
-	},
-	RaceTimes={
-	},
-	StatSemantics={
-	},
-	SpecialRooms={
-	},
-	NPCs={
-		[1]={
-			width=360,
-			list=false,
-			type="String",
-			name="",
-			refTo=""
-		}
-	},
-	CharacterStartQuestState={
-	},
-	Labyrinths={
 	},
 	Mods={
 		[2]={
@@ -3094,11 +3498,11 @@ return {
 			name="SpawnTags",
 			refTo="Tags"
 		},
-		[13]={
-			width=70,
+		[41]={
+			width=50,
 			list=false,
-			type="Interval",
-			name="Stat1Value",
+			type="Bool",
+			name="",
 			refTo=""
 		},
 		[39]={
@@ -3122,12 +3526,12 @@ return {
 			name="IsEssence",
 			refTo=""
 		},
-		[7]={
-			width=150,
-			list=false,
-			type="Key",
-			name="Stat3",
-			refTo="Stats"
+		[34]={
+			width=120,
+			list=true,
+			type="Int",
+			name="GenerationWeightValues",
+			refTo="Tags"
 		},
 		[5]={
 			width=150,
@@ -3136,19 +3540,19 @@ return {
 			name="Stat1",
 			refTo="Stats"
 		},
-		[18]={
+		[3]={
 			width=150,
-			list=true,
-			type="Int",
-			name="SpawnWeights",
-			refTo="Tags"
-		},
-		[21]={
-			width=150,
-			list=true,
+			list=false,
 			type="Key",
-			name="Tags",
-			refTo="Tags"
+			name="Type",
+			refTo="ModType"
+		},
+		[30]={
+			width=150,
+			list=false,
+			type="Key",
+			name="Stat5",
+			refTo="Stats"
 		},
 		[4]={
 			width=60,
@@ -3157,11 +3561,11 @@ return {
 			name="Level",
 			refTo=""
 		},
-		[25]={
-			width=150,
-			list=false,
-			type="String",
-			name="Daemon",
+		[26]={
+			width=100,
+			list=true,
+			type="Key",
+			name="",
 			refTo=""
 		},
 		[29]={
@@ -3178,33 +3582,33 @@ return {
 			name="GrantedEffect",
 			refTo="GrantedEffectsPerLevel"
 		},
-		[26]={
-			width=100,
-			list=true,
-			type="Key",
-			name="",
+		[25]={
+			width=150,
+			list=false,
+			type="String",
+			name="Daemon",
 			refTo=""
 		},
-		[30]={
+		[21]={
 			width=150,
-			list=false,
+			list=true,
 			type="Key",
-			name="Stat5",
-			refTo="Stats"
+			name="Tags",
+			refTo="Tags"
 		},
-		[3]={
+		[18]={
 			width=150,
-			list=false,
-			type="Key",
-			name="Type",
-			refTo="ModType"
-		},
-		[34]={
-			width=120,
 			list=true,
 			type="Int",
-			name="GenerationWeightValues",
+			name="SpawnWeights",
 			refTo="Tags"
+		},
+		[7]={
+			width=150,
+			list=false,
+			type="Key",
+			name="Stat3",
+			refTo="Stats"
 		},
 		[42]={
 			width=80,
@@ -3220,397 +3624,133 @@ return {
 			name="Stat3Value",
 			refTo=""
 		},
-		[41]={
-			width=50,
+		[13]={
+			width=70,
 			list=false,
-			type="Bool",
-			name="",
+			type="Interval",
+			name="Stat1Value",
 			refTo=""
 		}
 	},
-	ArchetypeRewards={
+	SpecialRooms={
 	},
-	Tags={
-		[1]={
-			width=150,
-			list=false,
-			type="String",
-			name="Id",
-			refTo=""
-		},
-		[2]={
-			width=150,
-			list=false,
-			type="UInt",
-			name="Hash",
-			refTo=""
-		},
-		[3]={
-			width=210,
-			list=false,
-			type="String",
-			name="DisplayText",
-			refTo=""
-		}
+	BuffGroups={
 	},
-	IncursionUniqueUpgradeComponents={
+	ShopPaymentPackageProxy={
 	},
-	WarbandsPackNumbers={
+	SynthesisRewardTypes={
 	},
-	EclipseMods={
+	CooldownBypassTypes={
 	},
-	Animation={
-		[1]={
-			width=150,
-			list=false,
-			type="String",
-			name="Id",
-			refTo=""
-		}
+	AdditionalLifeScaling={
 	},
-	DelveUpgradeType={
+	IncursionUniqueUpgrades={
 	},
-	WorldAreas={
+	MonsterProjectileAttack={
 	},
-	BuffVisualOrbTypes={
+	NPCShopAdditionalItems={
 	},
-	BetrayalTargetLifeScalingPerLevel={
-	},
-	ElderBossArenas={
-	},
-	CooldownGroups={
-	},
-	MonsterSkillsSequenceMode={
-	},
-	ItemThemes={
-	},
-	SkillTrapVariations={
-	},
-	StrDexIntMissions={
-	},
-	HideoutDoodads={
-	},
-	Music={
-	},
-	MissionFavourPerLevel={
-	},
-	ItemExperiencePerLevel={
-	},
-	JobAssassinationSpawnerGroups={
-	},
-	ItemShopType={
-	},
-	Tips={
-	},
-	DescentRewardChests={
-	},
-	ShopToken={
-	},
-	ModSellPriceTypes={
-	},
-	DamageParticleEffects={
-	},
-	MonsterMapDifficulty={
-	},
-	ExtraTerrainFeatureFamily={
-	},
-	MapInhabitants={
-	},
-	Environments={
-	},
-	MicroMigrationData={
-	},
-	MonsterPackCounts={
-	},
-	PreloadGroups={
-	},
-	NPCTextAudio={
-	},
-	HideoutRarity={
-	},
-	BestiaryGenus={
-	},
-	EnvironmentTransitions={
-	},
-	PerandusBosses={
-	},
-	PassiveSkillTreeTutorial={
-	},
-	AdditionalLifeScalingPerLevel={
-	},
-	MicrotransactionPeriodicCharacterEffectVariations={
-	},
-	Attributes={
-	},
-	AreaTransitionInfo={
-	},
-	BestiaryGroups={
-	},
-	EvergreenAchievements={
-	},
-	SupporterPackSets={
-	},
-	Tutorial={
-	},
-	ElderMapBossOverride={
-	},
-	SpawnObject={
-	},
-	Footprints={
-	},
-	PVPTypes={
-	},
-	MapDeviceRecipes={
-	},
-	GrantedEffectGroups={
-	},
-	BetrayalUpgradeSlots={
-	},
-	GeometryAttack={
-	},
-	ArchitectLifeScalingPerLevel={
-	},
-	ItemSynthesisCorruptedMods={
-	},
-	MonsterMortar={
-	},
-	MicrotransactionPortalVariations={
-	},
-	TormentSpirits={
-	},
-	EinharMissions={
-	},
-	DropModifiers={
-	},
-	Pet={
-	},
-	MicrotransactionFireworksVariations={
-	},
-	PantheonPanelLayout={
-	},
-	Characters={
-	},
-	BestiaryRecipes={
-	},
-	ArmourClasses={
-	},
-	MonsterSize={
-	},
-	MonsterProjectileSpell={
-	},
-	ItemSetNames={
-	},
-	MonsterSkillsAliveDead={
-	},
-	UniqueMaps={
-	},
-	QuestStaticRewards={
-	},
-	MonsterFleeConditions={
-	},
-	FragmentStashTabLayout={
-	},
-	ProphecyType={
-	},
-	Melee={
-	},
-	AreaTransitionAnimationTypes={
-	},
-	EinharPackFallback={
-	},
-	AdvancedSkillsTutorial={
-	},
-	IncursionRoomBossFightEvents={
-	},
-	ItemClasses={
-		[2]={
-			width=150,
-			list=false,
-			type="String",
-			name="Name",
-			refTo=""
-		},
-		[1]={
-			width=150,
-			list=false,
-			type="String",
-			name="Id",
-			refTo=""
-		}
-	},
-	LabyrinthRewardTypes={
-	},
-	AtlasSector={
-	},
-	MonsterGroupEntries={
-	},
-	CraftingBenchUnlockCategories={
-		[1]={
-			width=280,
-			list=false,
-			type="String",
-			name="Id",
-			refTo=""
-		}
-	},
-	ExplodingStormBuffs={
-	},
-	LabyrinthSecretLocations={
-	},
-	DescentExiles={
-	},
-	GlobalAudioConfig={
-	},
-	ItemTradeData={
-	},
-	TerrainPlugins={
-	},
-	BetrayalWallLifeScalingPerLevel={
-	},
-	ActiveSkillTargetTypes={
-	},
-	Synthesis={
-	},
-	LabyrinthIzaroChests={
-	},
-	NPCTalkCategory={
-	},
-	DelveDynamite={
-	},
-	MonsterSpawnerGroups={
-	},
-	AchievementSetsDisplay={
-	},
-	EssenceStashTabLayout={
-	},
-	MonsterArmours={
-	},
-	Hideouts={
-	},
-	CurrencyItems={
-	},
-	Chests={
-	},
-	Bloodlines={
-	},
-	AchievementSets={
-	},
-	StatInterpolationTypes={
-	},
-	BetrayalChoiceActions={
-	},
-	QuestType={
-	},
-	LabyrinthTrinkets={
-	},
-	UniqueJewelLimits={
-	},
-	Realms={
-	},
-	AtlasInfluenceOutcomes={
-	},
-	AtlasQuadrant={
-	},
-	MonsterSkillsClientInstance={
-	},
-	MonsterSkillsReference={
-	},
-	WeaponTypes={
-		[2]={
+	DefaultMonsterStats={
+		[14]={
 			width=70,
 			list=false,
 			type="Int",
-			name="CritChance",
+			name="",
+			refTo=""
+		},
+		[2]={
+			width=70,
+			list=false,
+			type="Float",
+			name="Damage",
 			refTo=""
 		},
 		[5]={
-			width=80,
+			width=70,
 			list=false,
 			type="Int",
-			name="DamageMax",
+			name="MonsterLife",
 			refTo=""
 		},
-		[3]={
-			width=50,
+		[12]={
+			width=70,
 			list=false,
-			type="Int",
-			name="Speed",
+			type="Float",
+			name="",
 			refTo=""
 		},
-		[7]={
-			width=50,
+		[11]={
+			width=70,
 			list=false,
 			type="Int",
 			name="",
 			refTo=""
-		},
-		[1]={
-			width=490,
-			list=false,
-			type="Key",
-			name="BaseItemType",
-			refTo="BaseItemTypes"
 		},
 		[4]={
 			width=70,
 			list=false,
 			type="Int",
-			name="DamageMin",
+			name="Accuracy",
 			refTo=""
 		},
-		[6]={
-			width=50,
-			list=false,
-			type="Int",
-			name="Range",
-			refTo=""
-		}
-	},
-	ExecuteGEAL={
-	},
-	CharacterStartItems={
-	},
-	SafehouseBYOCrafting={
-	},
-	KillstreakThresholds={
-	},
-	BetrayalTargets={
-	},
-	MultiPartAchievementAreas={
-	},
-	BuffGroups={
-	},
-	ZanaQuests={
-	},
-	SynthesisRewardTypes={
-	},
-	DelveAzuriteShop={
-	},
-	CharacterPanelStats={
-	},
-	IncursionRoomAdditionalBossDrops={
-	},
-	MonsterProjectileAttack={
-	},
-	BestiaryEncounters={
-	},
-	EffectivenessCostConstants={
-		[2]={
-			width=150,
+		[10]={
+			width=70,
 			list=false,
 			type="Float",
-			name="Value",
+			name="",
+			refTo=""
+		},
+		[9]={
+			width=70,
+			list=false,
+			type="Int",
+			name="",
+			refTo=""
+		},
+		[8]={
+			width=70,
+			list=false,
+			type="Int",
+			name="",
+			refTo=""
+		},
+		[3]={
+			width=70,
+			list=false,
+			type="Int",
+			name="Evasion",
+			refTo=""
+		},
+		[7]={
+			width=70,
+			list=false,
+			type="Int",
+			name="MinionLife",
 			refTo=""
 		},
 		[1]={
-			width=150,
+			width=50,
 			list=false,
 			type="String",
-			name="Id",
+			name="Level",
+			refTo=""
+		},
+		[13]={
+			width=70,
+			list=false,
+			type="Float",
+			name="",
+			refTo=""
+		},
+		[6]={
+			width=70,
+			list=false,
+			type="Int",
+			name="",
 			refTo=""
 		}
 	},
-	NPCMaster={
+	MapSeriesTiers={
 	},
 	CurrencyStashTabLayout={
 	},
@@ -3620,19 +3760,19 @@ return {
 	},
 	AtlasNodeDefinition={
 	},
-	Dances={
+	RecipeUnlockObjects={
 	},
-	CharacterTextAudio={
+	CustomLeagueMods={
 	},
-	CharacterAudioEvents={
+	SynthesisAreas={
 	},
-	ShopCurrency={
+	MonsterPackEntries={
 	},
-	ShopPaymentPackage={
+	SynthesisGlobalMods={
 	},
-	AtlasFog={
+	DelveFeatureRewards={
 	},
-	ItemVisualHeldBodyModel={
+	DivinationCardStashTabLayout={
 	},
 	MapPins={
 	},
@@ -3644,284 +3784,144 @@ return {
 	},
 	ItemisedVisualEffect={
 	},
-	PassiveJewelSlots={
+	InvasionMonsterRestrictions={
 	},
-	UniqueSetNames={
+	CraftingBenchCustomActions={
 	},
-	CharacterPanelStatContexts={
+	BackendErrors={
 	},
 	Commands={
 	},
-	StrDexIntMissionExtraRequirement={
+	PathOfEndurance={
 	},
 	DescentStarterChest={
 	},
 	LabyrinthSecretEffects={
 	},
-	RunicCircles={
+	CharacterStartStateSet={
 	},
 	PerandusChests={
 	},
 	Wordlists={
 	},
-	ItemVisualIdentity={
-		[1]={
-			width=150,
-			list=false,
-			type="String",
-			name="Id",
-			refTo=""
-		}
-	},
-	OldMapStashTabLayout={
-	},
-	MusicCategories={
-	},
-	QuestAchievements={
-	},
-	ShieldTypes={
-		[1]={
-			width=290,
-			list=false,
-			type="Key",
-			name="BaseItemType",
-			refTo="BaseItemTypes"
-		},
+	ClientStrings={
 		[2]={
-			width=60,
-			list=false,
-			type="Int",
-			name="Block",
-			refTo=""
-		}
-	},
-	LeagueInfo={
-	},
-	DelveCraftingTags={
-	},
-	BestiaryFamilies={
-	},
-	DelveFlares={
-	},
-	PassiveSkills={
-	},
-	SuperShaperInfluence={
-	},
-	ExtraTerrainFeatures={
-	},
-	AbyssObjects={
-	},
-	SpecialTiles={
-	},
-	SkillSurgeEffects={
-	},
-	SafehouseCraftingSpree={
-	},
-	SynthesisMonsterExperiencePerLevel={
-	},
-	BetrayalDialogue={
-	},
-	MonsterMapBossDifficulty={
-	},
-	Default={
-	},
-	GeometryProjectiles={
-	},
-	BeyondDemons={
-	},
-	SynthesisBonuses={
-	},
-	GrantedEffects={
-		[14]={
-			width=50,
-			list=false,
-			type="Int",
-			name="",
-			refTo=""
-		},
-		[2]={
-			width=60,
-			list=false,
-			type="Bool",
-			name="IsSupport",
-			refTo=""
-		},
-		[12]={
-			width=60,
-			list=true,
-			type="Enum",
-			name="",
-			refTo=""
-		},
-		[11]={
-			width=100,
-			list=false,
-			type="UInt",
-			name="Hash",
-			refTo=""
-		},
-		[10]={
-			width=100,
-			list=false,
-			type="Bool",
-			name="SupportGemsOnly",
-			refTo=""
-		},
-		[9]={
-			width=200,
-			list=true,
-			type="Enum",
-			name="ExcludeTypes",
-			refTo="ActiveSkillType"
-		},
-		[8]={
-			width=90,
-			list=true,
-			type="Enum",
-			name="AddTypes",
-			refTo="ActiveSkillType"
-		},
-		[19]={
-			width=150,
-			list=true,
-			type="Enum",
-			name="AddMinionTypes",
-			refTo="ActiveSkillType"
-		},
-		[7]={
-			width=60,
-			list=false,
-			type="Int",
-			name="Attribute",
-			refTo=""
-		},
-		[1]={
-			width=200,
+			width=270,
 			list=false,
 			type="String",
-			name="Id",
-			refTo=""
-		},
-		[6]={
-			width=100,
-			list=false,
-			type="String",
-			name="SupportGemLetter",
+			name="Text",
 			refTo=""
 		},
 		[5]={
 			width=150,
 			list=false,
-			type="Float",
-			name="IncrementalEffectiveness",
-			refTo=""
-		},
-		[4]={
-			width=150,
-			list=false,
-			type="Float",
-			name="BaseEffectiveness",
-			refTo=""
-		},
-		[13]={
-			width=50,
-			list=false,
-			type="Bool",
+			type="String",
 			name="",
-			refTo=""
-		},
-		[20]={
-			width=120,
-			list=false,
-			type="Key",
-			name="Animation",
-			refTo="Animation"
-		},
-		[18]={
-			width=50,
-			list=false,
-			type="Bool",
-			name="",
-			refTo=""
-		},
-		[17]={
-			width=50,
-			list=false,
-			type="Bool",
-			name="",
-			refTo=""
-		},
-		[16]={
-			width=110,
-			list=false,
-			type="Key",
-			name="ActiveSkill",
-			refTo="ActiveSkills"
-		},
-		[15]={
-			width=70,
-			list=false,
-			type="Int",
-			name="CastTime",
 			refTo=""
 		},
 		[3]={
-			width=170,
-			list=true,
-			type="Enum",
-			name="SupportTypes",
-			refTo="ActiveSkillType"
+			width=150,
+			list=false,
+			type="String",
+			name="",
+			refTo=""
+		},
+		[1]={
+			width=180,
+			list=false,
+			type="String",
+			name="Id",
+			refTo=""
+		},
+		[4]={
+			width=90,
+			list=false,
+			type="UInt",
+			name="Hash",
+			refTo=""
 		}
+	},
+	EndlessLedgeChests={
+	},
+	NPCShop={
+	},
+	IncursionChests={
+	},
+	GemTypes={
+	},
+	SynthesisRewardCategories={
+	},
+	DelveCraftingTags={
+	},
+	LeagueTrophy={
+	},
+	ShaperOrbs={
+	},
+	HarbingerMaps={
+	},
+	SuperShaperInfluence={
+	},
+	ExtraTerrainFeatures={
+	},
+	StatDescriptionFunctions={
+	},
+	SigilDisplay={
+	},
+	FlavourText={
+	},
+	SafehouseCraftingSpree={
+	},
+	MonsterBonuses={
+	},
+	BetrayalDialogue={
+	},
+	MonsterMapBossDifficulty={
+	},
+	PerandusDaemons={
+	},
+	GeometryProjectiles={
+	},
+	BeyondDemons={
+	},
+	ExperienceLevels={
+	},
+	VoteState={
 	},
 	CharacterStartStates={
 	},
 	TalismanPacks={
 	},
-	MissionTileMap={
+	FixedMissions={
 	},
-	DamageParticleEffectTypes={
+	NPCAudio={
 	},
 	LabyrinthSecrets={
 	},
 	RecipeUnlockDisplay={
 	},
-	ShopCountry={
+	BuffMergeModes={
 	},
-	NPCFollowerVariations={
+	UniqueFragments={
 	},
 	SurgeTypes={
 	},
-	MultiPartAchievements={
-		[1]={
-			width=350,
-			list=false,
-			type="String",
-			name="Id",
-			refTo=""
-		}
+	LeagueFlags={
 	},
-	EssenceType={
+	WarbandsGraph={
 	},
-	WarbandsPackMonsters={
+	UITalkText={
 	},
-	LeagueQuestFlags={
+	AbyssRegions={
 	},
 	Quest={
 	},
 	Shrines={
 	},
-	ArmourTypes={
-		[1]={
-			width=330,
-			list=false,
-			type="Key",
-			name="",
-			refTo="BaseItemTypes"
-		}
+	MapStashTabLayout={
 	},
 	MonsterStatsFromMapStats={
 	},
-	ProphecyChain={
+	LabyrinthTrials={
 	},
 	EventSeasonRewards={
 	}

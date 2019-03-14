@@ -274,9 +274,9 @@ function ItemClass:ParseRaw(raw)
 				end
 				local fractured = line:match("{fractured}") or line:match(" %(fractured%)")
 				local rangeSpec = line:match("{range:([%d.]+)}")
-				local crafted = line:match("{crafted}")
+				local crafted = line:match("{crafted}") or line:match(" %(crafted%)")
 				local custom = line:match("{custom}")
-				line = line:gsub("%b{}", ""):gsub(" %(fractured%)","")
+				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)","")
 				local rangedLine
 				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
 					rangedLine = itemLib.applyRange(line, 1)
