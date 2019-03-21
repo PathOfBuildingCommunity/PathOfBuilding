@@ -31,8 +31,31 @@ local skills, mod, flag, skill = ...
 #baseMod skill("showAverage", true)
 #mods
 
+#skill SupportAuraDuration Blessing
+	fromItem = true,
+	statMap = {
+		["support_aura_duration_base_buff_duration"] = {
+			skill("auraDuration", nil),
+			div = 1000,
+		},
+		["support_aura_duration_base_reserve_duration"] = {
+			skill("reserveDuration", nil),
+			div = 1000,
+		},
+	},
+#mods
+
 #skill SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike Cospri's Malice
 	fromItem = true,
+#mods
+
+#skill UniqueSupportGreaterVolley Greater Volley
+	fromItem = true,
+	statMap = {
+		["support_greater_volley_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		},
+	},
 #mods
 
 #skill RepeatingShockwave
@@ -63,7 +86,7 @@ local skills, mod, flag, skill = ...
 		["critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Stealth", effectCond = "CatsStealthActive" }),
 		},
-		["attack_speed_+%"] = {
+		["attack_speed_+%_granted_from_skill"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" }),
 		},
 		["cast_speed_+%_granted_from_skill"] = {
@@ -136,15 +159,15 @@ local skills, mod, flag, skill = ...
 
 #skill ChaosDegenAuraUnique
 #flags spell aura
-#baseMod skill("dotIsArea", true)
 	fromItem = true,
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill DeathWalk
 #flags cast area chaos
+	fromItem = true,
 #baseMod skill("explodeCorpse", true)
 #baseMod skill("showAverage", true)
-	fromItem = true,
 #mods
 
 #noGem
@@ -213,16 +236,16 @@ local skills, mod, flag, skill = ...
 
 #skill VaalAuraElementalDamageHealing
 #flags spell aura area duration
-#baseMod skill("radius", 36)
 	fromItem = true,
+#baseMod skill("radius", 36)
 #mods
 
 #skill IcestormUniqueStaff12
 #flags spell area duration
+	fromItem = true,
 #baseMod skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 })
 #baseMod skill("radius", 25)
 #baseMod skill("radiusSecondary", 10)
-	fromItem = true,
 #mods
 
 #skill TriggeredIcicleNova
@@ -233,6 +256,11 @@ local skills, mod, flag, skill = ...
 
 #skill MerveilWarp
 #flags spell area duration
+	fromItem = true,
+#mods
+
+#skill LightningAegis
+#flags spell
 	fromItem = true,
 #mods
 
@@ -268,11 +296,33 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill AccuracyAndCritsAura
+#flags spell aura area
+	fromItem = true,
+	statMap = {
+		["accuracy_rating"] = {
+			mod("Accuracy", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 36)
+#mods
+
 #skill TriggeredSummonSpider
 #flags spell minion duration
 	fromItem = true,
 	minionList = {
 		"SpiderMinion",
+	},
+	statMap = {
+		["summoned_spider_grants_attack_speed_+%"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "RaisedSpider" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Raised Spider" }),
+		},
+		["summoned_spider_grants_poison_damage_+%"] = {
+			mod("Damage", "INC", nil, 0, KeywordFlag.Poison, { type = "Multiplier", var = "RaisedSpider" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Raised Spider" }),
+		},
 	},
 #mods
 
@@ -288,8 +338,8 @@ local skills, mod, flag, skill = ...
 
 #skill SpiritBurst
 #flags spell projectile
-#baseMod skill("showAverage", true)
 	fromItem = true,
+#baseMod skill("showAverage", true)
 #mods
 
 #skill StormCascadeTriggered

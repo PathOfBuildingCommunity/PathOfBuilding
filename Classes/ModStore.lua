@@ -3,8 +3,6 @@
 -- Module: Mod Store
 -- Base class for modifier storage classes
 --
-local launch, main = ...
-
 local ipairs = ipairs
 local pairs = pairs
 local select = select
@@ -28,8 +26,9 @@ local conditionName = setmetatable({ }, { __index = function(t, var)
 	return t[var]
 end })
 
-local ModStoreClass = common.NewClass("ModStore", function(self)
-	self.actor = { output = { } }
+local ModStoreClass = newClass("ModStore", function(self, parent)
+	self.parent = parent or false
+	self.actor = parent and parent.actor or { }
 	self.multipliers = { }
 	self.conditions = { }
 end)
@@ -72,6 +71,102 @@ function ModStoreClass:NewMod(...)
 	self:AddMod(mod_createMod(...))
 end
 
+function ModStoreClass:Combine(modType, cfg, ...)
+	if modType == "MORE" then
+		return self:More(cfg, ...)
+	elseif modType == "FLAG" then
+		return self:Flag(cfg, ...)
+	elseif modType == "OVERRIDE" then
+		return self:Override(cfg, ...)
+	elseif modType == "LIST" then
+		return self:List(cfg, ...)
+	else
+		return self:Sum(modType, cfg, ...)
+	end
+end
+
+function ModStoreClass:Sum(modType, cfg, ...)
+	local flags, keywordFlags = 0, 0
+	local source
+	if cfg then
+		flags = cfg.flags or 0
+		keywordFlags = cfg.keywordFlags or 0
+		source = cfg.source
+	end
+	return self:SumInternal(self, modType, cfg, flags, keywordFlags, source, ...)
+end
+
+function ModStoreClass:More(cfg, ...)
+	local flags, keywordFlags = 0, 0
+	local source
+	if cfg then
+		flags = cfg.flags or 0
+		keywordFlags = cfg.keywordFlags or 0
+		source = cfg.source
+	end
+	return self:MoreInternal(self, cfg, flags, keywordFlags, source, ...)
+end
+
+function ModStoreClass:Flag(cfg, ...)
+	local flags, keywordFlags = 0, 0
+	local source
+	if cfg then
+		flags = cfg.flags or 0
+		keywordFlags = cfg.keywordFlags or 0
+		source = cfg.source
+	end
+	return self:FlagInternal(self, cfg, flags, keywordFlags, source, ...)
+end
+
+function ModStoreClass:Override(cfg, ...)
+	local flags, keywordFlags = 0, 0
+	local source
+	if cfg then
+		flags = cfg.flags or 0
+		keywordFlags = cfg.keywordFlags or 0
+		source = cfg.source
+	end
+	return self:OverrideInternal(self, cfg, flags, keywordFlags, source, ...)
+end
+
+function ModStoreClass:List(cfg, ...)
+	local flags, keywordFlags = 0, 0
+	local source
+	if cfg then
+		flags = cfg.flags or 0
+		keywordFlags = cfg.keywordFlags or 0
+		source = cfg.source
+	end
+	local result = { }
+	self:ListInternal(self, result, cfg, flags, keywordFlags, source, ...)
+	return result
+end
+
+function ModStoreClass:Tabulate(modType, cfg, ...)
+	local flags, keywordFlags = 0, 0
+	local source
+	if cfg then
+		flags = cfg.flags or 0
+		keywordFlags = cfg.keywordFlags or 0
+		source = cfg.source
+	end
+	local result = { }
+	self:TabulateInternal(self, result, modType, cfg, flags, keywordFlags, source, ...)
+	return result
+end
+
+function ModStoreClass:GetCondition(var, cfg, noMod)
+	return self.conditions[var] or (self.parent and self.parent:GetCondition(var, cfg, true)) or (not noMod and self:Flag(cfg, conditionName[var]))
+end
+
+function ModStoreClass:GetMultiplier(var, cfg, noMod)
+	return (self.multipliers[var] or 0) + (self.parent and self.parent:GetMultiplier(var, cfg, true) or 0) + (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
+end
+
+function ModStoreClass:GetStat(stat, cfg)
+	return (self.actor.output and self.actor.output[stat]) or (cfg and cfg.skillStats and cfg.skillStats[stat]) or 0
+end
+
 function ModStoreClass:EvalMod(mod, cfg)
 	local value = mod.value
 	for _, tag in ipairs(mod) do
@@ -87,15 +182,15 @@ function ModStoreClass:EvalMod(mod, cfg)
 			local base = 0
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
-					base = base + (target.multipliers[var] or 0) + target:Sum("BASE", cfg, multiplierName[var])
+					base = base + target:GetMultiplier(var, cfg)
 				end
 			else
-				base = (target.multipliers[tag.var] or 0) + target:Sum("BASE", cfg, multiplierName[tag.var])
+				base = target:GetMultiplier(tag.var, cfg)
 			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
 			if tag.limit or tag.limitVar then
-				local limit = tag.limit or ((self.multipliers[tag.limitVar] or 0) + self:Sum("BASE", cfg, multiplierName[tag.limitVar]))
+				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
 				else
@@ -133,13 +228,13 @@ function ModStoreClass:EvalMod(mod, cfg)
 			local mult = 0
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
-					mult = mult + (target.multipliers[var] or 0) + target:Sum("BASE", cfg, multiplierName[var])
+					mult = mult + target:GetMultiplier(var, cfg)
 				end
 			else
-				mult = (target.multipliers[tag.var] or 0) + target:Sum("BASE", cfg, multiplierName[tag.var])
+				mult = target:GetMultiplier(tag.var, cfg)
 			end
-			local threshold = tag.threshold or ((target.multipliers[tag.thresholdVar] or 0) + target:Sum("BASE", cfg, multiplierName[tag.thresholdVar]))
-			if (tag.upper and mult > tag.threshold) or (not tag.upper and mult < tag.threshold) then
+			local threshold = tag.threshold or target:GetMultiplier(tag.thresholdVar, cfg)
+			if (tag.upper and mult > threshold) or (not tag.upper and mult < threshold) then
 				return
 			end
 		elseif tag.type == "PerStat" then
@@ -147,15 +242,15 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if tag.statList then
 				base = 0
 				for _, stat in ipairs(tag.statList) do
-					base = base + (self.actor.output[stat] or (cfg and cfg.skillStats and cfg.skillStats[stat]) or 0)
+					base = base + self:GetStat(stat, cfg)
 				end
 			else
-				base = self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0
+				base = self:GetStat(tag.stat, cfg)
 			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
 			if tag.limit or tag.limitVar then
-				local limit = tag.limit or ((self.multipliers[tag.limitVar] or 0) + self:Sum("BASE", cfg, multiplierName[tag.limitVar]))
+				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
 				else
@@ -186,12 +281,12 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if tag.statList then
 				stat = 0
 				for _, stat in ipairs(tag.statList) do
-					stat = stat + (self.actor.output[stat] or (cfg and cfg.skillStats and cfg.skillStats[stat]) or 0)
+					stat = stat + self:GetStat(stat, cfg)
 				end
 			else
-				stat = self.actor.output[tag.stat] or (cfg and cfg.skillStats and cfg.skillStats[tag.stat]) or 0
+				stat = self:GetStat(tag.stat, cfg)
 			end
-			local threshold = tag.threshold or (self.actor.output[tag.thresholdStat] or (cfg and cfg.skillStats and cfg.skillStats[tag.thresholdStat]) or 0)
+			local threshold = tag.threshold or self:GetStat(tag.thresholdStat, cfg)
 			if (tag.upper and stat > threshold) or (not tag.upper and stat < threshold) then
 				return
 			end
@@ -216,13 +311,13 @@ function ModStoreClass:EvalMod(mod, cfg)
 			local match = false
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
-					if self.conditions[var] or (cfg and cfg.skillCond and cfg.skillCond[var]) or self:Sum("FLAG", cfg, conditionName[var]) then
+					if self:GetCondition(var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
 						match = true
 						break
 					end
 				end
 			else
-				match = self.conditions[tag.var] or (cfg and cfg.skillCond and cfg.skillCond[tag.var]) or self:Sum("FLAG", cfg, conditionName[tag.var])
+				match = self:GetCondition(tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
 			end
 			if tag.neg then
 				match = not match
@@ -232,17 +327,20 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "ActorCondition" then
 			local match = false
-			local actor = self.actor[tag.actor]
-			if actor then
+			local target = self
+			if tag.actor then
+				target = self.actor[tag.actor] and self.actor[tag.actor].modDB
+			end
+			if target then
 				if tag.varList then
 					for _, var in pairs(tag.varList) do
-						if actor.modDB.conditions[var] or actor.modDB:Sum("FLAG", nil, conditionName[var]) then
+						if target:GetCondition(var, cfg) then
 							match = true
 							break
 						end
 					end
 				else
-					match = actor.modDB.conditions[tag.var] or actor.modDB:Sum("FLAG", nil, conditionName[tag.var])
+					match = target:GetCondition(tag.var, cfg)
 				end
 			end
 			if tag.neg then

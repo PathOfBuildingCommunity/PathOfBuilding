@@ -3,8 +3,6 @@
 -- Module: Config Tab
 -- Configuration tab for the current build.
 --
-local launch, main = ...
-
 local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
@@ -12,12 +10,12 @@ local m_floor = math.floor
 
 local gameVersionDropList = {
 	{ label = "2.6 (Atlas of Worlds)", version = "2_6", versionPretty = "2.6" },
-	{ label = "3.4 (War for the Atlas)", version = "3_0", versionPretty = "3.4" },
+	{ label = "3.6 (War for the Atlas)", version = "3_0", versionPretty = "3.6" },
 }
 
 local varList = LoadModule("Modules/ConfigOptions")
 
-local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
+local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
 	self.ControlHost()
 	self.Control()
@@ -34,7 +32,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
-			lastSection = common.New("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 360, 0, varData.section)
+			lastSection = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 360, 0, varData.section)
 			lastSection.varControlList = { }
 			lastSection.col = varData.col
 			lastSection.height = function(self)
@@ -51,28 +49,28 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 		elseif not varData.ifVer or varData.ifVer == build.targetVersion then
 			local control
 			if varData.type == "check" then
-				control = common.New("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 18, nil, function(state)
+				control = new("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 18, nil, function(state)
 					self.input[varData.var] = state
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end) 
 			elseif varData.type == "count" or varData.type == "integer" then
-				control = common.New("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 6, function(buf)
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 6, function(buf)
 					self.input[varData.var] = tonumber(buf)
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end) 
 			elseif varData.type == "list" then
-				control = common.New("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 118, 16, varData.list, function(index, value)
+				control = new("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 118, 16, varData.list, function(index, value)
 					self.input[varData.var] = value.val
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
 			else 
-				control = common.New("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 16, 16)
+				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 16, 16)
 			end
 			if varData.ifNode then
 				control.shown = function()
@@ -176,7 +174,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 			else
 				control.tooltipText = varData.tooltip
 			end
-			t_insert(self.controls, common.New("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label))
+			t_insert(self.controls, new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label))
 			if varData.var then
 				self.varControls[varData.var] = control
 			end
@@ -186,7 +184,7 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 	end
 
 	-- Special control for game version selector
-	self.controls.gameVersion = common.New("DropDownControl", {"TOPLEFT",self.sectionList[1],"TOPLEFT"}, 234, 0, 118, 16, gameVersionDropList, function(index, value)
+	self.controls.gameVersion = new("DropDownControl", {"TOPLEFT",self.sectionList[1],"TOPLEFT"}, 234, 0, 118, 16, gameVersionDropList, function(index, value)
 		if value.version ~= build.targetVersion then
 			main:OpenConfirmPopup("Convert Build", colorCodes.WARNING.."Warning:^7 Converting a build to a different game version may have side effects.\nFor example, if the passive tree has changed, then some passives may be deallocated.\nYou should create a backup copy of the build before proceeding.", "Convert to "..value.versionPretty, function()
 				if build.unsaved then
@@ -202,10 +200,10 @@ local ConfigTabClass = common.NewClass("ConfigTab", "UndoHandler", "ControlHost"
 			end)
 		end
 	end)
-	t_insert(self.controls, common.New("LabelControl", {"RIGHT",self.controls.gameVersion,"LEFT"}, -4, 0, 0, 14, "^7Game Version:"))
+	t_insert(self.controls, new("LabelControl", {"RIGHT",self.controls.gameVersion,"LEFT"}, -4, 0, 0, 14, "^7Game Version:"))
 	t_insert(self.sectionList[1].varControlList, 1, self.controls.gameVersion)
 
-	self.controls.scrollBar = common.New("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
+	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
 end)
 
 function ConfigTabClass:Load(xml, fileName)
@@ -345,9 +343,9 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 end
 
 function ConfigTabClass:BuildModList()
-	local modList = common.New("ModList")
+	local modList = new("ModList")
 	self.modList = modList
-	local enemyModList = common.New("ModList")
+	local enemyModList = new("ModList")
 	self.enemyModList = enemyModList
 	local input = self.input
 	for _, varData in ipairs(varList) do

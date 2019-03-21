@@ -15,6 +15,30 @@ Requires Level 54
 Cannot be Stunned if you have at least 10 Crab Barriers
 You only lose (5–7) Crab Barriers when you take Physical Damage from a Hit
 ]],[[
+Doryani's Delusion
+Titan Greaves
+League: Delve
+Source: Drops from unique{The Apex Assembly} in unique{Doryani's Machinarium}
+Variant: Purity of Fire: Fire
+Variant: Purity of Fire: Cold
+Variant: Purity of Fire: Lightning
+Variant: Purity of Ice: Fire
+Variant: Purity of Ice: Cold
+Variant: Purity of Ice: Lightning
+Variant: Purity of Lightning: Fire
+Variant: Purity of Lightning: Cold
+Variant: Purity of Lightning: Lightning
+Requires Level 68
+{variant:1,2,3}Grants Level 25 Purity of Fire Skill
+{variant:4,5,6}Grants Level 25 Purity of Ice Skill
+{variant:7,8,9}Grants Level 25 Purity of Lightning Skill
+{variant:1,4,7}Adds (25–30) to (40–45) Fire Damage to Spells and Attacks
+{variant:2,5,8}Adds (25–30) to (40–45) Cold Damage to Spells and Attacks
+{variant:3,6,9}Adds (1–3) to (68–72) Lightning Damage to Spells and Attacks
+(100–120)% increased Armour
++(60–70) to maximum Life
+30% increased Movement Speed
+]],[[
 The Infinite Pursuit
 Goliath Greaves
 League: Breach
@@ -156,6 +180,30 @@ Socketed Gems are Supported by level 11 Trap
 {variant:1}30% increased Movement Speed for 9 seconds on Throwing a Trap
 {variant:2}15% increased Movement Speed for 9 seconds on Throwing a Trap
 ]],[[
+Doryani's Delusion
+Slink Boots
+League: Delve
+Source: Drops from unique{The Apex Assembly} in unique{Doryani's Machinarium}
+Variant: Purity of Fire: Fire
+Variant: Purity of Fire: Cold
+Variant: Purity of Fire: Lightning
+Variant: Purity of Ice: Fire
+Variant: Purity of Ice: Cold
+Variant: Purity of Ice: Lightning
+Variant: Purity of Lightning: Fire
+Variant: Purity of Lightning: Cold
+Variant: Purity of Lightning: Lightning
+Requires Level 69
+{variant:1,2,3}Grants Level 25 Purity of Fire Skill
+{variant:4,5,6}Grants Level 25 Purity of Ice Skill
+{variant:7,8,9}Grants Level 25 Purity of Lightning Skill
+{variant:1,4,7}Adds (25–30) to (40–45) Fire Damage to Spells and Attacks
+{variant:2,5,8}Adds (25–30) to (40–45) Cold Damage to Spells and Attacks
+{variant:3,6,9}Adds (1–3) to (68–72) Lightning Damage to Spells and Attacks
+(100–120)% increased Evasion Rating
++(60–70) to maximum Life
+30% increased Movement Speed
+]],[[
 Farrul's Chase
 Slink Boots
 League: Bestiary
@@ -181,13 +229,17 @@ Requires Level 34, 62 Dex
 ]],[[
 Garukhan's Flight
 Stealth Boots
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 62, 117 Dex
 +(30-40) to Dexterity
-(80-120)% increased Evasion Rating
+{variant:1}(80-120)% increased Evasion Rating
+{variant:2}(320-380)% increased Evasion Rating
 30% increased Movement Speed
 Immune to Burning Ground, Shocked Ground and Chilled Ground
 Regenerate 100 Life per second while moving
-+1 to Maximum Life per 10 Dexterity
+{variant:1}+1 to Maximum Life per 10 Dexterity
+{variant:2}+2 to Maximum Life per 10 Dexterity
 ]],[[
 Seven-League Step
 Rawhide Boots
@@ -234,6 +286,30 @@ Requires Level 22, 42 Int
 (5-15)% increased Movement Speed
 +1 to Maximum number of Zombies
 +1 to Maximum number of Spectres
+]],[[
+Doryani's Delusion
+Sorcerer Boots
+League: Delve
+Source: Drops from unique{The Apex Assembly} in unique{Doryani's Machinarium}
+Variant: Purity of Fire: Fire
+Variant: Purity of Fire: Cold
+Variant: Purity of Fire: Lightning
+Variant: Purity of Ice: Fire
+Variant: Purity of Ice: Cold
+Variant: Purity of Ice: Lightning
+Variant: Purity of Lightning: Fire
+Variant: Purity of Lightning: Cold
+Variant: Purity of Lightning: Lightning
+Requires Level 67
+{variant:1,2,3}Grants Level 25 Purity of Fire Skill
+{variant:4,5,6}Grants Level 25 Purity of Ice Skill
+{variant:7,8,9}Grants Level 25 Purity of Lightning Skill
+{variant:1,4,7}Adds (25–30) to (40–45) Fire Damage to Spells and Attacks
+{variant:2,5,8}Adds (25–30) to (40–45) Cold Damage to Spells and Attacks
+{variant:3,6,9}Adds (1–3) to (68–72) Lightning Damage to Spells and Attacks
+(180–220)% increased Energy Shield
++(60–70) to maximum Life
+30% increased Movement Speed
 ]],[[
 Inya's Epiphany
 Arcanist Slippers
@@ -543,9 +619,32 @@ Requires Level 69, 82 Dex, 42 Int
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
 Triggers level 20 Death Walk when Equipped
-4% increased maximum Life
+(4-6)% increased maximum Life
 30% increased Movement Speed
 10% increased Damage for each type of Abyssal Jewel affecting you
+]],[[
+Dance of the Offered
+Shackled Boots
+League: Incursion
+Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
+Requires Level 34
++(50-60) to maximum Mana
++(15-20)% to Lightning Resistance
+25% increased Movement Speed
+You have Onslaught while not on Low Mana
+Lose (30-40) Mana per Second
+]],[[
+Omeyocan
+Carnal Boots
+League: Incursion
+Source: Upgraded from unique{Dance of the Offered} via currency{Vial of the Ritual}
+Requires Level 55
+(15-20)% increased maximum Mana
++(25-30)% to Lightning Resistance
+30% increased Movement Speed
+2% chance to Dodge Attack and Spell Hits per 500 Maximum Mana, up to 20%
+You have Onslaught while not on Low Mana
+Lose 7% of maximum Mana per Second
 ]],[[
 Fenumus' Spinnerets
 Assassin's Boots
@@ -580,6 +679,7 @@ Sin Trek
 Stealth Boots
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 62, 117 Dex
 +(20-30) to Dexterity
@@ -588,6 +688,7 @@ Requires Level 62, 117 Dex
 {variant:1}+(50-70) to maximum Energy Shield
 {variant:2}+(70-100) to maximum Energy Shield
 {variant:3}+(100-160) to maximum Energy Shield
+{variant:4}+(100-150) to maximum Energy Shield
 30% increased Movement Speed
 Enemies Cannot Leech Life From You
 ]],[[

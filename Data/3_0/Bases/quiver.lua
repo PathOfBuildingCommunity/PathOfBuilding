@@ -85,3 +85,9 @@ itemBases["Spike-Point Arrow Quiver"] = {
 	implicit = "(20-30)% increased Global Critical Strike Chance",
 	req = { level = 45, },
 }
+itemBases["Ornate Quiver"] = {
+	type = "Quiver",
+	tags = { default = true, quiver = true, not_for_sale = true, },
+	implicit = "Has 1 Socket",
+	req = { level = 45, },
+}

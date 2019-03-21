@@ -3,10 +3,8 @@
 -- Class: Section Control
 -- Section box with label
 --
-local launch, main = ...
 
-
-local SectionClass = common.NewClass("SectionControl", "Control", function(self, anchor, x, y, width, height, label)
+local SectionClass = newClass("SectionControl", "Control", function(self, anchor, x, y, width, height, label)
 	self.Control(anchor, x, y, width, height)
 	self.label = label
 end)

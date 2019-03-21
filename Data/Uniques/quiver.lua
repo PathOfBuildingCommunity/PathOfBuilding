@@ -210,7 +210,7 @@ Adds (30–40) to (80–100) Cold Damage to Attacks
 +(20–40) Mana gained on Kill
 30% increased Projectile Speed
 5 Maximum Void Charges
-Gain a Void Charge every second
+Gain a Void Charge every 0.5 seconds
 Elder Item
 ]],
 }

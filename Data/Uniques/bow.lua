@@ -5,10 +5,13 @@ return {
 [[
 Arborix
 Assassin Bow
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 62
 Source: Vendor recipe
-Adds (60–70) to (180–210) Physical Damage 
-(80–100)% increased Evasion Rating
+{variant:1}Adds (60-70) to (180-210) Physical Damage
+{variant:2}Adds (95-115) to (240-265) Physical Damage
+(80-100)% increased Evasion Rating
 2 Additional Arrows
 Every 16 seconds you gain iron Reflexes for 8 seconds
 30% more Bow Damage at Close Range while you have iron Reflexes
@@ -19,17 +22,62 @@ Chin Sol
 Assassin Bow
 Variant: Pre 1.2.0
 Variant: Pre 2.0.0
+Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 62, 212 Dex
+Implicits: 1
 {variant:1,2}(6-12)% increased Elemental Damage with Weapons
 {variant:1}(75-100)% increased Physical Damage
 {variant:2,3}(150-180)% increased Physical Damage
+{variant:4}(200-260)% increased Physical Damage
 +(10-20) to Dexterity
 Adds 25 to 50 Fire Damage
 {variant:1}5% increased Attack Speed
-{variant:2,3}(10-14)% increased Attack Speed
-100% More Bow Damage at Close Range
+{variant:2,3,4}(10-14)% increased Attack Speed
+{variant:1,2,3}100% More Bow Damage at Close Range
+{variant:4}50% More Bow Damage at Close Range
 Bow Knockback at Close Range
+]],[[
+The Crimson Storm
+Steelwood Bow
+League: Betrayal
+Variant: Crit Multi while Rare/Unique Nearby
+Variant: Attack Speed while Rare/Unique Nearby
+Variant: Damage per Power Charge
+Variant: Damage per Frenzy Charge
+Variant: Damage per Endurance Charge
+Variant: Accuracy and Quality
+Variant: Attack Speed and Quality
+Variant: Attack Speed/Trigger Blood Rage on Kill
+Variant: Cast Speed/Trigger Arcane Surge on Kill
+Variant: Minion Attack and Cast Speed
+Variant: Double Damage
+Variant: Double Damage while Foccused
+Variant: Socketed Spell Trigger
+Requires Level 57, 190 Dex
+(140â€“170)% increased Physical Damage
+(25â€“35)% increased Critical Strike Chance
+50% chance to inflict Bleeding on Critical Strike with Attacks
+Enemies you inflict Bleeding on grant (60â€“100)% increased Flask Charges
+Adds (100â€“120) to (150â€“165) Physical Damage against Bleeding Enemies
+50% chance to Maim Enemies on Critical Strike with Attacks
+{variant:1}{crafted}+(18-45)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
+{variant:2}{crafted}(11-22)% increased Attack Speed while a Rare or Unique Enemy is Nearby
+{variant:3}{crafted}(5-6)% increased Damage per Power Charge
+{variant:4}{crafted}(5-6)% increased Damage per Frenzy Charge
+{variant:5}{crafted}(5-6)% increased Damage per Endurance Charge
+{variant:6}{crafted}+(30-250) to Accuracy Rating
+{variant:7}{crafted}(8-16)% increased Attack Speed
+{variant:6,7}{crafted}+(7-18)% to Quality
+{variant:8}{crafted}(8-16)% increased Attack Speed
+{variant:8}{crafted}10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
+{variant:9}{crafted}(7-13)% increased Cast Speed
+{variant:9}{crafted}10% chance to gain Arcane Surge when you Kill an Enemy
+{variant:10}{crafted}Minions have (16-28)% increased Attack Speed
+{variant:10}{crafted}Minions have (16-28)% increased Cast Speed
+{variant:11}{crafted}(4-12)% chance to deal Double Damage
+{variant:12}{crafted}(13-36)% chance to deal Double Damage while Focussed
+{variant:13}{crafted}Trigger a Socketed Spell when you Use a Skill
 ]],[[
 Darkscorn
 Assassin Bow
@@ -124,13 +172,13 @@ Source: Drops from unique{The Elder} (Tier 6+)
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 60
-Adds (130–150) to (270–300) Cold Damage 
-4% increased Movement Speed per Frenzy Charge 
-+(400–500) to Accuracy Rating 
-{variant:2}(15–25)% increased Attack Speed
-12 to 14 Cold Damage per Frenzy Charge 
-2% chance to Avoid Elemental Damage when Hit per Frenzy Charge 
-0.5% of Attack Damage Leeched as Life per Frenzy Charge 
+Adds (130-150) to (270-300) Cold Damage
+4% increased Movement Speed per Frenzy Charge
++(400-500) to Accuracy Rating
+{variant:2}(15-25)% increased Attack Speed
+12 to 14 Cold Damage per Frenzy Charge
+2% chance to Avoid Elemental Damage when Hit per Frenzy Charge
+0.5% of Attack Damage Leeched as Life per Frenzy Charge
 {variant:1}400 Cold Damage taken per second per Frenzy Charge while moving
 {variant:2}200 Cold Damage taken per second per Frenzy Charge while moving
 Elder Item
@@ -210,28 +258,33 @@ Create Consecrated Ground when you Shatter an Enemy
 Quill Rain
 Short Bow
 Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 5, 26 Dex
 +(10-20) to Dexterity
-{variant:2}100% increased Physical Damage
+{variant:2,3}100% increased Physical Damage
 100% increased Attack Speed
 +(25-50) to Accuracy Rating
 (50-100)% increased Projectile Speed
 {variant:1}50% less Weapon Damage
 {variant:2}40% less Weapon Damage
-{variant:2}+2 Mana gained for each Enemy hit by Attacks
+{variant:3}40% less Damage
+{variant:2,3}+2 Mana gained for each Enemy hit by Attacks
 ]],[[
 Reach of the Council
 Spine Bow
 Source: prophecy{The Feral Lord V}
 Variant: Pre 2.4.0
 Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 64, 212 Dex
+{variant:4}Socketed Gems are Supported by Level 20 Greater Volley
 {variant:1}(50-70)% increased Physical Damage
 {variant:2,3}(40-50)% increased Physical Damage
+{variant:4}(50-75)% increased Physical Damage
 {variant:1}Adds (25-40) to (100-115) Physical Damage
-{variant:2,3}Adds (15-30) to (70-95) Physical Damage
+{variant:2,3,4}Adds (15-30) to (70-95) Physical Damage
 (8-12)% increased Attack Speed
 {variant:1,2}4 additional Arrows
 {variant:3}2 additional Arrows
@@ -274,18 +327,23 @@ Adds (15-25) to (50-60) Physical Damage
 +30 to Accuracy Rating
 +10 Mana gained on Kill
 ]],[[
-Slivertongue 
+Slivertongue
 Harbinger Bow
 Source: Drops from unique{Guardian of the Hydra}
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 68, 212 Dex
 (30-50)% increased Critical Strike Chance
-Adds (60-75) to (170-220) Physical Damage
-100% increased Critical Strike Chance with arrows that Fork
+{variant:1,2}Adds (60-75) to (170-220) Physical Damage
+{variant:3}Adds (110-125) to (245-265) Physical Damage
+{variant:1,2}100% increased Critical Strike Chance with arrows that Fork
+{variant:3}(150-200)% increased Critical Strike Chance with arrows that Fork
 {variant:1}Arrows that Pierce cause Bleeding
 {variant:2}Arrows that Pierce have 50% chance to cause Bleeding
-Arrows always Pierce after Chaining
+{variant:3}Arrows that Pierce have +50% to Critical Strike Multiplier
+{variant:1,2}Arrows Pierce all Targets after Chaining
+{variant:3}Arrows Pierce all Targets after Forking
 ]],[[
 Storm Cloud
 Long Bow
@@ -321,21 +379,25 @@ Imperial Bow
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 66, 212 Dex
 Implicits: 3
 {variant:2}(6-12)% increased Elemental Damage with Weapons
 {variant:3}(20-24)% increased Elemental Damage with Weapons
-{variant:4}(20-24)% increased Elemental Damage with Attack Skills
-Adds (32-40) to (48-60) Cold Damage
-Adds 1 to (80-100) Lightning Damage
+{variant:4,5}(20-24)% increased Elemental Damage with Attack Skills
+{variant:1,2,3,4}Adds (32-40) to (48-60) Cold Damage
+{variant:5}Adds (48-60) to (72-90) Cold Damage
+{variant:1,2,3,4}Adds 1 to (80-100) Lightning Damage
+{variant:5}Adds 1 to (120-150) Lightning Damage
 (10-15)% increased Attack Speed
 {variant:1}(80-100)% increased Critical Strike Chance
 {variant:2,3,4}(60-80)% increased Critical Strike Chance
+{variant:5}(30-40)% increased Critical Strike Chance
 {variant:1}25% increased Quantity of Items Dropped by Slain Frozen enemies
-{variant:2,3,4}15% increased Quantity of Items Dropped by Slain Frozen Enemies
+{variant:2,3,4,5}15% increased Quantity of Items Dropped by Slain Frozen Enemies
 {variant:1}50% increased Rarity of Items Dropped by Slain Shocked enemies
-{variant:2,3,4}30% increased Rarity of Items Dropped by Slain Shocked Enemies
+{variant:2,3,4,5}30% increased Rarity of Items Dropped by Slain Shocked Enemies
 ]],[[
 Xoph's Inception
 Bone Bow

@@ -3,8 +3,6 @@
 -- Module: Mod Tools
 -- Various functions for dealing with modifiers
 --
-local launch = ...
-
 local pairs = pairs
 local ipairs = ipairs
 local select = select

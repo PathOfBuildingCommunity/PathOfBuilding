@@ -77,23 +77,23 @@ return {
 ["secondary_maximum_base_chaos_damage"] = {
 	skill("ChaosMax", nil),
 },
-["spell_minimum_base_lightning_damage_per_power_charge"] = {
-	skill("LightningMin", nil, { type = "Multiplier", var = "PowerCharge" }),
+["spell_minimum_base_lightning_damage_per_removable_power_charge"] = {
+	skill("LightningMin", nil, { type = "Multiplier", var = "RemovablePowerCharge" }),
 },
-["spell_maximum_base_lightning_damage_per_power_charge"] = {
-	skill("LightningMax", nil, { type = "Multiplier", var = "PowerCharge" }),
+["spell_maximum_base_lightning_damage_per_removable_power_charge"] = {
+	skill("LightningMax", nil, { type = "Multiplier", var = "RemovablePowerCharge" }),
 },
-["spell_minimum_base_fire_damage_per_endurance_charge"] = {
-	skill("FireMin", nil, { type = "Multiplier", var = "EnduranceCharge" }),
+["spell_minimum_base_fire_damage_per_removable_endurance_charge"] = {
+	skill("FireMin", nil, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
 },
-["spell_maximum_base_fire_damage_per_endurance_charge"] = {
-	skill("FireMax", nil, { type = "Multiplier", var = "EnduranceCharge" }),
+["spell_maximum_base_fire_damage_per_removable_endurance_charge"] = {
+	skill("FireMax", nil, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
 },
-["spell_minimum_base_cold_damage_per_frenzy_charge"] = {
-	skill("ColdMin", nil, { type = "Multiplier", var = "FrenzyCharge" }),
+["spell_minimum_base_cold_damage_per_removable_frenzy_charge"] = {
+	skill("ColdMin", nil, { type = "Multiplier", var = "RemovableFrenzyCharge" }),
 },
-["spell_maximum_base_cold_damage_per_frenzy_charge"] = {
-	skill("ColdMax", nil, { type = "Multiplier", var = "FrenzyCharge" }),
+["spell_maximum_base_cold_damage_per_removable_frenzy_charge"] = {
+	skill("ColdMax", nil, { type = "Multiplier", var = "RemovableFrenzyCharge" }),
 },
 ["spell_minimum_base_cold_damage_+_per_10_intelligence"] = {
 	skill("ColdMin", nil, { type = "PerStat", stat = "Int", div = 10 }),
@@ -185,6 +185,10 @@ return {
 ["deal_chaos_damage_per_second_for_10_seconds_on_hit"] = {
 	mod("SkillData", "LIST", { key = "decay", value = nil, merge = "MAX" }),
 },
+["base_spell_cast_time_ms_override"] = {
+	skill("castTimeOverride", nil),
+	div = 1000,
+},
 
 --
 -- Defensive modifiers
@@ -273,15 +277,26 @@ return {
 	mod("DamageManaLeech", "BASE", nil),
 	div = 100,
 },
+["energy_shield_leech_from_any_damage_permyriad"] = {
+	mod("DamageEnergyShieldLeech", "BASE", nil),
+	div = 100,
+},
 ["life_leech_from_physical_attack_damage_permyriad"] = {
 	mod("PhysicalDamageLifeLeech", "BASE", nil, ModFlag.Attack),
 	div = 100,
 },
-["life_leech_speed_+%"] = {
-	mod("LifeLeechRate", "INC", nil),
+["base_energy_shield_leech_from_spell_damage_permyriad"] = {
+	mod("DamageEnergyShieldLeech", "BASE", nil, ModFlag.Spell),
+	div = 100,
 },
-["mana_leech_speed_+%"] = {
-	mod("ManaLeechRate", "INC", nil),
+["damage_+%_while_life_leeching"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LeechingLife" }),
+},
+["damage_+%_while_mana_leeching"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LeechingMana" }),
+},
+["damage_+%_while_es_leeching"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LeechingEnergyShield" }),
 },
 ["aura_effect_+%"] = {
 	mod("AuraEffect", "INC", nil),
@@ -299,13 +314,20 @@ return {
 },
 ["base_cooldown_speed_+%"] = {
 	mod("CooldownRecovery", "INC", nil),
--- AoE
 },
+["additional_weapon_base_attack_time_ms"] = {
+	mod("Speed", "BASE", nil, ModFlag.Attack),
+	div = 1000,
+},
+-- AoE
 ["base_skill_area_of_effect_+%"] = {
 	mod("AreaOfEffect", "INC", nil),
 },
 ["base_aura_area_of_effect_+%"] = {
 	mod("AreaOfEffect", "INC", nil, 0, KeywordFlag.Aura),
+},
+["active_skill_area_of_effect_+%_final_when_cast_on_frostbolt"] = {
+	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 },
 -- Critical strikes
 ["additional_base_critical_strike_chance"] = {
@@ -328,11 +350,11 @@ return {
 	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
 -- Duration
-["buff_effect_duration_+%_per_endurance_charge"] = {
-	mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
+["buff_effect_duration_+%_per_removable_endurance_charge"] = {
+	mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
 },
-["skill_effect_duration_+%_per_frenzy_charge"] = {
-	mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
+["skill_effect_duration_+%_per_removable_frenzy_charge"] = {
+	mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "RemovableFrenzyCharge" }),
 },
 ["skill_effect_duration_+%"] = {
 	mod("Duration", "INC", nil),
@@ -428,6 +450,12 @@ return {
 ["maximum_added_cold_damage_per_frenzy_charge"] = {
 	mod("ColdMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
 },
+["minimum_added_cold_damage_vs_chilled_enemies"] = {
+	mod("ColdMin", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
+},
+["maximum_added_cold_damage_vs_chilled_enemies"] = {
+	mod("ColdMax", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
+},
 ["global_minimum_added_cold_damage"] = {
 	mod("ColdMin", "BASE", nil),
 },
@@ -445,9 +473,6 @@ return {
 },
 ["global_maximum_added_chaos_damage"] = {
 	mod("ChaosMax", "BASE", nil),
-},
-["active_skill_if_used_through_frostbolt_damage_+%_final"] = {
-	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 },
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {
@@ -650,7 +675,7 @@ return {
 ["number_of_additional_projectiles"] = {
 	mod("ProjectileCount", "BASE", nil),
 },
-["number_of_additional_projectiles_in_chain"] = {
+["number_of_chains"] = {
 	mod("ChainCountMax", "BASE", nil),
 },
 ["projectiles_always_pierce_you"] = {
@@ -911,6 +936,9 @@ return {
 ["number_of_additional_totems_allowed"] = {
 	mod("ActiveTotemLimit", "BASE", nil),
 },
+["base_number_of_totems_allowed"] = {
+	mod("ActiveTotemLimit", "BASE", nil),
+},
 ["summon_totem_cast_speed_+%"] = {
 	mod("TotemPlacementSpeed", "INC", nil),
 },
@@ -969,6 +997,9 @@ return {
 ["active_skill_minion_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
 },
+["active_skill_minion_physical_damage_+%_final"] = {
+	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", nil) }),
+},
 ["active_skill_minion_life_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
 },
@@ -994,6 +1025,17 @@ return {
 -- Aura
 ["non_curse_aura_effect_+%"] = {
 	mod("AuraEffect", "INC", nil),
+},
+-- Sigil
+["sigil_attached_target_damage_+%_final"] = {
+	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BrandAttachedToEnemy" }),
+},
+-- Banner
+["banner_buff_effect_+%_per_stage"] = {
+	mod("AuraEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
+},
+["banner_area_of_effect_+%_per_stage"] = {
+	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
 },
 
 }

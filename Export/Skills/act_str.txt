@@ -14,7 +14,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill TotemMelee
-#flags attack melee totem duration forceMainHand
+#flags attack melee totem duration
 	statMap = {
 		["melee_ancestor_totem_grant_owner_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
@@ -25,7 +25,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AncestorTotemSlam
-#flags attack melee totem area duration forceMainHand
+#flags attack melee totem area duration
 	statMap = {
 		["slam_ancestor_totem_grant_owner_melee_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ancestral Warchief" }),
@@ -146,6 +146,17 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill PuresteelBanner
+#flags spell
+	statMap = {
+		["puresteel_banner_accuracy_rating_+%_final"] = {
+			mod("Accuracy", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#baseMod skill("manaCost", 0, { type = "Condition", var = "BannerPlanted" })
+#mods
+
 #skill Earthquake
 #flags attack melee area duration
 	parts = {
@@ -193,10 +204,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 60)
-#mods
-
-#skill FlameTotem
-#flags spell totem projectile duration
 #mods
 
 #skill GlacialHammer
@@ -258,6 +265,11 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalMax", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
+#mods
+
+#skill FlameTotem
+#flags spell totem projectile duration
+#baseMod skill("radius", 16)
 #mods
 
 #skill IceCrash
@@ -383,8 +395,8 @@ local skills, mod, flag, skill = ...
 		["hits_ignore_my_fire_resistance"] = {
 			flag("SelfIgnoreFireResistance", { type = "GlobalEffect", effectType = "Debuff" })
 		},
-		["fire_damage_taken_+%"] = {
-			mod("FireDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["impurity_fire_damage_taken_+%_final"] = {
+			mod("FireDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},	
 #mods
@@ -487,8 +499,6 @@ local skills, mod, flag, skill = ...
 
 #skill SummonRockGolem
 #flags spell minion golem
-#baseMod skill("allowTotemBuff", true)
-#baseMod flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" })
 	minionList = {
 		"SummonedStoneGolem",
 	},
@@ -498,6 +508,8 @@ local skills, mod, flag, skill = ...
 			div = 60,
 		},
 	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill Sunder
@@ -582,4 +594,18 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
+#mods
+
+#skill BloodstainedBanner
+#flags spell
+	statMap = {
+		["accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		},
+		["physical_damage_taken_+%"] = {
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" })
+		},
+	},
+#baseMod skill("radius", 40)
+#baseMod skill("manaCost", 0, { type = "Condition", var = "BannerPlanted" })
 #mods

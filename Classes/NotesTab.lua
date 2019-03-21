@@ -3,11 +3,9 @@
 -- Module: Notes Tab
 -- Notes tab for the current build.
 --
-local launch, main = ...
-
 local t_insert = table.insert
 
-local NotesTabClass = common.NewClass("NotesTab", "ControlHost", "Control", function(self, build)
+local NotesTabClass = newClass("NotesTab", "ControlHost", "Control", function(self, build)
 	self.ControlHost()
 	self.Control()
 
@@ -15,7 +13,7 @@ local NotesTabClass = common.NewClass("NotesTab", "ControlHost", "Control", func
 
 	self.lastContent = ""
 
-	self.controls.edit = common.New("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 0, 0, "", nil, "^%C\t\n", nil, nil, 16)
+	self.controls.edit = new("EditControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 0, 0, "", nil, "^%C\t\n", nil, nil, 16)
 	self.controls.edit.width = function()
 		return self.width - 16
 	end

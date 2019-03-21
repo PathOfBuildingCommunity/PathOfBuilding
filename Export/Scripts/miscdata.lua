@@ -6,12 +6,11 @@ local accuracy = ""
 local life = ""
 local allyLife = ""
 local damage = ""
-for i = 0, DefaultMonsterStats.maxRow do
-	local stats = DefaultMonsterStats[i]
+for stats in dat"DefaultMonsterStats":Rows() do
 	evasion = evasion .. stats.Evasion .. ", "
 	accuracy = accuracy .. stats.Accuracy .. ", "
-	life = life .. stats.Life .. ", "
-	allyLife = allyLife .. stats.AllyLife .. ", "
+	life = life .. stats.MonsterLife .. ", "
+	allyLife = allyLife .. stats.MinionLife .. ", "
 	damage = damage .. stats.Damage .. ", "
 end
 out:write('-- From DefaultMonsterStats.dat\n')
@@ -23,11 +22,10 @@ out:write('data.monsterDamageTable = { '..damage..'}\n')
 
 local totemMult = ""
 local keys = { }
-for i = 0, SkillTotemVariations.maxRow do
-	local var = SkillTotemVariations[i]
-	if not keys[var.SkillTotemsKey] then
-		keys[var.SkillTotemsKey] = true
-		totemMult = totemMult .. "[" .. var.SkillTotemsKey .. "] = " .. MonsterVarieties[var.MonsterVarietiesKey].LifeMultiplier / 100 .. ", "
+for var in dat"SkillTotemVariations":Rows() do
+	if not keys[var.SkillTotem] then
+		keys[var.SkillTotem] = true
+		totemMult = totemMult .. "[" .. var.SkillTotem .. "] = " .. var.MonsterVariety.LifeMultiplier / 100 .. ", "
 	end
 end
 out:write('-- From MonsterVarieties.dat combined with SkillTotemVariations.dat\n')
