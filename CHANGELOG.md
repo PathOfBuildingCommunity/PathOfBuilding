@@ -1,3 +1,154 @@
+### 1.4.135 - 2019/03/14
+ * Fixed crafted mods on imported items not being recognised
+ * Storm Call now correctly shows DPS instead of just average damage
+
+### 1.4.134 - 2019/03/12
+ * Fixed various issues with importing fractured and synthesised items
+ * Fixed issues with stat comparisons in weapon tooltips
+
+### 1.4.133 - 2019/03/12
+ * The debuff durations of Bane and Soulrend are now correctly affected by Temporal Chains
+ * Bane is now correctly affected by modifiers to Curse Skills
+ * Synthesised items can now be imported
+
+### 1.4.132 - 2019/03/10
+ * Added the following new gems:
+    * Bane
+	* Divine Ire
+	* Purifying Flame
+	* Malevolence
+	* Soulrend
+	* Wave of Conviction (the type of Exposure being applied can be set in the Configuration tab)
+	* Zealotry
+	* Energy Leech
+	* Intensify (Intensity stacks can be set in the Configuration tab)
+	* Unleash (does not currently affect DPS)
+ * Applied the reworks for the following gems:
+    * Holy Flame Totem
+	* Storm Burst (DPS calculation isn't currently accurate)
+	* Infused Channelling (Infusion can be enabled in the Configuration tab)
+ * Added the following skills and supports from uniques:
+    * Lightning Aegis
+	* Precision
+	* Blessing (the aura and reservation durations for supported skills can be found in the Calcs tab)
+ * Applied all skill balance changes for 3.6
+ * Added the following 3.6 uniques: (thanks PJacek)
+    * Circle of Regret
+    * The Eternity Shroud
+	* Garb of the Ephemeral (Divinity can be enabled in the Configuration tab)
+	* Maloney's Mechanism
+	* Offering of the Serpent
+    * Vixen's Entrapment
+ * Updated the passive tree
+ * Updated item bases and mods for 3.6
+ * Winter Orb's hit rate is now correctly affected by modifiers to Cast Speed
+
+### 1.4.131 - 2019/03/08
+ * Updated boss curse effect penalty
+ * Removed min/max Crit Chance limits
+ * Fixed the passive tree node location popup showing the wrong locations
+
+### 1.4.130 - 2019/03/07
+ * Passive tree updated to 3.6
+ * Added the following 3.6 uniques: (thanks PJacek)
+    * Bottled Faith
+    * Circle of Nostalgia
+    * Hyrri's Truth (except the Precision skill)
+    * March of the Legion (except the Blessing support)
+	* Mask of the Tribunal
+	* Nebulis
+    * Perepiteia (except the Lightning Aegis skill)
+	* Storm's Gift
+ * Added most 3.5 uniques (thanks Patchumz and PJacek)
+ * Added support for Energy Shield Leech
+ * The stat comparisons in tooltips for non-equipped two handed weapons now show the changes from replacing both
+   weapons if you are dual wielding, rather than your main hand weapon only
+ * Added base radius values for Dark Pact (24), Vaal Blight (20), and Wither (18)
+ * Fixed issue preventing local life on hit modifiers from working correctly
+ * Storm Call now shows DPS as well as average damage
+ * Decay DPS is now only shown if the skill can deal Chaos Damage
+ * Fixed error when trying to add a custom modifier to Abyss Jewels
+
+### 1.4.129 - 2019/01/13
+ * "while Focussed" modifiers are now correctly recognised
+ * "+X to minimum Endurance Charges" now works correctly
+
+### 1.4.128 - 2019/01/11
+ * Fixed issue preventing Empower and Enhance supports from working
+
+### 1.4.127 - 2019/01/06
+ * Fixed error when showing tooltip for Abyssal Cry
+ * Fixed error when Gruthkul's Pelt is used in builds that contain spells
+ * Fixed error when opening builds containing certain Spectres
+
+### 1.4.126 - 2019/01/04
+ * Fixed mana cost multipliers on support gems not applying
+
+### 1.4.125 - 2019/01/04
+ * Fixed Blasphemy mana reservation
+ * Fixed error that sometimes occurred when adding gems
+
+### 1.4.124 - 2019/01/03
+ * Hovering over a gem in the Skills tab will now show the gem's full tooltip, including stats
+ * Fixed new issue causing Configuration tab options to not appear
+
+### 1.4.123 - 2019/01/02
+ * Fixed issue causing Configuration tab options to sometimes fail to appear when appropriate
+ * Fixed error when adding crafted modifiers to items
+
+### 1.4.122 - 2019/01/01
+ * Updated the crafting bench options for 3.5
+ * Added support for most of the new craft modifiers
+ * Applied the weapon restriction changes from 3.5
+ * Adrenaline can now always be enabled (as it is no longer exclusive to Champion)
+ * Fixed issue with modifiers to socketed gem level applying twice
+
+### 1.4.121 - 2018/12/12
+ * Applied the unique balance changes for 3.5
+ * Added base radius values for Vortex (20), Armageddon Brand (18/8), Winter Orb (16), and the Banner skills (40)
+ * Fixed issue with certain conditional skill stats not working correctly
+    * This notably caused Elemental Hit to deal all elements at once
+
+### 1.4.120 - 2018/12/11
+ * Added skill parts to Shattering Steel to show both projectile and cone damage
+ * Fixed Claw Crit Chance conversion from Rigwald's Curse
+ * Fixed node power calculations for minion builds
+
+### 1.4.119 - 2018/12/09
+ * Added additional skill parts to Ice Spear to simulate all projectiles hitting the target
+ * Added support for the various Brand and Banner-related passive skills
+ * Fixed issue with node power generating incorrectly for certain builds
+ * Fixed Vortex showing an infinite cast rate
+ * Fixed removable charge counts being incorrectly calculated; this affected Discharge's DPS
+ * Fixed Vile Toxins' damage bonus not applying
+
+### 1.4.118 - 2018/12/09
+ * Added the following new gems:
+    * Armageddon Brand
+	* Storm Brand
+	* Brand Recall
+	* Dread Banner
+	* War Banner
+	* Lancing Steel
+	* Shattering Steel
+	* Winter Orb
+	* Bonechill (partial; only the Cold Damage Taken over Time portion works)
+	* Multiple Totems
+ * Applied all skill balance changes for 3.5
+ * Applied all item base balance changes for 3.5
+ * Updated/added many uniques from Incursion and Delve (thanks PJacek)
+ * Corrected the implicits on a number of unique swords (thanks baranio)
+ * Fixed the rolls on Impresence's Armour modifier (thanks nathanrobb)
+ * Removed errant "Cannot be Frozen" modifier from Crystal Vault (thanks bblarney)
+ * Fixed certain curse stats having the wrong sign (positive instead of negative, or vice versa)
+ * Fixed some remaining cases of modifiers being attributed to the wrong skill gem in the Calcs tab
+ * The Virulence bonuses for Herald of Agony's Agony Crawler no longer incorrectly apply to Phantasms
+ * Fixed loading of 2.6 builds
+ 
+### 1.4.117 - 2018/12/06
+ * Passive tree updated to 3.5
+ * Added support for Far Shot, and the related Ascendant Deadeye projectile damage scaling
+
 ### 1.4.116 - 2018/10/31
  * Vaal Arc's Chain damage bonus now works correctly
  * Fixed the leech percentage on Blood Rage

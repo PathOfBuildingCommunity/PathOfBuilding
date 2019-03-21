@@ -12,32 +12,30 @@ skills["EnchantmentOfBladesOnHit"] = {
 	color = 4,
 	description = "Fires a chaining burst of ethereal blades.",
 	skillTypes = { [2] = true, [3] = true, [36] = true, [42] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 7), 
-		skill("cooldown", 5), 
-		skill("PhysicalMin", 79), --"spell_minimum_base_physical_damage" = 79
-		skill("PhysicalMax", 126), --"spell_maximum_base_physical_damage" = 126
-		mod("ChainCountMax", "BASE", 3), --"number_of_additional_projectiles_in_chain" = 3
-		--"cast_on_hit_%" = 100
-		--"skill_art_variation" = 0
-		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2
-		--"base_is_projectile" = ?
-		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"number_of_additional_projectiles_in_chain",
+		"cast_on_hit_%",
+		"skill_art_variation",
+		"number_of_additional_projectiles",
+		"base_is_projectile",
+		"spell_uncastable_if_triggerable",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 79, 126, 3, 100, 0, 2, critChance = 7, cooldown = 5, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfBladesOnHit2"] = {
@@ -46,32 +44,30 @@ skills["EnchantmentOfBladesOnHit2"] = {
 	color = 4,
 	description = "Fires a chaining burst of ethereal blades.",
 	skillTypes = { [2] = true, [3] = true, [36] = true, [42] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 7), 
-		skill("cooldown", 5), 
-		skill("PhysicalMin", 381), --"spell_minimum_base_physical_damage" = 381
-		skill("PhysicalMax", 585), --"spell_maximum_base_physical_damage" = 585
-		mod("ChainCountMax", "BASE", 3), --"number_of_additional_projectiles_in_chain" = 3
-		--"cast_on_hit_%" = 100
-		--"skill_art_variation" = 0
-		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2
-		--"base_is_projectile" = ?
-		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"number_of_additional_projectiles_in_chain",
+		"cast_on_hit_%",
+		"skill_art_variation",
+		"number_of_additional_projectiles",
+		"base_is_projectile",
+		"spell_uncastable_if_triggerable",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 381, 585, 3, 100, 0, 2, critChance = 7, cooldown = 5, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfBladesOnHit3"] = {
@@ -80,32 +76,30 @@ skills["EnchantmentOfBladesOnHit3"] = {
 	color = 4,
 	description = "Fires a chaining burst of ethereal blades.",
 	skillTypes = { [2] = true, [3] = true, [36] = true, [42] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 7), 
-		skill("cooldown", 5), 
-		skill("PhysicalMin", 985), --"spell_minimum_base_physical_damage" = 985
-		skill("PhysicalMax", 1477), --"spell_maximum_base_physical_damage" = 1477
-		mod("ChainCountMax", "BASE", 3), --"number_of_additional_projectiles_in_chain" = 3
-		--"cast_on_hit_%" = 100
-		--"skill_art_variation" = 0
-		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2
-		--"base_is_projectile" = ?
-		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"number_of_additional_projectiles_in_chain",
+		"cast_on_hit_%",
+		"skill_art_variation",
+		"number_of_additional_projectiles",
+		"base_is_projectile",
+		"spell_uncastable_if_triggerable",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 985, 1477, 3, 100, 0, 2, critChance = 7, cooldown = 5, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfBladesOnHit4"] = {
@@ -114,32 +108,30 @@ skills["EnchantmentOfBladesOnHit4"] = {
 	color = 4,
 	description = "Fires a chaining burst of ethereal blades.",
 	skillTypes = { [2] = true, [3] = true, [36] = true, [42] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 7), 
-		skill("cooldown", 5), 
-		skill("PhysicalMin", 1833), --"spell_minimum_base_physical_damage" = 1833
-		skill("PhysicalMax", 2903), --"spell_maximum_base_physical_damage" = 2903
-		mod("ChainCountMax", "BASE", 4), --"number_of_additional_projectiles_in_chain" = 4
-		--"cast_on_hit_%" = 100
-		--"skill_art_variation" = 0
-		mod("ProjectileCount", "BASE", 2), --"number_of_additional_projectiles" = 2
-		--"base_is_projectile" = ?
-		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"number_of_additional_projectiles_in_chain",
+		"cast_on_hit_%",
+		"skill_art_variation",
+		"number_of_additional_projectiles",
+		"base_is_projectile",
+		"spell_uncastable_if_triggerable",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 1833, 2903, 4, 100, 0, 2, critChance = 7, cooldown = 5, levelRequirement = 75, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit"] = {
@@ -148,29 +140,27 @@ skills["EnchantmentOfFlamesOnHit"] = {
 	color = 4,
 	description = "Releases a nova of fire around you, damaging nearby enemies.",
 	skillTypes = { [2] = true, [11] = true, [10] = true, [33] = true, [36] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 5), 
-		skill("cooldown", 5), 
-		skill("FireMin", 93), --"spell_minimum_base_fire_damage" = 93
-		skill("FireMax", 140), --"spell_maximum_base_fire_damage" = 140
-		--"cast_on_hit_%" = 100
-		--"is_area_damage" = ?
-		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"cast_on_hit_%",
+		"is_area_damage",
+		"spell_uncastable_if_triggerable",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 93, 140, 100, critChance = 5, cooldown = 5, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit2"] = {
@@ -179,29 +169,27 @@ skills["EnchantmentOfFlamesOnHit2"] = {
 	color = 4,
 	description = "Releases a nova of fire around you, damaging nearby enemies.",
 	skillTypes = { [2] = true, [11] = true, [10] = true, [33] = true, [36] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 5), 
-		skill("cooldown", 5), 
-		skill("FireMin", 409), --"spell_minimum_base_fire_damage" = 409
-		skill("FireMax", 601), --"spell_maximum_base_fire_damage" = 601
-		--"cast_on_hit_%" = 100
-		--"is_area_damage" = ?
-		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"cast_on_hit_%",
+		"is_area_damage",
+		"spell_uncastable_if_triggerable",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 409, 601, 100, critChance = 5, cooldown = 5, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit3"] = {
@@ -210,29 +198,27 @@ skills["EnchantmentOfFlamesOnHit3"] = {
 	color = 4,
 	description = "Releases a nova of fire around you, damaging nearby enemies.",
 	skillTypes = { [2] = true, [11] = true, [10] = true, [33] = true, [36] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 5), 
-		skill("cooldown", 5), 
-		skill("FireMin", 999), --"spell_minimum_base_fire_damage" = 999
-		skill("FireMax", 1453), --"spell_maximum_base_fire_damage" = 1453
-		--"cast_on_hit_%" = 100
-		--"is_area_damage" = ?
-		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"cast_on_hit_%",
+		"is_area_damage",
+		"spell_uncastable_if_triggerable",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 999, 1453, 100, critChance = 5, cooldown = 5, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit4"] = {
@@ -241,29 +227,27 @@ skills["EnchantmentOfFlamesOnHit4"] = {
 	color = 4,
 	description = "Releases a nova of fire around you, damaging nearby enemies.",
 	skillTypes = { [2] = true, [11] = true, [10] = true, [33] = true, [36] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 5), 
-		skill("cooldown", 5), 
-		skill("FireMin", 1800), --"spell_minimum_base_fire_damage" = 1800
-		skill("FireMax", 2770), --"spell_maximum_base_fire_damage" = 2770
-		--"cast_on_hit_%" = 100
-		--"is_area_damage" = ?
-		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"cast_on_hit_%",
+		"is_area_damage",
+		"spell_uncastable_if_triggerable",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 1800, 2770, 100, critChance = 5, cooldown = 5, levelRequirement = 75, },
 	},
 }
 skills["EnchantmentOfForceOnHit"] = {
@@ -272,26 +256,24 @@ skills["EnchantmentOfForceOnHit"] = {
 	color = 4,
 	description = "Release an arc of force from your weapon or fists, damaging enemies in front of you.",
 	skillTypes = { [1] = true, [11] = true, [10] = true, [6] = true, [47] = true, [57] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 35, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		--"attack_trigger_on_hit_%" = 100
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"attack_trigger_on_hit_%",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 100, damageMultiplier = 35, cooldown = 5, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfForceOnHit2"] = {
@@ -300,26 +282,24 @@ skills["EnchantmentOfForceOnHit2"] = {
 	color = 4,
 	description = "Release an arc of force from your weapon or fists, damaging enemies in front of you.",
 	skillTypes = { [1] = true, [11] = true, [10] = true, [6] = true, [47] = true, [57] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 89, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		--"attack_trigger_on_hit_%" = 100
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"attack_trigger_on_hit_%",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 100, damageMultiplier = 89, cooldown = 5, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfForceOnHit3"] = {
@@ -328,26 +308,24 @@ skills["EnchantmentOfForceOnHit3"] = {
 	color = 4,
 	description = "Release an arc of force from your weapon or fists, damaging enemies in front of you.",
 	skillTypes = { [1] = true, [11] = true, [10] = true, [6] = true, [47] = true, [57] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 143, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		--"attack_trigger_on_hit_%" = 100
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"attack_trigger_on_hit_%",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 100, damageMultiplier = 143, cooldown = 5, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfForceOnHit4"] = {
@@ -356,26 +334,24 @@ skills["EnchantmentOfForceOnHit4"] = {
 	color = 4,
 	description = "Release an arc of force from your weapon or fists, damaging enemies in front of you.",
 	skillTypes = { [1] = true, [11] = true, [10] = true, [6] = true, [47] = true, [57] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 197, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		--"attack_trigger_on_hit_%" = 100
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"attack_trigger_on_hit_%",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 100, damageMultiplier = 197, cooldown = 5, levelRequirement = 75, },
 	},
 }
 skills["EnchantmentOfFrostOnKill"] = {
@@ -384,32 +360,30 @@ skills["EnchantmentOfFrostOnKill"] = {
 	color = 4,
 	description = "Fire a nova of icy projectiles.",
 	skillTypes = { [2] = true, [3] = true, [36] = true, [42] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 5), 
-		skill("cooldown", 5), 
-		skill("ColdMin", 72), --"spell_minimum_base_cold_damage" = 72
-		skill("ColdMax", 114), --"spell_maximum_base_cold_damage" = 114
-		--"skill_art_variation" = 1
-		--"chance_to_cast_on_kill_%_target_self" = 100
-		mod("ProjectileCount", "BASE", 8), --"number_of_additional_projectiles" = 8
-		--"base_is_projectile" = ?
-		--"projectiles_nova" = ?
-		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"chance_to_cast_on_kill_%_target_self",
+		"number_of_additional_projectiles",
+		"base_is_projectile",
+		"projectiles_nova",
+		"spell_uncastable_if_triggerable",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 72, 114, 1, 100, 8, critChance = 5, cooldown = 5, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfFrostOnKill2"] = {
@@ -418,32 +392,30 @@ skills["EnchantmentOfFrostOnKill2"] = {
 	color = 4,
 	description = "Fire a nova of icy projectiles.",
 	skillTypes = { [2] = true, [3] = true, [36] = true, [42] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 5), 
-		skill("cooldown", 5), 
-		skill("ColdMin", 332), --"spell_minimum_base_cold_damage" = 332
-		skill("ColdMax", 509), --"spell_maximum_base_cold_damage" = 509
-		--"skill_art_variation" = 1
-		--"chance_to_cast_on_kill_%_target_self" = 100
-		mod("ProjectileCount", "BASE", 8), --"number_of_additional_projectiles" = 8
-		--"base_is_projectile" = ?
-		--"projectiles_nova" = ?
-		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"chance_to_cast_on_kill_%_target_self",
+		"number_of_additional_projectiles",
+		"base_is_projectile",
+		"projectiles_nova",
+		"spell_uncastable_if_triggerable",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 332, 509, 1, 100, 8, critChance = 5, cooldown = 5, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfFrostOnKill3"] = {
@@ -452,32 +424,30 @@ skills["EnchantmentOfFrostOnKill3"] = {
 	color = 4,
 	description = "Fire a nova of icy projectiles.",
 	skillTypes = { [2] = true, [3] = true, [36] = true, [42] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 5), 
-		skill("cooldown", 5), 
-		skill("ColdMin", 836), --"spell_minimum_base_cold_damage" = 836
-		skill("ColdMax", 1254), --"spell_maximum_base_cold_damage" = 1254
-		--"skill_art_variation" = 1
-		--"chance_to_cast_on_kill_%_target_self" = 100
-		mod("ProjectileCount", "BASE", 8), --"number_of_additional_projectiles" = 8
-		--"base_is_projectile" = ?
-		--"projectiles_nova" = ?
-		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"chance_to_cast_on_kill_%_target_self",
+		"number_of_additional_projectiles",
+		"base_is_projectile",
+		"projectiles_nova",
+		"spell_uncastable_if_triggerable",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 836, 1254, 1, 100, 8, critChance = 5, cooldown = 5, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfFrostOnKill4"] = {
@@ -486,32 +456,30 @@ skills["EnchantmentOfFrostOnKill4"] = {
 	color = 4,
 	description = "Fire a nova of icy projectiles.",
 	skillTypes = { [2] = true, [3] = true, [36] = true, [42] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 5), 
-		skill("cooldown", 5), 
-		skill("ColdMin", 1530), --"spell_minimum_base_cold_damage" = 1530
-		skill("ColdMax", 2422), --"spell_maximum_base_cold_damage" = 2422
-		--"skill_art_variation" = 1
-		--"chance_to_cast_on_kill_%_target_self" = 100
-		mod("ProjectileCount", "BASE", 8), --"number_of_additional_projectiles" = 8
-		--"base_is_projectile" = ?
-		--"projectiles_nova" = ?
-		skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }), --"spell_uncastable_if_triggerable" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"chance_to_cast_on_kill_%_target_self",
+		"number_of_additional_projectiles",
+		"base_is_projectile",
+		"projectiles_nova",
+		"spell_uncastable_if_triggerable",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 1530, 2422, 1, 100, 8, critChance = 5, cooldown = 5, levelRequirement = 75, },
 	},
 }
 skills["EnchantmentOfFuryOnHit"] = {
@@ -535,35 +503,33 @@ skills["EnchantmentOfFuryOnHit"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 50, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		--"attack_trigger_on_hit_%" = 100
-		--"projectile_spiral_nova_time_ms" = 800
-		--"projectile_spiral_nova_angle" = 180
-		--"base_number_of_projectiles_in_spiral_nova" = 10
-		--"skill_art_variation" = 1
-		mod("PierceChance", "BASE", 100), --"pierce_%" = 100
-		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_fire" = 50
-		--"projectile_spiral_nova_starting_angle_offset" = -90
-		--"base_is_projectile" = ?
-		--"skill_can_fire_arrows" = ?
-		--"skill_can_fire_wand_projectiles" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"attack_trigger_on_hit_%",
+		"projectile_spiral_nova_time_ms",
+		"projectile_spiral_nova_angle",
+		"base_number_of_projectiles_in_spiral_nova",
+		"skill_art_variation",
+		"pierce_%",
+		"base_physical_damage_%_to_convert_to_fire",
+		"projectile_spiral_nova_starting_angle_offset",
+		"base_is_projectile",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 100, 800, 180, 10, 1, 100, 50, -90, damageMultiplier = 50, cooldown = 5, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfFuryOnHit2"] = {
@@ -587,35 +553,33 @@ skills["EnchantmentOfFuryOnHit2"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 110, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		--"attack_trigger_on_hit_%" = 100
-		--"projectile_spiral_nova_time_ms" = 800
-		--"projectile_spiral_nova_angle" = 180
-		--"base_number_of_projectiles_in_spiral_nova" = 10
-		--"skill_art_variation" = 1
-		mod("PierceChance", "BASE", 100), --"pierce_%" = 100
-		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_fire" = 50
-		--"projectile_spiral_nova_starting_angle_offset" = -90
-		--"base_is_projectile" = ?
-		--"skill_can_fire_arrows" = ?
-		--"skill_can_fire_wand_projectiles" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"attack_trigger_on_hit_%",
+		"projectile_spiral_nova_time_ms",
+		"projectile_spiral_nova_angle",
+		"base_number_of_projectiles_in_spiral_nova",
+		"skill_art_variation",
+		"pierce_%",
+		"base_physical_damage_%_to_convert_to_fire",
+		"projectile_spiral_nova_starting_angle_offset",
+		"base_is_projectile",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 100, 800, 180, 10, 1, 100, 50, -90, damageMultiplier = 110, cooldown = 5, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfFuryOnHit3"] = {
@@ -639,35 +603,33 @@ skills["EnchantmentOfFuryOnHit3"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 170, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		--"attack_trigger_on_hit_%" = 100
-		--"projectile_spiral_nova_time_ms" = 800
-		--"projectile_spiral_nova_angle" = 180
-		--"base_number_of_projectiles_in_spiral_nova" = 10
-		--"skill_art_variation" = 1
-		mod("PierceChance", "BASE", 100), --"pierce_%" = 100
-		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_fire" = 50
-		--"projectile_spiral_nova_starting_angle_offset" = -90
-		--"base_is_projectile" = ?
-		--"skill_can_fire_arrows" = ?
-		--"skill_can_fire_wand_projectiles" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"attack_trigger_on_hit_%",
+		"projectile_spiral_nova_time_ms",
+		"projectile_spiral_nova_angle",
+		"base_number_of_projectiles_in_spiral_nova",
+		"skill_art_variation",
+		"pierce_%",
+		"base_physical_damage_%_to_convert_to_fire",
+		"projectile_spiral_nova_starting_angle_offset",
+		"base_is_projectile",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 100, 800, 180, 10, 1, 100, 50, -90, damageMultiplier = 170, cooldown = 5, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfFuryOnHit4"] = {
@@ -691,35 +653,33 @@ skills["EnchantmentOfFuryOnHit4"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 230, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		--"attack_trigger_on_hit_%" = 100
-		--"projectile_spiral_nova_time_ms" = 800
-		--"projectile_spiral_nova_angle" = 180
-		--"base_number_of_projectiles_in_spiral_nova" = 10
-		--"skill_art_variation" = 1
-		mod("PierceChance", "BASE", 100), --"pierce_%" = 100
-		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_fire" = 50
-		--"projectile_spiral_nova_starting_angle_offset" = -90
-		--"base_is_projectile" = ?
-		--"skill_can_fire_arrows" = ?
-		--"skill_can_fire_wand_projectiles" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"attack_trigger_on_hit_%",
+		"projectile_spiral_nova_time_ms",
+		"projectile_spiral_nova_angle",
+		"base_number_of_projectiles_in_spiral_nova",
+		"skill_art_variation",
+		"pierce_%",
+		"base_physical_damage_%_to_convert_to_fire",
+		"projectile_spiral_nova_starting_angle_offset",
+		"base_is_projectile",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 100, 800, 180, 10, 1, 100, 50, -90, damageMultiplier = 230, cooldown = 5, levelRequirement = 75, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill"] = {
@@ -728,6 +688,7 @@ skills["EnchantmentOfInfernoOnKill"] = {
 	color = 4,
 	description = "Drops a meteor from above on a nearby foe, dealing fire damage in an area around them.",
 	skillTypes = { [2] = true, [11] = true, [33] = true, [36] = true, [42] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -735,26 +696,23 @@ skills["EnchantmentOfInfernoOnKill"] = {
 		hit = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 5), 
-		skill("cooldown", 10), 
-		skill("FireMin", 155), --"spell_minimum_base_fire_damage" = 155
-		skill("FireMax", 249), --"spell_maximum_base_fire_damage" = 249
-		skill("duration", 2), --"base_skill_effect_duration" = 2000
-		--"fire_storm_fireball_delay_ms" = 100
-		--"skill_override_pvp_scaling_time_ms" = 450
-		--"chance_to_cast_on_kill_%_target_self" = 100
-		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_skill_effect_duration",
+		"fire_storm_fireball_delay_ms",
+		"skill_override_pvp_scaling_time_ms",
+		"chance_to_cast_on_kill_%_target_self",
+		"base_skill_show_average_damage_instead_of_dps",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 155, 249, 2000, 100, 450, 100, critChance = 5, cooldown = 10, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill2"] = {
@@ -763,6 +721,7 @@ skills["EnchantmentOfInfernoOnKill2"] = {
 	color = 4,
 	description = "Drops a meteor from above on a nearby foe, dealing fire damage in an area around them.",
 	skillTypes = { [2] = true, [11] = true, [33] = true, [36] = true, [42] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -770,26 +729,23 @@ skills["EnchantmentOfInfernoOnKill2"] = {
 		hit = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 5), 
-		skill("cooldown", 10), 
-		skill("FireMin", 722), --"spell_minimum_base_fire_damage" = 722
-		skill("FireMax", 1107), --"spell_maximum_base_fire_damage" = 1107
-		skill("duration", 2), --"base_skill_effect_duration" = 2000
-		--"fire_storm_fireball_delay_ms" = 100
-		--"skill_override_pvp_scaling_time_ms" = 450
-		--"chance_to_cast_on_kill_%_target_self" = 100
-		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_skill_effect_duration",
+		"fire_storm_fireball_delay_ms",
+		"skill_override_pvp_scaling_time_ms",
+		"chance_to_cast_on_kill_%_target_self",
+		"base_skill_show_average_damage_instead_of_dps",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 722, 1107, 2000, 100, 450, 100, critChance = 5, cooldown = 10, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill3"] = {
@@ -798,6 +754,7 @@ skills["EnchantmentOfInfernoOnKill3"] = {
 	color = 4,
 	description = "Drops a meteor from above on a nearby foe, dealing fire damage in an area around them.",
 	skillTypes = { [2] = true, [11] = true, [33] = true, [36] = true, [42] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -805,26 +762,23 @@ skills["EnchantmentOfInfernoOnKill3"] = {
 		hit = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 5), 
-		skill("cooldown", 10), 
-		skill("FireMin", 1817), --"spell_minimum_base_fire_damage" = 1817
-		skill("FireMax", 2725), --"spell_maximum_base_fire_damage" = 2725
-		skill("duration", 2), --"base_skill_effect_duration" = 2000
-		--"fire_storm_fireball_delay_ms" = 100
-		--"skill_override_pvp_scaling_time_ms" = 450
-		--"chance_to_cast_on_kill_%_target_self" = 100
-		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_skill_effect_duration",
+		"fire_storm_fireball_delay_ms",
+		"skill_override_pvp_scaling_time_ms",
+		"chance_to_cast_on_kill_%_target_self",
+		"base_skill_show_average_damage_instead_of_dps",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 1817, 2725, 2000, 100, 450, 100, critChance = 5, cooldown = 10, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill4"] = {
@@ -833,6 +787,7 @@ skills["EnchantmentOfInfernoOnKill4"] = {
 	color = 4,
 	description = "Drops a meteor from above on a nearby foe, dealing fire damage in an area around them.",
 	skillTypes = { [2] = true, [11] = true, [33] = true, [36] = true, [42] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -840,26 +795,23 @@ skills["EnchantmentOfInfernoOnKill4"] = {
 		hit = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 5), 
-		skill("cooldown", 10), 
-		skill("FireMin", 3324), --"spell_minimum_base_fire_damage" = 3324
-		skill("FireMax", 5263), --"spell_maximum_base_fire_damage" = 5263
-		skill("duration", 2), --"base_skill_effect_duration" = 2000
-		--"fire_storm_fireball_delay_ms" = 100
-		--"skill_override_pvp_scaling_time_ms" = 450
-		--"chance_to_cast_on_kill_%_target_self" = 100
-		skill("showAverage", true), --"base_skill_show_average_damage_instead_of_dps" = ?
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_skill_effect_duration",
+		"fire_storm_fireball_delay_ms",
+		"skill_override_pvp_scaling_time_ms",
+		"chance_to_cast_on_kill_%_target_self",
+		"base_skill_show_average_damage_instead_of_dps",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 3324, 5263, 2000, 100, 450, 100, critChance = 5, cooldown = 10, levelRequirement = 75, },
 	},
 }
 skills["EnchantmentOfIreWhenHit"] = {
@@ -883,6 +835,7 @@ skills["EnchantmentOfIreWhenHit"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 0.5,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -890,25 +843,22 @@ skills["EnchantmentOfIreWhenHit"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 0.5), 
-		mod("Damage", "MORE", -40, ModFlag.Attack), 
-		skill("cooldown", 10), 
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		--"extra_gore_chance_override_%" = 30
-		--"melee_counterattack_trigger_on_hit_%" = 100
-		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
-		--"is_area_damage" = ?
-		--"attack_unusable_if_triggerable" = ?
-		--"attack_is_not_melee_override" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"extra_gore_chance_override_%",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_physical_damage_%_to_convert_to_lightning",
+		"is_area_damage",
+		"attack_unusable_if_triggerable",
+		"attack_is_not_melee_override",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 5000, 30, 100, 50, damageMultiplier = -40, cooldown = 10, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfIreWhenHit2"] = {
@@ -932,6 +882,7 @@ skills["EnchantmentOfIreWhenHit2"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 0.5,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -939,25 +890,22 @@ skills["EnchantmentOfIreWhenHit2"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 0.5), 
-		mod("Damage", "MORE", -10, ModFlag.Attack), 
-		skill("cooldown", 10), 
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		--"extra_gore_chance_override_%" = 30
-		--"melee_counterattack_trigger_on_hit_%" = 100
-		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
-		--"is_area_damage" = ?
-		--"attack_unusable_if_triggerable" = ?
-		--"attack_is_not_melee_override" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"extra_gore_chance_override_%",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_physical_damage_%_to_convert_to_lightning",
+		"is_area_damage",
+		"attack_unusable_if_triggerable",
+		"attack_is_not_melee_override",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 5000, 30, 100, 50, damageMultiplier = -10, cooldown = 10, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfIreWhenHit3"] = {
@@ -981,6 +929,7 @@ skills["EnchantmentOfIreWhenHit3"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 0.5,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -988,25 +937,22 @@ skills["EnchantmentOfIreWhenHit3"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 0.5), 
-		mod("Damage", "MORE", 20, ModFlag.Attack), 
-		skill("cooldown", 10), 
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		--"extra_gore_chance_override_%" = 30
-		--"melee_counterattack_trigger_on_hit_%" = 100
-		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
-		--"is_area_damage" = ?
-		--"attack_unusable_if_triggerable" = ?
-		--"attack_is_not_melee_override" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"extra_gore_chance_override_%",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_physical_damage_%_to_convert_to_lightning",
+		"is_area_damage",
+		"attack_unusable_if_triggerable",
+		"attack_is_not_melee_override",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 5000, 30, 100, 50, damageMultiplier = 20, cooldown = 10, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfIreWhenHit4"] = {
@@ -1030,6 +976,7 @@ skills["EnchantmentOfIreWhenHit4"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 0.5,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -1037,25 +984,22 @@ skills["EnchantmentOfIreWhenHit4"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 0.5), 
-		mod("Damage", "MORE", 50, ModFlag.Attack), 
-		skill("cooldown", 10), 
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		--"extra_gore_chance_override_%" = 30
-		--"melee_counterattack_trigger_on_hit_%" = 100
-		mod("SkillPhysicalDamageConvertToLightning", "BASE", 50), --"skill_physical_damage_%_to_convert_to_lightning" = 50
-		--"is_area_damage" = ?
-		--"attack_unusable_if_triggerable" = ?
-		--"attack_is_not_melee_override" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"extra_gore_chance_override_%",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_physical_damage_%_to_convert_to_lightning",
+		"is_area_damage",
+		"attack_unusable_if_triggerable",
+		"attack_is_not_melee_override",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 5000, 30, 100, 50, damageMultiplier = 50, cooldown = 10, levelRequirement = 75, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit"] = {
@@ -1064,6 +1008,7 @@ skills["EnchantmentOfLightWhenCrit"] = {
 	color = 4,
 	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
 	skillTypes = { [1] = true, [11] = true, [12] = true, [6] = true, [7] = true, [47] = true, [57] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -1071,22 +1016,19 @@ skills["EnchantmentOfLightWhenCrit"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 35, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		mod("LifeRegenPercent", "BASE", 4, 0, 0, nil), --"life_regeneration_rate_per_minute_%" = 240
-		--"attack_trigger_when_critically_hit_%" = 100
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"life_regeneration_rate_per_minute_%",
+		"attack_trigger_when_critically_hit_%",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 5000, 240, 100, damageMultiplier = 35, cooldown = 5, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit2"] = {
@@ -1095,6 +1037,7 @@ skills["EnchantmentOfLightWhenCrit2"] = {
 	color = 4,
 	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
 	skillTypes = { [1] = true, [11] = true, [12] = true, [6] = true, [7] = true, [47] = true, [57] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -1102,22 +1045,19 @@ skills["EnchantmentOfLightWhenCrit2"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 89, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		mod("LifeRegenPercent", "BASE", 4, 0, 0, nil), --"life_regeneration_rate_per_minute_%" = 240
-		--"attack_trigger_when_critically_hit_%" = 100
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"life_regeneration_rate_per_minute_%",
+		"attack_trigger_when_critically_hit_%",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 5000, 240, 100, damageMultiplier = 89, cooldown = 5, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit3"] = {
@@ -1126,6 +1066,7 @@ skills["EnchantmentOfLightWhenCrit3"] = {
 	color = 4,
 	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
 	skillTypes = { [1] = true, [11] = true, [12] = true, [6] = true, [7] = true, [47] = true, [57] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -1133,22 +1074,19 @@ skills["EnchantmentOfLightWhenCrit3"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 143, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		mod("LifeRegenPercent", "BASE", 4, 0, 0, nil), --"life_regeneration_rate_per_minute_%" = 240
-		--"attack_trigger_when_critically_hit_%" = 100
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"life_regeneration_rate_per_minute_%",
+		"attack_trigger_when_critically_hit_%",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 5000, 240, 100, damageMultiplier = 143, cooldown = 5, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit4"] = {
@@ -1157,6 +1095,7 @@ skills["EnchantmentOfLightWhenCrit4"] = {
 	color = 4,
 	description = "Deals a portion of your main hand damage in an area around you and creates Consecrated Ground, causing you and your allies to regenerate life.",
 	skillTypes = { [1] = true, [11] = true, [12] = true, [6] = true, [7] = true, [47] = true, [57] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
@@ -1164,22 +1103,19 @@ skills["EnchantmentOfLightWhenCrit4"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 197, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		mod("LifeRegenPercent", "BASE", 4, 0, 0, nil), --"life_regeneration_rate_per_minute_%" = 240
-		--"attack_trigger_when_critically_hit_%" = 100
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"life_regeneration_rate_per_minute_%",
+		"attack_trigger_when_critically_hit_%",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 5000, 240, 100, damageMultiplier = 197, cooldown = 5, levelRequirement = 75, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit"] = {
@@ -1189,6 +1125,7 @@ skills["EnchantmentOfReflectionWhenHit"] = {
 	description = "Creates a clone of you that attacks with your weapon.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [42] = true, [12] = true, [36] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [28] = true, },
+	castTime = 1,
 	minionList = {
 		"Clone",
 	},
@@ -1202,24 +1139,22 @@ skills["EnchantmentOfReflectionWhenHit"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("cooldown", 10), 
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		--"number_of_monsters_to_summon" = 1
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 80) }), --"minion_damage_+%" = 80
-		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 150) }), --"minion_maximum_life_+%" = 150
-		--"display_minion_monster_type" = 4
-		skill("minionLevel", 32), --"display_minion_monster_level" = 32
-		--"cast_when_hit_%" = 100
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 100) }), --"active_skill_minion_damage_+%_final" = 100
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"minion_damage_+%",
+		"minion_maximum_life_+%",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"cast_when_hit_%",
+		"active_skill_minion_damage_+%_final",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 5000, 1, 80, 150, 4, 32, 100, 100, cooldown = 10, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit2"] = {
@@ -1229,6 +1164,7 @@ skills["EnchantmentOfReflectionWhenHit2"] = {
 	description = "Creates a clone of you that attacks with your weapon.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [42] = true, [12] = true, [36] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [28] = true, },
+	castTime = 1,
 	minionList = {
 		"Clone",
 	},
@@ -1242,24 +1178,22 @@ skills["EnchantmentOfReflectionWhenHit2"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("cooldown", 10), 
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		--"number_of_monsters_to_summon" = 1
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100) }), --"minion_damage_+%" = 100
-		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 150) }), --"minion_maximum_life_+%" = 150
-		--"display_minion_monster_type" = 4
-		skill("minionLevel", 53), --"display_minion_monster_level" = 53
-		--"cast_when_hit_%" = 100
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 200) }), --"active_skill_minion_damage_+%_final" = 200
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"minion_damage_+%",
+		"minion_maximum_life_+%",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"cast_when_hit_%",
+		"active_skill_minion_damage_+%_final",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 5000, 1, 100, 150, 4, 53, 100, 200, cooldown = 10, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit3"] = {
@@ -1269,6 +1203,7 @@ skills["EnchantmentOfReflectionWhenHit3"] = {
 	description = "Creates a clone of you that attacks with your weapon.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [42] = true, [12] = true, [36] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [28] = true, },
+	castTime = 1,
 	minionList = {
 		"Clone",
 	},
@@ -1282,24 +1217,22 @@ skills["EnchantmentOfReflectionWhenHit3"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("cooldown", 10), 
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		--"number_of_monsters_to_summon" = 1
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 120) }), --"minion_damage_+%" = 120
-		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 150) }), --"minion_maximum_life_+%" = 150
-		--"display_minion_monster_type" = 4
-		skill("minionLevel", 66), --"display_minion_monster_level" = 66
-		--"cast_when_hit_%" = 100
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 300) }), --"active_skill_minion_damage_+%_final" = 300
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"minion_damage_+%",
+		"minion_maximum_life_+%",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"cast_when_hit_%",
+		"active_skill_minion_damage_+%_final",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 5000, 1, 120, 150, 4, 66, 100, 300, cooldown = 10, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit4"] = {
@@ -1309,6 +1242,7 @@ skills["EnchantmentOfReflectionWhenHit4"] = {
 	description = "Creates a clone of you that attacks with your weapon.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [42] = true, [12] = true, [36] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [28] = true, },
+	castTime = 1,
 	minionList = {
 		"Clone",
 	},
@@ -1322,24 +1256,22 @@ skills["EnchantmentOfReflectionWhenHit4"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("cooldown", 10), 
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		--"number_of_monsters_to_summon" = 1
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 140) }), --"minion_damage_+%" = 140
-		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 150) }), --"minion_maximum_life_+%" = 150
-		--"display_minion_monster_type" = 4
-		skill("minionLevel", 75), --"display_minion_monster_level" = 75
-		--"cast_when_hit_%" = 100
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 400) }), --"active_skill_minion_damage_+%_final" = 400
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"minion_damage_+%",
+		"minion_maximum_life_+%",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"cast_when_hit_%",
+		"active_skill_minion_damage_+%_final",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 5000, 1, 140, 150, 4, 75, 100, 400, cooldown = 10, levelRequirement = 75, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit"] = {
@@ -1363,35 +1295,33 @@ skills["EnchantmentOfSpiteWhenHit"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 50, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		--"base_projectile_ground_effect_duration" = 2000
-		mod("ProjectileCount", "BASE", 9), --"number_of_additional_projectiles" = 9
-		--"melee_counterattack_trigger_on_hit_%" = 100
-		--"skill_art_variation" = 2
-		mod("PhysicalDamageConvertToCold", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_cold" = 50
-		--"projectiles_drop_ground_ice" = ?
-		--"projectiles_drop_ground_effects_on_client" = ?
-		--"base_is_projectile" = ?
-		--"projectiles_nova" = ?
-		--"skill_can_fire_arrows" = ?
-		--"skill_can_fire_wand_projectiles" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_projectile_ground_effect_duration",
+		"number_of_additional_projectiles",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_art_variation",
+		"base_physical_damage_%_to_convert_to_cold",
+		"projectiles_drop_ground_ice",
+		"projectiles_drop_ground_effects_on_client",
+		"base_is_projectile",
+		"projectiles_nova",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 2000, 9, 100, 2, 50, damageMultiplier = 50, cooldown = 5, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit2"] = {
@@ -1415,35 +1345,33 @@ skills["EnchantmentOfSpiteWhenHit2"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 110, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		--"base_projectile_ground_effect_duration" = 2000
-		mod("ProjectileCount", "BASE", 9), --"number_of_additional_projectiles" = 9
-		--"melee_counterattack_trigger_on_hit_%" = 100
-		--"skill_art_variation" = 2
-		mod("PhysicalDamageConvertToCold", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_cold" = 50
-		--"projectiles_drop_ground_ice" = ?
-		--"projectiles_drop_ground_effects_on_client" = ?
-		--"base_is_projectile" = ?
-		--"projectiles_nova" = ?
-		--"skill_can_fire_arrows" = ?
-		--"skill_can_fire_wand_projectiles" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_projectile_ground_effect_duration",
+		"number_of_additional_projectiles",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_art_variation",
+		"base_physical_damage_%_to_convert_to_cold",
+		"projectiles_drop_ground_ice",
+		"projectiles_drop_ground_effects_on_client",
+		"base_is_projectile",
+		"projectiles_nova",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 2000, 9, 100, 2, 50, damageMultiplier = 110, cooldown = 5, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit3"] = {
@@ -1467,35 +1395,33 @@ skills["EnchantmentOfSpiteWhenHit3"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 170, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		--"base_projectile_ground_effect_duration" = 2000
-		mod("ProjectileCount", "BASE", 9), --"number_of_additional_projectiles" = 9
-		--"melee_counterattack_trigger_on_hit_%" = 100
-		--"skill_art_variation" = 2
-		mod("PhysicalDamageConvertToCold", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_cold" = 50
-		--"projectiles_drop_ground_ice" = ?
-		--"projectiles_drop_ground_effects_on_client" = ?
-		--"base_is_projectile" = ?
-		--"projectiles_nova" = ?
-		--"skill_can_fire_arrows" = ?
-		--"skill_can_fire_wand_projectiles" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_projectile_ground_effect_duration",
+		"number_of_additional_projectiles",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_art_variation",
+		"base_physical_damage_%_to_convert_to_cold",
+		"projectiles_drop_ground_ice",
+		"projectiles_drop_ground_effects_on_client",
+		"base_is_projectile",
+		"projectiles_nova",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 2000, 9, 100, 2, 50, damageMultiplier = 170, cooldown = 5, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit4"] = {
@@ -1519,35 +1445,33 @@ skills["EnchantmentOfSpiteWhenHit4"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		projectile = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		mod("Damage", "MORE", 230, ModFlag.Attack), 
-		skill("cooldown", 5), 
-		--"base_projectile_ground_effect_duration" = 2000
-		mod("ProjectileCount", "BASE", 9), --"number_of_additional_projectiles" = 9
-		--"melee_counterattack_trigger_on_hit_%" = 100
-		--"skill_art_variation" = 2
-		mod("PhysicalDamageConvertToCold", "BASE", 50, 0, 0, nil), --"base_physical_damage_%_to_convert_to_cold" = 50
-		--"projectiles_drop_ground_ice" = ?
-		--"projectiles_drop_ground_effects_on_client" = ?
-		--"base_is_projectile" = ?
-		--"projectiles_nova" = ?
-		--"skill_can_fire_arrows" = ?
-		--"skill_can_fire_wand_projectiles" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_projectile_ground_effect_duration",
+		"number_of_additional_projectiles",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_art_variation",
+		"base_physical_damage_%_to_convert_to_cold",
+		"projectiles_drop_ground_ice",
+		"projectiles_drop_ground_effects_on_client",
+		"base_is_projectile",
+		"projectiles_nova",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 2000, 9, 100, 2, 50, damageMultiplier = 230, cooldown = 5, levelRequirement = 75, },
 	},
 }
 skills["EnchantmentOfTempestOnHit"] = {
@@ -1556,6 +1480,7 @@ skills["EnchantmentOfTempestOnHit"] = {
 	color = 4,
 	description = "Charges you with lightning which lasts a duration before unleashing, damaging surrounding enemies.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [36] = true, },
+	castTime = 4,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -1563,25 +1488,22 @@ skills["EnchantmentOfTempestOnHit"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 4), 
-		skill("CritChance", 7), 
-		skill("cooldown", 10), 
-		skill("LightningMin", 175), --"spell_minimum_base_lightning_damage" = 175
-		skill("LightningMax", 280), --"spell_maximum_base_lightning_damage" = 280
-		mod("AreaOfEffect", "INC", 0), --"base_skill_area_of_effect_+%" = 0
-		--"skill_art_variation" = 0
-		--"cast_on_hit_%" = 100
-		skill("duration", 2), --"base_skill_effect_duration" = 2000
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_skill_area_of_effect_+%",
+		"skill_art_variation",
+		"cast_on_hit_%",
+		"base_skill_effect_duration",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 175, 280, 0, 0, 100, 2000, critChance = 7, cooldown = 10, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfTempestOnHit2"] = {
@@ -1590,6 +1512,7 @@ skills["EnchantmentOfTempestOnHit2"] = {
 	color = 4,
 	description = "Charges you with lightning which lasts a duration before unleashing, damaging surrounding enemies.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [36] = true, },
+	castTime = 4,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -1597,25 +1520,22 @@ skills["EnchantmentOfTempestOnHit2"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 4), 
-		skill("CritChance", 7), 
-		skill("cooldown", 10), 
-		skill("LightningMin", 812), --"spell_minimum_base_lightning_damage" = 812
-		skill("LightningMax", 1245), --"spell_maximum_base_lightning_damage" = 1245
-		mod("AreaOfEffect", "INC", 0), --"base_skill_area_of_effect_+%" = 0
-		--"skill_art_variation" = 0
-		--"cast_on_hit_%" = 100
-		skill("duration", 2), --"base_skill_effect_duration" = 2000
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_skill_area_of_effect_+%",
+		"skill_art_variation",
+		"cast_on_hit_%",
+		"base_skill_effect_duration",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 812, 1245, 0, 0, 100, 2000, critChance = 7, cooldown = 10, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfTempestOnHit3"] = {
@@ -1624,6 +1544,7 @@ skills["EnchantmentOfTempestOnHit3"] = {
 	color = 4,
 	description = "Charges you with lightning which lasts a duration before unleashing, damaging surrounding enemies.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [36] = true, },
+	castTime = 4,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -1631,25 +1552,22 @@ skills["EnchantmentOfTempestOnHit3"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 4), 
-		skill("CritChance", 7), 
-		skill("cooldown", 10), 
-		skill("LightningMin", 2044), --"spell_minimum_base_lightning_damage" = 2044
-		skill("LightningMax", 3065), --"spell_maximum_base_lightning_damage" = 3065
-		mod("AreaOfEffect", "INC", 0), --"base_skill_area_of_effect_+%" = 0
-		--"skill_art_variation" = 0
-		--"cast_on_hit_%" = 100
-		skill("duration", 2), --"base_skill_effect_duration" = 2000
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_skill_area_of_effect_+%",
+		"skill_art_variation",
+		"cast_on_hit_%",
+		"base_skill_effect_duration",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 2044, 3065, 0, 0, 100, 2000, critChance = 7, cooldown = 10, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfTempestOnHit4"] = {
@@ -1658,6 +1576,7 @@ skills["EnchantmentOfTempestOnHit4"] = {
 	color = 4,
 	description = "Charges you with lightning which lasts a duration before unleashing, damaging surrounding enemies.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [36] = true, },
+	castTime = 4,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -1665,25 +1584,22 @@ skills["EnchantmentOfTempestOnHit4"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 4), 
-		skill("CritChance", 7), 
-		skill("cooldown", 10), 
-		skill("LightningMin", 3739), --"spell_minimum_base_lightning_damage" = 3739
-		skill("LightningMax", 5920), --"spell_maximum_base_lightning_damage" = 5920
-		mod("AreaOfEffect", "INC", 0), --"base_skill_area_of_effect_+%" = 0
-		--"skill_art_variation" = 0
-		--"cast_on_hit_%" = 100
-		skill("duration", 2), --"base_skill_effect_duration" = 2000
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_skill_area_of_effect_+%",
+		"skill_art_variation",
+		"cast_on_hit_%",
+		"base_skill_effect_duration",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 3739, 5920, 0, 0, 100, 2000, critChance = 7, cooldown = 10, levelRequirement = 75, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill"] = {
@@ -1693,6 +1609,7 @@ skills["EnchantmentOfTheGraveOnKill"] = {
 	description = "Summons three icy skull minions that explode at the end of their duration.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [34] = true, [36] = true, [42] = true, [12] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, },
+	castTime = 1,
 	minionList = {
 		"IcyRagingSpirit",
 	},
@@ -1703,22 +1620,20 @@ skills["EnchantmentOfTheGraveOnKill"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("cooldown", 5), 
-		--"chance_to_cast_on_owned_kill_%" = 100
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		--"number_of_monsters_to_summon" = 3
-		--"display_minion_monster_type" = 10
-		skill("minionLevel", 32), --"display_minion_monster_level" = 32
-		--"minions_explode_on_death_for_%_max_life_at_end_of_duration" = 20
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"chance_to_cast_on_owned_kill_%",
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 100, 5000, 3, 10, 32, 20, cooldown = 5, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill2"] = {
@@ -1728,6 +1643,7 @@ skills["EnchantmentOfTheGraveOnKill2"] = {
 	description = "Summons three icy skull minions that explode at the end of their duration.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [34] = true, [36] = true, [42] = true, [12] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, },
+	castTime = 1,
 	minionList = {
 		"IcyRagingSpirit",
 	},
@@ -1738,22 +1654,20 @@ skills["EnchantmentOfTheGraveOnKill2"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("cooldown", 5), 
-		--"chance_to_cast_on_owned_kill_%" = 100
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		--"number_of_monsters_to_summon" = 3
-		--"display_minion_monster_type" = 10
-		skill("minionLevel", 53), --"display_minion_monster_level" = 53
-		--"minions_explode_on_death_for_%_max_life_at_end_of_duration" = 20
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"chance_to_cast_on_owned_kill_%",
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 100, 5000, 3, 10, 53, 20, cooldown = 5, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill3"] = {
@@ -1763,6 +1677,7 @@ skills["EnchantmentOfTheGraveOnKill3"] = {
 	description = "Summons three icy skull minions that explode at the end of their duration.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [34] = true, [36] = true, [42] = true, [12] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, },
+	castTime = 1,
 	minionList = {
 		"IcyRagingSpirit",
 	},
@@ -1773,22 +1688,20 @@ skills["EnchantmentOfTheGraveOnKill3"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("cooldown", 5), 
-		--"chance_to_cast_on_owned_kill_%" = 100
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		--"number_of_monsters_to_summon" = 3
-		--"display_minion_monster_type" = 10
-		skill("minionLevel", 66), --"display_minion_monster_level" = 66
-		--"minions_explode_on_death_for_%_max_life_at_end_of_duration" = 20
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"chance_to_cast_on_owned_kill_%",
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 100, 5000, 3, 10, 66, 20, cooldown = 5, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill4"] = {
@@ -1798,6 +1711,7 @@ skills["EnchantmentOfTheGraveOnKill4"] = {
 	description = "Summons three icy skull minions that explode at the end of their duration.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [34] = true, [36] = true, [42] = true, [12] = true, },
 	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, },
+	castTime = 1,
 	minionList = {
 		"IcyRagingSpirit",
 	},
@@ -1808,22 +1722,20 @@ skills["EnchantmentOfTheGraveOnKill4"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("cooldown", 5), 
-		--"chance_to_cast_on_owned_kill_%" = 100
-		skill("duration", 5), --"base_skill_effect_duration" = 5000
-		--"number_of_monsters_to_summon" = 3
-		--"display_minion_monster_type" = 10
-		skill("minionLevel", 75), --"display_minion_monster_level" = 75
-		--"minions_explode_on_death_for_%_max_life_at_end_of_duration" = 20
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"chance_to_cast_on_owned_kill_%",
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 100, 5000, 3, 10, 75, 20, cooldown = 5, levelRequirement = 75, },
 	},
 }
 skills["EnchantmentOfThunderOnKill"] = {
@@ -1832,6 +1744,7 @@ skills["EnchantmentOfThunderOnKill"] = {
 	color = 4,
 	description = "Damaging cones of lightning surround you.",
 	skillTypes = { [2] = true, [11] = true, [31] = true, [35] = true, [42] = true, [36] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -1839,22 +1752,19 @@ skills["EnchantmentOfThunderOnKill"] = {
 		hit = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 7), 
-		skill("cooldown", 5), 
-		skill("LightningMin", 71), --"spell_minimum_base_lightning_damage" = 71
-		skill("LightningMax", 114), --"spell_maximum_base_lightning_damage" = 114
-		--"chance_to_cast_on_kill_%_target_self" = 100
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"chance_to_cast_on_kill_%_target_self",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 71, 114, 100, critChance = 7, cooldown = 5, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfThunderOnKill2"] = {
@@ -1863,6 +1773,7 @@ skills["EnchantmentOfThunderOnKill2"] = {
 	color = 4,
 	description = "Damaging cones of lightning surround you.",
 	skillTypes = { [2] = true, [11] = true, [31] = true, [35] = true, [42] = true, [36] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -1870,22 +1781,19 @@ skills["EnchantmentOfThunderOnKill2"] = {
 		hit = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 7), 
-		skill("cooldown", 5), 
-		skill("LightningMin", 330), --"spell_minimum_base_lightning_damage" = 330
-		skill("LightningMax", 506), --"spell_maximum_base_lightning_damage" = 506
-		--"chance_to_cast_on_kill_%_target_self" = 100
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"chance_to_cast_on_kill_%_target_self",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 330, 506, 100, critChance = 7, cooldown = 5, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfThunderOnKill3"] = {
@@ -1894,6 +1802,7 @@ skills["EnchantmentOfThunderOnKill3"] = {
 	color = 4,
 	description = "Damaging cones of lightning surround you.",
 	skillTypes = { [2] = true, [11] = true, [31] = true, [35] = true, [42] = true, [36] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -1901,22 +1810,19 @@ skills["EnchantmentOfThunderOnKill3"] = {
 		hit = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 7), 
-		skill("cooldown", 5), 
-		skill("LightningMin", 830), --"spell_minimum_base_lightning_damage" = 830
-		skill("LightningMax", 1245), --"spell_maximum_base_lightning_damage" = 1245
-		--"chance_to_cast_on_kill_%_target_self" = 100
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"chance_to_cast_on_kill_%_target_self",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 830, 1245, 100, critChance = 7, cooldown = 5, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfThunderOnKill4"] = {
@@ -1925,6 +1831,7 @@ skills["EnchantmentOfThunderOnKill4"] = {
 	color = 4,
 	description = "Damaging cones of lightning surround you.",
 	skillTypes = { [2] = true, [11] = true, [31] = true, [35] = true, [42] = true, [36] = true, },
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -1932,22 +1839,19 @@ skills["EnchantmentOfThunderOnKill4"] = {
 		hit = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("CritChance", 7), 
-		skill("cooldown", 5), 
-		skill("LightningMin", 1519), --"spell_minimum_base_lightning_damage" = 1519
-		skill("LightningMax", 2405), --"spell_maximum_base_lightning_damage" = 2405
-		--"chance_to_cast_on_kill_%_target_self" = 100
-		--"is_area_damage" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"chance_to_cast_on_kill_%_target_self",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 1519, 2405, 100, critChance = 7, cooldown = 5, levelRequirement = 75, },
 	},
 }
 skills["EnchantmentOfWarOnKill"] = {
@@ -1971,26 +1875,25 @@ skills["EnchantmentOfWarOnKill"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("cooldown", 5), 
-		skill("duration", 10), --"base_skill_effect_duration" = 10000
-		--"number_of_monsters_to_summon" = 1
-		--"attack_trigger_on_kill_%" = 100
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 50) }), --"active_skill_minion_damage_+%_final" = 50
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"attack_trigger_on_kill_%",
+		"active_skill_minion_damage_+%_final",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 10000, 1, 100, 50, cooldown = 5, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfWarOnKill2"] = {
@@ -2014,26 +1917,25 @@ skills["EnchantmentOfWarOnKill2"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("cooldown", 5), 
-		skill("duration", 10), --"base_skill_effect_duration" = 10000
-		--"number_of_monsters_to_summon" = 1
-		--"attack_trigger_on_kill_%" = 100
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 100) }), --"active_skill_minion_damage_+%_final" = 100
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"attack_trigger_on_kill_%",
+		"active_skill_minion_damage_+%_final",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 10000, 1, 100, 100, cooldown = 5, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfWarOnKill3"] = {
@@ -2057,26 +1959,25 @@ skills["EnchantmentOfWarOnKill3"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("cooldown", 5), 
-		skill("duration", 10), --"base_skill_effect_duration" = 10000
-		--"number_of_monsters_to_summon" = 1
-		--"attack_trigger_on_kill_%" = 100
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 150) }), --"active_skill_minion_damage_+%_final" = 150
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"attack_trigger_on_kill_%",
+		"active_skill_minion_damage_+%_final",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 10000, 1, 100, 150, cooldown = 5, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfWarOnKill4"] = {
@@ -2100,26 +2001,25 @@ skills["EnchantmentOfWarOnKill4"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
+	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		attack = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("castTime", 1), 
-		skill("cooldown", 5), 
-		skill("duration", 10), --"base_skill_effect_duration" = 10000
-		--"number_of_monsters_to_summon" = 1
-		--"attack_trigger_on_kill_%" = 100
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 200) }), --"active_skill_minion_damage_+%_final" = 200
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"attack_trigger_on_kill_%",
+		"active_skill_minion_damage_+%_final",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 10000, 1, 100, 200, cooldown = 5, levelRequirement = 75, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit"] = {
@@ -2128,6 +2028,7 @@ skills["EnchantmentOfWinterWhenHit"] = {
 	color = 4,
 	description = "Unleashes an icy projectile that pulses with cold as it travels.",
 	skillTypes = { [3] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [42] = true, },
+	castTime = 1.4,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -2135,24 +2036,21 @@ skills["EnchantmentOfWinterWhenHit"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1.4), 
-		skill("CritChance", 5), 
-		skill("cooldown", 10), 
-		skill("ColdMin", 48), --"spell_minimum_base_cold_damage" = 48
-		skill("ColdMax", 76), --"spell_maximum_base_cold_damage" = 76
-		--"skill_art_variation" = 1
-		--"cast_when_hit_%" = 100
-		--"is_area_damage" = ?
-		--"base_is_projectile" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"cast_when_hit_%",
+		"is_area_damage",
+		"base_is_projectile",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 32, },
+		[1] = { 48, 76, 1, 100, critChance = 5, cooldown = 10, levelRequirement = 32, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit2"] = {
@@ -2161,6 +2059,7 @@ skills["EnchantmentOfWinterWhenHit2"] = {
 	color = 4,
 	description = "Unleashes an icy projectile that pulses with cold as it travels.",
 	skillTypes = { [3] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [42] = true, },
+	castTime = 1.4,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -2168,24 +2067,21 @@ skills["EnchantmentOfWinterWhenHit2"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1.4), 
-		skill("CritChance", 5), 
-		skill("cooldown", 10), 
-		skill("ColdMin", 221), --"spell_minimum_base_cold_damage" = 221
-		skill("ColdMax", 340), --"spell_maximum_base_cold_damage" = 340
-		--"skill_art_variation" = 1
-		--"cast_when_hit_%" = 100
-		--"is_area_damage" = ?
-		--"base_is_projectile" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"cast_when_hit_%",
+		"is_area_damage",
+		"base_is_projectile",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 53, },
+		[1] = { 221, 340, 1, 100, critChance = 5, cooldown = 10, levelRequirement = 53, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit3"] = {
@@ -2194,6 +2090,7 @@ skills["EnchantmentOfWinterWhenHit3"] = {
 	color = 4,
 	description = "Unleashes an icy projectile that pulses with cold as it travels.",
 	skillTypes = { [3] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [42] = true, },
+	castTime = 1.4,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -2201,24 +2098,21 @@ skills["EnchantmentOfWinterWhenHit3"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1.4), 
-		skill("CritChance", 5), 
-		skill("cooldown", 10), 
-		skill("ColdMin", 557), --"spell_minimum_base_cold_damage" = 557
-		skill("ColdMax", 836), --"spell_maximum_base_cold_damage" = 836
-		--"skill_art_variation" = 1
-		--"cast_when_hit_%" = 100
-		--"is_area_damage" = ?
-		--"base_is_projectile" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"cast_when_hit_%",
+		"is_area_damage",
+		"base_is_projectile",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 66, },
+		[1] = { 557, 836, 1, 100, critChance = 5, cooldown = 10, levelRequirement = 66, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit4"] = {
@@ -2227,6 +2121,7 @@ skills["EnchantmentOfWinterWhenHit4"] = {
 	color = 4,
 	description = "Unleashes an icy projectile that pulses with cold as it travels.",
 	skillTypes = { [3] = true, [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [42] = true, },
+	castTime = 1.4,
 	fromItem = true,
 	baseFlags = {
 		spell = true,
@@ -2234,23 +2129,20 @@ skills["EnchantmentOfWinterWhenHit4"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("castTime", 1.4), 
-		skill("CritChance", 5), 
-		skill("cooldown", 10), 
-		skill("ColdMin", 1020), --"spell_minimum_base_cold_damage" = 1020
-		skill("ColdMax", 1615), --"spell_maximum_base_cold_damage" = 1615
-		--"skill_art_variation" = 1
-		--"cast_when_hit_%" = 100
-		--"is_area_damage" = ?
-		--"base_is_projectile" = ?
-		--"damage_cannot_be_reflected" = ?
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
-		[1] = skill("levelRequirement", nil), 
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"cast_when_hit_%",
+		"is_area_damage",
+		"base_is_projectile",
+		"damage_cannot_be_reflected",
 	},
+	statInterpolation = { },
 	levels = {
-		[1] = { 75, },
+		[1] = { 1020, 1615, 1, 100, critChance = 5, cooldown = 10, levelRequirement = 75, },
 	},
 }

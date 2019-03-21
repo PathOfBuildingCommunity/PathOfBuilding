@@ -6,12 +6,10 @@
 -- undoState = :CreateUndoState()	Returns a new undo state that reflects the current state
 -- :RestoreUndoState(undoState)		Reverts the current state to the given undo state
 --
-local launch, main = ...
-
 local t_insert = table.insert
 local t_remove = table.remove
 
-local UndoHandlerClass = common.NewClass("UndoHandler", function(self)
+local UndoHandlerClass = newClass("UndoHandler", function(self)
 	self.undo = { }
 	self.redo = { }
 end)

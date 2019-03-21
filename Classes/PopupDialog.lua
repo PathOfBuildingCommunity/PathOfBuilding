@@ -3,11 +3,9 @@
 -- Class: Popup Dialog
 -- Popup Dialog Box with a configurable list of controls
 --
-local launch, main = ...
-
 local m_floor = math.floor
 
-local PopupDialogClass = common.NewClass("PopupDialog", "ControlHost", "Control", function(self, width, height, title, controls, enterControl, defaultControl, escapeControl)
+local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control", function(self, width, height, title, controls, enterControl, defaultControl, escapeControl)
 	self.ControlHost()
 	self.Control(nil, 0, 0, width, height)
 	self.x = function()

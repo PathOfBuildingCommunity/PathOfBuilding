@@ -399,6 +399,61 @@ Radius: Large
 Adds 1 maximum Lightning Damage to Attacks per 1 Dexterity Allocated in Radius
 Adds 1 to 2 Lightning Damage to Attacks
 ]],[[
+Tempered Flesh
+Crimson Jewel
+League: Incursion
+Source: Drops from unique{The Vaal Omnitect}
+Upgrade: Upgrades to unique{Transcendent Flesh} via currency{Vial of Transcendence}
+Radius: Medium
+-1 Strength per 1 Strength on Allocated Passives in Radius
++5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+]],[[
+Transcendent Flesh
+Crimson Jewel
+League: Incursion
+Source: Upgraded from unique{Tempered Flesh} via currency{Vial of Transcendence}
+Radius: Medium
+-1 Strength per 1 Strength on Allocated Passives in Radius
+1% additional Physical Damage Reduction per 10 Strength on Allocated Passives in Radius
++5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+]],[[
+Tempered Mind
+Cobalt Jewel
+League: Incursion
+Source: Drops from unique{The Vaal Omnitect}
+Upgrade: Upgrades to unique{Transcendent Mind} via currency{Vial of Transcendence}
+Radius: Medium
+-1 Intelligence per 1 Intelligence on Allocated Passives in Radius
++100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+]],[[
+Transcendent Mind
+Cobalt Jewel
+League: Incursion
+Source: Upgraded from unique{Tempered Mind} via currency{Vial of Transcendence}
+Radius: Medium
+-1 Intelligence per 1 Intelligence on Allocated Passives in Radius
+0.4% of Energy Shield Regenerated per Second for
+every 10 Intelligence on Allocated Passives in Radius
++100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+]],[[
+Tempered Spirit
+Viridian Jewel
+League: Incursion
+Source: Drops from unique{The Vaal Omnitect}
+Upgrade: Upgrades to unique{Transcendent Spirit} via currency{Vial of Transcendence}
+Radius: Medium
+-1 Dexterity per 1 Dexterity on Allocated Passives in Radius
++15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
+]],[[
+Transcendent Spirit
+Viridian Jewel
+League: Incursion
+Source: Upgraded from unique{Tempered Spirit} via currency{Vial of Transcendence}
+Radius: Medium
+-1 Dexterity per 1 Dexterity on Allocated Passives in Radius
+2% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
++15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
+]],[[
 To Dust
 Cobalt Jewel
 Variant: Current
@@ -407,6 +462,13 @@ Minions deal (8-12)% increased Damage
 (3-5)% increased Skeleton Movement Speed
 (7-10)% increased Skeleton Attack Speed
 (7-10)% increased Skeleton Cast speed
+]],[[
+Unnatural Instinct
+Viridian Jewel
+Limited to: 1
+Radius: Small
+Allocated Small Passive Skills in Radius grant nothing
+Grants all bonuses of Unallocated Small Passive Skills in Radius
 ]],[[
 Unstable Payload
 Cobalt Jewel
@@ -596,6 +658,30 @@ Limited to: 1
 ]],
 -- Jewel: Threshold
 [[
+Combat Focus
+Crimson Jewel
+Limited to: 2
+Radius: Medium
+Elemental Hit deals (10–15)% increased Damage
+With 40 total Strength and Intelligence in Radius, Elemental Hit cannot choose Cold
+With 40 total Strength and Intelligence in Radius, Elemental Hit deals 50% less Cold Damage
+]],[[
+Combat Focus
+Cobalt Jewel
+Limited to: 2
+Radius: Medium
+Elemental Hit deals (10–15)% increased Damage
+With 40 total Intelligence and Dexterity in Radius, Elemental Hit cannot choose Fire
+With 40 total Intelligence and Dexterity in Radius, Elemental Hit deals 50% less Fire Damage
+]],[[
+Combat Focus
+Viridian Jewel
+Limited to: 2
+Radius: Medium
+Elemental Hit deals (10–15)% increased Damage
+With 40 total Dexterity and Strength in Radius, Elemental Hit cannot choose Lightning
+With 40 total Dexterity and Strength in Radius, Elemental Hit deals 50% less Lightning Damage
+]],[[
 Collateral Damage
 Viridian Jewel
 Limited to: 2
@@ -847,7 +933,7 @@ With at least 40 Strength in Radius, Heavy Strike has a 20% chance to deal Doubl
 ]],[[
 Wildfire
 Crimson Jewel
-Limited to: 2
+Limited to: 1
 Radius: Medium
 (10–15)% increased Fire Damage 
 With at least 40 Strength in Radius, Molten Strike fires 2 additional Projectiles
@@ -966,7 +1052,7 @@ Self-Flagellation
 Viridian Jewel
 Limited to: 1
 Implicits: 0
-You can have one additional Curse
+An additional Curse can be applied to you
 (10-20)% increased Damage per Curse on you
 Corrupted
 ]],[[

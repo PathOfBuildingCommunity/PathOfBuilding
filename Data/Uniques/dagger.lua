@@ -6,13 +6,15 @@ return {
 Arakaali's Fang
 Fiend Dagger
 Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 53, 58 Dex, 123 Int
 40% increased Global Critical Strike Chance
+{variant:1,2}20% chance to Trigger Level 1 Raise Spiders on Kill
+{variant:3}100% chance to Trigger Level 1 Raise Spiders on Kill
 (170-200)% increased Physical Damage
 Adds (8-13) to (20-30) Physical Damage
 Adds 1 to 59 Chaos Damage
-20% chance to Trigger Level 1 Raise Spiders on Kill
 15% chance to Poison on Hit
 ]],[[
 Bino's Kitchen Knife
@@ -88,7 +90,7 @@ Adds (1-2) to (3-5) Physical Damage
 Sanguine Gambol
 Skinning Knife
 Source: Upgraded from unique{Goredrill} via prophecy{Crimson Hues}
-Requires Level 5
+Requires Level 59
 30% increased Global Critical Strike Chance
 (50–70)% increased Physical Damage
 Adds (70–85) to (110–118) Physical Damage
@@ -167,16 +169,25 @@ Adds 3 to 30 Lightning Damage
 ]],[[
 Vulconus
 Demon Dagger
+Variant: Pre 3.5.0
+Variant: Current
 Source: Drops from unique{The Enslaver} (Tier 11+)
 Requires Level 68
 40% increased Global Critical Strike Chance 
-Attacks with this Weapon deal (80–100) to (160–200) added Fire Damage to Bleeding Enemies 
-Attacks with this Weapon deal (80–100) to (160–200) added Physical Damage to Ignited Enemies 
-Attacks with this Weapon have 25% chance to inflict Bleeding against Ignited Enemies 
+Adds (85-110) to (130-150) Physical Damage
+Adds (130-160) to (220-240) Fire Damage
+{variant:2}50% chance to cause Bleeding on Hit
+{variant:1}Attacks with this Weapon deal (80–100) to (160–200) added Fire Damage to Bleeding Enemies 
+{variant:1}Attacks with this Weapon deal (80–100) to (160–200) added Physical Damage to Ignited Enemies 
+{variant:1}Attacks with this Weapon have 25% chance to inflict Bleeding against Ignited Enemies 
+{variant:2}(75-100)% increased Fire Damage with Hits and Ailments against Bleeding Enemies
+{variant:2}(75-100)% increased Physical Damage with Hits and Ailments against Ignited Enemies
 Every 8 seconds, gain Avatar of Fire for 4 seconds 
-(80–120)% increased Critical Strike Chance while you have Avatar of Fire 
+{variant:1}(80–120)% increased Critical Strike Chance while you have Avatar of Fire 
+{variant:2}(160-200)% increased Critical Strike Chance while you have Avatar of Fire 
 50% of Physical Damage Converted to Fire while you have Avatar of Fire 
-+1000 Armour while you do not have Avatar of Fire
+{variant:1}+1000 Armour while you do not have Avatar of Fire
+{variant:2}+2000 Armour while you do not have Avatar of Fire
 ]],[[
 White Wind
 Imperial Skean

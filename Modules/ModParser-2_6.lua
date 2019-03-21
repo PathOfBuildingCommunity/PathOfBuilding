@@ -615,7 +615,7 @@ local modTagList = {
 	["if energy shield recharge has started recently"] = { tag = { type = "Condition", var = "EnergyShieldRechargeRecently" } },
 	-- Enemy status conditions
 	["at close range"] = { tag = { type = "Condition", var = "AtCloseRange" }, flags = ModFlag.Hit },
-	["against rare and unique enemies"] = { tag = { type = "Condition", var = "EnemyRareOrUnique" }, flags = ModFlag.Hit },
+	["against rare and unique enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }, flags = ModFlag.Hit },
 	["against enemies on full life"] = { tag = { type = "ActorCondition", actor = "enemy", var = "FullLife" }, flags = ModFlag.Hit },
 	["against enemies that are on full life"] = { tag = { type = "ActorCondition", actor = "enemy", var = "FullLife" }, flags = ModFlag.Hit },
 	["against enemies on low life"] = { tag = { type = "ActorCondition", actor = "enemy", var = "LowLife" }, flags = ModFlag.Hit },

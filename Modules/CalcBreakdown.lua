@@ -46,7 +46,7 @@ function breakdown.simple(extraBase, cfg, total, ...)
 	local base = modDB:Sum("BASE", cfg, (...))
 	if (base + extraBase) ~= 0 then
 		local inc = modDB:Sum("INC", cfg, ...)
-		local more = modDB:Sum("MORE", cfg, ...)
+		local more = modDB:More(cfg, ...)
 		if inc ~= 0 or more ~= 1 or (base ~= 0 and extraBase ~= 0) then
 			local out = { }
 			if base ~= 0 and extraBase ~= 0 then
@@ -68,7 +68,7 @@ end
 
 function breakdown.mod(cfg, ...)
 	local inc = modDB:Sum("INC", cfg, ...)
-	local more = modDB:Sum("MORE", cfg, ...)
+	local more = modDB:More(cfg, ...)
 	if inc ~= 0 and more ~= 1 then
 		return { 
 			s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
@@ -80,7 +80,7 @@ end
 
 function breakdown.slot(source, sourceName, cfg, base, total, ...)
 	local inc = modDB:Sum("INC", cfg, ...)
-	local more = modDB:Sum("MORE", cfg, ...)
+	local more = modDB:More(cfg, ...)
 	t_insert(breakdown[...].slots, {
 		base = base,
 		inc = (inc ~= 0) and s_format(" x %.2f", 1 + inc/100),
@@ -128,11 +128,12 @@ function breakdown.effMult(damageType, resist, pen, taken, mult)
 	return out
 end
 
-function breakdown.dot(out, baseVal, inc, more, rate, effMult, total)
+function breakdown.dot(out, baseVal, inc, more, mult, rate, effMult, total)
 	breakdown.multiChain(out, {
 		base = s_format("%.1f ^8(base damage per second)", baseVal), 
 		{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 		{ "%.2f ^8(more/less)", more },
+		{ "%.2f ^8(multiplier)", 1 + (mult or 0)/100 },
 		{ "%.2f ^8(rate modifier)", rate },
 		{ "%.3f ^8(effective DPS modifier)", effMult },
 		total = s_format("= %.1f ^8per second", total),

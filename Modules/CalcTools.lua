@@ -3,8 +3,9 @@
 -- Module: Calc Tools
 -- Various functions used by the calculation modules
 --
-
 local pairs = pairs
+local t_insert = table.insert
+local t_remove = table.remove
 local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
@@ -12,15 +13,15 @@ local m_max = math.max
 calcLib = { }
 
 -- Calculate and combine INC/MORE modifiers for the given modifier names
-function calcLib.mod(modDB, cfg, ...)
-	return (1 + (modDB:Sum("INC", cfg, ...)) / 100) * modDB:Sum("MORE", cfg, ...)
+function calcLib.mod(modStore, cfg, ...)
+	return (1 + (modStore:Sum("INC", cfg, ...)) / 100) * modStore:More(cfg, ...)
 end
 
 -- Calculate value
-function calcLib.val(modDB, name, cfg)
-	local baseVal = modDB:Sum("BASE", cfg, name)
+function calcLib.val(modStore, name, cfg)
+	local baseVal = modStore:Sum("BASE", cfg, name)
 	if baseVal ~= 0 then
-		return baseVal * calcLib.mod(modDB, cfg, name)
+		return baseVal * calcLib.mod(modStore, cfg, name)
 	else
 		return 0
 	end
@@ -67,8 +68,23 @@ function calcLib.canGrantedEffectSupportTypes(grantedEffect, skillTypes)
 	if not grantedEffect.requireSkillTypes[1] then
 		return true
 	end
+	-- Check for required types using a boolean postfix expression
+	local stack = { }
 	for _, skillType in pairs(grantedEffect.requireSkillTypes) do
-		if skillTypes[skillType] then
+		if skillType == SkillType.OR then
+			local other = t_remove(stack)
+			stack[#stack] = stack[#stack] or other
+		elseif skillType == SkillType.AND then
+			local other = t_remove(stack)
+			stack[#stack] = stack[#stack] and other
+		elseif skillType == SkillType.NOT then
+			stack[#stack] = not stack[#stack]
+		else
+			t_insert(stack, skillTypes[skillType] == true)
+		end
+	end
+	for _, val in ipairs(stack) do
+		if val then
 			return true
 		end
 	end
@@ -133,4 +149,44 @@ function calcLib.getGemStatRequirement(level, isSupport, multi)
 	end
 	local req = round(level * a + b)
     return req < 14 and 0 or req
+end
+
+-- Build table of stats for the given skill instance
+function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
+	local stats = { }
+	if skillInstance.quality > 0 then
+		for _, stat in ipairs(grantedEffect.qualityStats) do
+			stats[stat[1]] = (stats[stat[1]] or 0) + m_floor(stat[2] * skillInstance.quality)
+		end
+	end
+	local level = grantedEffect.levels[skillInstance.level]
+	local availableEffectiveness
+	if not skillInstance.actorLevel then
+		skillInstance.actorLevel = level.levelRequirement
+	end
+	for index, stat in ipairs(grantedEffect.stats) do
+		local statValue
+		if grantedEffect.statInterpolation[index] == 3 then
+			-- Effectiveness interpolation
+			if not availableEffectiveness then
+				availableEffectiveness = 
+					(3.885209 + 0.360246 * (skillInstance.actorLevel - 1)) * grantedEffect.baseEffectiveness
+					* (1 + grantedEffect.incrementalEffectiveness) ^ (skillInstance.actorLevel - 1)
+			end
+			statValue = round(availableEffectiveness * level[index])
+		elseif grantedEffect.statInterpolation[index] == 2 then
+			-- Linear interpolation; I'm actually just guessing how this works
+			local nextLevel = m_min(skillInstance.level + 1, #grantedEffect.levels)
+			local nextReq = grantedEffect.levels[nextLevel].levelRequirement
+			local prevReq = grantedEffect.levels[nextLevel - 1].levelRequirement
+			local nextStat = grantedEffect.levels[nextLevel][index]
+			local prevStat = grantedEffect.levels[nextLevel - 1][index]
+			statValue = round(prevStat + (nextStat - prevStat) * (skillInstance.actorLevel - prevReq) / (nextReq - prevReq))
+		else
+			-- Static value
+			statValue = level[index] or 1
+		end
+		stats[stat] = (stats[stat] or 0) + statValue
+	end
+	return stats
 end

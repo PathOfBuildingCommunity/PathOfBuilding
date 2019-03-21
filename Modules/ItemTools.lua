@@ -3,8 +3,6 @@
 -- Module: Item Tools
 -- Various functions for dealing with items.
 --
-local launch = ...
-
 local t_insert = table.insert
 local t_remove = table.remove
 local m_min = math.min
@@ -53,7 +51,7 @@ function itemLib.formatModLine(modLine, dbMode)
 			line = line .. "   ^1'" .. modLine.extra .. "'"
 		end
 	else
-		colorCode = (modLine.crafted and colorCodes.CRAFTED) or (modLine.custom and colorCodes.CUSTOM) or colorCodes.MAGIC
+		colorCode = (modLine.crafted and colorCodes.CRAFTED) or (modLine.custom and colorCodes.CUSTOM) or (modLine.fractured and colorCodes.FRACTURED) or colorCodes.MAGIC
 	end
 	return colorCode..line
 end

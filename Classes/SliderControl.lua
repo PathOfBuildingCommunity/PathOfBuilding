@@ -3,13 +3,11 @@
 -- Class: Slider Control
 -- Basic slider control.
 --
-local launch, main = ...
-
 local m_min = math.min
 local m_max = math.max
 local m_ceil = math.ceil
 
-local SliderClass = common.NewClass("SliderControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, changeFunc)
+local SliderClass = newClass("SliderControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, changeFunc)
 	self.Control(anchor, x, y, width, height)
 	self.TooltipHost()
 	self.knobSize = height - 2

@@ -3,8 +3,6 @@
 -- Class: Item
 -- Equippable item class
 --
-local launch, main = ...
-
 local t_insert = table.insert
 local t_remove = table.remove
 local m_min = math.min
@@ -13,7 +11,7 @@ local m_floor = math.floor
 
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 
-local ItemClass = common.NewClass("Item", function(self, targetVersion, raw)
+local ItemClass = newClass("Item", function(self, targetVersion, raw)
 	self.targetVersion = targetVersion
 	if raw then
 		self:ParseRaw(itemLib.sanitiseItemText(raw))
@@ -87,11 +85,12 @@ function ItemClass:ParseRaw(raw)
 		if self.rawLines[l] == "Two-Toned Boots" then
 			self.rawLines[l] = "Two-Toned Boots (Armour/Energy Shield)"
 		end
-		if verData.itemBases[self.rawLines[l]] then
-			self.baseName = self.rawLines[l]
+		local baseName = self.rawLines[l]:gsub("Synthesised ","")
+		if verData.itemBases[baseName] then
+			self.baseName = baseName
 			self.title = self.name
-			self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)","")
-			self.type = verData.itemBases[self.baseName].type
+			self.name = self.title .. ", " .. baseName:gsub(" %(.+%)","")
+			self.type = verData.itemBases[baseName].type
 			l = l + 1
 		end
 	end
@@ -151,6 +150,10 @@ function ItemClass:ParseRaw(raw)
 			self.shaper = true
 		elseif line == "Elder Item" then
 			self.elder = true
+		elseif line == "Fractured Item" then
+			self.fractured = true
+		elseif line == "Synthesised Item" then
+			self.synthesised = true
 		else
 			local specName, specVal = line:match("^([%a ]+): (%x+)$")
 			if not specName then
@@ -273,10 +276,11 @@ function ItemClass:ParseRaw(raw)
 						variantList[tonumber(varId)] = true
 					end
 				end
+				local fractured = line:match("{fractured}") or line:match(" %(fractured%)")
 				local rangeSpec = line:match("{range:([%d.]+)}")
-				local crafted = line:match("{crafted}")
+				local crafted = line:match("{crafted}") or line:match(" %(crafted%)")
 				local custom = line:match("{custom}")
-				line = line:gsub("%b{}", "")
+				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)","")
 				local rangedLine
 				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
 					rangedLine = itemLib.applyRange(line, 1)
@@ -297,7 +301,7 @@ function ItemClass:ParseRaw(raw)
 					end
 				end
 				if modList then
-					t_insert(self.modLines, { line = line, extra = extra, modList = modList, variantList = variantList, crafted = crafted, custom = custom, range = rangedLine and (tonumber(rangeSpec) or 0.5) })
+					t_insert(self.modLines, { line = line, extra = extra, modList = modList, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured, range = rangedLine and (tonumber(rangeSpec) or 0.5) })
 					if mode == "GAME" then
 						if gameModeStage == "FINDIMPLICIT" then
 							gameModeStage = "IMPLICIT"
@@ -312,12 +316,12 @@ function ItemClass:ParseRaw(raw)
 					end
 				elseif mode == "GAME" then
 					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" then
-						t_insert(self.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted, custom = custom })
+						t_insert(self.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
 					end
 				elseif foundExplicit then
-					t_insert(self.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted, custom = custom })
+					t_insert(self.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured })
 				end
 			end
 		end
@@ -501,6 +505,9 @@ function ItemClass:BuildRaw()
 			if modLine.custom then
 				line = "{custom}" .. line
 			end
+			if modLine.fractured then
+				line = "{fractured}" .. line
+			end
 			if modLine.variantList then
 				local varSpec
 				for varId in pairs(modLine.variantList) do
@@ -636,7 +643,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	if slotNum == 2 then
 		slotName = slotName:gsub("1", "2")
 	end
-	local modList = common.New("ModList")
+	local modList = new("ModList")
 	for _, baseMod in ipairs(baseList) do
 		local mod = copyTable(baseMod)
 		local add = true
@@ -699,7 +706,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		end
 		weaponData.CritChance = round(self.base.weapon.CritChanceBase * (1 + sumLocal(modList, "CritChance", "INC", 0) / 100), 2)
-		for _, value in ipairs(modList:Sum("LIST", nil, "WeaponData")) do
+		for _, value in ipairs(modList:List(nil, "WeaponData")) do
 			weaponData[value.key] = value.value
 		end
 		if self.targetVersion == "2_6" then
@@ -751,7 +758,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		if self.base.armour.MovementPenalty then
 			modList:NewMod("MovementSpeed", "INC", -self.base.armour.MovementPenalty, self.modSource, { type = "Condition", var = "IgnoreMovementPenalties", neg = true })
 		end
-		for _, value in ipairs(modList:Sum("LIST", nil, "ArmourData")) do
+		for _, value in ipairs(modList:List(nil, "ArmourData")) do
 			armourData[value.key] = value.value
 		end
 	elseif self.base.flask then
@@ -783,16 +790,16 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		flaskData.chargesUsed = m_floor(self.base.flask.chargesUsed * (1 + sumLocal(modList, "FlaskChargesUsed", "INC", 0) / 100))
 		flaskData.gainMod = 1 + sumLocal(modList, "FlaskChargeRecovery", "INC", 0) / 100
 		flaskData.effectInc = sumLocal(modList, "FlaskEffect", "INC", 0)
-		for _, value in ipairs(modList:Sum("LIST", nil, "FlaskData")) do
+		for _, value in ipairs(modList:List(nil, "FlaskData")) do
 			flaskData[value.key] = value.value
 		end
 	elseif self.type == "Jewel" then
 		local jewelData = self.jewelData
-		for _, func in ipairs(modList:Sum("LIST", nil, "JewelFunc")) do
+		for _, func in ipairs(modList:List(nil, "JewelFunc")) do
 			jewelData.funcList = jewelData.funcList or { }
 			t_insert(jewelData.funcList, func)
 		end
-		for _, value in ipairs(modList:Sum("LIST", nil, "JewelData")) do
+		for _, value in ipairs(modList:List(nil, "JewelData")) do
 			jewelData[value.key] = value.value
 		end
 	end	
@@ -804,7 +811,7 @@ function ItemClass:BuildModList()
 	if not self.base then
 		return
 	end
-	local baseList = common.New("ModList")
+	local baseList = new("ModList")
 	if self.base.weapon then
 		self.weaponData = { }
 	elseif self.base.armour then
@@ -851,7 +858,7 @@ function ItemClass:BuildModList()
 		self.requirements.intMod = m_floor((self.requirements.int + sumLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "IntRequirement", "INC", 0) / 100))
 	end
 	self.grantedSkills = { }
-	for _, skill in ipairs(baseList:Sum("LIST", nil, "ExtraSkill")) do
+	for _, skill in ipairs(baseList:List(nil, "ExtraSkill")) do
 		if skill.name ~= "Unknown" then
 			t_insert(self.grantedSkills, {
 				skillId = skill.skillId,

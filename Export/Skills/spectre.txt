@@ -194,6 +194,10 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #mods
 
+#skill MassPower Mass Power
+#flags spell area
+#mods
+
 #skill MinerThrowFireSpectre Throw Fire
 #flags spell projectile area duration
 #mods

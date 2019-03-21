@@ -38,6 +38,7 @@ The easiest way to make and test changes is by setting up a development install,
 
 You can now use the shortcut to run the program from the repository. Running the program in this manner automatically enables 'Dev Mode', which has some handy debugging feature:
 * `F5` restarts the program in-place (this is what usually happens when an update is applied).
+* `Ctrl` + `~` toggles the console; ConPrintf can be used to output to it.
 * Holding `Alt` adds additional debugging information to tooltips:
   * Items and passives show all internal modifiers that they are granting.
   * Stats that aren't parsed correctly will show any unrecognised parts of the stat description.
@@ -47,3 +48,9 @@ You can now use the shortcut to run the program from the repository. Running the
 * Holding `Ctrl` while launching the program will rebuild the `ModCache`
 
 Note that the updates system is disabled in Dev Mode, so you must update manually.
+
+The repository also contains the system used to export data from the game's Content.ggpk file. This can be found in the Export folder.
+The data is exported using the scripts in Export/Scripts, which are run from within the .dat viewer.
+The viewer can be run using the same method as the main program: passing the path to Export/Launch.lua to Path of Building.exe.
+Once open, enter the path to your PoE installation's Content.ggpk file in the text box at the top left; if successful, you will see a list of the data tables in the .ggpk file.
+Double-clicking a script in the scripts list will run it, and the box to the right will show any messages from the script.

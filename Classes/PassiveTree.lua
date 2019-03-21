@@ -5,8 +5,6 @@
 -- Responsible for downloading and loading the passive tree data and assets
 -- Also pre-calculates and pre-parses most of the data need to use the passive tree, including the node modifiers
 --
-local launch, main = ...
-
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
@@ -33,7 +31,7 @@ local function getFile(URL)
 	return #page > 0 and page
 end
 
-local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVersion)
+local PassiveTreeClass = newClass("PassiveTree", function(self, targetVersion)
 	self.targetVersion = targetVersion
 
 	MakeDir("TreeData")
@@ -65,7 +63,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		self[k] = v
 	end
 
-	local cdnRoot = targetVersion == "2_6" and "" or "https://web.poecdn.com"
+	local cdnRoot = targetVersion == "2_6" and "" or ""--https://web.poecdn.com"
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
 
@@ -289,7 +287,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		end
 
 		-- Build unified list of modifiers from all recognised modifier lines
-		node.modList = common.New("ModList")
+		node.modList = new("ModList")
 		for _, mod in pairs(node.mods) do
 			if mod.list and not mod.extra then
 				for i, mod in ipairs(mod.list) do

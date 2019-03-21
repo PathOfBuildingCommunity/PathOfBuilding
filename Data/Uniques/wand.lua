@@ -186,11 +186,14 @@ Socketed Gems are Supported by level 1 Controlled Destruction
 ]],[[
 Shade of Solaris
 Sage Wand
+Variant: Pre 3.5.0
+Variant: Current
 Requires Level 30, 119 Int
 (17-21)% increased Spell Damage
 Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 Critical Strikes deal no Damage
-120% increased Spell Damage if you've dealt a Critical Strike Recently
+{variant:1}120% increased Spell Damage if you've dealt a Critical Strike Recently
+{variant:2}200% increased Spell Damage if you've dealt a Critical Strike in the past 8 seconds
 ]],[[
 Shimmeron
 Tornado Wand
