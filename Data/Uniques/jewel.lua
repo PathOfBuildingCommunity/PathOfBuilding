@@ -431,6 +431,13 @@ Variant: Hatred: Crit Chance
 Variant: Hatred: Cold Pen
 Variant: Hatred: Inc. Cold Dmg
 Variant: Hatred: Physical Convert Cold
+Variant: Malevolence: Skill Duration
+Variant: Malevolence: Chaos DoT Mult.
+Variant: Malevolence: Cold DoT Mult.
+Variant: Malevolence: Inc. Recovery Rate
+Variant: Malevolence: Poison Immune
+Variant: Malevolence: Bleeding Immune
+Variant: Malevolence: Faster Ailment Damage
 Variant: Purity of Elements: Chaos Resistance
 Variant: Purity of Elements: Red. Reflected Ele.
 Variant: Purity of Elements: Phys as Cold
@@ -463,6 +470,13 @@ Variant: Wrath: Light Leech
 Variant: Wrath: Light Pen
 Variant: Wrath: Phys Add Light
 Variant: Wrath: Phys Convert Light
+Variant: Zealotry: Resistance Pen
+Variant: Zealotry: Inc. Cast Speed
+Variant: Zealotry: Consecrated Ground Lingers
+Variant: Zealotry: Inc. Dmg. Cons. Gr
+Variant: Zealotry: Arcane Surge
+Variant: Zealotry: ES Leech
+Variant: Zealotry: Inc. Crit
 Limited to: 1
 (4–6)% increased maximum Energy Shield
 (4–6)% increased maximum Life 
@@ -506,38 +520,52 @@ Limited to: 1
 {variant:38}Damage Penetrates (10-15)% Cold Resistance while affected by Hatred
 {variant:39}(40-60)% increased Cold Damage while affected by Hatred
 {variant:40}(25-40)% of Physical Damage Converted to Cold Damage while affected by Hatred
-{variant:41}+(30-50)% to Chaos Resistance while affected by Purity of Elements
-{variant:42}(50-40)% reduced Reflected Elemental Damage taken while affected by Purity of Elements
-{variant:43}(8-12)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Elements
-{variant:44}(8-12)% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Elements
-{variant:45}(8-12)% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Elements
-{variant:46}Unaffected by Elemental Weakness while affected by Purity of Elements
-{variant:47}Immune to Ignite while affected by Purity of Fire
-{variant:48}(50-40)% reduced Reflected Fire Damage taken while affected by Purity of Fire
-{variant:49}(6-10)% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Fire
-{variant:50}Unaffected by Burning Ground while affected by Purity of Fire
-{variant:51}Unaffected by Flammability while affected by Purity of Fire
-{variant:52}Immune to Freeze while affected by Purity of Ice
-{variant:53}(50-40)% reduced Reflected Cold Damage taken while affected by Purity of Ice
-{variant:54}(6-10)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Ice
-{variant:55}Unaffected by Chilled Ground while affected by Purity of Ice
-{variant:56}Unaffected by Frostbite while affected by Purity of Ice
-{variant:57}Immune to Shock while affected by Purity of Lightning
-{variant:58}(50-40)% reduced Reflected Lightning Damage taken while affected by Purity of Lightning
-{variant:59}(6-10)% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Lightning
-{variant:60}Unaffected by Conductivity while affected by Purity of Lightning
-{variant:61}Unaffected by Shocked Ground while affected by Purity of Lightning
-{variant:62}(1-1.5)% of Damage leeched as Life while affected by Vitality
-{variant:63}(100-140) Life Regenerated per Second while affected by Vitality
-{variant:64}+(20-30) Life gained for each Enemy Hit while affected by Vitality
-{variant:65}(50-70)% increased Life Recovery from Flasks while affected by Vitality
-{variant:66}(20-30)% increased Life Recovery Rate while affected by Vitality
-{variant:67}(70-100)% increased Critical Strike Chance while affected by Wrath
-{variant:68}(40-60)% increased Lightning Damage while affected by Wrath
-{variant:69}(1-1.5)% of Lightning Damage is Leeched as Mana while affected by Wrath
-{variant:70}Damage Penetrates (10-15)% Lightning Resistance while affected by Wrath
-{variant:71}Gain (15-25)% of Physical Damage as Extra Lightning Damage while affected by Wrath
-{variant:72}(25-40)% of Physical Damage Converted to Lightning Damage while affected by Wrath
+{variant:41}(20–30)% increased Skill Effect Duration while affected by Malevolence
+{variant:42}+(18–22)% to Non-Ailment Chaos Damage over Time Multiplier while affected by Malevolence
+{variant:43}+(18–22)% to Cold Damage over Time Multiplier while affected by Malevolence
+{variant:44}(15–20)% increased Recovery rate of Life and Energy Shield while affected by Malevolence
+{variant:45}Unaffected by Poison while affected by Malevolence
+{variant:46}Unaffected by Bleeding while affected by Malevolence
+{variant:47}Damaging Ailments you inflict deal Damage (10–15)% faster while affected by Malevolence
+{variant:48}+(30-50)% to Chaos Resistance while affected by Purity of Elements
+{variant:49}(50-40)% reduced Reflected Elemental Damage taken while affected by Purity of Elements
+{variant:50}(8-12)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Elements
+{variant:51}(8-12)% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Elements
+{variant:52}(8-12)% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Elements
+{variant:53}Unaffected by Elemental Weakness while affected by Purity of Elements
+{variant:54}Immune to Ignite while affected by Purity of Fire
+{variant:55}(50-40)% reduced Reflected Fire Damage taken while affected by Purity of Fire
+{variant:56}(6-10)% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Fire
+{variant:57}Unaffected by Burning Ground while affected by Purity of Fire
+{variant:58}Unaffected by Flammability while affected by Purity of Fire
+{variant:59}Immune to Freeze while affected by Purity of Ice
+{variant:60}(50-40)% reduced Reflected Cold Damage taken while affected by Purity of Ice
+{variant:61}(6-10)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Ice
+{variant:62}Unaffected by Chilled Ground while affected by Purity of Ice
+{variant:63}Unaffected by Frostbite while affected by Purity of Ice
+{variant:64}Immune to Shock while affected by Purity of Lightning
+{variant:65}(50-40)% reduced Reflected Lightning Damage taken while affected by Purity of Lightning
+{variant:66}(6-10)% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Lightning
+{variant:67}Unaffected by Conductivity while affected by Purity of Lightning
+{variant:68}Unaffected by Shocked Ground while affected by Purity of Lightning
+{variant:69}(1-1.5)% of Damage leeched as Life while affected by Vitality
+{variant:70}(100-140) Life Regenerated per Second while affected by Vitality
+{variant:71}+(20-30) Life gained for each Enemy Hit while affected by Vitality
+{variant:72}(50-70)% increased Life Recovery from Flasks while affected by Vitality
+{variant:73}(20-30)% increased Life Recovery Rate while affected by Vitality
+{variant:74}(70-100)% increased Critical Strike Chance while affected by Wrath
+{variant:75}(40-60)% increased Lightning Damage while affected by Wrath
+{variant:76}(1-1.5)% of Lightning Damage is Leeched as Mana while affected by Wrath
+{variant:77}Damage Penetrates (10-15)% Lightning Resistance while affected by Wrath
+{variant:78}Gain (15-25)% of Physical Damage as Extra Lightning Damage while affected by Wrath
+{variant:79}(25-40)% of Physical Damage Converted to Lightning Damage while affected by Wrath
+{variant:80}Critical Strikes Penetrate (8–10)% of Enemy Elemental Resistances while affected by Zealotry
+{variant:81}(10–15)% increased Cast Speed while affected by Zealotry
+{variant:82}Effects of Consecrated Ground you create while affected by Zealotry Linger for 2 seconds
+{variant:83}Consecrated Ground you create while affected by Zealotry causes enemies to take (8–10)% increased Damage
+{variant:84}Gain Arcane Surge for 4 seconds when you create Consecrated Ground while affected by Zealotry
+{variant:85}30% increased Maximum total Recovery per second from Energy Shield Leech while affected by Zealotry
+{variant:86}(100–120)% increased Critical Strike Chance against Enemies on Consecrated Ground while affected by Zealotry
 ]],
 -- Jewel: Threshold
 [[
