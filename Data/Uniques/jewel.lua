@@ -586,7 +586,7 @@ Limited to: 1
 {variant:77}Damage Penetrates (10-15)% Lightning Resistance while affected by Wrath
 {variant:78}Gain (15-25)% of Physical Damage as Extra Lightning Damage while affected by Wrath
 {variant:79}(25-40)% of Physical Damage Converted to Lightning Damage while affected by Wrath
-{variant:80}Critical Strikes Penetrate (8–10)% of Enemy Elemental Resistances while affected by Zealotry
+{variant:80}Critical Strikes Penetrate (8–10)% of Enemy Elemental Resistances while affected by Zealotry
 {variant:81}(10–15)% increased Cast Speed while affected by Zealotry
 {variant:82}Effects of Consecrated Ground you create while affected by Zealotry Linger for 2 seconds
 {variant:83}Consecrated Ground you create while affected by Zealotry causes enemies to take (8–10)% increased Damage
