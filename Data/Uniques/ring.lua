@@ -13,9 +13,9 @@ Requires Level 20
 ]],[[
 Berek's Grip
 Two-Stone Ring
+League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Current
-League: Domination, Nemesis
 Requires Level 20
 +(12-16)% to Cold and Lightning Resistances
 {variant:1}(10-15)% increased Cold Damage
@@ -30,9 +30,9 @@ Requires Level 20
 ]],[[
 Berek's Pass
 Two-Stone Ring
+League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Current
-League: Domination, Nemesis
 Requires Level 20
 +(12-16)% to Fire and Cold Resistances
 {variant:1}(10-15)% increased Fire Damage
@@ -45,9 +45,9 @@ Requires Level 20
 ]],[[
 Berek's Respite
 Two-Stone Ring
+League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Current
-League: Domination, Nemesis
 Requires Level 20
 +(12-16)% to Fire and Lightning Resistances
 {variant:1}Adds 1 to (10-30) Fire Damage to Attacks
@@ -62,6 +62,7 @@ Requires Level 20
 ]],[[
 Blackheart
 Iron Ring
+Upgrade: Upgrades to unique{Voidheart} via prophecy{From The Void}
 Adds 1 to 4 Physical Damage to Attacks
 5% increased Physical Damage
 Adds 1 to 3 Chaos Damage to Attacks
@@ -69,8 +70,26 @@ Adds 1 to 3 Chaos Damage to Attacks
 (2-4) Life Regenerated per second
 10% chance to Cause Monsters to Flee
 ]],[[
+Voidheart
+Iron Ring
+Source: Upgraded from unique{Blackheart} using prophecy{From The Void}
+Variant: Pre 2.4.0
+Variant: Current
+Requires Level 48
+Adds 1 to 4 Physical Damage to Attacks
+5% increased Physical Damage
+Adds 1 to 3 Chaos Damage to Attacks
++(20-30) to maximum Life
+(2-4) Life Regenerated per second
+10% chance to Cause Monsters to Flee
+{variant:1}Melee Attacks cause Bleeding
+{variant:2}(30-50)% chance to cause Bleeding on Melee Hit
+{variant:1}Melee Attacks Poison on Hit
+{variant:2}(20-40)% chance to Poison on Melee Hit
+]],[[
 Bloodboil
 Coral Ring
+Upgrade: Upgrades to unique{Winterweave} via prophecy{Cold Blooded Fury}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24
@@ -84,11 +103,23 @@ Requires Level 24
 {variant:1}100% increased Ignite Duration on You
 {variant:2}10% increased Movement Speed while Ignited
 ]],[[
+Winterweave
+Coral Ring
+Source: Upgraded from unique{Bloodboil} via prophecy{Cold Blooded Fury}
+Requires Level 53
++(20–30) to maximum Life
+Adds (12–15) to (25–30) Fire Damage to Attacks
+Adds (12–15) to (25–30) Cold Damage to Attacks
++(20–40) to maximum Life
++(25–30)% to Cold Resistance
+10% increased Movement Speed while Ignited
+The Effect of Chill on you is reversed
+]],[[
 Brinerot Mark
 Unset Ring
+League: Warbands
 Variant: Pre 2.6.0
 Variant: Current
-League: Warbands
 Requires Level 45
 Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
@@ -117,9 +148,9 @@ Your spells have 100% chance to Shock against Frozen enemies
 ]],[[
 Death Rush
 Amethyst Ring
+League: Onslaught
 Variant: Pre 2.6.0
 Variant: Current
-League: Onslaught
 Requires Level 46
 +(9-13)% to Chaos Resistance
 +(300-350) to Accuracy Rating
@@ -179,9 +210,9 @@ Socketed Gems Reserve No Mana
 ]],[[
 Gifts from Above
 Diamond Ring
+League: Anarchy
 Variant: Pre 2.6.0
 Variant: Current
-League: Anarchy
 Requires Level 28
 (20-30)% increased Global Critical Strike Chance
 {variant:2}Trigger level 10 Consecrate when you deal a Critical Strike
@@ -212,6 +243,7 @@ Has not Consumed any Gems
 ]],[[
 Kaom's Sign
 Coral Ring
+Upgrade: Upgrades to unique{Kaom's Way} via prophecy{The King's Path}
 Variant: Pre 2.0.0
 Variant: Current
 +(20-30) to maximum Life
@@ -222,6 +254,7 @@ Variant: Current
 ]],[[
 Kaom's Way
 Coral Ring
+Source: Upgraded from unique{Kaom's Sign} using prophecy{The King's Path}
 Requires Level 32
 +(20-30) to maximum Life
 +(10-20) to Strength
@@ -288,6 +321,32 @@ Socketed Gems have Elemental Equilibrium
 {variant:1}Socketed Gems have 40% reduced Elemental Equilibrium effect
 {variant:2}Socketed Gems have 25% reduced Elemental Equilibrium effect
 ]],[[
+Mark of the Elder
+Steel Ring
+Source: Drops from unique{The Elder} (Uber)
+Requires Level 80
+Adds (3–4) to (10–14) Physical Damage to Attacks
+Adds (26–32) to (42–48) Cold Damage to Attacks
+(6–10)% increased maximum Energy Shield
+(6–10)% increased maximum Life
+(60–80)% increased Attack Damage if your other Ring is a Shaper Item
+Cannot be Stunned by Attacks if your other Ring is an Elder Item
+20% chance to Trigger Level 20 Tentacle Whip on Kill
+Elder Item
+]],[[
+Mark of the Shaper
+Opal Ring
+Source: Drops from unique{The Elder} (Uber)
+Requires Level 80
+(15–25)% increased Elemental Damage
+Adds (13–18) to (50–56) Lightning Damage to Spells
+(6–10)% increased maximum Energy Shield
+(6–10)% increased maximum Life
+(60–80)% increased Spell Damage if your other Ring is an Elder Item
+Cannot be Stunned by Spells if your other Ring is a Shaper Item
+20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill
+Shaper Item
+]],[[
 Ming's Heart
 Amethyst Ring
 Variant: Pre 2.6.0
@@ -317,9 +376,9 @@ Requires Level 16
 ]],[[
 Mutewind Seal
 Unset Ring
+League: Warbands
 Variant: Pre 2.6.0
 Variant: Current
-League: Warbands
 Requires Level 45
 Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
@@ -335,9 +394,9 @@ Adds (5-10) to (11-15) Physical Damage to Attacks
 ]],[[
 Ngamahu's Sign
 Ruby Ring
+League: Bloodlines
 Variant: Pre 2.6.0
 Variant: Current
-League: Bloodlines
 Requires Level 29
 +(20-30)% to Fire Resistance
 +(15-25) to Strength
@@ -400,9 +459,9 @@ Ignited Enemies you hit are destroyed on Kill
 ]],[[
 Redblade Band
 Unset Ring
+League: Warbands
 Variant: Pre 2.6.0
 Variant: Current
-League: Warbands
 Requires Level 45
 Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
@@ -419,6 +478,7 @@ Has 1 Socket
 Rigwald's Crest
 Two-Stone Ring
 League: Talisman
+Source: Drops from unique{Rigwald, the Wolven King} (Level 60+)
 Requires Level 49
 +(12-16)% to Fire and Cold Resistances
 (20-30)% increased Fire Damage
@@ -444,10 +504,10 @@ Lose all Power Charges on Critical Strike
 ]],[[
 Shavronne's Revelation
 Moonstone Ring
+League: Anarchy, Onslaught
 Variant: Pre 1.2.0
 Variant: Pre 2.6.0
 Variant: Current
-League: Anarchy, Onslaught
 Requires Level 30
 Implicits: 1
 +(15-25) to maximum Energy Shield
@@ -481,17 +541,29 @@ Adds (8-15) to (20-28) Fire Damage to Attacks
 ]],[[
 Snakepit 
 Sapphire Ring
+Source: Drops from unique{Guardian of the Hydra}
 Requires Level 68
 +(20-30)% to Cold Resistance
 (20-40)% increased Cold Damage
 (5-10)% increased Cast Speed
 Spells have an additional Projectile
 ]],[[
+Stormfire
+Opal Ring
+Requires Level 80
+(15–25)% increased Elemental Damage
+(40–45)% increased Mana Regeneration Rate
++(20–30)% to Fire and Lightning Resistances
+(4–6)% increased Burning Damage for each Enemy you have Shocked Recently
+Adds (1–3) to (62–70) Lightning Damage to Hits against Ignited Enemies
+Your Lightning Damage can Ignite
+]],[[
 The Taming
 Prismatic Ring
+League: Domination, Nemesis
+Source: Vendor recipe
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Domination, Nemesis
 Requires Level 30
 +(8-10)% to all Elemental Resistances
 {variant:1}15% increased Elemental Damage with Weapons
@@ -507,9 +579,9 @@ Requires Level 30
 ]],[[
 Tasalio's Sign
 Sapphire Ring
+League: Bloodlines
 Variant: Pre 2.6.0
 Variant: Current
-League: Bloodlines
 Requires Level 20
 +(20-30)% to Cold Resistance
 {variant:1}Adds 10 to 15 Physical Damage to Attacks against Frozen Enemies
@@ -545,6 +617,7 @@ Can't use other Rings
 ]],[[
 Timeclasp
 Moonstone Ring
+Upgrade: Upgrades to unique{Timetwist} via prophecy{A Rift in Time}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 22
@@ -559,12 +632,24 @@ Requires Level 22
 {variant:1}Temporal Chains has 30% reduced Effect on You
 {variant:2}Temporal Chains has 50% reduced Effect on You
 ]],[[
+Timetwist
+Moonstone Ring
+Source: Upgraded from unique{Timeclasp} via prophecy{A Rift in Time}
+Requires Level 64
++(15–25) to maximum Energy Shield
+(10–15)% increased Attack Speed
+(5–10)% increased Cast Speed
++(30–50) to maximum Energy Shield
+15% increased Mana Regeneration Rate
+(-10–10)% increased Skill Effect Duration
+Unaffected by Temporal Chains
+]],[[
 Valako's Sign
 Topaz Ring
+League: Bloodlines
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Bloodlines
 Requires Level 38
 +(20-30)% to Lightning Resistance
 {variant:1}15% increased Damage against Shocked Enemies
@@ -602,22 +687,6 @@ League: Ambush, Invasion
 Requires Level 45
 Has 1 Socket
 +5 to Level of Socketed Gems
-]],[[
-Voidheart
-Iron Ring
-Variant: Pre 2.4.0
-Variant: Current
-Requires Level 48
-Adds 1 to 4 Physical Damage to Attacks
-5% increased Physical Damage
-Adds 1 to 3 Chaos Damage to Attacks
-+(20-30) to maximum Life
-(2-4) Life Regenerated per second
-10% chance to Cause Monsters to Flee
-{variant:1}Melee Attacks cause Bleeding
-{variant:2}(30-50)% chance to cause Bleeding on Melee Hit
-{variant:1}Melee Attacks Poison on Hit
-{variant:2}(20-40)% chance to Poison on Melee Hit
 ]],[[
 The Warden's Brand 
 Iron Ring

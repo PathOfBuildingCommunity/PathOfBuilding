@@ -33,15 +33,6 @@ skills["Melee"] = {
 }
 skills["GemDetonateMines"] = {
 	name = "Detonate Mines",
-	gemTags = {
-		low_max_level = true,
-		active_skill = true,
-		spell = true,
-	},
-	gemTagString = "Spell",
-	gemStr = 33,
-	gemDex = 33,
-	gemInt = 34,
 	color = 4,
 	description = "Detonates all the Remote Mines you have placed.",
 	skillTypes = { [2] = true, [17] = true, [18] = true, [36] = true, },
@@ -73,15 +64,6 @@ skills["GemDetonateMines"] = {
 }
 skills["Portal"] = {
 	name = "Portal",
-	gemTags = {
-		low_max_level = true,
-		active_skill = true,
-		spell = true,
-	},
-	gemTagString = "Spell",
-	gemStr = 33,
-	gemDex = 33,
-	gemInt = 34,
 	color = 4,
 	description = "Creates a portal to the current area's town.",
 	skillTypes = { [2] = true, [17] = true, [18] = true, [19] = true, [36] = true, [27] = true, },
@@ -113,16 +95,6 @@ skills["Portal"] = {
 }
 skills["VaalBreach"] = {
 	name = "Vaal Breach",
-	gemTags = {
-		low_max_level = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-	},
-	gemTagString = "Vaal, Spell",
-	gemStr = 33,
-	gemDex = 33,
-	gemInt = 34,
 	color = 4,
 	description = "Creates a breach, making you vulnerable to its powerful inhabitants.",
 	skillTypes = { [2] = true, [17] = true, [18] = true, [19] = true, [27] = true, [43] = true, },
@@ -361,7 +333,6 @@ skills["FireBurstOnHit"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -424,7 +395,6 @@ skills["VaalAuraElementalDamageHealing"] = {
 		aura = true,
 		area = true,
 		duration = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -452,7 +422,6 @@ skills["IcestormUniqueStaff12"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -493,8 +462,6 @@ skills["MerveilWarp"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		movement = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 0.6), 
@@ -521,7 +488,6 @@ skills["LightningSpell"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -621,7 +587,6 @@ skills["TriggeredMoltenStrike"] = {
 		attack = true,
 		projectile = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -689,7 +654,6 @@ skills["TriggeredShockedGround"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 

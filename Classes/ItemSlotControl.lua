@@ -55,8 +55,6 @@ local ItemSlotClass = common.NewClass("ItemSlot", "DropDownControl", function(se
 	end
 	self.label = slotLabel or slotName
 	self.nodeId = nodeId
-	itemsTab.slots[slotName] = self
-	t_insert(itemsTab.orderedSlots, self)
 end)
 
 function ItemSlotClass:SetSelItemId(selItemId)

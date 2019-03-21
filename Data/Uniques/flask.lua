@@ -5,9 +5,9 @@ return {
 [[
 Blood of the Karui
 Sanctified Life Flask
+League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Current
-League: Domination, Nemesis
 Requires Level 50
 (5-20)% increased Recovery Speed
 {variant:1}No Life Recovery Applies during Flask effect
@@ -72,6 +72,7 @@ Instant Recovery
 [[
 Atziri's Promise
 Amethyst Flask
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 68
@@ -83,7 +84,7 @@ Requires Level 68
 ]],[[
 Coralito's Signature
 Diamond Flask
-Requires Level: 27
+Requires Level 27
 Take 30 Chaos Damage per Second during Flask effect 
 25% chance to Poison on Hit during Flask effect 
 Your Critical Strikes do not deal extra Damage during Flask effect 
@@ -103,6 +104,7 @@ Removed life is regenerated as Energy Shield over 2 seconds
 ]],[[
 Dying Sun
 Ruby Flask
+Source: Drops from unique{The Shaper}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 68
@@ -222,6 +224,7 @@ Zealot's Oath during Flask effect
 ]],[[
 Vessel of Vinktar
 Topaz Flask
+Source: Drops from unique{Avatar of Thunder} in unique{The Vinktar Square}
 Variant: Pre 2.2.0 (Penetration)
 Variant: Pre 2.2.0 (Spells)
 Variant: Pre 2.2.0 (Attacks)

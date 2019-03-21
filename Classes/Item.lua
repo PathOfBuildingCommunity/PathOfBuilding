@@ -241,6 +241,11 @@ function ItemClass:ParseRaw(raw)
 					gameModeStage = "EXPLICIT"
 				elseif specName == "Unreleased" then
 					self.unreleased = (specVal == "true")
+				elseif specName == "Upgrade" then
+					self.upgradePaths = self.upgradePaths or { }
+					t_insert(self.upgradePaths, specVal)
+				elseif specName == "Source" then
+					self.source = specVal
 				elseif specName == "Evasion Rating" then
 					if self.baseName == "Two-Toned Boots (Armour/Energy Shield)" then
 						-- Another hack for Two-Toned Boots
@@ -697,9 +702,11 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		for _, value in ipairs(modList:Sum("LIST", nil, "WeaponData")) do
 			weaponData[value.key] = value.value
 		end
-		weaponData.AccuracyInc = sumLocal(modList, "Accuracy", "INC", 0)
-		if weaponData.AccuracyInc > 0 then
-			modList:NewMod("Accuracy", "MORE", weaponData.AccuracyInc, self.modSource, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })
+		if self.targetVersion == "2_6" then
+			local accuracyInc = sumLocal(modList, "Accuracy", "INC", 0)
+			if accuracyInc > 0 then
+				modList:NewMod("Accuracy", "MORE", accuracyInc, self.modSource, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })
+			end
 		end
 		if data[self.targetVersion].weaponTypeInfo[self.base.type].range then
 			weaponData.range = data[self.targetVersion].weaponTypeInfo[self.base.type].range + sumLocal(modList, "WeaponRange", "BASE", 0)
@@ -847,7 +854,7 @@ function ItemClass:BuildModList()
 	for _, skill in ipairs(baseList:Sum("LIST", nil, "ExtraSkill")) do
 		if skill.name ~= "Unknown" then
 			t_insert(self.grantedSkills, {
-				name = skill.name,
+				skillId = skill.skillId,
 				level = skill.level,
 				noSupports = skill.noSupports,
 				source = self.modSource,

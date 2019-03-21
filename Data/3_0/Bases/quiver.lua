@@ -46,7 +46,7 @@ itemBases["Serrated Arrow Quiver"] = {
 itemBases["Two-Point Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
-	implicit = "(20-30)% increased Accuracy Rating",
+	implicit = "(20-30)% increased Global Accuracy Rating",
 	req = { level = 4, },
 }
 itemBases["Sharktooth Arrow Quiver"] = {

@@ -8,18 +8,6 @@ local skills, mod, flag, skill = ...
 
 skills["AbyssalCry"] = {
 	name = "Abyssal Cry",
-	gemTags = {
-		warcry = true,
-		strength = true,
-		active_skill = true,
-		area = true,
-		duration = true,
-		chaos = true,
-	},
-	gemTagString = "Warcry, AoE, Duration, Chaos",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Performs a warcry, Hindering nearby enemies and causing them to explode when killed. The hinder effect is increased by surrounding enemies. Taunts all nearby enemies to attack the user. Shares a cooldown with other Warcry skills.",
 	skillTypes = { [11] = true, [12] = true, [50] = true, [10] = true, },
@@ -83,18 +71,6 @@ skills["AbyssalCry"] = {
 }
 skills["TotemMelee"] = {
 	name = "Ancestral Protector",
-	gemTags = {
-		totem = true,
-		strength = true,
-		active_skill = true,
-		attack = true,
-		duration = true,
-		melee = true,
-	},
-	gemTagString = "Totem, Attack, Duration, Melee",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Summons an Ancestor Totem which will attack enemies with melee strikes while you stand close to it. Being near it grants you more attack speed.",
 	skillTypes = { [1] = true, [30] = true, [12] = true, [6] = true, [25] = true, [24] = true, [17] = true, [19] = true, },
@@ -177,19 +153,6 @@ skills["TotemMelee"] = {
 }
 skills["AncestorTotemSlam"] = {
 	name = "Ancestral Warchief",
-	gemTags = {
-		totem = true,
-		strength = true,
-		active_skill = true,
-		attack = true,
-		duration = true,
-		area = true,
-		melee = true,
-	},
-	gemTagString = "Totem, Attack, Duration, AoE, Melee",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Summons an Ancestor Totem that will attack enemies with a powerful main hand slam while you stand close to it. Being near it grants you more melee damage.",
 	skillTypes = { [1] = true, [30] = true, [12] = true, [6] = true, [24] = true, [17] = true, [19] = true, [11] = true, },
@@ -275,18 +238,6 @@ skills["AncestorTotemSlam"] = {
 }
 skills["Anger"] = {
 	name = "Anger",
-	gemTags = {
-		aura = true,
-		strength = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		fire = true,
-	},
-	gemTagString = "Aura, Spell, AoE, Fire",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	description = "Casts an aura that adds fire damage to the attacks and spells of you and your allies.",
 	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [33] = true, },
@@ -294,7 +245,6 @@ skills["Anger"] = {
 		spell = true,
 		aura = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1.2), 
@@ -349,16 +299,6 @@ skills["Anger"] = {
 }
 skills["AnimateArmour"] = {
 	name = "Animate Guardian",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		spell = true,
-		minion = true,
-	},
-	gemTagString = "Spell, Minion",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	description = "Animates a melee weapon or armour, attaching it to an invisible Guardian that fights by your side. Animating multiple items attaches them to the same Guardian. You cannot animate unidentified weapons.",
 	skillTypes = { [2] = true, [9] = true, [21] = true, [18] = true, [36] = true, [49] = true, },
@@ -432,17 +372,6 @@ skills["AnimateArmour"] = {
 }
 skills["Cleave"] = {
 	name = "Cleave",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		attack = true,
-		area = true,
-		melee = true,
-	},
-	gemTagString = "Attack, AoE, Melee",
-	gemStr = 60,
-	gemDex = 40,
-	gemInt = 0,
 	color = 1,
 	description = "The character swings their weapon (or both weapons if dual wielding) in an arc towards the target. Also does damage to other nearby monsters. Only works with Axes and Swords.",
 	skillTypes = { [1] = true, [6] = true, [8] = true, [11] = true, [28] = true, [24] = true, [53] = true, },
@@ -509,18 +438,6 @@ skills["Cleave"] = {
 }
 skills["DecoyTotem"] = {
 	name = "Decoy Totem",
-	gemTags = {
-		totem = true,
-		strength = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-		area = true,
-	},
-	gemTagString = "Totem, Spell, Duration, AoE",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Summons a totem that taunts nearby monsters to attack it.",
 	skillTypes = { [2] = true, [17] = true, [12] = true, [19] = true, [11] = true, [30] = true, [26] = true, },
@@ -587,17 +504,6 @@ skills["DecoyTotem"] = {
 }
 skills["Determination"] = {
 	name = "Determination",
-	gemTags = {
-		aura = true,
-		strength = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-	},
-	gemTagString = "Aura, Spell, AoE",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Casts an aura that grants armour to you and your allies.",
 	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, },
@@ -656,17 +562,6 @@ skills["Determination"] = {
 }
 skills["DevouringTotem"] = {
 	name = "Devouring Totem",
-	gemTags = {
-		totem = true,
-		strength = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-	},
-	gemTagString = "Totem, Spell, Duration",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Summons a totem that can consume nearby corpses. If you are hurt, it will destroy a corpse to leech life to you.",
 	skillTypes = { [2] = true, [17] = true, [12] = true, [19] = true, [30] = true, },
@@ -729,18 +624,6 @@ skills["DevouringTotem"] = {
 }
 skills["DominatingBlow"] = {
 	name = "Dominating Blow",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		attack = true,
-		minion = true,
-		duration = true,
-		melee = true,
-	},
-	gemTagString = "Attack, Minion, Duration, Melee",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	description = "Attacks the enemy with a melee strike. If a non-unique enemy is killed shortly after being hit by Dominating Blow, that enemy is revived as a minion until the skill duration ends.",
 	skillTypes = { [1] = true, [6] = true, [9] = true, [12] = true, [21] = true, [25] = true, [28] = true, [24] = true, },
@@ -813,18 +696,6 @@ skills["DominatingBlow"] = {
 }
 skills["Earthquake"] = {
 	name = "Earthquake",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		attack = true,
-		area = true,
-		duration = true,
-		melee = true,
-	},
-	gemTagString = "Attack, AoE, Duration, Melee",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Smashes the ground with an Axe, Mace or Staff, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Earthquakes created before the first one has erupted will not generate their own aftershocks.",
 	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [7] = true, [10] = true, [28] = true, [12] = true, },
@@ -902,17 +773,6 @@ skills["Earthquake"] = {
 }
 skills["EnduringCry"] = {
 	name = "Enduring Cry",
-	gemTags = {
-		warcry = true,
-		strength = true,
-		active_skill = true,
-		area = true,
-		duration = true,
-	},
-	gemTagString = "Warcry, AoE, Duration",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Performs a warcry, adding endurance charges proportional to the number of surrounding enemies and granting life regeneration to you for a short time if there are nearby enemies. Taunts all nearby enemies to attack the user. Shares a cooldown with other Warcry skills.",
 	skillTypes = { [5] = true, [11] = true, [12] = true, },
@@ -973,19 +833,6 @@ skills["EnduringCry"] = {
 }
 skills["FlameTotem"] = {
 	name = "Flame Totem",
-	gemTags = {
-		projectile = true,
-		totem = true,
-		strength = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-		fire = true,
-	},
-	gemTagString = "Projectile, Totem, Spell, Duration, Fire",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	description = "Summons a totem that fires a stream of flame at nearby enemies.",
 	skillTypes = { [2] = true, [3] = true, [10] = true, [12] = true, [17] = true, [19] = true, [30] = true, [33] = true, },
@@ -995,7 +842,6 @@ skills["FlameTotem"] = {
 		totem = true,
 		projectile = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.25), 
@@ -1054,17 +900,6 @@ skills["FlameTotem"] = {
 }
 skills["GlacialHammer"] = {
 	name = "Glacial Hammer",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		attack = true,
-		melee = true,
-		cold = true,
-	},
-	gemTagString = "Attack, Melee, Cold",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Hits the enemy, converting some of your physical damage to cold damage. If the enemy is frozen and is on less than one third life, they will shatter when hit by Glacial Hammer. Requires a Mace or Staff.",
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [34] = true, [53] = true, },
@@ -1077,7 +912,6 @@ skills["GlacialHammer"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1129,20 +963,6 @@ skills["GlacialHammer"] = {
 }
 skills["VaalGlacialHammer"] = {
 	name = "Vaal Glacial Hammer",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		vaal = true,
-		attack = true,
-		melee = true,
-		duration = true,
-		area = true,
-		cold = true,
-	},
-	gemTagString = "Vaal, Attack, Melee, Duration, AoE, Cold",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Hits the enemy, converting some of your physical damage to cold damage. It traps the enemy with you in a circle of ice so that it can't escape. Requires a Mace or Staff.",
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [12] = true, [11] = true, [43] = true, [34] = true, },
@@ -1157,8 +977,6 @@ skills["VaalGlacialHammer"] = {
 		melee = true,
 		area = true,
 		duration = true,
-		cold = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1210,17 +1028,6 @@ skills["VaalGlacialHammer"] = {
 }
 skills["GroundSlam"] = {
 	name = "Ground Slam",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		attack = true,
-		area = true,
-		melee = true,
-	},
-	gemTagString = "Attack, AoE, Melee",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "The character slams the ground in front of them with their main hand weapon, creating a wave that travels forward and damages enemies with an increased chance to stun. Only works with Staves or Maces.",
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [28] = true, [24] = true, },
@@ -1285,18 +1092,6 @@ skills["GroundSlam"] = {
 }
 skills["VaalGroundSlam"] = {
 	name = "Vaal Ground Slam",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		vaal = true,
-		attack = true,
-		area = true,
-		melee = true,
-	},
-	gemTagString = "Vaal, Attack, AoE, Melee",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "The character slams the ground with their main hand weapon, creating a wave that travels in all directions and damages enemies. Only works with Staves or Maces.",
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [28] = true, [24] = true, [43] = true, },
@@ -1310,7 +1105,6 @@ skills["VaalGroundSlam"] = {
 		attack = true,
 		melee = true,
 		area = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1364,16 +1158,6 @@ skills["VaalGroundSlam"] = {
 }
 skills["HeavyStrike"] = {
 	name = "Heavy Strike",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		attack = true,
-		melee = true,
-	},
-	gemTagString = "Attack, Melee",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Attacks the enemy with a forceful blow, knocking them back. Requires a Mace, Axe, Sword or Two-Handed Weapon.",
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, },
@@ -1440,24 +1224,12 @@ skills["HeavyStrike"] = {
 }
 skills["HeraldOfAsh"] = {
 	name = "Herald of Ash",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		fire = true,
-	},
-	gemTagString = "Spell, AoE, Fire",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	description = "Channel fire through your hands, adding fire to your physical damage. If you kill an enemy with an attack, other enemies near them will be ignited for the overkill damage.",
 	skillTypes = { [2] = true, [5] = true, [15] = true, [16] = true, [29] = true, [11] = true, [40] = true, [20] = true, [33] = true, [27] = true, },
 	baseFlags = {
 		spell = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1509,18 +1281,6 @@ skills["HeraldOfAsh"] = {
 }
 skills["IceCrash"] = {
 	name = "Ice Crash",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		attack = true,
-		area = true,
-		cold = true,
-		melee = true,
-	},
-	gemTagString = "Attack, AoE, Cold, Melee",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	description = "Slam the ground with your main hand weapon, damaging enemies in an area around the impact in three stages. Enemies take slightly less damage on the second and third stage. Works with Swords, Maces, Axes, Staves and Unarmed. Cannot be used with Multistrike.",
 	skillTypes = { [1] = true, [6] = true, [11] = true, [24] = true, [7] = true, [34] = true, },
@@ -1551,7 +1311,6 @@ skills["IceCrash"] = {
 		attack = true,
 		melee = true,
 		area = true,
-		cold = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1605,16 +1364,6 @@ skills["IceCrash"] = {
 }
 skills["ImmortalCall"] = {
 	name = "Immortal Call",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-	},
-	gemTagString = "Spell, Duration",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Discharges Endurance Charges, making the character invulnerable to physical damage for a short time, proportional to how many endurance charges were expended.",
 	skillTypes = { [2] = true, [5] = true, [12] = true, [18] = true, [36] = true, },
@@ -1671,24 +1420,12 @@ skills["ImmortalCall"] = {
 }
 skills["VaalImmortalCall"] = {
 	name = "Vaal Immortal Call",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		duration = true,
-	},
-	gemTagString = "Vaal, Spell, Duration",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Discharges Endurance Charges, making the character unable to die for a short time, proportional to how many endurance charges were expended.",
 	skillTypes = { [2] = true, [5] = true, [12] = true, [18] = true, [43] = true, },
 	baseFlags = {
 		spell = true,
 		duration = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.85), 
@@ -1739,18 +1476,6 @@ skills["VaalImmortalCall"] = {
 }
 skills["InfernalBlow"] = {
 	name = "Infernal Blow",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		attack = true,
-		area = true,
-		melee = true,
-		fire = true,
-	},
-	gemTagString = "Attack, AoE, Melee, Fire",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Hits the enemy, converting some of your physical damage to fire damage. If the enemy dies soon after being hit, they will explode, dealing fire damage to nearby enemies. The damage from this explosion cannot be reflected. Requires a Sword, Axe, Mace, Staff or Unarmed.",
 	skillTypes = { [1] = true, [6] = true, [11] = true, [25] = true, [28] = true, [24] = true, [33] = true, },
@@ -1769,7 +1494,6 @@ skills["InfernalBlow"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -1822,18 +1546,6 @@ skills["InfernalBlow"] = {
 }
 skills["LeapSlam"] = {
 	name = "Leap Slam",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		attack = true,
-		area = true,
-		movement = true,
-		melee = true,
-	},
-	gemTagString = "Attack, AoE, Movement, Melee",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Jump into the air, damaging enemies (and knocking back some) with your main hand where you land. Enemies you would land on are pushed out of the way. Requires an axe, mace, sword or staff.",
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [24] = true, [38] = true, },
@@ -1852,7 +1564,6 @@ skills["LeapSlam"] = {
 		attack = true,
 		melee = true,
 		area = true,
-		movement = true,
 	},
 	baseMods = {
 		skill("castTime", 1.4), 
@@ -1904,18 +1615,6 @@ skills["LeapSlam"] = {
 }
 skills["MoltenShell"] = {
 	name = "Molten Shell",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-		fire = true,
-	},
-	gemTagString = "Spell, AoE, Duration, Fire",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Summons fiery elemental shields providing additional armour for a short duration. If cumulative physical damage prevented by your blocking or armour reaches a threshold, the shields explode outwards, dealing fire damage to surrounding enemies.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [18] = true, [31] = true, [36] = true, [26] = true, [33] = true, },
@@ -1923,7 +1622,6 @@ skills["MoltenShell"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -1982,19 +1680,6 @@ skills["MoltenShell"] = {
 }
 skills["VaalMoltenShell"] = {
 	name = "Vaal Molten Shell",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		vaal = true,
-		spell = true,
-		area = true,
-		duration = true,
-		fire = true,
-	},
-	gemTagString = "Vaal, Spell, AoE, Duration, Fire",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Summons fiery elemental shields providing additional armour for a short duration. Whenever you prevent any amount of physical damage from a hit, the shields cause a burst of flame, dealing fire damage to surrounding enemies.",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [18] = true, [31] = true, [26] = true, [43] = true, [33] = true, },
@@ -2002,8 +1687,6 @@ skills["VaalMoltenShell"] = {
 		spell = true,
 		area = true,
 		duration = true,
-		fire = true,
-		vaal = true,
 	},
 	baseMods = {
 		skill("castTime", 0.5), 
@@ -2060,19 +1743,6 @@ skills["VaalMoltenShell"] = {
 }
 skills["MoltenStrike"] = {
 	name = "Molten Strike",
-	gemTags = {
-		projectile = true,
-		strength = true,
-		active_skill = true,
-		attack = true,
-		area = true,
-		melee = true,
-		fire = true,
-	},
-	gemTagString = "Projectile, Attack, AoE, Melee, Fire",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Attacks a target with physical and fire damage, causing balls of molten magma to launch forth from your weapon as you swing. These will explode, causing AoE attack damage to enemies where they land.",
 	skillTypes = { [1] = true, [3] = true, [6] = true, [11] = true, [24] = true, [25] = true, [28] = true, [33] = true, [48] = true, },
@@ -2108,7 +1778,6 @@ skills["MoltenStrike"] = {
 		melee = true,
 		projectile = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2160,18 +1829,6 @@ skills["MoltenStrike"] = {
 }
 skills["Punishment"] = {
 	name = "Punishment",
-	gemTags = {
-		curse = true,
-		strength = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-	},
-	gemTagString = "Curse, Spell, AoE, Duration",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	description = "Curses all targets in an area, causing them to grant a buff to anyone they hit with melee attacks. The buff grants more Melee Damage and increased Attack Speed.",
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, },
@@ -2233,18 +1890,6 @@ skills["Punishment"] = {
 }
 skills["FireResistAura"] = {
 	name = "Purity of Fire",
-	gemTags = {
-		aura = true,
-		strength = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		fire = true,
-	},
-	gemTagString = "Aura, Spell, AoE, Fire",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	description = "Casts an aura that grants fire resistance to you and your allies.",
 	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [33] = true, },
@@ -2252,7 +1897,6 @@ skills["FireResistAura"] = {
 		spell = true,
 		aura = true,
 		area = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1.2), 
@@ -2305,17 +1949,6 @@ skills["FireResistAura"] = {
 }
 skills["RallyingCry"] = {
 	name = "Rallying Cry",
-	gemTags = {
-		warcry = true,
-		strength = true,
-		active_skill = true,
-		area = true,
-		duration = true,
-	},
-	gemTagString = "Warcry, AoE, Duration",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Performs a warcry, granting increased damage and mana regeneration to you and your allies if there are nearby enemies. The damage increase is scaled by surrounding enemies. Taunts all nearby enemies to attack the user. Shares a cooldown with other Warcry skills.",
 	skillTypes = { [5] = true, [11] = true, [12] = true, },
@@ -2377,18 +2010,6 @@ skills["RallyingCry"] = {
 }
 skills["Reckoning"] = {
 	name = "Reckoning",
-	gemTags = {
-		trigger = true,
-		strength = true,
-		active_skill = true,
-		attack = true,
-		area = true,
-		melee = true,
-	},
-	gemTagString = "Trigger, Attack, AoE, Melee",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Perform a swift counter-attack against enemies in a cone shape when you block with your shield.",
 	skillTypes = { [1] = true, [7] = true, [13] = true, [24] = true, [11] = true, [47] = true, [57] = true, },
@@ -2458,19 +2079,6 @@ skills["Reckoning"] = {
 }
 skills["RejuvenationTotem"] = {
 	name = "Rejuvenation Totem",
-	gemTags = {
-		totem = true,
-		aura = true,
-		strength = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-	},
-	gemTagString = "Totem, Aura, Spell, AoE, Duration",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Summons a totem that has an aura which regenerates life for you and your nearby allies.",
 	skillTypes = { [2] = true, [5] = true, [11] = true, [12] = true, [15] = true, [27] = true, [17] = true, [19] = true, [30] = true, [44] = true, },
@@ -2535,18 +2143,6 @@ skills["RejuvenationTotem"] = {
 }
 skills["SearingBond"] = {
 	name = "Searing Bond",
-	gemTags = {
-		totem = true,
-		strength = true,
-		active_skill = true,
-		spell = true,
-		duration = true,
-		fire = true,
-	},
-	gemTagString = "Totem, Spell, Duration, Fire",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	description = "Summons a totem that casts a beam of fire at you and each other totem you control, dealing burning damage to enemies caught in the beam. Enemies near either end of a beam also suffer burning damage.",
 	skillTypes = { [2] = true, [40] = true, [12] = true, [17] = true, [19] = true, [27] = true, [29] = true, [30] = true, [36] = true, [33] = true, },
@@ -2555,7 +2151,6 @@ skills["SearingBond"] = {
 		spell = true,
 		totem = true,
 		duration = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2609,18 +2204,6 @@ skills["SearingBond"] = {
 }
 skills["NewShieldCharge"] = {
 	name = "Shield Charge",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		attack = true,
-		area = true,
-		movement = true,
-		melee = true,
-	},
-	gemTagString = "Attack, AoE, Movement, Melee",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Charges at a targeted location or enemy, pushing away enemies in your path and repeatedly dealing damage in a small area in front of you. You deal damage in a larger area when you reach the target. The further you travel, the more damage you deal, and the greater your chance of stunning enemies.",
 	skillTypes = { [1] = true, [7] = true, [13] = true, [24] = true, [11] = true, [38] = true, },
@@ -2638,7 +2221,6 @@ skills["NewShieldCharge"] = {
 		attack = true,
 		melee = true,
 		area = true,
-		movement = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2692,18 +2274,6 @@ skills["NewShieldCharge"] = {
 }
 skills["ShockwaveTotem"] = {
 	name = "Shockwave Totem",
-	gemTags = {
-		totem = true,
-		strength = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-	},
-	gemTagString = "Totem, Spell, AoE, Duration",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Summons a totem that shakes the earth around it, knocking back and damaging nearby enemies",
 	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [17] = true, [19] = true, [30] = true, [26] = true, },
@@ -2771,19 +2341,6 @@ skills["ShockwaveTotem"] = {
 }
 skills["StaticStrike"] = {
 	name = "Static Strike",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		attack = true,
-		melee = true,
-		area = true,
-		duration = true,
-		lightning = true,
-	},
-	gemTagString = "Attack, Melee, AoE, Duration, Lightning",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	description = "Strike your enemies with a melee weapon, building up static energy on you. This energy damages enemies around you when it expires. ",
 	skillTypes = { [1] = true, [6] = true, [25] = true, [28] = true, [24] = true, [11] = true, [12] = true, [35] = true, },
@@ -2815,7 +2372,6 @@ skills["StaticStrike"] = {
 		melee = true,
 		area = true,
 		duration = true,
-		lightning = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2868,18 +2424,6 @@ skills["StaticStrike"] = {
 }
 skills["SummonFireGolem"] = {
 	name = "Summon Flame Golem",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		fire = true,
-		minion = true,
-		spell = true,
-		golem = true,
-	},
-	gemTagString = "Fire, Minion, Spell, Golem",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	description = "Summons a Flame Golem that grants you increased Damage. The Flame Golem can use a fire spray, a wave of fire damage, and an explosive arcing projectile.",
 	skillTypes = { [36] = true, [33] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, [62] = true, },
@@ -2891,7 +2435,6 @@ skills["SummonFireGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
-		fire = true,
 	},
 	baseMods = {
 		skill("castTime", 1), 
@@ -2948,17 +2491,6 @@ skills["SummonFireGolem"] = {
 }
 skills["SummonRockGolem"] = {
 	name = "Summon Stone Golem",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		minion = true,
-		spell = true,
-		golem = true,
-	},
-	gemTagString = "Minion, Spell, Golem",
-	gemStr = 60,
-	gemDex = 40,
-	gemInt = 0,
 	color = 1,
 	description = "Summons a Stone Golem that grants you life regeneration. In addition to its melee attack, the Stone Golem uses a rolling charge and a powerful slam that taunts enemies.",
 	skillTypes = { [36] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, [62] = true, },
@@ -3026,17 +2558,6 @@ skills["SummonRockGolem"] = {
 }
 skills["Sunder"] = {
 	name = "Sunder",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		attack = true,
-		area = true,
-		melee = true,
-	},
-	gemTagString = "Attack, AoE, Melee",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Slams the ground with your main hand weapon, creating a wave of broken ground that damages enemies in an area in front of you. Enemies hit by the wave will release a circular shockwave, dealing damage to other enemies around them. Requires a Mace, Axe, or Staff.",
 	skillTypes = { [1] = true, [6] = true, [7] = true, [11] = true, [28] = true, [24] = true, },
@@ -3111,17 +2632,6 @@ skills["Sunder"] = {
 }
 skills["Sweep"] = {
 	name = "Sweep",
-	gemTags = {
-		strength = true,
-		active_skill = true,
-		attack = true,
-		area = true,
-		melee = true,
-	},
-	gemTagString = "Attack, AoE, Melee",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Swings a two handed melee weapon in a circle, knocking back some monsters around the character.",
 	skillTypes = { [1] = true, [11] = true, [28] = true, [24] = true, },
@@ -3187,18 +2697,6 @@ skills["Sweep"] = {
 }
 skills["Vengeance"] = {
 	name = "Vengeance",
-	gemTags = {
-		trigger = true,
-		strength = true,
-		active_skill = true,
-		attack = true,
-		area = true,
-		melee = true,
-	},
-	gemTagString = "Trigger, Attack, AoE, Melee",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Chance to perform a swift counter-attack against all enemies around you when you are hit. Weapon range increases the area of this attack. Requires a Melee Weapon.",
 	skillTypes = { [1] = true, [11] = true, [24] = true, [47] = true, [6] = true, [57] = true, },
@@ -3270,16 +2768,6 @@ skills["Vengeance"] = {
 }
 skills["VigilantStrike"] = {
 	name = "Vigilant Strike",
-	gemTags = {
-		attack = true,
-		strength = true,
-		active_skill = true,
-		melee = true,
-	},
-	gemTagString = "Attack, Melee",
-	gemStr = 60,
-	gemDex = 0,
-	gemInt = 40,
 	color = 1,
 	description = "Attacks the enemy with a powerful melee strike. You gain the Fortify buff, granting damage reduction. The cooldown can be bypassed by expending an Endurance Charge. Requires a Melee Weapon.",
 	skillTypes = { [1] = true, [5] = true, [24] = true, [6] = true, [28] = true, [25] = true, [53] = true, },
@@ -3349,17 +2837,6 @@ skills["VigilantStrike"] = {
 }
 skills["Vitality"] = {
 	name = "Vitality",
-	gemTags = {
-		aura = true,
-		strength = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-	},
-	gemTagString = "Aura, Spell, AoE",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Casts an aura that grants life regeneration to you and your allies.",
 	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, },
@@ -3418,18 +2895,6 @@ skills["Vitality"] = {
 }
 skills["WarlordsMark"] = {
 	name = "Warlord's Mark",
-	gemTags = {
-		curse = true,
-		strength = true,
-		active_skill = true,
-		spell = true,
-		area = true,
-		duration = true,
-	},
-	gemTagString = "Curse, Spell, AoE, Duration",
-	gemStr = 100,
-	gemDex = 0,
-	gemInt = 0,
 	color = 1,
 	description = "Curses all targets in an area, making them more vulnerable to stuns. Hitting the cursed targets will leech life and mana, and killing them will result in a chance to gain an endurance charge.",
 	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, },

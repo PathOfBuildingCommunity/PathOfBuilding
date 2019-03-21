@@ -272,11 +272,28 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "SkillId" then
-			if not cfg or not cfg.skillGem or cfg.skillGem.grantedEffect.id ~= tag.skillId then
+			if not cfg or not cfg.skillGrantedEffect or cfg.skillGrantedEffect.id ~= tag.skillId then
 				return
 			end
 		elseif tag.type == "SkillPart" then
-			if not cfg or tag.skillPart ~= cfg.skillPart then
+			if not cfg then
+				return
+			end
+			local match = false
+			if tag.skillPartList then
+				for _, part in ipairs(tag.skillPartList) do
+					if part == cfg.skillPart then
+						match = true
+						break
+					end
+				end
+			else
+				match = (tag.skillPart == cfg.skillPart)
+			end
+			if tag.neg then
+				match = not match
+			end
+			if not match then
 				return
 			end
 		elseif tag.type == "SkillType" then

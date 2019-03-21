@@ -65,6 +65,8 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		self[k] = v
 	end
 
+	local cdnRoot = targetVersion == "2_6" and "" or "https://web.poecdn.com"
+
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
 
 	-- Build maps of class name -> class table
@@ -85,7 +87,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
-		self:LoadImage(name..".png", data[0.3835] or data[1], data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
+		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
 	end
 
 	-- Load sprite sheets and build sprite map
@@ -96,7 +98,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
-			self:LoadImage(maxZoom.filename:gsub("%?%x+$",""), self.imageRoot.."build-gen/passive-skill-sprite/"..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
+			self:LoadImage(maxZoom.filename:gsub("%?%x+$",""), cdnRoot..self.imageRoot.."build-gen/passive-skill-sprite/"..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
@@ -312,7 +314,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 			socket.nodesInRadius[radiusIndex] = { }
 			socket.attributesInRadius[radiusIndex] = { }
 			local rSq = radiusInfo.rad * radiusInfo.rad
-			for _, node in ipairs(self.nodes) do
+			for _, node in pairs(self.nodes) do
 				if node ~= socket then
 					local vX, vY = node.x - socket.x, node.y - socket.y
 					if vX * vX + vY * vY <= rSq then 
@@ -325,7 +327,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 
 	-- Pregenerate the polygons for the node connector lines
 	self.connectors = { }
-	for _, node in ipairs(self.nodes) do
+	for _, node in pairs(self.nodes) do
 		for _, otherId in pairs(node.out) do
 			local other = nodeMap[otherId]
 			t_insert(node.linkedId, otherId)

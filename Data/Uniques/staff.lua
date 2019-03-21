@@ -90,8 +90,25 @@ Requires Level: 62
 Gain a Power Charge after spending a total of 200 Mana
 2 Mana Regenerated per Second per Power Charge
 ]],[[
+Disintegrator
+Maelstrom Staff
+Source: Drops from unique{The Elder} (Uber)
+Requires Level 64
+20% Chance to Block
+Adds (270–300) to (340–380) Physical Damage
+Adds (376–400) to (568–600) Physical Damage to Spells
++1 to Maximum Siphoning Charges per Elder or Shaper Item Equipped
+25% chance to gain a Siphoning Charge when you use a Skill
+Adds (12–14) to (15–16) Physical Damage to Attacks and Spells per Siphoning Charge
+Gain 4% of Non-Chaos Damage as extra Chaos Damage per Siphoning Charge
+1% additional Physical Damage Reduction from Hits per Siphoning Charge
+0.2% of Damage Leeched as Life per Siphoning Charge
+Take 150 Physical Damage per Second per Siphoning Charge if you've used a Skill Recently
+Elder Item
+]],[[
 Duskdawn
 Maelström Staff
+Source: Vendor recipe
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
@@ -148,6 +165,7 @@ Minions Regenerate (1.5-2.5)% Life per Second
 ]],[[
 Fencoil
 Gnarled Branch
+Upgrade: Upgrades to unique{Mirebough} via prophecy{Trapped in the Tower}
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
@@ -157,6 +175,18 @@ Socketed Gems are Supported by level 8 Trap
 (40-50)% increased Damage
 (10-20)% increased maximum Life
 (10-20)% increased maximum Mana
+]],[[
+Mirebough
+Gnarled Branch
+Source: Upgraded from unique{Fencoil} via prophecy{Trapped in the Tower}
+Requires Level 32
+18% Chance to Block
+Socketed Gems are Supported by Level 16 Trap
+Socketed Gems are Supported by Level 16 Cluster Trap
+Socketed Gems are Supported by Level 16 Trap and Mine Damage
+(10–20)% increased maximum Mana
+(10–20)% increased maximum Life
+(40–50)% increased Damage
 ]],[[
 Hegemony's Era
 Judgement Staff
@@ -209,8 +239,25 @@ Socketed Gems are Supported by level 30 Spell Echo
 (120-160)% increased Spell Damage
 100% increased maximum Mana
 ]],[[
+Realmshaper
+Iron Staff
+Upgrade: Upgrades to unique{Realm Ender} via prophecy{The Beginning and the End}
+Variant: Pre 2.6.0
+Variant: Current
+Requires Level 18, 35 Str, 35 Int
+Implicits: 2
+{variant:1}12% Chance to Block
+{variant:2}18% Chance to Block
++1 to Level of Socketed Fire Gems
++1 to Level of Socketed Cold Gems
+Socketed Gems are Supported by level 5 Cold to Fire
+Adds (10-15) to (20-25) Fire Damage
+Adds (10-15) to (20-25) Cold Damage
+(30-50)% increased Elemental Damage
+]],[[
 Realm Ender
 Iron Staff
+Source: Upgraded from unique{Realmshaper} using prophecy{The Beginning and the End}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 40, 35 Str, 35 Int
@@ -220,21 +267,6 @@ Implicits: 2
 +1 to Level of Socketed Fire Gems
 +1 to Level of Socketed Cold Gems
 +2 to Level of Socketed Elemental Gems
-Socketed Gems are Supported by level 5 Cold to Fire
-Adds (10-15) to (20-25) Fire Damage
-Adds (10-15) to (20-25) Cold Damage
-(30-50)% increased Elemental Damage
-]],[[
-Realmshaper
-Iron Staff
-Variant: Pre 2.6.0
-Variant: Current
-Requires Level 18, 35 Str, 35 Int
-Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
-+1 to Level of Socketed Fire Gems
-+1 to Level of Socketed Cold Gems
 Socketed Gems are Supported by level 5 Cold to Fire
 Adds (10-15) to (20-25) Fire Damage
 Adds (10-15) to (20-25) Cold Damage
@@ -284,6 +316,7 @@ Socketed Gems fire Projectiles in a Nova
 ]],[[
 The Stormheart
 Royal Staff
+Upgrade: Upgrades to unique{The Stormwall} via prophecy{The Storm Spire}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 28, 51 Str, 51 Int
@@ -297,6 +330,20 @@ Adds (1-10) to (70-90) Lightning Damage
 {variant:1}You Cannot Be Shocked While Frozen
 {variant:2}You Cannot Be Shocked While Chilled
 {variant:2}50% chance to Shock Chilled Enemies
+]],[[
+The Stormwall
+Royal Staff
+Source: Upgraded from unique{The Stormheart} via prophecy{The Storm Spire}
+Requires Level 60
+18% Chance to Block
+15% Chance to Block
+Adds (242–260) to (268–285) Physical Damage
+(20–35)% increased Critical Strike Chance
+50% of Physical Damage Converted to Cold Damage
+50% of Physical Damage Converted to Lightning Damage
+Cannot be Shocked while Chilled
+(30–40)% chance to Chill Attackers for 4 seconds on Block
+(30–40)% chance to Shock Attackers for 4 seconds on Block
 ]],[[
 Taryn's Shiver
 Maelström Staff
@@ -347,6 +394,7 @@ Grants level 1 Icestorm Skill
 ]],[[
 Xirgil's Crank
 Coiled Staff
+Source: Drops in The Lord's Labyrinth
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 28, 43 Str, 43 Int
