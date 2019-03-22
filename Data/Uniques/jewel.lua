@@ -615,7 +615,7 @@ Limited to: 1
 {variant:44}(15–20)% increased Recovery rate of Life and Energy Shield while affected by Malevolence
 {variant:45}Unaffected by Poison while affected by Malevolence
 {variant:46}Unaffected by Bleeding while affected by Malevolence
-{variant:47}Damaging Ailments you inflict deal Damage (10–15)% faster while affected by Malevolence
+{variant:47}Damaging Ailments you inflict deal Damage (10–15)% faster while affected by Malevolence
 {variant:48}+(30-50)% to Chaos Resistance while affected by Purity of Elements
 {variant:49}(50-40)% reduced Reflected Elemental Damage taken while affected by Purity of Elements
 {variant:50}(8-12)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Elements
@@ -650,8 +650,8 @@ Limited to: 1
 {variant:79}(25-40)% of Physical Damage Converted to Lightning Damage while affected by Wrath
 {variant:80}Critical Strikes Penetrate (8–10)% of Enemy Elemental Resistances while affected by Zealotry
 {variant:81}(10–15)% increased Cast Speed while affected by Zealotry
-{variant:82}Effects of Consecrated Ground you create while affected by Zealotry Linger for 2 seconds
-{variant:83}Consecrated Ground you create while affected by Zealotry causes enemies to take (8–10)% increased Damage
+{variant:82}Effects of Consecrated Ground you create while affected by Zealotry Linger for 2 seconds
+{variant:83}Consecrated Ground you create while affected by Zealotry causes enemies to take (8–10)% increased Damage
 {variant:84}Gain Arcane Surge for 4 seconds when you create Consecrated Ground while affected by Zealotry
 {variant:85}30% increased Maximum total Recovery per second from Energy Shield Leech while affected by Zealotry
 {variant:86}(100–120)% increased Critical Strike Chance against Enemies on Consecrated Ground while affected by Zealotry
