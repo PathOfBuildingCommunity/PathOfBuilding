@@ -10,8 +10,8 @@ skills["AnimateWeapon"] = {
 	name = "Animate Weapon",
 	color = 2,
 	description = "Animates a melee weapon to fight by your side. You cannot animate unidentified weapons.",
-	skillTypes = { [36] = true, [12] = true, [9] = true, [21] = true, [2] = true, [18] = true, [49] = true, },
-	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, [54] = true, [68] = true, [56] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Type54] = true, [SkillType.SkillCanVolley] = true, [SkillType.Type56] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.8,
 	minionHasItemSet = true,
@@ -108,7 +108,7 @@ skills["ArcticArmour"] = {
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.029999999329448,
 	description = "Conjures an icy barrier that chills enemies when they hit you. You drop chilled ground while moving, and take less Fire and Physical damage while stationary.",
-	skillTypes = { [2] = true, [5] = true, [18] = true, [12] = true, [15] = true, [27] = true, [34] = true, [16] = true, [20] = true, [75] = true, [78] = true, [79] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.SkillCanTotem] = true, [SkillType.Duration] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ColdSkill] = true, [SkillType.ManaCostPercent] = true, [SkillType.CauseElementalStatus] = true, [SkillType.Instant] = true, [SkillType.NonHitChill] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -182,7 +182,7 @@ skills["Barrage"] = {
 	name = "Barrage",
 	color = 2,
 	description = "After a short preparation time, you attack repeatedly with a ranged weapon. These attacks have a small randomised spread. Only works with Bows and Wands.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 		["Bow"] = true,
@@ -266,7 +266,7 @@ skills["BearTrap"] = {
 	baseEffectiveness = 2.8499999046326,
 	incrementalEffectiveness = 0.042500000447035,
 	description = "Throws a trap that damages and immobilises a single enemy for a duration based on how much damage was dealt. After the immobilise expires, a debuff remains on the enemy for a duration, lowering their movement speed by an amount which lessens over time. The affected enemy will take increased damage from traps and mines until the debuff expires. Modifiers to spell damage do not affect this skill's damage.",
-	skillTypes = { [2] = true, [12] = true, [19] = true, [37] = true, [10] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.SkillCanMine] = true, [SkillType.Trap] = true, [SkillType.Hit] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
@@ -347,7 +347,7 @@ skills["ChargedAttack"] = {
 	name = "Blade Flurry",
 	color = 2,
 	description = "Repeatedly strike at enemies in a circle in front of you while channelling, dealing damage to and around the struck enemy. The damage is continually boosted while channelling. You unleash an additional strike for each stage reached once the channelling ends. Requires a Dagger, Claw or One-Handed Sword.",
-	skillTypes = { [1] = true, [11] = true, [58] = true, [24] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Channelled] = true, [SkillType.Melee] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
 		["One Handed Sword"] = true,
@@ -441,7 +441,7 @@ skills["BladeVortex"] = {
 	baseEffectiveness = 0.32150000333786,
 	incrementalEffectiveness = 0.038600001484156,
 	description = "This spell creates ethereal blades which orbit in an area around you, dealing damage every 0.6 seconds to all enemies in their radius. As more blades are added, the damage becomes greater and more frequent.",
-	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [18] = true, [26] = true, [36] = true, [27] = true, [81] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Type27] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
 	parts = {
@@ -548,7 +548,7 @@ skills["VaalBladeVortex"] = {
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.033300001174212,
 	description = "Creates an independently-moving vortex of ethereal blades which lasts for a duration. The vortex moves toward nearby enemies, repeatedly damaging enemies that it passes through.",
-	skillTypes = { [2] = true, [10] = true, [11] = true, [12] = true, [18] = true, [27] = true, [43] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type27] = true, [SkillType.Vaal] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	baseFlags = {
@@ -625,7 +625,7 @@ skills["Bladefall"] = {
 	baseEffectiveness = 1.5471999645233,
 	incrementalEffectiveness = 0.036100000143051,
 	description = "Ethereal weapons rain from the sky, dealing damage to enemies in a sequence of volleys, each wider but less damaging than the last. Enemies can be hit multiple times where these overlap.",
-	skillTypes = { [2] = true, [11] = true, [17] = true, [19] = true, [18] = true, [10] = true, [36] = true, [26] = true, [67] = true, [81] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SpellCanCascade] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
 	baseFlags = {
@@ -694,7 +694,7 @@ skills["BlastRain"] = {
 	name = "Blast Rain",
 	color = 2,
 	description = "Fires an arrow up in the air, which splits and rains down in a series of explosions over an area. The explosions will always overlap on the targeted area.",
-	skillTypes = { [1] = true, [11] = true, [14] = true, [22] = true, [17] = true, [19] = true, [33] = true, [48] = true, [69] = true, [57] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.FireSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Triggerable] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -777,8 +777,8 @@ skills["BlinkArrow"] = {
 	name = "Blink Arrow",
 	color = 2,
 	description = "Fires an arrow at the target destination. When the arrow lands, you are teleported to it and a clone is summoned at your old location. The clone is a minion that uses your bow and quiver.",
-	skillTypes = { [14] = true, [1] = true, [9] = true, [48] = true, [21] = true, [12] = true, [22] = true, [17] = true, [19] = true, [38] = true, [57] = true, },
-	minionSkillTypes = { [1] = true, [3] = true, [48] = true, },
+	skillTypes = { [SkillType.ProjectileDamage] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.ProjectileAttack] = true, [SkillType.CreateMinion] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MovementSkill] = true, [SkillType.Triggerable] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectileAttack] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -858,7 +858,7 @@ skills["BloodRage"] = {
 	name = "Blood Rage",
 	color = 2,
 	description = "Adds a buff that deals Physical Damage over time, while increasing Attack Speed and Life Leech. Killing an enemy while this buff is active refreshes the buff duration, and can grant a Frenzy Charge.",
-	skillTypes = { [2] = true, [5] = true, [12] = true, [18] = true, [36] = true, [75] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -947,7 +947,7 @@ skills["BurningArrow"] = {
 	baseEffectiveness = 2.7778000831604,
 	incrementalEffectiveness = 0.050000000745058,
 	description = "Fires an arrow that deals fire damage to its target and has an increased chance of igniting it.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, [33] = true, [53] = true, [55] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.FireSkill] = true, [SkillType.Type53] = true, [SkillType.Type55] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -1019,7 +1019,7 @@ skills["VaalBurningArrow"] = {
 	baseEffectiveness = 2.9667000770569,
 	incrementalEffectiveness = 0.050000000745058,
 	description = "Fires an arrow that explodes, dealing fire damage to its target and other nearby enemies, with an increased chance of igniting them.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, [11] = true, [43] = true, [33] = true, [55] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Area] = true, [SkillType.Vaal] = true, [SkillType.FireSkill] = true, [SkillType.Type55] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -1096,7 +1096,7 @@ skills["PoisonArrow"] = {
 	baseEffectiveness = 6.5,
 	incrementalEffectiveness = 0.052000001072884,
 	description = "Fires an arrow which deals chaos damage in an area on impact, and spreads caustic ground. Enemies standing on the caustic ground take chaos damage over time.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [11] = true, [12] = true, [17] = true, [19] = true, [22] = true, [40] = true, [50] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.DamageOverTime] = true, [SkillType.ChaosSkill] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -1174,7 +1174,7 @@ skills["ChargedDash"] = {
 	name = "Charged Dash",
 	color = 2,
 	description = "Channel to project an illusion which you steer. You gain stages while it moves, until it stops at a maximum total distance. Waves of area damage frequently pulse along its path, based on your attack speed. Stop channelling to teleport to the illusion, dealing a final wave of damage.",
-	skillTypes = { [38] = true, [11] = true, [10] = true, [58] = true, [1] = true, [24] = true, [35] = true, },
+	skillTypes = { [SkillType.MovementSkill] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.Channelled] = true, [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.LightningSkill] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1268,7 +1268,7 @@ skills["CorpseEruption"] = {
 	baseEffectiveness = 1.8178999423981,
 	incrementalEffectiveness = 0.034499999135733,
 	description = "A targeted corpse explodes, dealing area damage and turning into a volcanic geyser, which will repeatedly unleash projectiles sequentially over the surrounding area for a duration. The explosion of the corpse is not affected by modifiers to spell damage, and cannot be reflected.",
-	skillTypes = { [2] = true, [11] = true, [33] = true, [12] = true, [3] = true, [26] = true, [17] = true, [18] = true, [19] = true, [36] = true, [10] = true, [67] = true, [3] = true, [81] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.SpellCanRepeat] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.Hit] = true, [SkillType.SpellCanCascade] = true, [SkillType.Projectile] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	parts = {
@@ -1355,7 +1355,7 @@ skills["Cyclone"] = {
 	name = "Cyclone",
 	color = 2,
 	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
-	skillTypes = { [1] = true, [11] = true, [24] = true, [38] = true, [65] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.Type65] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -1445,7 +1445,7 @@ skills["VaalCyclone"] = {
 	name = "Vaal Cyclone",
 	color = 2,
 	description = "Spin and attack in place, damaging nearby enemies and pulling others towards you. Cannot be supported by Ruthless.",
-	skillTypes = { [1] = true, [11] = true, [24] = true, [12] = true, [43] = true, [65] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Type65] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -1534,7 +1534,7 @@ skills["Desecrate"] = {
 	baseEffectiveness = 1.6000000238419,
 	incrementalEffectiveness = 0.046500001102686,
 	description = "Desecrates the ground, summoning corpses and dealing chaos damage to all enemies in the area. The corpses will be chosen from the monsters in the current area and any Spectres that have existed in this instance.",
-	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [36] = true, [40] = true, [26] = true, [50] = true, [67] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.DamageOverTime] = true, [SkillType.SpellCanRepeat] = true, [SkillType.ChaosSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	baseFlags = {
@@ -1607,7 +1607,7 @@ skills["DetonateDead"] = {
 	baseEffectiveness = 4.0300002098083,
 	incrementalEffectiveness = 0.031700000166893,
 	description = "Targets a corpse, and deals spell damage to enemies around the corpse, as well as causing the corpse to explode, dealing fire damage. The explosion is not affected by modifiers to spell damage and cannot be reflected.",
-	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, [67] = true, [77] = true, [81] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.DestroysCorpse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	parts = {
@@ -1690,7 +1690,7 @@ skills["VaalDetonateDead"] = {
 	baseEffectiveness = 6.039999961853,
 	incrementalEffectiveness = 0.034000001847744,
 	description = "Targets a corpse, and deals spell damage to enemies around the corpse, as well as causing the corpse to explode, dealing fire damage. The explosion is not affected by modifiers to spell damage and cannot be reflected. This will continue to target other corpses in the area, with an increasing delay between each one, until it runs out of corpses or has destroyed 22 corpses.",
-	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [43] = true, [33] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	parts = {
@@ -1771,7 +1771,7 @@ skills["DoubleStrike"] = {
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Performs two fast attacks on target enemy with a melee weapon.",
-	skillTypes = { [1] = true, [25] = true, [28] = true, [24] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1853,7 +1853,7 @@ skills["VaalDoubleStrike"] = {
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Performs two fast attacks on target enemy with a melee weapon, each of which summons a double of you for a duration to continuously attack monsters in this fashion.",
-	skillTypes = { [1] = true, [25] = true, [24] = true, [12] = true, [43] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1939,7 +1939,7 @@ skills["DualStrike"] = {
 	name = "Dual Strike",
 	color = 2,
 	description = "Attacks with both weapons, dealing the damage of both in one strike. Dual wield only. Does not work with wands.",
-	skillTypes = { [1] = true, [4] = true, [25] = true, [28] = true, [24] = true, [53] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.DualWield] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.Type53] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Claw"] = true,
@@ -2015,7 +2015,7 @@ skills["ElementalHit"] = {
 	baseEffectiveness = 2.9000000953674,
 	incrementalEffectiveness = 0.034099999815226,
 	description = "Each attack with this skill will choose an element at random, and will only be able to deal damage of that element. If the attack hits an enemy, it will also deal damage in an area around them, with the radius being larger if that enemy is suffering from an ailment of the chosen element. It will avoid choosing the same element twice in a row.",
-	skillTypes = { [1] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, [25] = true, [28] = true, [24] = true, [33] = true, [34] = true, [35] = true, [48] = true, [69] = true, [11] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.FireSkill] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	parts = {
@@ -2121,7 +2121,7 @@ skills["EtherealKnives"] = {
 	baseEffectiveness = 2.184700012207,
 	incrementalEffectiveness = 0.037399999797344,
 	description = "Fires an arc of knives in front of the caster which deals physical damage.",
-	skillTypes = { [2] = true, [10] = true, [3] = true, [68] = true, [18] = true, [17] = true, [19] = true, [26] = true, [36] = true, [81] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	baseFlags = {
@@ -2190,7 +2190,7 @@ skills["ExplosiveArrow"] = {
 	baseEffectiveness = 1.2222000360489,
 	incrementalEffectiveness = 0.045000001788139,
 	description = "Fires an arrow which acts as a short duration fuse. Applying additional arrows to an enemy extends the duration. When the target dies or the fuses expire, the arrows explode, dealing fire AoE damage to nearby enemies. The AoE radius is proportional to the number of arrows upon death.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [10] = true, [11] = true, [12] = true, [22] = true, [17] = true, [19] = true, [33] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -2302,7 +2302,7 @@ skills["ShrapnelTrap"] = {
 	baseEffectiveness = 1.7621999979019,
 	incrementalEffectiveness = 0.028400000184774,
 	description = "Throws a trap that creates a large explosion when triggered, dealing spell damage in an area. A number of smaller explosions occur around this area in quick succession after the first.",
-	skillTypes = { [2] = true, [10] = true, [19] = true, [11] = true, [37] = true, [33] = true, [52] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanMine] = true, [SkillType.Area] = true, [SkillType.Trap] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -2377,7 +2377,7 @@ skills["FireTrap"] = {
 	baseEffectiveness = 2.4110999107361,
 	incrementalEffectiveness = 0.048300001770258,
 	description = "Throws a trap that explodes when triggered, dealing fire damage to surrounding enemies and leaving an area of burning ground that damages enemies who walk through it.",
-	skillTypes = { [2] = true, [12] = true, [10] = true, [19] = true, [11] = true, [29] = true, [37] = true, [40] = true, [33] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Hit] = true, [SkillType.SkillCanMine] = true, [SkillType.Area] = true, [SkillType.CausesBurning] = true, [SkillType.Trap] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -2458,7 +2458,7 @@ skills["FlamethrowerTrap"] = {
 	baseEffectiveness = 0.10270000249147,
 	incrementalEffectiveness = 0.058899998664856,
 	description = "Throws a trap that releases a number of flames in different directions around it when triggered. The flames last for a duration, rotating around the trap and repeatedly dealing damage. Burning enemies are dealt more damage.",
-	skillTypes = { [2] = true, [12] = true, [10] = true, [19] = true, [11] = true, [37] = true, [33] = true, [52] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Hit] = true, [SkillType.SkillCanMine] = true, [SkillType.Area] = true, [SkillType.Trap] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
@@ -2538,7 +2538,7 @@ skills["FlickerStrike"] = {
 	name = "Flicker Strike",
 	color = 2,
 	description = "Teleports the character to a nearby monster and attacks it with a melee weapon. If no specific monster is chosen, one is picked at random. The cooldown can be bypassed by expending a Frenzy Charge.",
-	skillTypes = { [1] = true, [24] = true, [25] = true, [28] = true, [38] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.MovementSkill] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2626,7 +2626,7 @@ skills["FreezeMine"] = {
 	baseEffectiveness = 0.90909999608994,
 	incrementalEffectiveness = 0.031750001013279,
 	description = "Lays a remote mine that you can detonate to freeze all enemies in the area.",
-	skillTypes = { [2] = true, [10] = true, [11] = true, [41] = true, [34] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Mine] = true, [SkillType.ColdSkill] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
 	baseFlags = {
@@ -2699,7 +2699,7 @@ skills["Frenzy"] = {
 	name = "Frenzy",
 	color = 2,
 	description = "Performs an attack that gives the character a frenzy charge if it hits. Frenzy charges increase your attack speed.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, [25] = true, [28] = true, [24] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -2767,7 +2767,7 @@ skills["FrostBlades"] = {
 	name = "Frost Blades",
 	color = 2,
 	description = "Attack an enemy with increased range, releasing icy blades from the targeted enemy which fly at other enemies. Requires a Melee Weapon.",
-	skillTypes = { [1] = true, [3] = true, [25] = true, [28] = true, [24] = true, [34] = true, [48] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.ColdSkill] = true, [SkillType.ProjectileAttack] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2861,7 +2861,7 @@ skills["Grace"] = {
 	name = "Grace",
 	color = 2,
 	description = "Casts an aura that grants evasion to you and your allies.",
-	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [75] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -2933,7 +2933,7 @@ skills["VaalGrace"] = {
 	name = "Vaal Grace",
 	color = 2,
 	description = "Casts a temporary aura that grants you and your allies the ability to dodge attacks and spells.",
-	skillTypes = { [2] = true, [5] = true, [11] = true, [18] = true, [27] = true, [12] = true, [43] = true, [44] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type27] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -3013,7 +3013,7 @@ skills["Haste"] = {
 	name = "Haste",
 	color = 2,
 	description = "Casts an aura that increases the movement speed, attack speed and cast speed of you and your allies.",
-	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [75] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -3093,7 +3093,7 @@ skills["VaalHaste"] = {
 	name = "Vaal Haste",
 	color = 2,
 	description = "Casts a temporary aura that increases the movement speed, attack speed and cast speed of you and your allies.",
-	skillTypes = { [2] = true, [5] = true, [11] = true, [18] = true, [27] = true, [12] = true, [43] = true, [44] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type27] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -3179,7 +3179,7 @@ skills["Hatred"] = {
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.025000000372529,
 	description = "Casts an aura that grants extra cold damage based on physical damage to you and your allies.",
-	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [34] = true, [75] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.ColdSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -3257,8 +3257,8 @@ skills["HeraldOfAgony"] = {
 	baseEffectiveness = 0.10999999940395,
 	incrementalEffectiveness = 0.044700000435114,
 	description = "Grants a buff giving more poison damage and a chance to inflict poison. When you poison an enemy while you have this buff, you gain Virulence, and summon an Agony Crawler minion that uses projectile and area attacks. You will lose Virulence over time, at a rate which increases the more Virulence you have. The minion will die when you have no Virulence.",
-	skillTypes = { [2] = true, [5] = true, [15] = true, [16] = true, [63] = true, [9] = true, [75] = true, [50] = true, },
-	minionSkillTypes = { [10] = true, [1] = true, [50] = true, [3] = true, [48] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.Herald] = true, [SkillType.Minion] = true, [SkillType.Instant] = true, [SkillType.ChaosSkill] = true, },
+	minionSkillTypes = { [SkillType.Hit] = true, [SkillType.Attack] = true, [SkillType.ChaosSkill] = true, [SkillType.Projectile] = true, [SkillType.ProjectileAttack] = true, },
 	statDescriptionScope = "minion_skill_stat_descriptions",
 	castTime = 0,
 	minionList = {
@@ -3354,7 +3354,7 @@ skills["HeraldOfIce"] = {
 	baseEffectiveness = 1.3636000156403,
 	incrementalEffectiveness = 0.023000000044703,
 	description = "Channel ice through your hands, adding cold damage to spells and attacks. If you shatter an enemy, they explode and deal AoE cold damage to enemies near them. The AoE cold damage inflicted by this skill is not affected by modifiers to spell damage.",
-	skillTypes = { [2] = true, [5] = true, [15] = true, [16] = true, [10] = true, [11] = true, [34] = true, [27] = true, [63] = true, [75] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.ColdSkill] = true, [SkillType.Type27] = true, [SkillType.Herald] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -3444,7 +3444,7 @@ skills["IceShot"] = {
 	name = "Ice Shot",
 	color = 2,
 	description = "Fires an arrow that converts some physical damage to cold on its target and converts all physical damage to cold in a cone behind that target. Creates a patch of ground ice under the target.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [11] = true, [12] = true, [22] = true, [17] = true, [19] = true, [34] = true, [79] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.ColdSkill] = true, [SkillType.ChillingArea] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -3528,7 +3528,7 @@ skills["IceTrap"] = {
 	baseEffectiveness = 2.9586999416351,
 	incrementalEffectiveness = 0.038100000470877,
 	description = "Throws a trap that creates a series of icy runic explosions when triggered, dealing cold damage to all enemies caught in the blasts.",
-	skillTypes = { [2] = true, [10] = true, [19] = true, [11] = true, [37] = true, [34] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanMine] = true, [SkillType.Area] = true, [SkillType.Trap] = true, [SkillType.ColdSkill] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -3598,7 +3598,7 @@ skills["DoubleSlash"] = {
 	name = "Lacerate",
 	color = 2,
 	description = "Slashes twice, releasing waves of force that damage enemies they hit. Enemies in the middle of the slashes can be hit by both. If you are dual wielding, you attack with your Main Hand, then your Off Hand. Can be used with Axes and Swords.",
-	skillTypes = { [1] = true, [11] = true, [28] = true, [24] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -3687,7 +3687,7 @@ skills["LancingSteel"] = {
 	name = "Lancing Steel",
 	color = 2,
 	description = "Thrust an Axe or Sword forward, releasing a primary projectile that impales enemies it hits. Additional projectiles appear nearby as smaller metal shards that fly forward after a short delay.",
-	skillTypes = { [1] = true, [3] = true, [10] = true, [14] = true, [48] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Hit] = true, [SkillType.ProjectileDamage] = true, [SkillType.ProjectileAttack] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -3763,7 +3763,7 @@ skills["LightningArrow"] = {
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.025000000372529,
 	description = "Fires a charged arrow at the target, causing them to be struck by a bolt of lightning which damages nearby enemies.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [11] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, [35] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.LightningSkill] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -3831,7 +3831,7 @@ skills["LightningStrike"] = {
 	name = "Lightning Strike",
 	color = 2,
 	description = "Infuses your melee weapon with electrical energies as you swing. In addition to converting some of your physical damage to lightning damage, the stored energy is released from the weapon as projectiles as you strike, flying out behind your target to hit farther-away enemies. The projectiles cannot miss if the melee attack hit its target.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [25] = true, [28] = true, [24] = true, [35] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.LightningSkill] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -3930,7 +3930,7 @@ skills["VaalLightningStrike"] = {
 	name = "Vaal Lightning Strike",
 	color = 2,
 	description = "Infuses your melee weapon with electrical energies as you swing. In addition to converting some of your physical damage to lightning damage, the stored energy becomes an orb attached to the enemy you hit, or the ground if you don't hit an enemy. The orb will periodically fire projectiles at other nearby enemies for a duration, which will also damage the enemy the orb is attached to.",
-	skillTypes = { [1] = true, [25] = true, [24] = true, [12] = true, [43] = true, [35] = true, [3] = true, [48] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.LightningSkill] = true, [SkillType.Projectile] = true, [SkillType.ProjectileAttack] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -4027,8 +4027,8 @@ skills["MirrorArrow"] = {
 	name = "Mirror Arrow",
 	color = 2,
 	description = "Fires an arrow at the target destination. When the arrow lands, a clone is summoned. The clone is a minion that uses your bow and quiver.",
-	skillTypes = { [14] = true, [1] = true, [9] = true, [48] = true, [69] = true, [21] = true, [12] = true, [22] = true, [17] = true, [19] = true, [57] = true, },
-	minionSkillTypes = { [1] = true, [3] = true, [48] = true, },
+	skillTypes = { [SkillType.ProjectileDamage] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.CreateMinion] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectileAttack] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -4108,7 +4108,7 @@ skills["NewPhaseRun"] = {
 	name = "Phase Run",
 	color = 2,
 	description = "Gain a buff that makes you faster, harder to detect, and grants Phasing, letting you pass through enemies. Performing any skill replaces this buff with one that boosts melee damage of skills you use yourself (it will not apply to your melee skills used by totems). Consumes Frenzy Charges to increase duration.",
-	skillTypes = { [2] = true, [5] = true, [12] = true, [36] = true, [38] = true, [75] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.MovementSkill] = true, [SkillType.Instant] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -4185,7 +4185,7 @@ skills["PoachersMark"] = {
 	name = "Poacher's Mark",
 	color = 2,
 	description = "Curses all targets in an area, making them less evasive. Hitting the cursed targets will grant life and mana, and killing them will result in more flask charges and a chance to gain a frenzy charge.",
-	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, [67] = true, [80] = true, [81] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -4270,7 +4270,7 @@ skills["ProjectileWeakness"] = {
 	name = "Projectile Weakness",
 	color = 2,
 	description = "Curses all targets in an area, making them easier to pierce and to knock back, and increasing the damage they take from projectiles.",
-	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, [67] = true, [80] = true, [81] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -4353,7 +4353,7 @@ skills["Puncture"] = {
 	name = "Puncture",
 	color = 2,
 	description = "Punctures the target, causing a bleeding debuff, which will be affected by modifiers to skill duration. Puncture works with bows, daggers, claws or swords.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [12] = true, [17] = true, [19] = true, [22] = true, [25] = true, [28] = true, [24] = true, [40] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.DamageOverTime] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 		["Claw"] = true,
@@ -4431,7 +4431,7 @@ skills["ColdResistAura"] = {
 	name = "Purity of Ice",
 	color = 2,
 	description = "Casts an aura that grants cold resistance to you and your allies.",
-	skillTypes = { [2] = true, [11] = true, [5] = true, [15] = true, [27] = true, [16] = true, [18] = true, [44] = true, [34] = true, [75] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.ManaCostReserved] = true, [SkillType.Type27] = true, [SkillType.ManaCostPercent] = true, [SkillType.SkillCanTotem] = true, [SkillType.Aura] = true, [SkillType.ColdSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -4507,7 +4507,7 @@ skills["ColdImpurity"] = {
 	name = "Vaal Impurity of Ice",
 	color = 2,
 	description = "Casts an aura that reduces cold damage taken and provides freeze and chill immunity to you and nearby allies, and makes hits against nearby enemies ignore their cold resistance. ",
-	skillTypes = { [2] = true, [5] = true, [11] = true, [18] = true, [27] = true, [12] = true, [43] = true, [44] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type27] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
@@ -4588,7 +4588,7 @@ skills["RainOfArrows"] = {
 	name = "Rain of Arrows",
 	color = 2,
 	description = "Fires multiple arrows into the air, to land in sequence after a delay, starting at the targeted location and spreading outwards in all directions. Each arrow deals damage in an area around it. Half of the arrows will land directly on targets if there are targets in their range.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [11] = true, [14] = true, [73] = true, [22] = true, [17] = true, [19] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.Type73] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -4661,7 +4661,7 @@ skills["VaalRainOfArrows"] = {
 	name = "Vaal Rain of Arrows",
 	color = 2,
 	description = "Fires multiple arrows into the air, to land in multiple sequences after a delay, each starting at the targeted location and spreading outwards in all directions. Each arrow deals damage in an area around it. Half of the arrows will land directly on targets if there are targets in their range.",
-	skillTypes = { [1] = true, [48] = true, [11] = true, [14] = true, [73] = true, [22] = true, [17] = true, [19] = true, [43] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.Type73] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -4739,7 +4739,7 @@ skills["Reave"] = {
 	name = "Reave",
 	color = 2,
 	description = "Attacks a small area in front of you. Each Reave that hits an enemy increases the area of effect. The area is reset after a short period without hitting anything. Only works with Daggers, Claws, and One-Handed Swords.",
-	skillTypes = { [1] = true, [11] = true, [28] = true, [24] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
 		["One Handed Sword"] = true,
@@ -4830,7 +4830,7 @@ skills["VaalReave"] = {
 	name = "Vaal Reave",
 	color = 2,
 	description = "Repeatedly attacks a large area in different directions. Each Vaal Reave that hits an enemy increases the area of effect. The area is reset after a short period without hitting anything. Only works with Daggers, Claws, and One-Handed Swords.",
-	skillTypes = { [1] = true, [11] = true, [24] = true, [43] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Vaal] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
 		["One Handed Sword"] = true,
@@ -4928,7 +4928,7 @@ skills["Riposte"] = {
 	name = "Riposte",
 	color = 2,
 	description = "Perform a deadly counter-attack when you block. Uses both weapons while you're dual wielding.",
-	skillTypes = { [1] = true, [24] = true, [25] = true, [47] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.TriggeredGrantedSkill] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -5009,7 +5009,7 @@ skills["ScourgeArrow"] = {
 	name = "Scourge Arrow",
 	color = 2,
 	description = "Channel to infuse an arrow with chaos, gaining stages while it is held. Release to fire this piercing arrow, which leaves spore pods in its wake. Each spore pod blooms, firing a nova of thorn arrows. Modifiers that cause additional projectiles to be fired will only apply to the initial arrows, and the spore pods will be split between those arrows.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [22] = true, [10] = true, [58] = true, [50] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.Hit] = true, [SkillType.Channelled] = true, [SkillType.ChaosSkill] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -5103,7 +5103,7 @@ skills["ShatteringSteel"] = {
 	name = "Shattering Steel",
 	color = 2,
 	description = "Swing an Axe or Sword, releasing projectiles in sequence. The projectiles shatter when colliding with an enemy or travelling a short distance. The shattered pieces deal damage in an area in front of the impact location.",
-	skillTypes = { [1] = true, [3] = true, [10] = true, [14] = true, [48] = true, [11] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Hit] = true, [SkillType.ProjectileDamage] = true, [SkillType.ProjectileAttack] = true, [SkillType.Area] = true, },
 	weaponTypes = {
 		["Two Handed Axe"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -5192,7 +5192,7 @@ skills["PhysCascadeTrap"] = {
 	baseEffectiveness = 1.452299952507,
 	incrementalEffectiveness = 0.040899999439716,
 	description = "Throws a trap which, once triggered, repeatedly releases a number of waves for a duration. Each wave deals damage in a series of small bursts in a line, ending with a larger burst. Modifiers to cast speed affects how frequently it releases waves.",
-	skillTypes = { [2] = true, [12] = true, [10] = true, [19] = true, [11] = true, [37] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Hit] = true, [SkillType.SkillCanMine] = true, [SkillType.Area] = true, [SkillType.Trap] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -5266,7 +5266,7 @@ skills["ShrapnelShot"] = {
 	name = "Shrapnel Shot",
 	color = 2,
 	description = "Fires an arrow that pierces through enemies. Arrows are fired with such force that they create a burst of lightning, damaging all enemies in a cone in front of the archer.",
-	skillTypes = { [1] = true, [3] = true, [68] = true, [11] = true, [22] = true, [17] = true, [19] = true, [35] = true, [48] = true, [69] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.LightningSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -5347,7 +5347,7 @@ skills["SiegeBallista"] = {
 	name = "Siege Ballista",
 	color = 2,
 	description = "Summons a totem that attacks with piercing arrows. It attacks slowly, but deals increased damage.",
-	skillTypes = { [1] = true, [3] = true, [68] = true, [48] = true, [17] = true, [19] = true, [30] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Totem] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -5424,7 +5424,7 @@ skills["SmokeMine"] = {
 	name = "Smoke Mine",
 	color = 2,
 	description = "Places a mine that will teleport you to it when detonated. It covers both your escape and arrival with a cloud of smoke that blinds enemies, and gives you a temporary buff to movement speed.",
-	skillTypes = { [2] = true, [11] = true, [12] = true, [38] = true, [41] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.MovementSkill] = true, [SkillType.Mine] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -5501,7 +5501,7 @@ skills["ThrownShield"] = {
 	baseEffectiveness = 1.7000000476837,
 	incrementalEffectiveness = 0.017799999564886,
 	description = "Throws a spectral copy of your shield as a projectile which cannot pierce, and deals off-hand damage augmented by the defences of the shield. When it collides with something it will shatter, launching a number of smaller shards as projectiles in all directions. Modifiers that cause additional projectiles to be fired will add more shards, not more copies of the shield.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [71] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Type71] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	parts = {
@@ -5610,7 +5610,7 @@ skills["ThrownWeapon"] = {
 	name = "Spectral Throw",
 	color = 2,
 	description = "Throws a spectral copy of your melee weapon. It flies out and then returns to you, in a spinning attack that strikes enemies in its path.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -5687,7 +5687,7 @@ skills["VaalThrownWeapon"] = {
 	name = "Vaal Spectral Throw",
 	color = 2,
 	description = "Throws a spectral copy of your melee weapon. It spirals out in a spinning attack that strikes enemies in its path.",
-	skillTypes = { [1] = true, [48] = true, [3] = true, [68] = true, [43] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Vaal] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -5770,7 +5770,7 @@ skills["RainOfSpores"] = {
 	baseEffectiveness = 1.6000000238419,
 	incrementalEffectiveness = 0.043200001120567,
 	description = "Fire arrows into the air that rain down around the targeted area, dealing damage to enemies they hit and creating spore pods where they land. Each spore pod deals chaos damage over time to nearby enemies and slows their movement speed. The pods last for a duration before bursting, dealing area damage.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [11] = true, [14] = true, [22] = true, [17] = true, [19] = true, [10] = true, [50] = true, [12] = true, [40] = true, [73] = true, [50] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Hit] = true, [SkillType.ChaosSkill] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.Type73] = true, [SkillType.ChaosSkill] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -5848,7 +5848,7 @@ skills["SplitArrow"] = {
 	name = "Split Arrow",
 	color = 2,
 	description = "Fires multiple arrows at different targets.",
-	skillTypes = { [1] = true, [48] = true, [69] = true, [3] = true, [68] = true, [22] = true, [17] = true, [19] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -5915,8 +5915,8 @@ skills["SummonIceGolem"] = {
 	name = "Summon Ice Golem",
 	color = 2,
 	description = "Summons an Ice Golem that grants you increased Critical Strike Chance and Accuracy. The Ice Golem can use an icy barrage spell and a chilling spinning dash in addition to its melee attack.",
-	skillTypes = { [36] = true, [34] = true, [19] = true, [9] = true, [21] = true, [26] = true, [2] = true, [18] = true, [17] = true, [49] = true, [60] = true, [62] = true, },
-	minionSkillTypes = { [1] = true, [24] = true, [25] = true, [3] = true, [68] = true, [2] = true, [10] = true, [38] = true, [28] = true, [79] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.SkillCanMine] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.Golem] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.MovementSkill] = true, [SkillType.AttackCanRepeat] = true, [SkillType.ChillingArea] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
@@ -6000,7 +6000,7 @@ skills["TemporalChains"] = {
 	name = "Temporal Chains",
 	color = 2,
 	description = "Curses all targets in an area, Slowing them, and making effects on them expire more slowly.",
-	skillTypes = { [2] = true, [11] = true, [12] = true, [17] = true, [18] = true, [19] = true, [26] = true, [32] = true, [36] = true, [67] = true, [80] = true, [81] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -6087,7 +6087,7 @@ skills["TornadoShot"] = {
 	name = "Tornado Shot",
 	color = 2,
 	description = "Fires a piercing shot that travels until it reaches the targeted location. It will then fire projectiles out in all directions from that point.",
-	skillTypes = { [1] = true, [3] = true, [68] = true, [17] = true, [19] = true, [22] = true, [48] = true, [69] = true, [57] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -6157,7 +6157,7 @@ skills["BoneLance"] = {
 	baseEffectiveness = 3.2646999359131,
 	incrementalEffectiveness = 0.032499998807907,
 	description = "Fires a projectile that will pierce through enemies to impact the ground at the targeted location, creating a Bone Archer corpse where it lands.",
-	skillTypes = { [2] = true, [3] = true, [68] = true, [18] = true, [19] = true, [17] = true, [36] = true, [10] = true, [26] = true, [81] = true, [11] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTrap] = true, [SkillType.Triggerable] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	baseFlags = {
@@ -6228,7 +6228,7 @@ skills["ViperStrike"] = {
 	baseEffectiveness = 1.4800000190735,
 	incrementalEffectiveness = 0.044799998402596,
 	description = "Hits the enemy, adding some of your physical damage as chaos damage and applying poison. Requires a claw, dagger or sword.",
-	skillTypes = { [1] = true, [12] = true, [28] = true, [24] = true, [25] = true, [40] = true, [50] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Duration] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.DamageOverTime] = true, [SkillType.ChaosSkill] = true, },
 	weaponTypes = {
 		["Claw"] = true,
 		["Thrusting One Handed Sword"] = true,
@@ -6307,7 +6307,7 @@ skills["VolatileDead"] = {
 	baseEffectiveness = 2.2228999137878,
 	incrementalEffectiveness = 0.0337999984622,
 	description = "Corpses near the targeted location explode, dealing damage in a small area and creating an orb which moves towards nearby enemies before dealing spell damage in a larger area. The explosion of the corpse is not affected by modifiers to spell damage, and cannot be reflected.",
-	skillTypes = { [2] = true, [10] = true, [11] = true, [17] = true, [18] = true, [19] = true, [26] = true, [36] = true, [33] = true, [67] = true, [81] = true, [83] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	parts = {
@@ -6388,7 +6388,7 @@ skills["WhirlingBlades"] = {
 	name = "Whirling Blades",
 	color = 2,
 	description = "Dive through enemies, dealing weapon damage. Only works with daggers, claws and one handed swords. Cannot be supported by Multistrike.",
-	skillTypes = { [1] = true, [24] = true, [38] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
 		["Claw"] = true,
@@ -6459,7 +6459,7 @@ skills["WildStrike"] = {
 	name = "Wild Strike",
 	color = 2,
 	description = "Your melee weapon strikes an enemy, converting physical damage to a random element. Then, depending on the element chosen, it releases a fiery explosion, an arcing bolt of lightning, or an icy wave.",
-	skillTypes = { [1] = true, [25] = true, [28] = true, [24] = true, [35] = true, [34] = true, [33] = true, [3] = true, [11] = true, [23] = true, [48] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.LightningSkill] = true, [SkillType.ColdSkill] = true, [SkillType.FireSkill] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Chaining] = true, [SkillType.ProjectileAttack] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,

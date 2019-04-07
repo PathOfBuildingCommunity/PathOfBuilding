@@ -1,3 +1,8 @@
+### 1.4.136 - 2019/04/07
+ * You can now import characters from the console realms
+ * Updated item mods and skill gems to account for changes in recent patches
+ * Fixed issue preventing Icestorm's duration from scaling from Intelligence
+ 
 ### 1.4.135 - 2019/03/14
  * Fixed crafted mods on imported items not being recognised
  * Storm Call now correctly shows DPS instead of just average damage

@@ -58,19 +58,10 @@ function calcLib.validateGemLevel(gemInstance)
 	end	
 end
 
--- Check if given support skill can support the given skill types
-function calcLib.canGrantedEffectSupportTypes(grantedEffect, skillTypes)
-	for _, skillType in pairs(grantedEffect.excludeSkillTypes) do
-		if skillTypes[skillType] then
-			return false
-		end
-	end
-	if not grantedEffect.requireSkillTypes[1] then
-		return true
-	end
-	-- Check for required types using a boolean postfix expression
+-- Evaluate a skill type postfix expression
+function calcLib.doesTypeExpressionMatch(checkTypes, skillTypes, minionTypes)
 	local stack = { }
-	for _, skillType in pairs(grantedEffect.requireSkillTypes) do
+	for _, skillType in pairs(checkTypes) do
 		if skillType == SkillType.OR then
 			local other = t_remove(stack)
 			stack[#stack] = stack[#stack] or other
@@ -80,7 +71,7 @@ function calcLib.canGrantedEffectSupportTypes(grantedEffect, skillTypes)
 		elseif skillType == SkillType.NOT then
 			stack[#stack] = not stack[#stack]
 		else
-			t_insert(stack, skillTypes[skillType] == true)
+			t_insert(stack, skillTypes[skillType] or (minionTypes and minionTypes[skillType]) or false)
 		end
 	end
 	for _, val in ipairs(stack) do
@@ -93,7 +84,7 @@ end
 
 -- Check if given support skill can support the given active skill
 function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
-	if grantedEffect.unsupported then
+	if grantedEffect.unsupported or activeSkill.activeEffect.grantedEffect.cannotBeSupported then
 		return false
 	end
 	if grantedEffect.supportGemsOnly and not activeSkill.activeEffect.gemData then
@@ -102,10 +93,10 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 	if activeSkill.summonSkill then
 		return calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill.summonSkill)
 	end
-	if activeSkill.minionSkillTypes and calcLib.canGrantedEffectSupportTypes(grantedEffect, activeSkill.minionSkillTypes) then
-		return true
+	if grantedEffect.excludeSkillTypes[1] and calcLib.doesTypeExpressionMatch(grantedEffect.excludeSkillTypes, activeSkill.skillTypes) then
+		return false
 	end
-	return calcLib.canGrantedEffectSupportTypes(grantedEffect, activeSkill.skillTypes)
+	return not grantedEffect.requireSkillTypes[1] or calcLib.doesTypeExpressionMatch(grantedEffect.requireSkillTypes, activeSkill.skillTypes, not grantedEffect.ignoreMinionTypes and activeSkill.minionSkillTypes)
 end
 
 -- Check if given gem is of the given type ("all", "strength", "melee", etc)

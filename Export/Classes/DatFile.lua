@@ -79,26 +79,27 @@ local DatFileClass = newClass("DatFile", function(self, name, raw)
 	end
 	self.spec = main.datSpecs[self.name]
 
-	self.rows = { }
 	self.cols = { }
 	self.colMap = { }
 	self.indexes = { }
 
+	local colMeta = { __index = function(t, key)
+		local colIndex = self.colMap[key]
+		if not colIndex then
+			error("Unknown key "..key.." for "..self.name..".dat")
+		end
+		t[key] = self:ReadCell(t._rowIndex, colIndex)
+		return rawget(t, key)
+	end }
 	self.rowCache = setmetatable({ }, { __index = function(t, rowIndex)
 		if rowIndex < 1 or rowIndex > self.rowCount then
 			return
 		end
-		t[rowIndex] = setmetatable({ }, { __index = function(t, key)
-			local colIndex = self.colMap[key]
-			if not colIndex then
-				error("Unknown key "..key.." for "..self.name..".dat")
-			end
-			t[key] = self:ReadCell(rowIndex, colIndex)
-			return rawget(t, key)
-		end })
+		t[rowIndex] = setmetatable({ _rowIndex = rowIndex }, colMeta)
 		return t[rowIndex]
 	end })
 
+	self.rows = { }
 	self.rowCount = bytesToUInt(self.raw)
 	self.dataOffset = self.raw:find("\xBB\xBB\xBB\xBB\xBB\xBB\xBB\xBB", 5, true) or (#self.raw + 1)
 	self.rowSize = (self.dataOffset - 5) / self.rowCount
@@ -114,8 +115,8 @@ end)
 function DatFileClass:OnSpecChanged()
 	wipeTable(self.cols)
 	wipeTable(self.colMap)
-	wipeTable(self.rowCache)
 	wipeTable(self.indexes)
+	wipeTable(self.rowCache)
 	local offset = 0
 	for i, specCol in ipairs(self.spec) do
 		local dataType = dataTypes[specCol.type]

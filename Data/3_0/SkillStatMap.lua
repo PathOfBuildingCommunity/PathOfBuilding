@@ -144,13 +144,13 @@ return {
 	skill("totemLevel", nil),
 },
 ["spell_uncastable_if_triggerable"] = {
-	skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }),
+	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["unique_mjolner_lightning_spells_triggered"] = {
-	skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }),
+	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["unique_cospris_malice_cold_spells_triggered"] = {
-	skill("triggered", true, { type = "SkillType", skillType = SkillType.TriggerableSpell }),
+	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),

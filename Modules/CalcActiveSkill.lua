@@ -51,8 +51,7 @@ end
 -- Merge skill modifiers with given mod list
 function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 	calcLib.validateGemLevel(skillEffect)
-	local grantedEffect = skillEffect.grantedEffect
-	modList:AddList(grantedEffect.baseMods)
+	local grantedEffect = skillEffect.grantedEffect	
 	local stats = calcLib.buildSkillInstanceStats(skillEffect, grantedEffect)
 	if extraStats and extraStats[1] then
 		for _, stat in pairs(extraStats) do
@@ -67,6 +66,7 @@ function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 			end
 		end
 	end
+	modList:AddList(grantedEffect.baseMods)
 end
 
 -- Create an active skill using the given active gem and list of support gems
@@ -86,7 +86,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	
 	-- Initialise skill types
 	activeSkill.skillTypes = copyTable(activeGrantedEffect.skillTypes)
-	if activeEffect.grantedEffect.minionSkillTypes then
+	if activeGrantedEffect.minionSkillTypes then
 		activeSkill.minionSkillTypes = copyTable(activeGrantedEffect.minionSkillTypes)
 	end
 

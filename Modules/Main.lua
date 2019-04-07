@@ -408,6 +408,7 @@ function main:LoadSettings()
 				self:SetMode(node.attrib.mode, unpack(args))
 			elseif node.elem == "Accounts" then
 				self.lastAccountName = node.attrib.lastAccountName
+				self.lastRealm = node.attrib.lastRealm
 				for _, child in ipairs(node) do
 					if child.elem == "Account" then
 						self.gameAccounts[child.attrib.accountName] = {
@@ -480,7 +481,7 @@ function main:SaveSettings()
 		t_insert(mode, child)
 	end
 	t_insert(setXML, mode)
-	local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName } }
+	local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName, lastRealm = self.lastRealm } }
 	for accountName, account in pairs(self.gameAccounts) do
 		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = account.sessionID } })
 	end

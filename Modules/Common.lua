@@ -293,7 +293,13 @@ function writeLuaTable(out, t, indent)
 	if indent then
 		out:write('\n')
 	end
+	local keyList = { }
 	for k, v in pairs(t) do
+		t_insert(keyList, k)
+	end
+	table.sort(keyList, function(a,b) if type(a) == type(b) then return a < b else return type(a) < type(b) end end)
+	for i, k in ipairs(keyList) do
+		local v = t[k]
 		if indent then
 			out:write(string.rep("\t", indent))
 		end
@@ -315,7 +321,7 @@ function writeLuaTable(out, t, indent)
 		else
 			out:write(tostring(v))
 		end
-		if next(t, k) ~= nil then
+		if i < #keyList then
 			out:write(',')
 		end
 		if indent then

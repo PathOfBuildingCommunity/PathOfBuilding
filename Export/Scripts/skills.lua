@@ -1,12 +1,82 @@
+local skillTypes = { "Attack",
+	"Spell",
+	"Projectile",
+	"DualWield",
+	"Buff",
+	"Minion",
+	"Hit",
+	"Area",
+	"Duration",
+	"Shield",
+	"ProjectileDamage",
+	"ManaCostReserved",
+	"ManaCostPercent",
+	"SkillCanTrap",
+	"SkillCanTotem",
+	"SkillCanMine",
+	"CauseElementalStatus",
+	"CreateMinion",
+	"Chaining",
+	"Melee",
+	"MeleeSingleTarget",
+	"SpellCanRepeat",
+	"Type27",
+	"AttackCanRepeat",
+	"CausesBurning",
+	"Totem",
+	"Type31",
+	"Curse",
+	"FireSkill",
+	"ColdSkill",
+	"LightningSkill",
+	"Triggerable",
+	"Trap",
+	"MovementSkill",
+	"DamageOverTime",
+	"Mine",
+	"Triggered",
+	"Vaal",
+	"Aura",
+	"Type46",
+	"ProjectileAttack",
+	"ChaosSkill",
+	"Type51",
+	"Type53",
+	"Type54",
+	"Type55",
+	"Type56",
+	"Channelled",
+	"Type59",
+	"TriggeredGrantedSkill",
+	"Golem",
+	"Herald",
+	"AuraDebuff",
+	"Type65",
+	"Type66",
+	"SpellCanCascade",
+	"SkillCanVolley",
+	"SkillCanMirageArcher",
+	"Type70",
+	"Type71",
+	"Type72",
+	"Type73",
+	"Warcry",
+	"Instant",
+	"Brand",
+	"DestroysCorpse",
+	"NonHitChill",
+	"ChillingArea",
+	"AppliesCurse",
+	"CanRapidFire",
+	"AuraDuration",
+	"AreaSpell",
+	"OR",
+	"AND",
+	"NOT",
+}
 
 local function mapAST(ast)
-	if ast >= 36 then
-		return ast + 4
-	elseif ast >= 6 then
-		return ast + 3
-	else
-		return ast
-	end
+	return "SkillType."..skillTypes[ast]
 end
 
 local weaponClassMap = {
@@ -111,6 +181,9 @@ directiveTable.skill = function(state, args, out)
 		if granted.SupportGemsOnly then
 			out:write('\tsupportGemsOnly = true,\n')
 		end
+		if granted.IgnoreMinionTypes then
+			out:write('\tignoreMinionTypes = true,\n')
+		end
 		out:write('\tstatDescriptionScope = "gem_stat_descriptions",\n')
 	else
 		if #granted.ActiveSkill.Description > 0 then
@@ -146,6 +219,9 @@ directiveTable.skill = function(state, args, out)
 			out:write('\tskillTotemId = ', granted.ActiveSkill.SkillTotem, ',\n')
 		end
 		out:write('\tcastTime = ', granted.CastTime / 1000, ',\n')
+		if granted.CannotBeSupported then
+			out:write('\tcannotBeSupported = true,\n')
+		end
 	end
 	for _, levelRow in ipairs(dat"GrantedEffectsPerLevel":GetRowList("GrantedEffect", granted)) do
 		local level = { extra = { } }
