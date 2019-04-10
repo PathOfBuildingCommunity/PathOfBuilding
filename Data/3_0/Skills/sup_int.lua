@@ -423,11 +423,11 @@ skills["SupportCastWhileChannelling"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("timeOverride", nil, { type = "SkillType", skillType = SkillType.TriggerableSpell }),
+			skill("timeOverride", nil, { type = "SkillType", skillType = SkillType.Triggerable }),
 			div = 1000,
 		},
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.TriggerableSpell }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
 	},
 	baseMods = {

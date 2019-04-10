@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.136"/>
+	<Version number="1.4.137"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="74cd89091c4db01f0673217a5bd0927f232391e2" name="Launch.lua" part="program"/>
 	<File sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="e99dd2060cebb584dafb29b6acdcd40068a29d05" name="changelog.txt" part="program"/>
+	<File sha1="aa531c966743aa7cadaf1d76265ef9b5daeaf068" name="changelog.txt" part="program"/>
 	<File sha1="b093a2709f30c1f83ce5ba9df88c80f22c1beb4a" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="16fc5eaa04cc14b2022f6705a12717935454dab0" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="c160d9d42579f3e3b89e420e7931a9aecb6377bc" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -189,7 +189,7 @@
 	<File sha1="81f44625bfc1de9390d1125d38e6ed89b21620d4" name="Data/3_0/Skills/other.lua" part="program"/>
 	<File sha1="613daf67e6596db594739b1a82fbd38de1652642" name="Data/3_0/Skills/spectre.lua" part="program"/>
 	<File sha1="77bf143831fb2a5792e85e73279c71f0a7f82dde" name="Data/3_0/Skills/sup_dex.lua" part="program"/>
-	<File sha1="89082c94a266d74da3d6157eacd4c17c44e9a71c" name="Data/3_0/Skills/sup_int.lua" part="program"/>
+	<File sha1="b5ea5475f31c055182b4b1f9dafaf4537336c613" name="Data/3_0/Skills/sup_int.lua" part="program"/>
 	<File sha1="5a86613ae3fc2eb1c83d2b7ffa6277ed377f7635" name="Data/3_0/Skills/sup_str.lua" part="program"/>
 	<File sha1="f8e3bf7030a508a971dee6384624c3cb51d43ee8" name="Data/3_0/StatDescriptions/active_skill_gem_stat_descriptions.lua" part="program"/>
 	<File sha1="6fbae1b6bd095ffd69a4678749b002b1a8e831d1" name="Data/3_0/StatDescriptions/aura_skill_stat_descriptions.lua" part="program"/>

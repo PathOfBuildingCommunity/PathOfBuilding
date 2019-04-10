@@ -1,3 +1,6 @@
+### 1.4.137 - 2019/04/10
+ * Fixed issue preventing Cast while Channelling from working correctly
+
 ### 1.4.136 - 2019/04/07
  * You can now import characters from the console realms
  * Updated item mods and skill gems to account for changes in recent patches
