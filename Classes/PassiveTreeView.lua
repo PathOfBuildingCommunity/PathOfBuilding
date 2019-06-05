@@ -63,8 +63,8 @@ function PassiveTreeViewClass:Save(xml)
 end
 
 function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
-	local tree = build.tree
 	local spec = build.spec
+	local tree = spec.tree
 
 	local cursorX, cursorY = GetCursorPos()
 	local mOver = cursorX >= viewPort.x and cursorX < viewPort.x + viewPort.width and cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height

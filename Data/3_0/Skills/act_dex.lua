@@ -777,7 +777,7 @@ skills["BlinkArrow"] = {
 	name = "Blink Arrow",
 	color = 2,
 	description = "Fires an arrow at the target destination. When the arrow lands, you are teleported to it and a clone is summoned at your old location. The clone is a minion that uses your bow and quiver.",
-	skillTypes = { [SkillType.ProjectileDamage] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.ProjectileAttack] = true, [SkillType.CreateMinion] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MovementSkill] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.ProjectileDamage] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.ProjectileAttack] = true, [SkillType.CreateMinion] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MovementSkill] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanVolley] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectileAttack] = true, },
 	weaponTypes = {
 		["Bow"] = true,
@@ -4027,7 +4027,7 @@ skills["MirrorArrow"] = {
 	name = "Mirror Arrow",
 	color = 2,
 	description = "Fires an arrow at the target destination. When the arrow lands, a clone is summoned. The clone is a minion that uses your bow and quiver.",
-	skillTypes = { [SkillType.ProjectileDamage] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.CreateMinion] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.ProjectileDamage] = true, [SkillType.Attack] = true, [SkillType.Minion] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.CreateMinion] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.SkillCanVolley] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectileAttack] = true, },
 	weaponTypes = {
 		["Bow"] = true,
@@ -5517,7 +5517,8 @@ skills["ThrownShield"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 		["override_off_hand_base_critical_strike_chance_to_5%"] = {
-			skill("setOffHandBaseCritChance", 5),
+			skill("setOffHandBaseCritChance", nil),
+			value = 5,
 		},
 		["off_hand_local_minimum_added_physical_damage"] = {
 			skill("setOffHandPhysicalMin", nil),

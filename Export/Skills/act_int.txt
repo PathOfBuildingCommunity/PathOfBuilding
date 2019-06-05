@@ -192,7 +192,8 @@ local skills, mod, flag, skill = ...
 #flags spell aura area duration
 	statMap = {
 		["no_mana_cost"] = {
-			mod("ManaCost", "MORE", -100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ManaCost", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			value = -100,
 		},
 	},
 #baseMod skill("radius", 36)
@@ -681,7 +682,8 @@ local skills, mod, flag, skill = ...
 			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateStage" }),
 		},
 		["expanding_fire_cone_final_wave_always_ignite"] = {
-			mod("EnemyIgniteChance", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 4 }),
+			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 4 }),
+			value = 100,
 		},
 	},
 #baseMod mod("Multiplier:IncinerateStage", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 })

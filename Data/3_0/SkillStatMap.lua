@@ -252,7 +252,8 @@ return {
 	mult = -1,
 },
 ["no_mana_cost"] = {
-	mod("ManaCost", "MORE", -100),
+	mod("ManaCost", "MORE", nil),
+	value = -100,
 },
 ["base_chance_to_dodge_%"] = {
 	mod("AttackDodgeChance", "BASE", nil),
@@ -522,7 +523,8 @@ return {
 	mod("BleedChance", "BASE", nil, ModFlag.Attack),
 },
 ["global_bleed_on_hit"] = {
-	mod("BleedChance", "BASE", 100),
+	mod("BleedChance", "BASE", nil),
+	value = 100,
 },
 ["bleed_on_melee_attack_chance_%"] = {
 	mod("BleedChance", "BASE", nil, ModFlag.Melee),
@@ -531,7 +533,8 @@ return {
 	mod("PoisonChance", "BASE", nil),
 },
 ["global_poison_on_hit"] = {
-	mod("PoisonChance", "BASE", 100),
+	mod("PoisonChance", "BASE", nil),
+	value = 100,
 },
 ["base_chance_to_ignite_%"] = {
 	mod("EnemyIgniteChance", "BASE", nil),
@@ -642,7 +645,8 @@ return {
 	mod("LootRarity", "INC", nil),
 },
 ["global_knockback"] = {
-	mod("EnemyKnockbackChance", "BASE", 100),
+	mod("EnemyKnockbackChance", "BASE", nil),
+	value = 100,
 },
 ["base_global_chance_to_knockback_%"] = {
 	mod("EnemyKnockbackChance", "BASE", nil),

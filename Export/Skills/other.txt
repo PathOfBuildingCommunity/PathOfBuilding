@@ -471,7 +471,7 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 	statMap = {
 		["base_chaos_damage_resistance_%"] = {
-			mod("ChaosResist", "BASE", -10, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 	},
 #mods

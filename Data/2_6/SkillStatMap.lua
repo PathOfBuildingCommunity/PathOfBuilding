@@ -221,7 +221,8 @@ return {
 	mult = -1,
 },
 ["no_mana_cost"] = {
-	mod("ManaCost", "MORE", -100),
+	mod("ManaCost", "MORE", nil),
+	value = -100,
 },
 ["base_chance_to_dodge_%"] = {
 	mod("AttackDodgeChance", "BASE", nil),
@@ -466,7 +467,7 @@ return {
 -- Other effects
 ["base_stun_threshold_reduction_+%"] = {
 	mod("EnemyStunThreshold", "INC", nil),
-mult = -1,
+	mult = -1,
 },
 ["base_stun_duration_+%"] = {
 	mod("EnemyStunDuration", "INC", nil),
@@ -475,7 +476,8 @@ mult = -1,
 	mod("PoisonChance", "BASE", nil),
 },
 ["global_poison_on_hit"] = {
-	mod("PoisonChance", "BASE", 100),
+	mod("PoisonChance", "BASE", nil),
+	value = 100,
 },
 ["base_poison_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Poison),
@@ -490,7 +492,8 @@ mult = -1,
 	mod("LootRarity", "INC", nil),
 },
 ["global_knockback"] = {
-	mod("EnemyKnockbackChance", "BASE", 100),
+	mod("EnemyKnockbackChance", "BASE", nil),
+	value = 100,
 },
 ["base_global_chance_to_knockback_%"] = {
 	mod("EnemyKnockbackChance", "BASE", nil),
@@ -509,7 +512,8 @@ mult = -1,
 	mod("PierceChance", "BASE", nil),
 },
 ["always_pierce"] = {
-	mod("PierceChance", "BASE", 100),
+	mod("PierceChance", "BASE", nil),
+	value = 100,
 },
 ["base_number_of_additional_arrows"] = {
 	mod("ProjectileCount", "BASE", nil),

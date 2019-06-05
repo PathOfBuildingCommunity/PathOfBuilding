@@ -850,7 +850,8 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 		["override_off_hand_base_critical_strike_chance_to_5%"] = {
-			skill("setOffHandBaseCritChance", 5),
+			skill("setOffHandBaseCritChance", nil),
+			value = 5,
 		},
 		["off_hand_local_minimum_added_physical_damage"] = {
 			skill("setOffHandPhysicalMin", nil),

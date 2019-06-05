@@ -164,9 +164,9 @@ skills["SupportAuraDuration"] = {
 	hidden = true,
 	color = 1,
 	support = true,
-	requireSkillTypes = { SkillType.Aura, SkillType.Duration, SkillType.NOT, SkillType.AppliesCurse, SkillType.OR, SkillType.AuraDuration, SkillType.OR, SkillType.AND, },
-	addSkillTypes = { SkillType.Duration, SkillType.AuraDuration, },
-	excludeSkillTypes = { SkillType.Totem, },
+	requireSkillTypes = { SkillType.Aura, },
+	addSkillTypes = { SkillType.Duration, },
+	excludeSkillTypes = { SkillType.Totem, SkillType.AuraDuration, SkillType.AuraDebuff, SkillType.AppliesCurse, SkillType.NOT, SkillType.AND, },
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	statMap = {
@@ -2039,7 +2039,7 @@ skills["VoidGaze"] = {
 	fromItem = true,
 	statMap = {
 		["base_chaos_damage_resistance_%"] = {
-			mod("ChaosResist", "BASE", -10, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 	},
 	baseFlags = {

@@ -1,3 +1,10 @@
+VERSION[1.4.138][2019/06/05]
+ * Passive tree updated to 3.7.0
+ * Added support for multiple passive tree versions in one build:
+    * Trees in existing builds will default to the 3.6 tree
+    * New builds (or new trees in existing builds) will use the 3.7 tree
+    * Old trees can be converted to the latest version using a button that will appear at the bottom of the 
+	  Tree tab when viewing an old tree; this creates a copy of the tree, so you can switch back if needed
 VERSION[1.4.137][2019/04/10]
  * Fixed issue preventing Cast while Channelling from working correctly
 VERSION[1.4.136][2019/04/07]

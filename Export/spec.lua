@@ -1624,6 +1624,13 @@ return {
 			refTo="Animation",
 			type="Key",
 			width=120
+		},
+		[21]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		}
 	},
 	GrantedEffectsPerLevel={
@@ -3781,6 +3788,13 @@ return {
 			width=110
 		},
 		[16]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[17]={
 			list=false,
 			name="",
 			refTo="",

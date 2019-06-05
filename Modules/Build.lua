@@ -351,6 +351,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	if targetVersion then
 		self.targetVersion = targetVersion
 	end
+	self.targetVersionData = targetVersions[self.targetVersion]
 
 	if buildName == "~~temp~~" then
 		-- Remove temporary build file
@@ -491,7 +492,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 
 	-- Initialise build components
 	self.data = data[self.targetVersion]
-	self.tree = main.tree[self.targetVersion]
+	self.latestTree = main.tree[self.targetVersionData.latestTreeVersion]
 	self.importTab = new("ImportTab", self)
 	self.notesTab = new("NotesTab", self)
 	self.configTab = new("ConfigTab", self)
@@ -536,7 +537,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	end
 
 	-- Initialise class dropdown
-	for classId, class in pairs(self.tree.classes) do
+	for classId, class in pairs(self.latestTree.classes) do
 		t_insert(self.controls.classDrop.list, {
 			label = class.name,
 			classId = classId,

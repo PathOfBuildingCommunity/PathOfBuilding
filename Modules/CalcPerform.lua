@@ -47,7 +47,7 @@ local function mergeKeystones(env)
 	for _, name in ipairs(modDB:List(nil, "Keystone")) do
 		if not env.keystonesAdded[name] then
 			env.keystonesAdded[name] = true
-			modDB:AddList(env.build.tree.keystoneMap[name].modList)
+			modDB:AddList(env.build.spec.tree.keystoneMap[name].modList)
 		end
 	end
 end
@@ -130,6 +130,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 			end
 			if actor.mainSkill.skillTypes[SkillType.Vaal] then
 				condList["UsedVaalSkillRecently"] = true
+			end
+			if actor.mainSkill.skillTypes[SkillType.Channelled] then
+				condList["Channelling"] = true
 			end
 		end
 		if actor.mainSkill.skillFlags.hit and not actor.mainSkill.skillFlags.trap and not actor.mainSkill.skillFlags.mine and not actor.mainSkill.skillFlags.totem then
@@ -246,8 +249,10 @@ local function doActorMisc(env, actor)
 	output.FrenzyChargesMin = modDB:Sum("BASE", nil, "FrenzyChargesMin")
 	output.FrenzyChargesMax = modDB:Sum("BASE", nil, "FrenzyChargesMax")
 	output.EnduranceChargesMin = modDB:Sum("BASE", nil, "EnduranceChargesMin")
-	output.EnduranceChargesMax = modDB:Sum("BASE", nil, "EnduranceChargesMax")
+	output.EnduranceChargesMax = modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or modDB:Sum("BASE", nil, "EnduranceChargesMax")
 	output.SiphoningChargesMax = modDB:Sum("BASE", nil, "SiphoningChargesMax")
+	output.ChallengerChargesMax = modDB:Sum("BASE", nil, "ChallengerChargesMax")
+	output.BlitzChargesMax = modDB:Sum("BASE", nil, "BlitzChargesMax")
 	output.CrabBarriersMax = modDB:Sum("BASE", nil, "CrabBarriersMax")
 	if modDB:Flag(nil, "UsePowerCharges") then
 		output.PowerCharges = modDB:Override(nil, "PowerCharges") or output.PowerChargesMax
@@ -275,6 +280,16 @@ local function doActorMisc(env, actor)
 	else
 		output.SiphoningCharges = 0
 	end
+	if modDB:Flag(nil, "UseChallengerCharges") then
+		output.ChallengerCharges = modDB:Override(nil, "ChallengerCharges") or output.ChallengerChargesMax
+	else
+		output.ChallengerCharges = 0
+	end
+	if modDB:Flag(nil, "UseBlitzCharges") then
+		output.BlitzCharges = modDB:Override(nil, "BlitzCharges") or output.BlitzChargesMax
+	else
+		output.BlitzCharges = 0
+	end
 	output.CrabBarriers = m_max(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
 	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
@@ -283,6 +298,8 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["EnduranceCharge"] = output.EnduranceCharges
 	modDB.multipliers["RemovableEnduranceCharge"] = output.RemovableEnduranceCharges
 	modDB.multipliers["SiphoningCharge"] = output.SiphoningCharges
+	modDB.multipliers["ChallengerCharge"] = output.ChallengerCharges
+	modDB.multipliers["BlitzCharge"] = output.BlitzCharges
 	modDB.multipliers["CrabBarrier"] = output.CrabBarriers
 
 	-- Process enemy modifiers 
@@ -563,7 +580,7 @@ function calcs.perform(env)
 			end
 		end
 		for _, name in ipairs(env.minion.modDB:List(nil, "Keystone")) do
-			env.minion.modDB:AddList(env.build.tree.keystoneMap[name].modList)
+			env.minion.modDB:AddList(env.build.spec.tree.keystoneMap[name].modList)
 		end
 		doActorAttribsPoolsConditions(env, env.minion)
 	end

@@ -15,7 +15,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.viewer = new("PassiveTreeView")
 
 	self.specList = { }
-	self.specList[1] = new("PassiveSpec", build)
+	self.specList[1] = new("PassiveSpec", build, build.targetVersionData.latestTreeVersion)
 	self:SetActiveSpec(1)
 
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
@@ -61,6 +61,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 						end
 					end
 				end
+				tooltip:AddLine(16, "Game Version: "..treeVersions[spec.treeVersion].short)
 			end
 		end
 	end
@@ -87,6 +88,19 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		local offCol, defCol = main.nodePowerTheme:match("(%a+)/(%a+)")
 		return "When enabled, an estimate of the offensive and defensive strength of\neach unallocated passive is calculated and displayed visually.\nOffensive power shows as "..offCol:lower()..", defensive power as "..defCol:lower().."."
 	end
+	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
+	self.controls.specConvertText.shown = function()
+		return self.showConvert
+	end
+	self.controls.specConvert = new("ButtonControl", {"LEFT",self.controls.specConvertText,"RIGHT"}, 8, 0, 120, 20, "^2Convert to "..treeVersions[self.build.targetVersionData.latestTreeVersion].short, function()
+		local newSpec = new("PassiveSpec", self.build, self.build.targetVersionData.latestTreeVersion)
+		newSpec.title = self.build.spec.title
+		newSpec.jewels = copyTable(self.build.spec.jewels)
+		newSpec:DecodeURL(self.build.spec:EncodeURL())
+		t_insert(self.specList, self.activeSpec + 1, newSpec)
+		self:SetActiveSpec(self.activeSpec + 1)
+		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[self.build.targetVersionData.latestTreeVersion].short..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+	end)
 end)
 
 function TreeTabClass:Draw(viewPort, inputEvents)
@@ -110,13 +124,13 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
 
-	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - 32 }
+	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 64 or 32) }
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
 	self.controls.specSelect.selIndex = self.activeSpec
 	wipeTable(self.controls.specSelect.list)
 	for id, spec in ipairs(self.specList) do
-		t_insert(self.controls.specSelect.list, spec.title or "Default")
+		t_insert(self.controls.specSelect.list, (spec.treeVersion ~= self.build.targetVersionData.latestTreeVersion and ("["..treeVersions[spec.treeVersion].short.."] ") or "")..(spec.title or "Default"))
 	end
 	t_insert(self.controls.specSelect.list, "Manage trees...")
 	if not self.controls.treeSearch.hasFocus then
@@ -131,6 +145,13 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	SetDrawColor(0.85, 0.85, 0.85)
 	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 32, viewPort.width, 4)
 
+	if self.showConvert then
+		SetDrawColor(0.05, 0.05, 0.05)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 60, viewPort.width, 28)
+		SetDrawColor(0.85, 0.85, 0.85)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 64, viewPort.width, 4)
+	end
+
 	self:DrawControls(viewPort)
 end
 
@@ -138,7 +159,7 @@ function TreeTabClass:Load(xml, dbFileName)
 	self.specList = { }
 	if xml.elem == "Spec" then
 		-- Import single spec from old build
-		self.specList[1] = new("PassiveSpec", self.build)
+		self.specList[1] = new("PassiveSpec", self.build, self.build.targetVersionData.defaultTreeVersion)
 		self.specList[1]:Load(xml, dbFileName)
 		self.activeSpec = 1
 		self.build.spec = self.specList[1]
@@ -147,14 +168,14 @@ function TreeTabClass:Load(xml, dbFileName)
 	for _, node in pairs(xml) do
 		if type(node) == "table" then
 			if node.elem == "Spec" then
-				local newSpec = new("PassiveSpec", self.build)
+				local newSpec = new("PassiveSpec", self.build, node.attrib.treeVersion or self.build.targetVersionData.defaultTreeVersion)
 				newSpec:Load(node, dbFileName)
 				t_insert(self.specList, newSpec)
 			end
 		end
 	end
 	if not self.specList[1] then
-		self.specList[1] = new("PassiveSpec", self.build)
+		self.specList[1] = new("PassiveSpec", self.build, self.build.targetVersionData.latestTreeVersion)
 	end
 	self:SetActiveSpec(tonumber(xml.attrib.activeSpec) or 1)
 end
@@ -205,6 +226,7 @@ function TreeTabClass:SetActiveSpec(specId)
 			end
 		end
 	end
+	self.showConvert = curSpec.treeVersion ~= self.build.targetVersionData.latestTreeVersion
 	if self.build.itemsTab.itemOrderList[1] then
 		-- Update item slots if items have been loaded already
 		self.build.itemsTab:PopulateSlots()

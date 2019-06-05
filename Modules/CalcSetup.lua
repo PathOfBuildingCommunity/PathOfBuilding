@@ -186,7 +186,7 @@ function calcs.initEnv(build, mode, override)
 	-- Initialise modifier database with base values
 	local modDB = new("ModDB")
 	env.modDB = modDB
-	local classStats = build.tree.characterData[env.classId]
+	local classStats = build.spec.tree.characterData[env.classId]
 	for _, stat in pairs({"Str","Dex","Int"}) do
 		modDB:NewMod(stat, "BASE", classStats["base_"..stat:lower()], "Base")
 	end

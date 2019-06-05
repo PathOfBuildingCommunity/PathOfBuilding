@@ -31,21 +31,22 @@ local function getFile(URL)
 	return #page > 0 and page
 end
 
-local PassiveTreeClass = newClass("PassiveTree", function(self, targetVersion)
-	self.targetVersion = targetVersion
+local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
+	self.treeVersion = treeVersion
+	self.targetVersion = treeVersions[treeVersion].targetVersion
 
 	MakeDir("TreeData")
 
 	ConPrintf("Loading passive tree data...")
 	local treeText
-	local treeFile = io.open("TreeData/"..targetVersion.."/tree.lua", "r")
+	local treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "r")
 	if treeFile then
 		treeText = treeFile:read("*a")
 		treeFile:close()
 	else
 		ConPrintf("Downloading passive tree data...")
 		local page
-		local pageFile = io.open("TreeData/"..targetVersion.."/tree.txt", "r")
+		local pageFile = io.open("TreeData/"..treeVersion.."/tree.txt", "r")
 		if pageFile then
 			page = pageFile:read("*a")
 			pageFile:close()
@@ -55,7 +56,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, targetVersion)
 		treeText = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
 		treeText = treeText .. "tree.classes=" .. jsonToLua(page:match("ascClasses: (%b{})"))
 		treeText = treeText .. "return tree"
-		treeFile = io.open("TreeData/"..targetVersion.."/tree.lua", "w")
+		treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "w")
 		treeFile:write(treeText)
 		treeFile:close()
 	end
@@ -63,7 +64,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, targetVersion)
 		self[k] = v
 	end
 
-	local cdnRoot = targetVersion == "2_6" and "" or ""--https://web.poecdn.com"
+	local cdnRoot = treeVersion == "2_6" and "" or ""--https://web.poecdn.com"
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
 
@@ -162,7 +163,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, targetVersion)
 		data.rsq = size * size
 	end
 
-	--local err, passives = PLoadModule("Data/"..targetVersion.."/Passives.lua")
+	--local err, passives = PLoadModule("Data/"..treeVersion.."/Passives.lua")
 
 	ConPrintf("Processing tree...")
 	self.keystoneMap = { }
@@ -247,7 +248,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, targetVersion)
 				end
 			end
 			local line = node.sd[i]
-			local list, extra = modLib.parseMod[targetVersion](line)
+			local list, extra = modLib.parseMod[self.targetVersion](line)
 			if not list or extra then
 				-- Try to combine it with one or more of the lines that follow this one
 				local endI = i + 1
@@ -256,7 +257,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, targetVersion)
 					for ci = i + 1, endI do
 						comb = comb .. " " .. node.sd[ci]
 					end
-					list, extra = modLib.parseMod[targetVersion](comb, true)
+					list, extra = modLib.parseMod[self.targetVersion](comb, true)
 					if list and not extra then
 						-- Success, add dummy mod lists to the other lines that were combined with this one
 						for ci = i + 1, endI do
@@ -308,7 +309,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, targetVersion)
 	for nodeId, socket in pairs(sockets) do
 		socket.nodesInRadius = { }
 		socket.attributesInRadius = { }
-		for radiusIndex, radiusInfo in ipairs(data[targetVersion].jewelRadius) do
+		for radiusIndex, radiusInfo in ipairs(data[self.targetVersion].jewelRadius) do
 			socket.nodesInRadius[radiusIndex] = { }
 			socket.attributesInRadius[radiusIndex] = { }
 			local rSq = radiusInfo.rad * radiusInfo.rad
@@ -353,10 +354,10 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 	if imgFile then
 		imgFile:close()
 	else
-		imgFile = io.open("TreeData/"..self.targetVersion.."/"..imgName, "r")
+		imgFile = io.open("TreeData/"..self.treeVersion.."/"..imgName, "r")
 		if imgFile then
 			imgFile:close()
-			imgName = self.targetVersion.."/"..imgName
+			imgName = self.treeVersion.."/"..imgName
 		else
 			ConPrintf("Downloading '%s'...", imgName)
 			local data = getFile(url)

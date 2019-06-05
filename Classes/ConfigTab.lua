@@ -8,10 +8,15 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local gameVersionDropList = {
-	{ label = "2.6 (Atlas of Worlds)", version = "2_6", versionPretty = "2.6" },
-	{ label = "3.6 (War for the Atlas)", version = "3_0", versionPretty = "3.6" },
-}
+local gameVersionDropList = { }
+for _, version in ipairs(targetVersionList) do
+	local data = targetVersions[version]
+	t_insert( gameVersionDropList, {
+		label = data.short,
+		version = version,
+		versionPretty = data.long,
+	})
+end
 
 local varList = LoadModule("Modules/ConfigOptions")
 
