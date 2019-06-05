@@ -1011,6 +1011,7 @@ local specialModList = {
 	["effects granted for having rage are doubled"] = { mod("Multiplier:RageEffect", "BASE", 1) },
 	["effects granted for having rage are tripled"] = { mod("Multiplier:RageEffect", "BASE", 2) },
 	["cannot be stunned while you have at least (%d+) rage"] = function(num) return { mod("AvoidStun", "BASE", 100, { type = "MultiplierThreshold", var = "Rage", threshold = 25 }) } end,
+	["lose ([%d%.]+)%% of maximum life per second per rage while you are not losing rage"] = function(num) return { mod("LifeDegen", "BASE", num / 100, nil, { type = "PerStat", stat = "Life" }, { type = "Multiplier", var = "Rage", limit = 50 }) } end,
 	-- Champion
 	["you have fortify"] = { flag("Condition:Fortify") },
 	["cannot be stunned while you have fortify"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Fortify" }) },
