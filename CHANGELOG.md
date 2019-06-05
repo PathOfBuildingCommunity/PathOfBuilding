@@ -1,3 +1,6 @@
+### 1.4.139 - 2019/06/06
+ * The Rage option in the Configuration tab will now correctly show when the relevant passives are allocated
+
 ### 1.4.138 - 2019/06/05
  * Passive tree updated to 3.7.0
  * Added support for multiple passive tree versions in one build:

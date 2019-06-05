@@ -12,9 +12,9 @@ local gameVersionDropList = { }
 for _, version in ipairs(targetVersionList) do
 	local data = targetVersions[version]
 	t_insert( gameVersionDropList, {
-		label = data.short,
+		label = data.long,
 		version = version,
-		versionPretty = data.long,
+		versionPretty = data.short,
 	})
 end
 
