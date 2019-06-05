@@ -1,3 +1,6 @@
+### 1.4.141 - 2019/06/06
+ * Fixed Rage degeneration applying incorrectly (again)
+
 ### 1.4.140 - 2019/06/06
  * Fixed Rage degeneration applying incorrectly
 
