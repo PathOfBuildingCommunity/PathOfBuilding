@@ -47,7 +47,7 @@ local function mergeKeystones(env)
 	for _, name in ipairs(modDB:List(nil, "Keystone")) do
 		if not env.keystonesAdded[name] then
 			env.keystonesAdded[name] = true
-			modDB:AddList(env.build.spec.tree.keystoneMap[name].modList)
+			modDB:AddList(env.spec.tree.keystoneMap[name].modList)
 		end
 	end
 end
@@ -580,7 +580,7 @@ function calcs.perform(env)
 			end
 		end
 		for _, name in ipairs(env.minion.modDB:List(nil, "Keystone")) do
-			env.minion.modDB:AddList(env.build.spec.tree.keystoneMap[name].modList)
+			env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
 		end
 		doActorAttribsPoolsConditions(env, env.minion)
 	end

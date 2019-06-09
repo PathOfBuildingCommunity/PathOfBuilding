@@ -186,7 +186,7 @@ function calcs.initEnv(build, mode, override)
 	-- Initialise modifier database with base values
 	local modDB = new("ModDB")
 	env.modDB = modDB
-	local classStats = build.spec.tree.characterData[env.classId]
+	local classStats = env.spec.tree.characterData[env.classId]
 	for _, stat in pairs({"Str","Dex","Int"}) do
 		modDB:NewMod(stat, "BASE", classStats["base_"..stat:lower()], "Base")
 	end
@@ -379,7 +379,7 @@ function calcs.initEnv(build, mode, override)
 					end
 				end } }
 				for _, func in ipairs(funcList) do
-					local node = build.spec.nodes[slot.nodeId]
+					local node = env.spec.nodes[slot.nodeId]
 					t_insert(env.radiusJewelList, {
 						nodes = node.nodesInRadius[item.jewelRadiusIndex],
 						func = func.func,

@@ -1,3 +1,8 @@
+### 1.4.143 - 2019/06/09
+ * Fixed various weapon modifiers not working correctly
+ * Fixed error that could occur when comparing 3.6 and 3.7 trees
+ * Fixed the chain count modifier on Snakepit not applying correctly
+
 ### 1.4.142 - 2019/06/09
  * Added the following new gems:
     * Berserk
