@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.144"/>
+	<Version number="1.4.145"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree-2_6" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-2_6.zip"/>
 	<Source part="tree-3_6" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_6.zip"/>
@@ -10,7 +10,7 @@
 	<File sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
 	<File sha1="1bd3e32410fea56ce853f1f13841b1a5e2f37840" name="GameVersions.lua" part="program"/>
-	<File sha1="bedae13ec1d1892102471aac02cdd6bd91360fff" name="changelog.txt" part="program"/>
+	<File sha1="94db1f2eccc6b93dcf3084b7fc62981e698326ca" name="changelog.txt" part="program"/>
 	<File sha1="b093a2709f30c1f83ce5ba9df88c80f22c1beb4a" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="16fc5eaa04cc14b2022f6705a12717935454dab0" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="c160d9d42579f3e3b89e420e7931a9aecb6377bc" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -260,7 +260,7 @@
 	<File sha1="ebc0c5c46007ec625ee2bf6bd65317be4bce088e" name="TreeData/3_6/skills-3.jpg" part="tree-3_6"/>
 	<File sha1="e69a47709256d27e5529051522f018f3380fc457" name="TreeData/3_6/skills-disabled-3.jpg" part="tree-3_6"/>
 	<File sha1="2c73d57dabd0054b884b2a63b8af9948592fd6ef" name="TreeData/3_7/tree.lua" part="tree-3_7"/>
-	<File sha1="d0ffbeec71f365181566e154189af6378d51ec9b" name="TreeData/3_7/groups-3.png" part="tree-3_7"/>
-	<File sha1="97fa41cf48c842f68005b3497be936644c1f977f" name="TreeData/3_7/skills-3.jpg" part="tree-3_7"/>
-	<File sha1="4a63a6cc3cbec1bbf3d1fe7af055f26c45ec53d4" name="TreeData/3_7/skills-disabled-3.jpg" part="tree-3_7"/>
+	<File sha1="dff51e75f0aafdae5118167c66b1cec360ff4b00" name="TreeData/3_7/groups-3.png" part="tree-3_7"/>
+	<File sha1="0c82fd04e6afd6cacd35208cf499a35155ea4cda" name="TreeData/3_7/skills-3.jpg" part="tree-3_7"/>
+	<File sha1="2930d625d1422d24c7d6ccaaacf0ed00e97e7391" name="TreeData/3_7/skills-disabled-3.jpg" part="tree-3_7"/>
 </PoBVersion>

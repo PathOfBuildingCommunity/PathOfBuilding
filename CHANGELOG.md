@@ -1,3 +1,6 @@
+### 1.4.145 - 2019/06/09
+ * Fixed passive tree art
+
 ### 1.4.144 - 2019/06/09
  * Updated passive tree
  * Fixed Shield Charge not getting the correct damage stats
