@@ -44,6 +44,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCastOnMeleeKill
+#mods
+
+#skill SupportCastOnMeleeKillTriggered
 	statMap = {
 		["support_cast_on_melee_kill_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell),
@@ -106,6 +109,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportFortify
+	statMap = {
+		["support_fortify_melee_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Melee),
+		},
+		["support_fortify_poison_and_bleeding_damage_+%_final_from_melee_hits"] = {
+			mod("Damage", "MORE", nil, ModFlag.MeleeHit, bit.bor(KeywordFlag.Poison, KeywordFlag.Bleed)),
+		},
+	},
 #mods
 
 #skill SupportGenerosity
@@ -165,7 +176,7 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamage", "MORE", nil, ModFlag.Melee),
 		},
 		["support_melee_physical_damage_poison_and_bleeding_damage_+%_final_from_melee_hits"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison)),
+			mod("Damage", "MORE", nil, ModFlag.MeleeHit, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison)),
 		},
 	},
 #mods
@@ -190,6 +201,42 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil),
 		},
 	},
+#mods
+
+#skill SupportPulverise
+	statMap = {
+		["support_pulverise_melee_area_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, bit.bor(ModFlag.Melee, ModFlag.Area)),
+		},
+		["support_pulverise_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
+		["support_pulverise_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
+	},
+#mods
+
+#skill SupportRage
+	statMap = {
+		["support_rage_gain_rage_on_melee_hit_cooldown_ms"] = {
+			flag("Condition:CanGainRage"),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
+		},
+		["attack_minimum_added_physical_damage_with_at_least_10_rage"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Attack, 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })
+		},
+		["attack_maximum_added_physical_damage_with_at_least_10_rage"] = {
+			mod("PhysicalMax", "BASE", nil, ModFlag.Attack, 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })
+		},
+		["attack_minimum_added_physical_damage_per_10_rage"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "Rage", div = 10, limit = 5 })
+		},
+		["attack_maximum_added_physical_damage_per_10_rage"] = {
+			mod("PhysicalMax", "BASE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "Rage", div = 10, limit = 5 })
+		},
+	},
+	
 #mods
 
 #skill SupportRangedAttackTotem
@@ -222,6 +269,13 @@ local skills, mod, flag, skill = ...
 			mod("RuthlessBlowMultiplier", "BASE", nil, ModFlag.Melee),
 		},
 	},
+#mods
+
+#skill SupportBluntWeapon
+#mods
+
+#skill SupportBluntWeaponShockwave
+#flags attack melee area
 #mods
 
 #skill SupportSpellTotem

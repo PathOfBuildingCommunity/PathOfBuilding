@@ -175,6 +175,7 @@ function DatFileClass:GetRowList(key, value, match)
 	if not keyIndex then
 		error("Unknown key "..key.." for "..self.name..".dat")
 	end
+	local isList = self.spec[keyIndex].list
 	if not self.indexes[key] then
 		self.indexes[key] = { }
 	end
@@ -183,15 +184,16 @@ function DatFileClass:GetRowList(key, value, match)
 		if not self.indexes[key][rowIndex] then
 			self.indexes[key][rowIndex] = self:ReadCell(rowIndex, keyIndex)
 		end
-		if dataTypes[self.spec[keyIndex].type].list then
-			for _, index in ipairs(self.indexes[key][rowIndex]) do
-				if (match and index:match(value)) or (not match and index == value) then
+		local index = self.indexes[key][rowIndex]
+		if isList then
+			for _, indexVal in ipairs(index) do
+				if (match and indexVal:match(value)) or (not match and indexVal == value) then
 					t_insert(out, self.rowCache[rowIndex])
 					break
 				end
 			end
 		else
-			if (match and self.indexes[key][rowIndex]:match(value)) or (not match and self.indexes[key][rowIndex] == value) then
+			if (match and index:match(value)) or (not match and index == value) then
 				t_insert(out, self.rowCache[rowIndex])
 			end
 		end

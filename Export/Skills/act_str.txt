@@ -98,6 +98,75 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill Berserk
+#flags spell
+	statMap = {
+		["berserk_attack_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["berserk_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["berserk_movement_speed_+%_final"] = {
+			mod("MovementSpeed", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["berserk_base_damage_taken_+%_final"] = {
+			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#mods
+
+#skill Bladestorm
+#flags attack melee area duration
+	parts = {
+		{
+			name = "Attack",
+		},
+		{
+			name = "Bladestorm",
+		},
+	},
+	statMap = {
+		["bladestorm_storm_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["bladestorm_attack_speed_+%_final_while_in_bloodstorm"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Bloodstorm", effectCond = "BladestormInBloodstorm" }),
+		},
+		["bladestorm_movement_speed_+%_while_in_sandstorm"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sandstorm", effectCond = "BladestormInSandstorm" }),
+		},
+	},
+#mods
+
+#skill BloodSandStance
+#flags spell
+	statMap = {
+		["blood_sand_stance_melee_skills_area_of_effect_+%_final_in_blood_stance"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance"}, { type = "SkillType", skillType = SkillType.Melee })
+		},
+		["blood_sand_stance_melee_skills_area_damage_+%_final_in_blood_stance"] = {
+			mod("Damage", "MORE", nil, ModFlag.Area, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Blood", effectCond = "BloodStance"}, { type = "SkillType", skillType = SkillType.Melee })
+		},
+		["blood_sand_stance_melee_skills_area_of_effect_+%_final_in_sand_stance"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sand", effectCond = "SandStance"}, { type = "SkillType", skillType = SkillType.Melee })
+		},
+		["blood_sand_stance_melee_skills_area_damage_+%_final_in_sand_stance"] = {
+			mod("Damage", "MORE", nil, ModFlag.Area, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sand", effectCond = "SandStance"}, { type = "SkillType", skillType = SkillType.Melee })
+		},
+	},
+#mods
+
+#skill ChainStrike
+#flags attack melee
+	statMap = {
+		["chain_strike_gain_x_rage_if_attack_hits"] = {
+			flag("Condition:CanGainRage"),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
+		},
+	},
+#mods
+
 #skill Cleave
 #flags attack melee area
 	statMap = {
@@ -171,6 +240,12 @@ local skills, mod, flag, skill = ...
 		["quake_slam_fully_charged_explosion_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
 		},
+		["earthquake_aftershock_minimum_added_physical_damage"] = {
+			mod("PhysicalMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["earthquake_aftershock_maximum_added_physical_damage"] = {
+			mod("PhysicalMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
 	},
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
@@ -204,6 +279,17 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 60)
+#mods
+
+#skill BloodSandArmour
+#flags spell area aura
+	statMap = {
+		["support_maimed_enemies_physical_damage_taken_+%"] = {
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Maim", effectCond = "BloodStance" }, { type = "Condition", var = "Maimed" }),
+		},
+	},
+#baseMod mod("Condition:Maimed", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Flesh", effectCond = "BloodStance" })
+#baseMod mod("Condition:Blinded", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Stone", effectCond = "SandStance" })
 #mods
 
 #skill GlacialHammer
@@ -298,6 +384,18 @@ local skills, mod, flag, skill = ...
 
 #skill ImmortalCall
 #flags spell duration
+	statMap = {
+		["mortal_call_elemental_damage_taken_+%_final"] = {
+			mod("ElementalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["mortal_call_physical_damage_taken_+%_final"] = {
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["mortal_call_physical_damage_taken_per_endurance_charge_consumed_final_permyriad"] = {
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 5 }),
+			div = 100,
+		},
+	},
 #mods
 
 #skill VaalImmortalCall
@@ -317,9 +415,6 @@ local skills, mod, flag, skill = ...
 #skill MoltenShell
 #flags spell area duration
 	statMap = {
-		["base_resist_all_elements_%"] = {
-			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
 		["base_physical_damage_reduction_rating"] = {
 			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
@@ -330,9 +425,6 @@ local skills, mod, flag, skill = ...
 #skill VaalMoltenShell
 #flags spell area duration
 	statMap = {
-		["base_resist_all_elements_%"] = {
-			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
 		["base_physical_damage_reduction_rating"] = {
 			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
@@ -360,6 +452,37 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "SkillPart", skillPart = 2 })
 		},
 	},
+#mods
+
+#skill BloodSpears
+#flags attack melee
+	statMap = {
+		["blood_spears_damage_+%_final_in_blood_stance"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BloodStance" })
+		},
+	},
+#mods
+
+#skill PhysicalDamageAura
+#flags spell aura area
+	parts = {
+		{
+			name = "Initial effect",
+		},
+		{
+			name = "Maximum effect",
+		},
+	},
+	statMap = {
+		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%"] = {
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "MinEffect" }),
+		},
+		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%_max"] = {
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "MaxEffect" }),
+		},
+	},
+#baseMod flag("Condition:MinEffect", { type = "SkillPart", skillPart = 1 })
+#baseMod flag("Condition:MaxEffect", { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill Punishment
@@ -483,6 +606,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("hitTimeOverride", 0.4 / (1+3*0.1), { type = "SkillPart", skillPart = 3 })
 #mods
 
+#skill QuickGuard
+#flags spell duration
+#mods
+
 #skill SummonFireGolem
 #flags spell minion golem
 	minionList = {
@@ -582,11 +709,11 @@ local skills, mod, flag, skill = ...
 #skill WarlordsMark
 #flags spell curse area duration
 	statMap = {
-		["life_leech_on_any_damage_when_hit_permyriad"] = {
-			mod("SelfDamageLifeLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		["life_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
+			mod("SelfDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["mana_leech_on_any_damage_when_hit_permyriad"] = {
-			mod("SelfDamageManaLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		["mana_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
+			mod("SelfDamageManaLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["base_stun_recovery_+%"] = {
 			mod("StunRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),

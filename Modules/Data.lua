@@ -96,20 +96,20 @@ for i = 1, 70 do
 end
 
 data.weaponTypeInfo = {
-	["None"] = { oneHand = true, melee = true, flag = "Unarmed", range = 4 },
+	["None"] = { oneHand = true, melee = true, flag = "Unarmed" },
 	["Bow"] = { oneHand = false, melee = false, flag = "Bow" },
-	["Claw"] = { oneHand = true, melee = true, flag = "Claw", range = 9 },
-	["Dagger"] = { oneHand = true, melee = true, flag = "Dagger", range = 8 },
-	["Staff"] = { oneHand = false, melee = true, flag = "Staff", range = 11 },
+	["Claw"] = { oneHand = true, melee = true, flag = "Claw" },
+	["Dagger"] = { oneHand = true, melee = true, flag = "Dagger" },
+	["Staff"] = { oneHand = false, melee = true, flag = "Staff" },
 	["Wand"] = { oneHand = true, melee = false, flag = "Wand" },
-	["One Handed Axe"] = { oneHand = true, melee = true, flag = "Axe", range = 9 },
-	["One Handed Mace"] = { oneHand = true, melee = true, flag = "Mace", range = 9 },
-	["One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword", range = 9 },
-	["Sceptre"] = { oneHand = true, melee = true, flag = "Mace", range = 9, label = "One Handed Mace" },
-	["Thrusting One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword", range = 12, label = "One Handed Sword" },
-	["Two Handed Axe"] = { oneHand = false, melee = true, flag = "Axe", range = 11 },
-	["Two Handed Mace"] = { oneHand = false, melee = true, flag = "Mace", range = 11 },
-	["Two Handed Sword"] = { oneHand = false, melee = true, flag = "Sword", range = 11 },
+	["One Handed Axe"] = { oneHand = true, melee = true, flag = "Axe" },
+	["One Handed Mace"] = { oneHand = true, melee = true, flag = "Mace" },
+	["One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword" },
+	["Sceptre"] = { oneHand = true, melee = true, flag = "Mace", label = "One Handed Mace" },
+	["Thrusting One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword", label = "One Handed Sword" },
+	["Two Handed Axe"] = { oneHand = false, melee = true, flag = "Axe" },
+	["Two Handed Mace"] = { oneHand = false, melee = true, flag = "Mace" },
+	["Two Handed Sword"] = { oneHand = false, melee = true, flag = "Sword" },
 }
 data.unarmedWeaponData = {
 	[0] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 6 }, -- Scion

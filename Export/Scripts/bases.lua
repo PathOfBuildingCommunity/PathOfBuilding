@@ -81,6 +81,7 @@ directiveTable.base = function(state, args, out)
 		out:write('PhysicalMin = ', weaponType.DamageMin, ', PhysicalMax = ', weaponType.DamageMax, ', ')
 		out:write('CritChanceBase = ', weaponType.CritChance / 100, ', ')
 		out:write('AttackRateBase = ', round(1000 / weaponType.Speed, 2), ', ')
+		out:write('Range = ', weaponType.Range, ', ')
 		out:write('},\n')
 	end
 	local compArmour = dat"ComponentArmour":GetRow("BaseItemType", baseItemType.Id)

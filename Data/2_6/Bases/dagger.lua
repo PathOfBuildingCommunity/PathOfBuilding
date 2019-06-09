@@ -7,7 +7,7 @@ itemBases["Glass Shank"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 6, PhysicalMax = 10, CritChanceBase = 6, AttackRateBase = 1.5, },
+	weapon = { PhysicalMin = 6, PhysicalMax = 10, CritChanceBase = 6, AttackRateBase = 1.5, Range = 8, },
 	req = { dex = 9, int = 6, },
 }
 itemBases["Skinning Knife"] = {
@@ -15,7 +15,7 @@ itemBases["Skinning Knife"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 5, PhysicalMax = 19, CritChanceBase = 6, AttackRateBase = 1.3, },
+	weapon = { PhysicalMin = 5, PhysicalMax = 19, CritChanceBase = 6, AttackRateBase = 1.3, Range = 8, },
 	req = { level = 5, dex = 16, int = 11, },
 }
 itemBases["Carving Knife"] = {
@@ -23,7 +23,7 @@ itemBases["Carving Knife"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 3, PhysicalMax = 27, CritChanceBase = 6.3, AttackRateBase = 1.4, },
+	weapon = { PhysicalMin = 3, PhysicalMax = 27, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 8, },
 	req = { level = 10, dex = 18, int = 26, },
 }
 itemBases["Stiletto"] = {
@@ -31,7 +31,7 @@ itemBases["Stiletto"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 7, PhysicalMax = 27, CritChanceBase = 6.1, AttackRateBase = 1.5, },
+	weapon = { PhysicalMin = 7, PhysicalMax = 27, CritChanceBase = 6.1, AttackRateBase = 1.5, Range = 8, },
 	req = { level = 15, dex = 30, int = 30, },
 }
 itemBases["Boot Knife"] = {
@@ -39,7 +39,7 @@ itemBases["Boot Knife"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 9, PhysicalMax = 35, CritChanceBase = 6.3, AttackRateBase = 1.4, },
+	weapon = { PhysicalMin = 9, PhysicalMax = 35, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 8, },
 	req = { level = 20, dex = 31, int = 45, },
 }
 itemBases["Copper Kris"] = {
@@ -47,7 +47,7 @@ itemBases["Copper Kris"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "50% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 12, PhysicalMax = 46, CritChanceBase = 6.5, AttackRateBase = 1.2, },
+	weapon = { PhysicalMin = 12, PhysicalMax = 46, CritChanceBase = 6.5, AttackRateBase = 1.2, Range = 8, },
 	req = { level = 24, dex = 28, int = 60, },
 }
 itemBases["Skean"] = {
@@ -55,7 +55,7 @@ itemBases["Skean"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 11, PhysicalMax = 43, CritChanceBase = 6.3, AttackRateBase = 1.45, },
+	weapon = { PhysicalMin = 11, PhysicalMax = 43, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 8, },
 	req = { level = 28, dex = 42, int = 60, },
 }
 itemBases["Imp Dagger"] = {
@@ -63,7 +63,7 @@ itemBases["Imp Dagger"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "40% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 15, PhysicalMax = 59, CritChanceBase = 6.5, AttackRateBase = 1.2, },
+	weapon = { PhysicalMin = 15, PhysicalMax = 59, CritChanceBase = 6.5, AttackRateBase = 1.2, Range = 8, },
 	req = { level = 32, dex = 36, int = 78, },
 }
 itemBases["Prong Dagger"] = {
@@ -71,7 +71,7 @@ itemBases["Prong Dagger"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "4% Chance to Block",
-	weapon = { PhysicalMin = 14, PhysicalMax = 57, CritChanceBase = 6.2, AttackRateBase = 1.3, },
+	weapon = { PhysicalMin = 14, PhysicalMax = 57, CritChanceBase = 6.2, AttackRateBase = 1.3, Range = 8, },
 	req = { level = 36, dex = 55, int = 77, },
 }
 itemBases["Flaying Knife"] = {
@@ -79,7 +79,7 @@ itemBases["Flaying Knife"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 16, PhysicalMax = 64, CritChanceBase = 6, AttackRateBase = 1.2, },
+	weapon = { PhysicalMin = 16, PhysicalMax = 64, CritChanceBase = 6, AttackRateBase = 1.2, Range = 8, },
 	req = { level = 35, dex = 73, int = 51, },
 }
 itemBases["Butcher Knife"] = {
@@ -87,7 +87,7 @@ itemBases["Butcher Knife"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 7, PhysicalMax = 59, CritChanceBase = 6.3, AttackRateBase = 1.4, },
+	weapon = { PhysicalMin = 7, PhysicalMax = 59, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 8, },
 	req = { level = 38, dex = 55, int = 79, },
 }
 itemBases["Poignard"] = {
@@ -95,7 +95,7 @@ itemBases["Poignard"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 13, PhysicalMax = 52, CritChanceBase = 6.1, AttackRateBase = 1.5, },
+	weapon = { PhysicalMin = 13, PhysicalMax = 52, CritChanceBase = 6.1, AttackRateBase = 1.5, Range = 8, },
 	req = { level = 41, dex = 72, int = 72, },
 }
 itemBases["Boot Blade"] = {
@@ -103,7 +103,7 @@ itemBases["Boot Blade"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 15, PhysicalMax = 59, CritChanceBase = 6.3, AttackRateBase = 1.4, },
+	weapon = { PhysicalMin = 15, PhysicalMax = 59, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 8, },
 	req = { level = 44, dex = 63, int = 90, },
 }
 itemBases["Golden Kris"] = {
@@ -111,7 +111,7 @@ itemBases["Golden Kris"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "50% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 19, PhysicalMax = 75, CritChanceBase = 6.5, AttackRateBase = 1.2, },
+	weapon = { PhysicalMin = 19, PhysicalMax = 75, CritChanceBase = 6.5, AttackRateBase = 1.2, Range = 8, },
 	req = { level = 47, dex = 51, int = 110, },
 }
 itemBases["Royal Skean"] = {
@@ -119,7 +119,7 @@ itemBases["Royal Skean"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 16, PhysicalMax = 64, CritChanceBase = 6.3, AttackRateBase = 1.45, },
+	weapon = { PhysicalMin = 16, PhysicalMax = 64, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 8, },
 	req = { level = 50, dex = 71, int = 102, },
 }
 itemBases["Fiend Dagger"] = {
@@ -127,7 +127,7 @@ itemBases["Fiend Dagger"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "40% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 22, PhysicalMax = 87, CritChanceBase = 6.5, AttackRateBase = 1.2, },
+	weapon = { PhysicalMin = 22, PhysicalMax = 87, CritChanceBase = 6.5, AttackRateBase = 1.2, Range = 8, },
 	req = { level = 53, dex = 58, int = 123, },
 }
 itemBases["Trisula"] = {
@@ -135,7 +135,7 @@ itemBases["Trisula"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "4% Chance to Block",
-	weapon = { PhysicalMin = 21, PhysicalMax = 83, CritChanceBase = 6.2, AttackRateBase = 1.3, },
+	weapon = { PhysicalMin = 21, PhysicalMax = 83, CritChanceBase = 6.2, AttackRateBase = 1.3, Range = 8, },
 	req = { level = 55, dex = 89, int = 106, },
 }
 itemBases["Gutting Knife"] = {
@@ -143,7 +143,7 @@ itemBases["Gutting Knife"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 24, PhysicalMax = 97, CritChanceBase = 6, AttackRateBase = 1.2, },
+	weapon = { PhysicalMin = 24, PhysicalMax = 97, CritChanceBase = 6, AttackRateBase = 1.2, Range = 8, },
 	req = { level = 56, dex = 113, int = 78, },
 }
 itemBases["Slaughter Knife"] = {
@@ -151,7 +151,7 @@ itemBases["Slaughter Knife"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 10, PhysicalMax = 86, CritChanceBase = 6.3, AttackRateBase = 1.4, },
+	weapon = { PhysicalMin = 10, PhysicalMax = 86, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 8, },
 	req = { level = 58, dex = 81, int = 117, },
 }
 itemBases["Ambusher"] = {
@@ -159,7 +159,7 @@ itemBases["Ambusher"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 19, PhysicalMax = 74, CritChanceBase = 6.1, AttackRateBase = 1.5, },
+	weapon = { PhysicalMin = 19, PhysicalMax = 74, CritChanceBase = 6.1, AttackRateBase = 1.5, Range = 8, },
 	req = { level = 60, dex = 113, int = 113, },
 }
 itemBases["Ezomyte Dagger"] = {
@@ -167,7 +167,7 @@ itemBases["Ezomyte Dagger"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 20, PhysicalMax = 79, CritChanceBase = 6.3, AttackRateBase = 1.4, },
+	weapon = { PhysicalMin = 20, PhysicalMax = 79, CritChanceBase = 6.3, AttackRateBase = 1.4, Range = 8, },
 	req = { level = 62, dex = 95, int = 131, },
 }
 itemBases["Platinum Kris"] = {
@@ -175,7 +175,7 @@ itemBases["Platinum Kris"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "50% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 24, PhysicalMax = 95, CritChanceBase = 6.5, AttackRateBase = 1.2, },
+	weapon = { PhysicalMin = 24, PhysicalMax = 95, CritChanceBase = 6.5, AttackRateBase = 1.2, Range = 8, },
 	req = { level = 64, dex = 76, int = 149, },
 }
 itemBases["Imperial Skean"] = {
@@ -183,7 +183,7 @@ itemBases["Imperial Skean"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "30% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 19, PhysicalMax = 76, CritChanceBase = 6.3, AttackRateBase = 1.45, },
+	weapon = { PhysicalMin = 19, PhysicalMax = 76, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 8, },
 	req = { level = 66, dex = 95, int = 131, },
 }
 itemBases["Demon Dagger"] = {
@@ -191,7 +191,7 @@ itemBases["Demon Dagger"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, },
 	implicit = "40% increased Global Critical Strike Chance",
-	weapon = { PhysicalMin = 24, PhysicalMax = 97, CritChanceBase = 6.5, AttackRateBase = 1.2, },
+	weapon = { PhysicalMin = 24, PhysicalMax = 97, CritChanceBase = 6.5, AttackRateBase = 1.2, Range = 8, },
 	req = { level = 68, dex = 76, int = 149, },
 }
 itemBases["Sai"] = {
@@ -199,6 +199,6 @@ itemBases["Sai"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, dagger = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "6% Chance to Block",
-	weapon = { PhysicalMin = 23, PhysicalMax = 90, CritChanceBase = 6.2, AttackRateBase = 1.3, },
+	weapon = { PhysicalMin = 23, PhysicalMax = 90, CritChanceBase = 6.2, AttackRateBase = 1.3, Range = 8, },
 	req = { level = 70, dex = 121, int = 121, },
 }

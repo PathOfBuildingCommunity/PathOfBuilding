@@ -18,12 +18,15 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCastOnCrit
+#mods
+
+#skill SupportCastOnCritTriggered
 	statMap = {
 		["support_cast_on_crit_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell),
 		},
 	},
-#baseMod skill("showAverage", true, { type = "SkillType", skillType = SkillType.TriggerableSpell })
+#baseMod skill("showAverage", true)
 #mods
 
 #skill SupportCastOnDeath
@@ -49,6 +52,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportGemFrenzyPowerOnTrapTrigger
+#mods
+
+#skill SupportSlashingWeapon
 #mods
 
 #skill SupportClusterTrap
@@ -113,6 +119,14 @@ local skills, mod, flag, skill = ...
 		},
 		["support_hypothermia_cold_damage_over_time_+%_final"] = {
 			mod("ColdDamage", "MORE", nil, 0, KeywordFlag.ColdDot),
+		},
+	},
+#mods
+
+#skill SupportImpale
+	statMap = {
+		["impale_support_physical_damage_+%_final"] = {
+			mod("PhysicalDamage", "MORE", nil),
 		},
 	},
 #mods

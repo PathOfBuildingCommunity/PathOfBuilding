@@ -7,6 +7,8 @@ return {
 	},
 	AccountQuestFlags={
 	},
+	AchievementItemRewards={
+	},
 	AchievementItems={
 		[1]={
 			list=false,
@@ -168,6 +170,13 @@ return {
 			refTo="",
 			type="Bool",
 			width=70
+		},
+		[21]={
+			list=true,
+			name="",
+			refTo="Stats",
+			type="Enum",
+			width=400
 		}
 	},
 	AdditionalLifeScaling={
@@ -175,6 +184,14 @@ return {
 	AdditionalLifeScalingPerLevel={
 	},
 	AdvancedSkillsTutorial={
+	},
+	AlternatePassiveAdditions={
+	},
+	AlternatePassiveSkills={
+	},
+	AlternateTreePassiveSizes={
+	},
+	AlternateTreeVersions={
 	},
 	Animation={
 		[1]={
@@ -231,6 +248,8 @@ return {
 	AtlasSector={
 	},
 	Attributes={
+	},
+	AwardDisplay={
 	},
 	BackendErrors={
 	},
@@ -1278,6 +1297,8 @@ return {
 	},
 	DescentStarterChest={
 	},
+	Directions={
+	},
 	DisplayMinionMonsterType={
 		[1]={
 			list=false,
@@ -1950,28 +1971,28 @@ return {
 		},
 		[46]={
 			list=false,
-			name="",
-			refTo="",
-			type="Key",
-			width=80
-		},
-		[47]={
-			list=false,
 			name="Duration",
 			refTo="",
 			type="Int",
 			width=80
 		},
-		[48]={
+		[47]={
 			list=false,
 			name="StatEff9",
 			refTo="",
 			type="Float",
 			width=150
 		},
-		[49]={
+		[48]={
 			list=false,
 			name="Stat9",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[49]={
+			list=false,
+			name="AttackSpeedMultiplier",
 			refTo="",
 			type="Int",
 			width=150
@@ -2002,6 +2023,8 @@ return {
 	},
 	ImpactSoundData={
 	},
+	Incubators={
+	},
 	IncursionArchitect={
 	},
 	IncursionBrackets={
@@ -2028,6 +2051,12 @@ return {
 	},
 	InvasionMonstersPerArea={
 	},
+	Inventories={
+	},
+	InventoryId={
+	},
+	InventoryType={
+	},
 	ItemClassCategories={
 	},
 	ItemClasses={
@@ -2045,6 +2074,8 @@ return {
 			type="String",
 			width=150
 		}
+	},
+	ItemCreationTemplateCustomAction={
 	},
 	ItemExperiencePerLevel={
 	},
@@ -2172,7 +2203,33 @@ return {
 	},
 	LeagueTrophy={
 	},
+	LegionBalancePerLevel={
+	},
+	LegionChestCounts={
+	},
+	LegionChests={
+	},
+	LegionFactions={
+	},
+	LegionMonsterCounts={
+	},
+	LegionMonsterTypes={
+	},
+	LegionMonsterVarieties={
+	},
+	LegionRankTypes={
+	},
+	LegionRanks={
+	},
+	LegionRewardTypeVisuals={
+	},
+	LegionRewardTypes={
+	},
+	LegionRewards={
+	},
 	LevelRelativePlayerScaling={
+	},
+	MagicMonsterLifeScalingPerLevel={
 	},
 	MapConnections={
 	},
@@ -2198,11 +2255,17 @@ return {
 	},
 	MapStashTabLayout={
 	},
+	MapStatAchievements={
+	},
+	MapTiers={
+	},
 	Maps={
 	},
 	MasterHideoutLevels={
 	},
 	Melee={
+	},
+	MeleeTrails={
 	},
 	MicroMigrationData={
 	},
@@ -2227,6 +2290,8 @@ return {
 	MiscAnimated={
 	},
 	MiscBeams={
+	},
+	MiscEffectPacks={
 	},
 	MiscObjects={
 	},
@@ -3411,6 +3476,8 @@ return {
 	},
 	Orientations={
 	},
+	PCBangRewardMicros={
+	},
 	PVPTypes={
 	},
 	PantheonPanelLayout={
@@ -3461,6 +3528,8 @@ return {
 	},
 	QuestFlags={
 	},
+	QuestRewardType={
+	},
 	QuestRewards={
 	},
 	QuestStateCalcuation={
@@ -3480,6 +3549,8 @@ return {
 	Races={
 	},
 	RandomUniqueMonsters={
+	},
+	RareMonsterLifeScalingPerLevel={
 	},
 	Rarity={
 	},
@@ -3634,6 +3705,8 @@ return {
 			width=150
 		}
 	},
+	SkillMorphDisplay={
+	},
 	SkillSurgeEffects={
 	},
 	SkillTotemVariations={
@@ -3674,6 +3747,10 @@ return {
 	SpecialTiles={
 	},
 	StartingPassiveSkills={
+	},
+	StashId={
+	},
+	StashType={
 	},
 	StatDescriptionFunctions={
 	},

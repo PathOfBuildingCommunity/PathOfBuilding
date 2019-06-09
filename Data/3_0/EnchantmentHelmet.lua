@@ -1014,16 +1014,16 @@ return {
 	},
 	["Holy Flame Totem"] = {
 		["MERCILESS"] = {
-			"25% increased Flame Totem Damage",
-			"Flame Totem fires an additional Projectile",
-			"20% increased Flame Totem Projectile Speed",
-			"Consecrated Ground created with Holy Flame Totem applies 6% increased Damage taken to Enemies",
+			"Holy Flame Totem deals 25% increased Damage",
+			"Holy Flame Totem fires an additional Projectile",
+			"Holy Flame Totem has 20% increased Projectile Speed",
+			"Consecrated Ground from Holy Flame Totem applies 6% increased Damage taken to Enemies",
 		},
 		["ENDGAME"] = {
-			"40% increased Flame Totem Damage",
-			"Flame Totem fires 2 additional Projectiles",
-			"30% increased Flame Totem Projectile Speed",
-			"Consecrated Ground created with Holy Flame Totem applies 9% increased Damage taken to Enemies",
+			"Holy Flame Totem deals 40% increased Damage",
+			"Holy Flame Totem fires 2 additional Projectiles",
+			"Holy Flame Totem has 30% increased Projectile Speed",
+			"Consecrated Ground from Holy Flame Totem applies 9% increased Damage taken to Enemies",
 		},
 	},
 	["Ice Crash"] = {
@@ -1091,11 +1091,9 @@ return {
 	},
 	["Immortal Call"] = {
 		["MERCILESS"] = {
-			"20% chance for Immortal Call to increase Duration without removing Endurance Charges",
 			"34% increased Immortal Call Duration",
 		},
 		["ENDGAME"] = {
-			"30% chance for Immortal Call to increase Duration without removing Endurance Charges",
 			"36% increased Immortal Call Duration",
 		},
 	},
@@ -1287,11 +1285,11 @@ return {
 	},
 	["Molten Shell"] = {
 		["MERCILESS"] = {
-			"25% increased Molten Shell Damage",
+			"Molten Shell has 25% increased Skill Effect Duration",
 			"100% increased Molten Shell Buff Effect",
 		},
 		["ENDGAME"] = {
-			"40% increased Molten Shell Damage",
+			"Molten Shell has 40% increased Skill Effect Duration",
 			"150% increased Molten Shell Buff Effect",
 		},
 	},
@@ -1355,6 +1353,14 @@ return {
 			"Power Siphon fires 2 additional Projectiles",
 		},
 	},
+	["Precision"] = {
+		["MERCILESS"] = {
+			"Precision has 20% reduced Mana Reservation",
+		},
+		["ENDGAME"] = {
+			"Precision has 30% reduced Mana Reservation",
+		},
+	},
 	["Projectile Weakness"] = {
 		["MERCILESS"] = {
 			"20% increased Projectile Weakness Curse Effect",
@@ -1391,12 +1397,12 @@ return {
 		["MERCILESS"] = {
 			"Purifying Flame deals 25% increased Damage",
 			"Purifying Flame has 20% increased Area of Effect if targeting Consecrated Ground",
-			"Consecrated Ground created with Sanctify applies 6% increased Damage taken to Enemies",
+			"Consecrated Ground from Purifying Flame applies 6% increased Damage taken to Enemies",
 		},
 		["ENDGAME"] = {
 			"Purifying Flame deals 40% increased Damage",
 			"Purifying Flame has 30% increased Area of Effect if targeting Consecrated Ground",
-			"Consecrated Ground created with Sanctify applies 9% increased Damage taken to Enemies",
+			"Consecrated Ground from Purifying Flame applies 9% increased Damage taken to Enemies",
 		},
 	},
 	["Purity of Elements"] = {
@@ -1459,14 +1465,14 @@ return {
 	},
 	["Raise Zombie"] = {
 		["MERCILESS"] = {
-			"Zombies deal 25% increased Damage",
-			"Zombies have 10% increased Attack Speed",
-			"+24% to Raised Zombie Elemental Resistances",
+			"Raised Zombies deal 25% increased Damage",
+			"Raised Zombies have 10% increased Attack Speed",
+			"Raised Zombies have +24% to Elemental Resistances",
 		},
 		["ENDGAME"] = {
-			"Zombies deal 40% increased Damage",
-			"Zombies have 15% increased Attack Speed",
-			"+36% to Raised Zombie Elemental Resistances",
+			"Raised Zombies deal 40% increased Damage",
+			"Raised Zombies have 15% increased Attack Speed",
+			"Raised Zombies have +36% to Elemental Resistances",
 		},
 	},
 	["Rallying Cry"] = {
@@ -1863,14 +1869,14 @@ return {
 	},
 	["Summon Raging Spirit"] = {
 		["MERCILESS"] = {
-			"20% increased Summon Raging Spirit Duration",
+			"Summon Raging Spirit has 20% increased Duration",
 			"Summon Raging Spirit has 12% chance to summon an extra Minion",
-			"Raging Spirits have 25% increased Damage",
+			"Summoned Raging Spirits deal 25% increased Damage",
 		},
 		["ENDGAME"] = {
-			"30% increased Summon Raging Spirit Duration",
+			"Summon Raging Spirit has 30% increased Duration",
 			"Summon Raging Spirit has 18% chance to summon an extra Minion",
-			"Raging Spirits have 40% increased Damage",
+			"Summoned Raging Spirits deal 40% increased Damage",
 		},
 	},
 	["Summon Skeleton"] = {

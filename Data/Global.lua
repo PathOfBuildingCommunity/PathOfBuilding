@@ -59,22 +59,23 @@ ModFlag.Area =		 0x00000200
 ModFlag.Projectile = 0x00000400
 ModFlag.SourceMask = 0x00000600
 ModFlag.Ailment =	 0x00000800
+ModFlag.MeleeHit =	 0x00001000
 -- Weapon types
-ModFlag.Axe =		 0x00001000
-ModFlag.Bow =		 0x00002000
-ModFlag.Claw =		 0x00004000
-ModFlag.Dagger =	 0x00008000
-ModFlag.Mace =		 0x00010000
-ModFlag.Staff =		 0x00020000
-ModFlag.Sword =		 0x00040000
-ModFlag.Wand =		 0x00080000
-ModFlag.Unarmed =	 0x00100000
+ModFlag.Axe =		 0x00010000
+ModFlag.Bow =		 0x00020000
+ModFlag.Claw =		 0x00040000
+ModFlag.Dagger =	 0x00080000
+ModFlag.Mace =		 0x00100000
+ModFlag.Staff =		 0x00200000
+ModFlag.Sword =		 0x00400000
+ModFlag.Wand =		 0x00800000
+ModFlag.Unarmed =	 0x01000000
 -- Weapon classes
-ModFlag.WeaponMelee =0x00200000
-ModFlag.WeaponRanged=0x00400000
-ModFlag.Weapon =	 0x00800000
-ModFlag.Weapon1H =	 0x01000000
-ModFlag.Weapon2H =	 0x02000000
+ModFlag.WeaponMelee =0x02000000
+ModFlag.WeaponRanged=0x04000000
+ModFlag.Weapon =	 0x08000000
+ModFlag.Weapon1H =	 0x10000000
+ModFlag.Weapon2H =	 0x20000000
 
 KeywordFlag = { }
 -- Skill keywords
@@ -197,4 +198,10 @@ SkillType = {
 	OR = 84,
 	AND = 85,
 	NOT = 86,
+	PhysicalSkill = 87,
+	Maims = 88,
+	CreatesMinion = 89,
+	GuardSkill = 90,
+	TravelSkill = 91,
+	BlinkSkill = 92,
 }

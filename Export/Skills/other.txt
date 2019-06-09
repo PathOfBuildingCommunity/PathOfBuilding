@@ -9,6 +9,10 @@ local skills, mod, flag, skill = ...
 #flags attack melee projectile
 #mods
 
+#skill MeleeUseContactPoint Default Attack
+#flags attack melee projectile
+#mods
+
 #skill GemDetonateMines
 #flags spell
 #mods
@@ -294,20 +298,6 @@ local skills, mod, flag, skill = ...
 #skill TriggeredMoltenStrike
 #flags attack projectile area
 	fromItem = true,
-#mods
-
-#skill AccuracyAndCritsAura
-#flags spell aura area
-	fromItem = true,
-	statMap = {
-		["accuracy_rating"] = {
-			mod("Accuracy", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["critical_strike_chance_+%"] = {
-			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-	},
-#baseMod skill("radius", 36)
 #mods
 
 #skill TriggeredSummonSpider

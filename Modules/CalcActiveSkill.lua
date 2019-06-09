@@ -411,6 +411,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if level.damageMultiplier then
 		skillModList:NewMod("Damage", "MORE", level.damageMultiplier, activeEffect.grantedEffect.modSource, ModFlag.Attack)
 	end
+	if level.attackSpeedMultiplier then
+		skillModList:NewMod("Speed", "MORE", level.attackSpeedMultiplier, activeEffect.grantedEffect.modSource, ModFlag.Attack)
+	end
 	if level.cooldown then
 		activeSkill.skillData.cooldown = level.cooldown
 	end

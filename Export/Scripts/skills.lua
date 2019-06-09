@@ -26,6 +26,7 @@ local skillTypes = { "Attack",
 	"Totem",
 	"Type31",
 	"Curse",
+	"PhysicalSkill",
 	"FireSkill",
 	"ColdSkill",
 	"LightningSkill",
@@ -73,10 +74,15 @@ local skillTypes = { "Attack",
 	"OR",
 	"AND",
 	"NOT",
+	"Maims",
+	"CreatesMinion",
+	"GuardSkill",
+	"TravelSkill",
+	"BlinkSkill",
 }
 
 local function mapAST(ast)
-	return "SkillType."..skillTypes[ast]
+	return "SkillType."..(skillTypes[ast] or ("Unknown"..ast))
 end
 
 local weaponClassMap = {
@@ -127,7 +133,7 @@ directiveTable.skill = function(state, args, out)
 	if not granted then
 		print('Unknown GE: "'..grantedId..'"')
 	end
-	local skillGem = dat"SkillGems":GetRow("GrantedEffect", granted)
+	local skillGem = dat"SkillGems":GetRow("GrantedEffect", granted) or dat"SkillGems":GetRow("SecondaryGrantedEffect", granted)
 	local skill = { }
 	state.skill = skill
 	if skillGem and not state.noGem then
@@ -187,7 +193,7 @@ directiveTable.skill = function(state, args, out)
 		out:write('\tstatDescriptionScope = "gem_stat_descriptions",\n')
 	else
 		if #granted.ActiveSkill.Description > 0 then
-			out:write('\tdescription = "', granted.ActiveSkill.Description, '",\n')
+			out:write('\tdescription = "', granted.ActiveSkill.Description:gsub('"','\\"'), '",\n')
 		end
 		out:write('\tskillTypes = { ')
 		for _, type in ipairs(granted.ActiveSkill.SkillTypes) do
@@ -242,6 +248,9 @@ directiveTable.skill = function(state, args, out)
 		end
 		if levelRow.DamageMultiplier and levelRow.DamageMultiplier ~= 0 then
 			level.extra.baseMultiplier = levelRow.DamageMultiplier / 10000 + 1
+		end
+		if levelRow.AttackSpeedMultiplier and levelRow.AttackSpeedMultiplier ~= 0 then
+			level.extra.attackSpeedMultiplier = levelRow.AttackSpeedMultiplier
 		end
 		if levelRow.ManaCostOverride ~= 0 then
 			level.extra.manaCostOverride = levelRow.ManaCostOverride

@@ -144,7 +144,7 @@ itemBases["Undying Flesh Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
-	implicit = "+1 to maximum number of Zombies",
+	implicit = "+1 to maximum number of Raised Zombies",
 	req = { },
 }
 itemBases["Rot Head Talisman"] = {

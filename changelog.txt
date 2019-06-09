@@ -1,3 +1,25 @@
+VERSION[1.4.142][2019/06/09]
+ * Added the following new gems:
+    * Berserk
+    * Bladestorm (the buffs from the storms can be enabled in the Skill Options section of the Configuration tab)
+	* Blood and Sand (you can switch stances in Skill Options)
+	* Chain Hook
+    * Dash
+	* Flesh and Stone (you can switch stances in Skill Options)
+	* Frostblink
+	* Perforate
+	* Precision
+	* Pride
+    * Steelskin
+	* Close Combat (mostly non-functional)
+	* Impale (the Impale mechanic is still unsupported)
+	* Pulverise
+	* Rage
+	* Shockwave
+ * Applied the skill reworks and balance changes for 3.7.0
+    * Note that Cast While Channelling will not work correctly for the time being due to some significant changes
+ * Updated item bases and mods for 3.7.0
+ * Applied the accuracy changes from 3.7.0
 VERSION[1.4.141][2019/06/06]
  * Fixed Rage degeneration applying incorrectly (again)
 VERSION[1.4.140][2019/06/06]

@@ -119,6 +119,9 @@ return {
 ["cast_time_overrides_attack_duration"] = {
 	skill("castTimeOverridesAttackTime", true),
 },
+["spell_cast_time_cannot_be_modified"] = {
+	skill("fixedCastTime", true),
+},
 ["global_always_hit"] = {
 	skill("cannotBeEvaded", true),
 },
@@ -354,6 +357,9 @@ return {
 ["buff_effect_duration_+%_per_removable_endurance_charge"] = {
 	mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
 },
+["buff_effect_duration_+%_per_removable_endurance_charge_limited_to_5"] = {
+	mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 5 }),
+},
 ["skill_effect_duration_+%_per_removable_frenzy_charge"] = {
 	mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "RemovableFrenzyCharge" }),
 },
@@ -528,6 +534,9 @@ return {
 },
 ["bleed_on_melee_attack_chance_%"] = {
 	mod("BleedChance", "BASE", nil, ModFlag.Melee),
+},
+["faster_bleed_%"] = {
+	mod("BleedFaster", "INC", nil),
 },
 ["base_chance_to_poison_on_hit_%"] = {
 	mod("PoisonChance", "BASE", nil),
@@ -1040,6 +1049,13 @@ return {
 },
 ["banner_area_of_effect_+%_per_stage"] = {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
+},
+-- Other
+["triggered_skill_damage_+%"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
+},
+["channelled_skill_damage_+%"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Channelled }),
 },
 
 }

@@ -580,6 +580,11 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 22)
 #mods
 
+#skill IceDash
+#flags spell area
+#baseMod skill("showAverage", true)
+#mods
+
 #skill FrostBolt
 #flags spell projectile
 #mods
@@ -1115,10 +1120,18 @@ local skills, mod, flag, skill = ...
 
 #skill FrostFury
 #flags spell projectile area duration
+	parts = {
+		{
+			name = "Channelling",
+		},
+		{
+			name = "Idle",
+		},
+	},
 	setupFunc = function(activeSkill, output)
-		local rateMod = (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HitRate") / 100)
-		local speedMod = calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Speed")
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / rateMod / speedMod
+		local rateMod = (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HitRate", "Speed") / 100)
+		local mult = activeSkill.skillModList:More(activeSkill.skillCfg, "HitRate")
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / rateMod / mult
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
@@ -1132,6 +1145,12 @@ local skills, mod, flag, skill = ...
 		["frost_fury_base_fire_interval_ms"] = {
 			skill("repeatFrequency", nil),
 			div = 1000,
+		},
+		["frost_fury_duration_+%_per_stage"] = {
+			mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStage", limitVar = "WinterOrbMaxStage" }),
+		},
+		["frost_fury_fire_speed_+%_final_while_channelling"] = {
+			mod("HitRate", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 #baseMod skill("radius", 16)

@@ -49,6 +49,11 @@ local skills, mod, flag, skill = ...
 			skill("timeOverride", nil, { type = "SkillType", skillType = SkillType.Triggerable }),
 			div = 1000,
 		},
+	},
+#mods
+
+#skill SupportCastWhileChannellingTriggered
+	statMap = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
 		},
@@ -157,10 +162,8 @@ local skills, mod, flag, skill = ...
 
 #skill SupportStormBarrier
 	statMap = {
-		["support_storm_barrier_physical_damage_taken_when_hit_+%_final"] = {
-			mod("PhysicalDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling" }),
-		},
 		["support_storm_barrier_skill_type_damage_taken_when_hit_+%_final"] = {
+			mod("PhysicalDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "PhysicalInfusion" }),
 			mod("FireDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "FireInfusion" }),
 			mod("ColdDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "ColdInfusion" }),
 			mod("LightningDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "LightningInfusion" }),
@@ -170,12 +173,14 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil),
 		},
 		["support_storm_barrier_skill_type_damage_+%_final"] = {
+			mod("PhysicalDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "PhysicalInfusion" }),
 			mod("FireDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "FireInfusion" }),
 			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ColdInfusion" }),
 			mod("LightningDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "LightningInfusion" }),
 			mod("ChaosDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ChaosInfusion" }),
 		},
 	},
+#baseMod flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.PhysicalSkill })
 #baseMod flag("Condition:FireInfusion", { type = "SkillType", skillType = SkillType.FireSkill })
 #baseMod flag("Condition:ColdInfusion", { type = "SkillType", skillType = SkillType.ColdSkill })
 #baseMod flag("Condition:LightningInfusion", { type = "SkillType", skillType = SkillType.LightningSkill })

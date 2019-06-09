@@ -99,6 +99,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		newSpec:DecodeURL(self.build.spec:EncodeURL())
 		t_insert(self.specList, self.activeSpec + 1, newSpec)
 		self:SetActiveSpec(self.activeSpec + 1)
+		self.modFlag = true
 		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[self.build.targetVersionData.latestTreeVersion].short..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
 	end)
 end)

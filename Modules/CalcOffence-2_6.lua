@@ -239,10 +239,10 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillFlags.melee then
 		if skillFlags.weapon1Attack then
-			actor.weaponRange1 = (actor.weaponData1.range and actor.weaponData1.range + skillModList:Sum("BASE", skillCfg, "MeleeWeaponRange")) or (env.data.weaponTypeInfo["None"].range + skillModList:Sum("BASE", skillCfg, "UnarmedRange"))	
+			actor.weaponRange1 = (actor.weaponData1.range and actor.weaponData1.range + skillModList:Sum("BASE", skillCfg, "MeleeWeaponRange")) or (4 + skillModList:Sum("BASE", skillCfg, "UnarmedRange"))	
 		end
 		if skillFlags.weapon2Attack then
-			actor.weaponRange2 = (actor.weaponData2.range and actor.weaponData2.range + skillModList:Sum("BASE", skillCfg, "MeleeWeaponRange")) or (env.data.weaponTypeInfo["None"].range + skillModList:Sum("BASE", skillCfg, "UnarmedRange"))	
+			actor.weaponRange2 = (actor.weaponData2.range and actor.weaponData2.range + skillModList:Sum("BASE", skillCfg, "MeleeWeaponRange")) or (4 + skillModList:Sum("BASE", skillCfg, "UnarmedRange"))	
 		end
 		if activeSkill.skillTypes[SkillType.MeleeSingleTarget] then
 			local range = 100
@@ -596,7 +596,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.HitChance = 100
 		else
 			local enemyEvasion = round(calcLib.val(enemyDB, "Evasion"))
-			output.HitChance = calcLib.hitChance(enemyEvasion, output.Accuracy)
+			output.HitChance = calcs.hitChance(enemyEvasion, output.Accuracy)
 			if breakdown then
 				breakdown.HitChance = {
 					"Enemy level: "..env.enemyLevel..(env.configInput.enemyLevel and " ^8(overridden from the Configuration tab" or " ^8(can be overridden in the Configuration tab)"),

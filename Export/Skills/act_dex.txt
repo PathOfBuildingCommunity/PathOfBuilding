@@ -225,17 +225,36 @@ local skills, mod, flag, skill = ...
 
 #skill Cyclone
 #flags attack melee area
+	parts = {
+		{
+			name = "No Stages",
+		},
+		{
+			name = "Max Stages",
+		},
+	},
 	statMap = {
 		["cyclone_movement_speed_+%_final"] = {
 			mod("MovementSpeed", "MORE", nil),
 		},
+		["cyclone_melee_weapon_range_+_per_stage"] = {
+			mod("MeleeWeaponRange", "BASE", nil, 0, 0, { type = "Multiplier", var = "CycloneStage" }),
+			mod("UnarmedRange", "BASE", nil, 0, 0, { type = "Multiplier", var = "CycloneStage" }),
+		},
+		["cyclone_max_number_of_stages"] = {
+			mod("Multiplier:CycloneMaxStages", "BASE", nil),
+		},
 	},
-#baseMod skill("dpsMultiplier", 2)
 #baseMod skill("radiusIsWeaponRange", true)
+#baseMod mod("Multiplier:CycloneStage", "BASE", 1, 0, 0, { type = "Multiplier", var = "CycloneMaxStages" }, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill VaalCyclone
 #flags attack melee area duration vaal
+#mods
+
+#skill QuickDodge
+#flags spell
 #mods
 
 #skill Desecrate
@@ -289,6 +308,14 @@ local skills, mod, flag, skill = ...
 
 #skill DualStrike
 #flags attack melee
+	statMap = {
+		["dual_strike_critical_strike_chance_+%_final_against_enemies_on_full_life"] = {
+			mod("CritChance", "MORE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "FullLife" })
+		},
+		["dual_strike_damage_+%_final_against_enemies_on_full_life"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "FullLife" })
+		},
+	},
 #mods
 
 #skill ElementalHit
@@ -387,12 +414,19 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FlickerStrike
-#flags attack melee
+#flags attack melee duration
 	statMap = {
 		["flicker_strike_more_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack),
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["flicker_strike_buff_movement_speed_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["flicker_strike_buff_duration_ms"] = {
+			skill("duration", nil),
+			div = 1000,
 		},
 	},
 #mods
@@ -403,6 +437,14 @@ local skills, mod, flag, skill = ...
 
 #skill Frenzy
 #flags attack melee projectile
+	statMap = {
+		["frenzy_skill_attack_damage_+%_final_per_frenzy_charge"] = {
+			mod("Damage", "MORE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "FrenzyCharge" }),
+		},
+		["frenzy_skill_attack_speed_+%_final_per_frenzy_charge"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "FrenzyCharge" }),
+		},
+	},
 #mods
 
 #skill FrostBlades
@@ -568,8 +610,11 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
-		["lacerate_hit_and_ailment_damage_+%_final_vs_bleeding_enemies"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "Bleeding" }),
+		["double_slash_bleeding_damage_+%_final_in_blood_stance"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed, { type = "Condition", var = "BloodStance" }),
+		},
+		["chance_to_bleed_on_hit_%_chance_in_blood_stance"] = {
+			mod("BleedChance", "BASE", nil, ModFlag.Attack, 0, { type = "Condition", var = "BloodStance" }),
 		},
 	},
 #baseMod skill("radius", 38)
@@ -659,6 +704,19 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 22)
 #mods
 
+#skill AccuracyAndCritsAura
+#flags spell aura area
+	statMap = {
+		["accuracy_rating"] = {
+			mod("Accuracy", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 36)
+#mods
+
 #skill ProjectileWeakness
 #flags spell curse area duration
 	statMap = {
@@ -678,6 +736,11 @@ local skills, mod, flag, skill = ...
 
 #skill Puncture
 #flags attack melee projectile duration
+	statMap = {
+		["puncture_bleeding_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed),
+		},
+	},
 #baseMod skill("bleedIsSkillEffect", true)
 #mods
 
