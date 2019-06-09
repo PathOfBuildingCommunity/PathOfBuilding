@@ -1,3 +1,6 @@
+### 1.4.146 - 2019/06/09
+ * Fixed Blood and Sand having the wrong maximum gem level
+
 ### 1.4.145 - 2019/06/09
  * Fixed passive tree art
 
