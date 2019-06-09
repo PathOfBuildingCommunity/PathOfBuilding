@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.143"/>
+	<Version number="1.4.144"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree-2_6" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-2_6.zip"/>
 	<Source part="tree-3_6" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_6.zip"/>
@@ -10,7 +10,7 @@
 	<File sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
 	<File sha1="1bd3e32410fea56ce853f1f13841b1a5e2f37840" name="GameVersions.lua" part="program"/>
-	<File sha1="1947ee8213c0df18ea1835164ab7be69f001f134" name="changelog.txt" part="program"/>
+	<File sha1="bedae13ec1d1892102471aac02cdd6bd91360fff" name="changelog.txt" part="program"/>
 	<File sha1="b093a2709f30c1f83ce5ba9df88c80f22c1beb4a" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="16fc5eaa04cc14b2022f6705a12717935454dab0" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="c160d9d42579f3e3b89e420e7931a9aecb6377bc" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -163,7 +163,7 @@
 	<File sha1="5afcd50812ed7d4dc1f093dbae7b402304a284dd" name="Data/3_0/ModJewelAbyss.lua" part="program"/>
 	<File sha1="44c185f43c996721d49752dc92e1b7fae2c060f3" name="Data/3_0/ModMaster.lua" part="program"/>
 	<File sha1="16eb3b62d39e511c4de4efd0be461b5fe6af9924" name="Data/3_0/Rares.lua" part="program"/>
-	<File sha1="9e37d143034683a0e54a6c404daac5469cf0aeb5" name="Data/3_0/SkillStatMap.lua" part="program"/>
+	<File sha1="9eee4e49beef409c9e8b1ff44fde17408e218a8e" name="Data/3_0/SkillStatMap.lua" part="program"/>
 	<File sha1="aca363527528be2c86f05108cbe214b4379ae3f1" name="Data/3_0/Spectres.lua" part="program"/>
 	<File sha1="d422c0d9519008e65cc9954ed17de3158c264f83" name="Data/3_0/Bases/amulet.lua" part="program"/>
 	<File sha1="9292f38aa5c33e044e775a1df62d60cfc48e4e66" name="Data/3_0/Bases/axe.lua" part="program"/>
@@ -184,9 +184,9 @@
 	<File sha1="439c3c038cdbc6133367fecfe119dd13d8248775" name="Data/3_0/Bases/staff.lua" part="program"/>
 	<File sha1="2c0bb96c9310711060beb010b282018bc1425cbd" name="Data/3_0/Bases/sword.lua" part="program"/>
 	<File sha1="c8d18eddf62b1b3ba22fb3233da329a29a200f4b" name="Data/3_0/Bases/wand.lua" part="program"/>
-	<File sha1="e61558b630ed1ecb043829c6963157a817adacdb" name="Data/3_0/Skills/act_dex.lua" part="program"/>
+	<File sha1="99b3f0122d33ffe4fe5ea8792bde63e9d222480c" name="Data/3_0/Skills/act_dex.lua" part="program"/>
 	<File sha1="d4adfdaedf138ee7160349ff3f6bbd9213e5d411" name="Data/3_0/Skills/act_int.lua" part="program"/>
-	<File sha1="2958574e01f03f310789a3465ec211872e0d3740" name="Data/3_0/Skills/act_str.lua" part="program"/>
+	<File sha1="2047653565dad3cb4817391b3838cc7346e1992e" name="Data/3_0/Skills/act_str.lua" part="program"/>
 	<File sha1="f78c78004f37e4e4ff1259d0b7e84307b4c29c5b" name="Data/3_0/Skills/glove.lua" part="program"/>
 	<File sha1="df8ee6761918b401b1d1d120adde2b2b27ab31a6" name="Data/3_0/Skills/minion.lua" part="program"/>
 	<File sha1="290451cb4cd572457f8a9dd00443fc129217f07f" name="Data/3_0/Skills/other.lua" part="program"/>
@@ -259,7 +259,7 @@
 	<File sha1="275e7066b61a7ad12ee59d34cd5a405d2d71a9d6" name="TreeData/3_6/groups-3.png" part="tree-3_6"/>
 	<File sha1="ebc0c5c46007ec625ee2bf6bd65317be4bce088e" name="TreeData/3_6/skills-3.jpg" part="tree-3_6"/>
 	<File sha1="e69a47709256d27e5529051522f018f3380fc457" name="TreeData/3_6/skills-disabled-3.jpg" part="tree-3_6"/>
-	<File sha1="84789c99584a2aad18a26db6f6bba35380356969" name="TreeData/3_7/tree.lua" part="tree-3_7"/>
+	<File sha1="2c73d57dabd0054b884b2a63b8af9948592fd6ef" name="TreeData/3_7/tree.lua" part="tree-3_7"/>
 	<File sha1="d0ffbeec71f365181566e154189af6378d51ec9b" name="TreeData/3_7/groups-3.png" part="tree-3_7"/>
 	<File sha1="97fa41cf48c842f68005b3497be936644c1f977f" name="TreeData/3_7/skills-3.jpg" part="tree-3_7"/>
 	<File sha1="4a63a6cc3cbec1bbf3d1fe7af055f26c45ec53d4" name="TreeData/3_7/skills-disabled-3.jpg" part="tree-3_7"/>

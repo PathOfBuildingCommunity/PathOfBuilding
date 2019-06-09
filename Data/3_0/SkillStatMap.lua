@@ -860,6 +860,29 @@ return {
 	mod("MeleeWeaponRange", "BASE", nil),
 	mod("UnarmedRange", "BASE", nil),
 },
+["override_off_hand_base_critical_strike_chance_to_5%"] = {
+	skill("setOffHandBaseCritChance", nil),
+	value = 5,
+},
+["off_hand_local_minimum_added_physical_damage"] = {
+	skill("setOffHandPhysicalMin", nil),
+},
+["off_hand_local_maximum_added_physical_damage"] = {
+	skill("setOffHandPhysicalMax", nil),
+},
+["off_hand_base_weapon_attack_duration_ms"] = {
+	skill("setOffHandAttackTime", nil),
+},
+["off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
+	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, 	div = 15, }),
+},
+["off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
+	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, 	div = 15, }),
+},
+["additional_critical_strike_chance_per_10_shield_maximum_energy_shield_permyriad"] = {
+	mod("CritChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShieldOnWeapon 2", 	div = 10, }),
+	div = 100,
+},
 
 --
 -- Spell modifiers

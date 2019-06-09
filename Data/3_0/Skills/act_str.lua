@@ -3863,6 +3863,7 @@ skills["NewShieldCharge"] = {
 		attack = true,
 		melee = true,
 		area = true,
+		shieldAttack = true,
 	},
 	baseMods = {
 	},

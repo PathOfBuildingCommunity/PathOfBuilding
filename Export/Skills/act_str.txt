@@ -558,7 +558,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill NewShieldCharge
-#flags attack melee area
+#flags attack melee area shieldAttack
 #mods
 
 #skill ShockwaveTotem
