@@ -684,6 +684,17 @@ Requires Level 5
 (10-15)% increased Cast Speed
 +(30-50) to maximum Mana
 ]],[[
+Tavukai
+Coral Amulet
+Requires Level 54
+(2-4) Life Regenerated per second
++(30-40) to Intelligence
+Minions have +(-17-17)% to Chaos Resistance
+Summon Raging Spirit has (20-30)% increased Duration
+Summoned Raging Spirits deal (60-80)% increased Damage
+Summoned Raging Spirits have (80-100)% increased maximum Life
+Summoned Raging Spirits take 20% of their Maximum Life per second as Chaos Damage
+]],[[
 Tear of Purity
 Lapis Amulet
 Requires Level 20

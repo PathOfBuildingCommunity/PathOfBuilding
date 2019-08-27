@@ -311,6 +311,20 @@ Requires Level 65, 197 Dex
 Evasion Rating is increased by Uncapped Cold Resistance
 Phase Acrobatics
 ]],[[
+The Queen's Hunger
+Vaal Regalia
+League: Betrayal
+Energy Shield: (358-407)
+Movement Speed: -3%
+Requires Level 68, 194 Int
+Trigger Level 20 Bone Offering, Flesh Offering or Spirit Offering every 5 seconds
+Offering Skills Triggered this way also affect you
+Your Offerings have 25% reduced Effect on you
+(5-10)% increased Cast Speed
+(100-130)% increased Energy Shield
+(6-10)% increased maximum Life
+<Two Veiled Mods>
+]],[[
 Yriel's Fostering
 Exquisite Leather
 Source: Drops from The Pale Council
