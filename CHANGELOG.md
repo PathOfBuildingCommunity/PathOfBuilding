@@ -1,3 +1,6 @@
+### 1.4.149 - 2019/09/05
+ * Fixed Vaal Pact not working
+
 ### 1.4.148 - 2019/09/05
  * Fixed crash with Resolute Technique
  * Fixed Poison DPS not being calculated
