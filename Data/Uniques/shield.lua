@@ -173,15 +173,17 @@ Implicits: 1
 Tukohama's Fortress
 Ebony Tower Shield
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 61, 159 Str
 Implicits: 1
-{variant:2}+(20-30) to maximum Life
+{variant:2,3}+(20-30) to maximum Life
 40% increased Totem Damage
 +(80-100) to maximum Life
 Can have up to 1 additional Totem summoned at a time
 +300 Armour per active Totem
 Blood Magic
+{variant:3}Mortal Conviction
 ]],
 -- Shield: Evasion
 [[
@@ -535,17 +537,23 @@ If you have Blocked Recently, you and nearby Allies Regenerate 5% of Life per se
 ]],[[
 Rathpith Globe
 Titanium Spirit Shield
+League: Legion
+Source: Drops from normal{Vaal} legion
 Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.4.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 68, 159 Int
 {variant:1}(40-60)% of Block Chance applied to Spells
 {variant:2}+(12-18)% chance to Block Spell Damage
-{variant:3}+(10-15)% chance to Block Spell Damage
-(40-60)% increased Spell Damage
-10% increased maximum Life
+{variant:3,4}+(10-15)% chance to Block Spell Damage
+{variant:1,2,3}(40-60)% increased Spell Damage
 (120-160)% increased Energy Shield
-+25% to Lightning Resistance
+10% increased maximum Life
+{variant:1,2,3}+25% to Lightning Resistance
+{variant:4}Sacrifice 4% of your Life when you Use or Trigger a Spell Skill
+{variant:4}2% increased Critical Strike Chance for Spells per 100 Maximum Life
+{variant:4}2% increased Spell Damage per 100 Maximum Life
 ]],[[
 Sentari's Answer
 Brass Spirit Shield
@@ -852,6 +860,20 @@ Implicits: 2
 −50% to all Elemental Resistances
 10% increased Area of Effect of Area Skills
 Nearby allies Recover 2% of your maximum Life when you Die
+]],[[
+Perepiteia
+Ezomyte Spiked Shield
+Fractured Item
+League: Synthesis
+Requires Level 62, 85 Dex, 85 Int
+2% chance to Dodge Spell Hits
+{fractured}+(1-3) to Level of Socketed Lightning Gems
+Triggers Level 20 Lightning Aegis when Equipped
+(1-20)% increased Attack Speed
+(1-20)% increased Cast Speed
+(300-400)% increased Evasion and Energy Shield
++(1-75) to maximum Mana
+(1-20)% increased Movement Speed
 ]],[[
 Zeel's Amplifier
 Polished Spiked Shield

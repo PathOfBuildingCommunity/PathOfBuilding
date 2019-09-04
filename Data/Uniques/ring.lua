@@ -176,6 +176,111 @@ Requires Level 20
 {variant:2}40% of Lightning Damage Converted to Cold Damage
 Your spells have 100% chance to Shock against Frozen enemies
 ]],[[
+Circle of Anguish
+Ruby Ring
+Fractured item
+League: Synthesis
+Variant: Mana Reservation
+Variant: Fire Damage
+Variant: Buff Effect
+Variant: Max Fire Resistance
+Variant: Fire Resistance
+Requires Level 52
++(20-30)% to Fire Resistance
+{fractured}+(20-30) to Strength
+Adds (20-25) to (26-35) Fire Damage
++(20-30)% to Fire Resistance
+{variant:1}Herald of Ash has (40-30)% reduced Mana Reservation
+{variant:2}(40-60)% increased Fire Damage while affected by Herald of Ash
+{variant:3}Herald of Ash has (70-100)% increased Buff Effect
+{variant:4}+1% to maximum Fire Resistance while affected by Herald of Ash
+{variant:5}+(50-60)% to Fire Resistance while affected by Herald of Ash
+When used in the Synthesiser, the new item will have an additional Herald Modifier
+]],[[
+Circle of Fear
+Sapphire Ring
+Fractured Item
+League: Synthesis
+Variant: Mana Reservation
+Variant: Cold Damage
+Variant: Buff Effect
+Variant: Max Cold Resistance
+Variant: Cold Resistance
+Requires Level 52
++(20-30)% to Cold Resistance
+{fractured}+(20-30) to Dexterity
+Adds (20-25) to (26-35) Cold Damage
++(20-30)% to Cold Resistance
+{variant:1}Herald of Ice has (40-30)% reduced Mana Reservation
+{variant:2}(40-60)% increased Cold Damage while affected by Herald of Ice
+{variant:3}Herald of Ice has (70-100)% increased Buff Effect
+{variant:4}+1% to maximum Cold Resistance while affected by Herald of Ice
+{variant:5}+(50-60)% to Cold Resistance while affected by Herald of Ice
+When used in the Synthesiser, the new item will have an additional Herald Modifier
+]],[[
+Circle of Guilt
+Iron Ring
+Fractured Item
+League: Synthesis
+Variant: Mana Reservation
+Variant: Physical Damage
+Variant: Buff Effect
+Variant: Sentinels of Purity Damage
+Variant: Physical Damage Reduction
+Requires Level 52
+Adds 1 to 4 Physical Damage to Attacks
+{fractured}+(10-20) to all Attributes
+Adds (8-10) to (13-15) Physical Damage
++(350-400) to Armour
+{variant:1}Herald of Purity has (40-30)% reduced Mana Reservation
+{variant:2}(40-60)% increased Physical Damage while affected by Herald of Purity
+{variant:3}Herald of Purity has (70-100)% increased Buff Effect
+{variant:4}Sentinels of Purity deal (70-100)% increased Damage
+{variant:5}4% additional Physical Damage Reduction while affected by Herald of Purity
+When used in the Synthesiser, the new item will have an additional Herald Modifier
+]],[[
+Circle of Nostalgia
+Amethyst Ring
+Fractured Item
+League: Synthesis
+Variant: Mana Reservation
+Variant: Chaos Damage
+Variant: Buff Effect
+Variant: Agony Crawler Damage
+Variant: Chaos Resistance
+Requires Level 52
++(9-13)% to Chaos Resistance
+{fractured}+(10-20) to all Attributes
+Adds (15-20) to (21-30) Chaos Damage
++(17-23)% to Chaos Resistance
+{variant:1}Herald of Agony has (40-30)% reduced Mana Reservation
+{variant:2}(40-60)% increased Chaos Damage while affected by Herald of Agony
+{variant:3}Herald of Agony has (70-100)% increased Buff Effect
+{variant:4}Agony Crawler deals (70-100)% increased Damage
+{variant:5}+(31-43)% to Chaos Resistance while affected by Herald of Agony
+When used in the Synthesiser, the new item will have an additional Herald Modifier
+]],[[
+Circle of Regret
+Topaz Ring
+Fractured Item
+League: Synthesis
+Variant: Mana Reservation
+Variant: Lightning Damage
+Variant: Buff Effect
+Variant: Max Lightning Resistance
+Variant: Lightning Resistance
+Requires Level 52
++(20-30)% to Lightning Resistance
+{fractured}+(20-30) to Intelligence
+Adds 1 to (48-60) Lightning Damage
++(20-30)% to Lightning Resistance
+{variant:1}Herald of Thunder has (40-30)% reduced Mana Reservation
+{variant:2}(40-60)% increased Lightning Damage while affected by Herald of Thunder
+{variant:3}Herald of Thunder has (70-100)% increased Buff Effect
+{variant:4}+1% to maximum Lightning Resistance while affected by Herald of Thunder
+{variant:5}+(50-60)% to Lightning Resistance while affected by Herald of Thunder
+When used in the Synthesiser, the new item will have an additional Herald Modifier
+]],[[
 Death Rush
 Amethyst Ring
 League: Onslaught

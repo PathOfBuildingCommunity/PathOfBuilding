@@ -632,6 +632,14 @@ Minions have +(7-10)% to all Elemental Resistances
 {variant:1}With at least 40 Intelligence in Radius, can summon up to 3 Skeleton Mages with Summon Skeletons
 {variant:2}With at least 40 Intelligence in Radius, can summon up to 5 Skeleton Mages with Summon Skeletons
 ]],[[
+Divide and Conquer
+Viridian Jewel
+Radius: Medium
+(10–15)% increased Attack Damage while holding a Shield
+With 40 total Dexterity and Strength in Radius, Spectral Shield Throw Chains +4 times
+With 40 total Dexterity and Strength in Radius, Spectral Shield Throw fires Shard Projectiles when Chaining
+With 40 total Dexterity and Strength in Radius, Spectral Shield Throw fires 75% less Shard Projectiles
+]],[[
 Fight for Survival
 Viridian Jewel
 Limited to: 2
@@ -724,12 +732,11 @@ With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect
 ]],[[
 Overwhelming Odds
 Crimson Jewel
-Limited to: 2
+Limited to: 1
 Radius: Medium
-(10-15)% increased Physical Damage
+(10-15)% increased Global Physical Damage
 With at least 40 Strength in Radius, Cleave grants Fortify on Hit
-With at least 40 Strength in Radius, Cleave has 3% increased Area of
-Effect per Nearby Enemy
+With at least 40 Strength in Radius, Cleave has +1 to Radius per Nearby Enemy, up to +10
 ]],[[
 Pitch Darkness
 Viridian Jewel

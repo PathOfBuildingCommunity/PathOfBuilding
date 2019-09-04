@@ -20,15 +20,18 @@ Adds (4-6) to (8-12) Fire Damage to Spells
 Apep's Rage
 Opal Wand
 Variant: Pre 2.3.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 62, 212 Int
 Implicits: 2
 {variant:1}(17-20)% increased Spell Damage
-{variant:2}(38-42)% increased Spell Damage
-Adds (50-65) to (90-105) Chaos Damage to Spells
+{variant:2,3}(38-42)% increased Spell Damage
+{variant:1,2}Adds (50-65) to (90-105) Chaos Damage to Spells
+{variant:3}Adds (90-130) to (140-190) Chaos Damage to Spells
 (25-30)% increased Cast Speed
 +(5-10)% to Chaos Resistance
 40% increased Mana Cost of Skills
+{variant:3}Poisons you inflict deal Damage 20% faster
 ]],[[
 Ashcaller
 Quartz Wand
@@ -115,7 +118,7 @@ Implicits: 2
 (30-40)% increased Spell Damage
 {variant:1}125% increased Physical Damage
 {variant:2,3}175% increased Physical Damage
-{variant:4}(250–275)% increased Physical Damage
+{variant:4}(250-275)% increased Physical Damage
 +10 to Intelligence
 (20-30)% increased Lightning Damage
 10% increased Cast Speed
@@ -154,10 +157,10 @@ Attacks with this Weapon have (100-115)% increased Elemental Damage
 The Poet's Pen
 Carved Wand
 Requires Level 12
-(11–15)% increased Spell Damage 
+(11-15)% increased Spell Damage 
 +1 to Level of Socketed Active Skill Gems per 25 Player Levels 
 Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels 
-(8–12)% increased Attack Speed 
+(8-12)% increased Attack Speed 
 Trigger a Socketed Spell when you Attack
 ]],[[
 Reverberation Rod
@@ -201,10 +204,10 @@ Source: Drops from unique{The Elder} (Tier 6+)
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 65
-(35–39)% increased Spell Damage 
-(30–40)% increased Spell Damage 
-Adds (26–35) to (95–105) Lightning Damage to Spells 
-+(6–10)% to Critical Strike Multiplier per Power Charge 
+(35-39)% increased Spell Damage 
+(30-40)% increased Spell Damage 
+Adds (26-35) to (95-105) Lightning Damage to Spells 
++(6-10)% to Critical Strike Multiplier per Power Charge 
 +0.3% Critical Strike Chance per Power Charge 
 2% additional Chance to Block Spells per Power Charge 
 Adds 3 to 9 Lightning Damage to Spells per Power Charge 

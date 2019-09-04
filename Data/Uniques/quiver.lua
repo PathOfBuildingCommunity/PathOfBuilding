@@ -120,6 +120,17 @@ Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity
 Adds 1 to 2 Fire Damage to Attacks per 10 Strength
 Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
 ]],[[
+Maloney's Mechanism
+Ornate Quiver
+League: Synthesis
+Requires Level 45
+Has 1 Socket
+Has 2 Sockets
+Trigger a Socketed Bow Skill when you Attack with a Bow
+(7-12)% increased Attack Speed
++(50-70) to maximum Life
+5% chance to Blind Enemies on Hit with Attacks
+]],[[
 Maloney's Nightfall
 Blunt Arrow Quiver
 Variant: Pre 2.6.0

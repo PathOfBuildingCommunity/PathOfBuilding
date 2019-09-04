@@ -229,15 +229,17 @@ Requires Level 54, 112 Int
 Crown of Eyes
 Hubris Circlet
 Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 69, 154 Int
-+(200-250) to Accuracy Rating
+{variant:1,2}+(200-250) to Accuracy Rating
+{variant:3}+(300-350) to Accuracy Rating
 (120-150)% increased Energy Shield
 −30% to Fire Resistance
 {variant:1}(0.4-0.8)% of Physical Attack Damage Leeched as Life
-{variant:2}(0.4-0.8)% of Attack Damage Leeched as Life
+{variant:2,3}(0.4-0.8)% of Attack Damage Leeched as Life
 {variant:1}(0.2-0.4)% of Physical Attack Damage Leeched as Mana
-{variant:2}(0.2-0.4)% of Attack Damage Leeched as Mana
+{variant:2,3}(0.2-0.4)% of Attack Damage Leeched as Mana
 Increases and Reductions to Spell Damage also apply to Attacks
 ]],[[
 Crown of Thorns
@@ -399,6 +401,17 @@ Raging Spirits have (130–150)% increased Damage
 Raging Spirits' Hits always Ignite
 Raging Spirits refresh their Duration when they Kill an Ignited Enemy
 ]],[[
+Maw of Conquest
+Steel Circlet
+League: Legion
+Source: Drops from normal{Vaal} legion
+Requires Level 48, 101 Int
+(60-80)% increased Critical Strike Chance for Spells
+(200-250)% increased Energy Shield
++(50-70) to maximum Life
+Unaffected by Poison
+(10-20)% of Damage taken gained a Life over 4 seconds when Hit
+]],[[
 Rime Gaze
 Mind Cage
 Variant: Pre 2.6.0
@@ -441,6 +454,17 @@ Requires Level: 34
 (120–150)% increased Energy Shield
 Minions Regenerate 1% Life per second
 +1000 to Spectre maximum Life
+]],[[
+Wreath of Phrecia
+Iron Circlet
+League: Legion
+Source: Drops from normal{Eternal} legion
+Requires Level 8
+Has no Attribute Requirements
+Increases and Reductions to Light Radius also apply to Area of Effect at 50% of their value
+Increases and Reductions to Light Radius also apply to Damage
+(15-25)% increased Light Radius
+Deal no Chaos Damage
 ]],[[
 Ylfeban's Trickery
 Hubris Circlet
@@ -533,15 +557,17 @@ Mercury Footprints
 The Peregrine
 Visored Sallet
 Variant: Pre 2.6.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 23, 28 Str, 28 Dex
 {variant:1}+100 to Accuracy Rating
 {variant:2}+300 to Accuracy Rating
+{variant:3}+500 to Accuracy Rating
 (40-60)% increased Armour and Evasion
 (20-30)% increased Rarity of Items found
 +30% to Lightning Resistance
 {variant:1}0.2% of Physical Attack Damage Leeched as Mana
-{variant:2}0.4% of Attack Damage Leeched as Mana
+{variant:2,3}0.4% of Attack Damage Leeched as Mana
 10% increased Movement Speed
 ]],[[
 Skullhead
@@ -656,12 +682,21 @@ Summoned Holy Relics have (20–25)% reduced Cooldown Recovery Speed
 ]],[[
 Honourhome
 Soldier Helmet
+League: Legion
+Source: Drops from normal{Eternal} legion
+Variant: Pre 3.7.0
+Variant: Current
 Requires Level 12, 16 Str, 16 Int
-Adds 1 to 13 Lightning Damage to Attacks
-(40-50)% increased Armour and Energy Shield
-+(10-20)% to all Elemental Resistances
-+20% to all Elemental Resistances while on Low Life
-20% reduced Mana Cost of Skills when on Low Life
+{variant:2}+(1-2) to Level of Socketed Gems
+{variant:1}Adds 1 to 13 Lightning Damage to Attacks
+{variant:2}Adds 1 to 13 Lightning Damage to Spells and Attacks
+{variant:1}(40-50)% increased Armour and Energy Shield
+{variant:2}(100-150)% increased Armour and Energy Shield
+{variant:1}+(10-20)% to all Elemental Resistances
+{variant:1}+20% to all Elemental Resistances while on Low Life
+{variant:1}20% reduced Mana Cost of Skills when on Low Life
+{variant:2}(10-20)% increased Rarity of Items found
+{variant:2}(10-20)% reduced Mana Cost of Skills
 ]],[[
 Kitava's Thirst
 Zealot Helmet
@@ -727,6 +762,18 @@ Intelligence provides no bonus to Maximum Mana
 Your Energy Shield starts at zero
 Cannot gain Energy Shield
 1% of Life Regenerated per second per 500 Maximum Energy Shield
+]],[[
+Mask of the Tribunal
+Magistrate Crown
+Fractured Item
+League: Synthesis
+Requires Level 58, 64 Str, 64 Int
+{fractured}+(25-30) to all Attributes
+(150-200)% increased Armour and Energy Shield
+Nearby Allies have (4-6)% increased Defences per 100 Strength you have
+Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have
+Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
+1% reduced Mana Reserved per 250 total attributes
 ]],[[
 Memory Vault
 Praetor Crown
@@ -819,6 +866,15 @@ Grants Level 20 Aspect of the Cat Skill
 Critical Strikes have (10–20)% chance to Blind Enemies while you have Cat's Stealth
 (40–50)% increased Damage with Hits and Ailments against Blinded Enemies
 ]],[[
+Fractal Thoughts
+Vaal Mask
+Requires Level 62
+(140–180)% increased Evasion and Energy Shield
++(25–40)% to Critical Strike Multiplier if Dexterity is higher than Intelligence
+15% increased Dexterity if Strength is higher than Intelligence
+1% increased Elemental Damage per 10 Dexterity
++2 to Maximum Life per 10 Intelligence
+]],[[
 Gorgon's Gaze
 Regicide Mask
 Requires Level 52
@@ -877,6 +933,7 @@ Iron Mask
 Upgrade: Upgrades to unique{Malachai's Awakening} via prophecy{The Nightmare Awakens}
 Variant: Pre 1.0.0
 Variant: Pre 2.0.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 17, 21 Dex, 21 Int
 (15-30)% increased Spell Damage
@@ -886,10 +943,13 @@ Requires Level 17, 21 Dex, 21 Int
 {variant:1}100% increased Mana Cost of Skills
 {variant:2}20% increased Mana Cost of Skills
 Blood Magic
+{variant:4}Mortal Conviction
 ]],[[
 Malachai's Awakening
 Iron Mask
 Source: Upgraded from unique{Malachai's Simula} via prophecy{The Nightmare Awakens}
+Variant: Pre 3.7.0
+Variant: Current
 Requires Level 60
 (15–30)% increased Spell Damage
 +20 to Strength
@@ -898,6 +958,7 @@ Adds (42–54) to (78–88) Cold Damage to Spells while no Life is Reserved
 Adds (54–64) to (96–107) Fire Damage to Spells while no Life is Reserved
 Adds (5–14) to (160–173) Lightning Damage to Spells while no Life is Reserved
 Blood Magic
+{variant:2}Mortal Conviction
 ]],[[
 Mind of the Council
 Harlequin Mask

@@ -63,6 +63,19 @@ Requires Level 62, 180 Str
 {variant:2,3}You take 450 Chaos Damage per second for 3 seconds on Kill
 Gore Footprints
 ]],[[
+The Eternity Shroud
+Blood Raiment
+Shaper Item
+Source: Drops from unique{The Elder} (Uber)
+Requires Level 65, 107 Dex, 90 Int
+Implicits: 0
+Trigger Level 20 Glimpse of Eternity when Hit
+(100-150)% increased Evasion and Energy Shield
++(70-100) to maximum Life
++(17-23)% to Chaos Resistance
+Gain (3-5)% of Elemental Damage as Extra Chaos Damage per Shaper Item Equipped
+Hits ignore Enemy Monster Chaos Resistance if all Equipped Items are Shaper Items
+]],[[
 Greed's Embrace
 Golden Plate
 Requires Level 56, 106 Str
@@ -429,6 +442,20 @@ Requires Level 65
 Enemies affected by your Spider's Webs deal 10% reduced Damage
 Enemies affected by your Spider's Webs have -10% to All Resistances
 (50–70)% increased Aspect of the Spider Area of Effect
+]],[[
+Garb of the Ephemeral
+Savant's Robe
+Fractured Item
+League: Synthesis
+Requires Level 56, 152 Int
+{fractured}(180-230)% increased Energy Shield
++600 Strength and Intelligence Requirement
++10 to maximum Divine Charges
+Gain a Divine Charge on Hit
+You gain Divinity for 10 seconds on reaching maximum Divine Charges
+Lose all Divine Charges when you gain Divinity
+Nearby Allies' Action Speed cannot be modified to below base value
+Nearby Enemies cannot deal Critical Strikes
 ]],[[
 Infernal Mantle
 Widowsilk Robe
@@ -837,10 +864,16 @@ Your Maximum Resistances are (76–80)%
 ]],[[
 Voll's Protector
 Holy Chainmail
+League: Legion
+Source: Drops from normal{Templar} legion
+Variant: Pre 3.7.0
+Variant: Current
 Requires Level 35, 53 Str, 53 Int
-60% increased Armour and Energy Shield
+{variant:1}60% increased Armour and Energy Shield
+{variant:2}(100-150)% increased Armour and Energy Shield
 50% reduced maximum Mana
 Gain a Power Charge for each Enemy you hit with a Critical Strike
+{variant:2}Inner Conviction
 ]],
 -- Body: Evasion/Energy Shield
 [[
@@ -899,14 +932,16 @@ Socketed Gems are Supported by Level 10 Lesser Poison
 Inpulsa's Broken Heart
 Sadist Garb
 Variant: Pre 3.5.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 68
 +(60–80) to maximum Life 
 (20–50)% increased Damage if you have Shocked an Enemy Recently 
-(25–40)% increased Effect of Shock 
+{variant:1,2}(25–40)% increased Effect of Shock
+{variant:3}(15–25)% increased Effect of Shock
 Unaffected by Shock 
 {variant:1}Shocked Enemies you Kill Explode, dealing (5–10)% of
-{variant:2}Shocked Enemies you Kill Explode, dealing 5% of
+{variant:2,3}Shocked Enemies you Kill Explode, dealing 5% of
 their Maximum Life as Lightning Damage which cannot Shock
 ]],[[
 The Restless Ward
