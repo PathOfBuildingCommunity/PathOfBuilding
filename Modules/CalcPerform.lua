@@ -722,6 +722,7 @@ function calcs.perform(env)
 			elseif buff.type == "AuraDebuff" then
 				if env.mode_effective then
 					activeSkill.debuffSkill = true
+					modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 					local srcList = new("ModList")
 					local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect")
 					local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect")

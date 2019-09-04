@@ -124,21 +124,6 @@ Implicits: 2
 (30-50)% increased Stun Duration on Enemies
 30% increased Melee Damage against Bleeding Enemies
 ]],[[
-Lavianga's Wisdom
-War Hammer
-Variant: Pre 2.6.0
-Variant: Current
-Requires Level 20, 71 Str
-Implicits: 2
-{variant:1}20% increased Stun Duration on Enemies
-{variant:2}10% reduced Enemy Stun Threshold
-+(10-20) to maximum Life
-+(10-20) to maximum Mana
-(130-160)% increased Physical Damage
-5% reduced Movement Speed
-10% increased Area of Effect of Area Skills
-(10-15)% increased Area Damage
-]],[[
 Mjölner
 Gavel
 Variant: Pre 2.0.0
@@ -160,6 +145,16 @@ Skills Chain +1 times
 {variant:2}30% chance to Cast a Socketed Lightning Spell on Hit
 {variant:3,4,5}Trigger a Socketed Lightning Spell on Hit
 Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
+]],[[
+Nebulis
+Void Sceptre
+League: Synthesis
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
+Requires Level 68, 104 Str, 122 Int
+40% increased Elemental Damage
+(15-20)% increased Cast Speed
+(15-20)% increased Cold Damage per 1% Cold Resistance above 75%
+(15-20)% increased Lightning Damage per 1% Lightning Resistance above 75%
 ]],[[
 Nebuloch
 Nightmare Mace
@@ -592,22 +587,6 @@ Hits can't be Evaded
 Your Critical Strikes do not deal extra Damage
 {variant:1,2}You gain Onslaught for 2 seconds on Critical Strike
 {variant:3}You gain Onslaught for 4 seconds on Critical Strike
-]],[[
-Marohi Erqi
-Karui Maul
-Variant: Pre 2.6.0
-Variant: Current
-Requires Level 57, 182 Str
-Implicits: 2
-{variant:1}20% increased Stun Duration on Enemies
-{variant:2}30% increased Stun Duration on Enemies
-Socketed Gems are Supported by level 15 Increased Area of Effect
-(220-250)% increased Physical Damage
-Adds 10 to 20 Physical Damage
-10% reduced Attack Speed
-−100 to Accuracy Rating
-10% reduced Movement Speed
-(40-50)% increased Stun Duration on Enemies
 ]],[[
 Quecholli
 Jagged Maul

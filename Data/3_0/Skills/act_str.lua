@@ -1383,6 +1383,12 @@ skills["PuresteelBanner"] = {
 		["puresteel_banner_accuracy_rating_+%_final"] = {
 			mod("Accuracy", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
+		["attacks_impale_on_hit_%_chance"] = {
+			mod("ImpaleChance", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["impale_debuff_effect_+%"] = {
+			mod("ImpaleEffect", "INC", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 	baseFlags = {
 		spell = true,

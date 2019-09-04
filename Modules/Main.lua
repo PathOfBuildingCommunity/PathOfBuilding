@@ -20,6 +20,7 @@ LoadModule("Modules/Data")
 LoadModule("Modules/ModTools")
 LoadModule("Modules/ItemTools")
 LoadModule("Modules/CalcTools")
+LoadModule("Modules/PantheonTools")
 
 --[[if launch.devMode then
 	for skillName, skill in pairs(data["3_0"].enchantments.Helmet) do

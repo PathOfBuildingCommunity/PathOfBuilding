@@ -116,7 +116,7 @@ Requires Level 70
 +(20–30) to maximum Life
 +2 to Level of Socketed Gems
 Triggers Level 20 Elemental Aegis when Equipped
-(180–220)% increased Armour
+(200-250)% increased Armour
 +(60–80) to maximum Life
 +(80–100) to Evasion Rating and Energy Shield
 ]],[[
@@ -533,20 +533,6 @@ Requires Level 63, 60 Int
 Spreads Tar when you Block
 If you have Blocked Recently, you and nearby Allies Regenerate 5% of Life per second
 ]],[[
-Rathpith Globe
-Titanium Spirit Shield
-Variant: {2_6}Pre 3.0.0
-Variant: Pre 3.4.0
-Variant: Current
-Requires Level 68, 159 Int
-{variant:1}(40-60)% of Block Chance applied to Spells
-{variant:2}+(12-18)% chance to Block Spell Damage
-{variant:3}+(10-15)% chance to Block Spell Damage
-(40-60)% increased Spell Damage
-10% increased maximum Life
-(120-160)% increased Energy Shield
-+25% to Lightning Resistance
-]],[[
 Sentari's Answer
 Brass Spirit Shield
 Variant: {2_6}Pre 3.0.0
@@ -852,6 +838,20 @@ Implicits: 2
 −50% to all Elemental Resistances
 10% increased Area of Effect of Area Skills
 Nearby allies Recover 2% of your maximum Life when you Die
+]],[[
+Perepiteia
+Ezomyte Spiked Shield
+League: Synthesis
+Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
+Requires Level 62, 85 Dex, 85 Int
+2% chance to Dodge Spell Hits
++(1-3) to Level of Socketed Lightning Gems
+Triggers Level 20 Lightning Aegis when Equipped
+(1-20)% increased Attack Speed
+(1-20)% increased Cast Speed
+(300-400)% increased Evasion and Energy Shield
++(1-75) to maximum Mana
+(1-20)% increased Movement Speed
 ]],[[
 Zeel's Amplifier
 Polished Spiked Shield

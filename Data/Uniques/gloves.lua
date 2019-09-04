@@ -94,6 +94,15 @@ Requires Level 69, 98 Str
 4% increased Melee Damage per Endurance Charge
 You cannot be Shocked while at maximum Endurance Charges
 ]],[[
+Vixen's Entrapment
+Embroidered Gloves
+Requires Level 36, 54 Int
+Trigger Socketed Curse Spells when you cast a Curse
++(50-90) to maximum Energy Shield
+0.2% of Spell Damage Leeched as Energy Shield for each Curse on Enemy
+You can apply an additional Curse
+(10-20)% increased Cast Speed with Curse Skills
+]],[[
 Winds of Change
 Ancient Gauntlets
 Source: Drops in The Lord's Labyrinth
@@ -155,20 +164,6 @@ Requires Level 24, 17 Dex
 Reflects 10 Cold Damage to Melee Attackers
 Your Cold Damage can Ignite
 ]],[[
-Maligaro's Virtuosity
-Deerskin Gloves
-Variant: Pre 1.1.0
-Variant: {2_6}Pre 3.0.0
-Variant: Current
-Requires Level 21, 33 Dex
-+(20-30) to Dexterity
-5% increased Attack Speed
-50% increased Global Critical Strike Chance
-{variant:1}+(40-50)% to Global Critical Strike Multiplier
-{variant:2}+(28-36)% to Global Critical Strike Multiplier
-{variant:3}+(20-30)% to Global Critical Strike Multiplier
-(60-80)% increased Evasion Rating
-]],[[
 Oskarm
 Nubuck Gloves
 Requires Level 33
@@ -190,17 +185,6 @@ Grants level 22 Blight Skill
 10% increased Area of Effect of Area Skills
 Blight has (20-30)% increased Hinder Duration
 You cannot be Hindered
-]],[[
-Asenath's Gentle Touch
-Silk Gloves
-Variant: Pre 2.6.0
-Variant: Current
-Requires Level 25, 39 Int
-+(20-30) to Intelligence
-+(20-30) to maximum Life
-+(20-30) to maximum Mana
-{variant:1}Curse Enemies with Temporal Chains on Hit
-{variant:2}Curse Enemies with level 10 Temporal Chains on Hit
 ]],[[
 Demon Stitcher
 Satin Gloves
@@ -359,12 +343,14 @@ Tombfist
 Steelscale Gauntlets
 League: Abyss
 Source: Drops from Abyssal Liches
-Variant: One Abyssal Socket
-Variant: Two Abyssal Sockets
+Variant: Pre 3.6.0 One Abyssal Socket
+Variant: Pre 3.6.0 Two Abyssal Sockets
+Variant: Current One Abyssal Socket
+Variant: Current Two Abyssal Sockets
 Requires Level: 36
-{variant:1}Has 1 Abyssal Socket
-{variant:2}Has 2 Abyssal Sockets
-(6-10)% increased Attack Speed
+{variant:1,3}Has 1 Abyssal Socket
+{variant:2,4}Has 2 Abyssal Sockets
+{variant:1,2}(6-10)% increased Attack Speed
 (4-6)% increased maximum Life
 With a Murderous Eye Jewel Socketed, Intimidate Enemies for 4 seconds on Hit with Attacks
 With a Searching Eye Jewel Socketed, Maim Enemies for 4 seconds on Hit with Attacks
@@ -430,6 +416,18 @@ Requires Level 57, 44 Str, 44 Int
 Dispels Elemental Ailments on Rampage
 Gain Immunity to Physical Damage for 1.5 seconds on Rampage
 Rampage
+]],[[
+Offering to the Serpent
+Legion Gloves
+League: Synthesis
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
+Requires Level 57, 44 Str, 44 Int
++(25-35) to all Attributes
+(150-200)% increased Armour and Energy Shield
+50% reduced Maximum Recovery per Life Leech
+(6-10)% increased Attack and Cast Speed
+(15-25)% increased Damage while Leeching
+Life Leech effects are not removed at Full Life
 ]],[[
 Repentance
 Crusader Gloves
@@ -634,6 +632,17 @@ Requires Level 58, 45 Dex, 45 Int
 10% reduced Frenzy Charge Duration per Frenzy Charge
 {variant:1}While at Maximum Frenzy Charges, Attacks Poison Enemies
 {variant:2}Attacks have 60% chance to Poison while at maximum Frenzy Charges
+]],[[
+Storm's Gift
+Assassin's Mitts
+League: Synthesis
+Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
+Requires Level 58, 45 Dex, 45 Int
+(20-30)% increased Damage over Time
+(250-300)% increased Evasion and Energy Shield
++(20-30)% to Lightning Resistance
+Enemies you kill are Shocked
+Shocks you inflict spread to other Enemies within a Radius of 15
 ]],[[
 Thunderfist
 Murder Mitts

@@ -654,15 +654,6 @@ Requires Level 62
 +1 to maximum number of Summoned Holy Relics
 Summoned Holy Relics have (20–25)% reduced Cooldown Recovery Speed
 ]],[[
-Honourhome
-Soldier Helmet
-Requires Level 12, 16 Str, 16 Int
-Adds 1 to 13 Lightning Damage to Attacks
-(40-50)% increased Armour and Energy Shield
-+(10-20)% to all Elemental Resistances
-+20% to all Elemental Resistances while on Low Life
-20% reduced Mana Cost of Skills when on Low Life
-]],[[
 Kitava's Thirst
 Zealot Helmet
 Requires Level 44, 50 Str, 50 Int
@@ -727,6 +718,18 @@ Intelligence provides no bonus to Maximum Mana
 Your Energy Shield starts at zero
 Cannot gain Energy Shield
 1% of Life Regenerated per second per 500 Maximum Energy Shield
+]],[[
+Mask of the Tribunal
+Magistrate Crown
+League: Synthesis
+Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
+Requires Level 58, 64 Str, 64 Int
++(25-30) to all Attributes
+(150-200)% increased Armour and Energy Shield
+Nearby Allies have (4-6)% increased Defences per 100 Strength you have
+Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have
+Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
+1% reduced Mana Reserved per 250 total attributes
 ]],[[
 Memory Vault
 Praetor Crown

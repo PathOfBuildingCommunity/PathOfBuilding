@@ -356,6 +356,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 		elseif sourceType == "Skill" then
 			-- Extract skill name
 			row.sourceName = build.data.skills[row.mod.source:match("Skill:(.+)")].name
+		elseif sourceType == "Pantheon" then
+			row.sourceName = row.mod.source:match("Pantheon:(.+)")
 		end
 		if row.mod.flags ~= 0 or row.mod.keywordFlags ~= 0 then
 			-- Combine, sort and format modifier flags

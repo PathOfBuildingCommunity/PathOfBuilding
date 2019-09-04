@@ -75,6 +75,37 @@ end
 
 data = { }
 
+data.powerStatList = {
+	{ stat=nil, label="Offence/Defence", combinedOffDef=true, ignoreForItems=true },
+	{ stat=nil, label="Name", itemField="Name", ignoreForNodes=true, reverseSort=true, transform=function(value) return value:gsub("^The ","") end},
+	{ stat="CombinedDPS", label="Combined DPS" },
+	{ stat="TotalDPS", label="Total DPS" },
+	{ stat="TotalDot", label="Total DoT" },
+	{ stat="Life", label="Life" },
+	{ stat="LifeRegen", label="Life regen" },
+	{ stat="LifeLeechRate", label="Life leech" },
+	{ stat="EnergyShield", label="Energy Shield" },
+	{ stat="EnergyShieldRegen", label="Energy Shield regen" },
+	{ stat="EnergyShieldLeechRate", label="Energy Shield leech" },
+	{ stat="Mana", label="Mana" },
+	{ stat="ManaRegen", label="Mana regen" },
+	{ stat="ManaLeechRate", label="Mana leech" },
+	{ stat="MeleeAvoidChance", label="Melee avoid chance" },
+	{ stat="SpellAvoidChance", label="Spell avoid chance" },
+	{ stat="ProjectileAvoidChance", label="Projectile avoid chance" },
+	{ stat="PhysicalTakenHitMult", label="Taken Phys dmg", transform=function(value) return 1-value end },
+	{ stat="FireTakenDotMult", label="Taken Fire dmg", transform=function(value) return 1-value end },
+	{ stat="ColdTakenDotMult", label="Taken Cold dmg", transform=function(value) return 1-value end },
+	{ stat="LightningTakenDotMult", label="Taken Lightning dmg", transform=function(value) return 1-value end },
+	{ stat="ChaosTakenHitMult", label="Taken Chaos dmg", transform=function(value) return 1-value end },
+	{ stat="CritChance", label="Crit Chance" },
+	{ stat="BleedChance", label="Bleed Chance" },
+	{ stat="FreezeChance", label="Freeze Chance" },
+	{ stat="IgniteChance", label="Ignite Chance" },
+	{ stat="ShockChance", label="Shock Chance" },
+	{ stat="EffectiveMovementSpeedMod", label="Move speed" },
+}
+
 data.skillColorMap = { colorCodes.STRENGTH, colorCodes.DEXTERITY, colorCodes.INTELLIGENCE, colorCodes.NORMAL }
 
 data.jewelRadius = {
@@ -186,7 +217,8 @@ for _, targetVersion in ipairs(targetVersionList) do
 		Gloves = dataModule("EnchantmentGloves"),
 	}
 	verData.essences = dataModule("Essence")
-
+	verData.pantheons = targetVersion ~= "2_6" and dataModule("Pantheons") or { }
+	
 	-- Load skills
 	verData.skills = { }
 	verData.skillStatMap = dataModule("SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)

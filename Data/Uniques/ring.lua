@@ -176,6 +176,116 @@ Requires Level 20
 {variant:2}40% of Lightning Damage Converted to Cold Damage
 Your spells have 100% chance to Shock against Frozen enemies
 ]],[[
+Circle of Anguish
+Ruby Ring
+League: Synthesis
+Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
+Requires Level 52
+Has Alt Variant: true
+Variant: Herald of Ash: Mana Reservation
+Variant: Herald of Ash: Fire Damage
+Variant: Herald of Ash: Buff Effect
+Variant: Herald of Ash: Max Resistance
+Variant: Herald of Ash: Fire Resistance
+Limited to: 1
++(20-30)% to Fire Resistance
++(20-30) to Strength
+Adds (20-25) to (26-35) Fire Damage
++(20-30)% to Fire Resistance
+{variant:1}Herald of Ash has (40-30)% reduced Mana Reservation
+{variant:2}(40-60)% increased Fire Damage while affected by Herald of Ash
+{variant:3}Herald of Ash has (70-100)% increased Buff Effect
+{variant:4}+1% to maximum Fire Resistance while affected by Herald of Ash
+{variant:5}+(50-60)% to Fire Resistance while affected by Herald of Ash
+]],[[
+Circle of Fear
+Sapphire Ring
+League: Synthesis
+Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
+Requires Level 52
+Has Alt Variant: true
+Variant: Herald of Ice: Mana Reservation
+Variant: Herald of Ice: Cold Damage
+Variant: Herald of Ice: Buff Effect
+Variant: Herald of Ice: Max Resistance
+Variant: Herald of Ice: Cold Resistance
+Limited to: 1
++(20-30)% to Cold Resistance
++(20-30) to Dexterity
+Adds (20-25) to (26-35) Cold Damage
++(20-30)% to Cold Resistance
+{variant:1}Herald of Ice has (40-30)% reduced Mana Reservation
+{variant:2}(40-60)% increased Cold Damage while affected by Herald of Ice
+{variant:3}Herald of Ice has (70-100)% increased Buff Effect
+{variant:4}+1% to maximum Cold Resistance while affected by Herald of Ice
+{variant:5}+(50-60)% to Cold Resistance while affected by Herald of Ice
+]],[[
+Circle of Guilt
+Iron Ring
+League: Synthesis
+Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
+Requires Level 52
+Has Alt Variant: true
+Variant: Herald of Purity: Mana Reservation
+Variant: Herald of Purity: Physical Damage
+Variant: Herald of Purity: Buff Effect
+Variant: Herald of Purity: Sentinal Damage
+Variant: Herald of Purity: Damage Reduction
+Limited to: 1
+Adds 1 to 4 Physical Damage to Attacks
++(20-30) to all Attributes
+Adds (8-10) to (13-15) Physical Damage
++(350-400) to Armour
+{variant:1}Herald of Purity has (40-30)% reduced Mana Reservation
+{variant:2}(40-60)% increased Physical Damage while affected by Herald of Purity
+{variant:3}Herald of Purity has (70-100)% increased Buff Effect
+{variant:4}Sentinels of Purity deal (70-100)% increased Damage
+{variant:5}4% additional Physical Damage Reduction while affected by Herald of Purity
+]],[[
+Circle of Nostalgia
+Amethyst Ring
+League: Synthesis
+Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
+Requires Level 52
+Has Alt Variant: true
+Variant: Herald of Agony: Mana Reservation
+Variant: Herald of Agony: Chaos Damage
+Variant: Herald of Agony: Buff Effect
+Variant: Herald of Agony: Agony Damage
+Variant: Herald of Agony: Chaos Resistance
+Limited to: 1
++(9-13)% to Chaos Resistance
++(10-20) to all Attributes
+Adds (15-20) to (21-30) Physical Damage
++(17-23)% to Chaos Resistance
+{variant:1}Herald of Agony has (40-30)% reduced Mana Reservation
+{variant:2}(40-60)% increased Chaos Damage while affected by Herald of Agony
+{variant:3}Herald of Agony has (70-100)% increased Buff Effect
+{variant:4}Agony Crawler deals (70-100)% increased Damage
+{variant:5}+(31-43)% to Chaos Resistance while affected by Herald of Agony
+]],[[
+Circle of Regret
+Topaz Ring
+League: Synthesis
+Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
+Requires Level 52
+Has Alt Variant: true
+Variant: Herald of Thunder: Mana Reservation
+Variant: Herald of Thunder: Lightning Damage
+Variant: Herald of Thunder: Buff Effect
+Variant: Herald of Thunder: Max Resistance
+Variant: Herald of Thunder: Lightning Resistance
+Limited to: 1
++(20-30)% to Lightning Resistance
++(20-30) to Intelligence
+Adds 1 to (48-60) Lightning Damage
++(20-30)% to Lightning Resistance
+{variant:1}Herald of Thunder has (40-30)% reduced Mana Reservation
+{variant:2}(40-60)% increased Lightning Damage while affected by Herald of Thunder
+{variant:3}Herald of Thunder has (70-100)% increased Buff Effect
+{variant:4}+1% to maximum Lightning Resistance while affected by Herald of Thunder
+{variant:5}+(50-60)% to Lightning Resistance while affected by Herald of Thunder
+]],[[
 Death Rush
 Amethyst Ring
 League: Onslaught

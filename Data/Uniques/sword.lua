@@ -249,21 +249,6 @@ Implicits: 2
 Recover 1% of Maximum Life when you Ignite an Enemy
 100% increased Melee Physical Damage against Ignited Enemies
 ]],[[
-Rebuke of the Vaal
-Vaal Blade
-Variant: Pre 2.6.0
-Variant: Current
-Requires Level 64, 113 Str, 113 Dex
-Implicits: 2
-{variant:1}18% increased Accuracy Rating
-{variant:2}+460 to Accuracy Rating
-Adds (19-28) to (31-40) Physical Damage
-Adds (19-28) to (31-40) Fire Damage
-Adds (19-28) to (31-40) Cold Damage
-Adds 1 to (50-70) Lightning Damage
-Adds (19-28) to (31-40) Chaos Damage
-(10-20)% increased Attack Speed
-]],[[
 Redbeak
 Rusted Sword
 Upgrade: Upgrades to unique{Dreadbeak} via prophecy{The Dreaded Rhoa}

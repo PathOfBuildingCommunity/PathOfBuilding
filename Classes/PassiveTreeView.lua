@@ -339,6 +339,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	if self.showHeatMap then
 		-- Build the power numbers if needed
+		self.heatMapStat = build.calcsTab.powerStat
 		build.calcsTab:BuildPower()
 	end
 
@@ -408,18 +409,31 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 		if self.showHeatMap then
 			if not node.alloc and node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
-				-- Calculate color based on DPS and defensive powers
-				local offence = m_max(node.power.offence or 0, 0)
-				local defence = m_max(node.power.defence or 0, 0)
-				local dpsCol = (offence / build.calcsTab.powerMax.offence * 1.5) ^ 0.5
-				local defCol = (defence / build.calcsTab.powerMax.defence * 1.5) ^ 0.5
-				local mixCol = (m_max(dpsCol - 0.5, 0) + m_max(defCol - 0.5, 0)) / 2
-				if main.nodePowerTheme == "RED/BLUE" then
-					SetDrawColor(dpsCol, mixCol, defCol)
-				elseif main.nodePowerTheme == "RED/GREEN" then
-					SetDrawColor(dpsCol, defCol, mixCol)
-				elseif main.nodePowerTheme == "GREEN/BLUE" then
-					SetDrawColor(mixCol, dpsCol, defCol)
+				if self.heatMapStat and self.heatMapStat.stat then
+					-- Calculate color based on a single stat
+					local stat = m_max(node.power.singleStat or 0, 0)
+					local statCol = (stat / build.calcsTab.powerMax.singleStat * 1.5) ^ 0.5
+					if main.nodePowerTheme == "RED/BLUE" then
+						SetDrawColor(0, statCol, 0)
+					elseif main.nodePowerTheme == "RED/GREEN" then
+						SetDrawColor(0, 0, statCol)
+					elseif main.nodePowerTheme == "GREEN/BLUE" then
+						SetDrawColor(statCol, 0, 0)
+					end
+				else
+					-- Calculate color based on DPS and defensive powers
+					local offence = m_max(node.power.offence or 0, 0)
+					local defence = m_max(node.power.defence or 0, 0)
+					local dpsCol = (offence / build.calcsTab.powerMax.offence * 1.5) ^ 0.5
+					local defCol = (defence / build.calcsTab.powerMax.defence * 1.5) ^ 0.5
+					local mixCol = (m_max(dpsCol - 0.5, 0) + m_max(defCol - 0.5, 0)) / 2
+					if main.nodePowerTheme == "RED/BLUE" then
+						SetDrawColor(dpsCol, mixCol, defCol)
+					elseif main.nodePowerTheme == "RED/GREEN" then
+						SetDrawColor(dpsCol, defCol, mixCol)
+					elseif main.nodePowerTheme == "GREEN/BLUE" then
+						SetDrawColor(mixCol, dpsCol, defCol)
+					end
 				end
 			else
 				SetDrawColor(1, 1, 1)

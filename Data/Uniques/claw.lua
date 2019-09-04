@@ -19,24 +19,6 @@ Socketed Gems are Supported by level 12 Fortify
 Reflects (71-90) Physical Damage to Melee Attackers
 15% Chance to Block
 ]],[[
-Al Dhih
-Timeworn Claw
-Variant: Pre 2.0.0
-Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
-Variant: Current
-Requires Level 26, 39 Dex, 56 Int
-Implicits: 3
-{variant:1}+8 Life gained for each Enemy hit by Attacks
-{variant:2}2% of Physical Attack Damage Leeched as Life
-{variant:3,4}+19 Life gained for each Enemy hit by Attacks
-{variant:1}(60-80)% increased Physical Damage
-{variant:2,3,4}(100-120)% increased Physical Damage
-3% of Physical Attack Damage Leeched as Life
-10% reduced Enemy Stun Threshold with this Weapon
-Socketed Gems have 10% chance to cause Enemies to Flee on Hit
-{variant:4}Trigger Level 1 Abyssal Cry on Hit
-]],[[
 Allure
 Vaal Claw
 Variant: {2_6}Pre 3.0.0

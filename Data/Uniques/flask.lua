@@ -87,6 +87,17 @@ Requires Level 68
 {variant:1}Gain (13-15)% of Elemental Damage as Extra Chaos Damage during effect
 {variant:2}Gain (10-15)% of Elemental Damage as Extra Chaos Damage during effect
 ]],[[
+Bottled Faith
+Sulphur Flask
+League: Synthesis
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
+Requires Level 35
+Creates Consecrated Ground on Use
+(30-50)% increased Duration
+Consecrated Ground created by this Flask has Tripled Radius
++(1.0-2.0)% to Critical Strike Chance against Enemies on Consecrated Ground during Effect
+Consecrated Ground created during Effect applies (7–10)% increased Damage taken to Enemies
+]],[[
 Coralito's Signature
 Diamond Flask
 Requires Level 27
@@ -264,14 +275,6 @@ Creates Consecrated Ground on Use
 (10-20)% increased Duration
 Gains no Charges during Effect of any Overflowing Chalice Flask
 100% increased Charges gained by Other Flasks during Flask Effect
-]],[[
-The Sorrow of the Divine
-Sulphur Flask
-Requires Level 35
-Implicits: 1
-Creates Consecrated Ground on Use
-(25-50)% increased Duration
-Zealot's Oath during Flask effect
 ]],[[
 Vessel of Vinktar
 Topaz Flask

@@ -247,18 +247,6 @@ Implicits: 2
 1% increased Attack Speed per 10 Dexterity
 16% increased Physical Weapon Damage per 10 Strength
 ]],[[
-Pledge of Hands
-Judgement Staff
-Variant: Pre 2.6.0
-Variant: Current
-Requires Level 68, 113 Str, 113 Int
-Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
-Socketed Gems are Supported by level 30 Spell Echo
-(120-160)% increased Spell Damage
-100% increased maximum Mana
-]],[[
 Realmshaper
 Iron Staff
 Upgrade: Upgrades to unique{Realm Ender} via prophecy{The Beginning and the End}

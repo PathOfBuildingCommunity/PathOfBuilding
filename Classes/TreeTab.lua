@@ -84,9 +84,19 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)	
 		self.viewer.showHeatMap = state
 	end)
+	self.controls.treeHeatMapStatSelect = new("DropDownControl", {"LEFT",self.controls.treeHeatMap,"RIGHT"}, 8, 0, 150, 20, nil, function(index, value)
+		self:SetPowerCalc(value)
+	end)
 	self.controls.treeHeatMap.tooltipText = function()
 		local offCol, defCol = main.nodePowerTheme:match("(%a+)/(%a+)")
 		return "When enabled, an estimate of the offensive and defensive strength of\neach unallocated passive is calculated and displayed visually.\nOffensive power shows as "..offCol:lower()..", defensive power as "..defCol:lower().."."
+	end
+
+	self.powerStatList = { }
+	for _, stat in ipairs(data.powerStatList) do
+		if not stat.ignoreForNodes then
+			t_insert(self.powerStatList, stat)
+		end
 	end
 	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
 	self.controls.specConvertText.shown = function()
@@ -134,11 +144,19 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 		t_insert(self.controls.specSelect.list, (spec.treeVersion ~= self.build.targetVersionData.latestTreeVersion and ("["..treeVersions[spec.treeVersion].short.."] ") or "")..(spec.title or "Default"))
 	end
 	t_insert(self.controls.specSelect.list, "Manage trees...")
+	
 	if not self.controls.treeSearch.hasFocus then
 		self.controls.treeSearch:SetText(self.viewer.searchStr)
 	end
+	
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
 
+	self.controls.treeHeatMapStatSelect.list = self.powerStatList
+	self.controls.treeHeatMapStatSelect.selIndex = 1
+	if self.build.calcsTab.powerStat then
+		self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
+	end
+	
 	SetDrawLayer(1)
 
 	SetDrawColor(0.05, 0.05, 0.05)
@@ -232,6 +250,14 @@ function TreeTabClass:SetActiveSpec(specId)
 		-- Update item slots if items have been loaded already
 		self.build.itemsTab:PopulateSlots()
 	end
+end
+
+function TreeTabClass:SetPowerCalc(selection)
+	self.viewer.showHeatMap = true
+	self.build.buildFlag = true
+	self.build.powerBuildFlag = true
+	self.build.calcsTab.powerStat = selection
+	self.build.calcsTab:BuildPower()
 end
 
 function TreeTabClass:OpenSpecManagePopup()

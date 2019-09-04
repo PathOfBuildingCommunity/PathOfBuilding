@@ -88,27 +88,29 @@ Variant: Dexterity: Hatred
 Variant: Dexterity: Purity of Ice
 Variant: Intelligence: Clarity
 Variant: Intelligence: Discipline
+Variant: Intelligence: Malevolence
 Variant: Intelligence: Purity of Elements
 Variant: Intelligence: Purity of Lightning
 Variant: Intelligence: Wrath
+Variant: Intelligence: Zealotry
 Variant: Envy
 Requires Level 55
 +(10–16) to all Attributes
 {variant:1,2,3,4}+(20-30) to Strength
 {variant:5,6,7,8}+(20-30) to Dexterity
-{variant:9,10,11,12,13}+(20–30) to Intelligence
-{variant:14}Grants Level 15 Envy Skill
+{variant:9,10,11,12,13,14,15}+(20–30) to Intelligence
+{variant:16}Grants Level 15 Envy Skill
 {variant:1,2,3,4}(15-20)% increased Armour
 {variant:5,6,7,8}(15-20)% increased Evasion Rating
-{variant:9,10,11,12,13}(15–20)% increased maximum Energy Shield
-{variant:14}+(15-20) to all Attributes
+{variant:9,10,11,12,13,14,15}(15–20)% increased maximum Energy Shield
+{variant:16}+(15-20) to all Attributes
 +(50–70) to maximum Life
 {variant:1,2,3,4}10% reduced Stun and Block Recovery
 {variant:5,6,7,8}Nearby Enemies grant 25% increased Flask Charges
-{variant:9,10,11,12,13}2% additional Chance to receive a Critical Strike
+{variant:9,10,11,12,13,14,15}2% additional Chance to receive a Critical Strike
 {variant:1,2,3,4}Nearby Enemies have 10% reduced Stun and Block Recovery
-{variant:9,10,11,12,13}Nearby Enemies have an additional 2% chance to receive a Critical Strike
-{variant:14}(15-20)% increased Global Defences
+{variant:9,10,11,12,13,14,15}Hits against Nearby Enemies have 50% increased Critical Strike Chance
+{variant:16}(15-20)% increased Global Defences
 {variant:1}Anger Reserves no Mana
 {variant:2}Determination Reserves no Mana
 {variant:3}Purity of Fire Reserves no Mana
@@ -119,10 +121,12 @@ Requires Level 55
 {variant:8}Purity of Ice Reserves no Mana
 {variant:9}Clarity Reserves no Mana
 {variant:10}Discipline Reserves no Mana
-{variant:11}Purity of Elements Reserves no Mana
-{variant:12}Purity of Lightning Reserves no Mana
-{variant:13}Wrath Reserves no Mana
-{variant:14}Envy Reserves no Mana
+{variant:11}Malevolence Reserves no Mana
+{variant:12}Purity of Elements Reserves no Mana
+{variant:13}Purity of Lightning Reserves no Mana
+{variant:14}Wrath Reserves no Mana
+{variant:15}Zealotry Reserves no Mana
+{variant:16}Envy Reserves no Mana
 ]],[[
 The Aylardex
 Agate Amulet
@@ -385,6 +389,18 @@ Requires Level 20
 (6-10)% chance to Dodge Attacks
 (6-10)% chance to Dodge Spell Damage
 Cannot be Blinded
+]],[[
+Hyrri's Truth
+Jade Amulet
+League: Synthesis
+Requires Level 64
++(20-30) to Dexterity
+Grants Level 22 Precision Skill
++(25-35) to Dexterity
+Adds (12-15) to (24-28) Physical Damage to Attacks
+Adds (11-15) to (23-28) Cold Damage to Attacks
++(23-28)% to Global Critical Strike Multiplier
+(0.8-1)% of Physical Attack Damage Leeched as Life
 ]],[[
 The Ignomon
 Gold Amulet

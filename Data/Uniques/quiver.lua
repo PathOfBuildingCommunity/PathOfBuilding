@@ -120,6 +120,16 @@ Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity
 Adds 1 to 2 Fire Damage to Attacks per 10 Strength
 Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
 ]],[[
+Maloney's Mechanism
+Ornate Quiver
+Requires Level 45
+Has 1 Socket
+Has 2 Sockets
+Trigger a Socketed Bow Skill when you Attack with a Bow
+(7-12)% increased Attack Speed
++(50-70) to maximum Life
+5% chance to Blind Enemies on Hit with Attacks
+]],[[
 Maloney's Nightfall
 Blunt Arrow Quiver
 Variant: Pre 2.6.0
@@ -200,6 +210,7 @@ Adds (13-18) to (26-32) Chaos Damage to Attacks
 ]],[[
 Voidfletcher
 Penetrating Arrow Quiver
+Elder
 Source: Drops from unique{The Elder} (Uber)
 Requires Level 68
 Arrows Pierce an additional Target

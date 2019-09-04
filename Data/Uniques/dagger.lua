@@ -62,16 +62,6 @@ Requires Level 53, 58 Dex, 123 Int
 {variant:1,2}Your Chaos Damage Poisons Enemies
 {variant:3}Your Chaos Damage has 60% chance to Poison Enemies
 ]],[[
-Divinarius
-Imperial Skean
-Requires Level 66, 95 Dex, 131 Int
-30% increased Global Critical Strike Chance
-(50-70)% increased Spell Damage
-(80-100)% increased Critical Strike Chance for Spells
-+10 Life gained on Kill
-+5 Mana gained on Kill
-10% increased Area of Effect of Area Skills
-]],[[
 Goredrill
 Skinning Knife
 Upgrade: Upgrades to unique{Sanguine Gambol} via prophecy{Crimson Hues}

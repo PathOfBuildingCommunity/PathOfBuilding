@@ -883,7 +883,13 @@ return {
 	mod("CritChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShieldOnWeapon 2", 	div = 10, }),
 	div = 100,
 },
-
+-- Impale
+["attacks_impale_on_hit_%_chance"] = {
+    mod("ImpaleChance", "BASE", nil, 0, 0)
+},
+["impale_debuff_effect_+%"] = {
+    mod("ImpaleEffect", "INC", nil, 0, 0)
+},
 --
 -- Spell modifiers
 --

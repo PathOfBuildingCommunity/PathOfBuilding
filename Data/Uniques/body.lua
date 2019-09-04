@@ -430,6 +430,20 @@ Enemies affected by your Spider's Webs deal 10% reduced Damage
 Enemies affected by your Spider's Webs have -10% to All Resistances
 (50–70)% increased Aspect of the Spider Area of Effect
 ]],[[
+Garb of the Ephemeral
+Savant's Robe
+League: Synthesis
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
+Requires Level 56, 152 Int
+(180-230)% increased Energy Shield
++600 Strength and Intelligence Requirement
++10 to maximum Divine Charges
+Gain a Divine Charge on Hit
+You gain Divinity for 10 seconds on reaching maximum Divine Charges
+Lose all Divine Charges when you gain Divinity
+Nearby Allies' Action Speed cannot be modified to below base value
+Nearby Enemies cannot deal Critical Strikes
+]],[[
 Infernal Mantle
 Widowsilk Robe
 Variant: {2_6}Pre 3.0.0
@@ -823,6 +837,8 @@ Requires Level 47, 69 Str, 69 Int
 Loreweave
 Elegant Ringmail
 Source: Vendor Recipe
+Variant: Pre 3.6.0
+Variant: Current
 Requires Level 64
 Has 6 Sockets
 Adds (4–10) to (14–36) Physical Damage to Attacks
@@ -833,14 +849,8 @@ Adds (4–10) to (14–36) Physical Damage to Attacks
 +(20–50) to maximum Mana
 (6–30)% increased Rarity of Items found
 (15–50)% increased Elemental Damage
-Your Maximum Resistances are (76–80)%
-]],[[
-Voll's Protector
-Holy Chainmail
-Requires Level 35, 53 Str, 53 Int
-60% increased Armour and Energy Shield
-50% reduced maximum Mana
-Gain a Power Charge for each Enemy you hit with a Critical Strike
+{variant:1}Your Maximum Resistances are (76–80)%
+{variant:2}Your Maximum Resistances are (76–78)%
 ]],
 -- Body: Evasion/Energy Shield
 [[
@@ -895,6 +905,19 @@ Socketed Gems are Supported by Level 10 Lesser Poison
 +(15-25)% to all Elemental Resistances
 (75-100)% increased Damage with Poison if you have at least 300 Dexterity
 (15-25)% increased Poison Duration if you have at least 150 Intelligence
+]],[[
+The Eternity Shroud
+Blood Raiment
+Shaper Item
+Source: Drops from unique{The Elder} (Uber)
+Requires Level 65, 107 Dex, 90 Int
+Implicits: 0
+Trigger Level 20 Glimpse of Eternity when Hit
+(100-150)% increased Evasion and Energy Shield
++(70-100) to maximum Life
++(17-23)% to Chaos Resistance
+Gain 5% of Elemental Damage as Extra Chaos Damage per Shaper Item Equipped
+Hits ignore Enemy Monster Chaos Resistance if all Equipped Items are Shaper Items
 ]],[[
 Inpulsa's Broken Heart
 Sadist Garb

@@ -188,29 +188,24 @@ Adds (7-12) to (16-25) Physical Damage
 1% of Physical Attack Damage Leeched as Life
 Attacks have Blood Magic
 ]],[[
-Kaom's Primacy
-Karui Chopper
-Requires Level 58, 151 Str, 43 Dex
-(160-220)% increased Physical Damage
-Adds (16-21) to (32-38) Fire Damage
-+(150-250) to Accuracy Rating
-+20 Life gained on Kill
-Culling Strike
-]],[[
 Kingmaker
 Despot Axe
 Source: Vendor recipe
 Variant: Pre 2.6.0
+Variant: Pre 3.6.0
 Variant: Current
 Requires Level 66, 140 Str, 86 Dex
-(200-250)% increased Physical Damage
+{variant:1,2}(200-250)% increased Physical Damage
+{variant:3}(250-285)% increased Physical Damage
 (7-12)% increased Attack Speed
-{variant:2}(30-40)% increased Critical Strike Chance
+{variant:2,3}(30-40)% increased Critical Strike Chance
 {variant:1}+(100-150) to maximum Mana
-{variant:2}Insufficient Mana doesn't prevent your Melee Attacks
 Nearby Allies have 30% increased Item Rarity
 {variant:1}Nearby Allies' spells have Culling Strike
-{variant:2}Nearby Allies have Culling Strike
+{variant:2,3}Nearby Allies have Culling Strike
+{variant:2,3}Insufficient Mana doesn't prevent your Melee Attacks
+{variant:3}Nearby Allies have +50% to Critical Strike Multiplier
+{variant:3}Nearby Allies have Fortify
 ]],[[
 Kitava's Feast
 Void Axe

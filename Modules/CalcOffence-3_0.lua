@@ -224,6 +224,20 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("Accuracy", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 		end
 	end
+	if skillModList:Flag(nil, "LightRadiusAppliesToAreaOfEffect") then
+		-- Light Radius conversion from Wreath of Phrecia
+		for i, value in ipairs(skillModList:Tabulate("INC",  { }, "LightRadius")) do
+			local mod = value.mod
+			skillModList:NewMod("AreaOfEffect", "INC", math.floor(mod.value / 2), mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+		end
+	end
+	if skillModList:Flag(nil, "LightRadiusAppliesToDamage") then
+		-- Light Radius conversion from Wreath of Phrecia
+		for i, value in ipairs(skillModList:Tabulate("INC",  { }, "LightRadius")) do
+			local mod = value.mod
+			skillModList:NewMod("Damage", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+		end
+	end
 	if skillModList:Flag(nil, "CastSpeedAppliesToTrapThrowingSpeed") then
 		-- Cast Speed conversion from Slavedriver's Hand
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Cast }, "Speed")) do
@@ -259,7 +273,9 @@ function calcs.offence(env, actor, activeSkill)
 		if skillModList:Flag(nil, "FarShot") then
 			skillModList:NewMod("Damage", "MORE", 30, "Far Shot", bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{35,0},{70,1}} })
 		end
-		output.ProjectileCount = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
+		local projBase = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
+		local projMore = skillModList:More(skillCfg, "ProjectileCount")
+		output.ProjectileCount = round((projBase - 1) * projMore + 1)
 		if skillModList:Flag(skillCfg, "CannotPierce") then
 			output.PierceCountString = "Cannot pierce"
 		else
@@ -364,7 +380,8 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.TrapTriggerRadius = breakdown.area(10, areaMod, output.TrapTriggerRadius)
 		end
 	elseif skillData.cooldown then
-		output.Cooldown = skillData.cooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
+		local cooldownOverride = skillModList:Override(skillCfg, "CooldownRecovery")
+		output.Cooldown = cooldownOverride or skillData.cooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
 		if breakdown then
 			breakdown.Cooldown = {
 				s_format("%.2fs ^8(base)", skillData.cooldown),
@@ -864,6 +881,10 @@ function calcs.offence(env, actor, activeSkill)
 				output.CritMultiplier = 1
 			else
 				local extraDamage = skillModList:Sum("BASE", cfg, "CritMultiplier") / 100
+				local multiOverride = skillModList:Override(skillCfg, "CritMultiplier")
+				if multiOverride then
+					extraDamage = (multiOverride - 100) / 100
+				end
 				if env.mode_effective then
 					local enemyInc = 1 + enemyDB:Sum("INC", nil, "SelfCritMultiplier") / 100
 					extraDamage = round(extraDamage * enemyInc, 2)
@@ -1350,6 +1371,7 @@ function calcs.offence(env, actor, activeSkill)
 	skillFlags.igniteCanStack = skillModList:Flag(skillCfg, "IgniteCanStack")
 	skillFlags.shock = false
 	skillFlags.freeze = false
+	skillFlags.impale = false
 	for _, pass in ipairs(passList) do
 		local globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
@@ -1422,6 +1444,11 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.KnockbackChanceOnHit = skillModList:Sum("BASE", cfg, "EnemyKnockbackChance")
 		end
+		if not skillFlags.attack then
+            output.ImpaleChance = 0
+        else
+            output.ImpaleChance = m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance"))
+        end
 		if env.mode_effective then
 			local bleedMult = (1 - enemyDB:Sum("BASE", nil, "AvoidBleed") / 100)
 			output.BleedChanceOnHit = output.BleedChanceOnHit * bleedMult
@@ -2002,6 +2029,42 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.EnemyStunDuration, s_format("= %.2fs", output.EnemyStunDuration))
 			end
 		end
+			
+        -- Calculate impale chance and modifiers
+		if canDeal.Physical and output.ImpaleChance > 0 then
+            skillFlags.impale = true
+            local impaleChance = m_min(output.ImpaleChance/100, 1)
+            local maxStacks = 5 + skillModList:Sum("BASE", cfg, "ImpaleStacksMax") -- magic number: base stacks duration
+            local configStacks = enemyDB:Sum("BASE", nil, "Multiplier:ImpaleStack")
+            local impaleStacks = configStacks > 0 and m_min(configStacks, maxStacks) or  maxStacks
+
+            local baseStoredDamage = 0.1 -- magic number: base impale stored damage
+            local storedDamageInc = skillModList:Sum("INC", cfg, "ImpaleEffect")/100
+            local storedDamageMore = round(skillModList:More(cfg, "ImpaleEffect"), 2)
+            local storedDamageModifier = (1 + storedDamageInc) * storedDamageMore
+            local impaleStoredDamage = baseStoredDamage * storedDamageModifier
+
+			local impaleDMGModifier = impaleStoredDamage * impaleStacks * impaleChance
+
+            globalOutput.ImpaleStacksMax = maxStacks
+			globalOutput.ImpaleStacks = impaleStacks
+			output.ImpaleStoredDamage = impaleStoredDamage * 100
+			output.ImpaleModifier = 1 + impaleDMGModifier
+
+			if breakdown then
+				breakdown.ImpaleStoredDamage = {}
+				t_insert(breakdown.ImpaleStoredDamage, "10% ^8(base value)")
+				t_insert(breakdown.ImpaleStoredDamage, s_format("x %.2f ^8(increased effectiveness)", storedDamageModifier))
+				t_insert(breakdown.ImpaleStoredDamage, s_format("= %.1f%%", output.ImpaleStoredDamage))
+
+				breakdown.ImpaleModifier = {}
+				t_insert(breakdown.ImpaleModifier, s_format("%d ^8(numer of stacks, can be overridden in the Configuration tab)", impaleStacks))
+				t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
+				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
+				t_insert(breakdown.ImpaleModifier, s_format("= %.3f", impaleDMGModifier))
+
+			end
+		end
 	end
 
 	-- Combine secondary effect stats
@@ -2032,6 +2095,9 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("ShockDurationMod", "AVERAGE")
 		combineStat("FreezeChance", "AVERAGE")
 		combineStat("FreezeDurationMod", "AVERAGE")
+		combineStat("ImpaleChance", "AVERAGE")
+		combineStat("ImpaleStoredDamage", "AVERAGE")
+		combineStat("ImpaleModifier", "CHANCE", "ImpaleChance")
 	end
 
 	if skillFlags.hit and skillData.decay and canDeal.Chaos then

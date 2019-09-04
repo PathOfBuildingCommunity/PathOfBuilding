@@ -79,38 +79,6 @@ Adds (100–120) to (150–165) Physical Damage against Bleeding Enemies
 {variant:12}{crafted}(13-36)% chance to deal Double Damage while Focussed
 {variant:13}{crafted}Trigger a Socketed Spell when you Use a Skill
 ]],[[
-Darkscorn
-Assassin Bow
-Variant: Pre 1.2.0
-Variant: Pre 2.0.0
-Variant: Pre 2.6.0
-Variant: Current
-Requires Level 62, 212 Dex
-Implicits: 1
-{variant:1,2}(6-12)% increased Elemental Damage with Weapons
-{variant:1,2,3}(100-125)% increased Physical Damage
-{variant:4}(130-150)% increased Physical Damage
-{variant:2}Adds (6-10) to (10-14) Physical Damage
-{variant:3,4}Adds (10-15) to (15-20) Physical Damage
-10% increased Attack Speed
-25% of Physical Damage Converted to Chaos Damage
-(15-30)% increased Accuracy Rating
-25% of Physical Damage taken as Chaos Damage
-]],[[
-Death's Harp
-Death Bow
-Upgrade: Upgrades to unique{Death's Opus} via prophecy{The Bowstring's Music}
-Variant: Pre 2.2.0
-Variant: {2_6}Pre 3.0.0
-Variant: Current
-Requires Level 32, 107 Dex
-(30-50)% increased Critical Strike Chance
-(100-125)% increased Physical Damage
-10% increased Attack Speed
-{variant:1,3}+100% to Global Critical Strike Multiplier
-{variant:2}+150% to Global Critical Strike Multiplier
-Adds an additional Arrow
-]],[[
 Death's Opus
 Death Bow
 Source: Upgraded from unique{Death's Harp} via prophecy{The Bowstring's Music}

@@ -491,17 +491,6 @@ Socketed Gems are Supported by Level 15 Added Chaos Damage
 20% reduced Light Radius
 +50% to Chaos Resistance during any Flask Effect
 ]],[[
-Lioneye's Paws
-Bronzescale Boots
-Requires Level 30, 30 Str, 30 Dex
-+(40-60) to Strength
-+(40-60) to Dexterity
-Adds 12 to 24 Fire Damage to Attacks
-20% increased Movement Speed
-40% reduced Movement Speed when on Low Life
-20% increased Stun Recovery
-Cannot be Stunned when on Low Life
-]],[[
 Mutewind Whispersteps
 Serpentscale Boots
 League: Warbands
@@ -569,6 +558,16 @@ Requires Level 58, 54 Str, 54 Int
 {variant:2}(10-15)% chance to Ignite
 {variant:1}15% increased Damage against Ignited Enemies
 {variant:2}(25-40)% increased Damage against Ignited Enemies
+]],[[
+March of the Legion
+Legion Boots
+League: Synthesis
+Requires Level 58, 54 Str, 54 Int
++2 to Level of Socketed Aura Gems
+Socketed Gems are Supported by Level 25 Blessing
+(250-300)% increased Armour and Energy Shield
++(12-18)% to all Elemental Resistances
+(20-30)% increased Movement Speed
 ]],[[
 Ralakesh's Impatience
 Riveted Boots
