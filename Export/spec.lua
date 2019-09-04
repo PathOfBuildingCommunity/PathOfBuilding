@@ -1475,6 +1475,8 @@ return {
 			width=150
 		}
 	},
+	GameStats={
+	},
 	GemTags={
 		[1]={
 			list=false,
@@ -3473,6 +3475,8 @@ return {
 	Notifications={
 	},
 	OldMapStashTabLayout={
+	},
+	OnKillAchievements={
 	},
 	Orientations={
 	},

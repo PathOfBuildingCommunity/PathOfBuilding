@@ -204,4 +204,5 @@ SkillType = {
 	GuardSkill = 90,
 	TravelSkill = 91,
 	BlinkSkill = 92,
+	CanHaveBlessing = 93,
 }

@@ -363,7 +363,6 @@ return {
 		{ label = "Player modifiers", modName = "CritMultiplier", cfg = "skill" }, 
 		{ label = "Enemy modifiers", modName = "SelfCritMultiplier", enemy = true }, 
 	}, },
-	{ label = "Crit Ailment Mult", notFlag = "attack", { format = "x {2:output:CritDegenMultiplier}", }, },
 	{ label = "Crit Effect Mod", notFlag = "attack", { format = "x {3:output:CritEffect}", { breakdown = "CritEffect" }, }, },
 	-- Main Hand
 	{ label = "MH Inc. Crit Chance", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "{0:mod:1}%", { modName = "CritChance", modType = "INC", cfg = "weapon1" }, }, },
@@ -377,7 +376,6 @@ return {
 		{ label = "Player modifiers", modName = "CritMultiplier", cfg = "weapon1" }, 
 		{ label = "Enemy modifiers", modName = "SelfCritMultiplier", enemy = true },
 	}, },
-	{ label = "MH Crit Ailment Mult", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "x {2:output:MainHand.CritDegenMultiplier}", }, },
 	{ label = "MH Crit Effect Mod", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "x {3:output:MainHand.CritEffect}", { breakdown = "MainHand.CritEffect" }, }, },
 	-- Off Hand
 	{ label = "OH Inc. Crit Chance", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "{0:mod:1}%", { modName = "CritChance", modType = "INC", cfg = "weapon2" }, }, },
@@ -391,7 +389,6 @@ return {
 		{ label = "Player modifiers", modName = "CritMultiplier", cfg = "weapon2" }, 
 		{ label = "Enemy modifiers", modName = "SelfCritMultiplier", enemy = true },
 	}, },
-	{ label = "OH Crit Ailment Mult", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "x {2:output:OffHand.CritDegenMultiplier}", }, },
 	{ label = "OH Crit Effect Mod", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "x {3:output:OffHand.CritEffect}", { breakdown = "OffHand.CritEffect" }, }, },
 } },
 { 1, "HitChance", 1, "Accuracy", colorCodes.OFFENCE, {
