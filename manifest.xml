@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.147"/>
+	<Version number="1.4.148"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree-2_6" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-2_6.zip"/>
@@ -12,7 +12,7 @@
 	<File sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
 	<File sha1="4be21620b1c7149c7dca35c883bd8b7dd2c5eea9" name="GameVersions.lua" part="program"/>
-	<File sha1="11141f4a769cedc5ce8258f52b68d40fdb7c422c" name="changelog.txt" part="program"/>
+	<File sha1="98143debd8220873f19847e276ac5e181f8bde1e" name="changelog.txt" part="program"/>
 	<File sha1="b093a2709f30c1f83ce5ba9df88c80f22c1beb4a" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="16fc5eaa04cc14b2022f6705a12717935454dab0" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="c160d9d42579f3e3b89e420e7931a9aecb6377bc" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -65,7 +65,7 @@
 	<File sha1="f49b47b90a18902c30db9693a7949172c72944e7" name="Modules/CalcDefence-2_6.lua" part="program"/>
 	<File sha1="ff1974d29771dcb21eefe2744f36836a8aff75bd" name="Modules/CalcDefence-3_0.lua" part="program"/>
 	<File sha1="fdfcb2daf9f582e3d2fa065c4b61ecfe66d8ba4f" name="Modules/CalcOffence-2_6.lua" part="program"/>
-	<File sha1="5ce38b37a5089d7f9093fcc2363e571f7dba9d0d" name="Modules/CalcOffence-3_0.lua" part="program"/>
+	<File sha1="6453a2e0c8b9539634397bf4d94faa5269d1cf2e" name="Modules/CalcOffence-3_0.lua" part="program"/>
 	<File sha1="63f8526843cc2cb6cd438aeff78e16a188c6b4d7" name="Modules/CalcPerform.lua" part="program"/>
 	<File sha1="75ff525e98cb3814ece908e02900e10b76542ba5" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="32da2a949a5fe0ab10d54078a96caff0dccb5f3f" name="Modules/CalcSections-2_6.lua" part="program"/>

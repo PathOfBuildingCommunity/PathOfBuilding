@@ -1,3 +1,6 @@
+VERSION[1.4.148][2019/09/05]
+ * Fixed crash with Resolute Technique
+ * Fixed Poison DPS not being calculated
 VERSION[1.4.147][2019/09/05]
  * Added 3.8.0 passive tree
 VERSION[1.4.146][2019/06/09]
