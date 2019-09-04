@@ -820,7 +820,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.PreEffectiveCritChance = 0
 			output.CritChance = 0
 			output.CritMultiplier = 0
-			output.CritDegenMultiplier = 0
+			output.BonusCritDotMultiplier = 0
 			output.CritEffect = 1
 		else
 			local baseCrit = source.CritChance or 0
@@ -1708,7 +1708,7 @@ function calcs.offence(env, actor, activeSkill)
 				if env.mode_effective then
 					local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist"), 75)
 					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
-					local takenMore = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
+					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 					globalOutput["PoisonEffMult"] = effMult
 					if breakdown and effMult ~= 1 then
@@ -2124,7 +2124,7 @@ function calcs.offence(env, actor, activeSkill)
 		if env.mode_effective then
 			local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist"), 75)
 			local takenInc = enemyDB:Sum("INC", nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
-			local takenMore = enemyDB:Sum("INC", nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
+			local takenMore = enemyDB:More(nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 			effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 			output["DecayEffMult"] = effMult
 			if breakdown and effMult ~= 1 then
