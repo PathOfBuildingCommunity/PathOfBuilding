@@ -4,7 +4,7 @@
 Settings.xml
 *.cfg
 *.json
-TreeData/
+TreeData/*_*
 Builds/
 /Export/Tree/PassiveSkillGraph.psg
 /Export/Tree/passives

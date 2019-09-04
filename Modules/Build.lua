@@ -218,7 +218,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f", compPercent = true },
 		{ stat = "TrapThrowingTime", label = "Trap Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".2fs", lowerIsBetter = true },
-		{ stat = "MineLayingTime", label = "Mine Laying Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
+		{ stat = "MineLayingTime", label = targetVersion == "2_6" and "Mine Laying Time" or "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TotemPlacementTime", label = "Totem Placement Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },

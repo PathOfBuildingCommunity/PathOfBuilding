@@ -581,7 +581,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill IceDash
-#flags spell area
+#flags spell area hit
 #baseMod skill("showAverage", true)
 #mods
 

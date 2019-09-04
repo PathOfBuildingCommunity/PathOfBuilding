@@ -285,7 +285,7 @@ local skills, mod, flag, skill = ...
 #flags spell area aura
 	statMap = {
 		["support_maimed_enemies_physical_damage_taken_+%"] = {
-			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Maim", effectCond = "BloodStance" }, { type = "Condition", var = "Maimed" }),
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Maim", effectCond = "BloodStance" }, { type = "Condition", var = "Maimed" }),
 		},
 	},
 #baseMod mod("Condition:Maimed", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Flesh", effectCond = "BloodStance" })
@@ -475,10 +475,10 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%"] = {
-			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "MinEffect" }),
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "MinEffect" }),
 		},
 		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%_max"] = {
-			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "MaxEffect" }),
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "MaxEffect" }),
 		},
 	},
 #baseMod flag("Condition:MinEffect", { type = "SkillPart", skillPart = 1 })

@@ -1,3 +1,13 @@
+### 1.4.149 - 2019/09/05
+ * Fixed Vaal Pact not working
+
+### 1.4.148 - 2019/09/05
+ * Fixed crash with Resolute Technique
+ * Fixed Poison DPS not being calculated
+
+### 1.4.147 - 2019/09/05
+ * Added 3.8.0 passive tree
+
 ### 1.4.146 - 2019/06/09
  * Fixed Blood and Sand having the wrong maximum gem level
 

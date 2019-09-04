@@ -397,10 +397,10 @@ function calcs.offence(env, actor, activeSkill)
 		if breakdown then
 			breakdown.MineLayingTime = { }
 			breakdown.multiChain(breakdown.MineLayingTime, {
-				label = "Laying speed:",
-				base = s_format("%.2f ^8(base laying speed)", baseSpeed),
-				{ "%.2f ^8(increased/reduced laying speed)", 1 + skillModList:Sum("INC", skillCfg, "MineLayingSpeed") / 100 },
-				{ "%.2f ^8(more/less laying speed)", skillModList:More(skillCfg, "MineLayingSpeed") },
+				label = "Throwing speed:",
+				base = s_format("%.2f ^8(base throwing speed)", baseSpeed),
+				{ "%.2f ^8(increased/reduced throwing speed)", 1 + skillModList:Sum("INC", skillCfg, "MineLayingSpeed") / 100 },
+				{ "%.2f ^8(more/less throwing speed)", skillModList:More(skillCfg, "MineLayingSpeed") },
 				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
 				total = s_format("= %.2f ^8per second", output.MineLayingSpeed),
 			})
@@ -820,7 +820,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.PreEffectiveCritChance = 0
 			output.CritChance = 0
 			output.CritMultiplier = 0
-			output.CritDegenMultiplier = 0
+			output.BonusCritDotMultiplier = 0
 			output.CritEffect = 1
 		else
 			local baseCrit = source.CritChance or 0
@@ -898,12 +898,8 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				output.CritMultiplier = 1 + m_max(0, extraDamage)
 			end
-			if skillModList:Flag(cfg, "NoCritDegenMultiplier") then
-				output.CritDegenMultiplier = 1
-			else
-				output.CritDegenMultiplier = 1 + skillModList:Sum("BASE", cfg, "CritDegenMultiplier") / 100 + (skillModList:Sum("BASE", cfg, "CritMultiplier") - 50) * skillModList:Sum("BASE", cfg, "CritMultiplierAppliesToDegen") / 10000
-			end
 			output.CritEffect = 1 - output.CritChance / 100 + output.CritChance / 100 * output.CritMultiplier
+			output.BonusCritDotMultiplier = (skillModList:Sum("BASE", cfg, "CritMultiplier") - 50) * skillModList:Sum("BASE", cfg, "CritMultiplierAppliesToDegen") / 10000
 			if breakdown and output.CritEffect ~= 1 then
 				breakdown.CritEffect = {
 					s_format("(1 - %.4f) ^8(portion of damage from non-crits)", output.CritChance/100),
@@ -1010,7 +1006,8 @@ function calcs.offence(env, actor, activeSkill)
 						-- Apply enemy resistances and damage taken modifiers
 						local resist = 0
 						local pen = 0
-						local taken = enemyDB:Sum("INC", cfg, "DamageTaken", damageType.."DamageTaken")
+						local takenInc = enemyDB:Sum("INC", cfg, "DamageTaken", damageType.."DamageTaken")
+						local takenMore = enemyDB:More(cfg, "DamageTaken", damageType.."DamageTaken")
 						if damageType == "Physical" then
 							resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
 						else
@@ -1018,19 +1015,19 @@ function calcs.offence(env, actor, activeSkill)
 							if isElemental[damageType] then
 								resist = resist + enemyDB:Sum("BASE", nil, "ElementalResist")
 								pen = skillModList:Sum("BASE", cfg, damageType.."Penetration", "ElementalPenetration")
-								taken = taken + enemyDB:Sum("INC", nil, "ElementalDamageTaken")
+								takenInc = takenInc + enemyDB:Sum("INC", nil, "ElementalDamageTaken")
 							elseif damageType == "Chaos" then
 								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
 							end
 							resist = m_min(resist, 75)
 						end
 						if skillFlags.projectile then
-							taken = taken + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
+							takenInc = takenInc + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
 						end
 						if skillFlags.trap or skillFlags.mine then
-							taken = taken + enemyDB:Sum("INC", nil, "TrapMineDamageTaken")
+							takenInc = takenInc + enemyDB:Sum("INC", nil, "TrapMineDamageTaken")
 						end
-						local effMult = (1 + taken / 100)
+						local effMult = (1 + takenInc / 100) * takenMore
 						if not skillModList:Flag(cfg, "Ignore"..damageType.."Resistance", isElemental[damageType] and "IgnoreElementalResistances" or nil) and not enemyDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") then
 							effMult = effMult * (1 - (resist - pen) / 100)
 						end
@@ -1041,7 +1038,7 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						if pass == 2 and breakdown and effMult ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
-							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, taken, effMult)
+							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore)
 						end
 					end
 					if pass == 2 and breakdown then
@@ -1332,26 +1329,27 @@ function calcs.offence(env, actor, activeSkill)
 			local effMult = 1
 			if env.mode_effective then
 				local resist = 0
-				local taken = enemyDB:Sum("INC", nil, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
+				local takenInc = enemyDB:Sum("INC", dotTypeCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
+				local takenMore = enemyDB:More(dotTypeCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
 				if damageType == "Physical" then
 					resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
 				else
 					resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 					if isElemental[damageType] then
-						resist = resist + enemyDB:Sum("BASE", nil, "ElementalResist")
-						taken = taken + enemyDB:Sum("INC", nil, "ElementalDamageTaken")
+						resist = resist + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
+						takenInc = takenInc + enemyDB:Sum("INC", dotTypeCfg, "ElementalDamageTaken")
 					end
 					resist = m_min(resist, 75)
 				end
-				effMult = (1 - resist / 100) * (1 + taken / 100)
+				effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 				output[damageType.."DotEffMult"] = effMult
 				if breakdown and effMult ~= 1 then
-					breakdown[damageType.."DotEffMult"] = breakdown.effMult(damageType, resist, 0, taken, effMult)
+					breakdown[damageType.."DotEffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore)
 				end
 			end
 			local inc = skillModList:Sum("INC", dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
 			local more = round(skillModList:More(dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil), 2)
-			local mult = skillModList:Sum("BASE", dotTypeCfg, damageType.."DotMultiplier")
+			local mult = skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier", damageType.."DotMultiplier")
 			local total = baseVal * (1 + inc/100) * more * (1 + mult/100) * effMult
 			if skillFlags.aura then
 				total = total * calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
@@ -1544,14 +1542,16 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.BleedPhysical = { damageTypes = { } }
 			end
 			for pass = 1, 2 do
-				dotCfg.skillCond["CriticalStrike"] = (pass == 1)
+				if not skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") then
+					dotCfg.skillCond["CriticalStrike"] = (pass == 1)
+				end
 				local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 2 and breakdown and breakdown.BleedPhysical, "Physical", 0)
 				output.BleedPhysicalMin = min
 				output.BleedPhysicalMax = max
 				if pass == 1 then
-					sourceCritDmg = (min + max) / 2  * output.CritDegenMultiplier
+					sourceCritDmg = (min + max) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100 + output.BonusCritDotMultiplier)
 				else
-					sourceHitDmg = (min + max) / 2
+					sourceHitDmg = (min + max) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100)
 				end
 			end
 			local basePercent = skillData.bleedBasePercent or 70
@@ -1562,13 +1562,15 @@ function calcs.offence(env, actor, activeSkill)
 				local effMult = 1
 				if env.mode_effective then
 					local resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
-					local taken = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime")
-					effMult = (1 - resist / 100) * (1 + taken / 100)
+					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime")
+					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime")
+					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 					globalOutput["BleedEffMult"] = effMult
 					if breakdown and effMult ~= 1 then
-						globalBreakdown.BleedEffMult = breakdown.effMult("Physical", resist, 0, taken, effMult)
+						globalBreakdown.BleedEffMult = breakdown.effMult("Physical", resist, 0, takenInc, effMult, takenMore)
 					end
 				end
+				local mult = skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier", "BleedMultiplier")
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
 				local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster")
 				output.BleedDPS = baseVal * effectMod * rateMod * effMult
@@ -1639,7 +1641,9 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.PoisonChaos = { damageTypes = { } }
 			end
 			for pass = 1, 2 do
-				dotCfg.skillCond["CriticalStrike"] = (pass == 1)
+				if not skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") then
+					dotCfg.skillCond["CriticalStrike"] = (pass == 1)
+				end
 				local totalMin, totalMax = 0, 0
 				do
 					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 2 and breakdown and breakdown.PoisonChaos, "Chaos", 0)
@@ -1685,9 +1689,9 @@ function calcs.offence(env, actor, activeSkill)
 					totalMax = totalMax + max * nonChaosMult
 				end
 				if pass == 1 then
-					sourceCritDmg = (totalMin + totalMax) / 2  * output.CritDegenMultiplier
+					sourceCritDmg = (totalMin + totalMax) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "ChaosDotMultiplier") / 100 + output.BonusCritDotMultiplier)
 				else
-					sourceHitDmg = (totalMin + totalMax) / 2
+					sourceHitDmg = (totalMin + totalMax) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "ChaosDotMultiplier") / 100)
 				end
 			end
 			local baseVal = calcAilmentDamage("Poison", sourceHitDmg, sourceCritDmg) * 0.20
@@ -1697,11 +1701,12 @@ function calcs.offence(env, actor, activeSkill)
 				local effMult = 1
 				if env.mode_effective then
 					local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist"), 75)
-					local taken = enemyDB:Sum("INC", nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
-					effMult = (1 - resist / 100) * (1 + taken / 100)
+					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
+					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
+					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 					globalOutput["PoisonEffMult"] = effMult
 					if breakdown and effMult ~= 1 then
-						globalBreakdown.PoisonEffMult = breakdown.effMult("Chaos", resist, 0, taken, effMult)
+						globalBreakdown.PoisonEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore)
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
@@ -1796,7 +1801,9 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.IgniteChaos = { damageTypes = { } }
 			end
 			for pass = 1, 2 do
-				dotCfg.skillCond["CriticalStrike"] = (pass == 1)
+				if not skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") then
+					dotCfg.skillCond["CriticalStrike"] = (pass == 1)
+				end
 				local totalMin, totalMax = 0, 0
 				if canDeal.Physical and skillModList:Flag(cfg, "PhysicalCanIgnite") then
 					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, pass == 2 and breakdown and breakdown.IgnitePhysical, "Physical", dmgTypeFlags.Fire)
@@ -1834,9 +1841,9 @@ function calcs.offence(env, actor, activeSkill)
 					totalMax = totalMax + max
 				end
 				if pass == 1 then
-					sourceCritDmg = (totalMin + totalMax) / 2 * output.CritDegenMultiplier
+					sourceCritDmg = (totalMin + totalMax) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "FireDotMultiplier") / 100 + output.BonusCritDotMultiplier)
 				else
-					sourceHitDmg = (totalMin + totalMax) / 2
+					sourceHitDmg = (totalMin + totalMax) / 2 * (1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "FireDotMultiplier") / 100)
 				end
 			end
 			local igniteMode = env.configInput.igniteMode or "AVERAGE"
@@ -1854,11 +1861,12 @@ function calcs.offence(env, actor, activeSkill)
 				local effMult = 1
 				if env.mode_effective then
 					local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist"), 75)
-					local taken = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
-					effMult = (1 - resist / 100) * (1 + taken / 100)
+					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
+					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
+					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 					globalOutput["IgniteEffMult"] = effMult
 					if breakdown and effMult ~= 1 then
-						globalBreakdown.IgniteEffMult = breakdown.effMult("Fire", resist, 0, taken, effMult)
+						globalBreakdown.IgniteEffMult = breakdown.effMult("Fire", resist, 0, takenInc, effMult, takenMore)
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
@@ -2070,16 +2078,17 @@ function calcs.offence(env, actor, activeSkill)
 		local effMult = 1
 		if env.mode_effective then
 			local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist"), 75)
-			local taken = enemyDB:Sum("INC", nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
-			effMult = (1 - resist / 100) * (1 + taken / 100)
+			local takenInc = enemyDB:Sum("INC", nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
+			local takenMore = enemyDB:More(nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
+			effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 			output["DecayEffMult"] = effMult
 			if breakdown and effMult ~= 1 then
-				breakdown.DecayEffMult = breakdown.effMult("Chaos", resist, 0, taken, effMult)
+				breakdown.DecayEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore)
 			end
 		end
 		local inc = skillModList:Sum("INC", dotCfg, "Damage", "ChaosDamage")
 		local more = round(skillModList:More(dotCfg, "Damage", "ChaosDamage"), 2)
-		local mult = skillModList:Sum("BASE", dotTypeCfg, "ChaosDotMultiplier")
+		local mult = skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier", "ChaosDotMultiplier")
 		output.DecayDPS = skillData.decay * (1 + inc/100) * more * (1 + mult/100) * effMult
 		local durationMod = calcLib.mod(skillModList, dotCfg, "Duration", "SkillAndDamagingAilmentDuration")
 		output.DecayDuration = 10 * durationMod * debuffDurationMult
