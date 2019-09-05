@@ -2489,6 +2489,7 @@ skills["SupportBluntWeaponShockwave"] = {
 		"active_skill_base_radius_+",
 		"base_cooldown_speed_+%",
 		"is_area_damage",
+		"triggered_by_shockwave_support",
 	},
 	statInterpolation = { 1, 1, },
 	levels = {

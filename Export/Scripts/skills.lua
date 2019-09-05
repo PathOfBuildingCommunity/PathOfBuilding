@@ -79,6 +79,7 @@ local skillTypes = { "Attack",
 	"GuardSkill",
 	"TravelSkill",
 	"BlinkSkill",
+	"CanHaveBlessing",
 }
 
 local function mapAST(ast)
