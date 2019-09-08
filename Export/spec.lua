@@ -125,7 +125,7 @@ return {
 		[14]={
 			list=false,
 			name="SkillTotem",
-			refTo="SkillTotemVariations",
+			refTo="SkillTotems",
 			type="Enum",
 			width=80
 		},
@@ -175,13 +175,26 @@ return {
 			list=true,
 			name="",
 			refTo="Stats",
-			type="Enum",
+			type="Key",
 			width=400
+		},
+		[22]={
+			list=false,
+			name="SkillMine",
+			refTo="SkillMines",
+			type="Enum",
+			width=80
 		}
+	},
+	AddBuffToTargetVarieties={
 	},
 	AdditionalLifeScaling={
 	},
 	AdditionalLifeScalingPerLevel={
+	},
+	AdditionalMonsterPacksFromStats={
+	},
+	AdditionalMonsterPacksStatMode={
 	},
 	AdvancedSkillsTutorial={
 	},
@@ -209,6 +222,8 @@ return {
 	Archetypes={
 	},
 	ArchitectLifeScalingPerLevel={
+	},
+	AreaInfluenceDoodads={
 	},
 	AreaTransitionAnimationTypes={
 	},
@@ -437,9 +452,43 @@ return {
 	},
 	BindableVirtualKeys={
 	},
+	BlightBalancePerLevel={
+	},
+	BlightChestTypes={
+	},
+	BlightCraftingItems={
+	},
+	BlightCraftingRecipes={
+	},
+	BlightCraftingResults={
+	},
+	BlightCraftingTypes={
+	},
+	BlightCraftingUniques={
+	},
+	BlightEncounterTypes={
+	},
+	BlightEncounterWaves={
+	},
+	BlightRewardTypes={
+	},
+	BlightTopologies={
+	},
+	BlightTopologyNodes={
+	},
+	BlightTowerAuras={
+	},
+	BlightTowers={
+	},
+	BlightTowersPerLevel={
+	},
+	BlightedSporeAuras={
+	},
 	BloodTypes={
 	},
 	Bloodlines={
+	},
+	BreachBossLifeScalingPerLevel={
 	},
 	BreachstoneUpgrades={
 	},
@@ -1287,6 +1336,8 @@ return {
 	},
 	DelveRooms={
 	},
+	DelveStashTabLayout={
+	},
 	DelveUpgradeType={
 	},
 	DelveUpgrades={
@@ -1318,6 +1369,8 @@ return {
 	DivinationCardArt={
 	},
 	DivinationCardStashTabLayout={
+	},
+	Doors={
 	},
 	DropEffects={
 	},
@@ -1386,6 +1439,8 @@ return {
 	ExtraTerrainFeatureFamily={
 	},
 	ExtraTerrainFeatures={
+	},
+	FixedHideoutDoodadTypes={
 	},
 	FixedHideoutDoodads={
 	},
@@ -1456,6 +1511,8 @@ return {
 	FlavourTextImages={
 	},
 	Footprints={
+	},
+	FootstepAudio={
 	},
 	FragmentStashTabLayout={
 	},
@@ -2233,6 +2290,8 @@ return {
 	},
 	MagicMonsterLifeScalingPerLevel={
 	},
+	MapCompletionAchievements={
+	},
 	MapConnections={
 	},
 	MapCreationInformation={
@@ -2259,6 +2318,10 @@ return {
 	},
 	MapStatAchievements={
 	},
+	MapStatConditions={
+	},
+	MapTierAchievements={
+	},
 	MapTiers={
 	},
 	Maps={
@@ -2283,6 +2346,12 @@ return {
 	},
 	MicrotransactionRarityDisplay={
 	},
+	MicrotransactionRecycleCategories={
+	},
+	MicrotransactionRecycleOutcomes={
+	},
+	MicrotransactionRecycleSalvageValues={
+	},
 	MicrotransactionSlotId={
 	},
 	MicrotransactionSocialFrameVariations={
@@ -2300,6 +2369,8 @@ return {
 	MissionFavourPerLevel={
 	},
 	MissionTileMap={
+	},
+	MissionTimerTypes={
 	},
 	MissionTransitionTiles={
 	},
@@ -2605,31 +2676,31 @@ return {
 		},
 		[39]={
 			list=false,
-			name="Tier",
+			name="",
 			refTo="",
-			type="String",
-			width=80
+			type="Int",
+			width=50
 		},
 		[40]={
 			list=false,
-			name="MaxLevel",
+			name="",
 			refTo="",
-			type="Int",
-			width=70
+			type="Bool",
+			width=40
 		},
 		[41]={
 			list=false,
 			name="",
 			refTo="",
-			type="Bool",
-			width=50
+			type="Key",
+			width=100
 		},
 		[42]={
-			list=false,
+			list=true,
 			name="",
-			refTo="",
+			refTo="ItemClasses",
 			type="Key",
-			width=80
+			width=200
 		}
 	},
 	MonsterAdditionalMonsterDrops={
@@ -2643,6 +2714,10 @@ return {
 	MonsterChanceToDropItemTemplate={
 	},
 	MonsterConditions={
+	},
+	MonsterDeathAchievements={
+	},
+	MonsterDeathConditions={
 	},
 	MonsterFleeConditions={
 	},
@@ -2784,6 +2859,8 @@ return {
 	MonsterSkillsShape={
 	},
 	MonsterSkillsTargets={
+	},
+	MonsterSkillsWaveDirection={
 	},
 	MonsterSpawnerGroups={
 	},
@@ -3424,6 +3501,8 @@ return {
 	},
 	MultiPartAchievementAreas={
 	},
+	MultiPartAchievementConditions={
+	},
 	MultiPartAchievements={
 		[1]={
 			list=false,
@@ -3470,6 +3549,8 @@ return {
 			width=360
 		}
 	},
+	NearbyMonsterConditions={
+	},
 	NetTiers={
 	},
 	Notifications={
@@ -3512,6 +3593,8 @@ return {
 	},
 	Pet={
 	},
+	PlayerConditions={
+	},
 	PreloadGroups={
 	},
 	PreloadPriorities={
@@ -3523,6 +3606,10 @@ return {
 	Prophecies={
 	},
 	ProphecyChain={
+	},
+	ProphecySetNames={
+	},
+	ProphecySets={
 	},
 	ProphecyType={
 	},
@@ -3575,6 +3662,8 @@ return {
 	SafehouseCraftingSpree={
 	},
 	SafehouseCraftingSpreeCurrencies={
+	},
+	SalvageBoxes={
 	},
 	SessionQuestFlags={
 	},
@@ -3708,6 +3797,10 @@ return {
 			type="Key",
 			width=150
 		}
+	},
+	SkillMineVariations={
+	},
+	SkillMines={
 	},
 	SkillMorphDisplay={
 	},
@@ -3953,6 +4046,10 @@ return {
 	TalismanPacks={
 	},
 	Talismans={
+	},
+	TencentAutoLootPetCurrencies={
+	},
+	TencentAutoLootPetCurrenciesExcludable={
 	},
 	TerrainPlugins={
 	},

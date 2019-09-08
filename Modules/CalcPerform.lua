@@ -25,13 +25,15 @@ local function mergeBuff(src, destTable, destKey)
 	local dest = destTable[destKey]
 	for _, mod in ipairs(src) do
 		local match = false
-		for index, destMod in ipairs(dest) do
-			if modLib.compareModParams(mod, destMod) then
-				if type(destMod.value) == "number" and mod.value > destMod.value then
-					dest[index] = mod
+		if mod.type ~= "LIST" then
+			for index, destMod in ipairs(dest) do
+				if modLib.compareModParams(mod, destMod) then
+					if type(destMod.value) == "number" and mod.value > destMod.value then
+						dest[index] = mod
+					end
+					match = true
+					break
 				end
-				match = true
-				break
 			end
 		end
 		if not match then
@@ -253,6 +255,7 @@ local function doActorMisc(env, actor)
 	output.SiphoningChargesMax = modDB:Sum("BASE", nil, "SiphoningChargesMax")
 	output.ChallengerChargesMax = modDB:Sum("BASE", nil, "ChallengerChargesMax")
 	output.BlitzChargesMax = modDB:Sum("BASE", nil, "BlitzChargesMax")
+	output.InspirationChargesMax = modDB:Sum("BASE", nil, "InspirationChargesMax")
 	output.CrabBarriersMax = modDB:Sum("BASE", nil, "CrabBarriersMax")
 	if modDB:Flag(nil, "UsePowerCharges") then
 		output.PowerCharges = modDB:Override(nil, "PowerCharges") or output.PowerChargesMax
@@ -290,6 +293,11 @@ local function doActorMisc(env, actor)
 	else
 		output.BlitzCharges = 0
 	end
+	if modDB:Flag(nil, "UseInspirationCharges") then
+		output.InspirationCharges = modDB:Override(nil, "InspirationCharges") or output.InspirationChargesMax
+	else
+		output.InspirationCharges = 0
+	end
 	output.CrabBarriers = m_max(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
 	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
@@ -300,6 +308,7 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["SiphoningCharge"] = output.SiphoningCharges
 	modDB.multipliers["ChallengerCharge"] = output.ChallengerCharges
 	modDB.multipliers["BlitzCharge"] = output.BlitzCharges
+	modDB.multipliers["InspirationCharge"] = output.InspirationCharges
 	modDB.multipliers["CrabBarrier"] = output.CrabBarriers
 
 	-- Process enemy modifiers 
@@ -541,7 +550,7 @@ function calcs.perform(env)
 			local skillCfg = activeSkill.skillCfg
 			local suffix = activeSkill.skillTypes[SkillType.ManaCostPercent] and "Percent" or "Base"
 			local baseVal = activeSkill.skillData.manaCostOverride or activeSkill.activeEffect.grantedEffectLevel.manaCost or 0
-			local mult = skillModList:More(skillCfg, "ManaCost")
+			local mult = skillModList:More(skillCfg, "SupportManaMultiplier")
 			local more = skillModList:More(skillCfg, "ManaReserved")
 			local inc = skillModList:Sum("INC", skillCfg, "ManaReserved")
 			local base = m_floor(baseVal * mult)
@@ -550,6 +559,9 @@ function calcs.perform(env)
 				cost = activeSkill.skillData.manaCostForced
 			else
 				cost = m_max(base - m_modf(base * -m_floor((100 + inc) * more - 100) / 100), 0)
+			end
+			if activeSkill.activeMineCount then
+				cost = cost * activeSkill.activeMineCount
 			end
 			local pool
 			if skillModList:Flag(skillCfg, "BloodMagic", "SkillBloodMagic") then
@@ -719,16 +731,7 @@ function calcs.perform(env)
 						mergeBuff(srcList, minionBuffs, buff.name)
 					end
 				end
-			elseif buff.type == "AuraDebuff" then
-				if env.mode_effective then
-					activeSkill.debuffSkill = true
-					local srcList = new("ModList")
-					local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect")
-					local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect")
-					srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
-					mergeBuff(srcList, debuffs, buff.name)
-				end
-			elseif buff.type == "Debuff" then
+			elseif buff.type == "Debuff" or buff.type == "AuraDebuff" then
 				local stackCount
 				if buff.stackVar then
 					stackCount = skillModList:Sum("BASE", skillCfg, "Multiplier:"..buff.stackVar)
@@ -743,9 +746,15 @@ function calcs.perform(env)
 				if env.mode_effective and stackCount > 0 then
 					activeSkill.debuffSkill = true
 					local srcList = new("ModList")
-					srcList:ScaleAddList(buff.modList, stackCount)
-					if activeSkill.skillData.stackCount then
-						srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", activeSkill.skillData.stackCount, buff.name)
+					local mult = 1
+					if buff.type == "AuraDebuff" then
+						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect")
+						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect")
+						mult = (1 + inc / 100) * more
+					end
+					srcList:ScaleAddList(buff.modList, mult * stackCount)
+					if activeSkill.skillData.stackCount or buff.stackVar then
+						srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", stackCount, buff.name)
 					end
 					mergeBuff(srcList, debuffs, buff.name)
 				end
@@ -940,6 +949,13 @@ function calcs.perform(env)
 		modDB:AddList(modList)
 		if not modList.notBuff then
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
+		end
+		if env.minion then
+			for _, value in ipairs(modList:List(env.player.mainSkill.skillCfg, "MinionModifier")) do
+				if not value.type or env.minion.type == value.type then
+					env.minion.modDB:AddMod(value.mod)
+				end
+			end
 		end
 	end
 	if env.minion then

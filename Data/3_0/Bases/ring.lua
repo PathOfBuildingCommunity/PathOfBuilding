@@ -18,7 +18,7 @@ itemBases["Coral Ring"] = {
 itemBases["Paua Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, },
-	implicit = "+(20-25) to maximum Mana",
+	implicit = "+(20-30) to maximum Mana",
 	req = { },
 }
 itemBases["Gold Ring"] = {
@@ -123,6 +123,12 @@ itemBases["Opal Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, not_for_sale = true, atlas_base_type = true, ringatlas2 = true, },
 	implicit = "(15-25)% increased Elemental Damage",
+	req = { level = 80, },
+}
+itemBases["Cerulean Ring"] = {
+	type = "Ring",
+	tags = { default = true, ring = true, not_for_sale = true, atlas_base_type = true, ringatlas4 = true, },
+	implicit = "(8-10)% increased maximum Mana",
 	req = { level = 80, },
 }
 

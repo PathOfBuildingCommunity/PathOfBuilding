@@ -68,15 +68,15 @@ local skills, mod, flag, skill = ...
 #flags attack melee
 #mods
 
-#skill SkeletonProjectileCold Cold Projectile
+#skill SkeletonMinionProjectileCold Cold Projectile
 #flags spell projectile
 #mods
 
-#skill SkeletonProjectileFire Fire Projectile
+#skill SkeletonMinionProjectileFire Fire Projectile
 #flags spell projectile
 #mods
 
-#skill SkeletonProjectileLightning Lightning Projectile
+#skill SkeletonMinionProjectileLightning Lightning Projectile
 #flags spell projectile
 #mods
 
@@ -163,6 +163,18 @@ local skills, mod, flag, skill = ...
 #baseMod skill("buffAllies", true)
 #mods
 
+#skill BoneGolemMultiAttack Combo Attack
+#flags attack melee
+#mods
+
+#skill BoneGolemCascade Cascade
+#flags attack melee area
+#mods
+
+#skill BoneGolemLeapSlam
+#flags attack melee area
+#mods
+
 skills["MinionInstability"] = {
 	name = "Minion Instability",
 	hidden = true,
@@ -186,10 +198,6 @@ skills["MinionInstability"] = {
 	levels = {
 		[1] = { },
 	},
-	stats = {
-	},
-	statLevels = {
-	},
 }
 skills["BeaconCausticCloud"] = {
 	name = "Caustic Cloud",
@@ -207,14 +215,10 @@ skills["BeaconCausticCloud"] = {
 	},
 	qualityStats = {
 	},
-	levelMods = {
+	stats = {
 	},
 	levels = {
 		[1] = { },
-	},
-	stats = {
-	},
-	statLevels = {
 	},
 }
 skills["BeaconZombieCausticCloud"] = {
@@ -233,13 +237,30 @@ skills["BeaconZombieCausticCloud"] = {
 	},
 	qualityStats = {
 	},
-	levelMods = {
+	stats = {
 	},
 	levels = {
 		[1] = { },
 	},
+}
+skills["InfernalLegion"] = {
+	name = "Infernal Legion",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	skillTypes = { },
+	baseMods = {
+		skill("FireDot", 1, { type = "Multiplier", var = "InfernalLegionBaseDamage" }),
+		skill("dotIsArea", true),
+	},
+	qualityStats = {
+	},
 	stats = {
 	},
-	statLevels = {
+	levels = {
+		[1] = { },
 	},
 }

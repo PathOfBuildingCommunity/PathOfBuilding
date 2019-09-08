@@ -225,7 +225,7 @@ local skills, mod, flag, skill = ...
 			mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
-#baseMod skill("radius", 36)
+#baseMod skill("radius", 40)
 #mods
 
 #skill FireAegis
@@ -241,7 +241,7 @@ local skills, mod, flag, skill = ...
 #skill VaalAuraElementalDamageHealing
 #flags spell aura area duration
 	fromItem = true,
-#baseMod skill("radius", 36)
+#baseMod skill("radius", 40)
 #mods
 
 #skill IcestormUniqueStaff12

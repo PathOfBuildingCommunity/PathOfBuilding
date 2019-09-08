@@ -159,6 +159,9 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportPuncturingWeapon
+#mods
+
 #skill SupportOnslaught
 #mods
 
@@ -205,6 +208,9 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportAdditionalTrapMine
+#mods
+
 #skill SupportTrap
 	addFlags = {
 		trap = true,
@@ -212,12 +218,6 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 			skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanTrap }),
-		},
-		["support_trap_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Trap),
-		},
-		["support_trap_hit_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, KeywordFlag.Trap),
 		},
 	},
 #mods

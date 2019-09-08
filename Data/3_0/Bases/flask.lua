@@ -91,84 +91,84 @@ itemBases["Small Mana Flask"] = {
 	type = "Flask",
 	subType = "Mana",
 	tags = { default = true, flask = true, mana_flask = true, },
-	flask = { mana = 60, duration = 5, chargesUsed = 10, chargesMax = 30, },
+	flask = { mana = 50, duration = 3, chargesUsed = 6, chargesMax = 24, },
 	req = { },
 }
 itemBases["Medium Mana Flask"] = {
 	type = "Flask",
 	subType = "Mana",
 	tags = { default = true, flask = true, mana_flask = true, },
-	flask = { mana = 90, duration = 6, chargesUsed = 12, chargesMax = 36, },
+	flask = { mana = 70, duration = 3.5, chargesUsed = 7, chargesMax = 30, },
 	req = { level = 3, },
 }
 itemBases["Large Mana Flask"] = {
 	type = "Flask",
 	subType = "Mana",
 	tags = { default = true, flask = true, mana_flask = true, },
-	flask = { mana = 110, duration = 7, chargesUsed = 10, chargesMax = 35, },
+	flask = { mana = 90, duration = 4, chargesUsed = 8, chargesMax = 35, },
 	req = { level = 6, },
 }
 itemBases["Greater Mana Flask"] = {
 	type = "Flask",
 	subType = "Mana",
 	tags = { default = true, flask = true, mana_flask = true, },
-	flask = { mana = 140, duration = 5.6, chargesUsed = 12, chargesMax = 32, },
+	flask = { mana = 120, duration = 4, chargesUsed = 9, chargesMax = 36, },
 	req = { level = 12, },
 }
 itemBases["Grand Mana Flask"] = {
 	type = "Flask",
 	subType = "Mana",
 	tags = { default = true, flask = true, mana_flask = true, },
-	flask = { mana = 210, duration = 10, chargesUsed = 8, chargesMax = 30, },
+	flask = { mana = 170, duration = 4.5, chargesUsed = 7, chargesMax = 30, },
 	req = { level = 18, },
 }
 itemBases["Giant Mana Flask"] = {
 	type = "Flask",
 	subType = "Mana",
 	tags = { default = true, flask = true, mana_flask = true, },
-	flask = { mana = 340, duration = 7, chargesUsed = 10, chargesMax = 40, },
+	flask = { mana = 250, duration = 5, chargesUsed = 8, chargesMax = 36, },
 	req = { level = 24, },
 }
 itemBases["Colossal Mana Flask"] = {
 	type = "Flask",
 	subType = "Mana",
 	tags = { default = true, flask = true, mana_flask = true, },
-	flask = { mana = 200, duration = 5.6, chargesUsed = 5, chargesMax = 25, },
+	flask = { mana = 350, duration = 5, chargesUsed = 8, chargesMax = 38, },
 	req = { level = 30, },
 }
 itemBases["Sacred Mana Flask"] = {
 	type = "Flask",
 	subType = "Mana",
 	tags = { default = true, flask = true, mana_flask = true, },
-	flask = { mana = 660, duration = 9, chargesUsed = 10, chargesMax = 40, },
+	flask = { mana = 480, duration = 5.5, chargesUsed = 7, chargesMax = 35, },
 	req = { level = 36, },
 }
 itemBases["Hallowed Mana Flask"] = {
 	type = "Flask",
 	subType = "Mana",
 	tags = { default = true, flask = true, mana_flask = true, },
-	flask = { mana = 290, duration = 7, chargesUsed = 4, chargesMax = 20, },
+	flask = { mana = 700, duration = 6, chargesUsed = 6, chargesMax = 30, },
 	req = { level = 42, },
 }
 itemBases["Sanctified Mana Flask"] = {
 	type = "Flask",
 	subType = "Mana",
 	tags = { default = true, flask = true, mana_flask = true, },
-	flask = { mana = 1050, duration = 14, chargesUsed = 10, chargesMax = 40, },
+	flask = { mana = 1100, duration = 6.5, chargesUsed = 7, chargesMax = 35, },
 	req = { level = 50, },
 }
 itemBases["Divine Mana Flask"] = {
 	type = "Flask",
 	subType = "Mana",
 	tags = { default = true, flask = true, mana_flask = true, not_for_sale = true, },
-	flask = { mana = 400, duration = 5, chargesUsed = 5, chargesMax = 30, },
+	flask = { mana = 1400, duration = 5, chargesUsed = 8, chargesMax = 42, },
 	req = { level = 60, },
 }
 itemBases["Eternal Mana Flask"] = {
 	type = "Flask",
 	subType = "Mana",
 	tags = { default = true, flask = true, mana_flask = true, not_for_sale = true, },
-	flask = { mana = 960, duration = 10, chargesUsed = 8, chargesMax = 40, },
+	flask = { mana = 1800, duration = 7, chargesUsed = 8, chargesMax = 42, },
 	req = { level = 65, },
 }
 
@@ -290,7 +290,7 @@ itemBases["Aquamarine Flask"] = {
 	subType = "Utility",
 	tags = { default = true, flask = true, utility_flask = true, not_for_sale = true, },
 	implicit = "Creates Chilled Ground on Use",
-	flask = { duration = 5, chargesUsed = 15, chargesMax = 40, buff = { "20% chance to Avoid Cold Damage when Hit" }, },
+	flask = { duration = 5, chargesUsed = 15, chargesMax = 40, buff = { "20% chance to Avoid Cold Damage from Hits" }, },
 	req = { level = 27, },
 }
 itemBases["Stibnite Flask"] = {

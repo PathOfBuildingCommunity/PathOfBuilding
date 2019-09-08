@@ -1,3 +1,34 @@
+VERSION[1.4.150][2019/09/09]
+ * Added the following new gems:
+    * Cobra Lash
+	* Icicle Mine
+	* Pestilent Strike
+    * Plague Bearer (mostly non-functional)
+	* Stormblast Mine
+	* Summon Carrion Golem
+	* Summon Skitterbots
+	* Venom Gyre
+	* Withering Step (non-functional)
+	* Charged Mines
+	* Deathmark (The enemy can be set as Deathmarked in the Skill Options section of the Configuration tab)
+	* Feeding Frenzy (Feeding Frenzy can be activated in Skill Options)
+	* High-Impact Mine
+	* Infernal Legion
+	* Meat Shield (The enemy can be set as being "Near you" in Skill Options)
+	* Nightblade (non-functional)
+	* Swift Assembly
+ * Added support for the new Mine changes:
+    * When a Mine skill is selected, a new Active Mines option appears
+	* The skill's Mana Reservation will be multiplied by the number of Active Mines specified
+    * The various Mine auras are all supported; the stack count is determined by the Active Mines option
+ * Applied the skill reworks and balance changes for 3.8.0
+ * Updated item bases, mods, and enchantments for 3.8.0
+ * Added support for global Spell Skill Gem modifiers, and updated the +X Staff rare templates
+ * Updated minion Accuracy values
+ * Added support for the Added Chaos Damage granted by Despair
+ * The additional Critical Strike Chance granted by Assassin's Mark now works correctly
+ * The "less Mana Cost of Skills" stat on Sanctuary of Thought no longer incorrectly affects Mana Reservation
+ * "+X to level of all Minion Skill Gems" no longer incorrectly applies to Support Gems
 VERSION[1.4.149][2019/09/05]
  * Fixed Vaal Pact not working
 VERSION[1.4.148][2019/09/05]

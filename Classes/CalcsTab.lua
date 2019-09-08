@@ -49,7 +49,14 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				self.input.skill_number = index 
 				self:AddUndoState()
 				self.build.buildFlag = true
-			end)
+			end) {
+				tooltipFunc = function(tooltip, mode, index, value)
+					local socketGroup = self.build.skillsTab.socketGroupList[index]
+					if socketGroup and tooltip:CheckForUpdate(socketGroup, self.build.outputRevision) then
+						self.build.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
+					end
+				end
+			}
 		}, },
 		{ label = "Active Skill", { controlName = "mainSkill", 
 			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value)
@@ -63,6 +70,15 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillPartCalcs = index
+				self:AddUndoState()
+				self.build.buildFlag = true
+			end)
+		}, },
+		{ label = "Active Mines", playerFlag = "mine", { controlName = "mainSkillMineCount",
+			control = new("EditControl", nil, 0, 0, 52, 16, nil, nil, "%D", nil, function(buf)
+				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
+				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
+				srcInstance.skillMineCountCalcs = tonumber(buf)
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end)
@@ -123,12 +139,6 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 		section.controls.showMinion.state = self.input.showMinion
 		section.controls.mode:SelByValue(self.input.misc_buffMode, "buffMode")
 	end)
-	self.sectionList[1].controls.mainSocketGroup.tooltipFunc = function(tooltip, mode, index, value)
-		local socketGroup = self.build.skillsTab.socketGroupList[index]
-		if socketGroup and tooltip:CheckForUpdate(socketGroup, self.build.outputRevision) then
-			self.build.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
-		end
-	end
 
 	-- Add sections from the CalcSections module
 	for _, section in ipairs(sectionData[build.targetVersion]) do

@@ -62,7 +62,7 @@ local skills, mod, flag, skill = ...
 			mod("FireMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
-#baseMod skill("radius", 36)
+#baseMod skill("radius", 40)
 #mods
 
 #skill AnimateArmour
@@ -137,6 +137,10 @@ local skills, mod, flag, skill = ...
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sandstorm", effectCond = "BladestormInSandstorm" }),
 		},
 	},
+#baseMod skill("radius", 24)
+#baseMod skill("radiusLabel", "Area of initial attack:")
+#baseMod skill("radiusSecondary", 20)
+#baseMod skill("radiusSecondaryLabel", "Area of bladestorms:")
 #mods
 
 #skill BloodSandStance
@@ -193,7 +197,7 @@ local skills, mod, flag, skill = ...
 			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
-#baseMod skill("radius", 36)
+#baseMod skill("radius", 40)
 #mods
 
 #skill DevouringTotem
@@ -222,7 +226,7 @@ local skills, mod, flag, skill = ...
 			mod("Accuracy", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 	},
-#baseMod skill("radius", 40)
+#baseMod skill("radius", 46)
 #baseMod skill("manaCost", 0, { type = "Condition", var = "BannerPlanted" })
 #mods
 
@@ -288,6 +292,7 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Maim", effectCond = "BloodStance" }, { type = "Condition", var = "Maimed" }),
 		},
 	},
+#baseMod skill("radius", 28)
 #baseMod mod("Condition:Maimed", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Flesh", effectCond = "BloodStance" })
 #baseMod mod("Condition:Blinded", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Stone", effectCond = "SandStance" })
 #mods
@@ -509,7 +514,7 @@ local skills, mod, flag, skill = ...
 			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
-#baseMod skill("radius", 36)
+#baseMod skill("radius", 40)
 #mods
 
 #skill FireImpurity
@@ -686,7 +691,7 @@ local skills, mod, flag, skill = ...
 			div = 60,
 		},
 	},
-#baseMod skill("radius", 36)
+#baseMod skill("radius", 40)
 #mods
 
 #skill Vulnerability
@@ -733,6 +738,6 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" })
 		},
 	},
-#baseMod skill("radius", 40)
+#baseMod skill("radius", 46)
 #baseMod skill("manaCost", 0, { type = "Condition", var = "BannerPlanted" })
 #mods

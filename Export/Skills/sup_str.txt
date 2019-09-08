@@ -113,8 +113,8 @@ local skills, mod, flag, skill = ...
 		["support_fortify_melee_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Melee),
 		},
-		["support_fortify_poison_and_bleeding_damage_+%_final_from_melee_hits"] = {
-			mod("Damage", "MORE", nil, ModFlag.MeleeHit, bit.bor(KeywordFlag.Poison, KeywordFlag.Bleed)),
+		["support_fortify_ailment_damage_+%_final_from_melee_hits"] = {
+			mod("Damage", "MORE", nil, bit.bor(ModFlag.MeleeHit, ModFlag.Ailment)),
 		},
 	},
 #mods
@@ -208,9 +208,6 @@ local skills, mod, flag, skill = ...
 		["support_pulverise_melee_area_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, bit.bor(ModFlag.Melee, ModFlag.Area)),
 		},
-		["support_pulverise_area_of_effect_+%_final"] = {
-			mod("AreaOfEffect", "MORE", nil),
-		},
 		["support_pulverise_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack),
 		},
@@ -254,6 +251,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportReducedMana
+	statMap = {
+		["elemental_damage_+%_final_per_righteous_charge"] = {
+			mod("ElementalDamage", "MORE", nil, 0, 0, { type = "Multiplier", var = "InspirationCharge" }),
+		},
+		["critical_strike_chance_+%_per_righteous_charge"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "InspirationCharge" }),
+		},
+	},
 #mods
 
 #skill SupportRuthless
