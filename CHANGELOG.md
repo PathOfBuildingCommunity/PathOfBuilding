@@ -1,3 +1,6 @@
+### 1.4.151 - 2019/09/09
+ * Fixed error with Minion Instability
+
 ### 1.4.150 - 2019/09/09
  * Added the following new gems:
     * Cobra Lash

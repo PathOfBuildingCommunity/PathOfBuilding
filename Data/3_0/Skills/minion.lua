@@ -1191,7 +1191,7 @@ skills["MinionInstability"] = {
 	},
 	qualityStats = {
 	},
-	levelMods = {
+	stats = {
 	},
 	levels = {
 		[1] = { },
