@@ -390,6 +390,10 @@ Crafted: true
 Ring
 Opal Ring
 Crafted: true
+]],[[
+Ring
+Cerulean Ring
+Crafted: true
 ]],
 -- Belts
 [[
@@ -633,38 +637,47 @@ Prefix: SpellDamageAndManaOnTwoHandWeapon4
 Suffix: SpellCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
 ]],[[
-+3 Fire Staff
++5 Physical Staff
 Maelstrom Staff
 Crafted: true
-Prefix: LocalIncreaseSocketedGemLevel1
-Prefix: LocalIncreaseSocketedFireGemLevel2_
+Prefix: GlobalSpellGemsLevelTwoHand1
+Prefix: GlobalPhysicalSpellGemsLevelTwoHand2_
 Prefix: SpellDamageOnTwoHandWeapon5
 Suffix: SpellCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
 ]],[[
-+3 Cold Staff
++5 Fire Staff
 Maelstrom Staff
 Crafted: true
-Prefix: LocalIncreaseSocketedGemLevel1
-Prefix: LocalIncreaseSocketedColdGemLevel2
+Prefix: GlobalSpellGemsLevelTwoHand1
+Prefix: GlobalFireSpellGemsLevelTwoHand2
 Prefix: SpellDamageOnTwoHandWeapon5
 Suffix: SpellCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
 ]],[[
-+3 Lightning Staff
++5 Cold Staff
 Maelstrom Staff
 Crafted: true
-Prefix: LocalIncreaseSocketedGemLevel1
-Prefix: LocalIncreaseSocketedLightningGemLevel2
+Prefix: GlobalSpellGemsLevelTwoHand1
+Prefix: GlobalColdSpellGemsLevelTwoHand2
 Prefix: SpellDamageOnTwoHandWeapon5
 Suffix: SpellCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4
 ]],[[
-+3 Chaos Staff
++5 Lightning Staff
 Maelstrom Staff
 Crafted: true
-Prefix: LocalIncreaseSocketedGemLevel1
-Prefix: LocalIncreaseSocketedChaosGemLevel2
+Prefix: GlobalSpellGemsLevelTwoHand1
+Prefix: GlobalLightningSpellGemsLevelTwoHand2
+Prefix: SpellDamageOnTwoHandWeapon5
+Suffix: SpellCriticalStrikeChance3
+Suffix: LocalCriticalMultiplier4
+]],[[
++5 Chaos Staff
+Maelstrom Staff
+Crafted: true
+Prefix: GlobalSpellGemsLevelTwoHand1
+Prefix: GlobalChaosSpellGemsLevelTwoHand2
 Prefix: SpellDamageOnTwoHandWeapon5
 Suffix: SpellCriticalStrikeChance3
 Suffix: LocalCriticalMultiplier4

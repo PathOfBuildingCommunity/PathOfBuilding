@@ -172,6 +172,16 @@ return {
 			"Enemies affected by Bear Trap take 10% increased Damage from Trap or Mine Hits",
 		},
 	},
+	["Berserk"] = {
+		["MERCILESS"] = {
+			"Berserk has 25% reduced Rage loss per second",
+			"Berserk has 20% increased Buff Effect",
+		},
+		["ENDGAME"] = {
+			"Berserk has 40% reduced Rage loss per second",
+			"Berserk has 30% increased Buff Effect",
+		},
+	},
 	["Blade Flurry"] = {
 		["MERCILESS"] = {
 			"25% increased Blade Flurry Damage",
@@ -209,6 +219,17 @@ return {
 			"90% increased Bladefall Critical Strike Chance",
 			"12% increased Bladefall Area of Effect",
 			"Bladefall has an additional Volley",
+		},
+	},
+	["Bladestorm"] = {
+		["MERCILESS"] = {
+			"Sand Bladestorms move with 50% increased speed",
+			"Bladestorm deals 25% increased Damage",
+		},
+		["ENDGAME"] = {
+			"+1 to maximum number of Bladestorms",
+			"Sand Bladestorms move with 75% increased speed",
+			"Bladestorm deals 40% increased Damage",
 		},
 	},
 	["Blast Rain"] = {
@@ -257,6 +278,14 @@ return {
 			"Blood Rage grants additional 30% chance to gain a Frenzy Charge on Kill",
 		},
 	},
+	["Blood and Sand"] = {
+		["MERCILESS"] = {
+			"Blood and Sand has 25% increased Buff Effect",
+		},
+		["ENDGAME"] = {
+			"Blood and Sand has 40% increased Buff Effect",
+		},
+	},
 	["Bodyswap"] = {
 		["MERCILESS"] = {
 			"25% increased Bodyswap Damage",
@@ -303,6 +332,17 @@ return {
 			"Caustic Arrow has 20% chance to inflict Withered on Hit for 2 seconds base Duration",
 		},
 	},
+	["Chain Hook"] = {
+		["MERCILESS"] = {
+			"Chain Hook has a 25% chance to grant +1 Rage if it Hits Enemies",
+			"Chain Hook deals 25% increased Damage",
+		},
+		["ENDGAME"] = {
+			"Chain Hook has a 40% chance to grant +1 Rage if it Hits Enemies",
+			"Chain Hook has +1 Radius per 12 Rage",
+			"Chain Hook deals 40% increased Damage",
+		},
+	},
 	["Charged Dash"] = {
 		["MERCILESS"] = {
 			"25% increased Charged Dash Damage",
@@ -335,6 +375,18 @@ return {
 			"40% increased Cleave Damage",
 			"15% increased Cleave Attack Speed",
 			"12% increased Cleave Area of Effect",
+		},
+	},
+	["Cobra Lash"] = {
+		["MERCILESS"] = {
+			"Cobra Lash deals 25% increased Damage",
+			"Cobra Lash has 20% increased Projectile Speed",
+			"Cobra Lash Chains 2 additional times",
+		},
+		["ENDGAME"] = {
+			"Cobra Lash deals 40% increased Damage",
+			"Cobra Lash has 30% increased Projectile Speed",
+			"Cobra Lash Chains 3 additional times",
 		},
 	},
 	["Cold Snap"] = {
@@ -436,6 +488,16 @@ return {
 			"12% increased Dark Pact Area of Effect",
 		},
 	},
+	["Dash"] = {
+		["MERCILESS"] = {
+			"Dash travels 65% increased distance",
+			"Dash has +1 Cooldown",
+		},
+		["ENDGAME"] = {
+			"Dash travels 100% increased distance",
+			"Dash has +2 Cooldowns",
+		},
+	},
 	["Decoy Totem"] = {
 		["MERCILESS"] = {
 			"40% increased Decoy Totem Life",
@@ -448,12 +510,10 @@ return {
 	},
 	["Desecrate"] = {
 		["MERCILESS"] = {
-			"20% increased Desecrate Cooldown Recovery Speed",
-			"Desecrate summons 2 additional corpses",
+			"Desecrate Spawns 2 additional corpses",
 		},
 		["ENDGAME"] = {
-			"30% increased Desecrate Cooldown Recovery Speed",
-			"Desecrate summons 3 additional corpses",
+			"Desecrate Spawns 3 additional corpses",
 		},
 	},
 	["Despair"] = {
@@ -477,22 +537,22 @@ return {
 	["Detonate Dead"] = {
 		["MERCILESS"] = {
 			"25% increased Detonate Dead Damage",
-			"Detonate Dead has a 30% chance to detonate an additional Corpse",
+			"Detonate Dead has a 30% chance to detonate an additional corpse",
 			"8% increased Detonate Dead Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Detonate Dead Damage",
-			"Detonate Dead has a 45% chance to detonate an additional Corpse",
+			"Detonate Dead has a 45% chance to detonate an additional corpse",
 			"12% increased Detonate Dead Area of Effect",
 		},
 	},
 	["Devouring Totem"] = {
 		["MERCILESS"] = {
-			"40% increased Chance to consume an additional Corpse with Devouring Totem",
+			"Devouring Totem has 40% Chance to Consume an additional corpse",
 			"24% increased Devouring Totem Leech per second",
 		},
 		["ENDGAME"] = {
-			"60% increased Chance to consume an additional Corpse with Devouring Totem",
+			"Devouring Totem has 60% Chance to Consume an additional corpse",
 			"36% increased Devouring Totem Leech per second",
 		},
 	},
@@ -672,18 +732,6 @@ return {
 			"Explosive Trap causes 2 additional smaller explosions",
 		},
 	},
-	["Fire Nova Mine"] = {
-		["MERCILESS"] = {
-			"25% increased Fire Nova Mine Damage",
-			"20% increased Fire Nova Cast Speed",
-			"Fire Nova Mine repeats an additional 1 times",
-		},
-		["ENDGAME"] = {
-			"40% increased Fire Nova Mine Damage",
-			"30% increased Fire Nova Cast Speed",
-			"Fire Nova Mine repeats an additional 2 times",
-		},
-	},
 	["Fire Trap"] = {
 		["MERCILESS"] = {
 			"25% increased Fire Trap Damage",
@@ -790,6 +838,14 @@ return {
 			"Flesh Offering grants an additional 21% increased Attack Speed",
 		},
 	},
+	["Flesh and Stone"] = {
+		["MERCILESS"] = {
+			"Flesh and Stone has 20% reduced Mana Reservation",
+		},
+		["ENDGAME"] = {
+			"Flesh and Stone has 30% reduced Mana Reservation",
+		},
+	},
 	["Flicker Strike"] = {
 		["MERCILESS"] = {
 			"25% increased Flicker Strike Damage",
@@ -800,16 +856,6 @@ return {
 			"40% increased Flicker Strike Damage",
 			"30% increased Flicker Strike Cooldown Recovery Speed",
 			"9% increased Flicker Strike Damage per Frenzy Charge",
-		},
-	},
-	["Freeze Mine"] = {
-		["MERCILESS"] = {
-			"8% increased Freeze Mine Area of Effect",
-			"Freeze Mine causes Enemies to lose an additional 8% Cold Resistance while Frozen",
-		},
-		["ENDGAME"] = {
-			"12% increased Freeze Mine Area of Effect",
-			"Freeze Mine causes Enemies to lose an additional 12% Cold Resistance while Frozen",
 		},
 	},
 	["Freezing Pulse"] = {
@@ -878,6 +924,16 @@ return {
 		["ENDGAME"] = {
 			"30% increased Frostbite Curse Effect",
 			"45% increased Frostbite Duration",
+		},
+	},
+	["Frostblink"] = {
+		["MERCILESS"] = {
+			"Frostblink has 20% increased Cooldown Recovery Speed",
+			"Frostblink has 65% increased maximum travel distance",
+		},
+		["ENDGAME"] = {
+			"Frostblink has 30% increased Cooldown Recovery Speed",
+			"Frostblink has 100% increased maximum travel distance",
 		},
 	},
 	["Frostbolt"] = {
@@ -1087,6 +1143,18 @@ return {
 			"40% increased Ice Trap Damage",
 			"12% increased Ice Trap Area of Effect",
 			"Ice Trap Damage Penetrates 10% Cold Resistance",
+		},
+	},
+	["Icicle Mine"] = {
+		["MERCILESS"] = {
+			"Icicle Mine deals 25% increased Damage",
+			"Icicle Mine has 10% increased Throwing Speed",
+			"Icicle Mine has +20% to Critical Strike Multiplier",
+		},
+		["ENDGAME"] = {
+			"Icicle Mine deals 40% increased Damage",
+			"Icicle Mine has 15% increased Throwing Speed",
+			"Icicle Mine has +30% to Critical Strike Multiplier",
 		},
 	},
 	["Immortal Call"] = {
@@ -1319,6 +1387,30 @@ return {
 			"12% increased Orb of Storms Area of Effect",
 		},
 	},
+	["Perforate"] = {
+		["MERCILESS"] = {
+			"Perforate creates +1 Spike",
+			"Perforate has 14% increased Area of Effect",
+			"Perforate deals 25% increased Damage",
+		},
+		["ENDGAME"] = {
+			"Perforate creates +2 Spikes",
+			"Perforate has 20% increased Area of Effect",
+			"Perforate deals 40% increased Damage",
+		},
+	},
+	["Pestilent Strike"] = {
+		["MERCILESS"] = {
+			"Pestilent Strike deals 25% increased Damage",
+			"Pestilent Strike has 25% increased Duration",
+			"Pestilent Strike has 14% increased Area of Effect",
+		},
+		["ENDGAME"] = {
+			"Pestilent Strike deals 40% increased Damage",
+			"Pestilent Strike has 40% increased Duration",
+			"Pestilent Strike has 20% increased Area of Effect",
+		},
+	},
 	["Phase Run"] = {
 		["MERCILESS"] = {
 			"20% chance for Phase Run to increase Duration without removing Frenzy Charges",
@@ -1327,6 +1419,16 @@ return {
 		["ENDGAME"] = {
 			"30% chance for Phase Run to increase Duration without removing Frenzy Charges",
 			"36% increased Phase Run Duration",
+		},
+	},
+	["Plague Bearer"] = {
+		["MERCILESS"] = {
+			"Plague Bearer Buff grants +12% to Poison Damage over Time Multiplier while Infecting",
+			"Plague Bearer deals Damage based on an additional 3% of Plague Value",
+		},
+		["ENDGAME"] = {
+			"Plague Bearer Buff grants +20% to Poison Damage over Time Multiplier while Infecting",
+			"Plague Bearer deals Damage based on an additional 5% of Plague Value",
 		},
 	},
 	["Poacher's Mark"] = {
@@ -1359,6 +1461,14 @@ return {
 		},
 		["ENDGAME"] = {
 			"Precision has 30% reduced Mana Reservation",
+		},
+	},
+	["Pride"] = {
+		["MERCILESS"] = {
+			"Pride has 10% reduced Mana Reservation",
+		},
+		["ENDGAME"] = {
+			"Pride has 15% reduced Mana Reservation",
 		},
 	},
 	["Projectile Weakness"] = {
@@ -1435,6 +1545,18 @@ return {
 		},
 		["ENDGAME"] = {
 			"Purity of Lightning has 20% reduced Mana Reservation",
+		},
+	},
+	["Pyroclast Mine"] = {
+		["MERCILESS"] = {
+			"Pyroclast Mine deals 25% increased Damage",
+			"Pyroclast Mine has 10% increased Throwing Speed",
+			"Pyroclast Mine fires an additional Projectile",
+		},
+		["ENDGAME"] = {
+			"Pyroclast Mine deals 40% increased Damage",
+			"Pyroclast Mine has 15% increased Throwing Speed",
+			"Pyroclast Mine fires 2 additional Projectiles",
 		},
 	},
 	["Rain of Arrows"] = {
@@ -1771,6 +1893,16 @@ return {
 			"Static Strike has +2 maximum Beam Targets",
 		},
 	},
+	["Steelskin"] = {
+		["MERCILESS"] = {
+			"Steelskin grants 8% additional Physical Damage Reduction",
+			"Steelskin Buff can take 30% increased amount of Damage",
+		},
+		["ENDGAME"] = {
+			"Steelskin grants 12% additional Physical Damage Reduction",
+			"Steelskin Buff can take 45% increased amount of Damage",
+		},
+	},
 	["Storm Brand"] = {
 		["MERCILESS"] = {
 			"Storm Brand deals 25% increased Damage",
@@ -1805,6 +1937,30 @@ return {
 			"40% increased Storm Call Damage",
 			"30% reduced Storm Call Duration",
 			"12% increased Storm Call Area of Effect",
+		},
+	},
+	["Stormblast Mine"] = {
+		["MERCILESS"] = {
+			"Stormblast Mine deals 25% increased Damage",
+			"Stormblast Mine has 10% increased Throwing Speed",
+			"Stormblast Mine has 20% increased Aura Effect",
+		},
+		["ENDGAME"] = {
+			"Stormblast Mine deals 40% increased Damage",
+			"Stormblast Mine has 15% increased Throwing Speed",
+			"Stormblast Mine has 40% increased Aura Effect",
+		},
+	},
+	["Summon Carrion Golem"] = {
+		["MERCILESS"] = {
+			"Summoned Carrion Golems deal 25% increased Damage",
+			"100% increased Effect of the Buff granted by your Carrion Golems",
+			"Summoned Carrion Golems have +24% to all Elemental Resistances",
+		},
+		["ENDGAME"] = {
+			"Summoned Carrion Golems deal 40% increased Damage",
+			"150% increased Effect of the Buff granted by your Carrion Golems",
+			"Summoned Carrion Golems have +36% to all Elemental Resistances",
 		},
 	},
 	["Summon Chaos Golem"] = {
@@ -1889,6 +2045,16 @@ return {
 			"40% chance to Summon an additional Skeleton Warrior with Summon Skeleton",
 		},
 	},
+	["Summon Skitterbots"] = {
+		["MERCILESS"] = {
+			"Summoned Skitterbots have 60% increased Area of Effect",
+			"Summon Skitterbots has 14% reduced Mana Reservation",
+		},
+		["ENDGAME"] = {
+			"Summoned Skitterbots have 90% increased Area of Effect",
+			"Summon Skitterbots has 20% reduced Mana Reservation",
+		},
+	},
 	["Summon Stone Golem"] = {
 		["MERCILESS"] = {
 			"Stone Golems deal 25% increased Damage",
@@ -1961,12 +2127,11 @@ return {
 		["MERCILESS"] = {
 			"25% increased Tornado Shot Damage",
 			"60% increased Tornado Shot Critical Strike Chance",
-			"Tornado Shot fires an additional secondary Projectile",
 		},
 		["ENDGAME"] = {
 			"40% increased Tornado Shot Damage",
 			"90% increased Tornado Shot Critical Strike Chance",
-			"Tornado Shot fires 2 additional secondary Projectiles",
+			"Tornado Shot fires an additional secondary Projectile",
 		},
 	},
 	["Toxic Rain"] = {
@@ -1982,12 +2147,12 @@ return {
 	},
 	["Unearth"] = {
 		["MERCILESS"] = {
-			"Unearth Creates Corpses with +3 Level",
+			"Unearth Spawns corpses with +3 Level",
 			"25% increased Unearth Damage",
 			"8% increased Unearth Cast Speed",
 		},
 		["ENDGAME"] = {
-			"Unearth Creates Corpses with +5 Level",
+			"Unearth Spawns corpses with +5 Level",
 			"40% increased Unearth Damage",
 			"12% increased Unearth Cast Speed",
 		},
@@ -2000,6 +2165,17 @@ return {
 		["ENDGAME"] = {
 			"40% increased Vengeance Damage",
 			"30% increased Vengeance Cooldown Recovery Speed",
+		},
+	},
+	["Venom Gyre"] = {
+		["MERCILESS"] = {
+			"Venom Gyre deals 25% increased Damage",
+			"Venom Gyre has a 12% chance to inflict Withered for 2 seconds on Hit",
+		},
+		["ENDGAME"] = {
+			"Venom Gyre deals 40% increased Damage",
+			"Venom Gyre has a 20% chance to inflict Withered for 2 seconds on Hit",
+			"Venom Gyre has a 35% chance to keep caught Projectiles fired by using Whirling Blades",
 		},
 	},
 	["Vigilant Strike"] = {
@@ -2038,7 +2214,7 @@ return {
 			"8% increased Volatile Dead Cast Speed",
 		},
 		["ENDGAME"] = {
-			"Volatile Dead destroys up to 1 additional Corpse",
+			"Volatile Dead Consumes up to 1 additional corpse",
 			"40% increased Volatile Dead Damage",
 			"12% increased Volatile Dead Cast Speed",
 		},
@@ -2132,12 +2308,22 @@ return {
 	},
 	["Wither"] = {
 		["MERCILESS"] = {
-			"Wither 24% increased Duration",
+			"Wither has 24% increased Duration",
 			"Wither has 8% increased Area of Effect",
 		},
 		["ENDGAME"] = {
-			"Wither 36% increased Duration",
+			"Wither has 36% increased Duration",
 			"Wither has 12% increased Area of Effect",
+		},
+	},
+	["Withering Step"] = {
+		["MERCILESS"] = {
+			"Withering Step inflicts 2 additional Withered Debuffs",
+			"Withering Step has 20% increased Elusive Effect",
+		},
+		["ENDGAME"] = {
+			"Withering Step inflicts 3 additional Withered Debuffs",
+			"Withering Step has 30% increased Elusive Effect",
 		},
 	},
 	["Wrath"] = {

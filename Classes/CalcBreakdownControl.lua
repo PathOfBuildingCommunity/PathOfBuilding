@@ -375,17 +375,17 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 		row.tags = nil
 		if row.mod[1] then
 			-- Format modifier tags
-			local baseVal = type(row.mod.value) == "number" and (self:FormatModBase(row.mod, row.mod.value) .. "")
+			local baseVal = type(row.mod.value) == "number" and (self:FormatModBase(row.mod, row.mod.value) .. " ")
 			for _, tag in ipairs(row.mod) do
 				local desc
 				if tag.type == "Condition" or tag.type == "ActorCondition" then
 					desc = (tag.actor and (tag.actor:sub(1,1):upper()..tag.actor:sub(2).." ") or "").."Condition: "..(tag.neg and "Not " or "")..self:FormatVarNameOrList(tag.var, tag.varList)
 				elseif tag.type == "Multiplier" then
-					local base = tag.base and (self:FormatModBase(row.mod, tag.base).."+ "..math.abs(row.mod.value).." ") or baseVal
+					local base = tag.base and (self:FormatModBase(row.mod, tag.base).." + "..math.abs(row.mod.value).." ") or baseVal
 					desc = base.."per "..(tag.div and (tag.div.." ") or "")..self:FormatVarNameOrList(tag.var, tag.varList)
 					baseVal = ""
 				elseif tag.type == "PerStat" then
-					local base = tag.base and (self:FormatModBase(row.mod, tag.base).."+ "..math.abs(row.mod.value).." ") or baseVal
+					local base = tag.base and (self:FormatModBase(row.mod, tag.base).." + "..math.abs(row.mod.value).." ") or baseVal
 					desc = base.."per "..(tag.div or 1).." "..self:FormatVarNameOrList(tag.stat, tag.statList)
 					baseVal = ""
 				elseif tag.type == "MultiplierThreshold" or tag.type == "StatThreshold" then
@@ -408,6 +408,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					desc = "When in slot #"..tag.num
 				elseif tag.type == "GlobalEffect" then
 					desc = self:FormatModName(tag.effectType)
+				elseif tag.type == "Limit" then
+					desc = "Limited to "..(tag.limitVar and self:FormatModName(tag.limitVar) or self:FormatModBase(row.mod, tag.limit))
 				else
 					desc = self:FormatModName(tag.type)
 				end
@@ -428,7 +430,7 @@ function CalcBreakdownClass:FormatVarNameOrList(var, varList)
 end
 
 function CalcBreakdownClass:FormatModBase(mod, base)
-	return mod.type == "BASE" and string.format("%+g ", math.abs(base)) or math.abs(base).."% "
+	return mod.type == "BASE" and string.format("%+g", math.abs(base)) or math.abs(base).."%"
 end
 
 function CalcBreakdownClass:FormatModValue(value, modType)
@@ -450,6 +452,12 @@ function CalcBreakdownClass:FormatModValue(value, modType)
 		return "Override: "..value
 	elseif modType == "FLAG" then
 		return value and "True" or "False"
+	elseif modType == "LIST" then
+		if value.mod then
+			return "Modifier: "..self:FormatModName(value.mod.name)
+		else
+			return "?"
+		end
 	else
 		return value		
 	end

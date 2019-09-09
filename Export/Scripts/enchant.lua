@@ -99,6 +99,18 @@ local skillMap = {
 	["PurifyingFlame"] = "Purifying Flame",
 	["Soulrend"] = "Soulrend",
 	["StormBurst"] = "Storm Burst",
+	["CarrionGolem"] = "Summon Carrion Golem",
+	["Steelskin"] = "Steelskin",
+	["[^d]Dash"] = "Dash",
+	["Bladestorm"] = "Bladestorm",
+	["Perforate"] = "Perforate",
+	["Frostblink"] = "Frostblink",
+	["ChainHook"] = "Chain Hook",
+	["Berserk"] = "Berserk",
+	["WitheringStep"] = "Withering Step",
+	["SnappingAdder"] = "Venom Gyre",
+	["PlagueBearer"] = "Plague Bearer",
+	["SummonSkitterbots"] = "Summon Skitterbots",
 }
 
 local bySkill = { }

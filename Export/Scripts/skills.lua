@@ -161,7 +161,6 @@ directiveTable.skill = function(state, args, out)
 	skill.levels = { }
 	local statMap = { }
 	skill.stats = { }
-	skill.statInterpolation = { }
 	out:write('\tcolor = ', granted.Attribute, ',\n')
 	if granted.IncrementalEffectiveness ~= 0 then
 		out:write('\tbaseEffectiveness = ', granted.BaseEffectiveness, ',\n')
@@ -231,7 +230,7 @@ directiveTable.skill = function(state, args, out)
 		end
 	end
 	for _, levelRow in ipairs(dat"GrantedEffectsPerLevel":GetRowList("GrantedEffect", granted)) do
-		local level = { extra = { } }
+		local level = { extra = { }, statInterpolation = { } }
 		level.level = levelRow.Level
 		table.insert(skill.levels, level)
 		level.extra.levelRequirement = levelRow.PlayerLevel
@@ -267,8 +266,8 @@ directiveTable.skill = function(state, args, out)
 				statMap[stat.Id] = #skill.stats + 1
 				table.insert(skill.stats, { id = stat.Id })
 			end
-			skill.statInterpolation[i] = levelRow.InterpolationTypes[i]
-			if skill.statInterpolation[i] == 3 and levelRow.EffectivenessCost[i].Value ~= 0 then
+			level.statInterpolation[i] = levelRow.InterpolationTypes[i]
+			if level.statInterpolation[i] == 3 and levelRow.EffectivenessCost[i].Value ~= 0 then
 				table.insert(level, levelRow["StatEff"..i] / levelRow.EffectivenessCost[i].Value)
 			else
 				table.insert(level, levelRow["Stat"..i])
@@ -331,11 +330,6 @@ directiveTable.mods = function(state, args, out)
 		out:write('\t\t"', stat.id, '",\n')
 	end
 	out:write('\t},\n')
-	out:write('\tstatInterpolation = { ')
-	for _, type in ipairs(skill.statInterpolation) do
-		out:write(type, ', ')
-	end
-	out:write('},\n')
 	out:write('\tlevels = {\n')
 	for index, level in ipairs(skill.levels) do
 		out:write('\t\t[', level.level, '] = { ')
@@ -345,6 +339,11 @@ directiveTable.mods = function(state, args, out)
 		for k, v in pairs(level.extra) do
 			out:write(k, ' = ', tostring(v), ', ')
 		end
+		out:write('statInterpolation = { ')
+		for _, type in ipairs(level.statInterpolation) do
+			out:write(type, ', ')
+		end
+		out:write('}, ')
 		out:write('},\n')
 	end
 	out:write('\t},\n')

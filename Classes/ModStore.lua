@@ -307,6 +307,8 @@ function ModStoreClass:EvalMod(mod, cfg)
 					end
 				end
 			end
+		elseif tag.type == "Limit" then
+			value = m_min(value, tag.limit or self:GetMultiplier(tag.limitVar, cfg))
 		elseif tag.type == "Condition" then
 			local match = false
 			if tag.varList then

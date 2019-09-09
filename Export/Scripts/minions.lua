@@ -32,14 +32,43 @@ local itemClassMap = {
 
 local directiveTable = { }
 
--- #monster <MonsterId>
+-- #monster <MonsterId> [<Name>]
 directiveTable.monster = function(state, args, out)	
-	local monsterVariety = dat"MonsterVarieties":GetRow("Id", args)
+	local varietyId, name = args:match("(%S+) (%S+)")
+	if not varietyId then
+		varietyId = args
+		name = args
+	end
+	state.varietyId = varietyId
+	state.name = name
+	state.limit = nil
+	state.extraModList = { }
+	state.extraSkillList = { }
+end
+
+-- #limit <LimitVarName>
+directiveTable.limit = function(state, args, out)
+	state.limit = args
+end 
+
+-- #mod <ModDecl>
+directiveTable.mod = function(state, args, out)
+	table.insert(state.extraModList, args)
+end 
+
+-- #skill <SkillId>
+directiveTable.skill = function(state, args, out)
+	table.insert(state.extraSkillList, args)
+end 
+
+-- #emit
+directiveTable.emit = function(state, args, out)
+	local monsterVariety = dat"MonsterVarieties":GetRow("Id", state.varietyId)
 	if not monsterVariety then
-		print("Invalid Id: "..args)
+		print("Invalid Variety: "..state.varietyId)
 		return
 	end
-	out:write('minions["', args, '"] = {\n')
+	out:write('minions["', state.name, '"] = {\n')
 	out:write('\tname = "', monsterVariety.Name, '",\n')
 	out:write('\tlife = ', (monsterVariety.LifeMultiplier/100), ',\n')
 	if monsterVariety.Type.EnergyShield ~= 0 then
@@ -72,9 +101,15 @@ directiveTable.monster = function(state, args, out)
 	if monsterVariety.OffHandItemClass and itemClassMap[monsterVariety.OffHandItemClass.Id] then
 		out:write('\tweaponType2 = "', itemClassMap[monsterVariety.OffHandItemClass.Id], '",\n')
 	end
+	if state.limit then
+		out:write('\tlimit = "', state.limit, '",\n')
+	end
 	out:write('\tskillList = {\n')
-	for _, gramtedEffect in ipairs(monsterVariety.GrantedEffects) do
-		out:write('\t\t"', gramtedEffect.Id, '",\n')
+	for _, grantedEffect in ipairs(monsterVariety.GrantedEffects) do
+		out:write('\t\t"', grantedEffect.Id, '",\n')
+	end
+	for _, skill in ipairs(state.extraSkillList) do
+		out:write('\t\t"', skill, '",\n')
 	end
 	out:write('\t},\n')
 	local modList = { }
@@ -86,19 +121,34 @@ directiveTable.monster = function(state, args, out)
 	end
 	out:write('\tmodList = {\n')
 	for _, mod in ipairs(modList) do
+		local modStats = ""
+		for i = 1, 6 do
+			if mod["Stat"..i] then
+				modStats = modStats .. ' [' .. mod["Stat"..i].Id .. ' = ' .. mod["Stat"..i.."Value"][1] .. ']'
+			end
+		end
 		if modMap[mod.Id] then
 			for _, mappedMod in ipairs(modMap[mod.Id]) do
-				out:write('\t\t', mappedMod, ', -- ', mod.Id, '\n')
+				out:write('\t\t', mappedMod, ', -- ', mod.Id, modStats, '\n')
 			end
 		else
-			out:write('\t\t-- ', mod.Id, '\n')
+			out:write('\t\t-- ', mod.Id, modStats, '\n')
 		end
+	end
+	for _, mod in ipairs(state.extraModList) do
+		out:write('\t\t', mod, ',\n')
 	end
 	out:write('\t},\n')
 	out:write('}\n')
 end
 
-for _, name in pairs({"Spectres"}) do
+-- #spectre <MonsterId> [<Name>]
+directiveTable.spectre = function(state, args, out)
+	directiveTable.monster(state, args, out)
+	directiveTable.emit(state, "", out)
+end
+
+for _, name in pairs({"Spectres","Minions"}) do
 	processTemplateFile(name, "Minions/", "../Data/3_0/", directiveTable)
 end
 

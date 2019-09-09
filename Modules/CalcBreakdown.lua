@@ -92,16 +92,18 @@ function breakdown.slot(source, sourceName, cfg, base, total, ...)
 	})
 end
 
-function breakdown.area(base, areaMod, total)
+function breakdown.area(base, areaMod, total, label)
 	if base ~= total then
 		return {
 			s_format("%d ^8(base radius)", base),
 			s_format("x %.2f ^8(square root of area of effect modifier)", m_sqrt(areaMod)),
 			s_format("= %d", total),
+			label,
 			radius = total
 		}
 	else
 		return {
+			label,
 			radius = total
 		}
 	end

@@ -154,3 +154,11 @@ itemBases["Profane Wand"] = {
 	weapon = { PhysicalMin = 27, PhysicalMax = 51, CritChanceBase = 7, AttackRateBase = 1.35, Range = 120, },
 	req = { level = 70, int = 237, },
 }
+itemBases["Convoking Wand"] = {
+	type = "Wand",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, not_for_sale = true, atlas_base_type = true, wandatlas1 = true, },
+	implicit = "Can roll Minion Modifiers",
+	weapon = { PhysicalMin = 25, PhysicalMax = 46, CritChanceBase = 7, AttackRateBase = 1.4, Range = 120, },
+	req = { level = 72, int = 242, },
+}

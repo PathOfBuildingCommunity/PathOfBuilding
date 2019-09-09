@@ -137,6 +137,9 @@ return {
 ["projectile_damage_modifiers_apply_to_skill_dot"] = {
 	skill("dotIsProjectile", true),
 },
+["additive_mine_duration_modifiers_apply_to_buff_effect_duration"] = {
+	skill("mineDurationAppliesToSkill", true),
+},
 ["base_use_life_in_place_of_mana"] = {
 	flag("SkillBloodMagic"),
 },
@@ -279,6 +282,10 @@ return {
 },
 ["mana_leech_from_any_damage_permyriad"] = {
 	mod("DamageManaLeech", "BASE", nil),
+	div = 100,
+},
+["attack_skill_mana_leech_from_any_damage_permyriad"] = {
+	mod("DamageManaLeech", "BASE", nil, ModFlag.Attack),
 	div = 100,
 },
 ["energy_shield_leech_from_any_damage_permyriad"] = {
@@ -577,6 +584,9 @@ return {
 ["base_poison_duration_+%"] = {
 	mod("EnemyPoisonDuration", "INC", nil),
 },
+["active_skill_poison_duration_+%_final"] = {
+	mod("EnemyPoisonDuration", "MORE", nil),
+},
 ["ignite_duration_+%"] = {
 	mod("EnemyIgniteDuration", "INC", nil),
 },
@@ -608,6 +618,12 @@ return {
 },
 ["base_poison_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Poison),
+},
+["critical_poison_dot_multiplier_+"] = {
+	mod("DotMultiplier", "BASE", nil, 0, KeywordFlag.Poison, { type = "Condition", var = "CriticalStrike" }),
+},
+["poison_dot_multiplier_+"] = {
+	mod("DotMultiplier", "BASE", nil, 0, KeywordFlag.Poison),
 },
 ["active_skill_ignite_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite),
@@ -693,6 +709,12 @@ return {
 },
 ["projectiles_always_pierce_you"] = {
 	flag("AlwaysPierceSelf"),
+},
+["active_skill_returning_projectile_damage_+%_final"] = {
+	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "ReturningProjectile" }),
+},
+["returning_projectiles_always_pierce"] = {
+	flag("PierceAllTargets", { type = "Condition", var = "ReturningProjectile" }),
 },
 -- Self modifiers
 ["chance_to_be_pierced_%"] = {
@@ -1014,6 +1036,9 @@ return {
 },
 ["summon_lightning_resistance_+"] = {
 	mod("MinionModifier", "LIST", { mod = mod("LightningResist", "BASE", nil) }),
+},
+["minion_maximum_all_elemental_resistances_%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("ElementalResistMax", "BASE", nil) }),
 },
 ["base_number_of_zombies_allowed"] = {
 	mod("ActiveZombieLimit", "BASE", nil),
