@@ -167,6 +167,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 	ConPrintf("Processing tree...")
 	self.keystoneMap = { }
+	self.notableMap = { }
 	local nodeMap = { }
 	local sockets = { }
 	local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6, m_pi / 20 }
@@ -196,6 +197,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			self.keystoneMap[node.dn] = node
 		elseif node["not"] then
 			node.type = "Notable"
+			self.notableMap[node.dn:lower()] = node
 		else
 			node.type = "Normal"
 		end

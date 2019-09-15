@@ -1,3 +1,17 @@
+### 1.4.152 - 2019/09/15
+ * Added support for anointments that grant notable passives
+ * Added support for Transfiguration of Body/Mind/Soul
+ * Added missing Legion uniques, and applied unique balance changes from 3.7 (thanks PJacek)
+ * Added the missing bonuses from the Feeding Frenzy buff
+ * Added the following spectres to the spectre library:
+    * Desecrated Saint
+    * Foreman
+	* Freezing Wolf
+    * Lunaris Concubine
+	* Lunarsworn Wintermage
+    * Slave Driver
+ * Fixed modifiers to Golem buff effect not applying to the buff from Summon Carrion Golem
+
 ### 1.4.151 - 2019/09/09
  * Fixed error with Minion Instability
 

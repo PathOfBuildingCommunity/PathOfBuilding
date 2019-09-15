@@ -61,6 +61,31 @@ minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
 		-- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20] [base_block_%_damage_taken = 10]
 	},
 }
+minions["Metadata/Monsters/Axis/AxisCasterLunaris"] = {
+	name = "Lunarsworn Wintermage",
+	life = 0.9,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.6,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Wand",
+	weaponType2 = "Shield",
+	skillList = {
+		"MeleeUseContactPoint",
+		"AxisCasterGlacialCascade",
+		"MonsterColdThorns",
+	},
+	modList = {
+		-- MonsterCastsGlacialCascade [monster_casts_glacial_cascade_text = 1]
+		-- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20] [base_block_%_damage_taken = 10]
+	},
+}
 minions["Metadata/Monsters/Axis/AxisEliteSoldier3Champion"] = {
 	name = "Solaris Champion",
 	life = 1.5,
@@ -225,6 +250,27 @@ minions["Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul"] = {
 	},
 	modList = {
 		-- MonsterCastsWarlordsMarkCurseText [monster_casts_warlords_mark_curse_text = 1]
+	},
+}
+minions["Metadata/Monsters/Bandit/DockworkerChampion_"] = {
+	name = "Foreman",
+	life = 2.1,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "Two Handed Mace",
+	skillList = {
+		"Melee",
+		"GroundEffectsSlamDockworkerChampion",
+	},
+	modList = {
 	},
 }
 -- Beast
@@ -638,6 +684,25 @@ minions["Metadata/Monsters/DemonModular/DemonFemaleRanged"] = {
 	modList = {
 		mod("PhysicalDamageConvertToFire", "BASE", 50), -- MonsterConvertToFireDamage2 [base_physical_damage_%_to_convert_to_fire = 50]
 		-- MonsterRangeVarianceMedium [main_hand_base_maximum_attack_distance = 0]
+	},
+}
+minions["Metadata/Monsters/DemonModular/DemonFemaleRanged2"] = {
+	name = "Lunaris Concubine",
+	life = 0.96,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.84,
+	damageSpread = 0.2,
+	attackTime = 3,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"DemonFemaleRangedProjectile2",
+	},
+	modList = {
+		mod("PhysicalDamageConvertToCold", "BASE", 50), -- MonsterConvertToColdDamage2 [base_physical_damage_%_to_convert_to_cold = 50]
 	},
 }
 minions["Metadata/Monsters/DemonModular/DemonModularBladeVortex"] = {
@@ -1386,6 +1451,28 @@ minions["Metadata/Monsters/Lion/LionDesertSkinPuncture"] = {
 		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
 	},
 }
+minions["Metadata/Monsters/Lion/LionWolf3Champion"] = {
+	name = "Freezing Wolf",
+	life = 1.8,
+	armour = 0.1,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	skillList = {
+		"Melee",
+		"MonsterLeapSlamFoothills",
+	},
+	modList = {
+		mod("PhysicalDamageGainAsCold", "BASE", 100), -- MonsterPhysicalAddedAsColdSkeletonMaps [physical_damage_%_to_add_as_cold = 100]
+	},
+}
 -- Knitted horror
 minions["Metadata/Monsters/MassSkeleton/MassSkeleton"] = {
 	name = "Knitted Horror",
@@ -2095,6 +2182,27 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterLightningSpark"] = {
 		-- MonsterCastsSparkText [monster_casts_spark_text = 1]
 	},
 }
+minions["Metadata/Monsters/Skeletons/SkeletonBlackCaster1_"] = {
+	name = "Desecrated Saint",
+	life = 0.84,
+	energyShield = 0.4,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 0.6,
+	damageSpread = 0.2,
+	attackTime = 1.605,
+	attackRange = 46,
+	accuracy = 1,
+	skillList = {
+		"SkeletonProjectileBlack",
+	},
+	modList = {
+		-- MonsterNecromancerRaisable [undead_description = 1]
+		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
+	},
+}
 minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
 	name = "Vexing Archer",
 	life = 0.96,
@@ -2272,6 +2380,31 @@ minions["Metadata/Monsters/Taster/Taster"] = {
 		"TarMortarTaster",
 	},
 	modList = {
+	},
+}
+-- Templar
+minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriver"] = {
+	name = "Slave Driver",
+	life = 1,
+	armour = 0.25,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.845,
+	attackRange = 8,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	weaponType2 = "One Handed Mace",
+	skillList = {
+		"SlaverTaunt",
+		"Melee",
+		"SlavedriverFlameWhip",
+	},
+	modList = {
+		-- MonsterImplicitFastRun4 [base_movement_velocity_+% = 20]
 	},
 }
 -- Undying

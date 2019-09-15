@@ -354,9 +354,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	for nodeId, node in pairs(spec.nodes) do
 		-- Determine the base and overlay images for this node based on type and state
 		local base, overlay
+		local isAlloc = node.alloc or build.calcsTab.mainEnv.grantedPassives[nodeId]
 		SetDrawLayer(nil, 25)
 		if node.type == "ClassStart" then
-			overlay = node.alloc and node.startArt or "PSStartNodeBackgroundInactive"
+			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
 		elseif node.type == "AscendClassStart" then
 			overlay = "PassiveSkillScreenAscendancyMiddle"
 		elseif node.type == "Mastery" then
@@ -365,7 +366,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			base = node.sprites.mastery
 		else
 			local state
-			if self.showHeatMap or node.alloc or node == hoverNode or (self.traceMode and node == self.tracePath[#self.tracePath])then
+			if self.showHeatMap or isAlloc or node == hoverNode or (self.traceMode and node == self.tracePath[#self.tracePath])then
 				-- Show node as allocated if it is being hovered over
 				-- Also if the heat map is turned on (makes the nodes more visible)
 				state = "alloc"
@@ -378,7 +379,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				-- Node is a jewel socket, retrieve the socketed jewel (if present) so we can display the correct art
 				base = tree.assets[node.overlay[state]]
 				local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
-				if node.alloc and jewel then
+				if isAlloc and jewel then
 					if jewel.baseName == "Crimson Jewel" then
 						overlay = "JewelSocketActiveRed"
 					elseif jewel.baseName == "Viridian Jewel" then
@@ -393,7 +394,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				end
 			else
 				-- Normal node (includes keystones and notables)
-				base = node.sprites[node.type:lower()..(node.alloc and "Active" or "Inactive")] 
+				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")] 
 				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "")]
 			end
 		end
@@ -407,7 +408,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			SetDrawColor(0.5, 0.5, 0.5)
 		end
 		if self.showHeatMap then
-			if not node.alloc and node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
+			if not isAlloc and node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
 				-- Calculate color based on DPS and defensive powers
 				local offence = m_max(node.power.offence or 0, 0)
 				local defence = m_max(node.power.defence or 0, 0)

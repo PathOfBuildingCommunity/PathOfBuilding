@@ -406,7 +406,7 @@ Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Transcendent Flesh} via currency{Vial of Transcendence}
 Radius: Medium
 -1 Strength per 1 Strength on Allocated Passives in Radius
-+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
++7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
 ]],[[
 Transcendent Flesh
 Crimson Jewel
@@ -415,7 +415,7 @@ Source: Upgraded from unique{Tempered Flesh} via currency{Vial of Transcendence}
 Radius: Medium
 -1 Strength per 1 Strength on Allocated Passives in Radius
 1% additional Physical Damage Reduction per 10 Strength on Allocated Passives in Radius
-+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
++7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
 ]],[[
 Tempered Mind
 Cobalt Jewel

@@ -5,6 +5,11 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill AxisCasterGlacialCascade
+#flags spell area
+#baseMod skill("radius", 12)
+#mods
+
 #skill AxisDoubleStrikeTrigger
 #flags attack melee
 #baseMod skill("dpsMultiplier", 2)
@@ -60,6 +65,10 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DemonFemaleRangedProjectile Ranged Attack
+#flags attack projectile
+#mods
+
+#skill DemonFemaleRangedProjectile2 Ranged Attack
 #flags attack projectile
 #mods
 
@@ -121,6 +130,10 @@ local skills, mod, flag, skill = ...
 
 #skill GoatmanMonsterSlam Slam
 #flags attack melee area
+#mods
+
+#skill GroundEffectsSlamDockworkerChampion Slam
+#flags attack melee area duration
 #mods
 
 #skill GuardianArc Arc
@@ -261,6 +274,10 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterLeapSlam Leap Slam
+#flags attack melee area
+#mods
+
+#skill MonsterLeapSlamFoothills
 #flags attack melee area
 #mods
 
@@ -493,6 +510,10 @@ local skills, mod, flag, skill = ...
 #baseMod mod("BleedChance", "BASE", 100)
 #mods
 
+#skill SkeletonProjectileBlack
+#flags spell projectile
+#mods
+
 #skill SkeletonSpark Spark
 #flags spell projectile duration lightning
 #mods
@@ -523,6 +544,11 @@ local skills, mod, flag, skill = ...
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
+#mods
+
+#skill SlavedriverFlameWhip
+#flags spell area
+#baseMod skill("radius", 30)
 #mods
 
 #skill SnakeSpineProjectile Spine Attack
