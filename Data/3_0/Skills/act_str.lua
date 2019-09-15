@@ -1585,6 +1585,8 @@ skills["VaalEarthquake"] = {
 	},
 	baseMods = {
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
+		skill("radius", 18, { type = "SkillPart", skillPart = 1 }),
+		skill("radius", 28, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		{ "damage_+%", 1 },
