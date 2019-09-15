@@ -420,6 +420,9 @@ return {
 	{ var = "multiplierNearbyAlly", type = "count", label = "# of Nearby Allies", ifMult = "NearbyAlly", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyAlly", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "multiplierNearbyEnemy", type = "count", label = "# of Nearby Enemies", ifMult = "NearbyEnemy", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:NearbyEnemy", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+  end },
 	{ var = "multiplierNearbyCorpse", type = "count", label = "# of Nearby Corpses", ifMult = "NearbyCorpse", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyCorpse", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },

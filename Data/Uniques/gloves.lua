@@ -157,8 +157,11 @@ Your Cold Damage can Ignite
 ]],[[
 Maligaro's Virtuosity
 Deerskin Gloves
+League: Legion
+Source: Drops from normal{Eternal} legion
 Variant: Pre 1.1.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 21, 33 Dex
 +(20-30) to Dexterity
@@ -168,6 +171,7 @@ Requires Level 21, 33 Dex
 {variant:2}+(28-36)% to Global Critical Strike Multiplier
 {variant:3}+(20-30)% to Global Critical Strike Multiplier
 (60-80)% increased Evasion Rating
+{variant:4}Your Critical Strike Multiplier is 300%
 ]],[[
 Oskarm
 Nubuck Gloves
@@ -193,14 +197,22 @@ You cannot be Hindered
 ]],[[
 Asenath's Gentle Touch
 Silk Gloves
+League: Legion
+Source: Drops from normal{Maraketh} legion
 Variant: Pre 2.6.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 25, 39 Int
 +(20-30) to Intelligence
-+(20-30) to maximum Life
-+(20-30) to maximum Mana
+{variant:1,2}+(20-30) to maximum Life
+{variant:3}+(60-80) to maximum Life
+{variant:1,2}+(20-30) to maximum Mana
+{variant:3}+(60-80) to maximum Mana
 {variant:1}Curse Enemies with Temporal Chains on Hit
-{variant:2}Curse Enemies with level 10 Temporal Chains on Hit
+{variant:2,3}Curse Enemies with level 10 Temporal Chains on Hit
+{variant:3}Non-Aura Curses you inflict are not removed from Dying Enemies
+{variant:3}Enemies near Corpses affected by your Curses are Blinded
+{variant:3}Enemies killed near Corpses affected by your Curses explode, dealing 3% of their Life as Physical Damage
 ]],[[
 Demon Stitcher
 Satin Gloves
@@ -269,6 +281,16 @@ Adds 1 to 13 Lightning Damage to Attacks
 {variant:1}(18-24)% increased Quantity of Items found
 {variant:2}(12-16)% increased Quantity of Items found
 {variant:3}(5-10)% increased Quantity of Items found
+]],[[
+Vixen's Entrapment
+Embroidered Gloves
+Requires Level 36, 54 Int
+Implicits: 0
+Trigger Socketed Curse Spells when you cast a Curse Skill
++(50-90) to maximum Energy Shield
+0.2% of Spell Damage Leeched as Energy Shield for each Curse on Enemy
+You can apply an additional Curse
+Curse Skills have (10-20)% increased Cast Speed
 ]],[[
 Voidbringer
 Conjurer Gloves
@@ -430,6 +452,18 @@ Requires Level 57, 44 Str, 44 Int
 Dispels Elemental Ailments on Rampage
 Gain Immunity to Physical Damage for 1.5 seconds on Rampage
 Rampage
+]],[[
+Offering to the Serpent
+Legion Gloves
+Fractured Item
+League: Synthesis
+Requires Level 57, 44 Str, 44 Int
+{fractured}+(15-25) to all Attributes
+(150-200)% increased Armour and Energy Shield
+50% reduced Maximum Recovery per Life Leech
+(6-10)% increased Attack and Cast Speed
+(15-25)% increased Damage while Leeching
+Life Leech effects are not removed at Full Life
 ]],[[
 Repentance
 Crusader Gloves
@@ -635,6 +669,17 @@ Requires Level 58, 45 Dex, 45 Int
 {variant:1}While at Maximum Frenzy Charges, Attacks Poison Enemies
 {variant:2}Attacks have 60% chance to Poison while at maximum Frenzy Charges
 ]],[[
+Storm's Gift
+Assassin's Mitts
+Fractured Item
+League: Synthesis
+Requires Level 58, 45 Dex, 45 Int
+{fractured}(20-30)% increased Damage over Time
+(250-300)% increased Evasion and Energy Shield
++(20-30)% to Lightning Resistance
+Enemies you kill are Shocked
+Shocks you inflict spread to other Enemies within a Radius of 15
+]],[[
 Thunderfist
 Murder Mitts
 Variant: Pre 1.0.0
@@ -648,5 +693,17 @@ Socketed Gems are Supported by level 18 Added Lightning Damage
 +(25-30) to maximum Energy Shield
 100% increased Shock Duration on Enemies
 10% increased Stun Duration on Enemies
+]],[[
+Aukuna's Will
+Clasped Mitts
+League: Legion
+Source: Drops from normal{Maraketh} legion
+Requires Level 31, 25 Dex 25 Int
++(30-40) to Dexterity
+(5-7)% increased Cast Speed
+(100-150)% increased Evasion and Energy Shield
+Raised Zombies have (80-100)% increased maximum Life
+Raise Zombie does not require a Corpse
+Your Raised Zombies count as Corpses
 ]],
 }

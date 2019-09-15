@@ -81,21 +81,27 @@ Adds (100–120) to (150–165) Physical Damage against Bleeding Enemies
 ]],[[
 Darkscorn
 Assassin Bow
+League: Legion
+Source: Drops from normal{Maraketh} legion
 Variant: Pre 1.2.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 62, 212 Dex
 Implicits: 1
 {variant:1,2}(6-12)% increased Elemental Damage with Weapons
 {variant:1,2,3}(100-125)% increased Physical Damage
-{variant:4}(130-150)% increased Physical Damage
+{variant:4,5}(130-150)% increased Physical Damage
 {variant:2}Adds (6-10) to (10-14) Physical Damage
 {variant:3,4}Adds (10-15) to (15-20) Physical Damage
-10% increased Attack Speed
+{variant:5}Adds (15-20) to (25-30) Physical Damage
+{variant:1,2,3,4}10% increased Attack Speed
+{variant:5}20% increased Attack Speed
+(15-30)% increased Global Accuracy Rating
 25% of Physical Damage Converted to Chaos Damage
-(15-30)% increased Accuracy Rating
-25% of Physical Damage taken as Chaos Damage
+25% of Physical Damage from Hits taken as Chaos Damage
+{variant:5}20% chance for Poisons inflicted with this Weapon to deal 300% more Damage
 ]],[[
 Death's Harp
 Death Bow
@@ -188,19 +194,21 @@ Decimation Bow
 Variant: Pre 1.2.0
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 53, 170 Dex
 (30-50)% increased Critical Strike Chance
 {variant:1,2}(90-100)% increased Physical Damage
-{variant:3,4}(110-125)% increased Physical Damage
-{variant:2,3,4}Adds (25-35) to (36-45) Physical Damage
+{variant:3,4,5}(110-125)% increased Physical Damage
+{variant:2,3,4,5}Adds (25-35) to (36-45) Physical Damage
 +(20-30) to Dexterity
-+(200-250) to Accuracy Rating
+{variant:1,2,3,4}+(200-250) to Accuracy Rating
+{variant:5}+(350-400) to Accuracy Rating
 {variant:1,2,3}Arrows always Pierce
-{variant:4}Arrows Pierce all Targets
+{variant:4,5}Arrows Pierce all Targets
 10% increased Movement Speed
 {variant:1,2}Cannot Leech
-{variant:3,4}Cannot Leech Life
+{variant:3,4,5}Cannot Leech Life
 ]],[[
 Iron Commander
 Death Bow

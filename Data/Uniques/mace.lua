@@ -6,13 +6,15 @@ return {
 Brightbeak
 War Hammer
 Variant: Pre 2.6.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 20, 71 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
-{variant:2}10% reduced Enemy Stun Threshold
+{variant:2,3}10% reduced Enemy Stun Threshold
 (50-75)% increased Physical Damage
-50% increased Attack Speed
+{variant:1,2}50% increased Attack Speed
+{variant:3}45% increased Attack Speed
 25% increased Critical Strike Chance
 +(20-30)% to Fire Resistance
 +(20-30)% to Lightning Resistance
@@ -126,18 +128,26 @@ Implicits: 2
 ]],[[
 Lavianga's Wisdom
 War Hammer
+League: Legion
+Source: Drops from normal{Karui} legion
 Variant: Pre 2.6.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 20, 71 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
-{variant:2}10% reduced Enemy Stun Threshold
-+(10-20) to maximum Life
-+(10-20) to maximum Mana
-(130-160)% increased Physical Damage
+{variant:2,3}10% reduced Enemy Stun Threshold
+{variant:1,2}(130-160)% increased Physical Damage
+{variant:3}(160-200)% increased Physical Damage
+{variant:1,2}+(10-20) to maximum Life
+{variant:1,2}+(10-20) to maximum Mana
+{variant:3}+70 to maximum Life
+{variant:3}+70 to maximum Mana
 5% reduced Movement Speed
-10% increased Area of Effect of Area Skills
-(10-15)% increased Area Damage
+{variant:1,2}10% increased Area of Effect of Area Skills
+{variant:3}(15-25)% increased Area of Effect
+{variant:1,2}(10-15)% increased Area Damage
+{variant:3}(10-20)% increased Area Damage
 ]],[[
 Mjölner
 Gavel
@@ -305,15 +315,17 @@ Cannot be Blinded
 Death's Hand
 Karui Sceptre
 Variant: Pre 2.3.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 56, 96 Str, 96 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
-{variant:2}26% increased Elemental Damage
-Adds (30-41) to (80-123) Physical Damage
+{variant:2,3}26% increased Elemental Damage
+{variant:1,2}Adds (30-41) to (80-123) Physical Damage
+{variant:3}Adds (35-46) to (85-128) Physical Damage
 (20-50)% increased Critical Strike Chance
 30% chance to gain a Power Charge when you Stun
-Gain Unholy Might for 2 seconds on Critical Strike
+Gain Unholy Might for 4 seconds on Critical Strike
 ]],[[
 Doon Cuebiyari
 Vaal Sceptre
@@ -367,15 +379,25 @@ Requires Level 68, 104 Str, 122 Int
 Implicits: 2
 {variant:1,2}15% increased Elemental Damage
 {variant:3,4}40% increased Elemental Damage
-50% reduced number of Zombies allowed
-{variant:1}+500 to Zombie maximum Life
-{variant:2,3}+2000 to Zombie maximum Life
-{variant:4}+5000 to Zombie maximum Life
+50% reduced maximum number of Raised Zombies
+{variant:1}Raised Zombies have +500 to maximum Life
+{variant:2,3}Raised Zombies have +2000 to maximum Life
+{variant:4}Raised Zombies have +5000 to maximum Life
 (25-30)% increased Zombie Resistances
 25% increased Zombie Size
+Enemies killed by Zombies explode dealing 20% of their Maximum Life as Fire Damage
 {variant:1,2,3}Zombies deal (80-100)% increased Physical Damage
-{variant:4}Zombies deal (80-100)% more Physical Damage
-Enemies killed by Zombies explode dealing Fire Damage
+{variant:4}Raised Zombies deal (80-100)% more Physical Damage
+]],[[
+Nebulis
+Void Sceptre
+Fractured Item
+League: Synthesis
+Requires Level 68, 104 Str, 122 Int
+40% increased Elemental Damage
+{fractured}(15-20)% increased Cast Speed
+(15-20)% increased Cold Damage per 1% Cold Resistance above 75%
+(15-20)% increased Lightning Damage per 1% Lightning Resistance above 75%
 ]],[[
 Nycta's Lantern
 Crystal Sceptre
@@ -595,19 +617,25 @@ Your Critical Strikes do not deal extra Damage
 ]],[[
 Marohi Erqi
 Karui Maul
+League: Legion
+Source: Drops from normal{Karui} legion
 Variant: Pre 2.6.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 57, 182 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
-{variant:2}30% increased Stun Duration on Enemies
-Socketed Gems are Supported by level 15 Increased Area of Effect
-(220-250)% increased Physical Damage
-Adds 10 to 20 Physical Damage
+{variant:2,3}30% increased Stun Duration on Enemies
+{variant:1,2}Socketed Gems are Supported by level 15 Increased Area of Effect
+{variant:3}Socketed Gems are Supported by level 15 Pulverise
+{variant:1,2}(220-250)% increased Physical Damage
+{variant:3}(230-260)% increased Physical Damage
+{variant:1,2}Adds 10 to 20 Physical Damage
+{variant:3}Adds 30 to 40 Physical Damage
 10% reduced Attack Speed
-−100 to Accuracy Rating
 10% reduced Movement Speed
 (40-50)% increased Stun Duration on Enemies
+-100 to Accuracy Rating
 ]],[[
 Quecholli
 Jagged Maul
@@ -634,6 +662,16 @@ Adds (94-98) to (115-121) Physical Damage
 +(25-50) to all Attributes
 Enemies killed explode dealing 10% of their Life as Fire Damage
 Recover 5% of Maximum Life on Kill
+]],[[
+Sign of the Sin Eater
+Tyrant's Sekhem
+League: Legion
+Source: Drops from normal{Templar} legion
+Requires Level 58, 99 Str, 99 Int
+26% increased Elemental Damage
++(10-30) to Strength and Intelligence
+Grants Level 30 Smite Skill
+Enemies inflict Elemental Ailments on you instead of nearby Allies
 ]],[[
 Tidebreaker
 Imperial Maul

@@ -386,6 +386,19 @@ Requires Level 20
 (6-10)% chance to Dodge Spell Damage
 Cannot be Blinded
 ]],[[
+Hyrri's Truth
+Jade Amulet
+League: Synthesis
+Requires Level 64
++(20-30) to Dexterity
+Grants Level 22 Precision Skill
++(25-35) to Dexterity
+Adds (12-15) to (24-28) Physical Damage to Attacks
+Adds (11-15) to (23-28) Cold Damage to Attacks
++(23-28)% to Global Critical Strike Multiplier
+(0.80-1.00)% of Physical Attack Damage Leeched as Life
+Precision has 50% less Mana Reservation
+]],[[
 The Ignomon
 Gold Amulet
 Upgrade: Upgrades to unique{The Effigon} via prophecy{Blind Faith}
@@ -667,6 +680,19 @@ Requires Level 5
 {variant:3}+(12-15)% chance to Block Spell Damage
 (10-15)% increased Cast Speed
 +(30-50) to maximum Mana
+]],[[
+Tavukai
+Coral Amulet
+League: Legion
+Source: Drops from normal{Karui} legion
+Requires Level 54
+(2.0-4.0) Life regenerated per second
++(30-40) to Intelligence
+Minions have +(-17-17)% to Chaos Resistance
+Summon Raging Spirit has (20-30)% increased Duration
+Summoned Raging Spirits deal (60-80)% increased Damage
+Summoned Raging Spirits have (80-100)% increased maximum Life
+Summoned Raging Spirits take 20% of their Maximum Life per second as Chaos Damage
 ]],[[
 Tear of Purity
 Lapis Amulet
