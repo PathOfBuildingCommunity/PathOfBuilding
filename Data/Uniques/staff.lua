@@ -11,8 +11,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2}18% Chance to Block
-{variant:1}+1 to Level of Socketed Lightning Gems
-{variant:2}+2 to Level of Socketed Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 100% increased Shock Duration on Enemies
@@ -27,8 +27,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2}18% Chance to Block
-{variant:1}+1 to Level of Socketed Lightning Gems
-{variant:2}+2 to Level of Socketed Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 15% chance to Shock
@@ -43,8 +43,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2}18% Chance to Block
-{variant:1}+1 to Level of Socketed Lightning Gems
-{variant:2}+2 to Level of Socketed Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 +5% to Maximum Lightning Resistance
@@ -59,8 +59,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2}18% Chance to Block
-{variant:1}+1 to Level of Socketed Lightning Gems
-{variant:2}+2 to Level of Socketed Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 Adds (5-15) to (100-140) Lightning Damage to Spells
