@@ -103,7 +103,7 @@
 	<File sha1="0de1a49fcc9f069334a4585af6a4c15a3438a0af" name="Data/Uniques/mace.lua" part="program"/>
 	<File sha1="cfd77a3d679eade7932e89add801ee39f0a3cf91" name="Data/Uniques/quiver.lua" part="program"/>
 	<File sha1="083f33e0099c5e439ee8f8043c4465eaa25183f0" name="Data/Uniques/ring.lua" part="program"/>
-	<File sha1="56a85774cca5f6122227b3a2688b916f1f3af378" name="Data/Uniques/shield.lua" part="program"/>
+	<File sha1="3df40502c1f1bb1ef400ff995f9790c8b494067c" name="Data/Uniques/shield.lua" part="program"/>
 	<File sha1="3144e9b35462a549dff42c1b031a9667f1b3eb39" name="Data/Uniques/staff.lua" part="program"/>
 	<File sha1="7a3d7dbd9df30707dd7546dffc5c6cc8a158c33e" name="Data/Uniques/sword.lua" part="program"/>
 	<File sha1="f039ab590f5d90d149339577900dc278a5f72491" name="Data/Uniques/wand.lua" part="program"/>
