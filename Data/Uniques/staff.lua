@@ -162,16 +162,22 @@ Adds (160-185) to (200-225) Physical Damage
 Femurs of the Saints
 Primordial Staff
 Variant: Pre 2.6.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 58, 99 Str, 99 Int
 Implicits: 2
 {variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:2,3}+18% Chance to Block Attack Damage while wielding a Staff
 +2 to Level of Socketed Minion Gems
-Minions Regenerate (1.5-2.5)% Life per Second
-2% increased Minion Attack and Cast Speed per Skeleton you own
-2% increased Minion Duration per Zombie you own
-(8-12)% increased Minion Damage per Spectre you own
+{variant:3}Minions deal (60-80)% increased Damage
+{variant:3}+1% Chance to Block Attack Damage per Summoned Skeleton
+{variant:1,2}2% increased Minion Attack and Cast Speed per Skeleton you own
+{variant:1,2}Minions Regenerate (1.5-2.5)% Life per Second
+{variant:3}2% increased Attack and Cast Speed per Summoned Raging Spirit
+{variant:1,2}2% increased Minion Duration per Zombie you own
+{variant:1,2}(8-12)% increased Minion Damage per Spectre you own
+{variant:3}Regenerate 0.6% of Life per second for each Raised Zombie
+{variant:3}30% increased Mana Regeneration Rate per Raised Spectre
 ]],[[
 Fencoil
 Gnarled Branch
