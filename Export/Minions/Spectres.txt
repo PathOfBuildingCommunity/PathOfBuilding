@@ -8,6 +8,7 @@ local minions, mod = ...
 -- Blackguard
 #spectre Metadata/Monsters/Axis/AxisCaster
 #spectre Metadata/Monsters/Axis/AxisCasterArc
+#spectre Metadata/Monsters/Axis/AxisCasterLunaris
 #spectre Metadata/Monsters/Axis/AxisEliteSoldier3Champion
 #spectre Metadata/Monsters/Axis/AxisExperimenter
 #spectre Metadata/Monsters/Axis/AxisExperimenter2
@@ -16,6 +17,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Bandits/BanditBowExplosiveArrow
 #spectre Metadata/Monsters/Bandits/BanditBowPoisonArrow
 #spectre Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul
+#spectre Metadata/Monsters/Bandit/DockworkerChampion_
 -- Beast
 #spectre Metadata/Monsters/Beasts/BeastCaveDegenAura
 #spectre Metadata/Monsters/Beasts/BeastCleaveEnduringCry
@@ -41,6 +43,7 @@ local minions, mod = ...
 -- Miscreation
 #spectre Metadata/Monsters/DemonFemale/DemonFemale
 #spectre Metadata/Monsters/DemonModular/DemonFemaleRanged
+#spectre Metadata/Monsters/DemonModular/DemonFemaleRanged2
 #spectre Metadata/Monsters/DemonModular/DemonModularBladeVortex
 #spectre Metadata/Monsters/DemonModular/DemonModularFire
 -- Maw
@@ -89,6 +92,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite
 -- Helion
 #spectre Metadata/Monsters/Lion/LionDesertSkinPuncture
+#spectre Metadata/Monsters/Lion/LionWolf3Champion
 -- Knitted horror
 #spectre Metadata/Monsters/MassSkeleton/MassSkeleton
 -- Miners
@@ -130,6 +134,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Skeletons/SkeletonBowLightning2
 #spectre Metadata/Monsters/Skeletons/SkeletonBowLightning4
 #spectre Metadata/Monsters/Skeletons/SkeletonCasterLightningSpark
+#spectre Metadata/Monsters/Skeletons/SkeletonBlackCaster1_
 #spectre Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse
 #spectre Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampionDelve
 #spectre Metadata/Monsters/SkeletonCannon/SkeletonCannon1
@@ -142,6 +147,8 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear
 -- Ophidian
 #spectre Metadata/Monsters/Taster/Taster
+-- Templar
+#spectre Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriver
 -- Undying
 #spectre Metadata/Monsters/Undying/CityStalkerMaleCasterArmour
 #spectre Metadata/Monsters/Undying/UndyingOutcastPuncture

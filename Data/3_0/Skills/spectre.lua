@@ -6,6 +6,39 @@
 --
 local skills, mod, flag, skill = ...
 
+skills["AxisCasterGlacialCascade"] = {
+	name = "Glacial Cascade",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 1.5750000476837,
+	incrementalEffectiveness = 0.025000000372529,
+	description = "Icicles emerge from the ground in a series of small bursts, each damaging enemies caught in the area.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.PhysicalSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+		skill("radius", 12),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"upheaval_number_of_spikes",
+		"pvp_damage_+%_final_scale",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.25999999046326, 0.40000000596046, 0.47999998927116, 0.73000001907349, 6, 0, damageEffectiveness = 0.8, critChance = 6, levelRequirement = 4, statInterpolation = { 3, 3, 3, 3, 1, 1, }, },
+		[2] = { 0.25999999046326, 0.40000000596046, 0.47999998927116, 0.73000001907349, 6, 0, damageEffectiveness = 0.8, critChance = 6, levelRequirement = 75, statInterpolation = { 3, 3, 3, 3, 1, 1, }, },
+	},
+}
 skills["AxisDoubleStrikeTrigger"] = {
 	name = "Double Strike",
 	hidden = true,
@@ -444,6 +477,33 @@ skills["DemonFemaleRangedProjectile"] = {
 	},
 	levels = {
 		[1] = { -60, -60, 30, levelRequirement = 30, statInterpolation = { 1, 1, 1, }, },
+	},
+}
+skills["DemonFemaleRangedProjectile2"] = {
+	name = "Ranged Attack",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_maximum_action_distance_+%",
+		"active_skill_damage_+%_final",
+		"monster_reverse_point_blank_damage_-%_at_minimum_range",
+		"monster_projectile_variation",
+		"base_is_projectile",
+		"cannot_freeze_shock_ignite_on_critical",
+	},
+	levels = {
+		[1] = { -60, -60, 30, 1, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, }, },
 	},
 }
 skills["DemonModularBladeVortexSpectre"] = {
@@ -901,6 +961,37 @@ skills["GoatmanMonsterSlam"] = {
 	},
 	levels = {
 		[1] = { -20, damageEffectiveness = 1.75, cooldown = 6, baseMultiplier = 1.75, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["GroundEffectsSlamDockworkerChampion"] = {
+	name = "Slam",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.7272999286652,
+	incrementalEffectiveness = 0.035000000149012,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_attack_speed_+%_final",
+		"base_skill_effect_duration",
+		"skill_art_variation",
+		"ground_maelstrom_art_variation",
+		"base_cold_damage_to_deal_per_minute",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { -40, 4000, 8, 0, 58.333334637185, damageEffectiveness = 2.5, cooldown = 6, baseMultiplier = 1.5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 3, }, },
 	},
 }
 skills["GuardianArc"] = {
@@ -1966,6 +2057,44 @@ skills["MonsterLeapSlam"] = {
 	},
 	levels = {
 		[1] = { 1, damageEffectiveness = 1.5, baseMultiplier = 1.5, levelRequirement = 2, statInterpolation = { 1, }, },
+	},
+}
+skills["MonsterLeapSlamFoothills"] = {
+	name = "Leap Slam",
+	hidden = true,
+	color = 4,
+	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MovementSkill] = true, [SkillType.TravelSkill] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.4,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_art_variation",
+		"leapslam_overshoot_distance",
+		"is_area_damage",
+		"cast_time_overrides_attack_duration",
+	},
+	levels = {
+		[1] = { 1, 10, damageEffectiveness = 1.5, baseMultiplier = 1.5, levelRequirement = 2, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["MonsterLesserMultiFireballSpectre"] = {
@@ -3137,6 +3266,34 @@ skills["SkeletonMassBowProjectile"] = {
 		[1] = { 12, -50, 200, levelRequirement = 2, statInterpolation = { 1, 1, 1, }, },
 	},
 }
+skills["SkeletonProjectileBlack"] = {
+	name = "",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 1.2699999809265,
+	incrementalEffectiveness = 0.027300000190735,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.2,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"monster_projectile_variation",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 33, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, },
+	},
+}
 skills["SkeletonSpark"] = {
 	name = "Spark",
 	hidden = true,
@@ -3253,6 +3410,36 @@ skills["SkeletonVulnerability"] = {
 	},
 	levels = {
 		[1] = { 10900, 0, 50, 50, 20, 20, manaCost = 110, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
+	},
+}
+skills["SlavedriverFlameWhip"] = {
+	name = "Flame Surge",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 2.5,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "Strikes enemies in front of you with a surge of flame. Burning enemies are dealt more damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.5,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+		skill("radius", 30),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"active_skill_area_of_effect_radius_+%_final",
+		"base_cast_speed_+%",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, 50, -65, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, }, },
 	},
 }
 skills["SnakeSpineProjectile"] = {

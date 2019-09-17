@@ -216,6 +216,7 @@ function main:Init()
 		end,
 		enterFunc = function(buf)
 			self.controls.rowList:BuildRows(buf)
+			self.curDatFile.rowFilter = buf
 		end,
 	}
 	self.controls.filterError = new("LabelControl", {"LEFT",self.controls.filter,"RIGHT"}, 4, 2, 0, 14, "")
@@ -321,6 +322,7 @@ end
 function main:SetCurrentDat(datFile)
 	self.curDatFile = datFile
 	if datFile then
+		self.controls.filter.buf = datFile.rowFilter or ""
 		self.controls.rowList:BuildRows(self.controls.filter.buf)
 		self.controls.rowList:BuildColumns()
 		self.controls.specColList.list = datFile.spec
