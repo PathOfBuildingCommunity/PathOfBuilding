@@ -517,7 +517,7 @@ Variant: Hatred: Critical Strike Chance
 Variant: Hatred: Cold Pen
 Variant: Hatred: Inc Cold Damage
 Variant: Hatred: Phys to Cold
-Variant: Malevolence: Increased Non-Ailment Chaos DoT
+Variant: Malevolence: Inc DoT Multi
 Variant: Malevolence: Inc Cold DoT
 Variant: Malevolence: Inc Life and ES Recovery Rate
 Variant: Malevolence: Inc Skill Effect Duration
@@ -616,7 +616,7 @@ Limited to: 1
 {variant:37}Damage Penetrates (10-15)% Cold Resistance while affected by Hatred
 {variant:38}(40-60)% increased Cold Damage while affected by Hatred
 {variant:39}(25-40)% of Physical Damage Converted to Cold Damage while affected by Hatred
-{variant:40}+(18-22)% to Non-Ailment Chaos Damage over Time Multiplier while affected by Malevolence
+{variant:40}+(18-22)% Damage over Time Multiplier while affected by Malevolence
 {variant:41}+(18-22)% to Cold Damage over Time Multiplier while affected by Malevolence
 {variant:42}(15-20)% increased Recovery rate of Life and Energy Shield while affected by Malevolence
 {variant:43}(20-30)% increased Skill Effect Duration while affected by Malevolence
