@@ -394,6 +394,10 @@ Crafted: true
 Ring
 Cerulean Ring
 Crafted: true
+]],[[
+Ring
+Vermillion Ring
+Crafted: true
 ]],
 -- Belts
 [[

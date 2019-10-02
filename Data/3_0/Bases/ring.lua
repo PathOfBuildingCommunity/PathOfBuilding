@@ -131,6 +131,12 @@ itemBases["Cerulean Ring"] = {
 	implicit = "(8-10)% increased maximum Mana",
 	req = { level = 80, },
 }
+itemBases["Vermillion Ring"] = {
+	type = "Ring",
+	tags = { default = true, ring = true, not_for_sale = true, atlas_base_type = true, ringatlas3 = true, },
+	implicit = "(5-7)% increased maximum Life",
+	req = { level = 80, },
+}
 
 itemBases["Breach Ring"] = {
 	type = "Ring",
