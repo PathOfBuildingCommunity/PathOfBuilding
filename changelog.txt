@@ -1,3 +1,9 @@
+VERSION[1.4.151.1] (LocalIdentity's Fork) - 2019/10/05
+ * Updates uniques with 3.8 Changes
+ * Adds new 3.8 uniques
+ * Fix tempered flesh/mind not working
+ * Fix minion regen nodes on the tree not being parsed correctly
+ * Not all unique mods are parsed correctly
 VERSION[1.4.152][2019/09/15]
  * Added support for anointments that grant notable passives
  * Added support for Transfiguration of Body/Mind/Soul
