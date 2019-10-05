@@ -6,7 +6,7 @@ root = manifest.getroot()
 
 for file in root.iter("File"):
 	path = file.get('name')	
-	if path[-4:] != ".lua":
+	if path[-4:] != ".lua" and path[-4:] != ".txt":
 		print("Skipping file type {}".format(path[-4:]))
 		continue
 	try:

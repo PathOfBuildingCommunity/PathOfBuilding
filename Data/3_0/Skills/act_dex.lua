@@ -7045,11 +7045,20 @@ skills["Slither"] = {
 	skillTypes = { [SkillType.TravelSkill] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Area] = true, [SkillType.ChaosSkill] = true, [SkillType.MovementSkill] = true, [SkillType.BlinkSkill] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["slither_wither_stacks"] = {
+			flag("Condition:CanWither"),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanWither" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
 	},
 	baseMods = {
+		mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheredStackCount", effectStackLimit = 15 }),
+		flag("Condition:CanBeElusive"),
+		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }),
 	},
 	qualityStats = {
 		{ "elusive_effect_+%", 0.5 },

@@ -554,6 +554,9 @@ function calcs.defence(env, actor)
 				total = s_format("= %.2f ^8(effective movement speed modifier)", output.EffectiveMovementSpeedMod)
 			})
 		end
+		if modDB:Flag(nil, "Elusive") then
+			output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
+		end
 		output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
 		local baseBlockChance = 0
 		if actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].armourData then

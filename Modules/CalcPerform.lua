@@ -353,6 +353,13 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Speed", "INC", 20, "Her Embrace")
 			modDB:NewMod("MovementSpeed", "INC", 20, "Her Embrace")
 		end
+		if modDB:Flag(nil, "Elusive") then
+			local effect = 1 + modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf") / 100
+			condList["Elusive"] = true
+			modDB:NewMod("AttackDodgeChance", "BASE", m_floor(20 * effect), "Elusive")
+			modDB:NewMod("SpellDodgeChance", "BASE", m_floor(20 * effect), "Elusive")
+			modDB:NewMod("MovementSpeed", "INC", m_floor(40 * effect), "Elusive")
+		end
 		if modDB:Flag(nil, "Chill") then
 			local effect = m_max(m_floor(30 * calcLib.mod(modDB, nil, "SelfChillEffect")), 0)
 			modDB:NewMod("ActionSpeed", "INC", effect * (modDB:Flag(nil, "SelfChillEffectIsReversed") and 1 or -1), "Chill")
