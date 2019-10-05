@@ -249,6 +249,29 @@ Implicits: 2
 Recover 1% of Maximum Life when you Ignite an Enemy
 100% increased Melee Physical Damage against Ignited Enemies
 ]],[[
+Rebuke of the Vaal
+Vaal Blade
+League: Legion
+Source: Drops from Vaal Legion
+Variant: Pre 2.6.0
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 64, 113 Str, 113 Dex
+Implicits: 2
+{variant:1}18% increased Accuracy Rating
+{variant:2,3}+460 to Accuracy Rating
+{variant:1,2}Adds (19-28) to (31-40) Physical Damage
+{variant:3}Adds (49-98) to (101-140) Physical Damage
+{variant:1,2}Adds (19-28) to (31-40) Fire Damage
+{variant:3}Adds (49-98) to (101-140) Fire Damage
+{variant:1,2}Adds (19-28) to (31-40) Cold Damage
+{variant:3}Adds (49-98) to (101-140) Cold Damage
+{variant:1,2}Adds 1 to (50-70) Lightning Damage
+{variant:3}Adds 1 to (210-250) Lightning Damage
+{variant:1,2}Adds (19-28) to (31-40) Chaos Damage
+{variant:3}Adds (49-98) to (101-140) Chaos Damage
+(10-20)% increased Attack Speed
+]],[[
 Redbeak
 Rusted Sword
 Upgrade: Upgrades to unique{Dreadbeak} via prophecy{The Dreaded Rhoa}
@@ -571,16 +594,19 @@ Doomsower
 Lion Sword
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 65, 104 Str, 122 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2,3}+470 to Accuracy Rating
-Socketed Melee Gems have 15% increased Area of Effect
-Socketed Red Gems get 10% Physical Damage as Extra Fire Damage
+{variant:2,3,4}+470 to Accuracy Rating
+{variant:1,2,3}Socketed Melee Gems have 15% increased Area of Effect
+{variant:1,2,3}Socketed Red Gems get 10% Physical Damage as Extra Fire Damage
+{variant:4}Attack Skills gain 5% of Physical Damage as Extra Fire Damage per Socketed Red Gem
+{variant:4}You have Vaal Pact while all Socketed Gems are Red
 (50-70)% increased Physical Damage
 {variant:1,2}Adds (50-75) to (85-110) Physical Damage
-{variant:3}Adds (65–75) to (100–110) Physical Damage
+{variant:3,4}Adds (65–75) to (100–110) Physical Damage
 (6-12)% increased Attack Speed
 ]],[[
 Edge of Madness
@@ -653,18 +679,21 @@ Ornate Sword
 Upgrade: Upgrades to unique{Queen's Escape} via prophecy{The Misunderstood Queen}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 27, 56 Str, 54 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2,3}+185 to Accuracy Rating
-Minions have (10-15)% increased maximum Life
+{variant:2,3,4}+185 to Accuracy Rating
+{variant:1,2,3}Minions have (10-15)% increased maximum Life
+{variant:4}Minions have (30-40)% increased maximum Life
 (150-200)% increased Skeleton Duration
-Minions deal (10-15)% increased Damage
+{variant:1,2,3}Minions deal (10-15)% increased Damage
+{variant:4}Minions deal (30-40)% increased Damage
 +1 to maximum number of Zombies
 +1 to maximum number of Spectres
 {variant:1,2}+2 to maximum number of Skeletons
-{variant:3}+1 to maximum number of Skeletons
+{variant:3,4}+1 to maximum number of Skeletons
 25% increased Strength Requirement
 ]],[[
 Queen's Escape

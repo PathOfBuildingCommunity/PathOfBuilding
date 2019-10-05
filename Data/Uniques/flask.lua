@@ -232,6 +232,17 @@ Gain Unholy Might during Flask Effect
 Immunity to Ignite during Flask effect
 Removes Burning on use
 ]],[[
+The Sorrow of the Divine
+Sulphur Flask
+League: Legion
+Source: Drops from Templar Legion
+Requires Level 35
+Implicits: 1
+Creates Consecrated Ground on Use
+(25-50)% increased Duration
+Zealot's Oath during Flask effect
+Life Recovery from Flasks also applies to Energy Shield during Flask Effect
+]],[[
 Soul Catcher
 Quartz Flask
 League: Incursion

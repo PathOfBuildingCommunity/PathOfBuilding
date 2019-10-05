@@ -86,10 +86,10 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level: 62
 18% Chance to Block 
-+2 to Level of Socketed Chaos Gems
++2 to Level of all Chaos Spell Skill Gems
 {variant:1}(60–80)% increased Chaos Damage
 {variant:2}(20–30)% increased Chaos Damage
-{variant:2}+(40-55)% to Non-Ailment Chaos Damage over Time Multiplier
+{variant:2}+(40-55)% to Chaos Damage over Time Multiplier
 2% increased Cast Speed per Power Charge
 Gain a Power Charge after spending a total of 200 Mana
 2 Mana Regenerated per Second per Power Charge
@@ -159,16 +159,21 @@ Adds (160-185) to (200-225) Physical Damage
 Femurs of the Saints
 Primordial Staff
 Variant: Pre 2.6.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 58, 99 Str, 99 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2}18% Chance to Block
 +2 to Level of Socketed Minion Gems
-Minions Regenerate (1.5-2.5)% Life per Second
-2% increased Minion Attack and Cast Speed per Skeleton you own
-2% increased Minion Duration per Zombie you own
-(8-12)% increased Minion Damage per Spectre you own
+{variant:1,2}Minions Regenerate (1.5-2.5)% Life per Second
+{variant:1,2}2% increased Minion Attack and Cast Speed per Skeleton you own
+{variant:1,2}2% increased Minion Duration per Zombie you own
+{variant:1,2}(8-12)% increased Minion Damage per Spectre you own
+{variant:3}+1% Chance to Block Attack Damage per Summoned Skeleton
+{variant:3}2% increased Attack and Cast Speed per Summoned Raging Spirit
+{variant:3}Regenerate 0.6% of Life per second for each Raised Zombie
+{variant:3}30% increased Mana Regeneration Rate per Raised Spectre
 ]],[[
 Fencoil
 Gnarled Branch
@@ -236,7 +241,7 @@ Immune to Freeze and Chill while Ignited
 Damage Penetrates 15% of Fire Resistance if you have Blocked Recently
 ]],[[
 Pillar of the Caged God
-Long Staff
+Iron Staff
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 13, 27 Str, 27 Int
@@ -246,6 +251,20 @@ Implicits: 2
 1% increased Area of Effect of Area Skills per 20 Intelligence
 1% increased Attack Speed per 10 Dexterity
 16% increased Physical Weapon Damage per 10 Strength
+]],[[
+Pledge of Hands
+Judgement Staff
+League: Legion
+Source: Drops from Vaal Legion
+Variant: Pre 2.6.0
+Variant: Current
+Requires Level 68, 113 Str, 113 Int
+Implicits: 2
+{variant:1}12% Chance to Block
+{variant:2}18% Chance to Block Attack Damage while wielding a Staff
+Socketed Gems are Supported by level 30 Greater Spell Echo
+(120-160)% increased Spell Damage
+100% increased maximum Mana
 ]],[[
 Realmshaper
 Iron Staff
@@ -284,17 +303,19 @@ The Searing Touch
 Lathi
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 60, 113 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2,3}18% Chance to Block
-+2 to Level of Socketed Fire Gems
++2 to Level of all Fire Spell Skill Gems
 {variant:1,2}(30-50)% increased Spell Damage
 {variant:1,2}(20-40)% increased Fire Damage
-{variant:3}(70–90)% increased Fire Damage
+{variant:3,4}(70–90)% increased Fire Damage
 10% increased Cast Speed
-70% increased Burning Damage
+{variant:1,2,3}70% increased Burning Damage
+{variant:4}+(40-60)% to Fire Damage over Time Multiplier
 ]],[[
 The Searing Touch
 Long Staff
@@ -386,16 +407,19 @@ Enemies Frozen by you take 20% increased Damage
 Tremor Rod
 Military Staff
 Variant: Pre 2.6.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 45, 78 Str, 78 Int
 Implicits: 2
 {variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
-Socketed Gems are Supported by level 10 Remote Mine
-35% less Mine Damage
+{variant:2,3}18% Chance to Block
+{variant:3}+2 to Level of Socketed Spell Gems
+{variant:1,2}Socketed Gems are Supported by level 10 Remote Mine
+{variant:3}Socketed Gems are Supported by Level 10 Blastchain Mine
+{variant:1,2}35% less Mine Damage
 (40-60)% increased Spell Damage
 (15-20)% reduced Enemy Stun Threshold
-(40-60)% increased Mine Laying Speed
+{variant:1,2}(40-60)% increased Mine Laying Speed
 Mines can be Detonated an additional time
 ]],[[
 The Whispering Ice

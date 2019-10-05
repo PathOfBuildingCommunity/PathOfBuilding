@@ -636,14 +636,16 @@ Nearby Allies gain 40% increased Mana Regeneration Rate
 Sidhebreath
 Paua Amulet
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.8.0
 Variant: Current
 (20-30)% increased Mana Regeneration Rate
 +25% to Cold Resistance
-0.2% of Physical Attack Damage Leeched as Mana
+{variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
 Minions have (10-15)% increased maximum Life
 Minions have (10-15)% increased Movement Speed
-Minions deal (10-15)% increased Damage
-{variant:2}(10-15)% reduced Mana Cost of Minion Skills
+{variant:3}Minions deal 6 to 13 additional Cold Damage
+{variant:1,2}Minions deal (10-15)% increased Damage
+{variant:2,3}(10-15)% reduced Mana Cost of Minion Skills
 ]],[[
 Solstice Vigil
 Onyx Amulet
@@ -660,15 +662,18 @@ Star of Wraeclast
 Ruby Amulet
 Source: Vendor recipe
 Variant: Pre 2.6.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 28
 +(20-30)% to Fire Resistance
+{variant:3}Grants Level 10 Frostblink Skill
 (30-50)% increased Cold Damage
 +(10-15)% to all Elemental Resistances
 {variant:1}30% increased Radius of Curse Skills
-{variant:2}60% increased Area of Effect of Curse Skills
-You are Immune to Silence
-Grants level 20 Illusory Warp Skill
+{variant:2,3}60% increased Area of Effect of Curse Skills
+You cannot be Cursed with Silence
+Frostblink has 50% increased Duration
+{variant:1,2}Grants level 20 Illusory Warp Skill
 Corrupted
 ]],[[
 Stone of Lazhwar
@@ -686,10 +691,12 @@ Requires Level 5
 ]],[[
 Tavukai
 Coral Amulet
+League: Legion
+Source: Drops from Karui Legion
 Requires Level 54
-(2-4) Life Regenerated per second
+(2.0-4.0) Life regenerated per second
 +(30-40) to Intelligence
-Minions have +(-17-17)% to Chaos Resistance
+Minions have (-17-17)% to Chaos Resistance
 Summon Raging Spirit has (20-30)% increased Duration
 Summoned Raging Spirits deal (60-80)% increased Damage
 Summoned Raging Spirits have (80-100)% increased maximum Life

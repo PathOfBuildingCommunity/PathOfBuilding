@@ -125,7 +125,7 @@ Requires Level 58
 +(40-50) to Dexterity
 (150-200)% increased Evasion and Energy Shield
 +(50-60) to maximum Life
-15% increased Damage with Ailments per Elder Item Equipped
++4% to Damage over Time Multiplier for Ailments per Elder Item Equipped
 +6 to Maximum Life per Elder Item Equipped
 8% increased Effect of non-Damaging Ailments per Elder Item Equipped
 Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
@@ -164,6 +164,24 @@ Requires Level 24, 17 Dex
 Reflects 10 Cold Damage to Melee Attackers
 Your Cold Damage can Ignite
 ]],[[
+Maligaro's Virtuosity
+Deerskin Gloves
+League: Legion
+Source: Drops from Eternal Legion
+Variant: Pre 1.1.0
+Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 21, 33 Dex
++(20-30) to Dexterity
+5% increased Attack Speed
+50% increased Global Critical Strike Chance
+{variant:1}+(40-50)% to Global Critical Strike Multiplier
+{variant:2}+(28-36)% to Global Critical Strike Multiplier
+{variant:3}+(20-30)% to Global Critical Strike Multiplier
+{variant:4}Your Critical Strike Multiplier is 300%
+(60-80)% increased Evasion Rating
+]],[[
 Oskarm
 Nubuck Gloves
 Requires Level 33
@@ -185,6 +203,25 @@ Grants level 22 Blight Skill
 10% increased Area of Effect of Area Skills
 Blight has (20-30)% increased Hinder Duration
 You cannot be Hindered
+]],[[
+Asenath's Gentle Touch
+Silk Gloves
+League: Legion
+Source: Drops from Maraketh Legion
+Variant: Pre 2.6.0
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 25, 39 Int
++(20-30) to Intelligence
+{variant:1,2}+(20-30) to maximum Life
+{variant:3}+(60-80) to maximum Life
+{variant:1,2}+(20-30) to maximum Mana
+{variant:3}+(60-80) to maximum Mana
+{variant:1}Curse Enemies with Temporal Chains on Hit
+{variant:2,3}Curse Enemies with level 10 Temporal Chains on Hit
+{variant:3}Non-Aura Curses you inflict are not removed from Dying Enemies
+{variant:3}Enemies near Corpses affected by your Curses are Blinded
+{variant:3}Enemies killed near Corpses affected by your Curses explode, dealing 3% of their Life as Physical Damage
 ]],[[
 Demon Stitcher
 Satin Gloves
@@ -520,6 +557,18 @@ Requires Level 43, 34 Str, 34 Int
 ]],
 -- Gloves: Evasion/Energy Shield
 [[
+Aukuna's Will
+Clasped Mitts
+League: Legion
+Source: Drops from Maraketh Legion
+Requires Level 31, 25 Dex 25 Int
++(30-40) to Dexterity
+(5-7)% increased Cast Speed
+(100-150)% increased Evasion and Energy Shield
+Raised Zombies have (80-100)% increased maximum Life
+Raise Zombie does not require a Corpse
+Your Raised Zombies count as Corpses
+]],[[
 Architect's Hand
 Strapped Mitts
 League: Incursion

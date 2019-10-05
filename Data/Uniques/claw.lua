@@ -33,6 +33,29 @@ Adds (15-20) to (30-40) Physical Damage
 {variant:1}You gain Phasing for 3 seconds on using a Vaal Skill
 {variant:2}You gain Phasing for 10 seconds on using a Vaal Skill
 ]],[[
+Al Dhih
+Timeworn Claw
+League: Legion
+Source: Drops from Maraketh Legion
+Variant: Pre 2.0.0
+Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 26, 39 Dex, 56 Int
+Implicits: 3
+{variant:1}+8 Life gained for each Enemy hit by Attacks
+{variant:2}2% of Physical Attack Damage Leeched as Life
+{variant:3,4,5}+19 Life gained for each Enemy hit by Attacks
+{variant:4}Trigger Level 1 Abyssal Cry on Hit
+{variant:1,2,3,4}Socketed Gems have 10% chance to cause Enemies to Flee on Hit
+{variant:1}(60-80)% increased Physical Damage
+{variant:2,3,4,5}(100-120)% increased Physical Damage
+3% of Physical Attack Damage Leeched as Life
+{variant:1,2,3,4}10% reduced Enemy Stun Threshold with this Weapon
+{variant:5}50% increased Warcry Buff Effect
+{variant:5}Warcry Skills' Cooldown Time is 2 seconds
+]],[[
 Bloodseeker
 Hellion's Paw
 Variant: {2_6}Pre 3.0.0

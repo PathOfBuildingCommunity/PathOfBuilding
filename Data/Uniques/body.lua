@@ -314,12 +314,14 @@ Phase Acrobatics
 The Queen's Hunger
 Vaal Regalia
 League: Betrayal
+Variant: Pre 3.8.0
+Variant: Current
 Energy Shield: (358-407)
 Movement Speed: -3%
 Requires Level 68, 194 Int
 Trigger Level 20 Bone Offering, Flesh Offering or Spirit Offering every 5 seconds
 Offering Skills Triggered this way also affect you
-Your Offerings have 25% reduced Effect on you
+{variant:1}Your Offerings have 25% reduced Effect on you
 (5-10)% increased Cast Speed
 (100-130)% increased Energy Shield
 (6-10)% increased maximum Life
@@ -608,16 +610,18 @@ Socketed Gems are Supported by level 5 Elemental Proliferation
 Vis Mortis
 Necromancer Silks
 Variant: Pre 2.6.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 59, 160 Int
 +(20-30) to maximum Mana
 {variant:1}(100-120)% increased Energy Shield
-{variant:2}(200-220)% increased Energy Shield
+{variant:2,3}(200-220)% increased Energy Shield
 Minions have 20% reduced Maximum Life
 Minions deal 15% increased Damage
-+1 to Maximum number of Spectres
+{variant:1,2}+1 to Maximum number of Spectres
 {variant:1}Minions gain Unholy Might for 5 seconds on Kill
 {variant:2}Minions gain Unholy Might for 10 seconds on Kill
+{variant:3}Minions gain (15-20)% of Elemental Damage as Extra Chaos Damage
 ]],[[
 Zahndethus' Cassock
 Sage's Robe
@@ -865,6 +869,19 @@ Adds (4–10) to (14–36) Physical Damage to Attacks
 (15–50)% increased Elemental Damage
 {variant:1}Your Maximum Resistances are (76–80)%
 {variant:2}Your Maximum Resistances are (76–78)%
+]],[[
+Voll's Protector
+Holy Chainmail
+League: Legion
+Source: Drops from Templar Legion
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 35, 53 Str, 53 Int
+{variant:1}60% increased Armour and Energy Shield
+{variant:2}(100-150)% increased Armour and Energy Shield
+50% reduced maximum Mana
+Gain a Power Charge for each Enemy you hit with a Critical Strike
+{variant:2}Inner Conviction
 ]],
 -- Body: Evasion/Energy Shield
 [[

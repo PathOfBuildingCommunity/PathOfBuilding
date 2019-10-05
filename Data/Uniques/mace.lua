@@ -124,6 +124,29 @@ Implicits: 2
 (30-50)% increased Stun Duration on Enemies
 30% increased Melee Damage against Bleeding Enemies
 ]],[[
+Lavianga's Wisdom
+War Hammer
+League: Legion
+Source: Drops from Karui Legion
+Variant: Pre 2.6.0
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 20, 71 Str
+Implicits: 2
+{variant:1}20% increased Stun Duration on Enemies
+{variant:2,3}10% reduced Enemy Stun Threshold
+{variant:3}(160-200)% increased Physical Damage
+{variant:1,2}+(10-20) to maximum Life
+{variant:1,2}+(10-20) to maximum Mana
+{variant:3}+70 to maximum Life
+{variant:3}+70 to maximum Mana
+{variant:1,2}(130-160)% increased Physical Damage
+5% reduced Movement Speed
+{variant:1,2}10% increased Area of Effect of Area Skills
+{variant:3}(15-25)% increased Area of Effect
+{variant:1,2}(10-15)% increased Area Damage
+{variant:3}(10-20)% increased Area Damage
+]],[[
 Mjölner
 Gavel
 Variant: Pre 2.0.0
@@ -392,6 +415,16 @@ Socketed Gems are Supported by level 10 Fire Penetration
 +(6-10) Life gained for each Enemy hit by Attacks
 25% increased Light Radius
 ]],[[
+Sign of the Sin Eater
+Tyrant's Sekhem
+League: Legion
+Source: Drops from Templar Legion
+Requires Level 58, 99 Str, 99 Int
+26% increased Elemental Damage
++(10-30) to Strength and Intelligence
+Grants Level 30 Smite Skill
+Enemies inflict Elemental Ailments on you instead of nearby Allies
+]],[[
 Singularity
 Platinum Sceptre
 Variant: Pre 2.3.0
@@ -587,6 +620,28 @@ Hits can't be Evaded
 Your Critical Strikes do not deal extra Damage
 {variant:1,2}You gain Onslaught for 2 seconds on Critical Strike
 {variant:3}You gain Onslaught for 4 seconds on Critical Strike
+]],[[
+Marohi Erqi
+Karui Maul
+League: Legion
+Source: Drops from Legion Legion
+Variant: Pre 2.6.0
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 57, 182 Str
+Implicits: 2
+{variant:1}20% increased Stun Duration on Enemies
+{variant:2,3}30% increased Stun Duration on Enemies
+{variant:1,2}Socketed Gems are Supported by level 15 Increased Area of Effect
+{variant:3}Socketed Gems are Supported by level 15 Pulverise
+{variant:1,2}(220-250)% increased Physical Damage
+{variant:3}(230-260)% increased Physical Damage
+{variant:1,2}Adds 10 to 20 Physical Damage
+{variant:3}Adds 30 to 40 Physical Damage
+10% reduced Attack Speed
+-100 to Accuracy Rating
+10% reduced Movement Speed
+(40-50)% increased Stun Duration on Enemies
 ]],[[
 Quecholli
 Jagged Maul

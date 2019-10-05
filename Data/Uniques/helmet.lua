@@ -399,6 +399,17 @@ Raging Spirits have (130–150)% increased Damage
 Raging Spirits' Hits always Ignite
 Raging Spirits refresh their Duration when they Kill an Ignited Enemy
 ]],[[
+Maw of Conquest
+Steel Circlet
+League: Legion
+Source: Drops from Maraketh Legion
+Requires Level 48, 101 Int
+(60-80)% increased Critical Strike Chance for Spells
+(200-250)% increased Energy Shield
++(50-70) to maximum Life
+Unaffected by Poison
+(10-20)% of Damage taken gained a Life over 4 seconds when Hit
+]],[[
 Rime Gaze
 Mind Cage
 Variant: Pre 2.6.0
@@ -441,6 +452,17 @@ Requires Level: 34
 (120–150)% increased Energy Shield
 Minions Regenerate 1% Life per second
 +1000 to Spectre maximum Life
+]],[[
+Wreath of Phrecia
+Iron Circlet
+League: Legion
+Source: Drops from Eternal Legion
+Requires Level 8
+Has no Attribute Requirements
+Increases and Reductions to Light Radius also apply to Area of Effect at 50% of their value
+Increases and Reductions to Light Radius also apply to Damage
+(15-25)% increased Light Radius
+Deal no Chaos Damage
 ]],[[
 Ylfeban's Trickery
 Hubris Circlet
@@ -654,6 +676,24 @@ Requires Level 62
 +1 to maximum number of Summoned Holy Relics
 Summoned Holy Relics have (20–25)% reduced Cooldown Recovery Speed
 ]],[[
+Honourhome
+Soldier Helmet
+League: Legion
+Source: Drops from Eternal Legion
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 12, 16 Str, 16 Int
+{variant:2}+(1-2) to Level of Socketed Gems
+{variant:1}Adds 1 to 13 Lightning Damage to Attacks
+{variant:2}Adds 1 to 13 Lightning Damage to Spells and Attacks
+{variant:1}(40-50)% increased Armour and Energy Shield
+{variant:2}(100-150)% increased Armour and Energy Shield
+{variant:1}+(10-20)% to all Elemental Resistances
+{variant:1}+20% to all Elemental Resistances while on Low Life
+{variant:1}20% reduced Mana Cost of Skills when on Low Life
+{variant:2}(10-20)% increased Rarity of Items found
+{variant:2}(10-20)% reduced Mana Cost of Skills
+]],[[
 Kitava's Thirst
 Zealot Helmet
 Requires Level 44, 50 Str, 50 Int
@@ -805,10 +845,10 @@ Curtain Call
 Plague Mask
 Requires Level 20
 +23 to maximum Life
-(10–15)% reduced Mine Laying Speed
-(40–50)% increased Mine Arming Speed
-Skills which Place Mines place up to 1 additional Mine if you have at least 500 Dexterity
-Skills which Place Mines place up to 1 additional Mine if you have at least 500 Intelligence
+(15-10)% reduced Mine Throwing Speed
+Mines have (40-50)% increased Detonation Speed
+Skills which Place Mines place up to 1 additional Mine if you have at least 800 Dexterity
+Skills which Place Mines place up to 1 additional Mine if you have at least 800 Intelligence
 ]],[[
 Farrul's Bite
 Harlequin Mask
@@ -821,6 +861,16 @@ Grants Level 20 Aspect of the Cat Skill
 +1% to Critical Strike Chance while affected by Aspect of the Cat
 Critical Strikes have (10–20)% chance to Blind Enemies while you have Cat's Stealth
 (40–50)% increased Damage with Hits and Ailments against Blinded Enemies
+]],[[
+Fractal Thoughts
+Vaal Mask
+League: Legion
+Requires Level: 62, 79 Dex, 72 Int
+(140–180)% increased Evasion and Energy Shield
++(25–40)% to Critical Strike Multiplier if Dexterity is higher than Intelligence
+15% increased Dexterity if Strength is higher than Intelligence
+1% increased Elemental Damage per 10 Dexterity
++2 to Maximum Life per 10 Intelligence
 ]],[[
 Gorgon's Gaze
 Regicide Mask

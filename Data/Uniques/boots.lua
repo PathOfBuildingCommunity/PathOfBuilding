@@ -284,8 +284,8 @@ Requires Level 22, 42 Int
 +20 to maximum Mana
 (40-60)% increased Energy Shield
 (5-15)% increased Movement Speed
-+1 to Maximum number of Zombies
-+1 to Maximum number of Spectres
++1 to Level of all Raise Zombie Gems
++1 to Level of all Raise Spectre Gems
 ]],[[
 Doryani's Delusion
 Sorcerer Boots
@@ -490,6 +490,22 @@ Socketed Gems are Supported by Level 15 Added Chaos Damage
 50% increased Stun and Block Recovery
 20% reduced Light Radius
 +50% to Chaos Resistance during any Flask Effect
+]],[[
+Lioneye's Paws
+Bronzescale Boots
+League: Legion
+Source: Drops from Eternal Legion
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 30, 30 Str, 30 Dex
+{variant:2}Trigger Level 5 Rain of Arrows when you Attack with a Bow
++(40-60) to Strength
++(40-60) to Dexterity
+Adds 12 to 24 Fire Damage to Attacks
+20% increased Movement Speed
+40% reduced Movement Speed when on Low Life
+{variant:1}20% increased Stun Recovery
+{variant:1}Cannot be Stunned when on Low Life
 ]],[[
 Mutewind Whispersteps
 Serpentscale Boots

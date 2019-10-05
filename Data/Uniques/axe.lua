@@ -188,6 +188,21 @@ Adds (7-12) to (16-25) Physical Damage
 1% of Physical Attack Damage Leeched as Life
 Attacks have Blood Magic
 ]],[[
+Kaom's Primacy
+Karui Chopper
+League: Legion
+Source: Drops from Karui Legion
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 58, 151 Str, 43 Dex
+(160-220)% increased Physical Damage
++20 Life gained on Kill
+{variant:1}Adds (16-21) to (32-38) Fire Damage
++(150-250) to Accuracy Rating
+Culling Strike
+{variant:2}Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds
+{variant:2}Gain 1% of Physical Damage as Extra Fire Damage per 1 Rage
+]],[[
 Kingmaker
 Despot Axe
 Source: Vendor recipe

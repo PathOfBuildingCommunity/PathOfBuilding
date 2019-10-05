@@ -62,6 +62,23 @@ Requires Level 53, 58 Dex, 123 Int
 {variant:1,2}Your Chaos Damage Poisons Enemies
 {variant:3}Your Chaos Damage has 60% chance to Poison Enemies
 ]],[[
+Divinarius
+Imperial Skean
+League: Legion
+Source: Drops from Templar Legion
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 66, 95 Dex, 131 Int
+30% increased Global Critical Strike Chance
+(50-70)% increased Spell Damage
+{variant:1}+10 Life gained on Kill
+{variant:2}+30 Life gained on Kill
+{variant:1}+5 Mana gained on Kill
+{variant:2}+10 Mana gained on Kill
+10% increased Area of Effect of Area Skills
+{variant:2}(125-175)% increased Critical Strike Chance for Spells if you've Killed Recently
+{variant:2}+(40-60)% to Critical Strike Multiplier for Spells if you haven't Killed Recently
+]],[[
 Goredrill
 Skinning Knife
 Upgrade: Upgrades to unique{Sanguine Gambol} via prophecy{Crimson Hues}
