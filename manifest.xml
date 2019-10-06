@@ -12,7 +12,7 @@
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
 	<File name="UpdateApply.lua" part="program" sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" />
 	<File name="GameVersions.lua" part="program" sha1="4be21620b1c7149c7dca35c883bd8b7dd2c5eea9" />
-	<File name="changelog.txt" part="program" sha1="9745800199d0d3ad515ba5ba983cb65bfaf5e19b" />
+	<File name="changelog.txt" part="program" sha1="d04cf86dc9b57a58143cf4f8f670f0a1c8c4df59" />
 	<File name="Classes/BuildListControl.lua" part="program" sha1="b093a2709f30c1f83ce5ba9df88c80f22c1beb4a" />
 	<File name="Classes/ButtonControl.lua" part="program" sha1="16fc5eaa04cc14b2022f6705a12717935454dab0" />
 	<File name="Classes/CalcBreakdownControl.lua" part="program" sha1="7bc27fdc1e178e5d6932996f8d10da89552d0986" />
