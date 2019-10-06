@@ -249,7 +249,7 @@ local function doActorMisc(env, actor)
 	output.PowerChargesMin = modDB:Sum("BASE", nil, "PowerChargesMin")
 	output.PowerChargesMax = modDB:Sum("BASE", nil, "PowerChargesMax")
 	output.FrenzyChargesMin = modDB:Sum("BASE", nil, "FrenzyChargesMin")
-	output.FrenzyChargesMax = modDB:Sum("BASE", nil, "FrenzyChargesMax")
+	output.FrenzyChargesMax = modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "FrenzyChargesMax")
 	output.EnduranceChargesMin = modDB:Sum("BASE", nil, "EnduranceChargesMin")
 	output.EnduranceChargesMax = modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or modDB:Sum("BASE", nil, "EnduranceChargesMax")
 	output.SiphoningChargesMax = modDB:Sum("BASE", nil, "SiphoningChargesMax")
@@ -367,6 +367,11 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Freeze") then
 			local effect = m_max(m_floor(70 * calcLib.mod(modDB, nil, "SelfChillEffect")), 0)
 			modDB:NewMod("ActionSpeed", "INC", -effect, "Freeze")
+		end
+		if modDB:Flag(nil, "CanLeechLifeOnFullLife") then
+			condList["Leeching"] = true
+			condList["LeechingLife"] = true
+			env.configInput.conditionLeeching = true
 		end
 	end	
 end

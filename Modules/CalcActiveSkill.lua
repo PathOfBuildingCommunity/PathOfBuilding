@@ -160,6 +160,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	local skillFlags = activeSkill.skillFlags
 	local activeEffect = activeSkill.activeEffect
 	local activeGrantedEffect = activeEffect.grantedEffect
+	local effectiveRange = 0
 
 	-- Set mode flags
 	if env.mode_buffs then
@@ -332,6 +333,13 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 	end
 
+	-- Calculate Distance for meleeDistance or projectileDistance (for melee proximity, e.g. Impact)
+	if skillFlags.melee then
+		effectiveRange = env.configInput.meleeDistance
+	else
+		effectiveRange = env.configInput.projectileDistance
+	end
+	
 	-- Build config structure for modifier searches
 	activeSkill.skillCfg = {
 		flags = bor(skillModFlags, activeSkill.weapon1Flags or activeSkill.weapon2Flags or 0),
@@ -343,7 +351,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		skillPart = activeSkill.skillPart,
 		skillTypes = activeSkill.skillTypes,
 		skillCond = { },
-		skillDist = env.mode_effective and env.configInput.projectileDistance,
+		skillDist = env.mode_effective and effectiveRange,
 		slotName = activeSkill.slotName,
 	}
 	if skillFlags.weapon1Attack then
