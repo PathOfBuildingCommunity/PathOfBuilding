@@ -351,6 +351,7 @@ local modNameList = {
 	["fortify duration"] = "FortifyDuration",
 	["effect of fortify on you"] = "FortifyEffectOnSelf",
 	["effect of tailwind on you"] = "TailwindEffectOnSelf",
+	["effect of elusive on you"] = "ElusiveEffect",
 	-- Basic damage types
 	["damage"] = "Damage",
 	["physical damage"] = "PhysicalDamage",
@@ -547,6 +548,7 @@ local modFlagList = {
 	["vaal skill"] = { keywordFlags = KeywordFlag.Vaal },
 	["with movement skills"] = { keywordFlags = KeywordFlag.Movement },
 	["of movement skills"] = { keywordFlags = KeywordFlag.Movement },
+	["of travel skills"] = { keywordFlags = KeywordFlag.Travel },
 	["with lightning skills"] = { keywordFlags = KeywordFlag.Lightning },
 	["with cold skills"] = { keywordFlags = KeywordFlag.Cold },
 	["with fire skills"] = { keywordFlags = KeywordFlag.Fire },
@@ -625,6 +627,7 @@ local preFlagList = {
 	["^projectiles [hdf][aei][var][el] "] = { flags = ModFlag.Projectile },
 	["^melee attacks have "] = { flags = ModFlag.Melee },
 	["^movement attack skills have "] = { flags = ModFlag.Attack, keywordFlags = KeywordFlag.Movement },
+	["^travel skills have "] = { keywordFlags = KeywordFlag.Travel },
 	["^trap and mine damage "] = { keywordFlags = bor(KeywordFlag.Trap, KeywordFlag.Mine) },
 	["^skills used by traps [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Trap },
 	["^skills used by mines [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Mine },
@@ -1052,8 +1055,16 @@ local specialModList = {
 	["grants (%d+) passive skill points?"] = function(num) return { mod("ExtraPoints", "BASE", num) } end,
 	["can allocate passives from the %a+'s starting point"] = { },
 	["projectiles gain damage as they travel further, dealing up to (%d+)%% increased damage with hits to targets"] = function(num) return { mod("Damage", "INC", num, nil, bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{35,0},{70,1}} }) } end,
+	["10% chance to gain Elusive on Kill"] = {
+		flag("Condition:CanBeElusive"),
+		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanBeElusive" }) -- Make the Configuration option appear
+	},
 	-- Assassin
 	["poison you inflict with critical strikes deals (%d+)%% more damage"] = function(num) return { mod("Damage", "MORE", num, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "CriticalStrike" }) } end,
+	["50% chance to gain Elusive on Critical Strike"] = {
+		flag("Condition:CanBeElusive"),
+		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanBeElusive" }) -- Make the Configuration option appear
+	},
 	-- Berserker
 	["gain %d+ rage when you kill an enemy"] = {
 		flag("Condition:CanGainRage"),
@@ -1130,6 +1141,11 @@ local specialModList = {
 	["enemies maimed by you take (%d+)%% increased physical damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("PhysicalDamageTaken", "INC", num, { type = "Condition", var = "Maimed" }) }) } end,
 	["chance to block spell damage is equal to chance to block attack damage"] = { flag("SpellBlockChanceIsBlockChance") },
 	["maximum chance to block spell damage is equal to maximum chance to block attack damage"] = { flag("SpellBlockChanceMaxIsBlockChanceMax") },
+	["Your Counterattacks deal Double Damage"] = {
+		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Reckoning" }),
+		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Riposte" }),
+		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Vengeance" }),
+	},
 	-- Guardian
 	["grants armour equal to (%d+)%% of your reserved life to you and nearby allies"] = function(num) return { mod("GrantReservedLifeAsAura", "LIST", { mod = mod("Armour", "BASE", num / 100) }) } end,
 	["grants maximum energy shield equal to (%d+)%% of your reserved mana to you and nearby allies"] = function(num) return { mod("GrantReservedManaAsAura", "LIST", { mod = mod("EnergyShield", "BASE", num / 100) }) } end,
@@ -1180,6 +1196,7 @@ local specialModList = {
 	["you have onslaught while at maximum endurance charges"] = { flag("Condition:Onslaught", { type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" }) },
 	-- Sabotuer
 	-- Slayer
+	["deal up to 15%% more melee damage to enemies, based on proximity"] = function(num) return { mod("Damage", "MORE", num, nil, bor(ModFlag.Attack, ModFlag.Melee), { type = "MeleeProximity", ramp = {15,0} }) } end,
 	-- Trickster
 	["(%d+)%% chance to gain (%d+)%% of non%-chaos damage with hits as extra chaos damage"] = function(num, _, perc) return { mod("NonChaosDamageGainAsChaos", "BASE", num / 100 * tonumber(perc)) } end,
 	["movement skills cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Movement) },
@@ -1402,6 +1419,7 @@ local specialModList = {
 		mod("ElementalDamageTaken", "MORE", -20, { type = "Condition", var = "Divinity" }),
 	},
 	["your maximum endurance charges is equal to your maximum frenzy charges"] = { flag("MaximumEnduranceChargesIsMaximumFrenzyCharges") },
+	["your maximum frenzy charges is equal to your maximum power charges"] = { flag("MaximumFrenzyChargesIsMaximumPowerCharges") },
 	["consecrated ground you create while affected by zealotry causes enemies to take (%d+)%% increased damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "OnConsecratedGround" }, { type = "Condition", var = "AffectedByZealotry" }) } end,
 	-- Traps, Mines and Totems
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,

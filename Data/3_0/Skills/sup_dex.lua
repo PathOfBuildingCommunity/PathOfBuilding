@@ -655,11 +655,6 @@ skills["SupportSlashingWeapon"] = {
 	excludeSkillTypes = { SkillType.CreatesMinion, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["support_slashing_damage_+%_final_from_distance"] = {
-			mod("Damage", "MORE", nil, bit.bor(ModFlag.Melee, ModFlag.Attack)),
-		},
-	},
 	baseMods = {
 	},
 	qualityStats = {

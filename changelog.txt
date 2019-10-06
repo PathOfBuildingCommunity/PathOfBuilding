@@ -1,4 +1,12 @@
-VERSION[1.4.151.2][2019/10/05]
+VERSION[1.4.151.3][2019/10/06]
+ * Implemented logic for melee distance scaling attack multipliers (Close combat and Slayers Impact node)
+ * Add counterattack double damage bonus from Gladiators Painforged node
+ * Implement parsing for all of Slayer's nodes
+ * Add support for Assassins Mistwalker node and Ascendants  node for Assassin
+ * Add support for travel skills cooldown recovery
+ * Add Badge of Brotherhood mod parsing
+ * Add incremental shock values instead of the default locked value of 50%
+VERSION[1.4.151.2][1.4.151.2][2019/10/05]
  * Added a display for current Elusive effect in the Calcs tab, under Movement Speed in Other Defences, which only shows up while Elusive.
  * Much better support for Nightblade Support. Now gives Crit Multi and Base Crit Chance to attacks while using Claws or Daggers.
  * Tweaked how I implemented Elusive Effect on gems. Now is implemented specifically for Claws/Daggers on Nightblade, and is added as a global Skill Mod for Withering Step and any future gems which give the stat.
