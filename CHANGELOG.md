@@ -1,3 +1,8 @@
+### 1.4.151.4 - 2019/10/08
+ * Readded +1 to socketed gems mod on daggers
+ * Add parsing for max chaos resistance
+ * Cobat focus now works properly with Elemental Hit and Wild Strike
+
 ### 1.4.151.3 - 2019/10/06
  * Implemented logic for melee distance scaling attack multipliers (Close combat and Slayers Impact node)
  * Add counterattack double damage bonus from Gladiators Painforged node

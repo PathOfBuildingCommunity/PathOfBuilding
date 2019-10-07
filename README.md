@@ -1,4 +1,24 @@
-# Path of Building
+# Path of Building fork by LocalIdentity
+
+This is a fork of Openarls Path Of Building that includes many extra features not in the base version of PoB
+* Adds updated Uniques from 3.8 changes
+* Pantheon support
+* Partial Impale support
+* More tree highlighting options for node power
+* Support for fossil mods in the crafting window. Including correct parsing for some mods that previously didn't work (e.g. 60% chance to deal 100% more poison/bleed damage)
+* Add parsing for some more nodes on the tree
+* Add oil combinations to notables on tree
+* Support for elusive and nightblade support gem
+* Incremental shock values (not a locked 50%)
+* Fixed close combat and multistrike to have their correct damage values
+* Logic for melee distance scaling attack multipliers (Close combat and Slayers Impact node)
+
+## Download
+Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) page to download the installer.
+Then head [here](https://github.com/LocalIdentity/PathOfBuilding/wiki/Installing-this-Fork/_edit) to see the install instructions for this fork
+
+## Changelog
+You can find the full version history [here](CHANGELOG.md).
 
 Welcome to Path of Building, an offline build planner for Path of Exile!
 ## Features
@@ -40,17 +60,8 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
   * Share builds with other users by generating a share code
   * Automatic updating; most updates will only take a couple of seconds to apply
   * Somewhat more open source than usual (look in %ProgramData%\Path of Building if you're interested)
-  
-## Download
-Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) page to download the installer.
-
-## Donate
-If you'd like to help support the development of Path of Building, I have a [Patreon page](https://www.patreon.com/openarl).
 
 ## Screenshots
 ![ss1](https://cloud.githubusercontent.com/assets/19189971/18089779/f0fe23fa-6f04-11e6-8ed7-ff7d5b9f867a.png)
 ![ss2](https://cloud.githubusercontent.com/assets/19189971/18089778/f0f923f0-6f04-11e6-89c2-b2c1410d3583.png)
 ![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
-
-## Changelog
-You can find the full version history [here](CHANGELOG.md).
