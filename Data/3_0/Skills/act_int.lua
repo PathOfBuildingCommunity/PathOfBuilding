@@ -7758,10 +7758,12 @@ skills["Wither"] = {
 			div = 1000,
 		},
 		["chaos_damage_taken_+%"] = {
-			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered" }),
+			flag("Condition:CanWither"),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanWither" }),
+			mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheredStackCount", effectStackLimit = 15 }),
 		},
 		["base_movement_velocity_+%"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered" }),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Wither" }),
 		},
 	},
 	baseFlags = {

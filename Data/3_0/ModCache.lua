@@ -70,7 +70,6 @@ c["40% increased Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",t
 c["16% increased Attack Physical Damage"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamage",type="INC",value=16}},nil}
 c["0.6% of Physical Attack Damage Leeched as Life"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamageLifeLeech",type="BASE",value=0.6}},nil}
 c["Reflects 260 Physical Damage to Melee Attackers"]={{},nil}
-c["+20% to Non-Ailment Chaos Damage over Time Multiplier Every second, inflict Withered on nearby Enemies for 15 seconds Nearby Hindered Enemies deal 15% reduced Damage over Time"]={{[1]={flags=0,keywordFlags=0,name="ChaosDotMultiplier",type="BASE",value=20}}," Non-Ailment  Every second, inflict Withered on nearby Enemies for 15 seconds Nearby Hindered Enemies deal 15% reduced Damage over Time "}
 c["200 Energy Shield Regenerated per Second while on Consecrated Ground"]={{[1]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="EnergyShieldRegen",type="BASE",value=200}},nil}
 c["Minions deal 15% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=15}}}},nil}
 c["Energy Shield Recharge is not interrupted by Damage if Recharge began Recently"]={nil,"Energy Shield Recharge is not interrupted by Damage if Recharge began Recently "}
@@ -2955,7 +2954,6 @@ c["14% increased Damage with Ailments from Attack Skills while wielding a Mace"]
 c["26% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=26}},nil}
 c["+18 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",value=18}},nil}
 c["+2 to maximum number of Spectres"]={{[1]={flags=0,keywordFlags=0,name="ActiveSpectreLimit",type="BASE",value=2}},nil}
-c["Every second, inflict Withered on nearby Enemies for 15 seconds Nearby Hindered Enemies deal 15% reduced Damage over Time"]={nil,"Every second, inflict Withered on nearby Enemies for 15 seconds Nearby Hindered Enemies deal 15% reduced Damage over Time "}
 c["15% increased Damage with Ailments from Attack Skills while wielding a One Handed Weapon"]={{[1]={[1]={type="Condition",var="UsingOneHandedWeapon"},flags=2048,keywordFlags=65536,name="Damage",type="INC",value=15}},nil}
 c["15% reduced maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=-15}},nil}
 c["12% chance to deal Double Damage"]={{[1]={flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=12}},nil}
@@ -4696,7 +4694,6 @@ c["10% increased Strength"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC",
 c["10% faster start of Energy Shield Recharge"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRechargeFaster",type="INC",value=10}},nil}
 c["When you place a Banner, you and nearby Allies recover 0.5% of Life for each Stage the Banner has"]={nil,"When you place a Banner, you and nearby Allies recover 0.5% of Life for each Stage the Banner has "}
 c["3% reduced Damage taken per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and recover Energy Shield equal to 5% of your Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-3}},"  per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and recover Energy Shield equal to 5% of your Evasion Rating "}
-c["+20% to Non-Ailment Chaos Damage over Time Multiplier Every second, inflict Withered on nearby Enemies for 15 seconds"]={{[1]={flags=0,keywordFlags=0,name="ChaosDotMultiplier",type="BASE",value=20}}," Non-Ailment  Every second, inflict Withered on nearby Enemies for 15 seconds "}
 c["Adds 23 to 35 Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdMin",type="BASE",value=23},[2]={flags=0,keywordFlags=0,name="ColdMax",type="BASE",value=35}},nil}
 c["Adds 27 to 38 Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="FireMin",type="BASE",value=27},[2]={flags=0,keywordFlags=0,name="FireMax",type="BASE",value=38}},nil}
 c["50% of Lightning Damage Converted to Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamageConvertToCold",type="BASE",value=50}},nil}
@@ -7076,7 +7073,7 @@ c["Minions have +10% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=
 c["When you create a Banner, it gains 40% of the Stages of your placed Banner"]={nil,"When you create a Banner, it gains 40% of the Stages of your placed Banner "}
 c["Socketed Gems are Supported by level 11 Trap"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=11,skillId="SupportTrap"}}},nil}
 c["+20 to Dexterity"]={{[1]={flags=0,keywordFlags=0,name="Dex",type="BASE",value=20}},nil}
-c["Every second, inflict Withered on nearby Enemies for 15 seconds"]={nil,"Every second, inflict Withered on nearby Enemies for 15 seconds "}
+c["Every second, inflict Withered on nearby Enemies for 15 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanWither",type="FLAG",value=true},[2]={[1]={type="Condition",var="CanWither"},flags=0,keywordFlags=0,name="Dummy",type="DUMMY",value=1}},nil}
 c["Bathed in the blood of 8000 sacrificed in the name of Doryani"]={nil,"Bathed in the blood of 8000 sacrificed in the name of Doryani "}
 c["10% increased Totem Damage"]={{[1]={flags=0,keywordFlags=16384,name="Damage",type="INC",value=10}},nil}
 c["40% chance to cause Bleeding on Melee Hit"]={{[1]={flags=256,keywordFlags=0,name="BleedChance",type="BASE",value=40}},nil}

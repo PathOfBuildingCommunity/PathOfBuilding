@@ -2074,8 +2074,8 @@ function calcs.offence(env, actor, activeSkill)
 		if canDeal.Physical and output.ImpaleChance > 0 then
             skillFlags.impale = true
             local impaleChance = m_min(output.ImpaleChance/100, 1)
-            local maxStacks = 5 + skillModList:Sum("BASE", cfg, "ImpaleStacksMax") -- magic number: base stacks duration
-            local configStacks = enemyDB:Sum("BASE", nil, "Multiplier:ImpaleStack")
+            local maxStacks = skillModList:Sum("BASE", cfg, "ImpaleStacksMax") -- magic number: base stacks duration
+            local configStacks = enemyDB:Sum("BASE", nil, "Multiplier:ImpaleStacks")
             local impaleStacks = configStacks > 0 and m_min(configStacks, maxStacks) or  maxStacks
 
             local baseStoredDamage = 0.1 -- magic number: base impale stored damage
@@ -2098,7 +2098,7 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.ImpaleStoredDamage, s_format("= %.1f%%", output.ImpaleStoredDamage))
 
 				breakdown.ImpaleModifier = {}
-				t_insert(breakdown.ImpaleModifier, s_format("%d ^8(numer of stacks, can be overridden in the Configuration tab)", impaleStacks))
+				t_insert(breakdown.ImpaleModifier, s_format("%d ^8(number of stacks, can be overridden in the Configuration tab)", impaleStacks))
 				t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
 				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
 				t_insert(breakdown.ImpaleModifier, s_format("= %.3f", impaleDMGModifier))

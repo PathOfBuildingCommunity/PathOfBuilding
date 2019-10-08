@@ -538,8 +538,8 @@ return {
 { 1, "Impale", 1, "Impale", colorCodes.OFFENCE, {
     flag = "impale",
 	extra = "{0:output:ImpaleChance}%",
-	{ label = "Impale hits duration", { format = "{0:output:ImpaleStacksMax}", }},
-	{ label = "Impale stacks", { format = "{0:output:ImpaleStacks}" }},
+	{ label = "Max Impale Stacks", { format = "{0:output:ImpaleStacksMax}", { modName = "ImpaleStacksMax" } }, },
+	{ label = "Stacks on Enemy", { format = "{0:output:ImpaleStacks}" }},
 	{ label = "MH Impale Chance", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", haveOutput = "MainHand.ImpaleChance", { format = "{0:output:MainHand.ImpaleChance}%",
 		{ flag = "weapon1Attack", modName = "ImpaleChance", modType = "BASE", cfg = "weapon1" },
 	}, },

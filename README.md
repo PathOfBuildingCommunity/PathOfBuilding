@@ -12,6 +12,12 @@ This is a fork of Openarls Path Of Building that includes many extra features no
 * Incremental shock values (not a locked 50%)
 * Fixed close combat and multistrike to have their correct damage values
 * Logic for melee distance scaling attack multipliers (Close combat and Slayers Impact node)
+* Added Vermillion ring base
+* Withered now shows on the configuration screen
+
+## Feature Requests
+[![Feature Requests](https://feathub.com/LocalIdentity/PathOfBuilding?format=svg)](https://feathub.com/LocalIdentity/PathOfBuilding)
+
 
 ## Download
 Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) page to download the installer.

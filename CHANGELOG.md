@@ -1,7 +1,14 @@
 ### 1.4.151.4 - 2019/10/08
+ * Withered debuff now appears on the config page
+ * Ignite DPS for node power now works
+ * Fixed some of the wording for impale
+ * Added Impale chance and damage multiplier to the side bar so it will now show the differences when choosing impale gems or impale nodes on the tree
+ * Added a feature requests section to the README.md file
+
+### 1.4.151.4 - 2019/10/08
  * Readded +1 to socketed gems mod on daggers
  * Add parsing for max chaos resistance
- * Cobat focus now works properly with Elemental Hit and Wild Strike
+ * Combat focus now works properly with Elemental Hit and Wild Strike
 
 ### 1.4.151.3 - 2019/10/06
  * Implemented logic for melee distance scaling attack multipliers (Close combat and Slayers Impact node)
@@ -13,10 +20,11 @@
  * Add incremental shock values instead of the default locked value of 50%
  
 ### 1.4.151.2 - 2019/10/05
- * Added a display for current Elusive effect in the Calcs tab, under Movement Speed in Other Defences, which only shows up while Elusive.
- * Much better support for Nightblade Support. Now gives Crit Multi and Base Crit Chance to attacks while using Claws or Daggers.
- * Tweaked how I implemented Elusive Effect on gems. Now is implemented specifically for Claws/Daggers on Nightblade, and is added as a global Skill Mod for Withering Step and any future gems which give the stat.
- * Are you Elusive? button works and shows up more consistently.
+ * Added a display for current Elusive effect in the Calcs tab, which only shows up while Elusive.
+ * Nightblade Support now gives Crit Multi and Base Crit Chance to attacks while using Claws or Daggers.
+ * Elusive is implemented specifically for Claws/Daggers on Nightblade, and is added as a global Skill Mod 
+   for Withering Step and any future gems which give the stat.
+ * Added Vermillion ring base
 
 ### 1.4.151.1 - 2019/10/05
  * Updates uniques with 3.8 Changes

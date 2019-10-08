@@ -178,10 +178,6 @@ return {
 	{ var = "winterOrbStages", type = "count", label = "Stages:", ifSkill = "Winter Orb", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:WinterOrbStage", "BASE", val, "Config", { type = "SkillName", skillName = "Winter Orb" })
 	end },
-	{ label = "Withering Touch:", ifSkill = "Withering Touch" },
-	{ var = "witheringTouchWitheredStackCount", type = "count", label = "# of Withered Stacks:", ifSkill = "Withering Touch", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:WitheringTouchWitheredStackCount", "BASE", val, "Config")
-	end },
 
 	-- Section: Map modifiers/curses
 	{ section = "Map Modifiers and Player Debuffs", col = 2 },
@@ -679,11 +675,11 @@ return {
 	{ var = "conditionBlockedHitFromUniqueEnemyInPast10Sec", type = "check", ifVer = "3_0", label = "Blocked hit from a Unique in the past 10s?", ifNode = 63490, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BlockedHitFromUniqueEnemyInPast10Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionImpaledRecently", type = "check", ifVer="3_0", label = "Impaled an Enemy recently?", apply = function(val, modList, enemyModLIst)
+	{ var = "conditionImpaledRecently", type = "check", ifVer="3_0", ifCond = "ImpaledRecently", label = "Impaled an Enemy recently?", apply = function(val, modList, enemyModLIst)
 		modList:NewMod("Condition:ImpaledRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierImpalesOnEnemy", type = "count", label = "# of Impales on Enemy (if not maximum):", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("Multiplier:ImpaleStack", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	{ var = "multiplierImpalesOnEnemy", type = "count", label = "# of Impales on Enemy (if not maximum):", ifFlag = "impale", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Multiplier:ImpaleStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 
 	-- Section: Effective DPS options
@@ -719,6 +715,9 @@ return {
 	end },
 	{ var = "multiplierPoisonOnEnemy", type = "count", label = "# of Poison on Enemy:", implyCond = "Poisoned", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:PoisonStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "multiplierWitheredStackCount", type = "count", label = "# of Withered Stacks:", ifCond = "CanWither", tooltip = "Withered applies 6% increased Chaos Damage Taken to the enemy, up to 15 stacks.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:WitheredStackCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyMaimed", type = "check", label = "Is the enemy Maimed?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Maimed", "FLAG", true, "Config", { type = "Condition", var = "Effective" })

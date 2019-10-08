@@ -302,6 +302,9 @@ function calcs.buildOutput(build, mode)
 		for name in pairs(env.buffs) do
 			t_insert(buffList, name)
 		end
+		if env.modDB:Flag(nil, "Elusive") then
+			t_insert(combatList, "Elusive")
+		end
 		table.sort(buffList)
 		env.player.breakdown.SkillBuffs = { modList = { } }
 		for _, name in ipairs(buffList) do
