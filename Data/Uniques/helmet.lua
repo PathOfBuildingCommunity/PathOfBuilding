@@ -782,7 +782,7 @@ Requires Level 68
 +(130–160) to maximum Energy Shield
 +(150–200) to maximum Mana
 (30–40)% increased Mana Regeneration Rate
-+(20–25)% to Fire Resistance
++(20–30)% to Fire Resistance
 10% increased Mana Reserved
 Gain Armour equal to your Reserved Mana
 ]],[[
