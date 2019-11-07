@@ -257,6 +257,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "WithPoisonAverageDamage", label = "Average Dmg. inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", condFunc = function(v,o) return v ~= o.AverageDamage end },
 		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
 		{ stat = "ImpaleChance", label = "Impale Chance", fmt = ".0f%%", compPercent = true, flag = "impale" },
+		{ stat = "ImpaleStoredDamage", label = "Impale Effect", fmt = ".0f%%", compPercent = true, flag = "impale" },
+		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale" },
 		{ stat = "ImpaleModifier", label = "Impale Damage Multiplier", fmt = ".2f", compPercent = true, flag = "impale" },
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
