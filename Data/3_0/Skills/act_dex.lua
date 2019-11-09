@@ -1258,7 +1258,7 @@ skills["CobraLash"] = {
 	baseEffectiveness = 1,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Fires a poisonous projectile based on your weapon that will chain between enemies. Requires a Dagger or Claw.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.ChaosSkill] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.ChaosSkill] = true, },
 	weaponTypes = {
 		["Dagger"] = true,
 		["Claw"] = true,
@@ -2748,7 +2748,7 @@ skills["FlickerStrike"] = {
 		["flicker_strike_buff_movement_speed_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -5828,6 +5828,7 @@ skills["SmokeMine"] = {
 		"disable_mine_detonation_cascade",
 		"mine_detonates_instantly",
 		"additive_mine_duration_modifiers_apply_to_buff_effect_duration",
+		"mine_cannot_rearm",
 	},
 	levels = {
 		[1] = { 8000, 4000, 20, 0, 4000, 0, cooldown = 2.5, levelRequirement = 10, manaCost = 6, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
