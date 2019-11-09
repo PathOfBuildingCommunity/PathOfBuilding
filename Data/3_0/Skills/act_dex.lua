@@ -2748,11 +2748,7 @@ skills["FlickerStrike"] = {
 		["flicker_strike_buff_movement_speed_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		["flicker_strike_buff_duration_ms"] = {
-			skill("duration", nil),
-			div = 1000,
 		},
-	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -2767,7 +2763,7 @@ skills["FlickerStrike"] = {
 		"base_attack_speed_+%_per_frenzy_charge",
 		"add_frenzy_charge_on_skill_hit_%",
 		"flicker_strike_buff_movement_speed_+%",
-		"flicker_strike_buff_duration_ms",
+		"base_skill_effect_duration",
 		"ignores_proximity_shield",
 		"base_skill_show_average_damage_instead_of_dps",
 		"melee_defer_damage_prediction",
