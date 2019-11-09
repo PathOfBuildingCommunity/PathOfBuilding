@@ -2822,14 +2822,14 @@ skills["SupportChaosAttacks"] = {
 	addSkillTypes = { SkillType.Duration, },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	baseMods = {
-		mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheredStackCount", effectStackLimit = 15 }),
-	},
 	statMap = {
 		["withered_on_hit_chance_%"] = {
 			flag("Condition:CanWither"),
 			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanWither" }),
 		},
+	},
+	baseMods = {
+		mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheringTouchWitheredStackCount", effectStackLimit = 15 }),
 	},
 	qualityStats = {
 		{ "chaos_damage_+%", 0.5 },
