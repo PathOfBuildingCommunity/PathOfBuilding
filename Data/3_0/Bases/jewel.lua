@@ -50,7 +50,7 @@ itemBases["Searching Eye Jewel"] = {
 
 itemBases["Timeless Jewel"] = {
 	type = "Jewel",
-	subType = "Jewel",
+	subType = "Timeless",
 	tags = { default = true, jewel = true, intjewel = true, dexjewel = true, strjewel = true, not_for_sale = true, },
 	req = { },
 }

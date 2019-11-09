@@ -13,3 +13,6 @@ local itemBases = ...
 #base Metadata/Items/Jewels/JewelAbyssCaster
 #base Metadata/Items/Jewels/JewelAbyssMelee
 #base Metadata/Items/Jewels/JewelAbyssRanged
+
+#subType Timeless
+#base Metadata/Items/Jewels/JewelTimeless
