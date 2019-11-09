@@ -1811,7 +1811,7 @@ skills["SupportPuncturingWeapon"] = {
 	},	
 	baseMods = {
 		flag("Condition:CanBeElusive"),
-		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }),,
+		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }),
 	},
 	qualityStats = {
 		{ "critical_strike_chance_+%", 1 },

@@ -166,7 +166,7 @@ local skills, mod, flag, skill = ...
 		},
 	},	
 #baseMod flag("Condition:CanBeElusive")
-#baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }),
+#baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" })
 #mods
 
 #skill SupportOnslaught
