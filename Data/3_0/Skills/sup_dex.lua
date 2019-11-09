@@ -651,7 +651,7 @@ skills["SupportSlashingWeapon"] = {
 	color = 2,
 	support = true,
 	requireSkillTypes = { SkillType.Melee, },
-	addSkillTypes = { SkillType.Duration, SkillType.Buff, SkillType.Area, },
+	addSkillTypes = { SkillType.Duration, SkillType.Buff, },
 	excludeSkillTypes = { SkillType.CreatesMinion, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
@@ -662,7 +662,6 @@ skills["SupportSlashingWeapon"] = {
 	},
 	stats = {
 		"support_slashing_damage_+%_final_from_distance",
-		"support_close_combat_melee_damage_+%_final",
 		"support_slashing_buff_base_duration_ms",
 		"support_slashing_buff_attack_cast_speed_+%_final_to_grant",
 		"supported_by_slashing",
