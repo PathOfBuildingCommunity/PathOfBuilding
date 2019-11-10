@@ -380,7 +380,7 @@ Limited to: 1
 Radius: Large
 Gain 5% of Fire Damage as Extra Chaos Damage
 Passives granting Fire Resistance or all Elemental Resistances in Radius
-also grant Chance to Block at 35% of its value
+also grant Chance to Block Attack Damage at 35% of its value
 Passives granting Fire Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
