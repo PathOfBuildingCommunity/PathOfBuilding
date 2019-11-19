@@ -53,7 +53,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 53, 58 Dex, 123 Int
 40% increased Global Critical Strike Chance
-+1 to Level of Socketed Fire Gems
++1 to Level of all Fire Spell Skill Gems
 {variant:1,2}(40-60)% increased Spell Damage
 {variant:3}(40-60)% increased Fire Damage
 +(20-40) to Intelligence
