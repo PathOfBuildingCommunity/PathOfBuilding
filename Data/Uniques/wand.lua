@@ -35,13 +35,18 @@ Implicits: 2
 ]],[[
 Ashcaller
 Quartz Wand
+Variant: Pre 3.8.0
+Variant: Current
 Requires Level 18, 65 Int
+Implicits: 1
 (18-22)% increased Spell Damage
-Adds (10-14) to (18-22) Fire Damage
-Adds (4-6) to (7-9) Fire Damage to Spells
-(40-50)% increased Burning Damage
-(16-22)% chance to Ignite
 10% chance to Trigger Level 8 Summon Raging Spirit on Kill
+{variant:1}Adds (10-14) to (18-22) Fire Damage
+{variant:2}+(15-25)% to Fire Damage over Time Multiplier
+Adds (4-6) to (7-9) Fire Damage to Spells
+{variant:1}(40-50)% increased Burning Damage
+{variant:2}(20-30)% increased Burning Damage
+(16-22)% chance to Ignite
 ]],[[
 Eclipse Solaris
 Crystal Wand
