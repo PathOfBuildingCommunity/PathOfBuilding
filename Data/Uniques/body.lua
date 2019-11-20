@@ -607,16 +607,18 @@ Socketed Gems are Supported by level 5 Elemental Proliferation
 Vis Mortis
 Necromancer Silks
 Variant: Pre 2.6.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 59, 160 Int
-+(20-30) to maximum Mana
 {variant:1}(100-120)% increased Energy Shield
-{variant:2}(200-220)% increased Energy Shield
+{variant:2,3}(200-220)% increased Energy Shield
++(20-30) to maximum Mana
 Minions have 20% reduced Maximum Life
 Minions deal 15% increased Damage
-+1 to Maximum number of Spectres
+{variant:1,2}+1 to Maximum number of Spectres
 {variant:1}Minions gain Unholy Might for 5 seconds on Kill
 {variant:2}Minions gain Unholy Might for 10 seconds on Kill
+{variant:3}Minions gain (15-20)% of Elemental Damage as Extra Chaos Damage
 ]],[[
 Zahndethus' Cassock
 Sage's Robe
