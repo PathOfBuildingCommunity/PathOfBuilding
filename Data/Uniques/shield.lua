@@ -826,13 +826,13 @@ Requires Level 70, 85 Dex, 85 Int
 Implicits: 2
 {variant:1,2}Reflects (221-260) Physical Damage to Melee Attackers
 {variant:3}4% chance to Dodge Spell Damage
+Grants level 25 Bear Trap Skill
 (18-28)% increased Trap Damage
 (15-25)% increased Physical Damage
 +(60-80) to maximum Life
 −(14-18) Physical Damage taken from Attacks
 {variant:1}15% chance to gain a Power Charge on Throwing a Trap
 {variant:2,3}25% chance to gain a Power Charge on Throwing a Trap
-Grants level 20 Bear Trap Skill
 ]],[[
 Leper's Alms
 Mirrored Spiked Shield
