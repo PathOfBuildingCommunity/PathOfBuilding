@@ -414,16 +414,18 @@ Enemies Frozen by you take 20% increased Damage
 Tremor Rod
 Military Staff
 Variant: Pre 2.6.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 45, 78 Str, 78 Int
 Implicits: 2
 {variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
-Socketed Gems are Supported by level 10 Remote Mine
-35% less Mine Damage
+{variant:2,3}18% Chance to Block
+{variant:3}+2 to Level of Socketed Spell Gems
+Socketed Gems are Supported by level 10 Blastchain Mine
+{variant:1,2}35% less Mine Damage
 (40-60)% increased Spell Damage
 (15-20)% reduced Enemy Stun Threshold
-(40-60)% increased Mine Laying Speed
+{variant:1,2}(40-60)% increased Mine Laying Speed
 Mines can be Detonated an additional time
 ]],[[
 The Whispering Ice
