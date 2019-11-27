@@ -7327,7 +7327,6 @@ skills["Skitterbots"] = {
 		"chill_effect_+%",
 		"minion_movement_speed_+%",
 		"display_skitterbot_limit_per_type",
-		"base_deal_no_damage",
 		"display_skitterbot_shocking_aura",
 		"display_skitterbot_chilling_aura",
 	},
@@ -7763,7 +7762,7 @@ skills["Wither"] = {
 			mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheredStackCount", effectStackLimit = 15 }),
 		},
 		["base_movement_velocity_+%"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Wither" }),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered" }),
 		},
 	},
 	baseFlags = {

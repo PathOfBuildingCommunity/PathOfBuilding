@@ -1878,7 +1878,6 @@ skills["SupportMultistrike"] = {
 		"multistrike_damage_+%_final_on_first_repeat",
 		"multistrike_damage_+%_final_on_second_repeat",
 		"support_multiple_attack_damage_+%_final",
-		"support_multiple_attack_damage_+%_1",
 		"repeat_target_selection_distance_from_initial_target_bias",
 	},
 	levels = {
@@ -2228,7 +2227,7 @@ skills["SupportRangedAttackTotem"] = {
 }
 skills["SupportReducedMana"] = {
 	name = "Inspiration",
-	description = "Supports any skill.",
+	description = "Supports any skill. Minions, Totems, Traps and Mines cannot gain Inspiration Charges.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { },

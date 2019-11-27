@@ -451,10 +451,6 @@ local skills, mod, flag, skill = ...
 		["flicker_strike_buff_movement_speed_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		["flicker_strike_buff_duration_ms"] = {
-			skill("duration", nil),
-			div = 1000,
-		},
 	},
 #mods
 
@@ -1112,4 +1108,13 @@ local skills, mod, flag, skill = ...
 
 #skill Slither
 #flags spell duration
+	statMap = {
+		["slither_wither_stacks"] = {
+			flag("Condition:CanWither"),
+			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanWither" }),
+		},
+	},
+#baseMod mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheredStackCount", effectStackLimit = 15 })
+#baseMod flag("Condition:CanBeElusive")
+#baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" })
 #mods
