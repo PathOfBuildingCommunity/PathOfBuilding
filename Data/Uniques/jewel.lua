@@ -231,7 +231,7 @@ Increases and Reductions to Life in Radius are Transformed to apply to Mana at 2
 Hidden Potential
 Viridian Jewel
 Limited to: 1
-(20-25)% increased Damage for each Equipped Magic Item
+(20-25)% increased Damage for each Magic Item Equipped
 ]],[[
 Hotfooted
 Viridian Jewel
