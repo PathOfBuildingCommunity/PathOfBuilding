@@ -94,7 +94,7 @@ Variant: Current
 Requires Level 40, 131 Int
 Implicits: 2
 {variant:1}(12-16)% increased Spell Damage
-{variant:2,3}(22-26)% increased Spell Damage
+{variant:2,3,4}(22-26)% increased Spell Damage
 +(10-20) to Intelligence
 {variant:1,2,3}Minions have (10-20)% increased Movement Speed
 {variant:4}Minions have (20-30)% increased Movement Speed
@@ -103,7 +103,7 @@ Implicits: 2
 +1 to Maximum number of Zombies
 +1 to Maximum number of Spectres
 {variant:1,2}+2 to Maximum number of Skeletons
-{variant:3}+1 to Maximum number of Skeletons
+{variant:3,4}+1 to Maximum number of Skeletons
 Reserves 30% of Life
 Cannot be used with Chaos Inoculation
 ]],[[

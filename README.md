@@ -3,10 +3,10 @@
 This is a fork of Openarls Path Of Building that includes many extra features not in the base version of PoB
 * Adds updated Uniques from 3.8 changes
 * Pantheon support
-* Partial Impale support
+* Impale DPS support
 * More tree highlighting options for node power
 * Support for fossil mods in the crafting window. Including correct parsing for some mods that previously didn't work (e.g. 60% chance to deal 100% more poison/bleed damage)
-* Add parsing for some more nodes on the tree
+* Add parsing for more nodes on the tree (i.e slayer and elementalist ascendancy nodes)
 * Add oil combinations to notables on tree
 * Support for elusive and nightblade support gem
 * Incremental shock values (not a locked 50%)
@@ -39,7 +39,7 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
 * Passive skill tree planner:
   * Support for jewels including most radius/conversion jewels
   * Features alternate path tracing (mouse over a sequence of nodes while holding shift, then click to allocate them all)
-  * Fully intergrated with the offence/defence calculations; see exactly how each node will affect your character!
+  * Fully integrated with the offence/defence calculations; see exactly how each node will affect your character!
   * Can import PathOfExile.com and PoEPlanner.com passive tree links; links shortened with PoEURL.com also work
 * Skill planner:
   * Add any number of main or supporting skills to your build
@@ -49,7 +49,7 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
 * Item planner:
   * Add items from in game by copying and pasting them straight into the program!
   * Automatically adds quality to non-corrupted items
-  * Fully intergrated with the offence/defence calculations; see exactly how much of an upgrade a given item is!
+  * Fully integrated with the offence/defence calculations; see exactly how much of an upgrade a given item is!
   * Contains a searchable database of all uniques that are currently in game (and some that aren't yet!)
     * You can choose the modifier rolls when you add a unique to your build
     * Includes all league-specific items and legacy variants

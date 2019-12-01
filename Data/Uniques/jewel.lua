@@ -144,6 +144,16 @@ Limited to: 1
 Minions have (5-15)% increased maximum Life
 Minions Recover 2% of their Maximum Life when they Block
 ]],[[
+Fortress Covenant
+Cobalt Jewel
+Requires Level: 20
+Limited to: 1
+Radius: Medium
+Minions deal (35–45)% increased Damage
+Minions have +(10–12)% Chance to Block Attack Damage
+Minions have +(10–12)% Chance to Block Spell Damage
+Notable Passive Skills in Radius are Transformed to instead grant, Minions take 20% increased Damage
+]],[[
 Fragile Bloom
 Crimson Jewel
 2% of Life Regenerated per Second
@@ -344,6 +354,18 @@ Shadow: +0.5 to Critical Strike Chance
 Witch: 0.5% of Maximum Mana Regenerated per second
 Templar: Damage Penetrates 5% Elemental Resistances
 Scion: +25 to All Attributes
+]],[[
+Quickening Covenant
+Viridian Jewel
+Requires Level: 20
+Limited to: 1
+Radius: Medium
+Minions have (12–16)% increased Attack Speed
+Minions have (12–16)% increased Cast Speed
+Minions have (10–12)% chance to Dodge Attack Hits
+Minions have (10–12)% chance to Dodge Spell Hits
+Notable Passive Skills in Radius are Transformed to
+instead grant: Minions have 25% reduced Movement Speed
 ]],[[
 Rain of Splinters
 Crimson Jewel

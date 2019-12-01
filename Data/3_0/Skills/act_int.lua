@@ -7735,20 +7735,6 @@ skills["Wither"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.ChaosSkill] = true, [SkillType.Channelled] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.28,
-	parts = {
-		{
-			name = "1 Stack",
-		},
-		{
-			name = "5 Stacks",
-		},
-		{
-			name = "10 Stacks",
-		},
-		{
-			name = "15 Stacks",
-		},
-	},
 	statMap = {
 		["base_skill_effect_duration"] = {
 		},
@@ -7774,10 +7760,6 @@ skills["Wither"] = {
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 18),
-		skill("stackCount", 1, { type = "SkillPart", skillPart = 1 }),
-		skill("stackCount", 5, { type = "SkillPart", skillPart = 2 }),
-		skill("stackCount", 10, { type = "SkillPart", skillPart = 3 }),
-		skill("stackCount", 15, { type = "SkillPart", skillPart = 4 }),
 	},
 	qualityStats = {
 		{ "skill_effect_duration_+%", 1 },

@@ -101,6 +101,15 @@ Requires Level: 23
 30% of Physical Damage Converted to Lightning Damage 
 (15–25)% increased Effect of Shock
 ]],[[
+Torchoak Step
+Antique Greaves
+Requires Level 37, 67 Str
+(80–120)% increased Armour
+(30–50)% increased Totem Life
+25% increased Movement Speed
+(30–50)% increased Totem Placement speed
+Totems Reflect 25% of their maximum Life as Fire Damage to nearby Enemies when Hit
+]],[[
 Windscream
 Reinforced Greaves
 Upgrade: Upgrades to unique{Windshriek} via prophecy{Darktongue's Shriek}
@@ -135,7 +144,7 @@ Requires Level 12, 26 Dex
 15% increased Movement Speed
 (6-10)% chance to Ignite
 Ignite a nearby Enemy on Killing an Ignited Enemy
-Casts level 7 Abberath's Fury when equipped
+Triggers level 7 Abberath's Fury when equipped
 1% increased Fire Damage per 20 Strength
 Burning Hoofprints
 ]],[[
@@ -706,6 +715,16 @@ Requires Level 62, 117 Dex
 {variant:4}+(100-150) to maximum Energy Shield
 30% increased Movement Speed
 Enemies Cannot Leech Life From You
+]],[[
+The Stampede
+Assassin's Boots
+Requires Level 63, 62 Dex, 62 Int
+League: Blight
+(100–150)% increased Evasion and Energy Shield
+(30–40)% increased Stun and Block Recovery
+Travel Skills have (50–80)% increased Cooldown Recovery Speed
+(30–40)% increased Mana Regeneration Rate while moving
+Your Movement Speed is 150% of its base value
 ]],[[
 Sundance
 Clasped Boots

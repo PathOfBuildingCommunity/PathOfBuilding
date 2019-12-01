@@ -155,6 +155,17 @@ Requires Level 30
 {variant:2}(50-100)% increased Quantity of Items Dropped by Slain Normal Enemies
 {variant:3}(35-50)% increased Quantity of Items Dropped by Slain Normal Enemies
 ]],[[
+Badge of the Brotherhood
+Turquoise Amulet
+Requires Level: 20
+League: Blight
++(16–24) to Dexterity and Intelligence
+(7–10)% increased Cooldown Recovery of Travel Skills per Frenzy Charge
+(7–10)% increased Effect of Elusive on you per Power Charge
+(20–25)% chance to lose a Frenzy Charge when you use a Travel Skill
+(20–25)% chance to lose a Power Charge when you gain Elusive
+Your Maximum Frenzy Charges is equal to your Maximum Power Charges
+]],[[
 Blightwell
 Clutching Talisman
 League: Talisman Hardcore
@@ -498,6 +509,17 @@ Requires Level 20
 10% increased Damage with Poison per Frenzy Charge
 3% increased Poison Duration per Power Charge
 ]],[[
+The Jinxed Juju
+Citrine Amulet
+Requires Level: 48
++(16–24) to Strength and Dexterity
++(30–40) to Intelligence
++(23–31)% to Chaos Resistance
+(10–15)% increased Effect of your Curses
+(10–15)% increased effect of Non-Curse Auras from your Skills
+10% of Damage from Hits is taken from your Spectres' Life before you
+(The damage they take will be divided evenly between them)
+]],[[
 Marylene's Fallacy
 Lapis Amulet
 Variant: Pre 1.3.0
@@ -669,7 +691,7 @@ Requires Level 28
 {variant:3}Grants Level 10 Frostblink Skill
 (30-50)% increased Cold Damage
 +(10-15)% to all Elemental Resistances
-{variant:1}30% increased Radius of Curse Skills
+{variant:1}30% increased Area of Effect of Curse Skills
 {variant:2,3}60% increased Area of Effect of Curse Skills
 You cannot be Cursed with Silence
 Frostblink has 50% increased Duration

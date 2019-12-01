@@ -401,6 +401,16 @@ Gain 50 Life when you Stun an Enemy
 {variant:1}20% more Maximum Physical Attack Damage
 {variant:2}(30-40)% more Maximum Physical Attack Damage
 ]],[[
+Siegebreaker
+Heavy Belt
+Requires Level: 44
++(25–35) to Strength
+(6–10)% increased maximum Energy Shield
+(6–10)% increased maximum Life
++(17–23)% to Chaos Resistance
+Minions have 5% chance to Taunt on Hit with Attacks
+Your Minions spread Caustic Ground on Death, dealing 20% of their maximum Life as Chaos Damage per second
+]],[[
 Soul Tether
 Cloth Belt
 Requires Level 48

@@ -1048,7 +1048,8 @@ return {
 	mod("MinionModifier", "LIST", { mod = mod("ElementalResist", "BASE", nil) }),
 },
 ["minion_elemental_resistance_30%"] = {
-	mod("MinionModifier", "LIST", { mod = mod("ElementalResist", "BASE", 30) }),
+	mod("MinionModifier", "LIST", { mod = mod("ElementalResist", "BASE", nil) }),
+	value=30
 },
 ["summon_fire_resistance_+"] = {
 	mod("MinionModifier", "LIST", { mod = mod("FireResist", "BASE", nil) }),

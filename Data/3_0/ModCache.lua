@@ -802,6 +802,7 @@ c["100 Life Regenerated per second while Ignited"]={{[1]={[1]={type="Condition",
 c["Removes all mana. Spend Life instead of Mana for Skills"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="MORE",value=-100},[2]={flags=0,keywordFlags=0,name="BloodMagic",type="FLAG",value=true}},nil}
 c["300% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=300}},nil}
 c["2% chance to Dodge Spell Hits"]={{[1]={flags=0,keywordFlags=0,name="SpellDodgeChance",type="BASE",value=2}},nil}
+c["8% chance to Dodge Spell Hits if you've taken Spell Damage Recently"]={{[1]={[1]={type="Condition",var="HitBySpellDamageRecently"},flags=0,keywordFlags=0,name="SpellDodgeChance",type="BASE",value=8}},nil}
 c["10% increased Effect of your Curses"]={{[1]={flags=0,keywordFlags=0,name="CurseEffect",type="INC",value=10}},nil}
 c["220% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=220}},nil}
 c["25% chance to cause Bleeding on Hit"]={{[1]={flags=0,keywordFlags=0,name="BleedChance",type="BASE",value=25}},nil}
@@ -1222,7 +1223,7 @@ c["Attack Skills deal 25% increased Damage with Ailments while holding a Shield"
 c["You gain Onslaught for 4 seconds on Kill while affected by Haste"]={nil,"You gain Onslaught for 4 seconds on Kill while affected by Haste "}
 c["20% increased Stun Duration with Two Handed Melee Weapons on Enemies"]={{[1]={flags=570425344,keywordFlags=0,name="EnemyStunDuration",type="INC",value=20}},nil}
 c["Attack Skills deal 20% increased Damage with Ailments while holding a Shield"]={{[1]={[1]={type="Condition",var="UsingShield"},flags=2048,keywordFlags=65536,name="Damage",type="INC",value=20}},nil}
-c["20% increased Damage for each Summoned Golem"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},"  for each Summoned  "}
+c["20% increased Damage for each Summoned Golem"]={{[1]={[1]={div=1,stat="ActiveGolemLimit",type="PerStat"},flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},nil}
 c["+1% to Critical Strike Chance while affected by Aspect of the Cat"]={{[1]={[1]={type="Condition",varList={[1]="AffectedByCat'sStealth",[2]="AffectedByCat'sAgility"}},flags=0,keywordFlags=0,name="CritChance",type="BASE",value=1}},nil}
 c["Adds 22 to 37 Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosMin",type="BASE",value=22},[2]={flags=0,keywordFlags=0,name="ChaosMax",type="BASE",value=37}},nil}
 c["10% of Damage Reflected Gained as Life"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="BASE",value=10}},"  Reflected Gained as Life "}
@@ -1499,7 +1500,6 @@ c["80% increased Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamage",t
 c["+1 to maximum number of Spectres"]={{[1]={flags=0,keywordFlags=0,name="ActiveSpectreLimit",type="BASE",value=1}},nil}
 c["+4% chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=4}},nil}
 c["50% increased Mana Regeneration Rate"]={{[1]={flags=0,keywordFlags=0,name="ManaRegen",type="INC",value=50}},nil}
-c["Your Elemental Golems are Immune to Elemental Damage 20% increased Damage for each Summoned Golem 25% increased Effect of Buffs granted by your Golems for each Summoned Golem"]={nil,"Your Elemental Golems are Immune to Elemental Damage 20% increased Damage for each Summoned Golem 25% increased Effect of Buffs granted by your Golems for each Summoned Golem "}
 c["10% reduced Chance to Block Attacks and Spells"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="INC",value=-10},[2]={flags=0,keywordFlags=0,name="SpellBlockChance",type="INC",value=-10}},nil}
 c["+185 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=185}},nil}
 c["Minions have 8% increased Cast Speed"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=16,keywordFlags=0,name="Speed",type="INC",value=8}}}},nil}
@@ -1649,7 +1649,6 @@ c["+180 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",
 c["Adds 45 to 100 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=45},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=100}},nil}
 c["Adds 7 to 18 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=7},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=18}},nil}
 c["15% of Physical Attack Damage Added as Fire Damage"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamageGainAsFire",type="BASE",value=15}},nil}
-c["Summoned Golems are Immune to Elemental Damage 20% increased Damage per Summoned Golem"]={nil,"Summoned Golems are Immune to Elemental Damage 20% increased Damage per Summoned Golem "}
 c["-25 Physical Damage taken from Projectile Attacks +5% Chance to Block"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTaken",type="BASE",value=-25}},"  from Projectile Attacks +5% Chance to Block "}
 c["Minions Poison Enemies on Hit"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PoisonChance",type="BASE",value=100}}}},nil}
 c["Attacks with this Weapon Penetrate 30% Elemental Resistances"]={{[1]={[1]={type="Condition",var="{Hand}Attack"},flags=0,keywordFlags=0,name="ElementalPenetration",type="BASE",value=30}},nil}
@@ -2100,7 +2099,6 @@ c["Adds 1 to 3 Lightning Damage to Attacks per 10 Intelligence"]={{[1]={[1]={div
 c["24% increased Physical Damage with Swords"]={{[1]={flags=4194304,keywordFlags=0,name="PhysicalDamage",type="INC",value=24}},nil}
 c["6% increased Attack Damage"]={{[1]={flags=1,keywordFlags=0,name="Damage",type="INC",value=6}},nil}
 c["4% reduced Mana Reserved"]={{[1]={flags=0,keywordFlags=0,name="ManaReserved",type="INC",value=-4}},nil}
-c["Summoned Golems are Immune to Elemental Damage 20% increased Damage per Summoned Golem 25% increased Effect of Buffs granted by your Golems per Summoned Golem"]={nil,"Summoned Golems are Immune to Elemental Damage 20% increased Damage per Summoned Golem 25% increased Effect of Buffs granted by your Golems per Summoned Golem "}
 c["Gain 18% of Maximum Mana as Extra Maximum Energy Shield while affected by Clarity"]={{[1]={[1]={type="Condition",var="AffectedByClarity"},flags=0,keywordFlags=0,name="ManaGainAsEnergyShield",type="BASE",value=18}},nil}
 c["25% increased Elemental Damage with Weapons"]={{[1]={flags=134217728,keywordFlags=0,name="ElementalDamage",type="INC",value=25}},nil}
 c["Raging Spirits have 150% increased Damage"]={{[1]={[1]={skillName="Summon Raging Spirit",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=150}}}},nil}
@@ -2292,7 +2290,6 @@ c["50% increased Mine Arming Speed"]={{},"  Arming Speed "}
 c["2% increased Attack Critical Strike Chance per 200 Accuracy Rating"]={{[1]={[1]={div=200,stat="Accuracy",type="PerStat"},flags=1,keywordFlags=0,name="CritChance",type="INC",value=2}},nil}
 c["Your Golems are aggressive"]={nil,"Your Golems are aggressive "}
 c["10% chance to gain Arcane Surge when you Kill an Enemy {variant:10}{crafted}Minions have 28% increased Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="BASE",value=10}}," to gain Arcane Surge when you Kill an Enemy {variant:10}{crafted}Minions have 28% increased  "}
-c["25% increased Effect of Buffs granted by your Golems for each Summoned Golem Can Summon up to 1 additional Golem at a time"]={{[1]={[1]={skillType=62,type="SkillType"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=25}},"  for each Summoned  Can Summon up to 1 additional Golem at a time "}
 c["+23 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=23}},nil}
 c["Reflects 100 to 150 Physical Damage to Melee Attackers 30% of Damage you Reflect to enemies is gained as Life"]={nil,"Reflects 100 to 150 Physical Damage to Melee Attackers 30% of Damage you Reflect to enemies is gained as Life "}
 c["Reflects 100 to 150 Physical Damage to Melee Attackers"]={nil,"Reflects 100 to 150 Physical Damage to Melee Attackers "}
@@ -2395,7 +2392,6 @@ c["100% increased Minion Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="M
 c["Adds 21 to 33 Fire Damage to Spells and Attacks"]={{[1]={flags=0,keywordFlags=196608,name="FireMin",type="BASE",value=21},[2]={flags=0,keywordFlags=196608,name="FireMax",type="BASE",value=33}},nil}
 c["24% increased Physical Damage with Daggers"]={{[1]={flags=524288,keywordFlags=0,name="PhysicalDamage",type="INC",value=24}},nil}
 c["Adds 22 to 35 Fire Damage to Spells and Attacks"]={{[1]={flags=0,keywordFlags=196608,name="FireMin",type="BASE",value=22},[2]={flags=0,keywordFlags=196608,name="FireMax",type="BASE",value=35}},nil}
-c["Consecrated Ground you create applies 10% increased Damage taken to Enemies You have Consecrated Ground around you while stationary 15 Mana Regenerated per Second while on Consecrated Ground"]={nil,"Consecrated Ground you create applies 10% increased Damage taken to Enemies You have Consecrated Ground around you while stationary 15 Mana Regenerated per Second while on Consecrated Ground "}
 c["+175 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=175}},nil}
 c["Ailments against other targets"]={nil,"Ailments against other targets "}
 c["Regenerate 100 Energy Shield per second if all Equipped Items are Corrupted"]={{[1]={[1]={threshold=0,type="MultiplierThreshold",upper=true,var="NonCorruptedItem"},flags=0,keywordFlags=0,name="EnergyShieldRegen",type="BASE",value=100}},nil}
@@ -3165,7 +3161,6 @@ c["+1 to Level of Socketed Lightning Gems"]={{[1]={[1]={slotName="{SlotName}",ty
 c["+4% Chance to Block Attack Damage while Dual Wielding or holding a Shield"]={{[1]={[1]={type="Condition",varList={[1]="DualWielding",[2]="UsingShield"}},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=4}},nil}
 c["8% increased Attack Speed with Maces"]={{[1]={flags=1048577,keywordFlags=0,name="Speed",type="INC",value=8}},nil}
 c["10% of Physical Damage taken as Lightning Damage while affected by Purity of Lightning"]={{[1]={[1]={type="Condition",var="AffectedByPurityofLightning"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsLightning",type="BASE",value=10}},nil}
-c["Your Elemental Golems are Immune to Elemental Damage 20% increased Damage for each Summoned Golem 25% increased Effect of Buffs granted by your Golems for each Summoned Golem Can Summon up to 1 additional Golem at a time"]={nil,"Your Elemental Golems are Immune to Elemental Damage 20% increased Damage for each Summoned Golem 25% increased Effect of Buffs granted by your Golems for each Summoned Golem Can Summon up to 1 additional Golem at a time "}
 c["Regenerate 0.5% of Life per second while affected by a Guard Skill Buff"]={{[1]={flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=0.5}}," while affected by a Guard Skill Buff "}
 c["71 Life Regenerated per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=71}},nil}
 c["With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over 4 seconds when Hit during Rallying Cry for you and Allies"]={nil,"With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over 4 seconds when Hit during Rallying Cry for you and Allies "}
@@ -3177,7 +3172,6 @@ c["+15% to Critical Strike Multiplier with Staves"]={{[1]={flags=2097152,keyword
 c["-40 Physical Damage taken from Attacks"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTaken",type="BASE",value=-40}},"  from Attacks "}
 c["Adds 2 to 5 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=2},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=5}},nil}
 c["22% increased Stun Recovery"]={{[1]={flags=0,keywordFlags=0,name="StunRecovery",type="INC",value=22}},nil}
-c["Consecrated Ground you create applies 10% increased Damage taken to Enemies You have Consecrated Ground around you while stationary Regenerate 15 Mana per Second while on Consecrated Ground"]={nil,"Consecrated Ground you create applies 10% increased Damage taken to Enemies You have Consecrated Ground around you while stationary Regenerate 15 Mana per Second while on Consecrated Ground "}
 c["+8 Mana gained when you Block +4% Chance to Block Attack Damage while holding a Shield"]={{[1]={[1]={type="Condition",var="UsingShield"},flags=0,keywordFlags=0,name="Mana",type="BASE",value=8}},"  gained when you Block +4% Chance to Block Attack Damage  "}
 c["10 Mana Regenerated per second"]={{[1]={flags=0,keywordFlags=0,name="ManaRegen",type="BASE",value=10}},nil}
 c["0.5% of maximum Life Regenerated per second per Endurance Charge"]={{[1]={[1]={type="Multiplier",var="EnduranceCharge"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=0.5}},nil}
@@ -3347,7 +3341,6 @@ c["+2% Chance to Block Attack Damage while wielding a Staff"]={{[1]={[1]={type="
 c["You and nearby Allies deal 6 to 12 added Physical Damage for each Impale on Enemy"]={{[1]={[1]={type="Multiplier",var="ShockedEnemyKilledRecently"},flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=6},[2]={[1]={type="Multiplier",var="ShockedEnemyKilledRecently"},flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=12}},nil}
 c["30% increased Quantity of Items Found"]={{[1]={flags=0,keywordFlags=0,name="LootQuantity",type="INC",value=30}},nil}
 c["Adds 4 to 8 Fire Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="FireMin",type="BASE",value=4},[2]={flags=0,keywordFlags=65536,name="FireMax",type="BASE",value=8}},nil}
-c["Your Elemental Golems are Immune to Elemental Damage 20% increased Damage for each Summoned Golem"]={nil,"Your Elemental Golems are Immune to Elemental Damage 20% increased Damage for each Summoned Golem "}
 c["+45 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=45}},nil}
 c["Socketed Gems fire 4 additional Projectiles"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=4}}}},nil}
 c["Nearby allies gain 18% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=18},onlyAllies=true}}},nil}
@@ -3416,7 +3409,6 @@ c["+25 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",v
 c["15% chance to gain a Power Charge on Killing an Enemy affected by fewer than 5 Poisons 10% increased Damage with Poison per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=1048576,name="Damage",type="BASE",value=15}}," to gain a Power Charge on Killing an Enemy affected by fewer than 5 Poisons 10% increased    "}
 c["Insufficient Mana doesn't prevent your Melee Attacks Nearby Allies have 30% increased Item Rarity"]={nil,"Insufficient Mana doesn't prevent your Melee Attacks Nearby Allies have 30% increased Item Rarity "}
 c["Speed per second"]={nil,"Speed per second "}
-c["20% increased Damage per Summoned Golem"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},"  per Summoned  "}
 c["Gain 1% of Physical Damage as Extra Fire Damage per 1 Rage"]={{[1]={[1]={div=1,type="Multiplier",var="Rage"},flags=0,keywordFlags=0,name="PhysicalDamageGainAsFire",type="BASE",value=1}},nil}
 c["10% increased Flask Charges gained"]={{[1]={flags=0,keywordFlags=0,name="FlaskChargesGained",type="INC",value=10}},nil}
 c["+6 Life gained on Kill"]={{[1]={flags=0,keywordFlags=0,name="LifeOnKill",type="BASE",value=6}},nil}
@@ -5377,7 +5369,6 @@ c["Golems have 45% increased Cooldown Recovery Speed"]={{[1]={[1]={skillType=62,
 c["130% increased Evasion and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EvasionAndEnergyShield",type="INC",value=130}},nil}
 c["2% reduced Damage taken per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-2}},"  per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 "}
 c["Gems can be Socketed in this Item ignoring Socket Colour"]={nil,"Gems can be Socketed in this Item ignoring Socket Colour "}
-c["20% increased Golem Damage per Summoned Golem 35% chance to Avoid Elemental Ailments per Summoned Golem 25% increased Effect of Buffs granted by your Golems per Summoned Golem +1 to maximum number of Golems"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},"   per Summoned Golem 35% chance to Avoid Elemental Ailments per Summoned Golem 25% increased Effect of Buffs granted by your Golems per Summoned Golem +1 to maximum number of Golems "}
 c["5% of Life Regenerated per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=5}},nil}
 c["20% reduced maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=-20}},nil}
 c["Gain a Frenzy Charge if an Attack Ignites an Enemy"]={nil,"Gain a Frenzy Charge if an Attack Ignites an Enemy "}
@@ -5414,7 +5405,8 @@ c["Projectile Attack Skills have 50% increased Critical Strike Chance"]={{[1]={[
 c["+350 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=350}},nil}
 c["+300 Intelligence Requirement"]={{[1]={flags=0,keywordFlags=0,name="IntRequirement",type="BASE",value=300}},nil}
 c["10% chance to Blind with Hits against Bleeding Enemies Enemies Maimed by you take 10% increased Physical Damage"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=0,keywordFlags=262144,name="PhysicalDamage",type="BASE",value=10}}," to Blind   Enemies Maimed by you take 10% increased  "}
-c["20% increased Golem Damage per Summoned Golem"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},"   per Summoned Golem "}
+c["18% increased Golem Damage for each Type of Golem you have Summoned"]={{[1]={[1]={skillType=62,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",type="ActorCondition",var="HavePhysicalGolem"},flags=0,keywordFlags=0,name="Damage",type="INC",value=18}}}},nil}
+c["Golems have 12% increased Maximum Life"]={{[1]={[1]={skillType=62,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={{type="PerStat",stat="ActiveGolemLimit"},flags=0,keywordFlags=0,name="Damage",type="INC",value=20}}}},nil}
 c["+3% to Chance to Evade while you have Energy Shield"]={{[1]={[1]={type="Condition",var="HaveEnergyShield"},flags=0,keywordFlags=0,name="EvadeChance",type="BASE",value=3}},nil}
 c["10% increased Warcry Buff Effect"]={{[1]={flags=0,keywordFlags=4,name="BuffEffect",type="INC",value=10}},nil}
 c["16% increased Intelligence"]={{[1]={flags=0,keywordFlags=0,name="Int",type="INC",value=16}},nil}
@@ -5659,7 +5651,6 @@ c["+6% Chance to Block Spell Damage while wielding a Staff"]={{[1]={[1]={type="C
 c["118% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=118}},nil}
 c["Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and recover Energy Shield equal to 5% of your Evasion Rating"]={nil,"Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and recover Energy Shield equal to 5% of your Evasion Rating "}
 c["Your Counterattacks deal Double Damage"]={{[1]={[1]={type="SkillName",skillName="Reckoning"},flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=100},[2]={[1]={type="SkillName",skillName="Riposte"},flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=100}},[3]={[1]={type="SkillName",skillName="Vengeance"},flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=100},nil}
-c["35% chance to Avoid Elemental Ailments per Summoned Golem 25% increased Effect of Buffs granted by your Golems per Summoned Golem"]={{[1]={flags=0,keywordFlags=0,name="AvoidShock",type="BASE",value=35},[2]={flags=0,keywordFlags=0,name="AvoidFrozen",type="BASE",value=35},[3]={flags=0,keywordFlags=0,name="AvoidChilled",type="BASE",value=35},[4]={flags=0,keywordFlags=0,name="AvoidIgnite",type="BASE",value=35}},"  per Summoned  25% increased Effect of Buffs granted by your Golems per Summoned Golem "}
 c["Reflects 10 Cold Damage to Melee Attackers"]={nil,"Reflects 10 Cold Damage to Melee Attackers "}
 c["Cannot Leech Life"]={{[1]={flags=0,keywordFlags=0,name="CannotLeechLife",type="FLAG",value=true}},nil}
 c["12% increased Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=12}},nil}
@@ -6170,14 +6161,13 @@ c["Minions have 5% increased Attack Speed"]={{[1]={flags=0,keywordFlags=0,name="
 c["20% chance to Avoid Projectiles while Phasing You have Phasing if you've Killed Recently"]={{[1]={[1]={type="Condition",var="Phasing"},[2]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=20}}," to Avoid   You have Phasing  "}
 c["Gain 10% of Wand Physical Damage as Extra Cold Damage"]={{[1]={flags=8388608,keywordFlags=0,name="PhysicalDamageGainAsCold",type="BASE",value=10}},nil}
 c["15% increased Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=15}},nil}
-c["20% increased Golem Damage per Summoned Golem 35% chance to Avoid Elemental Ailments per Summoned Golem 25% increased Effect of Buffs granted by your Golems per Summoned Golem"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},"   per Summoned Golem 35% chance to Avoid Elemental Ailments per Summoned Golem 25% increased Effect of Buffs granted by your Golems per Summoned Golem "}
 c["For each Element you've been hit by Damage of Recently, 8% reduced Damage taken of that Element"]={{[1]={[1]={type="Condition",var="HitByFireDamageRecently"},flags=0,keywordFlags=0,name="FireDamageTaken",type="INC",value=-8},[2]={[1]={type="Condition",var="HitByColdDamageRecently"},flags=0,keywordFlags=0,name="ColdDamageTaken",type="INC",value=-8},[3]={[1]={type="Condition",var="HitByLightningDamageRecently"},flags=0,keywordFlags=0,name="LightningDamageTaken",type="INC",value=-8}},nil}
 c["You have Onslaught while on full Frenzy Charges"]={{[1]={[1]={stat="FrenzyCharges",thresholdStat="FrenzyChargesMax",type="StatThreshold"},flags=0,keywordFlags=0,name="Condition:Onslaught",type="FLAG",value=true}},nil}
 c["50% reduced Rarity of Items found"]={{[1]={flags=0,keywordFlags=0,name="LootRarity",type="INC",value=-50}},nil}
 c["5% increased Trap Throwing Speed"]={{[1]={flags=0,keywordFlags=0,name="TrapThrowingSpeed",type="INC",value=5}},nil}
 c["7% Global chance to Blind Enemies on hit {variant:1,2}+1 Mana gained on Kill per Level"]={nil,"7% Global chance to Blind Enemies on hit {variant:1,2}+1 Mana gained on Kill per Level "}
 c["Adds 13 to 28 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=13},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=28}},nil}
-c["20% chance for Poisons inflicted with this Weapon to deal 300% more Damage"]={{[1]={[1]={type="Condition",var="{Hand}Attack"},flags=0,keywordFlags=1048576,name="Damage",type="BASE",value=20}}," s inflicted  to deal 300% more  "}
+c["20% chance for Poisons inflicted with this Weapon to deal 300% more Damage"]={{[1]={flags=0,keywordFlags=1048576,name="Damage",type="MORE",value=60}},nil}
 c["15% increased Critical Strike Chance with Brand Skills"]={{[1]={[1]={skillType=76,type="SkillType"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=15}},nil}
 c["grant 100% increased Flask Charges"]={nil,"grant 100% increased Flask Charges "}
 c["Adds 12 to 15 Cold Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ColdMin",type="BASE",value=12},[2]={flags=0,keywordFlags=65536,name="ColdMax",type="BASE",value=15}},nil}
@@ -6203,12 +6193,10 @@ c["You gain an Endurance Charge on use"]={nil,"You gain an Endurance Charge on u
 c["70% increased Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="INC",value=70}},nil}
 c["+45% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=45}},nil}
 c["+26% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=26}},nil}
-c["20% increased Damage for each Summoned Golem 25% increased Effect of Buffs granted by your Golems for each Summoned Golem Can Summon up to 1 additional Golem at a time"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},"  for each Summoned  25% increased Effect of Buffs granted by your Golems for each Summoned Golem Can Summon up to 1 additional Golem at a time "}
 c["Non-Aura Curses you inflict are not removed from Dying Enemies"]={nil,"Non-Aura Curses you inflict are not removed from Dying Enemies "}
 c["14% increased Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="INC",value=14}},nil}
 c["33% increased Attack Damage against Bleeding Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=1,keywordFlags=262144,name="Damage",type="INC",value=33}},nil}
 c["12% increased Spell Damage while wielding a Staff"]={{[1]={[1]={type="Condition",var="UsingStaff"},flags=2,keywordFlags=0,name="Damage",type="INC",value=12}},nil}
-c["20% increased Damage for each Summoned Golem 25% increased Effect of Buffs granted by your Golems for each Summoned Golem"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},"  for each Summoned  25% increased Effect of Buffs granted by your Golems for each Summoned Golem "}
 c["Bleeding Enemies you Kill Explode, dealing 5% of"]={nil,"Bleeding Enemies you Kill Explode, dealing 5% of "}
 c["+5 Life gained for each Enemy hit by Attacks"]={{[1]={flags=1,keywordFlags=0,name="LifeOnHit",type="BASE",value=5}},nil}
 c["1% additional Physical Damage Reduction per Endurance Charge"]={{[1]={[1]={type="Multiplier",var="EnduranceCharge"},flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=1}},nil}
@@ -6271,7 +6259,6 @@ c["Adds 10 to 23 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalM
 c["50% increased Convocation Cooldown Recovery Speed"]={{[1]={[1]={skillName="Convocation",type="SkillName"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=50}},nil}
 c["25% increased Critical Strike Chance for Spells"]={{[1]={flags=2,keywordFlags=0,name="CritChance",type="INC",value=25}},nil}
 c["30% increased Damage with Poison"]={{[1]={flags=0,keywordFlags=1048576,name="Damage",type="INC",value=30}},nil}
-c["35% chance to Avoid Elemental Ailments per Summoned Golem 25% increased Effect of Buffs granted by your Golems per Summoned Golem +1 to maximum number of Golems"]={{[1]={flags=0,keywordFlags=0,name="AvoidShock",type="BASE",value=35},[2]={flags=0,keywordFlags=0,name="AvoidFrozen",type="BASE",value=35},[3]={flags=0,keywordFlags=0,name="AvoidChilled",type="BASE",value=35},[4]={flags=0,keywordFlags=0,name="AvoidIgnite",type="BASE",value=35}},"  per Summoned  25% increased Effect of Buffs granted by your Golems per Summoned Golem +1 to maximum number of Golems "}
 c["Gain 40% of Physical Attack Damage as Extra Fire Damage"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamageGainAsFire",type="BASE",value=40}},nil}
 c["With 40 total Strength and Intelligence in Radius, Elemental Hit cannot choose Cold With 40 total Strength and Intelligence in Radius, Elemental Hit deals 50% less Cold Damage"]={nil,"With 40 total Strength and Intelligence in Radius, Elemental Hit cannot choose Cold With 40 total Strength and Intelligence in Radius, Elemental Hit deals 50% less Cold Damage "}
 c["30% increased Minion Damage if you've used a Minion Skill Recently"]={{[1]={[1]={type="Condition",var="UsedMinionSkillRecently"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=30}}}},nil}
@@ -6425,7 +6412,6 @@ c["6% increased Attack Speed while holding a Shield"]={{[1]={[1]={type="Conditio
 c["12% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=12}},nil}
 c["50% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=50}},nil}
 c["50% increased Rarity of Items found"]={{[1]={flags=0,keywordFlags=0,name="LootRarity",type="INC",value=50}},nil}
-c["Consecrated Ground you create applies 10% increased Damage taken to Enemies You have Consecrated Ground around you while stationary"]={nil,"Consecrated Ground you create applies 10% increased Damage taken to Enemies You have Consecrated Ground around you while stationary "}
 c["50% of Physical, Cold and Lightning Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=50},[2]={flags=0,keywordFlags=0,name="LightningDamageConvertToFire",type="BASE",value=50},[3]={flags=0,keywordFlags=0,name="ColdDamageConvertToFire",type="BASE",value=50}},nil}
 c["80% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=80}},nil}
 c["10% increased Attack Damage"]={{[1]={flags=1,keywordFlags=0,name="Damage",type="INC",value=10}},nil}
@@ -6584,7 +6570,6 @@ c["Gain 30% of Wand Physical Damage as Extra Lightning Damage"]={{[1]={flags=838
 c["15% increased Physical Attack Damage while holding a Shield"]={{[1]={[1]={type="Condition",var="UsingShield"},flags=1,keywordFlags=0,name="PhysicalDamage",type="INC",value=15}},nil}
 c["Recover 20% of your Maximum Life on Rampage"]={nil,"Recover 20% of your Maximum Life on Rampage "}
 c["Minion Instability"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Minion Instability"}},nil}
-c["Summoned Golems are Immune to Elemental Damage 20% increased Damage per Summoned Golem 25% increased Effect of Buffs granted by your Golems per Summoned Golem +1 to maximum number of Golems"]={nil,"Summoned Golems are Immune to Elemental Damage 20% increased Damage per Summoned Golem 25% increased Effect of Buffs granted by your Golems per Summoned Golem +1 to maximum number of Golems "}
 c["1% of Attack Damage Leeched as Life"]={{[1]={flags=1,keywordFlags=0,name="DamageLifeLeech",type="BASE",value=1}},nil}
 c["Can Allocate Passives from the Ranger's starting point"]={{},nil}
 c["75% chance to cause Enemies to Flee on use {variant:1}100% increased Charges used"]={{[1]={flags=0,keywordFlags=0,name="FlaskChargesUsed",type="BASE",value=75}}," to cause Enemies to Flee on use {variant:1}100% increased  "}
@@ -6915,7 +6900,7 @@ c["Cannot gain Mana during effect"]={nil,"Cannot gain Mana during effect "}
 c["+160 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=160}},nil}
 c["Adds 1 to 100 Lightning Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="LightningMin",type="BASE",value=1},[2]={flags=0,keywordFlags=65536,name="LightningMax",type="BASE",value=100}},nil}
 c["+20% to Critical Strike Multiplier with Two Handed Melee Weapons"]={{[1]={flags=570425344,keywordFlags=0,name="CritMultiplier",type="BASE",value=20}},nil}
-c["25% increased Effect of Buffs granted by your Golems per Summoned Golem"]={{[1]={[1]={skillType=62,type="SkillType"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=25}},"  per Summoned  "}
+c["25% increased Effect of Buffs granted by your Golems per Summoned Golem"]={{[1]={[1]={skillType=62,type="SkillType"},[2]={type="PerStat",stat="ActiveGolemLimit"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=25}},nil}
 c["50% increased Effect of Buffs granted by your Active Ancestor Totems Ancestor Totems have 100% increased Activation range"]={{[1]={flags=0,keywordFlags=16384,name="FlaskEffect",type="INC",value=50}},"  of Buffs granted by your Active Ancestor s Ancestor Totems have 100% increased Activation range "}
 c["+5 to Strength"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=5}},nil}
 c["50% increased Damage with Hits against Enemies that are on Low Life"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="LowLife"},flags=0,keywordFlags=262144,name="Damage",type="INC",value=50}},nil}
@@ -7008,7 +6993,6 @@ c["Regenerate 1% of Life per Second for each Trap Triggered Recently, up to 10% 
 c["Projectiles have 100% increased Critical Strike Chance against Targets they Pierce"]={{[1]={[1]={stat="PierceCount",threshold=1,type="StatThreshold"},flags=1024,keywordFlags=0,name="CritChance",type="INC",value=100}},nil}
 c["4% additional Physical Damage Reduction while affected by a Guard Skill Buff Guard Skills have 15% increased Cooldown Recovery Speed"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=4}},"  while affected by a Guard Skill Buff Guard Skills have 15% increased Cooldown Recovery Speed "}
 c["Base Critical Strike Chance for Attacks with Weapons is 8%"]={{[1]={flags=0,keywordFlags=0,name="WeaponBaseCritChance",type="OVERRIDE",value=8}},nil}
-c["25% increased Effect of Buffs granted by your Golems per Summoned Golem +1 to maximum number of Golems"]={{[1]={[1]={skillType=62,type="SkillType"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=25}},"  per Summoned  +1 to maximum number of Golems "}
 c["Regenerate 0.5% of Life per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=0.5}},nil}
 c["You gain 4% increased Area of Effect for each Mine 20% increased Mine Throwing Speed if you Detonated Mines Recently"]={{[1]={[1]={type="Condition",var="DetonatedMinesRecently"},flags=0,keywordFlags=8192,name="AreaOfEffect",type="BASE",value=4}},"% increased  for each  20% increased Mine Throwing Speed  "}
 c["25% chance to gain a Frenzy Charge on Kill with Main Hand 25% chance to gain an Endurance Charge on Kill with Off Hand 10% more Physical Damage while at maximum Frenzy Charges"]={{[1]={[1]={type="Condition",var="MainHandAttack"},[2]={type="Condition",var="OffHandAttack"},[3]={skillName="Frenzy",type="SkillName"},flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=25}}," to gain aCharge on Kill  25% chance to gain an Endurance Charge on Kill  10% more  while at maximum Frenzy Charges "}
@@ -7124,7 +7108,6 @@ c["10% chance to create a Smoke Cloud when Hit {variant:2,3}25% chance to create
 c["+1 to Level of Socketed Elemental Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="elemental",value=1}}},nil}
 c["2% reduced Mana Reserved"]={{[1]={flags=0,keywordFlags=0,name="ManaReserved",type="INC",value=-2}},nil}
 c["10% increased Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=10}},nil}
-c["20% increased Golem Damage per Summoned Golem 35% chance to Avoid Elemental Ailments per Summoned Golem"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},"   per Summoned Golem 35% chance to Avoid Elemental Ailments per Summoned Golem "}
 c["Minions have 15% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=15}}}},nil}
 c["10% reduced Damage taken from Blinded Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Blinded"},flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-10}},nil}
 c["40% increased Attack Damage against Bleeding Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=1,keywordFlags=262144,name="Damage",type="INC",value=40}},nil}
@@ -7343,7 +7326,6 @@ c["You and Nearby Party Members Share Power, Frenzy and Endurance Charges with e
 c["+6 to Maximum Life per Elder Item Equipped"]={{[1]={[1]={type="Multiplier",var="ElderItem"},flags=0,keywordFlags=0,name="Life",type="BASE",value=6}},nil}
 c["10% increased Attack Speed while you have Fortify"]={{[1]={[1]={type="Condition",var="Fortify"},flags=1,keywordFlags=0,name="Speed",type="INC",value=10}},nil}
 c["8% increased Attack and Cast Speed during Effect of any Mana Flask 10% increased Mana Recovery Rate during Effect of any Mana Flask"]={{[1]={[1]={type="Condition",var="UsingFlask"},[2]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="Speed",type="INC",value=8}},"   of any Mana Flask 10% increased Mana Recovery Rate  of any Mana Flask "}
-c["20% increased Damage per Summoned Golem 25% increased Effect of Buffs granted by your Golems per Summoned Golem"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},"  per Summoned  25% increased Effect of Buffs granted by your Golems per Summoned Golem "}
 c["Adds 7 to 15 Cold Damage to Spells and Attacks"]={{[1]={flags=0,keywordFlags=196608,name="ColdMin",type="BASE",value=7},[2]={flags=0,keywordFlags=196608,name="ColdMax",type="BASE",value=15}},nil}
 c["15% increased Area Damage"]={{[1]={flags=512,keywordFlags=0,name="Damage",type="INC",value=15}},nil}
 c["5% increased Damage taken"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=5}},nil}
@@ -7530,7 +7512,6 @@ c["+2 to Maximum number of Skeletons"]={{[1]={flags=0,keywordFlags=0,name="Activ
 c["20% increased Area of Effect if you've Killed Recently"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=20}},nil}
 c["12% increased Melee Damage"]={{[1]={flags=256,keywordFlags=0,name="Damage",type="INC",value=12}},nil}
 c["115% increased Evasion and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EvasionAndEnergyShield",type="INC",value=115}},nil}
-c["20% increased Damage per Summoned Golem 25% increased Effect of Buffs granted by your Golems per Summoned Golem +1 to maximum number of Golems"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},"  per Summoned  25% increased Effect of Buffs granted by your Golems per Summoned Golem +1 to maximum number of Golems "}
 c["100% increased Global Defences"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Defences",type="INC",value=100}},nil}
 c["Adds 5 to 12 Fire Attack Damage per Buff on You"]={{[1]={[1]={type="Multiplier",var="BuffOnSelf"},flags=0,keywordFlags=65536,name="FireMin",type="BASE",value=5},[2]={[1]={type="Multiplier",var="BuffOnSelf"},flags=0,keywordFlags=65536,name="FireMax",type="BASE",value=12}},nil}
 c["Raised Zombies deal 100% more Physical Damage"]={{[1]={[1]={skillName="Raise Zombie",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalDamage",type="MORE",value=100}}}},nil}

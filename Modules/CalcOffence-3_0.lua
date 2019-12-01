@@ -461,7 +461,6 @@ function calcs.offence(env, actor, activeSkill)
 				total = s_format("= %.2f ^8per second", output.TotemPlacementSpeed),
 			})
 		end
-		output.ActiveTotemLimit = skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit")
 		output.TotemLifeMod = calcLib.mod(skillModList, skillCfg, "TotemLife")
 		output.TotemLife = round(m_floor(env.data.monsterAllyLifeTable[skillData.totemLevel] * env.data.totemLifeMult[activeSkill.skillTotemId]) * output.TotemLifeMod)
 		if breakdown then
@@ -2090,7 +2089,7 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.ImpaleStacks = impaleStacks
 			--ImpaleStoredDamage should be named ImpaleEffect or similar
 			--Using the variable name ImpaleEffect breaks the calculations sidebar (?!)
-			output.ImpaleStoredDamage = storedDamageModifier * 100
+			output.ImpaleStoredDamage = impaleStoredDamage * 100
 			output.ImpaleModifier = 1 + impaleDMGModifier
 
 			if breakdown then

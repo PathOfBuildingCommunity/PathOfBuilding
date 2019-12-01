@@ -560,6 +560,7 @@ return {
 	{ label = "OH DMG Mod.", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", haveOutput = "OffHand.ImpaleModifier", { format = "{3:output:OffHand.ImpaleModifier}", modType = "MORE",
 		{ breakdown = "OffHand.ImpaleModifier" },
 	}, },
+	{ label = "Impale DPS", flag = "impale", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
 } },
 { 1, "Poison", 1, "Poison", colorCodes.OFFENCE, {
 	extra = "{0:output:PoisonChance}% {1:output:PoisonDPS} {2:output:PoisonDuration}s",

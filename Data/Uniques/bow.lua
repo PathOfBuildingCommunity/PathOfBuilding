@@ -407,8 +407,10 @@ Citadel Bow
 League: Breach
 Source: Upgraded from unique{Xoph's Inception} using currency{Blessing of Xoph}
 Variant: Pre 3.3.0
+Variant: Pre 3.9
 Variant: Current
 Requires Level 64, 185 Dex
+{variant:3}Socketed Gems are Supported by Level 20 Ignite Proliferation
 (250-300)% increased Physical Damage
 50% of Physical Damage Converted to Fire Damage
 10% chance to Ignite

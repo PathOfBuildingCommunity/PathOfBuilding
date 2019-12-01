@@ -1239,20 +1239,6 @@ local skills, mod, flag, skill = ...
 
 #skill Wither
 #flags spell area duration chaos
-	parts = {
-		{
-			name = "1 Stack",
-		},
-		{
-			name = "5 Stacks",
-		},
-		{
-			name = "10 Stacks",
-		},
-		{
-			name = "15 Stacks",
-		},
-	},
 	statMap = {
 		["base_skill_effect_duration"] = {
 		},
@@ -1266,15 +1252,11 @@ local skills, mod, flag, skill = ...
 			mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheredStackCount", effectStackLimit = 15 }),
 		},
 		["base_movement_velocity_+%"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered" }),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Wither" }),
 		},
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 18)
-#baseMod skill("stackCount", 1, { type = "SkillPart", skillPart = 1 })
-#baseMod skill("stackCount", 5, { type = "SkillPart", skillPart = 2 })
-#baseMod skill("stackCount", 10, { type = "SkillPart", skillPart = 3 })
-#baseMod skill("stackCount", 15, { type = "SkillPart", skillPart = 4 })
 #mods
 
 #skill Wrath

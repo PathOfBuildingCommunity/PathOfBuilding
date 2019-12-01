@@ -217,6 +217,39 @@ Implicits: 0
 30% increased Mana Regeneration Rate
 5% increased Movement Speed
 ]],[[
+Cowl of the Ceraunophile
+Solaris Circlet
+Requires Level 59, 122 Int
+League: Blight
+Can have a second Enchantment Modifier
++(20–30) to all Attributes
+(60–80)% increased Energy Shield
+(50–55)% reduced Fire Resistance
+(50–55)% reduced Cold Resistance
+Lightning Resistance is 75%
+]],[[
+Cowl of the Cryophile
+Silken Hood
+Requires Level 60, 138 Dex
+League: Blight
+Can have a second Enchantment Modifier
++(20–30) to all Attributes
+(60–80)% increased Evasion Rating
+(50–55)% reduced Fire Resistance
+(50–55)% reduced Lightning Resistance
+Cold Resistance is 75%
+]],[[
+Cowl of the Thermophile
+Ezomyte Burgonet
+Requires Level 60, 138 Str
+League: Blight
+Can have a second Enchantment Modifier
++(20–30) to all Attributes
+(60–80)% increased Armour
+(50–55)% reduced Cold Resistance
+(50–55)% reduced Lightning Resistance
+Fire Resistance is 75%
+]],[[
 Chitus' Apex
 Necromancer Circlet
 Requires Level 54, 112 Int
@@ -502,6 +535,8 @@ Socketed Gems are Supported by level 18 Melee Physical Damage
 {variant:2,3}Socketed Gems are Supported by level 12 Faster Attacks
 {variant:1,4}Socketed Gems are Supported by level 18 Blind
 {variant:2,3}Socketed Gems are Supported by level 6 Blind
+{variant:1,2}15% Chance to Block
+{variant:3,4}6% Chance to Block
 Adds 20 to 30 Physical Damage to Attacks
 (200-300)% increased Armour and Evasion
 {variant:1,4}+(200-220) to maximum Life
@@ -510,8 +545,6 @@ Adds 20 to 30 Physical Damage to Attacks
 {variant:3,4}20% chance to gain an Endurance Charge when you Block
 Extra gore
 Can't use Chest armour
-{variant:1,2}15% Chance to Block
-{variant:3}6% Chance to Block
 ]],[[
 Deidbell
 Gilded Sallet
@@ -778,7 +811,7 @@ Requires Level 68
 +(130–160) to maximum Energy Shield
 +(150–200) to maximum Mana
 (30–40)% increased Mana Regeneration Rate
-+(20–25)% to Fire Resistance
++(20–30)% to Fire Resistance
 10% increased Mana Reserved
 Gain Armour equal to your Reserved Mana
 ]],[[

@@ -315,6 +315,17 @@ Requires Level 36, 29 Str, 29 Dex
 (40-50)% increased Rarity of Items found
 5% reduced Movement Speed
 ]],[[
+Breathstealer
+Hydrascale Gauntlets
+Requires Level 59, 45 Str, 45 Dex
+League: Blight
+(100–150)% increased Armour and Evasion
++(30–50) to maximum Mana
++(10–16)% to all Elemental Resistances
+(5–10)% increased Attack and Cast Speed
+Create a Blighted Spore when you Kill a Rare Monster
+(Blighted Spores last for 10 seconds and have a random Aura)
+]],[[
 Farrul's Pounce
 Hydrascale Gauntlets
 League: Bestiary
@@ -533,6 +544,16 @@ Adds (30-36) to (44-50) Cold Damage to Attacks
 25% increased Freeze Duration on Enemies
 Your Hits can only Kill Frozen enemies
 ]],[[
+Triad Grip
+Mesh Gloves
+Requires Level 32, 26 Str, 26 Int
+(80–120)% increased Armour and Energy Shield
+Minions convert 25% of Physical Damage to Fire Damage per Red Socket
+Minions convert 25% of Physical Damage to Cold Damage per Green Socket
+Minions convert 25% of Physical Damage to Lightning Damage per Blue Socket
+Minions convert 25% of Physical Damage to Chaos Damage per White Socket
+Minions have (5–10)% chance to Freeze, Shock and Ignite
+]],[[
 Volkuur's Guidance
 Zealot Gloves
 Source: Drops from The Pale Council
@@ -630,6 +651,16 @@ Grants Level 20 Aspect of the Spider Skill
 (6-9)% increased Attack and Cast Speed
 (40-60)% increased Damage with Hits and Ailments against Enemies affected by 3 Spider's Webs
 Adds (8-10) to (13-15) Chaos Damage for each Spider's Web on the Enemy
+]],[[
+Machina Mitts
+Murder Mitts
+Requires Level: 67
+League: Blight
+(200–250)% increased Evasion and Energy Shield
+1% of Damage dealt by your Mines is Leeched to you as Life
+(20–30)% reduced Recovery rate of Life and Energy Shield
+5% increased Recovery rate of Life and Energy Shield per Power Charge
+Lose a Power Charge each second if you have not Detonated Mines Recently
 ]],[[
 Ondar's Clasp
 Wrapped Mitts

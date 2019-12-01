@@ -54,11 +54,11 @@ Requires Level 20
 {variant:1}Adds 1 to (1-50) Lightning Damage to Attacks
 {variant:2,3}Adds 1 to (50-70) Lightning Damage to Spells and Attacks
 +(30-40) to maximum Life
-{variant:1}1% of Damage against Frozen Enemies Leeched as Life
-{variant:2,3}1% of Damage against Shocked Enemies Leeched as Life
-{variant:1}1% of Damage against Shocked Enemies Leeched as Mana
-{variant:2}1% of Damage against Frozen Enemies Leeched as Mana
-{variant:3}1% of Damage against Frozen Enemies Leeched as Energy Shield
+{variant:1}1% of Damage Leeched as Life against Frozen Enemies
+{variant:2,3}1% of Damage Leeched as Life against Shocked Enemies
+{variant:1}1% of Damage Leeched as Mana against Shocked Enemies
+{variant:2}1% of Damage Leeched as Mana against Frozen Enemies
+{variant:3}1% of Damage Leeched as Energy Shield against Frozen Enemies
 ]],[[
 Berek's Pass
 Two-Stone Ring
@@ -306,7 +306,7 @@ Requires Level 46
 ]],[[
 Doedre's Damning
 Paua Ring
-+(20-25) to maximum Mana
++(20-30) to maximum Mana
 +(5-10) to Intelligence
 +5% to all Elemental Resistances
 +5 Mana Gained on Kill
@@ -382,6 +382,18 @@ Has 1 Socket
 Consumes Socketed Support Gems when they reach Maximum Level
 Can Consume 4 Support Gems
 Has not Consumed any Gems
+]],[[
+Icefang Orbit
+Iron Ring
+Requires Level: 49
+League: Blight
+Adds 1 to 4 Physical Damage to Attacks
++(20–30) to Dexterity
+25% chance to Poison on Hit
+(40–60)% increased Damage with Poison
+You are Chilled while you are Poisoned
+Non-Chilled Enemies you Poison are Chilled
+Poisoned Enemies you Kill with Hits Shatter
 ]],[[
 Kaom's Sign
 Coral Ring
@@ -573,7 +585,7 @@ Perandus Signet
 Paua Ring
 Variant: Pre 2.0.0
 Variant: Current
-+(20-25) to maximum Mana
++(20-30) to maximum Mana
 +(25-30) to maximum Mana
 (45-65)% increased Mana Regeneration Rate
 {variant:1}3% increased Experience gain
@@ -585,7 +597,7 @@ Variant: Current
 Praxis
 Paua Ring
 Requires Level 22
-+(20-25) to maximum Mana
++(20-30) to maximum Mana
 +(30-60) to maximum Mana
 (3-6) Mana Regenerated per second
 −(4-8) to Mana Cost of Skills
@@ -885,6 +897,18 @@ Requires Level 38
 +(20-30)% to Fire Resistance
 −40% to Cold Resistance
 Stun Threshold is based on Energy Shield instead of Life
+]],[[
+Venopuncture
+Iron Ring
+Requires Level: 49
+League: Blight
+Adds 1 to 4 Physical Damage to Attacks
++(20–30) to Strength
+25% chance to cause Bleeding on Hit
+(40–60)% increased Damage with Bleeding
+You are Chilled while you are Bleeding
+Non-Chilled Enemies you inflict Bleeding on are Chilled
+Bleeding Enemies you Kill with Hits Shatter
 ]],[[
 Ventor's Gamble
 Gold Ring

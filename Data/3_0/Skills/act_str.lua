@@ -2137,6 +2137,11 @@ skills["HeavyStrike"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["chance_to_deal_double_damage_%"] = {
+			mod("DoubleDamageChance", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,

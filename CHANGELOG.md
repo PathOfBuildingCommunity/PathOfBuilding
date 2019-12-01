@@ -1,16 +1,35 @@
-### 1.4.151.4 - 2019/10/08
+### 1.4.152.6 - 2019/12/02
+ * Fully implement impale DPS calculations
+ * Support for increased buff effect per golem and damage per golem
+ * Update uniques with changes 3.8
+ * Add new 3.9 uniques and changes from teasers so far
+ * Added 100% increased crit chance from consecrated ground
+ * Add support for Triad Grips
+ * Add support for spell dodge boot enchant
+ * Add support for remaining fossil mods
+ * Cap shock effect at 50%
+ * Fix totem limits
+ * Fix elemental hit threshold gems again
+ * Fix double damage on heavy strike
+ * Fix minion resistance on raise spectre gem
+ * Fix bones of ullur mod
+ * Fix Perandus Signet mod
+ * Fix red nightmare block chance
+ * Trim image file sizes
+
+### 1.4.152.5 - 2019/10/08
  * Withered debuff now appears on the config page
  * Ignite DPS for node power now works
  * Fixed some of the wording for impale
  * Added Impale chance and damage multiplier to the side bar so it will now show the differences when choosing impale gems or impale nodes on the tree
  * Added a feature requests section to the README.md file
 
-### 1.4.151.4 - 2019/10/08
+### 1.4.152.4 - 2019/10/08
  * Readded +1 to socketed gems mod on daggers
  * Add parsing for max chaos resistance
  * Combat focus now works properly with Elemental Hit and Wild Strike
 
-### 1.4.151.3 - 2019/10/06
+### 1.4.152.3 - 2019/10/06
  * Implemented logic for melee distance scaling attack multipliers (Close combat and Slayers Impact node)
  * Add counterattack double damage bonus from Gladiators Painforged node
  * Implement parsing for all of Slayer's nodes
@@ -19,14 +38,14 @@
  * Add Badge of Brotherhood mod parsing
  * Add incremental shock values instead of the default locked value of 50%
  
-### 1.4.151.2 - 2019/10/05
+### 1.4.152.2 - 2019/10/05
  * Added a display for current Elusive effect in the Calcs tab, which only shows up while Elusive.
  * Nightblade Support now gives Crit Multi and Base Crit Chance to attacks while using Claws or Daggers.
  * Elusive is implemented specifically for Claws/Daggers on Nightblade, and is added as a global Skill Mod 
    for Withering Step and any future gems which give the stat.
  * Added Vermillion ring base
 
-### 1.4.151.1 - 2019/10/05
+### 1.4.152.1 - 2019/10/05
  * Updates uniques with 3.8 Changes
  * Adds new 3.8 uniques
  * Fix tempered flesh/mind not working

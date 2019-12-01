@@ -11,8 +11,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2}18% Chance to Block
-{variant:1}+1 to Level of Socketed Lightning Gems
-{variant:2}+2 to Level of Socketed Lightning Gems
+{variant:1}+1 to Level of all Lightning Gems
+{variant:2}+2 to Level of all Lightning Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 100% increased Shock Duration on Enemies
@@ -27,8 +27,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2}18% Chance to Block
-{variant:1}+1 to Level of Socketed Lightning Gems
-{variant:2}+2 to Level of Socketed Lightning Gems
+{variant:1}+1 to Level of all Lightning Gems
+{variant:2}+2 to Level of all Lightning Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 15% chance to Shock
@@ -43,8 +43,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2}18% Chance to Block
-{variant:1}+1 to Level of Socketed Lightning Gems
-{variant:2}+2 to Level of Socketed Lightning Gems
+{variant:1}+1 to Level of all Lightning Gems
+{variant:2}+2 to Level of all Lightning Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 +5% to Maximum Lightning Resistance
@@ -59,8 +59,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2}18% Chance to Block
-{variant:1}+1 to Level of Socketed Lightning Gems
-{variant:2}+2 to Level of Socketed Lightning Gems
+{variant:1}+1 to Level of all Lightning Gems
+{variant:2}+2 to Level of all Lightning Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 Adds (5-15) to (100-140) Lightning Damage to Spells
@@ -130,13 +130,10 @@ Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 {variant:3}(120-150)% increased Spell Damage if you've dealt a Critical Strike Recently
 ]],[[
 Dying Breath
-Coiled Staff
-Variant: Pre 2.6.0
-Variant: Current
-Requires Level 23, 43 Str, 43 Int
+Iron Staff
+Requires Level 13, 27 Str, 27 Int
 Implicits: 2
-{variant:1}18% Chance to Block
-{variant:2}20% Chance to Block
+18% Chance to Block
 18% increased Cast Speed
 18% increased maximum Mana
 18% increased Area of Effect of Aura Skills
@@ -395,8 +392,8 @@ Requires Level 64, 113 Str, 113 Int
 Implicits: 2
 {variant:1,2}18% Chance to Block
 {variant:3}20% Chance to Block
-{variant:1,2}+1 to Level of Socketed Cold Gems
-{variant:3}+2 to Level of Socketed Cold Gems
+{variant:1,2}+1 to Level of all Cold Spell Skill Gems
+{variant:3}+2 to Level of all Cold Spell Skill Gems
 {variant:1}(40-50)% increased Spell Damage
 {variant:2,3}(50-60)% increased Spell Damage
 (40-50)% increased Cold Damage
@@ -445,7 +442,7 @@ Requires Level 28, 43 Str, 43 Int
 Implicits: 2
 {variant:1}18% Chance to Block
 {variant:2}20% Chance to Block
-+1 to Level of Socketed Gems
++1 to Level of all Spell Skill Gems
 15% Chance to Block
 (60-80)% increased Spell Damage
 +(70-100) to Maximum Energy Shield

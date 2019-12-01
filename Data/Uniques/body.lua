@@ -870,6 +870,28 @@ Adds (4–10) to (14–36) Physical Damage to Attacks
 {variant:1}Your Maximum Resistances are (76–80)%
 {variant:2}Your Maximum Resistances are (76–78)%
 ]],[[
+Rotting Legion
+Loricated Ringmail
+Requires Level 58, 84 Str, 84 Int
+League: Blight
+Socketed Gems are Supported by Level 1 Meat Shield
+(100–140)% increased Armour and Energy Shield
++(50–80) to maximum Life
+(5–8)% increased Damage per Raised Zombie
+1% less Elemental Damage taken per Raised Zombie
+]],[[
+Sporeguard
+Saint's Hauberk
+Requires Level 67, 109 Str, 94 Int
+League: Blight
+Trigger Level 10 Contaminate when you Kill an Enemy
+(200–250)% increased Armour and Energy Shield
+(7–10)% increased maximum Life
++(17–23)% to Chaos Resistance
+Enemies on Fungal Ground you Kill Explode, dealing 5% of their Life as Chaos Damage
+You have Fungal Ground around you while stationary
+(Allies on your Fungal Ground gain 10% of Non-Chaos Damage as extra Chaos Damage. Enemies on your Fungal Ground deal 10% less Damage.)
+]],[[
 Voll's Protector
 Holy Chainmail
 League: Legion
