@@ -294,5 +294,5 @@ local skills, mod, flag, skill = ...
 			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanWither" }),
 		},
 	},
-#baseMod mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheringTouchWitheredStackCount", effectStackLimit = 15 })
+#baseMod mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheredStackCount", effectStackLimit = 15 }),
 #mods

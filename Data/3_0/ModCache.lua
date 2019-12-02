@@ -5405,7 +5405,6 @@ c["Projectile Attack Skills have 50% increased Critical Strike Chance"]={{[1]={[
 c["+350 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=350}},nil}
 c["+300 Intelligence Requirement"]={{[1]={flags=0,keywordFlags=0,name="IntRequirement",type="BASE",value=300}},nil}
 c["10% chance to Blind with Hits against Bleeding Enemies Enemies Maimed by you take 10% increased Physical Damage"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=0,keywordFlags=262144,name="PhysicalDamage",type="BASE",value=10}}," to Blind   Enemies Maimed by you take 10% increased  "}
-c["18% increased Golem Damage for each Type of Golem you have Summoned"]={{[1]={[1]={skillType=62,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",type="ActorCondition",var="HavePhysicalGolem"},flags=0,keywordFlags=0,name="Damage",type="INC",value=18}}}},nil}
 c["Golems have 12% increased Maximum Life"]={{[1]={[1]={skillType=62,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={{type="PerStat",stat="ActiveGolemLimit"},flags=0,keywordFlags=0,name="Damage",type="INC",value=20}}}},nil}
 c["+3% to Chance to Evade while you have Energy Shield"]={{[1]={[1]={type="Condition",var="HaveEnergyShield"},flags=0,keywordFlags=0,name="EvadeChance",type="BASE",value=3}},nil}
 c["10% increased Warcry Buff Effect"]={{[1]={flags=0,keywordFlags=4,name="BuffEffect",type="INC",value=10}},nil}

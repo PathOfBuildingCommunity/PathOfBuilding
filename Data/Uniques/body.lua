@@ -969,7 +969,7 @@ Trigger Level 20 Glimpse of Eternity when Hit
 (100-150)% increased Evasion and Energy Shield
 +(70-100) to maximum Life
 +(17-23)% to Chaos Resistance
-Gain 5% of Elemental Damage as Extra Chaos Damage per Shaper Item Equipped
+Gain (3-5)% of Elemental Damage as Extra Chaos Damage per Shaper Item Equipped
 Hits ignore Enemy Monster Chaos Resistance if all Equipped Items are Shaper Items
 ]],[[
 Inpulsa's Broken Heart

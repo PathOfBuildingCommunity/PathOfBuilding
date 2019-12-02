@@ -80,6 +80,8 @@ data.powerStatList = {
 	{ stat=nil, label="Name", itemField="Name", ignoreForNodes=true, reverseSort=true, transform=function(value) return value:gsub("^The ","") end},
 	{ stat="CombinedDPS", label="Combined DPS" },
 	{ stat="TotalDPS", label="Total DPS" },
+	{ stat="WithImpaleDPS", label="Impale + Total DPS" },
+	{ stat="AverageDamage", label="Average Hit" },
 	{ stat="PoisonDPS", label="Poison DPS" },
 	{ stat="IgniteDPS", label="Ignite DPS" },
 	{ stat="TotalDot", label="Chaos DoT DPS" },

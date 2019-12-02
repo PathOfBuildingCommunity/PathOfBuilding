@@ -1,3 +1,12 @@
+### 1.4.152.7 - 2019/12/03
+ * Add sorting for DPS including Impale and average hit damage
+ * Add Impale DPS breakdown numbers
+ * Change Impale DPS display in sidebar to make it more clear
+ * Fix Primordial chain golem damage not working properly
+ * Fix withering touch not applying withered damage increases
+ * Fix Eternity shroud Elemental as Extra Chaos roll
+ * Fix crash related to Impale calculations for Shield charge and Spectral Shield Throw
+
 ### 1.4.152.6 - 2019/12/02
  * Fully implement impale DPS calculations
  * Support for increased buff effect per golem and damage per golem
