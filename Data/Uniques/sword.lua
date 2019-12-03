@@ -624,11 +624,11 @@ Implicits: 2
 {variant:2}40% increased Global Accuracy Rating
 +1 to Level of Active Socketed Skill Gems
 (40-60)% increased Physical Damage
-Adds (60-65) to (90-105) Chaos Damage
-{variant:2}Adds 1 to 2 Physical Damage to Attacks per Level
+Adds (60-68) to (90-102) Chaos Damage
 {variant:1}+1 Life gained on Kill per Level
 {variant:1}1% increased Elemental Damage per Level
 1% increased Chaos Damage per Level
+{variant:2}Adds 1 to 2 Physical Damage to Attacks per Level
 ]],[[
 Hiltless
 Reaver Sword
