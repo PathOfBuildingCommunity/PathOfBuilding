@@ -1997,3 +1997,31 @@ skills["VoidGaze"] = {
 		[10] = { -20, 10000, 100, cooldown = 2, levelRequirement = 40, statInterpolation = { 1, 1, 1, }, },
 	},
 }
+skills["SupportGreaterSpellEcho"] = {
+	name = "Greater Spell Echo",
+	hidden = true,
+	color = 2,
+	support = true,
+	requireSkillTypes = { SkillType.SpellCanRepeat, },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Triggered, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, },
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	statMap = {
+		["support_echo_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_spell_repeat_count",
+		"support_echo_damage_+%_final",
+		"spell_repeat_count_target_search_range",
+	},
+	levels = {
+		[30] = { 2, 35, 0, manaMultiplier = 150, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1, }, },
+	},
+}

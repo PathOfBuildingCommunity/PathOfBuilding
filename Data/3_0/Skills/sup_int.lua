@@ -3012,33 +3012,6 @@ skills["SupportMulticast"] = {
 		[40] = { 1, 85, -10, 0, manaMultiplier = 40, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, }, },
 	},
 }
-skills["SupportGreaterSpellEcho"] = {
-	name = "Greater Spell Echo",
-	description = "",
-	color = 3,
-	support = true,
-	requireSkillTypes = { SkillType.SpellCanRepeat, },
-	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Triggered, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, },
-	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["support_echo_damage_+%_final"] = {
-			mod("Damage", "MORE", nil),
-		},
-	},
-	baseMods = {
-	},
-	qualityStats = {
-	},
-	stats = {
-		"base_spell_repeat_count",
-		"support_echo_damage_+%_final",
-		"spell_repeat_count_target_search_range",
-	},
-	levels = {
-		[30] = { 2, 35, 0, manaMultiplier = 150, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1, }, },
-	},
-}
 skills["SupportSummonGhostOnKill"] = {
 	name = "Summon Phantasm",
 	description = "Supports skills that can hit enemies, or create minions. When those skills or minions kill enemies, or hit rare or unique enemies they will have a chance to summon a Phantasm minion, which uses a piercing projectile spell that deals physical damage.",
