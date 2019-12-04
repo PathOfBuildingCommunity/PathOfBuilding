@@ -2599,6 +2599,19 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 	},
+	["SupportGreaterSpellEcho"] = {
+		name = "Greater Spell Echo",
+		grantedEffectId = "SupportMulticast",
+		tags = {
+			spell = true,
+			intelligence = true,
+			support = true,
+		},
+		tagString = "Spell, Support",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 0,
+	},
 	["Metadata/Items/Gems/SupportGemMeleeSplash"] = {
 		name = "Melee Splash",
 		grantedEffectId = "SupportMeleeSplash",
