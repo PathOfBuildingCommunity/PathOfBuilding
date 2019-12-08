@@ -161,8 +161,8 @@ return {
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
 },
-["base_spell_repeat_count"] = {
-	skill("repeatCount", nil),
+["support_skill_repeat_count_+"] = {
+    mod("Multiplier:RepeatAvg", "BASE", nil),
 },
 ["display_minion_monster_level"] = {
 	skill("minionLevel", nil),

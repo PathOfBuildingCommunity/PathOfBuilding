@@ -2964,7 +2964,7 @@ skills["SupportMulticast"] = {
 		{ "spell_damage_+%", 0.5 },
 	},
 	stats = {
-		"base_spell_repeat_count",
+		"support_skill_repeat_count_+",
 		"support_multicast_cast_speed_+%_final",
 		"support_echo_damage_+%_final",
 		"spell_repeat_count_target_search_range",

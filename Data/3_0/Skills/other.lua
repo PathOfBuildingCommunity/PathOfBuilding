@@ -239,6 +239,38 @@ skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
 		[1] = { cooldown = 0.15, levelRequirement = 1, statInterpolation = { }, },
 	},
 }
+skills["UniqueSupportGreaterSpellEcho"] = {
+    name = "Greater Spell Echo",
+    hidden = true,
+    color = 3,
+	support = true,
+	requireSkillTypes = { SkillType.SpellCanRepeat, },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Triggered, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, },
+	statDescriptionScope = "gem_stat_descriptions",
+    fromItem = true,
+	statMap = {
+		["support_greater_echo_spell_damage_+%_per_repeat"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RepeatAvg" }),
+		},
+        ["support_greater_echo_area_+%_per_repeat"] = {
+            mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "RepeatAvg" }),
+        },   
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"support_skill_repeat_count_+",
+		"support_greater_echo_spell_damage_+%_per_repeat",
+        "support_greater_echo_area_+%_per_repeat",
+		"spell_repeat_count_target_search_range",
+	},
+	levels = {
+		[30] = { 2, 17.5, 25, 0, manaMultiplier = 50, levelRequirement = 68, statInterpolation = { 1, 1, 1, 1, }, },
+	},
+}
 skills["UniqueSupportGreaterVolley"] = {
 	name = "Greater Volley",
 	hidden = true,

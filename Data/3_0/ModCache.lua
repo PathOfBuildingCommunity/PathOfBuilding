@@ -4159,7 +4159,7 @@ c["30% chance to gain an additional Vaal Soul on Kill"]={{}," to gain an additio
 c["Projectile Damage increased by 50% of Arrow Pierce Chance {variant:2}Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce"]={nil,"Projectile Damage increased by 50% of Arrow Pierce Chance {variant:2}Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce "}
 c["100% increased maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=100}},nil}
 c["160% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=160}},nil}
-c["Socketed Gems are Supported by level 30 Greater Spell Echo"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=30,skillId="Unknown"}}},nil}
+c["Socketed Gems are Supported by level 30 Greater Spell Echo"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=30,skillId="UniqueSupportGreaterSpellEcho"}}},nil}
 c["Has 2 Abyssal Sockets"]={{[1]={flags=0,keywordFlags=0,name="AbyssalSocketCount",type="BASE",value=2}},nil}
 c["15% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=15}},nil}
 c["50% increased Damage over Time"]={{[1]={flags=8,keywordFlags=0,name="Damage",type="INC",value=50}},nil}
