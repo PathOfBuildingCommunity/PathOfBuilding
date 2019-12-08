@@ -86,7 +86,7 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level: 62
 18% Chance to Block 
-+2 to Level of Socketed Chaos Gems
++2 to Level of all Chaos Skill Gems
 {variant:1}(60–80)% increased Chaos Damage
 {variant:2}(20–30)% increased Chaos Damage
 {variant:2}+(40-55)% to Non-Ailment Chaos Damage over Time Multiplier
@@ -317,7 +317,7 @@ Requires Level 60, 113 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2,3}18% Chance to Block
-+2 to Level of Socketed Fire Gems
++2 to Level of all Fire Spell Skill Gems
 {variant:1,2}(30-50)% increased Spell Damage
 {variant:1,2}(20-40)% increased Fire Damage
 {variant:3}(70–90)% increased Fire Damage
@@ -402,8 +402,8 @@ Requires Level 64, 113 Str, 113 Int
 Implicits: 2
 {variant:1,2}18% Chance to Block
 {variant:3}20% Chance to Block
-{variant:1,2}+1 to Level of Socketed Cold Gems
-{variant:3}+2 to Level of Socketed Cold Gems
+{variant:1,2}+1 to Level of all Cold Spell Skill Gems
+{variant:3}+2 to Level of all Cold Spell Skill Gems
 {variant:1}(40-50)% increased Spell Damage
 {variant:2,3}(50-60)% increased Spell Damage
 (40-50)% increased Cold Damage
@@ -451,7 +451,7 @@ Requires Level 28, 43 Str, 43 Int
 Implicits: 2
 {variant:1}18% Chance to Block
 {variant:2}20% Chance to Block
-+1 to Level of Socketed Gems
++1 to Level of all Spell Skill Gems
 15% Chance to Block
 (60-80)% increased Spell Damage
 +(70-100) to Maximum Energy Shield
