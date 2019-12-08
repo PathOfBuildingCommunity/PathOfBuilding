@@ -284,8 +284,8 @@ Requires Level 22, 42 Int
 +20 to maximum Mana
 (40-60)% increased Energy Shield
 (5-15)% increased Movement Speed
-+1 to Maximum number of Zombies
-+1 to Maximum number of Spectres
++1 to Level of all Raise Zombie Gems
++1 to Level of all Raise Spectre Gems
 ]],[[
 Doryani's Delusion
 Sorcerer Boots
