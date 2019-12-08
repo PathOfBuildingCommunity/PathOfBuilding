@@ -45,18 +45,20 @@ Berek's Grip
 Two-Stone Ring
 League: Domination, Nemesis
 Variant: Pre 2.6.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 20
 +(12-16)% to Cold and Lightning Resistances
 {variant:1}(10-15)% increased Cold Damage
-{variant:2}(25-30)% increased Cold Damage
+{variant:2,3}(25-30)% increased Cold Damage
 {variant:1}Adds 1 to (1-50) Lightning Damage to Attacks
-{variant:2}Adds 1 to (50-70) Lightning Damage to Spells and Attacks
+{variant:2,3}Adds 1 to (50-70) Lightning Damage to Spells and Attacks
 +(30-40) to maximum Life
-{variant:1}1% of Damage against Frozen Enemies Leeched as Life
-{variant:2}1% of Damage against Shocked Enemies Leeched as Life
-{variant:1}1% of Damage against Shocked Enemies Leeched as Mana
-{variant:2}1% of Damage against Frozen Enemies Leeched as Mana
+{variant:1}1% of Damage Leeched as Life against Frozen Enemies
+{variant:2,3}1% of Damage Leeched as Life against Shocked Enemies
+{variant:1}1% of Damage Leeched as Mana against Shocked Enemies
+{variant:2}1% of Damage Leeched as Mana against Frozen Enemies
+{variant:3}1% of Damage Leeched as Energy Shield against Frozen Enemies
 ]],[[
 Berek's Pass
 Two-Stone Ring
