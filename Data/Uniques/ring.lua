@@ -301,7 +301,7 @@ Requires Level 46
 ]],[[
 Doedre's Damning
 Paua Ring
-+(20-25) to maximum Mana
++(20-30) to maximum Mana
 +(5-10) to Intelligence
 +5% to all Elemental Resistances
 +5 Mana Gained on Kill
@@ -568,7 +568,7 @@ Perandus Signet
 Paua Ring
 Variant: Pre 2.0.0
 Variant: Current
-+(20-25) to maximum Mana
++(20-30) to maximum Mana
 +(25-30) to maximum Mana
 (45-65)% increased Mana Regeneration Rate
 {variant:1}3% increased Experience gain
@@ -580,7 +580,7 @@ Variant: Current
 Praxis
 Paua Ring
 Requires Level 22
-+(20-25) to maximum Mana
++(20-30) to maximum Mana
 +(30-60) to maximum Mana
 (3-6) Mana Regenerated per second
 −(4-8) to Mana Cost of Skills
