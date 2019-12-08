@@ -633,14 +633,16 @@ Nearby Allies gain 40% increased Mana Regeneration Rate
 Sidhebreath
 Paua Amulet
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.8.0
 Variant: Current
 (20-30)% increased Mana Regeneration Rate
 +25% to Cold Resistance
-0.2% of Physical Attack Damage Leeched as Mana
+{variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
 Minions have (10-15)% increased maximum Life
 Minions have (10-15)% increased Movement Speed
-Minions deal (10-15)% increased Damage
-{variant:2}(10-15)% reduced Mana Cost of Minion Skills
+{variant:1,2}Minions deal (10-15)% increased Damage
+{variant:3}Minions deal (5-9) to (11-15) additional Cold Damage
+{variant:2,3}(10-15)% reduced Mana Cost of Minion Skills
 ]],[[
 Solstice Vigil
 Onyx Amulet
