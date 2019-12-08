@@ -2224,7 +2224,7 @@ skills["SupportRangedAttackTotem"] = {
 }
 skills["SupportReducedMana"] = {
 	name = "Inspiration",
-	description = "Supports any skill.",
+	description = "Supports any skill. Minions, Totems, Traps and Mines cannot gain Inspiration Charges.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { },

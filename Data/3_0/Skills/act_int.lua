@@ -7327,7 +7327,6 @@ skills["Skitterbots"] = {
 		"chill_effect_+%",
 		"minion_movement_speed_+%",
 		"display_skitterbot_limit_per_type",
-		"base_deal_no_damage",
 		"display_skitterbot_shocking_aura",
 		"display_skitterbot_chilling_aura",
 	},

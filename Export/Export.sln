@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skills", "Skills", "{740FE3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Minions", "Minions", "{9FE6A1A9-0224-4724-9684-CC44B4540BE3}"
 	ProjectSection(SolutionItems) = preProject
+		..\Data\3_0\Minions.lua = ..\Data\3_0\Minions.lua
+		Minions\Minions.txt = Minions\Minions.txt
 		Minions\modmap.ini = Minions\modmap.ini
 		..\Data\3_0\Spectres.lua = ..\Data\3_0\Spectres.lua
 		Minions\Spectres.txt = Minions\Spectres.txt

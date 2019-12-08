@@ -125,6 +125,12 @@ itemBases["Opal Ring"] = {
 	implicit = "(15-25)% increased Elemental Damage",
 	req = { level = 80, },
 }
+itemBases["Vermillion Ring"] = {
+	type = "Ring",
+	tags = { default = true, ring = true, not_for_sale = true, atlas_base_type = true, ringatlas3 = true, },
+	implicit = "(5-7)% increased maximum Life",
+	req = { level = 80, },
+}
 itemBases["Cerulean Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, not_for_sale = true, atlas_base_type = true, ringatlas4 = true, },
