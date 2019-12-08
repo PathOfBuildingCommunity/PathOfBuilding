@@ -116,7 +116,7 @@ Requires Level 70
 +(20–30) to maximum Life
 +2 to Level of Socketed Gems
 Triggers Level 20 Elemental Aegis when Equipped
-(180–220)% increased Armour
+(200–250)% increased Armour
 +(60–80) to maximum Life
 +(80–100) to Evasion Rating and Energy Shield
 ]],[[
