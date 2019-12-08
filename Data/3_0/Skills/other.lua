@@ -240,22 +240,22 @@ skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
 	},
 }
 skills["UniqueSupportGreaterSpellEcho"] = {
-    name = "Greater Spell Echo",
-    hidden = true,
-    color = 3,
+	name = "Greater Spell Echo",
+	hidden = true,
+	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.SpellCanRepeat, },
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Triggered, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, },
 	statDescriptionScope = "gem_stat_descriptions",
-    fromItem = true,
+	fromItem = true,
 	statMap = {
 		["support_greater_echo_spell_damage_+%_per_repeat"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RepeatAvg" }),
 		},
-        ["support_greater_echo_area_+%_per_repeat"] = {
-            mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "RepeatAvg" }),
-        },   
+		["support_greater_echo_area_+%_per_repeat"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "RepeatAvg" }),
+		},   
 	},
 	baseMods = {
 	},
@@ -264,7 +264,7 @@ skills["UniqueSupportGreaterSpellEcho"] = {
 	stats = {
 		"support_skill_repeat_count_+",
 		"support_greater_echo_spell_damage_+%_per_repeat",
-        "support_greater_echo_area_+%_per_repeat",
+		"support_greater_echo_area_+%_per_repeat",
 		"spell_repeat_count_target_search_range",
 	},
 	levels = {

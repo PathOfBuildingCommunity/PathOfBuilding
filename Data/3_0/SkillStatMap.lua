@@ -162,7 +162,7 @@ return {
 	skill("doubleHitsWhenDualWielding", true),
 },
 ["support_skill_repeat_count_+"] = {
-    mod("Multiplier:RepeatAvg", "BASE", nil),
+	mod("Multiplier:RepeatAvg", "BASE", nil),
 },
 ["display_minion_monster_level"] = {
 	skill("minionLevel", nil),
