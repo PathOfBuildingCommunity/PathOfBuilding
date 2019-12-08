@@ -211,7 +211,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		[36] = 320 * m_pi / 180,
 		[37] = 330 * m_pi / 180,
 		[38] = 340 * m_pi / 180,
-		[39] = 350 * m_pi / 180
+		[39] = 350 * m_pi / 180,
 	}
 	local orbitDist = { [0] = 0, 82, 162, 335, 493 }
 	for _, node in pairs(self.nodes) do
