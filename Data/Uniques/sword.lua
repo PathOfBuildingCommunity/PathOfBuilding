@@ -688,9 +688,9 @@ Requires Level 27, 56 Str, 54 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2,3}+185 to Accuracy Rating
-Minions have (10-15)% increased maximum Life
+Minions have (30-40)% increased maximum Life
 (150-200)% increased Skeleton Duration
-Minions deal (10-15)% increased Damage
+Minions deal (30-40)% increased Damage
 +1 to maximum number of Zombies
 +1 to maximum number of Spectres
 {variant:1,2}+2 to maximum number of Skeletons
@@ -707,10 +707,10 @@ Requires Level 38, 56 Str, 54 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2,3}+185 to Accuracy Rating
-Minions have (10-15)% increased maximum Life
+Minions have (30-40)% increased maximum Life
 Minions have (80-100)% increased Movement Speed
 (150-200)% increased Skeleton Duration
-Minions deal (10-15)% increased Damage
+Minions deal (30-40)% increased Damage
 +1 to maximum number of Zombies
 +1 to maximum number of Spectres
 {variant:1,2}+2 to maximum number of Skeletons
