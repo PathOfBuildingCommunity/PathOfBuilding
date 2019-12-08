@@ -217,6 +217,7 @@ Variant: Current
 ]],[[
 Healthy Mind
 Cobalt Jewel
+Limited to: 1
 Radius: Large
 (15-20)% increased maximum Mana
 Increases and Reductions to Life in Radius are Transformed to apply to Mana at 200% of their value
