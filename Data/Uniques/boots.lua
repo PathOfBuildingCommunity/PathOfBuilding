@@ -135,7 +135,7 @@ Requires Level 12, 26 Dex
 15% increased Movement Speed
 (6-10)% chance to Ignite
 Ignite a nearby Enemy on Killing an Ignited Enemy
-Casts level 7 Abberath's Fury when equipped
+Triggers level 7 Abberath's Fury when equipped
 1% increased Fire Damage per 20 Strength
 Burning Hoofprints
 ]],[[
