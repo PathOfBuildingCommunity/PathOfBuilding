@@ -238,6 +238,17 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SupportGreaterSpellEcho Greater Spell Echo
+	fromItem = true,
+	statMap = {
+		["support_greater_spell_echo_area_of_effect_+%_per_repeat"] = {
+			mod("AreaOfEffect", "INC", nil),
+		},
+	},
+#baseMod mod("Damage", "MORE", 35, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true })
+#baseMod mod("Damage", "MORE", 52, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true })
+#mods
+
 #skill VaalAuraElementalDamageHealing
 #flags spell aura area duration
 	fromItem = true,

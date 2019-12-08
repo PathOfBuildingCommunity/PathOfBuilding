@@ -478,6 +478,7 @@ skills["BladeVortex"] = {
 		skill("hitTimeOverride", 0.6, { type = "SkillPart", skillPart = 1 }),
 		skill("hitTimeOverride", 0.6 / (1+5*0.35), { type = "SkillPart", skillPart = 2 }),
 		skill("hitTimeOverride", 0.6 / (1+10*0.35), { type = "SkillPart", skillPart = 3 }),
+		flag("Condition:HaveBladeVortex"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },

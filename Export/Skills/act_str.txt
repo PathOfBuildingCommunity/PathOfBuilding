@@ -324,7 +324,7 @@ local skills, mod, flag, skill = ...
 
 #skill HeavyStrike
 #flags attack melee
-statMap = {
+	statMap = {
 		["chance_to_deal_double_damage_%"] = {
 			mod("DoubleDamageChance", "BASE", nil),
 		},

@@ -964,6 +964,37 @@ skills["FireBurstOnHit"] = {
 		[30] = { 0.80000001192093, 1.2000000476837, 10, damageEffectiveness = 1.3, cooldown = 0.5, critChance = 5, levelRequirement = 90, statInterpolation = { 3, 3, 1, }, },
 	},
 }
+skills["SupportGreaterSpellEcho"] = {
+	name = "Greater Spell Echo",
+	hidden = true,
+	color = 3,
+	support = true,
+	requireSkillTypes = { SkillType.SpellCanRepeat, },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.Totem, SkillType.Trap, SkillType.Mine, SkillType.Triggered, SkillType.ManaCostReserved, SkillType.Vaal, SkillType.Instant, },
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	statMap = {
+		["support_greater_spell_echo_area_of_effect_+%_per_repeat"] = {
+			mod("AreaOfEffect", "INC", nil),
+		},
+	},
+	baseMods = {
+		mod("Damage", "MORE", 35, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true }),
+		mod("Damage", "MORE", 52, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true }),
+	},
+	qualityStats = {
+		{ "base_cast_speed_+%", 0.5 },
+	},
+	stats = {
+		"base_spell_repeat_count",
+		"support_greater_spell_echo_spell_damage_+%_final_per_repeat",
+		"support_greater_spell_echo_area_of_effect_+%_per_repeat",
+	},
+	levels = {
+		[30] = { 2, 35, 50, manaMultiplier = 50, levelRequirement = 90, statInterpolation = { 1, 1, 1, }, },
+	},
+}
 skills["VaalAuraElementalDamageHealing"] = {
 	name = "Gluttony of Elements",
 	hidden = true,

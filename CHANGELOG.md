@@ -1,3 +1,25 @@
+### 1.4.152.8 - 2019/12/09
+ * Add Support for Greater Spell Echo
+ * Widen manage passives trees drop down box
+ * Rampage now appears as a box on the configs page
+ * Show Impale DPS in sidebar for minions
+ * Add The Ivory Tower Body armour (3.9 preview)
+ * Add Mistwall Buckler Shield (3.9 preview)
+ * Add support for Manastorms' lightning damage buff
+ * Add support for Arborix and its mods
+ * Add support for Augyre and its mods 
+ * Add support for Vulconus and its mods
+ * Add support for new Coated Shrapnel mod
+ * Add support for Inquisitors increased damage on consecrated ground Sanctuary node
+ * Add support for Golem Commanders increased damage node
+ * Add increased area rampage mod support on Sinvicta's Mettle
+ * Add proper support for Champions' Master of Metal node (set the number of impales for this to work)
+ * Add Carion golem to list of golems that work with primordial harmony
+ * Add Bane of Legends node attack speed buff
+ * Add tooltip to Rage to list its effects
+ * Update Edge of Madness
+ * Fix Delve more bleed and poison damage mods to only apply to attacks and give more realistic damage numbers
+ 
 ### 1.4.152.7 - 2019/12/03
  * Add sorting for DPS including Impale and average hit damage
  * Add Impale DPS breakdown numbers

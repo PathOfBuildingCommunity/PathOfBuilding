@@ -1,7 +1,7 @@
 # Path of Building fork by LocalIdentity
 
 This is a fork of Openarls Path Of Building that includes many extra features not in the base version of PoB
-* Adds updated Uniques from 3.8 changes
+* Adds updated Uniques from 3.8 and 3.9 changes
 * Pantheon support
 * Impale DPS support
 * More tree highlighting options for node power

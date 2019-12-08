@@ -38,6 +38,16 @@ Can be Modified While Corrupted
 Can have up to 5 Implicit Modifiers while item has this modifier
 12% Increased Maximum Life
 +25% to Fire and Lightning Resistances
+]],[[
+The Ivory Tower
+Saint's Hauberk
+Requires Level 67, 109 Str, 94 Int
+League: Metamorph
++41 to Intelligence
++30 to Maximum Energy Shield per 100 Reserved Life
++92 to Maximum Mana
+Regenerate 2% of Energy Shield per Second
+Chaos Damage is taken from Mana before Life
 ]],
 [[
 Leash of Oblation
@@ -61,6 +71,20 @@ League: Metamorph
 116% increased Energy Shield
 37% Increased Mana Regeneration Rate
 When you cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage equal to 25% of Sacrificed Mana for 4 Seconds
+]],
+[[
+Mistwall
+Lacquered Buckler
+Requires Level 60, 159 Dex
+League: Metamorph
+Implicits: 1
+{variant:3}6% increased Movement Speed
+128% increased Evasion Rating
+10% increased Movement Speed
++14% to Fire and Cold Resistances
+9% Chance to Avoid Elemental Damage from hits while Phasing
+You are at Maximum chance to Block Attack Damage if you have not Blocked Recently
+You have Phasing if you have Blocked Recently
 ]]
 
 
