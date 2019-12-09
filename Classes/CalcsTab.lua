@@ -496,6 +496,10 @@ function CalcsTabClass:PowerBuilder()
 end
 
 function CalcsTabClass:CalculatePowerStat(selection, original, modified)
+	if modified.Minion then
+		original = original.Minion
+		modified = modified.Minion
+	end
 	originalValue = original[selection.stat] or 0
 	modifiedValue = modified[selection.stat] or 0
 	if selection.transform then
