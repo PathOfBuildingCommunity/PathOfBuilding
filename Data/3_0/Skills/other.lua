@@ -2028,3 +2028,63 @@ skills["VoidGaze"] = {
 		[10] = { -20, 10000, 100, cooldown = 2, levelRequirement = 40, statInterpolation = { 1, 1, 1, }, },
 	},
 }
+skills["AnimateGuardianWeapon"] = {
+	name = "Animate Guardian's Weapon",
+	hidden = true,
+	color = 2,
+	description = "Animates a copy of your Animated Guardian's main-hand weapon to fight by your side.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = false, [SkillType.CreatesMinion] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Type54] = true, [SkillType.SkillCanVolley] = true, [SkillType.Type56] = true, },
+	castTime = 0,
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	fromItem = true,
+	minionList = {
+		"AnimatedWeapon",
+	},
+	statMap = {
+		["base_movement_velocity_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }),
+		},
+		["active_skill_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["attack_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", nil, ModFlag.Attack) }),
+		},
+		["attack_minimum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
+		["attack_maximum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+		{ "base_movement_velocity_+%", 2 },
+	},
+	stats = {
+		"emerge_speed_+%",
+		"animate_item_maximum_level_requirement",
+		"active_skill_damage_+%_final",
+		"attack_speed_+%",
+		"base_skill_effect_duration",
+		"attack_minimum_added_physical_damage",
+		"attack_maximum_added_physical_damage",
+		"number_of_animated_weapons_allowed",
+		"chance_to_cast_on_kill_%",
+		"spell_uncastable_if_triggerable",
+	},
+	levels = {
+		[18] = { 0, 100, 154, 0, 20000, 9, 14, 50, 10, manaCost = 0, levelRequirement = 70, statInterpolation = { }, },
+		[20] = { 0, 100, 160, 0, 20000, 10, 15, 50, 100, manaCost = 0, levelRequirement = 70, statInterpolation = { }, },
+	},
+}

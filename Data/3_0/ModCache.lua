@@ -488,7 +488,7 @@ c["100% increased Blink Arrow and Mirror Arrow Cooldown Recovery Speed"]={{[1]={
 c["Warcry Skills' Cooldown Time is 2 seconds"]={{[1]={flags=0,keywordFlags=4,name="CooldownRecovery",type="OVERRIDE",value=2}},nil}
 c["100% increased Global Accuracy Rating"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Accuracy",type="INC",value=100}},nil}
 c["20% chance to gain a Frenzy Charge when you Hit a Rare or Unique Enemy"]={{}," to gain aCharge when you Hit a Rare or Unique Enemy "}
-c["10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy You cannot have non-Animated Minions"]={{}," to Trigger Level 18 Animate Guardian's  when Animated Weapon Kills an Enemy You cannot have non-Animated Minions "}
+c["You cannot have non-Animated Minions"]={{}," to You cannot have non-Animated Minions "}
 c["Nearby Allies deal 30% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=30},onlyAllies=true}}},nil}
 c["340% increased Armour, Evasion and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="Defences",type="INC",value=340}},nil}
 c["+15% to Damage over Time Multiplier for Poison from Critical Strikes"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=0,keywordFlags=1048576,name="DotMultiplier",type="BASE",value=15}},nil}
@@ -1883,7 +1883,6 @@ c["30% increased Zombie Resistances"]={{},"  Resistances "}
 c["Golems have 90% increased Movement Speed"]={{[1]={[1]={skillType=62,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=90}}}},nil}
 c["33% chance to Blind nearby Enemies when gaining Her Blessing Cannot be Frozen, Chilled or Ignited with Her Blessing"]={{}," to Blind nearby Enemies when gaining Her Blessing Cannot be Frozen, Chilled or Ignited with Her Blessing "}
 c["Extra gore"]={nil,"Extra gore "}
-c["Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy 10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy"]={nil,"Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy 10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy "}
 c["Traps and Mines have a 25% chance to Poison on Hit"]={{[1]={flags=0,keywordFlags=12288,name="PoisonChance",type="BASE",value=25}},nil}
 c["+1% Chance to Block Attack Damage while Dual Wielding or holding a Shield"]={{[1]={[1]={type="Condition",varList={[1]="DualWielding",[2]="UsingShield"}},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=1}},nil}
 c["25% increased Physical Damage with One Handed Melee Weapons"]={{[1]={flags=301989888,keywordFlags=0,name="PhysicalDamage",type="INC",value=25}},nil}
@@ -5198,10 +5197,10 @@ c["+40 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShie
 c["and nearby Allies cannot be Stunned If you've Attacked Recently, you\nand nearby Allies have +10% Chance to Block Attack Damage If you've Cast a Spell Recently, you\nand nearby Allies have +10% Chance to Block Spell Damage"]={nil,"and nearby Allies cannot be Stunned If you've Attacked Recently, you\nand nearby Allies have +10% Chance to Block Attack Damage If you've Cast a Spell Recently, you\nand nearby Allies have +10% Chance to Block Spell Damage "}
 c["Socketed Curse Skills are Triggered by Doedre's Effigy when Summoned"]={nil,"Socketed Curse Skills are Triggered by Doedre's Effigy when Summoned "}
 c["+250 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=250}},nil}
-c["10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy"]={{}," to Trigger Level 18 Animate Guardian's  when Animated Weapon Kills an Enemy "}
+c["10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=18,skillId="AnimateGuardianWeapon"}}},nil}
 c["33% chance to Blind nearby Enemies when gaining Her Blessing"]={{}," to Blind nearby Enemies when gaining Her Blessing "}
 c["+25% to Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=25}},nil}
-c["Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy"]={nil,"Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy "}
+c["Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets"]={nil,"Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets "}
 c["+10 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=10}},nil}
 c["25% increased maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=25}},nil}
 c["Sacrifice 4% of your Life when you Use or Trigger a Spell Skill"]={nil,"Sacrifice 4% of your Life when you Use or Trigger a Spell Skill "}
@@ -6450,7 +6449,7 @@ c["+190 to Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="B
 c["Gain a Flask Charge when you deal a Critical Strike"]={nil,"Gain a Flask Charge when you deal a Critical Strike "}
 c["650% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC",value=650}},nil}
 c["24% increased Damage with Brand Skills"]={{[1]={[1]={skillType=76,type="SkillType"},flags=0,keywordFlags=0,name="Damage",type="INC",value=24}},nil}
-c["Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy"]={nil,"Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy "}
+c["Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="AnimateGuardianWeapon"}}},nil}
 c["20% of Overkill Damage is Leeched as Life"]={{[1]={[1]={type="Condition",var="Leeching"},flags=0,keywordFlags=0,name="DamageLifeLeech",type="BASE",value=20}}}
 c["Flasks applied to you have 8% increased Effect"]={{[1]={flags=0,keywordFlags=0,name="FlaskEffect",type="INC",value=8}},nil}
 c["Totems gain +10% to all Elemental Resistances"]={nil,"Totems gain +10% to all Elemental Resistances "}
