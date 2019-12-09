@@ -95,6 +95,8 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 	local modNames = damageStatsForTypes[typeFlags]
 	local inc = 1 + skillModList:Sum("INC", cfg, unpack(modNames)) / 100
 	local more = m_floor(skillModList:More(cfg, unpack(modNames)) * 100 + 0.50000001) / 100
+	local moreMinDamage = skillModList:More(cfg, "Min"..damageType.."Damage")
+	local moreMaxDamage = skillModList:More(cfg, "Max"..damageType.."Damage")
 
 	if breakdown then
 		t_insert(breakdown.damageTypes, {
@@ -108,8 +110,8 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 		})
 	end
 
-	return (round(baseMin * inc * more) + addMin),
-		   (round(baseMax * inc * more) + addMax)
+	return round(((baseMin * inc * more) + addMin) * moreMinDamage),
+		round(((baseMax * inc * more) + addMax) * moreMaxDamage)
 end
 
 local function calcAilmentSourceDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags)
