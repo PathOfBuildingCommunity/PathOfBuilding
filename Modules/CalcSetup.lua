@@ -551,7 +551,7 @@ function calcs.initEnv(build, mode, override)
 			local group
 			for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
 				if socketGroup.source == grantedSkill.source and socketGroup.slot == grantedSkill.slotName then
-					if socketGroup.gemList[1] and socketGroup.gemList[1].skillId == grantedSkill.skillId then
+					if socketGroup.gemList[1] and socketGroup.gemList[1].skillId == grantedSkill.skillId and socketGroup.gemList[1].level == grantedSkill.level then
 						group = socketGroup
 						markList[socketGroup] = true
 						break
@@ -564,7 +564,7 @@ function calcs.initEnv(build, mode, override)
 				t_insert(build.skillsTab.socketGroupList, group)
 				markList[group] = true
 			end
-
+			
 			-- Update the group
 			group.sourceItem = grantedSkill.sourceItem
 			local activeGemInstance = group.gemList[1] or {
