@@ -720,6 +720,9 @@ return {
 ["always_pierce"] = {
 	flag("PierceAllTargets"),
 },
+["cannot_pierce"] = {
+	flag("CannotPierce"),
+},
 ["base_number_of_additional_arrows"] = {
 	mod("ProjectileCount", "BASE", nil),
 },
