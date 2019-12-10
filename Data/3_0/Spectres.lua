@@ -2383,6 +2383,30 @@ minions["Metadata/Monsters/Taster/Taster"] = {
 	},
 }
 -- Templar
+minions["Metadata/Monsters/TemplarCrazedDriver/TemplarCrazedDriver"] = {
+	name = "Crazed Driver",
+	life = 1,
+	armour = 0.25,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.845,
+	attackRange = 8,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	weaponType2 = "One Handed Mace",
+	skillList = {
+		"SlaverTaunt",
+		"Melee",
+		"KitavaSlavedriverFlameWhip",
+	},
+	modList = {
+		-- MonsterImplicitFastRun4 [base_movement_velocity_+% = 20]
+	},
+}
 minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriver"] = {
 	name = "Slave Driver",
 	life = 1,
