@@ -87,8 +87,8 @@ Variant: Current
 Requires Level: 62
 18% Chance to Block 
 +2 to Level of all Chaos Spell Skill Gems
-{variant:1}(60–80)% increased Chaos Damage
-{variant:2}(20–30)% increased Chaos Damage
+{variant:1}(60â€“80)% increased Chaos Damage
+{variant:2}(20â€“30)% increased Chaos Damage
 {variant:2}+(40-55)% to Chaos Damage over Time Multiplier
 2% increased Cast Speed per Power Charge
 Gain a Power Charge after spending a total of 200 Mana
@@ -99,11 +99,11 @@ Maelstrom Staff
 Source: Drops from unique{The Elder} (Uber)
 Requires Level 64
 20% Chance to Block
-Adds (270–300) to (340–380) Physical Damage
-Adds (376–400) to (568–600) Physical Damage to Spells
+Adds (270â€“300) to (340â€“380) Physical Damage
+Adds (376â€“400) to (568â€“600) Physical Damage to Spells
 +1 to Maximum Siphoning Charges per Elder or Shaper Item Equipped
 25% chance to gain a Siphoning Charge when you use a Skill
-Adds (12–14) to (15–16) Physical Damage to Attacks and Spells per Siphoning Charge
+Adds (12â€“14) to (15â€“16) Physical Damage to Attacks and Spells per Siphoning Charge
 Gain 4% of Non-Chaos Damage as extra Chaos Damage per Siphoning Charge
 1% additional Physical Damage Reduction from Hits per Siphoning Charge
 0.2% of Damage Leeched as Life per Siphoning Charge
@@ -111,7 +111,7 @@ Take 150 Physical Damage per Second per Siphoning Charge if you've used a Skill 
 Elder Item
 ]],[[
 Duskdawn
-Maelström Staff
+MaelstrÃ¶m Staff
 Source: Vendor recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
@@ -130,9 +130,20 @@ Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 {variant:3}(120-150)% increased Spell Damage if you've dealt a Critical Strike Recently
 ]],[[
 Dying Breath
+Coiled Staff
+Requires Level 23, 34 Str, 34 Int
+(18-20)% Chance to Block
+18% increased Cast Speed
+18% increased maximum Mana
+18% increased Area of Effect of Aura Skills
+18% increased Area of Effect of Curse Skills
+Nearby Enemies have 18% increased Effect of Curses on them
+Nearby allies gain 18% increased Damage
+18% increased effect of Non-Curse Auras you Cast
+]],[[
+Dying Breath
 Iron Staff
 Requires Level 13, 27 Str, 27 Int
-Implicits: 2
 18% Chance to Block
 18% increased Cast Speed
 18% increased maximum Mana
@@ -161,7 +172,7 @@ Variant: Current
 Requires Level 58, 99 Str, 99 Int
 Implicits: 2
 {variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:2,3}18% Chance to Block
 +2 to Level of Socketed Minion Gems
 {variant:1,2}Minions Regenerate (1.5-2.5)% Life per Second
 {variant:1,2}2% increased Minion Attack and Cast Speed per Skeleton you own
@@ -193,18 +204,18 @@ Requires Level 32
 Socketed Gems are Supported by Level 16 Trap
 Socketed Gems are Supported by Level 16 Cluster Trap
 Socketed Gems are Supported by Level 16 Trap and Mine Damage
-(10–20)% increased maximum Mana
-(10–20)% increased maximum Life
-(40–50)% increased Damage
+(10â€“20)% increased maximum Mana
+(10â€“20)% increased maximum Life
+(40â€“50)% increased Damage
 ]],[[
 The Grey Spire
 Judgement Staff
 Requires Level 68
 +18% Chance to Block Attack Damage while wielding a Staff
 Has no Sockets
-(250–300)% increased Global Damage
-(20–30)% increased Attack Speed
-+(1–4)% to all maximum Resistances
+(250â€“300)% increased Global Damage
+(20â€“30)% increased Attack Speed
++(1â€“4)% to all maximum Resistances
 ]],[[
 Hegemony's Era
 Judgement Staff
@@ -305,11 +316,11 @@ Variant: Current
 Requires Level 60, 113 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
-{variant:2,3}18% Chance to Block
+{variant:2,3,4}18% Chance to Block
 +2 to Level of all Fire Spell Skill Gems
 {variant:1,2}(30-50)% increased Spell Damage
 {variant:1,2}(20-40)% increased Fire Damage
-{variant:3,4}(70–90)% increased Fire Damage
+{variant:3,4}(70â€“90)% increased Fire Damage
 10% increased Cast Speed
 {variant:1,2,3}70% increased Burning Damage
 {variant:4}+(40-60)% to Fire Damage over Time Multiplier
@@ -346,10 +357,10 @@ League: Delve
 Requires Level 62
 +18% Chance to Block Attack Damage while wielding a Staff
 Trigger Level 20 Summon Phantasm Skill when you Consume a Corpse
-(100–140)% increased Spell Damage
-(25–30)% increased Cast Speed
-(80–100)% increased Mana Regeneration Rate
-Minions deal (45–51) to (66–78) additional Physical Damage
+(100â€“140)% increased Spell Damage
+(25â€“30)% increased Cast Speed
+(80â€“100)% increased Mana Regeneration Rate
+Minions deal (45â€“51) to (66â€“78) additional Physical Damage
 If you Consumed a Corpse Recently, you and nearby Allies regenerate 5% of Life per second
 ]],[[
 The Stormheart
@@ -375,16 +386,16 @@ Source: Upgraded from unique{The Stormheart} via prophecy{The Storm Spire}
 Requires Level 60
 18% Chance to Block
 15% Chance to Block
-Adds (242–260) to (268–285) Physical Damage
-(20–35)% increased Critical Strike Chance
+Adds (242â€“260) to (268â€“285) Physical Damage
+(20â€“35)% increased Critical Strike Chance
 50% of Physical Damage Converted to Cold Damage
 50% of Physical Damage Converted to Lightning Damage
 Cannot be Shocked while Chilled
-(30–40)% chance to Chill Attackers for 4 seconds on Block
-(30–40)% chance to Shock Attackers for 4 seconds on Block
+(30â€“40)% chance to Chill Attackers for 4 seconds on Block
+(30â€“40)% chance to Shock Attackers for 4 seconds on Block
 ]],[[
 Taryn's Shiver
-Maelström Staff
+MaelstrÃ¶m Staff
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
