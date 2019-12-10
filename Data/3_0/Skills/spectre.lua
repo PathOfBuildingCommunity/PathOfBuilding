@@ -1499,6 +1499,36 @@ skills["KitavaDemonXMortar"] = {
 		[2] = { 2, 500, 0.54000002145767, 0.80000001192093, 10, 0, 125, cooldown = 3, levelRequirement = 68, statInterpolation = { 1, 1, 3, 3, 1, 1, 1, }, },
 	},
 }
+skills["KitavaSlavedriverFlameWhip"] = {
+	name = "Flame Surge",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 2.5,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "Strikes enemies in front of you with a surge of flame. Burning enemies are dealt more damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.5,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+		skill("radius", 30),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"active_skill_area_of_effect_radius_+%_final",
+		"base_cast_speed_+%",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.30896384046, 0.46337742297, 50, -65, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, }, },
+	},
+}
 skills["MassFrenzy"] = {
 	name = "Mass Frenzy",
 	hidden = true,
