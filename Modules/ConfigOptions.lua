@@ -141,6 +141,10 @@ return {
 	{ var = "raiseSpidersSpiderCount", type = "count", label = "# of Spiders:", ifSkill = "Raise Spiders", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:RaisedSpider", "BASE", m_min(val, 20), "Config")
 	end },
+	{ label = "Animate Weapon:", ifSkillList = {"Animate Weapon","Animate Guardian's Weapon"} },
+	{ var = "animateWeaponWeaponCount", type = "count", label = "# of Weapons:", ifSkillList = {"Animate Weapon","Animate Guardian's Weapon"}, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:AnimatedWeapon", "BASE", m_min(val, 50), "Config")
+	end },
 	{ label = "Siphoning Trap:", ifSkill = "Siphoning Trap" },
 	{ var = "siphoningTrapAffectedEnemies", type = "count", label = "# of Enemies affected:", ifSkill = "Siphoning Trap", tooltip = "Sets the number of enemies affected by Siphoning Trap.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:EnemyAffectedBySiphoningTrap", "BASE", val, "Config")

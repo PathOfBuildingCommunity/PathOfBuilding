@@ -284,6 +284,29 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill AnimateGuardianWeapon
+#flags spell minion duration
+	fromItem = true,
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	minionList = {
+		"AnimatedWeapon",
+	},
+	statMap = {
+		["active_skill_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["attack_minimum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
+		["attack_maximum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
+	},
+#mods
+
 #skill UniqueAnimateWeapon
 #flags spell minion
 	fromItem = true,
