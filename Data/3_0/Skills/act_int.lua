@@ -101,6 +101,8 @@ skills["VaalArcChain"] = {
 		chaining = true,
 	},
 	baseMods = {
+		flag("Condition:CanBeLucky"),
+		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeLucky" }),
 	},
 	qualityStats = {
 		{ "shock_duration_+%", 1.5 },
@@ -6070,7 +6072,7 @@ skills["Soulrend"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
-		skill("radius", 13),
+		skill("radius", 10),
 	},
 	qualityStats = {
 		{ "chaos_damage_+%", 1 },

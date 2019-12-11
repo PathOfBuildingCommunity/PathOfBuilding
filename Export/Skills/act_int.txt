@@ -1001,7 +1001,7 @@ local skills, mod, flag, skill = ...
 #skill Soulrend
 #flags spell projectile duration
 #baseMod skill("debuff", true)
-#baseMod skill("radius", 13)
+#baseMod skill("radius", 10)
 #mods
 
 #skill Spark
