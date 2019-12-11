@@ -1,4 +1,4 @@
--- Item data (c) Grinding Gear Games
+ï»¿-- Item data (c) Grinding Gear Games
 
 return {
 -- Weapon: Claw
@@ -26,7 +26,7 @@ Variant: Current
 Requires Level 66, 131 Dex, 95 Int
 2% of Physical Attack Damage Leeched as Life
 {variant:1}(80-100)% increased Physical Damage
-{variant:2}(110–130)% increased Physical Damage
+{variant:2}(110â€“130)% increased Physical Damage
 Adds (15-20) to (30-40) Physical Damage
 (8-12)% increased Attack Speed
 15% increased Movement Speed while Phasing
@@ -63,7 +63,7 @@ Variant: Current
 Requires Level 62, 131 Dex, 95 Int
 1.6% of Physical Attack Damage Leeched as Life
 {variant:1}(100-120)% increased Physical Damage
-{variant:2}(150–170)% increased Physical Damage
+{variant:2}(150â€“170)% increased Physical Damage
 Adds 10 to 12 Physical Damage
 5% increased Attack Speed
 1.2% of Physical Attack Damage Leeched as Life
@@ -214,7 +214,7 @@ Implicits: 2
 +1 to Level of Socketed Dexterity Gems
 {variant:3}Socketed Gems are Supported by level 10 Faster Attacks
 {variant:1,2}(100-120)% increased Physical Damage
-{variant:3}(160–180)% increased Physical Damage
+{variant:3}(160â€“180)% increased Physical Damage
 (10-15)% increased Attack Speed
 25% increased Stun Recovery
 Hits can't be Evaded

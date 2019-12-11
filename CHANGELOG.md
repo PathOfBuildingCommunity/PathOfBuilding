@@ -1,3 +1,20 @@
+### 1.4.153.1 - 2019/12/12
+ * Add 3.9 Passive Tree
+ * Add 3.9 Unique Changes
+ * Add support for Ryslathas Coil
+ * Add support for Perquils Toe
+ * Add support for Vaal Arc Lucky Buff
+ * Add support for Chain of Command's mods
+ * Add support for Warcried recently
+ * Fix Minion DPS sorting bug for Uniques and tree
+ * Fix Toxic Rain/Rain of Arrows pierce bug
+ * Fix radius calcualtion for Jewels 
+ * Fix Impale calculations for certain skills
+      * Barrage, Blade Flurry, Blast Rain, Double Strike, Lacerate, Scourge Arrow,
+  	    Cleave, Dual Strike, Riposte, Viper Strike, Static Strike
+ * Counter attack skills now show proper damage for each hit instead of DPS when using Impale
+ * Update many uniques that had incorrect wordings
+
 ### 1.4.152.8 - 2019/12/09
  * Add Support for Greater Spell Echo
  * Widen manage passives trees drop down box

@@ -1,4 +1,4 @@
--- Item data (c) Grinding Gear Games
+ï»¿-- Item data (c) Grinding Gear Games
 
 return {
 -- Weapon: One Handed Axe
@@ -22,10 +22,10 @@ Cleaver
 Source: Upgraded from unique{Dreadarc} via prophecy{Burning Dread}
 Requires Level 60
 Adds (5-15) to (20-25) Physical Damage
-Adds (223–250) to (264–280) Fire Damage
+Adds (223â€“250) to (264â€“280) Fire Damage
 5% increased Movement Speed
-(7–10)% increased Attack Speed
-+(15–25)% to Fire Resistance
+(7â€“10)% increased Attack Speed
++(15â€“25)% to Fire Resistance
 Hits ignore Enemy Monster Fire Resistance while you are Ignited
 ]],[[
 Dyadus
@@ -155,7 +155,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 45, 99 Str, 57 Dex
 {variant:1}(100-120)% increased Physical Damage
-{variant:2}(180–200)% increased Physical Damage
+{variant:2}(180â€“200)% increased Physical Damage
 +100 to maximum Life
 10.0 Life Regenerated per second
 1% of Physical Attack Damage Leeched as Life
@@ -278,8 +278,8 @@ Hits can't be Evaded
 Sinvicta's Mettle
 Ezomyte Axe
 Requires Level 62
-(200–212)% increased Physical Damage
-(8–12)% increased Attack Speed
+(200â€“212)% increased Physical Damage
+(8â€“12)% increased Attack Speed
 Rampage
 2% increased Area of Effect per 25 Rampage Kills
 Gain a Frenzy Charge on every 50th Rampage Kill

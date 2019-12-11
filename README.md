@@ -14,6 +14,7 @@ This is a fork of Openarls Path Of Building that includes many extra features no
 * Logic for melee distance scaling attack multipliers (Close combat and Slayers Impact node)
 * Added Vermillion ring base
 * Withered now shows on the configuration screen
+* Support for Ryslathas Coil, Vaal Arc Lucky Budd, Perquils Toe and more
 
 ## Feature Requests
 [![Feature Requests](https://feathub.com/LocalIdentity/PathOfBuilding?format=svg)](https://feathub.com/LocalIdentity/PathOfBuilding)

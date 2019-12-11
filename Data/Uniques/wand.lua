@@ -1,4 +1,4 @@
--- Item data (c) Grinding Gear Games
+ï»¿-- Item data (c) Grinding Gear Games
 
 return {
 -- Weapon: Wand
@@ -123,7 +123,7 @@ Implicits: 2
 (30-40)% increased Spell Damage
 {variant:1}125% increased Physical Damage
 {variant:2,3}175% increased Physical Damage
-{variant:4}(250–275)% increased Physical Damage
+{variant:4}(250â€“275)% increased Physical Damage
 +10 to Intelligence
 (20-30)% increased Lightning Damage
 10% increased Cast Speed
@@ -162,10 +162,10 @@ Attacks with this Weapon have (100-115)% increased Elemental Damage
 The Poet's Pen
 Carved Wand
 Requires Level 12
-(11–15)% increased Spell Damage 
+(11â€“15)% increased Spell Damage 
 +1 to Level of Socketed Active Skill Gems per 25 Player Levels 
 Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels 
-(8–12)% increased Attack Speed 
+(8â€“12)% increased Attack Speed 
 Trigger a Socketed Spell when you Attack
 ]],[[
 Reverberation Rod
@@ -209,10 +209,10 @@ Source: Drops from unique{The Elder} (Tier 6+)
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 65
-(35–39)% increased Spell Damage 
-(30–40)% increased Spell Damage 
-Adds (26–35) to (95–105) Lightning Damage to Spells 
-+(6–10)% to Critical Strike Multiplier per Power Charge 
+(35â€“39)% increased Spell Damage 
+(30â€“40)% increased Spell Damage 
+Adds (26â€“35) to (95â€“105) Lightning Damage to Spells 
++(6â€“10)% to Critical Strike Multiplier per Power Charge 
 +0.3% Critical Strike Chance per Power Charge 
 2% additional Chance to Block Spells per Power Charge 
 Adds 3 to 9 Lightning Damage to Spells per Power Charge 

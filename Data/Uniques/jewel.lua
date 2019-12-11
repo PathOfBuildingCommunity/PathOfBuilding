@@ -638,7 +638,7 @@ Limited to: 1
 {variant:28}(10-15)% increased Movement Speed while affected by Grace
 {variant:29}Unaffected by Enfeeble while affected by Grace
 {variant:30}(5-8)% chance to Dodge Spell Hits while affected by Haste
-{variant:31}(30-50)% increased cooldown recovery speed of Movement Skills used while affected by Haste
+{variant:31}(30-50)% increased cooldown recovery speed of Movement Skills while affected by Haste
 {variant:32}Debuffs on you expire (20-15)% faster while affected by Haste
 {variant:33}You gain Onslaught for 4 seconds on Kill while affected by Haste
 {variant:34}You have Phasing while affected by Haste
