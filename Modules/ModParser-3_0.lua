@@ -367,6 +367,8 @@ local modNameList = {
 	["non-chaos damage"] = "NonChaosDamage",
 	["elemental damage"] = "ElementalDamage",
 	-- Other damage forms
+	["maximum physical attack damage"] = { "MaximumPhysicalDamage", flags = ModFlag.Attack },
+	["minimum physical attack damage"] = { "MinimumPhysicalDamage", flags = ModFlag.Attack },
 	["attack damage"] = { "Damage", flags = ModFlag.Attack },
 	["attack physical damage"] = { "PhysicalDamage", flags = ModFlag.Attack },
 	["physical attack damage"] = { "PhysicalDamage", flags = ModFlag.Attack },

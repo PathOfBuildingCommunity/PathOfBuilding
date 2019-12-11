@@ -1031,8 +1031,8 @@ function calcs.offence(env, actor, activeSkill)
 						-- Apply crit multiplier
 						allMult = allMult * output.CritMultiplier
 					end				
-					min = min * allMult
-					max = max * allMult
+					min = min * allMult * skillModList:More(cfg, "Minimum"..damageType.."Damage")
+					max = max * allMult * skillModList:More(cfg, "Maximum"..damageType.."Damage")
 					if (min ~= 0 or max ~= 0) and env.mode_effective then
 						-- Apply enemy resistances and damage taken modifiers
 						local resist = 0
