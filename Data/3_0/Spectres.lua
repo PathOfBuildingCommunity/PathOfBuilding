@@ -273,6 +273,48 @@ minions["Metadata/Monsters/Bandit/DockworkerChampion_"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/Bandits/BanditBowChampion"] = {
+	name = "Kraityn's Sentry",
+	life = 1.57,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.73,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"Melee",
+		"BanditExplosiveArrowChampion",
+		"BanditChampionBlastRain",
+		"BanditChampionBlastRainSpectre",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditRangedTornadoShotPetrified"] = {
+	name = "Imperial Vanguard",
+	life = 0.96,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.6,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"Melee",
+		"SkeletonSoldierTornadoShot",
+	},
+	modList = {
+	},
+}
 -- Beast
 minions["Metadata/Monsters/Beasts/BeastCaveDegenAura"] = {
 	name = "Shaggy Monstrosity",
@@ -809,6 +851,30 @@ minions["Metadata/Monsters/GemMonster/Iguana"] = {
 	modList = {
 		-- MonsterSuppressingFire [chance_to_apply_suppression_on_hit_% = 20]
 		-- DisplayMonsterSuppressingFire [display_monster_uses_suppressing_fire_text = 1]
+	},
+}
+minions["Metadata/Monsters/GemMonster/IguanaChrome"] = {
+	name = "Chrome-infused Chimeral",
+	life = 1.54,
+	energyShield = 0.2,
+	fireResist = 52,
+	coldResist = 52,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.12,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 9,
+	accuracy = 1,
+	skillList = {
+		"IguanaProjectileChrome",
+		"Melee",
+		"IguanaDoomArrow",
+	},
+	modList = {
+		-- MonsterSuppressingFire [chance_to_apply_suppression_on_hit_% = 20]
+		-- DisplayMonsterSuppressingFire [display_monster_uses_suppressing_fire_text = 1]
+		mod("PhysicalDamageGainAsCold", "BASE", 100), -- MonsterPhysicalAddedAsColdSkeletonMaps [physical_damage_%_to_add_as_cold = 100]
 	},
 }
 -- Ghost pirate
@@ -2248,6 +2314,53 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionC
 		-- MonsterCastsElementalHitText [monster_casts_elemental_hit_text = 1]
 	},
 }
+minions["Metadata/Monsters/Skeletons/SkeletonBowKnightElemental"] = {
+	name = "Vaal Slayer",
+	life = 0.96,
+	fireResist = 37,
+	coldResist = 37,
+	lightningResist = 37,
+	chaosResist = 0,
+	damage = 0.6,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"Melee",
+		"ElementalHitSkeletonKnight",
+	},
+	modList = {
+		-- MonsterCastsElementalHitText [monster_casts_elemental_hit_text = 1]
+	},
+}
+minions["Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance"] = {
+	name = "Primeval Hunter",
+	life = 1.7,
+	armour = 0.15,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.3,
+	attackTime = 1.605,
+	attackRange = 14,
+	accuracy = 1,
+	weaponType1 = "Two Handed Mace",
+	skillList = {
+		"Melee",
+		"SkeletonBlackAbyssBoneLance",
+	},
+	modList = {
+		-- MonsterAbyssDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
+		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
+		-- CannotBeUsedAsMinion [cannot_be_used_as_minion = 1]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
+	},
+}
 minions["Metadata/Monsters/SkeletonCannon/SkeletonCannon1"] = {
 	name = "Bone Husk",
 	life = 2.07,
@@ -2360,6 +2473,30 @@ minions["Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear"] = {
 		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
 	},
 }
+minions["Metadata/Monsters/Statue/StoneStatueMaleBow"] = {
+	name = "Archer Statue",
+	life = 2.46,
+	armour = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.72,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 40,
+	accuracy = 1,
+	damageFixup = 0.11,
+	weaponType1 = "Bow",
+	skillList = {
+		"Melee",
+		"MonsterIceShot",
+	},
+	modList = {
+		-- MonsterSpeedAndDamageFixupSmall [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 11]
+		-- MonsterFiresIceShotArrowsText [monster_fires_ice_shot_arrows_text = 1]
+	},
+}
 -- Ophidian
 minions["Metadata/Monsters/Taster/Taster"] = {
 	name = "Noisome Ophidian",
@@ -2402,6 +2539,30 @@ minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriver"] = {
 		"SlaverTaunt",
 		"Melee",
 		"SlavedriverFlameWhip",
+	},
+	modList = {
+		-- MonsterImplicitFastRun4 [base_movement_velocity_+% = 20]
+	},
+}
+minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriverKitava"] = {
+	name = "Crazed Driver",
+	life = 1,
+	armour = 0.25,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.845,
+	attackRange = 8,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	weaponType2 = "One Handed Mace",
+	skillList = {
+		"SlaverTaunt",
+		"Melee",
+		"KitavaSlavedriverFlameWhip",
 	},
 	modList = {
 		-- MonsterImplicitFastRun4 [base_movement_velocity_+% = 20]

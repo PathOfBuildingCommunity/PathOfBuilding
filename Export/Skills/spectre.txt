@@ -17,7 +17,26 @@ local skills, mod, flag, skill = ...
 
 #skill BanditExplosiveArrow Explosive Arrow
 #flags cast projectile area duration
+	statMap = {
+		["minimum_fire_damage_per_fuse_arrow_orb"] = {
+			skill("FireMin", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+		["maximum_fire_damage_per_fuse_arrow_orb"] = {
+			skill("FireMax", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+	},
+#baseMod skill("radius", 15)
 #baseMod skill("showAverage", true)
+#baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 1, 0, 0)
+#mods
+
+#skill BanditChampionBlastRainSpectre Blast Rain
+#flags attack projectile area
+#baseMod skill("radius", 24)
+#baseMod skill("dpsMultiplier", 4)
 #mods
 
 #skill BeastCleave Cleave
@@ -75,6 +94,20 @@ local skills, mod, flag, skill = ...
 #skill DemonModularBladeVortexSpectre Blade Vortex
 #flags spell area duration
 #baseMod skill("hitTimeOverride", 1)
+#mods
+
+#skill ElementalHitSkeletonKnight Elemental Hit Fire
+#flags attack projectile melee
+#baseMod flag("DealNoPhysical")
+#baseMod flag("DealNoChaos")
+#baseMod flag("DealNoCold")
+#baseMod flag("DealNoLightning")
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" })
+#baseMod mod("Damage", "MORE", 10, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" })
 #mods
 
 #skill ElementalHitSkeletonKnightIncursion
@@ -149,7 +182,11 @@ local skills, mod, flag, skill = ...
 #flags spell projectile area
 #mods
 
-#skill IguanaProjectile Ranged Attack
+#skill IguanaProjectile Barrage
+#flags attack projectile
+#mods
+
+#skill IguanaProjectileChrome Barrage
 #flags attack projectile
 #mods
 
@@ -267,6 +304,10 @@ local skills, mod, flag, skill = ...
 
 #skill MonsterFlameRedCannibal Incinerate
 #flags spell projectile
+#mods
+
+#skill MonsterIceShot Ice Shot
+#flags attack projectile area duration
 #mods
 
 #skill MountainGoatmanIceSpear
@@ -493,6 +534,10 @@ local skills, mod, flag, skill = ...
 #flags spell 
 #mods
 
+#skill SkeletonBlackAbyssBoneLance Unearth
+#flags spell projectile area
+#mods
+
 #skill SkeletonCannonMortar Mortar
 #flags spell projectile area
 #mods
@@ -512,6 +557,10 @@ local skills, mod, flag, skill = ...
 
 #skill SkeletonProjectileBlack
 #flags spell projectile
+#mods
+
+#skill SkeletonSoldierTornadoShot Tornado Shot
+#flags attack projectile
 #mods
 
 #skill SkeletonSpark Spark
@@ -547,6 +596,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SlavedriverFlameWhip
+#flags spell area
+#baseMod skill("radius", 30)
+#mods
+
+#skill KitavaSlavedriverFlameWhip
 #flags spell area
 #baseMod skill("radius", 30)
 #mods
