@@ -687,15 +687,16 @@ Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
 Requires Level 28
+{variant:1,2}Grants level 20 Illusory Warp Skill
+{variant:3}Grants Level 10 Frostblink Skill
 +(20-30)% to Fire Resistance
 {variant:3}Grants Level 10 Frostblink Skill
 (30-50)% increased Cold Damage
 +(10-15)% to all Elemental Resistances
-{variant:1}30% increased Area of Effect of Curse Skills
-{variant:2,3}60% increased Area of Effect of Curse Skills
-You cannot be Cursed with Silence
-Frostblink has 50% increased Duration
-{variant:1,2}Grants level 20 Illusory Warp Skill
+{variant:1}30% increased Radius of Curse Skills
+{variant:2}60% increased Area of Effect of Curse Skills
+You are Immune to Silence
+Grants level 20 Illusory Warp Skill
 Corrupted
 ]],[[
 Stone of Lazhwar

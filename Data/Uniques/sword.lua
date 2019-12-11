@@ -22,9 +22,9 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 66
 +475 to Accuracy Rating 
-{variant:1}(170–190)% increased Physical Damage
+{variant:1}(170ï¿½190)% increased Physical Damage
 {variant:2}(185-215)% increased Physical Damage
-(15–20)% increased Attack Speed 
+(15ï¿½20)% increased Attack Speed 
 80% increased Evasion Rating while moving 
 2 additional Projectiles if you've used a Movement Skill Recently 
 Far Shot
@@ -111,9 +111,9 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 66
 +475 to Accuracy Rating
-{variant:1}(170–190)% increased Physical Damage
+{variant:1}(170ï¿½190)% increased Physical Damage
 {variant:2}(185-215)% increased Physical Damage
-(15–20)% increased Attack Speed
+(15ï¿½20)% increased Attack Speed
 80% increased Armour while stationary
 2 additional Projectiles if you've been Hit Recently
 Point Blank
@@ -193,7 +193,7 @@ Sockets: R-R-R-R-R-R
 Requires Level: 2
 40% increased Global Accuracy Rating
 Uses both hand slots
-(70–90)% increased Critical Strike Chance
+(70ï¿½90)% increased Critical Strike Chance
 Adds 2 to 3 Physical Damage to Attacks per Level
 Gain Her Embrace for 3 seconds when you Ignite an Enemy
 While in Her Embrace, take 0.5% of your total Maximum Life and Energy Shield as Fire Damage per second per Level
@@ -295,9 +295,9 @@ Requires Level 61
 40% increased Global Accuracy Rating
 100% increased Damage when on Low Life
 50% increased Physical Damage
-Adds (90–98) to (133–140) Physical Damage
+Adds (90ï¿½98) to (133ï¿½140) Physical Damage
 10% increased Attack Speed
-+(20–30) to maximum Life
++(20ï¿½30) to maximum Life
 +2 Life gained for each Enemy hit by Attacks
 You have Onslaught while on Low Life
 ]],[[
@@ -482,8 +482,8 @@ Implicits: 2
 {variant:1}+30% to Global Critical Strike Multiplier
 {variant:2}+25% to Global Critical Strike Multiplier
 No Physical Damage
-Adds (80–100) to (160–200) Cold Damage
-Adds (40–60) to (90–110) Cold Damage to Spells
+Adds (80ï¿½100) to (160ï¿½200) Cold Damage
+Adds (40ï¿½60) to (90ï¿½110) Cold Damage to Spells
 (8-14)% increased Attack Speed
 +257 Intelligence Requirement
 60% increased Critical Strike Chance against Chilled Enemies
@@ -606,7 +606,7 @@ Implicits: 2
 {variant:4}You have Vaal Pact while all Socketed Gems are Red
 (50-70)% increased Physical Damage
 {variant:1,2}Adds (50-75) to (85-110) Physical Damage
-{variant:3,4}Adds (65–75) to (100–110) Physical Damage
+{variant:3,4}Adds (65ï¿½75) to (100ï¿½110) Physical Damage
 (6-12)% increased Attack Speed
 ]],[[
 Edge of Madness
@@ -706,10 +706,10 @@ Requires Level 38, 56 Str, 54 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2,3}+185 to Accuracy Rating
-Minions have (10-15)% increased maximum Life
+Minions have (30-40)% increased maximum Life
 Minions have (80-100)% increased Movement Speed
 (150-200)% increased Skeleton Duration
-Minions deal (10-15)% increased Damage
+Minions deal (30-40)% increased Damage
 +1 to maximum number of Zombies
 +1 to maximum number of Spectres
 {variant:1,2}+2 to maximum number of Skeletons
@@ -776,9 +776,9 @@ Infernal Sword
 Source: Drops from unique{The Elder} (Uber)
 Requires Level 67
 30% increased Accuracy Rating
-(50–100)% increased Physical Damage
-(5–8)% increased Attack Speed
-+(90–100) to maximum Life
+(50ï¿½100)% increased Physical Damage
+(5ï¿½8)% increased Attack Speed
++(90ï¿½100) to maximum Life
 Your Elemental Damage can Shock
 Gain 300% of Weapon Physical Damage as Extra Damage of an Element
 20% increased Area of Effect for Attacks

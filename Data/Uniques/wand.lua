@@ -35,6 +35,7 @@ Quartz Wand
 Variant: Pre 3.8.0
 Variant: Current
 Requires Level 18, 65 Int
+Implicits: 1
 (18-22)% increased Spell Damage
 10% chance to Trigger Level 8 Summon Raging Spirit on Kill
 {variant:1}Adds (10-14) to (18-22) Fire Damage

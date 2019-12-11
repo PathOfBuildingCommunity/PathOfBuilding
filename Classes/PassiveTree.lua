@@ -316,7 +316,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			socket.attributesInRadius[radiusIndex] = { }
 			local rSq = radiusInfo.rad * radiusInfo.rad
 			for _, node in pairs(self.nodes) do
-				if node ~= socket then
+				if node ~= socket and not node.isBlighted then
 					local vX, vY = node.x - socket.x, node.y - socket.y
 					if vX * vX + vY * vY <= rSq then 
 						socket.nodesInRadius[radiusIndex][node.id] = node
