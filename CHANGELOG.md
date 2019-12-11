@@ -1,3 +1,9 @@
+### 1.4.153 - 2019/12/11
+ * Added 3.9.0 passive tree
+ * Applied unique balance changes from 3.9.0 (thanks ppoelzl)
+ * Updated many unique items that had changed in previous patches (thanks ppoelzl)
+ * Added Vermillion Ring base (apologies for this being missing for so long)
+
 ### 1.4.152 - 2019/09/15
  * Added support for anointments that grant notable passives
  * Added support for Transfiguration of Body/Mind/Soul
