@@ -60,6 +60,8 @@ Variant: Double Damage
 Variant: Double Damage while Foccused
 Variant: Socketed Spell Trigger
 Requires Level 57, 190 Dex
+Implicits: 1
+(4-6)% increased Movement Speed
 (140–170)% increased Physical Damage
 (25–35)% increased Critical Strike Chance
 50% chance to inflict Bleeding on Critical Strike with Attacks
