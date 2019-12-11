@@ -267,17 +267,19 @@ Quill Rain
 Short Bow
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.9.0
 Variant: Current
 Requires Level 5, 26 Dex
 +(10-20) to Dexterity
-{variant:2,3}100% increased Physical Damage
+{variant:2,3,4}100% increased Physical Damage
 100% increased Attack Speed
 +(25-50) to Accuracy Rating
 (50-100)% increased Projectile Speed
 {variant:1}50% less Weapon Damage
 {variant:2}40% less Weapon Damage
 {variant:3}40% less Damage
-{variant:2,3}+2 Mana gained for each Enemy hit by Attacks
+{variant:4}30% less Damage
+{variant:2,3,4}+2 Mana gained for each Enemy hit by Attacks
 ]],[[
 Reach of the Council
 Spine Bow
@@ -375,12 +377,16 @@ Adds 1 to 85 Lightning Damage
 ]],[[
 Voltaxic Rift
 Spine Bow
+Variant: Pre 3.9.0
+Variant: Current
 Requires Level 64, 212 Dex
 Adds 1 to (275-325) Lightning Damage
 (10-15)% increased Attack Speed
 60% of Lightning Damage Converted to Chaos Damage
 10% Chance to Shock
 Your Chaos Damage can Shock
+{variant:2}Shock Enemies as though dealing 300% more Damage
+{variant:2}Your Shocks can increase Damage taken by up to a maximum of 100%
 ]],[[
 Windripper
 Imperial Bow
@@ -423,6 +429,7 @@ Citadel Bow
 League: Breach
 Source: Upgraded from unique{Xoph's Inception} using currency{Blessing of Xoph}
 Variant: Pre 3.3.0
+Variant: Pre 3.9.0
 Variant: Current
 Requires Level 64, 185 Dex
 (250-300)% increased Physical Damage
@@ -430,6 +437,7 @@ Requires Level 64, 185 Dex
 10% chance to Ignite
 {variant:1}Ignites your Skills cause spread to other Enemies within a Radius of 12
 {variant:2}Ignites your Skills cause spread to other Enemies within a Radius of 15
+{variant:3}Socketed Gems are Supported by level 20 Ignite Proliferation
 Recover (40-60) Life when you Ignite an Enemy
 ]],
 }
