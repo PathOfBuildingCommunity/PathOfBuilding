@@ -321,19 +321,21 @@ Cannot be Frozen
 Emberwake
 Ruby Ring
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.9.0
 Variant: Current
 Requires Level 16
 +(20-30)% to Fire Resistance
 {variant:1}(15-25)% increased Fire Damage
-{variant:2}(30–40)% increased Fire Damage
+{variant:2,3}(30–40)% increased Fire Damage
 (5-10)% increased Cast Speed
 {variant:1}5% chance to Ignite
-{variant:2}10% chance to Ignite
+{variant:2,3}10% chance to Ignite
 {variant:1}You can inflict up to 300 Ignites on an Enemy
-{variant:2}You can inflict an additional Ignite on an Enemy
+{variant:2,3}You can inflict an additional Ignite on an Enemy
 {variant:1}Your Critical Strikes do not deal extra Damage
 {variant:1}80% less Burning Damage
 {variant:2}Ignited Enemies Burn 65% slower
+{variant:3}Ignited Enemies Burn 50% slower
 ]],[[
 Essence Worm
 Unset Ring
@@ -698,18 +700,21 @@ Coral Ring
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.9.0
 Variant: Current
 Requires Level 45
 +(20-30) to maximum Life
 {variant:1,2,3}(20-30)% increased Elemental Damage with Weapons
-{variant:4}(20-30)% increased Elemental Damage with Attack Skills
+{variant:4,5}(20-30)% increased Elemental Damage with Attack Skills
 Adds (8-15) to (20-28) Fire Damage to Attacks
 {variant:1}(20-40)% reduced Rarity of Items found
-{variant:2,3,4}(10-20)% reduced Rarity of Items found
+{variant:2,3,4,5}(10-20)% reduced Rarity of Items found
 {variant:1,2}Left ring slot: 30% reduced Reflected Elemental Damage taken
 {variant:3,4}Left ring slot: 40% reduced Reflected Elemental Damage taken
+{variant:5}Left ring slot: 80% reduced Reflected Elemental Damage taken
 {variant:1,2}Right ring slot: 30% reduced Reflected Physical Damage taken
 {variant:3,4}Right ring slot: 40% reduced Reflected Physical Damage taken
+{variant:5}Right ring slot: 80% reduced Reflected Physical Damage taken
 ]],[[
 Snakepit
 Sapphire Ring
