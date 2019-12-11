@@ -546,7 +546,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SlavedriverFlameWhip
+#skill SlavedriverFlameWhip Lightning Surge
 #flags spell area
 #baseMod skill("radius", 30)
 #mods

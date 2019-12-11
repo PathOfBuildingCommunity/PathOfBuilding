@@ -217,6 +217,7 @@ Variant: Current
 ]],[[
 Healthy Mind
 Cobalt Jewel
+Limited to: 1
 Radius: Large
 (15-20)% increased maximum Mana
 Increases and Reductions to Life in Radius are Transformed to apply to Mana at 200% of their value
@@ -857,10 +858,13 @@ Attack deals 30% increased Damage
 ]],[[
 Volley Fire
 Viridian Jewel
-Limited to: 3
+Variant: Pre 3.9.0
+Variant: Current
+Limited to: 1
 Radius: Medium
 (6-10)% increased Projectile Damage
-With at least 40 Dexterity in Radius, Barrage fires an additional 2 projectiles simultaneously on the first and final attacks
+{variant:1}With at least 40 Dexterity in Radius, Barrage fires an additional 2 projectiles simultaneously on the first and final attacks
+{variant:2}With at least 40 Dexterity in Radius, Barrage fires an additional 6 projectiles simultaneously on the first and final attacks
 ]],[[
 Weight of the Empire
 Crimson Jewel

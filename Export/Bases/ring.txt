@@ -12,6 +12,7 @@ local itemBases = ...
 #forceShow false
 #base Metadata/Items/Rings/RingAtlas1
 #base Metadata/Items/Rings/RingAtlas2
+#base Metadata/Items/Rings/RingAtlas3
 #base Metadata/Items/Rings/RingAtlas4
 
 #base Metadata/Items/Rings/BreachRing

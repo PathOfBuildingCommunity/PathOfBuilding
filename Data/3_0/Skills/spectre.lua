@@ -3413,7 +3413,7 @@ skills["SkeletonVulnerability"] = {
 	},
 }
 skills["SlavedriverFlameWhip"] = {
-	name = "Flame Surge",
+	name = "Lightning Surge",
 	hidden = true,
 	color = 3,
 	baseEffectiveness = 2.5,

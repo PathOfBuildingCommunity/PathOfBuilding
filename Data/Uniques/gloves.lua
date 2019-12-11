@@ -116,8 +116,8 @@ Requires Level 58
 +(40-50) to Dexterity
 (150-200)% increased Evasion and Energy Shield
 +(50-60) to maximum Life
-15% increased Damage with Ailments per Elder Item Equipped
 +6 to Maximum Life per Elder Item Equipped
++4% to Damage over Time Multiplier for Ailments per Elder Item Equipped
 8% increased Effect of non-Damaging Ailments per Elder Item Equipped
 Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
 Elder Item
@@ -659,6 +659,7 @@ Rampage
 Snakebite
 Assassin's Mitts
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.9.0
 Variant: Current
 Requires Level 58, 45 Dex, 45 Int
 (150-180)% increased Evasion Rating
@@ -667,7 +668,8 @@ Requires Level 58, 45 Dex, 45 Int
 6% increased Accuracy Rating per Frenzy Charge
 10% reduced Frenzy Charge Duration per Frenzy Charge
 {variant:1}While at Maximum Frenzy Charges, Attacks Poison Enemies
-{variant:2}Attacks have 60% chance to Poison while at maximum Frenzy Charges
+{variant:2,3}Attacks have 60% chance to Poison while at maximum Frenzy Charges
+{variant:3}+5% to Damage over Time Multiplier for Poison per Frenzy Charge
 ]],[[
 Storm's Gift
 Assassin's Mitts

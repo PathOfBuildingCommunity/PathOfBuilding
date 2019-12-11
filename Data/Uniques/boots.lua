@@ -135,7 +135,7 @@ Requires Level 12, 26 Dex
 15% increased Movement Speed
 (6-10)% chance to Ignite
 Ignite a nearby Enemy on Killing an Ignited Enemy
-Casts level 7 Abberath's Fury when equipped
+Triggers level 7 Abberath's Fury when equipped
 1% increased Fire Damage per 20 Strength
 Burning Hoofprints
 ]],[[
@@ -284,8 +284,8 @@ Requires Level 22, 42 Int
 +20 to maximum Mana
 (40-60)% increased Energy Shield
 (5-15)% increased Movement Speed
-+1 to Maximum number of Zombies
-+1 to Maximum number of Spectres
++1 to Level of all Raise Zombie Gems
++1 to Level of all Raise Spectre Gems
 ]],[[
 Doryani's Delusion
 Sorcerer Boots

@@ -11,8 +11,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2}18% Chance to Block
-{variant:1}+1 to Level of Socketed Lightning Gems
-{variant:2}+2 to Level of Socketed Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 100% increased Shock Duration on Enemies
@@ -27,8 +27,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2}18% Chance to Block
-{variant:1}+1 to Level of Socketed Lightning Gems
-{variant:2}+2 to Level of Socketed Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 15% chance to Shock
@@ -43,8 +43,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2}18% Chance to Block
-{variant:1}+1 to Level of Socketed Lightning Gems
-{variant:2}+2 to Level of Socketed Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 +5% to Maximum Lightning Resistance
@@ -59,8 +59,8 @@ Requires Level 66, 158 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2}18% Chance to Block
-{variant:1}+1 to Level of Socketed Lightning Gems
-{variant:2}+2 to Level of Socketed Lightning Gems
+{variant:1}+1 to Level of all Lightning Spell Skill Gems
+{variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
 Adds (5-15) to (100-140) Lightning Damage to Spells
@@ -86,7 +86,7 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level: 62
 18% Chance to Block 
-+2 to Level of Socketed Chaos Gems
++2 to Level of all Chaos Skill Gems
 {variant:1}(60–80)% increased Chaos Damage
 {variant:2}(20–30)% increased Chaos Damage
 {variant:2}+(40-55)% to Non-Ailment Chaos Damage over Time Multiplier
@@ -162,16 +162,22 @@ Adds (160-185) to (200-225) Physical Damage
 Femurs of the Saints
 Primordial Staff
 Variant: Pre 2.6.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 58, 99 Str, 99 Int
 Implicits: 2
 {variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:2,3}+18% Chance to Block Attack Damage while wielding a Staff
 +2 to Level of Socketed Minion Gems
-Minions Regenerate (1.5-2.5)% Life per Second
-2% increased Minion Attack and Cast Speed per Skeleton you own
-2% increased Minion Duration per Zombie you own
-(8-12)% increased Minion Damage per Spectre you own
+{variant:3}Minions deal (60-80)% increased Damage
+{variant:3}+1% Chance to Block Attack Damage per Summoned Skeleton
+{variant:1,2}2% increased Minion Attack and Cast Speed per Skeleton you own
+{variant:1,2}Minions Regenerate (1.5-2.5)% Life per Second
+{variant:3}2% increased Attack and Cast Speed per Summoned Raging Spirit
+{variant:1,2}2% increased Minion Duration per Zombie you own
+{variant:1,2}(8-12)% increased Minion Damage per Spectre you own
+{variant:3}Regenerate 0.6% of Life per second for each Raised Zombie
+{variant:3}30% increased Mana Regeneration Rate per Raised Spectre
 ]],[[
 Fencoil
 Gnarled Branch
@@ -317,7 +323,7 @@ Requires Level 60, 113 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
 {variant:2,3}18% Chance to Block
-+2 to Level of Socketed Fire Gems
++2 to Level of all Fire Spell Skill Gems
 {variant:1,2}(30-50)% increased Spell Damage
 {variant:1,2}(20-40)% increased Fire Damage
 {variant:3}(70–90)% increased Fire Damage
@@ -402,8 +408,8 @@ Requires Level 64, 113 Str, 113 Int
 Implicits: 2
 {variant:1,2}18% Chance to Block
 {variant:3}20% Chance to Block
-{variant:1,2}+1 to Level of Socketed Cold Gems
-{variant:3}+2 to Level of Socketed Cold Gems
+{variant:1,2}+1 to Level of all Cold Spell Skill Gems
+{variant:3}+2 to Level of all Cold Spell Skill Gems
 {variant:1}(40-50)% increased Spell Damage
 {variant:2,3}(50-60)% increased Spell Damage
 (40-50)% increased Cold Damage
@@ -414,16 +420,18 @@ Enemies Frozen by you take 20% increased Damage
 Tremor Rod
 Military Staff
 Variant: Pre 2.6.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 45, 78 Str, 78 Int
 Implicits: 2
 {variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
-Socketed Gems are Supported by level 10 Remote Mine
-35% less Mine Damage
+{variant:2,3}18% Chance to Block
+{variant:3}+2 to Level of Socketed Spell Gems
+Socketed Gems are Supported by level 10 Blastchain Mine
+{variant:1,2}35% less Mine Damage
 (40-60)% increased Spell Damage
 (15-20)% reduced Enemy Stun Threshold
-(40-60)% increased Mine Laying Speed
+{variant:1,2}(40-60)% increased Mine Laying Speed
 Mines can be Detonated an additional time
 ]],[[
 The Whispering Ice
@@ -449,7 +457,7 @@ Requires Level 28, 43 Str, 43 Int
 Implicits: 2
 {variant:1}18% Chance to Block
 {variant:2}20% Chance to Block
-+1 to Level of Socketed Gems
++1 to Level of all Spell Skill Gems
 15% Chance to Block
 (60-80)% increased Spell Damage
 +(70-100) to Maximum Energy Shield

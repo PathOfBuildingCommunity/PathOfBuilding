@@ -94,6 +94,7 @@ function calcLib.gemIsType(gem, type)
 			(type == "elemental" and (gem.tags.fire or gem.tags.cold or gem.tags.lightning)) or 
 			(type == "aoe" and gem.tags.area) or
 			(type == "trap or mine" and (gem.tags.trap or gem.tags.mine)) or
+			(type == gem.name:lower()) or
 			gem.tags[type])
 end
 

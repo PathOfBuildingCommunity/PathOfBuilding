@@ -207,9 +207,11 @@ Requires Level 8, 23 Int
 Asenath's Chant
 Iron Circlet
 Source: Upgraded from unique{Asenath's Mark} via prophecy{Song of the Sekhema}
+Variant: Pre 3.9.0
+Variant: Current
 Requires Level 45
-Implicits: 0
-25% chance to Trigger a Socketed Spell when you Attack with a Bow
+{variant:1}25% chance to Trigger a Socketed Spell when you Attack with a Bow
+{variant:2}Trigger a Socketed Spell when you Attack with a Bow
 (10–15)% increased Attack Speed
 (10–15)% increased Cast Speed
 +(100–120) to maximum Energy Shield
@@ -513,7 +515,7 @@ Adds 20 to 30 Physical Damage to Attacks
 Extra gore
 Can't use Chest armour
 {variant:1,2}15% Chance to Block
-{variant:3}6% Chance to Block
+{variant:3,4}6% Chance to Block
 ]],[[
 Deidbell
 Gilded Sallet
@@ -782,7 +784,7 @@ Requires Level 68
 +(130–160) to maximum Energy Shield
 +(150–200) to maximum Mana
 (30–40)% increased Mana Regeneration Rate
-+(20–25)% to Fire Resistance
++(20–30)% to Fire Resistance
 10% increased Mana Reserved
 Gain Armour equal to your Reserved Mana
 ]],[[
