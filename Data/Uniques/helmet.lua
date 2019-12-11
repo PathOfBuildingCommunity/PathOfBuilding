@@ -207,9 +207,11 @@ Requires Level 8, 23 Int
 Asenath's Chant
 Iron Circlet
 Source: Upgraded from unique{Asenath's Mark} via prophecy{Song of the Sekhema}
+Variant: Pre 3.9.0
+Variant: Current
 Requires Level 45
-Implicits: 0
-25% chance to Trigger a Socketed Spell when you Attack with a Bow
+{variant:1}25% chance to Trigger a Socketed Spell when you Attack with a Bow
+{variant:2}Trigger a Socketed Spell when you Attack with a Bow
 (10–15)% increased Attack Speed
 (10–15)% increased Cast Speed
 +(100–120) to maximum Energy Shield
