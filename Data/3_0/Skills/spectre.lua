@@ -91,6 +91,17 @@ skills["BanditExplosiveArrow"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["minimum_fire_damage_per_fuse_arrow_orb"] = {
+			skill("FireMin", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+		["maximum_fire_damage_per_fuse_arrow_orb"] = {
+			skill("FireMax", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+	},
 	baseFlags = {
 		cast = true,
 		projectile = true,
@@ -98,7 +109,9 @@ skills["BanditExplosiveArrow"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 15),
 		skill("showAverage", true),
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 1, 0, 0),
 	},
 	qualityStats = {
 	},
@@ -116,6 +129,40 @@ skills["BanditExplosiveArrow"] = {
 		[2] = { 1000, 0.80000001192093, 1.2000000476837, 2, 0, 1, 1, critChance = 6, levelRequirement = 10, manaCost = 5, statInterpolation = { 1, 3, 3, 1, 1, 1, 1, }, },
 		[3] = { 1000, 0.80000001192093, 1.2000000476837, 2, 0, 1, 1, critChance = 6, levelRequirement = 20, manaCost = 4, statInterpolation = { 1, 3, 3, 1, 1, 1, 1, }, },
 		[4] = { 1000, 1.2000000476837, 1.7999999523163, 2, 0, 1, 1, critChance = 6, levelRequirement = 68, manaCost = 4, statInterpolation = { 1, 3, 3, 1, 1, 1, 1, }, },
+	},
+}
+skills["BanditChampionBlastRainSpectre"] = {
+	name = "Blast Rain",
+	hidden = true,
+	color = 2,
+	description = "Fires an arrow up in the air, which splits and rains down in a series of explosions over an area. The explosions will always overlap on the targeted area.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.FireSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Triggerable] = true, [SkillType.Triggerable] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+	},
+	baseMods = {
+		skill("radius", 24),
+		skill("dpsMultiplier", 4),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_fire",
+		"active_skill_area_of_effect_radius_+%_final",
+		"blast_rain_number_of_blasts",
+		"blast_rain_arrow_delay_ms",
+		"base_is_projectile",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 50, 0, 4, 80, damageEffectiveness = 0.5, baseMultiplier = 0.5, levelRequirement = 15, statInterpolation = { 1, 1, 1, 1, }, },
 	},
 }
 skills["BeastCleave"] = {
@@ -538,6 +585,47 @@ skills["DemonModularBladeVortexSpectre"] = {
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 5000, 5, 0, 2, critChance = 6, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, 1, 1, }, },
+	},
+}
+skills["ElementalHitSkeletonKnight"] = {
+	name = "Elemental Hit Fire",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 1.1667000055313,
+	incrementalEffectiveness = 0.04280000180006,
+	description = "Each attack with this skill will choose an element at random, and will only be able to deal damage of that element. If the attack hits an enemy, it will also deal damage in an area around them, with the radius being larger if that enemy is suffering from an ailment of the chosen element. It will avoid choosing the same element twice in a row.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.FireSkill] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		melee = true,
+	},
+	baseMods = {
+		flag("DealNoPhysical"),
+		flag("DealNoChaos"),
+		flag("DealNoCold"),
+		flag("DealNoLightning"),
+		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
+		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
+		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
+		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
+		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }),
+		mod("Damage", "MORE", 10, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"chance_to_freeze_shock_ignite_%",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0, 25, baseMultiplier = 1.5, levelRequirement = 1, statInterpolation = { 2, 1, }, },
+		[2] = { 0, 25, baseMultiplier = 1.5, levelRequirement = 20, statInterpolation = { 2, 1, }, },
+		[3] = { 1, 25, baseMultiplier = 1.5, levelRequirement = 21, statInterpolation = { 2, 1, }, },
+		[4] = { 200, 25, baseMultiplier = 1.5, levelRequirement = 84, statInterpolation = { 2, 1, }, },
 	},
 }
 skills["ElementalHitSkeletonKnightIncursion"] = {
@@ -1093,7 +1181,7 @@ skills["HolyFireElementalFireball"] = {
 	},
 }
 skills["IguanaProjectile"] = {
-	name = "Ranged Attack",
+	name = "Barrage",
 	hidden = true,
 	color = 4,
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, },
@@ -1117,6 +1205,34 @@ skills["IguanaProjectile"] = {
 	},
 	levels = {
 		[1] = { 4, 0, -60, -60, 30, cooldown = 3.5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, },
+	},
+}
+skills["IguanaProjectileChrome"] = {
+	name = "Barrage",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"monster_projectile_variation",
+		"skill_repeat_count",
+		"spell_maximum_action_distance_+%",
+		"active_skill_damage_+%_final",
+		"monster_reverse_point_blank_damage_-%_at_minimum_range",
+		"skill_physical_damage_%_to_convert_to_cold",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 24, 0, -60, -30, 30, 50, cooldown = 3.5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["IncaMinionProjectile"] = {
@@ -1990,6 +2106,39 @@ skills["MonsterFlameRedCannibal"] = {
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 8, 2, -75, 0, -25, 3, damageEffectiveness = 0.25, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, },
+	},
+}
+skills["MonsterIceShot"] = {
+	name = "Ice Shot",
+	hidden = true,
+	color = 2,
+	description = "Fires an arrow that converts some physical damage to cold on its target and converts all physical damage to cold in a cone behind that target. Creates a patch of ground ice under the target.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.ColdSkill] = true, [SkillType.ChillingArea] = true, [SkillType.Triggerable] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_cold",
+		"base_skill_effect_duration",
+		"physical_damage_+%",
+		"active_skill_damage_+%_final",
+		"skill_art_variation",
+		"skill_can_fire_arrows",
+	},
+	levels = {
+		[1] = { 50, 2500, 50, 0, 2, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["MountainGoatmanIceSpear"] = {
@@ -3142,6 +3291,41 @@ skills["SeaWitchWave"] = {
 		[2] = { 2.2400000095367, 3.3599998950958, 1, critChance = 5, levelRequirement = 68, manaCost = 6, statInterpolation = { 3, 3, 1, }, },
 	},
 }
+skills["SkeletonBlackAbyssBoneLance"] = {
+	name = "Unearth",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.5,
+	incrementalEffectiveness = 0.035000000149012,
+	description = "Fires a projectile that will pierce through enemies to impact the ground at the targeted location, creating a Bone Archer corpse where it lands.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTrap] = true, [SkillType.Triggerable] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.CanRapidFire] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_skill_effect_duration",
+		"alternate_minion",
+		"desecrate_maximum_number_of_corpses",
+		"base_projectile_speed_+%",
+		"base_is_projectile",
+		"always_pierce",
+		"projectile_uses_contact_position",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 6000, 0, 3, -35, cooldown = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, 1, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 6000, 0, 3, -35, cooldown = 6, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, 1, }, },
+	},
+}
 skills["SkeletonCannonMortar"] = {
 	name = "Mortar",
 	hidden = true,
@@ -3294,6 +3478,38 @@ skills["SkeletonProjectileBlack"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, 33, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, },
 	},
 }
+skills["SkeletonSoldierTornadoShot"] = {
+	name = "Tornado Shot",
+	hidden = true,
+	color = 2,
+	description = "Fires a piercing shot that travels until it reaches the targeted location. It will then fire projectiles out in all directions from that point.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Triggerable] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"number_of_additional_projectiles",
+		"tornado_shot_num_of_secondary_projectiles",
+		"base_is_projectile",
+		"skill_can_fire_arrows",
+	},
+	levels = {
+		[1] = { -30, 0, 3, levelRequirement = 2, statInterpolation = { 1, 1, 1, }, },
+		[2] = { -35, 0, 3, levelRequirement = 38, statInterpolation = { 1, 1, 1, }, },
+		[3] = { -40, 0, 3, levelRequirement = 54, statInterpolation = { 1, 1, 1, }, },
+	},
+}
 skills["SkeletonSpark"] = {
 	name = "Spark",
 	hidden = true,
@@ -3440,6 +3656,36 @@ skills["SlavedriverFlameWhip"] = {
 	},
 	levels = {
 		[1] = { 0.5, 1.5, 50, -65, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, }, },
+	},
+}
+skills["KitavaSlavedriverFlameWhip"] = {
+	name = "Flame Surge",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 2.2000000476837,
+	incrementalEffectiveness = 0.027499999850988,
+	description = "Strikes enemies in front of you with a surge of flame. Burning enemies are dealt more damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.5,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+		skill("radius", 30),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"active_skill_area_of_effect_radius_+%_final",
+		"base_cast_speed_+%",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 50, -65, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, }, },
 	},
 }
 skills["SnakeSpineProjectile"] = {

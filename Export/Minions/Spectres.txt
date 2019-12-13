@@ -18,6 +18,8 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Bandits/BanditBowPoisonArrow
 #spectre Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul
 #spectre Metadata/Monsters/Bandit/DockworkerChampion_
+#spectre Metadata/Monsters/Bandits/BanditBowChampion
+#spectre Metadata/Monsters/Bandits/BanditRangedTornadoShotPetrified
 -- Beast
 #spectre Metadata/Monsters/Beasts/BeastCaveDegenAura
 #spectre Metadata/Monsters/Beasts/BeastCleaveEnduringCry
@@ -51,6 +53,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Frog/Frog2
 -- Chimeral
 #spectre Metadata/Monsters/GemMonster/Iguana
+#spectre Metadata/Monsters/GemMonster/IguanaChrome
 -- Ghost pirate
 #spectre Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps
 #spectre Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps
@@ -137,6 +140,8 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Skeletons/SkeletonBlackCaster1_
 #spectre Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse
 #spectre Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampionDelve
+#spectre Metadata/Monsters/Skeletons/SkeletonBowKnightElemental
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance
 #spectre Metadata/Monsters/SkeletonCannon/SkeletonCannon1
 -- Snake
 #spectre Metadata/Monsters/Snake/SnakeMeleeSpit
@@ -145,10 +150,12 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Spiders/SpiderThornFlickerStrike
 -- Statue
 #spectre Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear
+#spectre Metadata/Monsters/Statue/StoneStatueMaleBow
 -- Ophidian
 #spectre Metadata/Monsters/Taster/Taster
 -- Templar
 #spectre Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriver
+#spectre Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriverKitava
 -- Undying
 #spectre Metadata/Monsters/Undying/CityStalkerMaleCasterArmour
 #spectre Metadata/Monsters/Undying/UndyingOutcastPuncture
