@@ -157,7 +157,7 @@ function ItemClass:ParseRaw(raw)
 		else
 			local specName, specVal = line:match("^([%a ]+): (%x+)$")
 			if not specName then
-				specName, specVal = line:match("^([%a ]+): %+?([%d%-%.]+)")
+				specName, specVal = line:match("^([%a ]+): %+?([%d+%-%.,]+)")
 				if not tonumber(specVal) then
 					specName = nil
 				end
@@ -213,12 +213,24 @@ function ItemClass:ParseRaw(raw)
 					importedLevelReq = tonumber(specVal)
 				elseif specName == "LevelReq" then
 					self.requirements.level = tonumber(specVal)
+					-- Backward compatibility
 				elseif specName == "Has Alt Variant" then
-					self.hasAltVariant = true
+					self.hasAltVariant = true -- <
 				elseif specName == "Selected Variant" then
-					self.variant = tonumber(specVal)
+					self.variant = tonumber(specVal) -- <
 				elseif specName == "Selected Alt Variant" then
-					self.variantAlt = tonumber(specVal)
+					self.variantAlt = tonumber(specVal) -- <
+				elseif specName == "Has Variants" then
+					self.hasVariants = tonumber(specVal)
+					if self.hasVariants > 1 then self.hasAltVariant = true end -- <
+				elseif specName == "Selected Variants" then
+					self.variants = {}
+					for val in specVal:gmatch("(%d+)") do
+						t_insert(self.variants, tonumber(val))
+					end
+					self.variant = self.variants[1] -- <
+					if #self.variants > 1 then self.variantAlt = self.variants[2] end -- <
+					-- ^
 				elseif specName == "League" then
 					self.league = specVal
 				elseif specName == "Crafted" then
@@ -381,10 +393,28 @@ function ItemClass:ParseRaw(raw)
 	end
 	self.abyssalSocketCount = 0
 	if self.variantList then
+		if self.hasVariants then
+			if not self.variants then self.variants = {} end
+			for i = 1, self.hasVariants do
+				self.variants[i] = m_min(#self.variantList, self.variants[i] or self.defaultVariant or #self.variantList)
+			end
+		end
+		-- Backward compatibility
 		self.variant = m_min(#self.variantList, self.variant or self.defaultVariant or #self.variantList)
 		if self.hasAltVariant then
 			self.variantAlt = m_min(#self.variantList, self.variantAlt or self.defaultVariant or #self.variantList)
 		end
+
+		if not self.hasVariants then
+			self.variants = {}
+			self.hasVariants = 1
+			self.variants[1] = self.variant
+			if self.hasAltVariant then
+				self.hasVariants = 2
+				self.variants[2] = self.variantAlt
+			end
+		end
+		-- ^
 	end
 	if not self.quality then
 		self:NormaliseQuality()
@@ -453,10 +483,17 @@ function ItemClass:BuildRaw()
 		for _, variantName in ipairs(self.variantList) do
 			t_insert(rawLines, "Variant: "..variantName)
 		end
+		-- Backward compatibility
 		t_insert(rawLines, "Selected Variant: "..self.variant)
+
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
 			t_insert(rawLines, "Selected Alt Variant: "..self.variantAlt)
+		end
+		-- ^
+		if self.hasVariants then
+			t_insert(rawLines, "Has Variants: "..self.hasVariants)
+			t_insert(rawLines, "Selected Variants: "..table.concat(self.variants, ","))
 		end
 	end
 	if self.quality then
@@ -578,9 +615,18 @@ function ItemClass:Craft()
 end
 
 function ItemClass:CheckModLineVariant(modLine)
-	return not modLine.variantList 
-		or modLine.variantList[self.variant]
-		or (self.hasAltVariant and modLine.variantList[self.variantAlt])
+	if modLine.variantList then
+		if self.hasVariants then
+			for _, v in pairs(self.variants) do
+				if modLine.variantList[v] then
+					return true
+				end
+			end
+		end
+	end
+	return not modLine.variantList
+		--or modLine.variantList[self.variant]
+		--or (self.hasAltVariant and modLine.variantList[self.variantAlt])
 end
 
 -- Return the name of the slot this item is equipped in
