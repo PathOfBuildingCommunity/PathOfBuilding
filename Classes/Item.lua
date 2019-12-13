@@ -409,7 +409,7 @@ function ItemClass:ParseRaw(raw)
 			self.variants = {}
 			self.hasVariants = 1
 			self.variants[1] = self.variant
-			if self.hasVariantAlt then
+			if self.hasAltVariant then
 				self.hasVariants = 2
 				self.variants[2] = self.variantAlt
 			end
