@@ -243,9 +243,24 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	end)
 
 	-- Section: Variant(s)
+
 	self.controls.displayItemSectionVariant = new("Control", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 0, function()
 		return (self.displayItem.variantList and #self.displayItem.variantList > 1) and 28 or 0
 	end)
+
+	for i = 1, 3 do -- TODO: replace '3' with something good. '3'/*
+		-- TODO: smart? positioning for small screen resolutions
+		self.controls["displayItemVariant"..i] = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, (i < 3 and i or 2) * 232 - 232, (i > 2 and i or 0) * 9.5, 224, 20, nil, function(index, value)
+			self.displayItem.variants[i] = index
+			self.displayItem:BuildAndParseRaw()
+			self:UpdateDisplayItemTooltip()
+			self:UpdateDisplayItemRangeLines()
+		end)
+		self.controls["displayItemVariant"..i].shown = function()
+			return self.displayItem.variantList and #self.displayItem.variantList > 1 and #self.displayItem.variants >= i
+		end
+	end
+	--[[
 	self.controls.displayItemVariant = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, 0, 0, 224, 20, nil, function(index, value)
 		self.displayItem.variant = index
 		self.displayItem:BuildAndParseRaw()
@@ -264,6 +279,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemAltVariant.shown = function()
 		return self.displayItem.hasAltVariant
 	end
+	]]
 
 	-- Section: Sockets and Links
 	self.controls.displayItemSectionSockets = new("Control", {"TOPLEFT",self.controls.displayItemSectionVariant,"BOTTOMLEFT"}, 0, 0, 0, function()
@@ -989,12 +1005,21 @@ function ItemsTabClass:SetDisplayItem(item)
 		-- Update the display item controls
 		self:UpdateDisplayItemTooltip()
 		self.snapHScroll = "RIGHT"
+
+		if item.hasVariants then
+			for i, variant in ipairs(item.variants) do
+				self.controls["displayItemVariant"..i].list = item.variantList
+				self.controls["displayItemVariant"..i].selIndex = variant
+			end
+		end
+		--[[
 		self.controls.displayItemVariant.list = item.variantList
 		self.controls.displayItemVariant.selIndex = item.variant
 		if item.hasAltVariant then
 			self.controls.displayItemAltVariant.list = item.variantList
 			self.controls.displayItemAltVariant.selIndex = item.variantAlt
 		end
+		]]
 		self:UpdateSocketControls()
 		if item.crafted then
 			self:UpdateAffixControls()
@@ -1727,7 +1752,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			if #item.variantList == 1 then
 				tooltip:AddLine(16, "^xFFFF30Variant: "..item.variantList[1])
 			else
-				tooltip:AddLine(16, "^xFFFF30Variant: "..item.variantList[item.variant].." ("..#item.variantList.." variants)")
+				tooltip:AddLine(16, "^xFFFF30Variant: ".. item.variantList[item.variant or item.variants[1]] .." ("..#item.variantList.." variants)")
 			end
 		end
 		if item.league then
