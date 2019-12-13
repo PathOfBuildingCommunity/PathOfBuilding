@@ -1206,6 +1206,58 @@ skills["LightningSpell"] = {
 		[30] = { 0.5, 1.5, 100, damageEffectiveness = 1.5, cooldown = 0.5, critChance = 6, levelRequirement = 90, statInterpolation = { 3, 3, 1, }, },
 	},
 }
+skills["AnimateGuardianWeapon"] = {
+	name = "Animate Guardian's Weapon",
+	hidden = true,
+	color = 2,
+	description = "Animates a copy of your Animated Guardian's main-hand weapon to fight by your side.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.Minion] = true, [SkillType.CreateMinion] = true, [SkillType.Spell] = true, [SkillType.SkillCanTotem] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Triggered] = true, [SkillType.CreatesMinion] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Type54] = true, [SkillType.SkillCanVolley] = true, [SkillType.Type56] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 0.8,
+	fromItem = true,
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	minionList = {
+		"AnimatedWeapon",
+	},
+	statMap = {
+		["active_skill_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["attack_minimum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
+		["attack_maximum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"chance_to_trigger_on_animate_weapon_kill_%",
+		"active_skill_damage_+%_final",
+		"attack_speed_+%",
+		"base_skill_effect_duration",
+		"attack_minimum_added_physical_damage",
+		"attack_maximum_added_physical_damage",
+		"number_of_animated_weapons_allowed",
+		"chance_to_trigger_on_animate_guardian_kill_%",
+	},
+	levels = {
+		[18] = { 10, 54, 0, 20000, 9, 14, 50, cooldown = 0.05, levelRequirement = 64, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+		[20] = { 100, 60, 0, 20000, 10, 15, 50, cooldown = 0.05, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
+	},
+}
 skills["UniqueAnimateWeapon"] = {
 	name = "Manifest Dancing Dervish",
 	hidden = true,
