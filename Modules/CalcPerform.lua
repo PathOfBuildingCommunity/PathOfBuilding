@@ -298,6 +298,11 @@ local function doActorMisc(env, actor)
 	else
 		output.InspirationCharges = 0
 	end
+	if modDB:Flag(nil, "UseGhostShrouds") then
+		output.GhostShrouds = modDB:Override(nil, "GhostShrouds") or 3
+	else
+		output.GhostShrouds = 0
+	end
 	output.CrabBarriers = m_max(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
 	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
@@ -309,6 +314,7 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["ChallengerCharge"] = output.ChallengerCharges
 	modDB.multipliers["BlitzCharge"] = output.BlitzCharges
 	modDB.multipliers["InspirationCharge"] = output.InspirationCharges
+	modDB.multipliers["GhostShroud"] = output.GhostShrouds
 	modDB.multipliers["CrabBarrier"] = output.CrabBarriers
 
 	-- Process enemy modifiers 
@@ -320,7 +326,7 @@ local function doActorMisc(env, actor)
 	if env.mode_combat then
 		if modDB:Flag(nil, "Fortify") then
 			local effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "FortifyEffectOnSelf", "BuffEffectOnSelf") / 100))
-			modDB:NewMod("DamageTakenWhenHit", "INC", -effect, "Fortify")
+			modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Fortify")
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 		end
 		if modDB:Flag(nil, "Onslaught") then

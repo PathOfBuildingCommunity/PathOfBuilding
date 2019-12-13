@@ -3156,6 +3156,7 @@ skills["BloodSpears"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
+		area = true,
 	},
 	baseMods = {
 	},

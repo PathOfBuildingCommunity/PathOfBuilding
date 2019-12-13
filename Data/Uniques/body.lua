@@ -618,8 +618,6 @@ Requires Level 59, 160 Int
 {variant:1}(100-120)% increased Energy Shield
 {variant:2,3}(200-220)% increased Energy Shield
 +(20-30) to maximum Mana
-{variant:1}(100-120)% increased Energy Shield
-{variant:2,3}(200-220)% increased Energy Shield
 Minions have 20% reduced Maximum Life
 Minions deal 15% increased Damage
 {variant:1,2}+1 to Maximum number of Spectres

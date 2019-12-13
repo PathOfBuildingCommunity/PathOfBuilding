@@ -105,6 +105,20 @@ Implicits: 1
 25% of Physical Damage taken as Chaos Damage
 {variant:5}20% chance for Poisons inflicted with this Weapon to deal 300% more Damage
 ]],[[
+Death's Harp
+Death Bow
+Upgrade: Upgrades to unique{Death's Opus} via prophecy{The Bowstring's Music}
+Variant: Pre 2.2.0
+Variant: {2_6}Pre 3.0.0
+Variant: Current
+Requires Level 32, 107 Dex
+(30-50)% increased Critical Strike Chance
+(100-125)% increased Physical Damage
+10% increased Attack Speed
+{variant:1,3}+100% to Global Critical Strike Multiplier
+{variant:2}+150% to Global Critical Strike Multiplier
+Adds an additional Arrow
+]],[[
 Death's Opus
 Death Bow
 Source: Upgraded from unique{Death's Harp} via prophecy{The Bowstring's Music}
@@ -424,7 +438,6 @@ Requires Level 64, 185 Dex
 10% chance to Ignite
 {variant:1}Ignites your Skills cause spread to other Enemies within a Radius of 12
 {variant:2}Ignites your Skills cause spread to other Enemies within a Radius of 15
-{variant:3}Socketed Gems are Supported by level 20 Ignite Proliferation
 Recover (40-60) Life when you Ignite an Enemy
 ]],
 }

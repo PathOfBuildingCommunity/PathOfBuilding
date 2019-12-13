@@ -6,15 +6,14 @@ This is a fork of Openarls Path Of Building that includes many extra features no
 * Impale DPS support
 * More tree highlighting options for node power
 * Support for fossil mods in the crafting window. Including correct parsing for some mods that previously didn't work (e.g. 60% chance to deal 100% more poison/bleed damage)
-* Add parsing for more nodes on the tree (i.e slayer and elementalist ascendancy nodes)
+* Add parsing for more nodes on the tree (i.e slayer, champion, hierophant, trickster and elementalist ascendancy nodes)
 * Add oil combinations to notables on tree
 * Support for elusive and nightblade support gem
 * Incremental shock values (not a locked 50%)
 * Fixed close combat and multistrike to have their correct damage values
 * Logic for melee distance scaling attack multipliers (Close combat and Slayers Impact node)
-* Added Vermillion ring base
 * Withered now shows on the configuration screen
-* Support for Ryslathas Coil, Vaal Arc Lucky Budd, Perquils Toe and more
+* Support for Ryslathas Coil, Vaal Arc Lucky Buff, Perquils Toe and more
 
 ## Feature Requests
 [![Feature Requests](https://feathub.com/LocalIdentity/PathOfBuilding?format=svg)](https://feathub.com/LocalIdentity/PathOfBuilding)

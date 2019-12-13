@@ -473,7 +473,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill BloodSpears
-#flags attack melee
+#flags attack melee area
 	statMap = {
 		["blood_spears_damage_+%_final_in_blood_stance"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BloodStance" })

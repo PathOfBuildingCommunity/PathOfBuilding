@@ -22,7 +22,6 @@ c["3% increased effect of Non-Curse Auras you Cast"]={{[1]={flags=0,keywordFlags
 c["20% chance to gain a Power Charge when you Block +6% Chance to Block Attack Damage while wielding a Staff"]={{[1]={[1]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=20}}," to gain a Power Charge when you Block +6% Chance   "}
 c["Your Critical Strike Multiplier is 300%"]={{[1]={flags=0,keywordFlags=0,name="CritMultiplier",type="OVERRIDE",value=300}},nil}
 c["With at least 40 Dexterity in Radius, Barrage fires an additional 2 projectiles simultaneously on the first and final attacks"]={nil,"With at least 40 Dexterity in Radius, Barrage fires an additional 2 projectiles simultaneously on the first and final attacks "}
-c["2% reduced Damage taken per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and Recover Energy Shield equal to 4% of your Evasion Rating 10% increased Movement Speed while you have Energy Shield"]={{[1]={[1]={type="Condition",var="HaveEnergyShield"},flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-2}},"  per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and Recover Energy Shield equal to 4% of your Evasion Rating 10% increased Movement Speed  "}
 c["Non-critical strikes deal 25% Damage"]={{[1]={[1]={neg=true,type="Condition",var="CriticalStrike"},flags=4,keywordFlags=0,name="Damage",type="MORE",value=-75}},nil}
 c["15% more Damage with Bleeding"]={{[1]={flags=0,keywordFlags=2097152,name="Damage",type="MORE",value=15}},nil}
 c["40% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=40}},nil}
@@ -53,7 +52,6 @@ c["Minions have 10% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name=
 c["Channelling Skills have -3 to Total Mana Cost"]={{[1]={[1]={skillType=58,type="SkillType"},flags=0,keywordFlags=0,name="ManaCost",type="BASE",value=-3}},nil}
 c["50% chance to inflict Bleeding on Critical Strike with Attacks"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=0,keywordFlags=65536,name="BleedChance",type="BASE",value=50}},nil}
 c["20% chance to Maim on Hit"]={{}," to Maim on Hit "}
-c["6% increased Attack and Cast Speed per Ghost Shroud Cannot be Stunned while you have Ghost Shrouds 10% chance to Dodge Spell Hits if you have Energy Shield"]={{[1]={flags=2,keywordFlags=0,name="Speed",type="INC",value=6}},"  per Ghost Shroud Cannot be Stunned while you have Ghost Shrouds 10% chance to Dodge  Hits if you have Energy Shield "}
 c["20% increased Damage while you have a Summoned Golem 30% increased Effect of Buffs granted by your Golems Golems have 15% increased Maximum Life +1 to maximum number of Golems"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},"  while you have a Summoned  30% increased Effect of Buffs granted by your Golems Golems have 15% increased Maximum Life +1 to maximum number of Golems "}
 c["10% chance to gain an Endurance Charge when you Block Attack Skills deal 20% increased Damage with Ailments while Dual Wielding 10% chance to gain a Frenzy Charge when you Block"]={{[1]={[1]={type="Condition",var="DualWielding"},[2]={skillName="Frenzy",type="SkillName"},flags=2048,keywordFlags=0,name="Damage",type="BASE",value=10}}," to gain an Endurance Charge when you Block Attack Skills deal 20% increased    10% chance to gain aCharge when you Block "}
 c["20% increased Flask Recovery rate"]={{[1]={flags=0,keywordFlags=0,name="FlaskRecoveryRate",type="INC",value=20}},nil}
@@ -194,7 +192,6 @@ c["Adds 35 to 65 Lightning Damage to Spells"]={{[1]={flags=0,keywordFlags=131072
 c["4% increased Projectile Damage"]={{[1]={flags=1024,keywordFlags=0,name="Damage",type="INC",value=4}},nil}
 c["6% increased effect of Non-Curse Auras from your Skills"]={{[1]={flags=0,keywordFlags=0,name="AuraEffect",type="INC",value=6}},nil}
 c["60% of Lightning Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamageConvertToChaos",type="BASE",value=60}},nil}
-c["12% increased Attack and Cast Speed per Ghost Shroud Cannot be Stunned while you have Ghost Shrouds"]={{[1]={flags=0,keywordFlags=0,name="Speed",type="INC",value=12}},"  per Ghost Shroud Cannot be Stunned while you have Ghost Shrouds "}
 c["Adds 60 to 80 Cold Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ColdMin",type="BASE",value=60},[2]={flags=0,keywordFlags=65536,name="ColdMax",type="BASE",value=80}},nil}
 c["10% chance to gain a Frenzy Charge when you Hit a Rare or Unique Enemy"]={{}," to gain aCharge when you Hit a Rare or Unique Enemy "}
 c["60% increased Attack Damage"]={{[1]={flags=1,keywordFlags=0,name="Damage",type="INC",value=60}},nil}
@@ -318,7 +315,7 @@ c["18% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type
 c["15% increased Damage with Bleeding"]={{[1]={flags=0,keywordFlags=2097152,name="Damage",type="INC",value=15}},nil}
 c["9% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=9}},nil}
 c["Flasks gain 3 Charges every 3 seconds Damage Penetrates 6% of Enemy Elemental Resistances 15% chance for your Flasks to not consume Charges"]={{[1]={flags=0,keywordFlags=0,name="ElementalPenetration",type="BASE",value=6}},"Flasks gain 3 Charges every 3 seconds    15% chance for your Flasks to not consume Charges "}
-c["6% increased Attack and Cast Speed per Ghost Shroud"]={{[1]={flags=0,keywordFlags=0,name="Speed",type="INC",value=6}},"  per Ghost Shroud "}
+c["6% increased Attack and Cast Speed per Ghost Shroud"]={{[1]={[1]={type="Multiplier",var="GhostShroud"},flags=0,keywordFlags=0,name="Speed",type="INC",value=6}},nil}
 c["If you've Warcried Recently, you and nearby allies have 10% increased Attack, Cast and Movement Speed Warcries cost no Mana"]={nil,"If you've Warcried Recently, you and nearby allies have 10% increased Attack, Cast and Movement Speed Warcries cost no Mana "}
 c["24% increased Weapon Damage while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=134217728,keywordFlags=0,name="Damage",type="INC",value=24}},nil}
 c["Life Regeneration has no effect"]={{[1]={flags=0,keywordFlags=0,name="NoLifeRegen",type="FLAG",value=true}},nil}
@@ -755,7 +752,6 @@ c["1% increased Attack Damage per 450 Evasion Rating"]={{[1]={[1]={div=450,stat=
 c["10% reduced Trap Duration"]={{[1]={flags=0,keywordFlags=0,name="TrapDuration",type="INC",value=-10}},nil}
 c["Enemies you Attack Reflect 100 Physical Damage to you +2 to Weapon range"]={nil,"Enemies you Attack Reflect 100 Physical Damage to you +2 to Weapon range "}
 c["18% increased Projectile Attack Damage"]={{[1]={flags=1025,keywordFlags=0,name="Damage",type="INC",value=18}},nil}
-c["3% reduced Damage taken per Ghost Shroud Every second, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and recover Energy Shield equal to 5% of your Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-3}},"  per Ghost Shroud Every second, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and recover Energy Shield equal to 5% of your Evasion Rating "}
 c["+23 to Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="BASE",value=23}},nil}
 c["3 Life Regenerated per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=3}},nil}
 c["18% increased Melee Damage"]={{[1]={flags=256,keywordFlags=0,name="Damage",type="INC",value=18}},nil}
@@ -831,7 +827,6 @@ c["400 Cold Damage taken per second per Frenzy Charge while moving"]={{[1]={[1]=
 c["25% increased Critical Strike Chance with Maces"]={{[1]={flags=1048576,keywordFlags=0,name="CritChance",type="INC",value=25}},nil}
 c["Cannot gain Mana during effect Vaal Skills deal 100% increased Damage during effect"]={nil,"Cannot gain Mana during effect Vaal Skills deal 100% increased Damage during effect "}
 c["15% increased Quantity of Items found with a Magic Item equipped"]={{[1]={[1]={threshold=1,type="MultiplierThreshold",var="MagicItem"},flags=0,keywordFlags=0,name="LootQuantity",type="INC",value=15}},nil}
-c["6% increased Attack and Cast Speed per Ghost Shroud Cannot be Stunned while you have Ghost Shrouds"]={{[1]={flags=0,keywordFlags=0,name="Speed",type="INC",value=6}},"  per Ghost Shroud Cannot be Stunned while you have Ghost Shrouds "}
 c["Nearby Allies' Action Speed cannot be modified to below base value"]={nil,"Nearby Allies' Action Speed cannot be modified to below base value "}
 c["60% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=60}},nil}
 c["Cannot be Shocked while Chilled"]={nil,"Cannot be Shocked while Chilled "}
@@ -2221,7 +2216,6 @@ c["18% increased Golem Damage for each Type of Golem you have Summoned"]={{[1]={
 c["Mortal Conviction"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Mortal Conviction"}},nil}
 c["20% increased Mana Cost of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaCost",type="INC",value=20}},nil}
 c["88% increased Fire Damage with Hits and Ailments against Bleeding Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=0,keywordFlags=786432,name="FireDamage",type="INC",value=88}},nil}
-c["12% increased Attack and Cast Speed per Ghost Shroud Cannot be Stunned while you have Ghost Shrouds 20% chance to Dodge Spell Hits if you have Energy Shield"]={{[1]={flags=2,keywordFlags=0,name="Speed",type="INC",value=12}},"  per Ghost Shroud Cannot be Stunned while you have Ghost Shrouds 20% chance to Dodge  Hits if you have Energy Shield "}
 c["24% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=24}},nil}
 c["6% increased Accuracy Rating with Wands"]={{[1]={flags=8388608,keywordFlags=0,name="Accuracy",type="INC",value=6}},nil}
 c["With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy. With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy."]={nil,"With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy. With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy. "}
@@ -4180,7 +4174,6 @@ c["275% increased Global Damage"]={{[1]={[1]={type="Global"},flags=0,keywordFlag
 c["Grants maximum Energy Shield equal to 15% of your Reserved Mana to you and nearby Allies"]={{[1]={flags=0,keywordFlags=0,name="GrantReservedManaAsAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=0.15}}}},nil}
 c["13% increased Skill Effect Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=13}},nil}
 c["120% increased Vaal Skill Critical Strike Chance"]={{[1]={flags=0,keywordFlags=256,name="CritChance",type="INC",value=120}},nil}
-c["2% reduced Damage taken per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and Recover Energy Shield equal to 4% of your Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-2}},"  per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and Recover Energy Shield equal to 4% of your Evasion Rating "}
 c["If you've Cast a Spell Recently, you and nearby Allies have +10% Chance to Block Spell Damage"]={{[1]={[1]={type="Condition",var="CastSpellRecently"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=10}}}},nil}
 c["When you create a Banner, it gains 20% of the Stages of your placed Banner When you place a Banner, you and nearby Allies recover 0.5% of Life for\neach Stage the Banner has You and nearby Allies have 12% increased Movement Speed"]={nil,"When you create a Banner, it gains 20% of the Stages of your placed Banner When you place a Banner, you and nearby Allies recover 0.5% of Life for\neach Stage the Banner has You and nearby Allies have 12% increased Movement Speed "}
 c["Socketed Gems are Supported by Level 16 Trap"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=16,skillId="SupportTrap"}}},nil}
@@ -4234,7 +4227,6 @@ c["Recover 0.5% of Life per Poison affecting Enemies you Kill"]={nil,"Recover 0.
 c["18% increased Damage with Maces"]={{[1]={flags=1048576,keywordFlags=0,name="Damage",type="INC",value=18}},nil}
 c["+160 Dexterity Requirement"]={{[1]={flags=0,keywordFlags=0,name="DexRequirement",type="BASE",value=160}},nil}
 c["200% increased Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="INC",value=200}},nil}
-c["3% reduced Damage taken per Ghost Shroud Every second, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and recover Energy Shield equal to 5% of your Evasion Rating 10% increased Movement Speed while you have Energy Shield"]={{[1]={[1]={type="Condition",var="HaveEnergyShield"},flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-3}},"  per Ghost Shroud Every second, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and recover Energy Shield equal to 5% of your Evasion Rating 10% increased Movement Speed  "}
 c["25% increased Damage with Ailments from Attack Skills while wielding a One Handed Weapon"]={{[1]={[1]={type="Condition",var="UsingOneHandedWeapon"},flags=2048,keywordFlags=65536,name="Damage",type="INC",value=25}},nil}
 c["25% chance to gain a Siphoning Charge when you use a Skill Adds 14 to 16 Physical Damage to Attacks and Spells per Siphoning Charge"]={{[1]={[1]={type="Multiplier",var="SiphoningCharge"},flags=2,keywordFlags=0,name="PhysicalDamage",type="BASE",value=25}}," to gain a Siphoning Charge when you use a Skill Adds 14 to 16  to Attacks and s  "}
 c["25% chance to gain a Siphoning Charge when you use a Skill"]={{}," to gain a Siphoning Charge when you use a Skill "}
@@ -4444,7 +4436,7 @@ c["13% increased Stun Recovery"]={{[1]={flags=0,keywordFlags=0,name="StunRecover
 c["15% increased Stun Recovery"]={{[1]={flags=0,keywordFlags=0,name="StunRecovery",type="INC",value=15}},nil}
 c["+90 to all Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=90},[2]={flags=0,keywordFlags=0,name="Dex",type="BASE",value=90},[3]={flags=0,keywordFlags=0,name="Int",type="BASE",value=90}},nil}
 c["Projectile Attack Hits deal up to 30% more Damage to targets at the start of their movement, dealing less Damage to targets as the projectile travels farther"]={{[1]={flags=0,keywordFlags=0,name="PointBlank",type="FLAG",value=true}},nil}
-c["50% increased Effect of Buffs granted by your Active Ancestor Totems"]={{[1]={flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=50}},nil}
+c["50% increased Effect of Buffs granted by your Active Ancestor Totems"]={{[1]={[1]={skillNameList={[1]="Ancestral Warchief",[2]="Ancestral Protector"},type="SkillName"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=50}},nil}
 c["30% increased Mana Regeneration Rate if you've Hit a Cursed Enemy Recently"]={{[1]={[1]={type="Condition",var="HitRecently"},[2]={actor="enemy",type="ActorCondition",var="Cursed"},flags=0,keywordFlags=0,name="ManaRegen",type="INC",value=30}},nil}
 c["1% increased Mana Regeneration Rate per 1% Chance to Block Spell Damage"]={{[1]={[1]={div=1,stat="SpellBlockChance",type="PerStat"},flags=0,keywordFlags=0,name="ManaRegen",type="INC",value=1}},nil}
 c["35% increased Movement Speed when on Full Life"]={{[1]={[1]={type="Condition",var="FullLife"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=35}},nil}
@@ -4665,7 +4657,6 @@ c["20% reduced Effect of Curses on you"]={{[1]={flags=0,keywordFlags=0,name="Cur
 c["10% increased Strength"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC",value=10}},nil}
 c["10% faster start of Energy Shield Recharge"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRechargeFaster",type="INC",value=10}},nil}
 c["When you place a Banner, you and nearby Allies recover 0.5% of Life for each Stage the Banner has"]={nil,"When you place a Banner, you and nearby Allies recover 0.5% of Life for each Stage the Banner has "}
-c["3% reduced Damage taken per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and recover Energy Shield equal to 5% of your Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-3}},"  per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and recover Energy Shield equal to 5% of your Evasion Rating "}
 c["Adds 23 to 35 Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdMin",type="BASE",value=23},[2]={flags=0,keywordFlags=0,name="ColdMax",type="BASE",value=35}},nil}
 c["Adds 27 to 38 Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="FireMin",type="BASE",value=27},[2]={flags=0,keywordFlags=0,name="FireMax",type="BASE",value=38}},nil}
 c["50% of Lightning Damage Converted to Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamageConvertToCold",type="BASE",value=50}},nil}
@@ -4762,7 +4753,7 @@ c["-30% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",typ
 c["Grants Level 22 Precision Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=22,skillId="AccuracyAndCritsAura"}}},nil}
 c["16% increased Spell Damage while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=2,keywordFlags=0,name="Damage",type="INC",value=16}},nil}
 c["150% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=150}},nil}
-c["2% reduced Damage taken per Ghost Shroud"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-2}},"  per Ghost Shroud "}
+c["2% reduced Damage taken per Ghost Shroud"]={{[1]={[1]={type="Multiplier",var="GhostShroud"},flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-2}},nil}
 c["+8% Chance to Block Projectile Attack Damage +4% Chance to Block Attack Damage while holding a Shield"]={{[1]={[1]={type="Condition",var="UsingShield"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=8}},"  Projectile Attack Damage +4% Chance to Block Attack Damage  "}
 c["Blind Chilled Enemies on Hit Damage Penetrates 20% Cold Resistance against Chilled Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Chilled"},flags=0,keywordFlags=262144,name="ColdPenetration",type="BASE",value=20}},"Blind Chilled Enemies on Hit     "}
 c["Blind Chilled Enemies on Hit"]={nil,"Blind Chilled Enemies on Hit "}
@@ -5271,7 +5262,7 @@ c["Minions gain Unholy Might for 5 seconds on Kill {variant:2}Minions gain Unhol
 c["50% chance for Attacks to Maim on Hit against Poisoned Enemies +0.1% to Critical Strike Chance per Poison affecting Enemy, up to +2.0%"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Poisoned"},[2]={actor="enemy",limit=2,limitTotal=true,type="Multiplier",var="PoisonStack"},flags=1,keywordFlags=262144,name="CritChance",type="BASE",value=50}},"  to Maim on Hit  +0.1% to   "}
 c["+15% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=15}},nil}
 c["0.4% of Attack Damage Leeched as Life"]={{[1]={flags=1,keywordFlags=0,name="DamageLifeLeech",type="BASE",value=0.4}},nil}
-c["3% reduced Damage taken per Ghost Shroud"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-3}},"  per Ghost Shroud "}
+c["3% reduced Damage taken per Ghost Shroud"]={{[1]={[1]={type="Multiplier",var="GhostShroud"},flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-3}},nil}
 c["Minions have 20% reduced Maximum Life"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Life",type="INC",value=-20}}}},nil}
 c["Gain 30% of Maximum Mana as Extra Maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ManaGainAsEnergyShield",type="BASE",value=30}},nil}
 c["Minions have 40% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Life",type="INC",value=40}}}},nil}
@@ -5342,7 +5333,6 @@ c["Spectres have a Base Duration of 20 seconds"]={{[1]={[1]={skillName="Raise Sp
 c["Gems Socketed in Blue Sockets gain 25% increased Experience Has no Attribute Requirements"]={nil,"Gems Socketed in Blue Sockets gain 25% increased Experience Has no Attribute Requirements "}
 c["Golems have 45% increased Cooldown Recovery Speed"]={{[1]={[1]={skillType=62,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=45}}}},nil}
 c["130% increased Evasion and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EvasionAndEnergyShield",type="INC",value=130}},nil}
-c["2% reduced Damage taken per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-2}},"  per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 "}
 c["Gems can be Socketed in this Item ignoring Socket Colour"]={nil,"Gems can be Socketed in this Item ignoring Socket Colour "}
 c["5% of Life Regenerated per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=5}},nil}
 c["20% reduced maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=-20}},nil}
@@ -5841,7 +5831,6 @@ c["70% increased Damage with Bleeding"]={{[1]={flags=0,keywordFlags=2097152,name
 c["60% reduced Mana Cost of Totem Skills that cast an Aura"]={{[1]={flags=0,keywordFlags=16384,name="ManaCost",type="INC",value=-60}},"   Skills that cast an Aura "}
 c["8% increased Attack Damage while holding a Shield"]={{[1]={[1]={type="Condition",var="UsingShield"},flags=1,keywordFlags=0,name="Damage",type="INC",value=8}},nil}
 c["Moving while Bleeding doesn't cause Minions to take extra Damage"]={nil,"Moving while Bleeding doesn't cause Minions to take extra Damage "}
-c["3% reduced Damage taken per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-3}},"  per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 "}
 c["5% chance to Dodge Attack Hits while Phasing"]={{[1]={[1]={type="Condition",var="Phasing"},flags=0,keywordFlags=0,name="AttackDodgeChance",type="BASE",value=5}},nil}
 c["With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 8 Ranged Weapons"]={nil,"With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 8 Ranged Weapons "}
 c["Adds 90 to 240 Lightning Damage to Spells while Unarmed"]={{[1]={[1]={type="Condition",var="Unarmed"},flags=0,keywordFlags=131072,name="LightningMin",type="BASE",value=90},[2]={[1]={type="Condition",var="Unarmed"},flags=0,keywordFlags=131072,name="LightningMax",type="BASE",value=240}},nil}
@@ -6188,7 +6177,6 @@ c["8% increased Cast Speed while wielding a Staff"]={{[1]={[1]={type="Condition"
 c["60% chance to Avoid Blind 5% reduced Damage taken from Blinded Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Blinded"},flags=0,keywordFlags=0,name="DamageTaken",type="BASE",value=60}}," to Avoid Blind 5% reduced   "}
 c["50% chance to gain a Power Charge when you Summon a Totem 15% chance to gain a Power Charge if you or your Totems kill an Enemy 5% reduced Elemental Damage taken while you have an Endurance Charge Damage Penetrates 5% Elemental Resistances while you have a Power Charge"]={{[1]={[1]={stat="EnduranceCharges",threshold=1,type="StatThreshold"},[2]={stat="PowerCharges",threshold=1,type="StatThreshold"},flags=0,keywordFlags=16384,name="ElementalDamageTaken",type="BASE",value=50}}," to gain a Power Charge when you Summon a  15% chance to gain a Power Charge if you or your Totems kill an Enemy 5% reduced   Damage Penetrates 5% Elemental Resistances  "}
 c["+25 to Intelligence"]={{[1]={flags=0,keywordFlags=0,name="Int",type="BASE",value=25}},nil}
-c["3% reduced Damage taken per Ghost Shroud Every second, gain a Ghost Shroud, up to a maximum of 3"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-3}},"  per Ghost Shroud Every second, gain a Ghost Shroud, up to a maximum of 3 "}
 c["+150 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=150}},nil}
 c["+460 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=460}},nil}
 c["20% increased Attack Damage during Onslaught"]={{[1]={[1]={type="Condition",var="Onslaught"},flags=1,keywordFlags=0,name="Damage",type="INC",value=20}},nil}
@@ -6745,6 +6733,8 @@ c["50% reduced Mana Cost of Skills while on Full Energy Shield"]={{[1]={[1]={typ
 c["Curse Enemies with Level 30 Poacher's Mark on Hit, which can apply to Hexproof Enemies"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=30,noSupports=true,skillId="PoachersMark"}}},nil}
 c["Enemies near Corpses affected by your Curses are Blinded"]={nil,"Enemies near Corpses affected by your Curses are Blinded "}
 c["Attacks used by Totems have 7% increased Attack Speed"]={{[1]={flags=1,keywordFlags=16384,name="Speed",type="INC",value=7}},nil}
+c["You and your Totems Regenerate 1% of Life per second for each Summoned Totem"]={{[1]={[1]={stat="ActiveTotemLimit",type="PerStat"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=1},[2]={flags=0,keywordFlags=16384,name="LifeRegenPercent",type="BASE",value=1}},nil}
+c["Regenerate 0.5% of Mana per second for each Summoned Totem"]={{[1]={[1]={stat="ActiveTotemLimit",type="PerStat"},flags=0,keywordFlags=0,name="ManaRegenPercent",type="BASE",value=0.5}},nil}
 c["20% increased Critical Strike Chance with Mines"]={{[1]={flags=0,keywordFlags=8192,name="CritChance",type="INC",value=20}},nil}
 c["12% increased Melee Physical Damage"]={{[1]={flags=256,keywordFlags=0,name="PhysicalDamage",type="INC",value=12}},nil}
 c["5% increased Cast Speed with Fire Skills"]={{[1]={flags=16,keywordFlags=16,name="Speed",type="INC",value=5}},nil}
@@ -6809,7 +6799,6 @@ c["Ancestor Totems have 100% increased Activation range"]={nil,"Ancestor Totems 
 c["Ancestor Totems have 100% increased Activation range 25% increased Area of Effect while you have a Totem"]={nil,"Ancestor Totems have 100% increased Activation range 25% increased Area of Effect while you have a Totem "}
 c["33% increased Elemental Damage"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamage",type="INC",value=33}},nil}
 c["1% of Energy Shield Regenerated per second for each Enemy you or your Minions have Killed Recently, up to 30%"]={{[1]={[1]={limit=30,limitTotal=true,type="Multiplier",varList={[1]="EnemyKilledRecently",[2]="EnemyKilledByMinionsRecently"}},flags=0,keywordFlags=0,name="EnergyShieldRegenPercent",type="BASE",value=1}},nil}
-c["50% increased Effect of Buffs granted by your Active Ancestor Totems Ancestor Totems have 100% increased Activation range 25% increased Area of Effect while you have a Totem"]={{[1]={[1]={type="Condition",var="HaveTotem"},flags=0,keywordFlags=16384,name="FlaskEffect",type="INC",value=50}},"  of Buffs granted by your Active Ancestor s Ancestor Totems have 100% increased Activation range 25% increased Area of Effect  "}
 c["15% increased Accuracy Rating with Axes"]={{[1]={flags=65536,keywordFlags=0,name="Accuracy",type="INC",value=15}},nil}
 c["16% increased Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamage",type="INC",value=16}},nil}
 c["30% increased Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage",type="INC",value=30}},nil}
@@ -6861,7 +6850,6 @@ c["+160 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShi
 c["Adds 1 to 100 Lightning Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="LightningMin",type="BASE",value=1},[2]={flags=0,keywordFlags=65536,name="LightningMax",type="BASE",value=100}},nil}
 c["+20% to Critical Strike Multiplier with Two Handed Melee Weapons"]={{[1]={flags=570425344,keywordFlags=0,name="CritMultiplier",type="BASE",value=20}},nil}
 c["25% increased Effect of Buffs granted by your Golems per Summoned Golem"]={{[1]={[1]={skillType=62,type="SkillType"},[2]={type="PerStat",stat="ActiveGolemLimit"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=25}},nil}
-c["50% increased Effect of Buffs granted by your Active Ancestor Totems Ancestor Totems have 100% increased Activation range"]={{[1]={flags=0,keywordFlags=16384,name="FlaskEffect",type="INC",value=50}},"  of Buffs granted by your Active Ancestor s Ancestor Totems have 100% increased Activation range "}
 c["+5 to Strength"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=5}},nil}
 c["50% increased Damage with Hits against Enemies that are on Low Life"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="LowLife"},flags=0,keywordFlags=262144,name="Damage",type="INC",value=50}},nil}
 c["30% increased Cast Speed if you've Attacked Recently"]={{[1]={[1]={type="Condition",var="AttackedRecently"},flags=16,keywordFlags=0,name="Speed",type="INC",value=30}},nil}
@@ -7080,7 +7068,6 @@ c["30% increased Effect of Buffs granted by your Golems"]={{[1]={[1]={skillType=
 c["10% chance to gain an Endurance Charge when you Stun an Enemy with a Melee Hit 10% chance to double Stun Duration"]={{[1]={flags=256,keywordFlags=0,name="EnemyStunDuration",type="BASE",value=10}}," to gain an Endurance Charge when you Stun an Enemy with a  Hit 10% chance to double  "}
 c["5% reduced Elemental Damage taken while stationary"]={{[1]={[1]={type="Condition",var="Stationary"},flags=0,keywordFlags=0,name="ElementalDamageTaken",type="INC",value=-5}},nil}
 c["You gain 8% increased Area of Effect for each Mine 20% chance when Placing Mines to Place an additional Mine 100% increased Mine Arming Speed"]={{[1]={flags=0,keywordFlags=8192,name="AreaOfEffect",type="BASE",value=8}},"% increased  for each  20% chance when Placing Mines to Place an additional Mine 100% increased Mine Arming Speed "}
-c["3% reduced Damage taken per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and recover Energy Shield equal to 5% of your Evasion Rating 10% increased Movement Speed while you have Energy Shield"]={{[1]={[1]={type="Condition",var="HaveEnergyShield"},flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-3}},"  per Ghost Shroud Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and recover Energy Shield equal to 5% of your Evasion Rating 10% increased Movement Speed  "}
 c["Gain 5 Rage when you use a Warcry"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true},[2]={[1]={type="Condition",var="CanGainRage"},flags=0,keywordFlags=0,name="Dummy",type="DUMMY",value=1}},nil}
 c["Minions have 14% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Life",type="INC",value=14}}}},nil}
 c["10% chance to double Stun Duration 24% increased Damage with Ailments from Attack Skills while wielding a Two Handed Weapon 4% chance to deal Double Damage"]={{[1]={[1]={type="Condition",var="UsingTwoHandedWeapon"},flags=2048,keywordFlags=65536,name="EnemyStunDuration",type="BASE",value=10}}," to double  24% increased Damage   4% chance to deal Double Damage "}
@@ -7137,7 +7124,6 @@ c["You can inflict Bleeding on an Enemy up to 8 times Your Bleeding does not dea
 c["+60% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=60}},nil}
 c["20% more Damage while there is at most one Rare or Unique Enemy nearby"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="MORE",value=20}},"  while there is at most one Rare or Unique Enemy nearby "}
 c["20% increased Critical Strike Chance for each Mine Detonated"]={{[1]={flags=0,keywordFlags=8192,name="CritChance",type="INC",value=20}},"  for each  Detonated "}
-c["50% increased Effect of Buffs granted by your Active Ancestor Totems"]={{[1]={flags=0,keywordFlags=16384,name="FlaskEffect",type="INC",value=50}},"  of Buffs granted by your Active Ancestor s "}
 c["10% increased Damage with Ailments from Attack Skills while wielding a Melee Weapon"]={{[1]={[1]={type="Condition",var="UsingMeleeWeapon"},flags=2048,keywordFlags=65536,name="Damage",type="INC",value=10}},nil}
 c["Carved to glorify 10000 new faithful converted by High Templar Venarius"]={nil,"Carved to glorify 10000 new faithful converted by High Templar Venarius "}
 c["When you Kill an Enemy, for each Curse on that Enemy, gain 8% of Non-Chaos Damage as extra Chaos Damage for 4 seconds"]={{[1]={[1]={type="Condition",var="KilledRecently"},[2]={type="Multiplier",var="CurseOnEnemy"},flags=0,keywordFlags=0,name="NonChaosDamageGainAsChaos",type="BASE",value=8}},nil}
@@ -7206,7 +7192,7 @@ c["Nearby Allies Unnerve Enemies for 4 seconds on Hit"]={nil,"Nearby Allies Unne
 c["10% increased Damage with Axes"]={{[1]={flags=65536,keywordFlags=0,name="Damage",type="INC",value=10}},nil}
 c["Gain a Divine Charge on Hit"]={nil,"Gain a Divine Charge on Hit "}
 c["Your hits can't be Evaded"]={{[1]={flags=0,keywordFlags=0,name="CannotBeEvaded",type="FLAG",value=true}},nil}
-c["12% increased Attack and Cast Speed per Ghost Shroud"]={{[1]={flags=0,keywordFlags=0,name="Speed",type="INC",value=12}},"  per Ghost Shroud "}
+c["12% increased Attack and Cast Speed per Ghost Shroud"]={{[1]={[1]={type="Multiplier",var="GhostShroud"},flags=0,keywordFlags=0,name="Speed",type="INC",value=12}},nil}
 c["+5% Chance to Block Attack Damage while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=5}},nil}
 c["Adds 1 to 3 Chaos Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ChaosMin",type="BASE",value=1},[2]={flags=0,keywordFlags=65536,name="ChaosMax",type="BASE",value=3}},nil}
 c["Adds Knockback during Flask effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyKnockbackChance",type="BASE",value=100}},nil}

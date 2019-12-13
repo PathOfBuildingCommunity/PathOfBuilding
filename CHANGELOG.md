@@ -1,3 +1,26 @@
+### 1.4.153.2 - 2019/12/14
+ * Re-add Oils to tree
+ * Add support for Ghost Shrouds
+ * Add support for increased Ancestor Totem buff effect
+ * Add support for Ritual of Awakening Hierophant node
+ * Add support for 3 mods on Watchers Eye
+ * Add Impale damage to Combined DPS sort option
+ * Update Boss resistance values to 3.9 levels
+ * Add Bleed DPS to sorting option
+ * Add new spectres to the spectre library
+	* Kraityn's Sentry, Chrome-infused Chimeral, Vaal Slayer, Primeval Hunter, Archer Statue, Crazed Driver
+ * Add new spectre skills to library
+	* Blast Rain, Elemental Hit Fire, Barrage, Ice Shot, Unearth, Tornado Shot, Flame Surge
+ * Fix mod support for Chains of Command
+ * Add Astral Projector Unique Ring (3.9 preview)
+ * Fix rage granting damage to unarmed attacks
+ * Fix UI on passive tree being too large for some resolutions
+ * Fix node power not respecting your colour choice for highlighting
+ * Add area tag to Perforate
+ * Fix uniques with duplicate mods
+ * Re-add Death's Harp back in
+ * Update Snakepit Unique Ring
+
 ### 1.4.153.1 - 2019/12/12
  * Add 3.9 Passive Tree
  * Add 3.9 Unique Changes
@@ -8,11 +31,11 @@
  * Add support for Warcried recently
  * Fix Minion DPS sorting bug for Uniques and tree
  * Fix Toxic Rain/Rain of Arrows pierce bug
- * Fix radius calcualtion for Jewels 
+ * Fix radius calculation for Jewels 
  * Fix Impale calculations for certain skills
       * Barrage, Blade Flurry, Blast Rain, Double Strike, Lacerate, Scourge Arrow,
   	    Cleave, Dual Strike, Riposte, Viper Strike, Static Strike
- * Counter attack skills now show proper damage for each hit instead of DPS when using Impale
+ * Counter-attack skills now show proper damage for each hit instead of DPS when using Impale
  * Update many uniques that had incorrect wordings
 
 ### 1.4.152.8 - 2019/12/09
@@ -59,10 +82,10 @@
  * Fix totem limits
  * Fix elemental hit threshold gems again
  * Fix double damage on heavy strike
- * Fix minion resistance on raise spectre gem
- * Fix bones of ullur mod
+ * Fix minion resistance on Raise Spectre gem
+ * Fix Bones of Ullur mod
  * Fix Perandus Signet mod
- * Fix red nightmare block chance
+ * Fix Red Nightmare block chance
  * Trim image file sizes
 
 ### 1.4.152.5 - 2019/10/08

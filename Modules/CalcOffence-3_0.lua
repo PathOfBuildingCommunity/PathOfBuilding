@@ -2245,6 +2245,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.ImpaleDPS = output.ImpaleDPS * (output.HitSpeed or output.Speed)
 			output.WithImpaleDPS = output.TotalDPS + output.ImpaleDPS
 		end
+		output.CombinedDPS = output.CombinedDPS + output.ImpaleDPS
 		if breakdown then
 			breakdown.ImpaleDPS = {}
 			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit)", output.ImpaleHit))
