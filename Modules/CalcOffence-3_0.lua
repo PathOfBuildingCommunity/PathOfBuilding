@@ -1415,6 +1415,7 @@ function calcs.offence(env, actor, activeSkill)
 	skillFlags.shock = false
 	skillFlags.freeze = false
 	skillFlags.impale = false
+	skillFlags.chill = false
 	for _, pass in ipairs(passList) do
 		local globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
@@ -1440,6 +1441,11 @@ function calcs.offence(env, actor, activeSkill)
 			output.ShockChanceOnCrit = 0
 		else
 			output.ShockChanceOnCrit = 100
+		end
+		if not skillFlags.hit or skillModList:Flag(cfg, "CannotFreeze") then
+			output.FreezeChanceOnCrit = 0
+		else
+			output.FreezeChanceOnCrit = 100
 		end
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotFreeze") then
 			output.FreezeChanceOnCrit = 0
@@ -1482,6 +1488,14 @@ function calcs.offence(env, actor, activeSkill)
 				output.FreezeChanceOnCrit = output.FreezeChanceOnHit
 			end
 		end
+		if not skillFlags.hit or skillModList:Flag(cfg, "CannotChill") then
+			output.ChillChanceOnHit = 0
+		else
+			output.ChillChanceOnHit = 100
+			if skillModList:Flag(cfg, "CritsDontAlwaysFreeze") then
+				output.FreezeChanceOnCrit = output.FreezeChanceOnHit
+			end
+		end
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotKnockback") then
 			output.KnockbackChanceOnHit = 0
 		else
@@ -1509,6 +1523,8 @@ function calcs.offence(env, actor, activeSkill)
 			local freezeMult = (1 - enemyDB:Sum("BASE", nil, "AvoidFreeze") / 100)
 			output.FreezeChanceOnHit = output.FreezeChanceOnHit * freezeMult
 			output.FreezeChanceOnCrit = output.FreezeChanceOnCrit * freezeMult
+			output.ChillChanceOnHit = 100
+			output.ChillChanceOnCrit = 100
 		end
 	
 		local function calcAilmentDamage(type, sourceHitDmg, sourceCritDmg)
@@ -2020,8 +2036,9 @@ function calcs.offence(env, actor, activeSkill)
 			if baseVal > 0 then
 				skillFlags.shock = true
 				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
+				output.ShockEffectMod = skillModList:Sum("INC", cfg, "EnemyShockEffect")
 				if breakdown then
-					t_insert(breakdown.ShockDPS, s_format("For shock to apply, target must have no more than %d life.", baseVal * 20 * output.ShockDurationMod))
+					t_insert(breakdown.ShockDPS, s_format("For shock to apply, target must have no more than %d life.", baseVal * 250 * output.ShockDurationMod * (1 + output.ShockEffectMod / 100)))
 				end
  			end
 		end
@@ -2036,12 +2053,18 @@ function calcs.offence(env, actor, activeSkill)
 				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
 				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
 			end
-			local baseVal = calcAilmentDamage("Freeze", sourceHitDmg, sourceCritDmg)
-			if baseVal > 0 then
+			local baseFreezeVal = calcAilmentDamage("Freeze", sourceHitDmg, sourceCritDmg)
+			local baseChillVal = calcAilmentDamage("Chill", sourceHitDmg, sourceCritDmg)
+			if baseFreezeVal > 0 then
 				skillFlags.freeze = true
+				skillFlags.chill = true
+				output.FreezeEffectMod = skillModList:Sum("INC", cfg, "EnemyFreezeEffect")
 				output.FreezeDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyFreezeDuration") / 100 + enemyDB:Sum("INC", nil, "SelfFreezeDuration") / 100
+				output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
+				output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
 				if breakdown then
-					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply, target must have no more than %d life.", baseVal * 20 * output.FreezeDurationMod))
+					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply, target must have no more than %d life.", baseFreezeVal * 20 * output.FreezeDurationMod * (1 + output.FreezeEffectMod / 100)))
+					t_insert(breakdown.ChillDPS, s_format("For chill to apply, target must have no more than %d life.", baseChillVal * 250 * output.ChillDurationMod * (1 + output.ChillEffectMod / 100)))
 				end
 			end
 		end
@@ -2146,10 +2169,14 @@ function calcs.offence(env, actor, activeSkill)
 				combineStat("TotalIgniteDPS", "DPS")
 			end
 		end
+		combineStat("ChillEffectMod", "AVERAGE")
+		combineStat("ChillDurationMod", "AVERAGE")
 		combineStat("ShockChance", "AVERAGE")
 		combineStat("ShockDurationMod", "AVERAGE")
+		combineStat("ShockEffectMod", "AVERAGE")
 		combineStat("FreezeChance", "AVERAGE")
 		combineStat("FreezeDurationMod", "AVERAGE")
+		combineStat("FreezeEffectMod", "AVERAGE")
 		combineStat("ImpaleChance", "AVERAGE")
 		combineStat("ImpaleStoredDamage", "AVERAGE")
 		combineStat("ImpaleModifier", "CHANCE", "ImpaleChance")
