@@ -224,16 +224,16 @@ local skills, mod, flag, skill = ...
 			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 		["attack_minimum_added_physical_damage_with_at_least_10_rage"] = {
-			mod("PhysicalMin", "BASE", nil, ModFlag.Attack, 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })
+			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })
 		},
 		["attack_maximum_added_physical_damage_with_at_least_10_rage"] = {
-			mod("PhysicalMax", "BASE", nil, ModFlag.Attack, 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })
+			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })
 		},
 		["attack_minimum_added_physical_damage_per_10_rage"] = {
-			mod("PhysicalMin", "BASE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "Rage", div = 10, limit = 5 })
+			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10, limit = 5 })
 		},
 		["attack_maximum_added_physical_damage_per_10_rage"] = {
-			mod("PhysicalMax", "BASE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "Rage", div = 10, limit = 5 })
+			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10, limit = 5 })
 		},
 	},
 	
