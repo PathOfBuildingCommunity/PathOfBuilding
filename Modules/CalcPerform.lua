@@ -298,6 +298,11 @@ local function doActorMisc(env, actor)
 	else
 		output.InspirationCharges = 0
 	end
+	if modDB:Flag(nil, "UseGhostShrouds") then
+		output.GhostShrouds = modDB:Override(nil, "GhostShrouds") or 3
+	else
+		output.GhostShrouds = 0
+	end
 	output.CrabBarriers = m_max(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
 	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
@@ -309,6 +314,7 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["ChallengerCharge"] = output.ChallengerCharges
 	modDB.multipliers["BlitzCharge"] = output.BlitzCharges
 	modDB.multipliers["InspirationCharge"] = output.InspirationCharges
+	modDB.multipliers["GhostShroud"] = output.GhostShrouds
 	modDB.multipliers["CrabBarrier"] = output.CrabBarriers
 
 	-- Process enemy modifiers 
