@@ -1,3 +1,8 @@
+### 1.4.155 - 2019/12/14
+ * Fixed error when using Siege Ballista
+ * Fixed Artillery Ballista and Shrapnel Ballista not benefiting from Totem modifiers
+ * Fixed the added Fire Damage to Explosive Arrow's explosions not correctly applying
+
 ### 1.4.154 - 2019/12/14
  * Addeed the following new gems:
     * Artillery Ballista

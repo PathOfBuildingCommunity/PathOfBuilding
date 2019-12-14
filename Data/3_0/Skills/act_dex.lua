@@ -191,6 +191,7 @@ skills["ArtilleryBallista"] = {
 		attack = true,
 		projectile = true,
 		area = true,
+		totem = true,
 	},
 	baseMods = {
 	},
@@ -2558,10 +2559,10 @@ skills["ExplosiveArrow"] = {
 	},
 	statMap = {
 		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
-			skill("FireMin", nil, { type = "SkillPart", skillPartList = { 1, 2 } }),
+			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
 		},
 		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
-			skill("FireMax", nil, { type = "SkillPart", skillPartList = { 1, 2 } }),
+			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
 		},
 		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
@@ -5906,6 +5907,7 @@ skills["ShrapnelBallista"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
+		totem = true,
 	},
 	baseMods = {
 	},
@@ -5984,7 +5986,6 @@ skills["SiegeBallista"] = {
 		attack = true,
 		projectile = true,
 		totem = true,
-		duration = true,
 	},
 	baseMods = {
 	},
