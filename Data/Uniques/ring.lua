@@ -944,5 +944,16 @@ Adds 1 to 4 Physical Damage to Attacks
 Adds (5–15) to (25–50) Physical Damage to Attacks
 30% reduced Attack Speed
 15% chance to gain a Frenzy Charge when you Stun an Enemy
+]],[[
+Warrior's Legacy
+Ruby Ring
+League: Metamorph
+Requires Level 16
++(20–30)% to Fire Resistance
++(30–50) to Strength
+(20–25)% increased Melee Damage
+30% chance to Avoid being Stunned
+20% less Attack Speed
+Strike Skills also target the previous location they were Used
 ]],
 }
