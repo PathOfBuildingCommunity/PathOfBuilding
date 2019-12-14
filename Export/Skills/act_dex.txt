@@ -45,6 +45,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill ArtilleryBallista
+#flags attack projectile area
+#mods
+
 #skill Barrage
 #flags attack projectile
 	parts = {
@@ -140,14 +144,18 @@ local skills, mod, flag, skill = ...
 #flags attack projectile area
 	parts = {
 		{
-			name = "1 explosion",
+			name = "1 Projectile",
 		},
 		{
-			name = "4 explosions",
+			name = "All Projectiles",
 		},
 	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
 #baseMod skill("radius", 24)
-#baseMod skill("dpsMultiplier", 4, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill BlinkArrow
@@ -377,6 +385,10 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Damage", "MORE", 10, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" })
 #mods
 
+#skill EnsnaringArrow
+#flags attack projectile
+#mods
+
 #skill EtherealKnives
 #flags spell projectile
 #mods
@@ -386,37 +398,34 @@ local skills, mod, flag, skill = ...
 	parts = {
 		{
 			name = "Explosion (1 fuse)",
-			attack = false,
 			area = true,
-			cast = true,
 		},
 		{
 			name = "Explosion (5 fuses)",
-			attack = false,
 			area = true,
-			cast = true,
 		},
 		{
 			name = "Arrow",
-			attack = true,
 			area = false,
-			cast = false,
 		},
 	},
 	statMap = {
-		["minimum_fire_damage_per_fuse_arrow_orb"] = {
-			skill("FireMin", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPartList = { 1, 2 } }),
 		},
-		["maximum_fire_damage_per_fuse_arrow_orb"] = {
-			skill("FireMax", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPartList = { 1, 2 } }),
 		},
 		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
+		["explosive_arrow_ignite_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
 	},
 #baseMod skill("radius", 15)
-#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 1 })
-#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } })
+#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 })
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 1 })
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 })
 #mods
@@ -482,6 +491,20 @@ local skills, mod, flag, skill = ...
 			name = "Icy blades",
 			melee = false,
 			projectile = true,
+		},
+	},
+#mods
+
+#skill ShrapnelShot
+#flags attack projectile area
+	parts = {
+		{
+			name = "Arrow",
+			area = false,
+		},
+		{
+			name = "Cone",
+			area = true,
 		},
 	},
 #mods
@@ -905,18 +928,8 @@ local skills, mod, flag, skill = ...
 #flags spell area trap duration
 #mods
 
-#skill ShrapnelShot
-#flags attack projectile area
-	parts = {
-		{
-			name = "Arrow",
-			area = false,
-		},
-		{
-			name = "Cone",
-			area = true,
-		},
-	},
+#skill ShrapnelBallista
+#flags attack projectile
 #mods
 
 #skill SiegeBallista

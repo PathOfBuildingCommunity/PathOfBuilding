@@ -34,14 +34,15 @@ itemBases["Recurve Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
-	weapon = { PhysicalMin = 11, PhysicalMax = 34, CritChanceBase = 6.5, AttackRateBase = 1.25, Range = 120, },
+	implicit = "+(15-25)% to Global Critical Strike Multiplier",
+	weapon = { PhysicalMin = 11, PhysicalMax = 34, CritChanceBase = 6.7, AttackRateBase = 1.25, Range = 120, },
 	req = { level = 18, dex = 65, },
 }
 itemBases["Bone Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
-	weapon = { PhysicalMin = 12, PhysicalMax = 36, CritChanceBase = 6, AttackRateBase = 1.35, Range = 120, },
+	weapon = { PhysicalMin = 11, PhysicalMax = 34, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 23, dex = 80, },
 }
 itemBases["Royal Bow"] = {
@@ -64,7 +65,7 @@ itemBases["Reflex Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "4% increased Movement Speed",
+	implicit = "6% increased Movement Speed",
 	weapon = { PhysicalMin = 27, PhysicalMax = 40, CritChanceBase = 5.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 36, dex = 124, },
 }
@@ -93,14 +94,15 @@ itemBases["Sniper Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
-	weapon = { PhysicalMin = 23, PhysicalMax = 68, CritChanceBase = 6.5, AttackRateBase = 1.25, Range = 120, },
+	implicit = "+(15-25)% to Global Critical Strike Multiplier",
+	weapon = { PhysicalMin = 23, PhysicalMax = 68, CritChanceBase = 6.7, AttackRateBase = 1.25, Range = 120, },
 	req = { level = 44, dex = 143, },
 }
 itemBases["Ivory Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
-	weapon = { PhysicalMin = 21, PhysicalMax = 64, CritChanceBase = 6, AttackRateBase = 1.35, Range = 120, },
+	weapon = { PhysicalMin = 20, PhysicalMax = 61, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 47, dex = 152, },
 }
 itemBases["Highborn Bow"] = {
@@ -123,7 +125,7 @@ itemBases["Steelwood Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "4% increased Movement Speed",
+	implicit = "6% increased Movement Speed",
 	weapon = { PhysicalMin = 40, PhysicalMax = 60, CritChanceBase = 5.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 57, dex = 190, },
 }
@@ -145,21 +147,22 @@ itemBases["Ranger Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
-	weapon = { PhysicalMin = 37, PhysicalMax = 76, CritChanceBase = 6, AttackRateBase = 1.3, Range = 120, },
+	weapon = { PhysicalMin = 39, PhysicalMax = 80, CritChanceBase = 6, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 60, dex = 212, },
 }
 itemBases["Assassin Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
-	weapon = { PhysicalMin = 30, PhysicalMax = 89, CritChanceBase = 6.5, AttackRateBase = 1.25, Range = 120, },
+	implicit = "+(15-25)% to Global Critical Strike Multiplier",
+	weapon = { PhysicalMin = 30, PhysicalMax = 89, CritChanceBase = 6.7, AttackRateBase = 1.25, Range = 120, },
 	req = { level = 62, dex = 212, },
 }
 itemBases["Spine Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, },
-	weapon = { PhysicalMin = 27, PhysicalMax = 80, CritChanceBase = 6, AttackRateBase = 1.35, Range = 120, },
+	weapon = { PhysicalMin = 26, PhysicalMax = 78, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 64, dex = 212, },
 }
 itemBases["Imperial Bow"] = {
@@ -182,7 +185,7 @@ itemBases["Maraketh Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
 	tags = { default = true, weapon = true, twohand = true, bow = true, ranged = true, two_hand_weapon = true, not_for_sale = true, maraketh = true, },
-	implicit = "6% increased Movement Speed",
+	implicit = "10% increased Movement Speed",
 	weapon = { PhysicalMin = 44, PhysicalMax = 65, CritChanceBase = 5.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 71, dex = 222, },
 }

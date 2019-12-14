@@ -533,7 +533,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 	for _, gemInstance in ipairs(socketGroup.gemList) do
 		gemInstance.color = "^8"
 		gemInstance.nameSpec = gemInstance.nameSpec or ""
-		local prevDefaultLevel = gemInstance.gemData and gemInstance.gemData.defaultLevel
+		local prevDefaultLevel = gemInstance.gemData and gemInstance.gemData.defaultLevel or self.defaultGemLevel or 20
 		gemInstance.gemData, gemInstance.grantedEffect = nil
 		if gemInstance.gemId then
 			-- Specified by gem ID

@@ -1182,7 +1182,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = 
 	fireResist = 35,
 	coldResist = 35,
 	lightningResist = 35,
-	chaosResist = 35,
+	chaosResist = 20,
 	damage = 1.5,
 	damageSpread = 0.2,
 	attackTime = 1.5,
@@ -1225,7 +1225,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = 
 	fireResist = 35,
 	coldResist = 35,
 	lightningResist = 35,
-	chaosResist = 35,
+	chaosResist = 20,
 	damage = 1.5,
 	damageSpread = 0.2,
 	attackTime = 1.5,
@@ -1269,7 +1269,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = 
 	fireResist = 35,
 	coldResist = 35,
 	lightningResist = 35,
-	chaosResist = 35,
+	chaosResist = 20,
 	damage = 1.5,
 	damageSpread = 0.2,
 	attackTime = 1.5,
@@ -1312,7 +1312,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_
 	fireResist = 35,
 	coldResist = 35,
 	lightningResist = 35,
-	chaosResist = 35,
+	chaosResist = 20,
 	damage = 1.5,
 	damageSpread = 0.2,
 	attackTime = 1.5,
@@ -1413,7 +1413,7 @@ minions["Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite"] = {
 	fireResist = 35,
 	coldResist = 35,
 	lightningResist = 35,
-	chaosResist = 35,
+	chaosResist = 20,
 	damage = 1.34,
 	damageSpread = 0.2,
 	attackTime = 1.305,
@@ -1859,6 +1859,7 @@ minions["Metadata/Monsters/Seawitch/SeaWitchFrostBolt"] = {
 		"SeaWitchWave",
 		"Melee",
 		"SeawitchFrostbolt",
+		"SeawitchWaveGeometrySpell",
 	},
 	modList = {
 		-- MonsterSpeedAndDamageFixupSmall [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 11]
@@ -1882,6 +1883,7 @@ minions["Metadata/Monsters/Seawitch/SeaWitchScreech"] = {
 		"SeaWitchWave",
 		"Melee",
 		"SeaWitchScreech",
+		"SeawitchWaveGeometrySpell",
 	},
 	modList = {
 		-- MonsterSpeedAndDamageFixupSmall [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 11]
@@ -1906,6 +1908,7 @@ minions["Metadata/Monsters/Seawitch/SeaWitchSpawnExploding"] = {
 		"Melee",
 		"SummonExplodingSpawn",
 		"SeaWitchScreech",
+		"SeawitchWaveGeometrySpell",
 	},
 	modList = {
 		-- MonsterSpeedAndDamageFixupSmall [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 11]
@@ -1931,6 +1934,7 @@ minions["Metadata/Monsters/Seawitch/SeaWitchSpawnTemporalChains"] = {
 		"Melee",
 		"SkeletonTemporalChains",
 		"SummonSpawn",
+		"SeawitchWaveGeometrySpell",
 	},
 	modList = {
 		-- MonsterSpeedAndDamageFixupSmall [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 11]
@@ -1956,6 +1960,7 @@ minions["Metadata/Monsters/Seawitch/SeaWitchVulnerabilityCurse"] = {
 		"SeaWitchWave",
 		"Melee",
 		"SkeletonVulnerability",
+		"SeawitchWaveGeometrySpell",
 	},
 	modList = {
 		-- MonsterSpeedAndDamageFixupSmall [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 11]
@@ -2232,7 +2237,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionC
 	fireResist = 35,
 	coldResist = 35,
 	lightningResist = 35,
-	chaosResist = 35,
+	chaosResist = 20,
 	damage = 1.5,
 	damageSpread = 0.3,
 	attackTime = 1.605,
@@ -2473,7 +2478,7 @@ minions["Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades"] = {
 minions["Metadata/Monsters/WickerMan/WickerMan"] = {
 	name = "Wicker Man",
 	life = 2.25,
-	armour = 1.5,
+	armour = 1,
 	fireResist = 20,
 	coldResist = 20,
 	lightningResist = 20,

@@ -202,6 +202,12 @@ return {
 	},
 	AlternatePassiveSkills={
 	},
+	AlternateQualityCurrencyDecayFactors={
+	},
+	AlternateQualityTypes={
+	},
+	AlternateSkillTargetingBehaviours={
+	},
 	AlternateTreePassiveSizes={
 	},
 	AlternateTreeVersions={
@@ -248,9 +254,35 @@ return {
 	},
 	Ascendancy={
 	},
+	AtlasAwakeningStats={
+	},
+	AtlasBaseTypeDrops={
+	},
+	AtlasExileBossArenas={
+	},
+	AtlasExileInfluence={
+	},
+	AtlasExileInfluenceData={
+	},
+	AtlasExileInfluenceOutcomeTypes={
+	},
+	AtlasExileInfluenceOutcomes={
+	},
+	AtlasExileInfluencePacks={
+	},
+	AtlasExileInfluenceSets={
+	},
+	AtlasExileRegionQuestFlags={
+	},
+	AtlasExiles={
+	},
 	AtlasFog={
 	},
 	AtlasInfluenceOutcomes={
+	},
+	AtlasModTiers={
+	},
+	AtlasMods={
 	},
 	AtlasNode={
 	},
@@ -259,6 +291,8 @@ return {
 	AtlasPositions={
 	},
 	AtlasQuadrant={
+	},
+	AtlasRegions={
 	},
 	AtlasSector={
 	},
@@ -2178,8 +2212,29 @@ return {
 			list=false,
 			name="",
 			refTo="",
+			type="Key",
+			width=50
+		},
+		[22]={
+			list=false,
+			name="",
+			refTo="",
 			type="Bool",
 			width=50
+		},
+		[23]={
+			list=true,
+			name="RequireUsableWith",
+			refTo="ItemClasses",
+			type="Key",
+			width=150
+		},
+		[24]={
+			list=false,
+			name="PlusVersionOf",
+			refTo="GrantedEffects",
+			type="Key",
+			width=150
 		}
 	},
 	GrantedEffectsPerLevel={
@@ -2571,6 +2626,10 @@ return {
 	},
 	IncursionUniqueUpgrades={
 	},
+	InfluenceExalts={
+	},
+	InfluenceTypes={
+	},
 	InvasionMonsterGroups={
 	},
 	InvasionMonsterRestrictions={
@@ -2606,6 +2665,27 @@ return {
 	ItemCreationTemplateCustomAction={
 	},
 	ItemExperiencePerLevel={
+		[1]={
+			list=false,
+			name="BaseItemType",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=410
+		},
+		[2]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[3]={
+			list=false,
+			name="Experience",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	ItemSetNames={
 	},
@@ -2800,6 +2880,20 @@ return {
 	Melee={
 	},
 	MeleeTrails={
+	},
+	MetamorphLifeScalingPerLevel={
+	},
+	MetamorphosisMetaMonsters={
+	},
+	MetamorphosisMetaSkillTypes={
+	},
+	MetamorphosisMetaSkills={
+	},
+	MetamorphosisRewardTypeItemsClient={
+	},
+	MetamorphosisRewardTypes={
+	},
+	MetamorphosisScaling={
 	},
 	MicroMigrationData={
 	},
@@ -3462,14 +3556,14 @@ return {
 			width=110
 		},
 		[7]={
-			list=false,
+			list=true,
 			name="Actor",
 			refTo="",
 			type="String",
 			width=150
 		},
 		[8]={
-			list=false,
+			list=true,
 			name="AnimatedObject",
 			refTo="",
 			type="String",
@@ -4088,6 +4182,8 @@ return {
 	},
 	QuestFlags={
 	},
+	QuestRewardOffers={
+	},
 	QuestRewardType={
 	},
 	QuestRewards={
@@ -4463,6 +4559,8 @@ return {
 	},
 	SupporterPackSets={
 	},
+	SurgeCategory={
+	},
 	SurgeTypes={
 	},
 	Synthesis={
@@ -4569,6 +4667,20 @@ return {
 	WeaponArmourCommon={
 	},
 	WeaponClasses={
+		[1]={
+			list=false,
+			name="ItemClass",
+			refTo="ItemClasses",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MaxRange",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	WeaponDamageScaling={
 	},
@@ -4632,6 +4744,8 @@ return {
 	Words={
 	},
 	WorldAreas={
+	},
+	ZanaLevels={
 	},
 	ZanaQuests={
 	}

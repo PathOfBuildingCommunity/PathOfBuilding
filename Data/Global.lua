@@ -205,4 +205,7 @@ SkillType = {
 	TravelSkill = 91,
 	BlinkSkill = 92,
 	CanHaveBlessing = 93,
+	Type83 = 94,
+	Type84 = 94,
+	NovaSpell = 94,
 }

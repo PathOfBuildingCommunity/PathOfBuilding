@@ -1,3 +1,15 @@
+### 1.4.154 - 2019/12/14
+ * Addeed the following new gems:
+    * Artillery Ballista
+	* Ensnaring Arrow
+	* Shrapnel Ballista
+	* Arrow Nova
+	* Barrage
+	* Greater Volley
+	* The 35 new Awakened support gems
+ * Applied the skill reworks and balance changes for 3.9.0
+ * Updated item bases, mods, and enchantments for 3.9.0
+
 ### 1.4.153 - 2019/12/11
  * Added 3.9.0 passive tree
  * Applied unique balance changes from 3.9.0 (thanks ppoelzl)
