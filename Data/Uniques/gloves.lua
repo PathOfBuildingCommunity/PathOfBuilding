@@ -465,6 +465,16 @@ Requires Level 57, 44 Str, 44 Int
 (15-25)% increased Damage while Leeching
 Life Leech effects are not removed at Full Life
 ]],[[
+Painseeker
+Shagreen Gloves
+Requires Level 54
+Adds (16-19) to (25-29) Fire Damage
+Adds (16-19) to (25-29) Cold Damage
+Adds (6-10) to (33-38) Lightning Damage
+(60-120)% increased Evasion Rating
+Critical Strikes do not inherently apply non-Damaging Ailments
+Inflict non-Damaging Ailments as though dealing (100-200)% more Damage
+]],[[
 Repentance
 Crusader Gloves
 Requires Level 66, 306 Str, 306 Int
