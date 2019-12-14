@@ -53,6 +53,16 @@ Source: Upgraded from unique{Ezomyte Peak} using prophecy{The Bloody Flowers Red
 Cannot Evade Enemy Attacks
 Cannot be Stunned
 ]],[[
+Eye of Malice
+Callous Mask
+Requires Level 45
+(400-500)% increased Evasion and Energy Shield
++(20-40)% to Fire Resistance
++(20-40)% to Cold Resistance
+25% chance to inflict Cold Exposure on Hit
+25% chance to inflict Fire Exposure on Hit
+Nearby Enemies have 50% increased Fire and Cold Resistances
+]],[[
 The Formless Flame
 Siege Helmet
 League: Breach
