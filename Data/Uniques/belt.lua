@@ -271,6 +271,16 @@ Requires Level 50
 −(50-40) Physical Damage taken from Attacks
 40% increased Armour while not Ignited, Frozen or Shocked
 ]],[[
+Leash of Oblation
+Leather Belt
+Requires Level 49
++(25-40) to maximum Life
++(15-20) to all Attributes
++(50-70) to maximum Life
+25% reduced effect of Offerings
+You can have an Offering of each type
+Offering Skills have 50% reduced Duration
+]],[[
 The Magnate
 Studded Belt
 Upgrade: Upgrades to unique{The Nomad} via prophecy{The Great Leader of the North}
