@@ -232,7 +232,7 @@ local modNameList = {
 	["effect of the buff granted by your carrion golems"] = { "BuffEffect", tag = { type = "SkillName", skillName = "Summon Carrion Golem" } },
 	["effect of offering spells"] = { "BuffEffect", tag = { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering" } } },
 	["effect of heralds on you"] = { "BuffEffect", tag = { type = "SkillType", skillType = SkillType.Herald } },
-	["effect of buffs granted by your active ancestor totems"] = { "BuffEffect", skillNameList = { "Ancestral Warchief", "Ancestral Protector" } },
+	["effect of buffs granted by your active ancestor totems"] = { "BuffEffect", tag = { type = "SkillName", skillNameList = { "Ancestral Warchief", "Ancestral Protector" } } },
 	["warcry effect"] = { "BuffEffect", keywordFlags = KeywordFlag.Warcry },
 	["aspect of the avian buff effect"] = { "BuffEffect", tag = { type = "SkillName", skillName = "Aspect of the Avian" } },
 	-- Charges
@@ -1624,6 +1624,9 @@ local specialModList = {
 	["transfiguration of body"] = { flag("TransfigurationOfBody") },
 	["transfiguration of mind"] = { flag("TransfigurationOfMind") },
 	["transfiguration of soul"] = { flag("TransfigurationOfSoul") },
+	["enemies have %-(%d+)%% to total physical damage reduction against your hits"] = function(num) return {
+		mod("EnemyPhysicalDamageReduction", "BASE", -num)
+	} end,
 	-- Skill-specific enchantment modifiers
 	["(%d+)%% increased decoy totem life"] = function(num) return { mod("TotemLife", "INC", num, { type = "SkillName", skillName = "Decoy Totem" }) } end,
 	["(%d+)%% increased ice spear critical strike chance in second form"] = function(num) return { mod("CritChance", "INC", num, { type = "SkillName", skillName = "Ice Spear" }, { type = "SkillPart", skillPart = 2 }) } end,
