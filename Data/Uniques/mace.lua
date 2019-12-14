@@ -3,6 +3,16 @@
 return {
 -- Weapon: One Handed Mace
 [[
+The Black Cane
+Royal Sceptre
+Requires Level 50
+24% increased Elemental Damage
++(20–30) to Intelligence
+(8–15)% increased Cast Speed
+(40–60)% increased Mana Regeneration Rate
+Minions deal (40–60)% increased Damage
+Each Summoned Phantasm grants you Phantasmal Might
+]],[[
 Brightbeak
 War Hammer
 Variant: Pre 2.6.0
