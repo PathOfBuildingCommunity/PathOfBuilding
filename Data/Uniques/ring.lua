@@ -41,6 +41,17 @@ Requires Level 20
 (50-70)% increased Rarity of Items found
 −20% to all Elemental Resistances
 ]],[[
+Astral Projector
+Topaz Ring
+League: Metamorph
+Requires Level 40
++(20-30)% to Lightning Resistance
++(30-50) to Intelligence
+(20-25)% increased Spell Damage
+30% chance to Avoid Elemental Ailments
+Nova Spells have 20% less Area of Effect
+Nova Spells Cast at the targeted location instead of around you
+]],[[
 Berek's Grip
 Two-Stone Ring
 League: Domination, Nemesis
