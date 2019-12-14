@@ -340,6 +340,17 @@ Implicits: 32
 {variant:32}Projectiles Pierce (4-6) additional Targets
 Implicit Modifier magnitudes are doubled
 ]],[[
+Fury Valve
+Turquoise Amulet
+League: Metamorph
+Requires Level 40
++(16-24) to Dexterity and Intelligence
+(15-25)% increased Evasion Rating
++(15-20)% to all Elemental Resistances
+Skills fire 2 additional Projectiles
+(20-30)% increased Projectile Speed
+Modifiers to number of Projectiles instead apply to the number of targets Projectiles Split towards
+]],[[
 Gloomfang
 Blue Pearl Amulet
 Source: Drops from unique{The Purifier}
