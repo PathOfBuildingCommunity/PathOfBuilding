@@ -87,6 +87,15 @@ Requires Level 56, 106 Str
 20% reduced Movement Speed
 30% reduced Strength Requirement
 ]],[[
+The Ivory Tower
+Saint's Hauberk
+Requires Level 67
++(40–70) to Intelligence
++30 to maximum Energy Shield per 100 Reserved Life
++(80–100) to maximum Mana
+Regenerate 2% of Energy Shield per second
+Chaos Damage is taken from Mana before Life
+]],[[
 Kaom's Heart
 Glorious Plate
 Variant: Pre 1.0.0
