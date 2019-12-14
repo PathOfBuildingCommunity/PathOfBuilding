@@ -2063,7 +2063,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
 				output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
 				if breakdown then
-					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply, target must have no more than %d life.", baseFreezeVal * 20 * output.FreezeDurationMod * (1 + output.FreezeEffectMod / 100)))
+					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply, target must have no more than %d life.", baseFreezeVal * 20 * output.FreezeDurationMod))
 					t_insert(breakdown.ChillDPS, s_format("For chill to apply, target must have no more than %d life.", baseChillVal * 250 * output.ChillDurationMod * (1 + output.ChillEffectMod / 100)))
 				end
 			end
