@@ -29,12 +29,12 @@ return {
 	["Ancestral Warchief"] = {
 		["MERCILESS"] = {
 			"25% increased Ancestral Warchief Totem Damage",
-			"8% increased Ancestral Warchief Totem Area of Effect",
+			"16% increased Ancestral Warchief Totem Area of Effect",
 			"Ancestral Warchief Totem grants 20% increased Melee Damage while Active",
 		},
 		["ENDGAME"] = {
 			"40% increased Ancestral Warchief Totem Damage",
-			"12% increased Ancestral Warchief Totem Area of Effect",
+			"24% increased Ancestral Warchief Totem Area of Effect",
 			"Ancestral Warchief Totem grants 30% increased Melee Damage while Active",
 		},
 	},
@@ -95,12 +95,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Arctic Breath Damage",
 			"24% increased Arctic Breath Duration",
-			"8% increased Arctic Breath Area of Effect",
+			"16% increased Arctic Breath Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Arctic Breath Damage",
 			"36% increased Arctic Breath Duration",
-			"12% increased Arctic Breath Area of Effect",
+			"24% increased Arctic Breath Area of Effect",
 			"Arctic Breath's Chilling Area has 38% increased Movement Speed",
 		},
 	},
@@ -116,6 +116,17 @@ return {
 			"Armageddon Brand Damage Penetrates 12% of Branded Enemy's Fire Resistance",
 		},
 	},
+	["Artillery Ballista"] = {
+		["MERCILESS"] = {
+			"Artillery Ballista Damage Penetrates 6% Fire Resistance",
+			"Artillery Ballista fires an additional Arrow",
+		},
+		["ENDGAME"] = {
+			"Artillery Ballista Damage Penetrates 10% Fire Resistance",
+			"Artillery Ballista fires 2 additional Arrows",
+			"Artillery Ballista Projectiles fall in two perpendicular lines instead",
+		},
+	},
 	["Assassin's Mark"] = {
 		["MERCILESS"] = {
 			"20% increased Assassin's Mark Curse Effect",
@@ -129,23 +140,23 @@ return {
 	["Ball Lightning"] = {
 		["MERCILESS"] = {
 			"25% increased Ball Lightning Damage",
-			"8% increased Ball Lightning Area of Effect",
+			"16% increased Ball Lightning Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Ball Lightning Damage",
-			"12% increased Ball Lightning Area of Effect",
+			"24% increased Ball Lightning Area of Effect",
 			"Ball Lightning fires an additional Projectile",
 		},
 	},
 	["Bane"] = {
 		["MERCILESS"] = {
 			"Bane deals 25% increased Damage",
-			"Bane has 10% increased Area of Effect",
+			"Bane has 16% increased Area of Effect",
 			"10% increased Effect of Curses applied by Bane",
 		},
 		["ENDGAME"] = {
 			"Bane deals 40% increased Damage",
-			"Bane has 15% increased Area of Effect",
+			"Bane has 24% increased Area of Effect",
 			"15% increased Effect of Curses applied by Bane",
 		},
 	},
@@ -185,12 +196,12 @@ return {
 	["Blade Flurry"] = {
 		["MERCILESS"] = {
 			"25% increased Blade Flurry Damage",
-			"8% increased Blade Flurry Area of Effect",
+			"16% increased Blade Flurry Area of Effect",
 			"6% chance to Dodge Attack Hits while at maximum Blade Flurry stages",
 		},
 		["ENDGAME"] = {
 			"40% increased Blade Flurry Damage",
-			"12% increased Blade Flurry Area of Effect",
+			"24% increased Blade Flurry Area of Effect",
 			"9% chance to Dodge Attack Hits while at maximum Blade Flurry stages",
 		},
 	},
@@ -198,13 +209,13 @@ return {
 		["MERCILESS"] = {
 			"25% increased Blade Vortex Spell Damage",
 			"20% increased Blade Vortex Duration",
-			"8% increased Blade Vortex Area of Effect",
+			"16% increased Blade Vortex Area of Effect",
 			"Blade Vortex has +2% to Critical Strike Multiplier for each blade",
 		},
 		["ENDGAME"] = {
 			"40% increased Blade Vortex Spell Damage",
 			"30% increased Blade Vortex Duration",
-			"12% increased Blade Vortex Area of Effect",
+			"24% increased Blade Vortex Area of Effect",
 			"Blade Vortex has +3% to Critical Strike Multiplier for each blade",
 		},
 	},
@@ -212,12 +223,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Bladefall Damage",
 			"60% increased Bladefall Critical Strike Chance",
-			"8% increased Bladefall Area of Effect",
+			"16% increased Bladefall Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Bladefall Damage",
 			"90% increased Bladefall Critical Strike Chance",
-			"12% increased Bladefall Area of Effect",
+			"24% increased Bladefall Area of Effect",
 			"Bladefall has an additional Volley",
 		},
 	},
@@ -234,25 +245,24 @@ return {
 	},
 	["Blast Rain"] = {
 		["MERCILESS"] = {
-			"25% increased Blast Rain Damage",
-			"8% increased Blast Rain Area of Effect",
-			"Blast Rain has a 50% chance for an additional blast",
+			"Blast Rain deals 25% increased Damage",
+			"Blast Rain has 16% increased Area of Effect",
 		},
 		["ENDGAME"] = {
-			"40% increased Blast Rain Damage",
-			"12% increased Blast Rain Area of Effect",
-			"Blast Rain has a 75% chance for an additional blast",
+			"Blast Rain deals 40% increased Damage",
+			"Blast Rain has 24% increased Area of Effect",
+			"Blast Rain fires an additional Arrow",
 		},
 	},
 	["Blight"] = {
 		["MERCILESS"] = {
 			"25% increased Blight Damage",
-			"8% increased Blight Area of Effect",
+			"16% increased Blight Area of Effect",
 			"Blight has 20% increased Hinder Duration",
 		},
 		["ENDGAME"] = {
 			"40% increased Blight Damage",
-			"12% increased Blight Area of Effect",
+			"24% increased Blight Area of Effect",
 			"Blight has 30% increased Hinder Duration",
 		},
 	},
@@ -311,24 +321,26 @@ return {
 			"25% increased Burning Arrow Damage",
 			"Burning Arrow has +20% chance to Ignite",
 			"10% of Burning Arrow Physical Damage gained as Extra Fire Damage",
+			"Burning Arrow has 16% increased Debuff Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Burning Arrow Damage",
 			"Burning Arrow has +30% chance to Ignite",
 			"15% of Burning Arrow Physical Damage gained as Extra Fire Damage",
+			"Burning Arrow has 24% increased Debuff Effect",
 		},
 	},
 	["Caustic Arrow"] = {
 		["MERCILESS"] = {
 			"25% increased Caustic Arrow Damage",
 			"20% increased Caustic Arrow Duration",
-			"8% increased Caustic Arrow Area of Effect",
+			"16% increased Caustic Arrow Area of Effect",
 			"Caustic Arrow has 14% chance to inflict Withered on Hit for 2 seconds base Duration",
 		},
 		["ENDGAME"] = {
 			"40% increased Caustic Arrow Damage",
 			"30% increased Caustic Arrow Duration",
-			"12% increased Caustic Arrow Area of Effect",
+			"24% increased Caustic Arrow Area of Effect",
 			"Caustic Arrow has 20% chance to inflict Withered on Hit for 2 seconds base Duration",
 		},
 	},
@@ -369,12 +381,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Cleave Damage",
 			"10% increased Cleave Attack Speed",
-			"8% increased Cleave Area of Effect",
+			"16% increased Cleave Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Cleave Damage",
 			"15% increased Cleave Attack Speed",
-			"12% increased Cleave Area of Effect",
+			"24% increased Cleave Area of Effect",
 		},
 	},
 	["Cobra Lash"] = {
@@ -393,12 +405,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Cold Snap Damage",
 			"20% increased Cold Snap Cooldown Recovery Speed",
-			"8% increased Cold Snap Area of Effect",
+			"16% increased Cold Snap Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Cold Snap Damage",
 			"30% increased Cold Snap Cooldown Recovery Speed",
-			"12% increased Cold Snap Area of Effect",
+			"24% increased Cold Snap Area of Effect",
 		},
 	},
 	["Conductivity"] = {
@@ -415,24 +427,24 @@ return {
 		["MERCILESS"] = {
 			"Consecrated Path deals 25% increased Damage",
 			"Consecrated Path has 10% increased teleport range",
-			"Consecrated Path has 8% increased Area of Effect",
+			"Consecrated Path has 16% increased Area of Effect",
 		},
 		["ENDGAME"] = {
 			"Consecrated Path deals 40% increased Damage",
 			"Consecrated Path has 15% increased teleport range",
-			"Consecrated Path has 12% increased Area of Effect",
+			"Consecrated Path has 24% increased Area of Effect",
 		},
 	},
 	["Contagion"] = {
 		["MERCILESS"] = {
 			"25% increased Contagion Damage",
 			"20% increased Contagion Duration",
-			"8% increased Contagion Area of Effect",
+			"16% increased Contagion Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Contagion Damage",
 			"30% increased Contagion Duration",
-			"12% increased Contagion Area of Effect",
+			"24% increased Contagion Area of Effect",
 		},
 	},
 	["Conversion Trap"] = {
@@ -480,12 +492,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Dark Pact Damage",
 			"8% increased Dark Pact Cast Speed",
-			"8% increased Dark Pact Area of Effect",
+			"16% increased Dark Pact Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Dark Pact Damage",
 			"12% increased Dark Pact Cast Speed",
-			"12% increased Dark Pact Area of Effect",
+			"24% increased Dark Pact Area of Effect",
 		},
 	},
 	["Dash"] = {
@@ -538,12 +550,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Detonate Dead Damage",
 			"Detonate Dead has a 30% chance to detonate an additional corpse",
-			"8% increased Detonate Dead Area of Effect",
+			"16% increased Detonate Dead Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Detonate Dead Damage",
 			"Detonate Dead has a 45% chance to detonate an additional corpse",
-			"12% increased Detonate Dead Area of Effect",
+			"24% increased Detonate Dead Area of Effect",
 		},
 	},
 	["Devouring Totem"] = {
@@ -558,12 +570,12 @@ return {
 	},
 	["Discharge"] = {
 		["MERCILESS"] = {
-			"5% increased Discharge Radius",
+			"16% increased Discharge Radius",
 			"20% chance for Discharge to deal Damage without removing Charges",
 			"25% increased Discharge Damage",
 		},
 		["ENDGAME"] = {
-			"8% increased Discharge Radius",
+			"24% increased Discharge Radius",
 			"30% chance for Discharge to deal Damage without removing Charges",
 			"40% increased Discharge Damage",
 		},
@@ -637,12 +649,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Earthquake Damage",
 			"20% reduced Earthquake Duration",
-			"8% increased Earthquake Area of Effect",
+			"16% increased Earthquake Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Earthquake Damage",
 			"30% reduced Earthquake Duration",
-			"12% increased Earthquake Area of Effect",
+			"24% increased Earthquake Area of Effect",
 		},
 	},
 	["Elemental Hit"] = {
@@ -687,6 +699,16 @@ return {
 			"45% increased Enfeeble Duration",
 		},
 	},
+	["Ensnaring Arrow"] = {
+		["MERCILESS"] = {
+			"Ensnaring Arrow has 20% increased Debuff Effect",
+			"Ensnaring Arrow has 60% increased Area of Effect",
+		},
+		["ENDGAME"] = {
+			"Ensnaring Arrow has 30% increased Debuff Effect",
+			"Ensnaring Arrow has 90% increased Area of Effect",
+		},
+	},
 	["Essence Drain"] = {
 		["MERCILESS"] = {
 			"25% increased Essence Drain Damage",
@@ -710,25 +732,29 @@ return {
 	},
 	["Explosive Arrow"] = {
 		["MERCILESS"] = {
-			"25% increased Explosive Arrow Damage",
-			"8% increased Explosive Arrow Area of Effect",
-			"10% increased Explosive Arrow Attack Speed",
+			"Explosive Arrow deals 25% increased Damage",
+			"Explosive Arrow has 16% increased Area of Effect",
+			"Explosive Arrow has 10% increased Attack Speed",
+			"Explosive Arrow has 25% increased Duration",
+			"Explosive Arrow has 20% reduced Duration",
 		},
 		["ENDGAME"] = {
-			"40% increased Explosive Arrow Damage",
-			"12% increased Explosive Arrow Area of Effect",
-			"15% increased Explosive Arrow Attack Speed",
+			"Explosive Arrow deals 40% increased Damage",
+			"Explosive Arrow has 24% increased Area of Effect",
+			"Explosive Arrow has 15% increased Attack Speed",
+			"Explosive Arrow has 40% increased Duration",
+			"Explosive Arrow has 30% reduced Duration",
 		},
 	},
 	["Explosive Trap"] = {
 		["MERCILESS"] = {
 			"Explosive Trap deals 25% increased Damage",
-			"Explosive Trap has 8% increased Area of Effect",
+			"Explosive Trap has 16% increased Area of Effect",
 			"Explosive Trap causes an additional smaller explosion",
 		},
 		["ENDGAME"] = {
 			"Explosive Trap deals 40% increased Damage",
-			"Explosive Trap has 12% increased Area of Effect",
+			"Explosive Trap has 24% increased Area of Effect",
 			"Explosive Trap causes 2 additional smaller explosions",
 		},
 	},
@@ -760,12 +786,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Firestorm Damage",
 			"20% increased Firestorm Duration",
-			"8% increased Firestorm explosion Area of Effect",
+			"16% increased Firestorm explosion Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Firestorm Damage",
 			"30% increased Firestorm Duration",
-			"12% increased Firestorm explosion Area of Effect",
+			"24% increased Firestorm explosion Area of Effect",
 		},
 	},
 	["Flame Dash"] = {
@@ -794,12 +820,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Flameblast Damage",
 			"60% increased Flameblast Critical Strike Chance",
-			"8% increased Flameblast Area of Effect",
+			"16% increased Flameblast Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Flameblast Damage",
 			"90% increased Flameblast Critical Strike Chance",
-			"12% increased Flameblast Area of Effect",
+			"24% increased Flameblast Area of Effect",
 		},
 	},
 	["Flamethrower Trap"] = {
@@ -896,13 +922,13 @@ return {
 		["MERCILESS"] = {
 			"25% increased Frost Bomb Damage",
 			"20% increased Frost Bomb Cooldown Recovery Speed",
-			"8% increased Frost Bomb Area of Effect",
+			"16% increased Frost Bomb Area of Effect",
 			"Frost Bomb has 20% increased Debuff Duration",
 		},
 		["ENDGAME"] = {
 			"40% increased Frost Bomb Damage",
 			"30% increased Frost Bomb Cooldown Recovery Speed",
-			"12% increased Frost Bomb Area of Effect",
+			"24% increased Frost Bomb Area of Effect",
 			"Frost Bomb has 30% increased Debuff Duration",
 		},
 	},
@@ -948,16 +974,28 @@ return {
 			"Frostbolt has +15% chance to Freeze",
 		},
 	},
+	["Galvanic Arrow"] = {
+		["MERCILESS"] = {
+			"25% increased Galvanic Arrow Damage",
+			"10% of Galvanic Arrow Physical Damage gained as extra Lightning Damage",
+			"Galvanic Arrow has 20% increased Projectile Speed",
+		},
+		["ENDGAME"] = {
+			"40% increased Galvanic Arrow Damage",
+			"15% of Galvanic Arrow Physical Damage gained as extra Lightning Damage",
+			"Galvanic Arrow has 30% increased Projectile Speed",
+		},
+	},
 	["Glacial Cascade"] = {
 		["MERCILESS"] = {
 			"25% increased Glacial Cascade Damage",
 			"30% of Glacial Cascade Physical Damage Converted to Cold Damage",
-			"8% increased Glacial Cascade Area of Effect",
+			"16% increased Glacial Cascade Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Glacial Cascade Damage",
 			"40% of Glacial Cascade Physical Damage Converted to Cold Damage",
-			"12% increased Glacial Cascade Area of Effect",
+			"24% increased Glacial Cascade Area of Effect",
 		},
 	},
 	["Glacial Hammer"] = {
@@ -983,12 +1021,12 @@ return {
 	["Ground Slam"] = {
 		["MERCILESS"] = {
 			"25% increased Ground Slam Damage",
-			"8% increased Ground Slam Area of Effect",
+			"16% increased Ground Slam Area of Effect",
 			"Ground Slam has a 16% increased angle",
 		},
 		["ENDGAME"] = {
 			"40% increased Ground Slam Damage",
-			"12% increased Ground Slam Area of Effect",
+			"24% increased Ground Slam Area of Effect",
 			"Ground Slam has a 24% increased angle",
 		},
 	},
@@ -1086,38 +1124,38 @@ return {
 		["MERCILESS"] = {
 			"25% increased Ice Crash Damage",
 			"10% of Ice Crash Physical Damage gained as Extra Cold Damage",
-			"8% increased Ice Crash Area of Effect",
+			"16% increased Ice Crash Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Ice Crash Damage",
 			"15% of Ice Crash Physical Damage gained as Extra Cold Damage",
-			"12% increased Ice Crash Area of Effect",
+			"24% increased Ice Crash Area of Effect",
 		},
 	},
 	["Ice Nova"] = {
 		["MERCILESS"] = {
 			"25% increased Ice Nova Damage",
 			"Ice Nova has +20% chance to Freeze",
-			"8% increased Ice Nova Area of Effect",
+			"16% increased Ice Nova Area of Effect",
 			"Chills from Ice Nova Hits always reduce Action Speed by at least 6%",
 		},
 		["ENDGAME"] = {
 			"40% increased Ice Nova Damage",
 			"Ice Nova has +30% chance to Freeze",
-			"12% increased Ice Nova Area of Effect",
+			"24% increased Ice Nova Area of Effect",
 			"Chills from Ice Nova Hits always reduce Action Speed by at least 8%",
 		},
 	},
 	["Ice Shot"] = {
 		["MERCILESS"] = {
 			"25% increased Ice Shot Damage",
-			"24% increased Ice Shot Duration",
-			"8% increased Ice Shot Area of Effect",
+			"16% increased Ice Shot Area of Effect",
+			"Ice Shot has 30% increased Area of Effect angle",
 		},
 		["ENDGAME"] = {
 			"40% increased Ice Shot Damage",
-			"36% increased Ice Shot Duration",
-			"12% increased Ice Shot Area of Effect",
+			"24% increased Ice Shot Area of Effect",
+			"Ice Shot has 60% increased Area of Effect angle",
 		},
 	},
 	["Ice Spear"] = {
@@ -1136,12 +1174,12 @@ return {
 	["Ice Trap"] = {
 		["MERCILESS"] = {
 			"25% increased Ice Trap Damage",
-			"8% increased Ice Trap Area of Effect",
+			"16% increased Ice Trap Area of Effect",
 			"Ice Trap Damage Penetrates 6% Cold Resistance",
 		},
 		["ENDGAME"] = {
 			"40% increased Ice Trap Damage",
-			"12% increased Ice Trap Area of Effect",
+			"24% increased Ice Trap Area of Effect",
 			"Ice Trap Damage Penetrates 10% Cold Resistance",
 		},
 	},
@@ -1168,12 +1206,12 @@ return {
 	["Incinerate"] = {
 		["MERCILESS"] = {
 			"25% increased Incinerate Damage",
-			"Incinerate has 8% increased Area of Effect",
+			"Incinerate has 16% increased Area of Effect",
 			"Incinerate has +1 to maximum stages",
 		},
 		["ENDGAME"] = {
 			"40% increased Incinerate Damage",
-			"Incinerate has 12% increased Area of Effect",
+			"Incinerate has 24% increased Area of Effect",
 			"Incinerate has +2 to maximum stages",
 			"10% increased Incinerate Damage for each stage",
 		},
@@ -1182,25 +1220,25 @@ return {
 		["MERCILESS"] = {
 			"25% increased Infernal Blow Damage",
 			"10% of Infernal Blow Physical Damage gained as Extra Fire Damage",
-			"8% increased Infernal Blow Area of Effect",
+			"16% increased Infernal Blow Area of Effect",
 			"Infernal Blow Debuff deals an additional 3% of Damage per Charge",
 		},
 		["ENDGAME"] = {
 			"40% increased Infernal Blow Damage",
 			"15% of Infernal Blow Physical Damage gained as Extra Fire Damage",
-			"12% increased Infernal Blow Area of Effect",
+			"24% increased Infernal Blow Area of Effect",
 			"Infernal Blow Debuff deals an additional 5% of Damage per Charge",
 		},
 	},
 	["Kinetic Blast"] = {
 		["MERCILESS"] = {
 			"25% increased Kinetic Blast Damage",
-			"8% increased Kinetic Blast Area of Effect",
+			"16% increased Kinetic Blast Area of Effect",
 			"Kinetic Blast has a 50% chance for an additional explosion",
 		},
 		["ENDGAME"] = {
 			"40% increased Kinetic Blast Damage",
-			"12% increased Kinetic Blast Area of Effect",
+			"24% increased Kinetic Blast Area of Effect",
 			"Kinetic Blast has a 75% chance for an additional explosion",
 		},
 	},
@@ -1208,13 +1246,13 @@ return {
 		["MERCILESS"] = {
 			"25% increased Lacerate Damage",
 			"40% increased Lacerate Critical Strike Chance",
-			"8% increased Lacerate Area of Effect",
+			"16% increased Lacerate Area of Effect",
 			"Lacerate deals (4-8) to (10-15) added Physical Damage against Bleeding Enemies",
 		},
 		["ENDGAME"] = {
 			"40% increased Lacerate Damage",
 			"60% increased Lacerate Critical Strike Chance",
-			"12% increased Lacerate Area of Effect",
+			"24% increased Lacerate Area of Effect",
 			"Lacerate deals (14-18) to (20-25) added Physical Damage against Bleeding Enemies",
 		},
 	},
@@ -1234,23 +1272,23 @@ return {
 		["MERCILESS"] = {
 			"25% increased Leap Slam Damage",
 			"10% increased Leap Slam Attack Speed",
-			"8% increased Leap Slam Area of Effect",
+			"16% increased Leap Slam Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Leap Slam Damage",
 			"15% increased Leap Slam Attack Speed",
-			"12% increased Leap Slam Area of Effect",
+			"24% increased Leap Slam Area of Effect",
 		},
 	},
 	["Lightning Arrow"] = {
 		["MERCILESS"] = {
 			"25% increased Lightning Arrow Damage",
-			"8% increased Lightning Arrow Area of Effect",
+			"16% increased Lightning Arrow Area of Effect",
 			"Lightning Arrow hits an additional Enemy",
 		},
 		["ENDGAME"] = {
 			"40% increased Lightning Arrow Damage",
-			"12% increased Lightning Arrow Area of Effect",
+			"24% increased Lightning Arrow Area of Effect",
 			"Lightning Arrow hits 2 additional Enemies",
 		},
 	},
@@ -1284,12 +1322,12 @@ return {
 	["Lightning Tendrils"] = {
 		["MERCILESS"] = {
 			"25% increased Lightning Tendrils Damage",
-			"8% increased Lightning Tendrils Area of Effect",
+			"16% increased Lightning Tendrils Area of Effect",
 			"40% increased Lightning Tendrils Critical Strike Chance",
 		},
 		["ENDGAME"] = {
 			"40% increased Lightning Tendrils Damage",
-			"12% increased Lightning Tendrils Area of Effect",
+			"24% increased Lightning Tendrils Area of Effect",
 			"60% increased Lightning Tendrils Critical Strike Chance",
 		},
 	},
@@ -1323,12 +1361,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Magma Orb Damage",
 			"Magma Orb Chains an additional time",
-			"8% increased Magma Orb Area of Effect",
+			"16% increased Magma Orb Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Magma Orb Damage",
 			"Magma Orb Chains an additional 2 times",
-			"12% increased Magma Orb Area of Effect",
+			"24% increased Magma Orb Area of Effect",
 		},
 	},
 	["Malevolence"] = {
@@ -1365,12 +1403,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Molten Strike Damage",
 			"Molten Strike fires an additional Projectile",
-			"8% increased Molten Strike Area of Effect",
+			"16% increased Molten Strike Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Molten Strike Damage",
 			"Molten Strike fires 2 additional Projectiles",
-			"12% increased Molten Strike Area of Effect",
+			"24% increased Molten Strike Area of Effect",
 		},
 	},
 	["Orb of Storms"] = {
@@ -1378,24 +1416,24 @@ return {
 			"25% increased Orb of Storms Damage",
 			"Orb of Storms has 20% increased Cast Speed",
 			"60% increased Orb of Storms Critical Strike Chance",
-			"8% increased Orb of Storms Area of Effect",
+			"16% increased Orb of Storms Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Orb of Storms Damage",
 			"Orb of Storms has 30% increased Cast Speed",
 			"90% increased Orb of Storms Critical Strike Chance",
-			"12% increased Orb of Storms Area of Effect",
+			"24% increased Orb of Storms Area of Effect",
 		},
 	},
 	["Perforate"] = {
 		["MERCILESS"] = {
 			"Perforate creates +1 Spike",
-			"Perforate has 14% increased Area of Effect",
+			"Perforate has 16% increased Area of Effect",
 			"Perforate deals 25% increased Damage",
 		},
 		["ENDGAME"] = {
 			"Perforate creates +2 Spikes",
-			"Perforate has 20% increased Area of Effect",
+			"Perforate has 24% increased Area of Effect",
 			"Perforate deals 40% increased Damage",
 		},
 	},
@@ -1403,12 +1441,12 @@ return {
 		["MERCILESS"] = {
 			"Pestilent Strike deals 25% increased Damage",
 			"Pestilent Strike has 25% increased Duration",
-			"Pestilent Strike has 14% increased Area of Effect",
+			"Pestilent Strike has 16% increased Area of Effect",
 		},
 		["ENDGAME"] = {
 			"Pestilent Strike deals 40% increased Damage",
 			"Pestilent Strike has 40% increased Duration",
-			"Pestilent Strike has 20% increased Area of Effect",
+			"Pestilent Strike has 24% increased Area of Effect",
 		},
 	},
 	["Phase Run"] = {
@@ -1563,13 +1601,13 @@ return {
 		["MERCILESS"] = {
 			"25% increased Rain of Arrows Damage",
 			"10% increased Rain of Arrows Attack Speed",
-			"8% increased Rain of Arrows Area of Effect",
+			"16% increased Rain of Arrows Area of Effect",
 			"Rain of Arrows has 10% chance to fire an additional sequence of arrows",
 		},
 		["ENDGAME"] = {
 			"40% increased Rain of Arrows Damage",
 			"15% increased Rain of Arrows Attack Speed",
-			"12% increased Rain of Arrows Area of Effect",
+			"24% increased Rain of Arrows Area of Effect",
 			"Rain of Arrows has 15% chance to fire an additional sequence of arrows",
 		},
 	},
@@ -1610,11 +1648,11 @@ return {
 	["Reave"] = {
 		["MERCILESS"] = {
 			"25% increased Reave Damage",
-			"8% increased Reave Radius",
+			"16% increased Reave Radius",
 		},
 		["ENDGAME"] = {
 			"40% increased Reave Damage",
-			"12% increased Reave Radius",
+			"24% increased Reave Radius",
 		},
 	},
 	["Reckoning"] = {
@@ -1640,12 +1678,12 @@ return {
 	["Righteous Fire"] = {
 		["MERCILESS"] = {
 			"25% increased Righteous Fire Damage",
-			"8% increased Righteous Fire Area of Effect",
+			"16% increased Righteous Fire Area of Effect",
 			"Righteous Fire grants 20% increased Spell Damage",
 		},
 		["ENDGAME"] = {
 			"40% increased Righteous Fire Damage",
-			"12% increased Righteous Fire Area of Effect",
+			"24% increased Righteous Fire Area of Effect",
 			"Righteous Fire grants 30% increased Spell Damage",
 		},
 	},
@@ -1731,48 +1769,47 @@ return {
 		["MERCILESS"] = {
 			"25% increased Shock Nova Damage",
 			"Shock Nova ring deals 40% increased Damage",
-			"8% increased Shock Nova Area of Effect",
+			"16% increased Shock Nova Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Shock Nova Damage",
 			"Shock Nova ring deals 60% increased Damage",
-			"12% increased Shock Nova Area of Effect",
+			"24% increased Shock Nova Area of Effect",
 		},
 	},
 	["Shockwave Totem"] = {
 		["MERCILESS"] = {
 			"25% increased Shockwave Totem Damage",
 			"10% increased Shockwave Totem Cast Speed",
-			"8% increased Shockwave Totem Area of Effect",
+			"16% increased Shockwave Totem Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Shockwave Totem Damage",
 			"15% increased Shockwave Totem Cast Speed",
-			"12% increased Shockwave Totem Area of Effect",
+			"24% increased Shockwave Totem Area of Effect",
 		},
 	},
-	["Shrapnel Shot"] = {
+	["Shrapnel Ballista"] = {
 		["MERCILESS"] = {
-			"25% increased Shrapnel Shot Damage",
-			"10% of Shrapnel Shot Physical Damage gained as extra Lightning Damage",
-			"8% increased Shrapnel Shot Area of Effect",
+			"Shrapnel Ballista Pierces 4 additional Targets",
+			"Shrapnel Ballista has 20% increased Projectile Speed",
 		},
 		["ENDGAME"] = {
-			"40% increased Shrapnel Shot Damage",
-			"15% of Shrapnel Shot Physical Damage gained as extra Lightning Damage",
-			"12% increased Shrapnel Shot Area of Effect",
+			"Shrapnel Ballista fires an additional Arrow",
+			"Shrapnel Ballista Pierces 6 additional Targets",
+			"Shrapnel Ballista has 30% increased Projectile Speed",
 		},
 	},
 	["Siege Ballista"] = {
 		["MERCILESS"] = {
-			"25% increased Siege Ballista Damage",
-			"10% increased Siege Ballista Attack Speed",
-			"30% increased Siege Ballista Totem Placement Speed",
+			"Siege Ballista deals 25% increased Damage",
+			"Siege Ballista has 10% increased Attack Speed",
+			"Siege Ballista has 30% increased Totem Placement Speed",
 		},
 		["ENDGAME"] = {
-			"40% increased Siege Ballista Damage",
-			"15% increased Siege Ballista Attack Speed",
-			"45% increased Siege Ballista Totem Placement Speed",
+			"Siege Ballista deals 40% increased Damage",
+			"Siege Ballista has 15% increased Attack Speed",
+			"Siege Ballista has 45% increased Totem Placement Speed",
 		},
 	},
 	["Siphoning Trap"] = {
@@ -1883,13 +1920,13 @@ return {
 		["MERCILESS"] = {
 			"25% increased Static Strike Damage",
 			"30% increased Static Strike Duration",
-			"8% increased Static Strike Area of Effect",
+			"16% increased Static Strike Area of Effect",
 			"Static Strike has +1 maximum Beam Targets",
 		},
 		["ENDGAME"] = {
 			"40% increased Static Strike Damage",
 			"45% increased Static Strike Duration",
-			"12% increased Static Strike Area of Effect",
+			"24% increased Static Strike Area of Effect",
 			"Static Strike has +2 maximum Beam Targets",
 		},
 	},
@@ -1918,12 +1955,12 @@ return {
 	["Storm Burst"] = {
 		["MERCILESS"] = {
 			"25% increased Storm Burst Damage",
-			"8% increased Storm Burst Area of Effect",
+			"16% increased Storm Burst Area of Effect",
 			"Storm Burst has a 10% chance to create an additional Orb",
 		},
 		["ENDGAME"] = {
 			"40% increased Storm Burst Damage",
-			"12% increased Storm Burst Area of Effect",
+			"24% increased Storm Burst Area of Effect",
 			"Storm Burst has a 15% chance to create an additional Orb",
 		},
 	},
@@ -1931,12 +1968,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Storm Call Damage",
 			"20% reduced Storm Call Duration",
-			"8% increased Storm Call Area of Effect",
+			"16% increased Storm Call Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Storm Call Damage",
 			"30% reduced Storm Call Duration",
-			"12% increased Storm Call Area of Effect",
+			"24% increased Storm Call Area of Effect",
 		},
 	},
 	["Stormblast Mine"] = {
@@ -1990,12 +2027,12 @@ return {
 	["Summon Holy Relic"] = {
 		["MERCILESS"] = {
 			"Summoned Holy Relics deal 25% increased Damage",
-			"Summoned Holy Relics have 15% increased Area of Effect",
+			"Summoned Holy Relics have 16% increased Area of Effect",
 			"Summoned Holy Relics have 75% increased Buff Effect",
 		},
 		["ENDGAME"] = {
 			"Summoned Holy Relics deal 40% increased Damage",
-			"Summoned Holy Relics have 20% increased Area of Effect",
+			"Summoned Holy Relics have 24% increased Area of Effect",
 			"Summoned Holy Relics have 100% increased Buff Effect",
 		},
 	},
@@ -2071,35 +2108,35 @@ return {
 		["MERCILESS"] = {
 			"25% increased Sunder Damage",
 			"10% increased Sunder Attack Speed",
-			"8% increased Sunder Area of Effect",
+			"16% increased Sunder Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Sunder Damage",
 			"15% increased Sunder Attack Speed",
-			"12% increased Sunder Area of Effect",
+			"24% increased Sunder Area of Effect",
 		},
 	},
 	["Sweep"] = {
 		["MERCILESS"] = {
 			"25% increased Sweep Damage",
-			"+20% Sweep Knockback Chance",
-			"8% increased Sweep Area of Effect",
+			"Sweep has a 20% chance to grant an Endurance Charge on Hit",
+			"16% increased Sweep Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Sweep Damage",
-			"+30% Sweep Knockback Chance",
-			"12% increased Sweep Area of Effect",
+			"Sweep has a 30% chance to grant an Endurance Charge on Hit",
+			"24% increased Sweep Area of Effect",
 		},
 	},
 	["Tectonic Slam"] = {
 		["MERCILESS"] = {
 			"25% increased Tectonic Slam Damage",
-			"8% increased Tectonic Slam Area of Effect",
+			"16% increased Tectonic Slam Area of Effect",
 			"Tectonic Slam has 12% chance to create a Charged Slam",
 		},
 		["ENDGAME"] = {
 			"40% increased Tectonic Slam Damage",
-			"12% increased Tectonic Slam Area of Effect",
+			"24% increased Tectonic Slam Area of Effect",
 			"Tectonic Slam has 20% chance to create a Charged Slam",
 		},
 	},
@@ -2286,12 +2323,12 @@ return {
 	["Wild Strike"] = {
 		["MERCILESS"] = {
 			"25% increased Wild Strike Damage",
-			"Wild Strike Chains an additional 4 times",
+			"Wild Strike's Beam Chains an additional 4 times",
 			"24% increased Wild Strike Area of Effect",
 		},
 		["ENDGAME"] = {
 			"40% increased Wild Strike Damage",
-			"Wild Strike Chains an additional 6 times",
+			"Wild Strike's Beam Chains an additional 6 times",
 			"36% increased Wild Strike Area of Effect",
 		},
 	},
@@ -2309,11 +2346,11 @@ return {
 	["Wither"] = {
 		["MERCILESS"] = {
 			"Wither has 24% increased Duration",
-			"Wither has 8% increased Area of Effect",
+			"Wither has 16% increased Area of Effect",
 		},
 		["ENDGAME"] = {
 			"Wither has 36% increased Duration",
-			"Wither has 12% increased Area of Effect",
+			"Wither has 24% increased Area of Effect",
 		},
 	},
 	["Withering Step"] = {

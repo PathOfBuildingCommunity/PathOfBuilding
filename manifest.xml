@@ -154,7 +154,7 @@
 	<File sha1="7b2113799018833a76908d024c8b5aa937324483" name="Data/2_6/Skills/sup_str.lua" part="program"/>
 	<File sha1="94b77c91487b78185ff26605c5fc4e41ce6c7f8b" name="Data/3_0/EnchantmentBoots.lua" part="program"/>
 	<File sha1="1fcdacb6f5e454b41163c0ddef1e4aa3444fe0fb" name="Data/3_0/EnchantmentGloves.lua" part="program"/>
-	<File sha1="e9c8a9cb77a4b3335036bce6374cfe1a82eb302c" name="Data/3_0/EnchantmentHelmet.lua" part="program"/>
+	<File sha1="0d36f869e3ce2131b93a82f38e1131d25f0beb99" name="Data/3_0/EnchantmentHelmet.lua" part="program"/>
 	<File sha1="99f188e969d9e325169c60a33822caa7e29fd562" name="Data/3_0/Essence.lua" part="program"/>
 	<File sha1="ff6c85538d84128bb9c485ebae0407201978ca6a" name="Data/3_0/Gems.lua" part="program"/>
 	<File sha1="979f78b99ff2505f6285c5c6af32715ae88fef42" name="Data/3_0/Minions.lua" part="program"/>

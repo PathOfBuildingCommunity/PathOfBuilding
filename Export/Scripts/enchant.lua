@@ -111,6 +111,7 @@ local skillMap = {
 	["SnappingAdder"] = "Venom Gyre",
 	["PlagueBearer"] = "Plague Bearer",
 	["SummonSkitterbots"] = "Summon Skitterbots",
+	["ArtilleryBallista"] = "Artillery Ballista",
 }
 
 local bySkill = { }
