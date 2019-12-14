@@ -315,6 +315,17 @@ Reflects (25-50) Cold Damage to Melee Attackers
 +5% Chance to Block
 20% of Fire Damage taken as Cold Damage
 ]],[[
+Mistwall
+Lacquered Buckler
+Requires Level 60
+6% increased Movement Speed
+(120–150)% increased Evasion Rating
+10% increased Movement Speed
++(10–20)% to Fire and Cold Resistances
++(8–15)% chance to Avoid Elemental Damage from Hits while Phasing
+You are at Maximum Chance to Block Attack Damage if you have not Blocked Recently
+You have Phasing if you have Blocked Recently
+]],[[
 Mutewind Pennant
 Enameled Buckler
 League: Warbands
