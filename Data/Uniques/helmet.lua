@@ -27,6 +27,15 @@ Half of your Strength is added to your Minions
 +1 to maximum number of Zombies per 300 Strength
 With 1000 or more Strength 2% of Damage dealt by your Zombies is Leeched to you as Life
 ]],[[
+Crown of the Inward Eye
+Prophet Crown
+Requires Level 63
+333% increased Armour and Energy Shield
+(9–21)% increased maximum Life, Mana and Global Energy Shield
+Transfiguration of Soul
+Transfiguration of Body
+Transfiguration of Mind
+]],[[
 Ezomyte Peak
 Iron Hat
 Upgrade: Upgrades to unique{Ezomyte Hold} via prophecy{The Bloody Flowers Redux}
