@@ -441,6 +441,15 @@ Requires Level 37
 With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
 With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
 ]],[[
+Hands of the High Templar
+Crusader Gloves
+Requires Level 66
+Can be modified while Corrupted
+Can have up to 5 Implicit Modifiers while Item has this Modifier
+(150-200)% increased Armour and Energy Shield
+(7-12)% increased maximum Life
++(20-30)% to Fire and Lightning Resistances
+]],[[
 Null and Void
 Legion Gloves
 League: Rampage
