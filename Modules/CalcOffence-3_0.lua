@@ -2038,7 +2038,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
 				output.ShockEffectMod = skillModList:Sum("INC", cfg, "EnemyShockEffect")
 				if breakdown then
-					t_insert(breakdown.ShockDPS, s_format("For shock to apply, target must have no more than %d life.", baseVal * 250 * output.ShockDurationMod * (1 + output.ShockEffectMod / 100)))
+					t_insert(breakdown.ShockDPS, s_format("For the minimum 5%% Shock to apply for 2 seconds, target must have no more than %d Ailment Threshold.", (((100 + output.ShockEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
 				end
  			end
 		end
@@ -2058,13 +2058,12 @@ function calcs.offence(env, actor, activeSkill)
 			if baseFreezeVal > 0 then
 				skillFlags.freeze = true
 				skillFlags.chill = true
-				output.FreezeEffectMod = skillModList:Sum("INC", cfg, "EnemyFreezeEffect")
 				output.FreezeDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyFreezeDuration") / 100 + enemyDB:Sum("INC", nil, "SelfFreezeDuration") / 100
 				output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
 				output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
 				if breakdown then
-					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply, target must have no more than %d life.", baseFreezeVal * 20 * output.FreezeDurationMod))
-					t_insert(breakdown.ChillDPS, s_format("For chill to apply, target must have no more than %d life.", baseChillVal * 250 * output.ChillDurationMod * (1 + output.ChillEffectMod / 100)))
+					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply for the minimum of 0.3 seconds, target must have no more than %d Ailment Threshold.", baseFreezeVal * 20 * output.FreezeDurationMod))
+					t_insert(breakdown.ChillDPS, s_format("For the minimum 5%% Chill to apply for 2 seconds, target must have no more than %d Ailment Threshold.", (((100 + output.ChillEffectMod)^(2.5)) * baseChillVal) / (100 * m_sqrt(10))))
 				end
 			end
 		end
@@ -2176,7 +2175,6 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("ShockEffectMod", "AVERAGE")
 		combineStat("FreezeChance", "AVERAGE")
 		combineStat("FreezeDurationMod", "AVERAGE")
-		combineStat("FreezeEffectMod", "AVERAGE")
 		combineStat("ImpaleChance", "AVERAGE")
 		combineStat("ImpaleStoredDamage", "AVERAGE")
 		combineStat("ImpaleModifier", "CHANCE", "ImpaleChance")
