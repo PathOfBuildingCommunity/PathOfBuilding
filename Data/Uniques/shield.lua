@@ -517,6 +517,16 @@ Implicits: 2
 Lose all Power Charges on reaching Maximum Power Charges
 You are Shocked for 4 seconds on reaching Maximum Power Charges
 ]],[[
+Manastorm
+Fossilised Spirit Shield
+Requires Level 59
+(15-20)% increased Spell Damage
+(80-120)% increased Energy Shield
++(50-70) to maximum Mana
+(30-50)% increased Mana Regeneration Rate
+When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage
+equal to 25% of Sacrificed Mana for 4 seconds
+]],[[
 Matua Tupuna
 Tarnished Spirit Shield
 Source: Upgrades to unique{Matua Tupuna} via prophecy{The Mentor}
