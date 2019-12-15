@@ -154,6 +154,14 @@ function ItemClass:ParseRaw(raw)
 			self.fractured = true
 		elseif line == "Synthesised Item" then
 			self.synthesised = true
+		elseif line == "Warlord Item" then
+			self.adjudicator = true
+		elseif line == "Hunter Item" then
+			self.basilisk = true
+		elseif line == "Crusader Item" then
+			self.crusader = true
+		elseif line == "Redeemer Item" then
+			self.eyrie = true
 		else
 			local specName, specVal = line:match("^([%a ]+): (%x+)$")
 			if not specName then
@@ -435,7 +443,7 @@ end
 function ItemClass:GetModSpawnWeight(mod, extraTags)
 	if self.base then
 		for i, key in ipairs(mod.weightKey) do
-			if self.base.tags[key] or (extraTags and extraTags[key]) or (self.shaperElderTags and (self.shaper and self.shaperElderTags.shaper == key) or (self.elder and self.shaperElderTags.elder == key)) then
+			if self.base.tags[key] or (extraTags and extraTags[key]) or (self.shaperElderTags and (self.shaper and self.shaperElderTags.shaper == key) or (self.elder and self.shaperElderTags.elder == key) or (self.adjudicator and self.shaperElderTags.adjudicator == key) or (self.basilisk and self.shaperElderTags.basilisk == key) or (self.crusader and self.shaperElderTags.crusader == key) or (self.eyrie and self.shaperElderTags.eyrie == key)) then
 				return mod.weightVal[i]
 			end
 		end
@@ -466,6 +474,18 @@ function ItemClass:BuildRaw()
 	end
 	if self.elder then
 		t_insert(rawLines, "Elder Item")
+	end
+	if self.adjudicator then
+		t_insert(rawLines, "Warlord Item")
+	end
+	if self.basilisk then
+		t_insert(rawLines, "Hunter Item")
+	end
+	if self.crusader then
+		t_insert(rawLines, "Crusader Item")
+	end
+	if self.eyrie then
+		t_insert(rawLines, "Redeemer Item")
 	end
 	if self.crafted then
 		t_insert(rawLines, "Crafted: true")

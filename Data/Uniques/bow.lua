@@ -6,11 +6,14 @@ return {
 Arborix
 Assassin Bow
 Variant: Pre 3.5.0
+Variant: Pre 3.9.0
 Variant: Current
 Requires Level 62
 Source: Vendor recipe
+Implicits: 1
+{variant:3}+(15-25)% to Global Critical Strike Multiplier
 {variant:1}Adds (60-70) to (180-210) Physical Damage
-{variant:2}Adds (95-115) to (240-265) Physical Damage
+{variant:2,3}Adds (95-115) to (240-265) Physical Damage
 (80-100)% increased Evasion Rating
 Bow Attacks fire 2 additional Arrows
 Every 16 seconds you gain Iron Reflexes for 8 seconds
@@ -23,13 +26,15 @@ Assassin Bow
 Variant: Pre 1.2.0
 Variant: Pre 2.0.0
 Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.9.0
 Variant: Current
 Requires Level 62, 212 Dex
-Implicits: 1
+Implicits: 2
 {variant:1,2}(6-12)% increased Elemental Damage with Weapons
+{variant:5}+(15-25)% to Global Critical Strike Multiplier
 {variant:1}(75-100)% increased Physical Damage
 {variant:2,3}(150-180)% increased Physical Damage
-{variant:4}(200-260)% increased Physical Damage
+{variant:4,5}(200-260)% increased Physical Damage
 +(10-20) to Dexterity
 Adds 25 to 50 Fire Damage
 {variant:1}5% increased Attack Speed
@@ -89,21 +94,23 @@ Variant: Pre 1.2.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
+Variant: Pre 3.9.0
 Variant: Current
 Requires Level 62, 212 Dex
-Implicits: 1
+Implicits: 2
 {variant:1,2}(6-12)% increased Elemental Damage with Weapons
+{variant:6}+(15-25)% to Global Critical Strike Multiplier
 {variant:1,2,3}(100-125)% increased Physical Damage
-{variant:4,5}(130-150)% increased Physical Damage
+{variant:4,5,6}(130-150)% increased Physical Damage
 {variant:2}Adds (6-10) to (10-14) Physical Damage
 {variant:3,4}Adds (10-15) to (15-20) Physical Damage
-{variant:5}Adds (15-20) to (25-30) Physical Damage
+{variant:5,6}Adds (15-20) to (25-30) Physical Damage
 {variant:1,2,3,4}10% increased Attack Speed
-{variant:5}20% increased Attack Speed
+{variant:5,6}20% increased Attack Speed
 25% of Physical Damage Converted to Chaos Damage
 (15-30)% increased Accuracy Rating
 25% of Physical Damage taken as Chaos Damage
-{variant:5}20% chance for Poisons inflicted with this Weapon to deal 300% more Damage
+{variant:5,6}20% chance for Poisons inflicted with this Weapon to deal 300% more Damage
 ]],[[
 Death's Harp
 Death Bow
@@ -303,11 +310,14 @@ Requires Level 64, 212 Dex
 Roth's Reach
 Recurve Bow
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.9.0
 Variant: Current
 Requires Level 18, 71 Dex
+Implicits: 1
+{variant:3}+(15-25)% to Global Critical Strike Multiplier
 (60-80)% increased Physical Damage
 {variant:1}(20-40)% increased Elemental Damage with Weapons
-{variant:2}(20-40)% increased Elemental Damage with Attack Skills
+{variant:2,3}(20-40)% increased Elemental Damage with Attack Skills
 (4-8)% increased Attack Speed
 Skills Chain +1 times
 30% increased Projectile Speed

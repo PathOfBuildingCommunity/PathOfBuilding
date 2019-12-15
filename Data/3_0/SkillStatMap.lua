@@ -140,6 +140,9 @@ return {
 ["additive_mine_duration_modifiers_apply_to_buff_effect_duration"] = {
 	skill("mineDurationAppliesToSkill", true),
 },
+["additive_arrow_speed_modifiers_apply_to_area_of_effect"] = {
+	skill("arrowSpeedAppliesToAreaOfEffect", true),
+},
 ["base_use_life_in_place_of_mana"] = {
 	flag("SkillBloodMagic"),
 },
@@ -650,6 +653,11 @@ return {
 ["active_skill_ignite_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite),
 },
+["damaging_ailments_deal_damage_+%_faster"] = {
+	mod("BleedFaster", "INC", nil),
+	mod("PoisonFaster", "INC", nil),
+	mod("IgniteBurnFaster", "INC", nil),
+},
 -- Global flags
 ["never_ignite"] = {
 	flag("CannotIgnite"),
@@ -704,6 +712,9 @@ return {
 ["chance_to_be_knocked_back_%"] = {
 	mod("SelfKnockbackChance", "BASE", nil),
 },
+["number_of_additional_curses_allowed"] = {
+	mod("EnemyCurseLimit", "BASE", nil),
+},
 -- Projectiles
 ["base_projectile_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
@@ -731,6 +742,9 @@ return {
 },
 ["number_of_chains"] = {
 	mod("ChainCountMax", "BASE", nil),
+},
+["additional_beam_only_chains"] = {
+	mod("BeamChainCountMax", "BASE", nil),
 },
 ["projectiles_always_pierce_you"] = {
 	flag("AlwaysPierceSelf"),
@@ -1024,6 +1038,9 @@ return {
 },
 ["number_of_additional_totems_allowed"] = {
 	mod("ActiveTotemLimit", "BASE", nil),
+},
+["attack_skills_additional_ballista_totems_allowed"] = {
+	mod("ActiveTotemLimit", "BASE", nil, ModFlag.Attack),
 },
 ["base_number_of_totems_allowed"] = {
 	mod("ActiveTotemLimit", "BASE", nil),

@@ -258,6 +258,13 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	if skillData.arrowSpeedAppliesToAreaOfEffect then
+		-- Arrow Speed conversion for Galvanic Arrow
+		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Bow }, "ProjectileSpeed")) do
+			local mod = value.mod
+			skillModList:NewMod("AreaOfEffect", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+		end
+	end
 	if skillModList:Flag(nil, "TransfigurationOfBody") then
 		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "Life") * 0.3), "Transfiguration of Body", ModFlag.Attack)
 	end
@@ -282,7 +289,7 @@ function calcs.offence(env, actor, activeSkill)
 		if skillModList:Flag(skillCfg, "CannotChain") then
 			output.ChainMaxString = "Cannot chain"
 		else
-			output.ChainMax = skillModList:Sum("BASE", skillCfg, "ChainCountMax")
+			output.ChainMax = skillModList:Sum("BASE", skillCfg, "ChainCountMax", not skillFlags.projectile and "BeamChainCountMax" or nil)
 			output.ChainMaxString = output.ChainMax
 			output.Chain = m_min(output.ChainMax, skillModList:Sum("BASE", skillCfg, "ChainCount"))
 			output.ChainRemaining = m_max(0, output.ChainMax - output.Chain)
@@ -295,9 +302,13 @@ function calcs.offence(env, actor, activeSkill)
 		if skillModList:Flag(nil, "FarShot") then
 			skillModList:NewMod("Damage", "MORE", 30, "Far Shot", bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{35,0},{70,1}} })
 		end
-		local projBase = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
-		local projMore = skillModList:More(skillCfg, "ProjectileCount")
-		output.ProjectileCount = round((projBase - 1) * projMore + 1)
+		if skillModList:Flag(skillCfg, "NoAdditionalProjectiles") then
+			output.ProjectileCount = 1
+		else
+			local projBase = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
+			local projMore = skillModList:More(skillCfg, "ProjectileCount")
+			output.ProjectileCount = round((projBase - 1) * projMore + 1)
+		end
 		if skillModList:Flag(skillCfg, "CannotPierce") then
 			output.PierceCountString = "Cannot pierce"
 		else
@@ -1042,7 +1053,7 @@ function calcs.offence(env, actor, activeSkill)
 						local takenInc = enemyDB:Sum("INC", cfg, "DamageTaken", damageType.."DamageTaken")
 						local takenMore = enemyDB:More(cfg, "DamageTaken", damageType.."DamageTaken")
 						if damageType == "Physical" then
-							resist = enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")
+							resist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction"))
 						else
 							resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 							if isElemental[damageType] then
@@ -2039,6 +2050,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.ShockEffectMod = skillModList:Sum("INC", cfg, "EnemyShockEffect")
 				if breakdown then
 					t_insert(breakdown.ShockDPS, s_format("For the minimum 5%% Shock to apply for 2 seconds, target must have no more than %d Ailment Threshold.", (((100 + output.ShockEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
+					t_insert(breakdown.ShockDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where is is about half of their life)"))
 				end
  			end
 		end
@@ -2063,7 +2075,9 @@ function calcs.offence(env, actor, activeSkill)
 				output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
 				if breakdown then
 					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply for the minimum of 0.3 seconds, target must have no more than %d Ailment Threshold.", baseFreezeVal * 20 * output.FreezeDurationMod))
+					t_insert(breakdown.FreezeDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where is is about half of their life)"))
 					t_insert(breakdown.ChillDPS, s_format("For the minimum 5%% Chill to apply for 2 seconds, target must have no more than %d Ailment Threshold.", (((100 + output.ChillEffectMod)^(2.5)) * baseChillVal) / (100 * m_sqrt(10))))
+					t_insert(breakdown.ChillDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where is is about half of their life)"))
 				end
 			end
 		end

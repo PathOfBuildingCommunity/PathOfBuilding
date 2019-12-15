@@ -1,3 +1,17 @@
+[1.4.155.1][2019/12/16]
+ * Added the following new gems:
+    * Artillery Ballista
+	* Ensnaring Arrow
+	* Shrapnel Ballista
+	* Arrow Nova
+	* Barrage (does not give accurate damage numbers)
+	* Greater Volley
+	* The 35 new Awakened support gems
+ * Applied the skill reworks and balance changes for 3.9.0
+ * Updated item bases, mods, and enchantments for 3.9.0
+ * Added new influence bases to crafting window
+ * Fix all Oils on tree to have correct values
+ * Add more detailed breakdown for shock and chill
 [1.4.153.2][2019/12/14]
  * Re-add Oils to tree
  * Add support for Ghost Shrouds

@@ -336,9 +336,13 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemSectionImplicit = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT"}, 0, 0, 0, function()
 		return (self.controls.displayItemShaperElder:IsShown() or self.controls.displayItemEnchant:IsShown() or self.controls.displayItemCorrupt:IsShown()) and 28 or 0
 	end)
-	self.controls.displayItemShaperElder = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, 0, 0, 100, 20, {"Normal","Shaper","Elder"}, function(index, value)
+	self.controls.displayItemShaperElder = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, 0, 0, 100, 20, {"Normal","Shaper","Elder","Warlord","Hunter","Crusader","Redeemer"}, function(index, value)
 		self.displayItem.shaper = (index == 2)
 		self.displayItem.elder = (index == 3)
+		self.displayItem.adjudicator = (index == 4)
+		self.displayItem.basilisk = (index == 5)
+		self.displayItem.crusader = (index == 6)
+		self.displayItem.eyrie = (index == 7)
 		if self.displayItem.crafted then
 			for i = 1, self.displayItem.affixLimit do
 				-- Force affix selectors to update
@@ -1024,7 +1028,7 @@ function ItemsTabClass:SetDisplayItem(item)
 		if item.crafted then
 			self:UpdateAffixControls()
 		end
-		self.controls.displayItemShaperElder:SetSel((item.shaper and 2) or (item.elder and 3) or 1)
+		self.controls.displayItemShaperElder:SetSel((item.shaper and 2) or (item.elder and 3) or (item.adjudicator and 4) or (item.basilisk and 5) or (item.crusader and 6) or (item.eyrie and 7) or 1)
 		self:UpdateCustomControls()
 		self:UpdateDisplayItemRangeLines()
 	else
@@ -1737,6 +1741,18 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	end
 	if item.elder then
 		tooltip:AddLine(16, colorCodes.ELDER.."Elder Item")
+	end
+	if item.adjudicator then
+		tooltip:AddLine(16, colorCodes.ADJUDICATOR.."Warlord Item")
+	end
+	if item.basilisk then
+		tooltip:AddLine(16, colorCodes.BASILISK.."Hunter Item")
+	end
+	if item.crusader then
+		tooltip:AddLine(16, colorCodes.CRUSADER.."Crusader Item")
+	end
+	if item.eyrie then
+		tooltip:AddLine(16, colorCodes.EYRIE.."Redeemer Item")
 	end
 	if item.fractured then
 		tooltip:AddLine(16, colorCodes.FRACTURED.."Fractured Item")

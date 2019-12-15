@@ -433,6 +433,11 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		t_insert(activeSkill.extraSkillModList, value.mod)
 	end
 
+	-- Find totem level
+	if skillFlags.totem then
+		activeSkill.skillData.totemLevel = activeEffect.grantedEffectLevel.levelRequirement
+	end
+
 	-- Add active mine multiplier
 	if skillFlags.mine then
 		activeSkill.activeMineCount = (env.mode == "CALCS" and activeEffect.srcInstance.skillMineCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillMineCount)
