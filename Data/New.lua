@@ -31,7 +31,7 @@ League: Legion
 Source: Drops from normal{Eternal} legion
 Limited to: 1 Historic
 Radius: Large
-Commissioned (2000–160000) coins to commemorate Cadiro
+Commissioned (2000-160000) coins to commemorate Cadiro
 Passives in radius are Conquered by the Eternal Empire
 Historic
 ]],[[
@@ -41,7 +41,7 @@ League: Legion
 Source: Drops from normal{Karui} legion
 Limited to: 1 Historic
 Radius: Large
-Commanded leadership over (10000–18000) warriors under Kaom
+Commanded leadership over (10000-18000) warriors under Kaom
 Passives in radius are Conquered by the Karui
 Historic
 ]],[[
@@ -51,7 +51,7 @@ League: Legion
 Source: Drops from normal{Templar} legion
 Limited to: 1 Historic
 Radius: Large
-Carved to glorify (2000–10000) new faithful converted by High Templar Venarius
+Carved to glorify (2000-10000) new faithful converted by High Templar Venarius
 Passives in radius are Conquered by the Templars
 Historic
 ]],

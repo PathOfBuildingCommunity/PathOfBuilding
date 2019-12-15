@@ -85,7 +85,7 @@ Skinning Knife
 Upgrade: Upgrades to unique{Sanguine Gambol} via prophecy{Crimson Hues}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-Requires Level 5, 16 Dex
+Requires Level 5, 16 Dex, 11 Int
 30% increased Global Critical Strike Chance
 +(10-15) to Dexterity
 (50-70)% increased Physical Damage
@@ -98,7 +98,7 @@ Adds (1-2) to (3-5) Physical Damage
 Sanguine Gambol
 Skinning Knife
 Source: Upgraded from unique{Goredrill} via prophecy{Crimson Hues}
-Requires Level 59
+Requires Level 59, 16 Dex, 11 Int
 30% increased Global Critical Strike Chance
 (50-70)% increased Physical Damage
 Adds (70-85) to (110-118) Physical Damage
@@ -180,7 +180,7 @@ Demon Dagger
 Variant: Pre 3.5.0
 Variant: Current
 Source: Drops from unique{The Enslaver} (Tier 11+)
-Requires Level 68
+Requires Level 68, 76 Dex, 149 Int
 40% increased Global Critical Strike Chance 
 Adds (85-110) to (130-150) Physical Damage
 Adds (130-160) to (220-240) Fire Damage
@@ -199,7 +199,7 @@ Every 8 seconds, gain Avatar of Fire for 4 seconds
 ]],[[
 White Wind
 Imperial Skean
-Requires Level 66
+Requires Level 66, 95 Dex, 131 Int
 30% increased Global Critical Strike Chance
 Adds (160-190) to (280-320) Cold Damage
 (10-15)% increased Attack Speed

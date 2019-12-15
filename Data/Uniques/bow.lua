@@ -7,7 +7,7 @@ Arborix
 Assassin Bow
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 62
+Requires Level 62, 212 Dex
 Source: Vendor recipe
 {variant:1}Adds (60-70) to (180-210) Physical Damage
 {variant:2}Adds (95-115) to (240-265) Physical Damage
@@ -55,11 +55,11 @@ Variant: Double Damage
 Variant: Double Damage while Foccused
 Variant: Socketed Spell Trigger
 Requires Level 57, 190 Dex
-(140–170)% increased Physical Damage
-(25–35)% increased Critical Strike Chance
+(140-170)% increased Physical Damage
+(25-35)% increased Critical Strike Chance
 50% chance to inflict Bleeding on Critical Strike with Attacks
-Enemies you inflict Bleeding on grant (60–100)% increased Flask Charges
-Adds (100–120) to (150–165) Physical Damage against Bleeding Enemies
+Enemies you inflict Bleeding on grant (60-100)% increased Flask Charges
+Adds (100-120) to (150-165) Physical Damage against Bleeding Enemies
 50% chance to Maim Enemies on Critical Strike with Attacks
 {variant:1}{crafted}+(18-45)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
 {variant:2}{crafted}(11-22)% increased Attack Speed while a Rare or Unique Enemy is Nearby
@@ -177,7 +177,7 @@ Ranger Bow
 Source: Drops from unique{The Elder} (Tier 6+)
 Variant: Pre 3.4.0
 Variant: Current
-Requires Level 60
+Requires Level 60, 212 Dex
 Adds (130-150) to (270-300) Cold Damage
 4% increased Movement Speed per Frenzy Charge
 +(400-500) to Accuracy Rating
@@ -317,7 +317,7 @@ Crude Bow
 Upgrade: Upgrades to unique{Silverbough} via prophecy{The Silverwood}
 Variant: Pre 2.0.0
 Variant: Current
-Requires Level 2
+Requires 14 Dex
 +1 to Level of Socketed Bow Gems
 {variant:1}(50-80)% increased Physical Damage
 {variant:2}(80-100)% increased Physical Damage
@@ -328,7 +328,7 @@ Requires Level 2
 Silverbough
 Crude Bow
 Source: Upgraded from unique{Silverbranch} using prophecy{The Silverwood}
-Requires Level 36
+Requires Level 36, 14 Dex
 +1 to Level of Socketed Gems
 +1 to Level of Socketed Bow Gems
 (80-100)% increased Physical Damage

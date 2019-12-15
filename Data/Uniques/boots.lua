@@ -7,7 +7,7 @@ Craiceann's Tracks
 Goliath Greaves
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
-Requires Level 54
+Requires Level 54, 95 Str
 (150-180)% increased Armour
 +(50-70) to maximum Life
 +(25-30)% to Cold Resistance
@@ -28,7 +28,7 @@ Variant: Purity of Ice: Lightning
 Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
-Requires Level 68
+Requires Level 68, 120 Str
 {variant:1,2,3}Grants Level 25 Purity of Fire Skill
 {variant:4,5,6}Grants Level 25 Purity of Ice Skill
 {variant:7,8,9}Grants Level 25 Purity of Lightning Skill
@@ -94,7 +94,7 @@ Unaffected by Burning Ground
 ]],[[
 Stormcharger
 Plated Greaves
-Requires Level: 23
+Requires Level 23, 44 Str
 +(1-50)% to Lightning Resistance 
 20% increased Movement Speed 
 50% increased Shock Duration on Enemies 
@@ -118,7 +118,7 @@ Enemies can have 1 additional Curse
 Windshriek
 Reinforced Greaves
 Source: Upgraded from unique{Windscream} via prophecy{Darktongue's Shriek}
-Requires Level 60
+Requires Level 60, 60 Str
 (200-250)% increased Armour
 +(10-15)% to all Elemental Resistances
 25% increased Movement Speed
@@ -193,7 +193,7 @@ Variant: Purity of Ice: Lightning
 Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
-Requires Level 69
+Requires Level 69, 120 Dex
 {variant:1,2,3}Grants Level 25 Purity of Fire Skill
 {variant:4,5,6}Grants Level 25 Purity of Ice Skill
 {variant:7,8,9}Grants Level 25 Purity of Lightning Skill
@@ -208,7 +208,7 @@ Farrul's Chase
 Slink Boots
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
-Requires Level 69
+Requires Level 69, 120 Dex
 Trigger Level 20 Intimidating Cry when you lose Cat's Stealth
 (110-150)% increased Evasion Rating
 +(50-70) to maximum Life
@@ -245,6 +245,23 @@ Seven-League Step
 Rawhide Boots
 League: Perandus
 50% increased Movement Speed
+]],[[
+Sin Trek
+Stealth Boots
+Variant: Pre 2.0.0
+Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.5.0
+Variant: Current
+Requires Level 62, 117 Dex
++(20-30) to Dexterity
++(20-30) to Intelligence
+(80-100)% increased Evasion Rating
+{variant:1}+(50-70) to maximum Energy Shield
+{variant:2}+(70-100) to maximum Energy Shield
+{variant:3}+(100-160) to maximum Energy Shield
+{variant:4}+(100-150) to maximum Energy Shield
+30% increased Movement Speed
+Enemies Cannot Leech Life From You
 ]],[[
 Three-step Assault
 Shagreen Boots
@@ -300,7 +317,7 @@ Variant: Purity of Ice: Lightning
 Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
-Requires Level 67
+Requires Level 67, 120 Int
 {variant:1,2,3}Grants Level 25 Purity of Fire Skill
 {variant:4,5,6}Grants Level 25 Purity of Ice Skill
 {variant:7,8,9}Grants Level 25 Purity of Lightning Skill
@@ -427,7 +444,7 @@ Requires Level 9, 21 Int
 Greedtrap
 Velvet Slippers
 Source: Upgraded from unique{Wondertrap} via prophecy{Greed's Folly}
-Requires Level 52
+Requires Level 52, 21 Int
 +(5-10) to Strength
 +(5-10) to Dexterity
 +(5-10) to Intelligence
@@ -456,7 +473,7 @@ Ironscale Boots
 Upgrade: Upgrades to unique{Duskblight} via prophecy{Agony at Dusk}
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 18
+Requires Level 18, 19 Str, 19 Dex
 (40-60)% increased Armour and Evasion
 {variant:1}+(10-20) to maximum Life
 {variant:2}+(20-30) to maximum Life
@@ -470,7 +487,7 @@ Requires Level 18
 Dusktoe
 Leatherscale Boots
 Variant: Pre 2.0.0
-Requires Level 18
+Requires Level 18, 19 Str, 19 Dex
 (40-60)% increased Armour and Evasion
 +(10-20) to maximum Life
 +(10-20) to maximum Mana
@@ -482,7 +499,7 @@ Requires Level 18
 Duskblight
 Ironscale Boots
 Source: Upgraded from unique{Dusktoe} via prophecy{Agony at Dusk}
-Requires Level 40
+Requires Level 40, 19 Str, 19 Dex
 Socketed Gems are Supported by Level 15 Added Chaos Damage
 (120-150)% increased Armour and Evasion
 +(50-60) to maximum Life
@@ -527,7 +544,7 @@ Saqawal's Talons
 Hydrascale Boots
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
-Requires Level 59
+Requires Level 59, 56 Str, 56 Dex
 Grants Level 20 Aspect of the Avian Skill
 (100-150)% increased Armour and Evasion
 (20-30)% increased Movement Speed
@@ -587,7 +604,7 @@ Socketed Gems are Supported by Level 25 Blessing
 ]],[[
 Ralakesh's Impatience
 Riveted Boots
-Requires Level 36
+Requires Level 36, 35 Str, 35 Int
 +(15-25)% to Cold Resistance 
 +(15-25)% to Chaos Resistance 
 20% increased Movement Speed 
@@ -642,7 +659,7 @@ Dance of the Offered
 Shackled Boots
 League: Incursion
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
-Requires Level 34
+Requires Level 34, 34 Dex, 34 Int
 +(50-60) to maximum Mana
 +(15-20)% to Lightning Resistance
 25% increased Movement Speed
@@ -653,7 +670,7 @@ Omeyocan
 Carnal Boots
 League: Incursion
 Source: Upgraded from unique{Dance of the Offered} via currency{Vial of the Ritual}
-Requires Level 55
+Requires Level 55, 52 Dex, 52 Int
 (15-20)% increased maximum Mana
 +(25-30)% to Lightning Resistance
 30% increased Movement Speed
@@ -665,7 +682,7 @@ Fenumus' Spinnerets
 Assassin's Boots
 League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
-Requires Level 63
+Requires Level 63, 62 Dex, 62 Int
 (160-200)% increased Evasion and Energy Shield
 +(20-30)% to Lightning Resistance
 +(17-23)% to Chaos Resistance
@@ -690,23 +707,6 @@ Requires Level 16, 18 Dex, 18 Int
 {variant:3}15% increased Damage taken while on Full Energy Shield
 20% increased Movement Speed when on Full Energy Shield
 ]],[[
-Sin Trek
-Stealth Boots
-Variant: Pre 2.0.0
-Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.5.0
-Variant: Current
-Requires Level 62, 117 Dex
-+(20-30) to Dexterity
-+(20-30) to Intelligence
-(80-100)% increased Evasion Rating
-{variant:1}+(50-70) to maximum Energy Shield
-{variant:2}+(70-100) to maximum Energy Shield
-{variant:3}+(100-160) to maximum Energy Shield
-{variant:4}+(100-150) to maximum Energy Shield
-30% increased Movement Speed
-Enemies Cannot Leech Life From You
-]],[[
 Sundance
 Clasped Boots
 Upgrade: Upgrades to unique{Sunspite} via prophecy{Sun's Punishment}
@@ -723,7 +723,7 @@ Requires Level 27, 27 Dex, 27 Int
 Sunspite
 Clasped Boots
 Source: Upgraded from unique{Sundance} via prophecy{Sun's Punishment}
-Requires Level 59
+Requires Level 59, 27 Dex, 27 Int
 10% increased Attack Speed
 (260-300)% increased Evasion and Energy Shield
 (20-30)% increased Rarity of Items found

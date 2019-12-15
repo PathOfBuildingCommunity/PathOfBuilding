@@ -111,10 +111,10 @@ Hyrri's Demise
 Sharktooth Arrow Quiver
 Source: Upgraded from unique{Hyrri's Bite} via prophecy{A Dishonourable Death}
 Requires Level 45
-+(3–4) Life gained for each Enemy hit by your Attacks
-+(15–30) to all Attributes
-(7–10)% increased Attack Speed
-+(2–3) Life gained for each Enemy hit by your Attacks
++(3-4) Life gained for each Enemy hit by your Attacks
++(15-30) to all Attributes
+(7-10)% increased Attack Speed
++(2-3) Life gained for each Enemy hit by your Attacks
 10% increased Area of Effect
 Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity
 Adds 1 to 2 Fire Damage to Attacks per 10 Strength
@@ -215,10 +215,10 @@ Source: Drops from unique{The Elder} (Uber)
 Requires Level 68
 Arrows Pierce an additional Target
 Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows
-Adds (30–40) to (80–100) Cold Damage to Attacks
-+(80–120) to maximum Energy Shield
-+(20–30)% to Cold Resistance
-+(20–40) Mana gained on Kill
+Adds (30-40) to (80-100) Cold Damage to Attacks
++(80-120) to maximum Energy Shield
++(20-30)% to Cold Resistance
++(20-40) Mana gained on Kill
 30% increased Projectile Speed
 5 Maximum Void Charges
 Gain a Void Charge every 0.5 seconds

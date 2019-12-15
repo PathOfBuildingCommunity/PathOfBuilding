@@ -80,7 +80,7 @@ Adds (145-157) to (196-210) Fire Damage to Hits with this Weapon against Blinded
 ]],[[
 Lifesprig
 Driftwood Wand
-Requires Level 2
+Requires 14 Int
 (8-12)% increased Spell Damage
 +1 to Level of Socketed Spell Gems
 (20-28)% increased Spell Damage
@@ -164,7 +164,7 @@ Attacks with this Weapon have (100-115)% increased Elemental Damage
 ]],[[
 The Poet's Pen
 Carved Wand
-Requires Level 12
+Requires Level 12, 47 Int
 (11-15)% increased Spell Damage 
 +1 to Level of Socketed Active Skill Gems per 25 Player Levels 
 Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels 
@@ -211,7 +211,7 @@ Tornado Wand
 Source: Drops from unique{The Elder} (Tier 6+)
 Variant: Pre 3.4.0
 Variant: Current
-Requires Level 65
+Requires Level 65, 212 Int
 (35-39)% increased Spell Damage 
 (30-40)% increased Spell Damage 
 Adds (26-35) to (95-105) Lightning Damage to Spells 

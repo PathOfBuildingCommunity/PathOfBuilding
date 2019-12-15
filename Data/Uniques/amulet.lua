@@ -58,7 +58,7 @@ Onyx Amulet
 Requires Level 20
 +(10-16) to all Attributes
 +(80-100) to all Attributes
-–4 Physical Damage taken from Attacks
+-4 Physical Damage taken from Attacks
 ]],[[
 Atziri's Foible
 Paua Amulet
@@ -93,16 +93,16 @@ Variant: Intelligence: Purity of Lightning
 Variant: Intelligence: Wrath
 Variant: Envy
 Requires Level 55
-+(10–16) to all Attributes
++(10-16) to all Attributes
 {variant:1,2,3,4}+(20-30) to Strength
 {variant:5,6,7,8}+(20-30) to Dexterity
-{variant:9,10,11,12,13}+(20–30) to Intelligence
+{variant:9,10,11,12,13}+(20-30) to Intelligence
 {variant:14}Grants Level 15 Envy Skill
 {variant:1,2,3,4}(15-20)% increased Armour
 {variant:5,6,7,8}(15-20)% increased Evasion Rating
-{variant:9,10,11,12,13}(15–20)% increased maximum Energy Shield
+{variant:9,10,11,12,13}(15-20)% increased maximum Energy Shield
 {variant:14}+(15-20) to all Attributes
-+(50–70) to maximum Life
++(50-70) to maximum Life
 {variant:1,2,3,4}10% reduced Stun and Block Recovery
 {variant:5,6,7,8}Nearby Enemies grant 25% increased Flask Charges
 {variant:9,10,11,12,13}2% additional Chance to receive a Critical Strike
@@ -355,12 +355,12 @@ Gloomfang
 Blue Pearl Amulet
 Source: Drops from unique{The Purifier}
 Requires 77
-(48–56)% increased Mana Regeneration Rate
+(48-56)% increased Mana Regeneration Rate
 0.5% of Chaos Damage Leeched as Life
-Lose (10–15) Life for each Enemy hit by your Spells
-Lose (20–25) Life for each Enemy hit by your Attacks
+Lose (10-15) Life for each Enemy hit by your Spells
+Lose (20-25) Life for each Enemy hit by your Attacks
 Skills Chain +1 times
-Projectiles gain (15–20)% of Non-Chaos Damage as extra Chaos Damage per Chain
+Projectiles gain (15-20)% of Non-Chaos Damage as extra Chaos Damage per Chain
 ]],[[
 The Halcyon
 Jade Amulet
@@ -425,11 +425,11 @@ The Effigon
 Gold Amulet
 Source: Upgraded from unique{The Ignomon} via prophecy{Blind Faith}
 Requires Level 57
-(12–20)% increased Rarity of Items found
+(12-20)% increased Rarity of Items found
 +10 to Dexterity
 Adds 12 to 24 Fire Damage to Attacks
-+(100–150) to Accuracy Rating
-+(100–150) to Evasion Rating
++(100-150) to Accuracy Rating
++(100-150) to Evasion Rating
 +20% to Fire Resistance
 Your Hits can't be Evaded by Blinded Enemies
 Damage Penetrates 10% Fire Resistance against Blinded Enemies
@@ -444,22 +444,22 @@ Variant: Lightning
 Variant: Chaos
 Requires Level 64
 +(10-16) to all Attributes
-{variant:1}Adds (12–16) to (20–25) Physical Damage
-{variant:2}Adds (20–24) to (33–36) Fire Damage
-{variant:3}Adds (20–24) to (33–36) Cold Damage
-{variant:4}Adds (10–13) to (43–47) Lightning Damage
-{variant:5}Adds (17–19) to (23–29) Chaos Damage
-{variant:1}+(400–500) to Armour
+{variant:1}Adds (12-16) to (20-25) Physical Damage
+{variant:2}Adds (20-24) to (33-36) Fire Damage
+{variant:3}Adds (20-24) to (33-36) Cold Damage
+{variant:4}Adds (10-13) to (43-47) Lightning Damage
+{variant:5}Adds (17-19) to (23-29) Chaos Damage
+{variant:1}+(400-500) to Armour
 {variant:2}1% of Life Regenerated per second
-{variant:3}(45–50)% increased Mana Regeneration Rate
+{variant:3}(45-50)% increased Mana Regeneration Rate
 {variant:4}1% of Energy Shield Regenerated per second
-{variant:5}(30–40)% increased Damage over Time
-+(50–70) to maximum Life
-{variant:1}(30–40)% increased Stun and Block Recovery
-{variant:2}+(20–25)% to Fire Resistance
-{variant:3}+(20–25)% to Cold Resistance
-{variant:4}+(20–25)% to Lightning Resistance
-{variant:5}+(17–23)% to Chaos Resistance
+{variant:5}(30-40)% increased Damage over Time
++(50-70) to maximum Life
+{variant:1}(30-40)% increased Stun and Block Recovery
+{variant:2}+(20-25)% to Fire Resistance
+{variant:3}+(20-25)% to Cold Resistance
+{variant:4}+(20-25)% to Lightning Resistance
+{variant:5}+(17-23)% to Chaos Resistance
 {variant:1}100% reduced Vulnerability Mana Reservation
 {variant:2}100% reduced Flammability Mana Reservation
 {variant:3}100% reduced Frostbite Mana Reservation
@@ -555,9 +555,9 @@ Corrupted
 Perquil's Toe
 Gold Amulet
 Requires Level 29
-(12–20)% increased Rarity of Items found
-+(40–50) to Dexterity
-(5–8)% increased Movement Speed
+(12-20)% increased Rarity of Items found
++(40-50) to Dexterity
+(5-8)% increased Movement Speed
 Lightning Damage from Enemies Hitting you is Lucky
 Nearby Allies' Damage with Hits is Lucky
 ]],[[
@@ -565,13 +565,13 @@ The Primordial Chain
 Coral Amulet
 League: Delve
 Requires Level 34
-(2–4) Life Regenerated per second
+(2-4) Life Regenerated per second
 Can Summon up to 3 additional Golems at a time
 You cannot have non-Golem Minions
 25% reduced Golem Size
-Golems Deal (35–45)% less Damage
-Golems have (35–45)% less Life
-Golems have (80–100)% increased Movement Speed
+Golems Deal (35-45)% less Damage
+Golems have (35-45)% less Life
+Golems have (80-100)% increased Movement Speed
 Primordial
 ]],[[
 Rashkaldor's Patience
@@ -610,7 +610,7 @@ League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Zerphi's Heart} via currency{Vial of Sacrifice}
 Requires Level 32
-(20–30)% increased Mana Regeneration Rate
+(20-30)% increased Mana Regeneration Rate
 Adds (22-27) to (34-38) Fire Damage
 Adds (20-23) to (31-35) Cold Damage
 Adds (1-3) to (47-52) Lightning Damage
@@ -623,7 +623,7 @@ Paua Amulet
 League: Incursion
 Source: Upgraded from unique{Sacrificial Heart} via currency{Vial of Sacrifice}
 Requires Level 70
-(20–30)% increased Mana Regeneration Rate
+(20-30)% increased Mana Regeneration Rate
 Adds (48-53) to (58-60) Chaos Damage
 Items and Gems have 50% increased Attribute Requirements
 Chaos Damage can Ignite, Chill and Shock
@@ -659,10 +659,10 @@ Solstice Vigil
 Onyx Amulet
 Source: Drops from unique{The Shaper}
 Requires Level 64
-+(10–16) to all Attributes
-(20–25)% increased Damage
-+(50–70) to maximum Life
-(2–3) Mana Regenerated per second
++(10-16) to all Attributes
+(20-25)% increased Damage
++(50-70) to maximum Life
+(2-3) Mana Regenerated per second
 Temporal Chains has 100% reduced Mana Reservation
 Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
@@ -851,12 +851,12 @@ Yoke of Suffering
 Onyx Amulet
 Source: Drops from unique{The Eradicator} (Tier 11+)
 Requires Level 25
-+(10–16) to all Attributes
-+(10–20)% to Fire Resistance
-+(10–20)% to Cold Resistance
-+(20–40)% to Lightning Resistance
++(10-16) to all Attributes
++(10-20)% to Fire Resistance
++(10-20)% to Cold Resistance
++(20-40)% to Lightning Resistance
 30% reduced Duration of Ailments on Enemies
-(5–10)% chance to Shock
+(5-10)% chance to Shock
 Enemies take 5% increased Damage for each type of Ailment you have inflicted on them
 Your Elemental Damage can Shock
 ]],

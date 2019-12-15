@@ -20,7 +20,7 @@ Eternal Sword
 Source: Drops from unique{The Constrictor} (Tier 11+)
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 66
+Requires Level 66, 104 Str, 122 Dex
 +475 to Accuracy Rating 
 {variant:1}(170-190)% increased Physical Damage
 {variant:2}(185-215)% increased Physical Damage
@@ -111,7 +111,7 @@ Eternal Sword
 Source: Drops from unique{The Constrictor}
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 66
+Requires Level 66, 104 Str, 122 Dex
 +475 to Accuracy Rating
 {variant:1}(170-190)% increased Physical Damage
 {variant:2}(185-215)% increased Physical Damage
@@ -192,7 +192,7 @@ Oni-Goroshi
 Charan's Sword
 Source: Drops from unique{Hillock}
 Sockets: R-R-R-R-R-R
-Requires Level: 2
+Requires Level 2, 9 Str, 9 Dex
 40% increased Global Accuracy Rating
 Uses both hand slots
 (70-90)% increased Critical Strike Chance
@@ -281,7 +281,7 @@ Rusted Sword
 Upgrade: Upgrades to unique{Dreadbeak} via prophecy{The Dreaded Rhoa}
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 2
+Requires 8 Str, 8 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
@@ -297,7 +297,7 @@ Rusted Sword
 Source: Upgraded from unique{Redbeak} via prophecy{The Dreaded Rhoa}
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 61
+Requires Level 61, 8 Str, 8 Dex
 40% increased Global Accuracy Rating
 100% increased Damage when on Low Life
 50% increased Physical Damage
@@ -395,7 +395,7 @@ Story of the Vaal
 Variscite Blade
 League: Incursion
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
-Requires Level 35
+Requires Level 35, 62 Str, 62 Dex
 +240 to Accuracy Rating
 (110-120)% increased Physical Damage
 (10-15)% increased Attack Speed
@@ -407,7 +407,7 @@ Fate of the Vaal
 Gemstone Sword
 League: Incursion
 Source: Upgraded from unique{Story of the Vaal} via currency{Vial of Fate}
-Requires Level 56
+Requires Level 56, 96 Str, 96 Dex
 +400 to Accuracy Rating
 (160-180)% increased Physical Damage
 (10-15)% increased Attack Speed
@@ -586,7 +586,7 @@ Manifested Dancing Dervish dies when Rampage ends
 The Dancing Duo
 Reaver Sword
 Source: Upgraded from unique{The Dancing Dervish} via prophecy{Dance of Steel}
-Requires Level 65
+Requires Level 65, 82 Str, 119 Dex
 40% increased Global Accuracy Rating
 (160-190)% increased Physical Damage
 (25-30)% increased Attack Speed
@@ -777,7 +777,7 @@ Gain a Frenzy Charge on Critical Strike
 Voidforge
 Infernal Sword
 Source: Drops from unique{The Elder} (Uber)
-Requires Level 67
+Requires Level 67, 113 Str, 113 Dex
 30% increased Accuracy Rating
 (50-100)% increased Physical Damage
 (5-8)% increased Attack Speed

@@ -76,7 +76,7 @@ Heavy Belt
 Requires Level 30
 +(25-35) to Strength
 5% increased Quantity of Items found
-+(20–40)% to Cold Resistance
++(20-40)% to Cold Resistance
 Rampage
 1% increased Rarity of Items found per 15 Rampage Kills
 ]],[[
@@ -85,7 +85,7 @@ Chain Belt
 League: Incursion
 Upgrade: Upgrades to unique{Coward's Legacy} via currency{Vial of Consequence}
 Requires Level 22
-+(9–20) to maximum Energy Shield
++(9-20) to maximum Energy Shield
 (20-25)% increased Damage
 +(10-15) to all Attributes
 (5-10)% increased Movement Speed
@@ -97,7 +97,7 @@ Chain Belt
 League: Incursion
 Source: Upgraded from unique{Coward's Chains} via currency{Vial of Consequence}
 Requires Level 52
-+(9–20) to maximum Energy Shield
++(9-20) to maximum Energy Shield
 +(15-20) to all Attributes
 (5-10)% increased Movement Speed
 50% increased Effect of Curses on you
@@ -109,8 +109,8 @@ Leather Belt
 Source: Drops from unique{The Elder}
 Requires Level 68
 +(25-40) to maximum Life
-+(60–80) to maximum Life
-(5–15)% increased Attributes
++(60-80) to maximum Life
+(5-15)% increased Attributes
 Cannot be Frozen if Dexterity is higher than Intelligence
 Cannot be Ignited if Strength is higher than Dexterity
 Cannot be Shocked if Intelligence is higher than Strength
@@ -238,11 +238,11 @@ Variant: Trap Throwing Speed
 Variant: Energy Shield Regen
 Variant: Lucky Crit Chance while Focussed
 Requires Level 60
-+(25–40) to maximum Life
-+(30–40)% to Cold Resistance
++(25-40) to maximum Life
++(30-40)% to Cold Resistance
 Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
-Focus has (15–25)% increased Cooldown Recovery Speed
-(50–70)% increased Damage with Hits and Ailments against Chilled Enemies
+Focus has (15-25)% increased Cooldown Recovery Speed
+(50-70)% increased Damage with Hits and Ailments against Chilled Enemies
 {variant:1}{crafted}(1.0-2.0)% of Life Regenerated per second during any Flask Effect
 {variant:2}{crafted}+(8-15)% to Fire and Chaos Resistances
 {variant:3}{crafted}+(8-15)% to Cold and Chaos Resistances
@@ -303,7 +303,7 @@ Requires Level 48
 +(40-50) to Strength
 +(40-50) to Dexterity
 +(20-25)% to all Elemental Resistances while you have at least 200 Strength
-(40–50)% increased Projectile Attack Damage while you have at least 200 Dexterity
+(40-50)% increased Projectile Attack Damage while you have at least 200 Dexterity
 ]],[[
 The Tactician
 Studded Belt
@@ -315,7 +315,7 @@ Requires Level 48
 +(40-50) to Intelligence
 50% increased Flask Charges gained
 +(20-25)% to all Elemental Resistances while you have at least 200 Strength
-(50–60)% increased Critical Strike Chance while you have at least 200 Intelligence
+(50-60)% increased Critical Strike Chance while you have at least 200 Intelligence
 ]],[[
 Maligaro's Restraint
 Chain Belt
@@ -412,10 +412,10 @@ Studded Belt
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 20
-(20–30)% increased Stun Duration on Enemies
+(20-30)% increased Stun Duration on Enemies
 {variant:2}+(80-100) to maximum Life
-+(20–40) to Strength
-Adds 1 to (15–20) Physical Damage to Attacks
++(20-40) to Strength
+Adds 1 to (15-20) Physical Damage to Attacks
 Gain 50 Life when you Stun an Enemy
 {variant:1}20% less Minimum Physical Attack Damage
 {variant:2}(30-40)% less Minimum Physical Attack Damage
@@ -471,30 +471,30 @@ Variant: Dexterity/Strength
 Variant: Strength/Intelligence
 Variant: Elemental Resistances
 Implicits: 24
-{variant:1}(24–30)% increased Area of Effect
-{variant:2}+(60–75)% to Critical Strike Multiplier during any Flask Effect
-{variant:3}(24–36)% increased Attack Speed during any Flask Effect
-{variant:4}(24–36)% increased Cast Speed during any Flask Effect
-{variant:5}(105–120)% increased Critical Strike Chance during any Flask Effect
-{variant:6}(36–45)% increased Skill Effect Duration
-{variant:7}(24–30)% increased maximum Energy Shield
-{variant:8}(18–24)% increased maximum Life
-{variant:9}(24–36)% increased Movement Speed during any Flask Effect
-{variant:10}(60–90)% increased Rarity of Items found
-{variant:11}(9–15)% increased Quantity of Items found
-{variant:12}Wrath has (45–60)% increased Aura Effect
-{variant:13}Anger has (45–60)% increased Aura Effect
-{variant:14}Hatred has (45–60)% increased Aura Effect
-{variant:15}Determination has (45–60)% increased Aura Effect
-{variant:16}Discipline has (45–60)% increased Aura Effect
-{variant:17}Grace has (45–60)% increased Aura Effect
-{variant:18}(12–18)% increased Intelligence
-{variant:18}(12–18)% increased Dexterity
-{variant:19}(12–18)% increased Dexterity
-{variant:19}(12–18)% increased Strength
-{variant:20}(12–18)% increased Strength
-{variant:20}(12–18)% increased Intelligence
-{variant:21}+(42–48)% to all Elemental Resistances
+{variant:1}(24-30)% increased Area of Effect
+{variant:2}+(60-75)% to Critical Strike Multiplier during any Flask Effect
+{variant:3}(24-36)% increased Attack Speed during any Flask Effect
+{variant:4}(24-36)% increased Cast Speed during any Flask Effect
+{variant:5}(105-120)% increased Critical Strike Chance during any Flask Effect
+{variant:6}(36-45)% increased Skill Effect Duration
+{variant:7}(24-30)% increased maximum Energy Shield
+{variant:8}(18-24)% increased maximum Life
+{variant:9}(24-36)% increased Movement Speed during any Flask Effect
+{variant:10}(60-90)% increased Rarity of Items found
+{variant:11}(9-15)% increased Quantity of Items found
+{variant:12}Wrath has (45-60)% increased Aura Effect
+{variant:13}Anger has (45-60)% increased Aura Effect
+{variant:14}Hatred has (45-60)% increased Aura Effect
+{variant:15}Determination has (45-60)% increased Aura Effect
+{variant:16}Discipline has (45-60)% increased Aura Effect
+{variant:17}Grace has (45-60)% increased Aura Effect
+{variant:18}(12-18)% increased Intelligence
+{variant:18}(12-18)% increased Dexterity
+{variant:19}(12-18)% increased Dexterity
+{variant:19}(12-18)% increased Strength
+{variant:20}(12-18)% increased Strength
+{variant:20}(12-18)% increased Intelligence
+{variant:21}+(42-48)% to all Elemental Resistances
 Implicit Modifier magnitudes are tripled
 Corrupted
 ]],[[

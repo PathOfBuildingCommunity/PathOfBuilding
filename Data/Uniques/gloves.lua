@@ -22,7 +22,7 @@ Craiceann's Pincers
 Titan Gauntlets
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
-Requires Level 69
+Requires Level 69, 98 Str
 (150-200)% increased Armour
 (50-70) Life Regenerated per second
 +(30-40)% to Fire Resistance
@@ -54,7 +54,7 @@ Socketed Gems are Supported by level 10 Knockback
 ]],[[
 Giantsbane
 Bronze Gauntlets
-Requires Level: 23
+Requires Level 23, 36 Str
 Adds (3-6) to (10-12) Physical Damage to Attacks
 +(30-40) to Strength
 (80-100)% increased Armour
@@ -64,6 +64,7 @@ Lochtonial Caress
 Iron Gauntlets
 Variant: Pre 2.6.0
 Variant: Current
+Requires 6 Str
 (10-15)% increased Attack Speed
 {variant:1}+(10-20) to Armour
 {variant:2}+(20-30) to maximum Life
@@ -109,19 +110,6 @@ Requires Level 47, 68 Str
 ]],
 -- Gloves: Evasion
 [[
-Blasphemer's Grasp
-Assassin's Mitts
-Source: Drops from unique{The Elder}
-Requires Level 58
-+(40-50) to Dexterity
-(150-200)% increased Evasion and Energy Shield
-+(50-60) to maximum Life
-+6 to Maximum Life per Elder Item Equipped
-+4% to Damage over Time Multiplier for Ailments per Elder Item Equipped
-8% increased Effect of non-Damaging Ailments per Elder Item Equipped
-Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
-Elder Item
-]],[[
 Hrimsorrow
 Goathide Gloves
 Upgrade: Upgrades to unique{Hrimburn} via prophecy{Fire and Ice}
@@ -175,13 +163,23 @@ Requires Level 21, 33 Dex
 ]],[[
 Oskarm
 Nubuck Gloves
-Requires Level 33
+Requires Level 52, 50 Dex
 (30-40)% increased Accuracy Rating
 +(40-50) to maximum Life
 +(-20-10)% to Chaos Resistance
 (7-8)% chance to Dodge Spell Damage
 Curse Enemies with Level 10 Assassin's Mark on Hit
 2% increased Attack Critical Strike Chance per 200 Accuracy Rating
+]],[[
+Painseeker
+Shagreen Gloves
+Requires Level 54, 78 Dex
+Adds (16-19) to (25-29) Fire Damage
+Adds (16-19) to (25-29) Cold Damage
+Adds (6-10) to (33-38) Lightning Damage
+(60-120)% increased Evasion Rating
+Critical Strikes do not inherently apply non-Damaging Ailments
+Inflict non-Damaging Ailments as though dealing (100-200)% more Damage
 ]],
 -- Gloves: Energy Shield
 [[
@@ -217,7 +215,7 @@ Requires Level 25, 39 Int
 Demon Stitcher
 Satin Gloves
 League: Delve
-Requires Level 41
+Requires Level 41, 60 Int
 (15-20)% increased Cast Speed
 +(50-70) to maximum Energy Shield
 +(50-70) to maximum Life
@@ -241,7 +239,7 @@ Requires Level 12, 21 Int
 Doedre's Malevolence
 Velvet Gloves
 Source: Upgraded from unique{Doedre's Tenure} via prophecy{The Malevolent Witch}
-Requires Level 64
+Requires Level 64, 21 Int
 (50-60)% increased Spell Damage
 +20 to Intelligence
 Adds (48-56) to (73-84) Chaos Damage to Spells
@@ -262,7 +260,7 @@ Minions gain 20% of Physical Damage as Extra Cold Damage
 ]],[[
 Kalisa's Grace
 Samite Gloves
-Requires Level 47
+Requires Level 55, 68 Int
 Socketed Gems are Supported by Level 18 Faster Casting
 +(20-30) to Intelligence
 +(50-80) to maximum Energy Shield
@@ -274,7 +272,7 @@ Wool Gloves
 Variant: Pre 1.1.0
 Variant: {2_6}Pre 3.5.0
 Variant: Current
-Requires Level 11
+Requires Level 11, 9 Int
 Adds 4 to 8 Fire Damage to Attacks
 Adds 1 to 13 Lightning Damage to Attacks
 +18 to maximum Energy Shield
@@ -320,7 +318,7 @@ Farrul's Pounce
 Hydrascale Gauntlets
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
-Requires Level 59
+Requires Level 59, 45 Str, 45 Dex
 (100-140)% increased Armour and Evasion
 +(50-70) to maximum Life
 +(400-500) to Accuracy against Bleeding Enemies
@@ -333,7 +331,7 @@ Ironscale Gauntlets
 Variant: {2_6}Pre 3.5.0
 Variant: Current
 League: Rampage
-Requires Level 15
+Requires Level 15, 14 Str, 14 Int
 (6-9)% increased Attack Speed
 (80-120)% increased Armour and Evasion
 (3-4) Life Regenerated per second
@@ -383,7 +381,7 @@ League: Abyss
 Source: Drops from Abyssal Liches
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
-Requires Level: 36
+Requires Level 36, 29 Str, 29 Int
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
 (6-10)% increased Attack Speed
@@ -409,9 +407,9 @@ Worldcarver
 Dragonscale Gauntlets
 Requires Level 67, 51 Str, 51 Dex
 Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
-+(200–300) to Accuracy Rating
-(120–150)% increased Armour and Evasion
-+(60–80) to maximum Life
++(200-300) to Accuracy Rating
+(120-150)% increased Armour and Evasion
++(60-80) to maximum Life
 6% increased Attack Damage for each Map Item Modifier affecting the Area
 3% increased Attack Speed for each Map Item Modifier affecting the Area
 ]],[[
@@ -433,7 +431,7 @@ League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
-Requires Level 37
+Requires Level 37, 29 Str, 29 Int
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
 (6-10)% increased Cast Speed
@@ -443,7 +441,7 @@ With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
 ]],[[
 Hands of the High Templar
 Crusader Gloves
-Requires Level 66
+Requires Level 66, 51 Str, 51 Int
 Can be modified while Corrupted
 Can have up to 5 Implicit Modifiers while Item has this Modifier
 (150-200)% increased Armour and Energy Shield
@@ -474,16 +472,6 @@ Requires Level 57, 44 Str, 44 Int
 (15-25)% increased Damage while Leeching
 Life Leech effects are not removed at Full Life
 ]],[[
-Painseeker
-Shagreen Gloves
-Requires Level 54
-Adds (16-19) to (25-29) Fire Damage
-Adds (16-19) to (25-29) Cold Damage
-Adds (6-10) to (33-38) Lightning Damage
-(60-120)% increased Evasion Rating
-Critical Strikes do not inherently apply non-Damaging Ailments
-Inflict non-Damaging Ailments as though dealing (100-200)% more Damage
-]],[[
 Repentance
 Crusader Gloves
 Requires Level 66, 306 Str, 306 Int
@@ -497,7 +485,7 @@ Saqawal's Winds
 Soldier Gloves
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
-Requires Level 51
+Requires Level 51, 40 Str, 40 Int
 (140-180)% increased Armour and Energy Shield
 +(30-60) to maximum Life
 +(20-25)% to Cold and Lightning Resistances
@@ -509,7 +497,7 @@ Shackles of the Wretched
 Chain Gloves
 Variant: Pre 1.2.0
 Variant: Current
-Requires Level 7, 17 Dex
+Requires Level 7, 8 Str, 8 Int
 (40-60)% increased Stun Recovery
 Curses in this item are reflected back to you
 You cannot be Chilled for 3 seconds after being Chilled
@@ -579,7 +567,7 @@ Architect's Hand
 Strapped Mitts
 League: Incursion
 Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
-Requires Level 16
+Requires Level 16, 14 Dex, 14 Int
 +(30-40) to Dexterity
 (100-125)% increased Evasion and Energy Shield
 (20-30)% reduced Trap Throwing Speed
@@ -590,7 +578,7 @@ Slavedriver's Hand
 Ambush Mitts
 League: Incursion
 Source: Upgraded from unique{Architect's Hand} via currency{Vial of Dominance}
-Requires Level 45
+Requires Level 45, 35 Dex, 35 Int
 +(30-40) to Dexterity
 (200-250)% increased Evasion and Energy Shield
 (20-30)% reduced Trap Throwing Speed
@@ -598,6 +586,19 @@ Skills which throw Traps have Blood Magic
 Skills used by Traps have (10-20)% increased Area of Effect
 Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
 10% chance to gain an Endurance, Frenzy or Power Charge when any of your Traps is Triggered by an Enemy
+]],[[
+Blasphemer's Grasp
+Assassin's Mitts
+Source: Drops from unique{The Elder}
+Requires Level 58, 45 Dex, 45 Int
++(40-50) to Dexterity
+(150-200)% increased Evasion and Energy Shield
++(50-60) to maximum Life
++6 to Maximum Life per Elder Item Equipped
++4% to Damage over Time Multiplier for Ailments per Elder Item Equipped
+8% increased Effect of non-Damaging Ailments per Elder Item Equipped
+Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
+Elder Item
 ]],[[
 The Embalmer
 Carnal Mitts
@@ -629,7 +630,7 @@ Fenumus' Weave
 Carnal Mitts
 League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
-Requires Level 50
+Requires Level 50, 39 Dex, 39 Int
 Grants Level 20 Aspect of the Spider Skill
 (120-170)% increased Evasion and Energy Shield
 +(40-50) to maximum Life
@@ -641,7 +642,7 @@ Ondar's Clasp
 Wrapped Mitts
 Variant: Pre 1.1.0
 Variant: Current
-Requires Level 5
+Requires Level 5, 6 Dex, 6 Int
 {variant:1}20% increased Attack Speed when on Full Life
 {variant:2}30% increased Attack Speed when on Full Life
 Adds 1 to 13 Lightning Damage to Attacks
