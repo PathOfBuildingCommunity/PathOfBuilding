@@ -82,8 +82,9 @@ data.powerStatList = {
 	{ stat="TotalDPS", label="Total DPS" },
 	{ stat="WithImpaleDPS", label="Impale + Total DPS" },
 	{ stat="AverageDamage", label="Average Hit" },
-	{ stat="PoisonDPS", label="Poison DPS" },
+	{ stat="BleedDPS", label="Bleed DPS" },
 	{ stat="IgniteDPS", label="Ignite DPS" },
+	{ stat="PoisonDPS", label="Poison DPS" },
 	{ stat="TotalDot", label="Chaos DoT DPS" },
 	{ stat="Life", label="Life" },
 	{ stat="LifeRegen", label="Life regen" },
@@ -157,28 +158,28 @@ data.unarmedWeaponData = {
 }
 
 data.specialBaseTags = {
-	["Amulet"] = { shaper = "amulet_shaper", elder = "amulet_elder", },
-	["Ring"] = { shaper = "ring_shaper", elder = "ring_elder", },
-	["Claw"] = { shaper = "claw_shaper", elder = "claw_elder", },
-	["Dagger"] = { shaper = "dagger_shaper", elder = "dagger_elder", },
-	["Wand"] = { shaper = "wand_shaper", elder = "wand_elder", },
-	["One Handed Sword"] = { shaper = "sword_shaper", elder = "sword_elder", },
-	["Thrusting One Handed Sword"] = { shaper = "sword_shaper", elder = "sword_elder", },
-	["One Handed Axe"] = { shaper = "axe_shaper", elder = "axe_elder", },
-	["One Handed Mace"] = { shaper = "mace_shaper", elder = "mace_elder", },
-	["Bow"] = { shaper = "bow_shaper", elder = "bow_elder", },
-	["Staff"] = { shaper = "staff_shaper", elder = "staff_elder", },
-	["Two Handed Sword"] = { shaper = "2h_sword_shaper", elder = "2h_sword_elder", },
-	["Two Handed Axe"] = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", },
-	["Two Handed Mace"] = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", },
-	["Quiver"] = { shaper = "quiver_shaper", elder = "quiver_elder", },
-	["Belt"] = { shaper = "belt_shaper", elder = "belt_elder", },
-	["Gloves"] = { shaper = "gloves_shaper", elder = "gloves_elder", },
-	["Boots"] = { shaper = "boots_shaper", elder = "boots_elder", },
-	["Body Armour"] = { shaper = "body_armour_shaper", elder = "body_armour_elder", },
-	["Helmet"] = { shaper = "helmet_shaper", elder = "helmet_elder", },
-	["Shield"] = { shaper = "shield_shaper", elder = "shield_elder", },
-	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", },
+	["Amulet"] = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", },
+	["Ring"] = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", },
+	["Claw"] = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", },
+	["Dagger"] = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", },
+	["Wand"] = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", },
+	["One Handed Sword"] = { shaper = "sword_shaper", elder = "sword_elder", adjudicator = "sword_adjudicator", basilisk = "sword_basilisk", crusader = "sword_crusader", eyrie = "sword_eyrie", },
+	["Thrusting One Handed Sword"] = { shaper = "sword_shaper", elder = "sword_elder", adjudicator = "sword_adjudicator", basilisk = "sword_basilisk", crusader = "sword_crusader", eyrie = "sword_eyrie", },
+	["One Handed Axe"] = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", },
+	["One Handed Mace"] = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", },
+	["Bow"] = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", },
+	["Staff"] = { shaper = "staff_shaper", elder = "staff_elder", adjudicator = "staff_adjudicator", basilisk = "staff_basilisk", crusader = "staff_crusader", eyrie = "staff_eyrie", },
+	["Two Handed Sword"] = { shaper = "2h_sword_shaper", elder = "2h_sword_elder", adjudicator = "2h_sword_adjudicator", basilisk = "2h_sword_basilisk", crusader = "2h_sword_crusader", eyrie = "2h_sword_eyrie", },
+	["Two Handed Axe"] = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", },
+	["Two Handed Mace"] = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", },
+	["Quiver"] = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", },
+	["Belt"] = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", },
+	["Gloves"] = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", },
+	["Boots"] = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", },
+	["Body Armour"] = { shaper = "body_armour_shaper", elder = "body_armour_elder", adjudicator = "body_armour_adjudicator", basilisk = "body_armour_basilisk", crusader = "body_armour_crusader", eyrie = "body_armour_eyrie", },
+	["Helmet"] = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", },
+	["Shield"] = { shaper = "shield_shaper", elder = "shield_elder", adjudicator = "shield_adjudicator", basilisk = "shield_basilisk", crusader = "shield_crusader", eyrie = "shield_eyrie", },
+	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
 }
 
 -- Uniques
@@ -279,7 +280,7 @@ for _, targetVersion in ipairs(targetVersionList) do
 			gem.grantedEffect,
 			gem.secondaryGrantedEffect
 		}
-		gem.defaultLevel = (#gem.grantedEffect.levels > 20 and #gem.grantedEffect.levels - 20) or (gem.grantedEffect.levels[3][1] and 3) or 1
+		gem.defaultLevel = gem.defaultLevel or (#gem.grantedEffect.levels > 20 and #gem.grantedEffect.levels - 20) or (gem.grantedEffect.levels[3][1] and 3) or 1
 	end
 
 	-- Load minions

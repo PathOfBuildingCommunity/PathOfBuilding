@@ -415,11 +415,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local stat = m_max(node.power.singleStat or 0, 0)
 					local statCol = (stat / build.calcsTab.powerMax.singleStat * 1.5) ^ 0.5
 					if main.nodePowerTheme == "RED/BLUE" then
-						SetDrawColor(0, statCol, 0)
-					elseif main.nodePowerTheme == "RED/GREEN" then
-						SetDrawColor(0, 0, statCol)
-					elseif main.nodePowerTheme == "GREEN/BLUE" then
 						SetDrawColor(statCol, 0, 0)
+					elseif main.nodePowerTheme == "RED/GREEN" then
+						SetDrawColor(0, statCol, 0)
+					elseif main.nodePowerTheme == "GREEN/BLUE" then
+						SetDrawColor(0, 0, statCol)
 					end
 				else
 					-- Calculate color based on DPS and defensive powers

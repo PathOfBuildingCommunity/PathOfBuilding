@@ -17,6 +17,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalFireball"] = {
 		name = "Vaal Fireball",
@@ -35,6 +36,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemIceNova"] = {
 		name = "Ice Nova",
@@ -45,11 +47,13 @@ return {
 			spell = true,
 			area = true,
 			cold = true,
+			nova = true,
 		},
-		tagString = "Spell, AoE, Cold",
+		tagString = "Spell, AoE, Cold, Nova",
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalIceNova"] = {
 		name = "Vaal Ice Nova",
@@ -62,11 +66,13 @@ return {
 			spell = true,
 			area = true,
 			cold = true,
+			nova = true,
 		},
-		tagString = "Vaal, Spell, AoE, Cold",
+		tagString = "Vaal, Spell, AoE, Cold, Nova",
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemLeapSlam"] = {
 		name = "Leap Slam",
@@ -84,6 +90,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemChargedDash"] = {
 		name = "Charged Dash",
@@ -102,6 +109,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemChargedAttack"] = {
 		name = "Blade Flurry",
@@ -119,6 +127,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSweep"] = {
 		name = "Sweep",
@@ -135,6 +144,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemGroundSlam"] = {
 		name = "Ground Slam",
@@ -151,6 +161,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalGroundSlam"] = {
 		name = "Vaal Ground Slam",
@@ -169,6 +180,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemCleave"] = {
 		name = "Cleave",
@@ -185,6 +197,7 @@ return {
 		reqStr = 60,
 		reqDex = 40,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemShieldCharge"] = {
 		name = "Shield Charge",
@@ -202,6 +215,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemEnduringCry"] = {
 		name = "Enduring Cry",
@@ -217,6 +231,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDoubleStrike"] = {
 		name = "Double Strike",
@@ -233,6 +248,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalDoubleStrike"] = {
 		name = "Vaal Double Strike",
@@ -252,6 +268,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemLacerate"] = {
 		name = "Lacerate",
@@ -268,6 +285,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemElementalHit"] = {
 		name = "Elemental Hit",
@@ -289,6 +307,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemImmortalCall"] = {
 		name = "Immortal Call",
@@ -304,6 +323,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalImmortalCall"] = {
 		name = "Vaal Immortal Call",
@@ -321,6 +341,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDualStrike"] = {
 		name = "Dual Strike",
@@ -336,6 +357,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemWhirlingBlades"] = {
 		name = "Whirling Blades",
@@ -352,6 +374,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFrenzy"] = {
 		name = "Frenzy",
@@ -369,6 +392,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDetonateDead"] = {
 		name = "Detonate Dead",
@@ -384,6 +408,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalDetonateDead"] = {
 		name = "Vaal Detonate Dead",
@@ -401,6 +426,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVolatileDead"] = {
 		name = "Volatile Dead",
@@ -416,6 +442,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemBoneLance"] = {
 		name = "Unearth",
@@ -432,6 +459,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSplitArrow"] = {
 		name = "Split Arrow",
@@ -441,12 +469,14 @@ return {
 			active_skill = true,
 			attack = true,
 			projectile = true,
+			physical = true,
 			bow = true,
 		},
-		tagString = "Attack, Projectile, Bow",
+		tagString = "Attack, Projectile, Physical, Bow",
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemAddedFireDamage"] = {
 		name = "Added Fire Damage",
@@ -461,6 +491,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemFasterAttack"] = {
 		name = "Faster Attacks",
@@ -474,6 +505,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemGreaterMultipleProjectiles"] = {
 		name = "Greater Multiple Projectiles",
@@ -487,6 +519,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemLesserMultipleProjectiles"] = {
 		name = "Lesser Multiple Projectiles",
@@ -500,6 +533,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemFasterProjectiles"] = {
 		name = "Faster Projectiles",
@@ -513,6 +547,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemAddedColdDamage"] = {
 		name = "Added Cold Damage",
@@ -526,6 +561,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemAdditionalAccuracy"] = {
 		name = "Additional Accuracy",
@@ -539,6 +575,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemIncreasedAreaOfEffect"] = {
 		name = "Increased Area of Effect",
@@ -552,6 +589,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemAddedLightningDamage"] = {
 		name = "Added Lightning Damage",
@@ -565,6 +603,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemColdSnap"] = {
 		name = "Cold Snap",
@@ -581,6 +620,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalColdSnap"] = {
 		name = "Vaal Cold Snap",
@@ -599,6 +639,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemRaiseZombie"] = {
 		name = "Raise Zombie",
@@ -613,6 +654,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemPoisonArrow"] = {
 		name = "Caustic Arrow",
@@ -631,6 +673,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemBloodRage"] = {
 		name = "Blood Rage",
@@ -646,6 +689,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemRighteousFire"] = {
 		name = "Righteous Fire",
@@ -661,6 +705,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalRighteousFire"] = {
 		name = "Vaal Righteous Fire",
@@ -679,6 +724,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDischarge"] = {
 		name = "Discharge",
@@ -691,11 +737,13 @@ return {
 			fire = true,
 			cold = true,
 			lightning = true,
+			nova = true,
 		},
-		tagString = "Spell, AoE, Fire, Cold, Lightning",
+		tagString = "Spell, AoE, Fire, Cold, Lightning, Nova",
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemPortal"] = {
 		name = "Portal",
@@ -709,6 +757,7 @@ return {
 		reqStr = 33,
 		reqDex = 33,
 		reqInt = 34,
+		defaultLevel = 1,
 	},
 	["Metadata/Items/Gems/SkillGemVaalPortal"] = {
 		name = "Vaal Breach",
@@ -724,6 +773,7 @@ return {
 		reqStr = 33,
 		reqDex = 33,
 		reqInt = 34,
+		defaultLevel = 1,
 	},
 	["Metadata/Items/Gems/SupportGemReducedMana"] = {
 		name = "Inspiration",
@@ -736,6 +786,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemIncreasedCriticalStrikes"] = {
 		name = "Increased Critical Strikes",
@@ -748,6 +799,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemIncreasedCriticalDamage"] = {
 		name = "Increased Critical Damage",
@@ -760,6 +812,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemKnockback"] = {
 		name = "Knockback",
@@ -772,6 +825,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemLifeLeech"] = {
 		name = "Life Leech",
@@ -784,6 +838,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemManaLeech"] = {
 		name = "Mana Leech",
@@ -796,6 +851,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemAddedChaosDamage"] = {
 		name = "Added Chaos Damage",
@@ -809,6 +865,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFlickerStrike"] = {
 		name = "Flicker Strike",
@@ -826,6 +883,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSpark"] = {
 		name = "Spark",
@@ -842,6 +900,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalSpark"] = {
 		name = "Vaal Spark",
@@ -860,6 +919,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemStun"] = {
 		name = "Stun",
@@ -872,6 +932,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemIceSpear"] = {
 		name = "Ice Spear",
@@ -887,6 +948,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemPierce"] = {
 		name = "Pierce",
@@ -900,6 +962,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemTrap"] = {
 		name = "Trap",
@@ -913,6 +976,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemRaiseSpectre"] = {
 		name = "Raise Spectre",
@@ -927,6 +991,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemInfernalBlow"] = {
 		name = "Infernal Blow",
@@ -945,6 +1010,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemGlacialHammer"] = {
 		name = "Glacial Hammer",
@@ -961,6 +1027,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalGlacialHammer"] = {
 		name = "Vaal Glacial Hammer",
@@ -981,6 +1048,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFrostWall"] = {
 		name = "Frost Wall",
@@ -996,6 +1064,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFreezingPulse"] = {
 		name = "Freezing Pulse",
@@ -1011,6 +1080,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemShockNova"] = {
 		name = "Shock Nova",
@@ -1021,11 +1091,13 @@ return {
 			spell = true,
 			area = true,
 			lightning = true,
+			nova = true,
 		},
-		tagString = "Spell, AoE, Lightning",
+		tagString = "Spell, AoE, Lightning, Nova",
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemViperStrike"] = {
 		name = "Viper Strike",
@@ -1043,6 +1115,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemNewPhaseRun"] = {
 		name = "Phase Run",
@@ -1060,6 +1133,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemMeleePhysicalDamage"] = {
 		name = "Melee Physical Damage",
@@ -1075,6 +1149,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemItemQuantity"] = {
 		name = "Item Quantity",
@@ -1087,6 +1162,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemItemRarity"] = {
 		name = "Item Rarity",
@@ -1099,6 +1175,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemFasterCast"] = {
 		name = "Faster Casting",
@@ -1112,6 +1189,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemExplosiveArrow"] = {
 		name = "Explosive Arrow",
@@ -1130,6 +1208,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemTemporalChains"] = {
 		name = "Temporal Chains",
@@ -1146,6 +1225,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemElementalWeakness"] = {
 		name = "Elemental Weakness",
@@ -1162,6 +1242,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemWarlordsMark"] = {
 		name = "Warlord's Mark",
@@ -1178,6 +1259,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemPunishment"] = {
 		name = "Punishment",
@@ -1195,6 +1277,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemEnfeeble"] = {
 		name = "Enfeeble",
@@ -1211,6 +1294,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemCriticalWeakness"] = {
 		name = "Assassin's Mark",
@@ -1227,6 +1311,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemProjectileWeakness"] = {
 		name = "Projectile Weakness",
@@ -1243,6 +1328,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVulnerability"] = {
 		name = "Despair",
@@ -1260,6 +1346,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemLightningWarp"] = {
 		name = "Lightning Warp",
@@ -1278,6 +1365,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalLightningWarp"] = {
 		name = "Vaal Lightning Warp",
@@ -1298,6 +1386,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSummonSkeletons"] = {
 		name = "Summon Skeletons",
@@ -1313,6 +1402,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalSummonSkeletons"] = {
 		name = "Vaal Summon Skeletons",
@@ -1330,6 +1420,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemHeavyStrike"] = {
 		name = "Heavy Strike",
@@ -1345,6 +1436,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDominatingBlow"] = {
 		name = "Dominating Blow",
@@ -1362,6 +1454,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemRainOfArrows"] = {
 		name = "Rain of Arrows",
@@ -1378,6 +1471,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalRainOfArrows"] = {
 		name = "Vaal Rain of Arrows",
@@ -1396,6 +1490,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemConcentratedEffect"] = {
 		name = "Concentrated Effect",
@@ -1409,6 +1504,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemMinionDamage"] = {
 		name = "Minion Damage",
@@ -1422,6 +1518,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemIncreasedDuration"] = {
 		name = "Increased Duration",
@@ -1435,6 +1532,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemColdToFire"] = {
 		name = "Cold to Fire",
@@ -1449,6 +1547,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemChanceToIgnite"] = {
 		name = "Combustion",
@@ -1462,6 +1561,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemMinionSpeed"] = {
 		name = "Minion Speed",
@@ -1476,6 +1576,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemMinionLife"] = {
 		name = "Minion Life",
@@ -1489,6 +1590,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemWeaponElementalDamage"] = {
 		name = "Elemental Damage with Attacks",
@@ -1502,6 +1604,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemBloodlust"] = {
 		name = "Bloodlust",
@@ -1517,6 +1620,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemLifeGainOnHit"] = {
 		name = "Life Gain on Hit",
@@ -1530,6 +1634,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFirestorm"] = {
 		name = "Firestorm",
@@ -1546,6 +1651,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemLightningStrike"] = {
 		name = "Lightning Strike",
@@ -1563,6 +1669,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalLightningStrike"] = {
 		name = "Vaal Lightning Strike",
@@ -1583,6 +1690,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemTempestShield"] = {
 		name = "Tempest Shield",
@@ -1599,6 +1707,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemMoltenShell"] = {
 		name = "Molten Shell",
@@ -1617,6 +1726,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalMoltenShell"] = {
 		name = "Vaal Molten Shell",
@@ -1637,6 +1747,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemPowerSiphon"] = {
 		name = "Power Siphon",
@@ -1651,6 +1762,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalPowerSiphon"] = {
 		name = "Vaal Power Siphon",
@@ -1667,6 +1779,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemPuncture"] = {
 		name = "Puncture",
@@ -1686,6 +1799,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemLightningArrow"] = {
 		name = "Lightning Arrow",
@@ -1703,6 +1817,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemHaste"] = {
 		name = "Haste",
@@ -1718,6 +1833,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalHaste"] = {
 		name = "Vaal Haste",
@@ -1736,6 +1852,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemPurity"] = {
 		name = "Purity of Elements",
@@ -1751,6 +1868,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVitality"] = {
 		name = "Vitality",
@@ -1766,6 +1884,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDiscipline"] = {
 		name = "Discipline",
@@ -1781,6 +1900,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalDiscipline"] = {
 		name = "Vaal Discipline",
@@ -1799,6 +1919,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemGrace"] = {
 		name = "Grace",
@@ -1814,6 +1935,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalGrace"] = {
 		name = "Vaal Grace",
@@ -1832,6 +1954,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDetermination"] = {
 		name = "Determination",
@@ -1848,6 +1971,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemAnger"] = {
 		name = "Anger",
@@ -1864,6 +1988,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemHatred"] = {
 		name = "Hatred",
@@ -1880,6 +2005,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemWrath"] = {
 		name = "Wrath",
@@ -1896,6 +2022,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemBurningArrow"] = {
 		name = "Burning Arrow",
@@ -1906,12 +2033,14 @@ return {
 			attack = true,
 			projectile = true,
 			fire = true,
+			duration = true,
 			bow = true,
 		},
-		tagString = "Attack, Projectile, Fire, Bow",
+		tagString = "Attack, Projectile, Fire, Duration, Bow",
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalBurningArrow"] = {
 		name = "Vaal Burning Arrow",
@@ -1926,11 +2055,13 @@ return {
 			area = true,
 			fire = true,
 			bow = true,
+			duration = true,
 		},
-		tagString = "Vaal, Attack, Projectile, AoE, Fire, Bow",
+		tagString = "Vaal, Attack, Projectile, AoE, Fire, Bow, Duration",
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemElementalProliferation"] = {
 		name = "Elemental Proliferation",
@@ -1947,6 +2078,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemBloodMagic"] = {
 		name = "Blood Magic",
@@ -1959,6 +2091,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemClarity"] = {
 		name = "Clarity",
@@ -1974,6 +2107,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalClarity"] = {
 		name = "Vaal Clarity",
@@ -1992,6 +2126,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemCullingStrike"] = {
 		name = "Culling Strike",
@@ -2004,6 +2139,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemPointBlank"] = {
 		name = "Point Blank",
@@ -2018,6 +2154,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemIronGrip"] = {
 		name = "Iron Grip",
@@ -2032,6 +2169,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemIronWill"] = {
 		name = "Iron Will",
@@ -2045,6 +2183,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemMeleeDamageOnFullLife"] = {
 		name = "Damage on Full Life",
@@ -2058,6 +2197,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemSpellTotem"] = {
 		name = "Spell Totem",
@@ -2072,6 +2212,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemRemoteMine"] = {
 		name = "Blastchain Mine",
@@ -2085,6 +2226,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDetonateMines"] = {
 		name = "Detonate Mines",
@@ -2099,6 +2241,7 @@ return {
 		reqStr = 33,
 		reqDex = 33,
 		reqInt = 34,
+		defaultLevel = 1,
 	},
 	["Metadata/Items/Gems/SkillGemShockwaveTotem"] = {
 		name = "Shockwave Totem",
@@ -2110,11 +2253,13 @@ return {
 			spell = true,
 			area = true,
 			physical = true,
+			nova = true,
 		},
-		tagString = "Totem, Spell, AoE, Physical",
+		tagString = "Totem, Spell, AoE, Physical, Nova",
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemRejuvenationTotem"] = {
 		name = "Rejuvenation Totem",
@@ -2131,6 +2276,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFreezeMine"] = {
 		name = "Icicle Mine",
@@ -2149,6 +2295,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemConversionTrap"] = {
 		name = "Conversion Trap",
@@ -2164,6 +2311,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemBearTrap"] = {
 		name = "Bear Trap",
@@ -2180,6 +2328,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemChanceToFlee"] = {
 		name = "Chance to Flee",
@@ -2192,6 +2341,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFireTrap"] = {
 		name = "Fire Trap",
@@ -2209,6 +2359,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDecoyTotem"] = {
 		name = "Decoy Totem",
@@ -2224,6 +2375,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDevouringTotem"] = {
 		name = "Devouring Totem",
@@ -2238,6 +2390,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemEtherealKnives"] = {
 		name = "Ethereal Knives",
@@ -2253,6 +2406,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemBlind"] = {
 		name = "Blind",
@@ -2265,6 +2419,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemIceShot"] = {
 		name = "Ice Shot",
@@ -2275,14 +2430,14 @@ return {
 			attack = true,
 			projectile = true,
 			area = true,
-			duration = true,
 			cold = true,
 			bow = true,
 		},
-		tagString = "Attack, Projectile, AoE, Duration, Cold, Bow",
+		tagString = "Attack, Projectile, AoE, Cold, Bow",
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemArcticBreath"] = {
 		name = "Arctic Breath",
@@ -2300,6 +2455,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemArc"] = {
 		name = "Arc",
@@ -2315,6 +2471,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalArc"] = {
 		name = "Vaal Arc",
@@ -2333,6 +2490,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemNewArcticArmour"] = {
 		name = "Arctic Armour",
@@ -2348,6 +2506,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFlameTotem"] = {
 		name = "Holy Flame Totem",
@@ -2366,9 +2525,10 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemRangedAttackTotem"] = {
-		name = "Ranged Attack Totem",
+		name = "Ballista Totem",
 		grantedEffectId = "SupportRangedAttackTotem",
 		tags = {
 			bow = true,
@@ -2381,6 +2541,7 @@ return {
 		reqStr = 60,
 		reqDex = 40,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemFirePenetration"] = {
 		name = "Fire Penetration",
@@ -2394,6 +2555,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemColdPenetration"] = {
 		name = "Cold Penetration",
@@ -2407,6 +2569,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemLightningPenetration"] = {
 		name = "Lightning Penetration",
@@ -2420,6 +2583,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemChain"] = {
 		name = "Chain",
@@ -2434,6 +2598,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemFork"] = {
 		name = "Fork",
@@ -2447,6 +2612,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFlammability"] = {
 		name = "Flammability",
@@ -2464,6 +2630,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFrostbite"] = {
 		name = "Frostbite",
@@ -2481,6 +2648,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemConductivity"] = {
 		name = "Conductivity",
@@ -2498,6 +2666,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemStormBurst"] = {
 		name = "Storm Burst",
@@ -2516,6 +2685,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemIncinerate"] = {
 		name = "Incinerate",
@@ -2532,6 +2702,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemCyclone"] = {
 		name = "Cyclone",
@@ -2550,6 +2721,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalCyclone"] = {
 		name = "Vaal Cyclone",
@@ -2571,6 +2743,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemMultistrike"] = {
 		name = "Multistrike",
@@ -2585,6 +2758,7 @@ return {
 		reqStr = 60,
 		reqDex = 40,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemMulticast"] = {
 		name = "Spell Echo",
@@ -2598,6 +2772,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemMeleeSplash"] = {
 		name = "Melee Splash",
@@ -2614,6 +2789,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemPowerChargeOnCrit"] = {
 		name = "Power Charge On Critical",
@@ -2626,21 +2802,23 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSearingBond"] = {
 		name = "Searing Bond",
 		grantedEffectId = "SearingBond",
 		tags = {
-			totem = true,
 			strength = true,
 			active_skill = true,
 			spell = true,
+			totem = true,
 			fire = true,
 		},
-		tagString = "Totem, Spell, Fire",
+		tagString = "Spell, Totem, Fire",
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemIncreasedBurningDamage"] = {
 		name = "Burning Damage",
@@ -2654,6 +2832,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemSummonElementalResistance"] = {
 		name = "Elemental Army",
@@ -2667,6 +2846,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemCurseOnHit"] = {
 		name = "Curse On Hit",
@@ -2681,6 +2861,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemReave"] = {
 		name = "Reave",
@@ -2696,6 +2877,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalReave"] = {
 		name = "Vaal Reave",
@@ -2713,6 +2895,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemCastOnCrit"] = {
 		name = "Cast On Critical Strike",
@@ -2728,6 +2911,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemCastOnKill"] = {
 		name = "Cast on Melee Kill",
@@ -2745,6 +2929,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemMultiTrap"] = {
 		name = "Multiple Traps",
@@ -2758,6 +2943,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemAdditionalLevel"] = {
 		name = "Empower",
@@ -2771,6 +2957,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 3,
 	},
 	["Metadata/Items/Gems/SkillGemLightningTrap"] = {
 		name = "Lightning Trap",
@@ -2787,6 +2974,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalLightningTrap"] = {
 		name = "Vaal Lightning Trap",
@@ -2806,6 +2994,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSmokeMine"] = {
 		name = "Smoke Mine",
@@ -2825,6 +3014,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemEnduranceChargeOnMeleeStun"] = {
 		name = "Endurance Charge on Melee Stun",
@@ -2839,6 +3029,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemAnimateArmour"] = {
 		name = "Animate Guardian",
@@ -2853,6 +3044,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemThrownShieldProjectile"] = {
 		name = "Spectral Shield Throw",
@@ -2868,6 +3060,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemThrownWeapon"] = {
 		name = "Spectral Throw",
@@ -2882,6 +3075,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalThrownWeapon"] = {
 		name = "Vaal Spectral Throw",
@@ -2898,6 +3092,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemSlowerProjectiles"] = {
 		name = "Slower Projectiles",
@@ -2911,6 +3106,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemReducedDuration"] = {
 		name = "Less Duration",
@@ -2924,6 +3120,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemCastOnDeath"] = {
 		name = "Cast on Death",
@@ -2938,6 +3135,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemCastOnDamageTaken"] = {
 		name = "Cast when Damage Taken",
@@ -2952,6 +3150,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemCastOnStunned"] = {
 		name = "Cast when Stunned",
@@ -2966,6 +3165,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemAnimateWeapon"] = {
 		name = "Animate Weapon",
@@ -2981,6 +3181,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemAdditionalQuality"] = {
 		name = "Enhance",
@@ -2994,6 +3195,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 3,
 	},
 	["Metadata/Items/Gems/SkillGemFireResistAura"] = {
 		name = "Purity of Fire",
@@ -3010,6 +3212,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalFireResistAura"] = {
 		name = "Vaal Impurity of Fire",
@@ -3029,6 +3232,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemColdResistAura"] = {
 		name = "Purity of Ice",
@@ -3045,6 +3249,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalColdResistAura"] = {
 		name = "Vaal Impurity of Ice",
@@ -3064,6 +3269,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemLightningResistAura"] = {
 		name = "Purity of Lightning",
@@ -3080,6 +3286,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalLightningResistAura"] = {
 		name = "Vaal Impurity of Lightning",
@@ -3099,6 +3306,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemStormCall"] = {
 		name = "Storm Call",
@@ -3115,6 +3323,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalStormCall"] = {
 		name = "Vaal Storm Call",
@@ -3133,6 +3342,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFlameblast"] = {
 		name = "Flameblast",
@@ -3149,6 +3359,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalFlameblast"] = {
 		name = "Vaal Flameblast",
@@ -3167,6 +3378,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemBarrage"] = {
 		name = "Barrage",
@@ -3182,6 +3394,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemBallLightning"] = {
 		name = "Ball Lightning",
@@ -3198,6 +3411,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemPhysicalProjectileAttackDamage"] = {
 		name = "Vicious Projectiles",
@@ -3214,6 +3428,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSummonRagingSpirit"] = {
 		name = "Summon Raging Spirit",
@@ -3230,6 +3445,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFlameWhip"] = {
 		name = "Flame Surge",
@@ -3245,6 +3461,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemAdditionalXP"] = {
 		name = "Enlighten",
@@ -3258,6 +3475,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 3,
 	},
 	["Metadata/Items/Gems/SkillGemDesecrate"] = {
 		name = "Desecrate",
@@ -3274,6 +3492,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFleshOffering"] = {
 		name = "Flesh Offering",
@@ -3289,6 +3508,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemBoneOffering"] = {
 		name = "Bone Offering",
@@ -3304,6 +3524,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSpiritOffering"] = {
 		name = "Spirit Offering",
@@ -3320,6 +3541,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemGlacialCascade"] = {
 		name = "Glacial Cascade",
@@ -3336,6 +3558,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemBlockChanceReduction"] = {
 		name = "Block Chance Reduction",
@@ -3349,6 +3572,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemMoltenStrike"] = {
 		name = "Molten Strike",
@@ -3367,6 +3591,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemConvocation"] = {
 		name = "Convocation",
@@ -3382,6 +3607,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFireNovaMine"] = {
 		name = "Pyroclast Mine",
@@ -3395,11 +3621,13 @@ return {
 			fire = true,
 			area = true,
 			aura = true,
+			nova = true,
 		},
-		tagString = "Mine, Spell, Projectile, Fire, AoE, Aura",
+		tagString = "Mine, Spell, Projectile, Fire, AoE, Aura, Nova",
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemTornadoShot"] = {
 		name = "Tornado Shot",
@@ -3415,6 +3643,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemGenerosity"] = {
 		name = "Generosity",
@@ -3428,6 +3657,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemHeraldOfAsh"] = {
 		name = "Herald of Ash",
@@ -3445,6 +3675,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemHeraldOfIce"] = {
 		name = "Herald of Ice",
@@ -3461,6 +3692,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemHeraldOfThunder"] = {
 		name = "Herald of Thunder",
@@ -3478,6 +3710,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/HeraldOfAgony"] = {
 		name = "Herald of Agony",
@@ -3495,6 +3728,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/HeraldOfPurity"] = {
 		name = "Herald of Purity",
@@ -3512,6 +3746,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemPoachersMark"] = {
 		name = "Poacher's Mark",
@@ -3528,6 +3763,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemLightningTendrils"] = {
 		name = "Lightning Tendrils",
@@ -3544,6 +3780,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemKineticBlast"] = {
 		name = "Kinetic Blast",
@@ -3559,6 +3796,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemBlinkArrow"] = {
 		name = "Blink Arrow",
@@ -3577,6 +3815,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemMirrorArrow"] = {
 		name = "Mirror Arrow",
@@ -3587,12 +3826,15 @@ return {
 			attack = true,
 			minion = true,
 			duration = true,
+			movement = true,
+			travel = true,
 			bow = true,
 		},
-		tagString = "Attack, Minion, Duration, Bow",
+		tagString = "Attack, Minion, Duration, Movement, Travel, Bow",
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemRiposte"] = {
 		name = "Riposte",
@@ -3610,6 +3852,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemReckoning"] = {
 		name = "Reckoning",
@@ -3627,6 +3870,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemStaticStrike"] = {
 		name = "Static Strike",
@@ -3646,6 +3890,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemPhysicalToLightning"] = {
 		name = "Physical to Lightning",
@@ -3660,6 +3905,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVengeance"] = {
 		name = "Vengeance",
@@ -3677,6 +3923,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSummonChaosGolem"] = {
 		name = "Summon Chaos Golem",
@@ -3693,6 +3940,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSummonIceGolem"] = {
 		name = "Summon Ice Golem",
@@ -3709,6 +3957,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSummonFlameGolem"] = {
 		name = "Summon Flame Golem",
@@ -3725,6 +3974,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSummonLightningGolem"] = {
 		name = "Summon Lightning Golem",
@@ -3741,6 +3991,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemBlasphemy"] = {
 		name = "Blasphemy",
@@ -3754,6 +4005,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemIceCrash"] = {
 		name = "Ice Crash",
@@ -3770,6 +4022,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemRallyingCry"] = {
 		name = "Rallying Cry",
@@ -3785,6 +4038,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemAbyssalCry"] = {
 		name = "Abyssal Cry",
@@ -3801,6 +4055,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFlameDash"] = {
 		name = "Flame Dash",
@@ -3819,6 +4074,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVigilantStrike"] = {
 		name = "Vigilant Strike",
@@ -3834,6 +4090,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemFortify"] = {
 		name = "Fortify",
@@ -3848,6 +4105,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFrostBlades"] = {
 		name = "Frost Blades",
@@ -3865,6 +4123,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemFrenzyChargeOnSlayingFrozenEnemy"] = {
 		name = "Ice Bite",
@@ -3878,6 +4137,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemDamageAgainstChilled"] = {
 		name = "Hypothermia",
@@ -3891,6 +4151,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemOnslaughtOnSlayingShockedEnemy"] = {
 		name = "Innervate",
@@ -3905,6 +4166,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemMagmaOrb"] = {
 		name = "Magma Orb",
@@ -3922,6 +4184,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemTrapAndMineDamage"] = {
 		name = "Trap and Mine Damage",
@@ -3936,6 +4199,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemWildStrike"] = {
 		name = "Wild Strike",
@@ -3957,6 +4221,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemIceTrap"] = {
 		name = "Ice Trap",
@@ -3973,6 +4238,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemBlastRain"] = {
 		name = "Blast Rain",
@@ -3983,15 +4249,17 @@ return {
 			active_skill = true,
 			attack = true,
 			area = true,
+			projectile = true,
 			bow = true,
 		},
-		tagString = "Fire, Attack, AoE, Bow",
+		tagString = "Fire, Attack, AoE, Projectile, Bow",
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemShrapnelShot"] = {
-		name = "Shrapnel Shot",
+		name = "Galvanic Arrow",
 		grantedEffectId = "ShrapnelShot",
 		tags = {
 			lightning = true,
@@ -4006,6 +4274,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemBladefall"] = {
 		name = "Bladefall",
@@ -4021,6 +4290,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemBladeVortex"] = {
 		name = "Blade Vortex",
@@ -4037,6 +4307,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalBladeVortex"] = {
 		name = "Vaal Blade Vortex",
@@ -4055,6 +4326,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFrostBomb"] = {
 		name = "Frost Bomb",
@@ -4071,22 +4343,24 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSiegeBallista"] = {
 		name = "Siege Ballista",
 		grantedEffectId = "SiegeBallista",
 		tags = {
-			totem = true,
 			dexterity = true,
 			active_skill = true,
 			attack = true,
 			projectile = true,
+			totem = true,
 			bow = true,
 		},
-		tagString = "Totem, Attack, Projectile, Bow",
+		tagString = "Attack, Projectile, Totem, Bow",
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemOrbOfStorms"] = {
 		name = "Orb of Storms",
@@ -4104,6 +4378,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSummonRockGolem"] = {
 		name = "Summon Stone Golem",
@@ -4120,6 +4395,7 @@ return {
 		reqStr = 60,
 		reqDex = 40,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemEarthquake"] = {
 		name = "Earthquake",
@@ -4136,6 +4412,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemPoison"] = {
 		name = "Poison",
@@ -4149,6 +4426,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemContagion"] = {
 		name = "Contagion",
@@ -4165,6 +4443,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemWither"] = {
 		name = "Wither",
@@ -4182,6 +4461,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemBlight"] = {
 		name = "Blight",
@@ -4199,6 +4479,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemEssenceDrain"] = {
 		name = "Essence Drain",
@@ -4216,6 +4497,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemVoidManipulation"] = {
 		name = "Void Manipulation",
@@ -4229,6 +4511,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemControlledDestruction"] = {
 		name = "Controlled Destruction",
@@ -4242,6 +4525,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemRapidDecay"] = {
 		name = "Swift Affliction",
@@ -4255,6 +4539,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemClusterTrap"] = {
 		name = "Cluster Traps",
@@ -4268,38 +4553,41 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemMeleeTotem"] = {
 		name = "Ancestral Protector",
 		grantedEffectId = "TotemMelee",
 		tags = {
-			totem = true,
 			strength = true,
 			active_skill = true,
 			attack = true,
+			totem = true,
 			melee = true,
 			strike = true,
 		},
-		tagString = "Totem, Attack, Melee, Strike",
+		tagString = "Attack, Totem, Melee, Strike",
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemAncestralWarchief"] = {
 		name = "Ancestral Warchief",
 		grantedEffectId = "AncestorTotemSlam",
 		tags = {
-			totem = true,
 			strength = true,
 			active_skill = true,
 			attack = true,
+			totem = true,
 			area = true,
 			melee = true,
 		},
-		tagString = "Totem, Attack, AoE, Melee",
+		tagString = "Attack, Totem, AoE, Melee",
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSunder"] = {
 		name = "Sunder",
@@ -4315,6 +4603,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFrostBolt"] = {
 		name = "Frostbolt",
@@ -4330,6 +4619,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFrostBoltNova"] = {
 		name = "Vortex",
@@ -4341,11 +4631,13 @@ return {
 			area = true,
 			cold = true,
 			duration = true,
+			nova = true,
 		},
-		tagString = "Spell, AoE, Cold, Duration",
+		tagString = "Spell, AoE, Cold, Duration, Nova",
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemElementalFocus"] = {
 		name = "Elemental Focus",
@@ -4358,6 +4650,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemMinefield"] = {
 		name = "Minefield",
@@ -4371,6 +4664,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemTrapCooldown"] = {
 		name = "Advanced Traps",
@@ -4384,6 +4678,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDarkPact"] = {
 		name = "Dark Pact",
@@ -4396,11 +4691,13 @@ return {
 			area = true,
 			chaining = true,
 			chaos = true,
+			nova = true,
 		},
-		tagString = "Minion, Spell, AoE, Chaining, Chaos",
+		tagString = "Minion, Spell, AoE, Chaining, Chaos, Nova",
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFireBeam"] = {
 		name = "Scorching Ray",
@@ -4417,6 +4714,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemCastWhileChannelling"] = {
 		name = "Cast while Channelling",
@@ -4433,6 +4731,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemIgniteProliferation"] = {
 		name = "Ignite Proliferation",
@@ -4447,6 +4746,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemChanceToBleed"] = {
 		name = "Chance to Bleed",
@@ -4461,6 +4761,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemLesserPoison"] = {
 		name = "Lesser Poison",
@@ -4474,6 +4775,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemDeadlyAilments"] = {
 		name = "Deadly Ailments",
@@ -4486,6 +4788,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemDecay"] = {
 		name = "Decay",
@@ -4499,6 +4802,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemEfficacy"] = {
 		name = "Efficacy",
@@ -4512,6 +4816,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemVileToxins"] = {
 		name = "Vile Toxins",
@@ -4524,6 +4829,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemMaim"] = {
 		name = "Maim",
@@ -4538,6 +4844,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemImmolate"] = {
 		name = "Immolate",
@@ -4551,6 +4858,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemUnboundAilments"] = {
 		name = "Unbound Ailments",
@@ -4563,6 +4871,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemBrutality"] = {
 		name = "Brutality",
@@ -4576,6 +4885,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemRuthless"] = {
 		name = "Ruthless",
@@ -4590,6 +4900,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemOnslaught"] = {
 		name = "Onslaught",
@@ -4602,6 +4913,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemArcaneSurge"] = {
 		name = "Arcane Surge",
@@ -4616,6 +4928,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemCorpseEruption"] = {
 		name = "Cremation",
@@ -4633,6 +4946,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemCorpseWarp"] = {
 		name = "Bodyswap",
@@ -4650,6 +4964,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemTectonicSlam"] = {
 		name = "Tectonic Slam",
@@ -4666,6 +4981,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemStormBarrier"] = {
 		name = "Infused Channelling",
@@ -4680,6 +4996,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemParallelProjectiles"] = {
 		name = "Volley",
@@ -4693,6 +5010,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemSpellCascade"] = {
 		name = "Spell Cascade",
@@ -4707,6 +5025,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemSpiritStrike"] = {
 		name = "Ancestral Call",
@@ -4722,6 +5041,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemSummonGhostOnKill"] = {
 		name = "Summon Phantasm",
@@ -4735,6 +5055,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemMirageArcher"] = {
 		name = "Mirage Archer",
@@ -4750,6 +5071,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemNewVulnerability"] = {
 		name = "Vulnerability",
@@ -4767,6 +5089,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemShrapnelTrap"] = {
 		name = "Explosive Trap",
@@ -4784,6 +5107,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemIceSiphonTrap"] = {
 		name = "Siphoning Trap",
@@ -4801,6 +5125,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFlamethrowerTrap"] = {
 		name = "Flamethrower Trap",
@@ -4818,6 +5143,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemLightningTowerTrap"] = {
 		name = "Lightning Spire Trap",
@@ -4835,6 +5161,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemPhysCascadeTrap"] = {
 		name = "Seismic Trap",
@@ -4852,6 +5179,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalEarthquake"] = {
 		name = "Vaal Earthquake",
@@ -4870,6 +5198,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVaalBlight"] = {
 		name = "Vaal Blight",
@@ -4883,12 +5212,14 @@ return {
 			chaos = true,
 			area = true,
 			duration = true,
+			nova = true,
 			channelling = true,
 		},
-		tagString = "Vaal, Spell, Chaos, AoE, Duration, Channelling",
+		tagString = "Vaal, Spell, Chaos, AoE, Duration, Nova, Channelling",
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemFrenzyPowerOnTrapTrigger"] = {
 		name = "Charged Traps",
@@ -4902,6 +5233,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemChargedMines"] = {
 		name = "Charged Mines",
@@ -4915,24 +5247,26 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/VaalAncestralWarchief"] = {
 		name = "Vaal Ancestral Warchief",
 		grantedEffectId = "VaalAncestralWarchief",
 		secondaryGrantedEffectId = "AncestorTotemSlam",
 		tags = {
-			totem = true,
 			strength = true,
 			active_skill = true,
 			vaal = true,
 			attack = true,
+			totem = true,
 			area = true,
 			melee = true,
 		},
-		tagString = "Totem, Vaal, Attack, AoE, Melee",
+		tagString = "Vaal, Attack, Totem, AoE, Melee",
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/ConsecratedPath"] = {
 		name = "Consecrated Path",
@@ -4951,6 +5285,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/Smite"] = {
 		name = "Smite",
@@ -4970,6 +5305,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/ScourgeArrow"] = {
 		name = "Scourge Arrow",
@@ -4987,6 +5323,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/RainOfSpores"] = {
 		name = "Toxic Rain",
@@ -5005,6 +5342,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SummonRelic"] = {
 		name = "Summon Holy Relic",
@@ -5019,6 +5357,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemChaosAttacks"] = {
 		name = "Withering Touch",
@@ -5035,6 +5374,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemBonechill"] = {
 		name = "Bonechill",
@@ -5048,6 +5388,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemWinterOrb"] = {
 		name = "Winter Orb",
@@ -5066,6 +5407,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemLancingSteel"] = {
 		name = "Lancing Steel",
@@ -5081,6 +5423,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemStormBrand"] = {
 		name = "Storm Brand",
@@ -5099,6 +5442,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemWarBanner"] = {
 		name = "War Banner",
@@ -5116,6 +5460,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDreadBanner"] = {
 		name = "Dread Banner",
@@ -5133,6 +5478,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemShatteringSteel"] = {
 		name = "Shattering Steel",
@@ -5149,6 +5495,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemMultiTotem"] = {
 		name = "Multiple Totems",
@@ -5162,6 +5509,7 @@ return {
 		reqStr = 60,
 		reqDex = 0,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemArmageddonBrand"] = {
 		name = "Armageddon Brand",
@@ -5179,6 +5527,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemRecallBrands"] = {
 		name = "Brand Recall",
@@ -5193,6 +5542,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 6,
 	},
 	["Metadata/Items/Gems/SkillGemSanctify"] = {
 		name = "Purifying Flame",
@@ -5210,6 +5560,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSoulrend"] = {
 		name = "Soulrend",
@@ -5227,6 +5578,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDarkRitual"] = {
 		name = "Bane",
@@ -5246,6 +5598,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemEnergyShieldLeech"] = {
 		name = "Energy Leech",
@@ -5258,6 +5611,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemPurge"] = {
 		name = "Wave of Conviction",
@@ -5276,6 +5630,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSpellDamageAura"] = {
 		name = "Zealotry",
@@ -5291,6 +5646,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDivineTempest"] = {
 		name = "Divine Ire",
@@ -5308,6 +5664,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDamageOverTimeAura"] = {
 		name = "Malevolence",
@@ -5323,6 +5680,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemHandcastSpellBoost"] = {
 		name = "Intensify",
@@ -5337,6 +5695,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemHandcastAnticipation"] = {
 		name = "Unleash",
@@ -5350,6 +5709,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSteelskin"] = {
 		name = "Steelskin",
@@ -5365,6 +5725,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDash"] = {
 		name = "Dash",
@@ -5381,6 +5742,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemBladestorm"] = {
 		name = "Bladestorm",
@@ -5397,11 +5759,13 @@ return {
 		reqStr = 60,
 		reqDex = 40,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemBloodAndSand"] = {
 		name = "Blood and Sand",
 		grantedEffectId = "BloodSandStance",
 		tags = {
+			low_max_level = true,
 			strength = true,
 			active_skill = true,
 			spell = true,
@@ -5410,6 +5774,7 @@ return {
 		reqStr = 60,
 		reqDex = 40,
 		reqInt = 0,
+		defaultLevel = 6,
 	},
 	["Metadata/Items/Gems/SkillGemBerserk"] = {
 		name = "Berserk",
@@ -5423,6 +5788,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemPerforate"] = {
 		name = "Perforate",
@@ -5438,6 +5804,7 @@ return {
 		reqStr = 60,
 		reqDex = 40,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemChainHook"] = {
 		name = "Chain Hook",
@@ -5454,6 +5821,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemCloseCombat"] = {
 		name = "Close Combat",
@@ -5469,6 +5837,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemShockwave"] = {
 		name = "Shockwave",
@@ -5486,6 +5855,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFrostblink"] = {
 		name = "Frostblink",
@@ -5505,6 +5875,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemPrecision"] = {
 		name = "Precision",
@@ -5520,6 +5891,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemFleshAndStone"] = {
 		name = "Flesh and Stone",
@@ -5535,6 +5907,7 @@ return {
 		reqStr = 60,
 		reqDex = 40,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemImpale"] = {
 		name = "Impale",
@@ -5549,6 +5922,7 @@ return {
 		reqStr = 40,
 		reqDex = 60,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemPride"] = {
 		name = "Pride",
@@ -5565,6 +5939,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemPulverise"] = {
 		name = "Pulverise",
@@ -5580,6 +5955,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemRage"] = {
 		name = "Rage",
@@ -5594,6 +5970,7 @@ return {
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemCobraLash"] = {
 		name = "Cobra Lash",
@@ -5609,6 +5986,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSummonCarrionGolem"] = {
 		name = "Summon Carrion Golem",
@@ -5625,6 +6003,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemWitheringStep"] = {
 		name = "Withering Step",
@@ -5644,6 +6023,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemPlagueBearer"] = {
 		name = "Plague Bearer",
@@ -5659,6 +6039,7 @@ return {
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemFeedingFrenzy"] = {
 		name = "Feeding Frenzy",
@@ -5673,6 +6054,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemDeathmark"] = {
 		name = "Deathmark",
@@ -5690,6 +6072,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemNightblade"] = {
 		name = "Nightblade",
@@ -5703,6 +6086,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemMeatShield"] = {
 		name = "Meat Shield",
@@ -5716,6 +6100,7 @@ return {
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemStormblastMine"] = {
 		name = "Stormblast Mine",
@@ -5728,11 +6113,13 @@ return {
 			area = true,
 			lightning = true,
 			aura = true,
+			nova = true,
 		},
-		tagString = "Mine, Spell, AoE, Lightning, Aura",
+		tagString = "Mine, Spell, AoE, Lightning, Aura, Nova",
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemSummonSkitterbots"] = {
 		name = "Summon Skitterbots",
@@ -5753,6 +6140,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemHighImpactMineSupport"] = {
 		name = "High-Impact Mine",
@@ -5768,6 +6156,7 @@ return {
 		reqStr = 0,
 		reqDex = 40,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemInfernalLegion"] = {
 		name = "Infernal Legion",
@@ -5783,6 +6172,7 @@ return {
 		reqStr = 40,
 		reqDex = 0,
 		reqInt = 60,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemPestilentStrike"] = {
 		name = "Pestilent Strike",
@@ -5801,6 +6191,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemVenomGyre"] = {
 		name = "Venom Gyre",
@@ -5816,6 +6207,7 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemSwiftAssembly"] = {
 		name = "Swift Assembly",
@@ -5830,5 +6222,615 @@ return {
 		reqStr = 0,
 		reqDex = 60,
 		reqInt = 40,
+		defaultLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemShrapnelBallista"] = {
+		name = "Shrapnel Ballista",
+		grantedEffectId = "ShrapnelBallista",
+		tags = {
+			dexterity = true,
+			active_skill = true,
+			attack = true,
+			projectile = true,
+			totem = true,
+			physical = true,
+			bow = true,
+		},
+		tagString = "Attack, Projectile, Totem, Physical, Bow",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 20,
+	},
+	["Metadata/Items/Gems/SupportGemArrowNova"] = {
+		name = "Arrow Nova",
+		grantedEffectId = "SupportArrowNova",
+		tags = {
+			bow = true,
+			attack = true,
+			dexterity = true,
+			support = true,
+			projectile = true,
+		},
+		tagString = "Bow, Attack, Support, Projectile",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 20,
+	},
+	["Metadata/Items/Gems/SupportGemBarrage"] = {
+		name = "Barrage Support",
+		grantedEffectId = "SupportBarrage",
+		tags = {
+			bow = true,
+			attack = true,
+			dexterity = true,
+			support = true,
+			projectile = true,
+		},
+		tagString = "Bow, Attack, Support, Projectile",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemEnsnaringArrow"] = {
+		name = "Ensnaring Arrow",
+		grantedEffectId = "EnsnaringArrow",
+		tags = {
+			dexterity = true,
+			active_skill = true,
+			attack = true,
+			projectile = true,
+			area = true,
+			bow = true,
+		},
+		tagString = "Attack, Projectile, AoE, Bow",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemArtilleryBallista"] = {
+		name = "Artillery Ballista",
+		grantedEffectId = "ArtilleryBallista",
+		tags = {
+			dexterity = true,
+			active_skill = true,
+			attack = true,
+			totem = true,
+			area = true,
+			fire = true,
+			projectile = true,
+			bow = true,
+		},
+		tagString = "Attack, Totem, AoE, Fire, Projectile, Bow",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 20,
+	},
+	["Metadata/Items/Gems/SupportGemGreaterVolley"] = {
+		name = "Greater Volley",
+		grantedEffectId = "SupportGreaterVolley",
+		tags = {
+			dexterity = true,
+			support = true,
+			projectile = true,
+		},
+		tagString = "Support, Projectile",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 20,
+	},
+	["Metadata/Items/Gems/SupportGemAddedFireDamagePlus"] = {
+		name = "Awakened Added Fire Damage",
+		grantedEffectId = "SupportAddedFireDamagePlus",
+		tags = {
+			fire = true,
+			physical = true,
+			strength = true,
+			support = true,
+		},
+		tagString = "Fire, Physical, Support",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemAncestralCallPlus"] = {
+		name = "Awakened Ancestral Call",
+		grantedEffectId = "SupportAncestralCallPlus",
+		tags = {
+			strength = true,
+			support = true,
+			melee = true,
+			attack = true,
+			strike = true,
+		},
+		tagString = "Support, Melee, Attack, Strike",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemBrutalityPlus"] = {
+		name = "Awakened Brutality",
+		grantedEffectId = "SupportBrutalityPlus",
+		tags = {
+			physical = true,
+			strength = true,
+			support = true,
+		},
+		tagString = "Physical, Support",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemBurningDamagePlus"] = {
+		name = "Awakened Burning Damage",
+		grantedEffectId = "SupportBurningDamagePlus",
+		tags = {
+			fire = true,
+			strength = true,
+			support = true,
+		},
+		tagString = "Fire, Support",
+		reqStr = 60,
+		reqDex = 0,
+		reqInt = 40,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemWeaponElementalDamagePlus"] = {
+		name = "Awakened Elemental Damage With Attacks",
+		grantedEffectId = "SupportWeaponElementalDamagePlus",
+		tags = {
+			attack = true,
+			strength = true,
+			support = true,
+		},
+		tagString = "Attack, Support",
+		reqStr = 60,
+		reqDex = 0,
+		reqInt = 40,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemFirePenetrationPlus"] = {
+		name = "Awakened Fire Penetration",
+		grantedEffectId = "SupportFirePenetrationPlus",
+		tags = {
+			fire = true,
+			strength = true,
+			support = true,
+		},
+		tagString = "Fire, Support",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemGenerosityPlus"] = {
+		name = "Awakened Generosity",
+		grantedEffectId = "SupportGenerosityPlus",
+		tags = {
+			strength = true,
+			support = true,
+			aura = true,
+		},
+		tagString = "Support, Aura",
+		reqStr = 60,
+		reqDex = 0,
+		reqInt = 40,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemMeleePhysicalDamagePlus"] = {
+		name = "Awakened Melee Physical Damage",
+		grantedEffectId = "SupportMeleePhysicalDamagePlus",
+		tags = {
+			melee = true,
+			physical = true,
+			strength = true,
+			support = true,
+			attack = true,
+		},
+		tagString = "Melee, Physical, Support, Attack",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemMeleeSplashPlus"] = {
+		name = "Awakened Melee Splash",
+		grantedEffectId = "SupportMeleeSplashPlus",
+		tags = {
+			strength = true,
+			support = true,
+			melee = true,
+			attack = true,
+			strike = true,
+			area = true,
+		},
+		tagString = "Support, Melee, Attack, Strike, AoE",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemMultistrikePlus"] = {
+		name = "Awakened Multistrike",
+		grantedEffectId = "SupportMultistrikePlus",
+		tags = {
+			attack = true,
+			melee = true,
+			strength = true,
+			support = true,
+		},
+		tagString = "Attack, Melee, Support",
+		reqStr = 60,
+		reqDex = 40,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemAddedColdDamagePlus"] = {
+		name = "Awakened Added Cold Damage",
+		grantedEffectId = "SupportAddedColdDamagePlus",
+		tags = {
+			cold = true,
+			dexterity = true,
+			support = true,
+		},
+		tagString = "Cold, Support",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemArrowNovaPlus"] = {
+		name = "Awakened Arrow Nova",
+		grantedEffectId = "SupportArrowNovaPlus",
+		tags = {
+			bow = true,
+			attack = true,
+			dexterity = true,
+			support = true,
+			projectile = true,
+		},
+		tagString = "Bow, Attack, Support, Projectile",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemCastOnCritPlus"] = {
+		name = "Awakened Cast On Critical Strike",
+		grantedEffectId = "SupportCastOnCritPlus",
+		secondaryGrantedEffectId = "SupportCastOnCritTriggeredPlus",
+		tags = {
+			dexterity = true,
+			support = true,
+			spell = true,
+			trigger = true,
+		},
+		tagString = "Support, Spell, Trigger",
+		reqStr = 0,
+		reqDex = 60,
+		reqInt = 40,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemChainPlus"] = {
+		name = "Awakened Chain",
+		grantedEffectId = "SupportChainPlus",
+		tags = {
+			dexterity = true,
+			support = true,
+			chaining = true,
+			projectile = true,
+		},
+		tagString = "Support, Chaining, Projectile",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemColdPenetrationPlus"] = {
+		name = "Awakened Cold Penetration",
+		grantedEffectId = "SupportColdPenetrationPlus",
+		tags = {
+			cold = true,
+			dexterity = true,
+			support = true,
+		},
+		tagString = "Cold, Support",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemDeadlyAilmentsPlus"] = {
+		name = "Awakened Deadly Ailments",
+		grantedEffectId = "SupportDeadlyAilmentsPlus",
+		tags = {
+			dexterity = true,
+			support = true,
+		},
+		tagString = "Support",
+		reqStr = 0,
+		reqDex = 60,
+		reqInt = 40,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemForkPlus"] = {
+		name = "Awakened Fork",
+		grantedEffectId = "SupportForkPlus",
+		tags = {
+			dexterity = true,
+			support = true,
+			projectile = true,
+		},
+		tagString = "Support, Projectile",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemGreaterMultipleProjectilesPlus"] = {
+		name = "Awakened Greater Multiple Projectiles",
+		grantedEffectId = "SupportGreaterMultipleProjectilesPlus",
+		tags = {
+			dexterity = true,
+			support = true,
+			projectile = true,
+		},
+		tagString = "Support, Projectile",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemSwiftAfflictionPlus"] = {
+		name = "Awakened Swift Affliction",
+		grantedEffectId = "SupportSwiftAfflictionPlus",
+		tags = {
+			dexterity = true,
+			support = true,
+			duration = true,
+		},
+		tagString = "Support, Duration",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemVoidManipulationPlus"] = {
+		name = "Awakened Void Manipulation",
+		grantedEffectId = "SupportVoidManipulationPlus",
+		tags = {
+			chaos = true,
+			dexterity = true,
+			support = true,
+		},
+		tagString = "Chaos, Support",
+		reqStr = 0,
+		reqDex = 60,
+		reqInt = 40,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemViciousProjectilesPlus"] = {
+		name = "Awakened Vicious Projectiles",
+		grantedEffectId = "SupportViciousProjectilesPlus",
+		tags = {
+			projectile = true,
+			attack = true,
+			physical = true,
+			chaos = true,
+			dexterity = true,
+			support = true,
+		},
+		tagString = "Projectile, Attack, Physical, Chaos, Support",
+		reqStr = 0,
+		reqDex = 100,
+		reqInt = 0,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemAddedChaosDamagePlus"] = {
+		name = "Awakened Added Chaos Damage",
+		grantedEffectId = "SupportAddedChaosDamagePlus",
+		tags = {
+			chaos = true,
+			intelligence = true,
+			support = true,
+		},
+		tagString = "Chaos, Support",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemAddedLightningDamagePlus"] = {
+		name = "Awakened Added Lightning Damage",
+		grantedEffectId = "SupportAddedLightningDamagePlus",
+		tags = {
+			lightning = true,
+			intelligence = true,
+			support = true,
+		},
+		tagString = "Lightning, Support",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemBlasphemyPlus"] = {
+		name = "Awakened Blasphemy",
+		grantedEffectId = "SupportBlasphemyPlus",
+		tags = {
+			intelligence = true,
+			support = true,
+			aura = true,
+		},
+		tagString = "Support, Aura",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemCastWhileChannellingPlus"] = {
+		name = "Awakened Cast While Channelling",
+		grantedEffectId = "SupportCastWhileChannellingPlus",
+		secondaryGrantedEffectId = "SupportCastWhileChannellingTriggeredPlus",
+		tags = {
+			intelligence = true,
+			support = true,
+			channelling = true,
+			spell = true,
+			trigger = true,
+		},
+		tagString = "Support, Channelling, Spell, Trigger",
+		reqStr = 0,
+		reqDex = 40,
+		reqInt = 60,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemControlledDestructionPlus"] = {
+		name = "Awakened Controlled Destruction",
+		grantedEffectId = "SupportControlledDestructionPlus",
+		tags = {
+			spell = true,
+			intelligence = true,
+			support = true,
+		},
+		tagString = "Spell, Support",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemCurseOnHitPlus"] = {
+		name = "Awakened Curse On Hit",
+		grantedEffectId = "SupportCurseOnHitPlus",
+		tags = {
+			curse = true,
+			trigger = true,
+			intelligence = true,
+			support = true,
+		},
+		tagString = "Curse, Trigger, Support",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemElementalFocusPlus"] = {
+		name = "Awakened Elemental Focus",
+		grantedEffectId = "SupportElementalFocusPlus",
+		tags = {
+			intelligence = true,
+			support = true,
+		},
+		tagString = "Support",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemIncreasedAreaOfEffectPlus"] = {
+		name = "Awakened Increased Area Of Effect",
+		grantedEffectId = "SupportIncreasedAreaOfEffectPlus",
+		tags = {
+			intelligence = true,
+			support = true,
+			area = true,
+		},
+		tagString = "Support, AoE",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemLightningPenetrationPlus"] = {
+		name = "Awakened Lightning Penetration",
+		grantedEffectId = "SupportLightningPenetrationPlus",
+		tags = {
+			lightning = true,
+			intelligence = true,
+			support = true,
+		},
+		tagString = "Lightning, Support",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemMinionDamagePlus"] = {
+		name = "Awakened Minion Damage",
+		grantedEffectId = "SupportMinionDamagePlus",
+		tags = {
+			intelligence = true,
+			support = true,
+			minion = true,
+		},
+		tagString = "Support, Minion",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemSpellCascadePlus"] = {
+		name = "Awakened Spell Cascade",
+		grantedEffectId = "SupportSpellCascadePlus",
+		tags = {
+			area = true,
+			spell = true,
+			intelligence = true,
+			support = true,
+		},
+		tagString = "AoE, Spell, Support",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemSpellEchoPlus"] = {
+		name = "Awakened Spell Echo",
+		grantedEffectId = "SupportSpellEchoPlus",
+		tags = {
+			spell = true,
+			intelligence = true,
+			support = true,
+		},
+		tagString = "Spell, Support",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemUnboundAilmentsPlus"] = {
+		name = "Awakened Unbound Ailments",
+		grantedEffectId = "SupportUnboundAilmentsPlus",
+		tags = {
+			intelligence = true,
+			support = true,
+		},
+		tagString = "Support",
+		reqStr = 0,
+		reqDex = 40,
+		reqInt = 60,
+		defaultLevel = 5,
+	},
+	["Metadata/Items/Gems/SupportGemUnleashPlus"] = {
+		name = "Awakened Unleash",
+		grantedEffectId = "SupportUnleashPlus",
+		tags = {
+			spell = true,
+			intelligence = true,
+			support = true,
+		},
+		tagString = "Spell, Support",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 5,
 	},
 }

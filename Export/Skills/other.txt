@@ -53,15 +53,6 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill UniqueSupportGreaterVolley Greater Volley
-	fromItem = true,
-	statMap = {
-		["support_greater_volley_projectile_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Projectile),
-		},
-	},
-#mods
-
 #skill RepeatingShockwave
 #flags spell area
 	fromItem = true,

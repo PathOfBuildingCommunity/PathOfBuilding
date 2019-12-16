@@ -742,7 +742,8 @@ Variant: Current
 Source: Drops from unique{Guardian of the Hydra}
 Requires Level 68
 +(20-30)% to Cold Resistance
-(20-40)% increased Cold Damage
+{variant:1}(20-40)% increased Cold Damage
+{variant:2}(20-40)% increased Spell Damage
 (5-10)% increased Cast Speed
 {variant:1}Spells have an additional Projectile
 {variant:2}Left ring slot: Projectiles from Spells cannot Chain

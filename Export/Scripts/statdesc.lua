@@ -34,7 +34,7 @@ local function processStatFile(name)
 					curLang = nil--{ }
 					curDescriptor.lang[langName] = curLang
 				elseif curLang then
-					local statLimits, text, special = line:match('([%d%-#| ]+) "(.-)"%s*(.*)')
+					local statLimits, text, special = line:match('([%d%-#!| ]+) "(.-)"%s*(.*)')
 					if statLimits then
 						local desc = { text = text, limit = { } }
 						for statLimit in statLimits:gmatch("[%d%-#|]+") do
@@ -46,9 +46,15 @@ local function processStatFile(name)
 								limit[1] = tonumber(statLimit)
 								limit[2] = tonumber(statLimit)
 							else
-								limit[1], limit[2] = statLimit:match("([%d%-#]+)|([%d%-#]+)")
-								limit[1] = tonumber(limit[1]) or limit[1]
-								limit[2] = tonumber(limit[2]) or limit[2]
+								local negate = statLimit:match("^!(-?%d+)$")
+								if negate then
+									limit[1] = "!"
+									limit[2] = tonumber(negate)
+								else
+									limit[1], limit[2] = statLimit:match("([%d%-#]+)|([%d%-#]+)")
+									limit[1] = tonumber(limit[1]) or limit[1]
+									limit[2] = tonumber(limit[2]) or limit[2]
+								end
 							end
 							table.insert(desc.limit, limit)
 						end

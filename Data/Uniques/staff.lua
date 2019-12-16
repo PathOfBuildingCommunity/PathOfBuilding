@@ -131,6 +131,7 @@ Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 ]],[[
 Dying Breath
 Coiled Staff
+Variant: Pre 2.6.0
 Requires Level 23, 34 Str, 34 Int
 (18-20)% Chance to Block
 18% increased Cast Speed
@@ -143,6 +144,7 @@ Nearby allies gain 18% increased Damage
 ]],[[
 Dying Breath
 Iron Staff
+Variant: Current
 Requires Level 13, 27 Str, 27 Int
 18% Chance to Block
 18% increased Cast Speed

@@ -243,9 +243,24 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	end)
 
 	-- Section: Variant(s)
+
 	self.controls.displayItemSectionVariant = new("Control", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 0, function()
 		return (self.displayItem.variantList and #self.displayItem.variantList > 1) and 28 or 0
 	end)
+
+	for i = 1, 3 do -- TODO: replace '3' with something good. '3'/*
+		-- TODO: smart? positioning for small screen resolutions
+		self.controls["displayItemVariant"..i] = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, (i < 3 and i or 2) * 232 - 232, (i > 2 and i or 0) * 9.5, 224, 20, nil, function(index, value)
+			self.displayItem.variants[i] = index
+			self.displayItem:BuildAndParseRaw()
+			self:UpdateDisplayItemTooltip()
+			self:UpdateDisplayItemRangeLines()
+		end)
+		self.controls["displayItemVariant"..i].shown = function()
+			return self.displayItem.variantList and #self.displayItem.variantList > 1 and #self.displayItem.variants >= i
+		end
+	end
+	--[[
 	self.controls.displayItemVariant = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, 0, 0, 224, 20, nil, function(index, value)
 		self.displayItem.variant = index
 		self.displayItem:BuildAndParseRaw()
@@ -264,6 +279,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemAltVariant.shown = function()
 		return self.displayItem.hasAltVariant
 	end
+	]]
 
 	-- Section: Sockets and Links
 	self.controls.displayItemSectionSockets = new("Control", {"TOPLEFT",self.controls.displayItemSectionVariant,"BOTTOMLEFT"}, 0, 0, 0, function()
@@ -320,9 +336,13 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemSectionImplicit = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT"}, 0, 0, 0, function()
 		return (self.controls.displayItemShaperElder:IsShown() or self.controls.displayItemEnchant:IsShown() or self.controls.displayItemCorrupt:IsShown()) and 28 or 0
 	end)
-	self.controls.displayItemShaperElder = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, 0, 0, 100, 20, {"Normal","Shaper","Elder"}, function(index, value)
+	self.controls.displayItemShaperElder = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, 0, 0, 100, 20, {"Normal","Shaper","Elder","Warlord","Hunter","Crusader","Redeemer"}, function(index, value)
 		self.displayItem.shaper = (index == 2)
 		self.displayItem.elder = (index == 3)
+		self.displayItem.adjudicator = (index == 4)
+		self.displayItem.basilisk = (index == 5)
+		self.displayItem.crusader = (index == 6)
+		self.displayItem.eyrie = (index == 7)
 		if self.displayItem.crafted then
 			for i = 1, self.displayItem.affixLimit do
 				-- Force affix selectors to update
@@ -989,17 +1009,26 @@ function ItemsTabClass:SetDisplayItem(item)
 		-- Update the display item controls
 		self:UpdateDisplayItemTooltip()
 		self.snapHScroll = "RIGHT"
+
+		if item.hasVariants then
+			for i, variant in ipairs(item.variants) do
+				self.controls["displayItemVariant"..i].list = item.variantList
+				self.controls["displayItemVariant"..i].selIndex = variant
+			end
+		end
+		--[[
 		self.controls.displayItemVariant.list = item.variantList
 		self.controls.displayItemVariant.selIndex = item.variant
 		if item.hasAltVariant then
 			self.controls.displayItemAltVariant.list = item.variantList
 			self.controls.displayItemAltVariant.selIndex = item.variantAlt
 		end
+		]]
 		self:UpdateSocketControls()
 		if item.crafted then
 			self:UpdateAffixControls()
 		end
-		self.controls.displayItemShaperElder:SetSel((item.shaper and 2) or (item.elder and 3) or 1)
+		self.controls.displayItemShaperElder:SetSel((item.shaper and 2) or (item.elder and 3) or (item.adjudicator and 4) or (item.basilisk and 5) or (item.crusader and 6) or (item.eyrie and 7) or 1)
 		self:UpdateCustomControls()
 		self:UpdateDisplayItemRangeLines()
 	else
@@ -1713,6 +1742,18 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	if item.elder then
 		tooltip:AddLine(16, colorCodes.ELDER.."Elder Item")
 	end
+	if item.adjudicator then
+		tooltip:AddLine(16, colorCodes.ADJUDICATOR.."Warlord Item")
+	end
+	if item.basilisk then
+		tooltip:AddLine(16, colorCodes.BASILISK.."Hunter Item")
+	end
+	if item.crusader then
+		tooltip:AddLine(16, colorCodes.CRUSADER.."Crusader Item")
+	end
+	if item.eyrie then
+		tooltip:AddLine(16, colorCodes.EYRIE.."Redeemer Item")
+	end
 	if item.fractured then
 		tooltip:AddLine(16, colorCodes.FRACTURED.."Fractured Item")
 	end
@@ -1727,7 +1768,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			if #item.variantList == 1 then
 				tooltip:AddLine(16, "^xFFFF30Variant: "..item.variantList[1])
 			else
-				tooltip:AddLine(16, "^xFFFF30Variant: "..item.variantList[item.variant].." ("..#item.variantList.." variants)")
+				tooltip:AddLine(16, "^xFFFF30Variant: ".. item.variantList[item.variant or item.variants[1]] .." ("..#item.variantList.." variants)")
 			end
 		end
 		if item.league then

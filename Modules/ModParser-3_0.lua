@@ -241,7 +241,7 @@ local modNameList = {
 	["effect of offering spells"] = { "BuffEffect", tag = { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering" } } },
 	["effect of offerings"] = { "BuffEffect", tag = { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering" } } },
 	["effect of heralds on you"] = { "BuffEffect", tag = { type = "SkillType", skillType = SkillType.Herald } },
-	["effect of buffs granted by your active ancestor totems"] = { "BuffEffect", skillNameList = { "Ancestral Warchief", "Ancestral Protector" } },
+	["effect of buffs granted by your active ancestor totems"] = { "BuffEffect", tag = { type = "SkillName", skillNameList = { "Ancestral Warchief", "Ancestral Protector" } } },
 	["warcry effect"] = { "BuffEffect", keywordFlags = KeywordFlag.Warcry },
 	["aspect of the avian buff effect"] = { "BuffEffect", tag = { type = "SkillName", skillName = "Aspect of the Avian" } },
 	-- Charges
@@ -419,7 +419,7 @@ local modNameList = {
 	["effect of shock"] = "EnemyShockEffect",
 	["effect of chill"] = "EnemyChillEffect",
 	["effect of chill on you"] = "SelfChillEffect",
-	["effect of non-damaging ailments"] = { "EnemyShockEffect", "EnemyChillEffect", "EnemyFreezeEffech" },
+	["effect of non-damaging ailments"] = { "EnemyShockEffect", "EnemyChillEffect", "EnemyFreezeEffect" },
 	["shock duration"] = "EnemyShockDuration",
 	["freeze duration"] = "EnemyFreezeDuration",
 	["chill duration"] = "EnemyChillDuration",
@@ -653,6 +653,7 @@ local preFlagList = {
 	["^curse skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.Curse } },
 	["^melee skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.Melee } },
 	["^guard skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.Guard } },
+	["^nova spells [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.NovaSpell } },
 	["^skills [hdfg][aei][vari][eln] "] = { },
 	["^left ring slot: "] = { tag = { type = "SlotNumber", num = 1 } },
 	["^right ring slot: "] = { tag = { type = "SlotNumber", num = 2 } },
@@ -759,6 +760,7 @@ local modTagList = {
 	["per (%d+)%% lightning resistance above 75%%"] = function(num) return { tag  = { type = "PerStat", stat = "LightningResistOver75", div = num } } end,
 	["per totem"] = { tag = { type = "PerStat", stat = "ActiveTotemLimit" } },
 	["per summoned totem"] = { tag = { type = "PerStat", stat = "ActiveTotemLimit" } },
+	["for each summoned totem"] = { tag = { type = "PerStat", stat = "ActiveTotemLimit" } },
 	["for each time they have chained"] = { tag = { type = "PerStat", stat = "Chain" } },
 	["for each time it has chained"] = { tag = { type = "PerStat", stat = "Chain" } },
 	["for each summoned golem"] = { tag = { type = "PerStat", stat = "ActiveGolemLimit" } },
@@ -1183,7 +1185,7 @@ local specialModList = {
 	["while there is at least one nearby ally, you and nearby allies deal (%d+)%% more damage"] = function(num) return { mod("ExtraAura", "LIST", { mod = mod("Damage", "MORE", num) }, { type = "MultiplierThreshold", var = "NearbyAlly", threshold = 1 }) } end,
 	["while there are at least five nearby allies, you and nearby allies have onslaught"] = { mod("ExtraAura", "LIST", { mod = flag("Onslaught") }, { type = "MultiplierThreshold", var = "NearbyAlly", threshold = 5 }) },
 	-- Hierophant
-	["you and your totems regenerate (%d+)%% of life per second per totem"] = function (num) return { 
+	["you and your totems regenerate (%d+)%% of life per second for each summoned totem"] = function (num) return {
 		mod("LifeRegenPercent", "BASE", num, {type = "PerStat", stat = "ActiveTotemLimit"}),
 		mod("LifeRegenPercent", "BASE", num, {type = "PerStat", stat = "ActiveTotemLimit"}, 0, KeywordFlag.Totem),
 	} end,
@@ -1535,6 +1537,7 @@ local specialModList = {
 	["left ring slot: projectiles from spells cannot chain"] = { flag("CannotChain", nil, bor(ModFlag.Spell, ModFlag.Projectile), { type = "SlotNumber", num = 1 }) },
 	["right ring slot: projectiles from spells chain %+1 times"] = { mod("ChainCountMax", "BASE", 1, nil, bor(ModFlag.Spell, ModFlag.Projectile), { type = "SlotNumber", num = 2 }) },
 	["projectiles from spells cannot pierce"] = { flag("CannotPierce", nil, ModFlag.Spell) },
+	["modifiers to number of projectiles instead apply to the number of targets projectiles split towards"] = { flag("NoAdditionalProjectiles") },
 	-- Leech/Gain on Hit
 	["cannot leech life"] = { flag("CannotLeechLife") },
 	["cannot leech mana"] = { flag("CannotLeechMana") },
@@ -1623,6 +1626,7 @@ local specialModList = {
 	-- Flasks
 	["flasks do not apply to you"] = { flag("FlasksDoNotApplyToPlayer") },
 	["flasks apply to your zombies and spectres"] = { flag("FlasksApplyToMinion", { type = "SkillName", skillNameList = { "Raise Zombie", "Raise Spectre" } }) },
+	["your minions use your flasks when summoned"] = { flag("FlasksApplyToMinion") },
 	["creates a smoke cloud on use"] = { },
 	["creates chilled ground on use"] = { },
 	["creates consecrated ground on use"] = { },
@@ -1709,6 +1713,9 @@ local specialModList = {
 	["transfiguration of soul"] = { flag("TransfigurationOfSoul") },
 	["offering skills have (%d+)%% reduced duration"] = function(num) return {
 		mod("Duration", "INC", -num, { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering" } }),
+	} end,
+	["enemies have %-(%d+)%% to total physical damage reduction against your hits"] = function(num) return {
+		mod("EnemyPhysicalDamageReduction", "BASE", -num)
 	} end,
 	-- Skill-specific enchantment modifiers
 	["(%d+)%% increased decoy totem life"] = function(num) return { mod("TotemLife", "INC", num, { type = "SkillName", skillName = "Decoy Totem" }) } end,

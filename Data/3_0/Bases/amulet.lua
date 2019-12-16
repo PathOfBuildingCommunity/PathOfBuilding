@@ -65,7 +65,6 @@ itemBases["Citrine Amulet"] = {
 }
 itemBases["Ruby Amulet"] = {
 	type = "Amulet",
-	hidden = true,
 	tags = { default = true, amulet = true, not_for_sale = true, },
 	implicit = "+(20-30)% to Fire Resistance",
 	req = { },

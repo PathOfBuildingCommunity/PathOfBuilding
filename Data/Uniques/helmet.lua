@@ -547,8 +547,6 @@ Adds 20 to 30 Physical Damage to Attacks
 {variant:3,4}20% chance to gain an Endurance Charge when you Block
 Extra gore
 Can't use Chest armour
-{variant:1,2}15% Chance to Block
-{variant:3,4}6% Chance to Block
 ]],[[
 Deidbell
 Gilded Sallet
