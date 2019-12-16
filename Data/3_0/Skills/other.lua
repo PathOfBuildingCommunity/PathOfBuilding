@@ -11,7 +11,7 @@ skills["Melee"] = {
 	hidden = true,
 	color = 4,
 	description = "Strike your foes down with a powerful blow.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -36,7 +36,7 @@ skills["MeleeUseContactPoint"] = {
 	hidden = true,
 	color = 4,
 	description = "Strike your foes down with a powerful blow.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -237,35 +237,6 @@ skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
 	},
 	levels = {
 		[1] = { cooldown = 0.15, levelRequirement = 1, statInterpolation = { }, },
-	},
-}
-skills["UniqueSupportGreaterVolley"] = {
-	name = "Greater Volley",
-	hidden = true,
-	color = 2,
-	support = true,
-	requireSkillTypes = { SkillType.SkillCanVolley, },
-	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Type70, SkillType.Type71, },
-	statDescriptionScope = "gem_stat_descriptions",
-	fromItem = true,
-	statMap = {
-		["support_greater_volley_projectile_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Projectile),
-		},
-	},
-	baseMods = {
-	},
-	qualityStats = {
-	},
-	stats = {
-		"support_parallel_projectile_number_of_points_per_side",
-		"greater_volley_additional_projectiles_fire_parallel_x_dist",
-		"number_of_additional_projectiles",
-		"support_greater_volley_projectile_damage_+%_final",
-	},
-	levels = {
-		[20] = { 4, 80, 4, -26, manaMultiplier = 40, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, }, },
 	},
 }
 skills["RepeatingShockwave"] = {
@@ -494,7 +465,7 @@ skills["TriggeredBoneNova"] = {
 	name = "Bone Nova",
 	hidden = true,
 	color = 4,
-	description = "A nova of bones erupts around you, dealing physical damage.",
+	description = "Bones erupt around you, dealing physical damage.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -787,7 +758,7 @@ skills["OnHitWhileCursedTriggeredCurseNova"] = {
 	color = 4,
 	baseEffectiveness = 3,
 	incrementalEffectiveness = 0.050000000745058,
-	description = "Fires projectiles in a nova, converting all their physical damage to a random element, and grants a buff which makes you immune to curses for a duration.",
+	description = "Fires projectiles in all directions, converting all their physical damage to a random element, and grants a buff which makes you immune to curses for a duration.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.FireSkill] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.Duration] = true, [SkillType.Buff] = true, [SkillType.PhysicalSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -1036,7 +1007,7 @@ skills["TriggeredIcicleNova"] = {
 	name = "Icicle Burst",
 	hidden = true,
 	color = 4,
-	description = "This attack fires icy projectiles in a nova around enemies you kill, dealing attack damage with all physical damage converted to cold.",
+	description = "This attack fires icy projectiles in a circle around enemies you kill, dealing attack damage with all physical damage converted to cold.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Hit] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.ColdSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -1227,7 +1198,7 @@ skills["TriggeredMoltenStrike"] = {
 	hidden = true,
 	color = 1,
 	description = "Launch molten projectiles from the point of impact, causing AoE attack damage to enemies where they land.",
-	skillTypes = { [SkillType.Projectile] = true, [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.ProjectileAttack] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.FireSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.ProjectileAttack] = true, [SkillType.Type83] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
@@ -1249,7 +1220,7 @@ skills["TriggeredMoltenStrike"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 	},
 	levels = {
-		[16] = { 2, 20, cooldown = 0.15, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+		[16] = { 2, 20, damageEffectiveness = 1.15, cooldown = 0.15, baseMultiplier = 1.15, levelRequirement = 1, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["TriggeredSummonSpider"] = {
@@ -1330,7 +1301,7 @@ skills["TriggeredShockedGround"] = {
 	hidden = true,
 	color = 4,
 	description = "Creates a patch of Shocked Ground in a radius around you.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.LightningSkill] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.LightningSkill] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
@@ -1825,11 +1796,13 @@ skills["TriggeredSummonGhostOnKill"] = {
 		"trigger_on_corpse_consume_%_chance",
 		"base_skill_effect_duration",
 		"base_number_of_support_ghosts_allowed",
+		"phantasm_minimum_added_physical_damage_to_grant",
+		"phantasm_maximum_added_physical_damage_to_grant",
 		"skill_can_own_support_ghosts",
 		"skill_has_trigger_from_unique_item",
 	},
 	levels = {
-		[20] = { 100, 15000, 10, manaMultiplier = 20, levelRequirement = 70, statInterpolation = { 1, 1, 1, }, },
+		[20] = { 100, 15000, 10, 28, 43, manaMultiplier = 20, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["SummonRigwaldsPack"] = {

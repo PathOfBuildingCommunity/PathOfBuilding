@@ -266,7 +266,7 @@ skills["LightningGolemArcSummoned"] = {
 	color = 3,
 	baseEffectiveness = 0.875,
 	incrementalEffectiveness = 0.026000000536442,
-	skillTypes = { [SkillType.Duration] = true, [SkillType.LightningSkill] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.ProjectileDamage] = true, [SkillType.Spell] = true, },
+	skillTypes = { [SkillType.Duration] = true, [SkillType.LightningSkill] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.ProjectileDamage] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	baseFlags = {
@@ -404,7 +404,7 @@ skills["RagingSpiritMeleeAttack"] = {
 	hidden = true,
 	color = 4,
 	description = "Strike your foes down with a powerful blow.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.Melee] = true, [SkillType.SkillCanVolley] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -450,7 +450,7 @@ skills["SkeletonMinionProjectileCold"] = {
 	color = 4,
 	baseEffectiveness = 1.4817999601364,
 	incrementalEffectiveness = 0.045400001108646,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.2,
 	baseFlags = {
@@ -476,7 +476,7 @@ skills["SkeletonMinionProjectileFire"] = {
 	color = 4,
 	baseEffectiveness = 1.8111000061035,
 	incrementalEffectiveness = 0.045400001108646,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.2,
 	baseFlags = {
@@ -502,7 +502,7 @@ skills["SkeletonMinionProjectileLightning"] = {
 	color = 4,
 	baseEffectiveness = 2.0374999046326,
 	incrementalEffectiveness = 0.045400001108646,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.2,
 	baseFlags = {
@@ -608,7 +608,11 @@ skills["ZombieSlam"] = {
 		"global_always_hit",
 	},
 	levels = {
-		[1] = { -22, 45, 0, cooldown = 4, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
+		[1] = { -30, -20, 0, cooldown = 6, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
+		[2] = { -28, -10, 0, cooldown = 6, levelRequirement = 12, statInterpolation = { 1, 1, 1, }, },
+		[3] = { -26, 0, 0, cooldown = 6, levelRequirement = 20, statInterpolation = { 1, 1, 1, }, },
+		[4] = { -24, 10, 0, cooldown = 6, levelRequirement = 33, statInterpolation = { 1, 1, 1, }, },
+		[5] = { -22, 15, 0, cooldown = 6, levelRequirement = 45, statInterpolation = { 1, 1, 1, }, },
 	},
 }
 skills["SummonedSpiderViperStrike"] = {
@@ -1083,10 +1087,11 @@ skills["DropBearSummonedRallyingCry"] = {
 	stats = {
 		"damage_+%",
 		"base_skill_effect_duration",
+		"base_mana_regeneration_rate_per_minute",
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { 25, 4000, cooldown = 5, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+		[1] = { 25, 4000, 888, cooldown = 5, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
 	},
 }
 skills["BoneGolemMultiAttack"] = {

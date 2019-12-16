@@ -889,6 +889,9 @@ local skills, mod, flag, skill = ...
 		["zombie_slam_cooldown_speed_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0, { type = "SkillId", skillId = "ZombieSlam" }) }),
 		},
+		["zombie_slam_area_of_effect_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil, 0, 0, { type = "SkillId", skillId = "ZombieSlam" }) }),
+		},
 	},
 #mods
 

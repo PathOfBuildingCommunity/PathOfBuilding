@@ -80,6 +80,9 @@ local skillTypes = { "Attack",
 	"TravelSkill",
 	"BlinkSkill",
 	"CanHaveBlessing",
+	"Type83",
+	"Type84",
+	"NovaSpell",
 }
 
 local function mapAST(ast)
@@ -189,6 +192,9 @@ directiveTable.skill = function(state, args, out)
 		end
 		if granted.IgnoreMinionTypes then
 			out:write('\tignoreMinionTypes = true,\n')
+		end
+		if granted.PlusVersionOf then
+			out:write('\tplusVersionOf = "', granted.PlusVersionOf.Id, '",\n')
 		end
 		out:write('\tstatDescriptionScope = "gem_stat_descriptions",\n')
 	else
@@ -392,6 +398,8 @@ for skillGem in dat"SkillGems":Rows() do
 		out:write('\t\treqStr = ', skillGem.Str, ',\n')
 		out:write('\t\treqDex = ', skillGem.Dex, ',\n')
 		out:write('\t\treqInt = ', skillGem.Int, ',\n')
+		local defaultLevel = #dat"ItemExperiencePerLevel":GetRowList("BaseItemType", skillGem.BaseItemType)
+		out:write('\t\tdefaultLevel = ', defaultLevel > 0 and defaultLevel or 1, ',\n')
 		out:write('\t},\n')
 	end
 end
