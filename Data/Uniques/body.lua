@@ -6,6 +6,7 @@ return {
 Bramblejack
 Plate Vest
 Upgrade: Upgrades to unique{Wall of Brambles} via prophecy{The King and the Brambles}
+Requires 12 Str
 Adds 2 to 4 Physical Damage to Attacks
 +(12-20) to maximum Life
 −2 Physical Damage taken from Attacks
@@ -14,7 +15,7 @@ Adds 2 to 4 Physical Damage to Attacks
 Wall of Brambles
 Plate Vest
 Source: Upgraded from unique{Bramblejack} using prophecy{The King and the Brambles}
-Requires Level 30
+Requires Level 30, 12 Str
 Adds 2 to 4 Physical Damage to Attacks
 +2000 to Armour
 +(12-20) to maximum Life
@@ -35,11 +36,11 @@ Craiceann's Carapace
 Golden Plate
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
-Requires Level 56
+Requires Level 56, 152 Str
 Grants Level 20 Aspect of the Crab Skill
-(300–350)% increased Armour
-+(100–120) to maximum Life
-+(25–30)% to Fire and Cold Resistances
+(300-350)% increased Armour
++(100-120) to maximum Life
++(25-30)% to Fire and Cold Resistances
 Cannot be inflicted with Bleeding
 +5 to Maximum number of Crab Barriers
 ]],[[
@@ -114,21 +115,21 @@ Socketed Gems are Supported by level 15 Pierce
 Iron Heart
 Crusader Plate
 Upgrade: Upgrades to unique{The Iron Fortress} via prophecy{Battle Hardended}
-Requires Level 59
-(80–100)% increased Armour 
+Requires Level 59, 160 Str
+(80-100)% increased Armour 
 10% reduced Movement Speed 
-(8–12)% Chance to Block 
+(8-12)% Chance to Block 
 Cannot Block Spells 
 Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
 ]],[[
 The Iron Fortress
 Crusader Plate
 Source: Upgraded from unique{Iron Heart} via prophecy{Battle Hardened}
-Requires Level 68
+Requires Level 68, 160 Str
 +1% Chance to Block Attack Damage per 50 Strength
 Chance to Block Spell Damage is Unlucky
-+(60–120) to Strength
-(80–100)% increased Armour
++(60-120) to Strength
+(80-100)% increased Armour
 10% reduced Movement Speed
 Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
 ]],[[
@@ -179,12 +180,12 @@ Requires Level 9, 32 Dex
 Wildwrap
 Strapped Leather
 Source: Upgraded from unique{Briskwrap} via prophecy{Last of the Wildmen}
-Requires Level 57
-(5–8)% increased Attack Speed
-+(600–700) to Evasion Rating
-+(30–40)% to Cold Resistance
+Requires Level 57, 32 Dex
+(5-8)% increased Attack Speed
++(600-700) to Evasion Rating
++(30-40)% to Cold Resistance
 5% increased Movement Speed
-(20–25)% increased Mana Recovery from Flasks
+(20-25)% increased Mana Recovery from Flasks
 15% increased Dexterity
 1% increased Damage per 15 Dexterity
 ]],[[
@@ -230,12 +231,12 @@ Adds 5 to 12 Physical Damage to Attacks
 Fox's Fortune
 Wild Leather
 Source: Upgraded from unique{Foxshade} via prophecy{Dark Instincts}
-Requires level 54
+Requires level 54, 73 Dex
 Adds 5 to 12 Physical Damage to Attacks
-+(20–30) to Dexterity
++(20-30) to Dexterity
 +1500 to Evasion Rating while on Full Life
-+(400–500) to Evasion Rating
-(120–150)% increased Evasion Rating
++(400-500) to Evasion Rating
+(120-150)% increased Evasion Rating
 10% increased Movement Speed
 Enemies are Unlucky when Damaging you while you are on Full Life
 ]],[[
@@ -357,7 +358,7 @@ Requires Level 68, 194 Int
 40% increased Spell Damage
 (110-130)% increased Energy Shield
 {variant:1}+(50-65) to maximum Energy Shield
-{variant:2}+(15–25) to maximum Energy Shield
+{variant:2}+(15-25) to maximum Energy Shield
 10% increased Area of Effect of Area Skills
 5% increased Damage taken
 (30-40)% increased Energy Shield Recovery Rate
@@ -378,7 +379,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 56, 152 Int
 {variant:1}(250-300)% increased Energy Shield
-{variant:2}(150–200)% increased Energy Shield
+{variant:2}(150-200)% increased Energy Shield
 Minions cannot be Blinded
 Minions have 15% chance to Blind Enemies on hit
 Socketed Minion Gems are Supported by Level 16 Life Leech
@@ -407,7 +408,7 @@ Socketed Gems are Supported by level 15 Added Chaos Damage
 {variant:1}(125-150)% increased Energy Shield
 {variant:2}(180-220)% increased Energy Shield
 {variant:3,4}(280-320)% increased Energy Shield
-{variant:5}(210–250)% increased Energy Shield
+{variant:5}(210-250)% increased Energy Shield
 {variant:1,2,3}Blood Magic
 {variant:4,5}Socketed Gems have Blood Magic
 ]],[[
@@ -424,26 +425,26 @@ Doedre's Skin
 Widowsilk Robe
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 65
+Requires Level 65, 187 Int
 Socketed Curse Gems are Supported by Level 20 Blasphemy 
 Grants Level 20 Summon Doedre's Effigy Skill
 Socketed Curse Skills are Triggered by Doedre's Effigy when Summoned
 Socketed Curse Skills ignore Curse Limit 
-+(30–40) to Intelligence 
-(130–150)% increased Energy Shield 
-{variant:1}(25–33)% reduced Effect of your Curses
++(30-40) to Intelligence 
+(130-150)% increased Energy Shield 
+{variant:1}(25-33)% reduced Effect of your Curses
 ]],[[
 Fenumus' Shroud
 Widowsilk Robe
 League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
-Requires Level 65
-+(30–40) to Intelligence
-(120–140)% increased Energy Shield
-(80–100) Energy Shield Regenerated per second
+Requires Level 65, 187 Int
++(30-40) to Intelligence
+(120-140)% increased Energy Shield
+(80-100) Energy Shield Regenerated per second
 Enemies affected by your Spider's Webs deal 10% reduced Damage
 Enemies affected by your Spider's Webs have -10% to All Resistances
-(50–70)% increased Aspect of the Spider Area of Effect
+(50-70)% increased Aspect of the Spider Area of Effect
 ]],[[
 Garb of the Ephemeral
 Savant's Robe
@@ -468,7 +469,7 @@ Requires Level 65, 187 Int
 (25-35)% increased Fire Damage
 100% increased Global Critical Strike Chance
 {variant:1}(190-230)% increased Energy Shield
-{variant:2}(120–160)% increased Energy Shield
+{variant:2}(120-160)% increased Energy Shield
 15% of Fire Damage Converted to Chaos Damage
 {variant:1}100% increased Spell Damage taken when on Low Mana
 {variant:2}25% increased Spell Damage taken when on Low Mana
@@ -494,7 +495,7 @@ Requires Level 62, 180 Int
 (3-10)% increased Spell Damage
 {variant:1}(200-250)% increased Energy Shield
 {variant:2}(140-200)% increased Energy Shield
-{variant:3}(100–150)% increased Energy Shield
+{variant:3}(100-150)% increased Energy Shield
 10% faster start of Energy Shield Recharge
 +(30-40)% to Lightning Resistance
 Reflects 1 to 250 Lightning Damage to Melee Attackers
@@ -686,9 +687,9 @@ Farrul's Fur
 Triumphant Lamellar
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
-Requires Level 69
-(100–150)% increased Armour and Evasion
-+(90–100) to maximum Life
+Requires Level 69, 95 Str, 116 Dex
+(100-150)% increased Armour and Evasion
++(90-100) to maximum Life
 Aspect of the Cat Reserves no Mana
 +2 seconds to Cat's Stealth Duration
 Gain up to your maximum number of Frenzy and Power Charges when you gain Cat's Stealth
@@ -774,7 +775,7 @@ Requires Level 64, 90 Str, 105 Int
 (50-75)% increased Armour and Energy Shield
 +(50-70) to maximum Life
 {variant:1,2}+(70-80) to maximum Energy Shield
-{variant:3}+(30–40) to maximum Energy Shield
+{variant:3}+(30-40) to maximum Energy Shield
 +(14-18)% to all Elemental Resistances
 {variant:1}+1 maximum Energy Shield per 5 Strength
 {variant:2,3}+2 maximum Energy Shield per 5 Strength
@@ -798,15 +799,15 @@ Cannot be Chilled
 Crystal Vault
 Latticed Ringmail
 Source: Upgraded from unique{Icetomb} via prophecy{End of the Light}
-Requires Level 49
-+(30–40) to Strength
-+(30–40) to Intelligence
-(140–160)% increased Armour and Energy Shield
-+(50–75)% to Cold Resistance
+Requires Level 49, 59 Str, 59 Int
++(30-40) to Strength
++(30-40) to Intelligence
+(140-160)% increased Armour and Energy Shield
++(50-75)% to Cold Resistance
 Cannot be Chilled
 20% of Physical Damage from Hits taken as Cold Damage
 30% of Fire Damage from Hits taken as Cold Damage
-(15–20)% increased Effect of Chill
+(15-20)% increased Effect of Chill
 ]],[[
 Incandescent Heart
 Saintly Chainmail
@@ -823,6 +824,15 @@ Requires Level 70, 99 Str, 115 Int
 25% of Elemental Damage taken as Chaos Damage
 (20-30)% increased Light Radius
 Light Radius is based on Energy Shield instead of Life
+]],[[
+The Ivory Tower
+Saint's Hauberk
+Requires Level 67, 109 Str, 94 Int
++(40-70) to Intelligence
++30 to maximum Energy Shield per 100 Reserved Life
++(80-100) to maximum Mana
+Regenerate 2% of Energy Shield per second
+Chaos Damage is taken from Mana before Life
 ]],[[
 Kingsguard
 Conquest Chainmail
@@ -854,17 +864,17 @@ Requires Level 47, 69 Str, 69 Int
 Loreweave
 Elegant Ringmail
 Source: Vendor Recipe
-Requires Level 64
+Requires Level 64, 90 Str, 105 Int
 Has 6 Sockets
-Adds (4–10) to (14–36) Physical Damage to Attacks
-+(8–24) to all Attributes
-(20–60)% increased Global Critical Strike Chance
-+(15–50) to maximum Energy Shield
-+(20–60) to maximum Life
-+(20–50) to maximum Mana
-(6–30)% increased Rarity of Items found
-(15–50)% increased Elemental Damage
-Your Maximum Resistances are (76–80)%
+Adds (4-10) to (14-36) Physical Damage to Attacks
++(8-24) to all Attributes
+(20-60)% increased Global Critical Strike Chance
++(15-50) to maximum Energy Shield
++(20-60) to maximum Life
++(20-50) to maximum Mana
+(6-30)% increased Rarity of Items found
+(15-50)% increased Elemental Damage
+Your Maximum Resistances are (76-80)%
 ]],[[
 Voll's Protector
 Holy Chainmail
@@ -883,13 +893,13 @@ Gain a Power Charge for each Enemy you hit with a Critical Strike
 [[
 Bloodbond
 Bone Armour
-Requires Level 35
+Requires Level 35, 53 Dex, 53 Int
 Grants Level 15 Blood Offering Skill 
-(100–120)% increased Evasion and Energy Shield 
-(15–25)% increased maximum Life 
-Minions have (20–30)% increased maximum Life 
+(100-120)% increased Evasion and Energy Shield 
+(15-25)% increased maximum Life 
+Minions have (20-30)% increased maximum Life 
 1% of Life Regenerated per second 
-Minions have (6–10)% chance to Dodge Attacks 
+Minions have (6-10)% chance to Dodge Attacks 
 ]],[[
 Carcass Jack
 Varnished Coat
@@ -903,7 +913,7 @@ Requires Level 62, 96 Dex, 96 Int
 {variant:1,2}20% increased Area of Effect of Area Skills
 {variant:3}(40-50)% increased Area of Effect of Area Skills
 {variant:1}12% increased Area Damage
-{variant:2,3}(40–50)% increased Area Damage
+{variant:2,3}(40-50)% increased Area Damage
 Extra gore
 ]],[[
 Cloak of Defiance
@@ -938,13 +948,13 @@ Sadist Garb
 Variant: Pre 3.5.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 68
-+(60–80) to maximum Life 
-(20–50)% increased Damage if you have Shocked an Enemy Recently 
-{variant:1,2}(25–40)% increased Effect of Shock
-{variant:3}(15–25)% increased Effect of Shock
+Requires Level 68, 103 Dex, 109 Int
++(60-80) to maximum Life 
+(20-50)% increased Damage if you have Shocked an Enemy Recently 
+{variant:1,2}(25-40)% increased Effect of Shock
+{variant:3}(15-25)% increased Effect of Shock
 Unaffected by Shock 
-{variant:1}Shocked Enemies you Kill Explode, dealing (5–10)% of
+{variant:1}Shocked Enemies you Kill Explode, dealing (5-10)% of
 {variant:2,3}Shocked Enemies you Kill Explode, dealing 5% of
 their Maximum Life as Lightning Damage which cannot Shock
 ]],[[
@@ -967,13 +977,13 @@ Saqawal's Nest
 Blood Raiment
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
-Requires Level 65
-+(25–75) to all Attributes
-+(30–40)% to Lightning Resistance
-(6–10)% reduced Mana Reserved
+Requires Level 65, 107 Dex, 90 Int
++(25-75) to all Attributes
++(30-40)% to Lightning Resistance
+(6-10)% reduced Mana Reserved
 100% increased Aspect of the Avian Buff Effect
 Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies
-+(120–150) to Evasion Rating and Energy Shield
++(120-150) to Evasion Rating and Energy Shield
 ]],[[
 Shroud of the Lightless
 Carnal Armour
@@ -981,15 +991,15 @@ League: Abyss
 Source: Drops from Abyssal Liches
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
-Requires Level: 71
-+(20–25) to maximum Mana 
+Requires Level 71, 88 Dex, 122 Int
++(20-25) to maximum Mana 
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
 Socketed Gems are Supported by Level 20 Elemental Penetration 
 20% chance to Trigger Level 20 Shade Form when you Use a Socketed Skill 
-(160–180)% increased Evasion and Energy Shield 
-(6–10)% increased maximum Life 
-(9–15)% increased maximum Mana 
+(160-180)% increased Evasion and Energy Shield 
+(6-10)% increased maximum Life 
+(9-15)% increased maximum Mana 
 1% increased Maximum Life per Abyss Jewel affecting you 
 1% increased Maximum Mana per Abyss Jewel affecting you
 ]],[[
@@ -1060,12 +1070,12 @@ Requires Level 75, 66 Str, 66 Dex, 66 Int
 Shadowstitch
 Sacrificial Garb
 League: Incursion
-Requires Level 72
+Requires Level 72, 66 Str, 66 Dex, 66 Int
 Implicits: 0
 Has an additional Implicit Mod
-+(20–30) to all Attributes
-Recover (3–5)% of Maximum Life on Kill
-Recover (3–5)% of Maximum Energy Shield on Kill
++(20-30) to all Attributes
+Recover (3-5)% of Maximum Life on Kill
+Recover (3-5)% of Maximum Energy Shield on Kill
 -(6-4)% to all Resistances for each Equipped Corrupted Item
 8% increased Maximum Energy Shield for each Equipped Corrupted Item
 6% increased Maximum Life for each Equipped Corrupted Item

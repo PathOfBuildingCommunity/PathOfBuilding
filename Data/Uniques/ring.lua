@@ -41,6 +41,17 @@ Requires Level 20
 (50-70)% increased Rarity of Items found
 −20% to all Elemental Resistances
 ]],[[
+Astral Projector
+Topaz Ring
+League: Metamorph
+Requires Level 40
++(20-30)% to Lightning Resistance
++(30-50) to Intelligence
+(20-25)% increased Spell Damage
+30% chance to Avoid Elemental Ailments
+Nova Spells have 20% less Area of Effect
+Nova Spells Cast at the targeted location instead of around you
+]],[[
 Berek's Grip
 Two-Stone Ring
 League: Domination, Nemesis
@@ -139,11 +150,11 @@ Winterweave
 Coral Ring
 Source: Upgraded from unique{Bloodboil} via prophecy{Cold Blooded Fury}
 Requires Level 53
-+(20–30) to maximum Life
-Adds (12–15) to (25–30) Fire Damage to Attacks
-Adds (12–15) to (25–30) Cold Damage to Attacks
-+(20–40) to maximum Life
-+(25–30)% to Cold Resistance
++(20-30) to maximum Life
+Adds (12-15) to (25-30) Fire Damage to Attacks
+Adds (12-15) to (25-30) Cold Damage to Attacks
++(20-40) to maximum Life
++(25-30)% to Cold Resistance
 10% increased Movement Speed while Ignited
 The Effect of Chill on you is reversed
 ]],[[
@@ -328,7 +339,7 @@ Variant: Current
 Requires Level 16
 +(20-30)% to Fire Resistance
 {variant:1}(15-25)% increased Fire Damage
-{variant:2,3}(30–40)% increased Fire Damage
+{variant:2,3}(30-40)% increased Fire Damage
 (5-10)% increased Cast Speed
 {variant:1}5% chance to Ignite
 {variant:2,3}10% chance to Ignite
@@ -374,7 +385,7 @@ Minions have 10% increased Area of Effect of Area Skills
 ]],[[
 The Hungry Loop
 Unset Ring
-Requires Level: 45
+Requires Level 45
 Has 1 Socket
 Consumes Socketed Support Gems when they reach Maximum Level
 Can Consume 4 Support Gems
@@ -471,11 +482,11 @@ Mark of the Elder
 Steel Ring
 Source: Drops from unique{The Elder} (Uber)
 Requires Level 80
-Adds (3–4) to (10–14) Physical Damage to Attacks
-Adds (26–32) to (42–48) Cold Damage to Attacks
-(6–10)% increased maximum Energy Shield
-(6–10)% increased maximum Life
-(60–80)% increased Attack Damage if your other Ring is a Shaper Item
+Adds (3-4) to (10-14) Physical Damage to Attacks
+Adds (26-32) to (42-48) Cold Damage to Attacks
+(6-10)% increased maximum Energy Shield
+(6-10)% increased maximum Life
+(60-80)% increased Attack Damage if your other Ring is a Shaper Item
 Cannot be Stunned by Attacks if your other Ring is an Elder Item
 20% chance to Trigger Level 20 Tentacle Whip on Kill
 Elder Item
@@ -484,11 +495,11 @@ Mark of the Shaper
 Opal Ring
 Source: Drops from unique{The Elder} (Uber)
 Requires Level 80
-(15–25)% increased Elemental Damage
-Adds (13–18) to (50–56) Lightning Damage to Spells
-(6–10)% increased maximum Energy Shield
-(6–10)% increased maximum Life
-(60–80)% increased Spell Damage if your other Ring is an Elder Item
+(15-25)% increased Elemental Damage
+Adds (13-18) to (50-56) Lightning Damage to Spells
+(6-10)% increased maximum Energy Shield
+(6-10)% increased maximum Life
+(60-80)% increased Spell Damage if your other Ring is an Elder Item
 Cannot be Stunned by Spells if your other Ring is a Shaper Item
 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill
 Shaper Item
@@ -502,10 +513,10 @@ Requires Level 69
 +(9-13)% to Chaos Resistance
 {variant:1}15% reduced maximum Life
 {variant:2}10% reduced maximum Life
-{variant:3}(5–10)% reduced maximum Life
+{variant:3}(5-10)% reduced maximum Life
 {variant:1}15% reduced maximum Energy Shield
 {variant:2}10% reduced maximum Energy Shield
-{variant:3}(5–10)% reduced maximum Energy Shield
+{variant:3}(5-10)% reduced maximum Energy Shield
 +(40-50)% to Chaos Resistance
 Gain 20% of Physical Damage as Extra Chaos Damage
 ]],[[
@@ -627,7 +638,7 @@ Requires Level 11
 +(20-30)% to Cold Resistance
 +(25-35)% to Fire Resistance
 {variant:1,2}(25-35)% increased Burning Damage
-{variant:3}(60–80)% increased Burning Damage
+{variant:3}(60-80)% increased Burning Damage
 {variant:1}100% of Cold Damage Converted to Fire Damage
 {variant:2,3}40% of Cold Damage Converted to Fire Damage
 10% increased Light Radius
@@ -737,11 +748,11 @@ Requires Level 68
 Stormfire
 Opal Ring
 Requires Level 80
-(15–25)% increased Elemental Damage
-(40–45)% increased Mana Regeneration Rate
-+(20–30)% to Fire and Lightning Resistances
-(4–6)% increased Burning Damage for each Enemy you have Shocked Recently
-Adds (1–3) to (62–70) Lightning Damage to Hits against Ignited Enemies
+(15-25)% increased Elemental Damage
+(40-45)% increased Mana Regeneration Rate
++(20-30)% to Fire and Lightning Resistances
+(4-6)% increased Burning Damage for each Enemy you have Shocked Recently
+Adds (1-3) to (62-70) Lightning Damage to Hits against Ignited Enemies
 Your Lightning Damage can Ignite
 ]],[[
 The Taming
@@ -755,7 +766,7 @@ Requires Level 30
 {variant:1}15% increased Elemental Damage with Weapons
 {variant:2}30% increased Elemental Damage with Attack Skills
 {variant:1}+(10-15)% to all Elemental Resistances
-{variant:2}+(20–30)% to all Elemental Resistances
+{variant:2}+(20-30)% to all Elemental Resistances
 {variant:1}15% increased Elemental Damage
 {variant:2}30% increased Elemental Damage
 {variant:1}5% chance to Freeze, Shock and Ignite
@@ -822,12 +833,12 @@ Timetwist
 Moonstone Ring
 Source: Upgraded from unique{Timeclasp} via prophecy{A Rift in Time}
 Requires Level 64
-+(15–25) to maximum Energy Shield
-(10–15)% increased Attack Speed
-(5–10)% increased Cast Speed
-+(30–50) to maximum Energy Shield
++(15-25) to maximum Energy Shield
+(10-15)% increased Attack Speed
+(5-10)% increased Cast Speed
++(30-50) to maximum Energy Shield
 15% increased Mana Regeneration Rate
-(-10–10)% increased Skill Effect Duration
+(-10-10)% increased Skill Effect Duration
 Unaffected by Temporal Chains
 ]],[[
 Uzaza's Meadow
@@ -915,7 +926,7 @@ Requires Level 45
 Has 1 Socket
 +5 to Level of Socketed Aura Gems
 Socketed Gems have 10% increased Mana Reservation
-+(15–25) to all Attributes
++(15-25) to all Attributes
 15 Life Regenerated per second for each Uncorrupted Item Equipped
 -2 to Total Mana Cost of Skills for each Corrupted Item Equipped
 {variant:1}{crafted}+(8-15)% to Fire and Chaos Resistances
@@ -941,8 +952,19 @@ The Warden's Brand
 Iron Ring
 Requires Level 30
 Adds 1 to 4 Physical Damage to Attacks
-Adds (5–15) to (25–50) Physical Damage to Attacks
+Adds (5-15) to (25-50) Physical Damage to Attacks
 30% reduced Attack Speed
 15% chance to gain a Frenzy Charge when you Stun an Enemy
+]],[[
+Warrior's Legacy
+Ruby Ring
+League: Metamorph
+Requires Level 16
++(20-30)% to Fire Resistance
++(30-50) to Strength
+(20-25)% increased Melee Damage
+30% chance to Avoid being Stunned
+20% less Attack Speed
+Strike Skills also target the previous location they were Used
 ]],
 }

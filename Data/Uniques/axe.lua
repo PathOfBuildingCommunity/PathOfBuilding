@@ -8,7 +8,7 @@ Cleaver
 Upgrade: Upgrades to unique{Dreadsurge} via prophecy{Burning Dread}
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 16, 48 Str
+Requires Level 16, 48 Str, 14 Dex
 Adds (5-15) to (20-25) Physical Damage
 Adds (5-15) to (20-25) Fire Damage
 5% increased Movement Speed
@@ -20,7 +20,7 @@ Adds (5-15) to (20-25) Fire Damage
 Dreadsurge
 Cleaver
 Source: Upgraded from unique{Dreadarc} via prophecy{Burning Dread}
-Requires Level 60
+Requires Level 60, 48 Str, 14 Dex
 Adds (5-15) to (20-25) Physical Damage
 Adds (223-250) to (264-280) Fire Damage
 5% increased Movement Speed
@@ -51,7 +51,7 @@ Jade Hatchet
 Upgrade: Upgrades to unique{The Gryphon} via prophecy{The Apex Predator}
 Variant: Pre 2.0.0
 Variant: Current
-Requires Level 6, 21 Str
+Requires Level 6, 21 Str, 10 Dex
 {variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
 +(10-15) to maximum Life
@@ -62,7 +62,7 @@ Socketed Gems are supported by level 2 Chance to Flee
 The Gryphon
 Jade Hatchet
 Source: Upgraded from unique{The Screaming Eagle} via prophecy{The Apex Predator}
-Requires Level 32, 21 Str
+Requires Level 32, 21 Str, 10 Dex
 Socketed Gems are supported by level 2 Chance to Flee
 (170-190)% increased Physical Damage
 Adds (10-15) to (25-30) Physical Damage
@@ -273,7 +273,7 @@ Hits can't be Evaded
 ]],[[
 Sinvicta's Mettle
 Ezomyte Axe
-Requires Level 62
+Requires Level 62, 140 Str, 86 Dex
 (200-212)% increased Physical Damage
 (8-12)% increased Attack Speed
 Rampage

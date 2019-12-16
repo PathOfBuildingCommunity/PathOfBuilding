@@ -95,7 +95,7 @@ Creates Consecrated Ground on Use
 (30-50)% increased Duration
 Consecrated Ground created by this Flask has Tripled Radius
 +(1.00-2.00)% to Critical Strike Chance against Enemies on Consecrated Ground during Effect
-Consecrated Ground created during Effect applies (7–10)% increased Damage taken to Enemies
+Consecrated Ground created during Effect applies (7-10)% increased Damage taken to Enemies
 ]],[[
 Coralito's Signature
 Diamond Flask
@@ -131,9 +131,9 @@ Requires Level 22
 Implicits: 0
 Recharges 1 Charge when you consume an Ignited Corpse
 Enemies Ignited by you during Flask Effect take 10% increased Damage
-Recover (1–3)% of Life when you Kill an Enemy during Flask Effect
-Recover (1–3)% of Mana when you Kill an Enemy during Flask Effect
-Recover (1–3)% of Energy Shield when you Kill an Enemy during Flask Effect
+Recover (1-3)% of Life when you Kill an Enemy during Flask Effect
+Recover (1-3)% of Mana when you Kill an Enemy during Flask Effect
+Recover (1-3)% of Energy Shield when you Kill an Enemy during Flask Effect
 {variant:1}{crafted}(60-80)% increased Critical Strike Chance during Flask Effect
 {variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Flask Effect
 {variant:3}{crafted}(20-30)% increased Rarity of Items found during Flask Effect
