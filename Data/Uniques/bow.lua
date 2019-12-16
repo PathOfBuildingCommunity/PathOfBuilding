@@ -119,6 +119,7 @@ Variant: Pre 2.2.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 32, 107 Dex
+Implicits: 1
 (30-50)% increased Critical Strike Chance
 (100-125)% increased Physical Damage
 10% increased Attack Speed
@@ -132,6 +133,7 @@ Source: Upgraded from unique{Death's Harp} via prophecy{The Bowstring's Music}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 44, 107 Dex
+Implicits: 1
 (30-50)% increased Critical Strike Chance
 (100-125)% increased Physical Damage
 Adds (10-20) to (30-35) Physical Damage
@@ -206,6 +208,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 53, 170 Dex
+Implicits: 1
 (30-50)% increased Critical Strike Chance
 {variant:1,2}(90-100)% increased Physical Damage
 {variant:3,4,5}(110-125)% increased Physical Damage
@@ -222,6 +225,7 @@ Requires Level 53, 170 Dex
 Iron Commander
 Death Bow
 Requires Level 32, 107 Dex
+Implicits: 1
 (30-50)% increased Critical Strike Chance
 Adds (8-12) to (16-24) Physical Damage
 (14-20)% increased Attack Speed
@@ -263,6 +267,7 @@ Harbinger Bow
 Variant: Pre 2.5.0
 Variant: Current
 Requires Level 68, 212 Dex
+Implicits: 1
 (30-50)% increased Critical Strike Chance
 No Physical Damage
 Adds (120-140) to (180-210) Cold Damage
@@ -356,6 +361,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 68, 212 Dex
+Implicits: 1
 (30-50)% increased Critical Strike Chance
 {variant:1,2}Adds (60-75) to (170-220) Physical Damage
 {variant:3}Adds (110-125) to (245-265) Physical Damage

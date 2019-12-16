@@ -102,6 +102,7 @@ Magna Eclipsis
 Pinnacle Tower Shield
 Source: Vendor recipe
 Requires Level 70, 159 Str
+Implicits: 1
 +(20-30) to maximum Life
 +2 to Level of Socketed Gems
 Triggers Level 20 Elemental Aegis when Equipped
@@ -198,6 +199,7 @@ Atziri's Reflection
 Golden Buckler
 Source: Upgraded from unique{Atziri's Mirror} via prophecy{The Queen's Sacrifice}
 Requires Level 68, 130 Dex
+Implicits: 1
 6% increased Movement Speed
 +(40-60) to Intelligence
 (180-200)% increased Evasion Rating
@@ -307,6 +309,7 @@ Reflects (25-50) Cold Damage to Melee Attackers
 Mistwall
 Lacquered Buckler
 Requires Level 60, 159 Dex
+Implicits: 1
 6% increased Movement Speed
 (120-150)% increased Evasion Rating
 10% increased Movement Speed
@@ -355,6 +358,7 @@ Ancient Spirit Shield
 League: Incursion
 Upgrade: Upgrades to unique{Apep's Supremacy} via currency{Vial of Awakening}
 Requires Level 45, 110 Int
+Implicits: 1
 (5-10)% increased Spell Damage
 Adds (20-22) to (30-37) Chaos Damage
 +(80-100) to maximum Energy Shield
@@ -368,6 +372,7 @@ Vaal Spirit Shield
 League: Incursion
 Source: Upgraded from unique{Apep's Slumber} via currency{Vial of Awakening}
 Requires Level 62, 159 Int
+Implicits: 1
 (5-10)% increased Spell Damage
 Adds (50-55) to (72-80) Chaos Damage
 +(130-150) to maximum Energy Shield
@@ -457,6 +462,7 @@ Reflect Shocks applied to you to all Nearby Enemies
 The Eternal Apple
 Chiming Spirit Shield
 Requires Level 49, 118 Int
+Implicits: 1
 (10-15)% increased Spell Damage
 Trigger a Socketed Warcry Skill when you lose Endurance Charges
 +(60-80) to maximum Life
@@ -520,6 +526,7 @@ You are Shocked for 4 seconds on reaching Maximum Power Charges
 Manastorm
 Fossilised Spirit Shield
 Requires Level 59, 141 Int
+Implicits: 1
 (15-20)% increased Spell Damage
 (80-120)% increased Energy Shield
 +(50-70) to maximum Mana
@@ -547,6 +554,7 @@ Whakatutuki o Matua
 Tarnished Spirit Shield
 Source: Upgraded from unique{Matua Tupuna} via prophecy{The Mentor}
 Requires Level 63, 60 Int
+Implicits: 1
 (5-10)% increased Spell Damage
 +3 to Level of Socketed Minion Gems
 +(40-80) to maximum Energy Shield
@@ -602,6 +610,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 54, 70 Str, 70 Dex
+Implicits: 1
 120% increased Block Recovery
 20% increased Physical Damage
 (100-120)% increased Armour and Evasion
@@ -621,6 +630,7 @@ Studded Round Shield
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 20, 28 Str, 28 Dex
+Implicits: 1
 60% increased Block Recovery
 Adds 4 to 8 Physical Damage to Attacks
 {variant:1}Adds 4 to 8 Cold Damage to Attacks
@@ -641,6 +651,7 @@ Cannot be Frozen
 Wheel of the Stormsail
 Rotted Round Shield
 Requires Level 5, 10 Str, 10 Dex
+Implicits: 1
 60% increased Block Recovery
 +(5-10) to Armour
 (30-40)% increased Rarity of Items found
@@ -673,6 +684,7 @@ League: Warbands
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 68, 85 Str, 85 Int
+Implicits: 1
 +12% to all Elemental Resistances
 0.4% of Chaos Damage Leeched as Life
 Gain (5-10)% of Physical Damage as Extra Chaos Damage
@@ -686,6 +698,7 @@ Gain (5-10)% of Physical Damage as Extra Chaos Damage
 Invictus Solaris
 Archon Kite Shield
 Requires Level 68, 85 Str, 85 Int
+Implicits: 1
 +12% to all Elemental Resistances
 +2 to Level of Socketed Gems
 Triggers Level 20 Fire Aegis when Equipped
@@ -774,6 +787,7 @@ Source: Upgraded from unique{Springleaf} using prophecy{Nature's Resilience}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 40, 13 Str, 13 Int
+Implicits: 1
 +4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
 +(100-150) to maximum Life
@@ -787,6 +801,7 @@ The Unshattered Will
 Archon Kite Shield
 League: Harbinger
 Requires Level 68, 85 Str, 85 Int
+Implicits: 1
 +12% to all Elemental Resistances
 Grants Summon Harbinger of Focus Skill
 +(60-80) to maximum Life
@@ -799,6 +814,7 @@ Unyielding Flame
 Archon Kite Shield
 Source: Drops in The Lord's Labyrinth
 Requires Level 68, 85 Str, 85 Int
+Implicits: 1
 +12% to all Elemental Resistances
 Trigger Commandment of Inferno on Critical Strike
 (50-70)% increased Global Critical Strike Chance
@@ -812,6 +828,7 @@ Laminated Kite Shield
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 50, 64 Str, 64 Int
+Implicits: 1
 +8% to all Elemental Resistances
 +(50-70) to maximum Life
 +(20-30)% to Lightning Resistance
@@ -861,6 +878,7 @@ Source: Drops from unique{The Eradicator}
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 66, 85 Dex, 85 Int
+Implicits: 1
 4% chance to Dodge Attacks
 {variant:1}(130-150)% increased Evasion and Energy Shield
 {variant:2}(500-600)% increased Evasion and Energy Shield
@@ -888,6 +906,7 @@ Ezomyte Spiked Shield
 Fractured Item
 League: Synthesis
 Requires Level 62, 85 Dex, 85 Int
+Implicits: 1
 2% chance to Dodge Spell Hits
 {fractured}+(1-3) to Level of Socketed Lightning Gems
 Triggers Level 20 Lightning Aegis when Equipped
@@ -900,6 +919,7 @@ Triggers Level 20 Lightning Aegis when Equipped
 Zeel's Amplifier
 Polished Spiked Shield
 Requires Level 49, 64 Dex, 64 Int
+Implicits: 1
 4% chance to Dodge Attack Hits
 (40-50)% increased Spell Damage
 +(60-80) to maximum Energy Shield

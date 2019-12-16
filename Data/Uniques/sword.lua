@@ -6,6 +6,7 @@ return {
 Ahn's Might
 Midnight Blade
 Requires Level 68, 313 Str, 113 Dex
+Implicits: 1
 40% increased Global Accuracy Rating
 Adds (80-115) to (150-205) Physical Damage
 (15-25)% increased Critical Strike Chance
@@ -21,6 +22,7 @@ Source: Drops from unique{The Constrictor} (Tier 11+)
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 66, 104 Str, 122 Dex
+Implicits: 1
 +475 to Accuracy Rating 
 {variant:1}(170-190)% increased Physical Damage
 {variant:2}(185-215)% increased Physical Damage
@@ -112,6 +114,7 @@ Source: Drops from unique{The Constrictor}
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 66, 104 Str, 122 Dex
+Implicits: 1
 +475 to Accuracy Rating
 {variant:1}(170-190)% increased Physical Damage
 {variant:2}(185-215)% increased Physical Damage
@@ -193,6 +196,7 @@ Charan's Sword
 Source: Drops from unique{Hillock}
 Sockets: R-R-R-R-R-R
 Requires Level 2, 9 Str, 9 Dex
+Implicits: 1
 40% increased Global Accuracy Rating
 Uses both hand slots
 (70-90)% increased Critical Strike Chance
@@ -298,6 +302,7 @@ Source: Upgraded from unique{Redbeak} via prophecy{The Dreaded Rhoa}
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 61, 8 Str, 8 Dex
+Implicits: 1
 40% increased Global Accuracy Rating
 100% increased Damage when on Low Life
 50% increased Physical Damage
@@ -328,6 +333,7 @@ The Rippling Thoughts
 Legion Sword
 League: Harbinger
 Requires Level 62, 122 Str, 104 Dex
+Implicits: 1
 40% increased Global Accuracy Rating
 Grants Summon Harbinger of the Arcane Skill
 Trigger level 20 Storm Cascade when you Attack
@@ -396,6 +402,7 @@ Variscite Blade
 League: Incursion
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
 Requires Level 35, 62 Str, 62 Dex
+Implicits: 1
 +240 to Accuracy Rating
 (110-120)% increased Physical Damage
 (10-15)% increased Attack Speed
@@ -408,6 +415,7 @@ Gemstone Sword
 League: Incursion
 Source: Upgraded from unique{Story of the Vaal} via currency{Vial of Fate}
 Requires Level 56, 96 Str, 96 Dex
+Implicits: 1
 +400 to Accuracy Rating
 (160-180)% increased Physical Damage
 (10-15)% increased Attack Speed
@@ -587,6 +595,7 @@ The Dancing Duo
 Reaver Sword
 Source: Upgraded from unique{The Dancing Dervish} via prophecy{Dance of Steel}
 Requires Level 65, 82 Str, 119 Dex
+Implicits: 1
 40% increased Global Accuracy Rating
 (160-190)% increased Physical Damage
 (25-30)% increased Attack Speed
@@ -666,6 +675,7 @@ Infernal Sword
 Variant: Pre 1.3.0
 Variant: Current
 Requires Level 67, 113 Str, 113 Dex
+Implicits: 1
 30% increased Accuracy Rating
 No Physical Damage
 Adds (425-475) to (550-600) Fire Damage
@@ -749,6 +759,7 @@ Starforge
 Infernal Sword
 Source: Drops from unique{The Shaper}
 Requires Level 67, 113 Str, 113 Dex
+Implicits: 1
 30% increased Accuracy Rating
 (400-500)% increased Physical Damage
 (5-8)% increased Attack Speed
@@ -778,6 +789,7 @@ Voidforge
 Infernal Sword
 Source: Drops from unique{The Elder} (Uber)
 Requires Level 67, 113 Str, 113 Dex
+Implicits: 1
 30% increased Accuracy Rating
 (50-100)% increased Physical Damage
 (5-8)% increased Attack Speed

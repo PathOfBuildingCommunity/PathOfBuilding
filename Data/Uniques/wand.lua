@@ -69,6 +69,7 @@ Corona Solaris
 Crystal Wand
 Source: Upgraded from unique{Eclipse Solaris} via prophecy{Blinding Light}
 Requires Level 63, 146 Int
+Implicits: 1
 (29-33)% increased Spell Damage
 Triggers Level 20 Blinding Aura when Equipped
 Adds (18-22) to (36-44) Physical Damage
@@ -81,6 +82,7 @@ Adds (145-157) to (196-210) Fire Damage to Hits with this Weapon against Blinded
 Lifesprig
 Driftwood Wand
 Requires 14 Int
+Implicits: 1
 (8-12)% increased Spell Damage
 +1 to Level of Socketed Spell Gems
 (20-28)% increased Spell Damage
@@ -165,6 +167,7 @@ Attacks with this Weapon have (100-115)% increased Elemental Damage
 The Poet's Pen
 Carved Wand
 Requires Level 12, 47 Int
+Implicits: 1
 (11-15)% increased Spell Damage 
 +1 to Level of Socketed Active Skill Gems per 25 Player Levels 
 Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels 
@@ -188,6 +191,7 @@ Amplification Rod
 Spiraled Wand
 Source: Upgraded from unique{Reverberation Rod} using prophecy{Power Magnified}
 Requires Level 36, 83 Int
+Implicits: 1
 (15-19)% increased Spell Damage
 +1 to Level of Socketed Gems
 Socketed Gems are Supported by level 1 Spell Echo
@@ -200,6 +204,7 @@ Sage Wand
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 30, 119 Int
+Implicits: 1
 (17-21)% increased Spell Damage
 Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 Critical Strikes deal no Damage
@@ -212,6 +217,7 @@ Source: Drops from unique{The Elder} (Tier 6+)
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 65, 212 Int
+Implicits: 1
 (35-39)% increased Spell Damage 
 (30-40)% increased Spell Damage 
 Adds (26-35) to (95-105) Lightning Damage to Spells 
@@ -243,6 +249,7 @@ League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
 Requires Level 24, 83 Int
+Implicits: 1
 (15-19)% increased Spell Damage
 (10-15)% increased Cast Speed
 50% chance to gain a Power Charge on Killing a Frozen Enemy
@@ -254,6 +261,7 @@ Tornado Wand
 League: Breach
 Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
 Requires Level 65, 212 Int
+Implicits: 1
 (35-39)% increased Spell Damage
 (10-15)% increased Cast Speed
 50% chance to gain a Power Charge on Killing a Frozen Enemy

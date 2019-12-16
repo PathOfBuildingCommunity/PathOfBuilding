@@ -47,6 +47,7 @@ Vaal Claw
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 66, 131 Dex, 95 Int
+Implicits: 1
 2% of Physical Attack Damage Leeched as Life
 {variant:1}(80-100)% increased Physical Damage
 {variant:2}(110-130)% increased Physical Damage
@@ -61,6 +62,7 @@ Hellion's Paw
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 62, 131 Dex, 95 Int
+Implicits: 1
 1.6% of Physical Attack Damage Leeched as Life
 {variant:1}(100-120)% increased Physical Damage
 {variant:2}(150-170)% increased Physical Damage
@@ -111,6 +113,7 @@ Vaal Claw
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 66, 95 Dex, 131 Int
+Implicits: 1
 2% of Physical Attack Damage Leeched as Life
 8% additional Chance to Block while Dual Wielding Claws
 (140-180)% increased Physical Damage
@@ -177,6 +180,7 @@ Adds 20 to 50 Physical Damage
 ]],[[
 Last Resort
 Nailed Fist
+Implicits: 1
 +3 Life gained for each Enemy hit by your Attacks
 25% increased Attack Speed when on Low Life
 (80-100)% increased Physical Damage
@@ -226,6 +230,7 @@ Terror Claw
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 70, 113 Dex, 113 Int
+Implicits: 1
 2% of Physical Attack Damage Leeched as Life
 (60-80)% increased Physical Damage
 Adds (25-35) to (50-65) Physical Damage
@@ -239,6 +244,7 @@ The Scourge
 Terror Claw
 Source: Drops from unique{Guardian of the Chimera}
 Requires Level 70, 113 Dex, 113 Int
+Implicits: 1
 2% of Physical Attack Damage Leeched as Life
 Adds (35-50) to (100-125) Physical Damage
 (10-15)% increased Attack Speed
@@ -268,6 +274,7 @@ Throat Stabber
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 60, 113 Dex, 113 Int
+Implicits: 1
 +40 Life gained for each Enemy hit by Attacks
 (150-170)% increased Physical Damage
 (20-25)% increased Attack Speed

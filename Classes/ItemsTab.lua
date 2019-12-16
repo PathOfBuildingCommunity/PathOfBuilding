@@ -1417,12 +1417,13 @@ function ItemsTabClass:EnchantDisplayItem()
 	local function enchantItem()
 		local item = new("Item", self.build.targetVersion, self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
-		for i = 1, item.implicitLines do 
+		if item.implicitLines > 0 and item.modLines[1].crafted then
 			t_remove(item.modLines, 1)
+			item.implicitLines = item.implicitLines - 1
 		end
 		local list = haveSkills and enchantments[controls.skill.list[controls.skill.selIndex]] or enchantments
 		t_insert(item.modLines, 1, { crafted = true, line = list[controls.labyrinth.list[controls.labyrinth.selIndex].name][controls.enchantment.selIndex] })
-		item.implicitLines = 1
+		item.implicitLines = item.implicitLines + 1
 		item:BuildAndParseRaw()
 		return item
 	end
@@ -1894,11 +1895,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 
 	-- Implicit/explicit modifiers
 	if item.modLines[1] then
-		for index, modLine in pairs(item.modLines) do
+		for index, modLine in ipairs(item.modLines) do
 			if not modLine.buff and item:CheckModLineVariant(modLine) then
 				tooltip:AddLine(16, itemLib.formatModLine(modLine, dbMode))
 			end
-			if index == item.implicitLines + item.buffLines and item.modLines[index + 1] then
+			if (index == item.implicitLines + item.buffLines and item.modLines[index + 1]) or (index < item.implicitLines + item.buffLines and modLine.crafted and not item.modLines[index + 1].crafted) then
 				-- Add separator between implicit and explicit modifiers
 				tooltip:AddSeparator(10)
 			end

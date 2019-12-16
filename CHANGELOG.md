@@ -1,3 +1,23 @@
+### 1.4.156 - 2019/12/16
+ * Added the following unique items: (thanks ppoelzl)
+    * Astral Projector
+    * The Black Cane
+    * Crown of the Inward Eye
+    * Eye of Malice
+    * Fury Valve
+    * Hands of the High Templar
+    * The Ivory Tower
+    * Leash of Oblation
+	* Manastorm
+	* Mistwall
+    * Mother's Embrace
+    * Painseeker
+	* Warrior's Legacy
+    * Willowgift
+ * Implicits on items that are copied from in-game are now correctly handled. Additionally, the ability of the program 
+   to determine if modifiers on copied items are enchantments, implicits or explicits has been greatly improved, 
+   and should almost always be correct; also, applying enchantments to items with implicits will now work correctly.
+
 ### 1.4.155 - 2019/12/14
  * Fixed error when using Siege Ballista
  * Fixed Artillery Ballista and Shrapnel Ballista not benefiting from Totem modifiers

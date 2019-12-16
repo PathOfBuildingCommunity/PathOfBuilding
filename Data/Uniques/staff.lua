@@ -86,6 +86,7 @@ Ezomyte Staff
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 60, 113 Str, 113 Int
+Implicits: 1
 18% Chance to Block 
 +2 to Level of all Chaos Skill Gems
 {variant:1}(60-80)% increased Chaos Damage
@@ -101,6 +102,7 @@ Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
+Implicits: 1
 20% Chance to Block
 {variant:1}Adds (270-300) to (340-380) Physical Damage
 {variant:2}Adds (250-280) to (315-355) Physical Damage
@@ -153,6 +155,7 @@ The Enmity Divine
 Imperial Staff
 League: Harbinger
 Requires Level 66, 113 Str, 113 Int
+Implicits: 1
 18% Chance to Block
 Socketed Gems are supported by level 10 Life Leech
 Grants Summon Harbinger of Brutality Skill
@@ -198,6 +201,7 @@ Mirebough
 Gnarled Branch
 Source: Upgraded from unique{Fencoil} via prophecy{Trapped in the Tower}
 Requires Level 32, 12 Str, 12 Int
+Implicits: 1
 18% Chance to Block
 Socketed Gems are Supported by Level 16 Trap
 Socketed Gems are Supported by Level 16 Cluster Trap
@@ -209,6 +213,7 @@ Socketed Gems are Supported by Level 16 Trap and Mine Damage
 The Grey Spire
 Judgement Staff
 Requires Level 68, 113 Str, 113 Int
+Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
 Has no Sockets
 (250-300)% increased Global Damage
@@ -237,6 +242,7 @@ Highborn Staff
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 52, 89 Str, 89 Int
+Implicits: 1
 18% Chance to Block
 (12-16)% Chance to Block
 Adds (350-400) to (500-600) Fire Damage
@@ -252,6 +258,7 @@ Pillar of the Caged God
 Iron Staff
 Variant: Current
 Requires Level 13, 27 Str, 27 Int
+Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
 1% increased Area of Effect of Area Skills per 20 Intelligence
 1% increased Attack Speed per 10 Dexterity
@@ -336,6 +343,7 @@ The Searing Touch
 Long Staff
 Variant: Pre 2.0.0
 Requires Level 60, 113 Str, 113 Int
+Implicits: 1
 12% Chance to Block
 +2 to Level of Socketed Fire Gems
 (30-50)% increased Spell Damage
@@ -362,6 +370,7 @@ Soulwrest
 Ezomyte Staff
 League: Delve
 Requires Level 60, 113 Str, 113 Int
+Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
 Trigger Level 20 Summon Phantasm Skill when you Consume a Corpse
 (100-140)% increased Spell Damage
@@ -391,6 +400,7 @@ The Stormwall
 Royal Staff
 Source: Upgraded from unique{The Stormheart} via prophecy{The Storm Spire}
 Requires Level 60, 51 Str, 51 Int
+Implicits: 1
 18% Chance to Block
 15% Chance to Block
 Adds (242-260) to (268-285) Physical Damage

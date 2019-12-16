@@ -9,6 +9,7 @@ Variant: Pre 1.3.0
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 45
+Implicits: 1
 +(20-30) to Strength
 10% reduced Attack Speed
 10% reduced Cast Speed
@@ -28,6 +29,7 @@ Requires Level 45
 Araku Tiki
 Coral Amulet
 Upgrade: Upgrades to unique{Ngamahu Tiki} via prophecy{A Forest of False Idols}
+Implicits: 1
 (2-4) Life Regenerated per second
 You gain 100 Evasion Rating when on Low Life
 +(30-50) to maximum Life
@@ -38,6 +40,7 @@ Ngamahu Tiki
 Coral Amulet
 Source: Upgraded from unique{Araku Tiki} via prophecy{A Forest of False Idols}
 Requires Level 36
+Implicits: 1
 (2-4) Life Regenerated per second
 (50-70)% increased Fire Damage
 You gain 100 Evasion Rating when on Low Life
@@ -49,6 +52,7 @@ The Ascetic
 Gold Amulet
 Source: prophecy{The Ambitious Bandit III}
 Requires Level 8
+Implicits: 1
 (12-20)% increased Rarity of Items found
 (80-100)% increased Rarity of Items found with a Normal Item equipped
 (10-15)% increased Quantity of Items found with a Magic Item equipped
@@ -56,6 +60,7 @@ Requires Level 8
 Astramentis
 Onyx Amulet
 Requires Level 20
+Implicits: 1
 +(10-16) to all Attributes
 +(80-100) to all Attributes
 -4 Physical Damage taken from Attacks
@@ -65,6 +70,7 @@ Paua Amulet
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 16
+Implicits: 1
 (20-30)% increased Mana Regeneration Rate
 {variant:1}+50 to maximum Mana
 {variant:2}+100 to maximum Mana
@@ -93,6 +99,7 @@ Variant: Intelligence: Purity of Lightning
 Variant: Intelligence: Wrath
 Variant: Envy
 Requires Level 55
+Implicits: 1
 +(10-16) to all Attributes
 {variant:1,2,3,4}+(20-30) to Strength
 {variant:5,6,7,8}+(20-30) to Dexterity
@@ -129,6 +136,7 @@ Agate Amulet
 Variant: Pre 2.5.0
 Variant: Current
 Requires Level 32
+Implicits: 1
 +(16-24) to Strength and Intelligence
 +(30-50) to maximum Life
 +(50-70) to maximum Mana
@@ -144,6 +152,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.2.0
 Variant: Current
 Requires Level 30
+Implicits: 1
 (12-20)% increased Rarity of Items found
 {variant:1}150% increased Rarity of Items Dropped by Slain Magic Enemies
 {variant:2,3}(100-150)% increased Rarity of Items Dropped by Slain Magic Enemies
@@ -156,6 +165,7 @@ Clutching Talisman
 League: Talisman Hardcore
 Requires Level 28
 Talisman Tier: 2
+Implicits: 1
 (15-25)% increased Defences
 +(20-30) to maximum Energy Shield
 +(15-30)% to Fire Resistance
@@ -168,6 +178,7 @@ Blood of Corruption
 Amber Amulet
 Source: Use currency{Vaal Orb} on unique{Tear of Purity}
 Requires Level 20
+Implicits: 1
 +(20-30) to Strength
 Grants level 10 Gluttony of Elements Skill
 Adds 19-43 Chaos Damage to Attacks
@@ -179,6 +190,7 @@ Bloodgrip
 Coral Amulet
 Variant: Pre 3.0.0
 Requires Level 55
+Implicits: 1
 (2-4) Life Regenerated per second
 Adds 10 to 20 Physical Damage to Attacks
 +(60-70) to maximum Life
@@ -190,6 +202,7 @@ Bloodgrip
 Marble Amulet
 Variant: Current
 Requires Level 74
+Implicits: 1
 (1.2-1.6)% of Life Regenerated per second
 Adds 10 to 20 Physical Damage to Attacks
 +(60-70) to maximum Life
@@ -202,6 +215,7 @@ Onyx Amulet
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 20
+Implicits: 1
 +(10-16) to all Attributes
 +(20-40) to all Attributes
 {variant:1}25% reduced maximum Life
@@ -216,6 +230,7 @@ Daresso's Salute
 Citrine Amulet
 League: Anarchy
 Requires Level 16
+Implicits: 1
 +(16-24) to Strength and Dexterity
 50% reduced maximum Energy Shield
 +(30-40)% to Fire Resistance
@@ -229,6 +244,7 @@ Agate Amulet
 Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 16
+Implicits: 1
 +(16-24) to Strength and Intelligence
 +(30-50) to Strength
 5% chance to grant Unholy Might to nearby Enemies on Kill
@@ -243,6 +259,7 @@ Eye of Chayula
 Onyx Amulet
 Upgrade: Upgrades to unique{Presence of Chayula} using currency{Blessing of Chayula}
 Requires Level 20
+Implicits: 1
 +(10-16) to all Attributes
 20% reduced maximum Life
 30% increased Rarity of Items found
@@ -253,6 +270,7 @@ Onyx Amulet
 League: Breach
 Source: Upgraded from unique{Eye of Chayula} using currency{Blessing of Chayula}
 Requires Level 60
+Implicits: 1
 +(10-16) to all Attributes
 30% increased Rarity of Items found
 +60% to Chaos Resistance
@@ -263,6 +281,7 @@ Eye of Innocence
 Citrine Amulet
 Source: Drops from unique{Guardian of the Phoenix}
 Requires Level 68
+Implicits: 1
 +(16-24) to Strength and Dexterity
 10% chance to Ignite
 (50-70)% increased Damage while Ignited
@@ -344,6 +363,7 @@ Fury Valve
 Turquoise Amulet
 League: Metamorph
 Requires Level 40
+Implicits: 1
 +(16-24) to Dexterity and Intelligence
 (15-25)% increased Evasion Rating
 +(15-20)% to all Elemental Resistances
@@ -355,6 +375,7 @@ Gloomfang
 Blue Pearl Amulet
 Source: Drops from unique{The Purifier}
 Requires 77
+Implicits: 1
 (48-56)% increased Mana Regeneration Rate
 0.5% of Chaos Damage Leeched as Life
 Lose (10-15) Life for each Enemy hit by your Spells
@@ -368,6 +389,7 @@ League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{The Pandemonius} using currency{Blessing of Tul}
 Requires Level 35
+Implicits: 1
 +(20-30) to Dexterity
 (10-20)% increased Cold Damage
 +(35-40)% to Cold Resistance
@@ -380,6 +402,7 @@ Jade Amulet
 League: Breach
 Source: Upgraded from unique{The Halcyon} using currency{Blessing of Tul}
 Requires Level 64
+Implicits: 1
 +(20-30) to Dexterity
 (20-30)% increased Cold Damage
 +(35-40)% to Cold Resistance
@@ -391,6 +414,7 @@ Hinekora's Sight
 Onyx Amulet
 Source: Any prophecy{Prophecy} enemy
 Requires Level 20
+Implicits: 1
 +(10-16) to all Attributes
 +1000 to Accuracy Rating
 (6-10)% chance to Dodge Attacks
@@ -401,6 +425,7 @@ Hyrri's Truth
 Jade Amulet
 League: Synthesis
 Requires Level 64
+Implicits: 1
 +(20-30) to Dexterity
 Grants Level 22 Precision Skill
 +(25-35) to Dexterity
@@ -414,6 +439,7 @@ The Ignomon
 Gold Amulet
 Upgrade: Upgrades to unique{The Effigon} via prophecy{Blind Faith}
 Requires Level 8
+Implicits: 1
 (12-20)% increased Rarity of Items found
 +10 to Dexterity
 Adds 12 to 24 Fire Damage to Attacks
@@ -425,6 +451,7 @@ The Effigon
 Gold Amulet
 Source: Upgraded from unique{The Ignomon} via prophecy{Blind Faith}
 Requires Level 57
+Implicits: 1
 (12-20)% increased Rarity of Items found
 +10 to Dexterity
 Adds 12 to 24 Fire Damage to Attacks
@@ -443,6 +470,7 @@ Variant: Cold
 Variant: Lightning
 Variant: Chaos
 Requires Level 64
+Implicits: 1
 +(10-16) to all Attributes
 {variant:1}Adds (12-16) to (20-25) Physical Damage
 {variant:2}Adds (20-24) to (33-36) Fire Damage
@@ -474,6 +502,7 @@ Upgrade: Upgrades to unique{Karui Charge} via prophecy{The Karui Rebellion}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 5
+Implicits: 1
 +(20-30) to Dexterity
 +(20-30) to Strength
 +100 to Accuracy Rating
@@ -487,6 +516,7 @@ Source: Upgraded from unique{Karui Ward} via prophecy{The Karui Rebellion}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24
+Implicits: 1
 +(20-30) to Dexterity
 +(20-30) to Strength
 {variant:1}(15-20)% increased Attack Speed
@@ -499,6 +529,7 @@ Requires Level 24
 Maligaro's Cruelty
 Turquoise Amulet
 Requires Level 20
+Implicits: 1
 +(16-24) to Dexterity and Intelligence
 (4-8)% increased maximum Life
 (25-30)% chance to gain a Frenzy Charge on Killing an Enemy affected by 5 or more Poisons
@@ -514,6 +545,7 @@ Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 40
+Implicits: 1
 +(20-30) to Intelligence
 +(80-120) to Accuracy Rating
 {variant:1,2,3}+(140-160)% to Global Critical Strike Multiplier
@@ -532,6 +564,7 @@ Rotfeather Talisman
 League: Talisman Standard, Talisman Hardcore
 Requires Level 44
 Talisman Tier: 3
+Implicits: 1
 (25-35)% increased Damage
 (10-15)% increased Physical Damage
 (25-30)% increased Fire Damage
@@ -545,6 +578,7 @@ Black Maw Talisman
 League: Talisman Standard, Talisman Hardcore
 Requires Level 25
 Talisman Tier: 1
+Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Gems
 Socketed Gems are Supported by level 10 Added Chaos Damage
@@ -555,6 +589,7 @@ Corrupted
 Perquil's Toe
 Gold Amulet
 Requires Level 29
+Implicits: 1
 (12-20)% increased Rarity of Items found
 +(40-50) to Dexterity
 (5-8)% increased Movement Speed
@@ -565,6 +600,7 @@ The Primordial Chain
 Coral Amulet
 League: Delve
 Requires Level 34
+Implicits: 1
 (2-4) Life Regenerated per second
 Can Summon up to 3 additional Golems at a time
 You cannot have non-Golem Minions
@@ -579,6 +615,7 @@ Jade Amulet
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 61
+Implicits: 1
 +(20-30) to Dexterity
 +(40-80) to maximum Life
 +(20-40) to maximum Mana
@@ -610,6 +647,7 @@ League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Zerphi's Heart} via currency{Vial of Sacrifice}
 Requires Level 32
+Implicits: 1
 (20-30)% increased Mana Regeneration Rate
 Adds (22-27) to (34-38) Fire Damage
 Adds (20-23) to (31-35) Cold Damage
@@ -623,6 +661,7 @@ Paua Amulet
 League: Incursion
 Source: Upgraded from unique{Sacrificial Heart} via currency{Vial of Sacrifice}
 Requires Level 70
+Implicits: 1
 (20-30)% increased Mana Regeneration Rate
 Adds (48-53) to (58-60) Chaos Damage
 Items and Gems have 50% increased Attribute Requirements
@@ -634,6 +673,7 @@ Agate Amulet
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 16
+Implicits: 1
 +(16-24) to Strength and Intelligence
 (30-50)% increased Mana Regeneration Rate
 2% of Life Regenerated per Second
@@ -646,6 +686,7 @@ Paua Amulet
 Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
+Implicits: 1
 (20-30)% increased Mana Regeneration Rate
 +25% to Cold Resistance
 {variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
@@ -659,6 +700,7 @@ Solstice Vigil
 Onyx Amulet
 Source: Drops from unique{The Shaper}
 Requires Level 64
+Implicits: 1
 +(10-16) to all Attributes
 (20-25)% increased Damage
 +(50-70) to maximum Life
@@ -673,9 +715,10 @@ Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
 Requires Level 28
+Implicits: 1
++(20-30)% to Fire Resistance
 {variant:1,2}Grants level 20 Illusory Warp Skill
 {variant:3}Grants Level 10 Frostblink Skill
-+(20-30)% to Fire Resistance
 (30-50)% increased Cold Damage
 +(10-15)% to all Elemental Resistances
 {variant:1}30% increased Area of Effect of Curse Skills
@@ -690,6 +733,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 5
+Implicits: 1
 +(20-30) to Intelligence
 {variant:1}50% of Block Chance applied to Spells
 {variant:2}+15% chance to Block Spell Damage
@@ -702,6 +746,7 @@ Coral Amulet
 League: Legion
 Source: Drops from normal{Karui} legion
 Requires Level 54
+Implicits: 1
 (2.0-4.0) Life regenerated per second
 +(30-40) to Intelligence
 Minions have +(-17-17)% to Chaos Resistance
@@ -713,6 +758,7 @@ Summoned Raging Spirits take 20% of their Maximum Life per second as Chaos Damag
 Tear of Purity
 Lapis Amulet
 Requires Level 20
+Implicits: 1
 +(20-30) to Intelligence
 Grants level 10 Purity of Elements Skill
 +(5-10) to all Attributes
@@ -725,6 +771,7 @@ Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 23
+Implicits: 1
 +(16-24) to Dexterity and Intelligence
 100% increased Global Critical Strike Chance
 {variant:1}−50% to Global Critical Strike Multiplier
@@ -738,6 +785,7 @@ Victario's Acuity
 Turquoise Amulet
 League: Onslaught
 Requires Level 16
+Implicits: 1
 +(16-24) to Dexterity and Intelligence
 +(30-40)% to Lightning Resistance
 +(8-10)% to Chaos Resistance
@@ -754,6 +802,7 @@ Upgrade: Upgrades to unique{Choir of the Storm} using currency{Blessing of Esh}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 40
+Implicits: 1
 +(20-30) to Intelligence
 +(10-15) to all Attributes
 (10-20)% increased maximum Mana
@@ -768,6 +817,7 @@ Source: Upgraded from unique{Voice of the Storm} using currency{Blessing of Esh}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 69
+Implicits: 1
 +(20-30) to Intelligence
 (10-20)% increased maximum Mana
 {variant:1}-30% to Lightning Resistance
@@ -781,6 +831,7 @@ Voll's Devotion
 Agate Amulet
 League: Anarchy, Onslaught
 Requires Level 32
+Implicits: 1
 +(16-24) to Strength and Intelligence
 +(30-40) to maximum Life
 +(20-30) to maximum Energy Shield
@@ -792,6 +843,7 @@ Gain an Endurance Charge when a Power Charge expires or is consumed
 Warped Timepiece
 Turquoise Amulet
 Requires Level 50
+Implicits: 1
 +(16-24) to Dexterity and Intelligence
 (8-12)% increased Attack Speed
 (8-12)% increased Cast Speed
@@ -803,6 +855,7 @@ Requires Level 50
 Willowgift
 Jade Amulet
 Requires Level 52
+Implicits: 1
 +(20-30) to Dexterity
 10% reduced Strength
 15% increased Dexterity
@@ -814,6 +867,7 @@ Fortify Buffs you create instead grant 30% more Evasion Rating
 Winterheart
 Gold Amulet
 Requires Level 42
+Implicits: 1
 (12-20)% increased Rarity of Items found
 +(20-30) to Dexterity
 +(50-70) to maximum Life
@@ -827,6 +881,7 @@ League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Blood} using currency{Blessing of Xoph}
 Requires Level 35
+Implicits: 1
 +(20-30) to Strength
 +(20-30) to Strength
 25% increased Fire Damage
@@ -839,6 +894,7 @@ Amber Amulet
 League: Breach
 Source: Upgraded from unique{Xoph's Heart} using currency{Blessing of Xoph}
 Requires Level 64
+Implicits: 1
 +(20-30) to Strength
 10% increased maximum Life
 +(20-40)% to Fire Resistance
@@ -851,6 +907,7 @@ Yoke of Suffering
 Onyx Amulet
 Source: Drops from unique{The Eradicator} (Tier 11+)
 Requires Level 25
+Implicits: 1
 +(10-16) to all Attributes
 +(10-20)% to Fire Resistance
 +(10-20)% to Cold Resistance

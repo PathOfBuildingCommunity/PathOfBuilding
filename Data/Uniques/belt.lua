@@ -9,6 +9,7 @@ Source: prophecy{Thaumaturgical History IV}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 44
+Implicits: 1
 +(9-20) to maximum Energy Shield
 +300 to Evasion Rating
 {variant:1}+(35-45) to maximum Energy Shield
@@ -22,6 +23,7 @@ Auxium
 Chain Belt
 Variant: Pre 2.6.0
 Requires Level 70
+Implicits: 1
 +(9-20) to maximum Energy Shield
 (10-20)% increased Elemental Damage with Weapons
 +(45-55) to maximum Mana
@@ -35,6 +37,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 70
+Implicits: 1
 +(60-80) to maximum Energy Shield
 {variant:1}(10-20)% increased Elemental Damage with Weapons
 {variant:2}(10-20)% increased Elemental Damage with Attack Skills
@@ -50,6 +53,7 @@ Chain Belt
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 22
+Implicits: 1
 +(9-20) to maximum Energy Shield
 10% increased Damage
 +(15-25) to Intelligence
@@ -62,6 +66,7 @@ Heavy Belt
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 20
+Implicits: 1
 +(25-35) to Strength
 {variant:1}10% reduced Chance to Block Attacks and Spells
 (15-25)% increased Physical Damage
@@ -74,6 +79,7 @@ You take 30% reduced Extra Damage from Critical Strikes
 Bisco's Leash
 Heavy Belt
 Requires Level 30
+Implicits: 1
 +(25-35) to Strength
 5% increased Quantity of Items found
 +(20-40)% to Cold Resistance
@@ -85,6 +91,7 @@ Chain Belt
 League: Incursion
 Upgrade: Upgrades to unique{Coward's Legacy} via currency{Vial of Consequence}
 Requires Level 22
+Implicits: 1
 +(9-20) to maximum Energy Shield
 (20-25)% increased Damage
 +(10-15) to all Attributes
@@ -97,6 +104,7 @@ Chain Belt
 League: Incursion
 Source: Upgraded from unique{Coward's Chains} via currency{Vial of Consequence}
 Requires Level 52
+Implicits: 1
 +(9-20) to maximum Energy Shield
 +(15-20) to all Attributes
 (5-10)% increased Movement Speed
@@ -108,6 +116,7 @@ Cyclopean Coil
 Leather Belt
 Source: Drops from unique{The Elder}
 Requires Level 68
+Implicits: 1
 +(25-40) to maximum Life
 +(60-80) to maximum Life
 (5-15)% increased Attributes
@@ -121,6 +130,7 @@ Darkness Enthroned
 Stygian Vise
 League: Abyss
 Source: Drops from Abyssal Liches
+Implicits: 1
 Has 1 Abyssal Socket
 Has 1 Abyssal Socket
 50% increased Effect of Socketed Jewels
@@ -133,6 +143,7 @@ Variant: Fire
 Variant: Cold
 Variant: Lightning
 Requires Level 68
+Implicits: 1
 +(25-35) to Strength
 {variant:1}(20-30)% increased Physical Damage
 {variant:2}(20-30)% increased Fire Damage
@@ -156,6 +167,7 @@ Heavy Belt
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 52
+Implicits: 1
 +(25-35) to Strength
 +(70-85) to maximum Life
 +(20-40)% to Fire Resistance
@@ -170,6 +182,7 @@ Faminebind
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
 Requires Level 18
+Implicits: 1
 (12-24)% increased Physical Damage
 +(20-30)% to Cold Resistance
 60% increased Flask effect duration
@@ -181,6 +194,7 @@ Feastbind
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
 Requires Level 11
+Implicits: 1
 (12-24)% increased Physical Damage
 Adds 5 to 10 Physical Damage to Attacks
 +(20-40) to maximum Life
@@ -192,6 +206,7 @@ The Flow Untethered
 Cloth Belt
 League: Harbinger
 Requires Level 60
+Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Harbinger of Time Skill
 (10-15)% increased Attack and Cast Speed
@@ -203,6 +218,7 @@ Debuffs on you expire (15-20)% faster
 Gluttony
 Leather Belt
 Requires Level 48
+Implicits: 1
 +(25-40) to maximum Life
 +(60-80) to maximum Life
 Culling Strike against Enemies Cursed with Poacher's Mark
@@ -216,6 +232,7 @@ League: Nemesis
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 40
+Implicits: 1
 +(25-40) to maximum Life
 +(40-55) to Strength
 +(40-55) to Dexterity
@@ -238,6 +255,7 @@ Variant: Trap Throwing Speed
 Variant: Energy Shield Regen
 Variant: Lucky Crit Chance while Focussed
 Requires Level 60
+Implicits: 1
 +(25-40) to maximum Life
 +(30-40)% to Cold Resistance
 Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
@@ -260,6 +278,7 @@ Variant: Pre 1.3.0
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 50
+Implicits: 1
 +(25-40) to maximum Life
 +(75-100) to maximum Life
 (67-75) Life Regenerated per second
@@ -274,6 +293,7 @@ Requires Level 50
 Leash of Oblation
 Leather Belt
 Requires Level 49
+Implicits: 1
 +(25-40) to maximum Life
 +(15-20) to all Attributes
 +(50-70) to maximum Life
@@ -288,6 +308,7 @@ Upgrade: Upgrades to unique{The Tactician} via prophecy{The Great Mind of the No
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 16
+Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 (25-40)% increased Physical Damage
 +(40-50) to Strength
@@ -298,6 +319,7 @@ The Nomad
 Studded Belt
 Source: Upgraded from unique{The Magnate} via prophecy{The Great Leader of the North}
 Requires Level 48
+Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 (25-40)% increased Global Physical Damage
 +(40-50) to Strength
@@ -309,6 +331,7 @@ The Tactician
 Studded Belt
 Source: Upgraded from unique{The Magnate} via prophecy{The Great Mind of the North}
 Requires Level 48
+Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 (25-40)% increased Global Physical Damage
 +(40-50) to Strength
@@ -320,6 +343,7 @@ Requires Level 48
 Maligaro's Restraint
 Chain Belt
 Requires Level 44
+Implicits: 1
 +(9-20) to maximum Energy Shield
 Adds 1 to (30-50) Lightning Damage to Attacks
 100% increased Shock Duration on You
@@ -332,6 +356,7 @@ Heavy Belt
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 8
+Implicits: 1
 +(25-35) to Strength
 {variant:1}Adds 10 to 20 Physical Damage to Attacks
 {variant:2}Adds 5 to 15 Physical Damage to Attacks
@@ -344,6 +369,7 @@ Mother's Embrace
 Heavy Belt
 League: Metamorph
 Requires Level 40
+Implicits: 1
 +(25-35) to Strength
 +(50-70) to maximum Life
 +(20-30)% to Cold Resistance
@@ -356,6 +382,7 @@ Cloth Belt
 Variant: Pre 1.1.0
 Variant: Current
 Requires Level 16
+Implicits: 1
 (15-25)% increased Stun Recovery
 +(20-30) to all Attributes
 {variant:1}(8-12)% increased Quantity of Items found
@@ -367,6 +394,7 @@ Requires Level 16
 Perseverance
 Vanguard Belt
 Requires Level 78
+Implicits: 1
 +(260-320) to Armour and Evasion Rating
 (4-8)% increased maximum Life
 +(20-40)% to Cold Resistance
@@ -380,6 +408,7 @@ Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 25
+Implicits: 1
 (12-24)% increased Physical Damage
 {variant:1,2}10% increased Elemental Damage with Weapons
 {variant:3}10% increased Elemental Damage with Attack Skills
@@ -398,6 +427,7 @@ Rustic Sash
 League: Talisman Standard, Talisman Hardcore
 Source: Vendor recipe
 Requires Level 44
+Implicits: 1
 (12-24)% increased Physical Damage
 +(60-80) to maximum Life
 +(25-40)% to Cold Resistance
@@ -412,6 +442,7 @@ Studded Belt
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 20
+Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 {variant:2}+(80-100) to maximum Life
 +(20-40) to Strength
@@ -425,6 +456,7 @@ Gain 50 Life when you Stun an Enemy
 Soul Tether
 Cloth Belt
 Requires Level 48
+Implicits: 1
 (15-25)% increased Stun and Block Recovery
 +(20-40) to Intelligence
 Your Energy Shield starts at zero
@@ -437,6 +469,7 @@ Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
 Soulthirst
 Cloth Belt
 Requires Level 45
+Implicits: 1
 (15-25)% increased Stun Recovery
 +(60-80) to maximum Life
 +15% to all Elemental Resistances
@@ -501,6 +534,7 @@ Corrupted
 Sunblast
 Cloth Belt
 Requires Level 37
+Implicits: 1
 (15-25)% increased Stun Recovery
 (30-40)% increased Trap Damage
 20% increased Mana Regeneration Rate
@@ -513,6 +547,7 @@ Umbilicus Immortalis
 Leather Belt
 League: Perandus
 Requires Level 30
+Implicits: 1
 +(25-40) to maximum Life
 (8-12)% increased maximum Life
 2% of Life Regenerated per second
@@ -522,6 +557,7 @@ Flasks apply to your Zombies and Spectres
 Wurm's Molt
 Leather Belt
 Requires Level 8
+Implicits: 1
 +(25-40) to Maximum Life
 +(20-30) to Strength
 +(20-30) to Intelligence

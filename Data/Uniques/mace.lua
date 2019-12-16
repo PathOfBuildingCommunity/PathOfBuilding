@@ -54,6 +54,7 @@ Cameria's Avarice
 Gavel
 Source: Upgraded from unique{Cameria's Maul} via prophecy{Cold Greed}
 Requires Level 60, 212 Str
+Implicits: 1
 15% reduced Enemy Stun Threshold
 (140-180)% increased Physical Damage
 Adds (11-14) to (17-21) Physical Damage
@@ -177,6 +178,7 @@ Source: Drops from unique{The Elder} (Tier 6+)
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 68, 212 Str
+Implicits: 1
 10% reduced Enemy Stun Threshold
 Adds (45-60) to (100-120) Physical Damage 
 Gain (30-40)% of Physical Attack Damage as Extra Fire Damage 
@@ -196,6 +198,7 @@ Source: Drops from unique{The Purifier} (Tier 11+)
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 68, 104 Str, 122 Int
+Implicits: 1
 40% increased Elemental Damage 
 (180-200)% increased Physical Damage 
 (10-15)% increased Attack Speed 
@@ -223,6 +226,7 @@ Adds 1 to (10-12) Lightning Damage to Spells
 Balefire
 Opal Sceptre
 Requires Level 60, 95 Str, 131 Int
+Implicits: 1
 40% increased Elemental Damage
 Grants Level 25 Scorching Ray Skill
 (12-20)% increased Cast Speed 
@@ -248,6 +252,7 @@ Socketed Gems are Supported by level 1 Reduced Mana
 The Black Cane
 Royal Sceptre
 Requires Level 50, 86 Str, 86 Int
+Implicits: 1
 24% increased Elemental Damage
 +(20-30) to Intelligence
 (8-15)% increased Cast Speed
@@ -261,6 +266,7 @@ Source: prophecy{The Plaguemaw V}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 66, 113 Str, 113 Int
+Implicits: 1
 32% increased Elemental Damage
 (260-310)% increased Physical Damage
 {variant:1}(60-80)% increased Chaos Damage
@@ -293,6 +299,7 @@ Blood Sceptre
 League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
 Requires Level 47, 81 Str, 81 Int
+Implicits: 1
 24% increased Elemental Damage
 (70-100)% increased Spell Damage
 (15-20)% increased Cast Speed
@@ -372,6 +379,7 @@ Adds (65-85) to (100-160) Physical Damage
 Earendel's Embrace
 Grinning Fetish
 Requires Level 35, 62 Str, 62 Int
+Implicits: 1
 18% increased Elemental Damage
 +(20-30) to all Attributes
 Minions deal (30-40)% increased Damage
@@ -404,6 +412,7 @@ Void Sceptre
 Fractured Item
 League: Synthesis
 Requires Level 68, 104 Str, 122 Int
+Implicits: 1
 40% increased Elemental Damage
 {fractured}(15-20)% increased Cast Speed
 (15-20)% increased Cold Damage per 1% Cold Resistance above 75%
@@ -428,6 +437,17 @@ Socketed Gems are Supported by level 10 Fire Penetration
 {variant:2,3,4}(150-200)% increased Physical Damage
 +(6-10) Life gained for each Enemy hit by Attacks
 25% increased Light Radius
+]],[[
+Sign of the Sin Eater
+Tyrant's Sekhem
+League: Legion
+Source: Drops from normal{Templar} legion
+Requires Level 58, 99 Str, 99 Int
+Implicits: 1
+26% increased Elemental Damage
++(10-30) to Strength and Intelligence
+Grants Level 30 Smite Skill
+Enemies inflict Elemental Ailments on you instead of nearby Allies
 ]],[[
 Singularity
 Platinum Sceptre
@@ -524,6 +544,7 @@ Chaber Cairn
 Great Mallet
 Source: Upgraded from unique{Chober Chaber} via prophecy{Faith Exhumed}
 Requires Level 60, 131 Str
+Implicits: 1
 30% increased Stun Duration on Enemies
 +1 to Level of Socketed Melee Gems
 +2 to Level of Socketed Minion Gems
@@ -551,6 +572,7 @@ Geofri's Devotion
 Brass Maul
 Source: Upgraded from unique{Geofri's Baptism} via prophecy{Black Devotion}
 Requires Level 61, 92 Str
+Implicits: 1
 20% increased Stun Duration on Enemies
 Trigger Level 20 Elemental Warding when you Hit an Enemy while Cursed
 200% increased Physical Damage
@@ -666,6 +688,7 @@ Panquetzaliztli
 Jagged Maul
 Source: Upgraded from unique{Quecholli} via prophecy{The Fall of an Empire}
 Requires Level 61, 77 Str
+Implicits: 1
 30% increased Stun Duration on Enemies
 (80-100)% increased Physical Damage
 Adds (94-98) to (115-121) Physical Damage
@@ -673,21 +696,12 @@ Adds (94-98) to (115-121) Physical Damage
 Enemies killed explode dealing 10% of their Life as Fire Damage
 Recover 5% of Maximum Life on Kill
 ]],[[
-Sign of the Sin Eater
-Tyrant's Sekhem
-League: Legion
-Source: Drops from normal{Templar} legion
-Requires Level 58, 99 Str, 99 Int
-26% increased Elemental Damage
-+(10-30) to Strength and Intelligence
-Grants Level 30 Smite Skill
-Enemies inflict Elemental Ailments on you instead of nearby Allies
-]],[[
 Tidebreaker
 Imperial Maul
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 65, 212 Str
+Implicits: 1
 30% increased Stun Duration on Enemies
 Socketed Gems are Supported by Level 20 Endurance Charge on Melee Stun
 {variant:1}Adds (60-70) to (300-350) Physical Damage

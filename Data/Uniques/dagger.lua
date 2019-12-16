@@ -9,6 +9,7 @@ Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.5.0
 Variant: Current
 Requires Level 53, 58 Dex, 123 Int
+Implicits: 1
 40% increased Global Critical Strike Chance
 {variant:1,2}20% chance to Trigger Level 1 Raise Spiders on Kill
 {variant:3}100% chance to Trigger Level 1 Raise Spiders on Kill
@@ -22,6 +23,7 @@ Slaughter Knife
 Variant: Pre 2.2.0
 Variant: Current
 Requires Level 65, 81 Dex, 117 Int
+Implicits: 1
 30% increased Global Critical Strike Chance
 30% increased Damage over Time
 Adds (50-60) to (120-140) Physical Damage
@@ -37,6 +39,7 @@ Stiletto
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 15, 30 Dex, 30 Int
+Implicits: 1
 30% increased Global Critical Strike Chance
 +20 to Dexterity
 (20-40)% increased Physical Damage
@@ -52,6 +55,7 @@ Variant: Pre 2.2.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 53, 58 Dex, 123 Int
+Implicits: 1
 40% increased Global Critical Strike Chance
 +1 to Level of all Fire Spell Skill Gems
 {variant:1,2}(40-60)% increased Spell Damage
@@ -69,6 +73,7 @@ Source: Drops from normal{Templar} legion
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 66, 95 Dex, 131 Int
+Implicits: 1
 30% increased Global Critical Strike Chance
 (50-70)% increased Spell Damage
 {variant:1}(80-100)% increased Critical Strike Chance for Spells
@@ -86,6 +91,7 @@ Upgrade: Upgrades to unique{Sanguine Gambol} via prophecy{Crimson Hues}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 5, 16 Dex, 11 Int
+Implicits: 1
 30% increased Global Critical Strike Chance
 +(10-15) to Dexterity
 (50-70)% increased Physical Damage
@@ -99,6 +105,7 @@ Sanguine Gambol
 Skinning Knife
 Source: Upgraded from unique{Goredrill} via prophecy{Crimson Hues}
 Requires Level 59, 16 Dex, 11 Int
+Implicits: 1
 30% increased Global Critical Strike Chance
 (50-70)% increased Physical Damage
 Adds (70-85) to (110-118) Physical Damage
@@ -113,6 +120,7 @@ Royal Skean
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 50, 71 Dex, 102 Int
+Implicits: 1
 30% increased Global Critical Strike Chance
 {variant:1}(40-50)% increased Spell Damage
 {variant:2}(60-70)% increased Spell Damage
@@ -127,6 +135,7 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 64, 76 Dex, 149 Int
+Implicits: 1
 50% increased Global Critical Strike Chance
 5% Additional Chance to Block while Dual Wielding
 {variant:1}(180-210)% increased Physical Damage
@@ -142,6 +151,7 @@ Requires Level 64, 76 Dex, 149 Int
 Mightflay
 Flaying Knife
 Requires Level 35, 73 Dex, 51 Int
+Implicits: 1
 30% increased Global Critical Strike Chance
 (80-100)% increased Physical Damage
 Adds 12 to 24 Physical Damage
@@ -151,6 +161,7 @@ Adds 12 to 24 Physical Damage
 Taproot
 Ambusher
 Requires Level 60, 113 Dex, 113 Int
+Implicits: 1
 30% increased Global Critical Strike Chance
 (180-200)% increased Physical Damage
 (10-15)% increased Attack Speed
@@ -166,6 +177,7 @@ Variant: Pre 1.1.0
 Variant: Pre 1.3.0
 Variant: Current
 Requires Level 20, 31 Dex, 45 Int
+Implicits: 1
 30% increased Global Critical Strike Chance
 {variant:2}20% additional Chance to Block while Dual Wielding
 {variant:1,3}12% additional Chance to Block while Dual Wielding
@@ -181,6 +193,7 @@ Variant: Pre 3.5.0
 Variant: Current
 Source: Drops from unique{The Enslaver} (Tier 11+)
 Requires Level 68, 76 Dex, 149 Int
+Implicits: 1
 40% increased Global Critical Strike Chance 
 Adds (85-110) to (130-150) Physical Damage
 Adds (130-160) to (220-240) Fire Damage
@@ -200,6 +213,7 @@ Every 8 seconds, gain Avatar of Fire for 4 seconds
 White Wind
 Imperial Skean
 Requires Level 66, 95 Dex, 131 Int
+Implicits: 1
 30% increased Global Critical Strike Chance
 Adds (160-190) to (280-320) Cold Damage
 (10-15)% increased Attack Speed
@@ -212,6 +226,7 @@ Boot Blade
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 44, 63 Dex, 90 Int
+Implicits: 1
 30% increased Global Critical Strike Chance
 {variant:1}Adds (15-25) to (35-45) Physical Damage
 {variant:2}Adds (35-40) to (55-60) Physical Damage

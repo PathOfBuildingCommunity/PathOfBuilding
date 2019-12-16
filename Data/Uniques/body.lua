@@ -50,6 +50,7 @@ Variant: Pre 2.0.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 62, 180 Str
+Implicits: 1
 +(8-12)% to all Elemental Resistances
 {variant:3}Grants level 20 Death Aura Skill
 +(40-50) to all Attributes
@@ -207,6 +208,7 @@ Assassin's Garb
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 68, 183 Dex
+Implicits: 1
 3% increased Movement Speed
 (120-160)% increased Evasion Rating
 +(17-29)% to Chaos Resistance
@@ -478,6 +480,7 @@ Infernal Mantle
 Occultist's Vestment
 Variant: Pre 2.0.0
 Requires Level 65, 187 Int
+Implicits: 1
 (3-10)% increased Spell Damage
 +1 to Level of Socketed Fire Gems
 (25-35)% increased Fire Damage
@@ -492,6 +495,7 @@ Variant: Pre 1.0.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 62, 180 Int
+Implicits: 1
 (3-10)% increased Spell Damage
 {variant:1}(200-250)% increased Energy Shield
 {variant:2}(140-200)% increased Energy Shield
@@ -963,6 +967,7 @@ Carnal Armour
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 71, 88 Dex, 122 Int
+Implicits: 1
 +(20-25) to maximum Mana
 {variant:1}+(40-60) to maximum Life
 {variant:2}+(60-80) to maximum Life
@@ -992,6 +997,7 @@ Source: Drops from Abyssal Liches
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
 Requires Level 71, 88 Dex, 122 Int
+Implicits: 1
 +(20-25) to maximum Mana 
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
