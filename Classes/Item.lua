@@ -297,7 +297,7 @@ function ItemClass:ParseRaw(raw)
 				local fractured = line:match("{fractured}") or line:match(" %(fractured%)")
 				local rangeSpec = line:match("{range:([%d.]+)}")
 				local crafted = line:match("{crafted}") or line:match(" %(crafted%)")
-				local implicit = line:match("{implicit}") or line:match(" %(crafed%)")
+				local implicit = line:match("{implicit}") or line:match(" %(implicit%)")
 				local custom = line:match("{custom}")
 				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)","")
 				local rangedLine
