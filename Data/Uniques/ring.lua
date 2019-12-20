@@ -626,8 +626,8 @@ Implicits: 1
 (45-65)% increased Mana Regeneration Rate
 {variant:1}3% increased Experience gain
 {variant:2}2% increased Experience gain
-{variant:1}3% increased Intelligence for each Unique Item you have equipped
-{variant:2}2% increased Intelligence for each Unique Item you have equipped
+{variant:1}3% increased Intelligence for each Unique Item Equipped
+{variant:2}2% increased Intelligence for each Unique Item Equipped
 3% additional chance for Slain monsters to drop Scrolls of Wisdom
 ]],[[
 Praxis
