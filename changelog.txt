@@ -1,3 +1,8 @@
+VERSION[1.4.157][2019/12/20]
+ * Added a new unique item, The Savior
+ * Added the ability to show only non-Awakened supports (or only Awakened supports!); the option can be found in the
+   Skills tab under the socket group list
+ * Fix issue where gem levels would get reset on loading or importing a build
 VERSION[1.4.156][2019/12/16]
  * Added the following unique items: (thanks ppoelzl)
     * Astral Projector
