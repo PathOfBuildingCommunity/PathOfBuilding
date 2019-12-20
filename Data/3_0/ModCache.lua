@@ -421,6 +421,7 @@ c["+10 to Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value
 c["16% increased Physical Damage with Bows"]={{[1]={flags=131072,keywordFlags=0,name="PhysicalDamage",type="INC",value=16}},nil}
 c["+175 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",value=175}},nil}
 c["+40% to Critical Strike Multiplier if Dexterity is higher than Intelligence"]={{[1]={[1]={type="Condition",var="DexHigherThanInt"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=40}},nil}
+c["15% increased Dexterity if Strength is higher than Intelligence"]={{[1]={[1]={type="Condition",var="StrHigherThanInt"},flags=0,keywordFlags=0,name="Dex",type="INC",value=15}},nil}
 c["70% increased Stun Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyStunDuration",type="INC",value=70}},nil}
 c["20% reduced Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=-20}},nil}
 c["You gain Unholy Might for 10 seconds on Block"]={nil,"You gain Unholy Might for 10 seconds on Block "}

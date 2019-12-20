@@ -1,3 +1,18 @@
+### 1.4.157.1 - 2019/12/21
+ * Added a new unique item, The Savior
+ * Added the ability to show only non-Awakened supports (or only Awakened supports!); the option can be found in the
+   Skills tab under the socket group list
+ * Added sources of increased maximum resistances to now show up in the resistance breakdown window
+ * Add unique changes from 3.7
+ * Fix issue where gem levels would get reset on loading or importing a build
+ * Implicits on items that are copied from in-game are now correctly handled. Additionally, the ability of the program 
+   to determine if modifiers on copied items are enchantments, implicits or explicits has been greatly improved, 
+   and should almost always be correct; also, applying enchantments to items with implicits will now work correctly.
+ * Fix + gem level mods on new influence amulets to now work properly
+ * Fix Fractal Thoughts increased dex mod to now work properly
+ * Fix support for old Red Nightmare mod wording
+ * Fix ailment calculation crash
+
 ### 1.4.155.1 - 2019/12/16
  * Added the following new gems:
     * Artillery Ballista

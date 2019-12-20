@@ -13,7 +13,6 @@ The Anima Stone
 Prismatic Jewel
 Source: Vendor Recipe
 Limited to: 1
-Implicits: 0
 Can Summon up to 1 additional Golem at a time
 +1 to maximum number of Summoned Golems if you have 3 Primordial Items Socketed or Equipped
 ]],[[
@@ -149,9 +148,9 @@ Cobalt Jewel
 Requires Level: 20
 Limited to: 1
 Radius: Medium
-Minions deal (35–45)% increased Damage
-Minions have +(10–12)% Chance to Block Attack Damage
-Minions have +(10–12)% Chance to Block Spell Damage
+Minions deal (35-45)% increased Damage
+Minions have +(10-12)% Chance to Block Attack Damage
+Minions have +(10-12)% Chance to Block Spell Damage
 Notable Passive Skills in Radius are Transformed to instead grant, Minions take 20% increased Damage
 ]],[[
 Fragile Bloom
@@ -170,7 +169,7 @@ Variant: Current
 ]],[[
 The Golden Rule
 Viridian Jewel
-(30–40)% increased Armour while Bleeding 
+(30-40)% increased Armour while Bleeding 
 Bleeding you inflict is Reflected to you 
 +1% to Chaos Resistance per Poison on you 
 Poison you inflict is Reflected to you 
@@ -257,14 +256,12 @@ Dexterity from Passives in Radius is Transformed to Strength
 Inspired Learning
 Crimson Jewel
 Radius: Small
-Implicits: 0
 If 4 Notables are Allocated in Radius, When you Kill a Rare monster, you gain 1
 of its mods for 20 seconds
 ]],[[
 Intuitive Leap
 Viridian Jewel
 Radius: Small
-Implicits: 0
 Passives in Radius can be Allocated without being connected to your tree
 ]],[[
 Izaro's Turmoil
@@ -308,7 +305,6 @@ Notable Passive Skills in Radius grant nothing
 ]],[[
 Primordial Eminence
 Viridian Jewel
-Implicits: 0
 Golems have (16-20)% increased Attack and Cast Speed
 30% increased Effect of Buffs granted by your Golems
 Golems have +(800-1000) to Armour
@@ -318,7 +314,6 @@ Primordial Harmony
 Cobalt Jewel
 Variant: Pre 3.3.0
 Variant: Current
-Implicits: 0
 Golem Skills have (20-30)% increased Cooldown Recovery Speed
 {variant:1}Golems have (10-15)% increased Cooldown Recovery Speed
 {variant:2}Golems have (30-45)% increased Cooldown Recovery Speed
@@ -328,7 +323,6 @@ Primordial
 ]],[[
 Primordial Might
 Crimson Jewel
-Implicits: 0
 (25-30)% increased Damage if you Summoned a Golem in the past 8 seconds
 Golems Summoned in the past 8 seconds deal (35-45)% increased Damage
 Golems have (18-22)% increased Maximum Life
@@ -345,7 +339,6 @@ Radius: Large
 Pure Talent
 Viridian Jewel
 Limited to: 1
-Implicits: 0
 While your Passive Skill Tree connects to a class' Starting location, you gain:
 Marauder: Melee Skills have 15% increased Area of Effect
 Duelist: 1% of Attack Damage Leeched as Life
@@ -360,10 +353,10 @@ Viridian Jewel
 Requires Level: 20
 Limited to: 1
 Radius: Medium
-Minions have (12–16)% increased Attack Speed
-Minions have (12–16)% increased Cast Speed
-Minions have (10–12)% chance to Dodge Attack Hits
-Minions have (10–12)% chance to Dodge Spell Hits
+Minions have (12-16)% increased Attack Speed
+Minions have (12-16)% increased Cast Speed
+Minions have (10-12)% chance to Dodge Attack Hits
+Minions have (10-12)% chance to Dodge Spell Hits
 Notable Passive Skills in Radius are Transformed to
 instead grant: Minions have 25% reduced Movement Speed
 ]],[[
@@ -410,8 +403,8 @@ Soul's Wick
 Cobalt Jewel
 Limited to: 1
 +2 to maximum number of Spectres
-(40–50)% reduced Mana Cost of Raise Spectre 
-Spectres have (800–1000)% increased Critical Strike Chance 
+(40-50)% reduced Mana Cost of Raise Spectre 
+Spectres have (800-1000)% increased Critical Strike Chance 
 Spectres have a Base Duration of 20 seconds
 Spectres do not travel between Areas 
 ]],[[
@@ -433,37 +426,49 @@ Crimson Jewel
 League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Transcendent Flesh} via currency{Vial of Transcendence}
+Variant: Pre 3.8.0
+Variant: Current
 Radius: Medium
 -1 Strength per 1 Strength on Allocated Passives in Radius
-+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+{variant:1}+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+{variant:2}+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
 ]],[[
 Transcendent Flesh
 Crimson Jewel
 League: Incursion
 Source: Upgraded from unique{Tempered Flesh} via currency{Vial of Transcendence}
+Variant: Pre 3.8.0
+Variant: Current
 Radius: Medium
 -1 Strength per 1 Strength on Allocated Passives in Radius
 1% additional Physical Damage Reduction per 10 Strength on Allocated Passives in Radius
-+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+{variant:1}+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+{variant:2}+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
 ]],[[
 Tempered Mind
 Cobalt Jewel
 League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Transcendent Mind} via currency{Vial of Transcendence}
+Variant: Pre 3.8.0
+Variant: Current
 Radius: Medium
 -1 Intelligence per 1 Intelligence on Allocated Passives in Radius
-+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+{variant:1}+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+{variant:2}+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
 ]],[[
 Transcendent Mind
 Cobalt Jewel
 League: Incursion
 Source: Upgraded from unique{Tempered Mind} via currency{Vial of Transcendence}
+Variant: Pre 3.8.0
+Variant: Current
 Radius: Medium
 -1 Intelligence per 1 Intelligence on Allocated Passives in Radius
 0.4% of Energy Shield Regenerated per Second for
 every 10 Intelligence on Allocated Passives in Radius
-+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+{variant:1}+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+{variant:2}+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
 ]],[[
 Tempered Spirit
 Viridian Jewel
@@ -606,9 +611,9 @@ Variant: Zealotry: Crit Strike Elemental Pen
 Variant: Zealotry: Arcane Surge when you create Consecrated Ground
 Variant: Zealotry: Inc. Max Recovery from ES Leech
 Limited to: 1
-(4–6)% increased maximum Energy Shield
-(4–6)% increased maximum Life 
-(4–6)% increased maximum Mana
+(4-6)% increased maximum Energy Shield
+(4-6)% increased maximum Life 
+(4-6)% increased maximum Mana
 {variant:1}(1-1.5)% of Fire Damage Leeched as Life while affected by Anger
 {variant:2}Damage Penetrates (10-15)% Fire Resistance while affected by Anger
 {variant:3}+(30-50)% to Critical Strike Multiplier while affected by Anger
@@ -663,7 +668,7 @@ Limited to: 1
 {variant:52}+(30-50)% to Critical Strike Multiplier while affected by Precision
 {variant:53}(8-12)% chance to deal Double Damage while using Pride
 {variant:54}Your Hits Intimidate Enemies for 4 seconds while you are using Pride
-{variant:55}(40–60)% increased Attack Physical Damage while using Pride
+{variant:55}(40-60)% increased Attack Physical Damage while using Pride
 {variant:56}25% chance to Impale Enemies on Hit with Attacks while using Pride
 {variant:57}Impales you inflict last 2 additional Hits while using Pride
 {variant:58}+(30-50)% to Chaos Resistance while affected by Purity of Elements
@@ -737,7 +742,7 @@ Collateral Damage
 Viridian Jewel
 Limited to: 2
 Radius: Medium
-(10–15)% increased Physical Damage
+(10-15)% increased Physical Damage
 With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect
 With at least 40 Dexterity in Radius, Shrapnel Shot's
 cone has a 50% chance to deal Double Damage
@@ -761,7 +766,7 @@ League: Legion
 Requires Level: 20
 Limited to: 1
 Radius: Medium
-(10–15)% increased Attack Damage while holding a Shield
+(10-15)% increased Attack Damage while holding a Shield
 With 40 total Dexterity and Strength in Radius, Spectral Shield Throw Chains +4 times
 With 40 total Dexterity and Strength in Radius, Spectral Shield Throw fires Shard Projectiles when Chaining
 With 40 total Dexterity and Strength in Radius, Spectral Shield Throw fires 75% less Shard Projectiles
@@ -771,7 +776,7 @@ Fight for Survival
 Viridian Jewel
 Limited to: 2
 Radius: Medium
-(10–15)% increased Cold Damage
+(10-15)% increased Cold Damage
 With at least 40 Dexterity in Radius, Melee Damage 
 dealt by Frost Blades Penetrates 15% Cold Resistance
 With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile Speed
@@ -780,7 +785,7 @@ First Snow
 Cobalt Jewel
 Limited to: 2
 Radius: Medium
-(7–10)% increased Projectile Damage 
+(7-10)% increased Projectile Damage 
 With at least 40 Intelligence in Radius, Freezing Pulse fires 2 additional Projectiles
 With at least 40 Intelligence in Radius, 25% increased Freezing Pulse Damage if
 you've Shattered an Enemy Recently
@@ -789,7 +794,7 @@ Frozen Trail
 Cobalt Jewel
 Limited to: 2
 Radius: Medium
-(7–10)% increased Projectile Damage
+(7-10)% increased Projectile Damage
 With at least 40 Intelligence in Radius, Frostbolt fires 2 additional Projectiles
 With at least 40 Intelligence in Radius, Frostbolt Projectiles gain 40% increased Projectile
 Speed per second
@@ -819,7 +824,7 @@ Inevitability
 Cobalt Jewel
 Limited to: 2
 Radius: Medium
-(10–15)% increased Fire Damage
+(10-15)% increased Fire Damage
 With at least 40 Intelligence in Radius, Magma Orb fires an additional Projectile
 With at least 40 Intelligence in Radius, Magma Orb
 has 10% increased Area of Effect per Chain
@@ -828,7 +833,7 @@ The Long Winter
 Cobalt Jewel
 Limited to: 2
 Radius: Medium
-(10–15)% increased Cold Damage 
+(10-15)% increased Cold Damage 
 With 40 Intelligence in Radius, 20% of Glacial Cascade Physical Damage
 Converted to Cold Damage
 With 40 Intelligence in Radius, Glacial Cascade has an additional Burst 
@@ -837,7 +842,7 @@ Might and Influence
 Viridian Jewel
 Limited to: 1
 Radius: Medium
-(10–15)% increased Physical Damage
+(10-15)% increased Physical Damage
 With at least 40 Dexterity in Radius, Dual Strike has a 20% chance
 to deal Double Damage with the Main-Hand Weapon
 With at least 40 Dexterity in Radius, Dual Strike deals Off-Hand Splash Damage
@@ -859,12 +864,11 @@ With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect
 ]],[[
 Overwhelming Odds
 Crimson Jewel
-Limited to: 2
+Limited to: 1
 Radius: Medium
-(10-15)% increased Physical Damage
+(10-15)% increased Global Physical Damage
 With at least 40 Strength in Radius, Cleave grants Fortify on Hit
-With at least 40 Strength in Radius, Cleave has 3% increased Area of
-Effect per Nearby Enemy
+With at least 40 Strength in Radius, Cleave has +1 to Radius per Nearby Enemy, up to +10
 ]],[[
 Pitch Darkness
 Viridian Jewel
@@ -893,7 +897,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-(10–15)% increased Physical Damage 
+(10-15)% increased Physical Damage 
 With at least 40 Dexterity in Radius, Ethereal Knives fires Projectiles in a Nova
 {variant:1}With at least 40 Dexterity in Radius, Ethereal Knives fires 10 additional Projectiles
 {variant:2}With at least 40 Dexterity in Radius, Ethereal Knives fires 5 additional Projectiles
@@ -952,7 +956,7 @@ Sudden Ignition
 Viridian Jewel
 Limited to: 1
 Radius: Medium
-(10–15)% increased Fire Damage 
+(10-15)% increased Fire Damage 
 With at least 40 Dexterity in Radius, Burning
 Arrow can inflict an additional Ignite on an Enemy
 ]],[[
@@ -1004,7 +1008,7 @@ Wildfire
 Crimson Jewel
 Limited to: 1
 Radius: Medium
-(10–15)% increased Fire Damage 
+(10-15)% increased Fire Damage 
 With at least 40 Strength in Radius, Molten Strike fires 2 additional Projectiles
 With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Effect
 ]],[[
@@ -1025,7 +1029,7 @@ Winter Burial
 Crimson Jewel
 Limited to: 2
 Radius: Medium
-(10–15)% increased Cold Damage 
+(10-15)% increased Cold Damage 
 With at least 40 Strength in Radius, Glacial Hammer deals
 Cold-only Splash Damage to surrounding targets
 With at least 40 Strength in Radius, 25% of Glacial
@@ -1072,7 +1076,6 @@ Corrupted
 ]],[[
 Corrupted Energy
 Cobalt Jewel
-Implicits: 0
 With 5 Corrupted Items Equipped: 50% of Chaos Damage does not bypass Energy Shield and 50% of Physical Damage bypasses Energy Shield
 Corrupted
 ]],[[
@@ -1090,14 +1093,12 @@ Corrupted
 Hungry Abyss
 Viridian Jewel
 Limited to: 1
-Implicits: 0
 With 5 Corrupted Items Equipped: Life Leech recovers based on your Chaos Damage instead
 Corrupted
 ]],[[
 Mutated Growth
 Cobalt Jewel
 Limited to: 1
-Implicits: 0
 10% increased Experience Gain of Corrupted Gems
 Corrupted
 ]],[[
@@ -1120,7 +1121,6 @@ Corrupted
 Self-Flagellation
 Viridian Jewel
 Limited to: 1
-Implicits: 0
 An additional Curse can be applied to you
 (10-20)% increased Damage per Curse on you
 Corrupted
@@ -1246,7 +1246,7 @@ Source: Drops from Maraketh Legion
 Requires Level: 20
 Limited to: 1 Historic
 Radius: Large
-Denoted service of (500–8000) dekhara in the akhara of Deshret
+Denoted service of (500-8000) dekhara in the akhara of Deshret
 Passives in radius are Conquered by the Maraketh
 Historic
 ]],[[
@@ -1257,7 +1257,7 @@ Source: Drops from Eternal Legion
 Requires Level: 20
 Limited to: 1 Historic
 Radius: Large
-Commissioned (2000–160000) coins to commemorate Cadiro
+Commissioned (2000-160000) coins to commemorate Cadiro
 Passives in radius are Conquered by the Eternal
 Historic
 ]],[[
@@ -1279,7 +1279,7 @@ Source: Drops from Karui Legion
 Requires Level: 20
 Limited to: 1 Historic
 Radius: Large
-Commanded leadership over (10000–18000) warriors under Kaom
+Commanded leadership over (10000-18000) warriors under Kaom
 Passives in radius are Conquered by the Karui
 Historic
 ]],[[
@@ -1290,7 +1290,7 @@ Source: Drops from Templar Legion
 Requires Level: 20
 Limited to: 1 Historic
 Radius: Large
-Carved to glorify (2000–10000) new faithful converted by High Templar Venarius
+Carved to glorify (2000-10000) new faithful converted by High Templar Venarius
 Passives in radius are Conquered by the Templars
 Historic
 ]],

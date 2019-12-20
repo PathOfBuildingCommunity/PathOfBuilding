@@ -39,6 +39,14 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	end
 end)
 
+function GemSelectClass:FilterSupport(gemData)
+	local showSupportTypes = self.skillsTab.showSupportGemTypes
+	return not gemData.grantedEffect.support 
+		or showSupportTypes == "ALL" 
+		or (showSupportTypes == "NORMAL" and not gemData.grantedEffect.plusVersionOf) 
+		or (showSupportTypes == "AWAKENED" and gemData.grantedEffect.plusVersionOf)
+end
+
 function GemSelectClass:BuildList(buf)
 	self.controls.scrollBar.offset = 0
 	wipeTable(self.list)
@@ -55,7 +63,7 @@ function GemSelectClass:BuildList(buf)
 		for i, pattern in ipairs(patternList) do
 			local matchList = { }
 			for gemId, gemData in pairs(self.gems) do
-				if not added[gemId] and (" "..gemData.name:lower()):match(pattern) then
+				if self:FilterSupport(gemData) and not added[gemId] and (" "..gemData.name:lower()):match(pattern) then
 					t_insert(matchList, gemId)
 					added[gemId] = true
 				end
@@ -72,7 +80,7 @@ function GemSelectClass:BuildList(buf)
 				tagName = "active_skill"
 			end
 			for gemId, gemData in pairs(self.gems) do
-				if not added[gemId] and gemData.tags[tagName:lower()] == true then
+				if self:FilterSupport(gemData) and not added[gemId] and gemData.tags[tagName:lower()] == true then
 					t_insert(matchList, gemId)
 					added[gemId] = true
 				end
@@ -84,7 +92,9 @@ function GemSelectClass:BuildList(buf)
 		end
 	else
 		for gemId, gemData in pairs(self.gems) do
-			t_insert(self.list, gemId)
+			if self:FilterSupport(gemData) then
+				t_insert(self.list, gemId)
+			end
 		end
 		self:SortGemList(self.list)
 	end

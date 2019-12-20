@@ -461,6 +461,7 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
 	},
+#baseMod flag("Condition:HaveSpellEcho")
 #mods
 
 #skill SupportSummonGhostOnKill

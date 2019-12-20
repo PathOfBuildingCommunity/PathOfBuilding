@@ -8,7 +8,7 @@ Assassin Bow
 Variant: Pre 3.5.0
 Variant: Pre 3.9.0
 Variant: Current
-Requires Level 62
+Requires Level 62, 212 Dex
 Source: Vendor recipe
 Implicits: 1
 {variant:3}+(15-25)% to Global Critical Strike Multiplier
@@ -62,11 +62,11 @@ Variant: Socketed Spell Trigger
 Requires Level 57, 190 Dex
 Implicits: 1
 (4-6)% increased Movement Speed
-(140–170)% increased Physical Damage
-(25–35)% increased Critical Strike Chance
+(140-170)% increased Physical Damage
+(25-35)% increased Critical Strike Chance
 50% chance to inflict Bleeding on Critical Strike with Attacks
-Enemies you inflict Bleeding on grant (60–100)% increased Flask Charges
-Adds (100–120) to (150–165) Physical Damage against Bleeding Enemies
+Enemies you inflict Bleeding on grant (60-100)% increased Flask Charges
+Adds (100-120) to (150-165) Physical Damage against Bleeding Enemies
 50% chance to Maim Enemies on Critical Strike with Attacks
 {variant:1}{crafted}+(18-45)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
 {variant:2}{crafted}(11-22)% increased Attack Speed while a Rare or Unique Enemy is Nearby
@@ -109,7 +109,7 @@ Implicits: 2
 {variant:5,6}20% increased Attack Speed
 25% of Physical Damage Converted to Chaos Damage
 (15-30)% increased Accuracy Rating
-25% of Physical Damage taken as Chaos Damage
+25% of Physical Damage from Hits taken as Chaos Damage
 {variant:5,6}20% chance for Poisons inflicted with this Weapon to deal 300% more Damage
 ]],[[
 Death's Harp
@@ -119,6 +119,7 @@ Variant: Pre 2.2.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 32, 107 Dex
+Implicits: 1
 (30-50)% increased Critical Strike Chance
 (100-125)% increased Physical Damage
 10% increased Attack Speed
@@ -132,6 +133,7 @@ Source: Upgraded from unique{Death's Harp} via prophecy{The Bowstring's Music}
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 44, 107 Dex
+Implicits: 1
 (30-50)% increased Critical Strike Chance
 (100-125)% increased Physical Damage
 Adds (10-20) to (30-35) Physical Damage
@@ -186,7 +188,7 @@ Ranger Bow
 Source: Drops from unique{The Elder} (Tier 6+)
 Variant: Pre 3.4.0
 Variant: Current
-Requires Level 60
+Requires Level 60, 212 Dex
 Adds (130-150) to (270-300) Cold Damage
 4% increased Movement Speed per Frenzy Charge
 +(400-500) to Accuracy Rating
@@ -203,23 +205,27 @@ Decimation Bow
 Variant: Pre 1.2.0
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 53, 170 Dex
+Implicits: 1
 (30-50)% increased Critical Strike Chance
 {variant:1,2}(90-100)% increased Physical Damage
-{variant:3,4}(110-125)% increased Physical Damage
-{variant:2,3,4}Adds (25-35) to (36-45) Physical Damage
+{variant:3,4,5}(110-125)% increased Physical Damage
+{variant:2,3,4,5}Adds (25-35) to (36-45) Physical Damage
 +(20-30) to Dexterity
-+(200-250) to Accuracy Rating
+{variant:1,2,3,4}+(200-250) to Accuracy Rating
+{variant:5}+(350-400) to Accuracy Rating
 {variant:1,2,3}Arrows always Pierce
-{variant:4}Arrows Pierce all Targets
+{variant:4,5}Arrows Pierce all Targets
 10% increased Movement Speed
 {variant:1,2}Cannot Leech
-{variant:3,4}Cannot Leech Life
+{variant:3,4,5}Cannot Leech Life
 ]],[[
 Iron Commander
 Death Bow
 Requires Level 32, 107 Dex
+Implicits: 1
 (30-50)% increased Critical Strike Chance
 Adds (8-12) to (16-24) Physical Damage
 (14-20)% increased Attack Speed
@@ -261,6 +267,7 @@ Harbinger Bow
 Variant: Pre 2.5.0
 Variant: Current
 Requires Level 68, 212 Dex
+Implicits: 1
 (30-50)% increased Critical Strike Chance
 No Physical Damage
 Adds (120-140) to (180-210) Cold Damage
@@ -354,6 +361,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 68, 212 Dex
+Implicits: 1
 (30-50)% increased Critical Strike Chance
 {variant:1,2}Adds (60-75) to (170-220) Physical Damage
 {variant:3}Adds (110-125) to (245-265) Physical Damage

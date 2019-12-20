@@ -84,11 +84,12 @@ Cane of Unravelling
 Ezomyte Staff
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level: 62
+Requires Level: 60, 113 Str, 113 Int
+Implicits: 1
 18% Chance to Block 
 +2 to Level of all Chaos Spell Skill Gems
-{variant:1}(60–80)% increased Chaos Damage
-{variant:2}(20–30)% increased Chaos Damage
+{variant:1}(60-80)% increased Chaos Damage
+{variant:2}(20-30)% increased Chaos Damage
 {variant:2}+(40-55)% to Chaos Damage over Time Multiplier
 2% increased Cast Speed per Power Charge
 Gain a Power Charge after spending a total of 200 Mana
@@ -97,13 +98,17 @@ Gain a Power Charge after spending a total of 200 Mana
 Disintegrator
 Maelstrom Staff
 Source: Drops from unique{The Elder} (Uber)
-Requires Level 64
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 64, 113 Str, 113 Int
+Implicits: 1
 20% Chance to Block
-Adds (270–300) to (340–380) Physical Damage
-Adds (376–400) to (568–600) Physical Damage to Spells
+{variant:1}Adds (270–300) to (340–380) Physical Damage
+{variant:2}Adds (250–280) to (315–355) Physical Damage
+Adds (376-400) to (568-600) Physical Damage to Spells
 +1 to Maximum Siphoning Charges per Elder or Shaper Item Equipped
 25% chance to gain a Siphoning Charge when you use a Skill
-Adds (12–14) to (15–16) Physical Damage to Attacks and Spells per Siphoning Charge
+Adds (12-14) to (15-16) Physical Damage to Attacks and Spells per Siphoning Charge
 Gain 4% of Non-Chaos Damage as extra Chaos Damage per Siphoning Charge
 1% additional Physical Damage Reduction from Hits per Siphoning Charge
 0.2% of Damage Leeched as Life per Siphoning Charge
@@ -146,6 +151,7 @@ Dying Breath
 Iron Staff
 Variant: Current
 Requires Level 13, 27 Str, 27 Int
+Implicits: 1
 18% Chance to Block
 18% increased Cast Speed
 18% increased maximum Mana
@@ -159,6 +165,7 @@ The Enmity Divine
 Imperial Staff
 League: Harbinger
 Requires Level 66, 113 Str, 113 Int
+Implicits: 1
 18% Chance to Block
 Socketed Gems are supported by level 10 Life Leech
 Grants Summon Harbinger of Brutality Skill
@@ -203,33 +210,37 @@ Mirebough
 Gnarled Branch
 Source: Upgraded from unique{Fencoil} via prophecy{Trapped in the Tower}
 Requires Level 32
+Implicits: 1
 18% Chance to Block
 Socketed Gems are Supported by Level 16 Trap
 Socketed Gems are Supported by Level 16 Cluster Trap
 Socketed Gems are Supported by Level 16 Trap and Mine Damage
-(10–20)% increased maximum Mana
-(10–20)% increased maximum Life
-(40–50)% increased Damage
+(10-20)% increased maximum Mana
+(10-20)% increased maximum Life
+(40-50)% increased Damage
 ]],[[
 The Grey Spire
 Judgement Staff
-Requires Level 68
+Requires Level 68, 113 Str, 113 Int
+Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
 Has no Sockets
-(250–300)% increased Global Damage
-(20–30)% increased Attack Speed
-+(1–4)% to all maximum Resistances
+(250-300)% increased Global Damage
+(20-30)% increased Attack Speed
++(1-4)% to all maximum Resistances
 ]],[[
 Hegemony's Era
 Judgement Staff
 Variant: Pre 2.6.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 2
 {variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:2,3}18% Chance to Block
 6% Chance to Block
-Adds (180-190) to (190-220) Physical Damage
+{variant:1,2}Adds (180-190) to (190-220) Physical Damage
+{variant:3}Adds (165-175) to (185-205) Physical Damage
 (12-16)% increased Attack Speed
 (20-30)% increased Critical Strike Chance
 +1 to Maximum Power Charges
@@ -240,6 +251,7 @@ Highborn Staff
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 52, 89 Str, 89 Int
+Implicits: 1
 18% Chance to Block
 (12-16)% Chance to Block
 Adds (350-400) to (500-600) Fire Damage
@@ -323,7 +335,7 @@ Implicits: 2
 +2 to Level of all Fire Spell Skill Gems
 {variant:1,2}(30-50)% increased Spell Damage
 {variant:1,2}(20-40)% increased Fire Damage
-{variant:3,4}(70–90)% increased Fire Damage
+{variant:3,4}(70-90)% increased Fire Damage
 10% increased Cast Speed
 {variant:1,2,3}70% increased Burning Damage
 {variant:4}+(40-60)% to Fire Damage over Time Multiplier
@@ -332,6 +344,7 @@ The Searing Touch
 Long Staff
 Variant: Pre 2.0.0
 Requires Level 60, 113 Str, 113 Int
+Implicits: 1
 12% Chance to Block
 +2 to Level of Socketed Fire Gems
 (30-50)% increased Spell Damage
@@ -357,13 +370,14 @@ Socketed Gems fire Projectiles in a Nova
 Soulwrest
 Ezomyte Staff
 League: Delve
-Requires Level 62
+Requires Level 62, 113 Str, 113 Int
+Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
 Trigger Level 20 Summon Phantasm Skill when you Consume a Corpse
-(100–140)% increased Spell Damage
-(25–30)% increased Cast Speed
-(80–100)% increased Mana Regeneration Rate
-Minions deal (45–51) to (66–78) additional Physical Damage
+(100-140)% increased Spell Damage
+(25-30)% increased Cast Speed
+(80-100)% increased Mana Regeneration Rate
+Minions deal (45-51) to (66-78) additional Physical Damage
 If you Consumed a Corpse Recently, you and nearby Allies regenerate 5% of Life per second
 ]],[[
 The Stormheart
@@ -386,16 +400,17 @@ Adds (1-10) to (70-90) Lightning Damage
 The Stormwall
 Royal Staff
 Source: Upgraded from unique{The Stormheart} via prophecy{The Storm Spire}
-Requires Level 60
+Requires Level 60, 51 Str, 51 Int
+Implicits: 1
 18% Chance to Block
 15% Chance to Block
-Adds (242–260) to (268–285) Physical Damage
-(20–35)% increased Critical Strike Chance
+Adds (242-260) to (268-285) Physical Damage
+(20-35)% increased Critical Strike Chance
 50% of Physical Damage Converted to Cold Damage
 50% of Physical Damage Converted to Lightning Damage
 Cannot be Shocked while Chilled
-(30–40)% chance to Chill Attackers for 4 seconds on Block
-(30–40)% chance to Shock Attackers for 4 seconds on Block
+(30-40)% chance to Chill Attackers for 4 seconds on Block
+(30-40)% chance to Shock Attackers for 4 seconds on Block
 ]],[[
 Taryn's Shiver
 Maelström Staff

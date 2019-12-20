@@ -24,9 +24,10 @@ Vaal Claw
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 66, 131 Dex, 95 Int
+Implicits: 1
 2% of Physical Attack Damage Leeched as Life
 {variant:1}(80-100)% increased Physical Damage
-{variant:2}(110–130)% increased Physical Damage
+{variant:2}(110-130)% increased Physical Damage
 Adds (15-20) to (30-40) Physical Damage
 (8-12)% increased Attack Speed
 15% increased Movement Speed while Phasing
@@ -49,6 +50,7 @@ Implicits: 3
 {variant:3,4,5}+19 Life gained for each Enemy hit by Attacks
 {variant:4}Trigger Level 1 Abyssal Cry on Hit
 {variant:1,2,3,4}Socketed Gems have 10% chance to cause Enemies to Flee on Hit
+{variant:4,5}Trigger Level 1 Abyssal Cry on Hit
 {variant:1}(60-80)% increased Physical Damage
 {variant:2,3,4,5}(100-120)% increased Physical Damage
 3% of Physical Attack Damage Leeched as Life
@@ -61,9 +63,10 @@ Hellion's Paw
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 62, 131 Dex, 95 Int
+Implicits: 1
 1.6% of Physical Attack Damage Leeched as Life
 {variant:1}(100-120)% increased Physical Damage
-{variant:2}(150–170)% increased Physical Damage
+{variant:2}(150-170)% increased Physical Damage
 Adds 10 to 12 Physical Damage
 5% increased Attack Speed
 1.2% of Physical Attack Damage Leeched as Life
@@ -111,6 +114,7 @@ Vaal Claw
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 66, 95 Dex, 131 Int
+Implicits: 1
 2% of Physical Attack Damage Leeched as Life
 8% additional Chance to Block while Dual Wielding Claws
 (140-180)% increased Physical Damage
@@ -162,19 +166,22 @@ Izaro's Dilemma
 Imperial Claw
 Source: Drops in The Lord's Labyrinth
 Variant: Pre 2.6.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}+25 Life gained for each Enemy hit by Attacks
-{variant:2}+46 Life gained for each Enemy hit by Attacks
+{variant:2,3}+46 Life gained for each Enemy hit by Attacks
 (40-60)% increased Physical Damage
 Adds 20 to 50 Physical Damage
 (10-15)% increased Attack Speed
-+(250-350) to Accuracy Rating
+{variant:1,2}+(250-350) to Accuracy Rating
+{variant:3}+(300-400) to Accuracy Rating
 100% increased Physical Damage while Frozen
 ]],[[
 Last Resort
 Nailed Fist
+Implicits: 1
 +3 Life gained for each Enemy hit by your Attacks
 25% increased Attack Speed when on Low Life
 (80-100)% increased Physical Damage
@@ -214,7 +221,7 @@ Implicits: 2
 +1 to Level of Socketed Dexterity Gems
 {variant:3}Socketed Gems are Supported by level 10 Faster Attacks
 {variant:1,2}(100-120)% increased Physical Damage
-{variant:3}(160–180)% increased Physical Damage
+{variant:3}(160-180)% increased Physical Damage
 (10-15)% increased Attack Speed
 25% increased Stun Recovery
 Hits can't be Evaded
@@ -224,6 +231,7 @@ Terror Claw
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 70, 113 Dex, 113 Int
+Implicits: 1
 2% of Physical Attack Damage Leeched as Life
 (60-80)% increased Physical Damage
 Adds (25-35) to (50-65) Physical Damage
@@ -237,6 +245,7 @@ The Scourge
 Terror Claw
 Source: Drops from unique{Guardian of the Chimera}
 Requires Level 70, 113 Dex, 113 Int
+Implicits: 1
 2% of Physical Attack Damage Leeched as Life
 Adds (35-50) to (100-125) Physical Damage
 (10-15)% increased Attack Speed
@@ -263,12 +272,16 @@ Critical Strikes do not always Freeze
 ]],[[
 The Wasp Nest
 Throat Stabber
+Variant: Pre 3.7.0
+Variant: Current
 Requires Level 60, 113 Dex, 113 Int
+Implicits: 1
 +40 Life gained for each Enemy hit by Attacks
 (150-170)% increased Physical Damage
 (20-25)% increased Attack Speed
 (20-25)% increased Critical Strike Chance
-+(180-200) to Accuracy Rating
+{variant:1}+(180-200) to Accuracy Rating
+{variant:2}+(330-350) to Accuracy Rating
 20% chance to Poison on Hit
 Attacks with this Weapon deal 80-120 added Chaos Damage against
 Enemies affected by at least 5 Poisons
