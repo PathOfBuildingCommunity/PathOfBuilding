@@ -606,6 +606,11 @@ return {
 ["shock_effect_+%"] = {
 	mod("EnemyShockEffect", "INC", nil),
 },
+["non_damaging_ailment_effect_+%"] = {
+	mod("EnemyChillEffect", "INC", nil),
+	mod("EnemyShockEffect", "INC", nil),
+	mod("EnemyFreezeEffect", "INC", nil),
+},
 ["base_poison_duration_+%"] = {
 	mod("EnemyPoisonDuration", "INC", nil),
 },

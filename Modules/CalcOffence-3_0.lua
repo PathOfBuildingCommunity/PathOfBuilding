@@ -1458,10 +1458,10 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.FreezeChanceOnCrit = 100
 		end
-		if not skillFlags.hit or skillModList:Flag(cfg, "CannotFreeze") then
-			output.FreezeChanceOnCrit = 0
+		if not skillFlags.hit or skillModList:Flag(cfg, "CannotChill") then
+			output.ChillChanceOnCrit = 0
 		else
-			output.FreezeChanceOnCrit = 100
+			output.ChillChanceOnCrit = 100
 		end
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotKnockback") then
 			output.KnockbackChanceOnCrit = 0
@@ -1503,9 +1503,6 @@ function calcs.offence(env, actor, activeSkill)
 			output.ChillChanceOnHit = 0
 		else
 			output.ChillChanceOnHit = 100
-			if skillModList:Flag(cfg, "CritsDontAlwaysFreeze") then
-				output.FreezeChanceOnCrit = output.FreezeChanceOnHit
-			end
 		end
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotKnockback") then
 			output.KnockbackChanceOnHit = 0
@@ -2049,10 +2046,44 @@ function calcs.offence(env, actor, activeSkill)
 				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
 				output.ShockEffectMod = skillModList:Sum("INC", cfg, "EnemyShockEffect")
 				if breakdown then
-					t_insert(breakdown.ShockDPS, s_format("For the minimum 5%% Shock to apply for 2 seconds, target must have no more than %d Ailment Threshold.", (((100 + output.ShockEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
+					t_insert(breakdown.ShockDPS, s_format("For the minimum 5%% Shock to apply for %.1f seconds, target must have no more than %d Ailment Threshold.", 2 * output.ShockDurationMod, (((100 + output.ShockEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
 					t_insert(breakdown.ShockDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where is is about half of their life)"))
 				end
  			end
+		end
+		if (output.ChillChanceOnHit + output.ChillChanceOnCrit) > 0 then
+			local sourceHitDmg = 0
+			local sourceCritDmg = 0
+			if canDeal.Cold and not skillModList:Flag(cfg, "ColdCannotChill") then
+				sourceHitDmg = sourceHitDmg + output.ColdHitAverage
+				sourceCritDmg = sourceCritDmg + output.ColdCritAverage
+			end
+			if canDeal.Physical and skillModList:Flag(cfg, "PhysicalCanChill") then
+				sourceHitDmg = sourceHitDmg + output.PhysicalHitAverage
+				sourceCritDmg = sourceCritDmg + output.PhysicalCritAverage
+			end
+			if canDeal.Lightning and skillModList:Flag(cfg, "LightningCanChill") then
+				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
+				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
+			end
+			if canDeal.Fire and skillModList:Flag(cfg, "FireCanChill") then
+				sourceHitDmg = sourceHitDmg + output.FireHitAverage
+				sourceCritDmg = sourceCritDmg + output.FireCritAverage
+			end
+			if canDeal.Chaos and skillModList:Flag(cfg, "ChaosCanChill") then
+				sourceHitDmg = sourceHitDmg + output.ChaosHitAverage
+				sourceCritDmg = sourceCritDmg + output.ChaosCritAverage
+			end
+			local baseVal = calcAilmentDamage("Chill", sourceHitDmg, sourceCritDmg)
+			if baseVal > 0 then
+				skillFlags.chill = true
+				output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
+				output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
+				if breakdown then
+					t_insert(breakdown.ChillDPS, s_format("For the minimum 5%% Chill to apply for %.1f seconds, target must have no more than %d Ailment Threshold.", 2 * output.ChillDurationMod, (((100 + output.ChillEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
+					t_insert(breakdown.ChillDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where is is about half of their life)"))
+				end
+			end
 		end
 		if (output.FreezeChanceOnHit + output.FreezeChanceOnCrit) > 0 then
 			local sourceHitDmg = 0
@@ -2065,19 +2096,14 @@ function calcs.offence(env, actor, activeSkill)
 				sourceHitDmg = sourceHitDmg + output.LightningHitAverage
 				sourceCritDmg = sourceCritDmg + output.LightningCritAverage
 			end
-			local baseFreezeVal = calcAilmentDamage("Freeze", sourceHitDmg, sourceCritDmg)
-			local baseChillVal = calcAilmentDamage("Chill", sourceHitDmg, sourceCritDmg)
-			if baseFreezeVal > 0 then
+			local baseVal = calcAilmentDamage("Freeze", sourceHitDmg, sourceCritDmg)
+			if baseVal > 0 then
 				skillFlags.freeze = true
 				skillFlags.chill = true
 				output.FreezeDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyFreezeDuration") / 100 + enemyDB:Sum("INC", nil, "SelfFreezeDuration") / 100
-				output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
-				output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
 				if breakdown then
-					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply for the minimum of 0.3 seconds, target must have no more than %d Ailment Threshold.", baseFreezeVal * 20 * output.FreezeDurationMod))
+					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply for the minimum of 0.3 seconds, target must have no more than %d Ailment Threshold.", baseVal * 20 * output.FreezeDurationMod))
 					t_insert(breakdown.FreezeDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where is is about half of their life)"))
-					t_insert(breakdown.ChillDPS, s_format("For the minimum 5%% Chill to apply for 2 seconds, target must have no more than %d Ailment Threshold.", (((100 + output.ChillEffectMod)^(2.5)) * baseChillVal) / (100 * m_sqrt(10))))
-					t_insert(breakdown.ChillDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where is is about half of their life)"))
 				end
 			end
 		end
