@@ -3597,6 +3597,7 @@ skills["SupportSpellEchoPlus"] = {
 		},
 	},
 	baseMods = {
+		flag("Condition:HaveSpellEcho"),
 	},
 	qualityStats = {
 		{ "spell_damage_+%", 0.5 },

@@ -41,6 +41,10 @@ function DropDownClass:SelByValue(value, key)
 	end
 end
 
+function DropDownClass:GetSelValue(key)
+	return self.list[self.selIndex][key]
+end
+
 function DropDownClass:SetSel(newSel)
 	newSel = m_max(1, m_min(#self.list, newSel))
 	if newSel ~= self.selIndex then
