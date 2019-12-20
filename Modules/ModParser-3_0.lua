@@ -681,14 +681,18 @@ local modTagList = {
 	["per (%d+) rage"] = function(num) return { tag = { type = "Multiplier", var = "Rage", div = num } } end,
 	["per level"] = { tag = { type = "Multiplier", var = "Level" } },
 	["per (%d+) player levels"] = function(num) return { tag = { type = "Multiplier", var = "Level", div = num } } end,
-	["for each normal item you have equipped"] = { tag = { type = "Multiplier", var = "NormalItem" } },
 	["for each equipped normal item"] = { tag = { type = "Multiplier", var = "NormalItem" } },
-	["for each magic item you have equipped"] = { tag = { type = "Multiplier", var = "MagicItem" } },
+	["for each normal item equipped"] = { tag = { type = "Multiplier", var = "NormalItem" } },
+	["for each normal item you have equipped"] = { tag = { type = "Multiplier", var = "NormalItem" } },
 	["for each equipped magic item"] = { tag = { type = "Multiplier", var = "MagicItem" } },
-	["for each rare item you have equipped"] = { tag = { type = "Multiplier", var = "RareItem" } },
+	["for each magic item equipped"] = { tag = { type = "Multiplier", var = "MagicItem" } },
+	["for each magic item you have equipped"] = { tag = { type = "Multiplier", var = "MagicItem" } },
 	["for each equipped rare item"] = { tag = { type = "Multiplier", var = "RareItem" } },
-	["for each unique item you have equipped"] = { tag = { type = "Multiplier", var = "UniqueItem" } },
+	["for each rare item equipped"] = { tag = { type = "Multiplier", var = "RareItem" } },
+	["for each rare item you have equipped"] = { tag = { type = "Multiplier", var = "RareItem" } },
 	["for each equipped unique item"] = { tag = { type = "Multiplier", var = "UniqueItem" } },
+	["for each unique item equipped"] = { tag = { type = "Multiplier", var = "UniqueItem" } },
+	["for each unique item you have equipped"] = { tag = { type = "Multiplier", var = "UniqueItem" } },
 	["per elder item equipped"] = { tag = { type = "Multiplier", var = "ElderItem" } },
 	["per shaper item equipped"] = { tag = { type = "Multiplier", var = "ShaperItem" } },
 	["per elder or shaper item equipped"] = { tag = { type = "Multiplier", varList = { "ElderItem", "ShaperItem" } } },
@@ -743,6 +747,7 @@ local modTagList = {
 	["per (%d+)%% lightning resistance above 75%%"] = function(num) return { tag  = { type = "PerStat", stat = "LightningResistOver75", div = num } } end,
 	["per totem"] = { tag = { type = "PerStat", stat = "ActiveTotemLimit" } },
 	["per summoned totem"] = { tag = { type = "PerStat", stat = "ActiveTotemLimit" } },
+	["for each summoned totem"] = { tag = { type = "PerStat", stat = "ActiveTotemLimit" } },
 	["for each time they have chained"] = { tag = { type = "PerStat", stat = "Chain" } },
 	["for each time it has chained"] = { tag = { type = "PerStat", stat = "Chain" } },
 	-- Stat conditions
@@ -1131,6 +1136,10 @@ local specialModList = {
 	["while there is at least one nearby ally, you and nearby allies deal (%d+)%% more damage"] = function(num) return { mod("ExtraAura", "LIST", { mod = mod("Damage", "MORE", num) }, { type = "MultiplierThreshold", var = "NearbyAlly", threshold = 1 }) } end,
 	["while there are at least five nearby allies, you and nearby allies have onslaught"] = { mod("ExtraAura", "LIST", { mod = flag("Onslaught") }, { type = "MultiplierThreshold", var = "NearbyAlly", threshold = 5 }) },
 	-- Hierophant
+	["you and your totems regenerate (%d+)%% of life per second for each summoned totem"] = function (num) return {
+		mod("LifeRegenPercent", "BASE", num, {type = "PerStat", stat = "ActiveTotemLimit"}),
+		mod("LifeRegenPercent", "BASE", num, {type = "PerStat", stat = "ActiveTotemLimit"}, 0, KeywordFlag.Totem),
+	} end,
 	-- Inquisitor
 	["critical strikes ignore enemy monster elemental resistances"] = { flag("IgnoreElementalResistances", { type = "Condition", var = "CriticalStrike" }) },
 	["non%-critical strikes penetrate (%d+)%% of enemy elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
@@ -1318,6 +1327,7 @@ local specialModList = {
 	["ignited enemies burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnFaster", "INC", num) } end,
 	["ignited enemies burn (%d+)%% slower"] = function(num) return { mod("IgniteBurnSlower", "INC", num) } end,
 	["enemies ignited by an attack burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnFaster", "INC", num, nil, ModFlag.Attack) } end,
+	["ignites you inflict with attacks deal damage (%d+)%% faster"] = function(num) return { mod("IgniteBurnFaster", "INC", num, nil, ModFlag.Attack) } end,
 	["enemies ignited by you during flask effect take (%d+)%% increased damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Ignited" }) } end,
 	["cannot inflict ignite"] = { flag("CannotIgnite") },
 	["cannot inflict freeze or chill"] = { flag("CannotFreeze"), flag("CannotChill") },
@@ -1929,8 +1939,10 @@ local jewelSelfFuncs = {
 }
 local jewelSelfUnallocFuncs = {
 	["+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius"] = getPerStat("CritMultiplier", "BASE", 0, "Str", 5 / 10),
+	["+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius"] = getPerStat("CritMultiplier", "BASE", 0, "Str", 7 / 10),
 	["+15 to maximum Mana per 10 Dexterity on Unallocated Passives in Radius"] = getPerStat("Mana", "BASE", 0, "Dex", 15 / 10),
 	["+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius"] = getPerStat("Accuracy", "BASE", 0, "Int", 100 / 10),
+	["+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius"] = getPerStat("Accuracy", "BASE", 0, "Int", 125 / 10),
 	["Grants all bonuses of Unallocated Small Passive Skills in Radius"] = function(node, out, data)
 		if node then
 			if node.type == "Normal" then

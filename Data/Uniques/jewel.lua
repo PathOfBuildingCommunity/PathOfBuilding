@@ -223,7 +223,7 @@ Increases and Reductions to Life in Radius are Transformed to apply to Mana at 2
 Hidden Potential
 Viridian Jewel
 Limited to: 1
-(20-25)% increased Damage for each Equipped Magic Item
+(20-25)% increased Damage for each Magic Item Equipped
 ]],[[
 Hotfooted
 Viridian Jewel
@@ -397,37 +397,49 @@ Crimson Jewel
 League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Transcendent Flesh} via currency{Vial of Transcendence}
+Variant: Pre 3.8.0
+Variant: Current
 Radius: Medium
 -1 Strength per 1 Strength on Allocated Passives in Radius
-+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+{variant:1}+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+{variant:2}+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
 ]],[[
 Transcendent Flesh
 Crimson Jewel
 League: Incursion
 Source: Upgraded from unique{Tempered Flesh} via currency{Vial of Transcendence}
+Variant: Pre 3.8.0
+Variant: Current
 Radius: Medium
 -1 Strength per 1 Strength on Allocated Passives in Radius
 1% additional Physical Damage Reduction per 10 Strength on Allocated Passives in Radius
-+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+{variant:1}+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+{variant:2}+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
 ]],[[
 Tempered Mind
 Cobalt Jewel
 League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Transcendent Mind} via currency{Vial of Transcendence}
+Variant: Pre 3.8.0
+Variant: Current
 Radius: Medium
 -1 Intelligence per 1 Intelligence on Allocated Passives in Radius
-+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+{variant:1}+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+{variant:2}+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
 ]],[[
 Transcendent Mind
 Cobalt Jewel
 League: Incursion
 Source: Upgraded from unique{Tempered Mind} via currency{Vial of Transcendence}
+Variant: Pre 3.8.0
+Variant: Current
 Radius: Medium
 -1 Intelligence per 1 Intelligence on Allocated Passives in Radius
 0.4% of Energy Shield Regenerated per Second for
 every 10 Intelligence on Allocated Passives in Radius
-+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+{variant:1}+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+{variant:2}+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
 ]],[[
 Tempered Spirit
 Viridian Jewel

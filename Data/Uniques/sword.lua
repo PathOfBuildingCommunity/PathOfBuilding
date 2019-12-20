@@ -343,6 +343,18 @@ Adds 1 to (60-70) Lightning Damage
 Adds 1 to (60-70) Lightning Damage to Spells
 10% increased Area of Effect of Area Skills
 ]],[[
+The Savior
+Legion Sword
+Source: Drops from unique{Sirus, Awakener of Worlds}
+Requires Level 62, 122 Str, 104 Dex
+Implicits: 1
+40% increased Global Accuracy Rating
+Triggers Level 20 Reflection when Equipped
+(40-50)% increased Physical Damage
+Adds (16-22) to (40-45) Physical Damage
+(8-12)% increased Attack Speed
+(8-12)% increased Critical Strike Chance
+]],[[
 Scaeva
 Gladius
 Variant: Pre 2.6.0
