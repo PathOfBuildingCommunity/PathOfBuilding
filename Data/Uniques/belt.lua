@@ -174,8 +174,8 @@ Implicits: 1
 +(20-40)% to Cold Resistance
 {variant:1}0.6% of Attack Damage Leeched as Life against Chilled enemies
 {variant:2}1% of Attack Damage Leeched as Life against Chilled enemies
-{variant:1}Enemies Ignited by an Attack Burn 20% faster
-{variant:2}Enemies Ignited by an Attack Burn 35% faster
+{variant:1}Ignites you inflict with Attacks deal Damage 20% faster
+{variant:2}Ignites you inflict with Attacks deal Damage 35% faster
 Deal no Physical Damage
 ]],[[
 Faminebind
