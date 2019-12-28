@@ -182,7 +182,10 @@ return {
 	{ var = "winterOrbStages", type = "count", label = "Stages:", ifSkill = "Winter Orb", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:WinterOrbStage", "BASE", val, "Config", { type = "SkillName", skillName = "Winter Orb" })
 	end },
-
+	{ label = "Barrage Support:", ifSkill = "Barrage Support" },
+	{ var = "barrageProjectiles", type = "count", label = "# of Projectiles that Hit:", ifSkill = "Barrage Support", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:BarrageProjectiles", "BASE", val - 1, "Config", { type = "Condition", var = "Combat" })
+	end },
 	-- Section: Map modifiers/curses
 	{ section = "Map Modifiers and Player Debuffs", col = 2 },
 	{ label = "Map Prefix Modifiers:" },

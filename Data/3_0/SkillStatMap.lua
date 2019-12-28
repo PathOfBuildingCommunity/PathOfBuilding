@@ -760,6 +760,13 @@ return {
 ["returning_projectiles_always_pierce"] = {
 	flag("PierceAllTargets", { type = "Condition", var = "ReturningProjectile" }),
 },
+["support_barrage_attack_time_+%_per_projectile_fired"] = {
+	flag("moreAttackTimeBarrage"),
+},
+["support_barrage_trap_and_mine_throwing_time_+%_final_per_projectile_fired"] = {
+	flag("moreMineLayingTimeBarrage"),
+	flag("moreTrapThrowingTimeBarrage"),
+},
 -- Self modifiers
 ["chance_to_be_pierced_%"] = {
 	mod("SelfPierceChance", "BASE", nil),

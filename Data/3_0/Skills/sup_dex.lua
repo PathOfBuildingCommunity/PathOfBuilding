@@ -298,7 +298,7 @@ skills["SupportArrowNovaPlus"] = {
 	},
 }
 skills["SupportBarrage"] = {
-	name = "Barrage",
+	name = "Barrage Support",
 	description = "Supports projectile attack skills that use bows or wands. Cannot support triggered skills, channelled skills, or skills that create Minions.",
 	color = 2,
 	support = true,
@@ -317,6 +317,7 @@ skills["SupportBarrage"] = {
 		},
 	},
 	baseMods = {
+		mod("SkillData", "LIST", { key = "dpsMultiplier", value = 1 }, 0, 0, { type = "Multiplier", var = "BarrageProjectiles", base = 1 } ),
 	},
 	qualityStats = {
 		{ "attack_speed_+%", 0.5 },
