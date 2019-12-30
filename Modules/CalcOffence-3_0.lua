@@ -265,6 +265,10 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("AreaOfEffect", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 		end
 	end
+	if skillModList:Flag(nil, "SequentialProjectiles") then
+		-- Applies DPS multiplier for Barrage Support based on projectile count
+		skillData.dpsMultiplier = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
+	end
 	if skillModList:Flag(nil, "TransfigurationOfBody") then
 		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "Life") * 0.3), "Transfiguration of Body", ModFlag.Attack)
 	end
@@ -390,30 +394,29 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillFlags.trap then
 		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "TrapThrowingTime")
-		if skillModList:Flag(skillCfg, "moreTrapThrowingTimeBarrage") then
-			-- Multiplies Trap Throwing Time by 1 + 0.05 * the number of projectiles
-			barrageThrowingTime = 1 + 0.05 * skillModList:Sum("BASE", skillCfg, "ProjectileCount")
-			baseSpeed = baseSpeed * (1 / barrageThrowingTime)
+		local timeMod = calcLib.mod(skillModList, skillCfg, "TrapThrowingTimeMod")
+		if timeMod > 0 then
+			baseSpeed = baseSpeed * (1 / timeMod)
 		end
 		output.TrapThrowingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "TrapThrowingSpeed") * output.ActionSpeedMod
 		output.TrapThrowingTime = 1 / output.TrapThrowingSpeed
 		if breakdown then
 			breakdown.TrapThrowingSpeed = { }
 			breakdown.multiChain(breakdown.TrapThrowingSpeed, {
-				label = "Throwing speed:",
-				base = s_format("%.2f ^8(base throwing speed)", baseSpeed),
+				label = "Throwing rate:",
+				base = s_format("%.2f ^8(base throwing rate)", baseSpeed),
 				{ "%.2f ^8(increased/reduced throwing speed)", 1 + skillModList:Sum("INC", skillCfg, "TrapThrowingSpeed") / 100 },
 				{ "%.2f ^8(more/less throwing speed)", skillModList:More(skillCfg, "TrapThrowingSpeed") },
 				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
 				total = s_format("= %.2f ^8per second", output.TrapThrowingSpeed),
 			})
 		end
-		if breakdown and skillModList:Flag(skillCfg, "moreTrapThrowingTimeBarrage") then
+		if breakdown and timeMod > 0 then
 			breakdown.TrapThrowingTime = { }
 			breakdown.multiChain(breakdown.TrapThrowingTime, {
 				label = "Throwing time:",
-				base = s_format("%.2f ^8(base throwing time)", 1 / (output.TrapThrowingSpeed * barrageThrowingTime)),
-				{ "%.2f ^8(Barrage Support modifier)", barrageThrowingTime },
+				base = s_format("%.2f ^8(base throwing time)", 1 / (output.TrapThrowingSpeed * timeMod)),
+				{ "%.2f ^8(total modifier)", timeMod },
 				total = s_format("= %.2f ^8seconds per throw", output.TrapThrowingTime),
 			})
 		end
@@ -447,30 +450,29 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillFlags.mine then
 		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "MineLayingTime")
-		if skillModList:Flag(skillCfg, "moreMineLayingTimeBarrage") then
-			-- Multiplies Mine Throwing Time by 1 + 0.05 * the number of projectiles
-			barrageLayingTime = 1 + 0.05 * skillModList:Sum("BASE", skillCfg, "ProjectileCount")
-			baseSpeed = baseSpeed * 1 / barrageLayingTime
+		local timeMod = calcLib.mod(skillModList, skillCfg, "MineThrowingTimeMod")
+		if timeMod > 0 then
+			baseSpeed = baseSpeed * (1 / timeMod)
 		end
 		output.MineLayingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "MineLayingSpeed") * output.ActionSpeedMod
 		output.MineLayingTime = 1 / output.MineLayingSpeed
 		if breakdown then
 			breakdown.MineLayingTime = { }
 			breakdown.multiChain(breakdown.MineLayingTime, {
-				label = "Throwing speed:",
-				base = s_format("%.2f ^8(base throwing speed)", baseSpeed),
+				label = "Throwing rate:",
+				base = s_format("%.2f ^8(base throwing rate)", baseSpeed),
 				{ "%.2f ^8(increased/reduced throwing speed)", 1 + skillModList:Sum("INC", skillCfg, "MineLayingSpeed") / 100 },
 				{ "%.2f ^8(more/less throwing speed)", skillModList:More(skillCfg, "MineLayingSpeed") },
 				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
 				total = s_format("= %.2f ^8per second", output.MineLayingSpeed),
 			})
 		end
-		if breakdown and skillModList:Flag(skillCfg, "moreMineLayingTimeBarrage") then
+		if breakdown and calcLib.mod(skillModList, skillCfg, "MineThrowingTimeMod") > 0 then
 			breakdown.MineThrowingTime = { }
 			breakdown.multiChain(breakdown.MineThrowingTime, {
 			label = "Throwing time:",
-				base = s_format("%.2f ^8(base throwing time)", 1 / (output.MineLayingSpeed * barrageLayingTime)),
-				{ "%.2f ^8(Barrage Support modifier)", barrageLayingTime },
+				base = s_format("%.2f ^8(base throwing time)", 1 / (output.MineLayingSpeed * timeMod)),
+				{ "%.2f ^8(total modifier)", timeMod },
 				total = s_format("= %.2f ^8seconds per throw", output.MineLayingTime),
 			})
 		end
@@ -824,10 +826,8 @@ function calcs.offence(env, actor, activeSkill)
 				if skillData.castTimeOverridesAttackTime then
 					-- Skill is overriding weapon attack speed
 					baseTime = activeSkill.activeEffect.grantedEffect.castTime / (1 + (source.AttackSpeedInc or 0) / 100)
-				elseif skillModList:Flag(skillCfg, "moreAttackTimeBarrage") then
-					-- Multiplies Attack Time by 1 + 0.05 * the number of projectiles
-					barrageTime = 1 + 0.05 * skillModList:Sum("BASE", skillCfg, "ProjectileCount")
-					baseTime = (1 / ( source.AttackRate or 1 ) + skillModList:Sum("BASE", cfg, "Speed")) * barrageTime
+				elseif calcLib.mod(skillModList, skillCfg, "AttackTimeMod") > 0 then
+					baseTime = (1 / ( source.AttackRate or 1 ) + skillModList:Sum("BASE", cfg, "Speed")) * calcLib.mod(skillModList, skillCfg, "AttackTimeMod")
 				else
 					baseTime = 1 / ( source.AttackRate or 1 ) + skillModList:Sum("BASE", cfg, "Speed")
 				end
@@ -859,11 +859,11 @@ function calcs.offence(env, actor, activeSkill)
 					total = s_format("= %.2f ^8per second", output.Speed)
 				})
 			end
-			if breakdown and skillModList:Flag(skillCfg, "moreAttackTimeBarrage") then
+			if breakdown and calcLib.mod(skillModList, skillCfg, "AttackTimeMod") > 0 then
 				breakdown.Time = { }
 				breakdown.multiChain(breakdown.Time, {
-					base = s_format("%.2f ^8(base)", 1 / (output.Speed * barrageTime)),
-					{ "%.2f ^8(Barrage Support modifier)", barrageTime },
+					base = s_format("%.2f ^8(base)", 1 / (output.Speed * calcLib.mod(skillModList, skillCfg, "AttackTimeMod") )),
+					{ "%.2f ^8(total modifier)", calcLib.mod(skillModList, skillCfg, "AttackTimeMod")  },
 					total = s_format("= %.2f ^8seconds per attack", output.Time)
 				})
 			end 

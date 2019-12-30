@@ -315,9 +315,11 @@ skills["SupportBarrage"] = {
 		["support_barrage_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["projectiles_barrage"] = {
+			flag("SequentialProjectiles")
+		},
 	},
 	baseMods = {
-		mod("SkillData", "LIST", { key = "dpsMultiplier", value = 1 }, 0, 0, { type = "Multiplier", var = "BarrageProjectiles", base = 1 } ),
 	},
 	qualityStats = {
 		{ "attack_speed_+%", 0.5 },
