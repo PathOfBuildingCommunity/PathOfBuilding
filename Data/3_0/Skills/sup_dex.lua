@@ -298,7 +298,7 @@ skills["SupportArrowNovaPlus"] = {
 	},
 }
 skills["SupportBarrage"] = {
-	name = "Barrage",
+	name = "Barrage Support",
 	description = "Supports projectile attack skills that use bows or wands. Cannot support triggered skills, channelled skills, or skills that create Minions.",
 	color = 2,
 	support = true,
@@ -314,6 +314,9 @@ skills["SupportBarrage"] = {
 	statMap = {
 		["support_barrage_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
+		},
+		["projectiles_barrage"] = {
+			flag("SequentialProjectiles")
 		},
 	},
 	baseMods = {
