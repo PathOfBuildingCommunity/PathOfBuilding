@@ -4691,7 +4691,7 @@ c["80% increased Stun Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="
 c["Brand Skills deal 30% increased Damage to Enemies they're Attached to"]={{[1]={[1]={skillType=76,type="SkillType"},[2]={type="Condition",var="BrandAttachedToEnemy"},flags=0,keywordFlags=0,name="Damage",type="INC",value=30}},nil}
 c["5% chance to gain Unholy Might for 3 seconds on Kill"]={{}," to gain Unholy Might for 3 seconds on Kill "}
 c["110% increased Evasion and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EvasionAndEnergyShield",type="INC",value=110}},nil}
-c["25% reduced Golem Size Golems Deal 45% less Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=-25}},"  Size Golems Deal 45% less  "}
+c["25% reduced Golem Size Golems Deal 45% less Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="MORE",value=-45}}}}, "  25% reduced Golem Size  "}
 c["7% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=7}},nil}
 c["25% reduced Effect of Curses on you"]={{[1]={flags=0,keywordFlags=0,name="CurseEffectOnSelf",type="INC",value=-25}},nil}
 c["1% increased Attack Speed per 10 Dexterity"]={{[1]={[1]={div=10,stat="Dex",type="PerStat"},flags=1,keywordFlags=0,name="Speed",type="INC",value=1}},nil}
