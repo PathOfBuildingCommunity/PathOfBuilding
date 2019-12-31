@@ -7547,3 +7547,4 @@ c["16% Chance to Block"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="
 c["Unaffected by Frostbite while affected by Purity of Ice"]={nil,"Unaffected by Frostbite while affected by Purity of Ice "}
 c["Bleeding you inflict deals Damage 15% faster"]={{[1]={flags=0,keywordFlags=0,name="BleedFaster",type="INC",value=15}},nil}
 c["175% increased Skeleton Duration"]={{[1]={[1]={skillName="Summon Skeleton",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="INC",value=175}},nil}
+c["(Allies on your Fungal Ground gain 10% of Non-Chaos Damage as extra Chaos Damage. Enemies on your Fungal Ground deal 10% less Damage.)"]={{[1]={[1]={type="Condition",var="OnFungalGround"},flags=0,keywordFlags=0,name="NonChaosDamageGainAsChaos",type="BASE",value=10}},nil}
