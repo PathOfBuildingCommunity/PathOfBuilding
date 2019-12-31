@@ -816,6 +816,8 @@ return {
 	{ var = "conditionEnemyOnConsecratedGround", type = "check", label = "Is the enemy on consecrated ground?", tooltip = "In addition to allowing any relevant modifiers to apply,\nthis will cause your hits have 100% increased Critical Strike Chance on the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		modList:NewMod("CritChance", "INC", 100, "Config", { type = "ActorCondition", actor = "enemy", var = "OnConsecratedGround" }) end },
+	{ var = "conditionEnemyOnFungalGround", type = "check", label = "Is the enemy on fungal ground?", ifCond = "OnFungalGround", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:OnFungalGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" }) end },
 	{ var = "conditionEnemyRareOrUnique", type = "check", label = "is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "Your enemy will automatically be considered to be Unique if one of the Boss options is selected.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },

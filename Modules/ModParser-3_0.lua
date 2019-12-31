@@ -1738,7 +1738,8 @@ local specialModList = {
 	["enemies on fungal ground you kill explode, dealing 5%% of their life as chaos damage"] = {},
 	["you have fungal ground around you while stationary"] = {},
 	["%(allies on your fungal ground gain ([%d%.]+)%% of non%-chaos damage as extra chaos damage%. enemies on your fungal ground deal ([%d%.]+)%% less damage%.%)"] = function(_, gain, enemyLoss) return {
-		mod("NonChaosDamageGainAsChaos", "BASE", gain, { type = "Condition", var = "OnFungalGround" }, { type = "GlobalEffect", effectType = "Aura" })
+		mod("NonChaosDamageGainAsChaos", "BASE", gain, { type = "Condition", var = "OnFungalGround" }, { type = "GlobalEffect", effectType = "Aura" }),
+		mod("EnemyModifier", "LIST", { mod = mod("Damage", "MORE", -enemyLoss, {type = "ActorCondition", actor = "enemy", var = "OnFungalGround"})})
 	} end,
 	-- Skill-specific enchantment modifiers
 	["(%d+)%% increased decoy totem life"] = function(num) return { mod("TotemLife", "INC", num, { type = "SkillName", skillName = "Decoy Totem" }) } end,
