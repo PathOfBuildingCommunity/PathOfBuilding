@@ -394,7 +394,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillFlags.trap then
 		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "TrapThrowingTime")
-		local timeMod = calcLib.mod(skillModList, skillCfg, "TrapThrowingTimeMod")
+		local timeMod = calcLib.mod(skillModList, skillCfg, "SkillTrapThrowingTime")
 		if timeMod > 0 then
 			baseSpeed = baseSpeed * (1 / timeMod)
 		end
@@ -450,7 +450,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillFlags.mine then
 		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "MineLayingTime")
-		local timeMod = calcLib.mod(skillModList, skillCfg, "MineThrowingTimeMod")
+		local timeMod = calcLib.mod(skillModList, skillCfg, "SkillMineThrowingTime")
 		if timeMod > 0 then
 			baseSpeed = baseSpeed * (1 / timeMod)
 		end
@@ -467,7 +467,7 @@ function calcs.offence(env, actor, activeSkill)
 				total = s_format("= %.2f ^8per second", output.MineLayingSpeed),
 			})
 		end
-		if breakdown and calcLib.mod(skillModList, skillCfg, "MineThrowingTimeMod") > 0 then
+		if breakdown and timeMod > 0 then
 			breakdown.MineThrowingTime = { }
 			breakdown.multiChain(breakdown.MineThrowingTime, {
 			label = "Throwing time:",
@@ -826,8 +826,8 @@ function calcs.offence(env, actor, activeSkill)
 				if skillData.castTimeOverridesAttackTime then
 					-- Skill is overriding weapon attack speed
 					baseTime = activeSkill.activeEffect.grantedEffect.castTime / (1 + (source.AttackSpeedInc or 0) / 100)
-				elseif calcLib.mod(skillModList, skillCfg, "AttackTimeMod") > 0 then
-					baseTime = (1 / ( source.AttackRate or 1 ) + skillModList:Sum("BASE", cfg, "Speed")) * calcLib.mod(skillModList, skillCfg, "AttackTimeMod")
+				elseif calcLib.mod(skillModList, skillCfg, "SkillAttackTime") > 0 then
+					baseTime = (1 / ( source.AttackRate or 1 ) + skillModList:Sum("BASE", cfg, "Speed")) * calcLib.mod(skillModList, skillCfg, "SkillAttackTime")
 				else
 					baseTime = 1 / ( source.AttackRate or 1 ) + skillModList:Sum("BASE", cfg, "Speed")
 				end
@@ -859,11 +859,11 @@ function calcs.offence(env, actor, activeSkill)
 					total = s_format("= %.2f ^8per second", output.Speed)
 				})
 			end
-			if breakdown and calcLib.mod(skillModList, skillCfg, "AttackTimeMod") > 0 then
+			if breakdown and calcLib.mod(skillModList, skillCfg, "SkillAttackTime") > 0 then
 				breakdown.Time = { }
 				breakdown.multiChain(breakdown.Time, {
-					base = s_format("%.2f ^8(base)", 1 / (output.Speed * calcLib.mod(skillModList, skillCfg, "AttackTimeMod") )),
-					{ "%.2f ^8(total modifier)", calcLib.mod(skillModList, skillCfg, "AttackTimeMod")  },
+					base = s_format("%.2f ^8(base)", 1 / (output.Speed * calcLib.mod(skillModList, skillCfg, "SkillAttackTime") )),
+					{ "%.2f ^8(total modifier)", calcLib.mod(skillModList, skillCfg, "SkillAttackTime")  },
 					total = s_format("= %.2f ^8seconds per attack", output.Time)
 				})
 			end 
