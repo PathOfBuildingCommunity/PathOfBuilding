@@ -307,16 +307,12 @@ skills["SupportBarrage"] = {
 	excludeSkillTypes = { SkillType.Channelled, SkillType.CreatesMinion, SkillType.Triggered, SkillType.TriggeredGrantedSkill, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	weaponTypes = {
-		["Bow"] = true,
-		["Wand"] = true,
-	},
 	statMap = {
 		["support_barrage_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
 		["projectiles_barrage"] = {
-			flag("SequentialProjectiles")
+			flag("SequentialProjectiles", { type = "Condition", varList = { "UsingBow", "UsingWand" } } )
 		},
 	},
 	baseMods = {
