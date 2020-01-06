@@ -22,7 +22,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	self.charImportStatus = "Idle"
 	self.controls.sectionCharImport = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 600, 250, "Character Import")
 	self.controls.charImportVersionWarning = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 20, 0, 16, colorCodes.WARNING..[[
-Warning:^7 Characters may not import into this build correctly, 
+Warning:^7 Characters may not import into this build correctly,
 as the build's game version is different from the live game version.
 Some passives may be deallocated, and some gems may not be recognised.
 If possible, change the game version in the Configuration tab before importing.]])
@@ -58,9 +58,27 @@ If possible, change the game version in the Configuration tab before importing.]
 		self.controls.sessionInput.buf = ""
 		self:DownloadCharacterList()
 	end)
+
 	self.controls.accountNameGo.enabled = function()
 		return self.controls.accountName.buf:match("%S")
 	end
+
+	-- accountHistory Control
+	if not historyList then
+		historyList = { }
+		for accountName, account in pairs(main.gameAccounts) do
+			t_insert(historyList, accountName)
+			historyList[accountName] = true
+		end
+		table.sort(historyList)
+	end -- don't load the list many times
+
+	self.controls.accountHistory = new("DropDownControl", {"LEFT",self.controls.accountNameGo,"RIGHT"}, 8, 0, 200, 20, historyList, function()
+		self.controls.accountName.buf = self.controls.accountHistory.list[self.controls.accountHistory.selIndex]
+	end)
+	self.controls.accountHistory:SelByValue(main.lastAccountName)
+
+
 	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, 0, 16, 0, 14, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
 	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, 0, 4, 170, 18, "^x4040FFhttps://www.urlencoder.org/", function()
 		OpenURL("https://www.urlencoder.org/")
@@ -75,7 +93,7 @@ If possible, change the game version in the Configuration tab before importing.]
 2. The account's privacy settings hide the characters tab (this is the default setting).
 If this is your account, you can either:
 1. Change your privacy settings to show you characters tab and then retry, or
-2. Enter a valid POESESSID below. 
+2. Enter a valid POESESSID below.
 You can get this from your web browser's cookies while logged into the Path of Exile website.
 		]]
 	end
@@ -137,9 +155,17 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:")
 	self.controls.charImportItemsClearItems.tooltipText = "Delete all equipped items when importing."
 	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choices,\nas these cannot be imported.")
+
 	self.controls.charDone = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Done", function()
 		self.charImportMode = "GETACCOUNTNAME"
 		self.charImportStatus = "Idle"
+		-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
+		if not historyList[self.controls.accountName.buf] then
+			t_insert(historyList, self.controls.accountName.buf)
+			historyList[self.controls.accountName.buf] = true
+			self.controls.accountHistory:SelByValue(self.controls.accountName.buf)
+			table.sort(historyList)
+		end
 	end)
 
 	-- Build import/export
@@ -357,7 +383,7 @@ function ImportTabClass:DownloadCharacterList()
 					label = league,
 					league = league,
 				})
-			end				
+			end
 			self.lastCharList = charList
 			self:BuildCharacterList()
 		end, sessionID and "POESESSID="..sessionID)
@@ -802,7 +828,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			t_insert(self.build.skillsTab.socketGroupList, itemSocketGroup)
 		end
 		self.build.skillsTab:ProcessSocketGroup(itemSocketGroup)
-	end	
+	end
 end
 
 function ImportTabClass:OpenPastebinImportPopup()
