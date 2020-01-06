@@ -4148,7 +4148,7 @@ skills["ClusterBurst"] = {
 	name = "Kinetic Blast",
 	color = 3,
 	description = "Fires a projectile from a Wand that causes a series of small explosions surrounding its point of impact, each damaging enemies caught in the area.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.Area] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanBarrage] = true, [SkillType.SkillCanSequentialProj] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 	},
@@ -4898,7 +4898,7 @@ skills["PowerSiphon"] = {
 	name = "Power Siphon",
 	color = 3,
 	description = "Fires your wand to unleash projectiles that fire toward enemies in front of you or to your sides, dealing increased damage and granting you a power charge if an enemy is killed by, or soon after, the hit.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Projectile] = true, [SkillType.SkillCanVolley] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.SkillCanBarrage] = true, [SkillType.SkillCanSequentialProj] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 	},
@@ -4968,7 +4968,7 @@ skills["VaalPowerSiphon"] = {
 	name = "Vaal Power Siphon",
 	color = 3,
 	description = "Fires your wand simultaneously at all nearby enemies, culling those close to death and granting you a power charge for each. Cannot be supported by Volley.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.Type83] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.Projectile] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Vaal] = true, [SkillType.Type83] = true, [SkillType.SkillCanBarrage] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 	},

@@ -212,4 +212,6 @@ SkillType = {
 	Type83 = 94, --Has secondary projectiles
 	Ballista = 95,
 	NovaSpell = 96,
+	SkillCanBarrage = 97, --Skill can be supported by Barrage Support
+	SkillCanSequentialProj = 98, --Skill can receive the Sequential Projectiles bonus from Barrage Support
 }
