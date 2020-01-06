@@ -150,7 +150,16 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	end
 	self.controls.pointDisplay.width = function(control)
 		local used, ascUsed = self.spec:CountAllocNodes()
-		local usedMax = 99 + (self.targetVersion == "2_6" and 21 or 22) + (self.calcsTab.mainOutput.ExtraPoints or 0)
+		local rewardThresholds = {89,88,86,82,79,75,73,72,68,66,65,59,57,55,52,48,41,35,29,20,14,7}
+		local unUsedRewards = 0
+		for skillReward in rewardThresholds do
+			if used < skillReward then
+				unUsedRewards += 1
+			else
+				break
+			end
+		end
+		local usedMax = 99 + (self.targetVersion == "2_6" and 21 or 22) + (self.calcsTab.mainOutput.ExtraPoints or 0) - unUsedRewards
 		local ascMax = 8
 		control.str = string.format("%s%3d / %3d   %s%d / %d", used > usedMax and "^1" or "^7", used, usedMax, ascUsed > ascMax and "^1" or "^7", ascUsed, ascMax)
 		control.req = "Required level: "..m_max(1, (100 + used - usedMax))
