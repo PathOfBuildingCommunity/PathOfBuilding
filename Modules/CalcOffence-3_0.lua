@@ -1648,7 +1648,7 @@ function calcs.offence(env, actor, activeSkill)
 				local mult = skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier", "BleedMultiplier")
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
 				local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster")
-				output.BleedDPS = baseVal * effectMod * rateMod * effMult
+				output.BleedDPS = (baseVal * effectMod * rateMod * effMult) * skillModList:Sum("BASE", cfg, "BleedCount")
 				local durationBase
 				if skillData.bleedDurationIsSkillDuration then
 					durationBase = skillData.duration
