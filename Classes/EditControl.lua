@@ -130,6 +130,8 @@ end
 
 function EditClass:Insert(text)
 	text = text:gsub("\r","")
+	-- Remove any illegal chars from the "text" variable, to stop resulting in no text when an illegal character is found.
+	text = text:gsub(self.filterPattern,"")
 	if text:match(self.filterPattern) then
 		return
 	end
