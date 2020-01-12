@@ -29,6 +29,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("MaxLifeLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("MaxManaLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("ImpaleStacksMax", "BASE", 5, "Base")
+	modDB:NewMod("BleedStacksMax", "BASE", 1, "Base")
 	if env.build.targetVersion ~= "2_6" then
 		modDB:NewMod("MaxEnergyShieldLeechRate", "BASE", 10, "Base")
 		modDB:NewMod("MaxLifeLeechInstance", "BASE", 10, "Base")
@@ -239,7 +240,6 @@ function calcs.initEnv(build, mode, override)
 		modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
 	end
 	modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
-	modDB:NewMod("BleedCount", "BASE", 1, "Base")
 
 	-- Add bandit mods
 	if build.targetVersion == "2_6" then

@@ -516,6 +516,8 @@ return {
 { 1, "Bleed", 1, "Bleed", colorCodes.OFFENCE, {
 	extra = "{0:output:BleedChance}% {1:output:BleedDPS} {2:output:BleedDuration}s",
 	flag = "bleed",
+	{ label = "Max Bleed Stacks", { format = "{0:output:BleedStacksMax}", { modName = "BleedStacksMax" } }, },
+	{ label = "Stacks on Enemy", { format = "{0:output:BleedStacks}" }},
 	{ label = "Chance to Bleed", { format = "{0:output:BleedChance}%", 
 		{ breakdown = "MainHand.BleedChance" },
 		{ breakdown = "OffHand.BleedChance" },
