@@ -388,6 +388,14 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.AreaOfEffectMod = breakdown.mod(skillCfg, "AreaOfEffect")
 		end
 	end
+
+	if activeSkill.skillTypes[SkillType.Curse] then
+		output.CurseEffectMod = calcLib.mod(skillModList, skillCfg, "CurseEffect")
+		if breakdown then
+			breakdown.CurseEffectMod = breakdown.mod(skillCfg, "CurseEffect")
+		end
+	end
+
 	if skillFlags.trap then
 		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "TrapThrowingTime")
 		output.TrapThrowingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "TrapThrowingSpeed") * output.ActionSpeedMod
