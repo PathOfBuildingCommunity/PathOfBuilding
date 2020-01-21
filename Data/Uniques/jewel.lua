@@ -1,4 +1,4 @@
--- Item data (c) Grinding Gear Games
+﻿-- Item data (c) Grinding Gear Games
 
 return {
 -- Jewel: Drop
@@ -1261,7 +1261,7 @@ Limited to: 1 Historic
 Radius: Large
 Implicits: 0
 Commissioned (2000-160000) coins to commemorate Cadiro
-Passives in radius are Conquered by the Eternal
+Passives in radius are Conquered by the Eternal Empire
 Historic
 ]],[[
 Glorious Vanity
