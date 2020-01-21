@@ -8,11 +8,21 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", function(self, anchor, x, y, width, height, list, selFunc, tooltipText)
+local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, x, y, width, height, list, selFunc, tooltipText)
 	self.Control(anchor, x, y, width, height)
 	self.ControlHost()
 	self.TooltipHost(tooltipText)
-	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
+	self.SearchHost(
+			-- list to filter
+			function()
+				return self.list
+			end,
+			-- value mapping function
+			function(listVal)
+				return StripEscapes(type(listVal) == "table" and listVal.label or listVal)
+			end
+	)
+	self.controls.scrollBar = new("ScrollBarControl", { "TOPRIGHT", self, "TOPRIGHT" }, -1, 0, 18, 0, (height - 4) * 4)
 	self.controls.scrollBar.height = function()
 		return self.dropHeight + 2
 	end
@@ -24,6 +34,67 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 	self.selIndex = 1
 	self.selFunc = selFunc
 end)
+
+function DropDownClass:DropIndexToListIndex(dropIndex, default)
+	if dropIndex and dropIndex > 0 and self:IsSearchActive() and self.searchInfos then
+		for listIndex, info in ipairs(self.searchInfos) do
+			if info and info.matches then
+				dropIndex = dropIndex - 1
+				if (dropIndex <= 0) then
+					return listIndex
+				end
+			end
+		end
+		return default -- if drop index > self:GetDropCount()
+	end
+	return dropIndex
+end
+
+function DropDownClass:ListIndexToDropIndex(listIndex, default)
+	if listIndex and self:IsSearchActive() and self.searchInfos then
+		local dropIndex = 0
+		for listIndexLoop, info in ipairs(self.searchInfos) do
+			if info and info.matches then
+				dropIndex = dropIndex + 1
+				if (listIndex == listIndexLoop) then
+					return dropIndex
+				end
+			end
+		end
+		return default -- it is possible that for a given listIndex there is no dropIndex (when it is currently filtered out)
+	end
+	return listIndex
+end
+
+function DropDownClass:GetDropCount()
+	if self:IsSearchActive() then
+		return self:GetMatchCount()
+	else
+		return #self.list
+	end
+end
+
+function DropDownClass:DrawSearchHighlights(label, searchInfo, x, y, width, height)
+	if searchInfo and searchInfo.matches then
+		local startX = 0
+		local endX = 0
+		local last = 0
+		SetDrawColor(1, 1, 0, 0.2)
+		for idx, range in ipairs(searchInfo.ranges) do
+			if range.from - last - 1 > 0 then
+				startX = DrawStringWidth(height, "VAR", label:sub(last + 1, range.from - 1)) + x + endX
+			else
+				startX = endX
+			end
+			endX = DrawStringWidth(height, "VAR", label:sub(range.from, range.to)) + x + startX
+			last = range.to
+
+			DrawImage(nil, startX, y, endX - startX, height)
+		end
+		SetDrawColor(1, 1, 1)
+	end
+end
+
 
 function DropDownClass:SelByValue(value, key)
 	for index, listVal in ipairs(self.list) do
@@ -46,8 +117,9 @@ function DropDownClass:GetSelValue(key)
 end
 
 function DropDownClass:SetSel(newSel)
-	newSel = m_max(1, m_min(#self.list, newSel))
-	if newSel ~= self.selIndex then
+	newSel = m_max(1, m_min(self:GetDropCount(), newSel))
+	newSel = self:DropIndexToListIndex(newSel)
+	if newSel and newSel ~= self.selIndex then
 		self.selIndex = newSel
 		if self.selFunc then
 			self.selFunc(newSel, self.list[newSel])
@@ -58,8 +130,8 @@ end
 function DropDownClass:ScrollSelIntoView()
 	local width, height = self:GetSize()
 	local scrollBar = self.controls.scrollBar
-	scrollBar:SetContentDimension((height - 4) * #self.list, self.dropHeight)
-	scrollBar:ScrollIntoView((self.selIndex - 2) * (height - 4), 3 * (height - 4))
+	scrollBar:SetContentDimension((height - 4) * self:GetDropCount(), self.dropHeight)
+	scrollBar:ScrollIntoView((self:ListIndexToDropIndex(self.selIndex, 1) - 2) * (height - 4), 3 * (height - 4))
 end
 
 function DropDownClass:IsMouseOver()
@@ -120,8 +192,14 @@ function DropDownClass:Draw(viewPort)
 		end
 	end
 
+	if self.dropped then
+		self:DrawSearch(viewPort, self.dropUp and "BOTTOM" or "TOP")
+	else
+		self:ResetSearch()
+	end
+
 	local dropExtra = self.dropHeight + 4
-	scrollBar:SetContentDimension(lineHeight * #self.list, self.dropHeight)
+	scrollBar:SetContentDimension(lineHeight * self:GetDropCount(), self.dropHeight)
 	local dropY = self.dropUp and y - dropExtra or y + height
 	if not enabled then
 		SetDrawColor(0.33, 0.33, 0.33)
@@ -189,42 +267,62 @@ function DropDownClass:Draw(viewPort)
 		SetDrawLayer(nil, 5)
 		self:DrawControls(viewPort)
 		local cursorX, cursorY = GetCursorPos()
-		self.hoverSel = mOver and not scrollBar:IsMouseOver() and math.floor((cursorY - dropY + scrollBar.offset) / lineHeight) + 1
+		self.hoverSelDrop = mOver and not scrollBar:IsMouseOver() and math.floor((cursorY - dropY + scrollBar.offset) / lineHeight) + 1
+		self.hoverSel = self:DropIndexToListIndex(self.hoverSelDrop)
 		if self.hoverSel and not self.list[self.hoverSel] then
 			self.hoverSel = nil
 		end
 		if self.hoverSel then
 			SetDrawLayer(nil, 100)	
 			self:DrawTooltip(
-				x, dropY + 2 + (self.hoverSel - 1) * lineHeight - scrollBar.offset,
+				x, dropY + 2 + (self.hoverSelDrop - 1) * lineHeight - scrollBar.offset,
 				width, lineHeight, 
 				viewPort,
 				"HOVER", self.hoverSel, self.list[self.hoverSel])
 			SetDrawLayer(nil, 5)
 		end
 		SetViewport(x + 2, dropY + 2, scrollBar.enabled and width - 22 or width - 4, self.dropHeight)
+		local dropIndex = 0
 		for index, listVal in ipairs(self.list) do
-			local y = (index - 1) * lineHeight - scrollBar.offset
-			if index == self.hoverSel then
-				SetDrawColor(0.5, 0.4, 0.3)
-				DrawImage(nil, 0, y, width - 4, lineHeight)
+			local searchInfo = self.searchInfos[index]
+			if not self:IsSearchActive() or searchInfo and searchInfo.matches then
+				dropIndex = dropIndex + 1
+				local y = (dropIndex - 1) * lineHeight - scrollBar.offset
+				if index == self.hoverSel then
+					SetDrawColor(0.5, 0.4, 0.3)
+					DrawImage(nil, 0, y, width - 4, lineHeight)
+				end
+				if index == self.hoverSel or index == self.selIndex then
+					SetDrawColor(1, 1, 1)
+				else
+					SetDrawColor(0.66, 0.66, 0.66)
+				end
+				local label = StripEscapes(type(listVal) == "table" and listVal.label or listVal)
+				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
+				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
 			end
-			if index == self.hoverSel or index == self.selIndex then
-				SetDrawColor(1, 1, 1)
-			else
-				SetDrawColor(0.66, 0.66, 0.66)
-			end
-			local label = type(listVal) == "table" and listVal.label or listVal
-			DrawString(0, y, "LEFT", lineHeight, "VAR", StripEscapes(label))
 		end
 		SetViewport()
+		SetDrawColor(1, 1, 1)
 		SetDrawLayer(nil, 0)
 	end
+end
+
+function DropDownClass:OnChar(key)
+	if not self:IsShown() or not self:IsEnabled() or not self.dropped then
+		return
+	end
+	return self:OnSearchChar(key)
 end
 
 function DropDownClass:OnKeyDown(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
+	end
+	if self.dropped then
+		if self:OnSearchKeyDown(key) then
+			return self
+		end
 	end
 	local mOverControl = self:GetMouseOverControl()
 	if mOverControl and mOverControl.OnKeyDown then
@@ -279,22 +377,22 @@ function DropDownClass:OnKeyUp(key)
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(1)
 		else
-			self:SetSel(self.selIndex + 1)
+			self:SetSel(self:ListIndexToDropIndex(self.selIndex, 0) + 1)
 		end
 		return self
 	elseif key == "DOWN" then
-		self:SetSel(self.selIndex + 1)
+		self:SetSel(self:ListIndexToDropIndex(self.selIndex, 0) + 1)
 		self:ScrollSelIntoView()
 		return self
 	elseif key == "WHEELUP" then
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(-1)
 		else
-			self:SetSel(self.selIndex - 1)
+			self:SetSel(self:ListIndexToDropIndex(self.selIndex, 0) - 1)
 		end
 		return self
 	elseif key == "UP" then
-		self:SetSel(self.selIndex - 1)
+		self:SetSel(self:ListIndexToDropIndex(self.selIndex, 0) - 1)
 		self:ScrollSelIntoView()
 		return self
 	end
