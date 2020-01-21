@@ -22,7 +22,7 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 				return StripEscapes(type(listVal) == "table" and listVal.label or listVal)
 			end
 	)
-	self.controls.scrollBar = new("ScrollBarControl", { "TOPRIGHT", self, "TOPRIGHT" }, -1, 0, 18, 0, (height - 4) * 4)
+	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
 	self.controls.scrollBar.height = function()
 		return self.dropHeight + 2
 	end
