@@ -761,7 +761,7 @@ return {
 	flag("PierceAllTargets", { type = "Condition", var = "ReturningProjectile" }),
 },
 ["support_barrage_attack_time_+%_per_projectile_fired"] = {
-	mod("SkillAttackTime", "MORE", nil, 0, 0, { type = "PerStat", stat = "ProjectileCount" }),
+	mod("SkillAttackTime", "MORE", nil, 0, 0, { type = "Condition", varList = { "UsingBow", "UsingWand" }}, { type = "PerStat", stat = "ProjectileCount" }),
 },
 ["support_barrage_trap_and_mine_throwing_time_+%_final_per_projectile_fired"] = {
 	mod("SkillMineThrowingTime", "MORE", nil, 0, 0, { type = "PerStat", stat = "ProjectileCount" }),

@@ -265,8 +265,8 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("AreaOfEffect", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 		end
 	end
-	if activeSkill.skillTypes[SkillType.SkillCanSequentialProj] and skillModList:Flag(nil, "SequentialProjectiles") then
-		-- Applies DPS multiplier for Barrage Support based on projectile count
+	if skillModList:Flag(nil, "SequentialProjectiles") and not skillModList:Flag(nil, "OneShotProj") and not skillModList:Flag(nil,"NoAdditionalProjectiles") then
+		-- Applies DPS multiplier based on projectile count
 		skillData.dpsMultiplier = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
 	end
 	if skillModList:Flag(nil, "TransfigurationOfBody") then
