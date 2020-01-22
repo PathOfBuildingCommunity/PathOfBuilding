@@ -779,6 +779,7 @@ local skills, mod, flag, skill = ...
 
 #skill VaalPowerSiphon
 #flags attack projectile
+#baseMod flag("OneShotProj")
 #mods
 
 #skill Sanctify

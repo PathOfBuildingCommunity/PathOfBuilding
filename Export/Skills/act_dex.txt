@@ -47,6 +47,7 @@ local skills, mod, flag, skill = ...
 
 #skill ArtilleryBallista
 #flags attack projectile area totem
+#baseMod flag("OneShotProj")
 #mods
 
 #skill Barrage
@@ -157,6 +158,7 @@ local skills, mod, flag, skill = ...
 		end
 	end,
 #baseMod skill("radius", 24)
+#baseMod flag("OneShotProj")
 #mods
 
 #skill BlinkArrow
@@ -825,11 +827,13 @@ local skills, mod, flag, skill = ...
 
 #skill RainOfArrows
 #flags attack projectile area
-#baseMod skill("radius", 24)
+#baseMod skill("radius", 24) 
+#baseMod flag("OneShotProj")
 #mods
 
 #skill VaalRainOfArrows
 #flags attack projectile area duration vaal
+#baseMod flag("OneShotProj")
 #mods
 
 #skill Reave
@@ -971,6 +975,7 @@ local skills, mod, flag, skill = ...
 #skill RainOfSpores
 #flags attack projectile area
 #baseMod skill("dotIsArea", true)
+#baseMod flag("OneShotProj")
 #mods
 
 #skill SplitArrow

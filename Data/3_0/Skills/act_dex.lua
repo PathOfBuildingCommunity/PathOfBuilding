@@ -194,6 +194,7 @@ skills["ArtilleryBallista"] = {
 		totem = true,
 	},
 	baseMods = {
+		flag("OneShotProj"),
 	},
 	qualityStats = {
 		{ "fire_damage_+%", 1 },
