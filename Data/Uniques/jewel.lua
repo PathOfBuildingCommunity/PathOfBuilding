@@ -806,7 +806,8 @@ Variant: {2_6}Pre 3.0.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-(4-12)% increased Damage over Time
+{variant:1}(4-12)% increased Damage over Time
+{variant:2,3}(8-12)% increased Damage over Time
 {variant:1,2}With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Attack Damage for each Poison on the Enemy
 {variant:3}With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage with Hits and Poison for each Poison on the Enemy
 {variant:2,3}With at least 40 Dexterity in Radius, Viper Strike has a 10% chance per Poison on Enemy to grant Unholy Might for 4 seconds on Hit
@@ -872,8 +873,11 @@ With at least 40 Strength in Radius, Cleave has +1 to Radius per Nearby Enemy, u
 ]],[[
 Pitch Darkness
 Viridian Jewel
+Variant: Pre 2.6.0
+Variant: Current
 Radius: Medium
-(5-15)% increased Fire Damage
+{variant:1}(5-15)% increased Fire Damage
+{variant:2}(10-15)% increased Fire Damage
 With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy.
 With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
 ]],[[
@@ -884,7 +888,8 @@ Variant: Pre 3.3.0
 Variant: Current
 Limited to: 2
 Radius: Medium
-(4-12)% increased Physical Damage
+{variant:1}(4-12)% increased Physical Damage
+{variant:2,3}(8-12)% increased Physical Damage
 {variant:1}With at least 40 Strength in Radius, Ground Slam has a 20% increased angle
 {variant:2}With at least 40 Strength in Radius, Ground Slam has a 35% increased angle
 {variant:3}With at least 40 Strength in Radius, Ground Slam has a 50% increased angle
@@ -908,14 +913,18 @@ Variant: Pre 2.6.0
 Variant: Current
 Limited to: 2
 Radius: Medium
-(5-15)% increased Fire Damage
+{variant:1}(5-15)% increased Fire Damage
+{variant:2}(10-15)% increased Fire Damage
 {variant:1}With at least 40 Intelligence in Radius, Fireball Projectiles gain Area of Effect Radius as they travel further, up to 50% increased Radius.
 {variant:2}With at least 40 Intelligence in Radius, Fireball Projectiles gain Radius as they travel farther, up to +4 Radius
 ]],[[
 Shattered Chains
 Crimson Jewel
+Variant: Pre 2.6.0
+Variant: Current
 Radius: Medium
-(5-15)% increased Cold Damage
+{variant:1}(5-15)% increased Cold Damage
+{variant:2}(10-15)% increased Cold Damage
 With at least 40 Strength in Radius, 20% increased Rarity of Items dropped by Enemies Shattered by Glacial Hammer
 ]],[[
 Spirit Guards
@@ -930,9 +939,12 @@ Minions deal (8-12)% increased Damage
 ]],[[
 Spirited Response
 Cobalt Jewel
+Variant: Pre 2.6.0
+Variant: Current
 Limited to: 2
 Radius: Medium
-(5-10)% increased maximum Mana
+{variant:1}(5-10)% increased maximum Mana
+{variant:2}(7-10)% increased maximum Mana
 With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over 4 seconds when Hit during Rallying Cry for you and Allies
 ]],[[
 Spreading Rot
@@ -948,7 +960,8 @@ Viridian Jewel
 Variant: Pre 2.6.0
 Variant: Current
 Radius: Medium
-(6-10)% increased Projectile Damage
+{variant:1}(6-10)% increased Projectile Damage
+{variant:2}(7-10)% increased Projectile Damage
 {variant:1}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 4% increased Damage each time it Hits.
 {variant:2}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 5% increased Damage each time it Hits.
 ]],[[
@@ -962,9 +975,12 @@ Arrow can inflict an additional Ignite on an Enemy
 ]],[[
 Unending Hunger 
 Cobalt Jewel
+Variant: Pre 2.6.0
+Variant: Current
 Limited to: 2
 Radius: Medium
-Minions have (5-8)% increased Area of Effect of Area Skills
+{variant:1}Minions have (5-8)% increased Area of Effect of Area Skills
+{variant:2}Minions have (6-8)% increased Area of Effect of Area Skills
 With at least 40 Intelligence in Radius, Raised Spectres have a 50% chance to gain Soul Eater for 30 seconds on Kill
 ]],[[
 The Vigil
@@ -989,13 +1005,15 @@ Attack deals 30% increased Damage
 ]],[[
 Volley Fire
 Viridian Jewel
+Variant: Pre 2.6.0
 Variant: Pre 3.9.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-(6-10)% increased Projectile Damage
-{variant:1}With at least 40 Dexterity in Radius, Barrage fires an additional 2 projectiles simultaneously on the first and final attacks
-{variant:2}With at least 40 Dexterity in Radius, Barrage fires an additional 6 projectiles simultaneously on the first and final attacks
+{variant:1}(6-10)% increased Projectile Damage
+{variant:2,3}(7-10)% increased Projectile Damage
+{variant:1,2}With at least 40 Dexterity in Radius, Barrage fires an additional 2 projectiles simultaneously on the first and final attacks
+{variant:3}With at least 40 Dexterity in Radius, Barrage fires an additional 6 projectiles simultaneously on the first and final attacks
 ]],[[
 Weight of the Empire
 Crimson Jewel
@@ -1012,6 +1030,16 @@ Radius: Medium
 With at least 40 Strength in Radius, Molten Strike fires 2 additional Projectiles
 With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Effect
 ]],[[
+Winter Burial
+Crimson Jewel
+Limited to: 2
+Radius: Medium
+(10-15)% increased Cold Damage
+With at least 40 Strength in Radius, Glacial Hammer deals
+Cold-only Splash Damage to surrounding targets
+With at least 40 Strength in Radius, 25% of Glacial
+Hammer Physical Damage converted to Cold Damage
+]],[[
 Winter's Bounty
 Cobalt Jewel
 Variant: Pre 2.6.0
@@ -1019,21 +1047,12 @@ Variant: Pre 3.3.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-(5-15)% increased Cold Damage
+{variant:1}(5-15)% increased Cold Damage
+{variant:2,3}(10-15)% increased Cold Damage
 {variant:1}With at least 40 Intelligence in Radius, Cold Snap has a 25% chance to grant a Power Charge on Kill
 {variant:2}With at least 40 Intelligence in Radius, Cold Snap has a 50% chance to grant a Power Charge on Kill
 {variant:3}With at least 40 Intelligence in Radius, Cold Snap grants Power Charges instead of Frenzy Charges when Enemies die in it's Area
 {variant:3}With at least 40 Intelligence in Radius, Cold Snap Cooldown can be bypassed by Power Charges instead of Frenzy Charges
-]],[[
-Winter Burial
-Crimson Jewel
-Limited to: 2
-Radius: Medium
-(10-15)% increased Cold Damage 
-With at least 40 Strength in Radius, Glacial Hammer deals
-Cold-only Splash Damage to surrounding targets
-With at least 40 Strength in Radius, 25% of Glacial
-Hammer Physical Damage converted to Cold Damage
 ]],
 -- Jewel: Corrupted
 [[
