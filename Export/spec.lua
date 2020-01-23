@@ -125,7 +125,7 @@ return {
 		[14]={
 			list=false,
 			name="SkillTotem",
-			refTo="SkillTotemVariations",
+			refTo="SkillTotems",
 			type="Enum",
 			width=80
 		},
@@ -175,19 +175,38 @@ return {
 			list=true,
 			name="",
 			refTo="Stats",
-			type="Enum",
+			type="Key",
 			width=400
+		},
+		[22]={
+			list=false,
+			name="SkillMine",
+			refTo="SkillMines",
+			type="Enum",
+			width=80
 		}
+	},
+	AddBuffToTargetVarieties={
 	},
 	AdditionalLifeScaling={
 	},
 	AdditionalLifeScalingPerLevel={
+	},
+	AdditionalMonsterPacksFromStats={
+	},
+	AdditionalMonsterPacksStatMode={
 	},
 	AdvancedSkillsTutorial={
 	},
 	AlternatePassiveAdditions={
 	},
 	AlternatePassiveSkills={
+	},
+	AlternateQualityCurrencyDecayFactors={
+	},
+	AlternateQualityTypes={
+	},
+	AlternateSkillTargetingBehaviours={
 	},
 	AlternateTreePassiveSizes={
 	},
@@ -209,6 +228,8 @@ return {
 	Archetypes={
 	},
 	ArchitectLifeScalingPerLevel={
+	},
+	AreaInfluenceDoodads={
 	},
 	AreaTransitionAnimationTypes={
 	},
@@ -233,9 +254,35 @@ return {
 	},
 	Ascendancy={
 	},
+	AtlasAwakeningStats={
+	},
+	AtlasBaseTypeDrops={
+	},
+	AtlasExileBossArenas={
+	},
+	AtlasExileInfluence={
+	},
+	AtlasExileInfluenceData={
+	},
+	AtlasExileInfluenceOutcomeTypes={
+	},
+	AtlasExileInfluenceOutcomes={
+	},
+	AtlasExileInfluencePacks={
+	},
+	AtlasExileInfluenceSets={
+	},
+	AtlasExileRegionQuestFlags={
+	},
+	AtlasExiles={
+	},
 	AtlasFog={
 	},
 	AtlasInfluenceOutcomes={
+	},
+	AtlasModTiers={
+	},
+	AtlasMods={
 	},
 	AtlasNode={
 	},
@@ -244,6 +291,8 @@ return {
 	AtlasPositions={
 	},
 	AtlasQuadrant={
+	},
+	AtlasRegions={
 	},
 	AtlasSector={
 	},
@@ -437,9 +486,43 @@ return {
 	},
 	BindableVirtualKeys={
 	},
+	BlightBalancePerLevel={
+	},
+	BlightChestTypes={
+	},
+	BlightCraftingItems={
+	},
+	BlightCraftingRecipes={
+	},
+	BlightCraftingResults={
+	},
+	BlightCraftingTypes={
+	},
+	BlightCraftingUniques={
+	},
+	BlightEncounterTypes={
+	},
+	BlightEncounterWaves={
+	},
+	BlightRewardTypes={
+	},
+	BlightTopologies={
+	},
+	BlightTopologyNodes={
+	},
+	BlightTowerAuras={
+	},
+	BlightTowers={
+	},
+	BlightTowersPerLevel={
+	},
+	BlightedSporeAuras={
+	},
 	BloodTypes={
 	},
 	Bloodlines={
+	},
+	BreachBossLifeScalingPerLevel={
 	},
 	BreachstoneUpgrades={
 	},
@@ -773,14 +856,14 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=180
+			width=320
 		},
 		[2]={
 			list=false,
 			name="Text",
 			refTo="",
 			type="String",
-			width=270
+			width=670
 		},
 		[3]={
 			list=false,
@@ -1287,6 +1370,8 @@ return {
 	},
 	DelveRooms={
 	},
+	DelveStashTabLayout={
+	},
 	DelveUpgradeType={
 	},
 	DelveUpgrades={
@@ -1318,6 +1403,8 @@ return {
 	DivinationCardArt={
 	},
 	DivinationCardStashTabLayout={
+	},
+	Doors={
 	},
 	DropEffects={
 	},
@@ -1364,8 +1451,477 @@ return {
 	EssenceStashTabLayout={
 	},
 	EssenceType={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=90
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		}
 	},
 	Essences={
+		[1]={
+			list=false,
+			name="BaseItemType",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=350
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=50
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=50
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=50
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=50
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=50
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=50
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=50
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=50
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=50
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=50
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=50
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=160
+		},
+		[14]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[15]={
+			list=false,
+			name="QuiverMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[16]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[17]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[18]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[19]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[20]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[21]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[22]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[23]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[24]={
+			list=false,
+			name="",
+			refTo="",
+			type="UInt",
+			width=100
+		},
+		[25]={
+			list=false,
+			name="",
+			refTo="",
+			type="Interval",
+			width=80
+		},
+		[26]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[27]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=60
+		},
+		[28]={
+			list=false,
+			name="Type",
+			refTo="EssenceType",
+			type="Key",
+			width=70
+		},
+		[29]={
+			list=false,
+			name="Tier",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[30]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[31]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[32]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[33]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[34]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[35]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[36]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[37]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[38]={
+			list=false,
+			name="HelmetMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[39]={
+			list=false,
+			name="BodyArmourMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[40]={
+			list=false,
+			name="BootsMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[41]={
+			list=false,
+			name="GlovesMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[42]={
+			list=false,
+			name="BowMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[43]={
+			list=false,
+			name="WandMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[44]={
+			list=false,
+			name="StaffMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[45]={
+			list=false,
+			name="TwoHandSwordMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[46]={
+			list=false,
+			name="TwoHandAxeMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[47]={
+			list=false,
+			name="TwoHandMaceMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[48]={
+			list=false,
+			name="ClawMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[49]={
+			list=false,
+			name="DaggerMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[50]={
+			list=false,
+			name="OneHandSwordMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[51]={
+			list=false,
+			name="ThrustingOneHandSwordMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[52]={
+			list=false,
+			name="OneHandAxeMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[53]={
+			list=false,
+			name="OneHandMaceMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[54]={
+			list=false,
+			name="SceptreMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[55]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[56]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Int",
+			width=50
+		},
+		[57]={
+			list=false,
+			name="BeltMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[58]={
+			list=false,
+			name="AmuletMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[59]={
+			list=false,
+			name="RingMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[60]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[61]={
+			list=false,
+			name="ShieldMod",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[62]={
+			list=false,
+			name="",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[63]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		}
 	},
 	EventSeason={
 	},
@@ -1386,6 +1942,8 @@ return {
 	ExtraTerrainFeatureFamily={
 	},
 	ExtraTerrainFeatures={
+	},
+	FixedHideoutDoodadTypes={
 	},
 	FixedHideoutDoodads={
 	},
@@ -1457,6 +2015,8 @@ return {
 	},
 	Footprints={
 	},
+	FootstepAudio={
+	},
 	FragmentStashTabLayout={
 	},
 	GameConstants={
@@ -1474,6 +2034,8 @@ return {
 			type="Int",
 			width=150
 		}
+	},
+	GameStats={
 	},
 	GemTags={
 		[1]={
@@ -1650,8 +2212,29 @@ return {
 			list=false,
 			name="",
 			refTo="",
+			type="Key",
+			width=50
+		},
+		[22]={
+			list=false,
+			name="",
+			refTo="",
 			type="Bool",
 			width=50
+		},
+		[23]={
+			list=true,
+			name="RequireUsableWith",
+			refTo="ItemClasses",
+			type="Key",
+			width=150
+		},
+		[24]={
+			list=false,
+			name="PlusVersionOf",
+			refTo="GrantedEffects",
+			type="Key",
+			width=150
 		}
 	},
 	GrantedEffectsPerLevel={
@@ -2043,6 +2626,10 @@ return {
 	},
 	IncursionUniqueUpgrades={
 	},
+	InfluenceExalts={
+	},
+	InfluenceTypes={
+	},
 	InvasionMonsterGroups={
 	},
 	InvasionMonsterRestrictions={
@@ -2078,6 +2665,27 @@ return {
 	ItemCreationTemplateCustomAction={
 	},
 	ItemExperiencePerLevel={
+		[1]={
+			list=false,
+			name="BaseItemType",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=410
+		},
+		[2]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[3]={
+			list=false,
+			name="Experience",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	ItemSetNames={
 	},
@@ -2231,6 +2839,8 @@ return {
 	},
 	MagicMonsterLifeScalingPerLevel={
 	},
+	MapCompletionAchievements={
+	},
 	MapConnections={
 	},
 	MapCreationInformation={
@@ -2257,6 +2867,10 @@ return {
 	},
 	MapStatAchievements={
 	},
+	MapStatConditions={
+	},
+	MapTierAchievements={
+	},
 	MapTiers={
 	},
 	Maps={
@@ -2266,6 +2880,20 @@ return {
 	Melee={
 	},
 	MeleeTrails={
+	},
+	MetamorphLifeScalingPerLevel={
+	},
+	MetamorphosisMetaMonsters={
+	},
+	MetamorphosisMetaSkillTypes={
+	},
+	MetamorphosisMetaSkills={
+	},
+	MetamorphosisRewardTypeItemsClient={
+	},
+	MetamorphosisRewardTypes={
+	},
+	MetamorphosisScaling={
 	},
 	MicroMigrationData={
 	},
@@ -2280,6 +2908,12 @@ return {
 	MicrotransactionPortalVariations={
 	},
 	MicrotransactionRarityDisplay={
+	},
+	MicrotransactionRecycleCategories={
+	},
+	MicrotransactionRecycleOutcomes={
+	},
+	MicrotransactionRecycleSalvageValues={
 	},
 	MicrotransactionSlotId={
 	},
@@ -2298,6 +2932,8 @@ return {
 	MissionFavourPerLevel={
 	},
 	MissionTileMap={
+	},
+	MissionTimerTypes={
 	},
 	MissionTransitionTiles={
 	},
@@ -2603,31 +3239,31 @@ return {
 		},
 		[39]={
 			list=false,
-			name="Tier",
+			name="",
 			refTo="",
-			type="String",
-			width=80
+			type="Int",
+			width=50
 		},
 		[40]={
 			list=false,
-			name="MaxLevel",
+			name="",
 			refTo="",
-			type="Int",
-			width=70
+			type="Bool",
+			width=40
 		},
 		[41]={
 			list=false,
 			name="",
 			refTo="",
-			type="Bool",
-			width=50
+			type="Key",
+			width=100
 		},
 		[42]={
-			list=false,
+			list=true,
 			name="",
-			refTo="",
+			refTo="ItemClasses",
 			type="Key",
-			width=80
+			width=200
 		}
 	},
 	MonsterAdditionalMonsterDrops={
@@ -2641,6 +3277,10 @@ return {
 	MonsterChanceToDropItemTemplate={
 	},
 	MonsterConditions={
+	},
+	MonsterDeathAchievements={
+	},
+	MonsterDeathConditions={
 	},
 	MonsterFleeConditions={
 	},
@@ -2783,6 +3423,8 @@ return {
 	},
 	MonsterSkillsTargets={
 	},
+	MonsterSkillsWaveDirection={
+	},
 	MonsterSpawnerGroups={
 	},
 	MonsterSpawnerGroupsPerLevel={
@@ -2914,14 +3556,14 @@ return {
 			width=110
 		},
 		[7]={
-			list=false,
+			list=true,
 			name="Actor",
 			refTo="",
 			type="String",
 			width=150
 		},
 		[8]={
-			list=false,
+			list=true,
 			name="AnimatedObject",
 			refTo="",
 			type="String",
@@ -3422,6 +4064,8 @@ return {
 	},
 	MultiPartAchievementAreas={
 	},
+	MultiPartAchievementConditions={
+	},
 	MultiPartAchievements={
 		[1]={
 			list=false,
@@ -3468,11 +4112,15 @@ return {
 			width=360
 		}
 	},
+	NearbyMonsterConditions={
+	},
 	NetTiers={
 	},
 	Notifications={
 	},
 	OldMapStashTabLayout={
+	},
+	OnKillAchievements={
 	},
 	Orientations={
 	},
@@ -3508,6 +4156,8 @@ return {
 	},
 	Pet={
 	},
+	PlayerConditions={
+	},
 	PreloadGroups={
 	},
 	PreloadPriorities={
@@ -3520,6 +4170,10 @@ return {
 	},
 	ProphecyChain={
 	},
+	ProphecySetNames={
+	},
+	ProphecySets={
+	},
 	ProphecyType={
 	},
 	Quest={
@@ -3527,6 +4181,8 @@ return {
 	QuestAchievements={
 	},
 	QuestFlags={
+	},
+	QuestRewardOffers={
 	},
 	QuestRewardType={
 	},
@@ -3571,6 +4227,8 @@ return {
 	SafehouseCraftingSpree={
 	},
 	SafehouseCraftingSpreeCurrencies={
+	},
+	SalvageBoxes={
 	},
 	SessionQuestFlags={
 	},
@@ -3704,6 +4362,10 @@ return {
 			type="Key",
 			width=150
 		}
+	},
+	SkillMineVariations={
+	},
+	SkillMines={
 	},
 	SkillMorphDisplay={
 	},
@@ -3897,6 +4559,8 @@ return {
 	},
 	SupporterPackSets={
 	},
+	SurgeCategory={
+	},
 	SurgeTypes={
 	},
 	Synthesis={
@@ -3950,6 +4614,10 @@ return {
 	},
 	Talismans={
 	},
+	TencentAutoLootPetCurrencies={
+	},
+	TencentAutoLootPetCurrenciesExcludable={
+	},
 	TerrainPlugins={
 	},
 	Tips={
@@ -3999,6 +4667,20 @@ return {
 	WeaponArmourCommon={
 	},
 	WeaponClasses={
+		[1]={
+			list=false,
+			name="ItemClass",
+			refTo="ItemClasses",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MaxRange",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	WeaponDamageScaling={
 	},
@@ -4062,6 +4744,8 @@ return {
 	Words={
 	},
 	WorldAreas={
+	},
+	ZanaLevels={
 	},
 	ZanaQuests={
 	}

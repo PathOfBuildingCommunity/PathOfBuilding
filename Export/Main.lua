@@ -206,16 +206,30 @@ function main:Init()
 		self.controls.rowList:BuildColumns()
 		self:SetCurrentCol()
 	end)
+	
+	self.controls.filter = new("EditControl", nil, 270, 0, 300, 18, nil, "^8Filter") {
+		y = function()
+			return self.editSpec and 240 or 30
+		end,
+		shown = function()
+			return self.curDatFile
+		end,
+		enterFunc = function(buf)
+			self.controls.rowList:BuildRows(buf)
+			self.curDatFile.rowFilter = buf
+		end,
+	}
+	self.controls.filterError = new("LabelControl", {"LEFT",self.controls.filter,"RIGHT"}, 4, 2, 0, 14, "")
 
 	self.controls.rowList = new("RowListControl", nil, 270, 0, 0, 0) {
 		y = function()
-			return self.editSpec and 240 or 30
+			return self.editSpec and 260 or 50
 		end,
 		width = function()
 			return self.screenW - 280
 		end,
 		height = function()
-			return self.screenH - (self.editSpec and 250 or 40)
+			return self.screenH - (self.editSpec and 270 or 60)
 		end,
 		shown = function()
 			return self.curDatFile
@@ -308,7 +322,8 @@ end
 function main:SetCurrentDat(datFile)
 	self.curDatFile = datFile
 	if datFile then
-		self.controls.rowList.list = datFile.rows
+		self.controls.filter.buf = datFile.rowFilter or ""
+		self.controls.rowList:BuildRows(self.controls.filter.buf)
 		self.controls.rowList:BuildColumns()
 		self.controls.specColList.list = datFile.spec
 		self:SetCurrentCol(1)

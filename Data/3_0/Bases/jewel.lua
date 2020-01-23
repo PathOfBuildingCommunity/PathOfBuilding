@@ -47,3 +47,10 @@ itemBases["Searching Eye Jewel"] = {
 	tags = { default = true, not_for_sale = true, abyss_jewel_ranged = true, abyss_jewel = true, },
 	req = { },
 }
+
+itemBases["Timeless Jewel"] = {
+	type = "Jewel",
+	subType = "Timeless",
+	tags = { default = true, jewel = true, intjewel = true, dexjewel = true, strjewel = true, not_for_sale = true, },
+	req = { },
+}

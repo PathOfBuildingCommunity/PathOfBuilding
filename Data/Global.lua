@@ -41,6 +41,10 @@ colorCodes = {
 	SHAPER = "^x55BBFF",
 	ELDER = "^xAA77CC",
 	FRACTURED = "^xA29160",
+	ADJUDICATOR = "^xE9F831",
+	BASILISK = "^x00CB3A",
+	CRUSADER = "^x2946FC",
+	EYRIE = "^xAAB7B8",
 }
 colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER
@@ -204,4 +208,8 @@ SkillType = {
 	GuardSkill = 90,
 	TravelSkill = 91,
 	BlinkSkill = 92,
+	CanHaveBlessing = 93,
+	Type83 = 94, --Has secondary projectiles
+	Ballista = 95,
+	NovaSpell = 96,
 }

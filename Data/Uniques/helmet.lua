@@ -21,7 +21,7 @@ The Baron
 Close Helmet
 Requires Level 26, 58 Str
 +2 to Level of Socketed Minion Gems
-+(20–40) to Strength
++(20-40) to Strength
 Minions have 20% increased maximum Life
 Half of your Strength is added to your Minions
 +1 to maximum number of Zombies per 300 Strength
@@ -120,8 +120,8 @@ Variant: Current
 Requires Level 20, 46 Dex
 {variant:1}+1 to Level of Socketed Fire Gems
 {variant:1}+1 to Level of Socketed Cold Gems
-{variant:2}(20–30)% increased Cold Damage if you have used a Fire Skill Recently
-{variant:2}(20–30)% increased Fire Damage if you have used a Cold Skill Recently
+{variant:2}(20-30)% increased Cold Damage if you have used a Fire Skill Recently
+{variant:2}(20-30)% increased Fire Damage if you have used a Cold Skill Recently
 (80-100)% increased Evasion Rating
 60% increased Mana Regeneration Rate
 {variant:1}−(20-10)% to Fire Resistance
@@ -132,13 +132,13 @@ Requires Level 20, 46 Dex
 Frostferno
 Leather Hood
 Source: Upgraded from unique{Heatshiver} via prophecy{A Vision of Ice and Fire}
-Requires Level 60
+Requires Level 60, 46 Dex
 +2 to Level of Socketed Fire Gems
 +2 to Level of Socketed Cold Gems
 Socketed Gems are Supported by Level 30 Cold to Fire
-(450–500)% increased Evasion Rating
+(450-500)% increased Evasion Rating
 60% increased Mana Regeneration Rate
-+(20–30)% to Fire and Cold Resistances
++(20-30)% to Fire and Cold Resistances
 ]],[[
 Obscurantis
 Lion Pelt
@@ -166,12 +166,12 @@ Saqawal's Flock
 Silken Hood
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
-Requires Level 60
+Requires Level 60, 138 Dex
 25% chance to Trigger Level 20 Tornado when you gain Avian's Might or Avian's Flight
-(60–80)% increased Evasion Rating
-+(40–60) to maximum Life
-+(30–40)% to Lightning Resistance
-(10–15)% increased Movement Speed
+(60-80)% increased Evasion Rating
++(40-60) to maximum Life
++(30-40)% to Lightning Resistance
+(10-15)% increased Movement Speed
 ]],[[
 Starkonja's Head
 Silken Hood
@@ -207,15 +207,50 @@ Requires Level 8, 23 Int
 Asenath's Chant
 Iron Circlet
 Source: Upgraded from unique{Asenath's Mark} via prophecy{Song of the Sekhema}
-Requires Level 45
-Implicits: 0
-25% chance to Trigger a Socketed Spell when you Attack with a Bow
-(10–15)% increased Attack Speed
-(10–15)% increased Cast Speed
-+(100–120) to maximum Energy Shield
-(30–40)% increased Stun and Block Recovery
+Variant: Pre 3.9.0
+Variant: Current
+Requires Level 45, 23 Int
+{variant:1}25% chance to Trigger a Socketed Spell when you Attack with a Bow
+{variant:2}Trigger a Socketed Spell when you Attack with a Bow
+(10-15)% increased Attack Speed
+(10-15)% increased Cast Speed
++(100-120) to maximum Energy Shield
+(30-40)% increased Stun and Block Recovery
 30% increased Mana Regeneration Rate
 5% increased Movement Speed
+]],[[
+Cowl of the Ceraunophile
+Solaris Circlet
+Requires Level 59, 122 Int
+League: Blight
+Can have a second Enchantment Modifier
++(20-30) to all Attributes
+(60-80)% increased Energy Shield
+(50-55)% reduced Fire Resistance
+(50-55)% reduced Cold Resistance
+Lightning Resistance is 75%
+]],[[
+Cowl of the Cryophile
+Silken Hood
+Requires Level 60, 138 Dex
+League: Blight
+Can have a second Enchantment Modifier
++(20-30) to all Attributes
+(60-80)% increased Evasion Rating
+(50-55)% reduced Fire Resistance
+(50-55)% reduced Lightning Resistance
+Cold Resistance is 75%
+]],[[
+Cowl of the Thermophile
+Ezomyte Burgonet
+Requires Level 60, 138 Str
+League: Blight
+Can have a second Enchantment Modifier
++(20-30) to all Attributes
+(60-80)% increased Armour
+(50-55)% reduced Cold Resistance
+(50-55)% reduced Lightning Resistance
+Fire Resistance is 75%
 ]],[[
 Chitus' Apex
 Necromancer Circlet
@@ -229,15 +264,17 @@ Requires Level 54, 112 Int
 Crown of Eyes
 Hubris Circlet
 Variant: {2_6}Pre 3.5.0
+Variant: Pre 3.9.0
 Variant: Current
 Requires Level 69, 154 Int
-+(200-250) to Accuracy Rating
+{variant:2}+(200-250) to Accuracy Rating
+{variant:3}+(300-350) to Accuracy Rating
 (120-150)% increased Energy Shield
 −30% to Fire Resistance
-{variant:1}(0.4-0.8)% of Physical Attack Damage Leeched as Life
-{variant:2}(0.4-0.8)% of Attack Damage Leeched as Life
-{variant:1}(0.2-0.4)% of Physical Attack Damage Leeched as Mana
-{variant:2}(0.2-0.4)% of Attack Damage Leeched as Mana
+{variant:1,2}(0.4-0.8)% of Physical Attack Damage Leeched as Life
+{variant:3}(0.4-0.8)% of Attack Damage Leeched as Life
+{variant:1,2}(0.2-0.4)% of Physical Attack Damage Leeched as Mana
+{variant:3}(0.2-0.4)% of Attack Damage Leeched as Mana
 Increases and Reductions to Spell Damage also apply to Attacks
 ]],[[
 Crown of Thorns
@@ -258,7 +295,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 52
 {variant:1}+(260-300) to maximum Energy Shield
-{variant:2}+(170–210) to maximum Energy Shield
+{variant:2}+(170-210) to maximum Energy Shield
 Reflects 5 Physical Damage to Melee Attackers
 Take 5 Physical Damage when hit by Attacks
 Pain Attunement
@@ -313,7 +350,7 @@ Requires Level 39, 83 Int
 (30-50)% increased Curse Duration
 20% increased Elemental Damage
 {variant:1,2}(10-20)% increased Damage per Curse on Enemy
-{variant:3}(10–20)% increased Damage with Hits and Ailments per Curse on Enemy
+{variant:3}(10-20)% increased Damage with Hits and Ailments per Curse on Enemy
 ]],[[
 Eber's Unification
 Hubris Circlet
@@ -330,20 +367,20 @@ Fenumus' Toxins
 Necromancer Circlet
 League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
-Requires Level 54
-Adds (16–21) to (31–36) Chaos Damage to Spells
-(220–250)% increased Energy Shield
+Requires Level 65, 112 Int
+Adds (16-21) to (31-36) Chaos Damage to Spells
+(220-250)% increased Energy Shield
 10% chance to gain a Power Charge on hitting an Enemy affected by a Spider's Web
-(6–10)% chance to Poison per Power Charge
-(15–20)% increased Damage with Poison per Power Charge
+(6-10)% chance to Poison per Power Charge
+(15-20)% increased Damage with Poison per Power Charge
 Aspect of the Spider inflicts Spider's Webs and Hinder every 0.5 Seconds instead
 ]],[[
 Flamesight
 Solaris Circlet
 Requires Level 59, 122 Int
-(240–280)% increased Energy Shield
-+(30–40)% to Fire Resistance
-(30–40)% increased Elemental Damage
+(240-280)% increased Energy Shield
++(30-40)% to Fire Resistance
+(30-40)% increased Elemental Damage
 25% chance to Scorch Enemies
 Cannot inflict Ignite
 10% increased Elemental Damage per Sextant affecting the area
@@ -351,9 +388,9 @@ Cannot inflict Ignite
 Galesight
 Solaris Circlet
 Requires Level 59, 122 Int
-(240–280)% increased Energy Shield
-+(30–40)% to Cold Resistance
-(30–40)% increased Elemental Damage
+(240-280)% increased Energy Shield
++(30-40)% to Cold Resistance
+(30-40)% increased Elemental Damage
 25% chance to inflict Brittle
 Cannot inflict Freeze or Chill
 10% increased Elemental Damage per Sextant affecting the area
@@ -364,40 +401,51 @@ League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
-Requires Level 65
+Requires Level 65, 138 Int
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
-(6–8)% increased maximum Life
+(6-8)% increased maximum Life
 +1 to Maximum Spirit Charges per Abyss Jewel affecting you
 Gain a Spirit Charge every second
 You lose all Spirit Charges when taking a Savage Hit
-Recover (2–3)% of Life when you lose a Spirit Charge
-Recover (2–3)% of Energy Shield when you lose a Spirit Charge
+Recover (2-3)% of Life when you lose a Spirit Charge
+Recover (2-3)% of Energy Shield when you lose a Spirit Charge
 ]],[[
 Indigon
 Hubris Circlet
 Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 69
-(150–180)% increased Energy Shield
-(6–10)% increased maximum Mana
-Recover (8–10)% of maximum Life when you use a Mana Flask
+Requires Level 69, 154 Int
+(150-180)% increased Energy Shield
+(6-10)% increased maximum Mana
+Recover (8-10)% of maximum Life when you use a Mana Flask
 Non-instant Mana recovery from Flasks is also recovered as Life
-(50–60)% increased Mana Cost of Skills for each 200 total Mana you have Spent Recently
-{variant:1}(50–60)% increased Spell Damage for each 200 total Mana you have Spent Recently
+(50-60)% increased Mana Cost of Skills for each 200 total Mana you have Spent Recently
+{variant:1}(50-60)% increased Spell Damage for each 200 total Mana you have Spent Recently
 {variant:2}(20-25)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 Shaper Item
 ]],[[
 Mark of the Red Covenant
 Tribal Circlet
-Requires Level 26
-+(30–50) to maximum Energy Shield
-Minions have (10–15)% increased Movement Speed
-Raging Spirits have (130–150)% increased Damage
+Requires Level 26, 58 Int
++(30-50) to maximum Energy Shield
+Minions have (10-15)% increased Movement Speed
+Raging Spirits have (130-150)% increased Damage
 75% reduced Maximum number of Summoned Raging Spirits
 Raging Spirits' Hits always Ignite
 Raging Spirits refresh their Duration when they Kill an Ignited Enemy
+]],[[
+Maw of Conquest
+Steel Circlet
+League: Legion
+Source: Drops from Maraketh Legion
+Requires Level 48, 101 Int
+(60-80)% increased Critical Strike Chance for Spells
+(200-250)% increased Energy Shield
++(50-70) to maximum Life
+Unaffected by Poison
+(10-20)% of Damage taken gained a Life over 4 seconds when Hit
 ]],[[
 Rime Gaze
 Mind Cage
@@ -427,20 +475,31 @@ Your Skills deal you 400% of Mana Cost as Physical Damage
 Thundersight
 Solaris Circlet
 Requires Level 59, 122 Int
-(240–280)% increased Energy Shield
-+(30–40)% to Lightning Resistance
-(30–40)% increased Elemental Damage
+(240-280)% increased Energy Shield
++(30-40)% to Lightning Resistance
+(30-40)% increased Elemental Damage
 25% chance to Sap Enemies
 Cannot inflict Shock
 10% increased Elemental Damage per Sextant affecting the area
 ]],[[
 Wraithlord
 Bone Circlet
-Requires Level: 34
+Requires Level: 34, 73 Int
 +2 to Level of Socketed Minion Gems
-(120–150)% increased Energy Shield
+(120-150)% increased Energy Shield
 Minions Regenerate 1% Life per second
 +1000 to Spectre maximum Life
+]],[[
+Wreath of Phrecia
+Iron Circlet
+League: Legion
+Source: Drops from Eternal Legion
+Requires Level 8
+Has no Attribute Requirements
+Increases and Reductions to Light Radius also apply to Area of Effect at 50% of their value
+Increases and Reductions to Light Radius also apply to Damage
+(15-25)% increased Light Radius
+Deal no Chaos Damage
 ]],[[
 Ylfeban's Trickery
 Hubris Circlet
@@ -480,6 +539,8 @@ Socketed Gems are Supported by level 18 Melee Physical Damage
 {variant:2,3}Socketed Gems are Supported by level 12 Faster Attacks
 {variant:1,4}Socketed Gems are Supported by level 18 Blind
 {variant:2,3}Socketed Gems are Supported by level 6 Blind
+{variant:1,2}15% Chance to Block
+{variant:3,4}6% Chance to Block
 Adds 20 to 30 Physical Damage to Attacks
 (200-300)% increased Armour and Evasion
 {variant:1,4}+(200-220) to maximum Life
@@ -488,8 +549,6 @@ Adds 20 to 30 Physical Damage to Attacks
 {variant:3,4}20% chance to gain an Endurance Charge when you Block
 Extra gore
 Can't use Chest armour
-{variant:1,2}15% Chance to Block
-{variant:3}6% Chance to Block
 ]],[[
 Deidbell
 Gilded Sallet
@@ -533,15 +592,17 @@ Mercury Footprints
 The Peregrine
 Visored Sallet
 Variant: Pre 2.6.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 23, 28 Str, 28 Dex
 {variant:1}+100 to Accuracy Rating
 {variant:2}+300 to Accuracy Rating
+{variant:2}+500 to Accuracy Rating
 (40-60)% increased Armour and Evasion
 (20-30)% increased Rarity of Items found
 +30% to Lightning Resistance
 {variant:1}0.2% of Physical Attack Damage Leeched as Mana
-{variant:2}0.4% of Attack Damage Leeched as Mana
+{variant:2,3}0.4% of Attack Damage Leeched as Mana
 10% increased Movement Speed
 ]],[[
 Skullhead
@@ -561,12 +622,12 @@ Minions Regenerate 2% Life per Second
 [[
 Ahn's Contempt
 Praetor Crown
-Requires Level 68
-+(15–20) to all Attributes
-(60–140)% increased Armour and Energy Shield
-+(60–70) to maximum Life
+Requires Level 68, 62 Str, 91 Int
++(15-20) to all Attributes
+(60-140)% increased Armour and Energy Shield
++(60-70) to maximum Life
 -1 to Maximum Power Charges
-Gain (8–12)% of Physical Damage as Extra Chaos Damage while at maximum Power Charges
+Gain (8-12)% of Physical Damage as Extra Chaos Damage while at maximum Power Charges
 You take 50% reduced Extra Damage from Critical Strikes while you have no Power Charges
 ]],[[
 The Brine Crown
@@ -599,7 +660,7 @@ Socketed Gems are supported by level 20 Cast on Death
 20% reduced Mana Regeneration Rate
 {variant:1}+(20-30) to maximum Energy Shield
 {variant:2}+(70-90) to maximum Energy Shield
-{variant:3}+(50–70) to maximum Energy Shield
+{variant:3}+(50-70) to maximum Energy Shield
 +(43-61)% to Chaos Resistance
 ]],[[
 Craiceann's Chitin
@@ -608,22 +669,31 @@ Variant: Pre 3.4.0
 Variant: Current
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
-Requires Level 58
+Requires Level 58, 64 Str, 64 Int
 {variant:1}+(7-9)% chance to Block Spell Damage
 {variant:2}+(4-6)% chance to Block Spell Damage
-(140–180)% increased Armour and Energy Shield
-(4–7)% increased maximum Life
+(140-180)% increased Armour and Energy Shield
+(4-7)% increased maximum Life
 Cannot lose Crab Barriers if you have lost Crab Barriers Recently
 3% additional Chance to Block while you have at least 5 Crab Barriers
 5% additional Chance to Block while you have at least 10 Crab Barriers
+]],[[
+Crown of the Inward Eye
+Prophet Crown
+Requires Level 63, 85 Str, 62 Int
+333% increased Armour and Energy Shield
+(9-21)% increased maximum Life, Mana and Global Energy Shield
+Transfiguration of Soul
+Transfiguration of Body
+Transfiguration of Mind
 ]],[[
 Crown of the Tyrant
 Magistrate Crown
 League: Delve
 Source: Drops from unique{Aul, the Crystal King}
-Requires Level 58
+Requires Level 58, 64 Str, 64 Int
 Has 1 Socket
-+(50–100) to maximum Life
++(50-100) to maximum Life
 Nearby Enemies have -10% to all Resistances
 You and Nearby Allies have 64 to 96 added Fire Damage per Red Socket
 You and Nearby Allies have 56 to 88 added Cold Damage per Green Socket
@@ -644,24 +714,33 @@ Requires Level 53, 59 Str, 59 Int
 Geofri's Legacy
 Great Crown
 Source: Upgraded from unique{Geofri's Crest} via prophecy{The Bishop's Legacy}
-Requires Level 62
+Requires Level 62, 59 Str, 59 Int
 +1 to Level of Socketed Gems
-(60–80)% increased Armour and Energy Shield
-+(15–20)% to Fire Resistance
-+(15–20)% to Cold Resistance
-+(15–20)% to Lightning Resistance
-+(20–30)% to Chaos Resistance
+(60-80)% increased Armour and Energy Shield
++(15-20)% to Fire Resistance
++(15-20)% to Cold Resistance
++(15-20)% to Lightning Resistance
++(20-30)% to Chaos Resistance
 +1 to maximum number of Summoned Holy Relics
-Summoned Holy Relics have (20–25)% reduced Cooldown Recovery Speed
+Summoned Holy Relics have (20-25)% reduced Cooldown Recovery Speed
 ]],[[
 Honourhome
 Soldier Helmet
+League: Legion
+Source: Drops from Eternal Legion
+Variant: Pre 3.7.0
+Variant: Current
 Requires Level 12, 16 Str, 16 Int
-Adds 1 to 13 Lightning Damage to Attacks
-(40-50)% increased Armour and Energy Shield
-+(10-20)% to all Elemental Resistances
-+20% to all Elemental Resistances while on Low Life
-20% reduced Mana Cost of Skills when on Low Life
+{variant:2}+(1-2) to Level of Socketed Gems
+{variant:1}Adds 1 to 13 Lightning Damage to Attacks
+{variant:2}Adds 1 to 13 Lightning Damage to Spells and Attacks
+{variant:1}(40-50)% increased Armour and Energy Shield
+{variant:2}(100-150)% increased Armour and Energy Shield
+{variant:1}+(10-20)% to all Elemental Resistances
+{variant:1}+20% to all Elemental Resistances while on Low Life
+{variant:1}20% reduced Mana Cost of Skills when on Low Life
+{variant:2}(10-20)% increased Rarity of Items found
+{variant:2}(10-20)% reduced Mana Cost of Skills
 ]],[[
 Kitava's Thirst
 Zealot Helmet
@@ -680,10 +759,11 @@ Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
+Requires Level 53, 59 Str, 59 Int
 Trigger Level 20 Spirit Burst when you Use a Skill while you have a Spirit Charge
-+(10–15)% to all Elemental Resistances
-Recover (4–5)% of Life when a Spirit Charge expires or is consumed
-(15–20)% chance to gain a Spirit Charge on Kill
++(10-15)% to all Elemental Resistances
+Recover (4-5)% of Life when a Spirit Charge expires or is consumed
+(15-20)% chance to gain a Spirit Charge on Kill
 +1 to Maximum Spirit Charges per Abyss Jewel affecting you
 ]],[[
 Malachai's Vision
@@ -694,7 +774,7 @@ Variant: Current
 Requires Level 68, 62 Str, 91 Int
 Adds (13-17) to (29-37) Chaos Damage
 {variant:1}+(200-250) to maximum Energy Shield
-{variant:2}+(150–200) to maximum Energy Shield
+{variant:2}+(150-200) to maximum Energy Shield
 +(32-40)% to Cold Resistance
 +(15-20)% to Lightning Resistance
 Regenerate 100 Energy Shield per second if all Equipped Items are Corrupted
@@ -705,7 +785,7 @@ Mask of the Spirit Drinker
 Crusader Helmet
 League: Incursion
 Upgrade: Upgrades to unique{Mask of the Stitched Demon} via currency{Vial of Summoning}
-Requires Level 31
+Requires Level 31, 36 Str, 36 Int
 (60-80)% increased Armour and Energy Shield
 +(30-50) to maximum Life
 Your Energy Shield starts at zero
@@ -718,7 +798,7 @@ Mask of the Stitched Demon
 Magistrate Crown
 League: Incursion
 Source: Upgraded from unique{Mask of the Spirit Drinker} via currency{Vial of Summoning}
-Requires Level 58
+Requires Level 58, 64 Str, 64 Int
 +(40-50) to Intelligence
 +(160-180) to maximum Energy Shield
 Strength provides no bonus to Maximum Life
@@ -728,14 +808,26 @@ Your Energy Shield starts at zero
 Cannot gain Energy Shield
 1% of Life Regenerated per second per 500 Maximum Energy Shield
 ]],[[
+Mask of the Tribunal
+Magistrate Crown
+League: Synthesis
+Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
+Requires Level 58, 64 Str, 64 Int
++(25-30) to all Attributes
+(150-200)% increased Armour and Energy Shield
+Nearby Allies have (4-6)% increased Defences per 100 Strength you have
+Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have
+Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
+1% reduced Mana Reserved per 250 total attributes
+]],[[
 Memory Vault
 Praetor Crown
 Source: Drops from unique{The Enslaver}
-Requires Level 68
-+(130–160) to maximum Energy Shield
-+(150–200) to maximum Mana
-(30–40)% increased Mana Regeneration Rate
-+(20–25)% to Fire Resistance
+Requires Level 68, 62 Str, 91 Int
++(130-160) to maximum Energy Shield
++(150-200) to maximum Mana
+(30-40)% increased Mana Regeneration Rate
++(20-30)% to Fire Resistance
 10% increased Mana Reserved
 Gain Armour equal to your Reserved Mana
 ]],[[
@@ -802,31 +894,51 @@ Curtain Call
 Plague Mask
 Requires Level 20
 +23 to maximum Life
-(10–15)% reduced Mine Laying Speed
-(40–50)% increased Mine Arming Speed
-Skills which Place Mines place up to 1 additional Mine if you have at least 500 Dexterity
-Skills which Place Mines place up to 1 additional Mine if you have at least 500 Intelligence
+(15-10)% reduced Mine Throwing Speed
+Mines have (40-50)% increased Detonation Speed
+Skills which Place Mines place up to 1 additional Mine if you have at least 800 Dexterity
+Skills which Place Mines place up to 1 additional Mine if you have at least 800 Intelligence
+]],[[
+Eye of Malice
+Callous Mask
+Requires Level 45, 51 Dex, 51 Int
+(400-500)% increased Evasion and Energy Shield
++(20-40)% to Fire Resistance
++(20-40)% to Cold Resistance
+25% chance to inflict Cold Exposure on Hit
+25% chance to inflict Fire Exposure on Hit
+Nearby Enemies have 50% increased Fire and Cold Resistances
 ]],[[
 Farrul's Bite
 Harlequin Mask
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
-Requires Level 57
+Requires Level 57, 64 Dex, 64 Int
 Grants Level 20 Aspect of the Cat Skill
-(180–220)% increased Evasion and Energy Shield
-+(25–35)% to Cold Resistance
+(180-220)% increased Evasion and Energy Shield
++(25-35)% to Cold Resistance
 +1% to Critical Strike Chance while affected by Aspect of the Cat
-Critical Strikes have (10–20)% chance to Blind Enemies while you have Cat's Stealth
-(40–50)% increased Damage with Hits and Ailments against Blinded Enemies
+Critical Strikes have (10-20)% chance to Blind Enemies while you have Cat's Stealth
+(40-50)% increased Damage with Hits and Ailments against Blinded Enemies
+]],[[
+Fractal Thoughts
+Vaal Mask
+League: Legion
+Requires Level: 62, 79 Dex, 72 Int
+(140-180)% increased Evasion and Energy Shield
++(25-40)% to Critical Strike Multiplier if Dexterity is higher than Intelligence
+15% increased Dexterity if Strength is higher than Intelligence
+1% increased Elemental Damage per 10 Dexterity
++2 to Maximum Life per 10 Intelligence
 ]],[[
 Gorgon's Gaze
 Regicide Mask
-Requires Level 52
+Requires Level 52, 58 Dex, 58 Int
 Implicits: 0
 Grants Level 20 Summon Petrification Statue Skill
-(200–250)% increased Energy Shield
-+(60–80) to maximum Life
-(5–10)% increased Attack and Cast Speed
+(200-250)% increased Energy Shield
++(60-80) to maximum Life
+(5-10)% increased Attack and Cast Speed
 5% additional Physical Damage Reduction while moving
 5% reduced Elemental Damage taken while stationary
 ]],[[
@@ -840,7 +952,7 @@ Requires Level 38, 44 Dex, 44 Int
 {variant:2,3}Trigger level 1 Create Lesser Shrine when you Kill an Enemy
 (120-150)% increased Evasion and Energy Shield
 {variant:2}+(40-65) to maximum Energy Shield
-{variant:3}+(30–45) to maximum Energy Shield
+{variant:3}+(30-45) to maximum Energy Shield
 {variant:1}+(30-40) to maximum Mana
 {variant:2,3}+(60-80) to maximum Life
 {variant:2,3}+(30-40)% to Cold Resistance
@@ -857,7 +969,7 @@ Variant: Current
 Requires Level 67, 73 Dex, 88 Int
 +(40-50) to maximum Energy Shield
 {variant:1,2}(130-150)% increased Evasion and Energy Shield
-{variant:3}(90–110)% increased Evasion and Energy Shield
+{variant:3}(90-110)% increased Evasion and Energy Shield
 {variant:1}+2 to Level of Socketed Curse Gems
 {variant:2,3}+1 to Level of Socketed Curse Gems
 Socketed Curse Gems are Supported by Level 22 Blasphemy
@@ -877,6 +989,7 @@ Iron Mask
 Upgrade: Upgrades to unique{Malachai's Awakening} via prophecy{The Nightmare Awakens}
 Variant: Pre 1.0.0
 Variant: Pre 2.0.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 17, 21 Dex, 21 Int
 (15-30)% increased Spell Damage
@@ -886,18 +999,22 @@ Requires Level 17, 21 Dex, 21 Int
 {variant:1}100% increased Mana Cost of Skills
 {variant:2}20% increased Mana Cost of Skills
 Blood Magic
+{variant:4}Mortal Conviction
 ]],[[
 Malachai's Awakening
 Iron Mask
 Source: Upgraded from unique{Malachai's Simula} via prophecy{The Nightmare Awakens}
-Requires Level 60
-(15–30)% increased Spell Damage
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 60, 21 Dex, 21 Int
+(15-30)% increased Spell Damage
 +20 to Strength
 +10% to all Elemental Resistances
-Adds (42–54) to (78–88) Cold Damage to Spells while no Life is Reserved
-Adds (54–64) to (96–107) Fire Damage to Spells while no Life is Reserved
-Adds (5–14) to (160–173) Lightning Damage to Spells while no Life is Reserved
+Adds (42-54) to (78-88) Cold Damage to Spells while no Life is Reserved
+Adds (54-64) to (96-107) Fire Damage to Spells while no Life is Reserved
+Adds (5-14) to (160-173) Lightning Damage to Spells while no Life is Reserved
 Blood Magic
+{variant:2}Mortal Conviction
 ]],[[
 Mind of the Council
 Harlequin Mask

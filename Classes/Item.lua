@@ -130,17 +130,22 @@ function ItemClass:ParseRaw(raw)
 		end
 	end
 	local gameModeStage = "FINDIMPLICIT"
-	local gameModeSection = 1
-	local foundExplicit
+	local foundExplicit, implicitNumberSpecified, foundImplicit
 	while self.rawLines[l] do
 		local line = self.rawLines[l]
 		if flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
 		elseif line == "--------" then
-			gameModeSection = gameModeSection + 1
 			if gameModeStage == "IMPLICIT" then
-				self.implicitLines = #self.modLines - self.buffLines
-				gameModeStage = "FINDEXPLICIT"
+				if foundImplicit then
+					-- There were definitely implicits, so any following modifiers must be explicits
+					gameModeStage = "EXPLICIT"
+					foundExplicit = true
+				else
+					-- There were modifiers that could be enchantments or explicits; assume enchantment for now
+					self.implicitLines = #self.modLines - self.buffLines
+					gameModeStage = "FINDEXPLICIT"
+				end
 			elseif gameModeStage == "EXPLICIT" then
 				gameModeStage = "DONE"
 			end
@@ -154,10 +159,18 @@ function ItemClass:ParseRaw(raw)
 			self.fractured = true
 		elseif line == "Synthesised Item" then
 			self.synthesised = true
+		elseif line == "Warlord Item" then
+			self.adjudicator = true
+		elseif line == "Hunter Item" then
+			self.basilisk = true
+		elseif line == "Crusader Item" then
+			self.crusader = true
+		elseif line == "Redeemer Item" then
+			self.eyrie = true
 		else
 			local specName, specVal = line:match("^([%a ]+): (%x+)$")
 			if not specName then
-				specName, specVal = line:match("^([%a ]+): %+?([%d%-%.]+)")
+				specName, specVal = line:match("^([%a ]+): %+?([%d+%-%.,]+)")
 				if not tonumber(specVal) then
 					specName = nil
 				end
@@ -213,16 +226,30 @@ function ItemClass:ParseRaw(raw)
 					importedLevelReq = tonumber(specVal)
 				elseif specName == "LevelReq" then
 					self.requirements.level = tonumber(specVal)
+					-- Backward compatibility
 				elseif specName == "Has Alt Variant" then
-					self.hasAltVariant = true
+					self.hasAltVariant = true -- <
 				elseif specName == "Selected Variant" then
-					self.variant = tonumber(specVal)
+					self.variant = tonumber(specVal) -- <
 				elseif specName == "Selected Alt Variant" then
-					self.variantAlt = tonumber(specVal)
+					self.variantAlt = tonumber(specVal) -- <
+				elseif specName == "Has Variants" then
+					self.hasVariants = tonumber(specVal)
+					if self.hasVariants > 1 then self.hasAltVariant = true end -- <
+				elseif specName == "Selected Variants" then
+					self.variants = {}
+					for val in specVal:gmatch("(%d+)") do
+						t_insert(self.variants, tonumber(val))
+					end
+					self.variant = self.variants[1] -- <
+					if #self.variants > 1 then self.variantAlt = self.variants[2] end -- <
+					-- ^
 				elseif specName == "League" then
 					self.league = specVal
 				elseif specName == "Crafted" then
 					self.crafted = true
+				elseif specName == "Implicit" then
+					self.implicit = true
 				elseif specName == "Prefix" then
 					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
 					t_insert(self.prefixes, {
@@ -237,6 +264,7 @@ function ItemClass:ParseRaw(raw)
 					})
 				elseif specName == "Implicits" then
 					self.implicitLines = tonumber(specVal) or 0
+					implicitNumberSpecified = true
 					gameModeStage = "EXPLICIT"
 				elseif specName == "Unreleased" then
 					self.unreleased = (specVal == "true")
@@ -275,8 +303,14 @@ function ItemClass:ParseRaw(raw)
 				local fractured = line:match("{fractured}") or line:match(" %(fractured%)")
 				local rangeSpec = line:match("{range:([%d.]+)}")
 				local crafted = line:match("{crafted}") or line:match(" %(crafted%)")
+				local implicit = line:match("{implicit}") or line:match(" %(implicit%)")
 				local custom = line:match("{custom}")
-				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)","")
+				local implicit = line:match(" %(implicit%)")
+				if implicit then
+					foundImplicit = true
+					gameModeStage = "IMPLICIT"
+				end
+				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)","")
 				local rangedLine
 				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
 					rangedLine = itemLib.applyRange(line, 1)
@@ -297,7 +331,7 @@ function ItemClass:ParseRaw(raw)
 					end
 				end
 				if modList then
-					t_insert(self.modLines, { line = line, extra = extra, modList = modList, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured, range = rangedLine and (tonumber(rangeSpec) or 0.5) })
+					t_insert(self.modLines, { line = line, extra = extra, modList = modList, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or 0.5) })
 					if mode == "GAME" then
 						if gameModeStage == "FINDIMPLICIT" then
 							gameModeStage = "IMPLICIT"
@@ -312,12 +346,15 @@ function ItemClass:ParseRaw(raw)
 					end
 				elseif mode == "GAME" then
 					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" then
-						t_insert(self.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured })
+						t_insert(self.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
 					end
 				elseif foundExplicit then
-					t_insert(self.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured })
+					t_insert(self.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
+				end
+				if implicit then
+					self.implicitLines = #self.modLines
 				end
 			end
 		end
@@ -331,12 +368,25 @@ function ItemClass:ParseRaw(raw)
 			self.requirements.level = self.base.req.level
 		end
 	end
-	if self.base and self.base.implicit then
-		if self.implicitLines == 0 then
-			self.implicitLines = 1 + #self.base.implicit:gsub("[^\n]","")
+	if gameModeStage == "IMPLICIT" and not foundImplicit and not implicitNumberSpecified then
+		-- We only found modifiers that could be enchantments or explicits; assume enchantments for now
+		self.implicitLines = #self.modLines - self.buffLines
+	end
+	if self.implicitLines > 0 and not implicitNumberSpecified then
+		if not foundExplicit and self.rarity ~= "NORMAL" then
+			-- No explicits were found, but the item should have some, so the implicits (presumed enchantments) must be explicits
+			self.implicitLines = 0
+		else
+			-- Any "implicits" that weren't explicitly marked as such will be enchantments
+			for index, modLine in ipairs(self.modLines) do
+				if index > self.implicitLines then
+					break
+				end
+				if not modLine.implicit then
+					modLine.crafted = true
+				end
+			end
 		end
-	elseif mode == "GAME" and not foundExplicit then
-		self.implicitLines = 0
 	end
 	self.affixLimit = 0
 	if self.crafted then
@@ -381,10 +431,28 @@ function ItemClass:ParseRaw(raw)
 	end
 	self.abyssalSocketCount = 0
 	if self.variantList then
+		if self.hasVariants then
+			if not self.variants then self.variants = {} end
+			for i = 1, self.hasVariants do
+				self.variants[i] = m_min(#self.variantList, self.variants[i] or self.defaultVariant or #self.variantList)
+			end
+		end
+		-- Backward compatibility
 		self.variant = m_min(#self.variantList, self.variant or self.defaultVariant or #self.variantList)
 		if self.hasAltVariant then
 			self.variantAlt = m_min(#self.variantList, self.variantAlt or self.defaultVariant or #self.variantList)
 		end
+
+		if not self.hasVariants then
+			self.variants = {}
+			self.hasVariants = 1
+			self.variants[1] = self.variant
+			if self.hasAltVariant then
+				self.hasVariants = 2
+				self.variants[2] = self.variantAlt
+			end
+		end
+		-- ^
 	end
 	if not self.quality then
 		self:NormaliseQuality()
@@ -405,7 +473,7 @@ end
 function ItemClass:GetModSpawnWeight(mod, extraTags)
 	if self.base then
 		for i, key in ipairs(mod.weightKey) do
-			if self.base.tags[key] or (extraTags and extraTags[key]) or (self.shaperElderTags and (self.shaper and self.shaperElderTags.shaper == key) or (self.elder and self.shaperElderTags.elder == key)) then
+			if self.base.tags[key] or (extraTags and extraTags[key]) or (self.shaperElderTags and (self.shaper and self.shaperElderTags.shaper == key) or (self.elder and self.shaperElderTags.elder == key) or (self.adjudicator and self.shaperElderTags.adjudicator == key) or (self.basilisk and self.shaperElderTags.basilisk == key) or (self.crusader and self.shaperElderTags.crusader == key) or (self.eyrie and self.shaperElderTags.eyrie == key)) then
 				return mod.weightVal[i]
 			end
 		end
@@ -437,6 +505,18 @@ function ItemClass:BuildRaw()
 	if self.elder then
 		t_insert(rawLines, "Elder Item")
 	end
+	if self.adjudicator then
+		t_insert(rawLines, "Warlord Item")
+	end
+	if self.basilisk then
+		t_insert(rawLines, "Hunter Item")
+	end
+	if self.crusader then
+		t_insert(rawLines, "Crusader Item")
+	end
+	if self.eyrie then
+		t_insert(rawLines, "Redeemer Item")
+	end
 	if self.crafted then
 		t_insert(rawLines, "Crafted: true")
 		for i, affix in ipairs(self.prefixes or { }) do
@@ -453,10 +533,17 @@ function ItemClass:BuildRaw()
 		for _, variantName in ipairs(self.variantList) do
 			t_insert(rawLines, "Variant: "..variantName)
 		end
+		-- Backward compatibility
 		t_insert(rawLines, "Selected Variant: "..self.variant)
+
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
 			t_insert(rawLines, "Selected Alt Variant: "..self.variantAlt)
+		end
+		-- ^
+		if self.hasVariants then
+			t_insert(rawLines, "Has Variants: "..self.hasVariants)
+			t_insert(rawLines, "Selected Variants: "..table.concat(self.variants, ","))
 		end
 	end
 	if self.quality then
@@ -578,9 +665,18 @@ function ItemClass:Craft()
 end
 
 function ItemClass:CheckModLineVariant(modLine)
-	return not modLine.variantList 
-		or modLine.variantList[self.variant]
-		or (self.hasAltVariant and modLine.variantList[self.variantAlt])
+	if modLine.variantList then
+		if self.hasVariants then
+			for _, v in pairs(self.variants) do
+				if modLine.variantList[v] then
+					return true
+				end
+			end
+		end
+	end
+	return not modLine.variantList
+		--or modLine.variantList[self.variant]
+		--or (self.hasAltVariant and modLine.variantList[self.variantAlt])
 end
 
 -- Return the name of the slot this item is equipped in
@@ -708,9 +804,10 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			-- Convert accuracy, L/MGoH and PAD Leech modifiers to local
 			if (
 				(mod.name == "Accuracy" and mod.flags == 0) or
+                (mod.name == "ImpaleChance" ) or
 				((mod.name == "LifeOnHit" or mod.name == "ManaOnHit") and mod.flags == ModFlag.Attack) or
 				((mod.name == "PhysicalDamageLifeLeech" or mod.name == "PhysicalDamageManaLeech") and mod.flags == ModFlag.Attack)
-			   ) and mod.keywordFlags == 0 and not mod[1] then
+			   ) and (mod.keywordFlags == 0 or mod.keywordFlags == KeywordFlag.Attack) and not mod[1] then
 				mod[1] = { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" }
 			elseif self.targetVersion ~= "2_6" and (mod.name == "PoisonChance" or mod.name == "BleedChance") and (not mod[1] or (mod[1].type == "Condition" and mod[1].var == "CriticalStrike" and not mod[2])) then
 				t_insert(mod, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })

@@ -41,6 +41,8 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 		local scaledMod = copyTable(mod)
 		if type(scaledMod.value) == "number" then
 			scaledMod.value = (m_floor(scaledMod.value) == scaledMod.value) and m_modf(scaledMod.value * scale) or scaledMod.value * scale
+		elseif type(scaledMod.value) == "table" and scaledMod.value.mod then
+			scaledMod.value.mod.value = (m_floor(scaledMod.value.mod.value) == scaledMod.value.mod.value) and m_modf(scaledMod.value.mod.value * scale) or scaledMod.value.mod.value * scale
 		end
 		self:AddMod(scaledMod)
 	end
@@ -61,6 +63,8 @@ function ModStoreClass:ScaleAddList(modList, scale)
 			local scaledMod = copyTable(modList[i])
 			if type(scaledMod.value) == "number" then
 				scaledMod.value = (m_floor(scaledMod.value) == scaledMod.value) and m_modf(scaledMod.value * scale) or scaledMod.value * scale
+			elseif type(scaledMod.value) == "table" and scaledMod.value.mod then
+				scaledMod.value.mod.value = (m_floor(scaledMod.value.mod.value) == scaledMod.value.mod.value) and m_modf(scaledMod.value.mod.value * scale) or scaledMod.value.mod.value * scale
 			end
 			self:AddMod(scaledMod)
 		end
@@ -307,6 +311,24 @@ function ModStoreClass:EvalMod(mod, cfg)
 					end
 				end
 			end
+		-- Syntax: { type = "MeleeProximity", ramp = {MaxBonusPct,MinBonusPct} }
+		-- 			Both MaxBonusPct and MinBonusPct are percent in decimal form (1.0 = 100%)
+		-- Example: { type = "MeleeProximity", ramp = {1,0} }   ## Duelist-Slayer: Impact
+		elseif tag.type == "MeleeProximity" then
+			if not cfg or not cfg.skillDist then
+				return
+			end
+			-- Max potency is 0-15 units of distance
+			if cfg.skillDist <= 15 then
+				value = value * tag.ramp[1]
+			-- Reduced potency (linear) until 40 units
+			elseif cfg.skillDist >= 16 and cfg.skillDist <= 39 then
+				value = value * (tag.ramp[1] - ((tag.ramp[1] / 25) * (cfg.skillDist - 15)))
+			elseif cfg.skillDist >= 40 then
+				value = 0
+			end
+		elseif tag.type == "Limit" then
+			value = m_min(value, tag.limit or self:GetMultiplier(tag.limitVar, cfg))
 		elseif tag.type == "Condition" then
 			local match = false
 			if tag.varList then

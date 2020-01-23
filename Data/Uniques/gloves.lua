@@ -1,4 +1,4 @@
--- Item data (c) Grinding Gear Games
+﻿-- Item data (c) Grinding Gear Games
 
 return {
 -- Gloves: Armour
@@ -22,7 +22,7 @@ Craiceann's Pincers
 Titan Gauntlets
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
-Requires Level 69
+Requires Level 69, 98 Str
 (150-200)% increased Armour
 (50-70) Life Regenerated per second
 +(30-40)% to Fire Resistance
@@ -54,7 +54,7 @@ Socketed Gems are Supported by level 10 Knockback
 ]],[[
 Giantsbane
 Bronze Gauntlets
-Requires Level: 23
+Requires Level: 23, 36 Str
 Adds (3-6) to (10-12) Physical Damage to Attacks
 +(30-40) to Strength
 (80-100)% increased Armour
@@ -94,6 +94,15 @@ Requires Level 69, 98 Str
 4% increased Melee Damage per Endurance Charge
 You cannot be Shocked while at maximum Endurance Charges
 ]],[[
+Vixen's Entrapment
+Embroidered Gloves
+Requires Level 36, 54 Int
+Trigger Socketed Curse Spells when you cast a Curse
++(50-90) to maximum Energy Shield
+0.2% of Spell Damage Leeched as Energy Shield for each Curse on Enemy
+You can apply an additional Curse
+(10-20)% increased Cast Speed with Curse Skills
+]],[[
 Winds of Change
 Ancient Gauntlets
 Source: Drops in The Lord's Labyrinth
@@ -109,19 +118,6 @@ Requires Level 47, 68 Str
 ]],
 -- Gloves: Evasion
 [[
-Blasphemer's Grasp
-Assassin's Mitts
-Source: Drops from unique{The Elder}
-Requires Level 58
-+(40-50) to Dexterity
-(150-200)% increased Evasion and Energy Shield
-+(50-60) to maximum Life
-15% increased Damage with Ailments per Elder Item Equipped
-+6 to Maximum Life per Elder Item Equipped
-8% increased Effect of non-Damaging Ailments per Elder Item Equipped
-Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
-Elder Item
-]],[[
 Hrimsorrow
 Goathide Gloves
 Upgrade: Upgrades to unique{Hrimburn} via prophecy{Fire and Ice}
@@ -157,8 +153,11 @@ Your Cold Damage can Ignite
 ]],[[
 Maligaro's Virtuosity
 Deerskin Gloves
+League: Legion
+Source: Drops from Eternal Legion
 Variant: Pre 1.1.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 21, 33 Dex
 +(20-30) to Dexterity
@@ -167,17 +166,28 @@ Requires Level 21, 33 Dex
 {variant:1}+(40-50)% to Global Critical Strike Multiplier
 {variant:2}+(28-36)% to Global Critical Strike Multiplier
 {variant:3}+(20-30)% to Global Critical Strike Multiplier
+{variant:4}Your Critical Strike Multiplier is 300%
 (60-80)% increased Evasion Rating
 ]],[[
 Oskarm
 Nubuck Gloves
-Requires Level 33
+Requires Level 52, 50 Dex
 (30-40)% increased Accuracy Rating
 +(40-50) to maximum Life
 +(-20-10)% to Chaos Resistance
 (7-8)% chance to Dodge Spell Damage
 Curse Enemies with Level 10 Assassin's Mark on Hit
 2% increased Attack Critical Strike Chance per 200 Accuracy Rating
+]],[[
+Painseeker
+Shagreen Gloves
+Requires Level 54, 78 Dex
+Adds (16-19) to (25-29) Fire Damage
+Adds (16-19) to (25-29) Cold Damage
+Adds (6-10) to (33-38) Lightning Damage
+(60-120)% increased Evasion Rating
+Critical Strikes do not inherently apply non-Damaging Ailments
+Inflict non-Damaging Ailments as though dealing (100-200)% more Damage
 ]],
 -- Gloves: Energy Shield
 [[
@@ -193,19 +203,27 @@ You cannot be Hindered
 ]],[[
 Asenath's Gentle Touch
 Silk Gloves
+League: Legion
+Source: Drops from Maraketh Legion
 Variant: Pre 2.6.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 25, 39 Int
 +(20-30) to Intelligence
-+(20-30) to maximum Life
-+(20-30) to maximum Mana
+{variant:1,2}+(20-30) to maximum Life
+{variant:3}+(60-80) to maximum Life
+{variant:1,2}+(20-30) to maximum Mana
+{variant:3}+(60-80) to maximum Mana
 {variant:1}Curse Enemies with Temporal Chains on Hit
-{variant:2}Curse Enemies with level 10 Temporal Chains on Hit
+{variant:2,3}Curse Enemies with level 10 Temporal Chains on Hit
+{variant:3}Non-Aura Curses you inflict are not removed from Dying Enemies
+{variant:3}Enemies near Corpses affected by your Curses are Blinded
+{variant:3}Enemies killed near Corpses affected by your Curses explode, dealing 3% of their Life as Physical Damage
 ]],[[
 Demon Stitcher
 Satin Gloves
 League: Delve
-Requires Level 41
+Requires Level 41, 60 Int
 (15-20)% increased Cast Speed
 +(50-70) to maximum Energy Shield
 +(50-70) to maximum Life
@@ -229,7 +247,7 @@ Requires Level 12, 21 Int
 Doedre's Malevolence
 Velvet Gloves
 Source: Upgraded from unique{Doedre's Tenure} via prophecy{The Malevolent Witch}
-Requires Level 64
+Requires Level 64, 21 Int
 (50-60)% increased Spell Damage
 +20 to Intelligence
 Adds (48-56) to (73-84) Chaos Damage to Spells
@@ -250,7 +268,7 @@ Minions gain 20% of Physical Damage as Extra Cold Damage
 ]],[[
 Kalisa's Grace
 Samite Gloves
-Requires Level 47
+Requires Level 55, 68 Int
 Socketed Gems are Supported by Level 18 Faster Casting
 +(20-30) to Intelligence
 +(50-80) to maximum Energy Shield
@@ -294,11 +312,22 @@ Requires Level 36, 29 Str, 29 Dex
 (40-50)% increased Rarity of Items found
 5% reduced Movement Speed
 ]],[[
+Breathstealer
+Hydrascale Gauntlets
+Requires Level 59, 45 Str, 45 Dex
+League: Blight
+(100-150)% increased Armour and Evasion
++(30-50) to maximum Mana
++(10-16)% to all Elemental Resistances
+(5-10)% increased Attack and Cast Speed
+Create a Blighted Spore when you Kill a Rare Monster
+(Blighted Spores last for 10 seconds and have a random Aura)
+]],[[
 Farrul's Pounce
 Hydrascale Gauntlets
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
-Requires Level 59
+Requires Level 59, 45 Str, 45 Dex
 (100-140)% increased Armour and Evasion
 +(50-70) to maximum Life
 +(400-500) to Accuracy against Bleeding Enemies
@@ -359,12 +388,14 @@ Tombfist
 Steelscale Gauntlets
 League: Abyss
 Source: Drops from Abyssal Liches
-Variant: One Abyssal Socket
-Variant: Two Abyssal Sockets
-Requires Level: 36
-{variant:1}Has 1 Abyssal Socket
-{variant:2}Has 2 Abyssal Sockets
-(6-10)% increased Attack Speed
+Variant: Pre 3.6.0 One Abyssal Socket
+Variant: Pre 3.6.0 Two Abyssal Sockets
+Variant: Current One Abyssal Socket
+Variant: Current Two Abyssal Sockets
+Requires Level: 36, 29 Str, 29 Int
+{variant:1,3}Has 1 Abyssal Socket
+{variant:2,4}Has 2 Abyssal Sockets
+{variant:1,2}(6-10)% increased Attack Speed
 (4-6)% increased maximum Life
 With a Murderous Eye Jewel Socketed, Intimidate Enemies for 4 seconds on Hit with Attacks
 With a Searching Eye Jewel Socketed, Maim Enemies for 4 seconds on Hit with Attacks
@@ -387,9 +418,9 @@ Worldcarver
 Dragonscale Gauntlets
 Requires Level 67, 51 Str, 51 Dex
 Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
-+(200–300) to Accuracy Rating
-(120–150)% increased Armour and Evasion
-+(60–80) to maximum Life
++(200-300) to Accuracy Rating
+(120-150)% increased Armour and Evasion
++(60-80) to maximum Life
 6% increased Attack Damage for each Map Item Modifier affecting the Area
 3% increased Attack Speed for each Map Item Modifier affecting the Area
 ]],[[
@@ -411,13 +442,22 @@ League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
-Requires Level 37
+Requires Level 37, 29 Str, 29 Int
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
 (6-10)% increased Cast Speed
 (4-6)% increased maximum Life
 With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
 With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
+]],[[
+Hands of the High Templar
+Crusader Gloves
+Requires Level 66, 51 Str, 51 Int
+Can be modified while Corrupted
+Can have up to 5 Implicit Modifiers while Item has this Modifier
+(150-200)% increased Armour and Energy Shield
+(7-12)% increased maximum Life
++(20-30)% to Fire and Lightning Resistances
 ]],[[
 Null and Void
 Legion Gloves
@@ -430,6 +470,18 @@ Requires Level 57, 44 Str, 44 Int
 Dispels Elemental Ailments on Rampage
 Gain Immunity to Physical Damage for 1.5 seconds on Rampage
 Rampage
+]],[[
+Offering to the Serpent
+Legion Gloves
+League: Synthesis
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
+Requires Level 57, 44 Str, 44 Int
++(25-35) to all Attributes
+(150-200)% increased Armour and Energy Shield
+50% reduced Maximum Recovery per Life Leech
+(6-10)% increased Attack and Cast Speed
+(15-25)% increased Damage while Leeching
+Life Leech effects are not removed at Full Life
 ]],[[
 Repentance
 Crusader Gloves
@@ -444,7 +496,7 @@ Saqawal's Winds
 Soldier Gloves
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
-Requires Level 51
+Requires Level 51, 40 Str, 40 Int
 (140-180)% increased Armour and Energy Shield
 +(30-60) to maximum Life
 +(20-25)% to Cold and Lightning Resistances
@@ -498,6 +550,16 @@ Adds (30-36) to (44-50) Cold Damage to Attacks
 25% increased Freeze Duration on Enemies
 Your Hits can only Kill Frozen enemies
 ]],[[
+Triad Grip
+Mesh Gloves
+Requires Level 32, 26 Str, 26 Int
+(80-120)% increased Armour and Energy Shield
+Minions convert 25% of Physical Damage to Fire Damage per Red Socket
+Minions convert 25% of Physical Damage to Cold Damage per Green Socket
+Minions convert 25% of Physical Damage to Lightning Damage per Blue Socket
+Minions convert 25% of Physical Damage to Chaos Damage per White Socket
+Minions have (5-10)% chance to Freeze, Shock and Ignite
+]],[[
 Volkuur's Guidance
 Zealot Gloves
 Source: Drops from The Pale Council
@@ -522,6 +584,18 @@ Requires Level 43, 34 Str, 34 Int
 ]],
 -- Gloves: Evasion/Energy Shield
 [[
+Aukuna's Will
+Clasped Mitts
+League: Legion
+Source: Drops from Maraketh Legion
+Requires Level 31, 25 Dex 25 Int
++(30-40) to Dexterity
+(5-7)% increased Cast Speed
+(100-150)% increased Evasion and Energy Shield
+Raised Zombies have (80-100)% increased maximum Life
+Raise Zombie does not require a Corpse
+Your Raised Zombies count as Corpses
+]],[[
 Architect's Hand
 Strapped Mitts
 League: Incursion
@@ -537,7 +611,7 @@ Slavedriver's Hand
 Ambush Mitts
 League: Incursion
 Source: Upgraded from unique{Architect's Hand} via currency{Vial of Dominance}
-Requires Level 45
+Requires Level 45, 35 Dex, 35 Int
 +(30-40) to Dexterity
 (200-250)% increased Evasion and Energy Shield
 (20-30)% reduced Trap Throwing Speed
@@ -545,6 +619,19 @@ Skills which throw Traps have Blood Magic
 Skills used by Traps have (10-20)% increased Area of Effect
 Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
 10% chance to gain an Endurance, Frenzy or Power Charge when any of your Traps is Triggered by an Enemy
+]],[[
+Blasphemer's Grasp
+Assassin's Mitts
+Source: Drops from unique{The Elder}
+Requires Level 58, 45 Dex, 45 Int
++(40-50) to Dexterity
+(150-200)% increased Evasion and Energy Shield
++(50-60) to maximum Life
++6 to Maximum Life per Elder Item Equipped
++4% to Damage over Time Multiplier for Ailments per Elder Item Equipped
+8% increased Effect of non-Damaging Ailments per Elder Item Equipped
+Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
+Elder Item
 ]],[[
 The Embalmer
 Carnal Mitts
@@ -576,13 +663,23 @@ Fenumus' Weave
 Carnal Mitts
 League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
-Requires Level 50
+Requires Level 50, 39 Dex, 39 Int
 Grants Level 20 Aspect of the Spider Skill
 (120-170)% increased Evasion and Energy Shield
 +(40-50) to maximum Life
 (6-9)% increased Attack and Cast Speed
 (40-60)% increased Damage with Hits and Ailments against Enemies affected by 3 Spider's Webs
 Adds (8-10) to (13-15) Chaos Damage for each Spider's Web on the Enemy
+]],[[
+Machina Mitts
+Murder Mitts
+Requires Level: 67
+League: Blight
+(200-250)% increased Evasion and Energy Shield
+1% of Damage dealt by your Mines is Leeched to you as Life
+(20-30)% reduced Recovery rate of Life and Energy Shield
+5% increased Recovery rate of Life and Energy Shield per Power Charge
+Lose a Power Charge each second if you have not Detonated Mines Recently
 ]],[[
 Ondar's Clasp
 Wrapped Mitts
@@ -625,6 +722,7 @@ Rampage
 Snakebite
 Assassin's Mitts
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.9.0
 Variant: Current
 Requires Level 58, 45 Dex, 45 Int
 (150-180)% increased Evasion Rating
@@ -633,7 +731,19 @@ Requires Level 58, 45 Dex, 45 Int
 6% increased Accuracy Rating per Frenzy Charge
 10% reduced Frenzy Charge Duration per Frenzy Charge
 {variant:1}While at Maximum Frenzy Charges, Attacks Poison Enemies
-{variant:2}Attacks have 60% chance to Poison while at maximum Frenzy Charges
+{variant:2,3}Attacks have 60% chance to Poison while at maximum Frenzy Charges
+{variant:3}+5% to Damage over Time Multiplier for Poison per Frenzy Charge
+]],[[
+Storm's Gift
+Assassin's Mitts
+League: Synthesis
+Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
+Requires Level 58, 45 Dex, 45 Int
+(20-30)% increased Damage over Time
+(250-300)% increased Evasion and Energy Shield
++(20-30)% to Lightning Resistance
+Enemies you kill are Shocked
+Shocks you inflict spread to other Enemies within a Radius of 15
 ]],[[
 Thunderfist
 Murder Mitts

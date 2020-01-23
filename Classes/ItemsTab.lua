@@ -243,9 +243,24 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	end)
 
 	-- Section: Variant(s)
+
 	self.controls.displayItemSectionVariant = new("Control", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 0, function()
 		return (self.displayItem.variantList and #self.displayItem.variantList > 1) and 28 or 0
 	end)
+
+	for i = 1, 3 do -- TODO: replace '3' with something good. '3'/*
+		-- TODO: smart? positioning for small screen resolutions
+		self.controls["displayItemVariant"..i] = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, (i < 3 and i or 2) * 232 - 232, (i > 2 and i or 0) * 9.5, 224, 20, nil, function(index, value)
+			self.displayItem.variants[i] = index
+			self.displayItem:BuildAndParseRaw()
+			self:UpdateDisplayItemTooltip()
+			self:UpdateDisplayItemRangeLines()
+		end)
+		self.controls["displayItemVariant"..i].shown = function()
+			return self.displayItem.variantList and #self.displayItem.variantList > 1 and #self.displayItem.variants >= i
+		end
+	end
+	--[[
 	self.controls.displayItemVariant = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, 0, 0, 224, 20, nil, function(index, value)
 		self.displayItem.variant = index
 		self.displayItem:BuildAndParseRaw()
@@ -264,6 +279,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemAltVariant.shown = function()
 		return self.displayItem.hasAltVariant
 	end
+	]]
 
 	-- Section: Sockets and Links
 	self.controls.displayItemSectionSockets = new("Control", {"TOPLEFT",self.controls.displayItemSectionVariant,"BOTTOMLEFT"}, 0, 0, 0, function()
@@ -320,9 +336,13 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemSectionImplicit = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT"}, 0, 0, 0, function()
 		return (self.controls.displayItemShaperElder:IsShown() or self.controls.displayItemEnchant:IsShown() or self.controls.displayItemCorrupt:IsShown()) and 28 or 0
 	end)
-	self.controls.displayItemShaperElder = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, 0, 0, 100, 20, {"Normal","Shaper","Elder"}, function(index, value)
+	self.controls.displayItemShaperElder = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionImplicit,"TOPLEFT"}, 0, 0, 100, 20, {"Normal","Shaper","Elder","Warlord","Hunter","Crusader","Redeemer"}, function(index, value)
 		self.displayItem.shaper = (index == 2)
 		self.displayItem.elder = (index == 3)
+		self.displayItem.adjudicator = (index == 4)
+		self.displayItem.basilisk = (index == 5)
+		self.displayItem.crusader = (index == 6)
+		self.displayItem.eyrie = (index == 7)
 		if self.displayItem.crafted then
 			for i = 1, self.displayItem.affixLimit do
 				-- Force affix selectors to update
@@ -989,17 +1009,26 @@ function ItemsTabClass:SetDisplayItem(item)
 		-- Update the display item controls
 		self:UpdateDisplayItemTooltip()
 		self.snapHScroll = "RIGHT"
+
+		if item.hasVariants then
+			for i, variant in ipairs(item.variants) do
+				self.controls["displayItemVariant"..i].list = item.variantList
+				self.controls["displayItemVariant"..i].selIndex = variant
+			end
+		end
+		--[[
 		self.controls.displayItemVariant.list = item.variantList
 		self.controls.displayItemVariant.selIndex = item.variant
 		if item.hasAltVariant then
 			self.controls.displayItemAltVariant.list = item.variantList
 			self.controls.displayItemAltVariant.selIndex = item.variantAlt
 		end
+		]]
 		self:UpdateSocketControls()
 		if item.crafted then
 			self:UpdateAffixControls()
 		end
-		self.controls.displayItemShaperElder:SetSel((item.shaper and 2) or (item.elder and 3) or 1)
+		self.controls.displayItemShaperElder:SetSel((item.shaper and 2) or (item.elder and 3) or (item.adjudicator and 4) or (item.basilisk and 5) or (item.crusader and 6) or (item.eyrie and 7) or 1)
 		self:UpdateCustomControls()
 		self:UpdateDisplayItemRangeLines()
 	else
@@ -1417,12 +1446,13 @@ function ItemsTabClass:EnchantDisplayItem()
 	local function enchantItem()
 		local item = new("Item", self.build.targetVersion, self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
-		for i = 1, item.implicitLines do 
+		if item.implicitLines > 0 and item.modLines[1].crafted then
 			t_remove(item.modLines, 1)
+			item.implicitLines = item.implicitLines - 1
 		end
 		local list = haveSkills and enchantments[controls.skill.list[controls.skill.selIndex]] or enchantments
 		t_insert(item.modLines, 1, { crafted = true, line = list[controls.labyrinth.list[controls.labyrinth.selIndex].name][controls.enchantment.selIndex] })
-		item.implicitLines = 1
+		item.implicitLines = item.implicitLines + 1
 		item:BuildAndParseRaw()
 		return item
 	end
@@ -1713,6 +1743,18 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	if item.elder then
 		tooltip:AddLine(16, colorCodes.ELDER.."Elder Item")
 	end
+	if item.adjudicator then
+		tooltip:AddLine(16, colorCodes.ADJUDICATOR.."Warlord Item")
+	end
+	if item.basilisk then
+		tooltip:AddLine(16, colorCodes.BASILISK.."Hunter Item")
+	end
+	if item.crusader then
+		tooltip:AddLine(16, colorCodes.CRUSADER.."Crusader Item")
+	end
+	if item.eyrie then
+		tooltip:AddLine(16, colorCodes.EYRIE.."Redeemer Item")
+	end
 	if item.fractured then
 		tooltip:AddLine(16, colorCodes.FRACTURED.."Fractured Item")
 	end
@@ -1727,7 +1769,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			if #item.variantList == 1 then
 				tooltip:AddLine(16, "^xFFFF30Variant: "..item.variantList[1])
 			else
-				tooltip:AddLine(16, "^xFFFF30Variant: "..item.variantList[item.variant].." ("..#item.variantList.." variants)")
+				tooltip:AddLine(16, "^xFFFF30Variant: ".. item.variantList[item.variant or item.variants[1]] .." ("..#item.variantList.." variants)")
 			end
 		end
 		if item.league then
@@ -1894,11 +1936,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 
 	-- Implicit/explicit modifiers
 	if item.modLines[1] then
-		for index, modLine in pairs(item.modLines) do
+		for index, modLine in ipairs(item.modLines) do
 			if not modLine.buff and item:CheckModLineVariant(modLine) then
 				tooltip:AddLine(16, itemLib.formatModLine(modLine, dbMode))
 			end
-			if index == item.implicitLines + item.buffLines and item.modLines[index + 1] then
+			if (index == item.implicitLines + item.buffLines and item.modLines[index + 1]) or (index < item.implicitLines + item.buffLines and modLine.crafted and not item.modLines[index + 1].crafted) then
 				-- Add separator between implicit and explicit modifiers
 				tooltip:AddSeparator(10)
 			end
@@ -1938,7 +1980,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				local lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
 				if inst > 0 and grad > 0 then
 					t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
-				elseif inst + grad ~= flaskData.lifeTotal then
+				elseif inst + grad ~= flaskData.lifeTotal or (inst == 0 and lifeDur ~= flaskData.duration) then
 					if inst > 0 then
 						t_insert(stats, s_format("^8Life recovered: ^7%d ^8instantly", inst))
 					elseif grad > 0 then
@@ -1954,7 +1996,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				local manaDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + manaRateInc / 100)
 				if inst > 0 and grad > 0 then
 					t_insert(stats, s_format("^8Mana recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, manaDur))
-				elseif inst + grad ~= flaskData.manaTotal then
+				elseif inst + grad ~= flaskData.manaTotal or (inst == 0 and manaDur ~= flaskData.duration) then
 					if inst > 0 then
 						t_insert(stats, s_format("^8Mana recovered: ^7%d ^8instantly", inst))
 					elseif grad > 0 then

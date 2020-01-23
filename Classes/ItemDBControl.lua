@@ -9,10 +9,6 @@ local t_insert = table.insert
 local m_max = math.max
 local m_floor = math.floor
 
-local sortDropList = { 
-	{ label = "Sort by name", sortMode = "NAME" },
-	{ label = "Sort by DPS", sortMode = "DPS" },
-}
 
 local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab, db, dbType)
 	self.ListControl(anchor, x, y, width, height, 16, false, false)
@@ -22,8 +18,10 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 	self.dragTargetList = { }
 	self.sortControl = { 
 		NAME = { key = "name", dir = "ASCEND", func = function(a,b) return a:gsub("^The ","") < b:gsub("^The ","") end },
-		DPS = { key = "CombinedDPS", dir = "DESCEND" },
+		STAT = { key = "measuredPower", dir = "DESCEND" },
 	}
+	self.sortDropList = { }
+	self.sortOrder = { }
 	self.sortMode = "NAME"
 	local leagueFlag = { }
 	local typeFlag = { }
@@ -61,10 +59,8 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 		self.listBuildFlag = true
 	end)
 	if dbType == "UNIQUE" then
-		self.controls.sort = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, baseY + 20, 179, 18, sortDropList, function(index, value)
-			self.sortMode = value.sortMode
-			self:BuildSortOrder()
-			self.listBuildFlag = true
+		self.controls.sort = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, baseY + 20, 179, 18, self.sortDropList, function(index, value)
+			self:SetSortMode(value.sortMode)
 		end)
 		self.controls.league = new("DropDownControl", {"LEFT",self.controls.sort,"RIGHT"}, 2, 0, 179, 18, self.leagueList, function(index, value)
 			self.listBuildFlag = true
@@ -151,11 +147,28 @@ function ItemDBClass:SetSortMode(sortMode)
 end
 
 function ItemDBClass:BuildSortOrder()
-	self.sortOrder = wipeTable(self.sortOrder)
-	t_insert(self.sortOrder, self.sortControl[self.sortMode])
-	if self.controls.sort then
-		self.controls.sort:SelByValue(self.sortMode, "sortMode")
+	wipeTable(self.sortDropList)
+	for id,stat in pairs(data.powerStatList) do
+		if not stat.ignoreForItems then
+			t_insert(self.sortDropList, {
+				label="Sort by "..stat.label,
+				sortMode=stat.itemField or stat.stat,
+				itemField=stat.itemField,
+				stat=stat.stat,
+				transform=stat.transform,
+			})
+		end
 	end
+	wipeTable(self.sortOrder)
+	if self.controls.sort then
+		self.controls.sort.selIndex = 1
+		self.controls.sort:SelByValue(self.sortMode, "sortMode")
+		self.sortDetail = self.controls.sort.list[self.controls.sort.selIndex]
+	end
+	if self.sortDetail and self.sortDetail.stat then
+		t_insert(self.sortOrder, self.sortControl.STAT)
+	end
+	t_insert(self.sortOrder, self.sortControl.NAME)
 end
 
 function ItemDBClass:ListBuilder()
@@ -166,16 +179,19 @@ function ItemDBClass:ListBuilder()
 		end
 	end
 
-	if self.sortMode == "DPS" then
+	if self.sortDetail and self.sortDetail.stat then -- stat-based
 		local start = GetTime()
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
-		local baseDPS = calcBase.Minion and calcBase.Minion.CombinedDPS or calcBase.CombinedDPS
 		for itemIndex, item in ipairs(list) do
-			item.CombinedDPS = 0
+			item.measuredPower = 0
 			for slotName, slot in pairs(self.itemsTab.slots) do
 				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
 					local output = calcFunc(item.base.flask and { toggleFlask = item } or { repSlotName = slotName, repItem = item })
-					item.CombinedDPS = m_max(item.CombinedDPS, output.Minion and output.Minion.CombinedDPS or output.CombinedDPS)				
+					local measuredPower = output.Minion and output.Minion[self.sortMode] or output[self.sortMode] or 0
+					if self.sortDetail.transform then
+						measuredPower = self.sortDetail.transform(measuredPower)
+					end
+					item.measuredPower = m_max(item.measuredPower, measuredPower)
 				end
 			end
 			local now = GetTime()

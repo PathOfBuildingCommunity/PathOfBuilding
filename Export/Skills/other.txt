@@ -53,15 +53,6 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill UniqueSupportGreaterVolley Greater Volley
-	fromItem = true,
-	statMap = {
-		["support_greater_volley_projectile_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Projectile),
-		},
-	},
-#mods
-
 #skill RepeatingShockwave
 #flags spell area
 	fromItem = true,
@@ -225,7 +216,7 @@ local skills, mod, flag, skill = ...
 			mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
-#baseMod skill("radius", 36)
+#baseMod skill("radius", 40)
 #mods
 
 #skill FireAegis
@@ -238,10 +229,21 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SupportGreaterSpellEcho Greater Spell Echo
+	fromItem = true,
+	statMap = {
+		["support_greater_spell_echo_area_of_effect_+%_per_repeat"] = {
+			mod("AreaOfEffect", "INC", nil),
+		},
+	},
+#baseMod mod("Damage", "MORE", 35, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true })
+#baseMod mod("Damage", "MORE", 52, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true })
+#mods
+
 #skill VaalAuraElementalDamageHealing
 #flags spell aura area duration
 	fromItem = true,
-#baseMod skill("radius", 36)
+#baseMod skill("radius", 40)
 #mods
 
 #skill IcestormUniqueStaff12
@@ -271,6 +273,29 @@ local skills, mod, flag, skill = ...
 #skill LightningSpell
 #flags spell area
 	fromItem = true,
+#mods
+
+#skill AnimateGuardianWeapon
+#flags spell minion duration
+	fromItem = true,
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	minionList = {
+		"AnimatedWeapon",
+	},
+	statMap = {
+		["active_skill_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["attack_minimum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
+		["attack_maximum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
+	},
 #mods
 
 #skill UniqueAnimateWeapon

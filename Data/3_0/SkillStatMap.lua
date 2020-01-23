@@ -137,6 +137,12 @@ return {
 ["projectile_damage_modifiers_apply_to_skill_dot"] = {
 	skill("dotIsProjectile", true),
 },
+["additive_mine_duration_modifiers_apply_to_buff_effect_duration"] = {
+	skill("mineDurationAppliesToSkill", true),
+},
+["additive_arrow_speed_modifiers_apply_to_area_of_effect"] = {
+	skill("arrowSpeedAppliesToAreaOfEffect", true),
+},
 ["base_use_life_in_place_of_mana"] = {
 	flag("SkillBloodMagic"),
 },
@@ -281,6 +287,10 @@ return {
 	mod("DamageManaLeech", "BASE", nil),
 	div = 100,
 },
+["attack_skill_mana_leech_from_any_damage_permyriad"] = {
+	mod("DamageManaLeech", "BASE", nil, ModFlag.Attack),
+	div = 100,
+},
 ["energy_shield_leech_from_any_damage_permyriad"] = {
 	mod("DamageEnergyShieldLeech", "BASE", nil),
 	div = 100,
@@ -304,6 +314,15 @@ return {
 },
 ["aura_effect_+%"] = {
 	mod("AuraEffect", "INC", nil),
+},
+["elusive_effect_+%"] = {
+	mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+},
+["cannot_be_stunned_while_leeching"] = {
+	mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Leeching"}),
+},
+["life_leech_does_not_stop_at_full_life"] = {
+	flag("CanLeechLifeOnFullLife"),
 },
 
 --
@@ -333,6 +352,9 @@ return {
 ["active_skill_area_of_effect_+%_final_when_cast_on_frostbolt"] = {
 	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 },
+["active_skill_area_of_effect_radius_+%_final"] = {
+	mod("AreaOfEffect", "MORE", nil),
+},
 -- Critical strikes
 ["additional_base_critical_strike_chance"] = {
 	mod("CritChance", "BASE", nil),
@@ -352,6 +374,13 @@ return {
 },
 ["critical_strike_multiplier_+_per_power_charge"] = {
 	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
+},
+["additional_critical_strike_chance_permyriad_while_affected_by_elusive"] = {
+	mod("CritChance", "BASE", nil, 0, 0, { type = "Condition", var = "Elusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger"} } ),
+	div = 100,
+},
+["nightblade_elusive_grants_critical_strike_multiplier_+_to_supported_skills"] = {
+	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Condition", var = "Elusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } } ),
 },
 -- Duration
 ["buff_effect_duration_+%_per_removable_endurance_charge"] = {
@@ -481,6 +510,9 @@ return {
 ["global_maximum_added_chaos_damage"] = {
 	mod("ChaosMax", "BASE", nil),
 },
+["support_slashing_damage_+%_final_from_distance"] = {
+	mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }) 
+},
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {
 	mod("PhysicalDamageGainAsLightning", "BASE", nil),
@@ -574,8 +606,16 @@ return {
 ["shock_effect_+%"] = {
 	mod("EnemyShockEffect", "INC", nil),
 },
+["non_damaging_ailment_effect_+%"] = {
+	mod("EnemyChillEffect", "INC", nil),
+	mod("EnemyShockEffect", "INC", nil),
+	mod("EnemyFreezeEffect", "INC", nil),
+},
 ["base_poison_duration_+%"] = {
 	mod("EnemyPoisonDuration", "INC", nil),
+},
+["active_skill_poison_duration_+%_final"] = {
+	mod("EnemyPoisonDuration", "MORE", nil),
 },
 ["ignite_duration_+%"] = {
 	mod("EnemyIgniteDuration", "INC", nil),
@@ -609,8 +649,19 @@ return {
 ["base_poison_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Poison),
 },
+["critical_poison_dot_multiplier_+"] = {
+	mod("DotMultiplier", "BASE", nil, 0, KeywordFlag.Poison, { type = "Condition", var = "CriticalStrike" }),
+},
+["poison_dot_multiplier_+"] = {
+	mod("DotMultiplier", "BASE", nil, 0, KeywordFlag.Poison),
+},
 ["active_skill_ignite_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite),
+},
+["damaging_ailments_deal_damage_+%_faster"] = {
+	mod("BleedFaster", "INC", nil),
+	mod("PoisonFaster", "INC", nil),
+	mod("IgniteBurnFaster", "INC", nil),
 },
 -- Global flags
 ["never_ignite"] = {
@@ -666,6 +717,9 @@ return {
 ["chance_to_be_knocked_back_%"] = {
 	mod("SelfKnockbackChance", "BASE", nil),
 },
+["number_of_additional_curses_allowed"] = {
+	mod("EnemyCurseLimit", "BASE", nil),
+},
 -- Projectiles
 ["base_projectile_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
@@ -682,6 +736,9 @@ return {
 ["always_pierce"] = {
 	flag("PierceAllTargets"),
 },
+["cannot_pierce"] = {
+	flag("CannotPierce"),
+},
 ["base_number_of_additional_arrows"] = {
 	mod("ProjectileCount", "BASE", nil),
 },
@@ -691,8 +748,17 @@ return {
 ["number_of_chains"] = {
 	mod("ChainCountMax", "BASE", nil),
 },
+["additional_beam_only_chains"] = {
+	mod("BeamChainCountMax", "BASE", nil),
+},
 ["projectiles_always_pierce_you"] = {
 	flag("AlwaysPierceSelf"),
+},
+["active_skill_returning_projectile_damage_+%_final"] = {
+	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "ReturningProjectile" }),
+},
+["returning_projectiles_always_pierce"] = {
+	flag("PierceAllTargets", { type = "Condition", var = "ReturningProjectile" }),
 },
 -- Self modifiers
 ["chance_to_be_pierced_%"] = {
@@ -883,7 +949,13 @@ return {
 	mod("CritChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShieldOnWeapon 2", 	div = 10, }),
 	div = 100,
 },
-
+-- Impale
+["attacks_impale_on_hit_%_chance"] = {
+    mod("ImpaleChance", "BASE", nil, 0, 0)
+},
+["impale_debuff_effect_+%"] = {
+    mod("ImpaleEffect", "INC", nil, 0, 0)
+},
 --
 -- Spell modifiers
 --
@@ -972,6 +1044,9 @@ return {
 ["number_of_additional_totems_allowed"] = {
 	mod("ActiveTotemLimit", "BASE", nil),
 },
+["attack_skills_additional_ballista_totems_allowed"] = {
+	mod("ActiveTotemLimit", "BASE", nil, ModFlag.Attack),
+},
 ["base_number_of_totems_allowed"] = {
 	mod("ActiveTotemLimit", "BASE", nil),
 },
@@ -998,7 +1073,8 @@ return {
 	mod("MinionModifier", "LIST", { mod = mod("ElementalResist", "BASE", nil) }),
 },
 ["minion_elemental_resistance_30%"] = {
-	mod("MinionModifier", "LIST", { mod = mod("ElementalResist", "BASE", 30) }),
+	mod("MinionModifier", "LIST", { mod = mod("ElementalResist", "BASE", nil) }),
+	value=30
 },
 ["summon_fire_resistance_+"] = {
 	mod("MinionModifier", "LIST", { mod = mod("FireResist", "BASE", nil) }),
@@ -1008,6 +1084,9 @@ return {
 },
 ["summon_lightning_resistance_+"] = {
 	mod("MinionModifier", "LIST", { mod = mod("LightningResist", "BASE", nil) }),
+},
+["minion_maximum_all_elemental_resistances_%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("ElementalResistMax", "BASE", nil) }),
 },
 ["base_number_of_zombies_allowed"] = {
 	mod("ActiveZombieLimit", "BASE", nil),

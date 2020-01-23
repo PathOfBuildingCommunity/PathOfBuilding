@@ -4,7 +4,6 @@
 Settings.xml
 *.cfg
 *.json
-TreeData/
 Builds/
 /Export/Tree/PassiveSkillGraph.psg
 /Export/Tree/passives
@@ -202,6 +201,7 @@ ClientBin/
 *.publishsettings
 node_modules/
 orleans.codegen.cs
+manifest-updated.xml
 
 # RIA/Silverlight projects
 Generated_Code/

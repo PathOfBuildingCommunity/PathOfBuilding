@@ -49,7 +49,14 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				self.input.skill_number = index 
 				self:AddUndoState()
 				self.build.buildFlag = true
-			end)
+			end) {
+				tooltipFunc = function(tooltip, mode, index, value)
+					local socketGroup = self.build.skillsTab.socketGroupList[index]
+					if socketGroup and tooltip:CheckForUpdate(socketGroup, self.build.outputRevision) then
+						self.build.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
+					end
+				end
+			}
 		}, },
 		{ label = "Active Skill", { controlName = "mainSkill", 
 			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value)
@@ -63,6 +70,15 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillPartCalcs = index
+				self:AddUndoState()
+				self.build.buildFlag = true
+			end)
+		}, },
+		{ label = "Active Mines", playerFlag = "mine", { controlName = "mainSkillMineCount",
+			control = new("EditControl", nil, 0, 0, 52, 16, nil, nil, "%D", nil, function(buf)
+				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
+				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
+				srcInstance.skillMineCountCalcs = tonumber(buf)
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end)
@@ -123,12 +139,6 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 		section.controls.showMinion.state = self.input.showMinion
 		section.controls.mode:SelByValue(self.input.misc_buffMode, "buffMode")
 	end)
-	self.sectionList[1].controls.mainSocketGroup.tooltipFunc = function(tooltip, mode, index, value)
-		local socketGroup = self.build.skillsTab.socketGroupList[index]
-		if socketGroup and tooltip:CheckForUpdate(socketGroup, self.build.outputRevision) then
-			self.build.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
-		end
-	end
 
 	-- Add sections from the CalcSections module
 	for _, section in ipairs(sectionData[build.targetVersion]) do
@@ -435,8 +445,9 @@ end
 function CalcsTabClass:PowerBuilder()
 	local calcFunc, calcBase = self:GetNodeCalculator()
 	local cache = { }
-	local newPowerMax = { 
-		offence = 0, 
+	local newPowerMax = {
+		singleStat = 0,
+		offence = 0,
 		defence = 0
 	}
 	if not self.powerMax then
@@ -453,20 +464,27 @@ function CalcsTabClass:PowerBuilder()
 				cache[node.modKey] = calcFunc({node})
 			end
 			local output = cache[node.modKey]
-			if calcBase.Minion then
-				node.power.offence = (output.Minion.CombinedDPS - calcBase.Minion.CombinedDPS) / calcBase.Minion.CombinedDPS
+			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
+				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
+				if node.path then
+					newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.singleStat)
+				end
 			else
-				node.power.offence = (output.CombinedDPS - calcBase.CombinedDPS) / calcBase.CombinedDPS
-			end
-			node.power.defence = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) + 
-							 (output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) + 
-							 (output.EnergyShield - calcBase.EnergyShield) / m_max(3000, calcBase.EnergyShield) + 
-							 (output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
-							 (output.LifeRegen - calcBase.LifeRegen) / 500 +
-							 (output.EnergyShieldRegen - calcBase.EnergyShieldRegen) / 1000
-			if node.path then
-				newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
-				newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
+				if calcBase.Minion then
+					node.power.offence = (output.Minion.CombinedDPS - calcBase.Minion.CombinedDPS) / calcBase.Minion.CombinedDPS
+				else
+					node.power.offence = (output.CombinedDPS - calcBase.CombinedDPS) / calcBase.CombinedDPS
+				end
+				node.power.defence = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) +
+								(output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) +
+								(output.EnergyShield - calcBase.EnergyShield) / m_max(3000, calcBase.EnergyShield) +
+								(output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
+								(output.LifeRegen - calcBase.LifeRegen) / 500 +
+								(output.EnergyShieldRegen - calcBase.EnergyShieldRegen) / 1000
+				if node.path then
+					newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
+					newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
+				end
 			end
 		end
 		if coroutine.running() and GetTime() - start > 100 then
@@ -475,6 +493,20 @@ function CalcsTabClass:PowerBuilder()
 		end
 	end	
 	self.powerMax = newPowerMax
+end
+
+function CalcsTabClass:CalculatePowerStat(selection, original, modified)
+	if modified.Minion then
+		original = original.Minion
+		modified = modified.Minion
+	end
+	originalValue = original[selection.stat] or 0
+	modifiedValue = modified[selection.stat] or 0
+	if selection.transform then
+		originalValue = selection.transform(originalValue)
+		modifiedValue = selection.transform(modifiedValue)
+	end
+	return originalValue - modifiedValue
 end
 
 function CalcsTabClass:GetNodeCalculator()

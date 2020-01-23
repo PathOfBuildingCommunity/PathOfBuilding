@@ -269,6 +269,18 @@ function calcs.buildOutput(build, mode)
 		if output.SiphoningCharges > 0 then
 			t_insert(combatList, s_format("%d Siphoning Charges", output.SiphoningCharges))
 		end
+		if output.ChallengerCharges > 0 then
+			t_insert(combatList, s_format("%d Challenger Charges", output.ChallengerCharges))
+		end
+		if output.BlitzCharges > 0 then
+			t_insert(combatList, s_format("%d Blitz Charges", output.BlitzCharges))
+		end
+		if output.InspirationCharges > 0 then
+			t_insert(combatList, s_format("%d Inspiration Charges", output.InspirationCharges))
+		end
+		if output.GhostShrouds > 0 then
+			t_insert(combatList, s_format("%d Ghost Shrouds", output.GhostShrouds))
+		end
 		if output.CrabBarriers > 0 then
 			t_insert(combatList, s_format("%d Crab Barriers", output.CrabBarriers))
 		end
@@ -292,6 +304,9 @@ function calcs.buildOutput(build, mode)
 		end
 		for name in pairs(env.buffs) do
 			t_insert(buffList, name)
+		end
+		if env.modDB:Flag(nil, "Elusive") then
+			t_insert(combatList, "Elusive")
 		end
 		table.sort(buffList)
 		env.player.breakdown.SkillBuffs = { modList = { } }

@@ -64,7 +64,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self[k] = v
 	end
 
-	local cdnRoot = treeVersion == "2_6" and "" or ""--https://web.poecdn.com"
+	local cdnRoot = treeVersion == "2_6" and "" or "https://web.poecdn.com/image"
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
 
@@ -167,9 +167,52 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 	ConPrintf("Processing tree...")
 	self.keystoneMap = { }
+	self.notableMap = { }
 	local nodeMap = { }
 	local sockets = { }
-	local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6, m_pi / 20 }
+	local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6 }
+	local orbitMultFull = {
+		[0] = 0,
+		[1] = 10 * m_pi / 180,
+		[2] = 20 * m_pi / 180,
+		[3] = 30 * m_pi / 180,
+		[4] = 40 * m_pi / 180,
+		[5] = 45 * m_pi / 180,
+		[6] = 50 * m_pi / 180,
+		[7] = 60 * m_pi / 180,
+		[8] = 70 * m_pi / 180,
+		[9] = 80 * m_pi / 180,
+		[10] = 90 * m_pi / 180,
+		[11] = 100 * m_pi / 180,
+		[12] = 110 * m_pi / 180,
+		[13] = 120 * m_pi / 180,
+		[14] = 130 * m_pi / 180,
+		[15] = 135 * m_pi / 180,
+		[16] = 140 * m_pi / 180,
+		[17] = 150 * m_pi / 180,
+		[18] = 160 * m_pi / 180,
+		[19] = 170 * m_pi / 180,
+		[20] = 180 * m_pi / 180,
+		[21] = 190 * m_pi / 180,
+		[22] = 200 * m_pi / 180,
+		[23] = 210 * m_pi / 180,
+		[24] = 220 * m_pi / 180,
+		[25] = 225 * m_pi / 180,
+		[26] = 230 * m_pi / 180,
+		[27] = 240 * m_pi / 180,
+		[28] = 250 * m_pi / 180,
+		[29] = 260 * m_pi / 180,
+		[30] = 270 * m_pi / 180,
+		[31] = 280 * m_pi / 180,
+		[32] = 290 * m_pi / 180,
+		[33] = 300 * m_pi / 180,
+		[34] = 310 * m_pi / 180,
+		[35] = 315 * m_pi / 180,
+		[36] = 320 * m_pi / 180,
+		[37] = 330 * m_pi / 180,
+		[38] = 340 * m_pi / 180,
+		[39] = 350 * m_pi / 180
+	}
 	local orbitDist = { [0] = 0, 82, 162, 335, 493 }
 	for _, node in pairs(self.nodes) do
 		node.meta = { __index = node }
@@ -196,6 +239,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			self.keystoneMap[node.dn] = node
 		elseif node["not"] then
 			node.type = "Notable"
+			self.notableMap[node.dn:lower()] = node
 		else
 			node.type = "Normal"
 		end
@@ -219,7 +263,11 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			group.isAscendancyStart = true
 		end
 		node.group = group
-		node.angle = node.oidx * orbitMult[node.o]
+		if node.o ~= 4 then
+			node.angle = node.oidx * orbitMult[node.o]
+		else
+			node.angle = orbitMultFull[node.oidx]
+		end
 		local dist = orbitDist[node.o]
 		node.x = group.x + m_sin(node.angle) * dist
 		node.y = group.y - m_cos(node.angle) * dist
@@ -314,7 +362,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			socket.attributesInRadius[radiusIndex] = { }
 			local rSq = radiusInfo.rad * radiusInfo.rad
 			for _, node in pairs(self.nodes) do
-				if node ~= socket then
+				if node ~= socket and not node.isBlighted then
 					local vX, vY = node.x - socket.x, node.y - socket.y
 					if vX * vX + vY * vY <= rSq then 
 						socket.nodesInRadius[radiusIndex][node.id] = node

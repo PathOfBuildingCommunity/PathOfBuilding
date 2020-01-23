@@ -12,6 +12,10 @@ local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
 local s_format = string.format
+local s_char = string.char
+local b_rshift = bit.rshift
+local b_and = bit.band
+local b_xor = bit.bxor
 
 common = { }
 
@@ -128,13 +132,13 @@ function codePointToUTF8(codePoint)
 	if codePoint >= 0xD800 and codePoint <= 0xDFFF then
 		return "?"
 	elseif codePoint <= 0x7F then
-		return string.char(codePoint)
+		return s_char(codePoint)
 	elseif codePoint <= 0x07FF then
-		return string.char(0xC0 + bit.rshift(codePoint, 6), 0x80 + bit.band(codePoint, 0x3F))
+		return s_char(0xC0 + b_rshift(codePoint, 6), 0x80 + b_and(codePoint, 0x3F))
 	elseif codePoint <= 0xFFFF then
-		return string.char(0xE0 + bit.rshift(codePoint, 12), 0x80 + bit.band(bit.rshift(codePoint, 6), 0x3F), 0x80 + bit.band(codePoint, 0x3F))
+		return s_char(0xE0 + b_rshift(codePoint, 12), 0x80 + b_and(b_rshift(codePoint, 6), 0x3F), 0x80 + b_and(codePoint, 0x3F))
 	elseif codePoint <= 0x10FFFF then
-		return string.char(0xF0 + bit.rshift(codePoint, 18), 0x80 + bit.band(bit.rshift(codePoint, 12), 0x3F), 0x80 + bit.band(bit.rshift(codePoint, 6), 0x3F), 0x80 + bit.band(codePoint, 0x3F))
+		return s_char(0xF0 + b_rshift(codePoint, 18), 0x80 + b_and(b_rshift(codePoint, 12), 0x3F), 0x80 + b_and(b_rshift(codePoint, 6), 0x3F), 0x80 + b_and(codePoint, 0x3F))
 	else
 		return "?"
 	end
@@ -151,11 +155,11 @@ function convertUTF16to8(text, offset)
 			highSurr = codeUnit - 0xD800
 		elseif codeUnit >= 0xDC00 and codeUnit <= 0xDFFF then
 			if highSurr then
-				table.insert(out, codePointToUTF8(highSurr * 1024 + codeUnit - 0xDC00 + 0x010000))
+				t_insert(out, codePointToUTF8(highSurr * 1024 + codeUnit - 0xDC00 + 0x010000))
 				highSurr = nil
 			end
 		else
-			table.insert(out, codePointToUTF8(codeUnit))
+			t_insert(out, codePointToUTF8(codeUnit))
 		end
 	end
 	return table.concat(out)
@@ -164,11 +168,11 @@ function codePointToUTF16(codePoint)
 	if codePoint >= 0xD800 and codePoint <= 0xDFFF then
 		return "?\z"
 	elseif codePoint <= 0xFFFF then
-		return string.char(bit.band(codePoint, 0xFF), bit.rshift(codePoint, 8))
+		return s_char(b_and(codePoint, 0xFF), b_rshift(codePoint, 8))
 	elseif codePoint <= 0x10FFFF then
-		local highSurr = 0xD800 + bit.rshift(codePoint - 0x10000, 10)
-		local lowSurr = 0xDC00 + bit.band(codePoint - 0x10000, 0x2FF)
-		return string.char(bit.band(highSurr, 0xFF), bit.rshift(highSurr, 8), bit.band(lowSurr, 0xFF), bit.rshift(lowSurr, 8))
+		local highSurr = 0xD800 + b_rshift(codePoint - 0x10000, 10)
+		local lowSurr = 0xDC00 + b_and(codePoint - 0x10000, 0x2FF)
+		return s_char(b_and(highSurr, 0xFF), b_rshift(highSurr, 8), b_and(lowSurr, 0xFF), b_rshift(lowSurr, 8))
 	else
 		return "?\z"
 	end
@@ -183,29 +187,29 @@ function convertUTF8to16(text, offset)
 		if codeUnit == 0 then
 			break
 		elseif codeUnit <= 0x7F then
-			table.insert(out, string.char(codeUnit, 0))
+			table.insert(out, s_char(codeUnit, 0))
 		elseif codeUnit >= 0xC2 and codeUnit <= 0xDF then
 			codeUnitRemaining = 1
-			codePoint = bit.band(codeUnit, 0x1F)
+			codePoint = b_and(codeUnit, 0x1F)
 		elseif codeUnit >= 0xE0 and codeUnit <= 0xEF then
 			codeUnitRemaining = 2
-			codePoint = bit.band(codeUnit, 0x0F)
+			codePoint = b_and(codeUnit, 0x0F)
 		elseif codeUnit >= 0xF0 and codeUnit <= 0xF4 then
 			codeUnitRemaining = 3
-			codePoint = bit.band(codeUnit, 0x03)
+			codePoint = b_and(codeUnit, 0x03)
 		elseif codeUnit >= 0x80 and codeUnit <= 0xBF then
 			if codeUnitRemaining then
-				codePoint = bit.lshift(codePoint, 6) + bit.band(codeUnit, 0x3F)
+				codePoint = bit.lshift(codePoint, 6) + b_and(codeUnit, 0x3F)
 				codeUnitRemaining = codeUnitRemaining - 1
 				if codeUnitRemaining == 0 then
-					table.insert(out, codePointToUTF16(codePoint))
+					t_insert(out, codePointToUTF16(codePoint))
 					codeUnitRemaining = nil
 				end
 			else
-				table.insert(out, "?\z")
+				t_insert(out, "?\z")
 			end
 		else 
-			table.insert(out, "?\z")
+			t_insert(out, "?\z")
 		end
 	end
 	return table.concat(out)
@@ -217,35 +221,35 @@ do
 	end
 	local function murmurMix(val)
 		val = toUnsigned(val)
-		return bit.tobit(val * 0xE995 + bit.band(val * 0x5BD1, 0xFFFF) * 0x10000)
+		return bit.tobit(val * 0xE995 + b_and(val * 0x5BD1, 0xFFFF) * 0x10000)
 	end
 	function murmurHash2(key, seed)
 		local len = #key
-		local h = bit.bxor(seed or 0, len)
+		local h = b_xor(seed or 0, len)
 		local o = 1
 		while len >= 4 do
 			local k = bytesToInt(key, o)
 			k = murmurMix(k)
-			k = bit.bxor(k, bit.rshift(k, 24))
+			k = b_xor(k, b_rshift(k, 24))
 			k = murmurMix(k)
 			h = murmurMix(h)
-			h = bit.bxor(h, k)
+			h = b_xor(h, k)
 			o = o + 4
 			len = len - 4
 		end
 		if len > 0 then
-			h = bit.bxor(h, bytesToInt(key, o))
+			h = b_xor(h, bytesToInt(key, o))
 			h = murmurMix(h)
 		end
-		h = bit.bxor(h, bit.rshift(h, 13))
+		h = b_xor(h, b_rshift(h, 13))
 		h = murmurMix(h)
-		h = bit.bxor(h, bit.rshift(h, 15))
+		h = b_xor(h, b_rshift(h, 15))
 		return toUnsigned(h)
 	end
 end
 
 local function bits(int, s, e)
-	return bit.band(bit.rshift(int, s), 2 ^ (e - s + 1) - 1)
+	return b_and(b_rshift(int, s), 2 ^ (e - s + 1) - 1)
 end
 function bytesToInt(b, o)
 	return bit.tobit(bytesToUInt(b, o))

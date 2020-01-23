@@ -37,6 +37,26 @@ local fooBanditDropList = {
 	{ label = "Alira (Mana Regen, Crit Multiplier, Resists)", banditId = "Alira" },
 }
 
+local PantheonMajorGodDropList = {
+	{ label = "Nothing", id = "None" },
+	{ label = "Soul of the Brine King", id = "TheBrineKing" },
+	{ label = "Soul of Lunaris", id = "Lunaris" },
+	{ label = "Soul of Solaris", id = "Solaris" },
+	{ label = "Soul of Arakaali", id = "Arakaali" },
+}
+
+local PantheonMinorGodDropList = {
+	{ label = "Nothing", id = "None" },
+	{ label = "Soul of Gruthkul", id = "Gruthkul" },
+	{ label = "Soul of Yugul", id = "Yugul" },
+	{ label = "Soul of Abberath", id = "Abberath" },
+	{ label = "Soul of Tukohama", id = "Tukohama" },
+	{ label = "Soul of Garukhan", id = "Garukhan" },
+	{ label = "Soul of Ralakesh", id = "Ralakesh" },
+	{ label = "Soul of Ryslatha", id = "Ryslatha" },
+	{ label = "Soul of Shakari", id = "Shakari" },
+}
+
 local buildMode = new("ControlHost")
 
 function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
@@ -218,7 +238,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f", compPercent = true },
 		{ stat = "TrapThrowingTime", label = "Trap Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".2fs", lowerIsBetter = true },
-		{ stat = "MineLayingTime", label = "Mine Laying Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
+		{ stat = "MineLayingTime", label = targetVersion == "2_6" and "Mine Laying Time" or "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TotemPlacementTime", label = "Totem Placement Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },
@@ -236,6 +256,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", condFunc = function(v,o) return v ~= o.TotalDPS end },
 		{ stat = "WithPoisonAverageDamage", label = "Average Dmg. inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", condFunc = function(v,o) return v ~= o.AverageDamage end },
 		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
+		{ stat = "ImpaleDPS", label = "Impale added Damage", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage" },
+		{ stat = "WithImpaleDPS", label = "Damage inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage" },
+		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
+		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
 		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function() return true end },
@@ -306,6 +330,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true },
 		{ stat = "WithPoisonDPS", label = "DPS inc. Poison", fmt = ".1f", compPercent = true },
 		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
+		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale" },
+		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale" },
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "Life", label = "Total Life", fmt = ".1f", compPercent = true },
 		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
@@ -330,6 +356,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self.banditNormal = "None"
 	self.banditCruel = "None"
 	self.banditMerciless = "None"
+	self.pantheonMajorGod = "None"
+	self.pantheonMinorGod = "None"
 	self.spectreList = { }
 
 	-- Load build file
@@ -418,8 +446,43 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 			self.buildFlag = true
 		end)
 		self.controls.banditLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.bandit,"TOPLEFT"}, 0, 0, 0, 14, "^7Bandit:")
-	end	
-	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 95, 300, 16, "^7Main Skill:")
+		-- The Pantheon
+		local function applyPantheonDescription(tooltip, mode, index, value)
+			tooltip:Clear()
+			if value.id == "None" then
+				return
+			end
+			local applyModes = { BODY = true, HOVER = true }
+			if applyModes[mode] then
+				local god = self.data.pantheons[value.id]
+				for _, soul in ipairs(god.souls) do
+					local name = soul.name
+					local lines = { }
+					for _, mod in ipairs(soul.mods) do
+						t_insert(lines, mod.line)
+					end
+					tooltip:AddLine(20, '^8'..name)
+					tooltip:AddLine(14, '^6'..table.concat(lines, '\n'))
+					tooltip:AddSeparator(10)
+				end
+			end
+		end
+		self.controls.pantheonMajorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 110, 300, 16, PantheonMajorGodDropList, function(index, value)
+			self.pantheonMajorGod = value.id
+			self.modFlag = true
+			self.buildFlag = true
+		end)
+		self.controls.pantheonMajorGod.tooltipFunc = applyPantheonDescription
+		self.controls.pantheonMinorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 130, 300, 16, PantheonMinorGodDropList, function(index, value)
+			self.pantheonMinorGod = value.id
+			self.modFlag = true
+			self.buildFlag = true
+		end)
+		self.controls.pantheonMinorGod.tooltipFunc = applyPantheonDescription
+		self.controls.pantheonLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.pantheonMajorGod,"TOPLEFT"}, 0, 0, 0, 14, "^7The Pantheon:")
+	end
+	local mainSkillPosY = (self.targetVersion == "2_6") and 95 or 155 -- The Pantheon's DropDown space
+	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, mainSkillPosY, 300, 16, "^7Main Skill:")
 	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
 		self.mainSocketGroup = index
 		self.modFlag = true
@@ -444,7 +507,19 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillMinion = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillPart,"BOTTOMLEFT",true}, 0, 2, 178, 18, nil, function(index, value)
+	self.controls.mainSkillMineCountLabel = new("LabelControl", {"TOPLEFT",self.controls.mainSkillPart,"BOTTOMLEFT",true}, 0, 3, 0, 16, "^7Active Mines:") {
+		shown = function()
+			return self.controls.mainSkillMineCount:IsShown()
+		end,
+	}
+	self.controls.mainSkillMineCount = new("EditControl", {"LEFT",self.controls.mainSkillMineCountLabel,"RIGHT",true}, 2, 0, 60, 18, nil, nil, "%D", nil, function(buf)
+		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
+		srcInstance.skillMineCount = tonumber(buf)
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.mainSkillMinion = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillMineCountLabel,"BOTTOMLEFT",true}, 0, 3, 178, 18, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		if value.itemSetId then
@@ -617,7 +692,7 @@ function buildMode:Load(xml, fileName)
 	end
 	self.characterLevel = tonumber(xml.attrib.level) or 1
 	self.controls.characterLevel:SetText(tostring(self.characterLevel))
-	for _, diff in pairs({"bandit","banditNormal","banditCruel","banditMerciless"}) do
+	for _, diff in pairs({"bandit","banditNormal","banditCruel","banditMerciless","pantheonMajorGod","pantheonMinorGod"}) do
 		self[diff] = xml.attrib[diff] or "None"
 	end
 	self.mainSocketGroup = tonumber(xml.attrib.mainSkillIndex) or tonumber(xml.attrib.mainSocketGroup) or 1
@@ -642,6 +717,8 @@ function buildMode:Save(xml)
 		banditNormal = self.banditNormal,
 		banditCruel = self.banditCruel,
 		banditMerciless = self.banditMerciless,
+		pantheonMajorGod = self.pantheonMajorGod,
+		pantheonMinorGod = self.pantheonMinorGod,
 		mainSocketGroup = tostring(self.mainSocketGroup),
 	}
 	for _, id in ipairs(self.spectreList) do
@@ -736,7 +813,12 @@ function buildMode:OnFrame(inputEvents)
 			self.controls[diff]:SelByValue(self[diff], "banditId")
 		end
 	end
-
+	for _, diff in pairs({"pantheonMajorGod","pantheonMinorGod"}) do
+		if self.controls[diff] then
+			self.controls[diff]:SelByValue(self[diff], "id")
+		end
+	end
+	
 	if self.buildFlag then
 		-- Rebuild calculation output tables
 		self.outputRevision = self.outputRevision + 1
@@ -948,6 +1030,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		controls.mainSocketGroup.list[1] = { val = 1, label = "<No skills added yet>" }
 		controls.mainSkill.shown = false
 		controls.mainSkillPart.shown = false
+		controls.mainSkillMineCount.shown = false
 		controls.mainSkillMinion.shown = false
 		controls.mainSkillMinionSkill.shown = false
 	else
@@ -962,6 +1045,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		controls.mainSkill.selIndex = mainActiveSkill
 		controls.mainSkill.shown = true
 		controls.mainSkillPart.shown = false
+		controls.mainSkillMineCount.shown = false
 		controls.mainSkillMinion.shown = false
 		controls.mainSkillMinionLibrary.shown = false
 		controls.mainSkillMinionSkill.shown = false
@@ -976,6 +1060,10 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 						t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
 					end
 					controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
+				end
+				if activeSkill.skillFlags.mine then
+					controls.mainSkillMineCount.shown = true
+					controls.mainSkillMineCount.buf = tostring(activeEffect.srcInstance["skillMineCount"..suffix] or "")
 				end
 				if not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or activeSkill.minionList[1]) then
 					wipeTable(controls.mainSkillMinion.list)

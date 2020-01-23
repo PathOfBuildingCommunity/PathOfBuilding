@@ -49,8 +49,14 @@ You can now use the shortcut to run the program from the repository. Running the
 
 Note that the updates system is disabled in Dev Mode, so you must update manually.
 
-The repository also contains the system used to export data from the game's Content.ggpk file. This can be found in the Export folder.
-The data is exported using the scripts in Export/Scripts, which are run from within the .dat viewer.
-The viewer can be run using the same method as the main program: passing the path to Export/Launch.lua to Path of Building.exe.
-Once open, enter the path to your PoE installation's Content.ggpk file in the text box at the top left; if successful, you will see a list of the data tables in the .ggpk file.
-Double-clicking a script in the scripts list will run it, and the box to the right will show any messages from the script.
+#### Exporting Data from GGPK
+
+The repository also contains the system used to export data from the game's Content.ggpk file. This can be found in the Export folder. The data is exported using the scripts in Export/Scripts, which are run from within the .dat viewer.
+
+Use this process to export data from a GGPK file:
+
+1. Create a shortcut to `Path of Building.exe` whose first argument is the path to `<Repo Root>\Export\Launch.lua`.
+2. Run the shortcut, and the GGPK data viewer UI will appear. If you get an error, be sure you're using the latest release of Path of Building.
+3. Paste the path to `Content.ggpk` into the text box in the top left, and hit enter to read the GGPK. If successful, you will see a list of the data tables in the GGPK file. Note: This will not work on the GGPK from the torrent file released before league launches, as it contains no `Data` section.
+4. Click `Scripts >>` to show the list of available export scripts. Double-clicking a script will run it, and the box to the right will show any output from the script.
+5. If you run into any errors, update the Export code as necessary and try again.

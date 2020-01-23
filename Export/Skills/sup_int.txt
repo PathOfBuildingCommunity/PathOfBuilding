@@ -8,7 +8,23 @@ local skills, mod, flag, skill = ...
 #skill SupportAddedChaosDamage
 #mods
 
+#skill SupportAddedChaosDamagePlus
+	statMap = {
+		["supported_active_skill_gem_level_+"] = {
+			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }),
+		},
+	},
+#mods
+
 #skill SupportAddedLightningDamage
+#mods
+
+#skill SupportAddedLightningDamagePlus
+	statMap = {
+		["supported_lightning_skill_gem_level_+"] = {
+			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.LightningSkill }),
+		},
+	},
 #mods
 
 #skill SupportArcaneSurge
@@ -30,6 +46,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBlasphemy
+#mods
+
+#skill SupportBlasphemyPlus
 #mods
 
 #skill SupportBonechill
@@ -60,6 +79,23 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportCastWhileChannellingPlus
+	statMap = {
+		["cast_while_channelling_time_ms"] = {
+			skill("timeOverride", nil, { type = "SkillType", skillType = SkillType.Triggerable }),
+			div = 1000,
+		},
+	},
+#mods
+
+#skill SupportCastWhileChannellingTriggeredPlus
+	statMap = {
+		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
+		},
+	},
+#mods
+
 #skill SupportChanceToIgnite
 	statMap = {
 		["support_chance_to_ignite_fire_damage_+%_final"] = {
@@ -67,6 +103,17 @@ local skills, mod, flag, skill = ...
 		},
 		["ignites_apply_fire_resistance_+"] = {
 			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Combustion" }, { type = "Condition", var = "Ignited" }),
+		},
+	},
+#mods
+
+#skill SupportChargedMines
+	statMap = {
+		["mine_throwing_speed_+%_per_frenzy_charge"] = {
+			mod("MineLayingSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
+		},
+		["mine_critical_strike_chance_+%_per_power_charge"] = {
+			mod("CritChance", "INC", nil, 0, KeywordFlag.Mine, { type = "Multiplier", var = "PowerCharge" }),
 		},
 	},
 #mods
@@ -90,7 +137,29 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportControlledDestructionPlus
+	statMap = {
+		["support_controlled_destruction_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell),
+		},
+	},
+#mods
+
 #skill SupportCurseOnHit
+#mods
+
+#skill SupportCurseOnHitPlus
+#mods
+
+#skill SupportMinionFocusFire
+	statMap = {
+		["deathmark_minion_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["support_minion_focus_fire_damage_+%_final_vs_focussed_target"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
+		},
+	},
 #mods
 
 #skill SupportDecay
@@ -108,6 +177,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportElementalFocus
+	statMap = {
+		["support_gem_elemental_damage_+%_final"] = {
+			mod("ElementalDamage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportElementalFocusPlus
 	statMap = {
 		["support_gem_elemental_damage_+%_final"] = {
 			mod("ElementalDamage", "MORE", nil),
@@ -140,6 +217,28 @@ local skills, mod, flag, skill = ...
 #skill SupportFasterCast
 #mods
 
+#skill SupportMinionOffensiveStance
+	statMap = {
+		["support_minion_offensive_stance_minion_damage_+%_final_while_you_have_puppet_master"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "FeedingFrenzyActive" }),
+		},
+	},
+#mods
+
+#skill SupportRemoteMine2
+	addFlags = {
+		mine = true,
+	},
+	statMap = {
+		["support_remote_mine_2_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_remote_mine_2_chance_to_deal_double_damage_%_against_enemies_near_mines"] = {
+			mod("SelfDoubleDamageChance", "BASE", nil, 0, 0, { type = "Limit", limit = 100 }, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "High-Impact Mine", effectStackVar = "ActiveMineCount" }),
+		},
+	},
+#mods
+
 #skill SupportIgniteProliferation
 	statMap = {
 		["support_ignite_prolif_ignite_damage_+%_final"] = {
@@ -154,10 +253,32 @@ local skills, mod, flag, skill = ...
 #skill SupportIncreasedAreaOfEffect
 #mods
 
+#skill SupportIncreasedAreaOfEffectPlus
+	statMap = {
+		["inc_aoe_plus_more_area_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Area),
+		},
+	},
+#mods
+
 #skill SupportIncreasedCriticalDamage
 #mods
 
 #skill SupportIncreasedCriticalStrikes
+#mods
+
+#skill SupportBurningMinions
+	statMap = {
+		["minion_fire_damage_%_of_maximum_life_taken_per_minute"] = {
+			mod("MinionModifier", "LIST", { mod = mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life" }, { type = "GlobalEffect", effectType = "Buff" }) }),
+			div = 6000,
+		},
+		["support_minion_instability_minion_base_fire_area_damage_per_minute"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Multiplier:InfernalLegionBaseDamage", "BASE", nil) }),
+			div = 60,
+			mod("ExtraMinionSkill", "LIST", { skillId = "InfernalLegion" }),
+		},
+	},
 #mods
 
 #skill SupportStormBarrier
@@ -215,15 +336,37 @@ local skills, mod, flag, skill = ...
 #skill SupportLightningPenetration
 #mods
 
+#skill SupportLightningPenetrationPlus
+#mods
+
+#skill SupportMinionDefensiveStance
+	statMap = {
+		["support_minion_defensive_stance_minion_damage_taken_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("DamageTaken", "MORE", nil) }),
+		},
+		["support_minion_defensive_stance_minion_damage_+%_final_against_enemies_near_you"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "MeatShieldEnemyNearYou" }),
+		},
+	},
+#mods
+
 #skill SupportMinefield
 	statMap = {
-		["support_minefield_mine_damage_+%_final"] = {
-			mod("Damage", "MORE", nil),
+		["support_minefield_mine_throwing_speed_+%_final"] = {
+			mod("MineLayingSpeed", "MORE", nil),
 		},
 	},
 #mods
 
 #skill SupportMinionDamage
+	statMap = {
+		["support_minion_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+	},
+#mods
+
+#skill SupportMinionDamagePlus
 	statMap = {
 		["support_minion_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
@@ -245,7 +388,6 @@ local skills, mod, flag, skill = ...
 #skill SupportSummonElementalResistances
 	statMap = {
 		["support_minion_totem_resistance_elemental_damage_+%_final"] = {
-			mod("ElementalDamage", "MORE", nil, 0, KeywordFlag.Totem), 
 			mod("MinionModifier", "LIST", { mod = mod("ElementalDamage", "MORE", nil) }),
 		},
 	},
@@ -287,6 +429,17 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportSpellCascadePlus
+	statMap = {
+		["support_spell_cascade_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
+		["support_spell_cascade_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
 #skill SupportMulticast
 	statMap = {
 		["support_echo_damage_+%_final"] = {
@@ -296,6 +449,19 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
 	},
+#baseMod flag("Condition:HaveSpellEcho")
+#mods
+
+#skill SupportSpellEchoPlus
+	statMap = {
+		["support_echo_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_multicast_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+	},
+#baseMod flag("Condition:HaveSpellEcho")
 #mods
 
 #skill SupportSummonGhostOnKill
@@ -320,5 +486,16 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportUnboundAilmentsPlus
+	statMap = {
+		["support_unbound_ailments_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)),
+		},
+	},
+#mods
+
 #skill SupportHandcastAnticipation
+#mods
+
+#skill SupportUnleashPlus
 #mods

@@ -1,4 +1,4 @@
--- Item data (c) Grinding Gear Games
+ï»¿-- Item data (c) Grinding Gear Games
 
 return {
 -- Boots: Armour
@@ -7,13 +7,13 @@ Craiceann's Tracks
 Goliath Greaves
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
-Requires Level 54
-(150–180)% increased Armour
-+(50–70) to maximum Life
-+(25–30)% to Cold Resistance
+Requires Level 54, 95 Str
+(150-180)% increased Armour
++(50-70) to maximum Life
++(25-30)% to Cold Resistance
 25% increased Movement Speed
 Cannot be Stunned if you have at least 10 Crab Barriers
-You only lose (5–7) Crab Barriers when you take Physical Damage from a Hit
+You only lose (5-7) Crab Barriers when you take Physical Damage from a Hit
 ]],[[
 Doryani's Delusion
 Titan Greaves
@@ -28,15 +28,15 @@ Variant: Purity of Ice: Lightning
 Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
-Requires Level 68
+Requires Level 68, 120 Str
 {variant:1,2,3}Grants Level 25 Purity of Fire Skill
 {variant:4,5,6}Grants Level 25 Purity of Ice Skill
 {variant:7,8,9}Grants Level 25 Purity of Lightning Skill
-{variant:1,4,7}Adds (25–30) to (40–45) Fire Damage to Spells and Attacks
-{variant:2,5,8}Adds (25–30) to (40–45) Cold Damage to Spells and Attacks
-{variant:3,6,9}Adds (1–3) to (68–72) Lightning Damage to Spells and Attacks
-(100–120)% increased Armour
-+(60–70) to maximum Life
+{variant:1,4,7}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
+{variant:2,5,8}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
+{variant:3,6,9}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
+(100-120)% increased Armour
++(60-70) to maximum Life
 30% increased Movement Speed
 ]],[[
 The Infinite Pursuit
@@ -94,12 +94,21 @@ Unaffected by Burning Ground
 ]],[[
 Stormcharger
 Plated Greaves
-Requires Level: 23
-+(1–50)% to Lightning Resistance 
+Requires Level: 23, 44 Str
++(1-50)% to Lightning Resistance 
 20% increased Movement Speed 
 50% increased Shock Duration on Enemies 
 30% of Physical Damage Converted to Lightning Damage 
-(15–25)% increased Effect of Shock
+(15-25)% increased Effect of Shock
+]],[[
+Torchoak Step
+Antique Greaves
+Requires Level 37, 67 Str
+(80-120)% increased Armour
+(30-50)% increased Totem Life
+25% increased Movement Speed
+(30-50)% increased Totem Placement speed
+Totems Reflect 25% of their maximum Life as Fire Damage to nearby Enemies when Hit
 ]],[[
 Windscream
 Reinforced Greaves
@@ -118,11 +127,11 @@ Enemies can have 1 additional Curse
 Windshriek
 Reinforced Greaves
 Source: Upgraded from unique{Windscream} via prophecy{Darktongue's Shriek}
-Requires Level 60
-(200–250)% increased Armour
-+(10–15)% to all Elemental Resistances
+Requires Level 60, 60 Str
+(200-250)% increased Armour
++(10-15)% to all Elemental Resistances
 25% increased Movement Speed
-(10–20)% increased Elemental Damage
+(10-20)% increased Elemental Damage
 Enemies can have 1 additional Curse
 60% increased Area of Effect of Curse Skills
 ]],
@@ -135,7 +144,7 @@ Requires Level 12, 26 Dex
 15% increased Movement Speed
 (6-10)% chance to Ignite
 Ignite a nearby Enemy on Killing an Ignited Enemy
-Casts level 7 Abberath's Fury when equipped
+Triggers level 7 Abberath's Fury when equipped
 1% increased Fire Damage per 20 Strength
 Burning Hoofprints
 ]],[[
@@ -193,27 +202,27 @@ Variant: Purity of Ice: Lightning
 Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
-Requires Level 69
+Requires Level 69, 120 Dex
 {variant:1,2,3}Grants Level 25 Purity of Fire Skill
 {variant:4,5,6}Grants Level 25 Purity of Ice Skill
 {variant:7,8,9}Grants Level 25 Purity of Lightning Skill
-{variant:1,4,7}Adds (25–30) to (40–45) Fire Damage to Spells and Attacks
-{variant:2,5,8}Adds (25–30) to (40–45) Cold Damage to Spells and Attacks
-{variant:3,6,9}Adds (1–3) to (68–72) Lightning Damage to Spells and Attacks
-(100–120)% increased Evasion Rating
-+(60–70) to maximum Life
+{variant:1,4,7}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
+{variant:2,5,8}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
+{variant:3,6,9}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
+(100-120)% increased Evasion Rating
++(60-70) to maximum Life
 30% increased Movement Speed
 ]],[[
 Farrul's Chase
 Slink Boots
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
-Requires Level 69
+Requires Level 69, 120 Dex
 Trigger Level 20 Intimidating Cry when you lose Cat's Stealth
-(110–150)% increased Evasion Rating
-+(50–70) to maximum Life
+(110-150)% increased Evasion Rating
++(50-70) to maximum Life
 20% increased Movement Speed
-(40–50)% chance to avoid Bleeding
+(40-50)% chance to avoid Bleeding
 20% increased Movement Speed while you have Cat's Stealth
 ]],[[
 Goldwyrm
@@ -245,6 +254,23 @@ Seven-League Step
 Rawhide Boots
 League: Perandus
 50% increased Movement Speed
+]],[[
+Sin Trek
+Stealth Boots
+Variant: Pre 2.0.0
+Variant: Pre 2.6.0
+Variant: {2_6}Pre 3.5.0
+Variant: Current
+Requires Level 62, 117 Dex
++(20-30) to Dexterity
++(20-30) to Intelligence
+(80-100)% increased Evasion Rating
+{variant:1}+(50-70) to maximum Energy Shield
+{variant:2}+(70-100) to maximum Energy Shield
+{variant:3}+(100-160) to maximum Energy Shield
+{variant:4}+(100-150) to maximum Energy Shield
+30% increased Movement Speed
+Enemies Cannot Leech Life From You
 ]],[[
 Three-step Assault
 Shagreen Boots
@@ -284,8 +310,8 @@ Requires Level 22, 42 Int
 +20 to maximum Mana
 (40-60)% increased Energy Shield
 (5-15)% increased Movement Speed
-+1 to Maximum number of Zombies
-+1 to Maximum number of Spectres
++1 to Level of all Raise Zombie Gems
++1 to Level of all Raise Spectre Gems
 ]],[[
 Doryani's Delusion
 Sorcerer Boots
@@ -300,15 +326,15 @@ Variant: Purity of Ice: Lightning
 Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
-Requires Level 67
+Requires Level 67, 120 Int
 {variant:1,2,3}Grants Level 25 Purity of Fire Skill
 {variant:4,5,6}Grants Level 25 Purity of Ice Skill
 {variant:7,8,9}Grants Level 25 Purity of Lightning Skill
-{variant:1,4,7}Adds (25–30) to (40–45) Fire Damage to Spells and Attacks
-{variant:2,5,8}Adds (25–30) to (40–45) Cold Damage to Spells and Attacks
-{variant:3,6,9}Adds (1–3) to (68–72) Lightning Damage to Spells and Attacks
-(180–220)% increased Energy Shield
-+(60–70) to maximum Life
+{variant:1,4,7}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
+{variant:2,5,8}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
+{variant:3,6,9}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
+(180-220)% increased Energy Shield
++(60-70) to maximum Life
 30% increased Movement Speed
 ]],[[
 Inya's Epiphany
@@ -394,7 +420,7 @@ Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 67, 123 Int
 {variant:1}(110-140)% increased Energy Shield
-{variant:2}(50–80)% increased Energy Shield
+{variant:2}(50-80)% increased Energy Shield
 +(20-30) to maximum Energy Shield
 30% increased Movement Speed
 20% increased Movement Speed on Shocked Ground
@@ -427,12 +453,12 @@ Requires Level 9, 21 Int
 Greedtrap
 Velvet Slippers
 Source: Upgraded from unique{Wondertrap} via prophecy{Greed's Folly}
-Requires Level 52
-+(5–10) to Strength
-+(5–10) to Dexterity
-+(5–10) to Intelligence
-+(90–110) to maximum Energy Shield
-(10–16)% increased Quantity of Items found when on Low Life
+Requires Level 52, 21 Int
++(5-10) to Strength
++(5-10) to Dexterity
++(5-10) to Intelligence
++(90-110) to maximum Energy Shield
+(10-16)% increased Quantity of Items found when on Low Life
 20% increased Movement Speed
 ]],
 -- Boots: Armour/Evasion
@@ -456,7 +482,7 @@ Ironscale Boots
 Upgrade: Upgrades to unique{Duskblight} via prophecy{Agony at Dusk}
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 18
+Requires Level 18, 19 Str, 19 Dex
 (40-60)% increased Armour and Evasion
 {variant:1}+(10-20) to maximum Life
 {variant:2}+(20-30) to maximum Life
@@ -470,7 +496,7 @@ Requires Level 18
 Dusktoe
 Leatherscale Boots
 Variant: Pre 2.0.0
-Requires Level 18
+Requires Level 18, 19 Str, 19 Dex
 (40-60)% increased Armour and Evasion
 +(10-20) to maximum Life
 +(10-20) to maximum Mana
@@ -482,10 +508,10 @@ Requires Level 18
 Duskblight
 Ironscale Boots
 Source: Upgraded from unique{Dusktoe} via prophecy{Agony at Dusk}
-Requires Level 40
+Requires Level 40, 19 Str, 19 Dex
 Socketed Gems are Supported by Level 15 Added Chaos Damage
-(120–150)% increased Armour and Evasion
-+(50–60) to maximum Life
+(120-150)% increased Armour and Evasion
++(50-60) to maximum Life
 20% increased Movement Speed
 50% increased Stun and Block Recovery
 20% reduced Light Radius
@@ -493,14 +519,19 @@ Socketed Gems are Supported by Level 15 Added Chaos Damage
 ]],[[
 Lioneye's Paws
 Bronzescale Boots
+League: Legion
+Source: Drops from Eternal Legion
+Variant: Pre 3.7.0
+Variant: Current
 Requires Level 30, 30 Str, 30 Dex
+{variant:2}Trigger Level 5 Rain of Arrows when you Attack with a Bow
 +(40-60) to Strength
 +(40-60) to Dexterity
 Adds 12 to 24 Fire Damage to Attacks
 20% increased Movement Speed
 40% reduced Movement Speed when on Low Life
-20% increased Stun Recovery
-Cannot be Stunned when on Low Life
+{variant:1}20% increased Stun and Block Recovery
+{variant:1}Cannot be Stunned when on Low Life
 ]],[[
 Mutewind Whispersteps
 Serpentscale Boots
@@ -522,11 +553,11 @@ Saqawal's Talons
 Hydrascale Boots
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
-Requires Level 59
+Requires Level 59, 56 Str, 56 Dex
 Grants Level 20 Aspect of the Avian Skill
-(100–150)% increased Armour and Evasion
-(20–30)% increased Movement Speed
-+(-2–2) seconds to Avian's Flight Duration
+(100-150)% increased Armour and Evasion
+(20-30)% increased Movement Speed
++(-2-2) seconds to Avian's Flight Duration
 100 Life Regenerated per Second while you have Avian's Flight
 12 Mana Regenerated per Second while you have Avian's Flight
 ]],
@@ -570,11 +601,21 @@ Requires Level 58, 54 Str, 54 Int
 {variant:1}15% increased Damage against Ignited Enemies
 {variant:2}(25-40)% increased Damage against Ignited Enemies
 ]],[[
+March of the Legion
+Legion Boots
+League: Synthesis
+Requires Level 58, 54 Str, 54 Int
++2 to Level of Socketed Aura Gems
+Socketed Gems are Supported by Level 25 Blessing
+(250-300)% increased Armour and Energy Shield
++(12-18)% to all Elemental Resistances
+(20-30)% increased Movement Speed
+]],[[
 Ralakesh's Impatience
 Riveted Boots
-Requires Level 36
-+(15–25)% to Cold Resistance 
-+(15–25)% to Chaos Resistance 
+Requires Level 36, 35 Str, 35 Int
++(15-25)% to Cold Resistance 
++(15-25)% to Chaos Resistance 
 20% increased Movement Speed 
 Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary 
 Lose all Frenzy, Endurance, and Power Charges when you Move
@@ -601,7 +642,7 @@ Variant: Current
 Requires Level 41, 40 Dex, 40 Int
 {variant:1}+(60-80) to maximum Energy Shield
 {variant:2}+(120-150) to maximum Energy Shield
-{variant:3}+(80–100) to maximum Energy Shield
+{variant:3}+(80-100) to maximum Energy Shield
 20% increased Physical Damage
 {variant:1}20% increased Movement Speed
 {variant:2,3}25% increased Movement Speed
@@ -627,7 +668,7 @@ Dance of the Offered
 Shackled Boots
 League: Incursion
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
-Requires Level 34
+Requires Level 34, 34 Dex, 34 Int
 +(50-60) to maximum Mana
 +(15-20)% to Lightning Resistance
 25% increased Movement Speed
@@ -638,7 +679,7 @@ Omeyocan
 Carnal Boots
 League: Incursion
 Source: Upgraded from unique{Dance of the Offered} via currency{Vial of the Ritual}
-Requires Level 55
+Requires Level 55, 52 Dex, 52 Int
 (15-20)% increased maximum Mana
 +(25-30)% to Lightning Resistance
 30% increased Movement Speed
@@ -650,14 +691,14 @@ Fenumus' Spinnerets
 Assassin's Boots
 League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
-Requires Level 63
-(160–200)% increased Evasion and Energy Shield
-+(20–30)% to Lightning Resistance
-+(17–23)% to Chaos Resistance
+Requires Level 63, 62 Dex, 62 Int
+(160-200)% increased Evasion and Energy Shield
++(20-30)% to Lightning Resistance
++(17-23)% to Chaos Resistance
 25% increased Movement Speed
 Aspect of the Spider can inflict Spider's Web on Enemies an additional time
-Gain (15–20) Energy Shield for each Enemy you Hit which is affected by a Spider's Web
-(40–50)% increased Aspect of the Spider Debuff Duration
+Gain (15-20) Energy Shield for each Enemy you Hit which is affected by a Spider's Web
+(40-50)% increased Aspect of the Spider Debuff Duration
 ]],[[
 Nomic's Storm
 Strapped Boots
@@ -692,6 +733,16 @@ Requires Level 62, 117 Dex
 30% increased Movement Speed
 Enemies Cannot Leech Life From You
 ]],[[
+The Stampede
+Assassin's Boots
+Requires Level 63, 62 Dex, 62 Int
+League: Blight
+(100-150)% increased Evasion and Energy Shield
+(30-40)% increased Stun and Block Recovery
+Travel Skills have (50-80)% increased Cooldown Recovery Speed
+(30-40)% increased Mana Regeneration Rate while moving
+Your Movement Speed is 150% of its base value
+]],[[
 Sundance
 Clasped Boots
 Upgrade: Upgrades to unique{Sunspite} via prophecy{Sun's Punishment}
@@ -708,15 +759,15 @@ Requires Level 27, 27 Dex, 27 Int
 Sunspite
 Clasped Boots
 Source: Upgraded from unique{Sundance} via prophecy{Sun's Punishment}
-Requires Level 59
+Requires Level 59, 27 Dex, 27 Int
 10% increased Attack Speed
-(260–300)% increased Evasion and Energy Shield
-(20–30)% increased Rarity of Items found
-+(30–40)% to Fire Resistance
+(260-300)% increased Evasion and Energy Shield
+(20-30)% increased Rarity of Items found
++(30-40)% to Fire Resistance
 20% increased Movement Speed
-(10–20)% increased Movement Speed while Ignited
+(10-20)% increased Movement Speed while Ignited
 +25% chance to be Ignited
-(75–125) Life Regenerated per second while Ignited
+(75-125) Life Regenerated per second while Ignited
 ]],[[
 Voidwalker
 Murder Boots

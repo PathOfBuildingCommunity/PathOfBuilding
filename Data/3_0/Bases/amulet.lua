@@ -12,7 +12,7 @@ itemBases["Paua Amulet"] = {
 itemBases["Coral Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, },
-	implicit = "(2-4) Life Regenerated per second",
+	implicit = "Regenerate (2-4) Life per second",
 	req = { },
 }
 itemBases["Amber Amulet"] = {
@@ -65,7 +65,6 @@ itemBases["Citrine Amulet"] = {
 }
 itemBases["Ruby Amulet"] = {
 	type = "Amulet",
-	hidden = true,
 	tags = { default = true, amulet = true, not_for_sale = true, },
 	implicit = "+(20-30)% to Fire Resistance",
 	req = { },
@@ -79,7 +78,7 @@ itemBases["Blue Pearl Amulet"] = {
 itemBases["Marble Amulet"] = {
 	type = "Amulet",
 	tags = { default = true, amulet = true, not_for_sale = true, atlas_base_type = true, amuletatlas2 = true, },
-	implicit = "(1.2-1.6)% of Life Regenerated per second",
+	implicit = "Regenerate (1.2-1.6)% of Life per second",
 	req = { level = 74, },
 }
 
@@ -186,7 +185,7 @@ itemBases["Primal Skull Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { default = true, amulet = true, talisman = true, },
-	implicit = "2% of Life Regenerated per second",
+	implicit = "Regenerate 2% of Life per second",
 	req = { },
 }
 itemBases["Wereclaw Talisman"] = {

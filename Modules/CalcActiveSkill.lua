@@ -160,6 +160,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	local skillFlags = activeSkill.skillFlags
 	local activeEffect = activeSkill.activeEffect
 	local activeGrantedEffect = activeEffect.grantedEffect
+	local effectiveRange = 0
 
 	-- Set mode flags
 	if env.mode_buffs then
@@ -271,7 +272,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if skillFlags.hit then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Hit)
 	end
-	if skillFlags.aura then
+	if skillTypes[SkillType.Aura] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Aura)
 	end
 	if skillTypes[SkillType.Curse] then
@@ -332,6 +333,13 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 	end
 
+	-- Calculate Distance for meleeDistance or projectileDistance (for melee proximity, e.g. Impact)
+	if skillFlags.melee then
+		effectiveRange = env.configInput.meleeDistance
+	else
+		effectiveRange = env.configInput.projectileDistance
+	end
+	
 	-- Build config structure for modifier searches
 	activeSkill.skillCfg = {
 		flags = bor(skillModFlags, activeSkill.weapon1Flags or activeSkill.weapon2Flags or 0),
@@ -343,7 +351,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		skillPart = activeSkill.skillPart,
 		skillTypes = activeSkill.skillTypes,
 		skillCond = { },
-		skillDist = env.mode_effective and env.configInput.projectileDistance,
+		skillDist = env.mode_effective and effectiveRange,
 		slotName = activeSkill.slotName,
 	}
 	if skillFlags.weapon1Attack then
@@ -381,7 +389,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			calcs.mergeSkillInstanceMods(env, skillModList, skillEffect)
 			local level = skillEffect.grantedEffect.levels[skillEffect.level]
 			if level.manaMultiplier then
-				skillModList:NewMod("ManaCost", "MORE", level.manaMultiplier, skillEffect.grantedEffect.modSource)
+				skillModList:NewMod("SupportManaMultiplier", "MORE", level.manaMultiplier, skillEffect.grantedEffect.modSource)
 			end
 			if level.manaCostOverride then
 				activeSkill.skillData.manaCostOverride = level.manaCostOverride
@@ -423,6 +431,19 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	for _, value in ipairs(skillModList:List(activeSkill.skillCfg, "ExtraSkillMod")) do
 		skillModList:AddMod(value.mod)
 		t_insert(activeSkill.extraSkillModList, value.mod)
+	end
+
+	-- Find totem level
+	if skillFlags.totem then
+		activeSkill.skillData.totemLevel = activeEffect.grantedEffectLevel.levelRequirement
+	end
+
+	-- Add active mine multiplier
+	if skillFlags.mine then
+		activeSkill.activeMineCount = (env.mode == "CALCS" and activeEffect.srcInstance.skillMineCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillMineCount)
+		if activeSkill.activeMineCount and activeSkill.activeMineCount > 0 then
+			skillModList:NewMod("Multiplier:ActiveMineCount", "BASE", activeSkill.activeMineCount, "Base")
+		end
 	end
 
 	-- Extract skill data
@@ -611,10 +632,14 @@ function calcs.createMinionSkills(env, activeSkill)
 			t_insert(skillIdList, skillId)
 		end
 	end
-	for _, skill in ipairs(env.modDB:List(activeSkill.skillCfg, "ExtraMinionSkill")) do
+	for _, skill in ipairs(activeSkill.skillModList:List(activeSkill.skillCfg, "ExtraMinionSkill")) do
 		if not skill.minionList or isValueInArray(skill.minionList, minion.type) then
 			t_insert(skillIdList, skill.skillId)
 		end
+	end
+	if #skillIdList == 0 then
+		-- Not ideal, but let's avoid horrible crashes if a spectre has no skills for some reason
+		t_insert(skillIdList, "Melee")
 	end
 	for _, skillId in ipairs(skillIdList) do
 		local activeEffect = {

@@ -98,6 +98,13 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				control.shown = function()
 					local mainEnv = self.build.calcsTab.mainEnv
 					if self.input[varData.var] then
+						if varData.implyCondList then
+							for _, implyCond in ipairs(varData.implyCondList) do
+								if (implyCond and mainEnv.conditionsUsed[implyCond]) then
+									return true
+								end
+							end
+						end
 						if (varData.implyCond and mainEnv.conditionsUsed[varData.implyCond]) or
 						   (varData.implyMinionCond and mainEnv.minionConditionsUsed[varData.implyMinionCond]) or
 						   (varData.implyEnemyCond and mainEnv.enemyConditionsUsed[varData.implyEnemyCond]) then
@@ -135,6 +142,13 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				control.shown = function()
 					local mainEnv = self.build.calcsTab.mainEnv
 					if self.input[varData.var] then
+						if varData.implyCondList then
+							for _, implyCond in ipairs(varData.implyCondList) do
+								if (implyCond and mainEnv.conditionsUsed[implyCond]) then
+									return true
+								end
+							end
+						end
 						if (varData.implyCond and mainEnv.conditionsUsed[varData.implyCond]) or
 						   (varData.implyMinionCond and mainEnv.minionConditionsUsed[varData.implyMinionCond]) or
 						   (varData.implyEnemyCond and mainEnv.enemyConditionsUsed[varData.implyEnemyCond]) then
