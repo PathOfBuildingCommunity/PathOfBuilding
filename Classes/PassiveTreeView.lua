@@ -668,13 +668,13 @@ function PassiveTreeViewClass:UpdateSearchCache(nodes)
 	end
 end
 
-function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
+function PassiveTreeViewClass:DoesNodeMatchSearchStr(searchTerm, node)
 	if node.type == "ClassStart" or node.type == "Mastery" then
 		return
 	end
 
 	-- Check node name
-	local errMsg, match = PCall(string.match, node.dn:lower(), self.searchStr:lower())
+	local errMsg, match = PCall(string.match, node.dn:lower(), searchTerm:lower())
 	if match then
 		return true
 	end
@@ -682,14 +682,14 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 	-- Check node description
 	for index, line in ipairs(node.sd) do
 		-- Check display text first
-		errMsg, match = PCall(string.match, line:lower(), self.searchStr:lower())
+		errMsg, match = PCall(string.match, line:lower(), searchTerm:lower())
 		if match then
 			return true
 		end
 		if not match and node.mods[index].list then
 			-- Then check modifiers
 			for _, mod in ipairs(node.mods[index].list) do
-				errMsg, match = PCall(string.match, mod.name:lower(), self.searchStr:lower())
+				errMsg, match = PCall(string.match, mod.name:lower(), searchTerm:lower())
 				if match then
 					return true
 				end
@@ -698,7 +698,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 	end
 
 	-- Check node type
-	local errMsg, match = PCall(string.match, node.type:lower(), self.searchStr:lower())
+	local errMsg, match = PCall(string.match, node.type:lower(), searchTerm:lower())
 	if match then
 		return true
 	end
