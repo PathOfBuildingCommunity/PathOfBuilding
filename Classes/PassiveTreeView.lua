@@ -388,9 +388,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	-- Update cached node search data
 	if self.searchStrCached ~= self.searchStr then
-		for nodeId, node in pairs(spec.nodes) do
-			self.searchStrResults[nodeId] = #self.searchStr > 0 and self:DoesNodeMatchSearchStr(node)
-		end
+		self:UpdateSearchCache(spec.nodes)
 		self.searchStrCached = self.searchStr
 	end
 
@@ -661,6 +659,13 @@ function PassiveTreeViewClass:Zoom(level, viewPort)
 	local relY = cursorY - viewPort.y - viewPort.height/2
 	self.zoomX = relX + (self.zoomX - relX) * factor
 	self.zoomY = relY + (self.zoomY - relY) * factor
+end
+
+-- Parse searchStr and update searchStrResults cache
+function PassiveTreeViewClass:UpdateSearchCache(nodes)
+	for nodeId, node in pairs(nodes) do
+		self.searchStrResults[nodeId] = #self.searchStr > 0 and self:DoesNodeMatchSearchStr(node)
+	end
 end
 
 function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
