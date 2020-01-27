@@ -689,7 +689,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 		if not match and node.mods[index].list then
 			-- Then check modifiers
 			for _, mod in ipairs(node.mods[index].list) do
-				errMsg, match = PCall(string.match, mod.name, self.searchStr)
+				errMsg, match = PCall(string.match, mod.name:lower(), self.searchStr:lower())
 				if match then
 					return true
 				end
