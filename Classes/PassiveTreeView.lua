@@ -57,6 +57,20 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.searchStr = ""
 	self.searchStrCached = ""
 	self.searchStrResults = {}
+	self.searchResultColormap = {
+		-- Color list generated from Google's FOSS colormap, 'Turbo':
+		{r = 0.941, g = 0.356, b = 0.070},
+		{r = 0.996, g = 0.643, b = 0.192},
+		{r = 0.883, g = 0.866, b = 0.217},
+		{r = 0.644, g = 0.990, b = 0.234},
+		{r = 0.276, g = 0.971, b = 0.517},
+		{r = 0.098, g = 0.837, b = 0.803},
+		{r = 0.244, g = 0.609, b = 0.997},
+		{r = 0.270, g = 0.349, b = 0.796},
+	}
+	self.searchTermsLimit = #self.searchResultColormap
+	self.searchTermSentinal = "|"
+
 	self.showStatDifferences = true
 end)
 
