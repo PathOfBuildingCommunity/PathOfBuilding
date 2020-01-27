@@ -386,7 +386,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		build.calcsTab:BuildPower()
 	end
 
-	-- Update cached node data
+	-- Update cached node search data
 	if self.searchStrCached ~= self.searchStr then
 		for nodeId, node in pairs(spec.nodes) do
 			self.searchStrResults[nodeId] = #self.searchStr > 0 and self:DoesNodeMatchSearchStr(node)
