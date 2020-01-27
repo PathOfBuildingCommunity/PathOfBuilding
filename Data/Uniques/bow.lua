@@ -39,8 +39,8 @@ Implicits: 2
 Adds 25 to 50 Fire Damage
 {variant:1}5% increased Attack Speed
 {variant:2,3,4}(10-14)% increased Attack Speed
-{variant:1,2,3}100% More Bow Damage at Close Range
-{variant:4}50% More Bow Damage at Close Range
+{variant:1,2,3}100% More Damage with Arrow Hits at Close Range
+{variant:4}50% More Damage with Arrow Hits at Close Range
 Bow Knockback at Close Range
 ]],[[
 The Crimson Storm
