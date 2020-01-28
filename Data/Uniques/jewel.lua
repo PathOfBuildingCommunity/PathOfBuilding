@@ -1208,7 +1208,7 @@ Emperor's Cunning
 Viridian Jewel
 Source: Fastest Normal Labyrinth
 Limited to: 1
-20% increased Accuracy Rating
+20% increased Global Accuracy Rating
 3% increased Character Size
 (4-6)% increased Dexterity
 ]],[[
@@ -1218,7 +1218,7 @@ Source: Fastest Eternal Labyrinth
 Limited to: 1
 4% increased maximum Life
 3% increased Character Size
-5% increased Defences
+5% increased Global Defences
 (5-7)% increased Attributes
 ]],[[
 Emperor's Might
