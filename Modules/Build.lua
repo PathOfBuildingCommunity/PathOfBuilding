@@ -311,14 +311,15 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%" },
 		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%" },
 		{ },
-		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%" },
-		{ stat = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%" },
-		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%" },
-		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%" },
+		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end },
+		{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", color = colorCodes.COLD, condFunc = function() return true end },
+		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", color = colorCodes.LIGHTNING, condFunc = function() return true end },
+		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function() return true end },
+		{ },
+		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%", color = colorCodes.FIRE },
+		{ stat = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%", color = colorCodes.COLD },
+		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%", color = colorCodes.LIGHTNING },
+		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", color = colorCodes.CHAOS },
 	}
 	self.minionDisplayStats = {
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
@@ -1126,9 +1127,13 @@ function buildMode:AddDisplayStatList(statList, actor)
 			if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then 
 				local statVal = actor.output[statData.stat]
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
+					local labelColor = "^7"
+					if statData.color then
+						labelColor = statData.color
+					end
 					t_insert(statBoxList, {
 						height = 16,
-						"^7"..statData.label..":",
+						labelColor..statData.label..":",
 						self:FormatStat(statData, statVal),
 					})
 				end
