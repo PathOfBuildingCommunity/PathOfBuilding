@@ -181,17 +181,39 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 
 	if breakdown.slots and #breakdown.slots > 0 then
 		-- Slots table, used for armour/evasion/ES total breakdowns
-		local section = { 
-			type = "TABLE",
-			rowList = breakdown.slots,
-			colList = { 
+		local colList
+		local rowList
+		if (sectionData.gearOnly) then
+			-- Only show basic table for gear and base ES/Armour/Evasion value
+			colList = {
+				{ label = "Value", key = "base", right = true },
+				{ label = "Source", key = "source" },
+				{ label = "Name", key = "sourceLabel" },
+			}
+
+			rowList = {}
+			for _, row in pairs(breakdown.slots) do
+				if (row.item and row.item.armourData) then
+					table.insert(rowList, row)
+				end
+			end
+		else
+			colList = {
 				{ label = "Base", key = "base", right = true },
 				{ label = "Inc/red", key = "inc" },
 				{ label = "More/less", key = "more" },
 				{ label = "Total", key = "total", right = true },
 				{ label = "Source", key = "source" },
 				{ label = "Name", key = "sourceLabel" },
-			},
+			}
+
+			rowList = breakdown.slots
+		end
+
+		local section = { 
+			type = "TABLE",
+			rowList = rowList,
+			colList = colList,
 		}
 		t_insert(self.sectionList, section)
 		for _, row in pairs(section.rowList) do
