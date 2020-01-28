@@ -4,6 +4,9 @@
 -- Passive skill tree viewer.
 -- Draws the passive skill tree, and also maintains the current view settings (zoom level, position, etc)
 --
+
+local bit = require("bit")
+
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
@@ -541,13 +544,22 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			self:DrawAsset(tree.assets[overlay], scrX, scrY, scale)
 			SetDrawColor(1, 1, 1)
 		end
-		if self.searchStrResults[nodeId] then
-			-- Node matches the search string, show the highlight circle
-			SetDrawLayer(nil, 30)
-			SetDrawColor(1, 0, 0)
-			local size = 175 * scale / self.zoom ^ 0.4
-			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
+		if self.searchStrResults[nodeId] and self.searchStrResults[nodeId] ~= 0 then
+			for searchIndex=1,self.searchTermsLimit do
+				-- minus one to convert from one-based counting to zero-based
+				if bit.band(self.searchStrResults[nodeId], (2 ^ (searchIndex - 1))) ~= 0 then
+					SetDrawLayer(nil, 30 + searchIndex)
+					SetDrawColor(
+						self.searchResultColormap[searchIndex].r,
+						self.searchResultColormap[searchIndex].g,
+						self.searchResultColormap[searchIndex].b
+					)
+					local size = (175 + 5 * (searchIndex - 1)) * scale / self.zoom ^ 0.4
+					DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
+				end
+			end
 		end
+
 		if node == hoverNode and (node.type ~= "Socket" or not IsKeyDown("SHIFT")) and not main.popups[1] then
 			-- Draw tooltip
 			SetDrawLayer(nil, 100)
@@ -663,8 +675,25 @@ end
 
 -- Parse searchStr and update searchStrResults cache
 function PassiveTreeViewClass:UpdateSearchCache(nodes)
+	local searchTerms = {}
+	-- split searchStr on searchTermSentinal
+	local i = 1
+	for term in string.gmatch(self.searchStr, "[^"..self.searchTermSentinal.."]+") do
+		searchTerms[i] = term
+		i = i + 1
+	end
+
 	for nodeId, node in pairs(nodes) do
-		self.searchStrResults[nodeId] = #self.searchStr > 0 and self:DoesNodeMatchSearchStr(node)
+		local resultBitmap = 0
+
+		for termIndex=1,self.searchTermsLimit do
+			if searchTerms[termIndex] and self:DoesNodeMatchSearchStr(searchTerms[termIndex], node) then
+				-- minus one to convert from one-based counting to zero-based
+				resultBitmap = bit.bor(resultBitmap, (2 ^ (termIndex - 1)))
+			end
+		end
+
+		self.searchStrResults[nodeId] = resultBitmap
 	end
 end
 
