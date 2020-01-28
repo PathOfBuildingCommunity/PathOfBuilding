@@ -4979,6 +4979,7 @@ skills["VaalPowerSiphon"] = {
 		projectile = true,
 	},
 	baseMods = {
+		flag("OneShotProj"),
 	},
 	qualityStats = {
 		{ "damage_+%", 1 },

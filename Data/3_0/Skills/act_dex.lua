@@ -194,6 +194,7 @@ skills["ArtilleryBallista"] = {
 		totem = true,
 	},
 	baseMods = {
+		flag("OneShotProj"),
 	},
 	qualityStats = {
 		{ "fire_damage_+%", 1 },
@@ -797,6 +798,7 @@ skills["BlastRain"] = {
 	},
 	baseMods = {
 		skill("radius", 24),
+		flag("OneShotProj"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -5222,6 +5224,7 @@ skills["RainOfArrows"] = {
 	},
 	baseMods = {
 		skill("radius", 24),
+		flag("OneShotProj"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -5295,6 +5298,7 @@ skills["VaalRainOfArrows"] = {
 		vaal = true,
 	},
 	baseMods = {
+		flag("OneShotProj"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -6389,6 +6393,7 @@ skills["RainOfSpores"] = {
 	},
 	baseMods = {
 		skill("dotIsArea", true),
+		flag("OneShotProj"),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },

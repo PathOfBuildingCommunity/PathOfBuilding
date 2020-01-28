@@ -298,7 +298,7 @@ skills["SupportArrowNovaPlus"] = {
 	},
 }
 skills["SupportBarrage"] = {
-	name = "Barrage",
+	name = "Barrage Support",
 	description = "Supports projectile attack skills that use bows or wands. Cannot support triggered skills, channelled skills, or skills that create Minions.",
 	color = 2,
 	support = true,
@@ -307,13 +307,12 @@ skills["SupportBarrage"] = {
 	excludeSkillTypes = { SkillType.Channelled, SkillType.CreatesMinion, SkillType.Triggered, SkillType.TriggeredGrantedSkill, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	weaponTypes = {
-		["Bow"] = true,
-		["Wand"] = true,
-	},
 	statMap = {
 		["support_barrage_damage_+%_final"] = {
-			mod("Damage", "MORE", nil),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
+		},
+		["projectiles_barrage"] = {
+			flag("SequentialProjectiles", { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
 		},
 	},
 	baseMods = {
