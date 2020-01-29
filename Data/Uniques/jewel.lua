@@ -256,8 +256,7 @@ Dexterity from Passives in Radius is Transformed to Strength
 Inspired Learning
 Crimson Jewel
 Radius: Small
-If 4 Notables are Allocated in Radius, When you Kill a Rare monster, you gain 1
-of its mods for 20 seconds
+With 4 Notables Allocated in Radius, When you Kill a Rare monster, you gain 1 of its Modifiers for 20 seconds
 ]],[[
 Intuitive Leap
 Viridian Jewel
