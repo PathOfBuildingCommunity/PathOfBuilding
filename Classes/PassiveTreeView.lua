@@ -548,13 +548,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			for searchIndex=1,self.searchTermsLimit do
 				-- minus one to convert from one-based counting to zero-based
 				if bit.band(self.searchStrResults[nodeId], (2 ^ (searchIndex - 1))) ~= 0 then
-					SetDrawLayer(nil, 30 + searchIndex)
+					SetDrawLayer(nil, 35 - searchIndex)
 					SetDrawColor(
 						self.searchResultColormap[searchIndex].r,
 						self.searchResultColormap[searchIndex].g,
 						self.searchResultColormap[searchIndex].b
 					)
-					local size = (175 + 5 * (searchIndex - 1)) * scale / self.zoom ^ 0.4
+					local size = (175 + 25 * (searchIndex - 1)) * scale / self.zoom ^ 0.4
 					DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
 				end
 			end
