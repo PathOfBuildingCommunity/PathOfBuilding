@@ -1,7 +1,7 @@
 -- Path of Building
 --
 -- Module: Common
--- Libaries, functions and classes used by various modules.
+-- Libraries, functions and classes used by various modules.
 --
 local pairs = pairs
 local ipairs = ipairs
@@ -118,7 +118,7 @@ function new(className, ...)
 		class._constructor(object, ...)
 	end
 	if class._parents then
-		-- Check that the contructors for all parent and superparent classes have been called
+		-- Check that the constructors for all parent and superparent classes have been called
 		for parent in pairs(class._superParents) do
 			if parent._constructor and not object._parentInit[parent] then
 				error("Parent class '"..parent._className.."' of class '"..className.."' must be initialised")

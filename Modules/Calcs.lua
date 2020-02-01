@@ -87,7 +87,7 @@ local function getCalculator(build, fullInit, modFunc)
 		wipeTable(env.enemyDB.conditions)
 		wipeTable(env.enemyDB.multipliers)
 
-		-- Call function to make modifications to the enviroment
+		-- Call function to make modifications to the environment
 		modFunc(env, ...)
 		
 		-- Run calculation pass

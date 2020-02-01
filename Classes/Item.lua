@@ -695,7 +695,7 @@ function ItemClass:GetPrimarySlot()
 end
 
 -- Add up local modifiers, and removes them from the modifier list
--- To be considered local, a modifier must be an exact flag match, and cannot have any tags (e.g conditions, multipliers)
+-- To be considered local, a modifier must be an exact flag match, and cannot have any tags (e.g. conditions, multipliers)
 -- Only the InSlot tag is allowed (for Adds x to x X Damage in X Hand modifiers)
 local function sumLocal(modList, name, type, flags)
 	local result
@@ -721,7 +721,7 @@ local function sumLocal(modList, name, type, flags)
 	return result
 end
 
--- Build list of modifiers in a given slot number (1 or 2) while applying local modifers and adding quality
+-- Build list of modifiers in a given slot number (1 or 2) while applying local modifiers and adding quality
 function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	local slotName = self:GetPrimarySlot()
 	if slotNum == 2 then

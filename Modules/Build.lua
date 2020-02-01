@@ -647,7 +647,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		self.calcsTab:PowerBuilder()
 	end
 	SetProfiling(false)
-	ConPrintf("Power build time: %d msec", GetTime() - start)
+	ConPrintf("Power build time: %d ms", GetTime() - start)
 	--]]
 
 	self.abortSave = false

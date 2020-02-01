@@ -46,7 +46,7 @@ local ourClassList = {
 	"RowListControl",
 	"SpecColListControl",
 	"DatFile",
-	"GGPKFIle",
+	"GGPKFile",
 }
 for _, className in ipairs(classList) do
 	LoadModule("../Classes/"..className..".lua", launch, main)
@@ -301,19 +301,19 @@ function main:LoadDatFiles()
 	elseif self.datSource:match("%.ggpk") then
 		local now = GetTime()
 		self.ggpk = new("GGPKFile", self.datSource)
-		ConPrintf("GGPK: %d msec", GetTime() - now)
+		ConPrintf("GGPK: %d ms", GetTime() - now)
 
 		now = GetTime()
 		for i, record in ipairs(self.ggpk:Find("Data", "%w+%.dat$")) do
 			if i == 1 then
-				ConPrintf("DAT find: %d msec", GetTime() - now)
+				ConPrintf("DAT find: %d ms", GetTime() - now)
 				now = GetTime()
 			end
 			local datFile = new("DatFile", record.name:gsub("%.dat$",""), record.data)
 			t_insert(self.datFileList, datFile)
 			self.datFileByName[datFile.name] = datFile
 		end
-		ConPrintf("DAT read: %d msec", GetTime() - now)
+		ConPrintf("DAT read: %d ms", GetTime() - now)
 
 		self.ggpk:Close()
 	end

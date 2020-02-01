@@ -1,6 +1,6 @@
 # Path of Building fork by LocalIdentity
 
-This is a fork of Openarls Path Of Building that includes many extra features not in the base version of PoB
+This is a fork of Openarl's Path Of Building that includes many extra features not in the base version of PoB
 * Adds updated Uniques from 3.8 and 3.9 changes
 * Pantheon support
 * Impale DPS support
@@ -13,7 +13,7 @@ This is a fork of Openarls Path Of Building that includes many extra features no
 * Fixed close combat and multistrike to have their correct damage values
 * Logic for melee distance scaling attack multipliers (Close combat and Slayers Impact node)
 * Withered now shows on the configuration screen
-* Support for Ryslathas Coil, Vaal Arc Lucky Buff, Perquils Toe and more
+* Support for Ryslatha's Coil, Vaal Arc Lucky Buff, Perquil's Toe and more
 
 ## Feature Requests
 [![Feature Requests](https://feathub.com/LocalIdentity/PathOfBuilding?format=svg)](https://feathub.com/LocalIdentity/PathOfBuilding)

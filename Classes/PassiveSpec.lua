@@ -106,7 +106,7 @@ end
 
 function PassiveSpecClass:MigrateNodeId(nodeId)
 	if self.build.targetVersion == "3_0" then
-		-- Migration for 3.2 -> 3.3
+		-- Migration from 3.2 to 3.3
 		return nodeMigrate32_33[nodeId] or nodeId
 	end
 	return nodeId
@@ -223,7 +223,7 @@ function PassiveSpecClass:SelectClass(classId)
 	self.allocNodes[startNode.id] = startNode
 
 	-- Reset the ascendancy class
-	-- This will also rebuild the node paths and dependancies
+	-- This will also rebuild the node paths and dependencies
 	self:SelectAscendClass(0)
 end
 
@@ -248,12 +248,12 @@ function PassiveSpecClass:SelectAscendClass(ascendClassId)
 		self.allocNodes[startNode.id] = startNode
 	end
 
-	-- Rebuild all the node paths and dependancies
+	-- Rebuild all the node paths and dependencies
 	self:BuildAllDependsAndPaths()
 end
 
 -- Determines if the given class's start node is connected to the current class's start node
--- Attempts to find a path between the nodes which doesn't pass through any ascendancy nodes (i.e Ascendant)
+-- Attempts to find a path between the nodes which doesn't pass through any ascendancy nodes (i.e. Ascendant) 
 function PassiveSpecClass:IsClassConnected(classId)
 	for _, other in ipairs(self.nodes[self.tree.classes[classId].startNodeId].linked) do
 		-- For each of the nodes to which the given class's start node connects...
@@ -267,9 +267,9 @@ function PassiveSpecClass:IsClassConnected(classId)
 			end
 			other.visited = false
 			if found then
-				-- Found a path, so the given class's start node is definately connected to the current class's start node
+				-- Found a path, so the given class's start node is definitely connected to the current class's start node
 				-- There might still be nodes which are connected to the current tree by an entirely different path though
-				-- E.g via Ascendant or by connecting to another "first passive node"
+				-- E.g. via Ascendant or by connecting to another "first passive node"
 				return true
 			end
 		end
@@ -318,18 +318,18 @@ function PassiveSpecClass:AllocNode(node, altPath)
 		end
 	end
 
-	-- Rebuild all dependancies and paths for all allocated nodes
+	-- Rebuild all dependencies and paths for all allocated nodes
 	self:BuildAllDependsAndPaths()
 end
 
--- Deallocate the given node, and all nodes which depend on it (i.e which are only connected to the tree through this node)
+-- Deallocate the given node, and all nodes which depend on it (i.e. which are only connected to the tree through this node)
 function PassiveSpecClass:DeallocNode(node)
 	for _, depNode in ipairs(node.depends) do
 		depNode.alloc = false
 		self.allocNodes[depNode.id] = nil
 	end
 
-	-- Rebuild all paths and dependancies for all allocated nodes
+	-- Rebuild all paths and dependencies for all allocated nodes
 	self:BuildAllDependsAndPaths()
 end
 
@@ -418,12 +418,12 @@ function PassiveSpecClass:BuildPathFromNode(root)
 	end
 end
 
--- Rebuilds dependancies and paths for all nodes
+-- Rebuilds dependencies and paths for all nodes
 function PassiveSpecClass:BuildAllDependsAndPaths()
 	-- This table will keep track of which nodes have been visited during each path-finding attempt
 	local visited = { }
 
-	-- Check all nodes for other nodes which depend on them (i.e are only connected to the tree through that node)
+	-- Check all nodes for other nodes which depend on them (i.e. are only connected to the tree through that node)
 	for id, node in pairs(self.nodes) do
 		node.depends = wipeTable(node.depends)
 		node.dependsOnIntuitiveLeap = false
@@ -434,7 +434,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						-- This node depends on Intuitive Leap
 						-- This flag:
 						-- 1. Prevents generation of paths from this node
-						-- 2. Prevents this node from being deallocted via dependancy
+						-- 2. Prevents this node from being deallocated via dependency
 						-- 3. Prevents allocation of path nodes when this node is being allocated
 						node.dependsOnIntuitiveLeap = true
 						break
@@ -452,19 +452,19 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		local anyStartFound = (node.type == "ClassStart" or node.type == "AscendClassStart")
 		for _, other in ipairs(node.linked) do
 			if other.alloc and not isValueInArray(node.depends, other) then
-				-- The other node is allocated and isn't already dependant on this node, so try and find a path to a start node through it
+				-- The other node is allocated and isn't already dependent on this node, so try and find a path to a start node through it
 				if other.type == "ClassStart" or other.type == "AscendClassStart" then
 					-- Well that was easy!
 					anyStartFound = true
 				elseif self:FindStartFromNode(other, visited) then
-					-- We found a path through the other node, therefore the other node cannot be dependant on this node
+					-- We found a path through the other node, therefore the other node cannot be dependent on this node
 					anyStartFound = true
 					for i, n in ipairs(visited) do
 						n.visited = false
 						visited[i] = nil
 					end
 				else
-					-- No path was found, so all the nodes visited while trying to find the path must be dependant on this node
+					-- No path was found, so all the nodes visited while trying to find the path must be dependent on this node
 					for i, n in ipairs(visited) do
 						if not n.dependsOnIntuitiveLeap then
 							t_insert(node.depends, n)

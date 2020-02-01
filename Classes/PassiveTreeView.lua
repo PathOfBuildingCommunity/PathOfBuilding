@@ -165,7 +165,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		local curTreeX, curTreeY = screenToTree(cursorX, cursorY)
 		for nodeId, node in pairs(spec.nodes) do
 			if node.rsq then
-				-- Node has a defined size (i.e has artwork)
+				-- Node has a defined size (i.e. has artwork)
 				local vX = curTreeX - node.x
 				local vY = curTreeY - node.y
 				if vX * vX + vY * vY <= node.rsq then
@@ -176,7 +176,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 	end
 
-	-- If hovering over a node, find the path to it (if unallocated) or the list of dependant nodes (if allocated)
+	-- If hovering over a node, find the path to it (if unallocated) or the list of dependent nodes (if allocated)
 	local hoverPath, hoverDep
 	if self.traceMode then
 		-- Path tracing mode is enabled
@@ -212,7 +212,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			hoverPath[pathNode] = true
 		end
 	elseif hoverNode and hoverNode.path then
-		-- Use the node's own path and dependance list
+		-- Use the node's own path and dependence list
 		hoverPath = { }
 		if not hoverNode.dependsOnIntuitiveLeap then
 			for _, pathNode in pairs(hoverNode.path) do
@@ -687,7 +687,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 		local nodeOutput, pathOutput
 		if node.alloc then
-			-- Calculate the differences caused by deallocating this node and its dependants
+			-- Calculate the differences caused by deallocating this node and its dependent nodes
 			nodeOutput = calcFunc({ removeNodes = { [node] = true } })
 			if pathLength > 1 then
 				pathOutput = calcFunc({ removeNodes = pathNodes })

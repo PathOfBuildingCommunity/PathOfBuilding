@@ -60,7 +60,7 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 	local conversionTable = activeSkill.conversionTable
 	for _, otherType in ipairs(dmgTypeList) do
 		if otherType == damageType then
-			-- Damage can only be converted from damage types that preceed this one in the conversion sequence, so stop here
+			-- Damage can only be converted from damage types that precede this one in the conversion sequence, so stop here
 			break
 		end
 		local convMult = conversionTable[otherType][damageType]

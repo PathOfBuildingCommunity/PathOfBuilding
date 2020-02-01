@@ -271,7 +271,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 		local types = { }
 		local typeList = { }
 		for i, row in ipairs(rowList) do
-			-- Find all the modifier types and source types that are present in the modifier lsit
+			-- Find all the modifier types and source types that are present in the modifier list
 			if not types[row.mod.type] then
 				types[row.mod.type] = true
 				t_insert(typeList, row.mod.type)
@@ -466,7 +466,7 @@ end
 function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 	local cursorX, cursorY = GetCursorPos()
 	if section.label then
-		-- Draw table lable if able
+		-- Draw table label if able
 		DrawString(x + 2, y, "LEFT", 16, "VAR", "^7"..section.label..":")
 		y = y + 16
 	end
