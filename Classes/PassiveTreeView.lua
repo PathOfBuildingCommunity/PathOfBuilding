@@ -467,10 +467,29 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						SetDrawColor(1, 0, 0)
 					elseif hoverNode.type == "Socket" then
 						-- Hover node is a socket, check if this node falls within its radius and color it accordingly
-						for index, data in ipairs(build.data.jewelRadius) do
-							if hoverNode.nodesInRadius[index][node.id] then
-								SetDrawColor(data.col)
-								break
+						local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(hoverNode.id)
+						local isThreadOfHope = jewel and jewel.jewelRadiusLabel == "Variable"
+						if isThreadOfHope then
+							-- Jewel in socket is Thread of Hope or similar
+							for index, data in ipairs(build.data.jewelRadius) do
+								if hoverNode.nodesInRadius[index][node.id] then
+									-- Draw Thread of Hope's annuli
+									if data.inner ~= 0 then
+										SetDrawColor(data.col)
+										break
+									end
+								end
+							end
+						else
+							-- Jewel in socket is not Thread of Hope or similar
+							for index, data in ipairs(build.data.jewelRadius) do
+								if hoverNode.nodesInRadius[index][node.id] then
+									-- Draw normal jewel radii
+									if data.inner == 0 then
+										SetDrawColor(data.col)
+										break
+									end
+								end
 							end
 						end
 					end
@@ -501,23 +520,43 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	SetDrawLayer(nil, 25)
 	for nodeId, slot in pairs(build.itemsTab.sockets) do
 		local node = spec.nodes[nodeId]
-		if node == hoverNode then
-			-- Mouse is over this socket, show all radius rings
+		if node then
 			local scrX, scrY = treeToScreen(node.x, node.y)
-			for _, radData in ipairs(build.data.jewelRadius) do
-				local size = radData.rad * scale
-				SetDrawColor(radData.col)
-				DrawImage(self.ring, scrX - size, scrY - size, size * 2, size * 2)
-			end
-		elseif node.alloc then
 			local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
-			if jewel and jewel.jewelRadiusIndex then
-				-- Socket is allocated and there's a jewel socketed into it which has a radius, so show it
-				local scrX, scrY = treeToScreen(node.x, node.y)
-				local radData = build.data.jewelRadius[jewel.jewelRadiusIndex]
-				local size = radData.rad * scale
-				SetDrawColor(radData.col)
-				DrawImage(self.ring, scrX - size, scrY - size, size * 2, size * 2)				
+			if node == hoverNode then
+				local isThreadOfHope = jewel and jewel.jewelRadiusLabel == "Variable"
+				if isThreadOfHope then
+					for _, radData in ipairs(build.data.jewelRadius) do
+						local outerSize = radData.outer * scale
+						local innerSize = radData.inner * scale
+						-- Jewel in socket is Thread of Hope or similar, draw it's annulus
+						if innerSize ~= 0 then
+							SetDrawColor(radData.col)
+							DrawImage(self.ring, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
+							DrawImage(self.ring, scrX - innerSize, scrY - innerSize, innerSize * 2, innerSize * 2)
+						end
+					end
+				else
+					for _, radData in ipairs(build.data.jewelRadius) do
+						local outerSize = radData.outer * scale
+						local innerSize = radData.inner * scale
+						-- Jewel in socket is not Thread of Hope or similar, draw normal jewel radius
+						if innerSize == 0 then
+							SetDrawColor(radData.col)
+							DrawImage(self.ring, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
+						end
+					end
+				end
+			elseif node.alloc then
+				if jewel and jewel.jewelRadiusIndex then
+					-- Draw only the selected jewel radius
+					local radData = build.data.jewelRadius[jewel.jewelRadiusIndex]
+					local outerSize = radData.outer * scale
+					local innerSize = radData.inner * scale
+					SetDrawColor(radData.col)
+					DrawImage(self.ring, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
+					DrawImage(self.ring, scrX - innerSize, scrY - innerSize, innerSize * 2, innerSize * 2)
+				end
 			end
 		end
 	end
