@@ -427,17 +427,22 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	for id, node in pairs(self.nodes) do
 		node.depends = wipeTable(node.depends)
 		node.dependsOnIntuitiveLeapLike = false
-		if node.type ~= "ClassStart" then
+		if node.type ~= "ClassStart" and node.type ~= "Socket" then
 			for nodeId, itemId in pairs(self.jewels) do
-				if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius[1][node.id] then
-					if itemId ~= 0 and self.build.itemsTab.items[itemId] and self.build.itemsTab.items[itemId].jewelData and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike then
-						-- This node depends on Intuitive Leap-like behaviour
-						-- This flag:
-						-- 1. Prevents generation of paths from this node
-						-- 2. Prevents this node from being deallocted via dependancy
-						-- 3. Prevents allocation of path nodes when this node is being allocated
-						node.dependsOnIntuitiveLeapLike = true
-						break
+				if self.build.itemsTab.items[itemId] and self.build.itemsTab.items[itemId].jewelRadiusIndex then
+					local radiusIndex = self.build.itemsTab.items[itemId].jewelRadiusIndex
+					if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
+						if itemId ~= 0
+							and self.build.itemsTab.items[itemId].jewelData
+							and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike then
+							-- This node depends on Intuitive Leap-like behaviour
+							-- This flag:
+							-- 1. Prevents generation of paths from this node
+							-- 2. Prevents this node from being deallocted via dependancy
+							-- 3. Prevents allocation of path nodes when this node is being allocated
+							node.dependsOnIntuitiveLeapLike = true
+							break
+						end
 					end
 				end
 			end
@@ -482,8 +487,17 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			for _, depNode in ipairs(node.depends) do
 				local prune = true
 				for nodeId, itemId in pairs(self.jewels) do
-					if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius[1][depNode.id] then
-						if itemId ~= 0 and (not self.build.itemsTab.items[itemId] or (self.build.itemsTab.items[itemId].jewelData and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike)) then
+					if self.allocNodes[nodeId] then
+						if itemId ~= 0 and (
+							not self.build.itemsTab.items[itemId] or (
+								self.build.itemsTab.items[itemId].jewelData
+									and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike
+									and self.build.itemsTab.items[itemId].jewelRadiusIndex
+									and self.nodes[nodeId].nodesInRadius[
+										self.build.itemsTab.items[itemId].jewelRadiusIndex
+								][depNode.id]
+							)
+						) then
 							-- Hold off on the pruning; this node is Intuitive Leap-like or items are not loaded yet
 							prune = false
 							t_insert(self.nodes[nodeId].depends, depNode)
