@@ -214,7 +214,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	elseif hoverNode and hoverNode.path then
 		-- Use the node's own path and dependance list
 		hoverPath = { }
-		if not hoverNode.dependsOnIntuitiveLeap then
+		if not hoverNode.dependsOnIntuitiveLeapLike then
 			for _, pathNode in pairs(hoverNode.path) do
 				hoverPath[pathNode] = true
 			end
