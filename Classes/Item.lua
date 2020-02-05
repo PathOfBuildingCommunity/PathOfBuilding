@@ -129,6 +129,7 @@ function ItemClass:ParseRaw(raw)
 			t_insert(self.modLines, { line = line, extra = extra, modList = modList or { }, buff = true })
 		end
 	end
+	local deferJewelRadiusIndexAssignment
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, implicitNumberSpecified, foundImplicit
 	while self.rawLines[l] do
@@ -199,10 +200,15 @@ function ItemClass:ParseRaw(raw)
 					end
 				elseif specName == "Radius" and self.type == "Jewel" then
 					self.jewelRadiusLabel = specVal:match("^%a+")
-					for index, data in pairs(verData.jewelRadius) do
-						if specVal:match("^%a+") == data.label then
-							self.jewelRadiusIndex = index
-							break
+					if specVal:match("^%a+") == "Variable" then
+                        -- Jewel radius is variable and must be read from it's mods instead after they are parsed
+                        deferJewelRadiusIndexAssignment = true
+                    else
+                        for index, data in pairs(verData.jewelRadius) do
+                            if specVal:match("^%a+") == data.label then
+                                self.jewelRadiusIndex = index
+                                break
+                            end
 						end
 					end
 				elseif specName == "Limited to" and self.type == "Jewel" then
@@ -459,6 +465,9 @@ function ItemClass:ParseRaw(raw)
 		self:NormaliseQuality()
 	end
 	self:BuildModList()
+	if deferJewelRadiusIndexAssignment then
+		self.jewelRadiusIndex = self.jewelData.radiusIndex
+	end
 end
 
 function ItemClass:NormaliseQuality()
