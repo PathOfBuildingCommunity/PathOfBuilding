@@ -628,12 +628,7 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 			if property.name == "Quality" then
 				item.quality = tonumber(property.values[1][1]:match("%d+"))
 			elseif property.name == "Radius" then
-				for index, data in pairs(self.build.data.jewelRadius) do
-					if property.values[1][1] == data.label then
-						item.jewelRadiusIndex = index
-						break
-					end
-				end
+				item.jewelRadiusLabel = property.values[1][1]
 			elseif property.name == "Limited to" then
 				item.limit = tonumber(property.values[1][1])
 			elseif property.name == "Evasion Rating" then

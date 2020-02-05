@@ -198,6 +198,7 @@ function ItemClass:ParseRaw(raw)
 						end
 					end
 				elseif specName == "Radius" and self.type == "Jewel" then
+					self.jewelRadiusLabel = specVal:match("^%a+")
 					for index, data in pairs(verData.jewelRadius) do
 						if specVal:match("^%a+") == data.label then
 							self.jewelRadiusIndex = index
@@ -562,8 +563,8 @@ function ItemClass:BuildRaw()
 	if self.requirements and self.requirements.level then
 		t_insert(rawLines, "LevelReq: "..self.requirements.level)
 	end
-	if self.jewelRadiusIndex then
-		t_insert(rawLines, "Radius: "..data.jewelRadius[self.jewelRadiusIndex].label)
+	if self.jewelRadiusLabel then
+		t_insert(rawLines, "Radius: "..self.jewelRadiusLabel)
 	end
 	if self.limit then
 		t_insert(rawLines, "Limited to: "..self.limit)
