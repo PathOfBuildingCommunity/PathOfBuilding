@@ -1025,7 +1025,7 @@ skills["IcestormUniqueStaff12"] = {
 		},
 	},
     preDamageFunc = function(activeSkill, output)
-    	if activeSkill.skillPart == 2 then
+		if activeSkill.skillPart == 2 then
 			local baseDuration = (activeSkill.skillData.duration or 0) + activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Duration", "PrimaryDuration")
 			local durationMod = calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration")
 			local duration = baseDuration * durationMod
