@@ -1016,6 +1016,22 @@ skills["IcestormUniqueStaff12"] = {
 		skill("radius", 25),
 		skill("radiusSecondary", 10),
 	},
+	parts = {
+        {
+            name = "1 Shard",
+        },
+        {
+            name = "All Shards",
+        },
+    },
+    preDamageFunc = function(activeSkill, output)
+	    if activeSkill.skillPart == 2 then
+		    local baseDuration = (activeSkill.skillData.duration or 0) + activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Duration", "PrimaryDuration")
+            local durationMod = calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration")
+            local duration = baseDuration * durationMod
+            activeSkill.skillData.dpsMultiplier = duration / 0.1
+		end
+	end,
 	qualityStats = {
 	},
 	stats = {
@@ -1027,7 +1043,6 @@ skills["IcestormUniqueStaff12"] = {
 		"firestorm_drop_ground_ice_duration_ms",
 		"skill_art_variation",
 		"skill_effect_duration_per_100_int",
-		"base_skill_show_average_damage_instead_of_dps",
 		"is_area_damage",
 	},
 	levels = {
