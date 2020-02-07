@@ -487,6 +487,22 @@ Radius: Medium
 2% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
 +15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
 ]],[[
+Thread of Hope
+Crimson Jewel
+Source: Drops from unique{Sirus, Awakener of Worlds}
+Variant: Small Ring
+Variant: Medium Ring
+Variant: Large Ring
+Variant: Very Large Ring
+Radius: Variable
+Implicits: 0
+{variant:1}Affects Passives in Small Ring
+{variant:2}Affects Passives in Medium Ring
+{variant:3}Affects Passives in Large Ring
+{variant:4}Affects Passives in Very Large Ring
+Passives in Radius can be Allocated without being connected to your tree
+-(20-10)% to all Elemental Resistances
+]],[[
 To Dust
 Cobalt Jewel
 Variant: Current

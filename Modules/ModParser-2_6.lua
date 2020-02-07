@@ -1001,7 +1001,7 @@ local specialModList = {
 	} end,
 	["(%d+)%% of maximum life taken as chaos damage per second"] = function(num) return { mod("ChaosDegen", "BASE", num/100, { type = "PerStat", stat = "Life", div = 1 }) } end,
 	-- Jewels
-	["passives in radius can be allocated without being connected to your tree"] = { mod("JewelData", "LIST", { key = "intuitiveLeap", value = true }) },
+	["passives in radius can be allocated without being connected to your tree"] = { mod("JewelData", "LIST", { key = "intuitiveLeapLike", value = true }) },
 	["(%d+)%% increased elemental damage per grand spectrum"] = function(num) return { 
 		mod("ElementalDamage", "INC", num, { type = "Multiplier", var = "GrandSpectrum" }), 
 		mod("Multiplier:GrandSpectrum", "BASE", 1) 
