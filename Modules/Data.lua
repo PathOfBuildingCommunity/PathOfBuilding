@@ -120,7 +120,7 @@ data.jewelRadius = {
 
 	{ inner = 850, outer = 1100, col = "^xD35400", label = "Variable" },
 	{ inner = 1150, outer = 1400, col = "^x66FFCC", label = "Variable" },
-	{ inner = 1450, outer = 1700, col = "^xF4D03F", label = "Variable" },
+	{ inner = 1450, outer = 1700, col = "^x2222CC", label = "Variable" },
 	{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
 }
 

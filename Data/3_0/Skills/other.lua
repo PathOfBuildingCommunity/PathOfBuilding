@@ -270,6 +270,33 @@ skills["RepeatingShockwave"] = {
 		[7] = { 50, 75, 10, critChance = 5, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
 	},
 }
+skills["BoneArmour"] = {
+	name = "Bone Armour",
+	color = 3,
+	baseEffectiveness = 10,
+	incrementalEffectiveness = 0.029999999329448,
+	description = "Applies a buff to you and each of your minions, which will take some of the damage from enemy hits before being depleted. The buff also grants immunity to bleeding. Shares a cooldown with other Guard skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.GuardSkill] = true, [SkillType.Minion] = true, },
+	statDescriptionScope = "buff_skill_stat_descriptions",
+	castTime = 0,
+	baseFlags = {
+		duration = true,
+		spell = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"quick_guard_damage_absorbed_%",
+		"quick_guard_damage_absorb_limit",
+		"base_deal_no_damage",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	levels = {
+		[20] = { 70, 1, levelRequirement = 70, duration = 3, cooldown = 3, statInterpolation = { 1, 3, }, },
+	},
+}
 skills["BirdAspect"] = {
 	name = "Aspect of the Avian",
 	hidden = true,
@@ -1306,6 +1333,35 @@ skills["TriggeredMoltenStrike"] = {
 		[16] = { 2, 20, damageEffectiveness = 1.15, cooldown = 0.15, baseMultiplier = 1.15, levelRequirement = 1, statInterpolation = { 1, 1, }, },
 	},
 }
+skills["UniqueMirageWarriors"] = {
+	name = "Reflection",
+	hidden = true,
+	color = 4,
+	description = "When you attack with The Saviour and deal a critical strike, this skill can summon a Mirage Warrior. Summoned Mirage Warriors will fight for you using whichever of your attack skills you dealt the critical strike with that caused them to be summoned. Mirage Warriors will not be resummoned using the same skills if you already have the maximum number of them.",
+	skillTypes = { [SkillType.Duration] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"maximum_number_of_mirage_warriors",
+		"skill_used_by_mirage_warrior_damage_+%_final",
+		"cast_on_gain_skill",
+		"spell_uncastable_if_triggerable",
+	},
+	levels = {
+		[20] = { 10000, 2, -50, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
+	},
+}
 skills["TriggeredSummonSpider"] = {
 	name = "Raise Spiders",
 	hidden = true,
@@ -1939,6 +1995,7 @@ skills["SummonVoidSphere"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("dotIsArea", true),
 	},
 	qualityStats = {
 	},
@@ -2051,5 +2108,39 @@ skills["VoidGaze"] = {
 	},
 	levels = {
 		[10] = { -20, 10000, 100, cooldown = 2, levelRequirement = 40, statInterpolation = { 1, 1, 1, }, },
+	},
+}
+skills["VoidShot"] = {
+	name = "Void Shot",
+	hidden = true,
+	color = 4,
+	description = "Fires an arrow which decelerates to the target location, the arrow will then become unstable and explode dealing weapon damage in an area, converting half of the physical damage to cold damage.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.ColdSkill] = true, [SkillType.SkillCanVolley] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"trigger_on_skill_use_%_if_you_have_a_void_arrow",
+		"skill_physical_damage_%_to_convert_to_cold",
+		"active_skill_area_damage_+%_final",
+		"base_is_projectile",
+		"skill_can_fire_arrows",
+		"base_skill_show_average_damage_instead_of_dps",
+		"attack_unusable_if_triggerable",
+	},
+	levels = {
+		[20] = { 100, 50, 100, damageEffectiveness = 1.2, baseMultiplier = 1.2, levelRequirement = 70, statInterpolation = { 1, 1, 1, }, },
 	},
 }

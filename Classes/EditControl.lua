@@ -449,10 +449,14 @@ function EditClass:OnKeyDown(key, doubleClick)
 			if ctrl then
 			-- Skip leading space, then jump word
 				while self.buf:sub(self.caret-1, self.caret-1):match("[%s%p]") do
-					if self.caret > 1 then self.caret = self.caret - 1 end
+					if self.caret > 1 then
+						self.caret = self.caret - 1
+					end
 				end
 				while self.buf:sub(self.caret-1, self.caret-1):match("%w") do
-					if self.caret > 1 then self.caret = self.caret - 1 end
+					if self.caret > 1 then
+						self.caret = self.caret - 1
+					end
 				end
 			else
 				self.caret = self.caret - 1
@@ -467,10 +471,14 @@ function EditClass:OnKeyDown(key, doubleClick)
 			if ctrl then
 			-- Jump word, then skip trailing space, 
 				while self.buf:sub(self.caret, self.caret):match("%w") do
-					if self.caret <= #self.buf then self.caret = self.caret + 1 end
+					if self.caret <= #self.buf then
+						self.caret = self.caret + 1
+					end
 				end
 				while self.buf:sub(self.caret, self.caret):match("[%s%p]") do
-					if self.caret <= #self.buf then self.caret = self.caret + 1 end
+					if self.caret <= #self.buf then
+						self.caret = self.caret + 1
+					end
 				end
 			else
 				self.caret = self.caret + 1

@@ -198,6 +198,8 @@ return {
 	},
 	AdvancedSkillsTutorial={
 	},
+	AlternateBehaviourTypes={
+	},
 	AlternatePassiveAdditions={
 	},
 	AlternatePassiveSkills={
