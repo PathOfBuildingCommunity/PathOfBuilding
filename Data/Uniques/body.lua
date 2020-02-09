@@ -101,7 +101,7 @@ Socketed Gems are Supported by level 15 Pierce
 ]],[[
 Iron Heart
 Crusader Plate
-Upgrade: Upgrades to unique{The Iron Fortress} via prophecy{Battle Hardended}
+Upgrade: Upgrades to unique{The Iron Fortress} via prophecy{Battle Hardened}
 Requires Level 59, 160 Str
 (80-100)% increased Armour 
 10% reduced Movement Speed 

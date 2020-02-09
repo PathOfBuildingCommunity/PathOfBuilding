@@ -431,7 +431,7 @@ Socketed Gems are Supported by level 5 Concentrated Effect
 (120-160)% increased Armour and Evasion
 +(50-70) to maximum Life
 4% reduced Mana Cost per Endurance Charge
-Gain Rampage while at Maximum Endurances Charges
+Gain Rampage while at Maximum Endurance Charges
 Lose all Endurance Charges when Rampage ends
 ]],
 -- Gloves: Armour/Energy Shield

@@ -150,7 +150,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 	end
 
 	-- Calculate attributes
-	local calcluateAttributes = function()
+	local calculateAttributes = function()
 		for _, stat in pairs({"Str","Dex","Int"}) do
 			output[stat] = m_max(round(calcLib.val(modDB, stat)), 0)
 			if breakdown then
@@ -166,8 +166,8 @@ local function doActorAttribsPoolsConditions(env, actor)
 	end
 	
 	-- Calculate twice because of circular dependency
-	calcluateAttributes()
-	calcluateAttributes()
+	calculateAttributes()
+	calculateAttributes()
 
 	-- Add attribute bonuses
 	if not modDB:Flag(nil, "NoStrBonusToLife") then

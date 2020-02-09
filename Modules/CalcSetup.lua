@@ -108,7 +108,7 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 		rad.data.modSource = "Tree:"..rad.nodeId
 	end
 
-	-- Add node modifers
+	-- Add node modifiers
 	local modList = new("ModList")
 	for _, node in pairs(nodeList) do
 		local nodeModList = calcs.buildModListForNode(env, node)

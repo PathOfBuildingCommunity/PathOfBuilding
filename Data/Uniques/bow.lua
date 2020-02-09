@@ -57,7 +57,7 @@ Variant: Attack Speed/Trigger Blood Rage on Kill
 Variant: Cast Speed/Trigger Arcane Surge on Kill
 Variant: Minion Attack and Cast Speed
 Variant: Double Damage
-Variant: Double Damage while Foccused
+Variant: Double Damage while Focussed
 Variant: Socketed Spell Trigger
 Requires Level 57, 190 Dex
 Implicits: 1
