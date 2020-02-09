@@ -1279,9 +1279,14 @@ League: Legion
 Source: Drops from Maraketh Legion
 Requires Level: 20
 Limited to: 1 Historic
+Variant: Asenath
+Variant: Deshret
+Variant: Nasima
 Radius: Large
 Implicits: 0
-Denoted service of (500-8000) dekhara in the akhara of Deshret
+{variant:1}Denoted service of (500-8000) dekhara in the akhara of Asenath
+{variant:2}Denoted service of (500-8000) dekhara in the akhara of Deshret
+{variant:3}Denoted service of (500-8000) dekhara in the akhara of Nasima
 Passives in radius are Conquered by the Maraketh
 Historic
 ]],[[
@@ -1291,9 +1296,14 @@ League: Legion
 Source: Drops from Eternal Legion
 Requires Level: 20
 Limited to: 1 Historic
+Variant: Cadiro
+Variant: Chitus
+Variant: Victario
 Radius: Large
 Implicits: 0
-Commissioned (2000-160000) coins to commemorate Cadiro
+{variant:1}Commissioned (2000-160000) coins to commemorate Cadiro
+{variant:2}Commissioned (2000-160000) coins to commemorate Chitus
+{variant:3}Commissioned (2000-160000) coins to commemorate Victario
 Passives in radius are Conquered by the Eternal Empire
 Historic
 ]],[[
@@ -1303,9 +1313,14 @@ League: Legion
 Source: Drops from Vaal Legion
 Requires Level: 20
 Limited to: 1 Historic
+Variant: Doryani
+Variant: Xibaqua
+Variant: Zerphi
 Radius: Large
 Implicits: 0
-Bathed in the blood of (100-8000) sacrificed in the name of Doryani
+{variant:1}Bathed in the blood of (100-8000) sacrificed in the name of Doryani
+{variant:2}Bathed in the blood of (100-8000) sacrificed in the name of Xibaqua
+{variant:3}Bathed in the blood of (100-8000) sacrificed in the name of Zerphi
 Passives in radius are Conquered by the Vaal
 Historic
 ]],[[
@@ -1315,9 +1330,14 @@ League: Legion
 Source: Drops from Karui Legion
 Requires Level: 20
 Limited to: 1 Historic
+Variant: Kaom
+Variant: Kiloava
+Variant: Rakiata
 Radius: Large
 Implicits: 0
-Commanded leadership over (10000-18000) warriors under Kaom
+{variant:1}Commanded leadership over (10000-18000) warriors under Kaom
+{variant:2}Commanded leadership over (10000-18000) warriors under Kiloava
+{variant:3}Commanded leadership over (10000-18000) warriors under Rakiata
 Passives in radius are Conquered by the Karui
 Historic
 ]],[[
@@ -1327,9 +1347,14 @@ League: Legion
 Source: Drops from Templar Legion
 Requires Level: 20
 Limited to: 1 Historic
+Variant: Avarius
+Variant: Dominus
+Variant: Venarius
 Radius: Large
 Implicits: 0
-Carved to glorify (2000-10000) new faithful converted by High Templar Venarius
+{variant:1}Carved to glorify (2000-10000) new faithful converted by High Templar Avarius
+{variant:2}Carved to glorify (2000-10000) new faithful converted by High Templar Dominus
+{variant:3}Carved to glorify (2000-10000) new faithful converted by High Templar Venarius
 Passives in radius are Conquered by the Templars
 Historic
 ]],
