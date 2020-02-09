@@ -374,7 +374,7 @@ Variant: Current
 {variant:2}+6% chance to Block Spell Damage
 {variant:3}+(2-4)% chance to Block Spell Damage
 (2-4)% chance to Block Attack Damage
-(7-10)% additional Chance to receive a Critical Strike
+Hits have (140-200)% increased Critical Strike Chance against you
 ]],[[
 The Red Dream
 Crimson Jewel
