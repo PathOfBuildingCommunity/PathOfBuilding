@@ -163,6 +163,7 @@ Cobalt Jewel
 Limited to: 1
 Variant: Pre 3.8.0
 Variant: Current
+Implicits: 0
 {variant:1}Summon 2 additional Skeleton Warriors with Summon Skeleton
 {variant:2}Summon 4 additional Skeleton Warriors with Summon Skeleton
 +1 second to Summon Skeleton Cooldown
@@ -356,8 +357,7 @@ Minions have (12-16)% increased Attack Speed
 Minions have (12-16)% increased Cast Speed
 Minions have (10-12)% chance to Dodge Attack Hits
 Minions have (10-12)% chance to Dodge Spell Hits
-Notable Passive Skills in Radius are Transformed to
-instead grant: Minions have 25% reduced Movement Speed
+Notable Passive Skills in Radius are Transformed to instead grant: Minions have 25% reduced Movement Speed
 ]],[[
 Rain of Splinters
 Crimson Jewel
@@ -785,7 +785,6 @@ Radius: Medium
 With 40 total Dexterity and Strength in Radius, Spectral Shield Throw Chains +4 times
 With 40 total Dexterity and Strength in Radius, Spectral Shield Throw fires Shard Projectiles when Chaining
 With 40 total Dexterity and Strength in Radius, Spectral Shield Throw fires 75% less Shard Projectiles
-Historic
 ]],[[
 Fight for Survival
 Viridian Jewel
@@ -1110,6 +1109,7 @@ Corrupted
 ]],[[
 Corrupted Energy
 Cobalt Jewel
+Implicits: 0
 With 5 Corrupted Items Equipped: 50% of Chaos Damage does not bypass Energy Shield and 50% of Physical Damage bypasses Energy Shield
 Corrupted
 ]],[[
@@ -1280,6 +1280,7 @@ Source: Drops from Maraketh Legion
 Requires Level: 20
 Limited to: 1 Historic
 Radius: Large
+Implicits: 0
 Denoted service of (500-8000) dekhara in the akhara of Deshret
 Passives in radius are Conquered by the Maraketh
 Historic
@@ -1291,8 +1292,9 @@ Source: Drops from Eternal Legion
 Requires Level: 20
 Limited to: 1 Historic
 Radius: Large
+Implicits: 0
 Commissioned (2000-160000) coins to commemorate Cadiro
-Passives in radius are Conquered by the Eternal
+Passives in radius are Conquered by the Eternal Empire
 Historic
 ]],[[
 Glorious Vanity
@@ -1302,6 +1304,7 @@ Source: Drops from Vaal Legion
 Requires Level: 20
 Limited to: 1 Historic
 Radius: Large
+Implicits: 0
 Bathed in the blood of (100-8000) sacrificed in the name of Doryani
 Passives in radius are Conquered by the Vaal
 Historic
@@ -1313,6 +1316,7 @@ Source: Drops from Karui Legion
 Requires Level: 20
 Limited to: 1 Historic
 Radius: Large
+Implicits: 0
 Commanded leadership over (10000-18000) warriors under Kaom
 Passives in radius are Conquered by the Karui
 Historic
@@ -1324,6 +1328,7 @@ Source: Drops from Templar Legion
 Requires Level: 20
 Limited to: 1 Historic
 Radius: Large
+Implicits: 0
 Carved to glorify (2000-10000) new faithful converted by High Templar Venarius
 Passives in radius are Conquered by the Templars
 Historic

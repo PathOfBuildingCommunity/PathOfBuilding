@@ -2002,6 +2002,31 @@ local jewelOtherFuncs = {
 			end
 		end
 	end,
+	["Passives in radius are Conquered by the Eternal Empire"] = function(node, out, data)
+		if node and node.type == "Normal" then
+			out:NewMod("PassiveSkillHasNoEffect", "FLAG", true, data.modSource)
+		end
+	end,
+	["Passives in radius are Conquered by the Karui"] = function(node, out, data)
+		local attributes = { "Dexterity", "Intelligence", "Strength" }
+		if node and node.type == "Normal" then
+			if isValueInArray(attributes, node.dn) then
+				out:NewMod("Str", "BASE", 2, data.modSource)
+			else
+				out:NewMod("Str", "BASE", 4, data.modSource)
+			end
+		end
+	end,
+	["Passives in radius are Conquered by the Maraketh"] = function(node, out, data)
+		local attributes = { "Dexterity", "Intelligence", "Strength" }
+		if node and node.type == "Normal" then
+			if isValueInArray(attributes, node.dn) then
+				out:NewMod("Dex", "BASE", 2, data.modSource)
+			else
+				out:NewMod("Dex", "BASE", 4, data.modSource)
+			end
+		end
+	end,
 }
 
 -- Radius jewels that modify the jewel itself based on nearby allocated nodes
@@ -2167,7 +2192,6 @@ end
 local function parseMod(line, order)
 	-- Check if this is a special modifier
 	local lineLower = line:lower()
-	local bestVal, _, bestCaps = scan(line, jewelFuncList)
 	for pattern, patternVal in pairs(jewelFuncList) do
 		local _, _, cap1, cap2, cap3, cap4, cap5 = lineLower:find(pattern, 1)
 		if cap1 then
