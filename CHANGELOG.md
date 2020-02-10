@@ -1,3 +1,6 @@
+### 1.4.157.3 - 2020/02/10
+ * Fix scrolling on dropdown boxes
+ * Fix CombinedDPS showing up on all skills
 ### 1.4.157.2 - 2020/02/10
  * Add support for the Barrage Support skill gem
  * Add support for Ensnaring Arrow

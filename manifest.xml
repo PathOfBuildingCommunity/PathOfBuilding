@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.157.2" />
+	<Version number="1.4.157.3" />
 	<Source part="program" url="https://raw.githubusercontent.com/LocalIdentity/PathOfBuilding/{branch}/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/" />
 	<Source part="tree-2_6" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-2_6.zip" />
@@ -13,7 +13,7 @@
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
 	<File name="UpdateApply.lua" part="program" sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" />
 	<File name="GameVersions.lua" part="program" sha1="31f6e89b1cf8359195a0824035f3e279ed898731" />
-	<File name="changelog.txt" part="program" sha1="c416a76f22eb46c16b397b7c7b3df70ba8ba32e0" />
+	<File name="changelog.txt" part="program" sha1="030eb74d7f0a52c2201a856462e433cb50aee96f" />
 	<File name="Path of Building.exe" part="runtime" platform="win32" sha1="7e5a3242c9a4296dc8377feb4c9d824f3f0a3cc1" />
 	<File name="lua51.dll" part="runtime" platform="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" />
 	<File name="SimpleGraphic.dll" part="runtime" platform="win32" sha1="d852ae6eafc9be62aa41d3cb74fb986d0e5b40e5" />
@@ -42,7 +42,7 @@
 	<File name="Classes/ConfigTab.lua" part="program" sha1="86d349a0e5ed2ea102eb6c261b2a37205d787856" />
 	<File name="Classes/Control.lua" part="program" sha1="64fc5fd8e3d4ade976f51c4a28d782b9b2ad31ac" />
 	<File name="Classes/ControlHost.lua" part="program" sha1="8bc9c45c9223fb0d51e67cde556849678862817a" />
-	<File name="Classes/DropDownControl.lua" part="program" sha1="d12d2df5f847ab0fe1a53f326d0577b8efdc89fe" />
+	<File name="Classes/DropDownControl.lua" part="program" sha1="add3e4de9c8ac3e3099379b09eb232b7c523d5c6" />
 	<File name="Classes/EditControl.lua" part="program" sha1="405e207e0bdd8ec9475b778dd9aa9c9f250f5241" />
 	<File name="Classes/FolderListControl.lua" part="program" sha1="bcb52d02b8ca9288be255219956d6f0bc4efeedd" />
 	<File name="Classes/GemSelectControl.lua" part="program" sha1="4feffe208c7a591509a2474a278e84b26aa986aa" />
@@ -206,7 +206,7 @@
 	<File name="Data/3_0/StatDescriptions/skill_stat_descriptions.lua" part="program" sha1="86bafcd6eccee35f2689446c1d6f69884487b185" />
 	<File name="Data/3_0/StatDescriptions/stat_descriptions.lua" part="program" sha1="004689dcefff79a1443ed4c66d739d7dd1cdf5a6" />
 	<File name="Data/3_0/StatDescriptions/variable_duration_skill_stat_descriptions.lua" part="program" sha1="c10e87b9b02f65dac7ea0e533115e1ada7c198d8" />
-	<File name="Modules/Build.lua" part="program" sha1="0bb9f14b30aeeb21c6046b371b0cc5e7b6c458f5" />
+	<File name="Modules/Build.lua" part="program" sha1="40288912e98d96c5b5370b7b844467ef772192ff" />
 	<File name="Modules/BuildList.lua" part="program" sha1="bcda0c5148b9e40274acd13702896cc430c89eba" />
 	<File name="Modules/CalcActiveSkill.lua" part="program" sha1="a1ea3c63301c40ef825c5e8d7d784b271e496c3d" />
 	<File name="Modules/CalcBreakdown.lua" part="program" sha1="2408b55c894b81fbcd0456a3540cdb07c5a7c4a1" />

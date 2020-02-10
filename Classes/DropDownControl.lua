@@ -290,11 +290,11 @@ function DropDownClass:OnKeyUp(key)
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(-1)
 		else
-			self:SetSel(self.selIndex + 1)
+			self:SetSel(self.selIndex - 1)
 		end
 		return self
 	elseif key == "UP" then
-		self:SetSel(self.selIndex + 1)
+		self:SetSel(self.selIndex - 1)
 		self:ScrollSelIntoView()
 		return self
 	end
