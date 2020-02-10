@@ -2449,6 +2449,6 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if output.TotalDot > 0 then
-		output.CombinedDot = output.TotalDot + (output.PoisonDamage or 0) + (output.IgniteDamage or 0) + (output.BleedDamage or 0) + (output.DecayDPS or 0)
+		output.CombinedDot = output.TotalDot + (output.PoisonDPS or 0) + (output.IgniteDPS or 0) + (output.BleedDPS or 0) + (output.DecayDPS or 0)
 	end
 end
