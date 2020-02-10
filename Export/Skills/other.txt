@@ -265,6 +265,7 @@ local skills, mod, flag, skill = ...
 			activeSkill.skillData.dpsMultiplier = duration / 0.1
 		end
 	end,
+#baseMod skill("showAverage", false)
 #baseMod skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 })
 #baseMod skill("radius", 25)
 #baseMod skill("radiusSecondary", 10)
