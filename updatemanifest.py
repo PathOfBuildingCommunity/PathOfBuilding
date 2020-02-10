@@ -1,20 +1,29 @@
-import xml.etree.ElementTree
 import hashlib
+import os
+import xml.etree.ElementTree
 
-manifest = xml.etree.ElementTree.parse("manifest.xml")
-root = manifest.getroot()
 
-for file in root.iter("File"):
-	path = file.get('name')	
-	if path[-4:] != ".lua" and path[-4:] != ".txt":
-		print("Skipping file type {}".format(path[-4:]))
-		continue
-	try:
-		hash = hashlib.sha1(open(path, 'rb').read()).hexdigest()
-		file.set("sha1", hash)
-		print("path {} hash {}".format(path,hash))
-	except FileNotFoundError:
-		print("file not found, skipping: {}".format(path))
-		continue
-		
-manifest.write("manifest-updated.xml")
+def update_manifest():
+	manifest = xml.etree.ElementTree.parse("manifest.xml")
+	root = manifest.getroot()
+
+	for file in root.iter("File"):
+		path = file.get('name')
+		extension = os.path.splitext(path)[1]
+		if extension not in [".lua", ".txt"]:
+			print(f"Skipping file type {extension}")
+			continue
+		try:
+			with open(path, 'rb') as f:
+				data = f.read()
+			sha1_hash = hashlib.sha1(data).hexdigest()
+			file.set("sha1", sha1_hash)
+			print(f"Path: {path} hash: {sha1_hash}")
+		except FileNotFoundError:
+			print(f"File not found, skipping {path}")
+
+	manifest.write("manifest-updated.xml")
+
+
+if __name__ == "__main__":
+	update_manifest()
