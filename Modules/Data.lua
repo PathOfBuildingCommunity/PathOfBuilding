@@ -114,9 +114,14 @@ data.powerStatList = {
 data.skillColorMap = { colorCodes.STRENGTH, colorCodes.DEXTERITY, colorCodes.INTELLIGENCE, colorCodes.NORMAL }
 
 data.jewelRadius = {
-	{ rad = 800, col = "^xBB6600", label = "Small" },
-	{ rad = 1200, col = "^x66FFCC", label = "Medium" },
-	{ rad = 1500, col = "^x2222CC", label = "Large" }
+	{ inner = 0, outer = 800, col = "^xBB6600", label = "Small" },
+	{ inner = 0, outer = 1200, col = "^x66FFCC", label = "Medium" },
+	{ inner = 0, outer = 1500, col = "^x2222CC", label = "Large" },
+
+	{ inner = 850, outer = 1100, col = "^xD35400", label = "Variable" },
+	{ inner = 1150, outer = 1400, col = "^x66FFCC", label = "Variable" },
+	{ inner = 1450, outer = 1700, col = "^x2222CC", label = "Variable" },
+	{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
 }
 
 data.labyrinths = {

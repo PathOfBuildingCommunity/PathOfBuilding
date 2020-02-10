@@ -32,15 +32,15 @@ Requires Level 62, 212 Dex
 Implicits: 2
 {variant:1,2}(6-12)% increased Elemental Damage with Weapons
 {variant:5}+(15-25)% to Global Critical Strike Multiplier
++(10-20) to Dexterity
 {variant:1}(75-100)% increased Physical Damage
 {variant:2,3}(150-180)% increased Physical Damage
 {variant:4,5}(200-260)% increased Physical Damage
-+(10-20) to Dexterity
 Adds 25 to 50 Fire Damage
 {variant:1}5% increased Attack Speed
-{variant:2,3,4}(10-14)% increased Attack Speed
-{variant:1,2,3}100% More Bow Damage at Close Range
-{variant:4}50% More Bow Damage at Close Range
+{variant:2,3,4,5}(10-14)% increased Attack Speed
+{variant:1,2,3}100% More Damage with Arrow Hits at Close Range
+{variant:4,5}50% More Damage with Arrow Hits at Close Range
 Bow Knockback at Close Range
 ]],[[
 The Crimson Storm
@@ -57,7 +57,7 @@ Variant: Attack Speed/Trigger Blood Rage on Kill
 Variant: Cast Speed/Trigger Arcane Surge on Kill
 Variant: Minion Attack and Cast Speed
 Variant: Double Damage
-Variant: Double Damage while Foccused
+Variant: Double Damage while Focussed
 Variant: Socketed Spell Trigger
 Requires Level 57, 190 Dex
 Implicits: 1

@@ -655,6 +655,9 @@ return {
 ["poison_dot_multiplier_+"] = {
 	mod("DotMultiplier", "BASE", nil, 0, KeywordFlag.Poison),
 },
+["dot_multiplier_+"] = {
+	mod("DotMultiplier", "BASE", nil),
+},
 ["active_skill_ignite_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite),
 },
@@ -759,6 +762,13 @@ return {
 },
 ["returning_projectiles_always_pierce"] = {
 	flag("PierceAllTargets", { type = "Condition", var = "ReturningProjectile" }),
+},
+["support_barrage_attack_time_+%_per_projectile_fired"] = {
+	mod("SkillAttackTime", "MORE", nil, 0, 0, { type = "Condition", varList = { "UsingBow", "UsingWand" }}, { type = "PerStat", stat = "ProjectileCount" }),
+},
+["support_barrage_trap_and_mine_throwing_time_+%_final_per_projectile_fired"] = {
+	mod("SkillMineThrowingTime", "MORE", nil, 0, 0, { type = "PerStat", stat = "ProjectileCount" }),
+	mod("SkillTrapThrowingTime", "MORE", nil, 0, 0, { type = "PerStat", stat = "ProjectileCount" }),
 },
 -- Self modifiers
 ["chance_to_be_pierced_%"] = {

@@ -129,6 +129,7 @@ function ItemClass:ParseRaw(raw)
 			t_insert(self.modLines, { line = line, extra = extra, modList = modList or { }, buff = true })
 		end
 	end
+	local deferJewelRadiusIndexAssignment
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, implicitNumberSpecified, foundImplicit
 	while self.rawLines[l] do
@@ -198,10 +199,16 @@ function ItemClass:ParseRaw(raw)
 						end
 					end
 				elseif specName == "Radius" and self.type == "Jewel" then
-					for index, data in pairs(verData.jewelRadius) do
-						if specVal:match("^%a+") == data.label then
-							self.jewelRadiusIndex = index
-							break
+					self.jewelRadiusLabel = specVal:match("^%a+")
+					if specVal:match("^%a+") == "Variable" then
+                        -- Jewel radius is variable and must be read from it's mods instead after they are parsed
+                        deferJewelRadiusIndexAssignment = true
+                    else
+                        for index, data in pairs(verData.jewelRadius) do
+                            if specVal:match("^%a+") == data.label then
+                                self.jewelRadiusIndex = index
+                                break
+                            end
 						end
 					end
 				elseif specName == "Limited to" and self.type == "Jewel" then
@@ -458,6 +465,9 @@ function ItemClass:ParseRaw(raw)
 		self:NormaliseQuality()
 	end
 	self:BuildModList()
+	if deferJewelRadiusIndexAssignment then
+		self.jewelRadiusIndex = self.jewelData.radiusIndex
+	end
 end
 
 function ItemClass:NormaliseQuality()
@@ -562,8 +572,8 @@ function ItemClass:BuildRaw()
 	if self.requirements and self.requirements.level then
 		t_insert(rawLines, "LevelReq: "..self.requirements.level)
 	end
-	if self.jewelRadiusIndex then
-		t_insert(rawLines, "Radius: "..data.jewelRadius[self.jewelRadiusIndex].label)
+	if self.jewelRadiusLabel then
+		t_insert(rawLines, "Radius: "..self.jewelRadiusLabel)
 	end
 	if self.limit then
 		t_insert(rawLines, "Limited to: "..self.limit)
@@ -695,7 +705,7 @@ function ItemClass:GetPrimarySlot()
 end
 
 -- Add up local modifiers, and removes them from the modifier list
--- To be considered local, a modifier must be an exact flag match, and cannot have any tags (e.g conditions, multipliers)
+-- To be considered local, a modifier must be an exact flag match, and cannot have any tags (e.g. conditions, multipliers)
 -- Only the InSlot tag is allowed (for Adds x to x X Damage in X Hand modifiers)
 local function sumLocal(modList, name, type, flags)
 	local result
@@ -721,7 +731,7 @@ local function sumLocal(modList, name, type, flags)
 	return result
 end
 
--- Build list of modifiers in a given slot number (1 or 2) while applying local modifers and adding quality
+-- Build list of modifiers in a given slot number (1 or 2) while applying local modifiers and adding quality
 function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	local slotName = self:GetPrimarySlot()
 	if slotNum == 2 then

@@ -1382,10 +1382,10 @@ function ItemsTabClass:EditDisplayItemText()
 		else
 			tooltip:AddLine(14, "The item is invalid.")
 			tooltip:AddLine(14, "Check that the item's title and base name are in the correct format.")
-			tooltip:AddLine(14, "For Rare and Unique items, the first 2 lines must be the title and base name. E.g:")
+			tooltip:AddLine(14, "For Rare and Unique items, the first 2 lines must be the title and base name. E.g.:")
 			tooltip:AddLine(14, "Abberath's Horn")
 			tooltip:AddLine(14, "Goat's Horn")
-			tooltip:AddLine(14, "For Normal and Magic items, the base name must be somewhere in the first line. E.g:")
+			tooltip:AddLine(14, "For Normal and Magic items, the base name must be somewhere in the first line. E.g.:")
 			tooltip:AddLine(14, "Scholar's Platinum Kris of Joy")
 		end
 	end	
@@ -1881,8 +1881,8 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if item.limit then
 			tooltip:AddLine(16, "^x7F7F7FLimited to: ^7"..item.limit)
 		end
-		if item.jewelRadiusIndex then
-			tooltip:AddLine(16, "^x7F7F7FRadius: ^7"..data.jewelRadius[item.jewelRadiusIndex].label)
+		if item.jewelRadiusLabel then
+			tooltip:AddLine(16, "^x7F7F7FRadius: ^7"..item.jewelRadiusLabel)
 		end
 		if item.jewelRadiusData and slot and item.jewelRadiusData[slot.nodeId] then
 			local radiusData = item.jewelRadiusData[slot.nodeId]

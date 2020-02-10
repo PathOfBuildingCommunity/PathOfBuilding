@@ -12,7 +12,7 @@
 * If the issue affects a specific build, please provide the build share code: In the Import/Export Build tab, click "Generate", then "Share with Pastebin" and add the link to your post.
 
 ## Requesting features
-Feature requests are always welcome. Note that not all requests will recieve an immediate response.
+Feature requests are always welcome. Note that not all requests will receive an immediate response.
 
 #### Before submitting a feature request:
 * Check that the feature hasn't already been requested; look at all issues with titles that might be related to the feature.
@@ -43,7 +43,7 @@ You can now use the shortcut to run the program from the repository. Running the
   * Items and passives show all internal modifiers that they are granting.
   * Stats that aren't parsed correctly will show any unrecognised parts of the stat description.
   * Passives also show node ID and node power values.
-  * Conditional options in the Configuration tab show the list of dependant modifiers.
+  * Conditional options in the Configuration tab show the list of dependent modifiers.
 * While in the Tree tab, holding `Alt` also highlights nodes that have unrecognised modifiers.
 * Holding `Ctrl` while launching the program will rebuild the `ModCache`
 

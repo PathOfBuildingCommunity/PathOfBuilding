@@ -614,7 +614,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
 	if activeSkill.buffList[1] then
-		-- Add to auxillary skill list
+		-- Add to auxiliary skill list
 		t_insert(env.auxSkillList, activeSkill)
 	end
 end

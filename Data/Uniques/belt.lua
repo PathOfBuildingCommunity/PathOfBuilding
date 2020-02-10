@@ -324,6 +324,7 @@ Implicits: 1
 (25-40)% increased Global Physical Damage
 +(40-50) to Strength
 +(40-50) to Dexterity
+50% increased Flask Charges gained
 +(20-25)% to all Elemental Resistances while you have at least 200 Strength
 (40-50)% increased Projectile Attack Damage while you have at least 200 Dexterity
 ]],[[

@@ -58,6 +58,10 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill BoneArmour
+#flags duration spell
+#mods
+
 #skill BirdAspect
 #flags cast duration
 	fromItem = true,
@@ -325,6 +329,11 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill UniqueMirageWarriors
+#flags spell duration minion
+	fromItem = true,
+#mods
+
 #skill TriggeredSummonSpider
 #flags spell minion duration
 	fromItem = true,
@@ -469,6 +478,7 @@ local skills, mod, flag, skill = ...
 #skill SummonVoidSphere Summon Volatile Anomaly
 #flags spell area duration
 	fromItem = true,
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill TentacleSmash
@@ -489,4 +499,9 @@ local skills, mod, flag, skill = ...
 			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 	},
+#mods
+
+#skill VoidShot
+#flags attack projectile area
+	fromItem = true,
 #mods

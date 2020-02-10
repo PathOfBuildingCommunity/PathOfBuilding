@@ -198,6 +198,8 @@ return {
 	},
 	AdvancedSkillsTutorial={
 	},
+	AlternateBehaviourTypes={
+	},
 	AlternatePassiveAdditions={
 	},
 	AlternatePassiveSkills={
@@ -615,8 +617,8 @@ return {
 		},
 		[13]={
 			list=false,
-			name="Catagory",
-			refTo="BuffCatagory",
+			name="Category",
+			refTo="BuffCategories",
 			type="Enum",
 			width=60
 		},

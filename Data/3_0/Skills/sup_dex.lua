@@ -252,9 +252,10 @@ skills["SupportArrowNovaPlus"] = {
 	description = "Supports bow attack skills that fire arrows forwards as projectiles. These skills will instead fire a payload arrow into the air to land at a targeted location. The supported skills' arrows will then fire out in a circle from where it lands. Cannot support skills that already fire arrows into the air, channelled skills, or skills that create Minions.",
 	color = 2,
 	support = true,
-	requireSkillTypes = { SkillType.Projectile, SkillType.Type54, SkillType.Type56, SkillType.Type73, },
+	requireSkillTypes = { SkillType.Projectile, SkillType.Type54, SkillType.OR, SkillType.ProjectileAttack, SkillType.Type56, SkillType.OR, SkillType.AND, SkillType.SkillCanVolley, SkillType.AND, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Channelled, },
+	excludeSkillTypes = { SkillType.Channelled, SkillType.CreatesMinion, SkillType.Type83, },
+	ignoreMinionTypes = true,
 	plusVersionOf = "SupportArrowNova",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -298,7 +299,7 @@ skills["SupportArrowNovaPlus"] = {
 	},
 }
 skills["SupportBarrage"] = {
-	name = "Barrage",
+	name = "Barrage Support",
 	description = "Supports projectile attack skills that use bows or wands. Cannot support triggered skills, channelled skills, or skills that create Minions.",
 	color = 2,
 	support = true,
@@ -313,7 +314,10 @@ skills["SupportBarrage"] = {
 	},
 	statMap = {
 		["support_barrage_damage_+%_final"] = {
-			mod("Damage", "MORE", nil),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
+		},
+		["projectiles_barrage"] = {
+			flag("SequentialProjectiles", { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
 		},
 	},
 	baseMods = {
@@ -2920,7 +2924,7 @@ skills["SupportSwiftAfflictionPlus"] = {
 	requireSkillTypes = { SkillType.Duration, SkillType.Type55, SkillType.Hit, SkillType.Attack, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
-	plusVersionOf = "SupportSwiftAfflictionPlus",
+	plusVersionOf = "SupportRapidDecay",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_rapid_decay_damage_over_time_+%_final"] = {

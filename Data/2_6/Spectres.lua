@@ -857,7 +857,7 @@ minions["Metadata/Monsters/Kiweth/KiwethSeagull"] = {
 		-- MonsterLesserFarShot
 	},
 }
--- Helion
+-- Hellion
 minions["Metadata/Monsters/Lion/LionDesertSkinPuncture"] = {
 	name = "Dune Hellion",
 	life = 1,

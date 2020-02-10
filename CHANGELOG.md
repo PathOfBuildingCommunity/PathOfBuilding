@@ -1,3 +1,39 @@
+### 1.4.157.3 - 2020/02/10
+ * Fix scrolling on dropdown boxes
+ * Fix CombinedDPS showing up on all skills
+### 1.4.157.2 - 2020/02/10
+ * Add support for the Barrage Support skill gem
+ * Add support for Ensnaring Arrow
+ * Add support for Thread of Hope
+ * Add support for Crimson Dance and amount of bleeds on enemy
+ * Partial support for Timeless jewels
+    * Brutal Restraint (Maraketh) and Lethal Pride (Karui) now provide stats when allocating small nodes on the tree
+    * Elegant Hubris (Eternal) now negates all stats gained from nodes in its radius other than keystones
+ * Add support for Void Shot granted by the Voidfletcher unique quiver
+ * Add support for in-game jewel radius sprites
+ * Add parsing for -res and increased phys damage delve helmet mods
+ * Add support for "against Chilled or Frozen Enemies" mod
+ * Add breakdown for Curse Effect for Curse Skills
+ * Add breakdown for Aura for Aura Skills
+ * Add breakdown for "Base from Armours" row for ES/Armour/Evasion
+ * Add colors to the resistances' label on the side bar
+ * Add Ctrl-Right and Ctrl-Left to text fields (skip words)
+ * Add list of recently imported accounts to the Import/Export Build tab
+ * Add parsing for Elusive mod on boots
+ * Add support for "Ignites you inflict deal Damage faster" mod
+ * Add support for "Fortify Buffs you create instead grant 30% more Evasion Rating" mod
+ * Add missing "increased Flask Charges gained" mod to Nomad unique belt
+ * Add support for Fungal Ground from Sporeguard unique body armour
+ * Add Bone Armour and Mirage Warriors to skill pool
+ * Add 15 fuses to Explosive Arrow drop-down list
+ * Cap max elemental resistance at 90
+ * Fix mods for many old jewels
+ * Fix Spreading Rot jewel
+ * Fix Chin Sol's mods
+ * Fix quality mods on Awakened Swift Affliction and Awakened Unbound Ailments
+ * Fix Arctic Breath's cold dot not being modified by area damage mods
+ * Fix Transfiguration of Mind interaction bug with Crown of Eyes
+ * Fix parsing for travel skill mods
 ### 1.4.157.1 - 2019/12/21
  * Added a new unique item, The Savior
  * Added the ability to show only non-Awakened supports (or only Awakened supports!); the option can be found in the
@@ -54,8 +90,8 @@
 ### 1.4.153.1 - 2019/12/12
  * Add 3.9 Passive Tree
  * Add 3.9 Unique Changes
- * Add support for Ryslathas Coil
- * Add support for Perquils Toe
+ * Add support for Ryslatha's Coil
+ * Add support for Perquil's Toe
  * Add support for Vaal Arc Lucky Buff
  * Add support for Chain of Command's mods
  * Add support for Warcried recently
@@ -75,7 +111,7 @@
  * Show Impale DPS in sidebar for minions
  * Add The Ivory Tower Body armour (3.9 preview)
  * Add Mistwall Buckler Shield (3.9 preview)
- * Add support for Manastorms' lightning damage buff
+ * Add support for Manastorm's lightning damage buff
  * Add support for Arborix and its mods
  * Add support for Augyre and its mods 
  * Add support for Vulconus and its mods
@@ -84,7 +120,7 @@
  * Add support for Golem Commanders increased damage node
  * Add increased area rampage mod support on Sinvicta's Mettle
  * Add proper support for Champions' Master of Metal node (set the number of impales for this to work)
- * Add Carion golem to list of golems that work with primordial harmony
+ * Add Carrion golem to list of golems that work with primordial harmony
  * Add Bane of Legends node attack speed buff
  * Add tooltip to Rage to list its effects
  * Update Edge of Madness
@@ -113,7 +149,7 @@
  * Fix elemental hit threshold gems again
  * Fix double damage on heavy strike
  * Fix minion resistance on Raise Spectre gem
- * Fix Bones of Ullur mod
+ * Fix Bones of Ullr mod
  * Fix Perandus Signet mod
  * Fix Red Nightmare block chance
  * Trim image file sizes
@@ -132,9 +168,9 @@
 
 ### 1.4.152.3 - 2019/10/06
  * Implemented logic for melee distance scaling attack multipliers (Close combat and Slayers Impact node)
- * Add counterattack double damage bonus from Gladiators Painforged node
+ * Add counterattack double damage bonus from Gladiator's Painforged node
  * Implement parsing for all of Slayer's nodes
- * Add support for Assassins Mistwalker node and Ascendants  node for Assassin
+ * Add support for Assassin's Mistwalker node and Ascendants  node for Assassin
  * Add support for travel skills cooldown recovery
  * Add Badge of Brotherhood mod parsing
  * Add incremental shock values instead of the default locked value of 50%
@@ -446,7 +482,7 @@
 ### 1.4.114 - 2018/10/27
  * Added the following minions:
     * Bestial Rhoa
-	* Bestial Snek
+	* Bestial Snake
 	* Bestial Ursa
 	   * You can enable the Rallying Cry skill in the Skill Options section of the Configuration tab
  * Added the following spectres to the spectre library:
@@ -611,7 +647,7 @@ As of this update I am once again able to add and update minions/spectres, which
  * Updated the rolls on many new uniques
  * Updated the passive tree; in particular, this corrects the positioning of the Overcharged cluster
  * You can now apply 2 corrupted implicits to an item
- * Uniques in the unique database now show their source (if drop-limited) and upgrades (e.g Prophecy/Blessing/Vial)
+ * Uniques in the unique database now show their source (if drop-limited) and upgrades (e.g. Prophecy/Blessing/Vial)
  * Aura/buff/curse skills are now correctly enabled by default when importing
  * Slavedriver's Hand now correctly converts Attack and Cast Speed modifiers to Trap Throwing Speed
 
@@ -633,7 +669,7 @@ As of this update I am once again able to add and update minions/spectres, which
 
 ### 1.4.92 - 2018/06/02
  * Added/updated all skill gems for 3.3
- * Aura/buff/curse skills can now be enabled/disabled in the Skills tab independantly of the skill gem itself
+ * Aura/buff/curse skills can now be enabled/disabled in the Skills tab independently of the skill gem itself
  * Fixed the "Onslaught on Low Mana" modifier on Dance of the Offered and Omeyocan (thanks ExaltedShard)
  * Quartz Infusion now correctly enables Phasing when you have Onslaught
  * The "Used a Movement Skill Recently" option now correctly enables for all Movement skills
@@ -666,7 +702,7 @@ As of this update I am once again able to add and update minions/spectres, which
 ### 1.4.88 - 2018/05/30
  * Sorting unique flasks by DPS now works correctly
  * Fixed issue where Slavedriver's Hand was granting Blood Magic to all skills
- * Fixed a rare issue in which nodes in Ascendant could be unallocated without properly removing dependant nodes
+ * Fixed a rare issue in which nodes in Ascendant could be unallocated without properly removing dependent nodes
 
 ### 1.4.87 - 2018/05/30
  * Passive tree updated to 3.3
@@ -694,7 +730,7 @@ As of this update I am once again able to add and update minions/spectres, which
 	* Gluttony
  * Added an option to the Configuration tab for "Have you Shattered an Enemy Recently"
  * Added the missing league tags on the Bestiary uniques
- * Modifiers to Action Speed (e.g Tailwind) now correctly affect Trap Throwing Speed, Mine Laying Speed, and Totem Placement speed
+ * Modifiers to Action Speed (e.g. Tailwind) now correctly affect Trap Throwing Speed, Mine Laying Speed, and Totem Placement speed
  * Projectile Weakness's added Knockback chance is now factored into the Knockback calculations
  * The damage-per-Ailment-type modifier on Yoke of Suffering is now supported (thanks chollinger)
  * The Global Physical Damage stat on Prismatic Eclipse is now correctly recognised
@@ -725,7 +761,7 @@ As of this update I am once again able to add and update minions/spectres, which
 	* Malachai's Awakening
 	* Sanguine Gambol
 	* Voidforge (partial; the random extra damage cannot be simulated yet)
- * Updated the modifier rolls on Panquetzalibizapizzatli
+ * Updated the modifier rolls on Panquetzaliztli
  * Updated the modifier rolls on several other new uniques
  * Updated the stat parsing to account for various stat wording changes made in 3.2
     * Notably, this fixes the various additional Arrow/Projectile stats that were no longer being recognised
@@ -816,7 +852,7 @@ putting in a fair bit of work over the coming weeks.
    * Doedre's Malevolence
    * Fox's Fortune
    * Greedtrap
-   * Panquetzalitzibitzipretzeliztli
+   * Panquetzaliztli
    * The Stormwall
    * Craiceann's items will be implemented once I find out what the hell Crab Barriers are
  * Added Helmet enchantments for the new skills added in 3.1
@@ -843,7 +879,7 @@ putting in a fair bit of work over the coming weeks.
  * Fixed error caused by setting the travel distance option for Charged Dash
 
 ### 1.4.73 - 2017/12/25
- * Fixed error that occured when changing some items to Shaper or Elder
+ * Fixed error that occurred when changing some items to Shaper or Elder
 
 ### 1.4.72 - 2017/12/25
  * Added 2 Abyssal Socket variants to the Abyss league uniques
@@ -859,7 +895,7 @@ This update adds full support for Abyss Jewels:
 This update also adds support for item sockets:
  * An item's sockets are now shown in the tooltip
  * When editing an item you can now edit the sockets and links
- * Item modifiers that interact with socket colours are now supported (e.g Prismatic Eclipse)
+ * Item modifiers that interact with socket colours are now supported (e.g. Prismatic Eclipse)
 
 This update also adds support for Shaper/Elder items:
  * Item tooltips now indicate if an item is a Shaper or Elder Item
@@ -878,7 +914,7 @@ Other changes:
  * Added the following new uniques:
     * Ahn's Contempt
 	* Augyre
-	* Beltimer Blade
+	* Beltimber Blade
 	* Blasphemer's Grasp
 	   * Detection/counting of equipped of Elder Items does not work yet
 	* Darkness Enthroned
@@ -936,7 +972,7 @@ Other changes:
 
 ### 1.4.66 - 2017/12/09
  * Added support for the new skill gems
-    * Most should be fully or almost fully functional, with the exception of Mirrage Archer
+    * Most should be fully or almost fully functional, with the exception of Mirage Archer
  * Added the following new uniques:
     * Arborix
     * Cane of Unravelling
@@ -1035,7 +1071,7 @@ however from this point some new features may only be available for 3.0 builds.
  * The Helmet enchantments for the new skills are now available in the item enchanting system
  * The resistance penalties from completing Act 5/10 can now be disabled using a new option in the Configuration tab
  * Removed the attack rate cap for Blink/Mirror Arrow clones, which is no longer present in 3.0
- * An explanatory message is now shown in the sidebar if the main skill is disabled (e.g if no compatible weapon is equipped)
+ * An explanatory message is now shown in the sidebar if the main skill is disabled (e.g. if no compatible weapon is equipped)
  * Fixed the Burning Damage roll on Pyre
  * Fixed the flat Physical Damage rolls on Widowmaker
  * Fixed the Elemental Resistances roll on Immortal Flesh
@@ -1054,7 +1090,7 @@ however from this point some new features may only be available for 3.0 builds.
  * The gem selection dropdown now accepts "active" as a filter keyword in additional to other gem tags (such as "support")
 
 For 2.6 builds:
- * The link created when exporting the passive tree now opens in the 2.6.2 version of the offical passive tree viewer
+ * The link created when exporting the passive tree now opens in the 2.6.2 version of the official passive tree viewer
 
 ### 1.4.57 - 2017/08/05
  * Now that 3.0 is live, the warning that was shown before importing to 3.0 builds is now shown for 2.6 builds instead
@@ -1097,7 +1133,7 @@ For 3.0 builds:
 
 ### 1.4.53 - 2017/08/03
  * Added Inya's Epiphany, Volkuur's Guidance and The Coming Calamity
- * Fixed an issue where the effect of the Conflux Buff option would persist after Shaper of Desolation is deallocted
+ * Fixed an issue where the effect of the Conflux Buff option would persist after Shaper of Desolation is deallocated
 
 For 3.0 builds:
  * Updated the passive tree to the final version
@@ -1208,7 +1244,7 @@ These templates are only being trialed for 3.0 builds at present, but if the fee
 back-ported to 2.6 as well.
 Other changes:
  * Added support for the Conflux buffs granted by Shaper of Desolation, using a new option in the Configuration tab
- * Fixed error that occured when trying to copy an item set
+ * Fixed error that occurred when trying to copy an item set
 
 ### 1.4.40 - 2017/07/01
  * Added support for Manifest Dancing Dervish
@@ -1312,7 +1348,7 @@ For 3.0 builds:
  * Fixed an error that occasionally appeared when editing gems in the Skills tab
 
 For 3.0 builds:
- * Damage multipliers for skill parts (e.g Flameblast stages) should now correctly apply to Decay
+ * Damage multipliers for skill parts (e.g. Flameblast stages) should now correctly apply to Decay
 
 ### 1.4.28 - 2017/06/14
 For 3.0 builds:
@@ -1331,8 +1367,8 @@ For 3.0 builds:
  * Added support for the Chaos degen from Forbidden Taste
 
 For 3.0 builds:
- * Damage multipliers for skill parts (e.g Flameblast stages) should now correctly apply to Damaging Ailments
- * Added damage from buffs (e.g Heralds, Anger) should now correctly apply to Damaging Ailments
+ * Damage multipliers for skill parts (e.g. Flameblast stages) should now correctly apply to Damaging Ailments
+ * Added damage from buffs (e.g. Heralds, Anger) should now correctly apply to Damaging Ailments
  * Fixed the multiplier on Remote Mine
 
 ### 1.4.25 - 2017/06/11
@@ -1448,7 +1484,7 @@ Other changes:
 ### 1.4.11 - 2017/05/16
  * Fixed a stack overflow error that could occur when trying to view breakdowns in the Calcs tab
  * Fixed interaction between weapon swap and skills granted by items
- * Consolidated the program's various list controls; their appearence and behaviour should be largely unchanged,
+ * Consolidated the program's various list controls; their appearance and behaviour should be largely unchanged,
    aside from some minor enhancements
  * Various minor tweaks and fixes
 
@@ -1480,7 +1516,7 @@ You can find the link in the About window.
 
 ### 1.4.8 - 2017/05/02
  * Added a Physical Damage Reduction estimate for Armour; by default the estimate is made using the same damage value
-   used in-game on the character sheet, but it can be overriden using a new option in the Configuration tab
+   used in-game on the character sheet, but it can be overridden using a new option in the Configuration tab
  * Added a new "Damage Taken" section to the Calcs tab that shows the incoming damage multipliers for each damage type
     * These factor in mitigation (resistances/armour) and modifiers to damage taken
 	* The multipliers for hits and DoTs are calculated and shown separately
@@ -1493,7 +1529,7 @@ You can find the link in the About window.
  * Added support for Arrow Dancing
  * The "increase maximum Life if no worn Items are Corrupted" stat on Voll's Vision should now apply correctly
  * Corrected the range of the life modifier on The Perfect Form
- * Corrected The Alyardex's variants
+ * Corrected The Aylardex's variants
  * Fixed issue that prevented the program's title bar from appearing at low screen resolutions
  
 ### 1.4.7 - 2017/04/20
@@ -1563,7 +1599,7 @@ This update adds support for Minions:
 	* Summon Raging Spirit
 	* Summon Skeletons
 	* Vaal Summon Skeletons (except generals)
-	* Summon Spectal Wolf (from The Scourge)
+	* Summon Spectral Wolf (from The Scourge)
  * Added minion support for:
 	* Summon Chaos Golem
 	* Summon Flame Golem
@@ -1595,8 +1631,7 @@ Other changes:
 ### 1.3.24 - 2017/04/05
 This update adds support for Life/Mana Leech and Life/Mana/ES Gain on Hit:
  * All sources of Leech and Gain on Hit are supported, including "Damage dealt by your Totems is Leeched to you"
- * For skills with a known hit rate (i.e skills that show DPS instead of Average Damage), the combined rate of recovery
-   from Leech and Gain on Hit is displayed in the sidebar
+*  For skills with a known hit rate (i.e. skills that show DPS instead of Average Damage), the combined rate of recovery from Leech and Gain on Hit is displayed in the sidebar
  * For other skills, the total amount leeched/gained from one hit is displayed instead
  * Detailed breakdowns of Leech and Gain on Hit can be found in the new "Leech & Gain on Hit" section in the Calcs tab
 
@@ -1661,7 +1696,7 @@ Other changes:
  * Added support for threshold jewels:
     * Most of the relevant modifiers from threshold jewels should now be supported
 	* The tooltips for jewel sockets now indicate which types of threshold jewels will work there
- * Added and updated many new uniques (shoutout to chuanhsing for the list on PoEDB)
+ * Added and updated many new uniques (shout-out to chuanhsing for the list on PoEDB)
  * Applied the remaining balance changes to unique items (including threshold jewels)
  * Updated all item bases (thanks Patrick for doing most of the work)
     * Claw and Sword uniques and templates have been updated to account for the new implicits
@@ -1678,7 +1713,7 @@ Other changes:
  * Updated the conversion values of Wild Strike, Ice Shot and Frost Blades (thanks viromancer)
 
 ### 1.3.15 - 2017/03/02
- * The skill gem search field can now search by gem tag (e.g 'support' or 'aura')
+ * The skill gem search field can now search by gem tag (e.g. 'support' or 'aura')
  * Removed the bonus Energy Shield from Vaal Discipline
  * Node location displays in the Items and Calcs tabs will now render correctly
  * Fixed error that resulted from entering certain characters into search fields
@@ -1738,7 +1773,7 @@ Other changes:
 
 ### 1.3.7 - 2017/02/22
  * The "enemy is a Boss" option in the Configuration tab now has 2 modes: Standard Boss, and Shaper/Guardian
-   * Standard Boss is equivelant to the old boss setting (30/30/30/15 resists, -60% curse effect)
+   * Standard Boss is equivalent to the old boss setting (30/30/30/15 resists, -60% curse effect)
    * Shaper/Guardian applies: 40/40/40/25 resists, -80% curse effect, 50% less Bleed/Poison/Ignite Duration
  * Witchfire Brew's Vulnerability aura now correctly accounts for less curse effect on bosses, and now counts for Malediction
 
@@ -1945,7 +1980,7 @@ crits and non-crits. This has allowed for the following changes:
  * Added the Elreon flat chaos mod to the ring and amulet templates
  * Added support for the "Auras you Cast" modifiers in Guardian and Necromancer
  * Passives/items that affect mana cost will now display the mana cost change in green if the cost is reduced,
-   and red if the cost is increased (i.e the reverse of the behaviour for other stats)
+   and red if the cost is increased (i.e. the reverse of the behaviour for other stats)
  * Skills that cannot miss will now correctly have a 100% chance to hit
  * Fixed issue that could cause the stat comparisons in item and passive node tooltips to show incorrect values if 
    Elemental Equilibrium is used
@@ -1960,7 +1995,7 @@ crits and non-crits. This has allowed for the following changes:
  * Imported items no longer have their quality normalised
  * Fixed Avatar of Fire not working after the passive tree update
  * Fixed bug preventing Cold Steel from applying both conversions
- * Corrected the ranges of the crit multipler modifiers on the jewel templates
+ * Corrected the ranges of the crit multiplier modifiers on the jewel templates
  * Various minor tweaks and fixes
 
 ### 1.2.19 - 2016/11/30
@@ -2111,7 +2146,7 @@ Other changes:
  * The new class background artworks have been added to the passive skill tree
  * The required level for a build's passive tree is now shown when hovering over the points display
  * The Items tab will now display both source lists (Uniques and Rares) if there's room
- * Support gem compatability is now determined using the same data the game itself uses, and should now be 100% accurate
+ * Support gem compatibility is now determined using the same data the game itself uses, and should now be 100% accurate
 
 ### 1.1.11 - 2016/10/25
  * Added flat mana to ES armour rare templates
@@ -2165,7 +2200,7 @@ Other changes:
     * When importing to an existing build:
        * The passive tree will be replaced with the imported one
        * Items (including jewels) will be added to the build, unless the item was added by a previous character import
-	      * If you've previously added an item by copying it from ingame, the character import will still add it,
+	      * If you've previously added an item by copying it from in-game, the character import will still add it,
 	        so you'll need to delete the old items after the import
 	   * Skills will be added if no existing skill matches the new one ('match' meaning the same gems in the same order)
     * The only data that cannot be imported is the bandit choices, as these aren't available from the API
@@ -2254,7 +2289,7 @@ Other changes:
  * Added attack speed to the spell dagger template. Whirling Blades yo!
 
 ### 1.0.17 - 2016/09/02
- * Added support for skill DPS multipliers; currently only Lightning Tendrils uses it (it has a 4x mutliplier)
+ * Added support for skill DPS multipliers; currently only Lightning Tendrils uses it (it has a 4x multiplier)
  * Fixed Lioneye's Fall not converting One Handed Melee and Two Handed Melee modifiers
  * Added Accuracy Rating to helm and glove templates
  * Side bar now shows you how far over the resistance caps you are

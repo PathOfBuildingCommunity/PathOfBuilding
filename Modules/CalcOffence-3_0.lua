@@ -60,7 +60,7 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 	local conversionTable = activeSkill.conversionTable
 	for _, otherType in ipairs(dmgTypeList) do
 		if otherType == damageType then
-			-- Damage can only be converted from damage types that preceed this one in the conversion sequence, so stop here
+			-- Damage can only be converted from damage types that precede this one in the conversion sequence, so stop here
 			break
 		end
 		local convMult = conversionTable[otherType][damageType]
@@ -175,6 +175,16 @@ function calcs.offence(env, actor, activeSkill)
 	if skillModList:Flag(nil, "IronWill") then
 		skillModList:NewMod("Damage", "INC", actor.strDmgBonus, "Strength", ModFlag.Spell)
 	end
+	
+	if skillModList:Flag(nil, "TransfigurationOfBody") then
+		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "Life") * 0.3), "Transfiguration of Body", ModFlag.Attack)
+	end
+	if skillModList:Flag(nil, "TransfigurationOfMind") then
+		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "Mana") * 0.3), "Transfiguration of Mind")
+	end
+	if skillModList:Flag(nil, "TransfigurationOfSoul") then
+		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "EnergyShield") * 0.3), "Transfiguration of Soul", ModFlag.Spell)
+	end
 
 	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer") then
 		-- Minion Damage conversion from The Scourge
@@ -265,14 +275,9 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("AreaOfEffect", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 		end
 	end
-	if skillModList:Flag(nil, "TransfigurationOfBody") then
-		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "Life") * 0.3), "Transfiguration of Body", ModFlag.Attack)
-	end
-	if skillModList:Flag(nil, "TransfigurationOfMind") then
-		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "Mana") * 0.3), "Transfiguration of Mind")
-	end
-	if skillModList:Flag(nil, "TransfigurationOfSoul") then
-		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "EnergyShield") * 0.3), "Transfiguration of Soul", ModFlag.Spell)
+	if skillModList:Flag(nil, "SequentialProjectiles") and not skillModList:Flag(nil, "OneShotProj") and not skillModList:Flag(nil,"NoAdditionalProjectiles") then
+		-- Applies DPS multiplier based on projectile count
+		skillData.dpsMultiplier = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
 	end
 
 	local isAttack = skillFlags.attack
@@ -388,19 +393,44 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.AreaOfEffectMod = breakdown.mod(skillCfg, "AreaOfEffect")
 		end
 	end
+	if activeSkill.skillTypes[SkillType.Aura] then
+		output.AuraEffectMod = calcLib.mod(skillModList, skillCfg, "AuraEffect")
+		if breakdown then
+			breakdown.AuraEffectMod = breakdown.mod(skillCfg, "AuraEffect")
+		end
+	end
+	if activeSkill.skillTypes[SkillType.Curse] then
+		output.CurseEffectMod = calcLib.mod(skillModList, skillCfg, "CurseEffect")
+		if breakdown then
+			breakdown.CurseEffectMod = breakdown.mod(skillCfg, "CurseEffect")
+		end
+	end
 	if skillFlags.trap then
 		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "TrapThrowingTime")
+		local timeMod = calcLib.mod(skillModList, skillCfg, "SkillTrapThrowingTime")
+		if timeMod > 0 then
+			baseSpeed = baseSpeed * (1 / timeMod)
+		end
 		output.TrapThrowingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "TrapThrowingSpeed") * output.ActionSpeedMod
 		output.TrapThrowingTime = 1 / output.TrapThrowingSpeed
 		if breakdown then
-			breakdown.TrapThrowingTime = { }
-			breakdown.multiChain(breakdown.TrapThrowingTime, {
-				label = "Throwing speed:",
-				base = s_format("%.2f ^8(base throwing speed)", baseSpeed),
+			breakdown.TrapThrowingSpeed = { }
+			breakdown.multiChain(breakdown.TrapThrowingSpeed, {
+				label = "Throwing rate:",
+				base = s_format("%.2f ^8(base throwing rate)", baseSpeed),
 				{ "%.2f ^8(increased/reduced throwing speed)", 1 + skillModList:Sum("INC", skillCfg, "TrapThrowingSpeed") / 100 },
 				{ "%.2f ^8(more/less throwing speed)", skillModList:More(skillCfg, "TrapThrowingSpeed") },
 				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
 				total = s_format("= %.2f ^8per second", output.TrapThrowingSpeed),
+			})
+		end
+		if breakdown and timeMod > 0 then
+			breakdown.TrapThrowingTime = { }
+			breakdown.multiChain(breakdown.TrapThrowingTime, {
+				label = "Throwing time:",
+				base = s_format("%.2f ^8(base throwing time)", 1 / (output.TrapThrowingSpeed * timeMod)),
+				{ "%.2f ^8(total modifier)", timeMod },
+				total = s_format("= %.2f ^8seconds per throw", output.TrapThrowingTime),
 			})
 		end
 		output.ActiveTrapLimit = skillModList:Sum("BASE", skillCfg, "ActiveTrapLimit")
@@ -433,17 +463,30 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillFlags.mine then
 		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "MineLayingTime")
+		local timeMod = calcLib.mod(skillModList, skillCfg, "SkillMineThrowingTime")
+		if timeMod > 0 then
+			baseSpeed = baseSpeed * (1 / timeMod)
+		end
 		output.MineLayingSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "MineLayingSpeed") * output.ActionSpeedMod
 		output.MineLayingTime = 1 / output.MineLayingSpeed
 		if breakdown then
 			breakdown.MineLayingTime = { }
 			breakdown.multiChain(breakdown.MineLayingTime, {
-				label = "Throwing speed:",
-				base = s_format("%.2f ^8(base throwing speed)", baseSpeed),
+				label = "Throwing rate:",
+				base = s_format("%.2f ^8(base throwing rate)", baseSpeed),
 				{ "%.2f ^8(increased/reduced throwing speed)", 1 + skillModList:Sum("INC", skillCfg, "MineLayingSpeed") / 100 },
 				{ "%.2f ^8(more/less throwing speed)", skillModList:More(skillCfg, "MineLayingSpeed") },
 				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
 				total = s_format("= %.2f ^8per second", output.MineLayingSpeed),
+			})
+		end
+		if breakdown and timeMod > 0 then
+			breakdown.MineThrowingTime = { }
+			breakdown.multiChain(breakdown.MineThrowingTime, {
+			label = "Throwing time:",
+				base = s_format("%.2f ^8(base throwing time)", 1 / (output.MineLayingSpeed * timeMod)),
+				{ "%.2f ^8(total modifier)", timeMod },
+				total = s_format("= %.2f ^8seconds per throw", output.MineLayingTime),
 			})
 		end
 		output.ActiveMineLimit = skillModList:Sum("BASE", skillCfg, "ActiveMineLimit")
@@ -796,6 +839,8 @@ function calcs.offence(env, actor, activeSkill)
 				if skillData.castTimeOverridesAttackTime then
 					-- Skill is overriding weapon attack speed
 					baseTime = activeSkill.activeEffect.grantedEffect.castTime / (1 + (source.AttackSpeedInc or 0) / 100)
+				elseif calcLib.mod(skillModList, skillCfg, "SkillAttackTime") > 0 then
+					baseTime = (1 / ( source.AttackRate or 1 ) + skillModList:Sum("BASE", cfg, "Speed")) * calcLib.mod(skillModList, skillCfg, "SkillAttackTime")
 				else
 					baseTime = 1 / ( source.AttackRate or 1 ) + skillModList:Sum("BASE", cfg, "Speed")
 				end
@@ -812,21 +857,29 @@ function calcs.offence(env, actor, activeSkill)
 				-- Self-cast skill; apply action speed
 				output.Speed = output.Speed * globalOutput.ActionSpeedMod
 			end
+			if output.Speed == 0 then 
+				output.Time = 0
+			else 
+				output.Time = 1 / output.Speed
+			end
 			if breakdown then
 				breakdown.Speed = { }
 				breakdown.multiChain(breakdown.Speed, {
 					base = s_format("%.2f ^8(base)", 1 / baseTime),
 					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 					{ "%.2f ^8(more/less)", more },
-					{ "%.2f ^8(action speed modifier)", skillFlags.selfCast and globalOutput.ActionSpeedMod or 1 }, 
+					{ "%.2f ^8(action speed modifier)", skillFlags.selfCast and globalOutput.ActionSpeedMod or 1 },
 					total = s_format("= %.2f ^8per second", output.Speed)
 				})
 			end
-			if output.Speed == 0 then
-				output.Time = 0
-			else
-				output.Time = 1 / output.Speed
-			end
+			if breakdown and calcLib.mod(skillModList, skillCfg, "SkillAttackTime") > 0 then
+				breakdown.Time = { }
+				breakdown.multiChain(breakdown.Time, {
+					base = s_format("%.2f ^8(base)", 1 / (output.Speed * calcLib.mod(skillModList, skillCfg, "SkillAttackTime") )),
+					{ "%.2f ^8(total modifier)", calcLib.mod(skillModList, skillCfg, "SkillAttackTime")  },
+					total = s_format("= %.2f ^8seconds per attack", output.Time)
+				})
+			end 
 		end
 		if skillData.hitTimeOverride then
 			output.HitTime = skillData.hitTimeOverride
@@ -1067,6 +1120,9 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						if skillFlags.projectile then
 							takenInc = takenInc + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
+						end
+						if skillFlags.projectile and skillFlags.attack then
+							takenInc = takenInc + enemyDB:Sum("INC", nil, "ProjectileAttackDamageTaken")
 						end
 						if skillFlags.trap or skillFlags.mine then
 							takenInc = takenInc + enemyDB:Sum("INC", nil, "TrapMineDamageTaken")
@@ -1648,7 +1704,10 @@ function calcs.offence(env, actor, activeSkill)
 				local mult = skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier", "BleedMultiplier")
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
 				local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster")
-				output.BleedDPS = baseVal * effectMod * rateMod * effMult
+				local maxStacks = skillModList:Override(cfg, "BleedStacksMax") or skillModList:Sum("BASE", cfg, "BleedStacksMax")
+				local configStacks = enemyDB:Sum("BASE", nil, "Multiplier:BleedStacks")
+				local bleedStacks = configStacks > 0 and m_min(configStacks, maxStacks) or maxStacks
+				output.BleedDPS = (baseVal * effectMod * rateMod * effMult) * bleedStacks
 				local durationBase
 				if skillData.bleedDurationIsSkillDuration then
 					durationBase = skillData.duration
@@ -1657,6 +1716,8 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
 				globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
+				globalOutput.BleedStacksMax = maxStacks
+				globalOutput.BleedStacks = bleedStacks
 				if breakdown then
 					t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(bleed deals %d%% per second)", basePercent/100, basePercent))
 					if effectMod ~= 1 then
@@ -2047,7 +2108,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.ShockEffectMod = skillModList:Sum("INC", cfg, "EnemyShockEffect")
 				if breakdown then
 					t_insert(breakdown.ShockDPS, s_format("For the minimum 5%% Shock to apply for %.1f seconds, target must have no more than %d Ailment Threshold.", 2 * output.ShockDurationMod, (((100 + output.ShockEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
-					t_insert(breakdown.ShockDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where is is about half of their life)"))
+					t_insert(breakdown.ShockDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where it is about half of their life)"))
 				end
  			end
 		end
@@ -2081,7 +2142,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
 				if breakdown then
 					t_insert(breakdown.ChillDPS, s_format("For the minimum 5%% Chill to apply for %.1f seconds, target must have no more than %d Ailment Threshold.", 2 * output.ChillDurationMod, (((100 + output.ChillEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
-					t_insert(breakdown.ChillDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where is is about half of their life)"))
+					t_insert(breakdown.ChillDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where it is about half of their life)"))
 				end
 			end
 		end
@@ -2103,7 +2164,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.FreezeDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyFreezeDuration") / 100 + enemyDB:Sum("INC", nil, "SelfFreezeDuration") / 100
 				if breakdown then
 					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply for the minimum of 0.3 seconds, target must have no more than %d Ailment Threshold.", baseVal * 20 * output.FreezeDurationMod))
-					t_insert(breakdown.FreezeDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where is is about half of their life)"))
+					t_insert(breakdown.FreezeDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where it is about half of their life)"))
 				end
 			end
 		end
@@ -2150,7 +2211,7 @@ function calcs.offence(env, actor, activeSkill)
             skillFlags.impale = true
             local impaleChance = m_min(output.ImpaleChance/100, 1)
             local maxStacks = skillModList:Sum("BASE", cfg, "ImpaleStacksMax") -- magic number: base stacks duration
-            local configStacks = enemyDB:Sum("BASE", nil, "Multiplier:ImpaleStacks")
+            local configStacks = enemyDB:Override(nil, "ImpaleStacks") or 0
             local impaleStacks = configStacks > 0 and m_min(configStacks, maxStacks) or  maxStacks
 
             local baseStoredDamage = 0.1 -- magic number: base impale stored damage

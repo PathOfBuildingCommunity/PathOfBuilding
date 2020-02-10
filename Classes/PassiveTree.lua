@@ -360,12 +360,16 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		for radiusIndex, radiusInfo in ipairs(data[self.targetVersion].jewelRadius) do
 			socket.nodesInRadius[radiusIndex] = { }
 			socket.attributesInRadius[radiusIndex] = { }
-			local rSq = radiusInfo.rad * radiusInfo.rad
+			local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
+			local innerRadiusSquared = radiusInfo.inner * radiusInfo.inner
 			for _, node in pairs(self.nodes) do
 				if node ~= socket and not node.isBlighted then
 					local vX, vY = node.x - socket.x, node.y - socket.y
-					if vX * vX + vY * vY <= rSq then 
-						socket.nodesInRadius[radiusIndex][node.id] = node
+					local euclideanDistanceSquared = vX * vX + vY * vY
+					if innerRadiusSquared <= euclideanDistanceSquared then
+						if euclideanDistanceSquared <= outerRadiusSquared then
+							socket.nodesInRadius[radiusIndex][node.id] = node
+						end
 					end
 				end
 			end

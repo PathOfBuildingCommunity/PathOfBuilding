@@ -163,6 +163,7 @@ Cobalt Jewel
 Limited to: 1
 Variant: Pre 3.8.0
 Variant: Current
+Implicits: 0
 {variant:1}Summon 2 additional Skeleton Warriors with Summon Skeleton
 {variant:2}Summon 4 additional Skeleton Warriors with Summon Skeleton
 +1 second to Summon Skeleton Cooldown
@@ -256,8 +257,7 @@ Dexterity from Passives in Radius is Transformed to Strength
 Inspired Learning
 Crimson Jewel
 Radius: Small
-If 4 Notables are Allocated in Radius, When you Kill a Rare monster, you gain 1
-of its mods for 20 seconds
+With 4 Notables Allocated in Radius, When you Kill a Rare monster, you gain 1 of its Modifiers for 20 seconds
 ]],[[
 Intuitive Leap
 Viridian Jewel
@@ -357,8 +357,7 @@ Minions have (12-16)% increased Attack Speed
 Minions have (12-16)% increased Cast Speed
 Minions have (10-12)% chance to Dodge Attack Hits
 Minions have (10-12)% chance to Dodge Spell Hits
-Notable Passive Skills in Radius are Transformed to
-instead grant: Minions have 25% reduced Movement Speed
+Notable Passive Skills in Radius are Transformed to instead grant: Minions have 25% reduced Movement Speed
 ]],[[
 Rain of Splinters
 Crimson Jewel
@@ -375,7 +374,7 @@ Variant: Current
 {variant:2}+6% chance to Block Spell Damage
 {variant:3}+(2-4)% chance to Block Spell Damage
 (2-4)% chance to Block Attack Damage
-(7-10)% additional Chance to receive a Critical Strike
+Hits have (140-200)% increased Critical Strike Chance against you
 ]],[[
 The Red Dream
 Crimson Jewel
@@ -487,6 +486,22 @@ Radius: Medium
 -1 Dexterity per 1 Dexterity on Allocated Passives in Radius
 2% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
 +15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
+]],[[
+Thread of Hope
+Crimson Jewel
+Source: Drops from unique{Sirus, Awakener of Worlds}
+Variant: Small Ring
+Variant: Medium Ring
+Variant: Large Ring
+Variant: Very Large Ring
+Radius: Variable
+Implicits: 0
+{variant:1}Affects Passives in Small Ring
+{variant:2}Affects Passives in Medium Ring
+{variant:3}Affects Passives in Large Ring
+{variant:4}Affects Passives in Very Large Ring
+Passives in Radius can be Allocated without being connected to your tree
+-(20-10)% to all Elemental Resistances
 ]],[[
 To Dust
 Cobalt Jewel
@@ -770,7 +785,6 @@ Radius: Medium
 With 40 total Dexterity and Strength in Radius, Spectral Shield Throw Chains +4 times
 With 40 total Dexterity and Strength in Radius, Spectral Shield Throw fires Shard Projectiles when Chaining
 With 40 total Dexterity and Strength in Radius, Spectral Shield Throw fires 75% less Shard Projectiles
-Historic
 ]],[[
 Fight for Survival
 Viridian Jewel
@@ -806,7 +820,8 @@ Variant: {2_6}Pre 3.0.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-(4-12)% increased Damage over Time
+{variant:1}(4-12)% increased Damage over Time
+{variant:2,3}(8-12)% increased Damage over Time
 {variant:1,2}With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Attack Damage for each Poison on the Enemy
 {variant:3}With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage with Hits and Poison for each Poison on the Enemy
 {variant:2,3}With at least 40 Dexterity in Radius, Viper Strike has a 10% chance per Poison on Enemy to grant Unholy Might for 4 seconds on Hit
@@ -872,8 +887,11 @@ With at least 40 Strength in Radius, Cleave has +1 to Radius per Nearby Enemy, u
 ]],[[
 Pitch Darkness
 Viridian Jewel
+Variant: Pre 2.6.0
+Variant: Current
 Radius: Medium
-(5-15)% increased Fire Damage
+{variant:1}(5-15)% increased Fire Damage
+{variant:2}(10-15)% increased Fire Damage
 With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy.
 With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
 ]],[[
@@ -884,7 +902,8 @@ Variant: Pre 3.3.0
 Variant: Current
 Limited to: 2
 Radius: Medium
-(4-12)% increased Physical Damage
+{variant:1}(4-12)% increased Physical Damage
+{variant:2,3}(8-12)% increased Physical Damage
 {variant:1}With at least 40 Strength in Radius, Ground Slam has a 20% increased angle
 {variant:2}With at least 40 Strength in Radius, Ground Slam has a 35% increased angle
 {variant:3}With at least 40 Strength in Radius, Ground Slam has a 50% increased angle
@@ -908,14 +927,18 @@ Variant: Pre 2.6.0
 Variant: Current
 Limited to: 2
 Radius: Medium
-(5-15)% increased Fire Damage
+{variant:1}(5-15)% increased Fire Damage
+{variant:2}(10-15)% increased Fire Damage
 {variant:1}With at least 40 Intelligence in Radius, Fireball Projectiles gain Area of Effect Radius as they travel further, up to 50% increased Radius.
 {variant:2}With at least 40 Intelligence in Radius, Fireball Projectiles gain Radius as they travel farther, up to +4 Radius
 ]],[[
 Shattered Chains
 Crimson Jewel
+Variant: Pre 2.6.0
+Variant: Current
 Radius: Medium
-(5-15)% increased Cold Damage
+{variant:1}(5-15)% increased Cold Damage
+{variant:2}(10-15)% increased Cold Damage
 With at least 40 Strength in Radius, 20% increased Rarity of Items dropped by Enemies Shattered by Glacial Hammer
 ]],[[
 Spirit Guards
@@ -930,25 +953,32 @@ Minions deal (8-12)% increased Damage
 ]],[[
 Spirited Response
 Cobalt Jewel
+Variant: Pre 2.6.0
+Variant: Current
 Limited to: 2
 Radius: Medium
-(5-10)% increased maximum Mana
+{variant:1}(5-10)% increased maximum Mana
+{variant:2}(7-10)% increased maximum Mana
 With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over 4 seconds when Hit during Rallying Cry for you and Allies
 ]],[[
 Spreading Rot
 Cobalt Jewel
+Variant: Pre 3.6.0
+Variant: Current
 Limited to: 2
 Radius: Medium
 (7-13)% increased Chaos Damage
 With at least 40 Intelligence in Radius, Blight has 50% increased Hinder Duration
-With at least 40 Intelligence in Radius, Enemies Hindered by Blight take 25% increased Chaos Damage
+{variant:1}With at least 40 Intelligence in Radius, Enemies Hindered by Blight take 25% increased Chaos Damage
+{variant:2}With at least 40 Intelligence in Radius, Blight inflicts Withered for 2 seconds
 ]],[[
 Steel Spirit
 Viridian Jewel
 Variant: Pre 2.6.0
 Variant: Current
 Radius: Medium
-(6-10)% increased Projectile Damage
+{variant:1}(6-10)% increased Projectile Damage
+{variant:2}(7-10)% increased Projectile Damage
 {variant:1}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 4% increased Damage each time it Hits.
 {variant:2}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 5% increased Damage each time it Hits.
 ]],[[
@@ -962,9 +992,12 @@ Arrow can inflict an additional Ignite on an Enemy
 ]],[[
 Unending Hunger 
 Cobalt Jewel
+Variant: Pre 2.6.0
+Variant: Current
 Limited to: 2
 Radius: Medium
-Minions have (5-8)% increased Area of Effect of Area Skills
+{variant:1}Minions have (5-8)% increased Area of Effect of Area Skills
+{variant:2}Minions have (6-8)% increased Area of Effect of Area Skills
 With at least 40 Intelligence in Radius, Raised Spectres have a 50% chance to gain Soul Eater for 30 seconds on Kill
 ]],[[
 The Vigil
@@ -989,13 +1022,15 @@ Attack deals 30% increased Damage
 ]],[[
 Volley Fire
 Viridian Jewel
+Variant: Pre 2.6.0
 Variant: Pre 3.9.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-(6-10)% increased Projectile Damage
-{variant:1}With at least 40 Dexterity in Radius, Barrage fires an additional 2 projectiles simultaneously on the first and final attacks
-{variant:2}With at least 40 Dexterity in Radius, Barrage fires an additional 6 projectiles simultaneously on the first and final attacks
+{variant:1}(6-10)% increased Projectile Damage
+{variant:2,3}(7-10)% increased Projectile Damage
+{variant:1,2}With at least 40 Dexterity in Radius, Barrage fires an additional 2 projectiles simultaneously on the first and final attacks
+{variant:3}With at least 40 Dexterity in Radius, Barrage fires an additional 6 projectiles simultaneously on the first and final attacks
 ]],[[
 Weight of the Empire
 Crimson Jewel
@@ -1012,6 +1047,16 @@ Radius: Medium
 With at least 40 Strength in Radius, Molten Strike fires 2 additional Projectiles
 With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Effect
 ]],[[
+Winter Burial
+Crimson Jewel
+Limited to: 2
+Radius: Medium
+(10-15)% increased Cold Damage
+With at least 40 Strength in Radius, Glacial Hammer deals
+Cold-only Splash Damage to surrounding targets
+With at least 40 Strength in Radius, 25% of Glacial
+Hammer Physical Damage converted to Cold Damage
+]],[[
 Winter's Bounty
 Cobalt Jewel
 Variant: Pre 2.6.0
@@ -1019,21 +1064,12 @@ Variant: Pre 3.3.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-(5-15)% increased Cold Damage
+{variant:1}(5-15)% increased Cold Damage
+{variant:2,3}(10-15)% increased Cold Damage
 {variant:1}With at least 40 Intelligence in Radius, Cold Snap has a 25% chance to grant a Power Charge on Kill
 {variant:2}With at least 40 Intelligence in Radius, Cold Snap has a 50% chance to grant a Power Charge on Kill
 {variant:3}With at least 40 Intelligence in Radius, Cold Snap grants Power Charges instead of Frenzy Charges when Enemies die in it's Area
 {variant:3}With at least 40 Intelligence in Radius, Cold Snap Cooldown can be bypassed by Power Charges instead of Frenzy Charges
-]],[[
-Winter Burial
-Crimson Jewel
-Limited to: 2
-Radius: Medium
-(10-15)% increased Cold Damage 
-With at least 40 Strength in Radius, Glacial Hammer deals
-Cold-only Splash Damage to surrounding targets
-With at least 40 Strength in Radius, 25% of Glacial
-Hammer Physical Damage converted to Cold Damage
 ]],
 -- Jewel: Corrupted
 [[
@@ -1076,6 +1112,7 @@ Corrupted
 ]],[[
 Corrupted Energy
 Cobalt Jewel
+Implicits: 0
 With 5 Corrupted Items Equipped: 50% of Chaos Damage does not bypass Energy Shield and 50% of Physical Damage bypasses Energy Shield
 Corrupted
 ]],[[
@@ -1208,7 +1245,7 @@ Emperor's Cunning
 Viridian Jewel
 Source: Fastest Normal Labyrinth
 Limited to: 1
-20% increased Accuracy Rating
+20% increased Global Accuracy Rating
 3% increased Character Size
 (4-6)% increased Dexterity
 ]],[[
@@ -1218,7 +1255,7 @@ Source: Fastest Eternal Labyrinth
 Limited to: 1
 4% increased maximum Life
 3% increased Character Size
-5% increased Defences
+5% increased Global Defences
 (5-7)% increased Attributes
 ]],[[
 Emperor's Might
@@ -1245,8 +1282,14 @@ League: Legion
 Source: Drops from Maraketh Legion
 Requires Level: 20
 Limited to: 1 Historic
+Variant: Asenath
+Variant: Deshret
+Variant: Nasima
 Radius: Large
-Denoted service of (500-8000) dekhara in the akhara of Deshret
+Implicits: 0
+{variant:1}Denoted service of (500-8000) dekhara in the akhara of Asenath
+{variant:2}Denoted service of (500-8000) dekhara in the akhara of Deshret
+{variant:3}Denoted service of (500-8000) dekhara in the akhara of Nasima
 Passives in radius are Conquered by the Maraketh
 Historic
 ]],[[
@@ -1256,9 +1299,15 @@ League: Legion
 Source: Drops from Eternal Legion
 Requires Level: 20
 Limited to: 1 Historic
+Variant: Cadiro
+Variant: Chitus
+Variant: Victario
 Radius: Large
-Commissioned (2000-160000) coins to commemorate Cadiro
-Passives in radius are Conquered by the Eternal
+Implicits: 0
+{variant:1}Commissioned (2000-160000) coins to commemorate Cadiro
+{variant:2}Commissioned (2000-160000) coins to commemorate Chitus
+{variant:3}Commissioned (2000-160000) coins to commemorate Victario
+Passives in radius are Conquered by the Eternal Empire
 Historic
 ]],[[
 Glorious Vanity
@@ -1267,8 +1316,14 @@ League: Legion
 Source: Drops from Vaal Legion
 Requires Level: 20
 Limited to: 1 Historic
+Variant: Doryani
+Variant: Xibaqua
+Variant: Zerphi
 Radius: Large
-Bathed in the blood of (100-8000) sacrificed in the name of Doryani
+Implicits: 0
+{variant:1}Bathed in the blood of (100-8000) sacrificed in the name of Doryani
+{variant:2}Bathed in the blood of (100-8000) sacrificed in the name of Xibaqua
+{variant:3}Bathed in the blood of (100-8000) sacrificed in the name of Zerphi
 Passives in radius are Conquered by the Vaal
 Historic
 ]],[[
@@ -1278,8 +1333,14 @@ League: Legion
 Source: Drops from Karui Legion
 Requires Level: 20
 Limited to: 1 Historic
+Variant: Kaom
+Variant: Kiloava
+Variant: Rakiata
 Radius: Large
-Commanded leadership over (10000-18000) warriors under Kaom
+Implicits: 0
+{variant:1}Commanded leadership over (10000-18000) warriors under Kaom
+{variant:2}Commanded leadership over (10000-18000) warriors under Kiloava
+{variant:3}Commanded leadership over (10000-18000) warriors under Rakiata
 Passives in radius are Conquered by the Karui
 Historic
 ]],[[
@@ -1289,8 +1350,14 @@ League: Legion
 Source: Drops from Templar Legion
 Requires Level: 20
 Limited to: 1 Historic
+Variant: Avarius
+Variant: Dominus
+Variant: Venarius
 Radius: Large
-Carved to glorify (2000-10000) new faithful converted by High Templar Venarius
+Implicits: 0
+{variant:1}Carved to glorify (2000-10000) new faithful converted by High Templar Avarius
+{variant:2}Carved to glorify (2000-10000) new faithful converted by High Templar Dominus
+{variant:3}Carved to glorify (2000-10000) new faithful converted by High Templar Venarius
 Passives in radius are Conquered by the Templars
 Historic
 ]],

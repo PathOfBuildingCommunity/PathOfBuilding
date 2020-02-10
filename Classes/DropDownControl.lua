@@ -119,6 +119,7 @@ function DropDownClass:Draw(viewPort)
 			self.dropHeight = lineHeight * linesBelow
 		end
 	end
+
 	local dropExtra = self.dropHeight + 4
 	scrollBar:SetContentDimension(lineHeight * #self.list, self.dropHeight)
 	local dropY = self.dropUp and y - dropExtra or y + height
@@ -195,7 +196,7 @@ function DropDownClass:Draw(viewPort)
 		if self.hoverSel then
 			SetDrawLayer(nil, 100)	
 			self:DrawTooltip(
-				x, dropY + 2 + (self.hoverSel - 1) * lineHeight - scrollBar.offset, 
+				x, dropY + 2 + (self.hoverSel - 1) * lineHeight - scrollBar.offset,
 				width, lineHeight, 
 				viewPort,
 				"HOVER", self.hoverSel, self.list[self.hoverSel])

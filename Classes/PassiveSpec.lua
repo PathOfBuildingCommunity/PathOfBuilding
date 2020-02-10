@@ -106,7 +106,7 @@ end
 
 function PassiveSpecClass:MigrateNodeId(nodeId)
 	if self.build.targetVersion == "3_0" then
-		-- Migration for 3.2 -> 3.3
+		-- Migration from 3.2 to 3.3
 		return nodeMigrate32_33[nodeId] or nodeId
 	end
 	return nodeId
@@ -223,7 +223,7 @@ function PassiveSpecClass:SelectClass(classId)
 	self.allocNodes[startNode.id] = startNode
 
 	-- Reset the ascendancy class
-	-- This will also rebuild the node paths and dependancies
+	-- This will also rebuild the node paths and dependencies
 	self:SelectAscendClass(0)
 end
 
@@ -248,12 +248,12 @@ function PassiveSpecClass:SelectAscendClass(ascendClassId)
 		self.allocNodes[startNode.id] = startNode
 	end
 
-	-- Rebuild all the node paths and dependancies
+	-- Rebuild all the node paths and dependencies
 	self:BuildAllDependsAndPaths()
 end
 
 -- Determines if the given class's start node is connected to the current class's start node
--- Attempts to find a path between the nodes which doesn't pass through any ascendancy nodes (i.e Ascendant)
+-- Attempts to find a path between the nodes which doesn't pass through any ascendancy nodes (i.e. Ascendant) 
 function PassiveSpecClass:IsClassConnected(classId)
 	for _, other in ipairs(self.nodes[self.tree.classes[classId].startNodeId].linked) do
 		-- For each of the nodes to which the given class's start node connects...
@@ -267,9 +267,9 @@ function PassiveSpecClass:IsClassConnected(classId)
 			end
 			other.visited = false
 			if found then
-				-- Found a path, so the given class's start node is definately connected to the current class's start node
+				-- Found a path, so the given class's start node is definitely connected to the current class's start node
 				-- There might still be nodes which are connected to the current tree by an entirely different path though
-				-- E.g via Ascendant or by connecting to another "first passive node"
+				-- E.g. via Ascendant or by connecting to another "first passive node"
 				return true
 			end
 		end
@@ -297,7 +297,7 @@ function PassiveSpecClass:AllocNode(node, altPath)
 	end
 
 	-- Allocate all nodes along the path
-	if node.dependsOnIntuitiveLeap then
+	if node.dependsOnIntuitiveLeapLike then
 		node.alloc = true
 		self.allocNodes[node.id] = node
 	else
@@ -318,18 +318,18 @@ function PassiveSpecClass:AllocNode(node, altPath)
 		end
 	end
 
-	-- Rebuild all dependancies and paths for all allocated nodes
+	-- Rebuild all dependencies and paths for all allocated nodes
 	self:BuildAllDependsAndPaths()
 end
 
--- Deallocate the given node, and all nodes which depend on it (i.e which are only connected to the tree through this node)
+-- Deallocate the given node, and all nodes which depend on it (i.e. which are only connected to the tree through this node)
 function PassiveSpecClass:DeallocNode(node)
 	for _, depNode in ipairs(node.depends) do
 		depNode.alloc = false
 		self.allocNodes[depNode.id] = nil
 	end
 
-	-- Rebuild all paths and dependancies for all allocated nodes
+	-- Rebuild all paths and dependencies for all allocated nodes
 	self:BuildAllDependsAndPaths()
 end
 
@@ -418,26 +418,31 @@ function PassiveSpecClass:BuildPathFromNode(root)
 	end
 end
 
--- Rebuilds dependancies and paths for all nodes
+-- Rebuilds dependencies and paths for all nodes
 function PassiveSpecClass:BuildAllDependsAndPaths()
 	-- This table will keep track of which nodes have been visited during each path-finding attempt
 	local visited = { }
 
-	-- Check all nodes for other nodes which depend on them (i.e are only connected to the tree through that node)
+	-- Check all nodes for other nodes which depend on them (i.e. are only connected to the tree through that node)
 	for id, node in pairs(self.nodes) do
 		node.depends = wipeTable(node.depends)
-		node.dependsOnIntuitiveLeap = false
-		if node.type ~= "ClassStart" then
+		node.dependsOnIntuitiveLeapLike = false
+		if node.type ~= "ClassStart" and node.type ~= "Socket" then
 			for nodeId, itemId in pairs(self.jewels) do
-				if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius[1][node.id] then
-					if itemId ~= 0 and self.build.itemsTab.items[itemId] and self.build.itemsTab.items[itemId].jewelData and self.build.itemsTab.items[itemId].jewelData.intuitiveLeap then
-						-- This node depends on Intuitive Leap
-						-- This flag:
-						-- 1. Prevents generation of paths from this node
-						-- 2. Prevents this node from being deallocted via dependancy
-						-- 3. Prevents allocation of path nodes when this node is being allocated
-						node.dependsOnIntuitiveLeap = true
-						break
+				if self.build.itemsTab.items[itemId] and self.build.itemsTab.items[itemId].jewelRadiusIndex then
+					local radiusIndex = self.build.itemsTab.items[itemId].jewelRadiusIndex
+					if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
+						if itemId ~= 0
+							and self.build.itemsTab.items[itemId].jewelData
+							and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike then
+							-- This node depends on Intuitive Leap-like behaviour
+							-- This flag:
+							-- 1. Prevents generation of paths from this node
+							-- 2. Prevents this node from being deallocted via dependancy
+							-- 3. Prevents allocation of path nodes when this node is being allocated
+							node.dependsOnIntuitiveLeapLike = true
+							break
+						end
 					end
 				end
 			end
@@ -452,21 +457,21 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		local anyStartFound = (node.type == "ClassStart" or node.type == "AscendClassStart")
 		for _, other in ipairs(node.linked) do
 			if other.alloc and not isValueInArray(node.depends, other) then
-				-- The other node is allocated and isn't already dependant on this node, so try and find a path to a start node through it
+				-- The other node is allocated and isn't already dependent on this node, so try and find a path to a start node through it
 				if other.type == "ClassStart" or other.type == "AscendClassStart" then
 					-- Well that was easy!
 					anyStartFound = true
 				elseif self:FindStartFromNode(other, visited) then
-					-- We found a path through the other node, therefore the other node cannot be dependant on this node
+					-- We found a path through the other node, therefore the other node cannot be dependent on this node
 					anyStartFound = true
 					for i, n in ipairs(visited) do
 						n.visited = false
 						visited[i] = nil
 					end
 				else
-					-- No path was found, so all the nodes visited while trying to find the path must be dependant on this node
+					-- No path was found, so all the nodes visited while trying to find the path must be dependent on this node
 					for i, n in ipairs(visited) do
-						if not n.dependsOnIntuitiveLeap then
+						if not n.dependsOnIntuitiveLeapLike then
 							t_insert(node.depends, n)
 						end
 						n.visited = false
@@ -482,9 +487,18 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			for _, depNode in ipairs(node.depends) do
 				local prune = true
 				for nodeId, itemId in pairs(self.jewels) do
-					if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius[1][depNode.id] then
-						if itemId ~= 0 and (not self.build.itemsTab.items[itemId] or (self.build.itemsTab.items[itemId].jewelData and self.build.itemsTab.items[itemId].jewelData.intuitiveLeap)) then
-							-- Hold off on the pruning; this node is within the radius of a jewel that is or could be Intuitive Leap
+					if self.allocNodes[nodeId] then
+						if itemId ~= 0 and (
+							not self.build.itemsTab.items[itemId] or (
+								self.build.itemsTab.items[itemId].jewelData
+									and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike
+									and self.build.itemsTab.items[itemId].jewelRadiusIndex
+									and self.nodes[nodeId].nodesInRadius[
+										self.build.itemsTab.items[itemId].jewelRadiusIndex
+								][depNode.id]
+							)
+						) then
+							-- Hold off on the pruning; this node is Intuitive Leap-like or items are not loaded yet
 							prune = false
 							t_insert(self.nodes[nodeId].depends, depNode)
 							break
@@ -501,11 +515,11 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 
 	-- Reset and rebuild all node paths
 	for id, node in pairs(self.nodes) do
-		node.pathDist = (node.alloc and not node.dependsOnIntuitiveLeap) and 0 or 1000
+		node.pathDist = (node.alloc and not node.dependsOnIntuitiveLeapLike) and 0 or 1000
 		node.path = nil
 	end
 	for id, node in pairs(self.allocNodes) do
-		if not node.dependsOnIntuitiveLeap then
+		if not node.dependsOnIntuitiveLeapLike then
 			self:BuildPathFromNode(node)
 		end
 	end

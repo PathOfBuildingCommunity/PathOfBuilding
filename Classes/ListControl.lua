@@ -178,7 +178,7 @@ function ListClass:Draw(viewPort)
 	local maxIndex = m_min(m_floor((scrollOffsetV + height) / rowHeight + 1), #list)
 	for colIndex, column in ipairs(self.colList) do
 		local colFont = self:GetColumnProperty(column, "font") or "VAR"
-		local elipWidth = DrawStringWidth(textHeight, colFont, "...")
+		local clipWidth = DrawStringWidth(textHeight, colFont, "...")
 		local colOffset = column._offset - scrollOffsetH
 		local colWidth = column._width
 		for index = minIndex, maxIndex do
@@ -187,7 +187,7 @@ function ListClass:Draw(viewPort)
 			local text = self:GetRowValue(colIndex, index, value)
 			local textWidth = DrawStringWidth(textHeight, colFont, text)
 			if textWidth > colWidth - 2 then
-				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - elipWidth - 2, 0)
+				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - clipWidth - 2, 0)
 				text = text:sub(1, clipIndex - 1) .. "..."
 				textWidth = DrawStringWidth(textHeight, colFont, text)
 			end

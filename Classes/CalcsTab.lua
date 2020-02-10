@@ -126,8 +126,8 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 This controls the calculation of the stats shown in this tab.
 The stats in the sidebar are always shown in Effective DPS mode, regardless of this setting.
 
-Unbuffed: No auras, buffs, or other support skills or effects will apply. This is equivelant to standing in town.
-Buffed: Aura and buff skills apply. This is equivelant to standing in your hideout with auras and buffs turned on.
+Unbuffed: No auras, buffs, or other support skills or effects will apply. This is equivalent to standing in town.
+Buffed: Aura and buff skills apply. This is equivalent to standing in your hideout with auras and buffs turned on.
 In Combat: Charges and combat buffs such as Onslaught will also apply. This will show your character sheet stats in combat.
 Effective DPS: Curses and enemy properties (such as resistances and status conditions) will also apply. This estimates your true DPS.]]) 
 		}, },
@@ -399,7 +399,7 @@ function CalcsTabClass:BuildOutput()
 		self.calcs.buildOutput(self.build, "MAIN")
 	end
 	SetProfiling(false)
-	ConPrintf("Calc time: %d msec", GetTime() - start)
+	ConPrintf("Calc time: %d ms", GetTime() - start)
 	--]]
 
 	for _, node in pairs(self.build.spec.nodes) do

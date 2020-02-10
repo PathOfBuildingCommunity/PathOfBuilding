@@ -209,7 +209,7 @@ SkillType = {
 	TravelSkill = 91,
 	BlinkSkill = 92,
 	CanHaveBlessing = 93,
-	Type83 = 94, --Has secondary projectiles
+	Type83 = 94, -- Has secondary projectiles
 	Ballista = 95,
 	NovaSpell = 96,
 }

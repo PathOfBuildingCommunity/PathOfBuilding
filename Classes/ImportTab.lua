@@ -61,6 +61,21 @@ If possible, change the game version in the Configuration tab before importing.]
 	self.controls.accountNameGo.enabled = function()
 		return self.controls.accountName.buf:match("%S")
 	end
+	-- accountHistory Control
+	if not historyList then
+		historyList = { }
+		for accountName, account in pairs(main.gameAccounts) do
+			t_insert(historyList, accountName)
+			historyList[accountName] = true
+		end
+		table.sort(historyList)
+	end -- don't load the list many times
+
+	self.controls.accountHistory = new("DropDownControl", {"LEFT",self.controls.accountNameGo,"RIGHT"}, 8, 0, 200, 20, historyList, function()
+		self.controls.accountName.buf = self.controls.accountHistory.list[self.controls.accountHistory.selIndex]
+	end)
+	self.controls.accountHistory:SelByValue(main.lastAccountName)
+
 	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, 0, 16, 0, 14, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
 	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, 0, 4, 170, 18, "^x4040FFhttps://www.urlencoder.org/", function()
 		OpenURL("https://www.urlencoder.org/")
@@ -137,9 +152,17 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:")
 	self.controls.charImportItemsClearItems.tooltipText = "Delete all equipped items when importing."
 	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choices,\nas these cannot be imported.")
+
 	self.controls.charDone = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Done", function()
 		self.charImportMode = "GETACCOUNTNAME"
 		self.charImportStatus = "Idle"
+		-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
+		if not historyList[self.controls.accountName.buf] then
+			t_insert(historyList, self.controls.accountName.buf)
+			historyList[self.controls.accountName.buf] = true
+			self.controls.accountHistory:SelByValue(self.controls.accountName.buf)
+			table.sort(historyList)
+		end
 	end)
 
 	-- Build import/export
@@ -628,12 +651,7 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 			if property.name == "Quality" then
 				item.quality = tonumber(property.values[1][1]:match("%d+"))
 			elseif property.name == "Radius" then
-				for index, data in pairs(self.build.data.jewelRadius) do
-					if property.values[1][1] == data.label then
-						item.jewelRadiusIndex = index
-						break
-					end
-				end
+				item.jewelRadiusLabel = property.values[1][1]
 			elseif property.name == "Limited to" then
 				item.limit = tonumber(property.values[1][1])
 			elseif property.name == "Evasion Rating" then

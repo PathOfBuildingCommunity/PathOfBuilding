@@ -130,9 +130,8 @@ end
 
 function EditClass:Insert(text)
 	text = text:gsub("\r","")
-	if text:match(self.filterPattern) then
-		return
-	end
+	-- Remove any illegal chars from the "text" variable, to stop resulting in no text when an illegal character is found.
+	text = text:gsub(self.filterPattern,"")
 	local newBuf = self.buf:sub(1, self.caret - 1) .. text .. self.buf:sub(self.caret)
 	if self.limit and #newBuf > self.limit then
 		return
@@ -447,7 +446,21 @@ function EditClass:OnKeyDown(key, doubleClick)
 	elseif key == "LEFT" then
 		self.sel = shift and (self.sel or self.caret) or nil
 		if self.caret > 1 then
-			self.caret = self.caret - 1
+			if ctrl then
+			-- Skip leading space, then jump word
+				while self.buf:sub(self.caret-1, self.caret-1):match("[%s%p]") do
+					if self.caret > 1 then
+						self.caret = self.caret - 1
+					end
+				end
+				while self.buf:sub(self.caret-1, self.caret-1):match("%w") do
+					if self.caret > 1 then
+						self.caret = self.caret - 1
+					end
+				end
+			else
+				self.caret = self.caret - 1
+			end
 			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()
 			self.blinkStart = GetTime()
@@ -455,7 +468,21 @@ function EditClass:OnKeyDown(key, doubleClick)
 	elseif key == "RIGHT" then
 		self.sel = shift and (self.sel or self.caret) or nil
 		if self.caret <= #self.buf then
-			self.caret = self.caret + 1
+			if ctrl then
+			-- Jump word, then skip trailing space, 
+				while self.buf:sub(self.caret, self.caret):match("%w") do
+					if self.caret <= #self.buf then
+						self.caret = self.caret + 1
+					end
+				end
+				while self.buf:sub(self.caret, self.caret):match("[%s%p]") do
+					if self.caret <= #self.buf then
+						self.caret = self.caret + 1
+					end
+				end
+			else
+				self.caret = self.caret + 1
+			end
 			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()
 			self.blinkStart = GetTime()

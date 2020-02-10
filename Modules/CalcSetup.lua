@@ -29,6 +29,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("MaxLifeLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("MaxManaLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("ImpaleStacksMax", "BASE", 5, "Base")
+	modDB:NewMod("BleedStacksMax", "BASE", 1, "Base")
 	if env.build.targetVersion ~= "2_6" then
 		modDB:NewMod("MaxEnergyShieldLeechRate", "BASE", 10, "Base")
 		modDB:NewMod("MaxLifeLeechInstance", "BASE", 10, "Base")
@@ -108,7 +109,7 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 		rad.data.modSource = "Tree:"..rad.nodeId
 	end
 
-	-- Add node modifers
+	-- Add node modifiers
 	local modList = new("ModList")
 	for _, node in pairs(nodeList) do
 		local nodeModList = calcs.buildModListForNode(env, node)

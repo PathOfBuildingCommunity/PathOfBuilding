@@ -28,6 +28,7 @@ local skills, mod, flag, skill = ...
 #skill ArcticBreath
 #flags spell area projectile duration
 #baseMod skill("radius", 12)
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill CataclysmSigil
@@ -779,6 +780,7 @@ local skills, mod, flag, skill = ...
 
 #skill VaalPowerSiphon
 #flags attack projectile
+#baseMod flag("OneShotProj")
 #mods
 
 #skill Sanctify

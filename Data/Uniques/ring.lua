@@ -259,7 +259,7 @@ Has Alt Variant: true
 Variant: Herald of Purity: Mana Reservation
 Variant: Herald of Purity: Physical Damage
 Variant: Herald of Purity: Buff Effect
-Variant: Herald of Purity: Sentinal Damage
+Variant: Herald of Purity: Sentinel Damage
 Variant: Herald of Purity: Damage Reduction
 Limited to: 1
 Adds 1 to 4 Physical Damage to Attacks
