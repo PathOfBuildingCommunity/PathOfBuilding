@@ -390,6 +390,12 @@ local skills, mod, flag, skill = ...
 
 #skill EnsnaringArrow
 #flags attack projectile area
+	statMap = {
+			["tethered_enemies_take_attack_projectile_damage_taken_+%"] = {
+			mod("ProjectileAttackDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 3 }),
+		},
+#baseMod flag("Condition:CanEnsnare")
+#baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanEnsnare" })
 #mods
 
 #skill EtherealKnives
@@ -408,16 +414,20 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 		{
+			name = "Explosion (15 fuses)",
+			area = true,
+		},
+		{
 			name = "Arrow",
 			area = false,
 		},
 	},
 	statMap = {
 		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
-			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
+			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3} }),
 		},
 		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
-			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
+			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3 } }),
 		},
 		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
@@ -427,10 +437,11 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 15)
-#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } })
-#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 })
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2, 3 } })
+#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 })
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 1 })
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 15, 0, 0, { type = "SkillPart", skillPart = 3 })
 #mods
 
 #skill ShrapnelTrap
@@ -827,7 +838,7 @@ local skills, mod, flag, skill = ...
 
 #skill RainOfArrows
 #flags attack projectile area
-#baseMod skill("radius", 24) 
+#baseMod skill("radius", 24)
 #baseMod flag("OneShotProj")
 #mods
 
@@ -935,6 +946,7 @@ local skills, mod, flag, skill = ...
 
 #skill SiegeBallista
 #flags attack projectile totem
+#baseMod flag("ProjectileRain")
 #mods
 
 #skill SmokeMine

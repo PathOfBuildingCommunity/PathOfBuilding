@@ -771,6 +771,10 @@ return {
 	{ var = "multiplierWitheredStackCount", type = "count", label = "# of Withered Stacks:", ifCond = "CanWither", tooltip = "Withered applies 6% increased Chaos Damage Taken to the enemy, up to 15 stacks.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:WitheredStackCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "multiplierEnsnaredStackCount", type = "count", label = "# of Ensnare Stacks:", ifCond = "CanEnsnare", tooltip = "Ensnared enemies take increased Projectile Damage from Attack Hits for each snare attatched to them, up to 3 snares.\nEnsnared enemies always count as moving, and have less movement speed while trying to break the snare.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:EnsnareStackCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("Condition:Moving", "FLAG", true, "Config", { type = "MultiplierThreshold", actor = "enemy", var = "EnsnareStackCount", threshold = 1 })
+	end },
 	{ var = "conditionEnemyMaimed", type = "check", label = "Is the enemy Maimed?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Maimed", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },

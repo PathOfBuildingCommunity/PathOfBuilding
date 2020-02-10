@@ -4,6 +4,14 @@ This is a fork of Openarl's Path Of Building that includes many extra features n
 * Adds updated uniques from 3.8 and 3.9 changes
 * Pantheon support
 * Impale DPS support
+* Barrage Suport skill gem
+* Ensnaring Arrow support
+* Thread of Hope support
+* Crimson Dance support
+* Void Shot support
+* Delve helmet mod support
+* Breakdown for aura and curse effect
+* List of recently imported accounts to the Import/Export Build tab
 * More tree highlighting options for node power
 * Support for fossil mods in the crafting window. Including correct parsing for some mods that previously didn't work (e.g., 60% chance to deal 100% more poison/bleed damage)
 * Add parsing for more nodes on the tree (i.e., Slayer, Champion, Hierophant, Trickster and Elementalist ascendancy nodes)

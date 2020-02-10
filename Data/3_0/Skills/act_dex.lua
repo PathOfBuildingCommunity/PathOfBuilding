@@ -2406,12 +2406,20 @@ skills["EnsnaringArrow"] = {
 	},
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["tethered_enemies_take_attack_projectile_damage_taken_+%"] = {
+			mod("ProjectileAttackDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 3 }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
 		area = true,
 	},
 	baseMods = {
+		flag("Condition:CanEnsnare"),
+		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanEnsnare" }),
+		
 	},
 	qualityStats = {
 		{ "attack_speed_+%", 0.5 },
@@ -2557,16 +2565,20 @@ skills["ExplosiveArrow"] = {
 			area = true,
 		},
 		{
+			name = "Explosion (15 fuses)",
+			area = true,
+		},
+		{
 			name = "Arrow",
 			area = false,
 		},
 	},
 	statMap = {
 		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
-			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
+			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3} }),
 		},
 		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
-			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
+			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3 } }),
 		},
 		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
@@ -2583,10 +2595,11 @@ skills["ExplosiveArrow"] = {
 	},
 	baseMods = {
 		skill("radius", 15),
-		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } }),
-		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 }),
+		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2, 3 } }),
+		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 }),
 		mod("Multiplier:ExplosiveArrowFuse", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		mod("Multiplier:ExplosiveArrowFuse", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:ExplosiveArrowFuse", "BASE", 15, 0, 0, { type = "SkillPart", skillPart = 3 }),
 	},
 	qualityStats = {
 		{ "base_chance_to_ignite_%", 1 },
@@ -5990,6 +6003,7 @@ skills["SiegeBallista"] = {
 		totem = true,
 	},
 	baseMods = {
+		flag("ProjectileRain")
 	},
 	qualityStats = {
 		{ "projectile_damage_+%", 1 },
@@ -6051,7 +6065,7 @@ skills["SiegeBallista"] = {
 skills["SmokeMine"] = {
 	name = "Smoke Mine",
 	color = 2,
-	description = "Throws  a mine that will teleport you to it when detonated. It covers both your escape and arrival with a cloud of smoke that blinds enemies, and gives you a temporary buff to movement speed. Shares a cooldown with other Blink skills.",
+	description = "Throws a mine that will teleport you to it when detonated. It covers both your escape and arrival with a cloud of smoke that blinds enemies, and gives you a temporary buff to movement speed. Shares a cooldown with other Blink skills.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.MovementSkill] = true, [SkillType.Mine] = true, [SkillType.AreaSpell] = true, [SkillType.TravelSkill] = true, [SkillType.ManaCostReserved] = true, [SkillType.BlinkSkill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
