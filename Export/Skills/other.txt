@@ -249,6 +249,22 @@ local skills, mod, flag, skill = ...
 #skill IcestormUniqueStaff12
 #flags spell area duration
 	fromItem = true,
+	parts = {
+		{
+			name = "One Shard",
+    	},
+    	{
+			name = "All Shards",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			local baseDuration = (activeSkill.skillData.duration or 0) + activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Duration", "PrimaryDuration")
+			local durationMod = calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration")
+			local duration = baseDuration * durationMod
+			activeSkill.skillData.dpsMultiplier = duration / 0.1
+		end
+	end,
 #baseMod skill("duration", 0.15, { type = "PerStat", stat = "Int", div = 100, base = 1.5 })
 #baseMod skill("radius", 25)
 #baseMod skill("radiusSecondary", 10)
