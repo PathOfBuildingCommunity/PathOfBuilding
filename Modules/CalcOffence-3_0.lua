@@ -1704,7 +1704,10 @@ function calcs.offence(env, actor, activeSkill)
 				local mult = skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier", "BleedMultiplier")
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
 				local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster")
-				output.BleedDPS = baseVal * effectMod * rateMod * effMult
+				local maxStacks = skillModList:Override(cfg, "BleedStacksMax") or skillModList:Sum("BASE", cfg, "BleedStacksMax")
+				local configStacks = enemyDB:Sum("BASE", nil, "Multiplier:BleedStacks")
+				local bleedStacks = configStacks > 0 and m_min(configStacks, maxStacks) or maxStacks
+				output.BleedDPS = (baseVal * effectMod * rateMod * effMult) * bleedStacks
 				local durationBase
 				if skillData.bleedDurationIsSkillDuration then
 					durationBase = skillData.duration
@@ -1713,6 +1716,8 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
 				globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
+				globalOutput.BleedStacksMax = maxStacks
+				globalOutput.BleedStacks = bleedStacks
 				if breakdown then
 					t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(bleed deals %d%% per second)", basePercent/100, basePercent))
 					if effectMod ~= 1 then
@@ -2206,7 +2211,7 @@ function calcs.offence(env, actor, activeSkill)
             skillFlags.impale = true
             local impaleChance = m_min(output.ImpaleChance/100, 1)
             local maxStacks = skillModList:Sum("BASE", cfg, "ImpaleStacksMax") -- magic number: base stacks duration
-            local configStacks = enemyDB:Sum("BASE", nil, "Multiplier:ImpaleStacks")
+            local configStacks = enemyDB:Override(nil, "ImpaleStacks") or 0
             local impaleStacks = configStacks > 0 and m_min(configStacks, maxStacks) or  maxStacks
 
             local baseStoredDamage = 0.1 -- magic number: base impale stored damage

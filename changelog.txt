@@ -1,3 +1,39 @@
+[1.4.157.3][2020/02/10]
+ * Fix scrolling on dropdown boxes
+ * Fix CombinedDPS showing up on all skills
+[1.4.157.2][2020/02/10]
+ * Add support for the Barrage Support skill gem
+ * Add support for Ensnaring Arrow
+ * Add support for Thread of Hope
+ * Add support for Crimson Dance and amount of bleeds on enemy
+ * Partial support for Timeless jewels
+    * Brutal Restraint (Maraketh) and Lethal Pride (Karui) now provide stats when allocating small nodes on the tree
+    * Elegant Hubris (Eternal) now negates all stats gained from nodes in its radius other than keystones
+ * Add support for Void Shot granted by the Voidfletcher unique quiver
+ * Add support for in-game jewel radius sprites
+ * Add parsing for -res and increased phys damage delve helmet mods
+ * Add support for "against Chilled or Frozen Enemies" mod
+ * Add breakdown for Curse Effect for Curse Skills
+ * Add breakdown for Aura for Aura Skills
+ * Add breakdown for "Base from Armours" row for ES/Armour/Evasion
+ * Add colors to the resistances' label on the side bar
+ * Add Ctrl-Right and Ctrl-Left to text fields (skip words)
+ * Add list of recently imported accounts to the Import/Export Build tab
+ * Add parsing for Elusive mod on boots
+ * Add support for "Ignites you inflict deal Damage faster" mod
+ * Add support for "Fortify Buffs you create instead grant 30% more Evasion Rating" mod
+ * Add missing "increased Flask Charges gained" mod to Nomad unique belt
+ * Add support for Fungal Ground from Sporeguard unique body armour
+ * Add Bone Armour and Mirage Warriors to skill pool
+ * Add 15 fuses to Explosive Arrow drop-down list
+ * Cap max elemental resistance at 90
+ * Fix mods for many old jewels
+ * Fix Spreading Rot jewel
+ * Fix Chin Sol's mods
+ * Fix quality mods on Awakened Swift Affliction and Awakened Unbound Ailments
+ * Fix Arctic Breath's cold dot not being modified by area damage mods
+ * Fix Transfiguration of Mind interaction bug with Crown of Eyes
+ * Fix parsing for travel skill mods
 [1.4.157.1][2019/12/21]
  * Added a new unique item, The Savior
  * Added the ability to show only non-Awakened supports (or only Awakened supports!); the option can be found in the
