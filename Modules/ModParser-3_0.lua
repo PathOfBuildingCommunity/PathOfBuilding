@@ -1751,11 +1751,10 @@ local specialModList = {
 		mod("EnemyPhysicalDamageReduction", "BASE", -num)
 	} end,
 	["enemies on fungal ground you kill explode, dealing 5%% of their life as chaos damage"] = {},
-	["you have fungal ground around you while stationary"] = {},
-	["%(allies on your fungal ground gain ([%d%.]+)%% of non%-chaos damage as extra chaos damage%. enemies on your fungal ground deal ([%d%.]+)%% less damage%.%)"] = function(_, gain, enemyLoss) return {
-		mod("NonChaosDamageGainAsChaos", "BASE", gain, { type = "Condition", var = "OnFungalGround" }, { type = "GlobalEffect", effectType = "Aura" }),
-		mod("EnemyModifier", "LIST", { mod = mod("Damage", "MORE", -enemyLoss, {type = "ActorCondition", actor = "enemy", var = "OnFungalGround"})})
-	} end,
+	["you have fungal ground around you while stationary"] = {
+		mod("ExtraAura", "LIST" , { mod = mod("NonChaosDamageGainAsChaos", "BASE", 10, { type = "Condition", var = "OnFungalGround" }, { type = "Condition", var = "Stationary" }) }),
+		mod("EnemyModifier", "LIST", { mod = mod("Damage", "MORE", -10, { type = "ActorCondition", actor = "enemy", var = "OnFungalGround" }, { type = "Condition", var = "Stationary" }) })
+	},
 	["nearby enemies have (%-%d+)%% to fire resistance"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", num) }) } end,
 	["nearby enemies have (%-%d+)%% to lightning resistance"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("LightningResist", "BASE", num) }) } end,
 	["nearby enemies take (%d+)%% increased physical damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("PhysicalDamageTaken", "INC", num) }) } end,
