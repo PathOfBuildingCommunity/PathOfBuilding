@@ -513,7 +513,7 @@ c["14% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="
 c["Curse Enemies with Temporal Chains on Hit"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,noSupports=true,skillId="TemporalChains"}}},nil}
 c["Raise Zombie does not require a Corpse Your Raised Zombies count as Corpses"]={nil,"does not require a Corpse Your Raised Zombies count as Corpses "}
 c["+13 to Strength"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=13}},nil}
-c["10% increased Effect of Arcane Surge on you per 200 Mana spent Recently, up to 50% 10% chance to gain Arcane Surge when you Kill an Enemy"]={{[1]={flags=0,keywordFlags=0,name="FlaskEffect",type="INC",value=10}},"  of Arcane Surge on you per 200 Mana spent Recently, up to 50% 10% chance to gain Arcane Surge when you Kill an Enemy "}
+c["10% increased Effect of Arcane Surge on you per 200 Mana spent Recently, up to 50% 10% chance to gain Arcane Surge when you Kill an Enemy"]={{[1]={[1]={skillName="Arcane Surge",type="SkillName"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=10}},"  per 200 Mana spent Recently, up to 50% 10% chance to gain Arcane Surge when you Kill an Enemy "}
 c["15% more Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="MORE",value=15}},nil}
 c["Cold-only Splash Damage to surrounding targets"]={nil,"Cold-only Splash Damage to surrounding targets "}
 c["Regenerate 35 Mana per second if all Equipped Items are Corrupted"]={{[1]={[1]={threshold=0,type="MultiplierThreshold",upper=true,var="NonCorruptedItem"},flags=0,keywordFlags=0,name="ManaRegen",type="BASE",value=35}},nil}
@@ -560,7 +560,7 @@ c["+25% to Critical Strike Multiplier with Maces and Sceptres"]={{[1]={flags=104
 c["+2 to maximum number of Skeletons"]={{[1]={flags=0,keywordFlags=0,name="ActiveSkeletonLimit",type="BASE",value=2}},nil}
 c["30% increased Damage while Leeching"]={{[1]={[1]={type="Condition",var="Leeching"},flags=0,keywordFlags=0,name="Damage",type="INC",value=30}},nil}
 c["4% reduced Enemy Stun Threshold with Maces and Sceptres"]={{[1]={flags=1048576,keywordFlags=0,name="EnemyStunThreshold",type="INC",value=-4}},nil}
-c["10% increased Brand Attachment range"]={{}," Brand Attachment range "}
+c["10% increased Brand Attachment range"]={{[1]={flags=0,keywordFlags=0,name="BrandAttachmentRange",type="INC",value=10}},nil}
 c["30% increased Damage with Ailments from Attack Skills while wielding a Claw"]={{[1]={[1]={type="Condition",var="UsingClaw"},flags=2048,keywordFlags=65536,name="Damage",type="INC",value=30}},nil}
 c["Enemies Become Chilled as they Unfreeze 10% chance to Freeze Enemies which are Chilled +10% to Cold Damage over Time Multiplier 10% increased Effect of Chill"]={nil,"Enemies Become Chilled as they Unfreeze 10% chance to Freeze Enemies which are Chilled +10% to Cold Damage over Time Multiplier 10% increased Effect of Chill "}
 c["Socketed Gems are supported by level 25 Melee Splash"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=25,skillId="SupportMeleeSplash"}}},nil}
@@ -916,7 +916,6 @@ c["18 Life Regenerated per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRege
 c["20% chance to Avoid being Stunned while Channelling"]={{[1]={[1]={type="Condition",var="Channelling"},flags=0,keywordFlags=0,name="AvoidStun",type="BASE",value=20}},nil}
 c["Enemies Taunted by you take 10% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Taunted"},flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=10}}}},nil}
 c["10% of Physical Damage taken as Fire Damage while affected by Purity of Fire"]={{[1]={[1]={type="Condition",var="AffectedByPurityofFire"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsFire",type="BASE",value=10}},nil}
-c["Enemies take 10% increased Damage for each of your Brands Attached to them Brand Recall has 30% increased Cooldown Recovery Speed 14% increased Brand Attachment range"]={nil,"Enemies take 10% increased Damage for each of your Brands Attached to them Brand Recall has 30% increased Cooldown Recovery Speed 14% increased Brand Attachment range "}
 c["3% increased Attack Speed with Axes"]={{[1]={flags=65537,keywordFlags=0,name="Speed",type="INC",value=3}},nil}
 c["10% increased Area of Effect for each Summoned Sentinel of Purity Summoned Sentinels use Crusade Slam"]={{[1]={flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=10}},"  for each Summoned Sentinel of Purity Summoned Sentinels use Crusade Slam "}
 c["Cannot be Stunned while you have Ghost Shrouds"]={nil,"Cannot be Stunned while you have Ghost Shrouds "}
@@ -2615,7 +2614,7 @@ c["Recover 10% of maximum Life when you use a Mana Flask"]={nil,"Recover 10% of 
 c["30% of Lightning Damage Leeched as Mana during Flask effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="LightningDamageManaLeech",type="BASE",value=30}},nil}
 c["Recover 3% of Energy Shield when you lose a Spirit Charge"]={nil,"Recover 3% of Energy Shield when you lose a Spirit Charge "}
 c["Recover 3% of Life when you lose a Spirit Charge Recover 3% of Energy Shield when you lose a Spirit Charge"]={nil,"Recover 3% of Life when you lose a Spirit Charge Recover 3% of Energy Shield when you lose a Spirit Charge "}
-c["10% increased Effect of Arcane Surge on you per"]={{[1]={flags=0,keywordFlags=0,name="FlaskEffect",type="INC",value=10}},"  of Arcane Surge on you per "}
+c["10% increased Effect of Arcane Surge on you per"]={{[1]={[1]={skillName="Arcane Surge",type="SkillName"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=10}},"  per "}
 c["Mines have 20% increased Detonation Speed Each Mine applies 2% increased Damage taken to Enemies near it, up to 10%"]={nil,"Mines have 20% increased Detonation Speed Each Mine applies 2% increased Damage taken to Enemies near it, up to 10% "}
 c["Adds 23 to 40 Cold Damage to Spells and Attacks"]={{[1]={flags=0,keywordFlags=196608,name="ColdMin",type="BASE",value=23},[2]={flags=0,keywordFlags=196608,name="ColdMax",type="BASE",value=40}},nil}
 c["15% increased Attack Speed while Leeching"]={{[1]={[1]={type="Condition",var="Leeching"},flags=1,keywordFlags=0,name="Speed",type="INC",value=15}},nil}
@@ -3215,7 +3214,7 @@ c["Debuffs on you expire 20% faster"]={nil,"Debuffs on you expire 20% faster "}
 c["Recover 5% of Maximum Life on Kill Enemies you hit are destroyed on Kill"]={nil,"Recover 5% of Maximum Life on Kill Enemies you hit are destroyed on Kill "}
 c["14% Chance to Block"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=14}},nil}
 c["140% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=140}},nil}
-c["You can inflict Bleeding on an Enemy up to 8 times"]={nil,"You can inflict Bleeding on an Enemy up to 8 times "}
+c["You can inflict Bleeding on an Enemy up to 8 times"]={{[1]={flags=0,keywordFlags=0,name="BleedStacksMax",type="OVERRIDE",value=8}},nil}
 c["15% increased Attack and Cast Speed"]={{[1]={flags=0,keywordFlags=0,name="Speed",type="INC",value=15}},nil}
 c["50% increased Critical Strike Chance for Attacks"]={{[1]={flags=1,keywordFlags=0,name="CritChance",type="INC",value=50}},nil}
 c["and nearby Allies cannot be Stunned"]={nil,"and nearby Allies cannot be Stunned "}
@@ -3509,7 +3508,7 @@ c["Adds 285 to 330 Fire Damage in Main Hand"]={{[1]={[1]={num=1,type="InSlot"},f
 c["25% chance to gain a Power Charge on Critical Strike"]={{}," to gain a Power Charge "}
 c["15% of Physical Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToChaos",type="BASE",value=15}},nil}
 c["40% chance to Chill Attackers for 4 seconds on Block"]={{}," to Chill Attackers for 4 seconds on Block "}
-c["14% increased Brand Attachment range"]={{}," Brand Attachment range "}
+c["14% increased Brand Attachment range"]={{[1]={flags=0,keywordFlags=0,name="BrandAttachmentRange",type="INC",value=14}},nil}
 c["15% increased Melee Physical Damage while you have Fortify"]={{[1]={[1]={type="Condition",var="Fortify"},flags=256,keywordFlags=0,name="PhysicalDamage",type="INC",value=15}},nil}
 c["Hits ignore Enemy Monster Fire Resistance while you are Ignited"]={{[1]={[1]={type="Condition",var="Ignited"},flags=0,keywordFlags=0,name="IgnoreFireResistance",type="FLAG",value=true}},nil}
 c["30 Life gained for each Enemy Hit while affected by Vitality {variant:48}30% increased Life Recovery Rate while affected by Vitality"]={nil,"30 Life gained for each Enemy Hit while affected by Vitality {variant:48}30% increased Life Recovery Rate while affected by Vitality "}
@@ -3986,7 +3985,7 @@ c["12% increased Weapon Damage while Dual Wielding"]={{[1]={[1]={type="Condition
 c["Skills which throw Traps have Blood Magic"]={{[1]={[1]={skillType=37,type="SkillType"},flags=0,keywordFlags=0,name="BloodMagic",type="FLAG",value=true}},nil}
 c["50% increased Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamage",type="INC",value=50}},nil}
 c["140 Life Regenerated per Second while affected by Vitality"]={{[1]={[1]={type="Condition",var="AffectedByVitality"},flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=140}},nil}
-c["10% increased Effect of Arcane Surge on you"]={{[1]={flags=0,keywordFlags=0,name="FlaskEffect",type="INC",value=10}},"  of Arcane Surge on you "}
+c["10% increased Effect of Arcane Surge on you"]={{[1]={[1]={skillName="Arcane Surge",type="SkillName"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=10}},nil}
 c["10% increased Movement Speed while Ignited"]={{[1]={[1]={type="Condition",var="Ignited"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=10}},nil}
 c["+22% to Cold Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="ColdDotMultiplier",type="BASE",value=22}},nil}
 c["+40% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=40}},nil}
@@ -4791,7 +4790,7 @@ c["50% increased Critical Strike Chance for Spells per Raised Spectre {variant:1
 c["+18 to all Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=18},[2]={flags=0,keywordFlags=0,name="Dex",type="BASE",value=18},[3]={flags=0,keywordFlags=0,name="Int",type="BASE",value=18}},nil}
 c["20% chance to gain a Endurance Charge on Kill"]={{}," to gain a Endurance Charge on Kill "}
 c["5% chance to Dodge Attack Hits while Channelling"]={{[1]={[1]={type="Condition",var="Channelling"},flags=0,keywordFlags=0,name="AttackDodgeChance",type="BASE",value=5}},nil}
-c["10% increased Effect of Arcane Surge on you per 200 Mana spent Recently, up to 50%"]={{[1]={flags=0,keywordFlags=0,name="FlaskEffect",type="INC",value=10}},"  of Arcane Surge on you per 200 Mana spent Recently, up to 50% "}
+c["10% increased Effect of Arcane Surge on you per 200 Mana spent Recently, up to 50%"]={{[1]={[1]={skillName="Arcane Surge",type="SkillName"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=10}},"  per 200 Mana spent Recently, up to 50% "}
 c["8% additional Chance to Block while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=8}},nil}
 c["Cannot be Knocked Back {variant:1}+150 to maximum Life"]={nil,"Cannot be Knocked Back {variant:1}+150 to maximum Life "}
 c["With at least 40 Intelligence in Radius, Cold Snap has a 50% chance to grant a Power Charge on Kill"]={nil,"With at least 40 Intelligence in Radius, Cold Snap has a 50% chance to grant a Power Charge on Kill "}
@@ -5253,7 +5252,6 @@ c["+35% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",typ
 c["Shocks nearby Enemies during Flask effect, causing 10% increased Damage taken {variant:1,2,3,4,5,6,7,8}You are Shocked during Flask effect"]={nil,"Shocks nearby Enemies during Flask effect, causing 10% increased Damage taken {variant:1,2,3,4,5,6,7,8}You are Shocked during Flask effect "}
 c["Adds 1 to 25 Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningMin",type="BASE",value=1},[2]={flags=0,keywordFlags=0,name="LightningMax",type="BASE",value=25}},nil}
 c["Adds 9 to 14 Chaos Damage for each Spider's Web on the Enemy"]={{[1]={[1]={actor="enemy",type="Multiplier",var="Spider's WebStack"},flags=0,keywordFlags=0,name="ChaosMin",type="BASE",value=9},[2]={[1]={actor="enemy",type="Multiplier",var="Spider's WebStack"},flags=0,keywordFlags=0,name="ChaosMax",type="BASE",value=14}},nil}
-c["You can Cast an additional Brand Enemies take 10% increased Damage for each of your Brands Attached to them Brand Recall has 30% increased Cooldown Recovery Speed 14% increased Brand Attachment range"]={nil,"You can Cast an additional Brand Enemies take 10% increased Damage for each of your Brands Attached to them Brand Recall has 30% increased Cooldown Recovery Speed 14% increased Brand Attachment range "}
 c["5% reduced Damage taken"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-5}},nil}
 c["+95 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=95}},nil}
 c["Minions gain Unholy Might for 10 seconds on Kill"]={nil,"gain Unholy Might for 10 seconds on Kill "}
@@ -5782,7 +5780,6 @@ c["Adds 60 to 140 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="Physical
 c["Adds 11 to 25 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=11},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=25}},nil}
 c["do not have Adrenaline Recover 25% of maximum Life when you gain Adrenaline Remove all Ailments and Burning when you gain Adrenaline"]={nil,"do not have Adrenaline Recover 25% of maximum Life when you gain Adrenaline Remove all Ailments and Burning when you gain Adrenaline "}
 c["Adds 1 to 59 Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosMin",type="BASE",value=1},[2]={flags=0,keywordFlags=0,name="ChaosMax",type="BASE",value=59}},nil}
-c["Totems gain +10% to all Elemental Resistances 10% increased Brand Attachment range"]={nil,"Totems gain +10% to all Elemental Resistances 10% increased Brand Attachment range "}
 c["Adds 13 to 30 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=13},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=30}},nil}
 c["100% chance to Trigger Level 1 Raise Spiders on Kill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,skillId="TriggeredSummonSpider"}}},nil}
 c["6% increased Intelligence"]={{[1]={flags=0,keywordFlags=0,name="Int",type="INC",value=6}},nil}
@@ -6041,7 +6038,6 @@ c["20% increased Global Critical Strike Chance while wielding a Staff"]={{[1]={[
 c["Take 150 Physical Damage per Second per Siphoning Charge if you've used a Skill Recently"]={{[1]={[1]={type="Multiplier",var="SiphoningCharge"},[2]={type="Condition",var="UsedSkillRecently"},flags=0,keywordFlags=0,name="PhysicalDegen",type="BASE",value=150}},nil}
 c["10% chance to Avoid being Stunned while Channelling"]={{[1]={[1]={type="Condition",var="Channelling"},flags=0,keywordFlags=0,name="AvoidStun",type="BASE",value=10}},nil}
 c["+24% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=24}},nil}
-c["You can Cast an additional Brand 20% increased Damage with Brand Skills 10% increased Brand Attachment range"]={nil,"You can Cast an additional Brand 20% increased Damage with Brand Skills 10% increased Brand Attachment range "}
 c["15% increased Cast Speed"]={{[1]={flags=16,keywordFlags=0,name="Speed",type="INC",value=15}},nil}
 c["80% reduced Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=-80}},nil}
 c["Discipline has 60% increased Aura Effect"]={{[1]={[1]={skillName="Discipline",type="SkillName"},flags=0,keywordFlags=0,name="AuraEffect",type="INC",value=60}},nil}
@@ -7538,4 +7534,4 @@ c["16% Chance to Block"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="
 c["Unaffected by Frostbite while affected by Purity of Ice"]={nil,"Unaffected by Frostbite while affected by Purity of Ice "}
 c["Bleeding you inflict deals Damage 15% faster"]={{[1]={flags=0,keywordFlags=0,name="BleedFaster",type="INC",value=15}},nil}
 c["175% increased Skeleton Duration"]={{[1]={[1]={skillName="Summon Skeleton",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="INC",value=175}},nil}
-c["(Allies on your Fungal Ground gain 10% of Non-Chaos Damage as extra Chaos Damage. Enemies on your Fungal Ground deal 10% less Damage.)"]={{[1]={[1]={type="Condition",var="OnFungalGround"},flags=0,keywordFlags=0,name="NonChaosDamageGainAsChaos",type="BASE",value=10}},nil}
+c["(Allies on your Fungal Ground gain 10% of Non-Chaos Damage as extra Chaos Damage. Enemies on your Fungal Ground deal 10% less Damage.)"]={{[1]={[1]={type="Condition",var="OnFungalGround"},[2]={effectType="Aura",type="GlobalEffect"},flags=0,keywordFlags=0,name="NonChaosDamageGainAsChaos",type="BASE",value="10"},[2]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={actor="enemy",type="ActorCondition",var="OnFungalGround"},flags=0,keywordFlags=0,name="Damage",type="MORE",value=-10}}}},nil}

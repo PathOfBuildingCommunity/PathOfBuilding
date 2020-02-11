@@ -30,7 +30,7 @@ Variant: Pre 3.9.0
 Variant: Current
 Requires Level 62, 212 Dex
 Implicits: 2
-{variant:1,2}(6-12)% increased Elemental Damage with Weapons
+{variant:1,2}(6-12)% increased Elemental Damage with Attack Skills
 {variant:5}+(15-25)% to Global Critical Strike Multiplier
 +(10-20) to Dexterity
 {variant:1}(75-100)% increased Physical Damage
@@ -98,7 +98,7 @@ Variant: Pre 3.9.0
 Variant: Current
 Requires Level 62, 212 Dex
 Implicits: 2
-{variant:1,2}(6-12)% increased Elemental Damage with Weapons
+{variant:1,2}(6-12)% increased Elemental Damage with Attack Skills
 {variant:6}+(15-25)% to Global Critical Strike Multiplier
 {variant:1,2,3}(100-125)% increased Physical Damage
 {variant:4,5,6}(130-150)% increased Physical Damage
@@ -151,31 +151,28 @@ Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.1.0
 Variant: Current
 Requires Level 28, 95 Dex
-Implicits: 3
-{variant:1,2}(6-12)% increased Elemental Damage with Weapons
-{variant:3}(20-24)% increased Elemental Damage with Weapons
-{variant:4,5}(20-24)% increased Elemental Damage with Attack Skills
-{variant:2,3,4}Adds (8-12) to (16-20) Physical Damage
-{variant:5}Adds (12-16) to (20-24) Physical Damage
+Implicits: 2
+{variant:2}(6-12)% increased Elemental Damage with Attack Skills
+{variant:3,4}(20-24)% increased Elemental Damage with Attack Skills
+{variant:2,3}Adds (8-12) to (16-20) Physical Damage
+{variant:4}Adds (12-16) to (20-24) Physical Damage
 (10-14)% increased Attack Speed
-{variant:1,2,3,4}(30-40)% increased Critical Strike Chance
+{variant:1,2,3}(30-40)% increased Critical Strike Chance
 60% increased Mana Regeneration Rate
-{variant:1,2,3,4}Gain 110% of Bow Physical Damage as Extra Damage of an Element
-{variant:5}Gain 100% of Bow Physical Damage as Extra Damage of an Element
+{variant:1,2,3}Gain 110% of Bow Physical Damage as Extra Damage of an Element
+{variant:4}Gain 100% of Bow Physical Damage as Extra Damage of an Element
 ]],[[
 Doomfletch's Prism
 Royal Bow
 Source: Upgraded from unique{Doomfletch} via prophecy{Ancient Doom}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.1.0
 Variant: Current
 Requires Level 40, 95 Dex
-Implicits: 3
-{variant:1}(6-12)% increased Elemental Damage with Weapons
-{variant:2}(20-24)% increased Elemental Damage with Weapons
+Implicits: 2
+{variant:2}(6-12)% increased Elemental Damage with Attack Skills
 {variant:3,4}(20-24)% increased Elemental Damage with Attack Skills
-{variant:1,2,3}Adds (8-12) to (16-20) Physical Damage
+{variant:2,3}Adds (8-12) to (16-20) Physical Damage
 {variant:4}Adds (12-16) to (20-24) Physical Damage
 (10-14)% increased Attack Speed
 {variant:1,2,3}(30-40)% increased Critical Strike Chance
@@ -241,10 +238,9 @@ Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 66, 212 Dex
-Implicits: 3
-{variant:2}(6-12)% increased Elemental Damage with Weapons
-{variant:3}(20-24)% increased Elemental Damage with Weapons
-{variant:4}(20-24)% increased Elemental Damage with Attack Skills
+Implicits: 2
+{variant:2}(6-12)% increased Elemental Damage with Attack Skills
+{variant:3,4}(20-24)% increased Elemental Damage with Attack Skills
 (150-175)% increased Physical Damage
 Adds (6-12) to (20-32) Physical Damage
 (10-20)% increased Attack Speed
@@ -316,15 +312,13 @@ Requires Level 64, 212 Dex
 ]],[[
 Roth's Reach
 Recurve Bow
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 18, 71 Dex
 Implicits: 1
-{variant:3}+(15-25)% to Global Critical Strike Multiplier
+{variant:2}+(15-25)% to Global Critical Strike Multiplier
 (60-80)% increased Physical Damage
-{variant:1}(20-40)% increased Elemental Damage with Weapons
-{variant:2,3}(20-40)% increased Elemental Damage with Attack Skills
+(20-40)% increased Elemental Damage with Attack Skills
 (4-8)% increased Attack Speed
 Skills Chain +1 times
 30% increased Projectile Speed
@@ -414,10 +408,9 @@ Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 66, 212 Dex
-Implicits: 3
-{variant:2}(6-12)% increased Elemental Damage with Weapons
-{variant:3}(20-24)% increased Elemental Damage with Weapons
-{variant:4,5}(20-24)% increased Elemental Damage with Attack Skills
+Implicits: 2
+{variant:2}(6-12)% increased Elemental Damage with Attack Skills
+{variant:3,4,5}(20-24)% increased Elemental Damage with Attack Skills
 {variant:1,2,3,4}Adds (32-40) to (48-60) Cold Damage
 {variant:5}Adds (48-60) to (72-90) Cold Damage
 {variant:1,2,3,4}Adds 1 to (80-100) Lightning Damage

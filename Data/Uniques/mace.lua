@@ -415,7 +415,7 @@ Implicits: 2
 (25-30)% increased Zombie Resistances
 25% increased Zombie Size
 Enemies killed by Zombies explode dealing 20% of their Maximum Life as Fire Damage
-{variant:1,2,3}Zombies deal (80-100)% increased Physical Damage
+{variant:1,2,3}Raised Zombies deal (80-100)% increased Physical Damage
 {variant:4}Raised Zombies deal (80-100)% more Physical Damage
 ]],[[
 Nycta's Lantern

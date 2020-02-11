@@ -305,13 +305,17 @@ Requires Level 12, 26 Dex
 [[
 Bones of Ullr
 Silk Slippers
+Variant: Pre 3.8.0
+Variant: Current
 Requires Level 22, 42 Int
 +20 to maximum Life
 +20 to maximum Mana
 (40-60)% increased Energy Shield
 (5-15)% increased Movement Speed
-+1 to Level of all Raise Zombie Gems
-+1 to Level of all Raise Spectre Gems
+{variant:1}+1 to Maximum number of Raised Zombies
+{variant:1}+1 to Maximum number of Spectres
+{variant:2}+1 to Level of all Raise Zombie Gems
+{variant:2}+1 to Level of all Raise Spectre Gems
 ]],[[
 Doryani's Delusion
 Sorcerer Boots
@@ -565,15 +569,12 @@ Grants Level 20 Aspect of the Avian Skill
 [[
 Alberon's Warpath
 Soldier Boots
-Variant: {2_6}Pre 3.0.0
-Variant: Current
 Requires Level 49, 47 Str, 47 Int
 Adds 1 to 80 Chaos Damage to Attacks
 +(180-220) to Armour
 +(9-12)% to Chaos Resistance
 20% increased Movement Speed
-{variant:1}+2 to Maximum number of Skeletons
-{variant:2}+1 to Maximum number of Skeletons
++1 to Maximum number of Skeletons
 (15-18)% increased Strength
 ]],[[
 Death's Door

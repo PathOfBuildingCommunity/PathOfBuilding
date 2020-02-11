@@ -978,6 +978,7 @@ skills["SupportGreaterSpellEcho"] = {
 		},
 	},
 	baseMods = {
+		flag("Condition:HaveGreaterSpellEcho"),
 		mod("Damage", "MORE", 35, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true }),
 		mod("Damage", "MORE", 52, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true }),
 	},

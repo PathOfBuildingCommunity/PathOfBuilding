@@ -1,3 +1,10 @@
+### 1.4.157.4 - 2020/02/11
+ * Add support for Effect of Arcane Surge
+ * Add support for Brand Attachment range
+ * Add support for Awakened Spell Echo's chance to deal Double Damage on final repeat
+ * Fix support for Crimson Dance
+ * Update wording on Staves
+ * Corrected many uniques that wrongly got legacy variants and updated wordings
 ### 1.4.157.3 - 2020/02/10
  * Fix scrolling on dropdown boxes
  * Fix CombinedDPS showing up on all skills
@@ -14,7 +21,7 @@
  * Add parsing for -res and increased phys damage delve helmet mods
  * Add support for "against Chilled or Frozen Enemies" mod
  * Add breakdown for Curse Effect for Curse Skills
- * Add breakdown for Aura for Aura Skills
+ * Add breakdown for Aura Effect for Aura Skills
  * Add breakdown for "Base from Armours" row for ES/Armour/Evasion
  * Add colors to the resistances' label on the side bar
  * Add Ctrl-Right and Ctrl-Left to text fields (skip words)

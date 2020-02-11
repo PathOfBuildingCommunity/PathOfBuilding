@@ -95,24 +95,25 @@ Eye Gouger
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Current
 Requires Level 64, 113 Dex, 113 Int
-Implicits: 2
+Implicits: 3
 {variant:1,2}0.6% of Physical Attack Damage Leeched as Life
 {variant:3}+31 Life gained for each Enemy hit by Attacks
+{variant:4}+50 Life gained for each Enemy hit by Attacks
 {variant:1}10% additional Chance to Block while Dual Wielding Claws
-{variant:2,3}8% additional Chance to Block while Dual Wielding Claws
+{variant:2,3,4}8% additional Chance to Block while Dual Wielding Claws
 {variant:1}(80-120)% increased Physical Damage
-{variant:2,3}(140-180)% increased Physical Damage
+{variant:2,3,4}(140-180)% increased Physical Damage
 {variant:1}Adds 1 to 50 Lightning Damage
 {variant:2,3}Adds 1 to 80 Lightning Damage
+{variant:4}Adds 1 to 200 Lightning Damage
 (20-30)% increased Attack Speed
 +(30-40) to maximum Energy Shield
-Ghost Reaver
+Leech Energy Shield instead of Life
 ]],[[
 Essentia Sanguis
 Vaal Claw
-Variant: {2_6}Pre 3.0.0
-Variant: Current
 Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 2% of Physical Attack Damage Leeched as Life
@@ -121,8 +122,7 @@ Implicits: 1
 Adds 1 to 200 Lightning Damage
 (20-30)% increased Attack Speed
 +(30-40) to maximum Energy Shield
-{variant:1}Ghost Reaver
-{variant:2}Life Leech is applied to Energy Shield instead
+Leech Energy Shield instead of Life
 ]],[[
 Hand of Thought and Motion
 Blinder
@@ -136,8 +136,7 @@ Requires Level 22, 41 Dex, 41 Int
 Implicits: 2
 {variant:1}+10 Life gained for each Enemy hit by Attacks
 {variant:2,3}+12 Life gained for each Enemy hit by Attacks
-{variant:1,2}(20-25)% increased Elemental Damage with Weapons
-{variant:3}(20-25)% increased Elemental Damage with Attack Skills
+{variant:1,2,3}(20-25)% increased Elemental Damage with Attack Skills
 Adds 1 to (50-60) Lightning Damage
 (10-15)% increased Attack Speed
 {variant:1,2}Adds 1 to 3 Lightning Damage to Attacks per 10 Intelligence
@@ -154,8 +153,7 @@ Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}+25 Life gained for each Enemy hit by Attacks
 {variant:2,3}+46 Life gained for each Enemy hit by Attacks
-{variant:1,2}(25-30)% increased Elemental Damage with Weapons
-{variant:3}(25-30)% increased Elemental Damage with Attack Skills
+{variant:1,2,3}(20-25)% increased Elemental Damage with Attack Skills
 (8-12)% increased Dexterity
 (8-12)% increased Intelligence
 {variant:1,2}Adds 1 to 6 Lightning Damage to Attacks per 10 Intelligence

@@ -572,19 +572,17 @@ Requires Level 68, 159 Int
 ]],[[
 Sentari's Answer
 Brass Spirit Shield
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 33, 82 Int
-{variant:1}25% of Block Chance applied to Spells
-{variant:2}+7% chance to Block Spell Damage
-{variant:3}+10% chance to Block Spell Damage
+{variant:1}+7% chance to Block Spell Damage
+{variant:2}+10% chance to Block Spell Damage
 +(20-30) to Intelligence
 (4-8)% increased Quantity of Items found
 +5% Chance to Block
-Applies level 15 Punishment on Blocking a Melee Attack
-Applies level 15 Temporal Chains on Blocking a Projectile Attack
-Applies level 15 Elemental Weakness on Blocking a Spell
+Applies level 15 Punishment on Blocking a Melee Attack, ignoring Curse Limit
+Applies level 15 Temporal Chains on Blocking a Projectile Attack, ignoring Curse Limit
+Applies level 15 Elemental Weakness on Blocking a Spell, ignoring Curse Limit
 ]],[[
 Whakatutuki o Matua
 Tarnished Spirit Shield
@@ -664,19 +662,17 @@ Implicits: 1
 Aegis Aurora
 Champion Kite Shield
 Variant: Pre 1.1.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 62, 85 Str, 85 Int
-{variant:1,2}(10-20)% increased Elemental Damage with Weapons
-{variant:3,4}(10-20)% increased Elemental Damage with Attack Skills
-{variant:1,2,3}(80-100)% increased Armour and Energy Shield
-{variant:4}(300-400)% increased Armour and Energy Shield
+(10-20)% increased Elemental Damage with Attack Skills
+{variant:1,2}(80-100)% increased Armour and Energy Shield
+{variant:3}(300-400)% increased Armour and Energy Shield
 +10% to all Elemental Resistances
 +5% to maximum Cold Resistance
 +6% Chance to Block
 {variant:1}Replenishes Energy Shield by 4% of Armour when you Block
-{variant:2,3,4}Replenishes Energy Shield by 2% of Armour when you Block
+{variant:2,3}Replenishes Energy Shield by 2% of Armour when you Block
 ]],[[
 Broken Faith
 Archon Kite Shield

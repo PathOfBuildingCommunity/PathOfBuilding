@@ -25,7 +25,7 @@ Variant: Pre 2.6.0
 Requires Level 70
 Implicits: 1
 +(9-20) to maximum Energy Shield
-(10-20)% increased Elemental Damage with Weapons
+(10-20)% increased Elemental Damage with Attack Skills
 +(45-55) to maximum Mana
 +(60-70) to maximum Energy Shield
 0.2% of Physical Attack Damage Leeched as Mana per Power Charge
@@ -39,14 +39,13 @@ Variant: Current
 Requires Level 70
 Implicits: 1
 +(60-80) to maximum Energy Shield
-{variant:1}(10-20)% increased Elemental Damage with Weapons
-{variant:2}(10-20)% increased Elemental Damage with Attack Skills
-{variant:3}(20-25)% increased Elemental Damage with Attack Skills per Power Charge
+{variant:1}(10-20)% increased Elemental Damage with Attack Skills
+{variant:2}(20-25)% increased Elemental Damage with Attack Skills per Power Charge
 +(45-55) to maximum Mana
 +(60-70) to maximum Energy Shield
 0.2% of Attack Damage Leeched as Mana per Power Charge
-{variant:1,2}Chill Effect and Freeze duration on you is based on 65% of Energy Shield
-{variant:3}Chill Effect and Freeze duration on you is based on 100% of Energy Shield
+{variant:1}Chill Effect and Freeze duration on you is based on 65% of Energy Shield
+{variant:2}Chill Effect and Freeze duration on you is based on 100% of Energy Shield
 ]],[[
 Bated Breath
 Chain Belt
@@ -406,22 +405,19 @@ You have Onslaught while you have Fortify
 Prismweave
 Rustic Sash
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 25
 Implicits: 1
 (12-24)% increased Physical Damage
-{variant:1,2}10% increased Elemental Damage with Weapons
-{variant:3}10% increased Elemental Damage with Attack Skills
+10% increased Elemental Damage with Attack Skills
 {variant:1}Adds (3-4) to (7-8) Fire Damage to Attacks
-{variant:2,3}Adds (7-8) to (15-16) Fire Damage to Attacks
+{variant:2}Adds (7-8) to (15-16) Fire Damage to Attacks
 {variant:1}Adds (2-3) to (5-7) Cold Damage to Attacks
-{variant:2,3}Adds (5-6) to (12-14) Cold Damage to Attacks
+{variant:2}Adds (5-6) to (12-14) Cold Damage to Attacks
 {variant:1}Adds 1 to (13-17) Lightning Damage to Attacks
-{variant:2,3}Adds 1 to (30-34) Lightning Damage to Attacks
+{variant:2}Adds 1 to (30-34) Lightning Damage to Attacks
 +(6-8)% to all Elemental Resistances
-{variant:1,2}30% increased Elemental Damage with Weapons while using a Flask
-{variant:3}30% increased Elemental Damage with Attack Skills while using a Flask
+30% increased Elemental Damage with Attack Skills during any Flask Effect
 ]],[[
 The Retch
 Rustic Sash
@@ -564,7 +560,7 @@ Implicits: 1
 (8-12)% increased maximum Life
 2% of Life Regenerated per second
 Flasks do not apply to You
-Flasks apply to your Zombies and Spectres
+Flasks apply to your Raised Zombies and Spectres
 ]],[[
 Wurm's Molt
 Leather Belt

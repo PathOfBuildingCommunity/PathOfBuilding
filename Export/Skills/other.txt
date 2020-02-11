@@ -240,6 +240,7 @@ local skills, mod, flag, skill = ...
 			mod("AreaOfEffect", "INC", nil),
 		},
 	},
+#baseMod flag("Condition:HaveGreaterSpellEcho")
 #baseMod mod("Damage", "MORE", 35, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true })
 #baseMod mod("Damage", "MORE", 52, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true })
 #mods

@@ -327,7 +327,7 @@ Variant: Attack/Cast Speed
 Variant: Item Quantity
 Variant: Life
 Variant: Crit Multiplier
-Variant: Maximum number of Zombies
+Variant: Maximum number of Raised Zombies
 Variant: Frenzy Charge on Kill
 Variant: Power Charge on Kill
 Variant: Endurance Charge on Kill
@@ -360,7 +360,7 @@ Implicits: 32
 {variant:17}(12-20)% increased Quantity of Items found
 {variant:18}(16-24)% increased maximum Life
 {variant:19}+(48-72)% to Global Critical Strike Multiplier
-{variant:20}+2 to maximum number of Zombies
+{variant:20}+2 to maximum number of Raised Zombies
 {variant:21}20% chance to gain a Frenzy Charge on Kill
 {variant:22}20% chance to gain a Power Charge on Kill
 {variant:23}20% chance to gain a Endurance Charge on Kill
@@ -824,16 +824,13 @@ Lapis Amulet
 League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Choir of the Storm} using currency{Blessing of Esh}
-Variant: {2_6}Pre 3.0.0
-Variant: Current
 Requires Level 40
 Implicits: 1
 +(20-30) to Intelligence
+Trigger Level 12 Lightning Bolt when you deal a Critical Strike
 +(10-15) to all Attributes
 (10-20)% increased maximum Mana
-{variant:1}Critical Strike Chance is increased by Uncapped Lightning Resistance
-{variant:2}Critical Strike Chance is increased by Lightning Resistance
-Trigger Level 12 Lightning Bolt when you deal a Critical Strike
+Critical Strike Chance is increased by Lightning Resistance
 ]],[[
 Choir of the Storm
 Lapis Amulet
@@ -844,13 +841,11 @@ Variant: Current
 Requires Level 69
 Implicits: 1
 +(20-30) to Intelligence
+Trigger Level 20 Lightning Bolt when you deal a Critical Strike
+50% increased Lightning Damage
 (10-20)% increased maximum Mana
 {variant:1}-30% to Lightning Resistance
-{variant:1}Critical Strike Chance is increased by Uncapped Lightning Resistance
-{variant:2}Critical Strike Chance is increased by Lightning Resistance
-{variant:1}Critical Strikes deal 50% increased Lightning Damage
-{variant:2}50% increased Lightning Damage
-Trigger Level 20 Lightning Bolt when you deal a Critical Strike
+Critical Strike Chance is increased by Lightning Resistance
 ]],[[
 Voll's Devotion
 Agate Amulet
