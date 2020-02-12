@@ -391,9 +391,10 @@ local skills, mod, flag, skill = ...
 #skill EnsnaringArrow
 #flags attack projectile area
 	statMap = {
-			["tethered_enemies_take_attack_projectile_damage_taken_+%"] = {
+		["tethered_enemies_take_attack_projectile_damage_taken_+%"] = {
 			mod("ProjectileAttackDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 3 }),
 		},
+	},
 #baseMod flag("Condition:CanEnsnare")
 #baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanEnsnare" })
 #mods

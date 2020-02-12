@@ -6,7 +6,6 @@ return {
 Atziri's Acuity
 Vaal Gauntlets
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.1.0
 Variant: Current
 Requires Level 75, 100 Str
@@ -14,9 +13,8 @@ Requires Level 75, 100 Str
 +(60-75) to maximum Life
 (200-220)% increased Armour
 (25-35)% increased Global Critical Strike Chance
-{variant:1}Leech applies instantly on Critical Strike
-{variant:2}Gain Life and Mana from Leech instantly on Critical Strike
-{variant:3}You have Vaal Pact if you've dealt a Critical Strike Recently
+{variant:1}Life and Mana Leech from Critical Strikes are instant
+{variant:2}You have Vaal Pact if you've dealt a Critical Strike Recently
 ]],[[
 Craiceann's Pincers
 Titan Gauntlets

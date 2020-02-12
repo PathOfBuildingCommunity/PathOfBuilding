@@ -822,9 +822,8 @@ Limited to: 1
 Radius: Medium
 {variant:1}(4-12)% increased Damage over Time
 {variant:2,3}(8-12)% increased Damage over Time
-{variant:1,2}With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Attack Damage for each Poison on the Enemy
-{variant:3}With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage with Hits and Poison for each Poison on the Enemy
-{variant:2,3}With at least 40 Dexterity in Radius, Viper Strike has a 10% chance per Poison on Enemy to grant Unholy Might for 4 seconds on Hit
+With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage with Hits and Poison for each Poison on the Enemy
+{variant:2}With at least 40 Dexterity in Radius, Viper Strike has a 10% chance per Poison on Enemy to grant Unholy Might for 4 seconds on Hit
 ]],[[
 Hazardous Research
 Cobalt Jewel

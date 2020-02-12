@@ -102,14 +102,13 @@ Implicits: 2
 {variant:1}(12-16)% increased Spell Damage
 {variant:2,3,4}(22-26)% increased Spell Damage
 +(10-20) to Intelligence
-{variant:1,2,3}Minions have (10-20)% increased Movement Speed
-{variant:4}Minions have (20-30)% increased Movement Speed
-{variant:1,2,3}Minions deal (10-30)% increased Damage
-{variant:4}Minions deal (50-70)% increased Damage
-+1 to Maximum number of Zombies
+{variant:1,2}Minions have (10-20)% increased Movement Speed
+{variant:3}Minions have (20-30)% increased Movement Speed
+{variant:1,2}Minions deal (10-30)% increased Damage
+{variant:3}Minions deal (50-70)% increased Damage
++1 to Maximum number of Raised Zombies
 +1 to Maximum number of Spectres
-{variant:1,2}+2 to Maximum number of Skeletons
-{variant:3,4}+1 to Maximum number of Skeletons
++1 to Maximum number of Skeletons
 Reserves 30% of Life
 Cannot be used with Chaos Inoculation
 ]],[[

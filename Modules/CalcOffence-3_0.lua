@@ -405,6 +405,9 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.CurseEffectMod = breakdown.mod(skillCfg, "CurseEffect")
 		end
 	end
+	if activeSkill.skillTypes[SkillType.Brand] then
+		output.BrandAttachmentRange = calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
+	end
 	if skillFlags.trap then
 		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "TrapThrowingTime")
 		local timeMod = calcLib.mod(skillModList, skillCfg, "SkillTrapThrowingTime")

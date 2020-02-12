@@ -24,7 +24,7 @@ Requires Level 26, 58 Str
 +(20-40) to Strength
 Minions have 20% increased maximum Life
 Half of your Strength is added to your Minions
-+1 to maximum number of Zombies per 300 Strength
++1 to maximum number of Raised Zombies per 300 Strength
 With 1000 or more Strength 2% of Damage dealt by your Zombies is Leeched to you as Life
 ]],[[
 Ezomyte Peak

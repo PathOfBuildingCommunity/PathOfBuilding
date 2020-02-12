@@ -3595,9 +3595,14 @@ skills["SupportSpellEchoPlus"] = {
 		["support_multicast_cast_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
+		["spell_echo_plus_chance_double_damage_%_final"] = {
+			mod("DoubleDamageChance", "BASE", nil, ModFlag.Spell, 0),
+			div = 2,
+		},
 	},
 	baseMods = {
 		flag("Condition:HaveSpellEcho"),
+		mod("DoubleDamageChance", "BASE", -3, ModFlag.Spell, 0, { type = "Condition", var = "HaveGreaterSpellEcho" }),
 	},
 	qualityStats = {
 		{ "spell_damage_+%", 0.5 },

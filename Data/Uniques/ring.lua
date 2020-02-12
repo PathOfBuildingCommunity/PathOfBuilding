@@ -778,23 +778,21 @@ Sibyl's Lament
 Coral Ring
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 45
 Implicits: 1
 +(20-30) to maximum Life
-{variant:1,2,3}(20-30)% increased Elemental Damage with Weapons
-{variant:4,5}(20-30)% increased Elemental Damage with Attack Skills
+(20-30)% increased Elemental Damage with Attack Skills
 Adds (8-15) to (20-28) Fire Damage to Attacks
 {variant:1}(20-40)% reduced Rarity of Items found
-{variant:2,3,4,5}(10-20)% reduced Rarity of Items found
+{variant:2,3,4}(10-20)% reduced Rarity of Items found
 {variant:1,2}Left ring slot: 30% reduced Reflected Elemental Damage taken
-{variant:3,4}Left ring slot: 40% reduced Reflected Elemental Damage taken
-{variant:5}Left ring slot: 80% reduced Reflected Elemental Damage taken
+{variant:3}Left ring slot: 40% reduced Reflected Elemental Damage taken
+{variant:4}Left ring slot: 80% reduced Reflected Elemental Damage taken
 {variant:1,2}Right ring slot: 30% reduced Reflected Physical Damage taken
-{variant:3,4}Right ring slot: 40% reduced Reflected Physical Damage taken
-{variant:5}Right ring slot: 80% reduced Reflected Physical Damage taken
+{variant:3}Right ring slot: 40% reduced Reflected Physical Damage taken
+{variant:4}Right ring slot: 80% reduced Reflected Physical Damage taken
 ]],[[
 Snakepit
 Sapphire Ring
@@ -834,7 +832,7 @@ Variant: Current
 Requires Level 30
 Implicits: 1
 +(8-10)% to all Elemental Resistances
-{variant:1}15% increased Elemental Damage with Weapons
+{variant:1}15% increased Elemental Damage with Attack Skills
 {variant:2}30% increased Elemental Damage with Attack Skills
 {variant:1}+(10-15)% to all Elemental Resistances
 {variant:2}+(20-30)% to all Elemental Resistances

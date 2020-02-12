@@ -312,7 +312,7 @@ Requires Level 68
 {variant:5,6,7,8,9,10,11,12}20% of Lightning Damage Leeched as Life during Flask effect
 {variant:1,2,3,4}30% of Lightning Damage Leeched as Mana during Flask effect
 {variant:5,6,7,8}20% of Lightning Damage Leeched as Mana during Flask effect
-{variant:1,2,3,4}Leech applies instantly during Flask effect
+{variant:1,2,3,4}Life and Mana Leech are instant during effect
 {variant:1,5,9}Damage Penetrates 10% Lightning Resistance during Flask effect
 {variant:2,6,10}Adds (15-25) to (70-90) Lightning Damage to Spells during Flask effect
 {variant:3,7,11}Adds (25-35) to (110-130) Lightning Damage to Attacks during Flask effect

@@ -2419,7 +2419,6 @@ skills["EnsnaringArrow"] = {
 	baseMods = {
 		flag("Condition:CanEnsnare"),
 		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanEnsnare" }),
-		
 	},
 	qualityStats = {
 		{ "attack_speed_+%", 0.5 },
@@ -6003,7 +6002,7 @@ skills["SiegeBallista"] = {
 		totem = true,
 	},
 	baseMods = {
-		flag("ProjectileRain")
+		flag("ProjectileRain"),
 	},
 	qualityStats = {
 		{ "projectile_damage_+%", 1 },
