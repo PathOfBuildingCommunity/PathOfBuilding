@@ -89,7 +89,7 @@ function DropDownClass:GetDropCount()
 end
 
 function DropDownClass:DrawSearchHighlights(label, searchInfo, x, y, width, height)
-	if searchInfo.matches then
+	if searchInfo and searchInfo.matches then
 		local startX = 0
 		local endX = 0
 		local last = 0

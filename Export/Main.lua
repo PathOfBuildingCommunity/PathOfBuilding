@@ -24,6 +24,7 @@ local classList = {
 	"UndoHandler",
 	"Tooltip",
 	"TooltipHost",
+	"SearchHost",
 	-- Basic controls
 	"Control",
 	"LabelControl",
