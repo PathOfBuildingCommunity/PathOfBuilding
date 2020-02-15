@@ -4,31 +4,12 @@
 -- Search host
 --
 
--- always show search popup if list size to filter > threshold
--- this can be removed once users know that there is a search feature
-local alwaysShowThreshold = 10
-
 local SearchHostClass = newClass("SearchHost", function(self, listAccessor, valueAccessor)
 	self.searchListAccessor = listAccessor
 	self.valueAccessor = valueAccessor
 	self.searchTerm = ""
 	self.searchInfos = {}
 end)
-
-function SearchHostClass:GetSearchPos(viewPort, dir)
-	local x, y = self:GetPos()
-	local width, height = self:GetSearchSize()
-	if (dir == "BOTTOM") then
-		return x, math.min(viewPort.height + viewPort.y, y + height + 1)
-	else
-		return x, math.max(viewPort.y, y - height - 1)
-	end
-end
-
-function SearchHostClass:GetSearchSize()
-	local height = self:GetProperty("height")
-	return DrawStringWidth(height - 4, "VAR", self:GetSearchText()) + 4, height
-end
 
 function SearchHostClass:IsSearchActive()
 	return self.searchTerm and self.searchTerm ~= ""
@@ -81,48 +62,12 @@ function SearchHostClass:UpdateSearch()
 end
 
 function SearchHostClass:ResetSearch()
-	if self:IsSearchActive() then
-		self.searchTerm = ""
-		self.matchCount = 0
-		self.searchInfos = {}
-	end
+	self.searchTerm = ""
+	self.matchCount = 0
+	self.searchInfos = {}
 end
 
-function SearchHostClass:GetSearchText()
+function SearchHostClass:GetSearchTermPretty()
 	local color = self:IsSearchActive() and self.matchCount > 0 and "^xFFFFFF" or "^xFF0000"
-	return "Search: " .. color .. self.searchTerm
-end
-
-function SearchHostClass:IsShowSearch()
-	if self:IsSearchActive() then
-		return true
-	end
-	local listSize = self.searchListAccessor and self.searchListAccessor() and #self.searchListAccessor() or 0
-	return listSize > alwaysShowThreshold
-end
-
-function SearchHostClass:DrawSearch(viewPort, dir)
-	if not self:IsShowSearch() then
-		return
-	end
-
-	local text = self:GetSearchText()
-	local width, height = self:GetSearchSize()
-	local x, y = self:GetSearchPos(viewPort, dir)
-
-	-- background
-	SetDrawLayer(nil, 95)
-	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(nil, x, y, width + 5, height)
-	SetDrawColor(0.1, 0.1, 0.1)
-	DrawImage(nil, x + 1, y + 1, width + 3, height - 2)
-
-	-- text
-	SetDrawLayer(nil, 100)
-	SetDrawColor(0.75, 0.75, 0.75)
-	DrawString(x + 2, y + 2, "LEFT", height - 4, "VAR", text)
-
-	-- reset
-	SetDrawColor(1, 1, 1)
-	SetDrawLayer(nil, 0)
+	return color .. self.searchTerm
 end

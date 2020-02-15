@@ -192,9 +192,7 @@ function DropDownClass:Draw(viewPort)
 		end
 	end
 
-	if self.dropped then
-		self:DrawSearch(viewPort, self.dropUp and "BOTTOM" or "TOP")
-	else
+	if self:IsSearchActive() and not self.dropped then
 		self:ResetSearch()
 	end
 
@@ -259,6 +257,9 @@ function DropDownClass:Draw(viewPort)
 	local selLabel = self.list[self.selIndex]
 	if type(selLabel) == "table" then
 		selLabel = selLabel.label
+	end
+	if self:IsSearchActive() then
+		selLabel = "Search: " .. self:GetSearchTermPretty()
 	end
 	SetViewport(x + 2, y + 2, width - height, lineHeight)
 	DrawString(0, 0, "LEFT", lineHeight, "VAR", selLabel or "")
