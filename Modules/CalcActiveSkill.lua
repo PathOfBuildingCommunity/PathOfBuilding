@@ -552,7 +552,6 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	-- Separate global effect modifiers (mods that can affect defensive stats or other skills)
 	local i = 1
 	while skillModList[i] do
-		-- This is to add conditions to global modlist
 		if string.match(skillModList[i].name, "Condition") then
 			env.modDB:AddMod(skillModList[i])
 		end
@@ -622,15 +621,6 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		-- Add to auxiliary skill list
 		t_insert(env.auxSkillList, activeSkill)
 	end
-	--env.modDB:AddList(skillModList)
-	-- Make a list of all the global mods; I will assume that all mods with "Condition:" are global
-	--[[local function makeGlobalModList(env, mods)
-		local i
-		while mods[i] do
-			if mods[i]
-		end
-	end]]
-
 end
 
 -- Initialise the active skill's minion skills
