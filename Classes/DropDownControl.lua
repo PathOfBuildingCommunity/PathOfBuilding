@@ -36,7 +36,6 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 end)
 
 -- maps the actual dropdown row index (after eventual filtering) to the original (unfiltered) list index
--- when dropIndex is nil or out of bounds nil is returned
 function DropDownClass:DropIndexToListIndex(dropIndex)
 	-- 1:1
 	if not self:IsSearchActive() then
@@ -58,7 +57,6 @@ function DropDownClass:DropIndexToListIndex(dropIndex)
 end
 
 -- maps the the original (unfiltered) list index to the actual dropdown row index (after eventual filtering)
--- given default value (or nil) is returned if the requested listIndex is currently filtered out
 function DropDownClass:ListIndexToDropIndex(listIndex, default)
 	-- 1:1
 	if not self:IsSearchActive() then
@@ -78,6 +76,7 @@ function DropDownClass:ListIndexToDropIndex(listIndex, default)
 			end
 		end
 	end
+	-- given listIndex is currently filtered out
 	return default
 end
 
