@@ -15,7 +15,9 @@ end
 local function wordsToCaselessPatterns(words)
 	local patterns = {}
 	for idx = 1, #words do
+		-- escape all non alphanumeric chars
 		patterns[idx] = string.gsub(words[idx], "%W", "%%%1")
+		-- make pattern case insensitive
 		patterns[idx] = string.gsub(patterns[idx], "%a", letterToCaselessPattern)
 	end
 	return patterns
@@ -23,20 +25,17 @@ end
 
 local function match(searchWords, entry, valueAccessor)
 	local value = valueAccessor and valueAccessor(entry) or entry
-	local searchInfo = {}
-	searchInfo.ranges = {}
-	searchInfo.matches = true
+	local searchInfo = { ranges = {}, matches = true }
 	local lastMatchEnd = 0
 	for _, word in ipairs(searchWords) do
 		local from, to = string.find(value, word, lastMatchEnd + 1)
 		if (from) then
-			local range = {}
-			range.from = from
-			range.to = to
+			local range = { from = from, to = to }
 			table.insert(searchInfo.ranges, range)
 			lastMatchEnd = to
 		else
-			searchInfo.matches = false -- at least one search word did not match at least once (respecting order)
+			-- at least one search word did not match at least once (respecting order)
+			searchInfo.matches = false
 		end
 	end
 	return searchInfo

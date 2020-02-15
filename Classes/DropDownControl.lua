@@ -89,12 +89,12 @@ function DropDownClass:GetDropCount()
 end
 
 function DropDownClass:DrawSearchHighlights(label, searchInfo, x, y, width, height)
-	if searchInfo and searchInfo.matches then
+	if searchInfo.matches then
 		local startX = 0
 		local endX = 0
 		local last = 0
 		SetDrawColor(1, 1, 0, 0.2)
-		for idx, range in ipairs(searchInfo.ranges) do
+		for _, range in ipairs(searchInfo.ranges) do
 			if range.from - last - 1 > 0 then
 				startX = DrawStringWidth(height, "VAR", label:sub(last + 1, range.from - 1)) + x + endX
 			else
@@ -300,7 +300,7 @@ function DropDownClass:Draw(viewPort)
 		local dropIndex = 0
 		for index, listVal in ipairs(self.list) do
 			local searchInfo = self.searchInfos[index]
-			if not self:IsSearchActive() or searchInfo and searchInfo.matches then
+			if not self:IsSearchActive() or searchInfo.matches then
 				dropIndex = dropIndex + 1
 				local y = (dropIndex - 1) * lineHeight - scrollBar.offset
 				if index == self.hoverSel then
