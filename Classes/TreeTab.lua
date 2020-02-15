@@ -401,12 +401,14 @@ function TreeTabClass:updatePower()
 	s = {
 		{ height = 16, "^7Node power list, descending:" },
 	}
-	table.sort(nodePowers, function(a,b) return a.power > b.power end)
-	for _,tableitem in ipairs(nodePowers) do
-		t_insert(s, { height = 16, "^7" .. tableitem.text .. tableitem.power })
-		t_insert(s, {height = 16, ""})
-	end
-	if (self.controls.powerList) then
-		self.controls.powerList.list = s
-	end
+    if (self.controls.treeHeatMapStatSelect.selIndex > 1) then
+        table.sort(nodePowers, function(a,b) return a.power > b.power end)
+        for _,tableitem in ipairs(nodePowers) do
+            t_insert(s, { height = 16, "^7" .. tableitem.text .. tableitem.power })
+            t_insert(s, {height = 16, ""})
+        end
+        if (self.controls.powerList) then
+            self.controls.powerList.list = s
+        end
+    end
 end
