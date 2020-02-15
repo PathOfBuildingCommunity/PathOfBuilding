@@ -48,7 +48,7 @@ local function mergeLevelMod(modList, mod, value)
 	end
 end
 
--- Merge skill modifiers with given mod list
+-- Merge skill modifiers with given mod list; this may be where we need an extra addList
 function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 	calcLib.validateGemLevel(skillEffect)
 	local grantedEffect = skillEffect.grantedEffect	
@@ -407,7 +407,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 	end
 
-	-- Add active gem modifiers
+	-- Add active gem modifiers; mergeSkillInstanceMods seems to not add chain hook mods to global
 	activeEffect.actorLevel = activeSkill.actor.minionData and activeSkill.actor.level
 	calcs.mergeSkillInstanceMods(env, skillModList, activeEffect, skillModList:List(activeSkill.skillCfg, "ExtraSkillStat"))
 	activeEffect.grantedEffectLevel = activeGrantedEffect.levels[activeEffect.level]
@@ -548,10 +548,15 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			end
 		end
 	end
-
+	-- Minions end
 	-- Separate global effect modifiers (mods that can affect defensive stats or other skills)
 	local i = 1
 	while skillModList[i] do
+		-- This is to add conditions to global modlist
+		if string.match(skillModList[i].name, "Condition") then
+			env.modDB:AddMod(skillModList[i])
+		end
+
 		local effectType, effectName, effectTag
 		for _, tag in ipairs(skillModList[i]) do
 			if tag.type == "GlobalEffect" then
@@ -617,6 +622,15 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		-- Add to auxiliary skill list
 		t_insert(env.auxSkillList, activeSkill)
 	end
+	--env.modDB:AddList(skillModList)
+	-- Make a list of all the global mods; I will assume that all mods with "Condition:" are global
+	--[[local function makeGlobalModList(env, mods)
+		local i
+		while mods[i] do
+			if mods[i]
+		end
+	end]]
+
 end
 
 -- Initialise the active skill's minion skills
