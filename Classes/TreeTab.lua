@@ -11,12 +11,16 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.ControlHost()
 
 	self.build = build
+	
+	self.buffer = ""
 
 	self.viewer = new("PassiveTreeView")
 
 	self.specList = { }
 	self.specList[1] = new("PassiveSpec", build, build.targetVersionData.latestTreeVersion)
 	self:SetActiveSpec(1)
+	
+	self.powerStatList = { }
 
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
 	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 190, 20, nil, function(index, value)
@@ -78,7 +82,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.export = new("ButtonControl", {"LEFT",self.controls.import,"RIGHT"}, 8, 0, 90, 20, "Export Tree", function()
 		self:OpenExportPopup()
 	end)
-	self.controls.treeSearch = new("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 300, 20, "", "Search", "%c%(%)", 100, function(buf)
+	self.controls.treeSearch = new("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 250, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
 	end)
 	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)	
@@ -87,12 +91,46 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.treeHeatMapStatSelect = new("DropDownControl", {"LEFT",self.controls.treeHeatMap,"RIGHT"}, 8, 0, 150, 20, nil, function(index, value)
 		self:SetPowerCalc(value)
 	end)
+	self.controls.valSearch = new("EditControl", {"LEFT",self.controls.treeHeatMapStatSelect,"RIGHT"}, 8, 0, 136, 20, "", "Mod", "%c%(%)", 100, function(buff)
+		self.buffer = buff
+	end)
+	local ScreenW, ScreenH = GetScreenSize()
+	local dimX = 400
+	local dimY = 600
+	self.controls.powerList = new("TextListControl", nil, (ScreenW-dimX), (ScreenH/2-dimY/2), dimX, dimY, nil, {})
+	self.controls.powerList.shown = false
+	self.controls.addNewHighlight = new("ButtonControl", {"LEFT",self.controls.valSearch,"RIGHT"}, 8, 0, 32, 20, "Add", function()
+		for _, stattmp in ipairs(data.displayStats) do
+			if string.match(stattmp.label:lower(), ".*" .. self.buffer:lower() .. ".*") then
+				Result = 1
+				main:OpenConfirmPopup("Match found", "Do you want to add \"" .. stattmp.label .. "\"?", "Yes", function()
+					tabletmp = { stat = stattmp.stat, label = stattmp.label}
+					if (stattmp.flag ~= nil) then 
+						tabletmp.flag = stattmp.flag
+					end
+					t_insert(data.powerStatList,tabletmp)
+					t_insert(self.powerStatList,tabletmp)
+				end)
+			end
+		end
+		if not Result then
+			main:OpenConfirmPopup("Error", "No match found for " .. self.buffer:lower() .. "!", "Also Cancel", function()
+			end)
+		end
+	end)
+	self.controls.listPower = new("ButtonControl", {"LEFT",self.controls.addNewHighlight,"RIGHT"}, 8, 0, 68, 20, "Node List", function()
+		self:updatePower()
+		if (self.controls.powerList:IsShown()) then
+			self.controls.powerList.shown = false
+		else
+			self.controls.powerList.shown = true
+		end
+	end)
 	self.controls.treeHeatMap.tooltipText = function()
 		local offCol, defCol = main.nodePowerTheme:match("(%a+)/(%a+)")
 		return "When enabled, an estimate of the offensive and defensive strength of\neach unallocated passive is calculated and displayed visually.\nOffensive power shows as "..offCol:lower()..", defensive power as "..defCol:lower().."."
 	end
 
-	self.powerStatList = { }
 	for _, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForNodes then
 			t_insert(self.powerStatList, stat)
@@ -357,4 +395,18 @@ function TreeTabClass:OpenExportPopup()
 		main:ClosePopup()
 	end)
 	popup = main:OpenPopup(380, 100, "Export Tree", controls, "done", "edit")
+end
+
+function TreeTabClass:updatePower()
+	s = {
+		{ height = 16, "^7Node power list, descending:" },
+	}
+	table.sort(nodePowers, function(a,b) return a.power > b.power end)
+	for _,tableitem in ipairs(nodePowers) do
+		t_insert(s, { height = 16, "^7" .. tableitem.text .. tableitem.power })
+		t_insert(s, {height = 16, ""})
+	end
+	if (self.controls.powerList) then
+		self.controls.powerList.list = s
+	end
 end

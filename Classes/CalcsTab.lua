@@ -441,8 +441,11 @@ function CalcsTabClass:BuildPower()
 	end
 end
 
+nodePowers = { }
+
 -- Estimate the offensive and defensive power of all unallocated nodes
 function CalcsTabClass:PowerBuilder()
+	nodePowers = { }
 	local calcFunc, calcBase = self:GetNodeCalculator()
 	local cache = { }
 	local newPowerMax = {
@@ -468,6 +471,9 @@ function CalcsTabClass:PowerBuilder()
 				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 				if node.path then
 					newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.singleStat)
+					if node.power.singleStat > 0 then
+						t_insert(nodePowers, {text = "Node: " .. node.dn .. "\n\tPower: ", power = math.floor(node.power.singleStat)})
+					end
 				end
 			else
 				if calcBase.Minion then
@@ -484,6 +490,7 @@ function CalcsTabClass:PowerBuilder()
 				if node.path then
 					newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
 					newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
+					t_insert(nodePowers, "Node: " .. node.id .. ", Offence: " .. newPowerMax.offence .. ", Defence: " .. newPowerMax.defence)
 				end
 			end
 		end
@@ -493,6 +500,8 @@ function CalcsTabClass:PowerBuilder()
 		end
 	end	
 	self.powerMax = newPowerMax
+	--TreeTab:updatePower()
+	--Doesnt work for some reason
 end
 
 function CalcsTabClass:CalculatePowerStat(selection, original, modified)
