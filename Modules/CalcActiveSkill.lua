@@ -407,7 +407,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 	end
 
-	-- Add active gem modifiers; mergeSkillInstanceMods seems to not add chain hook mods to global
+	-- Add active gem modifiers
 	activeEffect.actorLevel = activeSkill.actor.minionData and activeSkill.actor.level
 	calcs.mergeSkillInstanceMods(env, skillModList, activeEffect, skillModList:List(activeSkill.skillCfg, "ExtraSkillStat"))
 	activeEffect.grantedEffectLevel = activeGrantedEffect.levels[activeEffect.level]
