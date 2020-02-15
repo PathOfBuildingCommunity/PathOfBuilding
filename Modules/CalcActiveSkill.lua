@@ -48,7 +48,7 @@ local function mergeLevelMod(modList, mod, value)
 	end
 end
 
--- Merge skill modifiers with given mod list; this may be where we need an extra addList
+-- Merge skill modifiers with given mod list;
 function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 	calcLib.validateGemLevel(skillEffect)
 	local grantedEffect = skillEffect.grantedEffect	
