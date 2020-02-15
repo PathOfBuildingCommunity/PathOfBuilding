@@ -35,35 +35,50 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 	self.selFunc = selFunc
 end)
 
-function DropDownClass:DropIndexToListIndex(dropIndex, default)
-	if dropIndex and dropIndex > 0 and self:IsSearchActive() and self.searchInfos then
-		for listIndex, info in ipairs(self.searchInfos) do
-			if info and info.matches then
-				dropIndex = dropIndex - 1
-				if (dropIndex <= 0) then
-					return listIndex
-				end
+-- maps the actual dropdown row index (after eventual filtering) to the original (unfiltered) list index
+-- when dropIndex is nil or out of bounds nil is returned
+function DropDownClass:DropIndexToListIndex(dropIndex)
+	-- 1:1
+	if not self:IsSearchActive() then
+		return dropIndex
+	end
+	-- out of bounds
+	if not dropIndex or dropIndex <= 0 or dropIndex > self:GetDropCount() then
+		return nil
+	end
+	-- actual mapping
+	for listIndex, info in ipairs(self.searchInfos) do
+		if info and info.matches then
+			dropIndex = dropIndex - 1
+			if (dropIndex <= 0) then
+				return listIndex
 			end
 		end
-		return default -- if drop index > self:GetDropCount()
 	end
-	return dropIndex
 end
 
+-- maps the the original (unfiltered) list index to the actual dropdown row index (after eventual filtering)
+-- given default value (or nil) is returned if the requested listIndex is currently filtered out
 function DropDownClass:ListIndexToDropIndex(listIndex, default)
-	if listIndex and self:IsSearchActive() and self.searchInfos then
-		local dropIndex = 0
-		for listIndexLoop, info in ipairs(self.searchInfos) do
-			if info and info.matches then
-				dropIndex = dropIndex + 1
-				if (listIndex == listIndexLoop) then
-					return dropIndex
-				end
+	-- 1:1
+	if not self:IsSearchActive() then
+		return listIndex
+	end
+	-- out of bounds
+	if not listIndex or listIndex <= 0 or listIndex > #self.list then
+		return nil
+	end
+	-- actual mapping
+	local dropIndex = 0
+	for listIndexLoop, info in ipairs(self.searchInfos) do
+		if info and info.matches then
+			dropIndex = dropIndex + 1
+			if (listIndex == listIndexLoop) then
+				return dropIndex
 			end
 		end
-		return default -- it is possible that for a given listIndex there is no dropIndex (when it is currently filtered out)
 	end
-	return listIndex
+	return default
 end
 
 function DropDownClass:GetDropCount()
