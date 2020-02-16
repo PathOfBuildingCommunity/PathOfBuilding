@@ -409,8 +409,10 @@ function TreeTabClass:updatePower()
             t_insert(s, { height = 16, "^7" .. tableitem.text .. tableitem.power })
             t_insert(s, {height = 16, ""})
         end
-        if (self.controls.powerList) then
-            self.controls.powerList.list = s
-        end
+	else
+		t_insert(s, {height = 25, "Cannot process Offence/Defence!"})
     end
+	if (self.controls.powerList) then
+		self.controls.powerList.list = s
+	end
 end
