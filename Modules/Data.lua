@@ -109,7 +109,6 @@ data.powerStatList = {
 	{ stat="IgniteChance", label="Ignite Chance" },
 	{ stat="ShockChance", label="Shock Chance" },
 	{ stat="EffectiveMovementSpeedMod", label="Move speed" },
-	{ stat="Speed", label="Attack/Cast speed"},
 }
 
 data.skillColorMap = { colorCodes.STRENGTH, colorCodes.DEXTERITY, colorCodes.INTELLIGENCE, colorCodes.NORMAL }

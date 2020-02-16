@@ -252,7 +252,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "WithIgniteDPS", label = "Total DPS inc. Ignite", fmt = ".1f", compPercent = true },
 		{ stat = "WithIgniteAverageDamage", label = "Average Dmg. inc. Ignite", fmt = ".1f", compPercent = true },
 		{ stat = "PoisonDPS", label = "Poison DPS", fmt = ".1f", compPercent = true },
-		{ stat = "PoisonDuration", label = "Poison Duration", fmt = ".2fs", flag = "poison" },
 		{ stat = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
 		{ stat = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", condFunc = function(v,o) return v ~= o.TotalDPS end },
 		{ stat = "WithPoisonAverageDamage", label = "Average Dmg. inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", condFunc = function(v,o) return v ~= o.AverageDamage end },
@@ -323,7 +322,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%", color = colorCodes.LIGHTNING },
 		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", color = colorCodes.CHAOS },
 	}
-	
 	self.minionDisplayStats = {
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
 		{ stat = "Speed", label = "Attack/Cast Rate", fmt = ".2f", compPercent = true },
