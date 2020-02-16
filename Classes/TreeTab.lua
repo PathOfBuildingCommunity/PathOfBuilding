@@ -22,8 +22,11 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	
 	self.powerStatList = { }
 
+	local ScreenW, ScreenH = GetScreenSize()
+	local SW = ScreenW/1600
+
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
-	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 190, 20, nil, function(index, value)
+	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 150*SW, 20, nil, function(index, value)
 		if self.specList[index] then
 			self.build.modFlag = true
 			self:SetActiveSpec(index)
@@ -69,34 +72,33 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			end
 		end
 	end
-	self.controls.reset = new("ButtonControl", {"LEFT",self.controls.specSelect,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
+	self.controls.reset = new("ButtonControl", {"LEFT",self.controls.specSelect,"RIGHT"}, 8, 0, 60*SW, 20, "Reset", function()
 		main:OpenConfirmPopup("Reset Tree", "Are you sure you want to reset your passive tree?", "Reset", function()
 			self.build.spec:ResetNodes()
 			self.build.spec:AddUndoState()
 			self.build.buildFlag = true
 		end)
 	end)
-	self.controls.import = new("ButtonControl", {"LEFT",self.controls.reset,"RIGHT"}, 8, 0, 90, 20, "Import Tree", function()
+	self.controls.import = new("ButtonControl", {"LEFT",self.controls.reset,"RIGHT"}, 8, 0, 90*SW, 20, "Import Tree", function()
 		self:OpenImportPopup()
 	end)
-	self.controls.export = new("ButtonControl", {"LEFT",self.controls.import,"RIGHT"}, 8, 0, 90, 20, "Export Tree", function()
+	self.controls.export = new("ButtonControl", {"LEFT",self.controls.import,"RIGHT"}, 8, 0, 90*SW, 20, "Export Tree", function()
 		self:OpenExportPopup()
 	end)
-	self.controls.treeSearch = new("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 250, 20, "", "Search", "%c%(%)", 100, function(buf)
+	self.controls.treeSearch = new("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 200*SW, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
 	end)
-	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)	
+	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 90, 0, 20, "Show Power:", function(state)
 		self.viewer.showHeatMap = state
 	end)
-	self.controls.treeHeatMapStatSelect = new("DropDownControl", {"LEFT",self.controls.treeHeatMap,"RIGHT"}, 8, 0, 150, 20, nil, function(index, value)
+	self.controls.treeHeatMapStatSelect = new("DropDownControl", {"LEFT",self.controls.treeHeatMap,"RIGHT"}, 8, 0, 150*SW, 20, nil, function(index, value)
 		self:SetPowerCalc(value)
 	end)
-	self.controls.valSearch = new("EditControl", {"LEFT",self.controls.treeHeatMapStatSelect,"RIGHT"}, 8, 0, 136, 20, "", "Mod", "%c%(%)", 100, function(buff)
+	self.controls.valSearch = new("EditControl", {"LEFT",self.controls.treeHeatMapStatSelect,"RIGHT"}, 8, 0, 136*SW, 20, "", "Mod", "%c%(%)", 100, function(buff)
 		self.buffer = buff
 	end)
-	local ScreenW, ScreenH = GetScreenSize()
 	local dimX = 400
-	local dimY = 600
+	local dimY = 500
 	self.controls.powerList = new("TextListControl", nil, (ScreenW-dimX), (ScreenH/2-dimY/2), dimX, dimY, nil, {})
 	self.controls.powerList.shown = false
 	self.controls.addNewHighlight = new("ButtonControl", {"LEFT",self.controls.valSearch,"RIGHT"}, 8, 0, 32, 20, "Add", function()
@@ -118,7 +120,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			end)
 		end
 	end)
-	self.controls.listPower = new("ButtonControl", {"LEFT",self.controls.addNewHighlight,"RIGHT"}, 8, 0, 68, 20, "Node List", function()
+	self.controls.listPower = new("ButtonControl", {"LEFT",self.controls.addNewHighlight,"RIGHT"}, 8, 0, 72*SW, 20, "Node List", function()
 		self:updatePower()
 		if (self.controls.powerList:IsShown()) then
 			self.controls.powerList.shown = false
