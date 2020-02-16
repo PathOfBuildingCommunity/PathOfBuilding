@@ -180,7 +180,6 @@ function DropDownClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
-	local mOver, mOverComp = self:IsMouseOver()
 	local scrollBar = self.controls.scrollBar
 	local lineHeight = height - 4
 	self.dropHeight = lineHeight * m_min(#self.list, 20)
@@ -212,7 +211,8 @@ function DropDownClass:Draw(viewPort)
 
 	-- fit dropHeight to filtered content but keep initial orientation
 	self.dropHeight = m_max(m_min(self.dropHeight, self:GetDropCount() * lineHeight), lineHeight)
-
+	
+	local mOver, mOverComp = self:IsMouseOver()
 	local dropExtra = self.dropHeight + 4
 	scrollBar:SetContentDimension(lineHeight * self:GetDropCount(), self.dropHeight)
 	local dropY = self.dropUp and y - dropExtra or y + height
