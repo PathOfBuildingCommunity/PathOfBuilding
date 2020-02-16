@@ -456,6 +456,10 @@ function CalcsTabClass:PowerBuilder()
 	if not self.powerMax then
 		self.powerMax = newPowerMax
 	end
+	function round(v, bracket)
+		bracket = bracket or 1
+		return math.floor(v/bracket + 1 * 0.5) * bracket
+	end
 	if coroutine.running() then
 		coroutine.yield()
 	end
@@ -472,7 +476,7 @@ function CalcsTabClass:PowerBuilder()
 				if node.path then
 					newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.singleStat)
 					if node.power.singleStat > 0 then
-						t_insert(nodePowers, {text = "Node: " .. node.dn .. "\n\tPower: ", power = math.floor(node.power.singleStat)})
+						t_insert(nodePowers, {text = "Node: " .. node.dn .. "\n\tChange: +", power = round(node.power.singleStat,0.01)})
 					end
 				end
 			else
