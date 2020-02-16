@@ -210,6 +210,9 @@ function DropDownClass:Draw(viewPort)
 		self:ResetSearch()
 	end
 
+	-- fit dropHeight to filtered content but keep initial orientation
+	self.dropHeight = m_max(m_min(self.dropHeight, self:GetDropCount() * lineHeight), lineHeight)
+
 	local dropExtra = self.dropHeight + 4
 	scrollBar:SetContentDimension(lineHeight * self:GetDropCount(), self.dropHeight)
 	local dropY = self.dropUp and y - dropExtra or y + height
