@@ -335,8 +335,11 @@ function DropDownClass:Draw(viewPort)
 				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
 			end
 		end
-		SetViewport()
 		SetDrawColor(1, 1, 1)
+		if self:IsSearchActive() and self:GetMatchCount() == 0 then
+			DrawString(0, 0 , "LEFT", lineHeight, "VAR", "<No matches>")
+		end
+		SetViewport()
 		SetDrawLayer(nil, 0)
 	end
 end
