@@ -23,7 +23,12 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.powerStatList = { }
 
 	local ScreenW, ScreenH = GetScreenSize()
-	local SW = ScreenW/1600
+	local SW = 0
+	if (ScreenW < 1600) then
+		SW = ScreenW/1600
+	else 
+		SW = 1
+	end
 
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
 	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 150*SW, 20, nil, function(index, value)
