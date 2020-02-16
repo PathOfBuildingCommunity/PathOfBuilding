@@ -230,7 +230,7 @@ function ItemDBClass:ListBuilder()
 end
 
 function ItemDBClass:Draw(viewPort)
-	if self.controls.sort.list ~= data.powerStatList then
+	if self.controls.sort and self.controls.sort.list ~= data.powerStatList then
 		self:BuildSortOrder()
 	end
 	if self.itemsTab.build.outputRevision ~= self.listOutputRevision then

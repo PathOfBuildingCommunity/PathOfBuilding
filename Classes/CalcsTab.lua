@@ -500,8 +500,6 @@ function CalcsTabClass:PowerBuilder()
 	end	
 	self.powerMax = newPowerMax
 	self.build.treeTab:updatePower()
-	--TreeTab:updatePower()
-	--Doesnt work for some reason
 end
 
 function CalcsTabClass:CalculatePowerStat(selection, original, modified)
