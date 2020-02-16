@@ -304,7 +304,7 @@ Implicits: 1
 {variant:2,3}Gain (10-15)% of Physical Damage as Extra Cold Damage
 Reflects (25-50) Cold Damage to Melee Attackers
 +5% Chance to Block
-20% of Fire Damage taken as Cold Damage
+20% of Fire Damage from Hits taken as Cold Damage
 ]],[[
 Mistwall
 Lacquered Buckler
