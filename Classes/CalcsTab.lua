@@ -490,7 +490,6 @@ function CalcsTabClass:PowerBuilder()
 				if node.path then
 					newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
 					newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
-					t_insert(nodePowers, "Node: " .. node.id .. ", Offence: " .. newPowerMax.offence .. ", Defence: " .. newPowerMax.defence)
 				end
 			end
 		end
@@ -500,6 +499,7 @@ function CalcsTabClass:PowerBuilder()
 		end
 	end	
 	self.powerMax = newPowerMax
+	self.build.treeTab:updatePower()
 	--TreeTab:updatePower()
 	--Doesnt work for some reason
 end

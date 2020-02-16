@@ -87,7 +87,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end)
 	self.controls.treeSearch = new("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 200*SW, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
-	end)
+	end);
 	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 90, 0, 20, "Show Power:", function(state)
 		self.viewer.showHeatMap = state
 	end)
@@ -103,7 +103,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.powerList.shown = false
 	self.controls.addNewHighlight = new("ButtonControl", {"LEFT",self.controls.valSearch,"RIGHT"}, 8, 0, 32, 20, "Add", function()
 		for _, stattmp in ipairs(data.displayStats) do
-			if string.match(stattmp.label:lower(), ".*" .. self.buffer:lower() .. ".*") then
+			if string.match(stattmp.label:lower(), ".*" .. self.buffer:lower() .. ".*") and (string.len(self.buffer) > 0) then
 				Result = 1
 				main:OpenConfirmPopup("Match found", "Do you want to add \"" .. stattmp.label .. "\"?", "Yes", function()
 					tabletmp = { stat = stattmp.stat, label = stattmp.label}
@@ -120,6 +120,9 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			end)
 		end
 	end)
+	self.controls.addNewHighlight.tooltipText = function()
+		return "Searches database for \"Mod:\" to be added to node power highlight.\nFor each match found, the user is asked whether they want it to be added or not."
+	end
 	self.controls.listPower = new("ButtonControl", {"LEFT",self.controls.addNewHighlight,"RIGHT"}, 8, 0, 72*SW, 20, "Node List", function()
 		self:updatePower()
 		if (self.controls.powerList:IsShown()) then
@@ -128,6 +131,9 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			self.controls.powerList.shown = true
 		end
 	end)
+	self.controls.listPower.tooltipText = function()
+		return "Show / hide node power list.\nContains a list of nodes sorted by positive change in selected highlight stat"
+	end
 	self.controls.treeHeatMap.tooltipText = function()
 		local offCol, defCol = main.nodePowerTheme:match("(%a+)/(%a+)")
 		return "When enabled, an estimate of the offensive and defensive strength of\neach unallocated passive is calculated and displayed visually.\nOffensive power shows as "..offCol:lower()..", defensive power as "..defCol:lower().."."
@@ -401,7 +407,7 @@ end
 
 function TreeTabClass:updatePower()
 	s = {
-		{ height = 16, "^7Node power list, descending:" },
+		{ height = 20, "^7Node power list, descending (" .. self.controls.treeHeatMapStatSelect.list[self.controls.treeHeatMapStatSelect.selIndex].label .. "):" },
 	}
     if (self.controls.treeHeatMapStatSelect.selIndex > 1) then
         table.sort(nodePowers, function(a,b) return a.power > b.power end)
