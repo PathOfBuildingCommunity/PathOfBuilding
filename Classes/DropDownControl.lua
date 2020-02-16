@@ -183,7 +183,7 @@ function DropDownClass:Draw(viewPort)
 	local mOver, mOverComp = self:IsMouseOver()
 	local scrollBar = self.controls.scrollBar
 	local lineHeight = height - 4
-	self.dropHeight = lineHeight * m_min(#self.list, 30)
+	self.dropHeight = lineHeight * m_min(#self.list, 20)
 	scrollBar.y = height + 1
 	if y + height + self.dropHeight + 4 <= viewPort.y + viewPort.height then
 		-- Drop fits below body
