@@ -254,6 +254,8 @@ function DropDownClass:Draw(viewPort)
 		SetDrawColor(0, 1, 0, 0.25)
 		DrawImage(nil, x, y, width, height)
 	end
+
+	-- draw dropdown bar
 	if enabled then
 		if (mOver or self.dropped) and mOverComp ~= "DROP" then
 			SetDrawLayer(nil, 100)
@@ -268,19 +270,26 @@ function DropDownClass:Draw(viewPort)
 	else
 		SetDrawColor(0.66, 0.66, 0.66)
 	end
-	local selLabel = self.list[self.selIndex]
-	if type(selLabel) == "table" then
-		selLabel = selLabel.label
-	end
+	-- draw selected label or search term
+	local selLabel
 	if self:IsSearchActive() then
 		selLabel = "Search: " .. self:GetSearchTermPretty()
+	else
+		selLabel = self.list[self.selIndex]
+		if type(selLabel) == "table" then
+			selLabel = selLabel.label
+		end
 	end
 	SetViewport(x + 2, y + 2, width - height, lineHeight)
 	DrawString(0, 0, "LEFT", lineHeight, "VAR", selLabel or "")
 	SetViewport()
+
+	-- draw dropped down part with items
 	if self.dropped then
 		SetDrawLayer(nil, 5)
 		self:DrawControls(viewPort)
+
+		-- draw tooltip for hovered item
 		local cursorX, cursorY = GetCursorPos()
 		self.hoverSelDrop = mOver and not scrollBar:IsMouseOver() and math.floor((cursorY - dropY + scrollBar.offset) / lineHeight) + 1
 		self.hoverSel = self:DropIndexToListIndex(self.hoverSelDrop)
@@ -288,30 +297,36 @@ function DropDownClass:Draw(viewPort)
 			self.hoverSel = nil
 		end
 		if self.hoverSel then
-			SetDrawLayer(nil, 100)	
+			SetDrawLayer(nil, 100)
 			self:DrawTooltip(
 				x, dropY + 2 + (self.hoverSelDrop - 1) * lineHeight - scrollBar.offset,
-				width, lineHeight, 
+				width, lineHeight,
 				viewPort,
 				"HOVER", self.hoverSel, self.list[self.hoverSel])
 			SetDrawLayer(nil, 5)
 		end
+
+		-- draw dropdown items
 		SetViewport(x + 2, dropY + 2, scrollBar.enabled and width - 22 or width - 4, self.dropHeight)
 		local dropIndex = 0
 		for index, listVal in ipairs(self.list) do
 			local searchInfo = self.searchInfos[index]
-			if not self:IsSearchActive() or searchInfo.matches then
+			-- skip filtered out items if search is active
+			if not self:IsSearchActive() or searchInfo and searchInfo.matches then
 				dropIndex = dropIndex + 1
 				local y = (dropIndex - 1) * lineHeight - scrollBar.offset
+				-- highlight background if hovered
 				if index == self.hoverSel then
 					SetDrawColor(0.5, 0.4, 0.3)
 					DrawImage(nil, 0, y, width - 4, lineHeight)
 				end
+				-- highlight font color if hovered or selected
 				if index == self.hoverSel or index == self.selIndex then
 					SetDrawColor(1, 1, 1)
 				else
 					SetDrawColor(0.66, 0.66, 0.66)
 				end
+				-- draw actual item label with search match highlight if available
 				local label = StripEscapes(type(listVal) == "table" and listVal.label or listVal)
 				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
 				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
