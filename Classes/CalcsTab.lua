@@ -475,9 +475,9 @@ function CalcsTabClass:PowerBuilder()
 				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 				if node.path then
 					newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.singleStat)
-					if node.power.singleStat > 0.005 and not node.ascendancyName then
+				end
+				if node.power.singleStat > 0.005 and not node.ascendancyName then
 						t_insert(nodePowers, {name = node.dn, power = round(node.power.singleStat,0.01)})
-					end
 				end
 			else
 				if calcBase.Minion then
