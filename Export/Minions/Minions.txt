@@ -110,3 +110,9 @@ local minions, mod = ...
 #monster Metadata/Monsters/BoneGolem/BoneGolem SummonedCarrionGolem
 #limit ActiveGolemLimit
 #emit
+
+#monster Metadata/Monsters/Skitterbot/SkitterbotCold SkitterbotCold
+#emit
+
+#monster Metadata/Monsters/Skitterbot/SkitterbotLightning SkitterbotLightning
+#emit
