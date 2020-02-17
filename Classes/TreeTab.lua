@@ -95,14 +95,24 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.treeHeatMapStatSelect = new("DropDownControl", {"LEFT",self.controls.treeHeatMap,"RIGHT"}, 8, 0, 150*screenWidthMultiplier, 20, nil, function(index, value)
 		self:SetPowerCalc(value)
 	end)
-	self.controls.powerList = new("TextListControl", nil, (ScreenW-350), (ScreenH-531), 350, 500, { { x = 0, align = "LEFT" },{ x = 100, align = "LEFT" } }, {})
+	self.controls.powerList = new("TextListControl", nil, (ScreenW-250), (ScreenH-124), 250, 124, { { x = 0, align = "LEFT" },{ x = 75, align = "LEFT" } }, {})
+	self.controls.powerListTitle = new("TextListControl", nil, (ScreenW-250), (ScreenH-161), 250, 37, { { x = 0, align = "LEFT" },{ x = 75, align = "LEFT" } }, {})
+	self.controls.powerListTitle.controls.scrollBar.shown = false
+	self.controls.powerListTitle.shown = false
 	self.controls.powerList.shown = false
 	self.controls.listPower = new("ButtonControl", {"LEFT",self.controls.treeHeatMapStatSelect,"RIGHT"}, 8, 0, 72*screenWidthMultiplier, 20, "Node List", function()
 		self:updatePowerList()
 		if (self.controls.powerList:IsShown()) then
 			self.controls.powerList.shown = false
+			self.controls.powerListTitle.shown = false
 		else
+			local ScreenW, ScreenH = GetScreenSize()
+			self.controls.powerList.x = ScreenW-250
+			self.controls.powerList.y = ScreenH-156
+			self.controls.powerListTitle.x = ScreenW-250
+			self.controls.powerListTitle.y = ScreenH-192
 			self.controls.powerList.shown = true
+			self.controls.powerListTitle.shown = true
 		end
 	end)
 	self.controls.listPower.tooltipText = function()
@@ -381,17 +391,18 @@ end
 
 --Function for updating Node List content with sorted nodePowers table if possible
 function TreeTabClass:updatePowerList()
-	s = {
-		{ height = 20, "^7" .. self.controls.treeHeatMapStatSelect.list[self.controls.treeHeatMapStatSelect.selIndex].label },
-		{ height = 20, "^7Change:", "Node name:" },
+	self.controls.powerListTitle.list = {
+		{ height = 16, "^7" .. self.controls.treeHeatMapStatSelect.list[self.controls.treeHeatMapStatSelect.selIndex].label },
+		{ height = 16, "^7Change", "Node name" },
 	}
+	s = {}
     if (self.controls.treeHeatMapStatSelect.selIndex > 1) then
         table.sort(nodePowers, function(a,b) return a.power > b.power end)
         for _,tableitem in ipairs(nodePowers) do
-            t_insert(s, { height = 16, "^7+" .. tableitem.power, tableitem.name })
+            t_insert(s, { height = 12, "^7+" .. tableitem.power, tableitem.name })
         end
 	else
-		t_insert(s, {height = 25, "Cannot process Offence/Defence!"})
+		t_insert(s, {height = 20, "^7Cannot process\nOffence/Defence!"})
     end
 	if (self.controls.powerList) then
 		self.controls.powerList.list = s
