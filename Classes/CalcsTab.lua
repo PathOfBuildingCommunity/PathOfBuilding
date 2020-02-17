@@ -503,7 +503,7 @@ function CalcsTabClass:PowerBuilder()
 		end
 	end	
 	self.powerMax = newPowerMax
-	self.build.treeTab:updatePower()
+	self.build.treeTab:updatePowerList()
 end
 
 function CalcsTabClass:CalculatePowerStat(selection, original, modified)
