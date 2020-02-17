@@ -456,14 +456,14 @@ function CalcsTabClass:PowerBuilder()
 	if not self.powerMax then
 		self.powerMax = newPowerMax
 	end
-	function round(v, bracket)
-		bracket = bracket or 1
-		return math.floor(v/bracket + 1 * 0.5) * bracket
-	end
 	if coroutine.running() then
 		coroutine.yield()
 	end
 	local start = GetTime()
+	local function round(v, bracket)
+		bracket = bracket or 1
+		return math.floor(v/bracket + 1 * 0.5) * bracket
+	end
 	for _, node in pairs(self.build.spec.nodes) do
 		wipeTable(node.power)
 		if not node.alloc and node.modKey ~= "" then
@@ -475,8 +475,8 @@ function CalcsTabClass:PowerBuilder()
 				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 				if node.path then
 					newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.singleStat)
-					if node.power.singleStat > 0 then
-						t_insert(nodePowers, {text = "Node: " .. node.dn .. "\n\tChange: +", power = round(node.power.singleStat,0.01)})
+					if node.power.singleStat > 0.005 and not node.ascendancyName then
+						t_insert(nodePowers, {name = node.dn, power = round(node.power.singleStat,0.01)})
 					end
 				end
 			else
