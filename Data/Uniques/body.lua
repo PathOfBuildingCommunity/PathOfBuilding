@@ -287,7 +287,7 @@ Requires Level 56, 152 Dex
 {variant:2}-50% to Fire Resistance
 15% increased Movement Speed
 20% increased Fire Damage taken
-10% of Fire Damage taken as Physical Damage
+10% of Fire Damage from Hits taken as Physical Damage
 ]],[[
 The Snowblind Grace
 Coronal Leather
@@ -374,7 +374,7 @@ Requires Level 18, 55 Int
 (30-50)% increased Ignite Duration on Enemies
 10% chance to Ignite
 Reflects 15 Fire Damage to Melee Attackers
-20% of Physical Damage taken as Fire Damage
+20% of Physical Damage from Hits taken as Fire Damage
 ]],[[
 Cloak of Tawm'r Isley
 Savant's Robe
@@ -726,8 +726,8 @@ Adds 1 to (20-30) Lightning Damage to Attacks
 (90-120)% increased Armour and Evasion
 +(60-80) to maximum Life
 −60% to Lightning Resistance
-{variant:1}40% of Physical Damage taken as Lightning Damage
-{variant:2}30% of Physical Damage taken as Lightning Damage
+{variant:1}40% of Physical Damage from Hits taken as Lightning Damage
+{variant:2}30% of Physical Damage from Hits taken as Lightning Damage
 ]],[[
 Viper's Scales
 Full Scale Armour
@@ -827,7 +827,7 @@ Requires Level 70, 99 Str, 115 Int
 {variant:2}Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 {variant:1}(0.8-1)% of Physical Attack Damage Leeched as Life
 {variant:2}(0.8-1)% of Attack Damage Leeched as Life
-25% of Elemental Damage taken as Chaos Damage
+25% of Elemental Damage from Hits taken as Chaos Damage
 (20-30)% increased Light Radius
 Light Radius is based on Energy Shield instead of Life
 ]],[[
