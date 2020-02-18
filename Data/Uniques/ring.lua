@@ -505,21 +505,18 @@ While on Low Life, Enemies are Unlucky when Damaging you
 Malachai's Artifice
 Unset Ring
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.5.0
 Variant: Current
 Sockets: W
 Requires Level 5
 Implicits: 1
 Has 1 Socket
 {variant:1}−25% to all Elemental Resistances
-{variant:2,3}−20% to all Elemental Resistances
+{variant:2}−20% to all Elemental Resistances
 +(75-100)% to Fire Resistance when Socketed with a Red Gem
 +(75-100)% to Cold Resistance when Socketed with a Green Gem
 +(75-100)% to Lightning Resistance when Socketed with a Blue Gem
 All Sockets are White
 Socketed Gems have Elemental Equilibrium
-{variant:1}Socketed Gems have 40% reduced Elemental Equilibrium effect
-{variant:2}Socketed Gems have 25% reduced Elemental Equilibrium effect
 ]],[[
 Mark of Submission
 Unset Ring
