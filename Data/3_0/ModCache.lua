@@ -3369,7 +3369,7 @@ c["0.8% of Attack Damage Leeched as Mana"]={{[1]={flags=1,keywordFlags=0,name="D
 c["Enemies you hit are destroyed on Kill"]={nil,"Enemies you hit are destroyed on Kill "}
 c["20% increased Cooldown Recovery Speed"]={{[1]={flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=20}},nil}
 c["Cannot be Stunned while you have Fortify"]={{[1]={[1]={type="Condition",var="Fortify"},flags=0,keywordFlags=0,name="AvoidStun",type="BASE",value=100}},nil}
-c["Attacks with this Weapon deal double Damage to Chilled Enemies"]={{[1]={[1]={type="Condition",var="{Hand}Attack"},[2]={actor="enemy",type="ActorCondition",var="Chilled"},flags=4,keywordFlags=0,name="Damage",type="MORE",value=100}},nil}
+c["Attacks with this Weapon deal double Damage to Chilled Enemies"]={{[1]={[1]={type="Condition",var="{Hand}Attack"},[2]={actor="enemy",type="ActorCondition",var="Chilled"},flags=4,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=100}},nil}
 c["also grant an equal chance to gain a Frenzy Charge on Kill"]={nil,"also grant an equal chance to gain a Frenzy Charge on Kill "}
 c["6% increased Area of Effect while wielding a Staff"]={{[1]={[1]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=6}},nil}
 c["25% increased Attack Speed if you've been Hit Recently"]={{[1]={[1]={type="Condition",var="BeenHitRecently"},flags=1,keywordFlags=0,name="Speed",type="INC",value=25}},nil}
