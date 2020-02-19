@@ -658,6 +658,9 @@ return {
 ["dot_multiplier_+"] = {
 	mod("DotMultiplier", "BASE", nil),
 },
+["fire_dot_multiplier_+"] = {
+	mod("FireDotMultiplier", "BASE", nil),
+},
 ["active_skill_ignite_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite),
 },
