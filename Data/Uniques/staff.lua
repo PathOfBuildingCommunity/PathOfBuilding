@@ -86,7 +86,7 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level: 60, 113 Str, 113 Int
 Implicits: 1
-18% Chance to Block  Attack Damage while wielding a Staff
+18% Chance to Block Attack Damage while wielding a Staff
 +2 to Level of all Chaos Spell Skill Gems
 {variant:1}(60-80)% increased Chaos Damage
 {variant:2}(20-30)% increased Chaos Damage
