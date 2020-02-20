@@ -406,8 +406,8 @@ return {
 		modList:NewMod("LuckyHits", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "CanBeLucky" } }, { type = "SkillName", skillNameList = { "Arc", "Vaal Arc" } })
 	end },
 	{ var = "buffElusive", type = "check", label = "Are you Elusive?", ifCond = "CanBeElusive", tooltip = "In addition to allowing any 'while Elusive' modifiers to apply,\nthis will enable the Elusive buff itself. (20% Attack and Spell Dodge, 40% increased Movement Speed)\nThe effect of Elusive decays over time.", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:Elusive", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "Elusive" } })
-		modList:NewMod("Elusive", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "Elusive" } })
+		modList:NewMod("Condition:Elusive", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "Elusive" } }, { type = "Condition", var = "CanBeElusive" })
+		modList:NewMod("Elusive", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "Elusive" } }, { type = "Condition", var = "CanBeElusive" })
 	end },
 	{ var = "buffDivinity", type = "check", label = "Do you have Divinity?", ifCond = "Divinity", tooltip = "This will enable the Divinity buff:\n50% more Elemental Damage\n20% less Elemental Damage Taken", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Divinity", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -718,23 +718,23 @@ return {
 		modList:NewMod("Condition:KilledUniqueEnemy", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionHaveArborix", type = "check", label = "Do you have Iron Reflexes?", ifCond = "HaveArborix", tooltip = "This option is specific to Arborix",apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:HaveIronReflexes", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-		modList:NewMod("Keystone", "LIST", "Iron Reflexes", "Config")
+		modList:NewMod("Condition:HaveIronReflexes", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "HaveArborix" })
+		modList:NewMod("Keystone", "LIST", "Iron Reflexes", "Config", { type = "Condition", var = "HaveArborix" })
 	end },	
 	{ var = "conditionHaveAugyre", type = "list", label = "Augyre rotating buff", ifCond = "HaveAugyre", list = {{val="EleOverload",label="Elemental Overload"},{val="ResTechnique",label="Resolute Technique"}}, tooltip = "This option is specific to Augyre", apply = function(val, modList, enemyModList)
 		if val == "EleOverload" then
-			modList:NewMod("Condition:HaveElementalOverload", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("Keystone", "LIST", "Elemental Overload", "Config")
+			modList:NewMod("Condition:HaveElementalOverload", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "HaveAugyre" })
+			modList:NewMod("Keystone", "LIST", "Elemental Overload", "Config", { type = "Condition", var = "HaveAugyre" })
 		elseif val == "ResTechnique" then
-			modList:NewMod("Condition:HaveResoluteTechnique", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-			modList:NewMod("Keystone", "LIST", "Resolute Technique", "Config")
+			modList:NewMod("Condition:HaveResoluteTechnique", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "HaveAugyre" })
+			modList:NewMod("Keystone", "LIST", "Resolute Technique", "Config", { type = "Condition", var = "HaveAugyre" })
 		end
 	end },	
 	{ var = "conditionHaveVulconus", type = "check", label = "Do you have Avatar Of Fire?", ifCond = "HaveVulconus", tooltip = "This option is specific to Vulconus", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:HaveAvatarOfFire", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-		modList:NewMod("Keystone", "LIST", "Avatar of Fire", "Config")
+		modList:NewMod("Condition:HaveAvatarOfFire", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "HaveVulconus" })
+		modList:NewMod("Keystone", "LIST", "Avatar of Fire", "Config", { type = "Condition", var = "HaveVulconus" })
 	end },
-	{ var = "conditionHaveManaStorm", type = "check", label = "Do you have Manastorm's Lightning Buff?", ifCond = "HaveManaStorm", tooltip = "This option is enable Manastorm's Lightning Damage Buff\nWhen you cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage\nequal to 25% of Sacrificed Mana for 4 Seconds", apply = function(val, modList, enemyModList)
+	{ var = "conditionHaveManaStorm", type = "check", label = "Do you have Manastorm's Lightning Buff?", ifCond = "HaveManaStorm", tooltip = "This option will enable Manastorm's Lightning Damage Buff\nWhen you cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage\nequal to 25% of Sacrificed Mana for 4 Seconds", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SacrificeManaForLightning", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	-- Section: Effective DPS options
