@@ -1011,8 +1011,8 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "Area of Spore Pods:")
 #baseMod skill("targetBaseRadius", 32)
 #baseMod skill("extraTargetRadiusPerProjectile", 4)
-#baseMod skill("dotIsArea", true)
 #baseMod skill("dotCanStack", true)
+#baseMod skill("dotIsArea", true)
 #baseMod flag("OneShotProj")
 #mods
 
