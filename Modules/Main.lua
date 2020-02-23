@@ -121,9 +121,9 @@ function main:Init()
 					out:write('nil')
 				end
 				if dat[2] then
-					out:write(',"', dat[2]:gsub("\n","\\n"), '"}')
+					out:write(',"', dat[2]:gsub("\n","\\n"), '"}\n')
 				else
-					out:write(',nil}')
+					out:write(',nil}\n')
 				end
 			end
 		end
