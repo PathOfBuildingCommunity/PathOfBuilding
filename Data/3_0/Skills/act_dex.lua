@@ -6399,12 +6399,37 @@ skills["RainOfSpores"] = {
 	},
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "One Projectile",
+		},
+		{
+			name = "Average Pod Overlap",
+		},
+		{
+			name = "Maximum Pod Overlap",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			targetRadius = activeSkill.skillData.targetBaseRadius + activeSkill.skillData.extraTargetRadiusPerProjectile * (output.ProjectileCount-5)
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount * math.min(output.AreaOfEffectRadius/targetRadius, 1)
+		end
+		if activeSkill.skillPart == 3 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
 	baseFlags = {
 		attack = true,
 		projectile = true,
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 16),
+		skill("radiusLabel", "Area of Spore Pods:"),
+		skill("targetBaseRadius", 32),
+		skill("extraTargetRadiusPerProjectile", 4),
+		skill("dotCanStack", true),
 		skill("dotIsArea", true),
 		flag("OneShotProj"),
 	},

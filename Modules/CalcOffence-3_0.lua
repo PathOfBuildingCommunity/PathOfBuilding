@@ -1469,6 +1469,9 @@ function calcs.offence(env, actor, activeSkill)
 			if activeSkill.skillTypes[SkillType.Aura] then
 				total = total * calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
 			end
+			if skillData.dotCanStack then
+				total = total * output.Duration * output.Speed * (skillData.dpsMultiplier or 1)
+			end
 			output[damageType.."Dot"] = total
 			output.TotalDot = output.TotalDot + total
 			if breakdown then
