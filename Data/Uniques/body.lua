@@ -899,13 +899,13 @@ Sporeguard
 Saint's Hauberk
 Requires Level 67, 109 Str, 94 Int
 League: Blight
+Implicits: 0
 Trigger Level 10 Contaminate when you Kill an Enemy
 (200-250)% increased Armour and Energy Shield
 (7-10)% increased maximum Life
 +(17-23)% to Chaos Resistance
 Enemies on Fungal Ground you Kill Explode, dealing 5% of their Life as Chaos Damage
 You have Fungal Ground around you while stationary
-(Allies on your Fungal Ground gain 10% of Non-Chaos Damage as extra Chaos Damage. Enemies on your Fungal Ground deal 10% less Damage.)
 ]],[[
 Voll's Protector
 Holy Chainmail
