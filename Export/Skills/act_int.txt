@@ -1169,7 +1169,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Skitterbots
-#flags spell
+#flags spell minion
+	minionList = {
+		"SkitterbotCold",
+		"SkitterbotLightning",
+	},
 	statMap = {
 		["skitterbots_trap_mine_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Mine, KeywordFlag.Trap), { type = "GlobalEffect", effectType = "Buff" }),
