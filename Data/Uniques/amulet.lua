@@ -86,6 +86,7 @@ League: Delve
 Source: Drops from unique{Aul, the Crystal King}
 Variant: Strength: Anger
 Variant: Strength: Determination
+Variant: Strength: Pride
 Variant: Strength: Purity of Fire
 Variant: Strength: Vitality
 Variant: Dexterity: Grace
@@ -103,37 +104,38 @@ Variant: Envy
 Requires Level 55
 Implicits: 1
 +(10-16) to all Attributes
-{variant:1,2,3,4}+(20-30) to Strength
-{variant:5,6,7,8}+(20-30) to Dexterity
-{variant:9,10,11,12,13,14,15}+(20-30) to Intelligence
-{variant:16}Grants Level 15 Envy Skill
-{variant:1,2,3,4}(15-20)% increased Armour
-{variant:5,6,7,8}(15-20)% increased Evasion Rating
-{variant:9,10,11,12,13,14,15}(15-20)% increased maximum Energy Shield
-{variant:16}+(15-20) to all Attributes
+{variant:1,2,3,4,5}+(20-30) to Strength
+{variant:6,7,8,9}+(20-30) to Dexterity
+{variant:10,11,12,13,14,15,16}+(20-30) to Intelligence
+{variant:17}Grants Level 15 Envy Skill
+{variant:1,2,3,4,5}(15-20)% increased Armour
+{variant:6,7,8,9}(15-20)% increased Evasion Rating
+{variant:10,11,12,13,14,15,16}(15-20)% increased maximum Energy Shield
+{variant:17}+(15-20) to all Attributes
 +(50-70) to maximum Life
-{variant:1,2,3,4}10% reduced Stun and Block Recovery
-{variant:5,6,7,8}Nearby Enemies grant 25% increased Flask Charges
-{variant:9,10,11,12,13,14,15}2% additional Chance to receive a Critical Strike
-{variant:1,2,3,4}Nearby Enemies have 10% reduced Stun and Block Recovery
-{variant:9,10,11,12,13,14,15}Hits against Nearby Enemies have 50% increased Critical Strike Chance
-{variant:16}(15-20)% increased Global Defences
+{variant:1,2,3,4,5}10% reduced Stun and Block Recovery
+{variant:6,7,8,9}Nearby Enemies grant 25% increased Flask Charges
+{variant:10,11,12,13,14,15,16}2% additional Chance to receive a Critical Strike
+{variant:1,2,3,4,5}Nearby Enemies have 10% reduced Stun and Block Recovery
+{variant:10,11,12,13,14,15,16}Hits against Nearby Enemies have 50% increased Critical Strike Chance
+{variant:17}(15-20)% increased Global Defences
 {variant:1}Anger Reserves no Mana
 {variant:2}Determination Reserves no Mana
-{variant:3}Purity of Fire Reserves no Mana
-{variant:4}Vitality Reserves no Mana
-{variant:5}Grace Reserves no Mana
-{variant:6}Haste Reserves no Mana
-{variant:7}Hatred Reserves no Mana
-{variant:8}Purity of Ice Reserves no Mana
-{variant:9}Clarity Reserves no Mana
-{variant:10}Discipline Reserves no Mana
-{variant:11}Malevolence Reserves no Mana
-{variant:12}Purity of Elements Reserves no Mana
-{variant:13}Purity of Lightning Reserves no Mana
-{variant:14}Wrath Reserves no Mana
-{variant:15}Zealotry Reserves no Mana
-{variant:16}Envy Reserves no Mana
+{variant:3}Pride Reserves no Mana
+{variant:4}Purity of Fire Reserves no Mana
+{variant:5}Vitality Reserves no Mana
+{variant:6}Grace Reserves no Mana
+{variant:7}Haste Reserves no Mana
+{variant:8}Hatred Reserves no Mana
+{variant:9}Purity of Ice Reserves no Mana
+{variant:10}Clarity Reserves no Mana
+{variant:11}Discipline Reserves no Mana
+{variant:12}Malevolence Reserves no Mana
+{variant:13}Purity of Elements Reserves no Mana
+{variant:14}Purity of Lightning Reserves no Mana
+{variant:15}Wrath Reserves no Mana
+{variant:16}Zealotry Reserves no Mana
+{variant:17}Envy Reserves no Mana
 ]],[[
 The Aylardex
 Agate Amulet
