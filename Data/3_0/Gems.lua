@@ -5727,6 +5727,23 @@ return {
 		reqInt = 0,
 		defaultLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemBoneArmour"] = {
+		name = "[DNT] Bone Armour",
+		grantedEffectId = "BoneArmour",
+		tags = {
+			intelligence = true,
+			active_skill = true,
+			spell = true,
+			duration = true,
+			guard = true,
+			minion = true,
+		},
+		tagString = "Spell, Duration, Guard, Minion",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 1,
+	},
 	["Metadata/Items/Gems/SkillGemDash"] = {
 		name = "Dash",
 		grantedEffectId = "QuickDodge",

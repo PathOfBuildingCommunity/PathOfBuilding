@@ -2572,7 +2572,6 @@ skills["SupportRage"] = {
 			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10, limit = 5 })
 		},
 	},
-	
 	baseMods = {
 	},
 	qualityStats = {
