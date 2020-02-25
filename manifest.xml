@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.157.5" />
+	<Version number="1.4.157.6" />
 	<Source part="program" url="https://raw.githubusercontent.com/LocalIdentity/PathOfBuilding/{branch}/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/" />
 	<Source part="tree-2_6" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-2_6.zip" />
@@ -13,7 +13,7 @@
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
 	<File name="UpdateApply.lua" part="program" sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" />
 	<File name="GameVersions.lua" part="program" sha1="31f6e89b1cf8359195a0824035f3e279ed898731" />
-	<File name="changelog.txt" part="program" sha1="d96c54d68e633e6774bd6956db0914b2502fecf9" />
+	<File name="changelog.txt" part="program" sha1="bdcb93bad863e1c2733f301df242e755e20f7c4e" />
 	<File name="Path of Building.exe" part="runtime" platform="win32" sha1="7e5a3242c9a4296dc8377feb4c9d824f3f0a3cc1" />
 	<File name="lua51.dll" part="runtime" platform="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" />
 	<File name="SimpleGraphic.dll" part="runtime" platform="win32" sha1="d852ae6eafc9be62aa41d3cb74fb986d0e5b40e5" />
@@ -209,7 +209,7 @@
 	<File name="Data/3_0/StatDescriptions/variable_duration_skill_stat_descriptions.lua" part="program" sha1="c10e87b9b02f65dac7ea0e533115e1ada7c198d8" />
 	<File name="Modules/Build.lua" part="program" sha1="9a8a148afa1109c4d06b89cb36f8c707c1aa9b44" />
 	<File name="Modules/BuildList.lua" part="program" sha1="bcda0c5148b9e40274acd13702896cc430c89eba" />
-	<File name="Modules/CalcActiveSkill.lua" part="program" sha1="3aae4f19b769172641b6472c3d9b19cafe0afda8" />
+	<File name="Modules/CalcActiveSkill.lua" part="program" sha1="7acab98a0a49663ae965acb092e897578d4b696d" />
 	<File name="Modules/CalcBreakdown.lua" part="program" sha1="2408b55c894b81fbcd0456a3540cdb07c5a7c4a1" />
 	<File name="Modules/CalcDefence-2_6.lua" part="program" sha1="c574b0f07966af8d42e534118c075fb164134849" />
 	<File name="Modules/CalcDefence-3_0.lua" part="program" sha1="9717d7b4186bd16d805f5264d686a22418465ab8" />
