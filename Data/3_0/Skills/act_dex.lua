@@ -2408,7 +2408,7 @@ skills["EnsnaringArrow"] = {
 	castTime = 1,
 	statMap = {
 		["tethered_enemies_take_attack_projectile_damage_taken_+%"] = {
-			mod("ProjectileAttackDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 3 }),
+			mod("ProjectileAttackDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 1 }),
 		},
 	},
 	baseFlags = {
@@ -5759,13 +5759,13 @@ skills["ShatteringSteel"] = {
 	parts = {
 		{
 			name = "Single Projectile Hit",
-      area = false,
+			area = false,
 		},
 		{
 			name = "All Projectiles Hit",
-      area = false,
+			area = false,
 		},
-    {
+		{
 			name = "Single Cone AoE",
 		},
 	},

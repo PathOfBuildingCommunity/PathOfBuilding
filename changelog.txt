@@ -1,3 +1,42 @@
+[1.4.157.5][2020/02/25]
+ * Add full search capability to all dropdown lists
+ * Items copied into PoB now retain their quality if above 20%
+ * Add support for Infernal Legion with Skitterbots
+ * Add support for shotgunning with Shattering Steel
+ * Add support for the timed buff granted by Chieftain's "Ngamahu, Flame's Advance" notable
+ * Add support for a mod on Chieftain's "Valako, Storm's Embrace" notable
+ * Add support for a mod on Chieftain's "Tasalio, Cleansing Water" notable
+ * Add support for a mod on Berserker's "War Bringer" notable
+ * Add support for a mod on Assassin's "Opportunistic" notable
+ * Add support for "per minion" modifiers on Necromancer's Bone Barrier notable
+ * Add Energy Shield to the sidebar for minion skills
+ * Add support for "Enemies Frozen by you take X% increased Damage" mod on Taryn's Shiver
+ * Add support for "if you've stopped taking Damage Over Time Recently" pantheon mod
+ * Add support for Fire DoT Multiplier on Awakened Burning Damage, Burning Arrow and Vaal Burning Arrow
+ * Add support for Shockwave Support's quality stats
+ * Add Pride to list of auras on Aul's Uprising
+ * Change resistance colours in the sidebar
+ * Update text on some uniques
+ * Fix Sporeguard Fungal Ground mod parsing
+ * Fix a bug where the source name of skills for ailments could be incorrect
+ * Fix chill calculations when using Elemental Focus
+ * Fix Rage Support and other sources of Rage not granting Movement Speed
+ * Fix "Socketed Skill Gems get a X% Mana Multiplier" modifier not working on skills which reserve mana
+ * Fix chance to deal Double Damage on Paradoxica and Frostbreath
+ * Fix default gem level for gems with a max level below 20
+ * Fix Close Combat weapon checks
+ * Fix Sanctuary node not being able to be anointed
+ * Fix Nightblade weapon checks
+ * Fix Elusive mod persisting if the checkbox was ticked and the source to generate Elusive was taken away
+ * Fix incorrect calculations of Active Totem Limit
+ * Fix many configuration options that didn't work for minion granted effects
+    * Blade count for spectres' Blade Vortex
+    * Spectres' curses
+    * Ursa's Rallying Cry
+    * Holy Relic's Aura
+    * Lightning Golem's Aura
+ * Fix Ensnaring Arrow's damage debuff incorrectly stacking 3 times
+ * Fix incorrect calculation of auras and curses granted by minions
 [1.4.157.4][2020/02/11]
  * Add support for increased Effect of Arcane Surge
  * Add support for Brand Attachment range
@@ -23,7 +62,7 @@
  * Add breakdown for Curse Effect for Curse Skills
  * Add breakdown for Aura Effect for Aura Skills
  * Add breakdown for "Base from Armours" row for ES/Armour/Evasion
- * Add colors to the resistances' label on the side bar
+ * Add colours to the resistances' label on the side bar
  * Add Ctrl-Right and Ctrl-Left to text fields (skip words)
  * Add list of recently imported accounts to the Import/Export Build tab
  * Add parsing for Elusive mod on boots

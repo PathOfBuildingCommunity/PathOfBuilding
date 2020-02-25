@@ -1178,6 +1178,27 @@ skills["BoneGolemLeapSlam"] = {
 		[1] = { attackSpeedMultiplier = -44, cooldown = 4, damageEffectiveness = 1.8, baseMultiplier = 1.8, levelRequirement = 1, statInterpolation = { }, },
 	},
 }
+skills["SkitterbotWait"] = {
+	name = "Skitterbot Wait",
+	hidden = true,
+	color = 4,
+	skillTypes = { },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+	},
+	levels = {
+		[1] = { 200, levelRequirement = 0, statInterpolation = { 1, }, },
+	},
+}
 skills["MinionInstability"] = {
 	name = "Minion Instability",
 	hidden = true,
