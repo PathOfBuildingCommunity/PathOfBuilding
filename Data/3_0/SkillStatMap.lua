@@ -376,11 +376,11 @@ return {
 	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
 ["additional_critical_strike_chance_permyriad_while_affected_by_elusive"] = {
-	mod("CritChance", "BASE", nil, 0, 0, { type = "Condition", var = "Elusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger"} } ),
+	mod("CritChance", "BASE", nil, 0, 0, { type = "Condition", var = "Elusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger"} }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
 	div = 100,
 },
 ["nightblade_elusive_grants_critical_strike_multiplier_+_to_supported_skills"] = {
-	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Condition", var = "Elusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } } ),
+	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Condition", var = "Elusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
 },
 -- Duration
 ["buff_effect_duration_+%_per_removable_endurance_charge"] = {
@@ -431,6 +431,9 @@ return {
 },
 ["active_skill_damage_+%_final"] = {
 	mod("Damage", "MORE", nil),
+},
+["melee_damage_+%"] = {
+	mod("Damage", "INC", nil, ModFlag.Melee),
 },
 ["melee_physical_damage_+%"] = {
 	mod("PhysicalDamage", "INC", nil, ModFlag.Melee),
@@ -511,7 +514,7 @@ return {
 	mod("ChaosMax", "BASE", nil),
 },
 ["support_slashing_damage_+%_final_from_distance"] = {
-	mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }) 
+	mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
 },
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {
@@ -657,6 +660,9 @@ return {
 },
 ["dot_multiplier_+"] = {
 	mod("DotMultiplier", "BASE", nil),
+},
+["fire_dot_multiplier_+"] = {
+	mod("FireDotMultiplier", "BASE", nil),
 },
 ["active_skill_ignite_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite),

@@ -523,7 +523,7 @@ function calcs.perform(env)
 			output.ActiveGolemLimit = m_max(limit, output.ActiveGolemLimit or 0)
 		end
 		if activeSkill.skillFlags.totem then
-			local limit = activeSkill.skillModList:Sum("BASE", nil, "ActiveTotemLimit")
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit")
 			output.ActiveTotemLimit = m_max(limit, output.ActiveTotemLimit or 0)
 		end
 	end
@@ -871,14 +871,14 @@ function calcs.perform(env)
 							if not modDB:Flag(nil, "AlliesAurasCannotAffectSelf") then
 								local srcList = new("ModList")
 								local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-								local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") + modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+								local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 								mergeBuff(srcList, buffs, buff.name)
 							end
 							if env.minion and (env.minion ~= activeSkill.minion or not activeSkill.skillData.auraCannotAffectSelf) then
 								local srcList = new("ModList")
 								local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-								local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+								local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 								mergeBuff(srcList, minionBuffs, buff.name)
 							end
@@ -890,7 +890,7 @@ function calcs.perform(env)
 								priority = 1,
 							}
 							local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
-							local more = skillModList:More(skillCfg, "CurseEffect") + enemyDB:More(nil, "CurseEffectOnSelf")
+							local more = skillModList:More(skillCfg, "CurseEffect") * enemyDB:More(nil, "CurseEffectOnSelf")
 							curse.modList = new("ModList")
 							curse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 							t_insert(minionCurses, curse)

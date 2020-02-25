@@ -1590,8 +1590,6 @@ function calcs.offence(env, actor, activeSkill)
 			local freezeMult = (1 - enemyDB:Sum("BASE", nil, "AvoidFreeze") / 100)
 			output.FreezeChanceOnHit = output.FreezeChanceOnHit * freezeMult
 			output.FreezeChanceOnCrit = output.FreezeChanceOnCrit * freezeMult
-			output.ChillChanceOnHit = 100
-			output.ChillChanceOnCrit = 100
 		end
 	
 		local function calcAilmentDamage(type, sourceHitDmg, sourceCritDmg)
