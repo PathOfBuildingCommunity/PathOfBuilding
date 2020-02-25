@@ -1141,6 +1141,9 @@ local specialModList = {
 	["every %d+ seconds, gain (%d+)%% of physical damage as extra fire damage for %d+ seconds"] = function(_, num, _) return {
 		mod("PhysicalDamageGainAsFire", "BASE", num, { type = "Condition", var = "NgamahuFlamesAdvance" })
 	} end,
+	["(%d+)%% more damage for each endurance charge lost recently, up to (%d+)%%"] = function(num, _, limit) return {
+		mod("Damage", "MORE", num, { type = "Multiplier", var = "EnduranceChargesLostRecently", limit = tonumber(limit), limitTotal = true })
+	} end,
 	-- Deadeye
 	["projectiles pierce all nearby targets"] = { flag("PierceAllTargets") },
 	["gain %+(%d+) life when you hit a bleeding enemy"] = function(num) return { mod("LifeOnHit", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Bleeding" }) } end,
