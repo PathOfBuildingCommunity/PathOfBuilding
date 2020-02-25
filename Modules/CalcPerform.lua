@@ -523,7 +523,7 @@ function calcs.perform(env)
 			output.ActiveGolemLimit = m_max(limit, output.ActiveGolemLimit or 0)
 		end
 		if activeSkill.skillFlags.totem then
-			local limit = activeSkill.skillModList:Sum("BASE", nil, "ActiveTotemLimit")
+			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit")
 			output.ActiveTotemLimit = m_max(limit, output.ActiveTotemLimit or 0)
 		end
 	end
