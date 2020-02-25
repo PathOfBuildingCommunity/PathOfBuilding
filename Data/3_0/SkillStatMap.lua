@@ -432,6 +432,9 @@ return {
 ["active_skill_damage_+%_final"] = {
 	mod("Damage", "MORE", nil),
 },
+["melee_damage_+%"] = {
+	mod("Damage", "INC", nil, ModFlag.Melee),
+},
 ["melee_physical_damage_+%"] = {
 	mod("PhysicalDamage", "INC", nil, ModFlag.Melee),
 },
