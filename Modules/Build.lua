@@ -339,6 +339,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "Life", label = "Total Life", fmt = ".1f", compPercent = true },
 		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
 		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", compPercent = true },
+		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
+		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
+		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", compPercent = true },
 	}
 	self.extraSaveStats = {
 		"PowerCharges",

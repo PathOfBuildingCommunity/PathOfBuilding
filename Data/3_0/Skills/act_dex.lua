@@ -5758,14 +5758,22 @@ skills["ShatteringSteel"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "Projectile",
-			area = false,
+			name = "Single Projectile Hit",
+      area = false,
 		},
 		{
-			name = "Cone",
-			area = true,
+			name = "All Projectiles Hit",
+      area = false,
+		},
+    {
+			name = "Single Cone AoE",
 		},
 	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
 	baseFlags = {
 		attack = true,
 		projectile = true,

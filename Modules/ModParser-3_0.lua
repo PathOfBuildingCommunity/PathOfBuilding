@@ -734,6 +734,7 @@ local modTagList = {
 	["for each poison you have inflicted recently"] = { tag = { type = "Multiplier", var = "PoisonAppliedRecently" } },
 	["for each shocked enemy you've killed recently"] = { tag = { type = "Multiplier", var = "ShockedEnemyKilledRecently" } },
 	["per enemy killed recently, up to (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "EnemyKilledRecently", limit = tonumber(num), limitTotal = true } } end,
+	["per minion, up to (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "SummonedMinion", limit = tonumber(num), limitTotal = true } } end,
 	["for each enemy you or your minions have killed recently, up to (%d+)%%"] = function(num) return { tag = { type = "Multiplier", varList = {"EnemyKilledRecently","EnemyKilledByMinionsRecently"}, limit = tonumber(num), limitTotal = true } } end,
 	["for each enemy you or your minions have killed recently, up to (%d+)%% per second"] = function(num) return { tag = { type = "Multiplier", varList = {"EnemyKilledRecently","EnemyKilledByMinionsRecently"}, limit = tonumber(num), limitTotal = true } } end,
 	["per enemy killed by you or your totems recently"] = { tag = { type = "Multiplier", varList = {"EnemyKilledRecently","EnemyKilledByTotemsRecently"} } },
@@ -894,7 +895,7 @@ local modTagList = {
 	["while not cursed"] = { tag = { type = "Condition", var = "Cursed", neg = true } },
 	["against damage over time"] = { tag = { type = "Condition", varList = { "AgainstDamageOverTime" } } },
 	["while there is only one nearby enemy"] = { tag = { type = "Condition", var = "OnlyOneNearbyEnemy" } },
-	["while t?h?e?r?e? ?i?s? ?a rare or unique enemy i?s? ?nearby"] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
+	["while t?h?e?r?e? ?i?s? ?a rare or unique enemy i?s? ?nearby"] = { tag = { type = "ActorCondition", actor = "enemy", varList = {"NearbyRareOrUniqueEnemy", "RareOrUnique"} } },
 	["if you[' ]h?a?ve hit recently"] = { tag = { type = "Condition", var = "HitRecently" } },
 	["if you[' ]h?a?ve hit an enemy recently"] = { tag = { type = "Condition", var = "HitRecently" } },
 	["if you[' ]h?a?ve hit a cursed enemy recently"] = { tagList = { { type = "Condition", var = "HitRecently" }, { type = "ActorCondition", actor = "enemy", var = "Cursed" } } },
@@ -925,6 +926,7 @@ local modTagList = {
 	["if you have ?n[o']t been hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently", neg = true } },
 	["if you[' ]h?a?ve taken no damage from hits recently"] = { tag = { type = "Condition", var = "BeenHitRecently", neg = true } },
 	["if you[' ]h?a?ve taken fire damage from a hit recently"] = { tag = { type = "Condition", var = "HitByFireDamageRecently" } },
+	["if you[' ]h?a?ve taken fire damage from an enemy hit recently"] = { tag = { type = "Condition", var = "TakenFireDamageFromEnemyHitRecently" } },
 	["if you[' ]h?a?ve taken spell damage recently"] = { tag = { type = "Condition", var = "HitBySpellDamageRecently" } },
 	["if you[' ]h?a?ve blocked recently"] = { tag = { type = "Condition", var = "BlockedRecently" } },
 	["if you[' ]h?a?ve blocked an attack recently"] = { tag = { type = "Condition", var = "BlockedAttackRecently" } },
@@ -939,6 +941,7 @@ local modTagList = {
 	["for each skill you've used recently, up to (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "SkillUsedRecently", limit = num, limitTotal = true } } end,
 	["if you[' ]h?a?ve used a warcry recently"] = { tag = { type = "Condition", var = "UsedWarcryRecently" } },
 	["if you[' ]h?a?ve warcried recently"] = { tag = { type = "Condition", var = "UsedWarcryRecently" } },
+	["if you[' ]h?a?ve warcried in the past 8 seconds"] = { tag = { type = "Condition", var = "UsedWarcryInPast8Seconds" } },
 	["for each of your mines detonated recently, up to (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "MineDetonatedRecently", limit = num, limitTotal = true } } end,
 	["for each mine detonated recently, up to (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "MineDetonatedRecently", limit = num, limitTotal = true } } end,
 	["for each mine detonated recently, up to (%d+)%% per second"] = function(num) return { tag = { type = "Multiplier", var = "MineDetonatedRecently", limit = num, limitTotal = true } } end,
@@ -1107,6 +1110,8 @@ local specialModList = {
 		flag("Condition:CanBeElusive"),
 		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanBeElusive" }) -- Make the Configuration option appear
 	},
+	["(%d+)%% more damage while there is at most one rare or unique enemy nearby"] = function(num) return { mod("Damage", "MORE", num, nil, 0, { type = "Condition", var = "OnlyOneNearbyRareOrUniqueEnemy" }) } end,
+	["(%d+)%% reduced damage taken while there are at least two rare or unique enemies nearby"] = function(num) return { mod("DamageTaken", "INC", -num, nil, 0, { type = "MultiplierThreshold", var = "NearbyRareOrUniqueEnemies", threshold = 2 }) } end,
 	-- Berserker
 	["gain %d+ rage when you kill an enemy"] = {
 		flag("Condition:CanGainRage"),
@@ -1134,6 +1139,12 @@ local specialModList = {
 	["enemies near your totems take (%d+)%% increased physical and fire damage"] = function(num) return {
 		mod("EnemyModifier", "LIST", { mod = mod("PhysicalDamageTaken", "INC", num) }), 
 		mod("EnemyModifier", "LIST", { mod = mod("FireDamageTaken", "INC", num) }) 
+	} end,
+	["every %d+ seconds, gain (%d+)%% of physical damage as extra fire damage for %d+ seconds"] = function(_, num, _) return {
+		mod("PhysicalDamageGainAsFire", "BASE", num, { type = "Condition", var = "NgamahuFlamesAdvance" })
+	} end,
+	["(%d+)%% more damage for each endurance charge lost recently, up to (%d+)%%"] = function(num, _, limit) return {
+		mod("Damage", "MORE", num, { type = "Multiplier", var = "EnduranceChargesLostRecently", limit = tonumber(limit), limitTotal = true })
 	} end,
 	-- Deadeye
 	["projectiles pierce all nearby targets"] = { flag("PierceAllTargets") },
@@ -1753,11 +1764,10 @@ local specialModList = {
 		mod("EnemyPhysicalDamageReduction", "BASE", -num)
 	} end,
 	["enemies on fungal ground you kill explode, dealing 5%% of their life as chaos damage"] = {},
-	["you have fungal ground around you while stationary"] = {},
-	["%(allies on your fungal ground gain ([%d%.]+)%% of non%-chaos damage as extra chaos damage%. enemies on your fungal ground deal ([%d%.]+)%% less damage%.%)"] = function(_, gain, enemyLoss) return {
-		mod("NonChaosDamageGainAsChaos", "BASE", gain, { type = "Condition", var = "OnFungalGround" }, { type = "GlobalEffect", effectType = "Aura" }),
-		mod("EnemyModifier", "LIST", { mod = mod("Damage", "MORE", -enemyLoss, {type = "ActorCondition", actor = "enemy", var = "OnFungalGround"})})
-	} end,
+	["you have fungal ground around you while stationary"] = {
+		mod("ExtraAura", "LIST", { mod = mod("NonChaosDamageGainAsChaos", "BASE", 10, { type = "Condition", var = "OnFungalGround" }, { type = "Condition", var = "Stationary" }) }),
+		mod("EnemyModifier", "LIST", { mod = mod("Damage", "MORE", -10, { type = "ActorCondition", actor = "enemy", var = "OnFungalGround" }, { type = "Condition", var = "Stationary" }) })
+	},
 	["nearby enemies have (%-%d+)%% to fire resistance"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", num) }) } end,
 	["nearby enemies have (%-%d+)%% to lightning resistance"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("LightningResist", "BASE", num) }) } end,
 	["nearby enemies take (%d+)%% increased physical damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("PhysicalDamageTaken", "INC", num) }) } end,
