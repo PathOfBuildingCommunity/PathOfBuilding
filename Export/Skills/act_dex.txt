@@ -986,33 +986,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill RainOfSpores
-#flags attack projectile area
-	parts = {
-		{
-			name = "One Projectile",
-		},
-		{
-			name = "Average Pod Overlap",
-		},
-		{
-			name = "Maximum Pod Overlap",
-		},
-	},
+#flags attack projectile area duration
 	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 2 then
-			targetRadius = activeSkill.skillData.targetBaseRadius + activeSkill.skillData.extraTargetRadiusPerProjectile * (output.ProjectileCount-5)
-			activeSkill.skillData.dpsMultiplier = output.ProjectileCount * math.min(output.AreaOfEffectRadius/targetRadius, 1)
-		end
-		if activeSkill.skillPart == 3 then
-			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
-		end
+		activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.podOverlapMultiplier or 1, output.ProjectileCount)
 	end,
-#baseMod skill("radius", 16)
-#baseMod skill("radiusLabel", "Area of Spore Pods:")
-#baseMod skill("targetBaseRadius", 32)
-#baseMod skill("extraTargetRadiusPerProjectile", 4)
-#baseMod skill("dotCanStack", true)
 #baseMod skill("dotIsArea", true)
+#baseMod flag("DotCanStack")
 #baseMod flag("OneShotProj")
 #mods
 

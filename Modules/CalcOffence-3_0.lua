@@ -1428,7 +1428,7 @@ function calcs.offence(env, actor, activeSkill)
 		keywordFlags = band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)),
 	}
 	activeSkill.dotCfg = dotCfg
-	output.TotalDot = 0
+	output.TotalDotInstance = 0
 	for _, damageType in ipairs(dmgTypeList) do
 		local dotTypeCfg = copyTable(dotCfg, true)
 		dotTypeCfg.keywordFlags = bor(dotTypeCfg.keywordFlags, KeywordFlag[damageType.."Dot"])
@@ -1469,16 +1469,29 @@ function calcs.offence(env, actor, activeSkill)
 			if activeSkill.skillTypes[SkillType.Aura] then
 				total = total * calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
 			end
-			if skillData.dotCanStack then
-				total = total * output.Duration * output.Speed * (skillData.dpsMultiplier or 1)
-			end
 			output[damageType.."Dot"] = total
-			output.TotalDot = output.TotalDot + total
+			output.TotalDotInstance = output.TotalDotInstance + total
 			if breakdown then
 				breakdown[damageType.."Dot"] = { }
 				breakdown.dot(breakdown[damageType.."Dot"], baseVal, inc, more, mult, nil, effMult, total)
 			end
 		end
+	end
+	if skillModList:Flag(nil, "DotCanStack") then
+		output.TotalDot = output.TotalDotInstance * output.Speed * output.Duration * (skillData.dpsMultiplier or 1)
+		if breakdown then
+			breakdown.TotalDot = {
+				s_format("%.1f ^8(Damage per Instance)", output.TotalDotInstance),
+				s_format("x %.2f ^8(hits per second)", output.Speed),
+				s_format("x %.2f ^8(skill duration)", output.Duration),
+			}
+			if skillData.dpsMultiplier then
+				t_insert(breakdown.TotalDot, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+			end
+			t_insert(breakdown.TotalDot, s_format("= %.1f", output.TotalDot))
+		end
+	else
+		output.TotalDot = output.TotalDotInstance
 	end
 
 	skillFlags.bleed = false
