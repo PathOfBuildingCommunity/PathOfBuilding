@@ -1141,7 +1141,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 					t_insert(statBoxList, {
 						height = 16,
 						labelColor..statData.label..":",
-						self:FormatStat(statData, statVal).. resistOverCapStatLabel,
+						self:FormatStat(statData, statVal)..resistOverCapStatLabel,
 					})
 				end
 			end
