@@ -48,7 +48,7 @@ local function mergeLevelMod(modList, mod, value)
 	end
 end
 
--- Merge skill modifiers with given mod list;
+-- Merge skill modifiers with given mod list
 function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 	calcLib.validateGemLevel(skillEffect)
 	local grantedEffect = skillEffect.grantedEffect	
@@ -551,14 +551,10 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			end
 		end
 	end
-	-- Minions end
+
 	-- Separate global effect modifiers (mods that can affect defensive stats or other skills)
 	local i = 1
 	while skillModList[i] do
-		if string.match(skillModList[i].name, "Condition") then
-			env.modDB:AddMod(skillModList[i])
-		end
-
 		local effectType, effectName, effectTag
 		for _, tag in ipairs(skillModList[i]) do
 			if tag.type == "GlobalEffect" then

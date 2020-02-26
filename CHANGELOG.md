@@ -1,3 +1,5 @@
+### 1.4.157.6 - 2020/02/26
+ * Revert fix for Rage as it breaks other skills
 ### 1.4.157.5 - 2020/02/25
  * Add full search capability to all dropdown lists
  * Items copied into PoB now retain their quality if above 20%
