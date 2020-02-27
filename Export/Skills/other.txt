@@ -58,6 +58,7 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#noGem
 #skill BoneArmour
 #flags duration spell
 #mods
