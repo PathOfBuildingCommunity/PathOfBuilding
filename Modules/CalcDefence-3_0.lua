@@ -202,15 +202,20 @@ function calcs.defence(env, actor)
 		else
 			local enemyAccuracy = round(calcLib.val(enemyDB, "Accuracy"))
 			output.EvadeChance = 100 - (calcs.hitChance(output.Evasion, enemyAccuracy) - modDB:Sum("BASE", nil, "EvadeChance")) * calcLib.mod(enemyDB, nil, "HitChance")
-			if breakdown then
-				breakdown.EvadeChance = {
-					s_format("Enemy level: %d ^8(%s the Configuration tab)", env.enemyLevel, env.configInput.enemyLevel and "overridden from" or "can be overridden in"),
-					s_format("Average enemy accuracy: %d", enemyAccuracy),
-					s_format("Approximate evade chance: %d%%", output.EvadeChance),
-				}
-			end
 			output.MeleeEvadeChance = m_max(0, m_min(95, output.EvadeChance * calcLib.mod(modDB, nil, "EvadeChance", "MeleeEvadeChance")))
 			output.ProjectileEvadeChance = m_max(0, m_min(95, output.EvadeChance * calcLib.mod(modDB, nil, "EvadeChance", "ProjectileEvadeChance")))
+			if breakdown then
+				breakdown.MeleeEvadeChance = {
+					s_format("Enemy level: %d ^8(%s the Configuration tab)", env.enemyLevel, env.configInput.enemyLevel and "overridden from" or "can be overridden in"),
+					s_format("Average enemy accuracy: %d", enemyAccuracy),
+					s_format("Approximate melee evade chance: %d%%", output.MeleeEvadeChance),
+				}
+				breakdown.ProjectileEvadeChance = {
+					s_format("Enemy level: %d ^8(%s the Configuration tab)", env.enemyLevel, env.configInput.enemyLevel and "overridden from" or "can be overridden in"),
+					s_format("Average enemy accuracy: %d", enemyAccuracy),
+					s_format("Approximate projectile evade chance: %d%%", output.ProjectileEvadeChance),
+				}
+			end
 		end
 	end
 
