@@ -7316,6 +7316,10 @@ skills["Skitterbots"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.ManaCostReserved] = true, [SkillType.ManaCostPercent] = true, [SkillType.ColdSkill] = true, [SkillType.LightningSkill] = true, [SkillType.NonHitChill] = true, [SkillType.Area] = true, [SkillType.Aura] = true, [SkillType.AuraDebuff] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0,
+	minionList = {
+		"SkitterbotCold",
+		"SkitterbotLightning",
+	},
 	statMap = {
 		["skitterbots_trap_mine_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Mine, KeywordFlag.Trap), { type = "GlobalEffect", effectType = "Buff" }),
@@ -7323,6 +7327,7 @@ skills["Skitterbots"] = {
 	},
 	baseFlags = {
 		spell = true,
+		minion = true,
 	},
 	baseMods = {
 	},

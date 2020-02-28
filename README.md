@@ -4,6 +4,7 @@ This is a fork of Openarl's Path Of Building that includes many extra features n
 * Adds updated uniques from 3.8 and 3.9 changes
 * Pantheon support
 * Impale DPS support
+* Search for all dropdown boxes
 * Barrage Suport skill gem
 * Ensnaring Arrow support
 * Thread of Hope support
@@ -14,7 +15,7 @@ This is a fork of Openarl's Path Of Building that includes many extra features n
 * List of recently imported accounts to the Import/Export Build tab
 * More tree highlighting options for node power
 * Support for fossil mods in the crafting window. Including correct parsing for some mods that previously didn't work (e.g., 60% chance to deal 100% more poison/bleed damage)
-* Add parsing for more nodes on the tree (i.e., Slayer, Champion, Hierophant, Trickster and Elementalist ascendancy nodes)
+* Add parsing for more nodes on the tree (i.e., Slayer, Champion, Berserker, Chieftain, Hierophant, Trickster, Assassin, Necromancer and Elementalist ascendancy nodes)
 * Add oil combinations to notables on the passive tree
 * Support for Elusive and Nightblade support gem
 * Incremental shock values (not a locked 50%)
@@ -26,10 +27,12 @@ This is a fork of Openarl's Path Of Building that includes many extra features n
 ## Feature Requests
 [![Feature Requests](https://feathub.com/LocalIdentity/PathOfBuilding?format=svg)](https://feathub.com/LocalIdentity/PathOfBuilding)
 
-
 ## Download
 Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) page to download the installer.
 Then head [here](https://github.com/LocalIdentity/PathOfBuilding/wiki/Installing-this-Fork/_edit) to see the install instructions for this fork
+
+## Contribute
+You can find instructions on how to contribute code and bug reports [here](CONTRIBUTING.md).
 
 ## Changelog
 You can find the full version history [here](CHANGELOG.md).

@@ -2408,7 +2408,7 @@ skills["EnsnaringArrow"] = {
 	castTime = 1,
 	statMap = {
 		["tethered_enemies_take_attack_projectile_damage_taken_+%"] = {
-			mod("ProjectileAttackDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 3 }),
+			mod("ProjectileAttackDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 1 }),
 		},
 	},
 	baseFlags = {
@@ -5758,14 +5758,22 @@ skills["ShatteringSteel"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "Projectile",
+			name = "Single Projectile Hit",
 			area = false,
 		},
 		{
-			name = "Cone",
-			area = true,
+			name = "All Projectiles Hit",
+			area = false,
+		},
+		{
+			name = "Single Cone AoE",
 		},
 	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
 	baseFlags = {
 		attack = true,
 		projectile = true,

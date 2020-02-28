@@ -33,7 +33,6 @@ Chill and Freeze duration on you is based on 65% of Energy Shield
 ]],[[
 Auxium
 Crystal Belt
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 70

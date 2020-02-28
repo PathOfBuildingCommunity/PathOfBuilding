@@ -175,6 +175,10 @@ local skills, mod, flag, skill = ...
 #flags attack melee area
 #mods
 
+#skill SkitterbotWait Skitterbot Wait
+#flags duration
+#mods
+
 skills["MinionInstability"] = {
 	name = "Minion Instability",
 	hidden = true,

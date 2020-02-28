@@ -63,7 +63,7 @@ Requires Level 65, 148 Str
 (80-120)% increased Armour
 +(40-50) to maximum Life
 -30% to Fire Resistance
-8% of Physical Damage taken as Fire Damage
+8% of Physical Damage from Hits taken as Fire Damage
 Armour is increased by Uncapped Fire Resistance
 ]],[[
 Hrimnor's Resolve

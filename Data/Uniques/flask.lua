@@ -270,8 +270,8 @@ Variant: Pre 2.2.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 18
-{variant:1}30% of Physical Damage taken as Cold Damage during Flask effect
-{variant:2,3}20% of Physical Damage taken as Cold Damage during Flask effect
+{variant:1}30% of Physical Damage from Hits taken as Cold Damage during Flask effect
+{variant:2,3}20% of Physical Damage from Hits taken as Cold Damage during Flask effect
 {variant:1,2}Gain (20-30)% of Physical Damage as Extra Cold Damage during effect
 {variant:3}Gain (15-20)% of Physical Damage as Extra Cold Damage during effect
 30% chance to Avoid being Chilled during Flask effect
