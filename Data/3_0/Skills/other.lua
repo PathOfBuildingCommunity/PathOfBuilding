@@ -1906,7 +1906,7 @@ skills["SummonHarbingerOfTime"] = {
 	},
 }
 skills["TriggeredSummonGhostOnKill"] = {
-	name = "Summon Phantasm",
+	name = "Triggered Summon Phantasm",
 	hidden = true,
 	color = 3,
 	description = "Summons a Phantasm minion, which uses a piercing projectile spell that deals physical damage.",
