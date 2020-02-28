@@ -272,6 +272,7 @@ skills["RepeatingShockwave"] = {
 }
 skills["BoneArmour"] = {
 	name = "Bone Armour",
+	hidden = true,
 	color = 3,
 	baseEffectiveness = 10,
 	incrementalEffectiveness = 0.029999999329448,
