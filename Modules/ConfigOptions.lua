@@ -762,10 +762,10 @@ return {
 	{ var = "conditionHaveManaStorm", type = "check", label = "Do you have Manastorm's Lightning Buff?", ifCond = "HaveManaStorm", tooltip = "This option is enable Manastorm's Lightning Damage Buff\nWhen you cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage\nequal to 25% of Sacrificed Mana for 4 Seconds", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SacrificeManaForLightning", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierPvpTvalueOverride", type = "count", label = "PvP Tvalue override:", ifMult = "PvpTvalueOverride", apply = function(val, modList, enemyModList)
+	{ var = "multiplierPvpTvalueOverride", type = "count", label = "PvP Tvalue override:", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PvpTvalueOverride", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierPvpDamage", type = "count", label = "Custom PvP Damage multiplier:", ifMult = "PvpDamage", apply = function(val, modList, enemyModList)
+	{ var = "multiplierPvpDamage", type = "count", label = "Custom PvP Damage multiplier:", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PvpDamage", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	-- Section: Effective DPS options

@@ -55,6 +55,7 @@ local PvpElemental2 = 150
 local PvpNonElemental1 = 0.57
 local PvpNonElemental2 = 90
 local PvpMultiplier = 1
+local PvpTvalue = 1
 
 -- Calculate min/max damage for the given damage type
 local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags, convDst)
@@ -1309,12 +1310,21 @@ function calcs.offence(env, actor, activeSkill)
 		-- Calculate PvP values
 		percentageNonElemental = ((output["PhysicalHitAverage"] + output["ChaosHitAverage"]) / (totalHitMin + totalHitMax) * 2)
 		percentageElemental = 1 - percentageNonElemental
-		portionNonElemental = (output.AverageHit * ((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod) / PvpNonElemental2 ) ^ PvpNonElemental1 / ((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod) * PvpNonElemental2 * percentageNonElemental
-		portionElemental = (output.AverageHit * ((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod) / PvpElemental2 ) ^ PvpElemental1 / ((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod) * PvpElemental2 * percentageElemental
+		if env.configInput.multiplierPvpTvalueOverride then
+			PvpTvalue = env.configInput.multiplierPvpTvalueOverride
+		else
+			PvpTvalue = 1/((globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod)
+		end
+		portionNonElemental = (output.AverageHit / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * percentageNonElemental
+		portionElemental = (output.AverageHit / PvpTvalue / PvpElemental2 ) ^ PvpElemental1 * PvpTvalue * PvpElemental2 * percentageElemental
+		if env.configInput.multiplierPvpDamage then
+			PvpMultiplier = 1 * env.configInput.multiplierPvpDamage / 100
+		else
+			PvpMultiplier = 1
+		end
 		output.PvpAverageHit = (portionNonElemental + portionElemental) * PvpMultiplier
 		output.PvpAverageDamage = output.PvpAverageHit * output.HitChance / 100
 		output.PvpTotalDPS = output.PvpAverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
-		
 		if breakdown then
 			if output.CritEffect ~= 1 then
 				breakdown.AverageHit = { }
@@ -1328,8 +1338,8 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.AverageHit, s_format("= %.1f", output.AverageHit))
 			end
 			breakdown.PvpAverageHit = { }
-			t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.AverageHit, 1/((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod),  PvpNonElemental2, PvpNonElemental1, 1 / ((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod), PvpNonElemental2, percentageNonElemental, portionNonElemental))
-			t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.AverageHit, 1/((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod),  PvpElemental2, PvpElemental1, 1 / ((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod), PvpElemental2, percentageElemental, portionElemental))
+			t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.AverageHit, PvpTvalue,  PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, percentageNonElemental, portionNonElemental))
+			t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.AverageHit, PvpTvalue,  PvpElemental2, PvpElemental1, PvpTvalue, PvpElemental2, percentageElemental, portionElemental))
 			t_insert(breakdown.PvpAverageHit, s_format("(portionNonElemental + portionElemental) * PvP multiplier"))
 			t_insert(breakdown.PvpAverageHit, s_format("(%.1f + %.1f) * %.1f", portionNonElemental, portionElemental, PvpMultiplier))
 			t_insert(breakdown.PvpAverageHit, s_format("= %.1f", output.PvpAverageHit))
