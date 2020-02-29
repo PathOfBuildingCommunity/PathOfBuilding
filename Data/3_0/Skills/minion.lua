@@ -1245,28 +1245,6 @@ skills["SiegebreakerCausticGround"] = {
 		[1] = { },
 	},
 }
-skills["BeaconZombieCausticCloud"] = {
-	name = "Caustic Cloud",
-	hidden = true,
-	color = 4,
-	baseFlags = {
-		cast = true,
-		area = true,
-		chaos = true,
-	},
-	skillTypes = { },
-	baseMods = {
-		skill("ChaosDot", 1, { type = "PerStat", stat = "Life", div = 2 }),
-		skill("dotIsArea", true),
-	},
-	qualityStats = {
-	},
-	stats = {
-	},
-	levels = {
-		[1] = { },
-	},
-}
 skills["InfernalLegion"] = {
 	name = "Infernal Legion",
 	hidden = true,
