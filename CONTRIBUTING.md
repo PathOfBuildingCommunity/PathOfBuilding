@@ -44,7 +44,7 @@ The easiest way to make and test changes is by setting up a development install,
        cd ~ && mkdir GitHub && cd GitHub
 4. Clone the repository using this command:
 
-       git clone -b dev https://github.com/LocalIdentity/PathOfBuilding.git
+       git clone -b dev https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
 5. Create a shortcut to the 'Path of Building.exe' in your main installation of the program.
 6. Add the path to `./Launch.lua` as an argument to the shortcut. You should end up with something like: `"C:\Program Files (x86)\Path of Building\Path of Building.exe" "C:\Path of Building\Launch.lua"`.
 
@@ -64,7 +64,9 @@ Note that the updates system is disabled in Dev Mode, so you must update manuall
 
 #### Keeping your fork up to date
 
-Note: If you've configured a remote already, you can skip ahead to step 6.
+Note: If you've configured a remote already, you can skip ahead to step 6. To remove an old remote, run
+
+       git remote remove upstream
 1. Open Git Bash.
 2. `cd` into the repository directory.
 3. Check your current remote repositories.
@@ -72,7 +74,7 @@ Note: If you've configured a remote already, you can skip ahead to step 6.
        git remote -v
 4. Add a new remote repository and name it `upstream`.
 
-       git remote add upstream https://github.com/LocalIdentity/PathOfBuilding
+       git remote add upstream https://github.com/PathOfBuildingCommunity/PathOfBuilding
 5. Verify that adding the remote worked by running the last command again.
 
        git remote -v
