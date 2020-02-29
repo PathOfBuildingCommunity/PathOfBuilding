@@ -650,6 +650,17 @@ skills["Blight"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.ChaosSkill] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Channelled] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.Type59] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.3,
+	parts = {
+		{
+			name = "1 Stack",
+		},
+		{
+			name = "10 Stacks",
+		},
+		{
+			name = "20 Stacks",
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -659,6 +670,8 @@ skills["Blight"] = {
 		skill("debuff", true),
 		skill("debuffSecondary", true),
 		skill("radius", 26),
+		mod("Damage", "MORE", 900, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("Damage", "MORE", 1900, 0, 0, { type = "SkillPart", skillPart = 3 }),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },
@@ -725,6 +738,17 @@ skills["VaalBlight"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.ChaosSkill] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.Type59] = true, [SkillType.Vaal] = true, [SkillType.AreaSpell] = true, [SkillType.NovaSpell] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.6,
+	parts = {
+		{
+			name = "1 Stack",
+		},
+		{
+			name = "2 Stacks",
+		},
+		{
+			name = "3 Stacks",
+		},
+	},
 	statMap = {
 		["hinder_enemy_chaos_damage_taken_+%"] = {
 			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }),
@@ -737,6 +761,8 @@ skills["VaalBlight"] = {
 	},
 	baseMods = {
 		skill("radius", 20),
+		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("Damage", "MORE", 200, 0, 0, { type = "SkillPart", skillPart = 3 }),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },

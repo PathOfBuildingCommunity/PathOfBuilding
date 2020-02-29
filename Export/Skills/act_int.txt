@@ -111,19 +111,45 @@ local skills, mod, flag, skill = ...
 
 #skill Blight
 #flags spell duration area
+	parts = {
+		{
+			name = "1 Stack",
+		},
+		{
+			name = "10 Stacks",
+		},
+		{
+			name = "20 Stacks",
+		},
+	},
 #baseMod skill("debuff", true)
 #baseMod skill("debuffSecondary", true)
 #baseMod skill("radius", 26)
+#baseMod mod("Damage", "MORE", 900, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Damage", "MORE", 1900, 0, 0, { type = "SkillPart", skillPart = 3 })
 #mods
 
 #skill VaalBlight
 #flags spell duration area
+	parts = {
+		{
+			name = "1 Stack",
+		},
+		{
+			name = "2 Stacks",
+		},
+		{
+			name = "3 Stacks",
+		},
+	},
 	statMap = {
 		["hinder_enemy_chaos_damage_taken_+%"] = {
 			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }),
 		},
 	},
 #baseMod skill("radius", 20)
+#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Damage", "MORE", 200, 0, 0, { type = "SkillPart", skillPart = 3 })
 #mods
 
 #skill CorpseWarp
