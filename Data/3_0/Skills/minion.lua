@@ -1223,8 +1223,8 @@ skills["MinionInstability"] = {
 		[1] = { },
 	},
 }
-skills["BeaconCausticCloud"] = {
-	name = "Caustic Cloud",
+skills["SiegebreakerCausticGround"] = {
+	name = "Caustic Ground",
 	hidden = true,
 	color = 4,
 	baseFlags = {
@@ -1234,7 +1234,7 @@ skills["BeaconCausticCloud"] = {
 	},
 	skillTypes = { },
 	baseMods = {
-		skill("ChaosDot", 1, { type = "PerStat", stat = "Life", div = 10 }),
+		skill("ChaosDot", 1, { type = "PerStat", stat = "Life", div = 5 }),
 		skill("dotIsArea", true),
 	},
 	qualityStats = {
