@@ -49,6 +49,13 @@ local damageStatsForTypes = setmetatable({ }, { __index = function(t, k)
 	return modNames
 end })
 
+-- Used for pvp damage calculations
+local PvpElemental1 = 0.55
+local PvpElemental2 = 150
+local PvpNonElemental1 = 0.57
+local PvpNonElemental2 = 90
+local PvpMultiplier = 1
+
 -- Calculate min/max damage for the given damage type
 local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags, convDst)
 	local skillModList = activeSkill.skillModList
@@ -1299,6 +1306,15 @@ function calcs.offence(env, actor, activeSkill)
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
 		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+		-- Calculate PvP values
+		percentageNonElemental = ((output["PhysicalHitAverage"] + output["ChaosHitAverage"]) / (totalHitMin + totalHitMax) * 2)
+		percentageElemental = 1 - percentageNonElemental
+		portionNonElemental = (output.AverageHit * ((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod) / PvpNonElemental2 ) ^ PvpNonElemental1 / ((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod) * PvpNonElemental2 * percentageNonElemental
+		portionElemental = (output.AverageHit * ((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod) / PvpElemental2 ) ^ PvpElemental1 / ((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod) * PvpElemental2 * percentageElemental
+		output.PvpAverageHit = (portionNonElemental + portionElemental) * PvpMultiplier
+		output.PvpAverageDamage = output.PvpAverageHit * output.HitChance / 100
+		output.PvpTotalDPS = output.PvpAverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+		
 		if breakdown then
 			if output.CritEffect ~= 1 then
 				breakdown.AverageHit = { }
@@ -1311,12 +1327,24 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.AverageHit, s_format("+ %.1f x %.4f ^8(damage from crits)", totalCritAvg, output.CritChance / 100))
 				t_insert(breakdown.AverageHit, s_format("= %.1f", output.AverageHit))
 			end
+			breakdown.PvpAverageHit = { }
+			t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.AverageHit, 1/((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod),  PvpNonElemental2, PvpNonElemental1, 1 / ((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod), PvpNonElemental2, percentageNonElemental, portionNonElemental))
+			t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.AverageHit, 1/((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod),  PvpElemental2, PvpElemental1, 1 / ((PvpTvalueOverride or globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod), PvpElemental2, percentageElemental, portionElemental))
+			t_insert(breakdown.PvpAverageHit, s_format("(portionNonElemental + portionElemental) * PvP multiplier"))
+			t_insert(breakdown.PvpAverageHit, s_format("(%.1f + %.1f) * %.1f", portionNonElemental, portionElemental, PvpMultiplier))
+			t_insert(breakdown.PvpAverageHit, s_format("= %.1f", output.PvpAverageHit))
 			if isAttack then
 				breakdown.AverageDamage = { }
 				t_insert(breakdown.AverageDamage, s_format("%s:", pass.label))
 				t_insert(breakdown.AverageDamage, s_format("%.1f ^8(average hit)", output.AverageHit))
 				t_insert(breakdown.AverageDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
 				t_insert(breakdown.AverageDamage, s_format("= %.1f", output.AverageDamage))
+				
+				breakdown.PvpAverageDamage = { }
+				t_insert(breakdown.PvpAverageDamage, s_format("%s:", pass.label))
+				t_insert(breakdown.PvpAverageDamage, s_format("%.1f ^8(average pvp hit)", output.PvpAverageHit))
+				t_insert(breakdown.PvpAverageDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+				t_insert(breakdown.PvpAverageDamage, s_format("= %.1f", output.PvpAverageDamage))
 			end
 		end
 	end
@@ -1326,6 +1354,8 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("PreEffectiveCritChance", "AVERAGE")
 		combineStat("CritChance", "AVERAGE")
 		combineStat("CritMultiplier", "AVERAGE")
+		combineStat("PvpAverageDamage", "DPS")
+		combineStat("PvpTotalDPS", "DPS")
 		combineStat("AverageDamage", "DPS")
 		combineStat("TotalDPS", "DPS")
 		combineStat("LifeLeechDuration", "DPS")
@@ -1372,16 +1402,26 @@ function calcs.offence(env, actor, activeSkill)
 				s_format("%.1f ^8(average damage)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed),
 			}
+			breakdown.PvpTotalDPS = {
+				s_format("%.1f ^8(average pvp damage)", output.PvpAverageDamage),
+				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed),
+			}
 		else
 			breakdown.TotalDPS = {
 				s_format("%.1f ^8(average hit)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(cast rate)", output.Speed),
 			}
+			breakdown.PvpTotalDPS = {
+				s_format("%.1f ^8(average pvp hit)", output.PvpAverageDamage),
+				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(cast rate)", output.Speed),
+			}
 		end
 		if skillData.dpsMultiplier then
 			t_insert(breakdown.TotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+			t_insert(breakdown.PvpTotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
 		end
 		t_insert(breakdown.TotalDPS, s_format("= %.1f", output.TotalDPS))
+		t_insert(breakdown.PvpTotalDPS, s_format("= %.1f", output.PvpTotalDPS))
 	end
 
 	-- Calculate leech rates

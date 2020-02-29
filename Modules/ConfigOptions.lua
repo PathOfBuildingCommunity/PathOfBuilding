@@ -278,6 +278,12 @@ return {
 	{ var = "multiplierSextant", type = "count", label = "# of Sextants affecting the area", ifMult = "Sextant", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Sextant", "BASE", m_min(val, 5), "Config")
 	end },
+	{ label = "Unique Map Modifiers:" },
+	{ var = "PvpScaling", type = "check", label = "PvP damage scaling in effect", tooltip = "'Hall of Grandmasters'", apply = function(val, modList, enemyModList)
+		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
+		modList:NewMod("PvpDamage", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("PvpTvalueOverride", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ label = "Player is cursed by:" },
 	{ var = "playerCursedWithAssassinsMark", type = "count", label = "Assassin's Mark:", tooltip = "Sets the level of Assassin's Mark to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "AssassinsMark", level = val, applyToPlayer = true })
@@ -755,6 +761,12 @@ return {
 	end },
 	{ var = "conditionHaveManaStorm", type = "check", label = "Do you have Manastorm's Lightning Buff?", ifCond = "HaveManaStorm", tooltip = "This option is enable Manastorm's Lightning Damage Buff\nWhen you cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage\nequal to 25% of Sacrificed Mana for 4 Seconds", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SacrificeManaForLightning", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "multiplierPvpTvalueOverride", type = "count", label = "PvP Tvalue override:", ifMult = "PvpTvalueOverride", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:PvpTvalueOverride", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "multiplierPvpDamage", type = "count", label = "Custom PvP Damage multiplier:", ifMult = "PvpDamage", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:PvpDamage", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	-- Section: Effective DPS options
 	{ section = "For Effective DPS", col = 1 },
