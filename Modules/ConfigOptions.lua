@@ -281,8 +281,6 @@ return {
 	{ label = "Unique Map Modifiers:" },
 	{ var = "PvpScaling", type = "check", label = "PvP damage scaling in effect", tooltip = "'Hall of Grandmasters'", apply = function(val, modList, enemyModList)
 		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
-		modList:NewMod("PvpDamage", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-		modList:NewMod("PvpTvalueOverride", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ label = "Player is cursed by:" },
 	{ var = "playerCursedWithAssassinsMark", type = "count", label = "Assassin's Mark:", tooltip = "Sets the level of Assassin's Mark to apply to the player.", apply = function(val, modList, enemyModList)
@@ -762,10 +760,10 @@ return {
 	{ var = "conditionHaveManaStorm", type = "check", label = "Do you have Manastorm's Lightning Buff?", ifCond = "HaveManaStorm", tooltip = "This option is enable Manastorm's Lightning Damage Buff\nWhen you cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage\nequal to 25% of Sacrificed Mana for 4 Seconds", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SacrificeManaForLightning", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierPvpTvalueOverride", type = "count", label = "PvP Tvalue override:", apply = function(val, modList, enemyModList)
+	{ var = "multiplierPvpTvalueOverride", type = "count", label = "PvP Tvalue override:", ifFlag = "isPvP", tooltip = "This overrides the Tvalue of a given skill, for instance any with fixed tvalues or for traps/mines until those are supported", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PvpTvalueOverride", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierPvpDamage", type = "count", label = "Custom PvP Damage multiplier:", apply = function(val, modList, enemyModList)
+	{ var = "multiplierPvpDamage", type = "count", label = "Custom PvP Damage multiplier:", ifFlag = "isPvP", tooltip = "This multiplies the damage of a given skill in pvp, for instance any with damage multiplier specific to pvp (from skill or support or item like sire of shards)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PvpDamage", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	-- Section: Effective DPS options

@@ -1307,7 +1307,36 @@ function calcs.offence(env, actor, activeSkill)
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
 		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+		
 		-- Calculate PvP values
+		
+		--setup flags
+		skillFlags.isPvP = false
+		skillFlags.notAttackPvP = false
+		skillFlags.weapon1AttackPvP = false
+		skillFlags.weapon2AttackPvP = false
+		skillFlags.attackPvP = false
+		skillFlags.notAveragePvP = false
+		
+		if env.configInput.HasPvpScaling then
+			skillFlags.isPvP = true
+			if skillFlags.attack then
+				skillFlags.attackPvP = true		
+				if skillFlags.weapon1Attack then
+					skillFlags.weapon1AttackPvP = true
+				end
+				if skillFlags.weapon2Attack then
+					skillFlags.weapon2AttackPvP = true
+				end
+			else		
+				skillFlags.notAttackPvP = true
+			end
+			if skillFlags.notAverage then
+				skillFlags.notAveragePvP = true
+			end
+		end
+		
+		
 		percentageNonElemental = ((output["PhysicalHitAverage"] + output["ChaosHitAverage"]) / (totalHitMin + totalHitMax) * 2)
 		percentageElemental = 1 - percentageNonElemental
 		if env.configInput.multiplierPvpTvalueOverride then
@@ -1325,6 +1354,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.PvpAverageHit = (portionNonElemental + portionElemental) * PvpMultiplier
 		output.PvpAverageDamage = output.PvpAverageHit * output.HitChance / 100
 		output.PvpTotalDPS = output.PvpAverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+		
 		if breakdown then
 			if output.CritEffect ~= 1 then
 				breakdown.AverageHit = { }
