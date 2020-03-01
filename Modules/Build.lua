@@ -231,8 +231,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	-- This may be user-customisable in the future
 	self.displayStats = {
 		{ stat = "ActiveMinionLimit", label = "Active Minion Limit", fmt = "d" },
-		{ stat = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
-		{ stat = "PvpAverageHit", label = "PvP Average Hit", fmt = ".1f", compPercent = true},
+		{ stat = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true},
+		{ stat = "PvpAverageHit", label = "PvP Average Hit", fmt = ".1f", compPercent = true, flag = "isPvP"},
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true, flag = "attack" },
 		{ stat = "PvpAverageDamage", label = "PvP Average Damage", fmt = ".1f", compPercent = true, flag = "attackPvP" },
 		{ stat = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack" },
