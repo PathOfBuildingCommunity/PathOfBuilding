@@ -849,6 +849,9 @@ return {
 	{ var = "conditionEnemyOnFungalGround", type = "check", label = "Is the enemy on fungal ground?", ifCond = "OnFungalGround", tooltip = "Enemies on your Fungal Ground deal 10% less Damage", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnFungalGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionEnemyInChillingArea", type = "check", label = "Is the enemy in a chilling area?", ifEnemyCond = "InChillingArea", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:InChillingArea", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "conditionEnemyRareOrUnique", type = "check", label = "is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "Your enemy will automatically be considered to be Unique if one of the Boss options is selected.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
