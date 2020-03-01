@@ -4,7 +4,7 @@
 
 #### Before creating an issue:
 * Check that the bug hasn't been reported in an existing issue. View similar issues on the left of the submit button.
-* Make sure you are running the latest version of the program; click "Check for Update" at the bottom left corner.
+* Make sure you are running the latest version of the program. Click "Check for Update" at the bottom left corner.
 * If you've found an issue with offence or defence calculations, make sure you check the breakdown for that calculation in the Calcs tab to see how it is being performed, as this may help you find the cause.
 
 #### When creating an issue:
@@ -15,8 +15,8 @@
 Feature requests are always welcome. Note that not all requests will receive an immediate response.
 
 #### Before submitting a feature request:
-* Check that the feature hasn't already been requested; look at all issues with titles that might be related to the feature.
-* Make sure you are running the latest version of the program, as the feature may already have been added; click "Check for Update" at the bottom left corner.
+* Check that the feature hasn't already been requested. Look at all issues with titles that might be related to the feature.
+* Make sure you are running the latest version of the program, as the feature may already have been added. Click "Check for Update" at the bottom left corner.
 
 #### When submitting a feature request:
 * Be specific! The more details, the better.
@@ -26,7 +26,7 @@ Feature requests are always welcome. Note that not all requests will receive an 
 
 #### Before submitting a pull request:
 * There is a [Discord](https://discordapp.com/) server for **active development** on the fork and members are happy to answer your questions there.
-  If you are interested in joining, send a private message to any of `Cinnabarit#1341`, `LocalIdentity#9871`, `nick_#8198` and we'll send you an invite.
+  If you are interested in joining, send a private message to any of **Cinnabarit#1341**, **LocalIdentity#9871**, **nick_#8198** and we'll send you an invite.
 
 #### When submitting a pull request:
 * **Pull requests must be made against the 'dev' branch**, as all changes to the code are staged there before merging to 'master'.
