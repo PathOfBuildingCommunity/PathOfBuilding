@@ -1318,7 +1318,7 @@ function calcs.offence(env, actor, activeSkill)
 		skillFlags.attackPvP = false
 		skillFlags.notAveragePvP = false
 		
-		if env.configInput.HasPvpScaling then
+		if env.configInput.PvpScaling then
 			skillFlags.isPvP = true
 			if skillFlags.attack then
 				skillFlags.attackPvP = true		
