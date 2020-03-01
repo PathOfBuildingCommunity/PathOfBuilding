@@ -35,18 +35,15 @@ Feature requests are always welcome. Note that not all requests will receive an 
 * There are many more files in the `./Data` directory that are automatically generated. To change these, instead change the scripts in the `./Export` directory.
 
 #### Setting up a development install
+Note: This tutorial assumes that you are already familiar with Git and basic command line tools.
 
 The easiest way to make and test changes is by setting up a development install, in which the program runs directly from a local copy of the repository:
-1. Install [Git](https://git-scm.com/)
-2. Open Git Bash
-3. `cd` into the directory you want to clone the repository to, for example:
 
-       cd ~ && mkdir GitHub && cd GitHub
-4. Clone the repository using this command:
+1. Clone the repository using this command:
 
        git clone -b dev https://github.com/LocalIdentity/PathOfBuilding.git
-5. Create a shortcut to the 'Path of Building.exe' in your main installation of the program.
-6. Add the path to `./Launch.lua` as an argument to the shortcut. You should end up with something like: `"C:\Program Files (x86)\Path of Building\Path of Building.exe" "C:\Path of Building\Launch.lua"`.
+2. Create a shortcut to the 'Path of Building.exe' in your main installation of the program.
+3. Add the path to `./Launch.lua` as an argument to the shortcut. You should end up with something like: `"C:\Program Files (x86)\Path of Building\Path of Building.exe" "C:\Path of Building\Launch.lua"`.
 
 You can now use the shortcut to run the program from the repository. Running the program in this manner automatically enables 'Dev Mode', which has some handy debugging feature:
 * `F5` restarts the program in-place (this is what usually happens when an update is applied).
@@ -64,32 +61,35 @@ Note that the updates system is disabled in Dev Mode, so you must update manuall
 
 #### Keeping your fork up to date
 
+Note: This tutorial assumes that you are already familiar with Git and basic command line tools.
+
 Note: If you've configured a remote already, you can skip ahead to step 6.
-1. Open Git Bash.
-2. `cd` into the repository directory.
-3. Check your current remote repositories.
+
+1. Check your current remote repositories.
 
        git remote -v
-4. Add a new remote repository and name it `upstream`.
+2. Add a new remote repository and name it `upstream`.
 
        git remote add upstream https://github.com/LocalIdentity/PathOfBuilding
-5. Verify that adding the remote worked by running the last command again.
+3. Verify that adding the remote worked by running the last command again.
 
        git remote -v
-6. Fetch all branches and their commits from upstream.
+4. Fetch all branches and their commits from upstream.
 
        git fetch upstream
-7. Check out your local `dev` branch if you haven't already.
+5. Check out your local `dev` branch if you haven't already.
 
        git checkout dev
-8. Merge all changes from `upstream/dev` into your local `dev` branch.
+6. Merge all changes from `upstream/dev` into your local `dev` branch.
 
        git rebase upstream/dev
-9. Push your updated branch to GitHub.
+7. Push your updated branch to GitHub.
 
        git push -f origin dev
 
 #### Setting up a development environment
+
+Note: This tutorial assumes that you are already familiar with the development tool of your choice.
 
 If you want to use a text editor, [Visual Studio Code](https://code.visualstudio.com/) is recommended.
 If you want to use an IDE instead, [PyCharm Community](https://www.jetbrains.com/pycharm/) or [IntelliJ Idea Community](https://www.jetbrains.com/idea/) are recommended.
@@ -103,6 +103,8 @@ To setup a debugger for PoB on an IDE with EmmyLua:
 * Start PoB and attach debugger.
 
 #### Exporting Data from a GGPK file
+
+Note: This tutorial assumes that you are already familiar with the GGPK and its structure.
 
 The repository also contains the system used to export data from the game's Content.ggpk file. This can be found in the Export folder. The data is exported using the scripts in `./Export/Scripts`, which are run from within the `.dat` viewer.
 
