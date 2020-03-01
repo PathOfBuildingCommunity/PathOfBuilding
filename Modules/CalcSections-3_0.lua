@@ -370,6 +370,7 @@ return {
 		{ format = "{1:output:FireDot}", { breakdown = "FireDot" }, },
 		{ format = "{1:output:ChaosDot}", { breakdown = "ChaosDot" }, },
 	},
+	{ label = "PvP Damage over Time", { format = "{1:output:PvpTotalDot}", { breakdown = "PvpTotalDot" }, }, },
 	{ label = "Mana Cost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = "ManaCost", cfg = "skill" }, }, },
 } },
 { 1, "Speed", 1, "Attack/Cast Rate", colorCodes.OFFENCE, {

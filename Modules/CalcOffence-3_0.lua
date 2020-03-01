@@ -1358,21 +1358,24 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		
-		
-		percentageNonElemental = ((output["PhysicalHitAverage"] + output["ChaosHitAverage"]) / (totalHitMin + totalHitMax) * 2)
-		percentageElemental = 1 - percentageNonElemental
 		if env.configInput.multiplierPvpTvalueOverride then
 			PvpTvalue = env.configInput.multiplierPvpTvalueOverride
 		else
 			PvpTvalue = 1/((globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod)
+			if PvpTvalue > 2147483647 then
+				PvpTvalue = 1
+			end
 		end
-		portionNonElemental = (output.AverageHit / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * percentageNonElemental
-		portionElemental = (output.AverageHit / PvpTvalue / PvpElemental2 ) ^ PvpElemental1 * PvpTvalue * PvpElemental2 * percentageElemental
 		if env.configInput.multiplierPvpDamage then
 			PvpMultiplier = 1 * env.configInput.multiplierPvpDamage / 100
 		else
 			PvpMultiplier = 1
 		end
+		
+		percentageNonElemental = ((output["PhysicalHitAverage"] + output["ChaosHitAverage"]) / (totalHitMin + totalHitMax) * 2)
+		percentageElemental = 1 - percentageNonElemental
+		portionNonElemental = (output.AverageHit / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * percentageNonElemental
+		portionElemental = (output.AverageHit / PvpTvalue / PvpElemental2 ) ^ PvpElemental1 * PvpTvalue * PvpElemental2 * percentageElemental
 		output.PvpAverageHit = (portionNonElemental + portionElemental) * PvpMultiplier
 		output.PvpAverageDamage = output.PvpAverageHit * output.HitChance / 100
 		output.PvpTotalDPS = output.PvpAverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
@@ -1432,6 +1435,14 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				t_insert(breakdown.AverageDamage, s_format("= %.1f", output.AverageDamage))
 			end
+				breakdown.PvpAverageDamage = { }
+				t_insert(breakdown.PvpAverageDamage, "Both weapons:")
+				if skillData.doubleHitsWhenDualWielding then
+					t_insert(breakdown.PvpAverageDamage, s_format("%.1f + %.1f ^8(skill hits with both weapons at once)", output.MainHand.PvpAverageDamage, output.OffHand.PvpAverageDamage))
+				else
+					t_insert(breakdown.PvpAverageDamage, s_format("(%.1f + %.1f) / 2 ^8(skill alternates weapons)", output.MainHand.PvpAverageDamage, output.OffHand.PvpAverageDamage))
+				end
+				t_insert(breakdown.PvpAverageDamage, s_format("= %.1f", output.PvpAverageDamage))
 		end
 	end
 	if env.mode == "CALCS" then
@@ -1560,6 +1571,21 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown[damageType.."Dot"] = { }
 				breakdown.dot(breakdown[damageType.."Dot"], baseVal, inc, more, mult, nil, effMult, total)
 			end
+			
+			dotPercentageNonElemental = 0
+			dotPercentageElemental = 1
+			dotPortionNonElemental = (output.TotalDot / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * dotPercentageNonElemental
+			dotPortionElemental = (output.TotalDot / PvpTvalue / PvpElemental2 ) ^ PvpElemental1 * PvpTvalue * PvpElemental2 * dotPercentageElemental
+			output.PvpTotalDot = (dotPortionNonElemental + dotPortionElemental) * PvpMultiplier
+			if breakdown then
+				breakdown.PvpTotalDot = { }
+				t_insert(breakdown.PvpTotalDot, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.TotalDot, PvpTvalue, PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, dotPercentageNonElemental, dotPortionNonElemental))
+				t_insert(breakdown.PvpTotalDot, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.TotalDot, PvpTvalue, PvpElemental2, PvpElemental1, PvpTvalue, PvpElemental2, dotPercentageElemental, dotPortionElemental))
+				t_insert(breakdown.PvpTotalDot, s_format("(portionNonElemental + portionElemental) * PvP multiplier"))
+				t_insert(breakdown.PvpTotalDot, s_format("(%.1f + %.1f) * %.1f", dotPortionNonElemental, dotPortionElemental, PvpMultiplier))
+				t_insert(breakdown.PvpTotalDot, s_format("= %.1f", output.PvpTotalDot))
+			end
+			ConPrintf("PvpTotalDot " .. output.PvpTotalDot)
 		end
 	end
 
@@ -2455,8 +2481,6 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	
-	output.PvpTotalDot = 0
 	
 	-- Calculate combined DPS estimate, including DoTs
 	local baseDPS = output[(skillData.showAverage and "AverageDamage") or "TotalDPS"] + output.TotalDot
