@@ -17,9 +17,9 @@ return {
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config")
 	end },
 	{ var = "conditionStationary", type = "count", label = "Are you stationary?", ifCond = "Stationary", 
-		tooltip = "Applies mods that use `while stationary` and `per second while stationary`",
+		tooltip = "Applies mods that use `while stationary` and `per/every second while stationary`",
 		apply = function(val, modList, enemyModList)
-		local sanitizedValue = m_max(0, m_min(val, 5))
+		local sanitizedValue = m_max(0, val)
 		modList:NewMod("Multiplier:StationarySeconds", "BASE", sanitizedValue, "Config")
 		if sanitizedValue > 0 then
 			modList:NewMod("Condition:Stationary", "FLAG", true, "Config")
