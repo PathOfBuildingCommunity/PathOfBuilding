@@ -4093,7 +4093,7 @@ c["If you Consumed a Corpse Recently, you and nearby Allies regenerate 5% of Lif
 c["200 Lightning Damage taken per second per Power Charge if your Skills have dealt a Critical Strike Recently"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},[2]={type="Condition",var="SkillCritRecently"},flags=0,keywordFlags=0,name="LightningDegen",type="BASE",value=200}},nil}
 c["30% increased Cast Speed"]={{[1]={flags=16,keywordFlags=0,name="Speed",type="INC",value=30}},nil}
 c["Immune to Ignite and Shock Regenerate 1% of Life per second for each Mine Detonated Recently, up to 10% per second Regenerate 1% of Life per Second for each Trap Triggered Recently, up to 10% per second 20% reduced Mana Cost of Skills that throw Traps 20% reduced Mana Reservation of Skills that throw Mines"]={nil,"Immune to Ignite and Shock Regenerate 1% of Life per second for each Mine Detonated Recently, up to 10% per second Regenerate 1% of Life per Second for each Trap Triggered Recently, up to 10% per second 20% reduced Mana Cost of Skills that throw Traps 20% reduced Mana Reservation of Skills that throw Mines "}
-c["Trigger Level 20 Summon Phantasm Skill when you Consume a Corpse"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SupportSummonGhostOnKill"}}},nil}
+c["Trigger Level 20 Summon Phantasm Skill when you Consume a Corpse"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="TriggeredSummonGhostOnKill"}}},nil}
 c["12% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=12}},nil}
 c["Unaffected by Vulnerability while affected by Determination {variant:13}8% chance to Block Spells while affected by Discipline"]={nil,"Unaffected by Vulnerability while affected by Determination {variant:13}8% chance to Block Spells while affected by Discipline "}
 c["Gain Unholy Might during Flask Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}},nil}
@@ -4469,8 +4469,7 @@ c["+2 to Maximum Life per 10 Dexterity"]={{[1]={[1]={div=10,stat="Dex",type="Per
 c["Immune to Burning Ground, Shocked Ground and Chilled Ground Regenerate 100 Life per second while moving"]={nil,"Immune to Burning Ground, Shocked Ground and Chilled Ground Regenerate 100 Life per second while moving "}
 c["20% increased Quantity of Items Found"]={{[1]={flags=0,keywordFlags=0,name="LootQuantity",type="INC",value=20}},nil}
 c["45% chance to avoid Bleeding"]={{[1]={flags=0,keywordFlags=0,name="AvoidBleed",type="BASE",value=45}},nil}
-c["Trigger Level 20 Intimidating Cry when you lose Cat's Stealth 150% increased Evasion Rating"]={nil,"Trigger Level 20 Intimidating Cry when you lose Cat's Stealth 150% increased Evasion Rating "}
-c["Trigger Level 20 Intimidating Cry when you lose Cat's Stealth"]={nil,"Trigger Level 20 Intimidating Cry when you lose Cat's Stealth "}
+c["Trigger Level 20 Intimidating Cry when you lose Cat's Stealth"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="CatsStealthTriggeredIntimidatingCry"}}},nil}
 c["20% increased Attack and Cast Speed while Elusive"]={{[1]={[1]={type="Condition",var="Elusive"},flags=0,keywordFlags=0,name="Speed",type="INC",value=20}},nil}
 c["Gain 10% of Physical Damage as Extra Damage of a random Element"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=10}},"  as Extra Damage of a random Element "}
 c["250% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC",value=250}},nil}
@@ -5604,7 +5603,7 @@ c["20% increased Damage per Curse on Enemy"]={{[1]={[1]={type="Multiplier",var="
 c["+6% Chance to Block Spell Damage while wielding a Staff"]={{[1]={[1]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=6}},nil}
 c["118% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=118}},nil}
 c["Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and recover Energy Shield equal to 5% of your Evasion Rating"]={nil,"Every 2 seconds, gain a Ghost Shroud, up to a maximum of 3 When Hit, lose a Ghost Shroud and recover Energy Shield equal to 5% of your Evasion Rating "}
-c["Your Counterattacks deal Double Damage"]={{[1]={[1]={type="SkillName",skillName="Reckoning"},flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=100},[2]={[1]={type="SkillName",skillName="Riposte"},flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=100}},[3]={[1]={type="SkillName",skillName="Vengeance"},flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=100},nil}
+c["Your Counterattacks deal Double Damage"]={{[1]={[1]={skillName="Reckoning",type="SkillName"},flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=100},[2]={[1]={skillName="Riposte",type="SkillName"},flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=100},[3]={[1]={skillName="Vengeance",type="SkillName"},flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=100}},nil}
 c["Reflects 10 Cold Damage to Melee Attackers"]={nil,"Reflects 10 Cold Damage to Melee Attackers "}
 c["Cannot Leech Life"]={{[1]={flags=0,keywordFlags=0,name="CannotLeechLife",type="FLAG",value=true}},nil}
 c["12% increased Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=12}},nil}
