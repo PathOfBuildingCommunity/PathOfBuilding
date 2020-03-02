@@ -1196,7 +1196,7 @@ local specialModList = {
 	["enemies maimed by you take (%d+)%% increased physical damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("PhysicalDamageTaken", "INC", num, { type = "Condition", var = "Maimed" }) }) } end,
 	["chance to block spell damage is equal to chance to block attack damage"] = { flag("SpellBlockChanceIsBlockChance") },
 	["maximum chance to block spell damage is equal to maximum chance to block attack damage"] = { flag("SpellBlockChanceMaxIsBlockChanceMax") },
-	["Your Counterattacks deal Double Damage"] = {
+	["your counterattacks deal double damage"] = {
 		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Reckoning" }),
 		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Riposte" }),
 		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Vengeance" }),
