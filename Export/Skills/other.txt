@@ -456,7 +456,7 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill TriggeredSummonGhostOnKill
+#skill TriggeredSummonGhostOnKill Triggered Summon Phantasm
 #flags spell minion
 	fromItem = true,
 	minionList = {
