@@ -763,6 +763,9 @@ return {
 	{ var = "multiplierPvpTvalueOverride", type = "count", label = "PvP Tvalue override:", ifFlag = "isPvP", tooltip = "This overrides the Tvalue of a given skill, for instance any with fixed tvalues or for traps/mines until those are supported", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PvpTvalueOverride", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "multiplierPvpDotTvalueOverride", type = "count", label = "PvP Dot Tvalue override:", ifFlag = "isPvP", tooltip = "This overrides the Tvalue of the dot portion of a given skill, not used for generic dots like bleed, ingite or poison, it only applys to dots granted by skills", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:PvpTvalueOverride", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "multiplierPvpDamage", type = "count", label = "Custom PvP Damage multiplier:", ifFlag = "isPvP", tooltip = "This multiplies the damage of a given skill in pvp, for instance any with damage multiplier specific to pvp (from skill or support or item like sire of shards)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PvpDamage", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
