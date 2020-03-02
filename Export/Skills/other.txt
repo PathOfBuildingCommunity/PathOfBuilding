@@ -58,6 +58,7 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#noGem
 #skill BoneArmour
 #flags duration spell
 #mods
@@ -92,6 +93,21 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" }),
 		},
 	},
+#mods
+
+#skill CatsStealthTriggeredIntimidatingCry
+#flags warcry area duration
+	fromItem = true,
+	statMap = {
+		["attack_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["intimidating_cry_attack_speed_+%_per_100_enemies"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "NearbyEnemy" }, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 100,
+		},
+	},
+#baseMod skill("buffAllies", true)
 #mods
 
 #skill CrabAspect
@@ -455,7 +471,7 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill TriggeredSummonGhostOnKill
+#skill TriggeredSummonGhostOnKill Triggered Summon Phantasm
 #flags spell minion
 	fromItem = true,
 	minionList = {

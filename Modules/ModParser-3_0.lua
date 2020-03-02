@@ -357,6 +357,7 @@ local modNameList = {
 	-- Buffs
 	["onslaught effect"] = "OnslaughtEffect",
 	["fortify duration"] = "FortifyDuration",
+	["adrenaline duration"] = "AdrenalineDuration",
 	["effect of fortify on you"] = "FortifyEffectOnSelf",
 	["effect of tailwind on you"] = "TailwindEffectOnSelf",
 	["elusive effect"] = "ElusiveEffect",
@@ -879,6 +880,7 @@ local modTagList = {
 	["during effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["during flask effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["during any flask effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
+	["while under no flask effects"] = { tag = { type = "Condition", var = "UsingFlask", neg = true } },
 	["while on consecrated ground"] = { tag = { type = "Condition", var = "OnConsecratedGround" } },
 	["on burning ground"] = { tag = { type = "Condition", var = "OnBurningGround" } },
 	["while on burning ground"] = { tag = { type = "Condition", var = "OnBurningGround" } },
@@ -1196,7 +1198,7 @@ local specialModList = {
 	["enemies maimed by you take (%d+)%% increased physical damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("PhysicalDamageTaken", "INC", num, { type = "Condition", var = "Maimed" }) }) } end,
 	["chance to block spell damage is equal to chance to block attack damage"] = { flag("SpellBlockChanceIsBlockChance") },
 	["maximum chance to block spell damage is equal to maximum chance to block attack damage"] = { flag("SpellBlockChanceMaxIsBlockChanceMax") },
-	["Your Counterattacks deal Double Damage"] = {
+	["your counterattacks deal double damage"] = {
 		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Reckoning" }),
 		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Riposte" }),
 		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Vengeance" }),
@@ -1220,6 +1222,7 @@ local specialModList = {
 	["non%-critical strikes penetrate (%d+)%% of enemy elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
 	["consecrated ground you create applies (%d+)%% increased damage taken to enemies"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) }) } end,
 	["nearby enemies take (%d+)%% increased elemental damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("ElementalDamageTaken", "INC", num) }) } end,
+	["you have consecrated ground around you while stationary"] = { flag("Condition:OnConsecratedGround", { type = "Condition", var = "Stationary" }) },
 	-- Juggernaut
 	["armour received from body armour is doubled"] = { flag("Unbreakable") },
 	["movement speed cannot be modified to below base value"] = { flag("MovementSpeedCannotBeBelowBase") },
@@ -1323,9 +1326,10 @@ local specialModList = {
 	["trigger level (%d+) (.+) when you use a skill while you have a spirit charge"] = function(num, _, skill) return extraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you hit an enemy while cursed"] = function(num, _, skill) return extraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you kill a frozen enemy"] = function(num, _, skill) return extraSkill(skill, num) end,
-	["trigger level (%d+) (.+) when you consume a corpse"] = function(num, _, skill) return extraSkill(skill, num) end,
+	["trigger level (%d+) (.+) when you consume a corpse"] = function(num, _, skill) return skill == "summon phantasm skill" and extraSkill("triggered summon phantasm skill", num) or extraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you attack with a bow"] = function(num, _, skill) return extraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when animated guardian kills an enemy"] = function(num, _, skill) return extraSkill(skill, num) end,
+	["trigger level (%d+) (.+) when you lose cat's stealth"] = function(num, _, skill) return extraSkill(skill, num) end,
 	["%d+%% chance to attack with level (%d+) (.+) on melee hit"] = function(num, _, skill) return extraSkill(skill, num) end,
 	["%d+%% chance to trigger level (%d+) (.+) when animated weapon kills an enemy"] = function(num, _, skill) return extraSkill(skill, num) end,
 	["%d+%% chance to trigger level (%d+) (.+) on melee hit"] = function(num, _, skill) return extraSkill(skill, num) end,
@@ -1508,6 +1512,8 @@ local specialModList = {
 		mod("ExtraAura", "LIST", { mod = mod("Speed", "INC", num) }, { type = "Condition", var = "UsedWarcryRecently" }),
 		mod("ExtraAura", "LIST", { mod = mod("MovementSpeed", "INC", num) }, { type = "Condition", var = "UsedWarcryRecently" }),
 	} end,
+	["enemies in your chilling areas take (%d+)%% increased lightning damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("LightningDamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "InChillingArea" }) } end,
+	["enemies hindered by you take (%d+)%% increased chaos damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("ChaosDamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Hindered" }) } end,
 	-- Traps, Mines and Totems
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
@@ -1797,6 +1803,7 @@ local specialModList = {
 	["socketed lightning spells [hd][ae][va][el] (%d+)%% increased spell damage if triggered"] = { },
 	["manifeste?d? dancing dervish disables both weapon slots"] = { },
 	["manifeste?d? dancing dervish dies when rampage ends"] = { },
+	["you can have two different banners at the same time"] = { },
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques

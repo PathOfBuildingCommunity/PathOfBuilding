@@ -1,3 +1,5 @@
+### 1.4.157.7 - 2020/02/29
+ * Fix crash related to hovering over Bone Armour in the skills tab
 ### 1.4.157.6 - 2020/02/26
  * Revert fix for Rage as it breaks other skills
 ### 1.4.157.5 - 2020/02/25
