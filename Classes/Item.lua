@@ -292,6 +292,9 @@ function ItemClass:ParseRaw(raw)
 						self.baseName = "Two-Toned Boots (Evasion/Energy Shield)"
 						self.base = verData.itemBases[self.baseName]
 					end
+				else
+					foundExplicit = true
+					gameModeStage = "EXPLICIT"
 				end
 			end
 			if line == "Prefixes:" then
