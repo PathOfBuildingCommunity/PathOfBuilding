@@ -4469,8 +4469,7 @@ c["+2 to Maximum Life per 10 Dexterity"]={{[1]={[1]={div=10,stat="Dex",type="Per
 c["Immune to Burning Ground, Shocked Ground and Chilled Ground Regenerate 100 Life per second while moving"]={nil,"Immune to Burning Ground, Shocked Ground and Chilled Ground Regenerate 100 Life per second while moving "}
 c["20% increased Quantity of Items Found"]={{[1]={flags=0,keywordFlags=0,name="LootQuantity",type="INC",value=20}},nil}
 c["45% chance to avoid Bleeding"]={{[1]={flags=0,keywordFlags=0,name="AvoidBleed",type="BASE",value=45}},nil}
-c["Trigger Level 20 Intimidating Cry when you lose Cat's Stealth 150% increased Evasion Rating"]={nil,"Trigger Level 20 Intimidating Cry when you lose Cat's Stealth 150% increased Evasion Rating "}
-c["Trigger Level 20 Intimidating Cry when you lose Cat's Stealth"]={nil,"Trigger Level 20 Intimidating Cry when you lose Cat's Stealth "}
+c["Trigger Level 20 Intimidating Cry when you lose Cat's Stealth"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="CatsStealthTriggeredIntimidatingCry"}}},nil}
 c["20% increased Attack and Cast Speed while Elusive"]={{[1]={[1]={type="Condition",var="Elusive"},flags=0,keywordFlags=0,name="Speed",type="INC",value=20}},nil}
 c["Gain 10% of Physical Damage as Extra Damage of a random Element"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=10}},"  as Extra Damage of a random Element "}
 c["250% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC",value=250}},nil}

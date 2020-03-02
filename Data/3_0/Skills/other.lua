@@ -379,6 +379,45 @@ skills["CatAspect"] = {
 		[20] = { 100, 15, -50, 10, 10, 4000, 6000, cooldown = 0.5, levelRequirement = 1, manaCost = 25, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, },
 	},
 }
+skills["CatsStealthTriggeredIntimidatingCry"] = {
+	name = "Intimidating Cry",
+	hidden = true,
+	color = 4,
+	description = "Performs a warcry, granting the user and nearby allies increased attack speed if there are nearby enemies. The attack speed increase is proportional to the number of surrounding enemies. Taunts all nearby enemies to attack the user, and Intimidates them. Shares a cooldown with other Warcry skills.",
+	skillTypes = { [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Warcry] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.25,
+	fromItem = true,
+	statMap = {
+		["attack_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["intimidating_cry_attack_speed_+%_per_100_enemies"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "NearbyEnemy" }, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		warcry = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("buffAllies", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"attack_speed_+%_granted_from_skill",
+		"intimidating_cry_attack_speed_+%_per_100_enemies",
+		"base_skill_effect_duration",
+		"base_deal_no_damage",
+		"cast_on_lose_cats_stealth",
+	},
+	levels = {
+		[20] = { 10, 20, 4000, cooldown = 4, levelRequirement = 70, statInterpolation = { 1, 1, 1, }, },
+	},
+}
 skills["CrabAspect"] = {
 	name = "Aspect of the Crab",
 	hidden = true,
