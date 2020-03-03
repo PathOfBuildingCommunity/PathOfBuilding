@@ -586,8 +586,15 @@ function calcs.defence(env, actor)
 			output.SpellBlockChanceOverCap = m_max(0, output.SpellBlockChance - output.SpellBlockChanceMax)
 		end
 		if breakdown then
-			breakdown.BlockChance = breakdown.simple(baseBlockChance, nil, output.BlockChance, "BlockChance")
-			breakdown.SpellBlockChance = breakdown.simple(0, nil, output.SpellBlockChance, "SpellBlockChance")
+			breakdown.BlockChance = {
+				"Base: "..baseBlockChance.."%",
+				"Max: "..output.BlockChanceMax.."%",
+				"Total: "..output.BlockChance+output.BlockChanceOverCap.."%",
+			}
+			breakdown.SpellBlockChance = {
+				"Max: "..output.SpellBlockChanceMax.."%",
+				"Total: "..output.SpellBlockChance+output.SpellBlockChanceOverCap.."%",
+			}
 		end
 		if modDB:Flag(nil, "CannotBlockAttacks") then
 			output.BlockChance = 0
