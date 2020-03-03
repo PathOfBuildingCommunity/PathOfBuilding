@@ -625,9 +625,9 @@ local preFlagList = {
 	["^raised zombies' slam attack has "] = { addToMinion = true, tag = { type = "SkillId", skillId = "ZombieSlam" } },
 	["^attacks used by totems have "] = { keywordFlags = KeywordFlag.Totem },
 	["^spells cast by totems have "] = { keywordFlags = KeywordFlag.Totem },
-	["^attacks with this weapon "] = { tag = { type = "Condition", var = "{Hand}Attack" } },
-	["^attacks with this weapon [hd][ae][va][el] "] = { tag = { type = "Condition", var = "{Hand}Attack" } },
-	["^hits with this weapon [hd][ae][va][el] "] = { flags = ModFlag.Hit, tag = { type = "Condition", var = "{Hand}Attack" } },
+	["^attacks with this weapon "] = { tagList = { { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack } } },
+	["^attacks with this weapon [hd][ae][va][el] "] = { tagList = { { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack } } },
+	["^hits with this weapon [hd][ae][va][el] "] = { flags = ModFlag.Hit, tagList = { { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack } } },
 	["^attacks [hd][ae][va][el] "] = { flags = ModFlag.Attack },
 	["^attack skills [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Attack },
 	["^spells [hd][ae][va][el] "] = { flags = ModFlag.Spell },
@@ -798,9 +798,9 @@ local modTagList = {
 	["when in off hand"] = { tag = { type = "SlotNumber", num = 2 } },
 	["in main hand"] = { tag = { type = "InSlot", num = 1 } },
 	["in off hand"] = { tag = { type = "InSlot", num = 2 } },
-	["with main hand"] = { tag = { type = "Condition", var = "MainHandAttack" } },
-	["with off hand"] = { tag = { type = "Condition", var = "OffHandAttack" } },
-	["with this weapon"] = { tag = { type = "Condition", var = "{Hand}Attack" } },
+	["with main hand"] = { tagList = { { type = "Condition", var = "MainHandAttack" }, { type = "SkillType", skillType = SkillType.Attack } } },
+	["with off hand"] = { tagList = { { type = "Condition", var = "OffHandAttack" }, { type = "SkillType", skillType = SkillType.Attack } } },
+	["with this weapon"] = { tagList = { { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack } } },
 	["if your other ring is a shaper item"] = { tag = { type = "Condition", var = "ShaperItemInRing {OtherSlotNum}" } },
 	["if your other ring is an elder item"] = { tag = { type = "Condition", var = "ElderItemInRing {OtherSlotNum}" } },
 	-- Equipment conditions
@@ -1274,10 +1274,10 @@ local specialModList = {
 	["hits can't be evaded"] = { flag("CannotBeEvaded", { type = "Condition", var = "{Hand}Attack" }) },
 	["causes bleeding on hit"] = { mod("BleedChance", "BASE", 100, { type = "Condition", var = "{Hand}Attack" }) },
 	["poisonous hit"] = { mod("PoisonChance", "BASE", 100, { type = "Condition", var = "{Hand}Attack" }) },
-	["attacks with this weapon deal double damage"] = { mod("DoubleDamageChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }) },
-	["attacks with this weapon deal double damage to chilled enemies"] = { mod("DoubleDamageChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "ActorCondition", actor = "enemy", var = "Chilled" }) },
+	["attacks with this weapon deal double damage"] = { mod("DoubleDamageChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }) },
+	["attacks with this weapon deal double damage to chilled enemies"] = { mod("DoubleDamageChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }, { type = "ActorCondition", actor = "enemy", var = "Chilled" }) },
 	["life leech from hits with this weapon applies instantly"] = { flag("InstantLifeLeech", { type = "Condition", var = "{Hand}Attack" }) },
-	["gain life from leech instantly from hits with this weapon"] = { flag("InstantLifeLeech", { type = "Condition", var = "{Hand}Attack" }) },
+	["gain life from leech instantly from hits with this weapon"] = { flag("InstantLifeLeech", { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }) },
 	["instant recovery"] = {  mod("FlaskInstantRecovery", "BASE", 100) },
 	["(%d+)%% of recovery applied instantly"] = function(num) return { mod("FlaskInstantRecovery", "BASE", num) } end,
 	["has no attribute requirements"] = { flag("NoAttributeRequirements") },
@@ -1441,8 +1441,8 @@ local specialModList = {
 	["you have crimson dance if you have dealt a critical strike recently"] = { mod("Keystone", "LIST", "Crimson Dance", { type = "Condition", var = "CritRecently" }) },
 	["bleeding you inflict deals damage (%d+)%% faster"] = function(num) return { mod("BleedFaster", "INC", num) } end,
 	["(%d+)%% chance for bleeding inflicted with this weapon to deal (%d+)%% more damage"] = function(num, _, more) return {
-		mod("Damage", "MORE", tonumber(more) * num / 200, nil, 0, bor(KeywordFlag.Bleed, ModFlag.Attack), { type = "Condition", var = "DualWielding"}),
-		mod("Damage", "MORE", tonumber(more) * num / 100, nil, 0, bor(KeywordFlag.Bleed, ModFlag.Attack), { type = "Condition", var = "DualWielding", neg = true })
+		mod("Damage", "MORE", tonumber(more) * num / 200, nil, 0, bor(KeywordFlag.Bleed, KeywordFlag.Attack), { type = "Condition", var = "DualWielding"}, { type = "SkillType", skillType = SkillType.Attack }),
+		mod("Damage", "MORE", tonumber(more) * num / 100, nil, 0, bor(KeywordFlag.Bleed, KeywordFlag.Attack), { type = "Condition", var = "DualWielding", neg = true }, { type = "SkillType", skillType = SkillType.Attack })
 	} end,
 	-- Poison
 	["y?o?u?r? ?fire damage can poison"] = { flag("FireCanPoison") },
@@ -1458,8 +1458,8 @@ local specialModList = {
 	["traps and mines have a (%d+)%% chance to poison on hit"] = function(num) return { mod("PoisonChance", "BASE", num, nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["poisons you inflict deal damage (%d+)%% faster"] = function(num) return { mod("PoisonFaster", "INC", num) } end,
 	["(%d+)%% chance for poisons inflicted with this weapon to deal (%d+)%% more damage"] = function(num, _, more) return {
-		mod("Damage", "MORE", tonumber(more) * num / 200, nil, 0, bor(KeywordFlag.Poison, ModFlag.Attack), { type = "Condition", var = "DualWielding"}),
-		mod("Damage", "MORE", tonumber(more) * num / 100, nil, 0, bor(KeywordFlag.Poison, ModFlag.Attack), { type = "Condition", var = "DualWielding", neg = true })
+		mod("Damage", "MORE", tonumber(more) * num / 200, nil, 0, bor(KeywordFlag.Poison, KeywordFlag.Attack), { type = "Condition", var = "DualWielding"}, { type = "SkillType", skillType = SkillType.Attack }),
+		mod("Damage", "MORE", tonumber(more) * num / 100, nil, 0, bor(KeywordFlag.Poison, KeywordFlag.Attack), { type = "Condition", var = "DualWielding", neg = true }, { type = "SkillType", skillType = SkillType.Attack })
 	} end,
 	-- Buffs/debuffs
 	["phasing"] = { flag("Condition:Phasing") },
