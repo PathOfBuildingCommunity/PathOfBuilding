@@ -1171,7 +1171,6 @@ skills["BurningArrow"] = {
 		projectile = true,
 	},
 	baseMods = {
-		skill("skillIsDot", true),
 	},
 	qualityStats = {
 		{ "fire_dot_multiplier_+", 0.5 },

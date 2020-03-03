@@ -253,7 +253,6 @@ local skills, mod, flag, skill = ...
 			output.FireDot = 5 * debuff
 		end
 	end,
-#baseMod skill("skillIsDot", true)
 #mods
 
 #skill VaalBurningArrow
