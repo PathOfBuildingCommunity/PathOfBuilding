@@ -1841,7 +1841,7 @@ function calcs.offence(env, actor, activeSkill, skillLookupOnly)
 		else
 			baseVal = 0
 		end
-		if baseVal > 0 then
+		if baseVal > 0 or (output[damageType.."Dot"] or 0) > 0 then
 			skillFlags.dot = true
 			local effMult = 1
 			if env.mode_effective then
