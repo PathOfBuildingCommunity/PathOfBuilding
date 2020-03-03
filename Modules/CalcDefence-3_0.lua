@@ -569,7 +569,9 @@ function calcs.defence(env, actor)
 		if modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
 			output.BlockChance = output.BlockChanceMax
 		else
-			output.BlockChance = m_min((baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
+			totalBlockChance = (baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance")
+			output.BlockChance = m_min(totalBlockChance, output.BlockChanceMax)
+			output.BlockChanceOverCap = m_max(0, totalBlockChance - output.BlockChanceMax)
 		end
 		if modDB:Flag(nil, "SpellBlockChanceMaxIsBlockChanceMax") then
 			output.SpellBlockChanceMax = output.BlockChanceMax
@@ -578,8 +580,10 @@ function calcs.defence(env, actor)
 		end
 		if modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
 			output.SpellBlockChance = output.BlockChance
+			output.SpellBlockChanceOverCap = output.BlockChanceOverCap
 		else
-			output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax) 
+			output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax)
+			output.SpellBlockChanceOverCap = m_max(0, output.SpellBlockChance - output.SpellBlockChanceMax)
 		end
 		if breakdown then
 			breakdown.BlockChance = breakdown.simple(baseBlockChance, nil, output.BlockChance, "BlockChance")
