@@ -312,10 +312,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%" },
 		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%" },
 		{ },
-		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end, resistOverCapStat = "FireResistOverCap"},
-		{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", color = colorCodes.COLD, condFunc = function() return true end, resistOverCapStat = "ColdResistOverCap" },
-		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", color = colorCodes.LIGHTNING, condFunc = function() return true end, resistOverCapStat = "LightningResistOverCap" },
-		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function() return true end, resistOverCapStat = "ChaosResistOverCap" },
+		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end, overCapStat = "FireResistOverCap"},
+		{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", color = colorCodes.COLD, condFunc = function() return true end, overCapStat = "ColdResistOverCap" },
+		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", color = colorCodes.LIGHTNING, condFunc = function() return true end, overCapStat = "LightningResistOverCap" },
+		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function() return true end, overCapStat = "ChaosResistOverCap" },
 	}
 	self.minionDisplayStats = {
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
@@ -1106,7 +1106,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	end
 end
 
-function buildMode:FormatStat(statData, statVal)
+function buildMode:FormatStat(statData, statVal, overCapStatVal)
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
 	local color = (statVal >= 0 and "^7" or colorCodes.NEGATIVE)
 	local valStr = s_format("%"..statData.fmt, val)
@@ -1114,6 +1114,9 @@ function buildMode:FormatStat(statData, statVal)
 		valStr = color .. formatNumSep(valStr)
 	else
 		valStr = color .. valStr
+	end
+	if overCapStatVal and overCapStatVal > 0 then
+		valStr = valStr .. "^x808080" .. " (+" .. overCapStatVal .. "%)"
 	end
 	self.lastShowThousandsSidebar = main.showThousandsSidebar
 	return valStr
@@ -1131,17 +1134,11 @@ function buildMode:AddDisplayStatList(statList, actor)
 					if statData.color then
 						labelColor = statData.color
 					end
-					local resistOverCapStatLabel = ""
-					if (statData.resistOverCapStat) then
-						local resistOverCapStatVal = actor.output[statData.resistOverCapStat]
-						if (resistOverCapStatVal) then
-							resistOverCapStatLabel = " ^7(+"..self:FormatStat(statData, resistOverCapStatVal).."^7)"
-						end
-					end
+					local overCapStatVal = actor.output[statData.overCapStat] or nil
 					t_insert(statBoxList, {
 						height = 16,
 						labelColor..statData.label..":",
-						self:FormatStat(statData, statVal)..resistOverCapStatLabel,
+						self:FormatStat(statData, statVal, overCapStatVal),
 					})
 				end
 			end
