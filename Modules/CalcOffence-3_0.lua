@@ -1381,8 +1381,11 @@ function calcs.offence(env, actor, activeSkill)
 			
 			if breakdown then
 				breakdown.PvpAverageHit = { }
-				t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.AverageHit, PvpTvalue,  PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, percentageNonElemental, portionNonElemental))
-				t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.AverageHit, PvpTvalue,  PvpElemental2, PvpElemental1, PvpTvalue, PvpElemental2, percentageElemental, portionElemental))
+				t_insert(breakdown.PvpAverageHit, s_format("Pvp Formula is (D/(T*M))^E*T*M*P, where D is the damage, T is the time taken," ))
+				t_insert(breakdown.PvpAverageHit, s_format("M is the multiplier, E is the exponent and P is the percentage of that type (ele or non ele)"))
+				t_insert(breakdown.PvpAverageHit, s_format("(M=%.1f for ele and %.1f for non-ele)(E=%.2f for ele and %.2f for non-ele)", PvpElemental2, PvpNonElemental2, PvpElemental1, PvpNonElemental1))
+				t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output.AverageHit, PvpTvalue,  PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, percentageNonElemental, portionNonElemental))
+				t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output.AverageHit, PvpTvalue,  PvpElemental2, PvpElemental1, PvpTvalue, PvpElemental2, percentageElemental, portionElemental))
 				t_insert(breakdown.PvpAverageHit, s_format("(portionNonElemental + portionElemental) * PvP multiplier"))
 				t_insert(breakdown.PvpAverageHit, s_format("(%.1f + %.1f) * %.1f", portionNonElemental, portionElemental, PvpMultiplier))
 				t_insert(breakdown.PvpAverageHit, s_format("= %.1f", output.PvpAverageHit))
@@ -1612,8 +1615,11 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			if breakdown then
 				breakdown.PvpTotalDot = { }
-				t_insert(breakdown.PvpTotalDot, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.TotalDot, PvpDotTvalue, PvpNonElemental2, PvpNonElemental1, PvpDotTvalue, PvpNonElemental2, dotPercentageNonElemental, dotPortionNonElemental))
-				t_insert(breakdown.PvpTotalDot, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.TotalDot, PvpDotTvalue, PvpElemental2, PvpElemental1, PvpDotTvalue, PvpElemental2, dotPercentageElemental, dotPortionElemental))
+				t_insert(breakdown.PvpTotalDot, s_format("Pvp Formula is (D/(T*M))^E*T*M*P, where D is the damage, T is the time taken," ))
+				t_insert(breakdown.PvpTotalDot, s_format("M is the multiplier, E is the exponent and P is the percentage of that type (ele or non ele)"))
+				t_insert(breakdown.PvpTotalDot, s_format("(M=%.1f for ele and %.1f for non-ele)(E=%.2f for ele and %.2f for non-ele)", PvpElemental2, PvpNonElemental2, PvpElemental1, PvpNonElemental1))
+				t_insert(breakdown.PvpTotalDot, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output.TotalDot, PvpDotTvalue, PvpNonElemental2, PvpNonElemental1, PvpDotTvalue, PvpNonElemental2, dotPercentageNonElemental, dotPortionNonElemental))
+				t_insert(breakdown.PvpTotalDot, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output.TotalDot, PvpDotTvalue, PvpElemental2, PvpElemental1, PvpDotTvalue, PvpElemental2, dotPercentageElemental, dotPortionElemental))
 				t_insert(breakdown.PvpTotalDot, s_format("(portionNonElemental + portionElemental) * PvP multiplier"))
 				t_insert(breakdown.PvpTotalDot, s_format("(%.1f + %.1f) * %.1f", dotPortionNonElemental, dotPortionElemental, PvpMultiplier))
 				t_insert(breakdown.PvpTotalDot, s_format("= %.1f", output.PvpTotalDot))
@@ -1901,7 +1907,7 @@ function calcs.offence(env, actor, activeSkill)
 					output.PvpBleedDPS = (output.BleedDPS / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * PvpMultiplier
 					if breakdown then
 						breakdown.PvpBleedDPS = { }
-						t_insert(breakdown.PvpBleedDPS, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.BleedDPS, PvpTvalue, PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, PvpMultiplier, output.PvpBleedDPS))
+						t_insert(breakdown.PvpBleedDPS, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.1f = %.1f", output.BleedDPS, PvpTvalue, PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, PvpMultiplier, output.PvpBleedDPS))
 					end
 				end
 			end
@@ -2076,7 +2082,7 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					if breakdown then
 						breakdown.PvpPoisonDPS = { }
-						t_insert(breakdown.PvpPoisonDPS, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.PoisonDPS, PvpTvalue, PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, PvpMultiplier, output.PvpPoisonDPS))
+						t_insert(breakdown.PvpPoisonDPS, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.1f = %.1f", output.PoisonDPS, PvpTvalue, PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, PvpMultiplier, output.PvpPoisonDPS))
 						breakdown.PvpPoisonDamage = { }
 						if isAttack then
 							t_insert(breakdown.PvpPoisonDamage, pass.label..":")
@@ -2261,7 +2267,7 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					if breakdown then
 						breakdown.PvpIgniteDPS = { }
-						t_insert(breakdown.PvpIgniteDPS, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.IgniteDPS, PvpTvalue, PvpElemental2, PvpElemental1, PvpTvalue, PvpElemental2, PvpMultiplier, output.PvpIgniteDPS))
+						t_insert(breakdown.PvpIgniteDPS, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.1f = %.1f", output.IgniteDPS, PvpTvalue, PvpElemental2, PvpElemental1, PvpTvalue, PvpElemental2, PvpMultiplier, output.PvpIgniteDPS))
 						if skillFlags.igniteCanStack then
 						breakdown.PvpIgniteDamage = { }
 							if isAttack then
@@ -2541,7 +2547,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.PvpDecayDPS = (output.DecayDPS / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * PvpMultiplier
 			if breakdown then
 				breakdown.PvpDecayDPS = { }
-				t_insert(breakdown.PvpDecayDPS, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.DecayDPS, PvpTvalue, PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, PvpMultiplier, output.PvpDecayDPS))
+				t_insert(breakdown.PvpDecayDPS, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.1f = %.1f", output.DecayDPS, PvpTvalue, PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, PvpMultiplier, output.PvpDecayDPS))
 			end
 		end
 	end
