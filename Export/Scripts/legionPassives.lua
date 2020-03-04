@@ -72,11 +72,6 @@ for i=1,dat.rowCount do
 	t.id = inter.Id;
 	-- icon
 	t.icon = inter.DDSIcon;
-	local file = io.open ("../TreeData/LegionArt/"..t.icon:gsub("Art/2DArt/SkillIcons/passives/",""), "w+")
-	local ddsFileName = t.icon:gsub("Art/2DArt/SkillIcons/passives/","")
-	local ddsFile = dds(ddsFileName).raw
-	file:write(ddsFile)
-	file:close()
 	-- is keystone
 	t.ks = isValueInTable(inter.PassiveType, 4) and true or false
 
