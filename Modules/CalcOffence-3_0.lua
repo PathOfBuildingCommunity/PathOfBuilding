@@ -49,6 +49,16 @@ local damageStatsForTypes = setmetatable({ }, { __index = function(t, k)
 	return modNames
 end })
 
+
+-- Used for pvp damage calculations
+local PvpElemental1 = 0.55
+local PvpElemental2 = 150
+local PvpNonElemental1 = 0.57
+local PvpNonElemental2 = 90
+local PvpMultiplier = 1
+local PvpTvalue = 1
+
+
 -- Calculate min/max damage for the given damage type
 local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags, convDst)
 	local skillModList = activeSkill.skillModList
@@ -1321,12 +1331,6 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		
 		-- Calculate PvP values
-		-- Used for pvp damage calculations
-		local PvpElemental1 = 0.55
-		local PvpElemental2 = 150
-		local PvpNonElemental1 = 0.57
-		local PvpNonElemental2 = 90
-		local PvpMultiplier = 1
 		
 		--setup flags
 		skillFlags.isPvP = false
@@ -1352,40 +1356,57 @@ function calcs.offence(env, actor, activeSkill)
 			if skillFlags.notAverage then
 				skillFlags.notAveragePvP = true
 			end
-		end
 		
-		
-		percentageNonElemental = ((output["PhysicalHitAverage"] + output["ChaosHitAverage"]) / (totalHitMin + totalHitMax) * 2)
-		percentageElemental = 1 - percentageNonElemental
-		if env.configInput.multiplierPvpTvalueOverride then
-			PvpTvalue = env.configInput.multiplierPvpTvalueOverride
-		else
-			PvpTvalue = 1/((globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod)
-		end
-		portionNonElemental = (output.AverageHit / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * percentageNonElemental
-		portionElemental = (output.AverageHit / PvpTvalue / PvpElemental2 ) ^ PvpElemental1 * PvpTvalue * PvpElemental2 * percentageElemental
-		if env.configInput.multiplierPvpDamage then
-			PvpMultiplier = 1 * env.configInput.multiplierPvpDamage / 100
-		else
-			PvpMultiplier = 1
-		end
-		output.PvpAverageHit = (portionNonElemental + portionElemental) * PvpMultiplier
-		output.PvpAverageDamage = output.PvpAverageHit * output.HitChance / 100
-		output.PvpTotalDPS = output.PvpAverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
-		
-		if breakdown then
-			breakdown.PvpAverageHit = { }
-			t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.AverageHit, PvpTvalue,  PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, percentageNonElemental, portionNonElemental))
-			t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.1f * %.1f)) ^ %.2f * %.1f * %.1f * %.1f = %.1f", output.AverageHit, PvpTvalue,  PvpElemental2, PvpElemental1, PvpTvalue, PvpElemental2, percentageElemental, portionElemental))
-			t_insert(breakdown.PvpAverageHit, s_format("(portionNonElemental + portionElemental) * PvP multiplier"))
-			t_insert(breakdown.PvpAverageHit, s_format("(%.1f + %.1f) * %.1f", portionNonElemental, portionElemental, PvpMultiplier))
-			t_insert(breakdown.PvpAverageHit, s_format("= %.1f", output.PvpAverageHit))
-			if isAttack then
-				breakdown.PvpAverageDamage = { }
-				t_insert(breakdown.PvpAverageDamage, s_format("%s:", pass.label))
-				t_insert(breakdown.PvpAverageDamage, s_format("%.1f ^8(average pvp hit)", output.PvpAverageHit))
-				t_insert(breakdown.PvpAverageDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
-				t_insert(breakdown.PvpAverageDamage, s_format("= %.1f", output.PvpAverageDamage))
+			if env.configInput.multiplierPvpTvalueOverride then
+				PvpTvalue = env.configInput.multiplierPvpTvalueOverride
+			else
+				PvpTvalue = 1/((globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod)
+				if PvpTvalue > 2147483647 then
+					PvpTvalue = 1
+				end
+			end
+			if env.configInput.multiplierPvpDamage then
+				PvpMultiplier = 1 * env.configInput.multiplierPvpDamage / 100
+			else
+				PvpMultiplier = 1
+			end
+			
+			percentageNonElemental = ((output["PhysicalHitAverage"] + output["ChaosHitAverage"]) / (totalHitMin + totalHitMax) * 2)
+			percentageElemental = 1 - percentageNonElemental
+			portionNonElemental = (output.AverageHit / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * percentageNonElemental
+			portionElemental = (output.AverageHit / PvpTvalue / PvpElemental2 ) ^ PvpElemental1 * PvpTvalue * PvpElemental2 * percentageElemental
+			output.PvpAverageHit = (portionNonElemental + portionElemental) * PvpMultiplier
+			output.PvpAverageDamage = output.PvpAverageHit * output.HitChance / 100
+			output.PvpTotalDPS = output.PvpAverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+			
+			--fix for these beign nan
+			if output.PvpAverageHit ~= output.PvpAverageHit then
+				output.PvpAverageHit = 0
+			end
+			if output.PvpAverageDamage ~= output.PvpAverageDamage then
+				output.PvpAverageDamage = 0
+			end
+			if output.PvpTotalDPS ~= output.PvpTotalDPS then
+				output.PvpTotalDPS = 0
+			end
+			
+			if breakdown then
+				breakdown.PvpAverageHit = { }
+				t_insert(breakdown.PvpAverageHit, s_format("Pvp Formula is (D/(T*M))^E*T*M*P, where D is the damage, T is the time taken," ))
+				t_insert(breakdown.PvpAverageHit, s_format("M is the multiplier, E is the exponent and P is the percentage of that type (ele or non ele)"))
+				t_insert(breakdown.PvpAverageHit, s_format("(M=%.1f for ele and %.1f for non-ele)(E=%.2f for ele and %.2f for non-ele)", PvpElemental2, PvpNonElemental2, PvpElemental1, PvpNonElemental1))
+				t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output.AverageHit, PvpTvalue,  PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, percentageNonElemental, portionNonElemental))
+				t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output.AverageHit, PvpTvalue,  PvpElemental2, PvpElemental1, PvpTvalue, PvpElemental2, percentageElemental, portionElemental))
+				t_insert(breakdown.PvpAverageHit, s_format("(portionNonElemental + portionElemental) * PvP multiplier"))
+				t_insert(breakdown.PvpAverageHit, s_format("(%.1f + %.1f) * %.1f", portionNonElemental, portionElemental, PvpMultiplier))
+				t_insert(breakdown.PvpAverageHit, s_format("= %.1f", output.PvpAverageHit))
+				if isAttack then
+					breakdown.PvpAverageDamage = { }
+					t_insert(breakdown.PvpAverageDamage, s_format("%s:", pass.label))
+					t_insert(breakdown.PvpAverageDamage, s_format("%.1f ^8(average pvp hit)", output.PvpAverageHit))
+					t_insert(breakdown.PvpAverageDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+					t_insert(breakdown.PvpAverageDamage, s_format("= %.1f", output.PvpAverageDamage))
+				end
 			end
 		end
 	end
@@ -1427,6 +1448,16 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.AverageDamage, s_format("(%.1f + %.1f) / 2 ^8(skill alternates weapons)", output.MainHand.AverageDamage, output.OffHand.AverageDamage))
 				end
 				t_insert(breakdown.AverageDamage, s_format("= %.1f", output.AverageDamage))
+				if skillFlags.isPvP then
+					breakdown.PvpAverageDamage = { }
+					t_insert(breakdown.PvpAverageDamage, "Both weapons:")
+					if skillData.doubleHitsWhenDualWielding then
+						t_insert(breakdown.PvpAverageDamage, s_format("%.1f + %.1f ^8(skill hits with both weapons at once)", output.MainHand.PvpAverageDamage, output.OffHand.PvpAverageDamage))
+					else
+						t_insert(breakdown.PvpAverageDamage, s_format("(%.1f + %.1f) / 2 ^8(skill alternates weapons)", output.MainHand.PvpAverageDamage, output.OffHand.PvpAverageDamage))
+					end
+					t_insert(breakdown.PvpAverageDamage, s_format("= %.1f", output.PvpAverageDamage))
+				end
 			end
 		end
 	end
@@ -1443,26 +1474,36 @@ function calcs.offence(env, actor, activeSkill)
 				s_format("%.1f ^8(average damage)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed),
 			}
-			breakdown.PvpTotalDPS = {
-				s_format("%.1f ^8(average pvp damage)", output.PvpAverageDamage),
-				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed),
-			}
+			if skillFlags.isPvP then
+				breakdown.PvpTotalDPS = {
+					s_format("%.1f ^8(average pvp damage)", output.PvpAverageDamage),
+					output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed),
+				}
+			end
 		else
 			breakdown.TotalDPS = {
 				s_format("%.1f ^8(average hit)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(cast rate)", output.Speed),
 			}
-			breakdown.PvpTotalDPS = {
-				s_format("%.1f ^8(average pvp hit)", output.PvpAverageDamage),
-				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(cast rate)", output.Speed),
-			}
+			if skillFlags.isPvP then
+				breakdown.PvpTotalDPS = {
+					s_format("%.1f ^8(average pvp hit)", output.PvpAverageDamage),
+					output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(cast rate)", output.Speed),
+				}
+			end
 		end
 		if skillData.dpsMultiplier then
 			t_insert(breakdown.TotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
-			t_insert(breakdown.PvpTotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+			
+			if skillFlags.isPvP then
+				t_insert(breakdown.PvpTotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+			end
 		end
 		t_insert(breakdown.TotalDPS, s_format("= %.1f", output.TotalDPS))
-		t_insert(breakdown.PvpTotalDPS, s_format("= %.1f", output.PvpTotalDPS))
+		
+		if skillFlags.isPvP then
+			t_insert(breakdown.PvpTotalDPS, s_format("= %.1f", output.PvpTotalDPS))
+		end
 	end
 
 	-- Calculate leech rates
@@ -1510,6 +1551,9 @@ function calcs.offence(env, actor, activeSkill)
 	}
 	activeSkill.dotCfg = dotCfg
 	output.TotalDot = 0
+	output.PvpTotalDot = 0
+	dotPercentageNonElemental = 0
+	dotPercentageElemental = 0
 	for _, damageType in ipairs(dmgTypeList) do
 		local dotTypeCfg = copyTable(dotCfg, true)
 		dotTypeCfg.keywordFlags = bor(dotTypeCfg.keywordFlags, KeywordFlag[damageType.."Dot"])
@@ -1555,6 +1599,41 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown then
 				breakdown[damageType.."Dot"] = { }
 				breakdown.dot(breakdown[damageType.."Dot"], baseVal, inc, more, mult, nil, effMult, total)
+			end
+			
+			if skillFlags.isPvP then
+				if isElemental[damageType] then
+					dotPercentageNonElemental = 0
+					dotPercentageElemental = 1
+				else
+					dotPercentageNonElemental = 1
+					dotPercentageElemental = 0
+				end
+			end
+		end
+		
+		if skillFlags.isPvP then
+			if env.configInput.multiplierPvpDotTvalueOverride then
+				PvpDotTvalue = env.configInput.multiplierPvpDotTvalueOverride
+			else
+				PvpDotTvalue = 24
+			end
+			dotPortionNonElemental = (output.TotalDot / PvpDotTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpDotTvalue * PvpNonElemental2 * dotPercentageNonElemental
+			dotPortionElemental = (output.TotalDot / PvpDotTvalue / PvpElemental2 ) ^ PvpElemental1 * PvpDotTvalue * PvpElemental2 * dotPercentageElemental
+			output.PvpTotalDot = (dotPortionNonElemental + dotPortionElemental) * PvpMultiplier
+			if output.PvpTotalDot > 0 then
+				skillFlags.PvpDot = true
+			end
+			if breakdown then
+				breakdown.PvpTotalDot = { }
+				t_insert(breakdown.PvpTotalDot, s_format("Pvp Formula is (D/(T*M))^E*T*M*P, where D is the damage, T is the time taken," ))
+				t_insert(breakdown.PvpTotalDot, s_format("M is the multiplier, E is the exponent and P is the percentage of that type (ele or non ele)"))
+				t_insert(breakdown.PvpTotalDot, s_format("(M=%.1f for ele and %.1f for non-ele)(E=%.2f for ele and %.2f for non-ele)", PvpElemental2, PvpNonElemental2, PvpElemental1, PvpNonElemental1))
+				t_insert(breakdown.PvpTotalDot, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output.TotalDot, PvpDotTvalue, PvpNonElemental2, PvpNonElemental1, PvpDotTvalue, PvpNonElemental2, dotPercentageNonElemental, dotPortionNonElemental))
+				t_insert(breakdown.PvpTotalDot, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output.TotalDot, PvpDotTvalue, PvpElemental2, PvpElemental1, PvpDotTvalue, PvpElemental2, dotPercentageElemental, dotPortionElemental))
+				t_insert(breakdown.PvpTotalDot, s_format("(portionNonElemental + portionElemental) * PvP multiplier"))
+				t_insert(breakdown.PvpTotalDot, s_format("(%.1f + %.1f) * %.1f", dotPortionNonElemental, dotPortionElemental, PvpMultiplier))
+				t_insert(breakdown.PvpTotalDot, s_format("= %.1f", output.PvpTotalDot))
 			end
 		end
 	end
@@ -1833,6 +1912,15 @@ function calcs.offence(env, actor, activeSkill)
 						t_insert(globalBreakdown.BleedDuration, s_format("= %.2fs", globalOutput.BleedDuration))
 					end
 				end
+				
+				if skillFlags.isPvP then
+					skillFlags.PvpBleed = true
+					output.PvpBleedDPS = (output.BleedDPS / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * PvpMultiplier
+					if breakdown then
+						breakdown.PvpBleedDPS = { }
+						t_insert(breakdown.PvpBleedDPS, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.1f = %.1f", output.BleedDPS, PvpTvalue, PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, PvpMultiplier, output.PvpBleedDPS))
+					end
+				end
 			end
 		end
 
@@ -1991,6 +2079,28 @@ function calcs.offence(env, actor, activeSkill)
 							{ "%g ^8(dps multiplier for this skill)", skillData.dpsMultiplier or 1 },
 							total = s_format("= %.1f", output.TotalPoisonStacks),
 						})
+					end
+				end
+				
+				if skillFlags.isPvP then
+					skillFlags.PvpPoison = true
+					output.PvpPoisonDPS = (output.PoisonDPS / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * PvpMultiplier
+					output.PvpPoisonDamage = output.PvpPoisonDPS * globalOutput.PoisonDuration
+					if skillData.showAverage then
+						output.PvpTotalPoisonAverageDamage = output.HitChance / 100 * output.PoisonChance / 100 * output.PvpPoisonDamage
+					else
+						output.PvpTotalPoisonDPS = output.PvpPoisonDPS * output.TotalPoisonStacks
+					end
+					if breakdown then
+						breakdown.PvpPoisonDPS = { }
+						t_insert(breakdown.PvpPoisonDPS, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.1f = %.1f", output.PoisonDPS, PvpTvalue, PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, PvpMultiplier, output.PvpPoisonDPS))
+						breakdown.PvpPoisonDamage = { }
+						if isAttack then
+							t_insert(breakdown.PvpPoisonDamage, pass.label..":")
+						end
+						t_insert(breakdown.PvpPoisonDamage, s_format("%.1f ^8(damage per second)", output.PvpPoisonDPS))
+						t_insert(breakdown.PvpPoisonDamage, s_format("x %.2fs ^8(poison duration)", globalOutput.PoisonDuration))
+						t_insert(breakdown.PvpPoisonDamage, s_format("= %.1f ^8damage per poison stack", output.PvpPoisonDamage))
 					end
 				end
 			end
@@ -2153,6 +2263,31 @@ function calcs.offence(env, actor, activeSkill)
 							t_insert(globalBreakdown.IgniteDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
 						end
 						t_insert(globalBreakdown.IgniteDuration, s_format("= %.2fs", globalOutput.IgniteDuration))
+					end
+				end
+				if skillFlags.isPvP then
+					skillFlags.PvpIgnite = true
+					output.PvpIgniteDPS = (output.IgniteDPS / PvpTvalue / PvpElemental2 ) ^ PvpElemental1 * PvpTvalue * PvpElemental2 * PvpMultiplier
+					if skillFlags.igniteCanStack then
+						output.PvpIgniteDamage = output.PvpIgniteDPS * globalOutput.IgniteDuration
+						if skillData.showAverage then
+							output.PvpTotalIgniteAverageDamage = output.HitChance / 100 * output.IgniteChance / 100 * output.PvpIgniteDamage
+						else
+							output.PvpTotalIgniteDPS = output.PvpIgniteDPS * output.TotalIgniteStacks
+						end
+					end
+					if breakdown then
+						breakdown.PvpIgniteDPS = { }
+						t_insert(breakdown.PvpIgniteDPS, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.1f = %.1f", output.IgniteDPS, PvpTvalue, PvpElemental2, PvpElemental1, PvpTvalue, PvpElemental2, PvpMultiplier, output.PvpIgniteDPS))
+						if skillFlags.igniteCanStack then
+						breakdown.PvpIgniteDamage = { }
+							if isAttack then
+								t_insert(breakdown.PvpIgniteDamage, pass.label..":")
+							end
+							t_insert(breakdown.PvpIgniteDamage, s_format("%.1f ^8(PvP damage per second)", output.PvpIgniteDPS))
+							t_insert(breakdown.PvpIgniteDamage, s_format("x %.2fs ^8(ignite duration)", globalOutput.IgniteDuration))
+							t_insert(breakdown.PvpIgniteDamage, s_format("= %.1f ^8damage per ignite stack", output.PvpIgniteDamage))
+						end
 					end
 				end
 			end
@@ -2331,24 +2466,33 @@ function calcs.offence(env, actor, activeSkill)
 	if isAttack then
 		combineStat("BleedChance", "AVERAGE")
 		combineStat("BleedDPS", "CHANCE", "BleedChance")
+		combineStat("PvpBleedDPS", "CHANCE", "BleedChance")
 		combineStat("PoisonChance", "AVERAGE")
 		combineStat("PoisonDPS", "CHANCE", "PoisonChance")
+		combineStat("PvpPoisonDPS", "CHANCE", "PoisonChance")
 		combineStat("PoisonDamage", "CHANCE", "PoisonChance")
+		combineStat("PvpPoisonDamage", "CHANCE", "PoisonChance")
 		if skillData.showAverage then
 			combineStat("TotalPoisonAverageDamage", "DPS")
+			combineStat("PvpTotalPoisonAverageDamage", "DPS")
 		else
 			combineStat("TotalPoisonStacks", "DPS")
 			combineStat("TotalPoisonDPS", "DPS")
+			combineStat("PvpTotalPoisonDPS", "DPS")
 		end
 		combineStat("IgniteChance", "AVERAGE")
 		combineStat("IgniteDPS", "CHANCE", "IgniteChance")
+		combineStat("PvpIgniteDPS", "CHANCE", "IgniteChance")
 		if skillFlags.igniteCanStack then
 			combineStat("IgniteDamage", "CHANCE", "IgniteChance")
+			combineStat("PvpIgniteDamage", "CHANCE", "IgniteChance")
 			if skillData.showAverage then
 				combineStat("TotalIgniteAverageDamage", "DPS")
+				combineStat("PvpTotalIgniteAverageDamage", "DPS")
 			else
 				combineStat("TotalIgniteStacks", "DPS")
 				combineStat("TotalIgniteDPS", "DPS")
+				combineStat("PvpTotalIgniteDPS", "DPS")
 			end
 		end
 		combineStat("ChillEffectMod", "AVERAGE")
@@ -2409,8 +2553,16 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.DecayDuration, s_format("= %.2fs", output.DecayDuration))
 			end
 		end
+		if skillFlags.isPvP then
+			skillFlags.PvpDecay = true
+			output.PvpDecayDPS = (output.DecayDPS / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * PvpMultiplier
+			if breakdown then
+				breakdown.PvpDecayDPS = { }
+				t_insert(breakdown.PvpDecayDPS, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.1f = %.1f", output.DecayDPS, PvpTvalue, PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, PvpMultiplier, output.PvpDecayDPS))
+			end
+		end
 	end
-
+	
 	-- Calculate combined DPS estimate, including DoTs
 	local baseDPS = output[(skillData.showAverage and "AverageDamage") or "TotalDPS"] + output.TotalDot
 	output.CombinedDPS = baseDPS
@@ -2454,6 +2606,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.WithImpaleDPS = output.TotalDPS + output.ImpaleDPS
 		end
 		output.CombinedDPS = output.CombinedDPS + output.ImpaleDPS
+		
 		if breakdown then
 			breakdown.ImpaleDPS = {}
 			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit)", output.ImpaleHit))
@@ -2466,6 +2619,67 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(dps multiplier for this skill)", skillData.dpsMultiplier))
 			end
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
+		end
+	end
+	if skillFlags.isPvP then
+		local PvpBaseDPS = output[(skillData.showAverage and "PvpAverageDamage") or "PvpTotalDPS"] + output.PvpTotalDot
+		output.PvpCombinedDPS = PvpBaseDPS
+		if skillData.showAverage then
+			output.PvpCombinedDPS = output.PvpCombinedDPS + (output.PvpTotalPoisonAverageDamage or 0)
+			output.PvpWithPoisonAverageDamage = PvpBaseDPS + (output.PvpTotalPoisonAverageDamage or 0)
+		else
+			output.PvpCombinedDPS = output.PvpCombinedDPS + (output.PvpTotalPoisonDPS or 0)
+			output.PvpWithPoisonAverageDamage = PvpBaseDPS + (output.PvpTotalPoisonDPS or 0)
+		end
+		if skillFlags.ignite then
+			if skillFlags.igniteCanStack then
+				if skillData.showAverage then
+					output.PvpCombinedDPS = output.PvpCombinedDPS + output.PvpTotalIgniteAverageDamage
+					output.PvpWithIgniteAverageDamage = PvpbaseDPS + output.PvpTotalIgniteAverageDamage
+				else
+					output.PvpCombinedDPS = output.PvpCombinedDPS + output.PvpTotalIgniteDPS
+					output.PvpWithIgniteDPS = PvpbaseDPS + output.PvpTotalIgniteDPS
+				end
+			else
+				output.PvpCombinedDPS = output.PvpCombinedDPS + output.PvpIgniteDPS
+			end
+		end
+		if skillFlags.bleed then
+			output.PvpCombinedDPS = output.PvpCombinedDPS + output.PvpBleedDPS
+		end
+		if skillFlags.decay then
+			output.PvpCombinedDPS = output.PvpCombinedDPS + output.PvpDecayDPS
+		end
+		if skillFlags.impale then
+			if skillFlags.showAverage then
+				skillFlags.PvpImpaleNotAverage = true
+			else
+				skillFlags.PvpImpaleShowAverage = true
+			end
+			output.PvpImpaleHit = (output.ImpaleHit / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * PvpMultiplier
+			output.PvpImpaleDPS = output.PvpImpaleHit * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * (skillData.dpsMultiplier or 1)
+			if skillData.showAverage then
+				output.PvpWithImpaleDPS = output.PvpAverageDamage + output.PvpImpaleDPS
+			else
+				skillFlags.notAverage = true
+				output.PvpImpaleDPS = output.PvpImpaleDPS * (output.HitSpeed or output.Speed)
+				output.PvpWithImpaleDPS = output.PvpTotalDPS + output.PvpImpaleDPS
+			end
+			output.PvpCombinedDPS = output.PvpCombinedDPS + output.PvpImpaleDPS
+			
+			if breakdown then
+				breakdown.PvpImpaleDPS = {}
+				t_insert(breakdown.PvpImpaleDPS, s_format("%.2f ^8(average PvP physical hit)", output.PvpImpaleHit))
+				t_insert(breakdown.PvpImpaleDPS, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+				if skillFlags.notAverage then
+					t_insert(breakdown.PvpImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed))
+				end
+				t_insert(breakdown.PvpImpaleDPS, s_format("x %.2f ^8(impale damage multiplier)", ((output.ImpaleModifier or 1) - 1)))
+				if skillData.dpsMultiplier then
+					t_insert(breakdown.PvpImpaleDPS, s_format("x %g ^8(dps multiplier for this skill)", skillData.dpsMultiplier))
+				end
+				t_insert(breakdown.PvpImpaleDPS, s_format("= %.1f", output.PvpImpaleDPS))
+			end
 		end
 	end
 end
