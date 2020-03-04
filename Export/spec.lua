@@ -166,14 +166,14 @@ return {
 		},
 		[9]={
 			list=false,
-			name="",
+			name="WebsiteDescription",
 			refTo="",
 			type="String",
 			width=150
 		},
 		[10]={
 			list=false,
-			name="",
+			name="WebsiteImage",
 			refTo="",
 			type="String",
 			width=150
@@ -194,7 +194,7 @@ return {
 		},
 		[13]={
 			list=false,
-			name="",
+			name="Flag1",
 			refTo="",
 			type="Bool",
 			width=40
@@ -203,26 +203,26 @@ return {
 			list=false,
 			name="SkillTotem",
 			refTo="SkillTotems",
-			type="Enum",
+			type="Int",
 			width=80
 		},
 		[15]={
 			list=false,
-			name="",
+			name="IsManuallyCasted",
 			refTo="",
 			type="Bool",
 			width=40
 		},
 		[16]={
 			list=true,
-			name="SkillSpecificStat",
+			name="ModifiedByStatsKey",
 			refTo="Stats",
 			type="Key",
 			width=1800
 		},
 		[17]={
 			list=true,
-			name="GenericStat",
+			name="ModifiedToStatsKey",
 			refTo="Stats",
 			type="Key",
 			width=1420
@@ -258,9 +258,16 @@ return {
 		[22]={
 			list=false,
 			name="SkillMine",
-			refTo="SkillMines",
-			type="Enum",
-			width=80
+			refTo="Stats",
+			type="Int",
+			width=220
+		},
+		[23]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
 		}
 	},
 	AddBuffToTargetVarieties={
@@ -901,6 +908,48 @@ return {
 			refTo="",
 			type="Bool",
 			width=70
+		},
+		[33]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[34]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[35]={
+			list=false,
+			name="",
+			refTo="BuffVisuals",
+			type="String",
+			width=240
+		},
+		[36]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[37]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[38]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
 		}
 	},
 	BuffGroups={
@@ -2993,8 +3042,22 @@ return {
 	Inventories={
 	},
 	InventoryId={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	InventoryType={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	ItemClassCategories={
 	},
@@ -3099,6 +3162,55 @@ return {
 	ItemThemes={
 	},
 	ItemTradeData={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=230
+		},
+		[2]={
+			list=false,
+			name="Keys0",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="Flag0",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="CategoryId",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[5]={
+			list=true,
+			name="MapsId",
+			refTo="",
+			type="String",
+			width=270
+		},
+		[6]={
+			list=true,
+			name="ProphecyKeys",
+			refTo="Prophecies",
+			type="String",
+			width=480
+		},
+		[7]={
+			list=false,
+			name="Flag1",
+			refTo="",
+			type="Bool",
+			width=150
+		}
 	},
 	ItemVisualEffect={
 	},
@@ -3148,16 +3260,114 @@ return {
 	LabyrinthTrinkets={
 	},
 	Labyrinths={
+		[1]={
+			list=false,
+			name="Tier",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=160
+		}
 	},
 	Languages={
 	},
 	LeagueCategory={
 	},
 	LeagueFlag={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=190
+		},
+		[2]={
+			list=false,
+			name="Image",
+			refTo="",
+			type="String",
+			width=370
+		}
 	},
 	LeagueFlags={
 	},
 	LeagueInfo={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="PanelImage",
+			refTo="",
+			type="String",
+			width=410
+		},
+		[3]={
+			list=false,
+			name="HeaderImage",
+			refTo="",
+			type="String",
+			width=370
+		},
+		[4]={
+			list=true,
+			name="Screenshots",
+			refTo="",
+			type="String",
+			width=600
+		},
+		[5]={
+			list=false,
+			name="Description",
+			refTo="",
+			type="String",
+			width=600
+		},
+		[6]={
+			list=false,
+			name="League",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="Flag0",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[8]={
+			list=true,
+			name="ItemImages",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[9]={
+			list=true,
+			name="HoverImages",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="TrailerVideoLink",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	LeagueQuestFlags={
 	},
@@ -3170,6 +3380,13 @@ return {
 	LegionChests={
 	},
 	LegionFactions={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	LegionMonsterCounts={
 	},
@@ -3186,6 +3403,27 @@ return {
 	LegionRewardTypes={
 	},
 	LegionRewards={
+		[1]={
+			list=false,
+			name="LegionFactionsKey",
+			refTo="LegionFactions",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Key1",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=true,
+			name="LegionRewardTypesKey",
+			refTo="LegionRewardTypes",
+			type="Key",
+			width=150
+		}
 	},
 	LevelRelativePlayerScaling={
 	},
@@ -3226,6 +3464,34 @@ return {
 	MapTiers={
 	},
 	Maps={
+		[1]={
+			list=false,
+			name="BaseItemTypesKey",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=300
+		},
+		[2]={
+			list=false,
+			name="RegularWorldAreasKey",
+			refTo="WorldAreas",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="UniqueWorldAreasKey",
+			refTo="WorldAreas",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="MapUpgradeBaseItemTypesKey",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=320
+		}
 	},
 	MasterHideoutLevels={
 	},
@@ -3298,6 +3564,13 @@ return {
 	ModGenerationType={
 	},
 	ModSellPriceTypes={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=230
+		}
 	},
 	ModType={
 		[1]={
@@ -3619,6 +3892,20 @@ return {
 		}
 	},
 	MonsterAdditionalMonsterDrops={
+		[1]={
+			list=false,
+			name="MonsterVarietyKey",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=530
+		},
+		[2]={
+			list=true,
+			name="Keys0",
+			refTo="",
+			type="Key",
+			width=1980
+		}
 	},
 	MonsterArmours={
 		[1]={
@@ -3639,6 +3926,55 @@ return {
 	MonsterBehavior={
 	},
 	MonsterBonuses={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=180
+		},
+		[2]={
+			list=true,
+			name="Keys0",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="Key0",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="Unknown3",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="Unknown4",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=true,
+			name="StatsKeys",
+			refTo="Stats",
+			type="Key",
+			width=350
+		},
+		[7]={
+			list=true,
+			name="StatValues",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	MonsterChanceToDropItemTemplate={
 	},
@@ -5266,20 +5602,6 @@ return {
 			refTo="",
 			type="String",
 			width=150
-		},
-		[2]={
-			list=false,
-			name="Hash",
-			refTo="",
-			type="UInt",
-			width=150
-		},
-		[3]={
-			list=false,
-			name="DisplayText",
-			refTo="",
-			type="String",
-			width=210
 		}
 	},
 	TalismanMonsterMods={
@@ -5297,6 +5619,13 @@ return {
 	Tips={
 	},
 	Topologies={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=200
+		}
 	},
 	TormentSpirits={
 	},
@@ -5418,6 +5747,27 @@ return {
 	Words={
 	},
 	WorldAreas={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=300
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=300
+		},
+		[3]={
+			list=false,
+			name="Act",
+			refTo="",
+			type="Int",
+			width=60
+		}
 	},
 	ZanaLevels={
 	},
