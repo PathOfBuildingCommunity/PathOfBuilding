@@ -3744,11 +3744,11 @@ return {
 			width=150
 		},
 		[22]={
-			list=false,
+			list=true,
 			name="GrantedEffect",
 			refTo="GrantedEffectsPerLevel",
 			type="Key",
-			width=150
+			width=270
 		},
 		[23]={
 			list=true,
@@ -3804,14 +3804,14 @@ return {
 			name="Stat5",
 			refTo="Stats",
 			type="Key",
-			width=150
+			width=270
 		},
 		[31]={
 			list=true,
 			name="",
-			refTo="",
+			refTo="AchievementItems",
 			type="Key",
-			width=100
+			width=250
 		},
 		[32]={
 			list=false,
@@ -3825,14 +3825,14 @@ return {
 			name="GenerationWeightTags",
 			refTo="Tags",
 			type="Key",
-			width=120
+			width=280
 		},
 		[34]={
 			list=true,
 			name="GenerationWeightValues",
 			refTo="Tags",
 			type="Int",
-			width=120
+			width=150
 		},
 		[35]={
 			list=true,
@@ -3864,10 +3864,10 @@ return {
 		},
 		[39]={
 			list=false,
-			name="",
+			name="DelveDepth",
 			refTo="",
 			type="Int",
-			width=50
+			width=90
 		},
 		[40]={
 			list=false,
@@ -3878,17 +3878,17 @@ return {
 		},
 		[41]={
 			list=false,
-			name="",
-			refTo="",
+			name="UnveilAchivementItemsKey",
+			refTo="AchievementItems",
 			type="Key",
-			width=100
+			width=160
 		},
 		[42]={
 			list=true,
 			name="",
 			refTo="ItemClasses",
 			type="Key",
-			width=200
+			width=290
 		}
 	},
 	MonsterAdditionalMonsterDrops={
