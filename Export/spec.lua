@@ -8,6 +8,27 @@ return {
 	AccountQuestFlags={
 	},
 	AchievementItemRewards={
+		[1]={
+			list=false,
+			name="AchievementItemsKey",
+			refTo="AchievementsItems",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="BaseItemTypesKey",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=480
+		},
+		[3]={
+			list=false,
+			name="Message",
+			refTo="",
+			type="String",
+			width=370
+		}
 	},
 	AchievementItems={
 		[1]={
@@ -15,6 +36,62 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
+			width=250
+		},
+		[2]={
+			list=false,
+			name="Unknown1",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="Unknown2",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=200
+		},
+		[5]={
+			list=false,
+			name="CompletionsRequired",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="AchievementsKey",
+			refTo="Achievements",
+			type="Key",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="Flag0",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="Flag1",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="Flag2",
+			refTo="",
+			type="Bool",
 			width=150
 		}
 	},
