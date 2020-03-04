@@ -35,6 +35,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.treeVersion = treeVersion
 	self.targetVersion = treeVersions[treeVersion].targetVersion
 
+	self.legion = LoadModule("Data/3_0/LegionPassives")
+
 	MakeDir("TreeData")
 
 	ConPrintf("Loading passive tree data...")
@@ -110,6 +112,33 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				height = coords.h,
 				[1] = coords.x / sheet.width, 
 				[2] = coords.y / sheet.height, 
+				[3] = (coords.x + coords.w) / sheet.width,
+				[4] = (coords.y + coords.h) / sheet.height
+			}
+		end
+	end
+
+	local legionSprites = LoadModule("TreeData/legion/tree-legion.lua")
+	for type, data in pairs(legionSprites) do
+		local maxZoom = data[#data]
+		local sheet = spriteSheets[maxZoom.filename]
+		if not sheet then
+			sheet = { }
+			sheet.handle = NewImageHandle()
+			sheet.handle:Load("TreeData/legion/"..maxZoom.filename)
+			sheet.width, sheet.height = sheet.handle:ImageSize()
+			spriteSheets[maxZoom.filename] = sheet
+		end
+		for name, coords in pairs(maxZoom.coords) do
+			if not spriteMap[name] then
+				spriteMap[name] = { }
+			end
+			spriteMap[name][type] = {
+				handle = sheet.handle,
+				width = coords.w,
+				height = coords.h,
+				[1] = coords.x / sheet.width,
+				[2] = coords.y / sheet.height,
 				[3] = (coords.x + coords.w) / sheet.width,
 				[4] = (coords.y + coords.h) / sheet.height
 			}
@@ -353,8 +382,17 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		if node.type == "Keystone" then
 			node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree"..node.id)
 		end
-	end
 
+		-- Legion
+		node.conquered = nil
+		-- proxy metatable to switch between legion and default values
+		node.proxy = setmetatable({},{
+			__index = function(t,k)
+					return node.conquered and node.conquered[k] or node[k]
+			end
+		})
+
+	end
 	-- Precalculate the lists of nodes that are within each radius of each socket
 	for nodeId, socket in pairs(sockets) do
 		socket.nodesInRadius = { }
@@ -398,6 +436,100 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			if node.type == "Normal" then
 				node.modList:NewMod("Condition:ConnectedTo"..class.name.."Start", "FLAG", true, "Tree:"..nodeId)
 			end
+		end
+	end
+
+	-- Build ModList for legion jewels
+	for _, node in pairs(self.legion.nodes) do
+		-- Determine node type
+		if node.m then
+			node.type = "Mastery"
+		elseif node.ks then
+			node.type = "Keystone"
+			self.keystoneMap[node.dn] = node
+		elseif node["not"] then
+			node.type = "Notable"
+		else
+			node.type = "Normal"
+		end
+
+		---- Assign node artwork assets
+		node.sprites = spriteMap[node.icon]
+		if not node.sprites then
+			--error("missing sprite "..node.icon)
+			node.sprites = { }
+		end
+
+		-- Parse node modifier lines
+		node.mods = { }
+		node.modKey= ""
+		local i = 1
+		if node.passivePointsGranted > 0 then
+			t_insert(node.sd, "Grants "..node.passivePointsGranted.." Passive Skill Point"..(node.passivePointsGranted > 1 and "s" or ""))
+		end
+		while node.sd[i] do
+			if node.sd[i]:match("\n") then
+				local line = node.sd[i]
+				local il = i
+				t_remove(node.sd, i)
+				for line in line:gmatch("[^\n]+") do
+					t_insert(node.sd, il, line)
+					il = il + 1
+				end
+			end
+			local line = node.sd[i]
+			local list, extra = modLib.parseMod[self.targetVersion](line)
+			if not list or extra then
+				-- Try to combine it with one or more of the lines that follow this one
+				local endI = i + 1
+				while node.sd[endI] do
+					local comb = line
+					for ci = i + 1, endI do
+						comb = comb .. " " .. node.sd[ci]
+					end
+					list, extra = modLib.parseMod[self.targetVersion](comb, true)
+					if list and not extra then
+						-- Success, add dummy mod lists to the other lines that were combined with this one
+						for ci = i + 1, endI do
+							node.mods[ci] = { list = { } }
+						end
+						break
+					end
+					endI = endI + 1
+				end
+			end
+			if not list then
+				-- Parser had no idea how to read this modifier
+				node.unknown = true
+			elseif extra then
+				-- Parser recognised this as a modifier but couldn't understand all of it
+				node.extra = true
+			else
+				for _, mod in ipairs(list) do
+					node.modKey = node.modKey.."["..modLib.formatMod(mod).."]"
+				end
+			end
+			node.mods[i] = { list = list, extra = extra }
+			i = i + 1
+			while node.mods[i] do
+				-- Skip any lines with dummy lists added by the line combining code
+				i = i + 1
+			end
+		end
+		node.modList = new("ModList")
+		for _, mod in pairs(node.mods) do
+			if mod.list and not mod.extra then
+				for i, mod in ipairs(mod.list) do
+					mod.source = "Tree:"..node.id
+					if type(mod.value) == "table" and mod.value.mod then
+						mod.value.mod.source = mod.source
+					end
+					node.modList:AddMod(mod)
+				end
+			end
+		end
+		if node.type == "Keystone" then
+			node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree"..node.id)
 		end
 	end
 end)

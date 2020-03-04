@@ -427,20 +427,33 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	for id, node in pairs(self.nodes) do
 		node.depends = wipeTable(node.depends)
 		node.dependsOnIntuitiveLeapLike = false
+		--if self.build.latestTree == nil then print() end
+		self.tree.nodes[id].conquered = nil
 		if node.type ~= "ClassStart" and node.type ~= "Socket" then
 			for nodeId, itemId in pairs(self.jewels) do
 				if self.build.itemsTab.items[itemId] and self.build.itemsTab.items[itemId].jewelRadiusIndex then
 					local radiusIndex = self.build.itemsTab.items[itemId].jewelRadiusIndex
 					if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
-						if itemId ~= 0
-							and self.build.itemsTab.items[itemId].jewelData
-							and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike then
-							-- This node depends on Intuitive Leap-like behaviour
-							-- This flag:
-							-- 1. Prevents generation of paths from this node
-							-- 2. Prevents this node from being deallocted via dependancy
-							-- 3. Prevents allocation of path nodes when this node is being allocated
-							node.dependsOnIntuitiveLeapLike = true
+						if itemId ~= 0 and self.build.itemsTab.items[itemId].jewelData then
+							if self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike then
+								-- This node depends on Intuitive Leap-like behaviour
+								-- This flag:
+								-- 1. Prevents generation of paths from this node
+								-- 2. Prevents this node from being deallocted via dependancy
+								-- 3. Prevents allocation of path nodes when this node is being allocated
+								node.dependsOnIntuitiveLeapLike = true
+							end
+							local conqueredBy = self.build.itemsTab.items[itemId].jewelData.conqueredBy
+							if conqueredBy then
+								local legionNodes = self.build.latestTree.legion.nodes
+								if node.type == "Keystone" then
+									self.tree.nodes[id].conquered =legionNodes[conqueredBy.conquerer.type.."_keystone_"..conqueredBy.conquerer.id]
+								elseif conqueredBy.conquerer.type == "eternal" and node.type == "Normal"  then
+									self.tree.nodes[id].conquered =legionNodes["eternal_small_blank"]
+								elseif conqueredBy.conquerer.type == "templar" and node.type == "Normal" and node.dn == "Dexterity" or node.dn == "Strength" or node.dn == "Intelligence" then
+									self.tree.nodes[id].conquered =legionNodes["templar_devotion_node"]
+								end
+							end
 							break
 						end
 					end

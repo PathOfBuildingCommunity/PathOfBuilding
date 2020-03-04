@@ -68,9 +68,9 @@ end
 function calcs.buildModListForNode(env, node)
 	local modList = new("ModList")
 	if node.type == "Keystone" then
-		modList:AddMod(node.keystoneMod)
+		modList:AddMod(node.proxy.keystoneMod)
 	else
-		modList:AddList(node.modList)
+		modList:AddList(node.proxy.modList)
 	end
 
 	-- Run first pass radius jewels
