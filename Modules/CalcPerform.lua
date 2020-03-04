@@ -871,14 +871,18 @@ function calcs.perform(env)
 		end
 		if activeSkill.minion then
 			local castingMinion = activeSkill.minion
-			for _, activeSkill in ipairs(activeSkill.minion.activeSkillList) do
-				local skillModList = activeSkill.skillModList
-				local skillCfg = activeSkill.skillCfg
-				for _, buff in ipairs(activeSkill.buffList) do
-					if buff.type == "Buff" then
-						if env.mode_buffs and activeSkill.skillData.enable then
+			for _, activeMinionSkill in ipairs(activeSkill.minion.activeSkillList) do
+				local skillModList = activeMinionSkill.skillModList
+				local skillCfg = activeMinionSkill.skillCfg
+				for _, buff in ipairs(activeMinionSkill.buffList) do
+					if buff.cond and not skillModList:GetCondition(buff.cond, skillCfg) then
+						-- Nothing!
+					elseif buff.enemyCond and not enemyDB:GetCondition(buff.enemyCond) then
+						-- Also nothing :/
+					elseif buff.type == "Buff" then
+						if env.mode_buffs and ((buff.activeSkillBuff and activeMinionSkill.skillData.enable) or (not buff.activeSkillBuff and activeSkill.skillData.enable)) then
 							local skillCfg = buff.activeSkillBuff and skillCfg
-							local modStore = buff.activeSkillBuff and skillModList or env.minion.modDB
+							local modStore = buff.activeSkillBuff and skillModList or castingMinion.modDB
 							if buff.applyAllies then
 								modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 								local srcList = new("ModList")
@@ -890,14 +894,14 @@ function calcs.perform(env)
 							if env.minion and (env.minion == castingMinion or buff.applyAllies) then
 				 				env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 								local srcList = new("ModList")
-								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf")
-								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
+								local inc = modStore:Sum("INC", skillCfg, "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf")
+								local more = modStore:More(skillCfg, "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 								mergeBuff(srcList, minionBuffs, buff.name)
 							end
 						end
 					elseif buff.type == "Aura" then
-						if env.mode_buffs and activeSkill.skillData.enable then
+						if env.mode_buffs and ((buff.activeSkillBuff and activeMinionSkill.skillData.enable) or (not buff.activeSkillBuff and activeSkill.skillData.enable)) then
 							if not modDB:Flag(nil, "AlliesAurasCannotAffectSelf") then
 								local srcList = new("ModList")
 								local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
@@ -905,7 +909,7 @@ function calcs.perform(env)
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 								mergeBuff(srcList, buffs, buff.name)
 							end
-							if env.minion and (env.minion ~= activeSkill.minion or not activeSkill.skillData.auraCannotAffectSelf) then
+							if env.minion and (env.minion ~= castingMinion and not env.minion.modDB:Flag(nil, "AlliesAurasCannotAffectSelf")) or (env.minion == castingMinion and not activeMinionSkill.skillData.auraCannotAffectSelf) then
 								local srcList = new("ModList")
 								local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 								local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
@@ -914,7 +918,7 @@ function calcs.perform(env)
 							end
 						end
 					elseif buff.type == "Curse" then
-						if env.mode_effective and activeSkill.skillData.enable and not enemyDB:Flag(nil, "Hexproof") then
+						if env.mode_effective and activeMinionSkill.skillData.enable and not enemyDB:Flag(nil, "Hexproof") then
 							local curse = {
 								name = buff.name,
 								priority = 1,
@@ -935,14 +939,14 @@ function calcs.perform(env)
 								stackCount = m_min(stackCount, modDB:Sum("BASE", skillCfg, "Multiplier:"..buff.stackLimitVar))
 							end
 						else
-							stackCount = activeSkill.skillData.stackCount or 1
+							stackCount = activeMinionSkill.skillData.stackCount or 1
 						end
 						if env.mode_effective and stackCount > 0 then
-							activeSkill.debuffSkill = true
+							activeMinionSkill.debuffSkill = true
 							local srcList = new("ModList")
 							srcList:ScaleAddList(buff.modList, stackCount)
-							if activeSkill.skillData.stackCount then
-								srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", activeSkill.skillData.stackCount, buff.name)
+							if activeMinionSkill.skillData.stackCount then
+								srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", activeMinionSkill.skillData.stackCount, buff.name)
 							end
 							mergeBuff(srcList, debuffs, buff.name)
 						end

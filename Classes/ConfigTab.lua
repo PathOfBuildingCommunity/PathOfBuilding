@@ -177,6 +177,15 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					return self.build.calcsTab.mainEnv.player.mainSkill.skillFlags[varData.ifFlag] -- O_O
 				end
 				control.tooltipText = varData.tooltip
+			elseif varData.ifSkillFlag then
+				control.shown = function()
+					for _, skill in ipairs(self.build.calcsTab.mainEnv.player.activeSkillList) do
+						if skill.skillFlags[varData.ifSkillFlag] then
+							return true
+						end
+					end
+				end
+				control.tooltipText = varData.tooltip
 			elseif varData.ifSkill or varData.ifSkillList then
 				control.shown = function()
 					if varData.ifSkillList then
