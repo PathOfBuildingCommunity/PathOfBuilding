@@ -40,9 +40,9 @@ for i, p in pairs(dat"PantheonPanelLayout":GetRowList("IsDisabled", false)) do
 
     local gods = {
         { name = p.GodName1, statKeys = dat"PantheonPanelLayout":ReadCellText(p._rowIndex, 8), values = p.Effect1_Values },
-    	{ name = p.GodName2, statKeys = dat"PantheonPanelLayout":ReadCellText(p._rowIndex,10), values = p.Effect2_Values },
-    	{ name = p.GodName3, statKeys = dat"PantheonPanelLayout":ReadCellText(p._rowIndex,13), values = p.Effect3_Values },
-    	{ name = p.GodName4, statKeys = dat"PantheonPanelLayout":ReadCellText(p._rowIndex,15), values = p.Effect4_Values },
+        { name = p.GodName2, statKeys = dat"PantheonPanelLayout":ReadCellText(p._rowIndex,10), values = p.Effect2_Values },
+        { name = p.GodName3, statKeys = dat"PantheonPanelLayout":ReadCellText(p._rowIndex,13), values = p.Effect3_Values },
+        { name = p.GodName4, statKeys = dat"PantheonPanelLayout":ReadCellText(p._rowIndex,15), values = p.Effect4_Values },
     }
     for i, god in pairs(gods) do
         if next(god.statKeys) then
