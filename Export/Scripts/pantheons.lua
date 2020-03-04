@@ -18,9 +18,9 @@ local function dump(o)
 local function zip(a, b)
     local zipped = { }
 	for i, _ in pairs(a) do
-		table.insert(zipped, { a[i], tostring(b[i]) })
+		table.insert(zipped, { a[i], b[i] })
     end
-	return zipped
+    return zipped
 end
 
 if not loadStatFile then
@@ -39,10 +39,10 @@ for i, p in pairs(dat"PantheonPanelLayout":GetRowList("IsDisabled", false)) do
     out:write('\t\tsouls = {\n')
 
     local gods = {
-        { name = p.GodName1, statKeys = dat"PantheonPanelLayout":ReadCellText(p._rowIndex, 8), values = p.Effect1_Values },
-        { name = p.GodName2, statKeys = dat"PantheonPanelLayout":ReadCellText(p._rowIndex,10), values = p.Effect2_Values },
-        { name = p.GodName3, statKeys = dat"PantheonPanelLayout":ReadCellText(p._rowIndex,13), values = p.Effect3_Values },
-        { name = p.GodName4, statKeys = dat"PantheonPanelLayout":ReadCellText(p._rowIndex,15), values = p.Effect4_Values },
+        { name = p.GodName1, statKeys = p.Effect1StatsKey, values = p.Effect1Values },
+        { name = p.GodName2, statKeys = p.Effect2StatsKey, values = p.Effect2Values },
+        { name = p.GodName3, statKeys = p.Effect3StatsKey, values = p.Effect3Values },
+        { name = p.GodName4, statKeys = p.Effect4StatsKey, values = p.Effect4Values },
     }
     for i, god in pairs(gods) do
         if next(god.statKeys) then
@@ -51,10 +51,10 @@ for i, p in pairs(dat"PantheonPanelLayout":GetRowList("IsDisabled", false)) do
             out:write('\t\t\t\tmods = {\n')
             for j, souls in pairs(zip(god.statKeys, god.values)) do
                 local key = souls[1]
-                local value = tonumber(souls[2])
+                local value = souls[2]
                 local stats = { }
-                stats[key] = { min = value, max = value }
-                out:write('\t\t\t\t\t-- ', key, '\n')
+                stats[key.Id] = { min = value, max = value }
+                out:write('\t\t\t\t\t-- ', key.Id, '\n')
                 out:write('\t\t\t\t\t[', j, '] = { line = "', table.concat(describeStats(stats), ' '), '", ')
                 out:write('value = { ', value, ' }, ')
                 out:write('},\n')

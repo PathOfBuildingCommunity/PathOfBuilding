@@ -4616,21 +4616,21 @@ return {
 		},
 		[8]={
 			list=true,
-			name="Effect1_StatsKey",
+			name="Effect1StatsKey",
 			refTo="Stats",
 			type="Key",
 			width=650
 		},
 		[9]={
 			list=true,
-			name="Effect1_Values",
+			name="Effect1Values",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[10]={
 			list=true,
-			name="Effect2_StatsKey",
+			name="Effect2StatsKey",
 			refTo="Stats",
 			type="Key",
 			width=530
@@ -4644,14 +4644,14 @@ return {
 		},
 		[12]={
 			list=true,
-			name="Effect3_Values",
+			name="Effect3Values",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[13]={
 			list=true,
-			name="Effect3_StatsKey",
+			name="Effect3StatsKey",
 			refTo="Stats",
 			type="Key",
 			width=470
@@ -4665,14 +4665,14 @@ return {
 		},
 		[15]={
 			list=true,
-			name="Effect4_StatsKey",
+			name="Effect4StatsKey",
 			refTo="Stats",
 			type="Key",
 			width=370
 		},
 		[16]={
 			list=true,
-			name="Effect4_Values",
+			name="Effect4Values",
 			refTo="",
 			type="Int",
 			width=150
@@ -4686,7 +4686,7 @@ return {
 		},
 		[18]={
 			list=true,
-			name="Effect2_Values",
+			name="Effect2Values",
 			refTo="",
 			type="Int",
 			width=150

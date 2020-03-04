@@ -17,13 +17,13 @@ return {
 					[1] = { line = "30% increased Stun and Block Recovery", value = { 30 }, },
 				},
 			},
-			[3] = { name = "Belcer, the Pirate Lord",
+			[3] = { name = "Ambrius, Legion Slayer",
 				mods = {
 					-- cannot_be_frozen_if_you_have_been_frozen_recently
 					[1] = { line = "You cannot be Frozen if you've been Frozen Recently", value = { 100 }, },
 				},
 			},
-			[4] = { name = "Nassar, Lion of the Seas",
+			[4] = { name = "Captain Tanner Lightfoot",
 				mods = {
 					-- chill_effectiveness_on_self_+%
 					[1] = { line = "50% reduced Effect of Chill on you", value = { -50 }, },
@@ -39,7 +39,7 @@ return {
 					-- degen_effect_+%
 					[1] = { line = "5% reduced Damage taken from Damage Over Time", value = { -5 }, },
 					-- avoid_lightning_damage_%
-					[2] = { line = "10% chance to Avoid Lightning Damage when Hit", value = { 10 }, },
+					[2] = { line = "10% chance to Avoid Lightning Damage from Hits", value = { 10 }, },
 				},
 			},
 			[2] = { name = "Queen of the Great Tangle",
@@ -48,7 +48,7 @@ return {
 					[1] = { line = "50% increased Recovery rate of Life and Energy Shield if you've stopped taking Damage Over Time Recently", value = { 50 }, },
 				},
 			},
-			[3] = { name = "Spinner of False Hope",
+			[3] = { name = "Shavronne the Sickening",
 				mods = {
 					-- shocked_effect_on_self_+%
 					[1] = { line = "30% reduced Effect of Shock on you", value = { -30 }, },
@@ -56,7 +56,7 @@ return {
 					[2] = { line = "30% reduced Shock Duration on you", value = { 30 }, },
 				},
 			},
-			[4] = { name = "Armala, the Widow",
+			[4] = { name = "Thraxia",
 				mods = {
 					-- additional_chaos_resistance_against_damage_over_time_%
 					[1] = { line = "+25% Chaos Resistance against Damage Over Time", value = { 25 }, },
@@ -81,13 +81,13 @@ return {
 					[1] = { line = "8% reduced Elemental Damage taken if you haven't been Hit Recently", value = { -8 }, },
 				},
 			},
-			[3] = { name = "Jorus, Sky's Edge",
+			[3] = { name = "Eater of Souls",
 				mods = {
 					-- self_take_no_extra_damage_from_critical_strikes_if_have_been_crit_recently
 					[1] = { line = "Take no Extra Damage from Critical Strikes if you have taken a Critical Strike Recently", value = { 1 }, },
 				},
 			},
-			[4] = { name = "The Infernal King",
+			[4] = { name = "Kitava, The Destroyer",
 				mods = {
 					-- avoid_ailments_%_from_crit
 					[1] = { line = "50% chance to avoid Ailments from Critical Strikes", value = { 50 }, },
@@ -106,19 +106,19 @@ return {
 					[2] = { line = "1% increased Movement Speed for each nearby Enemy, up to 8%", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Merveil, the Returned",
+			[2] = { name = "Ancient Architect",
 				mods = {
 					-- base_avoid_projectiles_%_chance
 					[1] = { line = "10% chance to avoid Projectiles", value = { 10 }, },
 				},
 			},
-			[3] = { name = "Sebbert, Crescent's Point",
+			[3] = { name = "Excellis Aurafix",
 				mods = {
 					-- dodge_attacks_and_spells_%_chance_if_have_been_hit_recently
 					[1] = { line = "5% chance to Dodge Attack and Spell Hits if you've been Hit Recently", value = { 5 }, },
 				},
 			},
-			[4] = { name = "Ambrius, Legion Slayer",
+			[4] = { name = "The Hallowed Husk",
 				mods = {
 					-- avoid_chained_projectile_%_chance
 					[1] = { line = "Avoid Projectiles that have Chained", value = { 100 }, },
@@ -274,4 +274,4 @@ return {
 			},
 		},
 	},
-} 
+}
