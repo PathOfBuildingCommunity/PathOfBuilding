@@ -1360,7 +1360,13 @@ function calcs.offence(env, actor, activeSkill)
 			if env.configInput.multiplierPvpTvalueOverride then
 				PvpTvalue = env.configInput.multiplierPvpTvalueOverride/1000
 			else
-				PvpTvalue = 1/((globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod)
+				if skillFlags.mine then
+					PvpTvalue = output.MineLayingTime*globalOutput.ActionSpeedMod
+				elseif skillFlags.trap then
+					PvpTvalue = output.TrapThrowingTime*globalOutput.ActionSpeedMod
+				else
+					PvpTvalue = 1/((globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod)
+				end
 				if PvpTvalue > 2147483647 then
 					PvpTvalue = 1
 				end
