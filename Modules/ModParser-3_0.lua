@@ -965,6 +965,7 @@ local modTagList = {
 	["if you[' ]h?a?ve used a minion skill recently"] = { tag = { type = "Condition", var = "UsedMinionSkillRecently" } },
 	["if you[' ]h?a?ve used a movement skill recently"] = { tag = { type = "Condition", var = "UsedMovementSkillRecently" } },
 	["if you[' ]h?a?ve used a vaal skill recently"] = { tag = { type = "Condition", var = "UsedVaalSkillRecently" } },
+	["if you[' ]h?a?ve spent (%d+) total mana recently"] = function(num) return { tag = { type = "MultiplierThreshold", var = "ManaSpentRecently", threshold = num } } end,
 	["if you've impaled an enemy recently"] = { tag = { type = "Condition", var = "ImpaledRecently" } },
 	["if you've stopped taking damage over time recently"] = { tag = { type = "Condition", var = "StoppedTakingDamageOverTimeRecently" } },
 	["during soul gain prevention"] = { tag = { type = "Condition", var = "SoulGainPrevention" } },
