@@ -59,9 +59,6 @@ function modLib.compareModParams(modA, modB)
 		if tag.type ~= modB[i].type then
 			return false
 		end
-		if modLib.formatTag(tag) ~= modLib.formatTag(modB[i]) then
-			return false
-		end
 	end
 	return true
 end
