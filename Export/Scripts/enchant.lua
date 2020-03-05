@@ -120,7 +120,7 @@ for _, mod in ipairs(dat"Mods":GetRowList("GenerationType", 10)) do
 		local stats = { mod.Stat1, mod.Stat2, mod.Stat3, mod.Stat4, mod.Stat5, mod.Stat6 }
 		local skill
 		for _, stat in pairs(stats) do
-			for _, activeSkill in ipairs(dat"ActiveSkills":GetRowList("SkillSpecificStat", stat)) do
+			for _, activeSkill in ipairs(dat"ActiveSkills":GetRowList("ModifiedByStatsKey", stat)) do
 				local isVaal = false
 				for _, skillType in ipairs(activeSkill.SkillTypes) do
 					if skillType == 39 then

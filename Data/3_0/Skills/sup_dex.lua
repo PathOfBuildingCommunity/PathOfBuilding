@@ -299,7 +299,7 @@ skills["SupportArrowNovaPlus"] = {
 	},
 }
 skills["SupportBarrage"] = {
-	name = "Barrage Support",
+	name = "Barrage",
 	description = "Supports projectile attack skills that use bows or wands. Cannot support triggered skills, channelled skills, or skills that create Minions.",
 	color = 2,
 	support = true,
