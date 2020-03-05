@@ -1358,7 +1358,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		
 			if env.configInput.multiplierPvpTvalueOverride then
-				PvpTvalue = env.configInput.multiplierPvpTvalueOverride
+				PvpTvalue = env.configInput.multiplierPvpTvalueOverride/1000
 			else
 				PvpTvalue = 1/((globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod)
 				if PvpTvalue > 2147483647 then
@@ -1614,7 +1614,7 @@ function calcs.offence(env, actor, activeSkill)
 		
 		if skillFlags.isPvP then
 			if env.configInput.multiplierPvpDotTvalueOverride then
-				PvpDotTvalue = env.configInput.multiplierPvpDotTvalueOverride
+				PvpDotTvalue = env.configInput.multiplierPvpDotTvalueOverride/1000
 			else
 				PvpDotTvalue = 24
 			end
