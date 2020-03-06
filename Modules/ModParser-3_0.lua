@@ -301,7 +301,7 @@ local modNameList = {
 	["projectiles"] = "ProjectileCount",
 	["projectile speed"] = "ProjectileSpeed",
 	["arrow speed"] = { "ProjectileSpeed", flags = ModFlag.Bow },
-	-- Totem/trap/mine modifiers
+	-- Totem/trap/mine/brand modifiers
 	["totem placement speed"] = "TotemPlacementSpeed",
 	["totem life"] = "TotemLife",
 	["totem duration"] = "TotemDuration",
@@ -316,6 +316,9 @@ local modNameList = {
 	["mine throwing speed"] = "MineLayingSpeed",
 	["mine detonation area of effect"] = "MineDetonationAreaOfEffect",
 	["mine duration"] = "MineDuration",
+	["activation frequency"] = "BrandActivationFrequency",
+	["brand activation frequency"] = "BrandActivationFrequency",
+	["brand attachment range"] = "BrandAttachmentRange",
 	-- Minion modifiers
 	["maximum number of skeletons"] = "ActiveSkeletonLimit",
 	["maximum number of zombies"] = "ActiveZombieLimit",
@@ -351,9 +354,6 @@ local modNameList = {
 	["melee weapon and unarmed range"] = { "MeleeWeaponRange", "UnarmedRange" },
 	["melee weapon and unarmed attack range"] = { "MeleeWeaponRange", "UnarmedRange" },
 	["to deal double damage"] = "DoubleDamageChance",
-	["activation frequency"] = "BrandActivationFrequency",
-	["brand activation frequency"] = "BrandActivationFrequency",
-	["brand attachment range"] = "BrandAttachmentRange",
 	-- Buffs
 	["onslaught effect"] = "OnslaughtEffect",
 	["fortify duration"] = "FortifyDuration",
@@ -1519,7 +1519,7 @@ local specialModList = {
 	} end,
 	["enemies in your chilling areas take (%d+)%% increased lightning damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("LightningDamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "InChillingArea" }) } end,
 	["enemies hindered by you take (%d+)%% increased chaos damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("ChaosDamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Hindered" }) } end,
-	-- Traps, Mines and Totems
+	-- Traps, Mines, Totems and Brands
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["can have up to (%d+) additional traps? placed at a time"] = function(num) return { mod("ActiveTrapLimit", "BASE", num) } end,
