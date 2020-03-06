@@ -363,6 +363,12 @@ return {
 ["critical_strike_chance_+%"] = {
 	mod("CritChance", "INC", nil),
 },
+["spell_critical_strike_chance_+%"] = {
+	mod("CritChance", "INC", nil, ModFlag.Spell),
+},
+["attack_critical_strike_chance_+%"] = {
+	mod("CritChance", "INC", nil, ModFlag.Attack),
+},
 ["base_critical_strike_multiplier_+"] = {
 	mod("CritMultiplier", "BASE", nil),
 },

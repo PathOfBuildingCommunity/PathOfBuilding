@@ -321,6 +321,7 @@ local skills, mod, flag, skill = ...
 #skill SupportRangedAttackTotem
 	addFlags = {
 		totem = true,
+		ballista = true,
 	},
 	statMap = {
 		["support_attack_totem_attack_speed_+%_final"] = {
