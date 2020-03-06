@@ -315,11 +315,21 @@ local skills, mod, flag, skill = ...
 
 #skill GroundSlam
 #flags attack melee area
+	statMap = {
+		["groundslam_damage_to_close_targets_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+	},
 #baseMod skill("radius", 35)
 #mods
 
 #skill VaalGroundSlam
 #flags attack melee area
+	statMap = {
+		["groundslam_damage_to_close_targets_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+	},
 #mods
 
 #skill HeavyStrike
