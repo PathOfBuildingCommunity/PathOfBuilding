@@ -1192,6 +1192,8 @@ function calcs.offence(env, actor, activeSkill)
 		output.ManaLeech = 0
 		output.ManaLeechInstant = 0
         output.impaleStoredHitAvg = 0
+		-- shock
+		enemyDB:NewMod("DamageTaken", "INC", m_min(enemyDB:Sum("BASE", nil, "ShockVal"), (enemyDB:Sum("BASE", nil, "ShockMax") + 50 )), "Shock", { type = "Condition", var = "Shocked" })
 		for pass = 1, 2 do
 			-- Pass 1 is critical strike damage, pass 2 is non-critical strike
 			cfg.skillCond["CriticalStrike"] = (pass == 1)
