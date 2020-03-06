@@ -1520,7 +1520,7 @@ local specialModList = {
 	["enemies in your chilling areas take (%d+)%% increased lightning damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("LightningDamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "InChillingArea" }) } end,
 	["enemies hindered by you take (%d+)%% increased chaos damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("ChaosDamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Hindered" }) } end,
 	["warcries count as having (%d+) additional nearby enemies"] = function(num) return {
-		mod("Multiplier:WarcryNearbyEnemies", "BASE", num, { type = "SkillType", skillType = SkillType.Warcry }),
+		mod("Multiplier:WarcryNearbyEnemies", "BASE", num),
 	} end,
 	-- Traps, Mines and Totems
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,

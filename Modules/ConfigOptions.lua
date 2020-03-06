@@ -497,13 +497,13 @@ return {
 	end },
 	{ var = "multiplierNearbyEnemies", type = "count", label = "# of nearby Enemies:", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyEnemies", "BASE", val, "Config", { type = "Condition", var = "Combat" })
-		modList:NewMod("Multiplier:WarcryNearbyEnemies", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Multiplier:WarcryNearbyEnemies", "BASE", m_max(0, val), "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:OnlyOneNearbyEnemy", "FLAG", val == 1, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierNearbyRareOrUniqueEnemies", type = "count", label = "# of nearby Rare or Unique Enemies:", ifMult = "NearbyRareOrUniqueEnemies", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyRareOrUniqueEnemies", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Multiplier:NearbyEnemies", "BASE", val, "Config", { type = "Condition", var = "Combat" })
-		modList:NewMod("Multiplier:WarcryNearbyEnemies", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Multiplier:WarcryNearbyEnemies", "BASE", m_max(0, val), "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:OnlyOneNearbyRareOrUniqueEnemy", "FLAG", val == 1, "Config", { type = "Condition", var = "Combat" })
 		enemyModList:NewMod("Condition:NearbyRareOrUniqueEnemy", "FLAG", val >= 1, "Config", { type = "Condition", var = "Combat" })
 	end },
