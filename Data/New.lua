@@ -37,7 +37,7 @@ Has 1 Socket
 +20% To Lightning Resistance
 Left Ring Slot: Your Chilling Skitterbot's Aura Applies Socketed Curse Instead
 Right Ring Slot: Your Shocking Skitterbot's Aura Applies Socketed Curse Instead
-]]
+]],
 
 -- Reworked
 
