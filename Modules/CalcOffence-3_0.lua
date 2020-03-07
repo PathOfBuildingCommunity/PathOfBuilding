@@ -536,6 +536,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillFlags.brand then
 		output.BrandAttachmentRange = calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
+		output.ActiveBrandLimit = skillModList:Sum("BASE", skillCfg, "ActiveBrandLimit")
 	end
 
 	-- Skill duration

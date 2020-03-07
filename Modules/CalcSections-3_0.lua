@@ -526,6 +526,7 @@ return {
 		{ modName = "TotemLife", cfg = "skill" },
 	}, },
 	{ label = "Totem Life", flag = "totem", { format = "{0:output:TotemLife}", { breakdown = "TotemLife" }, }, },
+	{ label = "Active Brand Limit", flag = "brand", { format = "{0:output:ActiveBrandLimit}", { modName = "ActiveBrandLimit", cfg = "skill" }, }, },
 } },
 { 1, "Bleed", 1, "Bleed", colorCodes.OFFENCE, {
 	extra = "{0:output:BleedChance}% {1:output:BleedDPS} {2:output:BleedDuration}s",
