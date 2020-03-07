@@ -487,7 +487,7 @@ return {
 	{ label = "Secondary Radius", haveOutput = "AreaOfEffectRadiusSecondary", { format = "{0:output:AreaOfEffectRadiusSecondary}", { breakdown = "AreaOfEffectRadiusSecondary" }, }, },
 	{ label = "Tertiary Radius", haveOutput = "AreaOfEffectRadiusTertiary", { format = "{0:output:AreaOfEffectRadiusTertiary}", { breakdown = "AreaOfEffectRadiusTertiary" }, }, },
 	{ label = "Weapon Range", haveOutput = "WeaponRange", { format = "{0:output:WeaponRange}", { breakdown = "WeaponRange" }, }, },
-	{ label = "Attachment Range", haveOutput = "BrandAttachmentRange", { format = "x {2:output:BrandAttachmentRange}",
+	{ label = "Attachment Range", flag = "brand", { format = "x {2:output:BrandAttachmentRange}",
 		{ breakdown = "BrandAttachmentRange" },
 		{ modName = "BrandAttachmentRange", cfg = "skill"},
 	}, },
