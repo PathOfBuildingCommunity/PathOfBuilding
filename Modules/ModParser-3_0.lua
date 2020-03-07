@@ -623,6 +623,7 @@ local preFlagList = {
 	["^agony crawler deals "] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Herald of Agony" } },
 	["^sentinels of purity deal "] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Herald of Purity" } },
 	["^raised zombies' slam attack has "] = { addToMinion = true, tag = { type = "SkillId", skillId = "ZombieSlam" } },
+	["^raised spectres, raised zombies, and summoned skeletons have "] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillNameList = { "Raise Spectre", "Raise Zombie", "Summon Skeleton" } } },
 	["^attacks used by totems have "] = { keywordFlags = KeywordFlag.Totem },
 	["^spells cast by totems have "] = { keywordFlags = KeywordFlag.Totem },
 	["^attacks with this weapon "] = { tag = { type = "Condition", var = "{Hand}Attack" } },
