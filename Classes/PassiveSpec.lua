@@ -450,7 +450,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 									self.tree.nodes[id].conquered =legionNodes[conqueredBy.conquerer.type.."_keystone_"..conqueredBy.conquerer.id]
 								elseif conqueredBy.conquerer.type == "eternal" and node.type == "Normal"  then
 									self.tree.nodes[id].conquered =legionNodes["eternal_small_blank"]
-								elseif conqueredBy.conquerer.type == "templar" and node.type == "Normal" and node.dn == "Dexterity" or node.dn == "Strength" or node.dn == "Intelligence" then
+								elseif conqueredBy.conquerer.type == "templar" and node.type == "Normal" and (node.dn == "Dexterity" or node.dn == "Strength" or node.dn == "Intelligence") then
 									self.tree.nodes[id].conquered =legionNodes["templar_devotion_node"]
 								end
 							end
