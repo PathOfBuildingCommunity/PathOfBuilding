@@ -1221,6 +1221,7 @@ local specialModList = {
 		mod("LifeRegenPercent", "BASE", num, {type = "PerStat", stat = "ActiveTotemLimit"}),
 		mod("LifeRegenPercent", "BASE", num, {type = "PerStat", stat = "ActiveTotemLimit"}, 0, KeywordFlag.Totem),
 	} end,
+	["enemies take (%d+)%% increased damage for each of your brands attached to them"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Multiplier", var = "BrandsAttached" }) }) } end,
 	-- Inquisitor
 	["critical strikes ignore enemy monster elemental resistances"] = { flag("IgnoreElementalResistances", { type = "Condition", var = "CriticalStrike" }) },
 	["non%-critical strikes penetrate (%d+)%% of enemy elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
