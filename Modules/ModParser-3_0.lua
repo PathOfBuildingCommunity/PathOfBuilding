@@ -874,6 +874,7 @@ local modTagList = {
 	["while you have avian's flight"] = { tag = { type = "Condition", var = "AffectedByAvian'sFlight" } },
 	["while affected by aspect of the cat"] = { tag = { type = "Condition", varList = { "AffectedByCat'sStealth", "AffectedByCat'sAgility" } } },
 	["while affected by a herald"] = { tag = { type = "Condition", varList = { "AffectedByHeraldofAgony", "AffectedByHeraldofAsh", "AffectedByHeraldofIce", "AffectedByHeraldofPurity", "AffectedByHeraldofThunder" } } },
+	["while affected by a guard skill buff"] = { tag = { type = "Condition", var = "AffectedByAGuardSkill" } },
 	["while you have a bestial minion"] = { tag = { type = "Condition", var = "HaveBestialMinion" } },
 	["while focussed"] = { tag = { type = "Condition", var = "Focused" } },
 	["while leeching"] = { tag = { type = "Condition", var = "Leeching" } },
