@@ -78,8 +78,8 @@ return {
 		modList:NewMod("Condition:BladestormInSandstorm", "FLAG", true, "Config", { type = "SkillName", skillName = "Bladestorm" })
 	end },
 	{ label = "Brand Skills:", ifSkillList = { "Armageddon Brand", "Storm Brand" } }, -- I barely resisted the temptation to label this "Generic Brand:"
-	{ var = "brandAttachedToEnemy", type = "check", label = "Is Attached to the Enemy?", ifSkillList = { "Armageddon Brand", "Storm Brand" }, apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:BrandAttachedToEnemy", "FLAG", true, "Config", { type = "SkillType", skillType = SkillType.Brand })
+	{ var = "BrandsAttachedToEnemy", type = "count", label = "# of Brands attached to the enemy", ifSkillList = { "Armageddon Brand", "Storm Brand" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:BrandsAttachedToEnemy", "BASE", m_min(val, 2), "Config", { type = "SkillType", skillType = SkillType.Brand })
 	end },
 	{ label = "Dark Pact:", ifSkill = "Dark Pact" },
 	{ var = "darkPactSkeletonLife", type = "count", label = "Skeleton Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum life of the skeleton that is being targeted.", apply = function(val, modList, enemyModList)
