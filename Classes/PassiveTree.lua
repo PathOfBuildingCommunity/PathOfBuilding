@@ -382,16 +382,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		if node.type == "Keystone" then
 			node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree"..node.id)
 		end
-
-		-- Legion
-		node.conquered = nil
-		-- proxy metatable to switch between legion and default values
-		node.proxy = setmetatable({},{
-			__index = function(t,k)
-					return node.conquered and node.conquered[k] or node[k]
-			end
-		})
-
 	end
 	-- Precalculate the lists of nodes that are within each radius of each socket
 	for nodeId, socket in pairs(sockets) do

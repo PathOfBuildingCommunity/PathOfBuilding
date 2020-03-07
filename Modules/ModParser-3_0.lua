@@ -2067,31 +2067,31 @@ local jewelOtherFuncs = {
 			end
 		end
 	end,
-	["Passives in radius are Conquered by the Eternal Empire"] = function(node, out, data)
-		if node and node.type ~= "Keystone" then
-			out:NewMod("PassiveSkillHasNoEffect", "FLAG", true, data.modSource)
-		end
-	end,
-	["Passives in radius are Conquered by the Karui"] = function(node, out, data)
-		local attributes = { "Dexterity", "Intelligence", "Strength" }
-		if node and node.type == "Normal" then
-			if isValueInArray(attributes, node.dn) then
-				out:NewMod("Str", "BASE", 2, data.modSource)
-			else
-				out:NewMod("Str", "BASE", 4, data.modSource)
-			end
-		end
-	end,
-	["Passives in radius are Conquered by the Maraketh"] = function(node, out, data)
-		local attributes = { "Dexterity", "Intelligence", "Strength" }
-		if node and node.type == "Normal" then
-			if isValueInArray(attributes, node.dn) then
-				out:NewMod("Dex", "BASE", 2, data.modSource)
-			else
-				out:NewMod("Dex", "BASE", 4, data.modSource)
-			end
-		end
-	end,
+	--["Passives in radius are Conquered by the Eternal Empire"] = function(node, out, data)
+	--	if node and node.type ~= "Keystone" then
+	--		out:NewMod("PassiveSkillHasNoEffect", "FLAG", true, data.modSource)
+	--	end
+	--end,
+	--["Passives in radius are Conquered by the Karui"] = function(node, out, data)
+	--	local attributes = { "Dexterity", "Intelligence", "Strength" }
+	--	if node and node.type == "Normal" then
+	--		if isValueInArray(attributes, node.dn) then
+	--			out:NewMod("Str", "BASE", 2, data.modSource)
+	--		else
+	--			out:NewMod("Str", "BASE", 4, data.modSource)
+	--		end
+	--	end
+	--end,
+	--["Passives in radius are Conquered by the Maraketh"] = function(node, out, data)
+	--	local attributes = { "Dexterity", "Intelligence", "Strength" }
+	--	if node and node.type == "Normal" then
+	--		if isValueInArray(attributes, node.dn) then
+	--			out:NewMod("Dex", "BASE", 2, data.modSource)
+	--		else
+	--			out:NewMod("Dex", "BASE", 4, data.modSource)
+	--		end
+	--	end
+	--end,
 }
 
 -- Radius jewels that modify the jewel itself based on nearby allocated nodes

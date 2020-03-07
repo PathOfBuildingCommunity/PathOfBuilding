@@ -404,7 +404,7 @@ function CalcsTabClass:BuildOutput()
 
 	for _, node in pairs(self.build.spec.nodes) do
 		-- Set default final mod list for all nodes; some may not be set during the main pass
-		node.finalModList = node.proxy.modList
+		node.finalModList = node.modList
 	end
 
 	self.mainEnv = self.calcs.buildOutput(self.build, "MAIN")

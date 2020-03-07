@@ -68,9 +68,9 @@ end
 function calcs.buildModListForNode(env, node)
 	local modList = new("ModList")
 	if node.type == "Keystone" then
-		modList:AddMod(node.proxy.keystoneMod)
+		modList:AddMod(node.keystoneMod)
 	else
-		modList:AddList(node.proxy.modList)
+		modList:AddList(node.modList)
 	end
 
 	-- Run first pass radius jewels
@@ -151,6 +151,9 @@ end
 -- 4. Merges modifiers for all allocated passive nodes
 -- 5. Builds a list of active skills and their supports (calcs.createActiveSkill)
 -- 6. Builds modifier lists for all active skills (calcs.buildActiveSkillModList)
+
+
+
 function calcs.initEnv(build, mode, override)
 	override = override or { }
 

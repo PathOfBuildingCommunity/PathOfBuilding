@@ -422,13 +422,15 @@ end
 function PassiveSpecClass:BuildAllDependsAndPaths()
 	-- This table will keep track of which nodes have been visited during each path-finding attempt
 	local visited = { }
-
+	local attributes = { "Dexterity", "Intelligence", "Strength" }
 	-- Check all nodes for other nodes which depend on them (i.e. are only connected to the tree through that node)
 	for id, node in pairs(self.nodes) do
 		node.depends = wipeTable(node.depends)
 		node.dependsOnIntuitiveLeapLike = false
-		--if self.build.latestTree == nil then print() end
-		self.tree.nodes[id].conquered = nil
+
+		-- Reset Node to default
+		ReplaceNode(node,self.tree.nodes[id])
+
 		if node.type ~= "ClassStart" and node.type ~= "Socket" then
 			for nodeId, itemId in pairs(self.jewels) do
 				if self.build.itemsTab.items[itemId] and self.build.itemsTab.items[itemId].jewelRadiusIndex then
@@ -443,27 +445,45 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 								-- 3. Prevents allocation of path nodes when this node is being allocated
 								node.dependsOnIntuitiveLeapLike = true
 							end
-							local conqueredBy = self.build.itemsTab.items[itemId].jewelData.conqueredBy
-							if conqueredBy then
-								local legionNodes = self.build.latestTree.legion.nodes
-								if node.type == "Keystone" then
-									self.tree.nodes[id].conquered =legionNodes[conqueredBy.conquerer.type.."_keystone_"..conqueredBy.conquerer.id]
-								elseif conqueredBy.conquerer.type == "eternal" and node.type == "Normal"  then
-									self.tree.nodes[id].conquered =legionNodes["eternal_small_blank"]
-								elseif conqueredBy.conquerer.type == "templar" and node.type == "Normal" and (node.dn == "Dexterity" or node.dn == "Strength" or node.dn == "Intelligence") then
-									self.tree.nodes[id].conquered =legionNodes["templar_devotion_node"]
-								end
-							end
+							node.conqueredBy = self.build.itemsTab.items[itemId].jewelData.conqueredBy
 							break
 						end
 					end
 				end
 			end
 		end
+
+		-- If node is conquered, replace it or add mods
+		if node.conqueredBy and node.type ~= "Socket" then
+			local conqueredBy = node.conqueredBy
+			local legionNodes = self.build.latestTree.legion.nodes
+			--self.tree.nodes[id].isConquered = true
+			if node.type == "Keystone" then
+				local legionnode = legionNodes[conqueredBy.conquerer.type.."_keystone_"..conqueredBy.conquerer.id]
+				ReplaceNode(node,legionnode)
+			elseif conqueredBy.conquerer.type == "eternal" and node.type == "Normal"  then
+				local legionnode =legionNodes["eternal_small_blank"]
+				ReplaceNode(node,legionnode)
+			elseif conqueredBy.conquerer.type == "templar" and node.type == "Normal" and isValueInArray(attributes, node.dn) then
+				local legionnode =legionNodes["templar_devotion_node"]
+				ReplaceNode(node,legionnode)
+			elseif conqueredBy.conquerer.type == "maraketh" and (node.type == "Normal" or node.type ==  "Notable") then
+				local str = isValueInArray(attributes, node.dn) and "2" or "4"
+				self:NodeAdditionFromString(node,"+"..str.." to Dexterity","Tree:"..node.id)
+
+			elseif conqueredBy.conquerer.type == "karui" and (node.type == "Normal" or node.type ==  "Notable") then
+				local str = isValueInArray(attributes, node.dn) and "2" or "4"
+				self:NodeAdditionFromString(node,"+"..str.." to Strength","Tree:"..node.id)
+			end
+		end
+
 		if node.alloc then
 			node.depends[1] = node -- All nodes depend on themselves
 		end
 	end
+
+
+
 	for id, node in pairs(self.allocNodes) do
 		node.visited = true
 
@@ -538,10 +558,98 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	end
 end
 
+function ReplaceNode(old, new) 
+	old.dn = new.dn
+	old.sd = new.sd
+	old.mods = new.mods
+	old.modKey = new.modKey
+	old.modList = new.modList
+	old.overlay = new.overlay
+	old.icon = new.icon
+	old.sprites = new.sprites
+end
+
 function PassiveSpecClass:CreateUndoState()
 	return self:EncodeURL()
 end
 
 function PassiveSpecClass:RestoreUndoState(state)
 	self:DecodeURL(state)
+end
+
+function PassiveSpecClass:NodeAdditionFromString(node,sd,source)
+	local addition = {}
+	addition.sd = {sd}
+	addition.mods = { }
+	addition.modKey = ""
+	local i = 1
+	while addition.sd[i] do
+		if addition.sd[i]:match("\n") then
+			local line = addition.sd[i]
+			local il = i
+			t_remove(addition.sd, i)
+			for line in line:gmatch("[^\n]+") do
+				t_insert(addition.sd, il, line)
+				il = il + 1
+			end
+		end
+		local line = addition.sd[i]
+		local list, extra = modLib.parseMod[self.build.targetVersion](line)
+		if not list or extra then
+			-- Try to combine it with one or more of the lines that follow this one
+			local endI = i + 1
+			while addition.sd[endI] do
+				local comb = line
+				for ci = i + 1, endI do
+					comb = comb .. " " .. addition.sd[ci]
+				end
+				list, extra = modLib.parseMod[self.build.targetVersion](comb, true)
+				if list and not extra then
+					-- Success, add dummy mod lists to the other lines that were combined with this one
+					for ci = i + 1, endI do
+						addition.mods[ci] = { list = { } }
+					end
+					break
+				end
+				endI = endI + 1
+			end
+		end
+		if not list then
+			-- Parser had no idea how to read this modifier
+			addition.unknown = true
+		elseif extra then
+			-- Parser recognised this as a modifier but couldn't understand all of it
+			addition.extra = true
+		else
+			for _, mod in ipairs(list) do
+				addition.modKey = addition.modKey.."["..modLib.formatMod(mod).."]"
+			end
+		end
+	addition.mods[i] = { list = list, extra = extra }
+		i = i + 1
+		while addition.mods[i] do
+			-- Skip any lines with dummy lists added by the line combining code
+			i = i + 1
+		end
+	end
+
+	-- Build unified list of modifiers from all recognised modifier lines
+	addition.modList = new("ModList")
+	for _, mod in pairs(addition.mods) do
+		if mod.list and not mod.extra then
+			for i, mod in ipairs(mod.list) do
+				mod.source = source
+				if type(mod.value) == "table" and mod.value.mod then
+					mod.value.mod.source = mod.source
+				end
+				addition.modList:AddMod(mod)
+			end
+		end
+	end
+	node.sd = TableConcat(node.sd, addition.sd)
+	node.mods = TableConcat(node.mods,  addition.mods)
+	local modList = new("ModList")
+	modList:AddList(node.modList)
+	modList:AddList(addition.modList)
+	node.modList = modList
 end

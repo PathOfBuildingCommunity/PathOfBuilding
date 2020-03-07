@@ -426,7 +426,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				end
 			else
 				-- Normal node (includes keystones and notables)
-				base = node.proxy.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
+				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
 				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "")]
 			end
 		end
@@ -661,15 +661,15 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 	end
 
 	-- Check node description
-	for index, line in ipairs(node.proxy.sd) do
+	for index, line in ipairs(node.sd) do
 		-- Check display text first
 		errMsg, match = PCall(string.match, line:lower(), self.searchStr:lower())
 		if match then
 			return true
 		end
-		if not match and node.proxy.mods[index].list then
+		if not match and node.mods[index].list then
 			-- Then check modifiers
-			for _, mod in ipairs(node.proxy.mods[index].list) do
+			for _, mod in ipairs(node.mods[index].list) do
 				errMsg, match = PCall(string.match, mod.name, self.searchStr)
 				if match then
 					return true
@@ -686,7 +686,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 end
 
 function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
-	tooltip:AddLine(24, "^7"..node.proxy.dn..(launch.devModeAlt and " ["..node.id.."]" or ""))
+	tooltip:AddLine(24, "^7"..node.dn..(launch.devModeAlt and " ["..node.id.."]" or ""))
 	if node.type == "Socket" then
 		local attribTotals = { }
 		for nodeId in pairs(node.nodesInRadius[2]) do
@@ -733,25 +733,25 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
-	if node.proxy.sd[1] then
+	if node.sd[1] then
 		tooltip:AddLine(16, "")
-		for i, line in ipairs(node.proxy.sd) do
-			if node.proxy.mods[i].list then
+		for i, line in ipairs(node.sd) do
+			if node.mods[i].list then
 				if launch.devModeAlt then
 					-- Modifier debugging info
 					local modStr
-					for _, mod in pairs(node.proxy.mods[i].list) do
+					for _, mod in pairs(node.mods[i].list) do
 						modStr = (modStr and modStr..", " or "^2") .. modLib.formatMod(mod)
 					end
-					if node.proxy.mods[i].extra then
-						modStr = (modStr and modStr.."  " or "") .. "^1" .. node.proxy.mods[i].extra
+					if node.mods[i].extra then
+						modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
 					end
 					if modStr then
 						line = line .. "  " .. modStr
 					end
 				end
 			end
-				tooltip:AddLine(16, ((node.proxy.mods[i].extra or not node.proxy.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+				tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
 		end
 	end
 

@@ -13,6 +13,10 @@ launch = { }
 SetMainObject(launch)
 
 function launch:OnInit()
+	package.cpath = package.cpath .. ';C:/Users/Aron/.PyCharmCE2019.3/config/plugins/intellij-emmylua/classes/debugger/emmy/windows/x86/?.dll'
+	local dbg = require('emmy_core')
+	dbg.tcpListen('localhost', 9967)
+
 	self.devMode = false
 	self.versionNumber = "?"
 	self.versionBranch = "?"
