@@ -51,7 +51,7 @@ local function runSingleSim(numSec, heroProfile)
     return dmg_done / t
 end
 
-function cs:runSimulation(numSims, numSecsPerSim)
+function runSimulation(numSims, numSecsPerSim)
     local avg_sim_dmg = 0
     for i = 1, numSims do
         local ret = runSingleSim(numSecsPerSim)
@@ -59,3 +59,5 @@ function cs:runSimulation(numSims, numSecsPerSim)
     end
     ConPrintf("Avg DPS: " .. avg_sim_dmg/numSims)
 end
+
+runSimulation(1000, 2.0)
