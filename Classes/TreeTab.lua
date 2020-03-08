@@ -358,3 +358,79 @@ function TreeTabClass:OpenExportPopup()
 	end)
 	popup = main:OpenPopup(380, 100, "Export Tree", controls, "done", "edit")
 end
+
+function TreeTabClass:ModifyNodePopup(selectedNode)
+	local controls = { }
+	local sourceList = { }
+	local modList = { }
+	local function buildMods(sourceId)
+		wipeTable(modList)
+		for _, node in ipairs(self.build.tree.legion.nodes) do
+			if node.dn == "vaal" then
+				local label
+				if craft.master then
+					label = craft.master .. " " .. craft.masterLevel .. "   "..craft.type:sub(1,3).."^8[" .. table.concat(craft, "/") .. "]"
+				else
+					label = table.concat(craft, "/")
+				end
+				t_insert(modList, {
+					label = label,
+					mod = craft,
+					type = "crafted",
+				})
+			end
+		end
+	end
+	local function addModifier()
+		local item = new("Item", self.build.targetVersion, self.displayItem:BuildRaw())
+		item.id = self.displayItem.id
+		local sourceId = sourceList[controls.source.selIndex].sourceId
+		if sourceId == "CUSTOM" then
+			if controls.custom.buf:match("%S") then
+				t_insert(item.modLines, { line = controls.custom.buf, custom = true })
+			end
+		else
+			local listMod = modList[controls.modSelect.selIndex]
+			for _, line in ipairs(listMod.mod) do
+				t_insert(item.modLines, { line = line, [listMod.type] = true })
+			end
+		end
+		item:BuildAndParseRaw()
+		return item
+	end
+	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Source:")
+	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 150, 18, sourceList, function(index, value)
+		buildMods(value.sourceId)
+		controls.modSelect:SetSel(1)
+	end)
+	controls.source.enabled = #sourceList > 1
+	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Modifier:")
+	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 600, 18, modList)
+	controls.modSelect.shown = function()
+		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
+	end
+	controls.modSelect.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value then
+			for _, line in ipairs(value.mod) do
+				tooltip:AddLine(16, "^7"..line)
+			end
+		end
+	end
+	controls.custom = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 440, 18)
+	controls.custom.shown = function()
+		return sourceList[controls.source.selIndex].sourceId == "CUSTOM"
+	end
+	controls.save = new("ButtonControl", nil, -45, 75, 80, 20, "Add", function()
+		self:SetDisplayItem(addModifier())
+		main:ClosePopup()
+	end)
+	controls.save.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		self:AddItemTooltip(tooltip, addModifier())
+	end
+	controls.close = new("ButtonControl", nil, 45, 75, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(710, 105, "Replace Modifier of Node", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")
+end

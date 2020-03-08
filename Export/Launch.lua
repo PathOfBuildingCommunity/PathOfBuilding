@@ -13,6 +13,7 @@ launch = { }
 SetMainObject(launch)
 
 function launch:OnInit()
+
 	self.devMode = true
 	self.subScripts = { }
 	RenderInit()
