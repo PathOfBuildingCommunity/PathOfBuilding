@@ -262,9 +262,8 @@ ModelManifest.xml
 /pack-tree.lua
 
 # VSCode
-.vscode/
-.history/
+.vscode/*
+.history/*
 
 # Temporary disabled 
 Data/3_0/ModCache.lua
-
