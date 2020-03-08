@@ -790,9 +790,9 @@ function ItemsTabClass:NewItemSet(itemSetId)
 		end
 	end
 	itemSet["socketNodes"] = { }
-	for nodeId, _ in pairs(self.sockets) do
-		itemSet["socketNodes"][nodeId] = nil
-	end
+	--for nodeId, _ in pairs(self.sockets) do
+	--	itemSet["socketNodes"][nodeId] = nil
+	--end
 	self.itemSets[itemSet.id] = itemSet
 	return itemSet
 end
@@ -828,7 +828,7 @@ function ItemsTabClass:SetActiveItemSet(itemSetId)
 			if not prevSet["socketNodes"] then
 				prevSet["socketNodes"] = { }
 			end
-			for nodeId, _ in pairs(self.sockets) do
+			for nodeId, _ in pairs(curSet["socketNodes"]) do
 				if self.sockets[nodeId] then
 					prevSet["socketNodes"][nodeId] = self.sockets[nodeId].selItemId
 				else
