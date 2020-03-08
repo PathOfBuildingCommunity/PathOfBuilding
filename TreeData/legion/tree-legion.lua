@@ -52,22 +52,22 @@ return  {
 	["notableActive"]={{
 		["filename"]="skills-additional-3.jpg",
 		["coords"]={
-			["Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds"]={["x"]=0,["y"]=0,["y"]=27,["w"]=38,["h"]=38},
-			["Art/2DArt/SkillIcons/passives/VaalNotableDefensive.dds"]={["x"]=38,["y"]=0,["y"]=27,["w"]=38,["h"]=38},
-			["Art/2DArt/SkillIcons/passives/DevotionNotable.dds"]={["x"]=76,["y"]=0,["y"]=27,["w"]=38,["h"]=38},
-			["Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds"]={["x"]=114,["y"]=0,["y"]=27,["w"]=38,["h"]=38},
-			["Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds"]={["x"]=152,["y"]=0,["y"]=27,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds"]={["x"]=0,["y"]=27,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/VaalNotableDefensive.dds"]={["x"]=38,["y"]=27,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/DevotionNotable.dds"]={["x"]=76,["y"]=27,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds"]={["x"]=114,["y"]=27,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds"]={["x"]=152,["y"]=27,["w"]=38,["h"]=38},
 		}
 	}
 	},
-	["notableInctive"]={{
+	["notableInactive"]={{
 		["filename"]="skills-additional-disabled-3.jpg",
 		["coords"]={
-			["Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds"]={["x"]=0,["y"]=0,["y"]=27,["w"]=38,["h"]=38},
-			["Art/2DArt/SkillIcons/passives/VaalNotableDefensive.dds"]={["x"]=38,["y"]=0,["y"]=27,["w"]=38,["h"]=38},
-			["Art/2DArt/SkillIcons/passives/DevotionNotable.dds"]={["x"]=76,["y"]=0,["y"]=27,["w"]=38,["h"]=38},
-			["Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds"]={["x"]=114,["y"]=0,["y"]=27,["w"]=38,["h"]=38},
-			["Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds"]={["x"]=152,["y"]=0,["y"]=27,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds"]={["x"]=0,["y"]=27,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/VaalNotableDefensive.dds"]={["x"]=38,["y"]=27,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/DevotionNotable.dds"]={["x"]=76,["y"]=27,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds"]={["x"]=114,["y"]=27,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds"]={["x"]=152,["y"]=27,["w"]=38,["h"]=38},
 		}
 	}
 	},

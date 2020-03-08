@@ -429,7 +429,9 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		node.dependsOnIntuitiveLeapLike = false
 
 		-- Reset Node to default
-		ReplaceNode(node,self.tree.nodes[id])
+		node.conqueredBy = nil
+
+		self:ReplaceNode(node,self.tree.nodes[id])
 
 		if node.type ~= "ClassStart" and node.type ~= "Socket" then
 			for nodeId, itemId in pairs(self.jewels) do
@@ -453,35 +455,51 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			end
 		end
 
-		-- If node is conquered, replace it or add mods
-		if node.conqueredBy and node.type ~= "Socket" then
-			local conqueredBy = node.conqueredBy
-			local legionNodes = self.build.latestTree.legion.nodes
-			--self.tree.nodes[id].isConquered = true
-			if node.type == "Keystone" then
-				local legionnode = legionNodes[conqueredBy.conquerer.type.."_keystone_"..conqueredBy.conquerer.id]
-				ReplaceNode(node,legionnode)
-			elseif conqueredBy.conquerer.type == "eternal" and node.type == "Normal"  then
-				local legionnode =legionNodes["eternal_small_blank"]
-				ReplaceNode(node,legionnode)
-			elseif conqueredBy.conquerer.type == "templar" and node.type == "Normal" and isValueInArray(attributes, node.dn) then
-				local legionnode =legionNodes["templar_devotion_node"]
-				ReplaceNode(node,legionnode)
-			elseif conqueredBy.conquerer.type == "maraketh" and (node.type == "Normal" or node.type ==  "Notable") then
-				local str = isValueInArray(attributes, node.dn) and "2" or "4"
-				self:NodeAdditionFromString(node,"+"..str.." to Dexterity","Tree:"..node.id)
-
-			elseif conqueredBy.conquerer.type == "karui" and (node.type == "Normal" or node.type ==  "Notable") then
-				local str = isValueInArray(attributes, node.dn) and "2" or "4"
-				self:NodeAdditionFromString(node,"+"..str.." to Strength","Tree:"..node.id)
-			end
-		end
-
 		if node.alloc then
 			node.depends[1] = node -- All nodes depend on themselves
 		end
 	end
 
+	for id, node in pairs(self.nodes) do
+		-- If node is conquered, replace it or add mods
+		if node.conqueredBy and node.type ~= "Socket" then
+			local conqueredBy = node.conqueredBy
+			local legionNodes = self.tree.legion.nodes
+			--self.tree.nodes[id].isConquered = true
+			if node.type == "Keystone" then
+				local legionNode = legionNodes[conqueredBy.conqueror.type.."_keystone_"..conqueredBy.conqueror.id]
+				self:ReplaceNode(node, legionNode)
+			elseif conqueredBy.conqueror.type == "eternal" and node.type == "Normal"  then
+				local legionNode =legionNodes["eternal_small_blank"]
+				self:ReplaceNode(node,legionNode)
+			elseif conqueredBy.conqueror.type == "templar" and node.type == "Normal" and isValueInArray(attributes, node.dn) then
+				local legionNode =legionNodes["templar_devotion_node"]
+				self:ReplaceNode(node,legionNode)
+			elseif conqueredBy.conqueror.type == "maraketh" and (node.type == "Normal" or node.type ==  "Notable") then
+				local str = isValueInArray(attributes, node.dn) and "2" or "4"
+				self:NodeAdditionFromString(node,"+"..str.." to Dexterity")
+			elseif conqueredBy.conqueror.type == "karui" and (node.type == "Normal" or node.type ==  "Notable") then
+				local str = isValueInArray(attributes, node.dn) and "2" or "4"
+				self:NodeAdditionFromString(node,"+"..str.." to Strength")
+			elseif conqueredBy.conqueror.type == "vaal" and node.type == "Normal" then
+				local legionNode =legionNodes["vaal_small_fire_resistance"]
+				node.dn = "Vaal small Node"
+				node.sd = {"Right click to set mod"}
+				node.sprites = legionNode.sprites
+				node.mods = {""}
+				node.modList = new("ModList")
+				node.modKey = ""
+			elseif conqueredBy.conqueror.type == "vaal" and node.type == "Notable" then
+				local legionNode =legionNodes["vaal_notable_curse_1"]
+				node.dn = "Vaal notable Node"
+				node.sd = {"Right click to set mod"}
+				node.sprites = legionNode.sprites
+				node.mods = {""}
+				node.modList = new("ModList")
+				node.modKey = ""
+			end
+		end
+	end
 
 
 	for id, node in pairs(self.allocNodes) do
@@ -558,15 +576,15 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	end
 end
 
-function ReplaceNode(old, new) 
+function PassiveSpecClass:ReplaceNode(old, new)
+	if old.dn == new.dn then return 1 end
 	old.dn = new.dn
 	old.sd = new.sd
 	old.mods = new.mods
 	old.modKey = new.modKey
 	old.modList = new.modList
-	old.overlay = new.overlay
-	old.icon = new.icon
 	old.sprites = new.sprites
+	old.keystoneMod = new.keystoneMod
 end
 
 function PassiveSpecClass:CreateUndoState()
@@ -577,10 +595,11 @@ function PassiveSpecClass:RestoreUndoState(state)
 	self:DecodeURL(state)
 end
 
-function PassiveSpecClass:NodeAdditionFromString(node,sd,source)
+function PassiveSpecClass:NodeAdditionFromString(node,sd)
 	local addition = {}
 	addition.sd = {sd}
 	addition.mods = { }
+	addition.modList = new("ModList")
 	addition.modKey = ""
 	local i = 1
 	while addition.sd[i] do
@@ -633,12 +652,11 @@ function PassiveSpecClass:NodeAdditionFromString(node,sd,source)
 		end
 	end
 
-	-- Build unified list of modifiers from all recognised modifier lines
-	addition.modList = new("ModList")
+	-- Build unified list of modifiers from all recognised modifier lines	
 	for _, mod in pairs(addition.mods) do
 		if mod.list and not mod.extra then
 			for i, mod in ipairs(mod.list) do
-				mod.source = source
+				mod.source = "Tree:"..node.id
 				if type(mod.value) == "table" and mod.value.mod then
 					mod.value.mod.source = mod.source
 				end
@@ -646,10 +664,10 @@ function PassiveSpecClass:NodeAdditionFromString(node,sd,source)
 			end
 		end
 	end
-	node.sd = TableConcat(node.sd, addition.sd)
-	node.mods = TableConcat(node.mods,  addition.mods)
+	node.sd = TableConcat(self.tree.nodes[node.id].sd, addition.sd)
+	node.mods = TableConcat(self.tree.nodes[node.id].mods,  addition.mods)
 	local modList = new("ModList")
-	modList:AddList(node.modList)
 	modList:AddList(addition.modList)
+	modList:AddList(self.tree.nodes[node.id].modList)
 	node.modList = modList
 end

@@ -10,7 +10,7 @@ local band = bit.band
 local bor = bit.bor
 local bnot = bit.bnot
 
-local conquererList = {
+local conquerorList = {
 	["xibaqua"] 	= 	{id = 1, type = "vaal"},
  	["doryani"]		=	{id = 2, type = "vaal"},
 	["zerphi"]		=	{id = 3, type = "vaal"},
@@ -1817,19 +1817,19 @@ local specialModList = {
 	-- Legion modifiers
 	["bathed in the blood of (%d+) sacrificed in the name of (.+)"] =  function(num, _, name)
 		return { mod("JewelData", "LIST",
-				{key = "conqueredBy", value = {id = num, conquerer = conquererList[name:lower()] } }) } end,
+				{key = "conqueredBy", value = {id = num, conqueror = conquerorList[name:lower()] } }) } end,
 	["carved to glorify (%d+) new faithful converted by high templar (.+)"] =  function(num, _, name)
 		return { mod("JewelData", "LIST",
-				{key = "conqueredBy", value = {id = num, conquerer = conquererList[name:lower()] } }) } end,
+				{key = "conqueredBy", value = {id = num, conqueror = conquerorList[name:lower()] } }) } end,
 	["commanded leadership over (%d+) warriors under (.+)"] =  function(num, _, name)
 		return { mod("JewelData", "LIST",
-				{key = "conqueredBy", value = {id = num, conquerer = conquererList[name:lower()] } }) } end,
+				{key = "conqueredBy", value = {id = num, conqueror = conquerorList[name:lower()] } }) } end,
 	["commissioned (%d+) coins to commemorate (.+)"] =  function(num, _, name)
 		return { mod("JewelData", "LIST",
-				{key = "conqueredBy", value = {id = num, conquerer = conquererList[name:lower()] } }) } end,
+				{key = "conqueredBy", value = {id = num, conqueror = conquerorList[name:lower()] } }) } end,
 	["denoted service of (%d+) dekhara in the akhara of (.+)"] =  function(num, _, name)
 		return { mod("JewelData", "LIST",
-				{key = "conqueredBy", value = {id = num, conquerer = conquererList[name:lower()] } }) } end,
+				{key = "conqueredBy", value = {id = num, conqueror = conquerorList[name:lower()] } }) } end,
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques

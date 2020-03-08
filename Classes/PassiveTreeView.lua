@@ -278,6 +278,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				build.itemsTab:SelectControl(slot)
 				build.viewMode = "ITEMS"
 			end
+		elseif hoverNode and hoverNode.conqueredBy and hoverNode.conqueredBy.conqueror.name == "vaal" then
+			build.treeTab:ModifyNodePopup(hoverNode)
 		end
 	end
 

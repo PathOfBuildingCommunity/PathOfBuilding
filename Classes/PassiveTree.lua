@@ -118,6 +118,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 
+	-- Load legion sprite sheets and build sprite map
 	local legionSprites = LoadModule("TreeData/legion/tree-legion.lua")
 	for type, data in pairs(legionSprites) do
 		local maxZoom = data[#data]
@@ -244,7 +245,11 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	}
 	local orbitDist = { [0] = 0, 82, 162, 335, 493 }
 	for _, node in pairs(self.nodes) do
-		node.meta = { __index = node }
+		node.conquered = false
+		node.alternative = {}
+
+
+		node.meta = { __index = node}
 		nodeMap[node.id] = node
 		node.linkedId = { }
 
@@ -358,7 +363,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 					node.modKey = node.modKey.."["..modLib.formatMod(mod).."]"
 				end
 			end
-			node.mods[i] = { list = list, extra = extra }
+		node.mods[i] = { list = list, extra = extra }
 			i = i + 1
 			while node.mods[i] do
 				-- Skip any lines with dummy lists added by the line combining code
