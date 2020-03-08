@@ -923,6 +923,7 @@ local modTagList = {
 	["if you[' ]h?a?ve frozen an enemy recently"] = { tag = { type = "Condition", var = "FrozenEnemyRecently" } },
 	["if you[' ]h?a?ve ignited an enemy recently"] = { tag = { type = "Condition", var = "IgnitedEnemyRecently" } },
 	["if you[' ]h?a?ve shocked an enemy recently"] = { tag = { type = "Condition", var = "ShockedEnemyRecently" } },
+	["if you[' ]h?a?ve stunned an enemy recently"] = { tag = { type = "Condition", var = "StunnedEnemyRecently" } },
 	["if you[' ]h?a?ve been hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
 	["if you were hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
 	["if you were damaged by a hit recently"] = { tag = { type = "Condition", var = "BeenHitRecently" } },
