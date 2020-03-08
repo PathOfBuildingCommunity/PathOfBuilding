@@ -827,9 +827,7 @@ function ItemsTabClass:SetActiveItemSet(itemSetId)
 	-- Copy over Jewel Sockets
 	if prevSet then
 		if curSet["socketNodes"] then
-			if not prevSet["socketNodes"] then
-				prevSet["socketNodes"] = { }
-			end
+			prevSet["socketNodes"] = { }
 			for nodeId, _ in pairs(curSet["socketNodes"]) do
 				if self.sockets[nodeId] then
 					prevSet["socketNodes"][nodeId] = self.sockets[nodeId].selItemId
@@ -908,9 +906,7 @@ function ItemsTabClass:UpdateSockets()
 
 	-- Update the state of the active socket controls
 	self.lastSlot = self.slots[baseSlots[#baseSlots]]
-	if not self.activeItemSet["socketNodes"] then
-		self.activeItemSet["socketNodes"] = { }
-	end
+	self.activeItemSet["socketNodes"] = { }
 	for index, nodeId in ipairs(activeSocketList) do
 		self.sockets[nodeId].label = "Socket #"..index
 		self.lastSlot = self.sockets[nodeId]
