@@ -605,6 +605,8 @@ function ItemsTabClass:Load(xml, dbFileName)
 						itemSet[slotName].selItemId = tonumber(child.attrib.itemId)
 						itemSet[slotName].active = child.attrib.active == "true"
 					end
+				elseif child.elem == "Socket" then
+					itemSet["socketNodes"][tonumber(child.attrib.nodeId)] = tonumber(child.attrib.itemId)
 				end
 			end
 			t_insert(self.itemSetOrderList, itemSet.id)
@@ -647,6 +649,15 @@ function ItemsTabClass:Save(xml)
 		for slotName, slot in pairs(self.slots) do
 			if not slot.nodeId then
 				t_insert(child, { elem = "Slot", attrib = { name = slotName, itemId = tostring(itemSet[slotName].selItemId), active = itemSet[slotName].active and "true" }})
+			end
+		end
+		if itemSet["socketNodes"] then
+			for nodeId, itemId in pairs(itemSet["socketNodes"]) do
+				if self.sockets[nodeId] then
+					t_insert(child, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(itemId) } })
+				else
+					t_insert(child, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(nil) } })
+				end
 			end
 		end
 		t_insert(xml, child)
@@ -778,6 +789,10 @@ function ItemsTabClass:NewItemSet(itemSetId)
 			itemSet[slotName] = { selItemId = 0 }
 		end
 	end
+	itemSet["socketNodes"] = { }
+	for nodeId, _ in pairs(self.sockets) do
+		itemSet["socketNodes"][nodeId] = nil
+	end
 	self.itemSets[itemSet.id] = itemSet
 	return itemSet
 end
@@ -806,6 +821,28 @@ function ItemsTabClass:SetActiveItemSet(itemSetId)
 			end
 		end
 	end
+
+	-- Copy over Jewel Sockets
+	if prevSet then
+		if curSet["socketNodes"] then
+			if not prevSet["socketNodes"] then
+				prevSet["socketNodes"] = { }
+			end
+			for nodeId, _ in pairs(self.sockets) do
+				if self.sockets[nodeId] then
+					prevSet["socketNodes"][nodeId] = self.sockets[nodeId].selItemId
+				else
+					prevSet["socketNodes"][nodeId] = nil
+				end
+			end
+		end
+	end
+	if curSet["socketNodes"] then
+		for nodeId, itemId in pairs(curSet["socketNodes"]) do
+			self.sockets[nodeId].selItemId = itemId
+		end
+	end
+
 	self.build.buildFlag = true
 	self:PopulateSlots()
 end
@@ -847,6 +884,10 @@ function ItemsTabClass:PopulateSlots()
 	for _, slot in pairs(self.slots) do
 		slot:Populate()
 	end
+	-- Populate the jewels
+	for _, slot in pairs(self.sockets) do
+		slot:Populate()
+	end
 end
 
 -- Updates the status and position of the socket controls
@@ -865,9 +906,13 @@ function ItemsTabClass:UpdateSockets()
 
 	-- Update the state of the active socket controls
 	self.lastSlot = self.slots[baseSlots[#baseSlots]]
+	if not self.activeItemSet["socketNodes"] then
+		self.activeItemSet["socketNodes"] = { }
+	end
 	for index, nodeId in ipairs(activeSocketList) do
 		self.sockets[nodeId].label = "Socket #"..index
 		self.lastSlot = self.sockets[nodeId]
+		self.activeItemSet["socketNodes"][nodeId] = self.sockets[nodeId].selItemId
 	end
 end
 
