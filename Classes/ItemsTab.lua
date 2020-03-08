@@ -656,7 +656,7 @@ function ItemsTabClass:Save(xml)
 				if self.sockets[nodeId] then
 					t_insert(child, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(itemId) } })
 				else
-					t_insert(child, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(nil) } })
+					t_insert(child, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(0) } })
 				end
 			end
 		end
@@ -790,9 +790,11 @@ function ItemsTabClass:NewItemSet(itemSetId)
 		end
 	end
 	itemSet["socketNodes"] = { }
-	--for nodeId, _ in pairs(self.sockets) do
-	--	itemSet["socketNodes"][nodeId] = nil
-	--end
+	if self.activeItemSet and self.activeItemSet["socketNodes"] then
+		for nodeId, _ in pairs(self.activeItemSet["socketNodes"]) do
+			itemSet["socketNodes"][nodeId] = 0
+		end
+	end
 	self.itemSets[itemSet.id] = itemSet
 	return itemSet
 end
@@ -832,7 +834,7 @@ function ItemsTabClass:SetActiveItemSet(itemSetId)
 				if self.sockets[nodeId] then
 					prevSet["socketNodes"][nodeId] = self.sockets[nodeId].selItemId
 				else
-					prevSet["socketNodes"][nodeId] = nil
+					prevSet["socketNodes"][nodeId] = 0
 				end
 			end
 		end
