@@ -822,7 +822,7 @@ local modTagList = {
 	["while wielding a one handed weapon"] = { tag = { type = "Condition", var = "UsingOneHandedWeapon" } },
 	["while wielding a two handed weapon"] = { tag = { type = "Condition", var = "UsingTwoHandedWeapon" } },
 	["while wielding a wand"] = { tag = { type = "Condition", var = "UsingWand" } },
-	["while wielding two different weapon types"] = { tag = { type = "Condition", var = "DualWieldingDifferentWeaponTypes" } },
+	["while wielding two different weapon types"] = { tag = { type = "Condition", var = "WieldingDifferentWeaponTypes" } },
 	["while unarmed"] = { tag = { type = "Condition", var = "Unarmed" } },
 	["while you are unencumbered"] = { tag = { type = "Condition", var = "Unencumbered" } },
 	["with a normal item equipped"] = { tag = { type = "MultiplierThreshold", var = "NormalItem", threshold = 1 } },
