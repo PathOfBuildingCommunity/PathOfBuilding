@@ -1565,6 +1565,12 @@ local specialModList = {
 	["raging spirits' hits always ignite"] = { mod("MinionModifier", "LIST", { mod = mod("EnemyIgniteChance", "BASE", 100) }, { type = "SkillName", skillName = "Summon Raging Spirit" }) },
 	["summoned skeletons have avatar of fire"] = { mod("MinionModifier", "LIST", { mod = mod("Keystone", "LIST", "Avatar of Fire") }, { type = "SkillName", skillName = "Summon Skeleton" }) },
 	["summoned skeletons take ([%d%.]+)%% of their maximum life per second as fire damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("FireDegen", "BASE", num/100, { type = "PerStat", stat = "Life", div = 1 }) }, { type = "SkillName", skillName = "Summon Skeleton" }) } end,
+	["summoned skeletons have (%d+)%% chance to wither enemies for (%d+) seconds on hit"] = {
+		flag("Condition:CanWither"),
+		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanWither" }), -- Make the Configuration option appear
+		mod("ExtraSkillMod", "LIST", { mod = mod("ChaosDamageTaken", "INC", 6, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered", effectStackVar = "WitheredStackCount", effectStackLimit = 15 }) }, { type = "SkillName", skillName = "Summon Skeleton" }),
+	},
+	["summoned skeletons have (%d+)%% of physical damage converted to chaos damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToChaos", "BASE", num) }, { type = "SkillName", skillName = "Summon Skeleton" }) } end,
 	["minions convert (%d+)%% of physical damage to fire damage per red socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToFire", "BASE", num) }, { type = "Multiplier", var = "RedSocketIn{SlotName}" }) } end,
 	["minions convert (%d+)%% of physical damage to cold damage per green socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToCold", "BASE", num) }, { type = "Multiplier", var = "GreenSocketIn{SlotName}" }) } end,
 	["minions convert (%d+)%% of physical damage to lightning damage per blue socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToLightning", "BASE", num) }, { type = "Multiplier", var = "BlueSocketIn{SlotName}" }) } end,
