@@ -1163,9 +1163,9 @@ return {
 ["non_curse_aura_effect_+%"] = {
 	mod("AuraEffect", "INC", nil),
 },
--- Sigil
+-- Brand
 ["sigil_attached_target_damage_+%_final"] = {
-	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BrandAttachedToEnemy" }),
+	mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", var = "BrandsAttachedToEnemy", threshold = 1 }),
 },
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {
