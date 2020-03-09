@@ -1474,6 +1474,10 @@ local specialModList = {
 		mod("Damage", "MORE", tonumber(more) * num / 200, nil, 0, bor(KeywordFlag.Poison, ModFlag.Attack), { type = "Condition", var = "DualWielding"}),
 		mod("Damage", "MORE", tonumber(more) * num / 100, nil, 0, bor(KeywordFlag.Poison, ModFlag.Attack), { type = "Condition", var = "DualWielding", neg = true })
 	} end,
+	-- Impale
+	["(%d+)%% increased effect of impales inflicted by hits that also inflict bleeding"] = function(num) return {
+		mod("ImpaleEffectOnBleed", "INC", num, nil, 0, KeywordFlag.Hit)
+	} end,
 	-- Buffs/debuffs
 	["phasing"] = { flag("Condition:Phasing") },
 	["onslaught"] = { flag("Condition:Onslaught") },

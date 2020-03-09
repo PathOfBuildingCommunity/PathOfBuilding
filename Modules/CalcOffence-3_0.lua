@@ -2221,7 +2221,8 @@ function calcs.offence(env, actor, activeSkill)
             local impaleStacks = configStacks > 0 and m_min(configStacks, maxStacks) or  maxStacks
 
             local baseStoredDamage = 0.1 -- magic number: base impale stored damage
-            local storedDamageInc = skillModList:Sum("INC", cfg, "ImpaleEffect")/100
+            local storedDamageIncOnBleed = skillModList:Sum("INC", cfg, "ImpaleEffectOnBleed")*skillModList:Sum("BASE", cfg, "BleedChance")/100
+            local storedDamageInc = (skillModList:Sum("INC", cfg, "ImpaleEffect") + storedDamageIncOnBleed)/100
             local storedDamageMore = round(skillModList:More(cfg, "ImpaleEffect"), 2)
             local storedDamageModifier = (1 + storedDamageInc) * storedDamageMore
             local impaleStoredDamage = baseStoredDamage * storedDamageModifier
