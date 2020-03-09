@@ -3282,6 +3282,7 @@ local specialModList = {
 	["incinerate has %+(%d+) to maximum stages"] = function(num) return { mod("Multiplier:IncinerateMaxStages", "BASE", num, { type = "SkillName", skillName = "Incinerate" }) } end,
 	["perforate creates %+(%d+) spikes?"] = function(num) return { mod("Multiplier:PerforateMaxSpikes", "BASE", num) } end,
 	["scourge arrow has (%d+)%% chance to poison per stage"] = function(num) return { mod("PoisonChance", "BASE", num, { type = "SkillName", skillName = "Scourge Arrow" }, { type = "Multiplier", var = "ScourgeArrowStage" }) } end,
+	["summoned holy relics have (%d+)%% increased buff effect"] = function(num) return { mod("BuffEffect", "INC", num, { type = "SkillName", skillName = "Summon Holy Relic" }) } end,
 	["winter orb has %+(%d+) maximum stages"] = function(num) return { mod("Multiplier:WinterOrbMaxStagesAfterFirst", "BASE", num) } end,
 	["%+(%d) to maximum virulence"] = function(num) return { mod("Multiplier:VirulenceStacksMax", "BASE", num) } end,
 	["winter orb has (%d+)%% increased area of effect per stage"] = function(num) return { mod("AreaOfEffect", "INC", num, { type = "SkillName", skillName = "Winter Orb" }, { type = "Multiplier", var = "WinterOrbStage" }) } end,
