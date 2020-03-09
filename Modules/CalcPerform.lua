@@ -116,6 +116,13 @@ local function doActorAttribsPoolsConditions(env, actor)
 		if actor.weaponData1.type == "Claw" and actor.weaponData2.type == "Claw" then
 			condList["DualWieldingClaws"] = true
 		end
+		if actor.weaponData1.type ~= actor.weaponData2.type then
+			local info1 = env.data.weaponTypeInfo[actor.weaponData1.type]
+			local info2 = env.data.weaponTypeInfo[actor.weaponData2.type]
+			if info1.oneHand and info2.oneHand then
+				condList["DualWieldingDifferentWeaponTypes"] = true
+			end
+		end
 	end
 	if env.mode_combat then		
 		if not modDB:Flag(nil, "NeverCrit") then
