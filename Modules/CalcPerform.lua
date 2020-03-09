@@ -81,8 +81,8 @@ local function doActorAttribsPoolsConditions(env, actor)
             condList["UsingSword"] = true
             condList["UsingDagger"] = true
             condList["UsingMace"] = true
-			condList["UsingClaw"] = true
-			condList["WieldingDifferentWeaponTypes"] = true
+            condList["UsingClaw"] = true
+            condList["WieldingDifferentWeaponTypes"] = true
         end
 		if info.melee then
 			condList["UsingMeleeWeapon"] = true
@@ -101,8 +101,8 @@ local function doActorAttribsPoolsConditions(env, actor)
             condList["UsingSword"] = true
             condList["UsingDagger"] = true
             condList["UsingMace"] = true
-			condList["UsingClaw"] = true
-			condList["WieldingDifferentWeaponTypes"] = true
+            condList["UsingClaw"] = true
+            condList["WieldingDifferentWeaponTypes"] = true
         end
 		if info.melee then
 			condList["UsingMeleeWeapon"] = true
