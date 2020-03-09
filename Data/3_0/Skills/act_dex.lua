@@ -6408,7 +6408,7 @@ skills["RainOfSpores"] = {
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.podOverlapMultiplier or 1, output.ProjectileCount)
+		activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.podOverlapMultiplier, output.ProjectileCount)
 	end,
 	baseFlags = {
 		attack = true,
@@ -6417,6 +6417,7 @@ skills["RainOfSpores"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("podOverlapMultiplier", 1),
 		skill("dotIsArea", true),
 		flag("DotCanStack"),
 		flag("OneShotProj"),
