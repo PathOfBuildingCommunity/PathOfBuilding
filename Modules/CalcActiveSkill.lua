@@ -51,7 +51,7 @@ end
 -- Merge skill modifiers with given mod list
 function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 	calcLib.validateGemLevel(skillEffect)
-	local grantedEffect = skillEffect.grantedEffect	
+	local grantedEffect = skillEffect.grantedEffect
 	local stats = calcLib.buildSkillInstanceStats(skillEffect, grantedEffect)
 	if extraStats and extraStats[1] then
 		for _, stat in pairs(extraStats) do
@@ -62,6 +62,7 @@ function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 		local map = grantedEffect.statMap[stat]
 		if map then
 			for _, mod in ipairs(map) do
+				--ConPrintf("Source: %s, Value: %d", mod.source, map.value or statValue * (map.mult or 1) / (map.div or 1))
 				mergeLevelMod(modList, mod, map.value or statValue * (map.mult or 1) / (map.div or 1))
 			end
 		end
