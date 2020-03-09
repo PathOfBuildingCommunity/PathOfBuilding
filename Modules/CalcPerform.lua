@@ -76,13 +76,15 @@ local function doActorAttribsPoolsConditions(env, actor)
 	else
 		local info = env.data.weaponTypeInfo[actor.weaponData1.type]
 		condList["Using"..info.flag] = true
-        if actor.weaponData1.countsAsAll1H then
-            condList["UsingAxe"] = true
-            condList["UsingSword"] = true
-            condList["UsingDagger"] = true
-            condList["UsingMace"] = true
-            condList["UsingClaw"] = true
-        end
+		if actor.weaponData1.countsAsAll1H then
+			condList["UsingAxe"] = true
+			condList["UsingSword"] = true
+			condList["UsingDagger"] = true
+			condList["UsingMace"] = true
+			condList["UsingClaw"] = true
+			-- GGG stated that a single Varunastra satisfied requirement for wielding two different weapons
+			condList["WieldingDifferentWeaponTypes"] = true
+		end
 		if info.melee then
 			condList["UsingMeleeWeapon"] = true
 		end
@@ -95,13 +97,15 @@ local function doActorAttribsPoolsConditions(env, actor)
 	if actor.weaponData2.type then
 		local info = env.data.weaponTypeInfo[actor.weaponData2.type]
 		condList["Using"..info.flag] = true
-        if actor.weaponData2.countsAsAll1H then
-            condList["UsingAxe"] = true
-            condList["UsingSword"] = true
-            condList["UsingDagger"] = true
-            condList["UsingMace"] = true
-            condList["UsingClaw"] = true
-        end
+		if actor.weaponData2.countsAsAll1H then
+			condList["UsingAxe"] = true
+			condList["UsingSword"] = true
+			condList["UsingDagger"] = true
+			condList["UsingMace"] = true
+			condList["UsingClaw"] = true
+			-- GGG stated that a single Varunastra satisfied requirement for wielding two different weapons
+			condList["WieldingDifferentWeaponTypes"] = true
+		end
 		if info.melee then
 			condList["UsingMeleeWeapon"] = true
 		end
@@ -113,8 +117,15 @@ local function doActorAttribsPoolsConditions(env, actor)
 	end
 	if actor.weaponData1.type and actor.weaponData2.type then
 		condList["DualWielding"] = true
-		if actor.weaponData1.type == "Claw" and actor.weaponData2.type == "Claw" then
+		if (actor.weaponData1.type == "Claw" or actor.weaponData1.countsAsAll1H) and (actor.weaponData2.type == "Claw" or actor.weaponData2.countsAsAll1H) then
 			condList["DualWieldingClaws"] = true
+		end
+		if actor.weaponData1.type ~= actor.weaponData2.type then
+			local info1 = env.data.weaponTypeInfo[actor.weaponData1.type]
+			local info2 = env.data.weaponTypeInfo[actor.weaponData2.type]
+			if info1.oneHand and info2.oneHand then
+				condList["WieldingDifferentWeaponTypes"] = true
+			end
 		end
 	end
 	if env.mode_combat then		
