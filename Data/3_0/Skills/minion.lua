@@ -878,6 +878,7 @@ skills["RelicTriggeredNova"] = {
 		spell = true,
 	},
 	baseMods = {
+		skill("showAverage", true),
 	},
 	qualityStats = {
 	},
