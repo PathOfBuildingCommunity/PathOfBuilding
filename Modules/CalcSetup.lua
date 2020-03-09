@@ -12,8 +12,6 @@ local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 
-local ACoH_processed = false
-
 local tempTable1 = { }
 
 -- Initialise modifier database with stats and conditions common to all actors
@@ -673,11 +671,6 @@ function calcs.initEnv(build, mode, override)
 			end
 			for _, gemInstance in ipairs(socketGroup.gemList) do
 				-- Add support gems from this group
-				ConPrintf("GemInstance: %d", gemInstance.level)
-				if gemInstance.enabled and gemInstance.level == 5 and gemInstance.skillId == "SupportCurseOnHitPlus" and not ACoH_processed then
-					ConPrintTable(gemInstance.gemData)
-					ACoH_processed = true
-				end
 				if env.mode == "MAIN" then
 					gemInstance.displayEffect = nil
 					gemInstance.supportEffect = nil
