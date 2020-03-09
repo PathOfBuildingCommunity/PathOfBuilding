@@ -62,7 +62,6 @@ function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 		local map = grantedEffect.statMap[stat]
 		if map then
 			for _, mod in ipairs(map) do
-				--ConPrintf("Source: %s, Value: %d", mod.source, map.value or statValue * (map.mult or 1) / (map.div or 1))
 				mergeLevelMod(modList, mod, map.value or statValue * (map.mult or 1) / (map.div or 1))
 			end
 		end

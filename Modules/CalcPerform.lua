@@ -715,8 +715,12 @@ function calcs.perform(env)
 	local extraCurseCount = 0
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		for _, effect in pairs(activeSkill.effectList) do
-			if effect.level == 5 and effect.gemData.grantedEffectId == "SupportCurseOnHitPlus" then
+			if effect.level >= 5 and effect.gemData.grantedEffectId == "SupportCurseOnHitPlus" then
 				if not extraCurseGems[string.sub(tostring(effect), 10)] then
+					-- we add the address of the effect table into our table to support
+					-- possible existence of multiple Awakened CoH gems Level 5+ while
+					-- allowing for multiple active skills being linked to a ACoH and not
+					-- be double-counted as we iterate the active skills
 					extraCurseGems[string.sub(tostring(effect), 10)] = 1
 					extraCurseCount = extraCurseCount + 1
 				end
