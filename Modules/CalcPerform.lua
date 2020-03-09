@@ -76,15 +76,15 @@ local function doActorAttribsPoolsConditions(env, actor)
 	else
 		local info = env.data.weaponTypeInfo[actor.weaponData1.type]
 		condList["Using"..info.flag] = true
-        if actor.weaponData1.countsAsAll1H then
-            condList["UsingAxe"] = true
-            condList["UsingSword"] = true
-            condList["UsingDagger"] = true
-            condList["UsingMace"] = true
-            condList["UsingClaw"] = true
+		if actor.weaponData1.countsAsAll1H then
+			condList["UsingAxe"] = true
+			condList["UsingSword"] = true
+			condList["UsingDagger"] = true
+			condList["UsingMace"] = true
+			condList["UsingClaw"] = true
 			-- GGG stated that a single Varunastra satisfied requirement for wielding two different weapons
-            condList["WieldingDifferentWeaponTypes"] = true
-        end
+			condList["WieldingDifferentWeaponTypes"] = true
+		end
 		if info.melee then
 			condList["UsingMeleeWeapon"] = true
 		end
@@ -97,15 +97,15 @@ local function doActorAttribsPoolsConditions(env, actor)
 	if actor.weaponData2.type then
 		local info = env.data.weaponTypeInfo[actor.weaponData2.type]
 		condList["Using"..info.flag] = true
-        if actor.weaponData2.countsAsAll1H then
-            condList["UsingAxe"] = true
-            condList["UsingSword"] = true
-            condList["UsingDagger"] = true
-            condList["UsingMace"] = true
-            condList["UsingClaw"] = true
+		if actor.weaponData2.countsAsAll1H then
+			condList["UsingAxe"] = true
+			condList["UsingSword"] = true
+			condList["UsingDagger"] = true
+			condList["UsingMace"] = true
+			condList["UsingClaw"] = true
 			-- GGG stated that a single Varunastra satisfied requirement for wielding two different weapons
-            condList["WieldingDifferentWeaponTypes"] = true
-        end
+			condList["WieldingDifferentWeaponTypes"] = true
+		end
 		if info.melee then
 			condList["UsingMeleeWeapon"] = true
 		end
