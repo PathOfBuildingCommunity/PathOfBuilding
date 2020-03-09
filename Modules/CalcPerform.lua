@@ -81,7 +81,8 @@ local function doActorAttribsPoolsConditions(env, actor)
             condList["UsingSword"] = true
             condList["UsingDagger"] = true
             condList["UsingMace"] = true
-            condList["UsingClaw"] = true
+			condList["UsingClaw"] = true
+			condList["WieldingDifferentWeaponTypes"] = true
         end
 		if info.melee then
 			condList["UsingMeleeWeapon"] = true
@@ -100,7 +101,8 @@ local function doActorAttribsPoolsConditions(env, actor)
             condList["UsingSword"] = true
             condList["UsingDagger"] = true
             condList["UsingMace"] = true
-            condList["UsingClaw"] = true
+			condList["UsingClaw"] = true
+			condList["WieldingDifferentWeaponTypes"] = true
         end
 		if info.melee then
 			condList["UsingMeleeWeapon"] = true
@@ -122,11 +124,6 @@ local function doActorAttribsPoolsConditions(env, actor)
 			if info1.oneHand and info2.oneHand then
 				condList["WieldingDifferentWeaponTypes"] = true
 			end
-		end
-		-- special case Varunastra
-		-- GGG stated that a single Varunastra satisfied requirement for wielding two different weapons
-		if actor.weaponData1.countsAsAll1H then
-			condList["WieldingDifferentWeaponTypes"] = true
 		end
 	end
 	if env.mode_combat then		
