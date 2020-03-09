@@ -82,6 +82,7 @@ local function doActorAttribsPoolsConditions(env, actor)
             condList["UsingDagger"] = true
             condList["UsingMace"] = true
             condList["UsingClaw"] = true
+			-- GGG stated that a single Varunastra satisfied requirement for wielding two different weapons
             condList["WieldingDifferentWeaponTypes"] = true
         end
 		if info.melee then
@@ -102,6 +103,7 @@ local function doActorAttribsPoolsConditions(env, actor)
             condList["UsingDagger"] = true
             condList["UsingMace"] = true
             condList["UsingClaw"] = true
+			-- GGG stated that a single Varunastra satisfied requirement for wielding two different weapons
             condList["WieldingDifferentWeaponTypes"] = true
         end
 		if info.melee then
