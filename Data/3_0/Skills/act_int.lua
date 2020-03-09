@@ -6944,7 +6944,7 @@ skills["SummonRelic"] = {
 			div = 60,
 		},
 		["holy_relic_nova_minion_life_regeneration_rate_per_second"] = {
-			mod("MinionModifier", "LIST", { mod = mod("LifeRegen", "BASE", nil)}, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Holy Relic's Boon", effectCond ="HolyRelicBoonActive"})
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Holy Relic's Boon", effectCond ="HolyRelicBoonActive", effectBuffMinions=true, effectBuffNotPlayer=true})
 		},
 	},
 	baseFlags = {

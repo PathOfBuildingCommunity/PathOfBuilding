@@ -589,8 +589,8 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				if skillModList[i].source == activeGrantedEffect.modSource then
 					-- Inherit buff configuration from the active skill
 					buff.activeSkillBuff = true
-					buff.applyNotPlayer = activeSkill.skillData.buffNotPlayer
-					buff.applyMinions = activeSkill.skillData.buffMinions
+					buff.applyNotPlayer = effectTag.effectBuffNotPlayer or activeSkill.skillData.buffNotPlayer
+					buff.applyMinions = effectTag.effectBuffMinions or activeSkill.skillData.buffMinions
 					buff.applyAllies = activeSkill.skillData.buffAllies
 					buff.allowTotemBuff = activeSkill.skillData.allowTotemBuff
 				end
