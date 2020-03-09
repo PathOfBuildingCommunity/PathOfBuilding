@@ -51,7 +51,7 @@ end
 -- Merge skill modifiers with given mod list
 function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 	calcLib.validateGemLevel(skillEffect)
-	local grantedEffect = skillEffect.grantedEffect
+	local grantedEffect = skillEffect.grantedEffect	
 	local stats = calcLib.buildSkillInstanceStats(skillEffect, grantedEffect)
 	if extraStats and extraStats[1] then
 		for _, stat in pairs(extraStats) do
