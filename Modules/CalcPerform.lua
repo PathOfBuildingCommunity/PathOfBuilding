@@ -709,8 +709,21 @@ function calcs.perform(env)
 		t_insert(extraAuraModList, value.mod)
 	end
 
-	-- Combine buffs/debuffs 
-	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit")
+	-- Combine buffs/debuffs
+	-- Special Case Awakened Curse on Hit granting extra curses
+	local extraCurseGems = { }
+	local extraCurseCount = 0
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		for _, effect in pairs(activeSkill.effectList) do
+			if effect.level == 5 and effect.gemData.grantedEffectId == "SupportCurseOnHitPlus" then
+				if not extraCurseGems[string.sub(tostring(effect), 10)] then
+					extraCurseGems[string.sub(tostring(effect), 10)] = 1
+					extraCurseCount = extraCurseCount + 1
+				end
+			end
+		end
+	end
+	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit") + extraCurseCount
 	local buffs = { }
 	env.buffs = buffs
 	local minionBuffs = { }
