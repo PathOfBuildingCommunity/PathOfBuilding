@@ -868,9 +868,6 @@ skills["RelicTriggeredNova"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.TriggeredGrantedSkill] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = output.Cooldown
-	end,
 	baseFlags = {
 		spell = true,
 	},
