@@ -226,6 +226,8 @@ function ItemClass:ParseRaw(raw)
 					else
 						t_insert(self.variantList, specVal)
 					end
+				elseif specName == "Requires Level" then
+					self.requirements.level = tonumber(specVal)
 				elseif specName == "Requires" then
 					self.requirements.level = tonumber(specVal:match("Level (%d+)"))
 				elseif specName == "Level" then
