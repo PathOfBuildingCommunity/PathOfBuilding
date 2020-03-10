@@ -1110,6 +1110,7 @@ local specialModList = {
 	["modifiers to critical strike multiplier also apply to damage over time multiplier for ailments from critical strikes at (%d+)%% of their value"] = function(num) return { mod("CritMultiplierAppliesToDegen", "BASE", num) } end,
 	["your bleeding does not deal extra damage while the enemy is moving"] = { flag("Condition:NoExtraBleedDamageToMovingEnemy") },
 	["you can inflict bleeding on an enemy up to (%d+) times?"] = function(num) return { mod("BleedStacksMax", "OVERRIDE", num) } end,
+	["lightning damage with non%-critical strikes is lucky"] = { mod("FireResist", "BASE", 10) },
 	-- Ascendant
 	["grants (%d+) passive skill points?"] = function(num) return { mod("ExtraPoints", "BASE", num) } end,
 	["can allocate passives from the %a+'s starting point"] = { },
