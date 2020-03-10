@@ -353,6 +353,7 @@ local modNameList = {
 	["melee weapon range"] = "MeleeWeaponRange",
 	["melee weapon and unarmed range"] = { "MeleeWeaponRange", "UnarmedRange" },
 	["melee weapon and unarmed attack range"] = { "MeleeWeaponRange", "UnarmedRange" },
+	["melee strike range"] = { "MeleeWeaponRange", "UnarmedRange" },
 	["to deal double damage"] = "DoubleDamageChance",
 	-- Buffs
 	["onslaught effect"] = "OnslaughtEffect",
