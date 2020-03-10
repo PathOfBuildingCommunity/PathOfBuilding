@@ -3,8 +3,6 @@
 -- Module: Calcs Tab
 -- Calculations breakdown tab for the current build.
 --
-local launch, main = ...
-
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
@@ -28,7 +26,7 @@ local buffModeDropList = {
 	{ label = "Effective DPS", buffMode = "EFFECTIVE" } 
 }
 
-local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
+local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
 	self.ControlHost()
 	self.Control()
@@ -47,64 +45,80 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 	-- Special section for skill/mode selection
 	self:NewSection(3, "SkillSelect", 1, "View Skill Details", colorCodes.NORMAL, {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
-			control = common.New("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value) 
+			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value) 
 				self.input.skill_number = index 
 				self:AddUndoState()
 				self.build.buildFlag = true
-			end)
+			end) {
+				tooltipFunc = function(tooltip, mode, index, value)
+					local socketGroup = self.build.skillsTab.socketGroupList[index]
+					if socketGroup and tooltip:CheckForUpdate(socketGroup, self.build.outputRevision) then
+						self.build.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
+					end
+				end
+			}
 		}, },
 		{ label = "Active Skill", { controlName = "mainSkill", 
-			control = common.New("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				mainSocketGroup.mainActiveSkillCalcs = index
 				self.build.buildFlag = true
 			end)
 		}, },
 		{ label = "Skill Part", playerFlag = "multiPart", { controlName = "mainSkillPart", 
-			control = common.New("DropDownControl", nil, 0, 0, 130, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, 0, 0, 150, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
-				local srcGem = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeGem.srcGem
-				srcGem.skillPartCalcs = index
+				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
+				srcInstance.skillPartCalcs = index
+				self:AddUndoState()
+				self.build.buildFlag = true
+			end)
+		}, },
+		{ label = "Active Mines", playerFlag = "mine", { controlName = "mainSkillMineCount",
+			control = new("EditControl", nil, 0, 0, 52, 16, nil, nil, "%D", nil, function(buf)
+				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
+				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
+				srcInstance.skillMineCountCalcs = tonumber(buf)
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end)
 		}, },
 		{ label = "Show Minion Stats", flag = "haveMinion", { controlName = "showMinion", 
-			control = common.New("CheckBoxControl", nil, 0, 0, 18, nil, function(state)
+			control = new("CheckBoxControl", nil, 0, 0, 18, nil, function(state)
 				self.input.showMinion = state
 				self:AddUndoState()
 			end, "Show stats for the minion instead of the player.")
 		}, },
 		{ label = "Minion", flag = "minion", { controlName = "mainSkillMinion",
-			control = common.New("DropDownControl", nil, 0, 0, 160, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, 0, 0, 160, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
-				local srcGem = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeGem.srcGem
+				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				if value.itemSetId then
-					srcGem.skillMinionItemSetCalcs = value.itemSetId
+					srcInstance.skillMinionItemSetCalcs = value.itemSetId
 				else
-					srcGem.skillMinionCalcs = value.minionId
+					srcInstance.skillMinionCalcs = value.minionId
 				end
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end)
 		} },
 		{ label = "Spectre Library", flag = "spectre", { controlName = "mainSkillMinionLibrary",
-			control = common.New("ButtonControl", nil, 0, 0, 100, 16, "Manage Spectres...", function()
+			control = new("ButtonControl", nil, 0, 0, 100, 16, "Manage Spectres...", function()
 				self.build:OpenSpectreLibrary()
 			end)
 		} },
 		{ label = "Minion Skill", flag = "haveMinion", { controlName = "mainSkillMinionSkill",
-			control = common.New("DropDownControl", nil, 0, 0, 200, 16, nil, function(index, value)
+			control = new("DropDownControl", nil, 0, 0, 200, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
-				local srcGem = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeGem.srcGem
-				srcGem.skillMinionSkillCalcs = index
+				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
+				srcInstance.skillMinionSkillCalcs = index
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end)
 		} },
 		{ label = "Calculation Mode", { 
 			controlName = "mode", 
-			control = common.New("DropDownControl", nil, 0, 0, 100, 16, buffModeDropList, function(index, value) 
+			control = new("DropDownControl", nil, 0, 0, 100, 16, buffModeDropList, function(index, value) 
 				self.input.misc_buffMode = value.buffMode 
 				self:AddUndoState()
 				self.build.buildFlag = true
@@ -112,8 +126,8 @@ local CalcsTabClass = common.NewClass("CalcsTab", "UndoHandler", "ControlHost", 
 This controls the calculation of the stats shown in this tab.
 The stats in the sidebar are always shown in Effective DPS mode, regardless of this setting.
 
-Unbuffed: No auras, buffs, or other support skills or effects will apply. This is equivelant to standing in town.
-Buffed: Aura and buff skills apply. This is equivelant to standing in your hideout with auras and buffs turned on.
+Unbuffed: No auras, buffs, or other support skills or effects will apply. This is equivalent to standing in town.
+Buffed: Aura and buff skills apply. This is equivalent to standing in your hideout with auras and buffs turned on.
 In Combat: Charges and combat buffs such as Onslaught will also apply. This will show your character sheet stats in combat.
 Effective DPS: Curses and enemy properties (such as resistances and status conditions) will also apply. This estimates your true DPS.]]) 
 		}, },
@@ -125,21 +139,15 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 		section.controls.showMinion.state = self.input.showMinion
 		section.controls.mode:SelByValue(self.input.misc_buffMode, "buffMode")
 	end)
-	self.sectionList[1].controls.mainSocketGroup.tooltipFunc = function(tooltip, mode, index, value)
-		local socketGroup = self.build.skillsTab.socketGroupList[index]
-		if socketGroup and tooltip:CheckForUpdate(socketGroup, self.build.outputRevision) then
-			self.build.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
-		end
-	end
 
 	-- Add sections from the CalcSections module
 	for _, section in ipairs(sectionData[build.targetVersion]) do
 		self:NewSection(unpack(section))
 	end
 
-	self.controls.breakdown = common.New("CalcBreakdown", self)
+	self.controls.breakdown = new("CalcBreakdownControl", self)
 
-	self.controls.scrollBar = common.New("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
+	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
 end)
 
 function CalcsTabClass:Load(xml, dbFileName)
@@ -320,7 +328,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 end
 
 function CalcsTabClass:NewSection(width, ...)
-	local section = common.New("CalcSection", self, width * self.colWidth + 8 * (width - 1), ...)
+	local section = new("CalcSectionControl", self, width * self.colWidth + 8 * (width - 1), ...)
 	section.widthCols = width
 	t_insert(self.controls, section)
 	t_insert(self.sectionList, section)
@@ -391,7 +399,7 @@ function CalcsTabClass:BuildOutput()
 		self.calcs.buildOutput(self.build, "MAIN")
 	end
 	SetProfiling(false)
-	ConPrintf("Calc time: %d msec", GetTime() - start)
+	ConPrintf("Calc time: %d ms", GetTime() - start)
 	--]]
 
 	for _, node in pairs(self.build.spec.nodes) do
@@ -437,8 +445,9 @@ end
 function CalcsTabClass:PowerBuilder()
 	local calcFunc, calcBase = self:GetNodeCalculator()
 	local cache = { }
-	local newPowerMax = { 
-		offence = 0, 
+	local newPowerMax = {
+		singleStat = 0,
+		offence = 0,
 		defence = 0
 	}
 	if not self.powerMax then
@@ -455,20 +464,27 @@ function CalcsTabClass:PowerBuilder()
 				cache[node.modKey] = calcFunc({node})
 			end
 			local output = cache[node.modKey]
-			if calcBase.Minion then
-				node.power.offence = (output.Minion.CombinedDPS - calcBase.Minion.CombinedDPS) / calcBase.Minion.CombinedDPS
+			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
+				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
+				if node.path then
+					newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.singleStat)
+				end
 			else
-				node.power.offence = (output.CombinedDPS - calcBase.CombinedDPS) / calcBase.CombinedDPS
-			end
-			node.power.defence = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) + 
-							 (output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) + 
-							 (output.EnergyShield - calcBase.EnergyShield) / m_max(3000, calcBase.EnergyShield) + 
-							 (output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
-							 (output.LifeRegen - calcBase.LifeRegen) / 500 +
-							 (output.EnergyShieldRegen - calcBase.EnergyShieldRegen) / 1000
-			if node.path then
-				newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
-				newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
+				if calcBase.Minion then
+					node.power.offence = (output.Minion.CombinedDPS - calcBase.Minion.CombinedDPS) / calcBase.Minion.CombinedDPS
+				else
+					node.power.offence = (output.CombinedDPS - calcBase.CombinedDPS) / calcBase.CombinedDPS
+				end
+				node.power.defence = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) +
+								(output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) +
+								(output.EnergyShield - calcBase.EnergyShield) / m_max(3000, calcBase.EnergyShield) +
+								(output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
+								(output.LifeRegen - calcBase.LifeRegen) / 500 +
+								(output.EnergyShieldRegen - calcBase.EnergyShieldRegen) / 1000
+				if node.path then
+					newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
+					newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
+				end
 			end
 		end
 		if coroutine.running() and GetTime() - start > 100 then
@@ -477,6 +493,20 @@ function CalcsTabClass:PowerBuilder()
 		end
 	end	
 	self.powerMax = newPowerMax
+end
+
+function CalcsTabClass:CalculatePowerStat(selection, original, modified)
+	if modified.Minion then
+		original = original.Minion
+		modified = modified.Minion
+	end
+	originalValue = original[selection.stat] or 0
+	modifiedValue = modified[selection.stat] or 0
+	if selection.transform then
+		originalValue = selection.transform(originalValue)
+		modifiedValue = selection.transform(modifiedValue)
+	end
+	return originalValue - modifiedValue
 end
 
 function CalcsTabClass:GetNodeCalculator()

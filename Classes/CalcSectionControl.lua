@@ -3,11 +3,9 @@
 -- Class: Calc Section Control
 -- Section control used in the Calcs tab
 --
-local launch, main = ...
-
 local t_insert = table.insert
 
-local CalcSectionClass = common.NewClass("CalcSection", "Control", "ControlHost", function(self, calcsTab, width, id, group, label, col, data, updateFunc)
+local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost", function(self, calcsTab, width, id, group, label, col, data, updateFunc)
 	self.Control(calcsTab, 0, 0, width, 0)
 	self.ControlHost()
 	self.calcsTab = calcsTab
@@ -31,7 +29,7 @@ local CalcSectionClass = common.NewClass("CalcSection", "Control", "ControlHost"
 			end
 		end
 	end
-	self.controls.toggle = common.New("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, -3, 3, 16, 16, function()
+	self.controls.toggle = new("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, -3, 3, 16, 16, function()
 		return self.collapsed and "+" or "-"
 	end, function()
 		self.collapsed = not self.collapsed
@@ -158,22 +156,36 @@ function CalcSectionClass:FormatStr(str, actor, colData)
 			return self:FormatVal(actor.output[c] or 0, tonumber(p))
 		end
 	end)
-	str = str:gsub("{(%d+):mod:(%d+)}", function(p, n) 
-		local sectionData = colData[tonumber(n)]
-		local modCfg = (sectionData.cfg and actor.mainSkill[sectionData.cfg.."Cfg"]) or { }
-		if sectionData.modSource then
-			modCfg.source = sectionData.modSource
+	str = str:gsub("{(%d+):mod:([%d,]+)}", function(p, n)
+		local numList = { }
+		for num in n:gmatch("%d+") do
+			t_insert(numList, tonumber(num))
 		end
-		local modVal
-		if type(sectionData.modName) == "table" then
-			modVal = actor.modDB:Sum(sectionData.modType, modCfg, unpack(sectionData.modName))
-		else
-			modVal = actor.modDB:Sum(sectionData.modType, modCfg, sectionData.modName)
+		local modType = colData[numList[1]].modType
+		local modTotal = modType == "MORE" and 1 or 0
+		for _, num in ipairs(numList) do
+			local sectionData = colData[num]
+			local modCfg = (sectionData.cfg and actor.mainSkill[sectionData.cfg.."Cfg"]) or { }
+			if sectionData.modSource then
+				modCfg.source = sectionData.modSource
+			end
+			local modVal
+			local modStore = (sectionData.enemy and actor.enemy.modDB) or (sectionData.cfg and actor.mainSkill.skillModList) or actor.modDB
+			if type(sectionData.modName) == "table" then
+				modVal = modStore:Combine(sectionData.modType, modCfg, unpack(sectionData.modName))
+			else
+				modVal = modStore:Combine(sectionData.modType, modCfg, sectionData.modName)
+			end
+			if modType == "MORE" then
+				modTotal = modTotal * modVal
+			else
+				modTotal = modTotal + modVal
+			end
 		end
-		if sectionData.modType == "MORE" then
-			modVal = (modVal - 1) * 100
+		if modType == "MORE" then
+			modTotal = (modTotal - 1) * 100
 		end
-		return self:FormatVal(modVal, tonumber(p)) 
+		return self:FormatVal(modTotal, tonumber(p)) 
 	end)
 	return str
 end

@@ -3,8 +3,6 @@
 -- Module: Build
 -- Loads and manages the current build.
 --
-local launch, main = ...
-
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
@@ -39,7 +37,27 @@ local fooBanditDropList = {
 	{ label = "Alira (Mana Regen, Crit Multiplier, Resists)", banditId = "Alira" },
 }
 
-local buildMode = common.New("ControlHost")
+local PantheonMajorGodDropList = {
+	{ label = "Nothing", id = "None" },
+	{ label = "Soul of the Brine King", id = "TheBrineKing" },
+	{ label = "Soul of Lunaris", id = "Lunaris" },
+	{ label = "Soul of Solaris", id = "Solaris" },
+	{ label = "Soul of Arakaali", id = "Arakaali" },
+}
+
+local PantheonMinorGodDropList = {
+	{ label = "Nothing", id = "None" },
+	{ label = "Soul of Gruthkul", id = "Gruthkul" },
+	{ label = "Soul of Yugul", id = "Yugul" },
+	{ label = "Soul of Abberath", id = "Abberath" },
+	{ label = "Soul of Tukohama", id = "Tukohama" },
+	{ label = "Soul of Garukhan", id = "Garukhan" },
+	{ label = "Soul of Ralakesh", id = "Ralakesh" },
+	{ label = "Soul of Ryslatha", id = "Ryslatha" },
+	{ label = "Soul of Shakari", id = "Shakari" },
+}
+
+local buildMode = new("ControlHost")
 
 function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self.dbFileName = dbFileName
@@ -64,18 +82,18 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 
 	wipeTable(self.controls)
 
-	local miscTooltip = common.New("Tooltip")
+	local miscTooltip = new("Tooltip")
 
 	-- Controls: top bar, left side
-	self.anchorTopBarLeft = common.New("Control", nil, 4, 4, 0, 20)
-	self.controls.back = common.New("ButtonControl", {"LEFT",self.anchorTopBarLeft,"RIGHT"}, 0, 0, 60, 20, "<< Back", function()
+	self.anchorTopBarLeft = new("Control", nil, 4, 4, 0, 20)
+	self.controls.back = new("ButtonControl", {"LEFT",self.anchorTopBarLeft,"RIGHT"}, 0, 0, 60, 20, "<< Back", function()
 		if self.unsaved then
 			self:OpenSavePopup("LIST")
 		else
 			self:CloseBuild()
 		end
 	end)
-	self.controls.buildName = common.New("Control", {"LEFT",self.controls.back,"RIGHT"}, 8, 0, 0, 20)
+	self.controls.buildName = new("Control", {"LEFT",self.controls.back,"RIGHT"}, 8, 0, 0, 20)
 	self.controls.buildName.width = function(control)
 		local limit = self.anchorTopBarRight:GetPos() - 98 - 40 - self.controls.back:GetSize() - self.controls.save:GetSize() - self.controls.saveAs:GetSize()
 		local bnw = DrawStringWidth(16, "VAR", self.buildName)
@@ -106,13 +124,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 			SetDrawLayer(nil, 0)
 		end
 	end
-	self.controls.save = common.New("ButtonControl", {"LEFT",self.controls.buildName,"RIGHT"}, 8, 0, 50, 20, "Save", function()
+	self.controls.save = new("ButtonControl", {"LEFT",self.controls.buildName,"RIGHT"}, 8, 0, 50, 20, "Save", function()
 		self:SaveDBFile()
 	end)
 	self.controls.save.enabled = function()
 		return not self.dbFileName or self.unsaved
 	end
-	self.controls.saveAs = common.New("ButtonControl", {"LEFT",self.controls.save,"RIGHT"}, 8, 0, 70, 20, "Save As", function()
+	self.controls.saveAs = new("ButtonControl", {"LEFT",self.controls.save,"RIGHT"}, 8, 0, 70, 20, "Save As", function()
 		self:OpenSaveAsPopup()
 	end)
 	self.controls.saveAs.enabled = function()
@@ -120,8 +138,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	end
 
 	-- Controls: top bar, right side
-	self.anchorTopBarRight = common.New("Control", nil, function() return main.screenW / 2 + 6 end, 4, 0, 20)
-	self.controls.pointDisplay = common.New("Control", {"LEFT",self.anchorTopBarRight,"RIGHT"}, -12, 0, 0, 20)
+	self.anchorTopBarRight = new("Control", nil, function() return main.screenW / 2 + 6 end, 4, 0, 20)
+	self.controls.pointDisplay = new("Control", {"LEFT",self.anchorTopBarRight,"RIGHT"}, -12, 0, 0, 20)
 	self.controls.pointDisplay.x = function(control)
 		local width, height = control:GetSize()
 		if self.controls.saveAs:GetPos() + self.controls.saveAs:GetSize() < self.anchorTopBarRight:GetPos() - width - 16 then
@@ -155,7 +173,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 			SetDrawLayer(nil, 0)
 		end
 	end
-	self.controls.characterLevel = common.New("EditControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 106, 20, "", "Level", "%D", 3, function(buf)
+	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 106, 20, "", "Level", "%D", 3, function(buf)
 		self.characterLevel = m_min(tonumber(buf) or 1, 100)
 		self.modFlag = true
 		self.buildFlag = true
@@ -187,7 +205,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 			end
 		end
 	end
-	self.controls.classDrop = common.New("DropDownControl", {"LEFT",self.controls.characterLevel,"RIGHT"}, 8, 0, 100, 20, nil, function(index, value)
+	self.controls.classDrop = new("DropDownControl", {"LEFT",self.controls.characterLevel,"RIGHT"}, 8, 0, 100, 20, nil, function(index, value)
 		if value.classId ~= self.spec.curClassId then
 			if self.spec:CountAllocNodes() == 0 or self.spec:IsClassConnected(value.classId) then
 				self.spec:SelectClass(value.classId)
@@ -202,7 +220,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 			end
 		end
 	end)
-	self.controls.ascendDrop = common.New("DropDownControl", {"LEFT",self.controls.classDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
+	self.controls.ascendDrop = new("DropDownControl", {"LEFT",self.controls.classDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
 		self.spec:SelectAscendClass(value.ascendClassId)
 		self.spec:AddUndoState()
 		self.buildFlag = true
@@ -217,10 +235,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true, flag = "attack" },
 		{ stat = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack" },
 		{ stat = "Speed", label = "Cast Rate", fmt = ".2f", compPercent = true, flag = "spell" },
-		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
+		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f", compPercent = true },
 		{ stat = "TrapThrowingTime", label = "Trap Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".2fs", lowerIsBetter = true },
-		{ stat = "MineLayingTime", label = "Mine Laying Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
+		{ stat = "MineLayingTime", label = targetVersion == "2_6" and "Mine Laying Time" or "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TotemPlacementTime", label = "Totem Placement Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },
@@ -238,16 +256,21 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", condFunc = function(v,o) return v ~= o.TotalDPS end },
 		{ stat = "WithPoisonAverageDamage", label = "Average Dmg. inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", condFunc = function(v,o) return v ~= o.AverageDamage end },
 		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
+		{ stat = "ImpaleDPS", label = "Impale added Damage", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage" },
+		{ stat = "WithImpaleDPS", label = "Damage inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage" },
+		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
+		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
+		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS end},
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
 		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function() return true end },
 		{ },
-		{ stat = "Str", label = "Strength", fmt = "d" },
-		{ stat = "ReqStr", label = "Strength Required", fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end },
-		{ stat = "Dex", label = "Dexterity", fmt = "d" },
-		{ stat = "ReqDex", label = "Dexterity Required", fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Dex end },
-		{ stat = "Int", label = "Intelligence", fmt = "d" },
-		{ stat = "ReqInt", label = "Intelligence Required", fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Int end },
+		{ stat = "Str", label = "Strength", color = colorCodes.STRENGTH, fmt = "d" },
+		{ stat = "ReqStr", label = "Strength Required", color = colorCodes.STRENGTH, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end },
+		{ stat = "Dex", label = "Dexterity", color = colorCodes.DEXTERITY, fmt = "d" },
+		{ stat = "ReqDex", label = "Dexterity Required", color = colorCodes.DEXTERITY, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Dex end },
+		{ stat = "Int", label = "Intelligence", color = colorCodes.INTELLIGENCE, fmt = "d" },
+		{ stat = "ReqInt", label = "Intelligence Required", color = colorCodes.INTELLIGENCE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Int end },
 		{ },
 		{ stat = "Life", label = "Total Life", fmt = "d", compPercent = true },
 		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.Life > 1 end },
@@ -289,14 +312,15 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%" },
 		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%" },
 		{ },
-		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%" },
-		{ stat = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%" },
-		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%" },
-		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%" },
+		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end },
+		{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", color = colorCodes.COLD, condFunc = function() return true end },
+		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", color = colorCodes.LIGHTNING, condFunc = function() return true end },
+		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function() return true end },
+		{ },
+		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%", color = colorCodes.FIRE },
+		{ stat = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%", color = colorCodes.COLD },
+		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%", color = colorCodes.LIGHTNING },
+		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", color = colorCodes.CHAOS },
 	}
 	self.minionDisplayStats = {
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
@@ -308,10 +332,16 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true },
 		{ stat = "WithPoisonDPS", label = "DPS inc. Poison", fmt = ".1f", compPercent = true },
 		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
+		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale" },
+		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale" },
+		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS end},
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "Life", label = "Total Life", fmt = ".1f", compPercent = true },
 		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
 		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", compPercent = true },
+		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
+		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
+		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", compPercent = true },
 	}
 	self.extraSaveStats = {
 		"PowerCharges",
@@ -332,6 +362,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self.banditNormal = "None"
 	self.banditCruel = "None"
 	self.banditMerciless = "None"
+	self.pantheonMajorGod = "None"
+	self.pantheonMinorGod = "None"
 	self.spectreList = { }
 
 	-- Load build file
@@ -353,6 +385,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	if targetVersion then
 		self.targetVersion = targetVersion
 	end
+	self.targetVersionData = targetVersions[self.targetVersion]
 
 	if buildName == "~~temp~~" then
 		-- Remove temporary build file
@@ -364,64 +397,99 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	end
 
 	-- Controls: Side bar
-	self.anchorSideBar = common.New("Control", nil, 4, 36, 0, 0)
-	self.controls.modeImport = common.New("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 0, 134, 20, "Import/Export Build", function()
+	self.anchorSideBar = new("Control", nil, 4, 36, 0, 0)
+	self.controls.modeImport = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 0, 134, 20, "Import/Export Build", function()
 		self.viewMode = "IMPORT"
 	end)
 	self.controls.modeImport.locked = function() return self.viewMode == "IMPORT" end
-	self.controls.modeNotes = common.New("ButtonControl", {"LEFT",self.controls.modeImport,"RIGHT"}, 4, 0, 58, 20, "Notes", function()
+	self.controls.modeNotes = new("ButtonControl", {"LEFT",self.controls.modeImport,"RIGHT"}, 4, 0, 58, 20, "Notes", function()
 		self.viewMode = "NOTES"
 	end)
 	self.controls.modeNotes.locked = function() return self.viewMode == "NOTES" end
-	self.controls.modeConfig = common.New("ButtonControl", {"TOPRIGHT",self.anchorSideBar,"TOPLEFT"}, 300, 0, 100, 20, "Configuration", function()
+	self.controls.modeConfig = new("ButtonControl", {"TOPRIGHT",self.anchorSideBar,"TOPLEFT"}, 300, 0, 100, 20, "Configuration", function()
 		self.viewMode = "CONFIG"
 	end)
 	self.controls.modeConfig.locked = function() return self.viewMode == "CONFIG" end
-	self.controls.modeTree = common.New("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 26, 72, 20, "Tree", function()
+	self.controls.modeTree = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 26, 72, 20, "Tree", function()
 		self.viewMode = "TREE"
 	end)
 	self.controls.modeTree.locked = function() return self.viewMode == "TREE" end
-	self.controls.modeSkills = common.New("ButtonControl", {"LEFT",self.controls.modeTree,"RIGHT"}, 4, 0, 72, 20, "Skills", function()
+	self.controls.modeSkills = new("ButtonControl", {"LEFT",self.controls.modeTree,"RIGHT"}, 4, 0, 72, 20, "Skills", function()
 		self.viewMode = "SKILLS"
 	end)
 	self.controls.modeSkills.locked = function() return self.viewMode == "SKILLS" end
-	self.controls.modeItems = common.New("ButtonControl", {"LEFT",self.controls.modeSkills,"RIGHT"}, 4, 0, 72, 20, "Items", function()
+	self.controls.modeItems = new("ButtonControl", {"LEFT",self.controls.modeSkills,"RIGHT"}, 4, 0, 72, 20, "Items", function()
 		self.viewMode = "ITEMS"
 	end)
 	self.controls.modeItems.locked = function() return self.viewMode == "ITEMS" end
-	self.controls.modeCalcs = common.New("ButtonControl", {"LEFT",self.controls.modeItems,"RIGHT"}, 4, 0, 72, 20, "Calcs", function()
+	self.controls.modeCalcs = new("ButtonControl", {"LEFT",self.controls.modeItems,"RIGHT"}, 4, 0, 72, 20, "Calcs", function()
 		self.viewMode = "CALCS"
 	end)
 	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
 	if self.targetVersion == "2_6" then
-		self.controls.banditNormal = common.New("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 100, 16, normalBanditDropList, function(index, value)
+		self.controls.banditNormal = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 100, 16, normalBanditDropList, function(index, value)
 			self.banditNormal = value.banditId
 			self.modFlag = true
 			self.buildFlag = true
 		end)
-		self.controls.banditNormalLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditNormal,"TOPLEFT"}, 0, 0, 0, 14, "^7Normal Bandit:")
-		self.controls.banditCruel = common.New("DropDownControl", {"LEFT",self.controls.banditNormal,"RIGHT"}, 0, 0, 100, 16, mercilessBanditDropList, function(index, value)
+		self.controls.banditNormalLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.banditNormal,"TOPLEFT"}, 0, 0, 0, 14, "^7Normal Bandit:")
+		self.controls.banditCruel = new("DropDownControl", {"LEFT",self.controls.banditNormal,"RIGHT"}, 0, 0, 100, 16, mercilessBanditDropList, function(index, value)
 			self.banditCruel = value.banditId
 			self.modFlag = true
 			self.buildFlag = true
 		end)
-		self.controls.banditCruelLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditCruel,"TOPLEFT"}, 0, 0, 0, 14, "^7Cruel Bandit:")
-		self.controls.banditMerciless = common.New("DropDownControl", {"LEFT",self.controls.banditCruel,"RIGHT"}, 0, 0, 100, 16, cruelBanditDropList, function(index, value)
+		self.controls.banditCruelLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.banditCruel,"TOPLEFT"}, 0, 0, 0, 14, "^7Cruel Bandit:")
+		self.controls.banditMerciless = new("DropDownControl", {"LEFT",self.controls.banditCruel,"RIGHT"}, 0, 0, 100, 16, cruelBanditDropList, function(index, value)
 			self.banditMerciless = value.banditId
 			self.modFlag = true
 			self.buildFlag = true
 		end)
-		self.controls.banditMercilessLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.banditMerciless,"TOPLEFT"}, 0, 0, 0, 14, "^7Merciless Bandit:")
+		self.controls.banditMercilessLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.banditMerciless,"TOPLEFT"}, 0, 0, 0, 14, "^7Merciless Bandit:")
 	else
-		self.controls.bandit = common.New("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 300, 16, fooBanditDropList, function(index, value)
+		self.controls.bandit = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 300, 16, fooBanditDropList, function(index, value)
 			self.bandit = value.banditId
 			self.modFlag = true
 			self.buildFlag = true
 		end)
-		self.controls.banditLabel = common.New("LabelControl", {"BOTTOMLEFT",self.controls.bandit,"TOPLEFT"}, 0, 0, 0, 14, "^7Bandit:")
-	end	
-	self.controls.mainSkillLabel = common.New("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 95, 300, 16, "^7Main Skill:")
-	self.controls.mainSocketGroup = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
+		self.controls.banditLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.bandit,"TOPLEFT"}, 0, 0, 0, 14, "^7Bandit:")
+		-- The Pantheon
+		local function applyPantheonDescription(tooltip, mode, index, value)
+			tooltip:Clear()
+			if value.id == "None" then
+				return
+			end
+			local applyModes = { BODY = true, HOVER = true }
+			if applyModes[mode] then
+				local god = self.data.pantheons[value.id]
+				for _, soul in ipairs(god.souls) do
+					local name = soul.name
+					local lines = { }
+					for _, mod in ipairs(soul.mods) do
+						t_insert(lines, mod.line)
+					end
+					tooltip:AddLine(20, '^8'..name)
+					tooltip:AddLine(14, '^6'..table.concat(lines, '\n'))
+					tooltip:AddSeparator(10)
+				end
+			end
+		end
+		self.controls.pantheonMajorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 110, 300, 16, PantheonMajorGodDropList, function(index, value)
+			self.pantheonMajorGod = value.id
+			self.modFlag = true
+			self.buildFlag = true
+		end)
+		self.controls.pantheonMajorGod.tooltipFunc = applyPantheonDescription
+		self.controls.pantheonMinorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 130, 300, 16, PantheonMinorGodDropList, function(index, value)
+			self.pantheonMinorGod = value.id
+			self.modFlag = true
+			self.buildFlag = true
+		end)
+		self.controls.pantheonMinorGod.tooltipFunc = applyPantheonDescription
+		self.controls.pantheonLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.pantheonMajorGod,"TOPLEFT"}, 0, 0, 0, 14, "^7The Pantheon:")
+	end
+	local mainSkillPosY = (self.targetVersion == "2_6") and 95 or 155 -- The Pantheon's DropDown space
+	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, mainSkillPosY, 300, 16, "^7Main Skill:")
+	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
 		self.mainSocketGroup = index
 		self.modFlag = true
 		self.buildFlag = true
@@ -432,26 +500,38 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 			self.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
 	end
-	self.controls.mainSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
+	self.controls.mainSkill = new("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		mainSocketGroup.mainActiveSkill = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillPart = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkill,"BOTTOMLEFT",true}, 0, 2, 150, 18, nil, function(index, value)
+	self.controls.mainSkillPart = new("DropDownControl", {"TOPLEFT",self.controls.mainSkill,"BOTTOMLEFT",true}, 0, 2, 200, 18, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		local srcGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem
-		srcGem.skillPart = index
+		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
+		srcInstance.skillPart = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillMinion = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillPart,"BOTTOMLEFT",true}, 0, 2, 178, 18, nil, function(index, value)
+	self.controls.mainSkillMineCountLabel = new("LabelControl", {"TOPLEFT",self.controls.mainSkillPart,"BOTTOMLEFT",true}, 0, 3, 0, 16, "^7Active Mines:") {
+		shown = function()
+			return self.controls.mainSkillMineCount:IsShown()
+		end,
+	}
+	self.controls.mainSkillMineCount = new("EditControl", {"LEFT",self.controls.mainSkillMineCountLabel,"RIGHT",true}, 2, 0, 60, 18, nil, nil, "%D", nil, function(buf)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		local srcGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem
+		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
+		srcInstance.skillMineCount = tonumber(buf)
+		self.modFlag = true
+		self.buildFlag = true
+	end)
+	self.controls.mainSkillMinion = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillMineCountLabel,"BOTTOMLEFT",true}, 0, 3, 178, 18, nil, function(index, value)
+		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		if value.itemSetId then
-			srcGem.skillMinionItemSet = value.itemSetId
+			srcInstance.skillMinionItemSet = value.itemSetId
 		else
-			srcGem.skillMinion = value.minionId
+			srcInstance.skillMinion = value.minionId
 		end
 		self.modFlag = true
 		self.buildFlag = true
@@ -459,7 +539,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	function self.controls.mainSkillMinion.CanReceiveDrag(control, type, value)
 		if type == "Item" and control.list[control.selIndex] and control.list[control.selIndex].itemSetId then
 			local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-			local minionUses = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.grantedEffect.minionUses
+			local minionUses = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.grantedEffect.minionUses
 			return minionUses and minionUses[value:GetPrimarySlot()] -- O_O
 		end
 	end
@@ -474,18 +554,18 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 			tooltip:AddLine(14, colorCodes.TIP.."Tip: You can drag items from the Items tab onto this dropdown to equip them onto the minion.")
 		end
 	end
-	self.controls.mainSkillMinionLibrary = common.New("ButtonControl", {"LEFT",self.controls.mainSkillMinion,"RIGHT"}, 2, 0, 120, 18, "Manage Spectres...", function()
+	self.controls.mainSkillMinionLibrary = new("ButtonControl", {"LEFT",self.controls.mainSkillMinion,"RIGHT"}, 2, 0, 120, 18, "Manage Spectres...", function()
 		self:OpenSpectreLibrary()
 	end)
-	self.controls.mainSkillMinionSkill = common.New("DropDownControl", {"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT",true}, 0, 2, 200, 16, nil, function(index, value)
+	self.controls.mainSkillMinionSkill = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT",true}, 0, 2, 200, 16, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
-		local srcGem = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeGem.srcGem
-		srcGem.skillMinionSkill = index
+		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
+		srcInstance.skillMinionSkill = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.statBoxAnchor = common.New("Control", {"TOPLEFT",self.controls.mainSkillMinionSkill,"BOTTOMLEFT",true}, 0, 2, 0, 0)
-	self.controls.statBox = common.New("TextListControl", {"TOPLEFT",self.controls.statBoxAnchor,"BOTTOMLEFT"}, 0, 2, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
+	self.controls.statBoxAnchor = new("Control", {"TOPLEFT",self.controls.mainSkillMinionSkill,"BOTTOMLEFT",true}, 0, 2, 0, 0)
+	self.controls.statBox = new("TextListControl", {"TOPLEFT",self.controls.statBoxAnchor,"BOTTOMLEFT"}, 0, 2, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
 	self.controls.statBox.height = function(control)
 		local x, y = control:GetPos()
 		return main.screenH - main.mainBarHeight - 4 - y
@@ -493,14 +573,14 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 
 	-- Initialise build components
 	self.data = data[self.targetVersion]
-	self.tree = main.tree[self.targetVersion]
-	self.importTab = common.New("ImportTab", self)
-	self.notesTab = common.New("NotesTab", self)
-	self.configTab = common.New("ConfigTab", self)
-	self.itemsTab = common.New("ItemsTab", self)
-	self.treeTab = common.New("TreeTab", self)
-	self.skillsTab = common.New("SkillsTab", self)
-	self.calcsTab = common.New("CalcsTab", self)
+	self.latestTree = main.tree[self.targetVersionData.latestTreeVersion]
+	self.importTab = new("ImportTab", self)
+	self.notesTab = new("NotesTab", self)
+	self.configTab = new("ConfigTab", self)
+	self.itemsTab = new("ItemsTab", self)
+	self.treeTab = new("TreeTab", self)
+	self.skillsTab = new("SkillsTab", self)
+	self.calcsTab = new("CalcsTab", self)
 
 	-- Load sections from the build file
 	self.savers = {
@@ -511,6 +591,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		["Items"] = self.itemsTab,
 		["Skills"] = self.skillsTab,
 		["Calcs"] = self.calcsTab,
+		["Import"] = self.importTab,
 	}
 	self.legacyLoaders = { -- Special loaders for legacy sections
 		["Spec"] = self.treeTab,
@@ -537,7 +618,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	end
 
 	-- Initialise class dropdown
-	for classId, class in pairs(self.tree.classes) do
+	for classId, class in pairs(self.latestTree.classes) do
 		t_insert(self.controls.classDrop.list, {
 			label = class.name,
 			classId = classId,
@@ -552,7 +633,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self.buildFlag = false
 
 	--[[
-	local testTooltip = common.New("Tooltip")
+	local testTooltip = new("Tooltip")
 	for _, item in pairs(main.uniqueDB.list) do
 		ConPrintf("%s", item.name)
 		self.itemsTab:AddItemTooltip(testTooltip, item)
@@ -572,7 +653,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		self.calcsTab:PowerBuilder()
 	end
 	SetProfiling(false)
-	ConPrintf("Power build time: %d msec", GetTime() - start)
+	ConPrintf("Power build time: %d ms", GetTime() - start)
 	--]]
 
 	self.abortSave = false
@@ -617,7 +698,7 @@ function buildMode:Load(xml, fileName)
 	end
 	self.characterLevel = tonumber(xml.attrib.level) or 1
 	self.controls.characterLevel:SetText(tostring(self.characterLevel))
-	for _, diff in pairs({"bandit","banditNormal","banditCruel","banditMerciless"}) do
+	for _, diff in pairs({"bandit","banditNormal","banditCruel","banditMerciless","pantheonMajorGod","pantheonMinorGod"}) do
 		self[diff] = xml.attrib[diff] or "None"
 	end
 	self.mainSocketGroup = tonumber(xml.attrib.mainSkillIndex) or tonumber(xml.attrib.mainSocketGroup) or 1
@@ -642,6 +723,8 @@ function buildMode:Save(xml)
 		banditNormal = self.banditNormal,
 		banditCruel = self.banditCruel,
 		banditMerciless = self.banditMerciless,
+		pantheonMajorGod = self.pantheonMajorGod,
+		pantheonMinorGod = self.pantheonMinorGod,
 		mainSocketGroup = tostring(self.mainSocketGroup),
 	}
 	for _, id in ipairs(self.spectreList) do
@@ -736,7 +819,12 @@ function buildMode:OnFrame(inputEvents)
 			self.controls[diff]:SelByValue(self[diff], "banditId")
 		end
 	end
-
+	for _, diff in pairs({"pantheonMajorGod","pantheonMinorGod"}) do
+		if self.controls[diff] then
+			self.controls[diff]:SelByValue(self[diff], "id")
+		end
+	end
+	
 	if self.buildFlag then
 		-- Rebuild calculation output tables
 		self.outputRevision = self.outputRevision + 1
@@ -809,15 +897,15 @@ function buildMode:OpenTargetVersionPopup(initial)
 			self:Init(false, self.buildName, nil, version)
 		end
 	end
-	controls.label = common.New("LabelControl", nil, 0, 20, 0, 16, "^7Which game version will this build use?")
-	controls.version2_6 = common.New("ButtonControl", nil, -90, 50, 170, 20, "2.6 (Atlas of Worlds)", function()
+	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Which game version will this build use?")
+	controls.version2_6 = new("ButtonControl", nil, -90, 50, 170, 20, "2.6 (Atlas of Worlds)", function()
 		setVersion("2_6")
 	end)
-	controls.version3_0 = common.New("ButtonControl", nil, 90, 50, 170, 20, "3.0 (Fall of Oriath)", function()
+	controls.version3_0 = new("ButtonControl", nil, 90, 50, 170, 20, "3.0 (Fall of Oriath)", function()
 		setVersion("3_0")
 	end)
-	controls.note = common.New("LabelControl", nil, 0, 80, 0, 14, "^7Tip: Existing builds can be converted between versions\nusing the 'Game Version' option in the Configuration tab.")
-	controls.cancel = common.New("ButtonControl", nil, 0, 120, 80, 20, "Cancel", function()
+	controls.note = new("LabelControl", nil, 0, 80, 0, 14, "^7Tip: Existing builds can be converted between versions\nusing the 'Game Version' option in the Configuration tab.")
+	controls.cancel = new("ButtonControl", nil, 0, 120, 80, 20, "Cancel", function()
 		main:ClosePopup()
 		if initial then
 			self:CloseBuild()
@@ -834,14 +922,14 @@ function buildMode:OpenSavePopup(mode, newVersion)
 		["VERSION"] = "before converting?",
 	}
 	local controls = { }
-	controls.label = common.New("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them "..modeDesc[mode])
-	controls.save = common.New("ButtonControl", nil, -90, 70, 80, 20, "Save", function()
+	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them "..modeDesc[mode])
+	controls.save = new("ButtonControl", nil, -90, 70, 80, 20, "Save", function()
 		main:ClosePopup()
 		self.actionOnSave = mode
 		self.versionOnSave = newVersion
 		self:SaveDBFile()
 	end)
-	controls.noSave = common.New("ButtonControl", nil, 0, 70, 80, 20, "Don't Save", function()
+	controls.noSave = new("ButtonControl", nil, 0, 70, 80, 20, "Don't Save", function()
 		main:ClosePopup()
 		if mode == "LIST" then
 			self:CloseBuild()
@@ -854,7 +942,7 @@ function buildMode:OpenSavePopup(mode, newVersion)
 			self:Init(self.dbFileName, self.buildName, nil, newVersion)
 		end
 	end)
-	controls.close = common.New("ButtonControl", nil, 90, 70, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, 90, 70, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(300, 100, "Save Changes", controls)
@@ -877,22 +965,22 @@ function buildMode:OpenSaveAsPopup()
 			end
 		end
 	end
-	controls.label = common.New("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:")
-	controls.edit = common.New("EditControl", nil, 0, 40, 450, 20, self.dbFileName and self.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter new build name:")
+	controls.edit = new("EditControl", nil, 0, 40, 450, 20, self.dbFileName and self.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		updateBuildName()
 	end)
-	controls.folderLabel = common.New("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 70, 0, 16, "^7Folder:")
-	controls.newFolder = common.New("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 67, 94, 20, "New Folder...", function()
+	controls.folderLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 70, 0, 16, "^7Folder:")
+	controls.newFolder = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 67, 94, 20, "New Folder...", function()
 		main:OpenNewFolderPopup(main.buildPath..controls.folder.subPath, function(newFolderName)
 			if newFolderName then
 				controls.folder:OpenFolder(newFolderName)
 			end
 		end)
 	end)
-	controls.folder = common.New("FolderList", nil, 0, 115, 450, 100, self.dbFileSubPath, function(subPath)
+	controls.folder = new("FolderListControl", nil, 0, 115, 450, 100, self.dbFileSubPath, function(subPath)
 		updateBuildName()
 	end)
-	controls.save = common.New("ButtonControl", nil, -45, 225, 80, 20, "Save", function()
+	controls.save = new("ButtonControl", nil, -45, 225, 80, 20, "Save", function()
 		main:ClosePopup()
 		self.dbFileName = newFileName
 		self.buildName = newBuildName
@@ -900,7 +988,7 @@ function buildMode:OpenSaveAsPopup()
 		self:SaveDBFile()
 	end)
 	controls.save.enabled = false
-	controls.close = common.New("ButtonControl", nil, 45, 225, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, 45, 225, 80, 20, "Cancel", function()
 		main:ClosePopup()
 		self.actionOnSave = nil
 		self.versionOnSave = nil
@@ -923,15 +1011,15 @@ function buildMode:OpenSpectreLibrary()
 		end
 	end)
 	local controls = { }
-	controls.list = common.New("MinionList", nil, -100, 40, 190, 250, self.data, destList)
-	controls.source = common.New("MinionList", nil, 100, 40, 190, 250, self.data, sourceList, controls.list)
-	controls.save = common.New("ButtonControl", nil, -45, 300, 80, 20, "Save", function()
+	controls.list = new("MinionListControl", nil, -100, 40, 190, 250, self.data, destList)
+	controls.source = new("MinionListControl", nil, 100, 40, 190, 250, self.data, sourceList, controls.list)
+	controls.save = new("ButtonControl", nil, -45, 300, 80, 20, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
 		self.buildFlag = true
 		main:ClosePopup()
 	end)
-	controls.cancel = common.New("ButtonControl", nil, 45, 300, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 300, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(410, 330, "Spectre Library", controls)
@@ -948,6 +1036,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		controls.mainSocketGroup.list[1] = { val = 1, label = "<No skills added yet>" }
 		controls.mainSkill.shown = false
 		controls.mainSkillPart.shown = false
+		controls.mainSkillMineCount.shown = false
 		controls.mainSkillMinion.shown = false
 		controls.mainSkillMinionSkill.shown = false
 	else
@@ -956,30 +1045,35 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		local mainActiveSkill = mainSocketGroup["mainActiveSkill"..suffix] or 1
 		wipeTable(controls.mainSkill.list)
 		for i, activeSkill in ipairs(displaySkillList) do
-			t_insert(controls.mainSkill.list, { val = i, label = activeSkill.activeGem.grantedEffect.name })
+			t_insert(controls.mainSkill.list, { val = i, label = activeSkill.activeEffect.grantedEffect.name })
 		end
 		controls.mainSkill.enabled = #displaySkillList > 1
 		controls.mainSkill.selIndex = mainActiveSkill
 		controls.mainSkill.shown = true
 		controls.mainSkillPart.shown = false
+		controls.mainSkillMineCount.shown = false
 		controls.mainSkillMinion.shown = false
 		controls.mainSkillMinionLibrary.shown = false
 		controls.mainSkillMinionSkill.shown = false
 		if displaySkillList[1] then
 			local activeSkill = displaySkillList[mainActiveSkill]
-			local activeGem = activeSkill.activeGem
-			if activeGem then
-				if activeGem.grantedEffect.parts and #activeGem.grantedEffect.parts > 1 then
+			local activeEffect = activeSkill.activeEffect
+			if activeEffect then
+				if activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1 then
 					controls.mainSkillPart.shown = true
 					wipeTable(controls.mainSkillPart.list)
-					for i, part in ipairs(activeGem.grantedEffect.parts) do
+					for i, part in ipairs(activeEffect.grantedEffect.parts) do
 						t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
 					end
-					controls.mainSkillPart.selIndex = activeGem.srcGem["skillPart"..suffix] or 1
+					controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
 				end
-				if not activeSkill.skillFlags.disable and (activeGem.grantedEffect.minionList or activeSkill.minionList[1]) then
+				if activeSkill.skillFlags.mine then
+					controls.mainSkillMineCount.shown = true
+					controls.mainSkillMineCount.buf = tostring(activeEffect.srcInstance["skillMineCount"..suffix] or "")
+				end
+				if not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or activeSkill.minionList[1]) then
 					wipeTable(controls.mainSkillMinion.list)
-					if activeGem.grantedEffect.minionHasItemSet then
+					if activeEffect.grantedEffect.minionHasItemSet then
 						for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
 							local itemSet = self.itemsTab.itemSets[itemSetId]
 							t_insert(controls.mainSkillMinion.list, {
@@ -987,25 +1081,25 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 								itemSetId = itemSetId,
 							})
 						end
-						controls.mainSkillMinion:SelByValue(activeGem.srcGem["skillMinionItemSet"..suffix] or 1, "itemSetId")
+						controls.mainSkillMinion:SelByValue(activeEffect.srcInstance["skillMinionItemSet"..suffix] or 1, "itemSetId")
 					else
-						controls.mainSkillMinionLibrary.shown = (activeGem.grantedEffect.minionList and not activeGem.grantedEffect.minionList[1])
+						controls.mainSkillMinionLibrary.shown = (activeEffect.grantedEffect.minionList and not activeEffect.grantedEffect.minionList[1])
 						for _, minionId in ipairs(activeSkill.minionList) do
 							t_insert(controls.mainSkillMinion.list, {
 								label = self.data.minions[minionId].name,
 								minionId = minionId,
 							})
 						end
-						controls.mainSkillMinion:SelByValue(activeGem.srcGem["skillMinion"..suffix] or controls.mainSkillMinion.list[1], "minionId")
+						controls.mainSkillMinion:SelByValue(activeEffect.srcInstance["skillMinion"..suffix] or controls.mainSkillMinion.list[1], "minionId")
 					end
 					controls.mainSkillMinion.enabled = #controls.mainSkillMinion.list > 1
 					controls.mainSkillMinion.shown = true
 					wipeTable(controls.mainSkillMinionSkill.list)
 					if activeSkill.minion then
 						for _, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
-							t_insert(controls.mainSkillMinionSkill.list, minionSkill.activeGem.grantedEffect.name)
+							t_insert(controls.mainSkillMinionSkill.list, minionSkill.activeEffect.grantedEffect.name)
 						end
-						controls.mainSkillMinionSkill.selIndex = activeGem.srcGem["skillMinionSkill"..suffix] or 1
+						controls.mainSkillMinionSkill.selIndex = activeEffect.srcInstance["skillMinionSkill"..suffix] or 1
 						controls.mainSkillMinionSkill.shown = true
 						controls.mainSkillMinionSkill.enabled = #controls.mainSkillMinionSkill.list > 1
 					else
@@ -1038,9 +1132,13 @@ function buildMode:AddDisplayStatList(statList, actor)
 			if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then 
 				local statVal = actor.output[statData.stat]
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
+					local labelColor = "^7"
+					if statData.color then
+						labelColor = statData.color
+					end
 					t_insert(statBoxList, {
 						height = 16,
-						"^7"..statData.label..":",
+						labelColor..statData.label..":",
 						self:FormatStat(statData, statVal),
 					})
 				end

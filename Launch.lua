@@ -9,7 +9,7 @@ SetWindowTitle("Path of Building")
 ConExecute("set vid_mode 8")
 ConExecute("set vid_resizable 3")
 
-local launch = { }
+launch = { }
 SetMainObject(launch)
 
 function launch:OnInit()
@@ -56,7 +56,7 @@ function launch:OnInit()
 	RenderInit()
 	ConPrintf("Loading main script...")
 	local errMsg
-	errMsg, self.main = PLoadModule("Modules/Main", self)
+	errMsg, self.main = PLoadModule("Modules/Main")
 	if errMsg then
 		self:ShowErrMsg("Error loading main script: %s", errMsg)
 	elseif not self.main then
@@ -126,6 +126,10 @@ end
 function launch:OnKeyDown(key, doubleClick)
 	if key == "F5" and self.devMode then
 		self.doRestart = "Restarting..."
+	elseif key == "F6" and self.devMode then
+		local before = collectgarbage("count")
+		collectgarbage("collect")
+		ConPrintf("%dkB => %dkB", before, collectgarbage("count"))
 	elseif key == "u" and IsKeyDown("CTRL") then
 		if not self.devMode then
 			self:CheckForUpdate()

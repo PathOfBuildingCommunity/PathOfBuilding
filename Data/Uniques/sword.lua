@@ -1,4 +1,4 @@
--- Item data (c) Grinding Gear Games
+ï»¿-- Item data (c) Grinding Gear Games
 
 return {
 -- Weapon: One Handed Sword
@@ -6,7 +6,8 @@ return {
 Ahn's Might
 Midnight Blade
 Requires Level 68, 313 Str, 113 Dex
-40% increased Accuracy Rating
+Implicits: 1
+40% increased Global Accuracy Rating
 Adds (80-115) to (150-205) Physical Damage
 (15-25)% increased Critical Strike Chance
 -1 to Maximum Frenzy Charges
@@ -17,31 +18,37 @@ Adds (80-115) to (150-205) Physical Damage
 ]],[[
 Beltimber Blade
 Eternal Sword
-Requires Level 66
+Source: Drops from unique{The Constrictor} (Tier 11+)
+Variant: Pre 3.5.0
+Variant: Current
+Requires Level 66, 104 Str, 122 Dex
+Implicits: 1
 +475 to Accuracy Rating 
-(170–190)% increased Physical Damage 
-(10–15)% increased Attack Speed 
+{variant:1}(170-190)% increased Physical Damage
+{variant:2}(185-215)% increased Physical Damage
+(15-20)% increased Attack Speed 
 80% increased Evasion Rating while moving 
 2 additional Projectiles if you've used a Movement Skill Recently 
 Far Shot
-Elder Item
 ]],[[
 Dreamfeather
 Eternal Sword
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 66, 104 Str, 122 Dex
 Implicits: 2
 {variant:1,2}18% increased Accuracy Rating
-{variant:3}+475 to Accuracy Rating
+{variant:3,4}+475 to Accuracy Rating
 {variant:1}Adds (15-30) to (35-50) Physical Damage
 {variant:2}Adds (20-40) to (55-70) Physical Damage
-{variant:3}Adds (30-50) to (65-80) Physical Damage
+{variant:3,4}Adds (30-50) to (65-80) Physical Damage
 (20-25)% increased Attack Speed
-+(180-200) to Accuracy Rating
 +(180-200) to Evasion Rating
 3% increased Movement Speed
+{variant:1,2,3}+(180-200) to Accuracy Rating
+{variant:4}+(280-300) to Accuracy Rating
 1% increased Attack Damage per 450 Evasion Rating
 ]],[[
 Ephemeral Edge
@@ -52,7 +59,7 @@ Variant: Current
 Requires Level 32, 57 Str, 57 Dex
 Implicits: 2
 {variant:1,2}18% increased Accuracy Rating
-{variant:3}40% increased Accuracy Rating
+{variant:3}40% increased Global Accuracy Rating
 {variant:1}100% increased Physical Damage
 {variant:2,3}150% increased Physical Damage
 +10 to Intelligence
@@ -63,6 +70,7 @@ Implicits: 2
 ]],[[
 The Goddess Scorned
 Elegant Sword
+Source: Vendor Recipe
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
@@ -83,6 +91,7 @@ You can only deal Damage with this Weapon and Ignite
 ]],[[
 The Goddess Unleashed
 Eternal Sword
+Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 51, 104 Str, 122 Dex
@@ -101,15 +110,19 @@ Cannot be Frozen, Chilled or Ignited with Her Blessing
 ]],[[
 Grelwood Shank
 Eternal Sword
-Requires Level 66
+Source: Drops from unique{The Constrictor}
+Variant: Pre 3.5.0
+Variant: Current
+Requires Level 66, 104 Str, 122 Dex
+Implicits: 1
 +475 to Accuracy Rating
-(170–190)% increased Physical Damage 
-(15–20)% increased Attack Speed
+{variant:1}(170-190)% increased Physical Damage
+{variant:2}(185-215)% increased Physical Damage
+(15-20)% increased Attack Speed
 80% increased Armour while stationary
 2 additional Projectiles if you've been Hit Recently
 Point Blank
 Iron Reflexes while stationary
-Elder Item
 ]],[[
 Hyaon's Fury
 Legion Sword
@@ -121,7 +134,7 @@ Variant: Current
 Requires Level 62, 122 Str, 104 Dex
 Implicits: 2
 {variant:1,2,3}18% increased Accuracy Rating
-{variant:4,5}40% increased Accuracy Rating
+{variant:4,5}40% increased Global Accuracy Rating
 {variant:1,2}Adds 1 to (500-600) Lightning Damage
 {variant:3,4,5}Adds 1 to (550-650) Lightning Damage
 (7-10)% increased Attack Speed
@@ -138,7 +151,7 @@ Variant: Current
 Requires Level 58, 81 Str, 117 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 Adds (5-10) to (13-20) Physical Damage
 {variant:1}(60-80)% increased Physical Damage
 {variant:2}(80-95)% increased Physical Damage
@@ -156,7 +169,7 @@ Variant: Current
 Requires Level 47, 81 Str, 81 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}+330 to Accuracy Rating
 (100-140)% increased Physical Damage
 (17-25)% increased Attack Speed
 0.2% of Chaos Damage Leeched as Life
@@ -180,11 +193,13 @@ Socketed Gems are supported by level 1 Multistrike
 ]],[[
 Oni-Goroshi
 Charan's Sword
+Source: Drops from unique{Hillock}
 Sockets: R-R-R-R-R-R
 Requires Level: 2
-40% increased Accuracy Rating
+Implicits: 1
+40% increased Global Accuracy Rating
 Uses both hand slots
-(70–90)% increased Critical Strike Chance
+(70-90)% increased Critical Strike Chance
 Adds 2 to 3 Physical Damage to Attacks per Level
 Gain Her Embrace for 3 seconds when you Ignite an Enemy
 While in Her Embrace, take 0.5% of your total Maximum Life and Energy Shield as Fire Damage per second per Level
@@ -196,7 +211,7 @@ Variant: Current
 Requires Level 10, 18 Str, 26 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 (20-50)% increased Physical Damage
 Adds (3-4) to (5-8) Physical Damage
 15% increased Attack Speed
@@ -209,14 +224,16 @@ Prismatic Eclipse
 Twilight Blade
 Variant: Pre 1.3.0
 Variant: Pre 2.6.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 53, 91 Str, 91 Dex
 Implicits: 2
 {variant:1,2}18% increased Accuracy Rating
-{variant:3}40% increased Accuracy Rating
+{variant:3,4}40% increased Global Accuracy Rating
 {variant:1}10% additional Chance to Block while Dual Wielding
-{variant:2,3}8% additional Chance to Block while Dual Wielding
-Adds (20-30) to (31-40) Physical Damage
+{variant:2,3,4}8% additional Chance to Block while Dual Wielding
+{variant:1,2,3}Adds (20-30) to (31-40) Physical Damage
+{variant:4}Adds (60-70) to (71-80) Physical Damage
 25% increased Physical Damage with Weapons per Red Socket
 12% increased Global Attack Speed per Green Socket
 0.4% of Physical Attack Damage Leeched as Mana per Blue Socket
@@ -224,40 +241,54 @@ Adds (20-30) to (31-40) Physical Damage
 ]],[[
 Razor of the Seventh Sun 
 Midnight Blade
+Source: Drops from unique{Guardian of the Phoenix}
 Variant: Pre 2.6.0
+Variant: Pre 3.5.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
-Adds (65-75) to (110-130) Physical Damage
+{variant:2,3}40% increased Global Accuracy Rating
+{variant:1,2}Adds (65-75) to (110-130) Physical Damage
+{variant:3}Adds (90-110) to (145-170) Physical Damage
+{variant:3}25% of Physical Damage Converted to Fire Damage
+{variant:3}25% chance to Ignite
 100% increased Burning Damage if you've Ignited an Enemy Recently
 Recover 1% of Maximum Life when you Ignite an Enemy
 100% increased Melee Physical Damage against Ignited Enemies
 ]],[[
 Rebuke of the Vaal
 Vaal Blade
+League: Legion
+Source: Drops from Vaal Legion
 Variant: Pre 2.6.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}+460 to Accuracy Rating
-Adds (19-28) to (31-40) Physical Damage
-Adds (19-28) to (31-40) Fire Damage
-Adds (19-28) to (31-40) Cold Damage
-Adds 1 to (50-70) Lightning Damage
-Adds (19-28) to (31-40) Chaos Damage
+{variant:2,3}+460 to Accuracy Rating
+{variant:1,2}Adds (19-28) to (31-40) Physical Damage
+{variant:3}Adds (49-98) to (101-140) Physical Damage
+{variant:1,2}Adds (19-28) to (31-40) Fire Damage
+{variant:3}Adds (49-98) to (101-140) Fire Damage
+{variant:1,2}Adds (19-28) to (31-40) Cold Damage
+{variant:3}Adds (49-98) to (101-140) Cold Damage
+{variant:1,2}Adds 1 to (50-70) Lightning Damage
+{variant:3}Adds 1 to (210-250) Lightning Damage
+{variant:1,2}Adds (19-28) to (31-40) Chaos Damage
+{variant:3}Adds (49-98) to (101-140) Chaos Damage
 (10-20)% increased Attack Speed
 ]],[[
 Redbeak
 Rusted Sword
+Upgrade: Upgrades to unique{Dreadbeak} via prophecy{The Dreaded Rhoa}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 2
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 100% increased Damage when on Low Life
 50% increased Physical Damage
 Adds 2 to 6 Physical Damage
@@ -265,15 +296,33 @@ Adds 2 to 6 Physical Damage
 +(20-30) to maximum Life
 +2 Life Gained for each Enemy hit by Attacks
 ]],[[
+Dreadbeak
+Rusted Sword
+Source: Upgraded from unique{Redbeak} via prophecy{The Dreaded Rhoa}
+Variant: Pre 3.7.0
+Variant: Current
+Requires Level 61
+Implicits: 1
+40% increased Global Accuracy Rating
+100% increased Damage when on Low Life
+50% increased Physical Damage
+{variant:1}Adds (90-98) to (133-140) Physical Damage
+{variant:2}Adds (83-91) to (123-130) Physical Damage
+10% increased Attack Speed
++(20-30) to maximum Life
++2 Life gained for each Enemy hit by Attacks
+You have Onslaught while on Low Life
+]],[[
 Rigwald's Command
 Midnight Blade
+League: Talisman Standard, Talisman Hardcore
+Source: Drops from unique{Rigwald, the Wolven King} (Level 75+)
 Variant: Pre 2.6.0
 Variant: Current
-League: Talisman Standard, Talisman Hardcore
 Requires Level 68, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 10% additional Block Chance while Dual Wielding
 Adds (60-80) to (150-180) Physical Damage
 80% increased Physical Damage with Axes
@@ -284,7 +333,8 @@ The Rippling Thoughts
 Legion Sword
 League: Harbinger
 Requires Level 62, 122 Str, 104 Dex
-40% increased Accuracy Rating
+Implicits: 1
+40% increased Global Accuracy Rating
 Grants Summon Harbinger of the Arcane Skill
 Trigger level 20 Storm Cascade when you Attack
 (75-90)% increased Spell Damage
@@ -293,6 +343,18 @@ Adds 1 to (60-70) Lightning Damage
 Adds 1 to (60-70) Lightning Damage to Spells
 10% increased Area of Effect of Area Skills
 ]],[[
+The Saviour
+Legion Sword
+Source: Drops from unique{Sirus, Awakener of Worlds}
+Requires Level 62, 122 Str, 104 Dex
+Implicits: 1
+40% increased Global Accuracy Rating
+Triggers Level 20 Reflection when Equipped
+(40-50)% increased Physical Damage
+Adds (16-22) to (40-45) Physical Damage
+(8-12)% increased Attack Speed
+(8-12)% increased Critical Strike Chance
+]],[[
 Scaeva
 Gladius
 Variant: Pre 2.6.0
@@ -300,7 +362,7 @@ Variant: Current
 Requires Level 60, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 Adds (75-92) to (125-154) Physical Damage
 (15-25)% increased Critical Strike Chance
 0.3% of Physical Attack Damage Leeched as Life per Red Socket
@@ -312,14 +374,16 @@ Adds (75-92) to (125-154) Physical Damage
 ]],[[
 Severed in Sleep
 Cutlass
+League: Breach
+Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
+Upgrade: Upgrades to unique{United in Dream} using currency{Blessing of Chayula}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
-League: Breach
 Requires Level 38, 55 Str, 79 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2,3}40% increased Accuracy Rating
+{variant:2,3}40% increased Global Accuracy Rating
 +(10-20) to all Attributes
 Minions deal (20-30)% increased Damage
 Minions have +17% to Chaos Resistance
@@ -329,6 +393,7 @@ Minions Recover 20% of Maximum Life on Killing a Poisoned Enemy
 ]],[[
 United in Dream
 Cutlass
+Source: Upgraded from unique{Severed in Sleep} using currency{Blessing of Chayula}
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
@@ -336,13 +401,41 @@ League: Breach
 Requires Level 69, 55 Str, 79 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2,3}40% increased Accuracy Rating
+{variant:2,3}40% increased Global Accuracy Rating
 Grants level 15 Envy Skill
 Minions deal (30-40)% increased Damage
 Minions have +29% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
 {variant:3}Minions have 60% chance to Poison Enemies on Hit
 Minions Leech 5% of Damage as Life against Poisoned Enemies
+]],[[
+Story of the Vaal
+Variscite Blade
+League: Incursion
+Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
+Requires Level 35, 62 Str, 62 Dex
+Implicits: 1
++240 to Accuracy Rating
+(110-120)% increased Physical Damage
+(10-15)% increased Attack Speed
++(20-30) Life gained on Kill
+50% of Physical Damage from Hits with this Weapon is Converted to a random Element
+Hits with this Weapon always inflict Elemental Ailments
+]],[[
+Fate of the Vaal
+Gemstone Sword
+League: Incursion
+Source: Upgraded from unique{Story of the Vaal} via currency{Vial of Fate}
+Requires Level 56, 96 Str, 96 Dex
+Implicits: 1
++400 to Accuracy Rating
+(160-180)% increased Physical Damage
+(10-15)% increased Attack Speed
+100% of Physical Damage from Hits with this Weapon is Converted to a random Element
+Hits with this Weapon always inflict Elemental Ailments
+Hits with this Weapon deal (30-60)% increased Damage to Ignited Enemies
+Hits with this Weapon deal (30-60)% increased Damage to Frozen Enemies
+Hits with this Weapon deal (30-60)% increased Damage to Shocked Enemies
 ]],[[
 The Tempestuous Steel
 War Sword
@@ -351,7 +444,7 @@ Variant: Current
 Requires Level 20, 41 Str, 35 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 Adds (5-8) to (15-20) Physical Damage
 (8-14)% increased Attack Speed
 Hits can't be Evaded
@@ -361,9 +454,9 @@ Attacks with this Weapon Penetrate 30% Elemental Resistances
 ]],[[
 Varunastra
 Vaal Blade
+League: Perandus
 Variant: Pre 2.6.0
 Variant: Current
-League: Perandus
 Requires Level 64, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
@@ -416,8 +509,8 @@ Implicits: 2
 {variant:1}+30% to Global Critical Strike Multiplier
 {variant:2}+25% to Global Critical Strike Multiplier
 No Physical Damage
-Adds (80–100) to (160–200) Cold Damage
-Adds (40–60) to (90–110) Cold Damage to Spells
+Adds (80-100) to (160-200) Cold Damage
+Adds (40-60) to (90-110) Cold Damage to Spells
 (8-14)% increased Attack Speed
 +257 Intelligence Requirement
 60% increased Critical Strike Chance against Chilled Enemies
@@ -440,14 +533,12 @@ Adds (30-38) to (40-50) Cold Damage
 Ewar's Mirage
 Antique Rapier
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 26, 89 Dex
 Implicits: 2
 {variant:1}+30% to Global Critical Strike Multiplier
-{variant:2,3}+25% to Global Critical Strike Multiplier
-{variant:1,2}(40-55)% increased Elemental Damage with Weapons
-{variant:3}(40-55)% increased Elemental Damage with Attack Skills
+{variant:2}+25% to Global Critical Strike Multiplier
+(40-55)% increased Elemental Damage with Attack Skills
 Adds 1 to (45-55) Lightning Damage
 (16-22)% increased Attack Speed
 Attacks Chain an additional time when in Main Hand
@@ -495,12 +586,13 @@ Adds 3 to 7 Fire Damage
 [[
 The Dancing Dervish
 Reaver Sword
+Upgrade: Upgrades to unique{The Dancing Duo} via prophecy{Dance of Steel}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 59, 82 Str, 119 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 (160-190)% increased Physical Damage
 (25-30)% increased Attack Speed
 5% increased Movement Speed
@@ -509,38 +601,56 @@ Triggers Level 15 Manifest Dancing Dervish on Rampage
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends
 ]],[[
+The Dancing Duo
+Reaver Sword
+Source: Upgraded from unique{The Dancing Dervish} via prophecy{Dance of Steel}
+Requires Level 65, 82 Str, 119 Dex
+Implicits: 1
+40% increased Global Accuracy Rating
+(160-190)% increased Physical Damage
+(25-30)% increased Attack Speed
+5% increased Movement Speed
+Rampage
+Triggers Level 15 Manifest Dancing Dervish on Rampage
+Manifested Dancing Dervish disables both weapon slots
+Manifested Dancing Dervish dies when Rampage ends
+Manifested Dancing Dervish also manifests a copy of Dancing Dervish
+]],[[
 Doomsower
 Lion Sword
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 65, 104 Str, 122 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2,3}+470 to Accuracy Rating
-Socketed Melee Gems have 15% increased Area of Effect
-Socketed Red Gems get 10% Physical Damage as Extra Fire Damage
+{variant:2,3,4}+470 to Accuracy Rating
+{variant:1,2,3}Socketed Melee Gems have 15% increased Area of Effect
+{variant:1,2,3}Socketed Red Gems get 10% Physical Damage as Extra Fire Damage
+{variant:4}Attack Skills gain 5% of Physical Damage as Extra Fire Damage per Socketed Red Gem
+{variant:4}You have Vaal Pact while all Socketed Gems are Red
 (50-70)% increased Physical Damage
 {variant:1,2}Adds (50-75) to (85-110) Physical Damage
-{variant:3}Adds (65–75) to (100–110) Physical Damage
+{variant:3,4}Adds (65-75) to (100-110) Physical Damage
 (6-12)% increased Attack Speed
 ]],[[
 Edge of Madness
 Etched Greatsword
+League: Beyond
 Variant: Pre 2.6.0
 Variant: Current
-League: Beyond
 Requires Level 22, 45 Str, 38 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 +1 to Level of Active Socketed Skill Gems
 (40-60)% increased Physical Damage
-Adds (60-65) to (90-105) Chaos Damage
-{variant:2}Adds 1 to 2 Physical Damage to Attacks per Level
+Adds (60-68) to (90-102) Chaos Damage
 {variant:1}+1 Life gained on Kill per Level
 {variant:1}1% increased Elemental Damage per Level
 1% increased Chaos Damage per Level
+{variant:2}Adds 1 to 2 Physical Damage to Attacks per Level
 ]],[[
 Hiltless
 Reaver Sword
@@ -549,7 +659,7 @@ Variant: Current
 Requires Level 59, 82 Str, 119 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 Socketed Gems are Supported by level 1 Blood Magic
 Adds (90-115) to (230-260) Physical Damage
 (40-50)% increased Critical Strike Chance
@@ -578,6 +688,7 @@ Infernal Sword
 Variant: Pre 1.3.0
 Variant: Current
 Requires Level 67, 113 Str, 113 Dex
+Implicits: 1
 30% increased Accuracy Rating
 No Physical Damage
 Adds (425-475) to (550-600) Fire Damage
@@ -592,52 +703,59 @@ Gain a Frenzy Charge if an Attack Ignites an Enemy
 ]],[[
 Queen's Decree
 Ornate Sword
+Upgrade: Upgrades to unique{Queen's Escape} via prophecy{The Misunderstood Queen}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 27, 56 Str, 54 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2,3}+185 to Accuracy Rating
-Minions have (10-15)% increased maximum Life
-(150-200)% increased Skeleton Duration
-Minions deal (10-15)% increased Damage
-+1 to maximum number of Zombies
-+1 to maximum number of Spectres
-{variant:1,2}+2 to maximum number of Skeletons
-{variant:3}+1 to maximum number of Skeletons
 25% increased Strength Requirement
+{variant:1,2}Minions have (10-15)% increased maximum Life
+{variant:3}Minions have (30-40)% increased maximum Life
+(150-200)% increased Skeleton Duration
+{variant:1,2}Minions deal (10-15)% increased Damage
+{variant:3}Minions deal (30-40)% increased Damage
++1 to maximum number of Raised Zombies
++1 to maximum number of Spectres
++1 to maximum number of Skeletons
 ]],[[
 Queen's Escape
 Ornate Sword
+Source: Upgraded from unique{Queen's Decree} using prophecy{The Misunderstood Queen}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 38, 56 Str, 54 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2,3}+185 to Accuracy Rating
-Minions have (10-15)% increased maximum Life
+25% increased Strength Requirement
+{variant:1,2}Minions have (10-15)% increased maximum Life
+{variant:3}Minions have (30-40)% increased maximum Life
 Minions have (80-100)% increased Movement Speed
 (150-200)% increased Skeleton Duration
-Minions deal (10-15)% increased Damage
-+1 to maximum number of Zombies
+{variant:1,2}Minions deal (10-15)% increased Damage
+{variant:3}Minions deal (30-40)% increased Damage
++1 to maximum number of Raised Zombies
 +1 to maximum number of Spectres
-{variant:1,2}+2 to maximum number of Skeletons
-{variant:3}+1 to maximum number of Skeletons
++1 to maximum number of Skeletons
 25% increased Strength Requirement
 ]],[[
 Rigwald's Charge
 Highland Blade
 Variant: Pre 2.6.0
+Variant: Pre 3.7.0
 Variant: Current
 Requires Level 44, 77 Str, 77 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}+305 to Accuracy Rating
+{variant:2,3}+305 to Accuracy Rating
 (120-150)% increased Physical Damage
 20% increased Attack Speed
-+(150-200) to Accuracy Rating
+{variant:1,2}+(150-200) to Accuracy Rating
+{variant:3}+(300-350) to Accuracy Rating
 10% increased Movement Speed
 ]],[[
 Shiversting
@@ -647,7 +765,7 @@ Variant: Current
 Requires Level 14, 21 Str, 30 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Accuracy Rating
+{variant:2}40% increased Global Accuracy Rating
 (80-100)% increased Physical Damage
 Adds 35 to 70 Cold Damage
 0.6% of Physical Attack Damage Leeched as Mana
@@ -655,7 +773,9 @@ Cannot be Frozen
 ]],[[
 Starforge 
 Infernal Sword
+Source: Drops from unique{The Shaper}
 Requires Level 67, 113 Str, 113 Dex
+Implicits: 1
 30% increased Accuracy Rating
 (400-500)% increased Physical Damage
 (5-8)% increased Attack Speed
@@ -680,5 +800,20 @@ Implicits: 2
 +10 Mana Gained on Kill
 10% increased Movement Speed
 Gain a Frenzy Charge on Critical Strike
+]],[[
+Voidforge
+Infernal Sword
+Source: Drops from unique{The Elder} (Uber)
+Requires Level 67, 113 Str, 113 Dex
+Implicits: 1
+30% increased Accuracy Rating
+(50-100)% increased Physical Damage
+(5-8)% increased Attack Speed
++(90-100) to maximum Life
+Your Elemental Damage can Shock
+Gain 300% of Weapon Physical Damage as Extra Damage of an Element
+20% increased Area of Effect for Attacks
+Deal no Non-Elemental Damage
+Elder Item
 ]],
 }

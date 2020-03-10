@@ -3,25 +3,23 @@
 -- Module: Tree Tab
 -- Passive skill tree tab for the current build.
 --
-local launch, main = ...
-
 local ipairs = ipairs
 local t_insert = table.insert
 local m_min = math.min
 
-local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, build)
+local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.ControlHost()
 
 	self.build = build
 
-	self.viewer = common.New("PassiveTreeView")
+	self.viewer = new("PassiveTreeView")
 
 	self.specList = { }
-	self.specList[1] = common.New("PassiveSpec", build)
+	self.specList[1] = new("PassiveSpec", build, build.targetVersionData.latestTreeVersion)
 	self:SetActiveSpec(1)
 
-	self.anchorControls = common.New("Control", nil, 0, 0, 0, 20)
-	self.controls.specSelect = common.New("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 150, 20, nil, function(index, value)
+	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
+	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self.build.modFlag = true
 			self:SetActiveSpec(index)
@@ -63,32 +61,57 @@ local TreeTabClass = common.NewClass("TreeTab", "ControlHost", function(self, bu
 						end
 					end
 				end
+				tooltip:AddLine(16, "Game Version: "..treeVersions[spec.treeVersion].short)
 			end
 		end
 	end
-	self.controls.reset = common.New("ButtonControl", {"LEFT",self.controls.specSelect,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
+	self.controls.reset = new("ButtonControl", {"LEFT",self.controls.specSelect,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
 		main:OpenConfirmPopup("Reset Tree", "Are you sure you want to reset your passive tree?", "Reset", function()
 			self.build.spec:ResetNodes()
 			self.build.spec:AddUndoState()
 			self.build.buildFlag = true
 		end)
 	end)
-	self.controls.import = common.New("ButtonControl", {"LEFT",self.controls.reset,"RIGHT"}, 8, 0, 90, 20, "Import Tree", function()
+	self.controls.import = new("ButtonControl", {"LEFT",self.controls.reset,"RIGHT"}, 8, 0, 90, 20, "Import Tree", function()
 		self:OpenImportPopup()
 	end)
-	self.controls.export = common.New("ButtonControl", {"LEFT",self.controls.import,"RIGHT"}, 8, 0, 90, 20, "Export Tree", function()
+	self.controls.export = new("ButtonControl", {"LEFT",self.controls.import,"RIGHT"}, 8, 0, 90, 20, "Export Tree", function()
 		self:OpenExportPopup()
 	end)
-	self.controls.treeSearch = common.New("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 300, 20, "", "Search", "%c%(%)", 100, function(buf)
+	self.controls.treeSearch = new("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 300, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
 	end)
-	self.controls.treeHeatMap = common.New("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)	
+	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)	
 		self.viewer.showHeatMap = state
+	end)
+	self.controls.treeHeatMapStatSelect = new("DropDownControl", {"LEFT",self.controls.treeHeatMap,"RIGHT"}, 8, 0, 150, 20, nil, function(index, value)
+		self:SetPowerCalc(value)
 	end)
 	self.controls.treeHeatMap.tooltipText = function()
 		local offCol, defCol = main.nodePowerTheme:match("(%a+)/(%a+)")
 		return "When enabled, an estimate of the offensive and defensive strength of\neach unallocated passive is calculated and displayed visually.\nOffensive power shows as "..offCol:lower()..", defensive power as "..defCol:lower().."."
 	end
+
+	self.powerStatList = { }
+	for _, stat in ipairs(data.powerStatList) do
+		if not stat.ignoreForNodes then
+			t_insert(self.powerStatList, stat)
+		end
+	end
+	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
+	self.controls.specConvertText.shown = function()
+		return self.showConvert
+	end
+	self.controls.specConvert = new("ButtonControl", {"LEFT",self.controls.specConvertText,"RIGHT"}, 8, 0, 120, 20, "^2Convert to "..treeVersions[self.build.targetVersionData.latestTreeVersion].short, function()
+		local newSpec = new("PassiveSpec", self.build, self.build.targetVersionData.latestTreeVersion)
+		newSpec.title = self.build.spec.title
+		newSpec.jewels = copyTable(self.build.spec.jewels)
+		newSpec:DecodeURL(self.build.spec:EncodeURL())
+		t_insert(self.specList, self.activeSpec + 1, newSpec)
+		self:SetActiveSpec(self.activeSpec + 1)
+		self.modFlag = true
+		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[self.build.targetVersionData.latestTreeVersion].short..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+	end)
 end)
 
 function TreeTabClass:Draw(viewPort, inputEvents)
@@ -105,31 +128,48 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 				self.build.spec:Redo()
 				self.build.buildFlag = true
 				inputEvents[id] = nil
+			elseif event.key == "f" and IsKeyDown("CTRL") then
+				self:SelectControl(self.controls.treeSearch)
 			end
 		end
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
 
-	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - 32 }
+	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 64 or 32) }
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
 	self.controls.specSelect.selIndex = self.activeSpec
 	wipeTable(self.controls.specSelect.list)
 	for id, spec in ipairs(self.specList) do
-		t_insert(self.controls.specSelect.list, spec.title or "Default")
+		t_insert(self.controls.specSelect.list, (spec.treeVersion ~= self.build.targetVersionData.latestTreeVersion and ("["..treeVersions[spec.treeVersion].short.."] ") or "")..(spec.title or "Default"))
 	end
 	t_insert(self.controls.specSelect.list, "Manage trees...")
+	
 	if not self.controls.treeSearch.hasFocus then
 		self.controls.treeSearch:SetText(self.viewer.searchStr)
 	end
+	
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
 
+	self.controls.treeHeatMapStatSelect.list = self.powerStatList
+	self.controls.treeHeatMapStatSelect.selIndex = 1
+	if self.build.calcsTab.powerStat then
+		self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
+	end
+	
 	SetDrawLayer(1)
 
 	SetDrawColor(0.05, 0.05, 0.05)
 	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 28, viewPort.width, 28)
 	SetDrawColor(0.85, 0.85, 0.85)
 	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 32, viewPort.width, 4)
+
+	if self.showConvert then
+		SetDrawColor(0.05, 0.05, 0.05)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 60, viewPort.width, 28)
+		SetDrawColor(0.85, 0.85, 0.85)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - 64, viewPort.width, 4)
+	end
 
 	self:DrawControls(viewPort)
 end
@@ -138,7 +178,7 @@ function TreeTabClass:Load(xml, dbFileName)
 	self.specList = { }
 	if xml.elem == "Spec" then
 		-- Import single spec from old build
-		self.specList[1] = common.New("PassiveSpec", self.build)
+		self.specList[1] = new("PassiveSpec", self.build, self.build.targetVersionData.defaultTreeVersion)
 		self.specList[1]:Load(xml, dbFileName)
 		self.activeSpec = 1
 		self.build.spec = self.specList[1]
@@ -147,14 +187,14 @@ function TreeTabClass:Load(xml, dbFileName)
 	for _, node in pairs(xml) do
 		if type(node) == "table" then
 			if node.elem == "Spec" then
-				local newSpec = common.New("PassiveSpec", self.build)
+				local newSpec = new("PassiveSpec", self.build, node.attrib.treeVersion or self.build.targetVersionData.defaultTreeVersion)
 				newSpec:Load(node, dbFileName)
 				t_insert(self.specList, newSpec)
 			end
 		end
 	end
 	if not self.specList[1] then
-		self.specList[1] = common.New("PassiveSpec", self.build)
+		self.specList[1] = new("PassiveSpec", self.build, self.build.targetVersionData.latestTreeVersion)
 	end
 	self:SetActiveSpec(tonumber(xml.attrib.activeSpec) or 1)
 end
@@ -205,16 +245,25 @@ function TreeTabClass:SetActiveSpec(specId)
 			end
 		end
 	end
+	self.showConvert = curSpec.treeVersion ~= self.build.targetVersionData.latestTreeVersion
 	if self.build.itemsTab.itemOrderList[1] then
 		-- Update item slots if items have been loaded already
 		self.build.itemsTab:PopulateSlots()
 	end
 end
 
+function TreeTabClass:SetPowerCalc(selection)
+	self.viewer.showHeatMap = true
+	self.build.buildFlag = true
+	self.build.powerBuildFlag = true
+	self.build.calcsTab.powerStat = selection
+	self.build.calcsTab:BuildPower()
+end
+
 function TreeTabClass:OpenSpecManagePopup()
 	main:OpenPopup(370, 290, "Manage Passive Trees", {
-		common.New("PassiveSpecList", nil, 0, 50, 350, 200, self),
-		common.New("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
+		new("PassiveSpecListControl", nil, 0, 50, 350, 200, self),
+		new("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
 			main:ClosePopup()
 		end),
 	})
@@ -232,12 +281,12 @@ function TreeTabClass:OpenImportPopup()
 			main:ClosePopup()
 		end
 	end
-	controls.editLabel = common.New("LabelControl", nil, 0, 20, 0, 16, "Enter passive tree link:")
-	controls.edit = common.New("EditControl", nil, 0, 40, 350, 18, "", nil, nil, nil, function(buf)
+	controls.editLabel = new("LabelControl", nil, 0, 20, 0, 16, "Enter passive tree link:")
+	controls.edit = new("EditControl", nil, 0, 40, 350, 18, "", nil, nil, nil, function(buf)
 		controls.msg.label = ""
 	end)
-	controls.msg = common.New("LabelControl", nil, 0, 58, 0, 16, "")
-	controls.import = common.New("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
+	controls.msg = new("LabelControl", nil, 0, 58, 0, 16, "")
+	controls.import = new("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
 		local treeLink = controls.edit.buf
 		if #treeLink == 0 then
 			return
@@ -275,19 +324,19 @@ function TreeTabClass:OpenImportPopup()
 			decodeTreeLink(treeLink)
 		end
 	end)
-	controls.cancel = common.New("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(380, 110, "Import Tree", controls, "import", "edit")
 end
 
 function TreeTabClass:OpenExportPopup()
-	local treeLink = self.build.spec:EncodeURL("https://www.pathofexile.com/passive-skill-tree/"..(self.build.targetVersion == "2_6" and "2.6.2/" or "3.2.0/"))
+	local treeLink = self.build.spec:EncodeURL(treeVersions[self.build.spec.treeVersion].export)
 	local popup
 	local controls = { }
-	controls.label = common.New("LabelControl", nil, 0, 20, 0, 16, "Passive tree link:")
-	controls.edit = common.New("EditControl", nil, 0, 40, 350, 18, treeLink, nil, "%Z")
-	controls.shrink = common.New("ButtonControl", nil, -90, 70, 140, 20, "Shrink with PoEURL", function()
+	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "Passive tree link:")
+	controls.edit = new("EditControl", nil, 0, 40, 350, 18, treeLink, nil, "%Z")
+	controls.shrink = new("ButtonControl", nil, -90, 70, 140, 20, "Shrink with PoEURL", function()
 		controls.shrink.enabled = false
 		controls.shrink.label = "Shrinking..."
 		launch:DownloadPage("http://poeurl.com/shrink.php?url="..treeLink, function(page, errMsg)
@@ -301,10 +350,10 @@ function TreeTabClass:OpenExportPopup()
 			end
 		end)
 	end)
-	controls.copy = common.New("ButtonControl", nil, 30, 70, 80, 20, "Copy", function()
+	controls.copy = new("ButtonControl", nil, 30, 70, 80, 20, "Copy", function()
 		Copy(treeLink)
 	end)
-	controls.done = common.New("ButtonControl", nil, 120, 70, 80, 20, "Done", function()
+	controls.done = new("ButtonControl", nil, 120, 70, 80, 20, "Done", function()
 		main:ClosePopup()
 	end)
 	popup = main:OpenPopup(380, 100, "Export Tree", controls, "done", "edit")

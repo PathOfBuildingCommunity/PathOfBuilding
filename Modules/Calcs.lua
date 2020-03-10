@@ -21,7 +21,10 @@ LoadModule("Modules/CalcDefence-"..targetVersion, calcs)
 LoadModule("Modules/CalcOffence-"..targetVersion, calcs)
 
 -- Print various tables to the console
-local function infoDump(env, output)
+local function infoDump(env)
+	if env.modDB.parent then
+		env.modDB.parent:Print()
+	end
 	env.modDB:Print()
 	if env.minion then
 		ConPrintf("=== Minion Mod DB ===")
@@ -31,23 +34,24 @@ local function infoDump(env, output)
 	env.enemyDB:Print()
 	local mainSkill = env.minion and env.minion.mainSkill or env.player.mainSkill
 	ConPrintf("=== Main Skill ===")
-	for _, gem in ipairs(mainSkill.gemList) do
-		ConPrintf("%s %d/%d", gem.grantedEffect.name, gem.level, gem.quality)
+	for _, skillEffect in ipairs(mainSkill.effectList) do
+		ConPrintf("%s %d/%d", skillEffect.grantedEffect.name, skillEffect.level, skillEffect.quality)
 	end
 	ConPrintf("=== Main Skill Flags ===")
 	ConPrintf("Mod: %s", modLib.formatFlags(mainSkill.skillCfg.flags, ModFlag))
 	ConPrintf("Keyword: %s", modLib.formatFlags(mainSkill.skillCfg.keywordFlags, KeywordFlag))
 	ConPrintf("=== Main Skill Mods ===")
+	mainSkill.skillModList.parent:Print()
 	mainSkill.skillModList:Print()
+	ConPrintf("=== Main Skill Data ===")
+	prettyPrintTable(mainSkill.skillData)
 	ConPrintf("== Aux Skills ==")
 	for i, aux in ipairs(env.auxSkillList) do
 		ConPrintf("Skill #%d:", i)
-		for _, gem in ipairs(aux.gemList) do
-			ConPrintf("  %s %d/%d", gem.grantedEffect.name, gem.level, gem.quality)
+		for _, skillEffect in ipairs(aux.effectList) do
+			ConPrintf("  %s %d/%d", skillEffect.grantedEffect.name, skillEffect.level, skillEffect.quality)
 		end
 	end
---	ConPrintf("== Conversion Table ==")
---	prettyPrintTable(env.player.conversionTable)
 	ConPrintf("== Output Table ==")
 	prettyPrintTable(env.player.output)
 end
@@ -58,11 +62,11 @@ local function getCalculator(build, fullInit, modFunc)
 	local env = calcs.initEnv(build, "CALCULATOR")
 
 	-- Save a copy of the initial mod database
-	local initModDB = common.New("ModDB")
+	local initModDB = new("ModDB")
 	initModDB:AddDB(env.modDB)
 	initModDB.conditions = copyTable(env.modDB.conditions)
 	initModDB.multipliers = copyTable(env.modDB.multipliers)
-	local initEnemyDB = common.New("ModDB")
+	local initEnemyDB = new("ModDB")
 	initEnemyDB:AddDB(env.enemyDB)
 	initEnemyDB.conditions = copyTable(env.enemyDB.conditions)
 	initEnemyDB.multipliers = copyTable(env.enemyDB.multipliers)
@@ -71,18 +75,19 @@ local function getCalculator(build, fullInit, modFunc)
 	calcs.perform(env)
 	local baseOutput = env.player.output
 
+	env.modDB.parent = initModDB
+	env.enemyDB.parent = initEnemyDB
+
 	return function(...)
-		-- Restore initial mod database
-		env.modDB.mods = wipeTable(env.modDB.mods)
-		env.modDB:AddDB(initModDB)
-		env.modDB.conditions = copyTable(initModDB.conditions)
-		env.modDB.multipliers = copyTable(initModDB.multipliers)
-		env.enemyDB.mods = wipeTable(env.enemyDB.mods)
-		env.enemyDB:AddDB(initEnemyDB)
-		env.enemyDB.conditions = copyTable(initEnemyDB.conditions)
-		env.enemyDB.multipliers = copyTable(initEnemyDB.multipliers)
-		
-		-- Call function to make modifications to the enviroment
+		-- Remove mods added during the last pass
+		wipeTable(env.modDB.mods)
+		wipeTable(env.modDB.conditions)
+		wipeTable(env.modDB.multipliers)
+		wipeTable(env.enemyDB.mods)
+		wipeTable(env.enemyDB.conditions)
+		wipeTable(env.enemyDB.multipliers)
+
+		-- Call function to make modifications to the environment
 		modFunc(env, ...)
 		
 		-- Run calculation pass
@@ -135,13 +140,13 @@ function calcs.buildOutput(build, mode)
 		output["Spec:EnergyShieldInc"] = env.modDB:Sum("INC", specCfg, "EnergyShield")
 
 		env.skillsUsed = { }
-		for _, activeSkill in ipairs(env.activeSkillList) do
-			for _, gem in ipairs(activeSkill.gemList) do
-				env.skillsUsed[gem.grantedEffect.name] = true
+		for _, activeSkill in ipairs(env.player.activeSkillList) do
+			for _, skillEffect in ipairs(activeSkill.effectList) do
+				env.skillsUsed[skillEffect.grantedEffect.name] = true
 			end
 			if activeSkill.minion then
 				for	_, activeSkill in ipairs(activeSkill.minion.activeSkillList) do
-					env.skillsUsed[activeSkill.activeGem.grantedEffect.id] = true
+					env.skillsUsed[activeSkill.activeEffect.grantedEffect.id] = true
 				end
 			end
 		end
@@ -181,31 +186,46 @@ function calcs.buildOutput(build, mode)
 				addMult(out, tag.var, mod)
 			end
 		end
+		local function addModTags(actor, mod)
+			for _, tag in ipairs(mod) do
+				if tag.type == "IgnoreCond" then
+					break
+				elseif tag.type == "Condition" then
+					if actor == env.player then
+						addCondTag(env.conditionsUsed, tag, mod)
+					else
+						addCondTag(env.minionConditionsUsed, tag, mod)
+					end
+				elseif tag.type == "ActorCondition" and tag.actor == "enemy" then
+					addCondTag(env.enemyConditionsUsed, tag, mod)
+				elseif tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
+					if not tag.actor then
+						if actor == env.player then
+							addMultTag(env.multipliersUsed, tag, mod)
+						end
+					elseif tag.actor == "enemy" then
+						addMultTag(env.enemyMultipliersUsed, tag, mod)
+					end
+				end
+			end
+		end
 		for _, actor in ipairs({env.player, env.minion}) do
 			for modName, modList in pairs(actor.modDB.mods) do
 				for _, mod in ipairs(modList) do
-					for _, tag in ipairs(mod) do
-						if tag.type == "IgnoreCond" then
-							break
-						elseif tag.type == "Condition" then
-							if actor == env.player then
-								addCondTag(env.conditionsUsed, tag, mod)
-							else
-								addCondTag(env.minionConditionsUsed, tag, mod)
-							end
-						elseif tag.type == "ActorCondition" and tag.actor == "enemy" then
-							addCondTag(env.enemyConditionsUsed, tag, mod)
-						elseif tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
-							if not tag.actor then
-								if actor == env.player then
-									addMultTag(env.multipliersUsed, tag, mod)
-								end
-							elseif tag.actor == "enemy" then
-								addMultTag(env.enemyMultipliersUsed, tag, mod)
-							end
-						end
+					addModTags(actor, mod)
+				end
+			end
+		end
+		for _, activeSkill in pairs(env.player.activeSkillList) do
+			for _, mod in ipairs(activeSkill.baseSkillModList) do
+				addModTags(env.player, mod)
+			end
+			if activeSkill.minion then
+				for _, activeSkill in pairs(activeSkill.minion.activeSkillList) do
+					for _, mod in ipairs(activeSkill.baseSkillModList) do
+						addModTags(env.minion, mod)
 					end
-				end		
+				end
 			end
 		end
 		for modName, modList in pairs(env.enemyDB.mods) do
@@ -223,6 +243,16 @@ function calcs.buildOutput(build, mode)
 				end
 			end
 		end
+--		ConPrintf("=== Cond ===")
+--		ConPrintTable(env.conditionsUsed)
+--		ConPrintf("=== Mult ===")
+--		ConPrintTable(env.multipliersUsed)
+--		ConPrintf("=== Minion Cond ===")
+--		ConPrintTable(env.minionConditionsUsed)
+--		ConPrintf("=== Enemy Cond ===")
+--		ConPrintTable(env.enemyConditionsUsed)
+--		ConPrintf("=== Enemy Mult ===")
+--		ConPrintTable(env.enemyMultipliersUsed)
 	elseif mode == "CALCS" then
 		local buffList = { }
 		local combatList = { }
@@ -239,29 +269,44 @@ function calcs.buildOutput(build, mode)
 		if output.SiphoningCharges > 0 then
 			t_insert(combatList, s_format("%d Siphoning Charges", output.SiphoningCharges))
 		end
+		if output.ChallengerCharges > 0 then
+			t_insert(combatList, s_format("%d Challenger Charges", output.ChallengerCharges))
+		end
+		if output.BlitzCharges > 0 then
+			t_insert(combatList, s_format("%d Blitz Charges", output.BlitzCharges))
+		end
+		if output.InspirationCharges > 0 then
+			t_insert(combatList, s_format("%d Inspiration Charges", output.InspirationCharges))
+		end
+		if output.GhostShrouds > 0 then
+			t_insert(combatList, s_format("%d Ghost Shrouds", output.GhostShrouds))
+		end
 		if output.CrabBarriers > 0 then
 			t_insert(combatList, s_format("%d Crab Barriers", output.CrabBarriers))
 		end
-		if env.modDB:Sum("FLAG", nil, "Fortify") then
+		if env.modDB:Flag(nil, "Fortify") then
 			t_insert(combatList, "Fortify")
 		end
-		if env.modDB:Sum("FLAG", nil, "Onslaught") then
+		if env.modDB:Flag(nil, "Onslaught") then
 			t_insert(combatList, "Onslaught")
 		end
-		if env.modDB:Sum("FLAG", nil, "UnholyMight") then
+		if env.modDB:Flag(nil, "UnholyMight") then
 			t_insert(combatList, "Unholy Might")
 		end
-		if env.modDB:Sum("FLAG", nil, "Tailwind") then
+		if env.modDB:Flag(nil, "Tailwind") then
 			t_insert(combatList, "Tailwind")
 		end
-		if env.modDB:Sum("FLAG", nil, "Adrenaline") then
+		if env.modDB:Flag(nil, "Adrenaline") then
 			t_insert(combatList, "Adrenaline")
 		end
-		if env.modDB:Sum("FLAG", nil, "HerEmbrace") then
+		if env.modDB:Flag(nil, "HerEmbrace") then
 			t_insert(combatList, "Her Embrace")
 		end
 		for name in pairs(env.buffs) do
 			t_insert(buffList, name)
+		end
+		if env.modDB:Flag(nil, "Elusive") then
+			t_insert(combatList, "Elusive")
 		end
 		table.sort(buffList)
 		env.player.breakdown.SkillBuffs = { modList = { } }
@@ -325,14 +370,17 @@ function calcs.buildOutput(build, mode)
 			if output.Minion.EnduranceCharges > 0 then
 				t_insert(combatList, s_format("%d Endurance Charges", output.Minion.EnduranceCharges))
 			end
-			if env.minion.modDB:Sum("FLAG", nil, "Fortify") then
+			if env.minion.modDB:Flag(nil, "Fortify") then
 				t_insert(combatList, "Fortify")
 			end
-			if env.minion.modDB:Sum("FLAG", nil, "Onslaught") then
+			if env.minion.modDB:Flag(nil, "Onslaught") then
 				t_insert(combatList, "Onslaught")
 			end
-			if env.minion.modDB:Sum("FLAG", nil, "UnholyMight") then
+			if env.minion.modDB:Flag(nil, "UnholyMight") then
 				t_insert(combatList, "Unholy Might")
+			end
+			if env.minion.modDB:Flag(nil, "Tailwind") then
+				t_insert(combatList, "Tailwind")
 			end
 			for name in pairs(env.minionBuffs) do
 				t_insert(buffList, name)

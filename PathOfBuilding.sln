@@ -5,6 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AE7B8DC6-833A-4817-915D-AAB9B8F17C1B}"
 	ProjectSection(SolutionItems) = preProject
+		GameVersions.lua = GameVersions.lua
 		Launch.lua = Launch.lua
 		README.md = README.md
 		UpdateApply.lua = UpdateApply.lua
@@ -35,6 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{35D8
 		Modules\ModParser-2_6.lua = Modules\ModParser-2_6.lua
 		Modules\ModParser-3_0.lua = Modules\ModParser-3_0.lua
 		Modules\ModTools.lua = Modules\ModTools.lua
+		Modules\StatDescriber.lua = Modules\StatDescriber.lua
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{7EE4DE67-DABD-4A3C-8772-37D4A9DB6D59}"
@@ -121,6 +123,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.6", "2.6", "{C67A4D0E-AF9
 		Data\2_6\EnchantmentGloves.lua = Data\2_6\EnchantmentGloves.lua
 		Data\2_6\EnchantmentHelmet.lua = Data\2_6\EnchantmentHelmet.lua
 		Data\2_6\Essence.lua = Data\2_6\Essence.lua
+		Data\2_6\Gems.lua = Data\2_6\Gems.lua
 		Data\2_6\Minions.lua = Data\2_6\Minions.lua
 		Data\2_6\Misc.lua = Data\2_6\Misc.lua
 		Data\2_6\ModCorrupted.lua = Data\2_6\ModCorrupted.lua
@@ -129,6 +132,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.6", "2.6", "{C67A4D0E-AF9
 		Data\2_6\ModJewel.lua = Data\2_6\ModJewel.lua
 		Data\2_6\ModMaster.lua = Data\2_6\ModMaster.lua
 		Data\2_6\Rares.lua = Data\2_6\Rares.lua
+		Data\2_6\SkillStatMap.lua = Data\2_6\SkillStatMap.lua
 		Data\2_6\Spectres.lua = Data\2_6\Spectres.lua
 	EndProjectSection
 EndProject
@@ -138,15 +142,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.0", "3.0", "{E58DF0B8-388
 		Data\3_0\EnchantmentGloves.lua = Data\3_0\EnchantmentGloves.lua
 		Data\3_0\EnchantmentHelmet.lua = Data\3_0\EnchantmentHelmet.lua
 		Data\3_0\Essence.lua = Data\3_0\Essence.lua
+		Data\3_0\Gems.lua = Data\3_0\Gems.lua
 		Data\3_0\Minions.lua = Data\3_0\Minions.lua
 		Data\3_0\Misc.lua = Data\3_0\Misc.lua
-		Data\3_0\ModCorrupted.lua = Data\3_0\ModCorrupted.lua
 		Data\3_0\ModFlask.lua = Data\3_0\ModFlask.lua
 		Data\3_0\ModItem.lua = Data\3_0\ModItem.lua
 		Data\3_0\ModJewel.lua = Data\3_0\ModJewel.lua
 		Data\3_0\ModJewelAbyss.lua = Data\3_0\ModJewelAbyss.lua
 		Data\3_0\ModMaster.lua = Data\3_0\ModMaster.lua
 		Data\3_0\Rares.lua = Data\3_0\Rares.lua
+		Data\3_0\SkillStatMap.lua = Data\3_0\SkillStatMap.lua
 		Data\3_0\Spectres.lua = Data\3_0\Spectres.lua
 	EndProjectSection
 EndProject

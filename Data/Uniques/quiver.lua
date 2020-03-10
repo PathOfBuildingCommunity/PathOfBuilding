@@ -8,6 +8,7 @@ Two-Point Arrow Quiver
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 10
+Implicits: 1
 (20-30)% increased Accuracy Rating
 {variant:2}Grants level 5 Frostbite Skill
 (8-12)% increased Attack Speed
@@ -21,9 +22,11 @@ Curses on Slain Enemies are transferred to a nearby Enemy
 ]],[[
 Blackgleam
 Fire Arrow Quiver
+Upgrade: Upgrades to unique{The Signal Fire} via prophecy{Fire and Brimstone}
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 22
+Implicits: 1
 Adds 4 to 8 Fire Damage to Attacks with Bows
 10% increased Attack Speed
 +(80-100) to Evasion Rating
@@ -32,24 +35,41 @@ Adds 4 to 8 Fire Damage to Attacks with Bows
 {variant:2}50% of Physical Damage Converted to Fire Damage
 Adds 5 to 10 Fire Damage to Attacks with Bows
 ]],[[
+The Signal Fire
+Fire Arrow Quiver
+Source: Upgraded from unique{Blackgleam} using prophecy{Fire and Brimstone}
+Requires Level 24
+Implicits: 1
+Adds 4 to 8 Fire Damage to Attacks with Bows
+10% increased Attack Speed
++(80-100) to Evasion Rating
++(10-30) to maximum Mana
+Gain (25-35)% of Physical Damage as Extra Fire Damage
+50% of Physical Damage Converted to Fire Damage
+Adds 5 to 10 Fire Damage to Attacks with Bows
+]],[[
+Craghead
+Serrated Arrow Quiver
+Upgrade: Upgrades to unique{Cragfall} via prophecy{Heavy Blows}
+Requires Level 5
+Implicits: 1
+Adds 1 to 4 Physical Damage to Attacks with Bows
+(20-25)% reduced Enemy Stun Threshold
+25% reduced Projectile Speed
+(60-80)% increased Stun Duration on Enemies
+Adds 6 to 10 Physical Damage to Attacks with Bows
+]],[[
 Cragfall
 Serrated Arrow Quiver
+Source: Upgraded from unique{Craghead} using prophecy{Heavy Blows}
 Requires Level 5
+Implicits: 1
 Adds 1 to 4 Physical Damage to Attacks with Bows
 (20-25)% reduced Enemy Stun Threshold
 25% reduced Projectile Speed
 (60-80)% increased Stun Duration on Enemies
 Adds 6 to 10 Physical Damage to Attacks with Bows
 50% chance to double Stun Duration
-]],[[
-Craghead
-Serrated Arrow Quiver
-Requires Level 5
-Adds 1 to 4 Physical Damage to Attacks with Bows
-(20-25)% reduced Enemy Stun Threshold
-25% reduced Projectile Speed
-(60-80)% increased Stun Duration on Enemies
-Adds 6 to 10 Physical Damage to Attacks with Bows
 ]],[[
 Drillneck
 Penetrating Arrow Quiver
@@ -64,12 +84,13 @@ Implicits: 2
 +(40-50) to maximum Life
 Adds (10-14) to (19-24) Physical Damage to Attacks with Bows
 {variant:1}Projectile Damage increased by 50% of Arrow Pierce Chance
-{variant:2}Arrows deal 50% increased Damage against Pierced Targets
+{variant:2}Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce
 ]],[[
 The Fracturing Spinner
 Blunt Arrow Quiver
 League: Harbinger
 Requires Level 60
+Implicits: 1
 (25-35)% increased Stun Duration on Enemies
 Grants Summon Harbinger of Directions Skill
 Adds (19-22) to (30-35) Fire Damage to Spells and Attacks
@@ -79,9 +100,11 @@ Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
 ]],[[
 Hyrri's Bite
 Sharktooth Arrow Quiver
+Upgrade: Upgrades to unique{Hyrri's Demise} via prophecy{A Dishonourable Death}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 10
+Implicits: 1
 +(3-4) Life gained for each Enemy hit by your Attacks
 +(15-25) to Strength
 +(35-45) to Dexterity
@@ -91,12 +114,38 @@ Requires Level 10
 +(2-3) Life gained for each Enemy hit by your Attacks
 10% increased Area of Effect of Area Skills
 ]],[[
+Hyrri's Demise
+Sharktooth Arrow Quiver
+Source: Upgraded from unique{Hyrri's Bite} via prophecy{A Dishonourable Death}
+Requires Level 45
+Implicits: 1
++(3-4) Life gained for each Enemy hit by your Attacks
++(15-30) to all Attributes
+(7-10)% increased Attack Speed
++(2-3) Life gained for each Enemy hit by your Attacks
+10% increased Area of Effect
+Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity
+Adds 1 to 2 Fire Damage to Attacks per 10 Strength
+Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
+]],[[
+Maloney's Mechanism
+Ornate Quiver
+Requires Level 45
+Implicits: 1
+Has 1 Socket
+Has 2 Sockets
+Trigger a Socketed Bow Skill when you Attack with a Bow
+(7-12)% increased Attack Speed
++(50-70) to maximum Life
+5% chance to Blind Enemies on Hit with Attacks
+]],[[
 Maloney's Nightfall
 Blunt Arrow Quiver
 Variant: Pre 2.6.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 55
+Implicits: 1
 (25-35)% increased Stun Duration on Enemies
 {variant:1}(8-10)% increased Attack Speed
 {variant:2,3}10% increased Attack Speed
@@ -113,6 +162,7 @@ Requires Level 55
 Rearguard
 Broadhead Arrow Quiver
 Requires Level 28
+Implicits: 1
 Adds 6 to 12 Physical Damage to Attacks with Bows
 +(400-450) to Armour
 (20-30)% increased Projectile Speed
@@ -124,7 +174,9 @@ Adds 6 to 12 Physical Damage to Attacks with Bows
 Rigwald's Quills
 Two-Point Arrow Quiver
 League: Talisman Standard, Talisman Hardcore
+Source: Drops from unique{Rigwald, The Wolven King} (Level 70+)
 Requires Level 56
+Implicits: 1
 (20-30)% increased Accuracy Rating
 −10% to Fire Resistance
 +(20-30)% to Lightning Resistance
@@ -136,6 +188,7 @@ Projectiles Fork
 Saemus' Gift
 Spike-Point Arrow Quiver
 Requires Level 45
+Implicits: 1
 (20-30)% increased Global Critical Strike Chance
 +(30-40) to Dexterity
 (8-12)% increased Cast Speed
@@ -144,20 +197,10 @@ Requires Level 45
 20% chance to Avoid being Stunned
 1% increased Lightning Damage per 10 Intelligence
 ]],[[
-The Signal Fire
-Fire Arrow Quiver
-Requires Level 24
-Adds 4 to 8 Fire Damage to Attacks with Bows
-10% increased Attack Speed
-+(80-100) to Evasion Rating
-+(10-30) to maximum Mana
-Gain (25-35)% of Physical Damage as Extra Fire Damage
-50% of Physical Damage Converted to Fire Damage
-Adds 5 to 10 Fire Damage to Attacks with Bows
-]],[[
 Skirmish
 Two-Point Arrow Quiver
 Requires Level 19
+Implicits: 1
 (20-30)% increased Accuracy Rating
 +(15-25) to Intelligence
 +(30-50) to maximum Mana
@@ -170,6 +213,7 @@ Spike-Point Arrow Quiver
 Variant: Pre 2.5.0
 Variant: Current
 Requires Level 64
+Implicits: 1
 (20-30)% increased Global Critical Strike Chance
 +30 to Dexterity
 Adds (13-18) to (26-32) Chaos Damage to Attacks
@@ -178,5 +222,22 @@ Adds (13-18) to (26-32) Chaos Damage to Attacks
 40% reduced Energy Shield Recharge Rate
 {variant:1}150% faster start of Energy Shield Recharge
 {variant:2}80% faster start of Energy Shield Recharge
+]],[[
+Voidfletcher
+Penetrating Arrow Quiver
+Elder
+Source: Drops from unique{The Elder} (Uber)
+Requires Level 68
+Implicits: 1
+Arrows Pierce an additional Target
+Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows
+Adds (30-40) to (80-100) Cold Damage to Attacks
++(80-120) to maximum Energy Shield
++(20-30)% to Cold Resistance
++(20-40) Mana gained on Kill
+30% increased Projectile Speed
+5 Maximum Void Charges
+Gain a Void Charge every 0.5 seconds
+Elder Item
 ]],
 }

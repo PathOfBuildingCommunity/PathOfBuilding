@@ -1,9 +1,8 @@
 -- Path of Building
 --
 -- Module: Common
--- Libaries, functions and classes used by various modules.
+-- Libraries, functions and classes used by various modules.
 --
-
 local pairs = pairs
 local ipairs = ipairs
 local type = type
@@ -13,6 +12,10 @@ local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
 local s_format = string.format
+local s_char = string.char
+local b_rshift = bit.rshift
+local b_and = bit.band
+local b_xor = bit.bxor
 
 common = { }
 
@@ -20,6 +23,7 @@ common = { }
 common.curl = require("lcurl.safe")
 common.xml = require("xml")
 common.base64 = require("base64")
+common.sha1 = require("sha1")
 
 -- Class library
 common.classes = { }
@@ -31,11 +35,26 @@ local function addSuperParents(class, parent)
 		end
 	end
 end
--- NewClass("<className>"[, "<parentClassName>"[, "<parentClassName>" ...]], constructorFunc)
-function common.NewClass(className, ...)
+local function getClass(className)
+	local class = common.classes[className]
+	if not class then
+		LoadModule("Classes/"..className)
+		class = common.classes[className]
+		assert(class, "Class '"..className.."' not defined in class file")
+	end
+	return class
+end
+-- newClass("<className>"[, "<parentClassName>"[, "<parentClassName>" ...]], constructorFunc)
+function newClass(className, ...)
 	local class = { }
 	common.classes[className] = class
 	class.__index = class
+	class.__call = function(obj, mix)
+		for k, v in pairs(mix) do
+			obj[k] = v
+		end
+		return obj
+	end
 	class._className = className
 	local numVarArg = select("#", ...)
 	class._constructor = select(numVarArg, ...)
@@ -43,11 +62,7 @@ function common.NewClass(className, ...)
 		-- Build list of parent classes
 		class._parents = { }
 		for i = 1, numVarArg - 1 do
-			local parentName = select(i, ...)
-			if not common.classes[parentName] then
-				error("Parent class '"..parentName.."' of class '"..className.."' not defined")
-			end
-			class._parents[i] = common.classes[parentName]
+			class._parents[i] = getClass(select(i, ...))
 		end
 		-- Build list of all classes directly or indirectly inherited by this class
 		class._superParents = { }
@@ -64,41 +79,18 @@ function common.NewClass(className, ...)
 				end
 			end
 		})
-		--[[if #class._parents == 1 then
-			-- Single inheritance
-			setmetatable(class, class._parents[1]) 
-		else
-			-- Multiple inheritance
-			setmetatable(class, {
-				__index = setmetatable({ }, { __index = function(self, key)
-					for _, parent in ipairs(class._parents) do
-						local val = parent[key]
-						if val ~= nil then
-							self[key] = val
-							return val
-						end
-					end
-				end })
-			})
-		end]]
 	end
 	return class
 end
-function common.New(className, ...)
-	local class = common.classes[className]
-	if not class then
-		error("Class '"..className.."' not defined")
-	end
-	if not class._constructor then
-		error("Class '"..className.."' has no constructor")
-	end
+function new(className, ...)
+	local class = getClass(className)
 	local object = setmetatable({ }, class)
 	object.Object = object
 	if class._parents then
 		-- Add parent and superparent class proxies
 		object._parentInit = { }
 		for parent in pairs(class._superParents) do
-			object[parent._className] = setmetatable({ }, {
+			local proxyMeta = {
 				__index = function(self, key)
 					local v = rawget(object, key)
 					if v ~= nil then
@@ -118,12 +110,15 @@ function common.New(className, ...)
 					parent._constructor(...)
 					object._parentInit[parent] = true
 				end,
-			})
+			}
+			object[parent._className] = setmetatable(proxyMeta, proxyMeta)
 		end
 	end
-	class._constructor(object, ...)
+	if class._constructor then
+		class._constructor(object, ...)
+	end
 	if class._parents then
-		-- Check that the contructors for all parent and superparent classes have been called
+		-- Check that the constructors for all parent and superparent classes have been called
 		for parent in pairs(class._superParents) do
 			if parent._constructor and not object._parentInit[parent] then
 				error("Parent class '"..parent._className.."' of class '"..className.."' must be initialised")
@@ -134,15 +129,151 @@ function common.New(className, ...)
 end
 
 function codePointToUTF8(codePoint)
-	if codePoint <= 0x7F then
-		return string.char(codePoint)
+	if codePoint >= 0xD800 and codePoint <= 0xDFFF then
+		return "?"
+	elseif codePoint <= 0x7F then
+		return s_char(codePoint)
 	elseif codePoint <= 0x07FF then
-		return string.char(0xC0 + bit.rshift(codePoint, 6), 0x80 + bit.band(codePoint, 0x3F))
+		return s_char(0xC0 + b_rshift(codePoint, 6), 0x80 + b_and(codePoint, 0x3F))
 	elseif codePoint <= 0xFFFF then
-		return string.char(0xE0 + bit.rshift(codePoint, 12), 0x80 + bit.band(bit.rshift(codePoint, 6), 0x3F), 0x80 + bit.band(codePoint, 0x3f))
+		return s_char(0xE0 + b_rshift(codePoint, 12), 0x80 + b_and(b_rshift(codePoint, 6), 0x3F), 0x80 + b_and(codePoint, 0x3F))
+	elseif codePoint <= 0x10FFFF then
+		return s_char(0xF0 + b_rshift(codePoint, 18), 0x80 + b_and(b_rshift(codePoint, 12), 0x3F), 0x80 + b_and(b_rshift(codePoint, 6), 0x3F), 0x80 + b_and(codePoint, 0x3F))
 	else
 		return "?"
 	end
+end
+function convertUTF16to8(text, offset)
+	offset = offset or 1
+	local out = { }
+	local highSurr
+	for i = offset, #text - 1, 2 do
+		local codeUnit = text:byte(i) + text:byte(i+1) * 256
+		if codeUnit == 0 then
+			break
+		elseif codeUnit >= 0xD800 and codeUnit <= 0xDBFF then
+			highSurr = codeUnit - 0xD800
+		elseif codeUnit >= 0xDC00 and codeUnit <= 0xDFFF then
+			if highSurr then
+				t_insert(out, codePointToUTF8(highSurr * 1024 + codeUnit - 0xDC00 + 0x010000))
+				highSurr = nil
+			end
+		else
+			t_insert(out, codePointToUTF8(codeUnit))
+		end
+	end
+	return table.concat(out)
+end
+function codePointToUTF16(codePoint)
+	if codePoint >= 0xD800 and codePoint <= 0xDFFF then
+		return "?\z"
+	elseif codePoint <= 0xFFFF then
+		return s_char(b_and(codePoint, 0xFF), b_rshift(codePoint, 8))
+	elseif codePoint <= 0x10FFFF then
+		local highSurr = 0xD800 + b_rshift(codePoint - 0x10000, 10)
+		local lowSurr = 0xDC00 + b_and(codePoint - 0x10000, 0x2FF)
+		return s_char(b_and(highSurr, 0xFF), b_rshift(highSurr, 8), b_and(lowSurr, 0xFF), b_rshift(lowSurr, 8))
+	else
+		return "?\z"
+	end
+end
+function convertUTF8to16(text, offset)
+	offset = offset or 1
+	local out = { }
+	local codePoint = 0
+	local codeUnitRemaining
+	for i = offset, #text do
+		local codeUnit = text:byte(i)
+		if codeUnit == 0 then
+			break
+		elseif codeUnit <= 0x7F then
+			table.insert(out, s_char(codeUnit, 0))
+		elseif codeUnit >= 0xC2 and codeUnit <= 0xDF then
+			codeUnitRemaining = 1
+			codePoint = b_and(codeUnit, 0x1F)
+		elseif codeUnit >= 0xE0 and codeUnit <= 0xEF then
+			codeUnitRemaining = 2
+			codePoint = b_and(codeUnit, 0x0F)
+		elseif codeUnit >= 0xF0 and codeUnit <= 0xF4 then
+			codeUnitRemaining = 3
+			codePoint = b_and(codeUnit, 0x03)
+		elseif codeUnit >= 0x80 and codeUnit <= 0xBF then
+			if codeUnitRemaining then
+				codePoint = bit.lshift(codePoint, 6) + b_and(codeUnit, 0x3F)
+				codeUnitRemaining = codeUnitRemaining - 1
+				if codeUnitRemaining == 0 then
+					t_insert(out, codePointToUTF16(codePoint))
+					codeUnitRemaining = nil
+				end
+			else
+				t_insert(out, "?\z")
+			end
+		else 
+			t_insert(out, "?\z")
+		end
+	end
+	return table.concat(out)
+end
+
+do
+	local function toUnsigned(val)
+		return val < 0 and val + 0x100000000 or val
+	end
+	local function murmurMix(val)
+		val = toUnsigned(val)
+		return bit.tobit(val * 0xE995 + b_and(val * 0x5BD1, 0xFFFF) * 0x10000)
+	end
+	function murmurHash2(key, seed)
+		local len = #key
+		local h = b_xor(seed or 0, len)
+		local o = 1
+		while len >= 4 do
+			local k = bytesToInt(key, o)
+			k = murmurMix(k)
+			k = b_xor(k, b_rshift(k, 24))
+			k = murmurMix(k)
+			h = murmurMix(h)
+			h = b_xor(h, k)
+			o = o + 4
+			len = len - 4
+		end
+		if len > 0 then
+			h = b_xor(h, bytesToInt(key, o))
+			h = murmurMix(h)
+		end
+		h = b_xor(h, b_rshift(h, 13))
+		h = murmurMix(h)
+		h = b_xor(h, b_rshift(h, 15))
+		return toUnsigned(h)
+	end
+end
+
+local function bits(int, s, e)
+	return b_and(b_rshift(int, s), 2 ^ (e - s + 1) - 1)
+end
+function bytesToInt(b, o)
+	return bit.tobit(bytesToUInt(b, o))
+end
+function bytesToUInt(b, o)
+	o = o or 1
+	return (b:byte(o + 0) or 0) + (b:byte(o + 1) or 0) * 256 + (b:byte(o + 2) or 0) * 65536 + (b:byte(o + 3) or 0) * 16777216
+end
+function bytesToULong(b, o)
+	o = o or 1
+	return bytesToUInt(b, o) + bytesToUInt(b, o + 4) * 4294967296
+end
+function bytesToFloat(b, o)
+	local int = bytesToInt(b, o)
+	local s = (-1) ^ bits(int, 31, 31)
+	local e = bits(int, 23, 30) - 127
+	if e == -127 then
+		return 0 * s
+	end
+	local m = 1
+	for i = 0, 22 do
+		m = m + bits(int, i, i) * 2 ^ (i - 23)
+	end
+	return s * m * 2 ^ e
 end
 
 -- Quick hack to convert JSON to valid lua
@@ -166,11 +297,17 @@ function writeLuaTable(out, t, indent)
 	if indent then
 		out:write('\n')
 	end
+	local keyList = { }
 	for k, v in pairs(t) do
+		t_insert(keyList, k)
+	end
+	table.sort(keyList, function(a,b) if type(a) == type(b) then return a < b else return type(a) < type(b) end end)
+	for i, k in ipairs(keyList) do
+		local v = t[k]
 		if indent then
 			out:write(string.rep("\t", indent))
 		end
-		if type(k) == "string" and k:match("^%a+$") then
+		if type(k) == "string" and k:match("^%a[%a%d]*$") then
 			out:write(k, '=')
 		else
 			out:write('[')
@@ -188,7 +325,7 @@ function writeLuaTable(out, t, indent)
 		else
 			out:write(tostring(v))
 		end
-		if next(t, k) ~= nil then
+		if i < #keyList then
 			out:write(',')
 		end
 		if indent then

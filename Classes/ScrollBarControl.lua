@@ -3,14 +3,12 @@
 -- Class: Scroll Bar
 -- Scroll bar control.
 --
-local launch, main = ...
-
 local m_min = math.min
 local m_max = math.max
 local m_ceil = math.ceil
 local m_floor = math.floor
 
-local ScrollBarClass = common.NewClass("ScrollBarControl", "Control", function(self, anchor, x, y, width, height, step, dir, autoHide)
+local ScrollBarClass = newClass("ScrollBarControl", "Control", function(self, anchor, x, y, width, height, step, dir, autoHide)
 	self.Control(anchor, x, y, width, height)
 	self.step = step or width * 2
 	self.dir = dir or "VERTICAL"

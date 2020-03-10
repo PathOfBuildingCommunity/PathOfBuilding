@@ -3,8 +3,6 @@
 -- Class: Item
 -- Equippable item class
 --
-local launch, main = ...
-
 local t_insert = table.insert
 local t_remove = table.remove
 local m_min = math.min
@@ -13,7 +11,7 @@ local m_floor = math.floor
 
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 
-local ItemClass = common.NewClass("Item", function(self, targetVersion, raw)
+local ItemClass = newClass("Item", function(self, targetVersion, raw)
 	self.targetVersion = targetVersion
 	if raw then
 		self:ParseRaw(itemLib.sanitiseItemText(raw))
@@ -87,11 +85,12 @@ function ItemClass:ParseRaw(raw)
 		if self.rawLines[l] == "Two-Toned Boots" then
 			self.rawLines[l] = "Two-Toned Boots (Armour/Energy Shield)"
 		end
-		if verData.itemBases[self.rawLines[l]] then
-			self.baseName = self.rawLines[l]
+		local baseName = self.rawLines[l]:gsub("Synthesised ","")
+		if verData.itemBases[baseName] then
+			self.baseName = baseName
 			self.title = self.name
-			self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)","")
-			self.type = verData.itemBases[self.baseName].type
+			self.name = self.title .. ", " .. baseName:gsub(" %(.+%)","")
+			self.type = verData.itemBases[baseName].type
 			l = l + 1
 		end
 	end
@@ -130,18 +129,24 @@ function ItemClass:ParseRaw(raw)
 			t_insert(self.modLines, { line = line, extra = extra, modList = modList or { }, buff = true })
 		end
 	end
+	local deferJewelRadiusIndexAssignment
 	local gameModeStage = "FINDIMPLICIT"
-	local gameModeSection = 1
-	local foundExplicit
+	local foundExplicit, implicitNumberSpecified, foundImplicit
 	while self.rawLines[l] do
 		local line = self.rawLines[l]
 		if flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
 		elseif line == "--------" then
-			gameModeSection = gameModeSection + 1
 			if gameModeStage == "IMPLICIT" then
-				self.implicitLines = #self.modLines - self.buffLines
-				gameModeStage = "FINDEXPLICIT"
+				if foundImplicit then
+					-- There were definitely implicits, so any following modifiers must be explicits
+					gameModeStage = "EXPLICIT"
+					foundExplicit = true
+				else
+					-- There were modifiers that could be enchantments or explicits; assume enchantment for now
+					self.implicitLines = #self.modLines - self.buffLines
+					gameModeStage = "FINDEXPLICIT"
+				end
 			elseif gameModeStage == "EXPLICIT" then
 				gameModeStage = "DONE"
 			end
@@ -151,10 +156,22 @@ function ItemClass:ParseRaw(raw)
 			self.shaper = true
 		elseif line == "Elder Item" then
 			self.elder = true
+		elseif line == "Fractured Item" then
+			self.fractured = true
+		elseif line == "Synthesised Item" then
+			self.synthesised = true
+		elseif line == "Warlord Item" then
+			self.adjudicator = true
+		elseif line == "Hunter Item" then
+			self.basilisk = true
+		elseif line == "Crusader Item" then
+			self.crusader = true
+		elseif line == "Redeemer Item" then
+			self.eyrie = true
 		else
 			local specName, specVal = line:match("^([%a ]+): (%x+)$")
 			if not specName then
-				specName, specVal = line:match("^([%a ]+): %+?([%d%-%.]+)")
+				specName, specVal = line:match("^([%a ]+): %+?([%d+%-%.,]+)")
 				if not tonumber(specVal) then
 					specName = nil
 				end
@@ -182,10 +199,16 @@ function ItemClass:ParseRaw(raw)
 						end
 					end
 				elseif specName == "Radius" and self.type == "Jewel" then
-					for index, data in pairs(verData.jewelRadius) do
-						if specVal:match("^%a+") == data.label then
-							self.jewelRadiusIndex = index
-							break
+					self.jewelRadiusLabel = specVal:match("^%a+")
+					if specVal:match("^%a+") == "Variable" then
+                        -- Jewel radius is variable and must be read from it's mods instead after they are parsed
+                        deferJewelRadiusIndexAssignment = true
+                    else
+                        for index, data in pairs(verData.jewelRadius) do
+                            if specVal:match("^%a+") == data.label then
+                                self.jewelRadiusIndex = index
+                                break
+                            end
 						end
 					end
 				elseif specName == "Limited to" and self.type == "Jewel" then
@@ -210,16 +233,30 @@ function ItemClass:ParseRaw(raw)
 					importedLevelReq = tonumber(specVal)
 				elseif specName == "LevelReq" then
 					self.requirements.level = tonumber(specVal)
+					-- Backward compatibility
 				elseif specName == "Has Alt Variant" then
-					self.hasAltVariant = true
+					self.hasAltVariant = true -- <
 				elseif specName == "Selected Variant" then
-					self.variant = tonumber(specVal)
+					self.variant = tonumber(specVal) -- <
 				elseif specName == "Selected Alt Variant" then
-					self.variantAlt = tonumber(specVal)
+					self.variantAlt = tonumber(specVal) -- <
+				elseif specName == "Has Variants" then
+					self.hasVariants = tonumber(specVal)
+					if self.hasVariants > 1 then self.hasAltVariant = true end -- <
+				elseif specName == "Selected Variants" then
+					self.variants = {}
+					for val in specVal:gmatch("(%d+)") do
+						t_insert(self.variants, tonumber(val))
+					end
+					self.variant = self.variants[1] -- <
+					if #self.variants > 1 then self.variantAlt = self.variants[2] end -- <
+					-- ^
 				elseif specName == "League" then
 					self.league = specVal
 				elseif specName == "Crafted" then
 					self.crafted = true
+				elseif specName == "Implicit" then
+					self.implicit = true
 				elseif specName == "Prefix" then
 					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
 					t_insert(self.prefixes, {
@@ -234,9 +271,15 @@ function ItemClass:ParseRaw(raw)
 					})
 				elseif specName == "Implicits" then
 					self.implicitLines = tonumber(specVal) or 0
+					implicitNumberSpecified = true
 					gameModeStage = "EXPLICIT"
 				elseif specName == "Unreleased" then
 					self.unreleased = (specVal == "true")
+				elseif specName == "Upgrade" then
+					self.upgradePaths = self.upgradePaths or { }
+					t_insert(self.upgradePaths, specVal)
+				elseif specName == "Source" then
+					self.source = specVal
 				elseif specName == "Evasion Rating" then
 					if self.baseName == "Two-Toned Boots (Armour/Energy Shield)" then
 						-- Another hack for Two-Toned Boots
@@ -264,10 +307,17 @@ function ItemClass:ParseRaw(raw)
 						variantList[tonumber(varId)] = true
 					end
 				end
+				local fractured = line:match("{fractured}") or line:match(" %(fractured%)")
 				local rangeSpec = line:match("{range:([%d.]+)}")
-				local crafted = line:match("{crafted}")
+				local crafted = line:match("{crafted}") or line:match(" %(crafted%)")
+				local implicit = line:match("{implicit}") or line:match(" %(implicit%)")
 				local custom = line:match("{custom}")
-				line = line:gsub("%b{}", "")
+				local implicit = line:match(" %(implicit%)")
+				if implicit then
+					foundImplicit = true
+					gameModeStage = "IMPLICIT"
+				end
+				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)","")
 				local rangedLine
 				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
 					rangedLine = itemLib.applyRange(line, 1)
@@ -288,7 +338,7 @@ function ItemClass:ParseRaw(raw)
 					end
 				end
 				if modList then
-					t_insert(self.modLines, { line = line, extra = extra, modList = modList, variantList = variantList, crafted = crafted, custom = custom, range = rangedLine and (tonumber(rangeSpec) or 0.5) })
+					t_insert(self.modLines, { line = line, extra = extra, modList = modList, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or 0.5) })
 					if mode == "GAME" then
 						if gameModeStage == "FINDIMPLICIT" then
 							gameModeStage = "IMPLICIT"
@@ -303,12 +353,15 @@ function ItemClass:ParseRaw(raw)
 					end
 				elseif mode == "GAME" then
 					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" then
-						t_insert(self.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted, custom = custom })
+						t_insert(self.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
 					end
 				elseif foundExplicit then
-					t_insert(self.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted, custom = custom })
+					t_insert(self.modLines, { line = line, extra = line, modList = { }, variantList = variantList, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
+				end
+				if implicit then
+					self.implicitLines = #self.modLines
 				end
 			end
 		end
@@ -322,12 +375,25 @@ function ItemClass:ParseRaw(raw)
 			self.requirements.level = self.base.req.level
 		end
 	end
-	if self.base and self.base.implicit then
-		if self.implicitLines == 0 then
-			self.implicitLines = 1 + #self.base.implicit:gsub("[^\n]","")
+	if gameModeStage == "IMPLICIT" and not foundImplicit and not implicitNumberSpecified then
+		-- We only found modifiers that could be enchantments or explicits; assume enchantments for now
+		self.implicitLines = #self.modLines - self.buffLines
+	end
+	if self.implicitLines > 0 and not implicitNumberSpecified then
+		if not foundExplicit and self.rarity ~= "NORMAL" then
+			-- No explicits were found, but the item should have some, so the implicits (presumed enchantments) must be explicits
+			self.implicitLines = 0
+		else
+			-- Any "implicits" that weren't explicitly marked as such will be enchantments
+			for index, modLine in ipairs(self.modLines) do
+				if index > self.implicitLines then
+					break
+				end
+				if not modLine.implicit then
+					modLine.crafted = true
+				end
+			end
 		end
-	elseif mode == "GAME" and not foundExplicit then
-		self.implicitLines = 0
 	end
 	self.affixLimit = 0
 	if self.crafted then
@@ -372,22 +438,43 @@ function ItemClass:ParseRaw(raw)
 	end
 	self.abyssalSocketCount = 0
 	if self.variantList then
+		if self.hasVariants then
+			if not self.variants then self.variants = {} end
+			for i = 1, self.hasVariants do
+				self.variants[i] = m_min(#self.variantList, self.variants[i] or self.defaultVariant or #self.variantList)
+			end
+		end
+		-- Backward compatibility
 		self.variant = m_min(#self.variantList, self.variant or self.defaultVariant or #self.variantList)
 		if self.hasAltVariant then
 			self.variantAlt = m_min(#self.variantList, self.variantAlt or self.defaultVariant or #self.variantList)
 		end
+
+		if not self.hasVariants then
+			self.variants = {}
+			self.hasVariants = 1
+			self.variants[1] = self.variant
+			if self.hasAltVariant then
+				self.hasVariants = 2
+				self.variants[2] = self.variantAlt
+			end
+		end
+		-- ^
 	end
 	if not self.quality then
 		self:NormaliseQuality()
 	end
 	self:BuildModList()
+	if deferJewelRadiusIndexAssignment then
+		self.jewelRadiusIndex = self.jewelData.radiusIndex
+	end
 end
 
 function ItemClass:NormaliseQuality()
 	if self.base and (self.base.armour or self.base.weapon or self.base.flask) then
 		if not self.quality then
 			self.quality = self.corrupted and 0 or 20 
-		elseif not self.uniqueID and not self.corrupted then
+		elseif not self.uniqueID and not self.corrupted and self.quality < 20 then
 			self.quality = 20
 		end
 	end	
@@ -396,7 +483,7 @@ end
 function ItemClass:GetModSpawnWeight(mod, extraTags)
 	if self.base then
 		for i, key in ipairs(mod.weightKey) do
-			if self.base.tags[key] or (extraTags and extraTags[key]) or (self.shaperElderTags and (self.shaper and self.shaperElderTags.shaper == key) or (self.elder and self.shaperElderTags.elder == key)) then
+			if self.base.tags[key] or (extraTags and extraTags[key]) or (self.shaperElderTags and (self.shaper and self.shaperElderTags.shaper == key) or (self.elder and self.shaperElderTags.elder == key) or (self.adjudicator and self.shaperElderTags.adjudicator == key) or (self.basilisk and self.shaperElderTags.basilisk == key) or (self.crusader and self.shaperElderTags.crusader == key) or (self.eyrie and self.shaperElderTags.eyrie == key)) then
 				return mod.weightVal[i]
 			end
 		end
@@ -428,6 +515,18 @@ function ItemClass:BuildRaw()
 	if self.elder then
 		t_insert(rawLines, "Elder Item")
 	end
+	if self.adjudicator then
+		t_insert(rawLines, "Warlord Item")
+	end
+	if self.basilisk then
+		t_insert(rawLines, "Hunter Item")
+	end
+	if self.crusader then
+		t_insert(rawLines, "Crusader Item")
+	end
+	if self.eyrie then
+		t_insert(rawLines, "Redeemer Item")
+	end
 	if self.crafted then
 		t_insert(rawLines, "Crafted: true")
 		for i, affix in ipairs(self.prefixes or { }) do
@@ -444,10 +543,17 @@ function ItemClass:BuildRaw()
 		for _, variantName in ipairs(self.variantList) do
 			t_insert(rawLines, "Variant: "..variantName)
 		end
+		-- Backward compatibility
 		t_insert(rawLines, "Selected Variant: "..self.variant)
+
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
 			t_insert(rawLines, "Selected Alt Variant: "..self.variantAlt)
+		end
+		-- ^
+		if self.hasVariants then
+			t_insert(rawLines, "Has Variants: "..self.hasVariants)
+			t_insert(rawLines, "Selected Variants: "..table.concat(self.variants, ","))
 		end
 	end
 	if self.quality then
@@ -466,8 +572,8 @@ function ItemClass:BuildRaw()
 	if self.requirements and self.requirements.level then
 		t_insert(rawLines, "LevelReq: "..self.requirements.level)
 	end
-	if self.jewelRadiusIndex then
-		t_insert(rawLines, "Radius: "..data.jewelRadius[self.jewelRadiusIndex].label)
+	if self.jewelRadiusLabel then
+		t_insert(rawLines, "Radius: "..self.jewelRadiusLabel)
 	end
 	if self.limit then
 		t_insert(rawLines, "Limited to: "..self.limit)
@@ -484,6 +590,9 @@ function ItemClass:BuildRaw()
 			end
 			if modLine.custom then
 				line = "{custom}" .. line
+			end
+			if modLine.fractured then
+				line = "{fractured}" .. line
 			end
 			if modLine.variantList then
 				local varSpec
@@ -566,9 +675,18 @@ function ItemClass:Craft()
 end
 
 function ItemClass:CheckModLineVariant(modLine)
-	return not modLine.variantList 
-		or modLine.variantList[self.variant]
-		or (self.hasAltVariant and modLine.variantList[self.variantAlt])
+	if modLine.variantList then
+		if self.hasVariants then
+			for _, v in pairs(self.variants) do
+				if modLine.variantList[v] then
+					return true
+				end
+			end
+		end
+	end
+	return not modLine.variantList
+		--or modLine.variantList[self.variant]
+		--or (self.hasAltVariant and modLine.variantList[self.variantAlt])
 end
 
 -- Return the name of the slot this item is equipped in
@@ -587,7 +705,7 @@ function ItemClass:GetPrimarySlot()
 end
 
 -- Add up local modifiers, and removes them from the modifier list
--- To be considered local, a modifier must be an exact flag match, and cannot have any tags (e.g conditions, multipliers)
+-- To be considered local, a modifier must be an exact flag match, and cannot have any tags (e.g. conditions, multipliers)
 -- Only the InSlot tag is allowed (for Adds x to x X Damage in X Hand modifiers)
 local function sumLocal(modList, name, type, flags)
 	local result
@@ -613,13 +731,13 @@ local function sumLocal(modList, name, type, flags)
 	return result
 end
 
--- Build list of modifiers in a given slot number (1 or 2) while applying local modifers and adding quality
+-- Build list of modifiers in a given slot number (1 or 2) while applying local modifiers and adding quality
 function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	local slotName = self:GetPrimarySlot()
 	if slotNum == 2 then
 		slotName = slotName:gsub("1", "2")
 	end
-	local modList = common.New("ModList")
+	local modList = new("ModList")
 	for _, baseMod in ipairs(baseList) do
 		local mod = copyTable(baseMod)
 		local add = true
@@ -663,6 +781,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		weaponData.name = self.name
 		weaponData.AttackSpeedInc = sumLocal(modList, "Speed", "INC", ModFlag.Attack)
 		weaponData.AttackRate = round(self.base.weapon.AttackRateBase * (1 + weaponData.AttackSpeedInc / 100), 2)
+		weaponData.range = self.base.weapon.Range + sumLocal(modList, "WeaponRange", "BASE", 0)
 		for _, dmgType in pairs(dmgTypeList) do
 			local min = (self.base.weapon[dmgType.."Min"] or 0) + sumLocal(modList, dmgType.."Min", "BASE", 0)
 			local max = (self.base.weapon[dmgType.."Max"] or 0) + sumLocal(modList, dmgType.."Max", "BASE", 0)
@@ -682,23 +801,23 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		end
 		weaponData.CritChance = round(self.base.weapon.CritChanceBase * (1 + sumLocal(modList, "CritChance", "INC", 0) / 100), 2)
-		for _, value in ipairs(modList:Sum("LIST", nil, "WeaponData")) do
+		for _, value in ipairs(modList:List(nil, "WeaponData")) do
 			weaponData[value.key] = value.value
 		end
-		weaponData.AccuracyInc = sumLocal(modList, "Accuracy", "INC", 0)
-		if weaponData.AccuracyInc > 0 then
-			modList:NewMod("Accuracy", "MORE", weaponData.AccuracyInc, self.modSource, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })
-		end
-		if data[self.targetVersion].weaponTypeInfo[self.base.type].range then
-			weaponData.range = data[self.targetVersion].weaponTypeInfo[self.base.type].range + sumLocal(modList, "WeaponRange", "BASE", 0)
+		if self.targetVersion == "2_6" then
+			local accuracyInc = sumLocal(modList, "Accuracy", "INC", 0)
+			if accuracyInc > 0 then
+				modList:NewMod("Accuracy", "MORE", accuracyInc, self.modSource, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })
+			end
 		end
 		for _, mod in ipairs(modList) do
 			-- Convert accuracy, L/MGoH and PAD Leech modifiers to local
 			if (
 				(mod.name == "Accuracy" and mod.flags == 0) or
+                (mod.name == "ImpaleChance" ) or
 				((mod.name == "LifeOnHit" or mod.name == "ManaOnHit") and mod.flags == ModFlag.Attack) or
 				((mod.name == "PhysicalDamageLifeLeech" or mod.name == "PhysicalDamageManaLeech") and mod.flags == ModFlag.Attack)
-			   ) and mod.keywordFlags == 0 and not mod[1] then
+			   ) and (mod.keywordFlags == 0 or mod.keywordFlags == KeywordFlag.Attack) and not mod[1] then
 				mod[1] = { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" }
 			elseif self.targetVersion ~= "2_6" and (mod.name == "PoisonChance" or mod.name == "BleedChance") and (not mod[1] or (mod[1].type == "Condition" and mod[1].var == "CriticalStrike" and not mod[2])) then
 				t_insert(mod, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })
@@ -732,7 +851,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		if self.base.armour.MovementPenalty then
 			modList:NewMod("MovementSpeed", "INC", -self.base.armour.MovementPenalty, self.modSource, { type = "Condition", var = "IgnoreMovementPenalties", neg = true })
 		end
-		for _, value in ipairs(modList:Sum("LIST", nil, "ArmourData")) do
+		for _, value in ipairs(modList:List(nil, "ArmourData")) do
 			armourData[value.key] = value.value
 		end
 	elseif self.base.flask then
@@ -764,16 +883,16 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		flaskData.chargesUsed = m_floor(self.base.flask.chargesUsed * (1 + sumLocal(modList, "FlaskChargesUsed", "INC", 0) / 100))
 		flaskData.gainMod = 1 + sumLocal(modList, "FlaskChargeRecovery", "INC", 0) / 100
 		flaskData.effectInc = sumLocal(modList, "FlaskEffect", "INC", 0)
-		for _, value in ipairs(modList:Sum("LIST", nil, "FlaskData")) do
+		for _, value in ipairs(modList:List(nil, "FlaskData")) do
 			flaskData[value.key] = value.value
 		end
 	elseif self.type == "Jewel" then
 		local jewelData = self.jewelData
-		for _, func in ipairs(modList:Sum("LIST", nil, "JewelFunc")) do
+		for _, func in ipairs(modList:List(nil, "JewelFunc")) do
 			jewelData.funcList = jewelData.funcList or { }
 			t_insert(jewelData.funcList, func)
 		end
-		for _, value in ipairs(modList:Sum("LIST", nil, "JewelData")) do
+		for _, value in ipairs(modList:List(nil, "JewelData")) do
 			jewelData[value.key] = value.value
 		end
 	end	
@@ -785,7 +904,7 @@ function ItemClass:BuildModList()
 	if not self.base then
 		return
 	end
-	local baseList = common.New("ModList")
+	local baseList = new("ModList")
 	if self.base.weapon then
 		self.weaponData = { }
 	elseif self.base.armour then
@@ -832,10 +951,10 @@ function ItemClass:BuildModList()
 		self.requirements.intMod = m_floor((self.requirements.int + sumLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + sumLocal(baseList, "IntRequirement", "INC", 0) / 100))
 	end
 	self.grantedSkills = { }
-	for _, skill in ipairs(baseList:Sum("LIST", nil, "ExtraSkill")) do
+	for _, skill in ipairs(baseList:List(nil, "ExtraSkill")) do
 		if skill.name ~= "Unknown" then
 			t_insert(self.grantedSkills, {
-				name = skill.name,
+				skillId = skill.skillId,
 				level = skill.level,
 				noSupports = skill.noSupports,
 				source = self.modSource,

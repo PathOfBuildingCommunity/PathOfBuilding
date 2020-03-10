@@ -7,7 +7,7 @@ itemBases["Driftwood Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(8-12)% increased Spell Damage",
-	weapon = { PhysicalMin = 4, PhysicalMax = 8, CritChanceBase = 7, AttackRateBase = 1.4, },
+	weapon = { PhysicalMin = 5, PhysicalMax = 9, CritChanceBase = 7, AttackRateBase = 1.4, Range = 120, },
 	req = { int = 14, },
 }
 itemBases["Goat's Horn"] = {
@@ -15,7 +15,7 @@ itemBases["Goat's Horn"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(10-14)% increased Spell Damage",
-	weapon = { PhysicalMin = 7, PhysicalMax = 13, CritChanceBase = 7, AttackRateBase = 1.2, },
+	weapon = { PhysicalMin = 9, PhysicalMax = 16, CritChanceBase = 7, AttackRateBase = 1.2, Range = 120, },
 	req = { level = 6, int = 29, },
 }
 itemBases["Carved Wand"] = {
@@ -23,7 +23,7 @@ itemBases["Carved Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(11-15)% increased Spell Damage",
-	weapon = { PhysicalMin = 8, PhysicalMax = 14, CritChanceBase = 7, AttackRateBase = 1.5, },
+	weapon = { PhysicalMin = 9, PhysicalMax = 17, CritChanceBase = 7, AttackRateBase = 1.5, Range = 120, },
 	req = { level = 12, int = 47, },
 }
 itemBases["Quartz Wand"] = {
@@ -31,7 +31,7 @@ itemBases["Quartz Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(18-22)% increased Spell Damage",
-	weapon = { PhysicalMin = 12, PhysicalMax = 22, CritChanceBase = 7, AttackRateBase = 1.3, },
+	weapon = { PhysicalMin = 14, PhysicalMax = 27, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 18, int = 65, },
 }
 itemBases["Spiraled Wand"] = {
@@ -39,7 +39,7 @@ itemBases["Spiraled Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(15-19)% increased Spell Damage",
-	weapon = { PhysicalMin = 10, PhysicalMax = 31, CritChanceBase = 7, AttackRateBase = 1.3, },
+	weapon = { PhysicalMin = 12, PhysicalMax = 37, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 24, int = 83, },
 }
 itemBases["Sage Wand"] = {
@@ -47,7 +47,7 @@ itemBases["Sage Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(17-21)% increased Spell Damage",
-	weapon = { PhysicalMin = 19, PhysicalMax = 35, CritChanceBase = 8, AttackRateBase = 1.2, },
+	weapon = { PhysicalMin = 23, PhysicalMax = 42, CritChanceBase = 8, AttackRateBase = 1.2, Range = 120, },
 	req = { level = 30, int = 119, },
 }
 itemBases["Pagan Wand"] = {
@@ -55,7 +55,7 @@ itemBases["Pagan Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "10% increased Cast Speed",
-	weapon = { PhysicalMin = 18, PhysicalMax = 33, CritChanceBase = 7, AttackRateBase = 1.35, },
+	weapon = { PhysicalMin = 22, PhysicalMax = 40, CritChanceBase = 7, AttackRateBase = 1.35, Range = 120, },
 	req = { level = 34, int = 118, },
 }
 itemBases["Faun's Horn"] = {
@@ -63,7 +63,7 @@ itemBases["Faun's Horn"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(20-24)% increased Spell Damage",
-	weapon = { PhysicalMin = 22, PhysicalMax = 40, CritChanceBase = 7, AttackRateBase = 1.2, },
+	weapon = { PhysicalMin = 26, PhysicalMax = 48, CritChanceBase = 7, AttackRateBase = 1.2, Range = 120, },
 	req = { level = 35, int = 116, },
 }
 itemBases["Engraved Wand"] = {
@@ -71,7 +71,7 @@ itemBases["Engraved Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(22-26)% increased Spell Damage",
-	weapon = { PhysicalMin = 17, PhysicalMax = 32, CritChanceBase = 7, AttackRateBase = 1.5, },
+	weapon = { PhysicalMin = 21, PhysicalMax = 38, CritChanceBase = 7, AttackRateBase = 1.5, Range = 120, },
 	req = { level = 40, int = 131, },
 }
 itemBases["Crystal Wand"] = {
@@ -79,7 +79,7 @@ itemBases["Crystal Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(29-33)% increased Spell Damage",
-	weapon = { PhysicalMin = 23, PhysicalMax = 43, CritChanceBase = 7, AttackRateBase = 1.3, },
+	weapon = { PhysicalMin = 28, PhysicalMax = 52, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 45, int = 146, },
 }
 itemBases["Serpent Wand"] = {
@@ -87,7 +87,7 @@ itemBases["Serpent Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(26-30)% increased Spell Damage",
-	weapon = { PhysicalMin = 18, PhysicalMax = 53, CritChanceBase = 7, AttackRateBase = 1.3, },
+	weapon = { PhysicalMin = 21, PhysicalMax = 64, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 49, int = 158, },
 }
 itemBases["Omen Wand"] = {
@@ -95,7 +95,7 @@ itemBases["Omen Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(27-31)% increased Spell Damage",
-	weapon = { PhysicalMin = 27, PhysicalMax = 50, CritChanceBase = 8, AttackRateBase = 1.2, },
+	weapon = { PhysicalMin = 33, PhysicalMax = 61, CritChanceBase = 8, AttackRateBase = 1.2, Range = 120, },
 	req = { level = 53, int = 200, },
 }
 itemBases["Heathen Wand"] = {
@@ -103,7 +103,7 @@ itemBases["Heathen Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "10% increased Cast Speed",
-	weapon = { PhysicalMin = 26, PhysicalMax = 48, CritChanceBase = 7, AttackRateBase = 1.35, },
+	weapon = { PhysicalMin = 31, PhysicalMax = 57, CritChanceBase = 7, AttackRateBase = 1.35, Range = 120, },
 	req = { level = 55, int = 184, },
 }
 itemBases["Demon's Horn"] = {
@@ -111,7 +111,7 @@ itemBases["Demon's Horn"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(31-35)% increased Spell Damage",
-	weapon = { PhysicalMin = 32, PhysicalMax = 59, CritChanceBase = 7, AttackRateBase = 1.2, },
+	weapon = { PhysicalMin = 38, PhysicalMax = 70, CritChanceBase = 7, AttackRateBase = 1.2, Range = 120, },
 	req = { level = 56, int = 179, },
 }
 itemBases["Imbued Wand"] = {
@@ -119,7 +119,7 @@ itemBases["Imbued Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(33-37)% increased Spell Damage",
-	weapon = { PhysicalMin = 24, PhysicalMax = 44, CritChanceBase = 7, AttackRateBase = 1.5, },
+	weapon = { PhysicalMin = 28, PhysicalMax = 53, CritChanceBase = 7, AttackRateBase = 1.5, Range = 120, },
 	req = { level = 59, int = 188, },
 }
 itemBases["Opal Wand"] = {
@@ -127,7 +127,7 @@ itemBases["Opal Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(38-42)% increased Spell Damage",
-	weapon = { PhysicalMin = 29, PhysicalMax = 54, CritChanceBase = 7, AttackRateBase = 1.3, },
+	weapon = { PhysicalMin = 35, PhysicalMax = 65, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 62, int = 212, },
 }
 itemBases["Tornado Wand"] = {
@@ -135,7 +135,7 @@ itemBases["Tornado Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(35-39)% increased Spell Damage",
-	weapon = { PhysicalMin = 21, PhysicalMax = 62, CritChanceBase = 7, AttackRateBase = 1.3, },
+	weapon = { PhysicalMin = 25, PhysicalMax = 75, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 65, int = 212, },
 }
 itemBases["Prophecy Wand"] = {
@@ -143,7 +143,7 @@ itemBases["Prophecy Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, },
 	implicit = "(36-40)% increased Spell Damage",
-	weapon = { PhysicalMin = 29, PhysicalMax = 54, CritChanceBase = 8, AttackRateBase = 1.2, },
+	weapon = { PhysicalMin = 35, PhysicalMax = 64, CritChanceBase = 8, AttackRateBase = 1.2, Range = 120, },
 	req = { level = 68, int = 245, },
 }
 itemBases["Profane Wand"] = {
@@ -151,6 +151,14 @@ itemBases["Profane Wand"] = {
 	socketLimit = 3,
 	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, not_for_sale = true, maraketh = true, },
 	implicit = "14% increased Cast Speed",
-	weapon = { PhysicalMin = 27, PhysicalMax = 51, CritChanceBase = 7, AttackRateBase = 1.35, },
+	weapon = { PhysicalMin = 33, PhysicalMax = 61, CritChanceBase = 7, AttackRateBase = 1.35, Range = 120, },
 	req = { level = 70, int = 237, },
+}
+itemBases["Convoking Wand"] = {
+	type = "Wand",
+	socketLimit = 3,
+	tags = { default = true, weapon = true, onehand = true, wand = true, ranged = true, one_hand_weapon = true, not_for_sale = true, atlas_base_type = true, wandatlas1 = true, },
+	implicit = "Can roll Minion Modifiers",
+	weapon = { PhysicalMin = 30, PhysicalMax = 56, CritChanceBase = 7, AttackRateBase = 1.4, Range = 120, },
+	req = { level = 72, int = 242, },
 }

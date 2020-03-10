@@ -3,13 +3,11 @@
 -- Class: Item Slot
 -- Item Slot control, extends the basic dropdown control.
 --
-local launch, main = ...
-
 local pairs = pairs
 local t_insert = table.insert
 local m_min = math.min
 
-local ItemSlotClass = common.NewClass("ItemSlot", "DropDownControl", function(self, anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
+local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(self, anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
 	self.DropDownControl(anchor, x, y, 310, 20, { }, function(index, value)
 		if self.items[index] ~= self.selItemId then
 			self:SetSelItemId(self.items[index])
@@ -30,7 +28,7 @@ local ItemSlotClass = common.NewClass("ItemSlot", "DropDownControl", function(se
 	self.slotName = slotName
 	self.slotNum = tonumber(slotName:match("%d+"))
 	if slotName:match("Flask") then
-		self.controls.activate = common.New("CheckBoxControl", {"RIGHT",self,"LEFT"}, -2, 0, 20, nil, function(state)
+		self.controls.activate = new("CheckBoxControl", {"RIGHT",self,"LEFT"}, -2, 0, 20, nil, function(state)
 			self.active = state
 			itemsTab.activeItemSet[self.slotName].active = state
 			itemsTab:AddUndoState()
@@ -55,8 +53,6 @@ local ItemSlotClass = common.NewClass("ItemSlot", "DropDownControl", function(se
 	end
 	self.label = slotLabel or slotName
 	self.nodeId = nodeId
-	itemsTab.slots[slotName] = self
-	t_insert(itemsTab.orderedSlots, self)
 end)
 
 function ItemSlotClass:SetSelItemId(selItemId)
@@ -109,7 +105,7 @@ function ItemSlotClass:ReceiveDrag(type, value, source)
 	if value.id and self.itemsTab.items[value.id] then
 		self:SetSelItemId(value.id)
 	else
-		local newItem = common.New("Item", self.itemsTab.build.targetVersion, value.raw)
+		local newItem = new("Item", self.itemsTab.build.targetVersion, value.raw)
 		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true)
 		self:SetSelItemId(newItem.id)
@@ -134,8 +130,9 @@ function ItemSlotClass:Draw(viewPort)
 		local viewer = self.itemsTab.socketViewer
 		local node = self.itemsTab.build.spec.nodes[self.nodeId]
 		viewer.zoom = 5
-		viewer.zoomX = -node.x / 11.85
-		viewer.zoomY = -node.y / 11.85
+		local scale = 11.85
+		viewer.zoomX = -node.x / scale
+		viewer.zoomY = -node.y / scale
 		SetViewport(viewerX + 2, viewerY + 2, 300, 300)
 		viewer:Draw(self.itemsTab.build, { x = 0, y = 0, width = 300, height = 300 }, { })
 		SetDrawLayer(nil, 30)

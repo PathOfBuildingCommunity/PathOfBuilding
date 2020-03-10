@@ -3,8 +3,6 @@
 -- Module: Main
 -- Main module of program.
 --
-local launch = ...
-
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
@@ -16,73 +14,13 @@ local m_sin = math.sin
 local m_cos = math.cos
 local m_pi = math.pi
 
-defaultTargetVersion = "2_6"
-liveTargetVersion = "3_0"
-targetVersionList = { "2_6", "3_0" }
-
+LoadModule("GameVersions")
 LoadModule("Modules/Common")
-LoadModule("Modules/Data", launch)
-LoadModule("Modules/ModTools", launch)
-LoadModule("Modules/ItemTools", launch)
-LoadModule("Modules/CalcTools", launch)
-
-LoadModule("Classes/ControlHost")
-
-local main = common.New("ControlHost")
-
-local classList = {
-	"UndoHandler",
-	"Tooltip",
-	"TooltipHost",
-	-- Basic controls
-	"Control",
-	"LabelControl",
-	"SectionControl",
-	"ButtonControl",
-	"CheckBoxControl",
-	"EditControl",
-	"DropDownControl",
-	"ScrollBarControl",
-	"SliderControl",
-	"TextListControl",
-	"ListControl",
-	"PathControl",
-	-- Misc
-	"PopupDialog",
-	"Item",
-	-- Mode: Build list
-	"BuildListControl",
-	"FolderListControl",
-	-- Mode: Build
-	"ModStore",
-	"ModList",
-	"ModDB",
-	"MinionListControl",
-	"ImportTab",
-	"NotesTab",
-	"ConfigTab",
-	"TreeTab",
-	"PassiveTree",
-	"PassiveSpec",
-	"PassiveTreeView",
-	"PassiveSpecListControl",
-	"SkillsTab",
-	"SkillListControl",
-	"GemSelectControl",
-	"ItemsTab",
-	"ItemSetListControl",
-	"SharedItemSetListControl",
-	"ItemSlotControl",
-	"ItemListControl",
-	"ItemDBControl",
-	"SharedItemListControl",
-	"CalcsTab",
-	"CalcSectionControl",
-	"CalcBreakdownControl",
-}
-for _, className in pairs(classList) do
-	LoadModule("Classes/"..className, launch, main)
-end
+LoadModule("Modules/Data")
+LoadModule("Modules/ModTools")
+LoadModule("Modules/ItemTools")
+LoadModule("Modules/CalcTools")
+LoadModule("Modules/PantheonTools")
 
 --[[if launch.devMode then
 	for skillName, skill in pairs(data["3_0"].enchantments.Helmet) do
@@ -98,10 +36,12 @@ end]]
 local tempTable1 = { }
 local tempTable2 = { }
 
+main = new("ControlHost")
+
 function main:Init()
 	self.modes = { }
-	self.modes["LIST"] = LoadModule("Modules/BuildList", launch, self)
-	self.modes["BUILD"] = LoadModule("Modules/Build", launch, self)
+	self.modes["LIST"] = LoadModule("Modules/BuildList")
+	self.modes["BUILD"] = LoadModule("Modules/Build")
 
 	if launch.devMode or GetScriptPath() == GetRuntimePath() then
 		-- If running in dev mode or standalone mode, put user data in the script path
@@ -124,8 +64,10 @@ function main:Init()
 	end
 	
 	self.tree = { }
-	for _, targetVersion in ipairs(targetVersionList) do
-		self.tree[targetVersion] = common.New("PassiveTree", targetVersion)
+	for _, versionData in pairs(targetVersions) do
+		for _, treeVersion in ipairs(versionData.treeVersionList) do
+			self.tree[treeVersion] = new("PassiveTree", treeVersion)
+		end
 	end
 
 	ConPrintf("Loading item databases...")
@@ -135,7 +77,7 @@ function main:Init()
 		self.uniqueDB[targetVersion] = { list = { } }
 		for type, typeList in pairs(data.uniques) do
 			for _, raw in pairs(typeList) do
-				local newItem = common.New("Item", targetVersion, "Rarity: Unique\n"..raw)
+				local newItem = new("Item", targetVersion, "Rarity: Unique\n"..raw)
 				if newItem.base then
 					newItem:NormaliseQuality()
 					self.uniqueDB[targetVersion].list[newItem.name] = newItem
@@ -146,7 +88,7 @@ function main:Init()
 		end
 		self.rareDB[targetVersion] = { list = { } }
 		for _, raw in pairs(data[targetVersion].rares) do
-			local newItem = common.New("Item", targetVersion, "Rarity: Rare\n"..raw)
+			local newItem = new("Item", targetVersion, "Rarity: Rare\n"..raw)
 			if newItem.base then
 				newItem:NormaliseQuality()
 				if newItem.crafted then
@@ -167,54 +109,47 @@ function main:Init()
 	end
 
 	if self.rebuildModCache then
-		-- Update mod caches
-		for _, targetVersion in ipairs(targetVersionList) do
-			local out = io.open("Data/"..targetVersion.."/ModCache.lua", "w")
-			out:write('local c=...')
-			for line, dat in pairs(modLib.parseModCache[targetVersion]) do
-				if not dat[1] or not dat[1][1] or dat[1][1].name ~= "JewelFunc" then
-					out:write('c["', line:gsub("\n","\\n"), '"]={')
-					if dat[1] then
-						writeLuaTable(out, dat[1])
-					else
-						out:write('nil')
-					end
-					if dat[2] then
-						out:write(',"', dat[2]:gsub("\n","\\n"), '"}')
-					else
-						out:write(',nil}')
-					end
+		-- Update mod cache
+		local out = io.open("Data/"..liveTargetVersion.."/ModCache.lua", "w")
+		out:write('local c=...')
+		for line, dat in pairs(modLib.parseModCache[liveTargetVersion]) do
+			if not dat[1] or not dat[1][1] or dat[1][1].name ~= "JewelFunc" then
+				out:write('c["', line:gsub("\n","\\n"), '"]={')
+				if dat[1] then
+					writeLuaTable(out, dat[1])
+				else
+					out:write('nil')
+				end
+				if dat[2] then
+					out:write(',"', dat[2]:gsub("\n","\\n"), '"}\n')
+				else
+					out:write(',nil}\n')
 				end
 			end
-			out:close()
 		end
+		out:close()
 	end
 
 	self.sharedItemList = { }
 	self.sharedItemSetList = { }
 
-	self.anchorMain = common.New("Control", nil, 4, 0, 0, 0)
+	self.anchorMain = new("Control", nil, 4, 0, 0, 0)
 	self.anchorMain.y = function()
 		return self.screenH - 4
 	end
-	self.controls.options = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, 0, 70, 20, "Options", function()
+	self.controls.options = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, 0, 70, 20, "Options", function()
 		self:OpenOptionsPopup()
 	end)
-	self.controls.patreon = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 112, 0, 74, 20, "", function()
-		OpenURL("https://www.patreon.com/openarl")
-	end)
-	self.controls.patreon:SetImage("Assets/patreon_logo.png")
-	self.controls.patreon.tooltipText = "Help support the development of Path of Building by pledging a monthly donation!"
-	self.controls.about = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 228, 0, 70, 20, "About", function()
+	self.controls.about = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 228, 0, 70, 20, "About", function()
 		self:OpenAboutPopup()
 	end)
-	self.controls.applyUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -24, 140, 20, "^x50E050Update Ready", function()
+	self.controls.applyUpdate = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -24, 140, 20, "^x50E050Update Ready", function()
 		self:OpenUpdatePopup()
 	end)
 	self.controls.applyUpdate.shown = function()
 		return launch.updateAvailable and launch.updateAvailable ~= "none"
 	end
-	self.controls.checkUpdate = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -24, 140, 20, "", function()
+	self.controls.checkUpdate = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -24, 140, 20, "", function()
 		launch:CheckForUpdate()
 	end)
 	self.controls.checkUpdate.shown = function()
@@ -226,15 +161,15 @@ function main:Init()
 	self.controls.checkUpdate.enabled = function()
 		return not launch.updateCheckRunning
 	end
-	self.controls.versionLabel = common.New("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 144, -27, 0, 14, "")
+	self.controls.versionLabel = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 144, -27, 0, 14, "")
 	self.controls.versionLabel.label = function()
 		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or "")
 	end
-	self.controls.devMode = common.New("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -26, 0, 20, "^1Dev Mode")
+	self.controls.devMode = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -26, 0, 20, "^1Dev Mode")
 	self.controls.devMode.shown = function()
 		return launch.devMode
 	end
-	self.controls.dismissToast = common.New("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, function() return -self.mainBarHeight + self.toastHeight end, 80, 20, "Dismiss", function()
+	self.controls.dismissToast = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, function() return -self.mainBarHeight + self.toastHeight end, 80, 20, "Dismiss", function()
 		self.toastMode = "HIDING"
 		self.toastStart = GetTime()
 	end)
@@ -261,7 +196,7 @@ the "Releases" section of the GitHub page.]])
 	self.popups = { }
 	self.tooltipLines = { }
 
-	self.accountSessionIDs = { }
+	self.gameAccounts = { }
 
 	self.buildSortMode = "NAME"
 	self.nodePowerTheme = "RED/BLUE"
@@ -429,7 +364,7 @@ end
 
 function main:CallMode(func, ...)
 	local modeTbl = self.modes[self.mode]
-	if modeTbl[func] then
+	if modeTbl and modeTbl[func] then
 		return modeTbl[func](modeTbl, ...)
 	end
 end
@@ -466,9 +401,12 @@ function main:LoadSettings()
 				self:SetMode(node.attrib.mode, unpack(args))
 			elseif node.elem == "Accounts" then
 				self.lastAccountName = node.attrib.lastAccountName
+				self.lastRealm = node.attrib.lastRealm
 				for _, child in ipairs(node) do
 					if child.elem == "Account" then
-						self.accountSessionIDs[child.attrib.accountName] = child.attrib.sessionID
+						self.gameAccounts[child.attrib.accountName] = {
+							sessionID = child.attrib.sessionID,
+						}
 					end
 				end
 			elseif node.elem == "SharedItems" then
@@ -481,7 +419,7 @@ function main:LoadSettings()
 							end
 						end
 						for _, targetVersion in ipairs(targetVersionList) do			
-							verItem[targetVersion] = common.New("Item", targetVersion, verItem.raw)
+							verItem[targetVersion] = new("Item", targetVersion, verItem.raw)
 						end
 						t_insert(self.sharedItemList, verItem)
 					elseif child.elem == "ItemSet" then
@@ -495,7 +433,7 @@ function main:LoadSettings()
 									end
 								end
 								for _, targetVersion in ipairs(targetVersionList) do			
-									verItem[targetVersion] = common.New("Item", targetVersion, verItem.raw)
+									verItem[targetVersion] = new("Item", targetVersion, verItem.raw)
 								end
 								sharedItemSet.slots[grandChild.attrib.slotName] = verItem
 							end
@@ -536,9 +474,9 @@ function main:SaveSettings()
 		t_insert(mode, child)
 	end
 	t_insert(setXML, mode)
-	local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName } }
-	for accountName, sessionID in pairs(self.accountSessionIDs) do
-		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = sessionID } })
+	local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName, lastRealm = self.lastRealm } }
+	for accountName, account in pairs(self.gameAccounts) do
+		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = account.sessionID } })
 	end
 	t_insert(setXML, accounts)
 	local sharedItemList = { elem = "SharedItems" }
@@ -570,46 +508,46 @@ end
 
 function main:OpenOptionsPopup()
 	local controls = { }
-	controls.proxyType = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 20, 80, 18, {
+	controls.proxyType = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 20, 80, 18, {
 		{ label = "HTTP", scheme = "http" },
 		{ label = "SOCKS", scheme = "socks5" },
 	})
-	controls.proxyLabel = common.New("LabelControl", {"RIGHT",controls.proxyType,"LEFT"}, -4, 0, 0, 16, "^7Proxy server:")
-	controls.proxyURL = common.New("EditControl", {"LEFT",controls.proxyType,"RIGHT"}, 4, 0, 206, 18)
+	controls.proxyLabel = new("LabelControl", {"RIGHT",controls.proxyType,"LEFT"}, -4, 0, 0, 16, "^7Proxy server:")
+	controls.proxyURL = new("EditControl", {"LEFT",controls.proxyType,"RIGHT"}, 4, 0, 206, 18)
 	if launch.proxyURL then
 		local scheme, url = launch.proxyURL:match("(%w+)://(.+)")
 		controls.proxyType:SelByValue(scheme, "scheme")
 		controls.proxyURL:SetText(url)
 	end
-	controls.buildPath = common.New("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 44, 290, 18)
-	controls.buildPathLabel = common.New("LabelControl", {"RIGHT",controls.buildPath,"LEFT"}, -4, 0, 0, 16, "^7Build save path:")
+	controls.buildPath = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 44, 290, 18)
+	controls.buildPathLabel = new("LabelControl", {"RIGHT",controls.buildPath,"LEFT"}, -4, 0, 0, 16, "^7Build save path:")
 	if self.buildPath ~= self.defaultBuildPath then
 		controls.buildPath:SetText(self.buildPath)
 	end
 	controls.buildPath.tooltipText = "Overrides the default save location for builds.\nThe default location is: '"..self.defaultBuildPath.."'"
-	controls.nodePowerTheme = common.New("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 68, 100, 18, {
+	controls.nodePowerTheme = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 68, 100, 18, {
 		{ label = "Red & Blue", theme = "RED/BLUE" },
 		{ label = "Red & Green", theme = "RED/GREEN" },
 		{ label = "Green & Blue", theme = "GREEN/BLUE" },
 	}, function(index, value)
 		self.nodePowerTheme = value.theme
 	end)
-	controls.nodePowerThemeLabel = common.New("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, -4, 0, 0, 16, "^7Node Power colours:")
+	controls.nodePowerThemeLabel = new("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, -4, 0, 0, 16, "^7Node Power colours:")
 	controls.nodePowerTheme.tooltipText = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
-	controls.thousandsLabel = common.New("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 200, 94, 0, 16, "^7Show thousands separators in:")
-	controls.thousandsSidebar = common.New("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 270, 92, 20, "Sidebar:", function(state)
+	controls.thousandsLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 200, 94, 0, 16, "^7Show thousands separators in:")
+	controls.thousandsSidebar = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 270, 92, 20, "Sidebar:", function(state)
 		self.showThousandsSidebar = state
 	end)
 	controls.thousandsSidebar.state = self.showThousandsSidebar
-	controls.thousandsCalcs = common.New("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 370, 92, 20, "Calcs tab:", function(state)
+	controls.thousandsCalcs = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 370, 92, 20, "Calcs tab:", function(state)
 		self.showThousandsCalcs = state
 	end)
 	controls.thousandsCalcs.state = self.showThousandsCalcs
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialThousandsSidebar = self.showThousandsSidebar
 	local initialThousandsCalcs = self.showThousandsCalcs
-	controls.save = common.New("ButtonControl", nil, -45, 120, 80, 20, "Save", function()
+	controls.save = new("ButtonControl", nil, -45, 120, 80, 20, "Save", function()
 		if controls.proxyURL.buf:match("%w") then
 			launch.proxyURL = controls.proxyType.list[controls.proxyType.selIndex].scheme .. "://" .. controls.proxyURL.buf
 		else
@@ -628,7 +566,7 @@ function main:OpenOptionsPopup()
 		end
 		main:ClosePopup()
 	end)
-	controls.cancel = common.New("ButtonControl", nil, 45, 120, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 120, 80, 20, "Cancel", function()
 		self.nodePowerTheme = initialNodePowerTheme
 		self.showThousandsSidebar = initialThousandsSidebar
 		self.showThousandsCalcs = initialThousandsCalcs
@@ -654,22 +592,17 @@ function main:OpenUpdatePopup()
 		end
 	end
 	local controls = { }
-	controls.changeLog = common.New("TextListControl", nil, 0, 20, 780, 192, nil, changeList)
-	controls.update = common.New("ButtonControl", nil, -45, 220, 80, 20, "Update", function()
+	controls.changeLog = new("TextListControl", nil, 0, 20, 780, 192, nil, changeList)
+	controls.update = new("ButtonControl", nil, -45, 220, 80, 20, "Update", function()
 		self:ClosePopup()
 		local ret = self:CallMode("CanExit", "UPDATE")
 		if ret == nil or ret == true then
 			launch:ApplyUpdate(launch.updateAvailable)
 		end
 	end)
-	controls.cancel = common.New("ButtonControl", nil, 45, 220, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 220, 80, 20, "Cancel", function()
 		self:ClosePopup()
 	end)
-	controls.patreon = common.New("ButtonControl", {"BOTTOMLEFT",nil,"BOTTOMLEFT"}, 10, -10, 82, 22, "", function()
-		OpenURL("https://www.patreon.com/openarl")
-	end)
-	controls.patreon:SetImage("Assets/patreon_logo.png")
-	controls.patreon.tooltipText = "Help support the development of Path of Building by pledging a monthly donation!"
 	self:OpenPopup(800, 250, "Update Available", controls)
 end
 
@@ -687,30 +620,25 @@ function main:OpenAboutPopup()
 		end
 	end
 	local controls = { }
-	controls.close = common.New("ButtonControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -10, 10, 50, 20, "Close", function()
+	controls.close = new("ButtonControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -10, 10, 50, 20, "Close", function()
 		self:ClosePopup()
 	end)
-	controls.version = common.New("LabelControl", nil, 0, 18, 0, 18, "Path of Building v"..launch.versionNumber.." by Openarl")
-	controls.forum = common.New("ButtonControl", nil, 0, 42, 420, 18, "Forum Thread: ^x4040FFhttps://www.pathofexile.com/forum/view-thread/1716360", function(control)
+	controls.version = new("LabelControl", nil, 0, 18, 0, 18, "Path of Building v"..launch.versionNumber.." by Openarl : LocalIdentity's Fork")
+	controls.forum = new("ButtonControl", nil, 0, 42, 420, 18, "Forum Thread: ^x4040FFhttps://www.pathofexile.com/forum/view-thread/1716360", function(control)
 		OpenURL("https://www.pathofexile.com/forum/view-thread/1716360")
 	end)
-	controls.github = common.New("ButtonControl", nil, 0, 64, 340, 18, "GitHub page: ^x4040FFhttps://github.com/Openarl/PathOfBuilding", function(control)
-		OpenURL("https://github.com/Openarl/PathOfBuilding")
+	controls.github = new("ButtonControl", nil, 0, 62, 360, 18, "GitHub page: ^x4040FFhttps://github.com/LocalIdentity/PathOfBuilding", function(control)
+		OpenURL("https://github.com/LocalIdentity/PathOfBuilding")
 	end)
-	controls.patreon = common.New("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 10, 82, 22, "", function()
-		OpenURL("https://www.patreon.com/openarl")
-	end)
-	controls.patreon:SetImage("Assets/patreon_logo.png")
-	controls.patreon.tooltipText = "Help support the development of Path of Building by pledging a monthly donation!"
-	controls.verLabel = common.New("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 82, 0, 18, "^7Version history:")
-	controls.changelog = common.New("TextListControl", nil, 0, 100, 630, 290, nil, changeList)
-	self:OpenPopup(650, 400, "About", controls)
+	controls.verLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 82, 0, 18, "^7Version history:")
+	controls.changelog = new("TextListControl", nil, 0, 100, 630, 390, nil, changeList)
+	self:OpenPopup(650, 500, "About", controls)
 end
 
 function main:DrawBackground(viewPort)
 	SetDrawLayer(nil, -100)
 	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(self.tree[defaultTargetVersion].assets.Background1.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
+	DrawImage(self.tree["2_6"].assets.Background1.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
 	SetDrawLayer(nil, 0)
 end
 
@@ -878,7 +806,7 @@ function main:CopyFolder(srcName, dstName)
 end
 
 function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl)
-	local popup = common.New("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl)
+	local popup = new("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl)
 	t_insert(self.popups, 1, popup)
 	return popup
 end
@@ -891,10 +819,10 @@ function main:OpenMessagePopup(title, msg)
 	local controls = { }
 	local numMsgLines = 0
 	for line in string.gmatch(msg .. "\n", "([^\n]*)\n") do
-		t_insert(controls, common.New("LabelControl", nil, 0, 20 + numMsgLines * 16, 0, 16, line))
+		t_insert(controls, new("LabelControl", nil, 0, 20 + numMsgLines * 16, 0, 16, line))
 		numMsgLines = numMsgLines + 1
 	end
-	controls.close = common.New("ButtonControl", nil, 0, 40 + numMsgLines * 16, 80, 20, "Ok", function()
+	controls.close = new("ButtonControl", nil, 0, 40 + numMsgLines * 16, 80, 20, "Ok", function()
 		main:ClosePopup()
 	end)
 	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "close")
@@ -904,15 +832,15 @@ function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm)
 	local controls = { }
 	local numMsgLines = 0
 	for line in string.gmatch(msg .. "\n", "([^\n]*)\n") do
-		t_insert(controls, common.New("LabelControl", nil, 0, 20 + numMsgLines * 16, 0, 16, line))
+		t_insert(controls, new("LabelControl", nil, 0, 20 + numMsgLines * 16, 0, 16, line))
 		numMsgLines = numMsgLines + 1
 	end
 	local confirmWidth = m_max(80, DrawStringWidth(16, "VAR", confirmLabel) + 10)
-	controls.confirm = common.New("ButtonControl", nil, -5 - m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20, confirmLabel, function()
+	controls.confirm = new("ButtonControl", nil, -5 - m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20, confirmLabel, function()
 		main:ClosePopup()
 		onConfirm()
 	end)
-	t_insert(controls, common.New("ButtonControl", nil, 5 + m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20, "Cancel", function()
+	t_insert(controls, new("ButtonControl", nil, 5 + m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20, "Cancel", function()
 		main:ClosePopup()
 	end))
 	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "confirm")
@@ -920,11 +848,11 @@ end
 
 function main:OpenNewFolderPopup(path, onClose)
 	local controls = { }
-	controls.label = common.New("LabelControl", nil, 0, 20, 0, 16, "^7Enter folder name:")
-	controls.edit = common.New("EditControl", nil, 0, 40, 350, 20, nil, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter folder name:")
+	controls.edit = new("EditControl", nil, 0, 40, 350, 20, nil, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		controls.create.enabled = buf:match("%S")
 	end)
-	controls.create = common.New("ButtonControl", nil, -45, 70, 80, 20, "Create", function()
+	controls.create = new("ButtonControl", nil, -45, 70, 80, 20, "Create", function()
 		local newFolderName = controls.edit.buf
 		local res, msg = MakeDir(path..newFolderName)
 		if not res then
@@ -937,7 +865,7 @@ function main:OpenNewFolderPopup(path, onClose)
 		main:ClosePopup()
 	end)
 	controls.create.enabled = false
-	controls.cancel = common.New("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
 		if onClose then
 			onClose()
 		end

@@ -7,7 +7,6 @@
 -- .label  [Adds a label above the top left corner]
 -- .dragTargetList  [List of controls that can receive drag events from this list control]
 -- .showRowSeparators  [Shows separators between rows]
--- :GetColumnOffset(column)  [Called to get the offset of the given column]
 -- :GetRowValue(column, index, value)  [Required; called to retrieve the text for the given column of the given list value]
 -- :AddValueTooltip(index, value)  [Called to add the tooltip for the given list value]
 -- :GetDragValue(index, value)  [Called to retrieve the drag type and object for the given list value]
@@ -21,8 +20,6 @@
 -- :OnSelDelete(index, value)  [Called when backspace or delete is pressed while a list value is selected]
 -- :OnSelKeyDown(index, value)  [Called when any other key is pressed while a list value is selected]
 --
-local launch, main = ...
-
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
@@ -30,18 +27,34 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local ListClass = common.NewClass("ListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, rowHeight, isMutable, list)
+local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, rowHeight, scrollH, isMutable, list)
 	self.Control(anchor, x, y, width, height)
 	self.ControlHost()
 	self.rowHeight = rowHeight
+	self.scrollH = scrollH
 	self.isMutable = isMutable
 	self.list = list or { }
-	self.tooltip = common.New("Tooltip")
-	self.controls.scrollBar = common.New("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -1, 0, 16, 0, rowHeight * 2)
-	self.controls.scrollBar.height = function()
-		local width, height = self:GetSize()
-		return height - 2
-	end
+	self.colList = { { } }
+	self.tooltip = new("Tooltip")
+	self.font = "VAR"
+	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOM",self,"BOTTOM"}, -8, -1, 0, 16, rowHeight * 2, "HORIZONTAL") {
+		shown = function()
+			return self.scrollH
+		end,
+		width = function()
+			local width, height = self:GetSize()
+			return width - 18
+		end
+	}
+	self.controls.scrollBarV = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -1, 0, 16, 0, rowHeight * 2) {
+		y = function()
+			return (self.scrollH and -8 or 0)
+		end,
+		height = function()
+			local width, height = self:GetSize()
+			return height - 2 - (self.scrollH and 16 or 0)
+		end
+	}
 end)
 
 function ListClass:SelectIndex(index)
@@ -49,17 +62,19 @@ function ListClass:SelectIndex(index)
 	if self.selValue then
 		self.selIndex = index
 		local width, height = self:GetSize()
-		self.controls.scrollBar:SetContentDimension(#self.list * self.rowHeight, height - 4)
-		self.controls.scrollBar:ScrollIntoView((index - 2) * self.rowHeight, self.rowHeight * 3)
+		self.controls.scrollBarV:SetContentDimension(#self.list * self.rowHeight, height - 4)
+		self.controls.scrollBarV:ScrollIntoView((index - 2) * self.rowHeight, self.rowHeight * 3)
 		if self.OnSelect then
 			self:OnSelect(self.selIndex, self.selValue)
 		end
 	end
 end
 
-function ListClass:GetColumnOffset(column)
-	if column == 1 then
-		return 0
+function ListClass:GetColumnProperty(column, property)
+	if type(column[property]) == "function" then
+		return column[property](self, column)
+	else
+		return column[property]
 	end
 end
 
@@ -70,13 +85,38 @@ function ListClass:IsMouseOver()
 	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
+function ListClass:GetRowRegion()
+	local width, height = self:GetSize()
+	return {
+		x = 2,
+		y = self.colLabels and 20 or 2,
+		width = width - 20,
+		height = height - 4 - (self.scrollH and 16 or 0) - (self.colLabels and 18 or 0),
+	}
+end
+
 function ListClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local rowHeight = self.rowHeight
 	local list = self.list
-	local scrollBar = self.controls.scrollBar
-	scrollBar:SetContentDimension(#list * rowHeight, height - 4)
+
+	local colOffset = 0
+	for index, column in ipairs(self.colList) do
+		column._offset = colOffset
+		column._width = self:GetColumnProperty(column, "width") or (index == #self.colList and width - 20 - colOffset) or 0
+		colOffset = colOffset + column._width
+	end
+
+	local scrollBarV = self.controls.scrollBarV
+	local rowRegion = self:GetRowRegion()
+	scrollBarV:SetContentDimension(#list * rowHeight, rowRegion.height)
+	local scrollOffsetV = scrollBarV.offset
+	local scrollBarH = self.controls.scrollBarH
+	local lastCol = self.colList[#self.colList]
+	scrollBarH:SetContentDimension(lastCol._offset + lastCol._width, rowRegion.width)
+	local scrollOffsetH = scrollBarH.offset
+
 	local cursorX, cursorY = GetCursorPos()
 	if self.selValue and self.selDragging and not self.selDragActive and (cursorX-self.selCX)*(cursorX-self.selCX)+(cursorY-self.selCY)*(cursorY-self.selCY) > 100 then
 		self.selDragActive = true
@@ -91,8 +131,8 @@ function ListClass:Draw(viewPort)
 	end
 	self.selDragIndex = nil
 	if (self.selDragActive or self.otherDragSource) and self.isMutable then
-		if cursorX >= x + 2 and cursorY >= y + 2 and cursorX < x + width - 18 and cursorY < y + height - 2 then
-			local index = math.floor((cursorY - y - 2 + scrollBar.offset) / rowHeight + 0.5) + 1
+		if cursorX >= x + 2 and cursorY >= y + 2 and cursorX < x + width - 20 and cursorY < y + height - 2 then
+			local index = math.floor((cursorY - y - 2 + scrollOffsetV) / rowHeight + 0.5) + 1
 			if not self.selIndex or index < self.selIndex or index > self.selIndex + 1 then
 				self.selDragIndex = m_min(index, #list + 1)
 			end
@@ -109,9 +149,10 @@ function ListClass:Draw(viewPort)
 			end
 		end
 	end
+
 	local label = self:GetProperty("label") 
 	if label then
-		DrawString(x, y - 20, "LEFT", 16, "VAR", label)
+		DrawString(x, y - 20, "LEFT", 16, self.font, label)
 	end
 	if self.otherDragSource and not self.CanDragToValue then
 		SetDrawColor(0.2, 0.6, 0.2)
@@ -128,35 +169,33 @@ function ListClass:Draw(viewPort)
 	end
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 	self:DrawControls(viewPort)
-	SetViewport(x + 2, y + 2, width - 20, height - 4)
+
+	SetViewport(x + 2, y + 2, width - 20, height - 4 - (self.scrollH and 16 or 0))
 	local textOffsetY = self.showRowSeparators and 2 or 0
 	local textHeight = rowHeight - textOffsetY * 2
 	local ttIndex, ttValue, ttX, ttY, ttWidth
-	local minIndex = m_floor(scrollBar.offset / rowHeight + 1)
-	local maxIndex = m_min(m_floor((scrollBar.offset + height) / rowHeight + 1), #list)
-	local column = 1
-	local elipWidth = DrawStringWidth(textHeight, "VAR", "...")
-	while true do
-		local colOffset = self:GetColumnOffset(column)
-		if not colOffset then
-			break
-		end
-		local colWidth = (self:GetColumnOffset(column + 1) or width - 20) - colOffset
+	local minIndex = m_floor(scrollOffsetV / rowHeight + 1)
+	local maxIndex = m_min(m_floor((scrollOffsetV + height) / rowHeight + 1), #list)
+	for colIndex, column in ipairs(self.colList) do
+		local colFont = self:GetColumnProperty(column, "font") or "VAR"
+		local clipWidth = DrawStringWidth(textHeight, colFont, "...")
+		local colOffset = column._offset - scrollOffsetH
+		local colWidth = column._width
 		for index = minIndex, maxIndex do
-			local lineY = rowHeight * (index - 1) - scrollBar.offset
+			local lineY = rowHeight * (index - 1) - scrollOffsetV + (self.colLabels and 18 or 0)
 			local value = list[index]
-			local text = self:GetRowValue(column, index, value)
-			local textWidth = DrawStringWidth(textHeight, "VAR", text)
+			local text = self:GetRowValue(colIndex, index, value)
+			local textWidth = DrawStringWidth(textHeight, colFont, text)
 			if textWidth > colWidth - 2 then
-				local clipIndex = DrawStringCursorIndex(textHeight, "VAR", text, colWidth - elipWidth - 2, 0)
+				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - clipWidth - 2, 0)
 				text = text:sub(1, clipIndex - 1) .. "..."
-				textWidth = DrawStringWidth(textHeight, "VAR", text)
+				textWidth = DrawStringWidth(textHeight, colFont, text)
 			end
-			if not scrollBar.dragging and (not self.selDragActive or (self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource))) then
+			if not scrollBarV.dragging and (not self.selDragActive or (self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource))) then
 				local cursorX, cursorY = GetCursorPos()
 				local relX = cursorX - (x + 2)
 				local relY = cursorY - (y + 2)
-				if relX >= colOffset and relX < width - 20 and relY >= 0 and relY >= lineY and relY < height - 2 and relY < lineY + rowHeight then
+				if relX >= colOffset and relX < width - 20 and relY >= 0 and relY >= lineY and relY < height - 2 - (self.scrollH and 18 or 0) and relY < lineY + rowHeight then
 					ttIndex = index
 					ttValue = value
 					ttX = x + 2 + colOffset
@@ -200,25 +239,40 @@ function ListClass:Draw(viewPort)
 				DrawImage(nil, colOffset, lineY + 1, colWidth, rowHeight - 2)
 			end
 			SetDrawColor(1, 1, 1)
-			DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, "VAR", text)
+			DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 		end
-		column = column + 1
+		if self.colLabels then
+			local cursorX, cursorY = GetCursorPos()
+			local relX = cursorX - (x + 2)
+			local relY = cursorY - (y + 2)
+			SetDrawColor(0.5, 0.5, 0.5)
+			DrawImage(nil, colOffset, 1, colWidth, 18)
+			SetDrawColor(0.15, 0.15, 0.15)
+			DrawImage(nil, colOffset + 1, 2, colWidth - 2, 16)
+			local label = self:GetColumnProperty(column, "label")
+			if label and #label > 0 then
+				SetDrawColor(1, 1, 1)
+				DrawString(colOffset + colWidth/2, 4, "CENTER_X", 12, "VAR", label)
+			end
+		end
 	end
 	if #self.list == 0 and self.defaultText then
 		SetDrawColor(1, 1, 1)
-		DrawString(2, 2, "LEFT", 14, "VAR", self.defaultText)
+		DrawString(2, 2, "LEFT", 14, self.font, self.defaultText)
 	end
 	if self.selDragIndex then
-		local lineY = rowHeight * (self.selDragIndex - 1) - scrollBar.offset
+		local lineY = rowHeight * (self.selDragIndex - 1) - scrollOffsetV
 		SetDrawColor(1, 1, 1)
 		DrawImage(nil, 0, lineY - 1, width - 20, 3)
 		SetDrawColor(0, 0, 0)
 		DrawImage(nil, 0, lineY, width - 20, 1)
 	end
 	SetViewport()
+
 	if self.selDragActive and self.dragTargetList and (not self.isMutable or not self:IsMouseOver()) then
 		main.showDragText = self:GetRowValue(1, self.selIndex, self.selValue)
 	end
+
 	self.hoverIndex = ttIndex
 	self.hoverValue = ttValue
 	if ttIndex and self.AddValueTooltip then
@@ -244,10 +298,10 @@ function ListClass:OnKeyDown(key, doubleClick)
 		self.selValue = nil
 		self.selIndex = nil
 		local x, y = self:GetPos()
-		local width, height = self:GetSize()
 		local cursorX, cursorY = GetCursorPos()
-		if cursorX >= x + 2 and cursorY >= y + 2 and cursorX < x + width - 18 and cursorY < y + height - 2 then
-			local index = math.floor((cursorY - y - 2 + self.controls.scrollBar.offset) / self.rowHeight) + 1
+		local rowRegion = self:GetRowRegion()
+		if cursorX >= x + rowRegion.x and cursorY >= y + rowRegion.y and cursorX < x + rowRegion.x + rowRegion.width and cursorY < y + rowRegion.y + rowRegion.height then
+			local index = math.floor((cursorY - y - rowRegion.y + self.controls.scrollBarV.offset) / self.rowHeight) + 1
 			self.selValue = self.list[index]
 			if self.selValue then
 				self.selIndex = index
@@ -291,6 +345,9 @@ function ListClass:OnKeyDown(key, doubleClick)
 				self:OnSelKeyDown(self.selIndex, self.selValue, key)
 			end
 		end
+		if self.OnAnyKeyDown then
+			self:OnAnyKeyDown(key)
+		end
 	end
 	return self
 end
@@ -300,9 +357,17 @@ function ListClass:OnKeyUp(key)
 		return
 	end
 	if key == "WHEELDOWN" then
-		self.controls.scrollBar:Scroll(1)
+		if self.scrollH and IsKeyDown("SHIFT") then
+			self.controls.scrollBarH:Scroll(1)
+		else
+			self.controls.scrollBarV:Scroll(1)
+		end
 	elseif key == "WHEELUP" then
-		self.controls.scrollBar:Scroll(-1)
+		if self.scrollH and IsKeyDown("SHIFT") then
+			self.controls.scrollBarH:Scroll(-1)
+		else
+			self.controls.scrollBarV:Scroll(-1)
+		end
 	elseif self.selValue then
 		if key == "LEFTBUTTON" then
 			self.selDragging = false

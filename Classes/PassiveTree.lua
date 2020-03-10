@@ -5,8 +5,6 @@
 -- Responsible for downloading and loading the passive tree data and assets
 -- Also pre-calculates and pre-parses most of the data need to use the passive tree, including the node modifiers
 --
-local launch, main = ...
-
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
@@ -33,21 +31,22 @@ local function getFile(URL)
 	return #page > 0 and page
 end
 
-local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVersion)
-	self.targetVersion = targetVersion
+local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
+	self.treeVersion = treeVersion
+	self.targetVersion = treeVersions[treeVersion].targetVersion
 
 	MakeDir("TreeData")
 
 	ConPrintf("Loading passive tree data...")
 	local treeText
-	local treeFile = io.open("TreeData/"..targetVersion.."/tree.lua", "r")
+	local treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "r")
 	if treeFile then
 		treeText = treeFile:read("*a")
 		treeFile:close()
 	else
 		ConPrintf("Downloading passive tree data...")
 		local page
-		local pageFile = io.open("TreeData/"..targetVersion.."/tree.txt", "r")
+		local pageFile = io.open("TreeData/"..treeVersion.."/tree.txt", "r")
 		if pageFile then
 			page = pageFile:read("*a")
 			pageFile:close()
@@ -57,13 +56,15 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		treeText = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
 		treeText = treeText .. "tree.classes=" .. jsonToLua(page:match("ascClasses: (%b{})"))
 		treeText = treeText .. "return tree"
-		treeFile = io.open("TreeData/"..targetVersion.."/tree.lua", "w")
+		treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "w")
 		treeFile:write(treeText)
 		treeFile:close()
 	end
 	for k, v in pairs(assert(loadstring(treeText))()) do
 		self[k] = v
 	end
+
+	local cdnRoot = treeVersion == "2_6" and "" or "https://web.poecdn.com/image"
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
 
@@ -85,7 +86,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
-		self:LoadImage(name..".png", data[0.3835] or data[1], data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
+		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
 	end
 
 	-- Load sprite sheets and build sprite map
@@ -96,7 +97,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
-			self:LoadImage(maxZoom.filename:gsub("%?%x+$",""), self.imageRoot.."build-gen/passive-skill-sprite/"..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
+			self:LoadImage(maxZoom.filename:gsub("%?%x+$",""), cdnRoot..self.imageRoot.."build-gen/passive-skill-sprite/"..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
@@ -162,13 +163,56 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		data.rsq = size * size
 	end
 
-	--local err, passives = PLoadModule("Data/"..targetVersion.."/Passives.lua")
+	--local err, passives = PLoadModule("Data/"..treeVersion.."/Passives.lua")
 
 	ConPrintf("Processing tree...")
 	self.keystoneMap = { }
+	self.notableMap = { }
 	local nodeMap = { }
 	local sockets = { }
-	local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6, m_pi / 20 }
+	local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6 }
+	local orbitMultFull = {
+		[0] = 0,
+		[1] = 10 * m_pi / 180,
+		[2] = 20 * m_pi / 180,
+		[3] = 30 * m_pi / 180,
+		[4] = 40 * m_pi / 180,
+		[5] = 45 * m_pi / 180,
+		[6] = 50 * m_pi / 180,
+		[7] = 60 * m_pi / 180,
+		[8] = 70 * m_pi / 180,
+		[9] = 80 * m_pi / 180,
+		[10] = 90 * m_pi / 180,
+		[11] = 100 * m_pi / 180,
+		[12] = 110 * m_pi / 180,
+		[13] = 120 * m_pi / 180,
+		[14] = 130 * m_pi / 180,
+		[15] = 135 * m_pi / 180,
+		[16] = 140 * m_pi / 180,
+		[17] = 150 * m_pi / 180,
+		[18] = 160 * m_pi / 180,
+		[19] = 170 * m_pi / 180,
+		[20] = 180 * m_pi / 180,
+		[21] = 190 * m_pi / 180,
+		[22] = 200 * m_pi / 180,
+		[23] = 210 * m_pi / 180,
+		[24] = 220 * m_pi / 180,
+		[25] = 225 * m_pi / 180,
+		[26] = 230 * m_pi / 180,
+		[27] = 240 * m_pi / 180,
+		[28] = 250 * m_pi / 180,
+		[29] = 260 * m_pi / 180,
+		[30] = 270 * m_pi / 180,
+		[31] = 280 * m_pi / 180,
+		[32] = 290 * m_pi / 180,
+		[33] = 300 * m_pi / 180,
+		[34] = 310 * m_pi / 180,
+		[35] = 315 * m_pi / 180,
+		[36] = 320 * m_pi / 180,
+		[37] = 330 * m_pi / 180,
+		[38] = 340 * m_pi / 180,
+		[39] = 350 * m_pi / 180
+	}
 	local orbitDist = { [0] = 0, 82, 162, 335, 493 }
 	for _, node in pairs(self.nodes) do
 		node.meta = { __index = node }
@@ -195,6 +239,9 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 			self.keystoneMap[node.dn] = node
 		elseif node["not"] then
 			node.type = "Notable"
+			if not node.ascendancyName then
+				self.notableMap[node.dn:lower()] = node
+			end
 		else
 			node.type = "Normal"
 		end
@@ -218,7 +265,11 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 			group.isAscendancyStart = true
 		end
 		node.group = group
-		node.angle = node.oidx * orbitMult[node.o]
+		if node.o ~= 4 then
+			node.angle = node.oidx * orbitMult[node.o]
+		else
+			node.angle = orbitMultFull[node.oidx]
+		end
 		local dist = orbitDist[node.o]
 		node.x = group.x + m_sin(node.angle) * dist
 		node.y = group.y - m_cos(node.angle) * dist
@@ -247,7 +298,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 				end
 			end
 			local line = node.sd[i]
-			local list, extra = modLib.parseMod[targetVersion](line)
+			local list, extra = modLib.parseMod[self.targetVersion](line)
 			if not list or extra then
 				-- Try to combine it with one or more of the lines that follow this one
 				local endI = i + 1
@@ -256,7 +307,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 					for ci = i + 1, endI do
 						comb = comb .. " " .. node.sd[ci]
 					end
-					list, extra = modLib.parseMod[targetVersion](comb, true)
+					list, extra = modLib.parseMod[self.targetVersion](comb, true)
 					if list and not extra then
 						-- Success, add dummy mod lists to the other lines that were combined with this one
 						for ci = i + 1, endI do
@@ -287,7 +338,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 		end
 
 		-- Build unified list of modifiers from all recognised modifier lines
-		node.modList = common.New("ModList")
+		node.modList = new("ModList")
 		for _, mod in pairs(node.mods) do
 			if mod.list and not mod.extra then
 				for i, mod in ipairs(mod.list) do
@@ -308,15 +359,19 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 	for nodeId, socket in pairs(sockets) do
 		socket.nodesInRadius = { }
 		socket.attributesInRadius = { }
-		for radiusIndex, radiusInfo in ipairs(data[targetVersion].jewelRadius) do
+		for radiusIndex, radiusInfo in ipairs(data[self.targetVersion].jewelRadius) do
 			socket.nodesInRadius[radiusIndex] = { }
 			socket.attributesInRadius[radiusIndex] = { }
-			local rSq = radiusInfo.rad * radiusInfo.rad
-			for _, node in ipairs(self.nodes) do
-				if node ~= socket then
+			local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
+			local innerRadiusSquared = radiusInfo.inner * radiusInfo.inner
+			for _, node in pairs(self.nodes) do
+				if node ~= socket and not node.isBlighted then
 					local vX, vY = node.x - socket.x, node.y - socket.y
-					if vX * vX + vY * vY <= rSq then 
-						socket.nodesInRadius[radiusIndex][node.id] = node
+					local euclideanDistanceSquared = vX * vX + vY * vY
+					if innerRadiusSquared <= euclideanDistanceSquared then
+						if euclideanDistanceSquared <= outerRadiusSquared then
+							socket.nodesInRadius[radiusIndex][node.id] = node
+						end
 					end
 				end
 			end
@@ -325,7 +380,7 @@ local PassiveTreeClass = common.NewClass("PassiveTree", function(self, targetVer
 
 	-- Pregenerate the polygons for the node connector lines
 	self.connectors = { }
-	for _, node in ipairs(self.nodes) do
+	for _, node in pairs(self.nodes) do
 		for _, otherId in pairs(node.out) do
 			local other = nodeMap[otherId]
 			t_insert(node.linkedId, otherId)
@@ -353,10 +408,10 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 	if imgFile then
 		imgFile:close()
 	else
-		imgFile = io.open("TreeData/"..self.targetVersion.."/"..imgName, "r")
+		imgFile = io.open("TreeData/"..self.treeVersion.."/"..imgName, "r")
 		if imgFile then
 			imgFile:close()
-			imgName = self.targetVersion.."/"..imgName
+			imgName = self.treeVersion.."/"..imgName
 		else
 			ConPrintf("Downloading '%s'...", imgName)
 			local data = getFile(url)

@@ -3,13 +3,11 @@
 -- Class: Slider Control
 -- Basic slider control.
 --
-local launch, main = ...
-
 local m_min = math.min
 local m_max = math.max
 local m_ceil = math.ceil
 
-local SliderClass = common.NewClass("SliderControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, changeFunc)
+local SliderClass = newClass("SliderControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, changeFunc)
 	self.Control(anchor, x, y, width, height)
 	self.TooltipHost()
 	self.knobSize = height - 2
@@ -77,6 +75,9 @@ function SliderClass:Draw(viewPort)
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
 	local knobTravel = self:GetKnobTravel()
+	if self.dragging and not IsKeyDown("LEFTBUTTON") then
+		self.dragging = false
+	end
 	if self.dragging then
 		local cursorX, cursorY = GetCursorPos()
 		self:SetValFromKnobX((cursorX - self.dragCX) + self.dragKnobX)

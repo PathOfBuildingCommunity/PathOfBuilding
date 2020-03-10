@@ -3,8 +3,6 @@
 -- Module: Mod List
 -- Stores modifiers in a flat list
 --
-local launch, main = ...
-
 local ipairs = ipairs
 local pairs = pairs
 local select = select
@@ -18,8 +16,8 @@ local bor = bit.bor
 
 local mod_createMod = modLib.createMod
 
-local ModListClass = common.NewClass("ModList", "ModStore", function(self)
-	self.ModStore()
+local ModListClass = newClass("ModList", "ModStore", function(self, parent)
+	self.ModStore(parent)
 end)
 
 function ModListClass:AddMod(mod)
@@ -49,61 +47,136 @@ function ModListClass:MergeNewMod(...)
 	self:MergeMod(mod_createMod(...))
 end
 
-function ModListClass:Sum(modType, cfg, ...)
-	local flags, keywordFlags = 0, 0
-	local source
-	if cfg then
-		flags = cfg.flags or 0
-		keywordFlags = cfg.keywordFlags or 0
-		source = cfg.source
-	end
-	local result
-	local nullValue = 0
-	if modType == "MORE" then
-		result = 1
-	elseif modType == "OVERRIDE" then
-		nullValue = nil
-	elseif modType == "FLAG" then
-		result = false
-		nullValue = false
-	elseif modType == "LIST" then
-		result = { }
-		nullValue = nil
-	else
-		result = 0
-	end
+
+function ModListClass:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
+	local result = 0
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
 			local mod = self[i]
 			if mod.name == modName and mod.type == modType and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
-				local value
 				if mod[1] then
-					value = self:EvalMod(mod, cfg) or nullValue
+					result = result + (context:EvalMod(mod, cfg) or 0)
 				else
-					value = mod.value
-				end
-				if modType == "MORE" then
-					result = result * (1 + value / 100)
-				elseif modType == "OVERRIDE" then
-					if value then
-						return value
-					end
-				elseif modType == "FLAG" then
-					if value then
-						return true
-					end
-				elseif modType == "LIST" then
-					if value then
-						t_insert(result, value)
-					end
-				else
-					result = result + value
+					result = result + mod.value
 				end
 			end
 		end
 	end
+	if self.parent then
+		result = result + self.parent:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
+	end
 	return result
+end
+
+function ModListClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
+	local result = 1
+	for i = 1, select('#', ...) do
+		local modName = select(i, ...)
+		for i = 1, #self do
+			local mod = self[i]
+			if mod.name == modName and mod.type == "MORE" and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+				if mod[1] then
+					result = result * (1 + (context:EvalMod(mod, cfg) or 0) / 100)
+				else
+					result = result * (1 + mod.value / 100)
+				end
+			end
+		end
+	end
+	if self.parent then
+		result = result * self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
+	end
+	return result
+end
+
+function ModListClass:FlagInternal(context, cfg, flags, keywordFlags, source, ...)
+	for i = 1, select('#', ...) do
+		local modName = select(i, ...)
+		for i = 1, #self do
+			local mod = self[i]
+			if mod.name == modName and mod.type == "FLAG" and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+				if mod[1] then
+					if context:EvalMod(mod, cfg) then
+						return true
+					end
+				elseif mod.value then
+					return true
+				end
+			end
+		end
+	end
+	if self.parent then
+		return self.parent:FlagInternal(context, cfg, flags, keywordFlags, source, ...)
+	end
+end
+
+function ModListClass:OverrideInternal(context, cfg, flags, keywordFlags, source, ...)
+	for i = 1, select('#', ...) do
+		local modName = select(i, ...)
+		for i = 1, #self do
+			local mod = self[i]
+			if mod.name == modName and mod.type == "OVERRIDE" and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+				if mod[1] then
+					local value = context:EvalMod(mod, cfg)
+					if value then
+						return value
+					end
+				elseif mod.value then
+					return mod.value
+				end
+			end
+		end
+	end
+	if self.parent then
+		return self.parent:OverrideInternal(context, cfg, flags, keywordFlags, source, ...)
+	end
+end
+
+function ModListClass:ListInternal(context, result, cfg, flags, keywordFlags, source, ...)
+	for i = 1, select('#', ...) do
+		local modName = select(i, ...)
+		for i = 1, #self do
+			local mod = self[i]
+			if mod.name == modName and mod.type == "LIST" and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+				local value
+				if mod[1] then
+					local value = context:EvalMod(mod, cfg) or nullValue
+					if value then
+						t_insert(result, value)
+					end
+				elseif mod.value then
+					t_insert(result, mod.value)
+				end
+			end
+		end
+	end
+	if self.parent then
+		self.parent:ListInternal(context, result, cfg, flags, keywordFlags, source, ...)
+	end
+end
+
+function ModListClass:TabulateInternal(context, result, modType, cfg, flags, keywordFlags, source, ...)
+	for i = 1, select('#', ...) do
+		local modName = select(i, ...)
+		for i = 1, #self do
+			local mod = self[i]
+			if mod.name == modName and (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and (mod.keywordFlags == 0 or band(keywordFlags, mod.keywordFlags) ~= 0) and (not source or mod.source:match("[^:]+") == source) then
+				local value
+				if mod[1] then
+					value = context:EvalMod(mod, cfg)
+				else
+					value = mod.value
+				end
+				if value and (value ~= 0 or mod.type == "OVERRIDE") then
+					t_insert(result, { value = value, mod = mod })
+				end
+			end
+		end
+	end
+	if self.parent then
+		self.parent:TabulateInternal(context, result, modType, cfg, flags, keywordFlags, source, ...)
+	end
 end
 
 function ModListClass:Print()

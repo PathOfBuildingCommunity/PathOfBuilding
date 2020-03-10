@@ -3,19 +3,17 @@
 -- Class: Item list
 -- Shared item list control.
 --
-local launch, main = ...
-
 local pairs = pairs
 local t_insert = table.insert
 local t_remove = table.remove
 
-local SharedItemListClass = common.NewClass("SharedItemList", "ListControl", function(self, anchor, x, y, width, height, itemsTab)
-	self.ListControl(anchor, x, y, width, height, 16, true, main.sharedItemList)
+local SharedItemListClass = newClass("SharedItemListControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab)
+	self.ListControl(anchor, x, y, width, height, 16, false, true, main.sharedItemList)
 	self.itemsTab = itemsTab
 	self.label = "^7Shared items:"
 	self.defaultText = "^x7F7F7FThis is a list of items that will be shared between all of\nyour builds.\nYou can add items to this list by dragging them from\none of the other lists."
 	self.dragTargetList = { }
-	self.controls.delete = common.New("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Delete", function()
+	self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Delete", function()
 		self:OnSelDelete(self.selIndex, self.selValue)
 	end)
 	self.controls.delete.enabled = function()
@@ -50,7 +48,7 @@ function SharedItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
 		local verItem = { raw = value:BuildRaw() }
 		for _, targetVersion in ipairs(targetVersionList) do
-			local newItem = common.New("Item", targetVersion, verItem.raw)
+			local newItem = new("Item", targetVersion, verItem.raw)
 			if not value.id then
 				newItem:NormaliseQuality()
 			end

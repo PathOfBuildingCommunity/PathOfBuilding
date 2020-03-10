@@ -46,7 +46,7 @@ itemBases["Serrated Arrow Quiver"] = {
 itemBases["Two-Point Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
-	implicit = "(20-30)% increased Accuracy Rating",
+	implicit = "(20-30)% increased Global Accuracy Rating",
 	req = { level = 4, },
 }
 itemBases["Sharktooth Arrow Quiver"] = {
@@ -83,5 +83,11 @@ itemBases["Spike-Point Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	implicit = "(20-30)% increased Global Critical Strike Chance",
+	req = { level = 45, },
+}
+itemBases["Ornate Quiver"] = {
+	type = "Quiver",
+	tags = { default = true, quiver = true, not_for_sale = true, },
+	implicit = "Has 1 Socket",
 	req = { level = 45, },
 }

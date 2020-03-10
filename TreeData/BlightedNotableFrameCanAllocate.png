@@ -1,0 +1,134 @@
+<!DOCTYPE html><html class="en_US" lang="en-US" xml:lang="en-US">
+<head>
+<title>Path of Exile</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta property="fb:admins" content="100001526026598">
+<meta property="og:image" content="https://web.poecdn.com/image/favicon/ogimage.png?v=1">
+<meta property="og:title" content="Path of Exile">
+<meta property="og:site_name" content="Path of Exile">
+<meta property="og:type" content="website">
+<meta property="og:keywords" content="path of exile,action rpg,online rpg game,free rpg game">
+<meta property="og:description" content="Path of Exile is a free online-only action RPG under development by Grinding Gear Games in New Zealand.">
+<meta name="keywords" content="path of exile,action rpg,online rpg game,free rpg game">
+<meta name="description" content="Path of Exile is a free online-only action RPG under development by Grinding Gear Games in New Zealand.">
+<meta name="msapplication-TileColor" content="#00aba9">
+<meta name="msapplication-config" content="https://web.poecdn.com/image/favicon/browserconfig.xml?v=1">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:locale" content="en_US"><link href="https://web.poecdn.com/css/font.css?v=5a27f0cafa65fb0e9b63219fe028c658" media="screen" rel="stylesheet" type="text/css">
+<link href="https://web.poecdn.com/image/favicon/apple-touch-icon.png?v=1" rel="apple-touch-icon" sizes="180x180">
+<link href="https://web.poecdn.com/image/favicon/favicon-32x32.png?v=1" rel="icon" sizes="32x32" type="image/png">
+<link href="https://web.poecdn.com/image/favicon/favicon-16x16.png?v=1" rel="icon" sizes="16x16" type="image/png">
+<link href="https://web.poecdn.com/image/favicon/site.webmanifest?v=2" rel="manifest">
+<link href="https://web.poecdn.com/image/favicon/safari-pinned-tab.svg?v=1" rel="mask-icon">
+<link href="https://web.poecdn.com/image/favicon/favicon.ico?v=1" rel="shortcut icon">
+<link href="https://web.poecdn.com/css/screen.css?v=084685250f646d4886e4494b1d6df9c1" media="screen" rel="stylesheet" type="text/css">
+            <script type="text/javascript">
+
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-17600449-1', {'sampleRate': 5});
+                ga('set', 'anonymizeIp', false);
+                ga('send', 'pageview');
+
+            </script></head>
+
+<body class="en_US noJS ">
+    <div class="container">
+        <div class="header en">
+            <div class="controls">
+                <div id="statusBar"><div class="statusBarCenter"></div><div class="statusBarRight"></div><div class="row2 loggedOut"><a class="statusItem" href="/login">LOG IN</a><a class="statusItem" href="/account/create">CREATE ACCOUNT</a><a class="statusItem" href="/support">CONTACT SUPPORT</a></div></div>                                <div class="language-select"><a href="//pathofexile.com/image/gen/image/WzIyLDE0LHsidCI6NjUsInNwIjowLjM4MzV9XQ/ced25056b7/BlightedNotableFrameCanAllocate.png"><span class="us-lang active"><img src="https://web.poecdn.com/image/lang/GB.png" alt="English"></span></a>
+<a href="//br.pathofexile.com/image/gen/image/WzIyLDE0LHsidCI6NjUsInNwIjowLjM4MzV9XQ/ced25056b7/BlightedNotableFrameCanAllocate.png"><span class="br-lang"><img src="https://web.poecdn.com/image/lang/BR.png" alt="Português Brasileiro"></span></a>
+<a href="//ru.pathofexile.com/image/gen/image/WzIyLDE0LHsidCI6NjUsInNwIjowLjM4MzV9XQ/ced25056b7/BlightedNotableFrameCanAllocate.png"><span class="ru-lang"><img src="https://web.poecdn.com/image/lang/RU.png" alt="Русский"></span></a>
+<a href="//th.pathofexile.com/image/gen/image/WzIyLDE0LHsidCI6NjUsInNwIjowLjM4MzV9XQ/ced25056b7/BlightedNotableFrameCanAllocate.png"><span class="th-lang"><img src="https://web.poecdn.com/image/lang/TH.png" alt="ไทย"></span></a>
+<a href="//de.pathofexile.com/image/gen/image/WzIyLDE0LHsidCI6NjUsInNwIjowLjM4MzV9XQ/ced25056b7/BlightedNotableFrameCanAllocate.png"><span class="de-lang"><img src="https://web.poecdn.com/image/lang/DE.png" alt="Deutsch"></span></a>
+<a href="//fr.pathofexile.com/image/gen/image/WzIyLDE0LHsidCI6NjUsInNwIjowLjM4MzV9XQ/ced25056b7/BlightedNotableFrameCanAllocate.png"><span class="fr-lang"><img src="https://web.poecdn.com/image/lang/FR.png" alt="Français"></span></a>
+<a href="//es.pathofexile.com/image/gen/image/WzIyLDE0LHsidCI6NjUsInNwIjowLjM4MzV9XQ/ced25056b7/BlightedNotableFrameCanAllocate.png"><span class="es-lang"><img src="https://web.poecdn.com/image/lang/ES.png" alt="Español"></span></a>
+<a href="//poe.game.daum.net/image/gen/image/WzIyLDE0LHsidCI6NjUsInNwIjowLjM4MzV9XQ/ced25056b7/BlightedNotableFrameCanAllocate.png"><span class="kr-lang"><img src="https://web.poecdn.com/image/lang/KR.png" alt="한국어"></span></a>
+</div>                                <a id="mainLogoLink" href="/">
+                    <span>Path of Exile</span>
+                </a>
+                                    <div id="largeHeaderButton">
+                                                <a id="signupButton" href="https://pathofexile.com/account/create"><span>Sign Up</span></a>
+                                                        <div id="platformButtons">
+                                <a id="pcButton" href="https://pathofexile.com/account/create"><span>PC</span></a>
+                                <a id="xboxButton" href="https://www.microsoft.com/p/path-of-exile/bwc95bzpfbs7?activetab=pivot:overviewtab" target="_blank"><span>Xbox One</span></a>
+                                <a id="ps4Button" href="https://www.playstation.com/games/path-of-exile-ps4/" target="_blank"><span>PS4</span></a>
+                            </div>
+                                                                        </div>
+                            </div>
+            <ul class="navigation en_US">
+                <li id="nav-home"   aria-haspopup="true"><a href="https://pathofexile.com/"><span>Home</span></a><div class="dropDown"><div class="top"></div><ul><li><a href="https://pathofexile.com/news">News</a></li><li><a href="https://pathofexile.com/account/create">Create Account</a></li><li><a href="https://pathofexile.com/login">Log In</a></li><li><a href="https://pathofexile.com/forum/view-forum/patch-notes">Patch Notes</a></li></ul><div class="bot"></div></div></li>
+                <li id="nav-game"   aria-haspopup="true"><a href="https://pathofexile.com/game"><span>Game</span></a><div class="dropDown"><div class="top"></div><ul><li><a href="https://pathofexile.com/video">Videos</a></li><li class="separator"></li><li><a href="https://pathofexile.com/game">Overview</a></li><li><a href="https://pathofexile.com/passive-skill-tree">Passive Tree</a></li><li><a href="https://pathofexile.com/ascendancy/classes">Ascendancy Classes</a></li><li><a href="https://pathofexile.com/item-data">Items</a></li><li class="separator"></li><li><a href="http://pathofexile.gamepedia.com/">Community Wiki</a></li></ul><div class="bot"></div></div></li>
+                <li id="nav-forum"  aria-haspopup="true"><a href="https://pathofexile.com/forum"><span>Forum</span></a><div class="dropDown"><div class="top"></div><ul><li><a href="https://pathofexile.com/forum">Index</a></li><li><a href="https://pathofexile.com/forum/view-thread/1457463">Code of Conduct</a></li><li><a href="https://pathofexile.com/search">Search</a></li></ul><div class="bot"></div></div></li>
+                <li id="nav-events" aria-haspopup="true"><a href="https://pathofexile.com/events"><span>Events</span></a><div class="dropDown"><div class="top"></div><ul><li><a href="https://pathofexile.com/private-leagues">Private Leagues</a></li><li><a href="https://pathofexile.com/events">Event Calendar</a></li><li class="separator"></li><li><a href="https://pathofexile.com/forum/view-thread/2628575">Blight</a></li><li><a href="https://pathofexile.com/forum/view-thread/2628578">Hardcore Blight</a></li><li><a href="https://pathofexile.com/forum/view-thread/71278">Standard</a></li><li><a href="https://pathofexile.com/forum/view-thread/71276">Hardcore</a></li><li><a href="https://pathofexile.com/forum/view-thread/2628580">SSF Blight</a></li><li><a href="https://pathofexile.com/forum/view-thread/2628583">SSF Hardcore Blight</a></li><li><a href="https://pathofexile.com/forum/view-thread/1841357">SSF Standard</a></li><li><a href="https://pathofexile.com/forum/view-thread/1841353">SSF Hardcore</a></li><li class="separator"></li><li><a href="https://pathofexile.com/ladder/labyrinth">Labyrinth Ladders</a></li></ul><div class="bot"></div></div></li>
+                <li id="nav-trade"  aria-haspopup="true"><a href="https://pathofexile.com/trade"><span>Trade</span></a><div class="dropDown"><div class="top"></div><ul><li><a href="https://pathofexile.com/trade/search">Search Items</a></li><li><a href="https://pathofexile.com/trade/exchange">Bulk Item Exchange</a></li><li><a href="https://pathofexile.com/trade/about">About</a></li></ul><div class="bot"></div></div></li>
+                <li id="nav-shop"   aria-haspopup="true"><a href="https://pathofexile.com/shop"><span>Shop</span></a><div class="dropDown"><div class="top"></div><ul><li><a href="https://pathofexile.com/purchase">Buy Packs</a></li><li class="separator"></li><li><a href="https://pathofexile.com/shop">Microtransactions</a></li><li><a href="https://pathofexile.com/shop/category/daily-deals">Specials</a></li></ul><div class="bot"></div></div></li>
+                            </ul>
+        </div>
+        <div class="content">
+            <div class="backdrop"></div>
+            <div class="wrapper">
+                                                                <div class="layoutBox1 layoutBoxFull padded defaultTheme">
+    <h1 class="topBar first last layoutBoxTitle">Resource Not Found</h1>
+    <div class="layoutBoxContent">    <p class="centered bold bright v-xl-pad">
+        The resource you are looking for does not exist or has been removed.    </p>
+
+</div>
+    
+</div>                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="backdrop"></div>
+            <div class="wrapper">
+                <div class="sitemap">
+                    <div class="column"><h3><a href="https://pathofexile.com/">Home</a></h3><ul><li><a href="https://pathofexile.com/news">News</a></li><li><a href="https://pathofexile.com/account/create">Create Account</a></li><li><a href="https://pathofexile.com/login">Log In</a></li><li><a href="https://pathofexile.com/forum/view-forum/patch-notes">Patch Notes</a></li></ul></div>                    <div class="column"><h3><a href="https://pathofexile.com/game">Game</a></h3><ul><li><a href="https://pathofexile.com/video">Videos</a></li><li><a href="#"></a></li><li><a href="https://pathofexile.com/game">Overview</a></li><li><a href="https://pathofexile.com/passive-skill-tree">Passive Tree</a></li><li><a href="https://pathofexile.com/ascendancy/classes">Ascendancy Classes</a></li><li><a href="https://pathofexile.com/item-data">Items</a></li><li><a href="#"></a></li><li><a href="http://pathofexile.gamepedia.com/">Community Wiki</a></li></ul></div>                    <div class="column"><h3><a href="https://pathofexile.com/forum">Forum</a></h3><ul><li><a href="https://pathofexile.com/forum">Index</a></li><li><a href="https://pathofexile.com/forum/view-thread/1457463">Code of Conduct</a></li><li><a href="https://pathofexile.com/search">Search</a></li></ul></div>                    <div class="column centerColumn"></div>
+                    <div class="column"><h3><a href="https://pathofexile.com/events">Events</a></h3><ul><li><a href="https://pathofexile.com/private-leagues">Private Leagues</a></li><li><a href="https://pathofexile.com/events">Event Calendar</a></li><li><a href="#"></a></li><li><a href="https://pathofexile.com/forum/view-thread/2628575">Blight</a></li><li><a href="https://pathofexile.com/forum/view-thread/2628578">Hardcore Blight</a></li><li><a href="https://pathofexile.com/forum/view-thread/71278">Standard</a></li><li><a href="https://pathofexile.com/forum/view-thread/71276">Hardcore</a></li><li><a href="https://pathofexile.com/forum/view-thread/2628580">SSF Blight</a></li><li><a href="https://pathofexile.com/forum/view-thread/2628583">SSF Hardcore Blight</a></li><li><a href="https://pathofexile.com/forum/view-thread/1841357">SSF Standard</a></li><li><a href="https://pathofexile.com/forum/view-thread/1841353">SSF Hardcore</a></li><li><a href="#"></a></li><li><a href="https://pathofexile.com/ladder/labyrinth">Labyrinth Ladders</a></li></ul></div>                    <div class="column"><h3><a href="https://pathofexile.com/trade">Trade</a></h3><ul><li><a href="https://pathofexile.com/trade/search">Search Items</a></li><li><a href="https://pathofexile.com/trade/exchange">Bulk Item Exchange</a></li><li><a href="https://pathofexile.com/trade/about">About</a></li></ul></div>                    <div class="column"><h3><a href="https://pathofexile.com/shop">Shop</a></h3><ul><li><a href="https://pathofexile.com/purchase">Buy Packs</a></li><li><a href="#"></a></li><li><a href="https://pathofexile.com/shop">Microtransactions</a></li><li><a href="https://pathofexile.com/shop/category/daily-deals">Specials</a></li></ul></div>                </div>
+                                <div class="bottom">
+                    
+        <div class="social-icons">
+            <h3 class="FontinRegular">Follow Us</h3>
+            <a href="https://twitter.com/pathofexile" target="_blank" class="bg-twitter" title="Twitter"></a>
+            <a href="https://www.facebook.com/pathofexile" target="_blank" class="bg-facebook" title="Facebook"></a>
+            
+            <a href="https://www.youtube.com/user/grindinggear" target="_blank" class="bg-youtube" title="Youtube"></a>
+            <a href="https://www.reddit.com/r/pathofexile" target="_blank" class="bg-reddit" title="Reddit"></a>
+        </div>                    <span class="copyright">&#169; 2010 - 2019 <a href="http://www.grindinggear.com">Grinding Gear Games</a></span>
+                    <span class="legal">
+                        <a href="/legal/terms-of-use-and-privacy-policy">Terms of Use, Privacy Notice and Cookies Notice</a> - <a href="/support">Contact Support</a>
+                    </span>
+                    - <span><a href="/developer/docs/api">Developer API</a></span>
+                    <a class="logo" href="http://www.grindinggear.com">
+                        <img src="https://web.poecdn.com/image/logo/ggg-dark.png" alt="Grinding Gear Games">
+                    </a>
+                    <small>5c8056cc411f7afaf8043f306e1e99bc</small>
+                </div>
+                                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+        <div id="poe-popup-container"></div>
+    <div id="poe-modal-overlay"></div>
+        <script type="text/javascript" src="https://web.poecdn.com/js/lib/require-2.3.2.js?v=53f6b5a112b20a13c435d7b4630b8320"></script>
+<script type="text/javascript">
+    //<!--
+                document.body.className = document.body.className.replace( /(?:^|\s)noJS(?!\S)/ , '');
+            window.momentLocale = 'en_US';
+            window.momentTimezone = 'Pacific/Auckland';
+            window.PoELocale = 'en_US';
+
+            BASEURL = '';
+
+            require.config({
+                baseUrl: "https://web.poecdn.com/js",
+                paths : {"main":"main.0f7031be060495d31b334d9eeccc4ff1c68f9bf8","plugins":"plugins.a0d1e3f7c60e3da700d78eaf1651b31dd03c2e5e","skilltree":"skilltree.31429c9be558995934071c0d089e4158d331c164","trade":"trade.509b5ceb0296906f91dfdc42efc6aa525fe1e732","itemfilter":"itemfilter.773f44ca0542ff203066c87a981c93aa71430168"},
+                shim: {"main":{"deps":["config","plugins"]},"plugins":{"deps":["config"]}}
+            });
+            require(["main"]);
+    //-->
+</script>
+<!--[if lt IE 7]><script type="text/javascript" src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE7.js"></script><![endif]-->    </body>
+</html>

@@ -291,7 +291,7 @@ itemBases["Two-Toned Boots (Armour/Evasion)"] = {
 	subType = "Armour/Evasion",
 	socketLimit = 4,
 	tags = { default = true, armour = true, boots = true, not_for_sale = true, atlas_base_type = true, bootsatlas2 = true, str_dex_armour = true, },
-	implicit = "+(15-20)% to Fire and Cold Resistances",
+	implicit = "+(8-12)% to Fire and Cold Resistances",
 	armour = { ArmourBase = 126, EvasionBase = 126, },
 	req = { level = 70, str = 62, dex = 62, },
 }
@@ -365,7 +365,7 @@ itemBases["Two-Toned Boots (Armour/Energy Shield)"] = {
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
 	tags = { default = true, armour = true, boots = true, not_for_sale = true, atlas_base_type = true, bootsatlas3 = true, str_int_armour = true, },
-	implicit = "+(15-20)% to Fire and Lightning Resistances",
+	implicit = "+(8-12)% to Fire and Lightning Resistances",
 	armour = { ArmourBase = 126, EnergyShieldBase = 24, },
 	req = { level = 70, str = 62, int = 62, },
 }
@@ -447,7 +447,7 @@ itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
 	tags = { default = true, armour = true, boots = true, not_for_sale = true, atlas_base_type = true, bootsatlas1 = true, dex_int_armour = true, },
-	implicit = "+(15-20)% to Cold and Lightning Resistances",
+	implicit = "+(8-12)% to Cold and Lightning Resistances",
 	armour = { EvasionBase = 126, EnergyShieldBase = 24, },
 	req = { level = 70, dex = 62, int = 62, },
 }

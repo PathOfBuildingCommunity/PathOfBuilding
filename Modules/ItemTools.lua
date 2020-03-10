@@ -3,8 +3,6 @@
 -- Module: Item Tools
 -- Various functions for dealing with items.
 --
-local launch = ...
-
 local t_insert = table.insert
 local t_remove = table.remove
 local m_min = math.min
@@ -38,7 +36,7 @@ end
 -- Clean item text by removing or replacing unsupported or redundant characters or sequences
 function itemLib.sanitiseItemText(text)
 	-- Something something unicode support something grumble
-	return text:gsub("^%s+",""):gsub("%s+$",""):gsub("\r\n","\n"):gsub("%b<>",""):gsub("–","-"):gsub("\226\128\147","-"):gsub("\226\136\146","-"):gsub("ö","o"):gsub("\195\182","o"):gsub("[\128-\255]","?")
+	return text:gsub("^%s+",""):gsub("%s+$",""):gsub("\r\n","\n"):gsub("%b<>",""):gsub("â€“","-"):gsub("\226\128\147","-"):gsub("\226\136\146","-"):gsub("Ã¶","o"):gsub("\195\182","o"):gsub("[\128-\255]","?")
 end
 
 function itemLib.formatModLine(modLine, dbMode)
@@ -53,7 +51,7 @@ function itemLib.formatModLine(modLine, dbMode)
 			line = line .. "   ^1'" .. modLine.extra .. "'"
 		end
 	else
-		colorCode = (modLine.crafted and colorCodes.CRAFTED) or (modLine.custom and colorCodes.CUSTOM) or colorCodes.MAGIC
+		colorCode = (modLine.crafted and colorCodes.CRAFTED) or (modLine.custom and colorCodes.CUSTOM) or (modLine.fractured and colorCodes.FRACTURED) or colorCodes.MAGIC
 	end
 	return colorCode..line
 end

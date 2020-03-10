@@ -6,7 +6,7 @@
 local skills, mod, flag, skill = ...
 
 #skill ChaosElementalCascadeSummoned Cascade
-#flags spell area cold
+#flags spell area
 #mods
 
 #skill SandstormChaosElementalSummoned Chaos Aura
@@ -14,7 +14,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FireElementalFlameRedSummoned Immolate
-#flags spell projectile fire
+#flags spell projectile
 #mods
 
 #skill FireElementalMortarSummoned Magma Ball
@@ -22,11 +22,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FireElementalConeSummoned Flame Wave
-#flags spell area fire
+#flags spell area
 #mods
 
 #skill IceElementalIceCyclone Cyclone
 #flags attack area melee movement
+#baseMod skill("dpsMultiplier", 2)
 #mods
 
 #skill IceElementalSpearSummoned Ice Spear
@@ -34,7 +35,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill LightningGolemArcSummoned Storm Orb
-#flags spell projectile lightning duration
+#flags spell projectile duration
 #mods
 
 #skill MonsterProjectileSpellLightningGolemSummoned Lightning Projectile
@@ -42,22 +43,40 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill LightningGolemWrath Wrath
-#flags spell aura area duration lightning
+#flags spell aura area duration
+	statMap = {
+		["attack_minimum_added_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["attack_maximum_added_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["spell_minimum_added_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["spell_maximum_added_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
 #mods
 
 #skill SpectralSkullShieldCharge Charge
 #flags attack melee movement
 #mods
 
-#skill SkeletonProjectileCold Cold Projectile
+#skill RagingSpiritMeleeAttack
+#flags attack melee
+#mods
+
+#skill SkeletonMinionProjectileCold Cold Projectile
 #flags spell projectile
 #mods
 
-#skill SkeletonProjectileFire Fire Projectile
+#skill SkeletonMinionProjectileFire Fire Projectile
 #flags spell projectile
 #mods
 
-#skill SkeletonProjectileLightning Lightning Projectile
+#skill SkeletonMinionProjectileLightning Lightning Projectile
 #flags spell projectile
 #mods
 
@@ -74,8 +93,90 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 18)
 #mods
 
-#skill SpiderMinionLeapSlam Leap Slam
-#flags attack melee area movement
+#skill SummonedSpiderViperStrike
+#flags attack melee
+#mods
+
+#skill DancingDervishCyclone
+#flags attack area melee
+#baseMod skill("dpsMultiplier", 2)
+#baseMod skill("radiusIsWeaponRange", true)
+#mods
+
+#skill SummonPhantasmFadingProjectile Physical Projectile
+#flags spell projectile
+#mods
+
+#skill HeraldOfAgonyMinionMortar Mortar
+#flags attack projectile area
+#mods
+
+#skill HeraldOfAgonyMinionTailSpike Tail Spike
+#flags attack projectile
+#mods
+
+#skill HeraldOfAgonyMinionCleave Cleave
+#flags attack melee area
+#mods
+
+#skill HeraldOfLightMinionSlam Slam
+#flags attack melee area
+#mods
+
+#skill SentinelHolySlam Crusade Slam
+#flags attack melee area
+#mods
+
+#skill RelicTriggeredNova Nova
+#flags spell
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", effectName = "Holy Relic's Boon"}),
+			div = 60,
+		},
+	},
+#mods
+
+#skill DominatingBlowMinionCharge
+#flags attack melee
+#mods
+
+#skill SummonedRhoaShieldCharge
+#flags attack melee area
+#mods
+
+#skill SummonedSnakeProjectile Chaos Projectile
+#flags attack projectile
+#mods
+
+#skill DropBearSummonedGroundSlam
+#flags attack melee area
+#mods
+
+#skill DropBearSummonedRallyingCry
+#flags warcry area duration
+	statMap = {
+		["damage_+%"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod skill("buffAllies", true)
+#mods
+
+#skill BoneGolemMultiAttack Combo Attack
+#flags attack melee
+#mods
+
+#skill BoneGolemCascade Cascade
+#flags attack melee area
+#mods
+
+#skill BoneGolemLeapSlam
+#flags attack melee area
+#mods
+
+#skill SkitterbotWait Skitterbot Wait
+#flags duration
 #mods
 
 skills["MinionInstability"] = {
@@ -94,7 +195,7 @@ skills["MinionInstability"] = {
 		skill("showAverage", true),
 		skill("radius", 22),
 	},
-	qualityMods = {
+	stats = {
 	},
 	levelMods = {
 	},
@@ -116,9 +217,9 @@ skills["BeaconCausticCloud"] = {
 		skill("ChaosDot", 1, { type = "PerStat", stat = "Life", div = 10 }),
 		skill("dotIsArea", true),
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
+	stats = {
 	},
 	levels = {
 		[1] = { },
@@ -138,9 +239,30 @@ skills["BeaconZombieCausticCloud"] = {
 		skill("ChaosDot", 1, { type = "PerStat", stat = "Life", div = 2 }),
 		skill("dotIsArea", true),
 	},
-	qualityMods = {
+	qualityStats = {
 	},
-	levelMods = {
+	stats = {
+	},
+	levels = {
+		[1] = { },
+	},
+}
+skills["InfernalLegion"] = {
+	name = "Infernal Legion",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	skillTypes = { },
+	baseMods = {
+		skill("FireDot", 1, { type = "Multiplier", var = "InfernalLegionBaseDamage" }),
+		skill("dotIsArea", true),
+	},
+	qualityStats = {
+	},
+	stats = {
 	},
 	levels = {
 		[1] = { },

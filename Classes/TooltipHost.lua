@@ -3,10 +3,8 @@
 -- Class: Tooltip Host
 -- Tooltip host
 --
-local launch, main = ...
-
-local TooltipHostClass = common.NewClass("TooltipHost", function(self, tooltipText)
-	self.tooltip = common.New("Tooltip")
+local TooltipHostClass = newClass("TooltipHost", function(self, tooltipText)
+	self.tooltip = new("Tooltip")
 	self.tooltipText = tooltipText
 end)
 

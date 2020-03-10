@@ -46,7 +46,7 @@ function breakdown.simple(extraBase, cfg, total, ...)
 	local base = modDB:Sum("BASE", cfg, (...))
 	if (base + extraBase) ~= 0 then
 		local inc = modDB:Sum("INC", cfg, ...)
-		local more = modDB:Sum("MORE", cfg, ...)
+		local more = modDB:More(cfg, ...)
 		if inc ~= 0 or more ~= 1 or (base ~= 0 and extraBase ~= 0) then
 			local out = { }
 			if base ~= 0 and extraBase ~= 0 then
@@ -68,7 +68,7 @@ end
 
 function breakdown.mod(cfg, ...)
 	local inc = modDB:Sum("INC", cfg, ...)
-	local more = modDB:Sum("MORE", cfg, ...)
+	local more = modDB:More(cfg, ...)
 	if inc ~= 0 and more ~= 1 then
 		return { 
 			s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
@@ -80,7 +80,7 @@ end
 
 function breakdown.slot(source, sourceName, cfg, base, total, ...)
 	local inc = modDB:Sum("INC", cfg, ...)
-	local more = modDB:Sum("MORE", cfg, ...)
+	local more = modDB:More(cfg, ...)
 	t_insert(breakdown[...].slots, {
 		base = base,
 		inc = (inc ~= 0) and s_format(" x %.2f", 1 + inc/100),
@@ -92,22 +92,24 @@ function breakdown.slot(source, sourceName, cfg, base, total, ...)
 	})
 end
 
-function breakdown.area(base, areaMod, total)
+function breakdown.area(base, areaMod, total, label)
 	if base ~= total then
 		return {
 			s_format("%d ^8(base radius)", base),
 			s_format("x %.2f ^8(square root of area of effect modifier)", m_sqrt(areaMod)),
 			s_format("= %d", total),
+			label,
 			radius = total
 		}
 	else
 		return {
+			label,
 			radius = total
 		}
 	end
 end
 
-function breakdown.effMult(damageType, resist, pen, taken, mult)
+function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore)
 	local out = { }
 	local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
 	if resist ~= 0 then
@@ -119,20 +121,22 @@ function breakdown.effMult(damageType, resist, pen, taken, mult)
 		t_insert(out, s_format("- %d%% ^8(penetration)", pen))
 		t_insert(out, s_format("= %d%%", resist - pen))
 	end
-	if (resist - pen) ~= 0 and taken ~= 0 then
-		t_insert(out, "Effective DPS modifier:")
-		t_insert(out, s_format("%.2f ^8(%s)", 1 - (resist - pen) / 100, resistForm))
-		t_insert(out, s_format("x %.2f ^8(increased/reduced damage taken)", 1 + taken / 100))
-		t_insert(out, s_format("= %.3f", mult))
-	end
+	breakdown.multiChain(out, {
+		label = "Effective DPS modifier:",
+		{ "%.2f ^8(%s)", 1 - (resist - pen) / 100, resistForm },
+		{ "%.2f ^8(increased/reduced damage taken)", 1 + taken / 100 },
+		{ "%.2f ^8(more/less damage taken)", takenMore },
+		total = s_format("= %.3f", mult),
+	})
 	return out
 end
 
-function breakdown.dot(out, baseVal, inc, more, rate, effMult, total)
+function breakdown.dot(out, baseVal, inc, more, mult, rate, effMult, total)
 	breakdown.multiChain(out, {
 		base = s_format("%.1f ^8(base damage per second)", baseVal), 
 		{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 		{ "%.2f ^8(more/less)", more },
+		{ "%.2f ^8(multiplier)", 1 + (mult or 0)/100 },
 		{ "%.2f ^8(rate modifier)", rate },
 		{ "%.3f ^8(effective DPS modifier)", effMult },
 		total = s_format("= %.1f ^8per second", total),

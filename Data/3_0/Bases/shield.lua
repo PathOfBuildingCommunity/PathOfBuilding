@@ -678,7 +678,7 @@ itemBases["Spiked Bundle"] = {
 	subType = "Evasion/Energy Shield",
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
-	implicit = "2% chance to Dodge Attacks",
+	implicit = "2% chance to Dodge Attack Hits",
 	armour = { BlockChance = 24, EvasionBase = 13, EnergyShieldBase = 4, MovementPenalty = 3, },
 	req = { level = 5, dex = 10, int = 10, },
 }
@@ -687,7 +687,7 @@ itemBases["Driftwood Spiked Shield"] = {
 	subType = "Evasion/Energy Shield",
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
-	implicit = "2% chance to Dodge Attacks",
+	implicit = "2% chance to Dodge Attack Hits",
 	armour = { BlockChance = 24, EvasionBase = 46, EnergyShieldBase = 10, MovementPenalty = 3, },
 	req = { level = 12, dex = 19, int = 19, },
 }
@@ -696,7 +696,7 @@ itemBases["Alloyed Spiked Shield"] = {
 	subType = "Evasion/Energy Shield",
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
-	implicit = "2% chance to Dodge Spell Damage",
+	implicit = "2% chance to Dodge Spell Hits",
 	armour = { BlockChance = 25, EvasionBase = 56, EnergyShieldBase = 12, MovementPenalty = 3, },
 	req = { level = 20, dex = 28, int = 28, },
 }
@@ -705,7 +705,7 @@ itemBases["Burnished Spiked Shield"] = {
 	subType = "Evasion/Energy Shield",
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
-	implicit = "4% chance to Dodge Attacks",
+	implicit = "4% chance to Dodge Attack Hits",
 	armour = { BlockChance = 26, EvasionBase = 62, EnergyShieldBase = 13, MovementPenalty = 3, },
 	req = { level = 27, dex = 37, int = 37, },
 }
@@ -714,7 +714,7 @@ itemBases["Ornate Spiked Shield"] = {
 	subType = "Evasion/Energy Shield",
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
-	implicit = "4% chance to Dodge Spell Damage",
+	implicit = "4% chance to Dodge Spell Hits",
 	armour = { BlockChance = 24, EvasionBase = 120, EnergyShieldBase = 24, MovementPenalty = 3, },
 	req = { level = 33, dex = 44, int = 44, },
 }
@@ -723,7 +723,7 @@ itemBases["Redwood Spiked Shield"] = {
 	subType = "Evasion/Energy Shield",
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
-	implicit = "2% chance to Dodge Attacks",
+	implicit = "2% chance to Dodge Attack Hits",
 	armour = { BlockChance = 24, EvasionBase = 142, EnergyShieldBase = 28, MovementPenalty = 3, },
 	req = { level = 39, dex = 52, int = 52, },
 }
@@ -732,7 +732,7 @@ itemBases["Compound Spiked Shield"] = {
 	subType = "Evasion/Energy Shield",
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
-	implicit = "2% chance to Dodge Spell Damage",
+	implicit = "2% chance to Dodge Spell Hits",
 	armour = { BlockChance = 25, EvasionBase = 122, EnergyShieldBase = 24, MovementPenalty = 3, },
 	req = { level = 45, dex = 58, int = 58, },
 }
@@ -741,7 +741,7 @@ itemBases["Polished Spiked Shield"] = {
 	subType = "Evasion/Energy Shield",
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
-	implicit = "4% chance to Dodge Attacks",
+	implicit = "4% chance to Dodge Attack Hits",
 	armour = { BlockChance = 26, EvasionBase = 111, EnergyShieldBase = 22, MovementPenalty = 3, },
 	req = { level = 49, dex = 64, int = 64, },
 }
@@ -750,7 +750,7 @@ itemBases["Sovereign Spiked Shield"] = {
 	subType = "Evasion/Energy Shield",
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
-	implicit = "4% chance to Dodge Spell Damage",
+	implicit = "4% chance to Dodge Spell Hits",
 	armour = { BlockChance = 24, EvasionBase = 195, EnergyShieldBase = 38, MovementPenalty = 3, },
 	req = { level = 54, dex = 70, int = 70, },
 }
@@ -759,7 +759,7 @@ itemBases["Alder Spiked Shield"] = {
 	subType = "Evasion/Energy Shield",
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
-	implicit = "2% chance to Dodge Attacks",
+	implicit = "2% chance to Dodge Attack Hits",
 	armour = { BlockChance = 24, EvasionBase = 209, EnergyShieldBase = 41, MovementPenalty = 3, },
 	req = { level = 58, dex = 74, int = 74, },
 }
@@ -768,7 +768,7 @@ itemBases["Ezomyte Spiked Shield"] = {
 	subType = "Evasion/Energy Shield",
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
-	implicit = "2% chance to Dodge Spell Damage",
+	implicit = "2% chance to Dodge Spell Hits",
 	armour = { BlockChance = 25, EvasionBase = 181, EnergyShieldBase = 35, MovementPenalty = 3, },
 	req = { level = 62, dex = 85, int = 85, },
 }
@@ -777,7 +777,7 @@ itemBases["Mirrored Spiked Shield"] = {
 	subType = "Evasion/Energy Shield",
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
-	implicit = "4% chance to Dodge Attacks",
+	implicit = "4% chance to Dodge Attack Hits",
 	armour = { BlockChance = 26, EvasionBase = 151, EnergyShieldBase = 29, MovementPenalty = 3, },
 	req = { level = 66, dex = 85, int = 85, },
 }
@@ -786,7 +786,7 @@ itemBases["Supreme Spiked Shield"] = {
 	subType = "Evasion/Energy Shield",
 	socketLimit = 3,
 	tags = { default = true, armour = true, shield = true, dex_int_armour = true, dex_int_shield = true, },
-	implicit = "4% chance to Dodge Spell Damage",
+	implicit = "4% chance to Dodge Spell Hits",
 	armour = { BlockChance = 24, EvasionBase = 242, EnergyShieldBase = 47, MovementPenalty = 3, },
 	req = { level = 70, dex = 85, int = 85, },
 }
