@@ -1035,6 +1035,8 @@ local modTagList = {
 	["per poison affecting enemy"] = { tag = { type = "Multiplier", actor = "enemy", var = "PoisonStack" } },
 	["per poison affecting enemy, up to %+([%d%.]+)%%"] = function(num) return { tag = { type = "Multiplier", actor = "enemy", var = "PoisonStack", limit = num, limitTotal = true } } end,
 	["for each spider's web on the enemy"] = { tag = { type = "Multiplier", actor = "enemy", var = "Spider's WebStack" } },
+	-- Skill conditions
+	[" of banner skills"] = { tag = { type = "SkillName", skillNameList = { "Dread Banner", "War Banner" } } },
 }
 
 local mod = modLib.createMod
