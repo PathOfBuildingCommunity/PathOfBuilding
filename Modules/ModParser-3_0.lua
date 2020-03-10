@@ -1013,6 +1013,7 @@ local modTagList = {
 	["against enemies affected by at least (%d+) poisons"] = function(num) return { tag = { type = "MultiplierThreshold", actor = "enemy", var = "PoisonStack", threshold = num } } end,
 	["against hindered enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "Hindered" }, keywordFlags = KeywordFlag.Hit },
 	["against maimed enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "Maimed" }, keywordFlags = KeywordFlag.Hit },
+	["you inflict on maimed enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "Maimed" } },
 	["against blinded enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "Blinded" }, keywordFlags = KeywordFlag.Hit },
 	["from blinded enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "Blinded" } },
 	["against burning enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "Burning" }, keywordFlags = KeywordFlag.Hit },
