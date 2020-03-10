@@ -966,6 +966,7 @@ local modTagList = {
 	["if you[' ]h?a?ve used a cold skill in the past 10 seconds"] = { tag = { type = "Condition", var = "UsedColdSkillInPast10Sec" } },
 	["if you[' ]h?a?ve used a lightning skill in the past 10 seconds"] = { tag = { type = "Condition", var = "UsedLightningSkillInPast10Sec" } },
 	["if you[' ]h?a?ve summoned a totem recently"] = { tag = { type = "Condition", var = "SummonedTotemRecently" } },
+	["if you haven't summoned a totem in the past 2 seconds"] = { tag = { type = "Condition", var = "NoSummonedTotemsInPastTwoSeconds" }  },
 	["if you[' ]h?a?ve used a minion skill recently"] = { tag = { type = "Condition", var = "UsedMinionSkillRecently" } },
 	["if you[' ]h?a?ve used a movement skill recently"] = { tag = { type = "Condition", var = "UsedMovementSkillRecently" } },
 	["if you[' ]h?a?ve used a vaal skill recently"] = { tag = { type = "Condition", var = "UsedVaalSkillRecently" } },
