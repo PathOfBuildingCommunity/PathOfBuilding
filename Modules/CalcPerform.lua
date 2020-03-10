@@ -718,6 +718,14 @@ function calcs.perform(env)
 	local extraAuraModList = { }
 	for _, value in ipairs(modDB:List(nil, "ExtraAuraEffect")) do
 		t_insert(extraAuraModList, value.mod)
+ 	end
+
+	-- Calculate number of active heralds
+
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		if activeSkill.skillTypes[SkillType.Herald] then
+			modDB.multipliers["Herald"] = (modDB.multipliers["Herald"] or 0) + 1
+		end
 	end
 
 	-- Combine buffs/debuffs 
