@@ -1421,7 +1421,6 @@ local specialModList = {
 		mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Bleeding"}),
 		mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Poisoned"})
 	} end,
-	["(%d+)%% increased duration of ailments"] = function(num) return { mod("SkillAndDamagingAilmentDuration", "INC", num) } end,
 	-- Elemental Ailments
 	["your elemental damage can shock"] = { flag("ColdCanShock"), flag("FireCanShock") },
 	["your cold damage can ignite"] = { flag("ColdCanIgnite") },
