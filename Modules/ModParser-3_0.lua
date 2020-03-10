@@ -919,6 +919,7 @@ local modTagList = {
 	["if your skills have dealt a critical strike recently"] = { tag = { type = "Condition", var = "SkillCritRecently" } },
 	["if you dealt a critical strike with a herald skill recently"] = { tag = { type = "Condition", var = "CritWithHeraldSkillRecently" } },
 	["if you[' ]h?a?ve killed recently"] = { tag = { type = "Condition", var = "KilledRecently" } },
+	["if you[' ]h?a?ve killed at least (%d) enemies recently"] = function(num) return { tag = { type = "MultiplierThreshold", var = "EnemyKilledRecently", threshold = num } } end,
 	["if you haven't killed recently"] = { tag = { type = "Condition", var = "KilledRecently", neg = true } },
 	["if you or your totems have killed recently"] = { tag = { type = "Condition", varList = {"KilledRecently","TotemsKilledRecently"} } },
 	["if you[' ]h?a?ve killed a maimed enemy recently"] = { tagList = { { type = "Condition", var = "KilledRecently" }, { type = "ActorCondition", actor = "enemy", var = "Maimed" } } },
