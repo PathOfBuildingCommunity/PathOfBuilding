@@ -1577,6 +1577,7 @@ local specialModList = {
 	["minions convert (%d+)%% of physical damage to cold damage per green socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToCold", "BASE", num) }, { type = "Multiplier", var = "GreenSocketIn{SlotName}" }) } end,
 	["minions convert (%d+)%% of physical damage to lightning damage per blue socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToLightning", "BASE", num) }, { type = "Multiplier", var = "BlueSocketIn{SlotName}" }) } end,
 	["minions convert (%d+)%% of physical damage to chaos damage per white socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToChaos", "BASE", num) }, { type = "Multiplier", var = "WhiteSocketIn{SlotName}" }) } end,
+	["minions have a (%d+)%% chance to impale on hit with attacks"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("ImpaleChance", "BASE", num ) }  ) } end,
 	-- Projectiles
 	["skills chain %+(%d) times"] = function(num) return { mod("ChainCountMax", "BASE", num) } end,
 	["skills chain an additional time while at maximum frenzy charges"] = { mod("ChainCountMax", "BASE", 1, { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }) },
