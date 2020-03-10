@@ -1973,6 +1973,11 @@ skills["GroundSlam"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["groundslam_damage_to_close_targets_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -2054,6 +2059,11 @@ skills["VaalGroundSlam"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["groundslam_damage_to_close_targets_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -3547,7 +3557,7 @@ skills["RallyingCry"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["inspiring_cry_damage_+%_per_one_hundred_nearby_enemies"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "NearbyEnemy" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "WarcryNearbyEnemies" }, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 100,
 		},
 		["base_mana_regeneration_rate_per_minute"] = {

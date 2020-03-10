@@ -315,11 +315,21 @@ local skills, mod, flag, skill = ...
 
 #skill GroundSlam
 #flags attack melee area
+	statMap = {
+		["groundslam_damage_to_close_targets_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+	},
 #baseMod skill("radius", 35)
 #mods
 
 #skill VaalGroundSlam
 #flags attack melee area
+	statMap = {
+		["groundslam_damage_to_close_targets_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+	},
 #mods
 
 #skill HeavyStrike
@@ -556,7 +566,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["inspiring_cry_damage_+%_per_one_hundred_nearby_enemies"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "NearbyEnemy" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "WarcryNearbyEnemies" }, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 100,
 		},
 		["base_mana_regeneration_rate_per_minute"] = {
