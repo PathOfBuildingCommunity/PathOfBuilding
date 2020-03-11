@@ -1152,12 +1152,21 @@ function calcs.offence(env, actor, activeSkill)
 					if pass == 2 and breakdown then
 						t_insert(breakdown[damageType], s_format("= %d to %d", damageTypeHitMin, damageTypeHitMax))
 					end
-					if skillModList:Flag(skillCfg, "LuckyHits") then 
+
+					-- Check whether hit damage is lucky
+					local isLuckyHit = false
+					if skillModList:Flag(skillCfg, "LuckyHits") or skillModList:Flag(skillCfg, "LuckyHits"..damageType) then
+						-- Make sure conditionals pertaining to Crit or Non-Crit are respected
+						if (skillModList:GetCondition("CriticalStrike") and cfg.skillCond["CriticalStrike"]) or (not skillModList:GetCondition("CriticalStrike") and not cfg.skillCond["CriticalStrike"]) then
+							isLuckyHit = true
+						end
+					end
+					if isLuckyHit then
 						damageTypeHitAvg = (damageTypeHitMin / 3 + 2 * damageTypeHitMax / 3)
 					else
 						damageTypeHitAvg = (damageTypeHitMin / 2 + damageTypeHitMax / 2)
 					end
-					
+
 					--Beginning of Leech Calculation for this DamageType
 					if skillFlags.mine or skillFlags.trap or skillFlags.totem then
 						if not noLifeLeech then
@@ -1167,7 +1176,7 @@ function calcs.offence(env, actor, activeSkill)
 							end
 						end
 					else
-						if not noLifeLeech then				
+						if not noLifeLeech then
 							local lifeLeech
 							if skillModList:Flag(nil, "LifeLeechBasedOnChaosDamage") then
 								if damageType == "Chaos" then
