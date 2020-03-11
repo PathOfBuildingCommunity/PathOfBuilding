@@ -1122,6 +1122,9 @@ return {
 ["base_number_of_golems_allowed"] = {
 	mod("ActiveGolemLimit", "BASE", nil),
 },
+["base_number_of_champions_of_light_allowed"] = {
+    mod("ActiveSentinelOfPurityLimit", "BASE", nil)
+},
 ["base_number_of_spectres_allowed"] = {
 	mod("ActiveSpectreLimit", "BASE", nil),
 },
