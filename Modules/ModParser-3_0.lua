@@ -1431,6 +1431,8 @@ local specialModList = {
 	["your physical damage can chill"] = { flag("PhysicalCanChill") },
 	["your physical damage can shock"] = { flag("PhysicalCanShock") },
 	["you always ignite while burning"] = { mod("EnemyIgniteChance", "BASE", 100, { type = "Condition", var = "Burning" }) },
+	["+(%d+)%% to fire damage over time multiplier while burning"] = function(num) return { mod("FireDotMultiplier", "BASE", num, { type = "Condition", var = "Burning" }) } end,
+	["regenerate ([%d%.]+)%% of life per second while burning"] = function(num) return { mod("LifeRegenPercent", "BASE", num, { type = "Condition", var = "Burning" }) } end,
 	["critical strikes do not always freeze"] = { flag("CritsDontAlwaysFreeze") },
 	["you can inflict up to (%d+) ignites on an enemy"] = { flag("IgniteCanStack") },
 	["enemies chilled by you take (%d+)%% increased burning damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("FireDamageTakenOverTime", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Chilled" }) } end,
