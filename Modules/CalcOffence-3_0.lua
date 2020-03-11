@@ -1119,6 +1119,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.EnergyShieldLeechInstant = 0
 		output.ManaLeech = 0
 		output.ManaLeechInstant = 0
+        output.impaleStoredHitAvg = 0
 		for pass = 1, 2 do
 			-- Pass 1 is critical strike damage, pass 2 is non-critical strike
 			cfg.skillCond["CriticalStrike"] = (pass == 1)
@@ -1165,6 +1166,14 @@ function calcs.offence(env, actor, activeSkill)
 						local takenInc = enemyDB:Sum("INC", cfg, "DamageTaken", damageType.."DamageTaken")
 						local takenMore = enemyDB:More(cfg, "DamageTaken", damageType.."DamageTaken")
 						if damageType == "Physical" then
+                            if isAttack then
+								-- store pre-armour physical damage from attacks for impale calculations
+								if pass == 1 then
+									output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (output.CritChance / 100)
+								else
+									output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (1 - output.CritChance / 100)
+								end
+							end
 							local armourReduction = calcs.armourReductionF(round(calcLib.val(enemyDB, "Armour")), damageTypeHitAvg)
 							resist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + armourReduction)
 						else
@@ -2288,8 +2297,12 @@ function calcs.offence(env, actor, activeSkill)
             local storedExpectedDamageMore = round(skillModList:More(cfg, "ImpaleEffect"), 2)
             local storedExpectedDamageModifier = (1 + storedExpectedDamageInc) * storedExpectedDamageMore
             local impaleStoredDamage = baseStoredDamage * storedExpectedDamageModifier
+			local impaleHitDamageMod = impaleStoredDamage * impaleStacks  -- Source: https://www.reddit.com/r/pathofexile/comments/chgqqt/impale_and_armor_interaction/
 
-            local impaleDMGModifier = impaleStoredDamage * impaleStacks * impaleChance
+            local impaleArmourReduction = calcs.armourReductionF(round(calcLib.val(enemyDB, "Armour")), impaleHitDamageMod * output.impaleStoredHitAvg)
+            local impaleResist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyImpalePhysicalDamageReduction") + impaleArmourReduction)
+
+            local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance
 
             globalOutput.ImpaleStacksMax = maxStacks
             globalOutput.ImpaleStacks = impaleStacks
