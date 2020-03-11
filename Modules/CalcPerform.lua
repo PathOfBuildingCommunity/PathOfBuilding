@@ -721,6 +721,18 @@ function calcs.perform(env)
 		t_insert(extraAuraModList, value.mod)
 	end
 
+	-- Calculate number of active heralds
+	local heraldList = { }
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		if activeSkill.skillTypes[SkillType.Herald] then
+			heraldList[activeSkill.skillCfg.skillName] = true
+		end
+	end
+	for _, herald in pairs(heraldList) do
+		modDB.multipliers["Herald"] = (modDB.multipliers["Herald"] or 0) + 1
+		modDB.conditions["AffectedByHerald"] = true
+	end
+
 	-- Combine buffs/debuffs 
 	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit")
 	local buffs = { }
