@@ -312,6 +312,7 @@ function calcs.initEnv(build, mode, override)
 	calcs.initModDB(env, enemyDB)
 	enemyDB:NewMod("Accuracy", "BASE", env.data.monsterAccuracyTable[env.enemyLevel], "Base")
 	enemyDB:NewMod("Evasion", "BASE", env.data.monsterEvasionTable[env.enemyLevel], "Base")
+	enemyDB:NewMod("Armour", "BASE", env.data.monsterArmourTable[env.enemyLevel], "Base")
 
 	-- Add mods from the config tab
 	modDB:AddList(build.configTab.modList)

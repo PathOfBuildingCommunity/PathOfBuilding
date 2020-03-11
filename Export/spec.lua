@@ -1342,6 +1342,20 @@ return {
 			refTo="",
 			type="Int",
 			width=70
+		},
+		[15]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=70
+		},
+		[16]={
+			list=false,
+			name="Armour",
+			refTo="",
+			type="Int",
+			width=70
 		}
 	},
 	DelveAzuriteShop={
