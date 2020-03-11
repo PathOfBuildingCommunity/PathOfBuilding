@@ -1,3 +1,5 @@
+[1.4.158.1][2020/03/12]
+ * Add 3.10 passive skill tree
 [1.4.157.7][2020/02/29]
  * Fix crash related to hovering over Bone Armour in the skills tab
 [1.4.157.6][2020/02/26]
