@@ -429,10 +429,10 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "ModFlagOr" then
-			if not cfg or not cfg.modFlags then
+			if not cfg or not cfg.flags then
 				return
 			end
-			if band(cfg.modFlags, tag.modFlags) == 0 then
+			if band(cfg.flags, tag.modFlags) == 0 then
 				return
 			end
 		elseif tag.type == "KeywordFlagAnd" then
