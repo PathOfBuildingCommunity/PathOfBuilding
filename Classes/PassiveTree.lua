@@ -34,10 +34,11 @@ end
 local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.treeVersion = treeVersion
 	self.targetVersion = treeVersions[treeVersion].targetVersion
+	local versionNum = treeVersions[treeVersion].num
 
 	MakeDir("TreeData")
 
-	ConPrintf("Loading passive tree data...")
+	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].short)
 	local treeText
 	local treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "r")
 	if treeFile then
@@ -53,9 +54,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		else
 			page = getFile("https://www.pathofexile.com/passive-skill-tree/")
 		end
-		treeText = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
-		treeText = treeText .. "tree.classes=" .. jsonToLua(page:match("ascClasses: (%b{})"))
-		treeText = treeText .. "return tree"
+		local treeData = page:match("var passiveSkillTreeData = (%b{})")
+		if treeData then
+			treeText = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
+			treeText = treeText .. "tree.classes=" .. jsonToLua(page:match("ascClasses: (%b{})"))
+			treeText = treeText .. "return tree"
+		else
+			treeText = "return " .. jsonToLua(page)
+		end
 		treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "w")
 		treeFile:write(treeText)
 		treeFile:close()
@@ -64,15 +70,28 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self[k] = v
 	end
 
-	local cdnRoot = treeVersion == "2_6" and "" or "https://web.poecdn.com/image"
+	local cdnRoot = versionNum >= 3.08 and "https://web.poecdn.com" or ""
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
+
+	if versionNum >= 3.10 then
+		-- Migrate to old format
+		for i = 0, 6 do
+			self.classes[i] = self.classes[i + 1]
+			self.classes[i + 1] = nil
+		end
+	end
 
 	-- Build maps of class name -> class table
 	self.classNameMap = { }
 	self.ascendNameMap = { }
 	for classId, class in pairs(self.classes) do
+		if versionNum >= 3.10 then
+			-- Migrate to old format
+			class.classes = class.ascendancies
+		end
 		class.classes[0] = { name = "None" }
+
 		self.classNameMap[class.name] = classId
 		for ascendClassId, ascendClass in pairs(class.classes) do
 			self.ascendNameMap[ascendClass.name] = {
@@ -97,7 +116,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
-			self:LoadImage(maxZoom.filename:gsub("%?%x+$",""), cdnRoot..self.imageRoot.."build-gen/passive-skill-sprite/"..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
+			self:LoadImage(maxZoom.filename:gsub("%?%x+$",""), cdnRoot..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
@@ -131,18 +150,21 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			alloc = "PSSkillFrameActive",
 			path = "PSSkillFrameHighlighted",
 			unalloc = "PSSkillFrame",
-			allocAscend = "PassiveSkillScreenAscendancyFrameSmallAllocated",
-			pathAscend = "PassiveSkillScreenAscendancyFrameSmallCanAllocate",
-			unallocAscend = "PassiveSkillScreenAscendancyFrameSmallNormal"
+			allocAscend = versionNum >= 3.10 and "AscendancyFrameSmallAllocated" or "PassiveSkillScreenAscendancyFrameSmallAllocated",
+			pathAscend = versionNum >= 3.10 and "AscendancyFrameSmallCanAllocate" or "PassiveSkillScreenAscendancyFrameSmallCanAllocate",
+			unallocAscend = versionNum >= 3.10 and "AscendancyFrameSmallNormal" or "PassiveSkillScreenAscendancyFrameSmallNormal"
 		},
 		Notable = {
 			artWidth = 58,
 			alloc = "NotableFrameAllocated",
 			path = "NotableFrameCanAllocate",
 			unalloc = "NotableFrameUnallocated",
-			allocAscend = "PassiveSkillScreenAscendancyFrameLargeAllocated",
-			pathAscend = "PassiveSkillScreenAscendancyFrameLargeCanAllocate",
-			unallocAscend = "PassiveSkillScreenAscendancyFrameLargeNormal"
+			allocAscend = versionNum >= 3.10 and "AscendancyFrameLargeAllocated" or "PassiveSkillScreenAscendancyFrameLargeAllocated",
+			pathAscend = versionNum >= 3.10 and "AscendancyFrameLargeCanAllocate" or "PassiveSkillScreenAscendancyFrameLargeCanAllocate",
+			unallocAscend = versionNum >= 3.10 and "AscendancyFrameLargeNormal" or "PassiveSkillScreenAscendancyFrameLargeNormal",
+			allocBlighted = "BlightedNotableFrameAllocated",
+			pathBlighted = "BlightedNotableFrameCanAllocate",
+			unallocBlighted = "BlightedNotableFrameUnallocated",
 		},
 		Keystone = { 
 			artWidth = 84,
@@ -165,43 +187,73 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 	--local err, passives = PLoadModule("Data/"..treeVersion.."/Passives.lua")
 
+	if versionNum >= 3.10 then
+		-- Migrate groups to old format
+		for _, group in pairs(self.groups) do
+			group.n = group.nodes
+			group.oo = { }
+			for _, orbit in ipairs(group.orbits) do
+				group.oo[orbit] = true
+			end
+		end
+
+		-- Go away
+		self.nodes.root = nil
+	end
+
 	ConPrintf("Processing tree...")
 	self.keystoneMap = { }
 	self.notableMap = { }
 	local nodeMap = { }
-	local sockets = { }
+	self.sockets = { }
 	local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6, m_pi / 20 }
 	local orbitDist = { [0] = 0, 82, 162, 335, 493 }
 	for _, node in pairs(self.nodes) do
-		node.meta = { __index = node }
-		nodeMap[node.id] = node
+		node.__index = node
 		node.linkedId = { }
 
+		-- Migration...
+		if versionNum < 3.10 then
+			-- To new format
+			node.classStartIndex = node.spc[0] and node.spc[0]
+		else
+			-- To old format
+			node.id = node.skill
+			node.g = node.group
+			node.o = node.orbit
+			node.oidx = node.orbitIndex
+			node.dn = node.name
+			node.sd = node.stats
+			node.passivePointsGranted = node.grantedPassivePoints or 0
+		end
+
+		nodeMap[node.id] = node
+
 		-- Determine node type
-		if node.spc[0] then
+		if node.classStartIndex then
 			node.type = "ClassStart"
-			local class = self.classes[node.spc[0]]
+			local class = self.classes[node.classStartIndex]
 			class.startNodeId = node.id
-			node.startArt = classArt[node.spc[0]]
+			node.startArt = classArt[node.classStartIndex]
 		elseif node.isAscendancyStart then
 			node.type = "AscendClassStart"
 			local ascendClass = self.ascendNameMap[node.ascendancyName].ascendClass
 			ascendClass.startNodeId = node.id
-		elseif node.m then
+		elseif node.m or node.isMastery then
 			node.type = "Mastery"
 		elseif node.isJewelSocket then
 			node.type = "Socket"
-			sockets[node.id] = node
-		elseif node.ks then
+			self.sockets[node.id] = node
+		elseif node.ks or node.isKeystone then
 			node.type = "Keystone"
 			self.keystoneMap[node.dn] = node
-		elseif node["not"] then
+		elseif node["not"] or node.isNotable then
 			node.type = "Notable"
 			self.notableMap[node.dn:lower()] = node
 		else
 			node.type = "Normal"
 		end
-
+		
 		-- Assign node artwork assets
 		node.sprites = spriteMap[node.icon]
 		if not node.sprites then
@@ -216,15 +268,17 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 		-- Find node group and derive the true position of the node
 		local group = self.groups[node.g]
-		group.ascendancyName = node.ascendancyName
-		if node.isAscendancyStart then
-			group.isAscendancyStart = true
-		end
 		node.group = group
-		node.angle = node.oidx * orbitMult[node.o]
-		local dist = orbitDist[node.o]
-		node.x = group.x + m_sin(node.angle) * dist
-		node.y = group.y - m_cos(node.angle) * dist
+		if group then
+			group.ascendancyName = node.ascendancyName
+			if node.isAscendancyStart then
+				group.isAscendancyStart = true
+			end
+			node.angle = node.oidx * orbitMult[node.o]
+			local dist = orbitDist[node.o]
+			node.x = group.x + m_sin(node.angle) * dist
+			node.y = group.y - m_cos(node.angle) * dist
+		end
 
 		if passives then
 			-- Passive data is available, override the descriptions
@@ -307,8 +361,28 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 
+	-- Pregenerate the polygons for the node connector lines
+	self.connectors = { }
+	for _, node in pairs(self.nodes) do
+		for _, otherId in pairs(node.out or {}) do
+			if type(otherId) == "string" then
+				otherId = tonumber(otherId)
+			end
+			local other = nodeMap[otherId]
+			t_insert(node.linkedId, otherId)
+			t_insert(other.linkedId, node.id)
+			if node.type ~= "ClassStart" and other.type ~= "ClassStart" 
+			  and node.type ~= "Mastery" and other.type ~= "Mastery" 
+			  and node.ascendancyName == other.ascendancyName 
+			  and not node.isProxy and not other.isProxy
+			  and not node.group.isProxy and not node.group.isProxy then
+				t_insert(self.connectors, self:BuildConnector(node, other))
+			end
+		end
+	end
+
 	-- Precalculate the lists of nodes that are within each radius of each socket
-	for nodeId, socket in pairs(sockets) do
+	for nodeId, socket in pairs(self.sockets) do
 		socket.nodesInRadius = { }
 		socket.attributesInRadius = { }
 		for radiusIndex, radiusInfo in ipairs(data[self.targetVersion].jewelRadius) do
@@ -316,25 +390,12 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			socket.attributesInRadius[radiusIndex] = { }
 			local rSq = radiusInfo.rad * radiusInfo.rad
 			for _, node in pairs(self.nodes) do
-				if node ~= socket and not node.isBlighted then
+				if node ~= socket and node.group and not node.isBlighted and not node.isProxy then
 					local vX, vY = node.x - socket.x, node.y - socket.y
 					if vX * vX + vY * vY <= rSq then 
 						socket.nodesInRadius[radiusIndex][node.id] = node
 					end
 				end
-			end
-		end
-	end
-
-	-- Pregenerate the polygons for the node connector lines
-	self.connectors = { }
-	for _, node in pairs(self.nodes) do
-		for _, otherId in pairs(node.out) do
-			local other = nodeMap[otherId]
-			t_insert(node.linkedId, otherId)
-			t_insert(other.linkedId, node.id)
-			if node.type ~= "ClassStart" and other.type ~= "ClassStart" and node.type ~= "Mastery" and other.type ~= "Mastery" and node.ascendancyName == other.ascendancyName then
-				t_insert(self.connectors, self:BuildConnector(node, other))
 			end
 		end
 	end
@@ -360,10 +421,10 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 		if imgFile then
 			imgFile:close()
 			imgName = self.treeVersion.."/"..imgName
-		else
+		elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5
 			ConPrintf("Downloading '%s'...", imgName)
 			local data = getFile(url)
-			if data then
+			if data and not data:match("<!DOCTYPE html>") then
 				imgFile = io.open("TreeData/"..imgName, "wb")
 				imgFile:write(data)
 				imgFile:close()

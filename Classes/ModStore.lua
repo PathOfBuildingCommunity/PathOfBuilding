@@ -412,6 +412,20 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if not cfg or tag.slotName ~= cfg.slotName then
 				return
 			end
+		elseif tag.type == "ModFlagOr" then
+			if not cfg or not cfg.modFlags then
+				return
+			end
+			if band(cfg.modFlags, tag.modFlags) == 0 then
+				return
+			end
+		elseif tag.type == "KeywordFlagAnd" then
+			if not cfg or not cfg.keywordFlags then
+				return
+			end
+			if band(cfg.keywordFlags, tag.keywordFlags) ~= tag.keywordFlags then
+				return
+			end
 		end
 	end	
 	return value

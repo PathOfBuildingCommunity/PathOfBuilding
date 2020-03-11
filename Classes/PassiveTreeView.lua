@@ -164,7 +164,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		-- Cursor is over the tree, check if it is over a node
 		local curTreeX, curTreeY = screenToTree(cursorX, cursorY)
 		for nodeId, node in pairs(spec.nodes) do
-			if node.rsq then
+			if node.rsq and node.group and not node.isProxy and not node.group.isProxy then
 				-- Node has a defined size (i.e has artwork)
 				local vX = curTreeX - node.x
 				local vY = curTreeY - node.y
@@ -286,21 +286,23 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	-- Draw the group backgrounds
 	for _, group in pairs(tree.groups) do
-		local scrX, scrY = treeToScreen(group.x, group.y)
-		if group.ascendancyName then
-			if group.isAscendancyStart then
-				if group.ascendancyName ~= spec.curAscendClassName then
-					SetDrawColor(1, 1, 1, 0.25)
+		if not group.isProxy then
+			local scrX, scrY = treeToScreen(group.x, group.y)
+			if group.ascendancyName then
+				if group.isAscendancyStart then
+					if group.ascendancyName ~= spec.curAscendClassName then
+						SetDrawColor(1, 1, 1, 0.25)
+					end
+					self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
+					SetDrawColor(1, 1, 1)
 				end
-				self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
-				SetDrawColor(1, 1, 1)
+			elseif group.oo[3] then
+				self:DrawAsset(tree.assets.PSGroupBackground3, scrX, scrY, scale, true)
+			elseif group.oo[2] then
+				self:DrawAsset(tree.assets.PSGroupBackground2, scrX, scrY, scale)
+			elseif group.oo[1] then
+				self:DrawAsset(tree.assets.PSGroupBackground1, scrX, scrY, scale)
 			end
-		elseif group.oo[3] then
-			self:DrawAsset(tree.assets.PSGroupBackground3, scrX, scrY, scale, true)
-		elseif group.oo[2] then
-			self:DrawAsset(tree.assets.PSGroupBackground2, scrX, scrY, scale)
-		elseif group.oo[1] then
-			self:DrawAsset(tree.assets.PSGroupBackground1, scrX, scrY, scale)
 		end
 	end
 
@@ -350,8 +352,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 	end
 
-	-- Draw the nodes
-	for nodeId, node in pairs(spec.nodes) do
+	local function renderNode(nodeId, node)
 		-- Determine the base and overlay images for this node based on type and state
 		local base, overlay
 		local isAlloc = node.alloc or build.calcsTab.mainEnv.grantedPassives[nodeId]
@@ -359,7 +360,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if node.type == "ClassStart" then
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
 		elseif node.type == "AscendClassStart" then
-			overlay = "PassiveSkillScreenAscendancyMiddle"
+			overlay = treeVersions[tree.treeVersion].num >= 3.10 and "AscendancyMiddle" or "PassiveSkillScreenAscendancyMiddle"
 		elseif node.type == "Mastery" then
 			-- This is the icon that appears in the center of many groups
 			SetDrawLayer(nil, 15)
@@ -395,7 +396,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			else
 				-- Normal node (includes keystones and notables)
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")] 
-				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "")]
+				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")]
 			end
 		end
 
@@ -483,9 +484,16 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 	end
 
+	-- Draw the nodes
+	for nodeId, node in pairs(spec.nodes) do
+		if node.group and not node.isProxy and not node.group.isProxy then
+			renderNode(nodeId, node)
+		end
+	end
+
 	-- Draw ring overlays for jewel sockets
 	SetDrawLayer(nil, 25)
-	for nodeId, slot in pairs(build.itemsTab.sockets) do
+	for nodeId in pairs(tree.sockets) do
 		local node = spec.nodes[nodeId]
 		if node == hoverNode then
 			-- Mouse is over this socket, show all radius rings

@@ -1,3 +1,7 @@
+### 1.4.158 - 2020/03/12
+ * Added 3.10.0 passive tree
+    * Cluster jewels are currently unsupported
+
 ### 1.4.157 - 2019/12/20
  * Added a new unique item, The Savior
  * Added the ability to show only non-Awakened supports (or only Awakened supports!); the option can be found in the

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.157"/>
+	<Version number="1.4.158"/>
 	<Source part="program" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/"/>
 	<Source part="tree-2_6" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-2_6.zip"/>
@@ -8,12 +8,13 @@
 	<Source part="tree-3_7" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_7.zip"/>
 	<Source part="tree-3_8" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_8.zip"/>
 	<Source part="tree-3_9" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_9.zip"/>
+	<Source part="tree-3_10" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_10.zip"/>
 	<Source url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" part="runtime" platform="win32"/>
 	<File sha1="74cd89091c4db01f0673217a5bd0927f232391e2" name="Launch.lua" part="program"/>
 	<File sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" name="UpdateCheck.lua" part="program"/>
 	<File sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" name="UpdateApply.lua" part="program"/>
-	<File sha1="31f6e89b1cf8359195a0824035f3e279ed898731" name="GameVersions.lua" part="program"/>
-	<File sha1="56cae95a2aec023a4b5de3da5a1ee2a60ccd3312" name="changelog.txt" part="program"/>
+	<File sha1="4cf43ef67fe750c22e15c7a63d7f77cce7768dba" name="GameVersions.lua" part="program"/>
+	<File sha1="6c19d82614624a52d81775afc64d448216d32a33" name="changelog.txt" part="program"/>
 	<File sha1="b093a2709f30c1f83ce5ba9df88c80f22c1beb4a" name="Classes/BuildListControl.lua" part="program"/>
 	<File sha1="16fc5eaa04cc14b2022f6705a12717935454dab0" name="Classes/ButtonControl.lua" part="program"/>
 	<File sha1="d91c206afbe018ad8573280254e958d982fa4b5f" name="Classes/CalcBreakdownControl.lua" part="program"/>
@@ -39,12 +40,12 @@
 	<File sha1="f7281f889c87c8de45d5af4243c49d9998d4a272" name="Classes/MinionListControl.lua" part="program"/>
 	<File sha1="b67204a03fc51b91cb3e73c398e57ebc50dd9df1" name="Classes/ModDB.lua" part="program"/>
 	<File sha1="2fa5f20b12a4b366dc4b28a2a873699b834766d6" name="Classes/ModList.lua" part="program"/>
-	<File sha1="dcd61c9b14509a09554f109602f5c0e797374f27" name="Classes/ModStore.lua" part="program"/>
+	<File sha1="9cf4d06384857b6f5fb86c67ecefbf6f1fa62ee3" name="Classes/ModStore.lua" part="program"/>
 	<File sha1="cc7c5eff58c2868cdc7d4c1bf9a967aa8c448c9e" name="Classes/NotesTab.lua" part="program"/>
-	<File sha1="85735f795096fff6ddbb6551be397d409e5a4f5b" name="Classes/PassiveSpec.lua" part="program"/>
+	<File sha1="d5bf2592ed5373653e3e7d0acbc69757959f0e68" name="Classes/PassiveSpec.lua" part="program"/>
 	<File sha1="d449391ea879a20728f7e9a0345398c0141a45f6" name="Classes/PassiveSpecListControl.lua" part="program"/>
-	<File sha1="76841c8a6f018b55c73f42bef05f49776508af28" name="Classes/PassiveTree.lua" part="program"/>
-	<File sha1="001742dc39dcd7bf0eb7da70e6b202824295892b" name="Classes/PassiveTreeView.lua" part="program"/>
+	<File sha1="8e08fe12a9ed821a908580c43e8ac6da48f561fb" name="Classes/PassiveTree.lua" part="program"/>
+	<File sha1="48d5a062cc5cea54eca30952ad8f0b24e13bdb1c" name="Classes/PassiveTreeView.lua" part="program"/>
 	<File sha1="3acd77612e658766260129ffab70373d8ee60c59" name="Classes/PathControl.lua" part="program"/>
 	<File sha1="2bfb5bb91475432d23a29c1eb36daec2d76914f0" name="Classes/PopupDialog.lua" part="program"/>
 	<File sha1="0690e86bb59d80be8ec3cbd0c902d54850338371" name="Classes/ScrollBarControl.lua" part="program"/>
@@ -66,20 +67,20 @@
 	<File sha1="f49b47b90a18902c30db9693a7949172c72944e7" name="Modules/CalcDefence-2_6.lua" part="program"/>
 	<File sha1="62f0fafbec4dd52394cfa27e23e320f5ea8cdf7f" name="Modules/CalcDefence-3_0.lua" part="program"/>
 	<File sha1="fdfcb2daf9f582e3d2fa065c4b61ecfe66d8ba4f" name="Modules/CalcOffence-2_6.lua" part="program"/>
-	<File sha1="5c57f0dc92223231c3406533bc93307408d92c98" name="Modules/CalcOffence-3_0.lua" part="program"/>
+	<File sha1="16838b12a58299c05c7c71d10658bbb46372b4fb" name="Modules/CalcOffence-3_0.lua" part="program"/>
 	<File sha1="09e666595feea5ddd1c59e70c4b734ae4d5a9935" name="Modules/CalcPerform.lua" part="program"/>
 	<File sha1="582806808b1646f18bfde93db45658d66c4569d8" name="Modules/Calcs.lua" part="program"/>
 	<File sha1="32da2a949a5fe0ab10d54078a96caff0dccb5f3f" name="Modules/CalcSections-2_6.lua" part="program"/>
 	<File sha1="b0540699c6309faa3dcb6666696a7224b1f7d29c" name="Modules/CalcSections-3_0.lua" part="program"/>
-	<File sha1="d48e6e0b7526185cc55e80f3b5dc89a5d7d8c98f" name="Modules/CalcSetup.lua" part="program"/>
+	<File sha1="f273ccf372a6fd71ade8fea3988057b3a8362e8a" name="Modules/CalcSetup.lua" part="program"/>
 	<File sha1="ad095534e9fc900879b8793e937b5668d2d29aab" name="Modules/CalcTools.lua" part="program"/>
 	<File sha1="fef899d2413e9fa67df808e4f6de533b263ddcd7" name="Modules/Common.lua" part="program"/>
 	<File sha1="68365ddda91d1002e2f967a4535aa58c17685ada" name="Modules/ConfigOptions.lua" part="program"/>
 	<File sha1="52d53467760cdab4c1af4ca6da9387ca4e42d923" name="Modules/Data.lua" part="program"/>
 	<File sha1="d74918586d5ae396fc9bea4c4b6e4aa6bfad8d3e" name="Modules/ItemTools.lua" part="program"/>
-	<File sha1="e5d6aaa67de05434ba86623d89c42514ec8e7b8d" name="Modules/Main.lua" part="program"/>
+	<File sha1="3f87782b9aa891576140df6206e405e120d508dc" name="Modules/Main.lua" part="program"/>
 	<File sha1="fc2d3bdf7a4e57894b3d04beb83485cc6dcc5e26" name="Modules/ModParser-2_6.lua" part="program"/>
-	<File sha1="37ae744573cf5a5ed66eeeb112b7ca03d3ad5b20" name="Modules/ModParser-3_0.lua" part="program"/>
+	<File sha1="772d5e1fd3ab25ef4dbf06c684702815d068acac" name="Modules/ModParser-3_0.lua" part="program"/>
 	<File sha1="2ce4f3b83db992a286bd92f3849d037d6dcc8db2" name="Modules/ModTools.lua" part="program"/>
 	<File sha1="cb77b8c6931a5c4c4695fc66f222422365d19a73" name="Modules/StatDescriber.lua" part="program"/>
 	<File sha1="c345cdcf374d271411aa424ab150c0edbb5a362d" name="Assets/game_ui_small.png" part="program"/>
@@ -87,7 +88,7 @@
 	<File sha1="4ebea5031fd03771a9b637a3fdccf394344e4782" name="Assets/range_guide.png" part="program"/>
 	<File sha1="e7ee7e5b6388facb7bf568517ecc401590757df7" name="Assets/ring.png" part="program"/>
 	<File sha1="9a320bfe629b1cf3f14fc77fbbf2508d0a5b2841" name="Assets/small_ring.png" part="program"/>
-	<File sha1="2b49c2157de498d10ba3c8ba7aad19fd3fa13cc0" name="Data/Global.lua" part="program"/>
+	<File sha1="bfb883ff9377831c0578d6173fb4fd70f4654985" name="Data/Global.lua" part="program"/>
 	<File sha1="2f7f731970f7f915257092f0b2753fdcb877c13c" name="Data/New.lua" part="program"/>
 	<File sha1="04dc9cc96386fee5a0e6a6e04a06cc366afe98e7" name="Data/Uniques/amulet.lua" part="program"/>
 	<File sha1="d6f09039c6ea18c04526ec6fe58c6aacf91b3349" name="Data/Uniques/axe.lua" part="program"/>
@@ -115,7 +116,7 @@
 	<File sha1="0d124348e8ec0aa3944c68e2789aea2e82dbd740" name="Data/2_6/Gems.lua" part="program"/>
 	<File sha1="2fbdc82acb8016c40d91ae77a8a8cee914b85d81" name="Data/2_6/Minions.lua" part="program"/>
 	<File sha1="9a5c9b0a3f75ba2c573376d53a8cf87a54ac8a96" name="Data/2_6/Misc.lua" part="program"/>
-	<File sha1="1c55c5a211c25b7c2bf8188c865f6b6b350dbed2" name="Data/2_6/ModCache.lua" part="program"/>
+	<File sha1="2673af713d96b39d0c4d6a90e399d69d7680b9ce" name="Data/2_6/ModCache.lua" part="program"/>
 	<File sha1="d96fc1e31349cb8aba1336c1f356b69ff436269b" name="Data/2_6/ModFlask.lua" part="program"/>
 	<File sha1="19036f1ef6a61d5cb673ef1fd4eef1ddb8bed1e3" name="Data/2_6/ModItem.lua" part="program"/>
 	<File sha1="0671f7f062f06c68ec6c659d2121620a1782fecf" name="Data/2_6/ModJewel.lua" part="program"/>
@@ -159,7 +160,7 @@
 	<File sha1="ff6c85538d84128bb9c485ebae0407201978ca6a" name="Data/3_0/Gems.lua" part="program"/>
 	<File sha1="979f78b99ff2505f6285c5c6af32715ae88fef42" name="Data/3_0/Minions.lua" part="program"/>
 	<File sha1="e99b40d875c073408636ebbf85c5974bf8dd0da9" name="Data/3_0/Misc.lua" part="program"/>
-	<File sha1="84bf5305f76003168739be3661089f1a8985213c" name="Data/3_0/ModCache.lua" part="program"/>
+	<File sha1="e4c6294e630128cca1828919300f65194eed8719" name="Data/3_0/ModCache.lua" part="program"/>
 	<File sha1="1064a5745ffce5ea011552d382e239827a1acc56" name="Data/3_0/ModFlask.lua" part="program"/>
 	<File sha1="0e74a9cd074e2c71203b3d7dd1ab0df6b42e8c16" name="Data/3_0/ModItem.lua" part="program"/>
 	<File sha1="38c1edb753e467eaaea591b113ab1b184f266e42" name="Data/3_0/ModJewel.lua" part="program"/>
@@ -254,104 +255,137 @@
 	<File sha1="16cbc26080996d9da827df42cb0844a25518eeb3" name="lua/dkjson.lua" part="runtime"/>
 	<File sha1="31e325cd40a9c0234c6265689cf70b97ef676f20" name="lua/sha1.lua" part="runtime"/>
 	<File sha1="859e09104842f91a4aaa9a4d9fadf667535877e2" name="lua/xml.lua" part="runtime"/>
-	<File sha1="77e4564761c38c755bee821f512e574d62b3a3b7" name="TreeData/Background1.png" part="tree"/>
-	<File sha1="11ac1fcb1bd0ffef54dc478e1e6b3e23823bfb18" name="TreeData/BackgroundDex.png" part="tree"/>
-	<File sha1="424f67c77c905291f140074f790ebfbd3a7b9a9b" name="TreeData/BackgroundDexInt.png" part="tree"/>
-	<File sha1="b9871a87c189bcc55b4b76c9e1b341f6d3099deb" name="TreeData/BackgroundInt.png" part="tree"/>
-	<File sha1="6d81b45041b510b0162d1c32c0c358627972c507" name="TreeData/BackgroundStr.png" part="tree"/>
-	<File sha1="81f57fc4c4138b922c9c45d7ef3af9c2643063d8" name="TreeData/BackgroundStrDex.png" part="tree"/>
-	<File sha1="1b02b0aec15ede4761a7fae1a9a108e8f958d13e" name="TreeData/BackgroundStrInt.png" part="tree"/>
-	<File sha1="8f37a253911a0019cfdea301075f28dee41ae675" name="TreeData/BlightedNotableFrameAllocated.png" part="tree"/>
-	<File sha1="955d47ef4f110d059b2d691b57f370a580d7f805" name="TreeData/BlightedNotableFrameCanAllocate.png" part="tree"/>
-	<File sha1="5e36a22cd35dcf53871b6302e78c18a677baeda2" name="TreeData/BlightedNotableFrameUnallocated.png" part="tree"/>
-	<File sha1="fe8783affb4fd5c43c3e18a74da279ecc38e6f28" name="TreeData/centerduelist.png" part="tree"/>
-	<File sha1="d5fa638543829b404228d9023f1cb17405664799" name="TreeData/centermarauder.png" part="tree"/>
-	<File sha1="6adabfadc5a17886e07bea0db6d665540dc73823" name="TreeData/centerranger.png" part="tree"/>
-	<File sha1="e9cfae2dda31986f7124dd1c8658651589c10976" name="TreeData/centerscion.png" part="tree"/>
-	<File sha1="04e5beade48d335c770c47eae1725ff245492e2e" name="TreeData/centershadow.png" part="tree"/>
-	<File sha1="72a4bc7d712aff2776abd98331baee0c57aa758a" name="TreeData/centertemplar.png" part="tree"/>
-	<File sha1="9fb9158a7bc51ed9391752b4322c88752d37ce95" name="TreeData/centerwitch.png" part="tree"/>
-	<File sha1="4a1be6448348a41089cf4ff1fa35111313853133" name="TreeData/ClassesAscendant.png" part="tree"/>
-	<File sha1="fd748fbcf0c29924f5818a32322e1d1134828f9f" name="TreeData/ClassesAssassin.png" part="tree"/>
-	<File sha1="2ea6be9c3cc3f2d5dbc65fbb5b0d51dfe2ae0240" name="TreeData/ClassesBerserker.png" part="tree"/>
-	<File sha1="1bb449a170f751dc282896595f0ac6d0a8238bef" name="TreeData/ClassesChampion.png" part="tree"/>
-	<File sha1="27f73668926bc3fc92ae21869f1b637682559092" name="TreeData/ClassesChieftain.png" part="tree"/>
-	<File sha1="b2c9e23636098604fd0d4016f11b5155d33d300b" name="TreeData/ClassesDeadeye.png" part="tree"/>
-	<File sha1="2c57055fdb673274ca39ecb7435af9b234c87b87" name="TreeData/ClassesElementalist.png" part="tree"/>
-	<File sha1="cf2ec8605adc294ffb4f332cae3399d68bf15688" name="TreeData/ClassesGladiator.png" part="tree"/>
-	<File sha1="294a825b73db5d6e134b103581bad1e64029317b" name="TreeData/ClassesGuardian.png" part="tree"/>
-	<File sha1="2885e12eeddf92ebe7f625338368b825f050f156" name="TreeData/ClassesHierophant.png" part="tree"/>
-	<File sha1="d18bd9060e56213215e3c759d707bd668ed8a74d" name="TreeData/ClassesInquisitor.png" part="tree"/>
-	<File sha1="3a0f2eb93b911bd53989db10c1ba3f57b7a79437" name="TreeData/ClassesJuggernaut.png" part="tree"/>
-	<File sha1="cb80494666cd105dbb6d15b4f01bc23626f50e18" name="TreeData/ClassesNecromancer.png" part="tree"/>
-	<File sha1="9d7a219a17c67f0e5db1d50e6c6e9cc80cbee1d6" name="TreeData/ClassesOccultist.png" part="tree"/>
-	<File sha1="325f836cdca0439869e8c37a677f13ee59bfb56c" name="TreeData/ClassesPathfinder.png" part="tree"/>
-	<File sha1="7b949b22e66d8b656788b0477297b0e3d9506982" name="TreeData/ClassesRaider.png" part="tree"/>
-	<File sha1="42cc31a1d98987a17303aecf8622644a6d3af857" name="TreeData/ClassesSaboteur.png" part="tree"/>
-	<File sha1="9aef4e2aca1fdd23e4912e88879fbab997156ffd" name="TreeData/ClassesSlayer.png" part="tree"/>
-	<File sha1="0aada4f66055e25842de241d428b49df3ced2abb" name="TreeData/ClassesTrickster.png" part="tree"/>
-	<File sha1="bcfa9be1d6cdbaf9f0b926fbb3c7025b7a777cd2" name="TreeData/imgPSFadeCorner.png" part="tree"/>
-	<File sha1="f3ff70a3288d63d0807a13b947cc96e87105bf7c" name="TreeData/imgPSFadeSide.png" part="tree"/>
-	<File sha1="354ceefdbbba413cb120ee65c823b2ec8cf498b7" name="TreeData/JewelFrameAllocated.png" part="tree"/>
-	<File sha1="b7902f15c86ff6bc55f8b61a3c5068b62d131b27" name="TreeData/JewelFrameCanAllocate.png" part="tree"/>
-	<File sha1="ae859797fd7741fa4b8a80c1e924eb7c696f2ca8" name="TreeData/JewelFrameUnallocated.png" part="tree"/>
-	<File sha1="4f675d3e44ee8f989fb0164a3c6e87c580374c45" name="TreeData/JewelSocketActiveAbyss.png" part="tree"/>
-	<File sha1="39796196dc48f0a5cfd648d6b87631960c165891" name="TreeData/JewelSocketActiveBlue.png" part="tree"/>
-	<File sha1="c0e4c8192a0593e2174152412c1744897c4dc79b" name="TreeData/JewelSocketActiveGreen.png" part="tree"/>
-	<File sha1="333bbd5ec8e58dbc37958fb5c5cb4cbc70df1cb8" name="TreeData/JewelSocketActivePrismatic.png" part="tree"/>
-	<File sha1="32487978b9c0ec456b8a4b8f189c84d3c86ae21c" name="TreeData/JewelSocketActiveRed.png" part="tree"/>
-	<File sha1="5245118418a446ff8bcdfcf821136c6fbc0522b9" name="TreeData/KeystoneFrameAllocated.png" part="tree"/>
-	<File sha1="44b9d99ec9f3cc21d6ad9c14a3dff547f89641f7" name="TreeData/KeystoneFrameCanAllocate.png" part="tree"/>
-	<File sha1="0630de48ca2f34cdad37076673691f626936b6ba" name="TreeData/KeystoneFrameUnallocated.png" part="tree"/>
-	<File sha1="13ba1f39278e7ab1819dad356dfe82fcda9e5bd1" name="TreeData/LineConnectorActive.png" part="tree"/>
-	<File sha1="e22fe9245c8b97b58a1b85764f417ac3dfce95fa" name="TreeData/LineConnectorIntermediate.png" part="tree"/>
-	<File sha1="3398fb895afa45f6f120cf99ca3c710b34cfabbb" name="TreeData/LineConnectorNormal.png" part="tree"/>
-	<File sha1="e0c01cd83cc50dd333d11299b29ddc02ff8c20aa" name="TreeData/NotableFrameAllocated.png" part="tree"/>
-	<File sha1="87973c184c904a4f7655d12cfd695d13c4108ab0" name="TreeData/NotableFrameCanAllocate.png" part="tree"/>
-	<File sha1="b897b879edcb1f0f73ff8609926fc9ff0fa2da5f" name="TreeData/NotableFrameUnallocated.png" part="tree"/>
-	<File sha1="6ce274dd7ad17e94dfb00104e46bcb4e49a29302" name="TreeData/Orbit1Active.png" part="tree"/>
-	<File sha1="507046732f1bc04035243d14a51817125840df37" name="TreeData/Orbit1Intermediate.png" part="tree"/>
-	<File sha1="ec90b5d35db1f413c2c1a50f59892ce44ff53e64" name="TreeData/Orbit1Normal.png" part="tree"/>
-	<File sha1="6c9fbaac3854b46eba138b5895d88a98b4f96776" name="TreeData/Orbit2Active.png" part="tree"/>
-	<File sha1="d000a4a423bd5ebd2d413a3b937f468536112dd8" name="TreeData/Orbit2Intermediate.png" part="tree"/>
-	<File sha1="cfa18119d7276877bc34b26ff74264a9a7f6ffe5" name="TreeData/Orbit2Normal.png" part="tree"/>
-	<File sha1="c785c16a77434ad5ca196b0ee5139e38c6bb6d02" name="TreeData/Orbit3Active.png" part="tree"/>
-	<File sha1="8e9814aec5a004c587979764528a29a3dcab21f4" name="TreeData/Orbit3Intermediate.png" part="tree"/>
-	<File sha1="07bbd0b5e75aec3a9c87b5b753314e6cb8f8221e" name="TreeData/Orbit3Normal.png" part="tree"/>
-	<File sha1="4a3784eb7fa4f4dd818b6f84d8e9348d58d4b64f" name="TreeData/Orbit4Active.png" part="tree"/>
-	<File sha1="7dc05d9788078fed0f09de81c3c3baa336618c8d" name="TreeData/Orbit4Intermediate.png" part="tree"/>
-	<File sha1="1f374dbe1ad23ef2863158280659f46c0625b05f" name="TreeData/Orbit4Normal.png" part="tree"/>
-	<File sha1="570f34a29da650e6d6781890db7ff5d5a8dd18be" name="TreeData/PassiveSkillScreenAscendancyButton.png" part="tree"/>
-	<File sha1="862acbe013c081126e7477d827647c02cc67205b" name="TreeData/PassiveSkillScreenAscendancyButtonHighlight.png" part="tree"/>
-	<File sha1="bfdf7398d89e94ade00ee3a35e12827f2933465b" name="TreeData/PassiveSkillScreenAscendancyButtonPressed.png" part="tree"/>
-	<File sha1="43327a0658f14291c2d6d17a48d3b6a798a013dc" name="TreeData/PassiveSkillScreenAscendancyFrameLargeAllocated.png" part="tree"/>
-	<File sha1="e7cad0dede1afdf3e84259f54e6d6dcc0920eb39" name="TreeData/PassiveSkillScreenAscendancyFrameLargeCanAllocate.png" part="tree"/>
-	<File sha1="f19d1c23f892931132d781cc26010cbd200bd3bf" name="TreeData/PassiveSkillScreenAscendancyFrameLargeNormal.png" part="tree"/>
-	<File sha1="ebf837e2e27ba7e5c85d1410f8cec3fa4ea3eb3a" name="TreeData/PassiveSkillScreenAscendancyFrameSmallAllocated.png" part="tree"/>
-	<File sha1="b009e1d2b8ed65f6752c0011ff48d0a6b7387727" name="TreeData/PassiveSkillScreenAscendancyFrameSmallCanAllocate.png" part="tree"/>
-	<File sha1="430317839843c64f4bd6ee92406e425027156654" name="TreeData/PassiveSkillScreenAscendancyFrameSmallNormal.png" part="tree"/>
-	<File sha1="7bad658a6a0140d747c7f403d73b1fe6b8b3939e" name="TreeData/PassiveSkillScreenAscendancyMiddle.png" part="tree"/>
-	<File sha1="b2cd3358201b40b6810459d4dcb29ceca237bb5d" name="TreeData/PassiveSkillScreenEternalEmpireJewelCircle1.png" part="tree"/>
-	<File sha1="f33ccfa1f043028f2b4fbad14e6b7b48c7da259c" name="TreeData/PassiveSkillScreenEternalEmpireJewelCircle2.png" part="tree"/>
-	<File sha1="797ed1d1308d9d892a08022515f9521f3a74b341" name="TreeData/PassiveSkillScreenJewelCircle1.png" part="tree"/>
-	<File sha1="1da79ad9b413f7ba830558aca4fffe59ec79bd05" name="TreeData/PassiveSkillScreenKaruiJewelCircle1.png" part="tree"/>
-	<File sha1="88e0408c45d27d7ba772b631048519e47b52c59e" name="TreeData/PassiveSkillScreenKaruiJewelCircle2.png" part="tree"/>
-	<File sha1="ec6aea0cbe5139b382136ecd91afcb655169a706" name="TreeData/PassiveSkillScreenMarakethJewelCircle1.png" part="tree"/>
-	<File sha1="c0e133ff7b4a560517767d3ec39744f9fe4a92de" name="TreeData/PassiveSkillScreenMarakethJewelCircle2.png" part="tree"/>
-	<File sha1="9799e6eda8fdd0caa9787900611eeeee1205c7b4" name="TreeData/PassiveSkillScreenTemplarJewelCircle1.png" part="tree"/>
-	<File sha1="298351ab5fd1117d7b09f9a8be11f037f3dcc1b2" name="TreeData/PassiveSkillScreenTemplarJewelCircle2.png" part="tree"/>
-	<File sha1="2a07b25f44b3873bba55028098634a04ac128d96" name="TreeData/PassiveSkillScreenVaalJewelCircle1.png" part="tree"/>
-	<File sha1="974339171737e0a725a69f13298382e5a9e4a517" name="TreeData/PassiveSkillScreenVaalJewelCircle2.png" part="tree"/>
+	<File sha1="0a7b314fe311aedbd6c047ffdd84edd36a982d78" name="TreeData/AmberOil.png" part="tree"/>
+	<File sha1="d91f5138c7047ed32793896602e0838dcdfd41e6" name="TreeData/AscendancyButton.png" part="tree"/>
+	<File sha1="4f6ec474ccf75d84a1379c97b7ece42ccf4f6cca" name="TreeData/AscendancyButtonHighlight.png" part="tree"/>
+	<File sha1="263ce21139f710e2ea9bc044909df6f5195dfe6f" name="TreeData/AscendancyButtonPressed.png" part="tree"/>
+	<File sha1="c6361763034bcc3532f439fc266eb257323e6369" name="TreeData/AscendancyFrameLargeAllocated.png" part="tree"/>
+	<File sha1="288ffeded2e36687a2a1f8181238f1408a0048e4" name="TreeData/AscendancyFrameLargeCanAllocate.png" part="tree"/>
+	<File sha1="2560b194a15c342ec93ca8cfeba3a719229b48c8" name="TreeData/AscendancyFrameLargeNormal.png" part="tree"/>
+	<File sha1="6dcd147b904c470af0a66412e7184ad03eba462b" name="TreeData/AscendancyFrameSmallAllocated.png" part="tree"/>
+	<File sha1="57b3ece6c4323d7eaa473fd7c4e56a1d90065c92" name="TreeData/AscendancyFrameSmallCanAllocate.png" part="tree"/>
+	<File sha1="529c9beb7e64e837d2bad8f67173ecf969eef1a2" name="TreeData/AscendancyFrameSmallNormal.png" part="tree"/>
+	<File sha1="57a3112a89d1c26fa5e6442117e2935cd2ff5c14" name="TreeData/AscendancyMiddle.png" part="tree"/>
+	<File sha1="eec575d9afbc63dfe674e48847cd904b56217da4" name="TreeData/AzureOil.png" part="tree"/>
+	<File sha1="aacc031ed864a71bfc53ac01da0506126f440c9e" name="TreeData/Background1.png" part="tree"/>
+	<File sha1="8e80af4ef8aa74fb967947051ef9f65d6bf9554b" name="TreeData/BackgroundDex.png" part="tree"/>
+	<File sha1="f08aafc55f11fce446d8cec59558fffa84daacd9" name="TreeData/BackgroundDexInt.png" part="tree"/>
+	<File sha1="b9d6d3056d4a0567e250a6e2ccd5f22a8c3431c8" name="TreeData/BackgroundInt.png" part="tree"/>
+	<File sha1="2cd78a08b46adc561bf43ec06d7b3bbd5037f49e" name="TreeData/BackgroundStr.png" part="tree"/>
+	<File sha1="a29cedf4c9884b24378100e9b90c47be52239b79" name="TreeData/BackgroundStrDex.png" part="tree"/>
+	<File sha1="cbf939f6e8211e35286ff1071f83a7e75cea634c" name="TreeData/BackgroundStrInt.png" part="tree"/>
+	<File sha1="b0d08e2d086b50c3d926870b7df76d00c2bf2445" name="TreeData/BlackOil.png" part="tree"/>
+	<File sha1="623d10bc07da4ab626bb29aa862f59e01c21fe4a" name="TreeData/BlightedNotableFrameAllocated.png" part="tree"/>
+	<File sha1="f2e0d3af59c602d1e05d4243b578d910d516da4f" name="TreeData/BlightedNotableFrameCanAllocate.png" part="tree"/>
+	<File sha1="d509753cbfd2dad5faeef687e654ca6aff8d8b95" name="TreeData/BlightedNotableFrameUnallocated.png" part="tree"/>
+	<File sha1="4025b42216ff8b1f4cc9e0729a491cbb64bc5a07" name="TreeData/centerduelist.png" part="tree"/>
+	<File sha1="43a4e5e95a763aea7fe6151ad22750f0c5224cae" name="TreeData/centermarauder.png" part="tree"/>
+	<File sha1="f0b76416e9499928888db9795b3eedff95d39716" name="TreeData/centerranger.png" part="tree"/>
+	<File sha1="1af1214d40a4a5d7d079386d74436705d90c59b6" name="TreeData/centerscion.png" part="tree"/>
+	<File sha1="64b00026383afbec6af681bfcef94c6b5d283219" name="TreeData/centershadow.png" part="tree"/>
+	<File sha1="cbff9ca68f167c5629f4449e79eb083bd099606b" name="TreeData/centertemplar.png" part="tree"/>
+	<File sha1="d64759820ec78be10950e07914c13d789b663416" name="TreeData/centerwitch.png" part="tree"/>
+	<File sha1="eb265ae8d490ec48b14071d7e481b34e6b0976bf" name="TreeData/ClassesAscendant.png" part="tree"/>
+	<File sha1="841f86576220555b85a361535df2e55714192e7e" name="TreeData/ClassesAssassin.png" part="tree"/>
+	<File sha1="416c8ab8911a41c99bc56f8378be28f79186bc9b" name="TreeData/ClassesBerserker.png" part="tree"/>
+	<File sha1="45af0fe2f4ede118309fabb0daefd970b88823ff" name="TreeData/ClassesChampion.png" part="tree"/>
+	<File sha1="6c0b596cfc8a4f686ce71416d1f60e80fe932438" name="TreeData/ClassesChieftain.png" part="tree"/>
+	<File sha1="829e606cff62d817fe274638b61d28ecec064372" name="TreeData/ClassesDeadeye.png" part="tree"/>
+	<File sha1="f47057b696335fdba0d55f3956d0991a73330e1e" name="TreeData/ClassesElementalist.png" part="tree"/>
+	<File sha1="9e5be245a73c35d62f1b3e11f8a9527d9c5d2238" name="TreeData/ClassesGladiator.png" part="tree"/>
+	<File sha1="16647a95fc36dbf6239e6a4bc93a01979fd5b051" name="TreeData/ClassesGuardian.png" part="tree"/>
+	<File sha1="033ad4f1ccd9d0cf67430831f704688cade5a37f" name="TreeData/ClassesHierophant.png" part="tree"/>
+	<File sha1="277a48c314064ece75fe2c9172a98c649900f813" name="TreeData/ClassesInquisitor.png" part="tree"/>
+	<File sha1="ea4b29705af8583e6ec76f94dc09410468cd83a4" name="TreeData/ClassesJuggernaut.png" part="tree"/>
+	<File sha1="188099241e1e4096abf2337ce28ee03571acb105" name="TreeData/ClassesNecromancer.png" part="tree"/>
+	<File sha1="049ff9e32155e882542307c55b28a821033f8485" name="TreeData/ClassesOccultist.png" part="tree"/>
+	<File sha1="9d72a0ae22e1a5f29b8fec6f3d8193e592c2c1d1" name="TreeData/ClassesPathfinder.png" part="tree"/>
+	<File sha1="975857c06a014e1108c2b53b7f2e0dac960e0de6" name="TreeData/ClassesRaider.png" part="tree"/>
+	<File sha1="0557b37de19ecb8a4aacd87eaa434b67d30a4de5" name="TreeData/ClassesSaboteur.png" part="tree"/>
+	<File sha1="ef4af53834bf8e3098cbed869da65d46174ef112" name="TreeData/ClassesSlayer.png" part="tree"/>
+	<File sha1="578500a34b2a1e11c990360c67424af2232b7784" name="TreeData/ClassesTrickster.png" part="tree"/>
+	<File sha1="9319447ffae59ca9dbaf7b40ce130f193c746571" name="TreeData/ClearOil.png" part="tree"/>
+	<File sha1="f1423c9a6e0b99a92a35ec89dac94eaa642d599f" name="TreeData/CrimsonOil.png" part="tree"/>
+	<File sha1="c4d993cd1600d472a8e5dba339665d5ce88109c8" name="TreeData/EternalEmpireJewelCircle1.png" part="tree"/>
+	<File sha1="dbe6cb427943c5674d01f16f1709e00521c43305" name="TreeData/EternalEmpireJewelCircle2.png" part="tree"/>
+	<File sha1="8475b6862fbc2a8b11fff241ff3390b76aba5f8b" name="TreeData/GoldenOil.png" part="tree"/>
+	<File sha1="b661ed5493127f3aff23d843db373391a2d1d54e" name="TreeData/imgPSFadeCorner.png" part="tree"/>
+	<File sha1="f5d595c4e4cf3a13d07013171ba7706379c25637" name="TreeData/imgPSFadeSide.png" part="tree"/>
+	<File sha1="d04ae1fb3888c9b8fbe71a34d37d31659708f5b7" name="TreeData/JewelCircle1.png" part="tree"/>
+	<File sha1="f206f546ba2c69328ae11c6e551b4e4dd81ca213" name="TreeData/JewelFrameAllocated.png" part="tree"/>
+	<File sha1="2c46a1b8cd4dd23e02218c3ab9786b7e093f2373" name="TreeData/JewelFrameCanAllocate.png" part="tree"/>
+	<File sha1="efeb5251d51450bf4eddc76162e790f7bf21ff66" name="TreeData/JewelFrameUnallocated.png" part="tree"/>
+	<File sha1="3ab3e1b2fb86b11f99a37b97bc27894e05b3faf4" name="TreeData/JewelSocketActiveAbyss.png" part="tree"/>
+	<File sha1="557399cb14f4bbf410975c8ea35922d84dc08001" name="TreeData/JewelSocketActiveBlue.png" part="tree"/>
+	<File sha1="9d659e30da922282a45886361941202eaa8b5515" name="TreeData/JewelSocketActiveGreen.png" part="tree"/>
+	<File sha1="a802b90b5db5432e08ff29c84830bb7e0dfa5a24" name="TreeData/JewelSocketActivePrismatic.png" part="tree"/>
+	<File sha1="66e3b4815fa6992c14dbbc0ab46133348044ed02" name="TreeData/JewelSocketActiveRed.png" part="tree"/>
+	<File sha1="5dada162b9b31d5a167d3965512fe8cb3634c19f" name="TreeData/KaruiJewelCircle1.png" part="tree"/>
+	<File sha1="98736ae57974a47acd889bb8e6242f12bfecc405" name="TreeData/KaruiJewelCircle2.png" part="tree"/>
+	<File sha1="b5eb86bf7a590d59c9f424f0b55a0506b1a8c3b1" name="TreeData/KeystoneFrameAllocated.png" part="tree"/>
+	<File sha1="c32227100a924a1e47694da19a682c6db0584707" name="TreeData/KeystoneFrameCanAllocate.png" part="tree"/>
+	<File sha1="ad4b36244e7f192efa24d612445eaa335e0f2b5a" name="TreeData/KeystoneFrameUnallocated.png" part="tree"/>
+	<File sha1="e8e30a9f335c3b8b2d8a8b2273875d7472d46e84" name="TreeData/LineConnectorActive.png" part="tree"/>
+	<File sha1="5f9a95975cb77e740bf3f6f80729eb3983ffe598" name="TreeData/LineConnectorIntermediate.png" part="tree"/>
+	<File sha1="630ee2759cc51737b14b9211b81b18885fcbd1e5" name="TreeData/LineConnectorNormal.png" part="tree"/>
+	<File sha1="2e6dd08eed2b3f68b14063541f08a0ff95750c46" name="TreeData/MarakethJewelCircle1.png" part="tree"/>
+	<File sha1="4f717552b5899663c150821dffceac8d47a1a784" name="TreeData/MarakethJewelCircle2.png" part="tree"/>
+	<File sha1="f2070524b6197380ecf67cf947045c76f44ea7c5" name="TreeData/NotableFrameAllocated.png" part="tree"/>
+	<File sha1="181205a3186fa90eccc05c691b8694f843917c7a" name="TreeData/NotableFrameCanAllocate.png" part="tree"/>
+	<File sha1="db76120dad3df3bd42bb03207311bcba8c45b2a2" name="TreeData/NotableFrameUnallocated.png" part="tree"/>
+	<File sha1="14e964dfcf460ca3b5a26764cfcf8539f60093c2" name="TreeData/OpalescentOil.png" part="tree"/>
+	<File sha1="40b4da913f2fb1febc1501bb5d6bb651faf3060d" name="TreeData/Orbit1Active.png" part="tree"/>
+	<File sha1="ad2d4b0a525d7605af0eaff03d863f4e7d626143" name="TreeData/Orbit1Intermediate.png" part="tree"/>
+	<File sha1="b628684f05b3764cd49946c2b11ce0d36173804e" name="TreeData/Orbit1Normal.png" part="tree"/>
+	<File sha1="edf564a5ca66bdf9ab36661478f8e0012d3b2300" name="TreeData/Orbit2Active.png" part="tree"/>
+	<File sha1="e7072e3d39b81e5202f67730d1b16047bbd4b6c5" name="TreeData/Orbit2Intermediate.png" part="tree"/>
+	<File sha1="a9ebb26943c1ba20a2f53b8d97a7ff11c8e206c5" name="TreeData/Orbit2Normal.png" part="tree"/>
+	<File sha1="a1d01f69378366e94ffe590d71d2fb8e9fd5547f" name="TreeData/Orbit3Active.png" part="tree"/>
+	<File sha1="4b29d9001e6264cb28279b5e9c2a9ce7c81bd9af" name="TreeData/Orbit3Intermediate.png" part="tree"/>
+	<File sha1="2cf5e1ad2f9b64fbc1a25ff9370b91272472f205" name="TreeData/Orbit3Normal.png" part="tree"/>
+	<File sha1="c000426ec8038266fac44482c87ad747655203fb" name="TreeData/Orbit4Active.png" part="tree"/>
+	<File sha1="35ffd77acee194632ca9369a454f8972a2db5602" name="TreeData/Orbit4Intermediate.png" part="tree"/>
+	<File sha1="289d797d4bc7435d2939026f03c7350d228f5b84" name="TreeData/Orbit4Normal.png" part="tree"/>
+	<File sha1="c38b50ea0b7dcf7233458335981313089e51c331" name="TreeData/PassiveSkillScreenAscendancyButton.png" part="tree"/>
+	<File sha1="1b4ad15cb15fd137fe203af05d14d40cbb21eae2" name="TreeData/PassiveSkillScreenAscendancyButtonHighlight.png" part="tree"/>
+	<File sha1="bd7f34251fee34fcf3bb0ec82f87cb96e7e38298" name="TreeData/PassiveSkillScreenAscendancyButtonPressed.png" part="tree"/>
+	<File sha1="832eff2f24e616a57a2d1925aed3dbab51b8e29e" name="TreeData/PassiveSkillScreenAscendancyFrameLargeAllocated.png" part="tree"/>
+	<File sha1="b68eaba9d02b1a47139cede2dbe797ba7e164447" name="TreeData/PassiveSkillScreenAscendancyFrameLargeCanAllocate.png" part="tree"/>
+	<File sha1="6449753a3317b45003efdfb3ca66ecf3c1d4d635" name="TreeData/PassiveSkillScreenAscendancyFrameLargeNormal.png" part="tree"/>
+	<File sha1="8f57065fcdd57168cd5a0bf9267d0c5ee8d585cb" name="TreeData/PassiveSkillScreenAscendancyFrameSmallAllocated.png" part="tree"/>
+	<File sha1="57b3ece6c4323d7eaa473fd7c4e56a1d90065c92" name="TreeData/PassiveSkillScreenAscendancyFrameSmallCanAllocate.png" part="tree"/>
+	<File sha1="529c9beb7e64e837d2bad8f67173ecf969eef1a2" name="TreeData/PassiveSkillScreenAscendancyFrameSmallNormal.png" part="tree"/>
+	<File sha1="fa33df0224c4f48c90f170cbe3c1382a5ec07642" name="TreeData/PassiveSkillScreenAscendancyMiddle.png" part="tree"/>
+	<File sha1="fc5df77be3146e47036b9b8cc72a9a1d41379822" name="TreeData/PassiveSkillScreenEternalEmpireJewelCircle1.png" part="tree"/>
+	<File sha1="4f6cd5c3b01dc61c4970ca0a0e5d13b35f5ce477" name="TreeData/PassiveSkillScreenEternalEmpireJewelCircle2.png" part="tree"/>
+	<File sha1="88e4cde808f51dffbd8a2c814f96520758c94da7" name="TreeData/PassiveSkillScreenJewelCircle1.png" part="tree"/>
+	<File sha1="3d71d254d4df1948cf597bbd2735b7460bccbcb1" name="TreeData/PassiveSkillScreenKaruiJewelCircle1.png" part="tree"/>
+	<File sha1="54d721897c707452464c4096d96fc052edb2e937" name="TreeData/PassiveSkillScreenKaruiJewelCircle2.png" part="tree"/>
+	<File sha1="a8cd8f9eb38cd1907dda1dc118c21e5ce29fa648" name="TreeData/PassiveSkillScreenMarakethJewelCircle1.png" part="tree"/>
+	<File sha1="4f717552b5899663c150821dffceac8d47a1a784" name="TreeData/PassiveSkillScreenMarakethJewelCircle2.png" part="tree"/>
+	<File sha1="7961b9198331aa57b0a4fdf11da9e4cc57c76ac8" name="TreeData/PassiveSkillScreenTemplarJewelCircle1.png" part="tree"/>
+	<File sha1="90cd7cec8bf7088e461afa0ec7d430580394447e" name="TreeData/PassiveSkillScreenTemplarJewelCircle2.png" part="tree"/>
+	<File sha1="d3dfa5fdac745108de21217d3482ee84d0594810" name="TreeData/PassiveSkillScreenVaalJewelCircle1.png" part="tree"/>
+	<File sha1="f58bf72311b20c3f4a347241a05ff51cddb63762" name="TreeData/PassiveSkillScreenVaalJewelCircle2.png" part="tree"/>
 	<File sha1="5b7773d80cbebaf8e0a459524da1543763e632e1" name="TreeData/PSGroupBackground1.png" part="tree"/>
 	<File sha1="41e363241cb2f923f78b101ea883e50148c594d3" name="TreeData/PSGroupBackground2.png" part="tree"/>
 	<File sha1="148fcef35603908cecaca2f3773020d05efcff45" name="TreeData/PSGroupBackground3.png" part="tree"/>
 	<File sha1="a690fb4c3f9910939e398daee5dd4b7427a8e5a1" name="TreeData/PSLineDeco.png" part="tree"/>
 	<File sha1="a23866124ce4353cfcdc2903b584a4b527f375c1" name="TreeData/PSLineDecoHighlighted.png" part="tree"/>
 	<File sha1="6e10d16cb9a4070c84f935d97064a2c05381c63b" name="TreeData/PSPointsFrame.png" part="tree"/>
-	<File sha1="82fbfcd4d9c7b61464614f69aeeb6912712b7dde" name="TreeData/PSSkillFrame.png" part="tree"/>
-	<File sha1="e820f2fd0187c7fb5e255b89a53115fd25847831" name="TreeData/PSSkillFrameActive.png" part="tree"/>
-	<File sha1="876508200ac2043ec9af17cc0d34382b990480e9" name="TreeData/PSSkillFrameHighlighted.png" part="tree"/>
+	<File sha1="b4ecd7fb87eed51d3313204dffbb9257e92d6c56" name="TreeData/PSSkillFrame.png" part="tree"/>
+	<File sha1="d7f5b45193892bd58650936ee533b749e299f653" name="TreeData/PSSkillFrameActive.png" part="tree"/>
+	<File sha1="6757b5f234ee12e23544d0ecd4f7e2c72932240c" name="TreeData/PSSkillFrameHighlighted.png" part="tree"/>
 	<File sha1="3f9173651fd88f8c9ed0ddf2c939a15e4767b973" name="TreeData/PSStartNodeBackgroundInactive.png" part="tree"/>
+	<File sha1="2fd43ac02c16e88b39579986dd12a2f9fbfcba17" name="TreeData/SepiaOil.png" part="tree"/>
+	<File sha1="9120b5adf5a4c5e4162798b50e1c4c70735e1288" name="TreeData/SilverOil.png" part="tree"/>
+	<File sha1="6c9c44822b4090a9e828028f54a0c6d87aa1c5ff" name="TreeData/TealOil.png" part="tree"/>
+	<File sha1="958998e15f28f3600bc085ccd47d17e2b9ae2fff" name="TreeData/TemplarJewelCircle1.png" part="tree"/>
+	<File sha1="edecb3cd2cd72ccb7c32d783d71bdea4a8201952" name="TreeData/TemplarJewelCircle2.png" part="tree"/>
+	<File sha1="8f759ccfc3c69ca905d69a2aac5140c20886a6ec" name="TreeData/VaalJewelCircle1.png" part="tree"/>
+	<File sha1="91546728f833075cfcb81c251d1dd549e2b87978" name="TreeData/VaalJewelCircle2.png" part="tree"/>
+	<File sha1="429b8e4db919f49c1e1a197985fd79f1aeda945f" name="TreeData/VerdantOil.png" part="tree"/>
+	<File sha1="940aeef1396263a4bc90fe4135b5baf747cbdb6b" name="TreeData/VioletOil.png" part="tree"/>
 	<File sha1="ee02b7e6e521896c498d8b222b1efab04538eaa7" name="TreeData/2_6/tree.lua" part="tree-2_6"/>
 	<File sha1="abf59db207e4256edd4d67a73e8ae2821418ca84" name="TreeData/2_6/skill_sprite-3-32f639bbfc42783ca7ec218a787dd918.jpg" part="tree-2_6"/>
 	<File sha1="8f8a0c2f6792a505dbc7b66570f28d409d8ad4af" name="TreeData/2_6/skill_sprite-active-3-3e73c4c4534433ecfc340c7287093bd5.png" part="tree-2_6"/>
@@ -372,4 +406,8 @@
 	<File sha1="ddf012e0184c29bc1aee994badd8ede83aaebb73" name="TreeData/3_9/groups-3.png" part="tree-3_9"/>
 	<File sha1="119218595a02d38e11ac331d4920d23f8acc86de" name="TreeData/3_9/skills-3.jpg" part="tree-3_9"/>
 	<File sha1="e73624e16e81cb5393d07685a766dc3afc8f9e39" name="TreeData/3_9/skills-disabled-3.jpg" part="tree-3_9"/>
+	<File sha1="577e86f4881b0d83b0152f39d48ceaa2771e316a" name="TreeData/3_10/tree.lua" part="tree-3_10"/>
+	<File sha1="d078db98dc72ab428a2c1822a44d25ab617fe64b" name="TreeData/3_10/groups-3.png" part="tree-3_10"/>
+	<File sha1="a697c4d2de582e1a369632fc2500e453ef06e7a0" name="TreeData/3_10/skills-3.jpg" part="tree-3_10"/>
+	<File sha1="e5e228d70c92aa9f6cfe01e91a425d09633abcdc" name="TreeData/3_10/skills-disabled-3.jpg" part="tree-3_10"/>
 </PoBVersion>
