@@ -336,9 +336,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		node.mods = { }
 		node.modKey = ""
 		local i = 1
-		if node.passivePointsGranted > 0 then
-			t_insert(node.sd, "Grants "..node.passivePointsGranted.." Passive Skill Point"..(node.passivePointsGranted > 1 and "s" or ""))
-		end
 		while node.sd[i] do
 			if node.sd[i]:match("\n") then
 				local line = node.sd[i]
