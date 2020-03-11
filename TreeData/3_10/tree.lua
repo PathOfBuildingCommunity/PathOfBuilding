@@ -55771,6 +55771,12 @@ return {
             [0.2972]= "/gen/image/WzIyLDE0LHsidCI6NTEsInNwIjowLjI5NzJ9XQ/2b54940844/JewelSocketActivePrismatic.png",
             [0.3835]= "/gen/image/WzIyLDE0LHsidCI6NTEsInNwIjowLjM4MzV9XQ/ccb99b0afa/JewelSocketActivePrismatic.png"
         },
+		 ["JewelSocketActiveTimeless"]= {
+            [0.1246]= "/gen/image/WzIyLDE0LHsidCI6NTEsInNwIjowLjEyNDZ9XQ/4e4e882f35/JewelSocketActiveTimeless.png",
+            [0.2109]= "/gen/image/WzIyLDE0LHsidCI6NTEsInNwIjowLjIxMDl9XQ/9929f0bc81/JewelSocketActiveTimeless.png",
+            [0.2972]= "/gen/image/WzIyLDE0LHsidCI6NTEsInNwIjowLjI5NzJ9XQ/2b54940844/JewelSocketActiveTimeless.png",
+            [0.3835]= "/gen/image/WzIyLDE0LHsidCI6NTEsInNwIjowLjM4MzV9XQ/ccb99b0afa/JewelSocketActiveTimeless.png"
+        },
         ["JewelSocketActiveAbyss"]= {
             [0.1246]= "/gen/image/WzIyLDE0LHsidCI6NTAsInNwIjowLjEyNDZ9XQ/8019d1a08c/JewelSocketActiveAbyss.png",
             [0.2109]= "/gen/image/WzIyLDE0LHsidCI6NTAsInNwIjowLjIxMDl9XQ/0b5da2b55e/JewelSocketActiveAbyss.png",
