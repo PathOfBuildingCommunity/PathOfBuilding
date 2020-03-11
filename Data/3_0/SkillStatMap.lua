@@ -714,6 +714,10 @@ return {
 	mod("EnemyStunThreshold", "INC", nil),
 	mult = -1,
 },
+["impale_phys_reduction_%_penalty"] = {
+	mod("EnemyImpalePhysicalDamageReduction", "BASE", nil),
+	mult = -1,
+},
 ["base_stun_duration_+%"] = {
 	mod("EnemyStunDuration", "INC", nil),
 },
