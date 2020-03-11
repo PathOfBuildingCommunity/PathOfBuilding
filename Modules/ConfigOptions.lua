@@ -99,7 +99,10 @@ return {
 	end },
 	{ label = "Herald of Agony:", ifSkill = "Herald of Agony" },
 	{ var = "heraldOfAgonyVirulenceStack", type = "count", label = "# of Virulence Stacks:", ifSkill = "Herald of Agony", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:VirulenceStack", "BASE", m_min(val, 40), "Config")
+		-- TODO: Figure out a way to keep the original 40 cap, and have another stat to add to that max cap
+		--       For now, let's at least be reasonable and cap it to 80. That would mean 8 jewels (or other sources
+		--       of increases, which is a bit unlikely)
+		modList:NewMod("Multiplier:VirulenceStack", "BASE", m_min(val, 80), "Config")
 	end },
 	{ label = "Ice Nova:", ifSkill = "Ice Nova" },
 	{ var = "iceNovaCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Ice Nova", apply = function(val, modList, enemyModList)

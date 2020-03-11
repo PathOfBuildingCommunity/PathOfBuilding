@@ -1577,6 +1577,16 @@ local specialModList = {
 	["minions convert (%d+)%% of physical damage to cold damage per green socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToCold", "BASE", num) }, { type = "Multiplier", var = "GreenSocketIn{SlotName}" }) } end,
 	["minions convert (%d+)%% of physical damage to lightning damage per blue socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToLightning", "BASE", num) }, { type = "Multiplier", var = "BlueSocketIn{SlotName}" }) } end,
 	["minions convert (%d+)%% of physical damage to chaos damage per white socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToChaos", "BASE", num) }, { type = "Multiplier", var = "WhiteSocketIn{SlotName}" }) } end,
+	["minions deal (%d+)%% increased damage while you are affected by a herald"] = function(num) return {
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num, { type = "ActorCondition", actor = "parent", varList = { "AffectedByHeraldofAgony", "AffectedByHeraldofAsh", "AffectedByHeraldofIce", "AffectedByHeraldofPurity", "AffectedByHeraldofThunder" } })
+	})} end,
+	["+(%d+) to maximum virulence"] = function(num) return {
+		-- TODO: there is no way for us to increase the cap on virulence stacks yet. This is effictively a noop for now.
+	} end,
+	["+(%d+) to maximum number of sentinels of purity"] = function(num) return {
+		-- We do not display the maximum amount of sentinels of purity, nor is it used in DPS
+		-- calculations (since it is per minion)
+	} end,
 	-- Projectiles
 	["skills chain %+(%d) times"] = function(num) return { mod("ChainCountMax", "BASE", num) } end,
 	["skills chain an additional time while at maximum frenzy charges"] = { mod("ChainCountMax", "BASE", 1, { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }) },
