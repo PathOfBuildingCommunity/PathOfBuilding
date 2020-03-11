@@ -281,6 +281,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	local isAttack = skillFlags.attack
+	local isSpell = skillFlags.spell
 
 	runSkillFunc("preSkillTypeFunc")
 
@@ -1112,6 +1113,12 @@ function calcs.offence(env, actor, activeSkill)
 						local resist = 0
 						local pen = 0
 						local takenInc = enemyDB:Sum("INC", cfg, "DamageTaken", damageType.."DamageTaken")
+						if (isAttack and enemyDB:Flag(nil, "Condition:Intimidated")) then
+							takenInc = takenInc + 10
+						end
+						if (isSpell and enemyDB:Flag(nil, "Condition:Unnerved")) then
+							takenInc = takenInc + 10
+						end
 						local takenMore = enemyDB:More(cfg, "DamageTaken", damageType.."DamageTaken")
 						if damageType == "Physical" then
 							resist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction"))

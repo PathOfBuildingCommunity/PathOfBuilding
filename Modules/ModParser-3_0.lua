@@ -1822,6 +1822,8 @@ local specialModList = {
 	["winter orb has %+(%d+) maximum stages"] = function(num) return { mod("Multiplier:WinterOrbMaxStage", "BASE", num) } end,
 	["winter orb has (%d+)%% increased area of effect per stage"] = function(num) return { mod("AreaOfEffect", "INC", num, { type = "SkillName", skillName = "Winter Orb"}, { type = "Multiplier", var = "WinterOrbStage" }) } end,
 	["wave of conviction's exposure applies (%-%d+)%% elemental resistance"] = function(num) return { mod("ExtraSkillStat", "LIST", { key = "purge_expose_resist_%_matching_highest_element_damage", value = num }, { type = "SkillName", skillName = "Wave of Conviction" }) } end,
+	["enemies you curse are intimidated"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "ActorCondition", actor = "enemy", var = "Cursed"}) },
+	["enemies you curse are unnerved"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Unnerved") }, { type = "ActorCondition", actor = "enemy", var = "Cursed"}) },
 	-- Display-only modifiers
 	["prefixes:"] = { },
 	["suffixes:"] = { },
