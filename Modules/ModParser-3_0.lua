@@ -1830,7 +1830,7 @@ local specialModList = {
 	["manifeste?d? dancing dervish disables both weapon slots"] = { },
 	["manifeste?d? dancing dervish dies when rampage ends"] = { },
 	["you can have two different banners at the same time"] = { },
-	["nearby enemies have fire exposure"] = { mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", -10) }) },
+	["nearby enemies have fire exposure"] = { mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", -10, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure" })}) },
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques
