@@ -193,7 +193,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		-- Cursor is over the tree, check if it is over a node
 		local curTreeX, curTreeY = screenToTree(cursorX, cursorY)
 		for nodeId, node in pairs(spec.nodes) do
-			if node.rsq and node.group and not node.isProxy and not node.group.isProxy then
+			if node.rsq and node.group then
 				-- Node has a defined size (i.e. has artwork)
 				local vX = curTreeX - node.x
 				local vY = curTreeY - node.y
@@ -259,11 +259,17 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			-- User left-clicked on a node
 			if hoverNode.alloc then
 				-- Node is allocated, so deallocate it
+				if hoverNode.isProxy then
+					hoverNode.render = false
+				end
 				spec:DeallocNode(hoverNode)
 				spec:AddUndoState()
 				build.buildFlag = true
 			elseif hoverNode.path then
 				-- Node is unallocated and can be allocated, so allocate it
+				if hoverNode.isProxy then
+					hoverNode.render = true
+				end
 				spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
 				spec:AddUndoState()
 				build.buildFlag = true
@@ -331,6 +337,24 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				self:DrawAsset(tree.assets.PSGroupBackground2, scrX, scrY, scale)
 			elseif group.oo[1] then
 				self:DrawAsset(tree.assets.PSGroupBackground1, scrX, scrY, scale)
+			end
+		else
+			local atLeastOneAllocated = false
+			for _, g_node in pairs(group.nodes) do
+				if g_node.alloc then
+					atLeastOneAllocated = true
+					break
+				end
+			end
+			if atLeastOneAllocated then
+				local scrX, scrY = treeToScreen(group.x, group.y)
+				if group.oo[3] then
+					self:DrawAsset(tree.assets.PSGroupBackground3, scrX, scrY, scale, true)
+				elseif group.oo[2] then
+					self:DrawAsset(tree.assets.PSGroupBackground2, scrX, scrY, scale)
+				elseif group.oo[1] then
+					self:DrawAsset(tree.assets.PSGroupBackground1, scrX, scrY, scale)
+				end
 			end
 		end
 	end
@@ -550,8 +574,14 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	-- Draw the nodes
 	for nodeId, node in pairs(spec.nodes) do
-		if node.group and not node.isProxy and not node.group.isProxy then
-			renderNode(nodeId, node)
+		if node.group then 
+			if not node.isProxy and not node.group.isProxy then
+				renderNode(nodeId, node)
+			else
+				if node.render then
+					renderNode(nodeId, node)
+				end
+			end
 		end
 	end
 
@@ -711,6 +741,15 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 		end
 		if attribTotals["Int"] >= 40 then
 			tooltip:AddLine(16, "^7Can support "..colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels")
+		end
+		if node.isProxy or node.dn:find("Outer") then
+			local strSize = colorCodes.STRENGTH.."Large, Medium or Small"
+			if node.dn:find("Medium") then
+				strSize = colorCodes.DEXTERITY.."Medium or Small"
+			elseif node.dn:find("Small") then
+				strSize = colorCodes.INTELLIGENCE.."Small"
+			end
+			tooltip:AddLine(16, "^7Can support ".. strSize .."^7 cluster jewels")
 		end
 	end
 end
