@@ -1017,7 +1017,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- Calculate Double Damage + Ruthless Blow chance/multipliers
 		output.DoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "DoubleDamageChance") + (env.mode_effective and enemyDB:Sum("BASE", cfg, "SelfDoubleDamageChance") or 0), 100)
 		output.CritDoubleDamageChance = m_min(skillModList:Sum("BASE", cfg, "CritDoubleDamageChance"), 100)
-		output.DoubleDamageEffect = 1 + (output.DoubleDamageChance + (output.CritDoubleDamageChance*output.CritChance/100)) / 100
+		output.DoubleDamageEffect = 1 + m_min(output.DoubleDamageChance + (output.CritDoubleDamageChance*output.CritChance/100), 100) / 100
 		output.RuthlessBlowMaxCount = skillModList:Sum("BASE", cfg, "RuthlessBlowMaxCount")
 		if output.RuthlessBlowMaxCount > 0 then
 			output.RuthlessBlowChance = round(100 / output.RuthlessBlowMaxCount)
