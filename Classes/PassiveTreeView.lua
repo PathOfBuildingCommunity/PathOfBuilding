@@ -347,7 +347,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	-- Draw the group backgrounds
 	for _, group in pairs(tree.groups) do
-		if not group.isProxy then
+		if group.render or not group.isProxy then
 			local scrX, scrY = treeToScreen(group.x, group.y)
 			if group.ascendancyName then
 				if group.isAscendancyStart then
@@ -363,25 +363,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				self:DrawAsset(tree.assets.PSGroupBackground2, scrX, scrY, scale)
 			elseif group.oo[1] then
 				self:DrawAsset(tree.assets.PSGroupBackground1, scrX, scrY, scale)
-			end
-		else
-			local atLeastOneAllocated = false
-			for _, nodeId in pairs(group.nodes) do
-				local node = spec.nodes[tonumber(nodeId)]
-				if node and node.render then
-					atLeastOneAllocated = true
-					break
-				end
-			end
-			if atLeastOneAllocated then
-				local scrX, scrY = treeToScreen(group.x, group.y)
-				if group.oo[3] then
-					self:DrawAsset(tree.assets.PSGroupBackground3, scrX, scrY, scale, true)
-				elseif group.oo[2] then
-					self:DrawAsset(tree.assets.PSGroupBackground2, scrX, scrY, scale)
-				elseif group.oo[1] then
-					self:DrawAsset(tree.assets.PSGroupBackground1, scrX, scrY, scale)
-				end
 			end
 		end
 	end
@@ -477,11 +458,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					end
 					if node.expansionJewel and not node.handled then
 						local nodeList = spec.nodes
-
 						self:ProcessExpansion(nodeList, tree, node, jewel.modLines)
-
-						--local posProxy = nodeList[tonumber(node.expansionJewel.proxy)]
-						--self:ConnectGroup(posProxy, node, tree, nodeList)
 						spec:AddUndoState()
 						build.buildFlag = true
 					end
@@ -629,7 +606,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if node then
 			local scrX, scrY = treeToScreen(node.x, node.y)
 			local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
-			if node == hoverNode then
+			if (node == hoverNode) and ((hoverNode.isProxy and hoverNode.render) or not hoverNode.isProxy ) then
 				local isThreadOfHope = jewel and jewel.jewelRadiusLabel == "Variable"
 				if isThreadOfHope then
 					for _, radData in ipairs(build.data.jewelRadius) do
@@ -988,6 +965,10 @@ end
 function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansionNodes, keystoneNodes, notableNodes, normalNodes)
 	if not anchorNode.generatedNodes then anchorNode.generatedNodes = { } end
 
+	local positionalProxy = nodeList[tonumber(anchorNode.expansionJewel.proxy)]
+	local positionalGroupProxy = positionalProxy.group
+	positionalGroupProxy.render = true
+
 	local genKeystoneNodes = { }
 	for i = 1, #keystoneNodes do
 		local newNode = self:GenerateNode(nodeList, "Keystone")
@@ -1004,14 +985,96 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 		t_insert(anchorNode.generatedNodes, newNode)
 	end
 
-	local genNormalNodes = { }
-	for i = 1, #normalNodes do
-		local newNode = self:GenerateNode(nodeList, "Normal", 0, 0, 0, "Generated "..tostring(i), normalNodes[i])
-		t_insert(genNormalNodes, newNode)
+	-- FIXME
+	local node = positionalProxy
+	node.dn = "Generated 1"
+	node.sd = normalNodes[1]
+	
+	-- Parse node modifier lines
+	node.mods = { }
+	node.modKey = ""
+	local i = 1
+	while node.sd[i] do
+		if node.sd[i]:match("\n") then
+			local line = node.sd[i]
+			local il = i
+			t_remove(node.sd, i)
+			for line in line:gmatch("[^\n]+") do
+				t_insert(node.sd, il, line)
+				il = il + 1
+			end
+		end
+		local line = node.sd[i]
+		local list, extra = modLib.parseMod[tree.targetVersion](line)
+		if not list or extra then
+			-- Try to combine it with one or more of the lines that follow this one
+			local endI = i + 1
+			while node.sd[endI] do
+				local comb = line
+				for ci = i + 1, endI do
+					comb = comb .. " " .. node.sd[ci]
+				end
+				list, extra = modLib.parseMod[tree.targetVersion](comb, true)
+				if list and not extra then
+					-- Success, add dummy mod lists to the other lines that were combined with this one
+					for ci = i + 1, endI do
+						node.mods[ci] = { list = { } }
+					end
+					break
+				end
+				endI = endI + 1
+			end
+		end
+		if not list then
+			-- Parser had no idea how to read this modifier
+			node.unknown = true
+		elseif extra then
+			-- Parser recognised this as a modifier but couldn't understand all of it
+			node.extra = true
+		else
+			for _, mod in ipairs(list) do
+				node.modKey = node.modKey.."["..modLib.formatMod(mod).."]"
+			end
+		end
+		node.mods[i] = { list = list, extra = extra }
+		i = i + 1
+		while node.mods[i] do
+			-- Skip any lines with dummy lists added by the line combining code
+			i = i + 1
+		end
 	end
 
-	local positionalProxy = nodeList[tonumber(anchorNode.expansionJewel.proxy)]
-	local positionalGroupProxy = positionalProxy.group
+	-- Build unified list of modifiers from all recognised modifier lines
+	node.modList = new("ModList")
+	for _, mod in pairs(node.mods) do
+		if mod.list and not mod.extra then
+			for i, mod in ipairs(mod.list) do
+				mod.source = "Tree:"..node.id
+				if type(mod.value) == "table" and mod.value.mod then
+					mod.value.mod.source = mod.source
+				end
+				node.modList:AddMod(mod)
+			end
+		end
+	end
+
+	positionalProxy.render = true
+	self:ConnectGroup(positionalProxy, anchorNode, tree, nodeList)
+
+
+	local genNormalNodes = { }
+	--[[
+	local lastNode = node
+	for i = 2, #normalNodes do
+		local newNode = copyTable(positionalProxy, true)
+		newNode.name = "Generated "..tostring(i)
+
+		--local newNode = self:GenerateNode(nodeList, "Normal", 0, 0, 0, "Generated "..tostring(i), normalNodes[i])
+		t_insert(genNormalNodes, newNode)
+	end
+	--]]
+
+	--[[
 	if positionalGroupProxy then
 		positionalGroupProxy.orbits = { 3 } -- FIX LATER
 		-- fix up our nodes a bit
@@ -1046,6 +1109,12 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 		end
 
 		positionalGroupProxy.nodes = genNormalNodes -- FIX LATER
+		-- Migrate groups to old format
+		positionalGroupProxy.n = positionalGroupProxy.nodes
+		positionalGroupProxy.oo = { }
+		for _, orbit in ipairs(positionalGroupProxy.orbits) do
+			positionalGroupProxy.oo[orbit] = true
+		end
 
 		-- generate the group nodes
 		local startNode = nil
@@ -1057,6 +1126,7 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 
 		self:ConnectGroup(positionalProxy, anchorNode, tree, nodeList)
 	end
+	--]]
 end
 
 function PassiveTreeViewClass:GenerateNode(nodeList, nodeType, groupId, orbit, orbitIndex, name, stats)
