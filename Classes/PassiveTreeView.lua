@@ -955,30 +955,69 @@ function PassiveTreeViewClass:HideNode(node)
 	node.render = false
 end
 
-function PassiveTreeViewClass:GenerateGroup(nodeList, anchorNode, numExpansionNodes, numLargeNodes, numMediumNodes, numSmallNodes)
+function PassiveTreeViewClass:GenerateGroup(nodeList, anchorNode, numExpansionNodes, numKeystoneNodes, numNotableNodes, numNormalNodes)
+	if not anchorNode.generatedNodes then anchorNode.generatedNodes = { } end
 
-	-- for each node in group, create item
-	local newNode = self:GenerateNode()
+	local keystoneNodes = { }
+	for i = 1, numKeystoneNodes do
+		local newNode = self:GenerateNode(nodeList, "Keystone")
+		t_insert(keystoneNodes, newNode)
+		-- add the newly generated node to the achnorNode's list so we can delete it when necessary
+		t_insert(anchorNode.generatedNodes, newNode)
+	end
 
-	-- add the newly generated node to the achnorNode's list so we can delete it when necessary
-	t_insert(anchorNode.generatedNodes, newNode)
+	local notableNodes = { }
+	for i = 1, numNotableNodes do
+		local newNode = self:GenerateNode(nodeList, "Notable")
+		t_insert(notableNodes, newNode)
+		-- add the newly generated node to the achnorNode's list so we can delete it when necessary
+		t_insert(anchorNode.generatedNodes, newNode)
+	end
 
+	local normalNodes = { }
+	for i = 1, numNormalNodes do
+		local newNode = self:GenerateNode(nodeList, "Normal")
+		t_insert(normalNodes, newNode)
+		-- add the newly generated node to the achnorNode's list so we can delete it when necessary
+		t_insert(anchorNode.generatedNodes, newNode)
+	end
+
+	--[[ TODO - IMPLEMENT EVENTUALLY
 	-- add the newly generated node to the tree
 	t_insert(nodeList, newNode)
+	--]]
 end
 
 function PassiveTreeViewClass:GenerateNode(nodeList, nodeType, groupId, orbit, orbitIndex, name, stats)
 	local node = {
 		["skill"] = generateUniqueId(),
 		["isProxy"] = true,
-		["isGenerated"] = true,
+		["isGenerated"] = true, -- our own identifier for dynamically generated nodes
 		["stats"]= stats,
 		["group"]= groupId,
 		["orbit"]= orbit,
 		["orbitIndex"]= orbitIndex,
 		["name"] = name,
-		["type"] = nodeType or "Normal"
+		["type"] = nodeType or "Normal",
+		["icon"] = "Art/2DArt/SkillIcons/passives/MasteryBlank.png",
 	}
+
+	node["out"] = { } -- figure out
+	node["in"] = { } -- figure out
+
+	if nodeType == "Notable" then
+		node["isNotable"] = true
+	elseif nodeType == "Keystone" then
+		node["isKeystone"]= true
+	elseif nodeType == "Socket" then
+		node["isJewelSocket"] = true
+		node["expansionJewel"] = {
+			size = 0, -- fix
+			index = 0, -- fix
+			proxy = "", -- fix
+			parent = "", -- fix
+		}
+	end
 
 	node.__index = node
 	node.linkedId = { }
