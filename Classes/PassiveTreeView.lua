@@ -474,8 +474,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						overlay = "JewelSocketActiveAbyss"
 					end
 					if node.expansionJewel and not node.handled then
-						local posProxy = spec.nodes[tonumber(node.expansionJewel.proxy)]
-						self:UnhideGroup(posProxy, node, tree, spec.nodes)
+						local nodeList = spec.nodes
+
+						self:ProcessExpansion(nodeList, node, jewel.modLines)
+
+						local posProxy = nodeList[tonumber(node.expansionJewel.proxy)]
+						self:UnhideGroup(posProxy, node, tree, nodeList)
 						spec:AddUndoState()
 						build.buildFlag = true
 					end
@@ -957,29 +961,56 @@ function PassiveTreeViewClass:HideNode(node)
 	node.render = false
 end
 
-function PassiveTreeViewClass:GenerateGroup(nodeList, anchorNode, numExpansionNodes, numKeystoneNodes, numNotableNodes, numNormalNodes)
+function PassiveTreeViewClass:ProcessExpansion(nodeList, anchorNode, clusterMods)
+	local totalPassives = 0
+	local smallPassiveMods = { }
+	if clusterMods then
+		for _, mod in pairs(clusterMods) do
+			if mod.extra then
+				for num in string.gmatch(mod.extra:lower(), "adds (%d+) passive skills") do
+					totalPassives = tonumber(num)
+				end
+				for strMod in string.gmatch(mod.extra:lower(), "added small passive skills grant: (.+)") do
+					t_insert(smallPassiveMods, strMod)
+				end
+			end
+		end
+	end
+
+	local expansionNodes = { }
+	local keystoneNodes = { }
+	local notableNodes = { }
+	local normalNodes = { }
+	for i = 1, totalPassives do
+		normalNodes[i] = smallPassiveMods
+	end
+
+	self:GenerateGroup(nodeList, anchorNode, expansionNodes, keystoneNodes, notableNodes, normalNodes)
+end
+
+function PassiveTreeViewClass:GenerateGroup(nodeList, anchorNode, expansionNodes, keystoneNodes, notableNodes, normalNodes)
 	if not anchorNode.generatedNodes then anchorNode.generatedNodes = { } end
 
-	local keystoneNodes = { }
-	for i = 1, numKeystoneNodes do
+	local genKeystoneNodes = { }
+	for i = 1, #keystoneNodes do
 		local newNode = self:GenerateNode(nodeList, "Keystone")
-		t_insert(keystoneNodes, newNode)
+		t_insert(genKeystoneNodes, newNode)
 		-- add the newly generated node to the achnorNode's list so we can delete it when necessary
 		t_insert(anchorNode.generatedNodes, newNode)
 	end
 
-	local notableNodes = { }
-	for i = 1, numNotableNodes do
+	local genNotableNodes = { }
+	for i = 1, #notableNodes do
 		local newNode = self:GenerateNode(nodeList, "Notable")
-		t_insert(notableNodes, newNode)
+		t_insert(genNotableNodes, newNode)
 		-- add the newly generated node to the achnorNode's list so we can delete it when necessary
 		t_insert(anchorNode.generatedNodes, newNode)
 	end
 
-	local normalNodes = { }
-	for i = 1, numNormalNodes do
-		local newNode = self:GenerateNode(nodeList, "Normal")
-		t_insert(normalNodes, newNode)
+	local genNormalNodes = { }
+	for i = 1, #normalNodes do
+		local newNode = self:GenerateNode(nodeList, "Normal", 0, 0, 0, "Generated "..tostring(i), normalNodes[i])
+		t_insert(genNormalNodes, newNode)
 		-- add the newly generated node to the achnorNode's list so we can delete it when necessary
 		t_insert(anchorNode.generatedNodes, newNode)
 	end
@@ -996,10 +1027,10 @@ function PassiveTreeViewClass:GenerateNode(nodeList, nodeType, groupId, orbit, o
 		["isProxy"] = true,
 		["isGenerated"] = true, -- our own identifier for dynamically generated nodes
 		["stats"]= stats,
-		["group"]= groupId,
-		["orbit"]= orbit,
-		["orbitIndex"]= orbitIndex,
-		["name"] = name,
+		["group"]= groupId or 0,
+		["orbit"]= orbit or 0,
+		["orbitIndex"]= orbitIndex or 0,
+		["name"] = name or "UKNOWN",
 		["type"] = nodeType or "Normal",
 		["icon"] = "Art/2DArt/SkillIcons/passives/MasteryBlank.png",
 	}
