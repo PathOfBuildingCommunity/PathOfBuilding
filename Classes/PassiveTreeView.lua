@@ -12,6 +12,36 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
+local dynamic_index_start = 100000
+local dynamic_nodeIds = { }
+
+local function addDynamicId(id)
+    dynamic_nodeIds[id] = true
+end
+
+local function removeDynamicId(id)
+    dynamic_nodeIds[id] = nil
+end
+
+local function dynamicIdExists(id)
+    return dynamic_nodeIds[id] ~= nil
+end
+
+local function generateUniqueId()
+	local newId = dynamic_index_start
+	if dynamicIdExists(newId) then
+		newId = #dynamic_nodeIds + 1
+	end
+	while dynamicIdExists(newId) do
+		newId = newId + 1
+		-- sanity check to prevent possible infinite while loop
+		if newId >= 1000000 then
+			break
+		end
+	end
+	return newId
+end
+
 local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.ring = NewImageHandle()
 	self.ring:Load("Assets/ring.png", "CLAMP")
@@ -445,7 +475,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					end
 					if node.expansionJewel then
 						local posProxy = spec.nodes[tonumber(node.expansionJewel.proxy)]
-						self:GenerateNode(posProxy, node, tree, spec.nodes)
+						self:UnhideGroup(posProxy, node, tree, spec.nodes)
 						spec:AddUndoState()
 						build.buildFlag = true
 					end
@@ -876,7 +906,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	end
 end
 
-function PassiveTreeViewClass:GenerateNode(node, originatingNode, tree, nodeList)
+function PassiveTreeViewClass:UnhideGroup(node, originatingNode, tree, nodeList)
 	if not node then return end
 
 	-- mark node to be rendered (only applies to dynamically generated nodes)
@@ -890,15 +920,15 @@ function PassiveTreeViewClass:GenerateNode(node, originatingNode, tree, nodeList
 	for _, otherNodeId in pairs(node.group.nodes) do
 		local nodeToUpdate = nodeList[tonumber(otherNodeId)]
 		if nodeToUpdate and not nodeToUpdate.alloc then
-			nodeToUpdate.render = true
+			self:UnhideNode(nodeToUpdate)
 			t_insert(renderedNodes, nodeToUpdate)
 		end
 	end
 
-	self:CreateConnections(renderedNodes, tree, nodeList)
+	self:CreateGroupConnections(renderedNodes, tree, nodeList)
 end
 
-function PassiveTreeViewClass:CreateConnections(nodes, tree, nodeList)
+function PassiveTreeViewClass:CreateGroupConnections(nodes, tree, nodeList)
 	for _, node in pairs(nodes) do
 		for _, link in pairs(node.linkedId) do
 			local inList = false
@@ -915,4 +945,51 @@ function PassiveTreeViewClass:CreateConnections(nodes, tree, nodeList)
 			end
 		end
 	end
+end
+
+function PassiveTreeViewClass:UnhideNode(node)
+	node.render = true
+end
+
+function PassiveTreeViewClass:HideNode(node)
+	node.render = false
+end
+
+function PassiveTreeViewClass:GenerateGroup(nodeList, anchorNode, numExpansionNodes, numLargeNodes, numMediumNodes, numSmallNodes)
+
+	-- for each node in group, create item
+	local newNode = self:GenerateNode()
+
+	-- add the newly generated node to the achnorNode's list so we can delete it when necessary
+	t_insert(anchorNode.generatedNodes, newNode)
+
+	-- add the newly generated node to the tree
+	t_insert(nodeList, newNode)
+end
+
+function PassiveTreeViewClass:GenerateNode(nodeList, nodeType, groupId, orbit, orbitIndex, name, stats)
+	local node = {
+		["skill"] = generateUniqueId(),
+		["isProxy"] = true,
+		["isGenerated"] = true,
+		["stats"]= stats,
+		["group"]= groupId,
+		["orbit"]= orbit,
+		["orbitIndex"]= orbitIndex,
+		["name"] = name,
+		["type"] = nodeType or "Normal"
+	}
+
+	node.__index = node
+	node.linkedId = { }
+
+	-- support old format
+	node.id = node.skill
+	node.g = node.group
+	node.o = node.orbit
+	node.oidx = node.orbitIndex
+	node.dn = node.name
+	node.sd = node.stats
+
+	return node
 end
