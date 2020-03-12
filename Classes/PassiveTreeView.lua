@@ -879,14 +879,14 @@ end
 function PassiveTreeViewClass:GenerateNode(node, grpList, nodeList)
 	if not node then return end
 
-	-- mark node to be rendered (only applies to dynamicaly generated nodes)
+	-- mark node to be rendered (only applies to dynamically generated nodes)
 	node.render = true
 
 	-- find group node belongs to and mark each member of the group to be rendered as well
 	for _, otherNodeId in pairs(node.group.nodes) do
 		local nodeId = tonumber(otherNodeId)
 		local nodeToUpdate = nodeList[nodeId]
-		if nodeToUpdate then
+		if nodeToUpdate and not nodeToUpdate.alloc then
 			nodeToUpdate.render = true
 		end
 	end
