@@ -1,5 +1,5 @@
 $fork = "PathOfBuildingCommunity";
-$original = "Openarl"
+$original = "Openarl";
 
 Write-Output "Patching manifest to use the $fork fork...";
 
@@ -13,7 +13,7 @@ $manifest.PreserveWhitespace = $true;
 $manifest.Load($manifestFile);
 
 # Save our backup
-$manifest.save($manifestFileBackup);
+Copy-Item $manifestFile $manifestFileBackup;
 
 foreach($entry in $manifest.PoBVersion.Source) {
     $src = $entry.url;
@@ -28,8 +28,8 @@ foreach($entry in $manifest.PoBVersion.Source) {
     $entry.url = $dst;
 }
 
-$utf8WithoutBom = New-Object System.Text.UTF8Encoding($false)
-$sw = New-Object System.IO.StreamWriter($manifestFile, $false, $utf8WithoutBom)
-$manifest.Save($sw)
+$utf8WithoutBom = New-Object System.Text.UTF8Encoding($false);
+$sw = New-Object System.IO.StreamWriter($manifestFile, $false, $utf8WithoutBom);
+$manifest.Save($sw);
 
 Write-Output "Manifest file updated.";
