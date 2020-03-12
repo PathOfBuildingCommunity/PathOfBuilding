@@ -11,6 +11,8 @@ local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local m_sin = math.sin
+local m_cos = math.cos
 
 local dynamic_index_start = 100000
 local dynamic_nodeIds = { }
@@ -476,10 +478,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					if node.expansionJewel and not node.handled then
 						local nodeList = spec.nodes
 
-						self:ProcessExpansion(nodeList, node, jewel.modLines)
+						self:ProcessExpansion(nodeList, tree, node, jewel.modLines)
 
-						local posProxy = nodeList[tonumber(node.expansionJewel.proxy)]
-						self:UnhideGroup(posProxy, node, tree, nodeList)
+						--local posProxy = nodeList[tonumber(node.expansionJewel.proxy)]
+						--self:UnhideGroup(posProxy, node, tree, nodeList)
 						spec:AddUndoState()
 						build.buildFlag = true
 					end
@@ -961,7 +963,7 @@ function PassiveTreeViewClass:HideNode(node)
 	node.render = false
 end
 
-function PassiveTreeViewClass:ProcessExpansion(nodeList, anchorNode, clusterMods)
+function PassiveTreeViewClass:ProcessExpansion(nodeList, tree, anchorNode, clusterMods)
 	local totalPassives = 0
 	local smallPassiveMods = { }
 	if clusterMods then
@@ -985,11 +987,15 @@ function PassiveTreeViewClass:ProcessExpansion(nodeList, anchorNode, clusterMods
 		normalNodes[i] = smallPassiveMods
 	end
 
-	self:GenerateGroup(nodeList, anchorNode, expansionNodes, keystoneNodes, notableNodes, normalNodes)
+	self:GenerateGroup(nodeList, tree, anchorNode, expansionNodes, keystoneNodes, notableNodes, normalNodes)
+
+	-- set process handled so we don't do it over and over
+	anchorNode.handled = true
 end
 
-function PassiveTreeViewClass:GenerateGroup(nodeList, anchorNode, expansionNodes, keystoneNodes, notableNodes, normalNodes)
+function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansionNodes, keystoneNodes, notableNodes, normalNodes)
 	if not anchorNode.generatedNodes then anchorNode.generatedNodes = { } end
+	if not anchorNode.generatedGroup then anchorNode.generatedGroup = { } end
 
 	local genKeystoneNodes = { }
 	for i = 1, #keystoneNodes do
@@ -1011,14 +1017,56 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, anchorNode, expansionNodes
 	for i = 1, #normalNodes do
 		local newNode = self:GenerateNode(nodeList, "Normal", 0, 0, 0, "Generated "..tostring(i), normalNodes[i])
 		t_insert(genNormalNodes, newNode)
-		-- add the newly generated node to the achnorNode's list so we can delete it when necessary
-		t_insert(anchorNode.generatedNodes, newNode)
 	end
 
-	--[[ TODO - IMPLEMENT EVENTUALLY
-	-- add the newly generated node to the tree
-	t_insert(nodeList, newNode)
-	--]]
+	local uniqueGroupId = #tree.groups + 1 -- FIXME - won't work after group deallocations
+	local positionalProxy = nodeList[tonumber(anchorNode.expansionJewel.proxy)]
+	local newGroup = self:GenerateNewGroup(uniqueGroupId, positionalProxy)
+	if newGroup then
+		newGroup.orbits = { 3 } -- FIX LATER
+		-- fix up our nodes a bit
+		for index, node in ipairs(genNormalNodes) do
+			node.orbitIndex = index
+			node.orbit = newGroup.orbits[1]
+			node.group = newGroup
+			-- support old format
+			node.id = node.skill
+			node.g = node.group
+			node.o = node.orbit
+			node.oidx = node.orbitIndex
+			node.dn = node.name
+			node.sd = node.stats
+
+			node.overlay = self:getNodeOverlay()[node.type]
+			if node.overlay then
+				node.rsq = node.overlay.rsq
+				node.size = node.overlay.size
+			end
+			if node.o ~= 4 then
+				node.angle = node.oidx * tree:getOrbitMult()[node.o]
+			else
+				node.angle = tree:getOrbitMultFull()[node.oidx]
+			end
+			local dist = tree:getOrbitDist()[node.o]
+			node.x = newGroup.x + m_sin(node.angle) * dist
+			node.y = newGroup.y - m_cos(node.angle) * dist
+
+			-- add the newly generated node to the achnorNode's list so we can delete it when necessary
+			t_insert(anchorNode.generatedNodes, node)
+		end
+
+		newGroup.nodes = genNormalNodes -- FIX LATER
+		-- add to anchorNode so we can remove later when deallocated
+		t_insert(anchorNode.generatedGroup, newGroup)
+		-- add to our tree to render
+		t_insert(tree.groups, newGroup)
+
+		-- generate the group nodes
+		for _, node in pairs(newGroup.nodes) do
+			-- add the newly generated node to the tree
+			t_insert(nodeList, node)
+		end
+	end
 end
 
 function PassiveTreeViewClass:GenerateNode(nodeList, nodeType, groupId, orbit, orbitIndex, name, stats)
@@ -1054,14 +1102,59 @@ function PassiveTreeViewClass:GenerateNode(nodeList, nodeType, groupId, orbit, o
 
 	node.__index = node
 	node.linkedId = { }
+	node.sprites = { }
 
-	-- support old format
-	node.id = node.skill
-	node.g = node.group
-	node.o = node.orbit
-	node.oidx = node.orbitIndex
-	node.dn = node.name
-	node.sd = node.stats
+	self:UnhideNode(node)
 
 	return node
+end
+
+function PassiveTreeViewClass:GenerateNewGroup(id, posProxy)
+	local newGroup = {
+		id = id,
+		x = posProxy.x,
+		y = posProxy.y,
+		isProxy = true,
+		orbits = { },
+		nodes = { }
+	}
+	return newGroup
+end
+
+function PassiveTreeViewClass:getNodeOverlay()
+	return {
+		Normal = {
+			artWidth = 40,
+			alloc = "PSSkillFrameActive",
+			path = "PSSkillFrameHighlighted",
+			unalloc = "PSSkillFrame",
+			allocAscend = "AscendancyFrameSmallAllocated",
+			pathAscend = "AscendancyFrameSmallCanAllocate",
+			unallocAscend = "AscendancyFrameSmallNormal"
+		},
+		Notable = {
+			artWidth = 58,
+			alloc = "NotableFrameAllocated",
+			path = "NotableFrameCanAllocate",
+			unalloc = "NotableFrameUnallocated",
+			allocAscend = "AscendancyFrameLargeAllocated",
+			pathAscend = "AscendancyFrameLargeCanAllocate",
+			unallocAscend = "AscendancyFrameLargeNormal",
+			allocBlighted = "BlightedNotableFrameAllocated",
+			pathBlighted = "BlightedNotableFrameCanAllocate",
+			unallocBlighted = "BlightedNotableFrameUnallocated",
+		},
+		Keystone = {
+			artWidth = 84,
+			alloc = "KeystoneFrameAllocated",
+			path = "KeystoneFrameCanAllocate",
+			unalloc = "KeystoneFrameUnallocated"
+		},
+		Socket = {
+			artWidth = 58,
+			alloc = "JewelFrameAllocated",
+			path = "JewelFrameCanAllocate",
+			unalloc = "JewelFrameUnallocated"
+		}
+	}
 end
