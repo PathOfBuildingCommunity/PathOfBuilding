@@ -28,7 +28,8 @@ foreach($entry in $manifest.PoBVersion.Source) {
     $entry.url = $dst;
 }
 
-# Write our updated manifest.xml file.
-$manifest.save($manifestFile);
+$utf8WithoutBom = New-Object System.Text.UTF8Encoding($false)
+$sw = New-Object System.IO.StreamWriter($manifestFile, $false, $utf8WithoutBom)
+$manifest.Save($sw)
 
 Write-Output "Manifest file updated.";
