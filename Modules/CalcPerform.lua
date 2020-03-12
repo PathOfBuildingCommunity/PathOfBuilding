@@ -396,9 +396,9 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Elusive") then
 			local effect = 1 + modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf") / 100
 			condList["Elusive"] = true
-			modDB:NewMod("AttackDodgeChance", "BASE", m_floor(20 * effect), "Elusive")
-			modDB:NewMod("SpellDodgeChance", "BASE", m_floor(20 * effect), "Elusive")
-			modDB:NewMod("MovementSpeed", "INC", m_floor(40 * effect), "Elusive")
+			modDB:NewMod("AttackDodgeChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("SpellDodgeChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("MovementSpeed", "INC", m_floor(30 * effect), "Elusive")
 		end
 		if modDB:Flag(nil, "Chill") then
 			local effect = m_max(m_floor(30 * calcLib.mod(modDB, nil, "SelfChillEffect")), 0)
