@@ -28,6 +28,7 @@ local formList = {
 	["^gains? ([%d%.]+)%% of"] = "BASE",
 	["^([%+%-]?%d+)%% chance"] = "CHANCE",
 	["^([%+%-]?%d+)%% additional chance"] = "CHANCE",
+    ["a ([%+%-]?%d+)%% chance"] = "CHANCE",
 	["penetrates? (%d+)%%"] = "PEN",
 	["penetrates (%d+)%% of"] = "PEN",
 	["penetrates (%d+)%% of enemy"] = "PEN",
@@ -296,6 +297,9 @@ local modNameList = {
 	["maximum total recovery per second from mana leech"] = "MaxManaLeechRate",
 	["to impale enemies on hit"] = "ImpaleChance",
     ["impale effect"] = "ImpaleEffect",
+	["to apply cold exposure on hit"] = { "ColdExposureChance", tag = { type = "Condition", var = "ColdExposure" } },
+	["to apply fire exposure on hit"] = { "FireExposureChance", tag = { type = "Condition", var = "FireExposure" } },
+	["to apply lightning exposure on hit"] = { "LightningExposureChance", tag = { type = "Condition", var = "LightningExposure" } },
 	-- Projectile modifiers
 	["projectile"] = "ProjectileCount",
 	["projectiles"] = "ProjectileCount",

@@ -852,6 +852,24 @@ return {
 	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "This adds the following modifiers:\n20% less enemy Movement Speed\n20% increased Fire Damage Taken by enemy", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("FireDamageTaken", "INC", 20, "Ash")
 	end },
+    { var = "conditionEnemyColdExposure", type = "check", label = "Is the enemy affected by Cold Exposure?", ifCond = "ColdExposure", tooltip = "This will allow you to input the effect of the Exposure applied to the enemy.\nExposure reduces enemy resistance corresponding to the type of Exposure applied.\nGuaranteed sources of Exposure with an unspecified effect apply a base reduction of 10%.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:ColdExposure", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionColdExposureEffect", type = "count", label = "Effect of Cold Exposure:", ifOption = "conditionEnemyColdExposure", apply = function(val,modList,enemyModList)
+		enemyModList:NewMod("ColdResist", "BASE", -val, "Exposure", { type = "Condition", var = "ColdExposure" })
+	end },
+	{ var = "conditionEnemyFireExposure", type = "check", label = "Is the enemy affected by Fire Exposure?", ifCond = "FireExposure", tooltip = "This will allow you to input the effect of the Exposure applied to the enemy.\nExposure reduces enemy resistance corresponding to the type of Exposure applied.\nGuaranteed sources of Exposure with an unspecified effect apply a base reduction of 10%.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:FireExposure", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionFireExposureEffect", type = "count", label = "Effect of Fire Exposure:", ifOption = "conditionEnemyFireExposure", apply = function(val,modList,enemyModList)
+		enemyModList:NewMod("FireResist", "BASE", -val, "Exposure", { type = "Condition", var = "FireExposure" })
+	end },
+	{ var = "conditionEnemyLightningExposure", type = "check", label = "Is the enemy affected by Lightning Exposure?", ifCond = "LightningExposure", tooltip = "This will allow you to input the effect of the Exposure applied to the enemy.\nExposure reduces enemy resistance corresponding to the type of Exposure applied.\nGuaranteed sources of Exposure with an unspecified effect apply a base reduction of 10%.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:LightningExposure", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionLightningExposureEffect", type = "count", label = "Effect of Lightning Exposure:", ifOption = "conditionEnemyLightningExposure", apply = function(val,modList,enemyModList)
+		enemyModList:NewMod("LightningResist", "BASE", -val, "Exposure", { type = "Condition", var = "LightningExposure" })
+	end },
 	{ var = "conditionEnemyOnConsecratedGround", type = "check", label = "Is the enemy on consecrated ground?", tooltip = "In addition to allowing any relevant modifiers to apply,\nthis will cause your hits have 100% increased Critical Strike Chance on the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		modList:NewMod("CritChance", "INC", 100, "Config", { type = "ActorCondition", actor = "enemy", var = "OnConsecratedGround" })
