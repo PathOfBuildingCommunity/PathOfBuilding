@@ -99,7 +99,7 @@ return {
 	end },
 	{ label = "Herald of Agony:", ifSkill = "Herald of Agony" },
 	{ var = "heraldOfAgonyVirulenceStack", type = "count", label = "# of Virulence Stacks:", ifSkill = "Herald of Agony", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:VirulenceStack", "BASE", m_min(val, 40), "Config")
+		modList:NewMod("Multiplier:VirulenceStack", "BASE", val, "Config")
 	end },
 	{ label = "Ice Nova:", ifSkill = "Ice Nova" },
 	{ var = "iceNovaCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Ice Nova", apply = function(val, modList, enemyModList)

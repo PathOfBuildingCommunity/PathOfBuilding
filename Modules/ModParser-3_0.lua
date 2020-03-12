@@ -1854,6 +1854,7 @@ local specialModList = {
 	["perforate creates %+(%d+) spikes?"] = function(num) return { mod("Multiplier:PerforateMaxSpikes", "BASE", num) } end,
 	["scourge arrow has (%d+)%% chance to poison per stage"] = function(num) return { mod("PoisonChance", "BASE", num, { type = "SkillName", skillName = "Scourge Arrow" }, { type = "Multiplier", var = "ScourgeArrowStage" }) } end,
 	["winter orb has %+(%d+) maximum stages"] = function(num) return { mod("Multiplier:WinterOrbMaxStage", "BASE", num) } end,
+	["%+(%d) to maximum virulence"] = function(num) return { mod("Multiplier:VirulenceStacksMax", "BASE", num) } end,
 	["winter orb has (%d+)%% increased area of effect per stage"] = function(num) return { mod("AreaOfEffect", "INC", num, { type = "SkillName", skillName = "Winter Orb"}, { type = "Multiplier", var = "WinterOrbStage" }) } end,
 	["wave of conviction's exposure applies (%-%d+)%% elemental resistance"] = function(num) return { mod("ExtraSkillStat", "LIST", { key = "purge_expose_resist_%_matching_highest_element_damage", value = num }, { type = "SkillName", skillName = "Wave of Conviction" }) } end,
 	-- Display-only modifiers
