@@ -1,5 +1,5 @@
 VERSION[1.4.159][2020/03/12]
- * Fixed Scion nodes granting double the indended number of passive points
+ * Fixed Ascendant nodes granting double the indended number of passive points
  * Fixed weapon ailment modifiers not correctly applying
  * Fixed Melee Strike Range modifiers not applying to Unarmed
  * Fixed some Two Handed Weapon modifiers incorrectly applying to One Handed Weapons instead
