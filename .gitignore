@@ -260,3 +260,7 @@ ModelManifest.xml
 .fake/
 *.lnk
 /pack-tree.lua
+
+
+# Misc
+manifest_backup.xml
