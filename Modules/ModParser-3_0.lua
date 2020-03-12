@@ -1478,6 +1478,7 @@ local specialModList = {
 	["cannot inflict ignite"] = { flag("CannotIgnite") },
 	["cannot inflict freeze or chill"] = { flag("CannotFreeze"), flag("CannotChill") },
 	["cannot inflict shock"] = { flag("CannotShock") },
+	["cannot ignite, chill, freeze or shock"] = { flag("CannotIgnite"),flag("CannotFreeze"), flag("CannotChill"),flag("CannotShock") },
 	-- Bleed
 	["melee attacks cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee) },
 	["attacks cause bleeding when hitting cursed enemies"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Attack, { type = "ActorCondition", actor = "enemy", var = "Cursed" }) },
