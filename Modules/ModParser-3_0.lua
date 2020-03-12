@@ -109,6 +109,7 @@ local modNameList = {
 	["to evade"] = "EvadeChance",
 	["chance to evade"] = "EvadeChance",
 	["to evade attacks"] = "EvadeChance",
+	["to evade attack hits"] = "EvadeChance",
 	["chance to evade attacks"] = "EvadeChance",
 	["chance to evade projectile attacks"] = "ProjectileEvadeChance",
 	["chance to evade melee attacks"] = "MeleeEvadeChance",
