@@ -78,8 +78,9 @@ return {
 		modList:NewMod("Condition:BladestormInSandstorm", "FLAG", true, "Config", { type = "SkillName", skillName = "Bladestorm" })
 	end },
 	{ label = "Brand Skills:", ifSkillList = { "Armageddon Brand", "Storm Brand" } }, -- I barely resisted the temptation to label this "Generic Brand:"
-	{ var = "brandAttachedToEnemy", type = "check", label = "Is Attached to the Enemy?", ifSkillList = { "Armageddon Brand", "Storm Brand" }, apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:BrandAttachedToEnemy", "FLAG", true, "Config", { type = "SkillType", skillType = SkillType.Brand })
+	{ var = "BrandsAttachedToEnemy", type = "count", label = "# of Brands attached to the enemy", ifSkillList = { "Armageddon Brand", "Storm Brand" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:BrandsAttachedToEnemy", "BASE", m_min(val, 2), "Config", { type = "SkillType", skillType = SkillType.Brand })
+		enemyModList:NewMod("Multiplier:BrandsAttached", "BASE", m_min(val, 2), "Config", { type = "SkillType", skillType = SkillType.Brand })
 	end },
 	{ label = "Dark Pact:", ifSkill = "Dark Pact" },
 	{ var = "darkPactSkeletonLife", type = "count", label = "Skeleton Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum life of the skeleton that is being targeted.", apply = function(val, modList, enemyModList)
@@ -119,6 +120,10 @@ return {
 	{ label = "Meat Shield:", ifSkill = "Meat Shield" },
 	{ var = "meatShieldEnemyNearYou", type = "check", label = "Is the enemy near you?", ifSkill = "Meat Shield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:MeatShieldEnemyNearYou", "FLAG", true, "Config")
+	end },
+	{ label = "Perforate:", ifSkill = "Perforate"},
+	{ var = "perforateSpikeOverlap", type = "count", label = "# of Overlapping Spikes:", tooltip = "Affects the DPS of Perforate in Blood Stance.\nMaximum is limited by the number of Spikes of Perforate.", ifSkill = "Perforate", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:PerforateSpikeOverlap", "BASE", val, "Config", { type = "SkillName", skillName = "Perforate" })
 	end },
 	{ label = "Raise Spectre:", ifSkill = "Raise Spectre" },
 	{ var = "raiseSpectreSpectreLevel", type = "count", label = "Spectre Level:", ifSkill = "Raise Spectre", ifVer = "2_6", tooltip = "Sets the level of the raised spectre.\nThe default level is the level requirement of the Raise Spectre skill.", apply = function(val, modList, enemyModList)
@@ -442,9 +447,6 @@ return {
 	{ var = "multiplierNearbyCorpse", type = "count", label = "# of Nearby Corpses", ifMult = "NearbyCorpse", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyCorpse", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierNearbyEnemy", type = "count", label = "# of Nearby Enemies", ifMult = "NearbyEnemy", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:NearbyEnemy", "BASE", val, "Config", { type = "Condition", var = "Combat" })
-	end },
 	{ var = "multiplierSummonedMinion", type = "count", label = "# of Summoned Minions", ifMult = "SummonedMinion", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:SummonedMinion", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -494,16 +496,15 @@ return {
 	{ var = "conditionAgainstDamageOverTime", type = "check", label = "Are you against Damage over Time?", ifCond = "AgainstDamageOverTime", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AgainstDamageOverTime", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionOnlyOneNearbyEnemy", type = "check", label = "Is there only one nearby Enemy?", ifCond = "OnlyOneNearbyEnemy", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:OnlyOneNearbyEnemy", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "multiplierNearbyEnemies", type = "count", label = "# of nearby Enemies:", ifMult = "NearbyEnemies", apply = function(val, modList, enemyModList)
+	{ var = "multiplierNearbyEnemies", type = "count", label = "# of nearby Enemies:", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyEnemies", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Multiplier:WarcryNearbyEnemies", "BASE", m_max(0, val), "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:OnlyOneNearbyEnemy", "FLAG", val == 1, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierNearbyRareOrUniqueEnemies", type = "count", label = "# of nearby Rare or Unique Enemies:", ifMult = "NearbyRareOrUniqueEnemies", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyRareOrUniqueEnemies", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Multiplier:NearbyEnemies", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Multiplier:WarcryNearbyEnemies", "BASE", m_max(0, val), "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:OnlyOneNearbyRareOrUniqueEnemy", "FLAG", val == 1, "Config", { type = "Condition", var = "Combat" })
 		enemyModList:NewMod("Condition:NearbyRareOrUniqueEnemy", "FLAG", val >= 1, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -516,6 +517,9 @@ return {
 	end },
 	{ var = "conditionSkillCritRecently", type = "check", label = "Have your Skills Crit Recently?", ifCond = "SkillCritRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SkillCritRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionCritWithHeraldSkillRecently", type = "check", label = "Have your Herald Skills Crit Recently?", ifCond = "CritWithHeraldSkillRecently", implyCond = "SkillCritRecently", tooltip = "This also implies that your Skills have Crit Recently.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:CritWithHeraldSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionNonCritRecently", type = "check", label = "Have you dealt a Non-Crit Recently?", ifCond = "NonCritRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:NonCritRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -559,8 +563,14 @@ return {
 	{ var = "conditionShockedEnemyRecently", type = "check", label = "Have you Shocked an Enemy Recently?", ifCond = "ShockedEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ShockedEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionStunnedEnemyRecently", type = "check", label = "Have you Stunned an Enemy Recently?", ifCond = "StunnedEnemyRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:StunnedEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "multiplierPoisonAppliedRecently", type = "count", label = "# of Poisons applied Recently:", ifMult = "PoisonAppliedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PoisonAppliedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "multiplierManaSpentRecently", type = "count", label = "# of Mana spent Recently", ifMult = "ManaSpentRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:ManaSpentRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionBeenHitRecently", type = "check", label = "Have you been Hit Recently?", ifCond = "BeenHitRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BeenHitRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })

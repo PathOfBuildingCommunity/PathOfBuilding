@@ -261,6 +261,7 @@ skills["CataclysmSigil"] = {
 		spell = true,
 		area = true,
 		duration = true,
+		brand = true,
 	},
 	baseMods = {
 		skill("radius", 18),
@@ -6382,6 +6383,7 @@ skills["ConduitSigil"] = {
 		spell = true,
 		area = true,
 		duration = true,
+		brand = true,
 	},
 	baseMods = {
 	},

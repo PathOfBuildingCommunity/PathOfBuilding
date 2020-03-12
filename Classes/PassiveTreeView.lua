@@ -193,7 +193,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		-- Cursor is over the tree, check if it is over a node
 		local curTreeX, curTreeY = screenToTree(cursorX, cursorY)
 		for nodeId, node in pairs(spec.nodes) do
-			if node.rsq then
+			if node.rsq and node.group and not node.isProxy and not node.group.isProxy then
 				-- Node has a defined size (i.e. has artwork)
 				local vX = curTreeX - node.x
 				local vY = curTreeY - node.y
@@ -315,21 +315,23 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	-- Draw the group backgrounds
 	for _, group in pairs(tree.groups) do
-		local scrX, scrY = treeToScreen(group.x, group.y)
-		if group.ascendancyName then
-			if group.isAscendancyStart then
-				if group.ascendancyName ~= spec.curAscendClassName then
-					SetDrawColor(1, 1, 1, 0.25)
+		if not group.isProxy then
+			local scrX, scrY = treeToScreen(group.x, group.y)
+			if group.ascendancyName then
+				if group.isAscendancyStart then
+					if group.ascendancyName ~= spec.curAscendClassName then
+						SetDrawColor(1, 1, 1, 0.25)
+					end
+					self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
+					SetDrawColor(1, 1, 1)
 				end
-				self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
-				SetDrawColor(1, 1, 1)
+			elseif group.oo[3] then
+				self:DrawAsset(tree.assets.PSGroupBackground3, scrX, scrY, scale, true)
+			elseif group.oo[2] then
+				self:DrawAsset(tree.assets.PSGroupBackground2, scrX, scrY, scale)
+			elseif group.oo[1] then
+				self:DrawAsset(tree.assets.PSGroupBackground1, scrX, scrY, scale)
 			end
-		elseif group.oo[3] then
-			self:DrawAsset(tree.assets.PSGroupBackground3, scrX, scrY, scale, true)
-		elseif group.oo[2] then
-			self:DrawAsset(tree.assets.PSGroupBackground2, scrX, scrY, scale)
-		elseif group.oo[1] then
-			self:DrawAsset(tree.assets.PSGroupBackground1, scrX, scrY, scale)
 		end
 	end
 
@@ -380,8 +382,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 	end
 
-	-- Draw the nodes
-	for nodeId, node in pairs(spec.nodes) do
+	local function renderNode(nodeId, node)
 		-- Determine the base and overlay images for this node based on type and state
 		local base, overlay
 		local isAlloc = node.alloc or build.calcsTab.mainEnv.grantedPassives[nodeId]
@@ -389,7 +390,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if node.type == "ClassStart" then
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
 		elseif node.type == "AscendClassStart" then
-			overlay = "PassiveSkillScreenAscendancyMiddle"
+			overlay = treeVersions[tree.treeVersion].num >= 3.10 and "AscendancyMiddle" or "PassiveSkillScreenAscendancyMiddle"
 		elseif node.type == "Mastery" then
 			-- This is the icon that appears in the center of many groups
 			SetDrawLayer(nil, 15)
@@ -426,8 +427,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				end
 			else
 				-- Normal node (includes keystones and notables)
-				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")] 
-				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "")]
+				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
+				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")]
 			end
 		end
 
@@ -536,7 +537,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			local size = 175 * scale / self.zoom ^ 0.4
 			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
 		end
-		if node == hoverNode and (node.type ~= "Socket" or not IsKeyDown("SHIFT")) and not main.popups[1] then
+		if node == hoverNode and (node.type ~= "Socket" or not IsKeyDown("SHIFT")) and not IsKeyDown("CTRL") and not main.popups[1] then
 			-- Draw tooltip
 			SetDrawLayer(nil, 100)
 			local size = m_floor(node.size * scale)
@@ -547,9 +548,16 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 	end
 
+	-- Draw the nodes
+	for nodeId, node in pairs(spec.nodes) do
+		if node.group and not node.isProxy and not node.group.isProxy then
+			renderNode(nodeId, node)
+		end
+	end
+
 	-- Draw ring overlays for jewel sockets
 	SetDrawLayer(nil, 25)
-	for nodeId, slot in pairs(build.itemsTab.sockets) do
+	for nodeId in pairs(tree.sockets) do
 		local node = spec.nodes[nodeId]
 		if node then
 			local scrX, scrY = treeToScreen(node.x, node.y)
@@ -720,7 +728,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		if socket:IsEnabled() then
 			tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click this socket to go to the items page and choose the jewel for this socket.")
 		end
-		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Shift to hide this tooltip.")
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Shift or Ctrl to hide this tooltip.")
 		return
 	end
 	
@@ -806,20 +814,24 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	if node.path and #node.path > 0 then
 		if self.traceMode and isValueInArray(self.tracePath, node) then
 			tooltip:AddLine(14, "^7"..#self.tracePath .. " nodes in trace path")
+			tooltip:AddLine(14, colorCodes.TIP)
 		else
 			tooltip:AddLine(14, "^7"..#node.path .. " points to node")
+			tooltip:AddLine(14, colorCodes.TIP)
 			if #node.path > 1 then
 				-- Handy hint!
-				tooltip:AddLine(14, colorCodes.TIP)
 				tooltip:AddLine(14, "Tip: To reach this node by a different path, hold Shift, then trace the path and click this node")
 			end
 		end
 	end
-	if node.type == "Socket" then
-		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Shift to hide this tooltip.")
-	end
 	if node.depends and #node.depends > 1 then
 		tooltip:AddSeparator(14)
 		tooltip:AddLine(14, "^7"..#node.depends .. " points gained from unallocating these nodes")
+		tooltip:AddLine(14, colorCodes.TIP)
+	end
+	if node.type == "Socket" then
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Shift or Ctrl to hide this tooltip.")
+	else
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Ctrl to hide this tooltip.")
 	end
 end
