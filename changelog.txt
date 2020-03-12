@@ -1,3 +1,6 @@
+[1.4.159.1][2020/03/12]
+ * Fixed weapon ailment modifiers not correctly applying
+ * Fixed some Two Handed Weapon modifiers incorrectly applying to One Handed Weapons instead
 [1.4.158.1][2020/03/12]
  * Add 3.10 passive skill tree
 [1.4.157.7][2020/02/29]

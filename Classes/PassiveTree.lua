@@ -265,9 +265,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			node.oidx = node.orbitIndex
 			node.dn = node.name
 			node.sd = node.stats
-			-- The only effect of passivePointsGranted is to add "Grants N Passive Skill Point(s)" line to the passive.
-			-- However, the new 3.10 tree already contains that line, so there's no need to duplicate it.
-			node.passivePointsGranted = 0
+			node.passivePointsGranted = node.grantedPassivePoints or 0
 		end
 
 		nodeMap[node.id] = node
@@ -338,7 +336,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		node.mods = { }
 		node.modKey = ""
 		local i = 1
-		if node.passivePointsGranted > 0 then
+		if versionNum <= 3.09 and node.passivePointsGranted > 0 then
 			t_insert(node.sd, "Grants "..node.passivePointsGranted.." Passive Skill Point"..(node.passivePointsGranted > 1 and "s" or ""))
 		end
 		while node.sd[i] do
