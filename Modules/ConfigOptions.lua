@@ -775,6 +775,9 @@ return {
 		modList:NewMod("ChainCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "meleeDistance", type = "count", label = "Melee distance to enemy:", ifFlag = "melee" },
+	{ var = "enemyDistance", type = "count", label = "Distance to enemy",  apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Multiplier:EnemyDistance", "BASE", val, "Config")
+	end },
 	{ var = "projectileDistance", type = "count", label = "Projectile travel distance:", ifFlag = "projectile" },
 	{ var = "conditionAtCloseRange", type = "check", label = "Is the enemy at Close Range?", ifCond = "AtCloseRange", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AtCloseRange", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
