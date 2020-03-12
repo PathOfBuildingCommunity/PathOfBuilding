@@ -31,9 +31,6 @@ end
 
 local function generateUniqueId()
 	local newId = dynamic_index_start
-	if dynamicIdExists(newId) then
-		newId = #dynamic_nodeIds + 1
-	end
 	while dynamicIdExists(newId) do
 		newId = newId + 1
 		-- sanity check to prevent possible infinite while loop
@@ -41,6 +38,7 @@ local function generateUniqueId()
 			break
 		end
 	end
+	addDynamicId(newId)
 	return newId
 end
 
@@ -374,7 +372,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 		-- Determine the connector state
 		local state = "Normal"
-		if node1.alloc and node2.alloc then	
+		if node1.alloc and node2.alloc then
 			state = "Active"
 		elseif hoverPath then
 			if (node1.alloc or node1 == hoverNode or hoverPath[node1]) and (node2.alloc or node2 == hoverNode or hoverPath[node2]) then
@@ -966,14 +964,17 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 	if not anchorNode.generatedNodes then anchorNode.generatedNodes = { } end
 
 	local positionalProxy = nodeList[tonumber(anchorNode.expansionJewel.proxy)]
+	positionalProxy["in"] = { tostring(anchorNode.skill) }
+	positionalProxy["out"] = { }
 	local positionalGroupProxy = positionalProxy.group
 	positionalGroupProxy.render = true
+	positionalGroupProxy.nodes = { positionalProxy }
 
 	local genKeystoneNodes = { }
 	for i = 1, #keystoneNodes do
 		local newNode = self:GenerateNode(nodeList, "Keystone")
 		t_insert(genKeystoneNodes, newNode)
-		-- add the newly generated node to the achnorNode's list so we can delete it when necessary
+		-- add the newly generated node to the anchorNode's list so we can delete it when necessary
 		t_insert(anchorNode.generatedNodes, newNode)
 	end
 
@@ -981,15 +982,108 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 	for i = 1, #notableNodes do
 		local newNode = self:GenerateNode(nodeList, "Notable")
 		t_insert(genNotableNodes, newNode)
-		-- add the newly generated node to the achnorNode's list so we can delete it when necessary
+		-- add the newly generated node to the anchorNode's list so we can delete it when necessary
 		t_insert(anchorNode.generatedNodes, newNode)
 	end
 
 	-- FIXME
-	local node = positionalProxy
-	node.dn = "Generated 1"
-	node.sd = normalNodes[1]
-	
+	positionalProxy.dn = "Generated " .. tostring(positionalProxy.orbitIndex)
+	positionalProxy.sd = normalNodes[positionalProxy.orbitIndex]
+	positionalProxy.render = true
+	self:ParseMod(positionalProxy, tree)
+
+	local genNormalNodes = { }
+	local lastNode = positionalProxy
+	for i = 1, (#normalNodes - 1) do
+		local oi = lastNode.orbitIndex + 1
+		if oi > #normalNodes then
+			oi = 1
+		end
+		local newNode = self:GenerateNode(nodeList, "Normal", positionalProxy.group, 0, oi,"Generated "..tostring(oi), normalNodes[oi])
+		newNode.groupNum = positionalProxy.groupNum
+		newNode.orbit = positionalProxy.orbit
+		newNode["in"] = { tostring(lastNode.skill) }
+		t_insert(lastNode.out, tostring(newNode.skill))
+
+		-- support old format
+		newNode.id = newNode.skill
+		newNode.g = newNode.group
+		newNode.o = newNode.orbit
+		newNode.oidx = newNode.orbitIndex
+		newNode.dn = newNode.name
+		newNode.sd = newNode.stats
+		if newNode.sd then
+			self:ParseMod(newNode, tree)
+		end
+
+		newNode.overlay = self:getNodeOverlay()[newNode.type]
+		if newNode.overlay then
+			newNode.rsq = newNode.overlay.rsq
+			newNode.size = newNode.overlay.size
+		end
+		if newNode.o ~= 4 then
+			newNode.angle = newNode.oidx * tree:getOrbitMult()[newNode.o]
+		else
+			newNode.angle = tree:getOrbitMultFull()[newNode.oidx]
+		end
+		local dist = tree:getOrbitDist()[newNode.o]
+		newNode.x = positionalGroupProxy.x + m_sin(newNode.angle) * dist
+		newNode.y = positionalGroupProxy.y - m_cos(newNode.angle) * dist
+
+		t_insert(lastNode.linkedId, newNode.id)
+		t_insert(newNode.linkedId, lastNode.id)
+
+		--t_insert(tree.connectors, tree:BuildConnector(lastNode, newNode))
+		
+		t_insert(genNormalNodes, newNode)
+		t_insert(positionalGroupProxy.nodes, newNode)
+		t_insert(nodeList, newNode)
+		lastNode = newNode
+	end
+	t_insert(tree.connectors, tree:BuildConnector(positionalProxy, anchorNode))
+end
+
+function PassiveTreeViewClass:GenerateNode(nodeList, nodeType, groupId, orbit, orbitIndex, name, stats)
+	local node = {
+		["skill"] = generateUniqueId(),
+		["isProxy"] = true,
+		["isGenerated"] = true, -- our own identifier for dynamically generated nodes
+		["stats"]= stats,
+		["group"]= groupId or 0,
+		["orbit"]= orbit or 0,
+		["orbitIndex"]= orbitIndex or 0,
+		["name"] = name or "UKNOWN",
+		["type"] = nodeType or "Normal",
+		["icon"] = "Art/2DArt/SkillIcons/passives/MasteryBlank.png",
+	}
+
+	node["out"] = { } -- figure out
+	node["in"] = { } -- figure out
+
+	if nodeType == "Notable" then
+		node["isNotable"] = true
+	elseif nodeType == "Keystone" then
+		node["isKeystone"]= true
+	elseif nodeType == "Socket" then
+		node["isJewelSocket"] = true
+		node["expansionJewel"] = {
+			size = 0, -- fix
+			index = 0, -- fix
+			proxy = "", -- fix
+			parent = "", -- fix
+		}
+	end
+
+	node.__index = node
+	node.linkedId = { }
+	node.sprites = { }
+
+	self:UnhideNode(node)
+
+	return node
+end
+
+function PassiveTreeViewClass:ParseMod(node, tree)
 	-- Parse node modifier lines
 	node.mods = { }
 	node.modKey = ""
@@ -1057,116 +1151,6 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 			end
 		end
 	end
-
-	positionalProxy.render = true
-	self:ConnectGroup(positionalProxy, anchorNode, tree, nodeList)
-
-
-	local genNormalNodes = { }
-	--[[
-	local lastNode = node
-	for i = 2, #normalNodes do
-		local newNode = copyTable(positionalProxy, true)
-		newNode.name = "Generated "..tostring(i)
-
-		--local newNode = self:GenerateNode(nodeList, "Normal", 0, 0, 0, "Generated "..tostring(i), normalNodes[i])
-		t_insert(genNormalNodes, newNode)
-	end
-	--]]
-
-	--[[
-	if positionalGroupProxy then
-		positionalGroupProxy.orbits = { 3 } -- FIX LATER
-		-- fix up our nodes a bit
-		for index, node in ipairs(genNormalNodes) do
-			node.orbitIndex = index
-			node.orbit = positionalGroupProxy.orbits[1]
-			node.group = positionalGroupProxy
-			-- support old format
-			node.id = node.skill
-			node.g = node.group
-			node.o = node.orbit
-			node.oidx = node.orbitIndex
-			node.dn = node.name
-			node.sd = node.stats
-
-			node.overlay = self:getNodeOverlay()[node.type]
-			if node.overlay then
-				node.rsq = node.overlay.rsq
-				node.size = node.overlay.size
-			end
-			if node.o ~= 4 then
-				node.angle = node.oidx * tree:getOrbitMult()[node.o]
-			else
-				node.angle = tree:getOrbitMultFull()[node.oidx]
-			end
-			local dist = tree:getOrbitDist()[node.o]
-			node.x = positionalGroupProxy.x + m_sin(node.angle) * dist
-			node.y = positionalGroupProxy.y - m_cos(node.angle) * dist
-
-			-- add the newly generated node to the anchorNode's list so we can delete it when necessary
-			t_insert(anchorNode.generatedNodes, node)
-		end
-
-		positionalGroupProxy.nodes = genNormalNodes -- FIX LATER
-		-- Migrate groups to old format
-		positionalGroupProxy.n = positionalGroupProxy.nodes
-		positionalGroupProxy.oo = { }
-		for _, orbit in ipairs(positionalGroupProxy.orbits) do
-			positionalGroupProxy.oo[orbit] = true
-		end
-
-		-- generate the group nodes
-		local startNode = nil
-		for _, node in pairs(positionalGroupProxy.nodes) do
-			if not startNode then startNode = node end
-			-- add the newly generated node to the tree
-			t_insert(nodeList, node)
-		end
-
-		self:ConnectGroup(positionalProxy, anchorNode, tree, nodeList)
-	end
-	--]]
-end
-
-function PassiveTreeViewClass:GenerateNode(nodeList, nodeType, groupId, orbit, orbitIndex, name, stats)
-	local node = {
-		["skill"] = generateUniqueId(),
-		["isProxy"] = true,
-		["isGenerated"] = true, -- our own identifier for dynamically generated nodes
-		["stats"]= stats,
-		["group"]= groupId or 0,
-		["orbit"]= orbit or 0,
-		["orbitIndex"]= orbitIndex or 0,
-		["name"] = name or "UKNOWN",
-		["type"] = nodeType or "Normal",
-		["icon"] = "Art/2DArt/SkillIcons/passives/MasteryBlank.png",
-	}
-
-	node["out"] = { } -- figure out
-	node["in"] = { } -- figure out
-
-	if nodeType == "Notable" then
-		node["isNotable"] = true
-	elseif nodeType == "Keystone" then
-		node["isKeystone"]= true
-	elseif nodeType == "Socket" then
-		node["isJewelSocket"] = true
-		node["expansionJewel"] = {
-			size = 0, -- fix
-			index = 0, -- fix
-			proxy = "", -- fix
-			parent = "", -- fix
-		}
-	end
-
-	node.__index = node
-	node.linkedId = { }
-	node.sprites = { }
-
-	self:UnhideNode(node)
-
-	return node
 end
 
 function PassiveTreeViewClass:getNodeOverlay()
