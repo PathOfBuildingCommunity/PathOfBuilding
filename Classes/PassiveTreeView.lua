@@ -473,7 +473,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					elseif jewel.baseName:match("Eye Jewel$") then
 						overlay = "JewelSocketActiveAbyss"
 					end
-					if node.expansionJewel then
+					if node.expansionJewel and not node.handled then
 						local posProxy = spec.nodes[tonumber(node.expansionJewel.proxy)]
 						self:UnhideGroup(posProxy, node, tree, spec.nodes)
 						spec:AddUndoState()
@@ -926,6 +926,8 @@ function PassiveTreeViewClass:UnhideGroup(node, originatingNode, tree, nodeList)
 	end
 
 	self:CreateGroupConnections(renderedNodes, tree, nodeList)
+
+	originatingNode.handled = true
 end
 
 function PassiveTreeViewClass:CreateGroupConnections(nodes, tree, nodeList)
