@@ -338,11 +338,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				local node = spec.nodes[tonumber(nodeId)]
 				if node and node.render then
 					atLeastOneAllocated = true
-					for _, nodeId2 in pairs(group.nodes) do
-						local nodeToUpdate = spec.nodes[tonumber(nodeId2)]
-						nodeToUpdate.render = true
-						tree:BuildConnector(node, nodeToUpdate)
-					end
 					break
 				end
 			end
@@ -450,13 +445,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					end
 					if node.expansionJewel then
 						local posProxy = spec.nodes[tonumber(node.expansionJewel.proxy)]
-						if posProxy then
-							posProxy.render = true
-							-- Node is unallocated and can be allocated, so allocate it
-							spec:AllocNode(posProxy, self.tracePath and posProxy == self.tracePath[#self.tracePath] and self.tracePath)
-							spec:AddUndoState()
-							build.buildFlag = true
-						end
+						self:GenerateNode(posProxy, tree.groups, spec.nodes)
+						spec:AddUndoState()
+						build.buildFlag = true
 					end
 				end
 			else
@@ -882,5 +873,21 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Shift or Ctrl to hide this tooltip.")
 	else
 		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Ctrl to hide this tooltip.")
+	end
+end
+
+function PassiveTreeViewClass:GenerateNode(node, grpList, nodeList)
+	if not node then return end
+
+	-- mark node to be rendered (only applies to dynamicaly generated nodes)
+	node.render = true
+
+	-- find group node belongs to and mark each member of the group to be rendered as well
+	for _, otherNodeId in pairs(node.group.nodes) do
+		local nodeId = tonumber(otherNodeId)
+		local nodeToUpdate = nodeList[nodeId]
+		if nodeToUpdate then
+			nodeToUpdate.render = true
+		end
 	end
 end
