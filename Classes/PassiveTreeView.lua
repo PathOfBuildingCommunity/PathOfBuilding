@@ -481,7 +481,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						self:ProcessExpansion(nodeList, tree, node, jewel.modLines)
 
 						--local posProxy = nodeList[tonumber(node.expansionJewel.proxy)]
-						--self:UnhideGroup(posProxy, node, tree, nodeList)
+						--self:ConnectGroup(posProxy, node, tree, nodeList)
 						spec:AddUndoState()
 						build.buildFlag = true
 					end
@@ -912,12 +912,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	end
 end
 
-function PassiveTreeViewClass:UnhideGroup(node, originatingNode, tree, nodeList)
-	if not node then return end
-
-	-- mark node to be rendered (only applies to dynamically generated nodes)
-	node.render = true
-
+function PassiveTreeViewClass:ConnectGroup(node, originatingNode, tree, nodeList)
 	-- create connection between originatingNode and rendered Node
 	t_insert(tree.connectors, tree:BuildConnector(originatingNode, node))
 
@@ -926,14 +921,11 @@ function PassiveTreeViewClass:UnhideGroup(node, originatingNode, tree, nodeList)
 	for _, otherNodeId in pairs(node.group.nodes) do
 		local nodeToUpdate = nodeList[tonumber(otherNodeId)]
 		if nodeToUpdate and not nodeToUpdate.alloc then
-			self:UnhideNode(nodeToUpdate)
 			t_insert(renderedNodes, nodeToUpdate)
 		end
 	end
 
 	self:CreateGroupConnections(renderedNodes, tree, nodeList)
-
-	originatingNode.handled = true
 end
 
 function PassiveTreeViewClass:CreateGroupConnections(nodes, tree, nodeList)
@@ -995,7 +987,6 @@ end
 
 function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansionNodes, keystoneNodes, notableNodes, normalNodes)
 	if not anchorNode.generatedNodes then anchorNode.generatedNodes = { } end
-	if not anchorNode.generatedGroup then anchorNode.generatedGroup = { } end
 
 	local genKeystoneNodes = { }
 	for i = 1, #keystoneNodes do
@@ -1019,16 +1010,15 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 		t_insert(genNormalNodes, newNode)
 	end
 
-	local uniqueGroupId = #tree.groups + 1 -- FIXME - won't work after group deallocations
 	local positionalProxy = nodeList[tonumber(anchorNode.expansionJewel.proxy)]
-	local newGroup = self:GenerateNewGroup(uniqueGroupId, positionalProxy)
-	if newGroup then
-		newGroup.orbits = { 3 } -- FIX LATER
+	local positionalGroupProxy = positionalProxy.group
+	if positionalGroupProxy then
+		positionalGroupProxy.orbits = { 3 } -- FIX LATER
 		-- fix up our nodes a bit
 		for index, node in ipairs(genNormalNodes) do
 			node.orbitIndex = index
-			node.orbit = newGroup.orbits[1]
-			node.group = newGroup
+			node.orbit = positionalGroupProxy.orbits[1]
+			node.group = positionalGroupProxy
 			-- support old format
 			node.id = node.skill
 			node.g = node.group
@@ -1048,24 +1038,24 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 				node.angle = tree:getOrbitMultFull()[node.oidx]
 			end
 			local dist = tree:getOrbitDist()[node.o]
-			node.x = newGroup.x + m_sin(node.angle) * dist
-			node.y = newGroup.y - m_cos(node.angle) * dist
+			node.x = positionalGroupProxy.x + m_sin(node.angle) * dist
+			node.y = positionalGroupProxy.y - m_cos(node.angle) * dist
 
-			-- add the newly generated node to the achnorNode's list so we can delete it when necessary
+			-- add the newly generated node to the anchorNode's list so we can delete it when necessary
 			t_insert(anchorNode.generatedNodes, node)
 		end
 
-		newGroup.nodes = genNormalNodes -- FIX LATER
-		-- add to anchorNode so we can remove later when deallocated
-		t_insert(anchorNode.generatedGroup, newGroup)
-		-- add to our tree to render
-		t_insert(tree.groups, newGroup)
+		positionalGroupProxy.nodes = genNormalNodes -- FIX LATER
 
 		-- generate the group nodes
-		for _, node in pairs(newGroup.nodes) do
+		local startNode = nil
+		for _, node in pairs(positionalGroupProxy.nodes) do
+			if not startNode then startNode = node end
 			-- add the newly generated node to the tree
 			t_insert(nodeList, node)
 		end
+
+		self:ConnectGroup(positionalProxy, anchorNode, tree, nodeList)
 	end
 end
 
@@ -1107,18 +1097,6 @@ function PassiveTreeViewClass:GenerateNode(nodeList, nodeType, groupId, orbit, o
 	self:UnhideNode(node)
 
 	return node
-end
-
-function PassiveTreeViewClass:GenerateNewGroup(id, posProxy)
-	local newGroup = {
-		id = id,
-		x = posProxy.x,
-		y = posProxy.y,
-		isProxy = true,
-		orbits = { },
-		nodes = { }
-	}
-	return newGroup
 end
 
 function PassiveTreeViewClass:getNodeOverlay()
