@@ -852,7 +852,7 @@ return {
 	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "This adds the following modifiers:\n20% less enemy Movement Speed\n20% increased Fire Damage Taken by enemy", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("FireDamageTaken", "INC", 20, "Ash")
 	end },
-    { var = "conditionEnemyColdExposure", type = "check", label = "Is the enemy affected by Cold Exposure?", ifCond = "ColdExposure", tooltip = "This will allow you to input the effect of the Exposure applied to the enemy.\nExposure reduces enemy resistance corresponding to the type of Exposure applied.\nGuaranteed sources of Exposure with an unspecified effect apply a base reduction of 10%.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyColdExposure", type = "check", label = "Is the enemy affected by Cold Exposure?", ifCond = "ColdExposure", tooltip = "This will allow you to input the effect of the Exposure applied to the enemy.\nExposure reduces enemy resistance corresponding to the type of Exposure applied.\nGuaranteed sources of Exposure with an unspecified effect apply a base reduction of 10%.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:ColdExposure", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionColdExposureEffect", type = "count", label = "Effect of Cold Exposure:", ifOption = "conditionEnemyColdExposure", apply = function(val,modList,enemyModList)
