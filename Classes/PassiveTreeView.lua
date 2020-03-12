@@ -445,7 +445,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					end
 					if node.expansionJewel then
 						local posProxy = spec.nodes[tonumber(node.expansionJewel.proxy)]
-						self:GenerateNode(posProxy, tree.groups, spec.nodes)
+						self:GenerateNode(posProxy, node, tree, spec.nodes)
 						spec:AddUndoState()
 						build.buildFlag = true
 					end
@@ -876,18 +876,43 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	end
 end
 
-function PassiveTreeViewClass:GenerateNode(node, grpList, nodeList)
+function PassiveTreeViewClass:GenerateNode(node, originatingNode, tree, nodeList)
 	if not node then return end
 
 	-- mark node to be rendered (only applies to dynamically generated nodes)
 	node.render = true
 
+	-- create connection between originatingNode and rendered Node
+	t_insert(tree.connectors, tree:BuildConnector(originatingNode, node))
+
 	-- find group node belongs to and mark each member of the group to be rendered as well
+	local renderedNodes = { node }
 	for _, otherNodeId in pairs(node.group.nodes) do
-		local nodeId = tonumber(otherNodeId)
-		local nodeToUpdate = nodeList[nodeId]
+		local nodeToUpdate = nodeList[tonumber(otherNodeId)]
 		if nodeToUpdate and not nodeToUpdate.alloc then
 			nodeToUpdate.render = true
+			t_insert(renderedNodes, nodeToUpdate)
+		end
+	end
+
+	self:CreateConnections(renderedNodes, tree, nodeList)
+end
+
+function PassiveTreeViewClass:CreateConnections(nodes, tree, nodeList)
+	for _, node in pairs(nodes) do
+		for _, link in pairs(node.linkedId) do
+			local inList = false
+			for _, node in pairs(nodes) do
+				if link == node.skill then
+					inList = true
+					break
+				end
+			end
+			if inList then
+				-- create connection between currNode and next rendered Node
+				local otherNode = nodeList[link]
+				t_insert(tree.connectors, tree:BuildConnector(node, otherNode))
+			end
 		end
 	end
 end
