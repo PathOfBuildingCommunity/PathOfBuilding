@@ -259,17 +259,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			-- User left-clicked on a node
 			if hoverNode.alloc then
 				-- Node is allocated, so deallocate it
-				if hoverNode.isProxy then
-					hoverNode.render = false
-				end
 				spec:DeallocNode(hoverNode)
 				spec:AddUndoState()
 				build.buildFlag = true
 			elseif hoverNode.path then
 				-- Node is unallocated and can be allocated, so allocate it
-				if hoverNode.isProxy then
-					hoverNode.render = true
-				end
 				spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
 				spec:AddUndoState()
 				build.buildFlag = true
@@ -340,9 +334,15 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			end
 		else
 			local atLeastOneAllocated = false
-			for _, g_node in pairs(group.nodes) do
-				if g_node.alloc then
+			for _, nodeId in pairs(group.nodes) do
+				local node = spec.nodes[tonumber(nodeId)]
+				if node and node.render then
 					atLeastOneAllocated = true
+					for _, nodeId2 in pairs(group.nodes) do
+						local nodeToUpdate = spec.nodes[tonumber(nodeId2)]
+						nodeToUpdate.render = true
+						tree:BuildConnector(node, nodeToUpdate)
+					end
 					break
 				end
 			end
@@ -447,6 +447,16 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						overlay = "JewelSocketActiveTimeless"
 					elseif jewel.baseName:match("Eye Jewel$") then
 						overlay = "JewelSocketActiveAbyss"
+					end
+					if node.expansionJewel then
+						local posProxy = spec.nodes[tonumber(node.expansionJewel.proxy)]
+						if posProxy then
+							posProxy.render = true
+							-- Node is unallocated and can be allocated, so allocate it
+							spec:AllocNode(posProxy, self.tracePath and posProxy == self.tracePath[#self.tracePath] and self.tracePath)
+							spec:AddUndoState()
+							build.buildFlag = true
+						end
 					end
 				end
 			else
