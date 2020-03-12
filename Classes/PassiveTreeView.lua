@@ -969,6 +969,11 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 	local positionalGroupProxy = positionalProxy.group
 	positionalGroupProxy.render = true
 	positionalGroupProxy.nodes = { positionalProxy }
+	positionalGroupProxy.n = positionalGroupProxy.nodes
+	positionalGroupProxy.oo = { }
+	for _, orbit in ipairs(positionalGroupProxy.orbits) do
+		positionalGroupProxy.oo[orbit] = true
+	end
 
 	local genKeystoneNodes = { }
 	for i = 1, #keystoneNodes do
@@ -987,6 +992,12 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 	end
 
 	-- FIXME
+	-- support old format
+	positionalProxy.nodeType = "Normal"
+	positionalProxy.id = positionalProxy.skill
+	positionalProxy.g = positionalProxy.group
+	positionalProxy.o = positionalProxy.orbit
+	positionalProxy.oidx = positionalProxy.orbitIndex
 	positionalProxy.dn = "Generated " .. tostring(positionalProxy.orbitIndex)
 	positionalProxy.sd = normalNodes[positionalProxy.orbitIndex]
 	positionalProxy.render = true
@@ -1030,16 +1041,23 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 		newNode.x = positionalGroupProxy.x + m_sin(newNode.angle) * dist
 		newNode.y = positionalGroupProxy.y - m_cos(newNode.angle) * dist
 
-		t_insert(lastNode.linkedId, newNode.id)
-		t_insert(newNode.linkedId, lastNode.id)
+		nodeList[newNode.skill] = newNode
 
-		--t_insert(tree.connectors, tree:BuildConnector(lastNode, newNode))
-		
+		for _, otherId in pairs(lastNode.out or {}) do
+			if type(otherId) == "string" then
+				otherId = tonumber(otherId)
+			end
+			local other = nodeList[otherId]
+			t_insert(lastNode.linkedId, otherId)
+			t_insert(other.linkedId, lastNode.id)
+			t_insert(tree.connectors, tree:BuildConnector(lastNode, other))
+		end
+
 		t_insert(genNormalNodes, newNode)
 		t_insert(positionalGroupProxy.nodes, newNode)
-		t_insert(nodeList, newNode)
 		lastNode = newNode
 	end
+	t_insert(tree.connectors, tree:BuildConnector(lastNode, positionalProxy))
 	t_insert(tree.connectors, tree:BuildConnector(positionalProxy, anchorNode))
 end
 
