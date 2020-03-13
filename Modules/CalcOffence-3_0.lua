@@ -314,7 +314,25 @@ function calcs.offence(env, actor, activeSkill)
 			local projMore = skillModList:More(skillCfg, "ProjectileCount")
 			output.ProjectileCount = round((projBase - 1) * projMore + 1)
 		end
+		if skillModList:Flag(skillCfg, "CannotFork") then
+			output.ForkCountString = "Cannot fork"
+		elseif skillModList:Flag(skillCfg, "ForkOnce") and not skillModList:Flag(skillCfg, "ForkTwice") then
+			skillFlags.forking = skillModList:Flag(skillCfg, "ForkOnce")
+			output.ForkCountMax = m_min(skillModList:Sum("BASE", skillCfg, "ForkCountMax"), 1)
+			output.ForkedCount = m_min(output.ForkCountMax, skillModList:Sum("BASE", skillCfg, "ForkedCount"))
+			output.ForkCountString = output.ForkCountMax
+			output.ForkRemaining = m_max(0, output.ForkCountMax - output.ForkedCount)
+		elseif skillModList:Flag(skillCfg, "ForkTwice") then
+			skillFlags.forking = skillModList:Flag(skillCfg, "ForkTwice")
+			output.ForkCountMax = m_min(skillModList:Sum("BASE", skillCfg, "ForkCountMax"), 2)
+			output.ForkedCount = m_min(output.ForkCountMax, skillModList:Sum("BASE", skillCfg, "ForkedCount"))
+			output.ForkCountString = output.ForkCountMax
+			output.ForkRemaining = m_max(0, output.ForkCountMax - output.ForkedCount)
+		else
+			output.ForkCountString = "0"
+		end
 		if skillModList:Flag(skillCfg, "CannotPierce") then
+			output.PierceCount = 0
 			output.PierceCountString = "Cannot pierce"
 		else
 			if skillModList:Flag(skillCfg, "PierceAllTargets") or enemyDB:Flag(nil, "AlwaysPierceSelf") then
