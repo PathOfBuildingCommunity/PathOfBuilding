@@ -242,6 +242,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if hoverNode then
 			if not hoverNode.path then
 				-- Don't highlight the node if it can't be pathed to
+				error("HA")
 				hoverNode = nil
 			elseif not self.tracePath[1] then
 				-- Initialise the trace path using this node's path
@@ -604,7 +605,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if node then
 			local scrX, scrY = treeToScreen(node.x, node.y)
 			local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
-			if (node == hoverNode) and ((hoverNode.isProxy and hoverNode.render) or not hoverNode.isProxy ) then
+			if node == hoverNode then
 				local isThreadOfHope = jewel and jewel.jewelRadiusLabel == "Variable"
 				if isThreadOfHope then
 					for _, radData in ipairs(build.data.jewelRadius) do
@@ -887,41 +888,6 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	end
 end
 
-function PassiveTreeViewClass:ConnectGroup(node, originatingNode, tree, nodeList)
-	-- create connection between originatingNode and rendered Node
-	t_insert(tree.connectors, tree:BuildConnector(originatingNode, node))
-
-	-- find group node belongs to and mark each member of the group to be rendered as well
-	local renderedNodes = { node }
-	for _, otherNodeId in pairs(node.group.nodes) do
-		local nodeToUpdate = nodeList[tonumber(otherNodeId)]
-		if nodeToUpdate and not nodeToUpdate.alloc then
-			t_insert(renderedNodes, nodeToUpdate)
-		end
-	end
-
-	self:CreateGroupConnections(renderedNodes, tree, nodeList)
-end
-
-function PassiveTreeViewClass:CreateGroupConnections(nodes, tree, nodeList)
-	for _, node in pairs(nodes) do
-		for _, link in pairs(node.linkedId) do
-			local inList = false
-			for _, node in pairs(nodes) do
-				if link == node.skill then
-					inList = true
-					break
-				end
-			end
-			if inList then
-				-- create connection between currNode and next rendered Node
-				local otherNode = nodeList[link]
-				t_insert(tree.connectors, tree:BuildConnector(node, otherNode))
-			end
-		end
-	end
-end
-
 function PassiveTreeViewClass:UnhideNode(node)
 	node.render = true
 end
@@ -962,6 +928,41 @@ end
 
 function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansionNodes, keystoneNodes, notableNodes, normalNodes)
 	if not anchorNode.generatedNodes then anchorNode.generatedNodes = { } end
+
+	local cdnRoot = "https://web.poecdn.com"
+	-- Load sprite sheets and build sprite map
+	local spriteMap = { }
+	local spriteSheets = { }
+	for type, data in pairs(tree.skillSprites) do
+		local maxZoom = data[#data]
+		local sheet = spriteSheets[maxZoom.filename]
+		if not sheet then
+			sheet = { }
+			tree:LoadImage(maxZoom.filename:gsub("%?%x+$",""), cdnRoot..(tree.imageRoot or "/image/")..("passive-skill/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
+			spriteSheets[maxZoom.filename] = sheet
+		end
+		for name, coords in pairs(maxZoom.coords) do
+			if not spriteMap[name] then
+				spriteMap[name] = { }
+			end
+			spriteMap[name][type] = {
+				handle = sheet.handle,
+				width = coords.w,
+				height = coords.h,
+				[1] = coords.x / sheet.width,
+				[2] = coords.y / sheet.height,
+				[3] = (coords.x + coords.w) / sheet.width,
+				[4] = (coords.y + coords.h) / sheet.height
+			}
+		end
+	end
+
+	for type, data in pairs(self:getNodeOverlay()) do
+		local size = data.artWidth * 1.33
+		data.size = size
+		data.rsq = size * size
+	end
+
 
 	local positionalProxy = nodeList[tonumber(anchorNode.expansionJewel.proxy)]
 	positionalProxy["in"] = { tostring(anchorNode.skill) }
@@ -1023,8 +1024,14 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 		newNode.oidx = newNode.orbitIndex
 		newNode.dn = newNode.name
 		newNode.sd = newNode.stats
-		if newNode.sd then
-			self:ParseMod(newNode, tree)
+
+		self:ParseMod(newNode, tree)
+
+		-- Assign node artwork assets
+		newNode.sprites = spriteMap[newNode.icon]
+		if not newNode.sprites then
+			--error("missing sprite "..node.icon)
+			newNode.sprites = { }
 		end
 
 		newNode.overlay = self:getNodeOverlay()[newNode.type]
@@ -1057,8 +1064,13 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 		t_insert(positionalGroupProxy.nodes, newNode)
 		lastNode = newNode
 	end
+	t_insert(lastNode.linkedId, positionalProxy.id)
+	t_insert(positionalProxy.linkedId, lastNode.id)
 	t_insert(tree.connectors, tree:BuildConnector(lastNode, positionalProxy))
+
 	t_insert(tree.connectors, tree:BuildConnector(positionalProxy, anchorNode))
+
+	t_insert(tree.groups, positionalGroupProxy)
 end
 
 function PassiveTreeViewClass:GenerateNode(nodeList, nodeType, groupId, orbit, orbitIndex, name, stats)
@@ -1168,6 +1180,10 @@ function PassiveTreeViewClass:ParseMod(node, tree)
 				node.modList:AddMod(mod)
 			end
 		end
+	end
+
+	if node.type == "Keystone" then
+		node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree"..node.id)
 	end
 end
 
