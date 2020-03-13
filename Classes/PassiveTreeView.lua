@@ -14,34 +14,6 @@ local m_floor = math.floor
 local m_sin = math.sin
 local m_cos = math.cos
 
-local dynamic_index_start = 100000
-local dynamic_nodeIds = { }
-
-local function addDynamicId(id)
-    dynamic_nodeIds[id] = true
-end
-
-local function removeDynamicId(id)
-    dynamic_nodeIds[id] = nil
-end
-
-local function dynamicIdExists(id)
-    return dynamic_nodeIds[id] ~= nil
-end
-
-local function generateUniqueId()
-	local newId = dynamic_index_start
-	while dynamicIdExists(newId) do
-		newId = newId + 1
-		-- sanity check to prevent possible infinite while loop
-		if newId >= 1000000 then
-			break
-		end
-	end
-	addDynamicId(newId)
-	return newId
-end
-
 local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.ring = NewImageHandle()
 	self.ring:Load("Assets/ring.png", "CLAMP")
@@ -242,7 +214,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if hoverNode then
 			if not hoverNode.path then
 				-- Don't highlight the node if it can't be pathed to
-				error("HA")
 				hoverNode = nil
 			elseif not self.tracePath[1] then
 				-- Initialise the trace path using this node's path
@@ -629,7 +600,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						end
 					end
 				end
-			elseif node.alloc then
+			elseif node.alloc and not node.isProxy then
 				if jewel and jewel.jewelRadiusIndex then
 					-- Draw only the selected jewel radius
 					local radData = build.data.jewelRadius[jewel.jewelRadiusIndex]
@@ -929,6 +900,7 @@ end
 function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansionNodes, keystoneNodes, notableNodes, normalNodes)
 	if not anchorNode.generatedNodes then anchorNode.generatedNodes = { } end
 
+	--[[
 	local cdnRoot = "https://web.poecdn.com"
 	-- Load sprite sheets and build sprite map
 	local spriteMap = { }
@@ -962,7 +934,7 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 		data.size = size
 		data.rsq = size * size
 	end
-
+	--]]
 
 	local positionalProxy = nodeList[tonumber(anchorNode.expansionJewel.proxy)]
 	positionalProxy["in"] = { tostring(anchorNode.skill) }
@@ -978,7 +950,7 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 
 	local genKeystoneNodes = { }
 	for i = 1, #keystoneNodes do
-		local newNode = self:GenerateNode(nodeList, "Keystone")
+		local newNode = tree:GenerateNode(nodeList, "Keystone")
 		t_insert(genKeystoneNodes, newNode)
 		-- add the newly generated node to the anchorNode's list so we can delete it when necessary
 		t_insert(anchorNode.generatedNodes, newNode)
@@ -986,7 +958,7 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 
 	local genNotableNodes = { }
 	for i = 1, #notableNodes do
-		local newNode = self:GenerateNode(nodeList, "Notable")
+		local newNode = tree:GenerateNode(nodeList, "Notable")
 		t_insert(genNotableNodes, newNode)
 		-- add the newly generated node to the anchorNode's list so we can delete it when necessary
 		t_insert(anchorNode.generatedNodes, newNode)
@@ -1001,8 +973,8 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 	positionalProxy.oidx = positionalProxy.orbitIndex
 	positionalProxy.dn = "Generated " .. tostring(positionalProxy.orbitIndex)
 	positionalProxy.sd = normalNodes[positionalProxy.orbitIndex]
-	positionalProxy.render = true
-	self:ParseMod(positionalProxy, tree)
+	positionalProxy.render = anchorNode.alloc
+	tree:ParseMods(positionalProxy, tree)
 
 	local genNormalNodes = { }
 	local lastNode = positionalProxy
@@ -1011,42 +983,19 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 		if oi > #normalNodes then
 			oi = 1
 		end
-		local newNode = self:GenerateNode(nodeList, "Normal", positionalProxy.group, 0, oi,"Generated "..tostring(oi), normalNodes[oi])
+		local newNode = tree:GenerateNode("Normal", positionalProxy.group, positionalProxy.orbit, oi, "Generated "..tostring(oi), normalNodes[oi])
 		newNode.groupNum = positionalProxy.groupNum
-		newNode.orbit = positionalProxy.orbit
 		newNode["in"] = { tostring(lastNode.skill) }
 		t_insert(lastNode.out, tostring(newNode.skill))
 
-		-- support old format
-		newNode.id = newNode.skill
-		newNode.g = newNode.group
-		newNode.o = newNode.orbit
-		newNode.oidx = newNode.orbitIndex
-		newNode.dn = newNode.name
-		newNode.sd = newNode.stats
+		tree:ParseMods(newNode)
 
-		self:ParseMod(newNode, tree)
-
-		-- Assign node artwork assets
-		newNode.sprites = spriteMap[newNode.icon]
-		if not newNode.sprites then
-			--error("missing sprite "..node.icon)
-			newNode.sprites = { }
+		newNode.render = anchorNode.alloc
+		if newNode.render then
+			tree:Render(newNode)
 		end
 
-		newNode.overlay = self:getNodeOverlay()[newNode.type]
-		if newNode.overlay then
-			newNode.rsq = newNode.overlay.rsq
-			newNode.size = newNode.overlay.size
-		end
-		if newNode.o ~= 4 then
-			newNode.angle = newNode.oidx * tree:getOrbitMult()[newNode.o]
-		else
-			newNode.angle = tree:getOrbitMultFull()[newNode.oidx]
-		end
-		local dist = tree:getOrbitDist()[newNode.o]
-		newNode.x = positionalGroupProxy.x + m_sin(newNode.angle) * dist
-		newNode.y = positionalGroupProxy.y - m_cos(newNode.angle) * dist
+		tree:Orient(newNode, positionalGroupProxy)
 
 		nodeList[newNode.skill] = newNode
 
@@ -1071,156 +1020,4 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 	t_insert(tree.connectors, tree:BuildConnector(positionalProxy, anchorNode))
 
 	t_insert(tree.groups, positionalGroupProxy)
-end
-
-function PassiveTreeViewClass:GenerateNode(nodeList, nodeType, groupId, orbit, orbitIndex, name, stats)
-	local node = {
-		["skill"] = generateUniqueId(),
-		["isProxy"] = true,
-		["isGenerated"] = true, -- our own identifier for dynamically generated nodes
-		["stats"]= stats,
-		["group"]= groupId or 0,
-		["orbit"]= orbit or 0,
-		["orbitIndex"]= orbitIndex or 0,
-		["name"] = name or "UKNOWN",
-		["type"] = nodeType or "Normal",
-		["icon"] = "Art/2DArt/SkillIcons/passives/MasteryBlank.png",
-	}
-
-	node["out"] = { } -- figure out
-	node["in"] = { } -- figure out
-
-	if nodeType == "Notable" then
-		node["isNotable"] = true
-	elseif nodeType == "Keystone" then
-		node["isKeystone"]= true
-	elseif nodeType == "Socket" then
-		node["isJewelSocket"] = true
-		node["expansionJewel"] = {
-			size = 0, -- fix
-			index = 0, -- fix
-			proxy = "", -- fix
-			parent = "", -- fix
-		}
-	end
-
-	node.__index = node
-	node.linkedId = { }
-	node.sprites = { }
-
-	self:UnhideNode(node)
-
-	return node
-end
-
-function PassiveTreeViewClass:ParseMod(node, tree)
-	-- Parse node modifier lines
-	node.mods = { }
-	node.modKey = ""
-	local i = 1
-	while node.sd[i] do
-		if node.sd[i]:match("\n") then
-			local line = node.sd[i]
-			local il = i
-			t_remove(node.sd, i)
-			for line in line:gmatch("[^\n]+") do
-				t_insert(node.sd, il, line)
-				il = il + 1
-			end
-		end
-		local line = node.sd[i]
-		local list, extra = modLib.parseMod[tree.targetVersion](line)
-		if not list or extra then
-			-- Try to combine it with one or more of the lines that follow this one
-			local endI = i + 1
-			while node.sd[endI] do
-				local comb = line
-				for ci = i + 1, endI do
-					comb = comb .. " " .. node.sd[ci]
-				end
-				list, extra = modLib.parseMod[tree.targetVersion](comb, true)
-				if list and not extra then
-					-- Success, add dummy mod lists to the other lines that were combined with this one
-					for ci = i + 1, endI do
-						node.mods[ci] = { list = { } }
-					end
-					break
-				end
-				endI = endI + 1
-			end
-		end
-		if not list then
-			-- Parser had no idea how to read this modifier
-			node.unknown = true
-		elseif extra then
-			-- Parser recognised this as a modifier but couldn't understand all of it
-			node.extra = true
-		else
-			for _, mod in ipairs(list) do
-				node.modKey = node.modKey.."["..modLib.formatMod(mod).."]"
-			end
-		end
-		node.mods[i] = { list = list, extra = extra }
-		i = i + 1
-		while node.mods[i] do
-			-- Skip any lines with dummy lists added by the line combining code
-			i = i + 1
-		end
-	end
-
-	-- Build unified list of modifiers from all recognised modifier lines
-	node.modList = new("ModList")
-	for _, mod in pairs(node.mods) do
-		if mod.list and not mod.extra then
-			for i, mod in ipairs(mod.list) do
-				mod.source = "Tree:"..node.id
-				if type(mod.value) == "table" and mod.value.mod then
-					mod.value.mod.source = mod.source
-				end
-				node.modList:AddMod(mod)
-			end
-		end
-	end
-
-	if node.type == "Keystone" then
-		node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree"..node.id)
-	end
-end
-
-function PassiveTreeViewClass:getNodeOverlay()
-	return {
-		Normal = {
-			artWidth = 40,
-			alloc = "PSSkillFrameActive",
-			path = "PSSkillFrameHighlighted",
-			unalloc = "PSSkillFrame",
-			allocAscend = "AscendancyFrameSmallAllocated",
-			pathAscend = "AscendancyFrameSmallCanAllocate",
-			unallocAscend = "AscendancyFrameSmallNormal"
-		},
-		Notable = {
-			artWidth = 58,
-			alloc = "NotableFrameAllocated",
-			path = "NotableFrameCanAllocate",
-			unalloc = "NotableFrameUnallocated",
-			allocAscend = "AscendancyFrameLargeAllocated",
-			pathAscend = "AscendancyFrameLargeCanAllocate",
-			unallocAscend = "AscendancyFrameLargeNormal",
-			allocBlighted = "BlightedNotableFrameAllocated",
-			pathBlighted = "BlightedNotableFrameCanAllocate",
-			unallocBlighted = "BlightedNotableFrameUnallocated",
-		},
-		Keystone = {
-			artWidth = 84,
-			alloc = "KeystoneFrameAllocated",
-			path = "KeystoneFrameCanAllocate",
-			unalloc = "KeystoneFrameUnallocated"
-		},
-		Socket = {
-			artWidth = 58,
-			alloc = "JewelFrameAllocated",
-			path = "JewelFrameCanAllocate",
-			unalloc = "JewelFrameUnallocated"
-		}
-	}
 end
