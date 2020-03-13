@@ -54,3 +54,22 @@ itemBases["Timeless Jewel"] = {
 	tags = { default = true, jewel = true, intjewel = true, dexjewel = true, strjewel = true, not_for_sale = true, },
 	req = { },
 }
+
+itemBases["Small Cluster Jewel"] = {
+	type = "Jewel",
+	subType = "Cluster",
+	tags = { default = true, jewel = true, cluster_jewel = true, size = 0, },
+	req = { },
+}
+itemBases["Medium Cluster Jewel"] = {
+	type = "Jewel",
+	subType = "Cluster",
+	tags = { default = true, jewel = true, cluster_jewel = true, size = 1, },
+	req = { },
+}
+itemBases["Large Cluster Jewel"] = {
+	type = "Jewel",
+	subType = "Cluster",
+	tags = { default = true, jewel = true, cluster_jewel = true, size = 2, },
+	req = { },
+}

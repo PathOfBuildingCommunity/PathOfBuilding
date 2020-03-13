@@ -1892,6 +1892,9 @@ local specialModList = {
 	["manifeste?d? dancing dervish disables both weapon slots"] = { },
 	["manifeste?d? dancing dervish dies when rampage ends"] = { },
 	["you can have two different banners at the same time"] = { },
+	-- Test JewelData
+	["adds (%d+) passive skills"] = function(num) return { mod("JewelData", "LIST", { key = "numSmallPassives", value = num }) } end,
+	["added small passive skills grant: (.+)"] = function(_,str) return { mod("JewelData", "LIST", { key = "smallPassiveMod", value = str }) } end,
 }
 local keystoneList = {
 	-- List of keystones that can be found on uniques
