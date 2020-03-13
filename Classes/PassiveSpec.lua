@@ -195,11 +195,22 @@ end
 function PassiveSpecClass:EncodeURL(prefix)
 	local a = { 0, 0, 0, 4, self.curClassId, self.curAscendClassId, 0 }
 	for id, node in pairs(self.allocNodes) do
-		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
+		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" 
+		  and not node.isProxy then
 			t_insert(a, m_floor(id / 256))
 			t_insert(a, id % 256)
 		end
 	end
+	-- TODO - FIX ME ONCE WE IMPLEMENT PROPER PROXY NODE SAVING SUPPORT 
+	--        BY DELETING my_unpack AND REPLCAING return TO USE unpack 
+	--[[
+	local function my_unpack (t, i)
+      i = i or 1
+      if t[i] ~= nil and t[i] < 256 then
+        return t[i], my_unpack(t, i + 1)
+      end
+	end
+	--]]
 	return (prefix or "")..common.base64.encode(string.char(unpack(a))):gsub("+","-"):gsub("/","_")
 end
 
@@ -402,7 +413,10 @@ function PassiveSpecClass:BuildPathFromNode(root)
 			-- 2. They cannot pass between different ascendancy classes or between an ascendancy class and the main tree
 			--    The one exception to that rule is that a path may start from an ascendancy node and pass into the main tree
 			--    This permits pathing from the Ascendant 'Path of the X' nodes into the respective class start areas
-			if other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
+			if other.type ~= "ClassStart" and other.type ~= "AscendClassStart" 
+			  and other.pathDist > curDist
+			  and (node.ascendancyName == other.ascendancyName
+			  or (curDist == 1 and not other.ascendancyName)) then
 				-- The shortest path to the other node is through the current node
 				other.pathDist = curDist
 				other.path = wipeTable(other.path)

@@ -425,12 +425,16 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						overlay = "JewelSocketActiveTimeless"
 					elseif jewel.baseName:match("Eye Jewel$") then
 						overlay = "JewelSocketActiveAbyss"
+					elseif jewel.baseName:match("Cluster Jewel$") then
+						overlay = "JewelSocketActivePrismatic"
 					end
 					if node.expansionJewel and not node.handled then
-						local nodeList = spec.nodes
-						self:ProcessExpansion(nodeList, tree, node, jewel.modLines)
-						spec:AddUndoState()
-						build.buildFlag = true
+						if jewel.base.tags.cluster_jewel and jewel.base.tags.size <= node.expansionJewel.size then
+							local nodeList = spec.nodes
+							self:ProcessExpansion(nodeList, tree, node, jewel.jewelData)
+							spec:AddUndoState()
+							build.buildFlag = true
+						end
 					end
 				end
 			else
@@ -868,27 +872,14 @@ function PassiveTreeViewClass:HideNode(node)
 end
 
 function PassiveTreeViewClass:ProcessExpansion(nodeList, tree, anchorNode, clusterMods)
-	local totalPassives = 0
+	local totalPassives = clusterMods.numSmallPassives
 	local smallPassiveMods = { }
-	if clusterMods then
-		for _, mod in pairs(clusterMods) do
-			if mod.extra then
-				for num in string.gmatch(mod.extra:lower(), "adds (%d+) passive skills") do
-					totalPassives = tonumber(num)
-				end
-				for strMod in string.gmatch(mod.extra:lower(), "added small passive skills grant: (.+)") do
-					t_insert(smallPassiveMods, strMod)
-				end
-			end
-		end
-	end
-
 	local expansionNodes = { }
 	local keystoneNodes = { }
 	local notableNodes = { }
 	local normalNodes = { }
 	for i = 1, totalPassives do
-		normalNodes[i] = smallPassiveMods
+		normalNodes[i] = clusterMods.smallPassiveMod
 	end
 
 	self:GenerateGroup(nodeList, tree, anchorNode, expansionNodes, keystoneNodes, notableNodes, normalNodes)
@@ -903,6 +894,7 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 	local positionalProxy = nodeList[tonumber(anchorNode.expansionJewel.proxy)]
 	positionalProxy["in"] = { tostring(anchorNode.skill) }
 	positionalProxy["out"] = { }
+	positionalProxy["linked"] = { anchorNode }
 	local positionalGroupProxy = positionalProxy.group
 	positionalGroupProxy.render = true
 	positionalGroupProxy.nodes = { positionalProxy }
@@ -928,7 +920,6 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 		t_insert(anchorNode.generatedNodes, newNode)
 	end
 
-	-- FIXME
 	-- support old format
 	positionalProxy.nodeType = "Normal"
 	positionalProxy.id = positionalProxy.skill
@@ -936,9 +927,11 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 	positionalProxy.o = positionalProxy.orbit
 	positionalProxy.oidx = positionalProxy.orbitIndex
 	positionalProxy.dn = "Generated " .. tostring(positionalProxy.orbitIndex)
-	positionalProxy.sd = normalNodes[positionalProxy.orbitIndex]
+	positionalProxy.sd = { normalNodes[m_min(positionalProxy.orbitIndex, #normalNodes)] }
 	positionalProxy.render = anchorNode.alloc
-	tree:ParseMods(positionalProxy, tree)
+	positionalProxy.pathDist = 0
+	positionalProxy.path = { }
+	tree:ParseMods(positionalProxy)
 
 	local genNormalNodes = { }
 	local lastNode = positionalProxy
@@ -947,10 +940,16 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 		if oi > #normalNodes then
 			oi = 1
 		end
-		local newNode = tree:GenerateNode("Normal", positionalProxy.group, positionalProxy.orbit, oi, "Generated "..tostring(oi), normalNodes[oi])
+		local newNode = tree:GenerateNode("Normal", positionalProxy.group, positionalProxy.orbit, oi, "Generated "..tostring(oi))
+		newNode.group = positionalProxy.group
+		newNode.g = newNode.group
+		newNode.sd = { normalNodes[oi] }
 		newNode.groupNum = positionalProxy.groupNum
 		newNode["in"] = { tostring(lastNode.skill) }
 		t_insert(lastNode.out, tostring(newNode.skill))
+
+		t_insert(newNode.linked, lastNode)
+		t_insert(lastNode.linked, newNode)
 
 		tree:ParseMods(newNode)
 
@@ -977,6 +976,8 @@ function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansio
 		t_insert(positionalGroupProxy.nodes, newNode)
 		lastNode = newNode
 	end
+	t_insert(lastNode.linked, positionalProxy)
+	t_insert(positionalProxy.linked, lastNode)
 	t_insert(lastNode.linkedId, positionalProxy.id)
 	t_insert(positionalProxy.linkedId, lastNode.id)
 	t_insert(tree.connectors, tree:BuildConnector(lastNode, positionalProxy))

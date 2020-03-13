@@ -593,23 +593,20 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 	return connector
 end
 
-function PassiveTreeClass:GenerateNode(nodeType, group, orbit, orbitIndex, name, stats)
+function PassiveTreeClass:GenerateNode(nodeType, group, orbit, orbitIndex, name)
 	local uuid = generateUniqueId()
 	local node = {
 		["id"] = uuid,
 		["skill"] = uuid,
 		["isProxy"] = true,
 		["isGenerated"] = true, -- our own identifier for dynamically generated nodes
-		["stats"]= stats,
-		["group"]= group,
-		["g"] = group or 0,
+		["group"]= {}, --group,
+		["g"] = {}, --group or 0,
 		["orbit"]= orbit or 0,
 		["o"]= orbit or 0,
 		["orbitIndex"]= orbitIndex or 0,
 		["oidx"] = orbitIndex or 0,
 		["dn"] = name or "UKNOWN",
-		["stats"] = stats,
-		["sd"] = stats,
 		["type"] = nodeType or "Normal",
 		["icon"] = "Art/2DArt/SkillIcons/passives/MasteryBlank.png",
 	}
@@ -617,6 +614,8 @@ function PassiveTreeClass:GenerateNode(nodeType, group, orbit, orbitIndex, name,
 	node["out"] = { } -- figure out
 	node["in"] = { } -- figure out
 	node.alloc = false
+	node.path = { }
+	node.depends = { }
 
 	if nodeType == "Notable" then
 		node["isNotable"] = true
@@ -632,11 +631,12 @@ function PassiveTreeClass:GenerateNode(nodeType, group, orbit, orbitIndex, name,
 		}
 	end
 
-	self:ParseMods(node)
-
 	node.__index = node
+	node.linked = { }
 	node.linkedId = { }
 	node.sprites = { }
+	node.pathDist = 0
+	node.path = { }
 
 	return node
 end
