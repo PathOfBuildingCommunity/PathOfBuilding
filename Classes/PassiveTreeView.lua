@@ -900,42 +900,6 @@ end
 function PassiveTreeViewClass:GenerateGroup(nodeList, tree, anchorNode, expansionNodes, keystoneNodes, notableNodes, normalNodes)
 	if not anchorNode.generatedNodes then anchorNode.generatedNodes = { } end
 
-	--[[
-	local cdnRoot = "https://web.poecdn.com"
-	-- Load sprite sheets and build sprite map
-	local spriteMap = { }
-	local spriteSheets = { }
-	for type, data in pairs(tree.skillSprites) do
-		local maxZoom = data[#data]
-		local sheet = spriteSheets[maxZoom.filename]
-		if not sheet then
-			sheet = { }
-			tree:LoadImage(maxZoom.filename:gsub("%?%x+$",""), cdnRoot..(tree.imageRoot or "/image/")..("passive-skill/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
-			spriteSheets[maxZoom.filename] = sheet
-		end
-		for name, coords in pairs(maxZoom.coords) do
-			if not spriteMap[name] then
-				spriteMap[name] = { }
-			end
-			spriteMap[name][type] = {
-				handle = sheet.handle,
-				width = coords.w,
-				height = coords.h,
-				[1] = coords.x / sheet.width,
-				[2] = coords.y / sheet.height,
-				[3] = (coords.x + coords.w) / sheet.width,
-				[4] = (coords.y + coords.h) / sheet.height
-			}
-		end
-	end
-
-	for type, data in pairs(self:getNodeOverlay()) do
-		local size = data.artWidth * 1.33
-		data.size = size
-		data.rsq = size * size
-	end
-	--]]
-
 	local positionalProxy = nodeList[tonumber(anchorNode.expansionJewel.proxy)]
 	positionalProxy["in"] = { tostring(anchorNode.skill) }
 	positionalProxy["out"] = { }
