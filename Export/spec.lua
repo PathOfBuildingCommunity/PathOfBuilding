@@ -1101,10 +1101,6 @@ return {
 			refTo="",
 			type="Int",
 			width=150
-<<<<<<< Updated upstream
-		},
-		[6]={
-=======
 		}
 	},
 	ClientUIScreens={
@@ -1115,7 +1111,6 @@ return {
 	},
 	ComponentArmour={
 		[1]={
->>>>>>> Stashed changes
 			list=false,
 			name="BaseMaxMana",
 			refTo="",
@@ -3087,17 +3082,10 @@ return {
 	InventoryId={
 		[1]={
 			list=false,
-<<<<<<< Updated upstream
-			name="Id",
-			refTo="",
-			type="String",
-			width=150
-=======
 			name="id",
 			refTo="",
 			type="String",
 			width=210
->>>>>>> Stashed changes
 		}
 	},
 	InventoryType={
@@ -3946,9 +3934,6 @@ return {
 			name="",
 			refTo="ItemClasses",
 			type="Key",
-<<<<<<< Updated upstream
-			width=290
-=======
 			width=200
 		},
 		[43]={
@@ -3964,7 +3949,6 @@ return {
 			refTo="",
 			type="Int",
 			width=150
->>>>>>> Stashed changes
 		}
 	},
 	MonsterAdditionalMonsterDrops={
