@@ -6259,7 +6259,7 @@ return {
 		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemBarrage"] = {
-		name = "Barrage",
+		name = "Barrage Support",
 		grantedEffectId = "SupportBarrage",
 		tags = {
 			bow = true,
