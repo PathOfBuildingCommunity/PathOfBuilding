@@ -371,6 +371,7 @@ local modNameList = {
 	["effect of tailwind on you"] = "TailwindEffectOnSelf",
 	["elusive effect"] = "ElusiveEffect",
 	["effect of elusive on you"] = "ElusiveEffect",
+	["effect of infusion"] = "InfusionEffect",
 	-- Basic damage types
 	["damage"] = "Damage",
 	["physical damage"] = "PhysicalDamage",
