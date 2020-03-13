@@ -202,11 +202,13 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") then
-		-- Spell Damage conversion from Crown of Eyes
+	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") or skillModList:Flag(nil, "ImprovedSpellDamageAppliesToAttacks") then
+		-- Spell Damage conversion from Crown of Eyes, Kinetic Bolt, and the Wandslinger notable
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Spell }, "Damage")) do
 			local mod = value.mod
-			if band(mod.flags, ModFlag.Spell) ~= 0 then
+			if band(mod.flags, ModFlag.Spell) ~= 0 and skillModList:Flag(nil, "ImprovedSpellDamageAppliesToAttacks") then
+				skillModList:NewMod("Damage", "INC", mod.value * 1.5, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
+			elseif band(mod.flags, ModFlag.Spell) ~= 0 then
 				skillModList:NewMod("Damage", "INC", mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
 			end
 		end
