@@ -282,6 +282,28 @@ return {
 	},
 	AdvancedSkillsTutorial={
 	},
+	AfflictionBalancePerLevel={
+	},
+	AfflictionEndgameAreas={
+	},
+	AfflictionEndgameWaveMods={
+	},
+	AfflictionFixedMods={
+	},
+	AfflictionRandomModCategories={
+	},
+	AfflictionRandomSpawns={
+	},
+	AfflictionRewardMapMods={
+	},
+	AfflictionRewardTypeVisuals={
+	},
+	AfflictionRewardTypes={
+	},
+	AfflictionSplitDemons={
+	},
+	AfflictionStartDialogue={
+	},
 	AlternateBehaviourTypes={
 	},
 	AlternatePassiveAdditions={
@@ -644,6 +666,8 @@ return {
 	},
 	BlightBalancePerLevel={
 	},
+	BlightBossLifeScalingPerLevel={
+	},
 	BlightChestTypes={
 	},
 	BlightCraftingItems={
@@ -960,6 +984,10 @@ return {
 	},
 	BuffVisualOrbTypes={
 	},
+	BuffVisualSetEntries={
+	},
+	BuffVisualSets={
+	},
 	BuffVisuals={
 		[1]={
 			list=false,
@@ -1073,8 +1101,21 @@ return {
 			refTo="",
 			type="Int",
 			width=150
+<<<<<<< Updated upstream
 		},
 		[6]={
+=======
+		}
+	},
+	ClientUIScreens={
+	},
+	CloneShot={
+	},
+	Commands={
+	},
+	ComponentArmour={
+		[1]={
+>>>>>>> Stashed changes
 			list=false,
 			name="BaseMaxMana",
 			refTo="",
@@ -2456,6 +2497,8 @@ return {
 	},
 	GemTypes={
 	},
+	GenericBuffAuras={
+	},
 	GeometryAttack={
 	},
 	GeometryProjectiles={
@@ -3044,10 +3087,17 @@ return {
 	InventoryId={
 		[1]={
 			list=false,
+<<<<<<< Updated upstream
 			name="Id",
 			refTo="",
 			type="String",
 			width=150
+=======
+			name="id",
+			refTo="",
+			type="String",
+			width=210
+>>>>>>> Stashed changes
 		}
 	},
 	InventoryType={
@@ -3459,6 +3509,8 @@ return {
 	},
 	MapStatConditions={
 	},
+	MapStatsFromMapStats={
+	},
 	MapTierAchievements={
 	},
 	MapTiers={
@@ -3517,6 +3569,8 @@ return {
 	},
 	MicrotransactionCharacterPortraitVariations={
 	},
+	MicrotransactionCombineFormula={
+	},
 	MicrotransactionCombineForumula={
 	},
 	MicrotransactionFireworksVariations={
@@ -3572,6 +3626,10 @@ return {
 			width=230
 		}
 	},
+	ModSetNames={
+	},
+	ModSets={
+	},
 	ModType={
 		[1]={
 			list=false,
@@ -3601,7 +3659,7 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=150
+			width=340
 		},
 		[2]={
 			list=false,
@@ -3615,7 +3673,7 @@ return {
 			name="Type",
 			refTo="ModType",
 			type="Key",
-			width=150
+			width=300
 		},
 		[4]={
 			list=false,
@@ -3629,14 +3687,14 @@ return {
 			name="Stat1",
 			refTo="Stats",
 			type="Key",
-			width=150
+			width=370
 		},
 		[6]={
 			list=false,
 			name="Stat2",
 			refTo="Stats",
 			type="Key",
-			width=150
+			width=310
 		},
 		[7]={
 			list=false,
@@ -3678,7 +3736,7 @@ return {
 			name="Family",
 			refTo="ModFamily",
 			type="String",
-			width=120
+			width=250
 		},
 		[13]={
 			list=false,
@@ -3769,7 +3827,7 @@ return {
 			name="Daemon",
 			refTo="",
 			type="String",
-			width=150
+			width=240
 		},
 		[26]={
 			list=true,
@@ -3888,7 +3946,25 @@ return {
 			name="",
 			refTo="ItemClasses",
 			type="Key",
+<<<<<<< Updated upstream
 			width=290
+=======
+			width=200
+		},
+		[43]={
+			list=false,
+			name="DeliriumAffliction",
+			refTo="",
+			type="String",
+			width=470
+		},
+		[44]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+>>>>>>> Stashed changes
 		}
 	},
 	MonsterAdditionalMonsterDrops={
@@ -4010,6 +4086,10 @@ return {
 		}
 	},
 	MonsterGroupNames={
+	},
+	MonsterHeightBrackets={
+	},
+	MonsterHeights={
 	},
 	MonsterMapBossDifficulty={
 	},
@@ -4907,12 +4987,244 @@ return {
 	PassiveJewelSlots={
 	},
 	PassiveSkillBuffs={
+		[1]={
+			list=false,
+			name="id",
+			refTo="",
+			type="String",
+			width=350
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	PassiveSkillStatCategories={
 	},
 	PassiveSkillTreeTutorial={
 	},
 	PassiveSkills={
+		[1]={
+			list=false,
+			name="id",
+			refTo="",
+			type="String",
+			width=410
+		}
+	},
+	PassiveTreeExpansionJewelSizes={
+		[1]={
+			list=false,
+			name="id",
+			refTo="",
+			type="String",
+			width=150
+		}
+	},
+	PassiveTreeExpansionJewels={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=70
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[3]={
+			list=false,
+			name="JewelSizeKey",
+			refTo="PassiveTreeExpansionJewelSizes",
+			type="Key",
+			width=90
+		},
+		[4]={
+			list=false,
+			name="MinNodeCount",
+			refTo="",
+			type="Int",
+			width=90
+		},
+		[5]={
+			list=false,
+			name="MaxNodeCount",
+			refTo="",
+			type="Int",
+			width=90
+		},
+		[6]={
+			list=false,
+			name="MaxSmallNodes",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=60
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=70
+		},
+		[10]={
+			list=false,
+			name="MaxExpansions",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=70
+		},
+		[14]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=420
+		},
+		[15]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
+	PassiveTreeExpansionSkills={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
+	PassiveTreeExpansionSpecialSkills={
+		[1]={
+			list=false,
+			name="id",
+			refTo="PassiveSkills",
+			type="Key",
+			width=480
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		}
 	},
 	PathOfEndurance={
 	},
@@ -5039,6 +5351,8 @@ return {
 	},
 	QuestStateCalcuation={
 	},
+	QuestStateCalculation={
+	},
 	QuestStates={
 	},
 	QuestStaticRewards={
@@ -5132,6 +5446,34 @@ return {
 	SigilDisplay={
 	},
 	SkillGemInfo={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=370
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=1830
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=630
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=320
+		}
 	},
 	SkillGems={
 		[1]={
@@ -5210,6 +5552,20 @@ return {
 			refTo="GrantedEffects",
 			type="Key",
 			width=150
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
 		}
 	},
 	SkillMineVariations={
@@ -5257,6 +5613,8 @@ return {
 	},
 	SpecialTiles={
 	},
+	SpectreOverrides={
+	},
 	StartingPassiveSkills={
 	},
 	StashId={
@@ -5268,6 +5626,57 @@ return {
 	StatInterpolationTypes={
 	},
 	StatSemantics={
+	},
+	StatSets={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=290
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	Stats={
 		[1]={
@@ -5388,6 +5797,13 @@ return {
 			refTo="",
 			type="Bool",
 			width=50
+		},
+		[18]={
+			list=false,
+			name="MapRelated",
+			refTo="",
+			type="Bool",
+			width=150
 		}
 	},
 	StrDexIntMissionExtraRequirement={
@@ -5401,6 +5817,83 @@ return {
 	SummonedSpecificBarrels={
 	},
 	SummonedSpecificMonsters={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	SummonedSpecificMonstersOnDeath={
 	},
