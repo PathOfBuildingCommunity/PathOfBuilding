@@ -450,12 +450,8 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 			end
 		end
 	end
-	local sockets = { }
-	for i, slot in pairs(charPassiveData.jewel_slots) do
-		sockets[i] = tonumber(type(slot) == "number" and slot or slot.passiveSkill.hash)
-	end
 	for _, itemData in pairs(charPassiveData.items) do
-		self:ImportItem(itemData, sockets)
+		self:ImportItem(itemData)
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
@@ -548,10 +544,10 @@ end
 local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC" }
 local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Belt"] = "Belt" }
 
-function ImportTabClass:ImportItem(itemData, sockets, slotName)
+function ImportTabClass:ImportItem(itemData, slotName)
 	if not slotName then
-		if itemData.inventoryId == "PassiveJewels" and sockets then
-			slotName = "Jewel "..sockets[itemData.x + 1]
+		if itemData.inventoryId == "PassiveJewels" then
+			slotName = "Jewel "..self.build.spec.tree.jewelSlots[itemData.x + 1]
 		elseif itemData.inventoryId == "Flask" then
 			slotName = "Flask "..(itemData.x + 1)
 		else
@@ -668,29 +664,28 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 			end
 		end
 	end
-	item.modLines = { }
-	item.implicitLines = 0
+	item.enchantModLines = { }
+	item.implicitModLines = { }
+	item.explicitModLines = { }
 	if itemData.enchantMods then
-		item.implicitLines = item.implicitLines + #itemData.enchantMods
 		for _, line in ipairs(itemData.enchantMods) do
 			line = line:gsub("\n"," ")
 			local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+			t_insert(item.enchantModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
 		end
 	end
 	if itemData.implicitMods then
-		item.implicitLines = item.implicitLines + #itemData.implicitMods
 		for _, line in ipairs(itemData.implicitMods) do
 			line = line:gsub("\n"," ")
 			local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { } })
+			t_insert(item.implicitModLines, { line = line, extra = extra, mods = modList or { } })
 		end
 	end
 	if itemData.fracturedMods then
 		for _, line in ipairs(itemData.fracturedMods) do
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-				t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, fractured = true })
+				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, fractured = true })
 			end
 		end
 	end
@@ -698,7 +693,7 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 		for _, line in ipairs(itemData.explicitMods) do
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-				t_insert(item.modLines, { line = line, extra = extra, mods = modList or { } })
+				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { } })
 			end
 		end
 	end
@@ -706,7 +701,7 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 		for _, line in ipairs(itemData.craftedMods) do
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-				t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
 			end
 		end
 	end
@@ -741,7 +736,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	local abyssalSocketId = 1
 	for _, socketedItem in ipairs(socketedItems) do
 		if socketedItem.abyssJewel then
-			self:ImportItem(socketedItem, nil, slotName .. " Abyssal Socket "..abyssalSocketId)
+			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId)
 			abyssalSocketId = abyssalSocketId + 1
 		else
 			local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true }

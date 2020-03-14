@@ -349,8 +349,28 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 		return self.displayItem and self.displayItem.corruptable
 	end
 
+	-- Section: Cluster Jewel
+	self.controls.displayItemSectionClusterJewel = new("Control", {"TOPLEFT",self.controls.displayItemSectionImplicit,"BOTTOMLEFT"}, 0, 0, 0, function()
+		return self.controls.displayItemClusterJewelSkill:IsShown() and 52 or 0
+	end)
+	self.controls.displayItemClusterJewelSkill = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionClusterJewel,"TOPLEFT"}, 0, 0, 300, 20, { }, function(index, value)
+		self.displayItem.clusterJewelSkill = value.skillId
+		self:CraftClusterJewel()
+	end) {
+		shown = function()
+			return self.displayItem and self.displayItem.crafted and self.displayItem.clusterJewel
+		end
+	}
+	self.controls.displayItemClusterJewelNodeCountLabel = new("LabelControl", {"TOPLEFT",self.controls.displayItemClusterJewelSkill,"BOTTOMLEFT"}, 0, 7, 0, 14, "^7Added Passives:")
+	self.controls.displayItemClusterJewelNodeCount = new("SliderControl", {"LEFT",self.controls.displayItemClusterJewelNodeCountLabel,"RIGHT"}, 2, 0, 150, 20, function(val)
+		local divVal = self.controls.displayItemClusterJewelNodeCount:GetDivVal()
+		local clusterJewel = self.displayItem.clusterJewel
+		self.displayItem.clusterJewelNodeCount = round(val * (clusterJewel.maxNodes - clusterJewel.minNodes) + clusterJewel.minNodes)
+		self:CraftClusterJewel()
+	end)
+
 	-- Section: Affix Selection
-	self.controls.displayItemSectionAffix = new("Control", {"TOPLEFT",self.controls.displayItemSectionImplicit,"BOTTOMLEFT"}, 0, 0, 0, function()
+	self.controls.displayItemSectionAffix = new("Control", {"TOPLEFT",self.controls.displayItemSectionClusterJewel,"BOTTOMLEFT"}, 0, 0, 0, function()
 		if not self.displayItem.crafted then
 			return 0
 		end
@@ -555,8 +575,16 @@ function ItemsTabClass:Load(xml, dbFileName)
 				elseif child.elem == "ModRange" then
 					local id = tonumber(child.attrib.id) or 0
 					local range = tonumber(child.attrib.range) or 1
-					if item.modLines[id] then
-						item.modLines[id].range = range
+					-- This is garbage, but needed due to change to separate mod line lists
+					-- 'ModRange' elements are legacy though, so is this actually needed? :<
+					-- Maybe it is? Maybe it isn't? Maybe up is down? Maybe good is bad? AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+					-- Sorry, cluster jewels are making me crazy(-ier)
+					for _, list in ipairs{item.buffModLines, item.enchantModLines, item.implicitModLines, item.explicitModLines} do
+						if id <= #list then
+							list[id].range = range
+							break
+						end
+						id = id - #list
 					end
 				end
 			end
@@ -609,10 +637,24 @@ function ItemsTabClass:Save(xml)
 		local child = { elem = "Item", attrib = { id = tostring(id), variant = item.variant and tostring(item.variant), variantAlt = item.variantAlt and tostring(item.variantAlt) } }
 		item:BuildAndParseRaw()
 		t_insert(child, item.raw)
-		for id, modLine in ipairs(item.modLines) do
+		local id = #item.buffModLines + 1
+		for _, modLine in ipairs(item.enchantModLines) do
 			if modLine.range then
 				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
 			end
+			id = id + 1
+		end
+		for _, modLine in ipairs(item.implicitModLines) do
+			if modLine.range then
+				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
+			end
+			id = id + 1
+		end
+		for _, modLine in ipairs(item.explicitModLines) do
+			if modLine.range then
+				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
+			end
+			id = id + 1
 		end
 		t_insert(xml, child)
 	end
@@ -1002,6 +1044,9 @@ function ItemsTabClass:SetDisplayItem(item)
 		self.controls.displayItemShaperElder:SetSel((item.shaper and 2) or (item.elder and 3) or 1)
 		self:UpdateCustomControls()
 		self:UpdateDisplayItemRangeLines()
+		if item.clusterJewel then
+			self:UpdateClusterJewelControls()
+		end
 	else
 		self.snapHScroll = "LEFT"
 	end
@@ -1020,6 +1065,45 @@ function ItemsTabClass:UpdateSocketControls()
 		if i > 1 then
 			self.controls["displayItemLink"..(i-1)].state = sockets[i].group == sockets[i-1].group
 		end
+	end
+end
+
+function ItemsTabClass:UpdateClusterJewelControls()
+	local item = self.displayItem
+
+	-- Update list of skills
+	local skillList = wipeTable(self.controls.displayItemClusterJewelSkill.list)
+	for skillId, skill in pairs(item.clusterJewel.skills) do
+		t_insert(skillList, { label = skill.name, skillId = skillId })
+	end
+	table.sort(skillList, function(a, b) return a.label < b.label end)
+	if not item.clusterJewelSkill or not item.clusterJewel.skills[item.clusterJewelSkill] then
+		item.clusterJewelSkill = skillList[1].skillId
+	end
+	self.controls.displayItemClusterJewelSkill:SelByValue(item.clusterJewelSkill, "skillId")
+
+	-- Update added node count slider
+	local countControl = self.controls.displayItemClusterJewelNodeCount
+	item.clusterJewelNodeCount = m_min(m_max(item.clusterJewelNodeCount or item.clusterJewel.maxNodes, item.clusterJewel.minNodes), item.clusterJewel.maxNodes)
+	countControl.divCount = item.clusterJewel.maxNodes - item.clusterJewel.minNodes
+	countControl.val = (item.clusterJewelNodeCount - item.clusterJewel.minNodes) / (item.clusterJewel.maxNodes - item.clusterJewel.minNodes)
+
+	self:CraftClusterJewel()
+end
+
+function ItemsTabClass:CraftClusterJewel()
+	local item = self.displayItem
+	wipeTable(item.enchantModLines)
+	t_insert(item.enchantModLines, { line = "Adds "..(item.clusterJewelNodeCount or item.clusterJewel.maxNodes).." Passive Skills", crafted = true })
+	local skill = item.clusterJewel.skills[item.clusterJewelSkill]
+	t_insert(item.enchantModLines, { line = table.concat(skill.enchant, "\n"), crafted = true })
+	item:BuildAndParseRaw()
+
+	-- Update affixes manually to force out affixes that may now be invalid
+	self:UpdateAffixControls()
+	for i = 1, item.affixLimit do
+		local drop = self.controls["displayItemAffix"..i]
+		drop.selFunc(drop.selIndex, drop.list[drop.selIndex])
 	end
 end
 
@@ -1050,6 +1134,12 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 					end
 				end
 			end
+		end
+	end
+	if item.clusterJewel then	
+		local skill = item.clusterJewel.skills[item.clusterJewelSkill]
+		if skill then
+			extraTags[skill.tag] = true
 		end
 	end
 	local affixList = { }
@@ -1139,8 +1229,8 @@ function ItemsTabClass:UpdateCustomControls()
 	local item = self.displayItem
 	local i = 1
 	if item.rarity == "MAGIC" or item.rarity == "RARE" then
-		for index, modLine in ipairs(item.modLines) do
-			if index > item.implicitLines and (modLine.custom or modLine.crafted) then
+		for index, modLine in ipairs(item.explicitModLines) do
+			if modLine.custom or modLine.crafted then
 				local line = itemLib.formatModLine(modLine)
 				if line then
 					if not self.controls["displayItemCustomModifier"..i] then
@@ -1156,7 +1246,7 @@ function ItemsTabClass:UpdateCustomControls()
 					self.controls["displayItemCustomModifier"..i].label = label
 					self.controls["displayItemCustomModifierLabel"..i].label = modLine.crafted and "^7Crafted:" or "^7Custom:"
 					self.controls["displayItemCustomModifierRemove"..i].onClick = function()
-						t_remove(item.modLines, index)
+						t_remove(item.explicitModLines, index)
 						local id = item.id
 						self:CreateDisplayItemFromRaw(item:BuildRaw())
 						self.displayItem.id = id
@@ -1206,7 +1296,26 @@ end
 -- For example, a shield is not valid for Weapon 2 if Weapon 1 is a staff, and a wand is not valid for Weapon 2 if Weapon 1 is a dagger
 function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 	itemSet = itemSet or self.activeItemSet
-	if item.type == slotName:gsub(" %d+","") then
+	local slotType, slotId = slotName:match("^([%a ]+) (%d+)$")
+	if not slotType then
+		slotType = slotName
+	end
+	if slotType == "Jewel" then
+		-- Special checks for jewel sockets
+		local node = self.build.spec.tree.nodes[tonumber(slotId)]
+		if not node or item.type ~= "Jewel" then
+			return false
+		elseif item.clusterJewel and not node.expansionJewel then
+			-- Don't allow cluster jewels in inner sockets
+			return false
+		elseif not node.expansionJewel or node.expansionJewel.size == 2 then
+			-- Outer sockets can fit anything
+			return true
+		else
+			-- Only allow jewels that fit in this socket
+			return not item.clusterJewel or item.clusterJewel.sizeIndex <= node.expansionJewel.size
+		end
+	elseif item.type == slotType then
 		return true
 	elseif item.type == "Jewel" and item.base.subType == "Abyss" and slotName:match("Abyssal Socket") then
 		return true
@@ -1246,7 +1355,10 @@ function ItemsTabClass:CraftItem()
 		item.name = base.name
 		item.base = base.base
 		item.baseName = base.name
-		item.modLines = { }
+		item.buffModLines = { }
+		item.enchantModLines = { }
+		item.implicitModLines = { }
+		item.explicitModLines = { }
 		item.quality = 0
 		local raritySel = controls.rarity.selIndex
 		if base.base.flask then
@@ -1261,12 +1373,10 @@ function ItemsTabClass:CraftItem()
 		if raritySel >= 3 then
 			item.title = controls.title.buf:match("%S") and controls.title.buf or "New Item"
 		end
-		item.implicitLines = 0
 		if base.base.implicit then
 			for line in base.base.implicit:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-				t_insert(item.modLines, { line = line, extra = extra, modList = modList or { } })
-				item.implicitLines = item.implicitLines + 1
+				t_insert(item.implicitModLines, { line = line, extra = extra, modList = modList or { } })
 			end
 		end
 		item:NormaliseQuality()
@@ -1417,13 +1527,9 @@ function ItemsTabClass:EnchantDisplayItem()
 	local function enchantItem()
 		local item = new("Item", self.build.targetVersion, self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
-		if item.implicitLines > 0 and item.modLines[1].crafted then
-			t_remove(item.modLines, 1)
-			item.implicitLines = item.implicitLines - 1
-		end
+		wipeTable(item.enchantModLines)
 		local list = haveSkills and enchantments[controls.skill.list[controls.skill.selIndex]] or enchantments
-		t_insert(item.modLines, 1, { crafted = true, line = list[controls.labyrinth.list[controls.labyrinth.selIndex].name][controls.enchantment.selIndex] })
-		item.implicitLines = item.implicitLines + 1
+		t_insert(item.enchantModLines, 1, { crafted = true, line = list[controls.labyrinth.list[controls.labyrinth.selIndex].name][controls.enchantment.selIndex] })
 		item:BuildAndParseRaw()
 		return item
 	end
@@ -1511,13 +1617,10 @@ function ItemsTabClass:CorruptDisplayItem()
 			end
 		end
 		if #newImplicit > 0 then
-			for i = 1, item.implicitLines do 
-				t_remove(item.modLines, 1)
-			end
+			wipeTable(item.implicitModLines)
 			for i, implicit in ipairs(newImplicit) do
-				t_insert(item.modLines, i, implicit)
+				t_insert(item.implicitModLines, i, implicit)
 			end
-			item.implicitLines = #newImplicit
 		end
 		item:BuildAndParseRaw()
 		return item
@@ -1631,12 +1734,12 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		local sourceId = sourceList[controls.source.selIndex].sourceId
 		if sourceId == "CUSTOM" then
 			if controls.custom.buf:match("%S") then
-				t_insert(item.modLines, { line = controls.custom.buf, custom = true })
+				t_insert(item.explicitModLines, { line = controls.custom.buf, custom = true })
 			end
 		else
 			local listMod = modList[controls.modSelect.selIndex]
 			for _, line in ipairs(listMod.mod) do
-				t_insert(item.modLines, { line = line, [listMod.type] = true })
+				t_insert(item.explicitModLines, { line = line, [listMod.type] = true })
 			end
 		end
 		item:BuildAndParseRaw()
@@ -1830,10 +1933,8 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			main:StatColor(flaskData.chargesUsed, base.flask.chargesUsed), flaskData.chargesUsed,
 			main:StatColor(flaskData.chargesMax, base.flask.chargesMax), flaskData.chargesMax
 		))
-		for _, modLine in pairs(item.modLines) do
-			if modLine.buff then
-				tooltip:AddLine(16, (modLine.extra and colorCodes.UNSUPPORTED or colorCodes.MAGIC) .. modLine.line)
-			end
+		for _, modLine in pairs(item.buffModLines) do
+			tooltip:AddLine(16, (modLine.extra and colorCodes.UNSUPPORTED or colorCodes.MAGIC) .. modLine.line)
 		end
 	elseif item.type == "Jewel" then
 		-- Jewel-specific info
@@ -1893,22 +1994,36 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		item.requirements.strMod, item.requirements.dexMod, item.requirements.intMod, 
 		item.requirements.str or 0, item.requirements.dex or 0, item.requirements.int or 0)
 
-	-- Implicit/explicit modifiers
-	if item.modLines[1] then
-		for index, modLine in ipairs(item.modLines) do
-			if not modLine.buff and item:CheckModLineVariant(modLine) then
-				tooltip:AddLine(16, itemLib.formatModLine(modLine, dbMode))
+	-- Modifiers
+	for _, modList in ipairs{item.enchantModLines, item.implicitModLines, item.explicitModLines} do
+		if modList[1] then
+			for _, modLine in ipairs(modList) do
+				if item:CheckModLineVariant(modLine) then
+					tooltip:AddLine(16, itemLib.formatModLine(modLine, dbMode))
+				end
 			end
-			if (index == item.implicitLines + item.buffLines and item.modLines[index + 1]) or (index < item.implicitLines + item.buffLines and modLine.crafted and not item.modLines[index + 1].crafted) then
-				-- Add separator between implicit and explicit modifiers
-				tooltip:AddSeparator(10)
+			tooltip:AddSeparator(10)
+		end
+	end
+
+	-- Cluster jewel notables
+	if item.clusterJewel and #item.jewelData.clusterJewelNotables > 0 then
+		tooltip:AddSeparator(10)
+		for _, name in ipairs(item.jewelData.clusterJewelNotables) do
+			local node = self.build.spec.tree.clusterNodeMap[name]
+			if node then
+				tooltip:AddLine(16, colorCodes.MAGIC .. node.dn)
+				for _, stat in ipairs(node.sd) do
+					tooltip:AddLine(16, "^x7F7F7F"..stat)
+				end
 			end
 		end
+		tooltip:AddSeparator(10)
 	end
 
 	-- Corrupted item label
 	if item.corrupted then
-		if #item.modLines == item.implicitLines + item.buffLines then
+		if #item.explicitModLines == 0 then
 			tooltip:AddSeparator(10)
 		end
 		tooltip:AddLine(16, "^1Corrupted")

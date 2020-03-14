@@ -1,3 +1,14 @@
+VERSION[1.4.160][2020/03/15]
+ * Added support for Cluster jewels:
+    * Cluster Jewels can be crafted like other items
+	* Cluster Jewel templates have been added to the Rare items database
+	* Some of the notables granted by Cluster Jewels are not supported yet
+	* The various unique Cluster Jewels are not fully supported yet
+	* Note that when importing characters with Cluster Jewels, nodes in the clusters will not be allocated;
+	  this is because the game website's character API does not fully support Cluster Jewels yet
+ * Updated item bases and mods for 3.10
+ * Fixed character importing
+ * Various other minor fixes
 VERSION[1.4.159][2020/03/12]
  * Fixed Ascendant nodes granting double the indended number of passive points
  * Fixed weapon ailment modifiers not correctly applying

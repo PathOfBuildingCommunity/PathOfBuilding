@@ -121,7 +121,19 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			end
 		end
 		if mode == 1 or mode == 3 then
-			for _, line in pairs(item.modLines) do
+			for _, line in pairs(item.enchantModLines) do
+				if line.line:lower():find(searchStr, 1, true) then
+					found = true
+					break
+				end
+			end
+			for _, line in pairs(item.implicitModLines) do
+				if line.line:lower():find(searchStr, 1, true) then
+					found = true
+					break
+				end
+			end
+			for _, line in pairs(item.explicitModLines) do
 				if line.line:lower():find(searchStr, 1, true) then
 					found = true
 					break

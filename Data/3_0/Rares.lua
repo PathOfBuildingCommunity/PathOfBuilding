@@ -775,5 +775,17 @@ Crafted: true
 Jewel
 Cobalt Jewel
 Crafted: true
+]],[[
+Cluster Jewel
+Large Cluster Jewel
+Crafted: true
+]],[[
+Cluster Jewel
+Medium Cluster Jewel
+Crafted: true
+]],[[
+Cluster Jewel
+Small Cluster Jewel
+Crafted: true
 ]],
 }

@@ -56,11 +56,15 @@ local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(se
 end)
 
 function ItemSlotClass:SetSelItemId(selItemId)
+	local changed = selItemId ~= self.selItemId
 	self.selItemId = selItemId
 	if self.nodeId then
 		if self.itemsTab.build.spec then
 			self.itemsTab.build.spec.jewels[self.nodeId] = selItemId
-			self.itemsTab.build.spec:BuildAllDependsAndPaths()
+			if changed then
+				self.itemsTab.build.spec:BuildClusterJewelGraphs()
+				self.itemsTab.build.spec:BuildAllDependsAndPaths()
+			end
 		end
 	else
 		self.itemsTab.activeItemSet[self.slotName].selItemId = selItemId

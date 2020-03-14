@@ -125,6 +125,7 @@ local modNameList = {
 	["fire and cold resistances"] = { "FireResist", "ColdResist" },
 	["fire and lightning resistances"] = { "FireResist", "LightningResist" },
 	["cold and lightning resistances"] = { "ColdResist", "LightningResist" },
+	["elemental resistance"] = "ElementalResist",
 	["elemental resistances"] = "ElementalResist",
 	["all elemental resistances"] = "ElementalResist",
 	["all resistances"] = { "ElementalResist", "ChaosResist" },
@@ -1620,6 +1621,14 @@ local specialModList = {
 	["primordial"] = { mod("Multiplier:PrimordialItem", "BASE", 1) },
 	["spectres have a base duration of (%d+) seconds"] = function(num) return { mod("SkillData", "LIST", { key = "duration", value = 6 }, { type = "SkillName", skillName = "Raise Spectre" }) } end,
 	["flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num) } end,
+	["adds (%d+) passive skills"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelPassiveCount", value = num }) } end,
+	["2 added passive skills are jewel sockets"] = { mod("JewelData", "LIST", { key = "clusterJewelSocketCount", value = 2 }) },
+	["1 added passive skill is (.+)"] = function(_, name) return { 
+		name == "a jewel socket" 
+		and mod("JewelData", "LIST", { key = "clusterJewelSocketCount", value = 1 }) 
+		or mod("ClusterJewelNotable", "LIST", name)
+	} end,
+	["added small passive skills have (%d+)%% increased effect"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelIncEffect", value = num }) } end,
 	-- Misc
 	["iron will"] = { flag("IronWill") },
 	["iron reflexes while stationary"] = { mod("Keystone", "LIST", "Iron Reflexes", { type = "Condition", var = "Stationary" }) },
@@ -2074,6 +2083,14 @@ for k, v in pairs(jewelThresholdFuncs) do
 	jewelFuncList[k:lower()] = { func = v, type = "Threshold" }
 end
 
+-- Generate list of cluster jewel skills
+local clusterJewelSkills = {}
+for baseName, jewel in pairs(data["3_0"].clusterJewels) do
+	for skillId, skill in pairs(jewel.skills) do
+		clusterJewelSkills[table.concat(skill.enchant, " "):lower()] = { mod("JewelData", "LIST", { key = "clusterJewelSkill", value = skillId }) }
+	end
+end
+
 -- Scan a line for the earliest and longest match from the pattern list
 -- If a match is found, returns the corresponding value from the pattern list, plus the remainder of the line and a table of captures
 local function scan(line, patternList, plain)
@@ -2114,6 +2131,10 @@ local function parseMod(line, order)
 	if jewelFunc then
 		return { mod("JewelFunc", "LIST", jewelFunc) }
 	end
+	local clusterJewelSkill = clusterJewelSkills[lineLower]
+	if clusterJewelSkill then
+		return clusterJewelSkill
+	end
 	if unsupportedModList[lineLower] then
 		return { }, line
 	end
@@ -2124,6 +2145,12 @@ local function parseMod(line, order)
 		else
 			return copyTable(specialMod)
 		end
+	end
+
+	-- Check for add-to-cluster-jewel special
+	local addToCluster = line:match("^Added Small Passive Skills also grant: (.+)$")
+	if addToCluster then
+		return { mod("AddToClusterJewelNode", "LIST", addToCluster) }
 	end
 
 	line = line .. " "
