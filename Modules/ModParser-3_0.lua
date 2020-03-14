@@ -2284,17 +2284,27 @@ local jewelSelfFuncs = {
 	end,
 	["-1 Strength per 1 Strength on Allocated Passives in Radius"] = getPerStat("Str", "BASE", 0, "Str", -1),
 	["1% additional Physical Damage Reduction per 10 Strength on Allocated Passives in Radius"] = getPerStat("PhysicalDamageReduction", "BASE", 0, "Str", 1 / 10),
+	["2% increased Life Recovery Rate per 10 Strength on Allocated Passives in Radius"] = getPerStat("LifeRecoveryRate", "INC", 0, "Str", 2 / 10),
+	["3% increased Life Recovery Rate per 10 Strength on Allocated Passives in Radius"] = getPerStat("LifeRecoveryRate", "INC", 0, "Str", 3 / 10),
 	["-1 Intelligence per 1 Intelligence on Allocated Passives in Radius"] = getPerStat("Int", "BASE", 0, "Int", -1),
 	["0.4% of Energy Shield Regenerated per Second for every 10 Intelligence on Allocated Passives in Radius"] = getPerStat("EnergyShieldRegenPercent", "BASE", 0, "Int", 0.4 / 10),
+	["2% increased Mana Recovery Rate per 10 Intelligence on Allocated Passives in Radius"] = getPerStat("ManaRecoveryRate", "INC", 0, "Int", 2 / 10),
+	["3% increased Mana Recovery Rate per 10 Intelligence on Allocated Passives in Radius"] = getPerStat("ManaRecoveryRate", "INC", 0, "Int", 3 / 10),
 	["-1 Dexterity per 1 Dexterity on Allocated Passives in Radius"] = getPerStat("Dex", "BASE", 0, "Dex", -1),
 	["2% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius"] = getPerStat("MovementSpeed", "INC", 0, "Dex", 2 / 10),
+	["3% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius"] = getPerStat("MovementSpeed", "INC", 0, "Dex", 3 / 10),
 }
 local jewelSelfUnallocFuncs = {
 	["+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius"] = getPerStat("CritMultiplier", "BASE", 0, "Str", 5 / 10),
 	["+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius"] = getPerStat("CritMultiplier", "BASE", 0, "Str", 7 / 10),
+	["2% reduced Life Recovery Rate per 10 Strength on Unallocated Passives in Radius"] = getPerStat("LifeRecoveryRate", "INC", 0, "Str", -2 / 10),
 	["+15 to maximum Mana per 10 Dexterity on Unallocated Passives in Radius"] = getPerStat("Mana", "BASE", 0, "Dex", 15 / 10),
 	["+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius"] = getPerStat("Accuracy", "BASE", 0, "Int", 100 / 10),
 	["+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius"] = getPerStat("Accuracy", "BASE", 0, "Int", 125 / 10),
+	["2% reduced Mana Recovery Rate per 10 Intelligence on Unallocated Passives in Radius"] = getPerStat("ManaRecoveryRate", "INC", 0, "Int", -2 / 10),
+	["+3% to Damage over Time Multiplier per 10 Intelligence on Unallocated Passives in Radius"] = getPerStat("DotMultiplier", "BASE", 0, "Int", 3 / 10),
+	["2% reduced Movement Speed per 10 Dexterity on Unallocated Passives in Radius"] = getPerStat("MovementSpeed", "INC", 0, "Dex", -2 / 10),
+	["+125 to Accuracy Rating per 10 Dexterity on Unallocated Passives in Radius"] = getPerStat("Accuracy", "BASE", 0, "Dex", 125 / 10),
 	["Grants all bonuses of Unallocated Small Passive Skills in Radius"] = function(node, out, data)
 		if node then
 			if node.type == "Normal" then
