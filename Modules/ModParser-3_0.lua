@@ -1203,6 +1203,10 @@ local specialModList = {
 		flag("Condition:CanGainRage"),
 		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanGainRage" }) -- Make the Configuration option appear
 	},
+	["you and nearby party members gain %d+ rage when you warcry"] = {
+		flag("Condition:CanGainRage"),
+		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanGainRage" }) -- Make the Configuration option appear
+	},
 	["gain %d+ rage on hit with attacks, no more than once every [%d%.]+ seconds"] = {
 		flag("Condition:CanGainRage"),
 		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "CanGainRage" }) -- Make the Configuration option appear
