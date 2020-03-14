@@ -121,7 +121,7 @@ return {
 	end },
 	{ label = "Intensify:", ifSkill = "Intensify" },
 	{ var = "intensifyIntensity", type = "count", label = "# of Intensity:", ifSkill = "Intensify", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:Intensity", "BASE", m_min(val, 4), "Config")
+		modList:NewMod("Multiplier:Intensity", "BASE", val, "Config")
 	end },
 	{ label = "Meat Shield:", ifSkill = "Meat Shield" },
 	{ var = "meatShieldEnemyNearYou", type = "check", label = "Is the enemy near you?", ifSkill = "Meat Shield", apply = function(val, modList, enemyModList)
