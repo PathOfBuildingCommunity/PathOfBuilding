@@ -1153,6 +1153,14 @@ local specialModList = {
 		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "Stationary" }), -- Make the Configuration option appear
 		mod("Multiplier:GraspingVinesCount", "BASE", num, { type = "Multiplier", var = "StationarySeconds", limit = 10, limitTotal = true })
 	} end,
+	["attack projectiles always inflict bleeding and maim, and knock back enemies"] = {
+		mod("BleedChance", "BASE", 100, nil, bor(ModFlag.Attack, ModFlag.Projectile)),
+		mod("EnemyKnockbackChance", "BASE", 100, nil, bor(ModFlag.Attack, ModFlag.Projectile)),
+	},
+	["projectiles cannot pierce, fork or chain"] = {
+		flag("CannotPierce", nil, ModFlag.Projectile),
+		flag("CannotChain", nil, ModFlag.Projectile),
+	},
 	-- Ascendant
 	["grants (%d+) passive skill points?"] = function(num) return { mod("ExtraPoints", "BASE", num) } end,
 	["can allocate passives from the %a+'s starting point"] = { },
