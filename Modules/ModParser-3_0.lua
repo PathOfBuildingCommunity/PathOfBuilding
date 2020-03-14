@@ -666,8 +666,8 @@ local preFlagList = {
 	["^raised zombies' slam attack has "] = { addToMinion = true, tag = { type = "SkillId", skillId = "ZombieSlam" } },
 	["^raised spectres, raised zombies, and summoned skeletons have "] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillNameList = { "Raise Spectre", "Raise Zombie", "Summon Skeleton" } } },
 	-- Totem/trap/mine
-	["^attacks used by totems have "] = { keywordFlags = KeywordFlag.Totem },
-	["^spells cast by totems have "] = { keywordFlags = KeywordFlag.Totem },
+	["^attacks used by totems have "] = { flags = ModFlag.Attack, keywordFlags = KeywordFlag.Totem },
+	["^spells cast by totems [hd][ae][va][el] "] = { flags = ModFlag.Spell, keywordFlags = KeywordFlag.Totem },
 	["^trap and mine damage "] = { keywordFlags = bor(KeywordFlag.Trap, KeywordFlag.Mine) },
 	["^skills used by traps [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Trap },
 	["^skills used by mines [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Mine },
