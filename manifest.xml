@@ -42,7 +42,7 @@
 	<File sha1="2fa5f20b12a4b366dc4b28a2a873699b834766d6" name="Classes/ModList.lua" part="program"/>
 	<File sha1="9cf4d06384857b6f5fb86c67ecefbf6f1fa62ee3" name="Classes/ModStore.lua" part="program"/>
 	<File sha1="cc7c5eff58c2868cdc7d4c1bf9a967aa8c448c9e" name="Classes/NotesTab.lua" part="program"/>
-	<File sha1="4173b6dc841e4a99d48515e8a7d2a380602b9ab6" name="Classes/PassiveSpec.lua" part="program"/>
+	<File sha1="21a47f55e5e04802f6fb026fdb6a63c732de812a" name="Classes/PassiveSpec.lua" part="program"/>
 	<File sha1="d449391ea879a20728f7e9a0345398c0141a45f6" name="Classes/PassiveSpecListControl.lua" part="program"/>
 	<File sha1="a3794f57c8fb80898bf0ff72509b8d51ce86fc3e" name="Classes/PassiveTree.lua" part="program"/>
 	<File sha1="1d3afc7fb1d12fa164d3e2a7c3d30bebeeab2ba0" name="Classes/PassiveTreeView.lua" part="program"/>

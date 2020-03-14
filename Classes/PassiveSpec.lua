@@ -732,8 +732,9 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	else
 		local count = jewelData.clusterJewelSocketCount or 0
 		assert(count <= #clusterJewel.socketIndicies)
+		local getJewels = { 0, 2, 1 }
 		for i = 1, count do
-			makeJewel(clusterJewel.socketIndicies[i], i - 1)
+			makeJewel(clusterJewel.socketIndicies[i], getJewels[i])
 		end
 	end
 
