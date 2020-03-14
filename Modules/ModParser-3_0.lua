@@ -582,6 +582,7 @@ local modFlagList = {
 	["with elemental skills"] = { keywordFlags = bor(KeywordFlag.Lightning, KeywordFlag.Cold, KeywordFlag.Fire) },
 	["with chaos skills"] = { keywordFlags = KeywordFlag.Chaos },
 	["with channelling skills"] = { tag = { type = "SkillType", skillType = SkillType.Channelled } },
+	["channelling skills"] = { tag = { type = "SkillType", skillType = SkillType.Channelled } },
 	["with brand skills"] = { tag = { type = "SkillType", skillType = SkillType.Brand } },
 	["zombie"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Raise Zombie" } },
 	["raised zombie"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Raise Zombie" } },
