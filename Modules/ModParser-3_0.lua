@@ -871,6 +871,7 @@ local modTagList = {
 	["while dual wielding claws"] = { tag = { type = "Condition", var = "DualWieldingClaws" } },
 	["while dual wielding or holding a shield"] = { tag = { type = "Condition", varList = { "DualWielding", "UsingShield" } } },
 	["while wielding an axe"] = { tag = { type = "Condition", var = "UsingAxe" } },
+	["while wielding an axe or sword"] = { tag = { type = "Condition", varList = { "UsingAxe", "UsingSword" } } },
 	["while wielding a bow"] = { tag = { type = "Condition", var = "UsingBow" } },
 	["while wielding a claw"] = { tag = { type = "Condition", var = "UsingClaw" } },
 	["while wielding a dagger"] = { tag = { type = "Condition", var = "UsingDagger" } },
