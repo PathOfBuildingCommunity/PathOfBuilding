@@ -95,6 +95,18 @@ Requires Level 64, 138 Dex
 Cannot be Frozen
 8% reduced Mana Reserved
 ]],[[
+Assailum
+Sinner Tricorne
+Requires Level 64, 138 Dex
+Implicits: 0
+Grants Level 20 Snipe Skill
+Socketed Non-Channeling Bow Skills are Triggered by Snipe
+Socketed Triggered Bow Skills deal 33% less Damage
++(350-500) to Accuracy Rating
++(350-500) to Evasion Rating
+(7-10)% chance to Dodge Attack Hits while Channelling
+(7-10)% chance to Dodge Spell Hits while Channelling
+]],[[
 Fairgraves' Tricorne
 Tricorne
 Requires Level 12, 27 Dex
