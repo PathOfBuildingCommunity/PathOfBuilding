@@ -425,7 +425,9 @@ local modNameList = {
 	["ignite chance"] = "EnemyIgniteChance",
 	["to freeze, shock and ignite"] = { "EnemyFreezeChance", "EnemyShockChance", "EnemyIgniteChance" },
 	["effect of shock"] = "EnemyShockEffect",
+	["effect of shock you inflict"] = "EnemyShockEffect",
 	["effect of chill"] = "EnemyChillEffect",
+	["effect of chill you inflict"] = "EnemyChillEffect",
 	["effect of chill on you"] = "SelfChillEffect",
 	["effect of non-damaging ailments"] = { "EnemyShockEffect", "EnemyChillEffect", "EnemyFreezeEffect" },
 	["shock duration"] = "EnemyShockDuration",
@@ -733,6 +735,7 @@ local modTagList = {
 	["while active"] = { },
 	[" on critical strike"] = { tag = { type = "Condition", var = "CriticalStrike" } },
 	["from critical strikes"] = { tag = { type = "Condition", var = "CriticalStrike" } },
+	["with critical strikes"] = { tag = { type = "Condition", var = "CriticalStrike" } },
 	["while affected by auras you cast"] = { affectedByAura = true },
 	["for you and nearby allies"] = { newAura = true },
 	-- Multipliers
