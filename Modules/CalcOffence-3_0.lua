@@ -316,15 +316,13 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if skillModList:Flag(skillCfg, "CannotFork") then
 			output.ForkCountString = "Cannot fork"
-		elseif skillModList:Flag(skillCfg, "ForkOnce") and not skillModList:Flag(skillCfg, "ForkTwice") then
-			skillFlags.forking = skillModList:Flag(skillCfg, "ForkOnce")
-			output.ForkCountMax = m_min(skillModList:Sum("BASE", skillCfg, "ForkCountMax"), 1)
-			output.ForkedCount = m_min(output.ForkCountMax, skillModList:Sum("BASE", skillCfg, "ForkedCount"))
-			output.ForkCountString = output.ForkCountMax
-			output.ForkRemaining = m_max(0, output.ForkCountMax - output.ForkedCount)
-		elseif skillModList:Flag(skillCfg, "ForkTwice") then
-			skillFlags.forking = skillModList:Flag(skillCfg, "ForkTwice")
-			output.ForkCountMax = m_min(skillModList:Sum("BASE", skillCfg, "ForkCountMax"), 2)
+		elseif skillModList:Flag(skillCfg, "ForkOnce") then
+			skillFlags.forking = true
+			if skillModList:Flag(skillCfg, "ForkTwice") then
+				output.ForkCountMax = m_min(skillModList:Sum("BASE", skillCfg, "ForkCountMax"), 2)
+			else
+				output.ForkCountMax = m_min(skillModList:Sum("BASE", skillCfg, "ForkCountMax"), 1)
+			end
 			output.ForkedCount = m_min(output.ForkCountMax, skillModList:Sum("BASE", skillCfg, "ForkedCount"))
 			output.ForkCountString = output.ForkCountMax
 			output.ForkRemaining = m_max(0, output.ForkCountMax - output.ForkedCount)
