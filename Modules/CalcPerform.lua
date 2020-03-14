@@ -529,6 +529,10 @@ function calcs.perform(env)
 	end
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		if activeSkill.skillCfg.skillGem.grantedEffectId == "HeraldOfPurity" then
+			local limit = activeSkill.skillModList:Sum("BASE", nil, "ActiveSentinelOfPurityLimit")
+			output.ActiveSentinelOfPurityLimit = m_max(limit, output.ActiveSentinelOfPurityLimit or 0)
+		end
 		if activeSkill.skillFlags.golem then
 			local limit = activeSkill.skillModList:Sum("BASE", nil, "ActiveGolemLimit")
 			output.ActiveGolemLimit = m_max(limit, output.ActiveGolemLimit or 0)
