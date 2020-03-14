@@ -192,6 +192,7 @@ skills["ArtilleryBallista"] = {
 		projectile = true,
 		area = true,
 		totem = true,
+		ballista = true,
 	},
 	baseMods = {
 		flag("OneShotProj"),
@@ -5930,6 +5931,7 @@ skills["ShrapnelBallista"] = {
 		attack = true,
 		projectile = true,
 		totem = true,
+		ballista = true,
 	},
 	baseMods = {
 	},
@@ -6008,6 +6010,7 @@ skills["SiegeBallista"] = {
 		attack = true,
 		projectile = true,
 		totem = true,
+		ballista = true,
 	},
 	baseMods = {
 		flag("ProjectileRain"),

@@ -123,8 +123,8 @@ function ItemSlotClass:Draw(viewPort)
 	self:DrawControls(viewPort)
 	if not main.popups[1] and self.nodeId and (self.dropped or (self:IsMouseOver() and (self.otherDragSource or not self.itemsTab.selControl))) then
 		SetDrawLayer(nil, 15)
-		local viewerX = x + width + 5
-		local viewerY = m_min(y, viewPort.y + viewPort.height - 304)
+		local viewerX = x
+		local viewerY = m_min(y - 300 - 5, viewPort.y + viewPort.height - 304)
 		SetDrawColor(1, 1, 1)
 		DrawImage(nil, viewerX, viewerY, 304, 304)
 		local viewer = self.itemsTab.socketViewer

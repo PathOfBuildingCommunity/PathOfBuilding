@@ -32,7 +32,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill CataclysmSigil
-#flags spell area duration
+#flags spell area duration brand
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
 	end,
@@ -1034,7 +1034,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ConduitSigil
-#flags spell area duration
+#flags spell area duration brand
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
 	end,

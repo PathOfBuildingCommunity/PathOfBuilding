@@ -393,7 +393,7 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["intimidating_cry_attack_speed_+%_per_100_enemies"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "NearbyEnemy" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "WarcryNearbyEnemies" }, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 100,
 		},
 	},

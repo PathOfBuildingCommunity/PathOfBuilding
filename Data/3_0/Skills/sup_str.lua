@@ -2639,6 +2639,7 @@ skills["SupportRangedAttackTotem"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	addFlags = {
 		totem = true,
+		ballista = true,
 	},
 	statMap = {
 		["support_attack_totem_attack_speed_+%_final"] = {
