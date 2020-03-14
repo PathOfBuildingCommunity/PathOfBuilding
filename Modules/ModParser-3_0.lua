@@ -889,6 +889,7 @@ local modTagList = {
 	["while stationary"] = { tag = { type = "Condition", var = "Stationary" } },
 	["while moving"] = { tag = { type = "Condition", var = "Moving" } },
 	["while channelling"] = { tag = { type = "Condition", var = "Channelling" } },
+	["if you've been channelling for at least 1 second"] = { tag = { type = "Condition", var = "Channelling" } },
 	["while you have no power charges"] = { tag = { type = "StatThreshold", stat = "PowerCharges", threshold = 0, upper = true } },
 	["while you have no frenzy charges"] = { tag = { type = "StatThreshold", stat = "FrenzyCharges", threshold = 0, upper = true } },
 	["while you have no endurance charges"] = { tag = { type = "StatThreshold", stat = "EnduranceCharges", threshold = 0, upper = true } },
