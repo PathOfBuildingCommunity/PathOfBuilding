@@ -440,6 +440,7 @@ local modNameList = {
 	["duration of elemental status ailments"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration" },
 	["duration of ailments"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration", "EnemyPoisonDuration", "EnemyBleedDuration" },
 	["duration of ailments you inflict"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration", "EnemyPoisonDuration", "EnemyBleedDuration" },
+	["duration of ailments inflicted"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration", "EnemyPoisonDuration", "EnemyBleedDuration" },
 	-- Other ailments
 	["to poison"] = "PoisonChance",
 	["to cause poison"] = "PoisonChance",
@@ -683,6 +684,8 @@ local preFlagList = {
 	["^projectile attack skills [hd][ae][va][el] "] = { tagList = { { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Projectile } } },
 	["^projectiles from attacks [hd][ae][va][el] "] = { tagList = { { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Projectile } } },
 	["^arrows [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Bow },
+	["^bow attacks [hdf][aei][var][el] "] = { keywordFlags = KeywordFlag.Bow },
+	["^bow skills [hdf][aei][var][el] "] = { keywordFlags = KeywordFlag.Bow },
 	["^projectiles [hdf][aei][var][el] "] = { flags = ModFlag.Projectile },
 	["^melee attacks have "] = { flags = ModFlag.Melee },
 	["^movement attack skills have "] = { flags = ModFlag.Attack, keywordFlags = KeywordFlag.Movement },
