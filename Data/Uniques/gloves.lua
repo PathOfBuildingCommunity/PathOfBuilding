@@ -582,6 +582,15 @@ Requires Level 43, 34 Str, 34 Int
 ]],
 -- Gloves: Evasion/Energy Shield
 [[
+Algor Mortis
+Carnal Mitts
+Requires Level 50, 39 Dex, 39 Int
++(50-70) to maximum Energy Shield
++(15-20)% to Cold and Lightning Resistances
+(20-30)% chance to Sap Enemies in Chilling Areas
+Enemies in your Chilling Areas take (25-35)% increased Lightning Damage
+(15-20)% increased Effect of Non-Damaging Ailments
+]],[[
 Aukuna's Will
 Clasped Mitts
 League: Legion
