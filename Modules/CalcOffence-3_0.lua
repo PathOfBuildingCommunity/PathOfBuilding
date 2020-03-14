@@ -203,17 +203,17 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") or skillModList:Flag(nil, "ImprovedSpellDamageAppliesToAttacks") then
-    -- Spell Damage conversion from Crown of Eyes, Kinetic Bolt, and the Wandslinger notable
-    local multiplier = 1
-    if skillModList:Flag(nil, "ImprovedSpellDamageAppliesToAttacks") then
-        multiplier = 1.5
-    end
-    for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Spell }, "Damage")) do
-        local mod = value.mod
-        if band(mod.flags, ModFlag.Spell) ~= 0 then
-            skillModList:NewMod("Damage", "INC", mod.value * multiplier, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
-        end
-    end
+		-- Spell Damage conversion from Crown of Eyes, Kinetic Bolt, and the Wandslinger notable
+		local multiplier = 1
+		if skillModList:Flag(nil, "ImprovedSpellDamageAppliesToAttacks") then
+			multiplier = 1.5
+		end
+		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Spell }, "Damage")) do
+			local mod = value.mod
+			if band(mod.flags, ModFlag.Spell) ~= 0 then
+				skillModList:NewMod("Damage", "INC", mod.value * multiplier, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
+			end
+		end
 	end
 	if skillModList:Flag(nil, "ClawDamageAppliesToUnarmed") then
 		-- Claw Damage conversion from Rigwald's Curse
