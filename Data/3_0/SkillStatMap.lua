@@ -769,6 +769,14 @@ return {
 ["projectiles_always_pierce_you"] = {
 	flag("AlwaysPierceSelf"),
 },
+["projectiles_fork"] = {
+	flag("ForkOnce"),
+	mod("ForkCountMax", "BASE", nil),
+},
+["number_of_additional_forks_base"] = {
+	flag("ForkTwice"),
+	mod("ForkCountMax", "BASE", nil),
+},
 ["active_skill_returning_projectile_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "ReturningProjectile" }),
 },
