@@ -529,7 +529,7 @@ function calcs.perform(env)
 	end
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if activeSkill.skillCfg.skillGem.grantedEffectId == "HeraldOfPurity" then
+		if activeSkill.activeEffect.grantedEffect.name == "Herald of Purity" then
 			local limit = activeSkill.skillModList:Sum("BASE", nil, "ActiveSentinelOfPurityLimit")
 			output.ActiveSentinelOfPurityLimit = m_max(limit, output.ActiveSentinelOfPurityLimit or 0)
 		end
