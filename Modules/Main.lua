@@ -96,11 +96,10 @@ function main:Init()
 			if newItem.base then
 				newItem:NormaliseQuality()
 				if newItem.crafted then
-					if newItem.base.implicit and (#newItem.modLines == 0 or newItem.modLines[1].custom) then
-						newItem.implicitLines = 0
+					if newItem.base.implicit and #newItem.implicitModLines == 0 then
+						-- Automatically add implicit
 						for line in newItem.base.implicit:gmatch("[^\n]+") do
-							newItem.implicitLines = newItem.implicitLines + 1
-							t_insert(newItem.modLines, newItem.implicitLines, { line = line })
+							t_insert(newItem.implicitModLines, { line = line })
 						end
 					end
 					newItem:Craft()

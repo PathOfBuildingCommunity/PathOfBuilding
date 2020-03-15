@@ -83,5 +83,8 @@ end)
 writeMods("../Data/3_0/ModJewelAbyss.lua", function(mod)
 	return (mod.Domain == 13 or mod.Domain == 16) and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
 end)
+writeMods("../Data/3_0/ModJewelCluster.lua", function(mod)
+	return mod.Domain == 21 and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
+end)
 
 print("Mods exported.")
