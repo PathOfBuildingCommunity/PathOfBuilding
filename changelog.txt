@@ -1,3 +1,7 @@
+VERSION[1.4.161][2020/03/15]
+ * Fixed Cluster Jewels sometimes having their added node type incorrectly recognised
+ * Fixed Cluster Jewels always adding the maximum number of passives
+ * Fixed Node Power breaking when Cluster Jewels are equipped
 VERSION[1.4.160][2020/03/15]
  * Added support for Cluster jewels:
     * Cluster Jewels can be crafted like other items
