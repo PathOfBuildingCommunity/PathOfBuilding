@@ -694,6 +694,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 end
 
 function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
+	tooltip:SetRecipe(node.recipe)
 	tooltip:AddLine(24, "^7"..node.dn..(launch.devModeAlt and " ["..node.id.."]" or ""))
 	if node.type == "Socket" then
 		local attribTotals = { }
