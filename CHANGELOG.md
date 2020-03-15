@@ -1,3 +1,7 @@
+### 1.4.162 - 2020/03/15
+ * Fixed Cluster Jewels not updating their cluster layouts when edited
+ * Fixed Rigwald's Curse not correctly converting Claw modifiers
+ 
 ### 1.4.161 - 2020/03/15
  * Fixed Cluster Jewels sometimes having their added node type incorrectly recognised
  * Fixed Cluster Jewels always adding the maximum number of passives
