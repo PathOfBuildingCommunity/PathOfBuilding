@@ -570,7 +570,7 @@ local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"]
 function ImportTabClass:ImportItem(itemData, slotName)
 	if not slotName then
 		if itemData.inventoryId == "PassiveJewels" then
-			slotName = "Jewel "..self.build.spec.tree.jewelSlots[itemData.x + 1]
+			slotName = "Jewel "..self.build.latestTree.jewelSlots[itemData.x + 1]
 		elseif itemData.inventoryId == "Flask" then
 			slotName = "Flask "..(itemData.x + 1)
 		else

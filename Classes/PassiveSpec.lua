@@ -145,7 +145,6 @@ end
 
 function PassiveSpecClass:PostLoad()
 	self:BuildClusterJewelGraphs()
-	self:BuildAllDependsAndPaths()
 end
 
 function PassiveSpecClass:MigrateNodeId(nodeId)
@@ -624,6 +623,8 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 	wipeTable(self.allocSubgraphNodes)
 end
 
+	-- Rebuild paths to account for new/removed nodes
+	self:BuildAllDependsAndPaths()
 function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	local expansionJewel = parentSocket.expansionJewel
 	local clusterJewel = jewel.clusterJewel
