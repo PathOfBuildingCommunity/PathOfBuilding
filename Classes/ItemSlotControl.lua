@@ -6,6 +6,7 @@
 local pairs = pairs
 local t_insert = table.insert
 local m_min = math.min
+local itemTabHelpers = require("Classes.Helpers.ItemsTabHelpers")
 
 local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(self, anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
 	self.DropDownControl(anchor, x, y, 310, 20, { }, function(index, value)
@@ -80,7 +81,7 @@ function ItemSlotClass:Populate()
 	for _, item in pairs(self.itemsTab.items) do
 		if self.itemsTab:IsItemValidForSlot(item, self.slotName) then
 			t_insert(self.items, item.id)
-			t_insert(self.list, colorCodes[item.rarity]..item.name)
+			t_insert(self.list, itemTabHelpers.createItemNameWithInfluences(item))
 			if item.id == self.selItemId then
 				self.selIndex = #self.list
 			end

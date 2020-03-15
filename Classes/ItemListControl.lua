@@ -5,6 +5,7 @@
 --
 local pairs = pairs
 local t_insert = table.insert
+local itemTabHelpers = require("Classes.Helpers.ItemsTabHelpers")
 
 local ItemListClass = newClass("ItemListControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab)
 	self.ListControl(anchor, x, y, width, height, 16, false, true, itemsTab.itemOrderList)
@@ -55,7 +56,7 @@ function ItemListClass:GetRowValue(column, index, itemId)
 		elseif itemSet then
 			used = "  ^9(Used in '" .. (itemSet.title or "Default") .. "')"
 		end
-		return colorCodes[item.rarity] .. item.name .. used
+		return colorCodes[item.rarity] .. itemTabHelpers.createItemNameWithInfluences(item).. used
 	end
 end
 
