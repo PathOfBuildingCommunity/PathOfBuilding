@@ -14,5 +14,10 @@ local itemBases = ...
 #base Metadata/Items/Jewels/JewelAbyssMelee
 #base Metadata/Items/Jewels/JewelAbyssRanged
 
+#subType Cluster
+#base Metadata/Items/Jewels/JewelPassiveTreeExpansionLarge
+#base Metadata/Items/Jewels/JewelPassiveTreeExpansionMedium
+#base Metadata/Items/Jewels/JewelPassiveTreeExpansionSmall
+
 #subType Timeless
 #base Metadata/Items/Jewels/JewelTimeless
