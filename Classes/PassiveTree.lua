@@ -413,13 +413,13 @@ function PassiveTreeClass:ProcessNode(node)
 		node.y = node.group.y - m_cos(node.angle) * dist
 	end
 
+	node.modKey = ""
 	if not node.sd then
 		return
 	end
 
 	-- Parse node modifier lines
 	node.mods = { }
-	node.modKey = ""
 	local i = 1
 	while node.sd[i] do
 		if node.sd[i]:match("\n") then

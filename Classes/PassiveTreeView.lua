@@ -386,8 +386,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	if self.showHeatMap then
 		-- Build the power numbers if needed
-		self.heatMapStat = build.calcsTab.powerStat
 		build.calcsTab:BuildPower()
+		self.heatMapStat = build.calcsTab.powerStat
 	end
 
 	-- Update cached node data

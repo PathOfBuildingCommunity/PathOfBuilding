@@ -835,6 +835,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	-- Perform processing on nodes to calculate positions, parse mods, and other goodies
 	for _, node in ipairs(subGraph.nodes) do
 		node.linked = { }
+		node.power = { }
 		self.tree:ProcessNode(node)
 		if node.modList and jewelData.clusterJewelIncEffect then
 			node.modList:NewMod("PassiveSkillEffect", "INC", jewelData.clusterJewelIncEffect)

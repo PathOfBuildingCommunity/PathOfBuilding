@@ -1073,7 +1073,7 @@ function ItemsTabClass:SetDisplayItem(item)
 		self.controls.displayItemShaperElder:SetSel((item.shaper and 2) or (item.elder and 3) or (item.adjudicator and 4) or (item.basilisk and 5) or (item.crusader and 6) or (item.eyrie and 7) or 1)
 		self:UpdateCustomControls()
 		self:UpdateDisplayItemRangeLines()
-		if item.clusterJewel then
+		if item.clusterJewel and item.crafted then
 			self:UpdateClusterJewelControls()
 		end
 	else
