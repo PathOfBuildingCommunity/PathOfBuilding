@@ -363,6 +363,12 @@ return {
 ["critical_strike_chance_+%"] = {
 	mod("CritChance", "INC", nil),
 },
+["spell_critical_strike_chance_+%"] = {
+	mod("CritChance", "INC", nil, ModFlag.Spell),
+},
+["attack_critical_strike_chance_+%"] = {
+	mod("CritChance", "INC", nil, ModFlag.Attack),
+},
 ["base_critical_strike_multiplier_+"] = {
 	mod("CritMultiplier", "BASE", nil),
 },
@@ -1116,6 +1122,9 @@ return {
 ["base_number_of_golems_allowed"] = {
 	mod("ActiveGolemLimit", "BASE", nil),
 },
+["base_number_of_champions_of_light_allowed"] = {
+    mod("ActiveSentinelOfPurityLimit", "BASE", nil)
+},
 ["base_number_of_spectres_allowed"] = {
 	mod("ActiveSpectreLimit", "BASE", nil),
 },
@@ -1157,9 +1166,9 @@ return {
 ["non_curse_aura_effect_+%"] = {
 	mod("AuraEffect", "INC", nil),
 },
--- Sigil
+-- Brand
 ["sigil_attached_target_damage_+%_final"] = {
-	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BrandAttachedToEnemy" }),
+	mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", var = "BrandsAttachedToEnemy", threshold = 1 }),
 },
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {

@@ -655,6 +655,18 @@ Implicits: 1
 −(4-8) to Mana Cost of Skills
 8% of Damage taken gained as Mana over 4 seconds when Hit
 ]],[[
+Profane Proxy
+Unset Ring
+Sockets: G
+LevelReq: 52
+Implicits: 1
+Has 1 Socket
++3 to Level of Socketed Curse Gems
++(20-30)% to Cold Resistance
++(20-30)% to Lightning Resistance
+Left Ring Slot: Your Chilling Skitterbot's Aura applies Socketed Curse instead
+Right Ring Slot: Your Shocking Skitterbot's Aura applies Socketed Curse instead
+]],[[
 Putembo's Meadow
 Topaz Ring
 League: Delve

@@ -204,6 +204,15 @@ Adds 2 to 3 Physical Damage to Attacks per Level
 Gain Her Embrace for 3 seconds when you Ignite an Enemy
 While in Her Embrace, take 0.5% of your total Maximum Life and Energy Shield as Fire Damage per second per Level
 ]],[[
+Paradoxica
+Vaal Rapier
+League: Betrayal
+Source: Drops from Bosses in Safehouse
+Requires Level 66, 212 Dex
+Implicits: 1
+25% to Global Critical Strike Multiplier
+Attacks with this Weapon deal Double Damage
+]],[[
 The Princess
 Sabre
 Variant: Pre 2.6.0

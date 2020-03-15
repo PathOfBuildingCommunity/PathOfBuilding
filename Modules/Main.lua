@@ -96,11 +96,10 @@ function main:Init()
 			if newItem.base then
 				newItem:NormaliseQuality()
 				if newItem.crafted then
-					if newItem.base.implicit and (#newItem.modLines == 0 or newItem.modLines[1].custom) then
-						newItem.implicitLines = 0
+					if newItem.base.implicit and #newItem.implicitModLines == 0 then
+						-- Automatically add implicit
 						for line in newItem.base.implicit:gmatch("[^\n]+") do
-							newItem.implicitLines = newItem.implicitLines + 1
-							t_insert(newItem.modLines, newItem.implicitLines, { line = line })
+							t_insert(newItem.implicitModLines, { line = line })
 						end
 					end
 					newItem:Craft()
@@ -141,10 +140,10 @@ function main:Init()
 	self.anchorMain.y = function()
 		return self.screenH - 4
 	end
-	self.controls.options = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, 0, 70, 20, "Options", function()
+	self.controls.options = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, 0, 68, 20, "Options", function()
 		self:OpenOptionsPopup()
 	end)
-	self.controls.about = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 228, 0, 70, 20, "About", function()
+	self.controls.about = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 72, 0, 68, 20, "About", function()
 		self:OpenAboutPopup()
 	end)
 	self.controls.applyUpdate = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -24, 140, 20, "^x50E050Update Ready", function()
@@ -165,7 +164,11 @@ function main:Init()
 	self.controls.checkUpdate.enabled = function()
 		return not launch.updateCheckRunning
 	end
-	self.controls.versionLabel = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 144, -27, 0, 14, "")
+	self.controls.forkLabel = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 148, -26, 0, 16, "")
+	self.controls.forkLabel.label = function()
+		return "^8PoB Community Fork"
+	end
+	self.controls.versionLabel = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 148, -2, 0, 16, "")
 	self.controls.versionLabel.label = function()
 		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or "")
 	end
@@ -204,6 +207,8 @@ the "Releases" section of the GitHub page.]])
 
 	self.buildSortMode = "NAME"
 	self.nodePowerTheme = "RED/BLUE"
+	self.showThousandsSidebar = true
+	self.showThousandsCalcs = true
 
 	self:SetMode("BUILD", false, "Unnamed build")
 
@@ -456,8 +461,12 @@ function main:LoadSettings()
 				if node.attrib.nodePowerTheme then
 					self.nodePowerTheme = node.attrib.nodePowerTheme
 				end
-				self.showThousandsSidebar = node.attrib.showThousandsSidebar == "true"
-				self.showThousandsCalcs = node.attrib.showThousandsCalcs == "true"
+				if node.attrib.showThousandsSidebar then
+					self.showThousandsSidebar = node.attrib.showThousandsSidebar == "true"
+				end -- else leave at default
+				if node.attrib.showThousandsCalcs then
+					self.showThousandsCalcs = node.attrib.showThousandsCalcs == "true"
+				end -- else leave at default
 			end
 		end
 	end
@@ -539,12 +548,12 @@ function main:OpenOptionsPopup()
 	controls.nodePowerThemeLabel = new("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, -4, 0, 0, 16, "^7Node Power colours:")
 	controls.nodePowerTheme.tooltipText = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
-	controls.thousandsLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 200, 94, 0, 16, "^7Show thousands separators in:")
-	controls.thousandsSidebar = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 270, 92, 20, "Sidebar:", function(state)
+	controls.thousandsLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 94, 0, 16, "^7Show thousands separators in:")
+	controls.thousandsSidebar = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 92, 20, "Sidebar:", function(state)
 		self.showThousandsSidebar = state
 	end)
 	controls.thousandsSidebar.state = self.showThousandsSidebar
-	controls.thousandsCalcs = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 370, 92, 20, "Calcs tab:", function(state)
+	controls.thousandsCalcs = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 380, 92, 20, "Calcs tab:", function(state)
 		self.showThousandsCalcs = state
 	end)
 	controls.thousandsCalcs.state = self.showThousandsCalcs
@@ -627,12 +636,10 @@ function main:OpenAboutPopup()
 	controls.close = new("ButtonControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -10, 10, 50, 20, "Close", function()
 		self:ClosePopup()
 	end)
-	controls.version = new("LabelControl", nil, 0, 18, 0, 18, "Path of Building v"..launch.versionNumber.." by Openarl : LocalIdentity's Fork")
-	controls.forum = new("ButtonControl", nil, 0, 42, 420, 18, "Forum Thread: ^x4040FFhttps://www.pathofexile.com/forum/view-thread/1716360", function(control)
-		OpenURL("https://www.pathofexile.com/forum/view-thread/1716360")
-	end)
-	controls.github = new("ButtonControl", nil, 0, 62, 360, 18, "GitHub page: ^x4040FFhttps://github.com/LocalIdentity/PathOfBuilding", function(control)
-		OpenURL("https://github.com/LocalIdentity/PathOfBuilding")
+	controls.version = new("LabelControl", nil, 0, 18, 0, 18, "Path of Building Community Fork v"..launch.versionNumber)
+	controls.forum = new("LabelControl", nil, 0, 36, 0, 18, "Based on Openarl's Path of Building")
+	controls.github = new("ButtonControl", nil, 0, 62, 438, 18, "GitHub page: ^x4040FFhttps://github.com/PathOfBuildingCommunity/PathOfBuilding", function(control)
+		OpenURL("https://github.com/PathOfBuildingCommunity/PathOfBuilding")
 	end)
 	controls.verLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 82, 0, 18, "^7Version history:")
 	controls.changelog = new("TextListControl", nil, 0, 100, 630, 390, nil, changeList)
