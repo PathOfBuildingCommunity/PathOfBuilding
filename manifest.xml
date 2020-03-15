@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
-	<Version number="1.4.161.1" />
+	<Version number="1.4.161.2" />
 	<Source part="program" url="https://raw.githubusercontent.com/LocalIdentity/PathOfBuilding/{branch}/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/" />
 	<Source part="tree-2_6" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-2_6.zip" />
@@ -14,7 +14,7 @@
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
 	<File name="UpdateApply.lua" part="program" sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" />
 	<File name="GameVersions.lua" part="program" sha1="4cf43ef67fe750c22e15c7a63d7f77cce7768dba" />
-	<File name="changelog.txt" part="program" sha1="dce608a5e1744a6f0d492ac3f708ec9e0e6e499a" />
+	<File name="changelog.txt" part="program" sha1="f2b60a0291b41181a9cb2e5e2189a3da687033c4" />
 	<File name="Path of Building.exe" part="runtime" platform="win32" sha1="7e5a3242c9a4296dc8377feb4c9d824f3f0a3cc1" />
 	<File name="lua51.dll" part="runtime" platform="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" />
 	<File name="SimpleGraphic.dll" part="runtime" platform="win32" sha1="d852ae6eafc9be62aa41d3cb74fb986d0e5b40e5" />
@@ -52,7 +52,7 @@
 	<File name="Classes/ItemDBControl.lua" part="program" sha1="16a9bdddeb51258fbdc6c236b588bc34ce2a62e1" />
 	<File name="Classes/ItemListControl.lua" part="program" sha1="8298506b88cea37e78c1c5faebc05335b3ace240" />
 	<File name="Classes/ItemSetListControl.lua" part="program" sha1="7ecee459d3c477b46c6b6115bfeb2480995e17ed" />
-	<File name="Classes/ItemSlotControl.lua" part="program" sha1="d22cb44e3509b9626e4ad739726061893a6582c5" />
+	<File name="Classes/ItemSlotControl.lua" part="program" sha1="3184f3d3742cd919db42ce6bb0de7fa7a66d1f0f" />
 	<File name="Classes/ItemsTab.lua" part="program" sha1="9fca442b1216f91d3f14a7b2b989fa6addedb459" />
 	<File name="Classes/LabelControl.lua" part="program" sha1="d2ffe0071641c07b63d152c0f48b691eba0cffb0" />
 	<File name="Classes/ListControl.lua" part="program" sha1="cdeea1e1daccdfb8b745f458e769e82f9ed502a1" />
@@ -61,7 +61,7 @@
 	<File name="Classes/ModList.lua" part="program" sha1="2fa5f20b12a4b366dc4b28a2a873699b834766d6" />
 	<File name="Classes/ModStore.lua" part="program" sha1="0c8844bf3d943bd9ea5c441da733f1e403b31365" />
 	<File name="Classes/NotesTab.lua" part="program" sha1="cc7c5eff58c2868cdc7d4c1bf9a967aa8c448c9e" />
-	<File name="Classes/PassiveSpec.lua" part="program" sha1="a7f1fa5f240d83aee5142e61dd96fc4c42954e8c" />
+	<File name="Classes/PassiveSpec.lua" part="program" sha1="864fc21a472855a7697e028203d3cb96fedd6e82" />
 	<File name="Classes/PassiveSpecListControl.lua" part="program" sha1="d449391ea879a20728f7e9a0345398c0141a45f6" />
 	<File name="Classes/PassiveTree.lua" part="program" sha1="2d32ed18ece9b6185735a86309aae8a635055548" />
 	<File name="Classes/PassiveTreeView.lua" part="program" sha1="a308db79ea43802f04ebed07cbd7eeaf6d44916b" />

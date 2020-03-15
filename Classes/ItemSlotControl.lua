@@ -60,7 +60,7 @@ function ItemSlotClass:SetSelItemId(selItemId)
 		if self.itemsTab.build.spec then
 			self.itemsTab.build.spec.jewels[self.nodeId] = selItemId
 			if selItemId ~= self.selItemId then
-				self.itemsTab.build.spec:BuildClusterJewelGraphs(
+				self.itemsTab.build.spec:BuildClusterJewelGraphs()
 			end
 		end
 	else

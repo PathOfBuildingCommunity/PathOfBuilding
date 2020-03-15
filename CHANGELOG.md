@@ -1,4 +1,6 @@
 ### 1.4.162.1 - 2020/03/15
+ * Fix opening build crash
+### 1.4.162.1 - 2020/03/15
  * Add support for Cluster Jewels on the tree
  * Add support for many of the new Notables from cluster jewels
  * Add new 3.10 skill gems and skill gem balance tweaks
