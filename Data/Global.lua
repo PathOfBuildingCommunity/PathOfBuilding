@@ -103,6 +103,7 @@ KeywordFlag.Attack =	0x00010000
 KeywordFlag.Spell =		0x00020000
 KeywordFlag.Hit =		0x00040000
 KeywordFlag.Ailment =	0x00080000
+KeywordFlag.DamageMask =0x00050000 -- Hit & Attack
 -- Other effects
 KeywordFlag.Poison =	0x00100000
 KeywordFlag.Bleed =		0x00200000
