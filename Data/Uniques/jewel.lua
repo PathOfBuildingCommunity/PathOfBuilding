@@ -426,23 +426,28 @@ League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Transcendent Flesh} via currency{Vial of Transcendence}
 Variant: Pre 3.8.0
+Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
 -1 Strength per 1 Strength on Allocated Passives in Radius
 {variant:1}+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
 {variant:2}+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+{variant:3}2% increased Life Recovery Rate per 10 Strength on Allocated Passives in Radius
 ]],[[
 Transcendent Flesh
 Crimson Jewel
 League: Incursion
 Source: Upgraded from unique{Tempered Flesh} via currency{Vial of Transcendence}
 Variant: Pre 3.8.0
+Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
 -1 Strength per 1 Strength on Allocated Passives in Radius
-1% additional Physical Damage Reduction per 10 Strength on Allocated Passives in Radius
+{variant:1,2}1% additional Physical Damage Reduction per 10 Strength on Allocated Passives in Radius
 {variant:1}+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
-{variant:2}+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+{variant:3}3% increased Life Recovery Rate per 10 Strength on Allocated Passives in Radius
+{variant:3}2% reduced Life Recovery Rate per 10 Strength on Unallocated Passives in Radius
+{variant:2,3}+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
 ]],[[
 Tempered Mind
 Cobalt Jewel
@@ -450,42 +455,56 @@ League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Transcendent Mind} via currency{Vial of Transcendence}
 Variant: Pre 3.8.0
+Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
 -1 Intelligence per 1 Intelligence on Allocated Passives in Radius
 {variant:1}+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
 {variant:2}+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+{variant:3}2% increased Mana Recovery Rate per 10 Intelligence on Allocated Passives in Radius
 ]],[[
 Transcendent Mind
 Cobalt Jewel
 League: Incursion
 Source: Upgraded from unique{Tempered Mind} via currency{Vial of Transcendence}
 Variant: Pre 3.8.0
+Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
 -1 Intelligence per 1 Intelligence on Allocated Passives in Radius
-0.4% of Energy Shield Regenerated per Second for
+{variant:1,2}0.4% of Energy Shield Regenerated per Second for
 every 10 Intelligence on Allocated Passives in Radius
 {variant:1}+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
 {variant:2}+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+{variant:3}3% increased Mana Recovery Rate per 10 Intelligence on Allocated Passives in Radius
+{variant:3}2% reduced Mana Recovery Rate per 10 Intelligence on Unallocated Passives in Radius
+{variant:3}+3% to Damage over Time Multiplier per 10 Intelligence on Unallocated Passives in Radius
 ]],[[
 Tempered Spirit
 Viridian Jewel
 League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Transcendent Spirit} via currency{Vial of Transcendence}
+Variant: Pre 3.10.0
+Variant: Current
 Radius: Medium
 -1 Dexterity per 1 Dexterity on Allocated Passives in Radius
-+15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
+{variant:1}+15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
+{variant:2}2% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
 ]],[[
 Transcendent Spirit
 Viridian Jewel
 League: Incursion
 Source: Upgraded from unique{Tempered Spirit} via currency{Vial of Transcendence}
+Variant: Pre 3.10.0
+Variant: Current
 Radius: Medium
 -1 Dexterity per 1 Dexterity on Allocated Passives in Radius
-2% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
-+15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
+{variant:1}2% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
+{variant:1}+15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
+{variant:2}3% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
+{variant:2}2% reduced Movement Speed per 10 Dexterity on Unallocated Passives in Radius
+{variant:2}+125 to Accuracy Rating per 10 Dexterity on Unallocated Passives in Radius
 ]],[[
 Thread of Hope
 Crimson Jewel

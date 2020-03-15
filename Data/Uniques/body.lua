@@ -120,6 +120,16 @@ Chance to Block Spell Damage is Unlucky
 10% reduced Movement Speed
 Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
 ]],[[
+Perfidy
+Glorious Plate
+Requires Level 68, 191 Str
+(25-40)% increased Melee Damage
++(60-100) to maximum Life
+You can have two different Banners at the same time
+Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
+War Banner has (100-200)% increased Adrenaline duration
+Dread Banner has (100-200)% increased Fortify duration
+]],[[
 Solaris Lorica
 Copper Plate
 Variant: Pre 2.6.0

@@ -16,8 +16,14 @@ return {
 	{ var = "detonateDeadCorpseLife", type = "count", label = "Enemy Corpse Life:", tooltip = "Sets the maximum life of the target corpse for Detonate Dead and similar skills.\nFor reference, a level 70 monster has "..data["3_0"].monsterLifeTable[70].." base life, and a level 80 monster has "..data["3_0"].monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config")
 	end },
-	{ var = "conditionStationary", type = "check", label = "Are you always stationary?", ifCond = "Stationary", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:Stationary", "FLAG", true, "Config")
+	{ var = "conditionStationary", type = "count", label = "Are you stationary?", ifCond = "Stationary", 
+		tooltip = "Applies mods that use `while stationary` and `per/every second while stationary`",
+		apply = function(val, modList, enemyModList)
+		local sanitizedValue = m_max(0, val)
+		modList:NewMod("Multiplier:StationarySeconds", "BASE", sanitizedValue, "Config")
+		if sanitizedValue > 0 then
+			modList:NewMod("Condition:Stationary", "FLAG", true, "Config")
+		end
 	end },
 	{ var = "conditionMoving", type = "check", label = "Are you always moving?", ifCond = "Moving", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Moving", "FLAG", true, "Config")
@@ -36,6 +42,9 @@ return {
 	end },
 	{ var = "minionsConditionFullLife", type = "check", label = "Are your minions always on Full Life?", ifMinionCond = "FullLife", apply = function(val, modList, enemyModList)
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:FullLife", "FLAG", true, "Config") }, "Config")
+	end },
+	{ var = "minionsConditionCreatedRecently", type = "check", label = "Have your minions been created Recently?", ifCond = "MinionsCreatedRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:MinionsCreatedRecently", "FLAG", true, "Config")
 	end },
 	{ var = "igniteMode", type = "list", label = "Ignite calculation mode:", tooltip = "Controls how the base damage for ignite is calculated:\nAverage Damage: Ignite is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ignite is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
 
@@ -115,7 +124,7 @@ return {
 	end },
 	{ label = "Intensify:", ifSkill = "Intensify" },
 	{ var = "intensifyIntensity", type = "count", label = "# of Intensity:", ifSkill = "Intensify", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:Intensity", "BASE", m_min(val, 4), "Config")
+		modList:NewMod("Multiplier:Intensity", "BASE", val, "Config")
 	end },
 	{ label = "Meat Shield:", ifSkill = "Meat Shield" },
 	{ var = "meatShieldEnemyNearYou", type = "check", label = "Is the enemy near you?", ifSkill = "Meat Shield", apply = function(val, modList, enemyModList)
@@ -521,6 +530,9 @@ return {
 	{ var = "conditionCritWithHeraldSkillRecently", type = "check", label = "Have your Herald Skills Crit Recently?", ifCond = "CritWithHeraldSkillRecently", implyCond = "SkillCritRecently", tooltip = "This also implies that your Skills have Crit Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CritWithHeraldSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "LostNonVaalBuffRecently", type = "check", label = "Have you lost a Non-Vaal Guard Skill buff recently?", ifCond = "LostNonVaalBuffRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:LostNonVaalBuffRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionNonCritRecently", type = "check", label = "Have you dealt a Non-Crit Recently?", ifCond = "NonCritRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:NonCritRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -531,8 +543,14 @@ return {
 		modList:NewMod("Multiplier:EnemyKilledRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:KilledRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionTotemsNotSummonedInPastTwoSeconds", type = "check", label = "No summoned Totems in the past 2 seconds?", ifCond = "NoSummonedTotemsInPastTwoSeconds", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:NoSummonedTotemsInPastTwoSeconds", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionTotemsKilledRecently", type = "check", label = "Have your Totems Killed Recently?", ifCond = "TotemsKilledRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:TotemsKilledRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionUsedBrandRecently", type = "check", label = "Have you used a Brand Skill recently?", ifCond = "UsedBrandRecently",  apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:UsedBrandRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierTotemsKilledRecently", type = "count", label = "# of Enemies Killed by Totems Recently", ifMult = "EnemyKilledByTotemsRecently", implyCond = "TotemsKilledRecently", tooltip = "This also implies that your Totems have Killed Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:EnemyKilledByTotemsRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
@@ -540,6 +558,9 @@ return {
 	end },
 	{ var = "conditionMinionsKilledRecently", type = "check", label = "Have your Minions Killed Recently?", ifCond = "MinionsKilledRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:MinionsKilledRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionMinionsDiedRecently", type = "check", label = "Has a Minion Died Recently?", ifCond = "MinionsDiedRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:MinionsDiedRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierMinionsKilledRecently", type = "count", label = "# of Enemies Killed by Minions Recently", ifMult = "EnemyKilledByMinionsRecently", implyCond = "MinionsKilledRecently", tooltip = "This also implies that your Minions have Killed Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:EnemyKilledByMinionsRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
@@ -553,6 +574,9 @@ return {
 	end },
 	{ var = "conditionFrozenEnemyRecently", type = "check", label = "Have you Frozen an Enemy Recently?", ifCond = "FrozenEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FrozenEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionChilledEnemyRecently", type = "check", label = "Have you Chilled an Enemy Recently?", ifCond = "ChilledEnemyRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:ChilledEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionShatteredEnemyRecently", type = "check", label = "Have you Shattered an Enemy Recently?", ifCond = "ShatteredEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ShatteredEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -704,6 +728,12 @@ return {
 	end },
 	{ var = "multiplierTrapTriggeredRecently", type = "count", label = "# of Traps Triggered Recently:", ifMult = "TrapTriggeredRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:TrapTriggeredRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionThrownTrapOrMineRecently", type = "check", label = "Have you thrown a Trap or Mine Recently?", ifCond = "TrapOrMineThrownRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:TrapOrMineThrownRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionCursedEnemyRecently", type = "check", label = "Have you Cursed and Enemy Recently?",  ifCond="CursedEnemyRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:CursedEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionConsumedCorpseRecently", type = "check", label = "Consumed a corpse Recently?", ifCond = "ConsumedCorpseRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ConsumedCorpseRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })

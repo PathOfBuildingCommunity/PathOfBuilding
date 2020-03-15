@@ -202,18 +202,22 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") then
-		-- Spell Damage conversion from Crown of Eyes
+	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") or skillModList:Flag(nil, "ImprovedSpellDamageAppliesToAttacks") then
+		-- Spell Damage conversion from Crown of Eyes, Kinetic Bolt, and the Wandslinger notable
+		local multiplier = 1
+		if skillModList:Flag(nil, "ImprovedSpellDamageAppliesToAttacks") then
+			multiplier = 1.5
+		end
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Spell }, "Damage")) do
 			local mod = value.mod
 			if band(mod.flags, ModFlag.Spell) ~= 0 then
-				skillModList:NewMod("Damage", "INC", mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
+				skillModList:NewMod("Damage", "INC", mod.value * multiplier, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
 			end
 		end
 	end
 	if skillModList:Flag(nil, "ClawDamageAppliesToUnarmed") then
 		-- Claw Damage conversion from Rigwald's Curse
-		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Claw }, "Damage")) do
+		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Claw, keywordFlags = KeywordFlag.DamageMask }, "Damage")) do
 			local mod = value.mod
 			if band(mod.flags, ModFlag.Claw) ~= 0 then
 				skillModList:NewMod("Damage", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod))
@@ -1152,7 +1156,7 @@ function calcs.offence(env, actor, activeSkill)
 					if pass == 2 and breakdown then
 						t_insert(breakdown[damageType], s_format("= %d to %d", damageTypeHitMin, damageTypeHitMax))
 					end
-					if skillModList:Flag(skillCfg, "LuckyHits") then 
+					if skillModList:Flag(skillCfg, "LuckyHits") or (pass == 2 and damageType == "Lightning" and skillModList:Flag(skillCfg, "LightningNoCritLucky")) then 
 						damageTypeHitAvg = (damageTypeHitMin / 3 + 2 * damageTypeHitMax / 3)
 					else
 						damageTypeHitAvg = (damageTypeHitMin / 2 + damageTypeHitMax / 2)

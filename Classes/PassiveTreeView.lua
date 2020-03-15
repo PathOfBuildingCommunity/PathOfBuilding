@@ -313,31 +313,36 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		self:DrawAsset(tree.assets.BackgroundDexInt, scrX, scrY, scale)
 	end
 
-	-- Draw the group backgrounds
-	for _, group in pairs(tree.groups) do
-		if not group.isProxy then
-			local scrX, scrY = treeToScreen(group.x, group.y)
-			if group.ascendancyName then
-				if group.isAscendancyStart then
-					if group.ascendancyName ~= spec.curAscendClassName then
-						SetDrawColor(1, 1, 1, 0.25)
-					end
-					self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
-					SetDrawColor(1, 1, 1)
+	local function renderGroup(group, isExpansion)
+		local scrX, scrY = treeToScreen(group.x, group.y)
+		if group.ascendancyName then
+			if group.isAscendancyStart then
+				if group.ascendancyName ~= spec.curAscendClassName then
+					SetDrawColor(1, 1, 1, 0.25)
 				end
-			elseif group.oo[3] then
-				self:DrawAsset(tree.assets.PSGroupBackground3, scrX, scrY, scale, true)
-			elseif group.oo[2] then
-				self:DrawAsset(tree.assets.PSGroupBackground2, scrX, scrY, scale)
-			elseif group.oo[1] then
-				self:DrawAsset(tree.assets.PSGroupBackground1, scrX, scrY, scale)
+				self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
+				SetDrawColor(1, 1, 1)
 			end
+		elseif group.oo[3] then
+			self:DrawAsset(tree.assets[isExpansion and "GroupBackgroundLargeHalfAlt" or "PSGroupBackground3"], scrX, scrY, scale, true)
+		elseif group.oo[2] then
+			self:DrawAsset(tree.assets[isExpansion and "GroupBackgroundMediumAlt" or "PSGroupBackground2"], scrX, scrY, scale)
+		elseif group.oo[1] then
+			self:DrawAsset(tree.assets[isExpansion and "GroupBackgroundSmallAlt" or "PSGroupBackground1"], scrX, scrY, scale)
 		end
 	end
 
-	-- Draw the connecting lines between nodes
-	SetDrawLayer(nil, 20)
-	for _, connector in pairs(tree.connectors) do
+	-- Draw the group backgrounds
+	for _, group in pairs(tree.groups) do
+		if not group.isProxy then
+			renderGroup(group)
+		end
+	end
+	for _, subGraph in pairs(spec.subGraphs) do
+		renderGroup(subGraph.group, true)
+	end
+
+	local function renderConnector(connector)
 		local node1, node2 = spec.nodes[connector.nodeId1], spec.nodes[connector.nodeId2]
 
 		-- Determine the connector state
@@ -368,10 +373,21 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		SetDrawColor(1, 1, 1)
 	end
 
+	-- Draw the connecting lines between nodes
+	SetDrawLayer(nil, 20)
+	for _, connector in pairs(tree.connectors) do
+		renderConnector(connector)
+	end
+	for _, subGraph in pairs(spec.subGraphs) do
+		for _, connector in pairs(subGraph.connectors) do
+			renderConnector(connector)
+		end
+	end
+
 	if self.showHeatMap then
 		-- Build the power numbers if needed
-		self.heatMapStat = build.calcsTab.powerStat
 		build.calcsTab:BuildPower()
+		self.heatMapStat = build.calcsTab.powerStat
 	end
 
 	-- Update cached node data
@@ -408,21 +424,30 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			end
 			if node.type == "Socket" then
 				-- Node is a jewel socket, retrieve the socketed jewel (if present) so we can display the correct art
-				base = tree.assets[node.overlay[state]]
+				base = tree.assets[node.overlay[state .. (node.expansionJewel and "Alt" or "")]]
 				local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
 				if isAlloc and jewel then
 					if jewel.baseName == "Crimson Jewel" then
-						overlay = "JewelSocketActiveRed"
+						overlay = node.expansionJewel and "JewelSocketActiveRedAlt" or "JewelSocketActiveRed"
 					elseif jewel.baseName == "Viridian Jewel" then
-						overlay = "JewelSocketActiveGreen"
+						overlay = node.expansionJewel and "JewelSocketActiveGreenAlt" or "JewelSocketActiveGreen"
 					elseif jewel.baseName == "Cobalt Jewel" then
-						overlay = "JewelSocketActiveBlue"
+						overlay = node.expansionJewel and "JewelSocketActiveBlueAlt" or "JewelSocketActiveBlue"
 					elseif jewel.baseName == "Prismatic Jewel" then
-						overlay = "JewelSocketActivePrismatic"
+						overlay = node.expansionJewel and "JewelSocketActivePrismaticAlt" or "JewelSocketActivePrismatic"
+					elseif jewel.base.subType == "Abyss" then
+						overlay = node.expansionJewel and "JewelSocketActiveAbyssAlt" or "JewelSocketActiveAbyss"
 					elseif jewel.baseName == "Timeless Jewel" then
 						overlay = "JewelSocketActiveTimeless"
-					elseif jewel.baseName:match("Eye Jewel$") then
-						overlay = "JewelSocketActiveAbyss"
+					elseif jewel.baseName == "Large Cluster Jewel" then
+						-- Temp; waiting for art :/
+						overlay = "JewelSocketActiveGreenAlt"
+					elseif jewel.baseName == "Medium Cluster Jewel" then
+						-- Temp; waiting for art :/
+						overlay = "JewelSocketActiveBlueAlt"
+					elseif jewel.baseName == "Small Cluster Jewel" then
+						-- Temp; waiting for art :/
+						overlay = "JewelSocketActiveRedAlt"
 					end
 				end
 			else
@@ -497,7 +522,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					if hoverDep and hoverDep[node] then
 						-- This node depends on the hover node, turn it red
 						SetDrawColor(1, 0, 0)
-					elseif hoverNode.type == "Socket" then
+					elseif hoverNode.type == "Socket" and hoverNode.nodesInRadius then
 						-- Hover node is a socket, check if this node falls within its radius and color it accordingly
 						local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(hoverNode.id)
 						local isThreadOfHope = jewel and jewel.jewelRadiusLabel == "Variable"
@@ -550,16 +575,14 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	-- Draw the nodes
 	for nodeId, node in pairs(spec.nodes) do
-		if node.group and not node.isProxy and not node.group.isProxy then
-			renderNode(nodeId, node)
-		end
+		renderNode(nodeId, node)
 	end
-
+	
 	-- Draw ring overlays for jewel sockets
 	SetDrawLayer(nil, 25)
 	for nodeId in pairs(tree.sockets) do
 		local node = spec.nodes[nodeId]
-		if node then
+		if node and (not node.expansionJewel or node.expansionJewel.size == 2) then
 			local scrX, scrY = treeToScreen(node.x, node.y)
 			local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
 			if node == hoverNode then
@@ -694,8 +717,9 @@ function PassiveTreeViewClass:DoesNodeMatchSearchStr(node)
 end
 
 function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
+	tooltip:SetRecipe(node.recipe)
 	tooltip:AddLine(24, "^7"..node.dn..(launch.devModeAlt and " ["..node.id.."]" or ""))
-	if node.type == "Socket" then
+	if node.type == "Socket" and node.nodesInRadius then
 		local attribTotals = { }
 		for nodeId in pairs(node.nodesInRadius[2]) do
 			local specNode = build.spec.nodes[nodeId]
