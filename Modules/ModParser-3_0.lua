@@ -1204,6 +1204,7 @@ local specialModList = {
 	["projectiles cannot pierce, fork or chain"] = {
 		flag("CannotPierce", nil, ModFlag.Projectile),
 		flag("CannotChain", nil, ModFlag.Projectile),
+		flag("CannotFork", nil, ModFlag.Projectile),
 	},
 	-- Ascendant
 	["grants (%d+) passive skill points?"] = function(num) return { mod("ExtraPoints", "BASE", num) } end,
