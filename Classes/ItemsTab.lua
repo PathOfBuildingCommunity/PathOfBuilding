@@ -932,8 +932,7 @@ function ItemsTabClass:AddItem(item, noAutoEquip, index)
 
 	if replacing and (replacing.clusterJewel or item.clusterJewel) then
 		-- We're replacing an existing item, and either the new or old one is a cluster jewel
-		local slot, itemSet = self:GetEquippedSlotForItem(item)
-		if slot and not itemSet then
+		if isValueInTable(self.build.spec.jewels, item.id) then
 			-- Item is currently equipped, so we need to rebuild the graphs
 			self.build.spec:BuildClusterJewelGraphs()
 		end

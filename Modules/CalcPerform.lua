@@ -911,7 +911,7 @@ function calcs.perform(env)
 						modDB.conditions["AffectedBy"..grantedEffect.name:gsub(" ","")] = true
 						local cfg = { skillName = grantedEffect.name }
 						local inc = modDB:Sum("INC", cfg, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
-						local more = modDB:More(cfg, "CurseEffectOnSelf")
+						local more = modDB:More(cfg, "CurseEffectOnSelf") * gemModList:Sum("MORE", nil, "CurseEffectAgainstPlayer")
 						modDB:ScaleAddList(curseModList, (1 + inc / 100) * more)
 					end
 				elseif not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") then

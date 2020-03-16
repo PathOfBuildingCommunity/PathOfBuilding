@@ -1,3 +1,12 @@
+### 1.4.163 - 2020/03/16
+ * Applied the skill reworks and balance changes for 3.10.0
+    * New skills are still to come
+ * Fixed ordering of notables in Cluster Jewel wheels
+ * Various fixes to the layout of passives in Cluster Jewel wheels
+ * Fixed issue allowing 2 Notable passives to be crafted onto Small Cluster Jewels
+ * Duplicating passive trees now correctly copies allocated nodes in Cluster Jewel wheels
+ * Fixed Minion Instability
+
 ### 1.4.162 - 2020/03/15
  * Fixed Cluster Jewels not updating their cluster layouts when edited
  * Fixed Rigwald's Curse not correctly converting Claw modifiers

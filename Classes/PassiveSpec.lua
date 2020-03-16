@@ -703,8 +703,22 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		})
 	end
 
+	-- Process list of notables
+	local notableList = { }
+	local sortOrder = self.build.data.clusterJewels.notableSortOrder
+	for _, name in ipairs(jewelData.clusterJewelNotables) do
+		local baseNode = self.tree.clusterNodeMap[name]
+		assert(baseNode, "Cluster notable not found:  "..name)
+		assert(sortOrder[baseNode.dn], "Cluster notable has no sort order: "..name)
+		t_insert(notableList, baseNode)
+	end
+	table.sort(notableList, function(a, b) return sortOrder[a.dn] < sortOrder[b.dn] end)
+
 	local indicies = { }
-	local smallCount = m_min(m_max(jewelData.clusterJewelNodeCount or clusterJewel.maxNodes, clusterJewel.minNodes), clusterJewel.maxNodes)
+	local nodeCount = m_min(m_max(jewelData.clusterJewelNodeCount or clusterJewel.maxNodes, clusterJewel.minNodes), clusterJewel.maxNodes)
+	local socketCount = jewelData.clusterJewelSocketCount or 0
+	local notableCount = #notableList
+	local smallCount = nodeCount - socketCount - notableCount
 
 	local function makeJewel(nodeIndex, jewelIndex)
 		-- Look for the socket
@@ -725,24 +739,22 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		}
 		t_insert(subGraph.nodes, node)
 		indicies[nodeIndex] = node
-		smallCount = smallCount - 1
 	end
 
 	-- First pass: sockets
-	if jewelData.clusterJewelSocketCount == 1 and clusterJewel.size == "Large" then
+	if clusterJewel.size == "Large" and socketCount == 1 then
 		-- Large clusters always have the single jewel at index 6
 		makeJewel(6, 1)
 	else
-		local count = jewelData.clusterJewelSocketCount or 0
-		assert(count <= #clusterJewel.socketIndicies)
+		assert(socketCount <= #clusterJewel.socketIndicies, "Too many sockets!")
 		local getJewels = { 0, 2, 1 }
-		for i = 1, count do
+		for i = 1, socketCount do
 			makeJewel(clusterJewel.socketIndicies[i], getJewels[i])
 		end
 	end
 
 	-- Second pass: notables
-	for _, name in ipairs(jewelData.clusterJewelNotables) do
+	for _, baseNode in ipairs(notableList) do
 		-- Find a free index
 		local nodeIndex
 		for _, index in ipairs(clusterJewel.notableIndicies) do
@@ -754,6 +766,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		if not nodeIndex then
 			for index = clusterJewel.totalIndicies - 2, 0, -2 do
 				-- Silly fallback to handle maybe possible cases?
+				-- Update: cases shouldn't be allowed anymore, but we need to handle existing instances
 				if not indicies[index] then
 					nodeIndex = index
 					break
@@ -762,9 +775,10 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 			assert(nodeIndex, "No free index to place notable")
 		end
 
-		-- Locate the base node
-		local baseNode = self.tree.clusterNodeMap[name]
-		assert(baseNode, "Cluster notable not found: "..name)
+		if clusterJewel.size == "Medium" and socketCount == 0 and notableCount == 2 then
+			-- Special rule for two notables in a Medium cluster
+			nodeIndex = indicies[4] and 8 or 4
+		end
 
 		-- Construct the new node
 		local node = {
@@ -780,7 +794,6 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		}
 		t_insert(subGraph.nodes, node)
 		indicies[nodeIndex] = node
-		smallCount = smallCount - 1
 	end
 
 	-- Third pass: small fill
@@ -794,6 +807,15 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 			end
 		end
 		assert(nodeIndex, "No free index to place small node")
+
+		if clusterJewel.size == "Medium" then
+			-- Special rules for small nodes in Medium clusters
+			if nodeCount == 5 and nodeIndex == 4 then
+				nodeIndex = indicies[3] and 10 or 3
+			elseif nodeCount == 4 and nodeIndex == 8 then
+				nodeIndex = indicies[9] and 3 or 9
+			end
+		end
 
 		-- Construct the new node
 		local node = {

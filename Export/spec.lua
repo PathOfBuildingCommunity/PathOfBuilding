@@ -4638,7 +4638,7 @@ return {
 	PassiveTreeExpansionSpecialSkills={
 		[1]={
 			list=false,
-			name="Id",
+			name="Node",
 			refTo="PassiveSkills",
 			type="Key",
 			width=270
@@ -4871,6 +4871,20 @@ return {
 			name="SecondaryGrantedEffect",
 			refTo="GrantedEffects",
 			type="Key",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="GlobalGemLevelStat",
+			refTo="Stats",
+			type="Key",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="SecondarySupportName",
+			refTo="",
+			type="String",
 			width=150
 		}
 	},

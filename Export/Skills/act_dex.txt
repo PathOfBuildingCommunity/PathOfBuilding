@@ -401,7 +401,11 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 		{
-			name = "Explosion (5 fuses)",
+			name = "Explosion (10 fuses)",
+			area = true,
+		},
+		{
+			name = "Explosion (20 fuses)",
 			area = true,
 		},
 		{
@@ -411,23 +415,24 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
-			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
+			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3 } }),
 		},
 		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
-			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
+			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3 } }),
 		},
 		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
-		["explosive_arrow_ignite_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
 	},
 #baseMod skill("radius", 15)
-#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } })
-#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 })
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2, 3 } })
+#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 })
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 1 })
-#baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 3 })
 #mods
 
 #skill ShrapnelTrap
@@ -1006,8 +1011,8 @@ local skills, mod, flag, skill = ...
 		["buff_time_passed_+%_other_than_temporal_chains"] = {
 			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["curse_effect_+%_vs_players"] = {
-			mod("CurseEffectAgainstPlayer", "INC", nil),
+		["curse_effect_+%_final_vs_players"] = {
+			mod("CurseEffectAgainstPlayer", "MORE", nil),
 		},
 		["temporal_chains_action_speed_+%_vs_rare_or_unique_final"] = {
 			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),

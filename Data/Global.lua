@@ -209,4 +209,11 @@ SkillType = {
 	Type83 = 94,
 	Type84 = 94,
 	NovaSpell = 94,
+	Type85 = 95,
+	Type86 = 96,
+	Type87 = 97,
+	Type88 = 98,
+	Type89 = 99,
+	Type90 = 100,
+	Type91 = 101,
 }

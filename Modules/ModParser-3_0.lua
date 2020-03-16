@@ -1074,6 +1074,7 @@ local specialModList = {
 	["projectile attack hits deal up to 30%% more damage to targets at the start of their movement, dealing less damage to targets as the projectile travels farther"] = { flag("PointBlank") },
 	["leech energy shield instead of life"] = { flag("GhostReaver") },
 	["minions explode when reduced to low life, dealing 33%% of their maximum life as fire damage to surrounding enemies"] = { mod("ExtraMinionSkill", "LIST", { skillId = "MinionInstability" }) },
+	["minions explode when reduced to low life, dealing 33%% of their life as fire damage to surrounding enemies"] = { mod("ExtraMinionSkill", "LIST", { skillId = "MinionInstability" }) },
 	["all bonuses from an equipped shield apply to your minions instead of you"] = { }, -- The node itself is detected by the code that handles it
 	["spend energy shield before mana for skill costs"] = { },
 	["energy shield protects mana instead of life"] = { flag("EnergyShieldProtectsMana") },
@@ -2085,7 +2086,7 @@ end
 
 -- Generate list of cluster jewel skills
 local clusterJewelSkills = {}
-for baseName, jewel in pairs(data["3_0"].clusterJewels) do
+for baseName, jewel in pairs(data["3_0"].clusterJewels.jewels) do
 	for skillId, skill in pairs(jewel.skills) do
 		clusterJewelSkills[table.concat(skill.enchant, " "):lower()] = { mod("JewelData", "LIST", { key = "clusterJewelSkill", value = skillId }) }
 	end
