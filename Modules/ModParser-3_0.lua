@@ -773,6 +773,7 @@ local modTagList = {
 	["per shaper item equipped"] = { tag = { type = "Multiplier", var = "ShaperItem" } },
 	["per elder or shaper item equipped"] = { tag = { type = "Multiplier", varList = { "ElderItem", "ShaperItem" } } },
 	["for each corrupted item equipped"] = { tag = { type = "Multiplier", var = "CorruptedItem" } },
+	["for each equipped corrupted item"] = { tag = { type = "Multiplier", var = "CorruptedItem" } },
 	["for each uncorrupted item equipped"] = { tag = { type = "Multiplier", var = "NonCorruptedItem" } },
 	["per abyssa?l? jewel affecting you"] = { tag = { type = "Multiplier", var = "AbyssJewel" } },
 	["for each type of abyssa?l? jewel affecting you"] = { tag = { type = "Multiplier", var = "AbyssJewelType" } },
@@ -1371,12 +1372,12 @@ local specialModList = {
 	["you have onslaught while at maximum endurance charges"] = { flag("Condition:Onslaught", { type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" }) },
 	-- Saboteur
 	-- Slayer
-	["deal up to (%d+)%% more melee damage to enemies, based on proximity"] = function(num) return { mod("Damage", "MORE", num, nil, bor(ModFlag.Attack, ModFlag.Melee), { type = "MeleeProximity", ramp = {num,0} }) } end,
+	["deal up to (%d+)%% more melee damage to enemies, based on proximity"] = function(num) return { mod("Damage", "MORE", num, nil, bor(ModFlag.Attack, ModFlag.Melee), { type = "MeleeProximity", ramp = {1,0} }) } end,
 	["cannot be stunned while leeching"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Leeching" }) },
 	["you are immune to bleeding while leeching"] = { mod("AvoidBleed", "BASE", 100, { type = "Condition", var = "Leeching" }) },
 	["life leech effects are not removed at full life"] = { flag("CanLeechLifeOnFullLife") },
 	["gain (%d+)%% increased movement speed for 20 seconds when you kill an enemy"] = function(num) return { mod("MovementSpeed", "INC", num, { type = "Condition", var = "KilledRecently" }) } end,
-	["gain (%d+)%% increased attack speed for 20 seconds when you kill a rare or unique enemy"] = function(num) return { mod("Speed", "INC", num, { type = "Condition", var = "conditionKilledUniqueEnemy" }) } end,
+	["gain (%d+)%% increased attack speed for 20 seconds when you kill a rare or unique enemy"] = function(num) return { mod("Speed", "INC", num, { type = "Condition", var = "KilledUniqueEnemy" }) } end,
 	
 	-- Trickster
 	["(%d+)%% chance to gain (%d+)%% of non%-chaos damage with hits as extra chaos damage"] = function(num, _, perc) return { mod("NonChaosDamageGainAsChaos", "BASE", num / 100 * tonumber(perc)) } end,

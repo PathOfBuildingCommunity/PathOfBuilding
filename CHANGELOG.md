@@ -1,3 +1,29 @@
+### 1.4.162.1 - 2020/03/15
+ * Fix opening build crash
+### 1.4.162.1 - 2020/03/15
+ * Add support for Cluster Jewels on the tree
+ * Add support for many of the new Notables from cluster jewels
+ * Add new 3.10 skill gems and skill gem balance tweaks
+	* Full support for Kinetic Bolt, Stormbind Bladeblast and Second Wind
+	* Arcane Cloak, Spellslinger and Archmage Support are not supported properly for DPS calculations
+ * Add new 3.10 uniques
+ * Add back oils to tree, now with a picture of the oil on the notable
+ * Add Paradoxica to unique selection menu
+ * Add support for "if you have Stunned an Enemy Recently"
+ * Add support for active brand limit and Sign of Purpose
+ * Add conditional more multiplier of Groundslam for nearby enemies
+ * Add support for mana spent recently mods
+ * Add support for Unencumbered from the Hollow Palm Keystone
+ * Add Perforate DPS calculations in Blood Stance
+ * Update elusive values to 3.10
+ * Update temple jewels to their 3.10 variants
+ * Fix Rigwalds Curse with 3.10 passive tree nodes
+ * Fix typo in Ascendant Deadeye/Longshot notable
+ * Fix parsing of mods applied to spell skills
+ * Fix Slayer Impact node calculation
+ * Fix parsing of warcry cooldown override on Al Dhih
+ * Fix Ballista placement speed
+ * Consolidate resistances into single line in sidebar
 ### 1.4.159.1 - 2020/03/12
  * Fixed weapon ailment modifiers not correctly applying
  * Fixed some Two Handed Weapon modifiers incorrectly applying to One Handed Weapons instead
