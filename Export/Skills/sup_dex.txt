@@ -19,6 +19,9 @@ local skills, mod, flag, skill = ...
 #skill SupportAdditionalAccuracy
 #mods
 
+#skill SupportAdditionalCooldown
+#mods
+
 #skill SupportArrowNova
 	statMap = {
 		["support_rain_projectile_damage_+%_final"] = {
@@ -46,6 +49,9 @@ local skills, mod, flag, skill = ...
 		},
 		["projectiles_barrage"] = {
 			flag("SequentialProjectiles", { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
+		},
+		["number_of_additional_projectiles"] = {
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
 		},
 	},
 #mods

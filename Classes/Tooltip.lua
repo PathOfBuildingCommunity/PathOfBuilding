@@ -9,7 +9,30 @@ local m_max = math.max
 local m_floor = math.floor
 local s_gmatch = string.gmatch
 
+-- All possible values for notable recipes (oils)
+local recipeNames = {
+	"AmberOil",
+	"AzureOil",
+	"BlackOil",
+	"ClearOil",
+	"CrimsonOil",
+	"GoldenOil",
+	"OpalescentOil",
+	"SepiaOil",
+	"SilverOil",
+	"TealOil",
+	"VerdantOil",
+	"VioletOil",
+}
+
 local TooltipClass = newClass("Tooltip", function(self)
+	-- Preload all recipe images
+	self.recipeImages = { }
+	for _, recipeName in pairs(recipeNames) do
+		self.recipeImages[recipeName] = NewImageHandle()
+		self.recipeImages[recipeName]:Load("TreeData/" .. recipeName .. ".png", "CLAMP")
+	end
+
 	self.lines = { }
 	self.blocks = { }
 	self:Clear()
@@ -21,6 +44,7 @@ function TooltipClass:Clear()
 	if self.updateParams then
 		wipeTable(self.updateParams)
 	end
+	self.recipe = nil
 	self.center = false
 	self.color = { 0.5, 0.3, 0 }
 	t_insert(self.blocks, { height = 0 })
@@ -65,6 +89,10 @@ function TooltipClass:AddLine(size, text)
 	end
 end
 
+function TooltipClass:SetRecipe(recipe)
+	self.recipe = recipe
+end
+
 function TooltipClass:AddSeparator(size)
 	t_insert(self.lines, { size = size })
 end
@@ -79,6 +107,23 @@ function TooltipClass:GetSize()
 			ttW = m_max(ttW, DrawStringWidth(data.size, "VAR", data.text))
 		end
 	end
+
+	-- Account for recipe display
+	if self.recipe and self.lines[1] then
+		local title = self.lines[1]
+		local imageX = DrawStringWidth(title.size, "VAR", title.text) + title.size
+		local recipeTextSize = (title.size * 3) / 4
+		for _, recipeName in ipairs(self.recipe) do
+			-- Trim "Oil" from the recipe name, which normally looks like "GoldenOil"
+			local recipeNameShort = recipeName
+			if #recipeNameShort > 3 and recipeNameShort:sub(-3) == "Oil" then
+				recipeNameShort = recipeNameShort:sub(1, #recipeNameShort - 3)
+			end
+			imageX = imageX + DrawStringWidth(recipeTextSize, "VAR", recipeNameShort) + title.size * 1.25
+		end
+		ttW = m_max(ttW, imageX)
+	end
+
 	return ttW + 12, ttH + 10
 end
 
@@ -105,13 +150,33 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	end
 	
 	SetDrawColor(1, 1, 1)
+
 	local y = ttY + 6
 	local x = ttX
 	local columns = 1 -- reset to count columns by block heights
 	local currentBlock = 1
 	local maxColumnHeight = 0
 	local drawStack = {}
+
 	for i, data in ipairs(self.lines) do
+		if self.recipe and i == 1 then
+			local title = self.lines[1]
+			local imageX = DrawStringWidth(title.size, "VAR", title.text) + title.size
+			local recipeTextSize = (title.size * 3) / 4
+			for _, recipeName in ipairs(self.recipe) do
+				-- Trim "Oil" from the recipe name, which normally looks like "GoldenOil"
+				local recipeNameShort = recipeName
+				if #recipeNameShort > 3 and recipeNameShort:sub(-3) == "Oil" then
+					recipeNameShort = recipeNameShort:sub(1, #recipeNameShort - 3)
+				end
+				-- Draw the name of the recipe component (oil)
+				t_insert(drawStack, {ttX + imageX, y + (title.size - recipeTextSize)/2, "LEFT", recipeTextSize, "VAR", recipeNameShort})
+				imageX = imageX + DrawStringWidth(recipeTextSize, "VAR", recipeNameShort)
+				-- Draw the image of the recipe component (oil)
+				t_insert(drawStack, {self.recipeImages[recipeName], ttX + imageX, y, title.size, title.size})
+				imageX = imageX + title.size * 1.25
+			end
+		end
 		if data.text then
 			if currentBlock ~= data.block and self.blocks[data.block].height + y > ttY + math.min(ttH, viewPort.height) then
 				y = ttY + 6
@@ -141,7 +206,9 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	for i, lines in ipairs(drawStack) do 
 		if #lines < 6 then
 			if(type(self.color) == "string") then
-				SetDrawColor(self.color) 
+				SetDrawColor(self.color)
+			elseif lines[1] then -- Don't color images
+				SetDrawColor(1,1,1)
 			else
 				SetDrawColor(unpack(self.color))
 			end

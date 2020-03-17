@@ -46,7 +46,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ArtilleryBallista
-#flags attack projectile area totem
+#flags attack projectile area totem ballista
 #baseMod flag("OneShotProj")
 #mods
 
@@ -74,6 +74,37 @@ local skills, mod, flag, skill = ...
 			mod("TrapMineDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 	},
+#mods
+
+#skill BladeBlast
+#flags spell area
+#baseMod skill("radius", 18)
+	parts = {
+		{
+			name = "1 Blade",
+		},
+		{
+			name = "3 Blade",
+		},
+		{
+			name = "6 Blade",
+		},
+		{
+			name = "10 Blade",
+		},
+		{
+			name = "40 Blade",
+		},
+		{
+			name = "50 Blade",
+		},
+	},
+#baseMod skill("dpsMultiplier", 1, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("dpsMultiplier", 3, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("dpsMultiplier", 6, { type = "SkillPart", skillPart = 3 })
+#baseMod skill("dpsMultiplier", 10, { type = "SkillPart", skillPart = 4 })
+#baseMod skill("dpsMultiplier", 40, { type = "SkillPart", skillPart = 5 })
+#baseMod skill("dpsMultiplier", 50, { type = "SkillPart", skillPart = 6 })
 #mods
 
 #skill ChargedAttack
@@ -950,11 +981,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ShrapnelBallista
-#flags attack projectile totem
+#flags attack projectile totem ballista
 #mods
 
 #skill SiegeBallista
-#flags attack projectile totem
+#flags attack projectile totem ballista
 #baseMod flag("ProjectileRain")
 #mods
 

@@ -25,6 +25,12 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeLucky" })
 #mods
 
+#skill ArcaneCloak
+#flags spell duration
+	statMap = {
+	},
+#mods
+
 #skill ArcticBreath
 #flags spell area projectile duration
 #baseMod skill("radius", 12)
@@ -32,7 +38,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill CataclysmSigil
-#flags spell area duration
+#flags spell area duration brand
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
 	end,
@@ -727,6 +733,15 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 14)
 #mods
 
+#skill KineticBolt
+#flags attack projectile
+	statMap = {
+		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
+			flag("ImprovedSpellDamageAppliesToAttacks"),
+		},
+	},
+#mods
+
 #skill LightningTowerTrap
 #flags spell trap duration area
 #mods
@@ -1019,6 +1034,10 @@ local skills, mod, flag, skill = ...
 #flags spell projectile duration
 #mods
 
+#skill Spellslinger
+#flags spell
+#mods
+
 #skill SpiritOffering
 #flags spell duration
 	statMap = {
@@ -1034,7 +1053,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ConduitSigil
-#flags spell area duration
+#flags spell area duration brand
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100)
 	end,
@@ -1056,6 +1075,27 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 20)
+#mods
+
+#skill Stormbind
+#flags spell area duration
+	parts = {
+		{
+			name = "1 Improvement",
+		},
+		{
+			name = "2 Improvements",
+		},
+		{
+			name = "3 Improvements",
+		},
+	},
+#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 1 })
+#baseMod mod("Damage", "MORE", 200, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Damage", "MORE", 300, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("AreaOfEffect", "MORE", 30, 0, 0, { type = "SkillPart", skillPart = 1 })
+#baseMod mod("AreaOfEffect", "MORE", 60, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("AreaOfEffect", "MORE", 90, 0, 0, { type = "SkillPart", skillPart = 3 })
 #mods
 
 #skill StormBurstNew

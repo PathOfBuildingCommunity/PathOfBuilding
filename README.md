@@ -1,4 +1,5 @@
-# Path of Building fork by LocalIdentity
+# Path of Building Community Fork
+# Formerly known as LocalIdentity Fork
 
 This is a fork of Openarl's Path Of Building that includes many extra features not in the base version of PoB
 * Adds updated uniques from 3.8 and 3.9 changes

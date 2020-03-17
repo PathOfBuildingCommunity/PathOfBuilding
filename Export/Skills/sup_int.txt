@@ -45,6 +45,9 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportArchmage
+#mods
+
 #skill SupportBlasphemy
 #mods
 
@@ -322,12 +325,13 @@ local skills, mod, flag, skill = ...
 #skill SupportHandcastSpellBoost
 	statMap = {
 		["support_spell_boost_area_damage_+%_final_per_charge"] = {
-			mod("Damage", "MORE", nil, ModFlag.Area, 0, { type = "Multiplier", var = "Intensity" }),
+			mod("Damage", "MORE", nil, ModFlag.Area, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
 		},
 		["support_spell_boost_area_of_effect_+%_final_per_charge"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity" }),
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
 		},
 	},
+#baseMod mod("Multiplier:IntensityLimit", "BASE", 4)
 #mods
 
 #skill SupportItemRarity

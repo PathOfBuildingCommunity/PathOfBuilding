@@ -198,6 +198,28 @@ return {
 	},
 	AdvancedSkillsTutorial={
 	},
+	AfflictionBalancePerLevel={
+	},
+	AfflictionEndgameAreas={
+	},
+	AfflictionEndgameWaveMods={
+	},
+	AfflictionFixedMods={
+	},
+	AfflictionRandomModCategories={
+	},
+	AfflictionRandomSpawns={
+	},
+	AfflictionRewardMapMods={
+	},
+	AfflictionRewardTypeVisuals={
+	},
+	AfflictionRewardTypes={
+	},
+	AfflictionSplitDemons={
+	},
+	AfflictionStartDialogue={
+	},
 	AlternateBehaviourTypes={
 	},
 	AlternatePassiveAdditions={
@@ -490,6 +512,8 @@ return {
 	},
 	BlightBalancePerLevel={
 	},
+	BlightBossLifeScalingPerLevel={
+	},
 	BlightChestTypes={
 	},
 	BlightCraftingItems={
@@ -764,6 +788,10 @@ return {
 	},
 	BuffVisualOrbTypes={
 	},
+	BuffVisualSetEntries={
+	},
+	BuffVisualSets={
+	},
 	BuffVisuals={
 		[1]={
 			list=false,
@@ -888,6 +916,8 @@ return {
 			type="String",
 			width=150
 		}
+	},
+	ClientUIScreens={
 	},
 	CloneShot={
 	},
@@ -2057,6 +2087,8 @@ return {
 	},
 	GemTypes={
 	},
+	GenericBuffAuras={
+	},
 	GeometryAttack={
 	},
 	GeometryProjectiles={
@@ -2871,6 +2903,8 @@ return {
 	},
 	MapStatConditions={
 	},
+	MapStatsFromMapStats={
+	},
 	MapTierAchievements={
 	},
 	MapTiers={
@@ -2900,6 +2934,8 @@ return {
 	MicroMigrationData={
 	},
 	MicrotransactionCharacterPortraitVariations={
+	},
+	MicrotransactionCombineFormula={
 	},
 	MicrotransactionCombineForumula={
 	},
@@ -2948,6 +2984,10 @@ return {
 	ModGenerationType={
 	},
 	ModSellPriceTypes={
+	},
+	ModSetNames={
+	},
+	ModSets={
 	},
 	ModType={
 		[1]={
@@ -3289,6 +3329,10 @@ return {
 	MonsterGroupEntries={
 	},
 	MonsterGroupNames={
+	},
+	MonsterHeightBrackets={
+	},
+	MonsterHeights={
 	},
 	MonsterMapBossDifficulty={
 	},
@@ -4144,6 +4188,14 @@ return {
 	},
 	PassiveSkills={
 	},
+	PassiveTreeExpansionJewelSizes={
+	},
+	PassiveTreeExpansionJewels={
+	},
+	PassiveTreeExpansionSkills={
+	},
+	PassiveTreeExpansionSpecialSkills={
+	},
 	PathOfEndurance={
 	},
 	PerLevelValues={
@@ -4191,6 +4243,8 @@ return {
 	QuestRewards={
 	},
 	QuestStateCalcuation={
+	},
+	QuestStateCalculation={
 	},
 	QuestStates={
 	},
@@ -4410,6 +4464,8 @@ return {
 	},
 	SpecialTiles={
 	},
+	SpectreOverrides={
+	},
 	StartingPassiveSkills={
 	},
 	StashId={
@@ -4421,6 +4477,8 @@ return {
 	StatInterpolationTypes={
 	},
 	StatSemantics={
+	},
+	StatSets={
 	},
 	Stats={
 		[1]={

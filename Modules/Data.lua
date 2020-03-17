@@ -219,6 +219,7 @@ for _, targetVersion in ipairs(targetVersionList) do
 		Flask = dataModule("ModFlask"),
 		Jewel = dataModule("ModJewel"),
 		JewelAbyss = targetVersion ~= "2_6" and dataModule("ModJewelAbyss") or { },
+		JewelCluster = targetVersion ~= "2_6" and dataModule("ModJewelCluster") or { },
 	}
 	verData.masterMods = dataModule("ModMaster")
 	verData.enchantments = {
@@ -229,6 +230,12 @@ for _, targetVersion in ipairs(targetVersionList) do
 	verData.essences = dataModule("Essence")
 	verData.pantheons = targetVersion ~= "2_6" and dataModule("Pantheons") or { }
 	
+
+	-- Cluster jewel data
+	if targetVersion ~= "2_6" then	
+		verData.clusterJewels = dataModule("ClusterJewels")
+	end
+
 	-- Load skills
 	verData.skills = { }
 	verData.skillStatMap = dataModule("SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)

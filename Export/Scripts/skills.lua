@@ -83,6 +83,13 @@ local skillTypes = { "Attack",
 	"Type83",
 	"Ballista",
 	"NovaSpell",
+	"Type91",
+	"Type92",
+	"Type93",
+	"Type94",
+	"Type95",
+	"Type96",
+	"Type97",
 }
 
 local function mapAST(ast)
