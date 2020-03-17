@@ -1047,6 +1047,9 @@ local skills, mod, flag, skill = ...
 		["base_resist_all_elements_%"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["base_chaos_damage_resistance_%"] = {
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 #baseMod skill("buffMinions", true)
 #baseMod skill("buffNotPlayer", true)
@@ -1080,6 +1083,9 @@ local skills, mod, flag, skill = ...
 #skill Stormbind
 #flags spell area duration
 	parts = {
+		{
+			name = "No Improvements",
+		},
 		{
 			name = "1 Improvement",
 		},

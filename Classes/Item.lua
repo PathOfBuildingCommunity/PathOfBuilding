@@ -109,7 +109,7 @@ function ItemClass:ParseRaw(raw)
 		self.corruptable = self.base.type ~= "Flask" and self.base.subType ~= "Cluster"
 		self.shaperElderTags = data.specialBaseTags[self.type]
 		self.canBeShaperElder = self.shaperElderTags
-		self.clusterJewel = verData.clusterJewels and verData.clusterJewels[self.baseName]
+		self.clusterJewel = verData.clusterJewels and verData.clusterJewels.jewels[self.baseName]
 	end
 	self.variantList = nil
 	self.prefixes = { }
@@ -480,14 +480,22 @@ function ItemClass:NormaliseQuality()
 end
 
 function ItemClass:GetModSpawnWeight(mod, extraTags)
+	local weight = 0
 	if self.base then
 		for i, key in ipairs(mod.weightKey) do
 			if self.base.tags[key] or (extraTags and extraTags[key]) or (self.shaperElderTags and (self.shaper and self.shaperElderTags.shaper == key) or (self.elder and self.shaperElderTags.elder == key) or (self.adjudicator and self.shaperElderTags.adjudicator == key) or (self.basilisk and self.shaperElderTags.basilisk == key) or (self.crusader and self.shaperElderTags.crusader == key) or (self.eyrie and self.shaperElderTags.eyrie == key)) then
-				return mod.weightVal[i]
+				weight = mod.weightVal[i]
+				break
+			end
+		end
+		for i, key in ipairs(mod.weightMultiplierKey) do
+			if self.base.tags[key] or (extraTags and extraTags[key]) or (self.shaperElderTags and (self.shaper and self.shaperElderTags.shaper == key) or (self.elder and self.shaperElderTags.elder == key) or (self.adjudicator and self.shaperElderTags.adjudicator == key) or (self.basilisk and self.shaperElderTags.basilisk == key) or (self.crusader and self.shaperElderTags.crusader == key) or (self.eyrie and self.shaperElderTags.eyrie == key)) then
+				weight = weight * mod.weightMultiplierVal[i] / 100
+				break
 			end
 		end
 	end
-	return 0
+	return weight
 end
 
 function ItemClass:BuildRaw()

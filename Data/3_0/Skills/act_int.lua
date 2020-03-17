@@ -6496,6 +6496,9 @@ skills["SpiritOffering"] = {
 		["base_resist_all_elements_%"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["base_chaos_damage_resistance_%"] = {
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -6739,11 +6742,6 @@ skills["Stormbind"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Hit] = true, [SkillType.AreaSpell] = true, [SkillType.Channelled] = true, [SkillType.LightningSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.12,
-	baseFlags = {
-		spell = true,
-		area = true,
-		duration = true,
-	},
 	parts = {
 		{
 			name = "No Improvements",
@@ -6757,6 +6755,11 @@ skills["Stormbind"] = {
 		{
 			name = "3 Improvements",
 		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
 	},
 	baseMods = {
 		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 }),

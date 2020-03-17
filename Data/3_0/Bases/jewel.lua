@@ -66,6 +66,7 @@ itemBases["Small Cluster Jewel"] = {
 	tags = { default = true, jewel = true, not_for_sale = true, expansion_jewel_small = true, },
 	req = { },
 }
+
 itemBases["Timeless Jewel"] = {
 	type = "Jewel",
 	subType = "Timeless",

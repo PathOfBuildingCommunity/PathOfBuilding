@@ -437,19 +437,19 @@ skills["BladeBlast"] = {
 			name = "1 Blade",
 		},
 		{
-			name = "3 Blade",
+			name = "3 Blades",
 		},
 		{
-			name = "6 Blade",
+			name = "6 Blades",
 		},
 		{
-			name = "10 Blade",
+			name = "10 Blades",
 		},
 		{
-			name = "40 Blade",
+			name = "40 Blades",
 		},
 		{
-			name = "50 Blade",
+			name = "50 Blades",
 		},
 	},
 	baseFlags = {
@@ -2666,7 +2666,7 @@ skills["ExplosiveArrow"] = {
 			area = true,
 		},
 		{
-			name = "Explosion (5 fuses)",
+			name = "Explosion (10 fuses)",
 			area = true,
 		},
 		{
@@ -2688,8 +2688,8 @@ skills["ExplosiveArrow"] = {
 		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
-		["explosive_arrow_ignite_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
 	},
 	baseFlags = {
@@ -6753,8 +6753,8 @@ skills["TemporalChains"] = {
 		["buff_time_passed_+%_other_than_temporal_chains"] = {
 			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["curse_effect_+%_vs_players"] = {
-			mod("CurseEffectAgainstPlayer", "INC", nil),
+		["curse_effect_+%_final_vs_players"] = {
+			mod("CurseEffectAgainstPlayer", "MORE", nil),
 		},
 		["temporal_chains_action_speed_+%_vs_rare_or_unique_final"] = {
 			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
