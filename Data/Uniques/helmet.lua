@@ -245,7 +245,7 @@ Requires Level 69, 154 Int
 {variant:2,3}(0.4-0.8)% of Attack Damage Leeched as Life
 {variant:1}(0.2-0.4)% of Physical Attack Damage Leeched as Mana
 {variant:2,3}(0.2-0.4)% of Attack Damage Leeched as Mana
-Increases and Reductions to Spell Damage also apply to Attacks
+Increases and Reductions to Spell Damage also apply to Attacks at 150% of their value
 ]],[[
 Crown of Thorns
 Vine Circlet

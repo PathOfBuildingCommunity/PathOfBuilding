@@ -1,3 +1,14 @@
+### 1.4.164 - 2020/03/17
+ * Added the following new gems:
+    * Arcane Cloak
+	* Blade Blast
+	* Kinetic Bolt
+	* Spellslinger
+	* Stormbind
+	* Archmage
+	* Second Wind
+ * Updated enchantments for 3.10.0
+
 ### 1.4.163 - 2020/03/16
  * Applied the skill reworks and balance changes for 3.10.0
     * New skills are still to come

@@ -198,6 +198,9 @@ return {
 	skill("castTimeOverride", nil),
 	div = 1000,
 },
+["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
+	skill("spellDamageAppliesToAttackAtPercentValue", nil),
+},
 
 --
 -- Defensive modifiers

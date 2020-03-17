@@ -75,6 +75,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill BladeBlast
+#flags spell area
+#mods
+
 #skill ChargedAttack
 #flags attack melee area
 	parts = {

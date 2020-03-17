@@ -152,7 +152,7 @@ directiveTable.skill = function(state, args, out)
 		if granted.IsSupport then
 			out:write('\tname = "', skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
 			if #skillGem.Description > 0 then
-				out:write('\tdescription = "', skillGem.Description, '",\n')
+				out:write('\tdescription = "', skillGem.Description:gsub('\n','\\n'), '",\n')
 			end
 		else
 			out:write('\tname = "', granted.ActiveSkill.DisplayName, '",\n')
@@ -391,6 +391,12 @@ for skillGem in dat"SkillGems":Rows() do
 		out:write('\t\tgrantedEffectId = "', skillGem.GrantedEffect.Id, '",\n')
 		if skillGem.SecondaryGrantedEffect then
 			out:write('\t\tsecondaryGrantedEffectId = "', skillGem.SecondaryGrantedEffect.Id, '",\n')
+		end
+		if #skillGem.SecondarySupportName > 0 then
+			out:write('\t\tsecondaryEffectName = "', skillGem.SecondarySupportName, '",\n')
+		end
+		if skillGem.IsVaalGem then
+			out:write('\t\tvaalGem = true,\n')
 		end
 		local tagNames = { }
 		out:write('\t\ttags = {\n')

@@ -190,12 +190,22 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	local spellConvPercent = 0
+	if skillData.spellDamageAppliesToAttackAtPercentValue then
+		spellConvPercent = m_max(spellConvPercent, skillData.spellDamageAppliesToAttackAtPercentValue)
+	end
+	if skillModList:Flag(nil, "SpellDamageAppliesToAttacksAt150Percent") then
+		spellConvPercent = m_max(spellConvPercent, 150)
+	end
 	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") then
-		-- Spell Damage conversion from Crown of Eyes
+		spellConvPercent = m_max(spellConvPercent, 100)
+	end
+	if spellConvPercent > 0 then
+		-- Spell Damage conversion
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Spell }, "Damage")) do
 			local mod = value.mod
 			if band(mod.flags, ModFlag.Spell) ~= 0 then
-				skillModList:NewMod("Damage", "INC", mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
+				skillModList:NewMod("Damage", "INC", mod.value * spellConvPercent / 100, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
 			end
 		end
 	end
@@ -271,6 +281,25 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillModList:Flag(nil, "TransfigurationOfSoul") then
 		skillModList:NewMod("Damage", "INC", m_floor(skillModList:Sum("INC", nil, "EnergyShield") * 0.3), "Transfiguration of Soul", ModFlag.Spell)
+	end
+	if skillData.gainPercentBaseWandDamage then
+		local mult = skillData.gainPercentBaseWandDamage / 100
+		if actor.weaponData1.type == "Wand" and actor.weaponData2.type == "Wand" then
+			for _, damageType in ipairs(dmgTypeList) do
+				skillModList:NewMod(damageType.."Min", "BASE", ((actor.weaponData1[damageType.."Min"] or 0) + (actor.weaponData2[damageType.."Min"] or 0)) / 2 * mult, "Spellslinger")
+				skillModList:NewMod(damageType.."Max", "BASE", ((actor.weaponData1[damageType.."Max"] or 0) + (actor.weaponData2[damageType.."Max"] or 0)) / 2 * mult, "Spellslinger")
+			end
+		elseif actor.weaponData1.type == "Wand" then
+			for _, damageType in ipairs(dmgTypeList) do
+				skillModList:NewMod(damageType.."Min", "BASE", (actor.weaponData1[damageType.."Min"] or 0) * mult, "Spellslinger")
+				skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData1[damageType.."Max"] or 0) * mult, "Spellslinger")
+			end
+		elseif actor.weaponData2.type == "Wand" then
+			for _, damageType in ipairs(dmgTypeList) do
+				skillModList:NewMod(damageType.."Min", "BASE", (actor.weaponData2[damageType.."Min"] or 0) * mult, "Spellslinger")
+				skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData2[damageType.."Max"] or 0) * mult, "Spellslinger")
+			end
+		end
 	end
 
 	local isAttack = skillFlags.attack
@@ -567,6 +596,9 @@ function calcs.offence(env, actor, activeSkill)
 		local inc = skillModList:Sum("INC", skillCfg, "ManaCost")
 		local base = skillModList:Sum("BASE", skillCfg, "ManaCost")
 		local manaCost = activeSkill.activeEffect.grantedEffectLevel.manaCost or 0
+		if skillData.baseManaCostIsAtLeastPercentUnreservedMana then
+			manaCost = m_max(manaCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
+		end
 		output.ManaCost = m_floor(m_max(0, manaCost * mult * more * (1 + inc / 100) + base))
 		if activeSkill.skillTypes[SkillType.ManaCostPercent] and skillFlags.totem then
 			output.ManaCost = m_floor(output.Mana * output.ManaCost / 100)

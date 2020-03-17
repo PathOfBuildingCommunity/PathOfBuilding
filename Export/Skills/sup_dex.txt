@@ -279,6 +279,9 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportAdditionalCooldown
+#mods
+
 #skill SupportSlowerProjectiles
 	statMap = {
 		["support_slower_projectiles_projectile_speed_+%_final"] = {
