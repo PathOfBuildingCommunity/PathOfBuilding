@@ -773,13 +773,13 @@ Share Endurance Charges with nearby party members
 Chains of Command
 Saintly Chainmail
 Requires Level 70, 99 Str, 115 Int
+Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
+10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy
 (150-190)% increased Armour and Energy Shield
 +(60-90) to maximum Life
 Animated Guardian deals 5% increased Damage per Animated Weapon
 Animated Minions' Melee Attacks deal Splash Damage to surrounding targets
 Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets
-Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
-10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy
 You cannot have non-Animated Minions
 ]],[[
 Geofri's Sanctuary
@@ -1126,15 +1126,18 @@ Requires Level 75, 66 Str, 66 Dex, 66 Int
 Shadowstitch
 Sacrificial Garb
 League: Incursion
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 72, 66 Str, 66 Dex, 66 Int
 Implicits: 0
 Has an additional Implicit Mod
 +(20-30) to all Attributes
+{variant:2}(250-350)% increased Armour, Evasion and Energy Shield
 Recover (3-5)% of Maximum Life on Kill
 Recover (3-5)% of Maximum Energy Shield on Kill
--(6-4)% to all Resistances for each Equipped Corrupted Item
-8% increased Maximum Energy Shield for each Equipped Corrupted Item
 6% increased Maximum Life for each Equipped Corrupted Item
+8% increased Maximum Energy Shield for each Equipped Corrupted Item
+-(6-4)% to all Resistances for each Equipped Corrupted Item
 Corrupted
 ]],
 }

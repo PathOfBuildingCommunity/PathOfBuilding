@@ -179,27 +179,33 @@ Grand Spectrum
 Cobalt Jewel
 Limited to: 3
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.10.0
 Variant: Current
 {variant:1}Gain 15 Mana per Grand Spectrum
 {variant:2}Gain 30 Mana per Grand Spectrum
+{variant:3}25% increased Critical Strike Chance per Grand Spectrum
 ]],[[
 Grand Spectrum
 Crimson Jewel
 Limited to: 3
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.10.0
 Variant: Current
 {variant:1}Gain 75 Armour per Grand Spectrum
 {variant:2}Gain 200 Armour per Grand Spectrum
+{variant:3}+7% to all Elemental Resistances per Grand Spectrum
 ]],[[
 Grand Spectrum
 Viridian Jewel
 Limited to: 3
 Variant: Pre 2.5.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.10.0
 Variant: Current
 {variant:1}5% increased Elemental Damage per Grand Spectrum
 {variant:2}4% increased Elemental Damage per Grand Spectrum
 {variant:3}12% increased Elemental Damage per Grand Spectrum
+{variant:4}15% increased Elemental Damage per Grand Spectrum
 ]],[[
 The Green Dream
 Viridian Jewel
@@ -1136,8 +1142,12 @@ Corrupted
 ]],[[
 Fevered Mind
 Cobalt Jewel
-(20-30)% increased Spell Damage
-100% increased Mana Cost of Skills
+Variant: Pre 3.10.0
+Variant: Current
+{variant:1}(20-30)% increased Spell Damage
+{variant:2}(30-40)% increased Spell Damage
+{variant:1}100% increased Mana Cost of Skills
+{variant:2}50% increased Mana Cost of Skills
 Corrupted
 ]],[[
 Fragility
