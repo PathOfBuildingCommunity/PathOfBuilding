@@ -843,4 +843,14 @@ return {
 		["Blessed"] = 11492,
 		["Student of Decay"] = 11493,
 	},
+	keystones = {
+		"Disciple of Kitava",
+		"Lone Messenger",
+		"Nature's Patience",
+		"Secrets of Suffering",
+		"Kineticism",
+		"Veteran's Awareness",
+		"Hollow Palm Technique",
+		"Pitfighter",
+	},
 }

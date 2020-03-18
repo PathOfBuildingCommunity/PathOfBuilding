@@ -6498,6 +6498,7 @@ skills["SupportSpellslinger"] = {
 	},
 	baseMods = {
 		flag("Condition:SupportedBySpellslinger"),
+		skill("showAverage", true),
 	},
 	qualityStats = {
 		{ "spell_damage_+%", 1 },
@@ -6749,6 +6750,7 @@ skills["Stormbind"] = {
 	},
 	baseMods = {
 		mod("Multiplier:RuneLevel", "BASE", 3, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		skill("radius", 16),
 	},
 	qualityStats = {
 		{ "base_cast_speed_+%", 0.5 },

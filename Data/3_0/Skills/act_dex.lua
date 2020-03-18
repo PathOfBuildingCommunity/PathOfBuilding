@@ -435,6 +435,7 @@ skills["BladeBlast"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 18),
 	},
 	qualityStats = {
 		{ "base_skill_area_of_effect_+%", 0.5 },

@@ -11,6 +11,8 @@ local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local band = bit.band
+local b_rshift = bit.rshift
 
 local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.ring = NewImageHandle()
@@ -617,6 +619,14 @@ end
 
 function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 	tooltip:AddLine(24, "^7"..node.dn..(launch.devModeAlt and " ["..node.id.."]" or ""))
+	if launch.devModeAlt and node.id > 65535 then
+		-- Decompose cluster node Id
+		local index = band(node.id, 0xF)
+		local size = band(b_rshift(node.id, 4), 0x3)
+		local large = band(b_rshift(node.id, 6), 0xF)
+		local medium = band(b_rshift(node.id, 9), 0x3)
+		tooltip:AddLine(16, string.format("^7Cluster node index: %d, size: %d, large index: %d, medium index: %d", index, size, large, medium))
+	end
 	if node.type == "Socket" and node.nodesInRadius then
 		local attribTotals = { }
 		for nodeId in pairs(node.nodesInRadius[2]) do

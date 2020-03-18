@@ -1,3 +1,17 @@
+VERSION[1.4.165][2020/03/18]
+ * Added the following new unique Cluster Jewels:
+	* Calamitous Visions
+	* The Front Line
+	* The Interrogation
+	* Kitava's Teachings
+	* Megalomaniac
+	* Natural Affinity
+	* One With Nothing
+	* The Siege
+    * Voices
+ * Added base radius values for Blade Blast and Stormbind
+ * Spells supported by Spellslinger now correctly show Average Damage instead of DPS
+ * Disabled the Strength, Dexterity, and Intelligence Small Cluster Jewel types, as they cannot drop in-game
 VERSION[1.4.164][2020/03/17]
  * Added the following new gems:
     * Arcane Cloak

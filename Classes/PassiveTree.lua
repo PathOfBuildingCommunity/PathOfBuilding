@@ -279,7 +279,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				group.isAscendancyStart = true
 			end
 		elseif node.type == "Notable" or node.type == "Keystone" then
-			self.clusterNodeMap[node.dn:lower()] = node
+			self.clusterNodeMap[node.dn] = node
 		end
 		
 		self:ProcessNode(node)

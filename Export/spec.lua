@@ -4332,7 +4332,7 @@ return {
 			name="Icon",
 			refTo="",
 			type="String",
-			width=130
+			width=330
 		},
 		[3]={
 			list=true,
@@ -4409,7 +4409,7 @@ return {
 			name="Flavour",
 			refTo="",
 			type="String",
-			width=160
+			width=300
 		},
 		[14]={
 			list=false,
@@ -4857,7 +4857,7 @@ return {
 			name="Description",
 			refTo="",
 			type="String",
-			width=150
+			width=300
 		},
 		[10]={
 			list=false,

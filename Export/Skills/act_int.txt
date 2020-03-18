@@ -1045,6 +1045,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod flag("Condition:SupportedBySpellslinger")
+#baseMod skill("showAverage", true)
 #mods
 
 #skill SpiritOffering
@@ -1098,6 +1099,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod mod("Multiplier:RuneLevel", "BASE", 3, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radius", 16)
 #mods
 
 #skill RuneBlast
