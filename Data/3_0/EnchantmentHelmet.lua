@@ -1729,14 +1729,6 @@ return {
 			"30% increased Riposte Cooldown Recovery Speed",
 		},
 	},
-	["Rune Blast"] = {
-		["MERCILESS"] = {
-			"Rune Blast teleports you to the detonated Rune if you have not detonated Runes in the past 1 second",
-		},
-		["ENDGAME"] = {
-			"Rune Blast teleports you to the detonated Rune if you have not detonated Runes in the past 1.5 seconds",
-		},
-	},
 	["Scorching Ray"] = {
 		["MERCILESS"] = {
 			"25% increased Scorching Ray Damage",
@@ -2030,10 +2022,12 @@ return {
 		["MERCILESS"] = {
 			"Stormbind has 16% increased Area of Effect",
 			"Stormbind deals 25% increased Damage",
+			"Rune Blast teleports you to the detonated Rune if you have not detonated Runes in the past 1 second",
 		},
 		["ENDGAME"] = {
 			"Stormbind has 24% increased Area of Effect",
 			"Stormbind deals 40% increased Damage",
+			"Rune Blast teleports you to the detonated Rune if you have not detonated Runes in the past 1.5 seconds",
 		},
 	},
 	["Stormblast Mine"] = {
