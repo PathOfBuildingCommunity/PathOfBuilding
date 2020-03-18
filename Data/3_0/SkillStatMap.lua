@@ -1023,6 +1023,16 @@ return {
 ["spell_maximum_added_chaos_damage"] = {
 	mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Spell),
 },
+-- Archmage
+["manaweave_added_lightning_damage_%_cost_if_payable"] = {
+	mod("LightningMin", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost"}),
+	mod("LightningMax", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost"}),
+	div = 100,
+},
+["manaweave_cost_equals_%_unreserved_mana"] = {
+	skill("setArchmageManaCost", nil),
+	value = 6,
+},
 
 --
 -- Skill type modifier
