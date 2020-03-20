@@ -1852,9 +1852,17 @@ local specialModList = {
 		mod("Armour", "BASE", num, { type = "Multiplier", var = "GrandSpectrum" }), 
 		mod("Multiplier:GrandSpectrum", "BASE", 1) 
 	} end,
+	["+(%d+)%% to all elemental resistances per grand spectrum"] = function(num) return {
+		mod("ElementalResist", "BASE", num, { type = "Multiplier", var = "GrandSpectrum" }),
+		mod("Multiplier:GrandSpectrum", "BASE", 1)
+	} end,
 	["gain (%d+) mana per grand spectrum"] = function(num) return {
 		mod("Mana", "BASE", num, { type = "Multiplier", var = "GrandSpectrum" }),
 		mod("Multiplier:GrandSpectrum", "BASE", 1) 
+	} end,
+	["(%d+)%% increased critical strike chance per grand spectrum"] = function(num) return {
+		mod("CritChance", "INC", num, { type = "Multiplier", var = "GrandSpectrum" }),
+		mod("Multiplier:GrandSpectrum", "BASE", 1)
 	} end,
 	["primordial"] = { mod("Multiplier:PrimordialItem", "BASE", 1) },
 	["spectres have a base duration of (%d+) seconds"] = function(num) return { mod("SkillData", "LIST", { key = "duration", value = 6 }, { type = "SkillName", skillName = "Raise Spectre" }) } end,
