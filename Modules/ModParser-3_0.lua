@@ -1862,12 +1862,11 @@ local specialModList = {
 	["spectres have a base duration of (%d+) seconds"] = function(num) return { mod("SkillData", "LIST", { key = "duration", value = 6 }, { type = "SkillName", skillName = "Raise Spectre" }) } end,
 	["flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num) } end,
 	["adds (%d+) passive skills"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelNodeCount", value = num }) } end,
-	["2 added passive skills are jewel sockets"] = { mod("JewelData", "LIST", { key = "clusterJewelSocketCount", value = 2 }) },
-	["1 added passive skill is (.+)"] = function(_, name) return { 
-		name == "a jewel socket" 
-		and mod("JewelData", "LIST", { key = "clusterJewelSocketCount", value = 1 }) 
-		or mod("ClusterJewelNotable", "LIST", name)
-	} end,
+	["1 added passive skill is a jewel socket"] = { mod("JewelData", "LIST", { key = "clusterJewelSocketCount", value = 1 }) },
+	["(%d+) added passive skills are jewel sockets"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelSocketCount", value = num }) } end,
+	["adds (%d+) jewel socket passive skills"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelSocketCountOverride", value = num }) } end,
+	["adds (%d+) small passive skills? which grants? nothing"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelNothingnessCount", value = num }) } end,
+	["added small passive skills grant nothing"] = { mod("JewelData", "LIST", { key = "clusterJewelSmallsAreNothingness", value = true }) },
 	["added small passive skills have (%d+)%% increased effect"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelIncEffect", value = num }) } end,
 	-- Misc
 	["iron will"] = { flag("IronWill") },
@@ -2420,6 +2419,12 @@ for baseName, jewel in pairs(data["3_0"].clusterJewels.jewels) do
 	for skillId, skill in pairs(jewel.skills) do
 		clusterJewelSkills[table.concat(skill.enchant, " "):lower()] = { mod("JewelData", "LIST", { key = "clusterJewelSkill", value = skillId }) }
 	end
+end
+for notable in pairs(data["3_0"].clusterJewels.notableSortOrder) do
+	clusterJewelSkills["1 added passive skill is "..notable:lower()] = { mod("ClusterJewelNotable", "LIST", notable) }
+end
+for _, keystone in ipairs(data["3_0"].clusterJewels.keystones) do
+	clusterJewelSkills["adds "..keystone:lower()] = { mod("JewelData", "LIST", { key = "clusterJewelKeystone", value = keystone }) }
 end
 
 -- Scan a line for the earliest and longest match from the pattern list

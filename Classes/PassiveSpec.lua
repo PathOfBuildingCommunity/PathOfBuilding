@@ -606,7 +606,7 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 	for nodeId in pairs(self.tree.sockets) do
 		local node = self.tree.nodes[nodeId]
 		local jewel = self:GetJewel(self.jewels[nodeId])
-		if node and node.expansionJewel and node.expansionJewel.size == 2 and jewel and jewel.jewelData.clusterJewelSkill then
+		if node and node.expansionJewel and node.expansionJewel.size == 2 and jewel and jewel.jewelData.clusterJewelValid then
 			-- This is a Large Jewel Socket, and it has a cluster jewel in it
 			self:BuildSubgraph(jewel, self.nodes[nodeId])
 		end
@@ -630,13 +630,12 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	local expansionJewel = parentSocket.expansionJewel
 	local clusterJewel = jewel.clusterJewel
 	local jewelData = jewel.jewelData
-	local skill = clusterJewel.skills[jewelData.clusterJewelSkill]
-	assert(skill, "Invalid cluster jewel skill")
 
 	local subGraph = {
 		nodes = { },
-		group = { },
+		group = { oo = { } },
 		connectors = { },
+		parentSocket = parentSocket,
 	}
 
 	-- Make id for this subgraph (and nodes)
@@ -644,8 +643,8 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	-- 4-5: Group size (0-2)
 	-- 6-8: Large index (0-5)
 	-- 9-10: Medium index (0-2)
-	-- 11: Unused
-	-- 12: 1 (signal bit, to prevent conflict with node hashes)
+	-- 11-15: Unused
+	-- 16: 1 (signal bit, to prevent conflict with node hashes)
 	id = id or 0x10000
 	if expansionJewel.size == 2 then
 		id = id + b_lshift(expansionJewel.index, 6)
@@ -653,6 +652,8 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		id = id + b_lshift(expansionJewel.index, 9)
 	end
 	local nodeId = id + b_lshift(clusterJewel.sizeIndex, 4)
+
+	self.subGraphs[nodeId] = subGraph
 
 	-- Locate the proxy group
 	local proxyNode = self.tree.nodes[tonumber(expansionJewel.proxy)]
@@ -670,6 +671,41 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		-- Position the group using the original proxy's position
 		subGraph.group.x = proxyGroup.x
 		subGraph.group.y = proxyGroup.y
+	end
+
+	local function linkNodes(node1, node2)
+		t_insert(node1.linked, node2)
+		t_insert(node2.linked, node1)
+		t_insert(subGraph.connectors, self.tree:BuildConnector(node1, node2))
+	end
+
+	if jewelData.clusterJewelKeystone then
+		-- Special handling for keystones
+		local keystoneNode = self.tree.clusterNodeMap[jewelData.clusterJewelKeystone]
+		assert(keystoneNode, "Keystone node not found: "..jewelData.clusterJewelKeystone)
+
+		-- Construct the new node
+		local node = {
+			type = "Keystone",
+			id = nodeId,
+			dn = keystoneNode.dn,
+			sd = keystoneNode.sd,
+			icon = keystoneNode.icon,
+			expansionSkill = true,
+			group = subGraph.group,
+			o = 0,
+			oidx = 0,
+			linked = { },
+			power = { },
+		}
+		t_insert(subGraph.nodes, node)
+
+		-- Process and add it
+		self.tree:ProcessNode(node)
+		linkNodes(node, parentSocket)
+		subGraph.entranceNode = node
+		self.nodes[node.id] = node
+		return
 	end
 
 	local function findSocket(group, index)
@@ -699,7 +735,28 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 
 	-- Initialise orbit flags
 	local nodeOrbit = clusterJewel.sizeIndex + 1
-	subGraph.group.oo = { [nodeOrbit] = true }
+	subGraph.group.oo[nodeOrbit] = true
+
+	-- Process list of notables
+	local notableList = { }
+	local sortOrder = self.build.data.clusterJewels.notableSortOrder
+	for _, name in ipairs(jewelData.clusterJewelNotables) do
+		local baseNode = self.tree.clusterNodeMap[name]
+		assert(baseNode, "Cluster notable not found:  "..name)
+		assert(sortOrder[baseNode.dn], "Cluster notable has no sort order: "..name)
+		t_insert(notableList, baseNode)
+	end
+	table.sort(notableList, function(a, b) return sortOrder[a.dn] < sortOrder[b.dn] end)
+
+	local skill = clusterJewel.skills[jewelData.clusterJewelSkill] or {
+		name = "Nothingness",
+		icon = "Art/2DArt/SkillIcons/passives/MasteryBlank.png",
+		stats = { },
+	}
+	local socketCount = jewelData.clusterJewelSocketCountOverride or jewelData.clusterJewelSocketCount or 0
+	local notableCount = #notableList
+	local nodeCount = jewelData.clusterJewelNodeCount or (socketCount + notableCount + (jewelData.clusterJewelNothingnessCount or 0))
+	local smallCount = nodeCount - socketCount - notableCount
 
 	if skill.masteryIcon then
 		-- Add mastery node
@@ -714,22 +771,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		})
 	end
 
-	-- Process list of notables
-	local notableList = { }
-	local sortOrder = self.build.data.clusterJewels.notableSortOrder
-	for _, name in ipairs(jewelData.clusterJewelNotables) do
-		local baseNode = self.tree.clusterNodeMap[name]
-		assert(baseNode, "Cluster notable not found:  "..name)
-		assert(sortOrder[baseNode.dn], "Cluster notable has no sort order: "..name)
-		t_insert(notableList, baseNode)
-	end
-	table.sort(notableList, function(a, b) return sortOrder[a.dn] < sortOrder[b.dn] end)
-
 	local indicies = { }
-	local nodeCount = m_min(m_max(jewelData.clusterJewelNodeCount or clusterJewel.maxNodes, clusterJewel.minNodes), clusterJewel.maxNodes)
-	local socketCount = jewelData.clusterJewelSocketCount or 0
-	local notableCount = #notableList
-	local smallCount = nodeCount - socketCount - notableCount
 
 	local function makeJewel(nodeIndex, jewelIndex)
 		-- Look for the socket
@@ -786,9 +828,14 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 			assert(nodeIndex, "No free index to place notable")
 		end
 
-		if clusterJewel.size == "Medium" and socketCount == 0 and notableCount == 2 then
-			-- Special rule for two notables in a Medium cluster
-			nodeIndex = indicies[4] and 8 or 4
+		if clusterJewel.size == "Medium" then
+			if socketCount == 0 and notableCount == 2 then
+				-- Special rule for two notables in a Medium cluster
+				nodeIndex = indicies[4] and 8 or 4
+			elseif nodeCount == 4 then
+				-- Special rule for notables in a 4-node Medium cluster
+				nodeIndex = indicies[6] and (indicies[3] and 9 or 3) or 6
+			end
 		end
 
 		-- Construct the new node
@@ -849,8 +896,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 
 	assert(indicies[0], "No entrance to subgraph")
 	subGraph.entranceNode = indicies[0]
-	subGraph.parentSocket = parentSocket
-
+	
 	-- Correct position to account for index of proxy node
 	for _, node in pairs(indicies) do
 		node.oidx = (node.oidx + proxyNode.oidx - 1) % clusterJewel.totalIndicies + 1
@@ -864,12 +910,6 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		if node.modList and jewelData.clusterJewelIncEffect then
 			node.modList:NewMod("PassiveSkillEffect", "INC", jewelData.clusterJewelIncEffect)
 		end
-	end
-
-	local function linkNodes(node1, node2)
-		t_insert(node1.linked, node2)
-		t_insert(node2.linked, node1)
-		t_insert(subGraph.connectors, self.tree:BuildConnector(node1, node2))
 	end
 
 	-- Generate connectors
@@ -894,21 +934,17 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 
 	-- Add synthetic nodes to the main node list
 	for _, node in ipairs(subGraph.nodes) do
-		if node.id then
-			self.nodes[node.id] = node
-			if node.type == "Socket" then
-				-- Recurse to smaller jewels
-				local jewel = self:GetJewel(self.jewels[node.id])
-				if jewel and jewel.jewelData.clusterJewelSkill then
-					self:BuildSubgraph(jewel, node, id, upSize)
-				end
+		self.nodes[node.id] = node
+		if node.type == "Socket" then
+			-- Recurse to smaller jewels
+			local jewel = self:GetJewel(self.jewels[node.id])
+			if jewel and jewel.jewelData.clusterJewelValid then
+				self:BuildSubgraph(jewel, node, id, upSize)
 			end
 		end
 	end
 
 	--ConPrintTable(subGraph)
-
-	self.subGraphs[nodeId] = subGraph
 end
 
 function PassiveSpecClass:CreateUndoState()

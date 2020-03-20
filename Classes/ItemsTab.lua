@@ -245,23 +245,12 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	-- Section: Variant(s)
 
 	self.controls.displayItemSectionVariant = new("Control", {"TOPLEFT",self.controls.addDisplayItem,"BOTTOMLEFT"}, 0, 8, 0, function()
-		return (self.displayItem.variantList and #self.displayItem.variantList > 1) and 28 or 0
-	end)
-
-	for i = 1, 3 do -- TODO: replace '3' with something good. '3'/*
-		-- TODO: smart? positioning for small screen resolutions
-		self.controls["displayItemVariant"..i] = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, (i < 3 and i or 2) * 232 - 232, (i > 2 and i or 0) * 9.5, 224, 20, nil, function(index, value)
-			self.displayItem.variants[i] = index
-			self.displayItem:BuildAndParseRaw()
-			self:UpdateDisplayItemTooltip()
-			self:UpdateDisplayItemRangeLines()
-		end)
-		self.controls["displayItemVariant"..i].shown = function()
-			return self.displayItem.variantList and #self.displayItem.variantList > 1 and #self.displayItem.variants >= i
+		if not self.controls.displayItemVariant:IsShown() then
+			return 0
 		end
-	end
-	--[[
-	self.controls.displayItemVariant = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, 0, 0, 224, 20, nil, function(index, value)
+		return 28 + (self.displayItem.hasAltVariant and 24 or 0) + (self.displayItem.hasAltVariant2 and 24 or 0)
+	end)
+	self.controls.displayItemVariant = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, 0, 0, 300, 20, nil, function(index, value)
 		self.displayItem.variant = index
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
@@ -270,7 +259,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemVariant.shown = function()
 		return self.displayItem.variantList and #self.displayItem.variantList > 1
 	end
-	self.controls.displayItemAltVariant = new("DropDownControl", {"LEFT",self.controls.displayItemVariant,"RIGHT"}, 8, 0, 224, 20, nil, function(index, value)
+	self.controls.displayItemAltVariant = new("DropDownControl", {"TOPLEFT",self.controls.displayItemVariant,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
 		self.displayItem.variantAlt = index
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
@@ -279,7 +268,15 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 	self.controls.displayItemAltVariant.shown = function()
 		return self.displayItem.hasAltVariant
 	end
-	]]
+	self.controls.displayItemAltVariant2 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
+		self.displayItem.variantAlt2 = index
+		self.displayItem:BuildAndParseRaw()
+		self:UpdateDisplayItemTooltip()
+		self:UpdateDisplayItemRangeLines()
+	end)
+	self.controls.displayItemAltVariant2.shown = function()
+		return self.displayItem.hasAltVariant2
+	end
 
 	-- Section: Sockets and Links
 	self.controls.displayItemSectionSockets = new("Control", {"TOPLEFT",self.controls.displayItemSectionVariant,"BOTTOMLEFT"}, 0, 0, 0, function()
@@ -589,6 +586,10 @@ function ItemsTabClass:Load(xml, dbFileName)
 				item.hasAltVariant = true
 				item.variantAlt = tonumber(node.attrib.variantAlt)
 			end
+			if node.attrib.variantAlt2 then
+				item.hasAltVariant2 = true
+				item.variantAlt2 = tonumber(node.attrib.variantAlt2)
+			end
 			for _, child in ipairs(node) do
 				if type(child) == "string" then
 					item:ParseRaw(child)
@@ -654,7 +655,15 @@ function ItemsTabClass:Save(xml)
 	}
 	for _, id in ipairs(self.itemOrderList) do
 		local item = self.items[id]
-		local child = { elem = "Item", attrib = { id = tostring(id), variant = item.variant and tostring(item.variant), variantAlt = item.variantAlt and tostring(item.variantAlt) } }
+		local child = { 
+			elem = "Item", 
+			attrib = { 
+				id = tostring(id), 
+				variant = item.variant and tostring(item.variant), 
+				variantAlt = item.variantAlt and tostring(item.variantAlt), 
+				variantAlt2 = item.variantAlt2 and tostring(item.variantAlt2) 
+			} 
+		}
 		item:BuildAndParseRaw()
 		t_insert(child, item.raw)
 		local id = #item.buffModLines + 1
@@ -1061,20 +1070,16 @@ function ItemsTabClass:SetDisplayItem(item)
 		self:UpdateDisplayItemTooltip()
 		self.snapHScroll = "RIGHT"
 
-		if item.hasVariants then
-			for i, variant in ipairs(item.variants) do
-				self.controls["displayItemVariant"..i].list = item.variantList
-				self.controls["displayItemVariant"..i].selIndex = variant
-			end
-		end
-		--[[
 		self.controls.displayItemVariant.list = item.variantList
 		self.controls.displayItemVariant.selIndex = item.variant
 		if item.hasAltVariant then
 			self.controls.displayItemAltVariant.list = item.variantList
 			self.controls.displayItemAltVariant.selIndex = item.variantAlt
 		end
-		]]
+		if item.hasAltVariant2 then
+			self.controls.displayItemAltVariant2.list = item.variantList
+			self.controls.displayItemAltVariant2.selIndex = item.variantAlt2
+		end
 		self:UpdateSocketControls()
 		if item.crafted then
 			self:UpdateAffixControls()
@@ -1109,10 +1114,14 @@ end
 function ItemsTabClass:UpdateClusterJewelControls()
 	local item = self.displayItem
 
+	local unavailableSkills = { ["affliction_strength"] = true, ["affliction_dexterity"] = true, ["affliction_intelligence"] = true, }
+
 	-- Update list of skills
 	local skillList = wipeTable(self.controls.displayItemClusterJewelSkill.list)
 	for skillId, skill in pairs(item.clusterJewel.skills) do
-		t_insert(skillList, { label = skill.name, skillId = skillId })
+		if not unavailableSkills[skillId] then
+			t_insert(skillList, { label = skill.name, skillId = skillId })
+		end
 	end
 	table.sort(skillList, function(a, b) return a.label < b.label end)
 	if not item.clusterJewelSkill or not item.clusterJewel.skills[item.clusterJewelSkill] then
@@ -1174,7 +1183,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 			end
 		end
 	end
-	if item.clusterJewel then	
+	if item.clusterJewel and item.clusterJewelSkill then	
 		local skill = item.clusterJewel.skills[item.clusterJewelSkill]
 		if skill then
 			extraTags[skill.tag] = true
@@ -1881,7 +1890,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			if #item.variantList == 1 then
 				tooltip:AddLine(16, "^xFFFF30Variant: "..item.variantList[1])
 			else
-				tooltip:AddLine(16, "^xFFFF30Variant: ".. item.variantList[item.variant or item.variants[1]] .." ("..#item.variantList.." variants)")
+				tooltip:AddLine(16, "^xFFFF30Variant: "..item.variantList[item.variant].." ("..#item.variantList.." variants)")
 			end
 		end
 		if item.league then
@@ -2056,11 +2065,21 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		end
 	end
 
-	-- Cluster jewel notables
-	if item.clusterJewel and #item.jewelData.clusterJewelNotables > 0 then
+	-- Cluster jewel notables/keystone
+	if item.clusterJewel then
 		tooltip:AddSeparator(10)
-		for _, name in ipairs(item.jewelData.clusterJewelNotables) do
-			local node = self.build.spec.tree.clusterNodeMap[name]
+		if #item.jewelData.clusterJewelNotables > 0 then
+			for _, name in ipairs(item.jewelData.clusterJewelNotables) do
+				local node = self.build.spec.tree.clusterNodeMap[name]
+				if node then
+					tooltip:AddLine(16, colorCodes.MAGIC .. node.dn)
+					for _, stat in ipairs(node.sd) do
+						tooltip:AddLine(16, "^x7F7F7F"..stat)
+					end
+				end
+			end
+		elseif item.jewelData.clusterJewelKeystone then
+			local node = self.build.spec.tree.clusterNodeMap[item.jewelData.clusterJewelKeystone]
 			if node then
 				tooltip:AddLine(16, colorCodes.MAGIC .. node.dn)
 				for _, stat in ipairs(node.sd) do

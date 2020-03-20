@@ -546,7 +546,7 @@ Watcher's Eye
 Prismatic Jewel
 Source: Drops from unique{The Elder}
 Has Alt Variant: true
-Has Variants: 3
+Has Alt Variant Two: true
 Variant: Anger: Fire Damage Leeched as Life
 Variant: Anger: Fire Pen
 Variant: Anger: Crit Multi

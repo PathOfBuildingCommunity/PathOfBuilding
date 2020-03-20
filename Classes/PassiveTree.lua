@@ -331,7 +331,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			node.x = group.x + m_sin(node.angle) * dist
 			node.y = group.y - m_cos(node.angle) * dist
 		elseif node.type == "Notable" or node.type == "Keystone" then
-			self.clusterNodeMap[node.dn:lower()] = node
+			self.clusterNodeMap[node.dn] = node
 		end
 		
 		self:ProcessNode(node)

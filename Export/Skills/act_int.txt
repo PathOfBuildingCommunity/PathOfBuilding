@@ -1054,6 +1054,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod flag("Condition:SupportedBySpellslinger")
+#baseMod skill("showAverage", true)
 #mods
 
 #skill SpiritOffering
@@ -1105,6 +1106,12 @@ local skills, mod, flag, skill = ...
 			name = "Unimproved",
 		},
 		{
+			name = "1 Improvement",
+		},
+		{
+			name = "2 Improvements",
+		},
+		{
 			name = "3 Improvements",
 		},
 	},
@@ -1116,7 +1123,10 @@ local skills, mod, flag, skill = ...
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
 		},
 	},
-#baseMod mod("Multiplier:RuneLevel", "BASE", 3, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:RuneLevel", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:RuneLevel", "BASE", 2, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("Multiplier:RuneLevel", "BASE", 3, 0, 0, { type = "SkillPart", skillPart = 4 })
+#baseMod skill("radius", 16)
 #mods
 
 #skill RuneBlast

@@ -57,6 +57,13 @@ for skill in dat"PassiveTreeExpansionSpecialSkills":Rows() do
 	end
 end
 out:write('\t},\n')
+out:write('\tkeystones = {\n')
+for skill in dat"PassiveTreeExpansionSpecialSkills":Rows() do
+	if skill.Node.Keystone then
+		out:write('\t\t"', skill.Node.Name, '",\n')
+	end
+end
+out:write('\t},\n')
 
 out:write('}')
 out:close()
