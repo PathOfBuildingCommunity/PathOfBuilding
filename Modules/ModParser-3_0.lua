@@ -1969,6 +1969,10 @@ local specialModList = {
 		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "Stationary" }), -- Make the Configuration option appear 
 		mod("AreaOfEffect", "INC", num, { type = "Multiplier", var = "StationarySeconds", limit = tonumber(limit), limitTotal = true })
 	} end,
+	["attack skills have added lightning damage equal to (%d+)%% of maximum mana"] = function(num) return {
+		mod("LightningMin", "BASE", 1, nil, ModFlag.Attack, { type = "PerStat", stat = "Mana", div = 100 / num }),
+		mod("LightningMax", "BASE", 1, nil, ModFlag.Attack, { type = "PerStat", stat = "Mana", div = 100 / num }),
+	} end,
 	-- Pantheon: Soul of Tukohama support
 	["while stationary, gain ([%d%.]+)%% of life regenerated per second every second, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		flag("Condition:Stationary"),
