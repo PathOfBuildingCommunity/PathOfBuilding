@@ -545,6 +545,10 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			-- Therefore this node and all nodes depending on it are orphans and should be pruned
 			for _, depNode in ipairs(node.depends) do
 				local prune = true
+				-- This method may be called by PassiveSpecClass:SelectAscendClass() when jewels are not populated yet
+				if #self.jewels == 0 then
+					prune = false
+				end
 				for nodeId, itemId in pairs(self.jewels) do
 					if self.allocNodes[nodeId] then
 						if itemId ~= 0 and (
