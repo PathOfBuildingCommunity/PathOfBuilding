@@ -497,7 +497,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 							-- This node depends on Intuitive Leap-like behaviour
 							-- This flag:
 							-- 1. Prevents generation of paths from this node
-							-- 2. Prevents this node from being deallocted via dependancy
+							-- 2. Prevents this node from being deallocated via dependency
 							-- 3. Prevents allocation of path nodes when this node is being allocated
 							node.dependsOnIntuitiveLeapLike = true
 							break
