@@ -123,6 +123,8 @@ Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10
 Perfidy
 Glorious Plate
 Requires Level 68, 191 Str
+League: Delirium
+Source: Drops from the Simulacrum Encounter
 (25-40)% increased Melee Damage
 +(60-100) to maximum Life
 You can have two different Banners at the same time
