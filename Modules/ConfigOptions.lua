@@ -47,6 +47,13 @@ return {
 		modList:NewMod("Condition:MinionsCreatedRecently", "FLAG", true, "Config")
 	end },
 	{ var = "igniteMode", type = "list", label = "Ignite calculation mode:", tooltip = "Controls how the base damage for ignite is calculated:\nAverage Damage: Ignite is based on the average damage dealt, factoring in crits and non-crits.\nCrit Damage: Ignite is based on crit damage only.", list = {{val="AVERAGE",label="Average Damage"},{val="CRIT",label="Crit Damage"}} },
+	{ var = "lifeRegenMode", type = "list", label = "Life regen calculation mode:", tooltip = "Controls how life regeneration is calculated:\nMinimum: Does not include burst regen.\nAverage: Averages out burst regen over time.\nBurst: Includes full burst regen in the calculation.", list = {{val="MIN",label="Minimum"},{val="AVERAGE",label="Average"},{val="FULL",label="Burst"}}, apply = function(val, modList, enemyModList)
+		if val == "AVERAGE" then
+			modList:NewMod("Condition:LifeRegenBurstAvg", "FLAG", true, "Config")
+		elseif val == "FULL" then
+			modList:NewMod("Condition:LifeRegenBurstFull", "FLAG", true, "Config")
+		end
+	end },
 
 	-- Section: Skill-specific options
 	{ section = "Skill Options", col = 2 },
