@@ -19,6 +19,10 @@ return {
 	{ var = "conditionStationary", type = "count", label = "Are you stationary?", ifCond = "Stationary", 
 		tooltip = "Applies mods that use `while stationary` and `per/every second while stationary`",
 		apply = function(val, modList, enemyModList)
+		if type(val) == "boolean" then
+		-- Backwards compatibility with older versions that set this condition as a boolean
+		val = val and 1 or 0
+		end
 		local sanitizedValue = m_max(0, val)
 		modList:NewMod("Multiplier:StationarySeconds", "BASE", sanitizedValue, "Config")
 		if sanitizedValue > 0 then
