@@ -808,6 +808,9 @@ return {
 	{ var = "critChanceLucky", type = "check", label = "Is your Crit Chance Lucky?", apply = function(val, modList, enemyModList)
 		modList:NewMod("CritChanceLucky", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "skillForkCount", type = "count", label = "# of times Skill has Forked:", ifFlag = "forking", apply = function(val, modList, enemyModList)
+		modList:NewMod("ForkedCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "skillChainCount", type = "count", label = "# of times Skill has Chained:", ifFlag = "chaining", apply = function(val, modList, enemyModList)
 		modList:NewMod("ChainCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },

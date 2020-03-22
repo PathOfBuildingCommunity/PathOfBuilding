@@ -1206,6 +1206,7 @@ local specialModList = {
 	["projectiles cannot pierce, fork or chain"] = {
 		flag("CannotPierce", nil, ModFlag.Projectile),
 		flag("CannotChain", nil, ModFlag.Projectile),
+		flag("CannotFork", nil, ModFlag.Projectile),
 	},
 	-- Ascendant
 	["grants (%d+) passive skill points?"] = function(num) return { mod("ExtraPoints", "BASE", num) } end,
@@ -1725,8 +1726,17 @@ local specialModList = {
 	["arrows that pierce deal (%d+)%% increased damage"] = function(num) return { mod("Damage", "INC", num, nil, bor(ModFlag.Attack, ModFlag.Projectile), { type = "StatThreshold", stat = "PierceCount", threshold = 1 }) } end,
 	["projectiles gain (%d+)%% of non%-chaos damage as extra chaos damage per chain"] = function(num) return { mod("NonChaosDamageGainAsChaos", "BASE", num, nil, ModFlag.Projectile, { type = "PerStat", stat = "Chain" }) } end,
 	["left ring slot: projectiles from spells cannot chain"] = { flag("CannotChain", nil, bor(ModFlag.Spell, ModFlag.Projectile), { type = "SlotNumber", num = 1 }) },
+	["left ring slot: projectiles from spells fork"] = { flag("ForkOnce", nil, bor(ModFlag.Spell, ModFlag.Projectile), { type = "SlotNumber", num = 1 }), mod("ForkCountMax", "BASE", 1, nil, bor(ModFlag.Spell, ModFlag.Projectile), { type = "SlotNumber", num = 1 }) },
 	["right ring slot: projectiles from spells chain %+1 times"] = { mod("ChainCountMax", "BASE", 1, nil, bor(ModFlag.Spell, ModFlag.Projectile), { type = "SlotNumber", num = 2 }) },
+	["right ring slot: projectiles from spells cannot fork"] = { flag("CannotFork", nil, bor(ModFlag.Spell, ModFlag.Projectile), { type = "SlotNumber", num = 2 }) },
 	["projectiles from spells cannot pierce"] = { flag("CannotPierce", nil, ModFlag.Spell) },
+	["projectiles fork"] = { flag("ForkOnce", nil, ModFlag.Projectile), mod("ForkCountMax", "BASE", 1, nil, ModFlag.Projectile) },
+	["(%d+)%% increased critical strike chance with arrows that fork"] = function(num) return { 
+		mod("CritChance", "INC", num, nil, ModFlag.Bow, { type = "StatThreshold", stat = "ForkRemaining", threshold = 1 }, { type = "StatThreshold", stat = "PierceCount", threshold = 0, upper = true }) }
+	end,
+	["arrows that pierce have %+(%d+)%% to critical strike multiplier"] = function (num) return { 
+		mod("CritMultiplier", "BASE", num, nil, ModFlag.Bow, { type = "StatThreshold", stat = "PierceCount", threshold = 1 }) } end,
+	["arrows pierce all targets after forking"] = { flag("PierceAllTargets", nil, ModFlag.Bow, { type = "StatThreshold", stat = "ForkedCount", threshold = 1 }) },
 	["modifiers to number of projectiles instead apply to the number of targets projectiles split towards"] = { flag("NoAdditionalProjectiles") },
 	["attack skills fire an additional projectile while wielding a claw or dagger"] = { mod("ProjectileCount", "BASE", 1, nil, ModFlag.Attack, { type = "ModFlagOr", modFlags = bor(ModFlag.Claw, ModFlag.Dagger) }) },
 	-- Leech/Gain on Hit
