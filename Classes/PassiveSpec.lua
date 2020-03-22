@@ -13,14 +13,6 @@ local m_max = math.max
 local m_floor = math.floor
 local b_lshift = bit.lshift
 
-local nodeMigrate32_33 = {
-	[17788] = 38129,
-	[38807] = 63639,
-	[5607] = 62069,
-	[61547] = 31583,
-	[29619] = 1600,
-}
-
 local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion)
 	self.UndoHandler()
 
@@ -65,24 +57,7 @@ end)
 
 function PassiveSpecClass:Load(xml, dbFileName)
 	self.title = xml.attrib.title
-	local url, hashLoad
-	if xml.attrib.nodes then
-		-- New format
-		if not xml.attrib.classId then
-			launch:ShowErrMsg("^1Error parsing '%s': 'Spec' element missing 'classId' attribute", dbFileName)
-			return true
-		end
-		if not xml.attrib.ascendClassId then
-			launch:ShowErrMsg("^1Error parsing '%s': 'Spec' element missing 'ascendClassId' attribute", dbFileName)
-			return true
-		end
-		local hashList = { }
-		for hash in xml.attrib.nodes:gmatch("%d+") do
-			t_insert(hashList, tonumber(hash))
-		end
-		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList)
-		hashLoad = true
-	end
+	local url
 	for _, node in pairs(xml) do
 		if type(node) == "table" then
 			if node.elem == "URL" then
@@ -109,7 +84,22 @@ function PassiveSpecClass:Load(xml, dbFileName)
 			end
 		end
 	end
-	if url and not hashLoad then
+	if xml.attrib.nodes then
+		-- New format
+		if not xml.attrib.classId then
+			launch:ShowErrMsg("^1Error parsing '%s': 'Spec' element missing 'classId' attribute", dbFileName)
+			return true
+		end
+		if not xml.attrib.ascendClassId then
+			launch:ShowErrMsg("^1Error parsing '%s': 'Spec' element missing 'ascendClassId' attribute", dbFileName)
+			return true
+		end
+		local hashList = { }
+		for hash in xml.attrib.nodes:gmatch("%d+") do
+			t_insert(hashList, tonumber(hash))
+		end
+		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList)
+	elseif url then
 		self:DecodeURL(url)
 	end
 	self:ResetUndo()
@@ -148,20 +138,11 @@ function PassiveSpecClass:PostLoad()
 	self:BuildClusterJewelGraphs()
 end
 
-function PassiveSpecClass:MigrateNodeId(nodeId)
-	if self.build.targetVersion == "3_0" then
-		-- Migration for 3.2 -> 3.3
-		return nodeMigrate32_33[nodeId] or nodeId
-	end
-	return nodeId
-end
-
 -- Import passive spec from the provided class IDs and node hash list
 function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
 	self:ResetNodes()
 	self:SelectClass(classId)
 	for _, id in pairs(hashList) do
-		id = self:MigrateNodeId(id)
 		local node = self.nodes[id]
 		if node then
 			node.alloc = true
@@ -174,65 +155,31 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList)
 end
 
 -- Decode the given passive tree URL
--- Supports both the official skill tree links as well as PoE Planner links
 function PassiveSpecClass:DecodeURL(url)
 	local b = common.base64.decode(url:gsub("^.+/",""):gsub("-","+"):gsub("_","/"))
 	if not b or #b < 6 then
 		return "Invalid tree link (unrecognised format)"
 	end
-	local classId, ascendClassId, bandits, nodes
-	if b:byte(1) == 0 and b:byte(2) == 2 then
-		-- Hold on to your headgear, it looks like a PoE Planner link
-		-- Let's grab a scalpel and start peeling back the 50 layers of base 64 encoding
-		local treeLinkLen = b:byte(4) * 256 + b:byte(5)
-		local treeLink = b:sub(6, 6 + treeLinkLen - 1)
-		b = common.base64.decode(treeLink:gsub("^.+/",""):gsub("-","+"):gsub("_","/"))
-		classId = b:byte(3)
-		ascendClassId = b:byte(4)
-		bandits = b:byte(5)
-		nodes = b:sub(8, -1)
-	elseif b:byte(1) == 0 and b:byte(2) == 4 then
-		-- PoE Planner version 4
-		-- Now with 50% fewer layers of base 64 encoding
-		classId = b:byte(6) % 16
-		ascendClassId = m_floor(b:byte(6) / 16)
-		bandits = b:byte(7)
-		local numNodes = b:byte(8) * 256 + b:byte(9)
-		nodes = b:sub(10, 10 + numNodes * 2 - 1)
-	else
-		local ver = b:byte(1) * 16777216 + b:byte(2) * 65536 + b:byte(3) * 256 + b:byte(4)
-		if ver > 4 then
-			return "Invalid tree link (unknown version number '"..ver.."')"
-		end
-		classId = b:byte(5)	
-		ascendClassId = 0--(ver >= 4) and b:byte(6) or 0   -- This value would be reliable if the developer of a certain online skill tree planner *cough* PoE Planner *cough* hadn't bollocked up
-														   -- the generation of the official tree URL. The user would most likely import the PoE Planner URL instead but that can't be relied upon.
-		nodes = b:sub(ver >= 4 and 8 or 7, -1)
-	end	
+	local ver = b:byte(1) * 16777216 + b:byte(2) * 65536 + b:byte(3) * 256 + b:byte(4)
+	if ver > 4 then
+		return "Invalid tree link (unknown version number '"..ver.."')"
+	end
+	local classId = b:byte(5)	
+	local ascendClassId = (ver >= 4) and b:byte(6) or 0
 	if not self.tree.classes[classId] then
 		return "Invalid tree link (bad class ID '"..classId.."')"
 	end
 	self:ResetNodes()
 	self:SelectClass(classId)
+	self:SelectAscendClass(ascendClassId)
+	local nodes = b:sub(ver >= 4 and 8 or 7, -1)
 	for i = 1, #nodes - 1, 2 do
-		local id = self:MigrateNodeId(nodes:byte(i) * 256 + nodes:byte(i + 1))
+		local id = nodes:byte(i) * 256 + nodes:byte(i + 1)
 		local node = self.nodes[id]
 		if node then
 			node.alloc = true
 			self.allocNodes[id] = node
-			if ascendClassId == 0 and node.ascendancyName then
-				-- Just guess the ascendancy class based on the allocated nodes
-				ascendClassId = self.tree.ascendNameMap[node.ascendancyName].ascendClassId
-			end
 		end
-	end
-	self:SelectAscendClass(ascendClassId)
-	if bandits then
-		-- Decode bandits from PoEPlanner
-		local lookup = { [0] = "None", "Alira", "Kraityn", "Oak" }
-		self.build.banditNormal = lookup[bandits % 4]
-		self.build.banditCruel = lookup[m_floor(bandits / 4) % 4]
-		self.build.banditMerciless = lookup[m_floor(bandits / 16) % 4]
 	end
 end
 
