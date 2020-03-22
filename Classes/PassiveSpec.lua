@@ -649,18 +649,19 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	assert(proxyNode, "Proxy node not found")
 	local proxyGroup = proxyNode.group
 
-	if upSize and upSize > 0 then
-		-- We need to move inwards to account for the parent group being downsized
-		-- So we position according to the parent's original group position
-		assert(upSize == 1) -- Only handling 1 upsize, which is the most that is possible
-		local parentGroup = self.tree.nodes[parentSocket.id].group
-		subGraph.group.x = parentGroup.x
-		subGraph.group.y = parentGroup.y
-	else
+	-- Actually, let's not, since the game doesn't handle this :D
+--	if upSize and upSize > 0 then
+--		-- We need to move inwards to account for the parent group being downsized
+--		-- So we position according to the parent's original group position
+--		assert(upSize == 1) -- Only handling 1 upsize, which is the most that is possible
+--		local parentGroup = self.tree.nodes[parentSocket.id].group
+--		subGraph.group.x = parentGroup.x
+--		subGraph.group.y = parentGroup.y
+--	else
 		-- Position the group using the original proxy's position
 		subGraph.group.x = proxyGroup.x
 		subGraph.group.y = proxyGroup.y
-	end
+--	end
 
 	local function linkNodes(node1, node2)
 		t_insert(node1.linked, node2)
@@ -796,37 +797,45 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	end
 
 	-- Second pass: notables
-	for _, baseNode in ipairs(notableList) do
-		-- Find a free index
-		local nodeIndex
-		for _, index in ipairs(clusterJewel.notableIndicies) do
-			if not indicies[index] then
-				nodeIndex = index
-				break
-			end
+
+	-- Gather notable indicies
+	local notableIndexList = { }
+	for _, nodeIndex in ipairs(clusterJewel.notableIndicies) do
+		if #notableIndexList == notableCount then
+			break
 		end
-		if not nodeIndex then
-			for index = clusterJewel.totalIndicies - 2, 0, -2 do
-				-- Silly fallback to handle maybe possible cases?
-				-- Update: cases shouldn't be allowed anymore, but we need to handle existing instances
-				if not indicies[index] then
-					nodeIndex = index
-					break
+		if not indicies[nodeIndex] then
+			if clusterJewel.size == "Medium" then
+				if socketCount == 0 and notableCount == 2 then
+					-- Special rule for two notables in a Medium cluster
+					if nodeIndex == 6 then
+						nodeIndex = 4
+					elseif nodeIndex == 10 then
+						nodeIndex = 8
+					end
+				elseif nodeCount == 4 then
+					-- Special rule for notables in a 4-node Medium cluster
+					if nodeIndex == 10 then
+						nodeIndex = 9
+					elseif nodeIndex == 2 then
+						nodeIndex = 3
+					end
 				end
 			end
-			assert(nodeIndex, "No free index to place notable")
+			t_insert(notableIndexList, nodeIndex)
 		end
+	end
+	table.sort(notableIndexList)
 
-		if clusterJewel.size == "Medium" then
-			if socketCount == 0 and notableCount == 2 then
-				-- Special rule for two notables in a Medium cluster
-				nodeIndex = indicies[4] and 8 or 4
-			elseif nodeCount == 4 then
-				-- Special rule for notables in a 4-node Medium cluster
-				nodeIndex = indicies[6] and (indicies[3] and 9 or 3) or 6
-			end
+	-- Create the notables
+	for index, baseNode in ipairs(notableList) do
+		-- Get the index
+		local nodeIndex = notableIndexList[index]
+		if not nodeIndex then
+			-- Silently fail to handle cases of jewels with more notables than should be allowed
+			break
 		end
-
+		
 		-- Construct the new node
 		local node = {
 			type = "Notable",
@@ -844,24 +853,36 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	end
 
 	-- Third pass: small fill
-	for i = 1, smallCount do
-		-- Find a free index
-		local nodeIndex
-		for _, index in ipairs(clusterJewel.smallIndicies) do
-			if not indicies[index] then
-				nodeIndex = index
-				break
-			end
-		end
-		assert(nodeIndex, "No free index to place small node")
 
-		if clusterJewel.size == "Medium" then
-			-- Special rules for small nodes in Medium clusters
-			if nodeCount == 5 and nodeIndex == 4 then
-				nodeIndex = indicies[3] and 10 or 3
-			elseif nodeCount == 4 and nodeIndex == 8 then
-				nodeIndex = indicies[9] and 3 or 9
+	-- Gather small indicies
+	local smallIndexList = { }
+	for _, nodeIndex in ipairs(clusterJewel.smallIndicies) do
+		if #smallIndexList == smallCount then
+			break
+		end
+		if not indicies[nodeIndex] then
+			if clusterJewel.size == "Medium" then
+				-- Special rules for small nodes in Medium clusters
+				if nodeCount == 5 and nodeIndex == 4 then
+					nodeIndex = 3
+				elseif nodeCount == 4 then
+					if nodeIndex == 8 then
+						nodeIndex = 9
+					elseif nodeIndex == 4 then
+						nodeIndex = 3
+					end
+				end
 			end
+			t_insert(smallIndexList, nodeIndex)
+		end
+	end
+
+	-- Create the small nodes
+	for index = 1, smallCount do
+		-- Get the index
+		local nodeIndex = smallIndexList[index]
+		if not nodeIndex then
+			break
 		end
 
 		-- Construct the new node
@@ -888,7 +909,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 	
 	-- Correct position to account for index of proxy node
 	for _, node in pairs(indicies) do
-		node.oidx = (node.oidx + proxyNode.oidx - 1) % clusterJewel.totalIndicies + 1
+		node.oidx = (node.oidx + proxyNode.oidx) % clusterJewel.totalIndicies
 	end
 
 	-- Perform processing on nodes to calculate positions, parse mods, and other goodies

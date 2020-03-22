@@ -518,7 +518,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 						DrawImage(nil, viewerX, viewerY, 304, 304)
 						local viewer = self.nodeViewer
 						viewer.zoom = 5
-						local scale = 11.85
+						local scale = self.calcsTab.build.spec.tree.size / 1500
 						viewer.zoomX = -ttNode.x / scale
 						viewer.zoomY = -ttNode.y / scale
 						SetViewport(viewerX + 2, viewerY + 2, 300, 300)

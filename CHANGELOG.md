@@ -1,3 +1,7 @@
+### 1.4.166 - 2020/03/22
+ * Fixed ordering of notables in Cluster Jewel wheels (again)
+ * Fixed node location popups not correctly centering on the node in 3.10 passive trees
+
 ### 1.4.165 - 2020/03/18
  * Added the following new unique Cluster Jewels:
 	* Calamitous Visions

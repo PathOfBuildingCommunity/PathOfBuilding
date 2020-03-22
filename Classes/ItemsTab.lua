@@ -1343,7 +1343,7 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 	end
 	if slotType == "Jewel" then
 		-- Special checks for jewel sockets
-		local node = self.build.spec.tree.nodes[tonumber(slotId)]
+		local node = self.build.spec.tree.nodes[tonumber(slotId)] or self.build.spec.nodes[tonumber(slotId)]
 		if not node or item.type ~= "Jewel" then
 			return false
 		elseif item.clusterJewel and not node.expansionJewel then
