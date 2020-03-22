@@ -62,6 +62,12 @@ Radius: Large
 +(16-24) to Intelligence
 Strength from Passives in Radius is Transformed to Intelligence
 ]],[[
+Calamitous Visions
+Small Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Adds Lone Messenger
+]],[[
 Careful Planning
 Viridian Jewel
 Radius: Large
@@ -168,6 +174,12 @@ Implicits: 0
 {variant:2}Summon 4 additional Skeleton Warriors with Summon Skeleton
 +1 second to Summon Skeleton Cooldown
 ]],[[
+The Front Line
+Small Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Adds Veteran's Awareness
+]],[[
 The Golden Rule
 Viridian Jewel
 (30-40)% increased Armour while Bleeding 
@@ -259,6 +271,12 @@ Crimson Jewel
 Radius: Small
 With 4 Notables Allocated in Radius, When you Kill a Rare monster, you gain 1 of its Modifiers for 20 seconds
 ]],[[
+The Interrogation
+Small Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Adds Secrets of Suffering
+]],[[
 Intuitive Leap
 Viridian Jewel
 Radius: Small
@@ -271,6 +289,12 @@ Source: Drops in The Lord's Labyrinth
 (18-25)% increased Cold Damage
 2% chance to Freeze
 2% chance to Ignite
+]],[[
+Kitava's Teachings
+Small Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Adds Disciple of Kitava
 ]],[[
 Lioneye's Fall
 Viridian Jewel
@@ -302,6 +326,18 @@ Crimson Jewel
 Radius: Large
 50% increased Effect of non-Keystone Passive Skills in Radius
 Notable Passive Skills in Radius grant nothing
+]],[[
+Natural Affinity
+Small Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Adds Nature's Patience
+]],[[
+One With Nothing
+Small Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Adds Hollow Palm Technique
 ]],[[
 Primordial Eminence
 Viridian Jewel
@@ -397,6 +433,12 @@ Passives granting Fire Resistance or all Elemental Resistances in Radius
 also grant Chance to Block Attack Damage at 35% of its value
 Passives granting Fire Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain an Endurance Charge on Kill
+]],[[
+The Siege
+Small Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Adds Kineticism
 ]],[[
 Soul's Wick
 Cobalt Jewel
@@ -542,11 +584,25 @@ Unstable Payload
 Cobalt Jewel
 (8-12)% Chance for Traps to Trigger an additional time
 ]],[[
+Voices
+Large Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Variant: {3_0}Adds 1 Small Passive Skill
+Variant: Adds 3 Small Passive Skills
+Variant: Adds 5 Small Passive Skills
+Variant: Adds 7 Small Passive Skills
+Adds 3 Jewel Socket Passive Skills
+{variant:1}Adds 1 Small Passive Skill which grants nothing
+{variant:2}Adds 3 Small Passive Skills which grant nothing
+{variant:3}Adds 5 Small Passive Skills which grant nothing
+{variant:4}Adds 7 Small Passive Skills which grant nothing
+]],[[
 Watcher's Eye
 Prismatic Jewel
 Source: Drops from unique{The Elder}
 Has Alt Variant: true
-Has Variants: 3
+Has Alt Variant Two: true
 Variant: Anger: Fire Damage Leeched as Life
 Variant: Anger: Fire Pen
 Variant: Anger: Crit Multi

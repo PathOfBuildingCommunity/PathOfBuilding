@@ -112,12 +112,11 @@ local skillMap = {
 	["PlagueBearer"] = "Plague Bearer",
 	["SummonSkitterbots"] = "Summon Skitterbots",
 	["ArtilleryBallista"] = "Artillery Ballista",
-	["BladeBlast"] = "Blade Blast",
 	["ArcaneCloak"] = "Arcane Cloak",
 	["KineticBolt"] = "Kinetic Bolt",
+	["BladeBlast"] = "Blade Blast",
+	["RuneBlast"] = "Stormbind",
 	["Spellslinger"] = "Spellslinger",
-	["Stormbind"] = "Stormbind",
-	["RuneBlast"] = "Rune Blast",
 }
 
 local bySkill = { }

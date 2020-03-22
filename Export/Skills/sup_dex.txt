@@ -19,9 +19,6 @@ local skills, mod, flag, skill = ...
 #skill SupportAdditionalAccuracy
 #mods
 
-#skill SupportAdditionalCooldown
-#mods
-
 #skill SupportArrowNova
 	statMap = {
 		["support_rain_projectile_damage_+%_final"] = {
@@ -297,6 +294,9 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
 		},
 	},
+#mods
+
+#skill SupportAdditionalCooldown
 #mods
 
 #skill SupportSlowerProjectiles

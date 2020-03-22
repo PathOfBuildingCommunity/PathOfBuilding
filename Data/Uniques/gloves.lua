@@ -584,6 +584,8 @@ Requires Level 43, 34 Str, 34 Int
 [[
 Algor Mortis
 Carnal Mitts
+League: Delirium
+Source: Drops from the Simulacrum Encounter
 Requires Level 50, 39 Dex, 39 Int
 +(50-70) to maximum Energy Shield
 +(15-20)% to Cold and Lightning Resistances

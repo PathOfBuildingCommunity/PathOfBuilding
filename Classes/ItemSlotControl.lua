@@ -25,6 +25,7 @@ local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(se
 	end
 	self.itemsTab = itemsTab
 	self.items = { }
+	self.selItemId = 0
 	self.slotName = slotName
 	self.slotNum = tonumber(slotName:match("%d+"))
 	if slotName:match("Flask") then
@@ -132,7 +133,7 @@ function ItemSlotClass:Draw(viewPort)
 		local viewer = self.itemsTab.socketViewer
 		local node = self.itemsTab.build.spec.nodes[self.nodeId]
 		viewer.zoom = 5
-		local scale = 11.85
+		local scale = self.itemsTab.build.spec.tree.size / 1500
 		viewer.zoomX = -node.x / scale
 		viewer.zoomY = -node.y / scale
 		SetViewport(viewerX + 2, viewerY + 2, 300, 300)

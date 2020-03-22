@@ -135,7 +135,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
-			self:LoadImage(maxZoom.filename:gsub("%?%x+$",""), cdnRoot..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
+			self:LoadImage(maxZoom.filename:gsub("%?%x+$",""), "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
@@ -331,7 +331,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			node.x = group.x + m_sin(node.angle) * dist
 			node.y = group.y - m_cos(node.angle) * dist
 		elseif node.type == "Notable" or node.type == "Keystone" then
-			self.clusterNodeMap[node.dn:lower()] = node
+			self.clusterNodeMap[node.dn] = node
 		end
 		
 		self:ProcessNode(node)
