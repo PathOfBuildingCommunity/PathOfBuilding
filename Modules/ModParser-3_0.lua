@@ -2066,6 +2066,7 @@ local suffixTypes = {
 	["added as energy shield"] = "GainAsEnergyShield",
 	["as extra maximum energy shield"] = "GainAsEnergyShield",
 	["converted to energy shield"] = "ConvertToEnergyShield",
+	["as extra armour"] = "GainAsArmour",
 	["as physical damage"] = "AsPhysical",
 	["as lightning damage"] = "AsLightning",
 	["as cold damage"] = "AsCold",

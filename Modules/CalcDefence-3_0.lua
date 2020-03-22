@@ -174,6 +174,20 @@ function calcs.defence(env, actor)
 				breakdown.slot("Conversion", "Mana to Energy Shield", nil, energyShieldBase, nil, "EnergyShield", "Defences", "Mana")
 			end
 		end
+		local convLifeToArmour = modDB:Sum("BASE", nil, "LifeGainAsArmour")
+		if convLifeToArmour > 0 then
+			armourBase = modDB:Sum("BASE", nil, "Life") * convLifeToArmour / 100
+			local total
+			if modDB:Flag(nil, "ChaosInoculation") then
+				total = 1
+			else
+				total = armourBase * calcLib.mod(modDB, nil, "Life", "Armour", "Defences") 
+			end
+			armour = armour + total
+			if breakdown then
+				breakdown.slot("Conversion", "Life to Armour", nil, armourBase, total, "Armour", "Defences", "Life")
+			end
+		end
 		local convLifeToES = modDB:Sum("BASE", nil, "LifeConvertToEnergyShield", "LifeGainAsEnergyShield")
 		if convLifeToES > 0 then
 			energyShieldBase = modDB:Sum("BASE", nil, "Life") * convLifeToES / 100
