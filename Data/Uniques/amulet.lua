@@ -689,13 +689,16 @@ Zerphi's Heart
 Paua Amulet
 League: Incursion
 Source: Upgraded from unique{Sacrificial Heart} via currency{Vial of Sacrifice}
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 70
 Implicits: 1
 (20-30)% increased Mana Regeneration Rate
 Adds (48-53) to (58-60) Chaos Damage
 Items and Gems have 50% increased Attribute Requirements
 Chaos Damage can Ignite, Chill and Shock
-Gain Soul Eater for 10 seconds when you use a Vaal Skill
+{variant:1}Gain Soul Eater for 10 seconds when you use a Vaal Skill
+{variant:2}Gain Soul Eater for 20 seconds when you use a Vaal Skill
 ]],[[
 Shaper's Seed
 Agate Amulet
@@ -727,12 +730,16 @@ Minions have (10-15)% increased Movement Speed
 Solstice Vigil
 Onyx Amulet
 Source: Drops from unique{The Shaper}
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 64
 Implicits: 1
 +(10-16) to all Attributes
-(20-25)% increased Damage
+{variant:1}(20-25)% increased Damage
+{variant:2}(30-40)% increased Damage
 +(50-70) to maximum Life
-(2-3) Mana Regenerated per second
+{variant:1}(2-3) Mana Regenerated per second
+{variant:2}(8-10) Mana Regenerated per second
 Temporal Chains has 100% reduced Mana Reservation
 Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
