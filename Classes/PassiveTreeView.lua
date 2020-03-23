@@ -11,6 +11,8 @@ local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local band = bit.band
+local b_rshift = bit.rshift
 
 local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.ring = NewImageHandle()
@@ -398,7 +400,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 	end
 
-	local function renderNode(nodeId, node)
+	-- Draw the nodes
+	for nodeId, node in pairs(spec.nodes) do
 		-- Determine the base and overlay images for this node based on type and state
 		local base, overlay
 		local isAlloc = node.alloc or build.calcsTab.mainEnv.grantedPassives[nodeId]
@@ -461,10 +464,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		local scrX, scrY = treeToScreen(node.x, node.y)
 	
 		-- Determine color for the base artwork
-		if node.ascendancyName and node.ascendancyName ~= spec.curAscendClassName then
-			-- By default, fade out nodes from ascendancy classes other than the current one
-			SetDrawColor(0.5, 0.5, 0.5)
-		end
 		if self.showHeatMap then
 			if not isAlloc and node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
 				if self.heatMapStat and self.heatMapStat.stat then
@@ -571,11 +570,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			end
 			self.tooltip:Draw(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
 		end
-	end
-
-	-- Draw the nodes
-	for nodeId, node in pairs(spec.nodes) do
-		renderNode(nodeId, node)
 	end
 	
 	-- Draw ring overlays for jewel sockets
@@ -719,6 +713,14 @@ end
 function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 	tooltip:SetRecipe(node.recipe)
 	tooltip:AddLine(24, "^7"..node.dn..(launch.devModeAlt and " ["..node.id.."]" or ""))
+	if launch.devModeAlt and node.id > 65535 then
+		-- Decompose cluster node Id
+		local index = band(node.id, 0xF)
+		local size = band(b_rshift(node.id, 4), 0x3)
+		local large = band(b_rshift(node.id, 6), 0x7)
+		local medium = band(b_rshift(node.id, 9), 0x3)
+		tooltip:AddLine(16, string.format("^7Cluster node index: %d, size: %d, large index: %d, medium index: %d", index, size, large, medium))
+	end
 	if node.type == "Socket" and node.nodesInRadius then
 		local attribTotals = { }
 		for nodeId in pairs(node.nodesInRadius[2]) do

@@ -70,6 +70,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 	end
 	if actor.weaponData1.type == "None" then
 		condList["Unarmed"] = true
+		if not actor.itemList["Weapon 2"] and not actor.itemList["Gloves"] then
+			condList["Unencumbered"] = true
+		end
 	else
 		local info = env.data.weaponTypeInfo[actor.weaponData1.type]
 		condList["Using"..info.flag] = true
@@ -721,6 +724,18 @@ function calcs.perform(env)
 		t_insert(extraAuraModList, value.mod)
 	end
 
+	-- Calculate number of active heralds
+	local heraldList = { }
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		if activeSkill.skillTypes[SkillType.Herald] then
+			heraldList[activeSkill.skillCfg.skillName] = true
+		end
+	end
+	for _, herald in pairs(heraldList) do
+		modDB.multipliers["Herald"] = (modDB.multipliers["Herald"] or 0) + 1
+		modDB.conditions["AffectedByHerald"] = true
+	end
+
 	-- Combine buffs/debuffs 
 	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit")
 	local buffs = { }
@@ -965,7 +980,7 @@ function calcs.perform(env)
 						modDB.conditions["AffectedBy"..grantedEffect.name:gsub(" ","")] = true
 						local cfg = { skillName = grantedEffect.name }
 						local inc = modDB:Sum("INC", cfg, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
-						local more = modDB:More(cfg, "CurseEffectOnSelf")
+						local more = modDB:More(cfg, "CurseEffectOnSelf") * gemModList:Sum("MORE", nil, "CurseEffectAgainstPlayer")
 						modDB:ScaleAddList(curseModList, (1 + inc / 100) * more)
 					end
 				elseif not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") then
@@ -1086,6 +1101,9 @@ function calcs.perform(env)
 	if modDB:Flag(nil, "DisableWeapons") then
 		env.player.weaponData1 = copyTable(env.data.unarmedWeaponData[env.classId])
 		modDB.conditions["Unarmed"] = true
+		if not env.player.Gloves or env.player.Gloves == None then
+			modDB.conditions["Unencumbered"] = true
+		end
 	elseif env.weaponModList1 then
 		modDB:AddList(env.weaponModList1)
 	end

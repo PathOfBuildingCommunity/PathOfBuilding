@@ -469,6 +469,8 @@ Requires Level 52, 21 Int
 [[
 Beacon of Madness
 Two-Toned Boots (Armour/Evasion)
+League: Delirium
+Source: Drops from the Simulacrum Encounter
 Requires Level 70, 62 Str, 62 Dex
 Implicits: 1
 +(8-12)% to Fire and Cold Resistances
@@ -589,6 +591,8 @@ Adds 1 to 80 Chaos Damage to Attacks
 ]],[[
 Beacon of Madness
 Two-Toned Boots (Armour/Energy Shield)
+League: Delirium
+Source: Drops from the Simulacrum Encounter
 Requires Level 70, 62 Str, 62 Int
 Implicits: 1
 +(8-12)% to Fire and Lightning Resistances
@@ -656,6 +660,8 @@ Adds 1 to 120 Lightning Damage to Attacks
 [[
 Beacon of Madness
 Two-Toned Boots (Evasion/Energy Shield)
+League: Delirium
+Source: Drops from the Simulacrum Encounter
 Requires Level 70, 62 Dex, 62 Int
 Implicits: 1
 +(8-12)% to Cold and Lightning Resistances

@@ -435,10 +435,13 @@ Fate of the Vaal
 Gemstone Sword
 League: Incursion
 Source: Upgraded from unique{Story of the Vaal} via currency{Vial of Fate}
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 56, 96 Str, 96 Dex
 Implicits: 1
 +400 to Accuracy Rating
-(160-180)% increased Physical Damage
+{variant:1}(160-180)% increased Physical Damage
+{variant:2}(180-210)% increased Physical Damage
 (10-15)% increased Attack Speed
 100% of Physical Damage from Hits with this Weapon is Converted to a random Element
 Hits with this Weapon always inflict Elemental Ailments

@@ -19,13 +19,18 @@ Adds 40 to 60 Physical Damage to Attacks
 ]],[[
 The Baron
 Close Helmet
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 26, 58 Str
 +2 to Level of Socketed Minion Gems
-+(20-40) to Strength
-Minions have 20% increased maximum Life
+{variant:1}+(20-40) to Strength
+{variant:1}Minions have 20% increased maximum Life
+{variant:2}Minions have (10-20)% increased maximum Life
 Half of your Strength is added to your Minions
-+1 to maximum number of Raised Zombies per 300 Strength
-With 1000 or more Strength 2% of Damage dealt by your Zombies is Leeched to you as Life
+{variant:1}+1 to maximum number of Raised Zombies per 300 Strength
+{variant:2}+1 to maximum number of Raised Zombies per 500 Strength
+{variant:1}With 1000 or more Strength 2% of Damage dealt by your Zombies is Leeched to you as Life
+{variant:2}With 1000 or more Strength (1.5-2)% of Damage dealt by your Zombies is Leeched to you as Life
 ]],[[
 Ezomyte Peak
 Iron Hat
@@ -287,7 +292,7 @@ Requires Level 69, 154 Int
 {variant:3}(0.4-0.8)% of Attack Damage Leeched as Life
 {variant:1,2}(0.2-0.4)% of Physical Attack Damage Leeched as Mana
 {variant:3}(0.2-0.4)% of Attack Damage Leeched as Mana
-Increases and Reductions to Spell Damage also apply to Attacks
+Increases and Reductions to Spell Damage also apply to Attacks at 150% of their value
 ]],[[
 Crown of Thorns
 Vine Circlet
@@ -1031,13 +1036,18 @@ Blood Magic
 Mind of the Council
 Harlequin Mask
 Source: prophecy{Unbearable Whispers V}
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 57, 64 Dex, 64 Int
 (230-260)% increased Evasion and Energy Shield
+{variant:2}+(15-20) to maximum Energy Shield
 (20-30)% increased maximum Mana
 10% chance to Shock
 +20% chance to be Shocked
-30% of Lightning Damage is taken from Mana before Life when Hit
-Recover 3% of Maximum Mana when you Shock an Enemy
+30% of Lightning Damage is taken from Mana before Life
+{variant:1}Recover 3% of Maximum Mana when you Shock an Enemy
+{variant:2}Attack Skills have added Lightning Damage equal to 6% of maximum Mana
+{variant:2}Lose 3% of Mana when you use an Attack Skill
 ]],[[
 The Tempest's Binding
 Callous Mask
