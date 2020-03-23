@@ -99,8 +99,8 @@ return {
 	end },
 	{ label = "Brand Skills:", ifSkillList = { "Armageddon Brand", "Storm Brand" } }, -- I barely resisted the temptation to label this "Generic Brand:"
 	{ var = "BrandsAttachedToEnemy", type = "count", label = "# of Brands attached to the enemy", ifSkillList = { "Armageddon Brand", "Storm Brand" }, apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:BrandsAttachedToEnemy", "BASE", m_min(val, 2))
-		enemyModList:NewMod("Multiplier:BrandsAttached", "BASE", m_min(val, 2))
+		modList:NewMod("Multiplier:BrandsAttachedToEnemy", "BASE", m_min(val, 2), "Config")
+		enemyModList:NewMod("Multiplier:BrandsAttached", "BASE", m_min(val, 2), "Config")
 	end },
 	{ label = "Dark Pact:", ifSkill = "Dark Pact" },
 	{ var = "darkPactSkeletonLife", type = "count", label = "Skeleton Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum life of the skeleton that is being targeted.", apply = function(val, modList, enemyModList)

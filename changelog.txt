@@ -1,3 +1,8 @@
+[1.4.167.2][2020/03/24]
+ * Fix crash related to Oni-Goroshi
+ * Fix crash related to number of brands attached to enemy
+ * Fix parsing for One With Nothing Cluster Jewel
+ * Fix increased effect of small passive skills applying to notables
 [1.4.167.1][2020/03/23]
  * Update uniques with changes from 3.10
  * Add support for Arcane Cloak, Spellslinger, and Archmage Support

@@ -52,6 +52,7 @@ local formList = {
 	["adds (%d+)%-(%d+) (%a+) damage to attacks"] = "DMGATTACKS",
 	["adds (%d+) to (%d+) (%a+) attack damage"] = "DMGATTACKS",
 	["adds (%d+)%-(%d+) (%a+) attack damage"] = "DMGATTACKS",
+	["(%d+) to (%d+) added attack (%a+) damage"] = "DMGATTACKS",
 	["adds (%d+) to (%d+) (%a+) damage to spells"] = "DMGSPELLS",
 	["adds (%d+)%-(%d+) (%a+) damage to spells"] = "DMGSPELLS",
 	["adds (%d+) to (%d+) (%a+) spell damage"] = "DMGSPELLS",
@@ -1918,8 +1919,8 @@ local specialModList = {
 	["your spells are disabled"] = { flag("DisableSkill", { type = "SkillType", skillType = SkillType.Spell }) },
 	["strength's damage bonus instead grants (%d+)%% increased melee physical damage per (%d+) strength"] = function(num, _, perStr) return { mod("StrDmgBonusRatioOverride", "BASE", num / tonumber(perStr)) } end,
 	["while in her embrace, take ([%d%.]+)%% of your total maximum life and energy shield as fire damage per second per level"] = function(num) return {
-		mod("FireDegen", "BASE", 1, { type = "PerStat", stat = "Life", 100 / num }, { type = "Multiplier", var = "Level" }, { type = "Condition", var = "HerEmbrace" }),
-		mod("FireDegen", "BASE", 1, { type = "PerStat", stat = "EnergyShield", 100 / num }, { type = "Multiplier", var = "Level" }, { type = "Condition", var = "HerEmbrace" }),
+		mod("FireDegen", "BASE", 1, { type = "PerStat", stat = "Life", div = 100 / num }, { type = "Multiplier", var = "Level" }, { type = "Condition", var = "HerEmbrace" }),
+		mod("FireDegen", "BASE", 1, { type = "PerStat", stat = "EnergyShield", div = 100 / num }, { type = "Multiplier", var = "Level" }, { type = "Condition", var = "HerEmbrace" }),
 	} end,
 	["gain her embrace for %d+ seconds when you ignite an enemy"] = { flag("Condition:CanGainHerEmbrace") },
 	["when you cast a spell, sacrifice all mana to gain added maximum lightning damage equal to (%d+)%% of sacrificed mana for 4 seconds"] = function(num) return {
