@@ -1,3 +1,5 @@
+VERSION[1.4.168][2020/03/24]
+ * Fixed Medium Cluster Jewels with 1 socket and 1 notable generating bad clusters
 VERSION[1.4.167][2020/03/22]
  * Small passives in Large and Medium Cluster Jewel wheels now have the correct node artwork
  * Fixed nodes allocated through Intuitive Leap not remaining allocated after loading the build
