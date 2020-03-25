@@ -1143,7 +1143,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.TotalDot = output.TotalDot + total
 			if breakdown then
 				breakdown[damageType.."Dot"] = { }
-				breakdown.dot(breakdown[damageType.."Dot"], baseVal, inc, more, nil, nil, effMult, total)
+				breakdown.dot(breakdown[damageType.."Dot"], baseVal, inc, more, nil, nil, nil, effMult, total)
 			end
 		end
 	end
@@ -1341,7 +1341,7 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(bleed deals %d%% per second)", basePercent/100, basePercent))
 					t_insert(breakdown.BleedDPS, s_format("= %.1f", baseVal))
 					t_insert(breakdown.BleedDPS, "Bleed DPS:")
-					breakdown.dot(breakdown.BleedDPS, baseVal, inc, more, nil, nil, effMult, output.BleedDPS)
+					breakdown.dot(breakdown.BleedDPS, baseVal, inc, more, nil, nil, nil, effMult, output.BleedDPS)
 					if globalOutput.BleedDuration ~= 5 then
 						globalBreakdown.BleedDuration = {
 							"5.00s ^8(base duration)"
@@ -1424,7 +1424,7 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.PoisonDPS, "x 0.08 ^8(poison deals 8% per second)")
 					t_insert(breakdown.PoisonDPS, s_format("= %.1f", baseVal, 1))
 					t_insert(breakdown.PoisonDPS, "Poison DPS:")
-					breakdown.dot(breakdown.PoisonDPS, baseVal, inc, more, nil, nil, effMult, output.PoisonDPS)
+					breakdown.dot(breakdown.PoisonDPS, baseVal, inc, more, nil, nil, nil, effMult, output.PoisonDPS)
 					if globalOutput.PoisonDuration ~= 2 then
 						globalBreakdown.PoisonDuration = {
 							s_format("%.2fs ^8(base duration)", durationBase)
@@ -1538,7 +1538,7 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.IgniteDPS, "x 0.2 ^8(ignite deals 20% per second)")
 					t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
 					t_insert(breakdown.IgniteDPS, "Ignite DPS:")
-					breakdown.dot(breakdown.IgniteDPS, baseVal, inc, more, nil, burnRateMod, effMult, output.IgniteDPS)
+					breakdown.dot(breakdown.IgniteDPS, baseVal, inc, more, nil, burnRateMod, nil, effMult, output.IgniteDPS)
 					if skillFlags.igniteCanStack then
 						breakdown.IgniteDamage = { }
 						if isAttack then
@@ -1734,7 +1734,7 @@ function calcs.offence(env, actor, activeSkill)
 		if breakdown then
 			breakdown.DecayDPS = { }
 			t_insert(breakdown.DecayDPS, "Decay DPS:")
-			breakdown.dot(breakdown.DecayDPS, skillData.decay, inc, more, nil, nil, effMult, output.DecayDPS)
+			breakdown.dot(breakdown.DecayDPS, skillData.decay, inc, more, nil, nil, nil, effMult, output.DecayDPS)
 			if output.DecayDuration ~= 2 then
 				breakdown.DecayDuration = {
 					s_format("%.2fs ^8(base duration)", 10)
