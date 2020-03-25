@@ -1864,6 +1864,10 @@ local specialModList = {
 	["affects passives in medium ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 5 }) },
 	["affects passives in large ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 6 }) },
 	["affects passives in very large ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 7 }) },
+	["only affects passives in small ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 4 }) },
+	["only affects passives in medium ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 5 }) },
+	["only affects passives in large ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 6 }) },
+	["only affects passives in very large ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 7 }) },
 	["(%d+)%% increased elemental damage per grand spectrum"] = function(num) return {
 		mod("ElementalDamage", "INC", num, { type = "Multiplier", var = "GrandSpectrum" }),
 		mod("Multiplier:GrandSpectrum", "BASE", 1),
