@@ -41,7 +41,7 @@ local fireConvert = {
 	"FireDamageGainAsChaos", "ElementalDamageGainAsChaos", "NonChaosDamageGainAsChaos"
 }
 
--- format {width, default hidden, id, group, label, color, {data}}
+-- format {width, id, group, color, subection:{default hidden, label, data:{}}}
 return {
 { 3, "HitDamage", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill Hit Damage", data = {
 	extra = "{output:DisplayDamage}",
@@ -544,7 +544,7 @@ return {
 	{ label = "Active Brand Limit", flag = "brand", { format = "{0:output:ActiveBrandLimit}", { modName = "ActiveBrandLimit", cfg = "skill" }, }, },
 } }
 } },
-{ 1, "HitChance", 1, colorCodes.OFFENCE, {{ defaultCollapsed = true, label = "Accuracy", data = {
+{ 1, "HitChance", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Accuracy", data = {
 	extra = "{0:output:HitChance}%",
 	flag = "attack",
 	{ label = "MH Accuracy", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "{0:output:MainHand.Accuracy}", 
@@ -565,7 +565,7 @@ return {
 	}, },
 } }
 } },
-{ 1, "Bleed", 1, colorCodes.OFFENCE, {{ defaultCollapsed = true, label = "Bleed", data = {
+{ 1, "Bleed", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Bleed", data = {
 	extra = "{0:output:BleedChance}% {1:output:BleedDPS} {2:output:BleedDuration}s",
 	flag = "bleed",
 	{ label = "Max Bleed Stacks", { format = "{0:output:BleedStacksMax}", { modName = "BleedStacksMax" } }, },
@@ -590,7 +590,7 @@ return {
 	}, },
 } }
 } },
-{ 1, "Poison", 1, colorCodes.OFFENCE, {{ defaultCollapsed = true, label = "Poison", data = {
+{ 1, "Poison", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Poison", data = {
 	extra = "{0:output:PoisonChance}% {1:output:PoisonDPS} {2:output:PoisonDuration}s",
 	flag = "poison",
 	{ label = "Chance to Poison", { format = "{0:output:PoisonChance}%", 
@@ -644,7 +644,7 @@ return {
 	}, },
 } }
 } },
-{ 1, "Ignite", 1, colorCodes.OFFENCE, {{ defaultCollapsed = true, label = "Ignite", data = {	
+{ 1, "Ignite", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Ignite", data = {	
 	extra = "{0:output:IgniteChance}% {1:output:IgniteDPS} {2:output:IgniteDuration}s",
 	flag = "ignite",
 	{ label = "Chance to Ignite", { format = "{0:output:IgniteChance}%", 
@@ -698,7 +698,7 @@ return {
 	}, },
 } }
 } },
-{ 1, "Decay", 1, colorCodes.OFFENCE, {{ defaultCollapsed = true, label = "Decay", data = {
+{ 1, "Decay", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Decay", data = {
 	extra = "{1:output:DecayDPS} {2:output:DecayDuration}s",
 	flag = "decay",
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Damage", "ChaosDamage" }, modType = "INC", cfg = "decay" }, }, },
@@ -716,7 +716,7 @@ return {
 	}, },
 } }
 } },
-{ 1, "LeechGain", 1, colorCodes.OFFENCE, {{ defaultCollapsed = true, label = "Leech & Gain on Hit", data = {
+{ 1, "LeechGain", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Leech & Gain on Hit", data = {
 	{ label = "Life Leech Cap", flag = "leechLife", { format = "{1:output:MaxLifeLeechRate}", 
 		{ breakdown = "MaxLifeLeechRate" },
 		{ modName = "MaxLifeLeechRate" },
@@ -813,7 +813,7 @@ return {
 	}, },
 } }
 } },
-{ 1, "EleAilments", 1, colorCodes.OFFENCE, {{ defaultCollapsed = true, label = "Elemental Ailments", data = {
+{ 1, "EleAilments", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Elemental Ailments", data = {
 	{ label = "Inc. Chill Effect", flag = "chill", { format = "{0:output:ChillEffectMod}%",
 		{ label = "Player modifiers", modName = "EnemyChillEffect", cfg = "skill" },
 		{ label = "Enemy modifiers", modName = "SelfChillEffect", enemy = true },
@@ -859,7 +859,7 @@ return {
 	}, },
 } }
 } },
-{ 1, "MiscEffects", 1, colorCodes.OFFENCE, {{ defaultCollapsed = true, label = "Other Effects", data = {
+{ 1, "MiscEffects", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Other Effects", data = {
 	{ label = "Stun Threshold", flag = "hit", notFlag = "attack", { format = "x {2:output:EnemyStunThresholdMod}", { modName = "EnemyStunThreshold", cfg = "skill" }, }, },
 	{ label = "Stun Duration", flag = "hit", notFlag = "attack", { format = "{2:output:EnemyStunDuration}s", 
 		{ breakdown = "EnemyStunDuration" }, 
@@ -1074,11 +1074,11 @@ return {
 		{ modName = { "StunRecovery", "BlockRecovery" }, }, 
 	}, },
 	{ label = "Light Radius Mod", { format = "x {2:output:LightRadiusMod}", { breakdown = "LightRadiusMod" }, { modName = "LightRadius" }, }, },
-} }, { defaultCollapsed = true, label = "Dodge", data = {
+} }, { defaultCollapsed = false, label = "Dodge", data = {
 	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
 	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}%", { modName = "AttackDodgeChance" }, }, },
 	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}%", { modName = "SpellDodgeChance" }, }, }, 
-} }, { defaultCollapsed = true, label = "Block", data = {
+} }, { defaultCollapsed = false, label = "Block", data = {
 	extra = "{0:output:BlockChance}%/{0:output:SpellBlockChance}%",
 	{ label = "Block Chance", { format = "{0:output:BlockChance}%",
 		{ breakdown = "BlockChance" },
@@ -1088,7 +1088,7 @@ return {
 		{ breakdown = "SpellBlockChance" }, 
 		{ modName = { "SpellBlockChance", "BlockChanceConv" }, },
 	}, },
-} }, { defaultCollapsed = true, label = "Cumulative", data = {
+} }, { defaultCollapsed = false, label = "Cumulative", data = {
 	{ label = "Melee Avoid Ch.", { format = "{0:output:MeleeAvoidChance}%", { breakdown = "MeleeAvoidChance" }, }, },
 	{ label = "Projectile Avoid Ch.", { format = "{0:output:ProjectileAvoidChance}%", { breakdown = "ProjectileAvoidChance" }, }, },
 	{ label = "Spell Avoid Ch.", { format = "{0:output:SpellAvoidChance}%", { breakdown = "SpellAvoidChance" }, }, },
