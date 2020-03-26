@@ -187,13 +187,6 @@ data.specialBaseTags = {
 	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
 }
 
--- Uniques
-data.uniques = { }
-for _, type in pairs(itemTypes) do
-	data.uniques[type] = LoadModule("Data/Uniques/"..type)
-end
-LoadModule("Data/New")
-
 ---------------------------
 -- Version-specific Data --
 ---------------------------
@@ -219,6 +212,7 @@ for _, targetVersion in ipairs(targetVersionList) do
 		Flask = dataModule("ModFlask"),
 		Jewel = dataModule("ModJewel"),
 		JewelAbyss = targetVersion ~= "2_6" and dataModule("ModJewelAbyss") or { },
+		JewelCluster = targetVersion ~= "2_6" and dataModule("ModJewelCluster") or { },
 	}
 	verData.masterMods = dataModule("ModMaster")
 	verData.enchantments = {
@@ -229,6 +223,12 @@ for _, targetVersion in ipairs(targetVersionList) do
 	verData.essences = dataModule("Essence")
 	verData.pantheons = targetVersion ~= "2_6" and dataModule("Pantheons") or { }
 	
+
+	-- Cluster jewel data
+	if targetVersion ~= "2_6" then	
+		verData.clusterJewels = dataModule("ClusterJewels")
+	end
+
 	-- Load skills
 	verData.skills = { }
 	verData.skillStatMap = dataModule("SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)
@@ -353,3 +353,10 @@ for _, targetVersion in ipairs(targetVersionList) do
 	-- Rare templates
 	verData.rares = dataModule("Rares")
 end
+
+-- Uniques (loaded after version-specific data because reasons)
+data.uniques = { }
+for _, type in pairs(itemTypes) do
+	data.uniques[type] = LoadModule("Data/Uniques/"..type)
+end
+LoadModule("Data/New")

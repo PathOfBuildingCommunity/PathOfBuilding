@@ -136,7 +136,7 @@ skills["BanditChampionBlastRainSpectre"] = {
 	hidden = true,
 	color = 2,
 	description = "Fires arrows up in the air, to rain down in an area. Each arrow deals area damage around where it lands, and they will all overlap on the targeted location.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.FireSkill] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.Type73] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.ProjectileAttack] = true, [SkillType.FireSkill] = true, [SkillType.SkillCanMirageArcher] = true, [SkillType.Area] = true, [SkillType.ProjectileDamage] = true, [SkillType.Type73] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanMine] = true, [SkillType.Triggerable] = true, [SkillType.Type95] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -969,7 +969,7 @@ skills["GoatmanMoltenShell"] = {
 	baseEffectiveness = 4.2555999755859,
 	incrementalEffectiveness = 0.03999999910593,
 	description = "Summons fiery elemental shields providing additional armour for a short duration. If cumulative physical damage prevented by your blocking or armour reaches a threshold, the shields explode outwards, dealing fire damage to surrounding enemies.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type31] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTotem] = true, [SkillType.Type31] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
 	baseFlags = {
@@ -1865,7 +1865,7 @@ skills["MonsterEnduringCry"] = {
 	hidden = true,
 	color = 1,
 	description = "Performs a warcry, adding endurance charges proportional to the number of surrounding enemies and granting life regeneration to you for a short time if there are nearby enemies. Taunts all nearby enemies to attack the user. Shares a cooldown with other Warcry skills.",
-	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, },
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.25,
 	baseFlags = {
@@ -1924,7 +1924,7 @@ skills["MonsterEnfeeble"] = {
 	hidden = true,
 	color = 3,
 	description = "Curses all targets in an area, making their attacks and spells less effective.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2040,7 +2040,7 @@ skills["MonsterFlickerStrike"] = {
 	hidden = true,
 	color = 4,
 	description = "Teleports the character to a nearby monster and attacks with a melee weapon. If no specific monster is targeted, one is picked at random. Grants a buff that increases movement speed for a duration. The cooldown can be bypassed by expending a Frenzy Charge.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.MovementSkill] = true, [SkillType.Duration] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.AttackCanRepeat] = true, [SkillType.MovementSkill] = true, [SkillType.Duration] = true, [SkillType.Type96] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2435,7 +2435,7 @@ skills["MonsterProjectileWeakness"] = {
 	hidden = true,
 	color = 2,
 	description = "Curses all targets in an area, making them easier to pierce and to knock back, and increasing the damage they take from projectiles.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2538,7 +2538,7 @@ skills["MonsterRighteousFireWhileSpectred"] = {
 	baseEffectiveness = 1.1110999584198,
 	incrementalEffectiveness = 0.056000001728535,
 	description = "Engulfs you in magical fire that rapidly burns you and nearby enemies. Your spell damage is substantially increased while under this effect. The effect ends when you have 1 life remaining.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.CausesBurning] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.CausesBurning] = true, [SkillType.DamageOverTime] = true, [SkillType.FireSkill] = true, [SkillType.SkillCanTotem] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, [SkillType.Type96] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -2692,7 +2692,7 @@ skills["MonsterWarlordsMark"] = {
 	hidden = true,
 	color = 1,
 	description = "Curses all targets in an area, making them more vulnerable to stuns. Hitting the cursed targets will leech life and mana, and killing them will result in a chance to gain an endurance charge.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2769,7 +2769,7 @@ skills["NecromancerConductivity"] = {
 	hidden = true,
 	color = 3,
 	description = "Curses all targets in an area, making them less resistant to lightning damage and giving them a chance to be shocked by lightning damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.LightningSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2810,7 +2810,7 @@ skills["NecromancerElementalWeakness"] = {
 	hidden = true,
 	color = 3,
 	description = "Curses all targets in an area, making them less resistant to elemental damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2849,7 +2849,7 @@ skills["NecromancerEnfeeble"] = {
 	hidden = true,
 	color = 3,
 	description = "Curses all targets in an area, making their attacks and spells less effective.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2898,7 +2898,7 @@ skills["NecromancerFlammability"] = {
 	hidden = true,
 	color = 3,
 	description = "Curses all targets in an area, making them less resistant to fire damage and giving them a chance to be ignited by fire damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.FireSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2938,7 +2938,7 @@ skills["NecromancerFrostbite"] = {
 	hidden = true,
 	color = 3,
 	description = "Curses all targets in an area, making them less resistant to cold damage and giving them a chance to be frozen by cold damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.ColdSkill] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -2978,7 +2978,7 @@ skills["NecromancerProjectileWeakness"] = {
 	hidden = true,
 	color = 2,
 	description = "Curses all targets in an area, making them easier to pierce and to knock back, and increasing the damage they take from projectiles.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -3049,7 +3049,7 @@ skills["NecromancerVulnerability"] = {
 	hidden = true,
 	color = 4,
 	description = "Curse all targets in an area, causing them to take increased physical damage and further increased physical damage over time. Attacks against cursed enemies have a chance to inflict bleeding and maim.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
@@ -3561,7 +3561,7 @@ skills["SkeletonTemporalChains"] = {
 	hidden = true,
 	color = 4,
 	description = "Curses all targets in an area, Slowing them, and making effects on them expire more slowly.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.67,
 	statMap = {
@@ -3603,7 +3603,7 @@ skills["SkeletonVulnerability"] = {
 	hidden = true,
 	color = 4,
 	description = "Curse all targets in an area, causing them to take increased physical damage and further increased physical damage over time. Attacks against cursed enemies have a chance to inflict bleeding and maim.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.SkillCanTrap] = true, [SkillType.SkillCanTotem] = true, [SkillType.SkillCanMine] = true, [SkillType.SpellCanRepeat] = true, [SkillType.Curse] = true, [SkillType.Triggerable] = true, [SkillType.SpellCanCascade] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.PhysicalSkill] = true, [SkillType.Type91] = true, [SkillType.Type92] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {

@@ -202,18 +202,22 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") then
-		-- Spell Damage conversion from Crown of Eyes
+	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") or skillModList:Flag(nil, "ImprovedSpellDamageAppliesToAttacks") then
+		-- Spell Damage conversion from Crown of Eyes, Kinetic Bolt, and the Wandslinger notable
+		local multiplier = 1
+		if skillModList:Flag(nil, "ImprovedSpellDamageAppliesToAttacks") then
+			multiplier = 1.5
+		end
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Spell }, "Damage")) do
 			local mod = value.mod
 			if band(mod.flags, ModFlag.Spell) ~= 0 then
-				skillModList:NewMod("Damage", "INC", mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
+				skillModList:NewMod("Damage", "INC", mod.value * multiplier, mod.source, bor(band(mod.flags, bnot(ModFlag.Spell)), ModFlag.Attack), mod.keywordFlags, unpack(mod))
 			end
 		end
 	end
 	if skillModList:Flag(nil, "ClawDamageAppliesToUnarmed") then
 		-- Claw Damage conversion from Rigwald's Curse
-		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Claw }, "Damage")) do
+		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Claw, keywordFlags = KeywordFlag.Hit }, "Damage")) do
 			local mod = value.mod
 			if band(mod.flags, ModFlag.Claw) ~= 0 then
 				skillModList:NewMod("Damage", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod))
@@ -222,7 +226,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillModList:Flag(nil, "ClawAttackSpeedAppliesToUnarmed") then
 		-- Claw Attack Speed conversion from Rigwald's Curse
-		for i, value in ipairs(skillModList:Tabulate("INC", { flags = bor(ModFlag.Claw, ModFlag.Attack) }, "Speed")) do
+		for i, value in ipairs(skillModList:Tabulate("INC", { flags = bor(ModFlag.Claw, ModFlag.Attack, ModFlag.Hit) }, "Speed")) do
 			local mod = value.mod
 			if band(mod.flags, ModFlag.Claw) ~= 0 and band(mod.flags, ModFlag.Attack) ~= 0 then
 				skillModList:NewMod("Speed", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod))
@@ -231,7 +235,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillModList:Flag(nil, "ClawCritChanceAppliesToUnarmed") then
 		-- Claw Crit Chance conversion from Rigwald's Curse
-		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Claw }, "CritChance")) do
+		for i, value in ipairs(skillModList:Tabulate("INC", { flags = bor(ModFlag.Claw, ModFlag.Hit) }, "CritChance")) do
 			local mod = value.mod
 			if band(mod.flags, ModFlag.Claw) ~= 0 then
 				skillModList:NewMod("CritChance", mod.type, mod.value, mod.source, bor(band(mod.flags, bnot(ModFlag.Claw)), ModFlag.Unarmed), mod.keywordFlags, unpack(mod))
@@ -279,6 +283,25 @@ function calcs.offence(env, actor, activeSkill)
 		-- Applies DPS multiplier based on projectile count
 		skillData.dpsMultiplier = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
 	end
+	if skillData.gainPercentBaseWandDamage then
+		local mult = skillData.gainPercentBaseWandDamage / 100
+		if actor.weaponData1.type == "Wand" and actor.weaponData2.type == "Wand" then
+			for _, damageType in ipairs(dmgTypeList) do
+				skillModList:NewMod(damageType.."Min", "BASE", ((actor.weaponData1[damageType.."Min"] or 0) + (actor.weaponData2[damageType.."Min"] or 0)) / 2 * mult, "Spellslinger")
+				skillModList:NewMod(damageType.."Max", "BASE", ((actor.weaponData1[damageType.."Max"] or 0) + (actor.weaponData2[damageType.."Max"] or 0)) / 2 * mult, "Spellslinger")
+			end
+		elseif actor.weaponData1.type == "Wand" then
+			for _, damageType in ipairs(dmgTypeList) do
+				skillModList:NewMod(damageType.."Min", "BASE", (actor.weaponData1[damageType.."Min"] or 0) * mult, "Spellslinger")
+				skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData1[damageType.."Max"] or 0) * mult, "Spellslinger")
+			end
+		elseif actor.weaponData2.type == "Wand" then
+			for _, damageType in ipairs(dmgTypeList) do
+				skillModList:NewMod(damageType.."Min", "BASE", (actor.weaponData2[damageType.."Min"] or 0) * mult, "Spellslinger")
+				skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData2[damageType.."Max"] or 0) * mult, "Spellslinger")
+			end
+		end
+	end
 
 	local isAttack = skillFlags.attack
 
@@ -314,7 +337,23 @@ function calcs.offence(env, actor, activeSkill)
 			local projMore = skillModList:More(skillCfg, "ProjectileCount")
 			output.ProjectileCount = round((projBase - 1) * projMore + 1)
 		end
+		if skillModList:Flag(skillCfg, "CannotFork") then
+			output.ForkCountString = "Cannot fork"
+		elseif skillModList:Flag(skillCfg, "ForkOnce") then
+			skillFlags.forking = true
+			if skillModList:Flag(skillCfg, "ForkTwice") then
+				output.ForkCountMax = m_min(skillModList:Sum("BASE", skillCfg, "ForkCountMax"), 2)
+			else
+				output.ForkCountMax = m_min(skillModList:Sum("BASE", skillCfg, "ForkCountMax"), 1)
+			end
+			output.ForkedCount = m_min(output.ForkCountMax, skillModList:Sum("BASE", skillCfg, "ForkedCount"))
+			output.ForkCountString = output.ForkCountMax
+			output.ForkRemaining = m_max(0, output.ForkCountMax - output.ForkedCount)
+		else
+			output.ForkCountString = "0"
+		end
 		if skillModList:Flag(skillCfg, "CannotPierce") then
+			output.PierceCount = 0
 			output.PierceCountString = "Cannot pierce"
 		else
 			if skillModList:Flag(skillCfg, "PierceAllTargets") or enemyDB:Flag(nil, "AlwaysPierceSelf") then
@@ -623,6 +662,9 @@ function calcs.offence(env, actor, activeSkill)
 		local inc = skillModList:Sum("INC", skillCfg, "ManaCost")
 		local base = skillModList:Sum("BASE", skillCfg, "ManaCost")
 		local manaCost = activeSkill.activeEffect.grantedEffectLevel.manaCost or 0
+		if skillData.baseManaCostIsAtLeastPercentUnreservedMana then
+			manaCost = m_max(manaCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
+		end
 		output.ManaCost = m_floor(m_max(0, manaCost * mult * more * (1 + inc / 100) + base))
 		if activeSkill.skillTypes[SkillType.ManaCostPercent] and skillFlags.totem then
 			output.ManaCost = m_floor(output.Mana * output.ManaCost / 100)
@@ -1152,7 +1194,7 @@ function calcs.offence(env, actor, activeSkill)
 					if pass == 2 and breakdown then
 						t_insert(breakdown[damageType], s_format("= %d to %d", damageTypeHitMin, damageTypeHitMax))
 					end
-					if skillModList:Flag(skillCfg, "LuckyHits") then 
+					if skillModList:Flag(skillCfg, "LuckyHits") or (pass == 2 and damageType == "Lightning" and skillModList:Flag(skillCfg, "LightningNoCritLucky")) then 
 						damageTypeHitAvg = (damageTypeHitMin / 3 + 2 * damageTypeHitMax / 3)
 					else
 						damageTypeHitAvg = (damageTypeHitMin / 2 + damageTypeHitMax / 2)
@@ -1668,8 +1710,8 @@ function calcs.offence(env, actor, activeSkill)
 					skillPart = skillCfg.skillPart,
 					skillTypes = skillCfg.skillTypes,
 					slotName = skillCfg.slotName,
-					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(skillCfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
-					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Bleed, KeywordFlag.Ailment, KeywordFlag.PhysicalDot),
+					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
+					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Bleed, KeywordFlag.Ailment, KeywordFlag.PhysicalDot),
 					skillCond = { },
 				}
 			end
@@ -1768,8 +1810,8 @@ function calcs.offence(env, actor, activeSkill)
 					skillPart = skillCfg.skillPart,
 					skillTypes = skillCfg.skillTypes,
 					slotName = skillCfg.slotName,
-					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(skillCfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
-					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Poison, KeywordFlag.Ailment, KeywordFlag.ChaosDot),
+					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
+					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Poison, KeywordFlag.Ailment, KeywordFlag.ChaosDot),
 					skillCond = { },
 				}
 			end
@@ -1928,8 +1970,8 @@ function calcs.offence(env, actor, activeSkill)
 					skillPart = skillCfg.skillPart,
 					skillTypes = skillCfg.skillTypes,
 					slotName = skillCfg.slotName,
-					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(skillCfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
-					keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Ignite, KeywordFlag.Ailment, KeywordFlag.FireDot),
+					flags = bor(ModFlag.Dot, ModFlag.Ailment, band(cfg.flags, ModFlag.WeaponMask), band(cfg.flags, ModFlag.Melee) ~= 0 and ModFlag.MeleeHit or 0),
+					keywordFlags = bor(band(cfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.Ignite, KeywordFlag.Ailment, KeywordFlag.FireDot),
 					skillCond = { },
 				}
 			end

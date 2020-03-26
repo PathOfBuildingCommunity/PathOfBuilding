@@ -622,12 +622,12 @@ Requires Level 44, 143 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}45% increased Stun Duration on Enemies
+{variant:2}25% chance to Trigger level 20 Animate Weapon on Kill
 (150-200)% increased Physical Damage
-(8-12)% increased Cast Speed
 (8-12)% increased Attack Speed
+(8-12)% increased Cast Speed
 30% less Animate Weapon Duration
 Weapons you Animate create an additional copy
-{variant:2}25% chance to Trigger level 20 Animate Weapon on Kill
 ]],[[
 Kongor's Undying Rage
 Terror Maul

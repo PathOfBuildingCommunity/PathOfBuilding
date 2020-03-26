@@ -47,6 +47,9 @@ local skills, mod, flag, skill = ...
 		["projectiles_barrage"] = {
 			flag("SequentialProjectiles", { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
 		},
+		["number_of_additional_projectiles"] = {
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
+		},
 	},
 #mods
 
@@ -291,6 +294,9 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
 		},
 	},
+#mods
+
+#skill SupportAdditionalCooldown
 #mods
 
 #skill SupportSlowerProjectiles

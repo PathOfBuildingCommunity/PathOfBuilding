@@ -204,6 +204,15 @@ Adds 2 to 3 Physical Damage to Attacks per Level
 Gain Her Embrace for 3 seconds when you Ignite an Enemy
 While in Her Embrace, take 0.5% of your total Maximum Life and Energy Shield as Fire Damage per second per Level
 ]],[[
+Paradoxica
+Vaal Rapier
+League: Betrayal
+Source: Drops from Bosses in Safehouse
+Requires Level 66, 212 Dex
+Implicits: 1
+25% to Global Critical Strike Multiplier
+Attacks with this Weapon deal Double Damage
+]],[[
 The Princess
 Sabre
 Variant: Pre 2.6.0
@@ -426,10 +435,13 @@ Fate of the Vaal
 Gemstone Sword
 League: Incursion
 Source: Upgraded from unique{Story of the Vaal} via currency{Vial of Fate}
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 56, 96 Str, 96 Dex
 Implicits: 1
 +400 to Accuracy Rating
-(160-180)% increased Physical Damage
+{variant:1}(160-180)% increased Physical Damage
+{variant:2}(180-210)% increased Physical Damage
 (10-15)% increased Attack Speed
 100% of Physical Damage from Hits with this Weapon is Converted to a random Element
 Hits with this Weapon always inflict Elemental Ailments
