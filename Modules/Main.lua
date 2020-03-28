@@ -885,6 +885,14 @@ function main:OpenNewFolderPopup(path, onClose)
 	main:OpenPopup(370, 100, "New Folder", controls, "create", "edit", "cancel")	
 end
 
+function main:SetWindowTitleSubtext(subtext)
+	if not subtext then
+		SetWindowTitle("Path of Building")
+	else
+		SetWindowTitle("Path of Building - "..subtext)
+	end
+end
+
 do
 	local wrapTable = { }
 	function main:WrapString(str, height, width)

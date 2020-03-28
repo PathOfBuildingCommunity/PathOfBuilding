@@ -483,6 +483,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	self.build.characterLevel = charData.level
 	self.build.controls.characterLevel:SetText(charData.level)
 	self.build.buildFlag = true
+	main:SetWindowTitleSubtext(string.format("%s (%s, %s, %s)", self.build.buildName, charData.name, charData.class, charData.league))
 end
 
 function ImportTabClass:ImportItemsAndSkills(json)
