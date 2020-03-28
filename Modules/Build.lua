@@ -210,11 +210,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 			if self.spec:CountAllocNodes() == 0 or self.spec:IsClassConnected(value.classId) then
 				self.spec:SelectClass(value.classId)
 				self.spec:AddUndoState()
+				self.spec:SetWindowTitleWithBuildClass()
 				self.buildFlag = true
 			else
 				main:OpenConfirmPopup("Class Change", "Changing class to "..value.label.." will reset your passive tree.\nThis can be avoided by connecting one of the "..value.label.." starting nodes to your tree.", "Continue", function()
 					self.spec:SelectClass(value.classId)
 					self.spec:AddUndoState()
+					self.spec:SetWindowTitleWithBuildClass()
 					self.buildFlag = true					
 				end)
 			end
@@ -223,6 +225,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self.controls.ascendDrop = new("DropDownControl", {"LEFT",self.controls.classDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
 		self.spec:SelectAscendClass(value.ascendClassId)
 		self.spec:AddUndoState()
+		self.spec:SetWindowTitleWithBuildClass()
 		self.buildFlag = true
 	end)
 
@@ -626,6 +629,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self.calcsTab:BuildOutput()
 	self:RefreshStatList()
 	self.buildFlag = false
+
+	self.spec:SetWindowTitleWithBuildClass()
 
 	--[[
 	local testTooltip = new("Tooltip")
