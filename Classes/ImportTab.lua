@@ -381,8 +381,11 @@ function ImportTabClass:DownloadCharacterList()
 					league = league,
 				})
 			end				
+			if self.controls.charSelectLeague.selIndex > #self.controls.charSelectLeague.list then
+				self.controls.charSelectLeague.selIndex = 1
+			end
 			self.lastCharList = charList
-			self:BuildCharacterList()
+			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValue("league"))
 		end, sessionID and "POESESSID="..sessionID)
 	end, sessionID and "POESESSID="..sessionID)
 end
