@@ -131,9 +131,25 @@ data.labyrinths = {
 	{ name = "NORMAL", label = "Normal" },
 }
 
-data.monsterExperienceLevelMap = { [71] = 70.94, [72] = 71.82, [73] = 72.64, [74] = 73.40, [75] = 74.10, [76] = 74.74, [77] = 75.32, [78] = 75.84, [79] = 76.30, [80] = 76.70, [81] = 77.04, [82] = 77.32, [83] = 77.54, [84] = 77.70, }
-for i = 1, 70 do
-	data.monsterExperienceLevelMap[i] = i
+local maxPenaltyFreeAreaLevel = 70
+local maxAreaLevel = 88 -- T16 map + side area + four watchstones that grant +1 level
+local penaltyMultiplier = 0.06
+
+---@param areaLevel number
+---@return number
+local function effectiveMonsterLevel(areaLevel)
+	--- Areas with area level above a certain penalty-free level are considered to have
+	--- a scaling lower effective monster level for experience penalty calculations.
+	if areaLevel <= maxPenaltyFreeAreaLevel then
+		return areaLevel
+	end
+	return areaLevel - triangular(areaLevel - maxPenaltyFreeAreaLevel) * penaltyMultiplier
+end
+
+---@type table<number, number>
+data.monsterExperienceLevelMap = {}
+for i = 1, maxAreaLevel do
+	data.monsterExperienceLevelMap[i] = effectiveMonsterLevel(i)
 end
 
 data.weaponTypeInfo = {
