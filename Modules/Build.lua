@@ -627,8 +627,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self:RefreshStatList()
 	self.buildFlag = false
 
-	main:SetWindowTitleSubtext(string.format("%s (%s)", self.buildName, self.spec.curAscendClassId == 0 and self.spec.curClassName or self.spec.curAscendClassName))
-
 	--[[
 	local testTooltip = new("Tooltip")
 	for _, item in pairs(main.uniqueDB.list) do

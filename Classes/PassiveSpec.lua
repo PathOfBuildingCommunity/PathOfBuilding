@@ -239,6 +239,9 @@ function PassiveSpecClass:SelectAscendClass(ascendClassId)
 		startNode.alloc = true
 		self.allocNodes[startNode.id] = startNode
 	end
+	
+	-- This will react to changing either class or ascendancy because self:SelectClass() calls this method
+	self:SetWindowTitleWithBuildClass()
 
 	-- Rebuild all the node paths and dependencies
 	self:BuildAllDependsAndPaths()
@@ -929,4 +932,8 @@ end
 
 function PassiveSpecClass:RestoreUndoState(state)
 	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList)
+end
+
+function PassiveSpecClass:SetWindowTitleWithBuildClass()
+	main:SetWindowTitleSubtext(string.format("%s (%s)", self.build.buildName, self.curAscendClassId == 0 and self.curClassName or self.curAscendClassName))
 end
