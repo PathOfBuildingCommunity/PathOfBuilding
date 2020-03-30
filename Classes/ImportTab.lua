@@ -68,7 +68,9 @@ If possible, change the game version in the Configuration tab before importing.]
 			t_insert(historyList, accountName)
 			historyList[accountName] = true
 		end
-		table.sort(historyList)
+		table.sort(historyList, function(a,b)
+			return a:lower() < b:lower()
+		end)
 	end -- don't load the list many times
 
 	self.controls.accountHistory = new("DropDownControl", {"LEFT",self.controls.accountNameGo,"RIGHT"}, 8, 0, 200, 20, historyList, function()
@@ -161,7 +163,9 @@ You can get this from your web browser's cookies while logged into the Path of E
 			t_insert(historyList, self.controls.accountName.buf)
 			historyList[self.controls.accountName.buf] = true
 			self.controls.accountHistory:SelByValue(self.controls.accountName.buf)
-			table.sort(historyList)
+			table.sort(historyList, function(a,b)
+				return a:lower() < b:lower()
+			end)
 		end
 	end)
 
