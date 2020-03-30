@@ -260,16 +260,17 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "WithImpaleDPS", label = "Damage inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage" },
 		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
+		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS end},
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
 		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function() return true end },
 		{ },
-		{ stat = "Str", label = "Strength", fmt = "d" },
-		{ stat = "ReqStr", label = "Strength Required", fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end },
-		{ stat = "Dex", label = "Dexterity", fmt = "d" },
-		{ stat = "ReqDex", label = "Dexterity Required", fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Dex end },
-		{ stat = "Int", label = "Intelligence", fmt = "d" },
-		{ stat = "ReqInt", label = "Intelligence Required", fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Int end },
+		{ stat = "Str", label = "Strength", color = colorCodes.STRENGTH, fmt = "d" },
+		{ stat = "ReqStr", label = "Strength Required", color = colorCodes.STRENGTH, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end },
+		{ stat = "Dex", label = "Dexterity", color = colorCodes.DEXTERITY, fmt = "d" },
+		{ stat = "ReqDex", label = "Dexterity Required", color = colorCodes.DEXTERITY, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Dex end },
+		{ stat = "Int", label = "Intelligence", color = colorCodes.INTELLIGENCE, fmt = "d" },
+		{ stat = "ReqInt", label = "Intelligence Required", color = colorCodes.INTELLIGENCE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Int end },
 		{ },
 		{ stat = "Life", label = "Total Life", fmt = "d", compPercent = true },
 		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.Life > 1 end },
@@ -311,20 +312,16 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%" },
 		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%" },
 		{ },
-		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", condFunc = function() return true end },
-		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%" },
-		{ stat = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%" },
-		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%" },
-		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%" },
+		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end, resistOverCapStat = "FireResistOverCap"},
+		{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", color = colorCodes.COLD, condFunc = function() return true end, resistOverCapStat = "ColdResistOverCap" },
+		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", color = colorCodes.LIGHTNING, condFunc = function() return true end, resistOverCapStat = "LightningResistOverCap" },
+		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function() return true end, resistOverCapStat = "ChaosResistOverCap" },
 	}
 	self.minionDisplayStats = {
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
 		{ stat = "Speed", label = "Attack/Cast Rate", fmt = ".2f", compPercent = true },
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
-		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true },
+		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
 		{ stat = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true },
 		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true },
@@ -332,10 +329,14 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
 		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale" },
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale" },
+		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS end},
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "Life", label = "Total Life", fmt = ".1f", compPercent = true },
 		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
 		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", compPercent = true },
+		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
+		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
+		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", compPercent = true },
 	}
 	self.extraSaveStats = {
 		"PowerCharges",
@@ -647,7 +648,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		self.calcsTab:PowerBuilder()
 	end
 	SetProfiling(false)
-	ConPrintf("Power build time: %d msec", GetTime() - start)
+	ConPrintf("Power build time: %d ms", GetTime() - start)
 	--]]
 
 	self.abortSave = false
@@ -1123,13 +1124,24 @@ function buildMode:AddDisplayStatList(statList, actor)
 	local statBoxList = self.controls.statBox.list
 	for index, statData in ipairs(statList) do
 		if statData.stat then
-			if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then 
+			if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then
 				local statVal = actor.output[statData.stat]
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
+					local labelColor = "^7"
+					if statData.color then
+						labelColor = statData.color
+					end
+					local resistOverCapStatLabel = ""
+					if (statData.resistOverCapStat) then
+						local resistOverCapStatVal = actor.output[statData.resistOverCapStat]
+						if (resistOverCapStatVal) then
+							resistOverCapStatLabel = " ^7(+"..self:FormatStat(statData, resistOverCapStatVal).."^7)"
+						end
+					end
 					t_insert(statBoxList, {
 						height = 16,
-						"^7"..statData.label..":",
-						self:FormatStat(statData, statVal),
+						labelColor..statData.label..":",
+						self:FormatStat(statData, statVal)..resistOverCapStatLabel,
 					})
 				end
 			end

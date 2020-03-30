@@ -204,6 +204,15 @@ Adds 2 to 3 Physical Damage to Attacks per Level
 Gain Her Embrace for 3 seconds when you Ignite an Enemy
 While in Her Embrace, take 0.5% of your total Maximum Life and Energy Shield as Fire Damage per second per Level
 ]],[[
+Paradoxica
+Vaal Rapier
+League: Betrayal
+Source: Drops from Bosses in Safehouse
+Requires Level 66, 212 Dex
+Implicits: 1
+25% to Global Critical Strike Multiplier
+Attacks with this Weapon deal Double Damage
+]],[[
 The Princess
 Sabre
 Variant: Pre 2.6.0
@@ -426,10 +435,13 @@ Fate of the Vaal
 Gemstone Sword
 League: Incursion
 Source: Upgraded from unique{Story of the Vaal} via currency{Vial of Fate}
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 56, 96 Str, 96 Dex
 Implicits: 1
 +400 to Accuracy Rating
-(160-180)% increased Physical Damage
+{variant:1}(160-180)% increased Physical Damage
+{variant:2}(180-210)% increased Physical Damage
 (10-15)% increased Attack Speed
 100% of Physical Damage from Hits with this Weapon is Converted to a random Element
 Hits with this Weapon always inflict Elemental Ailments
@@ -533,14 +545,12 @@ Adds (30-38) to (40-50) Cold Damage
 Ewar's Mirage
 Antique Rapier
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 26, 89 Dex
 Implicits: 2
 {variant:1}+30% to Global Critical Strike Multiplier
-{variant:2,3}+25% to Global Critical Strike Multiplier
-{variant:1,2}(40-55)% increased Elemental Damage with Weapons
-{variant:3}(40-55)% increased Elemental Damage with Attack Skills
+{variant:2}+25% to Global Critical Strike Multiplier
+(40-55)% increased Elemental Damage with Attack Skills
 Adds 1 to (45-55) Lightning Damage
 (16-22)% increased Attack Speed
 Attacks Chain an additional time when in Main Hand
@@ -707,42 +717,42 @@ Queen's Decree
 Ornate Sword
 Upgrade: Upgrades to unique{Queen's Escape} via prophecy{The Misunderstood Queen}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
 Requires Level 27, 56 Str, 54 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2,3,4}+185 to Accuracy Rating
-{variant:1,2,3}Minions have (10-15)% increased maximum Life
-{variant:4}Minions have (30-40)% increased maximum Life
-(150-200)% increased Skeleton Duration
-{variant:1,2,3}Minions deal (10-15)% increased Damage
-{variant:4}Minions deal (30-40)% increased Damage
-+1 to maximum number of Zombies
-+1 to maximum number of Spectres
-{variant:1,2}+2 to maximum number of Skeletons
-{variant:3,4}+1 to maximum number of Skeletons
+{variant:2,3}+185 to Accuracy Rating
 25% increased Strength Requirement
+{variant:1,2}Minions have (10-15)% increased maximum Life
+{variant:3}Minions have (30-40)% increased maximum Life
+(150-200)% increased Skeleton Duration
+{variant:1,2}Minions deal (10-15)% increased Damage
+{variant:3}Minions deal (30-40)% increased Damage
++1 to maximum number of Raised Zombies
++1 to maximum number of Spectres
++1 to maximum number of Skeletons
 ]],[[
 Queen's Escape
 Ornate Sword
 Source: Upgraded from unique{Queen's Decree} using prophecy{The Misunderstood Queen}
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.8.0
 Variant: Current
 Requires Level 38, 56 Str, 54 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2,3}+185 to Accuracy Rating
-Minions have (30-40)% increased maximum Life
+25% increased Strength Requirement
+{variant:1,2}Minions have (10-15)% increased maximum Life
+{variant:3}Minions have (30-40)% increased maximum Life
 Minions have (80-100)% increased Movement Speed
 (150-200)% increased Skeleton Duration
-Minions deal (30-40)% increased Damage
-+1 to maximum number of Zombies
+{variant:1,2}Minions deal (10-15)% increased Damage
+{variant:3}Minions deal (30-40)% increased Damage
++1 to maximum number of Raised Zombies
 +1 to maximum number of Spectres
-{variant:1,2}+2 to maximum number of Skeletons
-{variant:3}+1 to maximum number of Skeletons
++1 to maximum number of Skeletons
 25% increased Strength Requirement
 ]],[[
 Rigwald's Charge

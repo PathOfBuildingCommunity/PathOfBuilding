@@ -29,6 +29,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("MaxLifeLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("MaxManaLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("ImpaleStacksMax", "BASE", 5, "Base")
+	modDB:NewMod("BleedStacksMax", "BASE", 1, "Base")
 	if env.build.targetVersion ~= "2_6" then
 		modDB:NewMod("MaxEnergyShieldLeechRate", "BASE", 10, "Base")
 		modDB:NewMod("MaxLifeLeechInstance", "BASE", 10, "Base")
@@ -43,6 +44,7 @@ function calcs.initModDB(env, modDB)
 		modDB:NewMod("MineLayingTime", "BASE", 0.25, "Base")
 	end
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
+	modDB:NewMod("BallistaPlacementTime", "BASE", 0.35, "Base")
 	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
 	modDB:NewMod("LifeRegenPercent", "BASE", 6, "Base", { type = "Condition", var = "OnConsecratedGround" })
 	modDB:NewMod("HitChance", "MORE", -50, "Base", { type = "Condition", var = "Blinded" })
@@ -108,7 +110,7 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 		rad.data.modSource = "Tree:"..rad.nodeId
 	end
 
-	-- Add node modifers
+	-- Add node modifiers
 	local modList = new("ModList")
 	for _, node in pairs(nodeList) do
 		local nodeModList = calcs.buildModListForNode(env, node)
@@ -189,7 +191,7 @@ function calcs.initEnv(build, mode, override)
 	-- Initialise modifier database with base values
 	local modDB = new("ModDB")
 	env.modDB = modDB
-	local classStats = env.spec.tree.characterData[env.classId]
+	local classStats = env.spec.tree.characterData and env.spec.tree.characterData[env.classId] or env.spec.tree.classes[env.classId]
 	for _, stat in pairs({"Str","Dex","Int"}) do
 		modDB:NewMod(stat, "BASE", classStats["base_"..stat:lower()], "Base")
 	end
@@ -227,6 +229,7 @@ function calcs.initEnv(build, mode, override)
 	else
 		modDB:NewMod("ActiveTrapLimit", "BASE", 15, "Base")
 		modDB:NewMod("ActiveMineLimit", "BASE", 15, "Base")
+		modDB:NewMod("ActiveBrandLimit", "BASE", 3, "Base")
 	end
 	modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
 	modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
@@ -402,15 +405,15 @@ function calcs.initEnv(build, mode, override)
 				for _, func in ipairs(funcList) do
 					local node = env.spec.nodes[slot.nodeId]
 					t_insert(env.radiusJewelList, {
-						nodes = node.nodesInRadius[item.jewelRadiusIndex],
+						nodes = node.nodesInRadius and node.nodesInRadius[item.jewelRadiusIndex] or { },
 						func = func.func,
 						type = func.type,
 						item = item,
 						nodeId = slot.nodeId,
-						attributes = node.attributesInRadius[item.jewelRadiusIndex],
+						attributes = node.attributesInRadius and node.attributesInRadius[item.jewelRadiusIndex] or { },
 						data = { }
 					})
-					if func.type ~= "Self" then
+					if func.type ~= "Self" and node.nodesInRadius then
 						-- Add nearby unallocated nodes to the extra node list
 						for nodeId, node in pairs(node.nodesInRadius[item.jewelRadiusIndex]) do
 							if not nodes[nodeId] then

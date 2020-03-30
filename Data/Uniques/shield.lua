@@ -6,16 +6,18 @@ return {
 Ahn's Heritage
 Colossal Tower Shield
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.10.0
 Variant: Current
 Requires Level 67, 159 Str
 Implicits: 1
-{variant:2}+(10-20) to maximum Life
+{variant:2,3}+(10-20) to maximum Life
 (50-100)% increased Armour
 +(60-80) to maximum Life
 -1 to maximum Endurance Charges
 -10% to maximum Block Chance
 +6% Chance to Block
-+3% to all maximum Resistances while you have no Endurance Charges
+{variant:1,2}+3% to all maximum Resistances while you have no Endurance Charges
+{variant:3}+2% to all maximum Resistances while you have no Endurance Charges
 You have Onslaught while at maximum Endurance Charges
 ]],[[
 The Anticipation
@@ -304,7 +306,7 @@ Implicits: 1
 {variant:2,3}Gain (10-15)% of Physical Damage as Extra Cold Damage
 Reflects (25-50) Cold Damage to Melee Attackers
 +5% Chance to Block
-20% of Fire Damage taken as Cold Damage
+20% of Fire Damage from Hits taken as Cold Damage
 ]],[[
 Mistwall
 Lacquered Buckler
@@ -572,19 +574,17 @@ Requires Level 68, 159 Int
 ]],[[
 Sentari's Answer
 Brass Spirit Shield
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 33, 82 Int
-{variant:1}25% of Block Chance applied to Spells
-{variant:2}+7% chance to Block Spell Damage
-{variant:3}+10% chance to Block Spell Damage
+{variant:1}+7% chance to Block Spell Damage
+{variant:2}+10% chance to Block Spell Damage
 +(20-30) to Intelligence
 (4-8)% increased Quantity of Items found
 +5% Chance to Block
-Applies level 15 Punishment on Blocking a Melee Attack
-Applies level 15 Temporal Chains on Blocking a Projectile Attack
-Applies level 15 Elemental Weakness on Blocking a Spell
+Applies level 15 Punishment on Blocking a Melee Attack, ignoring Curse Limit
+Applies level 15 Temporal Chains on Blocking a Projectile Attack, ignoring Curse Limit
+Applies level 15 Elemental Weakness on Blocking a Spell, ignoring Curse Limit
 ]],[[
 Whakatutuki o Matua
 Tarnished Spirit Shield
@@ -664,19 +664,17 @@ Implicits: 1
 Aegis Aurora
 Champion Kite Shield
 Variant: Pre 1.1.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 62, 85 Str, 85 Int
-{variant:1,2}(10-20)% increased Elemental Damage with Weapons
-{variant:3,4}(10-20)% increased Elemental Damage with Attack Skills
-{variant:1,2,3}(80-100)% increased Armour and Energy Shield
-{variant:4}(300-400)% increased Armour and Energy Shield
+(10-20)% increased Elemental Damage with Attack Skills
+{variant:1,2}(80-100)% increased Armour and Energy Shield
+{variant:3}(300-400)% increased Armour and Energy Shield
 +10% to all Elemental Resistances
 +5% to maximum Cold Resistance
 +6% Chance to Block
 {variant:1}Replenishes Energy Shield by 4% of Armour when you Block
-{variant:2,3,4}Replenishes Energy Shield by 2% of Armour when you Block
+{variant:2,3}Replenishes Energy Shield by 2% of Armour when you Block
 ]],[[
 Broken Faith
 Archon Kite Shield

@@ -53,14 +53,17 @@ Crystal Wand
 Upgrade: Upgrades to unique{Corona Solaris} via prophecy{Blinding Light}
 Variant: Pre 2.2.0
 Variant: Pre 2.3.0
+Variant: Pre 3.10.0
 Variant: Current
 Requires Level 45, 146 Int
 Implicits: 2
 {variant:1,2}(14-18)% increased Spell Damage
-{variant:3}(29-33)% increased Spell Damage
-Adds (18-22) to (36-44) Physical Damage
+{variant:3,4}(29-33)% increased Spell Damage
+{variant:1,2,3}Adds (18-22) to (36-44) Physical Damage
+{variant:4}Adds (30-45) to (60-80) Fire Damage
+{variant:4}(6-10)% increased Attack Speed
 {variant:1}+(18-30)% to Global Critical Strike Multiplier
-{variant:2,3}+(27-33)% to Global Critical Strike Multiplier
+{variant:2,3,4}+(27-33)% to Global Critical Strike Multiplier
 20% increased Light Radius
 Nearby Enemies are Blinded
 (120-140)% increased Critical Strike Chance against Blinded Enemies
@@ -68,11 +71,15 @@ Nearby Enemies are Blinded
 Corona Solaris
 Crystal Wand
 Source: Upgraded from unique{Eclipse Solaris} via prophecy{Blinding Light}
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 63, 146 Int
 Implicits: 1
 (29-33)% increased Spell Damage
 Triggers Level 20 Blinding Aura when Equipped
-Adds (18-22) to (36-44) Physical Damage
+{variant:1}Adds (18-22) to (36-44) Physical Damage
+{variant:2}Adds (30-45) to (60-80) Fire Damage
+{variant:2}(6-10)% increased Attack Speed
 +(27-33)% to Global Critical Strike Multiplier
 20% increased Light Radius
 (120-140)% increased Critical Strike Chance against Blinded Enemies
@@ -102,14 +109,13 @@ Implicits: 2
 {variant:1}(12-16)% increased Spell Damage
 {variant:2,3,4}(22-26)% increased Spell Damage
 +(10-20) to Intelligence
-{variant:1,2,3}Minions have (10-20)% increased Movement Speed
-{variant:4}Minions have (20-30)% increased Movement Speed
-{variant:1,2,3}Minions deal (10-30)% increased Damage
-{variant:4}Minions deal (50-70)% increased Damage
-+1 to Maximum number of Zombies
+{variant:1,2}Minions have (10-20)% increased Movement Speed
+{variant:3}Minions have (20-30)% increased Movement Speed
+{variant:1,2}Minions deal (10-30)% increased Damage
+{variant:3}Minions deal (50-70)% increased Damage
++1 to Maximum number of Raised Zombies
 +1 to Maximum number of Spectres
-{variant:1,2}+2 to Maximum number of Skeletons
-{variant:3,4}+1 to Maximum number of Skeletons
++1 to Maximum number of Skeletons
 Reserves 30% of Life
 Cannot be used with Chaos Inoculation
 ]],[[
@@ -137,16 +143,18 @@ Implicits: 2
 Obliteration
 Demon's Horn
 Variant: Pre 2.3.0
+Variant: Pre 3.10.0
 Variant: Current
 Requires Level 56, 179 Int
 Implicits: 2
 {variant:1}(15-18)% increased Spell Damage
-{variant:2}(31-35)% increased Spell Damage
-Adds (24-30) to (80-92) Physical Damage
+{variant:2,3}(31-35)% increased Spell Damage
+{variant:1,2}Adds (24-30) to (80-92) Physical Damage
+{variant:3}Adds (25-50) to (85-125) Physical Damage
 (26-32)% increased Critical Strike Chance
 Gain (13-15)% of Physical Damage as Extra Chaos Damage
 Enemies you Kill have a 20% chance to Explode, dealing a quarter
-of their maximum Life as Chaos Damage.
+of their maximum Life as Chaos Damage
 ]],[[
 Piscator's Vigil
 Tornado Wand

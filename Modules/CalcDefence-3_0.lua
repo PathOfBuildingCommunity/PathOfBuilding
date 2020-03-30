@@ -58,7 +58,7 @@ function calcs.defence(env, actor)
 			max = 100
 			total = 100
 		else
-			max = modDB:Override(nil, elem.."ResistMax") or m_min(100, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
+			max = modDB:Override(nil, elem.."ResistMax") or m_min(90, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
 			total = modDB:Override(nil, elem.."Resist")
 			if not total then
 				local base = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
@@ -172,6 +172,20 @@ function calcs.defence(env, actor)
 			energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, nil, "Mana", "EnergyShield", "Defences") 
 			if breakdown then
 				breakdown.slot("Conversion", "Mana to Energy Shield", nil, energyShieldBase, nil, "EnergyShield", "Defences", "Mana")
+			end
+		end
+		local convLifeToArmour = modDB:Sum("BASE", nil, "LifeGainAsArmour")
+		if convLifeToArmour > 0 then
+			armourBase = modDB:Sum("BASE", nil, "Life") * convLifeToArmour / 100
+			local total
+			if modDB:Flag(nil, "ChaosInoculation") then
+				total = 1
+			else
+				total = armourBase * calcLib.mod(modDB, nil, "Life", "Armour", "Defences") 
+			end
+			armour = armour + total
+			if breakdown then
+				breakdown.slot("Conversion", "Life to Armour", nil, armourBase, total, "Armour", "Defences", "Life")
 			end
 		end
 		local convLifeToES = modDB:Sum("BASE", nil, "LifeConvertToEnergyShield", "LifeGainAsEnergyShield")

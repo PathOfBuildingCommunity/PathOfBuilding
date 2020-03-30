@@ -114,9 +114,14 @@ data.powerStatList = {
 data.skillColorMap = { colorCodes.STRENGTH, colorCodes.DEXTERITY, colorCodes.INTELLIGENCE, colorCodes.NORMAL }
 
 data.jewelRadius = {
-	{ rad = 800, col = "^xBB6600", label = "Small" },
-	{ rad = 1200, col = "^x66FFCC", label = "Medium" },
-	{ rad = 1500, col = "^x2222CC", label = "Large" }
+	{ inner = 0, outer = 800, col = "^xBB6600", label = "Small" },
+	{ inner = 0, outer = 1200, col = "^x66FFCC", label = "Medium" },
+	{ inner = 0, outer = 1500, col = "^x2222CC", label = "Large" },
+
+	{ inner = 850, outer = 1100, col = "^xD35400", label = "Variable" },
+	{ inner = 1150, outer = 1400, col = "^x66FFCC", label = "Variable" },
+	{ inner = 1450, outer = 1700, col = "^x2222CC", label = "Variable" },
+	{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
 }
 
 data.labyrinths = {
@@ -182,13 +187,6 @@ data.specialBaseTags = {
 	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
 }
 
--- Uniques
-data.uniques = { }
-for _, type in pairs(itemTypes) do
-	data.uniques[type] = LoadModule("Data/Uniques/"..type)
-end
-LoadModule("Data/New")
-
 ---------------------------
 -- Version-specific Data --
 ---------------------------
@@ -214,6 +212,7 @@ for _, targetVersion in ipairs(targetVersionList) do
 		Flask = dataModule("ModFlask"),
 		Jewel = dataModule("ModJewel"),
 		JewelAbyss = targetVersion ~= "2_6" and dataModule("ModJewelAbyss") or { },
+		JewelCluster = targetVersion ~= "2_6" and dataModule("ModJewelCluster") or { },
 	}
 	verData.masterMods = dataModule("ModMaster")
 	verData.enchantments = {
@@ -224,6 +223,12 @@ for _, targetVersion in ipairs(targetVersionList) do
 	verData.essences = dataModule("Essence")
 	verData.pantheons = targetVersion ~= "2_6" and dataModule("Pantheons") or { }
 	
+
+	-- Cluster jewel data
+	if targetVersion ~= "2_6" then	
+		verData.clusterJewels = dataModule("ClusterJewels")
+	end
+
 	-- Load skills
 	verData.skills = { }
 	verData.skillStatMap = dataModule("SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)
@@ -231,7 +236,8 @@ for _, targetVersion in ipairs(targetVersionList) do
 		__index = function(t, key)
 			local map = verData.skillStatMap[key]
 			if map then
-				t[key] = copyTable(map, true)
+				map = copyTable(map)
+				t[key] = map
 				for _, mod in ipairs(map) do
 					processMod(t._grantedEffect, mod)
 				end
@@ -347,3 +353,10 @@ for _, targetVersion in ipairs(targetVersionList) do
 	-- Rare templates
 	verData.rares = dataModule("Rares")
 end
+
+-- Uniques (loaded after version-specific data because reasons)
+data.uniques = { }
+for _, type in pairs(itemTypes) do
+	data.uniques[type] = LoadModule("Data/Uniques/"..type)
+end
+LoadModule("Data/New")

@@ -58,6 +58,11 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#noGem
+#skill BoneArmour
+#flags duration spell
+#mods
+
 #skill BirdAspect
 #flags cast duration
 	fromItem = true,
@@ -88,6 +93,21 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" }),
 		},
 	},
+#mods
+
+#skill CatsStealthTriggeredIntimidatingCry
+#flags warcry area duration
+	fromItem = true,
+	statMap = {
+		["attack_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["intimidating_cry_attack_speed_+%_per_100_enemies"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "WarcryNearbyEnemies" }, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 100,
+		},
+	},
+#baseMod skill("buffAllies", true)
 #mods
 
 #skill CrabAspect
@@ -236,6 +256,7 @@ local skills, mod, flag, skill = ...
 			mod("AreaOfEffect", "INC", nil),
 		},
 	},
+#baseMod flag("Condition:HaveGreaterSpellEcho")
 #baseMod mod("Damage", "MORE", 35, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true })
 #baseMod mod("Damage", "MORE", 52, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true })
 #mods
@@ -339,6 +360,11 @@ local skills, mod, flag, skill = ...
 
 #skill TriggeredMoltenStrike
 #flags attack projectile area
+	fromItem = true,
+#mods
+
+#skill UniqueMirageWarriors
+#flags spell duration minion
 	fromItem = true,
 #mods
 
@@ -462,7 +488,7 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill TriggeredSummonGhostOnKill
+#skill TriggeredSummonGhostOnKill Triggered Summon Phantasm
 #flags spell minion
 	fromItem = true,
 	minionList = {
@@ -486,6 +512,7 @@ local skills, mod, flag, skill = ...
 #skill SummonVoidSphere Summon Volatile Anomaly
 #flags spell area duration
 	fromItem = true,
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill TentacleSmash
@@ -506,4 +533,9 @@ local skills, mod, flag, skill = ...
 			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 	},
+#mods
+
+#skill VoidShot
+#flags attack projectile area
+	fromItem = true,
 #mods

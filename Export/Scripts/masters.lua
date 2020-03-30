@@ -53,8 +53,8 @@ for _, craft in ipairs(dat"CraftingBenchOptions":GetRowList("IsDisabled", false)
 		out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
 		out:write('level = ', craft.Mod.Level, ', group = "', craft.Mod.Family, '", ')
 		out:write('types = { ')
-		for _, catagory in ipairs(craft.ItemCategories) do
-			for _, itemClass in ipairs(catagory.ItemClasses) do
+		for _, category in ipairs(craft.ItemCategories) do
+			for _, itemClass in ipairs(category.ItemClasses) do
 				out:write('["', itemClassMap[itemClass.Id], '"] = true, ')
 			end
 		end

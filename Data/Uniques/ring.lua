@@ -259,7 +259,7 @@ Has Alt Variant: true
 Variant: Herald of Purity: Mana Reservation
 Variant: Herald of Purity: Physical Damage
 Variant: Herald of Purity: Buff Effect
-Variant: Herald of Purity: Sentinal Damage
+Variant: Herald of Purity: Sentinel Damage
 Variant: Herald of Purity: Damage Reduction
 Limited to: 1
 Adds 1 to 4 Physical Damage to Attacks
@@ -505,21 +505,18 @@ While on Low Life, Enemies are Unlucky when Damaging you
 Malachai's Artifice
 Unset Ring
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.5.0
 Variant: Current
 Sockets: W
 Requires Level 5
 Implicits: 1
 Has 1 Socket
 {variant:1}−25% to all Elemental Resistances
-{variant:2,3}−20% to all Elemental Resistances
+{variant:2}−20% to all Elemental Resistances
 +(75-100)% to Fire Resistance when Socketed with a Red Gem
 +(75-100)% to Cold Resistance when Socketed with a Green Gem
 +(75-100)% to Lightning Resistance when Socketed with a Blue Gem
 All Sockets are White
 Socketed Gems have Elemental Equilibrium
-{variant:1}Socketed Gems have 40% reduced Elemental Equilibrium effect
-{variant:2}Socketed Gems have 25% reduced Elemental Equilibrium effect
 ]],[[
 Mark of Submission
 Unset Ring
@@ -658,6 +655,18 @@ Implicits: 1
 −(4-8) to Mana Cost of Skills
 8% of Damage taken gained as Mana over 4 seconds when Hit
 ]],[[
+Profane Proxy
+Unset Ring
+Sockets: G
+LevelReq: 52
+Implicits: 1
+Has 1 Socket
++3 to Level of Socketed Curse Gems
++(20-30)% to Cold Resistance
++(20-30)% to Lightning Resistance
+Left Ring Slot: Your Chilling Skitterbot's Aura applies Socketed Curse instead
+Right Ring Slot: Your Shocking Skitterbot's Aura applies Socketed Curse instead
+]],[[
 Putembo's Meadow
 Topaz Ring
 League: Delve
@@ -778,23 +787,21 @@ Sibyl's Lament
 Coral Ring
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 45
 Implicits: 1
 +(20-30) to maximum Life
-{variant:1,2,3}(20-30)% increased Elemental Damage with Weapons
-{variant:4,5}(20-30)% increased Elemental Damage with Attack Skills
+(20-30)% increased Elemental Damage with Attack Skills
 Adds (8-15) to (20-28) Fire Damage to Attacks
 {variant:1}(20-40)% reduced Rarity of Items found
-{variant:2,3,4,5}(10-20)% reduced Rarity of Items found
+{variant:2,3,4}(10-20)% reduced Rarity of Items found
 {variant:1,2}Left ring slot: 30% reduced Reflected Elemental Damage taken
-{variant:3,4}Left ring slot: 40% reduced Reflected Elemental Damage taken
-{variant:5}Left ring slot: 80% reduced Reflected Elemental Damage taken
+{variant:3}Left ring slot: 40% reduced Reflected Elemental Damage taken
+{variant:4}Left ring slot: 80% reduced Reflected Elemental Damage taken
 {variant:1,2}Right ring slot: 30% reduced Reflected Physical Damage taken
-{variant:3,4}Right ring slot: 40% reduced Reflected Physical Damage taken
-{variant:5}Right ring slot: 80% reduced Reflected Physical Damage taken
+{variant:3}Right ring slot: 40% reduced Reflected Physical Damage taken
+{variant:4}Right ring slot: 80% reduced Reflected Physical Damage taken
 ]],[[
 Snakepit
 Sapphire Ring
@@ -834,7 +841,7 @@ Variant: Current
 Requires Level 30
 Implicits: 1
 +(8-10)% to all Elemental Resistances
-{variant:1}15% increased Elemental Damage with Weapons
+{variant:1}15% increased Elemental Damage with Attack Skills
 {variant:2}30% increased Elemental Damage with Attack Skills
 {variant:1}+(10-15)% to all Elemental Resistances
 {variant:2}+(20-30)% to all Elemental Resistances

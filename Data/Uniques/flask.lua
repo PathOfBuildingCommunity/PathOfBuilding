@@ -248,21 +248,31 @@ Quartz Flask
 League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Soul Ripper} via currency{Vial of the Ghost}
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 27
 Cannot gain Mana during effect
-Vaal Skills deal (60-100)% increased Damage during effect
-Vaal Skills have 25% reduced Soul Cost during effect
+{variant:2}Vaal Skills have (80-120)% increased Critical Strike Chance during effect
+{variant:1}Vaal Skills deal (60-100)% increased Damage during effect
+{variant:2}Vaal Skills deal (80-120)% increased Damage during effect
+{variant:1}Vaal Skills have 25% reduced Soul Cost during effect
 Vaal Skills used during effect have (20-40)% reduced Soul Gain Prevention Duration
 ]],[[
 Soul Ripper
 Quartz Flask
 League: Incursion
 Source: Upgraded from unique{Soul Catcher} via currency{Vial of the Ghost}
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 27
-100% increased Charges used
-Vaal Skills deal (30-40)% more Damage during effect
-Vaal Skills used during effect do not apply Soul Gain Prevention
-Gains no Charges During effect of any Soul Ripper Flask
+{variant:1}100% increased Charges used
+{variant:1}Vaal Skills deal (30-40)% more Damage during effect
+{variant:1}Vaal Skills used during effect do not apply Soul Gain Prevention
+{variant:1}Gains no Charges During effect of any Soul Ripper Flask
+{variant:2}+(-40 to 90) maximum Charges
+{variant:2}Loses all Charges when you enter a new area
+{variant:2}Consumes Maximum Charges to use
+{variant:2}Gain Vaal Souls equal to Charges Consumed when used
 ]],[[
 Taste of Hate
 Sapphire Flask
@@ -270,8 +280,8 @@ Variant: Pre 2.2.0
 Variant: {2_6}Pre 3.0.0
 Variant: Current
 Requires Level 18
-{variant:1}30% of Physical Damage taken as Cold Damage during Flask effect
-{variant:2,3}20% of Physical Damage taken as Cold Damage during Flask effect
+{variant:1}30% of Physical Damage from Hits taken as Cold Damage during Flask effect
+{variant:2,3}20% of Physical Damage from Hits taken as Cold Damage during Flask effect
 {variant:1,2}Gain (20-30)% of Physical Damage as Extra Cold Damage during effect
 {variant:3}Gain (15-20)% of Physical Damage as Extra Cold Damage during effect
 30% chance to Avoid being Chilled during Flask effect
@@ -312,7 +322,7 @@ Requires Level 68
 {variant:5,6,7,8,9,10,11,12}20% of Lightning Damage Leeched as Life during Flask effect
 {variant:1,2,3,4}30% of Lightning Damage Leeched as Mana during Flask effect
 {variant:5,6,7,8}20% of Lightning Damage Leeched as Mana during Flask effect
-{variant:1,2,3,4}Leech applies instantly during Flask effect
+{variant:1,2,3,4}Life and Mana Leech are instant during effect
 {variant:1,5,9}Damage Penetrates 10% Lightning Resistance during Flask effect
 {variant:2,6,10}Adds (15-25) to (70-90) Lightning Damage to Spells during Flask effect
 {variant:3,7,11}Adds (25-35) to (110-130) Lightning Damage to Attacks during Flask effect

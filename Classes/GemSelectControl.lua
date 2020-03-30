@@ -145,11 +145,11 @@ function GemSelectClass:UpdateSortCache()
 			if gemList[self.index] then
 				oldGem = copyTable(gemList[self.index], true)
 			else
-				gemList[self.index] = { level = self.skillsTab.defaultGemLevel or 20, quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
+				gemList[self.index] = { level = self.skillsTab.defaultGemLevel or gemData.defaultLevel, quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
 			end
 			local gemInstance = gemList[self.index]
 			if gemInstance.gemData and gemInstance.gemData.defaultLevel ~= gemData.defaultLevel then
-				gemInstance.level = self.skillsTab.defaultGemLevel or 20
+				gemInstance.level = self.skillsTab.defaultGemLevel or gemData.defaultLevel
 			end
 			gemInstance.gemData = gemData
 			if not gemData.grantedEffect.levels[gemInstance.level] then
@@ -307,11 +307,11 @@ function GemSelectClass:Draw(viewPort)
 				if gemList[self.index] then
 					oldGem = copyTable(gemList[self.index], true)
 				else
-					gemList[self.index] = { level = self.skillsTab.defaultGemLevel or 20, quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
+					gemList[self.index] = { level = self.skillsTab.defaultGemLevel or gemData.defaultLevel, quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
 				end
 				local gemInstance = gemList[self.index]
 				if gemInstance.gemData and gemInstance.gemData.defaultLevel ~= gemData.defaultLevel then
-					gemData.level = self.skillsTab.defaultGemLevel or 20
+					gemData.level = self.skillsTab.defaultGemLevel or gemData.defaultLevel
 				end
 				gemInstance.gemData = gemData
 				if not gemData.grantedEffect.levels[gemInstance.level] then
@@ -368,17 +368,17 @@ function GemSelectClass:AddGemTooltip(gemInstance)
 	self.tooltip.color = colorCodes.GEM
 	local primary = gemInstance.gemData.grantedEffect
 	local secondary = gemInstance.gemData.secondaryGrantedEffect
-	if secondary and not secondary.support then
-		local grantedEffect = primary.support and primary or secondary
-		local grantedEffectVaal = primary.support and secondary or primary
+	if secondary and (not secondary.support or gemInstance.gemData.secondaryEffectName) then
+		local grantedEffect = gemInstance.gemData.VaalGem and secondary or primary
+		local grantedEffectSecondary = gemInstance.gemData.VaalGem and primary or secondary
 		self.tooltip:AddLine(20, colorCodes.GEM..grantedEffect.name)
 		self.tooltip:AddSeparator(10)
 		self.tooltip:AddLine(16, "^x7F7F7F"..gemInstance.gemData.tagString)
 		self:AddCommonGemInfo(gemInstance, grantedEffect, true)
 		self.tooltip:AddSeparator(10)
-		self.tooltip:AddLine(20, colorCodes.GEM..grantedEffectVaal.name)
+		self.tooltip:AddLine(20, colorCodes.GEM..(gemInstance.gemData.secondaryEffectName or grantedEffectSecondary.name))
 		self.tooltip:AddSeparator(10)
-		self:AddCommonGemInfo(gemInstance, grantedEffectVaal)
+		self:AddCommonGemInfo(gemInstance, grantedEffectSecondary)
 	else
 		local grantedEffect = gemInstance.gemData.grantedEffect
 		self.tooltip:AddLine(20, colorCodes.GEM..grantedEffect.name)

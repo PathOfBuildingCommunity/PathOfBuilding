@@ -86,6 +86,7 @@ League: Delve
 Source: Drops from unique{Aul, the Crystal King}
 Variant: Strength: Anger
 Variant: Strength: Determination
+Variant: Strength: Pride
 Variant: Strength: Purity of Fire
 Variant: Strength: Vitality
 Variant: Dexterity: Grace
@@ -103,37 +104,38 @@ Variant: Envy
 Requires Level 55
 Implicits: 1
 +(10-16) to all Attributes
-{variant:1,2,3,4}+(20-30) to Strength
-{variant:5,6,7,8}+(20-30) to Dexterity
-{variant:9,10,11,12,13,14,15}+(20-30) to Intelligence
-{variant:16}Grants Level 15 Envy Skill
-{variant:1,2,3,4}(15-20)% increased Armour
-{variant:5,6,7,8}(15-20)% increased Evasion Rating
-{variant:9,10,11,12,13,14,15}(15-20)% increased maximum Energy Shield
-{variant:16}+(15-20) to all Attributes
+{variant:1,2,3,4,5}+(20-30) to Strength
+{variant:6,7,8,9}+(20-30) to Dexterity
+{variant:10,11,12,13,14,15,16}+(20-30) to Intelligence
+{variant:17}Grants Level 15 Envy Skill
+{variant:1,2,3,4,5}(15-20)% increased Armour
+{variant:6,7,8,9}(15-20)% increased Evasion Rating
+{variant:10,11,12,13,14,15,16}(15-20)% increased maximum Energy Shield
+{variant:17}+(15-20) to all Attributes
 +(50-70) to maximum Life
-{variant:1,2,3,4}10% reduced Stun and Block Recovery
-{variant:5,6,7,8}Nearby Enemies grant 25% increased Flask Charges
-{variant:9,10,11,12,13,14,15}2% additional Chance to receive a Critical Strike
-{variant:1,2,3,4}Nearby Enemies have 10% reduced Stun and Block Recovery
-{variant:9,10,11,12,13,14,15}Hits against Nearby Enemies have 50% increased Critical Strike Chance
-{variant:16}(15-20)% increased Global Defences
+{variant:1,2,3,4,5}10% reduced Stun and Block Recovery
+{variant:6,7,8,9}Nearby Enemies grant 25% increased Flask Charges
+{variant:10,11,12,13,14,15,16}2% additional Chance to receive a Critical Strike
+{variant:1,2,3,4,5}Nearby Enemies have 10% reduced Stun and Block Recovery
+{variant:10,11,12,13,14,15,16}Hits against Nearby Enemies have 50% increased Critical Strike Chance
+{variant:17}(15-20)% increased Global Defences
 {variant:1}Anger Reserves no Mana
 {variant:2}Determination Reserves no Mana
-{variant:3}Purity of Fire Reserves no Mana
-{variant:4}Vitality Reserves no Mana
-{variant:5}Grace Reserves no Mana
-{variant:6}Haste Reserves no Mana
-{variant:7}Hatred Reserves no Mana
-{variant:8}Purity of Ice Reserves no Mana
-{variant:9}Clarity Reserves no Mana
-{variant:10}Discipline Reserves no Mana
-{variant:11}Malevolence Reserves no Mana
-{variant:12}Purity of Elements Reserves no Mana
-{variant:13}Purity of Lightning Reserves no Mana
-{variant:14}Wrath Reserves no Mana
-{variant:15}Zealotry Reserves no Mana
-{variant:16}Envy Reserves no Mana
+{variant:3}Pride Reserves no Mana
+{variant:4}Purity of Fire Reserves no Mana
+{variant:5}Vitality Reserves no Mana
+{variant:6}Grace Reserves no Mana
+{variant:7}Haste Reserves no Mana
+{variant:8}Hatred Reserves no Mana
+{variant:9}Purity of Ice Reserves no Mana
+{variant:10}Clarity Reserves no Mana
+{variant:11}Discipline Reserves no Mana
+{variant:12}Malevolence Reserves no Mana
+{variant:13}Purity of Elements Reserves no Mana
+{variant:14}Purity of Lightning Reserves no Mana
+{variant:15}Wrath Reserves no Mana
+{variant:16}Zealotry Reserves no Mana
+{variant:17}Envy Reserves no Mana
 ]],[[
 The Aylardex
 Agate Amulet
@@ -327,7 +329,7 @@ Variant: Attack/Cast Speed
 Variant: Item Quantity
 Variant: Life
 Variant: Crit Multiplier
-Variant: Maximum number of Zombies
+Variant: Maximum number of Raised Zombies
 Variant: Frenzy Charge on Kill
 Variant: Power Charge on Kill
 Variant: Endurance Charge on Kill
@@ -360,7 +362,7 @@ Implicits: 32
 {variant:17}(12-20)% increased Quantity of Items found
 {variant:18}(16-24)% increased maximum Life
 {variant:19}+(48-72)% to Global Critical Strike Multiplier
-{variant:20}+2 to maximum number of Zombies
+{variant:20}+2 to maximum number of Raised Zombies
 {variant:21}20% chance to gain a Frenzy Charge on Kill
 {variant:22}20% chance to gain a Power Charge on Kill
 {variant:23}20% chance to gain a Endurance Charge on Kill
@@ -687,13 +689,16 @@ Zerphi's Heart
 Paua Amulet
 League: Incursion
 Source: Upgraded from unique{Sacrificial Heart} via currency{Vial of Sacrifice}
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 70
 Implicits: 1
 (20-30)% increased Mana Regeneration Rate
 Adds (48-53) to (58-60) Chaos Damage
 Items and Gems have 50% increased Attribute Requirements
 Chaos Damage can Ignite, Chill and Shock
-Gain Soul Eater for 10 seconds when you use a Vaal Skill
+{variant:1}Gain Soul Eater for 10 seconds when you use a Vaal Skill
+{variant:2}Gain Soul Eater for 20 seconds when you use a Vaal Skill
 ]],[[
 Shaper's Seed
 Agate Amulet
@@ -725,12 +730,16 @@ Minions have (10-15)% increased Movement Speed
 Solstice Vigil
 Onyx Amulet
 Source: Drops from unique{The Shaper}
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 64
 Implicits: 1
 +(10-16) to all Attributes
-(20-25)% increased Damage
+{variant:1}(20-25)% increased Damage
+{variant:2}(30-40)% increased Damage
 +(50-70) to maximum Life
-(2-3) Mana Regenerated per second
+{variant:1}(2-3) Mana Regenerated per second
+{variant:2}(8-10) Mana Regenerated per second
 Temporal Chains has 100% reduced Mana Reservation
 Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
@@ -824,16 +833,13 @@ Lapis Amulet
 League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Choir of the Storm} using currency{Blessing of Esh}
-Variant: {2_6}Pre 3.0.0
-Variant: Current
 Requires Level 40
 Implicits: 1
 +(20-30) to Intelligence
+Trigger Level 12 Lightning Bolt when you deal a Critical Strike
 +(10-15) to all Attributes
 (10-20)% increased maximum Mana
-{variant:1}Critical Strike Chance is increased by Uncapped Lightning Resistance
-{variant:2}Critical Strike Chance is increased by Lightning Resistance
-Trigger Level 12 Lightning Bolt when you deal a Critical Strike
+Critical Strike Chance is increased by Lightning Resistance
 ]],[[
 Choir of the Storm
 Lapis Amulet
@@ -844,13 +850,11 @@ Variant: Current
 Requires Level 69
 Implicits: 1
 +(20-30) to Intelligence
+Trigger Level 20 Lightning Bolt when you deal a Critical Strike
+50% increased Lightning Damage
 (10-20)% increased maximum Mana
 {variant:1}-30% to Lightning Resistance
-{variant:1}Critical Strike Chance is increased by Uncapped Lightning Resistance
-{variant:2}Critical Strike Chance is increased by Lightning Resistance
-{variant:1}Critical Strikes deal 50% increased Lightning Damage
-{variant:2}50% increased Lightning Damage
-Trigger Level 20 Lightning Bolt when you deal a Critical Strike
+Critical Strike Chance is increased by Lightning Resistance
 ]],[[
 Voll's Devotion
 Agate Amulet

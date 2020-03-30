@@ -101,7 +101,7 @@ Socketed Gems are Supported by level 15 Pierce
 ]],[[
 Iron Heart
 Crusader Plate
-Upgrade: Upgrades to unique{The Iron Fortress} via prophecy{Battle Hardended}
+Upgrade: Upgrades to unique{The Iron Fortress} via prophecy{Battle Hardened}
 Requires Level 59, 160 Str
 (80-100)% increased Armour 
 10% reduced Movement Speed 
@@ -119,6 +119,18 @@ Chance to Block Spell Damage is Unlucky
 (80-100)% increased Armour
 10% reduced Movement Speed
 Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
+]],[[
+Perfidy
+Glorious Plate
+Requires Level 68, 191 Str
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+(25-40)% increased Melee Damage
++(60-100) to maximum Life
+You can have two different Banners at the same time
+Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
+War Banner has (100-200)% increased Adrenaline duration
+Dread Banner has (100-200)% increased Fortify duration
 ]],[[
 Solaris Lorica
 Copper Plate
@@ -287,7 +299,7 @@ Requires Level 56, 152 Dex
 {variant:2}-50% to Fire Resistance
 15% increased Movement Speed
 20% increased Fire Damage taken
-10% of Fire Damage taken as Physical Damage
+10% of Fire Damage from Hits taken as Physical Damage
 ]],[[
 The Snowblind Grace
 Coronal Leather
@@ -374,7 +386,7 @@ Requires Level 18, 55 Int
 (30-50)% increased Ignite Duration on Enemies
 10% chance to Ignite
 Reflects 15 Fire Damage to Melee Attackers
-20% of Physical Damage taken as Fire Damage
+20% of Physical Damage from Hits taken as Fire Damage
 ]],[[
 Cloak of Tawm'r Isley
 Savant's Robe
@@ -726,8 +738,8 @@ Adds 1 to (20-30) Lightning Damage to Attacks
 (90-120)% increased Armour and Evasion
 +(60-80) to maximum Life
 −60% to Lightning Resistance
-{variant:1}40% of Physical Damage taken as Lightning Damage
-{variant:2}30% of Physical Damage taken as Lightning Damage
+{variant:1}40% of Physical Damage from Hits taken as Lightning Damage
+{variant:2}30% of Physical Damage from Hits taken as Lightning Damage
 ]],[[
 Viper's Scales
 Full Scale Armour
@@ -763,13 +775,13 @@ Share Endurance Charges with nearby party members
 Chains of Command
 Saintly Chainmail
 Requires Level 70, 99 Str, 115 Int
+Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
+10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy
 (150-190)% increased Armour and Energy Shield
 +(60-90) to maximum Life
 Animated Guardian deals 5% increased Damage per Animated Weapon
 Animated Minions' Melee Attacks deal Splash Damage to surrounding targets
 Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets
-Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
-10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy
 You cannot have non-Animated Minions
 ]],[[
 Geofri's Sanctuary
@@ -827,7 +839,7 @@ Requires Level 70, 99 Str, 115 Int
 {variant:2}Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 {variant:1}(0.8-1)% of Physical Attack Damage Leeched as Life
 {variant:2}(0.8-1)% of Attack Damage Leeched as Life
-25% of Elemental Damage taken as Chaos Damage
+25% of Elemental Damage from Hits taken as Chaos Damage
 (20-30)% increased Light Radius
 Light Radius is based on Energy Shield instead of Life
 ]],[[
@@ -899,13 +911,13 @@ Sporeguard
 Saint's Hauberk
 Requires Level 67, 109 Str, 94 Int
 League: Blight
+Implicits: 0
 Trigger Level 10 Contaminate when you Kill an Enemy
 (200-250)% increased Armour and Energy Shield
 (7-10)% increased maximum Life
 +(17-23)% to Chaos Resistance
 Enemies on Fungal Ground you Kill Explode, dealing 5% of their Life as Chaos Damage
 You have Fungal Ground around you while stationary
-(Allies on your Fungal Ground gain 10% of Non-Chaos Damage as extra Chaos Damage. Enemies on your Fungal Ground deal 10% less Damage.)
 ]],[[
 Voll's Protector
 Holy Chainmail
@@ -1116,15 +1128,18 @@ Requires Level 75, 66 Str, 66 Dex, 66 Int
 Shadowstitch
 Sacrificial Garb
 League: Incursion
+Variant: Pre 3.10.0
+Variant: Current
 Requires Level 72, 66 Str, 66 Dex, 66 Int
 Implicits: 0
 Has an additional Implicit Mod
 +(20-30) to all Attributes
+{variant:2}(250-350)% increased Armour, Evasion and Energy Shield
 Recover (3-5)% of Maximum Life on Kill
 Recover (3-5)% of Maximum Energy Shield on Kill
--(6-4)% to all Resistances for each Equipped Corrupted Item
-8% increased Maximum Energy Shield for each Equipped Corrupted Item
 6% increased Maximum Life for each Equipped Corrupted Item
+8% increased Maximum Energy Shield for each Equipped Corrupted Item
+-(6-4)% to all Resistances for each Equipped Corrupted Item
 Corrupted
 ]],
 }

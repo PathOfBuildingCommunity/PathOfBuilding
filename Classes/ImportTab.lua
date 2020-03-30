@@ -61,6 +61,21 @@ If possible, change the game version in the Configuration tab before importing.]
 	self.controls.accountNameGo.enabled = function()
 		return self.controls.accountName.buf:match("%S")
 	end
+	-- accountHistory Control
+	if not historyList then
+		historyList = { }
+		for accountName, account in pairs(main.gameAccounts) do
+			t_insert(historyList, accountName)
+			historyList[accountName] = true
+		end
+		table.sort(historyList)
+	end -- don't load the list many times
+
+	self.controls.accountHistory = new("DropDownControl", {"LEFT",self.controls.accountNameGo,"RIGHT"}, 8, 0, 200, 20, historyList, function()
+		self.controls.accountName.buf = self.controls.accountHistory.list[self.controls.accountHistory.selIndex]
+	end)
+	self.controls.accountHistory:SelByValue(main.lastAccountName)
+
 	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, 0, 16, 0, 14, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
 	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, 0, 4, 170, 18, "^x4040FFhttps://www.urlencoder.org/", function()
 		OpenURL("https://www.urlencoder.org/")
@@ -137,9 +152,17 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:")
 	self.controls.charImportItemsClearItems.tooltipText = "Delete all equipped items when importing."
 	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choices,\nas these cannot be imported.")
+
 	self.controls.charDone = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Done", function()
 		self.charImportMode = "GETACCOUNTNAME"
 		self.charImportStatus = "Idle"
+		-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
+		if not historyList[self.controls.accountName.buf] then
+			t_insert(historyList, self.controls.accountName.buf)
+			historyList[self.controls.accountName.buf] = true
+			self.controls.accountHistory:SelByValue(self.controls.accountName.buf)
+			table.sort(historyList)
+		end
 	end)
 
 	-- Build import/export
@@ -450,12 +473,8 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 			end
 		end
 	end
-	local sockets = { }
-	for i, slot in pairs(charPassiveData.jewel_slots) do
-		sockets[i] = tonumber(type(slot) == "number" and slot or slot.passiveSkill.hash)
-	end
 	for _, itemData in pairs(charPassiveData.items) do
-		self:ImportItem(itemData, sockets)
+		self:ImportItem(itemData)
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
@@ -548,10 +567,10 @@ end
 local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC" }
 local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Belt"] = "Belt" }
 
-function ImportTabClass:ImportItem(itemData, sockets, slotName)
+function ImportTabClass:ImportItem(itemData, slotName)
 	if not slotName then
-		if itemData.inventoryId == "PassiveJewels" and sockets then
-			slotName = "Jewel "..sockets[itemData.x + 1]
+		if itemData.inventoryId == "PassiveJewels" then
+			slotName = "Jewel "..self.build.latestTree.jewelSlots[itemData.x + 1]
 		elseif itemData.inventoryId == "Flask" then
 			slotName = "Flask "..(itemData.x + 1)
 		else
@@ -628,12 +647,7 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 			if property.name == "Quality" then
 				item.quality = tonumber(property.values[1][1]:match("%d+"))
 			elseif property.name == "Radius" then
-				for index, data in pairs(self.build.data.jewelRadius) do
-					if property.values[1][1] == data.label then
-						item.jewelRadiusIndex = index
-						break
-					end
-				end
+				item.jewelRadiusLabel = property.values[1][1]
 			elseif property.name == "Limited to" then
 				item.limit = tonumber(property.values[1][1])
 			elseif property.name == "Evasion Rating" then
@@ -672,29 +686,28 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 			end
 		end
 	end
-	item.modLines = { }
-	item.implicitLines = 0
+	item.enchantModLines = { }
+	item.implicitModLines = { }
+	item.explicitModLines = { }
 	if itemData.enchantMods then
-		item.implicitLines = item.implicitLines + #itemData.enchantMods
 		for _, line in ipairs(itemData.enchantMods) do
 			line = line:gsub("\n"," ")
 			local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+			t_insert(item.enchantModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
 		end
 	end
 	if itemData.implicitMods then
-		item.implicitLines = item.implicitLines + #itemData.implicitMods
 		for _, line in ipairs(itemData.implicitMods) do
 			line = line:gsub("\n"," ")
 			local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-			t_insert(item.modLines, { line = line, extra = extra, mods = modList or { } })
+			t_insert(item.implicitModLines, { line = line, extra = extra, mods = modList or { } })
 		end
 	end
 	if itemData.fracturedMods then
 		for _, line in ipairs(itemData.fracturedMods) do
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-				t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, fractured = true })
+				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, fractured = true })
 			end
 		end
 	end
@@ -702,7 +715,7 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 		for _, line in ipairs(itemData.explicitMods) do
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-				t_insert(item.modLines, { line = line, extra = extra, mods = modList or { } })
+				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { } })
 			end
 		end
 	end
@@ -710,7 +723,7 @@ function ImportTabClass:ImportItem(itemData, sockets, slotName)
 		for _, line in ipairs(itemData.craftedMods) do
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-				t_insert(item.modLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
 			end
 		end
 	end
@@ -745,7 +758,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	local abyssalSocketId = 1
 	for _, socketedItem in ipairs(socketedItems) do
 		if socketedItem.abyssJewel then
-			self:ImportItem(socketedItem, nil, slotName .. " Abyssal Socket "..abyssalSocketId)
+			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId)
 			abyssalSocketId = abyssalSocketId + 1
 		else
 			local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true }

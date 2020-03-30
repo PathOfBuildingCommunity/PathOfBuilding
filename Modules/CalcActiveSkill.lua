@@ -447,6 +447,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
 	-- Extract skill data
+	for _, value in ipairs(env.modDB:List(activeSkill.skillCfg, "SkillData")) do
+		activeSkill.skillData[value.key] = value.value
+	end
 	for _, value in ipairs(skillModList:List(activeSkill.skillCfg, "SkillData")) do
 		activeSkill.skillData[value.key] = value.value
 	end
@@ -614,7 +617,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
 	if activeSkill.buffList[1] then
-		-- Add to auxillary skill list
+		-- Add to auxiliary skill list
 		t_insert(env.auxSkillList, activeSkill)
 	end
 end

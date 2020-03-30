@@ -415,7 +415,7 @@ Implicits: 2
 (25-30)% increased Zombie Resistances
 25% increased Zombie Size
 Enemies killed by Zombies explode dealing 20% of their Maximum Life as Fire Damage
-{variant:1,2,3}Zombies deal (80-100)% increased Physical Damage
+{variant:1,2,3}Raised Zombies deal (80-100)% increased Physical Damage
 {variant:4}Raised Zombies deal (80-100)% more Physical Damage
 ]],[[
 Nycta's Lantern
@@ -622,12 +622,12 @@ Requires Level 44, 143 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}45% increased Stun Duration on Enemies
+{variant:2}25% chance to Trigger level 20 Animate Weapon on Kill
 (150-200)% increased Physical Damage
-(8-12)% increased Cast Speed
 (8-12)% increased Attack Speed
+(8-12)% increased Cast Speed
 30% less Animate Weapon Duration
 Weapons you Animate create an additional copy
-{variant:2}25% chance to Trigger level 20 Animate Weapon on Kill
 ]],[[
 Kongor's Undying Rage
 Terror Maul

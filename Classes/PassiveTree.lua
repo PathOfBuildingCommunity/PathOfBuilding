@@ -12,10 +12,30 @@ local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 local m_pi = math.pi
+local m_rad = math.rad
 local m_sin = math.sin
 local m_cos = math.cos
 local m_tan = math.tan
 local m_sqrt = math.sqrt
+
+
+local classArt = {
+	[0] = "centerscion",
+	[1] = "centermarauder",
+	[2] = "centerranger",
+	[3] = "centerwitch",
+	[4] = "centerduelist",
+	[5] = "centertemplar",
+	[6] = "centershadow"
+}
+
+local orbit4Angle = { [0] = 0, 10, 20, 30, 40, 45, 50, 60, 70, 80, 90, 100, 110, 120, 130, 135, 140, 150, 160, 170, 180, 190, 200, 210, 220, 225, 230, 240, 250, 260, 270, 280, 290, 300, 310, 315, 320, 330, 340, 350 }
+for i, ang in ipairs(orbit4Angle) do
+	orbit4Angle[i] = m_rad(ang)
+end
+local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6 }
+local orbitDist = { [0] = 0, 82, 162, 335, 493 }
+
 
 -- Retrieve the file at the given URL
 local function getFile(URL)
@@ -34,10 +54,11 @@ end
 local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.treeVersion = treeVersion
 	self.targetVersion = treeVersions[treeVersion].targetVersion
+	local versionNum = treeVersions[treeVersion].num
 
 	MakeDir("TreeData")
 
-	ConPrintf("Loading passive tree data...")
+	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].short)
 	local treeText
 	local treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "r")
 	if treeFile then
@@ -53,9 +74,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		else
 			page = getFile("https://www.pathofexile.com/passive-skill-tree/")
 		end
-		treeText = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
-		treeText = treeText .. "tree.classes=" .. jsonToLua(page:match("ascClasses: (%b{})"))
-		treeText = treeText .. "return tree"
+		local treeData = page:match("var passiveSkillTreeData = (%b{})")
+		if treeData then
+			treeText = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
+			treeText = treeText .. "tree.classes=" .. jsonToLua(page:match("ascClasses: (%b{})"))
+			treeText = "return tree"
+		else
+			treeText = "return " .. jsonToLua(page)
+		end
 		treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "w")
 		treeFile:write(treeText)
 		treeFile:close()
@@ -64,14 +90,26 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self[k] = v
 	end
 
-	local cdnRoot = treeVersion == "2_6" and "" or "https://web.poecdn.com/image"
+	local cdnRoot = versionNum >= 3.08 and versionNum <= 3.09 and "https://web.poecdn.com" or ""
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
+
+	if versionNum >= 3.10 then
+		-- Migrate to old format
+		for i = 0, 6 do
+			self.classes[i] = self.classes[i + 1]
+			self.classes[i + 1] = nil
+		end
+	end
 
 	-- Build maps of class name -> class table
 	self.classNameMap = { }
 	self.ascendNameMap = { }
 	for classId, class in pairs(self.classes) do
+		if versionNum >= 3.10 then
+			-- Migrate to old format
+			class.classes = class.ascendancies
+		end
 		class.classes[0] = { name = "None" }
 		self.classNameMap[class.name] = classId
 		for ascendClassId, ascendClass in pairs(class.classes) do
@@ -90,86 +128,97 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	-- Load sprite sheets and build sprite map
-	local spriteMap = { }
+	self.spriteMap = { }
 	local spriteSheets = { }
 	for type, data in pairs(self.skillSprites) do
 		local maxZoom = data[#data]
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
-			self:LoadImage(maxZoom.filename:gsub("%?%x+$",""), cdnRoot..self.imageRoot.."build-gen/passive-skill-sprite/"..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
+			self:LoadImage(maxZoom.filename:gsub("%?%x+$",""), "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
-			if not spriteMap[name] then
-				spriteMap[name] = { }
+			if not self.spriteMap[name] then
+				self.spriteMap[name] = { }
 			end
-			spriteMap[name][type] = {
+			self.spriteMap[name][type] = {
 				handle = sheet.handle,
 				width = coords.w,
 				height = coords.h,
-				[1] = coords.x / sheet.width, 
-				[2] = coords.y / sheet.height, 
+				[1] = coords.x / sheet.width,
+				[2] = coords.y / sheet.height,
 				[3] = (coords.x + coords.w) / sheet.width,
 				[4] = (coords.y + coords.h) / sheet.height
 			}
 		end
 	end
 
-	local classArt = {
-		[0] = "centerscion",
-		[1] = "centermarauder",
-		[2] = "centerranger",
-		[3] = "centerwitch",
-		[4] = "centerduelist",
-		[5] = "centertemplar",
-		[6] = "centershadow"
-	}
-	local nodeOverlay = {
+	self.nodeOverlay = {
 		Normal = {
 			artWidth = 40,
 			alloc = "PSSkillFrameActive",
 			path = "PSSkillFrameHighlighted",
 			unalloc = "PSSkillFrame",
-			allocAscend = "PassiveSkillScreenAscendancyFrameSmallAllocated",
-			pathAscend = "PassiveSkillScreenAscendancyFrameSmallCanAllocate",
-			unallocAscend = "PassiveSkillScreenAscendancyFrameSmallNormal"
+			allocAscend = versionNum >= 3.10 and "AscendancyFrameSmallAllocated" or "PassiveSkillScreenAscendancyFrameSmallAllocated",
+			pathAscend = versionNum >= 3.10 and "AscendancyFrameSmallCanAllocate" or "PassiveSkillScreenAscendancyFrameSmallCanAllocate",
+			unallocAscend = versionNum >= 3.10 and "AscendancyFrameSmallNormal" or "PassiveSkillScreenAscendancyFrameSmallNormal"
 		},
 		Notable = {
 			artWidth = 58,
 			alloc = "NotableFrameAllocated",
 			path = "NotableFrameCanAllocate",
 			unalloc = "NotableFrameUnallocated",
-			allocAscend = "PassiveSkillScreenAscendancyFrameLargeAllocated",
-			pathAscend = "PassiveSkillScreenAscendancyFrameLargeCanAllocate",
-			unallocAscend = "PassiveSkillScreenAscendancyFrameLargeNormal"
+			allocAscend = versionNum >= 3.10 and "AscendancyFrameLargeAllocated" or "PassiveSkillScreenAscendancyFrameLargeAllocated",
+			pathAscend = versionNum >= 3.10 and "AscendancyFrameLargeCanAllocate" or "PassiveSkillScreenAscendancyFrameLargeCanAllocate",
+			unallocAscend = versionNum >= 3.10 and "AscendancyFrameLargeNormal" or "PassiveSkillScreenAscendancyFrameLargeNormal",
+			allocBlighted = "BlightedNotableFrameAllocated",
+			pathBlighted = "BlightedNotableFrameCanAllocate",
+			unallocBlighted = "BlightedNotableFrameUnallocated",
 		},
-		Keystone = { 
+		Keystone = {
 			artWidth = 84,
 			alloc = "KeystoneFrameAllocated",
 			path = "KeystoneFrameCanAllocate",
 			unalloc = "KeystoneFrameUnallocated"
 		},
 		Socket = {
-			artWidth = 58, 
+			artWidth = 58,
 			alloc = "JewelFrameAllocated",
 			path = "JewelFrameCanAllocate",
-			unalloc = "JewelFrameUnallocated"
+			unalloc = "JewelFrameUnallocated",
+			allocAlt = "JewelSocketAltActive",
+			pathAlt = "JewelSocketAltCanAllocate",
+			unallocAlt = "JewelSocketAltNormal",
 		}
 	}
-	for type, data in pairs(nodeOverlay) do
+	for type, data in pairs(self.nodeOverlay) do
 		local size = data.artWidth * 1.33
 		data.size = size
 		data.rsq = size * size
 	end
 
-	--local err, passives = PLoadModule("Data/"..treeVersion.."/Passives.lua")
+	if versionNum >= 3.10 then
+		-- Migrate groups to old format
+		for _, group in pairs(self.groups) do
+			group.n = group.nodes
+			group.oo = { }
+			for _, orbit in ipairs(group.orbits) do
+				group.oo[orbit] = true
+			end
+		end
+
+		-- Go away
+		self.nodes.root = nil
+	end
 
 	ConPrintf("Processing tree...")
+	local nodeMap = { }
 	self.keystoneMap = { }
 	self.notableMap = { }
+	self.clusterNodeMap = { }
+	self.sockets = { }
 	local nodeMap = { }
-	local sockets = { }
 	local orbitMult = { [0] = 0, m_pi / 3, m_pi / 6, m_pi / 6 }
 	local orbitMultFull = {
 		[0] = 0,
@@ -215,172 +264,118 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	}
 	local orbitDist = { [0] = 0, 82, 162, 335, 493 }
 	for _, node in pairs(self.nodes) do
-		node.meta = { __index = node }
-		nodeMap[node.id] = node
+		-- Migration...
+		if versionNum < 3.10 then
+			-- To new format
+			node.classStartIndex = node.spc[0] and node.spc[0]
+		else
+			-- To old format
+			node.id = node.skill
+			node.g = node.group
+			node.o = node.orbit
+			node.oidx = node.orbitIndex
+			node.dn = node.name
+			node.sd = node.stats
+			node.passivePointsGranted = node.grantedPassivePoints or 0
+		end
+
+		if versionNum <= 3.09 and node.passivePointsGranted > 0 then
+			t_insert(node.sd, "Grants "..node.passivePointsGranted.." Passive Skill Point"..(node.passivePointsGranted > 1 and "s" or ""))
+		end
+
+		node.__index = node
 		node.linkedId = { }
+		nodeMap[node.id] = node	
 
 		-- Determine node type
-		if node.spc[0] then
+		if node.classStartIndex then
 			node.type = "ClassStart"
-			local class = self.classes[node.spc[0]]
+			local class = self.classes[node.classStartIndex]
 			class.startNodeId = node.id
-			node.startArt = classArt[node.spc[0]]
+			node.startArt = classArt[node.classStartIndex]
 		elseif node.isAscendancyStart then
 			node.type = "AscendClassStart"
 			local ascendClass = self.ascendNameMap[node.ascendancyName].ascendClass
 			ascendClass.startNodeId = node.id
-		elseif node.m then
+		elseif node.m or node.isMastery then
 			node.type = "Mastery"
 		elseif node.isJewelSocket then
 			node.type = "Socket"
-			sockets[node.id] = node
-		elseif node.ks then
+			self.sockets[node.id] = node
+		elseif node.ks or node.isKeystone then
 			node.type = "Keystone"
 			self.keystoneMap[node.dn] = node
-		elseif node["not"] then
+		elseif node["not"] or node.isNotable then
 			node.type = "Notable"
-			self.notableMap[node.dn:lower()] = node
+			if not node.ascendancyName then
+				self.notableMap[node.dn:lower()] = node
+			end
 		else
 			node.type = "Normal"
 		end
 
-		-- Assign node artwork assets
-		node.sprites = spriteMap[node.icon]
-		if not node.sprites then
-			--error("missing sprite "..node.icon)
-			node.sprites = { }
-		end
-		node.overlay = nodeOverlay[node.type]
-		if node.overlay then
-			node.rsq = node.overlay.rsq
-			node.size = node.overlay.size
-		end
-
-		-- Find node group and derive the true position of the node
+		-- Find the node group
 		local group = self.groups[node.g]
-		group.ascendancyName = node.ascendancyName
-		if node.isAscendancyStart then
-			group.isAscendancyStart = true
-		end
-		node.group = group
-		if node.o ~= 4 then
-			node.angle = node.oidx * orbitMult[node.o]
-		else
-			node.angle = orbitMultFull[node.oidx]
-		end
-		local dist = orbitDist[node.o]
-		node.x = group.x + m_sin(node.angle) * dist
-		node.y = group.y - m_cos(node.angle) * dist
-
-		if passives then
-			-- Passive data is available, override the descriptions
-			node.sd = passives[node.id]
-			node.dn = passives[node.id].name
-		end
-
-		-- Parse node modifier lines
-		node.mods = { }
-		node.modKey = ""
-		local i = 1
-		if node.passivePointsGranted > 0 then
-			t_insert(node.sd, "Grants "..node.passivePointsGranted.." Passive Skill Point"..(node.passivePointsGranted > 1 and "s" or ""))
-		end
-		while node.sd[i] do
-			if node.sd[i]:match("\n") then
-				local line = node.sd[i]
-				local il = i
-				t_remove(node.sd, i)
-				for line in line:gmatch("[^\n]+") do
-					t_insert(node.sd, il, line)
-					il = il + 1
-				end
+		if group then
+			node.group = group
+			group.ascendancyName = node.ascendancyName
+			if node.isAscendancyStart then
+				group.isAscendancyStart = true
 			end
-			local line = node.sd[i]
-			local list, extra = modLib.parseMod[self.targetVersion](line)
-			if not list or extra then
-				-- Try to combine it with one or more of the lines that follow this one
-				local endI = i + 1
-				while node.sd[endI] do
-					local comb = line
-					for ci = i + 1, endI do
-						comb = comb .. " " .. node.sd[ci]
-					end
-					list, extra = modLib.parseMod[self.targetVersion](comb, true)
-					if list and not extra then
-						-- Success, add dummy mod lists to the other lines that were combined with this one
-						for ci = i + 1, endI do
-							node.mods[ci] = { list = { } }
-						end
-						break
-					end
-					endI = endI + 1
-				end
-			end
-			if not list then
-				-- Parser had no idea how to read this modifier
-				node.unknown = true
-			elseif extra then
-				-- Parser recognised this as a modifier but couldn't understand all of it
-				node.extra = true
+			if node.o ~= 4 then
+				node.angle = node.oidx * orbitMult[node.o]
 			else
-				for _, mod in ipairs(list) do
-					node.modKey = node.modKey.."["..modLib.formatMod(mod).."]"
-				end
+				node.angle = orbitMultFull[node.oidx]
 			end
-			node.mods[i] = { list = list, extra = extra }
-			i = i + 1
-			while node.mods[i] do
-				-- Skip any lines with dummy lists added by the line combining code
-				i = i + 1
-			end
+			local dist = orbitDist[node.o]
+			node.x = group.x + m_sin(node.angle) * dist
+			node.y = group.y - m_cos(node.angle) * dist
+		elseif node.type == "Notable" or node.type == "Keystone" then
+			self.clusterNodeMap[node.dn] = node
 		end
-
-		-- Build unified list of modifiers from all recognised modifier lines
-		node.modList = new("ModList")
-		for _, mod in pairs(node.mods) do
-			if mod.list and not mod.extra then
-				for i, mod in ipairs(mod.list) do
-					mod.source = "Tree:"..node.id
-					if type(mod.value) == "table" and mod.value.mod then
-						mod.value.mod.source = mod.source
-					end
-					node.modList:AddMod(mod)
-				end
-			end
-		end
-		if node.type == "Keystone" then
-			node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree"..node.id)
-		end
-	end
-
-	-- Precalculate the lists of nodes that are within each radius of each socket
-	for nodeId, socket in pairs(sockets) do
-		socket.nodesInRadius = { }
-		socket.attributesInRadius = { }
-		for radiusIndex, radiusInfo in ipairs(data[self.targetVersion].jewelRadius) do
-			socket.nodesInRadius[radiusIndex] = { }
-			socket.attributesInRadius[radiusIndex] = { }
-			local rSq = radiusInfo.rad * radiusInfo.rad
-			for _, node in pairs(self.nodes) do
-				if node ~= socket and not node.isBlighted then
-					local vX, vY = node.x - socket.x, node.y - socket.y
-					if vX * vX + vY * vY <= rSq then 
-						socket.nodesInRadius[radiusIndex][node.id] = node
-					end
-				end
-			end
-		end
+		
+		self:ProcessNode(node)
 	end
 
 	-- Pregenerate the polygons for the node connector lines
 	self.connectors = { }
 	for _, node in pairs(self.nodes) do
-		for _, otherId in pairs(node.out) do
+		for _, otherId in pairs(node.out or {}) do
+			if type(otherId) == "string" then
+				otherId = tonumber(otherId)
+			end
 			local other = nodeMap[otherId]
 			t_insert(node.linkedId, otherId)
 			t_insert(other.linkedId, node.id)
-			if node.type ~= "ClassStart" and other.type ~= "ClassStart" and node.type ~= "Mastery" and other.type ~= "Mastery" and node.ascendancyName == other.ascendancyName then
-				t_insert(self.connectors, self:BuildConnector(node, other))
+			if node.type ~= "ClassStart" and other.type ~= "ClassStart"
+				and node.type ~= "Mastery" and other.type ~= "Mastery"
+			  	and node.ascendancyName == other.ascendancyName
+			  	and not node.isProxy and not other.isProxy
+			  	and not node.group.isProxy and not node.group.isProxy then
+					t_insert(self.connectors, self:BuildConnector(node, other))
+			end
+		end
+	end
+
+	-- Precalculate the lists of nodes that are within each radius of each socket
+	for nodeId, socket in pairs(self.sockets) do
+		socket.nodesInRadius = { }
+		socket.attributesInRadius = { }
+		for radiusIndex, radiusInfo in ipairs(data[self.targetVersion].jewelRadius) do
+			socket.nodesInRadius[radiusIndex] = { }
+			socket.attributesInRadius[radiusIndex] = { }
+			local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
+			local innerRadiusSquared = radiusInfo.inner * radiusInfo.inner
+			for _, node in pairs(self.nodes) do
+				if node ~= socket and not node.isBlighted and node.group and not node.isProxy and not node.group.isProxy then
+					local vX, vY = node.x - socket.x, node.y - socket.y
+					local euclideanDistanceSquared = vX * vX + vY * vY
+					if innerRadiusSquared <= euclideanDistanceSquared then
+						if euclideanDistanceSquared <= outerRadiusSquared then
+							socket.nodesInRadius[radiusIndex][node.id] = node
+						end
+					end
+				end
 			end
 		end
 	end
@@ -396,6 +391,104 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 end)
 
+-- Common processing code for nodes (used for both real tree nodes and subgraph nodes)
+function PassiveTreeClass:ProcessNode(node)
+	-- Assign node artwork assets
+	node.sprites = self.spriteMap[node.icon]
+	if not node.sprites then
+		--error("missing sprite "..node.icon)
+		node.sprites = self.spriteMap["Art/2DArt/SkillIcons/passives/MasteryBlank.png"]
+	end
+	node.overlay = self.nodeOverlay[node.type]
+	if node.overlay then
+		node.rsq = node.overlay.rsq
+		node.size = node.overlay.size
+	end
+
+	-- Derive the true position of the node
+	if node.group then
+		node.angle = node.o == 4 and orbit4Angle[node.oidx] or node.oidx * orbitMult[node.o]
+		local dist = orbitDist[node.o]
+		node.x = node.group.x + m_sin(node.angle) * dist
+		node.y = node.group.y - m_cos(node.angle) * dist
+	end
+
+	node.modKey = ""
+	if not node.sd then
+		return
+	end
+
+	-- Parse node modifier lines
+	node.mods = { }
+	local i = 1
+	while node.sd[i] do
+		if node.sd[i]:match("\n") then
+			local line = node.sd[i]
+			local il = i
+			t_remove(node.sd, i)
+			for line in line:gmatch("[^\n]+") do
+				t_insert(node.sd, il, line)
+				il = il + 1
+			end
+		end
+		local line = node.sd[i]
+		local list, extra = modLib.parseMod[self.targetVersion](line)
+		if not list or extra then
+			-- Try to combine it with one or more of the lines that follow this one
+			local endI = i + 1
+			while node.sd[endI] do
+				local comb = line
+				for ci = i + 1, endI do
+					comb = comb .. " " .. node.sd[ci]
+				end
+				list, extra = modLib.parseMod[self.targetVersion](comb, true)
+				if list and not extra then
+					-- Success, add dummy mod lists to the other lines that were combined with this one
+					for ci = i + 1, endI do
+						node.mods[ci] = { list = { } }
+					end
+					break
+				end
+				endI = endI + 1
+			end
+		end
+		if not list then
+			-- Parser had no idea how to read this modifier
+			node.unknown = true
+		elseif extra then
+			-- Parser recognised this as a modifier but couldn't understand all of it
+			node.extra = true
+		else
+			for _, mod in ipairs(list) do
+				node.modKey = node.modKey.."["..modLib.formatMod(mod).."]"
+			end
+		end
+		node.mods[i] = { list = list, extra = extra }
+		i = i + 1
+		while node.mods[i] do
+			-- Skip any lines with dummy lists added by the line combining code
+			i = i + 1
+		end
+	end
+
+	-- Build unified list of modifiers from all recognised modifier lines
+	node.modList = new("ModList")
+	for _, mod in pairs(node.mods) do
+		if mod.list and not mod.extra then
+			for i, mod in ipairs(mod.list) do
+				mod.source = "Tree:"..node.id
+				if type(mod.value) == "table" and mod.value.mod then
+					mod.value.mod.source = mod.source
+				end
+				node.modList:AddMod(mod)
+			end
+		end
+	end
+	if node.type == "Keystone" then
+		node.keystoneMod = modLib.createMod("Keystone", "LIST", node.dn, "Tree"..node.id)
+	end
+end
+
 -- Checks if a given image is present and downloads it from the given URL if it isn't there
 function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 	local imgFile = io.open("TreeData/"..imgName, "r")
@@ -406,10 +499,10 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 		if imgFile then
 			imgFile:close()
 			imgName = self.treeVersion.."/"..imgName
-		else
+		elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5
 			ConPrintf("Downloading '%s'...", imgName)
 			local data = getFile(url)
-			if data then
+			if data and not data:match("<!DOCTYPE html>") then
 				imgFile = io.open("TreeData/"..imgName, "wb")
 				imgFile:write(data)
 				imgFile:close()

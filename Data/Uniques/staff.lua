@@ -9,8 +9,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 66, 158 Str, 113 Int
 Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
+{variant:2}18% Chance to Block Attack Damage while wielding a Staff
 {variant:1}+1 to Level of all Lightning Gems
 {variant:2}+2 to Level of all Lightning Gems
 +(80-120) to Intelligence
@@ -25,8 +25,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 66, 158 Str, 113 Int
 Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
+{variant:2}18% Chance to Block Attack Damage while wielding a Staff
 {variant:1}+1 to Level of all Lightning Gems
 {variant:2}+2 to Level of all Lightning Gems
 +(80-120) to Intelligence
@@ -41,8 +41,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 66, 158 Str, 113 Int
 Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
+{variant:2}18% Chance to Block Attack Damage while wielding a Staff
 {variant:1}+1 to Level of all Lightning Gems
 {variant:2}+2 to Level of all Lightning Gems
 +(80-120) to Intelligence
@@ -57,8 +57,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 66, 158 Str, 113 Int
 Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
+{variant:2}18% Chance to Block Attack Damage while wielding a Staff
 {variant:1}+1 to Level of all Lightning Gems
 {variant:2}+2 to Level of all Lightning Gems
 +(80-120) to Intelligence
@@ -72,8 +72,8 @@ Gnarled Branch
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
+{variant:2}18% Chance to Block Attack Damage while wielding a Staff
 12% Chance to Block
 100% increased Physical Damage
 (5-10)% increased Attack Speed
@@ -86,7 +86,7 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level: 60, 113 Str, 113 Int
 Implicits: 1
-18% Chance to Block 
+18% Chance to Block Attack Damage while wielding a Staff
 +2 to Level of all Chaos Spell Skill Gems
 {variant:1}(60-80)% increased Chaos Damage
 {variant:2}(20-30)% increased Chaos Damage
@@ -102,7 +102,7 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 1
-20% Chance to Block
+20% Chance to Block Attack Damage while wielding a Staff
 {variant:1}Adds (270–300) to (340–380) Physical Damage
 {variant:2}Adds (250–280) to (315–355) Physical Damage
 Adds (376-400) to (568-600) Physical Damage to Spells
@@ -138,7 +138,7 @@ Dying Breath
 Coiled Staff
 Variant: Pre 2.6.0
 Requires Level 23, 34 Str, 34 Int
-(18-20)% Chance to Block
+(18-20)% Chance to Block Attack Damage while wielding a Staff
 18% increased Cast Speed
 18% increased maximum Mana
 18% increased Area of Effect of Aura Skills
@@ -152,7 +152,7 @@ Iron Staff
 Variant: Current
 Requires Level 13, 27 Str, 27 Int
 Implicits: 1
-18% Chance to Block
+18% Chance to Block Attack Damage while wielding a Staff
 18% increased Cast Speed
 18% increased maximum Mana
 18% increased Area of Effect of Aura Skills
@@ -166,10 +166,10 @@ Imperial Staff
 League: Harbinger
 Requires Level 66, 113 Str, 113 Int
 Implicits: 1
-18% Chance to Block
+18% Chance to Block Attack Damage while wielding a Staff
 Socketed Gems are supported by level 10 Life Leech
 Grants Summon Harbinger of Brutality Skill
-5% Chance to Block
+5% Chance to Block Attack Damage while wielding a Staff
 Adds (160-185) to (200-225) Physical Damage
 (30-40)% increased Critical Strike Chance
 ]],[[
@@ -180,7 +180,7 @@ Variant: Pre 3.8.0
 Variant: Current
 Requires Level 58, 99 Str, 99 Int
 Implicits: 2
-{variant:1}12% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}+18% Chance to Block Attack Damage while wielding a Staff
 +2 to Level of Socketed Minion Gems
 {variant:3}Minions deal (60-80)% increased Damage
@@ -199,8 +199,8 @@ Upgrade: Upgrades to unique{Mirebough} via prophecy{Trapped in the Tower}
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
+{variant:2}18% Chance to Block Attack Damage while wielding a Staff
 Socketed Gems are Supported by level 8 Trap
 (40-50)% increased Damage
 (10-20)% increased maximum Life
@@ -211,7 +211,7 @@ Gnarled Branch
 Source: Upgraded from unique{Fencoil} via prophecy{Trapped in the Tower}
 Requires Level 32
 Implicits: 1
-18% Chance to Block
+18% Chance to Block Attack Damage while wielding a Staff
 Socketed Gems are Supported by Level 16 Trap
 Socketed Gems are Supported by Level 16 Cluster Trap
 Socketed Gems are Supported by Level 16 Trap and Mine Damage
@@ -236,9 +236,9 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2,3}18% Chance to Block
-6% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
+{variant:2,3}18% Chance to Block Attack Damage while wielding a Staff
+6% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2}Adds (180-190) to (190-220) Physical Damage
 {variant:3}Adds (165-175) to (185-205) Physical Damage
 (12-16)% increased Attack Speed
@@ -252,8 +252,8 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 52, 89 Str, 89 Int
 Implicits: 1
-18% Chance to Block
-(12-16)% Chance to Block
+18% Chance to Block Attack Damage while wielding a Staff
+(12-16)% Chance to Block Attack Damage while wielding a Staff
 Adds (350-400) to (500-600) Fire Damage
 {variant:1}Adds (130-150) to (200-250) Fire Damage to Spells
 {variant:2}Adds (230-250) to (300-350) Fire Damage to Spells
@@ -269,8 +269,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 13, 27 Str, 27 Int
 Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
+{variant:2}18% Chance to Block Attack Damage while wielding a Staff
 1% increased Area of Effect of Area Skills per 20 Intelligence
 1% increased Attack Speed per 10 Dexterity
 16% increased Physical Weapon Damage per 10 Strength
@@ -283,7 +283,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 2
-{variant:1}12% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 Socketed Gems are Supported by level 30 Greater Spell Echo
 (120-160)% increased Spell Damage
@@ -296,8 +296,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 18, 35 Str, 35 Int
 Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
+{variant:2}18% Chance to Block Attack Damage while wielding a Staff
 +1 to Level of Socketed Fire Gems
 +1 to Level of Socketed Cold Gems
 Socketed Gems are Supported by level 5 Cold to Fire
@@ -312,8 +312,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 40, 35 Str, 35 Int
 Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
+{variant:2}18% Chance to Block Attack Damage while wielding a Staff
 +1 to Level of Socketed Fire Gems
 +1 to Level of Socketed Cold Gems
 +2 to Level of Socketed Elemental Gems
@@ -330,8 +330,8 @@ Variant: Pre 3.8.0
 Variant: Current
 Requires Level 60, 113 Str, 113 Int
 Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2,3,4}18% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
+{variant:2,3,4}18% Chance to Block Attack Damage while wielding a Staff
 +2 to Level of all Fire Spell Skill Gems
 {variant:1,2}(30-50)% increased Spell Damage
 {variant:1,2}(20-40)% increased Fire Damage
@@ -345,7 +345,7 @@ Long Staff
 Variant: Pre 2.0.0
 Requires Level 60, 113 Str, 113 Int
 Implicits: 1
-12% Chance to Block
+12% Chance to Block Attack Damage while wielding a Staff
 +2 to Level of Socketed Fire Gems
 (30-50)% increased Spell Damage
 (20-40)% increased Fire Damage
@@ -358,8 +358,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 49, 85 Str, 85 Int
 Implicits: 2
-{variant:1}18% Chance to Block
-{variant:2}20% Chance to Block
+{variant:1}18% Chance to Block Attack Damage while wielding a Staff
+{variant:2}20% Chance to Block Attack Damage while wielding a Staff
 +(15-20) to All Attributes
 +(5-7)% to All Elemental Resistances
 (60-100)% increased Projectile Damage
@@ -387,8 +387,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 28, 51 Str, 51 Int
 Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
+{variant:2}18% Chance to Block Attack Damage while wielding a Staff
 (80-100)% increased Physical Damage
 Adds (25-35) to (45-60) Cold Damage
 Adds (1-10) to (70-90) Lightning Damage
@@ -402,8 +402,8 @@ Royal Staff
 Source: Upgraded from unique{The Stormheart} via prophecy{The Storm Spire}
 Requires Level 60, 51 Str, 51 Int
 Implicits: 1
-18% Chance to Block
-15% Chance to Block
+18% Chance to Block Attack Damage while wielding a Staff
+15% Chance to Block Attack Damage while wielding a Staff
 Adds (242-260) to (268-285) Physical Damage
 (20-35)% increased Critical Strike Chance
 50% of Physical Damage Converted to Cold Damage
@@ -419,8 +419,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 2
-{variant:1,2}18% Chance to Block
-{variant:3}20% Chance to Block
+{variant:1,2}18% Chance to Block Attack Damage while wielding a Staff
+{variant:3}20% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2}+1 to Level of all Cold Spell Skill Gems
 {variant:3}+2 to Level of all Cold Spell Skill Gems
 {variant:1}(40-50)% increased Spell Damage
@@ -437,8 +437,8 @@ Variant: Pre 3.8.0
 Variant: Current
 Requires Level 45, 78 Str, 78 Int
 Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2,3}18% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
+{variant:2,3}18% Chance to Block Attack Damage while wielding a Staff
 {variant:3}+2 to Level of Socketed Spell Gems
 {variant:1,2}Socketed Gems are Supported by level 10 Remote Mine
 {variant:3}Socketed Gems are Supported by Level 10 Blastchain Mine
@@ -454,8 +454,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 33, 59 Str, 59 Int
 Implicits: 2
-{variant:1}12% Chance to Block
-{variant:2}18% Chance to Block
+{variant:1}12% Chance to Block Attack Damage while wielding a Staff
+{variant:2}18% Chance to Block Attack Damage while wielding a Staff
 +1 to Level of Socketed Support Gems
 Grants level 1 Icestorm Skill
 (8-12)% increased Cast Speed
@@ -469,8 +469,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 28, 43 Str, 43 Int
 Implicits: 2
-{variant:1}18% Chance to Block
-{variant:2}20% Chance to Block
+{variant:1}18% Chance to Block Attack Damage while wielding a Staff
+{variant:2}20% Chance to Block Attack Damage while wielding a Staff
 +1 to Level of all Spell Skill Gems
 15% Chance to Block
 (60-80)% increased Spell Damage
