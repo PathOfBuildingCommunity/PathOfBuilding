@@ -1085,19 +1085,19 @@ skills["IcestormUniqueStaff12"] = {
 		skill("radiusSecondary", 10),
 	},
 	parts = {
-		{
-			name = "1 Shard",
-		},
         {
-			name = "All Shards",
-		},
-	},
+            name = "1 Shard",
+        },
+        {
+            name = "All Shards",
+        },
+    },
     preDamageFunc = function(activeSkill, output)
-    	if activeSkill.skillPart == 2 then
-			local baseDuration = (activeSkill.skillData.duration or 0) + activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Duration", "PrimaryDuration")
-			local durationMod = calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration")
-			local duration = baseDuration * durationMod
-			activeSkill.skillData.dpsMultiplier = duration / 0.1
+	    if activeSkill.skillPart == 2 then
+		    local baseDuration = (activeSkill.skillData.duration or 0) + activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Duration", "PrimaryDuration")
+            local durationMod = calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration")
+            local duration = baseDuration * durationMod
+            activeSkill.skillData.dpsMultiplier = duration / 0.1
 		end
 	end,
 	qualityStats = {
