@@ -10,7 +10,7 @@ def update_manifest():
     for file in root.iter("File"):
         path = file.get('name')
         extension = os.path.splitext(path)[1]
-        if extension not in [".lua", ".txt"]:
+        if extension not in (".lua", ".txt", ".png", ".jpg"):
             print(f"Skipping file type {extension}")
             continue
         try:
