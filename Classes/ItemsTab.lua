@@ -436,7 +436,18 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 						tooltip:AddLine(14, "^7"..line)
 					end
 					if mod.level > 1 then
-						tooltip:AddLine(16, "Level: "..mod.level)
+						tooltip:AddLine(14, "Level: "..mod.level)
+					end
+					if mod.group ~= nil then
+						tooltip:AddLine(14, "Group: "..mod.group)
+					end
+					if mod.weightKey ~= nil then
+						for i, weightKey in ipairs(mod.weightKey) do
+							tooltip:AddLine(14, "Weight ("..weightKey.."): "..mod.weightVal[i])
+						end
+					end
+					if mod.statOrder ~= nil then
+						tooltip:AddLine(14, "Stat Order: "..mod.statOrder[1])
 					end
 				else
 					tooltip:AddLine(16, "^7"..#modList.." Tiers")
@@ -456,7 +467,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 							end
 						end))
 					end
-					tooltip:AddLine(16, "Level: "..minMod.level.." to "..maxMod.level)
+					tooltip:AddLine(14, "Level: "..minMod.level.." to "..maxMod.level)
 				end
 			end
 		end
@@ -495,7 +506,7 @@ If there's 2 slots an item can go in, holding Shift will put it in the second.]]
 					tooltip:AddLine(14, line)
 				end
 				if mod.level > 1 then
-					tooltip:AddLine(16, "Level: "..mod.level)
+					tooltip:AddLine(14, "Level: "..mod.level)
 				end
 			end
 		end
