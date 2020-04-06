@@ -1,3 +1,8 @@
+### 1.4.169 - 2020/03/31
+ * Fixed Stormbind and Barrage Support not importing correctly when importing a character's skills
+ * Fixed certain Cluster Jewels not importing correctly
+ * Fixed "Added Small Passive Skills have X% increased Effect" also affecting notables
+
 ### 1.4.168 - 2020/03/24
  * Fixed Medium Cluster Jewels with 1 socket and 1 notable generating bad clusters
 

@@ -864,7 +864,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize)
 		node.linked = { }
 		node.power = { }
 		self.tree:ProcessNode(node)
-		if node.modList and jewelData.clusterJewelIncEffect then
+		if node.modList and node.type == "Normal" and jewelData.clusterJewelIncEffect then
 			node.modList:NewMod("PassiveSkillEffect", "INC", jewelData.clusterJewelIncEffect)
 		end
 	end

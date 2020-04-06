@@ -669,16 +669,18 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	item.explicitModLines = { }
 	if itemData.enchantMods then
 		for _, line in ipairs(itemData.enchantMods) do
-			line = line:gsub("\n"," ")
-			local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-			t_insert(item.enchantModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+			for line in line:gmatch("[^\n]+") do
+				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				t_insert(item.enchantModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+			end
 		end
 	end
 	if itemData.implicitMods then
 		for _, line in ipairs(itemData.implicitMods) do
-			line = line:gsub("\n"," ")
-			local modList, extra = modLib.parseMod[self.build.targetVersion](line)
-			t_insert(item.implicitModLines, { line = line, extra = extra, mods = modList or { } })
+			for line in line:gmatch("[^\n]+") do
+				local modList, extra = modLib.parseMod[self.build.targetVersion](line)
+				t_insert(item.implicitModLines, { line = line, extra = extra, mods = modList or { } })
+			end
 		end
 	end
 	if itemData.fracturedMods then
@@ -739,26 +741,34 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId)
 			abyssalSocketId = abyssalSocketId + 1
 		else
-			local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true }
-			gemInstance.nameSpec = socketedItem.typeLine:gsub(" Support","")
-			gemInstance.support = socketedItem.support
-			for _, property in pairs(socketedItem.properties) do
-				if property.name == "Level" then
-					gemInstance.level = tonumber(property.values[1][1]:match("%d+"))
-				elseif property.name == "Quality" then
-					gemInstance.quality = tonumber(property.values[1][1]:match("%d+"))
+			local gemId = self.build.data.gemForBaseName[socketedItem.typeLine] 
+			if not gemId and socketedItem.hybrid then
+				-- Dual skill gems (currently just Stormbind) show the second skill as the typeLine, which won't match the actual gem
+				-- Luckily the primary skill name is also there, so we can find the gem using that
+				gemId = self.build.data.gemForBaseName[socketedItem.hybrid.baseTypeName]
+			end
+			if gemId then
+				local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true, gemId = gemId }
+				gemInstance.nameSpec = self.build.data.gems[gemId].name
+				gemInstance.support = socketedItem.support
+				for _, property in pairs(socketedItem.properties) do
+					if property.name == "Level" then
+						gemInstance.level = tonumber(property.values[1][1]:match("%d+"))
+					elseif property.name == "Quality" then
+						gemInstance.quality = tonumber(property.values[1][1]:match("%d+"))
+					end
 				end
-			end
-			local groupID = item.sockets[socketedItem.socket + 1].group
-			if not itemSocketGroupList[groupID] then
-				itemSocketGroupList[groupID] = { label = "", enabled = true, gemList = { }, slot = slotName }
-			end
-			local socketGroup = itemSocketGroupList[groupID]
-			if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support then
-				-- If the first gemInstance is a support gemInstance, put the first active gemInstance before it
-				t_insert(socketGroup.gemList, 1, gemInstance)
-			else
-				t_insert(socketGroup.gemList, gemInstance)
+				local groupID = item.sockets[socketedItem.socket + 1].group
+				if not itemSocketGroupList[groupID] then
+					itemSocketGroupList[groupID] = { label = "", enabled = true, gemList = { }, slot = slotName }
+				end
+				local socketGroup = itemSocketGroupList[groupID]
+				if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support then
+					-- If the first gemInstance is a support gemInstance, put the first active gemInstance before it
+					t_insert(socketGroup.gemList, 1, gemInstance)
+				else
+					t_insert(socketGroup.gemList, gemInstance)
+				end
 			end
 		end
 	end

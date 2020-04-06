@@ -570,7 +570,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			end
 		elseif gemInstance.nameSpec:match("%S") then
 			-- Specified by gem/skill name, try to match it
-			-- Used during character import, and to migrate pre-1.4.20 builds
+			-- Used to migrate pre-1.4.20 builds
 			gemInstance.errMsg, gemInstance.gemData = self:FindSkillGem(gemInstance.nameSpec)
 			gemInstance.gemId = gemInstance.gemData and gemInstance.gemData.id
 			gemInstance.skillId = gemInstance.gemData and gemInstance.gemData.grantedEffectId
