@@ -2328,7 +2328,7 @@ local jewelSelfFuncs = {
 			data.Dex = (data.Dex or 0) + node.modList:Sum("BASE", nil, "Dex")
 			data.Int = (data.Int or 0) + node.modList:Sum("BASE", nil, "Int")
 		else
-			out:NewMod("DexIntToMeleeBonus", "BASE", data.Dex + data.Int, data.modSource)
+			out:NewMod("DexIntToMeleeBonus", "BASE", (data.Dex or 0) + (data.Int or 0), data.modSource)
 		end
 	end,
 	["-1 Strength per 1 Strength on Allocated Passives in Radius"] = getPerStat("Str", "BASE", 0, "Str", -1),
