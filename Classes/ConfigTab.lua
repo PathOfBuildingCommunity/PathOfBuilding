@@ -367,12 +367,8 @@ function ConfigTabClass:BuildModList()
 	local enemyModList = new("ModList")
 	self.enemyModList = enemyModList
 	local input = self.input
-	local controls = self.varControls
-	local canCalculateShown = self.build.calcsTab and self.build.calcsTab.mainEnv
 	for _, varData in ipairs(varList) do
-		local control = controls[varData.var]
-		local controlShown = canCalculateShown and (control and control:GetProperty("shown"))
-		if controlShown and varData.apply and (not varData.ifVer or varData.ifVer == self.build.targetVersion) then
+		if varData.apply and (not varData.ifVer or varData.ifVer == self.build.targetVersion) then
 			if varData.type == "check" then
 				if input[varData.var] then
 					varData.apply(true, modList, enemyModList, self.build)

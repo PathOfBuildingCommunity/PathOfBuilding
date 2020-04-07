@@ -390,44 +390,36 @@ end
 
 -- Build the calculation output tables
 function CalcsTabClass:BuildOutput()
-	-- There's a kind of feedback loop between the calc tab and config tab
-	-- The values in the config tab affect the calcs, which then in turn affect the config
-	-- Doing this twice allows the values to "stabalize"
-	for i = 1,2 do
-		self.powerBuildFlag = true
+	self.powerBuildFlag = true
 
-		--[[
-		local start = GetTime()
-		SetProfiling(true)
-		for i = 1, 1000  do
-			self.calcs.buildOutput(self.build, "MAIN")
-		end
-		SetProfiling(false)
-		ConPrintf("Calc time: %d ms", GetTime() - start)
-		--]]
-
-		for _, node in pairs(self.build.spec.nodes) do
-			-- Set default final mod list for all nodes; some may not be set during the main pass
-			node.finalModList = node.modList
-		end
-
-		self.mainEnv = self.calcs.buildOutput(self.build, "MAIN")
-		self.mainOutput = self.mainEnv.player.output
-		self.calcsEnv = self.calcs.buildOutput(self.build, "CALCS")
-		self.calcsOutput = self.calcsEnv.player.output
-
-		if self.displayData then
-			self.controls.breakdown:SetBreakdownData()
-			self.controls.breakdown:SetBreakdownData(self.displayData, self.displayPinned)
-		end
-		
-		-- Retrieve calculator functions
-		self.nodeCalculator = { self.calcs.getNodeCalculator(self.build) }
-		self.miscCalculator = { self.calcs.getMiscCalculator(self.build) }
-
-		-- Update the config tab's mod list using the newly calculated calc tab values
-		self.build.configTab:BuildModList()
+	--[[
+	local start = GetTime()
+	SetProfiling(true)
+	for i = 1, 1000  do
+		self.calcs.buildOutput(self.build, "MAIN")
 	end
+	SetProfiling(false)
+	ConPrintf("Calc time: %d ms", GetTime() - start)
+	--]]
+
+	for _, node in pairs(self.build.spec.nodes) do
+		-- Set default final mod list for all nodes; some may not be set during the main pass
+		node.finalModList = node.modList
+	end
+
+	self.mainEnv = self.calcs.buildOutput(self.build, "MAIN")
+	self.mainOutput = self.mainEnv.player.output
+	self.calcsEnv = self.calcs.buildOutput(self.build, "CALCS")
+	self.calcsOutput = self.calcsEnv.player.output
+
+	if self.displayData then
+		self.controls.breakdown:SetBreakdownData()
+		self.controls.breakdown:SetBreakdownData(self.displayData, self.displayPinned)
+	end
+	
+	-- Retrieve calculator functions
+	self.nodeCalculator = { self.calcs.getNodeCalculator(self.build) }
+	self.miscCalculator = { self.calcs.getMiscCalculator(self.build) }
 end
 
 -- Controls the coroutine that calculations node power
