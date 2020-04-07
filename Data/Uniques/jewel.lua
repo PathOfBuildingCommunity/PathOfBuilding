@@ -604,6 +604,34 @@ Adds 3 Jewel Socket Passive Skills
 {variant:3}Adds 5 Small Passive Skills which grant nothing
 {variant:4}Adds 7 Small Passive Skills which grant nothing
 ]],[[
+Split Personality
+Crimson Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Has Alt Variant: true
+Variant: Strength
+Variant: Dexterity
+Variant: Intelligence
+Variant: Life
+Variant: Mana
+Variant: Energy Shield
+Variant: Armour
+Variant: Evasion Rating
+Variant: Accuracy Rating
+This Jewel's Socket has 25% increased effect per Allocated Passive Skill between
+it and your Class' starting location
+{variant:1}+5 to Strength
+{variant:2}+5 to Dexterity
+{variant:3}+5 to Intelligence
+{variant:4}+5 to maximum Life
+{variant:5}+5 to maximum Mana
+{variant:6}+5 to maximum Energy Shield
+{variant:7}+40 to Armour
+{variant:8}+40 to Evasion Rating
+{variant:9}+40 to Accuracy Rating
+--------
+Corrupted
+]],[[
 Watcher's Eye
 Prismatic Jewel
 Source: Drops from unique{The Elder}

@@ -739,6 +739,12 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 			tooltip:AddLine(16, "^7Can support "..colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels")
 		end
 	end
+	if node.type == "Socket" and node.alloc then
+		if node.distanceToClassStart and node.distanceToClassStart > 0 then
+			tooltip:AddSeparator(14)
+			tooltip:AddLine(16, string.format("^7Distance to start: %d", node.distanceToClassStart))
+		end
+	end
 end
 
 function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
@@ -747,6 +753,10 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(node.id)
 		if jewel then
 			build.itemsTab:AddItemTooltip(tooltip, jewel, { nodeId = node.id })
+			if node.distanceToClassStart and node.distanceToClassStart > 0 then
+				tooltip:AddSeparator(14)
+				tooltip:AddLine(16, string.format("^7Distance to start: %d", node.distanceToClassStart))
+			end
 		else
 			self:AddNodeName(tooltip, node, build)
 		end
