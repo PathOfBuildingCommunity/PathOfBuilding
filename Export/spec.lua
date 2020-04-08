@@ -4339,7 +4339,7 @@ return {
 			name="Stats",
 			refTo="Stats",
 			type="Key",
-			width=420
+			width=640
 		},
 		[4]={
 			list=false,
