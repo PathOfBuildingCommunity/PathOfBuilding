@@ -1345,6 +1345,7 @@ local specialModList = {
 	["you have consecrated ground around you while stationary"] = { flag("Condition:OnConsecratedGround", { type = "Condition", var = "Stationary" }) },
 	-- Juggernaut
 	["armour received from body armour is doubled"] = { flag("Unbreakable") },
+	["action speed cannot be modified to below base value"] = { flag("ActionSpeedCannotBeBelowBase") },
 	["movement speed cannot be modified to below base value"] = { flag("MovementSpeedCannotBeBelowBase") },
 	["you cannot be slowed to below base speed"] = { flag("ActionSpeedCannotBeBelowBase") },
 	["cannot be slowed to below base speed"] = { flag("ActionSpeedCannotBeBelowBase") },
