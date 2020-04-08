@@ -1603,6 +1603,7 @@ local specialModList = {
 	["you have onslaught while on low life"] = { flag("Condition:Onslaught", { type = "Condition", var = "LowLife" }) },
 	["you have onslaught while not on low mana"] = { flag("Condition:Onslaught", { type = "Condition", var = "LowMana", neg = true }) },
 	["your aura buffs do not affect allies"] = { flag("SelfAurasCannotAffectAllies") },
+	["aura buffs from skills have (%d+)%% increased effect on you for each herald affecting you"] = function(num) return { mod("AuraBuffEffect", "INC", num, { type = "Multiplier", var = "Herald"}) } end,
 	["nearby allies' damage with hits is lucky"] = { mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("LuckyHits", "BASE") }) },
 	["allies' aura buffs do not affect you"] = { flag("AlliesAurasCannotAffectSelf") },
 	["enemies can have 1 additional curse"] = { mod("EnemyCurseLimit", "BASE", 1) },
