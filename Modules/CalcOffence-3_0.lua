@@ -2155,7 +2155,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.ShockDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyShockDuration") / 100 + enemyDB:Sum("INC", nil, "SelfShockDuration") / 100
 				output.ShockEffectMod = skillModList:Sum("INC", cfg, "EnemyShockEffect")
 				if breakdown then
-					t_insert(breakdown.ShockDPS, s_format("For the minimum 5%% Shock to apply for %.1f seconds, target must have no more than %d Ailment Threshold.", 2 * output.ShockDurationMod, (((100 + output.ShockEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
+					t_insert(breakdown.ShockDPS, s_format("For the minimum 5%% Shock to apply for %.1f seconds, target must have no more than %.0f Ailment Threshold.", 2 * output.ShockDurationMod, (((100 + output.ShockEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
 					t_insert(breakdown.ShockDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where it is about half of their life)"))
 				end
  			end
@@ -2189,7 +2189,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
 				output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
 				if breakdown then
-					t_insert(breakdown.ChillDPS, s_format("For the minimum 5%% Chill to apply for %.1f seconds, target must have no more than %d Ailment Threshold.", 2 * output.ChillDurationMod, (((100 + output.ChillEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
+					t_insert(breakdown.ChillDPS, s_format("For the minimum 5%% Chill to apply for %.1f seconds, target must have no more than %.0f Ailment Threshold.", 2 * output.ChillDurationMod, (((100 + output.ChillEffectMod)^(2.5)) * baseVal) / (100 * m_sqrt(10))))
 					t_insert(breakdown.ChillDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where it is about half of their life)"))
 				end
 			end
@@ -2211,7 +2211,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.chill = true
 				output.FreezeDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyFreezeDuration") / 100 + enemyDB:Sum("INC", nil, "SelfFreezeDuration") / 100
 				if breakdown then
-					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply for the minimum of 0.3 seconds, target must have no more than %d Ailment Threshold.", baseVal * 20 * output.FreezeDurationMod))
+					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply for the minimum of 0.3 seconds, target must have no more than %.0f Ailment Threshold.", baseVal * 20 * output.FreezeDurationMod))
 					t_insert(breakdown.FreezeDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where it is about half of their life)"))
 				end
 			end
