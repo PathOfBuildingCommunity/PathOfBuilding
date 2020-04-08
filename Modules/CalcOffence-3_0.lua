@@ -2102,7 +2102,7 @@ function calcs.offence(env, actor, activeSkill)
 							})
 						end
 					end
-					if globalOutput.IgniteDuration ~= 4 then
+					if incDur ~= 0 or moreDur ~= 1 or rateMod ~= 1 then
 						globalBreakdown.IgniteDuration = {
 							s_format("4.00s ^8(base duration)", durationBase)
 						}
