@@ -96,12 +96,32 @@ If you want to use a text editor, [Visual Studio Code](https://code.visualstudio
 If you want to use an IDE instead, [PyCharm Community](https://www.jetbrains.com/pycharm/) or [IntelliJ Idea Community](https://www.jetbrains.com/idea/) are recommended.
 They are all free and open source and support [EmmyLua](https://github.com/EmmyLua), a Lua plugin that comes with a language server, debugger and many pleasant features. It is recommended to use it over the built-in Lua plugins.
 
-To setup a debugger for PoB on an IDE with EmmyLua:
-* Create a new 'Debug Configuration' of type 'Emmy Debugger(NEW)'.
-* Select 'x86' version.
-* Select if you want the program to block (checkbox) until you attached the debugger (useful if you have to debug the startup process).
-* Copy the generated code snippet directly below `function launch:OnInit()` in `./Launch.lua`.
-* Start PoB and attach debugger.
+##### Visual Studio Code
+
+1. Create a new 'Debug Configuration' of type 'EmmyLua New Debug'
+2. Open the Visual Studio Code extensions folder. On Windows, this defaults to `%USERPROFILE%/.vscode/extensions`.
+3. Find the subfolder that contains `emmy_core.dll`. You should find both x86 and x64; pick x86. For example, `C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.3.28/debugger/emmy/windows/x86`.
+4. Paste the following code snippet directly below `function launch:OnInit()` in `./Launch.lua`:
+  ```lua
+-- This is the path to emmy_core.dll. The ?.dll at the end is intentional.
+package.cpath = package.cpath .. ';C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.3.28/debugger/emmy/windows/x86/?.dll'
+local dbg = require('emmy_core')
+-- This port must match the Visual Studio Code configuration. Default is 9966.
+dbg.tcpListen('localhost', 9966)
+-- Uncomment the next line if you want Path of Building to block until the debugger is attached
+--dbg.waitIDE()
+  ```
+5. Start Path of Building
+6. Attach the debugger
+
+##### IntelliJ Idea Community
+
+1. Create a new 'Debug Configuration' of type 'Emmy Debugger(NEW)'.
+2. Select 'x86' version.
+3. Select if you want the program to block (checkbox) until you attached the debugger (useful if you have to debug the startup process).
+4. Copy the generated code snippet directly below `function launch:OnInit()` in `./Launch.lua`.
+5. Start Path of Building
+6. Attach the debugger
 
 #### Exporting Data from a GGPK file
 
