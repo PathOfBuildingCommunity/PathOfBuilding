@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Weapon: One Handed Sword
@@ -210,7 +210,7 @@ League: Betrayal
 Source: Drops from Bosses in Safehouse
 Requires Level 66, 212 Dex
 Implicits: 1
-25% to Global Critical Strike Multiplier
++25% to Global Critical Strike Multiplier
 Attacks with this Weapon deal Double Damage
 ]],[[
 The Princess
