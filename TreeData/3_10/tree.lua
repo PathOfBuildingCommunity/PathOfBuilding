@@ -51887,7 +51887,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/BlockAttackDmgNotable.png",
             ["isNotable"]= true,
             ["stats"]= {
-                "80% increased Critical Strike Chance if you haven’t Blocked Recently",
+                "80% increased Critical Strike Chance if you haven't Blocked Recently",
                 "+40% to Critical Strike Multiplier if you have Blocked Recently"
             },
             ["reminderText"]= {
@@ -53140,7 +53140,7 @@ return {
             ["stats"]= {
                 "20% increased Spell Damage",
                 "30% increased Mana Regeneration Rate",
-                "Regenerate 1% of Energy Shield per second if you’ve Cursed an Enemy Recently"
+                "Regenerate 1% of Energy Shield per second if you've Cursed an Enemy Recently"
             },
             ["reminderText"]= {
                 "(Recently refers to the past 4 seconds)"
@@ -53697,7 +53697,7 @@ return {
             ["stats"]= {
                 "24% increased Damage over Time",
                 "6% increased maximum Energy Shield",
-                "Regenerate 2% of Energy Shield per second if you’ve Killed an Enemy Recently"
+                "Regenerate 2% of Energy Shield per second if you've Killed an Enemy Recently"
             },
             ["reminderText"]= {
                 "(Recently refers to the past 4 seconds)"
@@ -53877,7 +53877,7 @@ return {
             ["stats"]= {
                 "10% increased Effect of your Curses",
                 "Enemies you Curse are Hindered, with 15% reduced Movement Speed",
-                "Regenerate 1% of Energy Shield per second if you’ve Killed an Enemy Recently"
+                "Regenerate 1% of Energy Shield per second if you've Killed an Enemy Recently"
             },
             ["reminderText"]= {
                 "(Hindered enemies have reduced movement speed)",
