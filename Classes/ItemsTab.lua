@@ -1161,6 +1161,9 @@ function ItemsTabClass:UpdateAffixControls()
 		self:UpdateAffixControl(self.controls["displayItemAffix"..i], item, "Prefix", "prefixes", i)
 		self:UpdateAffixControl(self.controls["displayItemAffix"..(i+item.affixLimit/2)], item, "Suffix", "suffixes", i)
 	end	
+	-- The custom affixes may have had their indexes changed, so the custom control UI is also rebuilt so that it will
+	-- reference the correct affix index.
+	self:UpdateCustomControls()
 end
 
 function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outputIndex)
