@@ -654,3 +654,31 @@ local skills, mod, flag, skill = ...
 #skill VaalIncursionSpecialBeamCannonBlood Physical Beam
 #flags spell area
 #mods
+
+#skill MeleeEyrieArrow Default Attack
+#flags attack melee projectile
+#mods
+
+#skill AtlasEyrieArcherMortar Mortar
+#flags spell hit projectile area triggerable
+#mods
+
+#skill AtlasEyrieArcherSnipe Snipe
+#flags attack hit projectile triggerable
+#mods
+
+#skill AtlasEyrieArcherCrystalImpact Crystal Impact
+#flags hit triggerable
+#mods
+
+#skill AtlasExilesCrusaderMageguardProjectile Default Attack
+#flags attack spell projectile
+#mods
+
+#skill AtlasExileCrusaderMageguardBombExplode Bombs
+#flags hit triggerable
+#mods
+
+#skill AtlasCrusaderMageguardBeam Beam
+#flags hit triggerable
+#mods

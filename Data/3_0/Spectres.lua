@@ -2658,3 +2658,56 @@ minions["Metadata/Monsters/WickerMan/WickerMan"] = {
 	modList = {
 	},
 }
+-- Redemption Sentry
+minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcher"] = {
+	name = "Redemption Sentry",
+	life = 4.05,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 70,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"WalkEmergeAtlasInfluenceMonster",
+		"MeleeEyrieArrow",
+		"AtlasEyrieArcherMortar",
+		"AtlasEyrieArcherSnipe",
+		"AtlasEyrieArcherSnipeTrickshot",
+		"EmptyActionAttackEyrieArcherTrickshot",
+		"AtlasEyrieArcherGeometryProjectiles",
+		"AtlasExileEyrieArcherSpawnCrystal",
+		"AtlasEyrieArcherCrystalImpact",
+	},
+	modList = {
+	},
+}
+-- Baranite Thaumaturge
+minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMageguardCaster"] = {
+	name = "Baranite Thaumaturge",
+	life = 4.05,
+	energyShield = 0.8,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 14,
+	accuracy = 1,
+	skillList = {
+		"AtlasExilesCrusaderMageguardProjectile",
+		"EmptyActionSpellCrusaderMageguard",
+		"AtlasCrusaderMageguardSpawnBomb",
+		"AtlasExileCrusaderMageguardBombExplode",
+		"AtlasCrusaderMageguardBeam",
+		"WalkEmergeAtlasInfluenceMonster",
+	},
+	modList = {
+	},
+}
