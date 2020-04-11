@@ -157,7 +157,7 @@ Radius: Medium
 Minions deal (35-45)% increased Damage
 Minions have +(10-12)% Chance to Block Attack Damage
 Minions have +(10-12)% Chance to Block Spell Damage
-Notable Passive Skills in Radius are Transformed to instead grant, Minions take 20% increased Damage
+Notable Passive Skills in Radius are Transformed to instead grant: Minions take 20% increased Damage
 ]],[[
 Fragile Bloom
 Crimson Jewel
