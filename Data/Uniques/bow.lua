@@ -169,6 +169,7 @@ Implicits: 2
 Doomfletch's Prism
 Royal Bow
 Source: Upgraded from unique{Doomfletch} via prophecy{Ancient Doom}
+Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.1.0
 Variant: Current
