@@ -836,9 +836,6 @@ function buildMode:OnFrame(inputEvents)
 	if main.showThousandsSidebar ~= self.lastShowThousandsSidebar then
 		self:RefreshStatList()
 	end
-	if main.showTitlebarName ~= self.lastShowTitlebarName then
-		self.spec:SetWindowTitleWithBuildClass()
-	end
 
 	-- Update contents of main skill dropdowns
 	self:RefreshSkillSelectControls(self.controls, self.mainSocketGroup, "")
@@ -1125,7 +1122,6 @@ function buildMode:FormatStat(statData, statVal)
 		valStr = color .. valStr
 	end
 	self.lastShowThousandsSidebar = main.showThousandsSidebar
-	self.lastShowTitlebarName = main.showTitlebarName
 	return valStr
 end
 
