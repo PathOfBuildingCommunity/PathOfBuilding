@@ -720,9 +720,19 @@ function calcs.perform(env)
 
 	-- Check for extra modifiers to apply to aura skills
 	local extraAuraModList = { }
-	for _, value in ipairs(modDB:List(nil, "ExtraAuraEffect")) do
-		t_insert(extraAuraModList, value.mod)
-	end
+    for _, value in ipairs(modDB:List(nil, "ExtraAuraEffect")) do
+        local add = true
+        for _, mod in ipairs(extraAuraModList) do
+            if modLib.compareModParams(mod, value.mod) then
+                mod.value = mod.value + value.mod.value
+                add = false
+                break
+            end
+        end
+        if add then
+            t_insert(extraAuraModList, copyTable(value.mod, true))
+        end
+    end
 
 	-- Calculate number of active heralds
 	local heraldList = { }
