@@ -162,3 +162,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades
 -- Wicker Man
 #spectre Metadata/Monsters/WickerMan/WickerMan
+-- Redemption Sentry
+#spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcher
+-- Baranite Thaumaturge
+#spectre Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMageguardCaster
