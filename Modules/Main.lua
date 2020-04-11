@@ -209,6 +209,7 @@ the "Releases" section of the GitHub page.]])
 	self.nodePowerTheme = "RED/BLUE"
 	self.showThousandsSidebar = true
 	self.showThousandsCalcs = true
+	self.showTitlebarName = true
 
 	self:SetMode("BUILD", false, "Unnamed build")
 
@@ -467,6 +468,9 @@ function main:LoadSettings()
 				if node.attrib.showThousandsCalcs then
 					self.showThousandsCalcs = node.attrib.showThousandsCalcs == "true"
 				end -- else leave at default
+				if node.attrib.showTitlebarName then
+					self.showTitlebarName = node.attrib.showTitlebarName
+				end
 			end
 		end
 	end
@@ -511,6 +515,7 @@ function main:SaveSettings()
 		nodePowerTheme = self.nodePowerTheme,
 		showThousandsSidebar = tostring(self.showThousandsSidebar),
 		showThousandsCalcs = tostring(self.showThousandsCalcs),
+		showTitlebarName = tostring(self.showTitlebarName),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -557,10 +562,15 @@ function main:OpenOptionsPopup()
 		self.showThousandsCalcs = state
 	end)
 	controls.thousandsCalcs.state = self.showThousandsCalcs
+	controls.titlebarName = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 116, 20, "Show build name in window title:", function(state)
+		self.showTitlebarName = state
+	end)
+	controls.titlebarName.state = self.showTitlebarName
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialThousandsSidebar = self.showThousandsSidebar
 	local initialThousandsCalcs = self.showThousandsCalcs
-	controls.save = new("ButtonControl", nil, -45, 120, 80, 20, "Save", function()
+	local initialTitlebarName = self.showTitlebarName
+	controls.save = new("ButtonControl", nil, -45, 144, 80, 20, "Save", function()
 		if controls.proxyURL.buf:match("%w") then
 			launch.proxyURL = controls.proxyType.list[controls.proxyType.selIndex].scheme .. "://" .. controls.proxyURL.buf
 		else
@@ -579,13 +589,14 @@ function main:OpenOptionsPopup()
 		end
 		main:ClosePopup()
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 120, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 144, 80, 20, "Cancel", function()
 		self.nodePowerTheme = initialNodePowerTheme
 		self.showThousandsSidebar = initialThousandsSidebar
 		self.showThousandsCalcs = initialThousandsCalcs
+		self.showTitlebarName = initialTitlebarName
 		main:ClosePopup()
 	end)
-	self:OpenPopup(450, 150, "Options", controls, "save", nil, "cancel")
+	self:OpenPopup(450, 174, "Options", controls, "save", nil, "cancel")
 end
 
 function main:OpenUpdatePopup()
@@ -886,7 +897,7 @@ function main:OpenNewFolderPopup(path, onClose)
 end
 
 function main:SetWindowTitleSubtext(subtext)
-	if not subtext then
+	if not subtext or not self.showTitlebarName then
 		SetWindowTitle("Path of Building")
 	else
 		SetWindowTitle("Path of Building - "..subtext)
