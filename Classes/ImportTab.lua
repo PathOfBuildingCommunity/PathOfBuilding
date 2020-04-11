@@ -12,6 +12,8 @@ local realmList = {
 	{ label = "PS4", id = "SONY", realmCode = "sony", profileURL = "https://www.pathofexile.com/account/sony/view-profile/" },
 }
 
+local influenceInfo = itemLib.influenceInfo
+
 local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(self, build)
 	self.ControlHost()
 	self.Control()
@@ -638,12 +640,9 @@ function ImportTabClass:ImportItem(itemData, slotName)
 
 	-- Import item data
 	item.uniqueID = itemData.id
-	item.shaper = itemData.shaper
-	item.elder = itemData.elder
-	item.adjudicator = itemData.adjudicator
-	item.basilisk = itemData.basilisk
-	item.crusader = itemData.crusader
-	item.eyrie = itemData.eyrie
+	for _, curInfluenceInfo in ipairs(influenceInfo) do
+		item[curInfluenceInfo.key] = itemData[curInfluenceInfo.key]
+	end
 	if itemData.ilvl > 0 then
 		item.itemLevel = itemData.ilvl
 	end

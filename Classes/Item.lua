@@ -3,6 +3,7 @@
 -- Class: Item
 -- Equippable item class
 --
+local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
 local m_min = math.min
@@ -11,12 +12,21 @@ local m_floor = math.floor
 
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 
+local influenceInfo = itemLib.influenceInfo
+
 local ItemClass = newClass("Item", function(self, targetVersion, raw)
 	self.targetVersion = targetVersion
 	if raw then
 		self:ParseRaw(itemLib.sanitiseItemText(raw))
 	end	
 end)
+
+-- Reset all influence keys to false
+function ItemClass:ResetInfluence()
+	for _, curInfluenceInfo in ipairs(influenceInfo) do
+		self[curInfluenceInfo.key] = false
+	end
+end
 
 -- Parse raw item data and extract item name, base type, quality, and modifiers
 function ItemClass:ParseRaw(raw)
@@ -107,8 +117,8 @@ function ItemClass:ParseRaw(raw)
 			or verData.itemMods.Item
 		self.enchantments = verData.enchantments[self.base.type]
 		self.corruptable = self.base.type ~= "Flask" and self.base.subType ~= "Cluster"
-		self.shaperElderTags = data.specialBaseTags[self.type]
-		self.canBeShaperElder = self.shaperElderTags
+		self.influenceTags = data.specialBaseTags[self.type]
+		self.canBeInfluenced = self.influenceTags
 		self.clusterJewel = verData.clusterJewels and verData.clusterJewels.jewels[self.baseName]
 	end
 	self.variantList = nil
@@ -134,7 +144,18 @@ function ItemClass:ParseRaw(raw)
 	local deferJewelRadiusIndexAssignment
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, foundImplicit
-	while self.rawLines[l] do
+
+	local function processInfluenceLine(line)
+		for i, curInfluenceInfo in ipairs(influenceInfo) do
+			if line == curInfluenceInfo.display.." Item" then
+				self[curInfluenceInfo.key] = true
+				return true
+			end
+		end
+		return false
+	end
+
+	while self.rawLines[l] do	
 		local line = self.rawLines[l]
 		if flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
@@ -152,22 +173,12 @@ function ItemClass:ParseRaw(raw)
 			end
 		elseif line == "Corrupted" then
 			self.corrupted = true
-		elseif line == "Shaper Item" then
-			self.shaper = true
-		elseif line == "Elder Item" then
-			self.elder = true
 		elseif line == "Fractured Item" then
 			self.fractured = true
 		elseif line == "Synthesised Item" then
 			self.synthesised = true
-		elseif line == "Warlord Item" then
-			self.adjudicator = true
-		elseif line == "Hunter Item" then
-			self.basilisk = true
-		elseif line == "Crusader Item" then
-			self.crusader = true
-		elseif line == "Redeemer Item" then
-			self.eyrie = true
+		elseif processInfluenceLine(line) then
+			-- self already updated within the helper function
 		else
 			local specName, specVal = line:match("^([%a ]+): (%x+)$")
 			if not specName then
@@ -463,14 +474,25 @@ end
 function ItemClass:GetModSpawnWeight(mod, extraTags)
 	local weight = 0
 	if self.base then
+		local function HasInfluenceTag(key)
+			if self.influenceTags then
+				for _, curInfluenceInfo in ipairs(influenceInfo) do
+					if self[curInfluenceInfo.key] and self.influenceTags[curInfluenceInfo.key] == key then
+						return true
+					end
+				end
+			end
+			return false
+		end
+
 		for i, key in ipairs(mod.weightKey) do
-			if self.base.tags[key] or (extraTags and extraTags[key]) or (self.shaperElderTags and (self.shaper and self.shaperElderTags.shaper == key) or (self.elder and self.shaperElderTags.elder == key) or (self.adjudicator and self.shaperElderTags.adjudicator == key) or (self.basilisk and self.shaperElderTags.basilisk == key) or (self.crusader and self.shaperElderTags.crusader == key) or (self.eyrie and self.shaperElderTags.eyrie == key)) then
+			if self.base.tags[key] or (extraTags and extraTags[key]) or HasInfluenceTag(key) then
 				weight = mod.weightVal[i]
 				break
 			end
 		end
 		for i, key in ipairs(mod.weightMultiplierKey) do
-			if self.base.tags[key] or (extraTags and extraTags[key]) or (self.shaperElderTags and (self.shaper and self.shaperElderTags.shaper == key) or (self.elder and self.shaperElderTags.elder == key) or (self.adjudicator and self.shaperElderTags.adjudicator == key) or (self.basilisk and self.shaperElderTags.basilisk == key) or (self.crusader and self.shaperElderTags.crusader == key) or (self.eyrie and self.shaperElderTags.eyrie == key)) then
+			if self.base.tags[key] or (extraTags and extraTags[key]) or HasInfluenceTag(key) then
 				weight = weight * mod.weightMultiplierVal[i] / 100
 				break
 			end
@@ -497,23 +519,10 @@ function ItemClass:BuildRaw()
 	if self.unreleased then
 		t_insert(rawLines, "Unreleased: true")
 	end
-	if self.shaper then
-		t_insert(rawLines, "Shaper Item")
-	end
-	if self.elder then
-		t_insert(rawLines, "Elder Item")
-	end
-	if self.adjudicator then
-		t_insert(rawLines, "Warlord Item")
-	end
-	if self.basilisk then
-		t_insert(rawLines, "Hunter Item")
-	end
-	if self.crusader then
-		t_insert(rawLines, "Crusader Item")
-	end
-	if self.eyrie then
-		t_insert(rawLines, "Redeemer Item")
+	for i, curInfluenceInfo in ipairs(influenceInfo) do
+		if self[curInfluenceInfo.key] then
+			t_insert(rawLines, curInfluenceInfo.display.." Item")
+		end
 	end
 	if self.crafted then
 		t_insert(rawLines, "Crafted: true")
