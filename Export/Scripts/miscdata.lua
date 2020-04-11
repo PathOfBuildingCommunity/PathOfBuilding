@@ -6,7 +6,7 @@ local accuracy = ""
 local life = ""
 local allyLife = ""
 local damage = ""
-for stats in dat"DefaultMonsterStats":Rows() do
+for stats in dat("DefaultMonsterStats"):Rows() do
 	evasion = evasion .. stats.Evasion .. ", "
 	accuracy = accuracy .. stats.Accuracy .. ", "
 	life = life .. stats.MonsterLife .. ", "
@@ -22,7 +22,7 @@ out:write('data.monsterDamageTable = { '..damage..'}\n')
 
 local totemMult = ""
 local keys = { }
-for var in dat"SkillTotemVariations":Rows() do
+for var in dat("SkillTotemVariations"):Rows() do
 	if not keys[var.SkillTotem] then
 		keys[var.SkillTotem] = true
 		totemMult = totemMult .. "[" .. var.SkillTotem .. "] = " .. var.MonsterVariety.LifeMultiplier / 100 .. ", "
