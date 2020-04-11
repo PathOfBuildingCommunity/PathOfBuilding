@@ -802,8 +802,8 @@ function calcs.perform(env)
 						affectedByAura[env.player] = true
 						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = new("ModList")
-						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf")
-						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf")
+						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
+						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)
