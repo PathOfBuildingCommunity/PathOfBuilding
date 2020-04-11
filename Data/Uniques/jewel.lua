@@ -563,10 +563,10 @@ Variant: Large Ring
 Variant: Very Large Ring
 Radius: Variable
 Implicits: 0
-{variant:1}Affects Passives in Small Ring
-{variant:2}Affects Passives in Medium Ring
-{variant:3}Affects Passives in Large Ring
-{variant:4}Affects Passives in Very Large Ring
+{variant:1}Only affects Passives in Small Ring
+{variant:2}Only affects Passives in Medium Ring
+{variant:3}Only affects Passives in Large Ring
+{variant:4}Only affects Passives in Very Large Ring
 Passives in Radius can be Allocated without being connected to your tree
 -(20-10)% to all Elemental Resistances
 ]],[[
