@@ -171,7 +171,7 @@ function ItemClass:ParseRaw(raw)
 		else
 			local specName, specVal = line:match("^([%a ]+): (%x+)$")
 			if not specName then
-				specName, specVal = line:match("^([%a ]+): %+?([%d%-%.]+)")
+				specName, specVal = line:match("^([%a ]+): %+?([%d+%-%.,]+)")
 				if not tonumber(specVal) then
 					specName = nil
 				end
@@ -245,6 +245,10 @@ function ItemClass:ParseRaw(raw)
 					self.variantAlt = tonumber(specVal)
 				elseif specName == "Selected Alt Variant Two" then
 					self.variantAlt2 = tonumber(specVal)
+				elseif specName == "Has Variants" or specName == "Selected Variants" then
+					-- Need to skip this line for backwards compatibility
+					-- with builds that used an old Watcher's Eye implementation
+					l = l + 1
 				elseif specName == "League" then
 					self.league = specVal
 				elseif specName == "Crafted" then
