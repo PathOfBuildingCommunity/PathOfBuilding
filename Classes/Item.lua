@@ -618,6 +618,14 @@ end
 
 -- Rebuild explicit modifiers using the item's affixes
 function ItemClass:Craft()
+	-- Save off any crafted or custom mods so they can be re-added at the end
+	local savedMods = {}
+	for _, mod in ipairs(self.explicitModLines) do
+		if mod.crafted or mod.custom then
+			t_insert(savedMods, mod)
+		end
+	end
+
 	wipeTable(self.explicitModLines)
 	self.namePrefix = ""
 	self.nameSuffix = ""
@@ -662,6 +670,12 @@ function ItemClass:Craft()
 			end
 		end
 	end
+
+	-- Restore the crafted and custom mods
+	for _, mod in ipairs(savedMods) do
+		t_insert(self.explicitModLines, mod)
+	end
+
 	self:BuildAndParseRaw()
 end
 
