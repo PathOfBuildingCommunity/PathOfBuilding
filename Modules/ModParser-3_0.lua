@@ -956,6 +956,9 @@ local modTagList = {
 	["during flask effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["during any flask effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["while under no flask effects"] = { tag = { type = "Condition", var = "UsingFlask", neg = true } },
+	["during effect of any mana flask"] = { tag = { type = "Condition", var = "UsingManaFlask" } },
+	["during effect of any life flask"] = { tag = { type = "Condition", var = "UsingLifeFlask" } },
+	["during effect of any life or mana flask"] = { tag = { type = "Condition", varList = { "UsingManaFlask", "UsingLifeFlask" } } },
 	["while on consecrated ground"] = { tag = { type = "Condition", var = "OnConsecratedGround" } },
 	["on burning ground"] = { tag = { type = "Condition", var = "OnBurningGround" } },
 	["while on burning ground"] = { tag = { type = "Condition", var = "OnBurningGround" } },
@@ -1652,6 +1655,7 @@ local specialModList = {
 		mod("Multiplier:WarcryNearbyEnemies", "BASE", num),
 	} end,
 	["enemies you curse take (%d+)%% increased damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Condition", var = "Cursed" }) }) } end,
+	["you have fortify during effect of any life flask"] = { flag("Condition:Fortify", { type = "Condition", var = "UsingLifeFlask" }) },
 	-- Traps, Mines and Totems
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,

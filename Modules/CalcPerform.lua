@@ -560,7 +560,18 @@ function calcs.perform(env)
 	if env.mode_combat then
 		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
 		local flaskBuffs = { }
+		local usingFlask = false
+		local usingLifeFlask = false
+		local usingManaFlask = false
 		for item in pairs(env.flasks) do
+			usingFlask = true
+			if item.baseName:match("Life Flask") then
+				usingLifeFlask = true
+			end
+			if item.baseName:match("Mana Flask") then
+				usingManaFlask = true
+			end
+
 			-- Avert thine eyes, lest they be forever scarred
 			-- I have no idea how to determine which buff is applied by a given flask, 
 			-- so utility flasks are grouped by base, unique flasks are grouped by name, and magic flasks by their modifiers
@@ -586,15 +597,20 @@ function calcs.perform(env)
 			end
 		end
 		if not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
+			modDB.conditions["UsingFlask"] = usingFlask
+			modDB.conditions["UsingLifeFlask"] = usingLifeFlask
+			modDB.conditions["UsingManaFlask"] = usingManaFlask
 			for _, buffModList in pairs(flaskBuffs) do
-				modDB.conditions["UsingFlask"] = true
 				modDB:AddList(buffModList)
 			end
 		end
 		if env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion") then
+			local minionModDB = env.minion.modDB
+			minionModDB.conditions["UsingFlask"] = usingFlask
+			minionModDB.conditions["UsingLifeFlask"] = usingLifeFlask
+			minionModDB.conditions["UsingManaFlask"] = usingManaFlask
 			for _, buffModList in pairs(flaskBuffs) do
-				env.minion.modDB.conditions["UsingFlask"] = true
-				env.minion.modDB:AddList(buffModList)
+				minionModDB:AddList(buffModList)
 			end
 		end
 	end
