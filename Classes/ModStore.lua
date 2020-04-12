@@ -280,6 +280,45 @@ function ModStoreClass:EvalMod(mod, cfg)
 					value = m_min(value, limitTotal)
 				end
 			end
+		elseif tag.type == "PercentStat" then
+			local base
+			if tag.statList then
+				base = 0
+				for _, stat in ipairs(tag.statList) do
+					base = base + self:GetStat(stat, cfg)
+				end
+			else
+				base = self:GetStat(tag.stat, cfg)
+			end
+			local mult = base * (tag.percent and tag.percent / 100 or 1)
+			local limitTotal
+			if tag.limit or tag.limitVar then
+				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
+				if tag.limitTotal then
+					limitTotal = limit
+				else
+					mult = m_min(mult, limit)
+				end 
+			end
+			if type(value) == "table" then
+				value = copyTable(value)
+				if value.mod then
+					value.mod.value = value.mod.value * mult + (tag.base or 0)
+					if limitTotal then
+						value.mod.value = m_min(value.mod.value, limitTotal)
+					end
+				else
+					value.value = value.value * mult + (tag.base or 0)
+					if limitTotal then
+						value.value = m_min(value.value, limitTotal)
+					end
+				end
+			else
+				value = value * mult + (tag.base or 0)
+				if limitTotal then
+					value = m_min(value, limitTotal)
+				end
+			end
 		elseif tag.type == "StatThreshold" then
 			local stat
 			if tag.statList then
