@@ -1174,7 +1174,8 @@ function calcs.offence(env, actor, activeSkill)
 									output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (1 - output.CritChance / 100)
 								end
 							end
-							local armourReduction = calcs.armourReductionF(round(calcLib.val(enemyDB, "Armour")), damageTypeHitAvg)
+							local enemyArmour = round(calcLib.val(enemyDB, "Armour") * enemyDB:More(nil, "Armour"))
+							local armourReduction = calcs.armourReductionF(enemyArmour, damageTypeHitAvg)
 							resist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + armourReduction)
 						else
 							resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
@@ -2297,9 +2298,10 @@ function calcs.offence(env, actor, activeSkill)
             local storedExpectedDamageMore = round(skillModList:More(cfg, "ImpaleEffect"), 2)
             local storedExpectedDamageModifier = (1 + storedExpectedDamageInc) * storedExpectedDamageMore
             local impaleStoredDamage = baseStoredDamage * storedExpectedDamageModifier
-			local impaleHitDamageMod = impaleStoredDamage * impaleStacks  -- Source: https://www.reddit.com/r/pathofexile/comments/chgqqt/impale_and_armor_interaction/
+            local impaleHitDamageMod = impaleStoredDamage * impaleStacks  -- Source: https://www.reddit.com/r/pathofexile/comments/chgqqt/impale_and_armor_interaction/
 
-            local impaleArmourReduction = calcs.armourReductionF(round(calcLib.val(enemyDB, "Armour")), impaleHitDamageMod * output.impaleStoredHitAvg)
+            local enemyArmour = round(calcLib.val(enemyDB, "Armour") * enemyDB:More(nil, "Armour"))
+            local impaleArmourReduction = calcs.armourReductionF(enemyArmour, impaleHitDamageMod * output.impaleStoredHitAvg)
             local impaleResist = m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyImpalePhysicalDamageReduction") + impaleArmourReduction)
 
             local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance
@@ -2321,6 +2323,7 @@ function calcs.offence(env, actor, activeSkill)
                 t_insert(breakdown.ImpaleModifier, s_format("%d ^8(number of stacks, can be overridden in the Configuration tab)", impaleStacks))
                 t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
                 t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
+                t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale enemy physical damage reduction)", (1 - impaleResist / 100)))
                 t_insert(breakdown.ImpaleModifier, s_format("= %.3f ^8(impale damage multiplier)", impaleDMGModifier))
             end
         end
