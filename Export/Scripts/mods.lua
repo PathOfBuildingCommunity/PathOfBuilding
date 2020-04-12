@@ -52,7 +52,14 @@ local function writeMods(outName, condFunc)
 				for _, tag in ipairs(mod.SpawnTags) do
 					out:write('"', tag.Id, '", ')
 				end
-				out:write('}, weightVal = { ', table.concat(mod.SpawnWeights, ', '), ', }, ')
+				out:write('}, ')
+				out:write('weightVal = { ', table.concat(mod.SpawnWeights, ', '), ' }, ')
+				out:write('weightMultiplierKey = { ')
+				for _, tag in ipairs(mod.GenerationWeightTags) do
+					out:write('"', tag.Id, '", ')
+				end
+				out:write('}, ')
+				out:write('weightMultiplierVal = { ', table.concat(mod.GenerationWeightValues, ', '), ' }, ')
 				if mod.Tags[1] then
 					out:write('tags = { ')
 					for _, tag in ipairs(mod.Tags) do
@@ -82,6 +89,9 @@ writeMods("../Data/3_0/ModJewel.lua", function(mod)
 end)
 writeMods("../Data/3_0/ModJewelAbyss.lua", function(mod)
 	return (mod.Domain == 13 or mod.Domain == 16) and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
+end)
+writeMods("../Data/3_0/ModJewelCluster.lua", function(mod)
+	return mod.Domain == 21 and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
 end)
 
 print("Mods exported.")

@@ -62,6 +62,12 @@ Radius: Large
 +(16-24) to Intelligence
 Strength from Passives in Radius is Transformed to Intelligence
 ]],[[
+Calamitous Visions
+Small Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Adds Lone Messenger
+]],[[
 Careful Planning
 Viridian Jewel
 Radius: Large
@@ -151,7 +157,7 @@ Radius: Medium
 Minions deal (35-45)% increased Damage
 Minions have +(10-12)% Chance to Block Attack Damage
 Minions have +(10-12)% Chance to Block Spell Damage
-Notable Passive Skills in Radius are Transformed to instead grant, Minions take 20% increased Damage
+Notable Passive Skills in Radius are Transformed to instead grant: Minions take 20% increased Damage
 ]],[[
 Fragile Bloom
 Crimson Jewel
@@ -168,6 +174,12 @@ Implicits: 0
 {variant:2}Summon 4 additional Skeleton Warriors with Summon Skeleton
 +1 second to Summon Skeleton Cooldown
 ]],[[
+The Front Line
+Small Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Adds Veteran's Awareness
+]],[[
 The Golden Rule
 Viridian Jewel
 (30-40)% increased Armour while Bleeding 
@@ -179,27 +191,33 @@ Grand Spectrum
 Cobalt Jewel
 Limited to: 3
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.10.0
 Variant: Current
 {variant:1}Gain 15 Mana per Grand Spectrum
 {variant:2}Gain 30 Mana per Grand Spectrum
+{variant:3}25% increased Critical Strike Chance per Grand Spectrum
 ]],[[
 Grand Spectrum
 Crimson Jewel
 Limited to: 3
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.10.0
 Variant: Current
 {variant:1}Gain 75 Armour per Grand Spectrum
 {variant:2}Gain 200 Armour per Grand Spectrum
+{variant:3}+7% to all Elemental Resistances per Grand Spectrum
 ]],[[
 Grand Spectrum
 Viridian Jewel
 Limited to: 3
 Variant: Pre 2.5.0
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.10.0
 Variant: Current
 {variant:1}5% increased Elemental Damage per Grand Spectrum
 {variant:2}4% increased Elemental Damage per Grand Spectrum
 {variant:3}12% increased Elemental Damage per Grand Spectrum
+{variant:4}15% increased Elemental Damage per Grand Spectrum
 ]],[[
 The Green Dream
 Viridian Jewel
@@ -259,6 +277,12 @@ Crimson Jewel
 Radius: Small
 With 4 Notables Allocated in Radius, When you Kill a Rare monster, you gain 1 of its Modifiers for 20 seconds
 ]],[[
+The Interrogation
+Small Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Adds Secrets of Suffering
+]],[[
 Intuitive Leap
 Viridian Jewel
 Radius: Small
@@ -271,6 +295,12 @@ Source: Drops in The Lord's Labyrinth
 (18-25)% increased Cold Damage
 2% chance to Freeze
 2% chance to Ignite
+]],[[
+Kitava's Teachings
+Small Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Adds Disciple of Kitava
 ]],[[
 Lioneye's Fall
 Viridian Jewel
@@ -302,6 +332,18 @@ Crimson Jewel
 Radius: Large
 50% increased Effect of non-Keystone Passive Skills in Radius
 Notable Passive Skills in Radius grant nothing
+]],[[
+Natural Affinity
+Small Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Adds Nature's Patience
+]],[[
+One With Nothing
+Small Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Adds Hollow Palm Technique
 ]],[[
 Primordial Eminence
 Viridian Jewel
@@ -398,6 +440,12 @@ also grant Chance to Block Attack Damage at 35% of its value
 Passives granting Fire Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
+The Siege
+Small Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Adds Kineticism
+]],[[
 Soul's Wick
 Cobalt Jewel
 Limited to: 1
@@ -426,23 +474,28 @@ League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Transcendent Flesh} via currency{Vial of Transcendence}
 Variant: Pre 3.8.0
+Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
 -1 Strength per 1 Strength on Allocated Passives in Radius
 {variant:1}+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
 {variant:2}+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+{variant:3}2% increased Life Recovery Rate per 10 Strength on Allocated Passives in Radius
 ]],[[
 Transcendent Flesh
 Crimson Jewel
 League: Incursion
 Source: Upgraded from unique{Tempered Flesh} via currency{Vial of Transcendence}
 Variant: Pre 3.8.0
+Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
 -1 Strength per 1 Strength on Allocated Passives in Radius
-1% additional Physical Damage Reduction per 10 Strength on Allocated Passives in Radius
+{variant:1,2}1% additional Physical Damage Reduction per 10 Strength on Allocated Passives in Radius
 {variant:1}+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
-{variant:2}+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+{variant:3}3% increased Life Recovery Rate per 10 Strength on Allocated Passives in Radius
+{variant:3}2% reduced Life Recovery Rate per 10 Strength on Unallocated Passives in Radius
+{variant:2,3}+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
 ]],[[
 Tempered Mind
 Cobalt Jewel
@@ -450,42 +503,56 @@ League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Transcendent Mind} via currency{Vial of Transcendence}
 Variant: Pre 3.8.0
+Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
 -1 Intelligence per 1 Intelligence on Allocated Passives in Radius
 {variant:1}+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
 {variant:2}+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+{variant:3}2% increased Mana Recovery Rate per 10 Intelligence on Allocated Passives in Radius
 ]],[[
 Transcendent Mind
 Cobalt Jewel
 League: Incursion
 Source: Upgraded from unique{Tempered Mind} via currency{Vial of Transcendence}
 Variant: Pre 3.8.0
+Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
 -1 Intelligence per 1 Intelligence on Allocated Passives in Radius
-0.4% of Energy Shield Regenerated per Second for
+{variant:1,2}0.4% of Energy Shield Regenerated per Second for
 every 10 Intelligence on Allocated Passives in Radius
 {variant:1}+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
 {variant:2}+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+{variant:3}3% increased Mana Recovery Rate per 10 Intelligence on Allocated Passives in Radius
+{variant:3}2% reduced Mana Recovery Rate per 10 Intelligence on Unallocated Passives in Radius
+{variant:3}+3% to Damage over Time Multiplier per 10 Intelligence on Unallocated Passives in Radius
 ]],[[
 Tempered Spirit
 Viridian Jewel
 League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Transcendent Spirit} via currency{Vial of Transcendence}
+Variant: Pre 3.10.0
+Variant: Current
 Radius: Medium
 -1 Dexterity per 1 Dexterity on Allocated Passives in Radius
-+15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
+{variant:1}+15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
+{variant:2}2% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
 ]],[[
 Transcendent Spirit
 Viridian Jewel
 League: Incursion
 Source: Upgraded from unique{Tempered Spirit} via currency{Vial of Transcendence}
+Variant: Pre 3.10.0
+Variant: Current
 Radius: Medium
 -1 Dexterity per 1 Dexterity on Allocated Passives in Radius
-2% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
-+15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
+{variant:1}2% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
+{variant:1}+15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
+{variant:2}3% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
+{variant:2}2% reduced Movement Speed per 10 Dexterity on Unallocated Passives in Radius
+{variant:2}+125 to Accuracy Rating per 10 Dexterity on Unallocated Passives in Radius
 ]],[[
 Thread of Hope
 Crimson Jewel
@@ -496,10 +563,10 @@ Variant: Large Ring
 Variant: Very Large Ring
 Radius: Variable
 Implicits: 0
-{variant:1}Affects Passives in Small Ring
-{variant:2}Affects Passives in Medium Ring
-{variant:3}Affects Passives in Large Ring
-{variant:4}Affects Passives in Very Large Ring
+{variant:1}Only affects Passives in Small Ring
+{variant:2}Only affects Passives in Medium Ring
+{variant:3}Only affects Passives in Large Ring
+{variant:4}Only affects Passives in Very Large Ring
 Passives in Radius can be Allocated without being connected to your tree
 -(20-10)% to all Elemental Resistances
 ]],[[
@@ -523,11 +590,25 @@ Unstable Payload
 Cobalt Jewel
 (8-12)% Chance for Traps to Trigger an additional time
 ]],[[
+Voices
+Large Cluster Jewel
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Variant: {3_0}Adds 1 Small Passive Skill
+Variant: Adds 3 Small Passive Skills
+Variant: Adds 5 Small Passive Skills
+Variant: Adds 7 Small Passive Skills
+Adds 3 Jewel Socket Passive Skills
+{variant:1}Adds 1 Small Passive Skill which grants nothing
+{variant:2}Adds 3 Small Passive Skills which grant nothing
+{variant:3}Adds 5 Small Passive Skills which grant nothing
+{variant:4}Adds 7 Small Passive Skills which grant nothing
+]],[[
 Watcher's Eye
 Prismatic Jewel
 Source: Drops from unique{The Elder}
 Has Alt Variant: true
-Has Variants: 3
+Has Alt Variant Two: true
 Variant: Anger: Fire Damage Leeched as Life
 Variant: Anger: Fire Pen
 Variant: Anger: Crit Multi
@@ -1117,8 +1198,12 @@ Corrupted
 ]],[[
 Fevered Mind
 Cobalt Jewel
-(20-30)% increased Spell Damage
-100% increased Mana Cost of Skills
+Variant: Pre 3.10.0
+Variant: Current
+{variant:1}(20-30)% increased Spell Damage
+{variant:2}(30-40)% increased Spell Damage
+{variant:1}100% increased Mana Cost of Skills
+{variant:2}50% increased Mana Cost of Skills
 Corrupted
 ]],[[
 Fragility

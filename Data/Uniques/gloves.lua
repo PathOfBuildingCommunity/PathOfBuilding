@@ -32,16 +32,21 @@ Doryani's Fist
 Vaal Gauntlets
 Variant: {2_6}Pre 3.0.0
 Variant: Pre 3.5.0
+Variant: Pre 3.10.0
 Variant: Current
 Requires Level 63, 100 Str
-{variant:2,3}Grants level 20 Doryani's Touch Skill
-+30 to maximum Energy Shield
-10% chance to Shock
+{variant:2,3,4}Grants level 20 Doryani's Touch Skill
+{variant:1,2,3}+30 to maximum Energy Shield
+{variant:4}+(80-100) to maximum Energy Shield
+{variant:1,2,3}10% chance to Shock
+{variant:4}30% chance to Shock
 {variant:1,2}Adds (225-335) to (785-900) Lightning Damage to Unarmed Attacks
-{variant:3}Adds (150-225) to (525-600) Lightning Damage to Unarmed Attacks
+{variant:3,4}Adds (150-225) to (525-600) Lightning Damage to Unarmed Attacks
 {variant:1,2}Adds (60-90) to (210-240) Lightning Damage to Spells while Unarmed
-{variant:3}Adds (90-135) to (315-360) Lightning Damage to Spells while Unarmed
-+30 Energy Shield gained on Killing a Shocked Enemy
+{variant:3,4}Adds (90-135) to (315-360) Lightning Damage to Spells while Unarmed
+{variant:1,2,3}+30 Energy Shield gained on Killing a Shocked Enemy
+{variant:4}+(200-250) Energy Shield gained on Killing a Shocked Enemy
+{variant:4}30% increased Effect of Shock
 ]],[[
 Empire's Grasp
 Goliath Gauntlets
@@ -520,20 +525,21 @@ Shaper's Touch
 Crusader Gloves
 Source: Drops from unique{The Shaper}
 Variant: Pre 2.6.0
+Variant: Pre 3.10.0
 Variant: Current
 Requires Level 66, 51 Str, 51 Int
 (80-120)% increased Armour and Energy Shield
 {variant:1}+2 Accuracy Rating per 2 Intelligence
-{variant:2}+4 Accuracy Rating per 2 Intelligence
+{variant:2,3}+4 Accuracy Rating per 2 Intelligence
 +1 Life per 4 Dexterity
-{variant:1}+1 Mana per 4 Strength
+{variant:1,3}+1 Mana per 4 Strength
 {variant:2}+2 Mana per 4 Strength
-{variant:1}1% increased Energy Shield per 10 Strength
+{variant:1,3}1% increased Energy Shield per 10 Strength
 {variant:2}2% increased Energy Shield per 10 Strength
 {variant:1}1% increased Evasion Rating per 10 Intelligence
-{variant:2}2% increased Evasion Rating per 10 Intelligence
+{variant:2,3}2% increased Evasion Rating per 10 Intelligence
 {variant:1}1% increased Melee Physical Damage per 10 Dexterity
-{variant:2}2% increased Melee Physical Damage per 10 Dexterity
+{variant:2,3}2% increased Melee Physical Damage per 10 Dexterity
 Shaper Item
 ]],[[
 Southbound
@@ -582,6 +588,17 @@ Requires Level 43, 34 Str, 34 Int
 ]],
 -- Gloves: Evasion/Energy Shield
 [[
+Algor Mortis
+Carnal Mitts
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Requires Level 50, 39 Dex, 39 Int
++(50-70) to maximum Energy Shield
++(15-20)% to Cold and Lightning Resistances
+(20-30)% chance to Sap Enemies in Chilling Areas
+Enemies in your Chilling Areas take (25-35)% increased Lightning Damage
+(15-20)% increased Effect of Non-Damaging Ailments
+]],[[
 Aukuna's Will
 Clasped Mitts
 League: Legion

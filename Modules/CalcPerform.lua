@@ -396,9 +396,9 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Elusive") then
 			local effect = 1 + modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf") / 100
 			condList["Elusive"] = true
-			modDB:NewMod("AttackDodgeChance", "BASE", m_floor(20 * effect), "Elusive")
-			modDB:NewMod("SpellDodgeChance", "BASE", m_floor(20 * effect), "Elusive")
-			modDB:NewMod("MovementSpeed", "INC", m_floor(40 * effect), "Elusive")
+			modDB:NewMod("AttackDodgeChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("SpellDodgeChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("MovementSpeed", "INC", m_floor(30 * effect), "Elusive")
 		end
 		if modDB:Flag(nil, "Chill") then
 			local effect = m_max(m_floor(30 * calcLib.mod(modDB, nil, "SelfChillEffect")), 0)
@@ -532,6 +532,10 @@ function calcs.perform(env)
 	end
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		if activeSkill.activeEffect.grantedEffect.name == "Herald of Purity" then
+			local limit = activeSkill.skillModList:Sum("BASE", nil, "ActiveSentinelOfPurityLimit")
+			output.ActiveSentinelOfPurityLimit = m_max(limit, output.ActiveSentinelOfPurityLimit or 0)
+		end
 		if activeSkill.skillFlags.golem then
 			local limit = activeSkill.skillModList:Sum("BASE", nil, "ActiveGolemLimit")
 			output.ActiveGolemLimit = m_max(limit, output.ActiveGolemLimit or 0)
@@ -716,8 +720,30 @@ function calcs.perform(env)
 
 	-- Check for extra modifiers to apply to aura skills
 	local extraAuraModList = { }
-	for _, value in ipairs(modDB:List(nil, "ExtraAuraEffect")) do
-		t_insert(extraAuraModList, value.mod)
+    for _, value in ipairs(modDB:List(nil, "ExtraAuraEffect")) do
+        local add = true
+        for _, mod in ipairs(extraAuraModList) do
+            if modLib.compareModParams(mod, value.mod) then
+                mod.value = mod.value + value.mod.value
+                add = false
+                break
+            end
+        end
+        if add then
+            t_insert(extraAuraModList, copyTable(value.mod, true))
+        end
+    end
+
+	-- Calculate number of active heralds
+	local heraldList = { }
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		if activeSkill.skillTypes[SkillType.Herald] then
+			heraldList[activeSkill.skillCfg.skillName] = true
+		end
+	end
+	for _, herald in pairs(heraldList) do
+		modDB.multipliers["Herald"] = (modDB.multipliers["Herald"] or 0) + 1
+		modDB.conditions["AffectedByHerald"] = true
 	end
 
 	-- Combine buffs/debuffs 
@@ -776,8 +802,8 @@ function calcs.perform(env)
 						affectedByAura[env.player] = true
 						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = new("ModList")
-						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf")
-						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf")
+						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
+						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)
@@ -964,7 +990,7 @@ function calcs.perform(env)
 						modDB.conditions["AffectedBy"..grantedEffect.name:gsub(" ","")] = true
 						local cfg = { skillName = grantedEffect.name }
 						local inc = modDB:Sum("INC", cfg, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
-						local more = modDB:More(cfg, "CurseEffectOnSelf")
+						local more = modDB:More(cfg, "CurseEffectOnSelf") * gemModList:Sum("MORE", nil, "CurseEffectAgainstPlayer")
 						modDB:ScaleAddList(curseModList, (1 + inc / 100) * more)
 					end
 				elseif not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") then

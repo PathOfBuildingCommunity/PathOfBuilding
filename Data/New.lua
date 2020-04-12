@@ -3,42 +3,31 @@
 --
 
 data.uniques.new = {
+
 -- New
-[[
-Algor Mortis
-Carnal Mitts
-Requires Level 50, 39 Dex, 39 Int
-+70 to maximum Energy Shield
-+18% to Cold and Lightning Resistances
-25% chance to Sap Enemies in Chilling Areas
-Enemies in your Chilling Areas take 32% increased Lightning Damage
-15% increased Effect of Non-Damaging Ailments
-]],
-[[
-Perfidy
-Glorious Plate
-Requires Level 68, 191 Str
-25% increased Melee Damage
-+74 to maximum Life
-You can have two different Banners at the same time
-Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
-War Banner has 147% increased Adrenaline duration
-Dread Banner has 141% increased Fortify duration
-]],
-[[
-Profane Proxy
-Unset Ring
-Sockets: G
-LevelReq: 52
-Implicits: 1
-Has 1 Socket
-+3 to Level of Socketed Curse Gems
-+28% To Cold Resistance
-+20% To Lightning Resistance
-Left Ring Slot: Your Chilling Skitterbot's Aura Applies Socketed Curse Instead
-Right Ring Slot: Your Shocking Skitterbot's Aura Applies Socketed Curse Instead
-]],
 
 -- Reworked
 
 }
+
+-- Automatically generate Megalomaniac because like heck I'm entering all those variants manually lol
+local lines = {
+	"Megalomaniac",
+	"Medium Cluster Jewel",
+	"League: Delirium",
+	"Source: Drops from the Simulacrum Encounter",
+	"Has Alt Variant: true",
+	"Has Alt Variant Two: true",
+	"Adds 4 Passive Skills",
+	"Added Small Passive Skills grant Nothing",
+}
+local notables = { }
+for name in pairs(data["3_0"].clusterJewels.notableSortOrder) do
+	table.insert(notables, name)
+end
+table.sort(notables)
+for index, name in ipairs(notables) do
+	table.insert(lines, "Variant: "..name)
+	table.insert(lines, "{variant:"..index.."}1 Added Passive Skill is "..name)
+end
+table.insert(data.uniques.new, table.concat(lines, '\n'))

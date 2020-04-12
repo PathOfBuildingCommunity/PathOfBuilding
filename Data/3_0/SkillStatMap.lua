@@ -338,6 +338,9 @@ return {
 ["base_cooldown_speed_+%"] = {
 	mod("CooldownRecovery", "INC", nil),
 },
+["support_added_cooldown_count_if_not_instant"] = {
+	mod("CooldownRecovery", "INC", nil),
+},
 ["additional_weapon_base_attack_time_ms"] = {
 	mod("Speed", "BASE", nil, ModFlag.Attack),
 	div = 1000,
@@ -777,6 +780,14 @@ return {
 ["projectiles_always_pierce_you"] = {
 	flag("AlwaysPierceSelf"),
 },
+["projectiles_fork"] = {
+	flag("ForkOnce"),
+	mod("ForkCountMax", "BASE", nil),
+},
+["number_of_additional_forks_base"] = {
+	flag("ForkTwice"),
+	mod("ForkCountMax", "BASE", nil),
+},
 ["active_skill_returning_projectile_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "ReturningProjectile" }),
 },
@@ -1129,6 +1140,9 @@ return {
 },
 ["base_number_of_golems_allowed"] = {
 	mod("ActiveGolemLimit", "BASE", nil),
+},
+["base_number_of_champions_of_light_allowed"] = {
+    mod("ActiveSentinelOfPurityLimit", "BASE", nil)
 },
 ["base_number_of_spectres_allowed"] = {
 	mod("ActiveSpectreLimit", "BASE", nil),

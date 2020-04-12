@@ -467,6 +467,18 @@ Requires Level 52, 21 Int
 ]],
 -- Boots: Armour/Evasion
 [[
+Beacon of Madness
+Two-Toned Boots (Armour/Evasion)
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Requires Level 70, 62 Str, 62 Dex
+Implicits: 1
++(8-12)% to Fire and Cold Resistances
+Grants Level 1 Embrace Madness Skill
+30% increased Movement Speed
+Enemies you Kill while affected by Glorious Madness have a 40% chance to Explode, dealing a quarter of their Life as Chaos Damage
+All Damage inflicts Poison while affected by Glorious Madness
+]],[[
 Darkray Vectors
 Dragonscale Boots
 Variant: Pre 2.6.0
@@ -577,6 +589,18 @@ Adds 1 to 80 Chaos Damage to Attacks
 +1 to Maximum number of Skeletons
 (15-18)% increased Strength
 ]],[[
+Beacon of Madness
+Two-Toned Boots (Armour/Energy Shield)
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Requires Level 70, 62 Str, 62 Int
+Implicits: 1
++(8-12)% to Fire and Lightning Resistances
+Grants Level 1 Embrace Madness Skill
+30% increased Movement Speed
+You have Igniting, Chilling and Shocking Conflux while affected by Glorious Madness
+Immune to Elemental Ailments while affected by Glorious Madness
+]],[[
 Death's Door
 Crusader Boots
 Source: Drops in The Eternal Labyrinth
@@ -634,6 +658,18 @@ Adds 1 to 120 Lightning Damage to Attacks
 ]],
 -- Boots: Evasion/Energy Shield
 [[
+Beacon of Madness
+Two-Toned Boots (Evasion/Energy Shield)
+League: Delirium
+Source: Drops from the Simulacrum Encounter
+Requires Level 70, 62 Dex, 62 Int
+Implicits: 1
++(8-12)% to Cold and Lightning Resistances
+Grants Level 1 Embrace Madness Skill
+30% increased Movement Speed
+60% increased Effect of Fortify on you while affected by Glorious Madness
+20% chance to deal Double Damage while affected by Glorious Madness
+]],[[
 Brinerot Whalers
 Trapper Boots
 League: Warbands

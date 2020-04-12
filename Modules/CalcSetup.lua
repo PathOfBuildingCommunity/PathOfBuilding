@@ -191,7 +191,7 @@ function calcs.initEnv(build, mode, override)
 	-- Initialise modifier database with base values
 	local modDB = new("ModDB")
 	env.modDB = modDB
-	local classStats = env.spec.tree.characterData[env.classId]
+	local classStats = env.spec.tree.characterData and env.spec.tree.characterData[env.classId] or env.spec.tree.classes[env.classId]
 	for _, stat in pairs({"Str","Dex","Int"}) do
 		modDB:NewMod(stat, "BASE", classStats["base_"..stat:lower()], "Base")
 	end
@@ -406,15 +406,15 @@ function calcs.initEnv(build, mode, override)
 				for _, func in ipairs(funcList) do
 					local node = env.spec.nodes[slot.nodeId]
 					t_insert(env.radiusJewelList, {
-						nodes = node.nodesInRadius[item.jewelRadiusIndex],
+						nodes = node.nodesInRadius and node.nodesInRadius[item.jewelRadiusIndex] or { },
 						func = func.func,
 						type = func.type,
 						item = item,
 						nodeId = slot.nodeId,
-						attributes = node.attributesInRadius[item.jewelRadiusIndex],
+						attributes = node.attributesInRadius and node.attributesInRadius[item.jewelRadiusIndex] or { },
 						data = { }
 					})
-					if func.type ~= "Self" then
+					if func.type ~= "Self" and node.nodesInRadius then
 						-- Add nearby unallocated nodes to the extra node list
 						for nodeId, node in pairs(node.nodesInRadius[item.jewelRadiusIndex]) do
 							if not nodes[nodeId] then

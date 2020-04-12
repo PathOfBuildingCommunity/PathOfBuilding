@@ -210,11 +210,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 			if self.spec:CountAllocNodes() == 0 or self.spec:IsClassConnected(value.classId) then
 				self.spec:SelectClass(value.classId)
 				self.spec:AddUndoState()
+				self.spec:SetWindowTitleWithBuildClass()
 				self.buildFlag = true
 			else
 				main:OpenConfirmPopup("Class Change", "Changing class to "..value.label.." will reset your passive tree.\nThis can be avoided by connecting one of the "..value.label.." starting nodes to your tree.", "Continue", function()
 					self.spec:SelectClass(value.classId)
 					self.spec:AddUndoState()
+					self.spec:SetWindowTitleWithBuildClass()
 					self.buildFlag = true					
 				end)
 			end
@@ -223,6 +225,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self.controls.ascendDrop = new("DropDownControl", {"LEFT",self.controls.classDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
 		self.spec:SelectAscendClass(value.ascendClassId)
 		self.spec:AddUndoState()
+		self.spec:SetWindowTitleWithBuildClass()
 		self.buildFlag = true
 	end)
 
@@ -321,7 +324,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
 		{ stat = "Speed", label = "Attack/Cast Rate", fmt = ".2f", compPercent = true },
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
-		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true },
+		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
 		{ stat = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true },
 		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true },
@@ -627,6 +630,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, targetVersion)
 	self:RefreshStatList()
 	self.buildFlag = false
 
+	self.spec:SetWindowTitleWithBuildClass()
+
 	--[[
 	local testTooltip = new("Tooltip")
 	for _, item in pairs(main.uniqueDB.list) do
@@ -683,6 +688,7 @@ function buildMode:GetArgs()
 end
 
 function buildMode:CloseBuild()
+	main:SetWindowTitleSubtext()
 	main:SetMode("LIST", self.dbFileName and self.buildName, self.dbFileSubPath)
 end
 

@@ -6,16 +6,18 @@ return {
 Ahn's Heritage
 Colossal Tower Shield
 Variant: {2_6}Pre 3.0.0
+Variant: Pre 3.10.0
 Variant: Current
 Requires Level 67, 159 Str
 Implicits: 1
-{variant:2}+(10-20) to maximum Life
+{variant:2,3}+(10-20) to maximum Life
 (50-100)% increased Armour
 +(60-80) to maximum Life
 -1 to maximum Endurance Charges
 -10% to maximum Block Chance
 +6% Chance to Block
-+3% to all maximum Resistances while you have no Endurance Charges
+{variant:1,2}+3% to all maximum Resistances while you have no Endurance Charges
+{variant:3}+2% to all maximum Resistances while you have no Endurance Charges
 You have Onslaught while at maximum Endurance Charges
 ]],[[
 The Anticipation
