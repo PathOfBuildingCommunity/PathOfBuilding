@@ -892,6 +892,7 @@ return {
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
 			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
+			enemyModList:NewMod("Armour", "MORE", 33, "Boss")
 		end
 	end },
 	{ var = "enemyPhysicalReduction", type = "integer", label = "Enemy Phys. Damage Reduction:", apply = function(val, modList, enemyModList)
