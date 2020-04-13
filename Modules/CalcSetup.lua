@@ -440,6 +440,12 @@ function calcs.initEnv(build, mode, override)
 				scale = parentItem.socketedJewelEffectModifier
 			end
 		end
+		if slot.nodeId and item and item.type == "Jewel" and item.jewelData and item.jewelData.jewelIncEffectFromClassStart then
+			local node = env.spec.nodes[slot.nodeId]
+			if node and node.distanceToClassStart then
+				scale = scale + node.distanceToClassStart * (item.jewelData.jewelIncEffectFromClassStart / 100)
+			end
+		end
 		if item then
 			env.player.itemList[slotName] = item
 			-- Merge mods for this item

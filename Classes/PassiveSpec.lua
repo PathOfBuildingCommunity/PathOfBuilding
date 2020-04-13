@@ -424,6 +424,49 @@ function PassiveSpecClass:BuildPathFromNode(root)
 	end
 end
 
+-- Determine this node's distance from the class' start
+-- Only allocated nodes can be traversed
+function PassiveSpecClass:SetNodeDistanceToClassStart(root)
+	root.distanceToClassStart = 0
+	if not root.alloc or root.dependsOnIntuitiveLeapLike then
+		return
+	end
+
+	-- Stop once the current class' starting node is reached
+	local targetNodeId = self.curClass.startNodeId
+
+	local nodeDistanceToRoot = { }
+	nodeDistanceToRoot[root.id] = 0
+
+	local queue = { root }
+	local o, i = 1, 2 -- Out, in
+	while o < i do
+		-- Nodes are processed in a queue, until there are no nodes left or the starting node is reached
+		-- All nodes that are 1 node away from the root will be processed first, then all nodes that are 2 nodes away, etc
+		-- Only allocated nodes are queued
+		local node = queue[o]
+		o = o + 1
+		local curDist = nodeDistanceToRoot[node.id] + 1
+		-- Iterate through all nodes that are connected to this one
+		for _, other in ipairs(node.linked) do
+			-- If this connected node is the correct class start node, then record the distance to the node and return
+			if other.id == targetNodeId then
+				root.distanceToClassStart = curDist - 1
+				return
+			end
+
+			-- Otherwise, record the distance to this node if it hasn't already been visited
+			if other.alloc and not nodeDistanceToRoot[other.id] then
+				nodeDistanceToRoot[other.id] = curDist;
+
+				-- Add the other node to the end of the queue
+				queue[i] = other
+				i = i + 1
+			end
+		end
+	end
+end
+
 -- Rebuilds dependencies and paths for all nodes
 function PassiveSpecClass:BuildAllDependsAndPaths()
 	-- This table will keep track of which nodes have been visited during each path-finding attempt
@@ -523,10 +566,16 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	for id, node in pairs(self.nodes) do
 		node.pathDist = (node.alloc and not node.dependsOnIntuitiveLeapLike) and 0 or 1000
 		node.path = nil
+		if node.isJewelSocket or node.expansionJewel then
+			node.distanceToClassStart = 0
+		end
 	end
 	for id, node in pairs(self.allocNodes) do
 		if not node.dependsOnIntuitiveLeapLike then
 			self:BuildPathFromNode(node)
+			if node.isJewelSocket or node.expansionJewel then
+				self:SetNodeDistanceToClassStart(node)
+			end
 		end
 	end
 end
