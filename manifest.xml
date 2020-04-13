@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PoBVersion>
 	<Version number="1.4.167.2" />
-	<Source part="program" url="https://raw.githubusercontent.com/LocalIdentity/PathOfBuilding/{branch}/" />
-	<Source part="tree" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/" />
-	<Source part="tree-2_6" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-2_6.zip" />
-	<Source part="tree-3_6" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_6.zip" />
-	<Source part="tree-3_7" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_7.zip" />
-	<Source part="tree-3_8" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_8.zip" />
-	<Source part="tree-3_9" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_9.zip" />
-	<Source part="tree-3_10" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/tree-3_10.zip" />
-	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/Openarl/PathOfBuilding/{branch}/runtime-win32.zip" />
+	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
+	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
+	<Source part="tree-2_6" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-2_6.zip" />
+	<Source part="tree-3_6" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_6.zip" />
+	<Source part="tree-3_7" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_7.zip" />
+	<Source part="tree-3_8" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_8.zip" />
+	<Source part="tree-3_9" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_9.zip" />
+	<Source part="tree-3_10" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/tree-3_10.zip" />
+	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime-win32.zip" />
 	<File name="Launch.lua" part="program" sha1="74cd89091c4db01f0673217a5bd0927f232391e2" />
 	<File name="UpdateCheck.lua" part="program" sha1="72b9bea1871e94a643e4471fd84bbedbc7810336" />
 	<File name="UpdateApply.lua" part="program" sha1="4f17937f2b37784e169a3792b235f2a0a3961e61" />
