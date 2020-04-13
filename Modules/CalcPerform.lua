@@ -183,6 +183,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 	calculateAttributes()
 	calculateAttributes()
 
+	-- Calculate total attributes
+	output.TotalAttr = output.Str + output.Dex + output.Int
+
 	-- Add attribute bonuses
 	if not modDB:Flag(nil, "NoStrBonusToLife") then
 		modDB:NewMod("Life", "BASE", m_floor(output.Str / 2), "Strength")
