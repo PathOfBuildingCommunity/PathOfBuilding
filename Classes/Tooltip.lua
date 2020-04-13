@@ -178,6 +178,8 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		if data.text then
 			if self.center then
 				DrawString(ttX + ttW/2, y, "CENTER_X", data.size, "VAR", data.text)
+			elseif string.find(data.text, "{right}") then
+				DrawString(ttX + ttW - 6, y, "RIGHT_X", data.size, "VAR", string.gsub(data.text, "{right}", ""))
 			else
 				DrawString(ttX + 6, y, "LEFT", data.size, "VAR", data.text)
 			end
