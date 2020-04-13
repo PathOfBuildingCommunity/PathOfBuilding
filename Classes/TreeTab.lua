@@ -237,6 +237,7 @@ function TreeTabClass:SetActiveSpec(specId)
 	local curSpec = self.specList[self.activeSpec]
 	self.build.spec = curSpec
 	self.build.buildFlag = true
+	self.build.spec:SetWindowTitleWithBuildClass()
 	for _, slot in pairs(self.build.itemsTab.slots) do
 		if slot.nodeId then
 			if prevSpec then
