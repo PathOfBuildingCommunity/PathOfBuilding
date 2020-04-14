@@ -255,6 +255,7 @@ function TreeTabClass:SetActiveSpec(specId)
 		-- Update item slots if items have been loaded already
 		self.build.itemsTab:PopulateSlots()
 	end
+	self.build.itemsTab:InitNotableDB()
 end
 
 function TreeTabClass:SetPowerCalc(selection)
