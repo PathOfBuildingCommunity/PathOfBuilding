@@ -2281,35 +2281,35 @@ function calcs.offence(env, actor, activeSkill)
 			local impaleStacks = m_min(maxStacks, configStacks)
 
             local baseStoredDamage = 0.1 -- magic number: base impale stored damage
-            local storedDamageInc = skillModList:Sum("INC", cfg, "ImpaleEffect")/100
-            local storedDamageMore = round(skillModList:More(cfg, "ImpaleEffect"), 2)
-            local storedDamageModifier = (1 + storedDamageInc) * storedDamageMore
-            local impaleStoredDamage = baseStoredDamage * storedDamageModifier
+            local storedExpectedDamageIncOnBleed = skillModList:Sum("INC", cfg, "ImpaleEffectOnBleed")*skillModList:Sum("BASE", cfg, "BleedChance")/100
+            local storedExpectedDamageInc = (skillModList:Sum("INC", cfg, "ImpaleEffect") + storedExpectedDamageIncOnBleed)/100
+            local storedExpectedDamageMore = round(skillModList:More(cfg, "ImpaleEffect"), 2)
+            local storedExpectedDamageModifier = (1 + storedExpectedDamageInc) * storedExpectedDamageMore
+            local impaleStoredDamage = baseStoredDamage * storedExpectedDamageModifier
 
-			local impaleDMGModifier = impaleStoredDamage * impaleStacks * impaleChance
+            local impaleDMGModifier = impaleStoredDamage * impaleStacks * impaleChance
 
             globalOutput.ImpaleStacksMax = maxStacks
-			globalOutput.ImpaleStacks = impaleStacks
-			--ImpaleStoredDamage should be named ImpaleEffect or similar
-			--Using the variable name ImpaleEffect breaks the calculations sidebar (?!)
-			output.ImpaleStoredDamage = impaleStoredDamage * 100
-			output.ImpaleModifier = 1 + impaleDMGModifier
+            globalOutput.ImpaleStacks = impaleStacks
+            --ImpaleStoredDamage should be named ImpaleEffect or similar
+            --Using the variable name ImpaleEffect breaks the calculations sidebar (?!)
+            output.ImpaleStoredDamage = impaleStoredDamage * 100
+            output.ImpaleModifier = 1 + impaleDMGModifier
 
-			if breakdown then
-				breakdown.ImpaleStoredDamage = {}
-				t_insert(breakdown.ImpaleStoredDamage, "10% ^8(base value)")
-				t_insert(breakdown.ImpaleStoredDamage, s_format("x %.2f ^8(increased effectiveness)", storedDamageModifier))
-				t_insert(breakdown.ImpaleStoredDamage, s_format("= %.1f%%", output.ImpaleStoredDamage))
+            if breakdown then
+                breakdown.ImpaleStoredDamage = {}
+                t_insert(breakdown.ImpaleStoredDamage, "10% ^8(base value)")
+                t_insert(breakdown.ImpaleStoredDamage, s_format("x %.2f ^8(increased effectiveness)", storedExpectedDamageModifier))
+                t_insert(breakdown.ImpaleStoredDamage, s_format("= %.1f%%", output.ImpaleStoredDamage))
 
-				breakdown.ImpaleModifier = {}
-				t_insert(breakdown.ImpaleModifier, s_format("%d ^8(number of stacks, can be overridden in the Configuration tab)", impaleStacks))
-				t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
-				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
-				t_insert(breakdown.ImpaleModifier, s_format("= %.3f ^8(impale damage multiplier)", impaleDMGModifier))
-
-			end
-		end
-	end
+                breakdown.ImpaleModifier = {}
+                t_insert(breakdown.ImpaleModifier, s_format("%d ^8(number of stacks, can be overridden in the Configuration tab)", impaleStacks))
+                t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
+                t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
+                t_insert(breakdown.ImpaleModifier, s_format("= %.3f ^8(impale damage multiplier)", impaleDMGModifier))
+            end
+        end
+    end
 
 	-- Combine secondary effect stats
 	if isAttack then
