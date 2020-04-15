@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Jewel: Drop
@@ -46,7 +46,7 @@ Limited to: 1
 Radius: Large
 Gain 5% of Lightning Damage as Extra Chaos Damage
 Passives granting Lightning Resistance or all Elemental Resistances in Radius
-also grant Chance to Block Spells at 35% of its value
+also grant Chance to Block Spell Damage at 35% of its value
 Passives granting Lightning Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Power Charge on Kill
 ]],[[
@@ -237,7 +237,7 @@ Limited to: 1
 Radius: Large
 Gain 5% of Cold Damage as Extra Chaos Damage
 Passives granting Cold Resistance or all Elemental Resistances in Radius
-also grant Chance to Dodge Attacks at 35% of its value
+also grant Chance to Dodge Attack Hits at 35% of its value
 Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
