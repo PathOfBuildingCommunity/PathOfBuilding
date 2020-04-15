@@ -2299,7 +2299,7 @@ function calcs.offence(env, actor, activeSkill)
             if breakdown then
                 breakdown.ImpaleStoredDamage = {}
                 t_insert(breakdown.ImpaleStoredDamage, "10% ^8(base value)")
-                t_insert(breakdown.ImpaleStoredDamage, s_format("x %.2f ^8(increased effectiveness)", storedDamageModifier))
+                t_insert(breakdown.ImpaleStoredDamage, s_format("x %.2f ^8(increased effectiveness)", storedExpectedDamageModifier))
                 t_insert(breakdown.ImpaleStoredDamage, s_format("= %.1f%%", output.ImpaleStoredDamage))
 
                 breakdown.ImpaleModifier = {}
