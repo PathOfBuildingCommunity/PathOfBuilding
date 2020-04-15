@@ -2320,6 +2320,11 @@ local jewelOtherFuncs = {
 			end
 		end
 	end,
+	["Passives in radius are Conquered by the Vaal"] = function(node, out, data)
+		if node and node.type ~= "Keystone" then
+			out:NewMod("PassiveSkillHasNoEffect", "FLAG", true, data.modSource)
+		end
+	end,
 }
 
 -- Radius jewels that modify the jewel itself based on nearby allocated nodes
