@@ -2287,10 +2287,10 @@ function calcs.offence(env, actor, activeSkill)
             local storedExpectedDamageModifier = (1 + storedExpectedDamageInc) * storedExpectedDamageMore
             local impaleStoredDamage = baseStoredDamage * storedExpectedDamageModifier
 
-			local impaleDMGModifier = impaleStoredDamage * impaleStacks * impaleChance
+            local impaleDMGModifier = impaleStoredDamage * impaleStacks * impaleChance
 
             globalOutput.ImpaleStacksMax = maxStacks
-			globalOutput.ImpaleStacks = impaleStacks
+            globalOutput.ImpaleStacks = impaleStacks
 			--ImpaleStoredDamage should be named ImpaleEffect or similar
 			--Using the variable name ImpaleEffect breaks the calculations sidebar (?!)
 			output.ImpaleStoredDamage = impaleStoredDamage * 100
