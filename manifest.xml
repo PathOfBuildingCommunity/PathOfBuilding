@@ -26,7 +26,6 @@
 	<File name="lua/sha1.lua" part="runtime" sha1="31e325cd40a9c0234c6265689cf70b97ef676f20" />
 	<File name="lua/xml.lua" part="runtime" sha1="859e09104842f91a4aaa9a4d9fadf667535877e2" />
 	<File name="Assets/game_ui_small.png" part="program" sha1="3e3f01a7c21ffe5ee7dfb644e9f3b7188c319d4d" />
-	<File name="Assets/patreon_logo.png" part="program" sha1="c0734401c6ffb940eb3f804c8785c8863a548c3c" />
 	<File name="Assets/range_guide.png" part="program" sha1="a373cb27e35961aae661f5e5078898dab705fbba" />
 	<File name="Assets/ring.png" part="program" sha1="6ef89c50f3505dd2c114b3edbcac017ab969d176" />
 	<File name="Assets/ShadedInnerRing.png" part="program" sha1="6ad9088ebaed6646dbd3d231d563dc9611ba4bc6" />
@@ -318,9 +317,9 @@
 	<File name="TreeData/EternalEmpireJewelCircle1.png" part="program" sha1="5ff686f46e7798c11e835a83027039d0c14ba3f4" />
 	<File name="TreeData/EternalEmpireJewelCircle2.png" part="program" sha1="578b54ff2208f9387d52e40b78fc533e9978ee97" />
 	<File name="TreeData/GoldenOil.png" part="program" sha1="8475b6862fbc2a8b11fff241ff3390b76aba5f8b" />
-	<File name="TreeData/GroupBackgroundLargeHalfAlt.png" part="program" sha1="2abdd2be644143749adf92943a98d7b84b99ff5b" />	
-	<File name="TreeData/GroupBackgroundMediumAlt.png" part="program" sha1="5cfa54cf5289880a08e103b0780b5dc40185cc4e" />	
-	<File name="TreeData/GroupBackgroundSmallAlt.png" part="program" sha1="8072f48a5b6a9b38de7dfe122399ee373847d2bc" />	
+	<File name="TreeData/GroupBackgroundLargeHalfAlt.png" part="program" sha1="2abdd2be644143749adf92943a98d7b84b99ff5b" />
+	<File name="TreeData/GroupBackgroundMediumAlt.png" part="program" sha1="5cfa54cf5289880a08e103b0780b5dc40185cc4e" />
+	<File name="TreeData/GroupBackgroundSmallAlt.png" part="program" sha1="8072f48a5b6a9b38de7dfe122399ee373847d2bc" />
 	<File name="TreeData/imgPSFadeCorner.png" part="program" sha1="b74e007cd3c61059f3a4e303c7caf34f15e2cad3" />
 	<File name="TreeData/imgPSFadeSide.png" part="program" sha1="e27bb4ab38d3865f8bb7c5dd46f0dcc53a599a26" />
 	<File name="TreeData/JewelCircle1.png" part="program" sha1="ed2b4dfdb469433632e59738efc1319f462a3670" />
